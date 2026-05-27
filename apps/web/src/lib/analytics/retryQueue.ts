@@ -104,7 +104,7 @@ export class RetryQueue {
       );
       const jitteredDelay = delay + Math.random() * ANALYTICS_CONSTANTS.JITTER_MAX;
 
-      await new Promise(resolve => setTimeout(resolve, jitteredDelay));
+      await new Promise((resolve) => setTimeout(resolve, jitteredDelay));
       return this.executeWithRetry(event, config, attempt + 1);
     }
 

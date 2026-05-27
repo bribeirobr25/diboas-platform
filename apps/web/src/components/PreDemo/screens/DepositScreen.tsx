@@ -31,15 +31,18 @@ export function DepositScreen() {
       const sanitized = value.replace(/[^0-9.]/g, '');
       dispatch({ type: 'SET_DEPOSIT_AMOUNT', amount: sanitized });
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleQuickAmount = useCallback(
     (quickAmount: string) => {
-      analyticsService.track({ name: 'pre_demo_deposit_quick_amount', parameters: { amount: quickAmount } });
+      analyticsService.track({
+        name: 'pre_demo_deposit_quick_amount',
+        parameters: { amount: quickAmount },
+      });
       dispatch({ type: 'SET_DEPOSIT_AMOUNT', amount: quickAmount });
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleProceed = useCallback(() => {
@@ -59,11 +62,17 @@ export function DepositScreen() {
 
       <div className={styles.screenContent}>
         {/* Back button */}
-        <button
-          onClick={() => setScreen('home')}
-          className={styles.backButton}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <button onClick={() => setScreen('home')} className={styles.backButton}>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <polyline points="15 18 9 12 15 6" />
           </svg>
           {t('preDemo.common.back')}
@@ -85,26 +94,51 @@ export function DepositScreen() {
         </div>
 
         {/* Payment method label */}
-        <div className={styles.fieldLabel}>
-          {t('preDemo.deposit.paymentMethod')}
-        </div>
+        <div className={styles.fieldLabel}>{t('preDemo.deposit.paymentMethod')}</div>
 
         {/* Payment method selector with Heroicons-style icons */}
         <div className={styles.methodRow}>
           <button className={`${styles.methodButton} ${styles.methodActive}`}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
             {t('preDemo.deposit.bank')}
           </button>
           <button className={`${styles.methodButton} ${styles.methodDisabled}`} disabled>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
             </svg>
             {t('preDemo.deposit.card')}
           </button>
           <button className={`${styles.methodButton} ${styles.methodDisabled}`} disabled>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
             </svg>
             {t('preDemo.deposit.mobile')}
@@ -112,9 +146,7 @@ export function DepositScreen() {
         </div>
 
         {/* Amount label */}
-        <div className={styles.fieldLabel}>
-          {t('preDemo.deposit.amountLabel')}
-        </div>
+        <div className={styles.fieldLabel}>{t('preDemo.deposit.amountLabel')}</div>
 
         {/* Amount input */}
         <div className={styles.amountInputContainer}>
@@ -140,28 +172,32 @@ export function DepositScreen() {
                 state.depositAmount === qa ? styles.quickAmountActive : ''
               }`}
             >
-              {currencySymbol}{qa}
+              {currencySymbol}
+              {qa}
             </button>
           ))}
         </div>
 
         {/* Fee breakdown */}
-        {amount > 0 && <FeeBreakdown feeItems={depositResult.pending.fees} totalFees={depositResult.pending.totalFees} />}
+        {amount > 0 && (
+          <FeeBreakdown
+            feeItems={depositResult.pending.fees}
+            totalFees={depositResult.pending.totalFees}
+          />
+        )}
 
         {/* You'll receive row */}
         {amount > 0 && (
           <div className={styles.receiveRow}>
             <span className={styles.receiveLabel}>{t('preDemo.transaction.youllReceive')}</span>
-            <span className={styles.receiveAmount}>{formatCurrency(depositResult.pending.netAmount, 2, locale)}</span>
+            <span className={styles.receiveAmount}>
+              {formatCurrency(depositResult.pending.netAmount, 2, locale)}
+            </span>
           </div>
         )}
 
         {/* Proceed button */}
-        <button
-          onClick={handleProceed}
-          disabled={amount <= 0}
-          className={styles.primaryButton}
-        >
+        <button onClick={handleProceed} disabled={amount <= 0} className={styles.primaryButton}>
           {t('preDemo.deposit.proceed')}
         </button>
       </div>

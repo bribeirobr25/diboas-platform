@@ -39,8 +39,9 @@
   box-sizing: border-box;
 
   /* Animation */
-  transition: transform var(--cta-transition-duration) var(--cta-transition-easing),
-              box-shadow var(--cta-transition-duration) var(--cta-transition-easing);
+  transition:
+    transform var(--cta-transition-duration) var(--cta-transition-easing),
+    box-shadow var(--cta-transition-duration) var(--cta-transition-easing);
 }
 
 /* Responsive: Tablet */

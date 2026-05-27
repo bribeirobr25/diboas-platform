@@ -9,7 +9,7 @@ import {
   OG_COLORS,
   type WaitlistTemplateProps,
   type CalculatorTemplateProps,
-  type DefaultTemplateProps
+  type DefaultTemplateProps,
 } from './ogTypes';
 import { getTranslations, getDefaultName } from './ogTranslations';
 import { formatNumber, formatCurrency } from './ogUtils';
@@ -17,13 +17,7 @@ import { formatNumber, formatCurrency } from './ogUtils';
 /**
  * Shared Logo Component
  */
-function LogoBadge({
-  gradient,
-  shadowColor
-}: {
-  gradient: string;
-  shadowColor: string;
-}) {
+function LogoBadge({ gradient, shadowColor }: { gradient: string; shadowColor: string }) {
   return (
     <div
       style={{
@@ -104,11 +98,7 @@ function OGBackground({ children }: { children: React.ReactNode }) {
  * Waitlist Position OG Image Template
  * Supports i18n via locale parameter
  */
-export function WaitlistTemplate({
-  position,
-  name,
-  locale = 'en',
-}: WaitlistTemplateProps) {
+export function WaitlistTemplate({ position, name, locale = 'en' }: WaitlistTemplateProps) {
   const t = getTranslations(locale);
   const displayName = name || getDefaultName(locale);
 

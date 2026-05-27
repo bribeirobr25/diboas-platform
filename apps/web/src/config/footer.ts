@@ -47,65 +47,91 @@ export const FOOTER_CONFIG: FooterConfig = {
     {
       title: 'common.footer.sections.platforms.title',
       links: [
-        { id: 'diboasApp', label: 'common.footer.sections.platforms.links.diboasApp', href: APP_URL, external: true, dynamic: true },
-        { id: 'businessApp', label: 'common.footer.sections.platforms.links.businessApp', href: BUSINESS_URL, external: true, dynamic: true },
-      ]
+        {
+          id: 'diboasApp',
+          label: 'common.footer.sections.platforms.links.diboasApp',
+          href: APP_URL,
+          external: true,
+          dynamic: true,
+        },
+        {
+          id: 'businessApp',
+          label: 'common.footer.sections.platforms.links.businessApp',
+          href: BUSINESS_URL,
+          external: true,
+          dynamic: true,
+        },
+      ],
     },
     {
       title: 'common.footer.sections.transparency.title',
       links: [
-        { id: 'privacy', label: 'common.footer.sections.transparency.links.privacy', href: ROUTES.LEGAL.PRIVACY },
-        { id: 'security', label: 'common.footer.sections.transparency.links.security', href: ROUTES.SECURITY },
-        { id: 'terms', label: 'common.footer.sections.transparency.links.terms', href: ROUTES.LEGAL.TERMS },
-      ]
+        {
+          id: 'privacy',
+          label: 'common.footer.sections.transparency.links.privacy',
+          href: ROUTES.LEGAL.PRIVACY,
+        },
+        {
+          id: 'security',
+          label: 'common.footer.sections.transparency.links.security',
+          href: ROUTES.SECURITY,
+        },
+        {
+          id: 'terms',
+          label: 'common.footer.sections.transparency.links.terms',
+          href: ROUTES.LEGAL.TERMS,
+        },
+      ],
     },
     {
       title: 'common.footer.sections.explore.title',
       links: [
         { id: 'about', label: 'common.footer.sections.explore.links.about', href: ROUTES.ABOUT },
-      ]
+      ],
     },
     {
       title: 'common.footer.sections.help.title',
-      links: [
-        { id: 'help', label: 'common.footer.sections.help.links.faq', href: ROUTES.HELP },
-      ]
+      links: [{ id: 'help', label: 'common.footer.sections.help.links.faq', href: ROUTES.HELP }],
     },
     {
       title: 'common.footer.sections.legal.title',
       links: [
-        { id: 'cookies', label: 'common.footer.sections.legal.links.cookies', href: ROUTES.LEGAL.COOKIES },
-      ]
-    }
+        {
+          id: 'cookies',
+          label: 'common.footer.sections.legal.links.cookies',
+          href: ROUTES.LEGAL.COOKIES,
+        },
+      ],
+    },
   ],
   socialLinks: [
     {
       id: 'instagram',
       label: 'common.footer.social.instagram',
       href: 'https://www.instagram.com/diboasfi/',
-      icon: 'Instagram'
+      icon: 'Instagram',
     },
     {
       id: 'twitter',
       label: 'common.footer.social.twitter',
       href: 'https://x.com/diBoaSFi',
-      icon: 'X'
+      icon: 'X',
     },
     {
       id: 'youtube',
       label: 'common.footer.social.youtube',
       href: 'https://www.youtube.com/@diBoaSFi',
-      icon: 'Youtube'
+      icon: 'Youtube',
     },
     {
       id: 'linkedin',
       label: 'common.footer.social.linkedin',
       href: 'https://www.linkedin.com/company/diboasfi/',
-      icon: 'Linkedin'
-    }
+      icon: 'Linkedin',
+    },
   ],
   legal: {
     copyrightText: 'common.footer.copyright',
-    brandName: 'common.footer.brandName'
-  }
+    brandName: 'common.footer.brandName',
+  },
 } as const;

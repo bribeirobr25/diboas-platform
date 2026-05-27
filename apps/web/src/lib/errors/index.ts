@@ -47,10 +47,7 @@ export { OccurrenceTracker } from './occurrenceTracker';
 export type { IErrorReporter } from './errorReporterInterface';
 
 // Error reporting service
-export {
-  ErrorReportingService,
-  errorReportingService,
-} from './ErrorReportingService';
+export { ErrorReportingService, errorReportingService } from './ErrorReportingService';
 
 // Section error boundary types
 export type {

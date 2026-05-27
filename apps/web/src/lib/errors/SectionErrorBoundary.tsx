@@ -20,7 +20,12 @@ import { sectionEventBus, SectionEventType } from '@/lib/events/SectionEventBus'
 import type { SectionErrorBoundaryProps, SectionErrorBoundaryState } from './types';
 import { MAX_RETRY_COUNT, RETRY_DELAY_BASE } from './constants';
 import { DefaultSectionErrorFallback } from './DefaultSectionErrorFallback';
-import { generateErrorId, determineSeverity, shouldAttemptRecovery, calculateRetryDelay } from './errorUtils';
+import {
+  generateErrorId,
+  determineSeverity,
+  shouldAttemptRecovery,
+  calculateRetryDelay,
+} from './errorUtils';
 
 // Re-export types for backwards compatibility
 export type { SectionErrorTranslations, SectionErrorFallbackProps } from './types';
@@ -44,7 +49,7 @@ export class SectionErrorBoundary extends Component<
       error: null,
       errorInfo: null,
       errorId: null,
-      retryCount: 0
+      retryCount: 0,
     };
   }
 
@@ -55,7 +60,7 @@ export class SectionErrorBoundary extends Component<
     return {
       hasError: true,
       error,
-      errorId: generateErrorId()
+      errorId: generateErrorId(),
     };
   }
 
@@ -77,16 +82,16 @@ export class SectionErrorBoundary extends Component<
       error: {
         name: error.name,
         message: error.message,
-        stack: error.stack
+        stack: error.stack,
       },
       errorInfo: {
-        componentStack: errorInfo.componentStack
+        componentStack: errorInfo.componentStack,
       },
       context,
       retryCount: this.state.retryCount,
       timestamp: new Date().toISOString(),
       userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : 'unknown',
-      url: typeof window !== 'undefined' ? window.location.href : 'unknown'
+      url: typeof window !== 'undefined' ? window.location.href : 'unknown',
     });
 
     // Report to Sentry via abstraction layer
@@ -114,7 +119,7 @@ export class SectionErrorBoundary extends Component<
       timestamp: Date.now(),
       error,
       severity: determineSeverity(error),
-      recoverable: this.state.retryCount < MAX_RETRY_COUNT
+      recoverable: this.state.retryCount < MAX_RETRY_COUNT,
     });
 
     // Report to external error tracking service
@@ -146,7 +151,7 @@ export class SectionErrorBoundary extends Component<
     Logger.info('Scheduling error recovery retry', {
       sectionId: this.props.sectionId,
       retryCount: this.state.retryCount + 1,
-      delay
+      delay,
     });
 
     this.retryTimeoutId = setTimeout(() => {
@@ -163,16 +168,16 @@ export class SectionErrorBoundary extends Component<
     Logger.info('Attempting error recovery', {
       sectionId,
       sectionType,
-      retryCount: this.state.retryCount + 1
+      retryCount: this.state.retryCount + 1,
     });
 
     // Clear error state and increment retry count
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       hasError: false,
       error: null,
       errorInfo: null,
       errorId: null,
-      retryCount: prevState.retryCount + 1
+      retryCount: prevState.retryCount + 1,
     }));
 
     // Call custom retry handler if provided
@@ -209,7 +214,7 @@ export class SectionErrorBoundary extends Component<
         fetch(errorEndpoint, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           signal: AbortSignal.timeout(5000),
           body: JSON.stringify({
@@ -219,16 +224,16 @@ export class SectionErrorBoundary extends Component<
             error: {
               name: error.name,
               message: error.message,
-              stack: error.stack
+              stack: error.stack,
             },
             errorInfo: {
-              componentStack: errorInfo.componentStack
+              componentStack: errorInfo.componentStack,
             },
             context: this.props.context,
             timestamp: new Date().toISOString(),
             userAgent: navigator.userAgent,
-            url: window.location.href
-          })
+            url: window.location.href,
+          }),
         }).catch(() => {
           // Silent fail for error reporting to prevent error loops
         });
@@ -236,7 +241,7 @@ export class SectionErrorBoundary extends Component<
     } catch (reportingError) {
       Logger.warn('Failed to report error to external service', {
         originalError: error.message,
-        reportingError: reportingError
+        reportingError: reportingError,
       });
     }
   }

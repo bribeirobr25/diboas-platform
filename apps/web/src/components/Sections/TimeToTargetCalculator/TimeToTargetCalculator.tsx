@@ -3,34 +3,22 @@
 /**
  * Time-to-Target Calculator (Tier-2 tool, 6D.2).
  *
- * Inverse of compound interest: "When will I reach $X?". Outputs years
- * across 4 scenarios (bank, conservative 7%, historical 10%, optimistic 14%)
- * given target + initial deposit + recurring contribution + cadence.
- *
- * Math: `monthsToInflationAdjustedTarget` from market-data formulas with
- * inflation hard-locked to 0 (this tool is "nominal time-to-target",
- * inflation-adjusted variant lives in Emergency Fund tool 6C).
+ * Phase 2 §2.2 refactor (2026-05-25): composition logic extracted to
+ * `lib/time-to-target/calculator.ts`. This component is now a thin renderer.
+ * Closes C16 (useMemo deps), C17 (inlined math), and C15 (cap alignment).
  */
 
 import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Select } from '@diboas/ui';
 import { useLocale } from '@/components/Providers';
+import { marketDataService, type SupportedLocale } from '@/lib/market-data';
+import { formatCurrency, isOneTime, type Cadence } from '@/lib/compound-interest';
 import {
-  calculateLumpSum,
-  marketDataService,
-  monthsToInflationAdjustedTarget,
-  type SupportedLocale,
-} from '@/lib/market-data';
-import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
-import { resolveHorizonMatchedDepreciation } from '@/lib/market-data/formulas';
-import {
-  convertCadenceToMonthly,
-  isOneTime,
-  formatCurrency,
-  type Cadence,
-} from '@/lib/compound-interest';
-import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
+  calculateTimeToTargetTimeline,
+  TIME_TO_TARGET_SCENARIO_KEYS,
+  type TimeToTargetScenarioKey,
+} from '@/lib/time-to-target';
 import { TIME_TO_TARGET_DEFAULTS } from '@/lib/tools';
 import { UsdEquivalentBadge } from '@/components/UI';
 import styles from './TimeToTargetCalculator.module.css';
@@ -45,8 +33,8 @@ const CADENCE_OPTIONS: readonly Cadence[] = [
   'yearly',
 ];
 
-const SCENARIO_KEYS = ['bank', 'conservative', 'historical', 'optimistic'] as const;
-type ScenarioKey = (typeof SCENARIO_KEYS)[number];
+const SCENARIO_KEYS = TIME_TO_TARGET_SCENARIO_KEYS;
+type ScenarioKey = TimeToTargetScenarioKey;
 
 interface FormState {
   target: number;
@@ -74,52 +62,35 @@ export function TimeToTargetCalculator() {
       contribution: TIME_TO_TARGET_DEFAULTS.contribution[localeKey],
       cadence: TIME_TO_TARGET_DEFAULTS.cadence,
     }),
-    [localeKey],
+    [localeKey]
   );
   const [form, setForm] = useState<FormState>(initial);
 
   const snapshot = marketDataService.getSync();
-  const bankRate = snapshot.rates.bankRates[localeKey]?.savings ?? 0;
+  const timeline = useMemo(
+    () =>
+      calculateTimeToTargetTimeline(
+        {
+          target: form.target,
+          initialAmount: form.initialAmount,
+          contribution: form.contribution,
+          cadence: form.cadence,
+          locale: localeKey,
+        },
+        snapshot
+      ),
+    [form, localeKey, snapshot]
+  );
 
-  // Phase D (TOOLS_IMPROVEMENT.md, 2026-05-23): horizon-matched depreciation
-  // helper. For time-to-target, horizon is unknown a priori — use a rough
-  // estimate from the target ÷ contribution. Phase-7 currency-hedge precedent:
-  // useGoalCardData.ts:57-61. Bank scenario stays at locale savings rate
-  // (no hedge — bank pays in local currency, not USD).
-  const currency = LOCALE_CURRENCY[localeKey];
-  const estimatedHorizonYears = form.contribution > 0
-    ? Math.max(1, Math.min(40, form.target / (form.contribution * 12)))
-    : 10;
-  const depreciation = resolveHorizonMatchedDepreciation(snapshot, currency, estimatedHorizonYears);
-  const hedge = (usdRatePercent: number): number => {
-    if (depreciation === 0) return usdRatePercent;
-    return ((1 + usdRatePercent / 100) * (1 + depreciation) - 1) * 100;
-  };
+  const results: Record<ScenarioKey, number | null> = timeline.months;
+  const depreciation = timeline.hedged ? 1 : 0; // for the digitalDollarSuffix check below
 
-  const scenarioRates: Record<ScenarioKey, number> = {
-    bank: bankRate,
-    conservative: hedge(SCENARIO_RATES.conservative),
-    historical: hedge(SCENARIO_RATES.historical),
-    optimistic: hedge(SCENARIO_RATES.optimistic),
-  };
-
-  const monthlyContribution = isOneTime(form.cadence)
-    ? 0
-    : convertCadenceToMonthly(form.contribution, form.cadence);
-
-  const results: Record<ScenarioKey, number | null> = useMemo(() => {
-    const out = {} as Record<ScenarioKey, number | null>;
-    for (const key of SCENARIO_KEYS) {
-      out[key] = computeMonthsToTarget({
-        target: form.target,
-        initialAmount: form.initialAmount,
-        monthlyContribution,
-        annualRate: scenarioRates[key] / 100,
-      });
-    }
-    return out;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form, monthlyContribution, bankRate]);
+  // C18 close (TOOLS_41_DEFECTS_FIX_PLAN.md §5.1, 2026-05-26): cadence
+  // `oneTime` with `initialAmount = 0` makes every scenario unreachable.
+  // The result is technically correct (zero money never reaches a positive
+  // target) but the all-`null` cards offer no guidance — show an inline
+  // helper telling the user to enter a starting amount.
+  const showOneTimeGuidance = isOneTime(form.cadence) && form.initialAmount <= 0;
 
   const formatTime = (months: number | null) => {
     if (months === null) return t('output.cannotReach');
@@ -127,13 +98,7 @@ export function TimeToTargetCalculator() {
     return t('output.yearsLabel', { years: (months / 12).toFixed(1) });
   };
 
-  // Phase I.3 (2026-05-23): over-30-years stop-condition warning. Fires when
-  // ANY scenario takes > 360 months. The 1200-month-cap → null case is shown
-  // separately via t('output.cannotReach'); over30Years is the "long but
-  // finite" advisory.
-  const showOver30Warning = SCENARIO_KEYS.some(
-    (k) => results[k] !== null && (results[k] as number) > 360,
-  );
+  const showOver30Warning = timeline.over30Years;
 
   const handleChange = (field: keyof FormState, value: number | Cadence) =>
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -167,7 +132,9 @@ export function TimeToTargetCalculator() {
             min={0}
             step={100}
             value={form.initialAmount}
-            onChange={(e) => handleChange('initialAmount', clamp(Number(e.target.value), 0, 100_000_000))}
+            onChange={(e) =>
+              handleChange('initialAmount', clamp(Number(e.target.value), 0, 100_000_000))
+            }
             className={styles.numberInput}
           />
         </div>
@@ -182,7 +149,9 @@ export function TimeToTargetCalculator() {
             min={0}
             step={50}
             value={form.contribution}
-            onChange={(e) => handleChange('contribution', clamp(Number(e.target.value), 0, 1_000_000))}
+            onChange={(e) =>
+              handleChange('contribution', clamp(Number(e.target.value), 0, 1_000_000))
+            }
             className={styles.numberInput}
           />
           <UsdEquivalentBadge
@@ -215,6 +184,12 @@ export function TimeToTargetCalculator() {
         })}
       </p>
 
+      {showOneTimeGuidance && (
+        <p className={styles.guidanceCallout} role="status" aria-live="polite">
+          {t('guidance.oneTimeNeedsInitial')}
+        </p>
+      )}
+
       <div className={styles.resultsGrid}>
         {SCENARIO_KEYS.map((key) => {
           const tooltip = key !== 'bank' ? tShared(`scenarios.${key}Tooltip`) : null;
@@ -239,11 +214,7 @@ export function TimeToTargetCalculator() {
                   </span>
                 )}
               </p>
-              <p
-                className={
-                  key === 'historical' ? styles.resultValue : styles.resultValueMuted
-                }
-              >
+              <p className={key === 'historical' ? styles.resultValue : styles.resultValueMuted}>
                 {formatTime(results[key])}
               </p>
             </div>
@@ -258,45 +229,6 @@ export function TimeToTargetCalculator() {
       )}
     </div>
   );
-}
-
-/**
- * Compute months to reach `target` given starting principal + recurring monthly
- * contribution + annual rate. Reuses the canonical `monthsToInflationAdjustedTarget`
- * helper (with annualInflation=0 for nominal time-to-target). Lump-sum-only
- * path uses `calculateLumpSum` since it has a closed-form alternative.
- */
-function computeMonthsToTarget(args: {
-  target: number;
-  initialAmount: number;
-  monthlyContribution: number;
-  annualRate: number;
-}): number | null {
-  const { target, initialAmount, monthlyContribution, annualRate } = args;
-  if (target <= initialAmount) return 0;
-  if (monthlyContribution <= 0) {
-    // Lump-sum-only path: solve year-by-year against `calculateLumpSum`.
-    // The recurring helper requires monthlyPayment > 0 OR initialAmount > 0,
-    // and would still need the loop, so doing it inline here is clearer.
-    if (initialAmount <= 0 || annualRate <= 0) return null;
-    for (let years = 1; years <= 100; years++) {
-      const fv = calculateLumpSum(initialAmount, annualRate, 0, years).nominalFV;
-      if (fv >= target) return years * 12;
-    }
-    return null;
-  }
-  try {
-    return monthsToInflationAdjustedTarget(
-      target,
-      monthlyContribution,
-      annualRate,
-      0,
-      'end',
-      initialAmount,
-    );
-  } catch {
-    return null;
-  }
 }
 
 function clamp(n: number, min: number, max: number): number {

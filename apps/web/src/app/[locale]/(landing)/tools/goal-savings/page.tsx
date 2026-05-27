@@ -7,11 +7,7 @@ import { ToolPage } from '@/components/Sections/ToolPage';
 import { CompoundInterestCalculator } from '@/components/Sections/CompoundInterestCalculator';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
-import {
-  COMPOUND_TOOL_DEFAULTS,
-  buildToolStructuredData,
-  toolMetadata,
-} from '@/lib/tools';
+import { COMPOUND_TOOL_DEFAULTS, buildToolStructuredData, toolMetadata } from '@/lib/tools';
 import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'force-dynamic';
@@ -46,7 +42,14 @@ export default async function GoalSavingsToolPage({ params }: LocalePageProps) {
       <ToolPage toolKey="goal-savings" pageMessages={pageMessages}>
         <CompoundInterestCalculator
           engine="tool"
-          enablePathDependent
+          // C8 close (TOOLS_41_DEFECTS_FIX_PLAN.md §5.9, 2026-05-26):
+          // hide the Forward/Retrospective toggle for USD locale. The
+          // path-dependent engine silently delegates to the forward engine
+          // for `currency === 'USD'`, so the toggle was a dead control
+          // showing identical numbers in both positions. Hiding it for `en`
+          // removes the confusion; non-USD locales keep the toggle.
+          enablePathDependent={locale !== 'en'}
+          recurringSliderMax={defaults.recurringSliderMax[locale]}
           initialInput={{
             amount: defaults.amount[locale],
             cadence: defaults.cadence,

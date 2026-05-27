@@ -98,7 +98,7 @@ const PATH_TO_OG_KEY: Record<string, string> = {
 function getAllUrls(): string[] {
   const urls: string[] = ['/'];
 
-  Object.keys(PAGE_SEO_CONFIG).forEach(pageKey => {
+  Object.keys(PAGE_SEO_CONFIG).forEach((pageKey) => {
     if (pageKey !== 'home' && !NOINDEX_PAGES.has(pageKey)) {
       urls.push(`/${pageKey}`);
     }
@@ -135,10 +135,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const sitemapEntries: MetadataRoute.Sitemap = [];
 
-  urls.forEach(url => {
+  urls.forEach((url) => {
     const ogImageUrl = getOgImageUrl(baseUrl, url);
 
-    SUPPORTED_LOCALES.forEach(locale => {
+    SUPPORTED_LOCALES.forEach((locale) => {
       const fullUrl = buildLocalizedUrl(baseUrl, locale, url);
 
       sitemapEntries.push({
@@ -150,11 +150,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         // currently); per-locale OG variants would be a future enhancement.
         images: [ogImageUrl],
         alternates: {
-          languages: SUPPORTED_LOCALES.reduce((acc, lang) => {
-            acc[lang] = buildLocalizedUrl(baseUrl, lang, url);
-            return acc;
-          }, {} as Record<string, string>)
-        }
+          languages: SUPPORTED_LOCALES.reduce(
+            (acc, lang) => {
+              acc[lang] = buildLocalizedUrl(baseUrl, lang, url);
+              return acc;
+            },
+            {} as Record<string, string>
+          ),
+        },
       });
     });
   });

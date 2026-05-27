@@ -32,7 +32,7 @@ type Story = StoryObj<typeof ProseSection>;
 const DEFAULT_CONFIG: ProseSectionConfig = {
   content: {
     header: 'Why We Built diBoaS',
-    transitionHook: 'The financial system wasn\'t built for you. We\'re changing that.',
+    transitionHook: "The financial system wasn't built for you. We're changing that.",
     paragraphs: [
       'Traditional banks charge hidden fees, lock your money in outdated systems, and offer near-zero returns on your savings.',
       'diBoaS combines the best of traditional banking with DeFi innovation — giving you complete control over your money while earning real yields.',

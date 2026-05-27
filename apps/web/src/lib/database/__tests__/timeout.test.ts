@@ -14,7 +14,10 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 let mockQueryFn: (...args: unknown[]) => Promise<unknown>;
 
 vi.mock('@neondatabase/serverless', () => ({
-  neon: () => (...args: unknown[]) => mockQueryFn(...args),
+  neon:
+    () =>
+    (...args: unknown[]) =>
+      mockQueryFn(...args),
 }));
 
 vi.mock('@/lib/monitoring/Logger', () => ({
@@ -56,9 +59,7 @@ describe('Database query timeout', () => {
     await expect(
       Promise.race([
         sql`SELECT 1`,
-        new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('Test timeout')), 6000)
-        ),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Test timeout')), 6000)),
       ])
     ).rejects.toThrow();
   }, 7000);

@@ -28,7 +28,7 @@ describe('PostHog initialization race prevention', () => {
 
       try {
         // Simulate async import delay
-        await new Promise(resolve => setTimeout(resolve, 10));
+        await new Promise((resolve) => setTimeout(resolve, 10));
         callCount++;
         initCalls.push(callCount);
       } catch {
@@ -53,7 +53,7 @@ describe('PostHog initialization race prevention', () => {
       isInitializedRef.current = true;
 
       try {
-        await new Promise(resolve => setTimeout(resolve, 5));
+        await new Promise((resolve) => setTimeout(resolve, 5));
         if (shouldFail) throw new Error('Import failed');
         attemptCount++;
       } catch {
@@ -82,7 +82,7 @@ describe('PostHog initialization race prevention', () => {
       isInitializedRef.current = true;
 
       try {
-        await new Promise(resolve => setTimeout(resolve, 5));
+        await new Promise((resolve) => setTimeout(resolve, 5));
         initCount++;
       } catch {
         isInitializedRef.current = false;

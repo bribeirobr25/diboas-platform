@@ -34,15 +34,19 @@ export function CalculatorVignettes() {
   const locale: SupportedLocale = isValidLocale(intl.locale) ? intl.locale : 'en';
   const headers = {
     habit: intl.formatMessage({ id: 'learn-compound-interest.beat2.vignettesTableHeaders.habit' }),
-    yearly: intl.formatMessage({ id: 'learn-compound-interest.beat2.vignettesTableHeaders.yearly' }),
-    twelveYear: intl.formatMessage({ id: 'learn-compound-interest.beat2.vignettesTableHeaders.twelveYear' }),
+    yearly: intl.formatMessage({
+      id: 'learn-compound-interest.beat2.vignettesTableHeaders.yearly',
+    }),
+    twelveYear: intl.formatMessage({
+      id: 'learn-compound-interest.beat2.vignettesTableHeaders.twelveYear',
+    }),
   };
 
   const historicalDecimal = SCENARIO_RATES.historical / 100;
 
   const rows: VignetteRow[] = [0, 1, 2].map((i) => {
     const yearlyAmount = Number(
-      intl.formatMessage({ id: `learn-compound-interest.beat2.vignettes.${i}.yearlyAmount` }),
+      intl.formatMessage({ id: `learn-compound-interest.beat2.vignettes.${i}.yearlyAmount` })
     );
     const monthly = yearlyAmount / 12;
     const fv = calculateMonthlyContributions(monthly, historicalDecimal, 0, 144).nominalFV;

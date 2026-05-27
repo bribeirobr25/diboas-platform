@@ -16,9 +16,7 @@
         "Bitcoin remains above long-term trend levels",
         "ETF flows remain positive"
       ],
-      "key_headwinds": [
-        "Macro confirmation remains incomplete"
-      ]
+      "key_headwinds": ["Macro confirmation remains incomplete"]
     },
     "pt-BR": {
       "short": "As condições permanecem construtivas para o Bitcoin, embora a confirmação ainda não esteja completa.",
@@ -29,9 +27,7 @@
         "O Bitcoin permanece acima dos níveis de tendência de longo prazo",
         "Os fluxos de ETF seguem positivos"
       ],
-      "key_headwinds": [
-        "A confirmação macro permanece incompleta"
-      ]
+      "key_headwinds": ["A confirmação macro permanece incompleta"]
     },
     "es": {
       "short": "Las condiciones se mantienen constructivas para Bitcoin, aunque la confirmación no está completa.",
@@ -42,9 +38,7 @@
         "Bitcoin se mantiene por encima de los niveles de tendencia de largo plazo",
         "Los flujos de ETF siguen siendo positivos"
       ],
-      "key_headwinds": [
-        "La confirmación macro sigue siendo incompleta"
-      ]
+      "key_headwinds": ["La confirmación macro sigue siendo incompleta"]
     },
     "de": {
       "short": "Die Bedingungen bleiben konstruktiv für Bitcoin, auch wenn die Bestätigung noch nicht vollständig ist.",
@@ -55,9 +49,7 @@
         "Bitcoin bleibt oberhalb der langfristigen Trendniveaus",
         "Die ETF-Mittelflüsse bleiben positiv"
       ],
-      "key_headwinds": [
-        "Die Makro-Bestätigung bleibt unvollständig"
-      ]
+      "key_headwinds": ["Die Makro-Bestätigung bleibt unvollständig"]
     }
   },
   "signal_groups": [
@@ -159,9 +151,7 @@
         "message": "Liquidity data reflects the latest available monthly release."
       }
     ],
-    "delayed_sources": [
-      "FRED:M2SL"
-    ],
+    "delayed_sources": ["FRED:M2SL"],
     "unavailable_sources": []
   }
 }

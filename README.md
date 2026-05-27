@@ -89,7 +89,7 @@ pnpm dev:fresh                 # Clean rebuild + start
 # Quality
 pnpm type-check                # TypeScript checking
 pnpm lint                      # ESLint
-pnpm test                      # Vitest (613 tests)
+pnpm test                      # Vitest (946 tests)
 pnpm build                     # Production build
 
 # Validation
@@ -119,30 +119,30 @@ Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 
 ## Pages
 
-| Route | Description |
-|-------|-------------|
-| `/` | B2C landing page (waitlist, comparison table, goals, demo) |
-| `/business` | B2B landing page (Payment Fees + Idle Cash goal cards) |
-| `/about` | About page (founder story, mission, beliefs) |
-| `/strategies` | Investment strategies |
-| `/protocols` | Protocol transparency |
-| `/help` | Help center (6 FAQ topics) |
-| `/security` | Security information |
-| `/demo` | Interactive financial demo |
-| `/dream-mode` | Goal calculator simulation |
-| `/learn/compound-interest` | Lesson 01 — How Money Really Grows (3-beat lesson + calculator) |
-| `/tools` | Money tools landing — purpose-grouped calculators |
-| `/tools/compound-interest` | Compound interest calculator (tool variant — currency-hedge for non-USD) |
-| `/tools/retirement` | Retirement planning calculator |
-| `/tools/goal-savings` | Goal savings calculator |
-| `/tools/emergency-fund` | Emergency fund time-to-target calculator |
-| `/tools/inflation-impact` | Inflation impact calculator |
-| `/tools/time-to-target` | Time-to-target calculator |
-| `/tools/currency-depreciation` | Currency depreciation calculator (with hedge math) |
-| `/tools/asset-history` | Retrospective asset DCA replay (8 assets, monthly-precision FX path for cross-currency) |
-| `/tools/card-fees` | B2B card fee savings calculator |
-| `/tools/idle-cash` | B2B idle cash yield calculator |
-| `/legal/*` | Terms, Privacy, Cookies |
+| Route                          | Description                                                                             |
+| ------------------------------ | --------------------------------------------------------------------------------------- |
+| `/`                            | B2C landing page (waitlist, comparison table, goals, demo)                              |
+| `/business`                    | B2B landing page (Payment Fees + Idle Cash goal cards)                                  |
+| `/about`                       | About page (founder story, mission, beliefs)                                            |
+| `/strategies`                  | Investment strategies                                                                   |
+| `/protocols`                   | Protocol transparency                                                                   |
+| `/help`                        | Help center (6 FAQ topics)                                                              |
+| `/security`                    | Security information                                                                    |
+| `/demo`                        | Interactive financial demo                                                              |
+| `/dream-mode`                  | Goal calculator simulation                                                              |
+| `/learn/compound-interest`     | Lesson 01 — How Money Really Grows (3-beat lesson + calculator)                         |
+| `/tools`                       | Money tools landing — purpose-grouped calculators                                       |
+| `/tools/compound-interest`     | Compound interest calculator (tool variant — currency-hedge for non-USD)                |
+| `/tools/retirement`            | Retirement planning calculator                                                          |
+| `/tools/goal-savings`          | Goal savings calculator                                                                 |
+| `/tools/emergency-fund`        | Emergency fund time-to-target calculator                                                |
+| `/tools/inflation-impact`      | Inflation impact calculator                                                             |
+| `/tools/time-to-target`        | Time-to-target calculator                                                               |
+| `/tools/currency-depreciation` | Currency depreciation calculator (with hedge math)                                      |
+| `/tools/asset-history`         | Retrospective asset DCA replay (8 assets, monthly-precision FX path for cross-currency) |
+| `/tools/card-fees`             | B2B card fee savings calculator                                                         |
+| `/tools/idle-cash`             | B2B idle cash yield calculator                                                          |
+| `/legal/*`                     | Terms, Privacy, Cookies                                                                 |
 
 All pages available in `/en`, `/pt-BR`, `/es`, `/de`.
 
@@ -156,7 +156,7 @@ All pages available in `/en`, `/pt-BR`, `/es`, `/de`.
 - **Distributed rate limiting:** Upstash Redis with in-memory fallback
 - **Email circuit breaker:** 3-layer resilience (retry + client error detection + circuit breaker)
 - **Database query timeouts:** 8s timeout prevents hung serverless functions
-- **9-calculator tool suite** with split engine (lesson non-hedged vs tools currency-hedged for non-USD locales); canonical effective-rate model `(1 + usdYield)(1 + localDep) − 1`
+- **10-calculator tool suite** (8 forward + asset-history retrospective + tools landing) with split engine (lesson non-hedged vs tools currency-hedged for non-USD locales); canonical effective-rate model `(1 + usdYield)(1 + localDep) − 1`
 - **Service-agnostic numeric data:** all rates, inflation, depreciation, fees flow through `marketDataService.getSync()` (provider-swap-ready for live API)
 - **"Digital dollar" terminology:** body copy avoids crypto/DeFi jargon; technical terms reserved for regulatory disclosures (MiCA / CVM / FTC / TILA)
 

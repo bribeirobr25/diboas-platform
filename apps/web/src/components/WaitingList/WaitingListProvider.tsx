@@ -8,7 +8,15 @@
  * Following React Context pattern
  */
 
-import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  ReactNode,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { APP_URL } from '@/config/env';
 import { WaitingListContextValue } from '@/lib/waitingList/types';
@@ -16,7 +24,7 @@ import dynamic from 'next/dynamic';
 
 // Lazy-load WaitingListModal — only shown after user clicks a waitlist CTA
 const WaitingListModal = dynamic(
-  () => import('./WaitingListModal').then(m => ({ default: m.WaitingListModal })),
+  () => import('./WaitingListModal').then((m) => ({ default: m.WaitingListModal })),
   { ssr: false, loading: () => null }
 );
 import { analyticsService } from '@/lib/analytics';
@@ -125,17 +133,14 @@ export function WaitingListProvider({ children }: WaitingListProviderProps) {
 
   const contextValue = useMemo<WaitingListContextValue>(
     () => ({ isOpen, openModal, closeModal }),
-    [isOpen, openModal, closeModal],
+    [isOpen, openModal, closeModal]
   );
 
   return (
     <WaitingListContext.Provider value={contextValue}>
       {children}
       {mounted &&
-        createPortal(
-          <WaitingListModal isOpen={isOpen} onClose={closeModal} />,
-          document.body
-        )}
+        createPortal(<WaitingListModal isOpen={isOpen} onClose={closeModal} />, document.body)}
     </WaitingListContext.Provider>
   );
 }

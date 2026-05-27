@@ -73,9 +73,7 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
     case 'COMPLETE_DEPOSIT': {
       // Deposit arrives as SOL, then auto-swaps to USDC
       // Only retain SOL if balance is below 0.01 — top up to 0.03
-      const solToRetain = state.solBalance < 0.01
-        ? SOL_GAS_RESERVE - state.solBalance
-        : 0;
+      const solToRetain = state.solBalance < 0.01 ? SOL_GAS_RESERVE - state.solBalance : 0;
       const solRetainedUsd = solToRetain * ASSET_PRICES.SOL;
       const usdcAmount = Math.max(0, action.netAmount - solRetainedUsd);
       return {
@@ -113,9 +111,7 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
       const sendNewCash = sendUsdcSwap
         ? state.cashBalance - action.grossAmount - sendNonDiboasFees
         : state.cashBalance - (action.grossAmount - sendNonDiboasFees);
-      const sendNewSol = sendUsdcSwap
-        ? state.solBalance
-        : state.solBalance - sendSolCost;
+      const sendNewSol = sendUsdcSwap ? state.solBalance : state.solBalance - sendSolCost;
       return {
         ...state,
         cashBalance: Math.max(0, sendNewCash),
@@ -150,9 +146,7 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
       const buyNewCash = buyUsdcSwap
         ? state.cashBalance - action.grossAmount - buyNonDiboasFees
         : state.cashBalance - (action.grossAmount - buyNonDiboasFees);
-      const buyNewSol = buyUsdcSwap
-        ? state.solBalance
-        : state.solBalance - buySolCost;
+      const buyNewSol = buyUsdcSwap ? state.solBalance : state.solBalance - buySolCost;
       return {
         ...state,
         cashBalance: Math.max(0, buyNewCash),
@@ -162,7 +156,8 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
           assets: {
             ...state.investments.assets,
             [action.asset.symbol]: {
-              amount: (state.investments.assets[action.asset.symbol]?.amount || 0) + action.netAmount,
+              amount:
+                (state.investments.assets[action.asset.symbol]?.amount || 0) + action.netAmount,
               name: action.asset.name,
             },
           },

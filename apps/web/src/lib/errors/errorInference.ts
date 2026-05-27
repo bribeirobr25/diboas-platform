@@ -17,11 +17,16 @@ import { redactContext } from '@/lib/utils/redactContext';
  */
 export function mapSeverity(severity: string): ErrorSeverity {
   switch (severity) {
-    case 'critical': return ErrorSeverity.CRITICAL;
-    case 'high': return ErrorSeverity.HIGH;
-    case 'medium': return ErrorSeverity.MEDIUM;
-    case 'low': return ErrorSeverity.LOW;
-    default: return ErrorSeverity.MEDIUM;
+    case 'critical':
+      return ErrorSeverity.CRITICAL;
+    case 'high':
+      return ErrorSeverity.HIGH;
+    case 'medium':
+      return ErrorSeverity.MEDIUM;
+    case 'low':
+      return ErrorSeverity.LOW;
+    default:
+      return ErrorSeverity.MEDIUM;
   }
 }
 
@@ -100,14 +105,13 @@ export function inferRecoverability(error: Error): boolean {
  * Generate error fingerprint for deduplication
  */
 export function generateFingerprint(error: Error, context?: Partial<ErrorContext>): string {
-  const components = [
-    error.name,
-    error.message,
-    context?.sectionId,
-    context?.sectionType
-  ].filter(Boolean);
+  const components = [error.name, error.message, context?.sectionId, context?.sectionType].filter(
+    Boolean
+  );
 
-  return btoa(components.join('|')).replace(/[^a-zA-Z0-9]/g, '').substr(0, 16);
+  return btoa(components.join('|'))
+    .replace(/[^a-zA-Z0-9]/g, '')
+    .substr(0, 16);
 }
 
 /**
@@ -119,7 +123,9 @@ export function sanitizeContext(context: ErrorContext): ErrorContext {
 
   return {
     ...context,
-    customData: redactContext(context.customData as Record<string, unknown>) as typeof context.customData,
+    customData: redactContext(
+      context.customData as Record<string, unknown>
+    ) as typeof context.customData,
   };
 }
 

@@ -170,9 +170,9 @@ const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
 // Note: OG images render server-side and can't use CSS variables
 const OG_COLORS = {
   white: '#ffffff',
-  subtitleGrey: diBoasColors.neutral[400],    // #94a3b8
-  brandingGrey: diBoasColors.neutral[500],    // #64748b
-  darkBg: diBoasColors.neutral[900],          // #0f172a
+  subtitleGrey: diBoasColors.neutral[400], // #94a3b8
+  brandingGrey: diBoasColors.neutral[500], // #64748b
+  darkBg: diBoasColors.neutral[900], // #0f172a
   darkBgSecondary: diBoasColors.neutral[800], // #1e293b
 } as const;
 

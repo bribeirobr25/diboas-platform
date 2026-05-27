@@ -37,10 +37,7 @@ export interface LessonMetadata {
   next?: RoadmapLessonKey;
 }
 
-export type RoadmapLessonKey =
-  | 'inflation'
-  | 'savingsVsInvesting'
-  | 'currencyDepreciation';
+export type RoadmapLessonKey = 'inflation' | 'savingsVsInvesting' | 'currencyDepreciation';
 
 export interface RoadmapLesson {
   key: RoadmapLessonKey;

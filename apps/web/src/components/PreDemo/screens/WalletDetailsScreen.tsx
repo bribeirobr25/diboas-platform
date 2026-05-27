@@ -11,12 +11,7 @@ import { usePreDemo } from '../PreDemoProvider';
 import { DemoHeader } from '../components/DemoHeader';
 import { DemoFooter } from '../components/DemoFooter';
 import { BackIcon } from '../components/Icons';
-import {
-  CHAIN_ORDER,
-  ASSET_PRICES,
-  WALLET_ADDRESSES,
-  type ChainId,
-} from '@/lib/pre-demo';
+import { CHAIN_ORDER, ASSET_PRICES, WALLET_ADDRESSES, type ChainId } from '@/lib/pre-demo';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import { getWalletTokens } from './walletHelpers';
@@ -42,10 +37,7 @@ export function WalletDetailsScreen() {
   const t = (key: string) => intl.formatMessage({ id: key });
 
   const totalInvestments = useMemo(() => {
-    return Object.values(state.investments.assets).reduce(
-      (sum, asset) => sum + asset.amount,
-      0,
-    );
+    return Object.values(state.investments.assets).reduce((sum, asset) => sum + asset.amount, 0);
   }, [state.investments.assets]);
 
   const solReserveValue = state.solBalance * ASSET_PRICES.SOL;
@@ -55,21 +47,24 @@ export function WalletDetailsScreen() {
     (chain: ChainId) => {
       analyticsService.track({ name: 'pre_demo_wallet_copy_address', parameters: { chain } });
       const address = WALLET_ADDRESSES[chain];
-      navigator.clipboard.writeText(address).then(() => {
-        setCopyFeedback('copied');
-        dispatch({ type: 'SET_COPIED_ADDRESS', chain });
-        clearTimeout(feedbackTimerRef.current);
-        feedbackTimerRef.current = setTimeout(() => {
-          dispatch({ type: 'SET_COPIED_ADDRESS', chain: null });
-          setCopyFeedback(null);
-        }, 2000);
-      }).catch(() => {
-        setCopyFeedback('failed');
-        clearTimeout(feedbackTimerRef.current);
-        feedbackTimerRef.current = setTimeout(() => setCopyFeedback(null), 2000);
-      });
+      navigator.clipboard
+        .writeText(address)
+        .then(() => {
+          setCopyFeedback('copied');
+          dispatch({ type: 'SET_COPIED_ADDRESS', chain });
+          clearTimeout(feedbackTimerRef.current);
+          feedbackTimerRef.current = setTimeout(() => {
+            dispatch({ type: 'SET_COPIED_ADDRESS', chain: null });
+            setCopyFeedback(null);
+          }, 2000);
+        })
+        .catch(() => {
+          setCopyFeedback('failed');
+          clearTimeout(feedbackTimerRef.current);
+          feedbackTimerRef.current = setTimeout(() => setCopyFeedback(null), 2000);
+        });
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleExportKey = useCallback((chain: ChainId) => {
@@ -83,21 +78,14 @@ export function WalletDetailsScreen() {
 
       <div className={styles.screenContent}>
         {/* Back button */}
-        <button
-          onClick={() => setScreen('home')}
-          className={styles.backButton}
-        >
+        <button onClick={() => setScreen('home')} className={styles.backButton}>
           <BackIcon />
           {t('preDemo.common.back')}
         </button>
 
         {/* Title */}
-        <h2 className={styles.sectionTitle}>
-          {t('preDemo.wallet.title')}
-        </h2>
-        <p className={styles.sectionSubtitle}>
-          {t('preDemo.wallet.subtitle')}
-        </p>
+        <h2 className={styles.sectionTitle}>{t('preDemo.wallet.title')}</h2>
+        <p className={styles.sectionSubtitle}>{t('preDemo.wallet.subtitle')}</p>
 
         {/* Total portfolio gradient card */}
         <PortfolioCard
@@ -111,7 +99,12 @@ export function WalletDetailsScreen() {
         {/* Wallet cards */}
         <div className={styles.walletList}>
           {CHAIN_ORDER.map((chain) => {
-            const tokens = getWalletTokens(chain, state.cashBalance, state.investments, state.solBalance);
+            const tokens = getWalletTokens(
+              chain,
+              state.cashBalance,
+              state.investments,
+              state.solBalance
+            );
             return (
               <WalletCard
                 key={chain}
@@ -147,12 +140,8 @@ export function WalletDetailsScreen() {
             </svg>
           </div>
           <div>
-            <div className={styles.selfCustodyTitle}>
-              {t('preDemo.wallet.selfCustodyTitle')}
-            </div>
-            <div className={styles.selfCustodyText}>
-              {t('preDemo.wallet.selfCustodyText')}
-            </div>
+            <div className={styles.selfCustodyTitle}>{t('preDemo.wallet.selfCustodyTitle')}</div>
+            <div className={styles.selfCustodyText}>{t('preDemo.wallet.selfCustodyText')}</div>
           </div>
         </div>
       </div>
@@ -160,9 +149,7 @@ export function WalletDetailsScreen() {
       <DemoFooter />
 
       {/* Export Key Modal */}
-      {showExportModal && (
-        <ExportKeyModal onClose={() => setShowExportModal(false)} t={t} />
-      )}
+      {showExportModal && <ExportKeyModal onClose={() => setShowExportModal(false)} t={t} />}
     </div>
   );
 }

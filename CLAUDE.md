@@ -88,6 +88,7 @@ apps/web/src/app/
 ## Commands
 
 ### Development
+
 ```bash
 pnpm dev:web          # Start web app dev server
 pnpm dev:fresh        # Clean rebuild + dev server
@@ -96,6 +97,7 @@ pnpm dev:reset        # Clean build cache (.next, .turbo) + restart dev server
 ```
 
 ### Quality
+
 ```bash
 pnpm type-check       # TypeScript checking (all workspaces)
 pnpm lint             # ESLint (all workspaces)
@@ -104,6 +106,7 @@ pnpm build            # Production build (all workspaces)
 ```
 
 ### Validation
+
 ```bash
 pnpm validate:all              # Full pipeline: type-check -> lint -> test -> build -> tokens -> translations
 pnpm validate:design-tokens    # Validate design tokens against schema
@@ -112,35 +115,41 @@ pnpm check:dead-code           # Dead code detection (knip)
 ```
 
 ### Formatting
+
 ```bash
 pnpm format                    # Prettier format all files
 pnpm format:check              # Check formatting (CI)
 ```
 
 ### Testing (web app)
+
 ```bash
 pnpm --filter web test:watch   # Watch mode testing
 pnpm --filter web test:coverage # Coverage report
 ```
 
 ### Storybook
+
 ```bash
 pnpm --filter web storybook        # Start Storybook dev server (port 6006)
 pnpm --filter web build-storybook  # Build Storybook for deployment
 ```
 
 ### Database
+
 ```bash
 pnpm --filter web db:migrate   # Run database migrations
 pnpm --filter web db:status    # Check migration status
 ```
 
 ### Production
+
 ```bash
 pnpm --filter web start        # Start production server
 ```
 
 ### Audits
+
 ```bash
 pnpm audit:full                # 15-point pre-launch audit
 pnpm audit:ci                  # CI-friendly audit (non-interactive)
@@ -150,6 +159,7 @@ pnpm accessibility:audit       # pa11y WCAG2AA
 ```
 
 ### Analytics
+
 ```bash
 pnpm analytics:report          # Generate analytics report
 ```
@@ -157,7 +167,9 @@ pnpm analytics:report          # Generate analytics report
 ## Coding Standards
 
 ### Component Pattern
+
 Components use a **Factory pattern** with variant directories:
+
 ```
 ComponentName/
   ComponentNameFactory.tsx    # Variant selector
@@ -170,6 +182,7 @@ ComponentName/
 ```
 
 ### Key Conventions
+
 - **Path alias:** `@/*` maps to `apps/web/src/*`
 - **Barrel exports:** Every directory has `index.ts`
 - **Strict TypeScript:** No implicit any, strict null checks
@@ -178,6 +191,7 @@ ComponentName/
 - **Provider pattern:** Context providers for i18n, locale, analytics
 
 ### Security
+
 - All user input sanitized with DOMPurify
 - API routes require rate limiting (Upstash Redis)
 - PII encrypted with AES-256-GCM
@@ -192,6 +206,7 @@ ComponentName/
 Prioritized by real-world impact (ref: Vercel React Best Practices).
 
 #### Already in place (do not regress)
+
 - **Bundle optimization:** `experimental.optimizePackageImports` for 17 packages in `next.config.js` (Turbopack-aware tree-shaking).
 - **Bundler:** `next build` uses Turbopack by default in Next.js 16 (do not pass `--webpack` — silently drops middleware, see B1 audit fix). The webpack `splitChunks` config + `WebpackPerformancePlugin` were removed in F1 audit (2026-05-08) — they were dead code under Turbopack. Restore from git history if you ever flip back to webpack mode.
 - **Prefetch hygiene (W7 audit/2026-05-08):** Secondary `<LocaleLink>` / `<Link>` to other top-level routes use `prefetch={false}` to avoid the "preloaded but not used" browser warning. The pattern is: high-intent CTAs (waitlist, demo, brand-logo home) prefetch by default; secondary nav (Business / Adelaide Daily / Learn / About) and exploratory cards (LessonRoadmap active card → lesson page) opt out. Trade: marginally slower navigation on those clicks; gain: clean console + ~2.5KB less wasted bandwidth per page.
@@ -209,7 +224,7 @@ Prioritized by real-world impact (ref: Vercel React Best Practices).
 - **Currency-hedge effective-rate model (Phase 7/2026-05-13):** for non-USD locales, the canonical formula is `effectiveLocalAPY = (1 + usdYield) × (1 + localDepreciation) − 1`. Consumed via `calculateWithCurrencyHedge` (FV-shape) or `calculateMonthlyWithCurrencyHedge` (annuity) from `@/lib/market-data`. The deprecated explicit-FX-out-then-FX-back model (`projectedExchangeRate()`, `futureValueWithCurrencyHedge()`) was removed; the old model produced ~7% higher results at 5yr / ~32% higher at 30yr horizons. NEVER reintroduce phrases like "convert at spot rate, grow in USD, convert back at year-N rate" in code, copy, or tests. Source-of-truth: `apps/web/src/lib/market-data/formulas/currencyHedge.ts` header + `docs/tech/financial-calculations.md` §"Currency Hedge Model".
 - **Compound Interest engine split lesson vs tools (Phase 7 Q7a/2026-05-13):** `calculateCompoundProjection` (lib/compound-interest/calculator.ts) is the lesson engine — non-hedged, pure math demo, consumed by `/learn/compound-interest`. `calculateCompoundProjectionHedged` (calculatorHedged.ts) is the tools engine — hedge for non-USD locales, consumed by `/tools/compound-interest`, `/tools/retirement`, `/tools/goal-savings`. Both wrap canonical formulas. NEVER consolidate the two with a `hedge: boolean` flag — two distinct named functions per Q7a R1 discipline. The component layer uses `engine='lesson' | 'tool'` prop on `CompoundInterestCalculator` / `CalculatorDefault` / `CalculatorOutputs` to pick. Default `'lesson'` keeps lesson pristine; tool pages pass `engine="tool"`.
 - **Two hedge-precedent patterns (Phase 7 L2/2026-05-13):** for new currency-hedge wiring, the two verified-in-prod precedents are: **(A) FV-shaped tools** copy `apps/web/src/components/Sections/ComparisonTable/ComparisonTable.tsx:36-58` — uses `calculateWithCurrencyHedge`. **(B) Months-shaped tools** copy `apps/web/src/components/Sections/GoalExampleCards/useGoalCardData.ts:57-61` — uses manual `(1+diboasApy)*(1+depreciation)-1` then `monthsToInflationAdjustedTarget`. Do NOT create wrapper helpers in `lib/tools/` over these canonical functions (Phase 7 CC2 prohibition).
-- **"Digital dollar" terminology + jargon ban (Phase 7 Q2a/Q4/2026-05-13):** body copy uses "digital dollar" / "dólar digital" / "Digital-Dollar" / "dólar digital" — never `USDC`, `stablecoin`, `DeFi`, `tokenized`, `yield farming`, `liquidity pool`, `blockchain` outside regulatory disclaimer keys (`*.disclosure*`, `*.regulatoryFootnote*`, `*.tilaDisclosure*`, `*.usDisclosure*`). PR review grep gate documented in `docs/audit/PRE_PHASE_7_TOOLS_POLISH.md` §5.3. APY may stay in TILA Reg DD compliance disclosure text but NOT body copy.
+- **"Digital dollar" terminology + jargon ban (Phase 7 Q2a/Q4/2026-05-13):** body copy uses "digital dollar" / "dólar digital" / "Digital-Dollar" / "dólar digital" — never `USDC`, `stablecoin`, `DeFi`, `tokenized`, `yield farming`, `liquidity pool`, `blockchain` outside regulatory disclaimer keys (`*.disclosure*`, `*.regulatoryFootnote*`, `*.tilaDisclosure*`, `*.usDisclosure*`). PR review grep gate documented in `docs/audit/_archive/PRE_PHASE_7_TOOLS_POLISH.md` §5.3. APY may stay in TILA Reg DD compliance disclosure text but NOT body copy.
 - **`digitalDollarSuffix` pattern (Phase 7 §5.2/2026-05-13):** `tools-shared.scenarios.digitalDollarSuffix` carries the "in digital dollar" qualifier per locale (empty for en; populated for pt-BR/de/es). Tool surfaces append this suffix to diBoaS scenario labels when `engine === 'tool'` AND `LOCALE_CURRENCY[locale] !== 'USD'`. Lesson surfaces NEVER append it (lesson is non-hedged, pedagogical math, per R2 reminder). Wired through `CalculatorOutputs` (engine-aware), `EmergencyFundCalculator` (depreciation>0 gate), `TimeToTargetCalculator` (non-bank scenarios + depreciation>0).
 - **B2B card numbers derived via script (Phase 7 M1+M2+NF1/2026-05-13):** `scripts/derive-b2b-card-numbers.mjs` computes the 8 canonical values (Payment Fees × 4 + Idle Cash × 4) from canonical rates. When `FALLBACK_MARKET_DATA.rates.scenarioRates`, `bankRates.*.savings`, or `exchangeRates.*.annualDepreciation` change, re-run the script and update the tombstoned numbers in `landing-b2b.json` × 4 locales. NEVER hand-roll B2B card numbers — Phase 7 caught a `$11,556 = $10,800 × 1.07` stale-7%-era drift this way (M1 finding).
 - **Dynamic lesson vignettes via canonical engine (Phase 7 L3a/2026-05-13):** Beat 2 vignettes in `learn-compound-interest.json` carry a `yearlyAmount` numeric field. `CalculatorVignettes.tsx` reads it and computes 12-year FV via `calculateMonthlyContributions(yearlyAmount/12, SCENARIO_RATES.historical/100, 0, 144)` at render time. NEVER hardcode a `twelveYear` string in translations — when scenario rates change, the vignettes auto-refresh. The lesson uses RAW Historical rate (no hedge) per Q7a/R2 — non-USD locales see the same pedagogical math, NOT effective-rate APY.
@@ -226,6 +241,7 @@ Prioritized by real-world impact (ref: Vercel React Best Practices).
 - **Test-vector schema v2 (Audit follow-up/2026-05-23):** `TEST_VECTORS.json` schema bumped from `tools-test-vectors-v1` → `v2`. Only difference: `assetHistory` `mode-comparison` scenario carries explicit `lumpSumAmount` + `dcaAmount` (replaces single `amount` field). Auditor implementations MUST key into each leg via the explicit fields. All other 139 scenarios byte-identical to v1.
 
 #### Apply now (all new code)
+
 - **Defer `await` until needed:** Move `await` inside conditional branches — don't block on fetches that may not be used
 - **`Promise.all()` for independent operations:** Never chain sequential `await`s when operations are independent
 - **Lazy `useState` initialization:** Use `useState(() => compute())` when initial value requires computation (parsing, filtering, index building)
@@ -236,6 +252,7 @@ Prioritized by real-world impact (ref: Vercel React Best Practices).
 - **Extract default non-primitive values:** Hoist default objects/functions to module scope (`const NOOP = () => {}`)
 
 #### Apply post-launch (product features)
+
 - **Strategic Suspense boundaries:** Wrap async data sections to show shell UI while loading
 - **`next/dynamic` with `ssr: false`:** For heavy client-only components (charts, editors, rich text)
 - **Cross-request LRU caching:** For frequently accessed data shared across requests
@@ -335,19 +352,21 @@ Condensed reference from `docs/tech/coding-standards.md`:
 
 ## Audit Status
 
-All Phase 1 audit findings resolved (March 2026). Architecture compliance audit completed April 2026 — 12/12 principles fully compliant (P4 DRY violation fixed April 30). SEO external tools audit completed and fixes applied (domain standardization, robots.txt, meta tags, heading hierarchy, dynamic imports for PageSpeed). Full compliance audit May 2026 — 12/12 principles compliant, 96% CLAUDE.md accuracy, 99.5% docs/tech accuracy. Pre-production security, stability, SEO, and analytics audits all passed. Phase 6 closed 2026-05-12 (9 sub-phases, calculator suite + tools landing + B2B tools). Pre-Phase-7 Tools Polish closed 2026-05-13 (currency-hedge math for non-USD locales, "digital dollar" framing, jargon sweep, B2B card recompute, dynamic lesson vignettes — 3 audit rounds + post-execution visual sweep). Historical Performance Calibration closed 2026-05-16 (Phases A-E + H-I; F+G deferred — path-dependent currency-hedge methodology, DCA terminal-table lookup, asset-history retrospective tool at `/tools/asset-history`, confidence stratification per audit M6). **787 tests passing** (was 485 → 552 → 606 → 613 → 762 → 787). Remaining pending items tracked in `docs/audit/PENDING_ALL.md`.
+All Phase 1 audit findings resolved (March 2026). Architecture compliance audit completed April 2026 — 12/12 principles fully compliant (P4 DRY violation fixed April 30). SEO external tools audit completed and fixes applied (domain standardization, robots.txt, meta tags, heading hierarchy, dynamic imports for PageSpeed). Full compliance audit May 2026 — 12/12 principles compliant, 96% CLAUDE.md accuracy, 99.5% docs/tech accuracy. Pre-production security, stability, SEO, and analytics audits all passed. Phase 6 closed 2026-05-12 (9 sub-phases, calculator suite + tools landing + B2B tools). Pre-Phase-7 Tools Polish closed 2026-05-13 (currency-hedge math for non-USD locales, "digital dollar" framing, jargon sweep, B2B card recompute, dynamic lesson vignettes — 3 audit rounds + post-execution visual sweep). Historical Performance Calibration closed 2026-05-16 (Phases A-E + H-I; F+G deferred — path-dependent currency-hedge methodology, DCA terminal-table lookup, asset-history retrospective tool at `/tools/asset-history`, confidence stratification per audit M6). Tools audit-bundle externally validated through v1.8 (2026-05-23) — Auditors 3 + 4 both closed; F1/F2 fixes, BTC pre-2014 CoinMetrics backfill, cross-currency FX-path math, A8 SSR pre-warm. **959 tests passing** (was 485 → 552 → 606 → 613 → 762 → 787 → 868 → 946 → 959). The 868 → 946 step shipped 2026-05-26 with `TOOLS_41_DEFECTS_FIX_PLAN.md` v1.4 execution + CTO-board v3 audit fixes + CEO-triggered architecture audit fixes: **38 of 42 tools-suite defects code-closed** (per `docs/audit/41_IMPLEMENTATION_FEEDBACK.md` v3 verified ledger); new `lib/<tool>/calculator.ts` modules for emergency-fund / time-to-target / inflation-impact / currency-depreciation / idle-cash (composition extracted from React components); new `lib/tools/clampInput.ts` shared input-bounds helper now consumed by all 5 input-bound tools (per `docs/audit/PHASE_1_7_ARCHITECTURE_AUDIT.md` V1 fix); new `scripts/validate-sdk-invariant.mjs` CI gate enforcing the §6.10 consumer-side invariant from `iter5-sdk-migration-map.md`; C3 effective-rate floor clamp (`applyEffectiveRateClamp`) wired into all five hedge sites with `CALCULATOR_DEPRECIATION_CLAMPED` observability events. The 946 → 959 step shipped 2026-05-26 (same day) with **FX-16 adoption** per `docs/tools/ADOPTING_NEW_FX_PLAN.md` v1.2 (CTO-board feedback v1.1 folded in via `FEEDBACK_ADOPTING_NEW_FX_PLAN.md`): currency-depreciation picker expanded 3 → 17 currencies (USD + 16 from FX model §6; ARS/CLP/COP excluded per FX model §5 hyperinflation gate); **EUR forward `annualDepreciation` corrected 1.23% → 0.55%** (D1 field-placement fix — 1.23% was an endpoint-pair retrospective CAGR mistakenly placed in the forward field, now lives in `historicalCagr` only); `resolveHorizonMatchedDepreciation` priority inverted so calibrated constant wins over live FX derivation (D1 — only observable change is EUR forward; BRL coincides; 14 new currencies have no monthly FX so were always constant-driven); new `lib/currency-depreciation/buckets.ts` separate from rate data per D10 (market-data/product-positioning DDD boundary); bank card hides for the 14 new currencies via `getBankRateForCurrency → number \| null` (D3 honest "no card" over fake fallback); retrospective mode stays BRL/EUR-only (D4 — `HistoricalAnchorsData.fxBuckets` is a closed two-key type); PT3 re-signed €608,815 → €541,891 (D2 Bar 2026-05-26); audit-bundle schema bumped `tools-test-vectors-v2` → `v3` + 140 vectors regenerated against live engine (D12 non-optional bump). Architecture audit (CEO challenge 2026-05-26 evening) verified compliance with all 12 Principles + `docs/tech/*.md` standards — 3 tactical violations found and fixed in the same pass. Remaining pending items tracked in `docs/audit/PENDING_ALL.md` Track 1.
 
 ## Visual Development — Human-First Design Workflow
 
 ### Design document precedence
 
 When working on any frontend UI, use design tokens as the source of truth:
+
 - `apps/web/src/styles/design-tokens.css` — canonical token values for colors, spacing, typography
 - Anti-slop defaults below — canonical anti-pattern list and review criteria
 
 ### Anti-slop defaults
 
 Avoid these patterns in all frontend work unless brand rules explicitly allow them:
+
 - Default purple/blue startup gradients or shiny AI orbs
 - Gradient profile circles with initials as decoration
 - Pure black (#000) or pure white (#FFF) — use palette-derived neutrals
@@ -366,6 +385,7 @@ Avoid these patterns in all frontend work unless brand rules explicitly allow th
 ### Quick visual check (after every frontend change)
 
 **IMMEDIATELY** after implementing any front-end change:
+
 1. Start the dev server (`pnpm dev:web`) and wait for it to be ready
 2. Install the browser if needed (`mcp__MCP_DOCKER__browser_install`)
 3. Get the machine's network IP (`ifconfig en0 | grep "inet "`) — Docker MCP browser cannot reach `localhost`, use `http://<NETWORK_IP>:3000` instead
@@ -386,6 +406,7 @@ If Docker MCP browser tools are NOT available: explicitly say "I could not visua
 ### Comprehensive design review
 
 Invoke `@agent design-reviewer` for thorough design validation when:
+
 - Completing significant UI/UX features
 - Before finalizing PRs with visual changes
 - Needing comprehensive accessibility and responsiveness testing

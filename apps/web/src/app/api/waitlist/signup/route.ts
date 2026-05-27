@@ -11,22 +11,9 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  getIdempotentResponse,
-  cacheIdempotentResponse,
-} from '@/lib/security';
-import {
-  applyRateLimit,
-  applyCsrf,
-  validateEmail,
-  emitErrorEvent,
-} from '@/lib/api/routeHelpers';
-import {
-  isValidLocale,
-  isValidSource,
-  isValidTags,
-  isValidName,
-} from '@/lib/api/validators';
+import { getIdempotentResponse, cacheIdempotentResponse } from '@/lib/security';
+import { applyRateLimit, applyCsrf, validateEmail, emitErrorEvent } from '@/lib/api/routeHelpers';
+import { isValidLocale, isValidSource, isValidTags, isValidName } from '@/lib/api/validators';
 import { logRequestStart, logRequestEnd } from '@/lib/api/requestLogger';
 import { Logger } from '@/lib/monitoring/Logger';
 import { waitlistApplicationService } from '@/lib/waitingList/WaitlistApplicationService';
@@ -106,10 +93,14 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
 
     if (!body.gdprAccepted) return validationError('Consent is required', 'CONSENT_REQUIRED');
 
-    if (body.locale && !isValidLocale(body.locale)) return validationError('Invalid locale', 'INVALID_LOCALE');
-    if (body.source && !isValidSource(body.source)) return validationError('Invalid source', 'INVALID_SOURCE');
-    if (body.tags && !isValidTags(body.tags)) return validationError('Invalid tags', 'INVALID_TAGS');
-    if (body.name && !isValidName(body.name)) return validationError('Invalid name', 'INVALID_NAME');
+    if (body.locale && !isValidLocale(body.locale))
+      return validationError('Invalid locale', 'INVALID_LOCALE');
+    if (body.source && !isValidSource(body.source))
+      return validationError('Invalid source', 'INVALID_SOURCE');
+    if (body.tags && !isValidTags(body.tags))
+      return validationError('Invalid tags', 'INVALID_TAGS');
+    if (body.name && !isValidName(body.name))
+      return validationError('Invalid name', 'INVALID_NAME');
 
     // ---- Delegate to application service -----------------------------------
     const result = await waitlistApplicationService.submitSignup({
@@ -157,7 +148,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
           error: 'Unable to process request. Please try again.',
           errorCode: 'PROCESSING_ERROR',
         },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
@@ -166,7 +157,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     logRequestEnd('POST', '/api/waitlist/signup', 500, startTime);
     return NextResponse.json(
       { success: false, error: 'Internal server error', errorCode: 'SERVER_ERROR' },
-      { status: 500 },
+      { status: 500 }
     );
   } catch (error) {
     Logger.error('Waitlist signup error', {}, error instanceof Error ? error : undefined);
@@ -174,7 +165,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     logRequestEnd('POST', '/api/waitlist/signup', 500, startTime);
     return NextResponse.json(
       { success: false, error: 'Internal server error', errorCode: 'SERVER_ERROR' },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
@@ -200,16 +191,13 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     if (!email) {
       return NextResponse.json(
         { success: false, error: 'Email parameter required' },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
     const sanitizedEmail = validateEmail(email);
     if (!sanitizedEmail) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid email format' },
-        { status: 400 },
-      );
+      return NextResponse.json({ success: false, error: 'Invalid email format' }, { status: 400 });
     }
 
     // Artificial delay to prevent timing attacks (100-300ms)
@@ -221,9 +209,6 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     });
   } catch (error) {
     Logger.error('Waitlist check error', {}, error instanceof Error ? error : undefined);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 },
-    );
+    return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 }

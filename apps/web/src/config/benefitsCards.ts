@@ -23,7 +23,7 @@ export const DEFAULT_BENEFITS_CARDS_CONFIG: BenefitsCardsConfig = {
   section: {
     title: 'marketing.pages.home.benefitsCards.title',
     description: 'marketing.pages.home.benefitsCards.description',
-    backgroundColor: 'light-purple'
+    backgroundColor: 'light-purple',
   },
 
   /** Benefit cards array (5 cards) */
@@ -33,47 +33,47 @@ export const DEFAULT_BENEFITS_CARDS_CONFIG: BenefitsCardsConfig = {
       icon: '/assets/icons/money-flow.avif',
       iconAlt: 'marketing.pages.home.benefitsCards.cards.moneyFlow.iconAlt',
       title: 'marketing.pages.home.benefitsCards.cards.moneyFlow.title',
-      description: 'marketing.pages.home.benefitsCards.cards.moneyFlow.description'
+      description: 'marketing.pages.home.benefitsCards.cards.moneyFlow.description',
     },
     {
       id: 'investing',
       icon: '/assets/icons/investing.avif',
       iconAlt: 'marketing.pages.home.benefitsCards.cards.investing.iconAlt',
       title: 'marketing.pages.home.benefitsCards.cards.investing.title',
-      description: 'marketing.pages.home.benefitsCards.cards.investing.description'
+      description: 'marketing.pages.home.benefitsCards.cards.investing.description',
     },
     {
       id: 'money-circle',
       icon: '/assets/icons/money-circle.avif',
       iconAlt: 'marketing.pages.home.benefitsCards.cards.moneyCircle.iconAlt',
       title: 'marketing.pages.home.benefitsCards.cards.moneyCircle.title',
-      description: 'marketing.pages.home.benefitsCards.cards.moneyCircle.description'
+      description: 'marketing.pages.home.benefitsCards.cards.moneyCircle.description',
     },
     {
       id: 'learn',
       icon: '/assets/icons/learn.avif',
       iconAlt: 'marketing.pages.home.benefitsCards.cards.learn.iconAlt',
       title: 'marketing.pages.home.benefitsCards.cards.learn.title',
-      description: 'marketing.pages.home.benefitsCards.cards.learn.description'
+      description: 'marketing.pages.home.benefitsCards.cards.learn.description',
     },
     {
       id: 'rewards-medal',
       icon: '/assets/icons/rewards-medal.avif',
       iconAlt: 'marketing.pages.home.benefitsCards.cards.rewards.iconAlt',
       title: 'marketing.pages.home.benefitsCards.cards.rewards.title',
-      description: 'marketing.pages.home.benefitsCards.cards.rewards.description'
-    }
+      description: 'marketing.pages.home.benefitsCards.cards.rewards.description',
+    },
   ],
 
   /** SEO and accessibility metadata */
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'marketing.shared.benefitsCards.ariaLabel'
+    ariaLabel: 'marketing.shared.benefitsCards.ariaLabel',
   },
 
   /** Analytics configuration */
   analytics: {
     sectionId: 'benefits-cards-home',
-    category: 'benefits'
-  }
+    category: 'benefits',
+  },
 } as const;

@@ -28,6 +28,10 @@ export async function logGdprDeletion(params: {
       )
     `;
   } catch (error) {
-    Logger.error('[GdprDeletionLogger] Failed to log deletion', { entityType: params.entityType }, error instanceof Error ? error : undefined);
+    Logger.error(
+      '[GdprDeletionLogger] Failed to log deletion',
+      { entityType: params.entityType },
+      error instanceof Error ? error : undefined
+    );
   }
 }

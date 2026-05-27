@@ -41,7 +41,8 @@ export const DefaultStable: Story = {
     badge: '100% Stablecoins',
     tagline: 'Your money stays safe while earning more than savings accounts.',
     growthExposure: 0,
-    description: 'Deposits go into regulated lending protocols that only accept over-collateralized loans. Your stablecoins are always backed by more collateral than owed.',
+    description:
+      'Deposits go into regulated lending protocols that only accept over-collateralized loans. Your stablecoins are always backed by more collateral than owed.',
     allocation: '50% Sky SSR + 30% Aave V3 + 20% Compound V3',
     allocationNote: 'Diversified across top-tier lending protocols for maximum safety.',
     commonUseCase: 'Emergency fund. Money you might need anytime, but want earning while it sits.',
@@ -61,10 +62,12 @@ export const DefaultGrowth: Story = {
     badge: '65% Stablecoins / 35% Growth',
     tagline: 'Beat inflation with a touch of upside.',
     growthExposure: 35,
-    description: 'Most of your capital stays in stablecoins earning yield, while a smaller portion captures growth from blue-chip assets.',
+    description:
+      'Most of your capital stays in stablecoins earning yield, while a smaller portion captures growth from blue-chip assets.',
     allocation: '40% Sky SSR + 25% Compound V3 + 35% Lido stETH',
     allocationNote: 'Balanced between stability and growth exposure.',
-    commonUseCase: 'Short-term goals (1–3 years). Building toward a specific purchase or milestone.',
+    commonUseCase:
+      'Short-term goals (1–3 years). Building toward a specific purchase or milestone.',
     stats: [
       { label: 'Loss chance', value: '~8%' },
       { label: 'Typical return', value: '6–9% APY' },
@@ -86,12 +89,15 @@ export const WithWarning: Story = {
     badge: '30% Stablecoins / 70% Growth',
     tagline: 'Aggressive growth for long-term wealth building.',
     growthExposure: 70,
-    description: 'Heavy growth allocation with volatile asset exposure. Only for money you won\'t need for 5+ years.',
-    description2: 'This strategy deliberately accepts higher short-term losses for stronger long-term performance.',
+    description:
+      "Heavy growth allocation with volatile asset exposure. Only for money you won't need for 5+ years.",
+    description2:
+      'This strategy deliberately accepts higher short-term losses for stronger long-term performance.',
     allocation: '20% Aave V3 + 10% Compound V3 + 50% Lido stETH + 20% Rocket Pool rETH',
     allocationNote: 'Growth-heavy with liquid staking and lending.',
-    commonUseCase: 'Long-term wealth building (5+ years). Retirement planning or generational wealth.',
-    warning: 'Can drop 25–40% in a bad quarter. Only invest money you truly won\'t need for years.',
+    commonUseCase:
+      'Long-term wealth building (5+ years). Retirement planning or generational wealth.',
+    warning: "Can drop 25–40% in a bad quarter. Only invest money you truly won't need for years.",
     stats: [
       { label: 'Loss chance', value: '~22%' },
       { label: 'Typical return', value: '10–18% APY' },
@@ -113,13 +119,15 @@ export const WithWarningAndAccess: Story = {
     badge: '15% Stablecoins / 85% Growth',
     tagline: 'Maximum growth. Maximum risk. For experienced investors only.',
     growthExposure: 85,
-    description: 'Nearly all capital in volatile growth assets. This is the highest-risk, highest-potential-reward strategy available.',
+    description:
+      'Nearly all capital in volatile growth assets. This is the highest-risk, highest-potential-reward strategy available.',
     description2: 'Requires strong conviction and emotional discipline through severe drawdowns.',
     allocation: '10% Aave V3 + 5% Sky SSR + 55% Lido stETH + 30% Rocket Pool rETH',
     allocationNote: 'Concentrated growth exposure with minimal stablecoin buffer.',
     commonUseCase: 'Experienced crypto investors who understand and accept extreme volatility.',
     warning: 'Can drop 40–60% in a severe crash. Only for money you can afford to lose entirely.',
-    accessRequirements: 'Requires passing a risk assessment questionnaire and minimum balance of EUR 5,000.',
+    accessRequirements:
+      'Requires passing a risk assessment questionnaire and minimum balance of EUR 5,000.',
     stats: [
       { label: 'Loss chance', value: '~30%' },
       { label: 'Typical return', value: '12–25% APY' },
@@ -141,8 +149,10 @@ export const WithDescription2: Story = {
     badge: '70% Stablecoins / 30% Growth',
     tagline: 'Beat inflation while keeping most of your money safe.',
     growthExposure: 30,
-    description: 'A conservative mix. Most capital in stablecoins earning yield, with a small growth allocation.',
-    description2: 'Designed for people who want more than savings accounts but aren\'t ready for full crypto exposure.',
+    description:
+      'A conservative mix. Most capital in stablecoins earning yield, with a small growth allocation.',
+    description2:
+      "Designed for people who want more than savings accounts but aren't ready for full crypto exposure.",
     allocation: '40% Sky SSR + 30% Aave V3 + 30% Lido stETH',
     allocationNote: 'Majority stablecoin with measured growth exposure.',
     commonUseCase: 'Beating inflation while maintaining high capital preservation.',

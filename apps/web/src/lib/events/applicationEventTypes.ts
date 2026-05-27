@@ -39,7 +39,13 @@ export enum ApplicationEventType {
 
   // General Application Events
   APPLICATION_ERROR = 'application:error',
-  FEATURE_USED = 'feature:used'
+  FEATURE_USED = 'feature:used',
+
+  // Tools — per TOOLS_41_DEFECTS_FIX_PLAN.md §1.2 (C21 close, 2026-05-26).
+  // Distinct from APPLICATION_ERROR so tool-suite unexpected errors can be
+  // aggregated in dashboards without mixing with infra/runtime errors.
+  CALCULATOR_UNEXPECTED_ERROR = 'tools:calculatorUnexpectedError',
+  CALCULATOR_DEPRECIATION_CLAMPED = 'tools:calculatorDepreciationClamped',
 }
 
 /**
@@ -54,7 +60,8 @@ export type ApplicationDomain =
   | 'preDream'
   | 'analytics'
   | 'monitoring'
-  | 'application';
+  | 'application'
+  | 'tools';
 
 /**
  * Base event payload interface.
@@ -167,5 +174,7 @@ export const EVENT_VALIDATION_SCHEMA: Record<ApplicationEventType, string[]> = {
   [ApplicationEventType.PRE_DREAM_SHARE_INITIATED]: ['domain', 'source'],
   [ApplicationEventType.PRE_DREAM_SHARE_COMPLETED]: ['domain', 'source'],
   [ApplicationEventType.APPLICATION_ERROR]: ['domain', 'source', 'error', 'severity'],
-  [ApplicationEventType.FEATURE_USED]: ['domain', 'source']
+  [ApplicationEventType.FEATURE_USED]: ['domain', 'source'],
+  [ApplicationEventType.CALCULATOR_UNEXPECTED_ERROR]: ['domain', 'source', 'error', 'severity'],
+  [ApplicationEventType.CALCULATOR_DEPRECIATION_CLAMPED]: ['domain', 'source'],
 };

@@ -60,7 +60,9 @@
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: background-color var(--animation-duration-fast) ease, color var(--animation-duration-fast) ease;
+  transition:
+    background-color var(--animation-duration-fast) ease,
+    color var(--animation-duration-fast) ease;
   white-space: nowrap;
 }
 
@@ -96,7 +98,10 @@
   border: 1px solid var(--color-slate-200);
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: background-color var(--animation-duration-fast) ease, border-color var(--animation-duration-fast) ease, color var(--animation-duration-fast) ease;
+  transition:
+    background-color var(--animation-duration-fast) ease,
+    border-color var(--animation-duration-fast) ease,
+    color var(--animation-duration-fast) ease;
   color: var(--color-text-secondary);
 }
 

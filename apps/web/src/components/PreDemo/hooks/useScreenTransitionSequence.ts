@@ -21,9 +21,7 @@ export interface TransitionStep {
   onReach?: () => void;
 }
 
-export function useScreenTransitionSequence(
-  setScreen: (screen: PreDemoScreen) => void
-) {
+export function useScreenTransitionSequence(setScreen: (screen: PreDemoScreen) => void) {
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   // Clean up all timers on unmount (PreDemoContent closes)

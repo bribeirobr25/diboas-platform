@@ -30,9 +30,11 @@ export {
 } from './formulas/core';
 
 export {
+  applyEffectiveRateClamp,
   calculateWithCurrencyHedge,
   calculateMonthlyWithCurrencyHedge,
   calculateMonthlyPathDependentHedge,
+  EFFECTIVE_RATE_FLOOR,
   type CurrencyHedgeResult,
   type MonthlyHedgeResult,
   type PathDependentHedgeArgs,
@@ -49,7 +51,4 @@ export {
 // Phase G (TOOLS_IMPROVEMENT.md, 2026-05-23): Brazil poupança Selic-threshold
 // regime-switch formula. Used by pt-BR-locale calculators to derive the live
 // poupança rate from Selic + TR.
-export {
-  derivePoupancaRate,
-  BRAZIL_POUPANCA_SELIC_THRESHOLD,
-} from './formulas/brazilPoupanca';
+export { derivePoupancaRate, BRAZIL_POUPANCA_SELIC_THRESHOLD } from './formulas/brazilPoupanca';

@@ -138,9 +138,7 @@ export function MinimalFooter({
   const { locale } = useLocale();
   const config = FOOTER_CONFIG;
 
-  const disclosures = disclosureKeys
-    ? getDisclosureKeysForLocale(locale, disclosureKeys)
-    : [];
+  const disclosures = disclosureKeys ? getDisclosureKeysForLocale(locale, disclosureKeys) : [];
 
   return (
     // Phase 4 W4 (audit/2026-05-08): removed `aria-label` — `<footer>` at
@@ -151,21 +149,16 @@ export function MinimalFooter({
     <footer className={styles.footer}>
       <div className={styles.container}>
         {/* Tagline */}
-        {taglineKey && (
-          <p className={styles.tagline}>
-            {intl.formatMessage({ id: taglineKey })}
-          </p>
-        )}
+        {taglineKey && <p className={styles.tagline}>{intl.formatMessage({ id: taglineKey })}</p>}
 
         {/* Product Nav Links */}
         {navLinks && navLinks.length > 0 && (
-          <nav className={styles.productNav} aria-label={intl.formatMessage({ id: 'common.accessibility.productNavigation' })}>
+          <nav
+            className={styles.productNav}
+            aria-label={intl.formatMessage({ id: 'common.accessibility.productNavigation' })}
+          >
             {navLinks.map((link) => (
-              <LocaleLink
-                key={link.id}
-                href={link.href}
-                className={styles.productNavLink}
-              >
+              <LocaleLink key={link.id} href={link.href} className={styles.productNavLink}>
                 {intl.formatMessage({ id: link.labelKey })}
               </LocaleLink>
             ))}
@@ -193,25 +186,20 @@ export function MinimalFooter({
         {/* Legacy single disclaimer */}
         {!disclosureKeys && disclaimerKey && (
           <div className={styles.disclaimer}>
-            <p className={styles.disclaimerText}>
-              {intl.formatMessage({ id: disclaimerKey })}
-            </p>
+            <p className={styles.disclaimerText}>{intl.formatMessage({ id: disclaimerKey })}</p>
           </div>
         )}
 
         {/* Divider */}
-        {(disclosures.length > 0 || disclaimerKey) && (
-          <div className={styles.divider} />
-        )}
+        {(disclosures.length > 0 || disclaimerKey) && <div className={styles.divider} />}
 
         {/* Legal Links Section */}
-        <nav className={styles.legalLinks} aria-label={intl.formatMessage({ id: 'common.accessibility.legalPages' })}>
+        <nav
+          className={styles.legalLinks}
+          aria-label={intl.formatMessage({ id: 'common.accessibility.legalPages' })}
+        >
           {LEGAL_LINKS.map((link) => (
-            <LocaleLink
-              key={link.id}
-              href={link.href}
-              className={styles.legalLink}
-            >
+            <LocaleLink key={link.id} href={link.href} className={styles.legalLink}>
               {intl.formatMessage({ id: link.labelKey })}
             </LocaleLink>
           ))}
@@ -226,9 +214,7 @@ export function MinimalFooter({
             <span className={styles.brandName}>
               {intl.formatMessage({ id: config.legal.brandName })}
             </span>
-            <span className={styles.copyright}>
-              {intl.formatMessage({ id: copyrightKey })}
-            </span>
+            <span className={styles.copyright}>{intl.formatMessage({ id: copyrightKey })}</span>
           </div>
 
           {/* Language Switcher */}
@@ -275,11 +261,7 @@ function SocialIconRenderer({ iconName }: { iconName: string }) {
   const IconComponent = ICON_MAP[iconName];
 
   if (!IconComponent) {
-    return (
-      <span className={styles.socialFallback}>
-        {iconName.charAt(0).toUpperCase()}
-      </span>
-    );
+    return <span className={styles.socialFallback}>{iconName.charAt(0).toUpperCase()}</span>;
   }
 
   return <IconComponent className={styles.socialIcon} />;

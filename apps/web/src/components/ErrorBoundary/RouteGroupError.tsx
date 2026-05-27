@@ -66,8 +66,7 @@ export function RouteGroupError({ error, reset, errorBoundaryName }: RouteGroupE
             lineHeight: '1.6',
           }}
         >
-          We encountered an error loading this page. Please try again or return
-          to the homepage.
+          We encountered an error loading this page. Please try again or return to the homepage.
         </p>
         <div
           style={{

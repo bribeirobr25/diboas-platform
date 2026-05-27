@@ -42,11 +42,12 @@ export function BuyScreen() {
 
   const amount = parseFloat(state.buyAmount) || 0;
   const selectedAssets = ASSET_CATEGORIES[state.selectedCategory];
-  const currentAsset = selectedAssets.find((a) => a.symbol === state.selectedAsset) || selectedAssets[0];
+  const currentAsset =
+    selectedAssets.find((a) => a.symbol === state.selectedAsset) || selectedAssets[0];
 
   const buyResult = useMemo(
     () => processBuy(amount, currentAsset, state.cashBalance, state.solBalance),
-    [amount, currentAsset, state.cashBalance, state.solBalance],
+    [amount, currentAsset, state.cashBalance, state.solBalance]
   );
   const insufficientFunds = buyResult.errorCode === 'INSUFFICIENT_FUNDS';
 
@@ -69,16 +70,19 @@ export function BuyScreen() {
       const enabledAsset = assets.find((a) => isAssetEnabled(a.symbol));
       dispatch({ type: 'SET_SELECTED_ASSET', asset: enabledAsset?.symbol || assets[0].symbol });
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleAssetSelect = useCallback(
     (asset: Asset) => {
       if (!isAssetEnabled(asset.symbol)) return;
-      analyticsService.track({ name: 'pre_demo_buy_asset_select', parameters: { asset: asset.symbol } });
+      analyticsService.track({
+        name: 'pre_demo_buy_asset_select',
+        parameters: { asset: asset.symbol },
+      });
       dispatch({ type: 'SET_SELECTED_ASSET', asset: asset.symbol });
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleAmountChange = useCallback(
@@ -86,15 +90,18 @@ export function BuyScreen() {
       const sanitized = value.replace(/[^0-9.]/g, '');
       dispatch({ type: 'SET_BUY_AMOUNT', amount: sanitized });
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleQuickAmount = useCallback(
     (quickAmount: string) => {
-      analyticsService.track({ name: 'pre_demo_buy_quick_amount', parameters: { amount: quickAmount } });
+      analyticsService.track({
+        name: 'pre_demo_buy_quick_amount',
+        parameters: { amount: quickAmount },
+      });
       dispatch({ type: 'SET_BUY_AMOUNT', amount: quickAmount });
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleProceed = useCallback(() => {
@@ -114,11 +121,17 @@ export function BuyScreen() {
 
       <div className={styles.screenContent}>
         {/* Back button */}
-        <button
-          onClick={() => setScreen('home')}
-          className={styles.backButton}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <button onClick={() => setScreen('home')} className={styles.backButton}>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <polyline points="15 18 9 12 15 6" />
           </svg>
           {t('preDemo.common.back')}
@@ -130,9 +143,7 @@ export function BuyScreen() {
         </div>
 
         {/* Category label */}
-        <div className={styles.fieldLabel}>
-          {t('preDemo.buy.categoryLabel')}
-        </div>
+        <div className={styles.fieldLabel}>{t('preDemo.buy.categoryLabel')}</div>
 
         {/* Category tabs */}
         <div className={styles.categoryTabs}>
@@ -150,9 +161,7 @@ export function BuyScreen() {
         </div>
 
         {/* Select Asset label */}
-        <div className={styles.fieldLabel}>
-          {t('preDemo.buy.selectAsset')}
-        </div>
+        <div className={styles.fieldLabel}>{t('preDemo.buy.selectAsset')}</div>
 
         {/* Asset list */}
         <div className={styles.assetList}>
@@ -180,9 +189,7 @@ export function BuyScreen() {
                   {enabled ? (
                     formatCurrency(asset.price, 2, locale)
                   ) : (
-                    <span className={styles.comingSoon}>
-                      {t('preDemo.buy.comingSoon')}
-                    </span>
+                    <span className={styles.comingSoon}>{t('preDemo.buy.comingSoon')}</span>
                   )}
                 </div>
               </button>
@@ -194,9 +201,7 @@ export function BuyScreen() {
         {isAssetEnabled(currentAsset.symbol) && (
           <>
             {/* Amount to Buy label */}
-            <div className={styles.fieldLabel}>
-              {t('preDemo.buy.amountLabel')}
-            </div>
+            <div className={styles.fieldLabel}>{t('preDemo.buy.amountLabel')}</div>
 
             <div className={styles.amountInputContainer}>
               <span className={styles.amountPrefix}>{currencySymbol}</span>
@@ -213,9 +218,7 @@ export function BuyScreen() {
 
             {/* Insufficient funds warning */}
             {insufficientFunds && amount > 0 && (
-              <div className={styles.warningBanner}>
-                {t('preDemo.buy.insufficientFunds')}
-              </div>
+              <div className={styles.warningBanner}>{t('preDemo.buy.insufficientFunds')}</div>
             )}
 
             {/* Quick amounts */}
@@ -228,14 +231,18 @@ export function BuyScreen() {
                     state.buyAmount === qa ? styles.quickAmountActive : ''
                   }`}
                 >
-                  {currencySymbol}{qa}
+                  {currencySymbol}
+                  {qa}
                 </button>
               ))}
             </div>
 
             {/* Fee breakdown */}
             {amount > 0 && !insufficientFunds && (
-              <FeeBreakdown feeItems={buyResult.pending.fees} totalFees={buyResult.pending.totalFees} />
+              <FeeBreakdown
+                feeItems={buyResult.pending.fees}
+                totalFees={buyResult.pending.totalFees}
+              />
             )}
 
             {/* You'll receive — crypto format */}
@@ -248,7 +255,8 @@ export function BuyScreen() {
                   </span>
                   <br />
                   <span className={styles.receiveAmountSub}>
-                    {t('preDemo.transaction.approximate')} {formatCurrency(buyResult.pending.netAmount, 2, locale)}
+                    {t('preDemo.transaction.approximate')}{' '}
+                    {formatCurrency(buyResult.pending.netAmount, 2, locale)}
                   </span>
                 </div>
               </div>

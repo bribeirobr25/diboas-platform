@@ -37,13 +37,8 @@ for (const entry of urls) {
   const code = await new Promise((res) => {
     const proc = spawn(
       pa11yBin,
-      [
-        '--standard', standard,
-        '--runner', runner,
-        '--level-cap-when-needs-review', 'warning',
-        url,
-      ],
-      { stdio: 'inherit', cwd: webDir },
+      ['--standard', standard, '--runner', runner, '--level-cap-when-needs-review', 'warning', url],
+      { stdio: 'inherit', cwd: webDir }
     );
     proc.on('exit', (c) => res(c ?? 0));
   });

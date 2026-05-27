@@ -16,7 +16,7 @@ apps/web/public/assets/
 │   ├── money-*.avif    # Finance-related icons
 │   ├── rewards-*.avif  # Rewards section icons
 │   └── safe-money.avif
-├── images/             # Photography and product shots (~50 files)
+├── images/             # Photography and product shots (~20 files)
 │   ├── bed-*.avif      # Lifestyle scenes (bright/dark variants)
 │   ├── card-*.avif     # Card product shots
 │   ├── friends-*.avif  # Social/lifestyle
@@ -50,6 +50,7 @@ apps/web/public/assets/
 All assets use **AVIF** exclusively. Next.js `<Image>` handles format negotiation and responsive sizing at build time. The `next.config.js` image optimization is configured for AVIF and WebP output formats.
 
 When adding new assets:
+
 - Convert to AVIF before committing (best compression for modern browsers)
 - Use kebab-case file names (e.g., `phone-balance.avif`)
 - Keep icons under 50 KB; hero/product images under 500 KB
@@ -92,13 +93,13 @@ const IMAGES = {
 
 ## Logo Variants
 
-| File | Use case |
-|------|----------|
-| `logo.avif` | Full brand logo |
-| `logo-icon.avif` | Favicon, apple-touch-icon, nav compact mode |
-| `logo-wordmark.avif` | Navigation bar, footer |
-| `logo-icon-b2b.avif` | Business landing pages |
-| `logo-wordmark-b2b.avif` | Business navigation |
+| File                     | Use case                                    |
+| ------------------------ | ------------------------------------------- |
+| `logo.avif`              | Full brand logo                             |
+| `logo-icon.avif`         | Favicon, apple-touch-icon, nav compact mode |
+| `logo-wordmark.avif`     | Navigation bar, footer                      |
+| `logo-icon-b2b.avif`     | Business landing pages                      |
+| `logo-wordmark-b2b.avif` | Business navigation                         |
 
 ## Adding New Assets
 

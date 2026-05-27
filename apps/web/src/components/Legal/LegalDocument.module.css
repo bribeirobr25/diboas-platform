@@ -62,7 +62,9 @@
   font-size: var(--font-size-description-mobile);
   font-weight: var(--font-weight-medium);
   padding: var(--spacing-sm) 0;
-  transition: color var(--animation-duration-fast) ease, transform var(--animation-duration-fast) ease;
+  transition:
+    color var(--animation-duration-fast) ease,
+    transform var(--animation-duration-fast) ease;
 }
 
 .tocLink:hover {
@@ -564,7 +566,7 @@
   }
 
   .contactLink::after {
-    content: " (" attr(href) ")";
+    content: ' (' attr(href) ')';
     font-size: 9pt;
   }
 }

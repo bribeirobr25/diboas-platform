@@ -15,10 +15,7 @@ import { performanceService } from '@/lib/performance/services/PerformanceServic
 import { WebVitalMetric } from '@/lib/performance/domain/PerformanceDomain';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
 import { Logger } from '@/lib/monitoring/Logger';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import {
   getRating,
   getConnectionType,
@@ -53,13 +50,11 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
     checkConsent();
 
     // Listen for consent changes via ApplicationEventBus
-    const unsubGiven = applicationEventBus.on(
-      ApplicationEventType.CONSENT_GIVEN,
-      () => checkConsent()
+    const unsubGiven = applicationEventBus.on(ApplicationEventType.CONSENT_GIVEN, () =>
+      checkConsent()
     );
-    const unsubWithdrawn = applicationEventBus.on(
-      ApplicationEventType.CONSENT_WITHDRAWN,
-      () => checkConsent()
+    const unsubWithdrawn = applicationEventBus.on(ApplicationEventType.CONSENT_WITHDRAWN, () =>
+      checkConsent()
     );
 
     return () => {
@@ -82,7 +77,13 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
     if (isTracking.current) return;
     isTracking.current = true;
 
-    const handleMetric = async (metric: { name: string; value: number; id: string; rating?: string; delta: number }) => {
+    const handleMetric = async (metric: {
+      name: string;
+      value: number;
+      id: string;
+      rating?: string;
+      delta: number;
+    }) => {
       try {
         const metricKey = `${metric.name}-${metric.id}`;
         if (trackedMetrics.current.has(metricKey)) {
@@ -95,7 +96,9 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
           value: metric.value,
           timestamp: new Date(),
           url: pathname,
-          rating: (metric.rating as 'good' | 'needs-improvement' | 'poor') || getRating(metric.name, metric.value),
+          rating:
+            (metric.rating as 'good' | 'needs-improvement' | 'poor') ||
+            getRating(metric.name, metric.value),
           delta: metric.delta,
           userAgent: navigator.userAgent,
           connectionType: getConnectionType(),
@@ -108,7 +111,7 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
             name: webVitalMetric.name,
             value: webVitalMetric.value,
             rating: webVitalMetric.rating,
-            url: pathname
+            url: pathname,
           });
         }
 
@@ -119,9 +122,12 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
           pathname,
           metric.delta
         );
-
       } catch (error) {
-        Logger.error(`Failed to track ${metric.name}`, { metric: metric.name }, error instanceof Error ? error : undefined);
+        Logger.error(
+          `Failed to track ${metric.name}`,
+          { metric: metric.name },
+          error instanceof Error ? error : undefined
+        );
       }
     };
 
@@ -139,9 +145,12 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
         if (webVitalsModule.onINP) {
           webVitalsModule.onINP(handleMetric);
         }
-
       } catch (error) {
-        Logger.error('Failed to load web-vitals library', {}, error instanceof Error ? error : undefined);
+        Logger.error(
+          'Failed to load web-vitals library',
+          {},
+          error instanceof Error ? error : undefined
+        );
         trackWebVitalsLoadError(error);
       }
     };

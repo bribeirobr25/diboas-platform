@@ -76,7 +76,7 @@ export const B2BGoalCards = memo(function B2BGoalCards({
   const t = (
     cardKey: B2BCardKey,
     suffix: string,
-    values?: Record<string, string | number | boolean | Date>,
+    values?: Record<string, string | number | boolean | Date>
   ) => intl.formatMessage({ id: `${prefix}.cards.${cardKey}.${suffix}` }, values);
 
   const hasValue = (cardKey: B2BCardKey, suffix: string): boolean => {
@@ -85,8 +85,7 @@ export const B2BGoalCards = memo(function B2BGoalCards({
     return typeof value === 'string' && value.length > 0;
   };
 
-  const tShared = (key: string) =>
-    intl.formatMessage({ id: `${prefix}.${key}` });
+  const tShared = (key: string) => intl.formatMessage({ id: `${prefix}.${key}` });
 
   return (
     <SectionContainer
@@ -112,7 +111,11 @@ export const B2BGoalCards = memo(function B2BGoalCards({
               if (enableAnalytics) {
                 analyticsService.track({
                   name: 'b2b_goal_card_toggle',
-                  parameters: { card: cardKey, expanded: expandedCard !== cardKey, locale: intl.locale },
+                  parameters: {
+                    card: cardKey,
+                    expanded: expandedCard !== cardKey,
+                    locale: intl.locale,
+                  },
                 });
               }
             }}
@@ -144,16 +147,15 @@ export const B2BGoalCards = memo(function B2BGoalCards({
                   EN's `3.5%` literal cites a different metric (Bankrate
                   high-yield) and is not migrated — see §9 carry-forward. */}
               {t(cardKey, 'source', {
-                rate: formatRate(marketDataService.getSync().rates.bankRates[locale].savings, locale),
+                rate: formatRate(
+                  marketDataService.getSync().rates.bankRates[locale].savings,
+                  locale
+                ),
               })}
             </p>
 
             <div className={styles.links}>
-              <button
-                type="button"
-                className={styles.link}
-                onClick={handleHowPossible}
-              >
+              <button type="button" className={styles.link} onClick={handleHowPossible}>
                 {t(cardKey, 'howPossible')}
               </button>
             </div>

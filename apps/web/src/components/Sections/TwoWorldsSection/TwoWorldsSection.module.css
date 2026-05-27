@@ -106,9 +106,10 @@
   text-decoration: none;
   cursor: pointer;
   align-self: center;
-  transition: transform var(--cta-transition-duration) var(--cta-transition-easing),
-              box-shadow var(--cta-transition-duration) var(--cta-transition-easing),
-              background-color var(--cta-transition-duration) var(--cta-transition-easing);
+  transition:
+    transform var(--cta-transition-duration) var(--cta-transition-easing),
+    box-shadow var(--cta-transition-duration) var(--cta-transition-easing),
+    background-color var(--cta-transition-duration) var(--cta-transition-easing);
 }
 
 @media (min-width: 768px) {

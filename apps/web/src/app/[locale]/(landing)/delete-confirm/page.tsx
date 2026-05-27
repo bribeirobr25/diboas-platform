@@ -56,18 +56,13 @@ export default function DeleteConfirmPage() {
         <>
           <h1 className={styles.title}>{t('confirmTitle')}</h1>
           <p className={styles.bodyText}>{t('confirmBody')}</p>
-          <button
-            onClick={handleConfirm}
-            className={styles.confirmButton}
-          >
+          <button onClick={handleConfirm} className={styles.confirmButton}>
             {t('confirmButton')}
           </button>
         </>
       ) : null}
 
-      {state === 'confirming' ? (
-        <p className={styles.statusText}>{t('confirming')}</p>
-      ) : null}
+      {state === 'confirming' ? <p className={styles.statusText}>{t('confirming')}</p> : null}
 
       {state === 'success' ? (
         <>

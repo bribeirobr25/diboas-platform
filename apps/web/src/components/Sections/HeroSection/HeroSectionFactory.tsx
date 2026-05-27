@@ -1,6 +1,6 @@
 /**
  * HeroSection Factory Component
- * 
+ *
  * Domain-Driven Design: Single entry point with variant composition
  * Service Agnostic Abstraction: Variant selection handled internally
  * Code Reusability: Shared analytics, error handling, and configuration logic
@@ -52,7 +52,7 @@ export interface HeroSectionProps {
 
 /**
  * HeroSection Factory Component
- * 
+ *
  * Monitoring & Observability: Built-in analytics and error tracking
  * Performance: Variant-based code splitting and lazy loading
  */
@@ -62,13 +62,13 @@ export function HeroSection({
   className = '',
   enableAnalytics = true,
   backgroundColor,
-  priority = true
+  priority = true,
 }: HeroSectionProps) {
   // Domain-Driven Design: Configuration resolution with validation
   const baseResolvedConfig = useMemo(() => {
     const baseConfig = HERO_CONFIGS[variant as HeroVariant] || HERO_CONFIGS.default;
     const finalConfig = customConfig
-      ? { ...baseConfig, ...customConfig } as HeroVariantConfig
+      ? ({ ...baseConfig, ...customConfig } as HeroVariantConfig)
       : baseConfig;
 
     // Security: Validate configuration in development
@@ -98,7 +98,7 @@ export function HeroSection({
         variant: resolvedConfig.variant,
         cta_text: resolvedConfig.content.ctaText,
         cta_href: resolvedConfig.content.ctaHref,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
 
       // Navigate based on target
@@ -127,7 +127,7 @@ export function HeroSection({
     enableAnalytics,
     priority,
     backgroundColor,
-    onCTAClick: handleCTAClick
+    onCTAClick: handleCTAClick,
   };
 
   // Rendering errors are caught by SectionErrorBoundary (parent layer).

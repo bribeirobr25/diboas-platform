@@ -63,9 +63,7 @@ export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexPro
     return shippedTools.some((key) => TOOL_DESCRIPTORS[key].section === section);
   });
 
-  const hasBusinessTools = shippedTools.some(
-    (key) => TOOL_DESCRIPTORS[key].section === 'business',
-  );
+  const hasBusinessTools = shippedTools.some((key) => TOOL_DESCRIPTORS[key].section === 'business');
 
   return (
     <main className={styles.page}>
@@ -79,9 +77,7 @@ export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexPro
         <nav className={styles.filterChips} aria-label="Filter tools by audience">
           <LocaleLink
             href="/tools"
-            className={
-              audienceFilter === null ? styles.filterChipActive : styles.filterChip
-            }
+            className={audienceFilter === null ? styles.filterChipActive : styles.filterChip}
             prefetch={false}
             aria-current={audienceFilter === null ? 'page' : undefined}
           >
@@ -89,9 +85,7 @@ export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexPro
           </LocaleLink>
           <LocaleLink
             href="/tools?for=business"
-            className={
-              audienceFilter === 'business' ? styles.filterChipActive : styles.filterChip
-            }
+            className={audienceFilter === 'business' ? styles.filterChipActive : styles.filterChip}
             prefetch={false}
             aria-current={audienceFilter === 'business' ? 'page' : undefined}
           >
@@ -103,7 +97,7 @@ export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexPro
       <div className={styles.sections}>
         {visibleSections.map((section) => {
           const sectionTools = shippedTools.filter(
-            (key) => TOOL_DESCRIPTORS[key].section === section,
+            (key) => TOOL_DESCRIPTORS[key].section === section
           );
           if (sectionTools.length === 0) return null;
           return (

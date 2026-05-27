@@ -138,7 +138,7 @@ describe('WaitlistApplicationService.requestDeletion', () => {
         correlationId: 'req-2',
         actorIp: '1.2.3.4',
         actorUserAgent: 'TestUA',
-      }),
+      })
     );
     expect(eventBus.applicationEventBus.emit).toHaveBeenCalledWith(
       'WAITLIST_DELETION_REQUESTED',
@@ -146,7 +146,7 @@ describe('WaitlistApplicationService.requestDeletion', () => {
         domain: 'waitlist',
         correlationId: 'req-2',
         reason: 'user_request',
-      }),
+      })
     );
 
     // Confirmation email queued with locale + token in URL
@@ -159,7 +159,7 @@ describe('WaitlistApplicationService.requestDeletion', () => {
           confirmationUrl: expect.stringContaining('token=test-token-abc'),
           locale: 'pt-BR',
         }),
-      }),
+      })
     );
   });
 
@@ -233,18 +233,18 @@ describe('WaitlistApplicationService.confirmDeletion', () => {
       expect.objectContaining({
         eventType: 'gdpr.deletion.completed',
         correlationId: 'req-3',
-      }),
+      })
     );
     expect(gdpr.logGdprDeletion).toHaveBeenCalledWith(
       expect.objectContaining({
         deletedBy: 'user_request',
         reason: 'gdpr_article_17',
         correlationId: 'req-3',
-      }),
+      })
     );
     expect(eventBus.applicationEventBus.emit).toHaveBeenCalledWith(
       'WAITLIST_DELETION_COMPLETED',
-      expect.objectContaining({ domain: 'waitlist', correlationId: 'req-3' }),
+      expect.objectContaining({ domain: 'waitlist', correlationId: 'req-3' })
     );
 
     expect(emailModule.sendEmailAsync).toHaveBeenCalledWith(
@@ -253,7 +253,7 @@ describe('WaitlistApplicationService.confirmDeletion', () => {
         recipient: 'user@example.com',
         locale: 'de',
         data: expect.objectContaining({ name: 'Hans' }),
-      }),
+      })
     );
   });
 

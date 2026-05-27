@@ -1,5 +1,10 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, loadMessages, flattenMessages, type SupportedLocale } from '@diboas/i18n/server';
+import {
+  isValidLocale,
+  loadMessages,
+  flattenMessages,
+  type SupportedLocale,
+} from '@diboas/i18n/server';
 import { LocaleProvider, I18nProvider, SetHtmlLang } from '@/components/Providers';
 import { MinimalNavigation } from '@/components/Layout/Navigation';
 import { PageErrorBoundary } from '@/components/ErrorBoundary';
@@ -17,12 +22,7 @@ interface LandingLayoutProps {
 }
 
 export async function generateStaticParams() {
-  return [
-    { locale: 'en' },
-    { locale: 'pt-BR' },
-    { locale: 'es' },
-    { locale: 'de' }
-  ];
+  return [{ locale: 'en' }, { locale: 'pt-BR' }, { locale: 'es' }, { locale: 'de' }];
 }
 
 export const dynamic = 'auto';
@@ -51,7 +51,9 @@ export default async function LandingLayout({ children, params }: LandingLayoutP
     ...flattenMessages(waitlistMessages, 'waitlist'),
   };
 
-  const skipText = (commonMessages as Record<string, Record<string, string>>).accessibility?.skipToMain ?? 'Skip to main content';
+  const skipText =
+    (commonMessages as Record<string, Record<string, string>>).accessibility?.skipToMain ??
+    'Skip to main content';
 
   return (
     <LocaleProvider initialLocale={locale}>

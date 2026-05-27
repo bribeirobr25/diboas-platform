@@ -28,7 +28,7 @@ export function getCurrencyCode(locale: SupportedLocale): string {
 export function formatCurrency(
   value: number,
   locale: SupportedLocale,
-  opts?: Intl.NumberFormatOptions,
+  opts?: Intl.NumberFormatOptions
 ): string {
   return new Intl.NumberFormat(LOCALE_TO_INTL[locale], {
     style: 'currency',

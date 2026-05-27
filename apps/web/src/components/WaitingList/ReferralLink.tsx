@@ -14,7 +14,16 @@ import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import { WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
-import { CopyIcon, CheckIcon, WhatsAppIcon, TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, SubstackIcon } from './ReferralIcons';
+import {
+  CopyIcon,
+  CheckIcon,
+  WhatsAppIcon,
+  TwitterIcon,
+  LinkedInIcon,
+  FacebookIcon,
+  InstagramIcon,
+  SubstackIcon,
+} from './ReferralIcons';
 import { type SharePlatform, shareToPlatform, copyToClipboard } from './shareUtils';
 import styles from './ReferralLink.module.css';
 
@@ -44,9 +53,12 @@ export function ReferralLink({
   const [copied, setCopied] = useState(false);
   const copyTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
-  useEffect(() => () => {
-    if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+    },
+    []
+  );
 
   const t = (key: string, values?: Record<string, string | number>) => {
     return intl.formatMessage({ id: `waitlist.${key}` }, values);

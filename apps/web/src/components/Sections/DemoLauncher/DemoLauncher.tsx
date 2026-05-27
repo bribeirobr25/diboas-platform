@@ -12,7 +12,7 @@ import { useImpressionTracking } from '@/hooks/useImpressionTracking';
 import styles from './DemoLauncher.module.css';
 
 const PreDream = dynamic(
-  () => import('@/components/PreDream').then(m => ({ default: m.PreDream })),
+  () => import('@/components/PreDream').then((m) => ({ default: m.PreDream })),
   { ssr: false, loading: () => null }
 );
 
@@ -96,11 +96,7 @@ export const DemoLauncher = memo(function DemoLauncher({
               <LocaleLink href={ROUTES.DEMO} className={styles.ctaPrimary}>
                 {translated.content.ctaPrimary}
               </LocaleLink>
-              <button
-                type="button"
-                className={styles.ctaSecondary}
-                onClick={handleSecondaryClick}
-              >
+              <button type="button" className={styles.ctaSecondary} onClick={handleSecondaryClick}>
                 {translated.content.ctaSecondary}
               </button>
             </div>
@@ -108,13 +104,12 @@ export const DemoLauncher = memo(function DemoLauncher({
         </SectionContainer>
       </div>
 
-      {showPreDream && portalContainer ? createPortal(
-        <PreDream
-          onClose={handlePreDreamClose}
-          onBackToHome={handlePreDreamClose}
-        />,
-        portalContainer
-      ) : null}
+      {showPreDream && portalContainer
+        ? createPortal(
+            <PreDream onClose={handlePreDreamClose} onBackToHome={handlePreDreamClose} />,
+            portalContainer
+          )
+        : null}
     </>
   );
 });

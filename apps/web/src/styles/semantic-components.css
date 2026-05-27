@@ -158,7 +158,6 @@ a:focus-visible {
   @apply items-stretch;
 }
 
-
 /* =================================================================== */
 /* DESKTOP NAVIGATION */
 /* =================================================================== */
@@ -629,11 +628,11 @@ a:focus-visible {
 @media (min-width: 768px) and (max-width: 1023px) {
   .mobile-banner-wrapper {
     flex-direction: row;
-    align-items: stretch;  /* Make both children have equal height */
+    align-items: stretch; /* Make both children have equal height */
     gap: var(--spacing-lg);
-    padding-bottom: var(--spacing-xl);  /* Add 20px breathing space at bottom */
-    height: auto;  /* Allow natural sizing instead of forcing 100% of parent */
-    min-height: auto;  /* Remove minimum height constraint */
+    padding-bottom: var(--spacing-xl); /* Add 20px breathing space at bottom */
+    height: auto; /* Allow natural sizing instead of forcing 100% of parent */
+    min-height: auto; /* Remove minimum height constraint */
   }
 }
 
@@ -648,11 +647,11 @@ a:focus-visible {
   .mobile-banner-image-wrapper {
     width: var(--percent-50);
     order: 2;
-    padding-top: var(--spacing-lg);    /* 16px top padding - aligns with text */
+    padding-top: var(--spacing-lg); /* 16px top padding - aligns with text */
     padding-bottom: var(--spacing-lg); /* 16px bottom padding */
     padding-right: var(--spacing-3xl); /* 32px from right border (closest to 30px) */
-    padding-left: 0;    /* Remove left padding for alignment */
-    align-self: flex-start;  /* Don't stretch, only take height of content (image) */
+    padding-left: 0; /* Remove left padding for alignment */
+    align-self: flex-start; /* Don't stretch, only take height of content (image) */
   }
 }
 
@@ -715,12 +714,12 @@ a:focus-visible {
   .mobile-banner-text-container {
     width: var(--percent-50);
     order: 1;
-    padding-top: var(--spacing-lg);   /* Match image wrapper top padding (16px) */
+    padding-top: var(--spacing-lg); /* Match image wrapper top padding (16px) */
     padding-bottom: var(--spacing-lg);
     padding-left: calc(var(--spacing-lg) + var(--spacing-xl)); /* 16px + 20px = 36px */
-    padding-right: var(--spacing-lg);  /* Add right padding for breathing space */
+    padding-right: var(--spacing-lg); /* Add right padding for breathing space */
     justify-content: flex-start; /* Align to top instead of center */
-    align-self: flex-start;  /* Don't stretch, only take height of content */
+    align-self: flex-start; /* Don't stretch, only take height of content */
   }
 }
 
@@ -750,7 +749,7 @@ a:focus-visible {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-lg);
-    padding-left: calc(var(--spacing-lg) + var(--spacing-xl));  /* 16px + 20px = 36px */
+    padding-left: calc(var(--spacing-lg) + var(--spacing-xl)); /* 16px + 20px = 36px */
     padding-right: calc(var(--spacing-lg) + var(--spacing-xl)); /* 16px + 20px = 36px */
     /* Remove space-y when using grid */
   }
@@ -763,7 +762,7 @@ a:focus-visible {
 /* Tablet: Adjust padding for submenu links */
 @media (min-width: 768px) and (max-width: 1023px) {
   .mobile-submenu-link {
-    padding-top: var(--spacing-sm);    /* 8px top padding */
+    padding-top: var(--spacing-sm); /* 8px top padding */
     padding-bottom: var(--spacing-sm); /* 8px bottom padding */
   }
 }
@@ -1385,7 +1384,9 @@ a:focus-visible {
 .minimal-navigation-bar.nav-transparent {
   background-color: transparent;
   box-shadow: none;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 @media (min-width: 768px) {
@@ -1422,8 +1423,12 @@ a:focus-visible {
 /* Scrolled/solid state — smooth transition back */
 .minimal-navigation-bar.nav-solid {
   background-color: rgb(249, 250, 251);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 @media (min-width: 768px) {

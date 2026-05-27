@@ -14,6 +14,7 @@ import {
   calculateCompoundProjection,
   calculateCompoundProjectionHedged,
   calculateCompoundProjectionPathDependent,
+  MAX_RETROSPECTIVE_YEARS,
   type CalculatorInput,
 } from '../index';
 
@@ -95,7 +96,9 @@ describe('calculateCompoundProjectionPathDependent — years cap', () => {
       years: 20,
       locale: 'pt-BR',
     };
-    expect(() => calculateCompoundProjectionPathDependent(input)).toThrow(/path-dependent retrospective requires years between/);
+    expect(() => calculateCompoundProjectionPathDependent(input)).toThrow(
+      /path-dependent retrospective requires years between/
+    );
   });
 
   it('accepts years = 1 (minimum valid)', () => {
@@ -106,5 +109,39 @@ describe('calculateCompoundProjectionPathDependent — years cap', () => {
       locale: 'pt-BR',
     };
     expect(() => calculateCompoundProjectionPathDependent(input)).not.toThrow();
+  });
+
+  it('exposes MAX_RETROSPECTIVE_YEARS = 16 as a single source of truth (C4)', () => {
+    // C4 close (2026-05-25): the constant was duplicated in CalculatorDefault.tsx
+    // and calculatorPathDependent.ts until consolidated to lib/.../constants.ts.
+    // This test pins the value so a future refresh of bucket coverage updates
+    // both call sites at once.
+    expect(MAX_RETROSPECTIVE_YEARS).toBe(16);
+  });
+
+  it('accepts years exactly equal to MAX_RETROSPECTIVE_YEARS (16)', () => {
+    const input: CalculatorInput = {
+      amount: 100,
+      cadence: 'monthly',
+      years: MAX_RETROSPECTIVE_YEARS,
+      locale: 'pt-BR',
+    };
+    expect(() => calculateCompoundProjectionPathDependent(input)).not.toThrow();
+  });
+
+  it('rejects years = MAX_RETROSPECTIVE_YEARS + 1 (C7 reproducer — engine boundary)', () => {
+    // The crash sequence pre-fix: toggle retrospective on, then drag years
+    // past the cap. The engine throws; v1.0 plan caught only the slider; v1.1
+    // catches at the state-setter level in CalculatorDefault.tsx. This test
+    // proves the engine boundary is hard — UI must clamp before reaching here.
+    const input: CalculatorInput = {
+      amount: 100,
+      cadence: 'monthly',
+      years: MAX_RETROSPECTIVE_YEARS + 1,
+      locale: 'pt-BR',
+    };
+    expect(() => calculateCompoundProjectionPathDependent(input)).toThrow(
+      /path-dependent retrospective requires years between/
+    );
   });
 });

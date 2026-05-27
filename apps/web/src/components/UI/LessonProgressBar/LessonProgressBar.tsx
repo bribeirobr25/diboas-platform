@@ -68,7 +68,7 @@ export function LessonProgressBar({
           }
         }
       },
-      { threshold: VIEW_THRESHOLD },
+      { threshold: VIEW_THRESHOLD }
     );
 
     elements.forEach((el) => observer.observe(el));
@@ -90,7 +90,9 @@ export function LessonProgressBar({
             data-current={i === activeIndex}
           >
             <a href={`#${id}`} className={styles.anchor} aria-label={beatLabels[i]}>
-              <span className={styles.dot} aria-hidden="true">{i + 1}</span>
+              <span className={styles.dot} aria-hidden="true">
+                {i + 1}
+              </span>
               <span className={styles.label}>{beatLabels[i]}</span>
             </a>
           </li>

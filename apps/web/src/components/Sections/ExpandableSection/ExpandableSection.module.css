@@ -54,7 +54,9 @@
   overflow: hidden;
   max-height: 0;
   opacity: 0;
-  transition: max-height var(--animation-duration-slow) ease, opacity var(--animation-duration-normal) ease;
+  transition:
+    max-height var(--animation-duration-slow) ease,
+    opacity var(--animation-duration-normal) ease;
 }
 
 .contentOpen {

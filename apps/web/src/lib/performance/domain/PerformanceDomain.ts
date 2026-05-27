@@ -1,6 +1,6 @@
 /**
  * Performance Domain Layer - Domain-Driven Design
- * 
+ *
  * Domain Services: Performance monitoring business logic
  * Service Abstraction: Clean interfaces for performance tracking
  * Monitoring & Observability: Performance metrics and alerting
@@ -100,13 +100,19 @@ export class PerformanceDomainError extends Error {
 }
 
 export class PerformanceTrackingError extends PerformanceDomainError {
-  constructor(message: string, public readonly metric: string) {
+  constructor(
+    message: string,
+    public readonly metric: string
+  ) {
     super(message, 'PERFORMANCE_TRACKING_FAILED', true);
   }
 }
 
 export class PerformanceBudgetError extends PerformanceDomainError {
-  constructor(message: string, public readonly violations: PerformanceBudgetViolation[]) {
+  constructor(
+    message: string,
+    public readonly violations: PerformanceBudgetViolation[]
+  ) {
     super(message, 'PERFORMANCE_BUDGET_VIOLATED', false);
   }
 }

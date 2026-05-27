@@ -8,31 +8,28 @@ import { cn } from '../utils/cn';
 // POST_HISTORICAL_CALIBRATION_PENDING_PLAN_2026-05-17 §2.4 + M1 audit lock.
 // Variants: outline (default — neutral form-control convention) + ghost.
 // Sizes: sm, default, lg (skip xs, xl, icon — not needed for form controls).
-const selectVariants = cva(
-  'select-base',
-  {
-    variants: {
-      variant: {
-        outline: 'select-outline',
-        ghost: 'select-ghost',
-      },
-      size: {
-        sm: 'select-sm',
-        default: 'select-default',
-        lg: 'select-lg',
-      },
-      invalid: {
-        true: 'select-invalid',
-        false: '',
-      },
+const selectVariants = cva('select-base', {
+  variants: {
+    variant: {
+      outline: 'select-outline',
+      ghost: 'select-ghost',
     },
-    defaultVariants: {
-      variant: 'outline',
-      size: 'default',
-      invalid: false,
+    size: {
+      sm: 'select-sm',
+      default: 'select-default',
+      lg: 'select-lg',
     },
-  }
-);
+    invalid: {
+      true: 'select-invalid',
+      false: '',
+    },
+  },
+  defaultVariants: {
+    variant: 'outline',
+    size: 'default',
+    invalid: false,
+  },
+});
 
 // `size` is omitted from SelectHTMLAttributes because HTMLSelectElement.size
 // (visible-row-count for multi-select) collides with our cva variant `size`
@@ -41,7 +38,8 @@ const selectVariants = cva(
 // raw DOM ref. Same pattern Button doesn't need because ButtonHTMLAttributes
 // has no `size` field.
 export interface SelectProps
-  extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'size'>,
+  extends
+    Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'size'>,
     VariantProps<typeof selectVariants> {
   'aria-label'?: string;
   'aria-describedby'?: string;
@@ -81,7 +79,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       'aria-invalid': ariaInvalidOverride,
       ...props
     },
-    ref,
+    ref
   ) => {
     // Analytics: tracking fires AFTER consumer's onChange so the consumer owns
     // the canonical event flow. Failure to track must not break selection.
@@ -123,7 +121,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         {children}
       </select>
     );
-  },
+  }
 );
 
 Select.displayName = 'Select';

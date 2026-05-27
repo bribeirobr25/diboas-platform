@@ -18,7 +18,11 @@ import {
 } from '@/lib/events/ApplicationEventBus';
 
 // Lazy-loaded PostHog types
-type PostHogInstance = { opt_out_capturing: () => void; debug: (enabled: boolean) => void; init: (...args: unknown[]) => void };
+type PostHogInstance = {
+  opt_out_capturing: () => void;
+  debug: (enabled: boolean) => void;
+  init: (...args: unknown[]) => void;
+};
 
 interface PostHogProviderProps {
   children: ReactNode;
@@ -27,14 +31,22 @@ interface PostHogProviderProps {
 export function PostHogProvider({ children }: PostHogProviderProps) {
   const isInitializedRef = useRef(false);
   const posthogRef = useRef<PostHogInstance | null>(null);
-  const [PHWrapper, setPHWrapper] = useState<{ Provider: React.ComponentType<{ client: PostHogInstance; children: ReactNode }> } | null>(null);
+  const [PHWrapper, setPHWrapper] = useState<{
+    Provider: React.ComponentType<{ client: PostHogInstance; children: ReactNode }>;
+  } | null>(null);
 
   useEffect(() => {
     const posthogKey = POSTHOG_CONFIG.apiKey;
     const posthogHost = POSTHOG_CONFIG.host;
 
     const initPostHog = async () => {
-      if (!posthogKey || typeof window === 'undefined' || !hasAnalyticsConsent() || isInitializedRef.current) return;
+      if (
+        !posthogKey ||
+        typeof window === 'undefined' ||
+        !hasAnalyticsConsent() ||
+        isInitializedRef.current
+      )
+        return;
 
       // Set flag BEFORE async to prevent concurrent initialization race
       isInitializedRef.current = true;
@@ -60,7 +72,12 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
         });
 
         posthogRef.current = posthog as unknown as PostHogInstance;
-        setPHWrapper({ Provider: reactModule.PostHogProvider as React.ComponentType<{ client: PostHogInstance; children: ReactNode }> });
+        setPHWrapper({
+          Provider: reactModule.PostHogProvider as React.ComponentType<{
+            client: PostHogInstance;
+            children: ReactNode;
+          }>,
+        });
       } catch {
         // Reset flag on failure so retry is possible
         isInitializedRef.current = false;

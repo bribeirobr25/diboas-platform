@@ -14,23 +14,13 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
-import {
-  requireAuth,
-  hmacHash,
-} from '@/lib/security';
+import { requireAuth, hmacHash } from '@/lib/security';
 import { sanitizeEmail } from '@/lib/utils/sanitize';
 import { generateReferralUrl, isValidEmail } from '@/lib/waitingList/helpers';
 import { applyRateLimit, applyCsrf, handleRouteError } from '@/lib/api/routeHelpers';
 import { Logger } from '@/lib/monitoring/Logger';
-import {
-  getByEmail,
-  updateEntry,
-  processReferral,
-} from '@/lib/waitingList/store';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { getByEmail, updateEntry, processReferral } from '@/lib/waitingList/store';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 
 interface PositionResponse {
   success: boolean;
@@ -65,10 +55,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
     const sanitizedEmail = sanitizeEmail(email);
 
     if (!isValidEmail(sanitizedEmail)) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid email format' },
-        { status: 400 }
-      );
+      return NextResponse.json({ success: false, error: 'Invalid email format' }, { status: 400 });
     }
 
     const userData = await getByEmail(sanitizedEmail);
@@ -81,7 +68,12 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
       // HMAC-derived values are stable per email, indistinguishable from real users
       const hash = hmacHash(sanitizedEmail);
       // Fallback to a simple hash if HMAC key is unavailable
-      const hashHex = hash || sanitizedEmail.split('').reduce((acc, c) => acc + c.charCodeAt(0).toString(16), '').slice(0, 16);
+      const hashHex =
+        hash ||
+        sanitizedEmail
+          .split('')
+          .reduce((acc, c) => acc + c.charCodeAt(0).toString(16), '')
+          .slice(0, 16);
       const hashInt = parseInt(hashHex.slice(0, 8), 16);
       // Range 1-10000 overlaps with real positions to prevent range-based enumeration
       const dummyPosition = (hashInt % 10000) + 1;
@@ -114,10 +106,14 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
       referralUrl: generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, userData.referralCode),
       referralCount: userData.referralCount,
     });
-
   } catch (error) {
     Logger.error('Position lookup error', {}, error instanceof Error ? error : undefined);
-    return handleRouteError(error, 'waitlist', 'position_lookup', 'Position lookup error') as NextResponse<PositionResponse>;
+    return handleRouteError(
+      error,
+      'waitlist',
+      'position_lookup',
+      'Position lookup error'
+    ) as NextResponse<PositionResponse>;
   }
 }
 
@@ -145,10 +141,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<PositionR
     const { email, newPosition, incrementReferral } = body;
 
     if (!email) {
-      return NextResponse.json(
-        { success: false, error: 'Email is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ success: false, error: 'Email is required' }, { status: 400 });
     }
 
     const sanitizedEmail = email.toLowerCase().trim();
@@ -156,20 +149,17 @@ export async function POST(request: NextRequest): Promise<NextResponse<PositionR
 
     // Don't reveal whether email exists for internal endpoints either
     if (!userData) {
-      return NextResponse.json(
-        { success: false, error: 'Operation failed' },
-        { status: 400 }
-      );
+      return NextResponse.json({ success: false, error: 'Operation failed' }, { status: 400 });
     }
 
     // Update position if provided
     if (typeof newPosition === 'number' && newPosition > 0) {
-      userData = await updateEntry(sanitizedEmail, { position: newPosition }) ?? userData;
+      userData = (await updateEntry(sanitizedEmail, { position: newPosition })) ?? userData;
     }
 
     // Increment referral count if requested
     if (incrementReferral) {
-      userData = await processReferral(sanitizedEmail) ?? userData;
+      userData = (await processReferral(sanitizedEmail)) ?? userData;
     }
 
     return NextResponse.json({
@@ -179,9 +169,13 @@ export async function POST(request: NextRequest): Promise<NextResponse<PositionR
       referralUrl: generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, userData.referralCode),
       referralCount: userData.referralCount,
     });
-
   } catch (error) {
     Logger.error('Position update error', {}, error instanceof Error ? error : undefined);
-    return handleRouteError(error, 'waitlist', 'position_update', 'Position update error') as NextResponse<PositionResponse>;
+    return handleRouteError(
+      error,
+      'waitlist',
+      'position_update',
+      'Position update error'
+    ) as NextResponse<PositionResponse>;
   }
 }

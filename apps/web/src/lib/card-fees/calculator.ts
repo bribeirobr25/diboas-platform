@@ -31,7 +31,7 @@ export interface CardFeeProjection {
 export function projectCardFeeSavings(
   monthlyVolume: number,
   processorFeeRate: number,
-  avgTransactionAmount?: number,
+  avgTransactionAmount?: number
 ): CardFeeProjection {
   if (monthlyVolume < 0) throw new Error('monthlyVolume must be >= 0');
   if (processorFeeRate < 0) throw new Error('processorFeeRate must be >= 0');

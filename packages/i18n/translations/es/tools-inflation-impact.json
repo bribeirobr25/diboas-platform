@@ -20,6 +20,7 @@
     "amountHelp2010": "Lo que tenías en efectivo entonces",
     "yearsLabel": "Años a partir de ahora",
     "yearsHelp": "Inflación: ~{rate}% / año",
+    "yearsTooltip": "Para horizontes de hasta 2 años usamos la inflación actual interanual; más allá usamos la media de los últimos 5 años para suavizar picos puntuales.",
     "countryLabel": "País",
     "countryHelp": "Afecta la tasa de inflación utilizada",
     "countryOptions": {

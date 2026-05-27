@@ -32,10 +32,14 @@
 }
 
 @media (min-width: 768px) {
-  .title { font-size: var(--font-size-title-tablet); }
+  .title {
+    font-size: var(--font-size-title-tablet);
+  }
 }
 @media (min-width: 1024px) {
-  .title { font-size: var(--font-size-title-desktop); }
+  .title {
+    font-size: var(--font-size-title-desktop);
+  }
 }
 
 .readTime {

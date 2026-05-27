@@ -42,7 +42,9 @@
   border-radius: var(--radius-lg);
   background: var(--section-bg-white);
   color: var(--color-text-primary);
-  transition: border-color var(--animation-duration-fast) ease, box-shadow var(--animation-duration-fast) ease;
+  transition:
+    border-color var(--animation-duration-fast) ease,
+    box-shadow var(--animation-duration-fast) ease;
 }
 
 @media (min-width: 480px) {
@@ -85,7 +87,9 @@
   border: none;
   border-radius: var(--cta-border-radius);
   cursor: pointer;
-  transition: transform var(--animation-duration-fast) ease, box-shadow var(--animation-duration-fast) ease;
+  transition:
+    transform var(--animation-duration-fast) ease,
+    box-shadow var(--animation-duration-fast) ease;
   overflow-wrap: break-word;
   width: var(--percent-80);
   min-width: 200px;

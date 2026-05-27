@@ -20,6 +20,7 @@
     "amountHelp2010": "Wie viel du damals in Bargeld hieltest",
     "yearsLabel": "Jahre ab heute",
     "yearsHelp": "Inflation: ~{rate}% / Jahr",
+    "yearsTooltip": "Für Zeiträume bis 2 Jahre nutzen wir die aktuelle Jahresinflation; ab 3 Jahren den 5-Jahres-Durchschnitt, um kurzfristige Spitzen zu glätten.",
     "countryLabel": "Land",
     "countryHelp": "Bestimmt die genutzte Inflationsrate",
     "countryOptions": {

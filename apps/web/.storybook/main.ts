@@ -11,17 +11,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const config: StorybookConfig = {
   stories: [
     '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '../src/components/Sections/**/*.stories.@(js|jsx|mjs|ts|tsx)'
+    '../src/components/Sections/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   // Phase 3A cleanup (2026-05-18): only installed addons referenced. The 4
   // removed entries (addon-links, addon-essentials, addon-interactions,
   // addon-viewport) are Storybook 10 auto-included or were unused — removing
   // them clears the "Could not resolve addon" warnings without functional loss.
-  addons: [
-    '@storybook/addon-onboarding',
-    '@storybook/addon-a11y',
-    '@storybook/addon-docs',
-  ],
+  addons: ['@storybook/addon-onboarding', '@storybook/addon-a11y', '@storybook/addon-docs'],
   framework: {
     name: '@storybook/nextjs',
     options: {},

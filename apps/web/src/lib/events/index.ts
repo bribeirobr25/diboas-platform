@@ -18,7 +18,7 @@ export {
   type CTAEventPayload,
   type ErrorEventPayload,
   type EventPayload,
-  type EventListener
+  type EventListener,
 } from './SectionEventBus';
 
 // Event Subscribers
@@ -36,5 +36,5 @@ export {
   type ConsentEventPayload,
   type ApplicationErrorEventPayload,
   type AppEventPayload,
-  type AppEventListener
+  type AppEventListener,
 } from './ApplicationEventBus';

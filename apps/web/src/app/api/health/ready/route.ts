@@ -9,7 +9,13 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { checkRateLimit, RateLimitPresets, getClientIP, createRateLimitHeaders, pingRedis } from '@/lib/security/rateLimiter';
+import {
+  checkRateLimit,
+  RateLimitPresets,
+  getClientIP,
+  createRateLimitHeaders,
+  pingRedis,
+} from '@/lib/security/rateLimiter';
 import { pingDatabase } from '@/lib/database';
 
 interface ReadyStatus {
@@ -27,16 +33,13 @@ export async function GET(request: NextRequest): Promise<NextResponse<ReadyStatu
     const rateLimitResult = await checkRateLimit(`health-ready:${ip}`, limit, windowMs);
 
     if (!rateLimitResult.success) {
-      return NextResponse.json(
-        { error: 'Too many requests' } as unknown as ReadyStatus,
-        { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
-      );
+      return NextResponse.json({ error: 'Too many requests' } as unknown as ReadyStatus, {
+        status: 429,
+        headers: createRateLimitHeaders(rateLimitResult),
+      });
     }
 
-    const [redisHealthy, dbHealthy] = await Promise.all([
-      pingRedis(),
-      pingDatabase(),
-    ]);
+    const [redisHealthy, dbHealthy] = await Promise.all([pingRedis(), pingDatabase()]);
 
     const ready = redisHealthy && dbHealthy;
     const status: ReadyStatus = {

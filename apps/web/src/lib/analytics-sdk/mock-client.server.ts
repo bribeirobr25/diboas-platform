@@ -91,7 +91,7 @@ function flattenRegime(raw: RawRegimeFixture, locale: SupportedLocale): RegimeDa
     ...raw,
     summary: pickLocale(raw.summary, locale),
     signal_groups: raw.signal_groups.map((g) =>
-      localizeSignalGroup(g as unknown as RawSignalGroup, locale),
+      localizeSignalGroup(g as unknown as RawSignalGroup, locale)
     ),
   };
 }
@@ -104,7 +104,9 @@ export async function fetchHistoricalRegimes(): Promise<HistoricalRegimes> {
   return historicalJson as unknown as HistoricalRegimes;
 }
 
-export async function fetchSignals(locale: SupportedLocale): Promise<{ signal_groups: SignalGroup[] }> {
+export async function fetchSignals(
+  locale: SupportedLocale
+): Promise<{ signal_groups: SignalGroup[] }> {
   const raw = signalsJson as unknown as { groups: RawSignalGroup[] };
   return { signal_groups: raw.groups.map((g) => localizeSignalGroup(g, locale)) };
 }
@@ -126,7 +128,7 @@ export async function fetchProductDisclaimer(): Promise<ProductDisclaimerData> {
  * fetcher failures so a single source going dark does not blank the page.
  */
 export async function fetchInitialAnalyticsData(
-  locale: SupportedLocale,
+  locale: SupportedLocale
 ): Promise<AnalyticsInitialData> {
   const [regime, historical, signals, dataStatus, methodology, productDisclaimer] =
     await Promise.all([

@@ -56,7 +56,7 @@ export class ApplicationEventBus extends EventBus<ApplicationEventType, AppEvent
             context: { eventType },
           } as unknown as ApplicationErrorEventPayload);
         }
-      },
+      }
     );
   }
 }

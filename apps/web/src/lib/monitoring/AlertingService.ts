@@ -17,15 +17,11 @@ import {
   AlertCategory,
   type Alert,
   type AlertThresholds,
-  type AlertStats
+  type AlertStats,
 } from './alertTypes';
 
 // Import configuration
-import {
-  DEFAULT_ALERT_THRESHOLDS,
-  ALERT_CLEANUP_INTERVAL,
-  MAX_ALERT_AGE
-} from './alertConfig';
+import { DEFAULT_ALERT_THRESHOLDS, ALERT_CLEANUP_INTERVAL, MAX_ALERT_AGE } from './alertConfig';
 
 // Import utilities
 import {
@@ -33,7 +29,7 @@ import {
   generateFingerprint,
   generateActionUrl,
   getLogLevel,
-  getSuppressionDuration
+  getSuppressionDuration,
 } from './alertUtils';
 
 // Import delivery handlers
@@ -73,7 +69,7 @@ export class MonitoringAlertService {
     this.isInitialized = true;
     Logger.info('Alerting service initialized', {
       enabled: MONITORING_CONFIG.alerts.enabled,
-      channels: Object.keys(MONITORING_CONFIG.alerts.channels)
+      channels: Object.keys(MONITORING_CONFIG.alerts.channels),
     });
   }
 
@@ -85,7 +81,7 @@ export class MonitoringAlertService {
     const fullAlert: Alert = {
       ...alert,
       id: alertId,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
 
     // Check if alert should be suppressed
@@ -105,7 +101,7 @@ export class MonitoringAlertService {
       title: alert.title,
       severity: alert.severity,
       category: alert.category,
-      source: alert.source
+      source: alert.source,
     };
 
     const logLevel = getLogLevel(alert.severity);
@@ -132,7 +128,6 @@ export class MonitoringAlertService {
       setTimeout(() => {
         this.suppressedAlerts.delete(fingerprint);
       }, getSuppressionDuration(alert.severity));
-
     } catch (error) {
       Logger.error('Failed to deliver alert', { alertId, error });
     }
@@ -160,10 +155,10 @@ export class MonitoringAlertService {
         metric,
         value,
         threshold,
-        ...context
+        ...context,
       },
       fingerprint: `performance-${metric}`,
-      actionUrl: generateActionUrl('performance', { metric })
+      actionUrl: generateActionUrl('performance', { metric }),
     });
   }
 
@@ -185,10 +180,10 @@ export class MonitoringAlertService {
         errorName: error.name,
         errorMessage: error.message,
         stack: error.stack,
-        ...context
+        ...context,
       },
       fingerprint: `error-${error.name}-${error.message}`,
-      actionUrl: generateActionUrl('error', { errorName: error.name })
+      actionUrl: generateActionUrl('error', { errorName: error.name }),
     });
   }
 
@@ -215,10 +210,10 @@ export class MonitoringAlertService {
         currentValue,
         expectedValue,
         changePercent,
-        ...context
+        ...context,
       },
       fingerprint: `business-${metric}`,
-      actionUrl: generateActionUrl('business', { metric })
+      actionUrl: generateActionUrl('business', { metric }),
     });
   }
 
@@ -249,9 +244,12 @@ export class MonitoringAlertService {
     const { renderTime, memoryUsage, pageLoadTime, errorRate } = metrics;
     const perf = this.thresholds.performance;
 
-    if (renderTime !== undefined) this.checkMetricThreshold('Render Time', renderTime, perf.renderTimeMs);
-    if (memoryUsage !== undefined) this.checkMetricThreshold('Memory Usage', memoryUsage / (1024 * 1024), perf.memoryUsageMB);
-    if (pageLoadTime !== undefined) this.checkMetricThreshold('Page Load Time', pageLoadTime, perf.pageLoadTimeMs);
+    if (renderTime !== undefined)
+      this.checkMetricThreshold('Render Time', renderTime, perf.renderTimeMs);
+    if (memoryUsage !== undefined)
+      this.checkMetricThreshold('Memory Usage', memoryUsage / (1024 * 1024), perf.memoryUsageMB);
+    if (pageLoadTime !== undefined)
+      this.checkMetricThreshold('Page Load Time', pageLoadTime, perf.pageLoadTimeMs);
     if (errorRate !== undefined) this.checkMetricThreshold('Error Rate', errorRate, perf.errorRate);
   }
 
@@ -279,7 +277,7 @@ export class MonitoringAlertService {
    * Get active alerts
    */
   getActiveAlerts(): Alert[] {
-    return Array.from(this.alerts.values()).filter(alert => !alert.resolved);
+    return Array.from(this.alerts.values()).filter((alert) => !alert.resolved);
   }
 
   /**
@@ -290,16 +288,22 @@ export class MonitoringAlertService {
 
     return {
       total: alerts.length,
-      active: alerts.filter(a => !a.resolved).length,
-      resolved: alerts.filter(a => a.resolved).length,
-      bySeverity: alerts.reduce((acc, alert) => {
-        acc[alert.severity] = (acc[alert.severity] || 0) + 1;
-        return acc;
-      }, {} as Record<AlertSeverity, number>),
-      byCategory: alerts.reduce((acc, alert) => {
-        acc[alert.category] = (acc[alert.category] || 0) + 1;
-        return acc;
-      }, {} as Record<AlertCategory, number>)
+      active: alerts.filter((a) => !a.resolved).length,
+      resolved: alerts.filter((a) => a.resolved).length,
+      bySeverity: alerts.reduce(
+        (acc, alert) => {
+          acc[alert.severity] = (acc[alert.severity] || 0) + 1;
+          return acc;
+        },
+        {} as Record<AlertSeverity, number>
+      ),
+      byCategory: alerts.reduce(
+        (acc, alert) => {
+          acc[alert.category] = (acc[alert.category] || 0) + 1;
+          return acc;
+        },
+        {} as Record<AlertCategory, number>
+      ),
     };
   }
 
@@ -337,6 +341,7 @@ export const alertingService = new MonitoringAlertService();
 // Development utilities
 if (process.env.NODE_ENV === 'development') {
   if (typeof window !== 'undefined') {
-    (window as Window & { alertingService?: MonitoringAlertService }).alertingService = alertingService;
+    (window as Window & { alertingService?: MonitoringAlertService }).alertingService =
+      alertingService;
   }
 }

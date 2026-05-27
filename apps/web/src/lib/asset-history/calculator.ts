@@ -25,28 +25,31 @@
 
 import {
   marketDataService,
-  type AssetAnchor,
   type AssetCode,
   type AnchorConfidence,
-  type AnchorYear,
   type MonthlyAssetSeries,
 } from '@/lib/market-data';
 
-const END_YEAR: AnchorYear = 2026;
-const END_MONTH = 5;
-
 export type AssetHistoryStartYear =
-  | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017
-  | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | 2026;
+  | 2010
+  | 2011
+  | 2012
+  | 2013
+  | 2014
+  | 2015
+  | 2016
+  | 2017
+  | 2018
+  | 2019
+  | 2020
+  | 2021
+  | 2022
+  | 2023
+  | 2024
+  | 2025
+  | 2026;
 
 export type ReturnsBasis = 'total_return' | 'price_only';
-
-export interface AssetHistoryArgs {
-  asset: AssetCode;
-  startYear: 2010 | 2016;
-  mode: 'lumpSum' | 'monthlyDca';
-  amount: number;
-}
 
 /** Phase E v2 — expanded yearly-picker args. */
 export interface AssetHistoryDcaReplayArgs {
@@ -80,20 +83,6 @@ const ASSET_NATIVE_CURRENCY: Record<AssetCode, 'USD' | 'BRL' | 'EUR'> = {
   DAX: 'EUR',
 };
 
-export interface AssetHistoryResult {
-  startAnchor: AssetAnchor;
-  endAnchor: AssetAnchor;
-  totalContributed: number;
-  confidence: AnchorConfidence;
-  /** Terminal value when confidence allows a single number; null when LOW. */
-  terminalValue: number | null;
-  /** Only populated for LOW-confidence outcomes (BTC DCA 2010). */
-  rangeLow?: number;
-  rangeHigh?: number;
-  /** Months spanned by the DCA window (ignored for lump sum). */
-  months: number;
-}
-
 export interface AssetHistoryRangeResult {
   totalContributed: number;
   confidence: AnchorConfidence;
@@ -122,11 +111,13 @@ export class AssetHistoryDataError extends Error {
  * `monthlySeries.assets[asset]`. Outputs a range from monthly low/high.
  */
 export function calculateAssetHistoryDcaReplay(
-  args: AssetHistoryDcaReplayArgs,
+  args: AssetHistoryDcaReplayArgs
 ): AssetHistoryRangeResult {
   const monthlySeries = marketDataService.getMonthlySeries();
   if (!monthlySeries) {
-    throw new AssetHistoryDataError('monthlySeries not loaded — call marketDataService.get() first');
+    throw new AssetHistoryDataError(
+      'monthlySeries not loaded — call marketDataService.get() first'
+    );
   }
   const series = monthlySeries.assets?.[args.asset];
   if (!series || !series.months.length) {
@@ -139,7 +130,7 @@ export function calculateAssetHistoryDcaReplay(
   // July 2010). Now we use whichever month of `startYear` first appears in the
   // series, preserving the "throw if year predates dataset" behavior.
   const startIdx = series.months.findIndex(
-    (m) => parseInt(m.ym.slice(0, 4), 10) === args.startYear,
+    (m) => parseInt(m.ym.slice(0, 4), 10) === args.startYear
   );
   if (startIdx === -1) {
     throw new AssetHistoryDataError(`no data for ${args.asset} in ${args.startYear}`);
@@ -156,9 +147,10 @@ export function calculateAssetHistoryDcaReplay(
   // (NOT the forward-projection smoothed model prohibited by CLAUDE.md).
   const displayCcy = args.displayCurrency ?? 'USD';
   const assetCcy = ASSET_NATIVE_CURRENCY[args.asset];
-  const fxByYm = displayCcy === assetCcy
-    ? null
-    : buildFxLookup(monthlySeries.fx, displayCcy, assetCcy, args.asset);
+  const fxByYm =
+    displayCcy === assetCcy
+      ? null
+      : buildFxLookup(monthlySeries.fx, displayCcy, assetCcy, args.asset);
 
   // F2 fix (2026-05-23): basis-consistent OHLC.
   //
@@ -208,17 +200,18 @@ export function calculateAssetHistoryDcaReplay(
 
   // Convert terminal asset-native value back to display currency at end-month FX.
   // For same-currency cases, fxBack = 1 (no-op).
-  const fxBackByYm = displayCcy === assetCcy
-    ? null
-    : buildFxLookup(monthlySeries.fx, assetCcy, displayCcy, args.asset);
+  const fxBackByYm =
+    displayCcy === assetCcy
+      ? null
+      : buildFxLookup(monthlySeries.fx, assetCcy, displayCcy, args.asset);
   const fxBack = fxBackByYm ? fxBackByYm(finalBar.ym) : 1;
 
   return {
     totalContributed: args.amount * window.length,
     confidence: confidenceForDcaReplay(args.asset, args.startYear),
     terminalValue: unitsByClose * finalPrice * fxBack,
-    rangeLow: unitsByHigh * finalPrice * fxBack,    // worst-entry timing yields fewest units
-    rangeHigh: unitsByLow * finalPrice * fxBack,    // best-entry timing yields most units
+    rangeLow: unitsByHigh * finalPrice * fxBack, // worst-entry timing yields fewest units
+    rangeHigh: unitsByLow * finalPrice * fxBack, // best-entry timing yields most units
     months: window.length,
     startYm: window[0].ym,
     endYm: finalBar.ym,
@@ -241,7 +234,7 @@ function buildFxLookup(
   fx: NonNullable<ReturnType<typeof marketDataService.getMonthlySeries>>['fx'],
   fromCcy: 'USD' | 'BRL' | 'EUR',
   toCcy: 'USD' | 'BRL' | 'EUR',
-  assetForError: AssetCode,
+  assetForError: AssetCode
 ): (ym: string) => number {
   if (fromCcy === toCcy) return () => 1;
   // Find the series whose `closeLocalPerUsd` we need; direction handled below.
@@ -255,7 +248,7 @@ function buildFxLookup(
   const series = fx?.[seriesCcy];
   if (!series || !series.months.length) {
     throw new AssetHistoryDataError(
-      `monthlyFx[${seriesCcy}] required for ${assetForError} cross-currency calc`,
+      `monthlyFx[${seriesCcy}] required for ${assetForError} cross-currency calc`
     );
   }
   // Build a sorted-by-ym list once so forward-fill is O(log n) per lookup.
@@ -290,7 +283,7 @@ function buildFxLookup(
     const v = lookupWithForwardFill(ym);
     if (v === undefined || v <= 0) {
       throw new AssetHistoryDataError(
-        `monthlyFx[${seriesCcy}] has no usable rate for ${ym} or earlier (asset ${assetForError})`,
+        `monthlyFx[${seriesCcy}] has no usable rate for ${ym} or earlier (asset ${assetForError})`
       );
     }
     return direction === 'mul' ? v : 1 / v;
@@ -301,22 +294,44 @@ function buildFxLookup(
  * PT2-aware lump-sum: $amount at start-month close, valued at final-month close.
  * Returns single terminalValue (no range; lump-sum has no entry-timing uncertainty).
  */
-export function calculateAssetHistoryLumpSum(
-  args: AssetHistoryDcaReplayArgs,
-): Omit<AssetHistoryRangeResult, 'rangeLow' | 'rangeHigh'> & { rangeLow?: undefined; rangeHigh?: undefined } {
-  const replay = calculateAssetHistoryDcaReplay({ ...args, amount: 1 });
+export function calculateAssetHistoryLumpSum(args: AssetHistoryDcaReplayArgs): Omit<
+  AssetHistoryRangeResult,
+  'rangeLow' | 'rangeHigh'
+> & {
+  rangeLow?: undefined;
+  rangeHigh?: undefined;
+} {
+  // C20 close (2026-05-25): borrow confidence directly from the 3-line pure
+  // helper instead of running a throwaway full DCA replay just to read one
+  // field. Previous behavior: called `calculateAssetHistoryDcaReplay({...args,
+  // amount: 1})` and discarded everything except `replay.confidence`. Now: skip
+  // the replay; call the helper directly. Same output, much less work.
   const monthlySeries = marketDataService.getMonthlySeries()!;
-  const series = monthlySeries.assets[args.asset]!;
+  const series = monthlySeries.assets[args.asset];
+  if (!series) {
+    throw new AssetHistoryDataError(`Asset history data unavailable for ${args.asset}`);
+  }
   // A2 fix (2026-05-23): mirror of calculateAssetHistoryDcaReplay's data-driven
   // first-month lookup.
   const startIdx = series.months.findIndex(
-    (m) => parseInt(m.ym.slice(0, 4), 10) === args.startYear,
+    (m) => parseInt(m.ym.slice(0, 4), 10) === args.startYear
   );
+  if (startIdx === -1) {
+    throw new AssetHistoryDataError(
+      `Asset history data unavailable for ${args.asset} ${args.startYear}`
+    );
+  }
   const basis: ReturnsBasis = args.returnsBasis ?? 'total_return';
   const startBar = series.months[startIdx];
   const finalBar = series.months[series.months.length - 1];
-  const startPrice = basis === 'price_only' && startBar.closePriceOnly != null ? startBar.closePriceOnly : startBar.close;
-  const finalPrice = basis === 'price_only' && finalBar.closePriceOnly != null ? finalBar.closePriceOnly : finalBar.close;
+  const startPrice =
+    basis === 'price_only' && startBar.closePriceOnly != null
+      ? startBar.closePriceOnly
+      : startBar.close;
+  const finalPrice =
+    basis === 'price_only' && finalBar.closePriceOnly != null
+      ? finalBar.closePriceOnly
+      : finalBar.close;
 
   // Cross-currency lump-sum (2026-05-23): user puts in `args.amount` in
   // `displayCurrency` at startBar.ym; we convert to asset-native to buy at
@@ -324,19 +339,21 @@ export function calculateAssetHistoryLumpSum(
   // displayCurrency. For same-currency cases, the factors are 1 (identity).
   const displayCcy = args.displayCurrency ?? 'USD';
   const assetCcy = ASSET_NATIVE_CURRENCY[args.asset];
-  const fxStart = displayCcy === assetCcy
-    ? 1
-    : buildFxLookup(monthlySeries.fx, displayCcy, assetCcy, args.asset)(startBar.ym);
-  const fxEnd = displayCcy === assetCcy
-    ? 1
-    : buildFxLookup(monthlySeries.fx, assetCcy, displayCcy, args.asset)(finalBar.ym);
+  const fxStart =
+    displayCcy === assetCcy
+      ? 1
+      : buildFxLookup(monthlySeries.fx, displayCcy, assetCcy, args.asset)(startBar.ym);
+  const fxEnd =
+    displayCcy === assetCcy
+      ? 1
+      : buildFxLookup(monthlySeries.fx, assetCcy, displayCcy, args.asset)(finalBar.ym);
   const amountInAssetCcy = args.amount * fxStart;
   const terminalInAssetCcy = amountInAssetCcy * (finalPrice / startPrice);
   const terminalInDisplay = terminalInAssetCcy * fxEnd;
 
   return {
     totalContributed: args.amount,
-    confidence: replay.confidence,
+    confidence: confidenceForDcaReplay(args.asset, args.startYear),
     terminalValue: terminalInDisplay,
     months: series.months.length - startIdx,
     startYm: startBar.ym,
@@ -349,112 +366,12 @@ export function calculateAssetHistoryLumpSum(
  * Confidence stratification per Phase D.4 v1.1 (preserves audit M6 calm-framing).
  * Monthly granularity ≠ outcome certainty for volatile assets.
  */
-function confidenceForDcaReplay(asset: AssetCode, startYear: AssetHistoryStartYear): AnchorConfidence {
+function confidenceForDcaReplay(
+  asset: AssetCode,
+  startYear: AssetHistoryStartYear
+): AnchorConfidence {
   if (asset === 'BTC') {
     return startYear <= 2012 ? 'LOW' : 'MEDIUM';
   }
-  return 'HIGH';
-}
-
-// ─────────────────────────────────────────────────────────────────────────
-// LEGACY API — calculateAssetHistory (2-start-year, anchor-table-based).
-// Retained for backwards compat during Phase E rollout. New callers should
-// use calculateAssetHistoryDcaReplay or calculateAssetHistoryLumpSum.
-// ─────────────────────────────────────────────────────────────────────────
-
-export function calculateAssetHistory(args: AssetHistoryArgs): AssetHistoryResult {
-  const anchors = marketDataService.getHistoricalAnchors();
-  if (!anchors) {
-    throw new AssetHistoryDataError('marketDataService.getHistoricalAnchors() returned undefined');
-  }
-
-  const startAnchor = anchors.anchors.find(
-    (a) => a.asset === args.asset && a.year === args.startYear,
-  );
-  const endAnchor = anchors.anchors.find((a) => a.asset === args.asset && a.year === END_YEAR);
-  if (!startAnchor || !endAnchor) {
-    throw new AssetHistoryDataError(`anchors missing for ${args.asset} ${args.startYear} → ${END_YEAR}`);
-  }
-
-  const months = monthsBetween(
-    args.startYear,
-    startAnchor.monthIndicative,
-    END_YEAR,
-    END_MONTH,
-  );
-
-  // BTC DCA 2010 is the LOW-confidence path — audit M6 calm-framing.
-  if (args.asset === 'BTC' && args.startYear === 2010 && args.mode === 'monthlyDca') {
-    const scale = args.amount / 100;
-    return {
-      startAnchor,
-      endAnchor,
-      totalContributed: args.amount * months,
-      confidence: 'LOW',
-      terminalValue: null,
-      rangeLow: 500_000_000 * scale,
-      rangeHigh: 1_500_000_000 * scale,
-      months,
-    };
-  }
-
-  if (args.mode === 'lumpSum') {
-    const terminalValue = args.amount * (endAnchor.price / startAnchor.price);
-    return {
-      startAnchor,
-      endAnchor,
-      totalContributed: args.amount,
-      confidence: pairConfidence(startAnchor.confidence, endAnchor.confidence),
-      terminalValue,
-      months,
-    };
-  }
-
-  // Legacy DCA — research-validated terminal-per-$100/mo lookup.
-  const dcaTerminal = DCA_TERMINAL_PER_100[args.asset]?.[args.startYear];
-  if (dcaTerminal === undefined) {
-    throw new AssetHistoryDataError(
-      `DCA terminal value not validated for ${args.asset} ${args.startYear}`,
-    );
-  }
-  const scale = args.amount / 100;
-  const terminalValue = dcaTerminal * scale;
-
-  const confidence: AnchorConfidence =
-    args.asset === 'BTC' ? 'MEDIUM' : pairConfidence(startAnchor.confidence, endAnchor.confidence);
-
-  return {
-    startAnchor,
-    endAnchor,
-    totalContributed: args.amount * months,
-    confidence,
-    terminalValue,
-    months,
-  };
-}
-
-const DCA_TERMINAL_PER_100: Partial<Record<AssetCode, Record<2010 | 2016, number>>> = {
-  BTC: { 2010: 0, 2016: 200_000 },
-  SP500: { 2010: 66_000, 2016: 22_000 },
-  QQQ: { 2010: 110_000, 2016: 28_000 },
-  GOLD: { 2010: 33_000, 2016: 22_000 },
-  MSCI_WORLD: { 2010: 40_000, 2016: 20_000 },
-  DAX: { 2010: 33_000, 2016: 17_000 },
-  IBOVESPA: { 2010: 30_000, 2016: 22_000 },
-  TLT: { 2010: 23_000, 2016: 13_500 },
-};
-
-function monthsBetween(
-  startYear: number,
-  startMonth: number,
-  endYear: number,
-  endMonth: number,
-): number {
-  return (endYear - startYear) * 12 + (endMonth - startMonth);
-}
-
-function pairConfidence(a: AnchorConfidence, b: AnchorConfidence): AnchorConfidence {
-  if (a === 'LOW' || b === 'LOW') return 'LOW';
-  if (a === 'MEDIUM' || b === 'MEDIUM') return 'MEDIUM';
   return 'HIGH';
 }

@@ -63,8 +63,16 @@ export function SocialProofSection({
   const formattedCountries = isLoading ? '—' : formatNumber(stats.countries, intl.locale);
 
   // Wrap numbers in highlight span for styling
-  const highlightedCount = <span key="count" className={styles.highlight}>{formattedCount}</span>;
-  const highlightedCountries = <span key="countries" className={styles.highlight}>{formattedCountries}</span>;
+  const highlightedCount = (
+    <span key="count" className={styles.highlight}>
+      {formattedCount}
+    </span>
+  );
+  const highlightedCountries = (
+    <span key="countries" className={styles.highlight}>
+      {formattedCountries}
+    </span>
+  );
 
   const handleCtaClick = useCallback(() => {
     if (enableAnalytics) {
@@ -90,11 +98,7 @@ export function SocialProofSection({
         {/* CTA at top when cards are hidden */}
         {!showCards && ctaText ? (
           <div className={styles.ctaWrapper}>
-            <button
-              className={styles.ctaButton}
-              onClick={handleCtaClick}
-              type="button"
-            >
+            <button className={styles.ctaButton} onClick={handleCtaClick} type="button">
               {t(ctaText)}
             </button>
           </div>
@@ -132,11 +136,7 @@ export function SocialProofSection({
         {/* CTA at bottom when cards are shown */}
         {showCards && ctaText ? (
           <div className={styles.ctaWrapper}>
-            <button
-              className={styles.ctaButton}
-              onClick={handleCtaClick}
-              type="button"
-            >
+            <button className={styles.ctaButton} onClick={handleCtaClick} type="button">
               {t(ctaText)}
             </button>
           </div>
@@ -145,4 +145,3 @@ export function SocialProofSection({
     </div>
   );
 }
-

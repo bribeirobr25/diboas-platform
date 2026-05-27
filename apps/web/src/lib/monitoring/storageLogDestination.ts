@@ -49,10 +49,7 @@ export class StorageLogDestination {
     this.flushTimer = null;
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
-        localStorage.setItem(
-          'diboas_logs',
-          safeStringify(this.buffer.slice(-100))
-        );
+        localStorage.setItem('diboas_logs', safeStringify(this.buffer.slice(-100)));
       }
     } catch {
       // Silently fail to prevent logging loops
@@ -64,7 +61,7 @@ export class StorageLogDestination {
    */
   getAll(minLevel?: number): LogEntry[] {
     if (minLevel !== undefined) {
-      return this.buffer.filter(entry => entry.level >= minLevel);
+      return this.buffer.filter((entry) => entry.level >= minLevel);
     }
     return [...this.buffer];
   }

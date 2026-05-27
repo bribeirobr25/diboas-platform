@@ -208,7 +208,7 @@ describe('consentUtils — additional coverage', () => {
       // dispatchConsentEvent may emit other event types under some paths;
       // find the CONSENT_GIVEN emit specifically.
       const givenCall = emit.mock.calls.find(
-        ([type]) => type === ApplicationEventType.CONSENT_GIVEN,
+        ([type]) => type === ApplicationEventType.CONSENT_GIVEN
       );
       expect(givenCall).toBeDefined();
 
@@ -227,7 +227,7 @@ describe('consentUtils — additional coverage', () => {
 
       const emit = vi.mocked(applicationEventBus.emit);
       const withdrawnCall = emit.mock.calls.find(
-        ([type]) => type === ApplicationEventType.CONSENT_WITHDRAWN,
+        ([type]) => type === ApplicationEventType.CONSENT_WITHDRAWN
       );
       expect(withdrawnCall).toBeDefined();
 

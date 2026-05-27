@@ -1,6 +1,6 @@
 /**
  * Hero Variant Types
- * 
+ *
  * Domain-Driven Design: Clear type definitions for hero variants
  * Service Agnostic Abstraction: Decoupled interfaces for different implementations
  * Type Safety: Comprehensive TypeScript interfaces

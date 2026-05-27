@@ -36,23 +36,40 @@ export { PageHeroSection, type PageHeroSectionProps } from './PageHeroSection';
 
 // Types
 export type {
-  HeroConfig, HeroVariantConfig, HeroContent, HeroVisualAssets,
-  HeroBackgroundAssets, HeroSEO, HeroVariant
+  HeroConfig,
+  HeroVariantConfig,
+  HeroContent,
+  HeroVisualAssets,
+  HeroBackgroundAssets,
+  HeroSEO,
+  HeroVariant,
 } from './HeroSection';
 
 export type {
-  AppFeaturesCarouselConfig, AppFeaturesCarouselVariantConfig,
-  AppFeatureCard, AppFeatureContent, AppFeatureAssets, AppFeatureSEO,
-  AppFeaturesCarouselVariant
+  AppFeaturesCarouselConfig,
+  AppFeaturesCarouselVariantConfig,
+  AppFeatureCard,
+  AppFeatureContent,
+  AppFeatureAssets,
+  AppFeatureSEO,
+  AppFeaturesCarouselVariant,
 } from './AppFeaturesCarousel';
 
 export type { FAQAccordionVariantProps } from './FAQAccordion/FAQAccordionFactory';
 
 export type {
-  FAQAccordionConfig, FAQAccordionVariantConfig, FAQAccordionContent,
-  FAQItem, FAQAccordionSettings, FAQAccordionSEO, FAQAccordionVariant
+  FAQAccordionConfig,
+  FAQAccordionVariantConfig,
+  FAQAccordionContent,
+  FAQItem,
+  FAQAccordionSettings,
+  FAQAccordionSEO,
+  FAQAccordionVariant,
 } from '@/config/faqAccordion';
 
 export type {
-  SectionContainerProps, ContainerVariant, PaddingVariant, SectionElement
+  SectionContainerProps,
+  ContainerVariant,
+  PaddingVariant,
+  SectionElement,
 } from './SectionContainer';

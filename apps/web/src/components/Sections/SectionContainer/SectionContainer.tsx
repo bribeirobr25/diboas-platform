@@ -50,32 +50,33 @@ export const SectionContainer = memo(function SectionContainer({
   as: Element = 'section',
   style,
   'data-testid': testId,
-  id
+  id,
 }: SectionContainerProps) {
   // Map padding variant to CSS class
   const paddingClass = {
     standard: styles.sectionStandard,
     'hero-nav': styles.sectionHeroNav,
-    none: styles.sectionNone
+    none: styles.sectionNone,
   }[padding];
 
   // Map container variant to CSS class
   const containerVariantClass = {
     standard: styles.containerStandard,
     wide: styles.containerWide,
-    narrow: styles.containerNarrow
+    narrow: styles.containerNarrow,
   }[variant];
 
   // Combine section classes
   const sectionClasses = `${styles.section} ${paddingClass} ${className}`.trim();
 
   // Combine container classes
-  const containerClasses = `${styles.container} ${containerVariantClass} ${containerClassName}`.trim();
+  const containerClasses =
+    `${styles.container} ${containerVariantClass} ${containerClassName}`.trim();
 
   // Merge custom styles with backgroundColor override
   const sectionStyle = {
     ...style,
-    ...(backgroundColor && { backgroundColor })
+    ...(backgroundColor && { backgroundColor }),
   };
 
   // Detect dark background for automatic text color inversion (WCAG compliance)
@@ -92,9 +93,7 @@ export const SectionContainer = memo(function SectionContainer({
       data-testid={testId}
       {...(isDarkBg ? { 'data-theme': 'dark' } : {})}
     >
-      <div className={containerClasses}>
-        {children}
-      </div>
+      <div className={containerClasses}>{children}</div>
     </Element>
   );
 });

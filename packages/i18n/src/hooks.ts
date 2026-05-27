@@ -41,11 +41,7 @@ export function useMessageWithValues(
 /**
  * Hook for plural message translation
  */
-export function usePluralMessage(
-  id: string,
-  count: number,
-  values?: MessageFormatValues
-): string {
+export function usePluralMessage(id: string, count: number, values?: MessageFormatValues): string {
   const intl = useIntl();
   return intl.formatMessage({ id }, { count, ...values });
 }

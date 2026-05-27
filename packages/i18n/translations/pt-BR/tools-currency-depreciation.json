@@ -11,7 +11,8 @@
   "mode": {
     "ariaLabel": "Modo da calculadora",
     "forward": "Para frente",
-    "retrospective": "Desde 2010"
+    "retrospective": "Desde 2010",
+    "retrospectiveDisabledTooltip": "O modo retrospectivo está disponível para BRL e EUR. A expansão para outras moedas precisa de dados âncora que ainda não temos."
   },
   "inputs": {
     "currencyLabel": "Moeda",
@@ -23,8 +24,10 @@
   "output": {
     "usdLocaleNote": "Esta calculadora é mais útil para moedas que não o USD. Para quem usa USD, a desvalorização é 0.",
     "usdRetrospectiveNote": "Escolha BRL ou EUR para ver como sua moeda local se comportou contra o USD desde 2010.",
+    "usdStabilityFramingTitle": "O dólar dos EUA é a moeda de reserva global.",
+    "usdStabilityFramingBody": "Em questões de estabilidade, quem detém USD já está do lado forte. Troque a moeda acima para BRL ou EUR para ver o que segurar uma moeda em depreciação realmente custa em 5 anos.",
     "cashLabel": "Se ficar em dinheiro",
-    "cashUsdEquivalent": "Equivalente em USD após {rate}% / ano de drift",
+    "cashEvolution": "Equivalente em USD após variação de {rate}% ao ano frente ao dólar. Números negativos indicam que sua moeda local se fortaleceu frente ao USD.",
     "bankLabel": "Rendimento do banco",
     "bankRateNote": "{rate}% taxa local",
     "diboasLabel": "Dólar digital no diBoaS",
@@ -35,6 +38,9 @@
     "retrospectiveNowNote": "1 USD = {rate} {currency}",
     "retrospectiveLossLabel": "Mudança no poder de compra em USD",
     "retrospectiveLossNote": "{currency} enfraqueceu {cagr}% ao ano frente ao USD em 16 anos",
+    "depSourceForward": "Depreciação projetada: CAGR ajustado ao horizonte com base na janela de {years} anos da série de câmbio.",
+    "depSourceRetrospective": "Retrospectivo: baseado nos pontos âncora do par {currency}/USD entre janeiro de 2010 e hoje.",
+    "depSourcePeg": "{currency} é atrelada ao dólar dos EUA por política do banco central. A variação cambial é 0 por desenho.",
     "uncertaintyMedium": "Esta moeda teve volatilidade moderada na janela — o CAGR pontual reflete o comportamento médio; o movimento acumulado foi desigual ano a ano.",
     "uncertaintyLow": "Esta moeda passou por períodos de volatilidade estrutural ou mudança de regime — um único CAGR alisa materialmente sub-períodos muito diferentes. Use o resultado como referência direcional, não como previsão."
   },

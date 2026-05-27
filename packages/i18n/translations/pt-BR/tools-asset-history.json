@@ -52,8 +52,18 @@
     "terminalRange": "entre {low} e {high}",
     "terminalRangeSubtle": "Faixa com base no melhor vs pior timing de entrada mensal: {low} – {high}",
     "startMonth": {
+      "jan": "janeiro",
+      "feb": "fevereiro",
+      "mar": "março",
+      "apr": "abril",
+      "may": "maio",
+      "jun": "junho",
       "jul": "julho",
-      "jan": "janeiro"
+      "aug": "agosto",
+      "sep": "setembro",
+      "oct": "outubro",
+      "nov": "novembro",
+      "dec": "dezembro"
     },
     "contributedOverMonths": "{total} aportados ao longo de {months} meses",
     "startingPrincipal": "{total} de principal inicial",

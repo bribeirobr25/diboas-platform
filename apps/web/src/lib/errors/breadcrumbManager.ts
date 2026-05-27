@@ -57,7 +57,7 @@ export class BreadcrumbManager {
         message: `Navigation to ${args[2]}`,
         category: 'navigation',
         level: 'info',
-        data: { url: args[2] }
+        data: { url: args[2] },
       });
       return origPush.apply(history, args);
     };
@@ -68,7 +68,7 @@ export class BreadcrumbManager {
         message: `Navigation replaced to ${args[2]}`,
         category: 'navigation',
         level: 'info',
-        data: { url: args[2] }
+        data: { url: args[2] },
       });
       return origReplace.apply(history, args);
     };
@@ -87,7 +87,7 @@ export class BreadcrumbManager {
         timestamp: Date.now(),
         message: args.join(' '),
         category: 'console',
-        level: 'error'
+        level: 'error',
       });
       return origError.apply(console, args);
     };
@@ -107,8 +107,8 @@ export class BreadcrumbManager {
         data: {
           tagName: target.tagName,
           className: target.className,
-          id: target.id
-        }
+          id: target.id,
+        },
       });
     };
     document.addEventListener('click', this.boundClickHandler, true);

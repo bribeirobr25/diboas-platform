@@ -12,6 +12,7 @@
     "headline": "{monthly}/month for {years} years could become {result}",
     "subtitle": "That's what diBoaS could give you, vs your bank's near-zero yield."
   },
+  "disclaimer": "This tool projects retirement savings accumulation. It does not model withdrawals, longevity, or what a sustainable retirement income would look like — those are different questions worth their own planning.",
   "landing": {
     "cardTitle": "Retirement",
     "cardTagline": "What does your savings become at 65?"

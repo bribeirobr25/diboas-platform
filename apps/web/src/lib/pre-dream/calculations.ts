@@ -25,7 +25,11 @@ export type StrategyApyOverrides = Partial<Record<PreDreamPath, number>>;
 /**
  * Resolve bank rate for a locale from market data.
  */
-export function resolveBankRate(locale: string, marketData: MarketDataSnapshot, apyOverride?: number) {
+export function resolveBankRate(
+  locale: string,
+  marketData: MarketDataSnapshot,
+  apyOverride?: number
+) {
   const localeKey = (locale in marketData.rates.bankRates ? locale : 'en') as SupportedLocale;
   const bankRates = marketData.rates.bankRates[localeKey];
   return {
@@ -78,7 +82,7 @@ export function calculatePreDreamResult(
   const months = timeframeConfig.months;
   const resolvedDefiApy = defiApy ?? marketData.rates.strategyApys[path];
 
-  const totalInvestment = initialAmount + (monthlyContribution * months);
+  const totalInvestment = initialAmount + monthlyContribution * months;
 
   // Bank balance — always standard compound interest in local currency
   const bankRate = apyToMonthlyRate(bankApy);
@@ -123,9 +127,8 @@ export function calculatePreDreamResult(
   }
 
   const difference = defiBalance - bankBalance;
-  const growthPercentage = totalInvestment > 0
-    ? ((defiBalance - totalInvestment) / totalInvestment) * 100
-    : 0;
+  const growthPercentage =
+    totalInvestment > 0 ? ((defiBalance - totalInvestment) / totalInvestment) * 100 : 0;
 
   return {
     totalInvestment,

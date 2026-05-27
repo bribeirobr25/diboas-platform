@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-23T17:11:46.909Z",
+  "generatedAt": "2026-05-26T18:21:45.446Z",
   "schema": "tools-stress-test-v1",
   "inputData": {
     "bankRates": {
@@ -56,7 +56,49 @@
         "annualDepreciation": 0.0621
       },
       "EUR": {
-        "annualDepreciation": 0.0123
+        "annualDepreciation": 0.0055
+      },
+      "GBP": {
+        "annualDepreciation": 0.009
+      },
+      "CAD": {
+        "annualDepreciation": 0.0057
+      },
+      "AUD": {
+        "annualDepreciation": 0.0075
+      },
+      "JPY": {
+        "annualDepreciation": 0.015
+      },
+      "INR": {
+        "annualDepreciation": 0.033
+      },
+      "MXN": {
+        "annualDepreciation": 0.0275
+      },
+      "ZAR": {
+        "annualDepreciation": 0.0473
+      },
+      "KRW": {
+        "annualDepreciation": 0.0153
+      },
+      "SGD": {
+        "annualDepreciation": -0.007
+      },
+      "HKD": {
+        "annualDepreciation": 0
+      },
+      "AED": {
+        "annualDepreciation": 0
+      },
+      "ILS": {
+        "annualDepreciation": -0.0023
+      },
+      "CHF": {
+        "annualDepreciation": -0.0179
+      },
+      "PLN": {
+        "annualDepreciation": 0.0119
       }
     },
     "horizonMatchedDepreciations": {
@@ -98,9 +140,9 @@
         "output": {
           "monthlyEq": 760.42,
           "bank": 166607,
-          "conservative": 275935,
-          "historical": 341152,
-          "optimistic": 453780
+          "conservative": 258355,
+          "historical": 318613,
+          "optimistic": 422512
         }
       },
       {
@@ -115,9 +157,9 @@
         "output": {
           "monthlyEq": 91.25,
           "bank": 14820,
-          "conservative": 22147,
-          "historical": 26931,
-          "optimistic": 35104
+          "conservative": 20976,
+          "historical": 25444,
+          "optimistic": 33065
         }
       },
       {
@@ -132,9 +174,9 @@
         "output": {
           "monthlyEq": 121.67,
           "bank": 20124,
-          "conservative": 29529,
-          "historical": 35908,
-          "optimistic": 46806
+          "conservative": 27968,
+          "historical": 33925,
+          "optimistic": 44086
         }
       },
       {
@@ -259,8 +301,8 @@
           "locale": "pt-BR"
         },
         "output": {
-          "historical": 0.12,
-          "effRate": "0.29%"
+          "historical": 0.13,
+          "effRate": "16.83%"
         }
       },
       {
@@ -273,8 +315,8 @@
           "locale": "es"
         },
         "output": {
-          "historical": 0.12,
-          "effRate": "5.62%"
+          "historical": 0.13,
+          "effRate": "10.61%"
         }
       },
       {
@@ -287,8 +329,8 @@
           "locale": "de"
         },
         "output": {
-          "historical": 0.12,
-          "effRate": "5.62%"
+          "historical": 0.13,
+          "effRate": "10.61%"
         }
       },
       {
@@ -315,7 +357,7 @@
           "locale": "pt-BR"
         },
         "output": {
-          "lumpSumFV_optimistic": 2102794129195.9868,
+          "lumpSumFV_optimistic": 2102860227420.454,
           "effRate": "21.08%"
         }
       },
@@ -329,8 +371,8 @@
           "locale": "es"
         },
         "output": {
-          "lumpSumFV_optimistic": 307641770402.8922,
-          "effRate": "15.4%"
+          "lumpSumFV_optimistic": 235221519304.07422,
+          "effRate": "14.63%"
         }
       },
       {
@@ -343,8 +385,8 @@
           "locale": "de"
         },
         "output": {
-          "lumpSumFV_optimistic": 307641770402.8922,
-          "effRate": "15.4%"
+          "lumpSumFV_optimistic": 235221519304.07422,
+          "effRate": "14.63%"
         }
       },
       {
@@ -357,7 +399,7 @@
           "locale": "pt-BR"
         },
         "output": {
-          "historical": 7336100
+          "historical": 7336210
         }
       },
       {
@@ -370,7 +412,7 @@
           "locale": "de"
         },
         "output": {
-          "historical": 608815
+          "historical": 541891
         }
       },
       {
@@ -452,7 +494,7 @@
           "locale": "pt-BR"
         },
         "output": {
-          "historical": 7336100
+          "historical": 7336210
         }
       },
       {
@@ -464,7 +506,7 @@
           "locale": "de"
         },
         "output": {
-          "historical": 608815
+          "historical": 541891
         }
       },
       {
@@ -476,7 +518,7 @@
           "locale": "es"
         },
         "output": {
-          "historical": 608815
+          "historical": 541891
         }
       },
       {
@@ -526,7 +568,7 @@
           "locale": "pt-BR"
         },
         "output": {
-          "historical": 260817
+          "historical": 286478
         }
       },
       {
@@ -569,7 +611,7 @@
         },
         "output": {
           "target": 16200,
-          "diboasMonths": 63,
+          "diboasMonths": 54,
           "bankMonths": 69
         }
       },
@@ -630,7 +672,7 @@
         "output": {
           "bankBeatsInflation": true,
           "bankMonths": 69,
-          "diboasMonths": 63
+          "diboasMonths": 54
         }
       },
       {
@@ -645,7 +687,7 @@
         "output": {
           "bankBeatsInflation": false,
           "bankMonths": "INF",
-          "diboasMonths": 125
+          "diboasMonths": 129
         }
       },
       {
@@ -660,7 +702,7 @@
         "output": {
           "bankBeatsInflation": false,
           "bankMonths": 316,
-          "diboasMonths": 125
+          "diboasMonths": 129
         }
       },
       {
@@ -813,9 +855,9 @@
         },
         "output": {
           "bankMonths": 173,
-          "conservativeMonths": 128,
-          "historicalMonths": 115,
-          "optimisticMonths": 103
+          "conservativeMonths": 132,
+          "historicalMonths": 118,
+          "optimisticMonths": 105
         }
       },
       {
@@ -828,9 +870,9 @@
         },
         "output": {
           "bankMonths": 170,
-          "conservativeMonths": 128,
-          "historicalMonths": 115,
-          "optimisticMonths": 103
+          "conservativeMonths": 132,
+          "historicalMonths": 118,
+          "optimisticMonths": 105
         }
       },
       {
@@ -856,7 +898,7 @@
           "locale": "pt-BR"
         },
         "output": {
-          "historicalMonths": 60
+          "historicalMonths": 54
         }
       },
       {
@@ -869,7 +911,7 @@
           "locale": "es"
         },
         "output": {
-          "historicalMonths": 91
+          "historicalMonths": 83
         }
       },
       {
@@ -882,7 +924,7 @@
           "locale": "de"
         },
         "output": {
-          "historicalMonths": 91
+          "historicalMonths": 83
         }
       },
       {
@@ -920,7 +962,7 @@
           "locale": "es"
         },
         "output": {
-          "historicalMonths": 760,
+          "historicalMonths": 803,
           "note": "1200-month cap → Infinity"
         }
       },
@@ -933,7 +975,7 @@
           "locale": "de"
         },
         "output": {
-          "historicalMonths": 760,
+          "historicalMonths": 803,
           "note": "1200-month cap → Infinity"
         }
       }
@@ -1236,7 +1278,7 @@
       },
       {
         "category": "edge-data-floor",
-        "label": "BTC 2014 DCA $100/mo (Sep 2014 first available BTC month)",
+        "label": "BTC 2014 DCA $100/mo (starts 2014-01 post-v1.4 CoinMetrics backfill)",
         "input": {
           "asset": "BTC",
           "startYear": 2014,
@@ -1573,8 +1615,8 @@
         "output": {
           "cashIdle": 50000,
           "bankFV": 69572,
-          "diboasFV": 80719,
-          "depreciationRate": "0.05%"
+          "diboasFV": 108833,
+          "depreciationRate": "6.21%"
         }
       },
       {
@@ -1589,8 +1631,8 @@
         "output": {
           "cashIdle": 10000,
           "bankFV": 11041,
-          "diboasFV": 16720,
-          "depreciationRate": "0.75%"
+          "diboasFV": 16553,
+          "depreciationRate": "0.55%"
         }
       },
       {
@@ -1605,8 +1647,8 @@
         "output": {
           "cashIdle": 10000,
           "bankFV": 11204,
-          "diboasFV": 16720,
-          "depreciationRate": "0.75%"
+          "diboasFV": 16553,
+          "depreciationRate": "0.55%"
         }
       },
       {
@@ -1619,7 +1661,7 @@
           "locale": "pt-BR"
         },
         "output": {
-          "diboasFV": 203358
+          "diboasFV": 236892
         }
       },
       {
@@ -1878,9 +1920,9 @@
         },
         "output": {
           "bankFV": 609607,
-          "diboasFV": 638006,
-          "diboasEffectiveAPY": "8.46%",
-          "deltaOverHorizon": 28399
+          "diboasFV": 733867,
+          "diboasEffectiveAPY": "13.64%",
+          "deltaOverHorizon": 124261
         }
       },
       {
@@ -1894,9 +1936,9 @@
         },
         "output": {
           "bankFV": 84897,
-          "diboasFV": 90787,
-          "diboasEffectiveAPY": "4.31%",
-          "deltaOverHorizon": 5891
+          "diboasFV": 99629,
+          "diboasEffectiveAPY": "7.59%",
+          "deltaOverHorizon": 14733
         }
       },
       {
@@ -1910,9 +1952,9 @@
         },
         "output": {
           "bankFV": 85648,
-          "diboasFV": 90787,
-          "diboasEffectiveAPY": "4.31%",
-          "deltaOverHorizon": 5139
+          "diboasFV": 99629,
+          "diboasEffectiveAPY": "7.59%",
+          "deltaOverHorizon": 13981
         }
       },
       {
@@ -2001,8 +2043,8 @@
         },
         "output": {
           "bankFV": 968060,
-          "diboasFV": 1542309,
-          "delta": 574249
+          "diboasFV": 1796643,
+          "delta": 828583
         }
       },
       {
@@ -2016,8 +2058,8 @@
         },
         "output": {
           "bankFV": 97520,
-          "diboasFV": 152014,
-          "delta": 54495
+          "diboasFV": 166245,
+          "delta": 68725
         }
       },
       {
@@ -2031,8 +2073,8 @@
         },
         "output": {
           "bankFV": 100426,
-          "diboasFV": 152014,
-          "delta": 51588
+          "diboasFV": 166245,
+          "delta": 65819
         }
       },
       {

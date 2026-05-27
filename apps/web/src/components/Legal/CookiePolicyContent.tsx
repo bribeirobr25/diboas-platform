@@ -50,9 +50,21 @@ export function CookiePolicyContent() {
   ];
 
   const essentialRows = [
-    ['session_id', t('sections.cookiesWeUse.essential.table.rows.0.purpose'), t('sections.cookiesWeUse.essential.table.rows.0.duration')],
-    ['locale', t('sections.cookiesWeUse.essential.table.rows.1.purpose'), t('sections.cookiesWeUse.essential.table.rows.1.duration')],
-    ['cookie_consent', t('sections.cookiesWeUse.essential.table.rows.2.purpose'), t('sections.cookiesWeUse.essential.table.rows.2.duration')],
+    [
+      'session_id',
+      t('sections.cookiesWeUse.essential.table.rows.0.purpose'),
+      t('sections.cookiesWeUse.essential.table.rows.0.duration'),
+    ],
+    [
+      'locale',
+      t('sections.cookiesWeUse.essential.table.rows.1.purpose'),
+      t('sections.cookiesWeUse.essential.table.rows.1.duration'),
+    ],
+    [
+      'cookie_consent',
+      t('sections.cookiesWeUse.essential.table.rows.2.purpose'),
+      t('sections.cookiesWeUse.essential.table.rows.2.duration'),
+    ],
   ];
 
   const analyticsHeaders = [
@@ -62,8 +74,16 @@ export function CookiePolicyContent() {
   ];
 
   const analyticsRows = [
-    ['_ga', t('sections.cookiesWeUse.analytics.table.rows.0.purpose'), t('sections.cookiesWeUse.analytics.table.rows.0.duration')],
-    ['_gid', t('sections.cookiesWeUse.analytics.table.rows.1.purpose'), t('sections.cookiesWeUse.analytics.table.rows.1.duration')],
+    [
+      '_ga',
+      t('sections.cookiesWeUse.analytics.table.rows.0.purpose'),
+      t('sections.cookiesWeUse.analytics.table.rows.0.duration'),
+    ],
+    [
+      '_gid',
+      t('sections.cookiesWeUse.analytics.table.rows.1.purpose'),
+      t('sections.cookiesWeUse.analytics.table.rows.1.duration'),
+    ],
   ];
 
   const functionalHeaders = [
@@ -73,8 +93,16 @@ export function CookiePolicyContent() {
   ];
 
   const functionalRows = [
-    ['theme', t('sections.cookiesWeUse.functional.table.rows.0.purpose'), t('sections.cookiesWeUse.functional.table.rows.0.duration')],
-    ['dream_mode_data', t('sections.cookiesWeUse.functional.table.rows.1.purpose'), t('sections.cookiesWeUse.functional.table.rows.1.duration')],
+    [
+      'theme',
+      t('sections.cookiesWeUse.functional.table.rows.0.purpose'),
+      t('sections.cookiesWeUse.functional.table.rows.0.duration'),
+    ],
+    [
+      'dream_mode_data',
+      t('sections.cookiesWeUse.functional.table.rows.1.purpose'),
+      t('sections.cookiesWeUse.functional.table.rows.1.duration'),
+    ],
   ];
 
   const choicesOptions = [
@@ -100,10 +128,7 @@ export function CookiePolicyContent() {
         as="article"
         ariaLabel="Cookie Policy content"
       >
-        <LegalTableOfContents
-          items={tocItems}
-          title={t('toc.title')}
-        />
+        <LegalTableOfContents items={tocItems} title={t('toc.title')} />
 
         <LegalContentSection title={t('sections.whatAreCookies.title')} id="what-are-cookies">
           <LegalParagraph>{t('sections.whatAreCookies.content')}</LegalParagraph>

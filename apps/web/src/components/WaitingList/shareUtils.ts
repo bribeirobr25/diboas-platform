@@ -28,10 +28,7 @@ interface ShareConfig {
  * Handle sharing to a specific platform.
  * Twitter appends @diboasfi mention automatically.
  */
-export function shareToPlatform(
-  platform: SharePlatform,
-  config: ShareConfig
-): void {
+export function shareToPlatform(platform: SharePlatform, config: ShareConfig): void {
   const { referralUrl, shareText, onLinkedInCopy, onClipboardCopy } = config;
 
   switch (platform) {

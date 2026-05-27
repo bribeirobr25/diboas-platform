@@ -127,8 +127,9 @@
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-lg);
-  transition: transform var(--animation-duration-fast) ease,
-              box-shadow var(--animation-duration-fast) ease;
+  transition:
+    transform var(--animation-duration-fast) ease,
+    box-shadow var(--animation-duration-fast) ease;
 }
 
 @media (min-width: 768px) {
@@ -306,8 +307,9 @@
   cursor: pointer;
 
   /* Animation */
-  transition: transform var(--cta-transition-duration) var(--cta-transition-easing),
-              box-shadow var(--cta-transition-duration) var(--cta-transition-easing);
+  transition:
+    transform var(--cta-transition-duration) var(--cta-transition-easing),
+    box-shadow var(--cta-transition-duration) var(--cta-transition-easing);
 }
 
 @media (min-width: 768px) {

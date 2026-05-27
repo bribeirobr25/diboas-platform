@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 
 /**
  * Utility for merging CSS classes with Tailwind CSS conflict resolution
- * 
+ *
  * DRY Principle: Single source of truth for class name merging
  * Performance: Optimized class name concatenation
  */

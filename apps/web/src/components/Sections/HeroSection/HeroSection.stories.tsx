@@ -1,6 +1,6 @@
 /**
  * HeroSection Storybook Stories
- * 
+ *
  * Domain-Driven Design: Stories organized by business scenarios
  * Service Agnostic Abstraction: Demonstrates component factory pattern
  * Code Reusability: Shared story configurations across variants
@@ -104,21 +104,21 @@ const createHeroStory = (
 
 /**
  * Default Hero Variant
- * 
+ *
  * Classic layout with visual elements and content positioning.
  */
 export const Default: Story = createHeroStory('default');
 
 /**
  * Full Background Hero Variant
- * 
+ *
  * Hero with full background image and centered content overlay.
  */
 export const FullBackground: Story = createHeroStory('fullBackground');
 
 /**
  * Custom Content Example
- * 
+ *
  * Demonstrates customizable content configuration.
  */
 export const CustomContent: Story = createHeroStory('default', {
@@ -133,7 +133,7 @@ export const CustomContent: Story = createHeroStory('default', {
 
 /**
  * Minimal Content
- * 
+ *
  * Hero with minimal content for focused messaging.
  */
 export const MinimalContent: Story = createHeroStory('default', {
@@ -147,13 +147,14 @@ export const MinimalContent: Story = createHeroStory('default', {
 
 /**
  * Business Focused
- * 
+ *
  * Hero variant focused on business use cases.
  */
 export const BusinessFocused: Story = createHeroStory('default', {
   content: {
     title: 'Enterprise Financial Solutions',
-    description: 'Streamline your business banking, treasury management, and financial operations with our comprehensive platform.',
+    description:
+      'Streamline your business banking, treasury management, and financial operations with our comprehensive platform.',
     ctaText: 'Schedule Demo',
     ctaHref: '#demo',
     ctaTarget: '_self',
@@ -166,13 +167,14 @@ export const BusinessFocused: Story = createHeroStory('default', {
 
 /**
  * Developer Focused
- * 
+ *
  * Hero variant for developer documentation.
  */
 export const DeveloperFocused: Story = createHeroStory('fullBackground', {
   content: {
     title: 'Build with diBoaS APIs',
-    description: 'Integrate banking, payment, and DeFi functionality into your applications with our comprehensive API suite.',
+    description:
+      'Integrate banking, payment, and DeFi functionality into your applications with our comprehensive API suite.',
     ctaText: 'View Documentation',
     ctaHref: '#docs',
     ctaTarget: '_self',
@@ -185,7 +187,7 @@ export const DeveloperFocused: Story = createHeroStory('fullBackground', {
 
 /**
  * Mobile Optimized
- * 
+ *
  * Story demonstrating mobile-first responsive design.
  */
 export const MobileOptimized: Story = {
@@ -204,7 +206,7 @@ export const MobileOptimized: Story = {
 
 /**
  * Tablet Layout
- * 
+ *
  * Story demonstrating tablet responsive breakpoints.
  */
 export const TabletLayout: Story = {
@@ -223,7 +225,7 @@ export const TabletLayout: Story = {
 
 /**
  * Dark Theme
- * 
+ *
  * Hero with dark theme applied.
  */
 export const DarkTheme: Story = {
@@ -240,7 +242,10 @@ export const DarkTheme: Story = {
   },
   decorators: [
     (Story) => (
-      <div data-theme="dark" style={{ minHeight: '100vh', backgroundColor: 'var(--color-gray-800, #1f2937)' }}>
+      <div
+        data-theme="dark"
+        style={{ minHeight: '100vh', backgroundColor: 'var(--color-gray-800, #1f2937)' }}
+      >
         <Story />
       </div>
     ),
@@ -249,7 +254,7 @@ export const DarkTheme: Story = {
 
 /**
  * High Contrast Theme
- * 
+ *
  * Hero with high contrast accessibility theme.
  */
 export const HighContrast: Story = {
@@ -272,7 +277,7 @@ export const HighContrast: Story = {
 
 /**
  * Performance Monitoring Enabled
- * 
+ *
  * Story with performance monitoring and analytics enabled.
  */
 export const WithPerformanceMonitoring: Story = {
@@ -291,7 +296,8 @@ export const WithPerformanceMonitoring: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Hero with performance monitoring and analytics tracking enabled. Check browser console for metrics.',
+        story:
+          'Hero with performance monitoring and analytics tracking enabled. Check browser console for metrics.',
       },
     },
   },
@@ -299,7 +305,7 @@ export const WithPerformanceMonitoring: Story = {
 
 /**
  * Error State Simulation
- * 
+ *
  * Story demonstrating error boundary behavior.
  */
 export const ErrorState: Story = createHeroStory('default', {
@@ -309,7 +315,7 @@ export const ErrorState: Story = createHeroStory('default', {
 
 /**
  * Loading State
- * 
+ *
  * Story showing loading behavior with slow image loading.
  */
 export const LoadingState: Story = {
@@ -325,7 +331,7 @@ export const LoadingState: Story = {
 
 /**
  * All Variants Comparison
- * 
+ *
  * Side-by-side comparison of all hero variants.
  */
 export const AllVariants: Story = {
@@ -333,11 +339,19 @@ export const AllVariants: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       <div>
         <h3 style={{ margin: '0 0 1rem 0', padding: '0 1rem' }}>Default Variant</h3>
-        <HeroSectionFactory variant="default" config={HERO_CONFIGS.default} enableAnalytics={false} />
+        <HeroSectionFactory
+          variant="default"
+          config={HERO_CONFIGS.default}
+          enableAnalytics={false}
+        />
       </div>
       <div>
         <h3 style={{ margin: '0 0 1rem 0', padding: '0 1rem' }}>Full Background Variant</h3>
-        <HeroSectionFactory variant="fullBackground" config={HERO_CONFIGS.fullBackground} enableAnalytics={false} />
+        <HeroSectionFactory
+          variant="fullBackground"
+          config={HERO_CONFIGS.fullBackground}
+          enableAnalytics={false}
+        />
       </div>
     </div>
   ),

@@ -4,11 +4,7 @@ import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
-import {
-  HeroSection,
-  ProseSection,
-  FounderSection,
-} from '@/components/Sections';
+import { HeroSection, ProseSection, FounderSection } from '@/components/Sections';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
@@ -33,13 +29,15 @@ export const dynamic = 'auto';
  */
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
-  const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
+  const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
 
   const messages = await loadMessages(validLocale, 'about');
   const seo = messages?.seo || {};
 
   const title = seo.title || 'About diBoaS | Built for the People Banks Forgot';
-  const description = seo.description || 'diBoaS was built because one grandmother deserved better. Now everyone does.';
+  const description =
+    seo.description ||
+    'diBoaS was built because one grandmother deserved better. Now everyone does.';
 
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
@@ -71,9 +69,9 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     alternates: {
       canonical: `${siteUrl}/${validLocale}/about`,
       languages: {
-        'en': `${siteUrl}/en/about`,
-        'de': `${siteUrl}/de/about`,
-        'es': `${siteUrl}/es/about`,
+        en: `${siteUrl}/en/about`,
+        de: `${siteUrl}/de/about`,
+        es: `${siteUrl}/es/about`,
         'pt-br': `${siteUrl}/pt-BR/about`,
         'x-default': `${siteUrl}/en/about`,
       },
@@ -107,13 +105,16 @@ export default async function AboutPage({ params }: LocalePageProps) {
   const serviceData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS',
     description: 'Platform giving regular people access to institutional-grade financial returns',
-    category: 'Financial Technology'
+    category: 'Financial Technology',
   });
 
-  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
-    { name: 'Home', url: '/' },
-    { name: 'About', url: ROUTES.ABOUT }
-  ], locale);
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
+    [
+      { name: 'Home', url: '/' },
+      { name: 'About', url: ROUTES.ABOUT },
+    ],
+    locale
+  );
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
@@ -158,10 +159,7 @@ export default async function AboutPage({ params }: LocalePageProps) {
             data-section-id="story-section-about"
             style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 700px' }}
           >
-            <ProseSection
-              config={ABOUT_STORY_CONFIG}
-              enableAnalytics={true}
-            />
+            <ProseSection config={ABOUT_STORY_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
 
@@ -177,10 +175,7 @@ export default async function AboutPage({ params }: LocalePageProps) {
             data-section-id="mission-section-about"
             style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 700px' }}
           >
-            <ProseSection
-              config={ABOUT_MISSION_CONFIG}
-              enableAnalytics={true}
-            />
+            <ProseSection config={ABOUT_MISSION_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
 
@@ -216,10 +211,7 @@ export default async function AboutPage({ params }: LocalePageProps) {
             data-section-id="business-section-about"
             style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 700px' }}
           >
-            <ProseSection
-              config={ABOUT_BUSINESS_CONFIG}
-              enableAnalytics={true}
-            />
+            <ProseSection config={ABOUT_BUSINESS_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
 
@@ -235,9 +227,7 @@ export default async function AboutPage({ params }: LocalePageProps) {
             data-section-id="founder-section-about"
             style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 700px' }}
           >
-            <FounderSection
-              config={ABOUT_FOUNDER_CONFIG}
-            />
+            <FounderSection config={ABOUT_FOUNDER_CONFIG} />
           </div>
         </SectionErrorBoundary>
       </div>

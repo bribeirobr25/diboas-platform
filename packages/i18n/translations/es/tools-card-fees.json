@@ -16,12 +16,15 @@
     "avgTxLabel": "Ticket medio (opcional)",
     "avgTxHelp": "Se usa para calcular la comisión por transacción"
   },
+  "warnings": {
+    "feeTooHigh": "Esa comisión parece muy alta. Las comisiones reales de procesadores están entre 0,3% y 3,5% — ¿quisiste decir un número más pequeño?"
+  },
   "output": {
     "monthlyFee": "A procesadores al mes",
     "annualFee": "A procesadores al año",
     "annualSavings": "Podrías ahorrar con diBoaS",
     "perTxLabel": "Comisión por transacción",
-    "caveat": "El ahorro real depende de tu mezcla de clientes; es una estimación superior."
+    "caveat": "Esto muestra el ahorro máximo potencial, asumiendo que el 100% de los pagos con tarjeta pasan por diBoaS. El ahorro real crece a medida que tus clientes adoptan diBoaS — es una estimación superior."
   },
   "vignette": {
     "subtitle": "Mismos ingresos. Otro procesador. Gran diferencia."

@@ -6,10 +6,7 @@
 
 import { COOKIE_CONFIG } from '@/config/env';
 import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import { Logger } from '@/lib/monitoring/Logger';
 
 const CONSENT_KEY = COOKIE_CONFIG.consentLocalStorageKey;
@@ -74,7 +71,8 @@ export function getConsentFromShadowCookie(): { analytics: boolean; version: str
 }
 
 /** Bot detection pattern — bots don't need consent checks */
-const BOT_PATTERN = /bot|crawl|spider|slurp|facebookexternalhit|linkedinbot|twitterbot|whatsapp|telegram|googlebot|bingbot|yandex|baidu|duckduck/i;
+const BOT_PATTERN =
+  /bot|crawl|spider|slurp|facebookexternalhit|linkedinbot|twitterbot|whatsapp|telegram|googlebot|bingbot|yandex|baidu|duckduck/i;
 
 /** Module-level cache — prevents duplicate API calls during same page session (P11 Concurrency) */
 let _consentCheckPromise: Promise<{ analytics: boolean; version: string } | null> | null = null;
@@ -93,7 +91,10 @@ export function checkConsentFromApiOnce(): Promise<{ analytics: boolean; version
 /**
  * Check consent from HttpOnly cookie API
  */
-export async function checkConsentFromApi(): Promise<{ analytics: boolean; version: string } | null> {
+export async function checkConsentFromApi(): Promise<{
+  analytics: boolean;
+  version: string;
+} | null> {
   // Skip API call for bots — they don't need consent checks
   if (typeof navigator !== 'undefined' && BOT_PATTERN.test(navigator.userAgent)) {
     return null;
@@ -136,7 +137,7 @@ export function createConsentValue(analytics: boolean): CookieConsentValue {
   return {
     analytics,
     version: CONSENT_VERSION,
-    timestamp: Date.now()
+    timestamp: Date.now(),
   };
 }
 
@@ -152,15 +153,15 @@ export function dispatchConsentEvent(consent: CookieConsentValue): void {
   if (typeof window === 'undefined') return;
 
   // DOM fallback for GA4 inline script (pre-hydration)
-  window.dispatchEvent(new CustomEvent('cookie-consent-changed', {
-    detail: consent
-  }));
+  window.dispatchEvent(
+    new CustomEvent('cookie-consent-changed', {
+      detail: consent,
+    })
+  );
 
   // Emit on ApplicationEventBus for React consumers
   applicationEventBus.emit(
-    consent.analytics
-      ? ApplicationEventType.CONSENT_GIVEN
-      : ApplicationEventType.CONSENT_WITHDRAWN,
+    consent.analytics ? ApplicationEventType.CONSENT_GIVEN : ApplicationEventType.CONSENT_WITHDRAWN,
     {
       domain: 'consent',
       source: 'consent',
@@ -233,10 +234,7 @@ export function isConsentVersionCurrent(consent: CookieConsentValue): boolean {
  * Should be called once at app bootstrap.
  */
 export function registerConsentWithdrawalHandler(): () => void {
-  return applicationEventBus.on(
-    ApplicationEventType.CONSENT_WITHDRAWN,
-    () => {
-      Logger.clearLogs();
-    }
-  );
+  return applicationEventBus.on(ApplicationEventType.CONSENT_WITHDRAWN, () => {
+    Logger.clearLogs();
+  });
 }

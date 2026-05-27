@@ -18,7 +18,7 @@ export const DEFAULT_ERROR_CONFIG: ErrorReportingConfig = {
   enableAutoRecovery: true,
   environment: (process.env.NODE_ENV as 'development' | 'staging' | 'production') || 'development',
   release: process.env.NEXT_PUBLIC_APP_VERSION,
-  sampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0 // 10% sampling in production
+  sampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0, // 10% sampling in production
 };
 
 /**
@@ -32,5 +32,5 @@ export const SENSITIVE_KEYS = [
   'auth',
   'credential',
   'ssn',
-  'email'
+  'email',
 ];

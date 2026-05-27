@@ -41,7 +41,7 @@ export default async function LearnIndexPage({ params }: LocalePageProps) {
       { name: 'Home', url: '/' },
       { name: 'Learn', url: '/learn' },
     ],
-    locale,
+    locale
   );
 
   const indexStructuredData = buildLearnIndexStructuredData({

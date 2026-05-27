@@ -148,10 +148,7 @@ describe('encryption module', () => {
 
       const hash = hmacHash('test@example.com');
 
-      const expectedSha = crypto
-        .createHash('sha256')
-        .update('test@example.com')
-        .digest('hex');
+      const expectedSha = crypto.createHash('sha256').update('test@example.com').digest('hex');
 
       expect(hash).toBe(expectedSha);
     });
@@ -370,7 +367,7 @@ describe('encryption module', () => {
       setEnv('NODE_ENV', 'production');
 
       const originalFrom = Buffer.from;
-       
+
       vi.spyOn(Buffer, 'from').mockImplementation((...args: any[]) => {
         if (args[0] === 'trigger-throw' && args[1] === 'base64') {
           throw new Error('Simulated Buffer.from failure');

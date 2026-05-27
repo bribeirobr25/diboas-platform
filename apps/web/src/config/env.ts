@@ -37,9 +37,7 @@ function validateProductionSecrets(): void {
   const missing = required.filter((key) => !process.env[key]);
 
   if (missing.length > 0) {
-    throw new Error(
-      `Missing required production environment variables: ${missing.join(', ')}`
-    );
+    throw new Error(`Missing required production environment variables: ${missing.join(', ')}`);
   }
 }
 
@@ -72,12 +70,16 @@ export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 /**
  * Business sub-application URL
  */
-export const BUSINESS_URL = process.env.NEXT_PUBLIC_BUSINESS_URL || (IS_PRODUCTION ? 'https://business.diboas.com' : 'http://localhost:3002');
+export const BUSINESS_URL =
+  process.env.NEXT_PUBLIC_BUSINESS_URL ||
+  (IS_PRODUCTION ? 'https://business.diboas.com' : 'http://localhost:3002');
 
 /**
  * Learn sub-application URL
  */
-export const LEARN_URL = process.env.NEXT_PUBLIC_LEARN_URL || (IS_PRODUCTION ? 'https://learn.diboas.com' : 'http://localhost:3003');
+export const LEARN_URL =
+  process.env.NEXT_PUBLIC_LEARN_URL ||
+  (IS_PRODUCTION ? 'https://learn.diboas.com' : 'http://localhost:3003');
 
 /**
  * Monitoring endpoint URL
@@ -98,25 +100,16 @@ export const CSRF_ADDITIONAL_ORIGINS = process.env.CSRF_ADDITIONAL_ORIGINS || ''
  * Get all allowed CSRF origins
  */
 export function getCsrfAllowedOrigins(): string[] {
-  const baseOrigins = [
-    APP_URL,
-    `https://${APP_DOMAIN}`,
-    `https://www.${APP_DOMAIN}`,
-  ];
+  const baseOrigins = [APP_URL, `https://${APP_DOMAIN}`, `https://www.${APP_DOMAIN}`];
 
   // Add additional origins from environment
-  const additionalOrigins = CSRF_ADDITIONAL_ORIGINS
-    .split(',')
-    .map(o => o.trim())
+  const additionalOrigins = CSRF_ADDITIONAL_ORIGINS.split(',')
+    .map((o) => o.trim())
     .filter(Boolean);
 
   // Add development origins
   const devOrigins = IS_DEVELOPMENT
-    ? [
-        'http://localhost:3000',
-        'http://localhost:3001',
-        'http://127.0.0.1:3000',
-      ]
+    ? ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000']
     : [];
 
   return [...new Set([...baseOrigins, ...additionalOrigins, ...devOrigins])];

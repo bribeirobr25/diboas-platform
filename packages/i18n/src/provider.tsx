@@ -24,12 +24,7 @@ export interface I18nProviderProps {
  * Internationalization Provider
  * Wraps react-intl's IntlProvider with our configuration
  */
-export function I18nProvider({
-  locale,
-  messages,
-  children,
-  onError
-}: I18nProviderProps) {
+export function I18nProvider({ locale, messages, children, onError }: I18nProviderProps) {
   // Default error handler that doesn't throw in production
   const defaultOnError = (err: Error) => {
     if (process.env.NODE_ENV === 'development') {

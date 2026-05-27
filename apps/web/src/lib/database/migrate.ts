@@ -47,7 +47,8 @@ export async function runMigrations(): Promise<string[]> {
   await ensureMigrationsTable();
   const applied = await getAppliedMigrations();
 
-  const files = fs.readdirSync(MIGRATIONS_DIR)
+  const files = fs
+    .readdirSync(MIGRATIONS_DIR)
     .filter((f) => f.endsWith('.sql'))
     .sort();
 
@@ -93,7 +94,8 @@ export async function getMigrationStatus(): Promise<{
   await ensureMigrationsTable();
   const appliedSet = await getAppliedMigrations();
 
-  const files = fs.readdirSync(MIGRATIONS_DIR)
+  const files = fs
+    .readdirSync(MIGRATIONS_DIR)
     .filter((f) => f.endsWith('.sql'))
     .sort();
 
@@ -104,8 +106,7 @@ export async function getMigrationStatus(): Promise<{
 }
 
 // CLI entrypoint
-const isDirectExecution =
-  typeof require !== 'undefined' && require.main === module;
+const isDirectExecution = typeof require !== 'undefined' && require.main === module;
 
 if (isDirectExecution) {
   runMigrations()

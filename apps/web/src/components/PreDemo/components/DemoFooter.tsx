@@ -9,12 +9,8 @@ export function DemoFooter() {
 
   return (
     <footer className={styles.demoFooter}>
-      <p className={styles.demoFooterDisclaimer}>
-        {t('preDemo.footer.disclaimer')}
-      </p>
-      <p className={styles.demoFooterCopyright}>
-        {t('preDemo.footer.copyright')}
-      </p>
+      <p className={styles.demoFooterDisclaimer}>{t('preDemo.footer.disclaimer')}</p>
+      <p className={styles.demoFooterCopyright}>{t('preDemo.footer.copyright')}</p>
     </footer>
   );
 }

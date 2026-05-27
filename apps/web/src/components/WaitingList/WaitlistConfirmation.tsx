@@ -124,9 +124,7 @@ export function WaitlistConfirmation({
       {/* Referral section */}
       <div className={styles.referralSection}>
         <h3 className={styles.referralHeadline}>{t('confirmation.shareIntro')}</h3>
-        <p className={styles.referralBenefit}>
-          {t('confirmation.shareBenefit')}
-        </p>
+        <p className={styles.referralBenefit}>{t('confirmation.shareBenefit')}</p>
 
         <ReferralLink
           referralCode={referralCode}
@@ -140,7 +138,6 @@ export function WaitlistConfirmation({
           </p>
         )}
       </div>
-
     </div>
   );
 }

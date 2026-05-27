@@ -83,7 +83,7 @@ function buildLearnMetadata(args: {
 
 export async function generateLessonMetadata(
   lessonId: string,
-  locale: SupportedLocale,
+  locale: SupportedLocale
 ): Promise<Metadata> {
   const lesson = getLesson(lessonId);
   if (!lesson) {
@@ -106,9 +106,7 @@ export async function generateLessonMetadata(
   });
 }
 
-export async function generateLearnIndexMetadata(
-  locale: SupportedLocale,
-): Promise<Metadata> {
+export async function generateLearnIndexMetadata(locale: SupportedLocale): Promise<Metadata> {
   const messages = await loadMessages(locale, 'learn');
   const seo = (messages?.seo ?? {}) as LearnSeoFields;
 

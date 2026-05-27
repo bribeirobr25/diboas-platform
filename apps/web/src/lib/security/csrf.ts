@@ -28,7 +28,7 @@ export function validateOrigin(request: NextRequest): { valid: boolean; error?: 
 
   // Check Origin header first
   if (origin) {
-    const isAllowed = ALLOWED_ORIGINS.some(allowed => {
+    const isAllowed = ALLOWED_ORIGINS.some((allowed) => {
       try {
         // Use URL origin comparison to prevent subdomain spoofing
         // e.g., https://diboas.com.attacker.com should NOT match https://diboas.com
@@ -47,7 +47,7 @@ export function validateOrigin(request: NextRequest): { valid: boolean; error?: 
 
     return {
       valid: false,
-      error: `Invalid origin: ${origin}`
+      error: `Invalid origin: ${origin}`,
     };
   }
 
@@ -57,7 +57,7 @@ export function validateOrigin(request: NextRequest): { valid: boolean; error?: 
       const refererUrl = new URL(referer);
       const refererOrigin = refererUrl.origin;
 
-      const isAllowed = ALLOWED_ORIGINS.some(allowed => {
+      const isAllowed = ALLOWED_ORIGINS.some((allowed) => {
         try {
           // Use URL origin comparison to prevent subdomain spoofing
           const allowedUrl = new URL(allowed);
@@ -73,12 +73,12 @@ export function validateOrigin(request: NextRequest): { valid: boolean; error?: 
 
       return {
         valid: false,
-        error: `Invalid referer origin: ${refererOrigin}`
+        error: `Invalid referer origin: ${refererOrigin}`,
       };
     } catch {
       return {
         valid: false,
-        error: 'Invalid referer format'
+        error: 'Invalid referer format',
       };
     }
   }
@@ -91,7 +91,7 @@ export function validateOrigin(request: NextRequest): { valid: boolean; error?: 
   // In production, reject requests without origin or referer
   return {
     valid: false,
-    error: 'Missing origin and referer headers'
+    error: 'Missing origin and referer headers',
   };
 }
 
@@ -107,18 +107,18 @@ export function csrfProtection(request: NextRequest): Response | null {
       error: validation.error,
       method: request.method,
       url: request.url,
-      ip: request.headers.get('x-forwarded-for') || 'unknown'
+      ip: request.headers.get('x-forwarded-for') || 'unknown',
     });
 
     return new Response(
       JSON.stringify({
         success: false,
         error: 'Request blocked by CSRF protection',
-        errorCode: 'CSRF_VALIDATION_FAILED'
+        errorCode: 'CSRF_VALIDATION_FAILED',
       }),
       {
         status: 403,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
       }
     );
   }

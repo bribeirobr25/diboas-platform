@@ -78,10 +78,7 @@ export function encrypt(plaintext: string): string | null {
     const cipher = crypto.createCipheriv(ALGORITHM, key, iv);
 
     // Encrypt
-    const encrypted = Buffer.concat([
-      cipher.update(plaintext, 'utf8'),
-      cipher.final()
-    ]);
+    const encrypted = Buffer.concat([cipher.update(plaintext, 'utf8'), cipher.final()]);
 
     // Get auth tag
     const authTag = cipher.getAuthTag();
@@ -91,7 +88,9 @@ export function encrypt(plaintext: string): string | null {
 
     return combined.toString(ENCODING);
   } catch (error) {
-    Logger.error('[Encryption] Encryption failed:', { error: error instanceof Error ? error.message : String(error) });
+    Logger.error('[Encryption] Encryption failed:', {
+      error: error instanceof Error ? error.message : String(error),
+    });
     return null;
   }
 }
@@ -134,10 +133,7 @@ export function decrypt(ciphertext: string): string | null {
     decipher.setAuthTag(authTag);
 
     // Decrypt
-    const decrypted = Buffer.concat([
-      decipher.update(encrypted),
-      decipher.final()
-    ]);
+    const decrypted = Buffer.concat([decipher.update(encrypted), decipher.final()]);
 
     return decrypted.toString('utf8');
   } catch (error) {
@@ -146,7 +142,9 @@ export function decrypt(ciphertext: string): string | null {
     if (isLikelyUnencrypted(ciphertext)) {
       return ciphertext;
     }
-    Logger.error('[Encryption] Decryption failed:', { error: error instanceof Error ? error.message : String(error) });
+    Logger.error('[Encryption] Decryption failed:', {
+      error: error instanceof Error ? error.message : String(error),
+    });
     return null;
   }
 }
@@ -176,10 +174,7 @@ function isLikelyUnencrypted(value: string): boolean {
  * @param fields - Array of field names to encrypt
  * @returns New object with encrypted fields
  */
-export function encryptFields<T extends Record<string, unknown>>(
-  obj: T,
-  fields: (keyof T)[]
-): T {
+export function encryptFields<T extends Record<string, unknown>>(obj: T, fields: (keyof T)[]): T {
   const result = { ...obj };
 
   for (const field of fields) {
@@ -202,10 +197,7 @@ export function encryptFields<T extends Record<string, unknown>>(
  * @param fields - Array of field names to decrypt
  * @returns New object with decrypted fields
  */
-export function decryptFields<T extends Record<string, unknown>>(
-  obj: T,
-  fields: (keyof T)[]
-): T {
+export function decryptFields<T extends Record<string, unknown>>(obj: T, fields: (keyof T)[]): T {
   const result = { ...obj };
 
   for (const field of fields) {

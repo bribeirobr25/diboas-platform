@@ -39,9 +39,8 @@ export function useScrollDepthTracking(config: ScrollDepthConfig = {}) {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
 
-          const sectionId = (entry.target as HTMLElement).dataset.sectionId
-            || entry.target.id
-            || 'unknown';
+          const sectionId =
+            (entry.target as HTMLElement).dataset.sectionId || entry.target.id || 'unknown';
 
           if (fireOnce && viewedSections.current.has(sectionId)) return;
           viewedSections.current.add(sectionId);
@@ -52,7 +51,8 @@ export function useScrollDepthTracking(config: ScrollDepthConfig = {}) {
               section: sectionId,
               timestamp: Date.now(),
               scroll_depth: Math.round(
-                (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100
+                ((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight) *
+                  100
               ),
               ...(localeRef.current ? { locale: localeRef.current } : {}),
             },

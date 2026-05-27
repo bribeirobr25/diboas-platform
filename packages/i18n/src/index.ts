@@ -19,7 +19,7 @@ export {
   usePluralMessage,
   useDateFormat,
   useNumberFormat,
-  useCurrencyFormat
+  useCurrencyFormat,
 } from './hooks';
 
 // Legacy exports for backward compatibility

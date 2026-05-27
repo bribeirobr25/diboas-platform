@@ -3,12 +3,7 @@
  */
 
 export type { IWaitlistRepository } from './interfaces';
-export type {
-  WaitlistEntry,
-  WaitlistSource,
-  WaitlistTier,
-  AddEntryInput,
-} from './interfaces';
+export type { WaitlistEntry, WaitlistSource, WaitlistTier, AddEntryInput } from './interfaces';
 
 // Re-export existing domain types
 export {

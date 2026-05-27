@@ -11,12 +11,12 @@
 export const UI_LAYOUT_CONSTANTS = {
   // Base CSS classes - used in root layout
   BODY_BASE_CLASS: process.env.NEXT_PUBLIC_BODY_BASE_CLASS || 'main-body-antialiased',
-  
+
   // HTML attributes - used for i18n
   DEFAULT_LOCALE: process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en',
-  
+
   // Metadata template - used for consistent titles
-  TITLE_TEMPLATE: process.env.NEXT_PUBLIC_TITLE_TEMPLATE || '%s'
+  TITLE_TEMPLATE: process.env.NEXT_PUBLIC_TITLE_TEMPLATE || '%s',
 } as const;
 
 /**
@@ -25,22 +25,22 @@ export const UI_LAYOUT_CONSTANTS = {
 export const UI_ANIMATION_CONSTANTS = {
   // Mobile navigation animation
   MOBILE_NAV_CLOSE_DELAY: 50, // ms - delay before closing mobile navigation
-  
+
   // Modal and overlay transitions
   MODAL_FADE_IN: 150, // ms
   MODAL_FADE_OUT: 100, // ms
-  
+
   // Dropdown animations
   DROPDOWN_OPEN_DELAY: 100, // ms
   DROPDOWN_CLOSE_DELAY: 200, // ms
-  
+
   // Toast notifications
   TOAST_DISPLAY_DURATION: 5000, // ms
   TOAST_FADE_DURATION: 300, // ms
-  
+
   // Form feedback
   FORM_SUBMIT_FEEDBACK_DELAY: 1000, // ms
-  
+
   // Scroll behavior
   SMOOTH_SCROLL_DURATION: 300, // ms
   SCROLL_TO_TOP_THRESHOLD: 100, // px
@@ -54,10 +54,10 @@ export const UI_ERROR_CONSTANTS = {
   ERROR_BOUNDARY_MAX_RETRIES: 3,
   ERROR_BOUNDARY_RETRY_DELAY: 1000, // ms - base delay
   ERROR_BOUNDARY_MAX_DELAY: 10000, // ms - max delay with exponential backoff
-  
+
   // Form validation
   VALIDATION_DEBOUNCE_DELAY: 300, // ms
-  
+
   // Network timeouts
   DEFAULT_FETCH_TIMEOUT: 10000, // ms
   CRITICAL_FETCH_TIMEOUT: 30000, // ms
@@ -72,7 +72,7 @@ export const UI_TEXT_CONSTANTS = {
   GENERIC_ERROR: 'Something went wrong. Please try again.',
   NAVIGATION_ERROR: 'Navigation temporarily unavailable',
   LOADING_ERROR: 'Failed to load content',
-  
+
   // Button labels
   TRY_AGAIN: 'Try Again',
   RETRY: 'Retry',
@@ -80,29 +80,29 @@ export const UI_TEXT_CONSTANTS = {
   CLOSE: 'Close',
   CANCEL: 'Cancel',
   CONFIRM: 'Confirm',
-  
+
   // Loading states
   LOADING: 'Loading...',
   PLEASE_WAIT: 'Please wait...',
   PROCESSING: 'Processing...',
-  
+
   // Accessibility labels
   TOGGLE_MENU: 'Toggle menu',
   CLOSE_MENU: 'Close menu',
   CHANGE_LANGUAGE: 'Change language',
   RETRY_LOADING: 'Retry loading',
   NAVIGATE_BACK: 'Navigate back',
-  
+
   // Status messages
   SUCCESS: 'Success!',
   WARNING: 'Warning',
   INFO: 'Information',
-  
+
   // Navigation
   BACK: 'Back',
   NEXT: 'Next',
   PREVIOUS: 'Previous',
-  
+
   // Form messages
   FIELD_REQUIRED: 'This field is required',
   INVALID_EMAIL: 'Please enter a valid email address',
@@ -120,30 +120,30 @@ export const LOG_MESSAGES = {
   ANALYTICS_MAX_RETRIES: 'Analytics: Max retries reached for event:',
   ANALYTICS_ERROR: 'Analytics Error:',
   ANALYTICS_TRACKING_FAILED: 'Analytics tracking failed:',
-  
+
   // Web Vitals
   WEB_VITALS_LOAD_ERROR: 'Failed to load web-vitals library:',
-  
+
   // Monitoring
   CRITICAL_ERROR_TRACKED: 'Critical error tracked:',
   SECURITY_EVENT_TRACKED: 'Security event tracked:',
   MONITORING_FLUSH_ERROR: 'Failed to flush monitoring events:',
-  
+
   // Content
   INVALID_CONTENT_STRUCTURE: 'Invalid content structure for page:',
   CONTENT_LOAD_ERROR: 'Failed to load page content:',
   SECTION_CONTENT_LOAD_ERROR: 'Failed to load section content:',
   CONTENT_UPDATE_REQUEST: 'Content update requested:',
-  
+
   // Security
   BLOCKED_SUSPICIOUS_REQUEST: 'Blocked suspicious request:',
   BLOCKED_LARGE_PARAMETER: 'Blocked request with large parameter:',
-  
+
   // Navigation
   NAVIGATION_ERROR_CAUGHT: 'Navigation Error Boundary caught error:',
   NAVIGATION_ERROR_HANDLER_FAILED: 'Navigation error handler failed:',
   NAVIGATION_MAX_RETRY: 'Navigation: Maximum retry attempts reached',
-  
+
   // Environment
   ENV_VAR_INVALID: 'Invalid value for environment variable',
   ENV_VAR_MISSING: 'Required environment variable is not set',

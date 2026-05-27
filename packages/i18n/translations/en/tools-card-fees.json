@@ -16,12 +16,15 @@
     "avgTxLabel": "Average transaction (optional)",
     "avgTxHelp": "Used to compute per-transaction fee"
   },
+  "warnings": {
+    "feeTooHigh": "That fee looks unusually high. Real card-processor rates sit in the 0.3–3.5% range — did you mean a smaller number?"
+  },
   "output": {
     "monthlyFee": "Going to processors monthly",
     "annualFee": "Going to processors per year",
     "annualSavings": "Could save with diBoaS",
     "perTxLabel": "Fee per transaction",
-    "caveat": "Real savings depend on your customer mix; this is an upper-bound estimate."
+    "caveat": "This shows the maximum potential savings, assuming 100% of card payments flow through diBoaS. Real savings scale with diBoaS adoption by your customers — this is an upper-bound estimate."
   },
   "vignette": {
     "subtitle": "Same revenue. Different processor. Big difference."

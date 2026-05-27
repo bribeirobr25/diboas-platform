@@ -30,7 +30,7 @@ export function validateApiKey(
   // eslint reports parameter as unused; signature is part of the public
   // contract (callers pass options.requireAdmin) — current implementation
   // doesn't branch on it yet (kept for future admin-level auth gating).
-  _requireAdmin: boolean = false,
+  _requireAdmin: boolean = false
 ): AuthResult {
   const apiKey = request.headers.get('x-api-key');
   const internalApiKey = process.env.INTERNAL_API_KEY;
@@ -101,9 +101,10 @@ function timingSafeEqual(a: string, b: string): boolean {
  * Log authentication failure for audit
  */
 function logAuthFailure(request: Request, reason: string): void {
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-    || request.headers.get('x-real-ip')
-    || 'unknown';
+  const ip =
+    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+    request.headers.get('x-real-ip') ||
+    'unknown';
 
   const path = new URL(request.url).pathname;
 
@@ -119,20 +120,14 @@ function logAuthFailure(request: Request, reason: string): void {
  * Create unauthorized response
  */
 export function createUnauthorizedResponse(error: string = 'Unauthorized'): NextResponse {
-  return NextResponse.json(
-    { success: false, error },
-    { status: 401 }
-  );
+  return NextResponse.json({ success: false, error }, { status: 401 });
 }
 
 /**
  * Create forbidden response
  */
 export function createForbiddenResponse(error: string = 'Forbidden'): NextResponse {
-  return NextResponse.json(
-    { success: false, error },
-    { status: 403 }
-  );
+  return NextResponse.json({ success: false, error }, { status: 403 });
 }
 
 /**

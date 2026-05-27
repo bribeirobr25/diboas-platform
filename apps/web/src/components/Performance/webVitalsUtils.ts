@@ -19,7 +19,10 @@ const METRIC_THRESHOLDS: Record<string, { good: number; poor: number }> = {
 /**
  * Get performance rating based on metric thresholds
  */
-export function getRating(metricName: string, value: number): 'good' | 'needs-improvement' | 'poor' {
+export function getRating(
+  metricName: string,
+  value: number
+): 'good' | 'needs-improvement' | 'poor' {
   const threshold = METRIC_THRESHOLDS[metricName];
   if (!threshold) return 'good';
 
@@ -33,7 +36,9 @@ export function getRating(metricName: string, value: number): 'good' | 'needs-im
  */
 export function getConnectionType(): string | undefined {
   if (typeof navigator !== 'undefined' && 'connection' in navigator) {
-    const connection = (navigator as Navigator & { connection?: { effectiveType?: string; type?: string } }).connection;
+    const connection = (
+      navigator as Navigator & { connection?: { effectiveType?: string; type?: string } }
+    ).connection;
     return connection?.effectiveType || connection?.type;
   }
   return undefined;
@@ -65,7 +70,7 @@ export function sendToGoogleAnalytics(
       custom_map: {
         metric_rating: rating,
         metric_delta: delta,
-      }
+      },
     });
   }
 }
@@ -79,7 +84,7 @@ export function trackWebVitalsLoadError(error: Error | unknown): void {
     windowWithGtag.gtag('event', 'web_vitals_load_error', {
       event_category: 'Performance',
       event_label: 'library_load_failed',
-      error_message: error instanceof Error ? error.message : 'Unknown error'
+      error_message: error instanceof Error ? error.message : 'Unknown error',
     });
   }
 }

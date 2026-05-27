@@ -4,7 +4,12 @@
  * State management types for the PreDream simulation flow
  */
 
-import type { PreDreamPath, PreDreamTimeframe, PreDreamScreen, PreDreamResult } from '@/lib/pre-dream';
+import type {
+  PreDreamPath,
+  PreDreamTimeframe,
+  PreDreamScreen,
+  PreDreamResult,
+} from '@/lib/pre-dream';
 import type { GoalCardKey } from '@/config/goalCards';
 
 /** PreDream component state */

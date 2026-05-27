@@ -25,7 +25,7 @@ import { FAQAccordionDefault } from './variants/FAQAccordionDefault/FAQAccordion
  * Variant registry mapping variant names to their components
  */
 const VARIANT_MAP: FAQAccordionVariantMap = {
-  default: FAQAccordionDefault
+  default: FAQAccordionDefault,
 } as const;
 
 /**
@@ -52,7 +52,7 @@ export const FAQAccordion = memo(function FAQAccordion(props: FAQAccordionVarian
   const { locale } = useLocale();
   const valuesByKey = useMemo(
     () => buildAllFeeValues(marketDataService.getSync().platformFees, locale),
-    [locale],
+    [locale]
   );
   const translatedConfig = useConfigTranslation(config, undefined, valuesByKey);
 
@@ -64,7 +64,7 @@ export const FAQAccordion = memo(function FAQAccordion(props: FAQAccordionVarian
     Logger.error('Unknown FAQ accordion variant', {
       variant,
       availableVariants: Object.keys(VARIANT_MAP),
-      section: 'FAQAccordion'
+      section: 'FAQAccordion',
     });
 
     // Fallback to default variant
@@ -74,7 +74,7 @@ export const FAQAccordion = memo(function FAQAccordion(props: FAQAccordionVarian
   // Log variant selection for debugging
   Logger.debug('FAQ accordion variant selected', {
     variant,
-    section: 'FAQAccordion'
+    section: 'FAQAccordion',
   });
 
   // Render the selected variant with translated config

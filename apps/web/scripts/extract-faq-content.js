@@ -84,7 +84,7 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 }
 
 // Process each language
-LANGUAGES.forEach(lang => {
+LANGUAGES.forEach((lang) => {
   const faqPath = path.join(TRANSLATIONS_DIR, lang, 'faq.json');
 
   if (!fs.existsSync(faqPath)) {

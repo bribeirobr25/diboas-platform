@@ -21,10 +21,7 @@ import {
 import { logAuditEvent } from '@/lib/audit/AuditService';
 import { applyRateLimit, applyCsrf, emitErrorEvent } from '@/lib/api/routeHelpers';
 import { logRequestStart, logRequestEnd } from '@/lib/api/requestLogger';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 
 interface ConsentRequest {
   analytics: boolean;
@@ -54,7 +51,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentRe
   if (rateLimited) return rateLimited as NextResponse<ConsentResponse>;
 
   try {
-    const body = await request.json() as ConsentRequest;
+    const body = (await request.json()) as ConsentRequest;
 
     // Validate input
     if (typeof body.analytics !== 'boolean') {
@@ -112,12 +109,11 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentRe
     return response;
   } catch (error) {
     emitErrorEvent('consent', 'consent_set', error, 'medium');
-    Logger.error('[Consent] Error setting consent:', { error: error instanceof Error ? error.message : String(error) });
+    Logger.error('[Consent] Error setting consent:', {
+      error: error instanceof Error ? error.message : String(error),
+    });
     logRequestEnd('POST', '/api/consent', 500, startTime);
-    return NextResponse.json(
-      { success: false, error: 'Failed to set consent' },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: 'Failed to set consent' }, { status: 500 });
   }
 }
 
@@ -150,11 +146,10 @@ export async function GET(request: NextRequest): Promise<NextResponse<ConsentRes
   } catch (error) {
     // Emit application error for monitoring
     emitErrorEvent('consent', 'consent_check', error, 'low');
-    Logger.error('[Consent] Error checking consent:', { error: error instanceof Error ? error.message : String(error) });
-    return NextResponse.json(
-      { success: false, error: 'Failed to check consent' },
-      { status: 500 }
-    );
+    Logger.error('[Consent] Error checking consent:', {
+      error: error instanceof Error ? error.message : String(error),
+    });
+    return NextResponse.json({ success: false, error: 'Failed to check consent' }, { status: 500 });
   }
 }
 
@@ -198,10 +193,9 @@ export async function DELETE(request: NextRequest): Promise<NextResponse<Consent
   } catch (error) {
     // Emit application error for monitoring
     emitErrorEvent('consent', 'consent_clear', error, 'medium');
-    Logger.error('[Consent] Error clearing consent:', { error: error instanceof Error ? error.message : String(error) });
-    return NextResponse.json(
-      { success: false, error: 'Failed to clear consent' },
-      { status: 500 }
-    );
+    Logger.error('[Consent] Error clearing consent:', {
+      error: error instanceof Error ? error.message : String(error),
+    });
+    return NextResponse.json({ success: false, error: 'Failed to clear consent' }, { status: 500 });
   }
 }

@@ -133,7 +133,10 @@ export class WaitingListValidationError extends WaitingListDomainError {
 }
 
 export class WaitingListSubmissionError extends WaitingListDomainError {
-  constructor(message: string, public readonly email: string) {
+  constructor(
+    message: string,
+    public readonly email: string
+  ) {
     super(message, 'SUBMISSION_FAILED', true);
   }
 }
@@ -171,4 +174,3 @@ export interface WaitingListRepository {
   updatePosition(email: string, newPosition: number): Promise<void>;
   incrementReferralCount(email: string): Promise<number>;
 }
-

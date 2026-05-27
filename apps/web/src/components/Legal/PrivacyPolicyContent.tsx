@@ -57,11 +57,26 @@ export function PrivacyPolicyContent() {
   ];
 
   const dataUsageRows = [
-    [t('sections.howWeUseData.table.rows.0.purpose'), t('sections.howWeUseData.table.rows.0.legalBasis')],
-    [t('sections.howWeUseData.table.rows.1.purpose'), t('sections.howWeUseData.table.rows.1.legalBasis')],
-    [t('sections.howWeUseData.table.rows.2.purpose'), t('sections.howWeUseData.table.rows.2.legalBasis')],
-    [t('sections.howWeUseData.table.rows.3.purpose'), t('sections.howWeUseData.table.rows.3.legalBasis')],
-    [t('sections.howWeUseData.table.rows.4.purpose'), t('sections.howWeUseData.table.rows.4.legalBasis')],
+    [
+      t('sections.howWeUseData.table.rows.0.purpose'),
+      t('sections.howWeUseData.table.rows.0.legalBasis'),
+    ],
+    [
+      t('sections.howWeUseData.table.rows.1.purpose'),
+      t('sections.howWeUseData.table.rows.1.legalBasis'),
+    ],
+    [
+      t('sections.howWeUseData.table.rows.2.purpose'),
+      t('sections.howWeUseData.table.rows.2.legalBasis'),
+    ],
+    [
+      t('sections.howWeUseData.table.rows.3.purpose'),
+      t('sections.howWeUseData.table.rows.3.legalBasis'),
+    ],
+    [
+      t('sections.howWeUseData.table.rows.4.purpose'),
+      t('sections.howWeUseData.table.rows.4.legalBasis'),
+    ],
   ];
 
   // Rights table
@@ -71,13 +86,34 @@ export function PrivacyPolicyContent() {
   ];
 
   const rightsRows = [
-    [t('sections.yourRights.table.rows.0.right'), t('sections.yourRights.table.rows.0.description')],
-    [t('sections.yourRights.table.rows.1.right'), t('sections.yourRights.table.rows.1.description')],
-    [t('sections.yourRights.table.rows.2.right'), t('sections.yourRights.table.rows.2.description')],
-    [t('sections.yourRights.table.rows.3.right'), t('sections.yourRights.table.rows.3.description')],
-    [t('sections.yourRights.table.rows.4.right'), t('sections.yourRights.table.rows.4.description')],
-    [t('sections.yourRights.table.rows.5.right'), t('sections.yourRights.table.rows.5.description')],
-    [t('sections.yourRights.table.rows.6.right'), t('sections.yourRights.table.rows.6.description')],
+    [
+      t('sections.yourRights.table.rows.0.right'),
+      t('sections.yourRights.table.rows.0.description'),
+    ],
+    [
+      t('sections.yourRights.table.rows.1.right'),
+      t('sections.yourRights.table.rows.1.description'),
+    ],
+    [
+      t('sections.yourRights.table.rows.2.right'),
+      t('sections.yourRights.table.rows.2.description'),
+    ],
+    [
+      t('sections.yourRights.table.rows.3.right'),
+      t('sections.yourRights.table.rows.3.description'),
+    ],
+    [
+      t('sections.yourRights.table.rows.4.right'),
+      t('sections.yourRights.table.rows.4.description'),
+    ],
+    [
+      t('sections.yourRights.table.rows.5.right'),
+      t('sections.yourRights.table.rows.5.description'),
+    ],
+    [
+      t('sections.yourRights.table.rows.6.right'),
+      t('sections.yourRights.table.rows.6.description'),
+    ],
   ];
 
   // Data lists
@@ -108,9 +144,18 @@ export function PrivacyPolicyContent() {
   ];
 
   const retentionItems = [
-    { type: t('sections.dataRetention.items.0.type'), duration: t('sections.dataRetention.items.0.duration') },
-    { type: t('sections.dataRetention.items.1.type'), duration: t('sections.dataRetention.items.1.duration') },
-    { type: t('sections.dataRetention.items.2.type'), duration: t('sections.dataRetention.items.2.duration') },
+    {
+      type: t('sections.dataRetention.items.0.type'),
+      duration: t('sections.dataRetention.items.0.duration'),
+    },
+    {
+      type: t('sections.dataRetention.items.1.type'),
+      duration: t('sections.dataRetention.items.1.duration'),
+    },
+    {
+      type: t('sections.dataRetention.items.2.type'),
+      duration: t('sections.dataRetention.items.2.duration'),
+    },
   ];
 
   return (
@@ -131,10 +176,7 @@ export function PrivacyPolicyContent() {
         as="article"
         ariaLabel="Privacy Policy content"
       >
-        <LegalTableOfContents
-          items={tocItems}
-          title={t('toc.title')}
-        />
+        <LegalTableOfContents items={tocItems} title={t('toc.title')} />
 
         <LegalContentSection title={t('sections.whoWeAre.title')} id="who-we-are">
           <LegalParagraph>{t('sections.whoWeAre.content')}</LegalParagraph>
@@ -146,7 +188,10 @@ export function PrivacyPolicyContent() {
           />
         </LegalContentSection>
 
-        <LegalContentSection title={t('sections.whatDataWeCollect.title')} id="what-data-we-collect">
+        <LegalContentSection
+          title={t('sections.whatDataWeCollect.title')}
+          id="what-data-we-collect"
+        >
           <LegalSubsection title={t('sections.whatDataWeCollect.provided.title')}>
             <LegalList items={providedItems} />
           </LegalSubsection>
@@ -175,7 +220,10 @@ export function PrivacyPolicyContent() {
           <LegalParagraph>{t('sections.whoWeShareWith.note')}</LegalParagraph>
         </LegalContentSection>
 
-        <LegalContentSection title={t('sections.internationalTransfers.title')} id="international-transfers">
+        <LegalContentSection
+          title={t('sections.internationalTransfers.title')}
+          id="international-transfers"
+        >
           <LegalParagraph>{t('sections.internationalTransfers.content')}</LegalParagraph>
         </LegalContentSection>
 
@@ -187,7 +235,10 @@ export function PrivacyPolicyContent() {
           <LegalParagraph>{t('sections.yourRights.intro')}</LegalParagraph>
           <LegalTable headers={rightsHeaders} rows={rightsRows} />
           <LegalParagraph>
-            {t('sections.yourRights.exerciseRights').replace('{email}', t('sections.contact.email'))}
+            {t('sections.yourRights.exerciseRights').replace(
+              '{email}',
+              t('sections.contact.email')
+            )}
           </LegalParagraph>
         </LegalContentSection>
 

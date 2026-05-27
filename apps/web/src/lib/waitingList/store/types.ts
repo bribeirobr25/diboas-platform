@@ -27,11 +27,7 @@ export interface WaitlistEntry {
   updatedAt: Date;
 }
 
-export type WaitlistTier =
-  | 'founding_member'
-  | 'early_member'
-  | 'priority_waitlist'
-  | 'standard';
+export type WaitlistTier = 'founding_member' | 'early_member' | 'priority_waitlist' | 'standard';
 
 export type WaitlistSource =
   | 'landing_b2c'

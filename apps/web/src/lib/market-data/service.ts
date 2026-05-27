@@ -11,7 +11,12 @@
  * - P12 Monitoring: Logger warnings on fallback
  */
 
-import type { MarketDataSnapshot, IMarketDataProvider, HistoricalAnchorsData, MonthlySeriesData } from './types';
+import type {
+  MarketDataSnapshot,
+  IMarketDataProvider,
+  HistoricalAnchorsData,
+  MonthlySeriesData,
+} from './types';
 import { FALLBACK_MARKET_DATA } from './constants';
 import { CircuitBreaker } from '@/lib/utils/CircuitBreaker';
 

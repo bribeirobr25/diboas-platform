@@ -128,7 +128,13 @@ export function useCarouselAutoplay({
       setIsAutoPlaying(false);
       carouselStateRef.current.transitionTo('paused');
     }
-  }, [pauseOnHover, isAutoPlaying, carouselStateRef, setIsAutoPlaying, setWasAutoPlayingBeforeHover]);
+  }, [
+    pauseOnHover,
+    isAutoPlaying,
+    carouselStateRef,
+    setIsAutoPlaying,
+    setWasAutoPlayingBeforeHover,
+  ]);
 
   const handleMouseLeave = useCallback(() => {
     if (pauseOnHover && wasAutoPlayingBeforeHover) {
@@ -136,7 +142,13 @@ export function useCarouselAutoplay({
       setWasAutoPlayingBeforeHover(false);
       carouselStateRef.current.transitionTo('playing');
     }
-  }, [pauseOnHover, wasAutoPlayingBeforeHover, carouselStateRef, setIsAutoPlaying, setWasAutoPlayingBeforeHover]);
+  }, [
+    pauseOnHover,
+    wasAutoPlayingBeforeHover,
+    carouselStateRef,
+    setIsAutoPlaying,
+    setWasAutoPlayingBeforeHover,
+  ]);
 
   return {
     togglePlayPause,

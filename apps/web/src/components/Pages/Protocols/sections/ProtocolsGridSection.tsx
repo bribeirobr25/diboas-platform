@@ -144,14 +144,29 @@ export function ProtocolsGridSection() {
 
                           {/* Links */}
                           <div className={styles.protocolLinks}>
-                            <a href={protocol.website} target="_blank" rel="noopener noreferrer" className={styles.protocolLink}>
+                            <a
+                              href={protocol.website}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={styles.protocolLink}
+                            >
                               {labels.websiteLink}
                             </a>
-                            <a href={protocol.twitter} target="_blank" rel="noopener noreferrer" className={styles.protocolLink}>
+                            <a
+                              href={protocol.twitter}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={styles.protocolLink}
+                            >
                               {labels.twitterLink}
                             </a>
                             {protocol.defiLlamaUrl ? (
-                              <a href={protocol.defiLlamaUrl} target="_blank" rel="noopener noreferrer" className={styles.protocolLink}>
+                              <a
+                                href={protocol.defiLlamaUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.protocolLink}
+                              >
                                 {labels.defiLlamaLink}
                               </a>
                             ) : null}

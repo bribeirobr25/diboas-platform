@@ -15,10 +15,33 @@ import { useTranslation } from '@diboas/i18n/client';
 import { Button } from '@diboas/ui';
 import dynamic from 'next/dynamic';
 
-const PreDream = dynamic(() => import('@/components/PreDream').then(m => ({ default: m.PreDream })), {
-  ssr: false,
-  loading: () => <div style={{ minHeight: '50vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div style={{ width: '2rem', height: '2rem', border: '2px solid #e0e7ff', borderTopColor: '#3b82f6', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} /></div>,
-});
+const PreDream = dynamic(
+  () => import('@/components/PreDream').then((m) => ({ default: m.PreDream })),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        style={{
+          minHeight: '50vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div
+          style={{
+            width: '2rem',
+            height: '2rem',
+            border: '2px solid #e0e7ff',
+            borderTopColor: '#3b82f6',
+            borderRadius: '50%',
+            animation: 'spin 0.8s linear infinite',
+          }}
+        />
+      </div>
+    ),
+  }
+);
 import { useWaitingListModal } from '@/components/WaitingList';
 import { analyticsService } from '@/lib/analytics';
 import { POSITION_STORAGE_KEYS } from '@/lib/waitingList/constants';
@@ -88,14 +111,19 @@ export function DreamModePageContent({ locale }: DreamModePageContentProps) {
       <div className={styles.gateContainer}>
         <div className={styles.gateCard}>
           <div className={styles.gateIcon}>
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg
+              width="64"
+              height="64"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               <path d="M12 8v4m0 4h.01" />
             </svg>
           </div>
-          <h1 className={styles.gateTitle}>
-            {intl.formatMessage({ id: 'dreamMode.gate.title' })}
-          </h1>
+          <h1 className={styles.gateTitle}>{intl.formatMessage({ id: 'dreamMode.gate.title' })}</h1>
           <p className={styles.gateDescription}>
             {intl.formatMessage({ id: 'dreamMode.gate.description' })}
           </p>
@@ -128,12 +156,8 @@ export function DreamModePageContent({ locale }: DreamModePageContentProps) {
         enableReporting={true}
         context={{ page: 'dream-mode', locale }}
       >
-        <PreDream
-          onClose={handleClose}
-          onBackToHome={handleClose}
-        />
+        <PreDream onClose={handleClose} onBackToHome={handleClose} />
       </SectionErrorBoundary>
     </div>
   );
 }
-

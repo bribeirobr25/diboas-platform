@@ -40,6 +40,10 @@ export async function logEmailDelivery(input: DeliveryLogInput): Promise<void> {
     `;
   } catch (err) {
     // Fire-and-forget: log failure but don't propagate
-    Logger.error('[DeliveryLog] Failed to log email delivery', {}, err instanceof Error ? err : undefined);
+    Logger.error(
+      '[DeliveryLog] Failed to log email delivery',
+      {},
+      err instanceof Error ? err : undefined
+    );
   }
 }

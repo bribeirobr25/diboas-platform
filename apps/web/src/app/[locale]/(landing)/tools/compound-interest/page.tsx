@@ -7,11 +7,7 @@ import { ToolPage } from '@/components/Sections/ToolPage';
 import { CompoundInterestCalculator } from '@/components/Sections/CompoundInterestCalculator';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
-import {
-  COMPOUND_TOOL_DEFAULTS,
-  buildToolStructuredData,
-  toolMetadata,
-} from '@/lib/tools';
+import { COMPOUND_TOOL_DEFAULTS, buildToolStructuredData, toolMetadata } from '@/lib/tools';
 import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'force-dynamic';
@@ -48,6 +44,7 @@ export default async function CompoundInterestToolPage({ params }: LocalePagePro
       <ToolPage toolKey="compound-interest" pageMessages={pageMessages}>
         <CompoundInterestCalculator
           engine="tool"
+          recurringSliderMax={defaults.recurringSliderMax[locale]}
           initialInput={{
             amount: defaults.amount[locale],
             cadence: defaults.cadence,

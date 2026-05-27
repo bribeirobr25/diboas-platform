@@ -19,7 +19,7 @@ export function rowToEntry(row: WaitlistEntryRow): WaitlistEntry {
   return {
     id: row.id,
     email: decrypt(row.email) || row.email,
-    name: row.name ? (decrypt(row.name) || row.name) : undefined,
+    name: row.name ? decrypt(row.name) || row.name : undefined,
     position: row.position,
     originalPosition: row.original_position,
     referralCode: row.referral_code,
@@ -62,8 +62,15 @@ export function validateRow(row: unknown): WaitlistEntryRow {
   }
 
   const requiredStrings = [
-    'id', 'email', 'email_hash', 'referral_code', 'locale',
-    'source', 'tier', 'created_at', 'updated_at',
+    'id',
+    'email',
+    'email_hash',
+    'referral_code',
+    'locale',
+    'source',
+    'tier',
+    'created_at',
+    'updated_at',
   ] as const;
   for (const field of requiredStrings) {
     if (typeof r[field] !== 'string') {
@@ -83,7 +90,9 @@ export function validateRow(row: unknown): WaitlistEntryRow {
   }
 
   if (typeof r.gdpr_accepted !== 'boolean') {
-    throw new Error(`validateRow: expected boolean for "gdpr_accepted", got ${typeof r.gdpr_accepted}`);
+    throw new Error(
+      `validateRow: expected boolean for "gdpr_accepted", got ${typeof r.gdpr_accepted}`
+    );
   }
 
   return r as unknown as WaitlistEntryRow;
@@ -104,13 +113,14 @@ export async function executeOptimisticUpdate(
   sqlQuery: ReturnType<typeof sql>,
   currentVersion: number | undefined,
   concurrencyErrorMsg: string,
-  extraWhereCheck?: ReturnType<typeof sql>,
+  extraWhereCheck?: ReturnType<typeof sql>
 ): Promise<WaitlistEntryRow | undefined> {
   const rows = await sqlQuery;
   if (rows.length > 0) return validateRow(rows[0]);
 
   if (currentVersion !== undefined) {
-    const existsQuery = extraWhereCheck ?? sql`SELECT 1 FROM waitlist_entries WHERE email_hash = ${hash} LIMIT 1`;
+    const existsQuery =
+      extraWhereCheck ?? sql`SELECT 1 FROM waitlist_entries WHERE email_hash = ${hash} LIMIT 1`;
     const existsRows = await existsQuery;
     if (existsRows.length > 0) {
       throw new ConcurrencyConflictError(concurrencyErrorMsg);
@@ -126,7 +136,7 @@ export async function executeOptimisticUpdate(
  */
 export function emitStoreEvent(
   eventType: ApplicationEventType,
-  payload: Record<string, unknown>,
+  payload: Record<string, unknown>
 ): void {
   import('@/lib/events/ApplicationEventBus')
     .then(({ applicationEventBus }) => {

@@ -52,25 +52,23 @@ describe('useMarketData', () => {
 
     // Simulate what the hook does (without React rendering in node environment)
     const mounted = true;
-    await (
-      mockGet()
-        .then((_data: unknown) => {
-          if (mounted) {
-            // Would call setSnapshot(data)
-          }
-        })
-        .catch((error: unknown) => {
-          if (mounted) {
-            Logger.error('Failed to fetch market data', {}, error instanceof Error ? error : undefined);
-          }
-        })
-    );
+    await mockGet()
+      .then((_data: unknown) => {
+        if (mounted) {
+          // Would call setSnapshot(data)
+        }
+      })
+      .catch((error: unknown) => {
+        if (mounted) {
+          Logger.error(
+            'Failed to fetch market data',
+            {},
+            error instanceof Error ? error : undefined
+          );
+        }
+      });
 
-    expect(Logger.error).toHaveBeenCalledWith(
-      'Failed to fetch market data',
-      {},
-      serviceError
-    );
+    expect(Logger.error).toHaveBeenCalledWith('Failed to fetch market data', {}, serviceError);
   });
 
   it('should not call Logger.error after unmount', async () => {
@@ -83,11 +81,17 @@ describe('useMarketData', () => {
     let mounted = true;
     const promise = mockGet()
       .then((_data: unknown) => {
-        if (mounted) { /* setSnapshot */ }
+        if (mounted) {
+          /* setSnapshot */
+        }
       })
       .catch((error: unknown) => {
         if (mounted) {
-          Logger.error('Failed to fetch market data', {}, error instanceof Error ? error : undefined);
+          Logger.error(
+            'Failed to fetch market data',
+            {},
+            error instanceof Error ? error : undefined
+          );
         }
       });
 

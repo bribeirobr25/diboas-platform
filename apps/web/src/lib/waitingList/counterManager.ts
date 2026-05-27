@@ -65,9 +65,10 @@ export async function getFoundingMemberStatus(
   audience: Audience = 'b2c'
 ): Promise<{ count: number; cap: number }> {
   const keys = COUNTER_KEYS[audience];
-  const defaultCap = audience === 'b2b'
-    ? parseInt(process.env.FOUNDING_MEMBER_CAP_B2B || '24', 10)
-    : parseInt(process.env.FOUNDING_MEMBER_CAP || '1200', 10);
+  const defaultCap =
+    audience === 'b2b'
+      ? parseInt(process.env.FOUNDING_MEMBER_CAP_B2B || '24', 10)
+      : parseInt(process.env.FOUNDING_MEMBER_CAP || '1200', 10);
 
   const rows = await sql`
     SELECT key, value FROM waitlist_counters

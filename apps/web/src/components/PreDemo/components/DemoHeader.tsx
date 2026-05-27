@@ -26,11 +26,7 @@ export function DemoHeader({ showAvatar = true }: DemoHeaderProps) {
       <div className={styles.demoHeaderContent}>
         {/* Logo image + text (clickable to exit) */}
         <div className={styles.demoHeaderLeft}>
-          <button
-            type="button"
-            className={styles.demoHeaderLogoButton}
-            onClick={onExit}
-          >
+          <button type="button" className={styles.demoHeaderLogoButton} onClick={onExit}>
             <Image
               src={ASSET_PATHS.LOGOS.ICON}
               alt="diBoaS"

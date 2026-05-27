@@ -21,7 +21,8 @@ const translations: Record<string, Record<string, string>> = {
     invitesUsedLabel: 'Convites usados',
     invitesRemainingLabel: 'Restantes',
     cta: 'Continue compartilhando para ajudar amigos a ter acesso antecipado!',
-    referralShareText: 'Meus amigos já estão entrando. Junte-se a nós! Liberte seu dinheiro e faça-o crescer.',
+    referralShareText:
+      'Meus amigos já estão entrando. Junte-se a nós! Liberte seu dinheiro e faça-o crescer.',
   },
   es: {
     subject: '¡Un amigo se unió con tu enlace!',
@@ -39,11 +40,15 @@ const translations: Record<string, Record<string, string>> = {
     invitesUsedLabel: 'Einladungen genutzt',
     invitesRemainingLabel: 'Verbleibend',
     cta: 'Teile weiter, um Freunden frühzeitigen Zugang zu ermöglichen!',
-    referralShareText: 'Meine Freunde sind schon dabei. Mach mit! Befreie dein Geld und lass es wachsen.',
+    referralShareText:
+      'Meine Freunde sind schon dabei. Mach mit! Befreie dein Geld und lass es wachsen.',
   },
 };
 
-export function renderReferralSuccess(data: ReferralSuccessEmailData): { subject: string; html: string } {
+export function renderReferralSuccess(data: ReferralSuccessEmailData): {
+  subject: string;
+  html: string;
+} {
   const t = translations[data.locale] || translations.en;
   const namePart = data.name ? `, ${escapeHtml(data.name)}` : '';
   const greeting = t.greeting.replace('{name}', namePart);
@@ -72,5 +77,8 @@ export function renderReferralSuccess(data: ReferralSuccessEmailData): { subject
     ${renderSocialShareButtons(t.referralShareText, data.referralUrl)}
   `;
 
-  return { subject: t.subject, html: wrapInLayout(content, { locale: data.locale, unsubscribeUrl: data.unsubscribeUrl }) };
+  return {
+    subject: t.subject,
+    html: wrapInLayout(content, { locale: data.locale, unsubscribeUrl: data.unsubscribeUrl }),
+  };
 }

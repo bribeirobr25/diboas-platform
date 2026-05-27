@@ -28,7 +28,7 @@ import dynamic from 'next/dynamic';
 
 // Lazy-load PreDream — only rendered when user enters dream-mode (interaction-gated)
 const PreDream = dynamic(
-  () => import('@/components/PreDream').then(m => ({ default: m.PreDream })),
+  () => import('@/components/PreDream').then((m) => ({ default: m.PreDream })),
   { ssr: false, loading: () => null }
 );
 import { useTranslation } from '@diboas/i18n/client';
@@ -55,11 +55,14 @@ function PreDemoContent({ onExit }: PreDemoProps) {
   useFocusTrap(containerRef, isActive, { returnFocus: true });
 
   // Escape key to exit demo
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'Escape' && onExit) {
-      onExit();
-    }
-  }, [onExit]);
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Escape' && onExit) {
+        onExit();
+      }
+    },
+    [onExit]
+  );
 
   // Focus management on screen change — prefer [data-autofocus] elements
   useEffect(() => {
@@ -73,7 +76,7 @@ function PreDemoContent({ onExit }: PreDemoProps) {
     }
 
     const focusableElements = container.querySelectorAll<HTMLElement>(
-      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
     );
 
     if (focusableElements.length > 0) {
@@ -96,10 +99,7 @@ function PreDemoContent({ onExit }: PreDemoProps) {
           <LoadingScreen
             title={t('preDemo.loading.creatingAccount')}
             subtitle={t('preDemo.loading.creatingAccountSubtitle')}
-            checkmarks={[
-              t('preDemo.loading.checkIdentity'),
-              t('preDemo.loading.checkCompliance'),
-            ]}
+            checkmarks={[t('preDemo.loading.checkIdentity'), t('preDemo.loading.checkCompliance')]}
             showAvatar={false}
           />
         );
@@ -206,12 +206,7 @@ function PreDemoContent({ onExit }: PreDemoProps) {
         return <WalletDetailsScreen />;
 
       case 'dream-mode':
-        return (
-          <PreDream
-            onClose={handleDreamClose}
-            onBackToHome={handleDreamClose}
-          />
-        );
+        return <PreDream onClose={handleDreamClose} onBackToHome={handleDreamClose} />;
 
       default:
         return <LoginScreen onExit={onExit} runSequence={runSequence} />;

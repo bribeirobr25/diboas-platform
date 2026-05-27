@@ -91,24 +91,16 @@ const peakKB = peak / 1024;
 
 const failures = [];
 if (peakKB > BUDGETS.maxAssetKB) {
-  failures.push(
-    `peak asset ${peakKB.toFixed(0)} KB > ${BUDGETS.maxAssetKB} KB cap (${peakName})`,
-  );
+  failures.push(`peak asset ${peakKB.toFixed(0)} KB > ${BUDGETS.maxAssetKB} KB cap (${peakName})`);
 }
 if (totalJsKB > BUDGETS.maxTotalJsKB) {
-  failures.push(
-    `total JS ${totalJsKB.toFixed(0)} KB > ${BUDGETS.maxTotalJsKB} KB cap`,
-  );
+  failures.push(`total JS ${totalJsKB.toFixed(0)} KB > ${BUDGETS.maxTotalJsKB} KB cap`);
 }
 if (totalCssKB > BUDGETS.maxTotalCssKB) {
-  failures.push(
-    `total CSS ${totalCssKB.toFixed(0)} KB > ${BUDGETS.maxTotalCssKB} KB cap`,
-  );
+  failures.push(`total CSS ${totalCssKB.toFixed(0)} KB > ${BUDGETS.maxTotalCssKB} KB cap`);
 }
 if (jsFiles.length > BUDGETS.maxAssetCount) {
-  failures.push(
-    `JS chunk count ${jsFiles.length} > ${BUDGETS.maxAssetCount} cap`,
-  );
+  failures.push(`JS chunk count ${jsFiles.length} > ${BUDGETS.maxAssetCount} cap`);
 }
 
 const summary =

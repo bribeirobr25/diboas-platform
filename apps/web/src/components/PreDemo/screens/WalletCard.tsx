@@ -49,9 +49,7 @@ export function WalletCard({
   const isComingSoon = config.comingSoon === true;
 
   return (
-    <div
-      className={`${styles.walletCard} ${isComingSoon ? styles.walletCardDisabled : ''}`}
-    >
+    <div className={`${styles.walletCard} ${isComingSoon ? styles.walletCardDisabled : ''}`}>
       {/* Wallet header */}
       <div className={styles.walletHeader}>
         <div
@@ -72,25 +70,16 @@ export function WalletCard({
               {isCopied ? (
                 <span className={styles.copiedText}>{t('preDemo.wallet.copied')}</span>
               ) : copyFeedback === 'failed' ? (
-                <span className={styles.copyFailedText}>
-                  {t('preDemo.wallet.copyFailed')}
-                </span>
+                <span className={styles.copyFailedText}>{t('preDemo.wallet.copyFailed')}</span>
               ) : (
                 <CopyIcon />
               )}
             </button>
           </div>
         </div>
-        {isComingSoon && (
-          <span className={styles.soonBadge}>
-            {t('preDemo.wallet.soon')}
-          </span>
-        )}
+        {isComingSoon && <span className={styles.soonBadge}>{t('preDemo.wallet.soon')}</span>}
         {!isComingSoon && totalValue > 0 && (
-          <span
-            className={styles.walletHeaderTotal}
-            style={{ color: CHAIN_TEXT_COLORS[chain] }}
-          >
+          <span className={styles.walletHeaderTotal} style={{ color: CHAIN_TEXT_COLORS[chain] }}>
             {formatCurrency(totalValue, 2, locale)}
           </span>
         )}
@@ -98,9 +87,7 @@ export function WalletCard({
 
       {/* Token list or "No tokens yet" */}
       {isComingSoon ? (
-        <p className={styles.noTokensText}>
-          {t('preDemo.wallet.noTokensYet')}
-        </p>
+        <p className={styles.noTokensText}>{t('preDemo.wallet.noTokensYet')}</p>
       ) : (
         <div className={styles.tokenList}>
           {tokens.map((token) => (
@@ -112,9 +99,7 @@ export function WalletCard({
               </span>
               <div className={styles.tokenValues}>
                 {token.amount === 0 ? (
-                  <span className={`${styles.tokenAmount} ${styles.textMuted}`}>
-                    0
-                  </span>
+                  <span className={`${styles.tokenAmount} ${styles.textMuted}`}>0</span>
                 ) : token.symbol === 'USDC' ? (
                   <span className={styles.tokenAmount}>
                     {formatCurrency(token.usdValue, 2, locale)}
@@ -148,9 +133,7 @@ export function WalletCard({
               });
             }}
           >
-            <span className={styles.l2HeaderLabel}>
-              {t('preDemo.wallet.l2Chains')}
-            </span>
+            <span className={styles.l2HeaderLabel}>{t('preDemo.wallet.l2Chains')}</span>
             <ChevronIcon expanded={l2Expanded} />
           </button>
           {l2Expanded && (
@@ -160,15 +143,11 @@ export function WalletCard({
                   <div className={styles.l2ChainInfo}>
                     <L2ChainIcon l2Id={id} color={l2.color} />
                     <span className={styles.l2ChainName}>{l2.name}</span>
-                    <span className={styles.l2ChainAddress}>
-                      {truncateAddress(l2.address)}
-                    </span>
+                    <span className={styles.l2ChainAddress}>{truncateAddress(l2.address)}</span>
                   </div>
                   <div className={styles.l2TokenRow}>
                     <span className={styles.tokenSymbol}>{l2.token}</span>
-                    <span className={`${styles.tokenAmount} ${styles.textMuted}`}>
-                      0
-                    </span>
+                    <span className={`${styles.tokenAmount} ${styles.textMuted}`}>0</span>
                   </div>
                 </div>
               ))}
@@ -179,10 +158,7 @@ export function WalletCard({
 
       {/* Export private key button */}
       {!isComingSoon && (
-        <button
-          className={styles.exportKeyButton}
-          onClick={() => onExportKey(chain)}
-        >
+        <button className={styles.exportKeyButton} onClick={() => onExportKey(chain)}>
           <KeyIcon />
           {t('preDemo.wallet.exportKey')}
         </button>

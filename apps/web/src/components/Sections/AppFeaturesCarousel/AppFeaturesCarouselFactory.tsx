@@ -1,6 +1,6 @@
 /**
  * AppFeaturesCarousel Factory Component
- * 
+ *
  * Domain-Driven Design: Single entry point with variant composition
  * Service Agnostic Abstraction: Variant selection handled internally
  * Code Reusability: Shared analytics, error handling, and configuration logic
@@ -13,9 +13,16 @@
 
 import { Logger } from '@/lib/monitoring/Logger';
 import { useCallback, useMemo } from 'react';
-import { APP_FEATURES_CAROUSEL_CONFIGS, type AppFeaturesCarouselVariantConfig, type AppFeaturesCarouselVariant } from '@/config/appFeaturesCarousel';
+import {
+  APP_FEATURES_CAROUSEL_CONFIGS,
+  type AppFeaturesCarouselVariantConfig,
+  type AppFeaturesCarouselVariant,
+} from '@/config/appFeaturesCarousel';
 import { analyticsService } from '@/lib/analytics';
-import { getAppFeaturesCarouselVariant, validateAppFeaturesCarouselVariant } from './variants/registry';
+import {
+  getAppFeaturesCarouselVariant,
+  validateAppFeaturesCarouselVariant,
+} from './variants/registry';
 import type { AppFeaturesCarouselVariantProps } from './variants/types';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
 
@@ -58,7 +65,7 @@ export interface AppFeaturesCarouselProps {
 
 /**
  * AppFeaturesCarousel Factory Component
- * 
+ *
  * Monitoring & Observability: Built-in analytics and error tracking
  * Performance: Variant-based code splitting and lazy loading
  */
@@ -69,14 +76,16 @@ export function AppFeaturesCarousel({
   enableAnalytics = true,
   backgroundColor,
   priority = false,
-  autoPlay = true
+  autoPlay = true,
 }: AppFeaturesCarouselProps) {
   // Domain-Driven Design: Configuration resolution with validation
   const baseResolvedConfig = useMemo(() => {
     try {
-      const baseConfig = APP_FEATURES_CAROUSEL_CONFIGS[variant as AppFeaturesCarouselVariant] || APP_FEATURES_CAROUSEL_CONFIGS.default;
+      const baseConfig =
+        APP_FEATURES_CAROUSEL_CONFIGS[variant as AppFeaturesCarouselVariant] ||
+        APP_FEATURES_CAROUSEL_CONFIGS.default;
       const finalConfig = customConfig
-        ? { ...baseConfig, ...customConfig } as AppFeaturesCarouselVariantConfig
+        ? ({ ...baseConfig, ...customConfig } as AppFeaturesCarouselVariantConfig)
         : baseConfig;
 
       // Security: Validate configuration in development
@@ -103,81 +112,99 @@ export function AppFeaturesCarousel({
   }, [variant]);
 
   // Product KPIs & Analytics: Navigation tracking
-  const handleNavigate = useCallback(async (direction: 'prev' | 'next') => {
-    if (!enableAnalytics || !resolvedConfig.analytics?.enabled) return;
+  const handleNavigate = useCallback(
+    async (direction: 'prev' | 'next') => {
+      if (!enableAnalytics || !resolvedConfig.analytics?.enabled) return;
 
-    try {
-      await analyticsService.trackEvent(`${resolvedConfig.analytics.trackingPrefix}_navigation`, {
-        direction,
-        variant: resolvedConfig.variant,
-        page: window.location.pathname,
-        timestamp: new Date().toISOString()
-      });
-    } catch {
-      // Analytics tracking failed silently
-    }
-  }, [enableAnalytics, resolvedConfig]);
+      try {
+        await analyticsService.trackEvent(`${resolvedConfig.analytics.trackingPrefix}_navigation`, {
+          direction,
+          variant: resolvedConfig.variant,
+          page: window.location.pathname,
+          timestamp: new Date().toISOString(),
+        });
+      } catch {
+        // Analytics tracking failed silently
+      }
+    },
+    [enableAnalytics, resolvedConfig]
+  );
 
   // Product KPIs & Analytics: Slide change tracking
-  const handleSlideChange = useCallback(async (slideIndex: number) => {
-    if (!enableAnalytics || !resolvedConfig.analytics?.enabled) return;
+  const handleSlideChange = useCallback(
+    async (slideIndex: number) => {
+      if (!enableAnalytics || !resolvedConfig.analytics?.enabled) return;
 
-    try {
-      await analyticsService.trackEvent(`${resolvedConfig.analytics.trackingPrefix}_slide_change`, {
-        slide_index: slideIndex,
-        slide_id: resolvedConfig.cards?.[slideIndex]?.id,
-        variant: resolvedConfig.variant,
-        timestamp: new Date().toISOString()
-      });
-    } catch {
-      // Analytics tracking failed silently
-    }
-  }, [enableAnalytics, resolvedConfig]);
+      try {
+        await analyticsService.trackEvent(
+          `${resolvedConfig.analytics.trackingPrefix}_slide_change`,
+          {
+            slide_index: slideIndex,
+            slide_id: resolvedConfig.cards?.[slideIndex]?.id,
+            variant: resolvedConfig.variant,
+            timestamp: new Date().toISOString(),
+          }
+        );
+      } catch {
+        // Analytics tracking failed silently
+      }
+    },
+    [enableAnalytics, resolvedConfig]
+  );
 
   // Product KPIs & Analytics: CTA interaction tracking
-  const handleCTAClick = useCallback(async (slideId: string, ctaHref: string) => {
-    if (!enableAnalytics || !resolvedConfig.analytics?.enabled) return;
+  const handleCTAClick = useCallback(
+    async (slideId: string, ctaHref: string) => {
+      if (!enableAnalytics || !resolvedConfig.analytics?.enabled) return;
 
-    try {
-      await analyticsService.trackEvent(`${resolvedConfig.analytics.trackingPrefix}_cta_click`, {
-        slide_id: slideId,
-        cta_href: ctaHref,
-        variant: resolvedConfig.variant,
-        page: window.location.pathname,
-        timestamp: new Date().toISOString()
-      });
+      try {
+        await analyticsService.trackEvent(`${resolvedConfig.analytics.trackingPrefix}_cta_click`, {
+          slide_id: slideId,
+          cta_href: ctaHref,
+          variant: resolvedConfig.variant,
+          page: window.location.pathname,
+          timestamp: new Date().toISOString(),
+        });
 
-      // Navigate based on target
-      const card = resolvedConfig.cards?.find(c => c.id === slideId);
-      if (card?.content.ctaTarget === '_blank') {
-        window.open(ctaHref, '_blank', 'noopener,noreferrer');
-      } else {
-        window.location.href = ctaHref;
+        // Navigate based on target
+        const card = resolvedConfig.cards?.find((c) => c.id === slideId);
+        if (card?.content.ctaTarget === '_blank') {
+          window.open(ctaHref, '_blank', 'noopener,noreferrer');
+        } else {
+          window.location.href = ctaHref;
+        }
+      } catch {
+        // Analytics tracking failed silently — still navigate
+        const card = resolvedConfig.cards?.find((c) => c.id === slideId);
+        if (card?.content.ctaTarget === '_blank') {
+          window.open(ctaHref, '_blank', 'noopener,noreferrer');
+        } else {
+          window.location.href = ctaHref;
+        }
       }
-    } catch {
-      // Analytics tracking failed silently — still navigate
-      const card = resolvedConfig.cards?.find(c => c.id === slideId);
-      if (card?.content.ctaTarget === '_blank') {
-        window.open(ctaHref, '_blank', 'noopener,noreferrer');
-      } else {
-        window.location.href = ctaHref;
-      }
-    }
-  }, [enableAnalytics, resolvedConfig]);
+    },
+    [enableAnalytics, resolvedConfig]
+  );
 
   // Product KPIs & Analytics: Play/pause tracking
-  const handlePlayPause = useCallback(async (isPlaying: boolean) => {
-    if (!enableAnalytics || !resolvedConfig.analytics?.enabled) return;
+  const handlePlayPause = useCallback(
+    async (isPlaying: boolean) => {
+      if (!enableAnalytics || !resolvedConfig.analytics?.enabled) return;
 
-    try {
-      await analyticsService.trackEvent(`${resolvedConfig.analytics.trackingPrefix}_${isPlaying ? 'play' : 'pause'}`, {
-        variant: resolvedConfig.variant,
-        timestamp: new Date().toISOString()
-      });
-    } catch {
-      // Analytics tracking failed silently
-    }
-  }, [enableAnalytics, resolvedConfig]);
+      try {
+        await analyticsService.trackEvent(
+          `${resolvedConfig.analytics.trackingPrefix}_${isPlaying ? 'play' : 'pause'}`,
+          {
+            variant: resolvedConfig.variant,
+            timestamp: new Date().toISOString(),
+          }
+        );
+      } catch {
+        // Analytics tracking failed silently
+      }
+    },
+    [enableAnalytics, resolvedConfig]
+  );
 
   // Variant props with shared logic
   const variantProps: AppFeaturesCarouselVariantProps = {
@@ -190,7 +217,7 @@ export function AppFeaturesCarousel({
     onNavigate: handleNavigate,
     onSlideChange: handleSlideChange,
     onCTAClick: handleCTAClick,
-    onPlayPause: handlePlayPause
+    onPlayPause: handlePlayPause,
   };
 
   // Rendering errors are caught by SectionErrorBoundary (parent layer).

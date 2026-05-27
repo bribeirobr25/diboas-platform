@@ -71,7 +71,7 @@ export function useSwipeGesture({
   onSwipeRight,
   threshold = 50,
   velocityThreshold = 0.3,
-  enabled = true
+  enabled = true,
 }: UseSwipeGestureOptions = {}): UseSwipeGestureReturn {
   const touchStartRef = useRef(0);
   const touchStartTimeRef = useRef(0);
@@ -80,63 +80,63 @@ export function useSwipeGesture({
    * Handle touch start event
    * Records initial touch position and timestamp
    */
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    if (!enabled) return;
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent) => {
+      if (!enabled) return;
 
-    const touch = e.touches[0];
-    if (!touch) return;
+      const touch = e.touches[0];
+      if (!touch) return;
 
-    touchStartRef.current = touch.clientX;
-    touchStartTimeRef.current = Date.now();
-  }, [enabled]);
+      touchStartRef.current = touch.clientX;
+      touchStartTimeRef.current = Date.now();
+    },
+    [enabled]
+  );
 
   /**
    * Handle touch end event
    * Calculates swipe distance, velocity, and direction
    */
-  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (!enabled || !touchStartRef.current) return;
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      if (!enabled || !touchStartRef.current) return;
 
-    const touch = e.changedTouches[0];
-    if (!touch) {
+      const touch = e.changedTouches[0];
+      if (!touch) {
+        touchStartRef.current = 0;
+        touchStartTimeRef.current = 0;
+        return;
+      }
+
+      const touchEnd = touch.clientX;
+      const touchEndTime = Date.now();
+
+      // Calculate swipe metrics
+      const diff = touchStartRef.current - touchEnd;
+      const distance = Math.abs(diff);
+      const duration = touchEndTime - touchStartTimeRef.current;
+      const velocity = duration > 0 ? distance / duration : 0;
+
+      // Determine if swipe meets threshold requirements
+      const meetsDistanceThreshold = distance > threshold;
+      const meetsVelocityThreshold = velocity > velocityThreshold;
+
+      if (meetsDistanceThreshold && meetsVelocityThreshold) {
+        if (diff > 0) {
+          // Swiped left (next)
+          onSwipeLeft?.();
+        } else {
+          // Swiped right (previous)
+          onSwipeRight?.();
+        }
+      }
+
+      // Reset refs
       touchStartRef.current = 0;
       touchStartTimeRef.current = 0;
-      return;
-    }
-
-    const touchEnd = touch.clientX;
-    const touchEndTime = Date.now();
-
-    // Calculate swipe metrics
-    const diff = touchStartRef.current - touchEnd;
-    const distance = Math.abs(diff);
-    const duration = touchEndTime - touchStartTimeRef.current;
-    const velocity = duration > 0 ? distance / duration : 0;
-
-    // Determine if swipe meets threshold requirements
-    const meetsDistanceThreshold = distance > threshold;
-    const meetsVelocityThreshold = velocity > velocityThreshold;
-
-    if (meetsDistanceThreshold && meetsVelocityThreshold) {
-      if (diff > 0) {
-        // Swiped left (next)
-        onSwipeLeft?.();
-      } else {
-        // Swiped right (previous)
-        onSwipeRight?.();
-      }
-    }
-
-    // Reset refs
-    touchStartRef.current = 0;
-    touchStartTimeRef.current = 0;
-  }, [
-    enabled,
-    threshold,
-    velocityThreshold,
-    onSwipeLeft,
-    onSwipeRight
-  ]);
+    },
+    [enabled, threshold, velocityThreshold, onSwipeLeft, onSwipeRight]
+  );
 
   /**
    * Reset touch state manually
@@ -150,6 +150,6 @@ export function useSwipeGesture({
     handleTouchStart,
     handleTouchEnd,
     touchStartRef,
-    reset
+    reset,
   };
 }

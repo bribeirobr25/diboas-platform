@@ -20,7 +20,7 @@ export function DefaultSectionErrorFallback({
   onRetry,
   retryCount,
   maxRetries,
-  translations
+  translations,
 }: SectionErrorFallbackProps) {
   const canRetry = retryCount < maxRetries;
   const isDevelopment = process.env.NODE_ENV === 'development';
@@ -37,7 +37,7 @@ export function DefaultSectionErrorFallback({
         backgroundColor: 'var(--error-bg-light, #fef2f2)',
         border: '1px solid var(--error-border-light, #fecaca)',
         borderRadius: '0.5rem',
-        margin: '1rem 0'
+        margin: '1rem 0',
       }}
       role="alert"
       aria-labelledby={`error-title-${errorId}`}
@@ -79,7 +79,7 @@ function ErrorTitle({ errorId, title }: { errorId: string; title: string }) {
         color: 'var(--error-text-primary, #dc2626)',
         fontSize: '1.25rem',
         fontWeight: 'bold',
-        marginBottom: '1rem'
+        marginBottom: '1rem',
       }}
     >
       [Warning] {title}
@@ -90,18 +90,20 @@ function ErrorTitle({ errorId, title }: { errorId: string; title: string }) {
 function ErrorMessage({
   message,
   canRetry,
-  canRetryText
+  canRetryText,
 }: {
   message: string;
   canRetry: boolean;
-  canRetryText: string
+  canRetryText: string;
 }) {
   return (
-    <p style={{
-      color: 'var(--error-text-secondary, #374151)',
-      marginBottom: '1.5rem',
-      lineHeight: '1.5'
-    }}>
+    <p
+      style={{
+        color: 'var(--error-text-secondary, #374151)',
+        marginBottom: '1.5rem',
+        lineHeight: '1.5',
+      }}
+    >
       {message}
       {canRetry && ` ${canRetryText}`}
     </p>
@@ -126,27 +128,31 @@ function DevelopmentErrorDetails({
   detailsLabel: string;
 }) {
   return (
-    <details style={{
-      backgroundColor: 'var(--error-bg-code, #f9fafb)',
-      border: '1px solid var(--error-border-code, #d1d5db)',
-      borderRadius: '0.25rem',
-      padding: '1rem',
-      marginBottom: '1.5rem',
-      textAlign: 'left'
-    }}>
-      <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>
-        {detailsLabel}
-      </summary>
-      <pre style={{
-        fontSize: '0.75rem',
-        marginTop: '0.5rem',
-        overflow: 'auto',
-        whiteSpace: 'pre-wrap',
-        wordBreak: 'break-word'
-      }}>
+    <details
+      style={{
+        backgroundColor: 'var(--error-bg-code, #f9fafb)',
+        border: '1px solid var(--error-border-code, #d1d5db)',
+        borderRadius: '0.25rem',
+        padding: '1rem',
+        marginBottom: '1.5rem',
+        textAlign: 'left',
+      }}
+    >
+      <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>{detailsLabel}</summary>
+      <pre
+        style={{
+          fontSize: '0.75rem',
+          marginTop: '0.5rem',
+          overflow: 'auto',
+          whiteSpace: 'pre-wrap',
+          wordBreak: 'break-word',
+        }}
+      >
         Section: {sectionType} ({sectionId}){'\n'}
-        Error: {error.name}: {error.message}{'\n'}
-        Error ID: {errorId}{'\n'}
+        Error: {error.name}: {error.message}
+        {'\n'}
+        Error ID: {errorId}
+        {'\n'}
         Retry Count: {retryCount}/{maxRetries}
       </pre>
     </details>
@@ -165,18 +171,16 @@ function ErrorActions({
   reloadLabel: string;
 }) {
   return (
-    <div style={{
-      display: 'flex',
-      gap: '1rem',
-      justifyContent: 'center',
-      flexWrap: 'wrap'
-    }}>
+    <div
+      style={{
+        display: 'flex',
+        gap: '1rem',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+      }}
+    >
       {canRetry && onRetry && (
-        <ActionButton
-          onClick={onRetry}
-          variant="primary"
-          label={`🔄 ${tryAgainLabel}`}
-        />
+        <ActionButton onClick={onRetry} variant="primary" label={`🔄 ${tryAgainLabel}`} />
       )}
 
       <ActionButton
@@ -217,7 +221,7 @@ function ActionButton({
         fontSize: '0.875rem',
         fontWeight: '500',
         cursor: 'pointer',
-        transition: 'background-color 0.2s'
+        transition: 'background-color 0.2s',
       }}
       onMouseOver={(e) => {
         e.currentTarget.style.backgroundColor = hoverColor;
@@ -233,13 +237,14 @@ function ActionButton({
 
 function HelpText({ text }: { text: string }) {
   return (
-    <p style={{
-      fontSize: '0.75rem',
-      color: 'var(--error-button-secondary, #6b7280)',
-      marginTop: '1.5rem'
-    }}>
+    <p
+      style={{
+        fontSize: '0.75rem',
+        color: 'var(--error-button-secondary, #6b7280)',
+        marginTop: '1.5rem',
+      }}
+    >
       {text}
     </p>
   );
 }
-

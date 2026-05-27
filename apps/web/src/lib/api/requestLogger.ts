@@ -22,7 +22,7 @@ export function logRequestEnd(
   method: string,
   path: string,
   status: number,
-  startTime: number,
+  startTime: number
 ): void {
   const durationMs = Math.round((performance.now() - startTime) * 100) / 100;
   const level = status >= 500 ? 'error' : status >= 400 ? 'warn' : 'info';

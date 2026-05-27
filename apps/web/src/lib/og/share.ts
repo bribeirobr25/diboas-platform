@@ -44,10 +44,7 @@ export function getWaitlistOGUrl(params: WaitlistOGParams): string {
  * getWaitlistOGUrlFull({ position: 247 }, 'https://diboas.com')
  * // => 'https://diboas.com/api/og/share?type=waitlist&position=247'
  */
-export function getWaitlistOGUrlFull(
-  params: WaitlistOGParams,
-  baseUrl: string
-): string {
+export function getWaitlistOGUrlFull(params: WaitlistOGParams, baseUrl: string): string {
   return `${baseUrl}${getWaitlistOGUrl(params)}`;
 }
 
@@ -82,10 +79,7 @@ export function getCalculatorOGUrl(params: CalculatorOGParams): string {
  * getCalculatorOGUrlFull({ futureAmount: 125000, years: 10 }, 'https://diboas.com')
  * // => 'https://diboas.com/api/og/share?type=calculator&amount=125000&years=10'
  */
-export function getCalculatorOGUrlFull(
-  params: CalculatorOGParams,
-  baseUrl: string
-): string {
+export function getCalculatorOGUrlFull(params: CalculatorOGParams, baseUrl: string): string {
   return `${baseUrl}${getCalculatorOGUrl(params)}`;
 }
 

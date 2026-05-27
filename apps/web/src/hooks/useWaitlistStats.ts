@@ -10,7 +10,11 @@
 import { useState, useEffect } from 'react';
 import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
 import { getWaitlistStatsFromEnv } from '@/config/waitlist-stats';
-import { applicationEventBus, ApplicationEventType, type ApplicationEventPayload } from '@/lib/events/ApplicationEventBus';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+  type ApplicationEventPayload,
+} from '@/lib/events/ApplicationEventBus';
 
 interface WaitlistStats {
   count: number;
@@ -40,9 +44,7 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
   // Fetch stats from API with sessionStorage cache
   useEffect(() => {
     const controller = new AbortController();
-    const url = source
-      ? `/api/waitlist/stats?source=${source}`
-      : '/api/waitlist/stats';
+    const url = source ? `/api/waitlist/stats?source=${source}` : '/api/waitlist/stats';
 
     async function fetchStats() {
       // Check cache first
@@ -72,7 +74,10 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
           setStats(statsData);
 
           try {
-            sessionStorage.setItem(cacheKey, JSON.stringify({ data: statsData, timestamp: Date.now() }));
+            sessionStorage.setItem(
+              cacheKey,
+              JSON.stringify({ data: statsData, timestamp: Date.now() })
+            );
           } catch {
             // sessionStorage full or unavailable
           }
@@ -95,7 +100,7 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
       (event) => {
         const position = (event.metadata as { position?: number } | undefined)?.position;
         if (typeof position === 'number') {
-          setStats(prev => ({ ...prev, count: position }));
+          setStats((prev) => ({ ...prev, count: position }));
         }
 
         try {
@@ -109,8 +114,8 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
           ? `/api/waitlist/stats?fresh=1&source=${source}`
           : '/api/waitlist/stats?fresh=1';
         fetch(freshUrl, { cache: 'no-store' })
-          .then(res => res.ok ? res.json() : null)
-          .then(data => {
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => {
             if (data) {
               setStats({
                 count: data.count,

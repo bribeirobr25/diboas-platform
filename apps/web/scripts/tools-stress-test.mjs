@@ -15,7 +15,9 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'src', 'lib', 'market-data', 'data');
-const monthlyPrices = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'monthlyPrices.json'), 'utf8'));
+const monthlyPrices = JSON.parse(
+  fs.readFileSync(path.join(DATA_DIR, 'monthlyPrices.json'), 'utf8')
+);
 const monthlyFx = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'monthlyFx.json'), 'utf8'));
 
 // F1 invariant (2026-05-23): catches Yahoo partial-trailing-bar duplicates
@@ -33,7 +35,7 @@ function assertUniqueYm(label, dataset) {
         seen.add(m.ym);
       }
       throw new Error(
-        `${label}.${code}: ${months.length} rows but only ${unique.size} unique ym (duplicates: ${[...new Set(dupes)].join(', ')})`,
+        `${label}.${code}: ${months.length} rows but only ${unique.size} unique ym (duplicates: ${[...new Set(dupes)].join(', ')})`
       );
     }
   }
@@ -46,8 +48,8 @@ assertUniqueYm('monthlyFx', monthlyFx);
 // ────────────────────────────────────────────────────────────────────────
 const FALLBACK = {
   bankRates: {
-    en: { savings: 0.38, savingsHighYield: 4.10 },
-    'pt-BR': { savings: 6.83, savingsCurrent: 6.17, selicAnnualPct: 14.50, trMonthlyPct: 0.0 },
+    en: { savings: 0.38, savingsHighYield: 4.1 },
+    'pt-BR': { savings: 6.83, savingsCurrent: 6.17, selicAnnualPct: 14.5, trMonthlyPct: 0.0 },
     es: { savings: 2.0 },
     de: { savings: 2.3 },
   },
@@ -60,7 +62,25 @@ const FALLBACK = {
   },
   exchangeRates: {
     BRL: { annualDepreciation: 0.0621 },
-    EUR: { annualDepreciation: 0.0123 },
+    // FX-16 D1 (Bar 2026-05-26): forward annualDepreciation moved from 1.23%
+    // to 0.55%. 1.23% remains in historicalCagr (retrospective field only).
+    EUR: { annualDepreciation: 0.0055 },
+    // 14 new currencies (FX-16 D1+D8 / Bar 2026-05-26). Forward calibration
+    // assumptions per `docs/tools/usd_fx_projection_model_consolidated.md` §6.
+    GBP: { annualDepreciation: 0.009 },
+    CAD: { annualDepreciation: 0.0057 },
+    AUD: { annualDepreciation: 0.0075 },
+    JPY: { annualDepreciation: 0.015 },
+    INR: { annualDepreciation: 0.033 },
+    MXN: { annualDepreciation: 0.0275 },
+    ZAR: { annualDepreciation: 0.0473 },
+    KRW: { annualDepreciation: 0.0153 },
+    SGD: { annualDepreciation: -0.007 },
+    HKD: { annualDepreciation: 0 },
+    AED: { annualDepreciation: 0 },
+    ILS: { annualDepreciation: -0.0023 },
+    CHF: { annualDepreciation: -0.0179 },
+    PLN: { annualDepreciation: 0.0119 },
   },
 };
 const LOCALE_CURRENCY = { en: 'USD', 'pt-BR': 'BRL', es: 'EUR', de: 'EUR' };
@@ -70,12 +90,14 @@ const LOCALE_CURRENCY = { en: 'USD', 'pt-BR': 'BRL', es: 'EUR', de: 'EUR' };
 // ────────────────────────────────────────────────────────────────────────
 const annualToMonthly = (r) => Math.pow(1 + r, 1 / 12) - 1;
 
-function lumpSumFV(p, r, y) { return p * Math.pow(1 + r, y); }
+function lumpSumFV(p, r, y) {
+  return p * Math.pow(1 + r, y);
+}
 
 function annuityFV(pmt, r, n) {
   if (n <= 0 || pmt <= 0) return 0;
   const i = annualToMonthly(r);
-  return i === 0 ? pmt * n : pmt * (Math.pow(1 + i, n) - 1) / i;
+  return i === 0 ? pmt * n : (pmt * (Math.pow(1 + i, n) - 1)) / i;
 }
 
 function purchasingPower(amt, y, infl) {
@@ -101,10 +123,17 @@ function deriveHorizonMatchedCAGR(currency, horizonYears) {
 }
 
 function resolveDep(currency, years) {
+  // FX-16 D1 priority (Bar 2026-05-26): calibrated constant wins over live
+  // FX derivation. The live derivation is semantically a retrospective
+  // endpoint-pair CAGR and was producing 1.23% for EUR (the retired PT3
+  // value); calibrated constant is 0.55% (the locked forward assumption).
+  // See `apps/web/src/lib/market-data/formulas/horizonMatchedCagr.ts` for
+  // the full rationale.
   if (!currency || currency === 'USD') return 0;
+  const calibrated = FALLBACK.exchangeRates[currency]?.annualDepreciation;
+  if (typeof calibrated === 'number') return calibrated;
   const live = deriveHorizonMatchedCAGR(currency, years);
-  if (live !== 0) return live;
-  return FALLBACK.exchangeRates[currency]?.annualDepreciation ?? 0;
+  return live;
 }
 
 function effRate(usdPct, locale, years) {
@@ -124,7 +153,8 @@ function monthsToTarget(target, monthly, annualRate, annualInfl = 0, initial = 0
   if (monthly <= 0 && initial <= 0) return Infinity;
   const r = annualToMonthly(annualRate);
   const i = annualToMonthly(annualInfl);
-  let bal = initial, tgt = target;
+  let bal = initial,
+    tgt = target;
   for (let m = 1; m <= 1200; m++) {
     tgt *= 1 + i;
     bal = bal * (1 + r) + monthly;
@@ -135,21 +165,33 @@ function monthsToTarget(target, monthly, annualRate, annualInfl = 0, initial = 0
 
 function cadenceToMonthly(amount, cadence) {
   switch (cadence) {
-    case 'oneTime': return 0;
-    case 'daily': return amount * 365 / 12;
-    case 'weekly': return amount * 52 / 12;
-    case 'monthly': return amount;
-    case 'quarterly': return amount / 3;
-    case 'semiAnnual': return amount / 6;
-    case 'yearly': return amount / 12;
+    case 'oneTime':
+      return 0;
+    case 'daily':
+      return (amount * 365) / 12;
+    case 'weekly':
+      return (amount * 52) / 12;
+    case 'monthly':
+      return amount;
+    case 'quarterly':
+      return amount / 3;
+    case 'semiAnnual':
+      return amount / 6;
+    case 'yearly':
+      return amount / 12;
   }
 }
 
 // Asset native currency map (mirror of calculator.ts ASSET_NATIVE_CURRENCY).
 const ASSET_NATIVE_CCY = {
-  BTC: 'USD', SP500: 'USD', QQQ: 'USD', MSCI_WORLD: 'USD',
-  GOLD: 'USD', TLT: 'USD',
-  IBOVESPA: 'BRL', DAX: 'EUR',
+  BTC: 'USD',
+  SP500: 'USD',
+  QQQ: 'USD',
+  MSCI_WORLD: 'USD',
+  GOLD: 'USD',
+  TLT: 'USD',
+  IBOVESPA: 'BRL',
+  DAX: 'EUR',
 };
 
 // Forward-fill FX lookup (mirror of calculator.ts buildFxLookup).
@@ -165,17 +207,24 @@ function buildFxLookup(fromCcy, toCcy) {
   if (!series || !series.months.length) {
     throw new Error(`monthlyFx[${seriesCcy}] required for cross-currency calc`);
   }
-  const sortedYms = series.months.map(b => b.ym).sort();
-  const map = new Map(series.months.map(b => [b.ym, b.closeLocalPerUsd]));
+  const sortedYms = series.months.map((b) => b.ym).sort();
+  const map = new Map(series.months.map((b) => [b.ym, b.closeLocalPerUsd]));
   const direction = fromCcy === 'USD' ? 'mul' : 'div';
   return (ym) => {
     let v = map.get(ym);
     if (v === undefined) {
       // Binary forward-fill: largest ym <= requested
-      let lo = 0, hi = sortedYms.length - 1, found = -1;
+      let lo = 0,
+        hi = sortedYms.length - 1,
+        found = -1;
       while (lo <= hi) {
         const mid = (lo + hi) >> 1;
-        if (sortedYms[mid] <= ym) { found = mid; lo = mid + 1; } else { hi = mid - 1; }
+        if (sortedYms[mid] <= ym) {
+          found = mid;
+          lo = mid + 1;
+        } else {
+          hi = mid - 1;
+        }
       }
       if (found === -1) throw new Error(`monthlyFx[${seriesCcy}] no usable rate for ${ym}`);
       v = map.get(sortedYms[found]);
@@ -185,16 +234,24 @@ function buildFxLookup(fromCcy, toCcy) {
 }
 
 // Asset history monthly replay (cross-currency aware as of 2026-05-23).
-function assetHistoryDcaReplay(asset, startYear, amount, basis = 'total_return', displayCurrency = 'USD') {
+function assetHistoryDcaReplay(
+  asset,
+  startYear,
+  amount,
+  basis = 'total_return',
+  displayCurrency = 'USD'
+) {
   const series = monthlyPrices[asset]?.months;
   if (!series) return null;
-  const startIdx = series.findIndex(m => parseInt(m.ym.slice(0, 4), 10) === startYear);
+  const startIdx = series.findIndex((m) => parseInt(m.ym.slice(0, 4), 10) === startYear);
   if (startIdx === -1) return { error: `no data for ${asset} in ${startYear}` };
   const window = series.slice(startIdx);
   const assetCcy = ASSET_NATIVE_CCY[asset];
   const fxIn = displayCurrency === assetCcy ? null : buildFxLookup(displayCurrency, assetCcy);
   const fxOut = displayCurrency === assetCcy ? null : buildFxLookup(assetCcy, displayCurrency);
-  let unitsClose = 0, unitsLow = 0, unitsHigh = 0;
+  let unitsClose = 0,
+    unitsLow = 0,
+    unitsHigh = 0;
   for (const m of window) {
     const usePriceOnly = basis === 'price_only' && m.closePriceOnly != null;
     const close = usePriceOnly ? m.closePriceOnly : m.close;
@@ -230,19 +287,29 @@ function assetHistoryDcaReplay(asset, startYear, amount, basis = 'total_return',
   };
 }
 
-function assetHistoryLumpSum(asset, startYear, amount, basis = 'total_return', displayCurrency = 'USD') {
+function assetHistoryLumpSum(
+  asset,
+  startYear,
+  amount,
+  basis = 'total_return',
+  displayCurrency = 'USD'
+) {
   const series = monthlyPrices[asset]?.months;
   if (!series) return null;
-  const startIdx = series.findIndex(m => parseInt(m.ym.slice(0, 4), 10) === startYear);
+  const startIdx = series.findIndex((m) => parseInt(m.ym.slice(0, 4), 10) === startYear);
   if (startIdx === -1) return { error: `no data for ${asset} in ${startYear}` };
   const start = series[startIdx];
   const final = series[series.length - 1];
-  const startPrice = basis === 'price_only' && start.closePriceOnly != null ? start.closePriceOnly : start.close;
-  const finalPrice = basis === 'price_only' && final.closePriceOnly != null ? final.closePriceOnly : final.close;
+  const startPrice =
+    basis === 'price_only' && start.closePriceOnly != null ? start.closePriceOnly : start.close;
+  const finalPrice =
+    basis === 'price_only' && final.closePriceOnly != null ? final.closePriceOnly : final.close;
   // Cross-currency lump-sum (2026-05-23): convert at start FX → grow → convert back at end FX.
   const assetCcy = ASSET_NATIVE_CCY[asset];
-  const fxStart = displayCurrency === assetCcy ? 1 : buildFxLookup(displayCurrency, assetCcy)(start.ym);
-  const fxEnd = displayCurrency === assetCcy ? 1 : buildFxLookup(assetCcy, displayCurrency)(final.ym);
+  const fxStart =
+    displayCurrency === assetCcy ? 1 : buildFxLookup(displayCurrency, assetCcy)(start.ym);
+  const fxEnd =
+    displayCurrency === assetCcy ? 1 : buildFxLookup(assetCcy, displayCurrency)(final.ym);
   const amountInAssetCcy = amount * fxStart;
   const terminalInAssetCcy = amountInAssetCcy * (finalPrice / startPrice);
   const terminalInDisplay = terminalInAssetCcy * fxEnd;
@@ -301,7 +368,15 @@ function runCompoundInterest() {
     });
   }
   // Cadence sweep
-  for (const cad of ['oneTime', 'daily', 'weekly', 'monthly', 'quarterly', 'semiAnnual', 'yearly']) {
+  for (const cad of [
+    'oneTime',
+    'daily',
+    'weekly',
+    'monthly',
+    'quarterly',
+    'semiAnnual',
+    'yearly',
+  ]) {
     const amount = cad === 'oneTime' ? 10000 : 200;
     const monthly = cadenceToMonthly(amount, cad);
     scenarios.push({
@@ -310,7 +385,10 @@ function runCompoundInterest() {
       input: { amount, cadence: cad, years: 10, locale: 'en' },
       output: {
         monthlyEq: Math.round(monthly * 100) / 100,
-        historical: cad === 'oneTime' ? Math.round(lumpSumFV(amount, 0.10, 10)) : Math.round(annuityFV(monthly, 0.10, 120)),
+        historical:
+          cad === 'oneTime'
+            ? Math.round(lumpSumFV(amount, 0.1, 10))
+            : Math.round(annuityFV(monthly, 0.1, 120)),
       },
     });
   }
@@ -320,7 +398,10 @@ function runCompoundInterest() {
       category: 'edge-min',
       label: `${loc}: amount=0.01 × 1y monthly`,
       input: { amount: 0.01, cadence: 'monthly', years: 1, locale: loc },
-      output: { historical: Math.round(annuityFV(0.01, effRate(10, loc, 1), 12) * 100) / 100, effRate: Math.round(effRate(10, loc, 1) * 10000) / 100 + '%' },
+      output: {
+        historical: Math.round(annuityFV(0.01, effRate(10, loc, 1), 12) * 100) / 100,
+        effRate: Math.round(effRate(10, loc, 1) * 10000) / 100 + '%',
+      },
     });
   }
   // Edge: max amount + max years per locale
@@ -329,7 +410,10 @@ function runCompoundInterest() {
       category: 'edge-max',
       label: `${loc}: INPUT_BOUNDS.amount.max × 14% × 40y oneTime`,
       input: { amount: 1_000_000_000, cadence: 'oneTime', years: 40, locale: loc },
-      output: { lumpSumFV_optimistic: lumpSumFV(1_000_000_000, effRate(14, loc, 40), 40), effRate: Math.round(effRate(14, loc, 40) * 10000) / 100 + '%' },
+      output: {
+        lumpSumFV_optimistic: lumpSumFV(1_000_000_000, effRate(14, loc, 40), 40),
+        effRate: Math.round(effRate(14, loc, 40) * 10000) / 100 + '%',
+      },
     });
   }
   // Edge: pt-BR retirement R$7.34M (PT1 acceptance)
@@ -360,29 +444,65 @@ function runCompoundInterest() {
 
 function runRetirement() {
   return [
-    { category: 'default', label: 'default en', input: { amount: 500, years: 25, locale: 'en' },
-      output: { historical: Math.round(annuityFV(500, 0.10, 300)) } },
-    { category: 'default', label: 'default pt-BR (PT1 Bar-signed)', input: { amount: 2000, years: 25, locale: 'pt-BR' },
-      output: { historical: Math.round(annuityFV(2000, effRate(10, 'pt-BR', 25), 300)) } },
-    { category: 'default', label: 'default de (PT3 Bar-signed)', input: { amount: 400, years: 25, locale: 'de' },
-      output: { historical: Math.round(annuityFV(400, effRate(10, 'de', 25), 300)) } },
-    { category: 'default', label: 'default es', input: { amount: 400, years: 25, locale: 'es' },
-      output: { historical: Math.round(annuityFV(400, effRate(10, 'es', 25), 300)) } },
-    { category: 'edge-young', label: '$100/mo × 40y starting young', input: { amount: 100, years: 40, locale: 'en' },
-      output: { historical: Math.round(annuityFV(100, 0.10, 480)) } },
-    { category: 'edge-shorter', label: '$1000/mo × 10y', input: { amount: 1000, years: 10, locale: 'en' },
-      output: { historical: Math.round(annuityFV(1000, 0.10, 120)) } },
+    {
+      category: 'default',
+      label: 'default en',
+      input: { amount: 500, years: 25, locale: 'en' },
+      output: { historical: Math.round(annuityFV(500, 0.1, 300)) },
+    },
+    {
+      category: 'default',
+      label: 'default pt-BR (PT1 Bar-signed)',
+      input: { amount: 2000, years: 25, locale: 'pt-BR' },
+      output: { historical: Math.round(annuityFV(2000, effRate(10, 'pt-BR', 25), 300)) },
+    },
+    {
+      category: 'default',
+      label: 'default de (PT3 Bar-signed)',
+      input: { amount: 400, years: 25, locale: 'de' },
+      output: { historical: Math.round(annuityFV(400, effRate(10, 'de', 25), 300)) },
+    },
+    {
+      category: 'default',
+      label: 'default es',
+      input: { amount: 400, years: 25, locale: 'es' },
+      output: { historical: Math.round(annuityFV(400, effRate(10, 'es', 25), 300)) },
+    },
+    {
+      category: 'edge-young',
+      label: '$100/mo × 40y starting young',
+      input: { amount: 100, years: 40, locale: 'en' },
+      output: { historical: Math.round(annuityFV(100, 0.1, 480)) },
+    },
+    {
+      category: 'edge-shorter',
+      label: '$1000/mo × 10y',
+      input: { amount: 1000, years: 10, locale: 'en' },
+      output: { historical: Math.round(annuityFV(1000, 0.1, 120)) },
+    },
   ];
 }
 
 function runGoalSavings() {
   return [
-    { category: 'default', label: 'default en', input: { amount: 200, years: 10, locale: 'en' },
-      output: { historical: Math.round(annuityFV(200, 0.10, 120)) } },
-    { category: 'default', label: 'default pt-BR', input: { amount: 1000, years: 10, locale: 'pt-BR' },
-      output: { historical: Math.round(annuityFV(1000, effRate(10, 'pt-BR', 10), 120)) } },
-    { category: 'longer-horizon', label: 'en 20y', input: { amount: 200, years: 20, locale: 'en' },
-      output: { historical: Math.round(annuityFV(200, 0.10, 240)) } },
+    {
+      category: 'default',
+      label: 'default en',
+      input: { amount: 200, years: 10, locale: 'en' },
+      output: { historical: Math.round(annuityFV(200, 0.1, 120)) },
+    },
+    {
+      category: 'default',
+      label: 'default pt-BR',
+      input: { amount: 1000, years: 10, locale: 'pt-BR' },
+      output: { historical: Math.round(annuityFV(1000, effRate(10, 'pt-BR', 10), 120)) },
+    },
+    {
+      category: 'longer-horizon',
+      label: 'en 20y',
+      input: { amount: 200, years: 20, locale: 'en' },
+      output: { historical: Math.round(annuityFV(200, 0.1, 240)) },
+    },
   ];
 }
 
@@ -438,7 +558,14 @@ function runEmergencyFund() {
       category: 'edge-fast',
       label: `${loc}: exp small sav large (fast)`,
       input: { exp: target / 3, sav, mult: 3, locale: loc },
-      output: { diboasMonths: monthsToTarget(target, sav, effRate(10, loc, 1), FALLBACK.inflationRates[loc].average5y) },
+      output: {
+        diboasMonths: monthsToTarget(
+          target,
+          sav,
+          effRate(10, loc, 1),
+          FALLBACK.inflationRates[loc].average5y
+        ),
+      },
     });
   }
   // Negative: savings=0 per locale
@@ -452,7 +579,9 @@ function runEmergencyFund() {
   }
   return scenarios;
 }
-function horizon0(target, monthly) { return Math.max(1, target / (monthly * 12)); }
+function horizon0(target, monthly) {
+  return Math.max(1, target / (monthly * 12));
+}
 
 function runTimeToTarget() {
   const scenarios = [];
@@ -491,7 +620,10 @@ function runTimeToTarget() {
       category: 'edge-unreachable',
       label: `${loc}: target=${target} contrib=100/mo`,
       input: { target, contribution: 100, locale: loc },
-      output: { historicalMonths: monthsToTarget(target, 100, effRate(10, loc, 100)), note: '1200-month cap → Infinity' },
+      output: {
+        historicalMonths: monthsToTarget(target, 100, effRate(10, loc, 100)),
+        note: '1200-month cap → Infinity',
+      },
     });
   }
   return scenarios;
@@ -500,7 +632,7 @@ function runTimeToTarget() {
 function runAssetHistory() {
   const scenarios = [];
   // Helper: map locale → displayCurrency (mirror of Default.tsx logic).
-  const localeToCcy = (l) => l === 'pt-BR' ? 'BRL' : (l === 'es' || l === 'de') ? 'EUR' : 'USD';
+  const localeToCcy = (l) => (l === 'pt-BR' ? 'BRL' : l === 'es' || l === 'de' ? 'EUR' : 'USD');
   // Defaults — each locale now does the FX-path conversion (BRL/EUR users
   // get results in their local currency, not USD numbers with foreign symbol).
   for (const loc of LOCALES) {
@@ -509,14 +641,26 @@ function runAssetHistory() {
     scenarios.push({
       category: 'default',
       label: `BTC 2016 DCA default ${loc}`,
-      input: { asset: 'BTC', startYear: 2016, mode: 'monthlyDca', amount: loc === 'pt-BR' ? 500 : 100, locale: loc, displayCurrency: ccy },
+      input: {
+        asset: 'BTC',
+        startYear: 2016,
+        mode: 'monthlyDca',
+        amount: loc === 'pt-BR' ? 500 : 100,
+        locale: loc,
+        displayCurrency: ccy,
+      },
       output: r,
     });
   }
   // All 8 assets at 2016 DCA $100/mo
   for (const asset of ['BTC', 'SP500', 'QQQ', 'MSCI_WORLD', 'GOLD', 'TLT', 'IBOVESPA', 'DAX']) {
     const r = assetHistoryDcaReplay(asset, 2016, 100);
-    scenarios.push({ category: 'happy-asset-sweep', label: `${asset} 2016 DCA $100/mo`, input: { asset, startYear: 2016, mode: 'monthlyDca', amount: 100 }, output: r });
+    scenarios.push({
+      category: 'happy-asset-sweep',
+      label: `${asset} 2016 DCA $100/mo`,
+      input: { asset, startYear: 2016, mode: 'monthlyDca', amount: 100 },
+      output: r,
+    });
   }
   // BTC 2010 DCA — LOW confidence range (M6 calm-framing)
   scenarios.push({
@@ -529,7 +673,7 @@ function runAssetHistory() {
   // BTC 2014 first available year for BTC
   scenarios.push({
     category: 'edge-data-floor',
-    label: 'BTC 2014 DCA $100/mo (Sep 2014 first available BTC month)',
+    label: 'BTC 2014 DCA $100/mo (starts 2014-01 post-v1.4 CoinMetrics backfill)',
     input: { asset: 'BTC', startYear: 2014, mode: 'monthlyDca', amount: 100 },
     output: assetHistoryDcaReplay('BTC', 2014, 100),
   });
@@ -543,7 +687,10 @@ function runAssetHistory() {
     output: {
       totalReturn: trCase?.terminalValue,
       priceOnly: priceCase?.terminalValue,
-      deltaPct: trCase && priceCase ? Math.round((trCase.terminalValue / priceCase.terminalValue - 1) * 100 * 100) / 100 : null,
+      deltaPct:
+        trCase && priceCase
+          ? Math.round((trCase.terminalValue / priceCase.terminalValue - 1) * 100 * 100) / 100
+          : null,
     },
   });
   // Lump sum vs DCA (F6 landed v2 schema 2026-05-23: input carries
@@ -588,8 +735,8 @@ function runInflationImpact() {
       output: {
         cashRealValue: Math.round(purchasingPower(amt, yrs, inflRate)),
         loss: Math.round(amt - purchasingPower(amt, yrs, inflRate)),
-        investedNominal: Math.round(lumpSumFV(amt, 0.10, yrs)),
-        investedReal: Math.round(lumpSumFV(amt, 0.10, yrs) / Math.pow(1 + inflRate, yrs)),
+        investedNominal: Math.round(lumpSumFV(amt, 0.1, yrs)),
+        investedReal: Math.round(lumpSumFV(amt, 0.1, yrs) / Math.pow(1 + inflRate, yrs)),
       },
     });
   }
@@ -609,8 +756,8 @@ function runInflationImpact() {
   }
   // Edge: 2-year horizon per locale (uses .current vs .average5y)
   for (const loc of LOCALES) {
-    const inflShort = selectInflationRate(loc, 24);  // ≤ 24mo → .current
-    const inflLong = selectInflationRate(loc, 25);   // > 24mo → .average5y
+    const inflShort = selectInflationRate(loc, 24); // ≤ 24mo → .current
+    const inflLong = selectInflationRate(loc, 25); // > 24mo → .average5y
     scenarios.push({
       category: 'edge-boundary-24mo',
       label: `${loc}: 2y uses .current ${(inflShort * 100).toFixed(2)}%; 3y uses .average5y ${(inflLong * 100).toFixed(2)}%`,
@@ -629,7 +776,10 @@ function runInflationImpact() {
       category: 'edge-long',
       label: `${loc}: 30y at average5y inflation`,
       input: { amount: 1000, years: 30, locale: loc },
-      output: { realValue: Math.round(purchasingPower(1000, 30, infl)), purchasingPowerLossPct: Math.round((1 - 1 / Math.pow(1 + infl, 30)) * 10000) / 100 + '%' },
+      output: {
+        realValue: Math.round(purchasingPower(1000, 30, infl)),
+        purchasingPowerLossPct: Math.round((1 - 1 / Math.pow(1 + infl, 30)) * 10000) / 100 + '%',
+      },
     });
   }
   return scenarios;
@@ -650,7 +800,7 @@ function runCurrencyDepreciation() {
       output: {
         cashIdle: amt,
         bankFV: Math.round(lumpSumFV(amt, bankApy, yrs)),
-        diboasFV: Math.round(lumpSumFV(amt, (1 + 0.10) * (1 + dep) - 1, yrs)),
+        diboasFV: Math.round(lumpSumFV(amt, (1 + 0.1) * (1 + dep) - 1, yrs)),
         depreciationRate: Math.round(dep * 10000) / 100 + '%',
       },
     });
@@ -660,14 +810,14 @@ function runCurrencyDepreciation() {
     category: 'PT1-context',
     label: 'pt-BR R$50k × 10y (longer horizon → higher dep)',
     input: { amount: 50000, years: 10, currency: 'BRL', locale: 'pt-BR' },
-    output: { diboasFV: Math.round(lumpSumFV(50000, (1.10)*(1 + resolveDep('BRL', 10)) - 1, 10)) },
+    output: { diboasFV: Math.round(lumpSumFV(50000, 1.1 * (1 + resolveDep('BRL', 10)) - 1, 10)) },
   });
   // USD = no hedge
   scenarios.push({
     category: 'edge-usd',
     label: 'USD selected (no depreciation)',
     input: { amount: 10000, years: 5, currency: 'USD', locale: 'en' },
-    output: { diboasFV: Math.round(lumpSumFV(10000, 0.10, 5)), depreciationRate: '0%' },
+    output: { diboasFV: Math.round(lumpSumFV(10000, 0.1, 5)), depreciationRate: '0%' },
   });
   return scenarios;
 }
@@ -716,7 +866,9 @@ function runCardFees() {
     output: {
       US_annual: projectCardFeeSavings(50000, 0.029, 75).annualFee,
       ES_DE_annual: projectCardFeeSavings(50000, 0.008, 60).annualFee,
-      diBoaSSavingsDelta: projectCardFeeSavings(50000, 0.029, 75).annualFee - projectCardFeeSavings(50000, 0.008, 60).annualFee,
+      diBoaSSavingsDelta:
+        projectCardFeeSavings(50000, 0.029, 75).annualFee -
+        projectCardFeeSavings(50000, 0.008, 60).annualFee,
     },
   });
   // Edge: 0% fee
@@ -739,7 +891,7 @@ function runIdleCash() {
   };
   for (const loc of LOCALES) {
     const i = defaults[loc];
-    const dibApy = effRate(7, loc, i.yrs);  // Idle Cash uses CONSERVATIVE not Historical
+    const dibApy = effRate(7, loc, i.yrs); // Idle Cash uses CONSERVATIVE not Historical
     scenarios.push({
       category: 'default',
       label: `default ${loc}`,
@@ -748,7 +900,9 @@ function runIdleCash() {
         bankFV: Math.round(lumpSumFV(i.cash, i.bank / 100, i.yrs)),
         diboasFV: Math.round(lumpSumFV(i.cash, dibApy, i.yrs)),
         diboasEffectiveAPY: Math.round(dibApy * 10000) / 100 + '%',
-        deltaOverHorizon: Math.round(lumpSumFV(i.cash, dibApy, i.yrs) - lumpSumFV(i.cash, i.bank / 100, i.yrs)),
+        deltaOverHorizon: Math.round(
+          lumpSumFV(i.cash, dibApy, i.yrs) - lumpSumFV(i.cash, i.bank / 100, i.yrs)
+        ),
       },
     });
   }
@@ -780,8 +934,11 @@ function runIdleCash() {
   scenarios.push({
     category: 'happy-hysa',
     label: 'en $100k × 5y, user override 4.10% HYSA',
-    input: { idleCash: 100000, years: 5, bankYieldPct: 4.10, locale: 'en' },
-    output: { bankFV: Math.round(lumpSumFV(100000, 0.0410, 5)), diboasFV: Math.round(lumpSumFV(100000, 0.07, 5)) },
+    input: { idleCash: 100000, years: 5, bankYieldPct: 4.1, locale: 'en' },
+    output: {
+      bankFV: Math.round(lumpSumFV(100000, 0.041, 5)),
+      diboasFV: Math.round(lumpSumFV(100000, 0.07, 5)),
+    },
   });
   // Negative: negative idle cash per locale
   for (const loc of LOCALES) {
@@ -797,13 +954,48 @@ function runIdleCash() {
 
 function runBrazilPoupanca() {
   return [
-    { category: 'current-regime', label: 'Selic 14.50% + TR 0', input: { selic: 14.50, tr: 0 }, output: { rate: derivePoupancaRate(14.50, 0) } },
-    { category: 'edge-threshold', label: 'Selic 8.5% (boundary, low regime)', input: { selic: 8.5, tr: 0 }, output: { rate: derivePoupancaRate(8.5, 0) } },
-    { category: 'edge-threshold', label: 'Selic 8.51% (just above, high regime)', input: { selic: 8.51, tr: 0 }, output: { rate: derivePoupancaRate(8.51, 0) } },
-    { category: 'low-regime', label: 'Selic 6% + TR 0 (low regime)', input: { selic: 6.0, tr: 0 }, output: { rate: derivePoupancaRate(6.0, 0) } },
-    { category: 'edge-tr-nonzero', label: 'Selic 14.5% + TR 0.05%/mo', input: { selic: 14.5, tr: 0.05 }, output: { rate: derivePoupancaRate(14.5, 0.05) } },
-    { category: 'negative', label: 'Selic = -1 (invalid)', input: { selic: -1, tr: 0 }, output: { rate: derivePoupancaRate(-1, 0) } },
-    { category: 'negative', label: 'Selic = NaN', input: { selic: NaN, tr: 0 }, output: { rate: derivePoupancaRate(NaN, 0) } },
+    {
+      category: 'current-regime',
+      label: 'Selic 14.50% + TR 0',
+      input: { selic: 14.5, tr: 0 },
+      output: { rate: derivePoupancaRate(14.5, 0) },
+    },
+    {
+      category: 'edge-threshold',
+      label: 'Selic 8.5% (boundary, low regime)',
+      input: { selic: 8.5, tr: 0 },
+      output: { rate: derivePoupancaRate(8.5, 0) },
+    },
+    {
+      category: 'edge-threshold',
+      label: 'Selic 8.51% (just above, high regime)',
+      input: { selic: 8.51, tr: 0 },
+      output: { rate: derivePoupancaRate(8.51, 0) },
+    },
+    {
+      category: 'low-regime',
+      label: 'Selic 6% + TR 0 (low regime)',
+      input: { selic: 6.0, tr: 0 },
+      output: { rate: derivePoupancaRate(6.0, 0) },
+    },
+    {
+      category: 'edge-tr-nonzero',
+      label: 'Selic 14.5% + TR 0.05%/mo',
+      input: { selic: 14.5, tr: 0.05 },
+      output: { rate: derivePoupancaRate(14.5, 0.05) },
+    },
+    {
+      category: 'negative',
+      label: 'Selic = -1 (invalid)',
+      input: { selic: -1, tr: 0 },
+      output: { rate: derivePoupancaRate(-1, 0) },
+    },
+    {
+      category: 'negative',
+      label: 'Selic = NaN',
+      input: { selic: NaN, tr: 0 },
+      output: { rate: derivePoupancaRate(NaN, 0) },
+    },
   ];
 }
 
@@ -811,7 +1003,8 @@ function runBrazilPoupanca() {
 // Main
 // ────────────────────────────────────────────────────────────────────────
 const outArg = process.argv.indexOf('--out');
-const outPath = outArg !== -1 ? process.argv[outArg + 1] : path.join(__dirname, 'tools-stress-test-out.json');
+const outPath =
+  outArg !== -1 ? process.argv[outArg + 1] : path.join(__dirname, 'tools-stress-test-out.json');
 
 const baseline = {
   generatedAt: new Date().toISOString(),
@@ -861,4 +1054,6 @@ fs.writeFileSync(outPath, JSON.stringify(sanitize(baseline), null, 2));
 let totalScenarios = 0;
 for (const k of Object.keys(baseline.scenarios)) totalScenarios += baseline.scenarios[k].length;
 console.log(`Wrote ${outPath}`);
-console.log(`Total scenarios: ${totalScenarios} across ${Object.keys(baseline.scenarios).length} tools`);
+console.log(
+  `Total scenarios: ${totalScenarios} across ${Object.keys(baseline.scenarios).length} tools`
+);

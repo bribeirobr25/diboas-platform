@@ -55,14 +55,15 @@ export function ToolPage({ toolKey, pageMessages, children }: ToolPageProps) {
       )}
 
       <p className={styles.disclaimer}>{get('tools-shared.disclaimer')}</p>
+      {/* Per-tool disclaimer (C5/C30/etc. dispositions). Renders only when the
+          tool's namespace defines a `disclaimer` key. Per
+          TOOLS_41_DEFECTS_FIX_PLAN.md §6, 2026-05-26. */}
+      {get(`${namespace}.disclaimer`) && (
+        <p className={styles.disclaimer}>{get(`${namespace}.disclaimer`)}</p>
+      )}
 
-      <aside
-        className={styles.lessonCallout}
-        aria-label={get(`${namespace}.lessonLink.label`)}
-      >
-        <span className={styles.lessonCalloutLabel}>
-          {get(`${namespace}.lessonLink.label`)}
-        </span>
+      <aside className={styles.lessonCallout} aria-label={get(`${namespace}.lessonLink.label`)}>
+        <span className={styles.lessonCalloutLabel}>{get(`${namespace}.lessonLink.label`)}</span>
         <LocaleLink href={lessonHref} className={styles.lessonCalloutLink}>
           {get(`${namespace}.lessonLink.linkText`)}
         </LocaleLink>

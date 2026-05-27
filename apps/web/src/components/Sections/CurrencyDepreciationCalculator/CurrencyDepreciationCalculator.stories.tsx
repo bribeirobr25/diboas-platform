@@ -68,7 +68,8 @@ export const NonUSDLocale: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'pt-BR locale — defaults to BRL currency. Reviewer can switch to retrospective for the 67.6% BRL drag since 2010.',
+        story:
+          'pt-BR locale — defaults to BRL currency. Reviewer can switch to retrospective for the 67.6% BRL drag since 2010.',
       },
     },
   },

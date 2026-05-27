@@ -109,7 +109,7 @@ Namespace parity across the 4 locales is enforced by `scripts/validate-translati
 
 **`tools-shared` (Phase 6C):** cross-tool common copy — scenario captions (Conservative/Historical/Optimistic), action buttons, default disclaimer. The `disclaimer` key carries the Q5(B) Phase-7 currency-hedge sentence (4 locales). `scenarios.digitalDollarSuffix` is the Phase-7 §5.2 suffix appended to diBoaS scenario labels on tool surfaces for non-USD locales.
 
-**Banned-term grep gate (Phase 7 Q4):** body copy must not contain `stablecoin`, `USDC`, `DeFi`, `tokenized`, `yield farming`, `liquidity pool`, `blockchain`, or `APY`/`APR` outside regulatory disclosure keys (`*.disclosure*`, `*.regulatoryFootnote*`, `*.tilaDisclosure*`, `*.usDisclosure*`). See `docs/audit/PRE_PHASE_7_TOOLS_POLISH.md` §5.3 for the bash gate.
+**Banned-term grep gate (Phase 7 Q4):** body copy must not contain `stablecoin`, `USDC`, `DeFi`, `tokenized`, `yield farming`, `liquidity pool`, `blockchain`, or `APY`/`APR` outside regulatory disclosure keys (`*.disclosure*`, `*.regulatoryFootnote*`, `*.tilaDisclosure*`, `*.usDisclosure*`). See `docs/audit/_archive/PRE_PHASE_7_TOOLS_POLISH.md` §5.3 for the bash gate.
 
 ## API Reference
 
@@ -225,11 +225,7 @@ export default async function Layout({ children, params }: Props) {
 Full TypeScript support with exported types:
 
 ```typescript
-import type {
-  SupportedLocale,
-  LocaleConfig,
-  I18nProviderProps
-} from '@diboas/i18n';
+import type { SupportedLocale, LocaleConfig, I18nProviderProps } from '@diboas/i18n';
 ```
 
 ## Status

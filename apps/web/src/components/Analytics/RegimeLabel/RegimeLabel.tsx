@@ -18,8 +18,6 @@ export function RegimeLabel({ data, labels, className }: RegimeLabelProps) {
   const colorClass = regimePalette[`regimeColor${data.regime_code}`] ?? '';
   const text = labels?.[data.regime_code] ?? data.regime_label;
   return (
-    <span className={`${styles.pill} ${fillClass} ${colorClass} ${className ?? ''}`}>
-      {text}
-    </span>
+    <span className={`${styles.pill} ${fillClass} ${colorClass} ${className ?? ''}`}>{text}</span>
   );
 }

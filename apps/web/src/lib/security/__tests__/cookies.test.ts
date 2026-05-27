@@ -69,9 +69,8 @@ describe('cookies', () => {
       const response = new NextResponse() as unknown as NextResponse;
       setConsentCookie(response, { analytics: false });
 
-      const call = (
-        response.cookies as unknown as { set: ReturnType<typeof vi.fn> }
-      ).set.mock.calls[0][0];
+      const call = (response.cookies as unknown as { set: ReturnType<typeof vi.fn> }).set.mock
+        .calls[0][0];
       expect(call.secure).toBe(false);
     });
   });
@@ -199,8 +198,7 @@ describe('cookies', () => {
 
       expect(result).toBe(response);
       expect(
-        (response.cookies as unknown as { delete: ReturnType<typeof vi.fn> })
-          .delete
+        (response.cookies as unknown as { delete: ReturnType<typeof vi.fn> }).delete
       ).toHaveBeenCalledWith('diboas-consent');
     });
   });

@@ -15,7 +15,14 @@ export function WelcomeScreen() {
     <div className={styles.screenCenter}>
       <div className={styles.screenCard}>
         <div className={styles.iconCircleTeal}>
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
           </svg>
         </div>
@@ -25,23 +32,26 @@ export function WelcomeScreen() {
 
         <div className={styles.featureList}>
           <div className={styles.featureItem}>
-            <span className={styles.featureCheck}><Check size={16} strokeWidth={2} /></span>
+            <span className={styles.featureCheck}>
+              <Check size={16} strokeWidth={2} />
+            </span>
             <span>{t('features.strategies')}</span>
           </div>
           <div className={styles.featureItem}>
-            <span className={styles.featureCheck}><Check size={16} strokeWidth={2} /></span>
+            <span className={styles.featureCheck}>
+              <Check size={16} strokeWidth={2} />
+            </span>
             <span>{t('features.projections')}</span>
           </div>
           <div className={styles.featureItem}>
-            <span className={styles.featureCheck}><Check size={16} strokeWidth={2} /></span>
+            <span className={styles.featureCheck}>
+              <Check size={16} strokeWidth={2} />
+            </span>
             <span>{t('features.comparison')}</span>
           </div>
         </div>
 
-        <button
-          onClick={goToGoalStrategy}
-          className={styles.primaryButton}
-        >
+        <button onClick={goToGoalStrategy} className={styles.primaryButton}>
           {t('exploreButton')}
         </button>
       </div>

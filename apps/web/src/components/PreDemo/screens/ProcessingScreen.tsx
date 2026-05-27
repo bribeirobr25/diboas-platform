@@ -10,7 +10,6 @@ interface ProcessingScreenProps {
 }
 
 export function ProcessingScreen({ variant, title, subtitle }: ProcessingScreenProps) {
-
   return (
     <div className={styles.screen}>
       <div className={`${styles.screenCenter} ${styles.screenCenterFlex}`}>

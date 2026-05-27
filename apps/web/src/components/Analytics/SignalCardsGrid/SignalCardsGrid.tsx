@@ -22,10 +22,7 @@ export function SignalCardsGrid({
   className,
 }: SignalCardsGridProps) {
   return (
-    <div
-      className={`${styles.grid} ${className ?? ''}`}
-      data-columns={columns}
-    >
+    <div className={`${styles.grid} ${className ?? ''}`} data-columns={columns}>
       {groups.map((g) => (
         <SignalCard
           key={g.id}

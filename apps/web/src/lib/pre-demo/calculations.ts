@@ -105,7 +105,10 @@ export function resolveFeeRates(overrides?: FeeRateOverrides): FeeRates {
 }
 
 /** Deposit fee calculation */
-export function calculateDepositFees(grossAmount: number, rates: FeeRates = resolveFeeRates()): {
+export function calculateDepositFees(
+  grossAmount: number,
+  rates: FeeRates = resolveFeeRates()
+): {
   processorFee: number;
   networkFee: number;
   diboasFee: number;
@@ -116,9 +119,10 @@ export function calculateDepositFees(grossAmount: number, rates: FeeRates = reso
   const processorFee = grossAmount * rates.deposit.paymentProcessor;
   const networkFee = grossAmount * rates.deposit.network;
   const rawDiboasFee = grossAmount * rates.deposit.diboas;
-  const diboasFee = grossAmount > 0
-    ? Math.min(rates.deposit.diboasMax, Math.max(rates.deposit.diboasMin, rawDiboasFee))
-    : 0;
+  const diboasFee =
+    grossAmount > 0
+      ? Math.min(rates.deposit.diboasMax, Math.max(rates.deposit.diboasMin, rawDiboasFee))
+      : 0;
   const totalFees = processorFee + networkFee + diboasFee;
   const netAmount = grossAmount - totalFees;
 
@@ -129,15 +133,30 @@ export function calculateDepositFees(grossAmount: number, rates: FeeRates = reso
     totalFees,
     netAmount,
     feeItems: {
-      processor: { label: 'preDemo.fees.paymentProcessor', amount: processorFee, tooltip: 'preDemo.fees.tooltips.paymentProcessor' },
-      network: { label: 'preDemo.fees.networkFee', amount: networkFee, tooltip: 'preDemo.fees.tooltips.networkFee' },
-      diboas: { label: 'preDemo.fees.diboasFee', amount: diboasFee, tooltip: 'preDemo.fees.tooltips.diboasFeeDeposit' },
+      processor: {
+        label: 'preDemo.fees.paymentProcessor',
+        amount: processorFee,
+        tooltip: 'preDemo.fees.tooltips.paymentProcessor',
+      },
+      network: {
+        label: 'preDemo.fees.networkFee',
+        amount: networkFee,
+        tooltip: 'preDemo.fees.tooltips.networkFee',
+      },
+      diboas: {
+        label: 'preDemo.fees.diboasFee',
+        amount: diboasFee,
+        tooltip: 'preDemo.fees.tooltips.diboasFeeDeposit',
+      },
     },
   };
 }
 
 /** Send fee calculation */
-export function calculateSendFees(grossAmount: number, rates: FeeRates = resolveFeeRates()): {
+export function calculateSendFees(
+  grossAmount: number,
+  rates: FeeRates = resolveFeeRates()
+): {
   networkFee: number;
   priorityFee: number;
   diboasFee: number;
@@ -158,15 +177,31 @@ export function calculateSendFees(grossAmount: number, rates: FeeRates = resolve
     totalFees,
     netAmount,
     feeItems: {
-      network: { label: 'preDemo.fees.networkFee', amount: networkFee, tooltip: 'preDemo.fees.tooltips.networkFee' },
-      priority: { label: 'preDemo.fees.priorityFee', amount: priorityFee, tooltip: 'preDemo.fees.tooltips.priorityFee' },
-      diboas: { label: 'preDemo.fees.diboasFee', amount: diboasFee, tooltip: 'preDemo.fees.tooltips.diboasFeeSend' },
+      network: {
+        label: 'preDemo.fees.networkFee',
+        amount: networkFee,
+        tooltip: 'preDemo.fees.tooltips.networkFee',
+      },
+      priority: {
+        label: 'preDemo.fees.priorityFee',
+        amount: priorityFee,
+        tooltip: 'preDemo.fees.tooltips.priorityFee',
+      },
+      diboas: {
+        label: 'preDemo.fees.diboasFee',
+        amount: diboasFee,
+        tooltip: 'preDemo.fees.tooltips.diboasFeeSend',
+      },
     },
   };
 }
 
 /** Buy fee calculation - dynamic based on asset */
-export function calculateBuyFees(grossAmount: number, assetSymbol: string, rates: FeeRates = resolveFeeRates()): {
+export function calculateBuyFees(
+  grossAmount: number,
+  assetSymbol: string,
+  rates: FeeRates = resolveFeeRates()
+): {
   totalFees: number;
   netAmount: number;
   feeItems: Record<string, FeeItem>;
@@ -184,9 +219,21 @@ export function calculateBuyFees(grossAmount: number, assetSymbol: string, rates
       totalFees,
       netAmount: grossAmount - totalFees,
       feeItems: {
-        swap: { label: 'preDemo.fees.crossChainSwap', amount: swapFee, tooltip: 'preDemo.fees.tooltips.crossChainSwap' },
-        miner: { label: 'preDemo.fees.btcMinerFee', amount: minerFee, tooltip: 'preDemo.fees.tooltips.btcMinerFee' },
-        diboas: { label: 'preDemo.fees.diboasFee', amount: diboasFee, tooltip: 'preDemo.fees.tooltips.diboasFeeBuy' },
+        swap: {
+          label: 'preDemo.fees.crossChainSwap',
+          amount: swapFee,
+          tooltip: 'preDemo.fees.tooltips.crossChainSwap',
+        },
+        miner: {
+          label: 'preDemo.fees.btcMinerFee',
+          amount: minerFee,
+          tooltip: 'preDemo.fees.tooltips.btcMinerFee',
+        },
+        diboas: {
+          label: 'preDemo.fees.diboasFee',
+          amount: diboasFee,
+          tooltip: 'preDemo.fees.tooltips.diboasFeeBuy',
+        },
       },
     };
   }
@@ -202,10 +249,26 @@ export function calculateBuyFees(grossAmount: number, assetSymbol: string, rates
       totalFees,
       netAmount: grossAmount - totalFees,
       feeItems: {
-        issuer: { label: 'preDemo.fees.issuerMintRedemption', amount: issuerFee, tooltip: 'preDemo.fees.tooltips.issuerMintRedemption' },
-        gas: { label: 'preDemo.fees.ethSwapGas', amount: swapGas, tooltip: 'preDemo.fees.tooltips.ethSwapGas' },
-        lp: { label: 'preDemo.fees.dexLpFee', amount: lpFee, tooltip: 'preDemo.fees.tooltips.dexLpFee' },
-        diboas: { label: 'preDemo.fees.diboasFee', amount: diboasFee, tooltip: 'preDemo.fees.tooltips.diboasFeeBuy' },
+        issuer: {
+          label: 'preDemo.fees.issuerMintRedemption',
+          amount: issuerFee,
+          tooltip: 'preDemo.fees.tooltips.issuerMintRedemption',
+        },
+        gas: {
+          label: 'preDemo.fees.ethSwapGas',
+          amount: swapGas,
+          tooltip: 'preDemo.fees.tooltips.ethSwapGas',
+        },
+        lp: {
+          label: 'preDemo.fees.dexLpFee',
+          amount: lpFee,
+          tooltip: 'preDemo.fees.tooltips.dexLpFee',
+        },
+        diboas: {
+          label: 'preDemo.fees.diboasFee',
+          amount: diboasFee,
+          tooltip: 'preDemo.fees.tooltips.diboasFeeBuy',
+        },
       },
     };
   }
@@ -213,17 +276,23 @@ export function calculateBuyFees(grossAmount: number, assetSymbol: string, rates
   // Default for disabled assets
   const defaultFee = grossAmount * rates.buy.defaultRate;
   const rawDiboasFee = grossAmount * rates.buy.diboas;
-  const diboasFee = grossAmount > 0
-    ? Math.min(25, Math.max(0.25, rawDiboasFee))
-    : 0;
+  const diboasFee = grossAmount > 0 ? Math.min(25, Math.max(0.25, rawDiboasFee)) : 0;
   const totalFees = defaultFee + diboasFee;
 
   return {
     totalFees,
     netAmount: grossAmount - totalFees,
     feeItems: {
-      fee: { label: 'preDemo.fees.transactionFee', amount: defaultFee, tooltip: 'preDemo.fees.tooltips.transactionFee' },
-      diboas: { label: 'preDemo.fees.diboasFee', amount: diboasFee, tooltip: 'preDemo.fees.tooltips.diboasFeeBuy' },
+      fee: {
+        label: 'preDemo.fees.transactionFee',
+        amount: defaultFee,
+        tooltip: 'preDemo.fees.tooltips.transactionFee',
+      },
+      diboas: {
+        label: 'preDemo.fees.diboasFee',
+        amount: diboasFee,
+        tooltip: 'preDemo.fees.tooltips.diboasFeeBuy',
+      },
     },
   };
 }
@@ -242,16 +311,17 @@ export function checkInsufficientFunds(
   totalFees: number,
   diboasFee: number,
   cashBalance: number,
-  solBalance: number,
+  solBalance: number
 ): boolean {
   if (grossAmount <= 0) return false;
 
   const nonDiboasFees = totalFees - diboasFee;
   const solCost = nonDiboasFees / ASSET_PRICES.SOL;
 
-  const cashCost = solCost >= solBalance
-    ? grossAmount + totalFees        // USDC SWAP: all fees are additional USDC cost
-    : grossAmount + diboasFee;       // SOL PAYS: diBoaS fee always paid in USDC
+  const cashCost =
+    solCost >= solBalance
+      ? grossAmount + totalFees // USDC SWAP: all fees are additional USDC cost
+      : grossAmount + diboasFee; // SOL PAYS: diBoaS fee always paid in USDC
 
   return cashCost > cashBalance;
 }

@@ -143,6 +143,19 @@
   line-height: 1.5;
 }
 
+/* C18 close (TOOLS_41_DEFECTS_FIX_PLAN.md §5.1, 2026-05-26): oneTime +
+ * initial 0 → inline guidance helper. Info-tone (teal/blue) per design-system. */
+.guidanceCallout {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--color-teal-50, #f0fdfa);
+  border-left: 4px solid var(--text-brand-accessible, #0f766e);
+  border-radius: 6px;
+  color: var(--color-slate-700);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
 /* USD-equivalent inline badge (Phase I extension, 2026-05-23). */
 .usdEquivalent {
   display: inline-block;

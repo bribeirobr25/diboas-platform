@@ -1,26 +1,26 @@
 # Infrastructure & Deployment
 
-> Current state of the diBoaS platform infrastructure as of March 2026.
+> Current state of the diBoaS platform infrastructure as of May 2026.
 > Phase 1: pre-launch marketing site with waitlist functionality.
 
 ## 1. Overview
 
-| Layer | Technology | Version |
-|-------|-----------|---------|
-| Framework | Next.js (App Router) | 16.1.7 |
-| Language | TypeScript (strict) | 5.9.x |
-| UI | React + Tailwind CSS | 18.3.x / 3.4.x |
-| Monorepo | Turborepo + pnpm | 2.8.x / 8.15.0 |
-| i18n | react-intl (en, pt-BR, es, de) | 6.4.x |
-| Testing | Vitest + @vitest/coverage-v8 | 4.1.x |
-| Component dev | Storybook | 10.3.x |
-| Database | Neon PostgreSQL (@neondatabase/serverless) | 1.0.x |
-| Email | Resend (@diboas/email) | workspace |
-| Error tracking | Sentry (@sentry/nextjs) | 10.49.x |
-| Analytics | PostHog (consent-gated, lazy-loaded) | 1.313.x |
-| Rate limiting | Upstash Redis (@upstash/ratelimit + @upstash/redis) | 2.0.x / 1.36.x |
-| Performance | web-vitals | 5.1.x |
-| Sanitization | DOMPurify | 3.4.x |
+| Layer          | Technology                                          | Version        |
+| -------------- | --------------------------------------------------- | -------------- |
+| Framework      | Next.js (App Router)                                | 16.1.7         |
+| Language       | TypeScript (strict)                                 | 5.9.x          |
+| UI             | React + Tailwind CSS                                | 18.3.x / 3.4.x |
+| Monorepo       | Turborepo + pnpm                                    | 2.8.x / 8.15.0 |
+| i18n           | react-intl (en, pt-BR, es, de)                      | 6.4.x          |
+| Testing        | Vitest + @vitest/coverage-v8                        | 4.1.x          |
+| Component dev  | Storybook                                           | 10.3.x         |
+| Database       | Neon PostgreSQL (@neondatabase/serverless)          | 1.0.x          |
+| Email          | Resend (@diboas/email)                              | workspace      |
+| Error tracking | Sentry (@sentry/nextjs)                             | 10.49.x        |
+| Analytics      | PostHog (consent-gated, lazy-loaded)                | 1.313.x        |
+| Rate limiting  | Upstash Redis (@upstash/ratelimit + @upstash/redis) | 2.0.x / 1.36.x |
+| Performance    | web-vitals                                          | 5.1.x          |
+| Sanitization   | DOMPurify                                           | 3.4.x          |
 
 Single web application (`apps/web`). No backend services, no microservices, no message queues.
 
@@ -71,24 +71,29 @@ Single web application (`apps/web`). No backend services, no microservices, no m
 ## 7. Monitoring
 
 ### Sentry (error tracking)
+
 - **Package:** `@sentry/nextjs` 10.49.x.
 - **Config:** `instrumentation-client.ts` (client-side), server instrumentation via Sentry Next.js plugin.
 - **Env vars:** `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_SENTRY_ORG`, `NEXT_PUBLIC_SENTRY_PROJECT`.
 
 ### PostHog (product analytics)
+
 - **Package:** `posthog-js` 1.313.x.
 - **Consent-gated:** Never imported at module level. Loaded via dynamic `import('posthog-js')` only after user consent.
 - **Env vars:** `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST`.
 
 ### Google Analytics 4
+
 - **Loaded:** Via `afterInteractive` script strategy.
 - **Env var:** `NEXT_PUBLIC_GA_ID`.
 
 ### web-vitals
+
 - **Package:** `web-vitals` 5.1.x.
 - **Loaded:** Dynamic `import()` with sample rate. Reports to Vercel Analytics endpoint.
 
 ### No Prometheus, Grafana, Datadog, New Relic, or LogRocket in production.
+
 The `.env.example` lists placeholders for these services, but none are integrated into application code.
 
 ## 8. CI/CD — GitHub Actions
@@ -96,6 +101,7 @@ The `.env.example` lists placeholders for these services, but none are integrate
 Two workflows in `.github/workflows/`:
 
 ### `ci.yml` — Quality gate
+
 - **Triggers:** Push to `main`, PRs targeting `main`.
 - **Runner:** `ubuntu-latest`, Node.js 20, pnpm (cached).
 - **Steps (sequential):**
@@ -108,6 +114,7 @@ Two workflows in `.github/workflows/`:
   7. `pnpm build`
 
 ### `security.yml` — Dependency audit
+
 - **Triggers:** Push to `main`, PRs targeting `main`, weekly cron (Monday 00:00 UTC).
 - **Steps:**
   1. `pnpm audit --prod --audit-level=high`
@@ -115,6 +122,7 @@ Two workflows in `.github/workflows/`:
   3. Fails the job if vulnerabilities are found.
 
 ### What is NOT in CI
+
 - No E2E tests (Playwright not configured).
 - No Lighthouse CI step (available locally via `pnpm performance:audit`).
 - No staging deployment step.
@@ -128,25 +136,25 @@ The Next.js middleware (`apps/web/middleware.ts`) runs on every non-static reque
 - **Request ID:** Unique `x-request-id` header per request.
 - **Locale detection:** Cookie > Accept-Language > default (`en`). Redirects bare paths to locale-prefixed paths.
 - **Fail-open:** On middleware error, the request passes through without CSP rather than returning 500.
-- **PII encryption:** AES-256-GCM via `ENCRYPTION_KEY`. HMAC-SHA256 blind index via `HMAC_KEY`.
-- **CSRF:** Origin validation on mutation endpoints. Additional origins configurable via `CSRF_ADDITIONAL_ORIGINS`.
+
+**Not in middleware (per-route concerns):** PII encryption (AES-256-GCM) lives in `apps/web/src/lib/security/encryption.ts` and is invoked by API route handlers that touch persisted PII (waitlist signup, email preferences). CSRF Origin validation lives in `apps/web/src/lib/security/csrf.ts` and is applied via `applyCsrf()` from `routeHelpers.ts` on mutation endpoints. `CSRF_ADDITIONAL_ORIGINS` configures the allowed-origin list consumed by that helper.
 
 ## 10. Environment Variables
 
 Documented in `apps/web/.env.example` (67 variables across these categories):
 
-| Category | Examples |
-|----------|---------|
-| Application | `NEXT_PUBLIC_APP_URL`, `NODE_ENV` |
-| Database | `DATABASE_URL` |
-| Email | `RESEND_API_KEY`, `EMAIL_FROM_ADDRESS` |
-| Cal.com | `NEXT_PUBLIC_CAL_LINK`, `NEXT_PUBLIC_CAL_EMBED_SCRIPT` |
-| Waitlist | `FOUNDING_MEMBER_CAP`, `INTERNAL_API_KEY` |
-| Analytics | `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_POSTHOG_KEY` |
-| Security | `CSP_NONCE_SECRET`, `ENCRYPTION_KEY`, `HMAC_KEY` |
-| Rate limiting | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` |
-| Feature flags | `NEXT_PUBLIC_ENABLE_BOOKING`, `NEXT_PUBLIC_ENABLE_REFERRALS` |
-| Brand / SEO | `NEXT_PUBLIC_BRAND_NAME`, `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` |
+| Category      | Examples                                                                 |
+| ------------- | ------------------------------------------------------------------------ |
+| Application   | `NEXT_PUBLIC_APP_URL`, `NODE_ENV`                                        |
+| Database      | `DATABASE_URL`                                                           |
+| Email         | `RESEND_API_KEY`, `EMAIL_FROM_ADDRESS`                                   |
+| Cal.com       | `NEXT_PUBLIC_CAL_LINK`, `NEXT_PUBLIC_CAL_EMBED_SCRIPT`                   |
+| Waitlist      | `FOUNDING_MEMBER_CAP`, `INTERNAL_API_KEY`                                |
+| Analytics     | `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_POSTHOG_KEY` |
+| Security      | `CSP_NONCE_SECRET`, `ENCRYPTION_KEY`, `HMAC_KEY`                         |
+| Rate limiting | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`                     |
+| Feature flags | `NEXT_PUBLIC_ENABLE_BOOKING`, `NEXT_PUBLIC_ENABLE_REFERRALS`             |
+| Brand / SEO   | `NEXT_PUBLIC_BRAND_NAME`, `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`         |
 
 Secret rotation policy: 90-day cycle for `ENCRYPTION_KEY`, `HMAC_KEY`, `RESEND_API_KEY`, `INTERNAL_API_KEY`, `UPSTASH_REDIS_REST_TOKEN`.
 
@@ -161,12 +169,12 @@ Secret rotation policy: 90-day cycle for `ENCRYPTION_KEY`, `HMAC_KEY`, `RESEND_A
 
 Defined in `turbo.json`. All tasks depend on upstream workspace builds (`^build`):
 
-| Task | Cache | Outputs | Notes |
-|------|-------|---------|-------|
-| `build` | Yes | `.next/**`, `dist/**` | Env vars declared for cache key |
-| `dev` | No | — | Persistent (watch mode) |
-| `lint` | Yes | — | Depends on package builds |
-| `type-check` | Yes | — | Depends on package builds |
-| `test` | Yes | `coverage/**` | Depends on package builds |
-| `lighthouse` | Yes | `lighthouse-reports/**` | Depends on build |
-| `pa11y` | Yes | `accessibility-reports/**` | Depends on build |
+| Task         | Cache | Outputs                    | Notes                           |
+| ------------ | ----- | -------------------------- | ------------------------------- |
+| `build`      | Yes   | `.next/**`, `dist/**`      | Env vars declared for cache key |
+| `dev`        | No    | —                          | Persistent (watch mode)         |
+| `lint`       | Yes   | —                          | Depends on package builds       |
+| `type-check` | Yes   | —                          | Depends on package builds       |
+| `test`       | Yes   | `coverage/**`              | Depends on package builds       |
+| `lighthouse` | Yes   | `lighthouse-reports/**`    | Depends on build                |
+| `pa11y`      | Yes   | `accessibility-reports/**` | Depends on build                |

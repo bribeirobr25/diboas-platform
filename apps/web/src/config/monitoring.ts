@@ -124,7 +124,7 @@ export const MONITORING_CONFIG: MonitoringConfig = {
         }
       }
       return error;
-    }
+    },
   },
   performance: {
     enabled: process.env.NEXT_PUBLIC_ENABLE_PERFORMANCE_MONITORING === 'true',
@@ -135,33 +135,37 @@ export const MONITORING_CONFIG: MonitoringConfig = {
     budgets: {
       renderTime: { warning: 100, error: 300 }, // milliseconds
       bundleSize: { warning: 500 * 1024, error: 1024 * 1024 }, // bytes
-      memoryUsage: { warning: 50 * 1024 * 1024, error: 100 * 1024 * 1024 } // bytes
-    }
+      memoryUsage: { warning: 50 * 1024 * 1024, error: 100 * 1024 * 1024 }, // bytes
+    },
   },
   logging: {
     enabled: process.env.NEXT_PUBLIC_ENABLE_DETAILED_LOGGING === 'true',
     endpoint: process.env.NEXT_PUBLIC_LOGGING_ENDPOINT,
     level: process.env.NODE_ENV === 'production' ? 'warn' : 'debug',
-    enableRemote: process.env.NODE_ENV === 'production'
+    enableRemote: process.env.NODE_ENV === 'production',
   },
   alerts: {
     enabled: process.env.PERFORMANCE_BUDGET_ALERTS === 'true',
     channels: {
       // Webhook URLs are sensitive - server-only
-      slack: process.env.SLACK_WEBHOOK_URL ? {
-        webhookUrl: process.env.SLACK_WEBHOOK_URL,
-        channel: process.env.SLACK_CHANNEL || '#alerts',
-        enablePerformanceAlerts: true,
-        enableErrorAlerts: true
-      } : undefined,
-      email: process.env.ALERT_EMAIL_ENDPOINT ? {
-        endpoint: process.env.ALERT_EMAIL_ENDPOINT,
-        recipients: (process.env.ALERT_EMAIL_RECIPIENTS || '').split(','),
-        enablePerformanceAlerts: true,
-        enableErrorAlerts: true
-      } : undefined
-    }
-  }
+      slack: process.env.SLACK_WEBHOOK_URL
+        ? {
+            webhookUrl: process.env.SLACK_WEBHOOK_URL,
+            channel: process.env.SLACK_CHANNEL || '#alerts',
+            enablePerformanceAlerts: true,
+            enableErrorAlerts: true,
+          }
+        : undefined,
+      email: process.env.ALERT_EMAIL_ENDPOINT
+        ? {
+            endpoint: process.env.ALERT_EMAIL_ENDPOINT,
+            recipients: (process.env.ALERT_EMAIL_RECIPIENTS || '').split(','),
+            enablePerformanceAlerts: true,
+            enableErrorAlerts: true,
+          }
+        : undefined,
+    },
+  },
 };
 
 /**
@@ -184,6 +188,5 @@ export const SENTRY_CONFIG = {
       delete event.user.username;
     }
     return event;
-  }
+  },
 };
-

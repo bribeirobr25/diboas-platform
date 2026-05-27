@@ -12,6 +12,7 @@
     "headline": "{monthly}/Monat für {years} Jahre könnten {result} werden",
     "subtitle": "Das bietet diBoaS — vs. der nahezu null Rendite deiner Bank."
   },
+  "disclaimer": "Dieses Werkzeug projiziert die Ansparphase fürs Rentenalter. Es modelliert keine Entnahmen, keine Lebenserwartung und kein tragfähiges Renteneinkommen — das sind separate Fragen, die eigene Planung verdienen.",
   "landing": {
     "cardTitle": "Ruhestand",
     "cardTagline": "Was werden deine Ersparnisse mit 65?"

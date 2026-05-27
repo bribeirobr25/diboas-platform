@@ -108,13 +108,17 @@ export function WaitlistVersionA({
           className={styles.form}
           source={source}
           belowCta={config?.belowCta ? intl.formatMessage({ id: config.belowCta }) : undefined}
-          belowCheckbox={config?.belowCheckbox ? intl.formatMessage({ id: config.belowCheckbox }) : undefined}
+          belowCheckbox={
+            config?.belowCheckbox ? intl.formatMessage({ id: config.belowCheckbox }) : undefined
+          }
         />
 
-        {config?.hideNoSpam ? null : (() => {
-          const noSpamText = t('noSpam');
-          return noSpamText ? <p className={styles.noSpam}>{noSpamText}</p> : null;
-        })()}
+        {config?.hideNoSpam
+          ? null
+          : (() => {
+              const noSpamText = t('noSpam');
+              return noSpamText ? <p className={styles.noSpam}>{noSpamText}</p> : null;
+            })()}
       </div>
     </div>
   );

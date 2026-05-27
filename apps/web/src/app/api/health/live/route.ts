@@ -9,7 +9,12 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { checkRateLimit, RateLimitPresets, getClientIP, createRateLimitHeaders } from '@/lib/security/rateLimiter';
+import {
+  checkRateLimit,
+  RateLimitPresets,
+  getClientIP,
+  createRateLimitHeaders,
+} from '@/lib/security/rateLimiter';
 import { Logger } from '@/lib/monitoring/Logger';
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
@@ -33,7 +38,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     Logger.error(
       '[health/live] Liveness probe error',
       {},
-      error instanceof Error ? error : undefined,
+      error instanceof Error ? error : undefined
     );
     return NextResponse.json(
       { status: 'error', message: 'Liveness check failed' },

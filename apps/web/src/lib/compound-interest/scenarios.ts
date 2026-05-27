@@ -7,6 +7,9 @@
  */
 
 import type { ScenarioKey } from '@/lib/market-data/types';
+// SDK_INVARIANT_OK: scenarioRates is `Status: Hardcoded` per iter5-sdk-migration-map.md
+// (research-anchored product config; the SDK does NOT populate this field). Re-exported
+// here as a stable named constant for calculator-suite consumers — see file header.
 import { FALLBACK_MARKET_DATA } from '@/lib/market-data/constants';
 
 export type { ScenarioKey };

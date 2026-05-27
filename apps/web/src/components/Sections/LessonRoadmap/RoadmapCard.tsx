@@ -34,11 +34,7 @@ export function RoadmapCard({ lessonKey, enableAnalytics = true }: RoadmapCardPr
   };
 
   return (
-    <article
-      className={styles.card}
-      data-status="comingSoon"
-      onClick={handleClick}
-    >
+    <article className={styles.card} data-status="comingSoon" onClick={handleClick}>
       <span className={styles.badge}>{comingSoonLabel}</span>
       <h3 className={styles.cardTitle}>{title}</h3>
       <p className={styles.cardDescription}>{description}</p>

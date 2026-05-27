@@ -6,11 +6,7 @@
  */
 
 import { WaitingListConfiguration } from './domain/WaitingListDomain';
-import {
-  APP_URL,
-  WAITLIST_STORAGE_KEYS,
-  REFERRAL_COOKIE_CONFIG,
-} from '@/config/env';
+import { APP_URL, WAITLIST_STORAGE_KEYS, REFERRAL_COOKIE_CONFIG } from '@/config/env';
 
 export const WAITING_LIST_CONFIG: WaitingListConfiguration = {
   consentVersion: '1.0.0',

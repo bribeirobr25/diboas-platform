@@ -259,8 +259,9 @@
   justify-content: center;
   box-sizing: border-box;
   box-shadow: var(--cta-shadow-default);
-  transition: transform var(--animation-duration-normal) ease-in-out,
-              box-shadow var(--animation-duration-normal) ease-in-out;
+  transition:
+    transform var(--animation-duration-normal) ease-in-out,
+    box-shadow var(--animation-duration-normal) ease-in-out;
 }
 
 .submitButton:hover:not(:disabled) {

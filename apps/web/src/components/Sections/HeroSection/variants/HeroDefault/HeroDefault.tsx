@@ -1,6 +1,6 @@
 /**
  * HeroDefault Variant Component
- * 
+ *
  * Domain-Driven Design: Isolated variant with specific responsibilities
  * Service Agnostic Abstraction: Pure component focused on default hero layout
  * Code Reusability: Can be composed into other hero variants
@@ -15,7 +15,7 @@ import { Button } from '@diboas/ui';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import { useImpressionTracking } from '@/hooks/useImpressionTracking';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
-import type { HeroVariantProps} from '../types';
+import type { HeroVariantProps } from '../types';
 import styles from './HeroDefault.module.css';
 
 interface HeroImageProps {
@@ -29,24 +29,24 @@ interface HeroImageProps {
   onLoad?: () => void;
 }
 
-export function HeroDefault({ 
-  config, 
-  className = '', 
+export function HeroDefault({
+  config,
+  className = '',
   enableAnalytics: _enableAnalytics = true,
   priority = true,
-  onCTAClick 
+  onCTAClick,
 }: HeroVariantProps) {
   const { recordSectionRenderTime } = usePerformanceMonitoring();
   const [imageLoadingState, setImageLoadingState] = useState({
     loaded: 0,
     total: 3, // background, phone, mascot
-    errors: new Set<string>()
+    errors: new Set<string>(),
   });
 
   // Performance monitoring
   useEffect(() => {
     const renderStart = performance.now();
-    
+
     const recordRenderTime = () => {
       const renderEnd = performance.now();
       recordSectionRenderTime('hero-default', renderEnd - renderStart);
@@ -54,21 +54,21 @@ export function HeroDefault({
 
     // Record render time after component mounts
     const timeoutId = setTimeout(recordRenderTime, 0);
-    
+
     return () => clearTimeout(timeoutId);
   }, [recordSectionRenderTime]);
 
   const handleImageError = useCallback((imageName: string) => {
-    setImageLoadingState(prev => ({
+    setImageLoadingState((prev) => ({
       ...prev,
-      errors: new Set(prev.errors).add(imageName)
+      errors: new Set(prev.errors).add(imageName),
     }));
   }, []);
 
   const handleImageLoad = useCallback(() => {
-    setImageLoadingState(prev => ({
+    setImageLoadingState((prev) => ({
       ...prev,
-      loaded: prev.loaded + 1
+      loaded: prev.loaded + 1,
     }));
   }, []);
 
@@ -99,9 +99,7 @@ export function HeroDefault({
           </h1>
 
           {config.content.description && (
-            <p className={styles.description}>
-              {config.content.description}
-            </p>
+            <p className={styles.description}>{config.content.description}</p>
           )}
 
           <div className={styles.ctaWrapper}>
@@ -173,7 +171,6 @@ export function HeroDefault({
             </div>
           </div>
         )}
-
       </div>
 
       {/* Loading State */}
@@ -197,7 +194,7 @@ function HeroImage({
   priority = false,
   className = '',
   onError,
-  onLoad
+  onLoad,
 }: HeroImageProps) {
   const [hasError, setHasError] = useState(false);
 

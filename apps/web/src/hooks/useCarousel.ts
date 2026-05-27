@@ -104,8 +104,8 @@ export function useCarousel({
         paused: ['playing'],
         transitioning: ['playing', 'paused', 'idle'],
       },
-      componentName,
-    ),
+      componentName
+    )
   );
 
   /**
@@ -135,7 +135,14 @@ export function useCarousel({
         mutexRef.current.release();
       }
     },
-    [totalSlides, currentSlideIndex, componentName, onSlideChange, transitionDuration, isAutoPlaying],
+    [
+      totalSlides,
+      currentSlideIndex,
+      componentName,
+      onSlideChange,
+      transitionDuration,
+      isAutoPlaying,
+    ]
   );
 
   const goToNext = useCallback(() => {
@@ -157,11 +164,7 @@ export function useCarousel({
     goToSlide(nextIndex, 'auto');
   }, [currentSlideIndex, totalSlides, goToSlide]);
 
-  const {
-    togglePlayPause,
-    handleMouseEnter,
-    handleMouseLeave,
-  } = useCarouselAutoplay({
+  const { togglePlayPause, handleMouseEnter, handleMouseLeave } = useCarouselAutoplay({
     totalSlides,
     autoPlayInterval,
     pauseOnHover,

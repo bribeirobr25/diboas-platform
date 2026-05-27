@@ -32,14 +32,16 @@
   font-family: var(--font-family-primary);
   font-size: 13px;
   color: var(--color-slate-500);
-  transition: color 200ms ease, background 200ms ease;
+  transition:
+    color 200ms ease,
+    background 200ms ease;
 }
 
-.segment[data-active="true"] .anchor {
+.segment[data-active='true'] .anchor {
   color: var(--color-slate-700);
 }
 
-.segment[data-current="true"] .anchor {
+.segment[data-current='true'] .anchor {
   color: var(--color-teal-700);
   background: var(--color-teal-50);
 }
@@ -62,12 +64,12 @@
   flex: 0 0 auto;
 }
 
-.segment[data-active="true"] .dot {
+.segment[data-active='true'] .dot {
   background: var(--color-teal-300);
   color: var(--color-slate-900);
 }
 
-.segment[data-current="true"] .dot {
+.segment[data-current='true'] .dot {
   background: var(--color-teal-500);
   color: var(--color-white);
 }

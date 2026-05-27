@@ -37,7 +37,7 @@ export const PageHeroSection = memo(function PageHeroSection({
   subheadline2,
   align = 'center',
   className = '',
-  'data-testid': testId
+  'data-testid': testId,
 }: PageHeroSectionProps) {
   const alignmentClass = align === 'center' ? styles.alignCenter : styles.alignLeft;
 
@@ -50,19 +50,9 @@ export const PageHeroSection = memo(function PageHeroSection({
       data-testid={testId}
     >
       <div className={`${styles.content} ${alignmentClass}`}>
-        <h1 className={styles.headline}>
-          {headline}
-        </h1>
-        {subheadline && (
-          <p className={styles.subheadline}>
-            {subheadline}
-          </p>
-        )}
-        {subheadline2 && (
-          <p className={styles.subheadline2}>
-            {subheadline2}
-          </p>
-        )}
+        <h1 className={styles.headline}>{headline}</h1>
+        {subheadline && <p className={styles.subheadline}>{subheadline}</p>}
+        {subheadline2 && <p className={styles.subheadline2}>{subheadline2}</p>}
       </div>
     </SectionContainer>
   );

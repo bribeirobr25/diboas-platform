@@ -78,9 +78,111 @@
     },
     "EUR": {
       "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX-16 adoption D1 (Bar 2026-05-26): forward calibration assumption from long-horizon FRED AEXUSEU annual series, USD per 1 EUR, Fed G.5A — supersedes prior PT3 ECB-EXR endpoint-pair CAGR which now lives in historicalCagr only"
+      },
+      "historicalCagr": {
         "last_verified": "2026-05-22",
-        "source": "ECB EXR M.USD.EUR.SP00.A full-series CAGR Jan 2010 → Apr 2026 (Phase A, sign-corrected)"
+        "source": "ECB EXR Jan 2010 → Apr 2026 endpoint-pair CAGR (anchor pair 1.4272 → 1.1706 USD/EUR); retrospective field only — see D1 (2026-05-26)"
       }
+    },
+    "GBP": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §6: FRED AEXUSUK"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "FRED daily fixing spot snapshot" }
+    },
+    "CAD": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §6: FRED AEXCAUS"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "FRED daily fixing spot snapshot" }
+    },
+    "AUD": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §6: FRED AEXUSAL"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "FRED daily fixing spot snapshot" }
+    },
+    "JPY": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §6: FRED AEXJPUS"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "FRED daily fixing spot snapshot" }
+    },
+    "INR": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §6: FRED AEXINUS"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "FRED daily fixing spot snapshot" }
+    },
+    "MXN": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §6: FRED AEXMXUS"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "FRED daily fixing spot snapshot" }
+    },
+    "ZAR": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §6: FRED AEXSFUS"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "FRED daily fixing spot snapshot" }
+    },
+    "KRW": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §6: FRED AEXKOUS"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "FRED daily fixing spot snapshot" }
+    },
+    "SGD": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §6: FRED AEXSIUS (negative — SGD strengthened vs USD)"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "FRED daily fixing spot snapshot" }
+    },
+    "HKD": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §8.3: pegged via HKMA LERS; FX = 0"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "HKMA peg midpoint snapshot" }
+    },
+    "AED": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §8.3: pegged via CBUAE; FX = 0"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "CBUAE peg midpoint snapshot" }
+    },
+    "ILS": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §6: OECD/FRED CCUSMA02ILA618N (negative — ILS strengthened vs USD)"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "FRED daily fixing spot snapshot" }
+    },
+    "CHF": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §6: FRED AEXSZUS (negative — CHF strengthened vs USD)"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "FRED daily fixing spot snapshot" }
+    },
+    "PLN": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-26",
+        "source": "FX model §6: OECD/FRED CCUSMA02PLA618N"
+      },
+      "rateToUsd": { "last_verified": "2026-05-26", "source": "FRED daily fixing spot snapshot" }
     }
   },
   "inflationRates": {

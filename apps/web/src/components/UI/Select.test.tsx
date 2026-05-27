@@ -22,7 +22,7 @@ function renderWithOptions(props: React.ComponentProps<typeof Select> = {}) {
       <option value="a">Alpha</option>
       <option value="b">Beta</option>
       <option value="c">Gamma</option>
-    </Select>,
+    </Select>
   );
 }
 

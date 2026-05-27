@@ -27,7 +27,9 @@
   border: 1px solid var(--color-slate-200);
   border-radius: var(--radius-lg-extra);
   padding: var(--spacing-lg);
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
   outline: none;
 }
 
@@ -100,7 +102,9 @@
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 400ms ease, opacity 200ms ease;
+  transition:
+    max-height 400ms ease,
+    opacity 200ms ease;
 }
 
 .cardExpanded .expandable {

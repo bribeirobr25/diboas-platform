@@ -12,11 +12,7 @@
 import { Logger } from './Logger';
 
 // Import types
-import type {
-  PerformanceConfig,
-  BufferedMetric,
-  PerformanceSummary
-} from './performanceTypes';
+import type { PerformanceConfig, BufferedMetric, PerformanceSummary } from './performanceTypes';
 
 // Import configuration
 import { createPerformanceConfig } from './performanceConfig';
@@ -28,7 +24,7 @@ import {
   setupNavigationObserver,
   setupResourceObserver,
   disconnectObservers,
-  type ObserverMap
+  type ObserverMap,
 } from './performanceObservers';
 
 // Import utilities
@@ -38,7 +34,7 @@ import {
   getRating,
   getSessionId,
   getPerformanceSummary as getPerformanceSummaryUtil,
-  shouldInitializeMonitoring
+  shouldInitializeMonitoring,
 } from './performanceUtils';
 
 // Re-export for backwards compatibility
@@ -47,7 +43,7 @@ export type {
   BufferedMetric,
   PerformanceThresholds,
   PerformanceConfig,
-  PerformanceSummary
+  PerformanceSummary,
 } from './performanceTypes';
 export { DEFAULT_PERFORMANCE_THRESHOLDS, DEFAULT_PERFORMANCE_CONFIG } from './performanceConfig';
 
@@ -106,9 +102,8 @@ export class PerformanceMonitor {
 
       Logger.info('Performance monitoring initialized', {
         sampleRate: this.config.sampleRate,
-        thresholds: this.config.thresholds
+        thresholds: this.config.thresholds,
       });
-
     } catch (error) {
       Logger.error('Failed to initialize performance monitoring', { error });
       this.isEnabled = false;
@@ -118,11 +113,7 @@ export class PerformanceMonitor {
   /**
    * Record individual performance metric
    */
-  private recordMetric(
-    type: string,
-    value: number,
-    context: Record<string, unknown> = {}
-  ): void {
+  private recordMetric(type: string, value: number, context: Record<string, unknown> = {}): void {
     try {
       const threshold = getThreshold(type, this.config.thresholds);
       const rating = getRating(value, threshold);
@@ -132,7 +123,7 @@ export class PerformanceMonitor {
         value: Math.round(value),
         rating,
         context,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       });
 
       // Add to analytics buffer if endpoint configured
@@ -143,10 +134,9 @@ export class PerformanceMonitor {
           rating,
           context,
           timestamp: Date.now(),
-          page: window.location.pathname
+          page: window.location.pathname,
         });
       }
-
     } catch (error) {
       Logger.warn('Failed to record metric', { error, type, value });
     }
@@ -161,12 +151,12 @@ export class PerformanceMonitor {
 
     this.recordMetric('bundleSize', bundleSize, {
       url: entry.name,
-      type: 'bundle'
+      type: 'bundle',
     });
 
     this.recordMetric('bundleLoadTime', loadTime, {
       url: entry.name,
-      size: bundleSize
+      size: bundleSize,
     });
   }
 
@@ -179,7 +169,7 @@ export class PerformanceMonitor {
 
     this.recordMetric('sectionLoadTime', loadTime, {
       section: sectionName,
-      url: entry.name
+      url: entry.name,
     });
   }
 
@@ -227,14 +217,13 @@ export class PerformanceMonitor {
         body: JSON.stringify({
           metrics,
           session: getSessionId(),
-          timestamp: Date.now()
+          timestamp: Date.now(),
         }),
         keepalive: true, // Ensure delivery on page unload
         signal: AbortSignal.timeout(5000),
       });
 
       Logger.info('Performance metrics flushed', { count: metrics.length });
-
     } catch (error) {
       Logger.warn('Failed to flush performance metrics', { error });
       // Re-add metrics to buffer for retry
@@ -260,7 +249,7 @@ export class PerformanceMonitor {
     if (!this.isEnabled) return;
 
     this.recordMetric('sectionRenderTime', renderTime, {
-      section: sectionName
+      section: sectionName,
     });
   }
 
@@ -272,7 +261,7 @@ export class PerformanceMonitor {
 
     this.recordMetric('themeSwitchTime', switchTime, {
       fromTheme,
-      toTheme
+      toTheme,
     });
   }
 
@@ -292,7 +281,11 @@ export class PerformanceMonitor {
 
     if (!this.config.enabled && this.isEnabled) {
       this.destroy();
-    } else if (this.config.enabled && !this.isEnabled && shouldInitializeMonitoring(this.config.enabled, this.config.sampleRate)) {
+    } else if (
+      this.config.enabled &&
+      !this.isEnabled &&
+      shouldInitializeMonitoring(this.config.enabled, this.config.sampleRate)
+    ) {
       this.initialize();
     }
   }
@@ -331,7 +324,6 @@ export class PerformanceMonitor {
       this.isEnabled = false;
 
       Logger.info('Performance monitoring destroyed');
-
     } catch (error) {
       Logger.error('Failed to destroy performance monitor', { error });
     }
@@ -361,6 +353,6 @@ export function usePerformanceMonitoring() {
     recordCustomMetric,
     recordSectionRenderTime,
     getPerformanceSummary,
-    isEnabled: performanceMonitor.isMonitoringEnabled()
+    isEnabled: performanceMonitor.isMonitoringEnabled(),
   };
 }

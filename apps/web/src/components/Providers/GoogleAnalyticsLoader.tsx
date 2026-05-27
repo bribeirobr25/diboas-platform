@@ -75,7 +75,7 @@ export function GoogleAnalyticsLoader({ measurementId, nonce }: GoogleAnalyticsL
         if (payload.consentType === 'analytics' || payload.consentType === 'all') {
           setShouldLoad(true);
         }
-      },
+      }
     );
 
     return unsub;

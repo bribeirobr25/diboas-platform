@@ -46,10 +46,7 @@ describe('useConfigTranslation / withTranslations valuesByKey', () => {
     });
     const config = { diboas: 'landing-b2c.fees.rows.adding.diboas' };
     const values: ValuesByKey = new Map([
-      [
-        'landing-b2c.fees.rows.adding.diboas',
-        { rate: '0.48%', min: '$0.25', max: '$25' },
-      ],
+      ['landing-b2c.fees.rows.adding.diboas', { rate: '0.48%', min: '$0.25', max: '$25' }],
     ]);
 
     const result = withTranslations(intl, config, undefined, values);
@@ -121,9 +118,7 @@ describe('useConfigTranslation / withTranslations valuesByKey', () => {
       'landing-b2c.fees.rows.adding.diboas': '{rate}',
     });
     const config = { diboas: 'OLD_LITERAL' };
-    const translationKeyMap = new Map([
-      ['OLD_LITERAL', 'landing-b2c.fees.rows.adding.diboas'],
-    ]);
+    const translationKeyMap = new Map([['OLD_LITERAL', 'landing-b2c.fees.rows.adding.diboas']]);
     // Values keyed by the RESOLVED id, not the original string.
     const values: ValuesByKey = new Map([
       ['landing-b2c.fees.rows.adding.diboas', { rate: '0.48%' }],

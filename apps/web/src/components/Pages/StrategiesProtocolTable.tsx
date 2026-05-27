@@ -28,13 +28,7 @@ const PROTOCOL_IDS = [
   'jito',
 ] as const;
 
-const PROTOCOL_FIELDS = [
-  'type',
-  'chain',
-  'asset',
-  'cryptoExposure',
-  'operatingSince',
-] as const;
+const PROTOCOL_FIELDS = ['type', 'chain', 'asset', 'cryptoExposure', 'operatingSince'] as const;
 
 export function StrategiesProtocolTable() {
   const intl = useTranslation();
@@ -42,24 +36,23 @@ export function StrategiesProtocolTable() {
   const [expandedProtocol, setExpandedProtocol] = useState<string | null>(null);
 
   const toggleProtocol = useCallback((protocolId: string) => {
-    setExpandedProtocol(prev => prev === protocolId ? null : protocolId);
+    setExpandedProtocol((prev) => (prev === protocolId ? null : protocolId));
   }, []);
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent, protocolId: string) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleProtocol(protocolId);
-    }
-  }, [toggleProtocol]);
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent, protocolId: string) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleProtocol(protocolId);
+      }
+    },
+    [toggleProtocol]
+  );
 
   return (
     <>
-      <h2 className={styles.sectionTitle}>
-        {t('protocols.header')}
-      </h2>
-      <p className={styles.sectionSubtitle}>
-        {t('protocols.intro')}
-      </p>
+      <h2 className={styles.sectionTitle}>{t('protocols.header')}</h2>
+      <p className={styles.sectionSubtitle}>{t('protocols.intro')}</p>
 
       {/* Desktop table (hidden on mobile) */}
       <div className={styles.protocolTableDesktop}>
@@ -71,8 +64,12 @@ export function StrategiesProtocolTable() {
                 <th className={styles.tableHeaderGoal}>{t('protocols.columnHeaders.type')}</th>
                 <th className={styles.tableHeaderGoal}>{t('protocols.columnHeaders.chain')}</th>
                 <th className={styles.tableHeaderGoal}>{t('protocols.columnHeaders.asset')}</th>
-                <th className={styles.tableHeaderGoal}>{t('protocols.columnHeaders.cryptoExposure')}</th>
-                <th className={styles.tableHeaderGoal}>{t('protocols.columnHeaders.operatingSince')}</th>
+                <th className={styles.tableHeaderGoal}>
+                  {t('protocols.columnHeaders.cryptoExposure')}
+                </th>
+                <th className={styles.tableHeaderGoal}>
+                  {t('protocols.columnHeaders.operatingSince')}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -114,11 +111,13 @@ export function StrategiesProtocolTable() {
                 <span className={styles.expandIcon}>{isExpanded ? '\u25BC' : '\u25B6'}</span>
               </div>
               <p className={styles.mobileProtocolSubtitle}>
-                {t(`protocols.items.${protocolId}.type`)} &middot; {t(`protocols.items.${protocolId}.chain`)}
+                {t(`protocols.items.${protocolId}.type`)} &middot;{' '}
+                {t(`protocols.items.${protocolId}.chain`)}
               </p>
-              {PROTOCOL_FIELDS.filter(f => f !== 'type' && f !== 'chain').map(field => (
+              {PROTOCOL_FIELDS.filter((f) => f !== 'type' && f !== 'chain').map((field) => (
                 <p key={field} className={styles.mobileProtocolField}>
-                  {t(`protocols.columnHeaders.${field}`)}: {t(`protocols.items.${protocolId}.${field}`)}
+                  {t(`protocols.columnHeaders.${field}`)}:{' '}
+                  {t(`protocols.items.${protocolId}.${field}`)}
                 </p>
               ))}
               <div
@@ -140,13 +139,9 @@ export function StrategiesProtocolTable() {
         })}
       </div>
 
-      <p className={styles.belowTable}>
-        {t('protocols.belowTable')}
-      </p>
+      <p className={styles.belowTable}>{t('protocols.belowTable')}</p>
 
-      <p className={styles.honestLimitation}>
-        {t('protocols.honestLimitation')}
-      </p>
+      <p className={styles.honestLimitation}>{t('protocols.honestLimitation')}</p>
     </>
   );
 }
@@ -182,19 +177,19 @@ function ProtocolDesktopRow({
         <td className={styles.tableCellGoal}>{t(`protocols.items.${protocolId}.type`)}</td>
         <td className={styles.tableCellGoal}>{t(`protocols.items.${protocolId}.chain`)}</td>
         <td className={styles.tableCellGoal}>{t(`protocols.items.${protocolId}.asset`)}</td>
-        <td className={styles.tableCellGoal}>{t(`protocols.items.${protocolId}.cryptoExposure`)}</td>
-        <td className={styles.tableCellGoal}>{t(`protocols.items.${protocolId}.operatingSince`)}</td>
+        <td className={styles.tableCellGoal}>
+          {t(`protocols.items.${protocolId}.cryptoExposure`)}
+        </td>
+        <td className={styles.tableCellGoal}>
+          {t(`protocols.items.${protocolId}.operatingSince`)}
+        </td>
       </tr>
-      <tr
-        id={`protocol-detail-${protocolId}`}
-        role="region"
-        className={styles.protocolDetailRow}
-      >
+      <tr id={`protocol-detail-${protocolId}`} role="region" className={styles.protocolDetailRow}>
         <td colSpan={6}>
-          <div className={`${styles.protocolDetail} ${isExpanded ? styles.protocolDetailOpen : ''}`}>
-            <p className={styles.protocolSummary}>
-              {t(`protocols.items.${protocolId}.summary`)}
-            </p>
+          <div
+            className={`${styles.protocolDetail} ${isExpanded ? styles.protocolDetailOpen : ''}`}
+          >
+            <p className={styles.protocolSummary}>{t(`protocols.items.${protocolId}.summary`)}</p>
             <div className={styles.protocolLinks}>
               <LocaleLink href="/protocols" className={styles.protocolExternalLink}>
                 {t('protocols.checkProtocolsPage')}

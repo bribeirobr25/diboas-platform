@@ -22,10 +22,14 @@
 }
 
 @media (min-width: 768px) {
-  .beatTitle { font-size: var(--font-size-section-title-tablet); }
+  .beatTitle {
+    font-size: var(--font-size-section-title-tablet);
+  }
 }
 @media (min-width: 1024px) {
-  .beatTitle { font-size: var(--font-size-section-title-desktop); }
+  .beatTitle {
+    font-size: var(--font-size-section-title-desktop);
+  }
 }
 
 .beatBody {

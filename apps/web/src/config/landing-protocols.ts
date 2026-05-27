@@ -12,7 +12,11 @@
  * Service Agnostic Abstraction: Decoupled content from presentation
  */
 
-import { DEFAULT_FAQ_ACCORDION_SETTINGS, type FAQAccordionVariantConfig, type FAQItem } from '@/config/faqAccordion';
+import {
+  DEFAULT_FAQ_ACCORDION_SETTINGS,
+  type FAQAccordionVariantConfig,
+  type FAQItem,
+} from '@/config/faqAccordion';
 
 // ─── i18n Prefix (Pattern B: dynamic components) ────────────
 
@@ -69,11 +73,7 @@ export const PROTOCOLS_FAQ_CONFIG: FAQAccordionVariantConfig = {
  * e.g. `'footer.lastUpdated'` resolves to `protocols.footer.lastUpdated`.
  */
 export function getProtocolsDisclaimerKeys(locale: string): string[] {
-  const keys: string[] = [
-    'footer.lastUpdated',
-    'footer.dataSources',
-    'footer.mainDisclaimer',
-  ];
+  const keys: string[] = ['footer.lastUpdated', 'footer.dataSources', 'footer.mainDisclaimer'];
 
   if (['en', 'de', 'es'].includes(locale)) {
     keys.push('footer.micaArt68');

@@ -71,9 +71,15 @@ describe('calculateCompoundProjection — happy path', () => {
 
   it('should pull SCENARIO_RATES values into series.rate', () => {
     const out = calculateCompoundProjection(baseInput);
-    expect(out.series.find((s) => s.scenario === 'conservative')!.rate).toBe(SCENARIO_RATES.conservative);
-    expect(out.series.find((s) => s.scenario === 'historical')!.rate).toBe(SCENARIO_RATES.historical);
-    expect(out.series.find((s) => s.scenario === 'optimistic')!.rate).toBe(SCENARIO_RATES.optimistic);
+    expect(out.series.find((s) => s.scenario === 'conservative')!.rate).toBe(
+      SCENARIO_RATES.conservative
+    );
+    expect(out.series.find((s) => s.scenario === 'historical')!.rate).toBe(
+      SCENARIO_RATES.historical
+    );
+    expect(out.series.find((s) => s.scenario === 'optimistic')!.rate).toBe(
+      SCENARIO_RATES.optimistic
+    );
   });
 });
 
@@ -86,7 +92,7 @@ describe('calculateCompoundProjection — locale variations', () => {
       locale: 'pt-BR',
     });
     expect(out.series).toHaveLength(4);
-    expect(out.monthlyEquivalent).toBeCloseTo(25 * 365 / 12, 2);
+    expect(out.monthlyEquivalent).toBeCloseTo((25 * 365) / 12, 2);
   });
 
   it('should compute for de with €4/Tag default', () => {
@@ -97,7 +103,7 @@ describe('calculateCompoundProjection — locale variations', () => {
       locale: 'de',
     });
     expect(out.series.find((s) => s.scenario === 'bank')!.rate).toBe(
-      FALLBACK_MARKET_DATA.rates.bankRates.de.savings,
+      FALLBACK_MARKET_DATA.rates.bankRates.de.savings
     );
   });
 
@@ -109,7 +115,7 @@ describe('calculateCompoundProjection — locale variations', () => {
       locale: 'es',
     });
     expect(out.series.find((s) => s.scenario === 'bank')!.rate).toBe(
-      FALLBACK_MARKET_DATA.rates.bankRates.es.savings,
+      FALLBACK_MARKET_DATA.rates.bankRates.es.savings
     );
   });
 });
@@ -138,45 +144,45 @@ describe('calculateCompoundProjection — boundaries', () => {
 
 describe('calculateCompoundProjection — validation errors', () => {
   it('should throw InvalidCalculatorInputError when amount is below the minimum', () => {
-    expect(() =>
-      calculateCompoundProjection({ ...baseInput, amount: 0 }),
-    ).toThrow(InvalidCalculatorInputError);
+    expect(() => calculateCompoundProjection({ ...baseInput, amount: 0 })).toThrow(
+      InvalidCalculatorInputError
+    );
   });
 
   it('should throw InvalidCalculatorInputError when amount is above the maximum', () => {
     expect(() =>
-      calculateCompoundProjection({ ...baseInput, amount: INPUT_BOUNDS.amount.max + 1 }),
+      calculateCompoundProjection({ ...baseInput, amount: INPUT_BOUNDS.amount.max + 1 })
     ).toThrow(InvalidCalculatorInputError);
   });
 
   it('should throw InvalidCalculatorInputError when amount is NaN', () => {
-    expect(() =>
-      calculateCompoundProjection({ ...baseInput, amount: NaN }),
-    ).toThrow(InvalidCalculatorInputError);
+    expect(() => calculateCompoundProjection({ ...baseInput, amount: NaN })).toThrow(
+      InvalidCalculatorInputError
+    );
   });
 
   it('should throw InvalidCalculatorInputError when amount is Infinity', () => {
-    expect(() =>
-      calculateCompoundProjection({ ...baseInput, amount: Infinity }),
-    ).toThrow(InvalidCalculatorInputError);
+    expect(() => calculateCompoundProjection({ ...baseInput, amount: Infinity })).toThrow(
+      InvalidCalculatorInputError
+    );
   });
 
   it('should throw InvalidCalculatorInputError when years is below 1', () => {
-    expect(() =>
-      calculateCompoundProjection({ ...baseInput, years: 0 }),
-    ).toThrow(InvalidCalculatorInputError);
+    expect(() => calculateCompoundProjection({ ...baseInput, years: 0 })).toThrow(
+      InvalidCalculatorInputError
+    );
   });
 
   it('should throw InvalidCalculatorInputError when years is above 40', () => {
-    expect(() =>
-      calculateCompoundProjection({ ...baseInput, years: 41 }),
-    ).toThrow(InvalidCalculatorInputError);
+    expect(() => calculateCompoundProjection({ ...baseInput, years: 41 })).toThrow(
+      InvalidCalculatorInputError
+    );
   });
 
   it('should throw InvalidCalculatorInputError when years is non-integer', () => {
-    expect(() =>
-      calculateCompoundProjection({ ...baseInput, years: 12.5 }),
-    ).toThrow(InvalidCalculatorInputError);
+    expect(() => calculateCompoundProjection({ ...baseInput, years: 12.5 })).toThrow(
+      InvalidCalculatorInputError
+    );
   });
 
   it('should expose the offending field on the thrown error', () => {
@@ -209,7 +215,7 @@ describe('calculateCompoundProjection — extended cadences', () => {
       expect(fv('bank')).toBeLessThan(fv('conservative'));
       expect(fv('conservative')).toBeLessThan(fv('historical'));
       expect(fv('historical')).toBeLessThan(fv('optimistic'));
-    },
+    }
   );
 });
 
@@ -237,12 +243,7 @@ describe('calculateCompoundProjection — oneTime cadence (lump sum)', () => {
     const out = calculateCompoundProjection(oneTimeInput);
     out.series.forEach((s) => {
       for (let y = 1; y <= oneTimeInput.years; y++) {
-        const expected = calculateLumpSum(
-          oneTimeInput.amount,
-          s.rate / 100,
-          0,
-          y,
-        ).nominalFV;
+        const expected = calculateLumpSum(oneTimeInput.amount, s.rate / 100, 0, y).nominalFV;
         expect(s.yearlyValues[y]).toBeCloseTo(expected, 5);
       }
     });

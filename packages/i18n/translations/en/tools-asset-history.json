@@ -52,8 +52,18 @@
     "terminalRange": "between {low} and {high}",
     "terminalRangeSubtle": "Range based on best vs worst monthly entry timing: {low} – {high}",
     "startMonth": {
+      "jan": "January",
+      "feb": "February",
+      "mar": "March",
+      "apr": "April",
+      "may": "May",
+      "jun": "June",
       "jul": "July",
-      "jan": "January"
+      "aug": "August",
+      "sep": "September",
+      "oct": "October",
+      "nov": "November",
+      "dec": "December"
     },
     "contributedOverMonths": "{total} contributed over {months} months",
     "startingPrincipal": "{total} starting principal",

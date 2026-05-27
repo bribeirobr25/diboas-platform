@@ -86,8 +86,7 @@ export async function POST(req: Request): Promise<Response> {
   // checks that the host is some `*.sentry.io` ingestion subdomain.
   const host = dsnUrl.hostname;
   const isSentryIngestion =
-    /^([a-z0-9-]+\.)?ingest(\.[a-z]{2})?\.sentry\.io$/i.test(host) ||
-    host === 'sentry.io';
+    /^([a-z0-9-]+\.)?ingest(\.[a-z]{2})?\.sentry\.io$/i.test(host) || host === 'sentry.io';
   if (!isSentryIngestion) {
     return NextResponse.json({ error: 'forbidden_host' }, { status: 403 });
   }

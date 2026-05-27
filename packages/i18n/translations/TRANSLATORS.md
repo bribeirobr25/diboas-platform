@@ -53,15 +53,15 @@ Every line of every diBoaS surface — Learn Center lessons, landing pages, emai
 
 The filter is a 7-point pass-through. For each translated lesson, your output must satisfy all 7:
 
-| # | Test | Pass criterion |
-|---|---|---|
-| 1 | Beat 1 (or any concept introduction) leads with concrete math, not jargon | The first specific number appears **before** any technical term like "compound interest" / "juros compostos" / "Zinseszins" / "interés compuesto" |
-| 2 | Beat 2 (or any "you might be thinking" moment) names the user's voice authentically | Translated form preserves direct second-person voice. Not "the user", not "one might think" — directly addressed |
-| 3 | Acknowledges economic reality without moralizing | No "you should", "you must", "stop doing X". Frame is "did you know" / "if you wanted to", never prescriptive |
-| 4 | Vignettes / examples show math, never prescribe behavior | Cultural anchors describe what someone *might* spend on; never command them to change |
-| 5 | Beat 3 (or any final CTA section) preserves user agency | Equivalent locale phrase carries "your life is yours" / "the choice is yours" energy. The user always has the last word |
-| 6 | Complementary positioning toward existing finance | Not "abandon your bank" / "ditch your bank". Frame is "and" — "your bank stays where it is, *and* diBoaS is for X" |
-| 7 | Brand callbacks land in canonical positions | The signature line "Same money. Different job." (or its locale equivalent) appears **twice** in Lesson 01 — at the end of Beat 2 and at the bottom of Beat 3 |
+| #   | Test                                                                                | Pass criterion                                                                                                                                               |
+| --- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | Beat 1 (or any concept introduction) leads with concrete math, not jargon           | The first specific number appears **before** any technical term like "compound interest" / "juros compostos" / "Zinseszins" / "interés compuesto"            |
+| 2   | Beat 2 (or any "you might be thinking" moment) names the user's voice authentically | Translated form preserves direct second-person voice. Not "the user", not "one might think" — directly addressed                                             |
+| 3   | Acknowledges economic reality without moralizing                                    | No "you should", "you must", "stop doing X". Frame is "did you know" / "if you wanted to", never prescriptive                                                |
+| 4   | Vignettes / examples show math, never prescribe behavior                            | Cultural anchors describe what someone _might_ spend on; never command them to change                                                                        |
+| 5   | Beat 3 (or any final CTA section) preserves user agency                             | Equivalent locale phrase carries "your life is yours" / "the choice is yours" energy. The user always has the last word                                      |
+| 6   | Complementary positioning toward existing finance                                   | Not "abandon your bank" / "ditch your bank". Frame is "and" — "your bank stays where it is, _and_ diBoaS is for X"                                           |
+| 7   | Brand callbacks land in canonical positions                                         | The signature line "Same money. Different job." (or its locale equivalent) appears **twice** in Lesson 01 — at the end of Beat 2 and at the bottom of Beat 3 |
 
 A lesson that fails any of these 7 returns to the translator before merge — same gate as test failures or lint errors. Engineering's PR template tracks this as a per-locale checkbox.
 
@@ -71,10 +71,10 @@ A lesson that fails any of these 7 returns to the translator before merge — sa
 
 The signature line **"Same money. Different job."** must land in a way that preserves the rhetorical pivot (same input, transformed output). Suggested locale equivalents (for translator review, not locked):
 
-- 🇺🇸 EN: *Same money. Different job.*
-- 🇧🇷 PT-BR: *O mesmo dinheiro. Trabalho diferente.* / *Mesmo dinheiro. Outro propósito.*
-- 🇩🇪 DE: *Gleiches Geld. Andere Aufgabe.* / *Dasselbe Geld. Anderer Job.*
-- 🇪🇸 ES: *El mismo dinero. Otro trabajo.* / *Mismo dinero. Distinto papel.*
+- 🇺🇸 EN: _Same money. Different job._
+- 🇧🇷 PT-BR: _O mesmo dinheiro. Trabalho diferente._ / _Mesmo dinheiro. Outro propósito._
+- 🇩🇪 DE: _Gleiches Geld. Andere Aufgabe._ / _Dasselbe Geld. Anderer Job._
+- 🇪🇸 ES: _El mismo dinero. Otro trabajo._ / _Mismo dinero. Distinto papel._
 
 Final phrasing per locale is a translator decision; the constraint is the rhetorical pattern, not the literal words.
 
@@ -93,6 +93,6 @@ Final phrasing per locale is a translator decision; the constraint is the rhetor
 
 ## Source documents
 
-- **CMO Board Session 027** (2026-05-07) — `docs/post-launch/LESSON_01_COMPOUND_INTEREST_PACKAGE.md` §7 (tone flags), §9 (Adelaide Filter checklist), §8 (permanent editorial guideline).
+- **CMO Board Session 027** (2026-05-07) — `docs/post-launch/_archive/LESSON_01_COMPOUND_INTEREST_PACKAGE.md` §7 (tone flags), §9 (Adelaide Filter checklist), §8 (permanent editorial guideline). Archived 2026-05-25 — live source of truth for body copy is now the translation files themselves; this reference is preserved for editorial-rationale lookup.
 - **GTM Playbook** §6.6, §6.7, §7.1, §7.2 — APY display rules, BR currency-hedge thesis, DE voice convention.
-- **Engineering plan** — `docs/audit/LEARN_CALC_COMPOUND_INTEREST.md` (Phase A.0.6 created this file; Phase A.9 enforces the per-locale Adelaide Filter pass before public launch).
+- **Engineering plan** — Learn Center Phase A engineering work (closed 2026-05-08; the original `LEARN_CALC_COMPOUND_INTEREST.md` plan was deleted after closeout; current source of truth is the shipped code at `apps/web/src/components/Sections/CompoundInterestCalculator/` + `apps/web/src/app/[locale]/(landing)/learn/compound-interest/` plus the translation namespace below).

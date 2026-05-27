@@ -61,9 +61,5 @@ export function ExpandableCardGrid({
     [multiExpand]
   );
 
-  return (
-    <div className={`${styles.grid} ${className}`}>
-      {children({ isExpanded, onToggle })}
-    </div>
-  );
+  return <div className={`${styles.grid} ${className}`}>{children({ isExpanded, onToggle })}</div>;
 }

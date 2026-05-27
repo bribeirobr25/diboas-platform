@@ -32,10 +32,17 @@
         "vitest.config.ts",
         "eslint.config.mjs"
       ],
-      "project": ["src/**/*.{ts,tsx,js,jsx}", "middleware.ts", "next.config.*", "postcss.config.*", "tailwind.config.*", "sentry.*.config.*", "vitest.config.ts", "eslint.config.mjs"],
-      "ignore": [
-        "src/**/*.test.{ts,tsx}"
+      "project": [
+        "src/**/*.{ts,tsx,js,jsx}",
+        "middleware.ts",
+        "next.config.*",
+        "postcss.config.*",
+        "tailwind.config.*",
+        "sentry.*.config.*",
+        "vitest.config.ts",
+        "eslint.config.mjs"
       ],
+      "ignore": ["src/**/*.test.{ts,tsx}"],
       "ignoreDependencies": [
         "autoprefixer",
         "@next/bundle-analyzer",

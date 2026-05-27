@@ -3,11 +3,12 @@ const path = require('path');
 
 // Find the latest Lighthouse report
 const lhciDir = './.lighthouseci';
-const files = fs.readdirSync(lhciDir)
-  .filter(f => f.startsWith('lhr-') && f.endsWith('.json'))
-  .map(f => ({
+const files = fs
+  .readdirSync(lhciDir)
+  .filter((f) => f.startsWith('lhr-') && f.endsWith('.json'))
+  .map((f) => ({
     name: f,
-    time: fs.statSync(path.join(lhciDir, f)).mtime.getTime()
+    time: fs.statSync(path.join(lhciDir, f)).mtime.getTime(),
   }))
   .sort((a, b) => b.time - a.time);
 
@@ -24,7 +25,7 @@ console.log('SEO Score:', data.categories.seo.score);
 console.log('\nFailing/Warning SEO Audits:\n');
 
 const audits = data.categories.seo.auditRefs;
-audits.forEach(a => {
+audits.forEach((a) => {
   const audit = data.audits[a.id];
   if (audit.score !== null && audit.score < 1) {
     console.log(`❌ ${audit.title}`);

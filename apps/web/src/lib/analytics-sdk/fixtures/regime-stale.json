@@ -12,48 +12,32 @@
       "detailed": "Bitcoin structure remains supportive based on most recent observations. Some upstream feeds are delayed, so confidence in the overall reading is reduced.",
       "confidence_level": "MODERATE",
       "mixed_signals": true,
-      "key_supportive_factors": [
-        "BTC remains above long-term structure"
-      ],
-      "key_headwinds": [
-        "Some upstream data is delayed"
-      ]
+      "key_supportive_factors": ["BTC remains above long-term structure"],
+      "key_headwinds": ["Some upstream data is delayed"]
     },
     "pt-BR": {
       "short": "As condições permanecem construtivas com base nos dados mais recentes.",
       "detailed": "A estrutura do Bitcoin permanece favorável com base nas observações mais recentes. Algumas fontes estão atrasadas, então a confiança na leitura geral está reduzida.",
       "confidence_level": "MODERATE",
       "mixed_signals": true,
-      "key_supportive_factors": [
-        "O BTC permanece acima da estrutura de longo prazo"
-      ],
-      "key_headwinds": [
-        "Algumas fontes upstream estão atrasadas"
-      ]
+      "key_supportive_factors": ["O BTC permanece acima da estrutura de longo prazo"],
+      "key_headwinds": ["Algumas fontes upstream estão atrasadas"]
     },
     "es": {
       "short": "Las condiciones se mantienen constructivas con los datos más recientes.",
       "detailed": "La estructura de Bitcoin se mantiene favorable según las observaciones más recientes. Algunas fuentes están retrasadas, por lo que la confianza en la lectura general es menor.",
       "confidence_level": "MODERATE",
       "mixed_signals": true,
-      "key_supportive_factors": [
-        "BTC se mantiene sobre la estructura de largo plazo"
-      ],
-      "key_headwinds": [
-        "Algunas fuentes upstream están retrasadas"
-      ]
+      "key_supportive_factors": ["BTC se mantiene sobre la estructura de largo plazo"],
+      "key_headwinds": ["Algunas fuentes upstream están retrasadas"]
     },
     "de": {
       "short": "Die Bedingungen bleiben konstruktiv auf Basis der zuletzt verfügbaren Daten.",
       "detailed": "Die Bitcoin-Struktur bleibt auf Basis der jüngsten Beobachtungen stützend. Einige Datenquellen sind verzögert, daher ist die Konfidenz der Gesamteinschätzung reduziert.",
       "confidence_level": "MODERATE",
       "mixed_signals": true,
-      "key_supportive_factors": [
-        "BTC bleibt oberhalb der langfristigen Struktur"
-      ],
-      "key_headwinds": [
-        "Einige Datenquellen sind verzögert"
-      ]
+      "key_supportive_factors": ["BTC bleibt oberhalb der langfristigen Struktur"],
+      "key_headwinds": ["Einige Datenquellen sind verzögert"]
     }
   },
   "signal_groups": [
@@ -163,11 +147,7 @@
         "message": "10-year yield feed is temporarily unavailable; previous reading is shown."
       }
     ],
-    "delayed_sources": [
-      "FRED:M2SL"
-    ],
-    "unavailable_sources": [
-      "FRED:DGS10"
-    ]
+    "delayed_sources": ["FRED:M2SL"],
+    "unavailable_sources": ["FRED:DGS10"]
   }
 }

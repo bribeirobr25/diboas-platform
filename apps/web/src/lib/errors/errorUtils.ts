@@ -18,9 +18,11 @@ export function generateErrorId(): string {
  */
 export function determineSeverity(error: Error): ErrorSeverity {
   // Critical errors that break core functionality
-  if (error.name === 'ChunkLoadError' ||
-      error.message.includes('Loading chunk') ||
-      error.message.includes('Failed to fetch')) {
+  if (
+    error.name === 'ChunkLoadError' ||
+    error.message.includes('Loading chunk') ||
+    error.message.includes('Failed to fetch')
+  ) {
     return 'critical';
   }
 
@@ -41,7 +43,11 @@ export function determineSeverity(error: Error): ErrorSeverity {
 /**
  * Determine if automatic recovery should be attempted
  */
-export function shouldAttemptRecovery(error: Error, retryCount: number, maxRetries: number): boolean {
+export function shouldAttemptRecovery(
+  error: Error,
+  retryCount: number,
+  maxRetries: number
+): boolean {
   // Don't retry for syntax errors or other unrecoverable errors
   if (error.name === 'SyntaxError') return false;
 
@@ -49,9 +55,11 @@ export function shouldAttemptRecovery(error: Error, retryCount: number, maxRetri
   if (retryCount >= maxRetries) return false;
 
   // Retry for network-related errors
-  if (error.message.includes('fetch') ||
-      error.message.includes('network') ||
-      error.name === 'ChunkLoadError') {
+  if (
+    error.message.includes('fetch') ||
+    error.message.includes('network') ||
+    error.name === 'ChunkLoadError'
+  ) {
     return true;
   }
 

@@ -52,8 +52,18 @@
     "terminalRange": "zwischen {low} und {high}",
     "terminalRangeSubtle": "Spanne basierend auf bestem vs schlechtestem monatlichen Einstiegszeitpunkt: {low} – {high}",
     "startMonth": {
+      "jan": "Januar",
+      "feb": "Februar",
+      "mar": "März",
+      "apr": "April",
+      "may": "Mai",
+      "jun": "Juni",
       "jul": "Juli",
-      "jan": "Januar"
+      "aug": "August",
+      "sep": "September",
+      "oct": "Oktober",
+      "nov": "November",
+      "dec": "Dezember"
     },
     "contributedOverMonths": "{total} eingezahlt über {months} Monate",
     "startingPrincipal": "{total} Anfangskapital",

@@ -68,12 +68,7 @@ export function CTAButtonLink({
   // External links use anchor with security attributes
   if (target === '_blank') {
     return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={onClick}
-      >
+      <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick}>
         {buttonElement}
       </a>
     );

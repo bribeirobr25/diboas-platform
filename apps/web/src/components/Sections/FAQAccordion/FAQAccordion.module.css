@@ -131,8 +131,9 @@
   cursor: pointer;
 
   /* Animation */
-  transition: transform var(--cta-transition-duration) var(--cta-transition-easing),
-              box-shadow var(--cta-transition-duration) var(--cta-transition-easing);
+  transition:
+    transform var(--cta-transition-duration) var(--cta-transition-easing),
+    box-shadow var(--cta-transition-duration) var(--cta-transition-easing);
 
   /* Mobile Order */
   order: 3;
@@ -278,8 +279,9 @@
 .accordionContent {
   max-height: 0;
   overflow: hidden;
-  transition: max-height var(--faq-transition-duration) var(--faq-transition-easing),
-              opacity var(--faq-content-fade-duration) var(--faq-transition-easing);
+  transition:
+    max-height var(--faq-transition-duration) var(--faq-transition-easing),
+    opacity var(--faq-content-fade-duration) var(--faq-transition-easing);
   opacity: 0;
 }
 

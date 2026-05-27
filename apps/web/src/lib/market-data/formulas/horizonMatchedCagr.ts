@@ -29,7 +29,7 @@ const MIN_REQUIRED_MONTHS = 12;
 
 export function deriveHorizonMatchedCAGR(
   fxSeries: MonthlyFxSeries | { months: ReadonlyArray<MonthlyFxBar> } | undefined,
-  horizonYears: number,
+  horizonYears: number
 ): number {
   if (!fxSeries) return 0;
   const months = fxSeries.months;
@@ -53,24 +53,45 @@ export function deriveHorizonMatchedCAGR(
 
 /**
  * Policy helper — resolves the per-locale depreciation rate for forward
- * projection. Prefers horizon-matched CAGR from `monthlySeries.fx` (when
- * monthly data is available); falls back to the static
- * `FALLBACK_MARKET_DATA.exchangeRates.rates[currency].annualDepreciation`
- * constant otherwise. USD locales always return 0.
+ * projection. USD currencies always return 0.
  *
- * Single source of truth for the Phase D rule (TOOLS_IMPROVEMENT.md). All
- * calculators consuming a non-USD locale depreciation MUST route through
- * this function — P4 DRY discipline.
+ * **Priority (FX-16 D1, Bar 2026-05-26):** the calibrated forward constant
+ * `FALLBACK_MARKET_DATA.exchangeRates.rates[currency].annualDepreciation`
+ * is authoritative when present. The monthly-FX horizon-matched CAGR is used
+ * ONLY as a fallback when the constant is missing.
+ *
+ * **Why this inversion (vs the earlier "live wins" policy):** D1 distinguishes
+ * two semantically different quantities — `historicalCagr` is a retrospective
+ * endpoint-pair CAGR; `annualDepreciation` is a forward calibration assumption,
+ * intentionally smoother than any single endpoint-pair derivation. The live
+ * monthly-FX derivation is mechanically an endpoint-pair CAGR over a sliding
+ * window — semantically the *historical* quantity, not the forward one. For
+ * EUR specifically, live derivation produces ~1.23% (the retired PT3 value);
+ * the calibrated forward assumption is 0.55%. D1's locked rule: "do not use
+ * 1.23% for forward EUR projections."
+ *
+ * For BRL the two methodologies happen to coincide (~6.21%) because BRL's
+ * calibration window matches the available FX data; the inversion changes
+ * nothing observable for BRL. For the 14 FX-16 currencies there is no live
+ * FX series — the constant wins by default. The inversion's only observable
+ * effect is EUR (1.23% → 0.55% in forward projections).
+ *
+ * Single source of truth for forward-projection FX rates. All calculators
+ * consuming a non-USD locale depreciation MUST route through this function —
+ * P4 DRY discipline.
  */
 export function resolveHorizonMatchedDepreciation(
   snapshot: MarketDataSnapshot,
   currency: string | undefined,
-  horizonYears: number,
+  horizonYears: number
 ): number {
   if (!currency || currency === 'USD') return 0;
+  const calibrated = snapshot.exchangeRates.rates[currency]?.annualDepreciation;
+  if (typeof calibrated === 'number') return calibrated;
+  // Fallback for currencies without a calibrated constant.
   const fxSeries = snapshot.monthlySeries?.fx?.[currency];
   if (fxSeries && fxSeries.months.length >= MIN_REQUIRED_MONTHS) {
     return deriveHorizonMatchedCAGR(fxSeries, horizonYears);
   }
-  return snapshot.exchangeRates.rates[currency]?.annualDepreciation ?? 0;
+  return 0;
 }

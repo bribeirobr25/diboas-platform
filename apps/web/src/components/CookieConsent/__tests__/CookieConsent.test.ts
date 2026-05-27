@@ -10,9 +10,15 @@ vi.mock('@/lib/events/ApplicationEventBus', () => ({
 const store: Record<string, string> = {};
 vi.stubGlobal('localStorage', {
   getItem: vi.fn((key: string) => store[key] ?? null),
-  setItem: vi.fn((key: string, value: string) => { store[key] = value; }),
-  removeItem: vi.fn((key: string) => { delete store[key]; }),
-  clear: vi.fn(() => { Object.keys(store).forEach((k) => delete store[k]); }),
+  setItem: vi.fn((key: string, value: string) => {
+    store[key] = value;
+  }),
+  removeItem: vi.fn((key: string) => {
+    delete store[key];
+  }),
+  clear: vi.fn(() => {
+    Object.keys(store).forEach((k) => delete store[k]);
+  }),
 });
 
 // Stub window to satisfy `typeof window !== 'undefined'` checks

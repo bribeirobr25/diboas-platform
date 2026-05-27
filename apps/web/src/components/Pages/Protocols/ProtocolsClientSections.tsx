@@ -14,7 +14,13 @@ const I18N_PREFIX = 'protocols';
 
 // ─── Transition Hook ─────────────────────────────────────────
 
-export function ProtocolsTransitionHook({ hookKey, variant = 'default' }: { hookKey: string; variant?: 'default' | 'pivotal' }) {
+export function ProtocolsTransitionHook({
+  hookKey,
+  variant = 'default',
+}: {
+  hookKey: string;
+  variant?: 'default' | 'pivotal';
+}) {
   const intl = useTranslation();
   const text = intl.formatMessage({ id: `${I18N_PREFIX}.${hookKey}` });
 

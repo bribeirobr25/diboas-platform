@@ -61,7 +61,7 @@ export function useCarouselKeyboard({
           break;
       }
     },
-    [enableKeyboard, isTransitioning, totalSlides, goToPrev, goToNext, goToSlide, togglePlayPause],
+    [enableKeyboard, isTransitioning, totalSlides, goToPrev, goToNext, goToSlide, togglePlayPause]
   );
 
   return { handleKeyDown };

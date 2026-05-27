@@ -7,11 +7,7 @@ import { ToolPage } from '@/components/Sections/ToolPage';
 import { CompoundInterestCalculator } from '@/components/Sections/CompoundInterestCalculator';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
-import {
-  COMPOUND_TOOL_DEFAULTS,
-  buildToolStructuredData,
-  toolMetadata,
-} from '@/lib/tools';
+import { COMPOUND_TOOL_DEFAULTS, buildToolStructuredData, toolMetadata } from '@/lib/tools';
 import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'force-dynamic';
@@ -36,8 +32,7 @@ export default async function RetirementToolPage({ params }: LocalePageProps) {
     locale,
     name: pageMessages['tools-retirement.seo.title'] ?? 'Retirement Calculator',
     description:
-      pageMessages['tools-retirement.seo.description'] ??
-      'Free retirement calculator from diBoaS.',
+      pageMessages['tools-retirement.seo.description'] ?? 'Free retirement calculator from diBoaS.',
   });
 
   return (
@@ -52,6 +47,7 @@ export default async function RetirementToolPage({ params }: LocalePageProps) {
             years: defaults.years,
             locale,
           }}
+          recurringSliderMax={defaults.recurringSliderMax[locale]}
         />
       </ToolPage>
       <MinimalFooter

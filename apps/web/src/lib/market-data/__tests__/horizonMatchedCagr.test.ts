@@ -7,10 +7,18 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { deriveHorizonMatchedCAGR } from '../formulas/horizonMatchedCagr';
-import type { MonthlyFxSeries, MonthlyFxBar } from '../types';
+import {
+  deriveHorizonMatchedCAGR,
+  resolveHorizonMatchedDepreciation,
+} from '../formulas/horizonMatchedCagr';
+import type { MonthlyFxSeries, MonthlyFxBar, MarketDataSnapshot } from '../types';
+import { marketDataService } from '../service';
 
-function makeSeries(monthsCount: number, startLocalPerUsd: number, endLocalPerUsd: number): MonthlyFxSeries {
+function makeSeries(
+  monthsCount: number,
+  startLocalPerUsd: number,
+  endLocalPerUsd: number
+): MonthlyFxSeries {
   const months: MonthlyFxBar[] = [];
   // Geometrically interpolate so the CAGR matches end/start across the window
   const totalGrowth = endLocalPerUsd / startLocalPerUsd;
@@ -104,5 +112,76 @@ describe('deriveHorizonMatchedCAGR', () => {
     const cagrAt0_5 = deriveHorizonMatchedCAGR(series, 0.5);
     // Both should use the minimum 12-month window — produce identical output.
     expect(cagrAt0).toBeCloseTo(cagrAt0_5, 6);
+  });
+});
+
+describe('resolveHorizonMatchedDepreciation — FX-16 D1 priority inversion (Bar 2026-05-26)', () => {
+  const snapshot = marketDataService.getSync();
+
+  it('returns 0 for USD', () => {
+    expect(resolveHorizonMatchedDepreciation(snapshot, 'USD', 25)).toBe(0);
+  });
+
+  it('returns 0 for undefined currency', () => {
+    expect(resolveHorizonMatchedDepreciation(snapshot, undefined, 25)).toBe(0);
+  });
+
+  it('returns calibrated constant for EUR (NOT live ~1.23%) — the core D1 contract', () => {
+    // Pre-FX-16: live EUR FX series produced ~1.23%. D1 inverts the priority
+    // so the calibrated forward constant (0.0055) wins. This test pins the
+    // inversion — regression on this would silently restore the misused 1.23%
+    // in every EUR-bearing forward projection (compound, retirement, goal-savings,
+    // emergency-fund, time-to-target, idle-cash, currency-depreciation).
+    expect(resolveHorizonMatchedDepreciation(snapshot, 'EUR', 25)).toBeCloseTo(0.0055, 4);
+    expect(resolveHorizonMatchedDepreciation(snapshot, 'EUR', 5)).toBeCloseTo(0.0055, 4);
+  });
+
+  it('returns calibrated constant for BRL (constant + live coincide at 6.21%)', () => {
+    // BRL's calibrated constant matches the live FX-derived value;
+    // the priority inversion has no observable effect for BRL.
+    expect(resolveHorizonMatchedDepreciation(snapshot, 'BRL', 25)).toBeCloseTo(0.0621, 4);
+  });
+
+  it('returns calibrated constant for the 14 FX-16 currencies (no live FX series)', () => {
+    expect(resolveHorizonMatchedDepreciation(snapshot, 'GBP', 5)).toBeCloseTo(0.009, 4);
+    expect(resolveHorizonMatchedDepreciation(snapshot, 'JPY', 5)).toBeCloseTo(0.015, 4);
+    expect(resolveHorizonMatchedDepreciation(snapshot, 'CHF', 5)).toBeCloseTo(-0.0179, 4);
+    expect(resolveHorizonMatchedDepreciation(snapshot, 'HKD', 5)).toBe(0);
+    expect(resolveHorizonMatchedDepreciation(snapshot, 'AED', 5)).toBe(0);
+  });
+
+  it('falls back to live FX derivation when no calibrated constant exists', () => {
+    // Build a synthetic snapshot where a currency has FX data but no constant.
+    const synthetic: MarketDataSnapshot = {
+      ...snapshot,
+      exchangeRates: { rates: {} },
+      monthlySeries: {
+        assets: snapshot.monthlySeries?.assets ?? {},
+        inflation: snapshot.monthlySeries?.inflation ?? {},
+        fx: { TEST: makeSeries(60, 1.0, 1.5) },
+      },
+    };
+    const cagr = resolveHorizonMatchedDepreciation(synthetic, 'TEST', 5);
+    // 1.0 → 1.5 over 59 intervals = CAGR ≈ 8.55%
+    expect(cagr).toBeGreaterThan(0.08);
+    expect(cagr).toBeLessThan(0.09);
+  });
+
+  it('returns 0 when neither constant nor FX series exists', () => {
+    const synthetic: MarketDataSnapshot = {
+      ...snapshot,
+      exchangeRates: { rates: {} },
+      monthlySeries: undefined,
+    };
+    expect(resolveHorizonMatchedDepreciation(synthetic, 'TEST', 5)).toBe(0);
+  });
+
+  it('handles peg currencies (HKD/AED) cleanly — annualDepreciation = 0', () => {
+    // Verifies the type-guard `typeof calibrated === 'number'` correctly
+    // accepts 0 (peg) — a `?? 0` fallback would have done the same, but
+    // the `typeof` guard makes the intent explicit and protects against
+    // a future undefined slipping through silently.
+    expect(resolveHorizonMatchedDepreciation(snapshot, 'HKD', 5)).toBe(0);
+    expect(resolveHorizonMatchedDepreciation(snapshot, 'AED', 25)).toBe(0);
   });
 });

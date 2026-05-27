@@ -1,11 +1,7 @@
 'use client';
 
 import { useId, useMemo } from 'react';
-import {
-  formatCurrency,
-  type ScenarioSeries,
-  type SeriesKey,
-} from '@/lib/compound-interest';
+import { formatCurrency, type ScenarioSeries, type SeriesKey } from '@/lib/compound-interest';
 import type { SupportedLocale } from '@diboas/i18n/config';
 import styles from './CompoundChart.module.css';
 
@@ -76,8 +72,7 @@ export function CompoundChart({
   }, [maxValue]);
 
   const xScale = (year: number) => PADDING.left + (year / years) * CHART_WIDTH;
-  const yScale = (value: number) =>
-    PADDING.top + CHART_HEIGHT - (value / maxValue) * CHART_HEIGHT;
+  const yScale = (value: number) => PADDING.top + CHART_HEIGHT - (value / maxValue) * CHART_HEIGHT;
 
   const buildPath = (s: ScenarioSeries) =>
     s.yearlyValues

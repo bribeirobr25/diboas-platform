@@ -38,7 +38,10 @@ export function encodeUnsubToken(id: string, token: string): string {
  * Build signed unsubscribe URLs for a given email address.
  * Returns undefined if HMAC computation fails (missing HMAC_KEY).
  */
-export function buildUnsubscribeUrls(email: string, locale: string = 'en'): UnsubscribeUrls | undefined {
+export function buildUnsubscribeUrls(
+  email: string,
+  locale: string = 'en'
+): UnsubscribeUrls | undefined {
   const emailHash = hmacHash(email);
   if (!emailHash) return undefined;
 

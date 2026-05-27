@@ -20,7 +20,10 @@
     "bankNote": "{rate}% de rendimento ao longo de {years} anos",
     "diboasLabel": "No diBoaS",
     "diboasNote": "{rate}% de rendimento conservador em dólar digital ao longo de {years} anos",
-    "differenceHighlight": "Seus {cash} rendem {difference} a mais no diBoaS ao longo de {years} anos."
+    "differenceHighlight": "Seus {cash} rendem {difference} a mais no diBoaS ao longo de {years} anos.",
+    "differencePositive": "Seus {cash} rendem {difference} a mais no diBoaS ao longo de {years} anos.",
+    "differenceZero": "Com a taxa atual do seu banco, o diBoaS empata em rendimento ao longo de {years} anos — e a posição fica em dólar digital.",
+    "differenceNegative": "A {bankRate}% seu banco supera o cenário conservador do diBoaS ao longo de {years} anos. O diBoaS ainda te dá uma posição em dólar digital — esta comparação é só de rendimento."
   },
   "vignette": {
     "subtitle": "Caixa parado não rende. Caixa que trabalha, sim. Você escolhe."

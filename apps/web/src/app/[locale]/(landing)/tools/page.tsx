@@ -7,7 +7,12 @@ import { ToolsIndex } from '@/components/Sections/ToolsIndex';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import { seoService } from '@/lib/seo';
-import { buildToolsIndexStructuredData, type ToolKey, type ToolSectionKey } from '@/lib/tools';
+import {
+  buildToolsIndexStructuredData,
+  SHIPPED_TOOLS,
+  type ToolKey,
+  type ToolSectionKey,
+} from '@/lib/tools';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 
@@ -16,23 +21,6 @@ export const dynamic = 'force-dynamic';
 interface ToolsPageProps extends LocalePageProps {
   searchParams?: Promise<{ for?: string }>;
 }
-
-const SHIPPED_TOOLS: ReadonlyArray<ToolKey> = [
-  // Tier 1 (6C)
-  'compound-interest',
-  'retirement',
-  'goal-savings',
-  // Tier 2 (6D)
-  'inflation-impact',
-  'currency-depreciation',
-  'emergency-fund',
-  'time-to-target',
-  // Tier 3 B2B (6E)
-  'card-fees',
-  'idle-cash',
-  // Phase E (2026-05-16) — Asset history retrospective tool
-  'asset-history',
-];
 
 const SECTIONS: ReadonlyArray<ToolSectionKey> = ['grow', 'protect', 'target', 'business'];
 
@@ -65,7 +53,16 @@ export default async function ToolsLandingPage({ params, searchParams }: ToolsPa
   }
 
   const sp = (await searchParams) ?? {};
-  const audienceFilter = sp.for === 'business' ? 'business' : null;
+  // C41 close (2026-05-25): explicit allowlist for ?for= audience filter. Pre-fix,
+  // any value other than `business` silently fell through to `null` (show all),
+  // so a typo'd marketing link `?for=biz` rendered the unfiltered page with no
+  // signal. When a new audience is added (e.g. retail), extend VALID_AUDIENCES.
+  const VALID_AUDIENCES = ['business'] as const;
+  type AudienceFilter = (typeof VALID_AUDIENCES)[number];
+  const audienceFilter: AudienceFilter | null =
+    typeof sp.for === 'string' && (VALID_AUDIENCES as readonly string[]).includes(sp.for)
+      ? (sp.for as AudienceFilter)
+      : null;
 
   // Load every shipped tool's namespace so the cards on the landing render
   // their titles + taglines. Forgetting one here yields icon-only cards on
@@ -85,7 +82,7 @@ export default async function ToolsLandingPage({ params, searchParams }: ToolsPa
         title: get(`tools-shared.landing.sections.${section}.title`),
         question: get(`tools-shared.landing.sections.${section}.question`),
       },
-    ]),
+    ])
   ) as Record<ToolSectionKey, { title: string; question: string }>;
 
   const cards = Object.fromEntries(
@@ -98,14 +95,14 @@ export default async function ToolsLandingPage({ params, searchParams }: ToolsPa
           tagline: get(`${namespace}.landing.cardTagline`),
         },
       ];
-    }),
+    })
   ) as Partial<Record<ToolKey, { title: string; tagline: string }>>;
 
   const indexStructuredData = buildToolsIndexStructuredData({
     locale,
     shippedTools: SHIPPED_TOOLS,
     toolNames: Object.fromEntries(
-      SHIPPED_TOOLS.map((toolKey) => [toolKey, get(`tools-${toolKey}.landing.cardTitle`)]),
+      SHIPPED_TOOLS.map((toolKey) => [toolKey, get(`tools-${toolKey}.landing.cardTitle`)])
     ) as Partial<Record<ToolKey, string>>,
   });
 

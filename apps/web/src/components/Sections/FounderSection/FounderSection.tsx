@@ -56,28 +56,29 @@ export const FounderSection = memo(function FounderSection({
           {translated.content.paragraphs.map((paragraph: string, index: number) => (
             // Stable: paragraphs come from translation file, never reorder.
             // eslint-disable-next-line react/no-array-index-key
-            <p key={index} className={styles.paragraph}>{paragraph}</p>
+            <p key={index} className={styles.paragraph}>
+              {paragraph}
+            </p>
           ))}
 
           {translated.content.socialLinks ? (
             <div className={styles.socialLinks}>
-              {translated.content.socialLinks.map((link: { label: string; href: string; icon: string }) => (
-                <a
-                  key={link.icon}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.socialLink}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {translated.content.socialLinks.map(
+                (link: { label: string; href: string; icon: string }) => (
+                  <a
+                    key={link.icon}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.socialLink}
+                  >
+                    {link.label}
+                  </a>
+                )
+              )}
             </div>
           ) : translated.content.emailHref ? (
-            <a
-              href={translated.content.emailHref}
-              className={styles.emailLink}
-            >
+            <a href={translated.content.emailHref} className={styles.emailLink}>
               {translated.content.emailText}
             </a>
           ) : null}

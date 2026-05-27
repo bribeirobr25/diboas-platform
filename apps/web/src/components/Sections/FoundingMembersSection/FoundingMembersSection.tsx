@@ -30,8 +30,7 @@ export const FoundingMembersSection = memo(function FoundingMembersSection({
   const intl = useTranslation();
   const { stats } = useWaitlistStats({ source });
 
-  const t = (key: string) =>
-    intl.formatMessage({ id: `${namespace}.${key}` });
+  const t = (key: string) => intl.formatMessage({ id: `${namespace}.${key}` });
 
   const ariaLabel = intl.formatMessage({ id: 'landing-b2c.sections.socialProof.ariaLabel' });
 
@@ -70,11 +69,7 @@ export const FoundingMembersSection = memo(function FoundingMembersSection({
         ) : (
           <div className={styles.zeroState}>
             <p className={styles.zeroText}>{t('zeroState')}</p>
-            <button
-              type="button"
-              className={styles.cta}
-              onClick={handleCtaClick}
-            >
+            <button type="button" className={styles.cta} onClick={handleCtaClick}>
               {t('cta')}
             </button>
           </div>

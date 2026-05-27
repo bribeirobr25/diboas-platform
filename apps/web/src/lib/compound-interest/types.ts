@@ -56,7 +56,7 @@ export interface CalculatorOutput {
 export class InvalidCalculatorInputError extends Error {
   constructor(
     public readonly field: keyof CalculatorInput,
-    public readonly reason: string,
+    public readonly reason: string
   ) {
     super(`Invalid ${String(field)}: ${reason}`);
     this.name = 'InvalidCalculatorInputError';

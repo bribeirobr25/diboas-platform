@@ -39,8 +39,7 @@ export default async function CompoundInterestLessonPage({ params }: LocalePageP
     marketDataService.get(),
   ]);
 
-  const lessonTitle =
-    pageMessages['learn-compound-interest.lesson.h1'] ?? 'How Money Really Grows';
+  const lessonTitle = pageMessages['learn-compound-interest.lesson.h1'] ?? 'How Money Really Grows';
   const lessonDescription =
     pageMessages['learn.lessons.compoundInterest.cardDescription'] ??
     "The math the banks have been using for centuries. Now it's your turn.";
@@ -51,7 +50,7 @@ export default async function CompoundInterestLessonPage({ params }: LocalePageP
       { name: 'Learn', url: '/learn' },
       { name: lessonTitle, url: '/learn/compound-interest' },
     ],
-    locale,
+    locale
   );
 
   const lessonStructuredData = buildLessonStructuredData({

@@ -16,12 +16,15 @@
     "avgTxLabel": "Ticket médio (opcional)",
     "avgTxHelp": "Usado para calcular a taxa por transação"
   },
+  "warnings": {
+    "feeTooHigh": "Essa taxa parece muito alta. As taxas reais das adquirentes ficam entre 0,3% e 3,5% — você quis dizer um número menor?"
+  },
   "output": {
     "monthlyFee": "Para adquirentes por mês",
     "annualFee": "Para adquirentes por ano",
     "annualSavings": "Poderia economizar com diBoaS",
     "perTxLabel": "Taxa por transação",
-    "caveat": "A economia real depende do seu mix de clientes; é uma estimativa de teto."
+    "caveat": "Esse valor mostra a economia máxima possível, supondo que 100% dos pagamentos com cartão passem pelo diBoaS. A economia real cresce conforme seus clientes adotam o diBoaS — é uma estimativa de teto."
   },
   "vignette": {
     "subtitle": "Mesmo faturamento. Outro adquirente. Grande diferença."

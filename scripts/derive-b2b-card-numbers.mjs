@@ -17,14 +17,14 @@
 // Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23): refreshed to Phase A live values.
 const SCENARIO_CONSERVATIVE_PCT = 7;
 const BANK_RATES_PCT = {
-  en: 0.38,    // FDIC live April 2026 (was 0.32 5y avg)
+  en: 0.38, // FDIC live April 2026 (was 0.32 5y avg)
   'pt-BR': 6.83, // 5yr avg poupança baseline (live savingsCurrent 6.17 is separate toggle)
-  de: 2.3,     // Tagesgeld typical May 2026 (was 1.22)
-  es: 2.0,     // Cuenta remunerada typical May 2026 (was 0.14)
+  de: 2.3, // Tagesgeld typical May 2026 (was 1.22)
+  es: 2.0, // Cuenta remunerada typical May 2026 (was 0.14)
 };
 const DEPRECIATION_DECIMAL = {
-  BRL: 0.0621,  // Phase A live full-series CAGR Jan 2010 → May 2026 (was 0.03)
-  EUR: 0.0123,  // Phase A live full-series CAGR Jan 2010 → Apr 2026, sign-corrected (was 0.009)
+  BRL: 0.0621, // Phase A live full-series CAGR Jan 2010 → May 2026 (was 0.03)
+  EUR: 0.0123, // Phase A live full-series CAGR Jan 2010 → Apr 2026, sign-corrected (was 0.009)
 };
 const LOCALE_CURRENCY = { en: 'USD', 'pt-BR': 'BRL', de: 'EUR', es: 'EUR' };
 
@@ -34,12 +34,12 @@ const effectiveLocalAPY = (usdYieldDecimal, depDecimal) =>
 
 // ─── Card 1: Payment Fees (annual lump-sum @ Historical 10%, per M1 owner-locked) ───
 const PAYMENT_FEES_ANNUAL_SAVINGS = {
-  en: 10_800,   // $1,000/day × 30 × 3%  × 12 = $10,800
+  en: 10_800, // $1,000/day × 30 × 3%  × 12 = $10,800
   'pt-BR': 72_000, // R$5,000/day × 30 × 4% × 12 = R$72,000
-  de: 9_000,    // €1,000/day × 30 × 2.5% × 12 = €9,000
+  de: 9_000, // €1,000/day × 30 × 2.5% × 12 = €9,000
   es: 9_000,
 };
-const PAYMENT_FEES_DIBOAS_RATE = 1.10; // 10% historical
+const PAYMENT_FEES_DIBOAS_RATE = 1.1; // 10% historical
 
 // ─── Card 2: Idle Cash (NF1 owner-locked: en M2(b), pt-BR/de/es NF1(a)) ───
 const IDLE_CASH_PRINCIPAL = {
@@ -56,7 +56,9 @@ for (const locale of ['en', 'pt-BR', 'de', 'es']) {
   const savings = PAYMENT_FEES_ANNUAL_SAVINGS[locale];
   const diboasResult = Math.round(savings * PAYMENT_FEES_DIBOAS_RATE);
   const difference = diboasResult; // card narrative: "more than R$X/year"
-  console.log(`  ${locale}: diboasResult=${diboasResult}, difference=${difference} (from savings=${savings})`);
+  console.log(
+    `  ${locale}: diboasResult=${diboasResult}, difference=${difference} (from savings=${savings})`
+  );
 }
 
 console.log('\n## Idle Cash\n');
@@ -78,9 +80,9 @@ for (const locale of ['pt-BR', 'de', 'es']) {
   const diboas = Math.round(principal * eff);
   const diff = diboas - bank;
   console.log(
-    `  ${locale} (NF1(a) — currency hedge, ${(eff * 100).toFixed(4)}% effective local APY):`,
+    `  ${locale} (NF1(a) — currency hedge, ${(eff * 100).toFixed(4)}% effective local APY):`
   );
   console.log(
-    `    bankResult=${bank} (${bankPct}% canonical savings), diboasResult=${diboas}, difference=${diff}`,
+    `    bankResult=${bank} (${bankPct}% canonical savings), diboasResult=${diboas}, difference=${diff}`
   );
 }

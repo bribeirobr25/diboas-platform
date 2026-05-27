@@ -23,7 +23,9 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const seo = messages?.seo || {};
 
   const title = seo.title || 'Cookie Policy | diBoaS';
-  const description = seo.description || 'Learn how diBoaS uses cookies to improve your experience and analyze site traffic.';
+  const description =
+    seo.description ||
+    'Learn how diBoaS uses cookies to improve your experience and analyze site traffic.';
 
   return {
     title,
@@ -31,9 +33,9 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     alternates: {
       canonical: `${baseUrl}/${locale}/legal/cookies`,
       languages: {
-        'en': `${baseUrl}/en/legal/cookies`,
-        'de': `${baseUrl}/de/legal/cookies`,
-        'es': `${baseUrl}/es/legal/cookies`,
+        en: `${baseUrl}/en/legal/cookies`,
+        de: `${baseUrl}/de/legal/cookies`,
+        es: `${baseUrl}/es/legal/cookies`,
         'pt-br': `${baseUrl}/pt-BR/legal/cookies`,
         'x-default': `${baseUrl}/en/legal/cookies`,
       },
@@ -78,10 +80,13 @@ export default async function LegalCookiesPage({ params }: LocalePageProps) {
   // Load legal/cookies namespace
   const pageMessages = await loadPageNamespaces(locale, ['legal/cookies', 'landing-b2c']);
 
-  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
-    { name: 'Home', url: '/' },
-    { name: 'Cookie Policy', url: ROUTES.LEGAL.COOKIES }
-  ], locale);
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
+    [
+      { name: 'Home', url: '/' },
+      { name: 'Cookie Policy', url: ROUTES.LEGAL.COOKIES },
+    ],
+    locale
+  );
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>

@@ -15,7 +15,24 @@ import styles from './CalculatorDefault.module.css';
 
 interface CalculatorInputsProps {
   value: CalculatorInput;
-  onChange: (next: CalculatorInput) => void;
+  onChange: (next: CalculatorInput | ((prev: CalculatorInput) => CalculatorInput)) => void;
+  /**
+   * Optional override for the years slider's effective `max` attribute.
+   * Goal-savings retrospective mode uses this to cap the slider at
+   * `MAX_RETROSPECTIVE_YEARS = 16`. The state-setter clamp in
+   * `CalculatorDefault.tsx` (`setInputClamped`) is the correctness guarantee;
+   * this prop only narrows the visible affordance. Undefined → use
+   * `INPUT_BOUNDS.years.max` (40).
+   */
+  maxYearsOverride?: number;
+  /**
+   * Optional override for the recurring-amount slider's `max` attribute.
+   * C6 close (TOOLS_41_DEFECTS_FIX_PLAN.md §4.5, 2026-05-26): per-locale
+   * ceiling so e.g. pt-BR retirement default R$2000 doesn't peg the slider
+   * to its right edge. Numeric input still accepts up to INPUT_BOUNDS.amount.max.
+   * Undefined → use module-level `RANGE_MAX_RECURRING` (250) fallback.
+   */
+  recurringSliderMax?: number;
 }
 
 const CADENCE_OPTIONS: readonly Cadence[] = [
@@ -31,11 +48,17 @@ const CADENCE_OPTIONS: readonly Cadence[] = [
 const RANGE_MAX_RECURRING = 250;
 const RANGE_MAX_ONETIME = 5000;
 
-export function CalculatorInputs({ value, onChange }: CalculatorInputsProps) {
+export function CalculatorInputs({
+  value,
+  onChange,
+  maxYearsOverride,
+  recurringSliderMax,
+}: CalculatorInputsProps) {
   const intl = useTranslation();
   const baseId = useId();
 
   const oneTime = isOneTime(value.cadence);
+  const yearsMax = maxYearsOverride ?? INPUT_BOUNDS.years.max;
 
   const labelAmount = intl.formatMessage({
     id: oneTime
@@ -55,13 +78,16 @@ export function CalculatorInputs({ value, onChange }: CalculatorInputsProps) {
     id: 'learn-compound-interest.calculator.yearsTooltip',
   });
 
-  const rangeMax = oneTime ? RANGE_MAX_ONETIME : RANGE_MAX_RECURRING;
+  const rangeMax = oneTime ? RANGE_MAX_ONETIME : (recurringSliderMax ?? RANGE_MAX_RECURRING);
 
   const setAmount = (n: number) =>
     onChange({ ...value, amount: clamp(n, INPUT_BOUNDS.amount.min, INPUT_BOUNDS.amount.max) });
   const setCadence = (c: Cadence) => onChange({ ...value, cadence: c });
   const setYears = (n: number) =>
-    onChange({ ...value, years: clamp(Math.round(n), INPUT_BOUNDS.years.min, INPUT_BOUNDS.years.max) });
+    onChange({
+      ...value,
+      years: clamp(Math.round(n), INPUT_BOUNDS.years.min, yearsMax),
+    });
 
   return (
     <div className={styles.inputs}>
@@ -92,7 +118,9 @@ export function CalculatorInputs({ value, onChange }: CalculatorInputsProps) {
             value={Math.min(value.amount, rangeMax)}
             onChange={(e) => setAmount(Number(e.target.value))}
             aria-label={ariaAmount}
-            aria-valuetext={formatCurrency(value.amount, value.locale, { maximumFractionDigits: 0 })}
+            aria-valuetext={formatCurrency(value.amount, value.locale, {
+              maximumFractionDigits: 0,
+            })}
             className={styles.range}
           />
           <UsdEquivalentBadge
@@ -117,7 +145,9 @@ export function CalculatorInputs({ value, onChange }: CalculatorInputsProps) {
         >
           {CADENCE_OPTIONS.map((opt) => (
             <option key={opt} value={opt}>
-              {intl.formatMessage({ id: `learn-compound-interest.calculator.cadenceOptions.${opt}` })}
+              {intl.formatMessage({
+                id: `learn-compound-interest.calculator.cadenceOptions.${opt}`,
+              })}
             </option>
           ))}
         </Select>
@@ -136,9 +166,9 @@ export function CalculatorInputs({ value, onChange }: CalculatorInputsProps) {
             id={`${baseId}-years`}
             type="range"
             min={INPUT_BOUNDS.years.min}
-            max={INPUT_BOUNDS.years.max}
+            max={yearsMax}
             step={1}
-            value={value.years}
+            value={Math.min(value.years, yearsMax)}
             onChange={(e) => setYears(Number(e.target.value))}
             aria-valuetext={`${value.years}`}
             className={styles.range}

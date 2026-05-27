@@ -13,24 +13,20 @@ import { sql } from '@/lib/database/client';
 import { logAuditEvent } from '@/lib/audit/AuditService';
 import { ApplicationEventType } from '@/lib/events/applicationEventTypes';
 import { INVITE_LIMIT, type WaitlistEntry } from './types';
-import {
-  emailHash,
-  rowToEntry,
-  executeOptimisticUpdate,
-  emitStoreEvent,
-} from './internals';
+import { emailHash, rowToEntry, executeOptimisticUpdate, emitStoreEvent } from './internals';
 
 export async function processReferral(
   referrerEmail: string,
-  currentVersion?: number,
+  currentVersion?: number
 ): Promise<WaitlistEntry | undefined> {
   const hash = emailHash(referrerEmail);
   if (!hash) return undefined;
 
   const now = new Date().toISOString();
 
-  const query = currentVersion !== undefined
-    ? sql`
+  const query =
+    currentVersion !== undefined
+      ? sql`
         UPDATE waitlist_entries SET
           referral_count = referral_count + 1,
           version = version + 1,
@@ -40,7 +36,7 @@ export async function processReferral(
           AND referral_count < ${INVITE_LIMIT}
           AND version = ${currentVersion}
         RETURNING *`
-    : sql`
+      : sql`
         UPDATE waitlist_entries SET
           referral_count = referral_count + 1,
           version = version + 1,
@@ -58,9 +54,11 @@ export async function processReferral(
     LIMIT 1`;
 
   const row = await executeOptimisticUpdate(
-    hash, query, currentVersion,
+    hash,
+    query,
+    currentVersion,
     'Concurrent modification detected: referral entry was updated by another request',
-    tierCheck,
+    tierCheck
   );
   if (!row) return undefined;
 

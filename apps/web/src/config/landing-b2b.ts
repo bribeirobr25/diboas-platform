@@ -48,23 +48,23 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
     description: 'landing-b2b.hero.subheadline',
     ctaText: 'landing-b2b.hero.cta',
     ctaHref: '#two-worlds',
-    ctaTarget: '_self'
+    ctaTarget: '_self',
   },
   backgroundAssets: {
     backgroundImage: B2B_IMAGES.hero,
     backgroundImageMobile: B2B_IMAGES.hero,
-    overlayOpacity: 0.1
+    overlayOpacity: 0.1,
   },
   seo: {
     titleTag: 'diBoaS for Business | Stop Overpaying on Fees and Idle Cash',
     imageAlt: {
-      background: 'landing-b2b.hero.imageAlt'
-    }
+      background: 'landing-b2b.hero.imageAlt',
+    },
   },
   analytics: {
     trackingPrefix: 'hero_b2b_landing',
-    enabled: true
-  }
+    enabled: true,
+  },
 } as const;
 
 // ─── Section 2: Two Worlds (NEW) ─────────────────────────────
@@ -78,7 +78,7 @@ export const B2B_TWO_WORLDS_CONFIG: TwoWorldsSectionConfig = {
       cta: 'landing-b2b.twoWorlds.cardA.cta',
       ctaHref: '#paymentFees',
       image: B2B_IMAGES.twoWorldsPayments,
-      imageAlt: 'landing-b2b.twoWorlds.cardA.imageAlt'
+      imageAlt: 'landing-b2b.twoWorlds.cardA.imageAlt',
     },
     cardB: {
       headline: 'landing-b2b.twoWorlds.cardB.headline',
@@ -86,16 +86,16 @@ export const B2B_TWO_WORLDS_CONFIG: TwoWorldsSectionConfig = {
       cta: 'landing-b2b.twoWorlds.cardB.cta',
       ctaHref: '#idleCash',
       image: B2B_IMAGES.twoWorldsTreasury,
-      imageAlt: 'landing-b2b.twoWorlds.cardB.imageAlt'
-    }
+      imageAlt: 'landing-b2b.twoWorlds.cardB.imageAlt',
+    },
   },
   seo: {
-    ariaLabel: 'landing-b2b.sections.systemCosts.ariaLabel'
+    ariaLabel: 'landing-b2b.sections.systemCosts.ariaLabel',
   },
   analytics: {
     sectionId: 'two-worlds-b2b',
-    category: 'landing-b2b'
-  }
+    category: 'landing-b2b',
+  },
 };
 
 // ─── Section 3: Origin Story (ProseSection) ───────────────────
@@ -121,12 +121,12 @@ export const B2B_ORIGIN_STORY_CONFIG: ProseSectionConfig = {
     verticalPadding: 'standard',
   },
   seo: {
-    ariaLabel: 'landing-b2b.sections.originStory.ariaLabel'
+    ariaLabel: 'landing-b2b.sections.originStory.ariaLabel',
   },
   analytics: {
     sectionId: 'origin-story-b2b',
-    category: 'landing-b2b'
-  }
+    category: 'landing-b2b',
+  },
 };
 
 // ─── Section 6: How It Works (AppFeaturesCarousel) ────────────
@@ -139,66 +139,66 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
       id: 'step-connect',
       content: {
         title: 'landing-b2b.howItWorks.steps.connect.title',
-        description: 'landing-b2b.howItWorks.steps.connect.description'
+        description: 'landing-b2b.howItWorks.steps.connect.description',
       },
       assets: {
-        image: B2B_IMAGES.carouselConnect
+        image: B2B_IMAGES.carouselConnect,
       },
       seo: {
-        imageAlt: 'landing-b2b.howItWorks.steps.connect.imageAlt'
-      }
+        imageAlt: 'landing-b2b.howItWorks.steps.connect.imageAlt',
+      },
     },
     {
       id: 'step-rules',
       content: {
         title: 'landing-b2b.howItWorks.steps.rules.title',
-        description: 'landing-b2b.howItWorks.steps.rules.description'
+        description: 'landing-b2b.howItWorks.steps.rules.description',
       },
       assets: {
-        image: B2B_IMAGES.carouselRules
+        image: B2B_IMAGES.carouselRules,
       },
       seo: {
-        imageAlt: 'landing-b2b.howItWorks.steps.rules.imageAlt'
-      }
+        imageAlt: 'landing-b2b.howItWorks.steps.rules.imageAlt',
+      },
     },
     {
       id: 'step-works',
       content: {
         title: 'landing-b2b.howItWorks.steps.works.title',
-        description: 'landing-b2b.howItWorks.steps.works.description'
+        description: 'landing-b2b.howItWorks.steps.works.description',
       },
       assets: {
-        image: B2B_IMAGES.carouselWorks
+        image: B2B_IMAGES.carouselWorks,
       },
       seo: {
-        imageAlt: 'landing-b2b.howItWorks.steps.works.imageAlt'
-      }
+        imageAlt: 'landing-b2b.howItWorks.steps.works.imageAlt',
+      },
     },
     {
       id: 'step-access',
       content: {
         title: 'landing-b2b.howItWorks.steps.access.title',
-        description: 'landing-b2b.howItWorks.steps.access.description'
+        description: 'landing-b2b.howItWorks.steps.access.description',
       },
       assets: {
-        image: B2B_IMAGES.carouselAccess
+        image: B2B_IMAGES.carouselAccess,
       },
       seo: {
-        imageAlt: 'landing-b2b.howItWorks.steps.access.imageAlt'
-      }
-    }
+        imageAlt: 'landing-b2b.howItWorks.steps.access.imageAlt',
+      },
+    },
   ],
   settings: {
     autoRotateMs: 0,
     pauseOnHover: true,
     enableTouch: true,
     enableAnalytics: true,
-    transitionDuration: 300
+    transitionDuration: 300,
   },
   analytics: {
     trackingPrefix: 'how_it_works_b2b',
-    enabled: true
-  }
+    enabled: true,
+  },
 };
 
 // ─── Section 7: Three Features (ScenarioCards, 3 cards) ───────
@@ -258,7 +258,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
       diboas: 'landing-b2b.fees.headers.diboas',
       competitors: 'landing-b2b.fees.headers.competitors',
       difference: 'landing-b2b.fees.headers.difference',
-      example: 'landing-b2b.fees.headers.example'
+      example: 'landing-b2b.fees.headers.example',
     },
     rows: [
       {
@@ -268,7 +268,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         competitors: 'landing-b2b.fees.rows.account.competitors',
         difference: 'landing-b2b.fees.rows.account.difference',
         example: 'landing-b2b.fees.rows.account.example',
-        isFree: true
+        isFree: true,
       },
       {
         id: 'receive',
@@ -277,7 +277,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         competitors: 'landing-b2b.fees.rows.receive.competitors',
         difference: 'landing-b2b.fees.rows.receive.difference',
         example: 'landing-b2b.fees.rows.receive.example',
-        isFree: true
+        isFree: true,
       },
       {
         id: 'send',
@@ -286,7 +286,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         competitors: 'landing-b2b.fees.rows.send.competitors',
         difference: 'landing-b2b.fees.rows.send.difference',
         example: 'landing-b2b.fees.rows.send.example',
-        isFree: true
+        isFree: true,
       },
       {
         id: 'add',
@@ -294,7 +294,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         diboas: 'landing-b2b.fees.rows.add.diboas',
         competitors: 'landing-b2b.fees.rows.add.competitors',
         difference: 'landing-b2b.fees.rows.add.difference',
-        example: 'landing-b2b.fees.rows.add.example'
+        example: 'landing-b2b.fees.rows.add.example',
       },
       {
         id: 'invest',
@@ -303,7 +303,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         competitors: 'landing-b2b.fees.rows.invest.competitors',
         difference: 'landing-b2b.fees.rows.invest.difference',
         example: 'landing-b2b.fees.rows.invest.example',
-        isFree: true
+        isFree: true,
       },
       {
         id: 'sell',
@@ -311,7 +311,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         diboas: 'landing-b2b.fees.rows.sell.diboas',
         competitors: 'landing-b2b.fees.rows.sell.competitors',
         difference: 'landing-b2b.fees.rows.sell.difference',
-        example: 'landing-b2b.fees.rows.sell.example'
+        example: 'landing-b2b.fees.rows.sell.example',
       },
       {
         id: 'swap',
@@ -320,7 +320,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         competitors: 'landing-b2b.fees.rows.swap.competitors',
         difference: 'landing-b2b.fees.rows.swap.difference',
         example: 'landing-b2b.fees.rows.swap.example',
-        isFree: true
+        isFree: true,
       },
       {
         id: 'cashOut',
@@ -328,27 +328,26 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         diboas: 'landing-b2b.fees.rows.cashOut.diboas',
         competitors: 'landing-b2b.fees.rows.cashOut.competitors',
         difference: 'landing-b2b.fees.rows.cashOut.difference',
-        example: 'landing-b2b.fees.rows.cashOut.example'
-      }
-    ]
+        example: 'landing-b2b.fees.rows.cashOut.example',
+      },
+    ],
   },
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'landing-b2b.sections.feeTable.ariaLabel'
+    ariaLabel: 'landing-b2b.sections.feeTable.ariaLabel',
   },
   analytics: {
     sectionId: 'fees-b2b',
-    category: 'landing-b2b'
-  }
+    category: 'landing-b2b',
+  },
 };
-
 
 // ─── Section 10: Fit Assessment (BenefitsCards) ──────────────
 
 export const B2B_FIT_ASSESSMENT_CONFIG: BenefitsCardsConfig = {
   section: {
     title: 'landing-b2b.fitAssessment.header',
-    backgroundColor: 'enterprise'
+    backgroundColor: 'enterprise',
   },
   cards: [
     {
@@ -356,24 +355,24 @@ export const B2B_FIT_ASSESSMENT_CONFIG: BenefitsCardsConfig = {
       icon: 'check-circle',
       title: 'landing-b2b.fitAssessment.goodFit.title',
       description: 'landing-b2b.fitAssessment.goodFit.description',
-      iconAlt: 'landing-b2b.fitAssessment.goodFit.iconAlt'
+      iconAlt: 'landing-b2b.fitAssessment.goodFit.iconAlt',
     },
     {
       id: 'not-a-fit',
       icon: 'x-circle',
       title: 'landing-b2b.fitAssessment.notAFit.title',
       description: 'landing-b2b.fitAssessment.notAFit.description',
-      iconAlt: 'landing-b2b.fitAssessment.notAFit.iconAlt'
-    }
+      iconAlt: 'landing-b2b.fitAssessment.notAFit.iconAlt',
+    },
   ],
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'landing-b2b.sections.rightForYou.ariaLabel'
+    ariaLabel: 'landing-b2b.sections.rightForYou.ariaLabel',
   },
   analytics: {
     sectionId: 'fit-assessment-b2b',
-    category: 'landing-b2b'
-  }
+    category: 'landing-b2b',
+  },
 };
 
 // ─── Section 11: About the Founder (FounderSection) ──────────
@@ -384,23 +383,31 @@ export const B2B_FOUNDER_CONFIG: FounderSectionConfig = {
     paragraphs: [
       'landing-b2b.founder.paragraphs.versionB.0',
       'landing-b2b.founder.paragraphs.versionB.1',
-      'landing-b2b.founder.email'
+      'landing-b2b.founder.email',
     ],
     emailText: 'landing-b2b.founder.emailAddress',
     emailHref: 'hello@diboas.com',
     socialLinks: [
-      { label: 'landing-b2b.founder.social.linkedin', href: 'https://www.linkedin.com/in/bribeirobr/', icon: 'linkedin' },
+      {
+        label: 'landing-b2b.founder.social.linkedin',
+        href: 'https://www.linkedin.com/in/bribeirobr/',
+        icon: 'linkedin',
+      },
       { label: 'landing-b2b.founder.social.x', href: 'https://x.com/bribeiro_br', icon: 'x' },
-      { label: 'landing-b2b.founder.social.substack', href: 'https://bribeirobr.substack.com/', icon: 'substack' },
+      {
+        label: 'landing-b2b.founder.social.substack',
+        href: 'https://bribeirobr.substack.com/',
+        icon: 'substack',
+      },
     ],
   },
   seo: {
-    ariaLabel: 'landing-b2b.sections.founder.ariaLabel'
+    ariaLabel: 'landing-b2b.sections.founder.ariaLabel',
   },
   analytics: {
     sectionId: 'founder-b2b',
-    category: 'landing-b2b'
-  }
+    category: 'landing-b2b',
+  },
 };
 
 // ─── Section 12: Waitlist Configuration ─────────────────────
@@ -428,32 +435,32 @@ export const B2B_FAQ_ITEMS: FAQItem[] = [
     id: 'catch',
     question: 'faq.items.catch.question',
     answer: 'faq.items.catch.answer',
-    category: 'general'
+    category: 'general',
   },
   {
     id: 'safety',
     question: 'faq.items.safetyBusiness.question',
     answer: 'faq.items.safetyBusiness.answer',
-    category: 'security'
+    category: 'security',
   },
   {
     id: 'payments',
     question: 'faq.items.payments.question',
     answer: 'faq.items.payments.answer',
-    category: 'operations'
+    category: 'operations',
   },
   {
     id: 'compliance',
     question: 'faq.items.compliance.question',
     answer: 'faq.items.compliance.answer',
-    category: 'compliance'
+    category: 'compliance',
   },
   {
     id: 'risk',
     question: 'faq.items.risk.question',
     answer: 'faq.items.risk.answer',
-    category: 'security'
-  }
+    category: 'security',
+  },
 ];
 
 export const B2B_FAQ_CONFIG: FAQAccordionVariantConfig = {
@@ -463,21 +470,21 @@ export const B2B_FAQ_CONFIG: FAQAccordionVariantConfig = {
     description: '',
     ctaText: '',
     ctaHref: '#waitlist',
-    items: B2B_FAQ_ITEMS
+    items: B2B_FAQ_ITEMS,
   },
   settings: {
     enableAnimations: true,
     animationDuration: 400,
     autoClose: true,
     enableKeyboardNav: true,
-    scrollIntoView: true
+    scrollIntoView: true,
   },
   seo: {
     ariaLabel: 'landing-b2b.sections.faq.ariaLabel',
-    region: 'faq'
+    region: 'faq',
   },
   analytics: {
     trackingPrefix: 'faq_b2b_landing',
-    enabled: true
-  }
+    enabled: true,
+  },
 };

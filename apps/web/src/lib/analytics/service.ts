@@ -91,12 +91,14 @@ class AnalyticsTrackingService implements AnalyticsService {
       sessionId: this.sessionId,
       parameters: {
         ...event.parameters,
-        ...(typeof window !== 'undefined' ? {
-          user_agent: navigator.userAgent,
-          viewport: `${window.innerWidth}x${window.innerHeight}`,
-          language: navigator.language,
-          locale: this.getLocaleFromPath(),
-        } : {}),
+        ...(typeof window !== 'undefined'
+          ? {
+              user_agent: navigator.userAgent,
+              viewport: `${window.innerWidth}x${window.innerHeight}`,
+              language: navigator.language,
+              locale: this.getLocaleFromPath(),
+            }
+          : {}),
         ...utmParams,
       },
     };
@@ -151,8 +153,8 @@ class AnalyticsTrackingService implements AnalyticsService {
         page_title: title,
         page_location: typeof window !== 'undefined' ? window.location.href : '',
         locale,
-        referrer: typeof document !== 'undefined' ? document.referrer : ''
-      }
+        referrer: typeof document !== 'undefined' ? document.referrer : '',
+      },
     });
   }
 
@@ -165,7 +167,7 @@ class AnalyticsTrackingService implements AnalyticsService {
 
     const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
 
-    metrics.forEach(metric => {
+    metrics.forEach((metric) => {
       this.track({
         name: 'page_performance',
         parameters: {
@@ -173,8 +175,8 @@ class AnalyticsTrackingService implements AnalyticsService {
           metric_name: metric.name,
           metric_value: metric.value,
           metric_rating: metric.rating,
-          navigation_type: metric.navigationType
-        }
+          navigation_type: metric.navigationType,
+        },
       });
     });
   }
@@ -192,8 +194,8 @@ class AnalyticsTrackingService implements AnalyticsService {
         menu_id: menuId,
         action,
         locale,
-        menu_path: typeof window !== 'undefined' ? window.location.pathname : ''
-      }
+        menu_path: typeof window !== 'undefined' ? window.location.pathname : '',
+      },
     });
   }
 
@@ -237,9 +239,10 @@ class AnalyticsTrackingService implements AnalyticsService {
           body: JSON.stringify({ events }),
         });
       }
-
     } catch (error) {
-      Logger.error('Failed to flush analytics events:', { error: error instanceof Error ? error.message : String(error) });
+      Logger.error('Failed to flush analytics events:', {
+        error: error instanceof Error ? error.message : String(error),
+      });
       // Re-queue events on failure (capped to prevent unbounded growth)
       const maxRequeue = ANALYTICS_CONSTANTS.MAX_QUEUE_SIZE - this.eventQueue.length;
       if (maxRequeue > 0) {
@@ -289,13 +292,15 @@ class AnalyticsTrackingService implements AnalyticsService {
    * GDPR: When consent is withdrawn, discard all pending events immediately.
    */
   private listenForConsentWithdrawal(): void {
-    import('@/lib/events/ApplicationEventBus').then(({ applicationEventBus, ApplicationEventType }) => {
-      applicationEventBus.on(ApplicationEventType.CONSENT_WITHDRAWN, () => {
-        this.eventQueue = [];
-        this.retryQueue.clear();
-        Logger.info('Analytics: consent withdrawn — queues cleared');
-      });
-    }).catch(() => {});
+    import('@/lib/events/ApplicationEventBus')
+      .then(({ applicationEventBus, ApplicationEventType }) => {
+        applicationEventBus.on(ApplicationEventType.CONSENT_WITHDRAWN, () => {
+          this.eventQueue = [];
+          this.retryQueue.clear();
+          Logger.info('Analytics: consent withdrawn — queues cleared');
+        });
+      })
+      .catch(() => {});
   }
 
   // ─── Private: Error Handling ───────────────────────────────────────
@@ -303,10 +308,7 @@ class AnalyticsTrackingService implements AnalyticsService {
   /**
    * Handle errors from trackEvent with appropriate strategies
    */
-  private handleTrackEventError(
-    error: AnalyticsError,
-    event: AnalyticsEvent,
-  ): void {
+  private handleTrackEventError(error: AnalyticsError, event: AnalyticsEvent): void {
     logAnalyticsError(error, event);
     this.retryQueue.queueFailedEvent(event);
     this.retryQueue.scheduleRetry(() => this.retryFailedEvents());
@@ -349,7 +351,7 @@ class AnalyticsTrackingService implements AnalyticsService {
     if (typeof window === 'undefined') return 'en';
     const pathParts = window.location.pathname.split('/');
     const supportedLocales = ['en', 'pt-BR', 'es', 'de'];
-    return supportedLocales.find(l => pathParts[1] === l) || 'en';
+    return supportedLocales.find((l) => pathParts[1] === l) || 'en';
   }
 
   /**

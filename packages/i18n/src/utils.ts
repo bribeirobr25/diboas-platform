@@ -73,7 +73,7 @@ export async function loadAllMessages(
   namespaces: string[] = ['common']
 ): Promise<IntlMessages> {
   const messagesArray = await Promise.all(
-    namespaces.map(namespace => loadMessages(locale, namespace))
+    namespaces.map((namespace) => loadMessages(locale, namespace))
   );
 
   // Merge all messages into a single object
@@ -84,10 +84,7 @@ export async function loadAllMessages(
  * Flatten nested translation object for react-intl
  * Converts { common: { hello: "Hello" } } to { "common.hello": "Hello" }
  */
-export function flattenMessages(
-  nestedMessages: IntlMessages,
-  prefix = ''
-): Record<string, string> {
+export function flattenMessages(nestedMessages: IntlMessages, prefix = ''): Record<string, string> {
   return Object.keys(nestedMessages).reduce((messages: Record<string, string>, key) => {
     const value = nestedMessages[key];
     const prefixedKey = prefix ? `${prefix}.${key}` : key;

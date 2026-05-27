@@ -186,7 +186,13 @@ export const MaxContribution: Story = {
     return (
       <CompoundInterestCalculator
         {...args}
-        initialInput={{ amount: 1_000_000, cadence: 'monthly', years: 30, initialAmount: 0, locale }}
+        initialInput={{
+          amount: 1_000_000,
+          cadence: 'monthly',
+          years: 30,
+          initialAmount: 0,
+          locale,
+        }}
       />
     );
   },

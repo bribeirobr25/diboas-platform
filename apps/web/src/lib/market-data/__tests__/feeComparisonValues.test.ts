@@ -126,9 +126,15 @@ describe('buildAllFeeValues', () => {
 
   it('should compute locale-specific exampleFee per sub-unit naming convention', () => {
     // en uses "48 cents"; es uses "48 céntimos"; de uses "48 Cent"; pt-BR uses canonical "R$ 0,48".
-    expect(buildAllFeeValues(fees, 'en').get('faq.items.withdraw.answer')?.exampleFee).toBe('48 cents');
-    expect(buildAllFeeValues(fees, 'es').get('faq.items.withdraw.answer')?.exampleFee).toBe('48 céntimos');
-    expect(buildAllFeeValues(fees, 'de').get('faq.items.withdraw.answer')?.exampleFee).toBe('48 Cent');
+    expect(buildAllFeeValues(fees, 'en').get('faq.items.withdraw.answer')?.exampleFee).toBe(
+      '48 cents'
+    );
+    expect(buildAllFeeValues(fees, 'es').get('faq.items.withdraw.answer')?.exampleFee).toBe(
+      '48 céntimos'
+    );
+    expect(buildAllFeeValues(fees, 'de').get('faq.items.withdraw.answer')?.exampleFee).toBe(
+      '48 Cent'
+    );
     const ptBR = buildAllFeeValues(fees, 'pt-BR').get('faq.items.withdraw.answer')?.exampleFee;
     expect(ptBR).toMatch(/R\$\s?0,48/); // canonical BRL ("R$ 0,48" with NBSP)
   });
@@ -138,7 +144,9 @@ describe('buildAllFeeValues', () => {
     expect(buildAllFeeValues(fees, 'en').get('faq.items.catch.answer')?.sellExampleFee).toBe('$39');
     const ptBR = buildAllFeeValues(fees, 'pt-BR').get('faq.items.catch.answer')?.sellExampleFee;
     expect(ptBR).toMatch(/R\$\s?195/); // canonical BRL ("R$ 195" with NBSP)
-    expect(buildAllFeeValues(fees, 'de').get('faq.items.catch.answer')?.sellExampleFee).toMatch(/39\s?€/);
+    expect(buildAllFeeValues(fees, 'de').get('faq.items.catch.answer')?.sellExampleFee).toMatch(
+      /39\s?€/
+    );
   });
 
   it('should map every key to a record whose values are all strings (slot-value contract)', () => {

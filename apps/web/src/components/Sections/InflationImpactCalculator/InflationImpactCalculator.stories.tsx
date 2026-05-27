@@ -64,7 +64,8 @@ export const NonUSDLocale: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'pt-BR exercises BRL formatting; Brazilian 5y-avg inflation drives the forward calculation.',
+        story:
+          'pt-BR exercises BRL formatting; Brazilian 5y-avg inflation drives the forward calculation.',
       },
     },
   },

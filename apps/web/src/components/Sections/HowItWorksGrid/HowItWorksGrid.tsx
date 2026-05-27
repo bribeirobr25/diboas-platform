@@ -23,8 +23,7 @@ export const HowItWorksGrid = memo(function HowItWorksGrid({
   const hasFiredRef = useRef(false);
 
   const prefix = 'landing-b2c.howItWorksDetailed';
-  const t = (key: string) =>
-    intl.formatMessage({ id: `${prefix}.${key}` });
+  const t = (key: string) => intl.formatMessage({ id: `${prefix}.${key}` });
   const hasMessage = (key: string): boolean => {
     const id = `${prefix}.${key}`;
     const value = (intl.messages as Record<string, string>)?.[id];

@@ -13,17 +13,17 @@ const nextConfig = {
       // Icon libraries for tree shaking
       'lucide-react',
       '@radix-ui/react-icons',
-      
+
       // Utility libraries
       'date-fns',
       'lodash-es',
       'clsx',
       'class-variance-authority',
       'tailwind-merge',
-      
+
       // Internationalization
       'react-intl',
-      
+
       // React Aria (used by @diboas/ui)
       '@react-aria/button',
       '@react-aria/focus',
@@ -32,26 +32,25 @@ const nextConfig = {
 
       // Our workspace packages
       '@diboas/ui',
-      '@diboas/i18n'
+      '@diboas/i18n',
     ],
   },
-  
+
   // Compiler optimizations
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
     reactRemoveProperties: process.env.NODE_ENV === 'production' ? true : false,
   },
-  
-  
+
   // Enable compression
   compress: true,
-  
+
   // `output: 'standalone'` removed 2026-05-08 (Phase 4 W6): Vercel
   // handles bundling for its own runtime; standalone is only needed for
   // self-hosted Docker deployments. Leaving it on caused `next start`
   // to print a warning every CI run ("does not work with output:
   // standalone configuration"), polluting the workflow logs.
-  
+
   // Image optimization
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -75,7 +74,7 @@ const nextConfig = {
       },
     ],
   },
-  
+
   // Redirects
   async redirects() {
     return [
@@ -101,7 +100,7 @@ const nextConfig = {
         destination: '/market',
         permanent: true,
       },
-    ]
+    ];
   },
 
   // Security headers (CSP is handled per-request in middleware.ts with nonces)
@@ -116,28 +115,28 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: `public, max-age=${maxAge}, immutable`
-          }
-        ]
+            value: `public, max-age=${maxAge}, immutable`,
+          },
+        ],
       },
       {
         source: '/assets/(.*)',
         headers: [
           {
             key: 'Cache-Control',
-            value: `public, max-age=${maxAge}`
-          }
-        ]
+            value: `public, max-age=${maxAge}`,
+          },
+        ],
       },
       {
         source: '/fonts/(.*)',
         headers: [
           {
             key: 'Cache-Control',
-            value: `public, max-age=${maxAge}, immutable`
-          }
-        ]
-      }
+            value: `public, max-age=${maxAge}, immutable`,
+          },
+        ],
+      },
     ];
 
     return [
@@ -159,19 +158,19 @@ const nextConfig = {
           },
           {
             key: 'X-DNS-Prefetch-Control',
-            value: 'on'
+            value: 'on',
           },
           {
             key: 'Strict-Transport-Security',
-            value: 'max-age=31536000; includeSubDomains; preload'
+            value: 'max-age=31536000; includeSubDomains; preload',
           },
           {
             key: 'X-XSS-Protection',
-            value: '1; mode=block'
+            value: '1; mode=block',
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+            value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
           },
         ],
       },
@@ -179,10 +178,10 @@ const nextConfig = {
       ...assetHeaders,
     ];
   },
-  
+
   // Transpile workspace packages
   transpilePackages: ['@diboas/ui', '@diboas/i18n'],
-  
+
   // F1 (audit/2026-05-08): the `webpack: (config) => {...}` function and its
   // ~190 lines of cacheGroup splitChunks config + WebpackPerformancePlugin
   // were dead code at build time — `next build` in Next.js 16 uses Turbopack

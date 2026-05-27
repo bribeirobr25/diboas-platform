@@ -1,6 +1,6 @@
 /**
  * DRY Principle: Centralized container component
- * 
+ *
  * Eliminates repeated max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 patterns
  * across the application for consistent layout and easier maintenance
  */
@@ -17,7 +17,7 @@ const containerSizes = {
   md: 'container-md',
   lg: 'container-lg',
   xl: 'container-xl',
-  full: 'container-full'
+  full: 'container-full',
 } as const;
 
 export function Container({

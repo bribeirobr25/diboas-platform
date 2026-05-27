@@ -1,6 +1,6 @@
 /**
  * AppFeaturesCarousel Storybook Stories
- * 
+ *
  * Domain-Driven Design: Stories organized by app features variants and use cases
  * Service Agnostic Abstraction: Demonstrates component factory pattern
  * Code Reusability: Shared story configurations across variants
@@ -9,7 +9,10 @@
 
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { AppFeaturesCarousel } from './AppFeaturesCarouselFactory';
-import { APP_FEATURES_CAROUSEL_CONFIGS, type AppFeaturesCarouselVariantConfig } from '@/config/appFeaturesCarousel';
+import {
+  APP_FEATURES_CAROUSEL_CONFIGS,
+  type AppFeaturesCarouselVariantConfig,
+} from '@/config/appFeaturesCarousel';
 
 const meta: Meta<typeof AppFeaturesCarousel> = {
   title: 'Sections/AppFeaturesCarousel',
@@ -110,16 +113,14 @@ const createCarouselStory = (
 
 /**
  * Default Carousel Variant
- * 
+ *
  * Auto-rotating carousel with smooth card transitions.
  */
 export const Default: Story = createCarouselStory('default');
 
-
-
 /**
  * Custom Feature Set
- * 
+ *
  * Carousel with custom banking-focused features.
  */
 export const BankingFeatures: Story = createCarouselStory('default', {
@@ -163,7 +164,8 @@ export const BankingFeatures: Story = createCarouselStory('default', {
       id: 'investment-tools',
       content: {
         title: 'Investment Made Easy',
-        description: 'Access professional investment tools with guided strategies and portfolio management.',
+        description:
+          'Access professional investment tools with guided strategies and portfolio management.',
         ctaText: 'Start Investing',
         ctaHref: '#invest',
         ctaTarget: '_self',
@@ -180,7 +182,8 @@ export const BankingFeatures: Story = createCarouselStory('default', {
       id: 'security-features',
       content: {
         title: 'Bank-Level Security',
-        description: 'Your money and data are protected with military-grade encryption and security.',
+        description:
+          'Your money and data are protected with military-grade encryption and security.',
         ctaText: 'Learn Security',
         ctaHref: '#security',
         ctaTarget: '_self',
@@ -196,10 +199,9 @@ export const BankingFeatures: Story = createCarouselStory('default', {
   ],
 });
 
-
 /**
  * No Auto-Rotation
- * 
+ *
  * Carousel with auto-rotation disabled for manual control.
  */
 export const ManualControl: Story = createCarouselStory('default', {
@@ -211,7 +213,7 @@ export const ManualControl: Story = createCarouselStory('default', {
 
 /**
  * Fast Auto-Rotation
- * 
+ *
  * Carousel with fast auto-rotation for quick previews.
  */
 export const FastRotation: Story = createCarouselStory('default', {
@@ -224,7 +226,7 @@ export const FastRotation: Story = createCarouselStory('default', {
 
 /**
  * Slow Auto-Rotation
- * 
+ *
  * Carousel with slow auto-rotation for detailed viewing.
  */
 export const SlowRotation: Story = createCarouselStory('default', {
@@ -237,7 +239,7 @@ export const SlowRotation: Story = createCarouselStory('default', {
 
 /**
  * Single Feature Card
- * 
+ *
  * Carousel with only one feature to test edge cases.
  */
 export const SingleCard: Story = createCarouselStory('default', {
@@ -269,7 +271,7 @@ export const SingleCard: Story = createCarouselStory('default', {
 
 /**
  * Mobile Optimized
- * 
+ *
  * Story demonstrating mobile-first responsive design.
  */
 export const MobileOptimized: Story = {
@@ -288,7 +290,7 @@ export const MobileOptimized: Story = {
 
 /**
  * Tablet Layout
- * 
+ *
  * Story demonstrating tablet responsive breakpoints.
  */
 export const TabletLayout: Story = {
@@ -307,7 +309,7 @@ export const TabletLayout: Story = {
 
 /**
  * Dark Theme
- * 
+ *
  * Carousel with dark theme applied.
  */
 export const DarkTheme: Story = {
@@ -324,7 +326,10 @@ export const DarkTheme: Story = {
   },
   decorators: [
     (Story) => (
-      <div data-theme="dark" style={{ minHeight: '100vh', backgroundColor: 'var(--color-gray-800, #1f2937)' }}>
+      <div
+        data-theme="dark"
+        style={{ minHeight: '100vh', backgroundColor: 'var(--color-gray-800, #1f2937)' }}
+      >
         <Story />
       </div>
     ),
@@ -333,7 +338,7 @@ export const DarkTheme: Story = {
 
 /**
  * High Contrast Theme
- * 
+ *
  * Carousel with high contrast accessibility theme.
  */
 export const HighContrast: Story = {
@@ -356,7 +361,7 @@ export const HighContrast: Story = {
 
 /**
  * Performance Monitoring Enabled
- * 
+ *
  * Story with performance monitoring and analytics enabled.
  */
 export const WithPerformanceMonitoring: Story = {
@@ -375,7 +380,8 @@ export const WithPerformanceMonitoring: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Carousel with performance monitoring and analytics tracking. Check browser console for metrics.',
+        story:
+          'Carousel with performance monitoring and analytics tracking. Check browser console for metrics.',
       },
     },
   },
@@ -383,7 +389,7 @@ export const WithPerformanceMonitoring: Story = {
 
 /**
  * All Variants Comparison
- * 
+ *
  * Side-by-side comparison of all carousel variants.
  */
 export const AllVariants: Story = {
@@ -394,16 +400,16 @@ export const AllVariants: Story = {
           <h3 style={{ margin: '0 0 1rem 0', padding: '0 1rem', textTransform: 'capitalize' }}>
             {variant} Variant
           </h3>
-          <AppFeaturesCarousel 
-            variant={variant as keyof typeof APP_FEATURES_CAROUSEL_CONFIGS} 
+          <AppFeaturesCarousel
+            variant={variant as keyof typeof APP_FEATURES_CAROUSEL_CONFIGS}
             config={{
               ...config,
               settings: {
                 ...config.settings,
                 autoRotateMs: 0, // Disable auto-rotation for comparison
               },
-            }} 
-            enableAnalytics={false} 
+            }}
+            enableAnalytics={false}
           />
         </div>
       ))}
@@ -420,7 +426,7 @@ export const AllVariants: Story = {
 
 /**
  * Interactive Playground
- * 
+ *
  * Fully interactive carousel for testing all features.
  */
 export const InteractivePlayground: Story = {

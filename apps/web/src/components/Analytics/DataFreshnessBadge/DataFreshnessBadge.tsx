@@ -39,7 +39,9 @@ export function DataFreshnessBadge({
     >
       <LucideIcon icon={ICON_BY_STATUS[status]} size="xs" aria-hidden="true" />
       <span className={styles.source}>{source}</span>
-      <span className={styles.divider} aria-hidden="true">·</span>
+      <span className={styles.divider} aria-hidden="true">
+        ·
+      </span>
       <span className={styles.statusLabel}>{labels[status]}</span>
     </span>
   );

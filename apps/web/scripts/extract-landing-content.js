@@ -23,7 +23,7 @@ const LANDING_SECTIONS = [
   'faqAccordion',
   'benefitsCards',
   'bgHighlight',
-  'stepGuide'
+  'stepGuide',
 ];
 
 function flattenObject(obj, prefix = '') {
@@ -93,14 +93,26 @@ function generateMarkdown(lang, data) {
 
   const homeData = data?.pages?.home || {};
 
-  LANDING_SECTIONS.forEach(sectionKey => {
+  LANDING_SECTIONS.forEach((sectionKey) => {
     const sectionContent = homeData[sectionKey];
     if (sectionContent) {
-      md += `## ${sectionKey.charAt(0).toUpperCase() + sectionKey.slice(1).replace(/([A-Z])/g, ' $1').trim()}\n\n`;
+      md += `## ${
+        sectionKey.charAt(0).toUpperCase() +
+        sectionKey
+          .slice(1)
+          .replace(/([A-Z])/g, ' $1')
+          .trim()
+      }\n\n`;
       md += formatContent(sectionKey, sectionContent);
       md += '\n---\n\n';
     } else {
-      md += `## ${sectionKey.charAt(0).toUpperCase() + sectionKey.slice(1).replace(/([A-Z])/g, ' $1').trim()}\n\n`;
+      md += `## ${
+        sectionKey.charAt(0).toUpperCase() +
+        sectionKey
+          .slice(1)
+          .replace(/([A-Z])/g, ' $1')
+          .trim()
+      }\n\n`;
       md += `*Section not found in translations*\n\n`;
       md += '---\n\n';
     }
@@ -115,7 +127,7 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 }
 
 // Process each language
-LANGUAGES.forEach(lang => {
+LANGUAGES.forEach((lang) => {
   const marketingPath = path.join(TRANSLATIONS_DIR, lang, 'marketing.json');
 
   if (!fs.existsSync(marketingPath)) {

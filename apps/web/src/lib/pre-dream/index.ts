@@ -19,6 +19,11 @@ export {
   PRE_DREAM_SIMULATION_CONFIG,
 } from './constants';
 
-export { calculatePreDreamResult, resolveBankRate, resolveStrategyApy, type StrategyApyOverrides } from './calculations';
+export {
+  calculatePreDreamResult,
+  resolveBankRate,
+  resolveStrategyApy,
+  type StrategyApyOverrides,
+} from './calculations';
 
 export { formatCurrency } from './format';

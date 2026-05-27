@@ -15,10 +15,7 @@ import { Logger } from '@/lib/monitoring/Logger';
  * without changing consumer code.
  */
 export interface IDatabaseClient {
-  sql(
-    strings: TemplateStringsArray,
-    ...values: unknown[]
-  ): Promise<Record<string, unknown>[]>;
+  sql(strings: TemplateStringsArray, ...values: unknown[]): Promise<Record<string, unknown>[]>;
 
   rawSql(query: string): Promise<Record<string, unknown>[]>;
 

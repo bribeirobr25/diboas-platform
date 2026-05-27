@@ -11,7 +11,7 @@ export enum ErrorSeverity {
   LOW = 'low',
   MEDIUM = 'medium',
   HIGH = 'high',
-  CRITICAL = 'critical'
+  CRITICAL = 'critical',
 }
 
 /**
@@ -25,7 +25,7 @@ export enum ErrorCategory {
   SECURITY = 'security',
   USER_INTERACTION = 'user_interaction',
   THIRD_PARTY = 'third_party',
-  UNKNOWN = 'unknown'
+  UNKNOWN = 'unknown',
 }
 
 /**

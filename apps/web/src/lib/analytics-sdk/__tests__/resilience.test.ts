@@ -44,15 +44,49 @@ const MALFORMED_REGIME = {
   environment_bias: 'CONSTRUCTIVE',
   last_updated_at: new Date().toISOString(),
   summary: {
-    en: { short: 's', detailed: 'd', confidence_level: 'HIGH', mixed_signals: false, key_supportive_factors: [], key_headwinds: [] },
-    'pt-BR': { short: 's', detailed: 'd', confidence_level: 'HIGH', mixed_signals: false, key_supportive_factors: [], key_headwinds: [] },
-    es: { short: 's', detailed: 'd', confidence_level: 'HIGH', mixed_signals: false, key_supportive_factors: [], key_headwinds: [] },
-    de: { short: 's', detailed: 'd', confidence_level: 'HIGH', mixed_signals: false, key_supportive_factors: [], key_headwinds: [] },
+    en: {
+      short: 's',
+      detailed: 'd',
+      confidence_level: 'HIGH',
+      mixed_signals: false,
+      key_supportive_factors: [],
+      key_headwinds: [],
+    },
+    'pt-BR': {
+      short: 's',
+      detailed: 'd',
+      confidence_level: 'HIGH',
+      mixed_signals: false,
+      key_supportive_factors: [],
+      key_headwinds: [],
+    },
+    es: {
+      short: 's',
+      detailed: 'd',
+      confidence_level: 'HIGH',
+      mixed_signals: false,
+      key_supportive_factors: [],
+      key_headwinds: [],
+    },
+    de: {
+      short: 's',
+      detailed: 'd',
+      confidence_level: 'HIGH',
+      mixed_signals: false,
+      key_supportive_factors: [],
+      key_headwinds: [],
+    },
   },
   // signal_groups expected to be an array; `flattenRegime` calls `.map` on it.
   // null → throws "Cannot read properties of null (reading 'map')".
   signal_groups: null,
-  data_status: { overall_confidence: 'HIGH', last_successful_update_at: null, sources: [], delayed_sources: [], unavailable_sources: [] },
+  data_status: {
+    overall_confidence: 'HIGH',
+    last_successful_update_at: null,
+    sources: [],
+    delayed_sources: [],
+    unavailable_sources: [],
+  },
 };
 
 // `fetchSignals` does `raw.groups.map(...)`. null `groups` triggers throw.

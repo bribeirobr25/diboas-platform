@@ -47,7 +47,8 @@ export const WaitlistSection = memo(function WaitlistSection({
   const source = config?.source;
   const { stats, isLoading } = useWaitlistStats(source ? { source } : undefined);
 
-  const showVersionB = !isLoading &&
+  const showVersionB =
+    !isLoading &&
     stats.foundingMemberSpotsRemaining != null &&
     stats.foundingMemberSpotsRemaining <= 0;
 
@@ -89,7 +90,13 @@ export const WaitlistSection = memo(function WaitlistSection({
         {showVersionB ? (
           <WaitlistVersionB config={config} source={source} enableAnalytics={enableAnalytics} />
         ) : (
-          <WaitlistVersionA config={config} source={source} stats={stats} isLoading={isLoading} enableAnalytics={enableAnalytics} />
+          <WaitlistVersionA
+            config={config}
+            source={source}
+            stats={stats}
+            isLoading={isLoading}
+            enableAnalytics={enableAnalytics}
+          />
         )}
       </SectionContainer>
     </div>

@@ -33,7 +33,7 @@
   cursor: pointer;
   z-index: calc(var(--z-index-modal, 1000) + 1);
   transition: all var(--animation-duration-fast) ease;
-  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
 }
 
 .closeButton:hover {
@@ -52,8 +52,14 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Screen Layouts */
@@ -308,7 +314,10 @@
   background: var(--color-white);
   text-align: center;
   cursor: pointer;
-  transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  transition:
+    border-color 150ms ease,
+    transform 150ms ease,
+    box-shadow 150ms ease;
   font-family: inherit;
 }
 
@@ -362,7 +371,9 @@
   border: 2px solid;
   text-align: left;
   cursor: pointer;
-  transition: box-shadow 0.2s ease, transform 0.1s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
   background: var(--color-white);
 }
 
@@ -430,24 +441,57 @@
 }
 
 /* Path color variants — mapped to design tokens */
-.pathSafetyBg { background: var(--path-safety-bg); }
-.pathSafetyBorder { border-color: var(--path-safety-border); }
-.pathSafetyText { color: var(--path-safety-text); }
-.pathSafetyIconBg { background: var(--path-safety-icon-bg); }
+.pathSafetyBg {
+  background: var(--path-safety-bg);
+}
+.pathSafetyBorder {
+  border-color: var(--path-safety-border);
+}
+.pathSafetyText {
+  color: var(--path-safety-text);
+}
+.pathSafetyIconBg {
+  background: var(--path-safety-icon-bg);
+}
 
-.pathBalanceBg { background: var(--path-balance-bg); }
-.pathBalanceBorder { border-color: var(--path-balance-border); }
-.pathBalanceText { color: var(--path-balance-text); }
-.pathBalanceIconBg { background: var(--path-balance-icon-bg); }
+.pathBalanceBg {
+  background: var(--path-balance-bg);
+}
+.pathBalanceBorder {
+  border-color: var(--path-balance-border);
+}
+.pathBalanceText {
+  color: var(--path-balance-text);
+}
+.pathBalanceIconBg {
+  background: var(--path-balance-icon-bg);
+}
 
-.pathGrowthBg { background: var(--path-growth-bg); }
-.pathGrowthBorder { border-color: var(--path-growth-border); }
-.pathGrowthText { color: var(--path-growth-text); }
-.pathGrowthIconBg { background: var(--path-growth-icon-bg); }
+.pathGrowthBg {
+  background: var(--path-growth-bg);
+}
+.pathGrowthBorder {
+  border-color: var(--path-growth-border);
+}
+.pathGrowthText {
+  color: var(--path-growth-text);
+}
+.pathGrowthIconBg {
+  background: var(--path-growth-icon-bg);
+}
 
-.pathRiskBadge.pathSafetyText { background: var(--path-safety-icon-bg); color: var(--path-safety-badge-text); }
-.pathRiskBadge.pathBalanceText { background: var(--path-balance-icon-bg); color: var(--path-balance-badge-text); }
-.pathRiskBadge.pathGrowthText { background: var(--path-growth-icon-bg); color: var(--path-growth-text); }
+.pathRiskBadge.pathSafetyText {
+  background: var(--path-safety-icon-bg);
+  color: var(--path-safety-badge-text);
+}
+.pathRiskBadge.pathBalanceText {
+  background: var(--path-balance-icon-bg);
+  color: var(--path-balance-badge-text);
+}
+.pathRiskBadge.pathGrowthText {
+  background: var(--path-growth-icon-bg);
+  color: var(--path-growth-text);
+}
 
 /* Slider Cards */
 .inputGroup {

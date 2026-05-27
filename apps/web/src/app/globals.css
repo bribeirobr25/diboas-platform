@@ -37,7 +37,6 @@
 }
 
 @layer utilities {
-
   /* Mobile submenu slide from right animation */
   @keyframes slide-from-right {
     from {

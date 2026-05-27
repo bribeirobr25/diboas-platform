@@ -15,12 +15,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules',
-        '.next',
-        '**/*.stories.tsx',
-        '**/*.d.ts',
-      ],
+      exclude: ['node_modules', '.next', '**/*.stories.tsx', '**/*.d.ts'],
     },
     setupFiles: ['./src/test/setup.ts'],
   },

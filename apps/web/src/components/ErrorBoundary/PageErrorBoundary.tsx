@@ -26,7 +26,8 @@ interface ErrorBoundaryTranslations {
 
 const DEFAULT_TRANSLATIONS: ErrorBoundaryTranslations = {
   title: 'Something went wrong',
-  message: 'We encountered an unexpected error. Please try refreshing the page or contact support if the problem persists.',
+  message:
+    'We encountered an unexpected error. Please try refreshing the page or contact support if the problem persists.',
   tryAgain: 'Try Again',
   refreshPage: 'Refresh Page',
   devDetails: 'Error Details (Development)',
@@ -46,7 +47,7 @@ interface State {
 
 export class PageErrorBoundary extends Component<Props, State> {
   public state: State = {
-    hasError: false
+    hasError: false,
   };
 
   public static getDerivedStateFromError(error: Error): State {
@@ -54,13 +55,16 @@ export class PageErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    Logger.error('PageErrorBoundary caught an error', { error: error.message, componentStack: errorInfo.componentStack });
+    Logger.error('PageErrorBoundary caught an error', {
+      error: error.message,
+      componentStack: errorInfo.componentStack,
+    });
 
     // Track error with monitoring service
     monitoringService.trackError(error, {
       componentStack: errorInfo.componentStack,
       errorBoundary: 'PageErrorBoundary',
-      errorType: 'react_error'
+      errorType: 'react_error',
     });
 
     // Call custom error handler if provided
@@ -87,25 +91,26 @@ export class PageErrorBoundary extends Component<Props, State> {
           <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-6 text-center">
             <div className="mb-4">
               <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                <svg
+                  className="w-8 h-8 text-red-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+                  />
                 </svg>
               </div>
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                {t.title}
-              </h2>
-              <p className="text-gray-600 mb-6">
-                {t.message}
-              </p>
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">{t.title}</h2>
+              <p className="text-gray-600 mb-6">{t.message}</p>
             </div>
 
             <div className="space-y-3">
-              <Button
-                onClick={this.handleReset}
-                variant="gradient"
-                size="sm"
-                className="w-full"
-              >
+              <Button onClick={this.handleReset} variant="gradient" size="sm" className="w-full">
                 {t.tryAgain}
               </Button>
 

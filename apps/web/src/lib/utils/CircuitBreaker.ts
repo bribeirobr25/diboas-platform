@@ -66,7 +66,10 @@ export class CircuitBreaker {
       }
     }
 
-    if (this.state === CircuitBreakerState.HALF_OPEN && this.halfOpenAttempts >= this.halfOpenMaxAttempts) {
+    if (
+      this.state === CircuitBreakerState.HALF_OPEN &&
+      this.halfOpenAttempts >= this.halfOpenMaxAttempts
+    ) {
       throw new CircuitBreakerError('Circuit breaker is HALF_OPEN — max probe attempts reached');
     }
 

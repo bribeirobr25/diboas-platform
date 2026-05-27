@@ -50,10 +50,34 @@ const DEFAULT_CONFIG: BenefitsCardsConfig = {
     description: 'Everything you need in one platform.',
   },
   cards: [
-    { id: 'security', icon: '🔒', iconAlt: 'Lock', title: 'Bank-Grade Security', description: 'Your assets are protected with institutional-grade security measures.' },
-    { id: 'fees', icon: '💰', iconAlt: 'Money', title: 'Lowest Fees', description: 'Save up to 6× compared to traditional apps.' },
-    { id: 'speed', icon: '⚡', iconAlt: 'Lightning', title: 'Instant Transfers', description: 'Send money anywhere in the world, instantly and free.' },
-    { id: 'defi', icon: '📈', iconAlt: 'Chart', title: 'DeFi Strategies', description: 'Earn yields on your idle cash with automated strategies.' },
+    {
+      id: 'security',
+      icon: '🔒',
+      iconAlt: 'Lock',
+      title: 'Bank-Grade Security',
+      description: 'Your assets are protected with institutional-grade security measures.',
+    },
+    {
+      id: 'fees',
+      icon: '💰',
+      iconAlt: 'Money',
+      title: 'Lowest Fees',
+      description: 'Save up to 6× compared to traditional apps.',
+    },
+    {
+      id: 'speed',
+      icon: '⚡',
+      iconAlt: 'Lightning',
+      title: 'Instant Transfers',
+      description: 'Send money anywhere in the world, instantly and free.',
+    },
+    {
+      id: 'defi',
+      icon: '📈',
+      iconAlt: 'Chart',
+      title: 'DeFi Strategies',
+      description: 'Earn yields on your idle cash with automated strategies.',
+    },
   ],
   seo: {
     headingLevel: 'h2',
@@ -125,7 +149,10 @@ export const DarkTheme: Story = {
   },
   decorators: [
     (Story) => (
-      <div data-theme="dark" style={{ minHeight: '100vh', backgroundColor: 'var(--color-gray-800, #1f2937)' }}>
+      <div
+        data-theme="dark"
+        style={{ minHeight: '100vh', backgroundColor: 'var(--color-gray-800, #1f2937)' }}
+      >
         <Story />
       </div>
     ),

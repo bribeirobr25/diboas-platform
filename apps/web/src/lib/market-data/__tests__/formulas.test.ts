@@ -213,12 +213,12 @@ describe('calculateFee', () => {
   });
 
   it('should cap at maximum', () => {
-    const result = calculateFee(10000, 0.0039, 0.25, 25.00);
-    expect(result.feeAmount).toBe(25.00);
+    const result = calculateFee(10000, 0.0039, 0.25, 25.0);
+    expect(result.feeAmount).toBe(25.0);
   });
 
   it('should floor at minimum', () => {
-    const result = calculateFee(10, 0.0039, 0.25, 25.00);
+    const result = calculateFee(10, 0.0039, 0.25, 25.0);
     expect(result.feeAmount).toBe(0.25);
   });
 
@@ -234,7 +234,7 @@ describe('calculateFee', () => {
 describe('applyPlatformFees', () => {
   it('should apply entry and exit fees', () => {
     const result = applyPlatformFees(1000, 1100, 0.0048, 0.0039);
-    expect(result.principalAfterEntry).toBeCloseTo(995.20, 2);
+    expect(result.principalAfterEntry).toBeCloseTo(995.2, 2);
     expect(result.endAfterExit).toBeLessThan(1100);
   });
 
@@ -379,11 +379,14 @@ describe('Phase A (2026-05-16) / Phase C (2026-05-23 TOOLS_IMPROVEMENT) — exch
     expect(eur.historicalRateEnd).toBeCloseTo(1.1706, 2);
   });
 
-  it('forward annualDepreciation matches horizon-matched live data per Phase A/PT1/PT3', () => {
-    // Phase C update per Bar acceptance 2026-05-23: BRL 0.0621 (live full-series),
-    // EUR 0.0123 (live full-series sign-corrected).
+  it('forward annualDepreciation matches calibrated values per FX-16 D1/D8', () => {
+    // BRL 0.0621 (live full-series, Phase C / PT1 unchanged).
+    // EUR 0.0055 (FX-16 adoption D1, Bar 2026-05-26): forward calibration assumption
+    // from long-horizon FRED AEXUSEU annual series — supersedes prior PT3 1.23%
+    // which was an endpoint-pair retrospective CAGR mistakenly placed in the
+    // forward field. 1.23% now lives in `historicalCagr` only.
     expect(FALLBACK_MARKET_DATA.exchangeRates.rates.BRL.annualDepreciation).toBeCloseTo(0.0621, 4);
-    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.EUR.annualDepreciation).toBeCloseTo(0.0123, 4);
+    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.EUR.annualDepreciation).toBeCloseTo(0.0055, 4);
   });
 });
 
@@ -393,7 +396,10 @@ describe('Phase A — inflation cumulative-since-2010 fields', () => {
   });
 
   it('Brazil cumulative inflation 2010→2026 matches IBGE IPCA 145%', () => {
-    expect(FALLBACK_MARKET_DATA.inflationRates.rates['pt-BR'].cumulativeSince2010).toBeCloseTo(1.45, 2);
+    expect(FALLBACK_MARKET_DATA.inflationRates.rates['pt-BR'].cumulativeSince2010).toBeCloseTo(
+      1.45,
+      2
+    );
   });
 
   it('Germany cumulative inflation 2010→2026 matches Destatis 41%', () => {
@@ -457,11 +463,11 @@ describe('Phase B — calculateMonthlyPathDependentHedge (research Part 5 cross-
     startDate: '2010-01-01',
     months: 196,
     buckets: BRL_RESEARCH_BUCKETS,
-    endRate: 5.50,
+    endRate: 5.5,
   };
 
   it('Scenario D (10% USD): matches research R$94,765 ± 5%', () => {
-    const result = calculateMonthlyPathDependentHedge({ ...baseArgs, usdAnnualYield: 0.10 });
+    const result = calculateMonthlyPathDependentHedge({ ...baseArgs, usdAnnualYield: 0.1 });
     expect(result.finalBalanceLocal).toBeGreaterThan(94765 * 0.95);
     expect(result.finalBalanceLocal).toBeLessThan(94765 * 1.05);
   });
@@ -484,10 +490,10 @@ describe('Phase B — calculateMonthlyPathDependentHedge (research Part 5 cross-
   });
 
   it('reports a positive effectiveLocalCagr when finalBalance exceeds contributions', () => {
-    const result = calculateMonthlyPathDependentHedge({ ...baseArgs, usdAnnualYield: 0.10 });
+    const result = calculateMonthlyPathDependentHedge({ ...baseArgs, usdAnnualYield: 0.1 });
     // Scenario D 10% USD ≈ 16-17% effective BRL (FX tailwind on top of USD yield)
     expect(result.effectiveLocalCagr).toBeGreaterThan(0.13);
-    expect(result.effectiveLocalCagr).toBeLessThan(0.20);
+    expect(result.effectiveLocalCagr).toBeLessThan(0.2);
   });
 });
 
@@ -496,30 +502,28 @@ describe('Phase B — path-dependent hedge edge cases', () => {
     // 5-year window, single bucket with constant rate. The path-dependent
     // and smoothed-CAGR models converge when there is no FX path variation
     // within the window (no bucket-walk gain to capture).
-    const buckets: FxBucket[] = [
-      { avgRate: 5.50, startDate: '2021-01-01', endDate: '2026-05-31' },
-    ];
+    const buckets: FxBucket[] = [{ avgRate: 5.5, startDate: '2021-01-01', endDate: '2026-05-31' }];
     const pathResult = calculateMonthlyPathDependentHedge({
       monthlyContributionLocal: 100,
       usdAnnualYield: 0.07,
       startDate: '2021-01-01',
       months: 60,
       buckets,
-      endRate: 5.50,
+      endRate: 5.5,
     });
     // Smoothed model with 0% depreciation (single bucket → no path bias)
     const smoothedResult = calculateMonthlyWithCurrencyHedge(
       100, // local-currency contribution per month
       0.07, // USD yield
-      0,    // no depreciation within the bucket
-      0,    // ignore inflation for this convergence test
-      60,
+      0, // no depreciation within the bucket
+      0, // ignore inflation for this convergence test
+      60
     );
     // Smoothed nominalFV is in local-currency assuming initial conversion at
     // rate 1; we compare USD-equivalent slices. Path result's finalBalanceUsd
     // should match smoothed's nominalFV / 5.50 (since 100 BRL = 100/5.50 USD
     // every month under the constant-rate bucket).
-    const expectedUsd = smoothedResult.nominalFV / 5.50;
+    const expectedUsd = smoothedResult.nominalFV / 5.5;
     expect(pathResult.finalBalanceUsd).toBeCloseTo(expectedUsd, 1);
   });
 
@@ -531,15 +535,13 @@ describe('Phase B — path-dependent hedge edge cases', () => {
         startDate: '2020-01-01',
         months: 12,
         buckets: [],
-        endRate: 5.50,
-      }),
+        endRate: 5.5,
+      })
     ).toThrow(/at least one FxBucket/);
   });
 
   it('throws when a month falls outside all bucket windows', () => {
-    const buckets: FxBucket[] = [
-      { avgRate: 5.20, startDate: '2020-01-01', endDate: '2020-12-31' },
-    ];
+    const buckets: FxBucket[] = [{ avgRate: 5.2, startDate: '2020-01-01', endDate: '2020-12-31' }];
     expect(() =>
       calculateMonthlyPathDependentHedge({
         monthlyContributionLocal: 100,
@@ -547,8 +549,8 @@ describe('Phase B — path-dependent hedge edge cases', () => {
         startDate: '2020-01-01',
         months: 24, // month 13 = Jan 2021 — uncovered
         buckets,
-        endRate: 5.50,
-      }),
+        endRate: 5.5,
+      })
     ).toThrow(/No FxBucket covers/);
   });
 
@@ -560,8 +562,8 @@ describe('Phase B — path-dependent hedge edge cases', () => {
         startDate: '2020-01-01',
         months: 0,
         buckets: BRL_RESEARCH_BUCKETS,
-        endRate: 5.50,
-      }),
+        endRate: 5.5,
+      })
     ).toThrow(/months must be > 0/);
   });
 
@@ -574,14 +576,12 @@ describe('Phase B — path-dependent hedge edge cases', () => {
         months: 12,
         buckets: BRL_RESEARCH_BUCKETS,
         endRate: 0,
-      }),
+      })
     ).toThrow(/endRate must be > 0/);
   });
 
   it('throws on bucket with non-positive avgRate', () => {
-    const buckets: FxBucket[] = [
-      { avgRate: 0, startDate: '2020-01-01', endDate: '2020-12-31' },
-    ];
+    const buckets: FxBucket[] = [{ avgRate: 0, startDate: '2020-01-01', endDate: '2020-12-31' }];
     expect(() =>
       calculateMonthlyPathDependentHedge({
         monthlyContributionLocal: 100,
@@ -589,8 +589,8 @@ describe('Phase B — path-dependent hedge edge cases', () => {
         startDate: '2020-01-01',
         months: 6,
         buckets,
-        endRate: 5.50,
-      }),
+        endRate: 5.5,
+      })
     ).toThrow(/avgRate must be > 0/);
   });
 });

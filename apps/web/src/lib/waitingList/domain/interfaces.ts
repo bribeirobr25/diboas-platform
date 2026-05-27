@@ -36,7 +36,9 @@ export interface IWaitlistRepository {
    */
   updateEntry(
     email: string,
-    updates: Partial<Omit<WaitlistEntry, 'id' | 'email' | 'originalPosition' | 'createdAt' | 'tier'>>,
+    updates: Partial<
+      Omit<WaitlistEntry, 'id' | 'email' | 'originalPosition' | 'createdAt' | 'tier'>
+    >,
     currentVersion?: number
   ): Promise<WaitlistEntry | undefined>;
 

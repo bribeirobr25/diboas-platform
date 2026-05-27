@@ -12,12 +12,12 @@ const alignClasses = {
   start: 'flex-align-start',
   center: 'flex-align-center',
   end: 'flex-align-end',
-  stretch: 'flex-align-stretch'
+  stretch: 'flex-align-stretch',
 };
 
 /**
  * FlexBetween Component
- * 
+ *
  * DRY Principle: Consolidates repeated flex layout pattern
  * - `flex items-center justify-between` pattern used 15+ times
  * - Configurable alignment
@@ -31,14 +31,7 @@ export function FlexBetween({
   ...props
 }: FlexBetweenProps & React.ComponentProps<'div'>) {
   return (
-    <Component
-      className={cn(
-        'flex-between',
-        alignClasses[align],
-        className
-      )}
-      {...props}
-    >
+    <Component className={cn('flex-between', alignClasses[align], className)} {...props}>
       {children}
     </Component>
   );

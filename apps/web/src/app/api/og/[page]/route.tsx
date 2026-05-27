@@ -19,14 +19,15 @@ import { RATE_LIMIT_CONFIG } from '@/config/env';
 
 export const runtime = 'edge';
 
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ page: string }> }
-) {
+export async function GET(request: Request, { params }: { params: Promise<{ page: string }> }) {
   try {
     // Rate limiting
     const clientIP = getClientIP(request);
-    const rateLimitResult = await checkRateLimit(clientIP, RATE_LIMIT_CONFIG.lenient.limit, RATE_LIMIT_CONFIG.lenient.windowMs);
+    const rateLimitResult = await checkRateLimit(
+      clientIP,
+      RATE_LIMIT_CONFIG.lenient.limit,
+      RATE_LIMIT_CONFIG.lenient.windowMs
+    );
     if (!rateLimitResult.success) {
       return new Response('Too Many Requests', {
         status: 429,

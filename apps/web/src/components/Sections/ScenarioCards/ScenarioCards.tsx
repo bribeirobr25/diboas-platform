@@ -33,9 +33,18 @@ export const ScenarioCards = memo(function ScenarioCards({
       ) : null}
       <h2 className={styles.header}>{translated.section.title}</h2>
       <div className={styles.grid}>
-        {translated.cards.map((card: { id: string; title: string; description: string; backgroundImage: string; imageAlt: string; costComparison?: string }) => (
-          <ScenarioCard key={card.id} card={card} />
-        ))}
+        {translated.cards.map(
+          (card: {
+            id: string;
+            title: string;
+            description: string;
+            backgroundImage: string;
+            imageAlt: string;
+            costComparison?: string;
+          }) => (
+            <ScenarioCard key={card.id} card={card} />
+          )
+        )}
       </div>
       {translated.section.clarificationLine ? (
         <p className={styles.clarificationLine}>{translated.section.clarificationLine}</p>

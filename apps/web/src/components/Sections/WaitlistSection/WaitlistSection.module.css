@@ -42,8 +42,6 @@
   width: var(--percent-100);
 }
 
-
-
 /* Tablet and up */
 @media (min-width: 768px) {
   .wrapper {

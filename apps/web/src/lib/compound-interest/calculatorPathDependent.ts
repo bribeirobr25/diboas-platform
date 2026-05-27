@@ -38,7 +38,7 @@ import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
 import { calculateCompoundProjectionHedged } from './calculatorHedged';
 import { convertCadenceToMonthly, isOneTime } from './cadence';
 import { SCENARIO_RATES } from './scenarios';
-import { INPUT_BOUNDS } from './constants';
+import { INPUT_BOUNDS, MAX_RETROSPECTIVE_YEARS } from './constants';
 import {
   type Cadence,
   type CalculatorInput,
@@ -50,11 +50,8 @@ import {
 import type { FxBucket } from '@/lib/market-data';
 
 const HIGHLIGHTED_DEFAULT = 'historical' as const;
-const MAX_RETROSPECTIVE_YEARS = 16;
 
-export function calculateCompoundProjectionPathDependent(
-  input: CalculatorInput,
-): CalculatorOutput {
+export function calculateCompoundProjectionPathDependent(input: CalculatorInput): CalculatorOutput {
   validateInput(input);
 
   const snapshot = marketDataService.getSync();
@@ -94,7 +91,7 @@ export function calculateCompoundProjectionPathDependent(
       input.years,
       buckets,
       endDate,
-      endRate,
+      endRate
     ),
     buildPathDependentSeries(
       'historical',
@@ -105,7 +102,7 @@ export function calculateCompoundProjectionPathDependent(
       input.years,
       buckets,
       endDate,
-      endRate,
+      endRate
     ),
     buildPathDependentSeries(
       'optimistic',
@@ -116,7 +113,7 @@ export function calculateCompoundProjectionPathDependent(
       input.years,
       buckets,
       endDate,
-      endRate,
+      endRate
     ),
   ];
 
@@ -135,7 +132,7 @@ function buildLocalSeries(
   amount: number,
   monthlyContribution: number,
   cadence: Cadence,
-  years: number,
+  years: number
 ): ScenarioSeries {
   if (isOneTime(cadence)) {
     const yearlyValues: number[] = [amount];
@@ -157,7 +154,7 @@ function buildLocalSeries(
       monthlyContribution,
       annualRatePercent / 100,
       0,
-      y * 12,
+      y * 12
     );
     yearlyValues.push(result.nominalFV);
   }
@@ -178,7 +175,7 @@ function buildPathDependentSeries(
   years: number,
   buckets: readonly FxBucket[],
   endDate: string,
-  endRate: number,
+  endRate: number
 ): ScenarioSeries {
   const usdYield = annualUsdRatePercent / 100;
 
@@ -237,9 +234,16 @@ function findBucketForDate(buckets: readonly FxBucket[], iso: string): FxBucket 
   for (const b of buckets) {
     if (iso >= b.startDate && iso <= b.endDate) return b;
   }
-  // Fall back to nearest bucket (first or last) if outside coverage —
-  // validateInput caps at 16 years so this should not fire for valid inputs.
-  return buckets[0]!;
+  // C9 close (2026-05-25): pre-fix, this returned `buckets[0]!` silently — a
+  // coupling assumption that only held while bucket coverage exactly matched
+  // `MAX_RETROSPECTIVE_YEARS`. A future refresh that shortened coverage would
+  // silently use the wrong FX rate. validateInput's 16-year cap is the
+  // upstream invariant; if a date still escapes it, fail loudly instead of
+  // silently using BRL 2010 rates for a 1990 query.
+  throw new InvalidCalculatorInputError(
+    'years',
+    `derived start date ${iso} falls outside FX bucket coverage (${buckets[0]?.startDate ?? '?'} → ${buckets[buckets.length - 1]?.endDate ?? '?'})`
+  );
 }
 
 function validateInput(input: CalculatorInput): void {
@@ -249,7 +253,7 @@ function validateInput(input: CalculatorInput): void {
   if (input.amount < INPUT_BOUNDS.amount.min || input.amount > INPUT_BOUNDS.amount.max) {
     throw new InvalidCalculatorInputError(
       'amount',
-      `must be between ${INPUT_BOUNDS.amount.min} and ${INPUT_BOUNDS.amount.max}`,
+      `must be between ${INPUT_BOUNDS.amount.min} and ${INPUT_BOUNDS.amount.max}`
     );
   }
   if (!Number.isFinite(input.years) || !Number.isInteger(input.years)) {
@@ -258,7 +262,7 @@ function validateInput(input: CalculatorInput): void {
   if (input.years < INPUT_BOUNDS.years.min || input.years > MAX_RETROSPECTIVE_YEARS) {
     throw new InvalidCalculatorInputError(
       'years',
-      `path-dependent retrospective requires years between ${INPUT_BOUNDS.years.min} and ${MAX_RETROSPECTIVE_YEARS} (bucket coverage cap)`,
+      `path-dependent retrospective requires years between ${INPUT_BOUNDS.years.min} and ${MAX_RETROSPECTIVE_YEARS} (bucket coverage cap)`
     );
   }
 }

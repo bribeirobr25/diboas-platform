@@ -36,14 +36,14 @@ apps/web/data/market/
 
 ### What each file drives on the rendered page
 
-| File | UI element it powers on `/market` |
-|---|---|
-| `regime.json` | Big "10 / 14" score badge, "Constructive" / "High confidence" pills, detailed summary paragraph, the 4 signal-group cards (BTC Structure / Macro Environment / Institutional Demand / Relative Strength). |
-| `historical.json` | The "Score over time" line chart. |
-| `signals.json` | The per-card sub-signal list that appears when a user clicks "Show signals" on a card (BTC vs. long-term MA, etc.). |
-| `data-status.json` | The "Data sources" pill row (CoinGecko · FRESH, FRED:M2SL · DELAYED, etc.). |
-| `methodology.json` | "Read the methodology" link target metadata + score-band ranges. |
-| `product-disclaimer.json` | The educational-disclaimer note above the host's regulatory disclaimer. |
+| File                      | UI element it powers on `/market`                                                                                                                                                                         |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `regime.json`             | Big "10 / 14" score badge, "Constructive" / "High confidence" pills, detailed summary paragraph, the 4 signal-group cards (BTC Structure / Macro Environment / Institutional Demand / Relative Strength). |
+| `historical.json`         | The "Score over time" line chart.                                                                                                                                                                         |
+| `signals.json`            | The per-card sub-signal list that appears when a user clicks "Show signals" on a card (BTC vs. long-term MA, etc.).                                                                                       |
+| `data-status.json`        | The "Data sources" pill row (CoinGecko · FRESH, FRED:M2SL · DELAYED, etc.).                                                                                                                               |
+| `methodology.json`        | "Read the methodology" link target metadata + score-band ranges.                                                                                                                                          |
+| `product-disclaimer.json` | The educational-disclaimer note above the host's regulatory disclaimer.                                                                                                                                   |
 
 ### Intentional divergence from `apps/web/src/lib/analytics-sdk/fixtures/` (L5 round-3)
 
@@ -55,14 +55,14 @@ The iter-2 fixtures at `apps/web/src/lib/analytics-sdk/fixtures/` (including `re
 
 ## 3. Editorial cadence guidance
 
-| File | Cadence | Trigger |
-|---|---|---|
-| `regime.json` | Weekly (or as the macro environment shifts) | Tuesday before close is the default rhythm. Update whenever you'd say the environment has materially changed. |
-| `historical.json` | Append-only weekly | Add one new snapshot per week. If the array exceeds 52 entries, prune the oldest. |
-| `signals.json` | Weekly | Per-signal `state` + `last_updated_at`. Some sub-signals will be stale faster than others. |
-| `data-status.json` | Daily (or whenever upstream freshness changes) | Flip a source from `FRESH` → `DELAYED` → `STALE` based on the upstream age. |
-| `methodology.json` | Rare | Only on methodology version bump. |
-| `product-disclaimer.json` | Very rare | Only on legal-driven copy change. |
+| File                      | Cadence                                        | Trigger                                                                                                       |
+| ------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `regime.json`             | Weekly (or as the macro environment shifts)    | Tuesday before close is the default rhythm. Update whenever you'd say the environment has materially changed. |
+| `historical.json`         | Append-only weekly                             | Add one new snapshot per week. If the array exceeds 52 entries, prune the oldest.                             |
+| `signals.json`            | Weekly                                         | Per-signal `state` + `last_updated_at`. Some sub-signals will be stale faster than others.                    |
+| `data-status.json`        | Daily (or whenever upstream freshness changes) | Flip a source from `FRESH` → `DELAYED` → `STALE` based on the upstream age.                                   |
+| `methodology.json`        | Rare                                           | Only on methodology version bump.                                                                             |
+| `product-disclaimer.json` | Very rare                                      | Only on legal-driven copy change.                                                                             |
 
 **Hard floor:** `regime.json#last_updated_at` MUST be within **14 days** of every CI run. The fixture-drift Vitest test (`pnpm validate:market-data`) fails if it's older — this catches the "we forgot for a month" failure mode.
 
@@ -72,23 +72,23 @@ The iter-2 fixtures at `apps/web/src/lib/analytics-sdk/fixtures/` (including `re
 
 ### `regime.json`
 
-| Field | Constraint |
-|---|---|
-| `score` | Integer 0–14 |
-| `max_score` | Always `14` (don't change) |
-| `regime_code` | One of: `VERY_FAVORABLE`, `CONSTRUCTIVE`, `NEUTRAL_MIXED`, `DEFENSIVE`, `HOSTILE`. The score-to-band mapping table lives in `methodology.json#score_bands` — keep these aligned. |
-| `regime_label` | Free string. Editorial doesn't need to translate this — the page reads localized regime labels from the host's translation files (`packages/i18n/translations/*/market.json`). Keep the English string here aligned with the host's `dashboard.regimeLabels.*` for SDK-shape consistency. |
-| `environment_bias` | One of: `STRONG_ALIGNMENT`, `CONSTRUCTIVE`, `MIXED`, `DEFENSIVE`, `HOSTILE`. Editorial judgment call. |
-| `summary` | Object keyed by locale (`en`, `pt-BR`, `es`, `de`) — see §5 below for the translation workflow. Each locale has `short`, `detailed`, `confidence_level` (`HIGH` / `MODERATE` / `LOW`), `mixed_signals` (boolean), `key_supportive_factors` (array of strings), `key_headwinds` (array of strings). |
-| `signal_groups` | Array of 4 objects: BTC Structure (6 max pts), Macro Environment (3 max pts), Institutional Demand (2 max pts), Relative Strength (3 max pts) = 14 total. Each group has localized `title` + localized `summary`. |
-| `data_status` | Per-source freshness — typically mirrors `data-status.json` (the SDK-shape contract carries it inline on `regime.json` too). |
-| `last_updated_at` | ISO-8601 UTC timestamp. Must be within 14 days of every CI run (staleness gate). |
+| Field              | Constraint                                                                                                                                                                                                                                                                                         |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `score`            | Integer 0–14                                                                                                                                                                                                                                                                                       |
+| `max_score`        | Always `14` (don't change)                                                                                                                                                                                                                                                                         |
+| `regime_code`      | One of: `VERY_FAVORABLE`, `CONSTRUCTIVE`, `NEUTRAL_MIXED`, `DEFENSIVE`, `HOSTILE`. The score-to-band mapping table lives in `methodology.json#score_bands` — keep these aligned.                                                                                                                   |
+| `regime_label`     | Free string. Editorial doesn't need to translate this — the page reads localized regime labels from the host's translation files (`packages/i18n/translations/*/market.json`). Keep the English string here aligned with the host's `dashboard.regimeLabels.*` for SDK-shape consistency.          |
+| `environment_bias` | One of: `STRONG_ALIGNMENT`, `CONSTRUCTIVE`, `MIXED`, `DEFENSIVE`, `HOSTILE`. Editorial judgment call.                                                                                                                                                                                              |
+| `summary`          | Object keyed by locale (`en`, `pt-BR`, `es`, `de`) — see §5 below for the translation workflow. Each locale has `short`, `detailed`, `confidence_level` (`HIGH` / `MODERATE` / `LOW`), `mixed_signals` (boolean), `key_supportive_factors` (array of strings), `key_headwinds` (array of strings). |
+| `signal_groups`    | Array of 4 objects: BTC Structure (6 max pts), Macro Environment (3 max pts), Institutional Demand (2 max pts), Relative Strength (3 max pts) = 14 total. Each group has localized `title` + localized `summary`.                                                                                  |
+| `data_status`      | Per-source freshness — typically mirrors `data-status.json` (the SDK-shape contract carries it inline on `regime.json` too).                                                                                                                                                                       |
+| `last_updated_at`  | ISO-8601 UTC timestamp. Must be within 14 days of every CI run (staleness gate).                                                                                                                                                                                                                   |
 
 ### `historical.json`
 
-| Field | Constraint |
-|---|---|
-| `range` | Always `"1y"` for now |
+| Field       | Constraint                                                                                                 |
+| ----------- | ---------------------------------------------------------------------------------------------------------- |
+| `range`     | Always `"1y"` for now                                                                                      |
 | `snapshots` | Array of 50+ entries, each with `date` (ISO date), `score` (integer 0–14), `regime_code` (the 5-band enum) |
 
 ### `signals.json`
@@ -97,10 +97,10 @@ Same shape as `regime.json#signal_groups` but with the full per-signal array pop
 
 ### `data-status.json`
 
-| Field | Constraint |
-|---|---|
-| `overall_confidence` | `HIGH` / `MODERATE` / `LOW` |
-| `sources[*]` | Each source has `source` (string), `status` (`FRESH` / `STALE` / `DELAYED` / `UNAVAILABLE`), `last_updated_at`, `expected_next_update_at`, `stale_after`, optional `message` |
+| Field                | Constraint                                                                                                                                                                   |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `overall_confidence` | `HIGH` / `MODERATE` / `LOW`                                                                                                                                                  |
+| `sources[*]`         | Each source has `source` (string), `status` (`FRESH` / `STALE` / `DELAYED` / `UNAVAILABLE`), `last_updated_at`, `expected_next_update_at`, `stale_after`, optional `message` |
 
 ### `methodology.json`
 
@@ -178,13 +178,13 @@ On merge, Vercel auto-deploys `main`. The new build inlines your updated JSON in
 
 ### `pnpm validate:market-data` fails locally
 
-| Error pattern | Fix |
-|---|---|
-| `Phase 7 jargon gate FAILED — banned terms found` | Search-replace the flagged term with the digital-dollar phrasing. |
-| `INVALID_JSON` | Open the file in an editor with JSON syntax highlighting; fix the trailing comma / missing quote / etc. |
-| Vitest test fails on locale-key check | One of your locale slots is missing or empty. Restore all 4 locale keys with non-empty strings. |
-| Vitest test fails on `score within [0, 14]` | You set the score outside the valid range. |
-| Vitest test fails on `last_updated_at within 14 days` | Update the timestamp to today (UTC). |
+| Error pattern                                         | Fix                                                                                                     |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `Phase 7 jargon gate FAILED — banned terms found`     | Search-replace the flagged term with the digital-dollar phrasing.                                       |
+| `INVALID_JSON`                                        | Open the file in an editor with JSON syntax highlighting; fix the trailing comma / missing quote / etc. |
+| Vitest test fails on locale-key check                 | One of your locale slots is missing or empty. Restore all 4 locale keys with non-empty strings.         |
+| Vitest test fails on `score within [0, 14]`           | You set the score outside the valid range.                                                              |
+| Vitest test fails on `last_updated_at within 14 days` | Update the timestamp to today (UTC).                                                                    |
 
 ### The PR's CI is red on a check you don't recognize
 

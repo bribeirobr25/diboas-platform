@@ -29,9 +29,6 @@ export default defineConfig({
     options.jsx = 'automatic';
     // Mark all translation JSONs as external — esbuild glob pattern
     // prevents inlining 4 locales x 65+ namespace files into dist
-    options.external = [
-      ...(options.external || []),
-      '../translations/*',
-    ];
+    options.external = [...(options.external || []), '../translations/*'];
   },
 });

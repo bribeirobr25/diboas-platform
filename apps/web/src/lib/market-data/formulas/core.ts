@@ -43,7 +43,7 @@ export function annualToMonthlyRate(annualRate: number): number {
 export function selectInflationRate(
   locale: SupportedLocale,
   horizonMonths: number,
-  inflationRates: InflationRates,
+  inflationRates: InflationRates
 ): number {
   const source = inflationRates.rates[locale];
   return horizonMonths <= 24 ? source.current : source.average5y;
@@ -64,7 +64,7 @@ export function calculateLumpSum(
   principal: number,
   annualRate: number,
   annualInflation: number,
-  years: number,
+  years: number
 ): LumpSumResult {
   const nominalFV = principal * Math.pow(1 + annualRate, years);
   const realFV = nominalFV / Math.pow(1 + annualInflation, years);
@@ -98,7 +98,7 @@ export function calculateMonthlyContributions(
   annualRate: number,
   annualInflation: number,
   months: number,
-  timing: DepositTiming = 'end',
+  timing: DepositTiming = 'end'
 ): MonthlyContributionResult {
   const totalDeposited = monthlyPayment * months;
   const i = annualToMonthlyRate(annualRate);
@@ -110,7 +110,7 @@ export function calculateMonthlyContributions(
   } else {
     nominalFV = monthlyPayment * ((Math.pow(1 + i, months) - 1) / i);
     if (timing === 'beginning') {
-      nominalFV *= (1 + i);
+      nominalFV *= 1 + i;
     }
   }
 
@@ -143,7 +143,7 @@ export function monthsToInflationAdjustedTarget(
   annualRate: number,
   annualInflation: number,
   timing: DepositTiming = 'end',
-  initialAmount: number = 0,
+  initialAmount: number = 0
 ): number {
   if (monthlyPayment <= 0 && initialAmount <= 0) {
     throw new Error('monthlyPayment must be greater than 0 when initialAmount is 0');
@@ -163,9 +163,9 @@ export function monthsToInflationAdjustedTarget(
 
     if (timing === 'beginning') {
       balance += monthlyPayment;
-      balance *= (1 + i);
+      balance *= 1 + i;
     } else {
-      balance *= (1 + i);
+      balance *= 1 + i;
       balance += monthlyPayment;
     }
 
@@ -185,11 +185,7 @@ export function monthsToInflationAdjustedTarget(
  *
  *   purchasingPower = amount / (1 + annualInflation) ** years
  */
-export function purchasingPower(
-  amount: number,
-  years: number,
-  annualInflation: number,
-): number {
+export function purchasingPower(amount: number, years: number, annualInflation: number): number {
   if (years < 0) throw new Error('years must be >= 0');
   return amount / Math.pow(1 + annualInflation, years);
 }
@@ -202,7 +198,7 @@ export function monthsToStaticTarget(
   target: number,
   monthlyPayment: number,
   annualRate: number,
-  timing: DepositTiming = 'end',
+  timing: DepositTiming = 'end'
 ): number {
   if (monthlyPayment <= 0) {
     throw new Error('monthlyPayment must be greater than 0');
@@ -234,7 +230,7 @@ export function calculateFee(
   amount: number,
   feeRate: number,
   minFee: number = 0.25,
-  maxFee: number = 25.00,
+  maxFee: number = 25.0
 ): FeeResult {
   if (feeRate === 0) {
     return { grossAmount: amount, feeAmount: 0, netAmount: amount };
@@ -260,7 +256,7 @@ export function applyPlatformFees(
   entryFeeRate: number,
   exitFeeRate: number,
   minFee: number = 0.25,
-  maxFee: number = 25.00,
+  maxFee: number = 25.0
 ): { principalAfterEntry: number; endAfterExit: number } {
   if (principal === 0) {
     const exit = calculateFee(projectedFutureValue, exitFeeRate, minFee, maxFee);

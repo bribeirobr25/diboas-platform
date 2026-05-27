@@ -13,10 +13,17 @@
 import { Logger } from '@/lib/monitoring/Logger';
 import { logEmailDelivery } from '@/lib/email/deliveryLogger';
 import { CircuitBreaker } from '@/lib/utils/CircuitBreaker';
-type EmailServiceMethod = 'sendWelcome' | 'sendReferralSuccess' | 'sendDeletionConfirmation' | 'sendDeletionComplete';
+type EmailServiceMethod =
+  | 'sendWelcome'
+  | 'sendReferralSuccess'
+  | 'sendDeletionConfirmation'
+  | 'sendDeletionComplete';
 
 /** Type-safe accessor for email service methods that accept (to, data) args */
-type EmailSendFn = (email: string, payload: Record<string, unknown>) => Promise<{ success: boolean; messageId?: string; error?: string }>;
+type EmailSendFn = (
+  email: string,
+  payload: Record<string, unknown>
+) => Promise<{ success: boolean; messageId?: string; error?: string }>;
 
 /** Circuit breaker for the Resend API — opens after 3 consecutive failures, resets after 60s */
 const resendCircuit = new CircuitBreaker({ failureThreshold: 3, resetTimeout: 60_000 });
@@ -51,7 +58,7 @@ async function callWithRetry<T>(fn: () => Promise<T>, maxAttempts = 3): Promise<
       Logger.warn(`[Email] Attempt ${attempt}/${maxAttempts} failed, retrying in ${delay}ms`, {
         error: error instanceof Error ? error.message : String(error),
       });
-      await new Promise(resolve => setTimeout(resolve, delay));
+      await new Promise((resolve) => setTimeout(resolve, delay));
     }
   }
   throw new Error('Unreachable');
@@ -123,6 +130,10 @@ export function sendEmailAsync(options: SendEmailOptions): void {
   };
 
   execute().catch((err) => {
-    Logger.error(`[Email] Failed to send ${template} email`, {}, err instanceof Error ? err : undefined);
+    Logger.error(
+      `[Email] Failed to send ${template} email`,
+      {},
+      err instanceof Error ? err : undefined
+    );
   });
 }

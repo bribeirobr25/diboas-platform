@@ -16,12 +16,7 @@ export function PoweredByAttribution({
   return (
     <p className={`${styles.attribution} ${className ?? ''}`}>
       <span>{label}</span>{' '}
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={styles.link}
-      >
+      <a href={href} target="_blank" rel="noopener noreferrer" className={styles.link}>
         {productName}
       </a>
     </p>

@@ -29,7 +29,9 @@
   border: var(--cta-border-width) solid var(--color-slate-200);
   border-radius: var(--radius-xl);
   padding: var(--spacing-md) var(--spacing-lg);
-  transition: border-color var(--animation-duration-fast) ease, box-shadow var(--animation-duration-fast) ease;
+  transition:
+    border-color var(--animation-duration-fast) ease,
+    box-shadow var(--animation-duration-fast) ease;
 }
 
 .inputWrapper:focus-within {
@@ -95,7 +97,9 @@
   border-radius: var(--radius-full);
   background: var(--color-teal-500);
   cursor: pointer;
-  transition: transform var(--animation-duration-fast) ease, box-shadow var(--animation-duration-fast) ease;
+  transition:
+    transform var(--animation-duration-fast) ease,
+    box-shadow var(--animation-duration-fast) ease;
   box-shadow: 0 2px 8px var(--teal-shadow);
 }
 

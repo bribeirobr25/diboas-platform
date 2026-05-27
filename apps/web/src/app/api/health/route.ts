@@ -35,10 +35,13 @@ interface HealthStatus {
 // Track server start time for uptime calculation
 const serverStartTime = Date.now();
 
-export async function GET(request: NextRequest): Promise<NextResponse<HealthStatus | { status: string } | { error: string }>> {
+export async function GET(
+  request: NextRequest
+): Promise<NextResponse<HealthStatus | { status: string } | { error: string }>> {
   try {
     const rateLimited = await applyRateLimit(request, 'health', 'lenient');
-    if (rateLimited) return rateLimited as NextResponse<HealthStatus | { status: string } | { error: string }>;
+    if (rateLimited)
+      return rateLimited as NextResponse<HealthStatus | { status: string } | { error: string }>;
 
     const [redisHealthy, dbHealthy, memoryUsage] = await Promise.all([
       pingRedis(),
@@ -69,7 +72,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<HealthStat
     if (!isAuthorized) {
       return NextResponse.json(
         { status },
-        { status: httpStatus, headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' } },
+        { status: httpStatus, headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' } }
       );
     }
 
@@ -99,10 +102,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<HealthStat
       },
     });
   } catch {
-    return NextResponse.json(
-      { error: 'Health check failed' },
-      { status: 503 }
-    );
+    return NextResponse.json({ error: 'Health check failed' }, { status: 503 });
   }
 }
 

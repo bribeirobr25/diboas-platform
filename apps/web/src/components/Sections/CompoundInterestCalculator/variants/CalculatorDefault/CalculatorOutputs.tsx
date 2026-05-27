@@ -22,7 +22,11 @@ interface CalculatorOutputsProps {
   engine?: 'lesson' | 'tool';
 }
 
-export function CalculatorOutputs({ output, reducedMotion, engine = 'lesson' }: CalculatorOutputsProps) {
+export function CalculatorOutputs({
+  output,
+  reducedMotion,
+  engine = 'lesson',
+}: CalculatorOutputsProps) {
   const intl = useTranslation();
   const { series, highlightedScenario, monthlyEquivalent, inputEcho } = output;
 
@@ -39,12 +43,10 @@ export function CalculatorOutputs({ output, reducedMotion, engine = 'lesson' }: 
     },
     {
       years: inputEcho.years,
-      amount: formatCurrency(
-        oneTime ? inputEcho.amount : monthlyEquivalent,
-        inputEcho.locale,
-        { maximumFractionDigits: 0 },
-      ),
-    },
+      amount: formatCurrency(oneTime ? inputEcho.amount : monthlyEquivalent, inputEcho.locale, {
+        maximumFractionDigits: 0,
+      }),
+    }
   );
 
   // Phase-7 Q2(A) + plan §5.2 — append "digital dollar" suffix to non-USD
@@ -93,11 +95,13 @@ export function CalculatorOutputs({ output, reducedMotion, engine = 'lesson' }: 
         ariaLabel={chartAriaLabel}
         scenarioLabels={scenarioLabels}
         tableLabels={{
-          scenario: intl.formatMessage({ id: 'learn-compound-interest.calculator.tableHeaderScenario' }),
+          scenario: intl.formatMessage({
+            id: 'learn-compound-interest.calculator.tableHeaderScenario',
+          }),
           rate: intl.formatMessage({ id: 'learn-compound-interest.calculator.tableHeaderRate' }),
           total: intl.formatMessage(
             { id: 'learn-compound-interest.calculator.tableHeaderTotal' },
-            { years: inputEcho.years },
+            { years: inputEcho.years }
           ),
         }}
       />
@@ -124,7 +128,9 @@ export function CalculatorOutputs({ output, reducedMotion, engine = 'lesson' }: 
                   </span>
                 )}
               </span>
-              <span className={styles.legendValue}>{formatCurrency(s.finalValue, inputEcho.locale)}</span>
+              <span className={styles.legendValue}>
+                {formatCurrency(s.finalValue, inputEcho.locale)}
+              </span>
             </li>
           );
         })}

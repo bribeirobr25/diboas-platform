@@ -48,8 +48,7 @@ export const GoalExampleCard = memo(function GoalExampleCard({
   const t = (suffix: string, values?: Record<string, string | number>) =>
     intl.formatMessage({ id: `landing-b2c.goalExamples.cards.${cardKey}.${suffix}` }, values);
 
-  const tShared = (key: string) =>
-    intl.formatMessage({ id: `landing-b2c.goalExamples.${key}` });
+  const tShared = (key: string) => intl.formatMessage({ id: `landing-b2c.goalExamples.${key}` });
 
   const expandLabel = intl.formatMessage({ id: 'common.expandable.showMore' });
   const collapseLabel = intl.formatMessage({ id: 'common.expandable.showLess' });
@@ -101,7 +100,9 @@ export const GoalExampleCard = memo(function GoalExampleCard({
         <p className={styles.resultLabel}>{tShared('withDiboas')}</p>
         <p className={styles.resultValue}>
           {computed.diboasResult}
-          {computed.diboasTime ? <span className={styles.resultTime}> {computed.diboasTime}</span> : null}
+          {computed.diboasTime ? (
+            <span className={styles.resultTime}> {computed.diboasTime}</span>
+          ) : null}
         </p>
       </div>
 
@@ -109,7 +110,9 @@ export const GoalExampleCard = memo(function GoalExampleCard({
         <p className={styles.resultLabel}>{tShared('yourBank')}</p>
         <p className={styles.resultValueBank}>
           {computed.bankResult}
-          {computed.bankTime ? <span className={styles.resultTime}> {computed.bankTime}</span> : null}
+          {computed.bankTime ? (
+            <span className={styles.resultTime}> {computed.bankTime}</span>
+          ) : null}
         </p>
       </div>
 
@@ -122,30 +125,20 @@ export const GoalExampleCard = memo(function GoalExampleCard({
       <p className={styles.bankSource}>
         {/* Phase 7 PR-2 (2026-05-18): bank rate sourced from marketDataService
             single source of truth, NOT a translation-string literal. */}
-        {t('bankSource', { rate: formatRate(marketDataService.getSync().rates.bankRates[locale].savings, locale) })}
+        {t('bankSource', {
+          rate: formatRate(marketDataService.getSync().rates.bankRates[locale].savings, locale),
+        })}
       </p>
 
       <div className={styles.links}>
-        <button
-          type="button"
-          className={styles.link}
-          onClick={handleTryWithNumbers}
-        >
+        <button type="button" className={styles.link} onClick={handleTryWithNumbers}>
           {t('seeAnother')}
         </button>
-        <button
-          type="button"
-          className={styles.link}
-          onClick={handleHowPossible}
-        >
+        <button type="button" className={styles.link} onClick={handleHowPossible}>
           {t('howPossible')}
         </button>
         {TOOL_LINK_BY_GOAL[cardKey] && (
-          <LocaleLink
-            href={TOOL_LINK_BY_GOAL[cardKey]!}
-            className={styles.link}
-            prefetch={false}
-          >
+          <LocaleLink href={TOOL_LINK_BY_GOAL[cardKey]!} className={styles.link} prefetch={false}>
             {tShared('openStandaloneTool')}
           </LocaleLink>
         )}

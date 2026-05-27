@@ -39,7 +39,7 @@ export function UsdEquivalentBadge({ amount, locale, className }: UsdEquivalentB
     <span className={className}>
       {intl.formatMessage(
         { id: 'tools-shared.labels.usdEquivalent' },
-        { usd: formatCurrency(usd, 'en', { maximumFractionDigits: 0 }) },
+        { usd: formatCurrency(usd, 'en', { maximumFractionDigits: 0 }) }
       )}
     </span>
   );

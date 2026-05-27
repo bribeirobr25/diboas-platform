@@ -1,214 +1,18 @@
 /**
- * Phase E — Asset History calculator unit tests.
+ * Phase E v2 — Asset History calculator unit tests (DCA monthly OHLC replay
+ * + cross-currency FX path).
  *
- * Cross-validates the math against research doc Parts 1 + 2 anchor tables
- * and Part 1's BTC 2010 DCA range ($500M–$1.5B for $100/month).
+ * Cross-validates the math against research doc + the audit-bundle test
+ * vectors. Legacy `calculateAssetHistory` tests (Phase E v1, anchor-table
+ * engine) were removed on 2026-05-25 alongside the legacy engine itself —
+ * the live tool only uses `calculateAssetHistoryDcaReplay` and
+ * `calculateAssetHistoryLumpSum` since the v1.4 BTC-CoinMetrics backfill
+ * eliminated the v1 anchor-table fallback (C19 close).
  */
 
 import { describe, it, expect, beforeAll } from 'vitest';
-import { calculateAssetHistory, calculateAssetHistoryDcaReplay, AssetHistoryDataError } from '../calculator';
+import { calculateAssetHistoryDcaReplay, AssetHistoryDataError } from '../calculator';
 import { marketDataService } from '@/lib/market-data';
-
-describe('calculateAssetHistory — lump sum (research Parts 1+2 ratios)', () => {
-  it('BTC 2010 lump sum $100 returns ~$114M (Part 1: $0.07 → $80,000)', () => {
-    const result = calculateAssetHistory({
-      asset: 'BTC',
-      startYear: 2010,
-      mode: 'lumpSum',
-      amount: 100,
-    });
-    expect(result.terminalValue).not.toBeNull();
-    expect(result.terminalValue!).toBeGreaterThan(110_000_000);
-    expect(result.terminalValue!).toBeLessThan(120_000_000);
-    expect(result.confidence).toBe('MEDIUM'); // BTC 2010 anchor is MEDIUM
-  });
-
-  it('S&P 500 2010 lump sum $100 returns ~$718 (Part 1: 1030 → 7400)', () => {
-    const result = calculateAssetHistory({
-      asset: 'SP500',
-      startYear: 2010,
-      mode: 'lumpSum',
-      amount: 100,
-    });
-    expect(result.terminalValue!).toBeCloseTo(718, 0);
-    expect(result.confidence).toBe('MEDIUM'); // 2026 endpoint is MEDIUM
-  });
-
-  it('Gold 2010 lump sum $100 returns ~$392 (Part 1: 1200 → 4700)', () => {
-    const result = calculateAssetHistory({
-      asset: 'GOLD',
-      startYear: 2010,
-      mode: 'lumpSum',
-      amount: 100,
-    });
-    expect(result.terminalValue!).toBeCloseTo(392, 0);
-  });
-
-  it('TLT 2016 lump sum $100 returns ~$90 (Part 2: 94 → 85, slight loss)', () => {
-    const result = calculateAssetHistory({
-      asset: 'TLT',
-      startYear: 2016,
-      mode: 'lumpSum',
-      amount: 100,
-    });
-    expect(result.terminalValue!).toBeCloseTo(90, 0);
-  });
-});
-
-describe('calculateAssetHistory — DCA (research-validated terminals)', () => {
-  it('BTC 2010 DCA $100/mo returns LOW-confidence RANGE $500M–$1.5B (M6 lock)', () => {
-    const result = calculateAssetHistory({
-      asset: 'BTC',
-      startYear: 2010,
-      mode: 'monthlyDca',
-      amount: 100,
-    });
-    expect(result.terminalValue).toBeNull();
-    expect(result.confidence).toBe('LOW');
-    expect(result.rangeLow).toBe(500_000_000);
-    expect(result.rangeHigh).toBe(1_500_000_000);
-  });
-
-  it('BTC 2010 DCA RANGE scales linearly with contribution amount', () => {
-    const result = calculateAssetHistory({
-      asset: 'BTC',
-      startYear: 2010,
-      mode: 'monthlyDca',
-      amount: 250,
-    });
-    expect(result.rangeLow).toBe(500_000_000 * 2.5);
-    expect(result.rangeHigh).toBe(1_500_000_000 * 2.5);
-  });
-
-  it('BTC 2016 DCA $100/mo returns ~$200,000 (research Part 2)', () => {
-    const result = calculateAssetHistory({
-      asset: 'BTC',
-      startYear: 2016,
-      mode: 'monthlyDca',
-      amount: 100,
-    });
-    expect(result.terminalValue).toBe(200_000);
-    expect(result.confidence).toBe('MEDIUM'); // BTC always MEDIUM for DCA
-  });
-
-  it('S&P 500 2010 DCA $100/mo returns ~$66,000 (research Part 1)', () => {
-    const result = calculateAssetHistory({
-      asset: 'SP500',
-      startYear: 2010,
-      mode: 'monthlyDca',
-      amount: 100,
-    });
-    expect(result.terminalValue).toBe(66_000);
-  });
-
-  it('QQQ 2016 DCA $100/mo returns ~$28,000 (research Part 2)', () => {
-    const result = calculateAssetHistory({
-      asset: 'QQQ',
-      startYear: 2016,
-      mode: 'monthlyDca',
-      amount: 100,
-    });
-    expect(result.terminalValue).toBe(28_000);
-  });
-
-  it('DCA terminals scale linearly with user-provided amount', () => {
-    const result200 = calculateAssetHistory({
-      asset: 'SP500',
-      startYear: 2010,
-      mode: 'monthlyDca',
-      amount: 200,
-    });
-    // SP500 2010 DCA per $100 = $66,000; per $200 = $132,000
-    expect(result200.terminalValue).toBe(132_000);
-  });
-});
-
-describe('calculateAssetHistory — anchor / month accuracy', () => {
-  it('months from Jul 2010 to May 2026 = 190 (research Part 1)', () => {
-    const result = calculateAssetHistory({
-      asset: 'SP500',
-      startYear: 2010,
-      mode: 'monthlyDca',
-      amount: 100,
-    });
-    expect(result.months).toBe(190);
-  });
-
-  it('months from Mar 2016 to May 2026 = 122 (research Part 2)', () => {
-    const result = calculateAssetHistory({
-      asset: 'SP500',
-      startYear: 2016,
-      mode: 'monthlyDca',
-      amount: 100,
-    });
-    expect(result.months).toBe(122);
-  });
-
-  it('totalContributed for DCA = amount × months', () => {
-    const result = calculateAssetHistory({
-      asset: 'SP500',
-      startYear: 2010,
-      mode: 'monthlyDca',
-      amount: 100,
-    });
-    expect(result.totalContributed).toBe(19_000); // $100 × 190
-  });
-});
-
-describe('calculateAssetHistory — currency reporting', () => {
-  it('Ibovespa reports anchors in BRL', () => {
-    const result = calculateAssetHistory({
-      asset: 'IBOVESPA',
-      startYear: 2010,
-      mode: 'lumpSum',
-      amount: 100,
-    });
-    expect(result.startAnchor.currency).toBe('BRL');
-    expect(result.endAnchor.currency).toBe('BRL');
-  });
-
-  it('DAX reports anchors in EUR', () => {
-    const result = calculateAssetHistory({
-      asset: 'DAX',
-      startYear: 2016,
-      mode: 'lumpSum',
-      amount: 100,
-    });
-    expect(result.startAnchor.currency).toBe('EUR');
-    expect(result.endAnchor.currency).toBe('EUR');
-  });
-});
-
-describe('calculateAssetHistory — error cases', () => {
-  it('throws AssetHistoryDataError when asset has no DCA terminal value', () => {
-    // This guard fires if we ever lose a DCA terminal entry in DCA_TERMINAL_PER_100.
-    // Trivially asserts the data table covers all valid (asset, year) combos.
-    // To trip the throw: would require mutating DCA_TERMINAL_PER_100 at runtime.
-    // Instead we exhaustively verify every valid combination returns a number.
-    const assets = ['BTC', 'SP500', 'QQQ', 'MSCI_WORLD', 'GOLD', 'TLT', 'IBOVESPA', 'DAX'] as const;
-    const startYears = [2010, 2016] as const;
-    for (const asset of assets) {
-      for (const startYear of startYears) {
-        const fn = () =>
-          calculateAssetHistory({ asset, startYear, mode: 'monthlyDca', amount: 100 });
-        // BTC 2010 returns LOW-confidence range; others return a number.
-        if (asset === 'BTC' && startYear === 2010) {
-          expect(fn().terminalValue).toBeNull();
-        } else {
-          expect(fn().terminalValue).toBeGreaterThan(0);
-        }
-      }
-    }
-  });
-
-  it('error class is AssetHistoryDataError', () => {
-    const err = new AssetHistoryDataError('test');
-    expect(err.name).toBe('AssetHistoryDataError');
-    expect(err.message).toContain('Asset history data unavailable');
-  });
-});
-
-// ─── Phase E v2 (TOOLS_IMPROVEMENT.md, 2026-05-23) — DCA monthly replay ───
 
 describe('calculateAssetHistoryDcaReplay — Phase E v2 monthly OHLC replay', () => {
   beforeAll(async () => {
@@ -259,8 +63,18 @@ describe('calculateAssetHistoryDcaReplay — Phase E v2 monthly OHLC replay', ()
   });
 
   it('PT2 toggle: total-return vs price-only basis produces different magnitudes for SP500', () => {
-    const tr = calculateAssetHistoryDcaReplay({ asset: 'SP500', startYear: 2015, amount: 100, returnsBasis: 'total_return' });
-    const price = calculateAssetHistoryDcaReplay({ asset: 'SP500', startYear: 2015, amount: 100, returnsBasis: 'price_only' });
+    const tr = calculateAssetHistoryDcaReplay({
+      asset: 'SP500',
+      startYear: 2015,
+      amount: 100,
+      returnsBasis: 'total_return',
+    });
+    const price = calculateAssetHistoryDcaReplay({
+      asset: 'SP500',
+      startYear: 2015,
+      amount: 100,
+      returnsBasis: 'price_only',
+    });
     // Total return > price-only (dividends-reinvested adds growth)
     expect(tr.terminalValue).toBeGreaterThan(price.terminalValue);
     // For 10y window dividend yield ~2% reinvested ≈ 20-25% delta
@@ -286,14 +100,19 @@ describe('calculateAssetHistoryDcaReplay — Phase E v2 monthly OHLC replay', ()
     for (const asset of assets) {
       for (const startYear of startYears) {
         for (const basis of bases) {
-          const result = calculateAssetHistoryDcaReplay({ asset, startYear, amount: 100, returnsBasis: basis });
+          const result = calculateAssetHistoryDcaReplay({
+            asset,
+            startYear,
+            amount: 100,
+            returnsBasis: basis,
+          });
           expect(
             result.rangeLow,
-            `${asset} ${startYear} ${basis}: rangeLow ${result.rangeLow} > terminal ${result.terminalValue}`,
+            `${asset} ${startYear} ${basis}: rangeLow ${result.rangeLow} > terminal ${result.terminalValue}`
           ).toBeLessThanOrEqual(result.terminalValue);
           expect(
             result.rangeHigh,
-            `${asset} ${startYear} ${basis}: rangeHigh ${result.rangeHigh} < terminal ${result.terminalValue}`,
+            `${asset} ${startYear} ${basis}: rangeHigh ${result.rangeHigh} < terminal ${result.terminalValue}`
           ).toBeGreaterThanOrEqual(result.terminalValue);
         }
       }
@@ -312,8 +131,18 @@ describe('calculateAssetHistoryDcaReplay — cross-currency FX-path (2026-05-23)
   });
 
   it('pt-BR user investing R$ in USD-priced SP500: BRL→USD→BRL produces larger gain than USD baseline (BRL depreciated)', () => {
-    const usd = calculateAssetHistoryDcaReplay({ asset: 'SP500', startYear: 2016, amount: 100, displayCurrency: 'USD' });
-    const brl = calculateAssetHistoryDcaReplay({ asset: 'SP500', startYear: 2016, amount: 500, displayCurrency: 'BRL' });
+    const usd = calculateAssetHistoryDcaReplay({
+      asset: 'SP500',
+      startYear: 2016,
+      amount: 100,
+      displayCurrency: 'USD',
+    });
+    const brl = calculateAssetHistoryDcaReplay({
+      asset: 'SP500',
+      startYear: 2016,
+      amount: 500,
+      displayCurrency: 'BRL',
+    });
     // Both should produce positive results
     expect(usd.terminalValue).toBeGreaterThan(0);
     expect(brl.terminalValue).toBeGreaterThan(0);
@@ -327,8 +156,18 @@ describe('calculateAssetHistoryDcaReplay — cross-currency FX-path (2026-05-23)
   });
 
   it('en user investing $ in BRL-priced IBOVESPA: USD→BRL→USD produces a smaller terminal than the equivalent pt-BR view (USD strengthened vs BRL)', () => {
-    const enUsd = calculateAssetHistoryDcaReplay({ asset: 'IBOVESPA', startYear: 2016, amount: 100, displayCurrency: 'USD' });
-    const ptbrBrl = calculateAssetHistoryDcaReplay({ asset: 'IBOVESPA', startYear: 2016, amount: 500, displayCurrency: 'BRL' });
+    const enUsd = calculateAssetHistoryDcaReplay({
+      asset: 'IBOVESPA',
+      startYear: 2016,
+      amount: 100,
+      displayCurrency: 'USD',
+    });
+    const ptbrBrl = calculateAssetHistoryDcaReplay({
+      asset: 'IBOVESPA',
+      startYear: 2016,
+      amount: 500,
+      displayCurrency: 'BRL',
+    });
     // BRL native asset: no FX for pt-BR; en gets USD-converted result.
     expect(enUsd.terminalValue).toBeGreaterThan(0);
     expect(ptbrBrl.terminalValue).toBeGreaterThan(0);
@@ -340,7 +179,12 @@ describe('calculateAssetHistoryDcaReplay — cross-currency FX-path (2026-05-23)
   });
 
   it('de user investing € in EUR-priced DAX: same-currency case is a no-op (no FX conversion applied)', () => {
-    const eur = calculateAssetHistoryDcaReplay({ asset: 'DAX', startYear: 2016, amount: 100, displayCurrency: 'EUR' });
+    const eur = calculateAssetHistoryDcaReplay({
+      asset: 'DAX',
+      startYear: 2016,
+      amount: 100,
+      displayCurrency: 'EUR',
+    });
     const noCcy = calculateAssetHistoryDcaReplay({ asset: 'DAX', startYear: 2016, amount: 100 });
     // displayCurrency defaults to USD when omitted. DAX is EUR-native; without FX data the two paths
     // produce different terminals. With displayCurrency=EUR they should match the same-currency no-conversion result.
@@ -354,7 +198,12 @@ describe('calculateAssetHistoryDcaReplay — cross-currency FX-path (2026-05-23)
   });
 
   it('pt-BR user investing R$ in EUR-priced DAX: cross-rate via USD (BRL→USD→EUR for inflows, EUR→USD→BRL for terminal)', () => {
-    const brl = calculateAssetHistoryDcaReplay({ asset: 'DAX', startYear: 2016, amount: 500, displayCurrency: 'BRL' });
+    const brl = calculateAssetHistoryDcaReplay({
+      asset: 'DAX',
+      startYear: 2016,
+      amount: 500,
+      displayCurrency: 'BRL',
+    });
     expect(brl.terminalValue).toBeGreaterThan(0);
     // Sanity: DCA terminal should be > 0 but bounded by realistic multiples of contributed
     expect(brl.terminalValue).toBeGreaterThan(brl.totalContributed * 0.5);
@@ -367,9 +216,13 @@ describe('calculateAssetHistoryDcaReplay — cross-currency FX-path (2026-05-23)
   it('FX forward-fill: requesting a month outside the FX series uses the latest available rate (no throw)', () => {
     // SP500 latest month is 2026-05; EUR FX may end at 2026-04 (1-month lag from ECB).
     // The calculator must forward-fill to use 2026-04 EUR for the 2026-05 terminal conversion.
-    const eur = calculateAssetHistoryDcaReplay({ asset: 'SP500', startYear: 2016, amount: 100, displayCurrency: 'EUR' });
+    const eur = calculateAssetHistoryDcaReplay({
+      asset: 'SP500',
+      startYear: 2016,
+      amount: 100,
+      displayCurrency: 'EUR',
+    });
     expect(eur.terminalValue).toBeGreaterThan(0);
     expect(Number.isFinite(eur.terminalValue)).toBe(true);
   });
 });
-

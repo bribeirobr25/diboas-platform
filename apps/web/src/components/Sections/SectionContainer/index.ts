@@ -9,5 +9,5 @@ export type {
   SectionContainerProps,
   ContainerVariant,
   PaddingVariant,
-  SectionElement
+  SectionElement,
 } from './types';
