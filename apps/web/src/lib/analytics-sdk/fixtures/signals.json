@@ -1,5 +1,5 @@
 {
-  "_comment": "11 canonical signals, organized into 4 groups matching the 14-point methodology in doc 03 §3. Bilingual short summary on each. Storybook fixture for SignalCard / SignalGroup variants.",
+  "_comment": "Engineering Storybook + drift-test reference fixture for SignalCard / SignalGroup variants. Mirrors the doc-02 §8 canonical 11-signal registry (was the iter-3 13-signal placeholder taxonomy; aligned 2026-05-29 per D1). Signal states are MIXED varied across the file to give Storybook coverage of ACTIVE / INACTIVE / STALE / UNAVAILABLE / ERROR rendering — this is NOT a live snapshot. For live editorial state see apps/web/data/market/signals.json.",
   "groups": [
     {
       "id": "btc_structure",
@@ -11,7 +11,7 @@
         "de": "BTC-Struktur"
       },
       "status": "CONSTRUCTIVE",
-      "points_awarded": 6,
+      "points_awarded": 5,
       "max_points": 6,
       "summary": {
         "en": "Bitcoin structure remains supportive.",
@@ -21,104 +21,80 @@
       },
       "signals": [
         {
-          "id": "btc_price_vs_long_term_ma",
-          "category": "BTC_STRUCTURE",
+          "id": "BTC-01",
           "title": {
-            "en": "BTC vs. long-term moving average",
-            "pt-BR": "BTC vs. média móvel de longo prazo",
-            "es": "BTC vs. media móvil de largo plazo",
-            "de": "BTC vs. langfristiger gleitender Durchschnitt"
+            "en": "BTC Above 20-Month EMA",
+            "pt-BR": "BTC acima da EMA de 20 meses",
+            "es": "BTC por encima de la EMA de 20 meses",
+            "de": "BTC über der 20-Monats-EMA"
           },
-          "state": "ABOVE_LONG_TERM_MA",
-          "points_awarded": 1,
-          "max_points": 1,
-          "summary": {
-            "en": "Bitcoin remains above its long-term moving average.",
-            "pt-BR": "O Bitcoin permanece acima da sua média móvel de longo prazo.",
-            "es": "Bitcoin se mantiene sobre su media móvel de largo plazo.",
-            "de": "Bitcoin bleibt oberhalb seines langfristigen gleitenden Durchschnitts."
-          },
-          "last_updated_at": "2026-05-14T00:05:00Z"
-        },
-        {
-          "id": "btc_drawdown_from_ath",
-          "category": "BTC_STRUCTURE",
-          "title": {
-            "en": "BTC drawdown from ATH",
-            "pt-BR": "Drawdown do BTC desde a máxima histórica",
-            "es": "Caída del BTC desde su máximo histórico",
-            "de": "BTC-Rückgang vom Allzeithoch"
-          },
-          "state": "SHALLOW_DRAWDOWN",
-          "points_awarded": 1,
-          "max_points": 1,
-          "summary": {
-            "en": "Bitcoin sits within a shallow drawdown from its all-time high.",
-            "pt-BR": "O Bitcoin opera com correção rasa em relação ao topo histórico.",
-            "es": "Bitcoin opera con una corrección leve respecto a su máximo histórico.",
-            "de": "Bitcoin notiert in einem flachen Rückgang gegenüber dem Allzeithoch."
-          },
-          "last_updated_at": "2026-05-14T00:05:00Z"
-        },
-        {
-          "id": "btc_trend_slope",
-          "category": "BTC_STRUCTURE",
-          "title": {
-            "en": "BTC trend slope",
-            "pt-BR": "Inclinação da tendência do BTC",
-            "es": "Pendiente de la tendencia del BTC",
-            "de": "BTC-Trendsteigung"
-          },
-          "state": "POSITIVE_SLOPE",
+          "state": "ACTIVE",
           "points_awarded": 2,
           "max_points": 2,
           "summary": {
-            "en": "The medium-term trend slope remains positive.",
-            "pt-BR": "A inclinação da tendência de médio prazo permanece positiva.",
-            "es": "La pendiente de la tendencia de mediano plazo se mantiene positiva.",
-            "de": "Die mittelfristige Trendsteigung bleibt positiv."
+            "en": "Monthly close above the 20-month EMA — intermediate-term structure supportive.",
+            "pt-BR": "Fechamento mensal acima da EMA de 20 meses — estrutura de médio prazo favorável.",
+            "es": "Cierre mensual por encima de la EMA de 20 meses — estructura de plazo intermedio favorable.",
+            "de": "Monatsschluss über der 20-Monats-EMA — mittelfristige Struktur stützend."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-04-30T00:00:00Z"
         },
         {
-          "id": "btc_volatility",
-          "category": "BTC_STRUCTURE",
+          "id": "BTC-02",
           "title": {
-            "en": "BTC volatility",
-            "pt-BR": "Volatilidade do BTC",
-            "es": "Volatilidad del BTC",
-            "de": "BTC-Volatilität"
+            "en": "BTC Above 50-Month SMA",
+            "pt-BR": "BTC acima da SMA de 50 meses",
+            "es": "BTC por encima de la SMA de 50 meses",
+            "de": "BTC über der 50-Monats-SMA"
           },
-          "state": "NORMAL_RANGE",
+          "state": "ACTIVE",
+          "points_awarded": 2,
+          "max_points": 2,
+          "summary": {
+            "en": "Monthly close above the 50-month SMA — long-term structural trend intact.",
+            "pt-BR": "Fechamento mensal acima da SMA de 50 meses — tendência estrutural de longo prazo intacta.",
+            "es": "Cierre mensual por encima de la SMA de 50 meses — tendencia estructural de largo plazo intacta.",
+            "de": "Monatsschluss über der 50-Monats-SMA — langfristiger struktureller Trend intakt."
+          },
+          "last_updated_at": "2026-04-30T00:00:00Z"
+        },
+        {
+          "id": "BTC-03",
+          "title": {
+            "en": "Monthly RSI Improving",
+            "pt-BR": "RSI mensal melhorando",
+            "es": "RSI mensual mejorando",
+            "de": "Monatlicher RSI verbessert sich"
+          },
+          "state": "ACTIVE",
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "Realized volatility sits within its long-term range.",
-            "pt-BR": "A volatilidade realizada está dentro da sua faixa de longo prazo.",
-            "es": "La volatilidad realizada está dentro de su rango de largo plazo.",
-            "de": "Die realisierte Volatilität liegt in ihrem langfristigen Bereich."
+            "en": "Monthly RSI(14) above previous month — momentum improving.",
+            "pt-BR": "RSI(14) mensal acima do mês anterior — momentum melhorando.",
+            "es": "RSI(14) mensual por encima del mes anterior — momentum mejorando.",
+            "de": "Monatlicher RSI(14) über dem Vormonat — Momentum verbessert sich."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-04-30T00:00:00Z"
         },
         {
-          "id": "btc_market_breadth",
-          "category": "BTC_STRUCTURE",
+          "id": "BTC-04",
           "title": {
-            "en": "BTC market breadth",
-            "pt-BR": "Amplitude do mercado BTC",
-            "es": "Amplitud del mercado BTC",
-            "de": "BTC-Marktbreite"
+            "en": "Monthly Stoch-RSI Recovery",
+            "pt-BR": "Recuperação do Stoch-RSI mensal",
+            "es": "Recuperación del Stoch-RSI mensual",
+            "de": "Monatliche Stoch-RSI-Erholung"
           },
-          "state": "BROADLY_PARTICIPATING",
-          "points_awarded": 1,
+          "state": "INACTIVE",
+          "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "Most large-cap assets are participating with Bitcoin.",
-            "pt-BR": "A maioria dos ativos de grande capitalização acompanha o Bitcoin.",
-            "es": "La mayoría de los activos de gran capitalización acompaña a Bitcoin.",
-            "de": "Die meisten Werte mit hoher Marktkapitalisierung bewegen sich im Einklang mit Bitcoin."
+            "en": "Monthly Stoch-RSI %K below the 10 threshold — short-term momentum has not lifted from oversold.",
+            "pt-BR": "%K do Stoch-RSI mensal abaixo do limite de 10 — momentum de curto prazo não saiu do sobrevendido.",
+            "es": "%K del Stoch-RSI mensual por debajo del umbral de 10 — momentum de corto plazo no se ha recuperado del sobreventa.",
+            "de": "Monatlicher Stoch-RSI %K unter der 10-Schwelle — kurzfristiges Momentum hat sich nicht aus der Überverkauft-Zone gelöst."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-04-30T00:00:00Z"
         }
       ]
     },
@@ -142,64 +118,61 @@
       },
       "signals": [
         {
-          "id": "dxy_dollar_index",
-          "category": "MACRO_ENVIRONMENT",
+          "id": "MAC-01",
           "title": {
-            "en": "US dollar index",
-            "pt-BR": "Índice do dólar",
-            "es": "Índice del dólar",
-            "de": "US-Dollar-Index"
+            "en": "DXY Weakness",
+            "pt-BR": "Fraqueza do DXY",
+            "es": "Debilidad del DXY",
+            "de": "Dollar-Schwäche (DXY)"
           },
-          "state": "FLAT",
+          "state": "INACTIVE",
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "The dollar index remains range-bound.",
-            "pt-BR": "O índice do dólar permanece em faixa estreita.",
-            "es": "El índice del dólar se mantiene en rango estrecho.",
-            "de": "Der Dollarindex bleibt in einer engen Spanne."
+            "en": "DXY weekly close above 20-week EMA — dollar remains firm.",
+            "pt-BR": "Fechamento semanal do DXY acima da EMA de 20 semanas — dólar segue firme.",
+            "es": "Cierre semanal del DXY por encima de la EMA de 20 semanas — el dólar sigue firme.",
+            "de": "DXY-Wochenschluss über der 20-Wochen-EMA — Dollar bleibt fest."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-05-22T00:00:00Z"
         },
         {
-          "id": "us_10y_yield",
-          "category": "MACRO_ENVIRONMENT",
+          "id": "MAC-02",
           "title": {
-            "en": "US 10-year yield",
-            "pt-BR": "Taxa de 10 anos dos EUA",
-            "es": "Tasa a 10 años de EE. UU.",
-            "de": "US 10-jährige Rendite"
+            "en": "US 10-Year Yield Easing",
+            "pt-BR": "Afrouxamento do Tesouro americano de 10 anos",
+            "es": "Distensión del bono del Tesoro a 10 años de EE. UU.",
+            "de": "US-10-Jahres-Rendite-Entspannung"
           },
-          "state": "ELEVATED",
+          "state": "INACTIVE",
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "The 10-year yield remains elevated.",
-            "pt-BR": "A taxa de 10 anos permanece elevada.",
-            "es": "La tasa a 10 años se mantiene elevada.",
-            "de": "Die 10-jährige Rendite bleibt erhöht."
+            "en": "US 10-year yield above 20-week EMA — yields remain elevated.",
+            "pt-BR": "Rendimento do Tesouro americano de 10 anos acima da EMA de 20 semanas — rendimentos seguem elevados.",
+            "es": "Rendimiento del Tesoro a 10 años por encima de la EMA de 20 semanas — los rendimientos siguen elevados.",
+            "de": "US-10-Jahres-Rendite über der 20-Wochen-EMA — Renditen bleiben erhöht."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-05-22T00:00:00Z"
         },
         {
-          "id": "global_liquidity_m2",
-          "category": "MACRO_ENVIRONMENT",
+          "id": "MAC-03",
           "title": {
-            "en": "Global liquidity (M2)",
-            "pt-BR": "Liquidez global (M2)",
-            "es": "Liquidez global (M2)",
-            "de": "Globale Liquidität (M2)"
+            "en": "Global M2 Improving",
+            "pt-BR": "M2 global melhorando",
+            "es": "M2 global mejorando",
+            "de": "Globales M2 verbessert sich"
           },
-          "state": "EXPANDING",
+          "state": "ACTIVE",
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "Global liquidity continues to expand slowly.",
-            "pt-BR": "A liquidez global continua se expandindo lentamente.",
-            "es": "La liquidez global continúa expandiéndose lentamente.",
-            "de": "Die globale Liquidität expandiert weiterhin langsam."
+            "en": "M2 12-month rate-of-change positive and month-over-month positive — liquidity expanding.",
+            "pt-BR": "Taxa de variação de 12 meses do M2 positiva e variação mês a mês positiva — liquidez se expandindo.",
+            "es": "Tasa de variación a 12 meses del M2 positiva y variación mes a mes positiva — liquidez expandiéndose.",
+            "de": "12-Monats-Veränderungsrate des M2 positiv und Monatsveränderung positiv — Liquidität expandiert."
           },
-          "last_updated_at": "2026-04-20T00:00:00Z"
+          "last_updated_at": "2026-04-01T00:00:00Z"
         }
       ]
     },
@@ -223,44 +196,23 @@
       },
       "signals": [
         {
-          "id": "etf_net_flows",
-          "category": "INSTITUTIONAL_DEMAND",
+          "id": "ETF-01",
           "title": {
-            "en": "Spot BTC ETF net flows",
-            "pt-BR": "Fluxos líquidos de ETFs de BTC à vista",
-            "es": "Flujos netos de ETFs de BTC al contado",
-            "de": "Spot-BTC-ETF-Nettomittelflüsse"
+            "en": "Positive ETF Flows",
+            "pt-BR": "Fluxos positivos para ETFs",
+            "es": "Flujos positivos hacia ETFs",
+            "de": "Positive ETF-Zuflüsse"
           },
-          "state": "POSITIVE_FLOWS",
-          "points_awarded": 1,
-          "max_points": 1,
+          "state": "ACTIVE",
+          "points_awarded": 2,
+          "max_points": 2,
           "summary": {
-            "en": "Spot BTC ETFs continue to attract net positive flows.",
-            "pt-BR": "Os ETFs de BTC à vista seguem atraindo fluxos líquidos positivos.",
-            "es": "Los ETFs de BTC al contado siguen atrayendo flujos netos positivos.",
-            "de": "Spot-BTC-ETFs verzeichnen weiterhin positive Nettomittelzuflüsse."
+            "en": "At least 3 of the trailing 4 weekly aggregate net flows positive — institutional demand supportive.",
+            "pt-BR": "Pelo menos 3 dos últimos 4 fluxos líquidos semanais agregados positivos — demanda institucional favorável.",
+            "es": "Al menos 3 de los últimos 4 flujos netos semanales agregados positivos — demanda institucional favorable.",
+            "de": "Mindestens 3 der letzten 4 wöchentlichen Netto-Aggregate positiv — institutionelle Nachfrage stützend."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
-        },
-        {
-          "id": "stablecoin_supply",
-          "category": "INSTITUTIONAL_DEMAND",
-          "title": {
-            "en": "Aggregate digital dollar supply",
-            "pt-BR": "Oferta agregada de dólar digital",
-            "es": "Oferta agregada de dólar digital",
-            "de": "Aggregierte Digital-Dollar-Versorgung"
-          },
-          "state": "EXPANDING",
-          "points_awarded": 1,
-          "max_points": 1,
-          "summary": {
-            "en": "Aggregate digital dollar supply continues to expand.",
-            "pt-BR": "A oferta agregada de dólar digital continua se expandindo.",
-            "es": "La oferta agregada de dólar digital continúa expandiéndose.",
-            "de": "Das aggregierte Angebot an Digital-Dollar wächst weiter."
-          },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-05-22T00:00:00Z"
         }
       ]
     },
@@ -273,75 +225,72 @@
         "es": "Fortaleza relativa",
         "de": "Relative Stärke"
       },
-      "status": "CONSTRUCTIVE",
-      "points_awarded": 1,
+      "status": "MIXED",
+      "points_awarded": 2,
       "max_points": 3,
       "summary": {
-        "en": "Relative strength is improving.",
-        "pt-BR": "A força relativa está melhorando.",
-        "es": "La fortaleza relativa está mejorando.",
-        "de": "Die relative Stärke verbessert sich."
+        "en": "Bitcoin's relative strength is mixed across reference assets.",
+        "pt-BR": "A força relativa do Bitcoin é mista entre os ativos de referência.",
+        "es": "La fortaleza relativa de Bitcoin es mixta entre los activos de referencia.",
+        "de": "Bitcoins relative Stärke ist über die Referenz-Anlagen hinweg gemischt."
       },
       "signals": [
         {
-          "id": "btc_vs_spx",
-          "category": "RELATIVE_STRENGTH",
+          "id": "REL-01",
           "title": {
-            "en": "BTC vs. S&P 500",
-            "pt-BR": "BTC vs. S&P 500",
-            "es": "BTC vs. S&P 500",
-            "de": "BTC vs. S&P 500"
+            "en": "BTC Outperforming Gold",
+            "pt-BR": "BTC superando o ouro",
+            "es": "BTC superando al oro",
+            "de": "BTC stärker als Gold"
           },
-          "state": "OUTPERFORMING",
+          "state": "ACTIVE",
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "Bitcoin is outperforming the S&P 500 on a trailing basis.",
-            "pt-BR": "O Bitcoin supera o S&P 500 em base de retornos passados.",
-            "es": "Bitcoin supera al S&P 500 en base de rendimientos pasados.",
-            "de": "Bitcoin entwickelt sich besser als der S&P 500 im rückblickenden Vergleich."
+            "en": "BTC/Gold ratio above its 20-week EMA — Bitcoin outperforming the defensive asset.",
+            "pt-BR": "Razão BTC/Ouro acima da EMA de 20 semanas — Bitcoin superando o ativo defensivo.",
+            "es": "Razón BTC/Oro por encima de la EMA de 20 semanas — Bitcoin superando al activo defensivo.",
+            "de": "BTC/Gold-Verhältnis über der 20-Wochen-EMA — Bitcoin stärker als das defensive Asset."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-05-22T00:00:00Z"
         },
         {
-          "id": "btc_vs_gold",
-          "category": "RELATIVE_STRENGTH",
+          "id": "REL-02",
           "title": {
-            "en": "BTC vs. gold",
-            "pt-BR": "BTC vs. ouro",
-            "es": "BTC vs. oro",
-            "de": "BTC vs. Gold"
+            "en": "BTC Outperforming Nasdaq",
+            "pt-BR": "BTC superando o Nasdaq",
+            "es": "BTC superando al Nasdaq",
+            "de": "BTC stärker als Nasdaq"
           },
-          "state": "UNDERPERFORMING",
+          "state": "INACTIVE",
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "Bitcoin is underperforming gold on a trailing basis.",
-            "pt-BR": "O Bitcoin tem desempenho inferior ao ouro em base de retornos passados.",
-            "es": "Bitcoin tiene desempeño inferior al oro en base de rendimientos pasados.",
-            "de": "Bitcoin entwickelt sich schwächer als Gold im rückblickenden Vergleich."
+            "en": "BTC/Nasdaq ratio below its 20-week EMA — Bitcoin underperforming tech equities.",
+            "pt-BR": "Razão BTC/Nasdaq abaixo da EMA de 20 semanas — Bitcoin perde para as ações de tecnologia.",
+            "es": "Razón BTC/Nasdaq por debajo de la EMA de 20 semanas — Bitcoin pierde frente a las acciones tecnológicas.",
+            "de": "BTC/Nasdaq-Verhältnis unter der 20-Wochen-EMA — Bitcoin bleibt hinter Tech-Aktien zurück."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-05-22T00:00:00Z"
         },
         {
-          "id": "btc_dominance",
-          "category": "RELATIVE_STRENGTH",
+          "id": "REL-03",
           "title": {
-            "en": "BTC dominance",
-            "pt-BR": "Dominância do BTC",
-            "es": "Dominancia del BTC",
-            "de": "BTC-Dominanz"
+            "en": "Nasdaq Structural Health",
+            "pt-BR": "Saúde estrutural do Nasdaq",
+            "es": "Salud estructural del Nasdaq",
+            "de": "Strukturelle Gesundheit des Nasdaq"
           },
-          "state": "STABLE",
-          "points_awarded": 0,
+          "state": "ACTIVE",
+          "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "BTC dominance remains stable in its recent range.",
-            "pt-BR": "A dominância do BTC permanece estável em sua faixa recente.",
-            "es": "La dominancia de BTC se mantiene estable en su rango reciente.",
-            "de": "Die BTC-Dominanz bleibt in ihrer jüngsten Spanne stabil."
+            "en": "Nasdaq weekly close above 20-week EMA — broader risk appetite supportive.",
+            "pt-BR": "Fechamento semanal do Nasdaq acima da EMA de 20 semanas — apetite por risco em geral favorável.",
+            "es": "Cierre semanal del Nasdaq por encima de la EMA de 20 semanas — apetito por riesgo amplio favorable.",
+            "de": "Nasdaq-Wochenschluss über der 20-Wochen-EMA — breitere Risikobereitschaft stützend."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-05-22T00:00:00Z"
         }
       ]
     }
