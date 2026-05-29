@@ -150,6 +150,18 @@ export interface HistoricalRegimeSnapshot {
 export interface HistoricalRegimes {
   range: string;
   snapshots: HistoricalRegimeSnapshot[];
+  /**
+   * When true, the snapshots are illustrative seed data (pre-canonical-engine),
+   * not real engine outputs. `mock-client.server.ts#getHistoricalRegimes()`
+   * returns null when this flag is set, which suppresses the entire
+   * `<HistoricalRegimeChart>` section via the existing page.tsx conditional.
+   * Added 2026-05-29 per D1 enactment to avoid card-vs-chart contradiction
+   * between the real DEFENSIVE regime result and the synthetic CONSTRUCTIVE
+   * tail. Removed when (a) enough real snapshots accumulate, OR (b) the chart
+   * UI is updated to visually distinguish the synthetic seed. Tracked in
+   * docs/audit/PENDING_ALL.md item 5.27.
+   */
+  synthetic_seed?: boolean;
 }
 
 /**

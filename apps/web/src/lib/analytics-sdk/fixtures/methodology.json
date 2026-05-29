@@ -1,13 +1,13 @@
 {
-  "_comment": "Canonical methodology metadata returned by /methodology endpoint per doc 07 §26. Versioned by SemVer; methodology_url always points to diboas-analytics.com.",
-  "version": "1.0.0",
-  "published_at": "2026-05-01T00:00:00Z",
+  "_comment": "Canonical methodology metadata returned by /methodology endpoint per doc 07 §26. Versioned by SemVer; methodology_url always points to diboas-analytics.com. v1.0.1 (2026-05-29): score_bands aligned to canonical doc 02 §6.1 (HOSTILE 0-2, DEFENSIVE 3-5) — was HOSTILE 0-3 / DEFENSIVE 4-5; see docs/integrations/diboas-analytics.md §14 D2. Mirrors apps/web/data/market/methodology.json bumped in the same drift fix.",
+  "version": "1.0.1",
+  "published_at": "2026-05-29T00:00:00Z",
   "methodology_url": "https://diboas-analytics.com/methodology",
   "framework_name": "diBoaS Bitcoin Environment Framework",
   "max_score": 14,
   "score_bands": [
-    { "code": "HOSTILE", "label": "Hostile", "min_score": 0, "max_score": 3 },
-    { "code": "DEFENSIVE", "label": "Defensive", "min_score": 4, "max_score": 5 },
+    { "code": "HOSTILE", "label": "Hostile", "min_score": 0, "max_score": 2 },
+    { "code": "DEFENSIVE", "label": "Defensive", "min_score": 3, "max_score": 5 },
     { "code": "NEUTRAL_MIXED", "label": "Neutral / Mixed", "min_score": 6, "max_score": 8 },
     { "code": "CONSTRUCTIVE", "label": "Constructive", "min_score": 9, "max_score": 11 },
     { "code": "VERY_FAVORABLE", "label": "Very Favorable", "min_score": 12, "max_score": 14 }

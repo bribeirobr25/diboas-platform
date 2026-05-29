@@ -34,6 +34,8 @@ apps/web/data/market/
   product-disclaimer.json     # Educational-framing disclaimer text (legal-driven; rare edits)
 ```
 
+**Reproducible compute helper:** `apps/web/scripts/data-fetchers/compute-regime.mjs` is the engineering-owned, doc-02-conformant compute path for the 11-signal registry. It pulls the underlying data (FRED, Yahoo, in-repo BTC monthlies), applies the strict-Friday weekly resampling convention (locked — never use intra-week values as "the latest weekly close"), enforces the §5.1 confirmed-candle rule on BTC monthly signals, and prints per-signal state + group totals + score. Run it before every refresh and copy the resulting state/points into `regime.json` + `signals.json`. ETF-01 is the only signal it does NOT auto-compute (manual feed per spec §8.3 — see §8 troubleshooting below).
+
 ### What each file drives on the rendered page
 
 | File                      | UI element it powers on `/market`                                                                                                                                                                         |
@@ -81,15 +83,16 @@ The iter-2 fixtures at `apps/web/src/lib/analytics-sdk/fixtures/` (including `re
 | `environment_bias` | One of: `STRONG_ALIGNMENT`, `CONSTRUCTIVE`, `MIXED`, `DEFENSIVE`, `HOSTILE`. Editorial judgment call.                                                                                                                                                                                              |
 | `summary`          | Object keyed by locale (`en`, `pt-BR`, `es`, `de`) — see §5 below for the translation workflow. Each locale has `short`, `detailed`, `confidence_level` (`HIGH` / `MODERATE` / `LOW`), `mixed_signals` (boolean), `key_supportive_factors` (array of strings), `key_headwinds` (array of strings). |
 | `signal_groups`    | Array of 4 objects: BTC Structure (6 max pts), Macro Environment (3 max pts), Institutional Demand (2 max pts), Relative Strength (3 max pts) = 14 total. Each group has localized `title` + localized `summary`.                                                                                  |
-| `data_status`      | Per-source freshness — typically mirrors `data-status.json` (the SDK-shape contract carries it inline on `regime.json` too).                                                                                                                                                                       |
+| `data_status`      | Per-source freshness — MUST mirror `data-status.json` exactly (same source set, same per-source entries, same `overall_confidence` / `last_successful_update_at` / `delayed_sources` / `unavailable_sources`). This is an audit gate: the embedded inline copy and the standalone file are the same contract surface served two ways. The only legal divergence is the `_comment` metadata key in `data-status.json` (no runtime presence). After editing, sanity-check with a JSON diff that the per-source arrays are byte-identical.                                                                                                                                                                       |
 | `last_updated_at`  | ISO-8601 UTC timestamp. Must be within 14 days of every CI run (staleness gate).                                                                                                                                                                                                                   |
 
 ### `historical.json`
 
-| Field       | Constraint                                                                                                 |
-| ----------- | ---------------------------------------------------------------------------------------------------------- |
-| `range`     | Always `"1y"` for now                                                                                      |
-| `snapshots` | Array of 50+ entries, each with `date` (ISO date), `score` (integer 0–14), `regime_code` (the 5-band enum) |
+| Field             | Constraint                                                                                                                                                                                                                                                                                                              |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `range`           | Always `"1y"` for now                                                                                                                                                                                                                                                                                                   |
+| `snapshots`       | Array of 50+ entries, each with `date` (ISO date), `score` (integer 0–14), `regime_code` (the 5-band enum)                                                                                                                                                                                                              |
+| `synthetic_seed`  | Optional boolean. When `true`, the snapshots are illustrative seed data (pre-canonical-engine), and the trend-chart section on `/market` is suppressed via the page conditional `!historical.synthetic_seed`. Set this true when real engine snapshots haven't accumulated yet — avoids a card-vs-chart contradiction (the current regime card showing the real value while the chart still renders the synthetic tail). Remove (or flip to `false`) once enough real snapshots are appended. Tracked in PENDING_ALL.md 5.27. |
 
 ### `signals.json`
 
@@ -101,6 +104,8 @@ Same shape as `regime.json#signal_groups` but with the full per-signal array pop
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `overall_confidence` | `HIGH` / `MODERATE` / `LOW`                                                                                                                                                  |
 | `sources[*]`         | Each source has `source` (string), `status` (`FRESH` / `STALE` / `DELAYED` / `UNAVAILABLE`), `last_updated_at`, `expected_next_update_at`, `stale_after`, optional `message` |
+
+**Mirror audit gate:** this file and `regime.json#data_status` MUST list the same source set with byte-identical per-source entries (same `overall_confidence`, `last_successful_update_at`, `sources[]`, `delayed_sources`, `unavailable_sources`). The only legal divergence is this file's `_comment` metadata key (no runtime presence). See the corresponding `regime.json#data_status` field rule above. Quick check: `node -e "const r=require('./regime.json').data_status; const s=require('./data-status.json'); console.log(r.sources.map(x=>JSON.stringify(x)).sort().join('\n')===s.sources.map(x=>JSON.stringify(x)).sort().join('\n'))"` should print `true`.
 
 ### `methodology.json`
 
@@ -216,6 +221,21 @@ This opens an inverse PR that, once merged, restores the previous state. Vercel 
 
 You don't need to act on Sentry alerts — those route to engineering. They cover SSR render errors, hydration mismatches, etc., which aren't editorial concerns.
 
+### ETF-01 cannot strictly invoke §4.5 partial-data because too few trailing weeks are visible
+
+ETF-01 (Institutional Demand, 2 pts) requires **≥3 of the trailing 4 weekly aggregates positive**, evaluated against the most recent confirmed Friday close. The default CoinGlass `/etf/bitcoin` page only renders the trailing ~10 trading days — typically 1 fully-confirmed prior week plus the current in-progress week — so you often cannot directly observe 3 of the 4 trailing weeks anchored at the confirmed Friday close.
+
+Two valid paths to a 0-pt verdict, both producing identical scoring:
+
+| Path | When to use | State to write | Message framing |
+| --- | --- | --- | --- |
+| §4.5 partial-data INACTIVE | ≥2 of trailing 4 weeks are confirmed net-negative AND you can observe that data directly | `INACTIVE` | "INACTIVE per §4.5 — N of trailing 4 weeks confirmed net-negative" |
+| §10.1 UNAVAILABLE | <2 of trailing 4 weeks are confirmable from your source(s), even if the visible direction supports INACTIVE | `UNAVAILABLE` | "UNAVAILABLE per §10.1 — insufficient data for full trailing-4 evaluation; visible direction would otherwise read INACTIVE" |
+
+Default to the more conservative §10.1 path when in doubt — overclaiming "confirmed net-negative" weeks that you can't actually see on the source is the methodology error to avoid. Both paths award 0 pts so the score outcome is invariant; only the messaging surfaces (signal-card summary + `data-status.json` source message) differ.
+
+The deeper fix is the canonical Farside manual feed, tracked in PENDING_ALL.md 5.28 — once acquired, the full trailing-4 window is auditable and §4.5 invocation becomes deterministic.
+
 ---
 
 ## 9. What this doc deliberately does NOT cover
@@ -237,3 +257,7 @@ If you're unsure whether a change is editorial or engineering, default to engine
 - canonical methodology reference: https://diboas-analytics.com/methodology
 - Phase 7 jargon ban policy: `CLAUDE.md` (search for "digital dollar")
 - i18n locale list + naming conventions: `docs/tech/internationalization.md`
+- ETF-01 net-flow sourcing + source fetchability / headless-browser policy: `docs/researches/MoneyTools_LiveData_Consolidated.md` §4.5
+- canonical-vs-live drift log (signal-taxonomy + score-band decisions, D1/D2): `docs/integrations/diboas-analytics.md` §14
+- reproducible compute helper (strict-Friday weekly resampling locked, §5.1 candle-lock for BTC monthlies, evaluates 10 of 11 signals — ETF-01 manual per §8.3): `apps/web/scripts/data-fetchers/compute-regime.mjs`
+- standing pre-launch carry-forwards (chart strategy, Farside acquisition, LBMA replacement): `docs/audit/PENDING_ALL.md` items 5.27 / 5.28 / 5.29

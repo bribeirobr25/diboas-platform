@@ -100,7 +100,11 @@ export async function fetchRegime(locale: SupportedLocale): Promise<RegimeData> 
   return flattenRegime(currentRegimeJson as unknown as RawRegimeFixture, locale);
 }
 
-export async function fetchHistoricalRegimes(): Promise<HistoricalRegimes> {
+export async function fetchHistoricalRegimes(): Promise<HistoricalRegimes | null> {
+  // Pass-through per `resilience.test.ts` contract: this fetcher returns the
+  // JSON shape as-is; per-endpoint suppression (including the synthetic-seed
+  // gate added 2026-05-29 — see PENDING_ALL.md 5.27) lives in the page-level
+  // conditional so the fetcher contract stays uniform across all 6 endpoints.
   return historicalJson as unknown as HistoricalRegimes;
 }
 

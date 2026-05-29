@@ -1,55 +1,87 @@
 {
-  "_comment": "Generated 2026-05-14 against docs/mvp/platform/07_api_contract_response_schema.md §26. Default fixture for /market page placeholder phase. Iteration 3 replaces with versioned data/market/current.json; iteration 5 deletes when real API ships. Score 10/14 = CONSTRUCTIVE band. All localized text keyed by locale code; mock-client.server.ts flattens to per-request locale.",
-  "score": 10,
+  "_comment": "Generated 2026-05-29 against docs/mvp/engine/02_regime_engine_specification.md v2.1 §6.1 + §8 + docs/mvp/platform/07_api_contract_response_schema.md §26. D1 enactment: signal taxonomy regenerated to canonical 11-signal registry (was the iter-3 placeholder taxonomy). D2 enactment already in methodology.json v1.0.1 (band HOSTILE 0-2 / DEFENSIVE 3-5). BTC structural signals locked to the confirmed 2026-04-30 monthly close per §5.1 (next valid update May 31); weekly signals (MAC, REL, ETF) anchored at the confirmed 2026-05-22 Friday close. data_status carries the same 7-source list as apps/web/data/market/data-status.json (audit gate). _translation_status sibling block flags non-EN content drafted by engineering (machine-draft) pending professional translator pass per market-editorial.md §5.",
+  "score": 5,
   "max_score": 14,
-  "regime_code": "CONSTRUCTIVE",
-  "regime_label": "Constructive",
-  "environment_bias": "CONSTRUCTIVE",
-  "last_updated_at": "2026-05-14T00:35:00Z",
+  "regime_code": "DEFENSIVE",
+  "regime_label": "Defensive",
+  "environment_bias": "DEFENSIVE",
+  "last_updated_at": "2026-05-29T13:00:00Z",
   "summary": {
     "en": {
-      "short": "Conditions remain constructive for Bitcoin, although confirmation is not complete.",
-      "detailed": "Bitcoin structure remains healthy while institutional demand continues to support the broader environment. Some macro indicators remain mixed, limiting full confirmation.",
-      "confidence_level": "HIGH",
+      "short": "Conditions have shifted to Defensive. Bitcoin's long-term trend is intact but the intermediate structure has weakened, macro headwinds persist, and spot ETF flows turned net-negative across the past two weeks.",
+      "detailed": "The environment moved into the Defensive band as Bitcoin closed April below its 20-month EMA and spot ETF flows reversed across recent weeks. The long-term 50-month SMA still holds and monthly RSI ticked higher month-over-month, so the underlying trend has not broken — but US 10-year yields remain elevated, the dollar is firm, and Bitcoin is underperforming both gold and the Nasdaq on a 20-week basis. The pattern reads as a calm pause that calls for caution, not as a confirmed downtrend. The structural read is as of the April 30 monthly close per the engine's confirmed-candle rule; the next monthly re-evaluation is the May 31 close.",
+      "confidence_level": "MODERATE",
       "mixed_signals": true,
       "key_supportive_factors": [
-        "Bitcoin remains above long-term trend levels",
-        "ETF flows remain positive"
+        "Bitcoin remains above its 50-month SMA — long-term structural trend intact",
+        "Monthly RSI ticked higher month-over-month — momentum stabilizing rather than continuing to deteriorate",
+        "Global liquidity (M2) continued to expand modestly through April",
+        "Nasdaq structural health remains supportive — broader risk appetite has not broken"
       ],
-      "key_headwinds": ["Macro confirmation remains incomplete"]
+      "key_headwinds": [
+        "Bitcoin closed April below its 20-month EMA, breaking intermediate structure",
+        "Monthly Stoch-RSI %K remains deeply oversold below the threshold — short-term momentum has not yet lifted",
+        "Spot ETF flows are net-negative across the most recent two weeks",
+        "US 10-year yields remain elevated above their 20-week trend",
+        "Bitcoin is underperforming both gold and the Nasdaq on a 20-week basis"
+      ]
     },
     "pt-BR": {
-      "short": "As condições permanecem construtivas para o Bitcoin, embora a confirmação ainda não esteja completa.",
-      "detailed": "A estrutura do Bitcoin continua saudável enquanto a demanda institucional segue sustentando o ambiente mais amplo. Alguns indicadores macro permanecem mistos, limitando uma confirmação completa.",
-      "confidence_level": "HIGH",
+      "short": "As condições passaram para Defensiva. A tendência de longo prazo do Bitcoin segue intacta, mas a estrutura intermediária enfraqueceu, ventos contrários macroeconômicos persistem e os fluxos para ETFs à vista ficaram negativos nas duas últimas semanas.",
+      "detailed": "O ambiente passou para a faixa Defensiva à medida que o Bitcoin fechou abril abaixo de sua EMA de 20 meses e os fluxos para ETFs à vista reverteram nas últimas semanas. A SMA de longo prazo de 50 meses ainda se sustenta e o RSI mensal subiu mês a mês, então a tendência subjacente não foi rompida — mas os rendimentos do Tesouro americano de 10 anos seguem elevados, o dólar está firme e o Bitcoin está ficando para trás tanto do ouro quanto do Nasdaq em base de 20 semanas. O padrão sugere uma pausa calma que pede cautela, não uma queda confirmada. A leitura estrutural reflete o fechamento mensal de 30 de abril conforme a regra de candle confirmado do engine; a próxima reavaliação mensal será no fechamento de 31 de maio.",
+      "confidence_level": "MODERATE",
       "mixed_signals": true,
       "key_supportive_factors": [
-        "O Bitcoin permanece acima dos níveis de tendência de longo prazo",
-        "Os fluxos de ETF seguem positivos"
+        "O Bitcoin permanece acima da SMA de 50 meses — tendência estrutural de longo prazo intacta",
+        "O RSI mensal subiu mês a mês — momentum se estabilizando em vez de continuar deteriorando",
+        "A liquidez global (M2) continuou se expandindo modestamente até abril",
+        "A saúde estrutural do Nasdaq segue favorável — o apetite por risco em geral não foi rompido"
       ],
-      "key_headwinds": ["A confirmação macro permanece incompleta"]
+      "key_headwinds": [
+        "O Bitcoin fechou abril abaixo da EMA de 20 meses, rompendo a estrutura intermediária",
+        "O %K do Stoch-RSI mensal segue profundamente sobrevendido abaixo do limite — o momentum de curto prazo ainda não reagiu",
+        "Os fluxos para ETFs à vista estão negativos nas duas últimas semanas",
+        "Os rendimentos do Tesouro americano de 10 anos seguem elevados acima da tendência de 20 semanas",
+        "O Bitcoin está perdendo tanto para o ouro quanto para o Nasdaq em base de 20 semanas"
+      ]
     },
     "es": {
-      "short": "Las condiciones se mantienen constructivas para Bitcoin, aunque la confirmación no está completa.",
-      "detailed": "La estructura de Bitcoin se mantiene saludable mientras la demanda institucional sigue sustentando el entorno más amplio. Algunos indicadores macro siguen mixtos, limitando una confirmación completa.",
-      "confidence_level": "HIGH",
+      "short": "Las condiciones pasaron a Defensiva. La tendencia de largo plazo del Bitcoin sigue intacta, pero la estructura intermedia se debilitó, los vientos en contra macroeconómicos persisten y los flujos hacia ETFs al contado se tornaron netos negativos en las últimas dos semanas.",
+      "detailed": "El entorno se movió a la banda Defensiva al cerrar Bitcoin abril por debajo de su EMA de 20 meses y revertirse los flujos hacia ETFs al contado en las últimas semanas. La SMA de largo plazo de 50 meses todavía aguanta y el RSI mensual subió mes a mes, por lo que la tendencia subyacente no se ha roto — pero los rendimientos del Tesoro estadounidense a 10 años siguen elevados, el dólar se mantiene firme y Bitcoin está perdiendo frente al oro y al Nasdaq en base de 20 semanas. El patrón sugiere una pausa serena que invita a cautela, no una caída confirmada. La lectura estructural refleja el cierre mensual del 30 de abril según la regla de vela confirmada del motor; la próxima reevaluación mensual será en el cierre del 31 de mayo.",
+      "confidence_level": "MODERATE",
       "mixed_signals": true,
       "key_supportive_factors": [
-        "Bitcoin se mantiene por encima de los niveles de tendencia de largo plazo",
-        "Los flujos de ETF siguen siendo positivos"
+        "Bitcoin se mantiene por encima de su SMA de 50 meses — tendencia estructural de largo plazo intacta",
+        "El RSI mensual subió mes a mes — el momentum se estabiliza en lugar de seguir deteriorándose",
+        "La liquidez global (M2) continuó expandiéndose moderadamente hasta abril",
+        "La salud estructural del Nasdaq sigue favorable — el apetito por riesgo amplio no se ha roto"
       ],
-      "key_headwinds": ["La confirmación macro sigue siendo incompleta"]
+      "key_headwinds": [
+        "Bitcoin cerró abril por debajo de la EMA de 20 meses, rompiendo la estructura intermedia",
+        "El %K del Stoch-RSI mensual sigue profundamente sobrevendido bajo el umbral — el momentum de corto plazo aún no ha reaccionado",
+        "Los flujos hacia ETFs al contado son netos negativos en las dos últimas semanas",
+        "Los rendimientos del Tesoro estadounidense a 10 años siguen elevados sobre su tendencia de 20 semanas",
+        "Bitcoin está perdiendo frente al oro y al Nasdaq en base de 20 semanas"
+      ]
     },
     "de": {
-      "short": "Die Bedingungen bleiben konstruktiv für Bitcoin, auch wenn die Bestätigung noch nicht vollständig ist.",
-      "detailed": "Die Bitcoin-Struktur bleibt gesund, während die institutionelle Nachfrage das breitere Umfeld weiter stützt. Einige Makro-Indikatoren bleiben gemischt und begrenzen eine vollständige Bestätigung.",
-      "confidence_level": "HIGH",
+      "short": "Die Bedingungen sind defensiv geworden. Bitcoins langfristiger Trend bleibt intakt, doch die mittelfristige Struktur hat sich abgeschwächt, makroökonomische Gegenwinde halten an, und die Zuflüsse in Spot-ETFs sind in den letzten beiden Wochen netto negativ geworden.",
+      "detailed": "Das Umfeld ist in die Defensiv-Bandbreite gewechselt, da Bitcoin den April unterhalb seiner 20-Monats-EMA schloss und sich die Zuflüsse in Spot-ETFs in den letzten Wochen umkehrten. Die langfristige 50-Monats-SMA hält noch und der monatliche RSI stieg im Monatsvergleich, der zugrundeliegende Trend ist also nicht gebrochen — aber die US-10-Jahres-Renditen bleiben erhöht, der Dollar zeigt sich fest, und Bitcoin liegt sowohl gegenüber Gold als auch gegenüber dem Nasdaq auf 20-Wochen-Sicht zurück. Das Muster wirkt wie eine ruhige Pause, die Vorsicht nahelegt — kein bestätigter Abwärtstrend. Die strukturelle Einschätzung spiegelt den Monatsschluss vom 30. April wider gemäß der Regel des bestätigten Kerzenschlusses; die nächste monatliche Neubewertung erfolgt zum Schluss am 31. Mai.",
+      "confidence_level": "MODERATE",
       "mixed_signals": true,
       "key_supportive_factors": [
-        "Bitcoin bleibt oberhalb der langfristigen Trendniveaus",
-        "Die ETF-Mittelflüsse bleiben positiv"
+        "Bitcoin bleibt oberhalb seiner 50-Monats-SMA — der langfristige strukturelle Trend ist intakt",
+        "Der monatliche RSI stieg im Monatsvergleich — das Momentum stabilisiert sich, statt sich weiter zu verschlechtern",
+        "Die globale Liquidität (M2) expandierte bis April weiterhin moderat",
+        "Die strukturelle Gesundheit des Nasdaq bleibt stützend — die allgemeine Risikobereitschaft ist nicht gebrochen"
       ],
-      "key_headwinds": ["Die Makro-Bestätigung bleibt unvollständig"]
+      "key_headwinds": [
+        "Bitcoin schloss April unterhalb der 20-Monats-EMA und durchbrach damit die mittelfristige Struktur",
+        "Der %K des monatlichen Stoch-RSI bleibt tief überverkauft unter der Schwelle — das kurzfristige Momentum hat noch nicht aufgenommen",
+        "Die Zuflüsse in Spot-ETFs sind in den letzten beiden Wochen netto negativ",
+        "Die US-10-Jahres-Renditen bleiben oberhalb ihres 20-Wochen-Trends erhöht",
+        "Bitcoin liegt sowohl gegenüber Gold als auch gegenüber dem Nasdaq auf 20-Wochen-Sicht zurück"
+      ]
     }
   },
   "signal_groups": [
@@ -62,14 +94,14 @@
         "es": "Estructura del BTC",
         "de": "BTC-Struktur"
       },
-      "status": "CONSTRUCTIVE",
-      "points_awarded": 6,
+      "status": "MIXED",
+      "points_awarded": 3,
       "max_points": 6,
       "summary": {
-        "en": "Bitcoin structure remains supportive.",
-        "pt-BR": "A estrutura do Bitcoin continua favorável.",
-        "es": "La estructura de Bitcoin se mantiene favorable.",
-        "de": "Die Bitcoin-Struktur bleibt stützend."
+        "en": "Bitcoin's long-term structure is intact but the intermediate trend has weakened.",
+        "pt-BR": "A estrutura de longo prazo do Bitcoin está intacta, mas a tendência intermediária enfraqueceu.",
+        "es": "La estructura de largo plazo de Bitcoin está intacta, pero la tendencia intermedia se debilitó.",
+        "de": "Bitcoins langfristige Struktur ist intakt, doch der mittelfristige Trend hat sich abgeschwächt."
       }
     },
     {
@@ -81,14 +113,14 @@
         "es": "Entorno macro",
         "de": "Makro-Umfeld"
       },
-      "status": "MIXED",
+      "status": "DEFENSIVE",
       "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Macro conditions remain mixed.",
-        "pt-BR": "As condições macro permanecem mistas.",
-        "es": "Las condiciones macro siguen mixtas.",
-        "de": "Die Makro-Bedingungen bleiben gemischt."
+        "en": "Macro conditions remain restrictive overall, though global liquidity continues to expand.",
+        "pt-BR": "As condições macro permanecem restritivas no geral, embora a liquidez global siga expandindo.",
+        "es": "Las condiciones macro siguen restrictivas en general, aunque la liquidez global continúa expandiéndose.",
+        "de": "Die Makro-Bedingungen bleiben insgesamt restriktiv, auch wenn die globale Liquidität weiter expandiert."
       }
     },
     {
@@ -100,14 +132,14 @@
         "es": "Demanda institucional",
         "de": "Institutionelle Nachfrage"
       },
-      "status": "CONSTRUCTIVE",
-      "points_awarded": 2,
+      "status": "DEFENSIVE",
+      "points_awarded": 0,
       "max_points": 2,
       "summary": {
-        "en": "Institutional demand remains supportive.",
-        "pt-BR": "A demanda institucional continua favorável.",
-        "es": "La demanda institucional se mantiene favorable.",
-        "de": "Die institutionelle Nachfrage bleibt stützend."
+        "en": "Spot ETF flows have turned net-negative across the most recent two weeks.",
+        "pt-BR": "Os fluxos para ETFs à vista ficaram negativos nas duas últimas semanas.",
+        "es": "Los flujos hacia ETFs al contado se han tornado netos negativos en las dos últimas semanas.",
+        "de": "Die Zuflüsse in Spot-ETFs sind in den letzten beiden Wochen netto negativ geworden."
       }
     },
     {
@@ -119,39 +151,88 @@
         "es": "Fortaleza relativa",
         "de": "Relative Stärke"
       },
-      "status": "CONSTRUCTIVE",
+      "status": "MIXED",
       "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Relative strength is improving.",
-        "pt-BR": "A força relativa está melhorando.",
-        "es": "La fortaleza relativa está mejorando.",
-        "de": "Die relative Stärke verbessert sich."
+        "en": "Bitcoin is lagging both gold and the Nasdaq on a 20-week basis; broader equity strength persists.",
+        "pt-BR": "O Bitcoin está perdendo tanto para o ouro quanto para o Nasdaq em base de 20 semanas; a força do mercado acionário em geral persiste.",
+        "es": "Bitcoin está perdiendo frente al oro y al Nasdaq en base de 20 semanas; la fortaleza más amplia de la renta variable persiste.",
+        "de": "Bitcoin liegt sowohl gegenüber Gold als auch gegenüber dem Nasdaq auf 20-Wochen-Sicht zurück; die breitere Aktienmarktstärke hält an."
       }
     }
   ],
   "data_status": {
-    "overall_confidence": "HIGH",
-    "last_successful_update_at": "2026-05-14T00:35:00Z",
+    "overall_confidence": "MODERATE",
+    "last_successful_update_at": "2026-05-29T13:00:00Z",
     "sources": [
       {
-        "source": "CoinGecko",
+        "source": "in-repo:monthlyPrices.json (BTC)",
+        "status": "DELAYED",
+        "last_updated_at": "2026-05-25T00:00:00Z",
+        "expected_next_update_at": "2026-05-31T23:59:59Z",
+        "stale_after": "2026-07-01T00:00:00Z",
+        "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04); last confirmed monthly close April 30, 2026 per doc 02 §5.1. Next update due at May 31 monthly close."
+      },
+      {
+        "source": "FRED:DGS10",
         "status": "FRESH",
-        "last_updated_at": "2026-05-14T00:05:00Z",
-        "expected_next_update_at": "2026-05-15T00:05:00Z",
-        "stale_after": "2026-05-16T00:05:00Z",
+        "last_updated_at": "2026-05-27T20:00:00Z",
+        "expected_next_update_at": "2026-05-29T20:00:00Z",
+        "stale_after": "2026-06-01T20:00:00Z",
         "message": null
+      },
+      {
+        "source": "FRED:DTWEXBGS",
+        "status": "FRESH",
+        "last_updated_at": "2026-05-22T20:00:00Z",
+        "expected_next_update_at": "2026-05-29T20:00:00Z",
+        "stale_after": "2026-06-01T20:00:00Z",
+        "message": "Trade-weighted broad-dollar index used per doc 02 §9 (DXY proxy; license-free alternative to ICE DXY)."
       },
       {
         "source": "FRED:M2SL",
         "status": "DELAYED",
-        "last_updated_at": "2026-04-20T00:00:00Z",
+        "last_updated_at": "2026-04-01T00:00:00Z",
         "expected_next_update_at": "2026-05-20T00:00:00Z",
-        "stale_after": "2026-06-04T00:00:00Z",
-        "message": "Liquidity data reflects the latest available monthly release."
+        "stale_after": "2026-06-15T00:00:00Z",
+        "message": "Monthly liquidity series; April 2026 reading is the latest available release. Next monthly release expected mid-May (typical FRED M2SL cadence)."
+      },
+      {
+        "source": "FRED:NASDAQCOM",
+        "status": "FRESH",
+        "last_updated_at": "2026-05-27T20:00:00Z",
+        "expected_next_update_at": "2026-05-29T20:00:00Z",
+        "stale_after": "2026-06-01T20:00:00Z",
+        "message": null
+      },
+      {
+        "source": "Yahoo:GC=F",
+        "status": "DELAYED",
+        "last_updated_at": "2026-05-29T12:00:00Z",
+        "expected_next_update_at": "2026-05-29T20:00:00Z",
+        "stale_after": "2026-06-02T20:00:00Z",
+        "message": "Methodology drift D-gold-2026-05-29: spec primary FRED GOLDAMGBD228NLBM (LBMA AM fix) and GOLDPMGBD228NLBM (LBMA PM fix) both returned 404 — FRED retired the LBMA series. Yahoo GC=F (front-month gold futures) substituted. Result direction for REL-01 (ratio-vs-EMA-of-self) is robust to the substitute. Replacement canonical source tracked in PENDING_ALL.md 5.29."
+      },
+      {
+        "source": "CoinGlass:ETF",
+        "status": "DELAYED",
+        "last_updated_at": "2026-05-28T22:00:00Z",
+        "expected_next_update_at": "2026-05-29T22:00:00Z",
+        "stale_after": "2026-06-01T22:00:00Z",
+        "message": "PROVISIONAL single-source — CoinGlass /etf/bitcoin daily-flows table browser-rendered via Docker MCP (2026-05-29). SoSoValue cross-check unreachable (Cloudflare-blocked). Spec-canonical Farside manual feed remains the authoritative source per doc 02 §8.3 + doc 06 §6.5 — not used here (bot-blocked, policy forbids evasion). Visible window: trailing ~10 trading days (May 15 — May 29). Of the trailing 4 weekly aggregates anchored at the May 22 confirmed Friday close: week ending May 22 confirmed net-negative (-16.3K BTC, 5/5 days outflows); weeks ending May 15 / May 8 / May 1 not visible on the default page without authenticated access. Current in-progress week (ending May 29) is tracking net-negative (-17.0K BTC through Thu, post-anchor so outside the trailing-4 window). ETF-01 evaluated INACTIVE 0/2 on the directional read across visible data; the more conservative §10.1 UNAVAILABLE read yields identical 0-pt scoring. Canonical Farside acquisition tracked in PENDING_ALL.md 5.28."
       }
     ],
-    "delayed_sources": ["FRED:M2SL"],
+    "delayed_sources": ["in-repo:monthlyPrices.json (BTC)", "FRED:M2SL", "Yahoo:GC=F", "CoinGlass:ETF"],
     "unavailable_sources": []
+  },
+  "_translation_status": {
+    "_comment": "Machine-draft flag per market-editorial.md §5. EN is authoritative; pt-BR / es / de were drafted by engineering with research-memo voice (doc 03 §5.2) and the Phase 7 jargon ban (see scripts/check-market-data-jargon.mjs for the banned-terms list). The 'detailed' field carries the highest editorial stakes and is the priority for translator pass before any public-facing launch. The shorter fields (short, factors, headwinds, group summaries) are acceptable as machine-drafts pre-launch.",
+    "summary.detailed": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
+    "summary.short": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
+    "summary.key_supportive_factors": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
+    "summary.key_headwinds": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
+    "signal_groups.*.summary": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
+    "signal_groups.*.title": { "pt-BR": "preserved-from-iter3", "es": "preserved-from-iter3", "de": "preserved-from-iter3" }
   }
 }

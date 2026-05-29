@@ -1,5 +1,5 @@
 {
-  "_comment": "11 canonical signals, organized into 4 groups matching the 14-point methodology in doc 03 §3. Bilingual short summary on each. Storybook fixture for SignalCard / SignalGroup variants.",
+  "_comment": "Per-card sub-signal detail rendered by SignalCardsGrid when expanded. Generated 2026-05-29 against docs/mvp/engine/02_regime_engine_specification.md v2.1 §8 (Signal Registry — 4 groups × 11 signals total: BTC Structure 4 / Macro Environment 3 / Institutional Demand 1 / Relative Strength 3). D1 enactment: replaces the iter-3 placeholder taxonomy (btc_price_vs_long_term_ma / btc_drawdown_from_ath / btc_trend_slope / btc_volatility / btc_market_breadth / dxy_dollar_index / us_10y_yield / global_liquidity_m2 / etf_net_flows / stablecoin_supply / btc_vs_spx / btc_vs_gold / btc_dominance — 13 entries that did not match doc 02 §8). Signal IDs now match doc 02 verbatim. Monthly signals (BTC-01..04) anchored at the 2026-04-30 confirmed monthly close per §5.1; weekly signals at the 2026-05-22 confirmed Friday close. _translation_status flags non-EN content as machine-draft.",
   "groups": [
     {
       "id": "btc_structure",
@@ -10,115 +10,91 @@
         "es": "Estructura del BTC",
         "de": "BTC-Struktur"
       },
-      "status": "CONSTRUCTIVE",
-      "points_awarded": 6,
+      "status": "MIXED",
+      "points_awarded": 3,
       "max_points": 6,
       "summary": {
-        "en": "Bitcoin structure remains supportive.",
-        "pt-BR": "A estrutura do Bitcoin continua favorável.",
-        "es": "La estructura de Bitcoin se mantiene favorable.",
-        "de": "Die Bitcoin-Struktur bleibt stützend."
+        "en": "Bitcoin's long-term structure is intact but the intermediate trend has weakened.",
+        "pt-BR": "A estrutura de longo prazo do Bitcoin está intacta, mas a tendência intermediária enfraqueceu.",
+        "es": "La estructura de largo plazo de Bitcoin está intacta, pero la tendencia intermedia se debilitó.",
+        "de": "Bitcoins langfristige Struktur ist intakt, doch der mittelfristige Trend hat sich abgeschwächt."
       },
       "signals": [
         {
-          "id": "btc_price_vs_long_term_ma",
-          "category": "BTC_STRUCTURE",
+          "id": "BTC-01",
           "title": {
-            "en": "BTC vs. long-term moving average",
-            "pt-BR": "BTC vs. média móvel de longo prazo",
-            "es": "BTC vs. media móvil de largo plazo",
-            "de": "BTC vs. langfristiger gleitender Durchschnitt"
+            "en": "BTC Above 20-Month EMA",
+            "pt-BR": "BTC acima da EMA de 20 meses",
+            "es": "BTC por encima de la EMA de 20 meses",
+            "de": "BTC über der 20-Monats-EMA"
           },
-          "state": "ABOVE_LONG_TERM_MA",
-          "points_awarded": 1,
-          "max_points": 1,
+          "state": "INACTIVE",
+          "points_awarded": 0,
+          "max_points": 2,
           "summary": {
-            "en": "Bitcoin remains above its long-term moving average.",
-            "pt-BR": "O Bitcoin permanece acima da sua média móvel de longo prazo.",
-            "es": "Bitcoin se mantiene sobre su media móvel de largo plazo.",
-            "de": "Bitcoin bleibt oberhalb seines langfristigen gleitenden Durchschnitts."
+            "en": "April close $76,304 sits about 8% below the 20-month EMA ($82,925) — the intermediate-term structure has broken.",
+            "pt-BR": "O fechamento de abril de US$ 76.304 está cerca de 8% abaixo da EMA de 20 meses (US$ 82.925) — a estrutura de médio prazo foi rompida.",
+            "es": "El cierre de abril de USD 76.304 está alrededor de 8% por debajo de la EMA de 20 meses (USD 82.925) — la estructura de plazo intermedio se rompió.",
+            "de": "Der April-Schluss von 76.304 USD liegt rund 8% unter der 20-Monats-EMA (82.925 USD) — die mittelfristige Struktur ist gebrochen."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-04-30T00:00:00Z"
         },
         {
-          "id": "btc_drawdown_from_ath",
-          "category": "BTC_STRUCTURE",
+          "id": "BTC-02",
           "title": {
-            "en": "BTC drawdown from ATH",
-            "pt-BR": "Drawdown do BTC desde a máxima histórica",
-            "es": "Caída del BTC desde su máximo histórico",
-            "de": "BTC-Rückgang vom Allzeithoch"
+            "en": "BTC Above 50-Month SMA",
+            "pt-BR": "BTC acima da SMA de 50 meses",
+            "es": "BTC por encima de la SMA de 50 meses",
+            "de": "BTC über der 50-Monats-SMA"
           },
-          "state": "SHALLOW_DRAWDOWN",
-          "points_awarded": 1,
-          "max_points": 1,
-          "summary": {
-            "en": "Bitcoin sits within a shallow drawdown from its all-time high.",
-            "pt-BR": "O Bitcoin opera com correção rasa em relação ao topo histórico.",
-            "es": "Bitcoin opera con una corrección leve respecto a su máximo histórico.",
-            "de": "Bitcoin notiert in einem flachen Rückgang gegenüber dem Allzeithoch."
-          },
-          "last_updated_at": "2026-05-14T00:05:00Z"
-        },
-        {
-          "id": "btc_trend_slope",
-          "category": "BTC_STRUCTURE",
-          "title": {
-            "en": "BTC trend slope",
-            "pt-BR": "Inclinação da tendência do BTC",
-            "es": "Pendiente de la tendencia del BTC",
-            "de": "BTC-Trendsteigung"
-          },
-          "state": "POSITIVE_SLOPE",
+          "state": "ACTIVE",
           "points_awarded": 2,
           "max_points": 2,
           "summary": {
-            "en": "The medium-term trend slope remains positive.",
-            "pt-BR": "A inclinação da tendência de médio prazo permanece positiva.",
-            "es": "La pendiente de la tendencia de mediano plazo se mantiene positiva.",
-            "de": "Die mittelfristige Trendsteigung bleibt positiv."
+            "en": "April close $76,304 sits about 31% above the 50-month SMA ($58,285) — long-term structural trend remains intact.",
+            "pt-BR": "O fechamento de abril de US$ 76.304 está cerca de 31% acima da SMA de 50 meses (US$ 58.285) — a tendência estrutural de longo prazo permanece intacta.",
+            "es": "El cierre de abril de USD 76.304 está alrededor de 31% por encima de la SMA de 50 meses (USD 58.285) — la tendencia estructural de largo plazo se mantiene intacta.",
+            "de": "Der April-Schluss von 76.304 USD liegt rund 31% über der 50-Monats-SMA (58.285 USD) — der langfristige strukturelle Trend bleibt intakt."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-04-30T00:00:00Z"
         },
         {
-          "id": "btc_volatility",
-          "category": "BTC_STRUCTURE",
+          "id": "BTC-03",
           "title": {
-            "en": "BTC volatility",
-            "pt-BR": "Volatilidade do BTC",
-            "es": "Volatilidad del BTC",
-            "de": "BTC-Volatilität"
+            "en": "Monthly RSI Improving",
+            "pt-BR": "RSI mensal melhorando",
+            "es": "RSI mensual mejorando",
+            "de": "Monatlicher RSI verbessert sich"
           },
-          "state": "NORMAL_RANGE",
+          "state": "ACTIVE",
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "Realized volatility sits within its long-term range.",
-            "pt-BR": "A volatilidade realizada está dentro da sua faixa de longo prazo.",
-            "es": "La volatilidad realizada está dentro de su rango de largo plazo.",
-            "de": "Die realisierte Volatilität liegt in ihrem langfristigen Bereich."
+            "en": "April monthly RSI(14) 48.6 vs March 44.3 — momentum stabilizing rather than continuing to deteriorate.",
+            "pt-BR": "RSI(14) mensal de abril 48,6 vs março 44,3 — momentum se estabilizando em vez de continuar deteriorando.",
+            "es": "RSI(14) mensual de abril 48,6 vs marzo 44,3 — momentum estabilizándose en lugar de seguir deteriorándose.",
+            "de": "Monatlicher RSI(14) im April 48,6 gegenüber März 44,3 — das Momentum stabilisiert sich, statt sich weiter zu verschlechtern."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-04-30T00:00:00Z"
         },
         {
-          "id": "btc_market_breadth",
-          "category": "BTC_STRUCTURE",
+          "id": "BTC-04",
           "title": {
-            "en": "BTC market breadth",
-            "pt-BR": "Amplitude do mercado BTC",
-            "es": "Amplitud del mercado BTC",
-            "de": "BTC-Marktbreite"
+            "en": "Monthly Stoch-RSI Recovery",
+            "pt-BR": "Recuperação do Stoch-RSI mensal",
+            "es": "Recuperación del Stoch-RSI mensual",
+            "de": "Monatliche Stoch-RSI-Erholung"
           },
-          "state": "BROADLY_PARTICIPATING",
-          "points_awarded": 1,
+          "state": "INACTIVE",
+          "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "Most large-cap assets are participating with Bitcoin.",
-            "pt-BR": "A maioria dos ativos de grande capitalização acompanha o Bitcoin.",
-            "es": "La mayoría de los activos de gran capitalización acompaña a Bitcoin.",
-            "de": "Die meisten Werte mit hoher Marktkapitalisierung bewegen sich im Einklang mit Bitcoin."
+            "en": "Monthly Stoch-RSI %K at 6.5 — still deeply oversold below the 10 threshold. Short-term momentum has not yet lifted.",
+            "pt-BR": "%K do Stoch-RSI mensal em 6,5 — ainda profundamente sobrevendido abaixo do limite de 10. O momentum de curto prazo ainda não reagiu.",
+            "es": "%K del Stoch-RSI mensual en 6,5 — todavía profundamente sobrevendido por debajo del umbral de 10. El momentum de corto plazo aún no ha reaccionado.",
+            "de": "Monatlicher Stoch-RSI %K bei 6,5 — weiterhin tief überverkauft unterhalb der Schwelle von 10. Das kurzfristige Momentum hat noch nicht aufgenommen."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-04-30T00:00:00Z"
         }
       ]
     },
@@ -131,75 +107,72 @@
         "es": "Entorno macro",
         "de": "Makro-Umfeld"
       },
-      "status": "MIXED",
+      "status": "DEFENSIVE",
       "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Macro conditions remain mixed.",
-        "pt-BR": "As condições macro permanecem mistas.",
-        "es": "Las condiciones macro siguen mixtas.",
-        "de": "Die Makro-Bedingungen bleiben gemischt."
+        "en": "Macro conditions remain restrictive overall, though global liquidity continues to expand.",
+        "pt-BR": "As condições macro permanecem restritivas no geral, embora a liquidez global siga expandindo.",
+        "es": "Las condiciones macro siguen restrictivas en general, aunque la liquidez global continúa expandiéndose.",
+        "de": "Die Makro-Bedingungen bleiben insgesamt restriktiv, auch wenn die globale Liquidität weiter expandiert."
       },
       "signals": [
         {
-          "id": "dxy_dollar_index",
-          "category": "MACRO_ENVIRONMENT",
+          "id": "MAC-01",
           "title": {
-            "en": "US dollar index",
-            "pt-BR": "Índice do dólar",
-            "es": "Índice del dólar",
-            "de": "US-Dollar-Index"
+            "en": "DXY Weakness",
+            "pt-BR": "Fraqueza do DXY",
+            "es": "Debilidad del DXY",
+            "de": "Dollar-Schwäche (DXY)"
           },
-          "state": "FLAT",
+          "state": "INACTIVE",
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "The dollar index remains range-bound.",
-            "pt-BR": "O índice do dólar permanece em faixa estreita.",
-            "es": "El índice del dólar se mantiene en rango estrecho.",
-            "de": "Der Dollarindex bleibt in einer engen Spanne."
+            "en": "Dollar index closed May 22 at 119.29 vs 20-week EMA 119.26 — sits 0.026% above trend. RSI 48.9 satisfies the < 50 condition but the close-below-EMA condition fails by a hair (spec requires both AND).",
+            "pt-BR": "O índice do dólar fechou em 22 de maio em 119,29 vs EMA de 20 semanas 119,26 — situa-se 0,026% acima da tendência. RSI 48,9 satisfaz a condição < 50, mas a condição de fechamento abaixo da EMA falha por uma margem mínima (a especificação exige ambas com E).",
+            "es": "El índice del dólar cerró el 22 de mayo en 119,29 vs EMA de 20 semanas 119,26 — se ubica 0,026% por encima de la tendencia. El RSI 48,9 satisface la condición < 50 pero la condición de cierre por debajo de la EMA falla por una mínima fracción (la especificación exige ambas con Y).",
+            "de": "Der Dollar-Index schloss am 22. Mai bei 119,29 gegenüber der 20-Wochen-EMA 119,26 — er liegt 0,026% über dem Trend. RSI 48,9 erfüllt die Bedingung < 50, doch die Bedingung Schluss-unter-EMA scheitert um Haaresbreite (die Spezifikation verlangt beide mit UND)."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-05-22T00:00:00Z"
         },
         {
-          "id": "us_10y_yield",
-          "category": "MACRO_ENVIRONMENT",
+          "id": "MAC-02",
           "title": {
-            "en": "US 10-year yield",
-            "pt-BR": "Taxa de 10 anos dos EUA",
-            "es": "Tasa a 10 años de EE. UU.",
-            "de": "US 10-jährige Rendite"
+            "en": "US 10-Year Yield Easing",
+            "pt-BR": "Afrouxamento do Tesouro americano de 10 anos",
+            "es": "Distensión del bono del Tesoro a 10 años de EE. UU.",
+            "de": "US-10-Jahres-Rendite-Entspannung"
           },
-          "state": "ELEVATED",
+          "state": "INACTIVE",
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "The 10-year yield remains elevated.",
-            "pt-BR": "A taxa de 10 anos permanece elevada.",
-            "es": "La tasa a 10 años se mantiene elevada.",
-            "de": "Die 10-jährige Rendite bleibt erhöht."
+            "en": "US 10-year yield closed May 22 at 4.56% vs 20-week EMA 4.32% — yields remain elevated above trend, no easing yet.",
+            "pt-BR": "O rendimento do Tesouro americano de 10 anos fechou em 22 de maio em 4,56% vs EMA de 20 semanas 4,32% — os rendimentos seguem elevados acima da tendência, ainda sem afrouxamento.",
+            "es": "El rendimiento del bono del Tesoro a 10 años cerró el 22 de mayo en 4,56% vs EMA de 20 semanas 4,32% — los rendimientos siguen elevados sobre la tendencia, sin distensión todavía.",
+            "de": "Die US-10-Jahres-Rendite schloss am 22. Mai bei 4,56% gegenüber der 20-Wochen-EMA 4,32% — die Renditen bleiben oberhalb des Trends erhöht, noch keine Entspannung."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-05-22T00:00:00Z"
         },
         {
-          "id": "global_liquidity_m2",
-          "category": "MACRO_ENVIRONMENT",
+          "id": "MAC-03",
           "title": {
-            "en": "Global liquidity (M2)",
-            "pt-BR": "Liquidez global (M2)",
-            "es": "Liquidez global (M2)",
-            "de": "Globale Liquidität (M2)"
+            "en": "Global M2 Improving",
+            "pt-BR": "M2 global melhorando",
+            "es": "M2 global mejorando",
+            "de": "Globales M2 verbessert sich"
           },
-          "state": "EXPANDING",
+          "state": "ACTIVE",
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "Global liquidity continues to expand slowly.",
-            "pt-BR": "A liquidez global continua se expandindo lentamente.",
-            "es": "La liquidez global continúa expandiéndose lentamente.",
-            "de": "Die globale Liquidität expandiert weiterhin langsam."
+            "en": "US M2 12-month rate-of-change +4.72%, April month-over-month +$118B — liquidity continues to expand on both structural and short-term measures.",
+            "pt-BR": "Taxa de variação de 12 meses do M2 dos EUA +4,72%; variação mês a mês de abril +US$ 118 bilhões — a liquidez segue se expandindo nas medidas estrutural e de curto prazo.",
+            "es": "Tasa de variación a 12 meses del M2 estadounidense +4,72%; variación mes a mes de abril +USD 118.000 millones — la liquidez continúa expandiéndose en las medidas estructural y de corto plazo.",
+            "de": "12-Monats-Veränderungsrate des US-M2 +4,72%; Monatsveränderung im April +118 Mrd. USD — die Liquidität expandiert sowohl strukturell als auch kurzfristig."
           },
-          "last_updated_at": "2026-04-20T00:00:00Z"
+          "last_updated_at": "2026-04-01T00:00:00Z"
         }
       ]
     },
@@ -212,55 +185,34 @@
         "es": "Demanda institucional",
         "de": "Institutionelle Nachfrage"
       },
-      "status": "CONSTRUCTIVE",
-      "points_awarded": 2,
+      "status": "DEFENSIVE",
+      "points_awarded": 0,
       "max_points": 2,
       "summary": {
-        "en": "Institutional demand remains supportive.",
-        "pt-BR": "A demanda institucional continua favorável.",
-        "es": "La demanda institucional se mantiene favorable.",
-        "de": "Die institutionelle Nachfrage bleibt stützend."
+        "en": "Spot ETF flows have turned net-negative across the most recent two weeks.",
+        "pt-BR": "Os fluxos para ETFs à vista ficaram negativos nas duas últimas semanas.",
+        "es": "Los flujos hacia ETFs al contado se han tornado netos negativos en las dos últimas semanas.",
+        "de": "Die Zuflüsse in Spot-ETFs sind in den letzten beiden Wochen netto negativ geworden."
       },
       "signals": [
         {
-          "id": "etf_net_flows",
-          "category": "INSTITUTIONAL_DEMAND",
+          "id": "ETF-01",
           "title": {
-            "en": "Spot BTC ETF net flows",
-            "pt-BR": "Fluxos líquidos de ETFs de BTC à vista",
-            "es": "Flujos netos de ETFs de BTC al contado",
-            "de": "Spot-BTC-ETF-Nettomittelflüsse"
+            "en": "Positive ETF Flows",
+            "pt-BR": "Fluxos positivos para ETFs",
+            "es": "Flujos positivos hacia ETFs",
+            "de": "Positive ETF-Zuflüsse"
           },
-          "state": "POSITIVE_FLOWS",
-          "points_awarded": 1,
-          "max_points": 1,
+          "state": "INACTIVE",
+          "points_awarded": 0,
+          "max_points": 2,
           "summary": {
-            "en": "Spot BTC ETFs continue to attract net positive flows.",
-            "pt-BR": "Os ETFs de BTC à vista seguem atraindo fluxos líquidos positivos.",
-            "es": "Los ETFs de BTC al contado siguen atrayendo flujos netos positivos.",
-            "de": "Spot-BTC-ETFs verzeichnen weiterhin positive Nettomittelzuflüsse."
+            "en": "Within the trailing four weeks of the May 22 confirmed Friday close: week ending May 22 confirmed net-negative at about minus 16,300 BTC outflow (5 of 5 days outflows); weeks ending May 15, May 8, and May 1 not visible on the default CoinGlass page. The current in-progress week (ending May 29) is tracking net-negative at about minus 17,000 BTC through Thursday. The test 'at least 3 of 4 weekly aggregates positive' cannot be met on the visible data — INACTIVE on the directional read (source: CoinGlass aggregator, provisional).",
+            "pt-BR": "Dentro das últimas quatro semanas relativas ao fechamento confirmado de sexta-feira 22 de maio: semana encerrada em 22 de maio confirmada como líquida negativa em aproximadamente menos 16.300 BTC de saída (5 de 5 dias com saídas); semanas encerradas em 15 de maio, 8 de maio e 1 de maio não estão visíveis na página padrão do CoinGlass. A semana corrente em andamento (encerrando em 29 de maio) está acumulando líquida negativa em aproximadamente menos 17.000 BTC até quinta-feira. O teste \"pelo menos 3 de 4 agregados semanais positivos\" não pode ser atendido com os dados visíveis — INACTIVE pela leitura direcional (fonte: agregador CoinGlass, provisório).",
+            "es": "Dentro de las últimas cuatro semanas relativas al cierre confirmado del viernes 22 de mayo: semana terminada el 22 de mayo confirmada neta negativa en aproximadamente menos 16.300 BTC de salida (5 de 5 días con salidas); semanas terminadas el 15 de mayo, el 8 de mayo y el 1 de mayo no son visibles en la página predeterminada de CoinGlass. La semana actual en curso (terminando el 29 de mayo) está acumulando neta negativa en aproximadamente menos 17.000 BTC hasta el jueves. La prueba \"al menos 3 de 4 agregados semanales positivos\" no puede satisfacerse con los datos visibles — INACTIVE según la lectura direccional (fuente: agregador CoinGlass, provisional).",
+            "de": "Innerhalb der letzten vier Wochen relativ zum bestätigten Freitagsschluss vom 22. Mai: Woche bis 22. Mai bestätigt netto-negativ bei etwa minus 16.300 BTC Abfluss (5 von 5 Tagen mit Abflüssen); Wochen bis 15. Mai, 8. Mai und 1. Mai sind auf der CoinGlass-Standardseite nicht sichtbar. Die aktuelle laufende Woche (Ende 29. Mai) liegt bislang bei etwa minus 17.000 BTC bis Donnerstag. Der Test \"mindestens 3 von 4 wöchentlichen Aggregaten positiv\" kann mit den sichtbaren Daten nicht erfüllt werden — INACTIVE gemäß der gerichteten Lesart (Quelle: CoinGlass-Aggregator, provisorisch)."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
-        },
-        {
-          "id": "stablecoin_supply",
-          "category": "INSTITUTIONAL_DEMAND",
-          "title": {
-            "en": "Aggregate digital dollar supply",
-            "pt-BR": "Oferta agregada de dólar digital",
-            "es": "Oferta agregada de dólar digital",
-            "de": "Aggregierte Digital-Dollar-Versorgung"
-          },
-          "state": "EXPANDING",
-          "points_awarded": 1,
-          "max_points": 1,
-          "summary": {
-            "en": "Aggregate digital dollar supply continues to expand.",
-            "pt-BR": "A oferta agregada de dólar digital continua se expandindo.",
-            "es": "La oferta agregada de dólar digital continúa expandiéndose.",
-            "de": "Das aggregierte Angebot an Digital-Dollar wächst weiter."
-          },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-05-28T22:00:00Z"
         }
       ]
     },
@@ -273,77 +225,81 @@
         "es": "Fortaleza relativa",
         "de": "Relative Stärke"
       },
-      "status": "CONSTRUCTIVE",
+      "status": "MIXED",
       "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Relative strength is improving.",
-        "pt-BR": "A força relativa está melhorando.",
-        "es": "La fortaleza relativa está mejorando.",
-        "de": "Die relative Stärke verbessert sich."
+        "en": "Bitcoin is lagging both gold and the Nasdaq on a 20-week basis; broader equity strength persists.",
+        "pt-BR": "O Bitcoin está perdendo tanto para o ouro quanto para o Nasdaq em base de 20 semanas; a força do mercado acionário em geral persiste.",
+        "es": "Bitcoin está perdiendo frente al oro y al Nasdaq en base de 20 semanas; la fortaleza más amplia de la renta variable persiste.",
+        "de": "Bitcoin liegt sowohl gegenüber Gold als auch gegenüber dem Nasdaq auf 20-Wochen-Sicht zurück; die breitere Aktienmarktstärke hält an."
       },
       "signals": [
         {
-          "id": "btc_vs_spx",
-          "category": "RELATIVE_STRENGTH",
+          "id": "REL-01",
           "title": {
-            "en": "BTC vs. S&P 500",
-            "pt-BR": "BTC vs. S&P 500",
-            "es": "BTC vs. S&P 500",
-            "de": "BTC vs. S&P 500"
+            "en": "BTC Outperforming Gold",
+            "pt-BR": "BTC superando o ouro",
+            "es": "BTC superando al oro",
+            "de": "BTC stärker als Gold"
           },
-          "state": "OUTPERFORMING",
+          "state": "INACTIVE",
+          "points_awarded": 0,
+          "max_points": 1,
+          "summary": {
+            "en": "BTC/Gold ratio at 16.09 sits below its 20-week EMA of 16.56 — Bitcoin underperforming the defensive asset on a 20-week basis (Yahoo GC=F substitute; FRED LBMA series retired).",
+            "pt-BR": "A razão BTC/Ouro em 16,09 está abaixo da EMA de 20 semanas de 16,56 — o Bitcoin está perdendo para o ativo defensivo em base de 20 semanas (substituto Yahoo GC=F; série LBMA do FRED descontinuada).",
+            "es": "La razón BTC/Oro en 16,09 está por debajo de la EMA de 20 semanas de 16,56 — Bitcoin pierde frente al activo defensivo en base de 20 semanas (sustituto Yahoo GC=F; serie LBMA del FRED retirada).",
+            "de": "Das BTC/Gold-Verhältnis von 16,09 liegt unterhalb seiner 20-Wochen-EMA von 16,56 — Bitcoin bleibt auf 20-Wochen-Sicht hinter dem defensiven Asset zurück (Yahoo GC=F-Substitut; FRED-LBMA-Serie eingestellt)."
+          },
+          "last_updated_at": "2026-05-22T00:00:00Z"
+        },
+        {
+          "id": "REL-02",
+          "title": {
+            "en": "BTC Outperforming Nasdaq",
+            "pt-BR": "BTC superando o Nasdaq",
+            "es": "BTC superando al Nasdaq",
+            "de": "BTC stärker als Nasdaq"
+          },
+          "state": "INACTIVE",
+          "points_awarded": 0,
+          "max_points": 1,
+          "summary": {
+            "en": "BTC/Nasdaq ratio at 2.87 sits below its 20-week EMA of 3.22 — Bitcoin underperforming tech equities on a 20-week basis.",
+            "pt-BR": "A razão BTC/Nasdaq em 2,87 está abaixo da EMA de 20 semanas de 3,22 — o Bitcoin perde para as ações de tecnologia em base de 20 semanas.",
+            "es": "La razón BTC/Nasdaq en 2,87 está por debajo de la EMA de 20 semanas de 3,22 — Bitcoin pierde frente a las acciones tecnológicas en base de 20 semanas.",
+            "de": "Das BTC/Nasdaq-Verhältnis von 2,87 liegt unterhalb seiner 20-Wochen-EMA von 3,22 — Bitcoin bleibt gegenüber Tech-Aktien auf 20-Wochen-Sicht zurück."
+          },
+          "last_updated_at": "2026-05-22T00:00:00Z"
+        },
+        {
+          "id": "REL-03",
+          "title": {
+            "en": "Nasdaq Structural Health",
+            "pt-BR": "Saúde estrutural do Nasdaq",
+            "es": "Salud estructural del Nasdaq",
+            "de": "Strukturelle Gesundheit des Nasdaq"
+          },
+          "state": "ACTIVE",
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "Bitcoin is outperforming the S&P 500 on a trailing basis.",
-            "pt-BR": "O Bitcoin supera o S&P 500 em base de retornos passados.",
-            "es": "Bitcoin supera al S&P 500 en base de rendimientos pasados.",
-            "de": "Bitcoin entwickelt sich besser als der S&P 500 im rückblickenden Vergleich."
+            "en": "Nasdaq closed May 22 at 26,344 vs 20-week EMA 23,911 — 10% above trend. Broader risk appetite remains constructive.",
+            "pt-BR": "O Nasdaq fechou em 22 de maio em 26.344 vs EMA de 20 semanas 23.911 — 10% acima da tendência. O apetite por risco em geral segue construtivo.",
+            "es": "El Nasdaq cerró el 22 de mayo en 26.344 vs EMA de 20 semanas 23.911 — 10% por encima de la tendencia. El apetito por riesgo en general sigue constructivo.",
+            "de": "Der Nasdaq schloss am 22. Mai bei 26.344 gegenüber der 20-Wochen-EMA 23.911 — 10% über dem Trend. Die breitere Risikobereitschaft bleibt konstruktiv."
           },
-          "last_updated_at": "2026-05-14T00:05:00Z"
-        },
-        {
-          "id": "btc_vs_gold",
-          "category": "RELATIVE_STRENGTH",
-          "title": {
-            "en": "BTC vs. gold",
-            "pt-BR": "BTC vs. ouro",
-            "es": "BTC vs. oro",
-            "de": "BTC vs. Gold"
-          },
-          "state": "UNDERPERFORMING",
-          "points_awarded": 0,
-          "max_points": 1,
-          "summary": {
-            "en": "Bitcoin is underperforming gold on a trailing basis.",
-            "pt-BR": "O Bitcoin tem desempenho inferior ao ouro em base de retornos passados.",
-            "es": "Bitcoin tiene desempeño inferior al oro en base de rendimientos pasados.",
-            "de": "Bitcoin entwickelt sich schwächer als Gold im rückblickenden Vergleich."
-          },
-          "last_updated_at": "2026-05-14T00:05:00Z"
-        },
-        {
-          "id": "btc_dominance",
-          "category": "RELATIVE_STRENGTH",
-          "title": {
-            "en": "BTC dominance",
-            "pt-BR": "Dominância do BTC",
-            "es": "Dominancia del BTC",
-            "de": "BTC-Dominanz"
-          },
-          "state": "STABLE",
-          "points_awarded": 0,
-          "max_points": 1,
-          "summary": {
-            "en": "BTC dominance remains stable in its recent range.",
-            "pt-BR": "A dominância do BTC permanece estável em sua faixa recente.",
-            "es": "La dominancia de BTC se mantiene estable en su rango reciente.",
-            "de": "Die BTC-Dominanz bleibt in ihrer jüngsten Spanne stabil."
-          },
-          "last_updated_at": "2026-05-14T00:05:00Z"
+          "last_updated_at": "2026-05-22T00:00:00Z"
         }
       ]
     }
-  ]
+  ],
+  "_translation_status": {
+    "_comment": "Machine-draft flag per market-editorial.md §5. EN is authoritative; pt-BR / es / de drafted by engineering with research-memo voice (doc 03 §5.2) and the Phase 7 jargon ban (see scripts/check-market-data-jargon.mjs for the banned-terms list). Translator pass priority: 1) signal summaries (data-tied narrative, lower risk), 2) group summaries (already terse), 3) signal titles (constant-shape, low risk). The corresponding regime.json#_translation_status governs the higher-stakes summary.detailed field.",
+    "signals.*.title": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
+    "signals.*.summary": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
+    "groups.*.summary": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
+    "groups.*.title": { "pt-BR": "preserved-from-iter3", "es": "preserved-from-iter3", "de": "preserved-from-iter3" }
+  }
 }

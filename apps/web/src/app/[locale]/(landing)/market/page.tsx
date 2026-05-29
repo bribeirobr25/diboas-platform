@@ -232,7 +232,7 @@ export default async function MarketPage({ params }: LocalePageProps) {
               </SectionErrorBoundary>
             )}
 
-            {historical && historical.snapshots.length > 0 && (
+            {historical && historical.snapshots.length > 0 && !historical.synthetic_seed && (
               <SectionErrorBoundary
                 sectionId="market-historical"
                 sectionType="dashboard"

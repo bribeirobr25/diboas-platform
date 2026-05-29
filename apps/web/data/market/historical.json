@@ -1,11 +1,12 @@
 {
-  "_comment": "52 weekly snapshots back to 2025-05-15. Path: HOSTILE → DEFENSIVE → NEUTRAL_MIXED → CONSTRUCTIVE → VERY_FAVORABLE → CONSTRUCTIVE (current). All UTC ISO-8601. Storybook + chart fixture.",
+  "_comment": "52 weekly snapshots back to 2025-05-15 — ILLUSTRATIVE SEED data (pre-canonical-engine). The 'CONSTRUCTIVE 10' tail through 2026-05-14 reflects iter-3 placeholder editorial, NOT the canonical doc-02 engine. Per the D1 enactment 2026-05-29: the regime card now publishes the real engine result (DEFENSIVE 5 against the April 30 confirmed monthly close); appending real points adjacent to the synthetic tail would render a chart 'CONSTRUCTIVE→DEFENSIVE crash' that never happened under the canonical engine — purely a data-source seam. The `synthetic_seed: true` flag below is read by mock-client.server.ts#getHistoricalRegimes() which returns null, suppressing the entire trend-chart <section> on /market via the existing page.tsx conditional `{historical && historical.snapshots.length > 0 && ...}`. Real canonical-engine snapshots will begin once history accumulates OR the chart UI is updated to visually distinguish the synthetic seed. Chart-strategy resolution tracked in docs/audit/PENDING_ALL.md item 5.27. The 52 snapshots below are retained for chart-design work and may be re-styled / pruned at that time. §5.3 (snapshot immutability) is preserved — these were never canonical-engine outputs.",
+  "synthetic_seed": true,
   "range": "1y",
   "snapshots": [
     { "date": "2025-05-15T00:00:00Z", "score": 2, "regime_code": "HOSTILE" },
     { "date": "2025-05-22T00:00:00Z", "score": 2, "regime_code": "HOSTILE" },
-    { "date": "2025-05-29T00:00:00Z", "score": 3, "regime_code": "HOSTILE" },
-    { "date": "2025-06-05T00:00:00Z", "score": 3, "regime_code": "HOSTILE" },
+    { "date": "2025-05-29T00:00:00Z", "score": 3, "regime_code": "DEFENSIVE" },
+    { "date": "2025-06-05T00:00:00Z", "score": 3, "regime_code": "DEFENSIVE" },
     { "date": "2025-06-12T00:00:00Z", "score": 4, "regime_code": "DEFENSIVE" },
     { "date": "2025-06-19T00:00:00Z", "score": 4, "regime_code": "DEFENSIVE" },
     { "date": "2025-06-26T00:00:00Z", "score": 5, "regime_code": "DEFENSIVE" },
