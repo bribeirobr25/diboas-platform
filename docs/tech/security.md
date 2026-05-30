@@ -22,15 +22,17 @@ All security utilities live in `apps/web/src/lib/security/` and are re-exported 
 
 **File:** `apps/web/middleware.ts`
 
-A per-request nonce is generated via `crypto.randomUUID()` in Edge Middleware. The nonce is:
+A per-request nonce is generated in Edge Middleware as the base64 encoding of 16 random bytes drawn from the Web Crypto API (`crypto.getRandomValues(new Uint8Array(16))` → `btoa(String.fromCharCode(...))`), producing a 24-character base64 string ending in `==`. Web Crypto is used because Next.js Middleware runs in the Edge Runtime, which does not expose `node:crypto`. The base64 charset (`A-Za-z0-9+/=`) matches the CSP Level 3 nonce-source grammar. The nonce is:
 
 - Embedded in the `script-src` directive so only scripts with the matching nonce execute
 - Forwarded to layout via the `x-nonce` request/response header
 - Applied to every non-static route via the middleware matcher
 
+The companion `x-request-id` header continues to use `crypto.randomUUID()` (UUID format) — only the CSP nonce has the base64 charset requirement; the two are kept separate to avoid coupling.
+
 Key directives:
 
-- `script-src 'self' 'nonce-{uuid}'` (production removes `'unsafe-eval'`)
+- `script-src 'self' 'nonce-<base64>'` where `<base64>` is the 24-char nonce per request (production removes `'unsafe-eval'`)
 - `style-src 'self' 'unsafe-inline'` (CSS-in-JS requires inline styles)
 - `frame-ancestors 'none'` (equivalent to X-Frame-Options DENY)
 - `object-src 'none'`
