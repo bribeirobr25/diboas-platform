@@ -10,7 +10,7 @@ diBoaS is a pre-launch marketing site with waitlist functionality, interactive d
 
 ## Tech Stack
 
-- **Framework:** Next.js 16.1.7 (App Router, Turbopack)
+- **Framework:** Next.js 16.2.6 (App Router, Turbopack)
 - **Language:** TypeScript ~5.9.3 (strict mode)
 - **UI:** React 18.3.1, Tailwind CSS 3.4.17
 - **Monorepo:** Turborepo 2.8.15 + pnpm 8.15.0

@@ -24,7 +24,7 @@
     "@sentry/nextjs: ^10.49.0 — updated 2026-04-23 to fix picomatch 4.0.3 ReDoS + uuid buffer bounds. Stable within major version.",
     "posthog-js: ^1.313.0 — 1.x has no known breaking minor changes; consent-gated lazy import reduces surface.",
     "dompurify: ^3.4.1 — updated 2026-04-23 to fix 4 moderate bypasses (ADD_TAGS, FORBID_TAGS, SAFE_FOR_TEMPLATES, Prototype Pollution). All usage goes through htmlSanitizer abstraction.",
-    "next: 16.1.7 — pinned exact. Latest stable 16.1.x. Known DoS vulnerability (GHSA-848j-6mx2-7j84) with no patch available yet. Monitor for 16.1.8+. Revisit when patched version released."
+    "next: 16.2.6 — pinned exact. Latest stable 16.2.x line. Addresses the 2026-05-11 coordinated Next.js patch cycle (12+ advisories) — directly fixes CVE-2026-45109 (Turbopack middleware bypass, HIGH/CVSS 7.5; 16.2.6 carries the 'Incomplete Fix Follow-Up' for GHSA-26hh-7cqf-hhc6 beyond 16.2.5) and CVE-2026-44576 (RSC cache poisoning, MEDIUM/CVSS 5.4). As bonus defense-in-depth: GHSA-ffhc-5mcf-pf4q (CSP nonce XSS via malformed request-header-derived nonces) — note our nonce is server-generated via Web Crypto, never derived from request headers, so we were not the affected pattern. Prior 16.1.7 pin retired 2026-05-30; previous note's GHSA-848j-6mx2-7j84 reference was incorrect — that ID maps to CVE-2025-14505 in the `elliptic` crypto library, not a Next.js advisory (verified via `gh api /advisories/GHSA-848j-6mx2-7j84` on 2026-05-27 and re-confirmed 2026-05-30). Monitor for 16.3.x stable release."
   ],
   "//devDependencies-notes": [
     "vitest + @vitest/coverage-v8: ^4.1.5 — updated 2026-04-23 to resolve vite 7.3.1 file-read + happy-dom vulnerabilities via updated transitive deps.",
@@ -44,7 +44,7 @@
     "@upstash/redis": "^1.36.0",
     "dompurify": "^3.4.1",
     "lucide-react": "^0.544.0",
-    "next": "16.1.7",
+    "next": "16.2.6",
     "posthog-js": "^1.313.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -60,7 +60,7 @@ The bundle is designed for an external auditor to independently:
 | C1  | Stress-test simulator   | Reproduces all 140 scenarios; run with `node apps/web/scripts/tools-stress-test.mjs`; outputs to JSON                                                         | `apps/web/scripts/tools-stress-test.mjs` (700+ lines) + `tools-stress-test-out.json` |
 | C2  | Production simulator    | Reproduces 25 prod default-vector outputs incl. PT1/PT3 acceptance numbers                                                                                    | `apps/web/scripts/tools-simulator.mjs` + `tools-simulator-out.json`                  |
 | C3  | B2B card-fee derivation | Derives the 8 tombstoned numbers shown on `/business`; re-run after rate change                                                                               | `scripts/derive-b2b-card-numbers.mjs`                                                |
-| C4  | Unit-test suite         | 969 tests covering formulas + calculator components + i18n parity (v1.9: 862 → 868 → 946 → 959 → 967 → 969 across audit cycles; +23 across FX-16 adoption, audit-pass priority-inversion tests, and §6.1 cashUsdEquivalent clamp regression tests) | `apps/web/src/**/__tests__/*.test.ts` (64 test files)                                |
+| C4  | Unit-test suite         | 971 tests as of 2026-05-30 (was 969 at v1.9 baseline 2026-05-26): 862 → 868 → 946 → 959 → 967 → 969 → 971 across audit cycles; +23 across FX-16 adoption + audit-pass priority-inversion + §6.1 cashUsdEquivalent clamp regression tests; +2 from Phase 0-2 security work 2026-05-30 (NEW-4 x-request-id UUID assertion + Phase 1 fallback 1.3.b `\.well-known/` matcher exclusion regression guard) — both are middleware regression guards, NOT tools tests, so the tools-domain subset is unchanged at 969 | `apps/web/src/**/__tests__/*.test.ts` (64 test files)                                |
 
 ### Tier D — Source data files (the inputs)
 
@@ -163,7 +163,7 @@ If the auditor has read access to the diBoaS codebase, they can also reference T
 16. Clone the repo at the audit commit SHA: `git clone ... && git checkout <SHA>`.
 17. Install dependencies: `pnpm install`.
 18. Run **C1 simulator**: `node apps/web/scripts/tools-stress-test.mjs`. Output JSON should match `tools-stress-test-out.json` byte-for-byte (modulo timestamp).
-19. Run the test suite: `pnpm vitest run`. Expect 969/969 passing (v1.9 baseline; was 862 in v1.0).
+19. Run the test suite: `pnpm vitest run`. Expect 971/971 passing as of 2026-05-30 (was 969/969 at v1.9 baseline 2026-05-26; was 862 in v1.0). The +2 from v1.9 are middleware regression guards added during Phase 0-2 security work — NOT tools-domain tests, so the tools-subset is unchanged at 969.
 20. Spot-check 10 production tool URLs in a browser. Compare rendered numbers to simulator output.
 
 ### Day 7 — decision history (if access granted)
@@ -179,7 +179,7 @@ The auditor should expect to confirm the following before issuing a clean opinio
 | Audit gate                                                 | Evidence in bundle                                       | Expected finding                                                |
 | ---------------------------------------------------------- | -------------------------------------------------------- | --------------------------------------------------------------- |
 | All formulas have published references                     | A1 §X.4 + financial-calculations.md + textbook citations | ✅ Standard FV / annuity / CAGR math + path-dependent extension |
-| All formulas have unit-test coverage                       | C4 (969 tests) + A1 §13                                  | ✅ 100% on security utils; 80% on formulas; 60% on components   |
+| All formulas have unit-test coverage                       | C4 (971 tests as of 2026-05-30; 969 tools subset + 2 security middleware-regression guards) + A1 §13 | ✅ 100% on security utils; 80% on formulas; 60% on components   |
 | All input constants have source attribution                | D2 (METADATA)                                            | ✅ Every field has `last_verified` + source string              |
 | All input constants have refresh cadence                   | D2 + B7 (weekly runbook)                                 | ✅ Monthly bank/inflation; daily FX; quarterly card fees        |
 | All tool outputs reproduce simulator                       | C1 + C2 + production browser sweep (B8)                  | ✅ pt-BR R$7.34M Retirement matches PT1 sign-off exact          |

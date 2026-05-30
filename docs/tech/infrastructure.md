@@ -7,7 +7,7 @@
 
 | Layer          | Technology                                          | Version        |
 | -------------- | --------------------------------------------------- | -------------- |
-| Framework      | Next.js (App Router)                                | 16.1.7         |
+| Framework      | Next.js (App Router)                                | 16.2.6         |
 | Language       | TypeScript (strict)                                 | 5.9.x          |
 | UI             | React + Tailwind CSS                                | 18.3.x / 3.4.x |
 | Monorepo       | Turborepo + pnpm                                    | 2.8.x / 8.15.0 |
