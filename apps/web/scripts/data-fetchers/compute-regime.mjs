@@ -98,7 +98,7 @@ async function fetchYahooChart(symbol, range = '1y', interval = '1d') {
   const closes = r.indicators.quote[0].close;
   return ts
     .map((t, i) => [new Date(t * 1000), closes[i]])
-    .filter(([_, c]) => c != null);
+    .filter((pair) => pair[1] != null);
 }
 
 // ===========================================================================

@@ -19,7 +19,14 @@ const LOCALE_COOKIE = 'NEXT_LOCALE';
 
 export function middleware(request: NextRequest): NextResponse {
   try {
-    const nonce = crypto.randomUUID();
+    // F4 (2026-05-29): CSP nonce as base64 of 16 random bytes per RFC 7762 §1
+    // and CSP Level 3 recommendation. UUID format embeds hyphens and is outside
+    // the canonical CSP nonce charset (`A-Za-z0-9+/=`). Web Crypto API only —
+    // Edge Runtime has no `node:crypto`. `crypto.getRandomValues` + `btoa` are
+    // globally available in Edge.
+    const nonceBytes = new Uint8Array(16);
+    crypto.getRandomValues(nonceBytes);
+    const nonce = btoa(String.fromCharCode(...nonceBytes));
     const requestId = crypto.randomUUID();
     const isDev = process.env.NODE_ENV !== 'production';
     const { pathname, search } = request.nextUrl;

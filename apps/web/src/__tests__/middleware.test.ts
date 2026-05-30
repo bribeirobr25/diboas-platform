@@ -1,8 +1,22 @@
+// Why unit tests rather than a dev-server curl smoke test (B5, 2026-05-30):
+// Next.js 16 / Turbopack serves prerendered routes from the full-route cache
+// in dev mode (`x-nextjs-cache: HIT` + `x-nextjs-prerender: 1`), and the cached
+// response is returned WITHOUT the middleware-set headers (`Content-Security-
+// Policy`, `x-nonce`, `x-request-id`). Production behavior is unaffected.
+// Verifying middleware-set headers via dev-server curl is unreliable as a
+// result — these tests invoke the middleware function directly and assert
+// on the returned `NextResponse.headers`, which is the production code path.
+
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { NextRequest } from 'next/server';
 import { middleware, config } from '../../middleware';
 
+// `x-request-id` continues to use crypto.randomUUID() (UUID v4) — only the
+// CSP nonce switched to base64 (F4, 2026-05-29). Kept separate to avoid coupling.
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+// F4 (2026-05-29): CSP nonce is base64 of 16 random bytes (22 base64 chars + `==`
+// padding = 24 chars total). Charset per RFC 4648 §4: `A-Za-z0-9+/=`.
+const CSP_NONCE_BASE64_REGEX = /^[A-Za-z0-9+/]{22}==$/;
 
 function makeRequest(
   path: string,
@@ -31,7 +45,8 @@ describe('middleware', () => {
     it('should include a nonce in the CSP header', () => {
       const response = middleware(makeRequest('/en/about'));
       const csp = response.headers.get('Content-Security-Policy') ?? '';
-      expect(csp).toMatch(/'nonce-[0-9a-f-]+'/i);
+      // F4 (2026-05-29): nonce is base64 of 16 random bytes (24 chars incl. `==`).
+      expect(csp).toMatch(/'nonce-[A-Za-z0-9+/]{22}=='/);
     });
 
     it('should set x-nonce response header', () => {
@@ -39,10 +54,16 @@ describe('middleware', () => {
       expect(response.headers.get('x-nonce')).toBeTruthy();
     });
 
-    it('should set x-nonce as a valid UUID', () => {
+    it('should set x-nonce as a valid base64-encoded nonce (F4: 16-byte CSP nonce per CSP Level 3 charset)', () => {
       const response = middleware(makeRequest('/en/about'));
       const nonce = response.headers.get('x-nonce')!;
-      expect(nonce).toMatch(UUID_REGEX);
+      expect(nonce).toMatch(CSP_NONCE_BASE64_REGEX);
+    });
+
+    it('should set x-request-id as a valid UUID v4 (kept separate from CSP nonce per F4 design)', () => {
+      const response = middleware(makeRequest('/en/about'));
+      const requestId = response.headers.get('x-request-id')!;
+      expect(requestId).toMatch(UUID_REGEX);
     });
 
     it('should NOT include unsafe-eval in production', () => {

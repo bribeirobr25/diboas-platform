@@ -1,18 +1,12 @@
 User-agent: *
 Disallow: /api/
 Disallow: /_next/data/
-Disallow: /admin/
-Disallow: /private/
 Allow: /_next/static/
 
 User-agent: Googlebot
 Disallow: /api/
-Disallow: /admin/
-Disallow: /private/
 
 User-agent: Bingbot
 Disallow: /api/
-Disallow: /admin/
-Disallow: /private/
 
 Sitemap: https://diboas.com/sitemap.xml

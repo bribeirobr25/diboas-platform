@@ -25,7 +25,9 @@ const POINT_FILL_BY_REGIME: Record<RegimeCode, string> = {
   VERY_FAVORABLE: 'var(--text-success-accessible)',
   CONSTRUCTIVE: 'var(--text-brand-accessible)',
   NEUTRAL_MIXED: 'var(--color-text-secondary)',
-  DEFENSIVE: 'var(--color-amber-700)',
+  // Pa11y fix 2026-05-30: aligned with regime.module.css — uses the accessible
+  // amber-800 token (matches other regimes' use of *-accessible tokens).
+  DEFENSIVE: 'var(--text-warning-accessible)',
   HOSTILE: 'var(--text-error-accessible)',
 };
 

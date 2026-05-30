@@ -1,0 +1,5 @@
+Contact: mailto:security@diboas.com
+Expires: 2027-05-27T00:00:00.000Z
+Preferred-Languages: en, pt-BR, es, de
+Canonical: https://diboas.com/.well-known/security.txt
+Policy: https://github.com/bribeirobr25/diboas-platform/blob/main/SECURITY.md

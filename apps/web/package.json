@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint . --ext .js,.jsx,.mjs,.cjs,.ts,.tsx",
     "type-check": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",

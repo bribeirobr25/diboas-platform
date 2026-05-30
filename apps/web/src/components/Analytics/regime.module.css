@@ -16,7 +16,11 @@
 }
 
 .regimeColorDEFENSIVE {
-  color: var(--color-amber-700);
+  /* Pa11y fix 2026-05-30: was --color-amber-700 (#b45309) at 4.45:1 on the
+   * 8% amber-tinted background — failed AA. --text-warning-accessible (amber-800,
+   * #92400e) is 6.35:1 on the same tint. Surfaced when the live regime flipped
+   * from CONSTRUCTIVE to DEFENSIVE. See design-tokens.css for the contrast math. */
+  color: var(--text-warning-accessible);
 }
 
 .regimeColorHOSTILE {
@@ -40,7 +44,10 @@
 }
 
 .regimeFillDEFENSIVE {
-  background-color: color-mix(in srgb, var(--color-amber-700) 8%, transparent);
+  /* Pa11y fix 2026-05-30: same-token symmetry with the text color (above) — other
+   * regimes use the same accessible token for both text and fill. amber-800 at 8%
+   * over white = ~#f6efec; amber-800 text on that = 6.25:1. */
+  background-color: color-mix(in srgb, var(--text-warning-accessible) 8%, transparent);
 }
 
 .regimeFillHOSTILE {
