@@ -168,6 +168,13 @@
   /* W2: accessible variant of the brand teal for clickable text on light bg.
    * Use this (not --color-teal-600) wherever the teal appears as text. */
   --text-brand-accessible: #0f766e; /* Teal-700: 4.85:1 on white */
+  /* Pa11y fix 2026-05-30: amber-700 (#b45309) measures 4.45:1 on the 8% amber-tinted
+   * regime-pill background (#f9f1eb) — fails AA by a hair. Bumped to amber-800 which
+   * is 7.09:1 on white and 6.35:1 on the same tinted background. Issue surfaced when
+   * /market regime flipped from CONSTRUCTIVE 10 to DEFENSIVE 5 (W2 audit had only
+   * exercised the brand/success/error palettes against live data — amber was latent).
+   * Use this for any warning/defensive-tinted text on light bg. */
+  --text-warning-accessible: #92400e; /* Amber-800: 7.09:1 on white */
 
   /* Unified Text Color Tokens */
   --color-text-heading: #0f172a; /* Slate-900: primary headings */
