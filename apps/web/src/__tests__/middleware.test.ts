@@ -258,5 +258,18 @@ describe('middleware', () => {
       expect(Array.isArray(config.matcher)).toBe(true);
       expect(config.matcher.length).toBeGreaterThan(0);
     });
+
+    // Phase 1 fallback step 1.3.b regression guard (2026-05-30):
+    // Production U4 caught the matcher redirecting `/.well-known/security.txt`
+    // to `/en/.well-known/security.txt` (307), violating RFC 9116. The literal
+    // `security.txt` token excludes `/security.txt` (root) only — not the
+    // nested `/.well-known/security.txt`. `\.well-known/` was added to the
+    // negative-lookahead alternation to prevent middleware from running on
+    // any `/.well-known/*` path. This test guards against a future edit
+    // silently dropping the exclusion and reintroducing the 307.
+    it('should exclude /.well-known/ from middleware execution (RFC 9116 / F6)', () => {
+      const pattern = String(config.matcher[0]);
+      expect(pattern).toContain('\\.well-known/');
+    });
   });
 });

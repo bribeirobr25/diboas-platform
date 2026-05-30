@@ -130,7 +130,16 @@ export function middleware(request: NextRequest): NextResponse {
 
 export const config = {
   matcher: [
-    // Match all routes except static files and API routes
-    '/((?!api|_next/static|_next/image|favicon|robots.txt|sitemap.xml|security.txt|assets/|.*\\.(?:ico|svg|png|jpg|jpeg|gif|webp|avif|css|js|woff|woff2|ttf|eot)).*)',
+    // Match all routes except static files and API routes.
+    // `\.well-known/` added 2026-05-30 (Phase 1 fallback step 1.3.b per
+    // SECURITY_IMPLEMENTATION_PLAN_2026-05-27.md §3 Step 1.3): production U4
+    // confirmed the matcher was redirecting `/.well-known/security.txt` to
+    // `/en/.well-known/security.txt` (307), which violates RFC 9116 — the file
+    // must serve as 200 plain text at the canonical path. The literal
+    // `security.txt` token excludes `/security.txt` (root) but does NOT cover
+    // the nested `/.well-known/security.txt`. The Vercel `/.well-known is
+    // reserved` doc note was hopeful but production disproved it — middleware
+    // does run on this path. Trailing slash matches `assets/` convention.
+    '/((?!api|_next/static|_next/image|favicon|robots.txt|sitemap.xml|security.txt|\\.well-known/|assets/|.*\\.(?:ico|svg|png|jpg|jpeg|gif|webp|avif|css|js|woff|woff2|ttf|eot)).*)',
   ],
 };
