@@ -203,13 +203,13 @@ const nextConfig = {
 
 // Sentry configuration options
 const sentryWebpackPluginOptions = {
-  // 2026-05-30: was `silent: true` — flipped to false to diagnose why no
-  // source maps were uploading post-Phase-2 deploy. With silent:true the
-  // Sentry source-map upload hook (Turbopack-compatible runAfterProductionCompile)
-  // emits zero output regardless of success/failure, so build logs gave us
-  // no signal. Revert to `silent: true` only after source-map upload is
-  // confirmed working in production and you want quieter build logs.
-  silent: false,
+  // Suppress source-map upload logs during build. If you need to diagnose a
+  // Sentry build-time issue (release creation, source-map upload failures),
+  // temporarily flip this to `false` to surface the plugin's verbose output
+  // in the build log — that's how we caught the disabled-DSN-key incident
+  // (2026-05-30) and the missing SENTRY_ORG/SENTRY_PROJECT env vars
+  // (2026-05-31).
+  silent: true,
 
   // Upload source maps for better error debugging
   // Only upload in production builds with SENTRY_AUTH_TOKEN set
