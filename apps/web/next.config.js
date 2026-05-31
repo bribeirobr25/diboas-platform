@@ -203,8 +203,13 @@ const nextConfig = {
 
 // Sentry configuration options
 const sentryWebpackPluginOptions = {
-  // Suppress source map upload logs during build
-  silent: true,
+  // 2026-05-30: was `silent: true` — flipped to false to diagnose why no
+  // source maps were uploading post-Phase-2 deploy. With silent:true the
+  // Sentry source-map upload hook (Turbopack-compatible runAfterProductionCompile)
+  // emits zero output regardless of success/failure, so build logs gave us
+  // no signal. Revert to `silent: true` only after source-map upload is
+  // confirmed working in production and you want quieter build logs.
+  silent: false,
 
   // Upload source maps for better error debugging
   // Only upload in production builds with SENTRY_AUTH_TOKEN set
