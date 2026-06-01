@@ -194,8 +194,10 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
 
         {/* Terms checkbox */}
         <div className={styles.termsCardHighlighted}>
-          <label className={styles.checkboxLabel}>
+          <label htmlFor="predemo-confirm-terms" className={styles.checkboxLabel}>
             <input
+              id="predemo-confirm-terms"
+              name="termsAccepted"
               type="checkbox"
               checked={state.termsAccepted}
               onChange={(e) => {

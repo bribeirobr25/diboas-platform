@@ -146,12 +146,16 @@ export function DepositScreen() {
         </div>
 
         {/* Amount label */}
-        <div className={styles.fieldLabel}>{t('preDemo.deposit.amountLabel')}</div>
+        <label htmlFor="predemo-deposit-amount" className={styles.fieldLabel}>
+          {t('preDemo.deposit.amountLabel')}
+        </label>
 
         {/* Amount input */}
         <div className={styles.amountInputContainer}>
           <span className={styles.amountPrefix}>{currencySymbol}</span>
           <input
+            id="predemo-deposit-amount"
+            name="depositAmount"
             type="text"
             inputMode="decimal"
             value={state.depositAmount}

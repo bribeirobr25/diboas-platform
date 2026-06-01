@@ -42,8 +42,10 @@ export function DisclaimerScreen() {
           <p className={styles.legalNotice}>{t('legalNotice')}</p>
         </div>
 
-        <label className={styles.checkboxLabel}>
+        <label htmlFor="predream-disclaimer-accept" className={styles.checkboxLabel}>
           <input
+            id="predream-disclaimer-accept"
+            name="disclaimerAccepted"
             type="checkbox"
             checked={accepted}
             onChange={(e) => setAccepted(e.target.checked)}

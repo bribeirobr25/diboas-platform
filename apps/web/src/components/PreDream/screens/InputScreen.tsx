@@ -44,18 +44,25 @@ export function InputScreen() {
         {/* Starting Amount */}
         <div className={styles.sliderCard}>
           <div className={styles.sliderHeader}>
-            <span className={styles.sliderLabel}>{t('startingAmount')}</span>
+            <label htmlFor="predream-initial-amount-number" className={styles.sliderLabel}>
+              {t('startingAmount')}
+            </label>
             <div className={styles.sliderValueInput}>
               <span className={styles.currencySymbol}>{currencySymbol}</span>
               <input
+                id="predream-initial-amount-number"
+                name="initialAmount"
                 type="number"
                 value={state.initialAmount}
                 onChange={(e) => handleInitialChange(e.target.value)}
                 className={styles.sliderNumberInput}
+                aria-label={t('startingAmount')}
               />
             </div>
           </div>
           <input
+            id="predream-initial-amount-range"
+            name="initialAmountRange"
             type="range"
             min={PRE_DREAM_INITIAL_AMOUNT_CONFIG.min}
             max={PRE_DREAM_INITIAL_AMOUNT_CONFIG.max}
@@ -80,18 +87,25 @@ export function InputScreen() {
         {/* Monthly Contribution */}
         <div className={styles.sliderCard}>
           <div className={styles.sliderHeader}>
-            <span className={styles.sliderLabel}>{t('monthlyContribution')}</span>
+            <label htmlFor="predream-monthly-amount-number" className={styles.sliderLabel}>
+              {t('monthlyContribution')}
+            </label>
             <div className={styles.sliderValueInput}>
               <span className={styles.currencySymbol}>{currencySymbol}</span>
               <input
+                id="predream-monthly-amount-number"
+                name="monthlyContribution"
                 type="number"
                 value={state.monthlyContribution}
                 onChange={(e) => handleMonthlyChange(e.target.value)}
                 className={styles.sliderNumberInput}
+                aria-label={t('monthlyContribution')}
               />
             </div>
           </div>
           <input
+            id="predream-monthly-amount-range"
+            name="monthlyContributionRange"
             type="range"
             min={PRE_DREAM_MONTHLY_AMOUNT_CONFIG.min}
             max={PRE_DREAM_MONTHLY_AMOUNT_CONFIG.max}

@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import dynamic from 'next/dynamic';
 import { useTranslation } from '@diboas/i18n/client';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/config';
 import { analyticsService } from '@/lib/analytics';
@@ -17,18 +16,25 @@ import { LessonProgressBar } from '@/components/UI/LessonProgressBar';
 import { DisclaimerNote } from '@/components/UI/DisclaimerNote';
 import { CTAButtonLink } from '@/components/UI/CTAButtonLink';
 import { LocaleLink } from '@/components/UI/LocaleLink';
-import { CalculatorVignettes } from '@/components/Sections/CompoundInterestCalculator';
+import {
+  CalculatorVignettes,
+  CompoundInterestCalculator,
+} from '@/components/Sections/CompoundInterestCalculator';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import styles from './LessonThreeBeat.module.css';
 
-// Lazy-load the interactive calculator. SSR is intentionally disabled — the
-// calculator has no SEO value (it's interactive-only) and the lesson's hero +
-// Beat 1 + Beat 2 already render server-side. Keeps every tool page that reuses
-// this calculator (6C+) within bundle budget caps.
-const CompoundInterestCalculator = dynamic(
-  () => import('@/components/Sections/CompoundInterestCalculator'),
-  { ssr: false }
-);
+// Calculator import note (2026-06-01): formerly wrapped in
+// `dynamic(() => import(...), { ssr: false })` to defer Beat 3's interactive
+// chunk. The wrap caused the calculator to render as an empty `<template>`
+// placeholder on both dev and production — verified via `curl` on
+// https://diboas.com/en/learn/compound-interest where the calculator labels
+// were missing from the HTML and the dynamic chunk failed to swap the
+// placeholder. Per `CLAUDE.md` "Lazy-loaded calculator pattern" + Next.js 16
+// guidance, direct import from a `'use client'` component is the correct
+// pattern — Next.js App Router code-splits client components automatically
+// at the route level. The named export `CompoundInterestCalculator` is the
+// canonical entry point (the file also re-exports as `default` for legacy
+// consumers; knip's duplicate-export flag is expected per CLAUDE.md).
 
 interface LessonThreeBeatProps {
   lessonId: LessonId;

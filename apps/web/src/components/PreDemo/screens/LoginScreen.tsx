@@ -73,14 +73,36 @@ export function LoginScreen({ onExit: _onExit, runSequence }: LoginScreenProps) 
           <div className={styles.loginCard}>
             {/* Email input (pre-filled, disabled) */}
             <div className={styles.inputGroup}>
-              <label className={styles.inputLabel}>{t('preDemo.login.emailLabel')}</label>
-              <input type="email" value="guest@diboas.com" disabled className={styles.inputField} />
+              <label htmlFor="predemo-login-email" className={styles.inputLabel}>
+                {t('preDemo.login.emailLabel')}
+              </label>
+              <input
+                id="predemo-login-email"
+                name="email"
+                type="email"
+                value="guest@diboas.com"
+                disabled
+                readOnly
+                autoComplete="off"
+                className={styles.inputField}
+              />
             </div>
 
             {/* Password input (pre-filled, disabled) */}
             <div className={styles.inputGroup}>
-              <label className={styles.inputLabel}>{t('preDemo.login.passwordLabel')}</label>
-              <input type="password" value="123456" disabled className={styles.inputField} />
+              <label htmlFor="predemo-login-password" className={styles.inputLabel}>
+                {t('preDemo.login.passwordLabel')}
+              </label>
+              <input
+                id="predemo-login-password"
+                name="password"
+                type="password"
+                value="123456"
+                disabled
+                readOnly
+                autoComplete="off"
+                className={styles.inputField}
+              />
             </div>
 
             {/* Divider */}
