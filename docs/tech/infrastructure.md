@@ -70,27 +70,55 @@ Single web application (`apps/web`). No backend services, no microservices, no m
 
 ## 7. Monitoring
 
-### Sentry (error tracking)
+> **Operational playbook:** `docs/tech/MONITORING_OPS.md` (committed) — verification procedures, troubleshooting, rotation runbooks, incident archive.
+>
+> **Org-specific values** (current DSN, project IDs, dashboard links): `docs/monitoring/INFRASTRUCTURE_GUIDE.md` (local-only).
+>
+> **Quick gotchas** (full list in `MONITORING_OPS.md` § E):
+> - PostHog `host` MUST be `us.i.posthog.com` / `eu.i.posthog.com` (ingest), never `app.posthog.com` (console). Wrong value → `/array/<token>/config.js` 404 + silently degraded SDK.
+> - CSP wildcards MUST be full-label (`*.i.posthog.com`); partial-label patterns (`*-assets.i.posthog.com`) are silently ignored by browsers.
+> - Sentry build secrets (`SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`) MUST be listed in `turbo.json#env`, otherwise Turborepo scrubs them and source maps silently fail to upload.
+> - When rotating a Sentry DSN, verify the project key is "Active" (not "Disabled") in Sentry → Project Settings → Client Keys. Disabled keys return HTTP 403 silently and drop 100% of events.
+
+### Sentry (error tracking + session replay + perf tracing)
 
 - **Package:** `@sentry/nextjs` 10.49.x.
-- **Config:** `instrumentation-client.ts` (client-side), server instrumentation via Sentry Next.js plugin.
-- **Env vars:** `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_SENTRY_ORG`, `NEXT_PUBLIC_SENTRY_PROJECT`.
+- **Config files:**
+  - `apps/web/src/instrumentation.ts` — Next.js root instrumentation; wires server/edge Sentry configs based on `NEXT_RUNTIME`; also exports `onRequestError` hook for server-side error capture (RSC, route handlers, middleware)
+  - `apps/web/sentry.server.config.ts` — Node.js runtime (loaded by `instrumentation.ts` when runtime is `nodejs`)
+  - `apps/web/sentry.edge.config.ts` — middleware + edge routes (loaded when runtime is `edge`)
+  - `apps/web/src/instrumentation-client.ts` — browser; auto-loaded by Next.js 16 (replaces legacy `sentry.client.config.ts`); session replay is OFF by default and added only after `CONSENT_GIVEN` per Lighthouse Workstream B
+- **Tunnel route:** `apps/web/src/app/api/monitoring/route.ts` — same-origin POST endpoint that forwards Sentry envelopes to `*.ingest.sentry.io`. Bypasses ad-blockers AND keeps the CSP narrow (no `connect-src` exposure to Sentry's hostname). Manual handler — Turbopack does NOT auto-generate the tunnel route.
+- **Build plugin:** `apps/web/next.config.js` § `sentryWebpackPluginOptions` — uploads source maps + tags releases. Configured with `tunnelRoute: '/api/monitoring'`. `silent: true` to reduce build-log noise — flip to `false` to debug build-time issues.
+- **Release tagging:** falls back to `apps/web/package.json#version` (currently `0.1.0`); production builds override with the Vercel commit SHA via the build plugin.
+- **Runtime env var (browser):** `NEXT_PUBLIC_SENTRY_DSN`
+- **Build-time env vars** (must also be in `turbo.json#tasks.build.env`): `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`
+- **Client telemetry-tagging env vars** (read by `apps/web/src/config/monitoring.ts` `SENTRY_CONFIG`): `NEXT_PUBLIC_SENTRY_ORG`, `NEXT_PUBLIC_SENTRY_PROJECT`
 
-### PostHog (product analytics)
+### PostHog (product analytics, feature flags, surveys, session replay)
 
 - **Package:** `posthog-js` 1.313.x.
-- **Consent-gated:** Never imported at module level. Loaded via dynamic `import('posthog-js')` only after user consent.
-- **Env vars:** `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST`.
+- **Provider:** `apps/web/src/components/Providers/PostHogProvider.tsx` — lazy `import('posthog-js')` inside a `useEffect` after `hasAnalyticsConsent()` returns true. NEVER imported at module level.
+- **Config source:** `apps/web/src/config/env.ts` § `POSTHOG_CONFIG`.
+- **SDK init options:**
+  - `defaults: '2025-11-30'` — pinned default-config bundle (latest accepted by `posthog-js` 1.313.0). Stabilises SDK behaviour across version bumps.
+  - `person_profiles: 'identified_only'` — GDPR-friendly + cost-saving. Anonymous events still tracked under a session-anonymous `distinct_id`; a "person" is only created when `posthog.identify(distinctId)` is called (typically after waitlist signup).
+  - `respect_dnt: true`
+  - `advanced_disable_feature_flags: process.env.NODE_ENV === 'development'`
+- **Consent integration:** subscribes to `ApplicationEventBus` events (`CONSENT_GIVEN` → init if not already; `CONSENT_WITHDRAWN` → `opt_out_capturing()`).
+- **Env vars:** `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST` (must be the **ingest** host `https://us.i.posthog.com` or `https://eu.i.posthog.com`; SDK derives the `*-assets.i.posthog.com` host from the `.i.` infix).
 
 ### Google Analytics 4
 
-- **Loaded:** Via `afterInteractive` script strategy.
-- **Env var:** `NEXT_PUBLIC_GA_ID`.
+- **Two-stage loading** (Lighthouse Workstream D, 2026-05-22):
+  1. **Inline Consent Mode v2 bootstrap** in `apps/web/src/app/layout.tsx` (`<head>` pre-hydration): declares `window.dataLayer`, sets `gtag('consent', 'default', { analytics_storage: 'denied', ... })`, subscribes to the DOM `cookie-consent-changed` event to flush `gtag('consent', 'update', { analytics_storage: 'granted' })` after the user accepts.
+  2. **Script-loading gate** in `apps/web/src/components/Providers/GoogleAnalyticsLoader.tsx`: the `gtag/js` `<Script>` tag (~67 KB) does NOT download until `applicationEventBus.CONSENT_GIVEN` fires. Saves the download entirely for users who don't accept analytics (~60-70% of EU traffic).
+- **Env var:** `NEXT_PUBLIC_GA_ID` (format: `G-XXXXXXXXXX`).
 
 ### web-vitals
 
 - **Package:** `web-vitals` 5.1.x.
-- **Loaded:** Dynamic `import()` with sample rate. Reports to Vercel Analytics endpoint.
+- **Loaded:** Dynamic `import()` with sample rate. Reports through the Sentry tunnel route (`/api/monitoring`) to keep all monitoring traffic same-origin.
 
 ### No Prometheus, Grafana, Datadog, New Relic, or LogRocket in production.
 
