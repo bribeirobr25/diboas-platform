@@ -60,6 +60,22 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
         const posthog = posthogModule.default;
         posthog.init(posthogKey, {
           api_host: posthogHost,
+          // Pinned defaults bundle per PostHog's recommended pattern (2026-06-01).
+          // PostHog ships dated default-configs to stabilize SDK behavior across
+          // version bumps. Without this, you inherit whichever defaults the
+          // installed SDK version happens to choose, which can shift unexpectedly.
+          // `'2025-11-30'` is the latest accepted by posthog-js 1.313.0 — the
+          // newer `'2026-01-30'` value the PostHog UI suggests requires a future
+          // SDK release. Bump this date when (a) you upgrade posthog-js to a
+          // version that accepts a newer value AND (b) you've reviewed PostHog's
+          // release notes for the behavior change.
+          defaults: '2025-11-30',
+          // Only create PostHog person profiles for users who have been
+          // explicitly identified via posthog.identify(distinctId) — e.g.
+          // post-waitlist-signup. Anonymous visitors still get events tracked
+          // under a session-anonymous distinct_id but don't burn a "person"
+          // quota slot. GDPR-friendly + cost-effective for pre-launch.
+          person_profiles: 'identified_only',
           capture_pageview: true,
           capture_pageleave: true,
           respect_dnt: true,

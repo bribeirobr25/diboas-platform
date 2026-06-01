@@ -197,3 +197,4 @@ docker-compose.prod.yml
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+.env*.local
