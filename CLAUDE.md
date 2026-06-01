@@ -288,6 +288,33 @@ Prioritized by real-world impact (ref: Vercel React Best Practices).
 - Key categories: App URL, Analytics (GA4, Sentry, PostHog), Security (encryption, HMAC, CSRF, CSP), Rate limiting (Upstash Redis), Email (Resend), Database (Neon)
 - Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`
 
+## Monitoring
+
+Stack: Sentry (errors + session replay), PostHog (product analytics, feature flags, surveys), GA4 (traffic), web-vitals. All consent-gated where it matters, all lazy-loaded.
+
+**Detailed playbook:** `docs/tech/MONITORING_OPS.md` — verification procedures, troubleshooting, rotation runbooks, full pitfalls list. The summary below is the one-page operating constraints; when in doubt, read the playbook.
+
+**Architecture:**
+- Sentry envelopes route through `/api/monitoring` (same-origin tunnel — bypasses ad-blockers + keeps CSP narrow). Manual handler at `apps/web/src/app/api/monitoring/route.ts` because Turbopack doesn't auto-generate the tunnel route.
+- Sentry root instrumentation at `apps/web/src/instrumentation.ts` switches on `NEXT_RUNTIME` to load `sentry.server.config.ts` (nodejs) or `sentry.edge.config.ts` (edge). Browser-side Sentry init at `apps/web/src/instrumentation-client.ts` — replay is OFF by default, added only after `CONSENT_GIVEN` per Lighthouse Workstream B.
+- `instrumentation.ts` also exports `onRequestError` — Next.js calls it on RSC/route-handler/middleware errors, which then call `Sentry.captureException`.
+- Sentry release fallback `0.1.0` must stay aligned with `apps/web/package.json#version`. Production overrides with the Vercel commit SHA via the build plugin.
+- PostHog provider at `apps/web/src/components/Providers/PostHogProvider.tsx` — lazy `import('posthog-js')` inside `useEffect` after `hasAnalyticsConsent()`. Never imported at module level.
+- GA4 split into two files (Lighthouse Workstream D): Consent Mode v2 inline bootstrap in `apps/web/src/app/layout.tsx` (pre-hydration), and consent-gated script-loading gate in `apps/web/src/components/Providers/GoogleAnalyticsLoader.tsx` (the `gtag/js` script doesn't download until `applicationEventBus.CONSENT_GIVEN`).
+
+**Critical config invariants (do NOT regress):**
+
+- **PostHog `host` must be the ingest endpoint** (`https://us.i.posthog.com` for US Cloud, `https://eu.i.posthog.com` for EU). NEVER use console URLs (`app.posthog.com`, `us.posthog.com`). The SDK derives the assets host (`us-assets.i.posthog.com`) by string-replacing `.i.` → `-assets.i.` on the host value — wrong host breaks the derivation and causes `/array/<token>/config.js` 404 with a silently degraded SDK (no flags, no surveys, no replay).
+- **CSP wildcards must be full-label.** Use `*.i.posthog.com` in `script-src` (covers ingest AND assets hosts). NEVER use partial-label patterns like `*-assets.i.posthog.com` — invalid per CSP 3 spec, browsers silently drop them with a console warning ("contains an invalid source ... will be ignored"). String-regex tests on the CSP header pass for invalid wildcards; the only reliable check is opening the deployed page in a browser and grepping the console for `contains an invalid source`.
+- **Sentry build secrets must be in `turbo.json#env`.** `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT` (note: NOT `NEXT_PUBLIC_*` — they're server-side build secrets). Without all three listed in `turbo.json`, Turborepo scrubs them at build time and the Sentry plugin silently skips source map upload. Symptom: minified stack frames in Sentry production issues.
+- **Sentry DSN keys can be silently disabled.** Each Sentry project can have multiple Client Keys; any can be disabled in Project Settings → Client Keys. A disabled key accepts envelopes, returns HTTP 403 with `with_reason: ProjectId`, and drops 100% of events. The Sentry UI does NOT warn that you're using a disabled key. Always verify "Active" status before pointing production at a new DSN. We had 3 months of silent dropout in early 2026 due to this — see `MONITORING_OPS.md` § E.2 and `docs/audit/SECURITY_FINDINGS_2026-05.md` § F16.
+- **Tunnel route path is `/api/monitoring`**, not `/monitoring`. The locale-prefix middleware would redirect bare `/monitoring` to `/<locale>/monitoring` → 404. The middleware matcher already excludes `/api/*`, so `/api/monitoring` bypasses the redirect.
+- **PostHog SDK init must pin `defaults: '2025-11-30'`** (latest accepted by `posthog-js` 1.313.0). The PostHog UI may suggest a newer date (e.g. `'2026-01-30'`) which requires a future SDK release; using it on 1.313.0 trips a TypeScript error. Bump only when (a) `posthog-js` is upgraded AND (b) the date-version's behaviour change has been reviewed.
+- **PostHog SDK init must use `person_profiles: 'identified_only'`** (GDPR-friendly + ~95% PostHog person-quota savings at marketing-site traffic levels). Anonymous events still get tracked; "persons" only created when `posthog.identify(distinctId)` is explicitly called (typically post-waitlist-signup, using an opaque submission ID, never an email).
+- **`dynamic({ ssr: false })` in `'use client'` components is a footgun.** Next.js 16 + Turbopack has an edge case where this pattern silently fails to hydrate — the chunk loads but the placeholder `<template data-dgst="BAILOUT_TO_CLIENT_SIDE_RENDERING">` never gets replaced. For client components that need to be inside other client components, import directly — Next.js App Router auto-splits client code at the route level. See `MONITORING_OPS.md` § E.5 + `SECURITY_FINDINGS_2026-05.md` § F20.
+
+**Verification after monitoring changes:** see `MONITORING_OPS.md` § F (step-by-step: Sentry test event, PostHog network trace, GA4 dataLayer, CSP console grep, release tagging, lesson-page calculator regression check).
+
 ## Dependencies Between Packages
 
 - `apps/web` depends on `@diboas/i18n`, `@diboas/ui`, and `@diboas/email`
