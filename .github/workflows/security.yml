@@ -44,9 +44,18 @@ jobs:
         id: audit
         run: |
           # Fail only on CRITICAL vulnerabilities.
-          # Known HIGH with no upstream fix (monitored weekly):
-          #   - next@16.1.7 GHSA-848j (DoS with Server Components)
-          #   - brace-expansion (transitive via glob/minimatch)
+          #
+          # Known MODERATE with no runtime exposure (build-time transitive only,
+          # tracked in docs/audit/SECURITY_FINDINGS_2026-05.md § F21):
+          #   - brace-expansion 2.0.0–2.0.2 (GHSA-f886-m6hf-6m8v) — via @sentry/bundler-plugin-core > glob > minimatch
+          #   - brace-expansion 5.0.0–5.0.5 (GHSA-jxxr-4gwj-5jf2) — via @sentry/node > @fastify/otel > minimatch
+          #   - postcss (GHSA-qx2v-qp2m-jg93) — via next@16.2.6 > postcss@8.4.31; resolves on next minor Next.js bump
+          #
+          # Previously-known HIGH defanged via pnpm.overrides at root (F21 closeout, 2026-06-01):
+          #   - fast-uri <=3.1.1 (GHSA-q3j6-qgpj-74h6 + GHSA-v39h-62p7-jpjc) — overridden to >=3.1.2
+          #
+          # Baseline post-override: 4 moderate / 0 high. Update this list when
+          # the override resolves or a new transitive HIGH appears.
           pnpm audit --prod --audit-level=critical || echo "failed=true" >> $GITHUB_OUTPUT
         continue-on-error: true
 

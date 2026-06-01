@@ -101,19 +101,22 @@ The site has exactly five user-facing forms:
 
 ### 3.3 Third-party JavaScript trust surface
 
-CSP `script-src` (from `apps/web/middleware.ts:29-30`) trusts:
+CSP `script-src` (from `apps/web/middleware.ts` `csp` builder — search for `script-src` since line numbers drift) trusts:
 
-- `vercel.live`, `vitals.vercel-analytics.com` — Vercel platform
-- `*.googletagmanager.com`, `*.google-analytics.com`, `*.doubleclick.net` — Google tag stack
-- `app.posthog.com`, `*.posthog.com` — PostHog (loaded behind consent gate)
+- `vercel.live`, `nextjs.org` — Vercel platform + Next.js error overlay (dev)
+- `*.googletagmanager.com`, `*.google-analytics.com` — Google tag stack
+- `*.i.posthog.com` — PostHog ingest + assets hosts (US + EU coverage in a single full-label wildcard; see `docs/tech/MONITORING_OPS.md` § C for why partial-label patterns like `*-assets.i.posthog.com` are silently invalid per CSP 3 spec)
 
 The CSP has additional allowlists for non-script directives that are worth distinguishing because their blast radius differs significantly:
 
-- **`connect-src`** (line 55) — `api.diboas.com`, `api.diboas-analytics.com` (own APIs; **data-exfiltration risk if taken over**)
-- **`img-src`** (line 43) — `cdn.diboas.com` (asset CDN; **asset-substitution risk only if taken over** — no data exfil)
-- **`media-src`** (line 48) — `cdn.diboas.com` (same as above)
+- **`connect-src`** — `api.diboas.com`, `api.diboas-analytics.com` (own APIs — **data-exfiltration risk if taken over**), `vitals.vercel-analytics.com` (Vercel web-vitals), `app.posthog.com` + `*.posthog.com` (PostHog `/decide` and ingest POSTs — broader wildcard than script-src because the SDK posts to non-`.i.` subdomains too), `*.google-analytics.com`, `*.googletagmanager.com`, `*.doubleclick.net` (GA4 collect + tag-manager + DoubleClick beacons)
+- **`img-src`** — `cdn.diboas.com` (asset CDN; **asset-substitution risk only if taken over** — no data exfil)
+- **`media-src`** — `cdn.diboas.com` (same as above)
+- **`worker-src`** — `'self' blob:` (Sentry session-replay spawns a worker from a `blob:` URL; documented in MONITORING_OPS.md § B)
 
 The distinction matters for subdomain-takeover analysis (see §5.4). A dangling `cdn.diboas.com` would let an attacker swap images/video; a dangling `api.diboas.com` would let an attacker intercept fetch responses to logged-in users. Don't conflate the two.
+
+**2026-06-01 — F11a + F11b RESOLVED via DNS recon.** All three subdomains (`api.diboas.com`, `api.diboas-analytics.com`, `cdn.diboas.com`) have **no DNS resolution** today; zero takeover risk while in that state. The CSP entries remain as intentional forward-declarations for iter-5 SDK swap + future API/CDN work. Re-verify before/after each DNS-add gate. See `docs/audit/SECURITY_FINDINGS_2026-05.md` § F11a + F11b.
 
 **Subresource Integrity (SRI) is not applied** and cannot be applied to tag-manager-style dynamic loaders. This is the standard trade-off. The mitigation is the per-request CSP **nonce** which blocks inline script injection — already in place in `middleware.ts`.
 
@@ -153,16 +156,21 @@ AAAA:     none
 www:      9718e0aa3bd04c20.vercel-dns-017.com.
 MX:       diboas-com.mail.protection.outlook.com.   (Microsoft 365)
 SPF:      v=spf1 include:spf.protection.outlook.com include:amazonses.com ~all
-DMARC:    v=DMARC1; p=none; rua=mailto:dmarc@diboas.com   ⚠ p=none = monitor-only, no enforcement
-DKIM:     no selectors found at common names (resend, default, google, sendgrid, k1, k2, etc.)  ⚠
-CAA:      no records                          ⚠ no cert-issuance restriction
+DMARC:    v=DMARC1; p=none; rua=mailto:dmarc@diboas.com   ⚠ p=none = monitor-only (F1 open — Phase 4 ramp)
+DKIM:     no apex selectors (selector1/selector2._domainkey.diboas.com both empty)  ⚠ F3 open — Phase 4 BLOCKER
+          resend._domainkey.adelaide.diboas.com (Resend signing, valid)              ✓
+CAA:      0 issue "letsencrypt.org" + 0 iodef "mailto:security@diboas.com"           ✓ F5 RESOLVED 2026-05-30
+          + Cloudflare auto-injects partner-CA records (comodoca, digicert, ssl.com, pki.goog) per zone SSL/TLS config
 NS:       malcolm.ns.cloudflare.com, zara.ns.cloudflare.com
 send.adelaide.diboas.com:
   TXT:    v=spf1 include:amazonses.com ~all   (Resend SES)
   MX:     10 feedback-smtp.us-east-1.amazonses.com.
 ```
 
-**Findings flagged in §6**: DMARC `p=none` (F1 — high), missing DKIM at common selectors (F3 — verify), missing CAA (F5 — low).
+**State as of 2026-06-01:**
+- F1 (DMARC `p=none`) — open, calendar-gated on F3; Phase 4 ramp `none → quarantine → reject` over 30+30 days per Bar's locked Q1 decision
+- F3 (apex DKIM missing) — open, BLOCKING for Phase 4; Bar's M365 admin task (enable DKIM → 2 Cloudflare CNAMEs → verify)
+- F5 (CAA) — **RESOLVED 2026-05-30**. Net effective policy: Let's Encrypt + Cloudflare auto-injected partner-CAs. See `SECURITY_FINDINGS_2026-05.md` § F5 status note for the partner-CA acceptance rationale.
 
 ### 3.8 Subdomain surface
 
