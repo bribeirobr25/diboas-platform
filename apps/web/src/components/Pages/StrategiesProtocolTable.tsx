@@ -129,7 +129,7 @@ export function StrategiesProtocolTable() {
                   {t(`protocols.items.${protocolId}.summary`)}
                 </p>
                 <div className={styles.protocolLinks}>
-                  <LocaleLink href="/protocols" className={styles.protocolExternalLink}>
+                  <LocaleLink href="/protocols" className={styles.protocolExternalLink} prefetch={false}>
                     {t('protocols.checkProtocolsPage')}
                   </LocaleLink>
                 </div>
@@ -191,7 +191,7 @@ function ProtocolDesktopRow({
           >
             <p className={styles.protocolSummary}>{t(`protocols.items.${protocolId}.summary`)}</p>
             <div className={styles.protocolLinks}>
-              <LocaleLink href="/protocols" className={styles.protocolExternalLink}>
+              <LocaleLink href="/protocols" className={styles.protocolExternalLink} prefetch={false}>
                 {t('protocols.checkProtocolsPage')}
               </LocaleLink>
             </div>

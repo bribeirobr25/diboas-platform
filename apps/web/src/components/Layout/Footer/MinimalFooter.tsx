@@ -158,7 +158,16 @@ export function MinimalFooter({
             aria-label={intl.formatMessage({ id: 'common.accessibility.productNavigation' })}
           >
             {navLinks.map((link) => (
-              <LocaleLink key={link.id} href={link.href} className={styles.productNavLink}>
+              // W7 audit (2026-05-08, extended 2026-06-01): footer renders on every
+              // page, and prefetching every product-nav route from every page generates
+              // 81+ "preloaded but not used" browser console warnings per session.
+              // These links are secondary navigation, not high-intent CTAs.
+              <LocaleLink
+                key={link.id}
+                href={link.href}
+                className={styles.productNavLink}
+                prefetch={false}
+              >
                 {intl.formatMessage({ id: link.labelKey })}
               </LocaleLink>
             ))}
@@ -199,7 +208,14 @@ export function MinimalFooter({
           aria-label={intl.formatMessage({ id: 'common.accessibility.legalPages' })}
         >
           {LEGAL_LINKS.map((link) => (
-            <LocaleLink key={link.id} href={link.href} className={styles.legalLink}>
+            // W7 audit (extended 2026-06-01): legal links (cookies/privacy/terms) are
+            // very rarely clicked compared to other footer items; never worth prefetching.
+            <LocaleLink
+              key={link.id}
+              href={link.href}
+              className={styles.legalLink}
+              prefetch={false}
+            >
               {intl.formatMessage({ id: link.labelKey })}
             </LocaleLink>
           ))}

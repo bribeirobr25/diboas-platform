@@ -218,6 +218,7 @@ export function LessonThreeBeat({
                 href={secondaryCtaHref}
                 className={styles.ctaSecondary}
                 onClick={handleSecondaryCta}
+                prefetch={false}
               >
                 {t('beat3.cta.secondary')}
               </LocaleLink>
