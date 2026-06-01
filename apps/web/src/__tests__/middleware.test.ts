@@ -120,20 +120,26 @@ describe('middleware', () => {
       expect(csp).toMatch(/connect-src[^;]*https:\/\/staging\.api\.diboas-analytics\.com/);
     });
 
-    // Regression guard for the PostHog CSP fix (2026-06-01).
+    // Regression guard for the PostHog CSP fix (2026-06-01, corrected same day).
     // PostHog SDK loads `array.js`, `recorder.js`, `surveys.js` etc. from
     // `<region>-assets.i.posthog.com` (US: `us-assets.i.posthog.com`,
     // EU: `eu-assets.i.posthog.com`). Without this entry in `script-src`,
     // every page load on production triggers 5+ CSP violation errors and
     // the SDK falls back to a degraded mode (no feature flags, no surveys).
-    // The wildcard `*-assets.i.posthog.com` covers all regions without
-    // requiring future middleware edits when PostHog migrates regions.
+    //
+    // The pattern MUST be `https://*.i.posthog.com` — not `*-assets.i.posthog.com`
+    // (invalid per CSP 3 spec: wildcards can only replace a full subdomain label,
+    // never a partial label). Browsers silently ignore invalid sources, which
+    // is hard to spot in code review and easy to introduce by accident. If you
+    // change this pattern, run the live site and watch the browser console for
+    // "contains an invalid source" warnings before merging.
+    //
     // If this test fails, do NOT just delete it — restore the allowlist
     // entry in `apps/web/middleware.ts` `scriptSrc` constant.
-    it('should include *-assets.i.posthog.com in script-src (CSP fix 2026-06-01 / PostHog assets)', () => {
+    it('should include *.i.posthog.com in script-src (CSP fix 2026-06-01 / PostHog assets)', () => {
       const response = middleware(makeRequest('/en'));
       const csp = response.headers.get('Content-Security-Policy') ?? '';
-      expect(csp).toMatch(/script-src[^;]*https:\/\/\*-assets\.i\.posthog\.com/);
+      expect(csp).toMatch(/script-src[^;]*https:\/\/\*\.i\.posthog\.com/);
     });
   });
 

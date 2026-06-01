@@ -33,17 +33,23 @@ export function middleware(request: NextRequest): NextResponse {
 
     // Build CSP with nonce — 'unsafe-inline' removed for scripts in production.
     //
-    // PostHog assets (2026-06-01): the PostHog SDK loads `array.js` and other
-    // dynamic helpers (`recorder.js`, `surveys.js`, etc.) from a separate
-    // assets host derived by string-replacing `.i.posthog.com` → `-assets.i.posthog.com`
-    // on `api_host`. For US Cloud that's `https://us-assets.i.posthog.com`; for
-    // EU it's `https://eu-assets.i.posthog.com`. The `https://*-assets.i.posthog.com`
-    // pattern covers both regions without needing future middleware edits when
-    // PostHog migrates or self-hosting changes. Event ingest (POST traffic) goes
-    // to `connect-src` instead (see below).
+    // PostHog assets (2026-06-01, corrected): the PostHog SDK loads `array.js`
+    // and other dynamic helpers (`recorder.js`, `surveys.js`, etc.) from a
+    // separate assets host derived by string-replacing `.i.posthog.com` →
+    // `-assets.i.posthog.com` on `api_host`. For US Cloud that's
+    // `https://us-assets.i.posthog.com`; for EU it's `https://eu-assets.i.posthog.com`.
+    //
+    // The pattern `https://*.i.posthog.com` covers all of these PLUS the ingest
+    // hosts (`us.i.posthog.com`, `eu.i.posthog.com`). The wildcard format
+    // `*-assets.i.posthog.com` is INVALID per CSP 3 spec — wildcards can only
+    // replace a full subdomain label, never a partial label. Browsers silently
+    // ignore invalid sources, which is how we ended up debugging this twice.
+    //
+    // Event ingest (POST traffic) goes through `connect-src` instead, which
+    // already uses the broader `https://*.posthog.com` wildcard (see below).
     const scriptSrc = isDev
-      ? `'self' 'unsafe-eval' 'nonce-${nonce}' https://vercel.live https://nextjs.org https://*.googletagmanager.com https://*.google-analytics.com https://*-assets.i.posthog.com`
-      : `'self' 'nonce-${nonce}' https://vercel.live https://*.googletagmanager.com https://*.google-analytics.com https://*-assets.i.posthog.com`;
+      ? `'self' 'unsafe-eval' 'nonce-${nonce}' https://vercel.live https://nextjs.org https://*.googletagmanager.com https://*.google-analytics.com https://*.i.posthog.com`
+      : `'self' 'nonce-${nonce}' https://vercel.live https://*.googletagmanager.com https://*.google-analytics.com https://*.i.posthog.com`;
 
     const csp = [
       `default-src 'self'`,
