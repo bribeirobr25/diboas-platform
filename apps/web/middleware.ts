@@ -31,10 +31,19 @@ export function middleware(request: NextRequest): NextResponse {
     const isDev = process.env.NODE_ENV !== 'production';
     const { pathname, search } = request.nextUrl;
 
-    // Build CSP with nonce — 'unsafe-inline' removed for scripts in production
+    // Build CSP with nonce — 'unsafe-inline' removed for scripts in production.
+    //
+    // PostHog assets (2026-06-01): the PostHog SDK loads `array.js` and other
+    // dynamic helpers (`recorder.js`, `surveys.js`, etc.) from a separate
+    // assets host derived by string-replacing `.i.posthog.com` → `-assets.i.posthog.com`
+    // on `api_host`. For US Cloud that's `https://us-assets.i.posthog.com`; for
+    // EU it's `https://eu-assets.i.posthog.com`. The `https://*-assets.i.posthog.com`
+    // pattern covers both regions without needing future middleware edits when
+    // PostHog migrates or self-hosting changes. Event ingest (POST traffic) goes
+    // to `connect-src` instead (see below).
     const scriptSrc = isDev
-      ? `'self' 'unsafe-eval' 'nonce-${nonce}' https://vercel.live https://nextjs.org https://*.googletagmanager.com https://*.google-analytics.com`
-      : `'self' 'nonce-${nonce}' https://vercel.live https://*.googletagmanager.com https://*.google-analytics.com`;
+      ? `'self' 'unsafe-eval' 'nonce-${nonce}' https://vercel.live https://nextjs.org https://*.googletagmanager.com https://*.google-analytics.com https://*-assets.i.posthog.com`
+      : `'self' 'nonce-${nonce}' https://vercel.live https://*.googletagmanager.com https://*.google-analytics.com https://*-assets.i.posthog.com`;
 
     const csp = [
       `default-src 'self'`,
