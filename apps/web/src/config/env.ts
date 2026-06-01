@@ -222,12 +222,21 @@ export const DATABASE_CONFIG = {
 
 /**
  * PostHog configuration
+ *
+ * IMPORTANT: `host` MUST be the **ingest** endpoint (e.g. `https://us.i.posthog.com`
+ * for US Cloud or `https://eu.i.posthog.com` for EU Cloud) — NOT the console URL
+ * (`https://us.posthog.com` / `https://app.posthog.com`). The PostHog SDK derives
+ * the static-asset host by string-replacing `.i.posthog.com` → `-assets.i.posthog.com`
+ * on this value. If the host doesn't contain the `.i.` infix, the assets URL falls
+ * back to a relative path and 404s against your own domain. Lesson learned 2026-06-01
+ * — the prior `https://app.posthog.com` fallback caused the `/array/<key>/config.js`
+ * 404 we debugged on production.
  */
 export const POSTHOG_CONFIG = {
-  /** API key */
+  /** API key (PostHog project token — write-only, safe to be public per PostHog docs) */
   apiKey: process.env.NEXT_PUBLIC_POSTHOG_KEY || '',
-  /** Host URL */
-  host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
+  /** Ingest host (US Cloud default; override via env for EU or self-hosted) */
+  host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
 } as const;
 
 // =============================================================================
