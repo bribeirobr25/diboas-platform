@@ -201,11 +201,15 @@ export function BuyScreen() {
         {isAssetEnabled(currentAsset.symbol) && (
           <>
             {/* Amount to Buy label */}
-            <div className={styles.fieldLabel}>{t('preDemo.buy.amountLabel')}</div>
+            <label htmlFor="predemo-buy-amount" className={styles.fieldLabel}>
+              {t('preDemo.buy.amountLabel')}
+            </label>
 
             <div className={styles.amountInputContainer}>
               <span className={styles.amountPrefix}>{currencySymbol}</span>
               <input
+                id="predemo-buy-amount"
+                name="buyAmount"
                 type="text"
                 inputMode="decimal"
                 value={state.buyAmount}

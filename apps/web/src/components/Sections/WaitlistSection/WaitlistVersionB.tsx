@@ -8,7 +8,7 @@
 
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useId, useState, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { WaitlistForm } from '@/components/WaitingList/WaitlistForm';
 import { WaitlistConfirmation } from '@/components/WaitingList/WaitlistConfirmation';
@@ -43,6 +43,7 @@ export function WaitlistVersionB({
   enableAnalytics: _enableAnalytics = true,
 }: WaitlistVersionBProps) {
   const intl = useTranslation();
+  const inviteCodeId = useId();
   const [inviteCode, setInviteCode] = useState('');
   const [inviteValid, setInviteValid] = useState<boolean | null>(null);
   const [isValidating, setIsValidating] = useState(false);
@@ -109,7 +110,12 @@ export function WaitlistVersionB({
           {/* Path 1: Invite Code */}
           <div className={styles.inviteCodeSection}>
             <div className={styles.inviteCodeRow}>
+              <label htmlFor={inviteCodeId} className="sr-only">
+                {t('inviteCodePlaceholder')}
+              </label>
               <input
+                id={inviteCodeId}
+                name="inviteCode"
                 type="text"
                 value={inviteCode}
                 onChange={(e) => {
@@ -118,7 +124,7 @@ export function WaitlistVersionB({
                 }}
                 placeholder={t('inviteCodePlaceholder')}
                 className={styles.inviteCodeInput}
-                aria-label={t('inviteCodePlaceholder')}
+                autoComplete="off"
               />
               <button
                 type="button"

@@ -34,8 +34,17 @@ export default async function CompoundInterestLessonPage({ params }: LocalePageP
   // shared MinimalFooter's `landing-b2c.footer.*` keys resolve.
   // A8 fix (2026-05-23): pre-fetch market snapshot for the embedded Beat 2
   // calculator vignettes + the lesson's CompoundInterestCalculator.
+  // 2026-06-01: include 'tools-shared' so the embedded CompoundInterestCalculator's
+  // `UsdEquivalentBadge` (which renders `tools-shared.labels.usdEquivalent`) and
+  // any other tools-shared keys resolve. Without this the literal translation key
+  // leaks through to the rendered output for non-USD locales.
   const [pageMessages, snapshot] = await Promise.all([
-    loadPageNamespaces(locale, ['learn', 'learn-compound-interest', 'landing-b2c']),
+    loadPageNamespaces(locale, [
+      'learn',
+      'learn-compound-interest',
+      'landing-b2c',
+      'tools-shared',
+    ]),
     marketDataService.get(),
   ]);
 

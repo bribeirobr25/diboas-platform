@@ -111,6 +111,8 @@ export function CalculatorInputs({
             className={styles.numberInput}
           />
           <input
+            id={`${baseId}-amount-range`}
+            name={`${baseId}-amount-range`}
             type="range"
             min={INPUT_BOUNDS.amount.min}
             max={rangeMax}

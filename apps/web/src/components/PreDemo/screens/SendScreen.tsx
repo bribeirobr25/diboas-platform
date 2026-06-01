@@ -108,8 +108,12 @@ export function SendScreen() {
 
         {/* Recipient selector */}
         <div className={styles.inputGroup}>
-          <label className={styles.inputLabel}>{t('preDemo.send.recipientLabel')}</label>
+          <label htmlFor="predemo-send-recipient" className={styles.inputLabel}>
+            {t('preDemo.send.recipientLabel')}
+          </label>
           <Select
+            id="predemo-send-recipient"
+            name="recipient"
             value={state.selectedRecipient}
             onChange={(e) => handleRecipientChange(e.target.value)}
             aria-label={t('preDemo.send.recipientLabel')}
@@ -124,12 +128,16 @@ export function SendScreen() {
         </div>
 
         {/* Amount label */}
-        <div className={styles.fieldLabel}>{t('preDemo.send.amountLabel')}</div>
+        <label htmlFor="predemo-send-amount" className={styles.fieldLabel}>
+          {t('preDemo.send.amountLabel')}
+        </label>
 
         {/* Amount input */}
         <div className={styles.amountInputContainer}>
           <span className={styles.amountPrefix}>{currencySymbol}</span>
           <input
+            id="predemo-send-amount"
+            name="sendAmount"
             type="text"
             inputMode="decimal"
             value={state.sendAmount}
