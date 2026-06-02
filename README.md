@@ -26,7 +26,7 @@ diBoaS is a pre-launch marketing site with waitlist functionality, interactive d
 
 ## Prerequisites
 
-- **Node.js:** >= 18.0.0
+- **Node.js:** >= 20.0.0
 - **pnpm:** >= 8.0.0
 
 ```bash
@@ -89,7 +89,7 @@ pnpm dev:fresh                 # Clean rebuild + start
 # Quality
 pnpm type-check                # TypeScript checking
 pnpm lint                      # ESLint
-pnpm test                      # Vitest (946 tests)
+pnpm test                      # Vitest (unit + integration)
 pnpm build                     # Production build
 
 # Validation

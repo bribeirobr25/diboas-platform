@@ -45,7 +45,7 @@ For the full architecture diagram and App Router structure, see `CLAUDE.md` > Ar
 
 ## Development Workflow
 
-1. Branch from `main` (or the current working branch like `pre-launch`)
+1. Branch from `main` (or the current active working branch)
 2. Make changes following the conventions in `CLAUDE.md` > Coding Standards
 3. Run the full validation pipeline before opening a PR:
    ```bash

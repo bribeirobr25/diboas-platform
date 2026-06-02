@@ -75,9 +75,9 @@
 | Currency | 5y trailing CAGR | 10y trailing CAGR | 25y / full-series CAGR | FALLBACK constant |
 | -------- | ---------------: | ----------------: | ---------------------: | ----------------: |
 | BRL      |           +0.05% |            +4.60% |                 +6.21% |            0.0621 |
-| EUR      |           +0.75% |             (n/a) |                 +1.23% |            0.0123 |
+| EUR      |           +0.75% |             (n/a) |                 +1.23% |            0.0055 |
 
-The horizon-matched CAGR is derived at runtime from monthly FX data; the constant is the data-unavailable fallback. Phase D's `resolveHorizonMatchedDepreciation` picks the right window automatically.
+The "5y / 10y / full-series CAGR" columns are the live retrospective values derived at runtime from monthly FX data; the "FALLBACK constant" is `exchangeRates.rates.*.annualDepreciation`. **Per FX-16 D1 (2026-05-26) the calibrated constant is now authoritative for forward projection** — `resolveHorizonMatchedDepreciation` consults the constant first and falls back to the live horizon-matched CAGR only when the constant is missing (an inversion of the original 2026-05-23 fallback-only policy). For EUR this is why the forward constant (`0.0055`) deliberately differs from the retrospective full-series CAGR (`+1.23%`, retained as `historicalCagr`). For BRL the two coincide at 6.21%.
 
 ### Asset price anchors (live spot, May 22, 2026)
 

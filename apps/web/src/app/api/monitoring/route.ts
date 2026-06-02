@@ -22,17 +22,25 @@
  *     real-world replay envelope tops out around 500 KB. The cap protects
  *     against memory-exhaustion attacks since req.text() buffers fully.)
  *   - Returns upstream status verbatim
- *   - **Deliberately skips `applyRateLimit` + `applyCsrf`** that other API
- *     routes use: Sentry SDK posts on every error/replay-segment without a
- *     CSRF token, and per-IP rate-limiting would either block legitimate
- *     bursts or require limits so generous they don't protect anything.
- *     Defense in depth is the body-size cap + DSN host validation above.
+ *   - **Permissive per-IP rate limit (F9, 2026-06-02): 1000/min** via
+ *     `checkMonitoringTunnelRateLimit` — high enough never to block legitimate
+ *     Sentry bursts (~40× the SDK's ~25/min/session rate), low enough to cap a
+ *     single-source billing-amplification flood. Returns 429 + `Retry-After`
+ *     so the SDK's offline buffer re-delivers later.
+ *   - **Deliberately skips `applyCsrf`**: the Sentry SDK posts on every
+ *     error/replay-segment without a CSRF token. Defense in depth is the
+ *     body-size cap + DSN host validation + the per-IP rate limit above.
  *
  * No-op if `NEXT_PUBLIC_SENTRY_DSN` is unset (returns 204) — keeps local /
  * stub-env builds quiet without 404 noise in browser consoles.
  */
 
 import { NextResponse } from 'next/server';
+import {
+  checkMonitoringTunnelRateLimit,
+  getClientIP,
+  createRateLimitHeaders,
+} from '@/lib/security/rateLimiter';
 
 const MAX_BODY_BYTES = 1024 * 1024; // 1 MB
 
@@ -40,6 +48,17 @@ export async function POST(req: Request): Promise<Response> {
   // Quick-exit if Sentry isn't configured for this environment.
   if (!process.env.NEXT_PUBLIC_SENTRY_DSN) {
     return new NextResponse(null, { status: 204 });
+  }
+
+  // F9 (Bar R2 exception, 2026-06-02): permissive per-IP rate limit, checked
+  // before the envelope parse for the cheapest exit on an amplification flood.
+  // Fail-closed in production (handled inside the limiter); 429 + Retry-After
+  // lets the Sentry SDK's offline buffer re-deliver rather than drop telemetry.
+  const monitoringRateLimit = await checkMonitoringTunnelRateLimit(getClientIP(req));
+  if (!monitoringRateLimit.success) {
+    const headers = createRateLimitHeaders(monitoringRateLimit);
+    headers.set('Content-Type', 'application/json');
+    return new NextResponse(JSON.stringify({ error: 'rate_limited' }), { status: 429, headers });
   }
 
   // Reject oversized bodies up front (Content-Length isn't trusted by itself

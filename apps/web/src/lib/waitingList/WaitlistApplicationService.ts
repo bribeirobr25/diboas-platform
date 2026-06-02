@@ -44,6 +44,7 @@ import { sendEmailAsync } from '@/lib/email/sendEmail';
 import { buildUnsubscribeUrls } from '@/lib/email/unsubscribeUrl';
 import { hmacHash, encrypt, decrypt } from '@/lib/security/encryption';
 import { generateDeletionToken, hashToken } from '@/lib/security';
+import { checkOutboundEmailRateLimit } from '@/lib/security/rateLimiter';
 import { sql } from '@/lib/database/client';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import { DuplicateEntryError } from '@/lib/errors/domainErrors';
@@ -213,7 +214,7 @@ export class WaitlistApplicationService {
       const welcomeName = input.name ? sanitizeUserName(input.name) : undefined;
       const emailHash = hmacHash(input.email);
       const isOptedOut = emailHash ? await checkEmailOptOut(emailHash) : false;
-      if (!isOptedOut) {
+      if (!isOptedOut && (await this.allowOutboundEmail(input.email, 'welcome'))) {
         const unsubUrls = buildUnsubscribeUrls(input.email, locale);
         sendEmailAsync({
           method: 'sendWelcome',
@@ -332,19 +333,21 @@ export class WaitlistApplicationService {
       const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://diboas.com';
       const confirmationUrl = `${baseUrl}/${locale}/delete-confirm?token=${token}`;
 
-      sendEmailAsync({
-        method: 'sendDeletionConfirmation',
-        recipient: input.email,
-        template: 'deletion-confirmation',
-        subject: 'Confirm deletion request',
-        locale,
-        data: {
+      if (await this.allowOutboundEmail(input.email, 'deletion-confirmation')) {
+        sendEmailAsync({
+          method: 'sendDeletionConfirmation',
+          recipient: input.email,
+          template: 'deletion-confirmation',
+          subject: 'Confirm deletion request',
           locale,
-          confirmationUrl,
-          expiresInMinutes: 15,
-          name: entry.name,
-        },
-      });
+          data: {
+            locale,
+            confirmationUrl,
+            expiresInMinutes: 15,
+            name: entry.name,
+          },
+        });
+      }
 
       return { ok: true, entryExists: true };
     } catch (error) {
@@ -400,14 +403,16 @@ export class WaitlistApplicationService {
           metadata: { method: 'token_confirmation' },
         });
 
-        sendEmailAsync({
-          method: 'sendDeletionComplete',
-          recipient: found.email,
-          template: 'deletion-complete',
-          subject: 'Data deleted',
-          locale,
-          data: { locale, name },
-        });
+        if (await this.allowOutboundEmail(found.email, 'deletion-complete')) {
+          sendEmailAsync({
+            method: 'sendDeletionComplete',
+            recipient: found.email,
+            template: 'deletion-complete',
+            subject: 'Data deleted',
+            locale,
+            data: { locale, name },
+          });
+        }
       }
 
       return { ok: true, deleted };
@@ -422,6 +427,27 @@ export class WaitlistApplicationService {
   // -------------------------------------------------------------------------
   // Private helpers
   // -------------------------------------------------------------------------
+
+  /**
+   * F8 (Bar R2 exception, 2026-06-02): per-email-address outbound rate limit.
+   * Caps confirmation/notification emails to a single address (anti
+   * email-bombing). Returns true if the send is allowed. Only the HMAC hash
+   * reaches the limiter — the raw email never leaves this process.
+   */
+  private async allowOutboundEmail(email: string, template: string): Promise<boolean> {
+    const emailHash = hmacHash(email);
+    // Dev without HMAC_KEY: allow (production env-validation guarantees the key).
+    if (!emailHash) return true;
+    const result = await checkOutboundEmailRateLimit(emailHash);
+    if (!result.success) {
+      Logger.warn('[Email] Per-address rate limit hit — skipping send', {
+        template,
+        emailHash: `${emailHash.slice(0, 12)}…`,
+        reset: result.reset,
+      });
+    }
+    return result.success;
+  }
 
   private async handleResubscribe(entryId: string, email: string, locale: string): Promise<void> {
     const hash = hmacHash(email);
@@ -458,24 +484,26 @@ export class WaitlistApplicationService {
     const referrerLocale = updatedReferrer.locale || referrer.locale || locale;
     const referrerUnsubUrls = buildUnsubscribeUrls(referrer.email, referrerLocale);
 
-    sendEmailAsync({
-      method: 'sendReferralSuccess',
-      recipient: referrer.email,
-      template: 'referral-success',
-      subject: 'Someone used your invite!',
-      locale: referrerLocale,
-      data: {
+    if (await this.allowOutboundEmail(referrer.email, 'referral-success')) {
+      sendEmailAsync({
+        method: 'sendReferralSuccess',
+        recipient: referrer.email,
+        template: 'referral-success',
+        subject: 'Someone used your invite!',
         locale: referrerLocale,
-        name: updatedReferrer.name,
-        referralCount: updatedReferrer.referralCount,
-        tier: updatedReferrer.tier,
-        invitesRemaining: Math.max(0, 5 - updatedReferrer.referralCount),
-        referralCode: referrer.referralCode,
-        referralUrl: generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, referrer.referralCode),
-        unsubscribeUrl: referrerUnsubUrls?.pageUrl,
-        unsubscribeApiUrl: referrerUnsubUrls?.apiUrl,
-      },
-    });
+        data: {
+          locale: referrerLocale,
+          name: updatedReferrer.name,
+          referralCount: updatedReferrer.referralCount,
+          tier: updatedReferrer.tier,
+          invitesRemaining: Math.max(0, 5 - updatedReferrer.referralCount),
+          referralCode: referrer.referralCode,
+          referralUrl: generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, referrer.referralCode),
+          unsubscribeUrl: referrerUnsubUrls?.pageUrl,
+          unsubscribeApiUrl: referrerUnsubUrls?.apiUrl,
+        },
+      });
+    }
   }
 
   private async persistDeletionToken(tokenHash: string, email: string): Promise<void> {

@@ -12,7 +12,7 @@ Complete internationalization solution for the diBoaS platform with support for 
 ## Features
 
 ✅ **Automatic Locale Detection** - Browser language detection with fallback to English
-✅ **4 Complete Translation Sets** - Common and Marketing translations for all locales
+✅ **Complete Translation Coverage** - 31 namespaces per locale across all 4 locales (see Translation Files below)
 ✅ **Server & Client Support** - Separate entry points for optimal bundle size
 ✅ **Type-Safe** - Full TypeScript support
 ✅ **Zero Hardcoded Values** - All text externalized to JSON files
@@ -35,7 +35,7 @@ import { DEFAULT_LOCALE, SUPPORTED_LOCALES, isValidLocale, loadMessages } from '
 
 export default async function Page() {
   const locale = 'en';
-  const messages = await loadMessages(locale, 'marketing');
+  const messages = await loadMessages(locale, 'landing-b2c');
 
   return <div>{messages.hero.title}</div>;
 }
@@ -116,8 +116,8 @@ Namespace parity across the 4 locales is enforced by `scripts/validate-translati
 ### Server-Safe Functions
 
 ```typescript
-// Load messages for a specific namespace
-loadMessages(locale: SupportedLocale, namespace: 'common' | 'marketing'): Promise<Messages>
+// Load messages for a specific namespace (one of the 31 — see Translation Files)
+loadMessages(locale: SupportedLocale, namespace: string): Promise<Messages>
 
 // Load all namespaces
 loadAllMessages(locale: SupportedLocale, namespaces?: string[]): Promise<Messages>

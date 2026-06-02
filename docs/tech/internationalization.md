@@ -1,14 +1,21 @@
-# Internationalization (i18n) Implementation - Complete
+# Internationalization (i18n)
 
-> **Complete internationalization implementation following DRY principles and project architecture standards**
+> Config-driven, DRY internationalization for the diBoaS platform across 4 locales.
 
-**Last updated:** 2026-05-23 (Phase I + Audit-followup keys added to `tools-shared` + `tools-asset-history` — see "Recent additions" below)
+**Last updated:** 2026-06-02 (condensed — the pre-Phase-6 implementation log and the stale 2-namespace file tree were removed; the canonical namespace inventory now lives in `packages/i18n/README.md`).
 
-**⚠️ Drift notice:** the "Translation Files" + "File Structure" sections below describe the pre-Phase-6 state (2 namespaces per locale: `common.json`, `marketing.json`). The current state has **31 namespaces per locale** (incl. all 10 tools + learn + landing + legal + asset-history — added 2026-05-23). See `packages/i18n/README.md` for the up-to-date namespace inventory + Phase-7 Q4 banned-term grep gate. The architecture / DRY / API / detection sections below remain accurate.
+## Overview
+
+The platform supports **4 locales** — English (`en`, reference/source of truth), Brazilian Portuguese (`pt-BR`), Spanish (`es`), German (`de`) — with automatic browser-language detection and a reusable, config-driven translation system.
+
+- **Canonical namespace inventory** (currently **31 namespaces per locale**) + the Phase-7 Q4 banned-term grep gate: **`packages/i18n/README.md`**.
+- **Translation files:** `packages/i18n/translations/{en,pt-BR,es,de}/<namespace>.json` (+ `legal/` subdirectory).
+- **Parity enforcement:** `pnpm validate:translations` (`scripts/validate-translations.js`) checks key parity across all 4 locales — required before any PR that touches copy.
+- **All new user-facing strings must be added to all 4 locales.** German text runs ~30% longer than English — verify components handle expansion.
 
 ## Recent additions (2026-05-23)
 
-Phase I + audit-followup work added the following keys across all 4 locales (en, pt-BR, es, de). Translation parity verified via `pnpm validate:translations`.
+Phase I + audit-followup work added the following keys across all 4 locales. Translation parity verified via `pnpm validate:translations`.
 
 **`tools-shared.json`:**
 
@@ -20,81 +27,30 @@ Phase I + audit-followup work added the following keys across all 4 locales (en,
 
 **`tools-asset-history.json`:**
 
-- `inputs.assetDescriptions.{BTC,SP500,QQQ,MSCI_WORLD,GOLD,TLT,IBOVESPA,DAX}` — per-asset hover tooltip explaining each asset's character (v1.5 TLT UX work)
+- `inputs.assetDescriptions.{BTC,SP500,QQQ,MSCI_WORLD,GOLD,TLT,IBOVESPA,DAX}` — per-asset hover tooltip (v1.5 TLT UX work)
 - `inputs.gainBadgeTooltip` — explanation of the `(+N%)` / `(−N%)` gain/loss badge next to the terminal value
 
-**`tools-emergency-fund.json`:**
+**`tools-emergency-fund.json`:** `output.unreachable` — "At this savings rate, inflation outpaces your bank's return" (Phase I.2)
 
-- `output.unreachable` — "At this savings rate, inflation outpaces your bank's return" (Phase I.2)
+**`tools-time-to-target.json`:** `output.cannotReach` rewritten from "—" to an explicit "Out of reach at this contribution…" sentence (Phase I.2)
 
-**`tools-time-to-target.json`:**
+**`tools-inflation-impact.json`, `tools-currency-depreciation.json`:** `output.uncertaintyMedium` / `uncertaintyLow` — confidence-stratification footnotes (Phase I.1)
 
-- `output.cannotReach` value rewritten from "—" to explicit "Out of reach at this contribution…" sentence (Phase I.2)
+## Translation Integration Layer
 
-**`tools-inflation-impact.json`, `tools-currency-depreciation.json`:**
+**File:** `apps/web/src/lib/i18n/config-translator.ts`
 
-- `output.uncertaintyMedium` / `uncertaintyLow` — confidence-stratification per-tool footnotes (Phase I.1)
+The reusable translation-resolution system for config-driven components. Components stay decoupled from translations — they reference translation keys in their config, and the factory resolves them.
 
-## Overview
+- `useConfigTranslation<T>()` — recursively translates config objects (supports an optional `valuesByKey` map for ICU `{slot}` injection — see below)
+- `useTranslate()` — simple one-off translations
+- `useTranslateWithValues()` — translations with interpolation
+- `useNamespacedTranslation()` — scoped translations
+- `withTranslations()` — higher-order function for translation-aware configs (mirrors `useConfigTranslation`, same optional `valuesByKey` arg)
 
-The diBoaS platform now has **complete internationalization support** for 4 locales with automatic browser language detection, translation integration throughout the application, and a reusable translation system that follows the project's DRY principles.
+### `valuesByKey` extension (Phase 7 Followup, 2026-05-20)
 
-## Supported Locales
-
-✅ **English (en)** - Default locale
-✅ **Portuguese (pt-BR)** - Brazilian Portuguese
-✅ **Spanish (es)** - Spanish
-✅ **German (de)** - German
-
-## Implementation Summary
-
-> ⚠️ **Sections 1–7 below describe the pre-Phase-6 state (2 namespaces, 7 config files, 5 factories).** Current state per `packages/i18n/README.md`: **31 namespaces per locale × 4 locales**, every config + every Section factory uses `useConfigTranslation` (counts are stale; the architecture sections at the bottom of this doc remain accurate). Treat the content below as historical implementation log, not current-state reference.
-
-### 1. Translation Files (100% Complete) — historical (pre-Phase 6)
-
-All translation files have been created and populated with complete translations:
-
-**Common Translations** (`common.json`):
-
-- Navigation (6 main menus with 31 total sub-items)
-- Buttons (11 button labels)
-- Forms (5 validation messages)
-- Accessibility (6 ARIA labels)
-- SEO (default metadata)
-- Footer (4 sections + newsletter)
-
-**Marketing Translations** (`marketing.json`):
-
-- Hero section
-- Product domains (banking, investing, DeFi)
-- Mascots (3 AI guides)
-- Trust indicators
-- Product carousel (3 slides)
-- Feature showcase (3 features)
-- App features (4 features)
-- Benefits carousel (4 benefits)
-- One feature section
-- Page-specific content
-
-**Total Translation Keys**: 200+ keys across all locales
-
-### 2. Translation Integration Layer
-
-**File**: `/apps/web/src/lib/i18n/config-translator.ts`
-
-**Purpose**: Reusable translation resolution system for config-driven components
-
-**Features**:
-
-- `useConfigTranslation<T>()` - Recursively translates config objects (supports optional `valuesByKey` map for ICU `{slot}` injection — see §2.1)
-- `useTranslate()` - Simple one-off translations
-- `useTranslateWithValues()` - Translations with interpolation
-- `useNamespacedTranslation()` - Scoped translations for cleaner code
-- `withTranslations()` - Higher-order function for translation-aware configs (mirrors `useConfigTranslation` signature — same optional `valuesByKey` arg)
-
-#### 2.1 `valuesByKey` extension (Phase 7 Followup, 2026-05-20)
-
-`useConfigTranslation` and `withTranslations` accept an optional 3rd-positional `valuesByKey: Map<string, Record<string, string | number | boolean | Date>>` parameter. The map keys are fully-qualified translation ids (e.g. `'landing-b2c.fees.rows.adding.diboas'`); the values are slot-name → slot-value records (e.g. `{ rate: '0.48%', min: '$0.25', max: '$25' }`). When the recursion resolves a translation key matched in `valuesByKey`, the corresponding values are passed to `intl.formatMessage` for ICU `{slot}` substitution.
+`useConfigTranslation` and `withTranslations` accept an optional 3rd-positional `valuesByKey: Map<string, Record<string, string | number | boolean | Date>>`. The map keys are fully-qualified translation ids (e.g. `'landing-b2c.fees.rows.adding.diboas'`); the values are slot-name → slot-value records (e.g. `{ rate: '0.48%', min: '$0.25', max: '$25' }`). When the recursion resolves a key matched in `valuesByKey`, the values are passed to `intl.formatMessage` for ICU `{slot}` substitution.
 
 ```ts
 const valuesByKey = new Map([
@@ -104,343 +60,45 @@ const valuesByKey = new Map([
 const translated = useConfigTranslation(config, undefined, valuesByKey);
 ```
 
-**Canonical builder pattern (omnibus map):** `apps/web/src/lib/market-data/feeComparisonValues.ts` exports `buildAllFeeValues(fees, locale)` which returns a single `Map<string, Record<string, string>>` covering all migrated landing-page rate-citation keys (13 entries as of 2026-05-20). Consumers wrap it in `useMemo([locale])` and pass to `useConfigTranslation`. Verified consumers: `FeeTable`, `ProseSection`, `FAQAccordionFactory` (Option A threading). Direct `intl.formatMessage` consumers with their own local `t` helpers (e.g., `B2BGoalCards`, `GoalExampleCard`) extend the local helper with an optional `values?` parameter instead — no omnibus-map dependency.
+**Canonical builder pattern (omnibus map):** `apps/web/src/lib/market-data/feeComparisonValues.ts` exports `buildAllFeeValues(fees, locale)` returning a single `Map<string, Record<string, string>>` covering all migrated landing-page rate-citation keys. Consumers wrap it in `useMemo([locale])` and pass it to `useConfigTranslation`. Verified consumers: `FeeTable`, `ProseSection`, `FAQAccordionFactory`. Direct `intl.formatMessage` consumers with their own `t` helpers (e.g. `B2BGoalCards`, `GoalExampleCard`) extend the local helper with an optional `values?` parameter instead — no omnibus-map dependency.
 
 **Import-path constraint:** the builder imports `formatRate` from `@/lib/market-data/formatters` and `formatCurrency` from `@/lib/compound-interest` — these MUST stay split. The market-data barrel re-exports a 2-arg `formatCurrency` that hardcodes 0 decimals + `Math.round()`, which would silently break minFee rendering ($0.25 → "$0"). The 3-arg `Intl.NumberFormatOptions`-aware version lives in `lib/compound-interest`.
 
-**Dev-mode safety:** the recursion includes a `NODE_ENV === 'development'` warning that scans the resolved ICU template (via `intl.messages[resolvedKey]`) for `{slot}` markers and logs `console.warn` if any are missing from the values record. Stripped from production builds by `removeConsole`.
+**Dev-mode safety:** the recursion includes a `NODE_ENV === 'development'` warning that scans the resolved ICU template for `{slot}` markers and `console.warn`s if any are missing from the values record. Stripped from production by `removeConsole`.
 
-**Backward compatibility:** the 3rd arg is optional. Existing call sites (`useConfigTranslation(config)` or `useConfigTranslation(config, translationKeyMap)`) work unchanged. Migration audit trail: `docs/audit/_archive/PHASE_7_FOLLOWUP_PLAN.md` v1.6 + `docs/audit/_archive/AUDIT_PHASE_7_FOLLOWUP.md` (10 audit rounds).
+**Backward compatibility:** the 3rd arg is optional — existing `useConfigTranslation(config)` / `useConfigTranslation(config, translationKeyMap)` call sites are unchanged.
 
-**Benefits**:
+## Package Architecture
 
-- **DRY Principle**: Single translation system for all components
-- **Type Safety**: Full TypeScript support
-- **Reusability**: Works with any config structure
-- **Performance**: Memoized translations
+The `@diboas/i18n` package ships three entry points to keep React out of the server bundle:
 
-### 3. Config Files Updated (11 files)
+| Entry point | Size | Contents |
+| ----------- | ---- | -------- |
+| `@diboas/i18n/server` | ~40 KB | Server-safe (no React): `loadMessages`, `loadAllMessages`, `flattenMessages`, `isValidLocale`, `getSafeLocale`, `SUPPORTED_LOCALES`, `DEFAULT_LOCALE` |
+| `@diboas/i18n/client` | ~1.5 KB (+ react-intl) | `I18nProvider`, `useTranslation`, `useMessage`, and the formatting hooks |
+| `@diboas/i18n/config` | ~2.7 KB | Constants only |
 
-All configuration files now use translation keys instead of hardcoded strings:
+See `packages/i18n/README.md` for the full API reference and usage examples. **Never** use the main entry point in Server Components, and never mix server/client imports.
 
-**Updated Configs**:
+## Automatic Locale Detection
 
-1. `/apps/web/src/config/hero.ts` ✅
-2. `/apps/web/src/config/productCarousel.ts` ✅
-3. `/apps/web/src/config/featureShowcase.ts` ✅
-4. `/apps/web/src/config/appFeaturesCarousel.ts` ✅
-5. `/apps/web/src/config/benefitsCarousel.ts` ✅
-6. `/apps/web/src/config/oneFeature.ts` ✅
-7. `/apps/web/src/config/navigation.ts` ✅
+**File:** `apps/web/middleware.ts`
 
-**Pattern**:
-
-```typescript
-// Before (hardcoded)
-title: 'Your Complete Financial Ecosystem',
-
-// After (translation key)
-title: 'marketing.pages.home.hero.title',
-```
-
-### 4. Component Factories Updated (5 factories)
-
-All section factory components now use the translation integration layer:
-
-**Updated Factories**:
-
-1. `/apps/web/src/components/Sections/HeroSection/HeroSectionFactory.tsx` ✅
-2. `/apps/web/src/components/Sections/ProductCarousel/ProductCarouselFactory.tsx` ✅
-3. `/apps/web/src/components/Sections/FeatureShowcase/FeatureShowcaseFactory.tsx` ✅
-4. `/apps/web/src/components/Sections/AppFeaturesCarousel/AppFeaturesCarouselFactory.tsx` ✅
-5. `/apps/web/src/components/Sections/OneFeature/OneFeatureFactory.tsx` ✅
-
-**Pattern Applied**:
-
-```typescript
-import { useConfigTranslation } from '@/lib/i18n/config-translator';
-
-// Create base configuration
-const baseResolvedConfig = useMemo(() => {
-  // ... existing config resolution logic
-  return finalConfig;
-}, [variant, customConfig]);
-
-// Apply internationalization translation
-const resolvedConfig = useConfigTranslation(baseResolvedConfig);
-```
-
-### 5. Navigation Components Updated
-
-**Files Updated**:
-
-- `/apps/web/src/components/Layout/Navigation/DesktopNav.tsx` ✅
-- `/apps/web/src/components/Layout/Navigation/MobileNav.tsx` ✅
-
-**Features**:
-
-- All menu labels translated
-- All descriptions translated
-- All sub-menu items translated
-- Mobile and desktop navigation fully localized
-
-### 6. Middleware Configuration
-
-**File**: `/apps/web/src/middleware.ts`
-
-**Features**:
-
-- Automatic locale detection from `Accept-Language` header
-- Redirects to appropriate locale (en, pt-BR, es, de)
-- Falls back to English for unsupported locales
-- Security headers applied to all responses
-
-### 7. Package Architecture
-
-**i18n Package Structure**:
-
-```
-@diboas/i18n
-├── /server     - Server-safe exports (40KB, no React)
-├── /client     - Client-only exports (1.5KB + react-intl)
-└── /config     - Constants only (2.7KB)
-```
-
-**Benefits**:
-
-- No React bundling in Server Components
-- Type-safe imports
-- Optimal bundle sizes
-- Clear separation of concerns
-
-## Quantitative Results
-
-### Code Reusability Metrics
-
-**Translation Integration**:
-
-- ✅ Single translation system for all components
-- ✅ Reusable hooks across 5+ factories
-- ✅ Config-driven component architecture maintained
-
-**Configuration Management**:
-
-- ✅ All config files use translation keys
-- ✅ No hardcoded English strings
-- ✅ Easy to add new translations
-
-**Bundle Optimization**:
-
-- Server bundle: ~40KB (no React)
-- Client bundle: ~1.5KB (+ react-intl)
-- Optimal code splitting
-
-### DRY Principle Compliance
-
-**Before Implementation**:
-
-- ❌ Hardcoded English strings in 11 config files
-- ❌ No translation integration
-- ❌ Would need to update 100+ locations to add a language
-
-**After Implementation**:
-
-- ✅ Translation keys in all configs
-- ✅ Single translation integration layer
-- ✅ Add new language = update 2 JSON files
-
-## Architecture Highlights
-
-### 1. Service Agnostic Abstraction
-
-Components remain decoupled from translation implementation:
-
-```typescript
-// Component doesn't know about translations
-<HeroSection variant="fullBackground" />
-
-// Factory handles translation internally
-const resolvedConfig = useConfigTranslation(baseConfig);
-```
-
-### 2. Domain-Driven Design
-
-Translation keys organized by domain:
-
-- `common.*` - Common UI elements
-- `marketing.*` - Marketing content
-- `navigation.*` - Navigation menus
-
-### 3. Configuration Management
-
-Centralized translation files:
-
-- `/packages/i18n/translations/{locale}/common.json`
-- `/packages/i18n/translations/{locale}/marketing.json`
-
-### 4. No Hardcoded Values
-
-All content comes from translation files or environment variables:
-
-```typescript
-// Config
-ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-
-// Content
-title: 'marketing.pages.home.hero.title',
-```
-
-## Testing Results
-
-### Locale URLs
-
-All 4 locales tested and working:
-
-- ✅ `http://localhost:3000/en` - English
-- ✅ `http://localhost:3000/pt-BR` - Portuguese
-- ✅ `http://localhost:3000/es` - Spanish
-- ✅ `http://localhost:3000/de` - German
-
-### Automatic Detection
-
-Middleware correctly detects browser language and redirects:
+Detection order: URL path segment (`/pt-BR/about`) → `Accept-Language` header → fallback to `en`. Bare paths redirect to the locale-prefixed equivalent.
 
 - `Accept-Language: pt-BR` → `/pt-BR`
 - `Accept-Language: es` → `/es`
 - `Accept-Language: de` → `/de`
-- `Accept-Language: fr` → `/en` (fallback)
+- any unsupported language → `/en`
 
-### SEO Implementation
+The middleware also applies the per-request CSP nonce and security headers (see `docs/tech/security.md` §2) and the `x-request-id` header.
 
-Each locale has proper SEO metadata:
+## SEO per Locale
 
-- Unique titles per locale
-- Translated descriptions
-- `hreflang` tags for all locales
-- Canonical URLs
+Each locale gets unique titles/descriptions, `hreflang` tags for all locales, and canonical URLs. `generateStaticParams` pre-renders all 4 locale roots.
 
-## Benefits Achieved
+## Architecture Principles
 
-### 1. Code Maintainability
-
-- **Single Source of Truth**: All translations in JSON files
-- **Type Safety**: Full TypeScript support
-- **Easy Updates**: Change translation = update 1 JSON key
-- **Consistent Patterns**: All components follow same pattern
-
-### 2. Developer Productivity
-
-- **Fast Translations**: Add language = 2 JSON files
-- **Reusable System**: Translation layer works everywhere
-- **Clear Patterns**: Easy to understand and follow
-- **Type Safety**: Catch errors at compile time
-
-### 3. User Experience
-
-- **Automatic Detection**: Users see their language
-- **Language Switching**: LanguageSwitcher component
-- **Consistent Experience**: All content translated
-- **Proper Formatting**: Locale-aware dates/numbers
-
-### 4. SEO Benefits
-
-- **Multi-language Support**: 4 locales indexed
-- **Proper hreflang Tags**: Search engine friendly
-- **Unique URLs**: Each locale has own path
-- **Quality Translations**: Professional translations
-
-## Future Scalability
-
-The implementation provides foundation for:
-
-1. **Additional Languages**: Easy to add new locales
-2. **Dynamic Content**: Translation system supports any content
-3. **A/B Testing**: Can test different translations
-4. **Regional Variations**: Support for en-US, en-GB, etc.
-5. **Translation Management**: Ready for TMS integration
-
-## File Structure
-
-### Translation Files
-
-```
-packages/i18n/
-└── translations/
-    ├── en/
-    │   ├── common.json         (3.2KB, 80+ keys)
-    │   └── marketing.json      (4.8KB, 120+ keys)
-    ├── pt-BR/
-    │   ├── common.json         (3.5KB, 80+ keys)
-    │   └── marketing.json      (5.2KB, 120+ keys)
-    ├── es/
-    │   ├── common.json         (3.4KB, 80+ keys)
-    │   └── marketing.json      (5.0KB, 120+ keys)
-    └── de/
-        ├── common.json         (3.6KB, 80+ keys)
-        └── marketing.json      (5.3KB, 120+ keys)
-```
-
-### Integration Files
-
-```
-apps/web/src/
-├── lib/
-│   └── i18n/
-│       └── config-translator.ts    (Translation integration layer)
-├── config/
-│   ├── hero.ts                     (Translation keys)
-│   ├── productCarousel.ts          (Translation keys)
-│   ├── featureShowcase.ts          (Translation keys)
-│   ├── appFeaturesCarousel.ts      (Translation keys)
-│   ├── benefitsCarousel.ts         (Translation keys)
-│   ├── oneFeature.ts               (Translation keys)
-│   └── navigation.ts               (Translation keys)
-└── components/
-    ├── Sections/
-    │   ├── HeroSection/HeroSectionFactory.tsx        (Uses translations)
-    │   ├── ProductCarousel/ProductCarouselFactory.tsx (Uses translations)
-    │   ├── FeatureShowcase/FeatureShowcaseFactory.tsx (Uses translations)
-    │   ├── AppFeaturesCarousel/AppFeaturesCarouselFactory.tsx (Uses translations)
-    │   └── OneFeature/OneFeatureFactory.tsx          (Uses translations)
-    ├── Layout/
-    │   └── Navigation/
-    │       ├── DesktopNav.tsx      (Uses translations)
-    │       └── MobileNav.tsx       (Uses translations)
-    ├── I18nProvider.tsx            (Translation provider)
-    └── LocaleProvider.tsx          (Locale context)
-```
-
-## Implementation Checklist
-
-- ✅ Translation files created for all 4 locales
-- ✅ Translation integration layer implemented
-- ✅ Config files converted to use translation keys
-- ✅ Component factories updated to use translations
-- ✅ Navigation components translated
-- ✅ Footer components translated
-- ✅ Static page template uses translations
-- ✅ Locale-aware formatting implemented
-- ✅ Middleware configured for auto-detection
-- ✅ SEO metadata per locale
-- ✅ Type safety maintained
-- ✅ All locales tested and working
-
-## Summary
-
-The diBoaS platform now has **world-class internationalization** with:
-
-1. ✅ **Complete Translation Coverage**: 200+ keys across 4 locales
-2. ✅ **DRY Principle Compliance**: Single translation system
-3. ✅ **Reusable Architecture**: Config-translator pattern
-4. ✅ **Type Safety**: Full TypeScript support
-5. ✅ **Performance**: Optimal bundle sizes
-6. ✅ **Maintainability**: Easy to update and extend
-7. ✅ **SEO-Friendly**: Proper metadata per locale
-8. ✅ **User Experience**: Automatic language detection
-9. ✅ **Developer Experience**: Clear patterns and documentation
-10. ✅ **Future-Proof**: Ready for additional languages
-
----
-
-**For implementation details**: See individual component files and translation JSON files
-**For adding new languages**: Copy translation files and update SUPPORTED_LOCALES in config
+- **Service-agnostic abstraction:** components render variants (`<HeroSection variant="…" />`); the factory resolves translations internally via `useConfigTranslation` — components never know about the translation implementation.
+- **DRY / config-driven:** all config files use translation keys, never hardcoded English. Adding a language = add the locale's JSON files + extend `SUPPORTED_LOCALES`.
+- **No hardcoded values:** all user-facing content comes from translation files; non-content values (URLs, flags) come from environment variables.

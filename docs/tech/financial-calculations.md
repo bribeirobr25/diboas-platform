@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-05-25 (refreshed Data Source + rate tables to match `constants.ts` post-Phase-C; previously stale by ~5y-avg baseline)
 
-This document describes the financial calculation model used across the diBoaS platform (comparison table, goal cards, PreDream, 10-tool calculator suite, lesson). All formulas are implemented in `lib/market-data/formulas/` (split across `core.ts`, `currencyHedge.ts`, `horizonMatchedCagr.ts`, `brazilPoupanca.ts`). The canonical external-audit specification is `docs/tech/audit-bundle/FUNCTIONAL_SPECIFICATION.md` (current v1.8).
+This document describes the financial calculation model used across the diBoaS platform (comparison table, goal cards, PreDream, 10-tool calculator suite, lesson). All formulas are implemented in `lib/market-data/formulas/` (split across `core.ts`, `currencyHedge.ts`, `horizonMatchedCagr.ts`, `brazilPoupanca.ts`). The canonical external-audit specification is `docs/tech/audit-bundle/FUNCTIONAL_SPECIFICATION.md` (audit bundle currently v1.9).
 
 ---
 
