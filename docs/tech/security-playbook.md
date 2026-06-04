@@ -53,7 +53,7 @@ OWASP Top 10:2025 was finalized in January 2026 ([owasp.org/Top10/2025/](https:/
 For the API surface specifically:
 
 - **API1: Broken Object Level Authorization (BOLA)** — `/api/waitlist/delete?token=...`, `/api/email/unsubscribe?t=...`, `/api/waitlist/position?email=...`. The token-to-record binding must be cryptographic, not just "the token exists in the table."
-- **API4: Unrestricted Resource Consumption** — `/api/og` is the prime billing-amplification vector. Vercel Function-second pricing means an attacker doesn't need to bring the site down to hurt — burning 10K function-seconds at $0.40/M = $0.004 per attack-second is symbolic, but a sustained attack adds up.
+- **API4: Unrestricted Resource Consumption** — `/api/og` carries billing-amplification risk (Vercel Function-second pricing; a sustained flood adds up). **The og routes now apply a per-IP `checkRateLimit`** (`[page]`/`share`/`dream`), so the residual exposure is the Edge in-memory-fallback weakness (per-isolate, ineffective without Upstash) rather than an unguarded endpoint — keep Upstash reachable for og.
 - **API6: Unrestricted Access to Sensitive Business Flows** — `/api/waitlist/signup` is the textbook example. 10K rotating IPs at 1 RPS each defeats classic per-IP rate limits. Behavioral signals are required.
 
 ---
@@ -73,9 +73,9 @@ For the API surface specifically:
 | `/api/waitlist/stats` | GET | None | lenient | — | — |
 | `/api/email/unsubscribe` | GET + POST | None | standard | — | HMAC token (constant-time verify) |
 | `/api/consent` | GET + POST + DELETE | None | standard / lenient | ✓ on mutate | — |
-| `/api/monitoring` | POST | None | **NONE** (deliberate skip) | **NONE** (deliberate skip) | DSN regex + 1MB body cap |
+| `/api/monitoring` | POST | None | per-IP 1000/60s (F9, 2026-06-02) | **NONE** (deliberate — SDK can't send token) | DSN regex + 1MB body cap |
 | `/api/health` (+`/ready`, `/live`) | GET + HEAD | Optional API key for detail | lenient | — | — |
-| `/api/og/*` | GET | None | none (Edge Runtime) | — | — |
+| `/api/og/*` | GET | None | per-IP `checkRateLimit` (lenient, Edge) | — | — |
 
 **Key defenses already in place:**
 - Origin + Referer validation on all CSRF-protected mutations (`apps/web/src/lib/security/csrf.ts`)
@@ -146,7 +146,7 @@ Five `dangerouslySetInnerHTML` usages (verified via `git grep`):
 - All email headers (`From`, `Reply-To`, `Subject`) are hardcoded env-var or constant strings — no user input reaches headers → no header-injection vector
 - Resend API key is gated by `env.ts` production-secrets check (throws at startup if missing)
 - Circuit breaker (3 consecutive failures → 60s backoff) prevents send-loop amplification
-- **Gap: no per-email-address volume cap** — a single email can receive welcome → delete → welcome again in rapid succession (see §6, finding F2)
+- **Per-email-address volume cap (F8 — RESOLVED 2026-06-02):** `checkOutboundEmailRateLimit` caps a single address to **2 outbound emails per 5 minutes** (keyed by HMAC hash; gates all four send sites in `WaitlistApplicationService` via `allowOutboundEmail()`), closing the email-bombing vector that was previously open here. Fail-closed in production. (Was tracked as finding **F8**, not F2.)
 
 ### 3.7 DNS + email-deliverability surface (audited 2026-05-27)
 
