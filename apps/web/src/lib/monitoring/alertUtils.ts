@@ -26,12 +26,35 @@ export function generateFingerprint(alert: Omit<Alert, 'id' | 'timestamp'>): str
 }
 
 /**
- * Generate action URL for an alert
+ * Generate a deep-link to the monitoring console for an alert.
+ *
+ * 5.30 (Bar R2 exception, 2026-06-02): previously pointed at
+ * `${baseUrl}/admin/monitoring/${type}` — a route that does not exist.
+ *
+ * GENERIC URLS ONLY — do not embed internal project / dashboard IDs or query
+ * filters here. This function ships in a **client JS chunk** (`MonitoringInit`
+ * dynamically imports `AlertingService` in the browser, which statically
+ * imports this) AND its output is embedded in alert-email HTML — i.e. the URL
+ * can be seen outside the project team. Per CEO decision (2026-06-02) we link
+ * to the generic console roots only. (The precise production dashboards are
+ * recorded for internal bookmarking in the local-only audit notes —
+ * `docs/audit/SECURITY_FINDINGS_2026-05.md` § 5.30 — never in shipped code.)
+ *   - `error` / `performance` → Sentry org console
+ *   - `business` (product analytics) → PostHog console
  */
-export function generateActionUrl(type: string, params: Record<string, unknown>): string {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
-  const query = new URLSearchParams(Object.entries(params).map(([k, v]) => [k, String(v)]));
-  return `${baseUrl}/admin/monitoring/${type}?${query}`;
+export function generateActionUrl(type: string, _params: Record<string, unknown>): string {
+  if (type === 'error' || type === 'performance') {
+    const org = process.env.NEXT_PUBLIC_SENTRY_ORG;
+    return org ? `https://${org}.sentry.io/` : 'https://diboas.sentry.io/';
+  }
+
+  // PostHog console host, derived from the ingest host (us.i.posthog.com → us.posthog.com).
+  const ingestHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+  if (ingestHost) {
+    const consoleHost = ingestHost.replace(/^https?:\/\//, '').replace('.i.', '.');
+    return `https://${consoleHost}/`;
+  }
+  return 'https://us.posthog.com/';
 }
 
 /**

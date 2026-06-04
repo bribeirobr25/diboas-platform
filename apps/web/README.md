@@ -6,7 +6,7 @@ The main web application for the diBoaS unified financial services platform.
 
 (See root `README.md` for the canonical version list — kept in sync there.)
 
-- **Next.js 16.1.7** with App Router and Turbopack
+- **Next.js 16.2.6** with App Router and Turbopack
 - **React 18.3.1** with Server Components
 - **TypeScript ~5.9.3** (strict mode)
 - **Tailwind CSS 3.4.17**
@@ -111,7 +111,7 @@ apps/web/
 │   │   ├── layout.tsx          # Root layout
 │   │   ├── page.tsx            # Root redirect
 │   │   └── [locale]/           # Locale-based routing
-│   │       └── (marketing)/    # Marketing pages group
+│   │       └── (landing)/      # User-facing pages group
 │   ├── components/             # React components
 │   │   ├── Sections/           # Page sections (Hero, Carousel, etc.)
 │   │   ├── Layout/             # Navigation & Footer
@@ -129,7 +129,7 @@ apps/web/
 │   └── middleware.ts           # Next.js middleware
 ├── public/                     # Static assets
 ├── .storybook/                 # Storybook config
-└── next.config.ts              # Next.js config
+└── next.config.js              # Next.js config
 ```
 
 ## Available Scripts
@@ -147,10 +147,7 @@ pnpm type-check       # Type check TypeScript
 ### Bundle Analysis
 
 ```bash
-pnpm run analyze          # Full bundle analysis
-pnpm run analyze-server   # Server bundle only
-pnpm run analyze-browser  # Browser bundle only
-pnpm run bundle-size      # Check bundle size
+pnpm run bundle-size      # Check bundle size against budget
 ```
 
 ### Component Development
@@ -163,8 +160,11 @@ pnpm run build-storybook  # Build Storybook
 ### Testing & Quality
 
 ```bash
-pnpm run lighthouse       # Performance audit
-pnpm run perf-test        # Performance testing
+pnpm test                 # Unit + integration tests (Vitest)
+pnpm run test:watch       # Watch mode
+pnpm run test:coverage    # Coverage report
+pnpm run lighthouse       # Performance audit (Lighthouse CI)
+pnpm run pa11y            # Accessibility audit (WCAG2AA)
 ```
 
 ## Component Architecture

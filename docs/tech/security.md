@@ -77,6 +77,11 @@ API routes apply rate limiting through `applyRateLimit()` in `apps/web/src/lib/a
 
 Client IP is extracted from `x-forwarded-for` or `x-real-ip` headers.
 
+In addition to the IP-keyed presets, two dedicated sliding-window limiters guard specific abuse vectors (added 2026-06-02):
+
+- **Per-email-address outbound limiter (F8):** `checkOutboundEmailRateLimit(emailHash)` — max 2 emails per address per 5 minutes, keyed by the email's HMAC hash (key prefix `signup:email:`). Gates all four outbound sends in `WaitlistApplicationService` (welcome, deletion-confirmation, deletion-complete, referral-success) via `allowOutboundEmail()` to prevent email-bombing. Only the HMAC hash reaches Upstash (never the raw email). Fail-closed in production; in-memory fallback in dev/test.
+- **Monitoring-tunnel limiter (F9):** `checkMonitoringTunnelRateLimit(ip)` — permissive per-IP 1000/60s on `/api/monitoring`, high enough not to break the Sentry SDK (~40× its normal rate) but enough to cap a billing-amplification flood. Returns 429 + `Retry-After` so the SDK's offline buffer re-delivers. CSRF stays intentionally skipped (the SDK can't send a token).
+
 ## 5. CSRF Protection
 
 **File:** `apps/web/src/lib/security/csrf.ts`
@@ -212,7 +217,7 @@ CSP is excluded from `next.config.js` because it requires a per-request nonce an
 
 ### Email enumeration prevention
 
-The waitlist signup endpoint returns identical response structures for new and existing emails. The GET check endpoint adds an artificial random delay (100-300ms) and returns a generic message regardless of email existence.
+The waitlist signup endpoint returns identical response structures for new and existing emails. The position-lookup GET endpoint adds an artificial random delay (100-300ms) and, for non-existent emails, returns a dummy position that **rotates daily** — seeded with `hmacHash(\`${todayUTC}|${email}\`)` (F13, 2026-06-02) so the value is no longer a stable per-email fingerprint across days, while staying within the real-position range (1-10000) to defeat range-based enumeration. The per-email outbound limiter (F8, §4) additionally caps abuse of the email-send path.
 
 ### Idempotency
 

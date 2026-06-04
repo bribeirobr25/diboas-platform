@@ -414,4 +414,37 @@ describe('rateLimiter', () => {
       expect(result.remaining).toBe(2); // 3rd request
     });
   });
+
+  describe('Dedicated limiters (F8 / F9 — Bar R2 exception 2026-06-02)', () => {
+    it('checkOutboundEmailRateLimit allows 2 emails per address, then blocks the 3rd', async () => {
+      const { checkOutboundEmailRateLimit } = await importModule();
+      const hash = 'emailhash-f8-abc';
+      const r1 = await checkOutboundEmailRateLimit(hash);
+      const r2 = await checkOutboundEmailRateLimit(hash);
+      const r3 = await checkOutboundEmailRateLimit(hash);
+      expect(r1.success).toBe(true);
+      expect(r2.success).toBe(true);
+      expect(r3.success).toBe(false);
+      expect(r3.limit).toBe(2);
+      expect(r3.remaining).toBe(0);
+    });
+
+    it('checkOutboundEmailRateLimit tracks addresses independently', async () => {
+      const { checkOutboundEmailRateLimit } = await importModule();
+      await checkOutboundEmailRateLimit('hash-a');
+      await checkOutboundEmailRateLimit('hash-a');
+      const blockedA = await checkOutboundEmailRateLimit('hash-a');
+      const freshB = await checkOutboundEmailRateLimit('hash-b');
+      expect(blockedA.success).toBe(false);
+      expect(freshB.success).toBe(true);
+    });
+
+    it('checkMonitoringTunnelRateLimit permits a fresh IP with 1000/min headroom', async () => {
+      const { checkMonitoringTunnelRateLimit } = await importModule();
+      const r = await checkMonitoringTunnelRateLimit('203.0.113.7');
+      expect(r.success).toBe(true);
+      expect(r.limit).toBe(1000);
+      expect(r.remaining).toBe(999);
+    });
+  });
 });

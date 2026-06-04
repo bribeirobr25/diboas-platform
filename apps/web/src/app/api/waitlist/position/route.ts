@@ -64,13 +64,17 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
     await new Promise((resolve) => setTimeout(resolve, 100 + Math.random() * 200));
 
     if (!userData) {
-      // Return deterministic dummy non-null values to prevent email enumeration
-      // HMAC-derived values are stable per email, indistinguishable from real users
-      const hash = hmacHash(sanitizedEmail);
-      // Fallback to a simple hash if HMAC key is unavailable
+      // Return dummy non-null values to prevent email enumeration, but rotate
+      // them daily so the per-email value is no longer a stable fingerprint.
+      // F13 (Bar R2 exception, 2026-06-02): seed the HMAC with the UTC date so
+      // the dummy changes every UTC midnight; the 1-10000 range still overlaps
+      // real positions to defeat range-based enumeration.
+      const todayUTC = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+      const hash = hmacHash(`${todayUTC}|${sanitizedEmail}`);
+      // Fallback to a simple hash if HMAC key is unavailable (also rotates daily)
       const hashHex =
         hash ||
-        sanitizedEmail
+        `${todayUTC}|${sanitizedEmail}`
           .split('')
           .reduce((acc, c) => acc + c.charCodeAt(0).toString(16), '')
           .slice(0, 16);

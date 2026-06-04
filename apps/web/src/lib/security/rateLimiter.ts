@@ -259,6 +259,99 @@ export function createRateLimitHeaders(result: RateLimitResult): Headers {
   return headers;
 }
 
+// ---------------------------------------------------------------------------
+// Dedicated rate limiters (F8 / F9 — Bar R2 exception, 2026-06-02)
+//
+// `@upstash/ratelimit` bakes the limit + window into the Ratelimit instance at
+// construction (per-call args are ignored), so each distinct policy needs its
+// own instance, separate from the IP-keyed `ratelimit` above.
+//
+// Fail-closed in production: a missing Upstash env or a Redis error blocks
+// (success:false). In dev/test we fall back to the in-memory limiter with the
+// same params so local DX isn't blocked.
+// ---------------------------------------------------------------------------
+
+function createDedicatedLimiter(limit: number, windowMs: number, prefix: string) {
+  let instance: Ratelimit | null = null;
+  let init = false;
+
+  function ensure(): boolean {
+    if (init) return instance !== null;
+    init = true;
+    const url = process.env.UPSTASH_REDIS_REST_URL;
+    const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+    if (!url || !token) return false;
+    try {
+      instance = new Ratelimit({
+        redis: new Redis({ url, token }),
+        limiter: Ratelimit.slidingWindow(limit, `${windowMs}ms`),
+        analytics: true,
+        prefix,
+      });
+      return true;
+    } catch (error) {
+      Logger.error(`[RateLimiter] Failed to init dedicated limiter '${prefix}'`, {
+        error: error instanceof Error ? error.message : String(error),
+      });
+      return false;
+    }
+  }
+
+  const blocked = (): RateLimitResult => ({
+    success: false,
+    limit,
+    remaining: 0,
+    reset: Math.ceil((Date.now() + windowMs) / 1000),
+  });
+
+  return async function check(identifier: string): Promise<RateLimitResult> {
+    const hasRedis = ensure();
+    if (hasRedis && instance) {
+      try {
+        const r = await instance.limit(identifier);
+        return {
+          success: r.success,
+          limit: r.limit,
+          remaining: r.remaining,
+          reset: Math.ceil(r.reset / 1000),
+        };
+      } catch (error) {
+        Logger.error(`[RateLimiter] Dedicated limiter '${prefix}' failed`, {
+          error: error instanceof Error ? error.message : String(error),
+        });
+        if (IS_PRODUCTION) return blocked(); // fail closed
+      }
+    } else if (IS_PRODUCTION) {
+      return blocked(); // missing Upstash env in production → fail closed
+    }
+    // Dev/test fallback: in-memory with the same params, namespaced by prefix.
+    return checkInMemoryRateLimit(`${prefix}${identifier}`, limit, windowMs);
+  };
+}
+
+const checkOutboundEmail = createDedicatedLimiter(2, 5 * 60 * 1000, 'signup:email:');
+const checkMonitoringTunnel = createDedicatedLimiter(1000, 60 * 1000, 'monitoring:tunnel:');
+
+/**
+ * F8 — per-email-address outbound email rate limit (max 2 per 5 minutes).
+ * Keyed by the email's HMAC hash (raw email never reaches Upstash). Anti
+ * email-bombing: caps how many confirmation/notification emails a single
+ * address can receive regardless of source IP.
+ */
+export function checkOutboundEmailRateLimit(emailHash: string): Promise<RateLimitResult> {
+  return checkOutboundEmail(emailHash);
+}
+
+/**
+ * F9 — permissive per-IP rate limit for the `/api/monitoring` Sentry tunnel
+ * (1000 per 60s). ~40× headroom over the Sentry SDK's normal ~25/min/session
+ * rate so legitimate envelope traffic is never blocked, while a single-source
+ * billing-amplification flood is capped.
+ */
+export function checkMonitoringTunnelRateLimit(ip: string): Promise<RateLimitResult> {
+  return checkMonitoringTunnel(ip);
+}
+
 /**
  * Preset rate limiters for different endpoints
  * Configuration loaded from environment variables
