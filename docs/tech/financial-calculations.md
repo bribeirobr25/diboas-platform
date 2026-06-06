@@ -31,7 +31,7 @@ Where:
 
 All market rates come from `MarketDataService` (`lib/market-data/service.ts`), which reads from `FALLBACK_MARKET_DATA` in `lib/market-data/constants.ts`. **Authoritative table**: read `constants.ts` directly — values below mirror it as of 2026-05-25 but the constants file is the single source of truth.
 
-Earlier baselines used pure 5y-avg figures. Phase A historical calibration (2026-05-16) and Phase C decisions (2026-05-22) refreshed several locales to live current values; the `constants.ts` `lastVerified` metadata block records source + date per field. The weekly refresh runbook is `docs/integrations/tools-data-weekly-runbook.md`.
+Earlier baselines used pure 5y-avg figures. Phase A historical calibration (2026-05-16) and Phase C decisions (2026-05-22) refreshed several locales to live current values; the `constants.ts` `lastVerified` metadata block records source + date per field. The weekly refresh runbook is `docs/tools/tools-data-weekly-runbook.md`.
 
 ### Bank / Savings Rates
 

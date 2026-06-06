@@ -217,7 +217,7 @@
   background: none;
   cursor: pointer;
   font-size: var(--font-size-sm);
-  color: var(--color-teal-600);
+  color: var(--text-brand-accessible);
   font-weight: var(--font-weight-medium);
 }
 

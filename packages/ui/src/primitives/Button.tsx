@@ -53,7 +53,7 @@ export interface ButtonProps
 
   // Analytics: Track user interactions
   trackingEvent?: string;
-  trackingProps?: Record<string, any>;
+  trackingProps?: Record<string, unknown>;
 
   // SEO: UTM parameters for marketing
   utmSource?: string;
@@ -104,7 +104,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       if (trackingEvent && typeof window !== 'undefined') {
         try {
           // Product KPIs: Track user interactions
-          const gtag = (window as any).gtag;
+          const gtag = (
+            window as Window &
+              typeof globalThis & {
+                gtag?: (command: string, action: string, params?: Record<string, unknown>) => void;
+              }
+          ).gtag;
           if (gtag) {
             gtag('event', trackingEvent, {
               event_category: 'Button',

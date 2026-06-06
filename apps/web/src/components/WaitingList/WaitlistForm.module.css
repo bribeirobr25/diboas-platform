@@ -233,7 +233,7 @@
 
 .referralIndicator {
   font-size: var(--font-size-sm);
-  color: var(--color-teal-600);
+  color: var(--text-brand-accessible);
   text-align: center;
   margin-bottom: var(--spacing-md);
   font-weight: var(--font-weight-medium);

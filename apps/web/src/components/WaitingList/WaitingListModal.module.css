@@ -231,13 +231,13 @@
 }
 
 .privacyLink {
-  color: var(--color-teal-500);
+  color: var(--text-brand-accessible);
   text-decoration: underline;
   text-underline-offset: var(--focus-ring-offset);
 }
 
 .privacyLink:hover {
-  color: var(--color-teal-600);
+  color: var(--color-teal-800);
 }
 
 .submitButton {

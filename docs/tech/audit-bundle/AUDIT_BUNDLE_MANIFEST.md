@@ -49,8 +49,8 @@ The bundle is designed for an external auditor to independently:
 | B3  | iter-5 SDK migration map             | Field-by-field source attribution (Hardcoded / Provider-driven / Hybrid) | `docs/tech/iter5-sdk-migration-map.md`                                        |
 | B4  | Security standards                   | Input validation, rate limiting, secrets policy                          | `docs/tech/security.md`                                                       |
 | B5  | Internationalization                 | 4-locale parity contract                                                 | `docs/tech/internationalization.md`                                           |
-| B6  | diBoaS-analytics integration note    | Scoped contract for Provider-driven fields the SDK will populate         | `docs/integrations/diboas-analytics-tools-data-note.md`                       |
-| B7  | Tools data weekly runbook            | Steady-state operating model for the Hardcoded subset (monthlySeries.\*) | `docs/integrations/tools-data-weekly-runbook.md`                              |
+| B6  | diBoaS-analytics integration note    | Scoped contract for Provider-driven fields the SDK will populate         | `docs/tools/diboas-analytics-tools-data-note.md`                       |
+| B7  | Tools data weekly runbook            | Steady-state operating model for the Hardcoded subset (monthlySeries.\*) | `docs/tools/tools-data-weekly-runbook.md`                              |
 | B8  | Validation + regression report       | 14-page Docker MCP visual sweep evidence                                 | `docs/audit/TOOLS_IMPROVEMENT_VALIDATION_2026-05-23.md` (local-only — see §6) |
 
 ### Tier C — Reproducible artifacts

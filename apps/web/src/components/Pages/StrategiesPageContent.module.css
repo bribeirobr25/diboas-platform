@@ -243,7 +243,7 @@
 
 .protocolExternalLink {
   font-size: 0.8125rem;
-  color: var(--color-teal-600);
+  color: var(--text-brand-accessible);
   text-decoration: none;
 }
 
@@ -288,7 +288,7 @@
 
 .expandIcon {
   font-size: 0.75rem;
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
 }
 
 .mobileProtocolSubtitle {

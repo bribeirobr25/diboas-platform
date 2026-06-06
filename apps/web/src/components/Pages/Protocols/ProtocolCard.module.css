@@ -70,7 +70,7 @@
 
 .usedInStrategies {
   font-size: var(--font-size-xs);
-  color: var(--color-teal-600);
+  color: var(--text-brand-accessible);
   margin: 0 0 var(--spacing-lg) 0;
 }
 
@@ -123,7 +123,7 @@
 }
 
 .regulatorySuccess {
-  color: var(--color-teal-600);
+  color: var(--text-brand-accessible);
 }
 
 .regulatoryDefault {
@@ -139,7 +139,7 @@
   border: none;
   padding: 0;
   font-size: var(--font-size-xs);
-  color: var(--color-teal-600);
+  color: var(--text-brand-accessible);
   cursor: pointer;
   font-weight: var(--font-weight-medium);
   text-decoration: underline;
@@ -147,7 +147,7 @@
 }
 
 .expandToggle:hover {
-  color: var(--color-teal-700);
+  color: var(--color-teal-800);
 }
 
 .regulatoryIcon {
@@ -166,14 +166,14 @@
 }
 
 .websiteLink {
-  color: var(--color-teal-600);
+  color: var(--text-brand-accessible);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   text-decoration: none;
 }
 
 .websiteLink:hover {
-  color: var(--color-teal-700);
+  color: var(--color-teal-800);
 }
 
 .twitterLink {
