@@ -16,6 +16,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
 import { requireAuth, hmacHash } from '@/lib/security';
 import { sanitizeEmail } from '@/lib/utils/sanitize';
+import { toISODateString } from '@/lib/utils/date';
 import { generateReferralUrl, isValidEmail } from '@/lib/waitingList/helpers';
 import { applyRateLimit, applyCsrf, handleRouteError } from '@/lib/api/routeHelpers';
 import { Logger } from '@/lib/monitoring/Logger';
@@ -69,7 +70,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
       // F13 (Bar R2 exception, 2026-06-02): seed the HMAC with the UTC date so
       // the dummy changes every UTC midnight; the 1-10000 range still overlaps
       // real positions to defeat range-based enumeration.
-      const todayUTC = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+      const todayUTC = toISODateString(new Date()); // YYYY-MM-DD
       const hash = hmacHash(`${todayUTC}|${sanitizedEmail}`);
       // Fallback to a simple hash if HMAC key is unavailable (also rotates daily)
       const hashHex =

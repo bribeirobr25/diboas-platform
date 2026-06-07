@@ -23,6 +23,7 @@ import {
   type MonthlyContributionResult,
 } from './core';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
+import { toISODateString } from '@/lib/utils/date';
 
 // ---------------------------------------------------------------------------
 // C3 close (TOOLS_41_DEFECTS_FIX_PLAN.md §3.3, 2026-05-26): boundary clamp
@@ -72,6 +73,33 @@ export function applyEffectiveRateClamp(
     },
   });
   return EFFECTIVE_RATE_FLOOR;
+}
+
+/**
+ * Builds the percent-domain hedged-rate transformer shared by the compound
+ * (`calculatorHedged`) and time-to-target calculators (D1 A-2). Converts a USD
+ * rate (percent) into the effective local rate (percent) under the canonical
+ * hedge expression `(1 + usdYield)(1 + depreciation) − 1`, clamped via
+ * `applyEffectiveRateClamp`.
+ *
+ * `source` is the clamp's observability discriminator (feeds
+ * `CALCULATOR_DEPRECIATION_CLAMPED`) and must stay unique per call site.
+ */
+export function createHedgedRateTransformer(
+  depreciation: number,
+  source: string
+): (usdRatePercent: number) => number {
+  return (usdRatePercent: number): number => {
+    if (depreciation === 0) return usdRatePercent;
+    const usdYield = usdRatePercent / 100;
+    const rawEffective = (1 + usdYield) * (1 + depreciation) - 1;
+    const effective = applyEffectiveRateClamp(rawEffective, {
+      source,
+      usdYield,
+      depreciation,
+    });
+    return effective * 100;
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -273,7 +301,7 @@ function findBucketForMonth(
 ): FxBucket {
   const anchor = new Date(`${windowStartDate}T00:00:00Z`);
   const monthDate = new Date(Date.UTC(anchor.getUTCFullYear(), anchor.getUTCMonth() + (m - 1), 1));
-  const iso = monthDate.toISOString().slice(0, 10);
+  const iso = toISODateString(monthDate);
   for (const b of buckets) {
     if (iso >= b.startDate && iso <= b.endDate) return b;
   }

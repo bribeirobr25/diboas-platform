@@ -41,6 +41,10 @@ export async function onRequestError(
 ): Promise<void> {
   const Sentry = await import('@sentry/nextjs');
   Sentry.captureException(error, {
+    // E-2: tag with the request id (middleware-set x-request-id) so this server
+    // door correlates with the client door (ErrorReportingService.captureException).
+    // beforeSend scrubs user/extra/breadcrumbs but NOT tags, so the id survives.
+    tags: { correlationId: request.headers['x-request-id'] },
     extra: {
       path: request.path,
       method: request.method,

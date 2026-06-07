@@ -95,6 +95,13 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
 
   // Listen for real-time signup events
   useEffect(() => {
+    // RC-1: guard the fresh-data re-fetch below. The optimistic `setStats((prev)
+    // => …)` is synchronous and safe (the listener is removed on cleanup, so the
+    // handler never runs post-unmount), but the re-fetch resolves on a later
+    // microtask and could `setStats` after the component is gone. The signal
+    // aborts the in-flight request; the `signal.aborted` check also covers the
+    // race where the response landed just before cleanup ran.
+    const controller = new AbortController();
     const unsubscribe = applicationEventBus.on<ApplicationEventPayload>(
       ApplicationEventType.WAITLIST_SIGNUP_COMPLETED,
       (event) => {
@@ -113,10 +120,10 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
         const freshUrl = source
           ? `/api/waitlist/stats?fresh=1&source=${source}`
           : '/api/waitlist/stats?fresh=1';
-        fetch(freshUrl, { cache: 'no-store' })
+        fetch(freshUrl, { cache: 'no-store', signal: controller.signal })
           .then((res) => (res.ok ? res.json() : null))
           .then((data) => {
-            if (data) {
+            if (data && !controller.signal.aborted) {
               setStats({
                 count: data.count,
                 countries: data.countries,
@@ -125,12 +132,15 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
             }
           })
           .catch(() => {
-            // Keep optimistic update
+            // Keep optimistic update (also swallows the AbortError on cleanup)
           });
       }
     );
 
-    return unsubscribe;
+    return () => {
+      unsubscribe();
+      controller.abort();
+    };
   }, [cacheKey, source]);
 
   return { stats, isLoading };

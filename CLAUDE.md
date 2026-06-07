@@ -270,6 +270,7 @@ Stack: Sentry (errors + session replay), PostHog (product analytics, feature fla
 **Detailed playbook:** `docs/tech/MONITORING_OPS.md` — verification procedures, troubleshooting, rotation runbooks, full pitfalls list. The summary below is the one-page operating constraints; when in doubt, read the playbook.
 
 **Architecture:**
+
 - Sentry envelopes route through `/api/monitoring` (same-origin tunnel — bypasses ad-blockers + keeps CSP narrow). Manual handler at `apps/web/src/app/api/monitoring/route.ts` because Turbopack doesn't auto-generate the tunnel route.
 - Sentry root instrumentation at `apps/web/src/instrumentation.ts` switches on `NEXT_RUNTIME` to load `sentry.server.config.ts` (nodejs) or `sentry.edge.config.ts` (edge). Browser-side Sentry init at `apps/web/src/instrumentation-client.ts` — replay is OFF by default, added only after `CONSENT_GIVEN` per Lighthouse Workstream B.
 - `instrumentation.ts` also exports `onRequestError` — Next.js calls it on RSC/route-handler/middleware errors, which then call `Sentry.captureException`.
@@ -287,6 +288,7 @@ Stack: Sentry (errors + session replay), PostHog (product analytics, feature fla
 - **PostHog init: pin `defaults: '2025-11-30'`** (latest accepted by `posthog-js` 1.313.0); newer dates trip a TS error until the SDK is upgraded.
 - **PostHog init: `person_profiles: 'identified_only'`** (GDPR + ~95% person-quota savings); persons only created on explicit `identify()` with an opaque submission ID, never an email.
 - **`dynamic({ ssr: false })` inside `'use client'` is a footgun** on Next 16 + Turbopack (silent hydration failure) — import client components directly (§ E.5; `SECURITY_FINDINGS_2026-05.md` § F20).
+- **Sentry `correlationId` rides on `tags`, never `extra`** (E-2) — both doors tag events with `x-request-id` for server↔client correlation; `beforeSend` scrubs `user`/`extra`/`breadcrumbs` but NOT `tags`, so moving it to `extra` or adding `tags` to the scrub list silently breaks correlation. PII must never go on `tags`.
 
 **Verification after monitoring changes:** see `MONITORING_OPS.md` § F (Sentry test event, PostHog network trace, GA4 dataLayer, CSP console grep, release tagging, lesson-page calculator regression check).
 

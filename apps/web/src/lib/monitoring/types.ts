@@ -15,6 +15,8 @@ export interface ErrorEvent {
   sessionId?: string;
   userAgent?: string;
   locale?: string;
+  // E-2: request id correlating this monitoring event with the Sentry server door
+  correlationId?: string;
   severity: 'low' | 'medium' | 'high' | 'critical';
   category: 'javascript' | 'network' | 'security' | 'performance' | 'user';
   metadata?: Record<string, unknown>;

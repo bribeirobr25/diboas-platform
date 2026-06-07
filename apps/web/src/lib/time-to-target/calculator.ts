@@ -24,7 +24,7 @@
  */
 
 import {
-  applyEffectiveRateClamp,
+  createHedgedRateTransformer,
   calculateLumpSum,
   monthsToInflationAdjustedTarget,
   resolveHorizonMatchedDepreciation,
@@ -137,19 +137,10 @@ export function calculateTimeToTargetTimeline(
       : TIME_TO_TARGET_FALLBACK_HORIZON_YEARS;
   const depreciation = resolveHorizonMatchedDepreciation(snapshot, currency, estimatedHorizonYears);
 
-  // C3 close (CTO-board v3 audit, 2026-05-26): route inline hedge through the
-  // shared clamp helper. Mirror of `calculatorHedged.ts:hedgedScenarioRate`.
-  const hedge = (usdRatePercent: number): number => {
-    if (depreciation === 0) return usdRatePercent;
-    const usdYield = usdRatePercent / 100;
-    const rawEffective = (1 + usdYield) * (1 + depreciation) - 1;
-    const effective = applyEffectiveRateClamp(rawEffective, {
-      source: 'calculateTimeToTargetTimeline',
-      usdYield,
-      depreciation,
-    });
-    return effective * 100;
-  };
+  // C3 close (CTO-board v3 audit, 2026-05-26): route hedge through the shared
+  // clamp helper `createHedgedRateTransformer` (D1 A-2). Mirror of
+  // `calculatorHedged.ts:hedgedScenarioRate`.
+  const hedge = createHedgedRateTransformer(depreciation, 'calculateTimeToTargetTimeline');
 
   const scenarioRatesPercent: Record<TimeToTargetScenarioKey, number> = {
     bank: bankRate,

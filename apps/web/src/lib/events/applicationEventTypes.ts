@@ -100,7 +100,9 @@ export interface WaitlistSignupEventPayload extends ApplicationEventPayload {
 export interface WaitlistDeletionEventPayload extends ApplicationEventPayload {
   domain: 'waitlist';
   source: 'waitlist';
-  email?: string; // Only included for internal audit, not exposed
+  // E-4: no `email` field — deletion events flow to analytics doors; a
+  // PII-shaped field here invites a future caller to leak an address into a
+  // tracked payload. The three emit sites never set it. Keep PII out by type.
   reason?: 'user_request' | 'gdpr' | 'admin';
 }
 

@@ -61,6 +61,9 @@ export class ErrorReportingService implements IErrorReporter {
   // Store bound handler for proper cleanup
   private boundHandleResourceError = (event: Event) => this.handleResourceError(event);
 
+  // RC-6: store the sectionEventBus unsubscribe handle so destroy() can detach it
+  private unsubscribeSectionError?: () => void;
+
   constructor(config?: Partial<ErrorReportingConfig>) {
     this.config = { ...DEFAULT_ERROR_CONFIG, ...config };
     this.sessionId = generateSessionId();
@@ -84,8 +87,11 @@ export class ErrorReportingService implements IErrorReporter {
     // Initialize breadcrumb collection
     this.breadcrumbManager.initialize();
 
-    // Register with section event bus
-    sectionEventBus.on(SectionEventType.SECTION_ERROR, this.handleSectionError.bind(this));
+    // Register with section event bus (RC-6: keep the unsubscribe handle for destroy())
+    this.unsubscribeSectionError = sectionEventBus.on(
+      SectionEventType.SECTION_ERROR,
+      this.handleSectionError.bind(this)
+    );
 
     this.isInitialized = true;
 
@@ -161,6 +167,9 @@ export class ErrorReportingService implements IErrorReporter {
       const context: ErrorContext = {
         timestamp: Date.now(),
         sessionId: this.sessionId,
+        // E-2 completeness: correlate the local-log / custom-endpoint paths with
+        // the originating request (caller-provided context can override).
+        correlationId: Logger.getRequestId(),
         userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined,
         url: typeof window !== 'undefined' ? window.location.href : undefined,
         breadcrumbs: this.breadcrumbManager.getAll(),
@@ -385,7 +394,11 @@ export class ErrorReportingService implements IErrorReporter {
   ): void {
     try {
       Sentry.captureException(error, {
-        tags: context?.tags,
+        // E-2: tag every Sentry event with the originating request id so the
+        // client door (here) correlates with the server door (onRequestError).
+        // beforeSend scrubs user/extra/breadcrumbs but NOT tags, so this id
+        // survives to Sentry. Caller tags win on key collision.
+        tags: { correlationId: Logger.getRequestId(), ...context?.tags },
         extra: context?.extra,
         level: context?.level,
       });
@@ -404,6 +417,9 @@ export class ErrorReportingService implements IErrorReporter {
     if (typeof window !== 'undefined') {
       window.removeEventListener('error', this.boundHandleResourceError, true);
     }
+    // RC-6: detach the sectionEventBus SECTION_ERROR listener registered in initialize()
+    this.unsubscribeSectionError?.();
+    this.unsubscribeSectionError = undefined;
     this.breadcrumbManager.destroy();
     this.occurrenceTracker.clear();
     this.isInitialized = false;

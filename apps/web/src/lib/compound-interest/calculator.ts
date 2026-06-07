@@ -23,20 +23,19 @@ import { calculateLumpSum, calculateMonthlyContributions } from '@/lib/market-da
 import { marketDataService } from '@/lib/market-data/service';
 import { convertCadenceToMonthly, isOneTime } from './cadence';
 import { SCENARIO_RATES } from './scenarios';
-import { INPUT_BOUNDS } from './constants';
 import {
   type Cadence,
   type CalculatorInput,
   type CalculatorOutput,
   type ScenarioSeries,
   type SeriesKey,
-  InvalidCalculatorInputError,
 } from './types';
+import { validateCompoundCalculatorInput } from './validation';
 
 const HIGHLIGHTED_DEFAULT = 'historical' as const;
 
 export function calculateCompoundProjection(input: CalculatorInput): CalculatorOutput {
-  validateInput(input);
+  validateCompoundCalculatorInput(input);
 
   const monthlyEquivalent = convertCadenceToMonthly(input.amount, input.cadence);
 
@@ -117,25 +116,4 @@ function buildSeries(
     yearlyValues,
     finalValue: yearlyValues[yearlyValues.length - 1] ?? 0,
   };
-}
-
-function validateInput(input: CalculatorInput): void {
-  if (!Number.isFinite(input.amount)) {
-    throw new InvalidCalculatorInputError('amount', 'must be a finite number');
-  }
-  if (input.amount < INPUT_BOUNDS.amount.min || input.amount > INPUT_BOUNDS.amount.max) {
-    throw new InvalidCalculatorInputError(
-      'amount',
-      `must be between ${INPUT_BOUNDS.amount.min} and ${INPUT_BOUNDS.amount.max}`
-    );
-  }
-  if (!Number.isFinite(input.years) || !Number.isInteger(input.years)) {
-    throw new InvalidCalculatorInputError('years', 'must be an integer');
-  }
-  if (input.years < INPUT_BOUNDS.years.min || input.years > INPUT_BOUNDS.years.max) {
-    throw new InvalidCalculatorInputError(
-      'years',
-      `must be between ${INPUT_BOUNDS.years.min} and ${INPUT_BOUNDS.years.max}`
-    );
-  }
 }

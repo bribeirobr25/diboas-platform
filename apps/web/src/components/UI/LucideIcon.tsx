@@ -32,6 +32,7 @@ import {
   Clock,
   AlertCircle,
   History,
+  RefreshCw,
   type LucideIcon as LucideIconType,
 } from 'lucide-react';
 
@@ -71,6 +72,7 @@ export {
   Clock,
   AlertCircle,
   History,
+  RefreshCw,
 };
 
 export type { LucideIconType };
