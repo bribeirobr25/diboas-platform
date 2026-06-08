@@ -18,7 +18,7 @@ This playbook captures:
 4. **Gaps and recommendations** — what's missing, with effort estimates
 5. **A repeatable scan workflow** — `scripts/security-scan.sh` (one-command runner)
 
-It deliberately does *not* duplicate the canonical references — for OWASP Top 10 details, see `https://owasp.org/Top10/2025/`. This doc is the diBoaS-specific layer on top.
+It deliberately does _not_ duplicate the canonical references — for OWASP Top 10 details, see `https://owasp.org/Top10/2025/`. This doc is the diBoaS-specific layer on top.
 
 ---
 
@@ -28,14 +28,14 @@ It deliberately does *not* duplicate the canonical references — for OWASP Top 
 
 For a pre-launch waitlist site with no live financial product, the realistic attacker goals — in descending order of attractiveness — are:
 
-| # | Goal | Vector | Payoff |
-|---|---|---|---|
-| 1 | Scrape the email list | API enumeration via `/api/waitlist/*` | Sell list, phishing target acquisition |
-| 2 | Game the leaderboard / referral system | Mass-signup with disposable emails + referral cycling | Become "top referrer" before launch — gain founder-tier seats / rewards |
-| 3 | Send spam from diboas.com (DKIM-signed) | Email-header injection in waitlist signup name field; or DMARC/SPF bypass | Bypass content filters — high-conversion spam under your domain reputation |
-| 4 | Brand damage via defacement | Subdomain takeover on dangling DNS; XSS in lesson/FAQ; supply-chain compromise of analytics scripts | Press attention, user-trust damage during launch window |
-| 5 | Compete economically — bill-shock the founder | DDoS via `/api/og` (image gen) or calculator endpoints | Vercel function-second billing, Neon connection saturation |
-| 6 | Server-side execution (RCE) | npm supply chain (Shai-Hulud-style), Next.js Server Action abuse (none used yet), `_next/image` SSRF | Highest payoff but lowest yield on this stack today |
+| #   | Goal                                          | Vector                                                                                               | Payoff                                                                     |
+| --- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 1   | Scrape the email list                         | API enumeration via `/api/waitlist/*`                                                                | Sell list, phishing target acquisition                                     |
+| 2   | Game the leaderboard / referral system        | Mass-signup with disposable emails + referral cycling                                                | Become "top referrer" before launch — gain founder-tier seats / rewards    |
+| 3   | Send spam from diboas.com (DKIM-signed)       | Email-header injection in waitlist signup name field; or DMARC/SPF bypass                            | Bypass content filters — high-conversion spam under your domain reputation |
+| 4   | Brand damage via defacement                   | Subdomain takeover on dangling DNS; XSS in lesson/FAQ; supply-chain compromise of analytics scripts  | Press attention, user-trust damage during launch window                    |
+| 5   | Compete economically — bill-shock the founder | DDoS via `/api/og` (image gen) or calculator endpoints                                               | Vercel function-second billing, Neon connection saturation                 |
+| 6   | Server-side execution (RCE)                   | npm supply chain (Shai-Hulud-style), Next.js Server Action abuse (none used yet), `_next/image` SSRF | Highest payoff but lowest yield on this stack today                        |
 
 **Note: this hierarchy will invert after launch.** Once real funds flow, goals #1 and #5 stay; goals #2-4 become less attractive vs. credential theft, account takeover, and balance manipulation.
 
@@ -62,22 +62,23 @@ For the API surface specifically:
 
 ### 3.1 Public API endpoints (11 routes)
 
-| Endpoint | Methods | Auth | Rate-limit class | CSRF | Token gating |
-|---|---|---|---|---|---|
-| `/api/waitlist/signup` | POST | None | **strict** (5/min) | ✓ | — |
-| `/api/waitlist/signup` | GET | None | standard (30/min) | — | — |
-| `/api/waitlist/delete` | POST + DELETE | None | strict | ✓ | HMAC token (single-use, 15min TTL) |
-| `/api/waitlist/position` | GET | None | standard | — | — |
-| `/api/waitlist/position` | POST | **API key** (`INTERNAL_API_KEY`) | standard | ✓ | — |
-| `/api/waitlist/referral` | GET | None | lenient (100/min) | — | — |
-| `/api/waitlist/stats` | GET | None | lenient | — | — |
-| `/api/email/unsubscribe` | GET + POST | None | standard | — | HMAC token (constant-time verify) |
-| `/api/consent` | GET + POST + DELETE | None | standard / lenient | ✓ on mutate | — |
-| `/api/monitoring` | POST | None | per-IP 1000/60s (F9, 2026-06-02) | **NONE** (deliberate — SDK can't send token) | DSN regex + 1MB body cap |
-| `/api/health` (+`/ready`, `/live`) | GET + HEAD | Optional API key for detail | lenient | — | — |
-| `/api/og/*` | GET | None | per-IP `checkRateLimit` (lenient, Edge) | — | — |
+| Endpoint                           | Methods             | Auth                             | Rate-limit class                        | CSRF                                         | Token gating                       |
+| ---------------------------------- | ------------------- | -------------------------------- | --------------------------------------- | -------------------------------------------- | ---------------------------------- |
+| `/api/waitlist/signup`             | POST                | None                             | **strict** (5/min)                      | ✓                                            | —                                  |
+| `/api/waitlist/signup`             | GET                 | None                             | standard (30/min)                       | —                                            | —                                  |
+| `/api/waitlist/delete`             | POST + DELETE       | None                             | strict                                  | ✓                                            | HMAC token (single-use, 15min TTL) |
+| `/api/waitlist/position`           | GET                 | None                             | standard                                | —                                            | —                                  |
+| `/api/waitlist/position`           | POST                | **API key** (`INTERNAL_API_KEY`) | standard                                | ✓                                            | —                                  |
+| `/api/waitlist/referral`           | GET                 | None                             | lenient (100/min)                       | —                                            | —                                  |
+| `/api/waitlist/stats`              | GET                 | None                             | lenient                                 | —                                            | —                                  |
+| `/api/email/unsubscribe`           | GET + POST          | None                             | standard                                | —                                            | HMAC token (constant-time verify)  |
+| `/api/consent`                     | GET + POST + DELETE | None                             | standard / lenient                      | ✓ on mutate                                  | —                                  |
+| `/api/monitoring`                  | POST                | None                             | per-IP 1000/60s (F9, 2026-06-02)        | **NONE** (deliberate — SDK can't send token) | DSN regex + 1MB body cap           |
+| `/api/health` (+`/ready`, `/live`) | GET + HEAD          | Optional API key for detail      | lenient                                 | —                                            | —                                  |
+| `/api/og/*`                        | GET                 | None                             | per-IP `checkRateLimit` (lenient, Edge) | —                                            | —                                  |
 
 **Key defenses already in place:**
+
 - Origin + Referer validation on all CSRF-protected mutations (`apps/web/src/lib/security/csrf.ts`)
 - Constant-time HMAC comparison via `crypto.timingSafeEqual`
 - Generic error responses with artificial delay (100-300ms) to prevent timing-based email enumeration
@@ -89,13 +90,13 @@ For the API surface specifically:
 
 The site has exactly five user-facing forms:
 
-| Form | Fields | Client validation | Server validation | Sanitization |
-|---|---|---|---|---|
-| Waitlist signup | email, name (optional), gdprAccepted, referredBy (hidden) | Zod-like in custom hook | `validateEmail()`, `isValidName()` (length 100, trim) | `sanitizeText()`; stored AES-256-GCM encrypted |
-| Email unsubscribe | id (HMAC hash), token (HMAC sig), action (enum) | Format check | `verifyToken()` constant-time | Tokens are HMAC-signed, no plaintext |
-| Consent banner | analytics (boolean) | Type guard | Type guard | Cookie write (SameSite=Strict) |
-| Position lookup | email (query param) | Loose regex | `sanitizeEmail() + isValidEmail()` | Read-only; no rendering |
-| Referral lookup | code (query param) | Format check | `isValidReferralCode()` (format only) | Read-only |
+| Form              | Fields                                                    | Client validation       | Server validation                                     | Sanitization                                   |
+| ----------------- | --------------------------------------------------------- | ----------------------- | ----------------------------------------------------- | ---------------------------------------------- |
+| Waitlist signup   | email, name (optional), gdprAccepted, referredBy (hidden) | Zod-like in custom hook | `validateEmail()`, `isValidName()` (length 100, trim) | `sanitizeText()`; stored AES-256-GCM encrypted |
+| Email unsubscribe | id (HMAC hash), token (HMAC sig), action (enum)           | Format check            | `verifyToken()` constant-time                         | Tokens are HMAC-signed, no plaintext           |
+| Consent banner    | analytics (boolean)                                       | Type guard              | Type guard                                            | Cookie write (SameSite=Strict)                 |
+| Position lookup   | email (query param)                                       | Loose regex             | `sanitizeEmail() + isValidEmail()`                    | Read-only; no rendering                        |
+| Referral lookup   | code (query param)                                        | Format check            | `isValidReferralCode()` (format only)                 | Read-only                                      |
 
 **`name` is the only user-supplied text that reaches storage.** It's length-capped (100 chars) and sanitized; stored encrypted; surfaces only in React Email templates (which auto-escape JSX expressions). No XSS path identified.
 
@@ -126,12 +127,12 @@ The distinction matters for subdomain-takeover analysis (see §5.4). A dangling 
 
 Five `dangerouslySetInnerHTML` usages (verified via `git grep`):
 
-| File | Source | Risk |
-|---|---|---|
-| `app/layout.tsx:108, 124` | Hardcoded JSON-LD / GA script | Safe |
-| `components/SEO/StructuredData.tsx:25` | Hardcoded JSON-LD | Safe |
-| `components/Sections/FAQAccordion/.../FAQAccordionDefault.tsx:36` | DOMPurify sanitized FAQ HTML | Safe |
-| `components/Sections/Lesson/.../LessonThreeBeat.tsx:135, 151` | Custom `renderInlineEmphasis()` regex replacer | **Verify CMS source — if any user input ever reaches `p`, switch to DOMPurify** |
+| File                                                              | Source                                         | Risk                                                                            |
+| ----------------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------- |
+| `app/layout.tsx:108, 124`                                         | Hardcoded JSON-LD / GA script                  | Safe                                                                            |
+| `components/SEO/StructuredData.tsx:25`                            | Hardcoded JSON-LD                              | Safe                                                                            |
+| `components/Sections/FAQAccordion/.../FAQAccordionDefault.tsx:36` | DOMPurify sanitized FAQ HTML                   | Safe                                                                            |
+| `components/Sections/Lesson/.../LessonThreeBeat.tsx:135, 151`     | Custom `renderInlineEmphasis()` regex replacer | **Verify CMS source — if any user input ever reaches `p`, switch to DOMPurify** |
 
 ### 3.5 Database surface
 
@@ -168,6 +169,7 @@ send.adelaide.diboas.com:
 ```
 
 **State as of 2026-06-01:**
+
 - F1 (DMARC `p=none`) — open, calendar-gated on F3; Phase 4 ramp `none → quarantine → reject` over 30+30 days per Bar's locked Q1 decision
 - F3 (apex DKIM missing) — open, BLOCKING for Phase 4; Bar's M365 admin task (enable DKIM → 2 Cloudflare CNAMEs → verify)
 - F5 (CAA) — **RESOLVED 2026-05-30**. Net effective policy: Let's Encrypt + Cloudflare auto-injected partner-CAs. See `SECURITY_FINDINGS_2026-05.md` § F5 status note for the partner-CA acceptance rationale.
@@ -176,11 +178,11 @@ send.adelaide.diboas.com:
 
 The CSP allowlists three diBoaS-owned subdomains across different directives:
 
-| Subdomain | CSP directive | Blast radius if taken over |
-|---|---|---|
-| `api.diboas.com` | `connect-src` | **Data exfiltration** (fetch/XHR intercept) |
-| `api.diboas-analytics.com` | `connect-src` | **Data exfiltration** (fetch/XHR intercept) |
-| `cdn.diboas.com` | `img-src` + `media-src` | Asset substitution only (no data exfil) |
+| Subdomain                  | CSP directive           | Blast radius if taken over                  |
+| -------------------------- | ----------------------- | ------------------------------------------- |
+| `api.diboas.com`           | `connect-src`           | **Data exfiltration** (fetch/XHR intercept) |
+| `api.diboas-analytics.com` | `connect-src`           | **Data exfiltration** (fetch/XHR intercept) |
+| `cdn.diboas.com`           | `img-src` + `media-src` | Asset substitution only (no data exfil)     |
 
 Of these, only `send.adelaide.diboas.com` (Resend, separate from the CSP allowlist) was confirmed active during scan. The others either don't resolve or weren't probed. **If any have DNS records but no live origin, they are subdomain-takeover candidates** — particularly any CNAME pointing at `*.vercel.app` or similar where the upstream project may have been deleted (per [Vercel subdomain takeover documentation, 2024-2025](https://medium.com/@pentestfox/how-i-took-over-a-vercel-subdomain-e7b03dbf222d)).
 

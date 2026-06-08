@@ -25,8 +25,7 @@ import type { IntlMessages } from './types';
 type LazyLoader = () => Promise<IntlMessages>;
 type NamespaceLoaders = Record<string, LazyLoader>;
 
-const resolveDefault = <T>(m: T | { default: T }): T =>
-  (m as { default?: T }).default || (m as T);
+const resolveDefault = <T>(m: T | { default: T }): T => (m as { default?: T }).default || (m as T);
 
 /**
  * Per-locale, per-namespace dynamic import loaders.

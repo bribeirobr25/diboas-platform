@@ -96,9 +96,7 @@ async function fetchYahooChart(symbol, range = '1y', interval = '1d') {
   if (!r) throw new Error(`Yahoo ${symbol} bad response`);
   const ts = r.timestamp;
   const closes = r.indicators.quote[0].close;
-  return ts
-    .map((t, i) => [new Date(t * 1000), closes[i]])
-    .filter((pair) => pair[1] != null);
+  return ts.map((t, i) => [new Date(t * 1000), closes[i]]).filter((pair) => pair[1] != null);
 }
 
 // ===========================================================================
@@ -223,9 +221,7 @@ function evaluateBtcStructure() {
   // Candle-lock: include only months <= April 2026 (the last confirmed close).
   // May 2026 ym='2026-05-01' is the in-progress month — exclude.
   const lastConfirmedYm = lastConfirmedMonthYM(TODAY);
-  const closes = months
-    .filter((m) => m.ym <= lastConfirmedYm)
-    .map((m) => m.close);
+  const closes = months.filter((m) => m.ym <= lastConfirmedYm).map((m) => m.close);
   const lastClose = closes[closes.length - 1];
   const ema20 = ema(closes, 20);
   const sma50 = sma(closes, 50);
@@ -293,7 +289,7 @@ async function evaluateMacro() {
       id: 'MAC-01',
       state: dxyClose < dxyEma20 && dxyRsi < 50 ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
-      detail: `DXY ${dxyClose.toFixed(4)} vs EMA20W ${dxyEma20.toFixed(4)} (Δ ${((dxyClose - dxyEma20) / dxyEma20 * 100).toFixed(3)}%); RSI ${dxyRsi.toFixed(2)}`,
+      detail: `DXY ${dxyClose.toFixed(4)} vs EMA20W ${dxyEma20.toFixed(4)} (Δ ${(((dxyClose - dxyEma20) / dxyEma20) * 100).toFixed(3)}%); RSI ${dxyRsi.toFixed(2)}`,
     },
     {
       id: 'MAC-02',
@@ -380,7 +376,8 @@ async function main() {
       id: 'ETF-01',
       state: 'INACTIVE',
       weight: 2,
-      detail: 'Manual feed per spec §8.3 — not auto-computed. Evaluate via CoinGlass browser render + §4.5 partial-data rule.',
+      detail:
+        'Manual feed per spec §8.3 — not auto-computed. Evaluate via CoinGlass browser render + §4.5 partial-data rule.',
     },
   ];
 

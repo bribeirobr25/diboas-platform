@@ -75,6 +75,7 @@ Single web application (`apps/web`). No backend services, no microservices, no m
 > **Org-specific values** (current DSN, project IDs, dashboard links): `docs/monitoring/INFRASTRUCTURE_GUIDE.md` (local-only).
 >
 > **Quick gotchas** (full list in `MONITORING_OPS.md` § E):
+>
 > - PostHog `host` MUST be `us.i.posthog.com` / `eu.i.posthog.com` (ingest), never `app.posthog.com` (console). Wrong value → `/array/<token>/config.js` 404 + silently degraded SDK.
 > - CSP wildcards MUST be full-label (`*.i.posthog.com`); partial-label patterns (`*-assets.i.posthog.com`) are silently ignored by browsers.
 > - Sentry build secrets (`SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`) MUST be listed in `turbo.json#env`, otherwise Turborepo scrubs them and source maps silently fail to upload.

@@ -72,11 +72,11 @@ const translated = useConfigTranslation(config, undefined, valuesByKey);
 
 The `@diboas/i18n` package ships three entry points to keep React out of the server bundle:
 
-| Entry point | Size | Contents |
-| ----------- | ---- | -------- |
-| `@diboas/i18n/server` | ~40 KB | Server-safe (no React): `loadMessages`, `loadAllMessages`, `flattenMessages`, `isValidLocale`, `getSafeLocale`, `SUPPORTED_LOCALES`, `DEFAULT_LOCALE` |
-| `@diboas/i18n/client` | ~1.5 KB (+ react-intl) | `I18nProvider`, `useTranslation`, `useMessage`, and the formatting hooks |
-| `@diboas/i18n/config` | ~2.7 KB | Constants only |
+| Entry point           | Size                   | Contents                                                                                                                                              |
+| --------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@diboas/i18n/server` | ~40 KB                 | Server-safe (no React): `loadMessages`, `loadAllMessages`, `flattenMessages`, `isValidLocale`, `getSafeLocale`, `SUPPORTED_LOCALES`, `DEFAULT_LOCALE` |
+| `@diboas/i18n/client` | ~1.5 KB (+ react-intl) | `I18nProvider`, `useTranslation`, `useMessage`, and the formatting hooks                                                                              |
+| `@diboas/i18n/config` | ~2.7 KB                | Constants only                                                                                                                                        |
 
 See `packages/i18n/README.md` for the full API reference and usage examples. **Never** use the main entry point in Server Components, and never mix server/client imports.
 

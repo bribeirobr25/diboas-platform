@@ -300,6 +300,10 @@
     "signals.*.title": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
     "signals.*.summary": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
     "groups.*.summary": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
-    "groups.*.title": { "pt-BR": "preserved-from-iter3", "es": "preserved-from-iter3", "de": "preserved-from-iter3" }
+    "groups.*.title": {
+      "pt-BR": "preserved-from-iter3",
+      "es": "preserved-from-iter3",
+      "de": "preserved-from-iter3"
+    }
   }
 }

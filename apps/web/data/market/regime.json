@@ -223,16 +223,37 @@
         "message": "PROVISIONAL single-source — CoinGlass /etf/bitcoin daily-flows table browser-rendered via Docker MCP (2026-05-29). SoSoValue cross-check unreachable (Cloudflare-blocked). Spec-canonical Farside manual feed remains the authoritative source per doc 02 §8.3 + doc 06 §6.5 — not used here (bot-blocked, policy forbids evasion). Visible window: trailing ~10 trading days (May 15 — May 29). Of the trailing 4 weekly aggregates anchored at the May 22 confirmed Friday close: week ending May 22 confirmed net-negative (-16.3K BTC, 5/5 days outflows); weeks ending May 15 / May 8 / May 1 not visible on the default page without authenticated access. Current in-progress week (ending May 29) is tracking net-negative (-17.0K BTC through Thu, post-anchor so outside the trailing-4 window). ETF-01 evaluated INACTIVE 0/2 on the directional read across visible data; the more conservative §10.1 UNAVAILABLE read yields identical 0-pt scoring. Canonical Farside acquisition tracked in PENDING_ALL.md 5.28."
       }
     ],
-    "delayed_sources": ["in-repo:monthlyPrices.json (BTC)", "FRED:M2SL", "Yahoo:GC=F", "CoinGlass:ETF"],
+    "delayed_sources": [
+      "in-repo:monthlyPrices.json (BTC)",
+      "FRED:M2SL",
+      "Yahoo:GC=F",
+      "CoinGlass:ETF"
+    ],
     "unavailable_sources": []
   },
   "_translation_status": {
     "_comment": "Machine-draft flag per market-editorial.md §5. EN is authoritative; pt-BR / es / de were drafted by engineering with research-memo voice (doc 03 §5.2) and the Phase 7 jargon ban (see scripts/check-market-data-jargon.mjs for the banned-terms list). The 'detailed' field carries the highest editorial stakes and is the priority for translator pass before any public-facing launch. The shorter fields (short, factors, headwinds, group summaries) are acceptable as machine-drafts pre-launch.",
     "summary.detailed": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
     "summary.short": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
-    "summary.key_supportive_factors": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
-    "summary.key_headwinds": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
-    "signal_groups.*.summary": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
-    "signal_groups.*.title": { "pt-BR": "preserved-from-iter3", "es": "preserved-from-iter3", "de": "preserved-from-iter3" }
+    "summary.key_supportive_factors": {
+      "pt-BR": "machine-draft",
+      "es": "machine-draft",
+      "de": "machine-draft"
+    },
+    "summary.key_headwinds": {
+      "pt-BR": "machine-draft",
+      "es": "machine-draft",
+      "de": "machine-draft"
+    },
+    "signal_groups.*.summary": {
+      "pt-BR": "machine-draft",
+      "es": "machine-draft",
+      "de": "machine-draft"
+    },
+    "signal_groups.*.title": {
+      "pt-BR": "preserved-from-iter3",
+      "es": "preserved-from-iter3",
+      "de": "preserved-from-iter3"
+    }
   }
 }

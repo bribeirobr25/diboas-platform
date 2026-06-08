@@ -4,12 +4,13 @@
 **Scope:** error tracking (Sentry), product analytics (PostHog), traffic analytics (GA4), web-vitals
 **Audience:** engineers configuring, deploying, debugging, or rotating the monitoring stack
 **Companion docs:**
+
 - `docs/tech/infrastructure.md` § Monitoring — high-level overview
 - `CLAUDE.md` § Monitoring — one-page operating constraints
 - `docs/monitoring/INFRASTRUCTURE_GUIDE.md` — local-only, contains actual project IDs / dashboard links / rotation runbooks
 - `apps/web/.env.example` — env-var inline comments
 
-> **No sensitive data in this file.** DSN URLs, project IDs, key names, and dashboard bookmarks live in `INFRASTRUCTURE_GUIDE.md` (local-only). This playbook describes the *shape* of the configuration, not the values.
+> **No sensitive data in this file.** DSN URLs, project IDs, key names, and dashboard bookmarks live in `INFRASTRUCTURE_GUIDE.md` (local-only). This playbook describes the _shape_ of the configuration, not the values.
 
 ---
 
@@ -17,12 +18,12 @@
 
 ### What we run and why
 
-| Tool | Purpose | Loading strategy | Consent-gated? |
-|---|---|---|---|
-| **Sentry** (`@sentry/nextjs`) | Error tracking + session replay + perf tracing | Server, edge, client SDKs all init at startup if DSN set | No (errors are not PII; session replay is consent-gated separately) |
-| **PostHog** (`posthog-js`) | Product analytics, feature flags, A/B tests, surveys | Lazy `import('posthog-js')` after consent | **Yes** — only initialises after `hasAnalyticsConsent()` returns true |
-| **GA4** (`gtag.js` via `next/script`) | Traffic analytics, conversion attribution | `afterInteractive` script strategy | **Yes** — gated via Google Consent Mode v2 |
-| **web-vitals** (`web-vitals` npm) | Core Web Vitals (LCP, INP, CLS, FCP, TTFB) | Dynamic `import()` with sample rate | No (no PII) |
+| Tool                                  | Purpose                                              | Loading strategy                                         | Consent-gated?                                                        |
+| ------------------------------------- | ---------------------------------------------------- | -------------------------------------------------------- | --------------------------------------------------------------------- |
+| **Sentry** (`@sentry/nextjs`)         | Error tracking + session replay + perf tracing       | Server, edge, client SDKs all init at startup if DSN set | No (errors are not PII; session replay is consent-gated separately)   |
+| **PostHog** (`posthog-js`)            | Product analytics, feature flags, A/B tests, surveys | Lazy `import('posthog-js')` after consent                | **Yes** — only initialises after `hasAnalyticsConsent()` returns true |
+| **GA4** (`gtag.js` via `next/script`) | Traffic analytics, conversion attribution            | `afterInteractive` script strategy                       | **Yes** — gated via Google Consent Mode v2                            |
+| **web-vitals** (`web-vitals` npm)     | Core Web Vitals (LCP, INP, CLS, FCP, TTFB)           | Dynamic `import()` with sample rate                      | No (no PII)                                                           |
 
 ### High-level architecture
 
@@ -41,29 +42,30 @@ Server ──┬─ Sentry server SDK   (instrumentation.ts → sentry.server.co
 ```
 
 The Sentry tunnel route exists for two reasons:
+
 1. **Same-origin = no CSP `connect-src` exposure to Sentry's hostname** — keeps the CSP narrow
 2. **Ad-blocker bypass** — uBlock, Privacy Badger, Brave Shields all block `*.ingest.sentry.io` by default; same-origin POSTs go through
 
 ### File map (committed code)
 
-| Component | File |
-|---|---|
-| Next.js root instrumentation (loads server/edge Sentry by runtime) | `apps/web/src/instrumentation.ts` |
-| Server-side Sentry init (loaded by `instrumentation.ts` when `NEXT_RUNTIME === 'nodejs'`) | `apps/web/sentry.server.config.ts` |
-| Edge-runtime Sentry init (loaded when `NEXT_RUNTIME === 'edge'`) | `apps/web/sentry.edge.config.ts` |
-| Client-side Sentry init (consent-gated Replay — Lighthouse Workstream B) | `apps/web/src/instrumentation-client.ts` |
-| Server-side error capture hook (`onRequestError`) for RSC + route handlers + middleware | `apps/web/src/instrumentation.ts` § `onRequestError` |
-| Sentry build plugin config | `apps/web/next.config.js` § `sentryWebpackPluginOptions` |
-| Sentry tunnel route | `apps/web/src/app/api/monitoring/route.ts` |
-| PostHog Provider (consent-gated init) | `apps/web/src/components/Providers/PostHogProvider.tsx` |
-| PostHog ENV config | `apps/web/src/config/env.ts` § `POSTHOG_CONFIG` |
-| GA4 script loader (consent-gated `<Script>` mounting — Lighthouse Workstream D) | `apps/web/src/components/Providers/GoogleAnalyticsLoader.tsx` |
-| GA4 Consent Mode v2 inline bootstrap (pre-hydration) | `apps/web/src/app/layout.tsx` |
-| web-vitals tracker component | `apps/web/src/components/Performance/WebVitalsTracker.tsx` |
-| web-vitals helper module | `apps/web/src/lib/analytics/web-vitals.ts` |
-| Client-side analytics config (telemetry tagging) | `apps/web/src/config/monitoring.ts` § `SENTRY_CONFIG` |
-| CSP directive (script-src, connect-src, worker-src) | `apps/web/middleware.ts` § `csp` builder |
-| Turborepo env passthrough | `turbo.json` § `pipeline.build.env` (and `.dev.env` if dev needs build secrets) |
+| Component                                                                                 | File                                                                            |
+| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Next.js root instrumentation (loads server/edge Sentry by runtime)                        | `apps/web/src/instrumentation.ts`                                               |
+| Server-side Sentry init (loaded by `instrumentation.ts` when `NEXT_RUNTIME === 'nodejs'`) | `apps/web/sentry.server.config.ts`                                              |
+| Edge-runtime Sentry init (loaded when `NEXT_RUNTIME === 'edge'`)                          | `apps/web/sentry.edge.config.ts`                                                |
+| Client-side Sentry init (consent-gated Replay — Lighthouse Workstream B)                  | `apps/web/src/instrumentation-client.ts`                                        |
+| Server-side error capture hook (`onRequestError`) for RSC + route handlers + middleware   | `apps/web/src/instrumentation.ts` § `onRequestError`                            |
+| Sentry build plugin config                                                                | `apps/web/next.config.js` § `sentryWebpackPluginOptions`                        |
+| Sentry tunnel route                                                                       | `apps/web/src/app/api/monitoring/route.ts`                                      |
+| PostHog Provider (consent-gated init)                                                     | `apps/web/src/components/Providers/PostHogProvider.tsx`                         |
+| PostHog ENV config                                                                        | `apps/web/src/config/env.ts` § `POSTHOG_CONFIG`                                 |
+| GA4 script loader (consent-gated `<Script>` mounting — Lighthouse Workstream D)           | `apps/web/src/components/Providers/GoogleAnalyticsLoader.tsx`                   |
+| GA4 Consent Mode v2 inline bootstrap (pre-hydration)                                      | `apps/web/src/app/layout.tsx`                                                   |
+| web-vitals tracker component                                                              | `apps/web/src/components/Performance/WebVitalsTracker.tsx`                      |
+| web-vitals helper module                                                                  | `apps/web/src/lib/analytics/web-vitals.ts`                                      |
+| Client-side analytics config (telemetry tagging)                                          | `apps/web/src/config/monitoring.ts` § `SENTRY_CONFIG`                           |
+| CSP directive (script-src, connect-src, worker-src)                                       | `apps/web/middleware.ts` § `csp` builder                                        |
+| Turborepo env passthrough                                                                 | `turbo.json` § `pipeline.build.env` (and `.dev.env` if dev needs build secrets) |
 
 ---
 
@@ -97,6 +99,7 @@ The `onRequestError` hook in `instrumentation.ts` is what catches **server-side*
 `Sentry.init({ release })` reads from `process.env.NEXT_PUBLIC_APP_VERSION || '0.1.0'`. **The fallback `'0.1.0'` MUST match `apps/web/package.json#version`.** When you bump the package version, the fallback must follow. The Sentry build plugin overrides this in production builds with the Vercel commit SHA, but the fallback covers dev / preview / stub builds.
 
 If `release` is stale or empty:
+
 - Errors get tagged to the wrong release in Sentry
 - Source maps fail to associate with the in-flight build
 - "Resolved in version X" tracking in Sentry breaks
@@ -120,26 +123,26 @@ When debugging tunnel failures, the first thing to check is the response from `P
 
 **Statuses generated by OUR tunnel handler** (`apps/web/src/app/api/monitoring/route.ts`):
 
-| Response | Body | Meaning |
-|---|---|---|
-| **204 No Content** | empty | Sentry DSN unset — handler short-circuits. Set `NEXT_PUBLIC_SENTRY_DSN` if you want events. |
-| **400 Bad Request** | `{"error":"invalid_body"\|"invalid_envelope"\|"missing_dsn"\|"invalid_dsn"\|"invalid_project_id"}` | Body/envelope validation failed before forwarding. Indicates a bug in either the SDK or our route. |
-| **403 Forbidden** | `{"error":"forbidden_host"}` | The envelope's DSN host doesn't match the `*.sentry.io` allowlist. **Our** guard against SSRF. |
-| **413 Payload Too Large** | `{"error":"payload_too_large"}` | Envelope exceeded 1 MB. Usually a runaway session replay. |
-| **502 Bad Gateway** | `{"error":"upstream_unreachable"}` | `fetch()` to upstream Sentry threw (network error, DNS failure, etc). Distinct from upstream Sentry returning 502. |
+| Response                  | Body                                                                                               | Meaning                                                                                                            |
+| ------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **204 No Content**        | empty                                                                                              | Sentry DSN unset — handler short-circuits. Set `NEXT_PUBLIC_SENTRY_DSN` if you want events.                        |
+| **400 Bad Request**       | `{"error":"invalid_body"\|"invalid_envelope"\|"missing_dsn"\|"invalid_dsn"\|"invalid_project_id"}` | Body/envelope validation failed before forwarding. Indicates a bug in either the SDK or our route.                 |
+| **403 Forbidden**         | `{"error":"forbidden_host"}`                                                                       | The envelope's DSN host doesn't match the `*.sentry.io` allowlist. **Our** guard against SSRF.                     |
+| **413 Payload Too Large** | `{"error":"payload_too_large"}`                                                                    | Envelope exceeded 1 MB. Usually a runaway session replay.                                                          |
+| **502 Bad Gateway**       | `{"error":"upstream_unreachable"}`                                                                 | `fetch()` to upstream Sentry threw (network error, DNS failure, etc). Distinct from upstream Sentry returning 502. |
 
 **Statuses FORWARDED verbatim from upstream Sentry ingest** (any non-204/non-error-shaped JSON response): the route uses `return new NextResponse(upstreamRes.body, { status: upstreamRes.status })` on the happy path, so anything Sentry returns is passed through unchanged.
 
-| Upstream response | Likely meaning at Sentry's end |
-|---|---|
-| **200 OK** | Envelope accepted. Event will appear in Sentry dashboard. |
-| **400 Bad Request** | Sentry-side envelope validation failed (malformed payload). Check the response body for Sentry's error description. |
-| **401 Unauthorized** | DSN public key invalid. Check the DSN value in `NEXT_PUBLIC_SENTRY_DSN`. |
-| **403 Forbidden with body containing `with_reason: ProjectId`** | **The DSN's project key is DISABLED in Sentry.** See § E.2 (the 3-month silent-dropout incident). Check Sentry → Project Settings → Client Keys; the key must show "Active". |
-| **403 Forbidden** (other reasons) | Project disabled, organisation suspended, or Sentry IP-rejected the request. Check the response body. |
-| **413 Payload Too Large** | Sentry's own envelope-size cap exceeded (larger than ours; rare). Investigate the envelope contents. |
-| **429 Too Many Requests** | Rate-limited by Sentry. Response includes `Retry-After` header (seconds). SDK should respect this automatically. |
-| **500 / 502 / 503 / 504** | Upstream Sentry ingest hiccup. Usually transient — SDK has built-in retry via offline buffer. Verify via [status.sentry.io](https://status.sentry.io). If persistent, see § G "I see persistent 5xx on /api/monitoring" below. |
+| Upstream response                                               | Likely meaning at Sentry's end                                                                                                                                                                                                 |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **200 OK**                                                      | Envelope accepted. Event will appear in Sentry dashboard.                                                                                                                                                                      |
+| **400 Bad Request**                                             | Sentry-side envelope validation failed (malformed payload). Check the response body for Sentry's error description.                                                                                                            |
+| **401 Unauthorized**                                            | DSN public key invalid. Check the DSN value in `NEXT_PUBLIC_SENTRY_DSN`.                                                                                                                                                       |
+| **403 Forbidden with body containing `with_reason: ProjectId`** | **The DSN's project key is DISABLED in Sentry.** See § E.2 (the 3-month silent-dropout incident). Check Sentry → Project Settings → Client Keys; the key must show "Active".                                                   |
+| **403 Forbidden** (other reasons)                               | Project disabled, organisation suspended, or Sentry IP-rejected the request. Check the response body.                                                                                                                          |
+| **413 Payload Too Large**                                       | Sentry's own envelope-size cap exceeded (larger than ours; rare). Investigate the envelope contents.                                                                                                                           |
+| **429 Too Many Requests**                                       | Rate-limited by Sentry. Response includes `Retry-After` header (seconds). SDK should respect this automatically.                                                                                                               |
+| **500 / 502 / 503 / 504**                                       | Upstream Sentry ingest hiccup. Usually transient — SDK has built-in retry via offline buffer. Verify via [status.sentry.io](https://status.sentry.io). If persistent, see § G "I see persistent 5xx on /api/monitoring" below. |
 
 ### Build plugin — source maps and release tagging
 
@@ -147,7 +150,7 @@ In `apps/web/next.config.js`:
 
 ```js
 const sentryWebpackPluginOptions = {
-  silent: true,                                                // flip to false to debug build-time issues
+  silent: true, // flip to false to debug build-time issues
   disableServerWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
   disableClientWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
   hideSourceMaps: process.env.NODE_ENV === 'production',
@@ -166,11 +169,11 @@ module.exports = process.env.NEXT_PUBLIC_SENTRY_DSN
 
 The plugin needs **three** env vars at build time. **None of them are `NEXT_PUBLIC_*`** — they're server-side build secrets:
 
-| Var | Purpose | Where set |
-|---|---|---|
+| Var                 | Purpose                                           | Where set                                 |
+| ------------------- | ------------------------------------------------- | ----------------------------------------- |
 | `SENTRY_AUTH_TOKEN` | Auth for Sentry API (releases, source map upload) | Vercel project env, also `turbo.json#env` |
-| `SENTRY_ORG` | Sentry organisation slug | Vercel project env, also `turbo.json#env` |
-| `SENTRY_PROJECT` | Sentry project slug | Vercel project env, also `turbo.json#env` |
+| `SENTRY_ORG`        | Sentry organisation slug                          | Vercel project env, also `turbo.json#env` |
+| `SENTRY_PROJECT`    | Sentry project slug                               | Vercel project env, also `turbo.json#env` |
 
 **If any of the three is missing, source maps will NOT upload** but the build does NOT fail — it logs and continues. With `silent: true` (the default), you won't see the warning unless you flip silent off. See § E "Common build & deploy pitfalls" below.
 
@@ -193,19 +196,22 @@ Lawful basis: GDPR Article 6(1)(f) legitimate interest (site reliability + secur
 Replay requires a CSP `worker-src 'self' blob:` directive — the SDK spawns a worker from a `blob:` URL. Without it, replay silently dies on the worker spawn. See `apps/web/middleware.ts` `csp` builder for the `worker-src` line and the audit-trail comment.
 
 **Replay privacy defaults** (set in `instrumentation-client.ts` when Replay is added post-consent):
+
 - `maskAllText: true` — every text node in the recording is replaced with `*` characters. We never see the user's email, name, message content, etc.
 - `blockAllMedia: true` — `<img>`, `<video>`, `<audio>`, `<canvas>` are blocked from recording. Only their bounding boxes are captured.
 
-These defaults are why Replay-on-error is safe to enable at 100% sample rate (`replaysOnErrorSampleRate: 1.0`) — the recording shows the user's *interaction* (clicks, scrolls, form submissions) without exposing the *content*.
+These defaults are why Replay-on-error is safe to enable at 100% sample rate (`replaysOnErrorSampleRate: 1.0`) — the recording shows the user's _interaction_ (clicks, scrolls, form submissions) without exposing the _content_.
 
 ### Sentry `beforeSend` — error filtering + PII scrubbing
 
 Both `sentry.server.config.ts` and `instrumentation-client.ts` have a `beforeSend` hook. Each filters / mutates events before they leave the SDK.
 
 **Server-side `beforeSend`** (`sentry.server.config.ts`) — minimal:
+
 - Filters events whose `message` contains `'NEXT_NOT_FOUND'` (these are intentional 404s, not real errors)
 
 **Client-side `beforeSend`** (`instrumentation-client.ts`) — substantial:
+
 1. Filters `NEXT_NOT_FOUND` messages (same as server)
 2. Filters errors whose stack frames mention `'extension'` (browser-extension noise)
 3. **In production only:**
@@ -223,6 +229,7 @@ Both `sentry.server.config.ts` and `instrumentation-client.ts` have a `beforeSen
 ### Sentry integration whitelist (Workstream B)
 
 `instrumentation-client.ts` sets `integrations: []` at `Sentry.init()` time — this explicitly disables ALL default integrations (which include `Replay`, `BrowserTracing`, `LinkedErrors`, etc.). Integrations are then added explicitly:
+
 - `BrowserTracing` (perf tracing) — added at init via `Sentry.browserTracingIntegration(...)`
 - `Replay` — added LATER via `client.addIntegration(Sentry.replayIntegration({ maskAllText: true, blockAllMedia: true }))` only after `CONSENT_GIVEN`
 
@@ -236,11 +243,11 @@ This is the Workstream B pattern. If you reintroduce `integrations: undefined` (
 
 This is the single most error-prone PostHog config knob. **`NEXT_PUBLIC_POSTHOG_HOST` MUST be the ingest endpoint**, not the console URL:
 
-| Region | Ingest host (use this) | Console URL (do NOT use as `host`) |
-|---|---|---|
-| US Cloud | `https://us.i.posthog.com` | `https://us.posthog.com`, `https://app.posthog.com` |
-| EU Cloud | `https://eu.i.posthog.com` | `https://eu.posthog.com` |
-| Self-hosted | `https://<your-domain>` (must contain `.i.` infix) | n/a |
+| Region      | Ingest host (use this)                             | Console URL (do NOT use as `host`)                  |
+| ----------- | -------------------------------------------------- | --------------------------------------------------- |
+| US Cloud    | `https://us.i.posthog.com`                         | `https://us.posthog.com`, `https://app.posthog.com` |
+| EU Cloud    | `https://eu.i.posthog.com`                         | `https://eu.posthog.com`                            |
+| Self-hosted | `https://<your-domain>` (must contain `.i.` infix) | n/a                                                 |
 
 The SDK derives the **assets host** from `host` by string-replacing `.i.posthog.com` → `-assets.i.posthog.com`:
 
@@ -250,6 +257,7 @@ The SDK derives the **assets host** from `host` by string-replacing `.i.posthog.
 When the derivation fails, the SDK falls back to a **degraded mode** with no feature flags, no surveys, no session replay, no autocapture init — but it does NOT throw or surface the failure. Symptom: `/array/<key>/config.js` 404 in Network tab, and feature flags / surveys silently don't fire.
 
 **Verification:**
+
 ```bash
 # Should resolve and return JSON config:
 curl -sI "https://us.i.posthog.com/array/<your_project_token>/config.js" | head -1
@@ -264,13 +272,13 @@ curl -sI "https://app.posthog.com/array/<your_project_token>/config.js" | head -
 
 Per CSP Level 3 spec, wildcards in host-source values can **only replace a full subdomain label**, never a partial label.
 
-| Pattern | Valid? | Matches |
-|---|---|---|
-| `https://*.i.posthog.com` | ✅ | `us.i.posthog.com`, `eu.i.posthog.com`, `us-assets.i.posthog.com`, `eu-assets.i.posthog.com`, `decide.i.posthog.com` (anything ending in `.i.posthog.com`) |
-| `https://*.posthog.com` | ✅ | `app.posthog.com`, `us.posthog.com`, `us.i.posthog.com`, ... (broader) |
-| `https://*-assets.i.posthog.com` | ❌ **invalid** | nothing — browser silently drops the entry and logs `The source list ... contains an invalid source 'X'. It will be ignored.` |
-| `https://us-*.i.posthog.com` | ❌ **invalid** | same — partial label |
-| `https://us.*.posthog.com` | ❌ **invalid** | `*` cannot be a label between two labels |
+| Pattern                          | Valid?         | Matches                                                                                                                                                    |
+| -------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `https://*.i.posthog.com`        | ✅             | `us.i.posthog.com`, `eu.i.posthog.com`, `us-assets.i.posthog.com`, `eu-assets.i.posthog.com`, `decide.i.posthog.com` (anything ending in `.i.posthog.com`) |
+| `https://*.posthog.com`          | ✅             | `app.posthog.com`, `us.posthog.com`, `us.i.posthog.com`, ... (broader)                                                                                     |
+| `https://*-assets.i.posthog.com` | ❌ **invalid** | nothing — browser silently drops the entry and logs `The source list ... contains an invalid source 'X'. It will be ignored.`                              |
+| `https://us-*.i.posthog.com`     | ❌ **invalid** | same — partial label                                                                                                                                       |
+| `https://us.*.posthog.com`       | ❌ **invalid** | `*` cannot be a label between two labels                                                                                                                   |
 
 Our middleware CSP (`apps/web/middleware.ts`):
 
@@ -296,7 +304,7 @@ connect-src ... https://app.posthog.com https://*.posthog.com
 ```ts
 posthog.init(posthogKey, {
   api_host: posthogHost,
-  defaults: '2025-11-30',             // see § "Why pin defaults" below
+  defaults: '2025-11-30', // see § "Why pin defaults" below
   person_profiles: 'identified_only', // GDPR-friendly + cost-saving
   capture_pageview: true,
   capture_pageleave: true,
@@ -346,6 +354,7 @@ GA4 setup is split across two files that work together (Lighthouse Workstream D 
 2. **`apps/web/src/components/Providers/GoogleAnalyticsLoader.tsx`** — script-loading gate. The `<Script>` tag for `gtag/js` (~67 KB) does NOT download until the user grants analytics consent. The loader subscribes to `applicationEventBus.CONSENT_GIVEN` (NOT the DOM event — that's the bootstrap's job) and conditionally renders the `<Script>` tag with `next/script`. Pre-consent: nothing mounts, nothing downloads.
 
 After consent the sequence is:
+
 1. DOM `cookie-consent-changed` event → inline bootstrap flushes buffered events via `gtag('consent', 'update', ...)` with `wait_for_update: 500`
 2. `applicationEventBus.CONSENT_GIVEN` event → `GoogleAnalyticsLoader` mounts the `<Script>` tags
 3. `gtag('config', '<measurement-id>', ...)` runs once the script loads
@@ -378,18 +387,14 @@ The Lighthouse audit (Workstream D, 2026-05-22) found that loading `gtag/js` at 
 {
   "tasks": {
     "build": {
-      "env": [
-        "SENTRY_AUTH_TOKEN",
-        "SENTRY_ORG",
-        "SENTRY_PROJECT",
-        "...other vars..."
-      ]
+      "env": ["SENTRY_AUTH_TOKEN", "SENTRY_ORG", "SENTRY_PROJECT", "...other vars..."]
     }
   }
 }
 ```
 
 After adding a var to `turbo.json#env`:
+
 1. Invalidate the Turborepo cache (`pnpm turbo run build --force` once, or just delete `.turbo/`)
 2. Trigger a fresh Vercel build
 3. Verify in build log: `Created release: <sha>` and `Uploaded N source maps` lines should appear
@@ -422,6 +427,7 @@ curl -v -X POST 'https://<your-sentry-ingest>/api/<project-id>/envelope/?sentry_
 If you see `< HTTP/2 403` with a body mentioning `ProjectId`, the DSN's key is disabled.
 
 **Fix:**
+
 1. Sentry → Settings → Projects → `<project>` → Client Keys (DSN)
 2. Find the key matching the public ID at the front of your DSN
 3. If status is "Disabled", click "Enable" — OR pick an Active key and copy its DSN
@@ -439,6 +445,7 @@ If you see `< HTTP/2 403` with a body mentioning `ProjectId`, the DSN's key is d
 **Fix:** use `*.i.posthog.com` (full-label wildcard) instead of `*-assets.i.posthog.com` (partial-label).
 
 **Prevention:**
+
 - A simple unit test that checks `csp.includes('*-assets.i.posthog.com')` passes for the broken policy — string-regex tests don't catch invalid wildcards. The only reliable test is opening the deployed page in a browser and looking for `contains an invalid source` warnings.
 - Consider adding a Playwright smoke test that asserts the browser console has zero CSP-violation messages on a clean page load.
 
@@ -449,6 +456,7 @@ If you see `< HTTP/2 403` with a body mentioning `ProjectId`, the DSN's key is d
 **Root cause:** Vercel hashes Sensitive vars at rest. The dashboard never reveals them after creation.
 
 **Fix:**
+
 - To rotate a Sensitive var, **delete it and recreate it** with the new value. You cannot edit it in place to "see what it was".
 - Use `vercel env pull` from the CLI if you need to recover the value into a local `.env.local` (this works because the running app has the value available at runtime, and `vercel env pull` reads from the project's runtime env).
 
@@ -513,7 +521,9 @@ After deploying any change to the monitoring stack, run these in order.
 2. Open DevTools → Network tab → filter `monitoring`.
 3. In the DevTools Console, paste:
    ```js
-   setTimeout(() => { throw new Error('monitoring verification ' + Date.now()) }, 0);
+   setTimeout(() => {
+     throw new Error('monitoring verification ' + Date.now());
+   }, 0);
    ```
    **Why `setTimeout(..., 0)` and not a direct `throw`:** a `throw` from a console-line context can be caught by the DevTools error overlay before reaching `window.onerror`, depending on the browser version. `setTimeout(0)` defers to the next macrotask, where the error reliably hits the global handler that Sentry hooks.
 4. Verify in DevTools:
@@ -554,10 +564,10 @@ After deploying any change to the monitoring stack, run these in order.
 1. Open the deployed page.
 2. Open DevTools → Console:
    ```js
-   typeof window.dataLayer    // 'object' — should be Array
-   typeof window.gtag         // 'function'
-   window.dataLayer.length    // >= 2 (first entry is the consent default, second is the gtag('js') init)
-   window.dataLayer.find(d => d[0] === 'consent')  // should exist
+   typeof window.dataLayer; // 'object' — should be Array
+   typeof window.gtag; // 'function'
+   window.dataLayer.length; // >= 2 (first entry is the consent default, second is the gtag('js') init)
+   window.dataLayer.find((d) => d[0] === 'consent'); // should exist
    ```
 3. Verify in Network tab:
    - `GET https://www.googletagmanager.com/gtag/js?id=G-...` → 200
@@ -625,6 +635,7 @@ curl -s https://diboas.com/en/learn/compound-interest | grep -c 'BAILOUT_TO_CLIE
 **Most likely benign.** Sentry's ingest occasionally returns 503 for transient capacity reasons. The SDK has built-in retry via its offline buffer — failed envelopes are re-sent on the next online connection.
 
 **Diagnostic flow:**
+
 1. Confirm the 503 came from upstream (not our handler) — our handler doesn't have a 503 path, so any 503 you see is forwarded verbatim from Sentry ingest.
 2. Check the response body — upstream 503 from Sentry usually includes a `Retry-After` header (in seconds).
 3. Check the trigger — is it tied to a specific user action (e.g., a route change that fires both Sentry session-tracking AND GA4 history hooks at once)? That's a burst pattern. Not a bug.
@@ -661,6 +672,7 @@ If you're seeing 5xx (500 / 502 / 503 / 504) on most or every envelope POST:
 ### "I can see PostHog `/decide` 200 but no events fire when I click around"
 
 → Probably one of:
+
 - Consent gate not open (`hasAnalyticsConsent()` returns false) — check the cookie state
 - `respect_dnt: true` and the browser has Do Not Track enabled
 - An ad-blocker is matching the POST destination
@@ -676,6 +688,7 @@ If you're seeing 5xx (500 / 502 / 503 / 504) on most or every envelope POST:
 ### "Content Security Policy of your site blocks the use of 'eval' in JavaScript" but I'm in dev mode
 
 → Dev CSP allows `'unsafe-eval'` for Turbopack's source maps. The warning is almost certainly from:
+
 - A browser extension (MetaMask's `lockdown-install.js` uses internal eval to install SES)
 - A residual warning from a previous navigation to production (Chrome's Issues panel accumulates across recent navigations)
 
@@ -744,18 +757,18 @@ Step-by-step procedures for rotating each service's secret. **Org-specific value
 
 ## I. Anti-patterns (do NOT do these)
 
-| Anti-pattern | Why it's wrong | What to do instead |
-|---|---|---|
-| `import posthog from 'posthog-js'` at module level | Inlines 250 KB into every page; bypasses consent gate | `await import('posthog-js')` inside a `useEffect` after consent check |
-| Setting `NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com` | Breaks assets-host derivation → `/array/<token>/config.js` 404 | Use the **ingest** host: `https://us.i.posthog.com` |
-| CSP `script-src ... https://*-assets.i.posthog.com` | Partial-label wildcards are invalid CSP 3 — silently ignored | `https://*.i.posthog.com` (full-label wildcard) |
-| Setting `SENTRY_AUTH_TOKEN` in Vercel but forgetting `turbo.json#env` | Turborepo scrubs the var; source maps silently fail to upload | Add all three (`SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`) to `turbo.json#env` |
-| Marking `NEXT_PUBLIC_SENTRY_DSN` as "Sensitive" in Vercel | The flag is theatre for `NEXT_PUBLIC_*` (the value is inlined into the browser bundle); just inconveniences future-you who needs to see the value | Mark server-side secrets (`HMAC_KEY`, `RESEND_API_KEY`) as Sensitive; leave `NEXT_PUBLIC_*` unmarked |
-| Wrapping a `'use client'` component in `dynamic(() => import(...), { ssr: false })` | Next.js 16 + Turbopack edge case: produces a `BAILOUT_TO_CLIENT_SIDE_RENDERING` placeholder that never hydrates | Import the component directly; Next.js App Router auto-splits client components at the route level |
-| Tunneling Sentry through a CSRF-protected route | Sentry posts on every error without a CSRF token; would silently drop events | Use the bare `/api/monitoring` route (no CSRF, no rate limit; defended by body-size cap + DSN host validation) |
-| Pointing tunnel route at `/monitoring` (no `/api` prefix) | Locale-prefix middleware redirects to `/<locale>/monitoring` → 404 | Use `/api/monitoring` (middleware matcher excludes `/api/*`) |
-| Sending PII (email, name, IP) to PostHog via `posthog.identify(email)` | GDPR violation; bypasses pseudonymisation guarantees | Use an opaque per-user ID: `posthog.identify(submissionId)` |
-| Adding `'unsafe-eval'` to production CSP | Opens path for inline script injection | Keep `'unsafe-eval'` dev-only (Turbopack needs it for source maps); production CSP must exclude it |
+| Anti-pattern                                                                        | Why it's wrong                                                                                                                                    | What to do instead                                                                                             |
+| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `import posthog from 'posthog-js'` at module level                                  | Inlines 250 KB into every page; bypasses consent gate                                                                                             | `await import('posthog-js')` inside a `useEffect` after consent check                                          |
+| Setting `NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com`                          | Breaks assets-host derivation → `/array/<token>/config.js` 404                                                                                    | Use the **ingest** host: `https://us.i.posthog.com`                                                            |
+| CSP `script-src ... https://*-assets.i.posthog.com`                                 | Partial-label wildcards are invalid CSP 3 — silently ignored                                                                                      | `https://*.i.posthog.com` (full-label wildcard)                                                                |
+| Setting `SENTRY_AUTH_TOKEN` in Vercel but forgetting `turbo.json#env`               | Turborepo scrubs the var; source maps silently fail to upload                                                                                     | Add all three (`SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`) to `turbo.json#env`                        |
+| Marking `NEXT_PUBLIC_SENTRY_DSN` as "Sensitive" in Vercel                           | The flag is theatre for `NEXT_PUBLIC_*` (the value is inlined into the browser bundle); just inconveniences future-you who needs to see the value | Mark server-side secrets (`HMAC_KEY`, `RESEND_API_KEY`) as Sensitive; leave `NEXT_PUBLIC_*` unmarked           |
+| Wrapping a `'use client'` component in `dynamic(() => import(...), { ssr: false })` | Next.js 16 + Turbopack edge case: produces a `BAILOUT_TO_CLIENT_SIDE_RENDERING` placeholder that never hydrates                                   | Import the component directly; Next.js App Router auto-splits client components at the route level             |
+| Tunneling Sentry through a CSRF-protected route                                     | Sentry posts on every error without a CSRF token; would silently drop events                                                                      | Use the bare `/api/monitoring` route (no CSRF, no rate limit; defended by body-size cap + DSN host validation) |
+| Pointing tunnel route at `/monitoring` (no `/api` prefix)                           | Locale-prefix middleware redirects to `/<locale>/monitoring` → 404                                                                                | Use `/api/monitoring` (middleware matcher excludes `/api/*`)                                                   |
+| Sending PII (email, name, IP) to PostHog via `posthog.identify(email)`              | GDPR violation; bypasses pseudonymisation guarantees                                                                                              | Use an opaque per-user ID: `posthog.identify(submissionId)`                                                    |
+| Adding `'unsafe-eval'` to production CSP                                            | Opens path for inline script injection                                                                                                            | Keep `'unsafe-eval'` dev-only (Turbopack needs it for source maps); production CSP must exclude it             |
 
 ---
 

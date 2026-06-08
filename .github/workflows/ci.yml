@@ -20,6 +20,10 @@ jobs:
           node-version: 24
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
+      # Formatting gate (2026-06-07): `prettier --check .` covers all tracked
+      # source + docs (markdown included; .prettierignore excludes build output).
+      # Placed first as the cheapest fail-fast check. Fix locally with `pnpm format`.
+      - run: pnpm format:check
       - run: pnpm type-check
       - run: pnpm lint
       - run: pnpm test
