@@ -228,6 +228,14 @@
   outline-offset: -2px;
 }
 
+/* APG: the <h3> only carries heading semantics now; the <button> inside it
+   (`.accordionHeader`) owns the full-width clickable layout, and `.question`
+   moved onto the inner text span. */
+.questionHeading {
+  margin: 0;
+  font: inherit;
+}
+
 .question {
   font-size: var(--faq-question-size);
   font-weight: var(--faq-question-weight);

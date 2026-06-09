@@ -220,7 +220,11 @@ export function ShareDreamSection({ result, difference: differenceProp }: ShareD
               '--share-hover': '#ccfbf1',
             } as React.CSSProperties
           }
-          title={copied ? t('shareCopied') : 'Copy to Clipboard'}
+          title={
+            copied
+              ? t('shareCopied')
+              : intl.formatMessage({ id: 'common.accessibility.copyToClipboard' })
+          }
           aria-label={intl.formatMessage({ id: 'common.accessibility.copyToClipboard' })}
         >
           {copied ? (

@@ -75,40 +75,33 @@ export const ExpandableCard = memo(function ExpandableCard({
     onToggle(id);
   }, [id, onToggle]);
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        handleToggle();
-      }
-    },
-    [handleToggle]
-  );
-
   return (
     <div
       ref={cardRef}
       className={`${styles.card} ${isExpanded ? styles.cardExpanded : ''} ${className}`}
     >
-      {/* Header — always visible, clickable to toggle */}
-      <div
-        className={styles.cardHeader}
-        role="button"
-        tabIndex={0}
-        aria-expanded={isExpanded}
-        aria-controls={contentId}
-        onClick={handleToggle}
-        onKeyDown={handleKeyDown}
-      >
-        {Icon ? <Icon className={styles.cardIcon} aria-hidden={true} /> : null}
-        <h3 className={styles.cardTitle}>
-          {title}
-          {titleSummary ? <span className={styles.titleSummary}> {titleSummary}</span> : null}
-        </h3>
-        <span className={styles.expandIndicator} aria-hidden="true">
-          {isExpanded ? '\u2212' : '+'}
-        </span>
-      </div>
+      {/* Header — APG disclosure: a native <button> lives INSIDE the <h3> so
+          heading semantics (and `H`-key nav) survive while the button supplies
+          the accessible name + Enter/Space + aria-expanded. The button must not
+          wrap the <h3> (headings aren't phrasing content → invalid HTML). */}
+      <h3 className={styles.cardHeading}>
+        <button
+          type="button"
+          className={styles.cardHeader}
+          aria-expanded={isExpanded}
+          aria-controls={contentId}
+          onClick={handleToggle}
+        >
+          {Icon ? <Icon className={styles.cardIcon} aria-hidden={true} /> : null}
+          <span className={styles.cardTitle}>
+            {title}
+            {titleSummary ? <span className={styles.titleSummary}> {titleSummary}</span> : null}
+          </span>
+          <span className={styles.expandIndicator} aria-hidden="true">
+            {isExpanded ? '\u2212' : '+'}
+          </span>
+        </button>
+      </h3>
 
       {/* Expandable content. `inert` is applied via the effect above
           (React 18 strips unknown JSX attrs); aria-hidden remains for

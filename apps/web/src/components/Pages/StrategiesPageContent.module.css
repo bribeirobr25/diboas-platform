@@ -195,12 +195,33 @@
 
 .protocolRow {
   border-bottom: 1px solid var(--color-slate-200);
-  cursor: pointer;
   transition: background-color 0.15s ease;
 }
 
 .protocolRow:hover {
   background-color: var(--color-slate-50);
+}
+
+/* APG: the row toggle is a native <button> inside the name cell (not the row).
+   Reset the UA button chrome so it reads as the cell's protocol name. */
+.protocolRowToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  text-align: left;
+}
+
+.protocolRowToggle:focus-visible {
+  outline: 2px solid var(--cta-bg-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .protocolDetailRow {
@@ -279,6 +300,19 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+
+.mobileProtocolHeader:focus-visible {
+  outline: 2px solid var(--cta-bg-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .mobileProtocolName {

@@ -11,6 +11,8 @@ interface LessonProgressBarProps {
   beatIds: readonly string[];
   /** Translated label per beat — used as anchor link aria-label. */
   beatLabels: readonly string[];
+  /** Translated accessible name for the progress nav landmark. */
+  progressLabel: string;
   locale: string;
   enableAnalytics?: boolean;
   className?: string;
@@ -26,6 +28,7 @@ export function LessonProgressBar({
   lessonId,
   beatIds,
   beatLabels,
+  progressLabel,
   locale,
   enableAnalytics = true,
   className,
@@ -78,7 +81,7 @@ export function LessonProgressBar({
   return (
     <nav
       className={`${styles.bar} ${className ?? ''}`}
-      aria-label="Lesson progress"
+      aria-label={progressLabel}
       data-active-index={activeIndex}
     >
       <ol className={styles.segments}>

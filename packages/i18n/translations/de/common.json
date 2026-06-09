@@ -158,7 +158,8 @@
     "openMenuFor": "{menu}-Menü öffnen",
     "warningBadge": "Warnhinweis",
     "complianceBadge": "Compliance-Kennzeichen",
-    "mobileMenu": "Mobiles Navigationsmenü"
+    "mobileMenu": "Mobiles Navigationsmenü",
+    "lessonProgress": "Lektionsfortschritt"
   },
   "languageSwitcher": {
     "label": "Sprache",
@@ -351,7 +352,8 @@
     "playCarousel": "Karussell abspielen",
     "loadingPage": "Seite wird geladen",
     "openMenu": "Menü öffnen",
-    "closeMenu": "Menü schließen"
+    "closeMenu": "Menü schließen",
+    "viewFeature": "Funktion {title} ansehen"
   },
   "expandable": {
     "showMore": "Mehr anzeigen",

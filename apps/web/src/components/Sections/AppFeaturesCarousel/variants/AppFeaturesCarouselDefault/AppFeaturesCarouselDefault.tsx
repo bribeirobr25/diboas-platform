@@ -12,6 +12,7 @@
 import { useCallback, useMemo, useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslation } from '@diboas/i18n/client';
 import { ChevronRight, ChevronLeft, Play, Pause } from '@/components/UI/LucideIcon';
 import { CarouselDots } from '@/components/UI';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
@@ -35,6 +36,7 @@ export function AppFeaturesCarouselDefault({
   onCTAClick,
   onPlayPause,
 }: AppFeaturesCarouselVariantProps) {
+  const intl = useTranslation();
   const cards = useMemo(() => config.cards || [], [config.cards]);
   const autoRotateMs = config.settings?.autoRotateMs || 4000;
 
@@ -173,7 +175,7 @@ export function AppFeaturesCarouselDefault({
               type="button"
               className={`${styles.mobileArrow} ${styles.mobileArrowPrev}`}
               onClick={goToPrev}
-              aria-label="Previous card"
+              aria-label={intl.formatMessage({ id: 'common.accessibility.previousSlide' })}
             >
               <ChevronLeft className={styles.mobileArrowIcon} />
             </button>
@@ -200,7 +202,10 @@ export function AppFeaturesCarouselDefault({
                   onTouchEnd={handleTouchEnd}
                   tabIndex={0}
                   role="button"
-                  aria-label={`View ${card.content.title} feature`}
+                  aria-label={intl.formatMessage(
+                    { id: 'common.aria.viewFeature' },
+                    { title: card.content.title }
+                  )}
                   className={styles.cardClickArea}
                 >
                   <div className={styles.card}>
@@ -234,7 +239,7 @@ export function AppFeaturesCarouselDefault({
               type="button"
               className={`${styles.mobileArrow} ${styles.mobileArrowNext}`}
               onClick={goToNext}
-              aria-label="Next card"
+              aria-label={intl.formatMessage({ id: 'common.accessibility.nextSlide' })}
             >
               <ChevronRight className={styles.mobileArrowIcon} />
             </button>
@@ -297,13 +302,22 @@ export function AppFeaturesCarouselDefault({
             onDotClick={goToSlide}
             disabled={isTransitioning}
             className={carouselControls.dots}
+            ariaLabel={intl.formatMessage({ id: 'common.aria.carouselNavigation' })}
+            // Pass {index}/{total} as literal tokens — CarouselDots substitutes
+            // them per dot via String.replace.
+            ariaLabelPattern={intl.formatMessage(
+              { id: 'common.aria.slideOf' },
+              { index: '{index}', total: '{total}' }
+            )}
           />
 
           {cards.length > 1 && (
             <button
               onClick={togglePlayPause}
               className={carouselControls.playPauseButton}
-              aria-label={isAutoPlaying ? 'Pause carousel' : 'Play carousel'}
+              aria-label={intl.formatMessage({
+                id: isAutoPlaying ? 'common.aria.pauseCarousel' : 'common.aria.playCarousel',
+              })}
             >
               {isAutoPlaying ? (
                 <Pause className={carouselControls.controlIcon} />

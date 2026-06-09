@@ -210,38 +210,43 @@ export function FAQAccordionDefault({
               key={item.id}
               className={`${styles.accordionItem} ${isExpanded ? styles.accordionItemExpanded : ''}`}
             >
-              <button
-                ref={(el) => {
-                  if (el) {
-                    itemRefs.current.set(item.id, el);
-                  } else {
-                    itemRefs.current.delete(item.id);
-                  }
-                }}
-                className={styles.accordionHeader}
-                onClick={() => handleToggle(item.id)}
-                onKeyDown={(e) => handleKeyDown(e, item.id, index)}
-                aria-expanded={isExpanded}
-                aria-controls={contentId}
-                aria-label={item.question}
-              >
-                <h3 className={styles.question}>{item.question}</h3>
-                <svg
-                  className={`${styles.icon} ${isExpanded ? styles.iconExpanded : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
+              {/* APG disclosure: the <button> lives INSIDE the <h3> so heading
+                  nav (H key) works and the button takes its name from the visible
+                  question text (no aria-label needed). The id restores the
+                  content region's aria-labelledby target. */}
+              <h3 className={styles.questionHeading}>
+                <button
+                  id={`faq-header-${item.id}`}
+                  ref={(el) => {
+                    if (el) {
+                      itemRefs.current.set(item.id, el);
+                    } else {
+                      itemRefs.current.delete(item.id);
+                    }
+                  }}
+                  className={styles.accordionHeader}
+                  onClick={() => handleToggle(item.id)}
+                  onKeyDown={(e) => handleKeyDown(e, item.id, index)}
+                  aria-expanded={isExpanded}
+                  aria-controls={contentId}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 4v16m8-8H4"
-                  />
-                </svg>
-                {/* aria-expanded on the button already communicates state to screen readers */}
-              </button>
+                  <span className={styles.question}>{item.question}</span>
+                  <svg
+                    className={`${styles.icon} ${isExpanded ? styles.iconExpanded : ''}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 4v16m8-8H4"
+                    />
+                  </svg>
+                </button>
+              </h3>
               <div
                 id={contentId}
                 className={`${styles.accordionContent} ${isExpanded ? styles.accordionContentExpanded : ''}`}

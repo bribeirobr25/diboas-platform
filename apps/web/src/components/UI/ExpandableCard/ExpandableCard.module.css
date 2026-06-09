@@ -44,12 +44,21 @@
 }
 
 /* Card header — clickable toggle */
+/* APG disclosure: the toggle is now a native <button> inside the <h3>.
+   Reset the UA button chrome so it looks identical to the former div header. */
 .cardHeader {
   display: flex;
   align-items: center;
   gap: var(--spacing-md-minus);
   cursor: pointer;
-  margin-bottom: 0;
+  margin: 0;
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  color: inherit;
   outline: none;
 }
 
@@ -59,7 +68,14 @@
   border-radius: 4px;
 }
 
-.cardExpanded .cardHeader {
+/* The <h3> wrapper carries no visual styling of its own (the child spans set
+   typography); it only preserves heading semantics. */
+.cardHeading {
+  margin: 0;
+  font: inherit;
+}
+
+.cardExpanded .cardHeading {
   margin-bottom: var(--spacing-sm);
 }
 
