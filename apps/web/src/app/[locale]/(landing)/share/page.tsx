@@ -12,6 +12,7 @@
 
 import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
+import { getSafeLocale, loadMessages } from '@diboas/i18n/server';
 
 interface SharePageProps {
   params: Promise<{ locale: string }>;
@@ -26,6 +27,26 @@ interface SharePageProps {
   }>;
 }
 
+interface OgStrings {
+  title: string;
+  description: string;
+}
+
+interface ShareOg {
+  waitlist: OgStrings;
+  calculator: OgStrings;
+  default: OgStrings;
+}
+
+/**
+ * Substitute a single `{slot}` token. Uses a replacer FUNCTION so a `$` in the
+ * value (e.g. a `$1.2M` formatted amount, or a user-supplied query param) is
+ * never interpreted as a regex replacement pattern.
+ */
+function fillSlot(template: string, slot: string, value: string): string {
+  return template.replace(slot, () => value);
+}
+
 /**
  * Generate dynamic metadata based on share type
  */
@@ -37,7 +58,15 @@ export async function generateMetadata({
   const search = await searchParams;
   const type = search.type || 'default';
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com';
+  // SEO-2: the OG image (`/api/og/*`) and `og:url` resolve on the MARKETING
+  // host — `/api/og/*` are marketing-site routes and `share` redirects to the
+  // marketing root. Using the app host would 404 the share cards for crawlers.
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
+
+  // I-2: OG copy is externalised to `share.json` (all 4 locales, incl. the
+  // previously English-only default). generateMetadata is server-side, so we
+  // load the namespace via the RSC loader and fill ICU slots by hand.
+  const og = ((await loadMessages(getSafeLocale(locale), 'share')).og ?? {}) as ShareOg;
 
   // Build OG image URL
   const ogParams = new URLSearchParams();
@@ -55,23 +84,8 @@ export async function generateMetadata({
     }
 
     const ogImageUrl = `${baseUrl}/api/og/share?${ogParams.toString()}`;
-    const title =
-      locale === 'pt-BR'
-        ? `Sou #${position} na lista de espera do diBoaS!`
-        : locale === 'es'
-          ? `Soy #${position} en la lista de espera de diBoaS!`
-          : locale === 'de'
-            ? `Ich bin #${position} auf der diBoaS Warteliste!`
-            : `I'm #${position} on the diBoaS waitlist!`;
-
-    const description =
-      locale === 'pt-BR'
-        ? 'Junte-se a mim no diBoaS - Liberdade Financeira Simplificada'
-        : locale === 'es'
-          ? 'Únete a mí en diBoaS - Libertad Financiera Simplificada'
-          : locale === 'de'
-            ? 'Komm zu mir auf diBoaS - Finanzielle Freiheit Einfach Gemacht'
-            : 'Join me on diBoaS - Financial Freedom Made Simple';
+    const title = fillSlot(og.waitlist.title, '{position}', position);
+    const description = og.waitlist.description;
 
     return {
       title,
@@ -124,23 +138,8 @@ export async function generateMetadata({
           : `$${amount.toLocaleString()}`;
 
     const ogImageUrl = `${baseUrl}/api/og/share?${ogParams.toString()}`;
-    const title =
-      locale === 'pt-BR'
-        ? `Meu investimento poderia crescer para ${formattedAmount}!`
-        : locale === 'es'
-          ? `Mi inversión podría crecer a ${formattedAmount}!`
-          : locale === 'de'
-            ? `Meine Investition könnte auf ${formattedAmount} wachsen!`
-            : `My investment could grow to ${formattedAmount}!`;
-
-    const description =
-      locale === 'pt-BR'
-        ? `Em ${years} anos com o diBoaS Dream Mode Calculator`
-        : locale === 'es'
-          ? `En ${years} años con la Calculadora Dream Mode de diBoaS`
-          : locale === 'de'
-            ? `In ${years} Jahren mit dem diBoaS Dream Mode Rechner`
-            : `In ${years} years with diBoaS Dream Mode Calculator`;
+    const title = fillSlot(og.calculator.title, '{formattedAmount}', formattedAmount);
+    const description = fillSlot(og.calculator.description, '{years}', years);
 
     return {
       title,
@@ -169,13 +168,15 @@ export async function generateMetadata({
     };
   }
 
-  // Default metadata
+  // Default metadata (I-2: was English-only for every locale; now localised)
+  const title = og.default.title;
+  const description = og.default.description;
   return {
-    title: 'diBoaS - Financial Freedom Made Simple',
-    description: 'Your money. Your future. One platform. Join the waitlist today.',
+    title,
+    description,
     openGraph: {
-      title: 'diBoaS - Financial Freedom Made Simple',
-      description: 'Your money. Your future. One platform. Join the waitlist today.',
+      title,
+      description,
       type: 'website',
       url: `${baseUrl}/${locale}`,
       siteName: 'diBoaS',
@@ -184,7 +185,7 @@ export async function generateMetadata({
           url: `${baseUrl}/api/og/default`,
           width: 1200,
           height: 630,
-          alt: 'diBoaS - Financial Freedom Made Simple',
+          alt: title,
         },
       ],
     },
