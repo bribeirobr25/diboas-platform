@@ -6,7 +6,7 @@ import { StructuredData } from '@/components/SEO/StructuredData';
 import { ToolsIndex } from '@/components/Sections/ToolsIndex';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
-import { seoService } from '@/lib/seo';
+import { seoService, socialCardMetadata } from '@/lib/seo';
 import {
   buildToolsIndexStructuredData,
   SHIPPED_TOOLS,
@@ -32,11 +32,16 @@ export async function generateMetadata({ params }: ToolsPageProps): Promise<Meta
     acc[lang] = seoService.generateCanonicalUrl('/tools', lang);
     return acc;
   }, {});
+  const title = messages['tools-shared.landing.seo.title'] ?? 'Money Tools — calculators by diBoaS';
+  const description =
+    messages['tools-shared.landing.seo.description'] ??
+    'Free money calculators to plan your retirement, emergency fund, and savings goals.';
+
   return {
-    title: messages['tools-shared.landing.seo.title'] ?? 'Money Tools — calculators by diBoaS',
-    description:
-      messages['tools-shared.landing.seo.description'] ??
-      'Free money calculators to plan your retirement, emergency fund, and savings goals.',
+    title,
+    description,
+    // SEO-6: emit the render-ready `tools` OG template as a social card.
+    ...socialCardMetadata('tools', title, description, validLocale),
     alternates: {
       canonical: seoService.generateCanonicalUrl('/tools', validLocale),
       languages,

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { SEOMetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory, socialCardMetadata } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
@@ -71,7 +71,10 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   return {
     title,
     description,
-    openGraph: { title: ogTitle, description: ogDescription },
+    // SEO-6 / SEO-1 OG half: emit the render-ready `market` OG template + Twitter
+    // card. Social cards matter even while `MARKET_INDEXABLE` is false (shares,
+    // not SERP) — same rationale as the noindex share page.
+    ...socialCardMetadata('market', ogTitle, ogDescription, validLocale),
     robots: MARKET_INDEXABLE ? { index: true, follow: true } : { index: false, follow: false },
     alternates: { canonical: `${siteUrl}/${validLocale}/market` },
   };
