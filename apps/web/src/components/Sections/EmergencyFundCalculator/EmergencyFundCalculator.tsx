@@ -41,7 +41,8 @@ export function EmergencyFundCalculator() {
 
   const t = (key: string, values?: Record<string, string | number>) =>
     intl.formatMessage({ id: `tools-emergency-fund.${key}` }, values);
-  const tShared = (key: string) => intl.formatMessage({ id: `tools-shared.${key}` });
+  const tShared = (key: string, values?: Record<string, string | number>) =>
+    intl.formatMessage({ id: `tools-shared.${key}` }, values);
 
   const localeKey = (locale ?? 'en') as SupportedLocale;
   const initial = useMemo<FormState>(
@@ -187,7 +188,13 @@ export function EmergencyFundCalculator() {
             <p className={styles.resultLabel}>{t('output.withBank')}</p>
             <p className={styles.resultValueMuted}>{formatMonths(result.bankMonths)}</p>
             <p className={styles.resultRate}>
-              {tShared('scenarios.bank')} ({(bankApy * 100).toFixed(2)}%)
+              {/* Reg DD (TILA) terminology — the bank deposit rate is shown as
+                  APY in en; non-US locales keep the "(rate%)" form (no APY
+                  obligation, English acronym). Crosswalk §5.3. */}
+              {tShared('scenarios.bankApyDisplay', {
+                label: tShared('scenarios.bank'),
+                rate: (bankApy * 100).toFixed(2),
+              })}
             </p>
           </div>
           {result.savedMonths > 0 && (

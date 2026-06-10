@@ -42,6 +42,15 @@ const LOCALE_SPECIFIC_KEYS = {
     'strategies.json': ['footer.bcbDisclaimer'],
     'waitlist.json': ['legal.bcbDisclaimer'],
   },
+  // EU IFR 2015/751 interchange-cap disclosure is an EU-only obligation
+  // (Card Fees tool). Surfaced for the two EU locales only; en/pt-BR carry
+  // no IFR disclosure. Crosswalk §3.5/§5.2 (REGULATORY_CROSSWALK.md).
+  es: {
+    'tools-card-fees.json': ['disclaimers.euIfrCap'],
+  },
+  de: {
+    'tools-card-fees.json': ['disclaimers.euIfrCap'],
+  },
 };
 
 /**

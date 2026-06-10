@@ -45,6 +45,7 @@
   },
   "scenarios": {
     "bank": "Deine Bank",
+    "bankApyDisplay": "{label} ({rate}%)",
     "conservative": "Konservativ (7%)",
     "historical": "Historisch (10%)",
     "optimistic": "Optimistisch (14%)",
@@ -68,7 +69,7 @@
     "tryOtherTools": "Weitere Geld-Tools ausprobieren",
     "adelaideAttribution": "Geld-Tools von Adelaide"
   },
-  "disclaimer": "Nur als Bildungsprojektion. Keine Anlageberatung. Vergangene Renditen sind keine Garantie für zukünftige Ergebnisse. diBoaS-Renditen werden im Digital-Dollar ausgewiesen; für Nicht-US-Währungen kombiniert der lokale Endwert die Dollar-Rendite mit der typischen Wechselkursentwicklung deiner Währung gegenüber dem US-Dollar.",
+  "disclaimer": "Nur als Bildungsprojektion. Keine Anlageberatung. Wertentwicklung der Vergangenheit ist kein verlässlicher Indikator für zukünftige Ergebnisse. Jede Anlage birgt Risiken; Sie können Geld verlieren. diBoaS-Renditen werden im Digital-Dollar ausgewiesen; für Nicht-US-Währungen kombiniert der lokale Endwert die Dollar-Rendite mit der typischen Wechselkursentwicklung deiner Währung gegenüber dem US-Dollar.",
   "warnings": {
     "over30Years": "Dieses Ziel dauert mit deiner aktuellen Sparrate mehr als 30 Jahre. Erhöhe deinen monatlichen Betrag oder verlängere den Zeitraum."
   },

@@ -19,6 +19,9 @@
   "warnings": {
     "feeTooHigh": "Esa comisión parece muy alta. Las comisiones reales de procesadores están entre 0,3% y 3,5% — ¿quisiste decir un número más pequeño?"
   },
+  "disclaimers": {
+    "euIfrCap": "El Reglamento (UE) 2015/751 limita la tasa de intercambio de tarjetas de consumo al 0,2% (débito) / 0,3% (crédito). Las comisiones efectivas para comercios promedian entre 0,4% y 1,0% según el adquirente y la combinación de tarjetas."
+  },
   "output": {
     "monthlyFee": "A procesadores al mes",
     "annualFee": "A procesadores al año",

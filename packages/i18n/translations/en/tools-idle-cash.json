@@ -11,13 +11,13 @@
   "inputs": {
     "idleCashLabel": "Idle business cash",
     "idleCashHelp": "Cash sitting in your business account today",
-    "bankYieldLabel": "Current bank yield (%)",
+    "bankYieldLabel": "Current bank APY (%)",
     "bankYieldHelp": "Locale default: {rate}%. Override to match yours.",
     "yearsLabel": "Years"
   },
   "output": {
     "bankLabel": "In your bank",
-    "bankNote": "{rate}% yield over {years} years",
+    "bankNote": "{rate}% APY over {years} years",
     "diboasLabel": "At diBoaS",
     "diboasNote": "{rate}% conservative return over {years} years",
     "differenceHighlight": "Your {cash} earns {difference} more at diBoaS over {years} years.",

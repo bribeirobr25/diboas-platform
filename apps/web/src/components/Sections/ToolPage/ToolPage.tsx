@@ -61,6 +61,12 @@ export function ToolPage({ toolKey, pageMessages, children }: ToolPageProps) {
       {get(`${namespace}.disclaimer`) && (
         <p className={styles.disclaimer}>{get(`${namespace}.disclaimer`)}</p>
       )}
+      {/* EU IFR 2015/751 interchange-cap disclosure (Card Fees, es/de only).
+          Crosswalk §3.5/§5.2 — renders only where the locale defines the key,
+          so en/pt-BR (no EU IFR obligation) render nothing. */}
+      {get(`${namespace}.disclaimers.euIfrCap`) && (
+        <p className={styles.disclaimer}>{get(`${namespace}.disclaimers.euIfrCap`)}</p>
+      )}
 
       <aside className={styles.lessonCallout} aria-label={get(`${namespace}.lessonLink.label`)}>
         <span className={styles.lessonCalloutLabel}>{get(`${namespace}.lessonLink.label`)}</span>

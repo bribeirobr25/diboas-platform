@@ -19,6 +19,9 @@
   "warnings": {
     "feeTooHigh": "Diese Gebühr wirkt ungewöhnlich hoch. Echte Kartenakzeptanz-Gebühren liegen zwischen 0,3% und 3,5% — meinst du eine kleinere Zahl?"
   },
+  "disclaimers": {
+    "euIfrCap": "Die EU-Verordnung 2015/751 begrenzt das Interbankenentgelt für Verbraucherkarten auf 0,2% (Debit) / 0,3% (Kredit). Die effektiven Händlergebühren liegen im Durchschnitt zwischen 0,4% und 1,0% je nach Acquirer und Kartenmix."
+  },
   "output": {
     "monthlyFee": "Monatlich an Anbieter",
     "annualFee": "Pro Jahr an Anbieter",
