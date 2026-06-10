@@ -2,7 +2,7 @@ packages:
   - 'apps/*'
   - 'packages/*'
 
-overrides:
-  'rollup@<4.59.0': '4.59.0'
-  'minimatch@>=10.0.0 <10.2.3': '10.2.3'
-  'serialize-javascript@<=7.0.2': '7.0.3'
+# C-5: dependency overrides live in `package.json#pnpm.overrides`. Workspace-level
+# `overrides:` here is a silent no-op on pnpm 8.x (a pnpm 9/10 feature), so the
+# `minimatch@10.x` + `serialize-javascript` pins were unenforced and `rollup` was
+# already redundantly covered by the package.json `rollup@>=4.0.0 <4.59.0` rule.
