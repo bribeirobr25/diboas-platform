@@ -37,6 +37,7 @@ import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Select } from '@diboas/ui';
 import { useLocale } from '@/components/Providers';
+import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
 import { LOCALE_CURRENCY, marketDataService, type SupportedLocale } from '@/lib/market-data';
 import { formatCurrency } from '@/lib/compound-interest';
 import {
@@ -161,6 +162,13 @@ export function CurrencyDepreciationCalculator() {
           )
         : null,
     [effectiveMode, form.amount, form.currency, snapshot]
+  );
+
+  // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
+  useCalculatorAnalytics(
+    'currency-depreciation',
+    localeKey,
+    forwardResult || retrospectiveResult ? `${effectiveMode}:${JSON.stringify(form)}` : null
   );
 
   // Derived values for display

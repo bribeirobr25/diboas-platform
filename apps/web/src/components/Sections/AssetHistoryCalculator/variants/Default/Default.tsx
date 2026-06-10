@@ -19,6 +19,7 @@ import { useEffect, useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Select } from '@diboas/ui';
 import { useLocale } from '@/components/Providers';
+import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
 import {
   calculateAssetHistoryDcaReplay,
   calculateAssetHistoryLumpSum,
@@ -185,6 +186,11 @@ export function AssetHistoryCalculatorDefault() {
   }, [form, seriesLoaded, displayCurrency]);
 
   const result = computed.result;
+
+  // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
+  // (Separate from the existing CALCULATOR_UNEXPECTED_ERROR telemetry below.)
+  useCalculatorAnalytics('asset-history', localeKey, result ? JSON.stringify(form) : null);
+
   useEffect(() => {
     if (!computed.unexpectedError) return;
     // C21 close (TOOLS_41_DEFECTS_FIX_PLAN.md §1.2): emit BOTH (a) the

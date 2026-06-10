@@ -16,6 +16,7 @@
 import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
+import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
 import { marketDataService, type SupportedLocale } from '@/lib/market-data';
 import { formatCurrency } from '@/lib/compound-interest';
 import { calculateIdleCashYield, IDLE_CASH_SCENARIO_USD_PERCENT } from '@/lib/idle-cash';
@@ -68,6 +69,9 @@ export function IdleCashCalculator() {
       ),
     [form, localeKey, snapshot]
   );
+
+  // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
+  useCalculatorAnalytics('idle-cash', localeKey, result ? JSON.stringify(form) : null);
 
   const handleChange = (field: keyof FormState, value: number) =>
     setForm((prev) => {

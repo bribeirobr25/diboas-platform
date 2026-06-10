@@ -87,4 +87,92 @@ export function registerEventSubscribers(): void {
       )
       .catch(() => Logger.warn('Failed to load analytics for pre_dream_started subscriber'));
   });
+
+  // ── A16 / O-3: bridge the remaining client-emitted funnel events to analytics ──
+  // Scope note: these subscribers run CLIENT-side (registered from the 'use client'
+  // MonitoringInit). `analyticsService` is itself client-only (gtag/posthog), and
+  // `applicationEventBus` is a per-runtime singleton, so ONLY client-emitted events
+  // can be bridged here. The rich server-side WAITLIST_SIGNUP_COMPLETED (in
+  // WaitlistApplicationService) and the server-side WAITLIST_REFERRAL_USED (referral
+  // store) fire on the server bus and never reach this listener — `referral_used` is
+  // therefore derived below from the client signup completion. SHARE_INITIATED has no
+  // emitter (only PRE_DREAM_SHARE_INITIATED fires), so it is intentionally not bridged.
+  // All events flow through `track()`, which is consent-gated and locale-enriched.
+
+  // 7. WAITLIST_SIGNUP_COMPLETED → waitlist_signup_completed (+ derived referral_used)
+  applicationEventBus.on(ApplicationEventType.WAITLIST_SIGNUP_COMPLETED, (data) => {
+    const meta = (data.metadata ?? {}) as { position?: number; hasReferral?: boolean };
+    const hasReferral = !!meta.hasReferral;
+    import('@/lib/analytics/service')
+      .then((mod) => {
+        mod.analyticsService.track({
+          name: 'waitlist_signup_completed',
+          parameters: { has_referral: hasReferral, position: meta.position },
+        });
+        // A referral is "used" exactly when a referred user completes signup.
+        if (hasReferral) {
+          mod.analyticsService.track({ name: 'referral_used', parameters: {} });
+        }
+      })
+      .catch(() =>
+        Logger.warn('Failed to load analytics for waitlist_signup_completed subscriber')
+      );
+  });
+
+  // 8. PRE_DEMO_DEPOSIT_COMPLETED → pre_demo_deposit_completed
+  applicationEventBus.on(ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED, (data) => {
+    const meta = (data.metadata ?? {}) as { amount?: number };
+    import('@/lib/analytics/service')
+      .then((mod) =>
+        mod.analyticsService.track({
+          name: 'pre_demo_deposit_completed',
+          parameters: { amount: meta.amount },
+        })
+      )
+      .catch(() =>
+        Logger.warn('Failed to load analytics for pre_demo_deposit_completed subscriber')
+      );
+  });
+
+  // 9. PRE_DEMO_SEND_COMPLETED → pre_demo_send_completed
+  //    (deliberately drops the `recipient` field — user-entered, potential PII).
+  applicationEventBus.on(ApplicationEventType.PRE_DEMO_SEND_COMPLETED, (data) => {
+    const meta = (data.metadata ?? {}) as { amount?: number };
+    import('@/lib/analytics/service')
+      .then((mod) =>
+        mod.analyticsService.track({
+          name: 'pre_demo_send_completed',
+          parameters: { amount: meta.amount },
+        })
+      )
+      .catch(() => Logger.warn('Failed to load analytics for pre_demo_send_completed subscriber'));
+  });
+
+  // 10. PRE_DEMO_BUY_COMPLETED → pre_demo_buy_completed
+  applicationEventBus.on(ApplicationEventType.PRE_DEMO_BUY_COMPLETED, (data) => {
+    const meta = (data.metadata ?? {}) as { amount?: number; asset?: string };
+    import('@/lib/analytics/service')
+      .then((mod) =>
+        mod.analyticsService.track({
+          name: 'pre_demo_buy_completed',
+          parameters: { amount: meta.amount, asset: meta.asset },
+        })
+      )
+      .catch(() => Logger.warn('Failed to load analytics for pre_demo_buy_completed subscriber'));
+  });
+
+  // 11. PRE_DREAM_SHARE_INITIATED → pre_dream_share_initiated
+  applicationEventBus.on(ApplicationEventType.PRE_DREAM_SHARE_INITIATED, (data) => {
+    const meta = (data.metadata ?? {}) as { platform?: string };
+    import('@/lib/analytics/service')
+      .then((mod) =>
+        mod.analyticsService.track({
+          name: 'pre_dream_share_initiated',
+          parameters: { platform: meta.platform },
+        })
+      )
+      .catch(() =>
+        Logger.warn('Failed to load analytics for pre_dream_share_initiated subscriber')
+      );
+  });
 }

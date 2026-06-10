@@ -11,6 +11,7 @@
 import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
+import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
 import { projectCardFeeSavings } from '@/lib/card-fees';
 import { type SupportedLocale } from '@/lib/market-data';
 import { formatCurrency } from '@/lib/compound-interest';
@@ -57,6 +58,9 @@ export function CardFeesCalculator() {
       form.avgTransactionAmount > 0 ? form.avgTransactionAmount : undefined
     );
   }, [form]);
+
+  // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
+  useCalculatorAnalytics('card-fees', localeKey, result ? JSON.stringify(form) : null);
 
   const handleChange = (field: keyof FormState, value: number) =>
     setForm((prev) => {

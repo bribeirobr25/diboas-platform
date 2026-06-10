@@ -94,7 +94,10 @@ export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexPro
         </nav>
       )}
 
-      <div className={styles.sections}>
+      {/* A16/O-2: `data-section-id` makes the tool-card area observable by the
+          global ScrollDepthTracker (landing layout), which emits
+          `section_viewed` — uniform with every other section impression. */}
+      <div className={styles.sections} data-section-id="tool_cards">
         {visibleSections.map((section) => {
           const sectionTools = shippedTools.filter(
             (key) => TOOL_DESCRIPTORS[key].section === section

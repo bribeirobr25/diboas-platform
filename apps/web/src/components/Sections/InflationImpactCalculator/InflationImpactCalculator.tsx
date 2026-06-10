@@ -19,6 +19,7 @@ import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Select } from '@diboas/ui';
 import { useLocale } from '@/components/Providers';
+import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
 import { marketDataService, type SupportedLocale } from '@/lib/market-data';
 import { formatCurrency } from '@/lib/compound-interest';
 import {
@@ -83,6 +84,13 @@ export function InflationImpactCalculator() {
           )
         : null,
     [mode, form.amount, form.country, snapshot]
+  );
+
+  // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
+  useCalculatorAnalytics(
+    'inflation-impact',
+    localeKey,
+    forwardResult || retrospectiveResult ? `${mode}:${JSON.stringify(form)}` : null
   );
 
   const handleNumber = (field: 'amount' | 'years', value: number) =>

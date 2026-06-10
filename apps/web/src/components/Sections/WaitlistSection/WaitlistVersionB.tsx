@@ -72,15 +72,20 @@ export function WaitlistVersionB({
     }
   }, [inviteCode]);
 
-  const handleSuccess = useCallback((data: SignupData) => {
-    setSignupData(data);
-    applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_COMPLETED, {
-      domain: 'waitlist',
-      source: 'waitlist',
-      timestamp: Date.now(),
-      metadata: { position: data.position },
-    });
-  }, []);
+  const handleSuccess = useCallback(
+    (data: SignupData) => {
+      setSignupData(data);
+      applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_COMPLETED, {
+        domain: 'waitlist',
+        source: 'waitlist',
+        timestamp: Date.now(),
+        // A16/O-3: PII-safe boolean for the `waitlist_signup_completed` bridge.
+        // VersionB's referral signal is the entered invite code.
+        metadata: { position: data.position, hasReferral: !!inviteCode.trim() },
+      });
+    },
+    [inviteCode]
+  );
 
   if (signupData) {
     return (

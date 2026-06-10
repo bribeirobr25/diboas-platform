@@ -16,6 +16,7 @@
 import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
+import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
 import type { SupportedLocale } from '@/lib/market-data';
 import { marketDataService } from '@/lib/market-data/service';
 import { formatCurrency } from '@/lib/compound-interest';
@@ -70,6 +71,9 @@ export function EmergencyFundCalculator() {
       ),
     [form, localeKey, snapshot]
   );
+
+  // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
+  useCalculatorAnalytics('emergency-fund', localeKey, result ? JSON.stringify(form) : null);
 
   const target = form.monthlyExpenses * form.targetMultiplier;
   const bankApy = result?.bankApy ?? 0;

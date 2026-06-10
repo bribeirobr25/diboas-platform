@@ -77,7 +77,7 @@ Client-side analytics names that flow into Google Analytics 4 (which has tooling
 
 **Examples:**
 
-- `dream_mode_started`
+- `pre_dream_started`
 - `waitlist_form_submitted`
 - `calculator_input_changed`
 - `share_card_generated`
@@ -85,7 +85,7 @@ Client-side analytics names that flow into Google Analytics 4 (which has tooling
 **Rules:**
 
 1. **Lowercase with underscores** — All event names use `snake_case`
-2. **Feature prefix** — Start with the feature area (`dream_`, `waitlist_`, `calculator_`, `share_`)
+2. **Feature prefix** — Start with the feature area (`pre_dream_`, `waitlist_`, `calculator_`, `share_`)
 3. **Action suffix** — End with the action performed (`_started`, `_completed`, `_clicked`, `_changed`)
 4. **Past tense for completed actions** — Use `submitted`, `completed`, `clicked` (not `submit`, `complete`, `click`)
 

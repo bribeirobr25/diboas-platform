@@ -32,7 +32,8 @@ export async function generateMetadata({ params }: ToolsPageProps): Promise<Meta
     acc[lang] = seoService.generateCanonicalUrl('/tools', lang);
     return acc;
   }, {});
-  const title = messages['tools-shared.landing.seo.title'] ?? 'Money Tools — calculators by diBoaS';
+  const title =
+    messages['tools-shared.landing.seo.title'] ?? 'Money Tools — free financial calculators';
   const description =
     messages['tools-shared.landing.seo.description'] ??
     'Free money calculators to plan your retirement, emergency fund, and savings goals.';
