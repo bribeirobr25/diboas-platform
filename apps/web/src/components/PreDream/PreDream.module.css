@@ -10,7 +10,7 @@
   position: fixed;
   inset: 0;
   z-index: var(--z-index-modal, 1000);
-  background: var(--section-bg-white, #f9fafb);
+  background: var(--section-bg-white);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
@@ -26,19 +26,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--section-bg-neutral, #f1f5f9);
-  border: 1px solid var(--color-slate-200, #e2e8f0);
+  background: var(--section-bg-neutral);
+  border: 1px solid var(--color-slate-200);
   border-radius: var(--radius-full, 9999px);
-  color: var(--color-text-secondary, #64748b);
+  color: var(--color-text-secondary);
   cursor: pointer;
   z-index: calc(var(--z-index-modal, 1000) + 1);
   transition: all var(--animation-duration-fast) ease;
-  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  box-shadow: var(--shadow-sm, 0 1px 2px var(--shadow-black-faint));
 }
 
 .closeButton:hover {
   background: var(--color-white);
-  color: var(--color-text-primary, #0f172a);
+  color: var(--color-text-primary);
   transform: scale(1.05);
 }
 
@@ -324,7 +324,7 @@
 .goalCard:hover {
   border-color: var(--text-brand-accessible);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.08);
+  box-shadow: 0 4px 12px var(--teal-700-overlay-soft);
 }
 
 .goalCard:focus-visible {
@@ -661,10 +661,10 @@
   top: var(--spacing-md);
   right: var(--spacing-md);
   padding: var(--spacing-xs) var(--spacing-md-minus);
-  background: rgba(245, 158, 11, 0.1);
+  background: var(--amber-overlay-faint);
   border: 1px solid var(--amber-overlay-medium);
   border-radius: var(--radius-md-plus);
-  font-size: 11px; /* no exact token */
+  font-size: var(--font-size-xs); /* A13: rounded 11px/2 → xs */
   font-weight: var(--font-weight-bold);
   color: var(--color-amber-700);
   letter-spacing: 1px;
@@ -949,7 +949,7 @@
   width: var(--spacing-5xl);
   height: var(--spacing-5xl);
   border-radius: var(--radius-lg-extra);
-  background: var(--share-bg, #f1f5f9);
+  background: var(--share-bg, var(--color-slate-100));
   border: none;
   display: flex;
   align-items: center;
@@ -959,7 +959,7 @@
 }
 
 .shareButton:hover {
-  background: var(--share-hover, #e2e8f0);
+  background: var(--share-hover, var(--color-slate-200));
 }
 
 /* Bank Source */
@@ -997,7 +997,7 @@
 .sliderNumberInput:focus-visible {
   outline: 2px solid var(--focus-ring-color);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.15);
+  box-shadow: 0 0 0 4px var(--teal-overlay-15);
 }
 
 @media (prefers-reduced-motion: reduce) {

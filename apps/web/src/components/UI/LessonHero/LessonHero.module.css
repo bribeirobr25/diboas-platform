@@ -44,7 +44,7 @@
 
 .readTime {
   font-family: var(--font-family-primary);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-slate-500);
   margin: 0;
 }

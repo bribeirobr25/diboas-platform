@@ -256,11 +256,11 @@
 }
 
 .size-lg .flagEmoji {
-  font-size: 28px;
+  font-size: var(--font-size-3xl);
 }
 
 .size-lg .localeCode {
-  font-size: 11px;
+  font-size: var(--font-size-xs);
 }
 
 .size-lg .icon,

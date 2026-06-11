@@ -36,7 +36,7 @@
 }
 
 .card {
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--shadow-black-soft);
   border-radius: 12px;
   padding: 24px;
   text-align: left;

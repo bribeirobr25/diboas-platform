@@ -97,7 +97,7 @@
   content: '\2713';
   position: absolute;
   left: 0;
-  color: var(--text-success-accessible, #059669);
+  color: var(--text-success-accessible);
   font-weight: var(--font-weight-bold);
 }
 
@@ -137,7 +137,7 @@
 }
 
 .inviteCodeInput:focus {
-  border-color: var(--color-brand-primary, #0d9488);
+  border-color: var(--color-brand-primary);
 }
 
 .inviteCodeButton {
@@ -145,7 +145,7 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   padding: var(--spacing-md-minus) 20px;
-  background-color: var(--color-brand-primary, #0d9488);
+  background-color: var(--color-brand-primary);
   color: var(--color-white);
   border: none;
   border-radius: var(--border-radius-md, 8px);
@@ -155,7 +155,7 @@
 }
 
 .inviteCodeButton:hover {
-  background-color: var(--color-brand-primary-hover, #0f766e);
+  background-color: var(--color-brand-primary-hover);
 }
 
 .inviteCodeButton:disabled {
@@ -165,7 +165,7 @@
 
 .inviteError {
   font-size: var(--font-size-sm);
-  color: var(--color-error, #dc2626);
+  color: var(--color-error);
   margin-top: 8px;
 }
 

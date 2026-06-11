@@ -37,7 +37,7 @@
   border: 1px solid var(--color-slate-300);
   border-radius: 8px;
   font-family: var(--font-family-mono);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-slate-900);
   background: var(--color-white);
 }
@@ -120,7 +120,7 @@
 .tooltip {
   cursor: help;
   color: var(--color-slate-600);
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   outline: none;
 }
 
@@ -135,8 +135,8 @@
 .warningCallout {
   margin-top: var(--spacing-md);
   padding: var(--spacing-md);
-  background: var(--color-amber-50, #fffbeb);
-  border-left: 4px solid var(--color-amber-500, #f59e0b);
+  background: var(--color-amber-50);
+  border-left: 4px solid var(--color-amber-500);
   border-radius: 6px;
   color: var(--color-slate-700);
   font-size: var(--font-size-sm);
@@ -148,8 +148,8 @@
 .guidanceCallout {
   margin-top: var(--spacing-md);
   padding: var(--spacing-md);
-  background: var(--color-teal-50, #f0fdfa);
-  border-left: 4px solid var(--text-brand-accessible, #0f766e);
+  background: var(--color-teal-50);
+  border-left: 4px solid var(--text-brand-accessible);
   border-radius: 6px;
   color: var(--color-slate-700);
   font-size: var(--font-size-sm);

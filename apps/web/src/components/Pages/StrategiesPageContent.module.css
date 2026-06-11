@@ -374,7 +374,7 @@
 
 .feeRowFree {
   font-weight: var(--font-weight-bold);
-  color: var(--text-success-accessible, #059669);
+  color: var(--text-success-accessible);
 }
 
 /* ================================

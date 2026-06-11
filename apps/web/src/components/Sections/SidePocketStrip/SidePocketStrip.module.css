@@ -18,7 +18,7 @@
 
 .text {
   font-family: var(--font-family-primary);
-  font-size: 22px;
+  font-size: var(--font-size-xl);
   font-weight: 500;
   line-height: 1.4;
   color: var(--color-text-heading);
@@ -28,6 +28,6 @@
 
 @media (min-width: 768px) {
   .text {
-    font-size: 28px;
+    font-size: var(--font-size-3xl);
   }
 }

@@ -34,7 +34,7 @@
 
 .beatBody {
   font-family: var(--font-family-primary);
-  font-size: 17px;
+  font-size: var(--font-size-md);
   line-height: var(--prose-line-height);
   color: var(--color-slate-700);
   margin: 0;
@@ -51,7 +51,7 @@
 
 .habitsLine {
   font-family: var(--font-family-display);
-  font-size: 22px;
+  font-size: var(--font-size-xl);
   line-height: 1.4;
   color: var(--color-slate-900);
   font-weight: var(--font-weight-semibold);
@@ -60,7 +60,7 @@
 
 .brandCallback {
   font-family: var(--font-family-display);
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   color: var(--color-teal-700);
   text-align: center;
@@ -69,14 +69,14 @@
 
 .afterCalculator {
   font-family: var(--font-family-display);
-  font-size: 22px;
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   color: var(--color-slate-900);
   margin: 16px 0 0;
 }
 
 .toolDeepLink {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-slate-600);
   margin: 8px 0 0;
 }
@@ -99,7 +99,7 @@
 }
 
 .ctaNote {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-500);
   margin: 0;
   text-align: center;
@@ -107,7 +107,7 @@
 
 .ctaSecondary {
   font-family: var(--font-family-primary);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-teal-700);
   text-decoration: none;
   margin-top: 12px;

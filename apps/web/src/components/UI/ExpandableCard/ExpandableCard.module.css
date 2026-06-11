@@ -34,8 +34,8 @@
 }
 
 .card:hover {
-  border-color: var(--brand-primary, #14b8a6);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border-color: var(--brand-primary);
+  box-shadow: 0 2px 12px var(--shadow-black-light);
 }
 
 .card:focus-within {

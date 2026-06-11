@@ -32,7 +32,7 @@
 .modeButtonActive {
   background: var(--color-white);
   color: var(--color-slate-900);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 2px var(--shadow-black-faint);
 }
 
 .modeButton:focus-visible {
@@ -89,7 +89,7 @@
 
 .label {
   font-family: var(--font-family-primary);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--color-slate-700);
   display: inline-flex;
@@ -102,7 +102,7 @@
   /* W2 (audit/2026-05-08): slate-400 (#94a3b8) is 2.56:1 on white — fails.
    * slate-600 (#475569) is 7.55:1, well above AA. */
   color: var(--color-slate-600);
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   outline: none;
 }
 
@@ -123,7 +123,7 @@
 
 .numberInput {
   font-family: var(--font-family-primary);
-  font-size: 16px;
+  font-size: var(--font-size-md);
   padding: 8px 12px;
   border: 1px solid var(--color-slate-300);
   border-radius: 6px;
@@ -154,7 +154,7 @@
   background: var(--color-teal-500);
   cursor: pointer;
   border: 2px solid var(--color-white);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 2px var(--shadow-black-heavy);
 }
 
 .range::-moz-range-thumb {
@@ -164,7 +164,7 @@
   background: var(--color-teal-500);
   cursor: pointer;
   border: 2px solid var(--color-white);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 2px var(--shadow-black-heavy);
 }
 
 .range:focus-visible::-webkit-slider-thumb {
@@ -180,7 +180,7 @@
 
 .yearsValue {
   font-family: var(--font-family-mono);
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
   color: var(--color-slate-900);
   min-width: 32px;
@@ -195,7 +195,7 @@
 
 .summary {
   font-family: var(--font-family-primary);
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
   color: var(--color-slate-700);
   margin: 0;
@@ -224,7 +224,7 @@
   padding: 8px 12px;
   border-radius: 6px;
   background: var(--color-slate-50);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
 }
 
 .legendSwatch {
@@ -257,7 +257,7 @@
 }
 
 .disclaimer {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-500);
   margin: 0;
   line-height: 1.5;
@@ -282,14 +282,14 @@
   padding: 12px 14px;
   text-align: left;
   border-bottom: 1px solid var(--color-slate-200);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
 }
 
 .vignettesTable thead th {
   font-weight: var(--font-weight-semibold);
   color: var(--color-slate-700);
   background: var(--color-slate-50);
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   text-transform: none;
 }
 

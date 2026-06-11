@@ -35,7 +35,7 @@
 
 .subhead {
   font-family: var(--font-family-primary);
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   line-height: 1.5;
   color: var(--color-slate-700);
   margin: 0;
@@ -61,14 +61,14 @@
     border-color 200ms ease,
     transform 200ms ease,
     box-shadow 200ms ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 2px var(--shadow-black-faint);
 }
 
 .activeCard:hover,
 .activeCard:focus-visible {
   border-color: var(--color-teal-500);
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(20, 184, 166, 0.12);
+  box-shadow: 0 8px 24px var(--teal-overlay-12);
 }
 
 .activeCard:focus-visible {
@@ -86,14 +86,14 @@
 }
 
 .activeCardKicker {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-500);
   font-family: var(--font-family-primary);
 }
 
 .activeCardTitle {
   font-family: var(--font-family-display);
-  font-size: 26px;
+  font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   line-height: 1.2;
   color: var(--color-slate-900);
@@ -101,7 +101,7 @@
 }
 
 .activeCardDescription {
-  font-size: 16px;
+  font-size: var(--font-size-md);
   color: var(--color-slate-700);
   line-height: 1.5;
   margin: 0;
@@ -109,7 +109,7 @@
 
 .activeCardCta {
   font-family: var(--font-family-primary);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--color-teal-700);
   margin-top: 8px;
@@ -123,7 +123,7 @@
 
 .footerLine {
   text-align: center;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-slate-500);
   margin: 0;
 }

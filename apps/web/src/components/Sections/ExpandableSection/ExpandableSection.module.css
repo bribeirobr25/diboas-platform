@@ -23,11 +23,11 @@
 }
 
 .toggle:hover {
-  border-color: var(--color-brand-primary, #0d9488);
+  border-color: var(--color-brand-primary);
 }
 
 .toggle:focus-visible {
-  outline: 2px solid var(--color-brand-primary, #0d9488);
+  outline: 2px solid var(--color-brand-primary);
   outline-offset: 2px;
 }
 
@@ -87,13 +87,13 @@
   font-family: var(--font-family-primary);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-brand-primary, #0d9488);
+  color: var(--color-brand-primary);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .link:hover {
-  color: var(--color-brand-primary-hover, #0f766e);
+  color: var(--color-brand-primary-hover);
 }
 
 @media (prefers-reduced-motion: reduce) {

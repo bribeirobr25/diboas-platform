@@ -140,7 +140,7 @@
 .card:hover {
   border-color: var(--text-brand-accessible);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.08);
+  box-shadow: 0 4px 12px var(--teal-700-overlay-soft);
 }
 
 .card:focus-visible {

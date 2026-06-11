@@ -30,7 +30,7 @@
   border-radius: 999px;
   text-decoration: none;
   font-family: var(--font-family-primary);
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-500);
   transition:
     color 200ms ease,
@@ -57,7 +57,7 @@
   border-radius: 50%;
   background: var(--color-slate-200);
   color: var(--color-slate-700);
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   display: grid;
   place-items: center;

@@ -73,14 +73,14 @@
 .cardHeadline {
   font-size: var(--font-size-xl, 1.25rem);
   font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-4);
-  color: var(--text-primary, #111827);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
 }
 
 .cardBody {
   font-size: var(--font-size-base, 1rem);
   line-height: 1.7;
-  color: var(--text-secondary, #4b5563);
+  color: var(--text-secondary);
   margin-bottom: var(--spacing-xl);
   flex: 1;
   white-space: pre-line;

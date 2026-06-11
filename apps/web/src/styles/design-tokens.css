@@ -168,6 +168,20 @@
   /* W2: accessible variant of the brand teal for clickable text on light bg.
    * Use this (not --color-teal-600) wherever the teal appears as text. */
   --text-brand-accessible: #0f766e; /* Teal-700: 4.85:1 on white */
+
+  /* A13 (2026-06-11): tokens referenced by component CSS but never defined —
+     they survived only on hardcoded hex fallbacks (latent design-system gap
+     surfaced during the A-7 hex-fallback pass). Defined here as their canonical
+     palette values so the references resolve and the fallbacks become redundant.
+     Values preserve current rendering (FounderSection's two TEXT uses of
+     --color-brand-primary, which fell back to teal-700 for contrast, were
+     repointed to --text-brand-accessible instead). */
+  --color-brand-primary: #0d9488; /* teal-600 (= --brand-primary-dark) — borders & backgrounds */
+  --color-brand-primary-hover: #0f766e; /* teal-700 — hover for --color-brand-primary */
+  --color-error: #dc2626; /* red-600 (= --text-error-accessible) */
+  --text-primary: #111827; /* gray-900 (= --color-gray-900) */
+  --text-secondary: #4b5563; /* gray-600 (= --color-gray-600) */
+  --color-text-on-dark-secondary: #cbd5e1; /* slate-300 (= --color-slate-300) */
   /* Pa11y fix 2026-05-30: amber-700 (#b45309) measures 4.45:1 on the 8% amber-tinted
    * regime-pill background (#f9f1eb) — fails AA by a hair. Bumped to amber-800 which
    * is 7.09:1 on white and 6.35:1 on the same tinted background. Issue surfaced when
@@ -224,6 +238,14 @@
   --overlay-backdrop: rgba(0, 0, 0, 0.8);
   --overlay-modal: rgba(15, 23, 42, 0.7);
   --overlay-subtle: rgba(0, 0, 0, 0.5);
+  /* A13 (2026-06-11): image-overlay scrim scale — tokenized at the exact alphas
+     in use (NOT rounded) to preserve text-over-image legibility/contrast. */
+  --overlay-image-subtle: rgba(0, 0, 0, 0.25);
+  --overlay-image-mild: rgba(0, 0, 0, 0.3);
+  --overlay-image-light: rgba(0, 0, 0, 0.35);
+  --overlay-image-medium: rgba(0, 0, 0, 0.4);
+  --overlay-image-heavy: rgba(0, 0, 0, 0.6);
+  --overlay-image-darkest: rgba(0, 0, 0, 0.85);
 
   /* Glass Effect Colors (for glassmorphism UI) */
   --glass-bg-light: rgba(255, 255, 255, 0.9);
@@ -247,6 +269,16 @@
   --teal-overlay-subtle: rgba(20, 184, 166, 0.1);
   --teal-overlay-light: rgba(20, 184, 166, 0.2);
   --teal-overlay-medium: rgba(20, 184, 166, 0.3);
+  /* A13 (2026-06-11): brand-tinted overlay gaps between subtle(0.1) and light(0.2),
+     plus the teal-700 / amber / white one-off tints — tokenized at exact values. */
+  --teal-overlay-12: rgba(20, 184, 166, 0.12);
+  --teal-overlay-15: rgba(20, 184, 166, 0.15);
+  --teal-700-overlay-soft: rgba(15, 118, 110, 0.08);
+  /* NOTE: an --amber-overlay-subtle (0.15) + --amber-overlay-medium (0.3) scale
+     already exists below; this 0.1 tint sits below it, hence -faint (not -subtle,
+     which would collide and silently resolve to 0.15). */
+  --amber-overlay-faint: rgba(245, 158, 11, 0.1);
+  --white-overlay-strong: rgba(255, 255, 255, 0.85);
   --teal-shadow: rgba(20, 184, 166, 0.3);
   --teal-border-subtle: rgba(20, 184, 166, 0.2);
   --teal-border-light: rgba(20, 184, 166, 0.3);
@@ -316,10 +348,19 @@
 
   /* Shadow Colors with Opacity */
   --shadow-black-subtle: rgba(0, 0, 0, 0.03);
+  /* A13 (2026-06-11): faint card shadow — covers the 0.04 sites + the single
+     0.05 site (snapped to 0.04 per the locked round-to-nearest default). */
+  --shadow-black-faint: rgba(0, 0, 0, 0.04);
   --shadow-black-light: rgba(0, 0, 0, 0.06);
   --shadow-black-soft: rgba(0, 0, 0, 0.08);
   --shadow-black-medium: rgba(0, 0, 0, 0.1);
   --shadow-black-heavy: rgba(0, 0, 0, 0.15);
+  /* A13 (2026-06-11): text-shadow colors for legibility of text over images
+     (hero headlines, FAQ-over-image). Distinct from box-shadow (--shadow-black-*)
+     and background scrims (--overlay-image-*) — referenced by `text-shadow`. */
+  --text-shadow-subtle: rgba(0, 0, 0, 0.2);
+  --text-shadow-medium: rgba(0, 0, 0, 0.4);
+  --text-shadow-strong: rgba(0, 0, 0, 0.5);
   --shadow-black-moderate: rgba(0, 0, 0, 0.2);
   --shadow-black-intense: rgba(0, 0, 0, 0.3);
   --shadow-black-dark: rgba(0, 0, 0, 0.4);
@@ -1520,6 +1561,24 @@
   --color-amber-700: #b45309;
   --color-amber-800: #92400e;
   --color-amber-900: #78350f;
+
+  /* A13 (2026-06-11): blue/green/red/emerald/rose palette shades referenced by
+     PreDemo status badges + ExportModal error states. Previously these existed
+     ONLY as hardcoded hex fallbacks on undefined tokens in component CSS;
+     promoted to real tokens here (canonical source) so the CSS references them
+     cleanly. Only the in-use shades are defined (no dead tokens). */
+  --color-blue-100: #dbeafe;
+  --color-blue-600: #2563eb;
+  --color-green-100: #dcfce7;
+  --color-green-600: #16a34a;
+  --color-red-200: #fecaca;
+  --color-red-300: #fca5a5;
+  --color-red-500: #ef4444;
+  --color-red-700: #b91c1c;
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-200: #a7f3d0;
+  --color-rose-50: #fff1f2;
+  --color-rose-700: #be123c;
 
   /* Purple Palette (Accent) */
   --color-purple-50: #faf5ff;

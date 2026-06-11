@@ -34,7 +34,7 @@
   width: 24px;
   height: 24px;
   border-radius: 9999px;
-  background-color: var(--color-amber-50, #fffbeb);
+  background-color: var(--color-amber-50);
   color: var(--color-amber-600);
   flex-shrink: 0;
 }
@@ -46,7 +46,7 @@
   width: 24px;
   height: 24px;
   border-radius: 9999px;
-  background-color: var(--color-teal-50, #f0fdfa);
+  background-color: var(--color-teal-50);
   color: var(--color-teal-600);
   flex-shrink: 0;
 }
