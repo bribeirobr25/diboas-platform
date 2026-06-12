@@ -6,7 +6,7 @@
 > - `apps/web/src/lib/events/applicationEventTypes.ts` → `ApplicationEventType` enum (includes `PRE_DREAM_STARTED`, `PRE_DREAM_SHARE_INITIATED`, `PRE_DREAM_SHARE_COMPLETED` — the former `DREAM_MODE_EVENTS` were superseded by PreDream; `src/lib/dream-mode/constants.ts` no longer exists)
 > - `apps/web/src/lib/waitingList/constants.ts` → `WAITING_LIST_EVENTS` (includes the `SHARE_MODAL_OPENED`/`SHARE_INITIATED`/`SHARE_COMPLETED` nested keys — there is no separate `SHARE_EVENTS` constant or `src/lib/share/constants.ts`)
 >
-> **`ApplicationDomain` + `ApplicationEventType` additions (2026-05-26 — `TOOLS_41_DEFECTS_FIX_PLAN.md` v1.3 execution):**
+> **`ApplicationDomain` + `ApplicationEventType` additions (2026-05-26 — the tools-defects fix plan v1.3 execution):**
 >
 > - **`ApplicationDomain` adds `'tools'`** — emitted by tool-suite components for tool-specific events.
 > - **`ApplicationEventType.CALCULATOR_UNEXPECTED_ERROR` (`'tools:calculatorUnexpectedError'`)** — emitted by `AssetHistoryCalculator` `Default.tsx` when an unexpected (non-`AssetHistoryDataError`) error escapes the engine. Routed via `applicationEventBus.emit(CALCULATOR_UNEXPECTED_ERROR, { domain: 'tools', source: 'asset-history', severity: 'high', context: {…PII-free…} })` + a parallel `errorReportingService.captureException(...)` for Sentry visibility. C21 close. Pattern is reusable for other tools' future unexpected-error reporting; the asset-history wiring is the canonical example.
@@ -69,7 +69,7 @@ The diBoaS platform uses a dual-layer analytics system:
 
 ## Event Naming Conventions
 
-The codebase uses **two parallel naming conventions** for two different layers of the analytics stack. Both are intentional — they target different audiences and tooling. Documented here side-by-side per `docs/audit/PHASE_1_7_ARCHITECTURE_AUDIT.md` D2 (2026-05-26).
+The codebase uses **two parallel naming conventions** for two different layers of the analytics stack. Both are intentional — they target different audiences and tooling.
 
 ### Format A — `analyticsService.track()` event names (`snake_case`)
 

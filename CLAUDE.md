@@ -114,7 +114,7 @@ pnpm build            # Production build (all workspaces)
 ### Validation
 
 ```bash
-pnpm validate:all              # Full pipeline: type-check -> lint -> test -> build -> tokens -> translations
+pnpm validate:all              # Full pipeline: type-check -> lint -> test -> build -> budget -> design-tokens -> translations -> market-data -> sdk-invariant
 pnpm validate:design-tokens    # Validate design tokens against schema
 pnpm validate:translations     # Check translation key parity across locales
 pnpm check:dead-code           # Dead code detection (knip)
@@ -243,18 +243,15 @@ The full register of locked-in implementation decisions (bundler / Turbopack, pr
 
 - Reference locale: `en` (source of truth)
 - Translations: `packages/i18n/translations/{locale}/`
-- Namespaced JSON files: about, common, dreamMode, faq, landing-b2b, landing-b2c, landing-help, preDemo, preDream, protocols, security, share, strategies, waitlist + legal/ subdirectory (cookies, privacy, terms)
+- **31 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the demo + dream flows, and the `tools-*` calculator suite.
 - Client/server split exports to avoid bundling React on server
 - All new user-facing strings must be added to all 4 locales
 
 ## Design Tokens
 
-- Source: `config/design-tokens.json`
-- Schema: `config/design-tokens.schema.json`
-- Generated CSS: `apps/web/src/styles/design-tokens.css`
-- Validate: `pnpm validate:design-tokens`
-- Generate: `pnpm generate:design-tokens`
-- Categories: brand colors, typography, spacing, animation, z-index, breakpoints
+- **Canonical token values:** `apps/web/src/styles/design-tokens.css` — **hand-maintained**. The `generate:design-tokens` generator is intentionally **disabled** (it would overwrite 2500+ lines of hand-tuned CSS — CRIT-1); edit this file directly, never regenerate.
+- Schema-validated subset (brand colors, typography, spacing, animation, z-index, breakpoints): `config/design-tokens.json` + `config/design-tokens.schema.json` — validated by `pnpm validate:design-tokens`.
+- **Never hardcode colors, spacing, font-sizes, or radii in component CSS** — always reference a token (component CSS is fully tokenized; the only literals are documented exceptions: `em` relative sizing, `-1px` border-collapse, `@media print`).
 
 ## Environment Variables
 
@@ -356,7 +353,7 @@ Condensed reference from `docs/tech/coding-standards.md`:
 
 ## Audit Status
 
-**Current state:** 12/12 principles of excellence compliant. All audits through the Tools audit-bundle (externally validated to v1.8) and the 2026-05-26 architecture challenge are closed. **~971 tests passing.**
+**Current state:** 12/12 principles of excellence compliant. The Tools audit-bundle (externally validated to v1.8), the 2026-05-26 architecture challenge, and the Track A fix backlog (A0–A17) are all closed. **~1,005 tests passing.**
 
 - Full audit narrative + test-count progression: **`docs/audit/AUDIT_HISTORY.md`**
 - Live security findings ledger: `docs/audit/SECURITY_FINDINGS_2026-05.md`

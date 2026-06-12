@@ -1,6 +1,6 @@
 # CODEOWNERS — auto-request reviews on path-scoped PRs.
 #
-# Reference: docs/audit/MARKET_INTEGRATION_ITERATION_3_PLAN_2026-05-14.md §3.5.
+# Reference: docs/audit/_archive/MARKET_INTEGRATION_ITERATION_3_PLAN_2026-05-14.md §3.5.
 # Format: <path> <@github-user-or-team>
 #
 # Pre-flight requirement (L6 round-3): handles listed below MUST have
