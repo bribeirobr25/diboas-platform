@@ -1,24 +1,24 @@
 .hero {
   display: grid;
-  gap: 32px;
-  padding-top: 24px;
-  padding-bottom: 24px;
+  gap: var(--spacing-3xl);
+  padding-top: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
 }
 
 @media (min-width: 1024px) {
   .hero {
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    gap: 48px;
-    padding-top: 48px;
-    padding-bottom: 32px;
+    gap: var(--spacing-5xl);
+    padding-top: var(--spacing-5xl);
+    padding-bottom: var(--spacing-3xl);
   }
 }
 
 .text {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
 }
 
 .title {
@@ -55,7 +55,7 @@
 
 .illustration {
   width: 100%;
-  border-radius: 12px;
+  border-radius: var(--radius-lg-extra);
   overflow: hidden;
   background: var(--color-slate-100);
 }

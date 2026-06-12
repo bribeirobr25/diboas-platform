@@ -59,7 +59,7 @@
 }
 
 .trustLine {
-  font-size: 0.9375rem;
+  font-size: var(--font-size-sm-plus);
   /* W2 (audit/2026-05-08): slate-400 (#94a3b8) → slate-600 (#475569);
    * 2.45:1 → 7.55:1 on the f9fafb hero background. */
   color: var(--color-slate-600);

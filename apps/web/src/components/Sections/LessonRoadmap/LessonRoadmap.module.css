@@ -4,7 +4,7 @@
   padding: 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: var(--spacing-md);
 }
 
 @media (min-width: 640px) {
@@ -26,9 +26,9 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 20px;
-  border-radius: 12px;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg-extra);
   background: var(--color-slate-50);
   border: 1px dashed var(--color-slate-300);
   /* W2 (audit/2026-05-08): removed `opacity: var(--cta-opacity-disabled)` —
@@ -43,8 +43,8 @@
 
 .badge {
   display: inline-block;
-  padding: 2px 8px;
-  border-radius: 999px;
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  border-radius: var(--radius-pill);
   background: var(--color-slate-200);
   color: var(--color-slate-700);
   font-size: var(--font-size-xs);
@@ -60,7 +60,7 @@
   font-weight: var(--font-weight-semibold);
   line-height: 1.3;
   color: var(--color-slate-900);
-  margin: 4px 0 0;
+  margin: var(--spacing-xs) 0 0;
 }
 
 .cardDescription {

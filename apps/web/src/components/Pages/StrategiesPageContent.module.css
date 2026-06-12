@@ -32,7 +32,7 @@
 }
 
 .sectionSubtitle {
-  font-size: 1.125rem; /* text-lg */
+  font-size: var(--font-size-lg); /* text-lg */
   color: var(--color-slate-600);
   text-align: center;
   margin-bottom: 3rem;
@@ -59,7 +59,7 @@
   margin-left: auto;
   margin-right: auto;
   background-color: var(--section-bg-white);
-  border-radius: 0.75rem;
+  border-radius: var(--radius-lg-extra);
 }
 
 .tableHeaderRow {
@@ -125,7 +125,7 @@
   text-align: center;
   color: var(--color-slate-500);
   margin-top: 2rem;
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
 }
 
 /* ================================
@@ -152,7 +152,7 @@
    ================================ */
 
 .honestLimitation {
-  font-size: 0.8125rem;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-500);
   text-align: center;
   max-width: 48rem;
@@ -161,7 +161,7 @@
 }
 
 .belowTable {
-  font-size: 0.8125rem;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-500);
   text-align: center;
   max-width: 48rem;
@@ -190,7 +190,7 @@
   margin-left: auto;
   margin-right: auto;
   background-color: var(--section-bg-white);
-  border-radius: 0.75rem;
+  border-radius: var(--radius-lg-extra);
 }
 
 .protocolRow {
@@ -221,7 +221,7 @@
 .protocolRowToggle:focus-visible {
   outline: 2px solid var(--cta-bg-primary);
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: var(--radius-md);
 }
 
 .protocolDetailRow {
@@ -249,7 +249,7 @@
 }
 
 .protocolSummary {
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   color: var(--color-slate-600);
   padding: 0.75rem 1.5rem;
   margin: 0;
@@ -263,7 +263,7 @@
 }
 
 .protocolExternalLink {
-  font-size: 0.8125rem;
+  font-size: var(--font-size-xs-plus);
   color: var(--text-brand-accessible);
   text-decoration: none;
 }
@@ -291,7 +291,7 @@
 .mobileProtocolCard {
   background-color: var(--section-bg-white);
   border: 1px solid var(--color-slate-200);
-  border-radius: 0.75rem;
+  border-radius: var(--radius-lg-extra);
   padding: 1rem;
 }
 
@@ -312,7 +312,7 @@
 .mobileProtocolHeader:focus-visible {
   outline: 2px solid var(--cta-bg-primary);
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: var(--radius-md);
 }
 
 .mobileProtocolName {
@@ -321,18 +321,18 @@
 }
 
 .expandIcon {
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-600);
 }
 
 .mobileProtocolSubtitle {
-  font-size: 0.8125rem;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-500);
   margin: 0.25rem 0 0.5rem;
 }
 
 .mobileProtocolField {
-  font-size: 0.8125rem;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-600);
   margin: 0.25rem 0;
 }
@@ -347,7 +347,7 @@
   margin-left: auto;
   margin-right: auto;
   background-color: var(--section-bg-white);
-  border-radius: 0.75rem;
+  border-radius: var(--radius-lg-extra);
 }
 
 @media (min-width: 768px) {
@@ -360,7 +360,7 @@
 /* Fee table cells: responsive padding */
 .feeTableCell {
   padding: 0.75rem 0.75rem;
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-slate-900);
 }
@@ -368,7 +368,7 @@
 @media (min-width: 768px) {
   .feeTableCell {
     padding: 1rem 1.5rem;
-    font-size: 1rem;
+    font-size: var(--font-size-md);
   }
 }
 
@@ -395,7 +395,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 1rem;
+  font-size: var(--font-size-md);
 }
 
 .brandPromise {
@@ -423,7 +423,7 @@
 }
 
 .cvmBanner p {
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-600);
   margin: 0 0 0.5rem;
   line-height: 1.4;
@@ -449,7 +449,7 @@
 }
 
 .disclaimerText {
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-500);
   text-align: center;
   margin: 0 0 1rem;
@@ -469,7 +469,7 @@
 }
 
 .ctaDescription {
-  font-size: 1.125rem; /* text-lg */
+  font-size: var(--font-size-lg); /* text-lg */
   color: var(--color-slate-600);
   margin-bottom: 2rem;
   max-width: 32rem; /* max-w-2xl */
@@ -521,7 +521,7 @@
 .strategyStat {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--spacing-2xs);
 }
 
 .strategyStatLabel {

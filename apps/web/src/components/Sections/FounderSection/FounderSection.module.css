@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: var(--spacing-3xl);
   max-width: 900px;
   margin: 0 auto;
 }
@@ -16,7 +16,7 @@
   .withImage {
     flex-direction: row;
     align-items: flex-start;
-    gap: 48px;
+    gap: var(--spacing-5xl);
   }
 }
 
@@ -32,7 +32,7 @@
 .photo {
   width: 200px;
   height: 200px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   object-fit: cover;
 }
 
@@ -54,7 +54,7 @@
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-title);
   color: var(--color-text-heading);
-  margin: 0 0 24px 0;
+  margin: 0 0 var(--spacing-lg) 0;
 }
 
 @media (min-width: 768px) {
@@ -75,7 +75,7 @@
   font-weight: var(--font-weight-normal);
   line-height: var(--prose-line-height, 1.7);
   color: var(--color-text-body);
-  margin: 0 0 16px 0;
+  margin: 0 0 var(--spacing-md) 0;
 }
 
 .paragraph:last-of-type {
@@ -84,7 +84,7 @@
 
 .emailLink {
   display: inline-block;
-  margin-top: 20px;
+  margin-top: var(--spacing-xl);
   font-family: var(--font-family-primary);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
@@ -103,8 +103,8 @@
 .socialLinks {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 20px;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
 }
 
 .socialLink {

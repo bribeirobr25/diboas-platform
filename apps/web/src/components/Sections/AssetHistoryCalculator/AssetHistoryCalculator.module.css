@@ -29,7 +29,7 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
 }
 
 .label {
@@ -39,9 +39,9 @@
 }
 
 .numberInput {
-  padding: 10px 14px;
+  padding: var(--spacing-sm-plus) var(--spacing-md-plus);
   border: 1px solid var(--color-slate-300);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   font-family: var(--font-family-mono);
   font-size: var(--font-size-sm);
   color: var(--color-slate-900);
@@ -67,7 +67,7 @@
   border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .terminalValue {
@@ -95,8 +95,8 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin: 0;
-  padding: 4px 10px;
-  border-radius: 999px;
+  padding: var(--spacing-xs) var(--spacing-sm-plus);
+  border-radius: var(--radius-pill);
   align-self: flex-start;
 }
 
@@ -133,7 +133,7 @@
 .tooltip:focus-visible {
   outline: 2px solid var(--color-teal-600);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 /* Gain/loss badge next to the terminal value. Green for gain, red for loss.

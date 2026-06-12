@@ -23,7 +23,7 @@
 @media (min-width: 1024px) {
   .header {
     font-size: var(--font-size-section-title-desktop);
-    margin-bottom: 56px;
+    margin-bottom: var(--spacing-custom-56);
   }
 }
 

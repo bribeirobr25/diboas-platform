@@ -167,7 +167,7 @@
   right: 25%;
   height: 2px;
   background: var(--theme-interactive-primary);
-  border-radius: 1px;
+  border-radius: var(--radius-sm);
 }
 
 .flagEmoji {
@@ -182,7 +182,7 @@
   align-items: center;
   justify-content: center;
   line-height: 0;
-  border-radius: 3px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-xs);
 }

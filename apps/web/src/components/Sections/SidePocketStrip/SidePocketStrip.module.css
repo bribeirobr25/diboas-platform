@@ -6,13 +6,13 @@
 .strip {
   width: 100%;
   background-color: var(--section-bg-brand);
-  padding: 48px var(--spacing-lg);
+  padding: var(--spacing-5xl) var(--spacing-lg);
   text-align: center;
 }
 
 @media (min-width: 768px) {
   .strip {
-    padding: 64px var(--spacing-lg);
+    padding: var(--spacing-6xl) var(--spacing-lg);
   }
 }
 

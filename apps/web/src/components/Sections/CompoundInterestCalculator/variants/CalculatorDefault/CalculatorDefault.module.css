@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: var(--padding-card-desktop);
   padding: var(--padding-card-desktop);
-  border-radius: 12px;
+  border-radius: var(--radius-lg-extra);
   background: var(--color-white);
   border: 1px solid var(--color-slate-200);
 }
@@ -13,13 +13,13 @@
   display: inline-flex;
   background: var(--color-slate-100);
   border-radius: var(--radius-lg);
-  padding: 4px;
-  gap: 2px;
+  padding: var(--spacing-xs);
+  gap: var(--spacing-2xs);
   align-self: flex-start;
 }
 
 .modeButton {
-  padding: 8px 16px;
+  padding: var(--spacing-sm) var(--spacing-md);
   border: none;
   background: transparent;
   border-radius: calc(var(--radius-lg) - 4px);
@@ -69,7 +69,7 @@
 .inputs {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: var(--spacing-xl);
 }
 
 @media (min-width: 768px) {
@@ -81,7 +81,7 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
   border: 0;
   padding: 0;
   margin: 0;
@@ -94,7 +94,7 @@
   color: var(--color-slate-700);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
 }
 
 .tooltip {
@@ -112,21 +112,21 @@
 .tooltip:focus-visible {
   outline: 2px solid var(--color-teal-600);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .amountRow {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .numberInput {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-md);
-  padding: 8px 12px;
+  padding: var(--spacing-sm) var(--spacing-md-minus);
   border: 1px solid var(--color-slate-300);
-  border-radius: 6px;
+  border-radius: var(--radius-md-plus);
   background: var(--color-white);
   color: var(--color-slate-900);
   width: 100%;
@@ -142,7 +142,7 @@
   width: 100%;
   height: 6px;
   background: var(--color-slate-200);
-  border-radius: 3px;
+  border-radius: var(--radius-md);
   outline: none;
 }
 
@@ -150,7 +150,7 @@
   appearance: none;
   width: 18px;
   height: 18px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: var(--color-teal-500);
   cursor: pointer;
   border: 2px solid var(--color-white);
@@ -160,7 +160,7 @@
 .range::-moz-range-thumb {
   width: 18px;
   height: 18px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: var(--color-teal-500);
   cursor: pointer;
   border: 2px solid var(--color-white);
@@ -175,7 +175,7 @@
 .yearsRow {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
 }
 
 .yearsValue {
@@ -190,7 +190,7 @@
 .outputs {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--spacing-md);
 }
 
 .summary {
@@ -207,7 +207,7 @@
   padding: 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 @media (min-width: 640px) {
@@ -219,10 +219,10 @@
 .legendItem {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
   align-items: center;
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: var(--spacing-sm) var(--spacing-md-minus);
+  border-radius: var(--radius-md-plus);
   background: var(--color-slate-50);
   font-size: var(--font-size-sm);
 }
@@ -230,7 +230,7 @@
 .legendSwatch {
   width: 12px;
   height: 12px;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .legendSwatch[data-scenario='bank'] {
@@ -265,7 +265,7 @@
 
 .lastUpdated {
   display: inline-block;
-  margin-top: 4px;
+  margin-top: var(--spacing-xs);
   /* W2 (audit/2026-05-08): slate-400 → slate-600 (2.56:1 → 7.55:1 on white). */
   color: var(--color-slate-600);
 }
@@ -273,13 +273,13 @@
 .vignettesTable {
   width: 100%;
   border-collapse: collapse;
-  margin: 16px 0;
+  margin: var(--spacing-md) 0;
   font-family: var(--font-family-primary);
 }
 
 .vignettesTable th,
 .vignettesTable td {
-  padding: 12px 14px;
+  padding: var(--spacing-md-minus) var(--spacing-md-plus);
   text-align: left;
   border-bottom: 1px solid var(--color-slate-200);
   font-size: var(--font-size-sm);

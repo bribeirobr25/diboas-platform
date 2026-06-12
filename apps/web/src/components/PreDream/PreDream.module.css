@@ -203,7 +203,7 @@
 /* Buttons */
 .primaryButton {
   width: 100%;
-  padding: 14px; /* no exact token */
+  padding: var(--spacing-md-plus);
   background: var(--color-teal-700);
   color: var(--color-white);
   font-weight: var(--font-weight-semibold);
@@ -425,7 +425,7 @@
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   padding: var(--radius-sm) var(--spacing-sm);
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   background: currentColor;
   background-clip: padding-box;
 }
@@ -525,7 +525,7 @@
 .sliderValueInput {
   display: flex;
   align-items: center;
-  gap: 2px; /* no exact token */
+  gap: var(--spacing-2xs);
 }
 
 .currencySymbol {
@@ -559,7 +559,7 @@
   appearance: none;
   width: var(--spacing-lg);
   height: var(--spacing-lg);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: var(--color-teal-700);
   cursor: pointer;
   box-shadow: 0 2px 4px var(--shadow-black-heavy);
@@ -568,7 +568,7 @@
 .rangeSlider::-moz-range-thumb {
   width: var(--spacing-lg);
   height: var(--spacing-lg);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: var(--color-teal-700);
   cursor: pointer;
   border: none;
@@ -743,7 +743,7 @@
   position: absolute;
   width: var(--spacing-sm);
   height: var(--spacing-sm);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: var(--color-teal-200);
   bottom: -10px;
   left: var(--x);
@@ -853,14 +853,14 @@
   width: 100%;
   height: 12px; /* no exact token */
   background: var(--color-teal-100);
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   overflow: hidden;
 }
 
 .progressBarDiboas {
   height: 100%;
   background: var(--color-teal-500);
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   transition: width 0.5s ease;
 }
 
@@ -868,14 +868,14 @@
   width: 100%;
   height: 12px; /* no exact token */
   background: var(--color-slate-100);
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   overflow: hidden;
 }
 
 .progressBarBank {
   height: 100%;
   background: var(--color-slate-300);
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   transition: width 0.5s ease;
 }
 

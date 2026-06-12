@@ -31,21 +31,21 @@
 @media (min-width: 768px) {
   .grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: var(--spacing-lg);
   }
 }
 
 .card {
   border: 1px solid var(--shadow-black-soft);
-  border-radius: 12px;
-  padding: 24px;
+  border-radius: var(--radius-lg-extra);
+  padding: var(--spacing-lg);
   text-align: left;
 }
 
 .numberBadge {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background-color: var(--brand-primary);
   color: var(--color-text-on-dark);
   display: flex;

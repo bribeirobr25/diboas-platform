@@ -6,7 +6,7 @@
 .beat {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--spacing-md);
   max-width: 720px;
   margin: 0 auto;
 }
@@ -17,7 +17,7 @@
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
   color: var(--color-section-title);
-  margin: 0 0 8px;
+  margin: 0 0 var(--spacing-sm);
   letter-spacing: var(--letter-spacing-tight);
 }
 
@@ -55,7 +55,7 @@
   line-height: 1.4;
   color: var(--color-slate-900);
   font-weight: var(--font-weight-semibold);
-  margin: 8px 0;
+  margin: var(--spacing-sm) 0;
 }
 
 .brandCallback {
@@ -64,7 +64,7 @@
   font-weight: var(--font-weight-semibold);
   color: var(--color-teal-700);
   text-align: center;
-  margin: 24px 0;
+  margin: var(--spacing-lg) 0;
 }
 
 .afterCalculator {
@@ -72,13 +72,13 @@
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   color: var(--color-slate-900);
-  margin: 16px 0 0;
+  margin: var(--spacing-md) 0 0;
 }
 
 .toolDeepLink {
   font-size: var(--font-size-sm);
   color: var(--color-slate-600);
-  margin: 8px 0 0;
+  margin: var(--spacing-sm) 0 0;
 }
 
 .toolDeepLink a {
@@ -92,9 +92,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  margin-top: 24px;
-  padding-top: 16px;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
   border-top: 1px solid var(--color-slate-200);
 }
 
@@ -110,7 +110,7 @@
   font-size: var(--font-size-sm);
   color: var(--color-teal-700);
   text-decoration: none;
-  margin-top: 12px;
+  margin-top: var(--spacing-md-minus);
 }
 
 .ctaSecondary:hover,

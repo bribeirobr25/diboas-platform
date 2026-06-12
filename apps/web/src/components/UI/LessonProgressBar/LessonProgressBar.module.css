@@ -4,7 +4,7 @@
   z-index: 10;
   background: var(--color-white);
   border-bottom: 1px solid var(--color-slate-200);
-  padding: 8px 0;
+  padding: var(--spacing-sm) 0;
 }
 
 .segments {
@@ -12,7 +12,7 @@
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 4px;
+  gap: var(--spacing-xs);
   justify-content: center;
   align-items: center;
 }
@@ -25,9 +25,9 @@
 .anchor {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 10px;
-  border-radius: 999px;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs-plus) var(--spacing-sm-plus);
+  border-radius: var(--radius-pill);
   text-decoration: none;
   font-family: var(--font-family-primary);
   font-size: var(--font-size-xs-plus);
@@ -54,7 +54,7 @@
 .dot {
   width: 22px;
   height: 22px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: var(--color-slate-200);
   color: var(--color-slate-700);
   font-size: var(--font-size-xs);

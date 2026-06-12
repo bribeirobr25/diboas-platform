@@ -18,7 +18,7 @@
 
 /* Default: subtle narrative bridge */
 .transitionDefault {
-  font-size: 1.125rem;
+  font-size: var(--font-size-lg);
   color: var(--color-slate-600);
   background-color: var(--section-bg-brand);
   padding: var(--spacing-2xl) var(--spacing-lg);
@@ -26,7 +26,7 @@
 
 /* Pivotal: draws slightly more attention for key turning points */
 .transitionPivotal {
-  font-size: 1.25rem;
+  font-size: var(--font-size-xl);
   color: var(--color-slate-600);
   letter-spacing: -0.01em;
 }
@@ -47,7 +47,7 @@
 }
 
 .disclaimerText {
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-500);
   text-align: center;
   margin: 0 0 1rem;

@@ -158,6 +158,12 @@
   --brand-primary: #14b8a6;
   --brand-primary-dark: #0d9488;
 
+  /* A13 (2026-06-11): external social-platform brand colors, for share/referral
+     buttons. Hardcoded in ReferralLink.module.css before; promoted to tokens. */
+  --brand-facebook: #1877f2;
+  --brand-instagram: #e4405f;
+  --brand-substack: #ff6719;
+
   /* Accessible Text Colors (WCAG AA 4.5:1 on white) */
   --text-primary-accessible: #0f766e; /* Teal-700: 4.85:1 on white — use for text on white */
   /* W2 (audit/2026-05-08): emerald-600 (#059669) measures 3.76:1 in axe — fails AA.
@@ -1350,6 +1356,10 @@
   --spacing-2xl: 24px;
   --spacing-3xl: 32px;
   --spacing-custom-35: 35px;
+  /* A13 (2026-06-11): exact tokens for the 56/60px section-spacing values used
+     in component CSS (between 5xl=48 and 6xl=64) — preserves rendering exactly. */
+  --spacing-custom-56: 56px;
+  --spacing-custom-60: 60px;
   --spacing-4xl: 40px;
   --spacing-5xl: 48px;
   --spacing-6xl: 64px;

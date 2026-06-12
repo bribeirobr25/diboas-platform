@@ -49,8 +49,8 @@
 
 .filterChip,
 .filterChipActive {
-  padding: 6px 14px;
-  border-radius: 999px;
+  padding: var(--spacing-xs-plus) var(--spacing-md-plus);
+  border-radius: var(--radius-pill);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   text-decoration: none;

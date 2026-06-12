@@ -49,19 +49,19 @@
 }
 
 .name {
-  font-size: 1.25rem; /* text-xl */
+  font-size: var(--font-size-xl); /* text-xl */
   font-weight: var(--font-weight-bold);
   color: var(--color-slate-900);
   margin: 0;
 }
 
 .growthBadge {
-  font-size: 0.75rem; /* text-xs */
+  font-size: var(--font-size-xs); /* text-xs */
   font-weight: var(--font-weight-medium);
   background-color: var(--color-slate-100);
   color: var(--color-slate-600);
   padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
+  border-radius: var(--radius-md);
   border: 1px solid var(--color-slate-200);
   white-space: nowrap;
 }
@@ -71,20 +71,20 @@
    ================================ */
 
 .badge {
-  font-size: 0.875rem; /* text-sm */
+  font-size: var(--font-size-sm); /* text-sm */
   color: var(--color-slate-500);
   margin: 0 0 0.75rem 0;
 }
 
 .tagline {
-  font-size: 1rem;
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
   color: var(--color-slate-700);
   margin: 0 0 1rem 0;
 }
 
 .description {
-  font-size: 0.9375rem;
+  font-size: var(--font-size-sm-plus);
   color: var(--color-slate-600);
   line-height: 1.6;
   margin: 0 0 0.75rem 0;
@@ -98,11 +98,11 @@
   margin-bottom: 1rem;
   padding: 0.75rem;
   background-color: var(--color-slate-50);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-lg);
 }
 
 .allocation {
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   font-family: var(--font-family-mono);
   color: var(--color-slate-700);
@@ -110,7 +110,7 @@
 }
 
 .allocationNote {
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-500);
   margin: 0;
   line-height: 1.4;
@@ -130,7 +130,7 @@
 .statRow {
   display: flex;
   justify-content: space-between;
-  font-size: 0.875rem; /* text-sm */
+  font-size: var(--font-size-sm); /* text-sm */
   gap: 0.5rem;
 }
 
@@ -152,12 +152,12 @@
 .commonUseCase {
   padding: 0.75rem;
   background-color: var(--color-slate-50);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-lg);
   margin-bottom: 0.75rem;
 }
 
 .commonUseCaseText {
-  font-size: 0.8125rem;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-600);
   margin: 0;
   line-height: 1.5;
@@ -168,7 +168,7 @@
    ================================ */
 
 .note {
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-500);
   margin: 0 0 0.75rem 0;
   font-style: italic;
@@ -178,12 +178,12 @@
   padding: 0.75rem 1rem;
   background-color: var(--color-amber-50);
   border-left: 3px solid var(--color-amber-400);
-  border-radius: 0.25rem;
+  border-radius: var(--radius-md);
   margin-bottom: 0.75rem;
 }
 
 .warningCallout p {
-  font-size: 0.8125rem;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-700);
   margin: 0;
   line-height: 1.5;
@@ -193,11 +193,11 @@
   padding: 0.75rem 1rem;
   background-color: var(--color-slate-50);
   border-left: 3px solid var(--color-slate-400);
-  border-radius: 0.25rem;
+  border-radius: var(--radius-md);
 }
 
 .accessCallout p {
-  font-size: 0.8125rem;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-600);
   margin: 0;
   line-height: 1.5;
