@@ -1,0 +1,223 @@
+/* CinematicHero — layout, theme switching, fallbacks, typography.
+   All colours/spacing are design tokens; theme is switched via [data-theme]. */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: clamp(30rem, 78vh, 47.5rem);
+  overflow: hidden;
+
+  /* Theme-derived locals (default = dark) */
+  --_overlay: var(--hero-overlay-dark);
+  --_fg: var(--hero-fg-dark);
+  --_fg-muted: var(--hero-fg-dark-muted);
+  --_grad: var(--hero-fallback-dark);
+  --_eyebrow: var(--brand-primary);
+  --_accent: var(--scene-gold);
+}
+.hero[data-theme='light'],
+.hero[data-theme='lighter'] {
+  --_overlay: var(--hero-overlay-light);
+  --_fg: var(--hero-fg-light);
+  --_fg-muted: var(--hero-fg-light-muted);
+  --_grad: var(--hero-fallback-light);
+  --_eyebrow: var(--text-brand-accessible);
+  --_accent: var(--text-brand-accessible);
+}
+.hero[data-theme='lighter'] {
+  --_overlay: var(--hero-overlay-lighter);
+}
+
+/* ---- Scene (decorative WebGL) ---- */
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.canvasHost {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--_grad);
+}
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0; /* GSAP reveals to 1; if JS/WebGL fails the gradient stays */
+}
+/* Band heroes keep the photo as the star — canvas is a subtle ambiance. */
+.hero[data-band='true'] .canvas {
+  mix-blend-mode: screen;
+  opacity: 0; /* still revealed by GSAP, then capped via this rule’s blend */
+}
+.hero[data-band='true'][data-theme='light'] .canvas,
+.hero[data-band='true'][data-theme='lighter'] .canvas {
+  mix-blend-mode: multiply;
+}
+
+/* ---- Poster (optional photo band) ---- */
+.poster {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.posterDuotone img {
+  filter: saturate(0.55) contrast(1.02);
+}
+.posterDuotone::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--teal-deep-900) 70%, transparent),
+    color-mix(in srgb, var(--brand-primary) 28%, transparent)
+  );
+  mix-blend-mode: multiply;
+}
+
+/* ---- Contrast scrim ---- */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.hero[data-align='left'] .scrim {
+  background: linear-gradient(90deg, var(--_overlay) 0%, transparent 72%);
+}
+.hero[data-align='center'] .scrim {
+  background:
+    linear-gradient(180deg, transparent 30%, var(--_overlay) 100%),
+    radial-gradient(120% 80% at 50% 60%, var(--_overlay) 0%, transparent 70%);
+}
+
+/* ---- Content ---- */
+.container {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: clamp(5rem, 12vh, 8rem) var(--container-padding-x, 1.5rem);
+}
+.hero[data-align='center'] .container {
+  text-align: center;
+}
+.content {
+  max-width: 44rem;
+}
+.hero[data-align='center'] .content {
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-family: var(--font-family-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--_eyebrow);
+  margin: 0 0 1rem;
+}
+.headline {
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--_fg);
+  margin: 0 0 1.25rem;
+  text-wrap: balance;
+}
+/* Accent on the trailing word(s) — gold over dark heroes, teal over light
+   (liquid-capital's headline emphasis). */
+.headlineAccent {
+  font-style: normal;
+  color: var(--_accent);
+}
+.subheadline {
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  line-height: 1.55;
+  color: var(--_fg-muted);
+  margin: 0 0 1rem;
+  max-width: 40ch;
+}
+.hero[data-align='center'] .subheadline {
+  margin-left: auto;
+  margin-right: auto;
+}
+.subheadline2 {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--_fg-muted);
+  margin: 0 0 1rem;
+  max-width: 44ch;
+}
+
+/* ---- CTAs ---- */
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+.hero[data-align='center'] .ctaRow {
+  justify-content: center;
+}
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--cta-border-radius, 50px);
+  background: var(--brand-primary);
+  color: var(--accent-ink);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+.ctaPrimary:hover {
+  background: var(--brand-primary-dark);
+  transform: translateY(-1px);
+}
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.85rem 0.5rem;
+  color: var(--_fg);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  border-bottom: 2px solid currentColor;
+  border-radius: 2px;
+}
+.ctaSecondary:hover {
+  color: var(--accent-gold);
+}
+.ctaPrimary:focus-visible,
+.ctaSecondary:focus-visible {
+  outline: 3px solid var(--brand-primary);
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: clamp(28rem, 80vh, 40rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctaPrimary,
+  .ctaSecondary {
+    transition: none;
+  }
+}

@@ -43,9 +43,16 @@ const BUDGETS = {
   // Anything above 650 KB likely means a heavy library landed in framework.
   maxAssetKB: 650,
 
-  // Total bytes across all .js chunks. Baseline ~3000 KB. 3700 KB ceiling
-  // = ~23% headroom. Catches accidental 500-KB+ library imports.
-  maxTotalJsKB: 3700,
+  // Total bytes across all .js chunks. Baseline ~3000 KB.
+  // Recalibrated 2026-06-17 (cinematic redesign): 3700 → 3950 KB. The GSAP +
+  // Three.js cinematic hero adds one DELIBERATE, SHARED, LAZY async chunk
+  // (~547 KB raw / ~147 KB gzip — `three` core, named-export tree-shaken, no
+  // examples/loaders) reached only via dynamic import() in useWebGLScene, so it
+  // is NOT in the initial/critical JS (peak single asset stays 547 KB < 650 KB
+  // cap; LCP unaffected). The total-JS sum counts it regardless. New ceiling
+  // ~3950 KB keeps the guard's purpose (catch ACCIDENTAL heavy imports) while
+  // admitting the one approved library. See docs/audit/PENDING_ALL.md.
+  maxTotalJsKB: 3950,
 
   // Total bytes across all .css chunks. Baseline ~384 KB across 10 files
   // (Tailwind base + design tokens + all CSS modules; Turbopack doesn't

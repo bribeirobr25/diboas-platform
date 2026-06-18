@@ -34,6 +34,16 @@
     touch-action: manipulation;
     overflow-x: hidden;
   }
+
+  /* Cinematic redesign — headings shift to the display face site-wide (body stays
+     Inter). Per-component font-size/line-height/color are unaffected; only the
+     family + a subtle tightening change. Heavily QA'd across 4 locales + breakpoints. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-family-heading);
+    letter-spacing: -0.01em;
+  }
 }
 
 @layer utilities {

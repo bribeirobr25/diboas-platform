@@ -29,7 +29,8 @@
     },
     "filterChip": {
       "all": "All tools",
-      "business": "For business"
+      "business": "For business",
+      "ariaLabel": "Filter tools by audience"
     }
   },
   "actions": {

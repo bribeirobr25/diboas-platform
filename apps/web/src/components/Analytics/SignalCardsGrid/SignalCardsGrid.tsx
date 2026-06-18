@@ -7,31 +7,18 @@ interface SignalCardsGridProps {
   expandLabel: string;
   collapseLabel: string;
   pointsLabel: string;
+  /** Accepted for SDK API compatibility; the editorial layout is always a
+   *  single-column table. */
   columns?: 1 | 2 | 4;
   expandable?: boolean;
   className?: string;
 }
 
-export function SignalCardsGrid({
-  groups,
-  expandLabel,
-  collapseLabel,
-  pointsLabel,
-  columns = 2,
-  expandable = true,
-  className,
-}: SignalCardsGridProps) {
+export function SignalCardsGrid({ groups, className }: SignalCardsGridProps) {
   return (
-    <div className={`${styles.grid} ${className ?? ''}`} data-columns={columns}>
+    <div className={`${styles.table} ${className ?? ''}`}>
       {groups.map((g) => (
-        <SignalCard
-          key={g.id}
-          data={g}
-          expandable={expandable}
-          expandLabel={expandLabel}
-          collapseLabel={collapseLabel}
-          pointsLabel={pointsLabel}
-        />
+        <SignalCard key={g.id} data={g} />
       ))}
     </div>
   );

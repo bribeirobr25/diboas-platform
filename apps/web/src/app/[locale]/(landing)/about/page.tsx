@@ -131,7 +131,7 @@ export default async function AboutPage({ params }: LocalePageProps) {
         >
           <div data-section-id="hero-section-about">
             <HeroSection
-              variant="fullBackground"
+              variant="cinematic"
               config={ABOUT_HERO_CONFIG}
               enableAnalytics={true}
               priority={true}

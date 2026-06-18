@@ -1,17 +1,18 @@
+/* Editorial reading copy — Inter, light, ink-soft on cream (02-editorial-motion). */
 .summary {
-  font-family: var(--font-family-primary);
-  color: var(--color-text-primary);
+  font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+  color: var(--editorial-ink-soft);
   margin: 0;
-  max-width: 60ch;
+  max-width: 52ch;
+  font-weight: 400;
 }
 
 .short {
-  font-size: clamp(1.125rem, 1.6vw, 1.25rem);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.5;
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  line-height: 1.55;
 }
 
 .detailed {
-  font-size: var(--font-size-md);
-  line-height: 1.65;
+  font-size: clamp(1.02rem, 1.4vw, 1.2rem);
+  line-height: 1.7;
 }

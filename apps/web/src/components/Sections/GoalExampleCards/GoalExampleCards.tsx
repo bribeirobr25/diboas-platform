@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import dynamic from 'next/dynamic';
 import { useTranslation } from '@diboas/i18n/client';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { ScrollReveal } from '@/components/UI/ScrollReveal';
 import { analyticsService } from '@/lib/analytics';
 import { GoalExampleCard } from './GoalExampleCard';
 import styles from './GoalExampleCards.module.css';
@@ -56,6 +57,7 @@ export const GoalExampleCards = memo(function GoalExampleCards({
     setShowPreDream(false);
   }, []);
 
+  const eyebrow = intl.formatMessage({ id: 'landing-b2c.eyebrows.goals' });
   const heading = intl.formatMessage({ id: 'landing-b2c.goalExamples.heading' });
   const ariaLabel = intl.formatMessage({ id: 'landing-b2c.sections.goalExamples.ariaLabel' });
 
@@ -67,8 +69,9 @@ export const GoalExampleCards = memo(function GoalExampleCards({
         ariaLabel={ariaLabel}
         className={className}
       >
-        <h2 className={styles.heading}>{heading}</h2>
-        <div className={styles.grid}>
+        <p className={`u-eyebrow ${styles.eyebrow}`}>{eyebrow}</p>
+        <h2 className={`u-section-heading ${styles.heading}`}>{heading}</h2>
+        <ScrollReveal stagger as="div" className={styles.grid}>
           {CARD_KEYS.map((key) => (
             <GoalExampleCard
               key={key}
@@ -79,7 +82,7 @@ export const GoalExampleCards = memo(function GoalExampleCards({
               enableAnalytics={enableAnalytics}
             />
           ))}
-        </div>
+        </ScrollReveal>
       </SectionContainer>
 
       {showPreDream && portalContainer

@@ -15,6 +15,8 @@ interface ProseSectionProps {
   enableAnalytics?: boolean;
   className?: string;
   headingLevel?: 'h2' | 'h3';
+  /** Optional kicker rendered above the header (editorial eyebrow). */
+  eyebrow?: string;
 }
 
 export const ProseSection = memo(function ProseSection({
@@ -22,6 +24,7 @@ export const ProseSection = memo(function ProseSection({
   enableAnalytics: _enableAnalytics = true,
   className = '',
   headingLevel: Heading = 'h2',
+  eyebrow,
 }: ProseSectionProps) {
   const { locale } = useLocale();
   const valuesByKey = useMemo(
@@ -35,6 +38,8 @@ export const ProseSection = memo(function ProseSection({
     setImgFailed(true);
   }, []);
 
+  // Eyebrow may come from the prop (explicit override) or the config content.
+  const eyebrowText = eyebrow ?? translated.content.eyebrow;
   const isGenerous = translated.style.verticalPadding === 'generous';
   const hasImage = translated.image?.src && !imgFailed;
   const imagePosition = translated.image?.position || 'right';
@@ -53,11 +58,14 @@ export const ProseSection = memo(function ProseSection({
       ) : null}
 
       {translated.content.header && !(hasImage && isCenteredHeader) && (
-        <Heading
-          className={`${styles.header} ${hasImage ? `${styles.headerWithImage} ${styles.headerInline}` : ''}`}
-        >
-          {translated.content.header}
-        </Heading>
+        <>
+          {eyebrowText ? <p className={`u-eyebrow ${styles.eyebrow}`}>{eyebrowText}</p> : null}
+          <Heading
+            className={`u-section-heading ${styles.header} ${hasImage ? `${styles.headerWithImage} ${styles.headerInline}` : ''}`}
+          >
+            {translated.content.header}
+          </Heading>
+        </>
       )}
 
       {translated.content.paragraphs.map((paragraph: string, index: number) => {
@@ -91,7 +99,7 @@ export const ProseSection = memo(function ProseSection({
 
   if (hasImage) {
     const imageEl = (
-      <div className={styles.imageColumn}>
+      <div className={`u-image-zoom ${styles.imageColumn}`}>
         <Image
           src={translated.image!.src}
           alt={translated.image!.alt}
@@ -111,7 +119,10 @@ export const ProseSection = memo(function ProseSection({
           {translated.content.transitionHook ? (
             <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
           ) : null}
-          <Heading className={`${styles.header} ${styles.headerCentered}`}>
+          {eyebrowText ? (
+            <p className={`u-eyebrow ${styles.eyebrow} ${styles.eyebrowCentered}`}>{eyebrowText}</p>
+          ) : null}
+          <Heading className={`u-section-heading ${styles.header} ${styles.headerCentered}`}>
             {translated.content.header}
           </Heading>
         </>
@@ -124,7 +135,8 @@ export const ProseSection = memo(function ProseSection({
           {translated.content.transitionHook ? (
             <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
           ) : null}
-          <Heading className={`${styles.header} ${styles.headerWithImage}`}>
+          {eyebrowText ? <p className={`u-eyebrow ${styles.eyebrow}`}>{eyebrowText}</p> : null}
+          <Heading className={`u-section-heading ${styles.header} ${styles.headerWithImage}`}>
             {translated.content.header}
           </Heading>
         </div>

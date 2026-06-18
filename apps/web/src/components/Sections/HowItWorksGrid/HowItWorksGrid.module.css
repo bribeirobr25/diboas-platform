@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+.eyebrow {
+  display: block;
+  margin-bottom: var(--spacing-md);
+}
+
 .heading {
   font-family: var(--font-family-heading);
   font-size: var(--font-size-section-title-mobile);
@@ -40,6 +45,20 @@
   border-radius: var(--radius-lg-extra);
   padding: var(--spacing-lg);
   text-align: left;
+  transition:
+    border-color var(--animation-duration-normal) var(--animation-easing-easeout),
+    box-shadow var(--animation-duration-normal) var(--animation-easing-easeout);
+}
+
+.card:hover {
+  border-color: var(--brand-primary);
+  box-shadow: 0 2px 12px var(--shadow-black-light);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
 }
 
 .numberBadge {

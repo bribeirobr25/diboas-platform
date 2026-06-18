@@ -9,8 +9,7 @@
 
 import { useTranslation } from '@diboas/i18n/client';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
-import { PageHeroSection } from '@/components/Sections/PageHeroSection';
-import styles from './ProtocolsHeroSection.module.css';
+import { CinematicHeroFactory } from '@/components/Sections';
 
 const I18N_PREFIX = 'protocols';
 
@@ -25,8 +24,16 @@ export function ProtocolsHeroSection() {
       enableReporting={true}
       context={{ page: 'protocols', variant: 'centered' }}
     >
-      <PageHeroSection headline={t('hero.h1')} subheadline={t('hero.subtitle')} align="center" />
-      <p className={styles.trustLine}>{t('hero.trustLine')}</p>
+      <CinematicHeroFactory
+        scene="particles"
+        theme="dark"
+        align="center"
+        sectionId="hero-protocols"
+        headline={t('hero.h1')}
+        subheadline={t('hero.subtitle')}
+        subheadline2={t('hero.trustLine')}
+        priority
+      />
     </SectionErrorBoundary>
   );
 }

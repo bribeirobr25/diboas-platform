@@ -1,6 +1,7 @@
 'use client';
 
 import { memo, useMemo } from 'react';
+import { useTranslation } from '@diboas/i18n/client';
 import { Check } from '@/components/UI/LucideIcon';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useLocale } from '@/components/Providers';
@@ -33,6 +34,7 @@ export const FeeTable = memo(function FeeTable({
   className = '',
 }: FeeTableProps) {
   const { locale } = useLocale();
+  const intl = useTranslation();
   const valuesByKey = useMemo(
     () => buildAllFeeValues(marketDataService.getSync().platformFees, locale),
     [locale]
@@ -47,10 +49,13 @@ export const FeeTable = memo(function FeeTable({
       className={className}
     >
       <div className={styles.container}>
+        <p className={`u-eyebrow ${styles.eyebrow}`}>
+          {intl.formatMessage({ id: 'landing-b2c.eyebrows.fees' })}
+        </p>
         {translated.content.transitionHook ? (
           <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
         ) : null}
-        <h2 className={styles.title}>{translated.content.title}</h2>
+        <h2 className={`u-section-heading ${styles.title}`}>{translated.content.title}</h2>
         {translated.content.subtitle ? (
           <p className={styles.subtitle}>{translated.content.subtitle}</p>
         ) : null}

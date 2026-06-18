@@ -1,0 +1,1 @@
+export { MarketHeroCanvas } from './MarketHeroCanvas';

@@ -1,4 +1,15 @@
 {
+  "eyebrows": {
+    "math": "DIE RECHNUNG",
+    "goals": "DEINE ZIELE",
+    "story": "UNSERE GESCHICHTE",
+    "howItWorks": "SO FUNKTIONIERT'S",
+    "fees": "WAS DU ZAHLST",
+    "honest": "KEIN HAKEN",
+    "join": "DIE BEWEGUNG",
+    "founder": "WER DAHINTERSTECKT",
+    "faq": "FRAGEN"
+  },
   "hero": {
     "headline": "Das Geldsystem ist nicht kaputt. Es wurde nur nicht für dich gebaut.",
     "subheadline": "Sieh, was 1.000 € in einem Jahr machen, wenn du Zugang zu fairen Chancen hast.",

@@ -1,55 +1,29 @@
-/* Shared regime-palette utilities for SDK components. Maps regime_code to the
-   semantic accessible tokens registered in lib/analytics-sdk/theme.ts (W2 audit
-   contrast-safe). Values resolve via the theme bridge so iteration-5 can swap
-   to real SDK tokens without touching component files. */
+/* Regime palette for the editorial /market pills (02-editorial-motion).
+   Now consumed ONLY by RegimeLabel (RegimeScore + SignalCard no longer use it).
+   Each regime renders as a SOLID editorial pill with the paper-coloured label;
+   fills are deepened where needed so paper text clears WCAG-AA (≥4.5:1). */
 
-.regimeColorVERY_FAVORABLE {
-  color: var(--text-success-accessible);
-}
-
-.regimeColorCONSTRUCTIVE {
-  color: var(--text-brand-accessible);
-}
-
-.regimeColorNEUTRAL_MIXED {
-  color: var(--color-text-secondary);
-}
-
-.regimeColorDEFENSIVE {
-  /* Pa11y fix 2026-05-30: was --color-amber-700 (#b45309) at 4.45:1 on the
-   * 8% amber-tinted background — failed AA. --text-warning-accessible (amber-800,
-   * #92400e) is 6.35:1 on the same tint. Surfaced when the live regime flipped
-   * from CONSTRUCTIVE to DEFENSIVE. See design-tokens.css for the contrast math. */
-  color: var(--text-warning-accessible);
-}
-
+.regimeColorVERY_FAVORABLE,
+.regimeColorCONSTRUCTIVE,
+.regimeColorNEUTRAL_MIXED,
+.regimeColorDEFENSIVE,
 .regimeColorHOSTILE {
-  color: var(--text-error-accessible);
+  color: var(--editorial-paper);
 }
 
-/* Background alpha lowered from 12% → 8% (iter-4 §3.1 pa11y fix):
-   same-hue text on same-hue tinted background needs lighter background
-   to maintain WCAG-AA 4.5:1 contrast. Matches the ConfidenceBadge pattern
-   established in iter-2 (same accessibility audit class). */
-.regimeFillVERY_FAVORABLE {
-  background-color: color-mix(in srgb, var(--text-success-accessible) 8%, transparent);
-}
-
+.regimeFillVERY_FAVORABLE,
 .regimeFillCONSTRUCTIVE {
-  background-color: color-mix(in srgb, var(--text-brand-accessible) 8%, transparent);
+  background-color: var(--editorial-teal); /* paper on teal ≈ 5.1:1 */
 }
 
 .regimeFillNEUTRAL_MIXED {
-  background-color: color-mix(in srgb, var(--color-text-secondary) 8%, transparent);
+  background-color: var(--editorial-ink-soft);
 }
 
 .regimeFillDEFENSIVE {
-  /* Pa11y fix 2026-05-30: same-token symmetry with the text color (above) — other
-   * regimes use the same accessible token for both text and fill. amber-800 at 8%
-   * over white = ~#f6efec; amber-800 text on that = 6.25:1. */
-  background-color: color-mix(in srgb, var(--text-warning-accessible) 8%, transparent);
+  background-color: var(--editorial-defensive); /* deep copper */
 }
 
 .regimeFillHOSTILE {
-  background-color: color-mix(in srgb, var(--text-error-accessible) 8%, transparent);
+  background-color: var(--editorial-hostile); /* rust */
 }

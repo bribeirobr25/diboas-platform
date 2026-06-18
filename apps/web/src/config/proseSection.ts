@@ -7,6 +7,8 @@
 
 export interface ProseSectionConfig {
   readonly content: {
+    /** Optional editorial eyebrow/kicker rendered above the header. */
+    readonly eyebrow?: string;
     readonly transitionHook?: string;
     readonly header?: string;
     readonly paragraphs: readonly string[];

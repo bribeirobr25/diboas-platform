@@ -7,6 +7,7 @@ import { analyticsService } from '@/lib/analytics';
 import { LESSON_EVENTS } from '@/lib/learn';
 import { LocaleLink } from '@/components/UI/LocaleLink';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { CinematicHeroFactory } from '@/components/Sections/CinematicHero';
 import { LessonRoadmap } from '@/components/Sections/LessonRoadmap';
 import styles from './LearnIndex.module.css';
 
@@ -32,12 +33,16 @@ export function LearnIndex({ enableAnalytics = true }: LearnIndexProps) {
 
   return (
     <article className={styles.page}>
-      <SectionContainer variant="standard" padding="standard" as="section">
-        <div className={styles.header}>
-          <h1 className={styles.h1}>{t('index.h1')}</h1>
-          <p className={styles.subhead}>{t('index.subhead')}</p>
-        </div>
-      </SectionContainer>
+      <CinematicHeroFactory
+        scene="fluid"
+        theme="lighter"
+        align="center"
+        sectionId="hero-learn"
+        headline={t('index.h1')}
+        accentHeadline
+        subheadline={t('index.subhead')}
+        priority
+      />
 
       <SectionContainer variant="standard" padding="standard" as="section">
         <div className={styles.lessonsBlock}>

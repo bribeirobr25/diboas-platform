@@ -1,4 +1,15 @@
 {
+  "eyebrows": {
+    "math": "THE MATH",
+    "goals": "YOUR GOALS",
+    "story": "OUR STORY",
+    "howItWorks": "HOW IT WORKS",
+    "fees": "WHAT YOU PAY",
+    "honest": "NO CATCH",
+    "join": "JOIN THE MOVEMENT",
+    "founder": "WHO BUILT THIS",
+    "faq": "QUESTIONS"
+  },
   "hero": {
     "headline": "The money system isn't broken. It just wasn't built for you.",
     "subheadline": "See what $1,000 does in a year when you have access to fair opportunities.",

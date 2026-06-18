@@ -4,6 +4,7 @@ import { memo, useEffect, useRef, useMemo } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { CountUp } from '@/components/UI/CountUp';
 import { analyticsService } from '@/lib/analytics';
 import { useMarketData } from '@/hooks/useMarketData';
 import {
@@ -66,17 +67,19 @@ function useComparisonData(locale: SupportedLocale) {
       diboasReturn = calculateLumpSum(principal, diboasApy / 100, 0, 1).nominalGain;
     }
 
-    const returns = {
-      bank: formatGain(bankReturn, locale),
-      neobanks: formatGain(neobankReturn, locale),
-      treasuries: formatGain(treasuryReturn, locale),
-      diboas: formatGain(diboasReturn, locale),
+    // Raw return amounts — the cells animate to these via <CountUp> and format
+    // each frame with formatGain(), so no pre-formatted `returns` map is needed.
+    const returnsRaw = {
+      bank: bankReturn,
+      neobanks: neobankReturn,
+      treasuries: treasuryReturn,
+      diboas: diboasReturn,
     };
 
-    // diBoaS subtext — show "em dolares" for PT-BR, empty for others
+    // diBoaS subtext \u2014 show "em d\u00F3lares" for PT-BR, empty for others
     const diboasSubtext = locale === 'pt-BR' ? 'em d\u00F3lares' : '';
 
-    return { rates, returns, diboasSubtext };
+    return { rates, returnsRaw, diboasSubtext };
   }, [marketData, locale]);
 }
 
@@ -95,7 +98,7 @@ export const ComparisonTable = memo(function ComparisonTable({
   const tSection = (key: string) =>
     intl.formatMessage({ id: `landing-b2c.sections.comparison.${key}` });
 
-  const { rates, returns, diboasSubtext } = useComparisonData(locale);
+  const { rates, returnsRaw, diboasSubtext } = useComparisonData(locale);
   const hasExtraDiboasInfo = diboasSubtext.length > 0;
 
   // Analytics: fire once when section enters viewport
@@ -130,7 +133,10 @@ export const ComparisonTable = memo(function ComparisonTable({
       className={className}
     >
       <div ref={sectionRef} className={styles.container}>
-        <h2 className={styles.heading}>{t('heading')}</h2>
+        <p className={`u-eyebrow ${styles.eyebrow}`}>
+          {intl.formatMessage({ id: 'landing-b2c.eyebrows.math' })}
+        </p>
+        <h2 className={`u-section-heading ${styles.heading}`}>{t('heading')}</h2>
 
         {/* Desktop: HTML table */}
         <div className={styles.tableWrapper} role="region" aria-label={tSection('ariaLabel')}>
@@ -173,7 +179,7 @@ export const ComparisonTable = memo(function ComparisonTable({
                     key={col}
                     className={`${styles.td} ${styles.mono} ${col === 'diboas' ? styles.tdHighlight : ''}`}
                   >
-                    {returns[col]}
+                    <CountUp end={returnsRaw[col]} formatter={(n) => formatGain(n, locale)} />
                   </td>
                 ))}
               </tr>
@@ -195,7 +201,9 @@ export const ComparisonTable = memo(function ComparisonTable({
                   <span className={styles.mobileRowSubtext}>{diboasSubtext}</span>
                 ) : null}
               </span>
-              <span className={`${styles.mobileRowReturn} ${styles.mono}`}>{returns[col]}</span>
+              <span className={`${styles.mobileRowReturn} ${styles.mono}`}>
+                <CountUp end={returnsRaw[col]} formatter={(n) => formatGain(n, locale)} />
+              </span>
             </div>
           ))}
         </div>

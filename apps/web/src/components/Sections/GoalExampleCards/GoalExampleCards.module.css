@@ -3,6 +3,12 @@
  * 2x2 grid desktop, stacked mobile. Expandable cards with CSS transition.
  */
 
+.eyebrow {
+  display: block;
+  text-align: center;
+  margin: 0 0 var(--spacing-md) 0;
+}
+
 .heading {
   font-family: var(--font-family-display);
   font-size: var(--font-size-section-title-mobile);

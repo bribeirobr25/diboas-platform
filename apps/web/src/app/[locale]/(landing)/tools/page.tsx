@@ -128,6 +128,7 @@ export default async function ToolsLandingPage({ params, searchParams }: ToolsPa
           filterChip: {
             all: get('tools-shared.landing.filterChip.all'),
             business: get('tools-shared.landing.filterChip.business'),
+            ariaLabel: get('tools-shared.landing.filterChip.ariaLabel'),
           },
         }}
       />

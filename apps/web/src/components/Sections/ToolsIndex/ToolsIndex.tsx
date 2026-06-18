@@ -8,6 +8,7 @@
  */
 
 import { LocaleLink } from '@/components/UI/LocaleLink';
+import { CinematicHeroFactory } from '@/components/Sections/CinematicHero';
 import {
   Palmtree,
   ShieldCheck,
@@ -38,7 +39,7 @@ interface ToolsIndexProps {
     /** Per-tool card copy keyed by ToolKey. */
     cards: Partial<Record<ToolKey, { title: string; tagline: string }>>;
     /** Filter chip labels (Phase 6E.tools-page-integration). */
-    filterChip: { all: string; business: string };
+    filterChip: { all: string; business: string; ariaLabel: string };
   };
 }
 
@@ -67,38 +68,46 @@ export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexPro
 
   return (
     <main className={styles.page}>
-      <header className={styles.hero}>
-        <p className={styles.kicker}>{copy.heroKicker}</p>
-        <h1 className={styles.headline}>{copy.heroHeadline}</h1>
-        <p className={styles.subtitle}>{copy.heroSubtitle}</p>
-      </header>
+      <CinematicHeroFactory
+        scene="particles"
+        theme="lighter"
+        align="center"
+        sectionId="hero-tools"
+        eyebrow={copy.heroKicker}
+        headline={copy.heroHeadline}
+        subheadline={copy.heroSubtitle}
+        priority
+      />
 
-      {hasBusinessTools && (
-        <nav className={styles.filterChips} aria-label="Filter tools by audience">
-          <LocaleLink
-            href="/tools"
-            className={audienceFilter === null ? styles.filterChipActive : styles.filterChip}
-            prefetch={false}
-            aria-current={audienceFilter === null ? 'page' : undefined}
-          >
-            {copy.filterChip.all}
-          </LocaleLink>
-          <LocaleLink
-            href="/tools?for=business"
-            className={audienceFilter === 'business' ? styles.filterChipActive : styles.filterChip}
-            prefetch={false}
-            aria-current={audienceFilter === 'business' ? 'page' : undefined}
-          >
-            {copy.filterChip.business}
-          </LocaleLink>
-        </nav>
-      )}
+      {/* The hero is full-bleed; the rest of the page stays in a centred,
+          width-capped column (the hero owns its own internal container). */}
+      <div className={styles.body}>
+        {hasBusinessTools && (
+          <nav className={styles.filterChips} aria-label={copy.filterChip.ariaLabel}>
+            <LocaleLink
+              href="/tools"
+              className={audienceFilter === null ? styles.filterChipActive : styles.filterChip}
+              prefetch={false}
+              aria-current={audienceFilter === null ? 'page' : undefined}
+            >
+              {copy.filterChip.all}
+            </LocaleLink>
+            <LocaleLink
+              href="/tools?for=business"
+              className={audienceFilter === 'business' ? styles.filterChipActive : styles.filterChip}
+              prefetch={false}
+              aria-current={audienceFilter === 'business' ? 'page' : undefined}
+            >
+              {copy.filterChip.business}
+            </LocaleLink>
+          </nav>
+        )}
 
-      {/* A16/O-2: `data-section-id` makes the tool-card area observable by the
-          global ScrollDepthTracker (landing layout), which emits
-          `section_viewed` — uniform with every other section impression. */}
-      <div className={styles.sections} data-section-id="tool_cards">
-        {visibleSections.map((section) => {
+        {/* A16/O-2: `data-section-id` makes the tool-card area observable by the
+            global ScrollDepthTracker (landing layout), which emits
+            `section_viewed` — uniform with every other section impression. */}
+        <div className={styles.sections} data-section-id="tool_cards">
+          {visibleSections.map((section) => {
           const sectionTools = shippedTools.filter(
             (key) => TOOL_DESCRIPTORS[key].section === section
           );
@@ -131,7 +140,8 @@ export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexPro
               </div>
             </section>
           );
-        })}
+          })}
+        </div>
       </div>
     </main>
   );

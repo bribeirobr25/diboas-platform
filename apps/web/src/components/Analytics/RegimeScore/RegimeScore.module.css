@@ -1,20 +1,66 @@
 .wrapper {
-  display: inline-flex;
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.gauge {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.track {
+  stroke: var(--editorial-line);
+}
+.value {
+  stroke: url(#market-gauge-track);
+  transition: none;
+}
+.needle {
+  stroke: var(--editorial-ink);
+}
+.hub {
+  fill: var(--editorial-ink);
+}
+.tick {
+  fill: var(--editorial-ink-soft);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 13px;
+}
+.stop0 {
+  stop-color: var(--editorial-copper);
+}
+.stop1 {
+  stop-color: var(--editorial-copper-soft);
+}
+.stop2 {
+  stop-color: var(--editorial-teal);
+}
+
+/* Score readout — sits in the centre of the bowl, above the needle hub. */
+.readout {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 46%;
+  display: flex;
   align-items: baseline;
-  gap: 0.25rem;
-  font-family: var(--font-family-primary);
-  font-feature-settings: 'tnum';
+  justify-content: center;
+  gap: 0.3rem;
 }
-
 .score {
-  font-size: clamp(3rem, 7vw, 4.5rem);
-  font-weight: var(--font-weight-bold);
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: clamp(3.5rem, 10vw, 6rem);
+  font-weight: 500;
+  line-height: 0.9;
+  color: var(--editorial-ink);
+  font-variant-numeric: tabular-nums;
 }
-
 .max {
-  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-secondary);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 1.05rem;
+  color: var(--editorial-ink-soft);
 }

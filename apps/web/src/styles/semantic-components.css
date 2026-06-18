@@ -182,7 +182,7 @@ a:focus-visible {
 }
 
 .brand-logo {
-  @apply flex items-center space-x-2 rounded-full overflow-hidden;
+  @apply flex items-center;
 }
 
 .brand-logo img {
@@ -1358,6 +1358,59 @@ a:focus-visible {
   transform: translateY(0) !important;
 }
 
+/* Tokenized reveal base (was inline in ScrollReveal.tsx). The wrapper fades up;
+   `.is-visible` (above) flips it to the final state. */
+.scroll-reveal-base {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--animation-duration-slow) var(--animation-easing-easeout),
+    transform var(--animation-duration-slow) var(--animation-easing-easeout);
+}
+
+/* Staggered children: the wrapper stays put; its DIRECT children reveal in
+   sequence once the wrapper gains `.is-visible`. Step is configurable via the
+   `--stagger-step` custom property set by the component. */
+.scroll-reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--animation-duration-slow) var(--animation-easing-easeout),
+    transform var(--animation-duration-slow) var(--animation-easing-easeout);
+}
+.scroll-reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+.scroll-reveal-stagger.is-visible > *:nth-child(2) {
+  transition-delay: calc(1 * var(--stagger-step, 80ms));
+}
+.scroll-reveal-stagger.is-visible > *:nth-child(3) {
+  transition-delay: calc(2 * var(--stagger-step, 80ms));
+}
+.scroll-reveal-stagger.is-visible > *:nth-child(4) {
+  transition-delay: calc(3 * var(--stagger-step, 80ms));
+}
+.scroll-reveal-stagger.is-visible > *:nth-child(5) {
+  transition-delay: calc(4 * var(--stagger-step, 80ms));
+}
+.scroll-reveal-stagger.is-visible > *:nth-child(6) {
+  transition-delay: calc(5 * var(--stagger-step, 80ms));
+}
+.scroll-reveal-stagger.is-visible > *:nth-child(n + 7) {
+  transition-delay: calc(6 * var(--stagger-step, 80ms));
+}
+
+/* No hidden flash for reduced-motion / no-JS users — force the final state. */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal-base,
+  .scroll-reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* =================================================================== */
 /* STICKY MOBILE CTA BAR */
 /* =================================================================== */
@@ -1404,6 +1457,10 @@ a:focus-visible {
  * still gives a subtle press affordance. */
 .minimal-navigation-bar.nav-transparent .minimal-nav-link {
   color: var(--color-white);
+  /* Keep white links legible over the brighter pockets of a photo/gradient hero
+     (e.g. the B2C dawn-water sky). Mirrors the white text-shadow used by the
+     on-light variant below. */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
 }
 
 .minimal-navigation-bar.nav-transparent .minimal-nav-link:hover {
@@ -1413,6 +1470,8 @@ a:focus-visible {
 
 .minimal-navigation-bar.nav-transparent .minimal-nav-hamburger {
   color: var(--color-white);
+  /* text-shadow does not reach the SVG stroke — use drop-shadow for the icon. */
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
 }
 
 .minimal-navigation-bar.nav-transparent .minimal-nav-hamburger:hover {
@@ -1450,10 +1509,209 @@ a:focus-visible {
   background-color: var(--color-slate-50);
 }
 
+/* Cinematic redesign — transparent nav over a LIGHT hero (About/Strategies/
+   Tools/Learn). The default nav-transparent uses white links (over-dark heroes);
+   on a light hero we need dark links. Slate-800 is AA on light; the white
+   text-shadow preserves legibility over any darker pockets of the hero. */
+.minimal-navigation-bar.nav-transparent.nav-transparent--on-light .minimal-nav-link,
+.minimal-navigation-bar.nav-transparent.nav-transparent--on-light .minimal-nav-hamburger {
+  color: var(--color-slate-800);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.65);
+}
+/* Replace the over-dark icon drop-shadow with a light one so the dark hamburger
+   stays crisp over a light hero (symmetry with the link text-shadow above). */
+.minimal-navigation-bar.nav-transparent.nav-transparent--on-light .minimal-nav-hamburger {
+  filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.65));
+}
+.minimal-navigation-bar.nav-transparent.nav-transparent--on-light .minimal-nav-link:hover {
+  color: var(--text-brand-accessible);
+  background-color: rgba(15, 23, 42, 0.06);
+}
+.minimal-navigation-bar.nav-transparent.nav-transparent--on-light .minimal-nav-hamburger:hover {
+  color: var(--text-brand-accessible);
+  background-color: rgba(15, 23, 42, 0.06);
+}
+
+/* Cinematic skin — subtle display-era tracking on the nav links. */
+.minimal-navigation-bar.nav-cinematic .minimal-nav-link {
+  letter-spacing: 0.01em;
+}
+
+/* =================================================================== */
+/* CINEMATIC REDESIGN #1 — WORDMARK + GOLD PILL CTA + LANG SWITCHER     */
+/* =================================================================== */
+
+/* Text wordmark (replaces the icon logo) — Space Grotesk, per data-cinematic.
+   Colour adapts to the hero theme exactly like the nav links. */
+.brand-wordmark {
+  font-family: var(--font-family-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-text-heading);
+}
+.minimal-navigation-bar.nav-transparent .brand-wordmark {
+  color: var(--color-white);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+.minimal-navigation-bar.nav-transparent.nav-transparent--on-light .brand-wordmark {
+  color: var(--color-slate-900);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.65);
+}
+.minimal-navigation-bar.nav-solid .brand-wordmark {
+  color: var(--color-text-heading);
+  text-shadow: none;
+}
+
+/* Try Demo — coastal-style filled gold pill. Double class beats the
+   @diboas/ui .btn-primary variant without !important. Ink-on-gold ≈ 8:1. */
+.minimal-nav-cta.minimal-nav-cta {
+  background: var(--cta-gold);
+  color: var(--accent-ink);
+  border: 1px solid var(--cta-gold);
+  border-radius: 999px;
+  box-shadow: 0 8px 28px rgba(232, 161, 75, 0.3);
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+.minimal-nav-cta.minimal-nav-cta:hover {
+  background: var(--cta-gold-hover);
+  border-color: var(--cta-gold-hover);
+  box-shadow: 0 12px 36px rgba(232, 161, 75, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Language switcher trigger — matching gold outline pill (nav desktop only).
+   Resting colour uses the AA-safe darker gold so it passes on the light/solid
+   nav; over a dark hero it brightens to the CTA gold. Hover fills gold. */
+.minimal-nav-lang-desktop button[aria-haspopup='true'] {
+  border: 1px solid var(--text-gold-accessible);
+  color: var(--text-gold-accessible);
+  background: transparent;
+  border-radius: 999px;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+.minimal-navigation-bar.nav-transparent:not(.nav-transparent--on-light)
+  .minimal-nav-lang-desktop
+  button[aria-haspopup='true'] {
+  border-color: var(--cta-gold);
+  color: var(--cta-gold);
+}
+.minimal-nav-lang-desktop button[aria-haspopup='true']:hover {
+  background: var(--cta-gold);
+  border-color: var(--cta-gold);
+  color: var(--accent-ink);
+}
+
 /* Reduced motion — no transition */
 @media (prefers-reduced-motion: reduce) {
   .minimal-navigation-bar.nav-transparent,
   .minimal-navigation-bar.nav-solid {
     transition: none;
+  }
+}
+
+/* =================================================================== */
+/* MODERN SECTION UTILITIES (B2C home modernization)                   */
+/* Shared, tokenized vocabulary for section headers + micro-hover.     */
+/* Every animated utility zeroes out under prefers-reduced-motion.     */
+/* =================================================================== */
+
+/* Mono uppercase kicker above a section heading. Colour is set by the
+   consuming section (light → --text-brand-accessible, cream → --editorial-
+   copper-text, dark → --scene-gold / --scene-emerald), so callers add the
+   colour; this only owns the type treatment. */
+.u-eyebrow {
+  display: inline-block;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-brand-accessible);
+}
+
+/* Display-face section heading rhythm to match the cinematic heroes. */
+.u-section-heading {
+  font-family: var(--font-family-display);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* Card / panel hover lift. */
+.u-hover-lift {
+  transition:
+    transform var(--animation-duration-normal) var(--animation-easing-easeout),
+    box-shadow var(--animation-duration-normal) var(--animation-easing-easeout);
+}
+.u-hover-lift:hover,
+.u-hover-lift:focus-within {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Image zoom-on-hover — put on a clipping wrapper around a <figure>/<img>. */
+.u-image-zoom {
+  overflow: hidden;
+}
+.u-image-zoom img {
+  transition: transform var(--animation-duration-slow) var(--animation-easing-easeout);
+}
+.u-image-zoom:hover img,
+.u-image-zoom:focus-within img {
+  transform: scale(1.04);
+}
+
+/* Animated underline that grows on hover/focus (links). */
+.u-link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size var(--animation-duration-normal) var(--animation-easing-easeout);
+}
+.u-link-underline:hover,
+.u-link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* Nudge a trailing icon (e.g. "Try the demo →") when the parent is hovered. */
+.u-icon-nudge svg {
+  transition: transform var(--animation-duration-normal) var(--animation-easing-easeout);
+}
+.u-icon-nudge:hover svg,
+.u-icon-nudge:focus-visible svg {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .u-hover-lift,
+  .u-image-zoom img,
+  .u-link-underline,
+  .u-icon-nudge svg {
+    transition: none;
+  }
+  .u-hover-lift:hover,
+  .u-hover-lift:focus-within {
+    transform: none;
+  }
+  .u-image-zoom:hover img,
+  .u-image-zoom:focus-within img {
+    transform: none;
+  }
+  .u-link-underline:hover,
+  .u-link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+  .u-icon-nudge:hover svg,
+  .u-icon-nudge:focus-visible svg {
+    transform: none;
   }
 }

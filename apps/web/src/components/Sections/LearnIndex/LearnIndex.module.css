@@ -1,44 +1,8 @@
+/* Full-bleed wrapper — the CinematicHero spans the viewport; body sections use
+   their own SectionContainer width caps. */
 .page {
   display: flex;
   flex-direction: column;
-}
-
-.header {
-  max-width: 640px;
-  margin: 0 auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.h1 {
-  font-family: var(--font-family-display);
-  font-size: var(--font-size-title-mobile);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-title);
-  color: var(--color-section-title);
-  margin: 0;
-  letter-spacing: var(--letter-spacing-tight);
-}
-
-@media (min-width: 768px) {
-  .h1 {
-    font-size: var(--font-size-title-tablet);
-  }
-}
-@media (min-width: 1024px) {
-  .h1 {
-    font-size: var(--font-size-title-desktop);
-  }
-}
-
-.subhead {
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-lg);
-  line-height: 1.5;
-  color: var(--color-slate-700);
-  margin: 0;
 }
 
 .lessonsBlock {

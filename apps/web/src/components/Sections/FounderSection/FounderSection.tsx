@@ -2,6 +2,7 @@
 
 import { memo, useState, useCallback } from 'react';
 import Image from 'next/image';
+import { useTranslation } from '@diboas/i18n/client';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
 import type { FounderSectionConfig } from '@/config/founderSection';
@@ -19,6 +20,7 @@ export const FounderSection = memo(function FounderSection({
   className = '',
 }: FounderSectionProps) {
   const translated = useConfigTranslation(config);
+  const intl = useTranslation();
   const [imgFailed, setImgFailed] = useState(false);
 
   const handleImageError = useCallback(() => {
@@ -37,7 +39,7 @@ export const FounderSection = memo(function FounderSection({
     >
       <div className={hasImage ? styles.withImage : styles.textOnly}>
         {hasImage ? (
-          <div className={styles.imageColumn}>
+          <div className={`u-image-zoom ${styles.imageColumn}`}>
             <Image
               src={translated.image!.src}
               alt={translated.image!.alt}
@@ -51,7 +53,10 @@ export const FounderSection = memo(function FounderSection({
         ) : null}
 
         <div className={styles.textColumn}>
-          <h3 className={styles.header}>{translated.content.header}</h3>
+          <p className={`u-eyebrow ${styles.eyebrow}`}>
+            {intl.formatMessage({ id: 'landing-b2c.eyebrows.founder' })}
+          </p>
+          <h3 className={`u-section-heading ${styles.header}`}>{translated.content.header}</h3>
 
           {translated.content.paragraphs.map((paragraph: string, index: number) => (
             // Stable: paragraphs come from translation file, never reorder.

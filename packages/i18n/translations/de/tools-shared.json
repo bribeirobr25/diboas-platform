@@ -29,7 +29,8 @@
     },
     "filterChip": {
       "all": "Alle Tools",
-      "business": "Für Unternehmen"
+      "business": "Für Unternehmen",
+      "ariaLabel": "Tools nach Zielgruppe filtern"
     }
   },
   "actions": {

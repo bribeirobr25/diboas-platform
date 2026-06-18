@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { headers } from 'next/headers';
-import { Inter, Geist } from 'next/font/google';
+import { Inter, Geist, Space_Grotesk, Fraunces, IBM_Plex_Mono } from 'next/font/google';
 import { BRAND_CONFIG } from '@/config/brand';
 import { UI_LAYOUT_CONSTANTS } from '@/config/ui-constants';
 import { WebVitalsTracker } from '@/components/Performance/WebVitalsTracker';
@@ -25,6 +25,38 @@ const geist = Geist({
   display: 'swap',
   preload: true,
   fallback: ['system-ui', 'arial'],
+});
+
+// Space Grotesk — display/heading face for the cinematic redesign.
+// Self-hosted at build time via next/font (GDPR/CSP-safe; no runtime Google Fonts).
+const spaceGrotesk = Space_Grotesk({
+  variable: '--font-space-grotesk',
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+  weight: ['500', '600', '700'],
+  fallback: ['system-ui', 'arial'],
+  adjustFontFallback: true,
+});
+
+// Fraunces (serif) + IBM Plex Mono — the editorial typeface system for /market
+// ("Adelaide Daily"), replicating 02-editorial-motion. Self-hosted via next/font.
+// Not preloaded: only /market uses them, so they load on-demand for that route.
+const fraunces = Fraunces({
+  variable: '--font-fraunces',
+  subsets: ['latin'],
+  display: 'swap',
+  axes: ['opsz'],
+  style: ['normal', 'italic'],
+  fallback: ['Georgia', 'serif'],
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: '--font-ibm-plex-mono',
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500', '600'],
+  fallback: ['ui-monospace', 'monospace'],
 });
 
 export const viewport: Viewport = {
@@ -79,7 +111,11 @@ export default async function RootLayout({
   const htmlLang = headersList.get('x-locale') ?? UI_LAYOUT_CONSTANTS.DEFAULT_LOCALE;
 
   return (
-    <html lang={htmlLang} suppressHydrationWarning>
+    <html
+      lang={htmlLang}
+      className={`${inter.variable} ${geist.variable} ${spaceGrotesk.variable} ${fraunces.variable} ${ibmPlexMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <meta charSet="utf-8" />
         {/*
@@ -167,7 +203,7 @@ export default async function RootLayout({
         )}
       </head>
       <body
-        className={`${UI_LAYOUT_CONSTANTS.BODY_BASE_CLASS} ${inter.variable} ${geist.variable}`}
+        className={UI_LAYOUT_CONSTANTS.BODY_BASE_CLASS}
         suppressHydrationWarning
       >
         <PostHogProvider>

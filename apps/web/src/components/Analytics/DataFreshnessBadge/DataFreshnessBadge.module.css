@@ -1,41 +1,40 @@
+/* Editorial data-source pill (02-editorial-motion) — mono, hairline border on
+   paper, status-tinted icon. */
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: var(--spacing-2xs) 0.5rem;
-  border-radius: var(--radius-sm);
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-slate-200);
+  gap: 8px;
+  padding: 9px 15px;
+  border-radius: 8px;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 12.5px;
+  color: var(--editorial-ink);
+  border: 1px solid var(--editorial-line);
+  background-color: var(--editorial-paper);
 }
 
-.badge[data-status='fresh'] {
-  color: var(--text-success-accessible);
-  border-color: color-mix(in srgb, var(--text-success-accessible) 30%, transparent);
+.badge[data-status='fresh'] svg {
+  color: var(--editorial-teal);
 }
-
-.badge[data-status='delayed'] {
-  color: var(--color-amber-700);
-  border-color: color-mix(in srgb, var(--color-amber-700) 30%, transparent);
+.badge[data-status='delayed'] svg {
+  color: var(--editorial-copper);
 }
-
-.badge[data-status='stale'],
-.badge[data-status='unavailable'] {
-  color: var(--text-error-accessible);
-  border-color: color-mix(in srgb, var(--text-error-accessible) 30%, transparent);
+.badge[data-status='stale'] svg,
+.badge[data-status='unavailable'] svg {
+  color: var(--editorial-hostile);
 }
 
 .source {
-  font-weight: var(--font-weight-semibold);
+  font-weight: 500;
 }
 
 .divider {
-  color: var(--color-text-secondary);
+  color: var(--editorial-ink-soft);
 }
 
 .statusLabel {
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+  color: var(--editorial-ink-soft);
 }

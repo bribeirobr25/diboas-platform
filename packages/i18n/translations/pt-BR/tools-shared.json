@@ -29,7 +29,8 @@
     },
     "filterChip": {
       "all": "Todas as ferramentas",
-      "business": "Para empresas"
+      "business": "Para empresas",
+      "ariaLabel": "Filtrar ferramentas por público"
     }
   },
   "actions": {

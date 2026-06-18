@@ -113,6 +113,17 @@
   line-height: 1.4;
 }
 
+.eyebrow {
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+/* Centered-header layout (e.g. the Catch): the eyebrow becomes a centered
+   block so it aligns over the centered heading instead of sitting flush-left. */
+.eyebrowCentered {
+  display: block;
+  text-align: center;
+}
+
 /* ================================
    TWO-COLUMN IMAGE LAYOUT
    ================================ */
@@ -149,6 +160,8 @@
   width: 100%;
   max-width: 400px;
   flex-shrink: 0;
+  /* Match the image radius so u-image-zoom clips the hover scale cleanly. */
+  border-radius: var(--radius-xl);
 }
 
 @media (min-width: 768px) {

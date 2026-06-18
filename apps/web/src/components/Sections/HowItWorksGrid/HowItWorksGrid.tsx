@@ -3,6 +3,7 @@
 import { memo, useEffect, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { ScrollReveal } from '@/components/UI/ScrollReveal';
 import { analyticsService } from '@/lib/analytics';
 import styles from './HowItWorksGrid.module.css';
 
@@ -65,9 +66,12 @@ export const HowItWorksGrid = memo(function HowItWorksGrid({
       className={className}
     >
       <div ref={sectionRef} className={styles.container}>
-        <h2 className={styles.heading}>{t('header')}</h2>
+        <p className={`u-eyebrow ${styles.eyebrow}`}>
+          {intl.formatMessage({ id: 'landing-b2c.eyebrows.howItWorks' })}
+        </p>
+        <h2 className={`u-section-heading ${styles.heading}`}>{t('header')}</h2>
 
-        <div className={styles.grid}>
+        <ScrollReveal stagger as="div" className={styles.grid}>
           {CARD_KEYS.map((key, index) => (
             <article key={key} className={styles.card}>
               <div className={styles.numberBadge} aria-hidden="true">
@@ -78,7 +82,7 @@ export const HowItWorksGrid = memo(function HowItWorksGrid({
               {hasMessage(`${key}.p2`) ? <p className={styles.cardText}>{t(`${key}.p2`)}</p> : null}
             </article>
           ))}
-        </div>
+        </ScrollReveal>
       </div>
     </SectionContainer>
   );

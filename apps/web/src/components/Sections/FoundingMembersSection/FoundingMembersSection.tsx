@@ -56,7 +56,10 @@ export const FoundingMembersSection = memo(function FoundingMembersSection({
       className={className}
     >
       <div className={styles.container}>
-        <h3 className={styles.heading}>{t('header')}</h3>
+        <p className={`u-eyebrow ${styles.eyebrow}`}>
+          {intl.formatMessage({ id: 'landing-b2c.eyebrows.join' })}
+        </p>
+        <h3 className={`u-section-heading ${styles.heading}`}>{t('header')}</h3>
         <p className={styles.description}>{t('subtext')}</p>
 
         {hasCount ? (

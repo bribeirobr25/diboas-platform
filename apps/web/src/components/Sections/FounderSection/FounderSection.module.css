@@ -27,9 +27,17 @@
 
 .imageColumn {
   flex-shrink: 0;
+  border-radius: var(--radius-full);
+  /* Hairline ring frames the portrait; u-image-zoom clips the hover scale. */
+  box-shadow: 0 0 0 1px var(--shadow-black-light);
+}
+
+.eyebrow {
+  margin: 0 0 var(--spacing-md) 0;
 }
 
 .photo {
+  display: block;
   width: 200px;
   height: 200px;
   border-radius: var(--radius-full);

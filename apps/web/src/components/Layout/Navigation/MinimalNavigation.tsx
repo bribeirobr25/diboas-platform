@@ -15,13 +15,12 @@
  * @see docs/handoffs/cmo/FINAL-B2C-Landing-Page-v4.md - Navigation Structure spec
  */
 
-import { useCallback, useRef, useState } from 'react';
-import Image from 'next/image';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { useTranslation } from '@diboas/i18n/client';
 import { Button } from '@diboas/ui';
 import { Container, FlexBetween, LocaleLink } from '@/components/UI';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
-import { ASSET_PATHS } from '@/config/assets';
 import { BRAND_CONFIG } from '@/config/brand';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
@@ -55,11 +54,60 @@ const LANDING_NAV_LINKS = [
   },
 ] as const;
 
+/**
+ * Cinematic redesign — pages whose hero is a full-bleed CinematicHero get an
+ * adaptive nav: transparent over the hero (top of page), solid once scrolled.
+ * The theme picks link contrast over the hero (over-dark = white links;
+ * over-light = dark links via `nav-transparent--on-light`). Any route NOT listed
+ * keeps the existing always-solid nav (zero regression on non-hero pages).
+ * Keys are the locale-stripped path ('' = home/B2C).
+ */
+const HERO_NAV_THEME: Record<string, 'over-dark' | 'over-light'> = {
+  '': 'over-dark', // home (B2C — dawn-water dark)
+  '/business': 'over-dark', // B2B — fluid dark (liquid-capital)
+  '/protocols': 'over-dark', // particles dark (data-cinematic market)
+  '/strategies': 'over-dark', // wireframe-terrain dark (data-cinematic landing)
+  '/about': 'over-dark', // dawn-water dark (B2C-style, white text)
+  '/tools': 'over-light', // particles lighter
+  '/learn': 'over-light', // fluid lighter (calm)
+  '/market': 'over-light', // editorial re-skin — cream/paper hero, dark nav links
+};
+
+/** Strip the locale segment: `/en` → '', `/pt-BR/business` → '/business'. */
+function stripLocale(pathname: string): string {
+  const match = pathname.match(/^\/[a-zA-Z-]+(\/.*)?$/);
+  return match?.[1] ?? '';
+}
+
 export default function MinimalNavigation() {
   const intl = useTranslation();
+  const pathname = usePathname();
+  const heroTheme = HERO_NAV_THEME[stripLocale(pathname)];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   useFocusTrap(mobileMenuRef, isMobileMenuOpen, { returnFocus: true });
+
+  // Only hero pages toggle transparent/solid; others stay solid.
+  useEffect(() => {
+    if (!heroTheme) return;
+    const onScroll = () => setScrolled(window.scrollY > 72);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [heroTheme]);
+
+  // Solid when: not a hero page, scrolled past the hero top, or the mobile menu
+  // is open (the dropdown needs an opaque surface).
+  const isSolid = !heroTheme || scrolled || isMobileMenuOpen;
+  const navClassName = [
+    'minimal-navigation-bar',
+    'nav-cinematic',
+    isSolid ? 'nav-solid' : 'nav-transparent',
+    !isSolid && heroTheme === 'over-light' ? 'nav-transparent--on-light' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   /**
    * Close mobile menu on navigation
@@ -84,7 +132,7 @@ export default function MinimalNavigation() {
 
   return (
     <nav
-      className="minimal-navigation-bar nav-solid"
+      className={navClassName}
       aria-label={intl.formatMessage({ id: 'common.accessibility.mainNavigation' })}
     >
       <Container>
@@ -98,14 +146,8 @@ export default function MinimalNavigation() {
               { brand: BRAND_CONFIG.NAME }
             )}
           >
-            <Image
-              src={ASSET_PATHS.LOGOS.ICON}
-              alt={BRAND_CONFIG.NAME}
-              width={76}
-              height={76}
-              style={{ width: 'auto', height: 'auto', maxHeight: '76px' }}
-              priority
-            />
+            {/* Cinematic redesign (#1): text wordmark, per 04-data-cinematic. */}
+            <span className="brand-wordmark">{BRAND_CONFIG.NAME}</span>
           </LocaleLink>
 
           {/* Desktop Navigation Links */}

@@ -12,6 +12,7 @@ import type { HeroVariantRegistry, HeroVariantComponent } from './types';
 // Static imports for critical above-fold variants
 import { HeroDefault } from './HeroDefault/HeroDefault';
 import { HeroFullBackground } from './HeroFullBackground/HeroFullBackground';
+import { HeroCinematic } from './HeroCinematic/HeroCinematic';
 
 /**
  * Hero Variant Registry
@@ -23,6 +24,7 @@ export const HERO_VARIANT_REGISTRY: HeroVariantRegistry = {
   // Core variants (static import for performance)
   default: HeroDefault,
   fullBackground: HeroFullBackground,
+  cinematic: HeroCinematic,
 
   // Future variants can be easily added here:
   // split: HeroSplit,
