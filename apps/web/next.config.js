@@ -2,6 +2,11 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Dev-only: allow the local network IP origin so the dev client (HMR socket,
+  // Server Actions) bootstraps when the page is opened over the LAN IP instead
+  // of localhost — e.g. the Docker-hosted Playwright browser used for visual
+  // verification, which cannot reach `localhost`. No effect on production.
+  allowedDevOrigins: ['192.168.178.198'],
   // Performance optimizations
   experimental: {
     // `optimizeCss` removed 2026-05-12 (Sentry errors 102736586 / 102736587).
@@ -110,15 +115,23 @@ const nextConfig = {
     // Asset optimization headers
     const maxAge = environment === 'production' ? 31536000 : 3600;
     const assetHeaders = [
-      {
-        source: '/_next/static/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: `public, max-age=${maxAge}, immutable`,
-          },
-        ],
-      },
+      // Immutable caching of Next's content-hashed static chunks — PRODUCTION ONLY.
+      // In dev this `immutable` directive makes the browser cache HMR chunks, which
+      // breaks Fast Refresh and serves stale CSS/JS (Next warns: "Custom
+      // Cache-Control headers ... can break Next.js development behavior").
+      ...(environment === 'production'
+        ? [
+            {
+              source: '/_next/static/(.*)',
+              headers: [
+                {
+                  key: 'Cache-Control',
+                  value: `public, max-age=${maxAge}, immutable`,
+                },
+              ],
+            },
+          ]
+        : []),
       {
         source: '/assets/(.*)',
         headers: [
