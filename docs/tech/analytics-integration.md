@@ -137,6 +137,8 @@ The two layers are NOT mirrors of each other — a single user action may emit o
 
 ## All Tracked Events
 
+> ⛔ **STALE — do not trust the event tables in this section.** The tables below (event names, constants, and per-category details through "Event Details by Category") were authored pre-Phase-6 and reference constants that have since been renamed, moved, or deleted (e.g. `DREAM_MODE_EVENTS` → PreDream `ApplicationEventType`; no `SHARE_EVENTS` / `src/lib/share/constants.ts`). **The source constants files are the single authoritative event reference** — see the drift notice at the top of this file for the exact file paths (`apps/web/src/lib/*/constants.ts` and `apps/web/src/lib/events/applicationEventTypes.ts`). The ARCHITECTURE description (Overview, Event Naming Conventions, How-to-Add, Privacy & Consent) above and below remains accurate; only these enumerated tables are stale. Full table rewrite tracked in `docs/audit/PENDING_ALL.md` Track 3.
+
 ### Dream Mode Events
 
 | Event Name                      | Constant                                 | Description                          |
@@ -561,6 +563,8 @@ track(event: AnalyticsEvent): void {
 ---
 
 ## Appendix: Event Constants Source Files
+
+> ⛔ **STALE — some paths/imports below no longer exist** (`src/lib/dream-mode/constants.ts` and `src/lib/share/constants.ts` were removed; `DREAM_MODE_EVENTS`/`SHARE_EVENTS` were superseded — see the drift notice at the top of this file). The authoritative current list is the drift notice's file paths plus the `SUPPORTED_NAMESPACES`-style registry in the source tree. Do not treat this table as current; it is retained only as a pre-Phase-6 record pending the Track 3 rewrite.
 
 | Feature    | Constants File                           | Import                |
 | ---------- | ---------------------------------------- | --------------------- |

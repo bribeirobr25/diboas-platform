@@ -1,5 +1,7 @@
 # Adelaide Daily — Editorial Handoff Guide
 
+> **Scope:** The editorial JSON-update workflow for `/market` only (cadence, per-field rules, PR flow). Host-side integration wiring lives in `diboas-analytics.md`; the canonical analytics product spec + drift log lives in `docs/mvp/integration/13_host_integration_guides/diboas_platform.md`. Do not duplicate either here.
+
 > **Audience:** the editorial owner of `/market` (Adelaide Daily). The macro analyst, content owner, or designated curator who keeps the regime score, signal states, and commentary fresh.
 > **Goal:** ship a regime-score / signals / commentary update in under 30 minutes, end-to-end, without engineering hand-holding.
 > **Last updated:** 2026-05-14 (iteration 3 of `docs/audit/MARKET_INTEGRATION_PLAN_2026-05-13.md`).

@@ -73,13 +73,8 @@ Single web application (`apps/web`). No backend services, no microservices, no m
 > **Operational playbook:** `docs/tech/MONITORING_OPS.md` (committed) — verification procedures, troubleshooting, rotation runbooks, incident archive.
 >
 > **Org-specific values** (current DSN, project IDs, dashboard links): `docs/monitoring/INFRASTRUCTURE_GUIDE.md` (local-only).
->
-> **Quick gotchas** (full list in `MONITORING_OPS.md` § E):
->
-> - PostHog `host` MUST be `us.i.posthog.com` / `eu.i.posthog.com` (ingest), never `app.posthog.com` (console). Wrong value → `/array/<token>/config.js` 404 + silently degraded SDK.
-> - CSP wildcards MUST be full-label (`*.i.posthog.com`); partial-label patterns (`*-assets.i.posthog.com`) are silently ignored by browsers.
-> - Sentry build secrets (`SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`) MUST be listed in `turbo.json#env`, otherwise Turborepo scrubs them and source maps silently fail to upload.
-> - When rotating a Sentry DSN, verify the project key is "Active" (not "Disabled") in Sentry → Project Settings → Client Keys. Disabled keys return HTTP 403 silently and drop 100% of events.
+
+The monitoring operating invariants (PostHog ingest-host, CSP full-label wildcards, Sentry build secrets in `turbo.json#env`, DSN-active check, tunnel-path, GA4 two-stage loading) are **owned by `MONITORING_OPS.md` § E** — do not restate them here. The sub-sections below cover only the infra-facing facts (which config files, which env vars) that belong in this deployment doc.
 
 ### Sentry (error tracking + session replay + perf tracing)
 
@@ -101,20 +96,14 @@ Single web application (`apps/web`). No backend services, no microservices, no m
 - **Package:** `posthog-js` 1.313.x.
 - **Provider:** `apps/web/src/components/Providers/PostHogProvider.tsx` — lazy `import('posthog-js')` inside a `useEffect` after `hasAnalyticsConsent()` returns true. NEVER imported at module level.
 - **Config source:** `apps/web/src/config/env.ts` § `POSTHOG_CONFIG`.
-- **SDK init options:**
-  - `defaults: '2025-11-30'` — pinned default-config bundle (latest accepted by `posthog-js` 1.313.0). Stabilises SDK behaviour across version bumps.
-  - `person_profiles: 'identified_only'` — GDPR-friendly + cost-saving. Anonymous events still tracked under a session-anonymous `distinct_id`; a "person" is only created when `posthog.identify(distinctId)` is called (typically after waitlist signup).
-  - `respect_dnt: true`
-  - `advanced_disable_feature_flags: process.env.NODE_ENV === 'development'`
-- **Consent integration:** subscribes to `ApplicationEventBus` events (`CONSENT_GIVEN` → init if not already; `CONSENT_WITHDRAWN` → `opt_out_capturing()`).
-- **Env vars:** `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST` (must be the **ingest** host `https://us.i.posthog.com` or `https://eu.i.posthog.com`; SDK derives the `*-assets.i.posthog.com` host from the `.i.` infix).
+- **Env vars:** `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST`.
+- **SDK init options + consent integration + the load-bearing ingest-host rule:** see `MONITORING_OPS.md` § C (canonical). Not restated here.
 
 ### Google Analytics 4
 
-- **Two-stage loading** (Lighthouse Workstream D, 2026-05-22):
-  1. **Inline Consent Mode v2 bootstrap** in `apps/web/src/app/layout.tsx` (`<head>` pre-hydration): declares `window.dataLayer`, sets `gtag('consent', 'default', { analytics_storage: 'denied', ... })`, subscribes to the DOM `cookie-consent-changed` event to flush `gtag('consent', 'update', { analytics_storage: 'granted' })` after the user accepts.
-  2. **Script-loading gate** in `apps/web/src/components/Providers/GoogleAnalyticsLoader.tsx`: the `gtag/js` `<Script>` tag (~67 KB) does NOT download until `applicationEventBus.CONSENT_GIVEN` fires. Saves the download entirely for users who don't accept analytics (~60-70% of EU traffic).
+- **Config files:** inline Consent Mode v2 bootstrap in `apps/web/src/app/layout.tsx`; consent-gated script loader in `apps/web/src/components/Providers/GoogleAnalyticsLoader.tsx`.
 - **Env var:** `NEXT_PUBLIC_GA_ID` (format: `G-XXXXXXXXXX`).
+- **Two-stage loading mechanism** (Lighthouse Workstream D) — see `MONITORING_OPS.md` § D (canonical). Not restated here.
 
 ### web-vitals
 

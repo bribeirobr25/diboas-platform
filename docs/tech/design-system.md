@@ -219,7 +219,7 @@ packages/
 apps/web/src/components/  # App-specific composition (Factory pattern variants)
 ```
 
-App-specific styling stays in `apps/web/src/components/`; cross-package primitives live in `@diboas/ui`. Canonical token source is `apps/web/src/styles/design-tokens.css` (generated from `config/design-tokens.json`). Accessibility-tuned variants — `--text-brand-accessible` (teal-700, 4.85:1), `--text-success-accessible` (emerald-700, 5.53:1), `--color-slate-600` (7.55:1) — are the required surface for clickable brand-colored text per the W2 audit.
+App-specific styling stays in `apps/web/src/components/`; cross-package primitives live in `@diboas/ui`. Canonical token source is `apps/web/src/styles/design-tokens.css` — **hand-maintained** (the `generate:design-tokens` generator is intentionally disabled; `config/design-tokens.json` is only the schema-validated subset checked by `pnpm validate:design-tokens`, not a generator input). Accessibility-tuned variants — `--text-brand-accessible` (teal-700, 4.85:1), `--text-success-accessible` (emerald-700, 5.53:1), `--color-slate-600` (7.55:1) — are the required surface for clickable brand-colored text per the W2 audit.
 
 **Phase 2+ target architecture** (not yet built): the multi-package split (design-system / shared-patterns / marketing-ui / app-ui / business-ui) was an earlier aspirational scoping that has not been adopted. When the consumer app + business app subdomains exist, this section will be revisited.
 

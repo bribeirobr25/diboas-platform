@@ -33,16 +33,18 @@ diboas-platform/
   packages/investing/  # @diboas/investing - Investment domain (Phase 2+ stub)
   config/              # Design tokens JSON + schema
   scripts/             # Build/validation scripts
-  docs/                # Project documentation (only docs/tech/ is git-tracked)
-    tech/              # Technical guides (committed)
-    audit/             # Audit tracking (local-only)
-    monitoring/        # Infrastructure & monitoring guide (local-only)
-    full-view/         # Product & business docs (local-only)
-    post-launch/       # Post-launch planning (local-only)
-    revenue/           # Fee modeling reference (local-only)
-    roadmap/           # Phase 2+ architecture planning (local-only)
-    skills-commands/   # Framework & kit playbooks (local-only)
-    video-storyboards/ # Marketing video prompts (local-only)
+  docs/                # Documentation (only docs/tech/ is git-tracked; the rest is local-only)
+    tech/              # Technical guides (committed) — canonical engineering reference
+    audit/             # Audit history, security findings ledger, pending-work queue
+    security/          # Recon/diagnostics reference + API defensive review
+    full-view/         # Product/business/brand bible + FEES.md (canonical fee source)
+    monitoring/        # INFRASTRUCTURE_GUIDE.md — env-var + deploy-values reference
+    integrations/      # Host-side wiring for analytics + market-editorial workflow
+    mvp/               # Spec for diboas-analytics — a SEPARATE product diBoaS hosts at /market
+    tools/             # Money Tools suite docs + weekly live-data runbook
+    researches/        # Dated regulatory + market deep-research reports (reference)
+    redesign/          # Redesign proposal, growth/waitlist plan, social calendars
+    roadmap/           # Phase-2 forward analysis (aspirational; superseded-flagged — verify vs this file)
 ```
 
 ### App Router Structure
@@ -53,7 +55,7 @@ apps/web/src/app/
     (landing)/             # All user-facing pages (single route group)
       about/               # About us — founder story, mission, beliefs
       business/            # B2B landing page
-      market/        # Adelaide Daily — market updates (placeholder)
+      market/        # Adelaide Daily — BTC macro-regime dashboard (placeholder; host surface for the separate diboas-analytics product, spec'd in docs/mvp/)
       delete-confirm/      # GDPR account deletion confirmation
       demo/                # Interactive financial demo (noindex)
       dream-mode/          # Goal calculator simulation (noindex)

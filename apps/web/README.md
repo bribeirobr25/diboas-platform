@@ -260,7 +260,8 @@ The `.env.example` file contains 50+ configuration options organized by category
 | Category      | Description                         |
 | ------------- | ----------------------------------- |
 | Application   | Base URLs, domain, environment      |
-| Kit.com       | Email marketing integration         |
+| Email         | Resend (transactional email)        |
+| Database      | Neon PostgreSQL connection string   |
 | Cal.com       | Booking calendar integration        |
 | Waitlist      | Storage path, API keys              |
 | Analytics     | GA4, Sentry, PostHog                |
@@ -268,7 +269,7 @@ The `.env.example` file contains 50+ configuration options organized by category
 | Feature Flags | Toggle integrations on/off          |
 | Brand         | Company name, tagline, social links |
 
-See `.env.example` for detailed documentation of each variable.
+`.env.example` is the authoritative variable reference (full descriptions inline); `docs/monitoring/INFRASTRUCTURE_GUIDE.md` holds the org-specific values. See also `docs/tech/infrastructure.md` § Environment Variables.
 
 ## Performance Optimization
 

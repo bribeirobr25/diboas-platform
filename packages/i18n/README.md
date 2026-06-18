@@ -2,6 +2,8 @@
 
 Complete internationalization solution for the diBoaS platform with support for 4 locales.
 
+> **Scope:** This README is the canonical **namespace registry** (the 31-namespace inventory below) plus the package API reference. For app-level integration patterns — the config-translation layer (`useConfigTranslation`, `valuesByKey`), locale detection in middleware, SEO-per-locale, and the architecture principles — see `docs/tech/internationalization.md`.
+
 ## Supported Locales
 
 - `en` - English (default)
