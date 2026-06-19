@@ -28,13 +28,20 @@ import { ROUTES } from '@/config/routes';
 
 /**
  * Landing page navigation links configuration
- * Following the spec: For Business | Adelaide Daily | About
+ * For Business | Money Tools | Adelaide Daily | Learn | About
  */
 const LANDING_NAV_LINKS = [
   {
     id: 'for-business',
     labelKey: 'common.navigation.landing.forBusiness',
     href: ROUTES.BUSINESS_LANDING,
+  },
+  {
+    id: 'money-tools',
+    // Surfaced in the nav (redesign Phase 1) — previously reachable only by URL,
+    // which the growth plan flagged as the #1 acquisition gap.
+    labelKey: 'common.navigation.landing.moneyTools',
+    href: ROUTES.TOOLS,
   },
   {
     id: 'adelaide-daily',

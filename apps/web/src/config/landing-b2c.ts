@@ -521,6 +521,8 @@ export const B2C_FOOTER_NAV = [
     labelKey: 'landing-b2c.footer.nav.forBusiness',
     href: ROUTES.BUSINESS_LANDING,
   },
+  // Surfaced in the footer too (redesign Phase 1) → the /tools hub indexes all 10.
+  { id: 'moneyTools', labelKey: 'landing-b2c.footer.nav.moneyTools', href: ROUTES.TOOLS },
   // 2026-05-13: route renamed to `/market`; label "Adelaide Daily" stays.
   { id: 'adelaideDaily', labelKey: 'landing-b2c.footer.nav.adelaideDaily', href: ROUTES.MARKET },
   { id: 'about', labelKey: 'landing-b2c.footer.nav.about', href: ROUTES.ABOUT },
