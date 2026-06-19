@@ -52,7 +52,17 @@ const BUDGETS = {
   // cap; LCP unaffected). The total-JS sum counts it regardless. New ceiling
   // ~3950 KB keeps the guard's purpose (catch ACCIDENTAL heavy imports) while
   // admitting the one approved library. See docs/audit/PENDING_ALL.md.
-  maxTotalJsKB: 3950,
+  //
+  // Recalibrated 2026-06-19 (redesign-v2, additive phases): 3950 → 4096 KB.
+  // The "Adelaide's World" redesign ADDS new surfaces (motion primitives,
+  // DivergenceChart, ResultMoment, wedge components) that coexist with the
+  // current design until the Phase-8 dead-code sweep removes the superseded
+  // code (the redesign is a straight REPLACEMENT — net JS only drops at the
+  // end). ~4096 KB (4.0 MB) is a modest, intentional headroom for that
+  // in-progress window; it MUST be re-tightened toward the cinematic baseline
+  // after Phase 8. Still catches accidental heavy imports (peak/chunk caps
+  // unchanged). See REDESIGN_BUILD_PLAN.md §2 + docs/audit/PENDING_ALL.md.
+  maxTotalJsKB: 4096,
 
   // Total bytes across all .css chunks. Baseline ~384 KB across 10 files
   // (Tailwind base + design tokens + all CSS modules; Turbopack doesn't

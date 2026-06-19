@@ -5,6 +5,7 @@ import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { CountUp } from '@/components/UI/CountUp';
+import { DivergenceChart, type DivergenceSeries } from '@/components/UI/DivergenceChart';
 import { analyticsService } from '@/lib/analytics';
 import { useMarketData } from '@/hooks/useMarketData';
 import {
@@ -13,6 +14,7 @@ import {
   formatRate,
   formatApproxRate,
   formatGain,
+  formatCurrency,
   type SupportedLocale,
 } from '@/lib/market-data';
 import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
@@ -76,10 +78,21 @@ function useComparisonData(locale: SupportedLocale) {
       diboas: diboasReturn,
     };
 
+    // Monthly value PATHS of `principal` over 12 months, for the DivergenceChart
+    // hero (redesign Phase 2 \u2014 "data as hero"). Two clearest lines: bank vs
+    // diBoaS. diBoaS uses the same effective-rate hedge as the table above
+    // ((1+usdYield)(1+localDepreciation)-1) so the chart and the figures agree.
+    const bankAnnual = bankRates.savings / 100;
+    const diboasAnnual =
+      depreciation > 0 ? (1 + diboasApy / 100) * (1 + depreciation) - 1 : diboasApy / 100;
+    const valuePath = (annual: number) =>
+      Array.from({ length: 13 }, (_, m) => principal * Math.pow(1 + annual, m / 12));
+    const chartPaths = { bank: valuePath(bankAnnual), diboas: valuePath(diboasAnnual) };
+
     // diBoaS subtext \u2014 show "em d\u00F3lares" for PT-BR, empty for others
     const diboasSubtext = locale === 'pt-BR' ? 'em d\u00F3lares' : '';
 
-    return { rates, returnsRaw, diboasSubtext };
+    return { rates, returnsRaw, diboasSubtext, chartPaths };
   }, [marketData, locale]);
 }
 
@@ -98,7 +111,13 @@ export const ComparisonTable = memo(function ComparisonTable({
   const tSection = (key: string) =>
     intl.formatMessage({ id: `landing-b2c.sections.comparison.${key}` });
 
-  const { rates, returnsRaw, diboasSubtext } = useComparisonData(locale);
+  const { rates, returnsRaw, diboasSubtext, chartPaths } = useComparisonData(locale);
+
+  // Two clearest lines for the "data as hero" divergence chart (bank vs diBoaS).
+  const chartSeries: DivergenceSeries[] = [
+    { id: 'bank', label: t('columns.bank'), values: chartPaths.bank, variant: 'muted' },
+    { id: 'diboas', label: t('columns.diboas'), values: chartPaths.diboas, variant: 'primary' },
+  ];
   const hasExtraDiboasInfo = diboasSubtext.length > 0;
 
   // Analytics: fire once when section enters viewport
@@ -137,6 +156,16 @@ export const ComparisonTable = memo(function ComparisonTable({
           {intl.formatMessage({ id: 'landing-b2c.eyebrows.math' })}
         </p>
         <h2 className={`u-section-heading ${styles.heading}`}>{t('heading')}</h2>
+
+        {/* "Data as hero" — the $1,000 divergence drawn from the same live rates
+            as the table below (redesign Phase 2). */}
+        <div className={styles.chartWrap}>
+          <DivergenceChart
+            series={chartSeries}
+            formatValue={(n) => formatCurrency(n, locale)}
+            ariaLabel={`${t('columns.bank')}: ${formatCurrency(chartPaths.bank[12] ?? 0, locale)}. diBoaS: ${formatCurrency(chartPaths.diboas[12] ?? 0, locale)}.`}
+          />
+        </div>
 
         {/* Desktop: HTML table */}
         <div className={styles.tableWrapper} role="region" aria-label={tSection('ariaLabel')}>

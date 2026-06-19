@@ -13,6 +13,12 @@
   margin-bottom: var(--spacing-md);
 }
 
+/* "Data as hero" divergence chart — sits between the heading and the table. */
+.chartWrap {
+  max-width: 540px;
+  margin: var(--spacing-xl) auto var(--spacing-4xl);
+}
+
 .heading {
   font-family: var(--font-family-display);
   font-size: var(--font-size-section-title-mobile);
