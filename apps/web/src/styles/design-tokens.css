@@ -259,6 +259,34 @@
   --editorial-hostile: #9c4128; /* deep rust (HOSTILE) — nudged toward the warm hue */
   --editorial-paper-dim: #c8c0b5; /* muted body text on the dark methodology block */
 
+  /* ===================================================================
+     REDESIGN SEMANTIC ROLES ("Adelaide's World") — additive aliases only.
+     Components reference INTENT (surface / text / accent / type), never raw
+     hues, so the system can be re-themed by repointing these. Discipline:
+     TEAL is reserved for ACTION + LIVE DATA only; editorial warmth uses
+     paper + copper. No new colour values — all alias existing tokens.
+     =================================================================== */
+  /* Surfaces */
+  --surface-paper: var(--editorial-paper); /* warm cream page */
+  --surface-paper-deep: var(--editorial-paper-deep);
+  --surface-ink: var(--editorial-ink); /* near-black editorial ink */
+  --surface-ink-soft: var(--accent-ink-soft);
+  /* Text on surfaces */
+  --text-on-paper: var(--editorial-ink);
+  --text-on-paper-muted: var(--editorial-muted); /* ~4.6:1 on paper (AA) */
+  --text-on-ink: var(--editorial-paper); /* light text on ink */
+  --text-on-ink-muted: var(--editorial-paper-dim);
+  /* Accents — the ONLY teal is action / live-data; warmth is editorial */
+  --accent-action: var(--brand-primary); /* teal — interactive + live numbers ONLY */
+  --accent-action-strong: var(--cta-bg-primary);
+  --accent-action-text: var(--text-brand-accessible); /* teal-700 — AA clickable text */
+  --accent-warm: var(--editorial-copper); /* copper — editorial warmth (decorative/large) */
+  --accent-warm-text: var(--editorial-copper-text); /* AA copper text on paper (~5.8:1) */
+  --rule-hairline: var(--editorial-line); /* hairline rules on paper */
+  /* Type roles — numbers are the hero */
+  --font-display: var(--font-family-display); /* editorial display face (Space Grotesk) */
+  --font-numeric: var(--font-family-mono); /* tabular-mono — every figure */
+
   /* Hero theme tokens — switched by [data-theme] on the cinematic hero/nav.
      Overlays sit between the WebGL canvas/poster and the SSR text to guarantee
      ≥4.5:1 contrast on the headline regardless of the animated scene. */

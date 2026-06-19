@@ -1645,6 +1645,14 @@ a:focus-visible {
   text-wrap: balance;
 }
 
+/* "Numbers are the hero" — tabular-mono for every figure (counts, results,
+   chart labels) so digits align and read as precise/editorial. */
+.u-numeric {
+  font-family: var(--font-numeric);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
 /* Card / panel hover lift. */
 .u-hover-lift {
   transition:

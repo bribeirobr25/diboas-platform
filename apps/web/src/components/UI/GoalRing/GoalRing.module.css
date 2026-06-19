@@ -1,0 +1,57 @@
+/**
+ * GoalRing — SVG progress ring. The progress arc fills on `.is-…` via the
+ * inline strokeDashoffset (set by the component when in view); reduced-motion
+ * skips the transition (fill is applied immediately).
+ */
+
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  /* start the arc at 12 o'clock */
+  transform: rotate(-90deg);
+}
+
+.track {
+  stroke: var(--rule-hairline);
+  stroke-width: 6;
+}
+
+.progress {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s var(--animation-easing-easeout, ease-out);
+}
+
+.action .progress {
+  stroke: var(--accent-action);
+}
+
+.warm .progress {
+  stroke: var(--accent-warm);
+}
+
+.center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-numeric);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress {
+    transition: none;
+  }
+}

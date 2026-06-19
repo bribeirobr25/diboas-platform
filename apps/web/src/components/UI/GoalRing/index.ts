@@ -1,0 +1,1 @@
+export { GoalRing } from './GoalRing';
