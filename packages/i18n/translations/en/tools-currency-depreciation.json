@@ -44,6 +44,13 @@
     "uncertaintyMedium": "This currency had moderate volatility over the window — point CAGR reflects average behavior; cumulative movement was uneven year-to-year.",
     "uncertaintyLow": "This currency went through periods of structural volatility or regime change — a single CAGR materially smooths over very different sub-periods. Use the result as a directional reference, not a forecast."
   },
+  "resultMoment": {
+    "eyebrow": "What your money really earns",
+    "eyebrowUsd": "What your idle dollars earn",
+    "chartAria": "How {currency} compares over {years} years held as cash, in a local bank, and in digital dollar at diBoaS.",
+    "chartAriaUsd": "How your dollars compare over {years} years held in a bank versus in digital dollar at diBoaS.",
+    "shareText": "In {years} years, my {currency} could hold {value} as digital dollar at diBoaS. See what yours really earns."
+  },
   "vignette": {
     "subtitle": "Where you hold your money matters. The currency it earns in matters more."
   },

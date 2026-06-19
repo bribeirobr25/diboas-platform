@@ -29,6 +29,10 @@
     "perTxLabel": "Gebühr pro Transaktion",
     "caveat": "Hier siehst du die maximalen Einsparungen — angenommen, 100% der Kartenzahlungen laufen über diBoaS. Die tatsächlichen Einsparungen wachsen mit der diBoaS-Adoption deiner Kunden — das ist eine obere Schätzgrenze."
   },
+  "resultMoment": {
+    "eyebrow": "Was Kartengebühren wirklich kosten",
+    "shareText": "Kartengebühren summieren sich. Mein Geschäft könnte mit diBoaS {value} pro Jahr sparen. Prüf deine in den diBoaS Money Tools."
+  },
   "vignette": {
     "subtitle": "Gleicher Umsatz. Anderer Anbieter. Großer Unterschied."
   },

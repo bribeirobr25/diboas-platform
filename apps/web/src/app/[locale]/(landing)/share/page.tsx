@@ -24,6 +24,9 @@ interface SharePageProps {
     years?: string;
     strategy?: string;
     initial?: string;
+    tool?: string;
+    value?: string;
+    currency?: string;
   }>;
 }
 
@@ -32,10 +35,35 @@ interface OgStrings {
   description: string;
 }
 
+interface ToolResultOg extends OgStrings {
+  /** Per-tool title overrides (yield tools use the default `title`). */
+  titleByTool?: Record<string, string>;
+}
+
 interface ShareOg {
   waitlist: OgStrings;
   calculator: OgStrings;
+  toolResult: ToolResultOg;
   default: OgStrings;
+}
+
+/**
+ * Format a tool-result value for the social-preview title in the holder's
+ * locale currency (compact). Mirrors the OG image formatter so the card and the
+ * link preview agree. Falls back to a plain integer on an unexpected currency.
+ */
+function formatToolResultValue(value: number, currency: string, locale: string): string {
+  if (!/^[A-Z]{3}$/.test(currency)) return value.toLocaleString();
+  try {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: 0,
+      notation: 'compact',
+    }).format(value);
+  } catch {
+    return value.toLocaleString();
+  }
 }
 
 /**
@@ -140,6 +168,60 @@ export async function generateMetadata({
     const ogImageUrl = `${baseUrl}/api/og/share?${ogParams.toString()}`;
     const title = fillSlot(og.calculator.title, '{formattedAmount}', formattedAmount);
     const description = fillSlot(og.calculator.description, '{years}', years);
+
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        type: 'website',
+        url: `${baseUrl}/${locale}/share?${ogParams.toString()}`,
+        siteName: 'diBoaS',
+        images: [
+          {
+            url: ogImageUrl,
+            width: 1200,
+            height: 630,
+            alt: title,
+          },
+        ],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+        images: [ogImageUrl],
+      },
+    };
+  }
+
+  if (type === 'tool-result') {
+    const tool = search.tool || '';
+    const value = parseInt(search.value || '0', 10);
+    const currency = (search.currency || 'USD').toUpperCase();
+    const years = search.years;
+
+    ogParams.set('tool', tool);
+    ogParams.set('value', String(Number.isFinite(value) ? value : 0));
+    ogParams.set('currency', currency);
+    ogParams.set('locale', locale);
+    if (years) {
+      ogParams.set('years', years);
+    }
+
+    const formattedValue = formatToolResultValue(
+      Number.isFinite(value) ? value : 0,
+      currency,
+      locale
+    );
+
+    const ogImageUrl = `${baseUrl}/api/og/share?${ogParams.toString()}`;
+    // Per-tool title override keeps each tool honest (e.g. asset-history is
+    // historical, not a diBoaS yield claim); yield tools fall back to default.
+    const titleTemplate = og.toolResult.titleByTool?.[tool] ?? og.toolResult.title;
+    const title = fillSlot(titleTemplate, '{value}', formattedValue);
+    const description = og.toolResult.description;
 
     return {
       title,

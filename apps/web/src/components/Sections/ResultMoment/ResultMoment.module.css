@@ -1,0 +1,220 @@
+/**
+ * ResultMoment — Phase 3 result-moment surface.
+ *
+ * Editorial hierarchy from type + space (not colored boxes): a large tabular
+ * hero figure, the divergence chart, understated supporting rows, then a single
+ * confident ink CTA panel as the climax. Tokens only. Motion lives in the
+ * CountUp / DivergenceChart primitives (reduced-motion-safe); the only motion
+ * here is button hover, disabled under prefers-reduced-motion.
+ */
+
+.moment {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-slate-200);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--accent-warm-text);
+}
+
+.heroBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.heroValue {
+  margin: 0;
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  color: var(--accent-action-text);
+}
+
+/* Honest tone overrides: a loss is never rendered in the celebratory teal. */
+.heroValueNegative {
+  color: var(--text-error-accessible);
+}
+
+.heroValueNeutral {
+  color: var(--text-on-paper);
+}
+
+.heroCaption {
+  margin: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-on-paper-muted);
+}
+
+.chartWrap {
+  width: 100%;
+}
+
+.points {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.point {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-lg);
+  background: var(--color-slate-50);
+  border: 1px solid var(--color-slate-200);
+}
+
+.pointPrimary {
+  background: var(--color-teal-50);
+  border-color: var(--text-brand-accessible);
+}
+
+.pointLabel {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-slate-600);
+}
+
+.pointValue {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-700);
+}
+
+.pointPrimary .pointValue {
+  color: var(--accent-action-text);
+}
+
+.pointNote {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-500);
+  line-height: 1.4;
+}
+
+.disclaimer {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  font-style: italic;
+  color: var(--color-slate-600);
+  line-height: 1.5;
+}
+
+/* Climax: a single confident editorial-ink panel (not card soup). */
+.cta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-xl);
+  background: var(--surface-ink);
+  color: var(--text-on-ink);
+}
+
+.ctaCopy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.ctaHeadline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.25;
+  color: var(--text-on-ink);
+}
+
+.ctaBody {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-on-ink-muted);
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.ctaButton,
+.shareButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm-plus) var(--spacing-lg);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    transform var(--transition-fast),
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.ctaButton {
+  background: var(--accent-action-strong);
+  color: var(--color-white);
+  border: 1px solid transparent;
+}
+
+.shareButton {
+  background: transparent;
+  color: var(--text-on-ink);
+  border: 1px solid var(--text-on-ink-muted);
+}
+
+.ctaButton:hover,
+.shareButton:hover {
+  transform: translateY(-1px);
+}
+
+.shareButton:hover {
+  background: var(--surface-ink-soft);
+}
+
+.ctaButton:focus-visible,
+.shareButton:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
+}
+
+@media (min-width: 640px) {
+  .heroValue {
+    font-size: var(--font-size-6xl);
+  }
+
+  .cta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctaButton,
+  .shareButton {
+    transition: none;
+  }
+
+  .ctaButton:hover,
+  .shareButton:hover {
+    transform: none;
+  }
+}

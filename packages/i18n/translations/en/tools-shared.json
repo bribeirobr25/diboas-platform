@@ -78,5 +78,20 @@
     "high": "High confidence (±5%)",
     "medium": "Medium confidence — see uncertainty note",
     "low": "Low confidence — high-volatility window"
+  },
+  "resultMoment": {
+    "chartStart": "Today",
+    "chartEnd": "In {years} years",
+    "chartCash": "Cash",
+    "chartBank": "Bank",
+    "chartDiboas": "diBoaS",
+    "chartInvested": "Invested",
+    "chartValue": "Value",
+    "shareButton": "Share this result",
+    "shareCopied": "Link copied!",
+    "shareTitle": "My diBoaS result",
+    "ctaHeadline": "This is what fair access changes.",
+    "ctaBody": "Join the waitlist to put it to work for real.",
+    "ctaLabel": "Claim your spot"
   }
 }

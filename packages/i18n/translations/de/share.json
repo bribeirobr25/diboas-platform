@@ -62,6 +62,14 @@
       "title": "Meine Investition könnte auf {formattedAmount} wachsen!",
       "description": "In {years} Jahren mit dem diBoaS Dream Mode Rechner"
     },
+    "toolResult": {
+      "title": "Was mein Geld wirklich verdienen könnte: {value}",
+      "titleByTool": {
+        "asset-history": "Was es heute wert wäre: {value}",
+        "card-fees": "Was ich sparen könnte: {value}"
+      },
+      "description": "Ich habe es auf diBoaS durchgerechnet. Sieh, was deins könnte."
+    },
     "default": {
       "title": "diBoaS - Finanzielle Freiheit Einfach Gemacht",
       "description": "Dein Geld. Deine Zukunft. Eine Plattform. Tritt heute der Warteliste bei."

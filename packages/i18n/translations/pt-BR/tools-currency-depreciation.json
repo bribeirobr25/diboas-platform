@@ -44,6 +44,13 @@
     "uncertaintyMedium": "Esta moeda teve volatilidade moderada na janela — o CAGR pontual reflete o comportamento médio; o movimento acumulado foi desigual ano a ano.",
     "uncertaintyLow": "Esta moeda passou por períodos de volatilidade estrutural ou mudança de regime — um único CAGR alisa materialmente sub-períodos muito diferentes. Use o resultado como referência direcional, não como previsão."
   },
+  "resultMoment": {
+    "eyebrow": "O que seu dinheiro realmente rende",
+    "eyebrowUsd": "O que seus dólares parados rendem",
+    "chartAria": "Como o {currency} se compara em {years} anos mantido em dinheiro, em banco local e em dólar digital no diBoaS.",
+    "chartAriaUsd": "Como seus dólares se comparam em {years} anos em um banco versus em dólar digital no diBoaS.",
+    "shareText": "Em {years} anos, meus {currency} poderiam valer {value} em dólar digital no diBoaS. Veja quanto o seu realmente rende."
+  },
   "vignette": {
     "subtitle": "Onde você guarda seu dinheiro importa. A moeda em que ele rende, importa mais."
   },

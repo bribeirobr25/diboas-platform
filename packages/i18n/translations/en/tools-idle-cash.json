@@ -25,6 +25,11 @@
     "differenceZero": "At your bank rate, diBoaS matches your local yield over {years} years — and the position is held in digital dollar.",
     "differenceNegative": "At {bankRate}% your bank actually out-earns diBoaS' conservative scenario over {years} years. diBoaS still gives you a digital-dollar position — the comparison is yield only."
   },
+  "resultMoment": {
+    "eyebrow": "What your idle cash could become",
+    "chartAria": "How your idle cash compares over {years} years in your bank versus at diBoaS.",
+    "shareText": "My idle cash could become {value} at diBoaS over {years} years. See what yours could earn."
+  },
   "vignette": {
     "subtitle": "Cash that sits earns nothing. Cash that works compounds. Pick which."
   },

@@ -75,6 +75,17 @@
     "comparisonHeader": "vs S&P 500 no mesmo período",
     "btcDcaRangeNote": "Pra BTC começando em 2010, o valor terminal do DCA depende muito do caminho exato de entrada mensal. Calculadoras públicas divergem em ±50%."
   },
+  "resultMoment": {
+    "eyebrow": "O que a história mostra",
+    "heroCaption": "{asset} desde {startMonth} {startYear} · {gain}",
+    "chartAria": "Total investido versus valor hoje para {asset} desde {startYear}.",
+    "chartToday": "Hoje",
+    "investedLabel": "O que você investiu",
+    "contributedMonths": "ao longo de {months} meses",
+    "rangeLabel": "Dependendo do momento de entrada",
+    "pastPerformance": "Desempenho passado, não uma previsão. Foi o que realmente aconteceu.",
+    "shareText": "Com base na história real, isto valeria {value} hoje. Desempenho passado, não uma previsão. Veja o seu nas Ferramentas diBoaS."
+  },
   "vignette": {
     "subtitle": "Passado é o que já aconteceu. Futuro é o que você decide agora."
   },

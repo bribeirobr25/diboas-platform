@@ -78,5 +78,20 @@
     "high": "Alta confianza (±5%)",
     "medium": "Confianza media — ver nota de incertidumbre",
     "low": "Baja confianza — ventana de alta volatilidad"
+  },
+  "resultMoment": {
+    "chartStart": "Hoy",
+    "chartEnd": "En {years} años",
+    "chartCash": "Efectivo",
+    "chartBank": "Banco",
+    "chartDiboas": "diBoaS",
+    "chartInvested": "Invertido",
+    "chartValue": "Valor",
+    "shareButton": "Compartir este resultado",
+    "shareCopied": "¡Enlace copiado!",
+    "shareTitle": "Mi resultado diBoaS",
+    "ctaHeadline": "Esto es lo que cambia el acceso justo.",
+    "ctaBody": "Únete a la lista de espera para ponerlo a trabajar de verdad.",
+    "ctaLabel": "Reserva tu lugar"
   }
 }

@@ -26,6 +26,10 @@
     "perTxLabel": "Fee per transaction",
     "caveat": "This shows the maximum potential savings, assuming 100% of card payments flow through diBoaS. Real savings scale with diBoaS adoption by your customers — this is an upper-bound estimate."
   },
+  "resultMoment": {
+    "eyebrow": "What card fees really cost",
+    "shareText": "Card processing fees quietly add up. My business could save {value} a year with diBoaS. Check yours on diBoaS Money Tools."
+  },
   "vignette": {
     "subtitle": "Same revenue. Different processor. Big difference."
   },

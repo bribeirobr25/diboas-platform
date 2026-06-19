@@ -14,11 +14,22 @@ import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
 
 // Import from extracted modules
-import { OG_DIMENSIONS, type ShareType } from './ogTypes';
+import { OG_DIMENSIONS, SHAREABLE_TOOL_KEYS, type ShareType } from './ogTypes';
 import { checkRateLimit, getClientIP, createRateLimitHeaders } from '@/lib/security/rateLimiter';
 import { RATE_LIMIT_CONFIG } from '@/config/env';
-import { sanitizeInput, isValidPosition, isValidCalculatorInput, parseIntSafe } from './ogUtils';
-import { WaitlistTemplate, CalculatorTemplate, DefaultTemplate } from './ogTemplates';
+import {
+  sanitizeInput,
+  isValidPosition,
+  isValidCalculatorInput,
+  isValidToolResultValue,
+  parseIntSafe,
+} from './ogUtils';
+import {
+  WaitlistTemplate,
+  CalculatorTemplate,
+  ToolResultTemplate,
+  DefaultTemplate,
+} from './ogTemplates';
 
 export const runtime = 'edge';
 
@@ -82,6 +93,36 @@ export async function GET(request: NextRequest) {
               years={years}
               strategy={strategy}
               initialInvestment={initialInvestment}
+              locale={locale}
+            />
+          );
+        }
+        break;
+      }
+
+      case 'tool-result': {
+        const toolKey = searchParams.get('tool') ?? '';
+        const value = parseIntSafe(searchParams.get('value'), 0);
+        const currency = (searchParams.get('currency') ?? 'USD').toUpperCase();
+        // Range-guard years (1..100) so a hostile/garbage param can't render
+        // "over -5 years" on a shareable card; drop it otherwise.
+        const yearsRaw = searchParams.get('years')
+          ? parseIntSafe(searchParams.get('years'), 0)
+          : 0;
+        const years = yearsRaw > 0 && yearsRaw <= 100 ? yearsRaw : undefined;
+
+        // Allowlist the tool key + range-validate the figure; anything off the
+        // happy path falls back to the safe default card (SSRF / abuse guard).
+        const isShareable = (SHAREABLE_TOOL_KEYS as readonly string[]).includes(toolKey);
+        if (!isShareable || !isValidToolResultValue(value)) {
+          template = <DefaultTemplate locale={locale} />;
+        } else {
+          template = (
+            <ToolResultTemplate
+              toolKey={toolKey}
+              value={value}
+              currency={currency}
+              years={years}
               locale={locale}
             />
           );

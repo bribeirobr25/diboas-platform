@@ -29,6 +29,10 @@
     "perTxLabel": "Comisión por transacción",
     "caveat": "Esto muestra el ahorro máximo potencial, asumiendo que el 100% de los pagos con tarjeta pasan por diBoaS. El ahorro real crece a medida que tus clientes adoptan diBoaS — es una estimación superior."
   },
+  "resultMoment": {
+    "eyebrow": "Lo que realmente cuestan las comisiones de tarjeta",
+    "shareText": "Las comisiones de tarjeta se acumulan. Mi negocio podría ahorrar {value} al año con diBoaS. Revisa las tuyas en las Herramientas diBoaS."
+  },
   "vignette": {
     "subtitle": "Mismos ingresos. Otro procesador. Gran diferencia."
   },

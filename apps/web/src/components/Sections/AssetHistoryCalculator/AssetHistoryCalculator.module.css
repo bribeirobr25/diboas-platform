@@ -53,75 +53,6 @@
   outline-offset: 2px;
 }
 
-.summary {
-  font-size: var(--font-size-base);
-  color: var(--color-slate-700);
-  margin: 0;
-  line-height: 1.5;
-}
-
-.terminalCard {
-  padding: var(--spacing-lg);
-  background: var(--color-teal-50);
-  border: 1px solid var(--text-brand-accessible);
-  border-radius: var(--radius-lg);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-}
-
-.terminalValue {
-  font-size: var(--font-size-3xl, 28px);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-brand-accessible);
-  margin: 0;
-}
-
-.terminalRange {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-brand-accessible);
-  margin: 0;
-}
-
-.totalContributed {
-  font-size: var(--font-size-sm);
-  color: var(--color-slate-600);
-  margin: 0;
-}
-
-.confidenceBadge {
-  font-size: var(--font-size-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin: 0;
-  padding: var(--spacing-xs) var(--spacing-sm-plus);
-  border-radius: var(--radius-pill);
-  align-self: flex-start;
-}
-
-.confidenceHigh {
-  background: var(--color-emerald-50);
-  color: var(--text-success-accessible);
-}
-
-.confidenceMedium {
-  background: var(--color-amber-50);
-  color: var(--color-amber-700);
-}
-
-.confidenceLow {
-  background: var(--color-slate-100);
-  color: var(--color-slate-700);
-}
-
-.uncertaintyNote {
-  font-size: var(--font-size-sm);
-  color: var(--color-slate-600);
-  line-height: 1.5;
-  margin: 0;
-}
-
 /* Part 1 (TLT UX, 2026-05-23): per-asset description tooltip on the asset selector. */
 .tooltip {
   cursor: help;
@@ -134,24 +65,4 @@
   outline: 2px solid var(--color-teal-600);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
-}
-
-/* Gain/loss badge next to the terminal value. Green for gain, red for loss.
- * The terminal value is always neutral-colored; the badge carries the signal
- * so users can read the gain/loss direction at a glance without re-color-coding
- * the primary number. */
-.gainBadge {
-  display: inline-block;
-  margin-left: 0.5rem;
-  font-size: 0.65em;
-  font-weight: 600;
-  vertical-align: middle;
-}
-
-.gainBadge[data-direction='gain'] {
-  color: var(--text-success-accessible);
-}
-
-.gainBadge[data-direction='loss'] {
-  color: var(--color-rose-700);
 }

@@ -34,6 +34,7 @@ import {
   AlertCircle,
   History,
   RefreshCw,
+  Share2,
   type LucideIcon as LucideIconType,
 } from 'lucide-react';
 
@@ -75,6 +76,7 @@ export {
   AlertCircle,
   History,
   RefreshCw,
+  Share2,
 };
 
 export type { LucideIconType };

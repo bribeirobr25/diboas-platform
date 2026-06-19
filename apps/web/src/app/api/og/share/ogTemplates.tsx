@@ -9,10 +9,11 @@ import {
   OG_COLORS,
   type WaitlistTemplateProps,
   type CalculatorTemplateProps,
+  type ToolResultTemplateProps,
   type DefaultTemplateProps,
 } from './ogTypes';
 import { getTranslations, getDefaultName } from './ogTranslations';
-import { formatNumber, formatCurrency } from './ogUtils';
+import { formatNumber, formatCurrency, formatResultCurrency } from './ogUtils';
 
 /**
  * Shared Logo Component
@@ -336,6 +337,115 @@ export function CalculatorTemplate({
         }}
       >
         {t.calculator.cta}
+      </p>
+
+      <BottomBranding />
+    </OGBackground>
+  );
+}
+
+/**
+ * Money Tools result share card (Phase 3 redesign).
+ *
+ * The "living proof" artifact: a holder's real, market-data-bound figure in
+ * their own currency, branded with the editorial copper accent. No PII, no free
+ * text — the tool name is an allowlisted localized label and the value is a
+ * validated number. The honest both-sides framing lives on-page + in the share
+ * text; the card is the eye-catch.
+ */
+export function ToolResultTemplate({
+  toolKey,
+  value,
+  currency,
+  years,
+  locale = 'en',
+}: ToolResultTemplateProps) {
+  const t = getTranslations(locale);
+  const toolName = t.toolResult.toolName[toolKey];
+  const headlineText = t.toolResult.headlineByTool[toolKey] ?? t.toolResult.headline;
+
+  return (
+    <OGBackground>
+      <LogoBadge
+        gradient={`linear-gradient(135deg, ${OG_COLORS.coral}, ${OG_COLORS.coralDark})`}
+        shadowColor={`${OG_COLORS.coral}33`}
+      />
+
+      {/* Tool badge (allowlisted, localized) — omitted if the key is unknown */}
+      {toolName ? (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            background: `${OG_COLORS.coral}22`,
+            border: `1px solid ${OG_COLORS.coral}44`,
+            borderRadius: '999px',
+            padding: '8px 24px',
+            marginBottom: '24px',
+          }}
+        >
+          <span
+            style={{
+              color: OG_COLORS.coral,
+              fontSize: '16px',
+              fontWeight: '600',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+            }}
+          >
+            {toolName}
+          </span>
+        </div>
+      ) : null}
+
+      {/* Caption (per-tool headline keeps each tool honest) */}
+      <p
+        style={{
+          fontSize: '24px',
+          color: OG_COLORS.subtitleGrey,
+          margin: 0,
+          marginBottom: '16px',
+        }}
+      >
+        {headlineText}
+      </p>
+
+      {/* Hero figure */}
+      <h1
+        style={{
+          fontSize: '88px',
+          fontWeight: 'bold',
+          color: OG_COLORS.success,
+          margin: 0,
+          lineHeight: 1,
+          textShadow: `0 0 40px ${OG_COLORS.success}44`,
+        }}
+      >
+        {formatResultCurrency(value, currency)}
+      </h1>
+
+      {/* Subline (only when a horizon is supplied) */}
+      {years ? (
+        <p
+          style={{
+            fontSize: '22px',
+            color: OG_COLORS.white,
+            marginTop: '28px',
+          }}
+        >
+          {t.toolResult.subline(years)}
+        </p>
+      ) : null}
+
+      {/* CTA */}
+      <p
+        style={{
+          fontSize: '20px',
+          color: OG_COLORS.subtitleGrey,
+          marginTop: years ? '24px' : '40px',
+        }}
+      >
+        {t.toolResult.cta}
       </p>
 
       <BottomBranding />

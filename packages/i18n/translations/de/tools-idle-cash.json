@@ -25,6 +25,11 @@
     "differenceZero": "Bei deinem aktuellen Bankzins liegt diBoaS über {years} Jahre gleichauf — und die Position wird im Digital-Dollar gehalten.",
     "differenceNegative": "Mit {bankRate}% schlägt deine Bank das konservative diBoaS-Szenario über {years} Jahre. diBoaS bietet dir trotzdem eine Position im Digital-Dollar — der Vergleich ist hier nur die Rendite."
   },
+  "resultMoment": {
+    "eyebrow": "Was aus deinem ungenutzten Geld werden kann",
+    "chartAria": "Wie sich dein ungenutztes Geld über {years} Jahre bei deiner Bank gegenüber diBoaS vergleicht.",
+    "shareText": "Mein ungenutztes Geld könnte bei diBoaS in {years} Jahren {value} werden. Sieh, was deins verdienen könnte."
+  },
   "vignette": {
     "subtitle": "Liegendes Geld verdient nichts. Arbeitendes Geld zinst. Du wählst."
   },

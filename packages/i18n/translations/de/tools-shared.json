@@ -78,5 +78,20 @@
     "high": "Hohe Konfidenz (±5%)",
     "medium": "Mittlere Konfidenz — siehe Unsicherheitshinweis",
     "low": "Niedrige Konfidenz — Fenster mit hoher Volatilität"
+  },
+  "resultMoment": {
+    "chartStart": "Heute",
+    "chartEnd": "In {years} Jahren",
+    "chartCash": "Bargeld",
+    "chartBank": "Bank",
+    "chartDiboas": "diBoaS",
+    "chartInvested": "Investiert",
+    "chartValue": "Wert",
+    "shareButton": "Ergebnis teilen",
+    "shareCopied": "Link kopiert!",
+    "shareTitle": "Mein diBoaS-Ergebnis",
+    "ctaHeadline": "Das ändert fairer Zugang.",
+    "ctaBody": "Tritt der Warteliste bei, um es wirklich zu nutzen.",
+    "ctaLabel": "Sichere dir deinen Platz"
   }
 }

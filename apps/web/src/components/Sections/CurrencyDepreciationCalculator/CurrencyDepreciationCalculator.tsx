@@ -38,8 +38,11 @@ import { useTranslation } from '@diboas/i18n/client';
 import { Select } from '@diboas/ui';
 import { useLocale } from '@/components/Providers';
 import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
+import { useResultShare } from '@/hooks/useResultShare';
 import { LOCALE_CURRENCY, marketDataService, type SupportedLocale } from '@/lib/market-data';
 import { formatCurrency } from '@/lib/compound-interest';
+import { ResultMoment, type ResultMomentSupportingPoint } from '@/components/Sections/ResultMoment';
+import type { DivergenceSeries } from '@/components/UI/DivergenceChart';
 import {
   calculateCurrencyDepreciationForward,
   calculateCurrencyDepreciationRetrospective,
@@ -103,7 +106,8 @@ export function CurrencyDepreciationCalculator() {
 
   const t = (key: string, values?: Record<string, string | number>) =>
     intl.formatMessage({ id: `tools-currency-depreciation.${key}` }, values);
-  const tShared = (key: string) => intl.formatMessage({ id: `tools-shared.${key}` });
+  const tShared = (key: string, values?: Record<string, string | number>) =>
+    intl.formatMessage({ id: `tools-shared.${key}` }, values);
 
   const initial = useMemo<FormState>(
     () => ({
@@ -177,6 +181,32 @@ export function CurrencyDepreciationCalculator() {
   const bankRate = forwardResult?.bankRatePercent ?? null;
   const depreciation = forwardResult?.depreciation ?? 0;
   const hasBankRate = bankRate !== null;
+
+  // Result-moment share (Phase 3). The hero figure is the diBoaS digital-dollar
+  // outcome — shared as a branded OG card in the holder's locale currency, no
+  // PII. Hook is called unconditionally (rules-of-hooks); the share control is
+  // only surfaced inside the forward-result block below.
+  const usdcValue = forwardResult?.usdcLocal ?? 0;
+  // Format in the SELECTED (picker) currency — the figures are denominated in
+  // `form.currency` (the amount is entered in it), not the locale currency. The
+  // `opts.currency` override keeps the locale's number conventions while showing
+  // the right symbol/code, so the on-page figures, the chart, and the share card
+  // all agree even when the user compares a non-locale currency.
+  const fmtMoney = (n: number) =>
+    formatCurrency(n, localeKey, { currency, maximumFractionDigits: 0 });
+  const resultShare = useResultShare({
+    toolKey: 'currency-depreciation',
+    value: usdcValue,
+    currency,
+    years: form.years,
+    locale: localeKey,
+    shareText: t('resultMoment.shareText', {
+      value: fmtMoney(usdcValue),
+      currency,
+      years: form.years,
+    }),
+    shareTitle: tShared('resultMoment.shareTitle'),
+  });
 
   // Architecture audit V1 (2026-05-26 post-CTO-Action-6 cleanup): bounds were
   // originally inlined here as `AMOUNT_MAX = 100M` + `YEARS_MAX = 40`, which
@@ -325,49 +355,94 @@ export function CurrencyDepreciationCalculator() {
         )}
       </div>
 
-      {effectiveMode === 'forward' && forwardResult && (
-        <div className={styles.resultsGrid}>
-          {!isUsd && (
-            <div className={styles.resultCardCash}>
-              <p className={styles.resultLabel}>{t('output.cashLabel')}</p>
-              <p className={styles.resultValueMuted}>
-                {formatCurrency(forwardResult.cashUsdEquivalent, localeKey, {
-                  maximumFractionDigits: 0,
-                })}
-              </p>
-              <p className={styles.resultRate}>
-                {t('output.cashEvolution', {
-                  rate: (depreciation * 100).toFixed(1),
-                  currency,
-                })}
-              </p>
-            </div>
-          )}
-          {/* FX-16 D3 (2026-05-26): bank card hides when no local bank-rate
-              proxy exists (the 14 new currencies). Honest "no card" beats
-              stretched data. */}
-          {hasBankRate && bankRate !== null && (
-            <div className={styles.resultCardBank}>
-              <p className={styles.resultLabel}>{t('output.bankLabel')}</p>
-              <p className={styles.resultValueMuted}>
-                {formatCurrency(forwardResult.bankLocal, localeKey, { maximumFractionDigits: 0 })}
-              </p>
-              <p className={styles.resultRate}>
-                {t('output.bankRateNote', { rate: bankRate.toFixed(2) })}
-              </p>
-            </div>
-          )}
-          <div className={styles.resultCardDiboas}>
-            <p className={styles.resultLabel}>{t('output.diboasLabel')}</p>
-            <p className={styles.resultValue}>
-              {formatCurrency(forwardResult.usdcLocal, localeKey, { maximumFractionDigits: 0 })}
-            </p>
-            <p className={styles.resultRate}>
-              {t('output.diboasNote', { rate: HISTORICAL_RATE.toString() })}
-            </p>
-          </div>
-        </div>
-      )}
+      {effectiveMode === 'forward' &&
+        forwardResult &&
+        (() => {
+          // Phase 3 result-moment: the forward outcome rendered as a cinematic,
+          // shareable artifact. The hero is the diBoaS digital-dollar value; the
+          // divergence chart carries the cash/bank/diBoaS comparison (the visual
+          // proof), and the cash/bank detail rows keep the honest rate basis.
+          // FX-16 D3 honesty preserved: cash hides for USD, the bank line/row
+          // hides entirely when no local bank-rate proxy exists.
+          const series: DivergenceSeries[] = [];
+          const points: ResultMomentSupportingPoint[] = [];
+          if (!isUsd) {
+            series.push({
+              id: 'cash',
+              label: tShared('resultMoment.chartCash'),
+              values: [form.amount, forwardResult.cashUsdEquivalent],
+              variant: 'muted',
+            });
+            points.push({
+              id: 'cash',
+              label: t('output.cashLabel'),
+              value: fmtMoney(forwardResult.cashUsdEquivalent),
+              note: t('output.cashEvolution', {
+                rate: (depreciation * 100).toFixed(1),
+                currency,
+              }),
+              variant: 'muted',
+            });
+          }
+          if (hasBankRate && bankRate !== null) {
+            series.push({
+              id: 'bank',
+              label: tShared('resultMoment.chartBank'),
+              values: [form.amount, forwardResult.bankLocal],
+              variant: 'muted',
+            });
+            points.push({
+              id: 'bank',
+              label: t('output.bankLabel'),
+              value: fmtMoney(forwardResult.bankLocal),
+              note: t('output.bankRateNote', { rate: bankRate.toFixed(2) }),
+              variant: 'muted',
+            });
+          }
+          series.push({
+            id: 'diboas',
+            label: tShared('resultMoment.chartDiboas'),
+            values: [form.amount, forwardResult.usdcLocal],
+            variant: 'primary',
+          });
+
+          return (
+            <ResultMoment
+              // USD has no depreciation and no cash line — reframe the moment as
+              // the idle-money/yield story (the US wedge) so it complements the
+              // "USD is stable" framing card instead of contradicting it.
+              eyebrow={isUsd ? t('resultMoment.eyebrowUsd') : t('resultMoment.eyebrow')}
+              headlineValue={forwardResult.usdcLocal}
+              headlineFormatter={fmtMoney}
+              headlineCaption={t('output.diboasLabel')}
+              chart={{
+                series,
+                xCaptions: [
+                  tShared('resultMoment.chartStart'),
+                  tShared('resultMoment.chartEnd', { years: form.years }),
+                ],
+                formatValue: fmtMoney,
+                ariaLabel: isUsd
+                  ? t('resultMoment.chartAriaUsd', { years: form.years })
+                  : t('resultMoment.chartAria', { currency, years: form.years }),
+              }}
+              supportingPoints={points}
+              disclaimer={t('output.diboasNote', { rate: HISTORICAL_RATE.toString() })}
+              cta={{
+                headline: tShared('resultMoment.ctaHeadline'),
+                body: tShared('resultMoment.ctaBody'),
+                label: tShared('resultMoment.ctaLabel'),
+                href: '/?source=tool_currency-depreciation',
+              }}
+              share={{
+                onShare: resultShare.share,
+                label: tShared('resultMoment.shareButton'),
+                copiedLabel: tShared('resultMoment.shareCopied'),
+                copied: resultShare.copied,
+              }}
+            />
+          );
+        })()}
 
       {effectiveMode === 'retrospective' && retrospectiveResult && (
         <div className={styles.resultsGrid}>

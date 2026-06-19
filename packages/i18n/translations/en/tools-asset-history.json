@@ -75,6 +75,17 @@
     "comparisonHeader": "vs S&P 500 over the same window",
     "btcDcaRangeNote": "For BTC starting in 2010, the DCA terminal value depends heavily on the exact monthly entry path. Public calculators differ by ±50%."
   },
+  "resultMoment": {
+    "eyebrow": "What history shows",
+    "heroCaption": "{asset} since {startMonth} {startYear} · {gain}",
+    "chartAria": "Total invested versus value today for {asset} since {startYear}.",
+    "chartToday": "Today",
+    "investedLabel": "What you put in",
+    "contributedMonths": "over {months} months",
+    "rangeLabel": "Depending on entry timing",
+    "pastPerformance": "Past performance, not a forecast. This is what actually happened.",
+    "shareText": "Based on real history, this would be worth {value} today. Past performance, not a forecast. See yours on diBoaS Money Tools."
+  },
   "vignette": {
     "subtitle": "Past is what already happened. Future is what you decide next."
   },
