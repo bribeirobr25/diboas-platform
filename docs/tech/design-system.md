@@ -13,8 +13,8 @@
 
 ### Secondary Colors
 
-- **Purple**: `#a855f7` - Investing & strategy contexts
-- **Coral**: `#ef4444` - DeFi & innovation elements
+- **Purple**: `#a855f7` - investing & strategy contexts (Phase 2+)
+- **Coral**: `#ef4444` - innovation & alert accent
 
 ### Neutral Grays
 
@@ -36,6 +36,7 @@
 ### Font Stack
 
 - Sans: `'Inter', sans-serif`
+- Display: `'Space Grotesk'` — headings h1–h3 (cinematic redesign); canonical values live in `apps/web/src/styles/design-tokens.css` (the sole brand-token anchor)
 - Mono: `'JetBrains Mono', monospace`
 
 ### Scale
