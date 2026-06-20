@@ -12,6 +12,8 @@ import { useMarketData } from '@/hooks/useMarketData';
 import {
   calculateLumpSum,
   calculateWithCurrencyHedge,
+  buildMonthlyValuePath,
+  buildHedgedMonthlyValuePath,
   formatRate,
   formatApproxRate,
   formatGain,
@@ -81,14 +83,22 @@ function useComparisonData(locale: SupportedLocale) {
 
     // Monthly value PATHS of `principal` over 12 months, for the DivergenceChart
     // hero (redesign Phase 2 \u2014 "data as hero"). Two clearest lines: bank vs
-    // diBoaS. diBoaS uses the same effective-rate hedge as the table above
-    // ((1+usdYield)(1+localDepreciation)-1) so the chart and the figures agree.
-    const bankAnnual = bankRates.savings / 100;
-    const diboasAnnual =
-      depreciation > 0 ? (1 + diboasApy / 100) * (1 + depreciation) - 1 : diboasApy / 100;
-    const valuePath = (annual: number) =>
-      Array.from({ length: 13 }, (_, m) => principal * Math.pow(1 + annual, m / 12));
-    const chartPaths = { bank: valuePath(bankAnnual), diboas: valuePath(diboasAnnual) };
+    // diBoaS. The diBoaS path routes through the SAME clamped effective-rate
+    // hedge as the table figure (lib/market-data), so the chart and the cells
+    // can never diverge (Principle 1 / DRY \u2014 no inline math here).
+    const chartPaths = {
+      bank: buildMonthlyValuePath(principal, bankRates.savings / 100, 12),
+      diboas:
+        depreciation > 0
+          ? buildHedgedMonthlyValuePath(
+              principal,
+              diboasApy / 100,
+              depreciation,
+              12,
+              'comparisonTable.chart'
+            )
+          : buildMonthlyValuePath(principal, diboasApy / 100, 12),
+    };
 
     // diBoaS subtext \u2014 show "em d\u00F3lares" for PT-BR, empty for others
     const diboasSubtext = locale === 'pt-BR' ? 'em d\u00F3lares' : '';

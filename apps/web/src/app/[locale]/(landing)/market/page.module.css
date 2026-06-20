@@ -21,7 +21,7 @@
 
 .eyebrow {
   font-family: var(--font-ibm-plex-mono), monospace;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--editorial-copper-text);
@@ -60,7 +60,7 @@
 }
 .heroDate {
   font-family: var(--font-ibm-plex-mono), monospace;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--editorial-ink-soft);
@@ -156,7 +156,7 @@
 }
 .eyebrowDark {
   font-family: var(--font-ibm-plex-mono), monospace;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--editorial-copper-soft);

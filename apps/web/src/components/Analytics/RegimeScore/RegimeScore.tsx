@@ -32,6 +32,7 @@ export function RegimeScore({ data, ariaLabel, className }: RegimeScoreProps) {
       typeof window.matchMedia === 'function' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) return;
+    let rafId = 0;
     const io = new IntersectionObserver(
       (entries) => {
         if (!entries[0]?.isIntersecting || ran.current) return;
@@ -44,16 +45,21 @@ export function RegimeScore({ data, ariaLabel, className }: RegimeScoreProps) {
           const e = 1 - Math.pow(1 - t, 3); // easeOutCubic
           setShown(frac * e);
           setNum(Math.round(score * e));
-          if (t < 1) requestAnimationFrame(tick);
+          if (t < 1) rafId = requestAnimationFrame(tick);
         };
         setShown(0);
         setNum(0);
-        requestAnimationFrame(tick);
+        rafId = requestAnimationFrame(tick);
       },
       { threshold: 0.4 }
     );
     io.observe(el);
-    return () => io.disconnect();
+    // RC: cancel the in-flight count-up rAF on unmount / dep change, not just
+    // the observer — otherwise the chain keeps calling setState post-unmount.
+    return () => {
+      io.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [frac, score]);
 
   const needleDeg = -90 + shown * 180;

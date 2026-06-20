@@ -223,9 +223,13 @@ export async function generateMetadata({
     const ogImageUrl = `${baseUrl}/api/og/share?${ogParams.toString()}`;
     // Per-tool title override keeps each tool honest (e.g. asset-history is
     // historical, not a diBoaS yield claim); yield tools fall back to default.
-    const titleTemplate = og.toolResult.titleByTool?.[tool] ?? og.toolResult.title;
+    // Null-safe: if the `share` namespace fails to load / omits `toolResult`,
+    // fall back to the default OG instead of throwing inside generateMetadata
+    // (an uncaught throw here surfaces as a 500 to the crawler).
+    const titleTemplate =
+      og.toolResult?.titleByTool?.[tool] ?? og.toolResult?.title ?? og.default?.title ?? 'diBoaS';
     const title = fillSlot(titleTemplate, '{value}', formattedValue);
-    const description = og.toolResult.description;
+    const description = og.toolResult?.description ?? og.default?.description ?? '';
 
     return {
       title,

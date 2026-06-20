@@ -79,7 +79,7 @@
 .endValue {
   font-family: var(--font-numeric);
   font-variant-numeric: tabular-nums;
-  font-size: 24px;
+  font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold, 700);
 }
 
@@ -93,7 +93,7 @@
 
 .endLabel {
   font-family: var(--font-family-mono);
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   fill: var(--text-on-paper-muted);
@@ -101,7 +101,7 @@
 
 .caption {
   font-family: var(--font-family-mono);
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   fill: var(--text-on-paper-muted);

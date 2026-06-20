@@ -147,6 +147,52 @@ export function calculateWithCurrencyHedge(
 }
 
 // ---------------------------------------------------------------------------
+// Monthly value paths — for chart surfaces ("data as hero" divergence line)
+// ---------------------------------------------------------------------------
+
+/**
+ * Monthly future-value path of a lump sum at a single annual rate.
+ * Returns `months + 1` points (index `m` = value after `m` months), so a
+ * 12-month path has 13 points (month 0 … month 12).
+ *
+ * Domain home for chart growth-lines so presentational components never
+ * re-implement compounding inline (Principle 1 / DRY).
+ */
+export function buildMonthlyValuePath(
+  principal: number,
+  annualRate: number,
+  months: number
+): number[] {
+  return Array.from(
+    { length: months + 1 },
+    (_, m) => principal * Math.pow(1 + annualRate, m / MONTHS_PER_YEAR)
+  );
+}
+
+/**
+ * Hedged variant: builds the value path at the clamped effective local APY
+ * `(1 + usdYield)(1 + localDepreciation) − 1`, routed through
+ * `applyEffectiveRateClamp` so a chart line shares ONE clamped formula with
+ * `calculateWithCurrencyHedge` and can never silently diverge from the figure
+ * the table renders. `source` is the clamp's observability discriminator.
+ */
+export function buildHedgedMonthlyValuePath(
+  principal: number,
+  usdYield: number,
+  localDepreciation: number,
+  months: number,
+  source: string
+): number[] {
+  const rawEffective = (1 + usdYield) * (1 + localDepreciation) - 1;
+  const effectiveLocalAPY = applyEffectiveRateClamp(rawEffective, {
+    source,
+    usdYield,
+    depreciation: localDepreciation,
+  });
+  return buildMonthlyValuePath(principal, effectiveLocalAPY, months);
+}
+
+// ---------------------------------------------------------------------------
 // Currency hedge — monthly contributions
 // ---------------------------------------------------------------------------
 

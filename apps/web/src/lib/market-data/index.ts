@@ -58,6 +58,8 @@ export {
   calculateWithCurrencyHedge,
   calculateMonthlyWithCurrencyHedge,
   calculateMonthlyPathDependentHedge,
+  buildMonthlyValuePath,
+  buildHedgedMonthlyValuePath,
   deriveHorizonMatchedCAGR,
   resolveHorizonMatchedDepreciation,
   derivePoupancaRate,

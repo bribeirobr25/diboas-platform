@@ -34,7 +34,10 @@ export function WedgeSectionDefault({
 
   const impressionRef = useImpressionTracking<HTMLDivElement>({
     eventName: 'wedge_shown',
-    parameters: { locale: localeKey, metric: expression.metric },
+    // `market` matches the documented funnel taxonomy + the sibling
+    // `hero_proof_viewed` so stage-1 impressions slice by one dimension.
+    // (`locale` is injected by analyticsService automatically — don't duplicate.)
+    parameters: { market: localeKey, metric: expression.metric },
     enabled: enableAnalytics,
   });
 

@@ -15,19 +15,11 @@
  * existing `SHARE_COMPLETED → share_completed` bridge can never double-fire.
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
 import { APP_URL } from '@/config/env';
 import { analyticsService } from '@/lib/analytics';
 import { getToolResultSharePageUrl } from '@/lib/og/share';
-import { copyToClipboard } from '@/lib/share/platformUrls';
-import { Logger } from '@/lib/monitoring/Logger';
+import { useWebShare, SHARE_EVENTS, type SharePlatform } from '@/hooks/useWebShare';
 import type { ToolKey } from '@/lib/tools';
-
-/** Canonical Format-A (GA4 snake_case) share event names — reused, not invented. */
-const RESULT_SHARE_EVENTS = {
-  INITIATED: 'share_initiated',
-  COMPLETED: 'share_completed',
-} as const;
 
 interface UseResultShareInput {
   toolKey: ToolKey;
@@ -69,74 +61,29 @@ export function useResultShare({
   shareTitle,
   enabled = true,
 }: UseResultShareInput): UseResultShareResult {
-  const [copied, setCopied] = useState(false);
-  // Resolved after mount so SSR markup matches the first client render.
-  const [canNativeShare, setCanNativeShare] = useState(false);
-  const copyTimerRef = useRef<ReturnType<typeof setTimeout>>();
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-shot capability probe; `navigator` is unavailable during SSR so it must run post-mount
-    setCanNativeShare(typeof navigator !== 'undefined' && typeof navigator.share === 'function');
-  }, []);
-
-  useEffect(() => () => clearTimeout(copyTimerRef.current), []);
-
   const shareUrl = getToolResultSharePageUrl(
     { toolKey, value, currency, years, tone },
     locale,
     APP_URL
   );
 
-  const share = useCallback(async () => {
-    const usedNative =
-      typeof navigator !== 'undefined' && typeof navigator.share === 'function';
-    const platform = usedNative ? 'native' : 'copy';
+  // Analytics are tool-specific (tool_key); the share mechanics live in the
+  // shared useWebShare engine so this hook and MarketCtaBand cannot drift.
+  const trackShare = (eventName: string, platform: SharePlatform) => {
+    if (!enabled) return;
+    analyticsService.track({
+      name: eventName,
+      parameters: { tool_key: toolKey, platform, locale },
+    });
+  };
 
-    if (enabled) {
-      analyticsService.track({
-        name: RESULT_SHARE_EVENTS.INITIATED,
-        parameters: { tool_key: toolKey, platform, locale },
-      });
-    }
-
-    const trackCompleted = (resolvedPlatform: string) => {
-      if (enabled) {
-        analyticsService.track({
-          name: RESULT_SHARE_EVENTS.COMPLETED,
-          parameters: { tool_key: toolKey, platform: resolvedPlatform, locale },
-        });
-      }
-    };
-
-    try {
-      if (usedNative) {
-        try {
-          await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
-          trackCompleted('native');
-          return;
-        } catch (err) {
-          // User dismissed the sheet — not a failure, and not a completion.
-          if (err instanceof DOMException && err.name === 'AbortError') return;
-          // Any other native error → fall through to the copy fallback.
-          Logger.warn('Native share failed; falling back to copy', {
-            error: err instanceof Error ? err.message : String(err),
-          });
-        }
-      }
-
-      const ok = await copyToClipboard(`${shareText} ${shareUrl}`);
-      if (ok) {
-        setCopied(true);
-        clearTimeout(copyTimerRef.current);
-        copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
-        trackCompleted('copy');
-      }
-    } catch (err) {
-      Logger.warn('Result share failed', {
-        error: err instanceof Error ? err.message : String(err),
-      });
-    }
-  }, [toolKey, locale, shareText, shareTitle, shareUrl, enabled]);
+  const { share, copied, canNativeShare } = useWebShare({
+    shareText,
+    shareTitle,
+    shareUrl,
+    onInitiated: (platform) => trackShare(SHARE_EVENTS.INITIATED, platform),
+    onCompleted: (platform) => trackShare(SHARE_EVENTS.COMPLETED, platform),
+  });
 
   return { share, copied, canNativeShare, shareUrl };
 }

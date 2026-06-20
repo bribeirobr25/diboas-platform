@@ -30,18 +30,28 @@ export function SignalCard({ data, className }: SignalCardProps) {
       typeof window.matchMedia === 'function' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) return;
+    let outerRaf = 0;
+    let innerRaf = 0;
     const io = new IntersectionObserver(
       (entries) => {
         if (!entries[0]?.isIntersecting || ran.current) return;
         ran.current = true;
         io.disconnect();
         setWidth(0);
-        requestAnimationFrame(() => requestAnimationFrame(() => setWidth(pct)));
+        outerRaf = requestAnimationFrame(() => {
+          innerRaf = requestAnimationFrame(() => setWidth(pct));
+        });
       },
       { threshold: 0.3 }
     );
     io.observe(el);
-    return () => io.disconnect();
+    // RC: cancel both queued frames on unmount so the deferred setWidth never
+    // fires on an unmounted row.
+    return () => {
+      io.disconnect();
+      if (outerRaf) cancelAnimationFrame(outerRaf);
+      if (innerRaf) cancelAnimationFrame(innerRaf);
+    };
   }, [pct]);
 
   return (
