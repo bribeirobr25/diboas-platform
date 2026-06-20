@@ -146,13 +146,15 @@ All hooks live in `apps/web/src/hooks/`:
 
 | Hook               | Purpose                                                                                                                                           |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useCalculatorAnalytics` | Shared open/compute analytics for the bespoke standalone calculator tools (emergency-fund, idle-cash, inflation-impact, time-to-target, …). Format-A events via `analyticsService`. |
 | `useCarousel`      | Carousel state, auto-rotation, keyboard nav, pause-on-hover, swipe integration. Uses mutex locks and state machine for race condition prevention. |
 | `useCountUp`       | rAF-driven eased number count-up for figure reveals; respects `prefers-reduced-motion` and cancels the frame on unmount.                           |
 | `useFocusTrap`     | Traps keyboard focus within modals/dialogs. Returns focus to trigger element on close.                                                            |
 | `useImageLoading`  | Tracks image load states across multiple images. Fires callback when all images are loaded.                                                       |
+| `useImpressionTracking` | Fires a one-time analytics impression event the first time the attached element is ≥50% in view (IntersectionObserver). SSR-safe; idempotent per mount. Powers `section_viewed` / `wedge_shown` / `hero_proof_viewed`. |
 | `useInView`        | Reduced-motion-safe one-shot IntersectionObserver trigger for draw-on / reveal animations.                                                        |
+| `useMarketData`    | SSR-safe accessor for market data — returns fallback data synchronously on first render (no hydration mismatch), then updates from `MarketDataService`. |
 | `useMarketWedge`   | Resolves the per-market wedge figure from `marketDataService` (bank rate / inflation / currency-depreciation per locale); normalizes percent vs decimal units. |
-| `useNavigation`    | Navigation open/close state, active menu/submenu tracking, mobile breakpoint detection.                                                           |
 | `useResultShare`   | Money Tools result-moment share — builds the `/share` OG URL and shares via `useWebShare`; Format-A `share_initiated`/`share_completed` (no PII), gated by `enabled`. |
 | `useSwipeGesture`  | Touch gesture detection (swipe left/right) for carousel components. Configurable threshold.                                                       |
 | `useUtmCapture`    | Captures UTM parameters from URL on page load, persists to `sessionStorage` for attribution.                                                      |
