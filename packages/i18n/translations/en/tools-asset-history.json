@@ -39,18 +39,12 @@
       "IBOVESPA": "Ibovespa, the B3 Brazilian equity index. Native total return.",
       "DAX": "DAX, the Deutsche Börse German equity index. Native total return."
     },
-    "gainBadgeTooltip": "Total gain (or loss) on the contributed amount, including any dividends or coupons. Green for a gain; red for a loss.",
     "modeOptions": {
       "lumpSum": "Lump sum",
       "monthlyDca": "Monthly DCA"
     }
   },
   "output": {
-    "summaryLumpSum": "{amount} in {startMonth} {startYear} would be worth…",
-    "summaryDca": "{amount}/month from {startMonth} {startYear} would be worth…",
-    "terminalValue": "{value}",
-    "terminalRange": "between {low} and {high}",
-    "terminalRangeSubtle": "Range based on best vs worst monthly entry timing: {low} – {high}",
     "startMonth": {
       "jan": "January",
       "feb": "February",
@@ -65,11 +59,6 @@
       "nov": "November",
       "dec": "December"
     },
-    "contributedOverMonths": "{total} contributed over {months} months",
-    "startingPrincipal": "{total} starting principal",
-    "confidenceHigh": "High confidence (±5%)",
-    "confidenceMedium": "Medium confidence — see uncertainty note",
-    "confidenceLow": "Low confidence — range only",
     "uncertaintyMedium": "Volatility means monthly entry timing materially shifts the outcome. The range above shows best vs worst timing.",
     "uncertaintyLow": "Bitcoin's early-decade volatility means $100/mo entries from 2010–2012 could have ended very differently depending on exact timing. We show a range, not a single number.",
     "comparisonHeader": "vs S&P 500 over the same window",

@@ -39,18 +39,12 @@
       "IBOVESPA": "Ibovespa, el índice bursátil B3 de Brasil. Retorno total nativo.",
       "DAX": "DAX, el índice bursátil alemán de Deutsche Börse. Retorno total nativo."
     },
-    "gainBadgeTooltip": "Ganancia (o pérdida) total sobre el monto aportado, incluyendo dividendos o cupones. Verde para ganancia; rojo para pérdida.",
     "modeOptions": {
       "lumpSum": "Cantidad única",
       "monthlyDca": "Aportación mensual"
     }
   },
   "output": {
-    "summaryLumpSum": "{amount} en {startMonth} de {startYear} valdrían…",
-    "summaryDca": "{amount}/mes desde {startMonth} de {startYear} valdrían…",
-    "terminalValue": "{value}",
-    "terminalRange": "entre {low} y {high}",
-    "terminalRangeSubtle": "Rango basado en el mejor vs peor momento de entrada mensual: {low} – {high}",
     "startMonth": {
       "jan": "enero",
       "feb": "febrero",
@@ -65,11 +59,6 @@
       "nov": "noviembre",
       "dec": "diciembre"
     },
-    "contributedOverMonths": "{total} aportados durante {months} meses",
-    "startingPrincipal": "{total} de capital inicial",
-    "confidenceHigh": "Confianza alta (±5%)",
-    "confidenceMedium": "Confianza media — consulta la nota de incertidumbre",
-    "confidenceLow": "Confianza baja — solo rango",
     "uncertaintyMedium": "La volatilidad hace que el momento mensual de entrada altere significativamente el resultado. El rango anterior muestra el mejor vs peor momento.",
     "uncertaintyLow": "La volatilidad de Bitcoin a principios de la década significa que aportaciones de 100/mes entre 2010 y 2012 podrían haber terminado de formas muy diferentes según el momento exacto. Mostramos un rango, no un único número.",
     "comparisonHeader": "vs S&P 500 en el mismo periodo",

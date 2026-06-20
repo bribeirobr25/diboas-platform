@@ -6,7 +6,12 @@ const nextConfig = {
   // Server Actions) bootstraps when the page is opened over the LAN IP instead
   // of localhost — e.g. the Docker-hosted Playwright browser used for visual
   // verification, which cannot reach `localhost`. No effect on production.
-  allowedDevOrigins: ['192.168.178.198'],
+  // Env-driven (machine-specific): set DEV_ALLOWED_ORIGINS to a comma-separated
+  // list of LAN IPs/hosts. Find yours via `ifconfig en0 | grep "inet "`.
+  allowedDevOrigins: (process.env.DEV_ALLOWED_ORIGINS || '')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean),
   // Performance optimizations
   experimental: {
     // `optimizeCss` removed 2026-05-12 (Sentry errors 102736586 / 102736587).

@@ -21,7 +21,6 @@
   },
   "output": {
     "monthlyFee": "Para adquirentes por mês",
-    "annualFee": "Para adquirentes por ano",
     "annualSavings": "Poderia economizar com diBoaS",
     "perTxLabel": "Taxa por transação",
     "caveat": "Esse valor mostra a economia máxima possível, supondo que 100% dos pagamentos com cartão passem pelo diBoaS. A economia real cresce conforme seus clientes adotam o diBoaS — é uma estimativa de teto."

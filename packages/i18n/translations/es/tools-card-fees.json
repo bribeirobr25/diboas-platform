@@ -24,7 +24,6 @@
   },
   "output": {
     "monthlyFee": "A procesadores al mes",
-    "annualFee": "A procesadores al año",
     "annualSavings": "Podrías ahorrar con diBoaS",
     "perTxLabel": "Comisión por transacción",
     "caveat": "Esto muestra el ahorro máximo potencial, asumiendo que el 100% de los pagos con tarjeta pasan por diBoaS. El ahorro real crece a medida que tus clientes adoptan diBoaS — es una estimación superior."

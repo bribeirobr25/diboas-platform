@@ -39,18 +39,12 @@
       "IBOVESPA": "Ibovespa, der brasilianische Aktienindex der B3. Nativer Gesamtertrag.",
       "DAX": "DAX, der deutsche Aktienindex der Deutschen Börse. Nativer Gesamtertrag."
     },
-    "gainBadgeTooltip": "Gesamtgewinn (oder -verlust) auf den eingezahlten Betrag, einschließlich Dividenden oder Kupons. Grün bei Gewinn; rot bei Verlust.",
     "modeOptions": {
       "lumpSum": "Einmalbetrag",
       "monthlyDca": "Monatliche Einzahlung"
     }
   },
   "output": {
-    "summaryLumpSum": "{amount} im {startMonth} {startYear} wären heute wert…",
-    "summaryDca": "{amount}/Monat ab {startMonth} {startYear} wären heute wert…",
-    "terminalValue": "{value}",
-    "terminalRange": "zwischen {low} und {high}",
-    "terminalRangeSubtle": "Spanne basierend auf bestem vs schlechtestem monatlichen Einstiegszeitpunkt: {low} – {high}",
     "startMonth": {
       "jan": "Januar",
       "feb": "Februar",
@@ -65,11 +59,6 @@
       "nov": "November",
       "dec": "Dezember"
     },
-    "contributedOverMonths": "{total} eingezahlt über {months} Monate",
-    "startingPrincipal": "{total} Anfangskapital",
-    "confidenceHigh": "Hohe Konfidenz (±5%)",
-    "confidenceMedium": "Mittlere Konfidenz — siehe Unsicherheitshinweis",
-    "confidenceLow": "Niedrige Konfidenz — nur Bandbreite",
     "uncertaintyMedium": "Die Volatilität bewirkt, dass das monatliche Einstiegstiming das Ergebnis wesentlich verschiebt. Die Spanne oben zeigt das beste vs schlechteste Timing.",
     "uncertaintyLow": "Bitcoins Volatilität zu Beginn des Jahrzehnts bedeutet, dass €100/Monat Einzahlungen zwischen 2010 und 2012 je nach Timing sehr unterschiedlich enden konnten. Wir zeigen eine Spanne, keine einzelne Zahl.",
     "comparisonHeader": "vs S&P 500 im gleichen Zeitraum",

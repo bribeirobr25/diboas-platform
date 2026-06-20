@@ -54,13 +54,15 @@ const BUDGETS = {
   // admitting the one approved library. See docs/audit/PENDING_ALL.md.
   //
   // Recalibrated 2026-06-19 (redesign-v2, additive phases): 3950 → 4096 KB.
-  // The "Adelaide's World" redesign ADDS new surfaces (motion primitives,
-  // DivergenceChart, ResultMoment, wedge components) that coexist with the
-  // current design until the Phase-8 dead-code sweep removes the superseded
-  // code (the redesign is a straight REPLACEMENT — net JS only drops at the
-  // end). ~4096 KB (4.0 MB) is a modest, intentional headroom for that
-  // in-progress window; it MUST be re-tightened toward the cinematic baseline
-  // after Phase 8. Still catches accidental heavy imports (peak/chunk caps
+  // FINALIZED 2026-06-20 (redesign-v2 Phase 8): kept at 4096 KB. The
+  // "Adelaide's World" redesign modernized surfaces IN-PLACE (motion
+  // primitives, DivergenceChart/GoalRing, ResultMoment, wedge + Market CTA
+  // band) rather than duplicating the old design, so it left NO superseded
+  // dead code for a sweep to remove (knip stays at the pre-redesign baseline).
+  // The expected "net JS drops at the end" therefore did not materialize: the
+  // new primitives are permanent product, and the bundle settled at ~4083 KB.
+  // 4096 KB is the snug FINALIZED ceiling (~13 KB / 0.3% headroom over actual)
+  // — tight enough to still catch accidental heavy imports (peak/chunk caps
   // unchanged). See REDESIGN_BUILD_PLAN.md §2 + docs/audit/PENDING_ALL.md.
   maxTotalJsKB: 4096,
 

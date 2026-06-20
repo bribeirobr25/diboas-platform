@@ -24,7 +24,6 @@
   },
   "output": {
     "monthlyFee": "Monatlich an Anbieter",
-    "annualFee": "Pro Jahr an Anbieter",
     "annualSavings": "Mit diBoaS sparen",
     "perTxLabel": "Gebühr pro Transaktion",
     "caveat": "Hier siehst du die maximalen Einsparungen — angenommen, 100% der Kartenzahlungen laufen über diBoaS. Die tatsächlichen Einsparungen wachsen mit der diBoaS-Adoption deiner Kunden — das ist eine obere Schätzgrenze."

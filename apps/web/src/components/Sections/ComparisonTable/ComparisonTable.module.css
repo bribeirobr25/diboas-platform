@@ -184,44 +184,8 @@
   margin-top: var(--spacing-xs);
 }
 
-.diboasDollarReturn {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  /* W2: same reason as .diboasSubtext above. */
-  opacity: 0.95;
-}
-
-/* Mobile: expanded diBoaS row (PT-BR) */
-.mobileRowHighlightExpanded {
-  background-color: var(--cta-bg-primary);
-  color: var(--color-white);
-  border-color: var(--cta-bg-primary);
-  flex-wrap: wrap;
-  padding: var(--spacing-md) var(--spacing-lg);
-}
-
-.mobileRowExpandedTop {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: var(--spacing-xs);
-}
-
-.mobileRowExpandedBottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
 .mobileRowSubtext {
   font-size: var(--font-size-xs);
-  opacity: 0.85;
-}
-
-.mobileRowDollarReturn {
-  font-size: var(--font-size-sm);
   opacity: 0.85;
 }
 
