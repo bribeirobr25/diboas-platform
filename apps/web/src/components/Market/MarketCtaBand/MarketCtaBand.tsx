@@ -12,7 +12,7 @@
 import { LocaleLink } from '@/components/UI/LocaleLink';
 import { Share2, Check, ArrowRight } from '@/components/UI/LucideIcon';
 import { analyticsService } from '@/lib/analytics';
-import { useWebShare, SHARE_EVENTS, type SharePlatform } from '@/hooks/useWebShare';
+import { useWebShare, SHARE_EVENTS, type WebShareMethod } from '@/hooks/useWebShare';
 import styles from './MarketCtaBand.module.css';
 
 interface MarketCtaBandProps {
@@ -44,7 +44,7 @@ export function MarketCtaBand({
 }: MarketCtaBandProps) {
   // Analytics are surface-specific (source: 'adelaide_daily'); the share/copy
   // mechanics live in the shared useWebShare engine (Principle 4 / DRY).
-  const trackShare = (eventName: string, platform: SharePlatform) => {
+  const trackShare = (eventName: string, platform: WebShareMethod) => {
     analyticsService.track({
       name: eventName,
       parameters: { source: 'adelaide_daily', platform, locale },

@@ -29,7 +29,7 @@ export const SHARE_EVENTS = {
   COMPLETED: 'share_completed',
 } as const;
 
-export type SharePlatform = 'native' | 'copy';
+export type WebShareMethod = 'native' | 'copy';
 
 interface UseWebShareInput {
   /** Pre-built, localized share text (without the URL — appended on copy). */
@@ -39,9 +39,9 @@ interface UseWebShareInput {
   /** Absolute URL to share (carries the OG card). */
   shareUrl: string;
   /** Fired on tap with the resolved platform (before the share is attempted). */
-  onInitiated?: (platform: SharePlatform) => void;
+  onInitiated?: (platform: WebShareMethod) => void;
   /** Fired on a successful native share or copy. */
-  onCompleted?: (platform: SharePlatform) => void;
+  onCompleted?: (platform: WebShareMethod) => void;
   /** How long the `copied` flag stays true after a copy. Default 2000ms. */
   copiedResetMs?: number;
 }
@@ -88,7 +88,7 @@ export function useWebShare({
   const share = useCallback(async () => {
     const usedNative =
       typeof navigator !== 'undefined' && typeof navigator.share === 'function';
-    const platform: SharePlatform = usedNative ? 'native' : 'copy';
+    const platform: WebShareMethod = usedNative ? 'native' : 'copy';
     onInitiatedRef.current?.(platform);
 
     try {

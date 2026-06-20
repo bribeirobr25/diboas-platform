@@ -18,7 +18,7 @@
 import { APP_URL } from '@/config/env';
 import { analyticsService } from '@/lib/analytics';
 import { getToolResultSharePageUrl } from '@/lib/og/share';
-import { useWebShare, SHARE_EVENTS, type SharePlatform } from '@/hooks/useWebShare';
+import { useWebShare, SHARE_EVENTS, type WebShareMethod } from '@/hooks/useWebShare';
 import type { ToolKey } from '@/lib/tools';
 
 interface UseResultShareInput {
@@ -69,7 +69,7 @@ export function useResultShare({
 
   // Analytics are tool-specific (tool_key); the share mechanics live in the
   // shared useWebShare engine so this hook and MarketCtaBand cannot drift.
-  const trackShare = (eventName: string, platform: SharePlatform) => {
+  const trackShare = (eventName: string, platform: WebShareMethod) => {
     if (!enabled) return;
     analyticsService.track({
       name: eventName,
