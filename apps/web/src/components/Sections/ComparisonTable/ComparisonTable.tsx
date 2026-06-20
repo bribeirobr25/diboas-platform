@@ -7,6 +7,7 @@ import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { CountUp } from '@/components/UI/CountUp';
 import { DivergenceChart, type DivergenceSeries } from '@/components/UI/DivergenceChart';
 import { analyticsService } from '@/lib/analytics';
+import { useImpressionTracking } from '@/hooks/useImpressionTracking';
 import { useMarketData } from '@/hooks/useMarketData';
 import {
   calculateLumpSum,
@@ -120,6 +121,17 @@ export const ComparisonTable = memo(function ComparisonTable({
   ];
   const hasExtraDiboasInfo = diboasSubtext.length > 0;
 
+  // Redesign funnel (§4): `hero_proof_viewed` — fires when the "data as hero"
+  // divergence proof itself (not just the section) is ≥50% in view. Distinct
+  // from the section-level `comparison_visible` impression below: this is the
+  // sharper "the user actually saw the live proof viz" funnel signal.
+  const proofRef = useImpressionTracking<HTMLDivElement>({
+    eventName: 'hero_proof_viewed',
+    parameters: { market: locale },
+    threshold: 0.5,
+    enabled: enableAnalytics,
+  });
+
   // Analytics: fire once when section enters viewport
   useEffect(() => {
     if (!enableAnalytics) return;
@@ -159,7 +171,7 @@ export const ComparisonTable = memo(function ComparisonTable({
 
         {/* "Data as hero" — the $1,000 divergence drawn from the same live rates
             as the table below (redesign Phase 2). */}
-        <div className={styles.chartWrap}>
+        <div ref={proofRef} className={styles.chartWrap}>
           <DivergenceChart
             series={chartSeries}
             formatValue={(n) => formatCurrency(n, locale)}

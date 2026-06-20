@@ -203,6 +203,32 @@ The two layers are NOT mirrors of each other — a single user action may emit o
 | `navigation_error`       | Navigation error occurred          |
 | `section_interaction`    | User interacts with a page section |
 
+### Redesign Funnel Events (V2)
+
+The "value-first → earned signup" thesis is measured by the **north-star: waitlist
+signups attributable to a tool/demo interaction, per market.** The funnel reuses the
+existing event sets above; only two genuinely-new impression events were added (both
+Format-A, fired via `analyticsService.track()` — they are NOT registered in
+`EVENT_VALIDATION_SCHEMA`, which is Format-B only):
+
+| Event Name          | Where it fires                                                                 | Parameters | Description                                                                                                  |
+| ------------------- | ------------------------------------------------------------------------------ | ---------- | ---------------------------------------------------------------------------------------------------------- |
+| `wedge_shown`       | `Sections/WedgeSection` (impression, `useImpressionTracking`)                  | `market`   | The per-market wedge (live market-truth figure + lead-tool CTA) entered view.                              |
+| `hero_proof_viewed` | `Sections/ComparisonTable` — on the "data as hero" `DivergenceChart` (≥50% in view) | `market`   | The user actually saw the live bank-vs-diBoaS proof viz. Sharper than the section-level `comparison_visible` (0.3 threshold, whole section). |
+
+**Funnel stages (slice every stage by `market`/`source`):**
+
+1. `section_viewed` / `wedge_shown` / `hero_proof_viewed` — value surfaces seen.
+2. `calculator_opened` → `calculator_computation_completed` — tool engagement (the attributable interaction).
+3. `share_initiated` → `share_completed` (`source` incl. `adelaide_daily`) — proof artifact shared.
+4. `waitlist_signup_completed` (+ `referral_used`) — the north-star conversion.
+
+**Before/after baselining (not an A/B):** the V2 redesign is a straight replacement, so
+there is no concurrent control. Capture the pre-redesign north-star (signups attributable
+to a tool/demo interaction, per market) on `main` over a stable window **before** the
+merge, then compare the same metric over an equal post-merge window. Confounders (seasonality,
+paid spend, PR) must be annotated when interpreting the delta.
+
 ---
 
 ## Event Details by Category
