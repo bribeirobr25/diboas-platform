@@ -67,6 +67,13 @@ export interface ResultMomentProps {
   /** Formats the animated hero value (locale currency). */
   headlineFormatter: (value: number) => string;
   /**
+   * When set, renders this node as the hero INSTEAD of the animated numeric
+   * value — for results that are honestly a range, not a point (e.g. asset
+   * history's LOW-confidence "calm-framing", audit M6). No count-up, no single
+   * precise number.
+   */
+  headlineOverride?: ReactNode;
+  /**
    * Hero color semantics. `positive` (default) = teal action accent for a win;
    * `negative` = accessible error red for a loss (so retrospective tools never
    * celebrate a loss); `neutral` = ink. Honesty over spectacle.
@@ -79,7 +86,11 @@ export interface ResultMomentProps {
   /** Honest framing / both-sides disclaimer. */
   disclaimer?: ReactNode;
   cta: ResultMomentCta;
-  share: ResultMomentShareControl;
+  /**
+   * Share control. Omit to suppress sharing entirely — e.g. a LOW-confidence
+   * range result must not be broadcast as a single precise number on a card.
+   */
+  share?: ResultMomentShareControl;
   className?: string;
 }
 

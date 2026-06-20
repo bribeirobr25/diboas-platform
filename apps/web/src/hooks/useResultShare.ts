@@ -37,6 +37,8 @@ interface UseResultShareInput {
   currency: string;
   years?: number;
   locale: string;
+  /** Hero color semantics for the share card — a loss never renders as green. */
+  tone?: 'positive' | 'negative' | 'neutral';
   /** Pre-built, localized share text (without the URL — appended on copy). */
   shareText: string;
   /** Pre-built, localized title for the native share sheet. */
@@ -62,6 +64,7 @@ export function useResultShare({
   currency,
   years,
   locale,
+  tone,
   shareText,
   shareTitle,
   enabled = true,
@@ -78,7 +81,11 @@ export function useResultShare({
 
   useEffect(() => () => clearTimeout(copyTimerRef.current), []);
 
-  const shareUrl = getToolResultSharePageUrl({ toolKey, value, currency, years }, locale, APP_URL);
+  const shareUrl = getToolResultSharePageUrl(
+    { toolKey, value, currency, years, tone },
+    locale,
+    APP_URL
+  );
 
   const share = useCallback(async () => {
     const usedNative =

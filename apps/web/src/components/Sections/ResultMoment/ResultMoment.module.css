@@ -36,7 +36,10 @@
   color: var(--accent-action-text);
 }
 
-/* Honest tone overrides: a loss is never rendered in the celebratory teal. */
+/* Honest tone overrides: a loss is never rendered in the celebratory teal.
+ * NOTE: --text-error-accessible (#dc2626) on the cream paper surface is ~4.25:1
+ * — AA for LARGE text only (the hero is 5xl/6xl bold). Do not reuse this tone
+ * class on body-size text. */
 .heroValueNegative {
   color: var(--text-error-accessible);
 }

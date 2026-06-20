@@ -30,6 +30,7 @@ export const OG_COLORS = {
   coral: diBoasColors.secondary.coral[500],
   coralDark: diBoasColors.secondary.coral[600],
   success: diBoasColors.semantic.success,
+  error: diBoasColors.semantic.error,
 } as const;
 
 /**
@@ -73,6 +74,8 @@ export interface ToolResultTemplateProps {
   value: number;
   currency: string;
   years?: number;
+  /** Hero color semantics — so a loss/low-confidence result is never shared as a green "win". */
+  tone?: 'positive' | 'negative' | 'neutral';
   locale?: string;
 }
 

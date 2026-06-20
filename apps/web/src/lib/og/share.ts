@@ -26,6 +26,8 @@ interface ToolResultOGParams {
   /** ISO 4217 currency code (the holder's locale currency). */
   currency: string;
   years?: number;
+  /** Hero color semantics — a loss must not render as a green "win" on the card. */
+  tone?: 'positive' | 'negative' | 'neutral';
 }
 
 /**
@@ -41,6 +43,10 @@ function buildToolResultParams(params: ToolResultOGParams): URLSearchParams {
   searchParams.set('currency', params.currency);
   if (params.years) {
     searchParams.set('years', Math.round(params.years).toString());
+  }
+  // Only emit a non-default tone to keep the common (positive) URL clean.
+  if (params.tone && params.tone !== 'positive') {
+    searchParams.set('tone', params.tone);
   }
   return searchParams;
 }

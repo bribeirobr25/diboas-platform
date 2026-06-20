@@ -358,11 +358,16 @@ export function ToolResultTemplate({
   value,
   currency,
   years,
+  tone = 'positive',
   locale = 'en',
 }: ToolResultTemplateProps) {
   const t = getTranslations(locale);
   const toolName = t.toolResult.toolName[toolKey];
   const headlineText = t.toolResult.headlineByTool[toolKey] ?? t.toolResult.headline;
+  // Honesty on the viral surface: a loss is rendered in error red, a
+  // low-confidence/neutral result in white — never the celebratory green.
+  const heroColor =
+    tone === 'negative' ? OG_COLORS.error : tone === 'neutral' ? OG_COLORS.white : OG_COLORS.success;
 
   return (
     <OGBackground>
@@ -415,13 +420,13 @@ export function ToolResultTemplate({
         style={{
           fontSize: '88px',
           fontWeight: 'bold',
-          color: OG_COLORS.success,
+          color: heroColor,
           margin: 0,
           lineHeight: 1,
-          textShadow: `0 0 40px ${OG_COLORS.success}44`,
+          textShadow: `0 0 40px ${heroColor}44`,
         }}
       >
-        {formatResultCurrency(value, currency)}
+        {formatResultCurrency(value, currency, locale)}
       </h1>
 
       {/* Subline (only when a horizon is supplied) */}

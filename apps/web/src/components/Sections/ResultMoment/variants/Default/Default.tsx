@@ -20,6 +20,7 @@ export function ResultMomentDefault({
   headlineValue,
   headlineFormatter,
   headlineTone = 'positive',
+  headlineOverride,
   headlineCaption,
   chart,
   supportingPoints,
@@ -28,17 +29,17 @@ export function ResultMomentDefault({
   share,
   className = '',
 }: ResultMomentDefaultProps) {
+  const heroClass = `u-numeric ${styles.heroValue} ${HERO_TONE_CLASS[headlineTone]}`;
   return (
     <section className={`${styles.moment} ${className}`}>
       <p className={`u-eyebrow ${styles.eyebrow}`}>{eyebrow}</p>
 
       <div className={styles.heroBlock}>
-        <CountUp
-          as="p"
-          end={headlineValue}
-          formatter={headlineFormatter}
-          className={`u-numeric ${styles.heroValue} ${HERO_TONE_CLASS[headlineTone]}`}
-        />
+        {headlineOverride != null ? (
+          <p className={heroClass}>{headlineOverride}</p>
+        ) : (
+          <CountUp as="p" end={headlineValue} formatter={headlineFormatter} className={heroClass} />
+        )}
         {headlineCaption ? <p className={styles.heroCaption}>{headlineCaption}</p> : null}
       </div>
 
@@ -80,18 +81,16 @@ export function ResultMomentDefault({
             <span>{cta.label}</span>
             <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
           </LocaleLink>
-          <button
-            type="button"
-            onClick={() => void share.onShare()}
-            className={styles.shareButton}
-          >
-            {share.copied ? (
-              <Check size={18} strokeWidth={2} aria-hidden="true" />
-            ) : (
-              <Share2 size={18} strokeWidth={2} aria-hidden="true" />
-            )}
-            <span aria-live="polite">{share.copied ? share.copiedLabel : share.label}</span>
-          </button>
+          {share ? (
+            <button type="button" onClick={() => void share.onShare()} className={styles.shareButton}>
+              {share.copied ? (
+                <Check size={18} strokeWidth={2} aria-hidden="true" />
+              ) : (
+                <Share2 size={18} strokeWidth={2} aria-hidden="true" />
+              )}
+              <span aria-live="polite">{share.copied ? share.copiedLabel : share.label}</span>
+            </button>
+          ) : null}
         </div>
       </div>
     </section>

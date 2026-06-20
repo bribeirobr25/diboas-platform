@@ -110,6 +110,9 @@ export async function GET(request: NextRequest) {
           ? parseIntSafe(searchParams.get('years'), 0)
           : 0;
         const years = yearsRaw > 0 && yearsRaw <= 100 ? yearsRaw : undefined;
+        const toneParam = searchParams.get('tone');
+        const tone =
+          toneParam === 'negative' || toneParam === 'neutral' ? toneParam : 'positive';
 
         // Allowlist the tool key + range-validate the figure; anything off the
         // happy path falls back to the safe default card (SSRF / abuse guard).
@@ -123,6 +126,7 @@ export async function GET(request: NextRequest) {
               value={value}
               currency={currency}
               years={years}
+              tone={tone}
               locale={locale}
             />
           );

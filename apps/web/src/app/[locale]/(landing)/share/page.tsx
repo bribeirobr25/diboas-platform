@@ -27,6 +27,7 @@ interface SharePageProps {
     tool?: string;
     value?: string;
     currency?: string;
+    tone?: string;
   }>;
 }
 
@@ -198,23 +199,26 @@ export async function generateMetadata({
 
   if (type === 'tool-result') {
     const tool = search.tool || '';
-    const value = parseInt(search.value || '0', 10);
+    const rawValue = parseInt(search.value || '0', 10);
+    // Mirror the OG image route's range guard so the link-preview title can't be
+    // abused with an unbounded/garbage value (the image route re-validates too).
+    const value = Number.isFinite(rawValue) && rawValue > 0 && rawValue <= 1_000_000_000 ? rawValue : 0;
     const currency = (search.currency || 'USD').toUpperCase();
     const years = search.years;
+    const tone = search.tone === 'negative' || search.tone === 'neutral' ? search.tone : undefined;
 
     ogParams.set('tool', tool);
-    ogParams.set('value', String(Number.isFinite(value) ? value : 0));
+    ogParams.set('value', String(value));
     ogParams.set('currency', currency);
     ogParams.set('locale', locale);
     if (years) {
       ogParams.set('years', years);
     }
+    if (tone) {
+      ogParams.set('tone', tone);
+    }
 
-    const formattedValue = formatToolResultValue(
-      Number.isFinite(value) ? value : 0,
-      currency,
-      locale
-    );
+    const formattedValue = formatToolResultValue(value, currency, locale);
 
     const ogImageUrl = `${baseUrl}/api/og/share?${ogParams.toString()}`;
     // Per-tool title override keeps each tool honest (e.g. asset-history is

@@ -81,12 +81,16 @@ export function IdleCashCalculator() {
   // unconditionally (rules-of-hooks); the control only renders with a result.
   const fmtMoney = (n: number) => formatCurrency(n, localeKey, { maximumFractionDigits: 0 });
   const diboasFvValue = result?.diboasFV ?? 0;
+  // When the bank out-earns diBoaS (C37, e.g. Brazilian CDI) the diBoaS figure
+  // is real but not a "win" — render it neutral, not celebratory teal.
+  const idleTone: 'positive' | 'neutral' = result && result.difference < 0 ? 'neutral' : 'positive';
   const resultShare = useResultShare({
     toolKey: 'idle-cash',
     value: diboasFvValue,
     currency: getCurrencyCode(localeKey),
     years: form.years,
     locale: localeKey,
+    tone: idleTone,
     shareText: t('resultMoment.shareText', { value: fmtMoney(diboasFvValue), years: form.years }),
     shareTitle: tShared('resultMoment.shareTitle'),
   });
@@ -215,6 +219,7 @@ export function IdleCashCalculator() {
               eyebrow={t('resultMoment.eyebrow')}
               headlineValue={result.diboasFV}
               headlineFormatter={fmtMoney}
+              headlineTone={idleTone}
               headlineCaption={t('output.diboasLabel')}
               chart={{
                 series,

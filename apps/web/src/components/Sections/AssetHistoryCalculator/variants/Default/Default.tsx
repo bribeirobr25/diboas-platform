@@ -259,11 +259,22 @@ export function AssetHistoryCalculatorDefault() {
   // performance, not a diBoaS projection). Hook is unconditional.
   const fmtMoney = (n: number) => formatCurrency(n, currencyLocale, { maximumFractionDigits: 0 });
   const terminalValueForShare = result?.terminalValue ?? 0;
+  // Share-card tone: a loss in error red, a LOW-confidence result in neutral —
+  // never a green "win". (LOW + DCA suppresses sharing entirely below; this
+  // covers the rarer LOW + lump-sum case that still shares a single figure.)
+  const shareTone: 'positive' | 'negative' | 'neutral' = !result
+    ? 'positive'
+    : result.confidence === 'LOW'
+      ? 'neutral'
+      : result.totalContributed > 0 && result.terminalValue < result.totalContributed
+        ? 'negative'
+        : 'positive';
   const resultShare = useResultShare({
     toolKey: 'asset-history',
     value: terminalValueForShare,
     currency: displayCurrency,
     locale: localeKey,
+    tone: shareTone,
     shareText: t('resultMoment.shareText', { value: fmtMoney(terminalValueForShare) }),
     shareTitle: tShared('resultMoment.shareTitle'),
   });
@@ -375,25 +386,62 @@ export function AssetHistoryCalculatorDefault() {
 
       {result &&
         (() => {
-          // Retrospective honesty: a LOW-confidence window is rendered neutral
-          // (never the celebratory teal), a loss is rendered in the error tone,
-          // and the confidence + uncertainty note + entry-timing range are all
-          // surfaced. The hero is the terminal value; gain/loss % rides in the
-          // caption with its sign so direction is unmistakable.
+          // Retrospective honesty: a loss is rendered in the error tone; a
+          // LOW-confidence window is neutral and (for DCA) shows the RANGE as
+          // the hero — never a single precise number — per audit M6 calm-framing.
           const contributed = result.totalContributed;
           const gainPct = contributed > 0 ? (result.terminalValue / contributed - 1) * 100 : 0;
           const gainStr = `${gainPct >= 0 ? '+' : ''}${gainPct.toFixed(1)}%`;
-          const tone: 'positive' | 'negative' | 'neutral' =
-            result.confidence === 'LOW' ? 'neutral' : gainPct >= 0 ? 'positive' : 'negative';
+          const isLowConfidence = result.confidence === 'LOW';
+          const isLowDca = isLowConfidence && isDcaResult;
+          const tone: 'positive' | 'negative' | 'neutral' = isLowConfidence
+            ? 'neutral'
+            : gainPct >= 0
+              ? 'positive'
+              : 'negative';
           const assetName = t(`inputs.assetOptions.${form.asset}`);
           const startMonthLabel = t(`output.startMonth.${startMonthKey}`);
-          const note =
-            result.confidence === 'LOW'
-              ? t('output.uncertaintyLow')
-              : result.confidence === 'MEDIUM'
-                ? t('output.uncertaintyMedium')
-                : t('resultMoment.pastPerformance');
+          const note = isLowConfidence
+            ? t('output.uncertaintyLow')
+            : result.confidence === 'MEDIUM'
+              ? t('output.uncertaintyMedium')
+              : t('resultMoment.pastPerformance');
           const disclaimer = `${tShared(`confidence.${result.confidence.toLowerCase()}`)}. ${note}`;
+          const cta = {
+            headline: tShared('resultMoment.ctaHeadline'),
+            body: tShared('resultMoment.ctaBody'),
+            label: tShared('resultMoment.ctaLabel'),
+            href: '/?source=tool_asset-history',
+          };
+          const investedPoint: ResultMomentSupportingPoint = {
+            id: 'invested',
+            label: t('resultMoment.investedLabel'),
+            value: fmtMoney(contributed),
+            note:
+              form.mode === 'monthlyDca'
+                ? t('resultMoment.contributedMonths', { months: result.months })
+                : undefined,
+            variant: 'muted',
+          };
+
+          // LOW + DCA: the outcome is a wide range, so it leads with the range
+          // (no count-up point, no chart implying a single path, no shareable
+          // single-number card). The range IS the headline.
+          if (isLowDca) {
+            return (
+              <ResultMoment
+                eyebrow={t('resultMoment.eyebrow')}
+                headlineValue={result.terminalValue}
+                headlineFormatter={fmtMoney}
+                headlineTone="neutral"
+                headlineOverride={`${fmtMoney(result.rangeLow!)} – ${fmtMoney(result.rangeHigh!)}`}
+                headlineCaption={`${assetName} · ${startMonthLabel} ${form.startYear}`}
+                supportingPoints={[investedPoint]}
+                disclaimer={disclaimer}
+                cta={cta}
+              />
+            );
+          }
 
           const series: DivergenceSeries[] = [
             {
@@ -409,19 +457,7 @@ export function AssetHistoryCalculatorDefault() {
               variant: 'primary',
             },
           ];
-
-          const points: ResultMomentSupportingPoint[] = [
-            {
-              id: 'invested',
-              label: t('resultMoment.investedLabel'),
-              value: fmtMoney(contributed),
-              note:
-                form.mode === 'monthlyDca'
-                  ? t('resultMoment.contributedMonths', { months: result.months })
-                  : undefined,
-              variant: 'muted',
-            },
-          ];
+          const points: ResultMomentSupportingPoint[] = [investedPoint];
           if (isDcaResult) {
             points.push({
               id: 'range',
@@ -445,10 +481,7 @@ export function AssetHistoryCalculatorDefault() {
               })}
               chart={{
                 series,
-                xCaptions: [
-                  `${startMonthLabel} ${form.startYear}`,
-                  t('resultMoment.chartToday'),
-                ],
+                xCaptions: [`${startMonthLabel} ${form.startYear}`, t('resultMoment.chartToday')],
                 formatValue: fmtMoney,
                 ariaLabel: t('resultMoment.chartAria', {
                   asset: assetName,
@@ -457,12 +490,7 @@ export function AssetHistoryCalculatorDefault() {
               }}
               supportingPoints={points}
               disclaimer={disclaimer}
-              cta={{
-                headline: tShared('resultMoment.ctaHeadline'),
-                body: tShared('resultMoment.ctaBody'),
-                label: tShared('resultMoment.ctaLabel'),
-                href: '/?source=tool_asset-history',
-              }}
+              cta={cta}
               share={{
                 onShare: resultShare.share,
                 label: tShared('resultMoment.shareButton'),
