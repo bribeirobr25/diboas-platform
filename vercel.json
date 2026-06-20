@@ -5,5 +5,11 @@
       "dependabot/**": false,
       "dependabot/npm_and_yarn/**": false
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/purge-audit-logs",
+      "schedule": "0 3 * * *"
+    }
+  ]
 }

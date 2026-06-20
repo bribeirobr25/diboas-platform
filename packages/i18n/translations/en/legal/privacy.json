@@ -38,7 +38,7 @@
       "automatic": {
         "title": "Information Collected Automatically:",
         "items": [
-          "IP address (used for security rate limiting; not sent to analytics services)",
+          "IP address (used for security rate limiting and audit logging, retained up to 90 days; not sent to analytics services)",
           "Browser type and version",
           "Device information",
           "Pages visited and time spent",

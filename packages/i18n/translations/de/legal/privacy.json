@@ -38,7 +38,7 @@
       "automatic": {
         "title": "Automatisch erhobene Informationen:",
         "items": [
-          "IP-Adresse (für Sicherheits-Ratenbegrenzung verwendet; nicht an Analysedienste gesendet)",
+          "IP-Adresse (für Sicherheits-Ratenbegrenzung und Audit-Protokollierung verwendet, bis zu 90 Tage gespeichert; nicht an Analysedienste gesendet)",
           "Browsertyp und -version",
           "Geräteinformationen",
           "Besuchte Seiten und Verweildauer",

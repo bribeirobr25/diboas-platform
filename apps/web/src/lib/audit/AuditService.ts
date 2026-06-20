@@ -80,3 +80,42 @@ export async function logAuditEvent(event: AuditEvent): Promise<void> {
     );
   }
 }
+
+/**
+ * Retention window for the audit trail. `audit_logs` stores raw `actor_ip`
+ * under legitimate interest (security/forensics); GDPR storage-limitation
+ * requires a bounded retention. Keep in lockstep with the COMMENT in
+ * migrations/013_audit_logs_retention.sql. §5.39.
+ */
+export const AUDIT_LOG_RETENTION_DAYS = 90;
+
+/**
+ * Delete audit_logs rows older than the retention window. Safe to call
+ * periodically (mirrors `dbCleanupIdempotencyCache`); invoked by the
+ * `/api/cron/purge-audit-logs` Vercel cron. Returns the number of rows
+ * deleted. Failures are logged, never thrown.
+ */
+export async function purgeExpiredAuditLogs(): Promise<number> {
+  try {
+    const rows = await sql`
+      DELETE FROM audit_logs
+      WHERE created_at < NOW() - (${AUDIT_LOG_RETENTION_DAYS} || ' days')::interval
+      RETURNING id
+    `;
+    const deleted = rows.length;
+    if (deleted > 0) {
+      Logger.info('[AuditService] Purged expired audit logs', {
+        deleted,
+        retentionDays: AUDIT_LOG_RETENTION_DAYS,
+      });
+    }
+    return deleted;
+  } catch (error) {
+    Logger.error(
+      '[AuditService] Failed to purge expired audit logs',
+      { retentionDays: AUDIT_LOG_RETENTION_DAYS },
+      error instanceof Error ? error : undefined
+    );
+    return 0;
+  }
+}
