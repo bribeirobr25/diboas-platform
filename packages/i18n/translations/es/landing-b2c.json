@@ -22,6 +22,9 @@
     "honest": "Guardar no es lo mismo que proteger. El dólar digital te da acceso a una moneda más fuerte, contigo siempre al mando. Ningún mercado está libre de riesgo.",
     "cta": "Calcula lo que pierdes"
   },
+  "waitlistFounding": {
+    "spotsLeft": "Solo quedan {remaining} de {cap} plazas de fundador."
+  },
   "comparison": {
     "heading": "1.000 €. 1 año. Tú decides.",
     "columns": {

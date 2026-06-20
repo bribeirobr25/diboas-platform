@@ -39,6 +39,7 @@ interface WaitlistVersionAProps {
   stats: {
     count: number;
     foundingMemberSpotsRemaining?: number;
+    foundingMemberCap?: number;
   };
   isLoading: boolean;
   enableAnalytics?: boolean;
@@ -47,7 +48,7 @@ interface WaitlistVersionAProps {
 export function WaitlistVersionA({
   config,
   source,
-  stats: _stats,
+  stats,
   isLoading: _isLoading,
   enableAnalytics: _enableAnalytics = true,
 }: WaitlistVersionAProps) {
@@ -83,6 +84,8 @@ export function WaitlistVersionA({
             referralCode={signupData.referralCode}
             referralUrl={signupData.referralUrl}
             tier={signupData.tier}
+            foundingSpotsRemaining={stats.foundingMemberSpotsRemaining}
+            foundingCap={stats.foundingMemberCap}
             namespace={config?.confirmationNamespace}
           />
         </div>

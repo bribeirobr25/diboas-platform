@@ -22,6 +22,9 @@
     "honest": "Nach Inflation verliert dein Erspartes real an Wert. Der digitale Dollar gibt dir Zugang zu mehr, mit dir am Steuer. Kein Markt ist ohne Risiko.",
     "cta": "Rechne nach"
   },
+  "waitlistFounding": {
+    "spotsLeft": "Nur noch {remaining} von {cap} Gründerplätzen frei."
+  },
   "comparison": {
     "heading": "1.000 €. 1 Jahr. Du entscheidest.",
     "columns": {

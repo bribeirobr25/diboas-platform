@@ -9,7 +9,11 @@
 
 import { useState, useEffect } from 'react';
 import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
-import { getWaitlistStatsFromEnv } from '@/config/waitlist-stats';
+import {
+  getWaitlistStatsFromEnv,
+  WAITLIST_STATS_FALLBACK,
+  WAITLIST_STATS_FALLBACK_B2B,
+} from '@/config/waitlist-stats';
 import {
   applicationEventBus,
   ApplicationEventType,
@@ -20,6 +24,8 @@ interface WaitlistStats {
   count: number;
   countries: number;
   foundingMemberSpotsRemaining?: number;
+  /** Authoritative founding cap from the API (env fallback before it loads). */
+  foundingMemberCap?: number;
 }
 
 interface UseWaitlistStatsOptions {
@@ -38,7 +44,15 @@ const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlistStatsReturn {
   const source = options?.source;
   const cacheKey = source ? `${CACHE_KEY_PREFIX}-${source}` : CACHE_KEY_PREFIX;
-  const [stats, setStats] = useState<WaitlistStats>(getWaitlistStatsFromEnv);
+  // Seed the founding cap/remaining from the source-appropriate env fallback;
+  // the API response (authoritative) overrides both together so the ring's
+  // numerator and denominator never come from drifting sources.
+  const fallback = source === 'landing_b2b' ? WAITLIST_STATS_FALLBACK_B2B : WAITLIST_STATS_FALLBACK;
+  const [stats, setStats] = useState<WaitlistStats>(() => ({
+    ...getWaitlistStatsFromEnv(),
+    foundingMemberCap: fallback.foundingMemberCap,
+    foundingMemberSpotsRemaining: fallback.foundingMemberSpotsRemaining,
+  }));
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch stats from API with sessionStorage cache
@@ -70,6 +84,7 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
             count: data.count,
             countries: data.countries,
             foundingMemberSpotsRemaining: data.foundingMemberSpotsRemaining,
+            foundingMemberCap: data.foundingMemberCap ?? fallback.foundingMemberCap,
           };
           setStats(statsData);
 
@@ -91,7 +106,7 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
 
     fetchStats();
     return () => controller.abort();
-  }, [cacheKey, source]);
+  }, [cacheKey, source, fallback.foundingMemberCap]);
 
   // Listen for real-time signup events
   useEffect(() => {
@@ -128,6 +143,7 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
                 count: data.count,
                 countries: data.countries,
                 foundingMemberSpotsRemaining: data.foundingMemberSpotsRemaining,
+                foundingMemberCap: data.foundingMemberCap ?? fallback.foundingMemberCap,
               });
             }
           })
@@ -141,7 +157,7 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
       unsubscribe();
       controller.abort();
     };
-  }, [cacheKey, source]);
+  }, [cacheKey, source, fallback.foundingMemberCap]);
 
   return { stats, isLoading };
 }

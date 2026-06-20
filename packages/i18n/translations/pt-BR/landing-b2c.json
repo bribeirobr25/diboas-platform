@@ -22,6 +22,9 @@
     "honest": "Ninguém prevê o câmbio, mas a direção de longo prazo é difícil de ignorar. O dólar digital te dá acesso a essa força, com você no controle.",
     "cta": "Veja o que seu real perde"
   },
+  "waitlistFounding": {
+    "spotsLeft": "Só restam {remaining} de {cap} vagas de fundador."
+  },
   "comparison": {
     "heading": "R$1.000. 1 ano. Você decide.",
     "columns": {

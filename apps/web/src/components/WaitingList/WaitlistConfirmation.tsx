@@ -15,6 +15,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { ReferralLink } from './ReferralLink';
+import { GoalRing } from '@/components/UI/GoalRing';
 import { formatPosition } from '@/lib/waitingList/helpers';
 import styles from './WaitlistConfirmation.module.css';
 
@@ -44,6 +45,10 @@ interface WaitlistConfirmationProps {
   referralCount?: number;
   /** User's tier */
   tier?: string;
+  /** Live founding-member spots remaining (drives the celebratory ring). */
+  foundingSpotsRemaining?: number;
+  /** Founding-member cap (for the ring's fill fraction). */
+  foundingCap?: number;
   /** Callback when share is initiated */
   onShareClick?: (platform: string) => void;
   /** Custom class name */
@@ -58,6 +63,8 @@ export function WaitlistConfirmation({
   referralUrl,
   referralCount = 0,
   tier,
+  foundingSpotsRemaining,
+  foundingCap,
   onShareClick,
   className = '',
   namespace = 'waitlist',
@@ -70,6 +77,16 @@ export function WaitlistConfirmation({
   const t = (key: string, values?: Record<string, string | number>) => {
     return intl.formatMessage({ id: `${namespace}.${key}` }, values);
   };
+  // Founding-celebration copy lives in the shared `landing-b2c` namespace
+  // (loaded on both the B2C and B2B pages) so a single key serves both
+  // confirmation namespaces.
+  const tFounding = (key: string, values?: Record<string, string | number>) =>
+    intl.formatMessage({ id: `landing-b2c.waitlistFounding.${key}` }, values);
+
+  const foundingFilled =
+    foundingCap && foundingCap > 0 && foundingSpotsRemaining != null && foundingSpotsRemaining >= 0
+      ? Math.min(1, Math.max(0, (foundingCap - foundingSpotsRemaining) / foundingCap))
+      : null;
 
   // Animate position number counting down
   useEffect(() => {
@@ -120,6 +137,30 @@ export function WaitlistConfirmation({
           </>
         );
       })()}
+
+      {/* Founding-member celebration beat — a filling ring + live scarcity line.
+          Only when there are founding spots left and the cap is known. */}
+      {foundingFilled != null && foundingSpotsRemaining! > 0 ? (
+        <div className={styles.founding}>
+          <GoalRing
+            progress={foundingFilled}
+            size={120}
+            variant="action"
+            ariaLabel={tFounding('spotsLeft', {
+              remaining: foundingSpotsRemaining!,
+              cap: foundingCap!,
+            })}
+            label={
+              <span className={`u-numeric ${styles.foundingPct}`}>
+                {Math.round(foundingFilled * 100)}%
+              </span>
+            }
+          />
+          <p className={styles.foundingSpots}>
+            {tFounding('spotsLeft', { remaining: foundingSpotsRemaining!, cap: foundingCap! })}
+          </p>
+        </div>
+      ) : null}
 
       {/* Referral section */}
       <div className={styles.referralSection}>

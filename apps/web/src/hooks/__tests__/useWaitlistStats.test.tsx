@@ -14,6 +14,8 @@ import { renderHook, act, cleanup } from '@testing-library/react';
 
 vi.mock('@/config/waitlist-stats', () => ({
   getWaitlistStatsFromEnv: () => ({ count: 100, countries: 10, foundingMemberSpotsRemaining: 50 }),
+  WAITLIST_STATS_FALLBACK: { foundingMemberCap: 1200, foundingMemberSpotsRemaining: 1200 },
+  WAITLIST_STATS_FALLBACK_B2B: { foundingMemberCap: 24, foundingMemberSpotsRemaining: 24 },
 }));
 
 // First effect's fetch — never interferes (we also short-circuit it via a fresh cache).
@@ -111,10 +113,13 @@ describe('useWaitlistStats — RC-1 abort guard', () => {
     });
 
     // Fresh server data flows through the (un-aborted) guard's true branch.
+    // foundingMemberCap falls back to the env constant when absent from the
+    // fresh response (the cap and remaining still share that single source).
     expect(result.current.stats).toEqual({
       count: 999,
       countries: 42,
       foundingMemberSpotsRemaining: 1,
+      foundingMemberCap: 1200,
     });
   });
 });
