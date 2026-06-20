@@ -99,7 +99,7 @@ export async function purgeExpiredAuditLogs(): Promise<number> {
   try {
     const rows = await sql`
       DELETE FROM audit_logs
-      WHERE created_at < NOW() - (${AUDIT_LOG_RETENTION_DAYS} || ' days')::interval
+      WHERE created_at < NOW() - make_interval(days => ${AUDIT_LOG_RETENTION_DAYS})
       RETURNING id
     `;
     const deleted = rows.length;
