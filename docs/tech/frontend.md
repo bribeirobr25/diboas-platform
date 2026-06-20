@@ -147,12 +147,17 @@ All hooks live in `apps/web/src/hooks/`:
 | Hook               | Purpose                                                                                                                                           |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `useCarousel`      | Carousel state, auto-rotation, keyboard nav, pause-on-hover, swipe integration. Uses mutex locks and state machine for race condition prevention. |
+| `useCountUp`       | rAF-driven eased number count-up for figure reveals; respects `prefers-reduced-motion` and cancels the frame on unmount.                           |
 | `useFocusTrap`     | Traps keyboard focus within modals/dialogs. Returns focus to trigger element on close.                                                            |
 | `useImageLoading`  | Tracks image load states across multiple images. Fires callback when all images are loaded.                                                       |
+| `useInView`        | Reduced-motion-safe one-shot IntersectionObserver trigger for draw-on / reveal animations.                                                        |
+| `useMarketWedge`   | Resolves the per-market wedge figure from `marketDataService` (bank rate / inflation / currency-depreciation per locale); normalizes percent vs decimal units. |
 | `useNavigation`    | Navigation open/close state, active menu/submenu tracking, mobile breakpoint detection.                                                           |
+| `useResultShare`   | Money Tools result-moment share — builds the `/share` OG URL and shares via `useWebShare`; Format-A `share_initiated`/`share_completed` (no PII), gated by `enabled`. |
 | `useSwipeGesture`  | Touch gesture detection (swipe left/right) for carousel components. Configurable threshold.                                                       |
 | `useUtmCapture`    | Captures UTM parameters from URL on page load, persists to `sessionStorage` for attribution.                                                      |
 | `useWaitlistStats` | Fetches waitlist stats with `fetchWithRetry`, caches in `sessionStorage` (5-min TTL), listens for real-time updates via `ApplicationEventBus`.    |
+| `useWebShare`      | Shared Web Share + copy-fallback engine (native sheet → clipboard, `copied` timer, AbortError no-op). Consumed by `useResultShare` + `MarketCtaBand`; analytics via `onInitiated`/`onCompleted` callbacks. |
 
 Additional component-scoped hooks exist in `WaitingList/hooks/` (`useWaitlistForm`, `useWaitlistModalForm`) and `PreDemo/hooks/` (`useScreenTransitionSequence`, `useTimerCleanup`).
 
