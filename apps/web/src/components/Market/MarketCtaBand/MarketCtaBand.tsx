@@ -79,7 +79,7 @@ export function MarketCtaBand({
         timerRef.current = setTimeout(() => setCopied(false), 2000);
         analyticsService.track({
           name: 'share_completed',
-          parameters: { source: 'adelaide_daily', platform: 'copy' },
+          parameters: { source: 'adelaide_daily', platform: 'copy', locale },
         });
       }
     } catch (err) {
