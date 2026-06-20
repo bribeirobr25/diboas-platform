@@ -16,6 +16,12 @@
     "cta": "Me mostra",
     "phoneMockupLabel": "Prévia. Em breve"
   },
+  "wedge": {
+    "eyebrow": "A verdade sobre o real",
+    "claim": "O real perdeu {value} pro dólar desde 2010.",
+    "honest": "Ninguém prevê o câmbio, mas a direção de longo prazo é difícil de ignorar. O dólar digital te dá acesso a essa força, com você no controle.",
+    "cta": "Veja o que seu real perde"
+  },
   "comparison": {
     "heading": "R$1.000. 1 ano. Você decide.",
     "columns": {

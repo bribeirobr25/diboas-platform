@@ -16,6 +16,12 @@
     "cta": "Zeig mir",
     "phoneMockupLabel": "Vorschau. Demnächst verfügbar"
   },
+  "wedge": {
+    "eyebrow": "Die Wahrheit über Tagesgeld",
+    "claim": "Dein Tagesgeld bringt {value}.",
+    "honest": "Nach Inflation verliert dein Erspartes real an Wert. Der digitale Dollar gibt dir Zugang zu mehr, mit dir am Steuer.",
+    "cta": "Rechne nach"
+  },
   "comparison": {
     "heading": "1.000 €. 1 Jahr. Du entscheidest.",
     "columns": {

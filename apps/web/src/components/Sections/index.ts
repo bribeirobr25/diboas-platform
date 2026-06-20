@@ -33,6 +33,9 @@ export { SidePocketStrip } from './SidePocketStrip';
 export { FoundingMembersSection } from './FoundingMembersSection';
 export { HowItWorksGrid } from './HowItWorksGrid';
 
+// Per-market wedge (Phase 4 redesign)
+export { WedgeSection } from './WedgeSection';
+
 // B2B Landing Page Sections
 export { ScenarioCards } from './ScenarioCards';
 

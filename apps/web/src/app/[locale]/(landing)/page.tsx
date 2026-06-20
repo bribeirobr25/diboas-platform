@@ -5,6 +5,7 @@ import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import {
   HeroSection,
+  WedgeSection,
   ProseSection,
   ComparisonTable,
   GoalExampleCards,
@@ -218,6 +219,20 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
               />
             </div>
           </SectionErrorBoundary>
+
+          {/* Per-market wedge — each locale's market truth, live-data-bound */}
+          <ScrollReveal>
+            <SectionErrorBoundary
+              sectionId="wedge-section-b2c"
+              sectionType="WedgeSection"
+              enableReporting={true}
+              context={{ page: 'landing-b2c' }}
+            >
+              <div data-section-id="wedge-section-b2c">
+                <WedgeSection enableAnalytics={true} />
+              </div>
+            </SectionErrorBoundary>
+          </ScrollReveal>
 
           {/* Section 2: Comparison Table — neutral bg */}
           <ScrollReveal>

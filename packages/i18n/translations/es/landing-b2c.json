@@ -16,6 +16,12 @@
     "cta": "Muéstrame",
     "phoneMockupLabel": "Vista previa. Próximamente"
   },
+  "wedge": {
+    "eyebrow": "La verdad sobre tus ahorros",
+    "claim": "La inflación se comió {value} de tu dinero desde 2010.",
+    "honest": "Guardar no es lo mismo que proteger. El dólar digital te da acceso a una moneda más fuerte, contigo siempre al mando.",
+    "cta": "Calcula lo que pierdes"
+  },
   "comparison": {
     "heading": "1.000 €. 1 año. Tú decides.",
     "columns": {

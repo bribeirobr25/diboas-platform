@@ -16,6 +16,12 @@
     "cta": "Show me",
     "phoneMockupLabel": "Preview. Coming soon"
   },
+  "wedge": {
+    "eyebrow": "The honest math",
+    "claim": "Your bank pays {value} on your savings.",
+    "honest": "Banks put your money to work and keep most of the upside. We think more of it belongs to you. You stay in control, and yes, you can still lose money.",
+    "cta": "See it in the demo"
+  },
   "comparison": {
     "heading": "$1,000. 1 year. You decide.",
     "columns": {
