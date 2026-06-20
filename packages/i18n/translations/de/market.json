@@ -54,6 +54,15 @@
     "poweredByLabel": "Bereitgestellt von",
     "poweredByProduct": "diBoaS Analytics"
   },
+  "cta": {
+    "cadence": "Wöchentlich aktualisiert",
+    "headline": "Ruhige Einordnung, jede Woche.",
+    "body": "Adelaide Daily ist kostenlos und wird wöchentlich aktualisiert. Tritt der Warteliste bei, um beim Start von diBoaS dabei zu sein.",
+    "waitlist": "Der Warteliste beitreten",
+    "share": "Adelaide teilen",
+    "shareCopied": "Link kopiert",
+    "shareText": "Adelaide Daily: ruhige Makro-Einordnung für Bitcoin."
+  },
   "fallback": {
     "outageTitle": "Live-Daten vorübergehend nicht verfügbar",
     "outageBody": "Wir stellen die Verbindung zu unseren Datenquellen wieder her. Methodik und historisches Archiv bleiben verfügbar.",

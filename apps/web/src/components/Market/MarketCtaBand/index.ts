@@ -1,0 +1,1 @@
+export { MarketCtaBand } from './MarketCtaBand';

@@ -6,7 +6,7 @@ import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
-import { MarketHeroCanvas } from '@/components/Market';
+import { MarketHeroCanvas, MarketCtaBand } from '@/components/Market';
 import { Container } from '@/components/UI/Container';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import nextDynamic from 'next/dynamic';
@@ -336,6 +336,23 @@ export default async function MarketPage({ params }: LocalePageProps) {
               </SectionErrorBoundary>
             )}
           </Container>
+
+          {/* Closing band — weekly cadence + subscribe-to-waitlist + share (Phase 5). */}
+          <MarketCtaBand
+            locale={locale}
+            cadence={t('cta.cadence', 'Updated weekly')}
+            headline={t('cta.headline', 'Calm intelligence, every week.')}
+            body={t(
+              'cta.body',
+              'Adelaide Daily is free and refreshed every week. Join the waitlist to be first when diBoaS opens.'
+            )}
+            waitlistLabel={t('cta.waitlist', 'Join the waitlist')}
+            shareLabel={t('cta.share', 'Share Adelaide')}
+            shareCopied={t('cta.shareCopied', 'Link copied')}
+            shareUrl={`${siteUrl}/${locale}/market`}
+            shareText={t('cta.shareText', 'Adelaide Daily: calm macro intelligence for Bitcoin.')}
+            shareTitle={t('hero.title', 'Adelaide Daily')}
+          />
 
           {/* Methodology — dark editorial block (full-bleed). */}
           <section className={styles.method}>

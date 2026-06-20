@@ -54,6 +54,15 @@
     "poweredByLabel": "Provido por",
     "poweredByProduct": "diBoaS Analytics"
   },
+  "cta": {
+    "cadence": "Atualizado toda semana",
+    "headline": "Inteligência calma, toda semana.",
+    "body": "O Adelaide Daily é gratuito e atualizado toda semana. Entre na lista de espera pra ser o primeiro quando o diBoaS abrir.",
+    "waitlist": "Entrar na lista de espera",
+    "share": "Compartilhar o Adelaide",
+    "shareCopied": "Link copiado",
+    "shareText": "Adelaide Daily: inteligência macro calma para Bitcoin."
+  },
   "fallback": {
     "outageTitle": "Dados ao vivo temporariamente indisponíveis",
     "outageBody": "Estamos restabelecendo a conexão com nossas fontes de dados. A metodologia e o histórico permanecem disponíveis.",
