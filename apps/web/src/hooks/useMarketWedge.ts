@@ -58,10 +58,23 @@ function resolveFraction(
   }
 }
 
-function formatPercent(fraction: number, locale: SupportedLocale): string {
-  // Small rates (bank savings) keep up to 2 decimals; large cumulative figures
-  // round to whole percent.
-  const maximumFractionDigits = Math.abs(fraction) < 0.05 ? 2 : 0;
+/**
+ * Display precision is keyed off the METRIC, not the figure's magnitude: bank
+ * rates always keep 2 decimals (0.38% / 2.3% / 6.83%), cumulative loss/inflation
+ * round to whole percent (41% / 63%). A magnitude heuristic would silently drop
+ * the decimals on a bank rate ≥ 5%.
+ */
+const METRIC_PRECISION: Record<WedgeMetric, number> = {
+  bankSavings: 2,
+  inflationCumulative: 0,
+  brlDollarLoss: 0,
+};
+
+function formatPercent(
+  fraction: number,
+  locale: SupportedLocale,
+  maximumFractionDigits: number
+): string {
   return new Intl.NumberFormat(LOCALE_TO_INTL[locale], {
     style: 'percent',
     maximumFractionDigits,
@@ -79,6 +92,12 @@ export function useMarketWedge(locale: SupportedLocale): MarketWedge {
   return useMemo(() => {
     const expression = WEDGE_CONFIG[locale];
     const fraction = resolveFraction(expression.metric, locale, snapshot);
-    return { expression, figure: fraction != null ? formatPercent(fraction, locale) : null };
+    return {
+      expression,
+      figure:
+        fraction != null
+          ? formatPercent(fraction, locale, METRIC_PRECISION[expression.metric])
+          : null,
+    };
   }, [locale, snapshot]);
 }

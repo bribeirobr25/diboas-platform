@@ -1,44 +1,24 @@
 /**
  * useMarketWedge — per-market wedge engine (Phase 4).
  *
- * Verifies each locale resolves the RIGHT metric into a locale-formatted live
- * figure, and that the percent/decimal unit split is normalized correctly (the
- * documented unit-convention bug-source): bank rates are percent-shape, inflation
- * is decimal-shape, the BRL loss reuses the currency-depreciation retrospective.
+ * Exercises the REAL plumbing: the real `FALLBACK_MARKET_DATA` snapshot and the
+ * real `calculateCurrencyDepreciationRetrospective` (no stubs), so a regression
+ * in the `exchangeRates` read or the percent/decimal unit split is caught. The
+ * unit-convention split is the documented bug-source: bank rates are
+ * percent-shape, inflation is decimal-shape, the BRL loss reuses the
+ * currency-depreciation retrospective (and must equal the tool's figure).
  *
  * @vitest-environment happy-dom
  */
 
 import { describe, it, expect, vi } from 'vitest';
 import { renderHook } from '@testing-library/react';
+import { FALLBACK_MARKET_DATA } from '@/lib/market-data';
+import { calculateCurrencyDepreciationRetrospective } from '@/lib/currency-depreciation';
 import { useMarketWedge } from '../useMarketWedge';
 
-const fixtureSnapshot = {
-  rates: {
-    bankRates: {
-      en: { savings: 0.38 },
-      de: { savings: 2.3 },
-      es: { savings: 2.0 },
-      'pt-BR': { savings: 6.83 },
-    },
-  },
-  inflationRates: {
-    rates: {
-      en: { cumulativeSince2010: 0.523 },
-      de: { cumulativeSince2010: 0.41 },
-      es: { cumulativeSince2010: 0.41 },
-      'pt-BR': { cumulativeSince2010: 1.45 },
-    },
-  },
-};
-
 vi.mock('@/hooks/useMarketData', () => ({
-  useMarketData: () => ({ data: fixtureSnapshot }),
-}));
-
-vi.mock('@/lib/currency-depreciation', () => ({
-  // BRL anchor 1.874 → 5.0134 ⇒ (1 - 1.874/5.0134)*100 ≈ 62.6%
-  calculateCurrencyDepreciationRetrospective: () => ({ percentLossInUsdTerms: 62.6 }),
+  useMarketData: () => ({ data: FALLBACK_MARKET_DATA }),
 }));
 
 describe('useMarketWedge', () => {
@@ -49,10 +29,9 @@ describe('useMarketWedge', () => {
     expect(result.current.figure).toBe('0.38%');
   });
 
-  it('de → bank savings formatted in de-DE (comma + space)', () => {
+  it('de → bank savings formatted in de-DE (comma + space), 2 decimals kept', () => {
     const { result } = renderHook(() => useMarketWedge('de'));
     expect(result.current.expression.metric).toBe('bankSavings');
-    // de-DE renders "2,3 %" (narrow no-break space before %)
     expect(result.current.figure).toMatch(/^2,3\s?%$/);
   });
 
@@ -62,10 +41,23 @@ describe('useMarketWedge', () => {
     expect(result.current.figure).toMatch(/^41\s?%$/);
   });
 
-  it('pt-BR → BRL dollar-loss via the currency-depreciation retrospective', () => {
+  it('pt-BR → BRL dollar-loss via the REAL currency-depreciation retrospective', () => {
     const { result } = renderHook(() => useMarketWedge('pt-BR'));
     expect(result.current.expression.metric).toBe('brlDollarLoss');
     expect(result.current.expression.ctaHref).toBe('/tools/currency-depreciation');
+
+    // The wedge figure must equal the Currency-Depreciation tool's own loss %
+    // (DRY / Principle 4): same function, same snapshot.
+    const tool = calculateCurrencyDepreciationRetrospective(
+      { amount: 1000, currency: 'BRL' },
+      FALLBACK_MARKET_DATA
+    );
+    expect(tool).not.toBeNull();
+    const expected = new Intl.NumberFormat('pt-BR', {
+      style: 'percent',
+      maximumFractionDigits: 0,
+    }).format(tool!.percentLossInUsdTerms / 100);
+    expect(result.current.figure).toBe(expected);
     expect(result.current.figure).toBe('63%');
   });
 });

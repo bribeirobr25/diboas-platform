@@ -10,8 +10,10 @@ import { ArrowRight } from '@/components/UI/LucideIcon';
 import { WEDGE_I18N } from '@/config/wedge';
 import styles from '../../WedgeSection.module.css';
 
+// `action` is the base case — `.wedge` already carries the teal top-border and
+// the eyebrow defaults to the action accent — so it has no dedicated class.
 const TONE_CLASS = {
-  action: styles.action ?? '',
+  action: '',
   warm: styles.warm ?? '',
   neutral: styles.neutral ?? '',
 } as const;
