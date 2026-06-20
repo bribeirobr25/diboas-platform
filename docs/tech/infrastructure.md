@@ -31,7 +31,7 @@ Single web application (`apps/web`). No backend services, no microservices, no m
 - **Preview deployments:** Every PR gets a preview URL automatically.
 - **Runtime:** Node.js (serverless functions for API routes).
 - **Build command:** `pnpm build` (Turborepo orchestrates workspace dependency order).
-- **No `vercel.json`** — all configuration is via the Vercel dashboard and `next.config.js`.
+- **`vercel.json`** (root) holds Dependabot deploy-gating + the audit-log retention cron (`/api/cron/purge-audit-logs`, daily 03:00 UTC). All other configuration is via the Vercel dashboard and `next.config.js`.
 
 ## 3. DNS & CDN — Cloudflare
 
@@ -116,7 +116,7 @@ The `.env.example` lists placeholders for these services, but none are integrate
 
 ## 8. CI/CD — GitHub Actions
 
-Two workflows in `.github/workflows/`:
+Five workflows in `.github/workflows/`: `ci.yml`, `security.yml`, `accessibility.yml`, `e2e.yml`, `lighthouse.yml`.
 
 ### `ci.yml` — Quality gate
 
@@ -137,14 +137,26 @@ Two workflows in `.github/workflows/`:
 
 - **Triggers:** Push to `main`, PRs targeting `main`, weekly cron (Monday 00:00 UTC).
 - **Steps:**
-  1. `pnpm audit --prod --audit-level=high`
+  1. `pnpm audit --prod --audit-level=critical`
   2. On failure: Slack notification via `slackapi/slack-github-action@v2`.
   3. Fails the job if vulnerabilities are found.
 
+### `accessibility.yml` — pa11y WCAG2AA
+
+- pa11y accessibility scan (WCAG 2.1 AA) on PR/push.
+
+### `e2e.yml` — Playwright
+
+- End-to-end Playwright suite on PR/push.
+
+### `lighthouse.yml` — Lighthouse CI (advisory)
+
+- Core Web Vitals + category assertions on PR/push. Currently **warn-only**
+  (`continue-on-error: true`; assertions are `["warn", …]`) — does not block merge
+  pending threshold calibration against CI-runner noise (see PENDING_ALL §5.37).
+
 ### What is NOT in CI
 
-- No E2E tests (Playwright not configured).
-- No Lighthouse CI step (available locally via `pnpm performance:audit`).
 - No staging deployment step.
 - No CodeQL or Snyk scanning.
 
@@ -161,7 +173,7 @@ The Next.js middleware (`apps/web/middleware.ts`) runs on every non-static reque
 
 ## 10. Environment Variables
 
-Documented in `apps/web/.env.example` (67 variables across these categories):
+Documented in `apps/web/.env.example` (~120 variables across these categories):
 
 | Category      | Examples                                                                 |
 | ------------- | ------------------------------------------------------------------------ |
@@ -170,13 +182,14 @@ Documented in `apps/web/.env.example` (67 variables across these categories):
 | Email         | `RESEND_API_KEY`, `EMAIL_FROM_ADDRESS`                                   |
 | Cal.com       | `NEXT_PUBLIC_CAL_LINK`, `NEXT_PUBLIC_CAL_EMBED_SCRIPT`                   |
 | Waitlist      | `FOUNDING_MEMBER_CAP`, `INTERNAL_API_KEY`                                |
+| Cron          | `CRON_SECRET` (Bearer-auths the Vercel cron `/api/cron/purge-audit-logs`) |
 | Analytics     | `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_POSTHOG_KEY` |
 | Security      | `CSP_NONCE_SECRET`, `ENCRYPTION_KEY`, `HMAC_KEY`                         |
 | Rate limiting | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`                     |
 | Feature flags | `NEXT_PUBLIC_ENABLE_BOOKING`, `NEXT_PUBLIC_ENABLE_REFERRALS`             |
 | Brand / SEO   | `NEXT_PUBLIC_BRAND_NAME`, `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`         |
 
-Secret rotation policy: 90-day cycle for `ENCRYPTION_KEY`, `HMAC_KEY`, `RESEND_API_KEY`, `INTERNAL_API_KEY`, `UPSTASH_REDIS_REST_TOKEN`.
+Secret rotation policy: 90-day cycle for `ENCRYPTION_KEY`, `HMAC_KEY`, `RESEND_API_KEY`, `INTERNAL_API_KEY`, `UPSTASH_REDIS_REST_TOKEN`, `CRON_SECRET`.
 
 ## 11. Node.js & Runtime
 

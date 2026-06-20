@@ -25,16 +25,18 @@ ComponentName/
       index.ts
 ```
 
-Examples: `HeroSection`, `FAQAccordion`, `BenefitsCards`, `FeatureShowcase`, `OneFeature`, `ProductCarousel`, `AppFeaturesCarousel`, `BgHighlight`, `StepGuide`, `StickyFeaturesNav`, `WaitlistSection`.
+Examples: `HeroSection`, `CinematicHero`, `ComparisonTable`, `WedgeSection`, `TwoWorldsSection`, `SidePocketStrip`, `ResultMoment`, `GoalExampleCards`, `WaitlistSection`.
 
 ### Component Categories
 
 | Directory           | Purpose                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Sections/`         | Page sections (30+ components) with Factory pattern — including the 10-tool calculator suite (`CompoundInterestCalculator` — shared by compound-interest/retirement/goal-savings — `EmergencyFundCalculator`, `TimeToTargetCalculator`, `IdleCashCalculator`, `InflationImpactCalculator`, `CurrencyDepreciationCalculator`, `CardFeesCalculator`, `AssetHistoryCalculator`, plus `Lesson` for `/learn/compound-interest`) |
-| `UI/`               | Primitives: `CTAButtonLink`, `Container`, `CarouselDots`, `ContentCard`, `CurrencyInput`, `FlexBetween`, `LocaleLink`, `LucideIcon`, `ScrollReveal`, `SocialIcons`, `StickyMobileCTA`, `StrategyCard`, `LessonHero`, `LessonProgressBar`, `CompoundChart`, `DisclaimerNote`                                                                                                                                                |
-| `Layout/`           | `Footer` (Minimal + Site), `Navigation` (Desktop + Mobile), `ScrollDepthTracker`, `ScrollToHash`, `UtmCapture`                                                                                                                                                                                                                                                                                                             |
-| `Providers/`        | `I18nProvider`, `LocaleProvider`, `PageI18nProvider`, `PostHogProvider`, `SetHtmlLang`                                                                                                                                                                                                                                                                                                                                     |
+| `UI/`               | Primitives: `CTAButtonLink`, `Container`, `CarouselDots`, `ContentCard`, `CurrencyInput`, `FlexBetween`, `LocaleLink`, `LucideIcon`, `ScrollReveal`, `SocialIcons`, `StickyMobileCTA`, `StrategyCard`, `LessonHero`, `LessonProgressBar`, `CompoundChart`, `DisclaimerNote`, plus the redesign primitives `DivergenceChart`, `GoalRing`, `CountUp`                                                                          |
+| `Layout/`           | `MinimalFooter`, `MinimalNavigation`, `ScrollDepthTracker`, `ScrollToHash`, `UtmCapture` (the full Desktop/Mobile `Navigation` + `SiteFooter` were removed 2026-04-04)                                                                                                                                                                                                                                                      |
+| `Providers/`        | `I18nProvider`, `LocaleProvider`, `PageI18nProvider`, `PostHogProvider`, `GoogleAnalyticsLoader`, `MarketDataContextProvider`, `SetHtmlLang`                                                                                                                                                                                                                                                                               |
+| `Analytics/`        | Adelaide Daily `/market` surface — `RegimeScore`, `SignalCard`, `SignalCardsGrid`, and related macro-regime components                                                                                                                                                                                                                                                                                                     |
+| `Market/`           | `MarketCtaBand` (Adelaide closing band), `MarketHeroCanvas`                                                                                                                                                                                                                                                                                                                                                                |
 | `WaitingList/`      | Waitlist form, modal, confirmation, referral link, position display                                                                                                                                                                                                                                                                                                                                                        |
 | `PreDemo/`          | Interactive banking demo (client-only, dynamically imported)                                                                                                                                                                                                                                                                                                                                                               |
 | `PreDream/`         | Future-you visualization experience (client-only, dynamically imported)                                                                                                                                                                                                                                                                                                                                                    |
@@ -55,7 +57,7 @@ Examples: `HeroSection`, `FAQAccordion`, `BenefitsCards`, `FeatureShowcase`, `On
 ### Tailwind CSS + CSS Modules + Design Tokens
 
 - **Primary:** Tailwind CSS utility classes for layout and spacing.
-- **CSS Modules:** Used alongside Tailwind for component-scoped animations and complex states (65+ `.module.css` files across the codebase).
+- **CSS Modules:** Used alongside Tailwind for component-scoped animations and complex states (90+ `.module.css` files across the codebase).
 - **Design tokens:** Defined in `apps/web/src/styles/design-tokens.css` as CSS custom properties. Tokens cover typography (3 breakpoint scales), colors, spacing, animation, z-index, and breakpoints.
 - **Semantic layer:** `apps/web/src/styles/semantic-components.css` provides reusable class compositions.
 - **Shared modules:** `styles/shared/` contains cross-component CSS modules (`carousel-controls.module.css`, `cta-button.module.css`).
@@ -67,7 +69,7 @@ All components reference design tokens via CSS custom properties rather than har
 ### Implemented
 
 - **Skip navigation:** The `(landing)` layout includes a skip-to-main-content link, localized via `common.json` translations.
-- **Focus trapping:** `useFocusTrap` hook used in modals and mobile navigation (`MobileNav`, `WaitingListModal`, `ExportKeyModal`, `PreDemo`, `PreDream`).
+- **Focus trapping:** `useFocusTrap` hook used in modals and mobile navigation (`MinimalNavigation`, `WaitingListModal`, `ExportKeyModal`, `PreDemo`, `PreDream`).
 - **Keyboard navigation:** `LanguageSwitcher` handles Escape key with focus return. `useCarousel` handles Arrow keys, Home, End, and Space for play/pause.
 - **ARIA attributes:** 124+ usages of `aria-label`, `aria-describedby`, and `aria-live` across 65 files.
 - **Reduced motion:** All animations respect `prefers-reduced-motion` (49 files reference it via CSS and JS).
@@ -80,7 +82,7 @@ All components reference design tokens via CSS custom properties rather than har
 ### Build-Time Optimization (`next.config.js`)
 
 - **Bundler:** Turbopack — `next build` in Next.js 16 uses Turbopack by default. Do not pass `--webpack` (silently drops middleware; see B1 audit fix). Chunk splitting follows Turbopack's defaults.
-- **`experimental.optimizePackageImports`:** Tree-shaking for 17 packages including `lucide-react`, `react-intl`, `@radix-ui/*`, `@diboas/ui`, `@diboas/i18n`.
+- **`experimental.optimizePackageImports`:** Tree-shaking for 14 packages including `lucide-react`, `react-intl`, `@radix-ui/react-icons`, `@diboas/ui`, `@diboas/i18n`.
 - **Asset budgets:** Turbopack-aware bundle-budget gate (`scripts/check-bundle-budget.mjs`, run via `pnpm check:budget` after `pnpm build`). Walks `apps/web/.next/static/chunks/*.{js,css}` post-build and fails CI on regression — caps: 650 KB peak asset, 3950 KB total JS (recalibrated 2026-06-17 from 3700 for the cinematic hero's GSAP/`three` deps — `three` core is dynamic-imported via `useWebGLScene`, kept out of critical JS so peak stays <650), 500 KB total CSS, 200 JS chunks. The script (`scripts/check-bundle-budget.mjs`) is authoritative for these caps. Replaced the original webpack-plugin enforcement (was inert under Turbopack — F1 audit 2026-05-08, M3 reworked 2026-05-09).
 - **Compiler:** `removeConsole` and `reactRemoveProperties` enabled in production.
 - **Compression:** `compress: true` in Next.js config.
@@ -125,7 +127,7 @@ Tracked via `WebVitalsTracker` and `MonitoringInit` components.
 - **Mobile-first:** Base styles target mobile; Tailwind responsive prefixes (`md:`, `lg:`, `xl:`) add desktop enhancements.
 - **Typography scales:** Design tokens define separate font sizes for mobile, tablet, and desktop.
 - **Touch support:** `useSwipeGesture` hook provides swipe-left/right gestures for carousels on touch devices.
-- **Mobile navigation:** Dedicated `MobileNav` component with focus trapping and submenu support.
+- **Mobile navigation:** `MinimalNavigation` handles the mobile menu with focus trapping.
 - **Sticky mobile CTA:** `StickyMobileCTA` component for persistent call-to-action on small screens.
 
 ## 7. State Management

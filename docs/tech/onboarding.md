@@ -49,7 +49,7 @@ For the full architecture diagram and App Router structure, see `CLAUDE.md` > Ar
 2. Make changes following the conventions in `CLAUDE.md` > Coding Standards
 3. Run the full validation pipeline before opening a PR:
    ```bash
-   pnpm validate:all    # type-check -> lint -> test -> build -> tokens -> translations
+   pnpm validate:all    # type-check -> lint -> test -> build -> budget -> tokens -> translations -> market-data -> sdk-invariant
    ```
 4. Open a PR against `main`. Vercel auto-deploys from `main`.
 

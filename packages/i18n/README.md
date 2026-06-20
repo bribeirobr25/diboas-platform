@@ -70,7 +70,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@diboas/i18n/config';
 
 ## Translation Files
 
-Translation files are organized by locale × namespace (31 namespaces per locale as of 2026-05-23 — added `tools-asset-history.json` for the asset-history calculator):
+Translation files are organized by locale × namespace (31 namespaces per locale — most recently `market.json` for the Adelaide Daily dashboard):
 
 ```
 packages/i18n/translations/{en, pt-BR, es, de}/
@@ -83,6 +83,7 @@ packages/i18n/translations/{en, pt-BR, es, de}/
 ├── landing-help.json                   # Help center
 ├── learn.json                          # Learn center landing
 ├── learn-compound-interest.json        # Lesson 01 + Beat 2 vignettes + calculator
+├── market.json                         # Adelaide Daily — BTC macro-regime dashboard (/market)
 ├── preDemo.json                        # Demo onboarding
 ├── preDream.json                       # Dream-mode onboarding
 ├── protocols.json                      # Protocol transparency

@@ -63,6 +63,8 @@
 
 ## Component Reusability Hierarchy
 
+> **Phase-2+ framing:** the app-specific examples below (Dashboard, TransactionWizard, BalanceCards, Consumer/Business subdomains, etc.) are forward-looking — they describe the intended multi-subdomain split, not components that exist today (consistent with the aspirational "Package Structure" note later in this doc). The marketing site currently ships only Levels 1–3.
+
 ### Level 1: Primitives (95% reuse)
 
 Shared across all apps: Button, Input, Card, Typography, Badge
@@ -128,6 +130,8 @@ App components: Dashboard, TransactionWizard, BalanceCards
 - Feature cards: Illustrations with CTAs
 
 ## Responsive Breakpoints
+
+These are the **Tailwind utility** breakpoints (the `sm:`/`md:`/… class prefixes). They are a distinct system from the **design-token** breakpoints in `design-tokens.css` (`mobile 480 / tablet 768 / desktop 1024 / wide 1280 / ultra 1440`) documented in `frontend.md §6` — Tailwind classes use the scale below; token-driven CSS-module media queries use the token scale.
 
 - `sm`: 640px - Mobile
 - `md`: 768px - Tablet

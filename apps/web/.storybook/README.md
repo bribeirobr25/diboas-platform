@@ -19,13 +19,12 @@ Storybook will be available at [http://localhost:6006](http://localhost:6006)
 
 ## Available Stories
 
-### Section Components
-
-- **HeroSection** - Hero variants with visual elements and content
-- **FeatureShowcase** - Interactive carousel for feature presentation
-- **ProductCarousel** - Auto-playing product showcase carousel
-- **AppFeaturesCarousel** - Feature cards with rotation and layouts
-- **SecurityOneFeature** - Security-focused feature presentation
+Stories are colocated with their components as `*.stories.tsx` (Storybook is
+configured to auto-discover them). The catalogue spans the section components
+(e.g. `HeroSection`, `ComparisonTable`, `WedgeSection`, the Money-Tools
+calculators) and the redesign UI primitives (`ResultMoment`, `DivergenceChart`,
+`GoalRing`, `CountUp`, …). Run Storybook and browse the sidebar for the live,
+authoritative list rather than relying on a hardcoded enumeration here.
 
 ## Key Features
 

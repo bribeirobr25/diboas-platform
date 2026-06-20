@@ -228,3 +228,11 @@ Mutation endpoints accept an `idempotency-key` header. Responses are cached in P
 ### Request correlation
 
 Middleware generates a `x-request-id` UUID per request for end-to-end tracing through logs and audit events.
+
+### Audit logging & retention
+
+**Files:** `apps/web/src/lib/audit/AuditService.ts`, migration `013_audit_logs_retention.sql`.
+
+Security-relevant actions (waitlist signup, GDPR-deletion request/completion) are recorded in the `audit_logs` table via `logAuditEvent()` — a forensic trail that stores the raw `actor_ip` (first `x-forwarded-for` hop) under **legitimate interest**. This is the security audit trail only; it is **not** the marketing/profile store (the persisted waitlist entry holds no IP). Failures never break the request path (logged, not thrown).
+
+**Retention:** raw IPs are bounded to **90 days** (`AUDIT_LOG_RETENTION_DAYS`) per GDPR storage-limitation. Enforcement is `purgeExpiredAuditLogs()`, run by the daily Vercel cron `/api/cron/purge-audit-logs` (Bearer-authed via `CRON_SECRET`; inert/503 until configured — see `infrastructure.md` §10). The privacy policy discloses this use across all 4 locales. (§5.39)

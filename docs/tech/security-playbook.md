@@ -136,7 +136,7 @@ Five `dangerouslySetInnerHTML` usages (verified via `git grep`):
 
 ### 3.5 Database surface
 
-- Migrations 001-012 (`apps/web/src/lib/database/migrations/*.sql`) — schema-only; no seed PII; AES-256-GCM + HMAC blind index pattern correctly applied to `waitlist_entries` and `email_delivery_logs`
+- Migrations 001-013 (`apps/web/src/lib/database/migrations/*.sql`) — schema-only; no seed PII; AES-256-GCM + HMAC blind index pattern correctly applied to `waitlist_entries` and `email_delivery_logs`. Migration 013 + the daily `purgeExpiredAuditLogs` cron enforce 90-day retention on the `audit_logs` forensic trail (raw `actor_ip` under legitimate interest — §5.39)
 - Migration runner is idempotent via `schema_migrations` tracking table
 - Query layer (`apps/web/src/lib/database/client.ts`) parameterizes via Neon's `sql` tag — string-interpolated SQL is not present in API routes
 - `rawSql()` exists but is only called from migration scripts, never from user-facing paths

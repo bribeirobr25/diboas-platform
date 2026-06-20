@@ -10,7 +10,7 @@
 
 ## Frontend / Next.js / Performance (already in place — do not regress)
 
-- **Bundle optimization:** `experimental.optimizePackageImports` for 17 packages in `next.config.js` (Turbopack-aware tree-shaking).
+- **Bundle optimization:** `experimental.optimizePackageImports` for 14 packages in `next.config.js` (Turbopack-aware tree-shaking).
 - **Bundler:** `next build` uses Turbopack by default in Next.js 16 (do not pass `--webpack` — silently drops middleware, see B1 audit fix). The webpack `splitChunks` config + `WebpackPerformancePlugin` were removed in F1 audit (2026-05-08) — they were dead code under Turbopack. Restore from git history if you ever flip back to webpack mode.
 - **Prefetch hygiene (W7 audit/2026-05-08):** Secondary `<LocaleLink>` / `<Link>` to other top-level routes use `prefetch={false}` to avoid the "preloaded but not used" browser warning. The pattern is: high-intent CTAs (waitlist, demo, brand-logo home) prefetch by default; secondary nav (Business / Adelaide Daily / Learn / About) and exploratory cards (LessonRoadmap active card → lesson page) opt out. Trade: marginally slower navigation on those clicks; gain: clean console + ~2.5KB less wasted bandwidth per page.
 - **Color contrast (W2 audit/2026-05-08):** All clickable brand-colored text uses `--text-brand-accessible` (teal-700, 4.85:1 on white) NOT `--color-teal-600`. Success-tinted text uses `--text-success-accessible` (emerald-700, 5.53:1) NOT `--color-emerald-600`. Muted-on-light text uses `--color-slate-600` (7.55:1) NOT `--color-slate-400` (2.56:1, fails AA). Muted-on-dark uses `--color-text-on-dark-muted` at 0.95 alpha (was 0.85). Verified across 263 axe runs (static + `:hover` + `:focus-visible` + `:disabled` + mobile + demo flow), 0 violations.

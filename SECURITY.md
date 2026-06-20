@@ -12,6 +12,10 @@ We will acknowledge the report within 72 hours and aim to have a fix or mitigati
 
 **Please do not file a public GitHub issue for security vulnerabilities.**
 
+The machine-readable equivalent of this policy is published at
+[`/.well-known/security.txt`](https://diboas.com/.well-known/security.txt) (RFC 9116);
+its `Contact:` (`security@diboas.com`) and `Policy:` (this file) must stay in sync with the above.
+
 ## Secrets management
 
 This repository does not contain production secrets. Required runtime secrets are listed in `apps/web/.env.example` with empty values and must be set in:
