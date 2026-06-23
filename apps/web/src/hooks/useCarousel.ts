@@ -201,7 +201,14 @@ export function useCarousel({
   // Cleanup on unmount.
   useEffect(() => {
     const cleanup = cleanupManagerRef.current;
+    // RC-5: capture the ref objects (stable across renders), then read
+    // `.current` at cleanup time. `goToSlide` reassigns `timerRef.current` on
+    // every navigation, so an in-flight transition timer can outlive the
+    // component and fire `setIsTransitioning` after unmount. Clearing it here
+    // closes that leak. (The CleanupManager doesn't own this timer.)
+    const timer = timerRef;
     return () => {
+      timer.current?.clear();
       cleanup.destroy();
     };
   }, []);

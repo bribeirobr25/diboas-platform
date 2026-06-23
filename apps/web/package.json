@@ -43,12 +43,14 @@
     "@upstash/ratelimit": "^2.0.7",
     "@upstash/redis": "^1.36.0",
     "dompurify": "^3.4.1",
+    "gsap": "^3.12.5",
     "lucide-react": "^0.544.0",
     "next": "16.2.6",
     "posthog-js": "^1.313.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intl": "^6.4.7",
+    "three": "^0.169.0",
     "web-vitals": "^5.1.0"
   },
   "devDependencies": {
@@ -63,6 +65,7 @@
     "@types/node": "^25.3.0",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "@types/three": "^0.169.0",
     "@vitejs/plugin-react": "^5.1.4",
     "@vitest/coverage-v8": "^4.1.5",
     "autoprefixer": "^10.4.24",

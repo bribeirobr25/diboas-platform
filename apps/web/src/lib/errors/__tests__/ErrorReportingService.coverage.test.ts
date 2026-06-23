@@ -30,6 +30,9 @@ vi.mock('@/lib/monitoring/Logger', () => ({
     error: vi.fn(),
     debug: vi.fn(),
     critical: vi.fn(),
+    getRequestId: vi.fn(() => undefined),
+    setRequestId: vi.fn(),
+    initFromMeta: vi.fn(),
   },
 }));
 
@@ -69,6 +72,7 @@ vi.mock('../errorConfig', () => ({
 import { ErrorReportingService } from '../ErrorReportingService';
 import * as Sentry from '@sentry/nextjs';
 import { alertingService } from '@/lib/monitoring/AlertingService';
+import { Logger } from '@/lib/monitoring/Logger';
 
 describe('ErrorReportingService — additional coverage', () => {
   let service: ErrorReportingService;
@@ -259,8 +263,10 @@ describe('ErrorReportingService — additional coverage', () => {
       const error = new Error('Sentry test');
       service.captureException(error);
 
+      // E-2: correlationId is always injected into tags (undefined here — the
+      // mocked Logger.getRequestId returns undefined).
       expect(Sentry.captureException).toHaveBeenCalledWith(error, {
-        tags: undefined,
+        tags: { correlationId: undefined },
         extra: undefined,
         level: undefined,
       });
@@ -274,11 +280,39 @@ describe('ErrorReportingService — additional coverage', () => {
         level: 'warning',
       });
 
+      // E-2: correlationId is merged in; caller-supplied tags are preserved.
       expect(Sentry.captureException).toHaveBeenCalledWith(error, {
-        tags: { component: 'test' },
+        tags: { correlationId: undefined, component: 'test' },
         extra: { detail: 'value' },
         level: 'warning',
       });
+    });
+
+    it('should tag Sentry events with the request correlation id (E-2)', () => {
+      vi.mocked(Logger.getRequestId).mockReturnValueOnce('req-abc-123');
+      const error = new Error('Sentry test with correlation');
+
+      service.captureException(error, { tags: { component: 'test' } });
+
+      expect(Sentry.captureException).toHaveBeenCalledWith(
+        error,
+        expect.objectContaining({
+          tags: { correlationId: 'req-abc-123', component: 'test' },
+        })
+      );
+    });
+
+    it('should let caller tags override the injected correlationId', () => {
+      vi.mocked(Logger.getRequestId).mockReturnValueOnce('req-from-logger');
+
+      service.captureException(new Error('override'), {
+        tags: { correlationId: 'req-from-caller' },
+      });
+
+      expect(Sentry.captureException).toHaveBeenCalledWith(
+        expect.any(Error),
+        expect.objectContaining({ tags: { correlationId: 'req-from-caller' } })
+      );
     });
 
     it('should handle Sentry errors gracefully', () => {

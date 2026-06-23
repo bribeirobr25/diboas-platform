@@ -1,7 +1,7 @@
 {
   "landing": {
     "seo": {
-      "title": "Money Tools — calculators by diBoaS",
+      "title": "Money Tools — free financial calculators",
       "description": "Free money calculators to plan your retirement, emergency fund, and savings goals. Built by diBoaS."
     },
     "hero": {
@@ -29,7 +29,8 @@
     },
     "filterChip": {
       "all": "All tools",
-      "business": "For business"
+      "business": "For business",
+      "ariaLabel": "Filter tools by audience"
     }
   },
   "actions": {
@@ -45,6 +46,7 @@
   },
   "scenarios": {
     "bank": "Your bank",
+    "bankApyDisplay": "{label} APY: {rate}%",
     "conservative": "Conservative (7%)",
     "historical": "Historical (10%)",
     "optimistic": "Optimistic (14%)",
@@ -68,7 +70,7 @@
     "tryOtherTools": "Try other money tools",
     "adelaideAttribution": "Money tools by Adelaide"
   },
-  "disclaimer": "Educational projection only. Not financial advice. Past performance does not guarantee future results. diBoaS returns are shown in digital dollar; for non-US currencies, the local-currency total combines the dollar return with how your local currency typically moves against the US dollar over time.",
+  "disclaimer": "Educational projection only. Annual percentage yield (APY) shown for deposit accounts. Not financial advice. Past performance does not guarantee future results. All investments involve risk; you may lose money. diBoaS is not a registered investment adviser. diBoaS returns are shown in digital dollar; for non-US currencies, the local-currency total combines the dollar return with how your local currency typically moves against the US dollar over time.",
   "warnings": {
     "over30Years": "This target takes more than 30 years to reach at your current contribution. Consider increasing your monthly amount or extending your timeline."
   },
@@ -76,5 +78,20 @@
     "high": "High confidence (±5%)",
     "medium": "Medium confidence — see uncertainty note",
     "low": "Low confidence — high-volatility window"
+  },
+  "resultMoment": {
+    "chartStart": "Today",
+    "chartEnd": "In {years} years",
+    "chartCash": "Cash",
+    "chartBank": "Bank",
+    "chartDiboas": "diBoaS",
+    "chartInvested": "Invested",
+    "chartValue": "Value",
+    "shareButton": "Share this result",
+    "shareCopied": "Link copied!",
+    "shareTitle": "My diBoaS result",
+    "ctaHeadline": "This is what fair access changes.",
+    "ctaBody": "Join the waitlist to put it to work for real.",
+    "ctaLabel": "Claim your spot"
   }
 }

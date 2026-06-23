@@ -13,8 +13,8 @@
 
 ### Secondary Colors
 
-- **Purple**: `#a855f7` - Investing & strategy contexts
-- **Coral**: `#ef4444` - DeFi & innovation elements
+- **Purple**: `#a855f7` - investing & strategy contexts (Phase 2+)
+- **Coral**: `#ef4444` - innovation & alert accent
 
 ### Neutral Grays
 
@@ -36,6 +36,7 @@
 ### Font Stack
 
 - Sans: `'Inter', sans-serif`
+- Display: `'Space Grotesk'` — headings h1–h3 (cinematic redesign); canonical values live in `apps/web/src/styles/design-tokens.css` (the sole brand-token anchor)
 - Mono: `'JetBrains Mono', monospace`
 
 ### Scale
@@ -61,6 +62,8 @@
 - Extrabold: 800
 
 ## Component Reusability Hierarchy
+
+> **Phase-2+ framing:** the app-specific examples below (Dashboard, TransactionWizard, BalanceCards, Consumer/Business subdomains, etc.) are forward-looking — they describe the intended multi-subdomain split, not components that exist today (consistent with the aspirational "Package Structure" note later in this doc). The marketing site currently ships only Levels 1–3.
 
 ### Level 1: Primitives (95% reuse)
 
@@ -127,6 +130,8 @@ App components: Dashboard, TransactionWizard, BalanceCards
 - Feature cards: Illustrations with CTAs
 
 ## Responsive Breakpoints
+
+These are the **Tailwind utility** breakpoints (the `sm:`/`md:`/… class prefixes). They are a distinct system from the **design-token** breakpoints in `design-tokens.css` (`mobile 480 / tablet 768 / desktop 1024 / wide 1280 / ultra 1440`) documented in `frontend.md §6` — Tailwind classes use the scale below; token-driven CSS-module media queries use the token scale.
 
 - `sm`: 640px - Mobile
 - `md`: 768px - Tablet
@@ -219,7 +224,7 @@ packages/
 apps/web/src/components/  # App-specific composition (Factory pattern variants)
 ```
 
-App-specific styling stays in `apps/web/src/components/`; cross-package primitives live in `@diboas/ui`. Canonical token source is `apps/web/src/styles/design-tokens.css` (generated from `config/design-tokens.json`). Accessibility-tuned variants — `--text-brand-accessible` (teal-700, 4.85:1), `--text-success-accessible` (emerald-700, 5.53:1), `--color-slate-600` (7.55:1) — are the required surface for clickable brand-colored text per the W2 audit.
+App-specific styling stays in `apps/web/src/components/`; cross-package primitives live in `@diboas/ui`. Canonical token source is `apps/web/src/styles/design-tokens.css` — **hand-maintained** (the `generate:design-tokens` generator is intentionally disabled; `config/design-tokens.json` is only the schema-validated subset checked by `pnpm validate:design-tokens`, not a generator input). Accessibility-tuned variants — `--text-brand-accessible` (teal-700, 4.85:1), `--text-success-accessible` (emerald-700, 5.53:1), `--color-slate-600` (7.55:1) — are the required surface for clickable brand-colored text per the W2 audit.
 
 **Phase 2+ target architecture** (not yet built): the multi-package split (design-system / shared-patterns / marketing-ui / app-ui / business-ui) was an earlier aspirational scoping that has not been adopted. When the consumer app + business app subdomains exist, this section will be revisited.
 

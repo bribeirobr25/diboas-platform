@@ -54,6 +54,15 @@
     "poweredByLabel": "Powered by",
     "poweredByProduct": "diBoaS Analytics"
   },
+  "cta": {
+    "cadence": "Updated weekly",
+    "headline": "Calm intelligence, every week.",
+    "body": "Adelaide Daily is free and refreshed every week. Join the waitlist to be first when diBoaS opens.",
+    "waitlist": "Join the waitlist",
+    "share": "Share Adelaide",
+    "shareCopied": "Link copied",
+    "shareText": "Adelaide Daily: calm macro intelligence for Bitcoin."
+  },
   "fallback": {
     "outageTitle": "Live data is temporarily unavailable",
     "outageBody": "We are restoring the connection to our data sources. The methodology and historical archive remain available.",

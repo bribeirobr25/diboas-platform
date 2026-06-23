@@ -36,7 +36,7 @@
   flex: 2;
   width: var(--percent-100);
   min-height: var(--cta-min-height-mobile); /* WCAG 2.2 minimum touch target */
-  padding: var(--spacing-md-minus, 12px) var(--spacing-lg);
+  padding: var(--spacing-md-minus, var(--spacing-md-minus)) var(--spacing-lg);
   font-size: var(--font-size-md);
   border: 1px solid var(--color-slate-200);
   border-radius: var(--radius-lg);
@@ -233,7 +233,7 @@
 
 .referralIndicator {
   font-size: var(--font-size-sm);
-  color: var(--color-teal-600);
+  color: var(--text-brand-accessible);
   text-align: center;
   margin-bottom: var(--spacing-md);
   font-weight: var(--font-weight-medium);

@@ -9,6 +9,10 @@
   text-align: center;
 }
 
+.eyebrow {
+  margin: 0 0 var(--spacing-md) 0;
+}
+
 .title {
   font-family: var(--font-family-display);
   font-size: var(--font-size-section-title-mobile);
@@ -56,7 +60,7 @@
 }
 
 .tableHeaderRow {
-  background-color: var(--color-teal-50, #f0fdfa);
+  background-color: var(--color-teal-50);
 }
 
 .th {
@@ -92,7 +96,7 @@
 
 /* Free rows: green text with check icon */
 .freeText {
-  color: var(--text-success-accessible, #059669);
+  color: var(--text-success-accessible);
   font-weight: var(--font-weight-semibold);
 }
 
@@ -105,7 +109,7 @@
 .checkIcon {
   width: var(--spacing-md);
   height: var(--spacing-md);
-  color: var(--text-success-accessible, #059669);
+  color: var(--text-success-accessible);
 }
 
 /* Highlight rows: bold accent on difference column */

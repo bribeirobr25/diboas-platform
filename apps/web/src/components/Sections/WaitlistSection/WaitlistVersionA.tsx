@@ -12,6 +12,8 @@ import { useTranslation } from '@diboas/i18n/client';
 import { WaitlistForm } from '@/components/WaitingList/WaitlistForm';
 import { WaitlistConfirmation } from '@/components/WaitingList/WaitlistConfirmation';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
+import { getReferralFromStorage } from '@/lib/waitingList/helpers';
+import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
 import styles from './WaitlistSection.module.css';
 
 interface SignupData {
@@ -37,6 +39,7 @@ interface WaitlistVersionAProps {
   stats: {
     count: number;
     foundingMemberSpotsRemaining?: number;
+    foundingMemberCap?: number;
   };
   isLoading: boolean;
   enableAnalytics?: boolean;
@@ -45,7 +48,7 @@ interface WaitlistVersionAProps {
 export function WaitlistVersionA({
   config,
   source,
-  stats: _stats,
+  stats,
   isLoading: _isLoading,
   enableAnalytics: _enableAnalytics = true,
 }: WaitlistVersionAProps) {
@@ -58,7 +61,13 @@ export function WaitlistVersionA({
       domain: 'waitlist',
       source: 'waitlist',
       timestamp: Date.now(),
-      metadata: { position: data.position },
+      // A16/O-3: `hasReferral` is a PII-safe boolean — bridges it to the
+      // `waitlist_signup_completed` analytics event (+ derives `referral_used`).
+      // Sourced from the persisted `?ref=` capture (URL referral path).
+      metadata: {
+        position: data.position,
+        hasReferral: !!getReferralFromStorage(REFERRAL_CONFIG.referralCookieName),
+      },
     });
   }, []);
 
@@ -75,6 +84,8 @@ export function WaitlistVersionA({
             referralCode={signupData.referralCode}
             referralUrl={signupData.referralUrl}
             tier={signupData.tier}
+            foundingSpotsRemaining={stats.foundingMemberSpotsRemaining}
+            foundingCap={stats.foundingMemberCap}
             namespace={config?.confirmationNamespace}
           />
         </div>

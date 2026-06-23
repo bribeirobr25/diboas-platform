@@ -43,9 +43,28 @@ const BUDGETS = {
   // Anything above 650 KB likely means a heavy library landed in framework.
   maxAssetKB: 650,
 
-  // Total bytes across all .js chunks. Baseline ~3000 KB. 3700 KB ceiling
-  // = ~23% headroom. Catches accidental 500-KB+ library imports.
-  maxTotalJsKB: 3700,
+  // Total bytes across all .js chunks. Baseline ~3000 KB.
+  // Recalibrated 2026-06-17 (cinematic redesign): 3700 → 3950 KB. The GSAP +
+  // Three.js cinematic hero adds one DELIBERATE, SHARED, LAZY async chunk
+  // (~547 KB raw / ~147 KB gzip — `three` core, named-export tree-shaken, no
+  // examples/loaders) reached only via dynamic import() in useWebGLScene, so it
+  // is NOT in the initial/critical JS (peak single asset stays 547 KB < 650 KB
+  // cap; LCP unaffected). The total-JS sum counts it regardless. New ceiling
+  // ~3950 KB keeps the guard's purpose (catch ACCIDENTAL heavy imports) while
+  // admitting the one approved library. See docs/audit/PENDING_ALL.md.
+  //
+  // Recalibrated 2026-06-19 (redesign-v2, additive phases): 3950 → 4096 KB.
+  // FINALIZED 2026-06-20 (redesign-v2 Phase 8): kept at 4096 KB. The
+  // "Adelaide's World" redesign modernized surfaces IN-PLACE (motion
+  // primitives, DivergenceChart/GoalRing, ResultMoment, wedge + Market CTA
+  // band) rather than duplicating the old design, so it left NO superseded
+  // dead code for a sweep to remove (knip stays at the pre-redesign baseline).
+  // The expected "net JS drops at the end" therefore did not materialize: the
+  // new primitives are permanent product, and the bundle settled at ~4083 KB.
+  // 4096 KB is the snug FINALIZED ceiling (~13 KB / 0.3% headroom over actual)
+  // — tight enough to still catch accidental heavy imports (peak/chunk caps
+  // unchanged). See REDESIGN_BUILD_PLAN.md §2 + docs/audit/PENDING_ALL.md.
+  maxTotalJsKB: 4096,
 
   // Total bytes across all .css chunks. Baseline ~384 KB across 10 files
   // (Tailwind base + design tokens + all CSS modules; Turbopack doesn't

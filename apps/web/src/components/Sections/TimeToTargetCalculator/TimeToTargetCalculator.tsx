@@ -12,6 +12,7 @@ import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Select } from '@diboas/ui';
 import { useLocale } from '@/components/Providers';
+import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
 import { marketDataService, type SupportedLocale } from '@/lib/market-data';
 import { formatCurrency, isOneTime, type Cadence } from '@/lib/compound-interest';
 import {
@@ -84,6 +85,9 @@ export function TimeToTargetCalculator() {
 
   const results: Record<ScenarioKey, number | null> = timeline.months;
   const depreciation = timeline.hedged ? 1 : 0; // for the digitalDollarSuffix check below
+
+  // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
+  useCalculatorAnalytics('time-to-target', localeKey, JSON.stringify(form));
 
   // C18 close (TOOLS_41_DEFECTS_FIX_PLAN.md §5.1, 2026-05-26): cadence
   // `oneTime` with `initialAmount = 0` makes every scenario unreachable.

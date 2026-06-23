@@ -33,16 +33,18 @@ diboas-platform/
   packages/investing/  # @diboas/investing - Investment domain (Phase 2+ stub)
   config/              # Design tokens JSON + schema
   scripts/             # Build/validation scripts
-  docs/                # Project documentation (only docs/tech/ is git-tracked)
-    tech/              # Technical guides (committed)
-    audit/             # Audit tracking (local-only)
-    monitoring/        # Infrastructure & monitoring guide (local-only)
-    full-view/         # Product & business docs (local-only)
-    post-launch/       # Post-launch planning (local-only)
-    revenue/           # Fee modeling reference (local-only)
-    roadmap/           # Phase 2+ architecture planning (local-only)
-    skills-commands/   # Framework & kit playbooks (local-only)
-    video-storyboards/ # Marketing video prompts (local-only)
+  docs/                # Documentation (only docs/tech/ is git-tracked; the rest is local-only)
+    tech/              # Technical guides (committed) — canonical engineering reference
+    audit/             # Audit history, security findings ledger, pending-work queue
+    security/          # Recon/diagnostics reference + API defensive review
+    full-view/         # Product/business/brand bible + FEES.md (canonical fee source)
+    monitoring/        # INFRASTRUCTURE_GUIDE.md — env-var + deploy-values reference
+    integrations/      # Host-side wiring for analytics + market-editorial workflow
+    mvp/               # Spec for diboas-analytics — a SEPARATE product diBoaS hosts at /market
+    tools/             # Money Tools suite docs + weekly live-data runbook
+    researches/        # Dated regulatory + market deep-research reports (reference)
+    redesign/          # Redesign proposal, growth/waitlist plan, social calendars
+    roadmap/           # Phase-2 forward analysis (aspirational; superseded-flagged — verify vs this file)
 ```
 
 ### App Router Structure
@@ -53,7 +55,7 @@ apps/web/src/app/
     (landing)/             # All user-facing pages (single route group)
       about/               # About us — founder story, mission, beliefs
       business/            # B2B landing page
-      market/        # Adelaide Daily — market updates (placeholder)
+      market/        # Adelaide Daily — BTC macro-regime dashboard (placeholder; host surface for the separate diboas-analytics product, spec'd in docs/mvp/)
       delete-confirm/      # GDPR account deletion confirmation
       demo/                # Interactive financial demo (noindex)
       dream-mode/          # Goal calculator simulation (noindex)
@@ -114,7 +116,7 @@ pnpm build            # Production build (all workspaces)
 ### Validation
 
 ```bash
-pnpm validate:all              # Full pipeline: type-check -> lint -> test -> build -> tokens -> translations
+pnpm validate:all              # Full pipeline: type-check -> lint -> test -> build -> budget -> design-tokens -> translations -> market-data -> sdk-invariant
 pnpm validate:design-tokens    # Validate design tokens against schema
 pnpm validate:translations     # Check translation key parity across locales
 pnpm check:dead-code           # Dead code detection (knip)
@@ -243,18 +245,15 @@ The full register of locked-in implementation decisions (bundler / Turbopack, pr
 
 - Reference locale: `en` (source of truth)
 - Translations: `packages/i18n/translations/{locale}/`
-- Namespaced JSON files: about, common, dreamMode, faq, landing-b2b, landing-b2c, landing-help, preDemo, preDream, protocols, security, share, strategies, waitlist + legal/ subdirectory (cookies, privacy, terms)
+- **31 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the demo + dream flows, and the `tools-*` calculator suite.
 - Client/server split exports to avoid bundling React on server
 - All new user-facing strings must be added to all 4 locales
 
 ## Design Tokens
 
-- Source: `config/design-tokens.json`
-- Schema: `config/design-tokens.schema.json`
-- Generated CSS: `apps/web/src/styles/design-tokens.css`
-- Validate: `pnpm validate:design-tokens`
-- Generate: `pnpm generate:design-tokens`
-- Categories: brand colors, typography, spacing, animation, z-index, breakpoints
+- **Canonical token values:** `apps/web/src/styles/design-tokens.css` — **hand-maintained**. The `generate:design-tokens` generator is intentionally **disabled** (it would overwrite 2500+ lines of hand-tuned CSS — CRIT-1); edit this file directly, never regenerate.
+- Schema-validated subset (brand colors, typography, spacing, animation, z-index, breakpoints): `config/design-tokens.json` + `config/design-tokens.schema.json` — validated by `pnpm validate:design-tokens`.
+- **Never hardcode colors, spacing, font-sizes, or radii in component CSS** — always reference a token (component CSS is fully tokenized; the only literals are documented exceptions: `em` relative sizing, `-1px` border-collapse, `@media print`).
 
 ## Environment Variables
 
@@ -270,6 +269,7 @@ Stack: Sentry (errors + session replay), PostHog (product analytics, feature fla
 **Detailed playbook:** `docs/tech/MONITORING_OPS.md` — verification procedures, troubleshooting, rotation runbooks, full pitfalls list. The summary below is the one-page operating constraints; when in doubt, read the playbook.
 
 **Architecture:**
+
 - Sentry envelopes route through `/api/monitoring` (same-origin tunnel — bypasses ad-blockers + keeps CSP narrow). Manual handler at `apps/web/src/app/api/monitoring/route.ts` because Turbopack doesn't auto-generate the tunnel route.
 - Sentry root instrumentation at `apps/web/src/instrumentation.ts` switches on `NEXT_RUNTIME` to load `sentry.server.config.ts` (nodejs) or `sentry.edge.config.ts` (edge). Browser-side Sentry init at `apps/web/src/instrumentation-client.ts` — replay is OFF by default, added only after `CONSENT_GIVEN` per Lighthouse Workstream B.
 - `instrumentation.ts` also exports `onRequestError` — Next.js calls it on RSC/route-handler/middleware errors, which then call `Sentry.captureException`.
@@ -287,6 +287,7 @@ Stack: Sentry (errors + session replay), PostHog (product analytics, feature fla
 - **PostHog init: pin `defaults: '2025-11-30'`** (latest accepted by `posthog-js` 1.313.0); newer dates trip a TS error until the SDK is upgraded.
 - **PostHog init: `person_profiles: 'identified_only'`** (GDPR + ~95% person-quota savings); persons only created on explicit `identify()` with an opaque submission ID, never an email.
 - **`dynamic({ ssr: false })` inside `'use client'` is a footgun** on Next 16 + Turbopack (silent hydration failure) — import client components directly (§ E.5; `SECURITY_FINDINGS_2026-05.md` § F20).
+- **Sentry `correlationId` rides on `tags`, never `extra`** (E-2) — both doors tag events with `x-request-id` for server↔client correlation; `beforeSend` scrubs `user`/`extra`/`breadcrumbs` but NOT `tags`, so moving it to `extra` or adding `tags` to the scrub list silently breaks correlation. PII must never go on `tags`.
 
 **Verification after monitoring changes:** see `MONITORING_OPS.md` § F (Sentry test event, PostHog network trace, GA4 dataLayer, CSP console grep, release tagging, lesson-page calculator regression check).
 
@@ -354,7 +355,7 @@ Condensed reference from `docs/tech/coding-standards.md`:
 
 ## Audit Status
 
-**Current state:** 12/12 principles of excellence compliant. All audits through the Tools audit-bundle (externally validated to v1.8) and the 2026-05-26 architecture challenge are closed. **~971 tests passing.**
+**Current state:** 12/12 principles of excellence compliant. The Tools audit-bundle (externally validated to v1.8), the 2026-05-26 architecture challenge, and the Track A fix backlog (A0–A17) are all closed. **~1,045 tests passing.**
 
 - Full audit narrative + test-count progression: **`docs/audit/AUDIT_HISTORY.md`**
 - Live security findings ledger: `docs/audit/SECURITY_FINDINGS_2026-05.md`

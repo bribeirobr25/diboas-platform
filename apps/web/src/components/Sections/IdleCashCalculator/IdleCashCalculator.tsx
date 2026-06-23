@@ -16,14 +16,16 @@
 import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
+import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
+import { useResultShare } from '@/hooks/useResultShare';
 import { marketDataService, type SupportedLocale } from '@/lib/market-data';
-import { formatCurrency } from '@/lib/compound-interest';
-import { calculateIdleCashYield, IDLE_CASH_SCENARIO_USD_PERCENT } from '@/lib/idle-cash';
+import { formatCurrency, getCurrencyCode } from '@/lib/compound-interest';
+import { calculateIdleCashYield } from '@/lib/idle-cash';
 import { IDLE_CASH_BANK_YIELD_PCT_BOUNDS, IDLE_CASH_DEFAULTS, clampInput } from '@/lib/tools';
 import { UsdEquivalentBadge } from '@/components/UI';
+import { ResultMoment, type ResultMomentSupportingPoint } from '@/components/Sections/ResultMoment';
+import type { DivergenceSeries } from '@/components/UI/DivergenceChart';
 import styles from './IdleCashCalculator.module.css';
-
-const CONSERVATIVE_RATE = IDLE_CASH_SCENARIO_USD_PERCENT;
 
 interface FormState {
   idleCash: number;
@@ -40,6 +42,8 @@ export function IdleCashCalculator() {
 
   const t = (key: string, values?: Record<string, string | number>) =>
     intl.formatMessage({ id: `tools-idle-cash.${key}` }, values);
+  const tShared = (key: string, values?: Record<string, string | number>) =>
+    intl.formatMessage({ id: `tools-shared.${key}` }, values);
 
   const snapshot = marketDataService.getSync();
   const defaultBankYieldPct = snapshot.rates.bankRates[localeKey]?.savings ?? 0.32;
@@ -69,6 +73,28 @@ export function IdleCashCalculator() {
     [form, localeKey, snapshot]
   );
 
+  // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
+  useCalculatorAnalytics('idle-cash', localeKey, result ? JSON.stringify(form) : null);
+
+  // Result-moment share (Phase 3). Idle cash has no currency picker — figures
+  // are in the locale currency. Hero = the diBoaS future value. Hook is called
+  // unconditionally (rules-of-hooks); the control only renders with a result.
+  const fmtMoney = (n: number) => formatCurrency(n, localeKey, { maximumFractionDigits: 0 });
+  const diboasFvValue = result?.diboasFV ?? 0;
+  // When the bank out-earns diBoaS (C37, e.g. Brazilian CDI) the diBoaS figure
+  // is real but not a "win" — render it neutral, not celebratory teal.
+  const idleTone: 'positive' | 'neutral' = result && result.difference < 0 ? 'neutral' : 'positive';
+  const resultShare = useResultShare({
+    toolKey: 'idle-cash',
+    value: diboasFvValue,
+    currency: getCurrencyCode(localeKey),
+    years: form.years,
+    locale: localeKey,
+    tone: idleTone,
+    shareText: t('resultMoment.shareText', { value: fmtMoney(diboasFvValue), years: form.years }),
+    shareTitle: tShared('resultMoment.shareTitle'),
+  });
+
   const handleChange = (field: keyof FormState, value: number) =>
     setForm((prev) => {
       if (field === 'bankYieldPct') {
@@ -78,7 +104,7 @@ export function IdleCashCalculator() {
       return { ...prev, [field]: clamp(value, 0, 1_000_000_000) };
     });
 
-  const currency = formatCurrency(form.idleCash, localeKey, { maximumFractionDigits: 0 });
+  const formattedCash = formatCurrency(form.idleCash, localeKey, { maximumFractionDigits: 0 });
 
   return (
     <div className={styles.calculator}>
@@ -143,57 +169,84 @@ export function IdleCashCalculator() {
         </div>
       </div>
 
-      {result && (
-        <>
-          <div className={styles.resultsGrid}>
-            <div className={styles.resultCardBank}>
-              <p className={styles.resultLabel}>{t('output.bankLabel')}</p>
-              <p className={styles.resultValueMuted}>
-                +{formatCurrency(result.bankGain, localeKey, { maximumFractionDigits: 0 })}
-              </p>
-              <p className={styles.resultRate}>
-                {t('output.bankNote', { rate: form.bankYieldPct.toFixed(2), years: form.years })}
-              </p>
-            </div>
-            <div className={styles.resultCardDiboas}>
-              <p className={styles.resultLabel}>{t('output.diboasLabel')}</p>
-              <p className={styles.resultValue}>
-                +{formatCurrency(result.diboasGain, localeKey, { maximumFractionDigits: 0 })}
-              </p>
-              <p className={styles.resultRate}>
-                {t('output.diboasNote', { rate: CONSERVATIVE_RATE, years: form.years })}
-              </p>
-            </div>
-          </div>
-          {/* C37 close (TOOLS_41_DEFECTS_FIX_PLAN.md §6, 2026-05-26): branch
-              the headline copy on `sign(difference)`. Positive: diBoaS wins.
-              Zero: bank matches diBoaS. Negative: bank wins on yield (e.g.
-              Brazilian CDI ~14% beats diBoaS conservative 7% + EUR hedge).
-              The math returns the actual signed value (no Math.abs); the
-              copy now reflects what the math says instead of always assuming
-              positive framing. */}
-          <p className={styles.differenceHighlight}>
-            {(() => {
-              const abs = Math.abs(result.difference);
-              const formattedDiff = formatCurrency(abs, localeKey, { maximumFractionDigits: 0 });
-              if (result.difference > 0) {
-                return t('output.differencePositive', {
-                  cash: currency,
+      {result &&
+        (() => {
+          // C37 honesty preserved: the disclaimer branches on sign(difference).
+          // Positive → diBoaS earns more; zero → matches; negative → the bank
+          // actually out-earns diBoaS' conservative scenario (e.g. Brazilian CDI
+          // beats 7%). The math returns the signed value; the copy reflects it.
+          const formattedDiff = fmtMoney(Math.abs(result.difference));
+          const differenceText =
+            result.difference > 0
+              ? t('output.differencePositive', {
+                  cash: formattedCash,
                   years: form.years,
                   difference: formattedDiff,
-                });
-              }
-              if (result.difference === 0) {
-                return t('output.differenceZero', { years: form.years });
-              }
-              return t('output.differenceNegative', {
-                bankRate: form.bankYieldPct.toFixed(2),
-                years: form.years,
-              });
-            })()}
-          </p>
-        </>
-      )}
+                })
+              : result.difference === 0
+                ? t('output.differenceZero', { years: form.years })
+                : t('output.differenceNegative', {
+                    bankRate: form.bankYieldPct.toFixed(2),
+                    years: form.years,
+                  });
+
+          const series: DivergenceSeries[] = [
+            {
+              id: 'bank',
+              label: tShared('resultMoment.chartBank'),
+              values: [form.idleCash, result.bankFV],
+              variant: 'muted',
+            },
+            {
+              id: 'diboas',
+              label: tShared('resultMoment.chartDiboas'),
+              values: [form.idleCash, result.diboasFV],
+              variant: 'primary',
+            },
+          ];
+          const points: ResultMomentSupportingPoint[] = [
+            {
+              id: 'bank',
+              label: t('output.bankLabel'),
+              value: fmtMoney(result.bankFV),
+              note: t('output.bankNote', { rate: form.bankYieldPct.toFixed(2), years: form.years }),
+              variant: 'muted',
+            },
+          ];
+
+          return (
+            <ResultMoment
+              eyebrow={t('resultMoment.eyebrow')}
+              headlineValue={result.diboasFV}
+              headlineFormatter={fmtMoney}
+              headlineTone={idleTone}
+              headlineCaption={t('output.diboasLabel')}
+              chart={{
+                series,
+                xCaptions: [
+                  tShared('resultMoment.chartStart'),
+                  tShared('resultMoment.chartEnd', { years: form.years }),
+                ],
+                formatValue: fmtMoney,
+                ariaLabel: t('resultMoment.chartAria', { years: form.years }),
+              }}
+              supportingPoints={points}
+              disclaimer={differenceText}
+              cta={{
+                headline: tShared('resultMoment.ctaHeadline'),
+                body: tShared('resultMoment.ctaBody'),
+                label: tShared('resultMoment.ctaLabel'),
+                href: '/business?source=tool_idle-cash',
+              }}
+              share={{
+                onShare: resultShare.share,
+                label: tShared('resultMoment.shareButton'),
+                copiedLabel: tShared('resultMoment.shareCopied'),
+                copied: resultShare.copied,
+              }}
+            />
+          );
+        })()}
     </div>
   );
 }

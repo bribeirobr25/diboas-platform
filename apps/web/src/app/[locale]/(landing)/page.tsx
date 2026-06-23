@@ -5,10 +5,10 @@ import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import {
   HeroSection,
+  WedgeSection,
   ProseSection,
   ComparisonTable,
   GoalExampleCards,
-  SidePocketStrip,
   FoundingMembersSection,
   HowItWorksGrid,
 } from '@/components/Sections';
@@ -136,23 +136,21 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
 /**
  * B2C Landing Page
  *
- * 15-section layout + footer:
+ * Grouped editorial layout + footer (each group led by an eyebrow kicker):
  * 1.  Hero — Full dark background with headline and CTA
- * 2.  ComparisonTable — "$1,000. 1 year. You decide." rate comparison
- * 3.  SidePocketStrip — Brand-tinted breathing strip
- * 4.  GoalExampleCards — "Let's make it simple." expandable goal cards
- * 5.  Adelaide Story — "Why we are building this?" (ProseSection)
- * 6.  How It Works (Detailed) — 3-card static grid explaining the mechanism
- * 7.  Demo — Interactive demo embed
- * 8.  Take Control — 4-card AppFeaturesCarousel (Send, Invest, Track, Buy)
- * 9.  Fee Table — Transparent fee table (5 columns)
- * 10. What's the Catch? — Honest transparency (ProseSection, dark background)
- * 11. Under the Hood — Expandable technical details
- * 12. Founding Members — Social proof wrapper with zero-state logic
- * 13. Waitlist — Email signup (dark background)
- * 14. Built by Bar — Founder story + contact
- * 15. FAQ — 16+ CLO-approved Q&A items
+ * 2.  THE MATH — ComparisonTable "$1,000. 1 year. You decide." (count-up returns)
+ * 3.  YOUR GOALS — GoalExampleCards, expandable goal cards
+ * 4.  THE STORY — Adelaide origin story (ProseSection, warm bg)
+ * 5.  HOW IT WORKS — HowItWorksGrid stepper → Demo → AppFeaturesCarousel
+ * 6.  THE FEES — Transparent fee table
+ * 7.  THE HONEST PART — "What's the Catch?" (ProseSection dark) + Under the Hood
+ * 8.  PROOF & JOIN — Founding members social proof → Waitlist sign-up
+ * 9.  THE FOUNDER — "Built by Bar" founder story + contact
+ * 10. FAQ — CLO-approved Q&A items
  *     Footer — Tagline, nav, disclosures
+ *
+ * (SidePocketStrip removed in the 2026-06 modernization; FoundingMembers moved
+ * adjacent to the waitlist so proof flows straight into the CTA.)
  */
 export default async function B2CLandingPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -214,13 +212,27 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           >
             <div data-section-id="hero-section-b2c">
               <HeroSection
-                variant="fullBackground"
+                variant="cinematic"
                 config={B2C_HERO_CONFIG}
                 enableAnalytics={true}
                 priority={true}
               />
             </div>
           </SectionErrorBoundary>
+
+          {/* Per-market wedge — each locale's market truth, live-data-bound */}
+          <ScrollReveal>
+            <SectionErrorBoundary
+              sectionId="wedge-section-b2c"
+              sectionType="WedgeSection"
+              enableReporting={true}
+              context={{ page: 'landing-b2c' }}
+            >
+              <div data-section-id="wedge-section-b2c">
+                <WedgeSection enableAnalytics={true} />
+              </div>
+            </SectionErrorBoundary>
+          </ScrollReveal>
 
           {/* Section 2: Comparison Table — neutral bg */}
           <ScrollReveal>
@@ -240,21 +252,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
             </SectionErrorBoundary>
           </ScrollReveal>
 
-          {/* Section 3: Side-Pocket Strip — brand bg */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="sidepocket-section-b2c"
-              sectionType="SidePocketStrip"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div data-section-id="sidepocket-section-b2c">
-                <SidePocketStrip />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Section 4: Goal Example Cards — white bg */}
+          {/* Goal Example Cards — white bg */}
           <ScrollReveal>
             <SectionErrorBoundary
               sectionId="goals-section-b2c"
@@ -272,25 +270,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
             </SectionErrorBoundary>
           </ScrollReveal>
 
-          {/* Section 5: Join the Movement — white bg */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="founding-members-section-b2c"
-              sectionType="FoundingMembersSection"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div
-                id="social-proof"
-                data-section-id="founding-members-section-b2c"
-                style={{ backgroundColor: 'var(--section-bg-white)' }}
-              >
-                <FoundingMembersSection enableAnalytics={true} />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Section 6: Adelaide Story — warm bg (set via config) */}
+          {/* The Story — warm bg (set via config) */}
           <ScrollReveal>
             <SectionErrorBoundary
               sectionId="origin-story-section-b2c"
@@ -404,7 +384,26 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
             </SectionErrorBoundary>
           </ScrollReveal>
 
-          {/* Section 12: Waitlist — dark bg (set via config) */}
+          {/* Proof & Join — Founding members social proof, adjacent to the
+              waitlist CTA so proof flows straight into sign-up. — white bg */}
+          <ScrollReveal>
+            <SectionErrorBoundary
+              sectionId="founding-members-section-b2c"
+              sectionType="FoundingMembersSection"
+              enableReporting={true}
+              context={{ page: 'landing-b2c' }}
+            >
+              <div
+                id="social-proof"
+                data-section-id="founding-members-section-b2c"
+                style={{ backgroundColor: 'var(--section-bg-white)' }}
+              >
+                <FoundingMembersSection enableAnalytics={true} />
+              </div>
+            </SectionErrorBoundary>
+          </ScrollReveal>
+
+          {/* Waitlist — dark bg (set via config) */}
           <ScrollReveal>
             <SectionErrorBoundary
               sectionId="waitlist-section-b2c"

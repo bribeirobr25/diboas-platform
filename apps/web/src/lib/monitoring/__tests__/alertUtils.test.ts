@@ -27,7 +27,9 @@ describe('generateActionUrl (5.30 — generic, client-bundle-safe console links)
   });
 
   it('routes error alerts to the generic Sentry org console', () => {
-    expect(generateActionUrl('error', { errorName: 'TypeError' })).toBe('https://diboas.sentry.io/');
+    expect(generateActionUrl('error', { errorName: 'TypeError' })).toBe(
+      'https://diboas.sentry.io/'
+    );
   });
 
   it('routes performance alerts to the generic Sentry org console', () => {

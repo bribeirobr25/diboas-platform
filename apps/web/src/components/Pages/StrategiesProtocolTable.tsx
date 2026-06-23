@@ -39,16 +39,6 @@ export function StrategiesProtocolTable() {
     setExpandedProtocol((prev) => (prev === protocolId ? null : protocolId));
   }, []);
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent, protocolId: string) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleProtocol(protocolId);
-      }
-    },
-    [toggleProtocol]
-  );
-
   return (
     <>
       <h2 className={styles.sectionTitle}>{t('protocols.header')}</h2>
@@ -81,7 +71,6 @@ export function StrategiesProtocolTable() {
                     protocolId={protocolId}
                     isExpanded={isExpanded}
                     onToggle={() => toggleProtocol(protocolId)}
-                    onKeyDown={(e) => handleKeyDown(e, protocolId)}
                   />
                 );
               })}
@@ -96,20 +85,21 @@ export function StrategiesProtocolTable() {
           const isExpanded = expandedProtocol === protocolId;
           return (
             <div key={protocolId} className={styles.mobileProtocolCard}>
-              <div
-                role="button"
-                tabIndex={0}
+              <button
+                type="button"
+                id={`protocol-toggle-mobile-${protocolId}`}
                 aria-expanded={isExpanded}
                 aria-controls={`protocol-detail-mobile-${protocolId}`}
                 className={styles.mobileProtocolHeader}
                 onClick={() => toggleProtocol(protocolId)}
-                onKeyDown={(e) => handleKeyDown(e, protocolId)}
               >
                 <span className={styles.mobileProtocolName}>
                   {t(`protocols.items.${protocolId}.name`)}
                 </span>
-                <span className={styles.expandIcon}>{isExpanded ? '\u25BC' : '\u25B6'}</span>
-              </div>
+                <span className={styles.expandIcon} aria-hidden="true">
+                  {isExpanded ? '\u25BC' : '\u25B6'}
+                </span>
+              </button>
               <p className={styles.mobileProtocolSubtitle}>
                 {t(`protocols.items.${protocolId}.type`)} &middot;{' '}
                 {t(`protocols.items.${protocolId}.chain`)}
@@ -123,13 +113,18 @@ export function StrategiesProtocolTable() {
               <div
                 id={`protocol-detail-mobile-${protocolId}`}
                 role="region"
+                aria-labelledby={`protocol-toggle-mobile-${protocolId}`}
                 className={`${styles.protocolDetail} ${isExpanded ? styles.protocolDetailOpen : ''}`}
               >
                 <p className={styles.protocolSummary}>
                   {t(`protocols.items.${protocolId}.summary`)}
                 </p>
                 <div className={styles.protocolLinks}>
-                  <LocaleLink href="/protocols" className={styles.protocolExternalLink} prefetch={false}>
+                  <LocaleLink
+                    href="/protocols"
+                    className={styles.protocolExternalLink}
+                    prefetch={false}
+                  >
                     {t('protocols.checkProtocolsPage')}
                   </LocaleLink>
                 </div>
@@ -153,27 +148,34 @@ function ProtocolDesktopRow({
   protocolId,
   isExpanded,
   onToggle,
-  onKeyDown,
 }: {
   protocolId: string;
   isExpanded: boolean;
   onToggle: () => void;
-  onKeyDown: (e: React.KeyboardEvent) => void;
 }) {
   const intl = useTranslation();
   const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });
   return (
     <>
-      <tr
-        role="button"
-        tabIndex={0}
-        aria-expanded={isExpanded}
-        aria-controls={`protocol-detail-${protocolId}`}
-        className={styles.protocolRow}
-        onClick={onToggle}
-        onKeyDown={onKeyDown}
-      >
-        <td className={styles.tableCellGoal}>{t(`protocols.items.${protocolId}.name`)}</td>
+      {/* APG: the toggle is a native <button> inside the first cell, NOT
+          role="button" on the <tr> (that overrides table semantics and breaks
+          the <td> row/column-header association). */}
+      <tr className={styles.protocolRow}>
+        <td className={styles.tableCellGoal}>
+          <button
+            type="button"
+            id={`protocol-toggle-${protocolId}`}
+            className={styles.protocolRowToggle}
+            aria-expanded={isExpanded}
+            aria-controls={`protocol-detail-${protocolId}`}
+            onClick={onToggle}
+          >
+            {t(`protocols.items.${protocolId}.name`)}
+            <span className={styles.expandIcon} aria-hidden="true">
+              {isExpanded ? '▼' : '▶'}
+            </span>
+          </button>
+        </td>
         <td className={styles.tableCellGoal}>{t(`protocols.items.${protocolId}.type`)}</td>
         <td className={styles.tableCellGoal}>{t(`protocols.items.${protocolId}.chain`)}</td>
         <td className={styles.tableCellGoal}>{t(`protocols.items.${protocolId}.asset`)}</td>
@@ -184,14 +186,23 @@ function ProtocolDesktopRow({
           {t(`protocols.items.${protocolId}.operatingSince`)}
         </td>
       </tr>
-      <tr id={`protocol-detail-${protocolId}`} role="region" className={styles.protocolDetailRow}>
+      <tr
+        id={`protocol-detail-${protocolId}`}
+        role="region"
+        aria-labelledby={`protocol-toggle-${protocolId}`}
+        className={styles.protocolDetailRow}
+      >
         <td colSpan={6}>
           <div
             className={`${styles.protocolDetail} ${isExpanded ? styles.protocolDetailOpen : ''}`}
           >
             <p className={styles.protocolSummary}>{t(`protocols.items.${protocolId}.summary`)}</p>
             <div className={styles.protocolLinks}>
-              <LocaleLink href="/protocols" className={styles.protocolExternalLink} prefetch={false}>
+              <LocaleLink
+                href="/protocols"
+                className={styles.protocolExternalLink}
+                prefetch={false}
+              >
                 {t('protocols.checkProtocolsPage')}
               </LocaleLink>
             </div>

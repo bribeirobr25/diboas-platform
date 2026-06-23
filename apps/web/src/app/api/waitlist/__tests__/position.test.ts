@@ -51,9 +51,7 @@ import { GET } from '../position/route';
 import * as security from '@/lib/security';
 
 const req = (email: string) =>
-  new NextRequest(
-    `https://diboas.com/api/waitlist/position?email=${encodeURIComponent(email)}`
-  );
+  new NextRequest(`https://diboas.com/api/waitlist/position?email=${encodeURIComponent(email)}`);
 
 describe('GET /api/waitlist/position — F13 daily-rotating dummy (not-found)', () => {
   beforeEach(() => {

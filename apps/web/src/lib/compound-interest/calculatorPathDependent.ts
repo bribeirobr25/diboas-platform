@@ -47,12 +47,17 @@ import {
   type SeriesKey,
   InvalidCalculatorInputError,
 } from './types';
+import { validateCompoundCalculatorInput } from './validation';
+import { toISODateString } from '@/lib/utils/date';
 import type { FxBucket } from '@/lib/market-data';
 
 const HIGHLIGHTED_DEFAULT = 'historical' as const;
 
 export function calculateCompoundProjectionPathDependent(input: CalculatorInput): CalculatorOutput {
-  validateInput(input);
+  validateCompoundCalculatorInput(input, {
+    maxYears: MAX_RETROSPECTIVE_YEARS,
+    yearsMessage: `path-dependent retrospective requires years between ${INPUT_BOUNDS.years.min} and ${MAX_RETROSPECTIVE_YEARS} (bucket coverage cap)`,
+  });
 
   const snapshot = marketDataService.getSync();
   const currency = LOCALE_CURRENCY[input.locale];
@@ -227,7 +232,7 @@ function computeStartDate(endDate: string, years: number): string {
   const startYear = end.getUTCFullYear() - years;
   const startMonth = end.getUTCMonth();
   const d = new Date(Date.UTC(startYear, startMonth, 1));
-  return d.toISOString().slice(0, 10);
+  return toISODateString(d);
 }
 
 function findBucketForDate(buckets: readonly FxBucket[], iso: string): FxBucket {
@@ -237,32 +242,12 @@ function findBucketForDate(buckets: readonly FxBucket[], iso: string): FxBucket 
   // C9 close (2026-05-25): pre-fix, this returned `buckets[0]!` silently — a
   // coupling assumption that only held while bucket coverage exactly matched
   // `MAX_RETROSPECTIVE_YEARS`. A future refresh that shortened coverage would
-  // silently use the wrong FX rate. validateInput's 16-year cap is the
-  // upstream invariant; if a date still escapes it, fail loudly instead of
-  // silently using BRL 2010 rates for a 1990 query.
+  // silently use the wrong FX rate. validateCompoundCalculatorInput's
+  // MAX_RETROSPECTIVE_YEARS (16-year) cap is the upstream invariant; if a date
+  // still escapes it, fail loudly instead of silently using BRL 2010 rates for
+  // a 1990 query.
   throw new InvalidCalculatorInputError(
     'years',
     `derived start date ${iso} falls outside FX bucket coverage (${buckets[0]?.startDate ?? '?'} → ${buckets[buckets.length - 1]?.endDate ?? '?'})`
   );
-}
-
-function validateInput(input: CalculatorInput): void {
-  if (!Number.isFinite(input.amount)) {
-    throw new InvalidCalculatorInputError('amount', 'must be a finite number');
-  }
-  if (input.amount < INPUT_BOUNDS.amount.min || input.amount > INPUT_BOUNDS.amount.max) {
-    throw new InvalidCalculatorInputError(
-      'amount',
-      `must be between ${INPUT_BOUNDS.amount.min} and ${INPUT_BOUNDS.amount.max}`
-    );
-  }
-  if (!Number.isFinite(input.years) || !Number.isInteger(input.years)) {
-    throw new InvalidCalculatorInputError('years', 'must be an integer');
-  }
-  if (input.years < INPUT_BOUNDS.years.min || input.years > MAX_RETROSPECTIVE_YEARS) {
-    throw new InvalidCalculatorInputError(
-      'years',
-      `path-dependent retrospective requires years between ${INPUT_BOUNDS.years.min} and ${MAX_RETROSPECTIVE_YEARS} (bucket coverage cap)`
-    );
-  }
 }

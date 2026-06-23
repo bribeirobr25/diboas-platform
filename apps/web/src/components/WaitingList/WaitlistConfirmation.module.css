@@ -103,7 +103,7 @@
 .positionLabel {
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-teal-600);
+  color: var(--text-brand-accessible);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wider);
 }
@@ -298,4 +298,26 @@
   .dreamModeCta {
     margin-bottom: var(--spacing-md);
   }
+}
+
+/* Founding-member celebration beat (Phase 6): a filling ring + scarcity line. */
+.founding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-md) 0;
+}
+
+.foundingPct {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-brand-accessible);
+}
+
+.foundingSpots {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
 }

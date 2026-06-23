@@ -60,6 +60,9 @@ jobs:
           INTERNAL_API_KEY: 'ci-stub-key'
           RESEND_API_KEY: 're_ci_stub'
           HMAC_KEY: 'ci-stub-hmac-key-32-chars-padding-here'
+          # C-2: now a required prod var (valid-format stub so the startup gate
+          # passes and Sentry.init doesn't reject the DSN).
+          NEXT_PUBLIC_SENTRY_DSN: 'https://ci-stub@o0.ingest.sentry.io/0'
 
       - name: Upload Playwright report
         if: always()

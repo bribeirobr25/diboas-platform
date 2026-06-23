@@ -29,6 +29,7 @@ HeroSection/
 │   ├── HeroFullBackground/
 │   │   ├── HeroFullBackground.tsx  # Full background variant
 │   │   └── HeroFullBackground.module.css
+│   ├── HeroCinematic/             # Cinematic (GSAP + Three.js) variant — the redesign hero
 │   └── [future variants...]       # Easy to add new variants
 └── index.ts                        # Barrel export
 ```
@@ -48,8 +49,8 @@ import { HeroSection } from '@/components/Sections/HeroSection';
 // Existing variants (no breaking changes)
 <HeroSection variant="fullBackground" />
 
-// Specify variant
-<HeroSection variant="fullBackground" />
+// Cinematic variant (GSAP + Three.js) — the redesign landing hero
+<HeroSection variant="cinematic" />
 ```
 
 ### **2. Custom Configuration**
@@ -86,11 +87,10 @@ import { HeroSection } from '@/components/Sections/HeroSection';
 />
 ```
 
-**Benefits Page (Full Background):**
+**Secondary page (Full Background):**
 
 ```tsx
-// app/[locale]/benefits/page.tsx
-<HeroSection variant="fullBackground" config={BENEFITS_HERO_CONFIG} />
+<HeroSection variant="fullBackground" config={PAGE_HERO_CONFIG} />
 ```
 
 ---
@@ -133,11 +133,15 @@ export function HeroVideo({ config, onCTAClick }: HeroVariantProps) {
 
 ```tsx
 // variants/registry.ts
-const HeroVideo = dynamic(() => import('./HeroVideo/HeroVideo'));
+// Above-the-fold hero variants are STATICALLY imported (no dynamic()) so the
+// LCP hero isn't gated on a lazy chunk. (The heavy WebGL scene inside
+// HeroCinematic is what's lazy-loaded — via useWebGLScene — not the variant.)
+import { HeroVideo } from './HeroVideo/HeroVideo';
 
 export const HERO_VARIANT_REGISTRY = {
   default: HeroDefault,
   fullBackground: HeroFullBackground,
+  cinematic: HeroCinematic,
   video: HeroVideo, // ← Just add this line!
 };
 ```

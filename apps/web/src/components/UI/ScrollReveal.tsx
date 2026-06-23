@@ -3,37 +3,64 @@
 /**
  * ScrollReveal Component
  *
- * Shared utility for scroll-triggered fade-in-up animations.
- * Uses IntersectionObserver for performant scroll detection.
- * Respects prefers-reduced-motion for accessibility.
+ * Shared utility for scroll-triggered reveal animations (IntersectionObserver,
+ * reduced-motion-safe). The reveal styling is tokenized in
+ * `semantic-components.css` (`.scroll-reveal-base` / `.scroll-reveal-stagger`)
+ * so this component only toggles `.is-visible`.
  *
- * @example
+ * Default usage fades the wrapper up (byte-compatible with the original).
+ * `stagger` instead reveals the DIRECT CHILDREN in sequence — use it AS the
+ * grid/list container (pass `as` + the grid `className`) so the children are the
+ * staggered items:
+ *
  * ```tsx
- * <ScrollReveal>
- *   <SomeSection />
+ * <ScrollReveal>            // wrapper fade-up
+ *   <Section />
+ * </ScrollReveal>
+ *
+ * <ScrollReveal stagger as="ul" className={styles.cardGrid}>  // children stagger
+ *   {cards}
  * </ScrollReveal>
  * ```
  */
 
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useRef, type CSSProperties, type ElementType, type ReactNode } from 'react';
 
 interface ScrollRevealProps {
   children: ReactNode;
   className?: string;
+  /** Element to render (default `div`). Use the grid/list tag when `stagger`. */
+  as?: ElementType;
+  /** Reveal direct children in sequence instead of fading the wrapper. */
+  stagger?: boolean;
+  /** Per-child delay in ms (default 80). */
+  staggerDelay?: number;
+  /** Single-element reveal offset in ms (non-stagger mode). */
+  delay?: number;
+  threshold?: number;
+  rootMargin?: string;
 }
 
-export function ScrollReveal({ children, className }: ScrollRevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
+export function ScrollReveal({
+  children,
+  className,
+  as: Tag = 'div',
+  stagger = false,
+  staggerDelay = 80,
+  delay,
+  threshold = 0.15,
+  rootMargin = '0px 0px -50px 0px',
+}: ScrollRevealProps) {
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    // Check prefers-reduced-motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
+    // Reduced motion: reveal immediately (CSS also forces the final state, so
+    // there is no hidden flash before JS runs).
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.classList.add('is-visible');
       return;
     }
 
@@ -44,25 +71,23 @@ export function ScrollReveal({ children, className }: ScrollRevealProps) {
           observer.unobserve(el);
         }
       },
-      { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+      { threshold, rootMargin }
     );
-
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [threshold, rootMargin]);
+
+  const style: CSSProperties = {};
+  if (stagger) (style as Record<string, string>)['--stagger-step'] = `${staggerDelay}ms`;
+  if (delay != null) style.transitionDelay = `${delay}ms`;
+
+  const cls = [stagger ? 'scroll-reveal-stagger' : 'scroll-reveal-base', className]
+    .filter(Boolean)
+    .join(' ');
 
   return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: 0,
-        transform: 'translateY(24px)',
-        transition:
-          'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-      }}
-    >
+    <Tag ref={ref} className={cls} style={style}>
       {children}
-    </div>
+    </Tag>
   );
 }

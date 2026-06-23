@@ -15,3 +15,4 @@ export {
   generateLocaleStaticParams,
 } from './helpers';
 export { getTwitterMeta } from './twitter';
+export { socialCardMetadata } from './socialCard';

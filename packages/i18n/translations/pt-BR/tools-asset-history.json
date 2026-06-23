@@ -39,18 +39,12 @@
       "IBOVESPA": "Ibovespa, o índice da bolsa B3 do Brasil. Retorno total nativo.",
       "DAX": "DAX, o índice de ações da Deutsche Börse alemã. Retorno total nativo."
     },
-    "gainBadgeTooltip": "Ganho (ou perda) total sobre o valor contribuído, incluindo dividendos ou cupons. Verde indica ganho; vermelho indica perda.",
     "modeOptions": {
       "lumpSum": "Valor único",
       "monthlyDca": "Aporte mensal"
     }
   },
   "output": {
-    "summaryLumpSum": "{amount} em {startMonth} de {startYear} valeria…",
-    "summaryDca": "{amount}/mês a partir de {startMonth} de {startYear} valeria…",
-    "terminalValue": "{value}",
-    "terminalRange": "entre {low} e {high}",
-    "terminalRangeSubtle": "Faixa com base no melhor vs pior timing de entrada mensal: {low} – {high}",
     "startMonth": {
       "jan": "janeiro",
       "feb": "fevereiro",
@@ -65,15 +59,21 @@
       "nov": "novembro",
       "dec": "dezembro"
     },
-    "contributedOverMonths": "{total} aportados ao longo de {months} meses",
-    "startingPrincipal": "{total} de principal inicial",
-    "confidenceHigh": "Alta confiança (±5%)",
-    "confidenceMedium": "Confiança média — veja a nota de incerteza",
-    "confidenceLow": "Baixa confiança — apenas faixa",
     "uncertaintyMedium": "A volatilidade faz com que o timing mensal de entrada altere significativamente o resultado. A faixa acima mostra o melhor vs pior timing.",
     "uncertaintyLow": "A volatilidade do Bitcoin no início da década significa que aportes de R$100/mês entre 2010 e 2012 poderiam terminar de formas muito diferentes dependendo do timing exato. Mostramos uma faixa, não um único número.",
     "comparisonHeader": "vs S&P 500 no mesmo período",
     "btcDcaRangeNote": "Pra BTC começando em 2010, o valor terminal do DCA depende muito do caminho exato de entrada mensal. Calculadoras públicas divergem em ±50%."
+  },
+  "resultMoment": {
+    "eyebrow": "O que a história mostra",
+    "heroCaption": "{asset} desde {startMonth} {startYear} · {gain}",
+    "chartAria": "Total investido versus valor hoje para {asset} desde {startYear}.",
+    "chartToday": "Hoje",
+    "investedLabel": "O que você investiu",
+    "contributedMonths": "ao longo de {months} meses",
+    "rangeLabel": "Dependendo do momento de entrada",
+    "pastPerformance": "Desempenho passado, não uma previsão. Foi o que realmente aconteceu.",
+    "shareText": "Com base na história real, isto valeria {value} hoje. Desempenho passado, não uma previsão. Veja o seu nas Ferramentas diBoaS."
   },
   "vignette": {
     "subtitle": "Passado é o que já aconteceu. Futuro é o que você decide agora."

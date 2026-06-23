@@ -25,6 +25,11 @@
     "differenceZero": "A la tasa de tu banco, diBoaS iguala tu rendimiento local durante {years} años — y la posición se mantiene en dólar digital.",
     "differenceNegative": "Al {bankRate}% tu banco supera el escenario conservador de diBoaS durante {years} años. diBoaS aún te da una posición en dólar digital — esta comparación es solo de rendimiento."
   },
+  "resultMoment": {
+    "eyebrow": "En qué puede convertirse tu dinero parado",
+    "chartAria": "Cómo se compara tu dinero parado en {years} años en tu banco frente a diBoaS.",
+    "shareText": "Mi dinero parado podría convertirse en {value} en diBoaS en {years} años. Mira cuánto podría ganar el tuyo."
+  },
   "vignette": {
     "subtitle": "El efectivo parado no gana. El que trabaja, sí. Tú eliges."
   },

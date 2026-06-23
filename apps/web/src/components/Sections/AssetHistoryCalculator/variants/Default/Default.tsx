@@ -19,6 +19,7 @@ import { useEffect, useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Select } from '@diboas/ui';
 import { useLocale } from '@/components/Providers';
+import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
 import {
   calculateAssetHistoryDcaReplay,
   calculateAssetHistoryLumpSum,
@@ -28,6 +29,7 @@ import {
 import { marketDataService } from '@/lib/market-data';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import { errorReportingService } from '@/lib/errors/ErrorReportingService';
+import { useResultShare } from '@/hooks/useResultShare';
 import {
   ASSET_HISTORY_DEFAULTS,
   type AssetHistoryAssetKey,
@@ -35,6 +37,8 @@ import {
   type AssetHistoryStartYear,
 } from '@/lib/tools';
 import { formatCurrency } from '@/lib/compound-interest';
+import { ResultMoment, type ResultMomentSupportingPoint } from '@/components/Sections/ResultMoment';
+import type { DivergenceSeries } from '@/components/UI/DivergenceChart';
 import type { SupportedLocale } from '@diboas/i18n/config';
 import styles from '../../AssetHistoryCalculator.module.css';
 
@@ -105,6 +109,8 @@ export function AssetHistoryCalculatorDefault() {
 
   const t = (key: string, values?: Record<string, string | number>) =>
     intl.formatMessage({ id: `tools-asset-history.${key}` }, values);
+  const tShared = (key: string, values?: Record<string, string | number>) =>
+    intl.formatMessage({ id: `tools-shared.${key}` }, values);
 
   const initial = useMemo<FormState>(
     () => ({
@@ -185,6 +191,11 @@ export function AssetHistoryCalculatorDefault() {
   }, [form, seriesLoaded, displayCurrency]);
 
   const result = computed.result;
+
+  // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
+  // (Separate from the existing CALCULATOR_UNEXPECTED_ERROR telemetry below.)
+  useCalculatorAnalytics('asset-history', localeKey, result ? JSON.stringify(form) : null);
+
   useEffect(() => {
     if (!computed.unexpectedError) return;
     // C21 close (TOOLS_41_DEFECTS_FIX_PLAN.md §1.2): emit BOTH (a) the
@@ -243,6 +254,31 @@ export function AssetHistoryCalculatorDefault() {
     return 'en';
   }, [displayCurrency]);
 
+  // Result-moment share (Phase 3). Hero = the terminal value; no `years` passed
+  // so the yield-specific OG subline is suppressed (this is historical asset
+  // performance, not a diBoaS projection). Hook is unconditional.
+  const fmtMoney = (n: number) => formatCurrency(n, currencyLocale, { maximumFractionDigits: 0 });
+  const terminalValueForShare = result?.terminalValue ?? 0;
+  // Share-card tone: a loss in error red, a LOW-confidence result in neutral —
+  // never a green "win". (LOW + DCA suppresses sharing entirely below; this
+  // covers the rarer LOW + lump-sum case that still shares a single figure.)
+  const shareTone: 'positive' | 'negative' | 'neutral' = !result
+    ? 'positive'
+    : result.confidence === 'LOW'
+      ? 'neutral'
+      : result.totalContributed > 0 && result.terminalValue < result.totalContributed
+        ? 'negative'
+        : 'positive';
+  const resultShare = useResultShare({
+    toolKey: 'asset-history',
+    value: terminalValueForShare,
+    currency: displayCurrency,
+    locale: localeKey,
+    tone: shareTone,
+    shareText: t('resultMoment.shareText', { value: fmtMoney(terminalValueForShare) }),
+    shareTitle: tShared('resultMoment.shareTitle'),
+  });
+
   const showBasisToggle = TR_TOGGLE_ASSETS.has(form.asset);
 
   const isDcaResult = result && 'rangeLow' in result && result.rangeLow !== undefined;
@@ -254,20 +290,6 @@ export function AssetHistoryCalculatorDefault() {
   // luck, not design). `result.startYm` is the source of truth.
   const startMonthIso = result ? result.startYm.slice(5, 7) : '01';
   const startMonthKey = MONTH_KEY_BY_NUMBER[startMonthIso] ?? 'jan';
-
-  const summary = result
-    ? form.mode === 'lumpSum'
-      ? t('output.summaryLumpSum', {
-          amount: formatCurrency(form.amount, currencyLocale, { maximumFractionDigits: 0 }),
-          startMonth: t(`output.startMonth.${startMonthKey}`),
-          startYear: form.startYear,
-        })
-      : t('output.summaryDca', {
-          amount: formatCurrency(form.amount, currencyLocale, { maximumFractionDigits: 0 }),
-          startMonth: t(`output.startMonth.${startMonthKey}`),
-          startYear: form.startYear,
-        })
-    : '';
 
   return (
     <div className={styles.calculator}>
@@ -362,99 +384,124 @@ export function AssetHistoryCalculatorDefault() {
         )}
       </div>
 
-      {result && (
-        <>
-          <p className={styles.summary}>{summary}</p>
-          <div className={styles.terminalCard}>
-            {result.confidence === 'LOW' && isDcaResult ? (
-              <>
-                <p className={styles.terminalRange}>
-                  {t('output.terminalRange', {
-                    low: formatCurrency(result.rangeLow!, currencyLocale, {
-                      maximumFractionDigits: 0,
-                    }),
-                    high: formatCurrency(result.rangeHigh!, currencyLocale, {
-                      maximumFractionDigits: 0,
-                    }),
-                  })}
-                </p>
-                <p className={styles.uncertaintyNote}>{t('output.uncertaintyLow')}</p>
-              </>
-            ) : (
-              <>
-                <p className={styles.terminalValue}>
-                  {formatCurrency(result.terminalValue, currencyLocale, {
-                    maximumFractionDigits: 0,
-                  })}
-                  {(() => {
-                    const contributed = result.totalContributed;
-                    if (!contributed || contributed <= 0) return null;
-                    const gainPct = (result.terminalValue / contributed - 1) * 100;
-                    const isGain = gainPct >= 0;
-                    const sign = isGain ? '+' : '';
-                    return (
-                      <span
-                        className={styles.gainBadge}
-                        data-direction={isGain ? 'gain' : 'loss'}
-                        title={t('inputs.gainBadgeTooltip')}
-                        aria-label={t('inputs.gainBadgeTooltip')}
-                      >
-                        {' '}
-                        {sign}
-                        {gainPct.toFixed(1)}%
-                      </span>
-                    );
-                  })()}
-                </p>
-                {isDcaResult && result.confidence !== 'LOW' && (
-                  <p className={styles.rangeSubtle}>
-                    {t('output.terminalRangeSubtle', {
-                      low: formatCurrency(result.rangeLow!, currencyLocale, {
-                        maximumFractionDigits: 0,
-                      }),
-                      high: formatCurrency(result.rangeHigh!, currencyLocale, {
-                        maximumFractionDigits: 0,
-                      }),
-                    })}
-                  </p>
-                )}
-              </>
-            )}
-            <p className={styles.totalContributed}>
-              {form.mode === 'monthlyDca'
-                ? t('output.contributedOverMonths', {
-                    total: formatCurrency(result.totalContributed, currencyLocale, {
-                      maximumFractionDigits: 0,
-                    }),
-                    months: result.months,
-                  })
-                : t('output.startingPrincipal', {
-                    total: formatCurrency(result.totalContributed, currencyLocale, {
-                      maximumFractionDigits: 0,
-                    }),
-                  })}
-            </p>
-            <span className={`${styles.confidenceBadge} ${confidenceClass(result.confidence)}`}>
-              {t(`output.confidence${capitalize(result.confidence)}`)}
-            </span>
-            {result.confidence === 'MEDIUM' && (
-              <p className={styles.uncertaintyNote}>{t('output.uncertaintyMedium')}</p>
-            )}
-          </div>
-        </>
-      )}
+      {result &&
+        (() => {
+          // Retrospective honesty: a loss is rendered in the error tone; a
+          // LOW-confidence window is neutral and (for DCA) shows the RANGE as
+          // the hero — never a single precise number — per audit M6 calm-framing.
+          const contributed = result.totalContributed;
+          const gainPct = contributed > 0 ? (result.terminalValue / contributed - 1) * 100 : 0;
+          const gainStr = `${gainPct >= 0 ? '+' : ''}${gainPct.toFixed(1)}%`;
+          const isLowConfidence = result.confidence === 'LOW';
+          const isLowDca = isLowConfidence && isDcaResult;
+          const tone: 'positive' | 'negative' | 'neutral' = isLowConfidence
+            ? 'neutral'
+            : gainPct >= 0
+              ? 'positive'
+              : 'negative';
+          const assetName = t(`inputs.assetOptions.${form.asset}`);
+          const startMonthLabel = t(`output.startMonth.${startMonthKey}`);
+          const note = isLowConfidence
+            ? t('output.uncertaintyLow')
+            : result.confidence === 'MEDIUM'
+              ? t('output.uncertaintyMedium')
+              : t('resultMoment.pastPerformance');
+          const disclaimer = `${tShared(`confidence.${result.confidence.toLowerCase()}`)}. ${note}`;
+          const cta = {
+            headline: tShared('resultMoment.ctaHeadline'),
+            body: tShared('resultMoment.ctaBody'),
+            label: tShared('resultMoment.ctaLabel'),
+            href: '/?source=tool_asset-history',
+          };
+          const investedPoint: ResultMomentSupportingPoint = {
+            id: 'invested',
+            label: t('resultMoment.investedLabel'),
+            value: fmtMoney(contributed),
+            note:
+              form.mode === 'monthlyDca'
+                ? t('resultMoment.contributedMonths', { months: result.months })
+                : undefined,
+            variant: 'muted',
+          };
+
+          // LOW + DCA: the outcome is a wide range, so it leads with the range
+          // (no count-up point, no chart implying a single path, no shareable
+          // single-number card). The range IS the headline.
+          if (isLowDca) {
+            return (
+              <ResultMoment
+                eyebrow={t('resultMoment.eyebrow')}
+                headlineValue={result.terminalValue}
+                headlineFormatter={fmtMoney}
+                headlineTone="neutral"
+                headlineOverride={`${fmtMoney(result.rangeLow!)} – ${fmtMoney(result.rangeHigh!)}`}
+                headlineCaption={`${assetName} · ${startMonthLabel} ${form.startYear}`}
+                supportingPoints={[investedPoint]}
+                disclaimer={disclaimer}
+                cta={cta}
+              />
+            );
+          }
+
+          const series: DivergenceSeries[] = [
+            {
+              id: 'invested',
+              label: tShared('resultMoment.chartInvested'),
+              values: [contributed, contributed],
+              variant: 'muted',
+            },
+            {
+              id: 'value',
+              label: tShared('resultMoment.chartValue'),
+              values: [contributed, result.terminalValue],
+              variant: 'primary',
+            },
+          ];
+          const points: ResultMomentSupportingPoint[] = [investedPoint];
+          if (isDcaResult) {
+            points.push({
+              id: 'range',
+              label: t('resultMoment.rangeLabel'),
+              value: `${fmtMoney(result.rangeLow!)} – ${fmtMoney(result.rangeHigh!)}`,
+              variant: 'muted',
+            });
+          }
+
+          return (
+            <ResultMoment
+              eyebrow={t('resultMoment.eyebrow')}
+              headlineValue={result.terminalValue}
+              headlineFormatter={fmtMoney}
+              headlineTone={tone}
+              headlineCaption={t('resultMoment.heroCaption', {
+                asset: assetName,
+                startMonth: startMonthLabel,
+                startYear: form.startYear,
+                gain: gainStr,
+              })}
+              chart={{
+                series,
+                xCaptions: [`${startMonthLabel} ${form.startYear}`, t('resultMoment.chartToday')],
+                formatValue: fmtMoney,
+                ariaLabel: t('resultMoment.chartAria', {
+                  asset: assetName,
+                  startYear: form.startYear,
+                }),
+              }}
+              supportingPoints={points}
+              disclaimer={disclaimer}
+              cta={cta}
+              share={{
+                onShare: resultShare.share,
+                label: tShared('resultMoment.shareButton'),
+                copiedLabel: tShared('resultMoment.shareCopied'),
+                copied: resultShare.copied,
+              }}
+            />
+          );
+        })()}
     </div>
   );
-}
-
-function confidenceClass(c: 'HIGH' | 'MEDIUM' | 'LOW'): string {
-  if (c === 'HIGH') return styles.confidenceHigh ?? '';
-  if (c === 'MEDIUM') return styles.confidenceMedium ?? '';
-  return styles.confidenceLow ?? '';
-}
-
-function capitalize(s: string): string {
-  return s.charAt(0) + s.slice(1).toLowerCase();
 }
 
 function clamp(n: number, min: number, max: number): number {

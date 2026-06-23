@@ -58,7 +58,7 @@ export function LanguageSwitcher({
             key={locale}
             onClick={() => switchLocale(locale)}
             className={`${styles.inlineButton} ${locale === currentLocale ? styles.active : ''}`}
-            aria-current={locale === currentLocale ? 'page' : undefined}
+            aria-current={locale === currentLocale ? 'true' : undefined}
             aria-label={intl.formatMessage({
               id: `common.languageSwitcher.languages.${locale}`,
             })}
@@ -102,7 +102,7 @@ export function LanguageSwitcher({
                 onClick={() => switchLocale(locale)}
                 className={`${styles.dropdownItem} ${locale === currentLocale ? styles.active : ''}`}
                 role="menuitem"
-                aria-current={locale === currentLocale ? 'page' : undefined}
+                aria-current={locale === currentLocale ? 'true' : undefined}
               >
                 {intl.formatMessage({ id: `common.languageSwitcher.languages.${locale}` })}
                 {locale === currentLocale && <CheckmarkIcon />}

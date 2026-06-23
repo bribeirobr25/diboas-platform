@@ -202,6 +202,32 @@ describe('useFocusTrap DOM behavior', () => {
 
       expect(document.activeElement).toBe(specialInput);
     });
+
+    it('should focus element matching initialFocus ref (A11Y-4 D-2)', () => {
+      // The WaitingListModal email input has a useId()-generated id, so a static
+      // selector matched nothing; a ref is resolved at focus time instead.
+      const container = document.createElement('div');
+      const button = document.createElement('button');
+      button.textContent = 'First';
+      const specialInput = document.createElement('input');
+      specialInput.type = 'text';
+      container.appendChild(button);
+      container.appendChild(specialInput);
+      document.body.appendChild(container);
+
+      renderHook(
+        ({ isActive }) => {
+          const ref = useRef<HTMLElement>(container);
+          const inputRef = useRef<HTMLElement>(specialInput);
+          useFocusTrap(ref as RefObject<HTMLElement>, isActive, {
+            initialFocus: inputRef,
+          });
+        },
+        { initialProps: { isActive: true } }
+      );
+
+      expect(document.activeElement).toBe(specialInput);
+    });
   });
 
   describe('disabled elements', () => {

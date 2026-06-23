@@ -189,41 +189,45 @@ export class SEOMetadataFactory {
    * @param customFAQs - Optional array of custom FAQ items
    */
   static generateFAQStructuredData(customFAQs?: Array<{ question: string; answer: string }>) {
+    // A17 (2026-06-11): brand-compliant FAQ copy — non-custodial voice, current
+    // fees, no banned terms (no "DeFi"/"OneFi"/"banking"-as-identity, no fabricated
+    // premium tiers / 24-7 phone / MFA / identity verification). Approved copy per
+    // FIX_EXECUTION_TRACKER A17.
     const defaultFAQs = [
       {
         question: 'What is diBoaS?',
         answer:
-          'diBoaS is a comprehensive financial platform that combines banking, investing, and DeFi services in one secure ecosystem.',
+          'diBoaS is a non-custodial financial side pocket — a place where your idle money can work harder, move freely, and stay yours. You hold the keys; diBoaS never holds your money.',
       },
       {
         question: 'Is diBoaS secure?',
         answer:
-          'Yes, diBoaS employs enterprise-grade security measures including encryption, multi-factor authentication, and regular security audits.',
+          "You hold your own keys, so diBoaS can't freeze or move your money. Your money works through established, independently audited systems, and every transaction needs your approval.",
       },
       {
         question: 'How do I get started with diBoaS?',
         answer:
-          'Getting started is simple: download the OneFi app, create your account with email verification, complete identity verification, and start exploring our banking, investing, and DeFi features.',
+          'Start with a goal — an emergency fund, a Christmas bonus, dollar savings — from as little as $5. You add money through trusted partners and get your own wallet that only you control.',
       },
       {
         question: 'What services does diBoaS offer?',
         answer:
-          'diBoaS offers personal and business banking, investment opportunities, cryptocurrency trading, DeFi services, payment processing, and financial management tools all in one platform.',
+          'Goal-based strategies for idle money, digital dollars, buying and holding assets like Bitcoin and gold, and free transfers to other diBoaS users — all in one place, with you keeping control of every dollar.',
       },
       {
         question: 'Is diBoaS available in my country?',
         answer:
-          'diBoaS is expanding globally. Check our website or app for current availability in your region, with support for multiple languages including English, Portuguese, Spanish, and German.',
+          'diBoaS is launching across the US, EU, and Brazil, in English, Portuguese, Spanish, and German. Check the site for current availability in your region.',
       },
       {
         question: 'How can I contact diBoaS support?',
         answer:
-          'Our support team is available 24/7 through in-app chat, email, phone, and our comprehensive help center with guides and FAQs.',
+          "Email us — we read every message. As we grow, we'll add more support channels and a full help center.",
       },
       {
         question: 'What are the fees for using diBoaS?',
         answer:
-          'diBoaS offers transparent pricing with no hidden fees. Many basic services are free, while premium features have clear, competitive pricing. Check our pricing page for detailed information.',
+          'Every fee is shown up front: investing is free, selling or closing is 0.39%, adding or cashing out is 0.48%. No monthly fees, no minimums beyond $5, no surprises.',
       },
     ];
 

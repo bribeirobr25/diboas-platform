@@ -11,7 +11,8 @@
 
 import { isValidLocale, SUPPORTED_LOCALES, type SupportedLocale } from '@diboas/i18n/server';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
-import { seoService } from '@/lib/seo';
+import { seoService, socialCardMetadata } from '@/lib/seo';
+import type { OGPageType } from '@/lib/og';
 import { TOOL_DESCRIPTORS } from './constants';
 import type { ToolKey } from './types';
 import type { Metadata } from 'next';
@@ -32,9 +33,14 @@ export function toolMetadata(toolKey: ToolKey) {
       return acc;
     }, {});
 
+    const title = messages[`${namespace}.seo.title`];
+    const description = messages[`${namespace}.seo.description`];
+
     return {
-      title: messages[`${namespace}.seo.title`],
-      description: messages[`${namespace}.seo.description`],
+      title,
+      description,
+      // SEO-6: every tool slug maps to a render-ready `tools-<slug>` OG template.
+      ...socialCardMetadata(`tools-${slug}` as OGPageType, title, description, validLocale),
       alternates: {
         canonical: seoService.generateCanonicalUrl(path, validLocale),
         languages,

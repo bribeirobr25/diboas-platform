@@ -1,7 +1,7 @@
 {
   "landing": {
     "seo": {
-      "title": "Ferramentas financeiras — calculadoras do diBoaS",
+      "title": "Ferramentas financeiras — calculadoras gratuitas",
       "description": "Calculadoras gratuitas para planejar sua aposentadoria, reserva de emergência e metas de poupança. Do diBoaS."
     },
     "hero": {
@@ -29,7 +29,8 @@
     },
     "filterChip": {
       "all": "Todas as ferramentas",
-      "business": "Para empresas"
+      "business": "Para empresas",
+      "ariaLabel": "Filtrar ferramentas por público"
     }
   },
   "actions": {
@@ -45,6 +46,7 @@
   },
   "scenarios": {
     "bank": "Seu banco",
+    "bankApyDisplay": "{label} ({rate}%)",
     "conservative": "Conservador (7%)",
     "historical": "Histórico (10%)",
     "optimistic": "Otimista (14%)",
@@ -68,7 +70,7 @@
     "tryOtherTools": "Experimentar outras ferramentas",
     "adelaideAttribution": "Ferramentas da Adelaide"
   },
-  "disclaimer": "Apenas projeção educativa. Não é orientação financeira. Resultados passados não garantem resultados futuros. Rendimentos do diBoaS são mostrados em dólar digital; para moedas diferentes do dólar americano, o total em moeda local combina o rendimento do dólar com o movimento típico da sua moeda frente ao dólar americano ao longo do tempo.",
+  "disclaimer": "Apenas projeção educativa. Não é orientação financeira. Rentabilidade passada não é garantia de rentabilidade futura. Investimentos envolvem riscos e você pode perder dinheiro. diBoaS não é um produto de investimento registrado na CVM. Rendimentos do diBoaS são mostrados em dólar digital; para moedas diferentes do dólar americano, o total em moeda local combina o rendimento do dólar com o movimento típico da sua moeda frente ao dólar americano ao longo do tempo.",
   "warnings": {
     "over30Years": "Esta meta leva mais de 30 anos com sua contribuição atual. Considere aumentar o valor mensal ou estender o prazo."
   },
@@ -76,5 +78,20 @@
     "high": "Alta confiança (±5%)",
     "medium": "Confiança média — veja a nota de incerteza",
     "low": "Baixa confiança — janela de alta volatilidade"
+  },
+  "resultMoment": {
+    "chartStart": "Hoje",
+    "chartEnd": "Em {years} anos",
+    "chartCash": "Dinheiro",
+    "chartBank": "Banco",
+    "chartDiboas": "diBoaS",
+    "chartInvested": "Investido",
+    "chartValue": "Valor",
+    "shareButton": "Compartilhar este resultado",
+    "shareCopied": "Link copiado!",
+    "shareTitle": "Meu resultado diBoaS",
+    "ctaHeadline": "É isto que o acesso justo muda.",
+    "ctaBody": "Entre na lista de espera para colocar isto pra funcionar de verdade.",
+    "ctaLabel": "Garanta sua vaga"
   }
 }

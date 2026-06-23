@@ -5,6 +5,9 @@
 // Financial math
 export { futureValue, apyToMonthlyRate } from './financialMath';
 
+// Date
+export { toISODateString } from './date';
+
 // Fetch with retry
 export { fetchWithRetry } from './fetchWithRetry';
 

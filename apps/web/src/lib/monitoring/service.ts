@@ -82,6 +82,8 @@ class MonitoringCoordinatorService implements MonitoringService {
       sessionId: this.userContext.sessionId as string | undefined,
       userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
       locale: this.globalContext.locale as string | undefined,
+      // E-2: correlate this monitoring event with the Sentry server/client doors
+      correlationId: Logger.getRequestId(),
       severity: this.classifyErrorSeverity(error),
       category: this.classifyErrorCategory(error),
       metadata: {

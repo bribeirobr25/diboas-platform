@@ -21,7 +21,8 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "passThroughEnv": ["DEV_ALLOWED_ORIGINS"]
     },
     "lint": {
       "dependsOn": ["^build"],

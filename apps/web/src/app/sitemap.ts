@@ -116,10 +116,15 @@ function getAllUrls(): string[] {
  * URL at the end, leaving the protocol untouched.
  */
 function buildLocalizedUrl(baseUrl: string, locale: string, path: string): string {
-  const localeSegment = locale === 'en' ? '' : `/${locale}`;
+  // SEO-7: prefix EVERY locale, including English. Locale-less paths 307-redirect
+  // to `/en/…` (middleware), and every page self-canonicalises to the prefixed
+  // form (`generateCanonicalUrl`, the home `/${locale}` canonical, and the i18n
+  // `generateAlternateUrls` helper). An unprefixed English `<loc>` + `en`
+  // hreflang would advertise redirecting URLs that disagree with the canonicals.
+  const localeSegment = `/${locale}`;
   const normalizedPath = path === '/' ? '' : path;
   // `${baseUrl}` has no trailing slash (per SEO_DEFAULTS); `localeSegment` is
-  // either '' or '/xx'; `normalizedPath` starts with '/' (or is empty).
+  // `/xx`; `normalizedPath` starts with '/' (or is empty).
   return `${baseUrl}${localeSegment}${normalizedPath}` || baseUrl;
 }
 

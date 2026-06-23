@@ -53,6 +53,36 @@ export function isValidCalculatorInput(futureAmount: number, years: number): boo
 }
 
 /**
+ * Validate a tool-result hero value (Phase 3 Money Tools share card).
+ * Guards the same range as the calculator (positive, finite, ≤ $1B) so a
+ * fat-fingered or hostile `value` param can't blow up the renderer.
+ */
+export function isValidToolResultValue(value: number): boolean {
+  return value > 0 && Number.isFinite(value) && value <= 1_000_000_000;
+}
+
+/**
+ * Format a currency amount for the share card in the holder's locale currency.
+ * Uses compact notation ($12K / R$1,2 mi) so big figures stay readable at OG
+ * scale. `currency` must be a 3-letter ISO 4217 code; anything else (or an
+ * `Intl` rejection) falls back to the plain `$`-prefixed K/M formatter so the
+ * card never crashes on an unexpected param.
+ */
+export function formatResultCurrency(value: number, currency: string, locale = 'en'): string {
+  if (!/^[A-Z]{3}$/.test(currency)) return formatCurrency(value);
+  try {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: 0,
+      notation: 'compact',
+    }).format(value);
+  } catch {
+    return formatCurrency(value);
+  }
+}
+
+/**
  * Parse integer with fallback
  */
 export function parseIntSafe(value: string | null, fallback: number): number {

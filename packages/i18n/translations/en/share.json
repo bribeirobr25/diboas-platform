@@ -52,5 +52,27 @@
   },
   "waitlist": {
     "text": "I just found an easy and fair access to grow and move money. It is so good, that I have to share it"
+  },
+  "og": {
+    "waitlist": {
+      "title": "I'm #{position} on the diBoaS waitlist!",
+      "description": "Join me on diBoaS - Financial Freedom Made Simple"
+    },
+    "calculator": {
+      "title": "My investment could grow to {formattedAmount}!",
+      "description": "In {years} years with diBoaS Dream Mode Calculator"
+    },
+    "toolResult": {
+      "title": "What my money could really earn: {value}",
+      "titleByTool": {
+        "asset-history": "What it would be worth today: {value}",
+        "card-fees": "What I could save: {value}"
+      },
+      "description": "I ran the numbers on diBoaS. See what yours could do."
+    },
+    "default": {
+      "title": "diBoaS - Financial Freedom Made Simple",
+      "description": "Your money. Your future. One platform. Join the waitlist today."
+    }
   }
 }

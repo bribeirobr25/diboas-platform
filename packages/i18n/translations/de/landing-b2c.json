@@ -1,9 +1,29 @@
 {
+  "eyebrows": {
+    "math": "DIE RECHNUNG",
+    "goals": "DEINE ZIELE",
+    "story": "UNSERE GESCHICHTE",
+    "howItWorks": "SO FUNKTIONIERT'S",
+    "fees": "WAS DU ZAHLST",
+    "honest": "KEIN HAKEN",
+    "join": "DIE BEWEGUNG",
+    "founder": "WER DAHINTERSTECKT",
+    "faq": "FRAGEN"
+  },
   "hero": {
     "headline": "Das Geldsystem ist nicht kaputt. Es wurde nur nicht für dich gebaut.",
     "subheadline": "Sieh, was 1.000 € in einem Jahr machen, wenn du Zugang zu fairen Chancen hast.",
     "cta": "Zeig mir",
     "phoneMockupLabel": "Vorschau. Demnächst verfügbar"
+  },
+  "wedge": {
+    "eyebrow": "Die Wahrheit über Tagesgeld",
+    "claim": "Dein Tagesgeld bringt {value}.",
+    "honest": "Nach Inflation verliert dein Erspartes real an Wert. Der digitale Dollar gibt dir Zugang zu mehr, mit dir am Steuer. Kein Markt ist ohne Risiko.",
+    "cta": "Rechne nach"
+  },
+  "waitlistFounding": {
+    "spotsLeft": "Nur noch {remaining} von {cap} Gründerplätzen frei."
   },
   "comparison": {
     "heading": "1.000 €. 1 Jahr. Du entscheidest.",
@@ -362,6 +382,7 @@
     "nav": {
       "forYou": "Für dich",
       "forBusiness": "Für Unternehmen",
+      "moneyTools": "Rechner",
       "adelaideDaily": "Adelaide Daily",
       "about": "Über uns",
       "help": "Hilfe",

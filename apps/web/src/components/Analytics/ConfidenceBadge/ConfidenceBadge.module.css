@@ -1,32 +1,16 @@
+/* Editorial confidence pill — outline, mono, uppercase (02-editorial-motion). */
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  padding: 2px 0.5rem;
-  border-radius: var(--radius-sm);
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: 0.02em;
+  padding: 8px 15px;
+  border-radius: 999px;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  border: 1px solid var(--color-slate-200);
-  color: var(--color-text-secondary);
+  border: 1px solid var(--editorial-ink);
+  color: var(--editorial-ink-soft);
   background-color: transparent;
-}
-
-.badge[data-confidence='high'] {
-  color: var(--text-success-accessible);
-  border-color: color-mix(in srgb, var(--text-success-accessible) 30%, transparent);
-  background-color: color-mix(in srgb, var(--text-success-accessible) 8%, transparent);
-}
-
-.badge[data-confidence='moderate'] {
-  color: var(--color-text-secondary);
-  border-color: var(--color-slate-200);
-}
-
-.badge[data-confidence='low'] {
-  color: var(--color-amber-700);
-  border-color: color-mix(in srgb, var(--color-amber-700) 30%, transparent);
-  background-color: color-mix(in srgb, var(--color-amber-700) 8%, transparent);
 }

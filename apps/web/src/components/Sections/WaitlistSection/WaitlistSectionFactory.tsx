@@ -79,7 +79,10 @@ export const WaitlistSection = memo(function WaitlistSection({
   });
 
   return (
-    <div ref={impressionRef}>
+    // A16/O-2: `data-section-id` adds the waitlist CTA to the unified
+    // `section_viewed` funnel (via the landing-layout ScrollDepthTracker),
+    // alongside the existing bespoke `waitlist_section_impression` event.
+    <div ref={impressionRef} data-section-id="waitlist_cta">
       <SectionContainer
         variant="standard"
         padding="standard"

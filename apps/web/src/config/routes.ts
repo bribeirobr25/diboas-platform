@@ -16,6 +16,7 @@ export const ROUTES = {
   CALCULATOR: '/#calculator',
   STRATEGIES: '/strategies',
   MARKET: '/market',
+  TOOLS: '/tools',
 
   // Landing Page Links
   BUSINESS_LANDING: '/business',

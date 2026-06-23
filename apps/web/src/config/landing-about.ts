@@ -22,7 +22,7 @@ import type { FounderSectionConfig } from './founderSection';
 // ─── Section 1: Hero ─────────────────────────────────────────
 
 export const ABOUT_HERO_CONFIG: HeroVariantConfig = {
-  variant: 'fullBackground',
+  variant: 'cinematic',
   content: {
     title: 'about.hero.title',
     description: 'about.hero.subtitle',
@@ -30,10 +30,13 @@ export const ABOUT_HERO_CONFIG: HeroVariantConfig = {
     ctaHref: '#story',
     ctaTarget: '_self',
   },
-  backgroundAssets: {
-    backgroundImage: '/assets/images/soft-arrival.avif',
-    backgroundImageMobile: '/assets/images/soft-arrival.avif',
-    overlayOpacity: 0.3,
+  cinematic: {
+    scene: 'dawn-water',
+    theme: 'dark',
+    align: 'center',
+    sectionId: 'hero-about',
+    posterImage: '/assets/images/veil-of-dawn.avif',
+    posterDuotone: true,
   },
   seo: {
     titleTag: 'About diBoaS',

@@ -48,6 +48,7 @@ const B2C_IMAGES = {
   featureAlwaysOn: '/assets/images/moment-of-ease.avif',
   originStory: '/assets/images/saved-through-time.avif',
   catchSection: '/assets/images/quiet-horizon.avif',
+  heroBand: '/assets/images/still-tide.avif',
 } as const;
 
 /**
@@ -55,7 +56,7 @@ const B2C_IMAGES = {
  * CTA scrolls to #comparison (first proof section)
  */
 export const B2C_HERO_CONFIG: HeroVariantConfig = {
-  variant: 'fullBackground',
+  variant: 'cinematic',
   content: {
     title: 'landing-b2c.hero.headline',
     description: 'landing-b2c.hero.subheadline',
@@ -63,10 +64,13 @@ export const B2C_HERO_CONFIG: HeroVariantConfig = {
     ctaHref: '#comparison',
     ctaTarget: '_self',
   },
-  backgroundAssets: {
-    backgroundImage: B2C_IMAGES.hero,
-    backgroundImageMobile: B2C_IMAGES.heroMobile,
-    overlayOpacity: 0.3,
+  cinematic: {
+    scene: 'dawn-water',
+    theme: 'dark',
+    align: 'left',
+    sectionId: 'hero-b2c',
+    posterImage: B2C_IMAGES.heroBand,
+    posterDuotone: true,
   },
   seo: {
     titleTag: 'diBoaS - Make Your Money Work',
@@ -86,6 +90,7 @@ export const B2C_HERO_CONFIG: HeroVariantConfig = {
  */
 export const B2C_ORIGIN_STORY_CONFIG: ProseSectionConfig = {
   content: {
+    eyebrow: 'landing-b2c.eyebrows.story',
     transitionHook: 'landing-b2c.origin.transitionHook',
     header: 'landing-b2c.origin.header',
     paragraphs: [
@@ -299,6 +304,7 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
  */
 export const B2C_CATCH_CONFIG: ProseSectionConfig = {
   content: {
+    eyebrow: 'landing-b2c.eyebrows.honest',
     header: 'landing-b2c.catch.header',
     paragraphs: [
       'landing-b2c.catch.paragraphs.p1',
@@ -515,6 +521,8 @@ export const B2C_FOOTER_NAV = [
     labelKey: 'landing-b2c.footer.nav.forBusiness',
     href: ROUTES.BUSINESS_LANDING,
   },
+  // Surfaced in the footer too (redesign Phase 1) → the /tools hub indexes all 10.
+  { id: 'moneyTools', labelKey: 'landing-b2c.footer.nav.moneyTools', href: ROUTES.TOOLS },
   // 2026-05-13: route renamed to `/market`; label "Adelaide Daily" stays.
   { id: 'adelaideDaily', labelKey: 'landing-b2c.footer.nav.adelaideDaily', href: ROUTES.MARKET },
   { id: 'about', labelKey: 'landing-b2c.footer.nav.about', href: ROUTES.ABOUT },

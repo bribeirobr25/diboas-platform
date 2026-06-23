@@ -20,9 +20,19 @@ jobs:
           node-version: 24
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
+      # Formatting gate (2026-06-07): `prettier --check .` covers all tracked
+      # source + docs (markdown included; .prettierignore excludes build output).
+      # Placed first as the cheapest fail-fast check. Fix locally with `pnpm format`.
+      - run: pnpm format:check
       - run: pnpm type-check
       - run: pnpm lint
       - run: pnpm test
+      # C-3: static gates that previously ran only locally (via validate:all).
+      # The Phase-7 jargon ban + the "no direct market-data constant imports"
+      # SDK invariant — both server-free. (Not `validate:market-data`, whose
+      # fixtures.test.ts is already covered by `pnpm test` above.)
+      - run: node scripts/check-market-data-jargon.mjs
+      - run: pnpm validate:sdk-invariant
       - run: pnpm validate:translations
       - run: pnpm validate:design-tokens
       - run: pnpm build

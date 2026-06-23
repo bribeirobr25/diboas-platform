@@ -34,8 +34,10 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
 
-  // WCAG 2.4.3: Focus trap for modal
-  useFocusTrap(modalRef, isOpen, { initialFocus: '#email' });
+  // WCAG 2.4.3: Focus trap for modal. D-2: pass the email ref (not a '#email'
+  // selector) — the input id is generated via useId() in WaitlistModalForm, so
+  // a static selector matched nothing and focus fell back to the Close button.
+  useFocusTrap(modalRef, isOpen, { initialFocus: emailInputRef });
 
   // Helper function for translations
   const t = (key: string, values?: Record<string, string>) => {
@@ -75,7 +77,7 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
       onClick={handleOverlayClick}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="waiting-list-title"
+      aria-label={t('title')}
     >
       <div ref={modalRef} className={styles.modal}>
         {/* Close button */}

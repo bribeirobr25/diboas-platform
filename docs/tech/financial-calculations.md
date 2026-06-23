@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-05-25 (refreshed Data Source + rate tables to match `constants.ts` post-Phase-C; previously stale by ~5y-avg baseline)
 
-This document describes the financial calculation model used across the diBoaS platform (comparison table, goal cards, PreDream, 10-tool calculator suite, lesson). All formulas are implemented in `lib/market-data/formulas/` (split across `core.ts`, `currencyHedge.ts`, `horizonMatchedCagr.ts`, `brazilPoupanca.ts`). The canonical external-audit specification is `docs/tech/audit-bundle/FUNCTIONAL_SPECIFICATION.md` (audit bundle currently v1.9).
+This document is the **canonical source for the financial calculation model** used across the diBoaS platform (comparison table, goal cards, PreDream, 10-tool calculator suite, lesson) — other docs point here, never restate the formulas. All formulas are implemented in `lib/market-data/formulas/` (split across `core.ts`, `currencyHedge.ts`, `horizonMatchedCagr.ts`, `brazilPoupanca.ts`). The external-audit artifacts live in `docs/tech/audit-bundle/` (`TEST_VECTORS.json` = validated test vectors; `REGULATORY_CROSSWALK.md` = disclosure crosswalk); validation methodology and product-truth gates are canonical in `docs/tech/TOOLS_VALIDATION.md`.
 
 ---
 
@@ -31,7 +31,7 @@ Where:
 
 All market rates come from `MarketDataService` (`lib/market-data/service.ts`), which reads from `FALLBACK_MARKET_DATA` in `lib/market-data/constants.ts`. **Authoritative table**: read `constants.ts` directly — values below mirror it as of 2026-05-25 but the constants file is the single source of truth.
 
-Earlier baselines used pure 5y-avg figures. Phase A historical calibration (2026-05-16) and Phase C decisions (2026-05-22) refreshed several locales to live current values; the `constants.ts` `lastVerified` metadata block records source + date per field. The weekly refresh runbook is `docs/integrations/tools-data-weekly-runbook.md`.
+Earlier baselines used pure 5y-avg figures. Phase A historical calibration (2026-05-16) and Phase C decisions (2026-05-22) refreshed several locales to live current values; the `constants.ts` `lastVerified` metadata block records source + date per field. The weekly refresh runbook is `docs/tools/tools-data-weekly-runbook.md`.
 
 ### Bank / Savings Rates
 
@@ -103,7 +103,7 @@ Then standard annuity formula applies at the effective rate. This is simpler and
 
 ### Effective APYs by Locale
 
-Updated 2026-05-23 (TOOLS_IMPROVEMENT.md Phase C, Decisions PT1/PT3 Bar-signed): bank rates refreshed to Phase A live values; depreciation rates refreshed to live BCB PTAX / ECB EXR full-series CAGRs. For the Strategies product surface (Safety APY 7%, Balance 12%, Growth 18%):
+Updated 2026-05-23 (the tools-improvement plan Phase C, Decisions PT1/PT3 Bar-signed): bank rates refreshed to Phase A live values; depreciation rates refreshed to live BCB PTAX / ECB EXR full-series CAGRs. For the Strategies product surface (Safety APY 7%, Balance 12%, Growth 18%):
 
 | Locale  |        diBoaS Safety         |                  Bank                  |     Advantage     |
 | ------- | :--------------------------: | :------------------------------------: | :---------------: |
@@ -118,7 +118,7 @@ For the educational tools (Conservative 7% / Historical 10% / Optimistic 14% in 
 
 ### Horizon-Matched Forward Projection (Added 2026-05-23, Phase D)
 
-Per TOOLS_IMPROVEMENT.md plan v1.1 §6.1 (CTO Review H1): forward-projection FX depreciation is derived from `monthlySeries.fx[currency]` using a CONTINUOUS trailing-N-year window:
+Per the tools-improvement plan v1.1 §6.1 (CTO Review H1): forward-projection FX depreciation is derived from `monthlySeries.fx[currency]` using a CONTINUOUS trailing-N-year window:
 
 ```
 windowMonths = min(horizonYears × 12, totalAvailableMonths)
@@ -218,7 +218,7 @@ All financial display surfaces read from the same `MarketDataService`:
 | **CalculatorVignettes**                 | Lesson Beat 2 — dynamic 12-year FV via `calculateMonthlyContributions(yearlyAmount/12, 0.10, 0, 144)`                                                                                                                   | non-hedged per Q7(a)                                                                                 |
 | **B2B landing-b2b.json cards**          | Payment Fees + Idle Cash — values derived once via `scripts/derive-b2b-card-numbers.mjs`                                                                                                                                | canonical per locale                                                                                 |
 
-The `ComparisonTable` uses `calculateLumpSum()` and `calculateWithCurrencyHedge()`. The `GoalExampleCards` uses `calculateMonthlyContributions()` and `calculateMonthlyWithCurrencyHedge()` via the `useGoalCardData` hook (the canonical hedge precedent for months-shaped tools — see `useGoalCardData.ts:57-61`). The 6 hedged Phase-7 tools follow either the `ComparisonTable` precedent (FV-shaped) or the `useGoalCardData` precedent (months-shaped) per `docs/audit/_archive/PRE_PHASE_7_TOOLS_POLISH.md` §5.1 — the two patterns are intentionally distinct.
+The `ComparisonTable` uses `calculateLumpSum()` and `calculateWithCurrencyHedge()` for the 1-year figures, plus `buildMonthlyValuePath()` / `buildHedgedMonthlyValuePath()` for the "data as hero" divergence chart — the hedged path routes through the same `applyEffectiveRateClamp`, so the chart line can never diverge from the table figure. The `GoalExampleCards` uses `calculateMonthlyContributions()` and `calculateMonthlyWithCurrencyHedge()` via the `useGoalCardData` hook (the canonical hedge precedent for months-shaped tools — see `useGoalCardData.ts:57-61`). The 6 hedged Phase-7 tools follow either the `ComparisonTable` precedent (FV-shaped) or the `useGoalCardData` precedent (months-shaped) per the pre-Phase-7 tools-polish plan §5.1 — the two patterns are intentionally distinct.
 
 ---
 

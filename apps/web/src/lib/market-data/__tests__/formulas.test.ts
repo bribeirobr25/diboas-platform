@@ -18,6 +18,8 @@ import {
   calculateWithCurrencyHedge,
   calculateMonthlyWithCurrencyHedge,
   calculateMonthlyPathDependentHedge,
+  buildMonthlyValuePath,
+  buildHedgedMonthlyValuePath,
   monthsToInflationAdjustedTarget,
   monthsToStaticTarget,
   purchasingPower,
@@ -592,5 +594,44 @@ describe('Phase B — path-dependent hedge edge cases', () => {
         endRate: 5.5,
       })
     ).toThrow(/avgRate must be > 0/);
+  });
+});
+
+// ─── buildMonthlyValuePath / buildHedgedMonthlyValuePath ───────────────────
+// Chart value-path helpers (ComparisonTable "data as hero" divergence line).
+describe('buildMonthlyValuePath', () => {
+  it('should return months + 1 points starting at the principal', () => {
+    const path = buildMonthlyValuePath(1000, 0.07, 12);
+    expect(path).toHaveLength(13);
+    expect(path[0]).toBe(1000); // month 0 = principal (no growth yet)
+  });
+
+  it('should compound geometrically so month 12 == principal * (1 + annualRate)', () => {
+    const path = buildMonthlyValuePath(1000, 0.07, 12);
+    expect(path[12]).toBeCloseTo(1000 * 1.07, 6);
+  });
+});
+
+describe('buildHedgedMonthlyValuePath', () => {
+  it('should make the 12-month endpoint agree with calculateWithCurrencyHedge (chart == table figure)', () => {
+    const principal = 1000;
+    const usdYield = 0.07;
+    const depreciation = 0.05; // BRL-like positive depreciation
+    const path = buildHedgedMonthlyValuePath(principal, usdYield, depreciation, 12, 'test');
+    // The chart's diBoaS endpoint must equal the table's nominal future value
+    // (principal + nominalGain) — proving both share one clamped formula.
+    const table = calculateWithCurrencyHedge(principal, usdYield, depreciation, 0, 1);
+    expect(path[12]).toBeCloseTo(principal + table.nominalGain, 6);
+    expect(path[12]).toBeCloseTo(table.nominalFV, 6);
+  });
+
+  it('should apply the effective-rate clamp on pathological depreciation', () => {
+    // depreciation <= -1 would drive the effective rate below the -0.99 floor;
+    // the hedged path must clamp (not produce NaN/complex via Math.pow).
+    const path = buildHedgedMonthlyValuePath(1000, 0.07, -1.5, 12, 'test');
+    expect(path).toHaveLength(13);
+    expect(Number.isFinite(path[12])).toBe(true);
+    // clamped to -0.99 → month 12 = 1000 * (1 - 0.99) = 10
+    expect(path[12]).toBeCloseTo(10, 6);
   });
 });

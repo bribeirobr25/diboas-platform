@@ -1,7 +1,7 @@
 {
   "landing": {
     "seo": {
-      "title": "Herramientas financieras — calculadoras de diBoaS",
+      "title": "Herramientas financieras — calculadoras gratuitas",
       "description": "Calculadoras gratuitas para planificar tu jubilación, fondo de emergencia y metas de ahorro. De diBoaS."
     },
     "hero": {
@@ -29,7 +29,8 @@
     },
     "filterChip": {
       "all": "Todas las herramientas",
-      "business": "Para empresas"
+      "business": "Para empresas",
+      "ariaLabel": "Filtrar herramientas por público"
     }
   },
   "actions": {
@@ -45,6 +46,7 @@
   },
   "scenarios": {
     "bank": "Tu banco",
+    "bankApyDisplay": "{label} ({rate}%)",
     "conservative": "Conservador (7%)",
     "historical": "Histórico (10%)",
     "optimistic": "Optimista (14%)",
@@ -68,7 +70,7 @@
     "tryOtherTools": "Probar otras herramientas",
     "adelaideAttribution": "Herramientas de Adelaide"
   },
-  "disclaimer": "Solo proyección educativa. No es asesoramiento financiero. El rendimiento pasado no garantiza resultados futuros. Los rendimientos de diBoaS se muestran en dólar digital; para monedas distintas al dólar estadounidense, el total en moneda local combina el rendimiento del dólar con el movimiento típico de tu moneda frente al dólar estadounidense con el tiempo.",
+  "disclaimer": "Solo proyección educativa. No es asesoramiento financiero. La rentabilidad pasada no es indicativa de rentabilidades futuras. Toda inversión conlleva riesgo. Los rendimientos de diBoaS se muestran en dólar digital; para monedas distintas al dólar estadounidense, el total en moneda local combina el rendimiento del dólar con el movimiento típico de tu moneda frente al dólar estadounidense con el tiempo.",
   "warnings": {
     "over30Years": "Esta meta lleva más de 30 años con tu contribución actual. Considera aumentar el monto mensual o extender el plazo."
   },
@@ -76,5 +78,20 @@
     "high": "Alta confianza (±5%)",
     "medium": "Confianza media — ver nota de incertidumbre",
     "low": "Baja confianza — ventana de alta volatilidad"
+  },
+  "resultMoment": {
+    "chartStart": "Hoy",
+    "chartEnd": "En {years} años",
+    "chartCash": "Efectivo",
+    "chartBank": "Banco",
+    "chartDiboas": "diBoaS",
+    "chartInvested": "Invertido",
+    "chartValue": "Valor",
+    "shareButton": "Compartir este resultado",
+    "shareCopied": "¡Enlace copiado!",
+    "shareTitle": "Mi resultado diBoaS",
+    "ctaHeadline": "Esto es lo que cambia el acceso justo.",
+    "ctaBody": "Únete a la lista de espera para ponerlo a trabajar de verdad.",
+    "ctaLabel": "Reserva tu lugar"
   }
 }

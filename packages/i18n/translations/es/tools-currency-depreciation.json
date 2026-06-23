@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Calculadora de depreciación monetaria — qué gana realmente tu moneda",
+    "title": "Calculadora de depreciación monetaria",
     "description": "Calculadora gratuita de depreciación monetaria. Compara tu moneda local en efectivo, en el banco y en dólar digital al 10% de rendimiento histórico."
   },
   "hero": {
@@ -43,6 +43,13 @@
     "depSourcePeg": "El {currency} está vinculado al dólar estadounidense por política del banco central. La variación cambiaria es 0 por diseño.",
     "uncertaintyMedium": "Esta moneda tuvo volatilidad moderada en la ventana — el CAGR puntual refleja el comportamiento promedio; el movimiento acumulado fue desigual año a año.",
     "uncertaintyLow": "Esta moneda pasó por períodos de volatilidad estructural o cambio de régimen — un único CAGR suaviza materialmente sub-períodos muy diferentes. Usa el resultado como referencia direccional, no como pronóstico."
+  },
+  "resultMoment": {
+    "eyebrow": "Lo que tu dinero realmente gana",
+    "eyebrowUsd": "Lo que ganan tus dólares parados",
+    "chartAria": "Cómo se compara el {currency} en {years} años mantenido en efectivo, en un banco local y en dólar digital en diBoaS.",
+    "chartAriaUsd": "Cómo se comparan tus dólares en {years} años en un banco frente a dólar digital en diBoaS.",
+    "shareText": "En {years} años, mis {currency} podrían valer {value} en dólar digital en diBoaS. Mira cuánto gana realmente el tuyo."
   },
   "vignette": {
     "subtitle": "Dónde guardas tu dinero importa. La moneda en la que rinde, importa más."

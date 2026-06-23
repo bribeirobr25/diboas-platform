@@ -22,12 +22,11 @@ This app is part of a monorepo. Install from the root:
 # Navigate to project root
 cd ../..
 
-# Install all dependencies
+# Install all dependencies (builds workspace packages via Turborepo)
 pnpm install
-
-# Generate design tokens
-pnpm run generate:design-tokens
 ```
+
+> Design tokens in `src/styles/design-tokens.css` are hand-maintained — there is no generate step (the generator is intentionally disabled).
 
 ## Development
 
@@ -124,7 +123,7 @@ apps/web/
 │   │   ├── seo/                # SEO utilities
 │   │   └── errors/             # Error handling
 │   ├── styles/                 # Global styles
-│   │   ├── design-tokens.css   # Generated CSS variables
+│   │   ├── design-tokens.css   # Hand-maintained CSS variables (canonical token source)
 │   │   └── semantic-components.css
 │   └── middleware.ts           # Next.js middleware
 ├── public/                     # Static assets
@@ -226,9 +225,7 @@ This app uses a design token system for consistent styling:
 
 ### Updating Design Tokens
 
-1. Edit `../../config/design-tokens.json`
-2. Run `pnpm run generate:design-tokens` from root
-3. Tokens are automatically available as CSS variables
+Edit `src/styles/design-tokens.css` directly — it is the **hand-maintained** canonical source (the `generate:design-tokens` generator is disabled; it would overwrite the hand-tuned CSS). Run `pnpm validate:design-tokens` to check the schema-validated subset in `../../config/design-tokens.json`. Never hardcode colors/spacing/font-sizes/radii in component CSS — always reference a token.
 
 ## Internationalization
 
@@ -263,7 +260,8 @@ The `.env.example` file contains 50+ configuration options organized by category
 | Category      | Description                         |
 | ------------- | ----------------------------------- |
 | Application   | Base URLs, domain, environment      |
-| Kit.com       | Email marketing integration         |
+| Email         | Resend (transactional email)        |
+| Database      | Neon PostgreSQL connection string   |
 | Cal.com       | Booking calendar integration        |
 | Waitlist      | Storage path, API keys              |
 | Analytics     | GA4, Sentry, PostHog                |
@@ -271,7 +269,7 @@ The `.env.example` file contains 50+ configuration options organized by category
 | Feature Flags | Toggle integrations on/off          |
 | Brand         | Company name, tagline, social links |
 
-See `.env.example` for detailed documentation of each variable.
+`.env.example` is the authoritative variable reference (full descriptions inline); `docs/monitoring/INFRASTRUCTURE_GUIDE.md` holds the org-specific values. See also `docs/tech/infrastructure.md` § Environment Variables.
 
 ## Performance Optimization
 

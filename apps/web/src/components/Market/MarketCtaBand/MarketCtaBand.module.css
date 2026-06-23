@@ -1,0 +1,120 @@
+/**
+ * MarketCtaBand — editorial closing band for /market. Matches the Adelaide Daily
+ * design system (--editorial-* tokens, Fraunces headings, IBM Plex Mono eyebrow)
+ * rather than the cinematic teal/Space-Grotesk system. Reduced-motion-safe.
+ */
+
+.band {
+  padding: clamp(56px, 10vh, 120px) 0;
+  border-top: 1px solid var(--editorial-line);
+  background: var(--editorial-paper);
+  color: var(--editorial-ink);
+}
+
+.inner {
+  max-width: 62ch;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--editorial-copper-text);
+  font-weight: 500;
+}
+
+.headline {
+  margin: 0;
+  max-width: 20ch;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.9rem, 4vw, 3.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--editorial-ink);
+}
+
+.body {
+  margin: 0;
+  max-width: 52ch;
+  font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--editorial-ink-soft);
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.4rem;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: var(--font-size-xs-plus);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    transform var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.primary {
+  background: var(--editorial-ink);
+  color: var(--editorial-paper);
+  border: 1px solid var(--editorial-ink);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--editorial-ink);
+  border: 1px solid var(--editorial-ink);
+}
+
+.primary:hover,
+.secondary:hover {
+  transform: translateY(-1px);
+}
+
+.secondary:hover {
+  background: var(--editorial-ink);
+  color: var(--editorial-paper);
+}
+
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: 2px solid var(--editorial-teal);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary,
+  .secondary {
+    transition: none;
+  }
+  .primary:hover,
+  .secondary:hover {
+    transform: none;
+  }
+}

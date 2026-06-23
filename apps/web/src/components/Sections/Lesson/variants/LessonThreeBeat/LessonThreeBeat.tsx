@@ -125,6 +125,7 @@ export function LessonThreeBeat({
         lessonId={lessonId}
         beatIds={BEAT_IDS}
         beatLabels={beatLabels}
+        progressLabel={intl.formatMessage({ id: 'common.accessibility.lessonProgress' })}
         locale={locale}
         enableAnalytics={enableAnalytics}
       />

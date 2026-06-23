@@ -3,6 +3,12 @@
  * 2x2 grid desktop, stacked mobile. Expandable cards with CSS transition.
  */
 
+.eyebrow {
+  display: block;
+  text-align: center;
+  margin: 0 0 var(--spacing-md) 0;
+}
+
 .heading {
   font-family: var(--font-family-display);
   font-size: var(--font-size-section-title-mobile);
@@ -55,8 +61,8 @@
 }
 
 .card:hover {
-  border-color: var(--brand-primary, #14b8a6);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border-color: var(--brand-primary);
+  box-shadow: 0 2px 12px var(--shadow-black-light);
 }
 
 .card:focus-visible {
@@ -230,13 +236,13 @@
 }
 
 .link:hover {
-  color: var(--brand-primary, #14b8a6);
+  color: var(--brand-primary);
 }
 
 .link:focus-visible {
   outline: 2px solid var(--cta-bg-primary);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 /* Reduced motion */

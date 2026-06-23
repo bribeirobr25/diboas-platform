@@ -9,8 +9,9 @@
  */
 
 import { getSocialRealAsset, getMascotAsset, getPhoneActivitiesAsset } from './assets';
+import type { SceneKind, HeroTheme } from '@/components/Sections/CinematicHero';
 
-export type HeroVariant = 'default' | 'fullBackground';
+export type HeroVariant = 'default' | 'fullBackground' | 'cinematic';
 
 export interface HeroContent {
   readonly title: string;
@@ -18,6 +19,25 @@ export interface HeroContent {
   readonly ctaText: string;
   readonly ctaHref: string;
   readonly ctaTarget?: '_blank' | '_self';
+  /** Mono eyebrow/kicker — used by the `cinematic` variant (i18n key). */
+  readonly eyebrow?: string;
+  /** Optional secondary CTA — used by the `cinematic` variant (i18n keys/href). */
+  readonly secondaryCtaText?: string;
+  readonly secondaryCtaHref?: string;
+  readonly secondaryCtaTarget?: '_blank' | '_self';
+}
+
+/** Config for the `cinematic` (GSAP + Three.js) hero variant. */
+export interface HeroCinematicConfig {
+  readonly scene: SceneKind;
+  readonly theme: HeroTheme;
+  readonly align?: 'center' | 'left';
+  /** Accent the trailing word(s) of the headline (liquid-capital style). */
+  readonly accentHeadline?: boolean;
+  readonly posterImage?: string;
+  readonly posterAlt?: string;
+  readonly posterDuotone?: boolean;
+  readonly sectionId?: string;
 }
 
 export interface HeroVisualAssets {
@@ -46,6 +66,7 @@ export interface HeroVariantConfig {
   readonly content: HeroContent;
   readonly visualAssets?: HeroVisualAssets;
   readonly backgroundAssets?: HeroBackgroundAssets;
+  readonly cinematic?: HeroCinematicConfig;
   readonly seo: HeroSEO;
   readonly analytics?: {
     readonly trackingPrefix: string;
@@ -110,6 +131,27 @@ export const HERO_CONFIGS = {
     },
     analytics: {
       trackingPrefix: 'hero_fullbg',
+      enabled: true,
+    },
+  },
+  // Base config for the cinematic (GSAP + Three.js) hero. Per-page configs
+  // (B2C/B2B/About) override `content`, `cinematic` and `analytics` via customConfig.
+  cinematic: {
+    variant: 'cinematic' as const,
+    content: DEFAULT_HERO_CONTENT,
+    cinematic: {
+      scene: 'fluid',
+      theme: 'dark',
+      align: 'left',
+    },
+    seo: {
+      titleTag: 'diBoaS - Complete Financial Ecosystem',
+      imageAlt: {
+        background: 'Abstract diBoaS animated brand background',
+      },
+    },
+    analytics: {
+      trackingPrefix: 'hero_cinematic',
       enabled: true,
     },
   },

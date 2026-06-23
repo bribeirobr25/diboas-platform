@@ -16,10 +16,12 @@
 // =============================================================================
 
 /**
- * Validate that critical security environment variables are set in production.
- * Logs a critical warning at startup. Skipped during `next build` (NEXT_PHASE).
+ * Validate that critical environment variables are set in production.
+ * Throws at startup if any is missing. Skipped during `next build` (NEXT_PHASE).
+ *
+ * Exported for unit testing — also invoked once at module load below.
  */
-function validateProductionSecrets(): void {
+export function validateProductionSecrets(): void {
   if (process.env.NODE_ENV !== 'production') return;
   // Skip during build phase — secrets are only needed at runtime
   if (process.env.NEXT_PHASE === 'phase-production-build') return;
@@ -32,6 +34,10 @@ function validateProductionSecrets(): void {
     'INTERNAL_API_KEY',
     'RESEND_API_KEY',
     'HMAC_KEY',
+    // C-2: a prod deploy with the Sentry DSN absent boots fine and silently
+    // loses ALL error tracking. Fail loud instead. (NEXT_PUBLIC_* vars are also
+    // present in the server runtime env on Vercel.)
+    'NEXT_PUBLIC_SENTRY_DSN',
   ] as const;
 
   const missing = required.filter((key) => !process.env[key]);
@@ -41,7 +47,25 @@ function validateProductionSecrets(): void {
   }
 }
 
+/**
+ * C-2 (build-time half): `NEXT_PUBLIC_SENTRY_DSN` is build-INLINED into the
+ * browser bundle, so the server-runtime check above cannot protect the client
+ * SDK — a build without it ships a no-op Sentry. We WARN (not throw) during the
+ * production build so CI builds (which legitimately lack the DSN) aren't broken,
+ * while a real production build surfaces the gap in its logs.
+ */
+function warnMissingBuildTimePublicVars(): void {
+  if (process.env.NEXT_PHASE !== 'phase-production-build') return;
+  if (process.env.NODE_ENV !== 'production') return;
+  if (!process.env.NEXT_PUBLIC_SENTRY_DSN) {
+    console.warn(
+      '[env] NEXT_PUBLIC_SENTRY_DSN is not set at build time — the browser Sentry SDK will be a no-op (no client-side error tracking).'
+    );
+  }
+}
+
 validateProductionSecrets();
+warnMissingBuildTimePublicVars();
 
 // =============================================================================
 // APPLICATION
@@ -203,11 +227,14 @@ export const RATE_LIMIT_CONFIG = {
 /**
  * Email service configuration (Resend)
  */
+// NOTE: the live sender is `packages/email/src/config.ts` (composes
+// `${fromName} <${fromAddress}>`); this block is currently vestigial (no
+// consumer). Kept aligned to a BARE address for consistency (C-4).
 export const EMAIL_CONFIG = {
   /** Resend API key */
   apiKey: process.env.RESEND_API_KEY || '',
-  /** Verified sender address */
-  fromAddress: process.env.EMAIL_FROM_ADDRESS || 'diBoaS <noreply@diboas.com>',
+  /** Verified sender address (bare — display name lives in EMAIL_FROM_NAME) */
+  fromAddress: process.env.EMAIL_FROM_ADDRESS || 'noreply@diboas.com',
   /** Reply-to address */
   replyTo: process.env.EMAIL_REPLY_TO || 'support@diboas.com',
 } as const;

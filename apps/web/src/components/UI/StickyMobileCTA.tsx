@@ -12,8 +12,26 @@
  * Respects prefers-reduced-motion for slide animation.
  */
 
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback, useRef, useSyncExternalStore } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
+
+// A11Y-5: subscribe to prefers-reduced-motion via useSyncExternalStore (not a
+// setState-in-effect) so it is hydration-safe and free of cascading renders.
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+
+function subscribeReducedMotion(onChange: () => void) {
+  const mq = window.matchMedia(REDUCED_MOTION_QUERY);
+  mq.addEventListener('change', onChange);
+  return () => mq.removeEventListener('change', onChange);
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia(REDUCED_MOTION_QUERY).matches;
+}
+
+function getReducedMotionServerSnapshot() {
+  return false;
+}
 
 export function StickyMobileCTA() {
   const intl = useTranslation();
@@ -21,15 +39,21 @@ export function StickyMobileCTA() {
   const heroVisibleRef = useRef(true);
   const waitlistVisibleRef = useRef(false);
 
+  // A11Y-5: the slide transition below is applied inline, so a
+  // `[data-reduced-motion]` stylesheet rule can't override it (inline
+  // specificity wins) — gate the inline `transition` on this value instead.
+  const prefersReducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    getReducedMotionServerSnapshot
+  );
+
   const updateVisibility = useCallback(() => {
     const shouldShow = !heroVisibleRef.current && !waitlistVisibleRef.current;
     setIsVisible(shouldShow);
   }, []);
 
   useEffect(() => {
-    // Check prefers-reduced-motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
     const heroEl = document.querySelector('[data-section-id="hero-section-b2c"]');
     const waitlistEl = document.getElementById('waitlist');
 
@@ -54,11 +78,6 @@ export function StickyMobileCTA() {
     heroObserver.observe(heroEl);
     if (waitlistEl) {
       waitlistObserver.observe(waitlistEl);
-    }
-
-    // Store reduced-motion preference for use in render
-    if (prefersReducedMotion) {
-      document.documentElement.dataset.reducedMotion = 'true';
     }
 
     return () => {
@@ -92,7 +111,7 @@ export function StickyMobileCTA() {
         alignItems: 'center',
         justifyContent: 'center',
         transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
-        transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+        transition: prefersReducedMotion ? 'none' : 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
         boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.1)',
       }}
       aria-hidden={!isVisible}

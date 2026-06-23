@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Währungs-Wertverlust-Rechner — was deine Währung wirklich verdient",
+    "title": "Währungs-Wertverlust-Rechner — echte Rendite",
     "description": "Kostenloser Währungs-Wertverlust-Rechner. Vergleiche deine lokale Währung in bar, auf der Bank und im Digital-Dollar bei 10% historischer Rendite."
   },
   "hero": {
@@ -43,6 +43,13 @@
     "depSourcePeg": "{currency} ist durch die Geldpolitik der Zentralbank an den US-Dollar gekoppelt. Die Wechselkursveränderung ist konstruktionsbedingt 0.",
     "uncertaintyMedium": "Diese Währung hatte im Zeitraum mäßige Volatilität — die punktuelle CAGR spiegelt das durchschnittliche Verhalten wider; die kumulative Bewegung war von Jahr zu Jahr ungleichmäßig.",
     "uncertaintyLow": "Diese Währung durchlief Perioden struktureller Volatilität oder Regimewechsel — eine einzelne CAGR glättet sehr unterschiedliche Teilzeiträume erheblich. Verwende das Ergebnis als Richtwert, nicht als Prognose."
+  },
+  "resultMoment": {
+    "eyebrow": "Was dein Geld wirklich verdient",
+    "eyebrowUsd": "Was deine ungenutzten Dollar verdienen",
+    "chartAria": "Wie sich {currency} über {years} Jahre vergleicht: als Bargeld, bei einer lokalen Bank und als digitaler Dollar bei diBoaS.",
+    "chartAriaUsd": "Wie sich deine Dollar über {years} Jahre vergleichen: bei einer Bank gegenüber digitalem Dollar bei diBoaS.",
+    "shareText": "In {years} Jahren könnten meine {currency} {value} als digitaler Dollar bei diBoaS halten. Sieh, was deins wirklich verdient."
   },
   "vignette": {
     "subtitle": "Wo dein Geld liegt, zählt. Die Währung, in der es verdient, zählt mehr."

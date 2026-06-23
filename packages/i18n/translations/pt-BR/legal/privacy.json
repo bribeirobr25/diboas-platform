@@ -38,7 +38,7 @@
       "automatic": {
         "title": "Informações Coletadas Automaticamente:",
         "items": [
-          "Endereço IP (usado para limitação de taxa de segurança; não enviado para serviços de análise)",
+          "Endereço IP (usado para limitação de taxa de segurança e registro de auditoria, retido por até 90 dias; não enviado para serviços de análise)",
           "Tipo e versão do navegador",
           "Informações do dispositivo",
           "Paginas visitadas e tempo de permanencia",

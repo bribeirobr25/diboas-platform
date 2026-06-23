@@ -12,6 +12,7 @@
 
 import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
+import { getSafeLocale, loadMessages } from '@diboas/i18n/server';
 
 interface SharePageProps {
   params: Promise<{ locale: string }>;
@@ -23,7 +24,56 @@ interface SharePageProps {
     years?: string;
     strategy?: string;
     initial?: string;
+    tool?: string;
+    value?: string;
+    currency?: string;
+    tone?: string;
   }>;
+}
+
+interface OgStrings {
+  title: string;
+  description: string;
+}
+
+interface ToolResultOg extends OgStrings {
+  /** Per-tool title overrides (yield tools use the default `title`). */
+  titleByTool?: Record<string, string>;
+}
+
+interface ShareOg {
+  waitlist: OgStrings;
+  calculator: OgStrings;
+  toolResult: ToolResultOg;
+  default: OgStrings;
+}
+
+/**
+ * Format a tool-result value for the social-preview title in the holder's
+ * locale currency (compact). Mirrors the OG image formatter so the card and the
+ * link preview agree. Falls back to a plain integer on an unexpected currency.
+ */
+function formatToolResultValue(value: number, currency: string, locale: string): string {
+  if (!/^[A-Z]{3}$/.test(currency)) return value.toLocaleString();
+  try {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: 0,
+      notation: 'compact',
+    }).format(value);
+  } catch {
+    return value.toLocaleString();
+  }
+}
+
+/**
+ * Substitute a single `{slot}` token. Uses a replacer FUNCTION so a `$` in the
+ * value (e.g. a `$1.2M` formatted amount, or a user-supplied query param) is
+ * never interpreted as a regex replacement pattern.
+ */
+function fillSlot(template: string, slot: string, value: string): string {
+  return template.replace(slot, () => value);
 }
 
 /**
@@ -37,7 +87,15 @@ export async function generateMetadata({
   const search = await searchParams;
   const type = search.type || 'default';
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com';
+  // SEO-2: the OG image (`/api/og/*`) and `og:url` resolve on the MARKETING
+  // host — `/api/og/*` are marketing-site routes and `share` redirects to the
+  // marketing root. Using the app host would 404 the share cards for crawlers.
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
+
+  // I-2: OG copy is externalised to `share.json` (all 4 locales, incl. the
+  // previously English-only default). generateMetadata is server-side, so we
+  // load the namespace via the RSC loader and fill ICU slots by hand.
+  const og = ((await loadMessages(getSafeLocale(locale), 'share')).og ?? {}) as ShareOg;
 
   // Build OG image URL
   const ogParams = new URLSearchParams();
@@ -55,23 +113,8 @@ export async function generateMetadata({
     }
 
     const ogImageUrl = `${baseUrl}/api/og/share?${ogParams.toString()}`;
-    const title =
-      locale === 'pt-BR'
-        ? `Sou #${position} na lista de espera do diBoaS!`
-        : locale === 'es'
-          ? `Soy #${position} en la lista de espera de diBoaS!`
-          : locale === 'de'
-            ? `Ich bin #${position} auf der diBoaS Warteliste!`
-            : `I'm #${position} on the diBoaS waitlist!`;
-
-    const description =
-      locale === 'pt-BR'
-        ? 'Junte-se a mim no diBoaS - Liberdade Financeira Simplificada'
-        : locale === 'es'
-          ? 'Únete a mí en diBoaS - Libertad Financiera Simplificada'
-          : locale === 'de'
-            ? 'Komm zu mir auf diBoaS - Finanzielle Freiheit Einfach Gemacht'
-            : 'Join me on diBoaS - Financial Freedom Made Simple';
+    const title = fillSlot(og.waitlist.title, '{position}', position);
+    const description = og.waitlist.description;
 
     return {
       title,
@@ -124,23 +167,8 @@ export async function generateMetadata({
           : `$${amount.toLocaleString()}`;
 
     const ogImageUrl = `${baseUrl}/api/og/share?${ogParams.toString()}`;
-    const title =
-      locale === 'pt-BR'
-        ? `Meu investimento poderia crescer para ${formattedAmount}!`
-        : locale === 'es'
-          ? `Mi inversión podría crecer a ${formattedAmount}!`
-          : locale === 'de'
-            ? `Meine Investition könnte auf ${formattedAmount} wachsen!`
-            : `My investment could grow to ${formattedAmount}!`;
-
-    const description =
-      locale === 'pt-BR'
-        ? `Em ${years} anos com o diBoaS Dream Mode Calculator`
-        : locale === 'es'
-          ? `En ${years} años con la Calculadora Dream Mode de diBoaS`
-          : locale === 'de'
-            ? `In ${years} Jahren mit dem diBoaS Dream Mode Rechner`
-            : `In ${years} years with diBoaS Dream Mode Calculator`;
+    const title = fillSlot(og.calculator.title, '{formattedAmount}', formattedAmount);
+    const description = fillSlot(og.calculator.description, '{years}', years);
 
     return {
       title,
@@ -169,13 +197,77 @@ export async function generateMetadata({
     };
   }
 
-  // Default metadata
+  if (type === 'tool-result') {
+    const tool = search.tool || '';
+    const rawValue = parseInt(search.value || '0', 10);
+    // Mirror the OG image route's range guard so the link-preview title can't be
+    // abused with an unbounded/garbage value (the image route re-validates too).
+    const value =
+      Number.isFinite(rawValue) && rawValue > 0 && rawValue <= 1_000_000_000 ? rawValue : 0;
+    const currency = (search.currency || 'USD').toUpperCase();
+    const years = search.years;
+    const tone = search.tone === 'negative' || search.tone === 'neutral' ? search.tone : undefined;
+
+    ogParams.set('tool', tool);
+    ogParams.set('value', String(value));
+    ogParams.set('currency', currency);
+    ogParams.set('locale', locale);
+    if (years) {
+      ogParams.set('years', years);
+    }
+    if (tone) {
+      ogParams.set('tone', tone);
+    }
+
+    const formattedValue = formatToolResultValue(value, currency, locale);
+
+    const ogImageUrl = `${baseUrl}/api/og/share?${ogParams.toString()}`;
+    // Per-tool title override keeps each tool honest (e.g. asset-history is
+    // historical, not a diBoaS yield claim); yield tools fall back to default.
+    // Null-safe: if the `share` namespace fails to load / omits `toolResult`,
+    // fall back to the default OG instead of throwing inside generateMetadata
+    // (an uncaught throw here surfaces as a 500 to the crawler).
+    const titleTemplate =
+      og.toolResult?.titleByTool?.[tool] ?? og.toolResult?.title ?? og.default?.title ?? 'diBoaS';
+    const title = fillSlot(titleTemplate, '{value}', formattedValue);
+    const description = og.toolResult?.description ?? og.default?.description ?? '';
+
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        type: 'website',
+        url: `${baseUrl}/${locale}/share?${ogParams.toString()}`,
+        siteName: 'diBoaS',
+        images: [
+          {
+            url: ogImageUrl,
+            width: 1200,
+            height: 630,
+            alt: title,
+          },
+        ],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+        images: [ogImageUrl],
+      },
+    };
+  }
+
+  // Default metadata (I-2: was English-only for every locale; now localised)
+  const title = og.default.title;
+  const description = og.default.description;
   return {
-    title: 'diBoaS - Financial Freedom Made Simple',
-    description: 'Your money. Your future. One platform. Join the waitlist today.',
+    title,
+    description,
     openGraph: {
-      title: 'diBoaS - Financial Freedom Made Simple',
-      description: 'Your money. Your future. One platform. Join the waitlist today.',
+      title,
+      description,
       type: 'website',
       url: `${baseUrl}/${locale}`,
       siteName: 'diBoaS',
@@ -184,7 +276,7 @@ export async function generateMetadata({
           url: `${baseUrl}/api/og/default`,
           width: 1200,
           height: 630,
-          alt: 'diBoaS - Financial Freedom Made Simple',
+          alt: title,
         },
       ],
     },

@@ -187,7 +187,7 @@ export const PAGE_SEO_CONFIG = {
   // Per-locale titles/descriptions resolve via each route's `generateMetadata`
   // (tools-shared.json + tools-{slug}.json); these English strings are fallback only.
   tools: {
-    title: 'Money Tools — calculators by diBoaS',
+    title: 'Money Tools — free financial calculators',
     description:
       'Free money calculators to plan your retirement, emergency fund, and savings goals. Built by diBoaS.',
     keywords: ['money tools', 'financial calculators', 'savings calculator'],

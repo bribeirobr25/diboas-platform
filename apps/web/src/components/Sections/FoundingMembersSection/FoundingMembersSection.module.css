@@ -9,6 +9,10 @@
   text-align: center;
 }
 
+.eyebrow {
+  margin: 0 0 var(--spacing-md) 0;
+}
+
 .heading {
   font-family: var(--font-family-display);
   font-size: var(--font-size-section-title-mobile);
@@ -101,15 +105,15 @@
 
 /* Dark background theme — light text for WCAG contrast */
 :global([data-theme='dark']) .heading {
-  color: var(--color-text-on-dark, #f1f5f9);
+  color: var(--color-text-on-dark);
 }
 
 :global([data-theme='dark']) .description {
-  color: var(--color-text-on-dark-secondary, #cbd5e1);
+  color: var(--color-text-on-dark-secondary);
 }
 
 :global([data-theme='dark']) .zeroText {
-  color: var(--color-text-on-dark, #f1f5f9);
+  color: var(--color-text-on-dark);
 }
 
 @media (prefers-reduced-motion: reduce) {

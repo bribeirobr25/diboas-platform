@@ -9,7 +9,11 @@
 
 import { useState, useEffect } from 'react';
 import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
-import { getWaitlistStatsFromEnv } from '@/config/waitlist-stats';
+import {
+  getWaitlistStatsFromEnv,
+  WAITLIST_STATS_FALLBACK,
+  WAITLIST_STATS_FALLBACK_B2B,
+} from '@/config/waitlist-stats';
 import {
   applicationEventBus,
   ApplicationEventType,
@@ -20,6 +24,8 @@ interface WaitlistStats {
   count: number;
   countries: number;
   foundingMemberSpotsRemaining?: number;
+  /** Authoritative founding cap from the API (env fallback before it loads). */
+  foundingMemberCap?: number;
 }
 
 interface UseWaitlistStatsOptions {
@@ -38,7 +44,15 @@ const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlistStatsReturn {
   const source = options?.source;
   const cacheKey = source ? `${CACHE_KEY_PREFIX}-${source}` : CACHE_KEY_PREFIX;
-  const [stats, setStats] = useState<WaitlistStats>(getWaitlistStatsFromEnv);
+  // Seed the founding cap/remaining from the source-appropriate env fallback;
+  // the API response (authoritative) overrides both together so the ring's
+  // numerator and denominator never come from drifting sources.
+  const fallback = source === 'landing_b2b' ? WAITLIST_STATS_FALLBACK_B2B : WAITLIST_STATS_FALLBACK;
+  const [stats, setStats] = useState<WaitlistStats>(() => ({
+    ...getWaitlistStatsFromEnv(),
+    foundingMemberCap: fallback.foundingMemberCap,
+    foundingMemberSpotsRemaining: fallback.foundingMemberSpotsRemaining,
+  }));
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch stats from API with sessionStorage cache
@@ -70,6 +84,7 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
             count: data.count,
             countries: data.countries,
             foundingMemberSpotsRemaining: data.foundingMemberSpotsRemaining,
+            foundingMemberCap: data.foundingMemberCap ?? fallback.foundingMemberCap,
           };
           setStats(statsData);
 
@@ -91,10 +106,17 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
 
     fetchStats();
     return () => controller.abort();
-  }, [cacheKey, source]);
+  }, [cacheKey, source, fallback.foundingMemberCap]);
 
   // Listen for real-time signup events
   useEffect(() => {
+    // RC-1: guard the fresh-data re-fetch below. The optimistic `setStats((prev)
+    // => …)` is synchronous and safe (the listener is removed on cleanup, so the
+    // handler never runs post-unmount), but the re-fetch resolves on a later
+    // microtask and could `setStats` after the component is gone. The signal
+    // aborts the in-flight request; the `signal.aborted` check also covers the
+    // race where the response landed just before cleanup ran.
+    const controller = new AbortController();
     const unsubscribe = applicationEventBus.on<ApplicationEventPayload>(
       ApplicationEventType.WAITLIST_SIGNUP_COMPLETED,
       (event) => {
@@ -113,25 +135,29 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
         const freshUrl = source
           ? `/api/waitlist/stats?fresh=1&source=${source}`
           : '/api/waitlist/stats?fresh=1';
-        fetch(freshUrl, { cache: 'no-store' })
+        fetch(freshUrl, { cache: 'no-store', signal: controller.signal })
           .then((res) => (res.ok ? res.json() : null))
           .then((data) => {
-            if (data) {
+            if (data && !controller.signal.aborted) {
               setStats({
                 count: data.count,
                 countries: data.countries,
                 foundingMemberSpotsRemaining: data.foundingMemberSpotsRemaining,
+                foundingMemberCap: data.foundingMemberCap ?? fallback.foundingMemberCap,
               });
             }
           })
           .catch(() => {
-            // Keep optimistic update
+            // Keep optimistic update (also swallows the AbortError on cleanup)
           });
       }
     );
 
-    return unsubscribe;
-  }, [cacheKey, source]);
+    return () => {
+      unsubscribe();
+      controller.abort();
+    };
+  }, [cacheKey, source, fallback.foundingMemberCap]);
 
   return { stats, isLoading };
 }

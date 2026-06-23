@@ -1,9 +1,29 @@
 {
+  "eyebrows": {
+    "math": "THE MATH",
+    "goals": "YOUR GOALS",
+    "story": "OUR STORY",
+    "howItWorks": "HOW IT WORKS",
+    "fees": "WHAT YOU PAY",
+    "honest": "NO CATCH",
+    "join": "JOIN THE MOVEMENT",
+    "founder": "WHO BUILT THIS",
+    "faq": "QUESTIONS"
+  },
   "hero": {
     "headline": "The money system isn't broken. It just wasn't built for you.",
     "subheadline": "See what $1,000 does in a year when you have access to fair opportunities.",
     "cta": "Show me",
     "phoneMockupLabel": "Preview. Coming soon"
+  },
+  "wedge": {
+    "eyebrow": "The honest math",
+    "claim": "Your bank pays {value} on your savings.",
+    "honest": "Banks put your money to work and keep most of the upside. We think more of it belongs to you. You stay in control, and yes, you can still lose money.",
+    "cta": "See it in the demo"
+  },
+  "waitlistFounding": {
+    "spotsLeft": "Only {remaining} of {cap} founding spots left."
   },
   "comparison": {
     "heading": "$1,000. 1 year. You decide.",
@@ -362,6 +382,7 @@
     "nav": {
       "forYou": "For You",
       "forBusiness": "For Business",
+      "moneyTools": "Money Tools",
       "adelaideDaily": "Adelaide Daily",
       "about": "About",
       "help": "Help",

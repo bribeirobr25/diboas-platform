@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { SEOMetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory, socialCardMetadata } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
+import { MarketHeroCanvas, MarketCtaBand } from '@/components/Market';
 import { Container } from '@/components/UI/Container';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import nextDynamic from 'next/dynamic';
@@ -71,7 +72,10 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   return {
     title,
     description,
-    openGraph: { title: ogTitle, description: ogDescription },
+    // SEO-6 / SEO-1 OG half: emit the render-ready `market` OG template + Twitter
+    // card. Social cards matter even while `MARKET_INDEXABLE` is false (shares,
+    // not SERP) — same rationale as the noindex share page.
+    ...socialCardMetadata('market', ogTitle, ogDescription, validLocale),
     robots: MARKET_INDEXABLE ? { index: true, follow: true } : { index: false, follow: false },
     alternates: { canonical: `${siteUrl}/${validLocale}/market` },
   };
@@ -171,14 +175,40 @@ export default async function MarketPage({ params }: LocalePageProps) {
         initialData={initialData}
         fallbackMessages={fallbackMessages}
       >
-        <div className="main-page-wrapper">
-          <Container size="md">
-            <header className={styles.hero}>
-              <p className={styles.heroKicker}>{heroKicker}</p>
-              <h1 className={styles.heroTitle}>{heroTitle}</h1>
-              <p className={styles.heroSubtitle}>{heroSubtitle}</p>
-            </header>
+        <div className={`main-page-wrapper ${styles.editorial}`}>
+          {/* Editorial masthead hero (replicates 02-editorial-motion). A
+              decorative teal particle canvas + grain sit behind the real,
+              SSR-rendered masthead / h1 / standfirst (LCP + SEO unaffected). */}
+          <section className={styles.hero} id="market-top">
+            <MarketHeroCanvas />
+            <div className={styles.grain} aria-hidden="true" />
+            <Container size="md">
+              <div className={styles.heroInner}>
+                <div className={styles.masthead}>
+                  <span className={styles.eyebrow}>{heroKicker}</span>
+                  {(() => {
+                    const d = regime?.last_updated_at ? new Date(regime.last_updated_at) : null;
+                    return d && !Number.isNaN(d.getTime()) ? (
+                      <span className={styles.heroDate}>
+                        {d.toLocaleDateString(locale, {
+                          day: 'numeric',
+                          month: 'short',
+                          year: 'numeric',
+                        })}
+                      </span>
+                    ) : null;
+                  })()}
+                </div>
+                <h1 className={styles.heroTitle} id="hero-market-title">
+                  {heroTitle.split(' ').slice(0, -1).join(' ')}{' '}
+                  <em className={styles.heroTitleAccent}>{heroTitle.split(' ').slice(-1)}</em>
+                </h1>
+                <p className={styles.standfirst}>{heroSubtitle}</p>
+              </div>
+            </Container>
+          </section>
 
+          <Container size="md">
             {regime && (
               <SectionErrorBoundary
                 sectionId="market-regime-band"
@@ -186,20 +216,24 @@ export default async function MarketPage({ params }: LocalePageProps) {
                 enableReporting
                 context={{ page: 'market', section: 'regime' }}
               >
-                <section className={styles.regimeBand}>
-                  <RegimeScore
-                    data={regime}
-                    ariaLabel={t('dashboard.scoreAriaLabel', 'Current macro environment score')}
-                  />
-                  <div className={styles.regimeBandMeta}>
-                    <div className={styles.regimeBandBadges}>
-                      <RegimeLabel data={regime} labels={regimeLabels} />
-                      <ConfidenceBadge
-                        level={regime.summary.confidence_level}
-                        labels={confidenceLabels}
+                <section className={styles.scoreSec}>
+                  <div className={styles.scoreGrid}>
+                    <div className={styles.gaugeWrap}>
+                      <RegimeScore
+                        data={regime}
+                        ariaLabel={t('dashboard.scoreAriaLabel', 'Current macro environment score')}
                       />
+                      <div className={styles.pills}>
+                        <RegimeLabel data={regime} labels={regimeLabels} />
+                        <ConfidenceBadge
+                          level={regime.summary.confidence_level}
+                          labels={confidenceLabels}
+                        />
+                      </div>
                     </div>
-                    <CalmSummary data={regime.summary} length="detailed" />
+                    <div className={styles.scoreCopy}>
+                      <CalmSummary data={regime.summary} length="detailed" />
+                    </div>
                   </div>
                 </section>
               </SectionErrorBoundary>
@@ -213,20 +247,19 @@ export default async function MarketPage({ params }: LocalePageProps) {
                 context={{ page: 'market', section: 'signals' }}
               >
                 <section className={styles.section}>
-                  <div className={styles.sectionHeading}>
-                    <h2 className={styles.sectionTitle}>
+                  {/* The editorial table is flat (no per-card expand), so we show
+                      the section title as the heading rather than the lead, whose
+                      copy references "expand a card". */}
+                  <div className={styles.secHead}>
+                    <h2 className={styles.h2}>
                       {t('dashboard.signalsSectionTitle', 'Signal groups')}
                     </h2>
-                    <p className={styles.sectionLead}>
-                      {t('dashboard.signalsSectionLead', 'Four groups make up the 14-point score.')}
-                    </p>
                   </div>
                   <SignalCardsGrid
                     groups={signals.signal_groups}
                     expandLabel={t('dashboard.signalsExpand', 'Show signals')}
                     collapseLabel={t('dashboard.signalsCollapse', 'Hide signals')}
                     pointsLabel={t('dashboard.signalsPoints', 'pts')}
-                    columns={2}
                   />
                 </section>
               </SectionErrorBoundary>
@@ -240,16 +273,16 @@ export default async function MarketPage({ params }: LocalePageProps) {
                 context={{ page: 'market', section: 'historical' }}
               >
                 <section className={styles.section}>
-                  <div className={styles.sectionHeading}>
-                    <h2 className={styles.sectionTitle}>
+                  <div className={styles.secHead}>
+                    <span className={styles.eyebrow}>
                       {t('dashboard.historicalTitle', 'Score over time')}
-                    </h2>
-                    <p className={styles.sectionLead}>
+                    </span>
+                    <h2 className={styles.h2}>
                       {t(
                         'dashboard.historicalLead',
                         'Where the environment has been over the last year.'
                       )}
-                    </p>
+                    </h2>
                   </div>
                   <HistoricalRegimeChart
                     data={historical}
@@ -276,15 +309,15 @@ export default async function MarketPage({ params }: LocalePageProps) {
                 context={{ page: 'market', section: 'data-status' }}
               >
                 <section className={styles.section}>
-                  <div className={styles.sectionHeading}>
-                    <h2 className={styles.sectionTitle}>
+                  <div className={styles.secHead}>
+                    <span className={styles.eyebrow}>
                       {t('dashboard.dataStatusTitle', 'Data sources')}
-                    </h2>
-                    <p className={styles.sectionLead}>
+                    </span>
+                    <h2 className={styles.h2}>
                       {t('dashboard.dataStatusLead', 'Live confidence per upstream feed.')}
-                    </p>
+                    </h2>
                   </div>
-                  <ul className={styles.dataStatusList}>
+                  <ul className={styles.srcPills}>
                     {dataStatus.sources.map((src) => (
                       <li key={src.source}>
                         <DataFreshnessBadge
@@ -299,19 +332,39 @@ export default async function MarketPage({ params }: LocalePageProps) {
                 </section>
               </SectionErrorBoundary>
             )}
+          </Container>
 
-            <section className={styles.footerSection}>
+          {/* Closing band — weekly cadence + subscribe-to-waitlist + share (Phase 5). */}
+          <MarketCtaBand
+            locale={locale}
+            cadence={t('cta.cadence', 'Updated weekly')}
+            headline={t('cta.headline', 'Calm intelligence, every week.')}
+            body={t(
+              'cta.body',
+              'Adelaide Daily is free and refreshed every week. Join the waitlist to be first when diBoaS opens.'
+            )}
+            waitlistLabel={t('cta.waitlist', 'Join the waitlist')}
+            shareLabel={t('cta.share', 'Share Adelaide')}
+            shareCopied={t('cta.shareCopied', 'Link copied')}
+            shareUrl={`${siteUrl}/${locale}/market`}
+            shareText={t('cta.shareText', 'Adelaide Daily: calm macro intelligence for Bitcoin.')}
+            shareTitle={t('hero.title', 'Adelaide Daily')}
+          />
+
+          {/* Methodology — dark editorial block (full-bleed). */}
+          <section className={styles.method}>
+            <Container size="md">
               {methodology && (
-                <div className={styles.sectionHeading}>
-                  <h2 className={styles.sectionTitle}>
+                <div className={styles.methodHead}>
+                  <span className={styles.eyebrowDark}>
                     {t('dashboard.methodologyTitle', 'How this is calculated')}
-                  </h2>
-                  <p className={styles.sectionLead}>
+                  </span>
+                  <h2 className={styles.h2Dark}>
                     {t(
                       'dashboard.methodologyLead',
                       'Every signal, threshold, and weight is documented on diBoaS Analytics.'
                     )}
-                  </p>
+                  </h2>
                   <MethodologyLink href={methodology.methodology_url}>
                     {t('dashboard.methodologyLinkLabel', 'Read the methodology')}
                   </MethodologyLink>
@@ -336,8 +389,8 @@ export default async function MarketPage({ params }: LocalePageProps) {
                 label={t('dashboard.poweredByLabel', 'Powered by')}
                 productName={t('dashboard.poweredByProduct', 'diBoaS Analytics')}
               />
-            </section>
-          </Container>
+            </Container>
+          </section>
 
           <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={B2C_FOOTER_DISCLOSURES} />
         </div>

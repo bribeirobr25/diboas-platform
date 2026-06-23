@@ -38,7 +38,7 @@
       "automatic": {
         "title": "Información Recopilada Automáticamente:",
         "items": [
-          "Dirección IP (utilizada para limitación de tasa de seguridad; no enviada a servicios de análisis)",
+          "Dirección IP (utilizada para limitación de tasa de seguridad y registro de auditoría, conservada hasta 90 días; no enviada a servicios de análisis)",
           "Tipo y versión del navegador",
           "Información del dispositivo",
           "Páginas visitadas y tiempo de permanencia",

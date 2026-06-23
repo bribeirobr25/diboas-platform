@@ -17,7 +17,11 @@
   --font-family-primary:
     'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', sans-serif;
-  --font-family-display: var(--font-geist), 'Inter', system-ui, sans-serif;
+  /* Display face — Space Grotesk (cinematic redesign), Geist + Inter as graceful fallbacks. */
+  --font-family-display:
+    var(--font-space-grotesk), var(--font-geist), 'Inter', system-ui, sans-serif;
+  /* Semantic alias consumed by the global h1–h3 rule + section/hero headings. */
+  --font-family-heading: var(--font-family-display);
   --font-family-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Font Weights */
@@ -158,6 +162,12 @@
   --brand-primary: #14b8a6;
   --brand-primary-dark: #0d9488;
 
+  /* A13 (2026-06-11): external social-platform brand colors, for share/referral
+     buttons. Hardcoded in ReferralLink.module.css before; promoted to tokens. */
+  --brand-facebook: #1877f2;
+  --brand-instagram: #e4405f;
+  --brand-substack: #ff6719;
+
   /* Accessible Text Colors (WCAG AA 4.5:1 on white) */
   --text-primary-accessible: #0f766e; /* Teal-700: 4.85:1 on white — use for text on white */
   /* W2 (audit/2026-05-08): emerald-600 (#059669) measures 3.76:1 in axe — fails AA.
@@ -168,6 +178,20 @@
   /* W2: accessible variant of the brand teal for clickable text on light bg.
    * Use this (not --color-teal-600) wherever the teal appears as text. */
   --text-brand-accessible: #0f766e; /* Teal-700: 4.85:1 on white */
+
+  /* A13 (2026-06-11): tokens referenced by component CSS but never defined —
+     they survived only on hardcoded hex fallbacks (latent design-system gap
+     surfaced during the A-7 hex-fallback pass). Defined here as their canonical
+     palette values so the references resolve and the fallbacks become redundant.
+     Values preserve current rendering (FounderSection's two TEXT uses of
+     --color-brand-primary, which fell back to teal-700 for contrast, were
+     repointed to --text-brand-accessible instead). */
+  --color-brand-primary: #0d9488; /* teal-600 (= --brand-primary-dark) — borders & backgrounds */
+  --color-brand-primary-hover: #0f766e; /* teal-700 — hover for --color-brand-primary */
+  --color-error: #dc2626; /* red-600 (= --text-error-accessible) */
+  --text-primary: #111827; /* gray-900 (= --color-gray-900) */
+  --text-secondary: #4b5563; /* gray-600 (= --color-gray-600) */
+  --color-text-on-dark-secondary: #cbd5e1; /* slate-300 (= --color-slate-300) */
   /* Pa11y fix 2026-05-30: amber-700 (#b45309) measures 4.45:1 on the 8% amber-tinted
    * regime-pill background (#f9f1eb) — fails AA by a hair. Bumped to amber-800 which
    * is 7.09:1 on white and 6.35:1 on the same tinted background. Issue surfaced when
@@ -187,6 +211,101 @@
    * description/cost). 0.95 keeps the visual mute against pure white while
    * passing axe contrast checks on every overlay tone we ship. */
   --color-text-on-dark-muted: rgba(255, 255, 255, 0.95); /* Muted white text on dark */
+
+  /* ================================
+     CINEMATIC REDESIGN — ACCENT RAMP (additive; teal stays brand primary)
+     Introduced for the GSAP/Three.js hero family, the reskinned nav, and /market.
+     Decorative golds are for large/graphical use only; use --text-gold-accessible
+     for any normal-size gold text (computed 5.0:1 on white — passes WCAG AA).
+     ================================ */
+  --accent-ink: #0b1f24; /* deep ink-teal — dark hero/nav surfaces */
+  --accent-ink-soft: #112a30;
+  --teal-deep-800: #134e4a; /* teal-800 — calm deep accents */
+  --teal-deep-900: #042f2e; /* teal-900 — deepest accent */
+  --accent-gold: #d29a46; /* decorative gold (graphical/large only) — hue-aligned */
+  --accent-gold-strong: #ad7f36; /* decorative gold, stronger */
+  --text-gold-accessible: #8a6526; /* Gold-on-white text: ~5.0:1 — WCAG AA pass */
+
+  /* Nav CTA gold pill (coastal-atmospheric "Try Demo" aesthetic). --accent-ink
+     (#0b1f24) on --cta-gold is ~8:1 — WCAG AA pass for the filled pill label. */
+  --cta-gold: #e8a14b;
+  --cta-gold-hover: #d68f37;
+
+  /* WebGL scene palette — read at runtime by useWebGLScene (NOT for component CSS).
+     Values match the awwwards prototypes the cinematic heroes replicate:
+     liquid-capital (fluid), data-cinematic (wireframe/particles). */
+  --scene-ink: #06120f; /* liquid-capital dark fluid base (business) */
+  --scene-gold: #ecbe82; /* cinematic gold — filament/accent (hue-aligned to --cta-gold) */
+  --scene-emerald: #2dd4bf; /* teal-400 — bright "data" teal (unified on the brand ramp) */
+  --scene-terra: #bd823f; /* warm copper trough (unified warm; was a one-off terracotta) */
+  --scene-paper: #e8efe9; /* calm light fluid/particle base (learn/tools) */
+  --scene-paper-teal: #a9d8cd; /* calm light soft teal */
+
+  /* Editorial palette — scoped to /market ("Adelaide Daily" world, replicating
+     02-editorial-motion). Deliberately distinct from the cinematic teal system.
+     Fraunces serif + IBM Plex Mono are wired in layout.tsx. */
+  --editorial-paper: #f4f0e8; /* warm cream page */
+  --editorial-paper-deep: #ebe5d8;
+  --editorial-ink: #14110f; /* near-black ink */
+  --editorial-ink-soft: #3a332d;
+  --editorial-teal: #0f766e; /* teal-700 — reconciled to the brand ramp (was forest #1f6e63) */
+  --editorial-teal-deep: #134e4a; /* teal-900 */
+  --editorial-copper: #b67d44; /* copper = deeper sibling of the cinematic gold (same hue) */
+  --editorial-copper-soft: #cc9a64;
+  --editorial-copper-text: #875a2b; /* AA-safe copper for eyebrow text on cream — ~5.8:1 */
+  --editorial-line: #d8d0bf; /* hairline rules */
+  --editorial-muted: #6b6358; /* mono fine print on cream — ~4.6:1 on paper */
+  /* Regime pill fills — deepened so the paper-coloured label clears WCAG AA. */
+  --editorial-defensive: #8c5a2c; /* deep copper (DEFENSIVE) — sibling of the warm family */
+  --editorial-hostile: #9c4128; /* deep rust (HOSTILE) — nudged toward the warm hue */
+  --editorial-paper-dim: #c8c0b5; /* muted body text on the dark methodology block */
+
+  /* ===================================================================
+     REDESIGN SEMANTIC ROLES ("Adelaide's World") — additive aliases only.
+     Components reference INTENT (surface / text / accent / type), never raw
+     hues, so the system can be re-themed by repointing these. Discipline:
+     TEAL is reserved for ACTION + LIVE DATA only; editorial warmth uses
+     paper + copper. No new colour values — all alias existing tokens.
+     =================================================================== */
+  /* Surfaces */
+  --surface-paper: var(--editorial-paper); /* warm cream page */
+  --surface-paper-deep: var(--editorial-paper-deep);
+  --surface-ink: var(--editorial-ink); /* near-black editorial ink */
+  --surface-ink-soft: var(--accent-ink-soft);
+  /* Text on surfaces */
+  --text-on-paper: var(--editorial-ink);
+  --text-on-paper-muted: var(--editorial-muted); /* ~4.6:1 on paper (AA) */
+  --text-on-ink: var(--editorial-paper); /* light text on ink */
+  --text-on-ink-muted: var(--editorial-paper-dim);
+  /* Accents — the ONLY teal is action / live-data; warmth is editorial */
+  --accent-action: var(--brand-primary); /* teal — interactive + live numbers ONLY */
+  --accent-action-strong: var(--cta-bg-primary);
+  --accent-action-text: var(--text-brand-accessible); /* teal-700 — AA clickable text */
+  --accent-warm: var(--editorial-copper); /* copper — editorial warmth (decorative/large) */
+  --accent-warm-text: var(--editorial-copper-text); /* AA copper text on paper (~5.8:1) */
+  --rule-hairline: var(--editorial-line); /* hairline rules on paper */
+  /* Type roles — numbers are the hero */
+  --font-display: var(--font-family-display); /* editorial display face (Space Grotesk) */
+  --font-numeric: var(--font-family-mono); /* tabular-mono — every figure */
+
+  /* Hero theme tokens — switched by [data-theme] on the cinematic hero/nav.
+     Overlays sit between the WebGL canvas/poster and the SSR text to guarantee
+     ≥4.5:1 contrast on the headline regardless of the animated scene. */
+  --hero-overlay-dark: rgba(6, 18, 16, 0.58);
+  --hero-overlay-light: rgba(247, 245, 240, 0.32);
+  --hero-overlay-lighter: rgba(255, 255, 255, 0.42);
+  --hero-fg-dark: #f4f0e8; /* heading/text on dark hero */
+  --hero-fg-dark-muted: rgba(244, 240, 232, 0.82);
+  --hero-fg-light: var(--color-text-heading); /* heading on light hero */
+  --hero-fg-light-muted: var(--color-text-body);
+  --hero-eyebrow: var(--text-brand-accessible); /* mono eyebrow accent */
+  --hero-fallback-dark: linear-gradient(
+    135deg,
+    var(--teal-deep-900) 0%,
+    var(--accent-ink) 55%,
+    var(--teal-deep-800) 100%
+  );
+  --hero-fallback-light: linear-gradient(135deg, #f7f5f0 0%, #e9f2ef 60%, #f2ece1 100%);
 
   /* ================================
      SOCIAL PLATFORM COLORS
@@ -224,6 +343,14 @@
   --overlay-backdrop: rgba(0, 0, 0, 0.8);
   --overlay-modal: rgba(15, 23, 42, 0.7);
   --overlay-subtle: rgba(0, 0, 0, 0.5);
+  /* A13 (2026-06-11): image-overlay scrim scale — tokenized at the exact alphas
+     in use (NOT rounded) to preserve text-over-image legibility/contrast. */
+  --overlay-image-subtle: rgba(0, 0, 0, 0.25);
+  --overlay-image-mild: rgba(0, 0, 0, 0.3);
+  --overlay-image-light: rgba(0, 0, 0, 0.35);
+  --overlay-image-medium: rgba(0, 0, 0, 0.4);
+  --overlay-image-heavy: rgba(0, 0, 0, 0.6);
+  --overlay-image-darkest: rgba(0, 0, 0, 0.85);
 
   /* Glass Effect Colors (for glassmorphism UI) */
   --glass-bg-light: rgba(255, 255, 255, 0.9);
@@ -247,6 +374,16 @@
   --teal-overlay-subtle: rgba(20, 184, 166, 0.1);
   --teal-overlay-light: rgba(20, 184, 166, 0.2);
   --teal-overlay-medium: rgba(20, 184, 166, 0.3);
+  /* A13 (2026-06-11): brand-tinted overlay gaps between subtle(0.1) and light(0.2),
+     plus the teal-700 / amber / white one-off tints — tokenized at exact values. */
+  --teal-overlay-12: rgba(20, 184, 166, 0.12);
+  --teal-overlay-15: rgba(20, 184, 166, 0.15);
+  --teal-700-overlay-soft: rgba(15, 118, 110, 0.08);
+  /* NOTE: an --amber-overlay-subtle (0.15) + --amber-overlay-medium (0.3) scale
+     already exists below; this 0.1 tint sits below it, hence -faint (not -subtle,
+     which would collide and silently resolve to 0.15). */
+  --amber-overlay-faint: rgba(245, 158, 11, 0.1);
+  --white-overlay-strong: rgba(255, 255, 255, 0.85);
   --teal-shadow: rgba(20, 184, 166, 0.3);
   --teal-border-subtle: rgba(20, 184, 166, 0.2);
   --teal-border-light: rgba(20, 184, 166, 0.3);
@@ -316,10 +453,24 @@
 
   /* Shadow Colors with Opacity */
   --shadow-black-subtle: rgba(0, 0, 0, 0.03);
+  /* A13 (2026-06-11): faint card shadow — covers the 0.04 sites + the single
+     0.05 site (snapped to 0.04 per the locked round-to-nearest default). */
+  --shadow-black-faint: rgba(0, 0, 0, 0.04);
   --shadow-black-light: rgba(0, 0, 0, 0.06);
   --shadow-black-soft: rgba(0, 0, 0, 0.08);
   --shadow-black-medium: rgba(0, 0, 0, 0.1);
   --shadow-black-heavy: rgba(0, 0, 0, 0.15);
+
+  /* Hairline borders (B2C modernization) — derived from existing overlay tokens,
+     no new literals. Use for table rows, card edges, eyebrow rules. */
+  --border-hairline: 1px solid var(--shadow-black-light);
+  --border-hairline-teal: 1px solid var(--teal-overlay-15);
+  /* A13 (2026-06-11): text-shadow colors for legibility of text over images
+     (hero headlines, FAQ-over-image). Distinct from box-shadow (--shadow-black-*)
+     and background scrims (--overlay-image-*) — referenced by `text-shadow`. */
+  --text-shadow-subtle: rgba(0, 0, 0, 0.2);
+  --text-shadow-medium: rgba(0, 0, 0, 0.4);
+  --text-shadow-strong: rgba(0, 0, 0, 0.5);
   --shadow-black-moderate: rgba(0, 0, 0, 0.2);
   --shadow-black-intense: rgba(0, 0, 0, 0.3);
   --shadow-black-dark: rgba(0, 0, 0, 0.4);
@@ -1309,6 +1460,10 @@
   --spacing-2xl: 24px;
   --spacing-3xl: 32px;
   --spacing-custom-35: 35px;
+  /* A13 (2026-06-11): exact tokens for the 56/60px section-spacing values used
+     in component CSS (between 5xl=48 and 6xl=64) — preserves rendering exactly. */
+  --spacing-custom-56: 56px;
+  --spacing-custom-60: 60px;
   --spacing-4xl: 40px;
   --spacing-5xl: 48px;
   --spacing-6xl: 64px;
@@ -1520,6 +1675,24 @@
   --color-amber-700: #b45309;
   --color-amber-800: #92400e;
   --color-amber-900: #78350f;
+
+  /* A13 (2026-06-11): blue/green/red/emerald/rose palette shades referenced by
+     PreDemo status badges + ExportModal error states. Previously these existed
+     ONLY as hardcoded hex fallbacks on undefined tokens in component CSS;
+     promoted to real tokens here (canonical source) so the CSS references them
+     cleanly. Only the in-use shades are defined (no dead tokens). */
+  --color-blue-100: #dbeafe;
+  --color-blue-600: #2563eb;
+  --color-green-100: #dcfce7;
+  --color-green-600: #16a34a;
+  --color-red-200: #fecaca;
+  --color-red-300: #fca5a5;
+  --color-red-500: #ef4444;
+  --color-red-700: #b91c1c;
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-200: #a7f3d0;
+  --color-rose-50: #fff1f2;
+  --color-rose-700: #be123c;
 
   /* Purple Palette (Accent) */
   --color-purple-50: #faf5ff;
@@ -2268,6 +2441,9 @@
   --color-text-secondary: #cbd5e1;
   --color-section-title: #ffffff;
   --text-primary-accessible: #5eead4;
+  /* Brand-accent text (u-eyebrow kicker) on dark surfaces — #5eead4 = 12.1:1
+     on #0f172a (AA), keeps the editorial eyebrow legible on the dark Catch. */
+  --text-brand-accessible: #5eead4;
   --cta-bg-primary: #5eead4;
   --cta-color-primary: #0f172a;
   --color-slate-200: #e2e8f0;

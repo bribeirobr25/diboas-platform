@@ -16,6 +16,7 @@
 import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
+import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
 import type { SupportedLocale } from '@/lib/market-data';
 import { marketDataService } from '@/lib/market-data/service';
 import { formatCurrency } from '@/lib/compound-interest';
@@ -41,7 +42,8 @@ export function EmergencyFundCalculator() {
 
   const t = (key: string, values?: Record<string, string | number>) =>
     intl.formatMessage({ id: `tools-emergency-fund.${key}` }, values);
-  const tShared = (key: string) => intl.formatMessage({ id: `tools-shared.${key}` });
+  const tShared = (key: string, values?: Record<string, string | number>) =>
+    intl.formatMessage({ id: `tools-shared.${key}` }, values);
 
   const localeKey = (locale ?? 'en') as SupportedLocale;
   const initial = useMemo<FormState>(
@@ -69,6 +71,9 @@ export function EmergencyFundCalculator() {
       ),
     [form, localeKey, snapshot]
   );
+
+  // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
+  useCalculatorAnalytics('emergency-fund', localeKey, result ? JSON.stringify(form) : null);
 
   const target = form.monthlyExpenses * form.targetMultiplier;
   const bankApy = result?.bankApy ?? 0;
@@ -187,7 +192,13 @@ export function EmergencyFundCalculator() {
             <p className={styles.resultLabel}>{t('output.withBank')}</p>
             <p className={styles.resultValueMuted}>{formatMonths(result.bankMonths)}</p>
             <p className={styles.resultRate}>
-              {tShared('scenarios.bank')} ({(bankApy * 100).toFixed(2)}%)
+              {/* Reg DD (TILA) terminology — the bank deposit rate is shown as
+                  APY in en; non-US locales keep the "(rate%)" form (no APY
+                  obligation, English acronym). Crosswalk §5.3. */}
+              {tShared('scenarios.bankApyDisplay', {
+                label: tShared('scenarios.bank'),
+                rate: (bankApy * 100).toFixed(2),
+              })}
             </p>
           </div>
           {result.savedMonths > 0 && (

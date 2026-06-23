@@ -14,6 +14,7 @@
 'use client';
 
 import { useTranslation } from '@diboas/i18n/client';
+import { isKnownNamespace } from '@diboas/i18n/config';
 import type { IntlShape } from 'react-intl';
 
 /**
@@ -33,22 +34,22 @@ export interface ResolvedTranslations {
 }
 
 /**
- * Check whether a string looks like a translation key.
- * Translation keys have format 'namespace.key.path' (must have dots after prefix).
- * Valid: 'landing-b2c.demo.header', 'common.buttons.submit'
- * Invalid: 'landing-b2c' (just a category/identifier, not a translation key)
+ * Check whether a string looks like a translation key: `<namespace>.<path…>`
+ * where `<namespace>` (the segment before the first dot) is a known translation
+ * namespace. A bare identifier (`landing-b2c`, a variant name) or an ordinary
+ * string (URL, fee value like `0.48%`) is left untouched.
+ *
+ * I-4: keyed off the complete `SUPPORTED_NAMESPACES` registry instead of a
+ * hardcoded 8-prefix subset, so config values from ANY namespace translate
+ * (previously `tools-*`, `share`, `market`, … silently rendered the raw key).
+ * The check is intentionally permissive — for a value that is NOT a real key,
+ * `formatMessage` falls back to the value itself (`defaultMessage`), so the
+ * rendered output is identical whether or not we treat it as a key.
  */
 function isTranslationKey(value: string): boolean {
-  return (
-    (value.startsWith('common.') && value.indexOf('.', 7) > 0) ||
-    (value.startsWith('marketing.') && value.indexOf('.', 10) > 0) ||
-    (value.startsWith('landing-') && value.indexOf('.', value.indexOf('-') + 1) > 0) ||
-    (value.startsWith('about.') && value.indexOf('.', 6) > 0) ||
-    (value.startsWith('protocols.') && value.indexOf('.', 10) > 0) ||
-    (value.startsWith('security.') && value.indexOf('.', 9) > 0) ||
-    (value.startsWith('strategies.') && value.indexOf('.', 11) > 0) ||
-    (value.startsWith('faq.') && value.indexOf('.', 4) > 0)
-  );
+  const firstDot = value.indexOf('.');
+  if (firstDot <= 0 || firstDot >= value.length - 1) return false;
+  return isKnownNamespace(value.slice(0, firstDot));
 }
 
 /**

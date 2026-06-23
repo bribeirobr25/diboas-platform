@@ -52,5 +52,27 @@
   },
   "waitlist": {
     "text": "Ich habe einen einfachen und fairen Weg gefunden, Geld wachsen zu lassen und zu bewegen. Es ist so gut, dass ich es teilen muss"
+  },
+  "og": {
+    "waitlist": {
+      "title": "Ich bin #{position} auf der diBoaS Warteliste!",
+      "description": "Komm zu mir auf diBoaS - Finanzielle Freiheit Einfach Gemacht"
+    },
+    "calculator": {
+      "title": "Meine Investition könnte auf {formattedAmount} wachsen!",
+      "description": "In {years} Jahren mit dem diBoaS Dream Mode Rechner"
+    },
+    "toolResult": {
+      "title": "Was mein Geld wirklich verdienen könnte: {value}",
+      "titleByTool": {
+        "asset-history": "Was es heute wert wäre: {value}",
+        "card-fees": "Was ich sparen könnte: {value}"
+      },
+      "description": "Ich habe es auf diBoaS durchgerechnet. Sieh, was deins könnte."
+    },
+    "default": {
+      "title": "diBoaS - Finanzielle Freiheit Einfach Gemacht",
+      "description": "Dein Geld. Deine Zukunft. Eine Plattform. Tritt heute der Warteliste bei."
+    }
   }
 }

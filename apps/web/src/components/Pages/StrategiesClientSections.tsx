@@ -10,7 +10,7 @@
  */
 
 import { useTranslation } from '@diboas/i18n/client';
-import { PageHeroSection } from '@/components/Sections';
+import { CinematicHeroFactory } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 // StrategyDisclaimers import removed — wrapper was dead code
 // styles import removed 2026-05-08 (lint cleanup) — was unused after the
@@ -31,10 +31,14 @@ export function StrategiesHeroSection() {
       enableReporting
       context={{ page: 'strategies', variant: 'centered' }}
     >
-      <PageHeroSection
+      <CinematicHeroFactory
+        scene="wireframe-terrain"
+        theme="dark"
+        align="center"
+        sectionId="hero-strategies"
         headline={t('hero.headline')}
         subheadline={t('hero.subheadline')}
-        align="center"
+        priority
       />
     </SectionErrorBoundary>
   );

@@ -12,7 +12,7 @@
     "type-check": "turbo run type-check",
     "clean": "turbo run clean",
     "validate:design-tokens": "node scripts/validate-design-tokens.js",
-    "generate:design-tokens": "echo 'DISABLED: Generator destroys 2500+ lines of hand-maintained CSS. See CRIT-1 in docs/audit/code/full-codebase-audit-20260309.md' && exit 1",
+    "generate:design-tokens": "echo 'DISABLED: design-tokens.css is hand-maintained — regenerating would overwrite 2500+ lines of hand-tuned CSS. See the Design Tokens section in CLAUDE.md.' && exit 1",
     "dev:web": "turbo run dev --filter=web",
     "dev:clean": "npx --yes kill-port 3000 2>/dev/null; pnpm -w run dev:web",
     "dev:reset": "rm -rf apps/web/.next .turbo && pnpm -w run dev:web",
@@ -61,6 +61,8 @@
       "next": "16.2.6",
       "rollup@>=4.0.0 <4.59.0": ">=4.59.0",
       "minimatch@<3.0.0": ">=3.1.2",
+      "minimatch@>=10.0.0 <10.2.3": "10.2.3",
+      "serialize-javascript@<=7.0.2": "7.0.3",
       "tailwindcss": "3.4.17",
       "fast-uri": ">=3.1.2"
     }

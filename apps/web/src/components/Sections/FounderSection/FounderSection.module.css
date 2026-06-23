@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: var(--spacing-3xl);
   max-width: 900px;
   margin: 0 auto;
 }
@@ -16,7 +16,7 @@
   .withImage {
     flex-direction: row;
     align-items: flex-start;
-    gap: 48px;
+    gap: var(--spacing-5xl);
   }
 }
 
@@ -27,12 +27,20 @@
 
 .imageColumn {
   flex-shrink: 0;
+  border-radius: var(--radius-full);
+  /* Hairline ring frames the portrait; u-image-zoom clips the hover scale. */
+  box-shadow: 0 0 0 1px var(--shadow-black-light);
+}
+
+.eyebrow {
+  margin: 0 0 var(--spacing-md) 0;
 }
 
 .photo {
+  display: block;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   object-fit: cover;
 }
 
@@ -54,7 +62,7 @@
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-title);
   color: var(--color-text-heading);
-  margin: 0 0 24px 0;
+  margin: 0 0 var(--spacing-lg) 0;
 }
 
 @media (min-width: 768px) {
@@ -75,7 +83,7 @@
   font-weight: var(--font-weight-normal);
   line-height: var(--prose-line-height, 1.7);
   color: var(--color-text-body);
-  margin: 0 0 16px 0;
+  margin: 0 0 var(--spacing-md) 0;
 }
 
 .paragraph:last-of-type {
@@ -84,26 +92,27 @@
 
 .emailLink {
   display: inline-block;
-  margin-top: 20px;
+  margin-top: var(--spacing-xl);
   font-family: var(--font-family-primary);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
-  /* W2 (audit/2026-05-08): teal-600 fallback (#0d9488) is 3.49:1 on warm-cream
-   * background — fails AA. Bumped fallback to teal-700 (#0f766e), 4.85:1. */
-  color: var(--color-brand-primary, #0f766e);
+  /* W2 (audit/2026-05-08): teal-600 (#0d9488) is 3.49:1 on warm-cream — fails AA.
+   * Use the accessible teal-700 token (4.85:1). A13 (2026-06-11): repointed off the
+   * formerly-undefined --color-brand-primary (which now resolves to teal-600). */
+  color: var(--text-brand-accessible);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
 .emailLink:hover {
-  color: var(--color-brand-primary-hover, #0f766e);
+  color: var(--color-brand-primary-hover);
 }
 
 .socialLinks {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 20px;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
 }
 
 .socialLink {
@@ -112,38 +121,39 @@
   font-family: var(--font-family-primary);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
-  /* W2 (audit/2026-05-08): teal-600 fallback (#0d9488) is 3.49:1 on warm-cream
-   * background — fails AA. Bumped fallback to teal-700 (#0f766e), 4.85:1. */
-  color: var(--color-brand-primary, #0f766e);
+  /* W2 (audit/2026-05-08): teal-600 (#0d9488) is 3.49:1 on warm-cream — fails AA.
+   * Use the accessible teal-700 token (4.85:1). A13 (2026-06-11): repointed off the
+   * formerly-undefined --color-brand-primary (which now resolves to teal-600). */
+  color: var(--text-brand-accessible);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
 .socialLink:hover {
-  color: var(--color-brand-primary-hover, #0f766e);
+  color: var(--color-brand-primary-hover);
 }
 
 /* Dark background theme — light text for WCAG contrast */
 :global([data-theme='dark']) .header {
-  color: var(--color-text-on-dark, #f1f5f9);
+  color: var(--color-text-on-dark);
 }
 
 :global([data-theme='dark']) .paragraph {
-  color: var(--color-text-on-dark-secondary, #cbd5e1);
+  color: var(--color-text-on-dark-secondary);
 }
 
 :global([data-theme='dark']) .emailLink {
-  color: var(--color-teal-300, #5eead4);
+  color: var(--color-teal-300);
 }
 
 :global([data-theme='dark']) .emailLink:hover {
-  color: var(--color-teal-200, #99f6e4);
+  color: var(--color-teal-200);
 }
 
 :global([data-theme='dark']) .socialLink {
-  color: var(--color-teal-300, #5eead4);
+  color: var(--color-teal-300);
 }
 
 :global([data-theme='dark']) .socialLink:hover {
-  color: var(--color-teal-200, #99f6e4);
+  color: var(--color-teal-200);
 }

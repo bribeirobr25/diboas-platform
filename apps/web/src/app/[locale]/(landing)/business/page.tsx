@@ -190,7 +190,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           >
             <div data-section-id="hero-section-b2b">
               <HeroSection
-                variant="fullBackground"
+                variant="cinematic"
                 config={B2B_HERO_CONFIG}
                 enableAnalytics={true}
                 priority={true}

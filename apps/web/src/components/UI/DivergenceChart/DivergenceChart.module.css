@@ -1,0 +1,123 @@
+/**
+ * DivergenceChart — bespoke SVG. Lines draw on scroll-in (`.isDrawn`);
+ * numeric labels are always visible (SSR/a11y). Reduced-motion forces drawn.
+ * Teal (`--accent-action`) marks the primary series only; warmth/ink for muted.
+ */
+
+.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible; /* end labels extend past the plot into the right padding */
+}
+
+.baseline {
+  stroke: var(--rule-hairline);
+  stroke-width: 1;
+}
+
+.startDot {
+  fill: var(--text-on-paper-muted);
+}
+
+/* ---- lines: pathLength=1 so the draw-on is length-independent ---- */
+.line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke-dashoffset var(--animation-duration-slow, 0.6s)
+    var(--animation-easing-easeout, ease-out);
+}
+
+.isDrawn .line {
+  stroke-dashoffset: 0;
+}
+
+.primary .line {
+  stroke: var(--accent-action);
+  stroke-width: 3;
+  transition-delay: 0.12s; /* the winner draws a beat after the rest */
+}
+
+.muted .line {
+  stroke: var(--text-on-paper-muted);
+  stroke-width: 2;
+  opacity: 0.7;
+}
+
+.endDot {
+  opacity: 0;
+  transition: opacity var(--animation-duration-normal, 0.2s) ease-out 0.6s;
+}
+
+.isDrawn .endDot {
+  opacity: 1;
+}
+
+.primary .endDot {
+  fill: var(--accent-action);
+}
+
+.muted .endDot {
+  fill: var(--text-on-paper-muted);
+}
+
+/* Leader line: drawn only when a label was nudged off its dot to avoid overlap. */
+.labelLeader {
+  stroke: var(--rule-hairline);
+  stroke-width: 1;
+  opacity: 0;
+  transition: opacity var(--animation-duration-normal, 0.2s) ease-out 0.6s;
+}
+
+.isDrawn .labelLeader {
+  opacity: 1;
+}
+
+/* ---- always-visible labels (tabular-mono "numbers are the hero") ---- */
+.endValue {
+  font-family: var(--font-numeric);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+.primary .endValue {
+  fill: var(--accent-action-text);
+}
+
+.muted .endValue {
+  fill: var(--text-on-paper-muted);
+}
+
+.endLabel {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--text-on-paper-muted);
+}
+
+.caption {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs-plus);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  fill: var(--text-on-paper-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line {
+    stroke-dashoffset: 0 !important;
+    transition: none;
+  }
+  .endDot {
+    opacity: 1;
+    transition: none;
+  }
+  .labelLeader {
+    opacity: 1;
+    transition: none;
+  }
+}

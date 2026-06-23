@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Calculadora de desvalorização cambial — o que sua moeda realmente rende",
+    "title": "Calculadora de desvalorização cambial",
     "description": "Calculadora gratuita de desvalorização cambial. Compare sua moeda local em dinheiro, no banco e em dólar digital ao rendimento histórico de 10%."
   },
   "hero": {
@@ -43,6 +43,13 @@
     "depSourcePeg": "{currency} é atrelada ao dólar dos EUA por política do banco central. A variação cambial é 0 por desenho.",
     "uncertaintyMedium": "Esta moeda teve volatilidade moderada na janela — o CAGR pontual reflete o comportamento médio; o movimento acumulado foi desigual ano a ano.",
     "uncertaintyLow": "Esta moeda passou por períodos de volatilidade estrutural ou mudança de regime — um único CAGR alisa materialmente sub-períodos muito diferentes. Use o resultado como referência direcional, não como previsão."
+  },
+  "resultMoment": {
+    "eyebrow": "O que seu dinheiro realmente rende",
+    "eyebrowUsd": "O que seus dólares parados rendem",
+    "chartAria": "Como o {currency} se compara em {years} anos mantido em dinheiro, em banco local e em dólar digital no diBoaS.",
+    "chartAriaUsd": "Como seus dólares se comparam em {years} anos em um banco versus em dólar digital no diBoaS.",
+    "shareText": "Em {years} anos, meus {currency} poderiam valer {value} em dólar digital no diBoaS. Veja quanto o seu realmente rende."
   },
   "vignette": {
     "subtitle": "Onde você guarda seu dinheiro importa. A moeda em que ele rende, importa mais."

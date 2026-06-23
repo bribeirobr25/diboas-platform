@@ -6,19 +6,19 @@
 .strip {
   width: 100%;
   background-color: var(--section-bg-brand);
-  padding: 48px var(--spacing-lg);
+  padding: var(--spacing-5xl) var(--spacing-lg);
   text-align: center;
 }
 
 @media (min-width: 768px) {
   .strip {
-    padding: 64px var(--spacing-lg);
+    padding: var(--spacing-6xl) var(--spacing-lg);
   }
 }
 
 .text {
   font-family: var(--font-family-primary);
-  font-size: 22px;
+  font-size: var(--font-size-xl);
   font-weight: 500;
   line-height: 1.4;
   color: var(--color-text-heading);
@@ -28,6 +28,6 @@
 
 @media (min-width: 768px) {
   .text {
-    font-size: 28px;
+    font-size: var(--font-size-3xl);
   }
 }

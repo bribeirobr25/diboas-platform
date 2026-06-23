@@ -25,6 +25,11 @@
     "differenceZero": "Com a taxa atual do seu banco, o diBoaS empata em rendimento ao longo de {years} anos — e a posição fica em dólar digital.",
     "differenceNegative": "A {bankRate}% seu banco supera o cenário conservador do diBoaS ao longo de {years} anos. O diBoaS ainda te dá uma posição em dólar digital — esta comparação é só de rendimento."
   },
+  "resultMoment": {
+    "eyebrow": "No que seu dinheiro parado pode se tornar",
+    "chartAria": "Como seu dinheiro parado se compara em {years} anos no seu banco versus no diBoaS.",
+    "shareText": "Meu dinheiro parado poderia se tornar {value} no diBoaS em {years} anos. Veja quanto o seu poderia render."
+  },
   "vignette": {
     "subtitle": "Caixa parado não rende. Caixa que trabalha, sim. Você escolhe."
   },

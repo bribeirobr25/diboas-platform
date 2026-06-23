@@ -113,7 +113,7 @@ Copy `.env.example` and configure:
 cp apps/web/.env.example apps/web/.env.local
 ```
 
-Required for production: `NEXT_PUBLIC_BASE_URL`, `DATABASE_URL`, `RESEND_API_KEY`, `EMAIL_FROM_ADDRESS`, `ENCRYPTION_KEY`, `HMAC_KEY`, `INTERNAL_API_KEY`, `CSP_NONCE_SECRET`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_POSTHOG_KEY`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`.
+Required for production: `NEXT_PUBLIC_BASE_URL`, `DATABASE_URL`, `RESEND_API_KEY`, `EMAIL_FROM_ADDRESS`, `ENCRYPTION_KEY`, `HMAC_KEY`, `INTERNAL_API_KEY`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_POSTHOG_KEY`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`. (The CSP nonce is generated per-request in `middleware.ts` — no secret env var needed.)
 
 Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 
@@ -162,8 +162,21 @@ All pages available in `/en`, `/pt-BR`, `/es`, `/de`.
 
 ## Documentation
 
-- `CLAUDE.md` — Coding standards, architectural principles, conventions
-- `docs/tech/` — Technical guides (design system, coding standards)
-- `docs/monitoring/INFRASTRUCTURE_GUIDE.md` — Service overview, events tracked, GDPR compliance
-- `docs/audit/` — Audit results, fix plans, security reviews
-- `docs/full-view/` — Product bible, business model, brand positioning, fees
+`CLAUDE.md` is the source of truth for current decisions, conventions, and architecture. Each doc below owns one topic — point to it rather than duplicating its facts.
+
+| Topic                                                                        | Canonical doc                                   |
+| ---------------------------------------------------------------------------- | ----------------------------------------------- |
+| Current decisions, coding standards, conventions                             | `CLAUDE.md`                                     |
+| Engineering guides (frontend, security, i18n, monitoring ops, design system) | `docs/tech/`                                    |
+| Financial / currency-hedge math                                              | `docs/tech/financial-calculations.md`           |
+| Money Tools suite + validation + weekly data runbook                         | `docs/tools/` · `docs/tech/TOOLS_VALIDATION.md` |
+| Monitoring ops + invariants                                                  | `docs/tech/MONITORING_OPS.md`                   |
+| Env vars + deploy values                                                     | `docs/monitoring/INFRASTRUCTURE_GUIDE.md`       |
+| "Do-not-regress" decision register                                           | `docs/tech/implementation-notes.md`             |
+| Fees (canonical)                                                             | `docs/full-view/FEES.md`                        |
+| Business model, brand, wallet/custody architecture                           | `docs/full-view/`                               |
+| Audit history, security findings, pending work                               | `docs/audit/` · `docs/security/`                |
+| Redesign proposal + growth/waitlist plan                                     | `docs/redesign/`                                |
+| `diboas-analytics` (separate product hosted at `/market`)                    | `docs/mvp/`                                     |
+| Regulatory + market deep-research (reference)                                | `docs/researches/`                              |
+| Phase-2 forward analysis (aspirational — verify vs `CLAUDE.md`)              | `docs/roadmap/`                                 |

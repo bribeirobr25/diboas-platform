@@ -11,6 +11,7 @@
 import React from 'react';
 import type { SectionErrorFallbackProps } from './types';
 import { DEFAULT_SECTION_TRANSLATIONS } from './constants';
+import { LucideIcon, RefreshCw, type LucideIconType } from '@/components/UI/LucideIcon';
 
 export function DefaultSectionErrorFallback({
   sectionId,
@@ -82,7 +83,7 @@ function ErrorTitle({ errorId, title }: { errorId: string; title: string }) {
         marginBottom: '1rem',
       }}
     >
-      [Warning] {title}
+      {title}
     </h2>
   );
 }
@@ -180,13 +181,14 @@ function ErrorActions({
       }}
     >
       {canRetry && onRetry && (
-        <ActionButton onClick={onRetry} variant="primary" label={`🔄 ${tryAgainLabel}`} />
+        <ActionButton onClick={onRetry} variant="primary" label={tryAgainLabel} icon={RefreshCw} />
       )}
 
       <ActionButton
         onClick={() => window.location.reload()}
         variant="secondary"
-        label={`🔄 ${reloadLabel}`}
+        label={reloadLabel}
+        icon={RefreshCw}
       />
     </div>
   );
@@ -196,10 +198,12 @@ function ActionButton({
   onClick,
   variant,
   label,
+  icon,
 }: {
   onClick: () => void;
   variant: 'primary' | 'secondary';
   label: string;
+  icon?: LucideIconType;
 }) {
   const isPrimary = variant === 'primary';
   const bgColor = isPrimary
@@ -213,6 +217,9 @@ function ActionButton({
     <button
       onClick={onClick}
       style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '0.375rem',
         backgroundColor: bgColor,
         color: 'white',
         border: 'none',
@@ -230,6 +237,7 @@ function ActionButton({
         e.currentTarget.style.backgroundColor = bgColor;
       }}
     >
+      {icon && <LucideIcon icon={icon} size="sm" />}
       {label}
     </button>
   );

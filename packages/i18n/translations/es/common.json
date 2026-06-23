@@ -5,6 +5,7 @@
     "back": "Atrás",
     "landing": {
       "forBusiness": "Para Empresas",
+      "moneyTools": "Herramientas",
       "strategies": "Estrategias",
       "futureYou": "Tu Futuro",
       "about": "Acerca de",
@@ -158,7 +159,8 @@
     "openMenuFor": "Abrir menú de {menu}",
     "warningBadge": "Insignia de advertencia",
     "complianceBadge": "Insignia de cumplimiento",
-    "mobileMenu": "Menú de navegación móvil"
+    "mobileMenu": "Menú de navegación móvil",
+    "lessonProgress": "Progreso de la lección"
   },
   "languageSwitcher": {
     "label": "Idioma",
@@ -351,7 +353,8 @@
     "playCarousel": "Reproducir carrusel",
     "loadingPage": "Cargando página",
     "openMenu": "Abrir menú",
-    "closeMenu": "Cerrar menú"
+    "closeMenu": "Cerrar menú",
+    "viewFeature": "Ver función {title}"
   },
   "expandable": {
     "showMore": "Ver más",

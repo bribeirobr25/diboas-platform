@@ -1,9 +1,29 @@
 {
+  "eyebrows": {
+    "math": "A CONTA",
+    "goals": "SEUS OBJETIVOS",
+    "story": "NOSSA HISTÓRIA",
+    "howItWorks": "COMO FUNCIONA",
+    "fees": "O QUE VOCÊ PAGA",
+    "honest": "SEM PEGADINHA",
+    "join": "ENTRE NO MOVIMENTO",
+    "founder": "QUEM CRIOU",
+    "faq": "PERGUNTAS"
+  },
   "hero": {
     "headline": "O sistema financeiro não está quebrado. Só não foi feito pra você.",
     "subheadline": "Veja o que R$1.000 fazem em um ano quando seu dinheiro trabalha em dólar.",
     "cta": "Me mostra",
     "phoneMockupLabel": "Prévia. Em breve"
+  },
+  "wedge": {
+    "eyebrow": "A verdade sobre o real",
+    "claim": "O real perdeu {value} pro dólar desde 2010.",
+    "honest": "Ninguém prevê o câmbio, mas a direção de longo prazo é difícil de ignorar. O dólar digital te dá acesso a essa força, com você no controle.",
+    "cta": "Veja o que seu real perde"
+  },
+  "waitlistFounding": {
+    "spotsLeft": "Só restam {remaining} de {cap} vagas de fundador."
   },
   "comparison": {
     "heading": "R$1.000. 1 ano. Você decide.",
@@ -362,6 +382,7 @@
     "nav": {
       "forYou": "Pra Você",
       "forBusiness": "Pra Empresas",
+      "moneyTools": "Ferramentas",
       "adelaideDaily": "Adelaide Daily",
       "about": "Sobre",
       "help": "Ajuda",

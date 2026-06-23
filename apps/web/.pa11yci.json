@@ -74,6 +74,14 @@
     {
       "url": "http://localhost:3000/de/market",
       "screenCapture": "./pa11y-screenshots/market-de.png"
+    },
+    {
+      "url": "http://localhost:3000/en/protocols",
+      "screenCapture": "./pa11y-screenshots/protocols.png"
+    },
+    {
+      "url": "http://localhost:3000/en/strategies",
+      "screenCapture": "./pa11y-screenshots/strategies.png"
     }
   ]
 }

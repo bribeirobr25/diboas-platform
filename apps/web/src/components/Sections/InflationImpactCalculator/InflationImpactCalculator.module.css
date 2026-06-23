@@ -13,13 +13,13 @@
   display: inline-flex;
   background: var(--color-slate-100);
   border-radius: var(--radius-lg);
-  padding: 4px;
-  gap: 2px;
+  padding: var(--spacing-xs);
+  gap: var(--spacing-2xs);
   align-self: flex-start;
 }
 
 .modeButton {
-  padding: 8px 16px;
+  padding: var(--spacing-sm) var(--spacing-md);
   border: none;
   background: transparent;
   border-radius: calc(var(--radius-lg) - 4px);
@@ -32,7 +32,7 @@
 .modeButtonActive {
   background: var(--color-white);
   color: var(--color-slate-900);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 2px var(--shadow-black-faint);
 }
 
 .modeButton:focus-visible {
@@ -48,7 +48,7 @@
   border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
 }
 
 .inputsRow {
@@ -72,7 +72,7 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
 }
 
 .label {
@@ -82,11 +82,11 @@
 }
 
 .numberInput {
-  padding: 10px 14px;
+  padding: var(--spacing-sm-plus) var(--spacing-md-plus);
   border: 1px solid var(--color-slate-300);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   font-family: var(--font-family-mono);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-slate-900);
   background: var(--color-white);
 }
@@ -104,14 +104,14 @@
 /* C24 close: inline tooltip indicator next to help text. Design-token contrast. */
 .tooltip {
   cursor: help;
-  color: var(--text-brand-accessible, #0f766e);
+  color: var(--text-brand-accessible);
   font-weight: 600;
   text-decoration: none;
 }
 .tooltip:focus-visible {
-  outline: 2px solid var(--text-brand-accessible, #0f766e);
+  outline: 2px solid var(--text-brand-accessible);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .resultsGrid {
@@ -132,7 +132,7 @@
   border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--spacing-xs);
 }
 
 .resultCardCash {
@@ -180,26 +180,26 @@
 .confidenceBadge {
   display: inline-block;
   margin-top: var(--spacing-sm);
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 11px;
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
   font-weight: 500;
   line-height: 1.4;
 }
 
 .confidenceHigh {
-  background: var(--color-emerald-50, #ecfdf5);
-  color: var(--text-success-accessible, #047857);
+  background: var(--color-emerald-50);
+  color: var(--text-success-accessible);
 }
 
 .confidenceMedium {
-  background: var(--color-amber-50, #fffbeb);
-  color: var(--color-amber-700, #b45309);
+  background: var(--color-amber-50);
+  color: var(--color-amber-700);
 }
 
 .confidenceLow {
-  background: var(--color-rose-50, #fff1f2);
-  color: var(--color-rose-700, #be123c);
+  background: var(--color-rose-50);
+  color: var(--color-rose-700);
 }
 
 .uncertaintyNote {

@@ -10,7 +10,7 @@
   position: fixed;
   inset: 0;
   z-index: var(--z-index-modal);
-  background: var(--section-bg-white, #f9fafb);
+  background: var(--section-bg-white);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
@@ -141,15 +141,15 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 11px;
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   /* W2 (audit/2026-05-08): amber-600 on amber-50 was 3.07:1 — fails AA.
    * amber-700 (#b45309) on amber-50 is 5.67:1. Border + bg unchanged so the
    * badge still reads as amber. */
-  color: var(--color-amber-700, #b45309);
-  background: var(--color-amber-50, #fffbeb);
-  border: 1px solid var(--color-amber-200, #fde68a);
-  padding: 5px var(--spacing-md-minus);
+  color: var(--color-amber-700);
+  background: var(--color-amber-50);
+  border: 1px solid var(--color-amber-200);
+  padding: var(--spacing-xs) var(--spacing-md-minus);
   border-radius: var(--radius-pill);
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -196,7 +196,7 @@
 .logoCircle {
   width: 72px;
   height: 72px;
-  border-radius: 18px;
+  border-radius: var(--radius-xl);
   background: linear-gradient(135deg, var(--brand-primary-dark), var(--brand-primary));
   color: var(--color-white);
   display: flex;
@@ -209,7 +209,7 @@
 .loginCard {
   width: 100%;
   background: var(--section-bg-white);
-  border: 1px solid var(--color-gray-100, #f3f4f6);
+  border: 1px solid var(--color-gray-100);
   border-radius: var(--radius-xl);
   padding: var(--spacing-xl);
   display: flex;
@@ -233,7 +233,7 @@
 
 .inputField {
   width: 100%;
-  padding: var(--spacing-md-minus) 14px;
+  padding: var(--spacing-md-minus) var(--spacing-md-plus);
   border: 1px solid var(--color-slate-200);
   border-radius: var(--radius-lg-plus);
   font-size: var(--font-size-sm);
@@ -456,13 +456,13 @@
 .balanceBreakdownItem {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--spacing-2xs);
   font-size: var(--font-size-xs-plus);
 }
 
 .balanceBreakdownLabel {
   opacity: 0.7;
-  font-size: 11px;
+  font-size: var(--font-size-xs);
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
@@ -549,8 +549,8 @@
 }
 
 .quickActionButton:hover:not(:disabled) {
-  border-color: var(--color-teal-200, #99f6e4);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-color: var(--color-teal-200);
+  box-shadow: 0 2px 8px var(--shadow-black-light);
 }
 
 .quickActionHighlighted {
@@ -559,7 +559,7 @@
 }
 
 .quickActionCompleted {
-  border-color: var(--color-emerald-200, #a7f3d0);
+  border-color: var(--color-emerald-200);
 }
 
 .quickActionDisabled {
@@ -597,7 +597,7 @@
 }
 
 .quickActionHighlighted .quickActionIcon {
-  background: var(--teal-overlay-light, #ccfbf1);
+  background: var(--teal-overlay-light);
   color: var(--brand-primary-dark);
 }
 
@@ -608,9 +608,9 @@
 }
 
 .quickActionSubtitle {
-  font-size: 11px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-600);
-  margin-top: -4px;
+  margin-top: calc(-1 * var(--spacing-xs));
 }
 
 .quickActionCheck {
@@ -644,7 +644,7 @@
 }
 
 .activityEmptyIcon {
-  color: var(--color-slate-300, #cbd5e1);
+  color: var(--color-slate-300);
   margin-bottom: var(--spacing-sm);
 }
 
@@ -690,18 +690,18 @@
 }
 
 .activityIconDeposit {
-  background: var(--color-green-100, #dcfce7);
-  color: var(--color-green-600, #16a34a);
+  background: var(--color-green-100);
+  color: var(--color-green-600);
 }
 
 .activityIconSend {
-  background: var(--color-blue-100, #dbeafe);
-  color: var(--color-blue-600, #2563eb);
+  background: var(--color-blue-100);
+  color: var(--color-blue-600);
 }
 
 .activityIconBuy {
-  background: var(--color-amber-100, #fef3c7);
-  color: var(--color-amber-600, #d97706);
+  background: var(--color-amber-100);
+  color: var(--color-amber-600);
 }
 
 .activityDetails {
@@ -720,7 +720,7 @@
   font-size: var(--font-size-xs);
   color: var(--color-slate-600);
   display: block;
-  margin-top: 2px;
+  margin-top: var(--spacing-2xs);
 }
 
 .activityAmounts {
@@ -735,7 +735,7 @@
 }
 
 .activityAmountPositive {
-  color: var(--color-green-600, #16a34a);
+  color: var(--color-green-600);
 }
 
 .activityAmountNegative {
@@ -743,10 +743,10 @@
 }
 
 .activityFees {
-  font-size: 11px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-600);
   display: block;
-  margin-top: 2px;
+  margin-top: var(--spacing-2xs);
 }
 
 /* ==================== Tabs ==================== */
@@ -776,11 +776,11 @@
 .tabActive {
   background: var(--section-bg-white);
   color: var(--color-text-heading);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px var(--shadow-black-soft);
 }
 
 .tabDisabled {
-  color: var(--color-slate-300, #cbd5e1);
+  color: var(--color-slate-300);
   cursor: not-allowed;
 }
 
@@ -829,7 +829,7 @@
 }
 
 .methodDisabled {
-  color: var(--color-slate-300, #cbd5e1);
+  color: var(--color-slate-300);
   cursor: not-allowed;
 }
 
@@ -869,7 +869,7 @@
 }
 
 .amountInput::placeholder {
-  color: var(--color-slate-300, #cbd5e1);
+  color: var(--color-slate-300);
 }
 
 /* ==================== Quick Amounts ==================== */
@@ -895,7 +895,7 @@
 }
 
 .quickAmountButton:hover {
-  border-color: var(--color-teal-200, #99f6e4);
+  border-color: var(--color-teal-200);
 }
 
 .quickAmountActive {
@@ -946,7 +946,7 @@
 }
 
 .feeRows {
-  padding: 0 var(--spacing-md) 14px;
+  padding: 0 var(--spacing-md) var(--spacing-md-plus);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm-plus);
@@ -1031,7 +1031,7 @@
   width: 100%;
   padding: var(--spacing-md-minus) var(--spacing-md);
   background: var(--error-bg-light);
-  border: 1px solid var(--color-red-300, #fca5a5);
+  border: 1px solid var(--color-red-300);
   border-radius: var(--radius-lg-plus);
   font-size: var(--font-size-xs-plus);
   color: var(--text-error-accessible);
@@ -1068,7 +1068,7 @@
 .categoryTabActive {
   background: var(--section-bg-white);
   color: var(--color-text-heading);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px var(--shadow-black-soft);
 }
 
 /* ==================== Asset List ==================== */
@@ -1095,7 +1095,7 @@
 }
 
 .assetItem:hover:not(:disabled) {
-  border-color: var(--color-teal-200, #99f6e4);
+  border-color: var(--color-teal-200);
 }
 
 .assetItemSelected {
@@ -1130,7 +1130,7 @@
 .assetInfo {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--spacing-2xs);
 }
 
 .assetSymbol {
@@ -1208,7 +1208,7 @@
 .confirmMethod {
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
-  margin-top: 2px;
+  margin-top: var(--spacing-2xs);
 }
 
 .confirmDetail {
@@ -1236,7 +1236,7 @@
   width: 100%;
   padding: var(--spacing-md);
   background: var(--section-bg-brand);
-  border: 1px solid var(--color-teal-200, #99f6e4);
+  border: 1px solid var(--color-teal-200);
   border-radius: var(--radius-lg-extra);
   margin-bottom: var(--spacing-md);
   font-size: var(--font-size-sm-plus);
@@ -1262,8 +1262,8 @@
 
 .termsCardHighlighted {
   width: 100%;
-  background: var(--color-amber-50, #fffbeb);
-  border: 1px solid var(--color-amber-500, #f59e0b);
+  background: var(--color-amber-50);
+  border: 1px solid var(--color-amber-500);
   border-radius: var(--radius-lg-extra);
   padding: var(--spacing-md);
   margin-bottom: var(--spacing-md);
@@ -1279,7 +1279,7 @@
 .checkbox {
   width: 20px;
   height: 20px;
-  margin-top: 2px;
+  margin-top: var(--spacing-2xs);
   border-radius: var(--radius-md);
   accent-color: var(--brand-primary-dark);
   flex-shrink: 0;
@@ -1371,7 +1371,7 @@
 .portfolioBreakdownItem {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--spacing-2xs);
   font-size: var(--font-size-sm);
 }
 
@@ -1436,11 +1436,11 @@
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
   font-family: var(--font-family-mono);
-  margin-top: 2px;
+  margin-top: var(--spacing-2xs);
 }
 
 .copyButton {
-  font-size: 11px;
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   color: var(--brand-primary-dark);
   background: transparent;
@@ -1518,7 +1518,7 @@
 
 .copiedText {
   color: var(--text-success-accessible);
-  font-size: 11px;
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
 }
 
@@ -1529,7 +1529,7 @@
   gap: var(--spacing-md-minus);
   padding: var(--spacing-md);
   background: var(--section-bg-brand);
-  border: 1px solid var(--color-teal-200, #99f6e4);
+  border: 1px solid var(--color-teal-200);
   border-radius: var(--radius-xl-minus);
 }
 
@@ -1537,7 +1537,7 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-lg-plus);
-  background: var(--teal-overlay-light, #ccfbf1);
+  background: var(--teal-overlay-light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1635,21 +1635,21 @@
 }
 
 .exportModalAmberBox {
-  background: var(--color-amber-50, #fffbeb);
-  border: 1px solid var(--color-amber-200, #fde68a);
+  background: var(--color-amber-50);
+  border: 1px solid var(--color-amber-200);
   border-radius: var(--radius-lg-extra);
   padding: var(--spacing-md);
 }
 
 .exportModalAmberTitle {
   font-size: var(--font-size-sm);
-  color: var(--color-amber-800, #92400e);
+  color: var(--color-amber-800);
   margin: 0;
 }
 
 .exportModalSteps {
   font-size: var(--font-size-sm);
-  color: var(--color-amber-700, #a16207);
+  color: var(--color-amber-700);
   margin: var(--spacing-sm) 0 0;
   padding-left: var(--spacing-xl);
   display: flex;
@@ -1659,14 +1659,14 @@
 
 .exportModalRedBox {
   background: var(--error-bg-light);
-  border: 1px solid var(--color-red-200, #fecaca);
+  border: 1px solid var(--color-red-200);
   border-radius: var(--radius-lg-extra);
   padding: var(--spacing-md-minus);
 }
 
 .exportModalWarningText {
   font-size: var(--font-size-xs);
-  color: var(--color-red-700, #b91c1c);
+  color: var(--color-red-700);
   margin: 0;
   display: flex;
   align-items: flex-start;
@@ -1726,14 +1726,14 @@
 }
 
 .demoFooterDisclaimer {
-  font-size: 11px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-600);
   margin: 0 0 var(--spacing-xs);
   line-height: 1.5;
 }
 
 .demoFooterCopyright {
-  font-size: 11px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-600);
   margin: 0;
 }
@@ -1771,19 +1771,19 @@
 }
 
 .confirmApproxLabel {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-600);
 }
 
 .svgIconInline {
   opacity: 0.8;
-  margin-right: 4px;
+  margin-right: var(--spacing-xs);
   flex-shrink: 0;
 }
 
 .alertIconInline {
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: var(--spacing-2xs);
 }
 
 /* ==================== Investments Expansion ==================== */
@@ -1806,8 +1806,8 @@
 }
 
 .investmentsBreakdown {
-  margin-top: 6px;
-  padding-top: 6px;
+  margin-top: var(--spacing-xs-plus);
+  padding-top: var(--spacing-xs-plus);
   border-top: 1px solid var(--glass-border-dark);
   display: flex;
   flex-direction: column;
@@ -1834,7 +1834,7 @@
 }
 
 .soonBadge {
-  font-size: 11px;
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
   background: var(--color-slate-100);
@@ -1918,7 +1918,7 @@
 }
 
 .l2ChainAddress {
-  font-size: 11px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-600);
   font-family: var(--font-family-mono);
   margin-left: auto;
@@ -1928,7 +1928,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 6px;
+  padding-top: var(--spacing-xs-plus);
   border-top: 1px solid var(--color-slate-200);
 }
 
@@ -1942,7 +1942,7 @@
 /* ==================== Responsive — mobile-first: scale up at 481px+ ==================== */
 @media (min-width: 481px) {
   .balanceAmount {
-    font-size: 32px;
+    font-size: var(--font-size-3xl);
   }
 
   .portfolioAmount {
@@ -2012,7 +2012,7 @@
 .checkbox:focus-visible {
   outline: 2px solid var(--brand-primary);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.15);
+  box-shadow: 0 0 0 4px var(--teal-overlay-15);
 }
 
 /* ==================== Utility classes ==================== */
@@ -2028,8 +2028,8 @@
 }
 
 .copyFailedText {
-  color: var(--color-red-500, #ef4444);
-  font-size: 0.7rem;
+  color: var(--color-red-500);
+  font-size: var(--font-size-xs);
 }
 
 .chainIconBox {

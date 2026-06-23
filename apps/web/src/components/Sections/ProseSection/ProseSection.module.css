@@ -14,14 +14,14 @@
 }
 
 .generous {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: var(--spacing-4xl);
+  padding-bottom: var(--spacing-4xl);
 }
 
 @media (min-width: 768px) {
   .generous {
-    padding-top: 48px;
-    padding-bottom: 48px;
+    padding-top: var(--spacing-5xl);
+    padding-bottom: var(--spacing-5xl);
   }
 }
 
@@ -45,18 +45,18 @@
 
 .headerCentered {
   text-align: center;
-  margin: 0 0 40px 0;
+  margin: 0 0 var(--spacing-4xl) 0;
 }
 
 @media (min-width: 768px) {
   .headerCentered {
-    margin-bottom: 48px;
+    margin-bottom: var(--spacing-5xl);
   }
 }
 
 @media (min-width: 1024px) {
   .headerCentered {
-    margin-bottom: 56px;
+    margin-bottom: var(--spacing-custom-56);
   }
 }
 
@@ -109,8 +109,19 @@
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary-accessible);
   text-align: center;
-  margin: 0 0 8px 0;
+  margin: 0 0 var(--spacing-sm) 0;
   line-height: 1.4;
+}
+
+.eyebrow {
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+/* Centered-header layout (e.g. the Catch): the eyebrow becomes a centered
+   block so it aligns over the centered heading instead of sitting flush-left. */
+.eyebrowCentered {
+  display: block;
+  text-align: center;
 }
 
 /* ================================
@@ -120,7 +131,7 @@
 .withImage {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: var(--spacing-3xl);
   align-items: center;
   max-width: 1100px;
   margin: 0 auto;
@@ -130,13 +141,13 @@
   .withImage {
     flex-direction: row;
     align-items: center;
-    gap: 48px;
+    gap: var(--spacing-5xl);
   }
 }
 
 @media (min-width: 1024px) {
   .withImage {
-    gap: 64px;
+    gap: var(--spacing-6xl);
   }
 }
 
@@ -149,6 +160,8 @@
   width: 100%;
   max-width: 400px;
   flex-shrink: 0;
+  /* Match the image radius so u-image-zoom clips the hover scale cleanly. */
+  border-radius: var(--radius-xl);
 }
 
 @media (min-width: 768px) {

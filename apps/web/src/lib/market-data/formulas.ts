@@ -31,9 +31,12 @@ export {
 
 export {
   applyEffectiveRateClamp,
+  createHedgedRateTransformer,
   calculateWithCurrencyHedge,
   calculateMonthlyWithCurrencyHedge,
   calculateMonthlyPathDependentHedge,
+  buildMonthlyValuePath,
+  buildHedgedMonthlyValuePath,
   EFFECTIVE_RATE_FLOOR,
   type CurrencyHedgeResult,
   type MonthlyHedgeResult,

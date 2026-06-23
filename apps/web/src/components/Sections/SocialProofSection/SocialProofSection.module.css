@@ -86,10 +86,10 @@
 }
 
 .subtext {
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   color: var(--color-text-secondary);
   line-height: 1.5;
-  margin: 8px auto 0 auto;
+  margin: var(--spacing-sm) auto 0 auto;
   max-width: 600px;
   text-align: center;
 }

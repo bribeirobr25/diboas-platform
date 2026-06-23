@@ -32,8 +32,13 @@ interface UseFocusTrapOptions {
   autoFocus?: boolean;
   /** Return focus to previously focused element when trap deactivates */
   returnFocus?: boolean;
-  /** Initial element to focus (selector or element) */
-  initialFocus?: string | HTMLElement;
+  /**
+   * Initial element to focus: a CSS selector, an element, or a ref. Prefer a
+   * ref when the target's id is generated (e.g. `useId()`) — the `.current` is
+   * resolved at focus time (inside rAF, after commit), so it survives the
+   * first open-render when the ref is not yet populated.
+   */
+  initialFocus?: string | HTMLElement | RefObject<HTMLElement>;
 }
 
 /**
@@ -77,7 +82,9 @@ export function useFocusTrap(
           const initialElement =
             typeof initialFocus === 'string'
               ? container.querySelector<HTMLElement>(initialFocus)
-              : initialFocus;
+              : initialFocus instanceof HTMLElement
+                ? initialFocus
+                : initialFocus.current;
 
           if (initialElement && focusableElements.includes(initialElement)) {
             initialElement.focus();

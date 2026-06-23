@@ -9,6 +9,16 @@
   text-align: center;
 }
 
+.eyebrow {
+  margin-bottom: var(--spacing-md);
+}
+
+/* "Data as hero" divergence chart — sits between the heading and the table. */
+.chartWrap {
+  max-width: 540px;
+  margin: var(--spacing-xl) auto var(--spacing-4xl);
+}
+
 .heading {
   font-family: var(--font-family-display);
   font-size: var(--font-size-section-title-mobile);
@@ -63,17 +73,20 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: var(--spacing-md) var(--spacing-lg);
-  border-bottom: 2px solid var(--color-slate-200);
+  border-bottom: var(--border-hairline);
 }
 
+/* The diBoaS column reads as an elevated "winner" panel. */
 .thHighlight {
   background-color: var(--cta-bg-primary);
   color: var(--color-white);
   border-radius: var(--radius-md) var(--radius-md) 0 0;
+  border-bottom: var(--border-hairline-teal);
+  box-shadow: 0 -6px 24px var(--teal-overlay-15);
 }
 
 .row {
-  border-bottom: 1px solid var(--color-slate-200);
+  border-bottom: var(--border-hairline);
 }
 
 .row:last-child {
@@ -171,44 +184,8 @@
   margin-top: var(--spacing-xs);
 }
 
-.diboasDollarReturn {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  /* W2: same reason as .diboasSubtext above. */
-  opacity: 0.95;
-}
-
-/* Mobile: expanded diBoaS row (PT-BR) */
-.mobileRowHighlightExpanded {
-  background-color: var(--cta-bg-primary);
-  color: var(--color-white);
-  border-color: var(--cta-bg-primary);
-  flex-wrap: wrap;
-  padding: var(--spacing-md) var(--spacing-lg);
-}
-
-.mobileRowExpandedTop {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: var(--spacing-xs);
-}
-
-.mobileRowExpandedBottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
 .mobileRowSubtext {
   font-size: var(--font-size-xs);
-  opacity: 0.85;
-}
-
-.mobileRowDollarReturn {
-  font-size: var(--font-size-sm);
   opacity: 0.85;
 }
 

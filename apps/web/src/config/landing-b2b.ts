@@ -42,7 +42,7 @@ const B2B_IMAGES = {
 // ─── Section 1: Hero ─────────────────────────────────────────
 
 export const B2B_HERO_CONFIG: HeroVariantConfig = {
-  variant: 'fullBackground',
+  variant: 'cinematic',
   content: {
     title: 'landing-b2b.hero.headline',
     description: 'landing-b2b.hero.subheadline',
@@ -50,10 +50,12 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
     ctaHref: '#two-worlds',
     ctaTarget: '_self',
   },
-  backgroundAssets: {
-    backgroundImage: B2B_IMAGES.hero,
-    backgroundImageMobile: B2B_IMAGES.hero,
-    overlayOpacity: 0.1,
+  cinematic: {
+    scene: 'fluid',
+    theme: 'dark',
+    align: 'left',
+    accentHeadline: true,
+    sectionId: 'hero-b2b',
   },
   seo: {
     titleTag: 'diBoaS for Business | Stop Overpaying on Fees and Idle Cash',

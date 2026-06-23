@@ -12,6 +12,10 @@ We will acknowledge the report within 72 hours and aim to have a fix or mitigati
 
 **Please do not file a public GitHub issue for security vulnerabilities.**
 
+The machine-readable equivalent of this policy is published at
+[`/.well-known/security.txt`](https://diboas.com/.well-known/security.txt) (RFC 9116);
+its `Contact:` (`security@diboas.com`) and `Policy:` (this file) must stay in sync with the above.
+
 ## Secrets management
 
 This repository does not contain production secrets. Required runtime secrets are listed in `apps/web/.env.example` with empty values and must be set in:
@@ -73,5 +77,5 @@ The following are intentionally committed and are not secrets:
 
 - `apps/web/.env.example` — variable-name template; all secret values are empty
 - `pnpm-lock.yaml` — contains base64 SHA-512 content hashes that look like secrets to naïve scanners
-- `docs/tech/audit-bundle/data/*.json` and `apps/web/src/lib/market-data/data/*.json` — public market reference data (FX series, asset prices, inflation series)
+- `apps/web/src/lib/market-data/data/*.json` — public market reference data (FX series, asset prices, inflation series)
 - The CI stub strings `aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa=` and `ci-stub-hmac-key-32-chars-padding-here` in `.github/workflows/*.yml` — placeholder values used only to satisfy the env validator during accessibility / e2e / lighthouse CI runs

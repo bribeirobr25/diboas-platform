@@ -1,9 +1,29 @@
 {
+  "eyebrows": {
+    "math": "LAS CUENTAS",
+    "goals": "TUS OBJETIVOS",
+    "story": "NUESTRA HISTORIA",
+    "howItWorks": "CÓMO FUNCIONA",
+    "fees": "LO QUE PAGAS",
+    "honest": "SIN TRUCO",
+    "join": "ÚNETE AL MOVIMIENTO",
+    "founder": "QUIÉN LO CREÓ",
+    "faq": "PREGUNTAS"
+  },
   "hero": {
     "headline": "El sistema financiero no está roto. Solo que no fue construido para ti.",
     "subheadline": "Mira lo que hacen 1.000 € en un año cuando tienes acceso a oportunidades justas.",
     "cta": "Muéstrame",
     "phoneMockupLabel": "Vista previa. Próximamente"
+  },
+  "wedge": {
+    "eyebrow": "La verdad sobre tus ahorros",
+    "claim": "La inflación se comió {value} de tu dinero desde 2010.",
+    "honest": "Guardar no es lo mismo que proteger. El dólar digital te da acceso a una moneda más fuerte, contigo siempre al mando. Ningún mercado está libre de riesgo.",
+    "cta": "Calcula lo que pierdes"
+  },
+  "waitlistFounding": {
+    "spotsLeft": "Solo quedan {remaining} de {cap} plazas de fundador."
   },
   "comparison": {
     "heading": "1.000 €. 1 año. Tú decides.",
@@ -362,6 +382,7 @@
     "nav": {
       "forYou": "Para Ti",
       "forBusiness": "Para Empresas",
+      "moneyTools": "Herramientas",
       "adelaideDaily": "Adelaide Daily",
       "about": "Acerca de",
       "help": "Ayuda",

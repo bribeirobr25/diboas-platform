@@ -4,13 +4,13 @@
 >
 > - `apps/web/src/lib/compound-interest/constants.ts` → `CALCULATOR_EVENTS` (6 fields: `OPENED`, `AMOUNT_CHANGED`, `CADENCE_CHANGED`, `YEARS_CHANGED`, `SCENARIO_FOCUSED`, `COMPUTATION_COMPLETED`)
 > - `apps/web/src/lib/events/applicationEventTypes.ts` → `ApplicationEventType` enum (includes `PRE_DREAM_STARTED`, `PRE_DREAM_SHARE_INITIATED`, `PRE_DREAM_SHARE_COMPLETED` — the former `DREAM_MODE_EVENTS` were superseded by PreDream; `src/lib/dream-mode/constants.ts` no longer exists)
-> - `apps/web/src/lib/waitingList/constants.ts` → `WAITING_LIST_EVENTS` (includes the `SHARE_MODAL_OPENED`/`SHARE_INITIATED`/`SHARE_COMPLETED` nested keys — there is no separate `SHARE_EVENTS` constant or `src/lib/share/constants.ts`)
+> - `apps/web/src/lib/waitingList/constants.ts` → `WAITING_LIST_EVENTS` (includes the `SHARE_MODAL_OPENED`/`SHARE_INITIATED`/`SHARE_COMPLETED` nested keys — there is no separate `SHARE_EVENTS` constant; `src/lib/share/constants.ts` still exists but now exports only `OG_DIMENSIONS` — the share-event constants were dead-code-removed 2026-04-04)
 >
-> **`ApplicationDomain` + `ApplicationEventType` additions (2026-05-26 — `TOOLS_41_DEFECTS_FIX_PLAN.md` v1.3 execution):**
+> **`ApplicationDomain` + `ApplicationEventType` additions (2026-05-26 — the tools-defects fix plan v1.3 execution):**
 >
 > - **`ApplicationDomain` adds `'tools'`** — emitted by tool-suite components for tool-specific events.
 > - **`ApplicationEventType.CALCULATOR_UNEXPECTED_ERROR` (`'tools:calculatorUnexpectedError'`)** — emitted by `AssetHistoryCalculator` `Default.tsx` when an unexpected (non-`AssetHistoryDataError`) error escapes the engine. Routed via `applicationEventBus.emit(CALCULATOR_UNEXPECTED_ERROR, { domain: 'tools', source: 'asset-history', severity: 'high', context: {…PII-free…} })` + a parallel `errorReportingService.captureException(...)` for Sentry visibility. C21 close. Pattern is reusable for other tools' future unexpected-error reporting; the asset-history wiring is the canonical example.
-> - **`ApplicationEventType.CALCULATOR_DEPRECIATION_CLAMPED` (`'tools:calculatorDepreciationClamped'`)** — emitted by `applyEffectiveRateClamp` in `lib/market-data/formulas/currencyHedge.ts` when an effective-rate computation `(1 + usdYield)(1 + d) - 1` would drop to ≤ -0.99 (catastrophic depreciation case, not reachable with current data but observable for future SDK responses). C3 close. Payload includes `originalEffectiveRate`, `clampedTo`, `usdYield`, `depreciation` for debugging. Five hedge sites emit this event under the same `source` discriminator (`calculateWithCurrencyHedge`, `calculateMonthlyWithCurrencyHedge`, `calculateCompoundProjectionHedged`, `calculateEmergencyFundTimeline`, `calculateTimeToTargetTimeline`).
+> - **`ApplicationEventType.CALCULATOR_DEPRECIATION_CLAMPED` (`'tools:calculatorDepreciationClamped'`)** — emitted by `applyEffectiveRateClamp` in `lib/market-data/formulas/currencyHedge.ts` when an effective-rate computation `(1 + usdYield)(1 + d) - 1` would drop to ≤ -0.99 (catastrophic depreciation case, not reachable with current data but observable for future SDK responses). C3 close. Payload includes `originalEffectiveRate`, `clampedTo`, `usdYield`, `depreciation` for debugging. Seven hedge sites emit this event under distinct `source` discriminators (`calculateWithCurrencyHedge`, `calculateMonthlyWithCurrencyHedge`, `calculateCompoundProjectionHedged`, `calculateEmergencyFundTimeline`, `calculateTimeToTargetTimeline`, `currencyDepreciation.forward`, and `comparisonTable.chart` — the last via `buildHedgedMonthlyValuePath` for the redesign "data as hero" chart).
 >
 > The Overview, Event Naming Conventions, How-to-Add-New-Events, Dashboard Locations, and Privacy & Consent sections remain accurate. A full rewrite of the event tables is tracked in `docs/audit/PENDING_ALL.md` Track 3 — until then, the source constants files are the authoritative event reference.
 
@@ -69,7 +69,7 @@ The diBoaS platform uses a dual-layer analytics system:
 
 ## Event Naming Conventions
 
-The codebase uses **two parallel naming conventions** for two different layers of the analytics stack. Both are intentional — they target different audiences and tooling. Documented here side-by-side per `docs/audit/PHASE_1_7_ARCHITECTURE_AUDIT.md` D2 (2026-05-26).
+The codebase uses **two parallel naming conventions** for two different layers of the analytics stack. Both are intentional — they target different audiences and tooling.
 
 ### Format A — `analyticsService.track()` event names (`snake_case`)
 
@@ -77,7 +77,7 @@ Client-side analytics names that flow into Google Analytics 4 (which has tooling
 
 **Examples:**
 
-- `dream_mode_started`
+- `pre_dream_started`
 - `waitlist_form_submitted`
 - `calculator_input_changed`
 - `share_card_generated`
@@ -85,7 +85,7 @@ Client-side analytics names that flow into Google Analytics 4 (which has tooling
 **Rules:**
 
 1. **Lowercase with underscores** — All event names use `snake_case`
-2. **Feature prefix** — Start with the feature area (`dream_`, `waitlist_`, `calculator_`, `share_`)
+2. **Feature prefix** — Start with the feature area (`pre_dream_`, `waitlist_`, `calculator_`, `share_`)
 3. **Action suffix** — End with the action performed (`_started`, `_completed`, `_clicked`, `_changed`)
 4. **Past tense for completed actions** — Use `submitted`, `completed`, `clicked` (not `submit`, `complete`, `click`)
 
@@ -136,6 +136,8 @@ The two layers are NOT mirrors of each other — a single user action may emit o
 ---
 
 ## All Tracked Events
+
+> ⛔ **STALE — do not trust the event tables in this section.** The tables below (event names, constants, and per-category details through "Event Details by Category") were authored pre-Phase-6 and reference constants that have since been renamed, moved, or deleted (e.g. `DREAM_MODE_EVENTS` → PreDream `ApplicationEventType`; no `SHARE_EVENTS` — `src/lib/share/constants.ts` now exports only `OG_DIMENSIONS`). **The source constants files are the single authoritative event reference** — see the drift notice at the top of this file for the exact file paths (`apps/web/src/lib/*/constants.ts` and `apps/web/src/lib/events/applicationEventTypes.ts`). The ARCHITECTURE description (Overview, Event Naming Conventions, How-to-Add, Privacy & Consent) above and below remains accurate; only these enumerated tables are stale. Full table rewrite tracked in `docs/audit/PENDING_ALL.md` Track 3.
 
 ### Dream Mode Events
 
@@ -200,6 +202,32 @@ The two layers are NOT mirrors of each other — a single user action may emit o
 | `navigation_interaction` | User interacts with navigation     |
 | `navigation_error`       | Navigation error occurred          |
 | `section_interaction`    | User interacts with a page section |
+
+### Redesign Funnel Events (V2)
+
+The "value-first → earned signup" thesis is measured by the **north-star: waitlist
+signups attributable to a tool/demo interaction, per market.** The funnel reuses the
+existing event sets above; only two genuinely-new impression events were added (both
+Format-A, fired via `analyticsService.track()` — they are NOT registered in
+`EVENT_VALIDATION_SCHEMA`, which is Format-B only):
+
+| Event Name          | Where it fires                                                                      | Parameters         | Description                                                                                                                                                                |
+| ------------------- | ----------------------------------------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `wedge_shown`       | `Sections/WedgeSection` (impression, `useImpressionTracking`)                       | `market`, `metric` | The per-market wedge (live market-truth figure + lead-tool CTA) entered view. `metric` is the wedge's data dimension (e.g. bank-rate / inflation / currency-depreciation). |
+| `hero_proof_viewed` | `Sections/ComparisonTable` — on the "data as hero" `DivergenceChart` (≥50% in view) | `market`           | The user actually saw the live bank-vs-diBoaS proof viz. Sharper than the section-level `comparison_visible` (0.3 threshold, whole section).                               |
+
+**Funnel stages (slice every stage by `market`/`source`):**
+
+1. `section_viewed` / `wedge_shown` / `hero_proof_viewed` — value surfaces seen.
+2. `calculator_opened` → `calculator_computation_completed` — tool engagement (the attributable interaction).
+3. `share_initiated` → `share_completed` (`source` incl. `adelaide_daily`) — proof artifact shared.
+4. `waitlist_signup_completed` (+ `referral_used`) — the north-star conversion.
+
+**Before/after baselining (not an A/B):** the V2 redesign is a straight replacement, so
+there is no concurrent control. Capture the pre-redesign north-star (signups attributable
+to a tool/demo interaction, per market) on `main` over a stable window **before** the
+merge, then compare the same metric over an equal post-merge window. Confounders (seasonality,
+paid spend, PR) must be annotated when interpreting the delta.
 
 ---
 
@@ -561,6 +589,8 @@ track(event: AnalyticsEvent): void {
 ---
 
 ## Appendix: Event Constants Source Files
+
+> ⛔ **STALE — some paths/imports below no longer exist** (`src/lib/dream-mode/constants.ts` was removed, and `src/lib/share/constants.ts` no longer exports event constants — only `OG_DIMENSIONS`; `DREAM_MODE_EVENTS`/`SHARE_EVENTS` were superseded — see the drift notice at the top of this file). The authoritative current list is the drift notice's file paths plus the `SUPPORTED_NAMESPACES`-style registry in the source tree. Do not treat this table as current; it is retained only as a pre-Phase-6 record pending the Track 3 rewrite.
 
 | Feature    | Constants File                           | Import                |
 | ---------- | ---------------------------------------- | --------------------- |

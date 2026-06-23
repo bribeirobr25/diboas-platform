@@ -34,8 +34,8 @@
 }
 
 .card:hover {
-  border-color: var(--brand-primary, #14b8a6);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border-color: var(--brand-primary);
+  box-shadow: 0 2px 12px var(--shadow-black-light);
 }
 
 .card:focus-within {
@@ -44,22 +44,38 @@
 }
 
 /* Card header — clickable toggle */
+/* APG disclosure: the toggle is now a native <button> inside the <h3>.
+   Reset the UA button chrome so it looks identical to the former div header. */
 .cardHeader {
   display: flex;
   align-items: center;
   gap: var(--spacing-md-minus);
   cursor: pointer;
-  margin-bottom: 0;
+  margin: 0;
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  color: inherit;
   outline: none;
 }
 
 .cardHeader:focus-visible {
   outline: 2px solid var(--cta-bg-primary);
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: var(--radius-md);
 }
 
-.cardExpanded .cardHeader {
+/* The <h3> wrapper carries no visual styling of its own (the child spans set
+   typography); it only preserves heading semantics. */
+.cardHeading {
+  margin: 0;
+  font: inherit;
+}
+
+.cardExpanded .cardHeading {
   margin-bottom: var(--spacing-sm);
 }
 

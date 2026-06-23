@@ -1,11 +1,15 @@
+/* Editorial regime pill (02-editorial-motion) — mono, uppercase, solid fill.
+   The fill + text colours come from the regime palette classes in
+   regime.module.css (re-pointed to the editorial palette, AA-tuned). */
 .pill {
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-full);
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: 0.01em;
+  padding: 8px 15px;
+  border-radius: 999px;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  border: 1px solid transparent;
 }

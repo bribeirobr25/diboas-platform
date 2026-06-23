@@ -87,8 +87,8 @@
   font-family: var(--font-family-primary);
   font-size: var(--font-size-sm-plus);
   color: var(--color-text-body);
-  padding: 6px 0;
-  padding-left: 24px;
+  padding: var(--spacing-xs-plus) 0;
+  padding-left: var(--spacing-lg);
   position: relative;
   line-height: 1.5;
 }
@@ -97,7 +97,7 @@
   content: '\2713';
   position: absolute;
   left: 0;
-  color: var(--text-success-accessible, #059669);
+  color: var(--text-success-accessible);
   font-weight: var(--font-weight-bold);
 }
 
@@ -112,7 +112,7 @@
 .versionBPaths {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: var(--spacing-3xl);
 }
 
 .inviteCodeSection {
@@ -121,15 +121,15 @@
 
 .inviteCodeRow {
   display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
 }
 
 .inviteCodeInput {
   flex: 1;
   font-family: var(--font-family-primary);
   font-size: var(--font-size-md);
-  padding: var(--spacing-md-minus) 16px;
+  padding: var(--spacing-md-minus) var(--spacing-md);
   border: 1px solid var(--color-slate-200);
   border-radius: var(--border-radius-md, 8px);
   outline: none;
@@ -137,15 +137,15 @@
 }
 
 .inviteCodeInput:focus {
-  border-color: var(--color-brand-primary, #0d9488);
+  border-color: var(--color-brand-primary);
 }
 
 .inviteCodeButton {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  padding: var(--spacing-md-minus) 20px;
-  background-color: var(--color-brand-primary, #0d9488);
+  padding: var(--spacing-md-minus) var(--spacing-xl);
+  background-color: var(--color-brand-primary);
   color: var(--color-white);
   border: none;
   border-radius: var(--border-radius-md, 8px);
@@ -155,7 +155,7 @@
 }
 
 .inviteCodeButton:hover {
-  background-color: var(--color-brand-primary-hover, #0f766e);
+  background-color: var(--color-brand-primary-hover);
 }
 
 .inviteCodeButton:disabled {
@@ -165,8 +165,8 @@
 
 .inviteError {
   font-size: var(--font-size-sm);
-  color: var(--color-error, #dc2626);
-  margin-top: 8px;
+  color: var(--color-error);
+  margin-top: var(--spacing-sm);
 }
 
 .prioritySection {

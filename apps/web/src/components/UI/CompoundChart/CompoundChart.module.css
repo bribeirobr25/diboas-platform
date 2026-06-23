@@ -26,7 +26,7 @@
    * background we use. ~9 of the 16 pa11y errors on /learn/compound-interest
    * trace to these axis labels. */
   fill: var(--color-slate-600);
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   font-family: var(--font-family-primary);
 }
 

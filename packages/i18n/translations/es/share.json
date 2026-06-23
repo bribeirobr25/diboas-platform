@@ -52,5 +52,27 @@
   },
   "waitlist": {
     "text": "Acabo de encontrar una forma fácil y justa de hacer crecer y mover mi dinero. Es tan bueno que tengo que compartirlo"
+  },
+  "og": {
+    "waitlist": {
+      "title": "Soy #{position} en la lista de espera de diBoaS!",
+      "description": "Únete a mí en diBoaS - Libertad Financiera Simplificada"
+    },
+    "calculator": {
+      "title": "Mi inversión podría crecer a {formattedAmount}!",
+      "description": "En {years} años con la Calculadora Dream Mode de diBoaS"
+    },
+    "toolResult": {
+      "title": "Lo que mi dinero realmente ganaría: {value}",
+      "titleByTool": {
+        "asset-history": "Cuánto valdría hoy: {value}",
+        "card-fees": "Cuánto podría ahorrar: {value}"
+      },
+      "description": "Hice los números en diBoaS. Mira lo que el tuyo podría hacer."
+    },
+    "default": {
+      "title": "diBoaS - Libertad Financiera Simplificada",
+      "description": "Tu dinero. Tu futuro. Una plataforma. Únete a la lista de espera hoy."
+    }
   }
 }

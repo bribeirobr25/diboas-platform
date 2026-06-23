@@ -12,6 +12,60 @@ export const DEFAULT_LOCALE = 'en' as const;
 
 export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
 
+/**
+ * Complete set of translation namespaces — one entry per JSON file under
+ * `translations/<locale>/` (including the `legal/*` subdirectory). This is the
+ * SINGLE source of truth for "what is a valid namespace": `isTranslationKey`
+ * (config-translator) keys off it so config values from ANY namespace resolve,
+ * not just a hardcoded subset (the I-4 foot-gun). Keep in sync with the file
+ * set — the `config-translator` drift-guard test enforces parity.
+ */
+export const SUPPORTED_NAMESPACES = [
+  'about',
+  'common',
+  'dreamMode',
+  'faq',
+  'landing-b2b',
+  'landing-b2c',
+  'landing-help',
+  'learn',
+  'learn-compound-interest',
+  'legal/cookies',
+  'legal/privacy',
+  'legal/terms',
+  'market',
+  'preDemo',
+  'preDream',
+  'protocols',
+  'security',
+  'share',
+  'strategies',
+  'tools-asset-history',
+  'tools-card-fees',
+  'tools-compound-interest',
+  'tools-currency-depreciation',
+  'tools-emergency-fund',
+  'tools-goal-savings',
+  'tools-idle-cash',
+  'tools-inflation-impact',
+  'tools-retirement',
+  'tools-shared',
+  'tools-time-to-target',
+  'waitlist',
+] as const;
+
+export type SupportedNamespace = (typeof SUPPORTED_NAMESPACES)[number];
+
+const NAMESPACE_SET: ReadonlySet<string> = new Set(SUPPORTED_NAMESPACES);
+
+/**
+ * Whether `namespace` (the segment before a translation key's first dot) is a
+ * known translation namespace.
+ */
+export function isKnownNamespace(namespace: string): boolean {
+  return NAMESPACE_SET.has(namespace);
+}
+
 // Semantic Naming: Clear locale configuration interface
 export interface LocaleConfig {
   code: SupportedLocale;

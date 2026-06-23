@@ -111,97 +111,86 @@ export function AppFeaturesCarousel({
     return getAppFeaturesCarouselVariant(variant);
   }, [variant]);
 
-  // Product KPIs & Analytics: Navigation tracking
+  // Product KPIs & Analytics: Navigation tracking.
+  // PERF-1: fire-and-forget — never block carousel interaction on the
+  // analytics round-trip. `trackEvent` already swallows its own errors; the
+  // trailing `.catch` guards against an unhandled rejection on the floating
+  // promise.
   const handleNavigate = useCallback(
-    async (direction: 'prev' | 'next') => {
+    (direction: 'prev' | 'next') => {
       if (!enableAnalytics || !resolvedConfig.analytics?.enabled) return;
 
-      try {
-        await analyticsService.trackEvent(`${resolvedConfig.analytics.trackingPrefix}_navigation`, {
+      void analyticsService
+        .trackEvent(`${resolvedConfig.analytics.trackingPrefix}_navigation`, {
           direction,
           variant: resolvedConfig.variant,
           page: window.location.pathname,
           timestamp: new Date().toISOString(),
+        })
+        .catch(() => {
+          // Analytics tracking failed silently
         });
-      } catch {
-        // Analytics tracking failed silently
-      }
     },
     [enableAnalytics, resolvedConfig]
   );
 
-  // Product KPIs & Analytics: Slide change tracking
+  // Product KPIs & Analytics: Slide change tracking (fire-and-forget)
   const handleSlideChange = useCallback(
-    async (slideIndex: number) => {
+    (slideIndex: number) => {
       if (!enableAnalytics || !resolvedConfig.analytics?.enabled) return;
 
-      try {
-        await analyticsService.trackEvent(
-          `${resolvedConfig.analytics.trackingPrefix}_slide_change`,
-          {
-            slide_index: slideIndex,
-            slide_id: resolvedConfig.cards?.[slideIndex]?.id,
-            variant: resolvedConfig.variant,
-            timestamp: new Date().toISOString(),
-          }
-        );
-      } catch {
-        // Analytics tracking failed silently
-      }
+      void analyticsService
+        .trackEvent(`${resolvedConfig.analytics.trackingPrefix}_slide_change`, {
+          slide_index: slideIndex,
+          slide_id: resolvedConfig.cards?.[slideIndex]?.id,
+          variant: resolvedConfig.variant,
+          timestamp: new Date().toISOString(),
+        })
+        .catch(() => {
+          // Analytics tracking failed silently
+        });
     },
     [enableAnalytics, resolvedConfig]
   );
 
-  // Product KPIs & Analytics: CTA interaction tracking
+  // Product KPIs & Analytics: CTA interaction tracking (fire-and-forget).
+  // PERF-1: the CTA is a native <Link>/<a> that already navigates (SPA push for
+  // internal targets, a new tab for `_blank`). Issuing `window.location.href` /
+  // `window.open` here would double-navigate — a hard reload over the <Link>'s
+  // SPA navigation, or a second tab over `<a target="_blank">`. So we only record
+  // analytics and let the element own navigation.
   const handleCTAClick = useCallback(
-    async (slideId: string, ctaHref: string) => {
+    (slideId: string, ctaHref: string) => {
       if (!enableAnalytics || !resolvedConfig.analytics?.enabled) return;
 
-      try {
-        await analyticsService.trackEvent(`${resolvedConfig.analytics.trackingPrefix}_cta_click`, {
+      void analyticsService
+        .trackEvent(`${resolvedConfig.analytics.trackingPrefix}_cta_click`, {
           slide_id: slideId,
           cta_href: ctaHref,
           variant: resolvedConfig.variant,
           page: window.location.pathname,
           timestamp: new Date().toISOString(),
+        })
+        .catch(() => {
+          // Analytics tracking failed silently
         });
-
-        // Navigate based on target
-        const card = resolvedConfig.cards?.find((c) => c.id === slideId);
-        if (card?.content.ctaTarget === '_blank') {
-          window.open(ctaHref, '_blank', 'noopener,noreferrer');
-        } else {
-          window.location.href = ctaHref;
-        }
-      } catch {
-        // Analytics tracking failed silently — still navigate
-        const card = resolvedConfig.cards?.find((c) => c.id === slideId);
-        if (card?.content.ctaTarget === '_blank') {
-          window.open(ctaHref, '_blank', 'noopener,noreferrer');
-        } else {
-          window.location.href = ctaHref;
-        }
-      }
     },
     [enableAnalytics, resolvedConfig]
   );
 
-  // Product KPIs & Analytics: Play/pause tracking
+  // Product KPIs & Analytics: Play/pause tracking (fire-and-forget)
   const handlePlayPause = useCallback(
-    async (isPlaying: boolean) => {
+    (isPlaying: boolean) => {
       if (!enableAnalytics || !resolvedConfig.analytics?.enabled) return;
 
-      try {
-        await analyticsService.trackEvent(
-          `${resolvedConfig.analytics.trackingPrefix}_${isPlaying ? 'play' : 'pause'}`,
-          {
-            variant: resolvedConfig.variant,
-            timestamp: new Date().toISOString(),
-          }
-        );
-      } catch {
-        // Analytics tracking failed silently
-      }
+      void analyticsService
+        .trackEvent(`${resolvedConfig.analytics.trackingPrefix}_${isPlaying ? 'play' : 'pause'}`, {
+          variant: resolvedConfig.variant,
+          timestamp: new Date().toISOString(),
+        })
+        .catch(() => {
+          // Analytics tracking failed silently
+        });
     },
     [enableAnalytics, resolvedConfig]
   );

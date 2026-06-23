@@ -10,6 +10,8 @@
 
 // Core sections
 export { HeroSection } from './HeroSection';
+export { CinematicHeroFactory } from './CinematicHero';
+export type { CinematicHeroProps, CinematicHeroCta, SceneKind, HeroTheme } from './CinematicHero';
 export { AppFeaturesCarousel } from './AppFeaturesCarousel';
 export { FAQAccordion } from './FAQAccordion/FAQAccordionFactory';
 export { SectionContainer } from './SectionContainer';
@@ -25,6 +27,9 @@ export { GoalExampleCards } from './GoalExampleCards';
 export { SidePocketStrip } from './SidePocketStrip';
 export { FoundingMembersSection } from './FoundingMembersSection';
 export { HowItWorksGrid } from './HowItWorksGrid';
+
+// Per-market wedge (Phase 4 redesign)
+export { WedgeSection } from './WedgeSection';
 
 // B2B Landing Page Sections
 export { ScenarioCards } from './ScenarioCards';

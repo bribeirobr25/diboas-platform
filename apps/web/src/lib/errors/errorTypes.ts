@@ -50,6 +50,8 @@ export interface ErrorContext {
   userAgent?: string;
   url?: string;
   timestamp: number;
+  // E-2: request id correlating client-door reports with the server door (onRequestError)
+  correlationId?: string;
   customData?: Record<string, unknown>;
   breadcrumbs?: ErrorBreadcrumb[];
 }

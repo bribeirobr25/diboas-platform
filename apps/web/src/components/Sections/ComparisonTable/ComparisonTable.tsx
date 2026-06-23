@@ -4,14 +4,20 @@ import { memo, useEffect, useRef, useMemo } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { CountUp } from '@/components/UI/CountUp';
+import { DivergenceChart, type DivergenceSeries } from '@/components/UI/DivergenceChart';
 import { analyticsService } from '@/lib/analytics';
+import { useImpressionTracking } from '@/hooks/useImpressionTracking';
 import { useMarketData } from '@/hooks/useMarketData';
 import {
   calculateLumpSum,
   calculateWithCurrencyHedge,
+  buildMonthlyValuePath,
+  buildHedgedMonthlyValuePath,
   formatRate,
   formatApproxRate,
   formatGain,
+  formatCurrency,
   type SupportedLocale,
 } from '@/lib/market-data';
 import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
@@ -66,17 +72,38 @@ function useComparisonData(locale: SupportedLocale) {
       diboasReturn = calculateLumpSum(principal, diboasApy / 100, 0, 1).nominalGain;
     }
 
-    const returns = {
-      bank: formatGain(bankReturn, locale),
-      neobanks: formatGain(neobankReturn, locale),
-      treasuries: formatGain(treasuryReturn, locale),
-      diboas: formatGain(diboasReturn, locale),
+    // Raw return amounts — the cells animate to these via <CountUp> and format
+    // each frame with formatGain(), so no pre-formatted `returns` map is needed.
+    const returnsRaw = {
+      bank: bankReturn,
+      neobanks: neobankReturn,
+      treasuries: treasuryReturn,
+      diboas: diboasReturn,
     };
 
-    // diBoaS subtext — show "em dolares" for PT-BR, empty for others
+    // Monthly value PATHS of `principal` over 12 months, for the DivergenceChart
+    // hero (redesign Phase 2 \u2014 "data as hero"). Two clearest lines: bank vs
+    // diBoaS. The diBoaS path routes through the SAME clamped effective-rate
+    // hedge as the table figure (lib/market-data), so the chart and the cells
+    // can never diverge (Principle 1 / DRY \u2014 no inline math here).
+    const chartPaths = {
+      bank: buildMonthlyValuePath(principal, bankRates.savings / 100, 12),
+      diboas:
+        depreciation > 0
+          ? buildHedgedMonthlyValuePath(
+              principal,
+              diboasApy / 100,
+              depreciation,
+              12,
+              'comparisonTable.chart'
+            )
+          : buildMonthlyValuePath(principal, diboasApy / 100, 12),
+    };
+
+    // diBoaS subtext \u2014 show "em d\u00F3lares" for PT-BR, empty for others
     const diboasSubtext = locale === 'pt-BR' ? 'em d\u00F3lares' : '';
 
-    return { rates, returns, diboasSubtext };
+    return { rates, returnsRaw, diboasSubtext, chartPaths };
   }, [marketData, locale]);
 }
 
@@ -95,8 +122,25 @@ export const ComparisonTable = memo(function ComparisonTable({
   const tSection = (key: string) =>
     intl.formatMessage({ id: `landing-b2c.sections.comparison.${key}` });
 
-  const { rates, returns, diboasSubtext } = useComparisonData(locale);
+  const { rates, returnsRaw, diboasSubtext, chartPaths } = useComparisonData(locale);
+
+  // Two clearest lines for the "data as hero" divergence chart (bank vs diBoaS).
+  const chartSeries: DivergenceSeries[] = [
+    { id: 'bank', label: t('columns.bank'), values: chartPaths.bank, variant: 'muted' },
+    { id: 'diboas', label: t('columns.diboas'), values: chartPaths.diboas, variant: 'primary' },
+  ];
   const hasExtraDiboasInfo = diboasSubtext.length > 0;
+
+  // Redesign funnel (§4): `hero_proof_viewed` — fires when the "data as hero"
+  // divergence proof itself (not just the section) is ≥50% in view. Distinct
+  // from the section-level `comparison_visible` impression below: this is the
+  // sharper "the user actually saw the live proof viz" funnel signal.
+  const proofRef = useImpressionTracking<HTMLDivElement>({
+    eventName: 'hero_proof_viewed',
+    parameters: { market: locale },
+    threshold: 0.5,
+    enabled: enableAnalytics,
+  });
 
   // Analytics: fire once when section enters viewport
   useEffect(() => {
@@ -130,7 +174,20 @@ export const ComparisonTable = memo(function ComparisonTable({
       className={className}
     >
       <div ref={sectionRef} className={styles.container}>
-        <h2 className={styles.heading}>{t('heading')}</h2>
+        <p className={`u-eyebrow ${styles.eyebrow}`}>
+          {intl.formatMessage({ id: 'landing-b2c.eyebrows.math' })}
+        </p>
+        <h2 className={`u-section-heading ${styles.heading}`}>{t('heading')}</h2>
+
+        {/* "Data as hero" — the $1,000 divergence drawn from the same live rates
+            as the table below (redesign Phase 2). */}
+        <div ref={proofRef} className={styles.chartWrap}>
+          <DivergenceChart
+            series={chartSeries}
+            formatValue={(n) => formatCurrency(n, locale)}
+            ariaLabel={`${t('columns.bank')}: ${formatCurrency(chartPaths.bank[12] ?? 0, locale)}. diBoaS: ${formatCurrency(chartPaths.diboas[12] ?? 0, locale)}.`}
+          />
+        </div>
 
         {/* Desktop: HTML table */}
         <div className={styles.tableWrapper} role="region" aria-label={tSection('ariaLabel')}>
@@ -173,7 +230,7 @@ export const ComparisonTable = memo(function ComparisonTable({
                     key={col}
                     className={`${styles.td} ${styles.mono} ${col === 'diboas' ? styles.tdHighlight : ''}`}
                   >
-                    {returns[col]}
+                    <CountUp end={returnsRaw[col]} formatter={(n) => formatGain(n, locale)} />
                   </td>
                 ))}
               </tr>
@@ -195,7 +252,9 @@ export const ComparisonTable = memo(function ComparisonTable({
                   <span className={styles.mobileRowSubtext}>{diboasSubtext}</span>
                 ) : null}
               </span>
-              <span className={`${styles.mobileRowReturn} ${styles.mono}`}>{returns[col]}</span>
+              <span className={`${styles.mobileRowReturn} ${styles.mono}`}>
+                <CountUp end={returnsRaw[col]} formatter={(n) => formatGain(n, locale)} />
+              </span>
             </div>
           ))}
         </div>

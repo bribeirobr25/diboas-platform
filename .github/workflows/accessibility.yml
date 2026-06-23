@@ -55,6 +55,8 @@ jobs:
           INTERNAL_API_KEY: 'ci-stub-key'
           RESEND_API_KEY: 're_ci_stub'
           HMAC_KEY: 'ci-stub-hmac-key-32-chars-padding-here'
+          # C-2: now a required prod var (valid-format stub so the startup gate passes).
+          NEXT_PUBLIC_SENTRY_DSN: 'https://ci-stub@o0.ingest.sentry.io/0'
         run: |
           pnpm --filter web start &
           # Wait for the server to be ready (max 60s).

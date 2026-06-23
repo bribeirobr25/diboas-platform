@@ -39,12 +39,7 @@ export default async function CompoundInterestLessonPage({ params }: LocalePageP
   // any other tools-shared keys resolve. Without this the literal translation key
   // leaks through to the rendered output for non-USD locales.
   const [pageMessages, snapshot] = await Promise.all([
-    loadPageNamespaces(locale, [
-      'learn',
-      'learn-compound-interest',
-      'landing-b2c',
-      'tools-shared',
-    ]),
+    loadPageNamespaces(locale, ['learn', 'learn-compound-interest', 'landing-b2c', 'tools-shared']),
     marketDataService.get(),
   ]);
 

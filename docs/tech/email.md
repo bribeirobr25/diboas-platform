@@ -3,7 +3,7 @@
 > **Status:** Resolved / operational.
 > **Last updated:** 2026-05-27.
 > **Scope:** DNS-level mail configuration for the `diboas.com` domain — inbound mailbox delivery, outbound sender authentication, and the relationship between the corporate mailbox and the Adelaide newsletter sending infrastructure.
-> **Security note:** This document deliberately contains **no secrets** — no DKIM key material, no full verification tokens, no account credentials, no API keys. It describes architecture, platforms, and record *types* only. Exact record values live in the DNS provider's dashboard, not here.
+> **Security note:** This document deliberately contains **no secrets** — no DKIM key material, no full verification tokens, no account credentials, no API keys. It describes architecture, platforms, and record _types_ only. Exact record values live in the DNS provider's dashboard, not here.
 
 ---
 
@@ -19,14 +19,14 @@ The corporate mailbox `hello@diboas.com` was not receiving email from external s
 
 ## 2. Platforms & tools involved
 
-| Platform / tool | Role in the email setup |
-|---|---|
+| Platform / tool                     | Role in the email setup                                                                                                                                                                                                                                   |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Microsoft 365 (Exchange Online)** | Hosts the corporate mailbox `hello@diboas.com` and its aliases. Mail is accessed via the Outlook web client. The mailbox license was **resold through GoDaddy**, so Microsoft 365 admin flows are partially mediated by GoDaddy's productivity dashboard. |
-| **GoDaddy** | Reseller of the Microsoft 365 mailbox license. Provides the mailbox/alias management UI and a guided DNS setup wizard. **Does not host the domain's DNS** — its setup wizard emits a generic template that had to be adapted (see §6). |
-| **Cloudflare** | Authoritative **DNS provider** for `diboas.com`. All DNS records (mail, web, newsletter) are managed here. This is where the fix was applied. |
-| **Vercel** | Hosts the `diboas.com` website. Referenced by CNAME records — unrelated to mail, left untouched. |
-| **Amazon SES** | Outbound email infrastructure for the **Adelaide newsletter**, operating on the `adelaide.diboas.com` subdomain. Separate from the corporate mailbox; left untouched. |
-| **MxToolbox** | Third-party diagnostic tool used to verify MX/SPF/DMARC propagation and overall domain mail health. |
+| **GoDaddy**                         | Reseller of the Microsoft 365 mailbox license. Provides the mailbox/alias management UI and a guided DNS setup wizard. **Does not host the domain's DNS** — its setup wizard emits a generic template that had to be adapted (see §6).                    |
+| **Cloudflare**                      | Authoritative **DNS provider** for `diboas.com`. All DNS records (mail, web, newsletter) are managed here. This is where the fix was applied.                                                                                                             |
+| **Vercel**                          | Hosts the `diboas.com` website. Referenced by CNAME records — unrelated to mail, left untouched.                                                                                                                                                          |
+| **Amazon SES**                      | Outbound email infrastructure for the **Adelaide newsletter**, operating on the `adelaide.diboas.com` subdomain. Separate from the corporate mailbox; left untouched.                                                                                     |
+| **MxToolbox**                       | Third-party diagnostic tool used to verify MX/SPF/DMARC propagation and overall domain mail health.                                                                                                                                                       |
 
 ---
 
@@ -50,31 +50,31 @@ The corporate mailbox `hello@diboas.com` was not receiving email from external s
 
 ## 4. DNS records — types and purpose
 
-The following record *types* are configured in Cloudflare for `diboas.com`. **Values are intentionally omitted** — they are visible in the Cloudflare dashboard. All mail-related records must be set to **"DNS only"** (not proxied) in Cloudflare; proxying breaks mail routing and autodiscovery.
+The following record _types_ are configured in Cloudflare for `diboas.com`. **Values are intentionally omitted** — they are visible in the Cloudflare dashboard. All mail-related records must be set to **"DNS only"** (not proxied) in Cloudflare; proxying breaks mail routing and autodiscovery.
 
 ### Corporate mailbox (Microsoft 365) — root domain
 
-| Record type | Host | Purpose |
-|---|---|---|
-| MX | `diboas.com` (root) | Routes inbound mail to Microsoft 365. Priority 0. **This was the missing record that caused the outage.** |
-| CNAME | `autodiscover` | Lets mail clients (phone, desktop Outlook) auto-configure account settings. |
-| TXT | `diboas.com` (root) | Microsoft 365 domain-ownership verification token. |
-| TXT (SPF) | `diboas.com` (root) | Sender authentication — see §5. |
+| Record type | Host                | Purpose                                                                                                   |
+| ----------- | ------------------- | --------------------------------------------------------------------------------------------------------- |
+| MX          | `diboas.com` (root) | Routes inbound mail to Microsoft 365. Priority 0. **This was the missing record that caused the outage.** |
+| CNAME       | `autodiscover`      | Lets mail clients (phone, desktop Outlook) auto-configure account settings.                               |
+| TXT         | `diboas.com` (root) | Microsoft 365 domain-ownership verification token.                                                        |
+| TXT (SPF)   | `diboas.com` (root) | Sender authentication — see §5.                                                                           |
 
 ### Website (Vercel) — unrelated to mail
 
-| Record type | Host | Purpose |
-|---|---|---|
-| CNAME | `diboas.com`, `www` | Points the website to Vercel hosting. |
+| Record type | Host                | Purpose                               |
+| ----------- | ------------------- | ------------------------------------- |
+| CNAME       | `diboas.com`, `www` | Points the website to Vercel hosting. |
 
 ### Adelaide newsletter (Amazon SES) — `adelaide` subdomain
 
-| Record type | Host | Purpose |
-|---|---|---|
-| MX | `send.adelaide.diboas.com` | Bounce/feedback routing for SES. |
-| TXT (SPF) | `send.adelaide.diboas.com` | Authorizes SES as a sender for the subdomain. |
-| TXT (DKIM) | `*._domainkey.adelaide.diboas.com` | Cryptographic signing for newsletter mail. |
-| TXT (DMARC) | `_dmarc.adelaide.diboas.com` | DMARC policy for the newsletter subdomain. |
+| Record type | Host                               | Purpose                                       |
+| ----------- | ---------------------------------- | --------------------------------------------- |
+| MX          | `send.adelaide.diboas.com`         | Bounce/feedback routing for SES.              |
+| TXT (SPF)   | `send.adelaide.diboas.com`         | Authorizes SES as a sender for the subdomain. |
+| TXT (DKIM)  | `*._domainkey.adelaide.diboas.com` | Cryptographic signing for newsletter mail.    |
+| TXT (DMARC) | `_dmarc.adelaide.diboas.com`       | DMARC policy for the newsletter subdomain.    |
 
 ---
 
@@ -91,7 +91,7 @@ A domain may have **only one SPF record**. Because both Microsoft 365 and Amazon
 A **DMARC record was added for the root domain** (`_dmarc.diboas.com`) in **monitoring mode** (`p=none`). Monitoring mode instructs receiving mail servers to take no punitive action but to send aggregate reports.
 
 - Aggregate DMARC reports are delivered to a dedicated address (`dmarc@diboas.com`), configured as an alias into the `hello@` inbox.
-- **Monitoring mode is intentional and correct for now.** It must remain at `p=none` until reports confirm that mail from *both* Microsoft 365 and Amazon SES passes SPF/DKIM alignment.
+- **Monitoring mode is intentional and correct for now.** It must remain at `p=none` until reports confirm that mail from _both_ Microsoft 365 and Amazon SES passes SPF/DKIM alignment.
 - Diagnostic tools will flag "DMARC policy not enforced" — this is an **expected, accepted state**, not a defect. Do not tighten the policy in response to a tool warning alone.
 
 ### DKIM
@@ -121,12 +121,12 @@ A **DMARC record was added for the root domain** (`_dmarc.diboas.com`) in **moni
 
 These appear in diagnostic scans but are **not defects** and require no action:
 
-| Flag | Why it is expected |
-|---|---|
+| Flag                                                                          | Why it is expected                                                                                                           |
+| ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | "DMARC quarantine/reject policy not enabled" (shown against dmarc / spf / mx) | The DMARC policy is intentionally at `p=none` (monitoring). This is the same finding reported multiple times. See §5 and §9. |
-| "BIMI / brand logo not appearing" | BIMI is cosmetic and depends on an enforced DMARC policy. Out of scope until DMARC is tightened. |
-| `http://diboas.com` returns 308 redirect | Normal, correct behavior — an HTTP→HTTPS permanent redirect, served by Vercel. |
-| "SOA serial number format invalid" / "SOA expire value out of range" | Cloudflare manages the SOA record automatically using its own format. Cannot be changed and has no effect on mail or web. |
+| "BIMI / brand logo not appearing"                                             | BIMI is cosmetic and depends on an enforced DMARC policy. Out of scope until DMARC is tightened.                             |
+| `http://diboas.com` returns 308 redirect                                      | Normal, correct behavior — an HTTP→HTTPS permanent redirect, served by Vercel.                                               |
+| "SOA serial number format invalid" / "SOA expire value out of range"          | Cloudflare manages the SOA record automatically using its own format. Cannot be changed and has no effect on mail or web.    |
 
 ---
 

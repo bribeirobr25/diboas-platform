@@ -1,0 +1,103 @@
+/**
+ * WedgeSection — the per-market truth band. Calm editorial paper surface with a
+ * thin tone accent (BR warm / DE neutral / others action). Tokens only. The CTA
+ * is the brand action teal for every tone (consistent + AA); the tone differs in
+ * the eyebrow accent + top rule so text contrast is never compromised.
+ */
+
+.wedge {
+  background: var(--surface-paper);
+  border-top: 3px solid var(--accent-action);
+  padding: var(--spacing-3xl) var(--spacing-lg);
+}
+
+.inner {
+  max-width: 60ch;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--accent-action-text);
+}
+
+.claim {
+  margin: 0;
+  max-width: 18ch;
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text-on-paper);
+  text-wrap: balance;
+}
+
+.honest {
+  margin: 0;
+  max-width: 52ch;
+  font-size: var(--font-size-md);
+  line-height: 1.55;
+  color: var(--text-on-paper-muted);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+  padding: var(--spacing-sm-plus) var(--spacing-lg);
+  border-radius: var(--radius-pill);
+  background: var(--accent-action-strong);
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition: transform var(--transition-fast);
+}
+
+.cta:hover {
+  transform: translateY(-1px);
+}
+
+.cta:focus-visible {
+  outline: 2px solid var(--accent-action-text);
+  outline-offset: 2px;
+}
+
+/* Tone accents — eyebrow color + top rule. CTA stays teal for AA + consistency. */
+.warm {
+  border-top-color: var(--accent-warm);
+}
+
+.warm .eyebrow {
+  color: var(--accent-warm-text);
+}
+
+.neutral {
+  border-top-color: var(--surface-ink);
+}
+
+.neutral .eyebrow {
+  color: var(--text-on-paper-muted);
+}
+
+@media (min-width: 768px) {
+  .claim {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta {
+    transition: none;
+  }
+  .cta:hover {
+    transform: none;
+  }
+}
