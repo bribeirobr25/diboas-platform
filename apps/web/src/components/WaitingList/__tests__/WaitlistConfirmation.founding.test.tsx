@@ -37,7 +37,12 @@ const base = {
 describe('WaitlistConfirmation founding beat', () => {
   it('renders the ring + scarcity line when founding spots remain', () => {
     render(
-      <WaitlistConfirmation {...base} tier="founding_member" foundingCap={1200} foundingSpotsRemaining={800} />
+      <WaitlistConfirmation
+        {...base}
+        tier="founding_member"
+        foundingCap={1200}
+        foundingSpotsRemaining={800}
+      />
     );
     const ring = screen.getByTestId('founding-ring');
     // 800 of 1200 remaining → (1200-800)/1200 = 0.333… filled
@@ -47,7 +52,12 @@ describe('WaitlistConfirmation founding beat', () => {
 
   it('hides the founding beat when spots are full (remaining = 0)', () => {
     render(
-      <WaitlistConfirmation {...base} tier="early_member" foundingCap={1200} foundingSpotsRemaining={0} />
+      <WaitlistConfirmation
+        {...base}
+        tier="early_member"
+        foundingCap={1200}
+        foundingSpotsRemaining={0}
+      />
     );
     expect(screen.queryByTestId('founding-ring')).toBeNull();
   });

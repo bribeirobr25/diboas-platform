@@ -16,10 +16,7 @@ vi.mock('@/lib/monitoring/Logger', () => ({
   Logger: { info: vi.fn(), error: vi.fn(), warn: vi.fn(), debug: vi.fn() },
 }));
 
-import {
-  purgeExpiredAuditLogs,
-  AUDIT_LOG_RETENTION_DAYS,
-} from '../AuditService';
+import { purgeExpiredAuditLogs, AUDIT_LOG_RETENTION_DAYS } from '../AuditService';
 
 describe('purgeExpiredAuditLogs', () => {
   beforeEach(() => {

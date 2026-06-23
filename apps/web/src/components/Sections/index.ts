@@ -11,12 +11,7 @@
 // Core sections
 export { HeroSection } from './HeroSection';
 export { CinematicHeroFactory } from './CinematicHero';
-export type {
-  CinematicHeroProps,
-  CinematicHeroCta,
-  SceneKind,
-  HeroTheme,
-} from './CinematicHero';
+export type { CinematicHeroProps, CinematicHeroCta, SceneKind, HeroTheme } from './CinematicHero';
 export { AppFeaturesCarousel } from './AppFeaturesCarousel';
 export { FAQAccordion } from './FAQAccordion/FAQAccordionFactory';
 export { SectionContainer } from './SectionContainer';

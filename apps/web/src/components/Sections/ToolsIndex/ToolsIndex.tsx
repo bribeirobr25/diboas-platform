@@ -94,7 +94,9 @@ export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexPro
             </LocaleLink>
             <LocaleLink
               href="/tools?for=business"
-              className={audienceFilter === 'business' ? styles.filterChipActive : styles.filterChip}
+              className={
+                audienceFilter === 'business' ? styles.filterChipActive : styles.filterChip
+              }
               prefetch={false}
               aria-current={audienceFilter === 'business' ? 'page' : undefined}
             >
@@ -108,38 +110,38 @@ export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexPro
             `section_viewed` — uniform with every other section impression. */}
         <div className={styles.sections} data-section-id="tool_cards">
           {visibleSections.map((section) => {
-          const sectionTools = shippedTools.filter(
-            (key) => TOOL_DESCRIPTORS[key].section === section
-          );
-          if (sectionTools.length === 0) return null;
-          return (
-            <section key={section} className={styles.section} data-section={section}>
-              <h2 className={styles.sectionTitle}>{copy.sections[section].title}</h2>
-              <p className={styles.sectionQuestion}>{copy.sections[section].question}</p>
-              <div className={styles.cardGrid}>
-                {sectionTools.map((toolKey) => {
-                  const card = copy.cards[toolKey];
-                  if (!card) return null;
-                  const descriptor = TOOL_DESCRIPTORS[toolKey];
-                  const Icon = ICON_MAP[descriptor.icon];
-                  return (
-                    <LocaleLink
-                      key={toolKey}
-                      href={`/tools/${descriptor.slug}`}
-                      className={styles.card}
-                      prefetch={false}
-                    >
-                      <span className={styles.cardIcon}>
-                        <Icon size={28} strokeWidth={2} />
-                      </span>
-                      <span className={styles.cardTitle}>{card.title}</span>
-                      <span className={styles.cardTagline}>{card.tagline}</span>
-                    </LocaleLink>
-                  );
-                })}
-              </div>
-            </section>
-          );
+            const sectionTools = shippedTools.filter(
+              (key) => TOOL_DESCRIPTORS[key].section === section
+            );
+            if (sectionTools.length === 0) return null;
+            return (
+              <section key={section} className={styles.section} data-section={section}>
+                <h2 className={styles.sectionTitle}>{copy.sections[section].title}</h2>
+                <p className={styles.sectionQuestion}>{copy.sections[section].question}</p>
+                <div className={styles.cardGrid}>
+                  {sectionTools.map((toolKey) => {
+                    const card = copy.cards[toolKey];
+                    if (!card) return null;
+                    const descriptor = TOOL_DESCRIPTORS[toolKey];
+                    const Icon = ICON_MAP[descriptor.icon];
+                    return (
+                      <LocaleLink
+                        key={toolKey}
+                        href={`/tools/${descriptor.slug}`}
+                        className={styles.card}
+                        prefetch={false}
+                      >
+                        <span className={styles.cardIcon}>
+                          <Icon size={28} strokeWidth={2} />
+                        </span>
+                        <span className={styles.cardTitle}>{card.title}</span>
+                        <span className={styles.cardTagline}>{card.tagline}</span>
+                      </LocaleLink>
+                    );
+                  })}
+                </div>
+              </section>
+            );
           })}
         </div>
       </div>

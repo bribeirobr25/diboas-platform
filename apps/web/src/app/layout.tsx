@@ -202,10 +202,7 @@ export default async function RootLayout({
           </>
         )}
       </head>
-      <body
-        className={UI_LAYOUT_CONSTANTS.BODY_BASE_CLASS}
-        suppressHydrationWarning
-      >
+      <body className={UI_LAYOUT_CONSTANTS.BODY_BASE_CLASS} suppressHydrationWarning>
         <PostHogProvider>
           <MonitoringInit />
           <WebVitalsTracker

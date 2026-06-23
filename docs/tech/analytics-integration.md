@@ -211,10 +211,10 @@ existing event sets above; only two genuinely-new impression events were added (
 Format-A, fired via `analyticsService.track()` — they are NOT registered in
 `EVENT_VALIDATION_SCHEMA`, which is Format-B only):
 
-| Event Name          | Where it fires                                                                 | Parameters | Description                                                                                                  |
-| ------------------- | ------------------------------------------------------------------------------ | ---------- | ---------------------------------------------------------------------------------------------------------- |
-| `wedge_shown`       | `Sections/WedgeSection` (impression, `useImpressionTracking`)                  | `market`, `metric` | The per-market wedge (live market-truth figure + lead-tool CTA) entered view. `metric` is the wedge's data dimension (e.g. bank-rate / inflation / currency-depreciation). |
-| `hero_proof_viewed` | `Sections/ComparisonTable` — on the "data as hero" `DivergenceChart` (≥50% in view) | `market`   | The user actually saw the live bank-vs-diBoaS proof viz. Sharper than the section-level `comparison_visible` (0.3 threshold, whole section). |
+| Event Name          | Where it fires                                                                      | Parameters         | Description                                                                                                                                                                |
+| ------------------- | ----------------------------------------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `wedge_shown`       | `Sections/WedgeSection` (impression, `useImpressionTracking`)                       | `market`, `metric` | The per-market wedge (live market-truth figure + lead-tool CTA) entered view. `metric` is the wedge's data dimension (e.g. bank-rate / inflation / currency-depreciation). |
+| `hero_proof_viewed` | `Sections/ComparisonTable` — on the "data as hero" `DivergenceChart` (≥50% in view) | `market`           | The user actually saw the live bank-vs-diBoaS proof viz. Sharper than the section-level `comparison_visible` (0.3 threshold, whole section).                               |
 
 **Funnel stages (slice every stage by `market`/`source`):**
 

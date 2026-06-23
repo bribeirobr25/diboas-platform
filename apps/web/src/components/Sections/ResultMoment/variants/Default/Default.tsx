@@ -82,7 +82,11 @@ export function ResultMomentDefault({
             <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
           </LocaleLink>
           {share ? (
-            <button type="button" onClick={() => void share.onShare()} className={styles.shareButton}>
+            <button
+              type="button"
+              onClick={() => void share.onShare()}
+              className={styles.shareButton}
+            >
               {share.copied ? (
                 <Check size={18} strokeWidth={2} aria-hidden="true" />
               ) : (

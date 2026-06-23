@@ -221,10 +221,7 @@ export default async function MarketPage({ params }: LocalePageProps) {
                     <div className={styles.gaugeWrap}>
                       <RegimeScore
                         data={regime}
-                        ariaLabel={t(
-                          'dashboard.scoreAriaLabel',
-                          'Current macro environment score'
-                        )}
+                        ariaLabel={t('dashboard.scoreAriaLabel', 'Current macro environment score')}
                       />
                       <div className={styles.pills}>
                         <RegimeLabel data={regime} labels={regimeLabels} />

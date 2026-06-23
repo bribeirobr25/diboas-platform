@@ -18,7 +18,8 @@
     'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', sans-serif;
   /* Display face — Space Grotesk (cinematic redesign), Geist + Inter as graceful fallbacks. */
-  --font-family-display: var(--font-space-grotesk), var(--font-geist), 'Inter', system-ui, sans-serif;
+  --font-family-display:
+    var(--font-space-grotesk), var(--font-geist), 'Inter', system-ui, sans-serif;
   /* Semantic alias consumed by the global h1–h3 rule + section/hero headings. */
   --font-family-heading: var(--font-family-display);
   --font-family-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -298,7 +299,12 @@
   --hero-fg-light: var(--color-text-heading); /* heading on light hero */
   --hero-fg-light-muted: var(--color-text-body);
   --hero-eyebrow: var(--text-brand-accessible); /* mono eyebrow accent */
-  --hero-fallback-dark: linear-gradient(135deg, var(--teal-deep-900) 0%, var(--accent-ink) 55%, var(--teal-deep-800) 100%);
+  --hero-fallback-dark: linear-gradient(
+    135deg,
+    var(--teal-deep-900) 0%,
+    var(--accent-ink) 55%,
+    var(--teal-deep-800) 100%
+  );
   --hero-fallback-light: linear-gradient(135deg, #f7f5f0 0%, #e9f2ef 60%, #f2ece1 100%);
 
   /* ================================

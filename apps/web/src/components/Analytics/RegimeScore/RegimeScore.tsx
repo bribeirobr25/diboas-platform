@@ -66,7 +66,12 @@ export function RegimeScore({ data, ariaLabel, className }: RegimeScoreProps) {
   const dashOffset = ARC_LEN * (1 - shown);
 
   return (
-    <div ref={wrapRef} className={`${styles.wrapper} ${className ?? ''}`} role="img" aria-label={ariaLabel}>
+    <div
+      ref={wrapRef}
+      className={`${styles.wrapper} ${className ?? ''}`}
+      role="img"
+      aria-label={ariaLabel}
+    >
       <svg className={styles.gauge} viewBox="0 0 400 230" aria-hidden="true" focusable="false">
         <defs>
           <linearGradient id="market-gauge-track" x1="0" y1="0" x2="1" y2="0">
@@ -98,7 +103,15 @@ export function RegimeScore({ data, ariaLabel, className }: RegimeScoreProps) {
           {max_score}
         </text>
         <g transform={`rotate(${needleDeg} 200 200)`}>
-          <line className={styles.needle} x1="200" y1="200" x2="200" y2="64" strokeWidth="3" strokeLinecap="round" />
+          <line
+            className={styles.needle}
+            x1="200"
+            y1="200"
+            x2="200"
+            y2="64"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
           <circle className={styles.hub} cx="200" cy="200" r="9" />
         </g>
       </svg>

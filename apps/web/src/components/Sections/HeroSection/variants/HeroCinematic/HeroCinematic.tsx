@@ -39,7 +39,7 @@ export function HeroCinematic({ config, className, priority }: HeroVariantProps)
         })
         .catch(() => {});
     },
-    [config.analytics?.enabled, prefix, scene],
+    [config.analytics?.enabled, prefix, scene]
   );
 
   const primaryCta = config.content.ctaText

@@ -41,7 +41,7 @@ describe('CinematicHeroFactory', () => {
         headline="Your money shouldn't sit still."
         subheadline="Put your idle money to work."
         sectionId="test-hero"
-      />,
+      />
     );
     const h1 = screen.getByRole('heading', { level: 1 });
     expect(h1.textContent).toContain("Your money shouldn't sit still.");
@@ -52,7 +52,7 @@ describe('CinematicHeroFactory', () => {
 
   it('should label the section landmark by the headline id (a11y/SEO)', () => {
     const { container } = render(
-      <CinematicHeroFactory scene="fluid" theme="dark" headline="Hi" sectionId="s1" />,
+      <CinematicHeroFactory scene="fluid" theme="dark" headline="Hi" sectionId="s1" />
     );
     const section = container.querySelector('section');
     expect(section?.getAttribute('aria-labelledby')).toBe('s1-title');
@@ -68,7 +68,7 @@ describe('CinematicHeroFactory', () => {
         theme="dark"
         headline="Hi"
         primaryCta={{ label: 'Try the live demo', href: '/en/demo', onClick }}
-      />,
+      />
     );
     const link = screen.getByRole('link', { name: /try the live demo/i });
     expect(link.getAttribute('href')).toBe('/en/demo');
@@ -85,7 +85,7 @@ describe('CinematicHeroFactory', () => {
   it('should fall back (no <canvas>) when WebGL fails, keeping content intact', () => {
     mockState.failed = true;
     const { container } = render(
-      <CinematicHeroFactory scene="fluid" theme="dark" headline="Still here" />,
+      <CinematicHeroFactory scene="fluid" theme="dark" headline="Still here" />
     );
     expect(container.querySelector('canvas')).toBeNull();
     expect(screen.getByRole('heading', { level: 1 }).textContent).toContain('Still here');

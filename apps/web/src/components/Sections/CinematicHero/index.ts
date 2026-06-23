@@ -4,9 +4,4 @@
  */
 
 export { CinematicHeroFactory, default } from './CinematicHeroFactory';
-export type {
-  CinematicHeroProps,
-  CinematicHeroCta,
-  SceneKind,
-  HeroTheme,
-} from './types';
+export type { CinematicHeroProps, CinematicHeroCta, SceneKind, HeroTheme } from './types';

@@ -37,10 +37,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   // Inert until configured — never run an unauthenticated purge.
   if (!cronSecret) {
-    return NextResponse.json(
-      { error: 'not_configured' },
-      { status: 503, headers: NO_STORE }
-    );
+    return NextResponse.json({ error: 'not_configured' }, { status: 503, headers: NO_STORE });
   }
 
   const authHeader = request.headers.get('authorization') ?? '';

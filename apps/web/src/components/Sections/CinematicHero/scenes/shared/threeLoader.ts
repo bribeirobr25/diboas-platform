@@ -76,7 +76,7 @@ export function createSceneController(
   sceneKind: SceneKind,
   colors: SceneColors,
   size: { width: number; height: number; dpr: number },
-  light = false,
+  light = false
 ): SceneController {
   const renderer = makeRenderer(canvas, size.dpr);
   renderer.setSize(size.width, size.height, false);
@@ -123,7 +123,11 @@ export function createSceneController(
         renderer.dispose();
       },
       reveal(c, reduced) {
-        gsap.fromTo(c, { autoAlpha: 0 }, { autoAlpha: 1, duration: reduced ? 0 : 1.2, ease: 'power2.out' });
+        gsap.fromTo(
+          c,
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: reduced ? 0 : 1.2, ease: 'power2.out' }
+        );
       },
     };
   }
@@ -169,7 +173,11 @@ export function createSceneController(
         renderer.dispose();
       },
       reveal(c, reduced) {
-        gsap.fromTo(c, { autoAlpha: 0 }, { autoAlpha: 1, duration: reduced ? 0 : 1.4, ease: 'power2.out' });
+        gsap.fromTo(
+          c,
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: reduced ? 0 : 1.4, ease: 'power2.out' }
+        );
       },
     };
   }
@@ -228,7 +236,11 @@ export function createSceneController(
       renderer.dispose();
     },
     reveal(c, reduced) {
-      gsap.fromTo(c, { autoAlpha: 0 }, { autoAlpha: 1, duration: reduced ? 0 : 1.4, ease: 'power2.out' });
+      gsap.fromTo(
+        c,
+        { autoAlpha: 0 },
+        { autoAlpha: 1, duration: reduced ? 0 : 1.4, ease: 'power2.out' }
+      );
     },
   };
 }

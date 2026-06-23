@@ -175,19 +175,19 @@ The Next.js middleware (`apps/web/middleware.ts`) runs on every non-static reque
 
 Documented in `apps/web/.env.example` (~120 variables across these categories):
 
-| Category      | Examples                                                                 |
-| ------------- | ------------------------------------------------------------------------ |
-| Application   | `NEXT_PUBLIC_APP_URL`, `NODE_ENV`                                        |
-| Database      | `DATABASE_URL`                                                           |
-| Email         | `RESEND_API_KEY`, `EMAIL_FROM_ADDRESS`                                   |
-| Cal.com       | `NEXT_PUBLIC_CAL_LINK`, `NEXT_PUBLIC_CAL_EMBED_SCRIPT`                   |
-| Waitlist      | `FOUNDING_MEMBER_CAP`, `INTERNAL_API_KEY`                                |
+| Category      | Examples                                                                  |
+| ------------- | ------------------------------------------------------------------------- |
+| Application   | `NEXT_PUBLIC_APP_URL`, `NODE_ENV`                                         |
+| Database      | `DATABASE_URL`                                                            |
+| Email         | `RESEND_API_KEY`, `EMAIL_FROM_ADDRESS`                                    |
+| Cal.com       | `NEXT_PUBLIC_CAL_LINK`, `NEXT_PUBLIC_CAL_EMBED_SCRIPT`                    |
+| Waitlist      | `FOUNDING_MEMBER_CAP`, `INTERNAL_API_KEY`                                 |
 | Cron          | `CRON_SECRET` (Bearer-auths the Vercel cron `/api/cron/purge-audit-logs`) |
-| Analytics     | `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_POSTHOG_KEY` |
-| Security      | `CSP_NONCE_SECRET`, `ENCRYPTION_KEY`, `HMAC_KEY`                         |
-| Rate limiting | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`                     |
-| Feature flags | `NEXT_PUBLIC_ENABLE_BOOKING`, `NEXT_PUBLIC_ENABLE_REFERRALS`             |
-| Brand / SEO   | `NEXT_PUBLIC_BRAND_NAME`, `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`         |
+| Analytics     | `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_POSTHOG_KEY`  |
+| Security      | `CSP_NONCE_SECRET`, `ENCRYPTION_KEY`, `HMAC_KEY`                          |
+| Rate limiting | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`                      |
+| Feature flags | `NEXT_PUBLIC_ENABLE_BOOKING`, `NEXT_PUBLIC_ENABLE_REFERRALS`              |
+| Brand / SEO   | `NEXT_PUBLIC_BRAND_NAME`, `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`          |
 
 Secret rotation policy: 90-day cycle for `ENCRYPTION_KEY`, `HMAC_KEY`, `RESEND_API_KEY`, `INTERNAL_API_KEY`, `UPSTASH_REDIS_REST_TOKEN`, `CRON_SECRET`.
 

@@ -106,13 +106,10 @@ export async function GET(request: NextRequest) {
         const currency = (searchParams.get('currency') ?? 'USD').toUpperCase();
         // Range-guard years (1..100) so a hostile/garbage param can't render
         // "over -5 years" on a shareable card; drop it otherwise.
-        const yearsRaw = searchParams.get('years')
-          ? parseIntSafe(searchParams.get('years'), 0)
-          : 0;
+        const yearsRaw = searchParams.get('years') ? parseIntSafe(searchParams.get('years'), 0) : 0;
         const years = yearsRaw > 0 && yearsRaw <= 100 ? yearsRaw : undefined;
         const toneParam = searchParams.get('tone');
-        const tone =
-          toneParam === 'negative' || toneParam === 'neutral' ? toneParam : 'positive';
+        const tone = toneParam === 'negative' || toneParam === 'neutral' ? toneParam : 'positive';
 
         // Allowlist the tool key + range-validate the figure; anything off the
         // happy path falls back to the safe default card (SSRF / abuse guard).

@@ -33,8 +33,7 @@ function renderHeadline(headline: string, accent: boolean, accentClass: string) 
   const tail = words.slice(words.length - tailCount).join(' ');
   return (
     <>
-      {head}{' '}
-      <em className={accentClass}>{tail}</em>
+      {head} <em className={accentClass}>{tail}</em>
     </>
   );
 }

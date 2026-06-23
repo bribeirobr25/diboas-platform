@@ -617,13 +617,7 @@ describe('buildHedgedMonthlyValuePath', () => {
     const principal = 1000;
     const usdYield = 0.07;
     const depreciation = 0.05; // BRL-like positive depreciation
-    const path = buildHedgedMonthlyValuePath(
-      principal,
-      usdYield,
-      depreciation,
-      12,
-      'test'
-    );
+    const path = buildHedgedMonthlyValuePath(principal, usdYield, depreciation, 12, 'test');
     // The chart's diBoaS endpoint must equal the table's nominal future value
     // (principal + nominalGain) — proving both share one clamped formula.
     const table = calculateWithCurrencyHedge(principal, usdYield, depreciation, 0, 1);

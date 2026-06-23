@@ -105,9 +105,8 @@ export function useWebGLScene({ scene, theme, enabled = true }: UseWebGLSceneArg
 
       let started = false;
       const now = () =>
-        (typeof performance !== 'undefined' && performance.now
-          ? performance.now()
-          : Date.now()) - start;
+        (typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now()) -
+        start;
       const renderOne = () => controller?.frame(now() / 1000, mouse);
       const loop = () => {
         if (disposed || !running) return;
@@ -137,7 +136,7 @@ export function useWebGLScene({ scene, theme, enabled = true }: UseWebGLSceneArg
             scene,
             colorsFor(container, scene, theme),
             s,
-            theme !== 'dark',
+            theme !== 'dark'
           );
         } catch {
           if (!disposed) setFailed(true);
@@ -153,7 +152,7 @@ export function useWebGLScene({ scene, theme, enabled = true }: UseWebGLSceneArg
               if (entries[0]?.isIntersecting && !document.hidden) startLoop();
               else stopLoop();
             },
-            { threshold: 0.01 },
+            { threshold: 0.01 }
           );
           io.observe(container);
           onVis = () => (document.hidden ? stopLoop() : startLoop());

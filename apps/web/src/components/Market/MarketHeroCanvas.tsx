@@ -16,7 +16,10 @@ import { useWebGLScene } from '@/components/Sections/CinematicHero/scenes/useWeb
 import styles from './MarketEditorial.module.css';
 
 export function MarketHeroCanvas() {
-  const { canvasRef, containerRef, failed } = useWebGLScene({ scene: 'particles', theme: 'lighter' });
+  const { canvasRef, containerRef, failed } = useWebGLScene({
+    scene: 'particles',
+    theme: 'lighter',
+  });
 
   return (
     <div ref={containerRef} className={styles.heroCanvas} aria-hidden="true">

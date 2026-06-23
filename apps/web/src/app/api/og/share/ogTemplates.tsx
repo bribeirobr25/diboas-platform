@@ -367,7 +367,11 @@ export function ToolResultTemplate({
   // Honesty on the viral surface: a loss is rendered in error red, a
   // low-confidence/neutral result in white — never the celebratory green.
   const heroColor =
-    tone === 'negative' ? OG_COLORS.error : tone === 'neutral' ? OG_COLORS.white : OG_COLORS.success;
+    tone === 'negative'
+      ? OG_COLORS.error
+      : tone === 'neutral'
+        ? OG_COLORS.white
+        : OG_COLORS.success;
 
   return (
     <OGBackground>

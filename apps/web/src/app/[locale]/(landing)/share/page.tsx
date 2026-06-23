@@ -202,7 +202,8 @@ export async function generateMetadata({
     const rawValue = parseInt(search.value || '0', 10);
     // Mirror the OG image route's range guard so the link-preview title can't be
     // abused with an unbounded/garbage value (the image route re-validates too).
-    const value = Number.isFinite(rawValue) && rawValue > 0 && rawValue <= 1_000_000_000 ? rawValue : 0;
+    const value =
+      Number.isFinite(rawValue) && rawValue > 0 && rawValue <= 1_000_000_000 ? rawValue : 0;
     const currency = (search.currency || 'USD').toUpperCase();
     const years = search.years;
     const tone = search.tone === 'negative' || search.tone === 'neutral' ? search.tone : undefined;

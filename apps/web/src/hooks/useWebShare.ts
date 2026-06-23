@@ -86,8 +86,7 @@ export function useWebShare({
   useEffect(() => () => clearTimeout(copyTimerRef.current), []);
 
   const share = useCallback(async () => {
-    const usedNative =
-      typeof navigator !== 'undefined' && typeof navigator.share === 'function';
+    const usedNative = typeof navigator !== 'undefined' && typeof navigator.share === 'function';
     const platform: WebShareMethod = usedNative ? 'native' : 'copy';
     onInitiatedRef.current?.(platform);
 
