@@ -35,7 +35,7 @@ const REFERENCE_LOCALE = 'en';
 const LOCALE_SPECIFIC_KEYS = {
   'pt-BR': {
     'landing-b2b.json': ['calculator.fields.currencyLoss', 'footer.bcbDisclaimer'],
-    'landing-b2c.json': ['demo.pain.pixHeader', 'footer.brDisclaimer'],
+    'landing-b2c.json': ['demo.pain.pixHeader', 'footer.brDisclaimer', 'ptbr'],
     'legal/cookies.json': ['sections.brazilNote'],
     'legal/privacy.json': ['sections.brazilNote'],
     'legal/terms.json': ['sections.brazilNote'],
@@ -47,10 +47,26 @@ const LOCALE_SPECIFIC_KEYS = {
   // no IFR disclosure. Crosswalk §3.5/§5.2 (REGULATORY_CROSSWALK.md).
   es: {
     'tools-card-fees.json': ['disclaimers.euIfrCap'],
+    'landing-b2c.json': ['draper'],
   },
   de: {
     'tools-card-fees.json': ['disclaimers.euIfrCap'],
+    'landing-b2c.json': ['draper'],
   },
+};
+
+/**
+ * Reference-locale (en) keys that intentionally exist ONLY in the reference
+ * locale and must NOT be required in target locales — the symmetric counterpart
+ * to LOCALE_SPECIFIC_KEYS (which suppresses target-only orphans). Used for the
+ * en-only Draper landing copy (LandingEn): target locales carry their own
+ * different copy (pt-BR uses `ptbr`; es/de use their own `draper` values), so
+ * en's `draper.*` keys must not be flagged as "missing" in pt-BR/es/de.
+ *
+ * Format: { file: [keyPrefix, ...] }  (applies to every target locale)
+ */
+const REFERENCE_ONLY_KEYS = {
+  'landing-b2c.json': ['draper'],
 };
 
 /**
@@ -272,8 +288,16 @@ function main() {
       const refKeys = extractKeys(refContent);
       const localeKeys = extractKeys(localeContent);
 
+      const refOnlyExclusions = REFERENCE_ONLY_KEYS[file] || [];
       const missing = refKeys.filter(function (k) {
-        return localeKeys.indexOf(k) === -1;
+        if (localeKeys.indexOf(k) !== -1) return false;
+        // Suppress reference-only keys (exist in en by design; not mirrored to targets).
+        for (var j = 0; j < refOnlyExclusions.length; j++) {
+          if (k === refOnlyExclusions[j] || k.indexOf(refOnlyExclusions[j] + '.') === 0) {
+            return false;
+          }
+        }
+        return true;
       });
       const localeExclusions =
         (LOCALE_SPECIFIC_KEYS[locale] && LOCALE_SPECIFIC_KEYS[locale][file]) || [];

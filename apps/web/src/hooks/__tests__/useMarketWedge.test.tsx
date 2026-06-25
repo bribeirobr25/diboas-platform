@@ -35,10 +35,13 @@ describe('useMarketWedge', () => {
     expect(result.current.figure).toMatch(/^2,3\s?%$/);
   });
 
-  it('es → inflation cumulative (decimal-shape) → whole percent', () => {
+  it('es → bank savings (percent-shape) formatted in es-ES, into the inflation tool', () => {
+    // ES wedge reframed (Draper redesign): the 2% bank gap, not cumulative
+    // inflation — drives the inflation-impact tool. savings 2.0 → "2 %".
     const { result } = renderHook(() => useMarketWedge('es'));
-    expect(result.current.expression.metric).toBe('inflationCumulative');
-    expect(result.current.figure).toMatch(/^41\s?%$/);
+    expect(result.current.expression.metric).toBe('bankSavings');
+    expect(result.current.expression.ctaHref).toBe('/tools/inflation-impact');
+    expect(result.current.figure).toMatch(/^2\s?%$/);
   });
 
   it('pt-BR → BRL dollar-loss via the REAL currency-depreciation retrospective', () => {

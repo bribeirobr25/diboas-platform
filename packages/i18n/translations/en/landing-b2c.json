@@ -406,6 +406,67 @@
     "title": "diBoaS | Open Access. Fair Opportunities.",
     "description": "The money system wasn't built for you. diBoaS changes that. Send money free, invest and grow with goal-driven strategies, track with AI guidance, and buy digital assets.",
     "ogTitle": "The money system isn't broken. It just wasn't built for you.",
-    "ogDescription": "See what your money can do when the access is open and fair to everyone."
+    "ogDescription": "See what your money can do when the access is open and fair to everyone.",
+    "jsonLd": {
+      "serviceDescription": "Goal-driven wealth building powered by the digital dollar. Your money, your wallet, your control.",
+      "appDescription": "Goal-driven wealth building starting at $5. Your money, your wallet, your control.",
+      "breadcrumbHome": "Home"
+    }
+  },
+  "draper": {
+    "hero": {
+      "headline": "It's your money. The upside should be too.",
+      "subtitle": "Your bank holds your money and keeps most of what it earns. diBoaS never holds your money. The upside is yours.",
+      "whatIs": "diBoaS is a simple way to grow your money in digital dollars. You stay in control.",
+      "microcopy": "Start with $5. No monthly fee. Pull out anytime.",
+      "cta": "Show me"
+    },
+    "neverHold": {
+      "header": "We never hold your money",
+      "body": "Your money lives as digital dollars in a wallet that's yours. Not ours. We can't freeze it. We can't lend it out. If diBoaS disappears, your money doesn't. We just open the door to grow it.",
+      "imageAlt": "Your wallet, your money, your control"
+    },
+    "upside": {
+      "header": "The upside goes to you",
+      "body": "Your money does the same work it does at the bank. The only difference is who keeps the profit. At the bank, them. Here, you. No branch, no executive taking the cut first.",
+      "imageAlt": "The work your money does"
+    },
+    "pictureFuture": {
+      "header": "Picture a few years out",
+      "body": "Picture a few years out. Retirement that's a choice, not a worry. An emergency that stays an inconvenience, not a crisis. The 10% you set aside, actually growing. Same effort. A fairer place to put it.",
+      "cta": "See your numbers",
+      "imageAlt": "A calm life in the golden morning light"
+    },
+    "howItWorks": {
+      "header": "How it works",
+      "step1": "Add money, your way.",
+      "step2": "It grows as digital dollars, working while you sleep.",
+      "step3": "Pull it out whenever you want. No lockups."
+    },
+    "catch": {
+      "header": "What's the catch?",
+      "body": "Fair question. Here's the honest answer. You can lose money. Real money. We say so plainly. But we never hold your funds, so we can't freeze them or lose them. We're not a bank. You stay in control, always.",
+      "imageAlt": "Calm and control"
+    },
+    "demo": {
+      "header": "See it yourself",
+      "body": "Don't take our word for it. See it. Step into diBoaS with play money. No signup, no commitment.",
+      "cta": "Open the demo"
+    },
+    "cost": {
+      "header": "What it costs",
+      "body": "No monthly fee. No catch. Add $100 and you see every cent of cost before you confirm. Our fee, plus any network cost. Nothing hidden. Nothing on the side."
+    },
+    "founder": {
+      "header": "Built by Bar",
+      "body": "diBoaS started with my grandmother, Adelaide. She saved half of everything she earned. Her bank paid her almost nothing, and no one explained why. I spent 20 years building products for other companies. This is the one I wish she'd had.",
+      "imageAlt": "A family scene in warm morning light"
+    },
+    "finalCta": {
+      "header": "Join",
+      "body": "The upside of your money shouldn't wait. Start with $5.",
+      "cta": "Join the waitlist",
+      "reassurance": "No monthly fee. You stay in control. Pull out anytime."
+    }
   }
 }

@@ -76,6 +76,10 @@ export const DemoLauncher = memo(function DemoLauncher({
     eventName: 'demo_launcher_impression',
   });
 
+  // Honor the configured heading level (defaults to h2) so the section sits
+  // correctly in the document outline instead of a hardcoded h3 (heading skip).
+  const HeadingTag = translated.seo.headingLevel ?? 'h2';
+
   return (
     <>
       <div ref={impressionRef}>
@@ -89,7 +93,7 @@ export const DemoLauncher = memo(function DemoLauncher({
             {translated.content.transitionHook ? (
               <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
             ) : null}
-            <h3 className={styles.title}>{translated.content.header}</h3>
+            <HeadingTag className={styles.title}>{translated.content.header}</HeadingTag>
             <p className={styles.description}>{translated.content.subtext}</p>
 
             <div className={styles.ctaGroup}>

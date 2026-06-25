@@ -12,6 +12,7 @@
 'use client';
 
 import { memo, useEffect, useRef } from 'react';
+import { useTranslation } from '@diboas/i18n/client';
 import { useWaitlistStats } from '@/hooks/useWaitlistStats';
 import { useImpressionTracking } from '@/hooks/useImpressionTracking';
 import { analyticsService } from '@/lib/analytics';
@@ -31,6 +32,11 @@ interface WaitlistSectionConfig {
   hideNoSpam?: boolean;
   namespace?: string;
   confirmationNamespace?: string;
+  /** Localized i18n key for the section's accessible label. Falls back to the
+   *  English literal when unset (e.g. non-landing hosts that don't pass one). */
+  ariaLabel?: string;
+  /** Heading level for the headline. Defaults to 'h3'; landing pages pass 'h2'. */
+  headingLevel?: 'h2' | 'h3';
   /** Waitlist source for audience-specific counters and signup tagging */
   source?: 'landing_b2c' | 'landing_b2b' | 'about' | 'security' | 'help';
 }
@@ -45,6 +51,10 @@ export const WaitlistSection = memo(function WaitlistSection({
   enableAnalytics = true,
 }: WaitlistSectionProps) {
   const source = config?.source;
+  const intl = useTranslation();
+  const ariaLabel = config?.ariaLabel
+    ? intl.formatMessage({ id: config.ariaLabel, defaultMessage: 'Waitlist signup' })
+    : 'Waitlist signup';
   const { stats, isLoading } = useWaitlistStats(source ? { source } : undefined);
 
   const showVersionB =
@@ -87,7 +97,7 @@ export const WaitlistSection = memo(function WaitlistSection({
         variant="standard"
         padding="standard"
         backgroundColor={config?.backgroundColor || 'var(--color-surface-elevated)'}
-        ariaLabel="Waitlist signup"
+        ariaLabel={ariaLabel}
         data-testid={config?.sectionId || 'waitlist-section'}
       >
         {showVersionB ? (

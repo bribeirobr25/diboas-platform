@@ -33,7 +33,7 @@
     },
     "pixFaq": {
       "question": "Can I use PIX with diBoaS?",
-      "answer": "No. diBoaS works with digital dollars, not reais. Your money is protected against BRL depreciation. For domestic transfers in reais, PIX is already excellent, and we don't try to compete with it. diBoaS is for the money you want to save in dollars and send abroad."
+      "answer": "Yes, to move money in and out. In Brazil you deposit and withdraw via PIX; elsewhere you use methods like bank transfer, card, or PayPal. What diBoaS does not do is replace PIX (or any local payment system) for everyday transfers. Here, your money is held in digital dollars, and PIX is simply one of the ways in and out."
     },
     "whySaveDollar": {
       "question": "Why save in dollars instead of a savings account?",

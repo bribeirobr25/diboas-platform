@@ -406,6 +406,67 @@
     "title": "diBoaS | Offener Zugang. Faire Chancen.",
     "description": "Das Geldsystem wurde nicht für dich gebaut. diBoaS ändert das. Sende Geld kostenlos, investiere mit zielbasierten Strategien, lerne mit KI und kaufe digitale Assets.",
     "ogTitle": "Das Geldsystem ist nicht kaputt. Es wurde nur nicht für dich gebaut.",
-    "ogDescription": "Sieh, was dein Geld tun kann, wenn der Zugang endlich offen und fair ist."
+    "ogDescription": "Sieh, was dein Geld tun kann, wenn der Zugang endlich offen und fair ist.",
+    "jsonLd": {
+      "serviceDescription": "Zielgerichteter Vermögensaufbau mit dem digitalen Dollar. Dein Geld, deine Wallet, deine Kontrolle.",
+      "appDescription": "Zielgerichteter Vermögensaufbau ab 5 €. Dein Geld, deine Wallet, deine Kontrolle.",
+      "breadcrumbHome": "Startseite"
+    }
+  },
+  "draper": {
+    "hero": {
+      "headline": "Es ist dein Geld. Der Gewinn auch.",
+      "subtitle": "Deine Bank hält dein Geld und behält den Großteil des Gewinns. diBoaS hält dein Geld nie. Der Gewinn gehört dir.",
+      "whatIs": "diBoaS ist ein einfacher Weg, dein Geld in digitalen Dollar wachsen zu lassen. Du behältst die Kontrolle.",
+      "microcopy": "Start mit 5 €. Keine Monatsgebühr. Jederzeit abheben.",
+      "cta": "Zeig mir"
+    },
+    "neverHold": {
+      "header": "Wir halten dein Geld nie",
+      "body": "Dein Geld lebt als digitale Dollar in einer Wallet, die dir gehört. Nicht uns. Wir können es nicht einfrieren. Wir können es nicht verleihen. Verschwindet diBoaS, dein Geld bleibt. Wir öffnen nur die Tür.",
+      "imageAlt": "Deine Wallet, dein Geld, deine Kontrolle"
+    },
+    "upside": {
+      "header": "Der Gewinn gehört dir",
+      "body": "Dein Geld macht dieselbe Arbeit wie bei der Bank. Der einzige Unterschied ist, wer den Gewinn behält. Bei der Bank, sie. Hier, du. Keine Filiale, kein Vorstand, der zuerst kassiert.",
+      "imageAlt": "Die Arbeit, die dein Geld leistet"
+    },
+    "pictureFuture": {
+      "header": "Stell dir ein paar Jahre vor",
+      "body": "Eine Rente, die eine Wahl ist, keine Sorge. Ein Notfall, der ein Ärgernis bleibt, keine Krise. Die 10%, die du zur Seite legst, die wirklich wachsen. Gleicher Einsatz. Ein fairerer Ort dafür.",
+      "cta": "Zeig mir meine Zahlen",
+      "imageAlt": "Ein ruhiges Leben im goldenen Morgenlicht"
+    },
+    "howItWorks": {
+      "header": "So funktioniert es",
+      "step1": "Geld einzahlen, wie du willst.",
+      "step2": "Es wächst als digitale Dollar, während du schläfst.",
+      "step3": "Hol es ab, wann du willst. Keine Sperrfrist."
+    },
+    "catch": {
+      "header": "Wo ist der Haken?",
+      "body": "Faire Frage. Hier die ehrliche Antwort. Du kannst Geld verlieren. Echtes Geld. Wir sagen es offen. Aber wir halten dein Geld nie, also können wir es nicht einfrieren oder verlieren. Wir sind keine Bank. Du behältst die Kontrolle. Immer.",
+      "imageAlt": "Ruhe und Kontrolle"
+    },
+    "demo": {
+      "header": "Glaub uns nicht einfach",
+      "body": "Glaub uns nicht einfach. Sieh es. Geh in diBoaS mit Spielgeld. Keine Anmeldung, keine Verpflichtung.",
+      "cta": "Demo öffnen"
+    },
+    "cost": {
+      "header": "Was es kostet",
+      "body": "Keine Monatsgebühr. Kein Haken. Zahl 100 € ein und du siehst jeden Cent Kosten, bevor du bestätigst. Unsere Gebühr, plus Netzwerkkosten. Nichts versteckt."
+    },
+    "founder": {
+      "header": "Gebaut von Bar",
+      "body": "diBoaS begann mit meiner Großmutter, Adelaide. Sie sparte ihr halbes Leben. Ihre Bank zahlte ihr fast nichts, und niemand erklärte warum. Ich habe 20 Jahre Produkte für andere gebaut. Das hier ist das, das ich mir für sie gewünscht hätte.",
+      "imageAlt": "Eine Familienszene im warmen Morgenlicht"
+    },
+    "finalCta": {
+      "header": "Mach mit",
+      "body": "Der Gewinn deines Geldes sollte nicht warten. Start mit 5 €.",
+      "cta": "Auf die Warteliste",
+      "reassurance": "Keine Monatsgebühr. Du behältst die Kontrolle. Jederzeit abheben."
+    }
   }
 }
