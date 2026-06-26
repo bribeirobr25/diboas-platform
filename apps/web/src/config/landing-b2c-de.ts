@@ -15,14 +15,14 @@ const DE_IMAGES = {
   hero: '/assets/images/veil-of-dawn.avif',
   neverHold: '/assets/images/private-control.avif',
   upside: '/assets/images/power-of-us.avif',
-  pictureFuture: '/assets/images/saved-through-time.avif',
+  pictureFuture: '/assets/images/sunlit-future.avif',
   catch: '/assets/images/moment-of-ease.avif',
-  founder: '/assets/images/moments-we-share.avif',
+  founder: '/assets/images/saved-through-time.avif',
 } as const;
 
 /** §1 Hero — real-photo full-bleed, dawn light, single <h1>. */
 export const B2C_DE_HERO_CONFIG: HeroVariantConfig = {
-  variant: 'fullBackground',
+  variant: 'cinematic',
   content: {
     title: 'landing-b2c.draper.hero.headline',
     description: 'landing-b2c.draper.hero.subtitle',
@@ -30,13 +30,15 @@ export const B2C_DE_HERO_CONFIG: HeroVariantConfig = {
     ctaHref: '#so-funktioniert',
     ctaTarget: '_self',
   },
-  backgroundAssets: {
-    backgroundImage: DE_IMAGES.hero,
-    backgroundImageMobile: DE_IMAGES.hero,
-    overlayOpacity: 0.45,
+  // Live cinematic hero (CEO request): WebGL dawn-water scene + duotone poster.
+  cinematic: {
+    scene: 'dawn-water',
+    theme: 'dark',
+    align: 'left',
+    sectionId: 'hero-b2c',
+    posterImage: '/assets/images/still-tide.avif',
+    posterDuotone: false,
   },
-  // Background is decorative (rendered alt="" aria-hidden); the <title> comes from
-  // the page generateMetadata. No per-hero titleTag needed for fullBackground.
   seo: { imageAlt: { background: '' } },
   analytics: { trackingPrefix: 'hero_b2c_de', enabled: true },
 } as const;
@@ -72,9 +74,17 @@ export const B2C_DE_PICTUREFUTURE_CONFIG: ProseSectionConfig = {
     paragraphs: ['landing-b2c.draper.pictureFuture.body'],
   },
   image: { src: DE_IMAGES.pictureFuture, alt: 'landing-b2c.draper.pictureFuture.imageAlt', position: 'right' },
-  style: { backgroundColor: 'var(--section-bg-warm)', verticalPadding: 'generous', headerStyle: 'centered' },
+  // Match the whatIs/neverHold inline-title layout (CEO request): a centered
+  // header floats the title too far from the body when an image is present.
+  style: { backgroundColor: 'var(--section-bg-warm)', verticalPadding: 'standard' },
   seo: { ariaLabel: 'landing-b2c.draper.pictureFuture.header' },
   analytics: { sectionId: 'picture-future-section-de', category: 'landing-b2c' },
+  // Rotating CTA (per visit): DE best-converter candidates + demo.
+  cta: [
+    { id: 'inflation-impact', text: 'landing-b2c.toolCtas.inflationImpact', href: '/tools/inflation-impact' },
+    { id: 'compound-interest', text: 'landing-b2c.toolCtas.compoundInterest', href: '/tools/compound-interest' },
+    { id: 'demo', text: 'landing-b2c.toolCtas.demo', href: '/demo' },
+  ],
 } as const;
 
 /** §6 So funktioniert es (3 Schritte + Ausstiegstür) — clear day. */
@@ -96,7 +106,12 @@ export const B2C_DE_HOWITWORKS_CONFIG: ProseSectionConfig = {
 export const B2C_DE_CATCH_CONFIG: ProseSectionConfig = {
   content: {
     header: 'landing-b2c.draper.catch.header',
-    paragraphs: ['landing-b2c.draper.catch.body'],
+    // All-in fee receipt (CC8): index 1 is replaced at render by the live-value
+    // fee citation (`buildAllFeeValues` → sellRate/exampleFee/maxFee). DRY: reuses
+    // the proven `catch.feeParagraph` key (shared across locales).
+    paragraphs: ['landing-b2c.draper.catch.body', 'landing-b2c.catch.feeParagraph'],
+    feeParagraph: 'landing-b2c.catch.feeParagraph',
+    feeParagraphAt: { de: 1 },
   },
   image: { src: DE_IMAGES.catch, alt: 'landing-b2c.draper.catch.imageAlt', position: 'left' },
   style: { backgroundColor: 'var(--section-bg-dark)', verticalPadding: 'standard' },

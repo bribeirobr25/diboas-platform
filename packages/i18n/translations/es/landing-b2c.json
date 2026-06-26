@@ -37,7 +37,8 @@
       "apy": "Tasa anual",
       "return": "Rendimiento a 1 año"
     },
-    "footnote": "Tasas comparativas basadas en datos públicos de la UE como promedio de los últimos 5 años. Los rendimientos pueden cambiar y variar según el producto. Los rendimientos en dólares digitales implican riesgo, incluida la posible pérdida del capital."
+    "footnote": "Tasas comparativas basadas en datos públicos de la UE como promedio de los últimos 5 años. Los rendimientos pueden cambiar y variar según el producto. Los rendimientos en dólares digitales implican riesgo, incluida la posible pérdida del capital.",
+    "disclosureToggle": "Mira los números"
   },
   "goalExamples": {
     "heading": "Construye riqueza usando tus Metas.",
@@ -435,7 +436,7 @@
       "header": "Imagina unos años",
       "body": "Imagina unos años por delante. Una jubilación que es una elección, no una preocupación. Una emergencia que sigue siendo un imprevisto, no una crisis. El 10% que apartas, creciendo de verdad. Mismo esfuerzo. Un lugar más justo para ponerlo.",
       "cta": "Ver mis números",
-      "imageAlt": "Una vida tranquila en la luz dorada de la mañana"
+      "imageAlt": "Una persona al atardecer mirando al horizonte"
     },
     "howItWorks": {
       "header": "Cómo funciona",
@@ -460,7 +461,7 @@
     "founder": {
       "header": "Construido por Bar",
       "body": "diBoaS empezó con mi abuela, Adelaide. Ahorró la mitad de todo lo que ganó. Su banco le pagó casi nada, y nadie le explicó por qué. Pasé 20 años creando productos para otras empresas. Este es el que habría querido para ella.",
-      "imageAlt": "Una escena familiar en la luz cálida de la mañana"
+      "imageAlt": "Un cuaderno abierto y unas gafas de lectura junto a una vieja foto de familia"
     },
     "finalCta": {
       "header": "Únete",
@@ -468,5 +469,12 @@
       "cta": "Unirme a la lista",
       "reassurance": "Sin cuota mensual. Tú mantienes el control. Retira cuando quieras."
     }
+  },
+  "toolCtas": {
+    "compoundInterest": "Mira cómo crece tu dinero con el tiempo",
+    "idleCash": "Mira lo que cuesta el dinero parado",
+    "inflationImpact": "Mira lo que se lleva la inflación de verdad",
+    "currencyDepreciation": "Mira la brecha del dólar con el tiempo",
+    "demo": "Pruébalo con dinero de juguete"
   }
 }

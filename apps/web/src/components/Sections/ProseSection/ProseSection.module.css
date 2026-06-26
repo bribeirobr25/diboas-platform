@@ -234,8 +234,44 @@
    ACCESSIBILITY
    ================================ */
 
+/* ================================
+   ROTATING CTA (tool / demo promos)
+   ================================ */
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-sm-plus) var(--spacing-lg);
+  border-radius: var(--radius-pill);
+  background: var(--accent-action-strong);
+  color: var(--color-white);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition: transform var(--transition-fast);
+}
+
+.cta:hover {
+  transform: translateY(-1px);
+}
+
+.cta:focus-visible {
+  outline: 2px solid var(--accent-action-text);
+  outline-offset: 2px;
+}
+
+.ctaIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .prose {
+  .prose,
+  .cta {
     transition: none;
   }
 }

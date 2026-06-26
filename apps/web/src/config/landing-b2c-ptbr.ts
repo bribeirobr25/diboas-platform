@@ -15,14 +15,14 @@ import type { ProseSectionConfig } from './proseSection';
 const PTBR_IMAGES = {
   hero: '/assets/images/veil-of-dawn.avif',
   whatIs: '/assets/images/future-in-hand.avif',
-  imagine: '/assets/images/saved-through-time.avif',
+  imagine: '/assets/images/sunlit-future.avif',
   trust: '/assets/images/hands-of-hope.avif',
-  adelaide: '/assets/images/moments-we-share.avif',
+  adelaide: '/assets/images/saved-through-time.avif',
 } as const;
 
 /** §1 Hero — real-photo full-bleed (no WebGL), dawn light, single <h1>. */
 export const B2C_PTBR_HERO_CONFIG: HeroVariantConfig = {
-  variant: 'fullBackground',
+  variant: 'cinematic',
   content: {
     title: 'landing-b2c.ptbr.hero.headline',
     description: 'landing-b2c.ptbr.hero.subtitle',
@@ -30,13 +30,15 @@ export const B2C_PTBR_HERO_CONFIG: HeroVariantConfig = {
     ctaHref: '#como-funciona',
     ctaTarget: '_self',
   },
-  backgroundAssets: {
-    backgroundImage: PTBR_IMAGES.hero,
-    backgroundImageMobile: PTBR_IMAGES.hero,
-    overlayOpacity: 0.45,
+  // Live cinematic hero (CEO request): WebGL dawn-water scene + duotone poster.
+  cinematic: {
+    scene: 'dawn-water',
+    theme: 'dark',
+    align: 'left',
+    sectionId: 'hero-b2c',
+    posterImage: '/assets/images/still-tide.avif',
+    posterDuotone: false,
   },
-  // Background is decorative (rendered alt="" aria-hidden); the <title> comes from
-  // the page generateMetadata. No per-hero titleTag needed for fullBackground.
   seo: { imageAlt: { background: '' } },
   analytics: { trackingPrefix: 'hero_b2c_ptbr', enabled: true },
 } as const;
@@ -68,13 +70,18 @@ export const B2C_PTBR_IMAGINE_CONFIG: ProseSectionConfig = {
     alt: 'landing-b2c.ptbr.imagineFuture.imageAlt',
     position: 'right',
   },
-  style: {
-    backgroundColor: 'var(--section-bg-warm)',
-    verticalPadding: 'generous',
-    headerStyle: 'centered',
-  },
+  // Match the whatIs inline-title layout (CEO request): a centered header floats
+  // the title too far from the body when an image is present.
+  style: { backgroundColor: 'var(--section-bg-warm)', verticalPadding: 'standard' },
   seo: { ariaLabel: 'landing-b2c.ptbr.imagineFuture.header' },
   analytics: { sectionId: 'imagine-section-ptbr', category: 'landing-b2c' },
+  // Rotating CTA (per visit): pt-BR best-converter candidates + demo (the dollar
+  // hedge leads, since it's the killer wedge for the BR audience).
+  cta: [
+    { id: 'currency-depreciation', text: 'landing-b2c.toolCtas.currencyDepreciation', href: '/tools/currency-depreciation' },
+    { id: 'compound-interest', text: 'landing-b2c.toolCtas.compoundInterest', href: '/tools/compound-interest' },
+    { id: 'demo', text: 'landing-b2c.toolCtas.demo', href: '/demo' },
+  ],
 } as const;
 
 /** §5 Como funciona (3 passos + porta de saída) — clear day. */
@@ -100,7 +107,12 @@ export const B2C_PTBR_HOWITWORKS_CONFIG: ProseSectionConfig = {
 export const B2C_PTBR_TRUST_CONFIG: ProseSectionConfig = {
   content: {
     header: 'landing-b2c.ptbr.trust.header',
-    paragraphs: ['landing-b2c.ptbr.trust.body'],
+    // All-in fee receipt (CC8): index 1 is replaced at render by the live-value
+    // fee citation (`buildAllFeeValues` → sellRate/exampleFee/maxFee). DRY: reuses
+    // the proven `catch.feeParagraph` key (shared across locales).
+    paragraphs: ['landing-b2c.ptbr.trust.body', 'landing-b2c.catch.feeParagraph'],
+    feeParagraph: 'landing-b2c.catch.feeParagraph',
+    feeParagraphAt: { 'pt-BR': 1 },
   },
   image: {
     src: PTBR_IMAGES.trust,

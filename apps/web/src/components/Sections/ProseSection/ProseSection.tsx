@@ -1,10 +1,13 @@
 'use client';
 
-import React, { memo, useState, useCallback, useMemo } from 'react';
+import React, { memo, useState, useEffect, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { LocaleLink } from '@/components/UI/LocaleLink';
+import { ArrowRight } from '@/components/UI/LucideIcon';
 import { useLocale } from '@/components/Providers';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
+import { analyticsService } from '@/lib/analytics';
 import { marketDataService } from '@/lib/market-data';
 import { buildAllFeeValues } from '@/lib/market-data/feeComparisonValues';
 import type { ProseSectionConfig } from '@/config/proseSection';
@@ -45,6 +48,27 @@ export const ProseSection = memo(function ProseSection({
   const imagePosition = translated.image?.position || 'right';
   const isPortrait = translated.image?.aspectRatio === 'portrait';
   const isCenteredHeader = translated.style.headerStyle === 'centered';
+
+  // Optional rotating CTA (tool/demo promos): pick one per visit. Client-only so
+  // SSR renders index 0 and the effect re-picks post-hydration — the section is
+  // below the fold, so the swap is never visible. Click analytics reveal the
+  // best-converting option per locale (rotation is uniform → clicks are comparable).
+  const ctas = translated.cta;
+  const [ctaIdx, setCtaIdx] = useState(0);
+  useEffect(() => {
+    // Client-only random pick (avoids SSR/hydration mismatch). Mount-only: one
+    // pick per visit; the cta set is fixed per section. Below the fold → no flash.
+    if (ctas && ctas.length > 1) {
+      setCtaIdx(Math.floor(Math.random() * ctas.length));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const activeCta = ctas && ctas.length > 0 ? ctas[ctaIdx % ctas.length] : undefined;
+  const handleCtaClick = useCallback(() => {
+    if (activeCta) {
+      void analyticsService.trackEvent('future_cta_click', { tool: activeCta.id });
+    }
+  }, [activeCta]);
 
   const textContent = (
     <div
@@ -94,6 +118,13 @@ export const ProseSection = memo(function ProseSection({
       {translated.content.emphasisLine && (
         <p className={styles.emphasis}>{translated.content.emphasisLine}</p>
       )}
+
+      {activeCta ? (
+        <LocaleLink href={activeCta.href} className={styles.cta} onClick={handleCtaClick}>
+          {activeCta.text}
+          <ArrowRight className={styles.ctaIcon} aria-hidden="true" />
+        </LocaleLink>
+      ) : null}
     </div>
   );
 

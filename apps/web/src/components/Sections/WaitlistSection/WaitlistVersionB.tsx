@@ -31,6 +31,8 @@ interface WaitlistVersionBProps {
     belowCheckbox?: string;
     namespace?: string;
     confirmationNamespace?: string;
+    /** Heading level for the headline. Defaults to 'h3'; landing pages pass 'h2'. */
+    headingLevel?: 'h2' | 'h3';
   };
   /** Waitlist source for signup tagging (e.g., 'landing_b2b') */
   source?: string;
@@ -51,6 +53,7 @@ export function WaitlistVersionB({
 
   const ns = config?.namespace ?? 'landing-b2c.waitlist.versionB';
   const t = (key: string) => intl.formatMessage({ id: `${ns}.${key}` });
+  const HeadlineTag = config?.headingLevel ?? 'h3';
 
   const handleValidateCode = useCallback(async () => {
     if (!inviteCode.trim()) return;
@@ -107,7 +110,7 @@ export function WaitlistVersionB({
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <div className={styles.header}>
-          <h3 className={styles.headline}>{t('header')}</h3>
+          <HeadlineTag className={styles.headline}>{t('header')}</HeadlineTag>
           <p className={styles.subheadline}>{t('description')}</p>
         </div>
 

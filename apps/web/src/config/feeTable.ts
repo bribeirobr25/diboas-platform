@@ -41,4 +41,9 @@ export interface FeeTableConfig {
     readonly sectionId: string;
     readonly category: string;
   };
+  /** Lean mode: when set, only the first N rows show until expanded. The expand
+   *  also reveals `expandedSlot` (e.g. the comparison chart). Omit for a full table. */
+  readonly previewRows?: number;
+  /** i18n key for the expand toggle label (e.g. "See the numbers"). */
+  readonly expandToggleLabel?: string;
 }

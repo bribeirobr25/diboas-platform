@@ -10,9 +10,17 @@ const FeeTable = nextDynamic(() =>
 const WaitlistSection = nextDynamic(() =>
   import('@/components/Sections/WaitlistSection').then((m) => ({ default: m.WaitlistSection }))
 );
+const ComparisonTable = nextDynamic(() =>
+  import('@/components/Sections/ComparisonTable').then((m) => ({ default: m.ComparisonTable }))
+);
+const FAQAccordion = nextDynamic(() =>
+  import('@/components/Sections/FAQAccordion/FAQAccordionFactory').then((m) => ({
+    default: m.FAQAccordion,
+  }))
+);
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { ScrollReveal } from '@/components/UI';
-import { B2C_FEES_CONFIG } from '@/config/landing-b2c';
+import { B2C_FEES_CONFIG, B2C_FAQ_CONFIG } from '@/config/landing-b2c';
 import {
   B2C_DE_HERO_CONFIG,
   B2C_DE_NEVERHOLD_CONFIG,
@@ -42,11 +50,11 @@ export function LandingDe() {
         sectionId="hero-section-b2c"
         sectionType="HeroSection"
         enableReporting={true}
-        context={{ page: 'landing-b2c', variant: 'fullBackground', locale: 'de' }}
+        context={{ page: 'landing-b2c', variant: 'cinematic', locale: 'de' }}
       >
         <div data-section-id="hero-section-b2c">
           <HeroSection
-            variant="fullBackground"
+            variant="cinematic"
             config={B2C_DE_HERO_CONFIG}
             enableAnalytics={true}
             priority={true}
@@ -152,7 +160,8 @@ export function LandingDe() {
         </SectionErrorBoundary>
       </ScrollReveal>
 
-      {/* §9 Was es kostet — neutral bg */}
+      {/* §9 Was es kostet — neutral bg. Lean mode: first 3 rows; expanding reveals
+          the rest + the "See the numbers" comparison chart (FeeTable expandedSlot). */}
       <ScrollReveal>
         <SectionErrorBoundary
           sectionId="fees-section-b2c"
@@ -161,7 +170,15 @@ export function LandingDe() {
           context={{ page: 'landing-b2c', locale: 'de' }}
         >
           <div id="fees" data-section-id="fees-section-b2c" style={{ backgroundColor: 'var(--section-bg-neutral)' }}>
-            <FeeTable config={B2C_FEES_CONFIG} enableAnalytics={true} />
+            <FeeTable
+              config={B2C_FEES_CONFIG}
+              enableAnalytics={true}
+              expandedSlot={
+                <div id="comparison" data-section-id="comparison-section-b2c">
+                  <ComparisonTable enableAnalytics={true} embedded />
+                </div>
+              }
+            />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>
@@ -180,7 +197,7 @@ export function LandingDe() {
         </SectionErrorBoundary>
       </ScrollReveal>
 
-      {/* §11 Mach mit (final CTA) — waitlist */}
+      {/* §10b Mach mit (final CTA) — waitlist, placed ABOVE the FAQ */}
       <ScrollReveal>
         <SectionErrorBoundary
           sectionId="waitlist-section-b2c"
@@ -190,6 +207,24 @@ export function LandingDe() {
         >
           <div id="waitlist" data-section-id="waitlist-section-b2c">
             <WaitlistSection enableAnalytics={true} config={B2C_DE_WAITLIST_CONFIG} />
+          </div>
+        </SectionErrorBoundary>
+      </ScrollReveal>
+
+      {/* §11 Objections — FAQ accordion (trailing reference, below the CTA) */}
+      <ScrollReveal>
+        <SectionErrorBoundary
+          sectionId="faq-section-b2c"
+          sectionType="FAQAccordion"
+          enableReporting={true}
+          context={{ page: 'landing-b2c', locale: 'de' }}
+        >
+          <div
+            id="faq"
+            data-section-id="faq-section-b2c"
+            style={{ backgroundColor: 'var(--section-bg-white)' }}
+          >
+            <FAQAccordion config={B2C_FAQ_CONFIG} />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>

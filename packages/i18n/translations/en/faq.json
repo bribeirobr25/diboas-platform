@@ -33,7 +33,7 @@
     },
     "pixFaq": {
       "question": "Can I use PIX with diBoaS?",
-      "answer": "Yes, to move money in and out. In Brazil you deposit and withdraw via PIX; elsewhere you use methods like bank transfer, card, or PayPal. What diBoaS does not do is replace PIX (or any local payment system) for everyday transfers. Here, your money is held in digital dollars, and PIX is simply one of the ways in and out."
+      "answer": "Yes — to move money in and out. In every market you can add and withdraw using a credit or debit card or a bank transfer; in Brazil, you can also use PIX. What diBoaS doesn't do is replace PIX (or any local payment system) for everyday transfers between people. Here your money is held in digital dollars, and these are simply the ways in and out."
     },
     "whySaveDollar": {
       "question": "Why save in dollars instead of a savings account?",

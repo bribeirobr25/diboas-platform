@@ -37,7 +37,8 @@
       "apy": "Taxa anual",
       "return": "Rendimento em 1 ano"
     },
-    "footnote": "Taxas comparativas baseadas em dados públicos brasileiros com média dos últimos 5 anos. Rendimentos podem mudar. Dólares digitais envolvem riscos, incluindo possível perda do capital."
+    "footnote": "Taxas comparativas baseadas em dados públicos brasileiros com média dos últimos 5 anos. Rendimentos podem mudar. Dólares digitais envolvem riscos, incluindo possível perda do capital.",
+    "disclosureToggle": "Veja os números"
   },
   "goalExamples": {
     "heading": "Construa riqueza usando seus Objetivos.",
@@ -415,7 +416,7 @@
   },
   "ptbr": {
     "hero": {
-      "headline": "O seu trabalho merece um futuro.",
+      "headline": "O seu esforço merece um futuro.",
       "subtitle": "Você fez tudo certo. E mesmo assim seu dinheiro encolheu. O diBoaS guarda o que é seu em dólar. No seu nome. Seu pra sacar quando quiser.",
       "whatIs": "Seu dinheiro guardado em dólar e rendendo. Você no controle, sem banco no meio.",
       "microcopy": "Comece com R$10. Sem mensalidade. Saia quando quiser.",
@@ -433,7 +434,7 @@
       "header": "Imagine o futuro",
       "body": "Imagine daqui a alguns anos. A aposentadoria virou escolha, não medo. A emergência veio. E não virou dívida. O dinheiro do seu filho ainda vale o que devia valer. Mesmo esforço de sempre. Num lugar onde ele para de encolher.",
       "cta": "Ver quanto muda pra mim",
-      "imageAlt": "Pessoa serena em casa, na luz dourada da manhã"
+      "imageAlt": "Uma pessoa ao pôr do sol olhando para o horizonte"
     },
     "howItWorks": {
       "header": "Como funciona",
@@ -458,7 +459,7 @@
     "adelaide": {
       "header": "A Adelaide",
       "body": "O diBoaS começou com uma pessoa: a Adelaide. Ela guardou a vida toda. O banco pagou quase nada, porque \"era complicado demais pra explicar\". A gente existe pra ninguém mais ouvir isso. Aqui, a gente explica. Sempre.",
-      "imageAlt": "Cena familiar intergeracional, na luz quente da manhã"
+      "imageAlt": "Um caderno aberto e óculos de leitura ao lado de uma foto de família antiga"
     },
     "finalCta": {
       "header": "Comece com R$10",
@@ -466,5 +467,12 @@
       "cta": "Entrar na lista",
       "reassurance": "Sem mensalidade. Você no controle. Saia quando quiser."
     }
+  },
+  "toolCtas": {
+    "compoundInterest": "Veja seu dinheiro render com o tempo",
+    "idleCash": "Veja quanto o dinheiro parado custa",
+    "inflationImpact": "Veja o que a inflação leva de verdade",
+    "currencyDepreciation": "Veja o quanto o real perdeu pro dólar",
+    "demo": "Experimente com dinheiro de teste"
   }
 }

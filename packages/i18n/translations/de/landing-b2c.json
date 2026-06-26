@@ -37,7 +37,8 @@
       "apy": "Jahreszins",
       "return": "Rendite nach 1 Jahr"
     },
-    "footnote": "Vergleichszinsen basieren auf öffentlich verfügbaren EU-Daten als Durchschnitt der letzten 5 Jahre. Renditen können sich ändern und je nach Produkt variieren. Renditen in digitalen Dollar beinhalten Risiken, einschließlich eines möglichen Totalverlusts."
+    "footnote": "Vergleichszinsen basieren auf öffentlich verfügbaren EU-Daten als Durchschnitt der letzten 5 Jahre. Renditen können sich ändern und je nach Produkt variieren. Renditen in digitalen Dollar beinhalten Risiken, einschließlich eines möglichen Totalverlusts.",
+    "disclosureToggle": "Sieh dir die Zahlen an"
   },
   "goalExamples": {
     "heading": "Baue Vermögen auf mit deinen Zielen.",
@@ -435,7 +436,7 @@
       "header": "Stell dir ein paar Jahre vor",
       "body": "Eine Rente, die eine Wahl ist, keine Sorge. Ein Notfall, der ein Ärgernis bleibt, keine Krise. Die 10%, die du zur Seite legst, die wirklich wachsen. Gleicher Einsatz. Ein fairerer Ort dafür.",
       "cta": "Zeig mir meine Zahlen",
-      "imageAlt": "Ein ruhiges Leben im goldenen Morgenlicht"
+      "imageAlt": "Eine Person blickt in der Abendsonne zum Horizont"
     },
     "howItWorks": {
       "header": "So funktioniert es",
@@ -460,7 +461,7 @@
     "founder": {
       "header": "Gebaut von Bar",
       "body": "diBoaS begann mit meiner Großmutter, Adelaide. Sie sparte ihr halbes Leben. Ihre Bank zahlte ihr fast nichts, und niemand erklärte warum. Ich habe 20 Jahre Produkte für andere gebaut. Das hier ist das, das ich mir für sie gewünscht hätte.",
-      "imageAlt": "Eine Familienszene im warmen Morgenlicht"
+      "imageAlt": "Ein aufgeschlagenes Notizbuch und eine Lesebrille neben einem alten Familienfoto"
     },
     "finalCta": {
       "header": "Mach mit",
@@ -468,5 +469,12 @@
       "cta": "Auf die Warteliste",
       "reassurance": "Keine Monatsgebühr. Du behältst die Kontrolle. Jederzeit abheben."
     }
+  },
+  "toolCtas": {
+    "compoundInterest": "Sieh, wie dein Geld wächst",
+    "idleCash": "Sieh, was ungenutztes Geld kostet",
+    "inflationImpact": "Sieh, was die Inflation wirklich frisst",
+    "currencyDepreciation": "Sieh den Dollar-Abstand über die Zeit",
+    "demo": "Probier's mit Spielgeld"
   }
 }

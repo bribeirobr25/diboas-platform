@@ -37,7 +37,8 @@
       "apy": "APY",
       "return": "1-Year Return"
     },
-    "footnote": "Comparison rates based on publicly available US data as a last 5 years average. Yield rates are subject to change and may vary across products. Digital dollar yields involve risk, including potential loss of principal."
+    "footnote": "Comparison rates based on publicly available US data as a last 5 years average. Yield rates are subject to change and may vary across products. Digital dollar yields involve risk, including potential loss of principal.",
+    "disclosureToggle": "See the numbers"
   },
   "goalExamples": {
     "heading": "Build wealth using your Goals.",
@@ -435,7 +436,7 @@
       "header": "Picture a few years out",
       "body": "Picture a few years out. Retirement that's a choice, not a worry. An emergency that stays an inconvenience, not a crisis. The 10% you set aside, actually growing. Same effort. A fairer place to put it.",
       "cta": "See your numbers",
-      "imageAlt": "A calm life in the golden morning light"
+      "imageAlt": "A person at golden hour, looking out to the horizon"
     },
     "howItWorks": {
       "header": "How it works",
@@ -460,7 +461,7 @@
     "founder": {
       "header": "Built by Bar",
       "body": "diBoaS started with my grandmother, Adelaide. She saved half of everything she earned. Her bank paid her almost nothing, and no one explained why. I spent 20 years building products for other companies. This is the one I wish she'd had.",
-      "imageAlt": "A family scene in warm morning light"
+      "imageAlt": "An open notebook and reading glasses beside an old family photo"
     },
     "finalCta": {
       "header": "Join",
@@ -468,5 +469,12 @@
       "cta": "Join the waitlist",
       "reassurance": "No monthly fee. You stay in control. Pull out anytime."
     }
+  },
+  "toolCtas": {
+    "compoundInterest": "See how your money compounds",
+    "idleCash": "See what idle cash costs you",
+    "inflationImpact": "See what inflation really takes",
+    "currencyDepreciation": "See the dollar gap over time",
+    "demo": "Try it with play money"
   }
 }
