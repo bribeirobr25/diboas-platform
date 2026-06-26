@@ -43,6 +43,10 @@ jobs:
         env:
           NEXT_PUBLIC_APP_URL: 'http://localhost:3000'
           NEXT_PUBLIC_SITE_URL: 'http://localhost:3000'
+          # Serve images unoptimized for the a11y scan so pa11y's `networkidle2`
+          # wait isn't blocked by on-demand AVIF re-encoding on the 2-core runner.
+          # DOM is identical (same <img>/alt) so axe results are unaffected.
+          PA11Y_DISABLE_IMAGE_OPT: 'true'
 
       - name: Start production server (background)
         # `pnpm --filter web start` runs `next start` on port 3000.

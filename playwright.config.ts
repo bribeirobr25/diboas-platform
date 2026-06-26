@@ -32,7 +32,16 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      // In CI, run against the runner's preinstalled Google Chrome (the same
+      // binary the pa11y job uses at /usr/bin/google-chrome) instead of
+      // downloading Playwright's bundled Chromium — that 170 MB CDN download is
+      // slow/flaky on the runner and was timing out the job. Locally, `channel`
+      // is undefined → bundled Chromium (run `pnpm exec playwright install
+      // chromium` once), preserving the existing local workflow.
+      use: {
+        ...devices['Desktop Chrome'],
+        ...(process.env.CI ? { channel: 'chrome' } : {}),
+      },
     },
   ],
 
