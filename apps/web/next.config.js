@@ -63,6 +63,14 @@ const nextConfig = {
 
   // Image optimization
   images: {
+    // CI a11y-scan accommodation only: pa11y blocks navigation on `networkidle2`,
+    // which the image-rich pages never reach while Next re-encodes many AVIF
+    // widths on a 2-core runner (Lighthouse, which reports on a load heuristic,
+    // loads the same pages fine). Serving images unoptimized produces an
+    // IDENTICAL DOM (same <img>/alt), so axe results are unchanged, but the scan
+    // settles. Gated to the pa11y CI build via PA11Y_DISABLE_IMAGE_OPT — prod,
+    // Lighthouse, and E2E builds never set it and stay fully optimized.
+    unoptimized: process.env.PA11Y_DISABLE_IMAGE_OPT === 'true',
     formats: ['image/avif', 'image/webp'],
     qualities: [75, 80],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],

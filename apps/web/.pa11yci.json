@@ -1,6 +1,6 @@
 {
   "defaults": {
-    "timeout": 10000,
+    "timeout": 120000,
     "standard": "WCAG2AA",
     "runners": ["axe"],
     "chromeLaunchConfig": {

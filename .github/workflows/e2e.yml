@@ -15,6 +15,9 @@ on:
 jobs:
   e2e:
     runs-on: ubuntu-latest
+    # Budget: build (~5m) + tests (~2m). No browser download — CI uses the
+    # runner's preinstalled Google Chrome (see playwright.config.ts), which
+    # removed the slow/flaky 170 MB Chromium download that previously hung the job.
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
@@ -28,8 +31,10 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps chromium
+      # No `playwright install` step: CI runs against the runner's preinstalled
+      # Google Chrome via `channel: 'chrome'` in playwright.config.ts (the same
+      # binary the pa11y job uses). This eliminates the 170 MB cdn.playwright.dev
+      # Chromium download that was hanging / timing out the job.
 
       - name: Build production bundle
         # `pnpm build` from root → `turbo run build`. The web app imports

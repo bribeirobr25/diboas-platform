@@ -172,93 +172,93 @@ export const ComparisonTable = memo(function ComparisonTable({
 
   const body = (
     <div ref={sectionRef} className={styles.container}>
-        <p className={`u-eyebrow ${styles.eyebrow}`}>
-          {intl.formatMessage({ id: 'landing-b2c.eyebrows.math' })}
-        </p>
-        <h2 className={`u-section-heading ${styles.heading}`}>{t('heading')}</h2>
+      <p className={`u-eyebrow ${styles.eyebrow}`}>
+        {intl.formatMessage({ id: 'landing-b2c.eyebrows.math' })}
+      </p>
+      <h2 className={`u-section-heading ${styles.heading}`}>{t('heading')}</h2>
 
-        {/* "Data as hero" — the $1,000 divergence drawn from the same live rates
+      {/* "Data as hero" — the $1,000 divergence drawn from the same live rates
             as the table below (redesign Phase 2). */}
-        <div ref={proofRef} className={styles.chartWrap}>
-          <DivergenceChart
-            series={chartSeries}
-            formatValue={(n) => formatCurrency(n, locale)}
-            ariaLabel={`${t('columns.bank')}: ${formatCurrency(chartPaths.bank[12] ?? 0, locale)}. diBoaS: ${formatCurrency(chartPaths.diboas[12] ?? 0, locale)}.`}
-          />
-        </div>
-
-        {/* Desktop: HTML table */}
-        <div className={styles.tableWrapper} role="region" aria-label={tSection('ariaLabel')}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th scope="col" className={styles.th}>
-                  &nbsp;
-                </th>
-                {COLUMN_KEYS.map((col) => (
-                  <th
-                    key={col}
-                    scope="col"
-                    className={`${styles.th} ${col === 'diboas' ? styles.thHighlight : ''}`}
-                  >
-                    {t(`columns.${col}`)}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr className={styles.row}>
-                <td className={styles.tdLabel}>{t('rows.apy')}</td>
-                {COLUMN_KEYS.map((col) => (
-                  <td
-                    key={col}
-                    className={`${styles.td} ${styles.mono} ${col === 'diboas' ? styles.tdHighlight : ''}`}
-                  >
-                    {rates[col]}
-                    {col === 'diboas' && hasExtraDiboasInfo ? (
-                      <div className={styles.diboasSubtext}>{diboasSubtext}</div>
-                    ) : null}
-                  </td>
-                ))}
-              </tr>
-              <tr className={styles.row}>
-                <td className={styles.tdLabel}>{t('rows.return')}</td>
-                {COLUMN_KEYS.map((col) => (
-                  <td
-                    key={col}
-                    className={`${styles.td} ${styles.mono} ${col === 'diboas' ? styles.tdHighlight : ''}`}
-                  >
-                    <CountUp end={returnsRaw[col]} formatter={(n) => formatGain(n, locale)} />
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        {/* Mobile: stacked rows */}
-        <div className={styles.mobileStack}>
-          {COLUMN_KEYS.map((col) => (
-            <div
-              key={col}
-              className={`${styles.mobileRow} ${col === 'diboas' ? styles.mobileRowHighlight : ''}`}
-            >
-              <span className={styles.mobileRowName}>{t(`columns.${col}`)}</span>
-              <span className={`${styles.mobileRowRate} ${styles.mono}`}>
-                {rates[col]}
-                {col === 'diboas' && hasExtraDiboasInfo ? (
-                  <span className={styles.mobileRowSubtext}>{diboasSubtext}</span>
-                ) : null}
-              </span>
-              <span className={`${styles.mobileRowReturn} ${styles.mono}`}>
-                <CountUp end={returnsRaw[col]} formatter={(n) => formatGain(n, locale)} />
-              </span>
-            </div>
-          ))}
-        </div>
-
-        <p className={styles.footnote}>{t('footnote')}</p>
+      <div ref={proofRef} className={styles.chartWrap}>
+        <DivergenceChart
+          series={chartSeries}
+          formatValue={(n) => formatCurrency(n, locale)}
+          ariaLabel={`${t('columns.bank')}: ${formatCurrency(chartPaths.bank[12] ?? 0, locale)}. diBoaS: ${formatCurrency(chartPaths.diboas[12] ?? 0, locale)}.`}
+        />
       </div>
+
+      {/* Desktop: HTML table */}
+      <div className={styles.tableWrapper} role="region" aria-label={tSection('ariaLabel')}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th scope="col" className={styles.th}>
+                &nbsp;
+              </th>
+              {COLUMN_KEYS.map((col) => (
+                <th
+                  key={col}
+                  scope="col"
+                  className={`${styles.th} ${col === 'diboas' ? styles.thHighlight : ''}`}
+                >
+                  {t(`columns.${col}`)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr className={styles.row}>
+              <td className={styles.tdLabel}>{t('rows.apy')}</td>
+              {COLUMN_KEYS.map((col) => (
+                <td
+                  key={col}
+                  className={`${styles.td} ${styles.mono} ${col === 'diboas' ? styles.tdHighlight : ''}`}
+                >
+                  {rates[col]}
+                  {col === 'diboas' && hasExtraDiboasInfo ? (
+                    <div className={styles.diboasSubtext}>{diboasSubtext}</div>
+                  ) : null}
+                </td>
+              ))}
+            </tr>
+            <tr className={styles.row}>
+              <td className={styles.tdLabel}>{t('rows.return')}</td>
+              {COLUMN_KEYS.map((col) => (
+                <td
+                  key={col}
+                  className={`${styles.td} ${styles.mono} ${col === 'diboas' ? styles.tdHighlight : ''}`}
+                >
+                  <CountUp end={returnsRaw[col]} formatter={(n) => formatGain(n, locale)} />
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {/* Mobile: stacked rows */}
+      <div className={styles.mobileStack}>
+        {COLUMN_KEYS.map((col) => (
+          <div
+            key={col}
+            className={`${styles.mobileRow} ${col === 'diboas' ? styles.mobileRowHighlight : ''}`}
+          >
+            <span className={styles.mobileRowName}>{t(`columns.${col}`)}</span>
+            <span className={`${styles.mobileRowRate} ${styles.mono}`}>
+              {rates[col]}
+              {col === 'diboas' && hasExtraDiboasInfo ? (
+                <span className={styles.mobileRowSubtext}>{diboasSubtext}</span>
+              ) : null}
+            </span>
+            <span className={`${styles.mobileRowReturn} ${styles.mono}`}>
+              <CountUp end={returnsRaw[col]} formatter={(n) => formatGain(n, locale)} />
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <p className={styles.footnote}>{t('footnote')}</p>
+    </div>
   );
 
   return embedded ? (
