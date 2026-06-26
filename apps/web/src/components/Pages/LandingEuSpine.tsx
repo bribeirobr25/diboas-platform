@@ -21,28 +21,24 @@ const FAQAccordion = nextDynamic(() =>
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { ScrollReveal } from '@/components/UI';
 import { B2C_FEES_CONFIG, B2C_FAQ_CONFIG } from '@/config/landing-b2c';
-import {
-  B2C_EN_HERO_CONFIG,
-  B2C_EN_NEVERHOLD_CONFIG,
-  B2C_EN_UPSIDE_CONFIG,
-  B2C_EN_PICTUREFUTURE_CONFIG,
-  B2C_EN_HOWITWORKS_CONFIG,
-  B2C_EN_CATCH_CONFIG,
-  B2C_EN_FOUNDER_CONFIG,
-  B2C_EN_DEMO_CONFIG,
-  B2C_EN_WAITLIST_CONFIG,
-} from '@/config/landing-b2c-en';
+import { makeEuLandingConfig, EU_SHARED_ANCHORS, type EuLocale } from '@/config/landing-b2c-eu';
 
 /**
- * LandingEn — the /en landing composition (Draper restructure, US audience).
+ * LandingEuSpine — the shared en/de/es landing composition (Draper restructure).
  *
- * Fairness-led spine ("It's your money. The upside should be too."): pain (0.38%)
- * -> "we never hold your money" (the hinge) -> "the upside goes to you" -> hope.
- * dusk -> dawn light journey. Reuses existing section components with en copy
- * (the reference-locale `draper.*` keys) + on-brand images (DRY). Reused-component
- * ids stay; net-new beats use `-en` ids. Shared shell in page.tsx.
+ * One renderer for the three EU locales, which share an identical fairness-led
+ * spine ("It's your money. The upside should be too."): pain -> "we never hold
+ * your money" (the hinge) -> "the upside goes to you" -> hope, on a dusk->dawn
+ * light journey. Per-locale copy resolves from the shared `draper.*` i18n keys;
+ * the only divergences (hero CTA target, the 6 locale-suffixed section-ids, the
+ * 5 translated scroll anchors, the rotating-CTA set) come from
+ * `makeEuLandingConfig(locale)`. Reused-component ids (hero/wedge/demo/fees/
+ * comparison/waitlist/faq) stay shared for analytics continuity. pt-BR has its
+ * own composition (LandingPtBR). Shared shell in page.tsx.
  */
-export function LandingEn() {
+export function LandingEuSpine({ locale }: { locale: EuLocale }) {
+  const cfg = makeEuLandingConfig(locale);
+
   return (
     <div className="main-page-wrapper">
       {/* Hero — real-photo full-bleed, dawn light */}
@@ -50,25 +46,25 @@ export function LandingEn() {
         sectionId="hero-section-b2c"
         sectionType="HeroSection"
         enableReporting={true}
-        context={{ page: 'landing-b2c', variant: 'cinematic', locale: 'en' }}
+        context={{ page: 'landing-b2c', variant: 'cinematic', locale }}
       >
         <div data-section-id="hero-section-b2c">
           <HeroSection
             variant="cinematic"
-            config={B2C_EN_HERO_CONFIG}
+            config={cfg.hero}
             enableAnalytics={true}
             priority={true}
           />
         </div>
       </SectionErrorBoundary>
 
-      {/* §2 The honest gap (the pain, 0.38%) — darkest point */}
+      {/* §2 The honest gap (the pain) — darkest point */}
       <ScrollReveal>
         <SectionErrorBoundary
           sectionId="wedge-section-b2c"
           sectionType="WedgeSection"
           enableReporting={true}
-          context={{ page: 'landing-b2c', locale: 'en' }}
+          context={{ page: 'landing-b2c', locale }}
         >
           <div
             data-section-id="wedge-section-b2c"
@@ -82,13 +78,13 @@ export function LandingEn() {
       {/* §3 We never hold your money (the hinge) — first dawn light */}
       <ScrollReveal>
         <SectionErrorBoundary
-          sectionId="neverhold-section-en"
+          sectionId={cfg.ids.neverHold}
           sectionType="ProseSection"
           enableReporting={true}
-          context={{ page: 'landing-b2c', locale: 'en' }}
+          context={{ page: 'landing-b2c', locale }}
         >
-          <div id="we-never-hold" data-section-id="neverhold-section-en">
-            <ProseSection config={B2C_EN_NEVERHOLD_CONFIG} enableAnalytics={true} />
+          <div id={cfg.anchors.neverHold} data-section-id={cfg.ids.neverHold}>
+            <ProseSection config={cfg.neverHold} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>
@@ -96,13 +92,13 @@ export function LandingEn() {
       {/* §4 The upside goes to you (fairness clincher) — morning building */}
       <ScrollReveal>
         <SectionErrorBoundary
-          sectionId="upside-section-en"
+          sectionId={cfg.ids.upside}
           sectionType="ProseSection"
           enableReporting={true}
-          context={{ page: 'landing-b2c', locale: 'en' }}
+          context={{ page: 'landing-b2c', locale }}
         >
-          <div id="the-upside" data-section-id="upside-section-en">
-            <ProseSection config={B2C_EN_UPSIDE_CONFIG} enableAnalytics={true} headingLevel="h2" />
+          <div id={cfg.anchors.upside} data-section-id={cfg.ids.upside}>
+            <ProseSection config={cfg.upside} enableAnalytics={true} headingLevel="h2" />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>
@@ -110,17 +106,13 @@ export function LandingEn() {
       {/* §5 Picture a few years out (the peak) — full golden dawn */}
       <ScrollReveal>
         <SectionErrorBoundary
-          sectionId="picture-future-section-en"
+          sectionId={cfg.ids.pictureFuture}
           sectionType="ProseSection"
           enableReporting={true}
-          context={{ page: 'landing-b2c', locale: 'en' }}
+          context={{ page: 'landing-b2c', locale }}
         >
-          <div id="picture" data-section-id="picture-future-section-en">
-            <ProseSection
-              config={B2C_EN_PICTUREFUTURE_CONFIG}
-              enableAnalytics={true}
-              headingLevel="h2"
-            />
+          <div id={cfg.anchors.pictureFuture} data-section-id={cfg.ids.pictureFuture}>
+            <ProseSection config={cfg.pictureFuture} enableAnalytics={true} headingLevel="h2" />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>
@@ -128,17 +120,13 @@ export function LandingEn() {
       {/* §6 How it works (3 steps + the exit door) — clear day. Hero CTA target. */}
       <ScrollReveal>
         <SectionErrorBoundary
-          sectionId="how-it-works-en"
+          sectionId={cfg.ids.howItWorks}
           sectionType="ProseSection"
           enableReporting={true}
-          context={{ page: 'landing-b2c', locale: 'en' }}
+          context={{ page: 'landing-b2c', locale }}
         >
-          <div id="how-it-works" data-section-id="how-it-works-en">
-            <ProseSection
-              config={B2C_EN_HOWITWORKS_CONFIG}
-              enableAnalytics={true}
-              headingLevel="h2"
-            />
+          <div id={cfg.anchors.howItWorks} data-section-id={cfg.ids.howItWorks}>
+            <ProseSection config={cfg.howItWorks} enableAnalytics={true} headingLevel="h2" />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>
@@ -146,13 +134,13 @@ export function LandingEn() {
       {/* §7 What's the catch? (the honest answer) — paper-and-ink */}
       <ScrollReveal>
         <SectionErrorBoundary
-          sectionId="catch-section-en"
+          sectionId={cfg.ids.catch}
           sectionType="ProseSection"
           enableReporting={true}
-          context={{ page: 'landing-b2c', locale: 'en' }}
+          context={{ page: 'landing-b2c', locale }}
         >
-          <div id="the-catch" data-section-id="catch-section-en">
-            <ProseSection config={B2C_EN_CATCH_CONFIG} enableAnalytics={true} headingLevel="h2" />
+          <div id={cfg.anchors.catch} data-section-id={cfg.ids.catch}>
+            <ProseSection config={cfg.catch} enableAnalytics={true} headingLevel="h2" />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>
@@ -163,14 +151,14 @@ export function LandingEn() {
           sectionId="demo-section-b2c"
           sectionType="DemoLauncher"
           enableReporting={true}
-          context={{ page: 'landing-b2c', locale: 'en' }}
+          context={{ page: 'landing-b2c', locale }}
         >
           <div
-            id="demo"
+            id={EU_SHARED_ANCHORS.demo}
             data-section-id="demo-section-b2c"
             style={{ backgroundColor: 'var(--section-bg-brand)' }}
           >
-            <DemoLauncher config={B2C_EN_DEMO_CONFIG} enableAnalytics={true} />
+            <DemoLauncher config={cfg.demo} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>
@@ -182,10 +170,10 @@ export function LandingEn() {
           sectionId="fees-section-b2c"
           sectionType="FeeTable"
           enableReporting={true}
-          context={{ page: 'landing-b2c', locale: 'en' }}
+          context={{ page: 'landing-b2c', locale }}
         >
           <div
-            id="fees"
+            id={EU_SHARED_ANCHORS.fees}
             data-section-id="fees-section-b2c"
             style={{ backgroundColor: 'var(--section-bg-neutral)' }}
           >
@@ -193,7 +181,7 @@ export function LandingEn() {
               config={B2C_FEES_CONFIG}
               enableAnalytics={true}
               expandedSlot={
-                <div id="comparison" data-section-id="comparison-section-b2c">
+                <div id={EU_SHARED_ANCHORS.comparison} data-section-id="comparison-section-b2c">
                   <ComparisonTable enableAnalytics={true} embedded />
                 </div>
               }
@@ -202,16 +190,17 @@ export function LandingEn() {
         </SectionErrorBoundary>
       </ScrollReveal>
 
-      {/* §10 Built by Bar (the founder story) — warm */}
+      {/* §10 Built by Bar (the founder story) — warm. Anchor `#founder` is shared
+          across locales even though the section-id is locale-suffixed. */}
       <ScrollReveal>
         <SectionErrorBoundary
-          sectionId="founder-section-en"
+          sectionId={cfg.ids.founder}
           sectionType="ProseSection"
           enableReporting={true}
-          context={{ page: 'landing-b2c', locale: 'en' }}
+          context={{ page: 'landing-b2c', locale }}
         >
-          <div id="founder" data-section-id="founder-section-en">
-            <ProseSection config={B2C_EN_FOUNDER_CONFIG} enableAnalytics={true} headingLevel="h2" />
+          <div id={EU_SHARED_ANCHORS.founder} data-section-id={cfg.ids.founder}>
+            <ProseSection config={cfg.founder} enableAnalytics={true} headingLevel="h2" />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>
@@ -222,10 +211,10 @@ export function LandingEn() {
           sectionId="waitlist-section-b2c"
           sectionType="WaitlistSection"
           enableReporting={true}
-          context={{ page: 'landing-b2c', locale: 'en' }}
+          context={{ page: 'landing-b2c', locale }}
         >
-          <div id="waitlist" data-section-id="waitlist-section-b2c">
-            <WaitlistSection enableAnalytics={true} config={B2C_EN_WAITLIST_CONFIG} />
+          <div id={EU_SHARED_ANCHORS.waitlist} data-section-id="waitlist-section-b2c">
+            <WaitlistSection enableAnalytics={true} config={cfg.waitlist} />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>
@@ -236,10 +225,10 @@ export function LandingEn() {
           sectionId="faq-section-b2c"
           sectionType="FAQAccordion"
           enableReporting={true}
-          context={{ page: 'landing-b2c', locale: 'en' }}
+          context={{ page: 'landing-b2c', locale }}
         >
           <div
-            id="faq"
+            id={EU_SHARED_ANCHORS.faq}
             data-section-id="faq-section-b2c"
             style={{ backgroundColor: 'var(--section-bg-white)' }}
           >

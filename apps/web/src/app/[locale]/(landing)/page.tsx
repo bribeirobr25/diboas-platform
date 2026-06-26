@@ -9,9 +9,7 @@ import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { marketDataService } from '@/lib/market-data';
 import { StickyMobileCTA } from '@/components/UI';
 import { LandingPtBR } from '@/components/Pages/LandingPtBR';
-import { LandingDe } from '@/components/Pages/LandingDe';
-import { LandingEs } from '@/components/Pages/LandingEs';
-import { LandingEn } from '@/components/Pages/LandingEn';
+import { LandingEuSpine } from '@/components/Pages/LandingEuSpine';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
@@ -165,17 +163,9 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
         <ScrollToHash />
 
         {/* Per-locale section composition. `isValidLocale` above guarantees one of
-            the four supported locales, so `en` is the exhaustive final branch
-            (also the x-default). See LANDING_REBUILD_PLAN*.md. */}
-        {locale === 'pt-BR' ? (
-          <LandingPtBR />
-        ) : locale === 'de' ? (
-          <LandingDe />
-        ) : locale === 'es' ? (
-          <LandingEs />
-        ) : (
-          <LandingEn />
-        )}
+            the four supported locales: pt-BR has its own spine; en/de/es share
+            LandingEuSpine (locale narrows to 'en'|'de'|'es' here). */}
+        {locale === 'pt-BR' ? <LandingPtBR /> : <LandingEuSpine locale={locale} />}
 
         {/* Footer */}
         <MinimalFooter
