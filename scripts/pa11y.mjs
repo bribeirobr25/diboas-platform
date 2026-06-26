@@ -23,6 +23,12 @@ const pa11yBin = resolve(webDir, 'node_modules/.bin/pa11y');
 const config = JSON.parse(await readFile(configPath, 'utf8'));
 const standard = config.defaults?.standard ?? 'WCAG2AA';
 const runner = config.defaults?.runners?.[0] ?? 'axe';
+// Navigation + axe-run timeout (ms). pa11y hardcodes `waitUntil: 'networkidle2'`
+// in its goto; on image-rich pages, CI's CPU-bound /_next/image optimization
+// keeps >2 connections in flight past pa11y's 60s default, so the scan times out
+// (a load-time false negative, not a WCAG fault). Honor the config value (default
+// generously) and forward it — the wrapper previously dropped it entirely.
+const timeout = config.defaults?.timeout ?? 120000;
 const urls = config.urls ?? [];
 
 if (urls.length === 0) {
@@ -37,7 +43,17 @@ for (const entry of urls) {
   const code = await new Promise((res) => {
     const proc = spawn(
       pa11yBin,
-      ['--standard', standard, '--runner', runner, '--level-cap-when-needs-review', 'warning', url],
+      [
+        '--standard',
+        standard,
+        '--runner',
+        runner,
+        '--timeout',
+        String(timeout),
+        '--level-cap-when-needs-review',
+        'warning',
+        url,
+      ],
       { stdio: 'inherit', cwd: webDir }
     );
     proc.on('exit', (c) => res(c ?? 0));

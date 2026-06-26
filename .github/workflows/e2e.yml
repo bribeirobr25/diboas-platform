@@ -15,7 +15,10 @@ on:
 jobs:
   e2e:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # Headroom over the legitimate budget (install ≤2m on cache miss + build
+    # ~4m + tests ~2m). Per-step timeouts below catch a genuine hang fast, so
+    # this is margin, not a place to hide one.
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v6
 
@@ -28,8 +31,45 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps chromium
+      # Resolve the Playwright version for a precise cache key, so the ~170 MB
+      # Chromium download only runs on a cache miss. (Root cause of the prior
+      # ~20-min job cancellation: `playwright install --with-deps` hung — apt
+      # lock contention on ubuntu-noble and/or a stalling cdn.playwright.dev
+      # download. Splitting + caching + retrying + time-boxing removes that.)
+      - name: Resolve Playwright version
+        id: pw
+        run: echo "version=$(pnpm exec playwright --version | sed 's/Version //')" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright browsers
+        id: pw-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.pw.outputs.version }}
+
+      # System libs for Chromium (apt). Split from the binary download so an apt
+      # lock-wait can't masquerade as a download hang. Retried + time-boxed: a
+      # stall fails fast and re-attempts instead of consuming the whole job.
+      - name: Install Playwright system deps
+        timeout-minutes: 6
+        run: |
+          for i in 1 2 3; do
+            pnpm exec playwright install-deps chromium && exit 0
+            echo "install-deps attempt $i failed; retrying in 5s…"; sleep 5
+          done
+          echo "install-deps failed after 3 attempts"; exit 1
+
+      # Browser binary download (cdn.playwright.dev). Skipped on cache hit;
+      # retried + time-boxed against CDN stalls on a cache miss.
+      - name: Install Playwright Chromium
+        if: steps.pw-cache.outputs.cache-hit != 'true'
+        timeout-minutes: 8
+        run: |
+          for i in 1 2 3; do
+            pnpm exec playwright install chromium && exit 0
+            echo "install attempt $i failed; retrying in 5s…"; sleep 5
+          done
+          echo "playwright install failed after 3 attempts"; exit 1
 
       - name: Build production bundle
         # `pnpm build` from root → `turbo run build`. The web app imports

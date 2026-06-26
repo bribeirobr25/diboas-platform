@@ -71,7 +71,10 @@ export function LandingEs() {
           enableReporting={true}
           context={{ page: 'landing-b2c', locale: 'es' }}
         >
-          <div data-section-id="wedge-section-b2c" style={{ backgroundColor: 'var(--section-bg-dark)' }}>
+          <div
+            data-section-id="wedge-section-b2c"
+            style={{ backgroundColor: 'var(--section-bg-dark)' }}
+          >
             <WedgeSection enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
@@ -114,7 +117,11 @@ export function LandingEs() {
           context={{ page: 'landing-b2c', locale: 'es' }}
         >
           <div id="imagina" data-section-id="picture-future-section-es">
-            <ProseSection config={B2C_ES_PICTUREFUTURE_CONFIG} enableAnalytics={true} headingLevel="h2" />
+            <ProseSection
+              config={B2C_ES_PICTUREFUTURE_CONFIG}
+              enableAnalytics={true}
+              headingLevel="h2"
+            />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>
@@ -128,7 +135,11 @@ export function LandingEs() {
           context={{ page: 'landing-b2c', locale: 'es' }}
         >
           <div id="como-funciona" data-section-id="how-it-works-es">
-            <ProseSection config={B2C_ES_HOWITWORKS_CONFIG} enableAnalytics={true} headingLevel="h2" />
+            <ProseSection
+              config={B2C_ES_HOWITWORKS_CONFIG}
+              enableAnalytics={true}
+              headingLevel="h2"
+            />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>
@@ -155,7 +166,11 @@ export function LandingEs() {
           enableReporting={true}
           context={{ page: 'landing-b2c', locale: 'es' }}
         >
-          <div id="demo" data-section-id="demo-section-b2c" style={{ backgroundColor: 'var(--section-bg-brand)' }}>
+          <div
+            id="demo"
+            data-section-id="demo-section-b2c"
+            style={{ backgroundColor: 'var(--section-bg-brand)' }}
+          >
             <DemoLauncher config={B2C_ES_DEMO_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
@@ -170,7 +185,11 @@ export function LandingEs() {
           enableReporting={true}
           context={{ page: 'landing-b2c', locale: 'es' }}
         >
-          <div id="fees" data-section-id="fees-section-b2c" style={{ backgroundColor: 'var(--section-bg-neutral)' }}>
+          <div
+            id="fees"
+            data-section-id="fees-section-b2c"
+            style={{ backgroundColor: 'var(--section-bg-neutral)' }}
+          >
             <FeeTable
               config={B2C_FEES_CONFIG}
               enableAnalytics={true}

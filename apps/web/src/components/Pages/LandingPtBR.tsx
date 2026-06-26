@@ -73,7 +73,10 @@ export function LandingPtBR() {
           enableReporting={true}
           context={{ page: 'landing-b2c', locale: 'pt-BR' }}
         >
-          <div data-section-id="wedge-section-b2c" style={{ backgroundColor: 'var(--section-bg-dark)' }}>
+          <div
+            data-section-id="wedge-section-b2c"
+            style={{ backgroundColor: 'var(--section-bg-dark)' }}
+          >
             <WedgeSection enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
@@ -190,7 +193,11 @@ export function LandingPtBR() {
           context={{ page: 'landing-b2c', locale: 'pt-BR' }}
         >
           <div id="adelaide" data-section-id="adelaide-section-ptbr">
-            <ProseSection config={B2C_PTBR_ADELAIDE_CONFIG} enableAnalytics={true} headingLevel="h2" />
+            <ProseSection
+              config={B2C_PTBR_ADELAIDE_CONFIG}
+              enableAnalytics={true}
+              headingLevel="h2"
+            />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>

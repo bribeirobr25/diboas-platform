@@ -1,12 +1,12 @@
 name: Accessibility (pa11y)
 
-# Phase 4.3.b (audit/2026-05-08): WCAG 2.1 AA scan against the three
-# pages with the highest exposure: home, B2B landing, and the lesson
-# page (the only page with a stand-alone interactive component beyond
-# the hero/waitlist pattern).
+# WCAG 2.1 AA scan. The URL set lives in `apps/web/.pa11yci.json`
+# (currently 21 URLs: home, about, B2B landing, lesson, the full Money
+# Tools suite, the /market dashboards across locales, protocols, and
+# strategies) and is driven by `scripts/pa11y.mjs`. Adding a route only
+# requires editing the JSON.
 #
-# Run locally: `pnpm --filter web pa11y` (the script in
-# apps/web/package.json points at the same three URLs).
+# Run locally: `pnpm --filter web pa11y` (same script, same URLs).
 
 on:
   pull_request:
@@ -17,7 +17,11 @@ on:
 jobs:
   pa11y:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # Headroom for the per-URL --timeout (120s in .pa11yci.json): build (~5m) +
+    # server start + worst-case pa11y. Must exceed the per-URL budget × the
+    # heavy pages so a genuine pa11y failure is reported cleanly rather than
+    # turning into an ambiguous job cancellation.
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v6
 
@@ -70,7 +74,7 @@ jobs:
           echo "Server did not start within 60s"
           exit 1
 
-      - name: Run pa11y on critical 3 pages
+      - name: Run pa11y on all configured pages
         # pa11y bundles puppeteer-core@24.37.5 which strictly looks for
         # Chrome at ~/.cache/puppeteer (not bundled, not auto-fetched).
         # GH Actions ubuntu-latest has Chrome pre-installed at

@@ -78,8 +78,16 @@ export const B2C_PTBR_IMAGINE_CONFIG: ProseSectionConfig = {
   // Rotating CTA (per visit): pt-BR best-converter candidates + demo (the dollar
   // hedge leads, since it's the killer wedge for the BR audience).
   cta: [
-    { id: 'currency-depreciation', text: 'landing-b2c.toolCtas.currencyDepreciation', href: '/tools/currency-depreciation' },
-    { id: 'compound-interest', text: 'landing-b2c.toolCtas.compoundInterest', href: '/tools/compound-interest' },
+    {
+      id: 'currency-depreciation',
+      text: 'landing-b2c.toolCtas.currencyDepreciation',
+      href: '/tools/currency-depreciation',
+    },
+    {
+      id: 'compound-interest',
+      text: 'landing-b2c.toolCtas.compoundInterest',
+      href: '/tools/compound-interest',
+    },
     { id: 'demo', text: 'landing-b2c.toolCtas.demo', href: '/demo' },
   ],
 } as const;

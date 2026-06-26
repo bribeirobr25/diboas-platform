@@ -49,7 +49,11 @@ export const B2C_DE_NEVERHOLD_CONFIG: ProseSectionConfig = {
     header: 'landing-b2c.draper.neverHold.header',
     paragraphs: ['landing-b2c.draper.neverHold.body'],
   },
-  image: { src: DE_IMAGES.neverHold, alt: 'landing-b2c.draper.neverHold.imageAlt', position: 'left' },
+  image: {
+    src: DE_IMAGES.neverHold,
+    alt: 'landing-b2c.draper.neverHold.imageAlt',
+    position: 'left',
+  },
   style: { backgroundColor: 'var(--section-bg-neutral)', verticalPadding: 'standard' },
   seo: { ariaLabel: 'landing-b2c.draper.neverHold.header' },
   analytics: { sectionId: 'neverhold-section-de', category: 'landing-b2c' },
@@ -73,7 +77,11 @@ export const B2C_DE_PICTUREFUTURE_CONFIG: ProseSectionConfig = {
     header: 'landing-b2c.draper.pictureFuture.header',
     paragraphs: ['landing-b2c.draper.pictureFuture.body'],
   },
-  image: { src: DE_IMAGES.pictureFuture, alt: 'landing-b2c.draper.pictureFuture.imageAlt', position: 'right' },
+  image: {
+    src: DE_IMAGES.pictureFuture,
+    alt: 'landing-b2c.draper.pictureFuture.imageAlt',
+    position: 'right',
+  },
   // Match the whatIs/neverHold inline-title layout (CEO request): a centered
   // header floats the title too far from the body when an image is present.
   style: { backgroundColor: 'var(--section-bg-warm)', verticalPadding: 'standard' },
@@ -81,8 +89,16 @@ export const B2C_DE_PICTUREFUTURE_CONFIG: ProseSectionConfig = {
   analytics: { sectionId: 'picture-future-section-de', category: 'landing-b2c' },
   // Rotating CTA (per visit): DE best-converter candidates + demo.
   cta: [
-    { id: 'inflation-impact', text: 'landing-b2c.toolCtas.inflationImpact', href: '/tools/inflation-impact' },
-    { id: 'compound-interest', text: 'landing-b2c.toolCtas.compoundInterest', href: '/tools/compound-interest' },
+    {
+      id: 'inflation-impact',
+      text: 'landing-b2c.toolCtas.inflationImpact',
+      href: '/tools/inflation-impact',
+    },
+    {
+      id: 'compound-interest',
+      text: 'landing-b2c.toolCtas.compoundInterest',
+      href: '/tools/compound-interest',
+    },
     { id: 'demo', text: 'landing-b2c.toolCtas.demo', href: '/demo' },
   ],
 } as const;
@@ -97,7 +113,11 @@ export const B2C_DE_HOWITWORKS_CONFIG: ProseSectionConfig = {
       'landing-b2c.draper.howItWorks.step3',
     ],
   },
-  style: { backgroundColor: 'var(--section-bg-white)', verticalPadding: 'standard', headerStyle: 'centered' },
+  style: {
+    backgroundColor: 'var(--section-bg-white)',
+    verticalPadding: 'standard',
+    headerStyle: 'centered',
+  },
   seo: { ariaLabel: 'landing-b2c.draper.howItWorks.header' },
   analytics: { sectionId: 'how-it-works-de', category: 'landing-b2c' },
 } as const;
