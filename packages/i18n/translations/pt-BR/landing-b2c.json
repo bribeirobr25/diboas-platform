@@ -37,7 +37,8 @@
       "apy": "Taxa anual",
       "return": "Rendimento em 1 ano"
     },
-    "footnote": "Taxas comparativas baseadas em dados públicos brasileiros com média dos últimos 5 anos. Rendimentos podem mudar. Dólares digitais envolvem riscos, incluindo possível perda do capital."
+    "footnote": "Taxas comparativas baseadas em dados públicos brasileiros com média dos últimos 5 anos. Rendimentos podem mudar. Dólares digitais envolvem riscos, incluindo possível perda do capital.",
+    "disclosureToggle": "Veja os números"
   },
   "goalExamples": {
     "heading": "Construa riqueza usando seus Objetivos.",
@@ -226,7 +227,7 @@
     "feeParagraph": "Investir é grátis. Quando você vende, o diBoaS cobra {sellRate}. Você vende R$100, o diBoaS ganha {exampleFee}. Só isso. A gente só ganha mais se o seu dinheiro crescer primeiro. A taxa nunca passa de {maxFee}.",
     "paragraphs": {
       "p1": "Pergunta justa. Todo mundo faz.",
-      "p2": "Seu dinheiro não fica parado no banco. Eles trabalham com ele. Geram retornos reais. O que devolvem pra você? A Poupança rende 7,50%. Parece ok. Mas o real perdeu quase metade do valor frente ao dólar nos últimos anos. Então seu rendimento sobe em reais, mas seu poder de compra em moeda forte cai.",
+      "p2": "Seu dinheiro não fica parado no banco. Eles trabalham com ele. Geram retornos reais. O que devolvem pra você? A Poupança rende 6,83%. Parece ok. Mas o real perdeu quase metade do valor frente ao dólar nos últimos anos. Então seu rendimento sobe em reais, mas seu poder de compra em moeda forte cai.",
       "p3": "O diBoaS fecha essa lacuna de um jeito diferente: seu dinheiro rende EM DÓLAR. Se o real se desvalorizar, seu dinheiro no diBoaS vale mais quando você traz de volta.",
       "p4": "Investir é grátis. Quando você vende, o diBoaS cobra 0,39%. Você vende R$100, o diBoaS ganha 39 centavos. Só isso. A gente só ganha mais se o seu dinheiro crescer primeiro. A taxa nunca passa de R$25.",
       "p5": "Sem mensalidade. Sem cobrança surpresa. Sem multa pra sacar.",
@@ -406,6 +407,72 @@
     "title": "diBoaS | Acesso Aberto. Oportunidades Justas.",
     "description": "O sistema financeiro não foi feito pra você. O diBoaS muda isso. Envie dinheiro grátis, invista com estratégias por metas, acompanhe com IA e compre ativos digitais.",
     "ogTitle": "O sistema financeiro não está quebrado. Só não foi feito pra você.",
-    "ogDescription": "Veja o que seu dinheiro pode fazer quando trabalha em dólar, com acesso aberto e justo."
+    "ogDescription": "Veja o que seu dinheiro pode fazer quando trabalha em dólar, com acesso aberto e justo.",
+    "jsonLd": {
+      "serviceDescription": "Construção de patrimônio guiada por metas, com o dólar digital. Seu dinheiro, sua carteira, seu controle.",
+      "appDescription": "Construção de patrimônio guiada por metas a partir de R$10. Seu dinheiro, sua carteira, seu controle.",
+      "breadcrumbHome": "Início"
+    }
+  },
+  "ptbr": {
+    "hero": {
+      "headline": "O seu esforço merece um futuro.",
+      "subtitle": "Você fez tudo certo. E mesmo assim seu dinheiro encolheu. O diBoaS guarda o que é seu em dólar. No seu nome. Seu pra sacar quando quiser.",
+      "whatIs": "Seu dinheiro guardado em dólar e rendendo. Você no controle, sem banco no meio.",
+      "microcopy": "Comece com R$10. Sem mensalidade. Saia quando quiser.",
+      "cta": "Ver como funciona"
+    },
+    "pain": {
+      "body": "Todo mês você guarda um pouco. Faz o certo. Mesmo assim, daqui a uns anos, esse dinheiro compra menos. Não é culpa sua: desde 2010, o real perdeu {value} pro dólar. Ninguém te avisou. A gente está avisando."
+    },
+    "whatIsSection": {
+      "header": "O que é o diBoaS",
+      "body": "Pensa num cofre que guarda seu dinheiro em dólar, a moeda que o mundo usa pra não perder. A chave é sua. Não do banco, não do diBoaS. Sua. Você coloca pelo Pix. Acompanha pelo celular. Tira quando quiser.",
+      "imageAlt": "Mão segurando o celular com o app diBoaS, na mesa da cozinha"
+    },
+    "imagineFuture": {
+      "header": "Imagine o futuro",
+      "body": "Imagine daqui a alguns anos. A aposentadoria virou escolha, não medo. A emergência veio. E não virou dívida. O dinheiro do seu filho ainda vale o que devia valer. Mesmo esforço de sempre. Num lugar onde ele para de encolher.",
+      "cta": "Ver quanto muda pra mim",
+      "imageAlt": "Uma pessoa ao pôr do sol olhando para o horizonte"
+    },
+    "howItWorks": {
+      "header": "Como funciona",
+      "step1": "Você coloca pelo Pix. Rápido, do seu jeito.",
+      "step2": "Seu dinheiro fica em dólar e trabalha por você.",
+      "step3": "Você tira quando quiser, pra sua conta, via Pix. Sem carência."
+    },
+    "trust": {
+      "header": "E se der errado?",
+      "body": "Vamos ser diretos, porque você merece. O diBoaS não é banco. Não tem FGC, e a gente não vai fingir que tem. Então por que confiar? O dinheiro é seu: se o diBoaS sumir, ele continua com você. A gente mostra tudo: taxas, onde seu dinheiro fica, até os riscos. E você vai embora quando quiser. Golpe esconde. A gente mostra.",
+      "imageAlt": "Mãos em um gesto de cuidado e confiança"
+    },
+    "demo": {
+      "header": "Veja com seus olhos",
+      "body": "Não acredita? Ótimo. Não acredite. Veja. Entre no diBoaS em modo demo, com dinheiro de teste. Sem cadastro, sem compromisso.",
+      "cta": "Abrir o Demo"
+    },
+    "cost": {
+      "header": "Quanto custa",
+      "body": "Sem mensalidade. Sem pegadinha. Você guarda R$100 e vê pra onde vai cada centavo, antes de confirmar. Preferimos te mostrar uma taxa honesta a esconder num \"a partir de\"."
+    },
+    "adelaide": {
+      "header": "A Adelaide",
+      "body": "O diBoaS começou com uma pessoa: a Adelaide. Ela guardou a vida toda. O banco pagou quase nada, porque \"era complicado demais pra explicar\". A gente existe pra ninguém mais ouvir isso. Aqui, a gente explica. Sempre.",
+      "imageAlt": "Um caderno aberto e óculos de leitura ao lado de uma foto de família antiga"
+    },
+    "finalCta": {
+      "header": "Comece com R$10",
+      "body": "O futuro do seu dinheiro não precisa esperar você ficar rico. Começa com R$10. Hoje.",
+      "cta": "Entrar na lista",
+      "reassurance": "Sem mensalidade. Você no controle. Saia quando quiser."
+    }
+  },
+  "toolCtas": {
+    "compoundInterest": "Veja seu dinheiro render com o tempo",
+    "idleCash": "Veja quanto o dinheiro parado custa",
+    "inflationImpact": "Veja o que a inflação leva de verdade",
+    "currencyDepreciation": "Veja o quanto o real perdeu pro dólar",
+    "demo": "Experimente com dinheiro de teste"
   }
 }

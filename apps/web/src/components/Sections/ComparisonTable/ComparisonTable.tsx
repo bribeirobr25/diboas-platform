@@ -27,6 +27,10 @@ import styles from './ComparisonTable.module.css';
 interface ComparisonTableProps {
   enableAnalytics?: boolean;
   className?: string;
+  /** When true, render WITHOUT the outer SectionContainer (no nested <section>,
+   *  padding, or aria-label) — for embedding inside another section, e.g. the
+   *  FeeTable expand. Standalone consumers (/business) keep the default. */
+  embedded?: boolean;
 }
 
 const COLUMN_KEYS = ['bank', 'neobanks', 'treasuries', 'diboas'] as const;
@@ -110,6 +114,7 @@ function useComparisonData(locale: SupportedLocale) {
 export const ComparisonTable = memo(function ComparisonTable({
   enableAnalytics = true,
   className = '',
+  embedded = false,
 }: ComparisonTableProps) {
   const intl = useTranslation();
   const { locale: rawLocale } = useLocale();
@@ -165,15 +170,8 @@ export const ComparisonTable = memo(function ComparisonTable({
     return () => observer.disconnect();
   }, [enableAnalytics, intl.locale]);
 
-  return (
-    <SectionContainer
-      variant="standard"
-      padding="standard"
-      backgroundColor="var(--section-bg-neutral)"
-      ariaLabel={tSection('ariaLabel')}
-      className={className}
-    >
-      <div ref={sectionRef} className={styles.container}>
+  const body = (
+    <div ref={sectionRef} className={styles.container}>
         <p className={`u-eyebrow ${styles.eyebrow}`}>
           {intl.formatMessage({ id: 'landing-b2c.eyebrows.math' })}
         </p>
@@ -261,6 +259,19 @@ export const ComparisonTable = memo(function ComparisonTable({
 
         <p className={styles.footnote}>{t('footnote')}</p>
       </div>
+  );
+
+  return embedded ? (
+    body
+  ) : (
+    <SectionContainer
+      variant="standard"
+      padding="standard"
+      backgroundColor="var(--section-bg-neutral)"
+      ariaLabel={tSection('ariaLabel')}
+      className={className}
+    >
+      {body}
     </SectionContainer>
   );
 });

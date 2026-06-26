@@ -33,7 +33,7 @@
     },
     "pixFaq": {
       "question": "¿Puedo usar PIX con diBoaS?",
-      "answer": "No. diBoaS trabaja con dólares digitales, no con moneda local. Para transferencias domésticas, usa tu sistema de pago local."
+      "answer": "PIX solo existe en Brasil: allí ingresas y retiras con PIX. En cualquier mercado puedes ingresar y retirar con tarjeta de crédito o débito o con transferencia bancaria. Lo que diBoaS no hace es sustituir un sistema de pago local para transferencias del día a día entre personas. Aquí tu dinero se guarda en dólares digitales, y estas son simplemente las vías de entrada y salida."
     },
     "whySaveDollar": {
       "question": "¿Por qué ahorrar en dólares?",

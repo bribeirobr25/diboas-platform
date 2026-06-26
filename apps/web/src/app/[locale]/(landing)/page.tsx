@@ -1,69 +1,33 @@
 import { notFound } from 'next/navigation';
-import nextDynamic from 'next/dynamic';
 import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
 import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import {
-  HeroSection,
-  WedgeSection,
-  ProseSection,
-  ComparisonTable,
-  GoalExampleCards,
-  FoundingMembersSection,
-  HowItWorksGrid,
-} from '@/components/Sections';
-
-// Below-fold sections: code-split via dynamic imports to reduce initial JS bundle
-const FAQAccordion = nextDynamic(() =>
-  import('@/components/Sections/FAQAccordion/FAQAccordionFactory').then((m) => ({
-    default: m.FAQAccordion,
-  }))
-);
-const FeeTable = nextDynamic(() =>
-  import('@/components/Sections/FeeTable').then((m) => ({ default: m.FeeTable }))
-);
-const DemoLauncher = nextDynamic(() =>
-  import('@/components/Sections/DemoLauncher').then((m) => ({ default: m.DemoLauncher }))
-);
-const ExpandableSection = nextDynamic(() =>
-  import('@/components/Sections/ExpandableSection').then((m) => ({ default: m.ExpandableSection }))
-);
-const FounderSection = nextDynamic(() =>
-  import('@/components/Sections/FounderSection').then((m) => ({ default: m.FounderSection }))
-);
-const AppFeaturesCarousel = nextDynamic(() =>
-  import('@/components/Sections/AppFeaturesCarousel').then((m) => ({
-    default: m.AppFeaturesCarousel,
-  }))
-);
-const WaitlistSection = nextDynamic(() =>
-  import('@/components/Sections/WaitlistSection').then((m) => ({ default: m.WaitlistSection }))
-);
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
-import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
 import { PageI18nProvider, MarketDataContextProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { marketDataService } from '@/lib/market-data';
-import { ScrollReveal, StickyMobileCTA } from '@/components/UI';
-import {
-  B2C_HERO_CONFIG,
-  B2C_ORIGIN_STORY_CONFIG,
-  B2C_HOW_IT_WORKS_CONFIG,
-  B2C_FEES_CONFIG,
-  B2C_CATCH_CONFIG,
-  B2C_UNDER_THE_HOOD_CONFIG,
-  B2C_DEMO_CONFIG,
-  B2C_WAITLIST_CONFIG,
-  B2C_FOUNDER_CONFIG,
-  B2C_FAQ_CONFIG,
-  B2C_FOOTER_NAV,
-  B2C_FOOTER_DISCLOSURES,
-} from '@/config/landing-b2c';
+import { StickyMobileCTA } from '@/components/UI';
+import { LandingPtBR } from '@/components/Pages/LandingPtBR';
+import { LandingDe } from '@/components/Pages/LandingDe';
+import { LandingEs } from '@/components/Pages/LandingEs';
+import { LandingEn } from '@/components/Pages/LandingEn';
+import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
+
+/**
+ * Open Graph `locale` requires the `language_TERRITORY` form (underscore), not the
+ * route's `language-TERRITORY` (hyphen). Map the supported locales explicitly.
+ */
+const OG_LOCALE: Record<SupportedLocale, string> = {
+  en: 'en_US',
+  de: 'de_DE',
+  es: 'es_ES',
+  'pt-BR': 'pt_BR',
+};
 
 /**
  * Generate metadata for the B2C landing page
@@ -106,7 +70,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
       title: ogTitle,
       description: ogDescription,
       type: 'website',
-      locale: locale,
+      locale: OG_LOCALE[locale as SupportedLocale] ?? 'en_US',
       url: `${baseUrl}/${locale}`,
       siteName: 'diBoaS',
       images: [
@@ -134,23 +98,13 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
 }
 
 /**
- * B2C Landing Page
+ * B2C Landing Page (route shell)
  *
- * Grouped editorial layout + footer (each group led by an eyebrow kicker):
- * 1.  Hero — Full dark background with headline and CTA
- * 2.  THE MATH — ComparisonTable "$1,000. 1 year. You decide." (count-up returns)
- * 3.  YOUR GOALS — GoalExampleCards, expandable goal cards
- * 4.  THE STORY — Adelaide origin story (ProseSection, warm bg)
- * 5.  HOW IT WORKS — HowItWorksGrid stepper → Demo → AppFeaturesCarousel
- * 6.  THE FEES — Transparent fee table
- * 7.  THE HONEST PART — "What's the Catch?" (ProseSection dark) + Under the Hood
- * 8.  PROOF & JOIN — Founding members social proof → Waitlist sign-up
- * 9.  THE FOUNDER — "Built by Bar" founder story + contact
- * 10. FAQ — CLO-approved Q&A items
- *     Footer — Tagline, nav, disclosures
- *
- * (SidePocketStrip removed in the 2026-06 modernization; FoundingMembers moved
- * adjacent to the waitlist so proof flows straight into the CTA.)
+ * Owns the shared, locale-param-driven shell — metadata, the 3 JSON-LD blocks,
+ * the i18n + market-data providers, ScrollToHash, MinimalFooter, StickyMobileCTA —
+ * and selects the per-locale section composition. Each supported locale has its
+ * own Draper composition (LandingPtBR/LandingDe/LandingEs/LandingEn); the shell
+ * picks one by locale. See LANDING_REBUILD_PLAN*.md.
  */
 export default async function B2CLandingPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -161,23 +115,30 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
   }
 
   // Load page-specific namespaces + market snapshot in parallel.
-  // A8 fix (2026-05-23): pre-fetch the snapshot server-side so ComparisonTable
-  // + GoalExampleCards render with live data on first paint instead of
-  // flipping from static fallback after hydration. See TOOLS_IMPROVEMENT.md A8.
-  const [pageMessages, snapshot] = await Promise.all([
+  // A8 fix (2026-05-23): pre-fetch the snapshot server-side so the data-bound
+  // sections render with live data on first paint instead of flipping from
+  // static fallback after hydration. See TOOLS_IMPROVEMENT.md A8.
+  const [pageMessages, snapshot, lbMessages] = await Promise.all([
     loadPageNamespaces(locale, ['landing-b2c', 'faq', 'share', 'dreamMode', 'preDemo', 'preDream']),
     marketDataService.get(),
+    loadMessages(locale, 'landing-b2c'),
   ]);
+
+  // Localized JSON-LD strings (so structured data is served in the page locale,
+  // not English-only). English literals are kept as resilient fallbacks.
+  const jsonLd = (lbMessages?.seo?.jsonLd as Record<string, string> | undefined) || {};
 
   // Generate structured data
   const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS',
-    description: 'Turn your idle money into real growth with DeFi yields',
+    description:
+      jsonLd.serviceDescription ||
+      'Goal-driven wealth building powered by the digital dollar. Your money, your wallet, your control.',
     category: 'Financial Services',
   });
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
-    [{ name: 'Home', url: '/' }],
+    [{ name: jsonLd.breadcrumbHome || 'Home', url: '/' }],
     locale
   );
 
@@ -193,6 +154,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
       priceCurrency: 'USD',
     },
     description:
+      jsonLd.appDescription ||
       'Goal-driven wealth building starting at $5. Your money, your wallet, your control.',
   };
 
@@ -202,268 +164,18 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
         <StructuredData data={[organizationData, breadcrumbData, appStructuredData]} />
         <ScrollToHash />
 
-        <div className="main-page-wrapper">
-          {/* Section 1: Hero — dark bg, NO scroll reveal (visible on load) */}
-          <SectionErrorBoundary
-            sectionId="hero-section-b2c"
-            sectionType="HeroSection"
-            enableReporting={true}
-            context={{ page: 'landing-b2c', variant: 'fullBackground' }}
-          >
-            <div data-section-id="hero-section-b2c">
-              <HeroSection
-                variant="cinematic"
-                config={B2C_HERO_CONFIG}
-                enableAnalytics={true}
-                priority={true}
-              />
-            </div>
-          </SectionErrorBoundary>
-
-          {/* Per-market wedge — each locale's market truth, live-data-bound */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="wedge-section-b2c"
-              sectionType="WedgeSection"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div data-section-id="wedge-section-b2c">
-                <WedgeSection enableAnalytics={true} />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Section 2: Comparison Table — neutral bg */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="comparison-section-b2c"
-              sectionType="ComparisonTable"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div
-                id="comparison"
-                data-section-id="comparison-section-b2c"
-                style={{ backgroundColor: 'var(--section-bg-neutral)' }}
-              >
-                <ComparisonTable enableAnalytics={true} />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Goal Example Cards — white bg */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="goals-section-b2c"
-              sectionType="GoalExampleCards"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div
-                id="goals"
-                data-section-id="goals-section-b2c"
-                style={{ backgroundColor: 'var(--section-bg-white)' }}
-              >
-                <GoalExampleCards enableAnalytics={true} />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* The Story — warm bg (set via config) */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="origin-story-section-b2c"
-              sectionType="ProseSection"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div id="our-story" data-section-id="origin-story-section-b2c">
-                <ProseSection config={B2C_ORIGIN_STORY_CONFIG} enableAnalytics={true} />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Section 6: How It Works (Detailed) — white bg */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="how-it-works-detailed-section-b2c"
-              sectionType="HowItWorksGrid"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div
-                id="how-it-works"
-                data-section-id="how-it-works-detailed-section-b2c"
-                style={{ backgroundColor: 'var(--section-bg-white)' }}
-              >
-                <HowItWorksGrid enableAnalytics={true} />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Section 7: Demo — brand bg */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="demo-section-b2c"
-              sectionType="DemoLauncher"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div
-                id="demo"
-                data-section-id="demo-section-b2c"
-                style={{ backgroundColor: 'var(--section-bg-brand)' }}
-              >
-                <DemoLauncher config={B2C_DEMO_CONFIG} enableAnalytics={true} />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Section 8: Take Control and Free your Money — neutral bg (set via component token) */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="how-it-works-section-b2c"
-              sectionType="AppFeaturesCarousel"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div id="money-that-moves" data-section-id="how-it-works-section-b2c">
-                <AppFeaturesCarousel config={B2C_HOW_IT_WORKS_CONFIG} enableAnalytics={true} />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Section 9: Fees — neutral bg */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="fees-section-b2c"
-              sectionType="FeeTable"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div
-                id="fees"
-                data-section-id="fees-section-b2c"
-                style={{ backgroundColor: 'var(--section-bg-neutral)' }}
-              >
-                <FeeTable config={B2C_FEES_CONFIG} enableAnalytics={true} />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Section 10: What's the Catch? — dark bg (set via config) */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="catch-section-b2c"
-              sectionType="ProseSection"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div id="the-catch" data-section-id="catch-section-b2c">
-                <ProseSection config={B2C_CATCH_CONFIG} enableAnalytics={true} headingLevel="h3" />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Section 11: Under the Hood — white bg */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="under-the-hood-section-b2c"
-              sectionType="ExpandableSection"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div
-                id="under-the-hood"
-                data-section-id="under-the-hood-section-b2c"
-                style={{ backgroundColor: 'var(--section-bg-white)' }}
-              >
-                <ExpandableSection config={B2C_UNDER_THE_HOOD_CONFIG} />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Proof & Join — Founding members social proof, adjacent to the
-              waitlist CTA so proof flows straight into sign-up. — white bg */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="founding-members-section-b2c"
-              sectionType="FoundingMembersSection"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div
-                id="social-proof"
-                data-section-id="founding-members-section-b2c"
-                style={{ backgroundColor: 'var(--section-bg-white)' }}
-              >
-                <FoundingMembersSection enableAnalytics={true} />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Waitlist — dark bg (set via config) */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="waitlist-section-b2c"
-              sectionType="WaitlistSection"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div id="waitlist" data-section-id="waitlist-section-b2c">
-                <WaitlistSection
-                  enableAnalytics={true}
-                  config={{
-                    sectionId: B2C_WAITLIST_CONFIG.sectionId,
-                    backgroundColor: B2C_WAITLIST_CONFIG.backgroundColor,
-                    headline: B2C_WAITLIST_CONFIG.headline,
-                    subheadline: B2C_WAITLIST_CONFIG.subheadline,
-                    hideBenefits: B2C_WAITLIST_CONFIG.hideBenefits,
-                    hideNoSpam: B2C_WAITLIST_CONFIG.hideNoSpam,
-                    source: B2C_WAITLIST_CONFIG.source,
-                  }}
-                />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Section 14: Built by Bar — warm bg */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="founder-section-b2c"
-              sectionType="FounderSection"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div
-                id="founder"
-                data-section-id="founder-section-b2c"
-                style={{ backgroundColor: 'var(--section-bg-warm)' }}
-              >
-                <FounderSection config={B2C_FOUNDER_CONFIG} />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-
-          {/* Section 15: FAQ — white bg */}
-          <ScrollReveal>
-            <SectionErrorBoundary
-              sectionId="faq-section-b2c"
-              sectionType="FAQAccordion"
-              enableReporting={true}
-              context={{ page: 'landing-b2c' }}
-            >
-              <div
-                id="faq"
-                data-section-id="faq-section-b2c"
-                style={{ backgroundColor: 'var(--section-bg-white)' }}
-              >
-                <FAQAccordion config={B2C_FAQ_CONFIG} />
-              </div>
-            </SectionErrorBoundary>
-          </ScrollReveal>
-        </div>
+        {/* Per-locale section composition. `isValidLocale` above guarantees one of
+            the four supported locales, so `en` is the exhaustive final branch
+            (also the x-default). See LANDING_REBUILD_PLAN*.md. */}
+        {locale === 'pt-BR' ? (
+          <LandingPtBR />
+        ) : locale === 'de' ? (
+          <LandingDe />
+        ) : locale === 'es' ? (
+          <LandingEs />
+        ) : (
+          <LandingEn />
+        )}
 
         {/* Footer */}
         <MinimalFooter

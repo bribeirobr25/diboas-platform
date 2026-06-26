@@ -296,6 +296,11 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
     sectionId: 'fees-b2c',
     category: 'landing-b2c',
   },
+  // Lean mode (CEO request 2026-06-26): show the first 3 fee rows; expanding
+  // reveals the rest + the "See the numbers" comparison chart (passed as the
+  // FeeTable `expandedSlot`). /business omits previewRows → full table.
+  previewRows: 3,
+  expandToggleLabel: 'landing-b2c.comparison.disclosureToggle',
 } as const;
 
 /**

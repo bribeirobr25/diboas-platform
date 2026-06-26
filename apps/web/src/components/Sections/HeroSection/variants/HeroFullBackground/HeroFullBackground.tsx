@@ -9,7 +9,7 @@
 
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Button } from '@diboas/ui';
 import { useTranslation } from '@diboas/i18n/client';
@@ -27,6 +27,24 @@ export function HeroFullBackground({
 }: HeroVariantProps) {
   const intl = useTranslation();
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
+  const bgImgRef = useRef<HTMLImageElement>(null);
+
+  // next/image's `onLoad` does not fire when the image is already complete
+  // (served from cache) before React attaches the handler — which would leave
+  // the loading overlay stuck forever. Dismiss it if the image is already
+  // loaded on mount, with a timeout safety net so the overlay never sticks.
+  /* eslint-disable react-hooks/set-state-in-effect -- intentional mount sync: dismiss the
+     loading overlay once the (possibly cached) bg image is ready; next/image `onLoad` can miss
+     already-complete images, so a ref `.complete` check + timeout fallback are required. */
+  useEffect(() => {
+    if (bgImgRef.current?.complete) {
+      setBackgroundLoaded(true);
+      return;
+    }
+    const timeout = setTimeout(() => setBackgroundLoaded(true), 3000);
+    return () => clearTimeout(timeout);
+  }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const handleCTAClick = useCallback(() => {
     onCTAClick?.();
@@ -63,6 +81,7 @@ export function HeroFullBackground({
         <div className={styles.backgroundLayer} aria-hidden="true">
           {/* Desktop image (hidden on mobile when separate mobile image exists) */}
           <Image
+            ref={bgImgRef}
             src={backgroundImage}
             alt=""
             fill

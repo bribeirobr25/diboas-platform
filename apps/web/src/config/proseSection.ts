@@ -33,6 +33,17 @@ export interface ProseSectionConfig {
     readonly position?: 'left' | 'right';
     readonly aspectRatio?: 'landscape' | 'portrait';
   };
+  /**
+   * Optional rotating CTA. One button whose target is picked at random per visit
+   * from these options (e.g. tool promos + the demo), so each locale's best
+   * converter can be found from click analytics. `text` is an i18n key, `href` is
+   * a locale-relative route, `id` is the analytics label. Omit for no CTA.
+   */
+  readonly cta?: readonly {
+    readonly id: string;
+    readonly text: string;
+    readonly href: string;
+  }[];
   readonly style: {
     readonly backgroundColor: string;
     readonly maxWidth?: string;

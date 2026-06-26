@@ -18,8 +18,8 @@
   },
   "wedge": {
     "eyebrow": "La verdad sobre tus ahorros",
-    "claim": "La inflación se comió {value} de tu dinero desde 2010.",
-    "honest": "Guardar no es lo mismo que proteger. El dólar digital te da acceso a una moneda más fuerte, contigo siempre al mando. Ningún mercado está libre de riesgo.",
+    "claim": "Tu banco te paga {value}.",
+    "honest": "Pone tu dinero a trabajar y gana de verdad con él. A ti te devuelve casi nada, y la inflación se come el resto. Esa brecha es su negocio, y nosotros la cerramos.",
     "cta": "Calcula lo que pierdes"
   },
   "waitlistFounding": {
@@ -37,7 +37,8 @@
       "apy": "Tasa anual",
       "return": "Rendimiento a 1 año"
     },
-    "footnote": "Tasas comparativas basadas en datos públicos de la UE como promedio de los últimos 5 años. Los rendimientos pueden cambiar y variar según el producto. Los rendimientos en dólares digitales implican riesgo, incluida la posible pérdida del capital."
+    "footnote": "Tasas comparativas basadas en datos públicos de la UE como promedio de los últimos 5 años. Los rendimientos pueden cambiar y variar según el producto. Los rendimientos en dólares digitales implican riesgo, incluida la posible pérdida del capital.",
+    "disclosureToggle": "Mira los números"
   },
   "goalExamples": {
     "heading": "Construye riqueza usando tus Metas.",
@@ -406,6 +407,74 @@
     "title": "diBoaS | Acceso Abierto. Oportunidades Justas.",
     "description": "El sistema financiero no fue hecho para ti. diBoaS lo cambia. Envía dinero gratis, invierte con estrategias por metas, aprende con IA y compra activos digitales.",
     "ogTitle": "El sistema financiero no está roto. Solo que no fue construido para ti.",
-    "ogDescription": "Mira lo que tu dinero puede hacer cuando el acceso es abierto y justo para todos."
+    "ogDescription": "Mira lo que tu dinero puede hacer cuando el acceso es abierto y justo para todos.",
+    "jsonLd": {
+      "serviceDescription": "Creación de patrimonio guiada por objetivos con el dólar digital. Tu dinero, tu cartera, tu control.",
+      "appDescription": "Creación de patrimonio guiada por objetivos desde 5 €. Tu dinero, tu cartera, tu control.",
+      "breadcrumbHome": "Inicio"
+    }
+  },
+  "draper": {
+    "hero": {
+      "headline": "Es tu dinero. El rendimiento también.",
+      "subtitle": "Tu banco guarda tu dinero y se queda con la mayor parte del rendimiento. diBoaS nunca guarda tu dinero. El rendimiento es tuyo.",
+      "whatIs": "diBoaS es una forma sencilla de hacer crecer tu dinero en dólares digitales. Tú mantienes el control.",
+      "microcopy": "Empieza con 5 €. Sin cuota mensual. Retira cuando quieras.",
+      "cta": "Muéstrame"
+    },
+    "neverHold": {
+      "header": "Nunca guardamos tu dinero",
+      "body": "Tu dinero vive como dólares digitales en una cartera que es tuya. No nuestra. No podemos congelarlo. No podemos prestarlo. Si diBoaS desaparece, tu dinero no. Nosotros solo abrimos la puerta.",
+      "imageAlt": "Tu cartera, tu dinero, tu control"
+    },
+    "upside": {
+      "header": "El rendimiento es para ti",
+      "body": "Tu dinero hace el mismo trabajo que en el banco. La única diferencia es quién se queda el rendimiento. En el banco, ellos. Aquí, tú. Sin sucursal, sin directivo que cobre primero.",
+      "imageAlt": "El trabajo que hace tu dinero"
+    },
+    "pictureFuture": {
+      "header": "Imagina unos años",
+      "body": "Imagina unos años por delante. Una jubilación que es una elección, no una preocupación. Una emergencia que sigue siendo un imprevisto, no una crisis. El 10% que apartas, creciendo de verdad. Mismo esfuerzo. Un lugar más justo para ponerlo.",
+      "cta": "Ver mis números",
+      "imageAlt": "Una persona al atardecer mirando al horizonte"
+    },
+    "howItWorks": {
+      "header": "Cómo funciona",
+      "step1": "Añade dinero, a tu manera.",
+      "step2": "Crece como dólares digitales, mientras duermes.",
+      "step3": "Retíralo cuando quieras. Sin bloqueos."
+    },
+    "catch": {
+      "header": "¿Cuál es la trampa?",
+      "body": "Buena pregunta. Aquí va la respuesta honesta. Puedes perder dinero. Dinero real. Lo decimos claro. Pero nunca guardamos tu dinero, así que no podemos congelarlo ni perderlo. No somos un banco. Tú mantienes el control. Siempre.",
+      "imageAlt": "Calma y control"
+    },
+    "demo": {
+      "header": "No te fíes solo de nuestra palabra",
+      "body": "No te fíes solo de nuestra palabra. Míralo. Entra en diBoaS con dinero de juguete. Sin registro, sin compromiso.",
+      "cta": "Abrir la demo"
+    },
+    "cost": {
+      "header": "Lo que cuesta",
+      "body": "Sin cuota mensual. Sin trampa. Añade 100 € y ves cada céntimo de coste antes de confirmar. Nuestra comisión, más el coste de red. Nada oculto."
+    },
+    "founder": {
+      "header": "Construido por Bar",
+      "body": "diBoaS empezó con mi abuela, Adelaide. Ahorró la mitad de todo lo que ganó. Su banco le pagó casi nada, y nadie le explicó por qué. Pasé 20 años creando productos para otras empresas. Este es el que habría querido para ella.",
+      "imageAlt": "Un cuaderno abierto y unas gafas de lectura junto a una vieja foto de familia"
+    },
+    "finalCta": {
+      "header": "Únete",
+      "body": "El rendimiento de tu dinero no debería esperar. Empieza con 5 €.",
+      "cta": "Unirme a la lista",
+      "reassurance": "Sin cuota mensual. Tú mantienes el control. Retira cuando quieras."
+    }
+  },
+  "toolCtas": {
+    "compoundInterest": "Mira cómo crece tu dinero con el tiempo",
+    "idleCash": "Mira lo que cuesta el dinero parado",
+    "inflationImpact": "Mira lo que se lleva la inflación de verdad",
+    "currencyDepreciation": "Mira la brecha del dólar con el tiempo",
+    "demo": "Pruébalo con dinero de juguete"
   }
 }

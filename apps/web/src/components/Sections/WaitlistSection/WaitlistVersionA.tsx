@@ -33,6 +33,9 @@ interface WaitlistVersionAProps {
     hideNoSpam?: boolean;
     namespace?: string;
     confirmationNamespace?: string;
+    /** Heading level for the section headline. Defaults to 'h3'; landing pages
+     *  pass 'h2' so the waitlist sits correctly in the document outline. */
+    headingLevel?: 'h2' | 'h3';
   };
   /** Waitlist source for signup tagging (e.g., 'landing_b2b') */
   source?: string;
@@ -74,6 +77,7 @@ export function WaitlistVersionA({
   const ns = config?.namespace || 'landing-b2c.waitlist';
   const t = (key: string, values?: Record<string, React.ReactNode>) =>
     intl.formatMessage({ id: `${ns}.${key}` }, values);
+  const HeadlineTag = config?.headingLevel ?? 'h3';
 
   if (signupData) {
     return (
@@ -97,9 +101,9 @@ export function WaitlistVersionA({
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <div className={styles.header}>
-          <h3 className={styles.headline}>
+          <HeadlineTag className={styles.headline}>
             {intl.formatMessage({ id: config?.headline || 'landing-b2c.waitlist.header' })}
-          </h3>
+          </HeadlineTag>
           <p className={styles.subheadline}>
             {intl.formatMessage({ id: config?.subheadline || 'landing-b2c.waitlist.description' })}
           </p>

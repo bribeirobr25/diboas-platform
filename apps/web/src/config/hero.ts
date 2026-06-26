@@ -53,7 +53,9 @@ export interface HeroBackgroundAssets {
 }
 
 export interface HeroSEO {
-  readonly titleTag: string;
+  /** Optional: only the `default`/`cinematic` variants surface a per-hero title;
+   *  `fullBackground` heroes take their <title> from the page's generateMetadata. */
+  readonly titleTag?: string;
   readonly imageAlt: {
     readonly phone?: string;
     readonly mascot?: string;

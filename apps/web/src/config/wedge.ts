@@ -12,7 +12,7 @@
  *   🇺🇸 en    — idle-money + honesty: "Your bank pays {rate}." → demo-forward.
  *   🇧🇷 pt-BR — dollar hedge (killer wedge): "O real perdeu {x}% pro dólar desde
  *               2010." → Currency-Depreciation tool. Warmest tone.
- *   🇪🇸 es    — inflation / ahorro: "La inflación se comió {x}%." → Inflation tool.
+ *   🇪🇸 es    — bank gap / ahorro: "Tu banco te paga {rate}." → Inflation-impact tool.
  *   🇩🇪 de    — Tagesgeld, data-first: "Dein Tagesgeld bringt {rate}." → Inflation
  *               tool. Most typographically disciplined (neutral tone).
  *
@@ -37,7 +37,7 @@ export interface WedgeExpression {
 export const WEDGE_CONFIG: Record<SupportedLocale, WedgeExpression> = {
   en: { metric: 'bankSavings', ctaHref: '/demo', tone: 'action' },
   'pt-BR': { metric: 'brlDollarLoss', ctaHref: '/tools/currency-depreciation', tone: 'warm' },
-  es: { metric: 'inflationCumulative', ctaHref: '/tools/inflation-impact', tone: 'action' },
+  es: { metric: 'bankSavings', ctaHref: '/tools/inflation-impact', tone: 'action' },
   de: { metric: 'bankSavings', ctaHref: '/tools/inflation-impact', tone: 'neutral' },
 } as const;
 
