@@ -429,15 +429,16 @@ describe('Phase A — inflation cumulative-since-2010 fields', () => {
   });
 });
 
-describe('Phase A (2026-05-16) / Phase C (2026-05-23) — asset prices refreshed', () => {
-  it('BTC spot matches Phase C live May 22 2026 anchor (Fortune $77,262)', () => {
-    // Phase C: refreshed from $80,000 (Phase A May 15 anchor) to $77,262
-    // (Fortune May 21 09:15 ET — Phase A reconciliation reference).
-    expect(FALLBACK_MARKET_DATA.assetPrices.crypto.BTC).toBe(77262);
+describe('asset prices — weekly refresh anchor (tools-data-weekly-runbook.md)', () => {
+  it('BTC spot matches the 2026-06-26 live anchor (CoinGecko/Yahoo $59,986)', () => {
+    // Weekly refresh 2026-06-26: risk-off leg, refreshed from $77,262
+    // (Phase C May 22 anchor) to $59,986 (Yahoo BTC-USD 2026-06-26 close,
+    // CoinGecko cross-check $60,000). Update this anchor on each weekly refresh.
+    expect(FALLBACK_MARKET_DATA.assetPrices.crypto.BTC).toBe(59986);
   });
 
-  it('updatedAt stamp reflects Phase C 2026-05-22 refresh', () => {
-    expect(FALLBACK_MARKET_DATA.assetPrices.updatedAt).toBe('2026-05-22T00:00:00Z');
+  it('updatedAt stamp reflects the 2026-06-26 weekly refresh', () => {
+    expect(FALLBACK_MARKET_DATA.assetPrices.updatedAt).toBe('2026-06-26T00:00:00Z');
   });
 });
 
