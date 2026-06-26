@@ -25,7 +25,12 @@ export default defineConfig({
   use: {
     baseURL: BASE_URL,
     trace: 'on-first-retry',
-    video: 'retain-on-failure',
+    // Video needs Playwright's ffmpeg binary, which `playwright install` would
+    // fetch — but CI uses the runner's preinstalled Chrome (channel:'chrome')
+    // and skips that download, so ffmpeg is absent. Disable video in CI to avoid
+    // a `newPage` failure; trace (on-first-retry) + screenshot cover debugging.
+    // Locally, bundled Chromium includes ffmpeg, so keep video-on-failure.
+    video: process.env.CI ? 'off' : 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
 
