@@ -13,7 +13,6 @@ import type { ProseSectionConfig } from './proseSection';
 
 /** On-brand documentary images (already in-repo, licensed). */
 const PTBR_IMAGES = {
-  hero: '/assets/images/veil-of-dawn.avif',
   whatIs: '/assets/images/future-in-hand.avif',
   imagine: '/assets/images/sunlit-future.avif',
   trust: '/assets/images/hands-of-hope.avif',
