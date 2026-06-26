@@ -1,70 +1,65 @@
 {
-  "_comment": "Per-source freshness map used by DataFreshnessIndicator. Matches doc 07 §26 DataStatus schema. v2 (2026-05-29): expanded to 7-source list aligned with doc 02 §9 Data Source Registry — replaces the iter-3 5-source placeholder. Two sources carry explicit caveats this cycle: (i) Yahoo:GC=F is a SUBSTITUTE for the retired FRED LBMA gold series (methodology drift D-gold-2026-05-29 in message), (ii) CoinGlass:ETF is a PROVISIONAL single-source render (Farside the spec-canonical manual feed is bot-blocked, SoSoValue Cloudflare-blocked, so no cross-check). Both surface as DELAYED with the nuance in the message field per doc 02 §10. This file and apps/web/data/market/regime.json#data_status MUST list the same source set (audit gate).",
+  "_comment": "Per-source freshness map used by DataFreshnessIndicator. Matches doc 07 §26 DataStatus schema. v3 (2026-06-26): refreshed against the 2026-06-19 confirmed Friday close + May 2026 monthly releases. Two changes vs v2 (2026-05-29): (i) in-repo BTC monthlies now carry the confirmed May 31 close, so the source flips DELAYED→FRESH (no newer confirmed monthly candle exists until June 30); (ii) CoinGlass:ETF flips DELAYED→UNAVAILABLE — its spot-ETF data routes now 404 (page structure changed) and the canonical Farside cross-check stays Cloudflare-blocked, so ETF-01 is scored UNAVAILABLE per doc 02 §10.1 this cycle. Yahoo:GC=F remains a SUBSTITUTE for the retired FRED LBMA gold series (methodology drift D-gold-2026-05-29). This file and apps/web/data/market/regime.json#data_status MUST list the same source set (audit gate).",
   "overall_confidence": "MODERATE",
-  "last_successful_update_at": "2026-05-29T13:00:00Z",
+  "last_successful_update_at": "2026-06-26T22:30:00Z",
   "sources": [
     {
       "source": "in-repo:monthlyPrices.json (BTC)",
-      "status": "DELAYED",
-      "last_updated_at": "2026-05-25T00:00:00Z",
-      "expected_next_update_at": "2026-05-31T23:59:59Z",
-      "stale_after": "2026-07-01T00:00:00Z",
-      "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04); last confirmed monthly close April 30, 2026 per doc 02 §5.1. Next update due at May 31 monthly close."
+      "status": "FRESH",
+      "last_updated_at": "2026-06-23T00:00:00Z",
+      "expected_next_update_at": "2026-06-30T23:59:59Z",
+      "stale_after": "2026-08-01T00:00:00Z",
+      "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04); last confirmed monthly close May 31, 2026 per doc 02 §5.1. Next update due at June 30 monthly close."
     },
     {
       "source": "FRED:DGS10",
       "status": "FRESH",
-      "last_updated_at": "2026-05-27T20:00:00Z",
-      "expected_next_update_at": "2026-05-29T20:00:00Z",
-      "stale_after": "2026-06-01T20:00:00Z",
+      "last_updated_at": "2026-06-25T20:00:00Z",
+      "expected_next_update_at": "2026-06-26T20:00:00Z",
+      "stale_after": "2026-06-30T20:00:00Z",
       "message": null
     },
     {
       "source": "FRED:DTWEXBGS",
       "status": "FRESH",
-      "last_updated_at": "2026-05-22T20:00:00Z",
-      "expected_next_update_at": "2026-05-29T20:00:00Z",
-      "stale_after": "2026-06-01T20:00:00Z",
+      "last_updated_at": "2026-06-25T20:00:00Z",
+      "expected_next_update_at": "2026-06-26T20:00:00Z",
+      "stale_after": "2026-06-30T20:00:00Z",
       "message": "Trade-weighted broad-dollar index used per doc 02 §9 (DXY proxy; license-free alternative to ICE DXY)."
     },
     {
       "source": "FRED:M2SL",
       "status": "DELAYED",
-      "last_updated_at": "2026-04-01T00:00:00Z",
-      "expected_next_update_at": "2026-05-20T00:00:00Z",
-      "stale_after": "2026-06-15T00:00:00Z",
-      "message": "Monthly liquidity series; April 2026 reading is the latest available release. Next monthly release expected mid-May (typical FRED M2SL cadence)."
+      "last_updated_at": "2026-05-01T00:00:00Z",
+      "expected_next_update_at": "2026-07-25T00:00:00Z",
+      "stale_after": "2026-08-01T00:00:00Z",
+      "message": "Monthly liquidity series; the May 2026 reading (released late June) is the latest available release. Next monthly release expected late July (typical FRED M2SL cadence)."
     },
     {
       "source": "FRED:NASDAQCOM",
       "status": "FRESH",
-      "last_updated_at": "2026-05-27T20:00:00Z",
-      "expected_next_update_at": "2026-05-29T20:00:00Z",
-      "stale_after": "2026-06-01T20:00:00Z",
+      "last_updated_at": "2026-06-25T20:00:00Z",
+      "expected_next_update_at": "2026-06-26T20:00:00Z",
+      "stale_after": "2026-06-30T20:00:00Z",
       "message": null
     },
     {
       "source": "Yahoo:GC=F",
       "status": "DELAYED",
-      "last_updated_at": "2026-05-29T12:00:00Z",
-      "expected_next_update_at": "2026-05-29T20:00:00Z",
-      "stale_after": "2026-06-02T20:00:00Z",
+      "last_updated_at": "2026-06-25T20:00:00Z",
+      "expected_next_update_at": "2026-06-26T20:00:00Z",
+      "stale_after": "2026-06-30T20:00:00Z",
       "message": "Methodology drift D-gold-2026-05-29: spec primary FRED GOLDAMGBD228NLBM (LBMA AM fix) and GOLDPMGBD228NLBM (LBMA PM fix) both returned 404 — FRED retired the LBMA series. Yahoo GC=F (front-month gold futures) substituted. Result direction for REL-01 (ratio-vs-EMA-of-self) is robust to the substitute. Replacement canonical source tracked in PENDING_ALL.md 5.29."
     },
     {
       "source": "CoinGlass:ETF",
-      "status": "DELAYED",
-      "last_updated_at": "2026-05-28T22:00:00Z",
-      "expected_next_update_at": "2026-05-29T22:00:00Z",
-      "stale_after": "2026-06-01T22:00:00Z",
-      "message": "PROVISIONAL single-source — CoinGlass /etf/bitcoin daily-flows table browser-rendered via Docker MCP (2026-05-29). SoSoValue cross-check unreachable (Cloudflare-blocked). Spec-canonical Farside manual feed remains the authoritative source per doc 02 §8.3 + doc 06 §6.5 — not used here (bot-blocked, policy forbids evasion). Visible window: trailing ~10 trading days (May 15 — May 29). Of the trailing 4 weekly aggregates anchored at the May 22 confirmed Friday close: week ending May 22 confirmed net-negative (-16.3K BTC, 5/5 days outflows); weeks ending May 15 / May 8 / May 1 not visible on the default page without authenticated access. Current in-progress week (ending May 29) is tracking net-negative (-17.0K BTC through Thu, post-anchor so outside the trailing-4 window). ETF-01 evaluated INACTIVE 0/2 on the directional read across visible data; the more conservative §10.1 UNAVAILABLE read yields identical 0-pt scoring. Canonical Farside acquisition tracked in PENDING_ALL.md 5.28."
+      "status": "UNAVAILABLE",
+      "last_updated_at": "2026-06-26T22:30:00Z",
+      "expected_next_update_at": "2026-07-03T22:30:00Z",
+      "stale_after": "2026-07-10T22:30:00Z",
+      "message": "ETF net-flows could not be observed this cycle (2026-06-26). The CoinGlass provisional fallback returned HTTP 404 on every spot-ETF route attempted (/bitcoin-etf, /etf/bitcoin, /bitcoin-spot-etf, /en/, /pro/i/) — the site's data-route structure changed since the 2026-05-29 render; the homepage still loads, so this is a routing change, not a full block. The spec-canonical Farside manual feed is behind a Cloudflare challenge wall (policy forbids evasion per doc 02 §8.3 + doc 06 §6.5); SoSoValue also Cloudflare-blocked. With fewer than the required trailing-four confirmed weekly aggregates observable, ETF-01 is evaluated UNAVAILABLE per §10.1 and contributes 0 of 2 points (score-invariant: an INACTIVE read would also award 0). Canonical Farside acquisition tracked in PENDING_ALL.md 5.28; CoinGlass route re-discovery tracked there as well."
     }
   ],
-  "delayed_sources": [
-    "in-repo:monthlyPrices.json (BTC)",
-    "FRED:M2SL",
-    "Yahoo:GC=F",
-    "CoinGlass:ETF"
-  ],
-  "unavailable_sources": []
+  "delayed_sources": ["FRED:M2SL", "Yahoo:GC=F"],
+  "unavailable_sources": ["CoinGlass:ETF"]
 }
