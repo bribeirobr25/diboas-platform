@@ -16,7 +16,8 @@
         "UPSTASH_REDIS_REST_TOKEN",
         "SENTRY_AUTH_TOKEN",
         "SENTRY_ORG",
-        "SENTRY_PROJECT"
+        "SENTRY_PROJECT",
+        "PA11Y_DISABLE_IMAGE_OPT"
       ]
     },
     "dev": {
