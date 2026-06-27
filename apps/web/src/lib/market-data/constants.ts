@@ -80,10 +80,13 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
   // Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23): refreshed to May-21/22 live spots
   // per Phase A authoritative numbers (Fortune BTC, TradingEconomics gold/TLT).
   assetPrices: {
-    crypto: { BTC: 77262, ETH: 2300, SOL: 152, SUI: 2.85, TRX: 0.21 }, // BTC was 80000
-    etfs: { SPYx: 745, QQQx: 717, IWMon: 234 }, // SPY/QQQ updated to Yahoo May close
-    commodities: { XAUT: 4524 }, // Gold was 4700
-    updatedAt: '2026-05-22T00:00:00Z',
+    // Weekly refresh 2026-06-26 (tools-data-weekly-runbook.md): risk-off leg
+    // vs the May stamp — BTC 77.3k→60k, gold 4524→4103, ETH/SOL down sharply.
+    // CoinGecko + Yahoo cross-checked; consistent with the firm-dollar /market read.
+    crypto: { BTC: 59986, ETH: 1577, SOL: 72, SUI: 0.7, TRX: 0.32 }, // 2026-06-26 spot (CoinGecko/Yahoo)
+    etfs: { SPYx: 729, QQQx: 707, IWMon: 234 }, // SPY/QQQ Yahoo 2026-06-26 close; IWM unchanged
+    commodities: { XAUT: 4103 }, // Tether Gold ≈ spot gold/oz, Yahoo GC=F 2026-06-26
+    updatedAt: '2026-06-26T00:00:00Z',
   },
   // FX rate unit-convention header (R2 — Phase 1 step 4 / FX-16 adoption 2026-05-26):
   //   • `annualDepreciation`         — decimal (0.0055 = 0.55%; negative = local currency strengthened)
@@ -96,31 +99,31 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
   exchangeRates: {
     rates: {
       BRL: {
-        rateToUsd: 5.0134,
+        rateToUsd: 5.1695,
         // Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23, Decision PT1 ACCEPTED):
         // raised to live full-series CAGR per Phase A — 6.21%/yr USD/BRL
         // depreciation Jan 2010 → May 2026 (BCB PTAX). The Phase D
         // horizon-matched-CAGR helper recomputes from monthlySeries.fx[BRL]
         // at runtime; this constant is the data-unavailable fallback.
         annualDepreciation: 0.0621,
-        rateDate: '2026-05-22',
+        rateDate: '2026-06-26',
         depreciationBasis:
           'live full-series CAGR Jan 2010 → May 2026 (BCB PTAX); horizon-matched at runtime via monthlySeries.fx[BRL]',
         historicalCagr: 0.0621,
         historicalAnchorStart: '2010-01-01',
         historicalAnchorEnd: '2026-05-22',
         historicalRateStart: 1.874,
-        historicalRateEnd: 5.0134,
+        historicalRateEnd: 5.0134, // LOCKED anchor endpoint (do not refresh with spot)
       },
       EUR: {
-        rateToUsd: 0.8542,
+        rateToUsd: 0.8771,
         // FX-16 adoption D1 ACCEPTED 2026-05-26 (Bar): retired prior PT3 1.23% in
         // `annualDepreciation` — 1.23% was an endpoint-pair retrospective CAGR
         // mistakenly placed in the forward field. 1.23% remains in `historicalCagr`
         // (correct field) for the locked 2010→2026 anchor pair; 0.55% is the
         // forward calibration assumption. See `docs/audit/PENDING_ALL.md` D1.
         annualDepreciation: 0.0055,
-        rateDate: '2026-05-26',
+        rateDate: '2026-06-26',
         depreciationBasis:
           'Bar-signed forward calibration assumption (NOT a literal series CAGR). FRED AEXUSEU annual series 2010→2025 endpoint-pair CAGR is ~1.07%; 2005→2025 annual-average CAGR is ~0.48%. The 0.55% value is calibrated between those frames as a smoothed long-horizon projection assumption — see decision register D1 (2026-05-26) for the reasoning, and `docs/tech/audit-bundle/GLOSSARY_AND_LIMITATIONS.md` §"FX-16 forward calibration provenance" for the auditor-facing disclosure.',
         historicalCagr: 0.0123,
