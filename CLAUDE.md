@@ -16,7 +16,7 @@ diBoaS is a goal-driven wealth building platform — your side-pocket for wealth
 - **Testing:** Vitest, @vitest/coverage-v8, Lighthouse CI, pa11y
 - **Monitoring:** Sentry (error tracking + session replay), PostHog (product analytics), GA4 (traffic analytics), web-vitals
 - **Security:** DOMPurify, Upstash Redis rate limiting, AES-256-GCM encryption, HMAC blind indexing
-- **Email:** Resend (transactional email with circuit breaker)
+- **Email:** Resend (transactional email with retry + backoff)
 - **Database:** Neon PostgreSQL (serverless)
 - **Component dev:** Storybook 10
 
@@ -76,6 +76,7 @@ apps/web/src/app/
                            #   inflation-impact, currency-depreciation, card-fees, idle-cash)
   api/                     # API routes
     consent/               # Cookie/privacy consent (POST/DELETE)
+    cron/                  # Audit-log retention purge (Vercel cron, daily 03:00 UTC)
     email/unsubscribe/     # RFC 8058 email unsubscribe
     health/                # Health check (liveness + readiness)
     monitoring/            # Sentry envelope tunnel (same-origin; bypasses ad-blockers)
@@ -355,7 +356,7 @@ Condensed reference from `docs/tech/coding-standards.md`:
 
 ## Audit Status
 
-**Current state:** 12/12 principles of excellence compliant. The Tools audit-bundle (externally validated to v1.8), the 2026-05-26 architecture challenge, and the Track A fix backlog (A0–A17) are all closed. **~1,045 tests passing.**
+**Current state:** 12/12 principles of excellence compliant. The Tools audit-bundle (externally validated to v1.8), the 2026-05-26 architecture challenge, and the Track A fix backlog (A0–A17) are all closed. **~1,061 tests passing.**
 
 - Full audit narrative + test-count progression: **`docs/audit/AUDIT_HISTORY.md`**
 - Live security findings ledger: `docs/audit/SECURITY_FINDINGS_2026-05.md`

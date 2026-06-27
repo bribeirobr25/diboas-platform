@@ -75,12 +75,12 @@ The codebase uses **two parallel naming conventions** for two different layers o
 
 Client-side analytics names that flow into Google Analytics 4 (which has tooling expectations around `snake_case` event names). Follows the pattern `{feature_area}_{specific_action}`:
 
-**Examples:**
+**Examples** (real emitted names):
 
-- `pre_dream_started`
+- `pre_dream_started` (emitted in `lib/events/eventSubscribers.ts`)
 - `waitlist_form_submitted`
 - `calculator_input_changed`
-- `share_card_generated`
+- `waitlist_card_generated` (`WAITING_LIST_EVENTS.CARD_GENERATED` in `lib/waitingList/constants.ts` — the share-card event is `waitlist_`-prefixed, not `share_`)
 
 **Rules:**
 
@@ -173,15 +173,15 @@ The two layers are NOT mirrors of each other — a single user action may emit o
 
 ### Share Events
 
-| Event Name               | Constant                        | Description                  |
-| ------------------------ | ------------------------------- | ---------------------------- |
-| `share_card_generated`   | `SHARE_EVENTS.CARD_GENERATED`   | Share card image generated   |
-| `share_initiated`        | `SHARE_EVENTS.SHARE_INITIATED`  | User initiates share action  |
-| `share_completed`        | `SHARE_EVENTS.SHARE_COMPLETED`  | Share completed successfully |
-| `share_failed`           | `SHARE_EVENTS.SHARE_FAILED`     | Share action failed          |
-| `share_cancelled`        | `SHARE_EVENTS.SHARE_CANCELLED`  | User cancelled share         |
-| `share_link_copied`      | `SHARE_EVENTS.LINK_COPIED`      | Link copied to clipboard     |
-| `share_image_downloaded` | `SHARE_EVENTS.IMAGE_DOWNLOADED` | Image downloaded             |
+| Event Name                | Constant                             | Description                  |
+| ------------------------- | ------------------------------------ | ---------------------------- |
+| `waitlist_card_generated` | `WAITING_LIST_EVENTS.CARD_GENERATED` | Share card image generated   |
+| `share_initiated`         | `SHARE_EVENTS.SHARE_INITIATED`       | User initiates share action  |
+| `share_completed`         | `SHARE_EVENTS.SHARE_COMPLETED`       | Share completed successfully |
+| `share_failed`            | `SHARE_EVENTS.SHARE_FAILED`          | Share action failed          |
+| `share_cancelled`         | `SHARE_EVENTS.SHARE_CANCELLED`       | User cancelled share         |
+| `share_link_copied`       | `SHARE_EVENTS.LINK_COPIED`           | Link copied to clipboard     |
+| `share_image_downloaded`  | `SHARE_EVENTS.IMAGE_DOWNLOADED`      | Image downloaded             |
 
 ### Calculator Events
 
@@ -367,7 +367,7 @@ analyticsService.track({
 
 ### Share Events
 
-#### `share_card_generated`
+#### `waitlist_card_generated`
 
 ```typescript
 analyticsService.track({

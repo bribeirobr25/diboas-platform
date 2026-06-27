@@ -107,7 +107,7 @@
         "es": "Entorno macro",
         "de": "Makro-Umfeld"
       },
-      "status": "DEFENSIVE",
+      "status": "WEAK",
       "points_awarded": 1,
       "max_points": 3,
       "summary": {
@@ -185,7 +185,7 @@
         "es": "Demanda institucional",
         "de": "Institutionelle Nachfrage"
       },
-      "status": "DEFENSIVE",
+      "status": "WEAK",
       "points_awarded": 0,
       "max_points": 2,
       "summary": {

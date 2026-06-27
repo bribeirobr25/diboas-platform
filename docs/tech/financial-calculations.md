@@ -191,7 +191,7 @@ Values as of 2026-05-25 (BLS USDL-26-0721 April 2026 CPI-U for US; comparable na
 | -------------- | :-----: | :--------: | :-------------------: | :---------: | ------------------------------------------------ |
 | US (en)        |  3.8%   |    4.5%    |         52.3%         |    2.62%    | Goals ≤24 months → current; >24 months → 5yr avg |
 | Brazil (pt-BR) |  4.39%  |    5.9%    |         145%          |    5.65%    | Same rule                                        |
-| Spain (es)     |  3.5%   |    4.1%    |           —           |      —      | Same rule                                        |
+| Spain (es)     |  3.5%   |    4.1%    |         41.0%         |    2.12%    | Same rule                                        |
 | Germany (de)   |  2.9%   |    4.1%    |          41%          |    2.12%    | Same rule                                        |
 
 Stored as **decimals** in `constants.ts` (0.038 = 3.8%). The `selectInflationRate()` helper applies the 24-month boundary rule. Never hand-pick inflation in callers.

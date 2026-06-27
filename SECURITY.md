@@ -24,7 +24,7 @@ This repository does not contain production secrets. Required runtime secrets ar
 - A local `.env.local` (for development; gitignored)
 - GitHub Actions secrets (for CI)
 
-The application enforces this at startup: `apps/web/src/config/env.ts` throws on missing `ENCRYPTION_KEY`, `DATABASE_URL`, `INTERNAL_API_KEY`, `RESEND_API_KEY`, or `HMAC_KEY` in production.
+The application enforces this at startup: `apps/web/src/config/env.ts` throws on missing `ENCRYPTION_KEY`, `DATABASE_URL`, `INTERNAL_API_KEY`, `RESEND_API_KEY`, `HMAC_KEY`, or `NEXT_PUBLIC_SENTRY_DSN` in production.
 
 ## Pre-commit secrets scanning (gitleaks)
 

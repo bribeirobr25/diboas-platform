@@ -53,7 +53,7 @@ Uses DOMPurify with a restricted allowlist. Default allowed tags: `strong`, `em`
 
 **File:** `apps/web/src/lib/api/routeHelpers.ts`, `apps/web/src/lib/utils/sanitize.ts`
 
-API routes sanitize text inputs via `sanitizeText()` and validate emails with `isValidEmail()` before processing. User names are sanitized with `sanitizeUserName()`.
+API routes sanitize text inputs via `sanitizeText()` and validate/normalize emails with `validateEmail()` (`apps/web/src/lib/api/routeHelpers.ts`) before processing. (`isValidEmail()` in `apps/web/src/lib/waitingList/helpers.ts` is a separate boolean predicate used in the waiting-list domain, not the route-level validator.) User names are sanitized with `sanitizeUserName()`.
 
 ### URL validation
 
@@ -120,6 +120,8 @@ Provides `encryptFields()` / `decryptFields()` helpers for encrypting specific o
 `hmacHash()` generates a deterministic hash for searchable encrypted fields (e.g., `email_hash` column for `WHERE email_hash = $1` queries). Uses a dedicated `HMAC_KEY` env var, separate from the encryption key for cryptographic separation. Falls back to `ENCRYPTION_KEY` in non-production environments.
 
 ### Deletion tokens
+
+**File:** `apps/web/src/lib/security/authentication.ts` (these helpers live here, NOT in `encryption.ts` — which only exports `encrypt`/`decrypt`/`hmacHash`/`encryptFields`/`decryptFields`).
 
 `generateDeletionToken()` creates a 32-byte random hex token. `hashToken()` stores the SHA-256 hash. `verifyToken()` compares using timing-safe comparison.
 
