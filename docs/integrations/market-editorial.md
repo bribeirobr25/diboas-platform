@@ -236,6 +236,8 @@ Two valid paths to a 0-pt verdict, both producing identical scoring:
 
 Default to the more conservative §10.1 path when in doubt — overclaiming "confirmed net-negative" weeks that you can't actually see on the source is the methodology error to avoid. Both paths award 0 pts so the score outcome is invariant; only the messaging surfaces (signal-card summary + `data-status.json` source message) differ.
 
+**CoinGlass route currently dead (as of 2026-06-26):** the CoinGlass spot-ETF routes (`/bitcoin-etf`, `/etf/bitcoin`, `/bitcoin-spot-etf`, plus the `/en/` and `/pro/i/` variants) all now return **HTTP 404** — the site's data-route structure changed and the page described above is no longer reachable. With no observable source, ETF-01 cannot confirm any trailing week, so it **defaults to the §10.1 UNAVAILABLE path** until a working source is wired. The real fix is the canonical Farside manual feed below.
+
 The deeper fix is the canonical Farside manual feed, tracked in PENDING_ALL.md 5.28 — once acquired, the full trailing-4 window is auditable and §4.5 invocation becomes deterministic.
 
 ---

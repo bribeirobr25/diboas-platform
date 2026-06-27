@@ -124,14 +124,17 @@ Five workflows in `.github/workflows/`: `ci.yml`, `security.yml`, `accessibility
 - **Runner:** `ubuntu-latest`, Node.js 24 (Vercel's current default per 2026-02-27 platform update; bumped from 20 in `ci.yml`), pnpm (cached).
 - **Steps (sequential):**
   1. `pnpm install --frozen-lockfile`
-  2. `pnpm type-check`
-  3. `pnpm lint`
-  4. `pnpm test`
-  5. `pnpm validate:translations`
-  6. `pnpm validate:design-tokens`
-  7. `pnpm build`
-  8. `pnpm check:budget` (bundle-budget gate)
-  9. `pnpm --filter web build-storybook` (Storybook build artifact)
+  2. `pnpm format:check`
+  3. `pnpm type-check`
+  4. `pnpm lint`
+  5. `pnpm test`
+  6. `node scripts/check-market-data-jargon.mjs` (Phase-7 jargon ban + no-direct-market-data-import guard)
+  7. `pnpm validate:sdk-invariant`
+  8. `pnpm validate:translations`
+  9. `pnpm validate:design-tokens`
+  10. `pnpm build`
+  11. `pnpm check:budget` (bundle-budget gate)
+  12. `pnpm --filter web build-storybook` (Storybook build artifact)
 
 ### `security.yml` — Dependency audit
 
@@ -197,7 +200,7 @@ Secret rotation policy: 90-day cycle for `ENCRYPTION_KEY`, `HMAC_KEY`, `RESEND_A
 - **CI:** Node.js **24** (set in both workflow files; bumped 20 → 24, audit/2026-05-08, to match Vercel's current default per the 2026-02-27 platform update).
 - **Vercel:** Node.js 24.x in dashboard — **matches CI.** Earlier note about a 20.x mismatch is stale: per the 2026-02-27 Vercel platform update, Node 24 LTS is the default; CI was bumped to align (Vercel runtime + CI both on Node 24).
 - **`engines` field:** still pins `>= 20.0.0` as the minimum supported (Node 24 satisfies it). Bumping the floor to 22 or 24 is a separate question — not blocking.
-- **Next.js runtime:** `nodejs` (not Edge) for server functions. Configurable via `NEXT_RUNTIME` env var. Middleware (`apps/web/middleware.ts`) runs in the Edge Runtime regardless of this setting — see `docs/tech/security.md` §2 for the Edge-Runtime constraints on CSP nonce generation.
+- **Next.js runtime:** `nodejs` (not Edge) for server functions. `NEXT_RUNTIME` is set by the framework per execution context (`nodejs` / `edge`) — it is read, not configured; `instrumentation.ts` switches on it to load the matching Sentry config. Middleware (`apps/web/middleware.ts`) runs in the Edge Runtime regardless of this setting — see `docs/tech/security.md` §2 for the Edge-Runtime constraints on CSP nonce generation.
 
 ## 12. Build Configuration — Turborepo
 

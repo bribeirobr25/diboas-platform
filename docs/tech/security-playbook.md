@@ -146,7 +146,7 @@ Five `dangerouslySetInnerHTML` usages (verified via `git grep`):
 - All template variables flow through React Email components → automatic JSX-expression escaping
 - All email headers (`From`, `Reply-To`, `Subject`) are hardcoded env-var or constant strings — no user input reaches headers → no header-injection vector
 - Resend API key is gated by `env.ts` production-secrets check (throws at startup if missing)
-- Circuit breaker (3 consecutive failures → 60s backoff) prevents send-loop amplification
+- Sends use bounded retry-with-backoff in `ResendProvider.ts` (`MAX_RETRIES = 2`, `BACKOFF_MS = [1000, 3000]`, retryable errors only) — there is no email circuit breaker (the only `CircuitBreaker` in the codebase, `lib/utils/CircuitBreaker.ts`, guards market-data, not email)
 - **Per-email-address volume cap (F8 — RESOLVED 2026-06-02):** `checkOutboundEmailRateLimit` caps a single address to **2 outbound emails per 5 minutes** (keyed by HMAC hash; gates all four send sites in `WaitlistApplicationService` via `allowOutboundEmail()`), closing the email-bombing vector that was previously open here. Fail-closed in production. (Was tracked as finding **F8**, not F2.)
 
 ### 3.7 DNS + email-deliverability surface (audited 2026-05-27)

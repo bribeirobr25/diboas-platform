@@ -142,6 +142,10 @@ Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 | `/tools/asset-history`         | Retrospective asset DCA replay (8 assets, monthly-precision FX path for cross-currency) |
 | `/tools/card-fees`             | B2B card fee savings calculator                                                         |
 | `/tools/idle-cash`             | B2B idle cash yield calculator                                                          |
+| `/market`                      | Adelaide Daily — BTC macro-regime dashboard (host surface for diboas-analytics)         |
+| `/email-preferences`           | Email unsubscribe / notification preferences                                            |
+| `/delete-confirm`              | GDPR account/waitlist deletion confirmation                                             |
+| `/share`                       | Social sharing redirect (OG metadata)                                                   |
 | `/legal/*`                     | Terms, Privacy, Cookies                                                                 |
 
 All pages available in `/en`, `/pt-BR`, `/es`, `/de`.
