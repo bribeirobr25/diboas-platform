@@ -8,8 +8,14 @@
     }
   },
   "urls": [
-    { "url": "http://localhost:3000/en", "screenCapture": "./pa11y-screenshots/home.png" },
-    { "url": "http://localhost:3000/en/about", "screenCapture": "./pa11y-screenshots/about.png" },
+    {
+      "url": "http://localhost:3000/en",
+      "screenCapture": "./pa11y-screenshots/home.png"
+    },
+    {
+      "url": "http://localhost:3000/en/about",
+      "screenCapture": "./pa11y-screenshots/about.png"
+    },
     {
       "url": "http://localhost:3000/en/business",
       "screenCapture": "./pa11y-screenshots/business.png"
@@ -18,7 +24,10 @@
       "url": "http://localhost:3000/en/learn/compound-interest",
       "screenCapture": "./pa11y-screenshots/learn-compound-interest.png"
     },
-    { "url": "http://localhost:3000/en/tools", "screenCapture": "./pa11y-screenshots/tools.png" },
+    {
+      "url": "http://localhost:3000/en/tools",
+      "screenCapture": "./pa11y-screenshots/tools.png"
+    },
     {
       "url": "http://localhost:3000/en/tools/compound-interest",
       "screenCapture": "./pa11y-screenshots/tools-compound-interest.png"
@@ -82,6 +91,10 @@
     {
       "url": "http://localhost:3000/en/strategies",
       "screenCapture": "./pa11y-screenshots/strategies.png"
+    },
+    {
+      "url": "http://localhost:3000/en/investors",
+      "screenCapture": "./pa11y-screenshots/investors.png"
     }
   ]
 }

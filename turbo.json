@@ -17,13 +17,25 @@
         "SENTRY_AUTH_TOKEN",
         "SENTRY_ORG",
         "SENTRY_PROJECT",
-        "PA11Y_DISABLE_IMAGE_OPT"
+        "PA11Y_DISABLE_IMAGE_OPT",
+        "INVESTOR_ROOM_PASSWORD",
+        "INVESTOR_NOTIFY_EMAIL",
+        "INVESTOR_CONTACT_NAME",
+        "INVESTOR_CONTACT_EMAIL",
+        "INVESTOR_CONTACT_LINKEDIN"
       ]
     },
     "dev": {
       "cache": false,
       "persistent": true,
-      "passThroughEnv": ["DEV_ALLOWED_ORIGINS"]
+      "passThroughEnv": [
+        "DEV_ALLOWED_ORIGINS",
+        "INVESTOR_ROOM_PASSWORD",
+        "INVESTOR_NOTIFY_EMAIL",
+        "INVESTOR_CONTACT_NAME",
+        "INVESTOR_CONTACT_EMAIL",
+        "INVESTOR_CONTACT_LINKEDIN"
+      ]
     },
     "lint": {
       "dependsOn": ["^build"],
