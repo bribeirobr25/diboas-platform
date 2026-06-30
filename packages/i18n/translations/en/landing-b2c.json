@@ -443,7 +443,10 @@
       "header": "How it works",
       "step1": "Pick a job for your money.",
       "step2": "See the path first.",
-      "step3": "Move when you're ready."
+      "step3": "Move when you're ready.",
+      "step1Alt": "A diBoaS screen for setting a savings goal.",
+      "step2Alt": "A diBoaS screen showing the projected savings path.",
+      "step3Alt": "A diBoaS screen for adding money."
     },
     "catch": {
       "header": "What's the catch?",

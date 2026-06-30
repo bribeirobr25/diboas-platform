@@ -443,7 +443,10 @@
       "header": "Cómo funciona",
       "step1": "Elige un objetivo.",
       "step2": "Ve el camino.",
-      "step3": "Decide cuándo mover."
+      "step3": "Decide cuándo mover.",
+      "step1Alt": "Una pantalla de diBoaS para fijar una meta de ahorro.",
+      "step2Alt": "Una pantalla de diBoaS con el camino de ahorro proyectado.",
+      "step3Alt": "Una pantalla de diBoaS para añadir dinero."
     },
     "catch": {
       "header": "¿Cuál es la trampa?",

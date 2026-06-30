@@ -443,7 +443,10 @@
       "header": "So funktioniert es",
       "step1": "Wähle einen Zweck.",
       "step2": "Sieh den Weg.",
-      "step3": "Entscheide, wann du bewegst."
+      "step3": "Entscheide, wann du bewegst.",
+      "step1Alt": "Ein diBoaS-Bildschirm zum Festlegen eines Sparziels.",
+      "step2Alt": "Ein diBoaS-Bildschirm mit dem voraussichtlichen Sparverlauf.",
+      "step3Alt": "Ein diBoaS-Bildschirm zum Einzahlen von Geld."
     },
     "catch": {
       "header": "Wo ist der Haken?",

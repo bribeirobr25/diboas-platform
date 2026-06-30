@@ -440,7 +440,10 @@
       "header": "Como funciona",
       "step1": "Escolha um objetivo.",
       "step2": "Veja o caminho.",
-      "step3": "Decida quando mover."
+      "step3": "Decida quando mover.",
+      "step1Alt": "Uma tela do diBoaS para definir um objetivo de poupança.",
+      "step2Alt": "Uma tela do diBoaS mostrando o caminho projetado.",
+      "step3Alt": "Uma tela do diBoaS para adicionar dinheiro."
     },
     "trust": {
       "header": "E se der errado?",
