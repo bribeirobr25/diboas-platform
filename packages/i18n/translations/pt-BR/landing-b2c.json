@@ -4,7 +4,7 @@
     "goals": "SEUS OBJETIVOS",
     "story": "NOSSA HISTÓRIA",
     "howItWorks": "COMO FUNCIONA",
-    "fees": "O QUE VOCÊ PAGA",
+    "fees": "O QUE CUSTA",
     "honest": "SEM PEGADINHA",
     "join": "ENTRE NO MOVIMENTO",
     "founder": "QUEM CRIOU",
@@ -38,7 +38,7 @@
       "return": "Rendimento em 1 ano"
     },
     "footnote": "Taxas comparativas baseadas em dados públicos brasileiros com média dos últimos 5 anos. Rendimentos podem mudar. Dólares digitais envolvem riscos, incluindo possível perda do capital.",
-    "disclosureToggle": "Veja os números"
+    "disclosureToggle": "Ver custo completo"
   },
   "goalExamples": {
     "heading": "Construa riqueza usando seus Objetivos.",
@@ -148,11 +148,11 @@
     }
   },
   "fees": {
-    "transitionHook": "Você viu os números. Aqui vai o custo.",
-    "title": "Quanto Custa. Tudo.",
+    "transitionHook": "Custo claro. Antes do clique.",
+    "title": "Sem surpresa escondida no rodapé.",
     "subtitle": "",
     "painIntro": "",
-    "disclaimer": "*Taxa diBoaS mostrada. Taxas de rede de terceiros podem se aplicar (geralmente menos de R$0,05).",
+    "disclaimer": "*Taxas diBoaS mostradas. Taxas de terceiros, provedores, rede, Pix, câmbio ou bancos podem se aplicar e serão exibidas quando disponíveis.",
     "example": "",
     "expandableToggle": "",
     "footerLine": "Cada taxa. Na mesa. Nada mais.",
@@ -166,24 +166,24 @@
     "rows": {
       "account": {
         "action": "Conta",
-        "diboas": "Grátis pra sempre",
-        "competitors": "R$15 a R$50/mês",
-        "difference": "Economize R$180 a R$600/ano",
-        "example": "Sua conta: R$0. Sempre."
+        "diboas": "R$0 de mensalidade",
+        "competitors": "Muitos apps cobram mensalidade",
+        "difference": "Sem mensalidade diBoaS",
+        "example": "Sua conta: R$0."
       },
       "adding": {
         "action": "Adicionar Dinheiro",
         "diboas": "{rate} (máx {max}, sem mínimo)",
-        "competitors": "0 a 1,5%",
-        "difference": "Mais barato que a maioria",
-        "example": "Adicione R$500: custa R$2,40"
+        "competitors": "Taxas de provedores podem variar",
+        "difference": "Mostrado antes de confirmar",
+        "example": "Adicionar R$500: taxa diBoaS de R$2,40"
       },
       "sending": {
         "action": "Enviar Dinheiro",
-        "diboas": "GRÁTIS",
-        "competitors": "R$5 a R$150 (internacional)",
-        "difference": "Economize R$5 a R$150 por envio",
-        "example": "Envie R$500 pra sua mãe: custa menos de um centavo"
+        "diboas": "Taxa diBoaS: R$0",
+        "competitors": "Transferências internacionais podem custar caro",
+        "difference": "Taxas de rede e provedores podem se aplicar",
+        "example": "Enviar R$500: o diBoaS cobra R$0"
       },
       "buying": {
         "action": "Comprar / Investir",
@@ -224,7 +224,7 @@
   },
   "catch": {
     "header": "Qual é a pegadinha?",
-    "feeParagraph": "Investir é grátis. Quando você vende, o diBoaS cobra {sellRate}. Você vende R$100, o diBoaS ganha {exampleFee}. Só isso. A gente só ganha mais se o seu dinheiro crescer primeiro.",
+    "feeParagraph": "Começar uma estratégia é grátis.\n\nAo fechar uma estratégia, o diBoaS cobra {sellRate} do valor vendido. Vendeu R$100, a taxa diBoaS é {exampleFee}.\n\nSem remarcação escondida na cotação. Sem mensalidade. O custo aparece antes de você decidir.",
     "paragraphs": {
       "p1": "Pergunta justa. Todo mundo faz.",
       "p2": "Seu dinheiro não fica parado no banco. Eles trabalham com ele. Geram retornos reais. O que devolvem pra você? A Poupança rende 6,83%. Parece ok. Mas o real perdeu quase metade do valor frente ao dólar nos últimos anos. Então seu rendimento sobe em reais, mas seu poder de compra em moeda forte cai.",
@@ -258,7 +258,7 @@
     "header": "Não acredite só na nossa palavra.",
     "subtext": "O que seu dinheiro faria aqui?",
     "ctaPrimary": "Testar a Demo",
-    "ctaSecondary": "Simule Suas Metas"
+    "ctaSecondary": "Testar com dinheiro de teste"
   },
   "socialProof": {
     "header": "Faça Parte do Movimento!",
@@ -379,7 +379,7 @@
     }
   },
   "footer": {
-    "tagline": "Acesso aberto e oportunidades justas para todos.",
+    "tagline": "Seu dinheiro merece explicação.",
     "nav": {
       "forYou": "Pra Você",
       "forBusiness": "Pra Empresas",
@@ -392,11 +392,11 @@
     },
     "disclosures": {
       "general": "Este conteúdo é apenas para fins educativos e não constitui aconselhamento de investimento, aconselhamento financeiro ou qualquer outro tipo de aconselhamento. Rentabilidade passada não é garantia de rentabilidade futura.",
-      "crypto": "O valor dos criptoativos pode flutuar. Você pode perder parte ou a totalidade do seu dinheiro. Criptoativos não são protegidos por sistemas de garantia de depósito.",
+      "crypto": "O valor dos criptoativos pode flutuar. Você pode perder parte ou a totalidade do seu dinheiro. Criptoativos não são investimentos garantidos pelo Fundo Garantidor de Créditos (FGC) nem por qualquer outro sistema de garantia de depósito.",
       "ai": "Parte do conteúdo desta plataforma, incluindo análises de mercado e materiais educacionais, é gerado ou assistido por inteligência artificial. Conteúdo gerado por IA pode conter erros ou limitações. Usuários devem verificar informações de forma independente antes de tomar decisões financeiras.",
       "mica": "",
       "micaArticle7": "",
-      "cvm": "Rentabilidade passada não é garantia de rentabilidade futura. Investimentos envolvem riscos e podem ensejar perdas, inclusive da totalidade do capital investido. Percentuais prospectivos refletem apenas a opinião do autor, com base em informações disponíveis à época e consideradas confiáveis.",
+      "cvm": "Esta é uma comunicação de marketing sobre criptoativos e não foi analisada nem aprovada pela Comissão de Valores Mobiliários (CVM) ou por qualquer outra autoridade reguladora. O diBoaS não oferece consultoria de investimento individualizada nem toma decisões financeiras pelos usuários. Rentabilidade passada não é garantia de rentabilidade futura. Investimentos envolvem riscos e podem ensejar perdas, inclusive da totalidade do capital investido. Percentuais prospectivos refletem apenas a opinião do autor, com base em informações disponíveis à época e consideradas confiáveis.",
       "bcb": "A diBoaS não é uma instituição financeira autorizada pelo Banco Central do Brasil.",
       "us": "",
       "closing": "Você decide o que é melhor pra sua situação."
@@ -404,10 +404,10 @@
     "copyright": "© 2026 diBoaS. Todos os direitos reservados."
   },
   "seo": {
-    "title": "diBoaS | Acesso Aberto. Oportunidades Justas.",
-    "description": "O sistema financeiro não foi feito pra você. O diBoaS muda isso. Envie dinheiro grátis, invista com estratégias por metas, acompanhe com IA e compre ativos digitais.",
-    "ogTitle": "O sistema financeiro não está quebrado. Só não foi feito pra você.",
-    "ogDescription": "Veja o que seu dinheiro pode fazer quando trabalha em dólar, com acesso aberto e justo.",
+    "title": "diBoaS | Dinheiro com Objetivo",
+    "description": "Seu bolso financeiro para objetivos. Dê um objetivo ao seu dinheiro em dólar digital, veja o caminho e mantenha o controle. Não é banco, não é garantia — você pode perder dinheiro.",
+    "ogTitle": "Você não guarda dinheiro. Você guarda futuro.",
+    "ogDescription": "Transforme objetivos em caminhos em dólar digital, com risco claro e a carteira sob seu controle. O diBoaS nunca guarda o seu dinheiro.",
     "jsonLd": {
       "serviceDescription": "Construção de patrimônio guiada por metas, com o dólar digital. Seu dinheiro, sua carteira, seu controle.",
       "appDescription": "Construção de patrimônio guiada por metas a partir de R$10. Seu dinheiro, sua carteira, seu controle.",
@@ -416,8 +416,8 @@
   },
   "ptbr": {
     "hero": {
-      "headline": "O seu esforço merece um futuro.",
-      "subtitle": "Você fez tudo certo. E mesmo assim seu dinheiro encolheu. O diBoaS guarda o que é seu em dólar. No seu nome. Seu pra sacar quando quiser.",
+      "headline": "Você não guarda dinheiro. Você guarda futuro.",
+      "subtitle": "Uma reserva. Uma proteção. Um plano que sai do papel.\n\nO diBoaS ajuda você a transformar objetivos em caminhos em dólar digital, com risco claro e a carteira sob seu controle.",
       "whatIs": "Seu dinheiro guardado em dólar e rendendo. Você no controle, sem banco no meio.",
       "microcopy": "Comece com R$10. Sem mensalidade. Saia quando quiser.",
       "cta": "Ver como funciona"
@@ -426,30 +426,30 @@
       "body": "Todo mês você guarda um pouco. Faz o certo. Mesmo assim, daqui a uns anos, esse dinheiro compra menos. Não é culpa sua: desde 2010, o real perdeu {value} pro dólar. Ninguém te avisou. A gente está avisando."
     },
     "whatIsSection": {
-      "header": "O que é o diBoaS",
-      "body": "Pensa num cofre que guarda seu dinheiro em dólar, a moeda que o mundo usa pra não perder. A chave é sua. Não do banco, não do diBoaS. Sua. Você coloca pelo Pix. Acompanha pelo celular. Tira quando quiser.",
+      "header": "Um lugar separado para o dinheiro que importa.",
+      "body": "Não é conta-corrente. Não é poupança. Não é promessa de rendimento fácil.\n\nÉ um bolso financeiro para objetivos que merecem mais atenção.\n\nVocê entra com reais, acompanha em dólar digital e vê o caminho antes de mover dinheiro de verdade.\n\nA carteira é sua. Não do banco. Não do diBoaS. Sua.",
       "imageAlt": "Mão segurando o celular com o app diBoaS, na mesa da cozinha"
     },
     "imagineFuture": {
-      "header": "Imagine o futuro",
-      "body": "Imagine daqui a alguns anos. A aposentadoria virou escolha, não medo. A emergência veio. E não virou dívida. O dinheiro do seu filho ainda vale o que devia valer. Mesmo esforço de sempre. Num lugar onde ele para de encolher.",
+      "header": "O futuro não chega de uma vez.",
+      "body": "Ele chega em boleto.\n\nEm preço subindo.\n\nEm emergência que não esperava.\n\nEm planos que você vive adiando.\n\nO diBoaS não promete resolver sua vida. Ele ajuda você a separar dinheiro por objetivo, entender o caminho e enxergar o risco antes de decidir.",
       "cta": "Ver quanto muda pra mim",
       "imageAlt": "Uma pessoa ao pôr do sol olhando para o horizonte"
     },
     "howItWorks": {
       "header": "Como funciona",
-      "step1": "Você coloca pelo Pix. Rápido, do seu jeito.",
-      "step2": "Seu dinheiro fica em dólar e trabalha por você.",
-      "step3": "Você tira quando quiser, pra sua conta, via Pix. Sem carência."
+      "step1": "Escolha um objetivo.",
+      "step2": "Veja o caminho.",
+      "step3": "Decida quando mover."
     },
     "trust": {
       "header": "E se der errado?",
-      "body": "Vamos ser diretos, porque você merece. O diBoaS não é banco. Não tem FGC, e a gente não vai fingir que tem. Então por que confiar? O dinheiro é seu: se o diBoaS sumir, ele continua com você. A gente mostra tudo: taxas, onde seu dinheiro fica, até os riscos. E você vai embora quando quiser. Golpe esconde. A gente mostra.",
+      "body": "Vamos falar como adulto.\n\nO diBoaS não é banco. Não é poupança. Não tem FGC. Não existe retorno garantido.\n\nDólar digital, junto com a tecnologia e as empresas externas que movem e guardam seu dinheiro, pode falhar ou perder valor. Você pode perder dinheiro.\n\nA diferença é simples: promessa fácil esconde o risco.\n\nA gente coloca ele na mesa.\n\nGolpe esconde. diBoaS mostra.",
       "imageAlt": "Mãos em um gesto de cuidado e confiança"
     },
     "demo": {
-      "header": "Veja com seus olhos",
-      "body": "Não acredita? Ótimo. Não acredite. Veja. Entre no diBoaS em modo demo, com dinheiro de teste. Sem cadastro, sem compromisso.",
+      "header": "Antes de confiar, veja.",
+      "body": "Não precisa acreditar em frase bonita.\n\nEntre no modo demo com dinheiro de teste. Escolha um objetivo, veja o caminho e entenda o risco antes de colocar dinheiro real.",
       "cta": "Abrir o Demo"
     },
     "cost": {
@@ -457,13 +457,13 @@
       "body": "Sem mensalidade. Sem pegadinha. Você guarda R$100 e vê pra onde vai cada centavo, antes de confirmar. Preferimos te mostrar uma taxa honesta a esconder num \"a partir de\"."
     },
     "adelaide": {
-      "header": "A Adelaide",
-      "body": "O diBoaS começou com uma pessoa: a Adelaide. Ela guardou a vida toda. O banco pagou quase nada, porque \"era complicado demais pra explicar\". A gente existe pra ninguém mais ouvir isso. Aqui, a gente explica. Sempre.",
+      "header": "A Adelaide guardava. O sistema não explicava.",
+      "body": "O diBoaS começou com a minha avó, Adelaide.\n\nEla guardou a vida toda. Com disciplina. Com cuidado. Com confiança.\n\nO banco pagava quase nada. E a explicação parecia sempre longe demais.\n\nDepois de 20 anos criando produtos para outras empresas, eu quis criar o que ela merecia ter visto:\n\num lugar onde o dinheiro tem objetivo, o risco tem nome e o controle fica com quem ganhou.",
       "imageAlt": "Um caderno aberto e óculos de leitura ao lado de uma foto de família antiga"
     },
     "finalCta": {
-      "header": "Comece com R$10",
-      "body": "O futuro do seu dinheiro não precisa esperar você ficar rico. Começa com R$10. Hoje.",
+      "header": "Comece pelo que você quer proteger.",
+      "body": "Uma reserva. Uma compra. Uma proteção. Um plano que ainda mora na sua cabeça.\n\nEntre na lista de espera e seja um dos primeiros a testar o diBoaS quando abrir.",
       "cta": "Entrar na lista",
       "reassurance": "Sem mensalidade. Você no controle. Saia quando quiser."
     }

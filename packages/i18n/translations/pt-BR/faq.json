@@ -5,7 +5,7 @@
   "items": {
     "isBank": {
       "question": "O diBoaS é um banco?",
-      "answer": "Não. O diBoaS é uma plataforma que te conecta com oportunidades financeiras, em dólar. A gente não gerencia seu dinheiro e não toma decisões sobre seus fundos. Sua carteira é protegida de forma que só VOCÊ pode autorizar transações. A gente oferece as ferramentas. Você toma as decisões."
+      "answer": "Não.\n\nO diBoaS é um app financeiro. Ele ajuda você a transformar objetivos em caminhos em dólar digital, com informação clara antes de decidir.\n\nVocê guarda o seu próprio dinheiro. A diBoaS é o app, não a guardiã, e mantém apenas uma chave parcial de recuperação, nunca o controle total dos seus fundos, e não toma decisões financeiras por você."
     },
     "isForEveryone": {
       "question": "O diBoaS é pra todo mundo?",
@@ -16,8 +16,8 @@
       "answer": "R$10. O preço de um cafezinho. A maioria das plataformas de investimento exige R$500 a R$50.000 só pra abrir a porta. A gente acha que isso faz parte do problema."
     },
     "afterSignup": {
-      "question": "O que acontece depois que eu me cadastro?",
-      "answer": "Você vai receber um email com seu selo e número de Membro Fundador, seu link pessoal de convite (5 convites pra compartilhar) e instruções pra começar.\n\nA partir daí, você configura sua carteira, adiciona fundos e tá dentro."
+      "question": "O que acontece depois que eu entro na lista?",
+      "answer": "Você recebe atualizações de lançamento, informações de acesso antecipado e instruções quando o diBoaS estiver pronto para testes.\n\nAntes de qualquer dinheiro real entrar, você poderá entender o fluxo, os riscos e como o controle da carteira funciona."
     },
     "whatKindOfMoney": {
       "question": "Qual tipo de dinheiro devo usar pra começar?",
@@ -40,16 +40,16 @@
       "answer": "A Poupança rende 6,83% ao ano (média dos últimos 5 anos). É bom. Mas o real perdeu quase metade do valor frente ao dólar nos últimos 5 anos. Então enquanto seu saldo sobe em reais, seu poder de compra em moeda forte cai.\n\nPoupar em dólar no diBoaS não é pra substituir a Poupança. É pra proteger uma parte do seu dinheiro em moeda forte. Quem viaja, compra importado, manda dinheiro pra fora ou simplesmente pensa no longo prazo, pra essa pessoa, ter parte do dinheiro em dólar faz diferença."
     },
     "safety": {
-      "question": "Meu dinheiro tá seguro?",
-      "answer": "Seu dinheiro é protegido por você. Só você tem as chaves. Ninguém mais pode acessar seus fundos sem sua permissão.\n\nDito isso: isso não é conta bancária. Criptoativos não são cobertos por esquemas de garantia de depósitos. O valor dos seus ativos pode variar, e você pode perder parte ou todo o seu investimento. Além disso, como seu dinheiro tá em dólar, variações no câmbio afetam o valor em reais.\n\nA gente te mostra os dois lados, as oportunidades e os riscos. Sempre."
+      "question": "Quais são os riscos?",
+      "answer": "Você controla sua carteira. Isso importa, mas não elimina o risco.\n\nO diBoaS não é conta bancária. Criptoativos não têm FGC. Dólar digital, junto com a tecnologia e as empresas externas que movem e guardam seu dinheiro, pode falhar ou perder valor.\n\nVocê pode perder parte ou todo o seu dinheiro.\n\nA gente mostra a oportunidade e o risco antes de você decidir."
     },
     "safetyBusiness": {
       "question": "Meu dinheiro esta seguro?",
       "answer": "Seu dinheiro e protegido por você. Sua carteira, suas chaves. Ninguem na diBoaS pode acessar seus fundos sem sua autorização.\n\nDito isso, não e uma conta bancaria. Seu dinheiro funciona atraves de tecnologia nova. O valor pode oscilar e você pode perder parte ou todo o seu investimento. Não existe cobertura do FGC.\n\nMostramos os dois lados, as oportunidades e os riscos, sempre."
     },
     "withdraw": {
-      "question": "Posso sacar meu dinheiro a qualquer hora?",
-      "answer": "Sim. Seu dinheiro é seu. Saque quando quiser. Sem carência. Sem multa."
+      "question": "Posso sair quando quiser?",
+      "answer": "O diBoaS foi pensado para você sair quando escolher.\n\nMas a saída pode depender de liquidez dos protocolos, funcionamento das redes, disponibilidade dos provedores de entrada e saída, Pix, bancos e suporte no seu mercado.\n\nAntes de confirmar, o diBoaS mostra o caminho disponível e os custos esperados."
     },
     "shutdown": {
       "question": "O que acontece com meu dinheiro se o diBoaS fechar?",
@@ -84,8 +84,8 @@
       "answer": "Nas estratégias estáveis (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): a chance de perda total é extremamente baixa. Em quase 4 anos de testes e milhares de simulações, isso não aconteceu. Mas \"extremamente baixo\" não é zero.\n\nNas estratégias de crescimento: quanto maior a porcentagem de crescimento, maior a faixa de resultados possíveis. Full Throttle com 85% de exposição a crescimento teve quedas simuladas ultrapassando 78%.\n\nO risco é real. Nós não minimizamos isso. Nós ajudamos você a escolher o nível que combina com o que você aguenta."
     },
     "howPossible": {
-      "question": "Como isso é possível sem taxas altas?",
-      "answer": "Eliminando intermediários. Agências, executivos, custos antigos. Tecnologia nova faz o mesmo trabalho por uma fração do preço. A gente repassa essa economia pra você. Esse é o modelo inteiro."
+      "question": "Como o diBoaS mantém custos baixos?",
+      "answer": "O diBoaS é software, não uma rede de agências.\n\nA gente não cobra mensalidade e não pega uma fatia escondida do que o seu dinheiro rende. O diBoaS ganha com taxas claras de movimentação, exibidas antes de você confirmar.\n\nTaxas de terceiros, provedores, rede, Pix, câmbio ou bancos ainda podem se aplicar."
     },
     "catch": {
       "question": "Qual e a pegadinha?",
