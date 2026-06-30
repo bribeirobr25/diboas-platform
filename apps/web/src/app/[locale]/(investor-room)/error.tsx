@@ -35,7 +35,7 @@ export default function InvestorRoomError({
             padding: 'var(--spacing-sm) var(--spacing-lg)',
             fontWeight: 'var(--font-weight-semibold)',
             color: 'var(--color-text-on-dark)',
-            backgroundColor: 'var(--color-brand-primary)',
+            backgroundColor: 'var(--color-brand-primary-hover)',
             border: 'none',
             borderRadius: 'var(--radius-md)',
             cursor: 'pointer',
