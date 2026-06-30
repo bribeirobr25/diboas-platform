@@ -95,6 +95,8 @@ describe('EU landing config — id/anchor preservation (Phase B)', () => {
     // Locale-suffixed section-ids (single source of truth used by the spine JSX).
     expect(cfg.ids).toEqual(exp.ids);
     // Each ProseSection's analytics.sectionId must equal the spine id.
+    expect(cfg.tension.analytics?.sectionId).toBe(exp.ids.tension);
+    expect(cfg.sidePocket.analytics?.sectionId).toBe(exp.ids.sidePocket);
     expect(cfg.neverHold.analytics?.sectionId).toBe(exp.ids.neverHold);
     expect(cfg.upside.analytics?.sectionId).toBe(exp.ids.upside);
     expect(cfg.pictureFuture.analytics?.sectionId).toBe(exp.ids.pictureFuture);
