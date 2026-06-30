@@ -4,7 +4,7 @@
     "goals": "YOUR GOALS",
     "story": "OUR STORY",
     "howItWorks": "HOW IT WORKS",
-    "fees": "WHAT YOU PAY",
+    "fees": "WHAT IT COSTS",
     "honest": "NO CATCH",
     "join": "JOIN THE MOVEMENT",
     "founder": "WHO BUILT THIS",
@@ -38,7 +38,7 @@
       "return": "1-Year Return"
     },
     "footnote": "Comparison rates based on publicly available US data as a last 5 years average. Yield rates are subject to change and may vary across products. Digital dollar yields involve risk, including potential loss of principal.",
-    "disclosureToggle": "See the numbers"
+    "disclosureToggle": "See the full cost"
   },
   "goalExamples": {
     "heading": "Build wealth using your Goals.",
@@ -148,11 +148,11 @@
     }
   },
   "fees": {
-    "transitionHook": "You saw the numbers. Here's the cost of getting there.",
-    "title": "What It Costs. All of It.",
+    "transitionHook": "Clear costs. Before you click.",
+    "title": "No surprise hiding at the bottom.",
     "subtitle": "",
     "painIntro": "",
-    "disclaimer": "*diBoaS fee shown. Third-party network fees may apply (typically less than $0.01).",
+    "disclaimer": "*diBoaS fees shown. Third-party provider, ramp, network, banking, or exchange fees may apply and are shown before confirmation where available.",
     "example": "",
     "expandableToggle": "",
     "footerLine": "Every fee. On the table. Nothing else.",
@@ -166,24 +166,24 @@
     "rows": {
       "account": {
         "action": "Account",
-        "diboas": "Free forever",
-        "competitors": "$5 to $15/month",
-        "difference": "Save $60 to $180/year",
-        "example": "Your account: $0. Always."
+        "diboas": "$0 monthly fee",
+        "competitors": "Many apps charge monthly fees",
+        "difference": "No monthly diBoaS account fee",
+        "example": "Your account: $0."
       },
       "adding": {
         "action": "Add Money",
-        "diboas": "{rate} (min {min}, max {max})",
-        "competitors": "0 to 1.5%",
-        "difference": "Cheaper than most apps charge to add money",
-        "example": "Add $100: costs you 48 cents"
+        "diboas": "{rate} (max {max}, no minimum)",
+        "competitors": "Provider fees may vary",
+        "difference": "Shown before you confirm",
+        "example": "Add $100: diBoaS fee is 48 cents"
       },
       "sending": {
         "action": "Send Money",
-        "diboas": "FREE",
-        "competitors": "$1.50 to $50",
-        "difference": "Save $5 to $50 per transfer",
-        "example": "Send $50 to Mom: it costs less than a penny"
+        "diboas": "diBoaS fee: $0",
+        "competitors": "Traditional transfers can be expensive",
+        "difference": "Network and provider fees may apply",
+        "example": "Send $50: diBoaS charges $0"
       },
       "buying": {
         "action": "Buy / Invest",
@@ -224,7 +224,7 @@
   },
   "catch": {
     "header": "What's the catch?",
-    "feeParagraph": "Investing is free. When you sell, diBoaS takes {sellRate}. You sell $100, diBoaS makes {exampleFee}. That's it. The only way diBoaS earns more is if your money grows first. The fee never goes above {maxFee}.",
+    "feeParagraph": "Starting a strategy is free.\n\nWhen you close a strategy, diBoaS charges {sellRate} of the amount sold. Sell $100, and diBoaS earns {exampleFee}.\n\nNo hidden markup on the exchange rate. No monthly account fee. The cost appears before you decide.",
     "paragraphs": {
       "p1": "Fair question. We get it every time.",
       "p2": "Your money doesn't sit still at your bank. They put it to work. They earn real returns on it. What do they give you back? Almost nothing.",
@@ -258,7 +258,7 @@
     "header": "Don't take our word for it.",
     "subtext": "What would your money do here?",
     "ctaPrimary": "Try the Demo",
-    "ctaSecondary": "Try Your Goals"
+    "ctaSecondary": "Try with play money"
   },
   "socialProof": {
     "header": "Join the Movement!",
@@ -379,7 +379,7 @@
     }
   },
   "footer": {
-    "tagline": "Open access and fair opportunities for everyone.",
+    "tagline": "Your money deserves an explanation.",
     "nav": {
       "forYou": "For You",
       "forBusiness": "For Business",
@@ -404,10 +404,10 @@
     "copyright": "© 2026 diBoaS. All rights reserved."
   },
   "seo": {
-    "title": "diBoaS | Open Access. Fair Opportunities.",
-    "description": "The money system wasn't built for you. diBoaS changes that. Send money free, invest and grow with goal-driven strategies, track with AI guidance, and buy digital assets.",
-    "ogTitle": "The money system isn't broken. It just wasn't built for you.",
-    "ogDescription": "See what your money can do when the access is open and fair to everyone.",
+    "title": "diBoaS | Give Your Money a Job",
+    "description": "Your side-pocket for wealth. Give your money a job, see the path, and stay in control. Start with $5. Not a bank, not a guarantee — you can lose money.",
+    "ogTitle": "Money works better when it has a job.",
+    "ogDescription": "Choose what your money is for, see the path, and stay in control. diBoaS never holds your money.",
     "jsonLd": {
       "serviceDescription": "Goal-driven wealth building powered by the digital dollar. Your money, your wallet, your control.",
       "appDescription": "Goal-driven wealth building starting at $5. Your money, your wallet, your control.",
@@ -416,42 +416,43 @@
   },
   "draper": {
     "hero": {
-      "headline": "It's your money. The upside should be too.",
-      "subtitle": "Your bank holds your money and keeps most of what it earns. diBoaS never holds your money. The upside is yours.",
+      "headline": "Money works better when it has a job.",
+      "subtitle": "A reserve. A plan. A future you can point to.\n\nChoose what this money is for. See the path. Stay in control.",
       "whatIs": "diBoaS is a simple way to grow your money in digital dollars. You stay in control.",
       "microcopy": "Start with $5. No monthly fee. Pull out anytime.",
-      "cta": "Show me"
+      "cta": "Show me how",
+      "ctaSecondary": "See the path"
     },
     "neverHold": {
-      "header": "We never hold your money",
-      "body": "Your money lives as digital dollars in a wallet that's yours. Not ours. We can't freeze it. We can't lend it out. If diBoaS disappears, your money doesn't. We just open the door to grow it.",
+      "header": "Your wallet. Your call.",
+      "body": "Your money lives as digital dollars in a wallet that belongs to you.\n\nNot diBoaS. Not a bank. Not anyone else.\n\nYou choose. You approve. You stay in control.",
       "imageAlt": "Your wallet, your money, your control"
     },
     "upside": {
-      "header": "The upside goes to you",
-      "body": "Your money does the same work it does at the bank. The only difference is who keeps the profit. At the bank, them. Here, you. No branch, no executive taking the cut first.",
+      "header": "The door was always there. It just didn't open for everyone.",
+      "body": "For years, better financial opportunities seemed to open for people who were already inside.\n\nInstitutions. Insiders. People fluent in jargon.\n\ndiBoaS opens another door.\n\nAccess gets simpler. Risk gets clearer. The choice stays yours.",
       "imageAlt": "The work your money does"
     },
     "pictureFuture": {
-      "header": "Picture a few years out",
-      "body": "Picture a few years out. Retirement that's a choice, not a worry. An emergency that stays an inconvenience, not a crisis. The 10% you set aside, actually growing. Same effort. A fairer place to put it.",
+      "header": "The future doesn't arrive all at once.",
+      "body": "It shows up as rent.\n\nAs an emergency.\n\nAs a plan you keep putting off.\n\ndiBoaS does not promise to fix your life. It helps you separate money by what it is meant to do, understand the path, and see the risk before you decide.",
       "cta": "See your numbers",
       "imageAlt": "A person at golden hour, looking out to the horizon"
     },
     "howItWorks": {
       "header": "How it works",
-      "step1": "Add money, your way.",
-      "step2": "It grows as digital dollars, working while you sleep.",
-      "step3": "Pull it out whenever you want. No lockups."
+      "step1": "Pick a job for your money.",
+      "step2": "See the path first.",
+      "step3": "Move when you're ready."
     },
     "catch": {
       "header": "What's the catch?",
-      "body": "Fair question. Here's the honest answer. You can lose money. Real money. We say so plainly. But we never hold your funds, so we can't freeze them or lose them. We're not a bank. You stay in control, always.",
+      "body": "The catch is risk.\n\ndiBoaS is not a bank account, not a savings account, and not a guarantee.\n\nDigital dollars, along with the technology and outside companies that move and hold your money, can fail or lose value. You can lose money.\n\nEasy promises hide risk.\n\nWe put it on the table.",
       "imageAlt": "Calm and control"
     },
     "demo": {
-      "header": "See it yourself",
-      "body": "Don't take our word for it. See it. Step into diBoaS with play money. No signup, no commitment.",
+      "header": "Before you trust it, see it.",
+      "body": "Do not take a landing page's word for it.\n\nTry diBoaS with play money. Pick a job for your money, see the path, and understand the risk before anything real is involved.",
       "cta": "Open the demo"
     },
     "cost": {
@@ -459,15 +460,23 @@
       "body": "No monthly fee. No catch. Add $100 and you see every cent of cost before you confirm. Our fee, plus any network cost. Nothing hidden. Nothing on the side."
     },
     "founder": {
-      "header": "Built by Bar",
-      "body": "diBoaS started with my grandmother, Adelaide. She saved half of everything she earned. Her bank paid her almost nothing, and no one explained why. I spent 20 years building products for other companies. This is the one I wish she'd had.",
+      "header": "Adelaide saved. The system never explained.",
+      "body": "diBoaS started with my grandmother, Adelaide.\n\nShe saved with discipline. With care. With trust.\n\nThe system gave her low returns, little explanation, and almost no access to better options.\n\nAfter 20 years building products for other companies, I wanted to build the one I wish she had seen:\n\na place where money has a job, risk has a name, and control stays with the person who earned it.",
       "imageAlt": "An open notebook and reading glasses beside an old family photo"
     },
     "finalCta": {
-      "header": "Join",
-      "body": "The upside of your money shouldn't wait. Start with $5.",
+      "header": "Start with what you want to protect.",
+      "body": "A reserve. A future purchase. A little breathing room. A plan that still lives in your head.\n\nJoin the waitlist and be first to try diBoaS when it opens.",
       "cta": "Join the waitlist",
       "reassurance": "No monthly fee. You stay in control. Pull out anytime."
+    },
+    "tension": {
+      "header": "What is this money for?",
+      "body": "Money sitting still can feel safe.\n\nUntil life gets expensive.\n\nAn emergency. A move. A future purchase. A little more breathing room.\n\ndiBoaS helps you see the path before you move.\n\nNot a bank. Not guaranteed. You can lose money."
+    },
+    "sidePocket": {
+      "header": "A separate place for the money that matters.",
+      "body": "diBoaS is a second app, next to your bank. Your bank is for spending. diBoaS is where money you set aside goes to work toward something you care about.\n\nKeep your checking account. Keep your card. diBoaS is for the part you are trying to grow."
     }
   },
   "toolCtas": {

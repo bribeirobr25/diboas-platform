@@ -16,6 +16,8 @@ import { makeEuLandingConfig, EU_SHARED_ANCHORS, type EuLocale } from '../landin
 const EXPECTED = {
   en: {
     ids: {
+      tension: 'tension-section-en',
+      sidePocket: 'sidepocket-section-en',
       neverHold: 'neverhold-section-en',
       upside: 'upside-section-en',
       pictureFuture: 'picture-future-section-en',
@@ -24,6 +26,8 @@ const EXPECTED = {
       founder: 'founder-section-en',
     },
     anchors: {
+      tension: 'what-is-this-for',
+      sidePocket: 'a-place-of-its-own',
       neverHold: 'we-never-hold',
       upside: 'the-upside',
       pictureFuture: 'picture',
@@ -35,6 +39,8 @@ const EXPECTED = {
   },
   de: {
     ids: {
+      tension: 'tension-section-de',
+      sidePocket: 'sidepocket-section-de',
       neverHold: 'neverhold-section-de',
       upside: 'upside-section-de',
       pictureFuture: 'picture-future-section-de',
@@ -43,6 +49,8 @@ const EXPECTED = {
       founder: 'founder-section-de',
     },
     anchors: {
+      tension: 'wofuer-dieses-geld',
+      sidePocket: 'ein-eigener-platz',
       neverHold: 'wir-halten-nie',
       upside: 'der-gewinn',
       pictureFuture: 'stell-dir-vor',
@@ -54,6 +62,8 @@ const EXPECTED = {
   },
   es: {
     ids: {
+      tension: 'tension-section-es',
+      sidePocket: 'sidepocket-section-es',
       neverHold: 'neverhold-section-es',
       upside: 'upside-section-es',
       pictureFuture: 'picture-future-section-es',
@@ -62,6 +72,8 @@ const EXPECTED = {
       founder: 'founder-section-es',
     },
     anchors: {
+      tension: 'para-que-este-dinero',
+      sidePocket: 'un-lugar-propio',
       neverHold: 'nunca-guardamos',
       upside: 'el-rendimiento',
       pictureFuture: 'imagina',

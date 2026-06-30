@@ -49,7 +49,7 @@
     },
     "withdraw": {
       "question": "Posso sacar meu dinheiro a qualquer hora?",
-      "answer": "Sim. Seu dinheiro é seu. Saque quando quiser. A taxa é {rate}, então sacar R$100 custa {exampleFee}. Sem carência. Sem multa."
+      "answer": "Sim. Seu dinheiro é seu. Saque quando quiser. Sem carência. Sem multa."
     },
     "shutdown": {
       "question": "O que acontece com meu dinheiro se o diBoaS fechar?",

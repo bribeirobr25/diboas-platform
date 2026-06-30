@@ -1,5 +1,5 @@
 import nextDynamic from 'next/dynamic';
-import { HeroSection, WedgeSection, ProseSection } from '@/components/Sections';
+import { HeroSection, ProseSection } from '@/components/Sections';
 
 const DemoLauncher = nextDynamic(() =>
   import('@/components/Sections/DemoLauncher').then((m) => ({ default: m.DemoLauncher }))
@@ -58,19 +58,30 @@ export function LandingEuSpine({ locale }: { locale: EuLocale }) {
         </div>
       </SectionErrorBoundary>
 
-      {/* §2 The honest gap (the pain) — darkest point */}
+      {/* §2 What is this money for? (the tension) — darkest point */}
       <ScrollReveal>
         <SectionErrorBoundary
-          sectionId="wedge-section-b2c"
-          sectionType="WedgeSection"
+          sectionId={cfg.ids.tension}
+          sectionType="ProseSection"
           enableReporting={true}
           context={{ page: 'landing-b2c', locale }}
         >
-          <div
-            data-section-id="wedge-section-b2c"
-            style={{ backgroundColor: 'var(--section-bg-dark)' }}
-          >
-            <WedgeSection enableAnalytics={true} />
+          <div id={cfg.anchors.tension} data-section-id={cfg.ids.tension}>
+            <ProseSection config={cfg.tension} enableAnalytics={true} headingLevel="h2" />
+          </div>
+        </SectionErrorBoundary>
+      </ScrollReveal>
+
+      {/* §2b A place of its own (the side-pocket) — the brand's defining metaphor */}
+      <ScrollReveal>
+        <SectionErrorBoundary
+          sectionId={cfg.ids.sidePocket}
+          sectionType="ProseSection"
+          enableReporting={true}
+          context={{ page: 'landing-b2c', locale }}
+        >
+          <div id={cfg.anchors.sidePocket} data-section-id={cfg.ids.sidePocket}>
+            <ProseSection config={cfg.sidePocket} enableAnalytics={true} headingLevel="h2" />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>

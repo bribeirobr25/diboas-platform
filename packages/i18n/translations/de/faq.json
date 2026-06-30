@@ -5,7 +5,7 @@
   "items": {
     "isBank": {
       "question": "Ist diBoaS eine Bank?",
-      "answer": "Nein. diBoaS ist eine Plattform, die dich mit finanziellen Möglichkeiten verbindet. Wir verwalten dein Geld nicht und treffen keine Entscheidungen über deine Mittel. Deine Wallet ist so gesichert, dass nur du Transaktionen autorisieren kannst. Wir liefern die Werkzeuge. Du triffst die Entscheidungen."
+      "answer": "Nein.\n\ndiBoaS ist eine Finanz-App. Sie hilft dir, Geld einem Zweck zuzuordnen, mögliche Wege mit digitalen Dollar zu verstehen und vor einer Entscheidung klare Informationen zu sehen.\n\nDu verwahrst dein eigenes Geld. diBoaS ist die App, nicht der Verwahrer. diBoaS behält nur einen Teil-Wiederherstellungsschlüssel, nie die volle Kontrolle über dein Geld, und trifft keine finanziellen Entscheidungen für dich."
     },
     "isForEveryone": {
       "question": "Ist diBoaS für jeden?",
@@ -16,8 +16,8 @@
       "answer": "5 €. Der Preis eines Kaffees. Die meisten Investmentplattformen verlangen 500 bis 10.000 €, nur um die Tür zu öffnen. Wir finden, das ist Teil des Problems."
     },
     "afterSignup": {
-      "question": "Was passiert nach der Anmeldung?",
-      "answer": "Du erhältst eine E-Mail mit deinem Gründungsmitglied-Abzeichen und deiner Nummer, deinem persönlichen Einladungslink (5 Einladungen zum Teilen) und Anweisungen zum Starten.\n\nVon dort aus richtest du deine Wallet ein, zahlst Geld ein und bist dabei."
+      "question": "Was passiert nach dem Beitritt zur Warteliste?",
+      "answer": "Du erhältst Produktupdates, Informationen zum frühen Zugang und Hinweise, sobald diBoaS bereit für Tests ist.\n\nBevor echtes Geld im Spiel ist, kannst du den Produktablauf, die Risiken und die Wallet-Kontrolle verstehen."
     },
     "whatKindOfMoney": {
       "question": "Welches Geld sollte ich einsetzen?",
@@ -40,16 +40,16 @@
       "answer": "Weil der Dollar als globale Reservewährung langfristig stabiler ist. Mit diBoaS wird dein Geld in digitalen Dollar gehalten, geschützt vor lokaler Währungsabwertung."
     },
     "safety": {
-      "question": "Ist mein Geld sicher?",
-      "answer": "Dein Geld wird von dir gesichert. Nur du hast die Schlüssel. Niemand sonst kann ohne deine Erlaubnis auf deine Mittel zugreifen.\n\nDas gesagt: Das ist kein Bankkonto. Kryptowerte sind nicht durch Einlagensicherungssysteme abgedeckt. Der Wert deiner Anlagen kann schwanken, und du könntest einen Teil oder deine gesamte Investition verlieren.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken. Immer."
+      "question": "Welche Risiken gibt es?",
+      "answer": "Du kontrollierst deine Wallet. Das ist wichtig, aber es beseitigt kein Risiko.\n\ndiBoaS ist kein Bankkonto. Kryptowerte sind nicht durch Einlagensicherungssysteme abgedeckt. Digitale Dollar sowie die Technologie und die externen Unternehmen, die dein Geld bewegen und verwahren, können ausfallen oder an Wert verlieren.\n\nDu kannst einen Teil oder dein gesamtes Geld verlieren.\n\nWir zeigen Möglichkeit und Risiko, bevor du entscheidest."
     },
     "safetyBusiness": {
       "question": "Ist mein Geld sicher?",
       "answer": "Dein Geld wird von dir gesichert. Dein Wallet, deine Schlüssel. Niemand bei diBoaS kann ohne deine Genehmigung auf dein Geld zugreifen.\n\nDas gesagt: Das ist kein Bankkonto. Dein Geld arbeitet über neue Technologie. Der Wert kann schwanken, und du könntest einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer."
     },
     "withdraw": {
-      "question": "Kann ich mein Geld jederzeit abheben?",
-      "answer": "Ja. Dein Geld gehört dir. Hebe ab, wann du willst. Die Gebühr beträgt {rate}, eine Auszahlung von 100 € kostet dich also {exampleFee}. Keine Sperrfristen. Keine Strafgebühren."
+      "question": "Kann ich aussteigen, wenn ich möchte?",
+      "answer": "diBoaS ist darauf ausgelegt, dass du aussteigen kannst, wenn du dich entscheidest.\n\nDer Ausstieg kann trotzdem von Protokoll-Liquidität, Netzwerkverfügbarkeit, Drittanbieter-Ramps, Bankwegen und lokaler Verfügbarkeit abhängen.\n\nBevor du bestätigst, zeigt diBoaS den verfügbaren Weg und die erwarteten Kosten."
     },
     "shutdown": {
       "question": "Was passiert mit meinem Geld, wenn diBoaS schließt?",
@@ -84,8 +84,8 @@
       "answer": "Bei den stabilen Strategien (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): Die Wahrscheinlichkeit eines Totalverlusts ist äußerst gering. In fast 4 Jahren Tests und tausenden Simulationen ist es nicht passiert. Aber \"äußerst gering\" ist nicht null.\n\nBei den Wachstumsstrategien: Je höher der Wachstumsanteil, desto breiter die Bandbreite möglicher Ergebnisse. Full Throttle mit 85% Wachstums-Exposure hat simulierte Rückgänge von über 78% gezeigt.\n\nDas Risiko ist real. Wir verharmlosen es nicht. Wir helfen dir, das Niveau zu wählen, das zu dem passt, was du verkraften kannst."
     },
     "howPossible": {
-      "question": "Wie ist das ohne hohe Gebühren möglich?",
-      "answer": "Indem wir die Zwischenhändler eliminieren. Die Filialen, die Vorstände, die alten Kostenstrukturen. Neue Technologie erledigt die gleiche Arbeit für einen Bruchteil des Preises. Wir geben diese Ersparnis an dich weiter. Das ist das gesamte Modell."
+      "question": "Wie hält diBoaS die Kosten niedrig?",
+      "answer": "diBoaS ist Software, kein Filialnetz.\n\nWir berechnen keine monatliche Kontogebühr und nehmen keinen versteckten Aufschlag auf das, was dein Geld erwirtschaftet. diBoaS verdient durch klare Bewegungsgebühren, die vor der Bestätigung angezeigt werden.\n\nGebühren von Drittanbietern, Ramp-Anbietern, Netzwerken, Banken oder Wechselkursanbietern können trotzdem anfallen."
     },
     "catch": {
       "question": "Wo ist der Haken?",

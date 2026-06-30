@@ -5,7 +5,7 @@
   "items": {
     "isBank": {
       "question": "Is diBoaS a bank?",
-      "answer": "No. diBoaS is a platform that connects you with financial opportunities. We don't manage your money or make decisions about your funds. Your wallet is secured so that only you can authorize transactions. We provide the tools. You make the decisions."
+      "answer": "No.\n\ndiBoaS is a financial app. It helps you turn goals into digital-dollar paths, with clear information before you decide.\n\nYou hold your own money. diBoaS is the app, not the holder. diBoaS keeps only a partial recovery key, never full control of your funds, and does not make financial decisions for you."
     },
     "isForEveryone": {
       "question": "Is diBoaS for everyone?",
@@ -16,8 +16,8 @@
       "answer": "$5. That's a coffee. Most investment platforms require $500 to $10,000 just to open the door. We think that's part of the problem."
     },
     "afterSignup": {
-      "question": "What happens after I sign up?",
-      "answer": "You'll receive an email with your Founding Member badge and number, your personal invite link (5 invites to share), and instructions to get started.\n\nFrom there, you set up your wallet, add funds, and you're in."
+      "question": "What happens after I join the waitlist?",
+      "answer": "You will receive launch updates, early-access information, and instructions when diBoaS is ready for testing.\n\nBefore real money is involved, you will be able to understand the product flow, the risks, and how wallet control works."
     },
     "whatKindOfMoney": {
       "question": "What kind of money should I start with?",
@@ -40,16 +40,16 @@
       "answer": "Because the real loses value every year against the dollar. Even when your savings account pays 7-8%, inflation and currency depreciation can eat most of that return. With diBoaS, your money is in digital dollars, protected against BRL depreciation. When you withdraw, you get more reais than you put in, not just from yield, but from the exchange rate working in your favor."
     },
     "safety": {
-      "question": "Is my money safe?",
-      "answer": "Your money is secured by you. Only you hold the keys. Nobody else can access your funds without your permission.\n\nThat said, this isn't a bank account. Crypto-assets aren't covered by deposit guarantee schemes. The value of your assets can fluctuate, and you could lose some or all of your investment.\n\nWe show you both sides, the opportunities and the risks. Always."
+      "question": "What are the risks?",
+      "answer": "You control your wallet. That matters, but it does not remove risk.\n\ndiBoaS is not a bank account. Crypto-assets are not covered by deposit guarantee schemes. Digital dollars, along with the technology and outside companies that move and hold your money, can fail or lose value.\n\nYou could lose some or all of your money.\n\nWe show the opportunity and the risk before you decide."
     },
     "safetyBusiness": {
       "question": "Is my money safe?",
       "answer": "Your money is secured by you. Your wallet, your keys. No one at diBoaS can access your funds without your authorization.\n\nThat said, this isn't a bank account. Your funds work through new technology. The value can fluctuate, and you could lose some or all of your investment. There is no deposit insurance.\n\nWe show you both sides, the opportunities and the risks, always."
     },
     "withdraw": {
-      "question": "Can I withdraw my money anytime?",
-      "answer": "Yes. Your money is yours. Withdraw whenever you want. The fee is {rate}, so cashing out $100 costs you {exampleFee}. No lock-up periods. No penalties."
+      "question": "Can I exit when I choose?",
+      "answer": "diBoaS is designed so you can exit when you choose.\n\nYour ability to exit may still depend on protocol liquidity, network availability, third-party ramp availability, banking rails, and local market support.\n\nBefore you confirm, diBoaS shows the available path and expected costs."
     },
     "shutdown": {
       "question": "What happens to my money if diBoaS shuts down?",
@@ -84,8 +84,8 @@
       "answer": "In stable strategies (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): the chance of total loss is extremely low. In nearly 4 years of testing and thousands of simulations, it didn't happen. But \"extremely low\" is not zero.\n\nIn growth strategies: the higher the growth percentage, the wider the range of outcomes. Full Throttle at 85% growth exposure has seen simulated drops exceeding 78%.\n\nThe risk is real. We don't minimize it. We help you choose the level that matches what you can handle."
     },
     "howPossible": {
-      "question": "How is this possible without high fees?",
-      "answer": "By cutting out the middlemen. The branches, the executives, the legacy costs. New financial technology does the same job at a fraction of the price. We pass those savings to you. That's the entire model."
+      "question": "How does diBoaS keep costs low?",
+      "answer": "diBoaS is software, not a branch network.\n\nWe do not charge a monthly account fee, and we do not take a hidden cut of what your money earns. diBoaS earns through clear movement fees, shown before you confirm.\n\nThird-party provider, ramp, network, banking, or exchange fees may still apply."
     },
     "catch": {
       "question": "What's the catch?",

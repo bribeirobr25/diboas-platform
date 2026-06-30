@@ -4,7 +4,7 @@
     "goals": "DEINE ZIELE",
     "story": "UNSERE GESCHICHTE",
     "howItWorks": "SO FUNKTIONIERT'S",
-    "fees": "WAS DU ZAHLST",
+    "fees": "WAS ES KOSTET",
     "honest": "KEIN HAKEN",
     "join": "DIE BEWEGUNG",
     "founder": "WER DAHINTERSTECKT",
@@ -38,7 +38,7 @@
       "return": "Rendite nach 1 Jahr"
     },
     "footnote": "Vergleichszinsen basieren auf öffentlich verfügbaren EU-Daten als Durchschnitt der letzten 5 Jahre. Renditen können sich ändern und je nach Produkt variieren. Renditen in digitalen Dollar beinhalten Risiken, einschließlich eines möglichen Totalverlusts.",
-    "disclosureToggle": "Sieh dir die Zahlen an"
+    "disclosureToggle": "Alle Kosten ansehen"
   },
   "goalExamples": {
     "heading": "Baue Vermögen auf mit deinen Zielen.",
@@ -148,11 +148,11 @@
     }
   },
   "fees": {
-    "transitionHook": "Du hast die Zahlen gesehen. Hier sind die Kosten.",
-    "title": "Was es kostet. Alles.",
+    "transitionHook": "Klare Kosten. Vor der Entscheidung.",
+    "title": "Keine Überraschung im Kleingedruckten.",
     "subtitle": "",
     "painIntro": "",
-    "disclaimer": "*diBoaS-Gebühr angegeben. Netzwerkgebühren Dritter können anfallen (in der Regel weniger als 0,01 €).",
+    "disclaimer": "*Angezeigt werden diBoaS-Gebühren. Gebühren von Drittanbietern, Ramp-Anbietern, Netzwerken, Banken oder Wechselkursanbietern können anfallen und werden, soweit verfügbar, vor der Bestätigung angezeigt.",
     "example": "",
     "expandableToggle": "",
     "footerLine": "Jede Gebühr. Auf dem Tisch. Sonst nichts.",
@@ -166,24 +166,24 @@
     "rows": {
       "account": {
         "action": "Konto",
-        "diboas": "Für immer kostenlos",
-        "competitors": "5 bis 15 €/Monat",
-        "difference": "Spare 60 bis 180 €/Jahr",
-        "example": "Dein Konto: 0 €. Immer."
+        "diboas": "0 € monatliche Kontogebühr",
+        "competitors": "Viele Apps berechnen monatliche Gebühren",
+        "difference": "Keine monatliche diBoaS-Kontogebühr",
+        "example": "Dein Konto: 0 €."
       },
       "adding": {
         "action": "Geld einzahlen",
-        "diboas": "{rate} (min {min}, max {max})",
-        "competitors": "0 bis 1,5%",
-        "difference": "Günstiger als die meisten Apps",
-        "example": "100 € einzahlen: kostet dich 48 Cent"
+        "diboas": "{rate} (max. {max}, kein Mindestbetrag)",
+        "competitors": "Anbietergebühren können variieren",
+        "difference": "Wird vor der Bestätigung angezeigt",
+        "example": "100 € einzahlen: diBoaS-Gebühr 48 Cent"
       },
       "sending": {
         "action": "Geld senden",
-        "diboas": "KOSTENLOS",
-        "competitors": "1,50 bis 50 €",
-        "difference": "Spare 5 bis 50 € pro Überweisung",
-        "example": "50 € an Mama senden: kostet weniger als einen Cent"
+        "diboas": "diBoaS-Gebühr 0 €",
+        "competitors": "Überweisungen können teuer sein",
+        "difference": "Netzwerk- und Anbietergebühren können anfallen",
+        "example": "50 € senden: diBoaS berechnet 0 €"
       },
       "buying": {
         "action": "Kaufen / Investieren",
@@ -224,7 +224,7 @@
   },
   "catch": {
     "header": "Wo ist der Haken?",
-    "feeParagraph": "Investieren ist kostenlos. Wenn du verkaufst, nimmt diBoaS {sellRate}. Du verkaufst 100 €, diBoaS verdient {exampleFee}. Das ist alles. diBoaS verdient nur dann mehr, wenn dein Geld zuerst wächst. Die Gebühr übersteigt nie {maxFee}.",
+    "feeParagraph": "Eine Strategie zu starten ist kostenlos.\n\nWenn du eine Strategie schließt, berechnet diBoaS {sellRate} des verkauften Betrags. Verkaufst du 100 €, verdient diBoaS {exampleFee}.\n\nKein versteckter Aufschlag auf den Wechselkurs. Keine monatliche Kontogebühr. Die Kosten erscheinen, bevor du entscheidest.",
     "paragraphs": {
       "p1": "Berechtigte Frage. Die stellen uns alle.",
       "p2": "Dein Geld sitzt nicht einfach bei deiner Bank rum. Sie arbeiten damit. Sie erwirtschaften damit echte Renditen. Was geben sie dir davon zurück? Fast nichts.",
@@ -258,7 +258,7 @@
     "header": "Glaub uns nicht einfach.",
     "subtext": "Was würde dein Geld hier machen?",
     "ctaPrimary": "Demo testen",
-    "ctaSecondary": "Simuliere deine Ziele"
+    "ctaSecondary": "Mit Testgeld ausprobieren"
   },
   "socialProof": {
     "header": "Werde Teil der Bewegung!",
@@ -379,7 +379,7 @@
     }
   },
   "footer": {
-    "tagline": "Offener Zugang und faire Chancen für alle.",
+    "tagline": "Dein Geld verdient eine Erklärung.",
     "nav": {
       "forYou": "Für dich",
       "forBusiness": "Für Unternehmen",
@@ -404,10 +404,10 @@
     "copyright": "© 2026 diBoaS. Alle Rechte vorbehalten."
   },
   "seo": {
-    "title": "diBoaS | Offener Zugang. Faire Chancen.",
-    "description": "Das Geldsystem wurde nicht für dich gebaut. diBoaS ändert das. Sende Geld kostenlos, investiere mit zielbasierten Strategien, lerne mit KI und kaufe digitale Assets.",
-    "ogTitle": "Das Geldsystem ist nicht kaputt. Es wurde nur nicht für dich gebaut.",
-    "ogDescription": "Sieh, was dein Geld tun kann, wenn der Zugang endlich offen und fair ist.",
+    "title": "diBoaS | Geld braucht einen Plan",
+    "description": "Für Rücklagen, größere Vorhaben und Geld, das nicht einfach herumliegen soll. diBoaS zeigt dir, welcher Weg möglich ist, was er kostet und welches Risiko dazugehört, bevor du entscheidest.",
+    "ogTitle": "Geld braucht einen Plan. Nicht nur ein Konto.",
+    "ogDescription": "Erst verstehen. Dann entscheiden. diBoaS zeigt dir Weg, Kosten und Risiko, bevor du dich festlegst.",
     "jsonLd": {
       "serviceDescription": "Zielgerichteter Vermögensaufbau mit dem digitalen Dollar. Dein Geld, deine Wallet, deine Kontrolle.",
       "appDescription": "Zielgerichteter Vermögensaufbau ab 5 €. Dein Geld, deine Wallet, deine Kontrolle.",
@@ -416,42 +416,43 @@
   },
   "draper": {
     "hero": {
-      "headline": "Es ist dein Geld. Der Gewinn auch.",
-      "subtitle": "Deine Bank hält dein Geld und behält den Großteil des Gewinns. diBoaS hält dein Geld nie. Der Gewinn gehört dir.",
+      "headline": "Geld braucht einen Plan. Nicht nur ein Konto.",
+      "subtitle": "Für Rücklagen, größere Vorhaben und Geld, das nicht einfach herumliegen soll.\n\ndiBoaS zeigt dir, welcher Weg möglich ist, was er kostet und welches Risiko dazugehört, bevor du entscheidest.",
       "whatIs": "diBoaS ist ein einfacher Weg, dein Geld in digitalen Dollar wachsen zu lassen. Du behältst die Kontrolle.",
       "microcopy": "Start mit 5 €. Keine Monatsgebühr. Jederzeit abheben.",
-      "cta": "Zeig mir"
+      "cta": "So funktioniert es",
+      "ctaSecondary": "Den Weg sehen"
     },
     "neverHold": {
-      "header": "Wir halten dein Geld nie",
-      "body": "Dein Geld lebt als digitale Dollar in einer Wallet, die dir gehört. Nicht uns. Wir können es nicht einfrieren. Wir können es nicht verleihen. Verschwindet diBoaS, dein Geld bleibt. Wir öffnen nur die Tür.",
+      "header": "Deine digitale Wallet. Deine Entscheidung.",
+      "body": "Dein Geld liegt als digitale Dollar in einer Wallet, die dir gehört.\n\nNicht diBoaS. Nicht einer Bank. Nicht irgendwem sonst.\n\nDu wählst. Du bestätigst. Du behältst die Kontrolle.",
       "imageAlt": "Deine Wallet, dein Geld, deine Kontrolle"
     },
     "upside": {
-      "header": "Der Gewinn gehört dir",
-      "body": "Dein Geld macht dieselbe Arbeit wie bei der Bank. Der einzige Unterschied ist, wer den Gewinn behält. Bei der Bank, sie. Hier, du. Keine Filiale, kein Vorstand, der zuerst kassiert.",
+      "header": "Der Zugang war lange der schwierige Teil.",
+      "body": "Viele finanzielle Möglichkeiten wirkten gemacht für Institutionen, Fachleute und Menschen, die jedes Wort im Kleingedruckten verstehen.\n\ndiBoaS macht den Einstieg verständlicher.\n\nMehr Klarheit. Sichtbares Risiko. Deine Entscheidung.",
       "imageAlt": "Die Arbeit, die dein Geld leistet"
     },
     "pictureFuture": {
-      "header": "Stell dir ein paar Jahre vor",
-      "body": "Eine Rente, die eine Wahl ist, keine Sorge. Ein Notfall, der ein Ärgernis bleibt, keine Krise. Die 10%, die du zur Seite legst, die wirklich wachsen. Gleicher Einsatz. Ein fairerer Ort dafür.",
-      "cta": "Zeig mir meine Zahlen",
+      "header": "Zukunft kommt nicht auf einmal.",
+      "body": "Sie kommt als Miete.\n\nAls unerwartete Rechnung.\n\nAls Plan, den du immer wieder verschiebst.\n\ndiBoaS verspricht nicht, dein Leben zu lösen. Es hilft dir, Geld nach Zweck zu trennen, den Weg zu verstehen und das Risiko zu sehen, bevor du entscheidest.",
+      "cta": "Sieh, was daraus werden kann",
       "imageAlt": "Eine Person blickt in der Abendsonne zum Horizont"
     },
     "howItWorks": {
       "header": "So funktioniert es",
-      "step1": "Geld einzahlen, wie du willst.",
-      "step2": "Es wächst als digitale Dollar, während du schläfst.",
-      "step3": "Hol es ab, wann du willst. Keine Sperrfrist."
+      "step1": "Wähle einen Zweck.",
+      "step2": "Sieh den Weg.",
+      "step3": "Entscheide, wann du bewegst."
     },
     "catch": {
       "header": "Wo ist der Haken?",
-      "body": "Faire Frage. Hier die ehrliche Antwort. Du kannst Geld verlieren. Echtes Geld. Wir sagen es offen. Aber wir halten dein Geld nie, also können wir es nicht einfrieren oder verlieren. Wir sind keine Bank. Du behältst die Kontrolle. Immer.",
+      "body": "Im Risiko.\n\ndiBoaS ist kein Bankkonto, kein Tagesgeld und keine Garantie.\n\nDigitale Dollar sowie die Technologie und die externen Unternehmen, die dein Geld bewegen und verwahren, können ausfallen oder an Wert verlieren. Du kannst Geld verlieren.\n\nLeichte Versprechen verstecken Risiko.\n\nWir legen es offen.",
       "imageAlt": "Ruhe und Kontrolle"
     },
     "demo": {
-      "header": "Glaub uns nicht einfach",
-      "body": "Glaub uns nicht einfach. Sieh es. Geh in diBoaS mit Spielgeld. Keine Anmeldung, keine Verpflichtung.",
+      "header": "Vertrau nicht dem Text. Prüf den Ablauf.",
+      "body": "Teste diBoaS mit Testgeld.\n\nWähle einen Zweck, sieh den Weg und verstehe das Risiko, bevor echtes Geld im Spiel ist.",
       "cta": "Demo öffnen"
     },
     "cost": {
@@ -459,15 +460,23 @@
       "body": "Keine Monatsgebühr. Kein Haken. Zahl 100 € ein und du siehst jeden Cent Kosten, bevor du bestätigst. Unsere Gebühr, plus Netzwerkkosten. Nichts versteckt."
     },
     "founder": {
-      "header": "Gebaut von Bar",
-      "body": "diBoaS begann mit meiner Großmutter, Adelaide. Sie sparte ihr halbes Leben. Ihre Bank zahlte ihr fast nichts, und niemand erklärte warum. Ich habe 20 Jahre Produkte für andere gebaut. Das hier ist das, das ich mir für sie gewünscht hätte.",
+      "header": "Adelaide sparte. Das System erklärte wenig.",
+      "body": "diBoaS begann mit meiner Großmutter Adelaide.\n\nSie sparte diszipliniert. Mit Vorsicht. Mit Vertrauen.\n\nDas System gab ihr niedrige Zinsen, wenig Erklärung und kaum Zugang zu besseren Möglichkeiten.\n\nNach 20 Jahren Produktarbeit wollte ich bauen, was ich mir für sie gewünscht hätte:\n\neinen Ort, an dem Geld einen Zweck hat, Risiko beim Namen genannt wird und Kontrolle bei der Person bleibt, die es verdient hat.",
       "imageAlt": "Ein aufgeschlagenes Notizbuch und eine Lesebrille neben einem alten Familienfoto"
     },
     "finalCta": {
-      "header": "Mach mit",
-      "body": "Der Gewinn deines Geldes sollte nicht warten. Start mit 5 €.",
+      "header": "Beginne mit dem, was du schützen willst.",
+      "body": "Eine Rücklage. Ein größeres Vorhaben. Ein Plan, der noch in deinem Kopf liegt.\n\nTritt der Warteliste bei und gehöre zu den Ersten, die diBoaS testen, wenn es startet.",
       "cta": "Auf die Warteliste",
       "reassurance": "Keine Monatsgebühr. Du behältst die Kontrolle. Jederzeit abheben."
+    },
+    "tension": {
+      "header": "Wofür ist dieses Geld da?",
+      "body": "Geld, das stillsteht, kann sich sicher anfühlen.\n\nBis das Leben teuer wird.\n\nEin Notfall. Ein Umzug. Eine größere Anschaffung. Etwas mehr Spielraum.\n\ndiBoaS hilft dir, den Weg zu sehen, bevor du dich bewegst.\n\nKeine Bank. Keine Garantie. Du kannst Geld verlieren."
+    },
+    "sidePocket": {
+      "header": "Ein eigener Platz für das Geld, das zählt.",
+      "body": "diBoaS ist eine zweite App neben deiner Bank. Deine Bank ist für den Alltag. diBoaS ist der Ort, an dem das Geld, das du zur Seite legst, auf deine Ziele hinarbeitet.\n\nBehalte dein Girokonto. Behalte deine Karte. diBoaS ist für den Teil, den du wachsen lassen willst."
     }
   },
   "toolCtas": {

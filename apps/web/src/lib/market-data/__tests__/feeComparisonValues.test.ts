@@ -50,8 +50,8 @@ describe('buildAllFeeValues', () => {
     // Multi-slot rows reproduce the current literals exactly.
     expect(map.get('landing-b2c.fees.rows.adding.diboas')).toEqual({
       rate: '0.48%',
-      min: '$0.25',
-      max: '$25',
+      min: '$0.00',
+      max: '$250',
     });
     expect(map.get('landing-b2c.fees.rows.selling.diboas')).toEqual({
       rate: '0.39%',
@@ -77,14 +77,14 @@ describe('buildAllFeeValues', () => {
     });
   });
 
-  it('should honor maxFractionDigits 0 for max fee — $25 not $25.00 (audit M5)', () => {
+  it('should honor maxFractionDigits 0 for max fee — $250 not $250.00 (audit M5)', () => {
     const map = buildAllFeeValues(fees, 'en');
     const adding = map.get('landing-b2c.fees.rows.adding.diboas')!;
     // Critical precision contract: maxFee must NOT have trailing decimals.
-    expect(adding.max).toBe('$25');
-    expect(adding.max).not.toBe('$25.00');
-    // minFee preserves 2 decimals.
-    expect(adding.min).toBe('$0.25');
+    expect(adding.max).toBe('$250');
+    expect(adding.max).not.toBe('$250.00');
+    // minFee renders with 2 decimals (now $0.00 — no Add-Money minimum per FEES.md).
+    expect(adding.min).toBe('$0.00');
   });
 
   it('should produce EUR currency formatting (not USD) in de locale', () => {

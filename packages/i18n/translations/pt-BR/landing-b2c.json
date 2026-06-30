@@ -173,7 +173,7 @@
       },
       "adding": {
         "action": "Adicionar Dinheiro",
-        "diboas": "{rate} (mín {min}, máx {max})",
+        "diboas": "{rate} (máx {max}, sem mínimo)",
         "competitors": "0 a 1,5%",
         "difference": "Mais barato que a maioria",
         "example": "Adicione R$500: custa R$2,40"
@@ -224,7 +224,7 @@
   },
   "catch": {
     "header": "Qual é a pegadinha?",
-    "feeParagraph": "Investir é grátis. Quando você vende, o diBoaS cobra {sellRate}. Você vende R$100, o diBoaS ganha {exampleFee}. Só isso. A gente só ganha mais se o seu dinheiro crescer primeiro. A taxa nunca passa de {maxFee}.",
+    "feeParagraph": "Investir é grátis. Quando você vende, o diBoaS cobra {sellRate}. Você vende R$100, o diBoaS ganha {exampleFee}. Só isso. A gente só ganha mais se o seu dinheiro crescer primeiro.",
     "paragraphs": {
       "p1": "Pergunta justa. Todo mundo faz.",
       "p2": "Seu dinheiro não fica parado no banco. Eles trabalham com ele. Geram retornos reais. O que devolvem pra você? A Poupança rende 6,83%. Parece ok. Mas o real perdeu quase metade do valor frente ao dólar nos últimos anos. Então seu rendimento sobe em reais, mas seu poder de compra em moeda forte cai.",
