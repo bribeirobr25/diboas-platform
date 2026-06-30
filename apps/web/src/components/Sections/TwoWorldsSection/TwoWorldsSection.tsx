@@ -49,7 +49,7 @@ export const TwoWorldsSection = memo(function TwoWorldsSection({
             <div className={styles.cardImageWrapper}>
               <Image
                 src={config.content.cardA.image}
-                alt={config.content.cardA.imageAlt || ''}
+                alt={translated.content.cardA.imageAlt || ''}
                 width={560}
                 height={320}
                 className={styles.cardImage}
@@ -73,7 +73,7 @@ export const TwoWorldsSection = memo(function TwoWorldsSection({
             <div className={styles.cardImageWrapper}>
               <Image
                 src={config.content.cardB.image}
-                alt={config.content.cardB.imageAlt || ''}
+                alt={translated.content.cardB.imageAlt || ''}
                 width={560}
                 height={320}
                 className={styles.cardImage}

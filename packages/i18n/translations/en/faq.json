@@ -44,8 +44,8 @@
       "answer": "You control your wallet. That matters, but it does not remove risk.\n\ndiBoaS is not a bank account. Crypto-assets are not covered by deposit guarantee schemes. Digital dollars, along with the technology and outside companies that move and hold your money, can fail or lose value.\n\nYou could lose some or all of your money.\n\nWe show the opportunity and the risk before you decide."
     },
     "safetyBusiness": {
-      "question": "Is my money safe?",
-      "answer": "Your money is secured by you. Your wallet, your keys. No one at diBoaS can access your funds without your authorization.\n\nThat said, this isn't a bank account. Your funds work through new technology. The value can fluctuate, and you could lose some or all of your investment. There is no deposit insurance.\n\nWe show you both sides, the opportunities and the risks, always."
+      "question": "Is our money safe?",
+      "answer": "Your business holds its own funds. Your wallet, your keys. No one at diBoaS can move your funds without your authorization.\n\nThat said, this is not a bank account and not a deposit product. Funds work through digital-dollar wallets, networks, ramps, and third-party providers, which can fail, lose value, or become unavailable. The value can fluctuate, and your business could lose some or all of its money. There is no deposit insurance.\n\ndiBoaS shows the path, cost, liquidity, and risk before your business decides."
     },
     "withdraw": {
       "question": "Can I exit when I choose?",
@@ -77,7 +77,7 @@
     },
     "risk": {
       "question": "What's the actual risk?",
-      "answer": "Let's be honest.\n\nThe systems your money goes into are built on code. Code can have vulnerabilities. We reduce this by only using systems with significant total value secured, multiple independent security audits, years of track record through market events, and by spreading your money across multiple independent systems.\n\nZero risk? No. Nothing is, including your bank.\n\nThe real question: are better returns worth a different risk profile? For some businesses, yes. For others, no. Both are valid."
+      "answer": "The risk is real.\n\nBusiness funds may move through digital-dollar wallets, DeFi protocols, smart contracts, networks, ramps, and third-party providers. These can fail, lose value, become unavailable, or create liquidity constraints.\n\nYour business can lose money.\n\ndiBoaS shows the path, cost, liquidity, and risk before your business decides."
     },
     "canLoseEverything": {
       "question": "Can I lose everything?",
@@ -89,7 +89,7 @@
     },
     "catch": {
       "question": "What's the catch?",
-      "answer": "We charge small fees when money moves. Free when you receive payments. Free when you invest. {sellRate} when you sell or close a position. {cashOutRate} when you cash out.\n\nIf you receive $10,000 in payments, we keep $0. If you invest $10,000, we keep $0. If you sell $10,000, we keep {sellExampleFee}. If you earn nothing and send nothing, we earn nothing.\n\nNo hidden fees. No minimum balances. No monthly charges. No catch."
+      "answer": "We charge fees when money moves, shown before you confirm. Receiving digital dollars from another diBoaS user is $0; a card-funded payment runs as an on-ramp. Starting a strategy is free to start. {sellRate} when you sell or close a position. {cashOutRate} when you cash out.\n\nIf another diBoaS user pays you $10,000 in digital dollars, we keep $0. If you start a strategy with $10,000, we keep $0 to start. If you sell $10,000, we keep {sellExampleFee}. If you earn nothing and move nothing, we earn nothing.\n\nThird-party provider, ramp, network, banking, or exchange fees may also apply."
     },
     "justTransfers": {
       "question": "Can I just use diBoaS for transfers?",
@@ -129,23 +129,23 @@
     },
     "smbOrStartup": {
       "question": "Is this for small businesses or startups?",
-      "answer": "Both. If you're a coffee shop losing 3% on every card payment, we help you keep that money. If you're a startup with $500,000 idle in the bank earning 0.5%, we help it earn more.\n\nThe tools are the same. The math just looks different."
+      "answer": "Both. A small business processing card payments wants clearer costs before funds move. A startup holding runway wants rules for what stays ready and what can move.\n\nThe tools are the same. The cash questions just look different."
     },
     "payments": {
-      "question": "How do instant payments work?",
-      "answer": "Traditional wire transfers go through correspondent banks. Your bank, their bank, maybe another bank, then the recipient's bank. Each step takes time and charges fees.\n\nWith diBoaS, payments go direct. Your wallet to their wallet. Done.\n\nYour freelancer in Buenos Aires gets paid in seconds, at the real exchange rate, for free. Not $25 to $50 and 3 business days."
+      "question": "How do payments work?",
+      "answer": "Traditional wire transfers go through correspondent banks. Your bank, their bank, maybe another bank, then the recipient's bank. Each step takes time and charges fees.\n\nWith diBoaS, digital-dollar payments go more directly, from your wallet to theirs, where supported.\n\nAvailability may depend on wallet setup, supported networks, ramps, counterparties, local regulation, provider support, and compliance checks. Before funds move, diBoaS shows the available path and expected costs where available."
     },
     "compliance": {
       "question": "What about compliance and tax reporting?",
-      "answer": "We built diBoaS for real businesses with real compliance needs.\n\nMonthly statements formatted for your accounting software. Transaction history with full audit trail. Tax documentation at year end. Board-ready reports your CFO will actually understand.\n\nWe know you're going to get audited eventually. We make sure you're ready."
+      "answer": "diBoaS is being built for real business operations.\n\nThat means transaction history, statements, exportable records, and reporting designed to support accounting, tax, audit, and internal review.\n\nYour business remains responsible for its own accounting, tax, legal, and regulatory obligations."
     },
     "sendMoney": {
       "question": "Can I send money to anyone?",
-      "answer": "Today, you can send money instantly and free to any diBoaS user. As the network grows, so does who you can reach."
+      "answer": "Today, you can send digital dollars to other diBoaS users where supported. Paying an external account runs as an off-ramp, with costs shown before funds move. As the network grows, so does who you can reach."
     },
     "whereMoneyGoes": {
       "question": "Where does my money actually go?",
-      "answer": "Your money is placed into established financial systems that have operated for 3+ years, survived multiple market crashes, and are independently audited for security.\n\nFull details, including names, track records, and our selection criteria, are published on our Strategies page. No signup required.\n\nWe chose these systems because they're transparent, battle-tested, and you can see exactly where your funds are at any time."
+      "answer": "When you choose a strategy, funds may move through established digital-dollar protocols, networks, ramps, and third-party providers.\n\nFull details, including names, track records, and our selection criteria, are published on our Strategies and Protocols pages. No signup required.\n\nThese can fail, lose value, or become unavailable, so diBoaS shows the path, cost, liquidity, and risk before funds move."
     },
     "protocolsListLimit": {
       "question": "Why don't you list every DeFi protocol?",

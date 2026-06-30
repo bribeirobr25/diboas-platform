@@ -45,7 +45,7 @@
     },
     "safetyBusiness": {
       "question": "Ist mein Geld sicher?",
-      "answer": "Dein Geld wird von dir gesichert. Dein Wallet, deine Schlüssel. Niemand bei diBoaS kann ohne deine Genehmigung auf dein Geld zugreifen.\n\nDas gesagt: Das ist kein Bankkonto. Dein Geld arbeitet über neue Technologie. Der Wert kann schwanken, und du könntest einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer."
+      "answer": "Dein Unternehmen verwahrt sein eigenes Geld. Dein Wallet, deine Schlüssel. Niemand bei diBoaS kann ohne deine Genehmigung Geld bewegen.\n\nDas gesagt: Das ist kein Bankkonto und kein Einlagenprodukt. Geld läuft über Wallets in digitalen Dollar, Netzwerke, Ramp-Anbieter und Drittanbieter, die ausfallen, an Wert verlieren oder nicht verfügbar sein können. Der Wert kann schwanken, und dein Unternehmen könnte einen Teil oder sein gesamtes Geld verlieren. Es gibt keine Einlagensicherung.\n\ndiBoaS zeigt Weg, Kosten, Verfügbarkeit und Risiko, bevor dein Unternehmen entscheidet."
     },
     "withdraw": {
       "question": "Kann ich aussteigen, wenn ich möchte?",
@@ -77,7 +77,7 @@
     },
     "risk": {
       "question": "Was ist das tatsächliche Risiko?",
-      "answer": "Seien wir ehrlich.\n\nDie Systeme, in die dein Geld fließt, basieren auf Code. Code kann Schwachstellen haben. Wir reduzieren das, indem wir nur Systeme verwenden mit signifikantem Gesamtwert unter Verwaltung, mehreren unabhängigen Sicherheitsprüfungen, Jahren an Erfolgsgeschichte durch Marktereignisse hindurch, und indem wir dein Geld auf mehrere unabhängige Systeme verteilen.\n\nNull Risiko? Nein. Das gibt es nirgendwo, auch nicht bei deiner Bank.\n\nDie eigentliche Frage: Sind bessere Renditen ein anderes Risikoprofil wert? Für manche Unternehmen ja. Für andere nein. Beides ist valide."
+      "answer": "Das Risiko ist real.\n\nUnternehmensmittel können über Wallets in digitalen Dollar, DeFi-Protokolle, Smart Contracts, Netzwerke, Ramp-Anbieter und Drittanbieter laufen. Diese können ausfallen, an Wert verlieren, nicht verfügbar sein oder Liquiditätsbeschränkungen verursachen.\n\nDein Unternehmen kann Geld verlieren.\n\ndiBoaS zeigt Weg, Kosten, Verfügbarkeit und Risiko, bevor dein Unternehmen entscheidet."
     },
     "canLoseEverything": {
       "question": "Kann ich alles verlieren?",
@@ -89,7 +89,7 @@
     },
     "catch": {
       "question": "Wo ist der Haken?",
-      "answer": "Wir berechnen kleine Gebühren, wenn Geld bewegt wird. Kostenlos wenn du Zahlungen empfängst. Kostenlos wenn du investierst. {sellRate} wenn du verkaufst oder eine Position schließt. {cashOutRate} wenn du auszahlst.\n\nWenn du 10.000 EUR an Zahlungen empfängst, behalten wir 0 EUR. Wenn du 10.000 EUR investierst, behalten wir 0 EUR. Wenn du 10.000 EUR verkaufst, behalten wir {sellExampleFee}. Wenn du nichts verdienst und nichts sendest, verdienen wir nichts.\n\nKeine versteckten Gebühren. Keine Mindestguthaben. Keine monatlichen Kosten. Kein Haken."
+      "answer": "Der Haken ist Risiko.\n\ndiBoaS ist keine Bank, kein Einlagenkonto und keine Garantie.\n\nWir berechnen Gebühren, wenn Geld bewegt wird, vor der Bestätigung angezeigt. Digitale Dollar von einem anderen diBoaS-Nutzer zu empfangen, ist 0 €; eine kartengedeckte Zahlung läuft als On-Ramp. Eine Strategie zu starten ist kostenlos. {sellRate} beim Verkaufen oder Schließen einer Position. {cashOutRate} beim Auszahlen.\n\nWenn dir ein anderer diBoaS-Nutzer 10.000 € in digitalen Dollar zahlt, behalten wir 0 €. Wenn du eine Strategie mit 10.000 € startest, behalten wir 0 € für den Start. Wenn du 10.000 € verkaufst, behalten wir {sellExampleFee}. Wenn du nichts verdienst und nichts bewegst, verdienen wir nichts.\n\nGebühren von Drittanbietern, Ramp-Anbietern, Netzwerken, Banken oder Wechselkursanbietern können trotzdem anfallen."
     },
     "justTransfers": {
       "question": "Kann ich diBoaS nur für Überweisungen nutzen?",
@@ -129,23 +129,23 @@
     },
     "smbOrStartup": {
       "question": "Ist das für kleine Unternehmen oder Startups?",
-      "answer": "Für beide. Wenn du ein Café führst und 2,5% bei jeder Kartenzahlung verlierst, helfen wir dir, das Geld zu behalten. Wenn du ein Startup bist mit 500.000 EUR auf dem Konto, die 0,5% verdienen, helfen wir, mehr daraus zu machen.\n\nDie Werkzeuge sind die gleichen. Nur die Zahlen sehen anders aus."
+      "answer": "Für beide. Ein kleines Unternehmen, das Kartenzahlungen abwickelt, will klarere Kosten, bevor Geld bewegt wird. Ein Startup mit Rücklagen will Regeln dafür, was verfügbar bleibt und was bewegt werden kann.\n\nDie Werkzeuge sind die gleichen. Nur die Liquiditätsfragen sehen anders aus."
     },
     "payments": {
-      "question": "Wie funktionieren sofortige Zahlungen?",
-      "answer": "Traditionelle Überweisungen laufen über Korrespondenzbanken. Deine Bank, deren Bank, vielleicht noch eine Bank, dann die Bank des Empfängers. Jeder Schritt kostet Zeit und Gebühren.\n\nMit diBoaS gehen Zahlungen direkt. Dein Wallet zu deren Wallet. Fertig.\n\nDein Freelancer in Lissabon wird in Sekunden bezahlt, zum echten Wechselkurs, kostenlos. Nicht 15 bis 50 EUR und 3 Werktage."
+      "question": "Wie funktionieren Zahlungen?",
+      "answer": "Traditionelle Überweisungen laufen über Korrespondenzbanken. Deine Bank, deren Bank, vielleicht noch eine Bank, dann die Bank des Empfängers. Jeder Schritt kostet Zeit und Gebühren.\n\nMit diBoaS gehen Zahlungen in digitalen Dollar direkter, von deinem Wallet zu deren, wo unterstützt.\n\nVerfügbarkeit kann von Wallet-Einrichtung, unterstützten Netzwerken, Ramp-Anbietern, Gegenparteien, lokaler Regulierung, Anbieterunterstützung und Compliance-Prüfung abhängen. Bevor Geld bewegt wird, zeigt diBoaS den verfügbaren Weg und erwartete Kosten, soweit verfügbar."
     },
     "compliance": {
       "question": "Was ist mit Compliance und Steuern?",
-      "answer": "Wir haben diBoaS für echte Unternehmen mit echten Compliance-Anforderungen gebaut.\n\nMonatliche Auszüge, formatiert für deine Buchhaltungssoftware. Transaktionsverlauf mit vollständigem Audit-Trail. Steuerunterlagen zum Jahresende. Berichte für den Vorstand, die dein CFO wirklich versteht.\n\nWir wissen, dass du irgendwann geprüft wirst. Wir sorgen dafür, dass du vorbereitet bist."
+      "answer": "diBoaS wird für echte Unternehmensabläufe gebaut.\n\nDazu gehören Transaktionshistorie, Auszüge, exportierbare Unterlagen und Berichte, die Buchhaltung, Steuern, Prüfung und interne Kontrolle unterstützen sollen.\n\nDein Unternehmen bleibt verantwortlich für eigene Buchhaltung, Steuern, rechtliche und regulatorische Pflichten."
     },
     "sendMoney": {
       "question": "Kann ich Geld an jeden senden?",
-      "answer": "Heute kannst du Geld sofort und kostenlos an jeden diBoaS-Nutzer senden. Je mehr das Netzwerk wächst, desto mehr Leute erreichst du."
+      "answer": "Heute kannst du digitale Dollar an andere diBoaS-Nutzer senden, wo unterstützt. Die Zahlung an ein externes Konto läuft als Off-Ramp, mit Kosten, die vor der Bewegung angezeigt werden. Je mehr das Netzwerk wächst, desto mehr Leute erreichst du."
     },
     "whereMoneyGoes": {
       "question": "Wo geht mein Geld genau hin?",
-      "answer": "Dein Geld wird in etablierte Finanzsysteme platziert, die seit über 3 Jahren in Betrieb sind, mehrere Markteinbrüche überstanden haben und unabhängig auf Sicherheit geprüft werden.\n\nAlle Details, einschließlich Namen, Erfolgsbilanzen und unserer Auswahlkriterien, sind auf unserer Strategien-Seite veröffentlicht. Ohne Anmeldung einsehbar.\n\nWir haben diese Systeme gewählt, weil sie transparent und kampferprobt sind, und du jederzeit genau sehen kannst, wo dein Geld ist."
+      "answer": "Wenn du eine Strategie wählst, kann Geld über etablierte Protokolle in digitalen Dollar, Netzwerke, Ramp-Anbieter und Drittanbieter laufen.\n\nAlle Details, einschließlich Namen, Erfolgsbilanzen und unserer Auswahlkriterien, sind auf unseren Strategien- und Protokoll-Seiten veröffentlicht. Ohne Registrierung.\n\nDiese können ausfallen, an Wert verlieren oder nicht verfügbar sein, daher zeigt diBoaS Weg, Kosten, Verfügbarkeit und Risiko, bevor Geld bewegt wird."
     },
     "protocolsListLimit": {
       "question": "Warum listet ihr nicht jedes DeFi-Protokoll?",

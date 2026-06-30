@@ -77,6 +77,23 @@ describe('buildAllFeeValues', () => {
     });
   });
 
+  it('should apply the higher $2,500 b2b cap on add/cashOut while b2c stays $250 (Bar 2026-06-30)', () => {
+    const map = buildAllFeeValues(fees, 'en');
+    // B2B Add-Money + cash-out carry the $2,500 cap; rate/min stay shared.
+    expect(map.get('landing-b2b.fees.rows.add.diboas')).toEqual({
+      rate: '0.48%',
+      min: '$0.00',
+      max: '$2,500',
+    });
+    expect(map.get('landing-b2b.fees.rows.cashOut.diboas')).toEqual({
+      rate: '0.48%',
+      min: '$0.00',
+      max: '$2,500',
+    });
+    // B2C must NOT inherit the b2b cap — still $250.
+    expect(map.get('landing-b2c.fees.rows.adding.diboas')?.max).toBe('$250');
+  });
+
   it('should honor maxFractionDigits 0 for max fee — $250 not $250.00 (audit M5)', () => {
     const map = buildAllFeeValues(fees, 'en');
     const adding = map.get('landing-b2c.fees.rows.adding.diboas')!;

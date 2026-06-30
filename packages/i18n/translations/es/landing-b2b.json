@@ -1,47 +1,47 @@
 {
   "hero": {
-    "headline": "El sistema no esta roto. Esta disenado para quedarse con un trozo de todo lo que ganas.",
-    "subheadline": "Pierdes entre un 1,5% y un 3% en cada pago con tarjeta. Y el dinero que tienes en el banco? Esta generando beneficios para todos menos para ti. Eso se acaba ahora.",
-    "cta": "Mira lo que estas perdiendo",
+    "headline": "Cada euro necesita una función.",
+    "subheadline": "Nóminas. Alquiler. IVA. Proveedores. Colchón.\n\ndiBoaS ayuda a las empresas a separar liquidez por finalidad, revisar estrategias y ver costes, disponibilidad y riesgo antes de mover dinero.",
+    "cta": "Ver cómo funciona",
     "imageAlt": "Ilustracion de gestion de tesoreria empresarial",
     "trustBadges": {
       "wallet": {
         "label": "Tu dinero, tu cartera"
       },
       "reporting": {
-        "label": "Informes listos para tu consejo"
+        "label": "Registros exportables"
       },
       "audited": {
-        "label": "Construido sobre protocolos auditados"
+        "label": "Construido sobre protocolos establecidos"
       }
     }
   },
   "twoWorlds": {
-    "header": "Dos formas en las que el sistema te cuesta dinero.",
+    "header": "La liquidez se escapa en silencio.",
     "cardA": {
-      "headline": "Si aceptas pagos con tarjeta",
-      "body": "Cada vez que un cliente paga con tarjeta, pierdes entre un 1,5% y un 3%.\n\nCon 1.000 EUR al dia en ventas, son entre 450 y 900 EUR al mes. Desaparecidos. Y encima, el dinero tarda de 1 a 5 dias laborables en llegar a tu cuenta. Tu dinero, en el bolsillo de otro, generando intereses para ellos.\n\nY si te quedaras con todo?",
-      "cta": "Mira lo que estás perdiendo",
+      "headline": "El TPV cobra.",
+      "body": "La tarjeta vende. Pero también descuenta.\n\nComisiones, plazos de abono y costes del cobro parecen pequeños hasta que los miras mes a mes.\n\ndiBoaS ayuda a empresas a revisar vías de pago alternativas allí donde estén disponibles, con costes esperados antes de aprobar.\n\nNo toda comisión desaparece. No toda vía encaja.\n\nLa idea es sencilla: ver antes de decidir.",
+      "cta": "Revisar costes de cobro",
       "imageAlt": "Procesamiento de pagos empresariales"
     },
     "cardB": {
-      "headline": "Si tu empresa tiene efectivo parado",
-      "body": "Has levantado capital. Lo estas gastando con cuidado. Pero el dinero que no estas usando ahora mismo? Tu banco lo pone a trabajar, genera beneficios y a ti te paga casi nada.\n\nCon 500.000 EUR parados, la diferencia entre lo que tu banco te paga y lo que es posible podria ser de decenas de miles de euros al ano.\n\nY si ese dinero trabajara para ti?",
-      "cta": "Mira lo que tu banco se está quedando",
+      "headline": "El colchón necesita reglas.",
+      "body": "Toda empresa necesita dinero disponible.\n\nPero no todo euro tiene que estar en la misma cuenta y con la misma función.\n\nDefine un mínimo operativo. Separa lo que debe estar listo para nóminas, alquiler, IVA, proveedores y gastos próximos.\n\nLo que quede por encima puede revisarse.\n\nNo automáticamente. No sin riesgo. Con reglas.",
+      "cta": "Revisar liquidez",
       "imageAlt": "Gestion de tesoreria en el movil"
     }
   },
   "b2bGoals": {
-    "heading": "Vamos a simplificarlo.",
+    "heading": "Primero los números.",
     "ariaLabel": "Comparación de ahorro empresarial",
     "withDiboas": "Con diBoaS",
     "yourBank": "Tu banco:",
     "more": "MÁS con diBoaS",
     "cards": {
       "paymentFees": {
-        "title": "Comisiones de Pago",
-        "titleSummary": "no es solo el 3%",
-        "subtitle": "Con 1.000 € en ventas diarias con tarjeta y una comisión media del 2,5%, tu negocio pierde 750 €/mes o más de 9.000 € al año.",
+        "title": "Las comisiones",
+        "titleSummary": "se acumulan.",
+        "subtitle": "Si tu empresa acepta pagos con tarjeta, incluso porcentajes pequeños pueden pesar al final del mes. La pregunta no es solo cuánto cobra el TPV. La pregunta es cuándo llega el dinero, qué costes tiene el cobro y qué alternativa tiene sentido para tu empresa. diBoaS ayuda a ver vías disponibles, costes esperados y límites conocidos antes de aprobar.",
         "diboasResult": "9.900 €",
         "bankResult": "",
         "difference": "9.900 €/año",
@@ -50,9 +50,9 @@
         "howPossible": "¿Cómo es posible?"
       },
       "idleCash": {
-        "title": "Capital Parado",
-        "titleSummary": "obtén lo que es justo",
-        "subtitle": "Con 100.000 € de capital parado en la cuenta de tu empresa.",
+        "title": "Liquidez parada",
+        "titleSummary": "no siempre está libre.",
+        "subtitle": "Si hay 100.000 € en la cuenta, la primera pregunta no es: «¿cuánto puede dar?». La primera pregunta es: ¿qué tiene que estar disponible? Después: ¿qué puede separarse? Después: ¿qué estrategia encaja con el riesgo de la empresa? diBoaS ayuda a separar liquidez operativa de dinero que puede tener otra función.",
         "diboasResult": "8.316 €",
         "bankResult": "2.000 €",
         "difference": "6.316 €/año",
@@ -64,65 +64,65 @@
   },
   "origin": {
     "transitionHook": "",
-    "header": "¿Por qué estamos construyendo esto?",
+    "header": "Las empresas conocen el hueco.",
     "paragraphs": {
-      "0": "La abuela de nuestro fundador ahorró la mitad de todo lo que ganó durante toda su vida. Su banco le pagó casi nada por ello.",
-      "1": "No sabía que había mejores opciones. Nadie se lo dijo. El lenguaje era demasiado complicado. Los mínimos demasiado altos. A las instituciones no les importaba la gente con pocos ahorros.",
-      "2": "Hemos visto lo mismo con las empresas. Cafeterías perdiendo 10.000 € al año en comisiones. Startups con medio millón en el banco ganando menos de 200 € al mes en intereses.",
-      "3": "Acabas de verlo.",
-      "4": "La nueva tecnología hizo posible esquivar a los que controlaban todo. Solo teníamos que construir la puerta."
+      "0": "El cliente compra hoy. El cobro llega después.",
+      "1": "La comisión ya se ha ido.",
+      "2": "La nómina no espera. El alquiler no espera. El IVA tampoco. El proveedor, menos.",
+      "3": "Y lo que queda en la cuenta muchas veces está en un sistema que explica poco.",
+      "4": "diBoaS nace para que la liquidez sea más fácil de separar, revisar y mover. No con promesas. Con reglas, costes visibles, riesgo claro y control de la cartera."
     }
   },
   "howItWorks": {
-    "header": "Todo lo que tu Negocio puede hacer",
+    "header": "Liquidez por función.",
     "steps": {
       "connect": {
-        "title": "Conecta tu negocio",
-        "description": "Vincula tu cuenta empresarial. Dos minutos de configuración. Sin integracion tecnica. Sin desarrollador. Sin interrupciones. Lo haces mientras te tomas el cafe de la manana.",
+        "title": "Conecta el flujo",
+        "description": "Vincula cuentas, carteras o vías de pago soportadas, donde estén disponibles.",
         "imageAlt": "Conecta tu cuenta empresarial"
       },
       "rules": {
-        "title": "Tu pones las reglas",
-        "description": "Dinos tu mínimo. \"Siempre tener 50.000 EUR disponibles.\" Todo lo que este por encima? A trabajar. Tu pones las reglas. Las cambias cuando quieras.",
+        "title": "Define el mínimo",
+        "description": "Marca lo que debe estar listo para nóminas, alquiler, IVA, proveedores, colchón y gastos próximos.",
         "imageAlt": "Define tus reglas y limites"
       },
       "works": {
-        "title": "Tu dinero trabaja",
-        "description": "Tu efectivo parado empieza a generar. Los pagos llegan en segundos, no en dias. Tus comisiones de procesamiento bajan del 2,5% a cero. Y no tuviste que pensar en nada de esto.",
+        "title": "Revisa el excedente",
+        "description": "Ve qué parte de la liquidez puede tener otra función sin poner en riesgo la operación.",
         "imageAlt": "Tu dinero trabaja para ti"
       },
       "access": {
-        "title": "Acceso en cualquier momento",
-        "description": "Necesitas efectivo? Un toque. Sin bloqueos. Sin penalizaciones. Procesado al instante. Los tiempos de transferencia bancaria pueden variar.",
+        "title": "Mueve solo al aprobar",
+        "description": "Tu empresa ve estrategia, costes, disponibilidad y riesgo antes de mover dinero. La disponibilidad puede depender de socios, redes, liquidez, bancos y revisión de compliance.",
         "imageAlt": "Accede a tu dinero en cualquier momento"
       }
     },
-    "transitionHook": "Ese es el proceso. Esto es lo que realmente recibes."
+    "transitionHook": "Ese es el flujo. Esto es lo que gana tu liquidez."
   },
   "features": {
-    "header": "Lo que tu negocio recibe.",
+    "header": "Lo que gana la liquidez.",
     "cards": {
       "getPaid": {
-        "headline": "Cobra sin que te quiten un trozo",
-        "body": "Tus clientes pagan. Te quedas con el 100%. Al instante.",
+        "headline": "Cobros con coste visible",
+        "body": "Revisa vías de cobro disponibles con costes esperados antes de mover dinero.",
         "imageAlt": "Cobra sin que te quiten un trozo"
       },
       "payAnyone": {
-        "headline": "Paga a cualquiera, en cualquier lugar, al instante",
-        "body": "Proveedores, autonomos, freelancers. En todo el mundo. Sin comisiones. En tiempo real",
+        "headline": "Pagos a colaboradores",
+        "body": "Envía pagos por vías soportadas donde estén disponibles. Red, proveedor, liquidación y compliance pueden afectar coste y plazo.",
         "imageAlt": "Paga a cualquiera en cualquier lugar al instante"
       },
       "adelaide": {
-        "headline": "Adelaide vigila tu dinero",
-        "body": "Inteligencia de mercado para propietarios de negocios. Sin asesores a 500 EUR la hora.",
+        "headline": "Reglas para el colchón",
+        "body": "Define un mínimo operativo, separa liquidez excedente y revisa estrategias solo cuando encajen con el riesgo de tu empresa.",
         "imageAlt": "Inteligencia de mercado Adelaide"
       }
     },
     "transitionHook": "Pero aqui viene la parte que nadie mas esta haciendo."
   },
   "fees": {
-    "header": "Lo que cuesta. Todo.",
-    "subtitle": "Sin comisiones ocultas. Sin saldos minimos. Sin cargos mensuales. Aqui tienes cada comision, sobre la mesa.",
+    "header": "Sin sorpresa en la letra pequeña.",
+    "subtitle": "Costes claros antes de mover dinero de empresa.",
     "headers": {
       "action": "Accion",
       "diboas": "diBoaS",
@@ -133,103 +133,103 @@
     "rows": {
       "account": {
         "action": "Cuenta empresa",
-        "diboas": "Gratis para siempre",
-        "competitors": "10 a 50 EUR/mes",
-        "difference": "Ahorra 120 a 600 EUR/año",
-        "example": "Tu cuenta: 0 EUR. Siempre."
+        "diboas": "0 € de cuota mensual",
+        "competitors": "Muchos proveedores cobran cuotas mensuales",
+        "difference": "Sin cuota mensual diBoaS",
+        "example": "Tu cuenta: 0 €."
       },
       "receive": {
         "action": "Recibir pagos",
-        "diboas": "GRATIS",
-        "competitors": "1,5 a 3% (TPV)",
-        "difference": "Ahorra 20 a 30 EUR por cada 1.000 EUR",
-        "example": "Recibir 1.000 EUR: cuesta 0 EUR. Otros proveedores cobran 15 a 30 EUR."
+        "diboas": "0 € solo cuando otro usuario de diBoaS te paga en dólares digitales; un pago con tarjeta es una entrada (on-ramp) con un 0,48 % más el coste del procesador de tarjeta",
+        "competitors": "Los procesadores de tarjeta pueden cobrar entre un 1,5 % y un 3,5 %",
+        "difference": "Si el cliente paga con tarjeta se aplican costes de tarjeta y de entrada; solo las transferencias en dólares digitales entre usuarios de diBoaS son gratuitas",
+        "example": "Un usuario de diBoaS te paga 1.000 € en dólares digitales: comisión diBoaS 0 €. Un pago de 1.000 € con tarjeta se procesa como entrada: 0,48 % (4,80 €) más el coste del procesador de tarjeta."
       },
       "send": {
         "action": "Enviar / Pagar",
-        "diboas": "GRATIS",
-        "competitors": "1,50 a 50 EUR (SWIFT)",
-        "difference": "Ahorra 1,50 a 50 EUR por transferencia",
-        "example": "Pagar a un proveedor 500 EUR: 0 EUR"
+        "diboas": "0 € solo entre usuarios de diBoaS en dólares digitales; pagar a una cuenta externa es una salida (off-ramp) con un 0,48 %",
+        "competitors": "Transferencias y pagos internacionales pueden tener costes fijos",
+        "difference": "Solo las transferencias en dólares digitales entre usuarios de diBoaS son gratuitas; pagar a un proveedor que no usa diBoaS se procesa como salida",
+        "example": "Pagar 500 € a un proveedor que usa diBoaS en dólares digitales: comisión diBoaS 0 €. Pagar 500 € a un proveedor externo: se aplica una salida del 0,48 % (2,40 €)."
       },
       "add": {
         "action": "Anadir dinero",
         "diboas": "{rate} (mín {min}, máx {max})",
-        "competitors": "0 a 1,5%",
-        "difference": "Comparable con la mayoría de proveedores",
-        "example": "Anadir 10.000 EUR: cuesta 48 EUR"
+        "competitors": "Las comisiones de proveedores pueden variar",
+        "difference": "Se muestra antes de confirmar",
+        "example": "Añadir 10.000 €: comisión diBoaS de 48 €"
       },
       "invest": {
         "action": "Invertir / Crecer",
-        "diboas": "GRATIS",
-        "competitors": "0,5 a 2% (asesores, plataformas)",
-        "difference": "Ahorra 50 a 200 EUR por cada 10.000 EUR",
-        "example": "Invertir 10.000 EUR: 0 EUR. Gratis para empezar."
+        "diboas": "Gratis para empezar",
+        "competitors": "Asesores y plataformas pueden cobrar comisiones",
+        "difference": "Costes y riesgos de la estrategia aparecen antes de aprobar",
+        "example": "Iniciar con 10.000 €: diBoaS cobra 0 € por iniciar"
       },
       "sell": {
         "action": "Vender / Cerrar",
         "diboas": "{rate} (mín {min}, máx {max})",
-        "competitors": "0,5 a 2%",
-        "difference": "Ahorra 11 a 161 EUR por cada 10.000 EUR",
-        "example": "Vender 10.000 EUR: cuesta 39 EUR"
+        "competitors": "Comisiones y spreads pueden variar",
+        "difference": "0,39 %, con un tope de 25 €",
+        "example": "Vender 10.000 €: el 0,39 % serían 39 €, pero la comisión se limita al tope de 25 €"
       },
       "swap": {
         "action": "Intercambiar",
-        "diboas": "GRATIS",
-        "competitors": "0,5 a 2% spread",
-        "difference": "Ahorra 50 a 200 EUR por cada 10.000 EUR",
-        "example": "Intercambiar 10.000 EUR: 0 EUR"
+        "diboas": "Comisión diBoaS 0 € donde esté soportado",
+        "competitors": "Spreads y comisiones pueden variar",
+        "difference": "Pueden aplicarse costes de red y proveedor",
+        "example": "Cambiar 10.000 €: comisión diBoaS 0 € donde esté disponible"
       },
       "cashOut": {
         "action": "Retirar",
         "diboas": "{rate} (mín {min}, máx {max})",
-        "competitors": "1 a 3% + retrasos",
-        "difference": "Ahorra 52 a 252 EUR por cada 10.000 EUR",
-        "example": "Retirar 10.000 EUR: cuesta 48 EUR"
+        "competitors": "Comisiones, spreads y retrasos pueden variar",
+        "difference": "Se muestra antes de confirmar",
+        "example": "Retirar 10.000 €: comisión diBoaS de 48 €"
       }
     },
-    "disclaimer": "*Comision diBoaS mostrada. Pueden aplicarse comisiones de red de terceros (normalmente menos de 0,01 EUR).",
+    "disclaimer": "*Se muestran las comisiones de diBoaS. Pueden aplicarse comisiones de terceros, proveedores de entrada y salida, redes, bancos, liquidación o revisiones de compliance, y se mostrarán cuando estén disponibles antes de confirmar.",
     "pricingNote": "Comparaciones de precios basadas en tarifas publicas a febrero de 2026. Los rangos reflejan precios comunes entre los principales proveedores. El precio real de cada competidor varia segun proveedor, volumen y condiciones contractuales.",
-    "example": "Recibes 1.000 EUR en pagos: te quedas con 1.000 EUR en tu cuenta diBoaS. Retiras a tu banco: 995,20 EUR (tras {cashOutRate} de comision de retirada). Aun asi mas barato que los 970 a 980 EUR que te deja un procesador de tarjetas.",
+    "example": "Un usuario de diBoaS te paga 1.000 € en dólares digitales: te quedas con 1.000 € en tu cuenta diBoaS. Retirar a tu banco es una salida (off-ramp): se aplica {cashOutRate}. Un pago con tarjeta es una entrada (on-ramp), con costes de tarjeta y de entrada mostrados antes de mover dinero.",
     "expandableToggle": "Sin comisiones ocultas. Sin saldo mínimo. Sin cargos mensuales. Ver todas las comisiones.",
-    "footerLine": "Cada comision. Sobre la mesa. Nada mas.",
-    "transitionHook": "Sigues leyendo? Bien. Veamos si esto encaja con tu negocio."
+    "footerLine": "Cada coste relevante debería verse antes de mover dinero de empresa.",
+    "transitionHook": "Primero los costes. Luego vemos si esto encaja con tu negocio."
   },
   "fitAssessment": {
-    "header": "Es esto para tu negocio?",
+    "header": "¿Encaja contigo?",
     "goodFit": {
       "title": "Buen encaje",
       "iconAlt": "Indicador de buen encaje",
-      "description": "Tu negocio acepta pagos con tarjeta y estas harto de la comision del 2 al 3%. Tu empresa tiene efectivo parado generando casi nada.",
+      "description": "Tu empresa quiere separar mejor la liquidez, revisar vías de cobro y establecer reglas antes de mover dinero.",
       "items": [
-        "Harto de perder del 2 al 3% en pagos con tarjeta.",
-        "Efectivo parado generando casi nada.",
-        "Quieres control total sobre tu dinero.",
-        "Comodo con otro perfil de riesgo por mejores retornos."
+        "Quieres vías de cobro más claras, con costes mostrados antes de mover dinero.",
+        "Quieres más visibilidad sobre la liquidez parada.",
+        "Quieres reglas para lo que puede moverse y lo que debe estar disponible.",
+        "Te sientes cómodo definiendo qué riesgo es aceptable."
       ]
     },
     "notAFit": {
       "title": "No es para ti",
       "iconAlt": "Indicador de no encaje",
-      "description": "Necesitas seguro de depositos gubernamental por encima de todo. Tienes tolerancia cero al riesgo.",
+      "description": "Necesitas garantía de depósitos por encima de todo. Tu empresa tiene tolerancia cero a riesgo de criptoactivos, estrategias, liquidez, red, proveedor o disponibilidad. Necesitas una cuenta bancaria tradicional, no una capa no custodial para gestionar liquidez.",
       "items": [
-        "Necesitas seguro de depositos por encima de todo.",
-        "Tolerancia cero al riesgo.",
-        "Prefieres bancos tradicionales aunque cuesten mas.",
-        "Necesitas que otro gestione tu dinero."
+        "Necesitas garantía de depósitos por encima de todo.",
+        "Tienes tolerancia cero a riesgo de criptoactivos o estrategias.",
+        "No puedes aceptar riesgo de liquidez, red, proveedor o disponibilidad.",
+        "Necesitas una cuenta bancaria tradicional, no una capa no custodial para gestionar liquidez."
       ]
     }
   },
   "founder": {
-    "header": "Construido por Bar.",
+    "header": "Adelaide ahorraba. El sistema explicaba poco.",
     "paragraphs": {
       "versionA": [
         "Creci viendo a mi abuela Adelaide navegar un sistema financiero que no estaba hecho para ella. Merecia mejores herramientas. Igual que cada propietario de negocio como tu.",
         "diBoaS tiene su sede en Berlin, Alemania, construyendo para negocios en EEUU, la UE y Brasil. He pasado mas de 20 anos trabajando en Producto y Tecnologia en Brasil, EEUU, Japon y Alemania. Ahora estoy construyendo la herramienta financiera que desearia que cada pequeno negocio y startup tuviera."
       ],
       "versionB": [
-        "Creci viendo a mi abuela Adelaide navegar un sistema financiero que no estaba hecho para ella. Merecia mejores herramientas. Igual que cada propietario de negocio como tu.",
-        "diBoaS esta siendo constituida en Berlin, Alemania, construyendo para negocios en EEUU, la UE, Brasil, con planes de expandirse a más mercados. He pasado mas de 20 anos trabajando en Producto y Tecnologia en Brasil, EEUU, Japon y Alemania. Ahora estoy construyendo la herramienta financiera que desearia que cada pequeno negocio y startup tuviera."
+        "diBoaS empezó con mi abuela Adelaide. Ahorraba con disciplina. El sistema le daba poca explicación y casi ningún acceso a mejores opciones.",
+        "Ese mismo patrón aparece en las empresas. Las comisiones se ven cuando miras de cerca. El colchón queda a menudo sin una función clara. Los equipos gestionan caja entre bancos, tarjetas, herramientas, hojas de cálculo y documentos para la gestoría que rara vez encajan bien. Después de 20 años creando productos en Brasil, Estados Unidos, Japón y Alemania, quise construir una capa de liquidez más clara: un lugar donde el dinero tiene una función, el riesgo tiene nombre y el control se queda con quienes responden por la empresa."
       ],
       "versionC": [
         "Creci viendo a mi abuela Adelaide navegar un sistema financiero que no estaba hecho para ella. Merecia mejores herramientas. Igual que cada propietario de negocio como tu.",
@@ -264,24 +264,25 @@
     }
   },
   "waitlist": {
-    "header": "Únete a otras empresas en este movimiento.",
-    "description": "Acceso abierto y oportunidades justas. Hablemos.",
-    "spotsCounter": "{count} plazas de miembros fundadores restantes"
+    "header": "Construye mejores reglas.",
+    "description": "Cobros. Liquidez. Mínimos operativos. Costes. Disponibilidad. Riesgo. Únete a la lista de espera y sé de las primeras empresas en probar diBoaS cuando esté disponible.",
+    "spotsCounter": "{count} plazas de miembros fundadores restantes",
+    "noSpam": "Sin spam. Solo novedades del producto, acceso anticipado y cambios antes del lanzamiento."
   },
   "toolsCallout": {
-    "label": "¿Quieres ponerle números a tu negocio?",
+    "label": "Primero calcula. Luego decide.",
     "cardFeesLink": "Calculadora de comisiones de tarjeta",
-    "idleCashLink": "Calculadora de rendimiento de efectivo ocioso"
+    "idleCashLink": "Calculadora de liquidez"
   },
   "socialProof": {
-    "header": "¡Únete al Movimiento!",
-    "subtext": "Las empresas ya están aprovechando la oportunidad de reducir costes y hacer rendir su capital parado. Suscríbete a nuestra lista de espera.",
+    "header": "Únete a otras empresas que se están preparando.",
+    "subtext": "Las empresas están explorando vías de cobro más claras y reglas para la liquidez parada. Únete a la lista de espera.",
     "stats": {
       "waitlist": "{count} empresas",
       "countries": "{countries} países"
     },
     "cta": "Unirse a la lista de espera",
-    "zeroState": "Sé de los primeros."
+    "zeroState": "Sé de las primeras."
   },
   "faq": {
     "header": "Antes de decidir."
@@ -309,7 +310,7 @@
       "terms": "Terminos de Servicio",
       "cookies": "Politica de Cookies"
     },
-    "tagline": "La herramienta financiera que Adelaide merecia."
+    "tagline": "El efectivo de tu empresa merece reglas."
   },
   "waitlistSuccess": {
     "confirmation": {
@@ -371,10 +372,10 @@
     }
   },
   "seo": {
-    "title": "diBoaS para Negocios | Deja de pagar de mas en comisiones y efectivo parado",
-    "description": "Tu procesador de tarjetas se lleva de 1,5 a 3%. Tu banco casi no te paga. diBoaS: pagos gratis, pagos instantaneos, y tu efectivo parado trabajando para ti.",
-    "ogTitle": "El sistema no esta roto. Esta disenado para quedarse con un trozo de todo lo que ganas.",
-    "ogDescription": "Dos herramientas. Una plataforma. Quédate con mas de tus ingresos por tarjeta y haz que tu efectivo parado rinda. diBoaS para Negocios.",
+    "title": "diBoaS para Empresas | Liquidez con Función",
+    "description": "Nóminas. Alquiler. IVA. Proveedores. Colchón. diBoaS ayuda a las empresas a separar liquidez por finalidad, revisar estrategias y ver costes, disponibilidad y riesgo antes de mover dinero.",
+    "ogTitle": "Cada euro necesita una función.",
+    "ogDescription": "diBoaS ayuda a las empresas a separar liquidez operativa, pagos y saldos parados con costes, disponibilidad y riesgo visibles antes de mover dinero.",
     "keywords": "gestion de tesoreria, finanzas para startups, retornos, capital operativo, pagos empresariales, fintech B2B"
   }
 }

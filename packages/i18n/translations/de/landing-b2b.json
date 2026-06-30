@@ -1,38 +1,38 @@
 {
   "hero": {
-    "headline": "Das System ist nicht kaputt. Es ist so gebaut, dass es sich an allem bedient, was du verdienst.",
-    "subheadline": "Du verlierst 1,5 bis 3% bei jeder Kartenzahlung. Und das Geld auf deinem Geschäftskonto? Es erwirtschaftet Rendite für alle außer für dich. Das ändert sich jetzt.",
-    "cta": "Sieh, was du verlierst",
+    "headline": "Jeder Euro braucht eine Aufgabe.",
+    "subheadline": "Löhne. Miete. Umsatzsteuer. Lieferanten. Rücklagen.\n\ndiBoaS hilft Unternehmen, Liquidität nach Zweck zu trennen, Strategien zu prüfen und Kosten, Verfügbarkeit und Risiko zu sehen, bevor Geld bewegt wird.",
+    "cta": "So funktioniert es",
     "imageAlt": "Illustration zur Unternehmens-Treasury-Verwaltung",
     "trustBadges": {
       "wallet": {
-        "label": "Dein Geld, deine Kontrolle"
+        "label": "Dein Geld, dein Wallet"
       },
       "reporting": {
-        "label": "Berichte für den Vorstand"
+        "label": "Exportierbare Unterlagen"
       },
       "audited": {
-        "label": "Gebaut auf auditierten Systemen"
+        "label": "Gebaut auf etablierten Protokollen"
       }
     }
   },
   "twoWorlds": {
-    "header": "Zwei Wege, wie das System dich Geld kostet.",
+    "header": "Liquidität verschwindet leise.",
     "cardA": {
-      "headline": "Wenn du Kartenzahlungen akzeptierst",
-      "body": "Jedes Mal, wenn ein Kunde mit Karte zahlt, verlierst du 1,5 bis 3%.\n\nBei 1.000 EUR Tagesumsatz sind das 450 bis 900 EUR im Monat. Weg. Und dann dauert es 1 bis 5 Werktage, bis das Geld auf deinem Konto ist. Dein Geld, in der Tasche eines anderen, wo es für die arbeitet.\n\nWas wäre, wenn du alles behalten könntest?",
-      "cta": "Sieh, was du verlierst",
+      "headline": "Kartenzahlungen kosten.",
+      "body": "Kartenzahlungen sind bequem. Aber sie sind nicht neutral.\n\nGebühren, Abrechnungswege und Wartezeiten wirken klein, bis man sie über Monate sieht.\n\ndiBoaS hilft Unternehmen, alternative Zahlungswege dort zu prüfen, wo sie verfügbar sind, mit erwarteten Kosten vor der Freigabe.\n\nNicht jede Gebühr verschwindet. Nicht jeder Weg passt.\n\nDer Punkt ist: erst sehen, dann entscheiden.",
+      "cta": "Zahlungskosten prüfen",
       "imageAlt": "Zahlungsabwicklung für Unternehmen"
     },
     "cardB": {
-      "headline": "Wenn dein Unternehmen Geld auf dem Konto liegen hat",
-      "body": "Du hast Kapital aufgenommen. Du gibst es bedacht aus. Aber das Geld, das du gerade nicht brauchst? Deine Bank legt es an, erwirtschaftet Rendite und zahlt dir fast nichts davon.\n\nBei 500.000 EUR, die auf dem Konto liegen, könnte die Differenz zwischen dem, was deine Bank dir zahlt, und dem, was möglich wäre, Zehntausende Euro pro Jahr betragen.\n\nWas wäre, wenn dieses Geld für dich arbeiten würde?",
-      "cta": "Sieh, was deine Bank behält",
+      "headline": "Rücklagen brauchen Regeln.",
+      "body": "Jedes Unternehmen braucht Geld, das verfügbar bleibt.\n\nAber nicht jeder Euro muss im selben Konto liegen und dieselbe Aufgabe haben.\n\nLege eine Untergrenze fest. Trenne, was für Löhne, Miete, Umsatzsteuer, Lieferanten und Betriebsmittel verfügbar bleiben muss.\n\nWas darüber liegt, kann geprüft werden.\n\nNicht automatisch. Nicht ohne Risiko. Sondern nach Regel.",
+      "cta": "Rücklagen prüfen",
       "imageAlt": "Treasury-Management auf dem Smartphone"
     }
   },
   "b2bGoals": {
-    "heading": "Machen wir es einfach.",
+    "heading": "Zahlen zuerst.",
     "ariaLabel": "Geschäftliche Einsparungsvergleiche",
     "withDiboas": "Mit diBoaS",
     "yourBank": "Deine Bank:",
@@ -40,8 +40,8 @@
     "cards": {
       "paymentFees": {
         "title": "Zahlungsgebühren",
-        "titleSummary": "es sind nicht nur 3%",
-        "subtitle": "Bei 1.000 € täglichem Kartenumsatz und durchschnittlich 2,5% Bearbeitungsgebühr verliert dein Unternehmen 750 €/Monat oder über 9.000 € im Jahr.",
+        "titleSummary": "summieren sich.",
+        "subtitle": "Jede Kartenzahlung trägt eine Bearbeitungsgebühr, und sie wird fällig, bevor das Geld auf deinem Konto ist. Auch kleine Prozentsätze werden über Monate spürbar. diBoaS verspricht nicht, dass jede Gebühr verschwindet. Es hilft, verfügbare Zahlungswege, erwartete Kosten und bekannte Einschränkungen vor der Freigabe zu sehen.",
         "diboasResult": "9.900 €",
         "bankResult": "",
         "difference": "9.900 €/Jahr",
@@ -50,9 +50,9 @@
         "howPossible": "Wie ist das möglich?"
       },
       "idleCash": {
-        "title": "Ungenutztes Kapital",
-        "titleSummary": "erhalte, was fair ist",
-        "subtitle": "Bei 100.000 € ungenutztem Kapital auf deinem Geschäftskonto.",
+        "title": "Ungenutzte Liquidität",
+        "titleSummary": "ist nicht gleich frei.",
+        "subtitle": "Die erste Frage ist nicht, was ungenutzte Liquidität bringen könnte. Die erste Frage ist, was verfügbar bleiben muss. Dann, was getrennt werden darf. Dann, welche Strategie zum Risiko deines Unternehmens passt. diBoaS hilft, operative Liquidität von Geld zu trennen, das eine andere Aufgabe haben kann.",
         "diboasResult": "8.316 €",
         "bankResult": "2.300 €",
         "difference": "6.016 €/Jahr",
@@ -64,65 +64,65 @@
   },
   "origin": {
     "transitionHook": "",
-    "header": "Warum wir das bauen",
+    "header": "Unternehmen kennen die Lücke.",
     "paragraphs": {
-      "0": "Die Großmutter unseres Gründers hat ihr ganzes Leben lang die Hälfte von allem gespart. Ihre Bank hat ihr dafür fast nichts gegeben.",
-      "1": "Sie wusste nicht, dass es bessere Möglichkeiten gab. Niemand hat es ihr gesagt. Die Sprache war zu kompliziert. Die Mindestbeträge zu hoch. Die Institutionen haben sich nicht für Menschen mit kleinen Ersparnissen interessiert.",
-      "2": "Wir haben dasselbe bei Unternehmen gesehen. Cafés, die 10.000 € pro Jahr an Kartengebühren verlieren. Startups mit einer halben Million auf der Bank, die weniger als 200 € im Monat an Zinsen verdienen.",
-      "3": "Du hast es gerade gesehen.",
-      "4": "Neue Technologie machte es möglich, die Torwächter zu umgehen. Wir mussten nur die Tür bauen."
+      "0": "Der Kunde zahlt heute. Das Geld kommt später.",
+      "1": "Die Gebühr ist schon weg.",
+      "2": "Löhne warten nicht. Miete wartet nicht. Umsatzsteuer wartet nicht. Lieferanten warten auch nicht gern.",
+      "3": "Und was auf dem Konto bleibt? Oft liegt es in einem System, das wenig erklärt.",
+      "4": "diBoaS entsteht, um Liquidität leichter zu trennen, zu prüfen und zu bewegen. Nicht mit Versprechen. Mit Regeln, sichtbaren Kosten, sichtbarem Risiko und Wallet-Kontrolle."
     }
   },
   "howItWorks": {
-    "header": "Alles, was dein Unternehmen tun kann",
+    "header": "Liquidität nach Zweck.",
     "steps": {
       "connect": {
-        "title": "Verbinde dein Unternehmen",
-        "description": "Verknüpfe dein Geschäftskonto. Zwei Minuten Einrichtung. Keine technische Integration nötig. Kein Entwickler. Keine Ausfallzeit. Das machst du beim Morgenkaffee.",
+        "title": "Verbinde den Zahlungsfluss",
+        "description": "Verknüpfe unterstützte Konten, Wallets oder Zahlungswege, wo verfügbar.",
         "imageAlt": "Geschäftskonto verbinden"
       },
       "rules": {
-        "title": "Du bestimmst die Regeln",
-        "description": "Sag uns deine Untergrenze. \"Immer 50.000 EUR verfügbar halten.\" Alles darüber? An die Arbeit. Du bestimmst die Regeln. Du änderst sie jederzeit.",
+        "title": "Setze die Untergrenze",
+        "description": "Lege fest, was für Löhne, Miete, Umsatzsteuer, Lieferanten, Rücklagen und Betriebsmittel verfügbar bleiben muss.",
         "imageAlt": "Regeln und Limits festlegen"
       },
       "works": {
-        "title": "Dein Geld arbeitet",
-        "description": "Dein ungenutztes Kapital beginnt zu verdienen. Zahlungen kommen in Sekunden an, nicht in Tagen. Deine Verarbeitungsgebühren sinken von 2,5% auf null. Und du musstest an nichts davon denken.",
+        "title": "Prüfe den Überschuss",
+        "description": "Sieh, welcher Teil der Liquidität eine andere Aufgabe haben kann, ohne den operativen Bedarf zu gefährden.",
         "imageAlt": "Dein Geld arbeitet für dich"
       },
       "access": {
-        "title": "Jederzeit Zugriff",
-        "description": "Du brauchst Bargeld? Ein Tipp. Keine Sperrfristen. Keine Strafen. Sofort verarbeitet. Banktransferzeiten können variieren.",
+        "title": "Bewege nur nach Freigabe",
+        "description": "Dein Unternehmen sieht Strategie, Kosten, Verfügbarkeit und Risiko, bevor Geld bewegt wird. Verfügbarkeit kann von Partnern, Netzwerken, Liquidität, Banken und Compliance-Prüfung abhängen.",
         "imageAlt": "Jederzeit auf dein Geld zugreifen"
       }
     },
-    "transitionHook": "Das ist der Prozess. Jetzt kommt das, was du wirklich bekommst."
+    "transitionHook": "Das ist der Ablauf. Das bekommt deine Liquidität."
   },
   "features": {
-    "header": "Was dein Unternehmen bekommt.",
+    "header": "Was Liquidität bekommt.",
     "cards": {
       "getPaid": {
-        "headline": "Werde bezahlt, ohne dass jemand sich bedient",
-        "body": "Deine Kunden zahlen. Du behältst 100%. Sofort.",
+        "headline": "Zahlungswege mit sichtbaren Kosten",
+        "body": "Prüfe verfügbare Zahlungswege mit erwarteten Kosten, bevor Geld bewegt wird.",
         "imageAlt": "Zahlungen empfangen ohne Abzüge"
       },
       "payAnyone": {
-        "headline": "Bezahle jeden, überall, sofort",
-        "body": "Lieferanten, Freiberufler, Dienstleister. Weltweit. Keine Gebühren. In Echtzeit",
+        "headline": "Zahlungen an Partner",
+        "body": "Sende Zahlungen über unterstützte Wege, wo verfügbar. Netzwerk, Anbieter, Abwicklung und Compliance können Kosten und Dauer beeinflussen.",
         "imageAlt": "Sofortige Zahlungen weltweit"
       },
       "adelaide": {
-        "headline": "Adelaide überwacht dein Geld",
-        "body": "Marktintelligenz für Unternehmer. Ohne Berater zu 500 EUR die Stunde.",
+        "headline": "Regeln für Rücklagen",
+        "body": "Lege eine operative Untergrenze fest, trenne überschüssige Liquidität und prüfe Strategien nur dann, wenn sie zum Risikoprofil deines Unternehmens passen.",
         "imageAlt": "Adelaide Marktintelligenz"
       }
     },
     "transitionHook": "Aber jetzt kommt der Teil, den sonst niemand macht."
   },
   "fees": {
-    "header": "Was es kostet. Alles.",
-    "subtitle": "Keine versteckten Gebühren. Keine Mindestguthaben. Keine monatlichen Kosten. Hier ist jede Gebühr, auf dem Tisch.",
+    "header": "Keine Überraschung im Gebührenstapel.",
+    "subtitle": "Klare Kosten, bevor Unternehmensgeld bewegt wird.",
     "headers": {
       "action": "Aktion",
       "diboas": "diBoaS",
@@ -133,103 +133,103 @@
     "rows": {
       "account": {
         "action": "Geschäftskonto",
-        "diboas": "Für immer kostenlos",
-        "competitors": "10 bis 50 EUR/Monat",
-        "difference": "Spare 120 bis 600 EUR/Jahr",
-        "example": "Dein Konto: 0 EUR. Immer."
+        "diboas": "0 € monatliche Kontogebühr",
+        "competitors": "Viele Anbieter berechnen monatliche Gebühren",
+        "difference": "Keine monatliche diBoaS-Kontogebühr",
+        "example": "Dein Konto: 0 €."
       },
       "receive": {
         "action": "Zahlungen empfangen",
-        "diboas": "KOSTENLOS",
-        "competitors": "1,5 bis 3% (Kartenterminal)",
-        "difference": "Spare 15 bis 30 EUR pro 1.000 EUR",
-        "example": "1.000 EUR empfangen: kostet 0 EUR. Andere Anbieter berechnen 15 bis 30 EUR."
+        "diboas": "0 € nur, wenn dich ein anderer diBoaS-Nutzer in digitalen Dollar bezahlt; eine kartengedeckte Zahlung ist ein On-Ramp (0,48 % zuzüglich der Kosten des Kartenanbieters)",
+        "competitors": "Kartenanbieter können 1,5 % bis 3,5 % berechnen",
+        "difference": "Bei Kartenzahlung fallen Karten- und Ramp-Kosten an; kostenlos sind nur Transfers in digitalen Dollar zwischen diBoaS-Nutzern",
+        "example": "Ein diBoaS-Nutzer zahlt dir 1.000 € in digitalen Dollar: diBoaS-Gebühr 0 €. Eine kartengedeckte Zahlung von 1.000 € läuft als On-Ramp: 0,48 % (4,80 €) zuzüglich der Kosten des Kartenanbieters."
       },
       "send": {
         "action": "Senden / Bezahlen",
-        "diboas": "KOSTENLOS",
-        "competitors": "1,50 bis 50 EUR (SWIFT)",
-        "difference": "Spare 1,50 bis 50 EUR pro Überweisung",
-        "example": "Lieferant 500 EUR bezahlen: 0 EUR"
+        "diboas": "0 € nur zwischen diBoaS-Nutzern in digitalen Dollar; die Zahlung an ein externes Konto ist ein Off-Ramp (0,48 %)",
+        "competitors": "Überweisungen und Auslandszahlungen können feste Gebühren verursachen",
+        "difference": "Kostenlos sind nur Transfers in digitalen Dollar zwischen diBoaS-Nutzern; die Zahlung an einen Lieferanten ohne diBoaS läuft als Off-Ramp",
+        "example": "Einen Lieferanten mit diBoaS 500 € in digitalen Dollar bezahlen: diBoaS-Gebühr 0 €. Einen externen Lieferanten 500 € bezahlen: Off-Ramp 0,48 % (2,40 €) fällt an."
       },
       "add": {
         "action": "Geld einzahlen",
         "diboas": "{rate} (min {min}, max {max})",
-        "competitors": "0 bis 1,5%",
-        "difference": "Vergleichbar mit den meisten Anbietern",
-        "example": "10.000 EUR einzahlen: kostet 48 EUR"
+        "competitors": "Anbietergebühren können variieren",
+        "difference": "Wird vor der Bestätigung angezeigt",
+        "example": "10.000 € einzahlen: diBoaS-Gebühr 48 €"
       },
       "invest": {
         "action": "Investieren / Wachsen",
-        "diboas": "KOSTENLOS",
-        "competitors": "0,5 bis 2% (Berater, Plattformen)",
-        "difference": "Spare 50 bis 200 EUR pro 10.000 EUR",
-        "example": "10.000 EUR investieren: 0 EUR. Kostenlos starten."
+        "diboas": "Kostenlos starten",
+        "competitors": "0,5 bis 2 % (Berater, Plattformen)",
+        "difference": "Kosten und Risiken der Strategie erscheinen vor der Freigabe",
+        "example": "Mit 10.000 € starten: diBoaS berechnet 0 € für den Start"
       },
       "sell": {
         "action": "Verkaufen / Schließen",
         "diboas": "{rate} (min {min}, max {max})",
-        "competitors": "0,5 bis 2%",
-        "difference": "Spare 11 bis 161 EUR pro 10.000 EUR",
-        "example": "10.000 EUR verkaufen: kostet 39 EUR"
+        "competitors": "Anbietergebühren können variieren",
+        "difference": "0,39 %, gedeckelt bei 25 €",
+        "example": "10.000 € verkaufen: diBoaS-Gebühr 25 € (0,39 % wären 39 €, gedeckelt bei 25 €)"
       },
       "swap": {
         "action": "Tauschen",
-        "diboas": "KOSTENLOS",
-        "competitors": "0,5 bis 2% Spread",
-        "difference": "Spare 50 bis 200 EUR pro 10.000 EUR",
-        "example": "10.000 EUR tauschen: 0 EUR"
+        "diboas": "diBoaS-Gebühr 0 €, wo unterstützt",
+        "competitors": "Spreads oder Anbieterkosten können anfallen",
+        "difference": "diBoaS-Gebühr wird vor dem Tausch angezeigt",
+        "example": "10.000 € tauschen: 0 €"
       },
       "cashOut": {
         "action": "Auszahlen",
         "diboas": "{rate} (min {min}, max {max})",
-        "competitors": "1 bis 3% + Verzögerungen",
-        "difference": "Spare 52 bis 252 EUR pro 10.000 EUR",
-        "example": "10.000 EUR auszahlen: kostet 48 EUR"
+        "competitors": "Gebühren, Spreads und Verzögerungen können variieren",
+        "difference": "Wird vor der Bestätigung angezeigt",
+        "example": "10.000 € auszahlen: diBoaS-Gebühr 48 €"
       }
     },
-    "disclaimer": "*Angezeigte diBoaS-Gebühr. Netzwerkgebühren Dritter können anfallen (typischerweise unter 0,01 EUR).",
+    "disclaimer": "*Angezeigt werden diBoaS-Gebühren. Gebühren von Drittanbietern, Ramp-Anbietern, Netzwerken, Banken, Abwicklungspartnern, Compliance-Prüfungen oder Wechselkursanbietern können anfallen und werden, soweit verfügbar, vor der Bestätigung angezeigt.",
     "pricingNote": "Preisvergleiche basieren auf öffentlich verfügbaren Tarifen, Stand Februar 2026. Die Spannen spiegeln gängige Preise bei großen Anbietern wider. Die tatsächlichen Preise variieren je nach Anbieter, Volumen und Vertragsbedingungen.",
-    "example": "Du empfängst 1.000 EUR an Zahlungen: Du behältst 1.000 EUR in deinem diBoaS-Konto. Auszahlung auf dein Bankkonto: 995,20 EUR (nach {cashOutRate} Auszahlungsgebühr). Immer noch günstiger als die 970 bis 980 EUR, die ein Kartenzahlungsdienstleister übrig lässt.",
+    "example": "Ein diBoaS-Nutzer zahlt dir 1.000 € in digitalen Dollar: Du behältst 1.000 € in deinem diBoaS-Konto. Auszahlung auf dein Bankkonto als Off-Ramp: {cashOutRate} fällt an. Eine kartengedeckte Zahlung ist ein On-Ramp, mit Karten- und Ramp-Kosten, die vor der Bewegung angezeigt werden.",
     "expandableToggle": "Keine versteckten Gebühren. Kein Mindestguthaben. Keine monatlichen Kosten. Alle Gebühren anzeigen.",
-    "footerLine": "Jede Gebühr. Auf dem Tisch. Sonst nichts.",
-    "transitionHook": "Du liest noch? Gut. Schauen wir, ob es zu deinem Unternehmen passt."
+    "footerLine": "Jede relevante Gebühr sollte sichtbar sein, bevor Unternehmensgeld bewegt wird.",
+    "transitionHook": "Kosten zuerst. Dann sehen wir, ob es passt."
   },
   "fitAssessment": {
-    "header": "Ist das das Richtige für dein Unternehmen?",
+    "header": "Passt das?",
     "goodFit": {
       "title": "Gute Passung",
       "iconAlt": "Indikator für gute Passung",
-      "description": "Dein Unternehmen akzeptiert Kartenzahlungen und du hast die 1,5 bis 3% Gebühr satt. Dein Unternehmen hat Kapital auf dem Konto, das fast nichts verdient.",
+      "description": "Dein Unternehmen möchte Liquidität klarer trennen, Zahlungswege prüfen und Regeln festlegen, bevor Geld bewegt wird.",
       "items": [
-        "Satt, 2 bis 3% bei Kartenzahlungen zu verlieren.",
-        "Kapital auf dem Konto, das fast nichts verdient.",
-        "Du willst volle Kontrolle über dein Geld.",
-        "Bereit für ein anderes Risikoprofil bei besseren Renditen."
+        "Du willst klarere Zahlungswege, mit Kosten, die vor der Bewegung angezeigt werden.",
+        "Du willst bessere Sicht auf ungenutzte Liquidität.",
+        "Du willst Regeln dafür, was bewegt werden kann und was verfügbar bleiben muss.",
+        "Du bist bereit zu definieren, welches Risiko akzeptabel ist."
       ]
     },
     "notAFit": {
       "title": "Keine Passung",
       "iconAlt": "Indikator für keine Passung",
-      "description": "Du brauchst eine staatliche Einlagensicherung über alles andere. Du hast null Toleranz für jegliches Risiko.",
+      "description": "Du brauchst Einlagensicherung über alles andere. Dein Unternehmen hat null Toleranz für Krypto-, Strategie-, Liquiditäts-, Netzwerk-, Anbieter- oder Verfügbarkeitsrisiko. Dann brauchst du ein klassisches Bankkonto, keine nicht-verwahrende Liquiditätsschicht.",
       "items": [
-        "Einlagensicherung geht dir über alles.",
-        "Null Toleranz für jegliches Risiko.",
-        "Traditionelle Banken bevorzugt, auch wenn teurer.",
-        "Du brauchst jemanden, der dein Geld verwaltet."
+        "Du brauchst staatliche Einlagensicherung über alles andere.",
+        "Du hast null Toleranz für Digital-Asset- oder Protokollrisiko.",
+        "Du kannst Liquiditäts-, Ramp-, Netzwerk- oder Anbieterrisiko nicht akzeptieren.",
+        "Du brauchst ein klassisches Bankkonto, keine nicht-verwahrende Liquiditätsschicht."
       ]
     }
   },
   "founder": {
-    "header": "Gebaut von Bar.",
+    "header": "Adelaide sparte. Das System erklärte wenig.",
     "paragraphs": {
       "versionA": [
         "Ich bin aufgewachsen und habe zugesehen, wie meine Großmutter Adelaide ein Finanzsystem navigierte, das nicht für sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
         "diBoaS hat seinen Sitz in Berlin und baut für Unternehmen in den USA, der EU und Brasilien. Ich habe über 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir für jedes kleine Unternehmen und jedes Startup gewünscht hätte."
       ],
       "versionB": [
-        "Ich bin aufgewachsen und habe zugesehen, wie meine Großmutter Adelaide ein Finanzsystem navigierte, das nicht für sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
-        "diBoaS wird derzeit in Berlin gegründet und baut für Unternehmen in den USA, der EU, Brasilien, mit Plänen für weitere Märkte. Ich habe über 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir für jedes kleine Unternehmen und jedes Startup gewünscht hätte."
+        "diBoaS begann mit meiner Großmutter Adelaide. Sie sparte mit Disziplin. Das System gab ihr wenig Erklärung und kaum Zugang zu besseren Möglichkeiten.",
+        "Dasselbe Muster zeigt sich in Unternehmen. Gebühren werden sichtbar, wenn man genau hinschaut. Rücklagen liegen oft ohne klare Aufgabe herum. Nach 20 Jahren Produktarbeit in Brasilien, den USA, Japan und Deutschland wollte ich eine klarere Liquiditätsschicht bauen: einen Ort, an dem Geld eine Aufgabe hat, Risiko beim Namen genannt wird und Kontrolle bei den Menschen bleibt, die für das Unternehmen verantwortlich sind."
       ],
       "versionC": [
         "Ich bin aufgewachsen und habe zugesehen, wie meine Großmutter Adelaide ein Finanzsystem navigierte, das nicht für sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
@@ -264,18 +264,19 @@
     }
   },
   "waitlist": {
-    "header": "Werde Teil dieser Bewegung, gemeinsam mit anderen Unternehmen.",
-    "description": "Offener Zugang und faire Möglichkeiten. Lass uns reden.",
-    "spotsCounter": "{count} Gründungsmitglieder-Plätze verbleibend"
+    "header": "Baue bessere Regeln.",
+    "description": "Zahlungskosten. Rücklagen. Untergrenzen. Strategierisiko. Trag dich in die Unternehmens-Warteliste ein und gehöre zu den Ersten, die diBoaS für Unternehmen testen, wenn es verfügbar ist.",
+    "spotsCounter": "{count} Gründungsmitglieder-Plätze verbleibend",
+    "noSpam": "Kein Spam. Nur Produktupdates, früher Zugang und Änderungen vor dem Start."
   },
   "toolsCallout": {
-    "label": "Willst du Zahlen für dein Unternehmen sehen?",
+    "label": "Erst prüfen. Dann entscheiden.",
     "cardFeesLink": "Kartengebühren-Rechner",
-    "idleCashLink": "Liquiditäts-Rendite-Rechner"
+    "idleCashLink": "Liquiditäts-Rechner"
   },
   "socialProof": {
-    "header": "Werde Teil der Bewegung!",
-    "subtext": "Unternehmen nutzen bereits die Möglichkeit, Kosten zu senken und ihr ungenutztes Kapital arbeiten zu lassen. Trag dich in unsere Warteliste ein.",
+    "header": "Schließ dich Unternehmen an, die sich bereit machen.",
+    "subtext": "Unternehmen prüfen klarere Zahlungswege und Regeln für Rücklagen. Trag dich in die Warteliste ein.",
     "stats": {
       "waitlist": "{count} Unternehmen",
       "countries": "{countries} Länder"
@@ -284,7 +285,7 @@
     "zeroState": "Gehöre zu den Ersten."
   },
   "faq": {
-    "header": "Bevor du dich entscheidest."
+    "header": "Bevor dein Unternehmen entscheidet."
   },
   "footer": {
     "copyright": "© 2026 diBoaS. Alle Rechte vorbehalten.",
@@ -309,7 +310,7 @@
       "terms": "Nutzungsbedingungen",
       "cookies": "Cookie-Richtlinie"
     },
-    "tagline": "Das Finanzwerkzeug, das Adelaide verdient hätte."
+    "tagline": "Firmengeld verdient Regeln."
   },
   "waitlistSuccess": {
     "confirmation": {
@@ -371,10 +372,10 @@
     }
   },
   "seo": {
-    "title": "diBoaS für Unternehmen | Schluss mit zu hohen Gebühren und schlafendem Kapital",
-    "description": "Dein Zahlungsdienstleister nimmt 1,5 bis 3%. Deine Bank zahlt dir fast nichts. diBoaS: kostenlose Zahlungen, sofortige Zahlungen, und dein ungenutztes Kapital arbeitet für dich.",
-    "ogTitle": "Das System ist nicht kaputt. Es ist so gebaut, dass es sich an allem bedient, was du verdienst.",
-    "ogDescription": "Zwei Werkzeuge. Eine Plattform. Behalte mehr von deinen Kartenumsätzen und lass dein ungenutztes Kapital wachsen. diBoaS für Unternehmen.",
+    "title": "diBoaS für Unternehmen | Liquidität nach Zweck",
+    "description": "Löhne, Miete, Umsatzsteuer, Lieferanten, Rücklagen. diBoaS hilft Unternehmen, Liquidität nach Zweck zu trennen, Strategien zu prüfen und Kosten, Verfügbarkeit und Risiko zu sehen, bevor Geld bewegt wird.",
+    "ogTitle": "Jeder Euro braucht eine Aufgabe.",
+    "ogDescription": "diBoaS hilft Unternehmen, Betriebsmittel, Zahlungen und Rücklagen nach Zweck zu trennen, mit Kosten, Verfügbarkeit und Risiko sichtbar, bevor Geld bewegt wird.",
     "keywords": "Treasury-Management, Startup-Finanzen, Rendite, Betriebskapital, Geschäftszahlungen, B2B-Fintech"
   }
 }

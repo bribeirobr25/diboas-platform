@@ -279,7 +279,9 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         competitors: 'landing-b2b.fees.rows.receive.competitors',
         difference: 'landing-b2b.fees.rows.receive.difference',
         example: 'landing-b2b.fees.rows.receive.example',
-        isFree: true,
+        // P1-6: receiving is $0 only between diBoaS users in digital dollars; a
+        // card-funded payment is an on-ramp (0.48% + processor). Not unconditionally free.
+        isFree: false,
       },
       {
         id: 'send',
@@ -288,7 +290,9 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         competitors: 'landing-b2b.fees.rows.send.competitors',
         difference: 'landing-b2b.fees.rows.send.difference',
         example: 'landing-b2b.fees.rows.send.example',
-        isFree: true,
+        // P1-6: sending is $0 only between diBoaS users in digital dollars; paying
+        // an external account is an off-ramp (0.48%). Not unconditionally free.
+        isFree: false,
       },
       {
         id: 'add',
@@ -420,7 +424,7 @@ export const B2B_WAITLIST_CONFIG = {
   headline: 'landing-b2b.waitlist.header',
   subheadline: 'landing-b2b.waitlist.description',
   hideBenefits: true,
-  hideNoSpam: true,
+  hideNoSpam: false,
   namespace: 'landing-b2b.waitlist',
   confirmationNamespace: 'landing-b2b.waitlistSuccess',
   source: 'landing_b2b' as const,

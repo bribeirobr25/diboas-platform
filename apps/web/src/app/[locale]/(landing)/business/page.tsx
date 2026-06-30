@@ -69,10 +69,10 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const messages = await loadMessages(locale as SupportedLocale, 'landing-b2b');
   const seo = messages.seo || {};
 
-  const title = seo.title || 'diBoaS for Business | Stop Overpaying on Fees and Idle Cash';
+  const title = seo.title || 'diBoaS for Business | Cash Needs a Job';
   const description =
     seo.description ||
-    'Your card processor takes 2 to 3%. Your bank pays you almost nothing. diBoaS helps you keep more.';
+    'Separate business cash by purpose, see digital-dollar paths, and understand cost and risk before funds move.';
   const ogTitle = seo.ogTitle || title;
   const ogDescription = seo.ogDescription || description;
 
@@ -162,7 +162,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
   const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS for Business',
     description:
-      'Stop overpaying on fees and idle cash. Free payments, instant transfers, and your idle cash working for you.',
+      'Separate business cash by purpose, see digital-dollar paths, and understand cost and risk before funds move.',
     category: 'Financial Services',
   });
 
@@ -238,7 +238,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
               data-section-id="goals-section-b2b"
               style={{ backgroundColor: 'var(--section-bg-white)' }}
             >
-              <B2BGoalCards enableAnalytics={true} />
+              <B2BGoalCards enableAnalytics={true} variant="qualitative" />
               {/* Phase 6E — inline callout linking to the 2 B2B calculators */}
               <B2BToolsCallout />
             </div>
@@ -381,7 +381,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
 
         {/* Footer */}
         <MinimalFooter
-          taglineKey="landing-b2c.footer.tagline"
+          taglineKey="landing-b2b.footer.tagline"
           navLinks={B2C_FOOTER_NAV}
           disclosureKeys={B2C_FOOTER_DISCLOSURES}
         />
