@@ -100,7 +100,8 @@ describe('EU landing config — id/anchor preservation (Phase B)', () => {
     expect(cfg.neverHold.analytics?.sectionId).toBe(exp.ids.neverHold);
     expect(cfg.upside.analytics?.sectionId).toBe(exp.ids.upside);
     expect(cfg.pictureFuture.analytics?.sectionId).toBe(exp.ids.pictureFuture);
-    expect(cfg.howItWorks.analytics?.sectionId).toBe(exp.ids.howItWorks);
+    // (howItWorks is now the visual HowItWorks 3-up section, not a ProseSection on
+    //  this config — only its id/anchor remain here, asserted via cfg.ids + below.)
     expect(cfg.catch.analytics?.sectionId).toBe(exp.ids.catch);
     expect(cfg.founder.analytics?.sectionId).toBe(exp.ids.founder);
     // Shared, non-locale ids.

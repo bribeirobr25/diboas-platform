@@ -1,12 +1,14 @@
 /**
  * "How it works" visual section configuration.
  *
- * Replaces the plain text steps with product screens shown in phone frames,
- * each keeping its existing one-line caption. Config-driven (i18n keys) so the
- * Factory's `useConfigTranslation` resolves copy per locale. Image paths are
- * populated once the rendered phone mockups land in
- * `public/assets/images/how-it-works/`; an empty `image` renders a placeholder
- * frame so the section is previewable before the assets exist.
+ * Three product screens in phone frames, each keeping its existing one-line
+ * caption. Config-driven (i18n keys) so the Factory's `useConfigTranslation`
+ * resolves copy per locale.
+ *
+ * IMAGES: `how-it-works-{goal,path,move}.jpg` are TEMPORARY stock placeholders
+ * (portrait, for layout review only). Replace with the final product-screen
+ * mockups (same file names, or update the paths) when they are ready. Assets
+ * live directly in `public/assets/images/` (project convention — no sub-dir).
  */
 
 export interface HowItWorksStep {
@@ -36,11 +38,14 @@ export interface HowItWorksConfig {
   };
 }
 
-/**
- * Default config for the en/de/es EU spine (shared `draper.*` keys). Captions
- * reuse the existing `howItWorks.step1/2/3`; the `*Alt` keys are new. Image
- * paths are placeholders until the mockups are produced.
- */
+/** Temporary placeholder screens (replace with final mockups). */
+const PLACEHOLDER_IMAGES = {
+  step1: '/assets/images/how-it-works-goal.jpg',
+  step2: '/assets/images/how-it-works-path.jpg',
+  step3: '/assets/images/how-it-works-move.jpg',
+} as const;
+
+/** Default config for the en/de/es EU spine (shared `draper.*` keys). */
 export const B2C_HOW_IT_WORKS_VISUAL_CONFIG: HowItWorksConfig = {
   variant: 'threeUp',
   content: {
@@ -49,17 +54,17 @@ export const B2C_HOW_IT_WORKS_VISUAL_CONFIG: HowItWorksConfig = {
       {
         caption: 'landing-b2c.draper.howItWorks.step1',
         imageAlt: 'landing-b2c.draper.howItWorks.step1Alt',
-        image: '',
+        image: PLACEHOLDER_IMAGES.step1,
       },
       {
         caption: 'landing-b2c.draper.howItWorks.step2',
         imageAlt: 'landing-b2c.draper.howItWorks.step2Alt',
-        image: '',
+        image: PLACEHOLDER_IMAGES.step2,
       },
       {
         caption: 'landing-b2c.draper.howItWorks.step3',
         imageAlt: 'landing-b2c.draper.howItWorks.step3Alt',
-        image: '',
+        image: PLACEHOLDER_IMAGES.step3,
       },
     ],
   },
@@ -67,9 +72,7 @@ export const B2C_HOW_IT_WORKS_VISUAL_CONFIG: HowItWorksConfig = {
   analytics: { sectionId: 'how-it-works-visual-b2c', category: 'landing-b2c' },
 };
 
-/**
- * pt-BR spine config (its own `ptbr.*` keys; LandingPtBR composition).
- */
+/** pt-BR spine config (its own `ptbr.*` keys; LandingPtBR composition). */
 export const B2C_PTBR_HOW_IT_WORKS_VISUAL_CONFIG: HowItWorksConfig = {
   variant: 'threeUp',
   content: {
@@ -78,17 +81,17 @@ export const B2C_PTBR_HOW_IT_WORKS_VISUAL_CONFIG: HowItWorksConfig = {
       {
         caption: 'landing-b2c.ptbr.howItWorks.step1',
         imageAlt: 'landing-b2c.ptbr.howItWorks.step1Alt',
-        image: '',
+        image: PLACEHOLDER_IMAGES.step1,
       },
       {
         caption: 'landing-b2c.ptbr.howItWorks.step2',
         imageAlt: 'landing-b2c.ptbr.howItWorks.step2Alt',
-        image: '',
+        image: PLACEHOLDER_IMAGES.step2,
       },
       {
         caption: 'landing-b2c.ptbr.howItWorks.step3',
         imageAlt: 'landing-b2c.ptbr.howItWorks.step3Alt',
-        image: '',
+        image: PLACEHOLDER_IMAGES.step3,
       },
     ],
   },

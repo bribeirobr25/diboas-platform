@@ -177,7 +177,6 @@ export interface EuLandingConfig {
   neverHold: ProseSectionConfig;
   upside: ProseSectionConfig;
   pictureFuture: ProseSectionConfig;
-  howItWorks: ProseSectionConfig;
   catch: ProseSectionConfig;
   founder: ProseSectionConfig;
   demo: {
@@ -296,23 +295,10 @@ export function makeEuLandingConfig(locale: EuLocale): EuLandingConfig {
       cta: v.pictureCta,
     },
 
-    howItWorks: {
-      content: {
-        header: 'landing-b2c.draper.howItWorks.header',
-        paragraphs: [
-          'landing-b2c.draper.howItWorks.step1',
-          'landing-b2c.draper.howItWorks.step2',
-          'landing-b2c.draper.howItWorks.step3',
-        ],
-      },
-      style: {
-        backgroundColor: 'var(--section-bg-white)',
-        verticalPadding: 'standard',
-        headerStyle: 'centered',
-      },
-      seo: { ariaLabel: 'landing-b2c.draper.howItWorks.header' },
-      analytics: { sectionId: v.sectionIds.howItWorks, category: 'landing-b2c' },
-    },
+    /* §6 "How it works" is now the visual HowItWorks 3-up section — config lives in
+       `@/config/howItWorks` (B2C_HOW_IT_WORKS_VISUAL_CONFIG). Only the locale-suffixed
+       `ids.howItWorks` + translated `anchors.howItWorks` are still consumed here, to
+       wrap the visual section for analytics + in-page navigation. */
 
     catch: {
       content: {

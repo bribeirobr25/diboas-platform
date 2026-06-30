@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { useImpressionTracking } from '@/hooks/useImpressionTracking';
 import type { HowItWorksVariantProps } from '../types';
 import styles from './HowItWorksThreeUp.module.css';
 
@@ -10,10 +13,24 @@ import styles from './HowItWorksThreeUp.module.css';
  * mobile, each with its one-line caption. A `<figure>`/`<figcaption>` pairs the
  * caption with the screen for screen readers; the image carries a distinct,
  * descriptive `alt`. An empty `image` renders a labelled placeholder frame so
- * the section is usable before the rendered mockups exist.
+ * the section is usable before the rendered mockups exist. Fires a single
+ * `how_it_works_impression` event when the row scrolls into view (P10).
  */
-export function HowItWorksThreeUp({ config, className = '' }: HowItWorksVariantProps) {
-  const { content, seo } = config;
+export function HowItWorksThreeUp({
+  config,
+  className = '',
+  enableAnalytics = true,
+}: HowItWorksVariantProps) {
+  const { content, seo, analytics } = config;
+
+  // Section-impression (consent-gated + idempotent in the shared hook). Low
+  // threshold so it fires on the tall stacked-mobile layout too.
+  const rowRef = useImpressionTracking<HTMLOListElement>({
+    eventName: 'how_it_works_impression',
+    parameters: { sectionId: analytics.sectionId, variant: 'threeUp' },
+    threshold: 0.2,
+    enabled: enableAnalytics,
+  });
 
   return (
     <SectionContainer
@@ -23,7 +40,7 @@ export function HowItWorksThreeUp({ config, className = '' }: HowItWorksVariantP
       className={className}
     >
       <h2 className={styles.header}>{content.header}</h2>
-      <ol className={styles.row}>
+      <ol ref={rowRef} className={styles.row}>
         {content.steps.map((step, index) => (
           <li key={step.caption} className={styles.item}>
             <figure className={styles.figure}>

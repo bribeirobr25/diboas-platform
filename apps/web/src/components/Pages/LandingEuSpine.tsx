@@ -1,5 +1,7 @@
 import nextDynamic from 'next/dynamic';
 import { HeroSection, ProseSection } from '@/components/Sections';
+import { HowItWorks } from '@/components/Sections/HowItWorks';
+import { B2C_HOW_IT_WORKS_VISUAL_CONFIG } from '@/config/howItWorks';
 
 const DemoLauncher = nextDynamic(() =>
   import('@/components/Sections/DemoLauncher').then((m) => ({ default: m.DemoLauncher }))
@@ -132,12 +134,12 @@ export function LandingEuSpine({ locale }: { locale: EuLocale }) {
       <ScrollReveal>
         <SectionErrorBoundary
           sectionId={cfg.ids.howItWorks}
-          sectionType="ProseSection"
+          sectionType="HowItWorks"
           enableReporting={true}
           context={{ page: 'landing-b2c', locale }}
         >
           <div id={cfg.anchors.howItWorks} data-section-id={cfg.ids.howItWorks}>
-            <ProseSection config={cfg.howItWorks} enableAnalytics={true} headingLevel="h2" />
+            <HowItWorks config={B2C_HOW_IT_WORKS_VISUAL_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>
