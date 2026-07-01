@@ -31,40 +31,9 @@
       "imageAlt": "Treasury management on phone"
     }
   },
-  "b2bGoals": {
-    "heading": "Put numbers to the leak.",
-    "ariaLabel": "Business savings comparison",
-    "withDiboas": "With diBoaS",
-    "yourBank": "Your bank:",
-    "more": "MORE with diBoaS",
-    "cards": {
-      "paymentFees": {
-        "title": "Payment fees",
-        "titleSummary": "are not small.",
-        "subtitle": "Every card payment carries a processing cost, and it arrives before the money reaches your account. That is money your business earned before the fee stack took its share. diBoaS does not promise every payment cost disappears. It helps show available digital-dollar paths, expected costs, and what changes before you approve.",
-        "diboasResult": "$11,880",
-        "bankResult": "",
-        "difference": "$11,880/year",
-        "tagline": "You have the chance not only to cut costs, but to transform it into a new revenue line.",
-        "source": "Example based on $1,000/day in card sales at 3% processing fee, with savings invested at a 10% average in annual return (derived 2026-05-13 via scripts/derive-b2b-card-numbers.mjs). Projected returns are illustrative. Actual results may vary.",
-        "howPossible": "How is this possible?"
-      },
-      "idleCash": {
-        "title": "Idle cash",
-        "titleSummary": "is not all the same.",
-        "subtitle": "The first question is not how much idle cash can earn. The first question is what must stay liquid. Then what can move. Then what risk the business can accept. diBoaS helps separate operating cash from cash that may have another job.",
-        "diboasResult": "$7,000",
-        "bankResult": "$3,500",
-        "difference": "$3,500/year",
-        "tagline": "You have the chance to double or more your returns and fully control your money.",
-        "source": "Example based on $100,000 idle cash with a 3.5% high-yield business savings rate (Bankrate) vs diBoaS Conservative 7% in digital dollar (derived 2026-05-13 via scripts/derive-b2b-card-numbers.mjs). Projected returns are illustrative. Actual results may vary.",
-        "howPossible": "How is this possible?"
-      }
-    }
-  },
   "origin": {
     "transitionHook": "",
-    "header": "Small businesses know the gap.",
+    "header": "Your businesses know the gap.",
     "paragraphs": {
       "0": "A customer pays today. The money lands later.",
       "1": "A card fee takes its cut.",
@@ -116,6 +85,11 @@
         "headline": "Rules for idle cash",
         "body": "Set an operating floor, separate excess cash, and review selected strategies only when they fit your business risk policy.",
         "imageAlt": "Adelaide market intelligence"
+      },
+      "records": {
+        "headline": "Records for real operations",
+        "body": "Transaction history, statements, and exportable records designed to support accounting, tax, audit, and internal review.",
+        "imageAlt": "A desk with laptops and printed financial records under review."
       }
     },
     "transitionHook": "But here's the part nobody else is doing."
@@ -245,44 +219,11 @@
       "substack": "Substack"
     }
   },
-  "dualCta": {
-    "header": "Join the businesses that are done overpaying.",
-    "counter": "{count} businesses exploring diBoaS. {countries} countries.",
-    "pathA": {
-      "header": "Get early access.",
-      "description": "Drop your email. We'll let you know when your business can start saving.",
-      "emailPlaceholder": "Your business email",
-      "cta": "Get early access",
-      "noSpam": "No spam. Just your invite when we're ready.",
-      "privacyLabel": "I agree to the Privacy Policy"
-    },
-    "pathB": {
-      "header": "Let's look at your numbers.",
-      "description": "15 minutes. No commitment. No pitch deck. Just math.",
-      "cta": "Book a conversation",
-      "alternative": "Or email hello@diboas.com"
-    }
-  },
   "waitlist": {
     "header": "Build a better cash policy.",
     "description": "Payment costs. Idle balances. Operating floors. Strategy risk. Join the business waitlist and be among the first to test diBoaS for Business when it opens.",
     "spotsCounter": "{count} founding members spots remaining",
     "noSpam": "No spam. Just product updates, early access, and what changes before launch."
-  },
-  "toolsCallout": {
-    "label": "Know the numbers first.",
-    "cardFeesLink": "Card fee calculator",
-    "idleCashLink": "Idle cash calculator"
-  },
-  "socialProof": {
-    "header": "Join other businesses getting ready.",
-    "subtext": "Businesses are exploring clearer payment paths and rules for idle cash. Join the waitlist.",
-    "stats": {
-      "waitlist": "{count} businesses",
-      "countries": "{countries} countries"
-    },
-    "cta": "Join the waitlist",
-    "zeroState": "Be among the first."
   },
   "faq": {
     "header": "Before your business decides."

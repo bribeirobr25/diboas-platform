@@ -31,40 +31,9 @@
       "imageAlt": "Gestao de tesouraria no celular"
     }
   },
-  "b2bGoals": {
-    "heading": "Coloque número no vazamento.",
-    "ariaLabel": "Comparação de economia empresarial",
-    "withDiboas": "Com diBoaS",
-    "yourBank": "Seu banco:",
-    "more": "MAIS com diBoaS",
-    "cards": {
-      "paymentFees": {
-        "title": "Taxas de pagamento",
-        "titleSummary": "não são pequenas.",
-        "subtitle": "Todo pagamento no cartão tem um custo de processamento, e ele chega antes do dinheiro cair na conta. É dinheiro que a empresa vendeu antes da pilha de taxas tirar a parte dela. O diBoaS não promete que todo custo desaparece. Ele ajuda a mostrar caminhos disponíveis em dólar digital, custos esperados e o que muda antes da empresa aprovar.",
-        "diboasResult": "R$79.200",
-        "bankResult": "",
-        "difference": "R$79.200/ano",
-        "tagline": "Você tem a chance não só de cortar custos, mas de transformar isso em uma nova linha de receita.",
-        "source": "Exemplo baseado em R$5.000/dia em vendas no cartão com taxa de 4%, com economia investida a 10% de retorno médio anual (derivado em 2026-05-13 via scripts/derive-b2b-card-numbers.mjs). Retornos projetados são ilustrativos. Resultados reais podem variar.",
-        "howPossible": "Como isso é possível?"
-      },
-      "idleCash": {
-        "title": "Caixa parado",
-        "titleSummary": "não é tudo igual.",
-        "subtitle": "A primeira pergunta não é quanto o caixa parado pode render. A primeira pergunta é o que precisa ficar líquido. Depois, o que pode ser separado. Depois, qual risco a empresa aceita. O diBoaS ajuda a separar caixa operacional de caixa que pode ter outra função.",
-        "diboasResult": "R$68.224",
-        "bankResult": "R$34.150",
-        "difference": "R$34.074/ano",
-        "tagline": "Em dólar digital, seu caixa rende mais — porque o dólar tende a se valorizar contra o real ao longo do tempo.",
-        "source": "Exemplo baseado em R$500.000 de caixa parado com taxa de poupança líquida de {rate} (BCB/B3 média 5 anos) vs diBoaS Conservador 7% em dólar digital, com efeito de valorização cambial de 3% ao ano (derivado em 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; ver docs/tech/financial-calculations.md §Currency Hedge Model). Retornos projetados são ilustrativos. Resultados reais podem variar.",
-        "howPossible": "Como isso é possível?"
-      }
-    }
-  },
   "origin": {
     "transitionHook": "",
-    "header": "Todo dono conhece o aperto.",
+    "header": "Sua empresa conhece o aperto.",
     "paragraphs": {
       "0": "O cliente paga hoje. O cartão cai depois.",
       "1": "A maquininha desconta. A antecipação cobra.",
@@ -116,6 +85,11 @@
         "headline": "Regras para caixa parado",
         "body": "Defina um piso operacional, separe excedente e revise estratégias apenas quando fizerem sentido para o risco da empresa.",
         "imageAlt": "Inteligencia de mercado Adelaide"
+      },
+      "records": {
+        "headline": "Registros para operação real",
+        "body": "Histórico de transações, extratos e registros exportáveis pensados para contabilidade, impostos, auditoria e revisão interna.",
+        "imageAlt": "Uma mesa com laptops e registros financeiros impressos em análise."
       }
     },
     "transitionHook": "Mas aqui vem a parte que ninguém mais esta fazendo."
@@ -245,44 +219,11 @@
       "substack": "Substack"
     }
   },
-  "dualCta": {
-    "header": "Junte-se aos negocios que pararam de pagar demais.",
-    "counter": "{count} negocios explorando diBoaS. {countries} paises.",
-    "pathA": {
-      "header": "Garanta acesso antecipado.",
-      "description": "Deixe seu email. Avisamos quando seu negocio puder comecar a economizar.",
-      "emailPlaceholder": "Seu email empresarial",
-      "cta": "Quero acesso antecipado",
-      "noSpam": "Sem spam. So o seu convite quando estivermos prontos.",
-      "privacyLabel": "Concordo com a Politica de Privacidade"
-    },
-    "pathB": {
-      "header": "Vamos olhar seus numeros.",
-      "description": "15 minutos. Sem compromisso. Sem apresentação de vendas. So numeros.",
-      "cta": "Agende uma conversa",
-      "alternative": "Ou escreva pra hello@diboas.com"
-    }
-  },
   "waitlist": {
     "header": "Construa um caixa melhor.",
     "description": "Pagamentos. Caixa parado. Piso operacional. Dólar. Custo. Liquidez. Risco. Entre na lista de empresas e seja um dos primeiros a testar o diBoaS para Empresas quando abrir.",
     "spotsCounter": "{count} vagas de membros fundadores restantes",
     "noSpam": "Sem spam. Só atualizações do produto, acesso antecipado e mudanças antes do lançamento."
-  },
-  "toolsCallout": {
-    "label": "Veja os números primeiro.",
-    "cardFeesLink": "Calculadora de taxas de cartão",
-    "idleCashLink": "Calculadora de caixa parado"
-  },
-  "socialProof": {
-    "header": "Junte-se a outras empresas se preparando.",
-    "subtext": "Empresas estão explorando caminhos de pagamento mais claros e regras para caixa parado. Entre na lista de espera.",
-    "stats": {
-      "waitlist": "{count} empresas",
-      "countries": "{countries} países"
-    },
-    "cta": "Entrar na lista de espera",
-    "zeroState": "Seja um dos primeiros."
   },
   "faq": {
     "header": "Antes da sua empresa decidir."

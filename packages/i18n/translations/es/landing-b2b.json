@@ -31,40 +31,9 @@
       "imageAlt": "Gestion de tesoreria en el movil"
     }
   },
-  "b2bGoals": {
-    "heading": "Primero los números.",
-    "ariaLabel": "Comparación de ahorro empresarial",
-    "withDiboas": "Con diBoaS",
-    "yourBank": "Tu banco:",
-    "more": "MÁS con diBoaS",
-    "cards": {
-      "paymentFees": {
-        "title": "Las comisiones",
-        "titleSummary": "se acumulan.",
-        "subtitle": "Si tu empresa acepta pagos con tarjeta, incluso porcentajes pequeños pueden pesar al final del mes. La pregunta no es solo cuánto cobra el TPV. La pregunta es cuándo llega el dinero, qué costes tiene el cobro y qué alternativa tiene sentido para tu empresa. diBoaS ayuda a ver vías disponibles, costes esperados y límites conocidos antes de aprobar.",
-        "diboasResult": "9.900 €",
-        "bankResult": "",
-        "difference": "9.900 €/año",
-        "tagline": "Tienes la oportunidad no solo de reducir costes, sino de convertirlo en una nueva línea de ingresos.",
-        "source": "Ejemplo basado en 1.000 €/día en ventas con tarjeta al 2,5% de comisión, con ahorro invertido al 10% de retorno medio anual (derivado el 2026-05-13 via scripts/derive-b2b-card-numbers.mjs). Las proyecciones son ilustrativas. Los resultados reales pueden variar.",
-        "howPossible": "¿Cómo es posible?"
-      },
-      "idleCash": {
-        "title": "Liquidez parada",
-        "titleSummary": "no siempre está libre.",
-        "subtitle": "Si hay 100.000 € en la cuenta, la primera pregunta no es: «¿cuánto puede dar?». La primera pregunta es: ¿qué tiene que estar disponible? Después: ¿qué puede separarse? Después: ¿qué estrategia encaja con el riesgo de la empresa? diBoaS ayuda a separar liquidez operativa de dinero que puede tener otra función.",
-        "diboasResult": "8.316 €",
-        "bankResult": "2.000 €",
-        "difference": "6.316 €/año",
-        "tagline": "En dólar digital, tu capital rinde más — porque el dólar tiende a apreciarse frente al euro con el tiempo.",
-        "source": "Ejemplo basado en 100.000 € de capital parado con tasa media de ahorro del {rate} (BCE/Tesoro media 5 años) vs diBoaS Conservador 7% en dólar digital, con efecto cambiario anual del 0,9% (derivado el 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; ver docs/tech/financial-calculations.md §Currency Hedge Model). Las proyecciones son ilustrativas. Los resultados reales pueden variar.",
-        "howPossible": "¿Cómo es posible?"
-      }
-    }
-  },
   "origin": {
     "transitionHook": "",
-    "header": "Las empresas conocen el hueco.",
+    "header": "Tu empresa conoce el hueco.",
     "paragraphs": {
       "0": "El cliente compra hoy. El cobro llega después.",
       "1": "La comisión ya se ha ido.",
@@ -116,6 +85,11 @@
         "headline": "Reglas para el colchón",
         "body": "Define un mínimo operativo, separa liquidez excedente y revisa estrategias solo cuando encajen con el riesgo de tu empresa.",
         "imageAlt": "Inteligencia de mercado Adelaide"
+      },
+      "records": {
+        "headline": "Registros para operaciones reales",
+        "body": "Historial de transacciones, extractos y datos exportables pensados para contabilidad, impuestos, auditoría y control interno.",
+        "imageAlt": "Un escritorio con laptops y registros financieros impresos en revisión."
       }
     },
     "transitionHook": "Pero aqui viene la parte que nadie mas esta haciendo."
@@ -245,44 +219,11 @@
       "substack": "Substack"
     }
   },
-  "dualCta": {
-    "header": "Unete a los negocios que han dejado de pagar de mas.",
-    "counter": "{count} negocios explorando diBoaS. {countries} paises.",
-    "pathA": {
-      "header": "Consigue acceso anticipado.",
-      "description": "Deja tu email. Te avisamos cuando tu negocio pueda empezar a ahorrar.",
-      "emailPlaceholder": "Tu email empresarial",
-      "cta": "Quiero acceso anticipado",
-      "noSpam": "Sin spam. Solo tu invitacion cuando estemos listos.",
-      "privacyLabel": "Acepto la Politica de Privacidad"
-    },
-    "pathB": {
-      "header": "Revisemos tus numeros.",
-      "description": "15 minutos. Sin compromiso. Sin presentacion de ventas. Solo numeros.",
-      "cta": "Reserva una conversacion",
-      "alternative": "O escribe a hello@diboas.com"
-    }
-  },
   "waitlist": {
     "header": "Construye mejores reglas.",
     "description": "Cobros. Liquidez. Mínimos operativos. Costes. Disponibilidad. Riesgo. Únete a la lista de espera y sé de las primeras empresas en probar diBoaS cuando esté disponible.",
     "spotsCounter": "{count} plazas de miembros fundadores restantes",
     "noSpam": "Sin spam. Solo novedades del producto, acceso anticipado y cambios antes del lanzamiento."
-  },
-  "toolsCallout": {
-    "label": "Primero calcula. Luego decide.",
-    "cardFeesLink": "Calculadora de comisiones de tarjeta",
-    "idleCashLink": "Calculadora de liquidez"
-  },
-  "socialProof": {
-    "header": "Únete a otras empresas que se están preparando.",
-    "subtext": "Las empresas están explorando vías de cobro más claras y reglas para la liquidez parada. Únete a la lista de espera.",
-    "stats": {
-      "waitlist": "{count} empresas",
-      "countries": "{countries} países"
-    },
-    "cta": "Unirse a la lista de espera",
-    "zeroState": "Sé de las primeras."
   },
   "faq": {
     "header": "Antes de decidir."

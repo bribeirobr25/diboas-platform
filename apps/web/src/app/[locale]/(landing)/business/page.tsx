@@ -8,10 +8,9 @@ import {
   ProseSection,
   ScenarioCards,
   TwoWorldsSection,
-  FoundingMembersSection,
   ComparisonTable,
 } from '@/components/Sections';
-import { B2BGoalCards } from '@/components/Sections/B2BGoalCards';
+import { ProcessSteps } from '@/components/Sections/ProcessSteps';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 
 // Below-fold sections: code-split via dynamic imports
@@ -26,11 +25,6 @@ const FeeTable = nextDynamic(() =>
 const FounderSection = nextDynamic(() =>
   import('@/components/Sections/FounderSection').then((m) => ({ default: m.FounderSection }))
 );
-const AppFeaturesCarousel = nextDynamic(() =>
-  import('@/components/Sections/AppFeaturesCarousel').then((m) => ({
-    default: m.AppFeaturesCarousel,
-  }))
-);
 const WaitlistSection = nextDynamic(() =>
   import('@/components/Sections/WaitlistSection').then((m) => ({ default: m.WaitlistSection }))
 );
@@ -40,7 +34,6 @@ import { ScrollToHash } from '@/components/Layout/ScrollToHash';
 import { PageI18nProvider, MarketDataContextProvider } from '@/components/Providers';
 import { marketDataService } from '@/lib/market-data';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
-import { B2BToolsCallout } from '@/components/Sections/B2BToolsCallout';
 import {
   B2B_HERO_CONFIG,
   B2B_TWO_WORLDS_CONFIG,
@@ -190,7 +183,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           >
             <div data-section-id="hero-section-b2b">
               <HeroSection
-                variant="cinematic"
+                variant="fullBackground"
                 config={B2B_HERO_CONFIG}
                 enableAnalytics={true}
                 priority={true}
@@ -226,41 +219,6 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
             </div>
           </SectionErrorBoundary>
 
-          {/* Section 3: B2B Goal Cards — Payment Fees + Idle Cash */}
-          <SectionErrorBoundary
-            sectionId="goals-section-b2b"
-            sectionType="B2BGoalCards"
-            enableReporting={true}
-            context={{ page: 'landing-b2b' }}
-          >
-            <div
-              id="goals"
-              data-section-id="goals-section-b2b"
-              style={{ backgroundColor: 'var(--section-bg-white)' }}
-            >
-              <B2BGoalCards enableAnalytics={true} variant="qualitative" />
-              {/* Phase 6E — inline callout linking to the 2 B2B calculators */}
-              <B2BToolsCallout />
-            </div>
-          </SectionErrorBoundary>
-
-          {/* Section 4: Join the Movement (Social Proof — B2B users only) */}
-          <SectionErrorBoundary
-            sectionId="founding-members-section-b2b"
-            sectionType="FoundingMembersSection"
-            enableReporting={true}
-            context={{ page: 'landing-b2b' }}
-          >
-            <div id="social-proof" data-section-id="founding-members-section-b2b">
-              <FoundingMembersSection
-                enableAnalytics={true}
-                namespace="landing-b2b.socialProof"
-                source="landing_b2b"
-                backgroundColor="var(--section-bg-dark)"
-              />
-            </div>
-          </SectionErrorBoundary>
-
           {/* Section 5: Origin Story */}
           <SectionErrorBoundary
             sectionId="origin-story-section-b2b"
@@ -285,15 +243,15 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
             </div>
           </SectionErrorBoundary>
 
-          {/* Section 7: How It Works */}
+          {/* Section 7: How It Works — static 4-up steps (replaced the carousel) */}
           <SectionErrorBoundary
             sectionId="how-it-works-section-b2b"
-            sectionType="AppFeaturesCarousel"
+            sectionType="ProcessSteps"
             enableReporting={true}
             context={{ page: 'landing-b2b' }}
           >
             <div id="how-it-works" data-section-id="how-it-works-section-b2b">
-              <AppFeaturesCarousel config={B2B_HOW_IT_WORKS_CONFIG} enableAnalytics={true} />
+              <ProcessSteps config={B2B_HOW_IT_WORKS_CONFIG} enableAnalytics={true} />
             </div>
           </SectionErrorBoundary>
 

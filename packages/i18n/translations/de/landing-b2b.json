@@ -31,40 +31,9 @@
       "imageAlt": "Treasury-Management auf dem Smartphone"
     }
   },
-  "b2bGoals": {
-    "heading": "Zahlen zuerst.",
-    "ariaLabel": "Geschäftliche Einsparungsvergleiche",
-    "withDiboas": "Mit diBoaS",
-    "yourBank": "Deine Bank:",
-    "more": "MEHR mit diBoaS",
-    "cards": {
-      "paymentFees": {
-        "title": "Zahlungsgebühren",
-        "titleSummary": "summieren sich.",
-        "subtitle": "Jede Kartenzahlung trägt eine Bearbeitungsgebühr, und sie wird fällig, bevor das Geld auf deinem Konto ist. Auch kleine Prozentsätze werden über Monate spürbar. diBoaS verspricht nicht, dass jede Gebühr verschwindet. Es hilft, verfügbare Zahlungswege, erwartete Kosten und bekannte Einschränkungen vor der Freigabe zu sehen.",
-        "diboasResult": "9.900 €",
-        "bankResult": "",
-        "difference": "9.900 €/Jahr",
-        "tagline": "Du hast die Chance, nicht nur Kosten zu senken, sondern daraus eine neue Einnahmequelle zu machen.",
-        "source": "Beispiel basierend auf 1.000 €/Tag Kartenumsatz bei 2,5% Gebühr, mit Ersparnissen investiert bei 10% durchschnittlicher Jahresrendite (abgeleitet 2026-05-13 via scripts/derive-b2b-card-numbers.mjs). Projizierte Renditen sind illustrativ. Tatsächliche Ergebnisse können abweichen.",
-        "howPossible": "Wie ist das möglich?"
-      },
-      "idleCash": {
-        "title": "Ungenutzte Liquidität",
-        "titleSummary": "ist nicht gleich frei.",
-        "subtitle": "Die erste Frage ist nicht, was ungenutzte Liquidität bringen könnte. Die erste Frage ist, was verfügbar bleiben muss. Dann, was getrennt werden darf. Dann, welche Strategie zum Risiko deines Unternehmens passt. diBoaS hilft, operative Liquidität von Geld zu trennen, das eine andere Aufgabe haben kann.",
-        "diboasResult": "8.316 €",
-        "bankResult": "2.300 €",
-        "difference": "6.016 €/Jahr",
-        "tagline": "Im Digital-Dollar arbeitet dein Kapital härter — weil der Dollar tendenziell gegenüber dem Euro an Wert gewinnt.",
-        "source": "Beispiel basierend auf 100.000 € ungenutztem Kapital bei {rate} durchschnittlichem Sparzins (Bundesbank/EZB 5-Jahres-Durchschnitt) vs diBoaS Konservativ 7% in Digital-Dollar, mit jährlichem Wechselkurseffekt von 0,9% (abgeleitet 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; siehe docs/tech/financial-calculations.md §Currency Hedge Model). Projizierte Renditen sind illustrativ. Tatsächliche Ergebnisse können abweichen.",
-        "howPossible": "Wie ist das möglich?"
-      }
-    }
-  },
   "origin": {
     "transitionHook": "",
-    "header": "Unternehmen kennen die Lücke.",
+    "header": "Ihr Unternehmen kennt die Lücke.",
     "paragraphs": {
       "0": "Der Kunde zahlt heute. Das Geld kommt später.",
       "1": "Die Gebühr ist schon weg.",
@@ -116,6 +85,11 @@
         "headline": "Regeln für Rücklagen",
         "body": "Lege eine operative Untergrenze fest, trenne überschüssige Liquidität und prüfe Strategien nur dann, wenn sie zum Risikoprofil deines Unternehmens passen.",
         "imageAlt": "Adelaide Marktintelligenz"
+      },
+      "records": {
+        "headline": "Belege für den echten Betrieb",
+        "body": "Transaktionshistorie, Auszüge und exportierbare Daten für Buchhaltung, Steuern, Prüfung und interne Kontrolle.",
+        "imageAlt": "Ein Schreibtisch mit Laptops und ausgedruckten Finanzunterlagen zur Prüfung."
       }
     },
     "transitionHook": "Aber jetzt kommt der Teil, den sonst niemand macht."
@@ -245,44 +219,11 @@
       "substack": "Substack"
     }
   },
-  "dualCta": {
-    "header": "Werde Teil der Unternehmen, die aufgehört haben, zu viel zu bezahlen.",
-    "counter": "{count} Unternehmen erkunden diBoaS. {countries} Länder.",
-    "pathA": {
-      "header": "Früher Zugang sichern.",
-      "description": "Hinterlasse deine E-Mail. Wir melden uns, wenn dein Unternehmen anfangen kann zu sparen.",
-      "emailPlaceholder": "Deine geschäftliche E-Mail",
-      "cta": "Früher Zugang sichern",
-      "noSpam": "Kein Spam. Nur deine Einladung, wenn wir bereit sind.",
-      "privacyLabel": "Ich stimme der Datenschutzerklärung zu"
-    },
-    "pathB": {
-      "header": "Schauen wir uns deine Zahlen an.",
-      "description": "15 Minuten. Keine Verpflichtung. Kein Pitch Deck. Nur Zahlen.",
-      "cta": "Gespräch buchen",
-      "alternative": "Oder schreib an hello@diboas.com"
-    }
-  },
   "waitlist": {
     "header": "Baue bessere Regeln.",
     "description": "Zahlungskosten. Rücklagen. Untergrenzen. Strategierisiko. Trag dich in die Unternehmens-Warteliste ein und gehöre zu den Ersten, die diBoaS für Unternehmen testen, wenn es verfügbar ist.",
     "spotsCounter": "{count} Gründungsmitglieder-Plätze verbleibend",
     "noSpam": "Kein Spam. Nur Produktupdates, früher Zugang und Änderungen vor dem Start."
-  },
-  "toolsCallout": {
-    "label": "Erst prüfen. Dann entscheiden.",
-    "cardFeesLink": "Kartengebühren-Rechner",
-    "idleCashLink": "Liquiditäts-Rechner"
-  },
-  "socialProof": {
-    "header": "Schließ dich Unternehmen an, die sich bereit machen.",
-    "subtext": "Unternehmen prüfen klarere Zahlungswege und Regeln für Rücklagen. Trag dich in die Warteliste ein.",
-    "stats": {
-      "waitlist": "{count} Unternehmen",
-      "countries": "{countries} Länder"
-    },
-    "cta": "Zur Warteliste",
-    "zeroState": "Gehöre zu den Ersten."
   },
   "faq": {
     "header": "Bevor dein Unternehmen entscheidet."

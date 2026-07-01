@@ -4,6 +4,7 @@ import { memo } from 'react';
 import Image from 'next/image';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { LocaleLink } from '@/components/UI/LocaleLink';
 import type { TwoWorldsSectionConfig } from '@/config/twoWorldsSection';
 import styles from './TwoWorldsSection.module.css';
 
@@ -32,6 +33,19 @@ export const TwoWorldsSection = memo(function TwoWorldsSection({
     }
   };
 
+  // CTA renders as a locale-aware route link for path hrefs (e.g. /tools/card-fees)
+  // and as an in-page scroll button for anchor hrefs (e.g. #section-id).
+  const renderCta = (href: string, label: string) =>
+    href.startsWith('#') ? (
+      <button type="button" className={styles.cardCta} onClick={() => scrollTo(href)}>
+        {label}
+      </button>
+    ) : (
+      <LocaleLink href={href} className={styles.cardCta} prefetch={false}>
+        {label}
+      </LocaleLink>
+    );
+
   return (
     <SectionContainer
       variant="standard"
@@ -58,13 +72,7 @@ export const TwoWorldsSection = memo(function TwoWorldsSection({
           ) : null}
           <h3 className={styles.cardHeadline}>{translated.content.cardA.headline}</h3>
           <p className={styles.cardBody}>{translated.content.cardA.body}</p>
-          <button
-            type="button"
-            className={styles.cardCta}
-            onClick={() => scrollTo(config.content.cardA.ctaHref)}
-          >
-            {translated.content.cardA.cta}
-          </button>
+          {renderCta(config.content.cardA.ctaHref, translated.content.cardA.cta)}
         </article>
 
         {/* Card B: Idle cash audience */}
@@ -82,13 +90,7 @@ export const TwoWorldsSection = memo(function TwoWorldsSection({
           ) : null}
           <h3 className={styles.cardHeadline}>{translated.content.cardB.headline}</h3>
           <p className={styles.cardBody}>{translated.content.cardB.body}</p>
-          <button
-            type="button"
-            className={styles.cardCta}
-            onClick={() => scrollTo(config.content.cardB.ctaHref)}
-          >
-            {translated.content.cardB.cta}
-          </button>
+          {renderCta(config.content.cardB.ctaHref, translated.content.cardB.cta)}
         </article>
       </div>
     </SectionContainer>
