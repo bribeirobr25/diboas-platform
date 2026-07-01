@@ -7,14 +7,13 @@ import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { SectionContainer } from '@/components/Sections';
 import { FAQAccordion } from '@/components/Sections/FAQAccordion/FAQAccordionFactory';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
-import { CvmBanner } from '@/components/Pages/CvmBanner';
 import { StrategiesMatrixSection } from '@/components/Pages/StrategiesMatrixSection';
 import { StrategiesProtocolTable } from '@/components/Pages/StrategiesProtocolTable';
 import { StrategyFeeTable } from '@/components/Pages/StrategyFeeTable';
 import { StrategiesHowToChoose } from '@/components/Pages/StrategiesHowToChoose';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { StrategiesHeroSection } from '@/components/Pages/StrategiesClientSections';
-import { STRATEGIES_I18N_PREFIX, STRATEGIES_FAQ_CONFIG } from '@/config/landing-strategies';
+import { STRATEGIES_FAQ_CONFIG } from '@/config/landing-strategies';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
@@ -127,10 +126,8 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
       <StructuredData data={[organizationData, breadcrumbData]} />
 
       <main className="main-page-wrapper">
-        {/* CVM Banner (PT-BR only, BEFORE Hero) */}
-        <CvmBanner namespace={STRATEGIES_I18N_PREFIX} />
-
-        {/* Section 1: Hero */}
+        {/* Section 1: Hero (CVM disclosures live in the footer for pt-BR, so the
+            standalone top banner was removed to give the hero its full height). */}
         <StrategiesHeroSection />
 
         {/* Section 2: Strategy Matrix */}

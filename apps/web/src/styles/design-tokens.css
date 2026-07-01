@@ -1470,6 +1470,13 @@
   --spacing-7xl: 80px;
   --spacing-8xl: 96px;
 
+  /* Fixed-nav clearance — MinimalNavigation is 80px tall (h-20). The shared
+     (landing) layout applies .main-content-landing (padding-top: 0) so full-bleed
+     cinematic heroes sit behind the transparent nav; light-hero content pages
+     (investors, tools, legal) use this token on their top element to clear the nav
+     plus breathing room instead. */
+  --layout-nav-clearance: calc(var(--spacing-7xl) + var(--spacing-3xl)); /* 112px */
+
   /* Semantic Spacing Tokens */
   --card-padding-desktop: 64px;
 

@@ -60,7 +60,9 @@
 
 /* Hero */
 .hero {
-  padding: var(--spacing-6xl) var(--spacing-lg) var(--spacing-4xl);
+  /* Top uses the fixed-nav clearance token so the eyebrow clears the 80px fixed
+     nav (.main-content-landing zeroes the layout's top padding). */
+  padding: var(--layout-nav-clearance) var(--spacing-lg) var(--spacing-4xl);
   background-color: var(--section-bg-white);
 }
 .heroInner {
@@ -89,7 +91,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-sm);
+  /* Breathing room above and below the CTA buttons. */
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
 }
 .ctaPrimary {
   display: inline-flex;
