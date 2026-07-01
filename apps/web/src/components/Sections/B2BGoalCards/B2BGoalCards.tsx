@@ -31,11 +31,20 @@ const ICON_MAP = {
 interface B2BGoalCardsProps {
   enableAnalytics?: boolean;
   className?: string;
+  /**
+   * `numeric` (default) renders the with-diBoaS / your-bank / difference number
+   * blocks. `qualitative` (the get-ready "Math" direction, Bar 2026-06-30) shows
+   * only the narrative body + link — no dollar figures. The numeric i18n keys
+   * (diboasResult/bankResult/difference/tagline/source) stay for parity but are
+   * not read in qualitative mode.
+   */
+  variant?: 'numeric' | 'qualitative';
 }
 
 export const B2BGoalCards = memo(function B2BGoalCards({
   enableAnalytics = true,
   className = '',
+  variant = 'numeric',
 }: B2BGoalCardsProps) {
   const intl = useTranslation();
   const { locale: rawLocale } = useLocale();
@@ -122,37 +131,41 @@ export const B2BGoalCards = memo(function B2BGoalCards({
           >
             <p className={styles.cardSubtitle}>{t(cardKey, 'subtitle')}</p>
 
-            <div className={styles.resultBlock}>
-              <p className={styles.resultLabel}>{tShared('withDiboas')}</p>
-              <p className={styles.resultValue}>{t(cardKey, 'diboasResult')}</p>
-            </div>
+            {variant === 'numeric' ? (
+              <>
+                <div className={styles.resultBlock}>
+                  <p className={styles.resultLabel}>{tShared('withDiboas')}</p>
+                  <p className={styles.resultValue}>{t(cardKey, 'diboasResult')}</p>
+                </div>
 
-            {hasValue(cardKey, 'bankResult') ? (
-              <div className={styles.resultBlock}>
-                <p className={styles.resultLabel}>{tShared('yourBank')}</p>
-                <p className={styles.resultValueBank}>{t(cardKey, 'bankResult')}</p>
-              </div>
+                {hasValue(cardKey, 'bankResult') ? (
+                  <div className={styles.resultBlock}>
+                    <p className={styles.resultLabel}>{tShared('yourBank')}</p>
+                    <p className={styles.resultValueBank}>{t(cardKey, 'bankResult')}</p>
+                  </div>
+                ) : null}
+
+                <div className={styles.differenceBlock}>
+                  <span className={styles.differenceValue}>{t(cardKey, 'difference')}</span>
+                  <span className={styles.differenceLabel}>{tShared('more')}</span>
+                </div>
+
+                <p className={styles.tagline}>{t(cardKey, 'tagline')}</p>
+                <p className={styles.bankSource}>
+                  {/* Phase 7 Followup PR-4 (2026-05-19): idleCash.source's
+                      bank-savings rate sourced live from marketDataService for
+                      pt-BR/es/de (literals match `bankRates.{locale}.savings`).
+                      EN's `3.5%` literal cites a different metric (Bankrate
+                      high-yield) and is not migrated — see §9 carry-forward. */}
+                  {t(cardKey, 'source', {
+                    rate: formatRate(
+                      marketDataService.getSync().rates.bankRates[locale].savings,
+                      locale
+                    ),
+                  })}
+                </p>
+              </>
             ) : null}
-
-            <div className={styles.differenceBlock}>
-              <span className={styles.differenceValue}>{t(cardKey, 'difference')}</span>
-              <span className={styles.differenceLabel}>{tShared('more')}</span>
-            </div>
-
-            <p className={styles.tagline}>{t(cardKey, 'tagline')}</p>
-            <p className={styles.bankSource}>
-              {/* Phase 7 Followup PR-4 (2026-05-19): idleCash.source's
-                  bank-savings rate sourced live from marketDataService for
-                  pt-BR/es/de (literals match `bankRates.{locale}.savings`).
-                  EN's `3.5%` literal cites a different metric (Bankrate
-                  high-yield) and is not migrated — see §9 carry-forward. */}
-              {t(cardKey, 'source', {
-                rate: formatRate(
-                  marketDataService.getSync().rates.bankRates[locale].savings,
-                  locale
-                ),
-              })}
-            </p>
 
             <div className={styles.links}>
               <button type="button" className={styles.link} onClick={handleHowPossible}>

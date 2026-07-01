@@ -7,9 +7,9 @@
   "form": {
     "emailPlaceholder": "Tu correo electrónico",
     "emailLabel": "Dirección de correo electrónico",
-    "cta": "Unirse a la Lista",
+    "cta": "Unirse a la lista de espera",
     "submitting": "Uniéndose...",
-    "privacyNote": "Nunca te enviaremos spam. Solo actualizaciones sobre cuándo puedes empezar.",
+    "privacyNote": "Sin spam. Solo actualizaciones del producto, acceso anticipado y cambios antes del lanzamiento.",
     "legendText": "Registro en la lista de espera"
   },
   "error": {

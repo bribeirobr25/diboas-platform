@@ -61,8 +61,10 @@ const CTA_DE_ES = [
 interface EuVariant {
   heroCtaHref: string;
   heroTrackingPrefix: string;
-  /** data-section-id + analytics.sectionId for the 6 locale-suffixed sections. */
+  /** data-section-id + analytics.sectionId for the locale-suffixed sections. */
   sectionIds: {
+    tension: string;
+    sidePocket: string;
     neverHold: string;
     upside: string;
     pictureFuture: string;
@@ -70,8 +72,10 @@ interface EuVariant {
     catch: string;
     founder: string;
   };
-  /** DOM scroll-anchor ids for the 5 translated sections (shared ones live in the spine). */
+  /** DOM scroll-anchor ids for the translated sections (shared ones live in the spine). */
   anchors: {
+    tension: string;
+    sidePocket: string;
     neverHold: string;
     upside: string;
     pictureFuture: string;
@@ -86,6 +90,8 @@ const EU_VARIANTS: Record<EuLocale, EuVariant> = {
     heroCtaHref: '#how-it-works',
     heroTrackingPrefix: 'hero_b2c_en',
     sectionIds: {
+      tension: 'tension-section-en',
+      sidePocket: 'sidepocket-section-en',
       neverHold: 'neverhold-section-en',
       upside: 'upside-section-en',
       pictureFuture: 'picture-future-section-en',
@@ -94,6 +100,8 @@ const EU_VARIANTS: Record<EuLocale, EuVariant> = {
       founder: 'founder-section-en',
     },
     anchors: {
+      tension: 'what-is-this-for',
+      sidePocket: 'a-place-of-its-own',
       neverHold: 'we-never-hold',
       upside: 'the-upside',
       pictureFuture: 'picture',
@@ -106,6 +114,8 @@ const EU_VARIANTS: Record<EuLocale, EuVariant> = {
     heroCtaHref: '#so-funktioniert',
     heroTrackingPrefix: 'hero_b2c_de',
     sectionIds: {
+      tension: 'tension-section-de',
+      sidePocket: 'sidepocket-section-de',
       neverHold: 'neverhold-section-de',
       upside: 'upside-section-de',
       pictureFuture: 'picture-future-section-de',
@@ -114,6 +124,8 @@ const EU_VARIANTS: Record<EuLocale, EuVariant> = {
       founder: 'founder-section-de',
     },
     anchors: {
+      tension: 'wofuer-dieses-geld',
+      sidePocket: 'ein-eigener-platz',
       neverHold: 'wir-halten-nie',
       upside: 'der-gewinn',
       pictureFuture: 'stell-dir-vor',
@@ -126,6 +138,8 @@ const EU_VARIANTS: Record<EuLocale, EuVariant> = {
     heroCtaHref: '#como-funciona',
     heroTrackingPrefix: 'hero_b2c_es',
     sectionIds: {
+      tension: 'tension-section-es',
+      sidePocket: 'sidepocket-section-es',
       neverHold: 'neverhold-section-es',
       upside: 'upside-section-es',
       pictureFuture: 'picture-future-section-es',
@@ -134,6 +148,8 @@ const EU_VARIANTS: Record<EuLocale, EuVariant> = {
       founder: 'founder-section-es',
     },
     anchors: {
+      tension: 'para-que-este-dinero',
+      sidePocket: 'un-lugar-propio',
       neverHold: 'nunca-guardamos',
       upside: 'el-rendimiento',
       pictureFuture: 'imagina',
@@ -156,10 +172,11 @@ export const EU_SHARED_ANCHORS = {
 
 export interface EuLandingConfig {
   hero: HeroVariantConfig;
+  tension: ProseSectionConfig;
+  sidePocket: ProseSectionConfig;
   neverHold: ProseSectionConfig;
   upside: ProseSectionConfig;
   pictureFuture: ProseSectionConfig;
-  howItWorks: ProseSectionConfig;
   catch: ProseSectionConfig;
   founder: ProseSectionConfig;
   demo: {
@@ -200,6 +217,9 @@ export function makeEuLandingConfig(locale: EuLocale): EuLandingConfig {
         ctaText: 'landing-b2c.draper.hero.cta',
         ctaHref: v.heroCtaHref,
         ctaTarget: '_self',
+        secondaryCtaText: 'landing-b2c.draper.hero.ctaSecondary',
+        secondaryCtaHref: `#${v.anchors.tension}`,
+        secondaryCtaTarget: '_self',
       },
       cinematic: {
         scene: 'dawn-water',
@@ -211,6 +231,26 @@ export function makeEuLandingConfig(locale: EuLocale): EuLandingConfig {
       },
       seo: { imageAlt: { background: '' } },
       analytics: { trackingPrefix: v.heroTrackingPrefix, enabled: true },
+    },
+
+    tension: {
+      content: {
+        header: 'landing-b2c.draper.tension.header',
+        paragraphs: ['landing-b2c.draper.tension.body'],
+      },
+      style: { backgroundColor: 'var(--section-bg-dark)', verticalPadding: 'standard' },
+      seo: { ariaLabel: 'landing-b2c.draper.tension.header' },
+      analytics: { sectionId: v.sectionIds.tension, category: 'landing-b2c' },
+    },
+
+    sidePocket: {
+      content: {
+        header: 'landing-b2c.draper.sidePocket.header',
+        paragraphs: ['landing-b2c.draper.sidePocket.body'],
+      },
+      style: { backgroundColor: 'var(--section-bg-white)', verticalPadding: 'standard' },
+      seo: { ariaLabel: 'landing-b2c.draper.sidePocket.header' },
+      analytics: { sectionId: v.sectionIds.sidePocket, category: 'landing-b2c' },
     },
 
     neverHold: {
@@ -255,23 +295,10 @@ export function makeEuLandingConfig(locale: EuLocale): EuLandingConfig {
       cta: v.pictureCta,
     },
 
-    howItWorks: {
-      content: {
-        header: 'landing-b2c.draper.howItWorks.header',
-        paragraphs: [
-          'landing-b2c.draper.howItWorks.step1',
-          'landing-b2c.draper.howItWorks.step2',
-          'landing-b2c.draper.howItWorks.step3',
-        ],
-      },
-      style: {
-        backgroundColor: 'var(--section-bg-white)',
-        verticalPadding: 'standard',
-        headerStyle: 'centered',
-      },
-      seo: { ariaLabel: 'landing-b2c.draper.howItWorks.header' },
-      analytics: { sectionId: v.sectionIds.howItWorks, category: 'landing-b2c' },
-    },
+    /* §6 "How it works" is now the visual HowItWorks 3-up section — config lives in
+       `@/config/howItWorks` (B2C_HOW_IT_WORKS_VISUAL_CONFIG). Only the locale-suffixed
+       `ids.howItWorks` + translated `anchors.howItWorks` are still consumed here, to
+       wrap the visual section for analytics + in-page navigation. */
 
     catch: {
       content: {

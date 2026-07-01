@@ -50,8 +50,8 @@ describe('buildAllFeeValues', () => {
     // Multi-slot rows reproduce the current literals exactly.
     expect(map.get('landing-b2c.fees.rows.adding.diboas')).toEqual({
       rate: '0.48%',
-      min: '$0.25',
-      max: '$25',
+      min: '$0.00',
+      max: '$250',
     });
     expect(map.get('landing-b2c.fees.rows.selling.diboas')).toEqual({
       rate: '0.39%',
@@ -77,14 +77,31 @@ describe('buildAllFeeValues', () => {
     });
   });
 
-  it('should honor maxFractionDigits 0 for max fee — $25 not $25.00 (audit M5)', () => {
+  it('should apply the higher $2,500 b2b cap on add/cashOut while b2c stays $250 (Bar 2026-06-30)', () => {
+    const map = buildAllFeeValues(fees, 'en');
+    // B2B Add-Money + cash-out carry the $2,500 cap; rate/min stay shared.
+    expect(map.get('landing-b2b.fees.rows.add.diboas')).toEqual({
+      rate: '0.48%',
+      min: '$0.00',
+      max: '$2,500',
+    });
+    expect(map.get('landing-b2b.fees.rows.cashOut.diboas')).toEqual({
+      rate: '0.48%',
+      min: '$0.00',
+      max: '$2,500',
+    });
+    // B2C must NOT inherit the b2b cap — still $250.
+    expect(map.get('landing-b2c.fees.rows.adding.diboas')?.max).toBe('$250');
+  });
+
+  it('should honor maxFractionDigits 0 for max fee — $250 not $250.00 (audit M5)', () => {
     const map = buildAllFeeValues(fees, 'en');
     const adding = map.get('landing-b2c.fees.rows.adding.diboas')!;
     // Critical precision contract: maxFee must NOT have trailing decimals.
-    expect(adding.max).toBe('$25');
-    expect(adding.max).not.toBe('$25.00');
-    // minFee preserves 2 decimals.
-    expect(adding.min).toBe('$0.25');
+    expect(adding.max).toBe('$250');
+    expect(adding.max).not.toBe('$250.00');
+    // minFee renders with 2 decimals (now $0.00 — no Add-Money minimum per FEES.md).
+    expect(adding.min).toBe('$0.00');
   });
 
   it('should produce EUR currency formatting (not USD) in de locale', () => {

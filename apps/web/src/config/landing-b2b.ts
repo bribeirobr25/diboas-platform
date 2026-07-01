@@ -25,13 +25,14 @@ import type { ScenarioCardsConfig } from './scenarioCards';
  * B2B Landing Page Image Paths
  */
 const B2B_IMAGES = {
-  hero: '/assets/images/above-the-noise.avif',
-  twoWorldsPayments: '/assets/images/seamless-exchange.avif',
-  twoWorldsTreasury: '/assets/images/money-simplified.avif',
-  originStory: '/assets/images/saved-through-time.avif',
+  hero: '/assets/images/business-hero.jpg',
+  twoWorldsPayments: '/assets/images/business-card-payments.jpg',
+  twoWorldsTreasury: '/assets/images/business-idle-cash.jpg',
+  originStory: '/assets/images/business-small-shop.jpg',
   featureGetPaid: '/assets/images/seamless-pay.avif',
   featurePayAnyone: '/assets/images/points-of-connection.avif',
   featureAdelaide: '/assets/images/brewed-focus.avif',
+  featureRecords: '/assets/images/business-records.jpg',
   carouselConnect: '/assets/images/digital-nearness.avif',
   carouselRules: '/assets/images/private-control.avif',
   carouselWorks: '/assets/images/quiet-growth.avif',
@@ -42,7 +43,7 @@ const B2B_IMAGES = {
 // ─── Section 1: Hero ─────────────────────────────────────────
 
 export const B2B_HERO_CONFIG: HeroVariantConfig = {
-  variant: 'cinematic',
+  variant: 'fullBackground',
   content: {
     title: 'landing-b2b.hero.headline',
     description: 'landing-b2b.hero.subheadline',
@@ -50,12 +51,11 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
     ctaHref: '#two-worlds',
     ctaTarget: '_self',
   },
-  cinematic: {
-    scene: 'fluid',
-    theme: 'dark',
-    align: 'left',
-    accentHeadline: true,
-    sectionId: 'hero-b2b',
+  backgroundAssets: {
+    backgroundImage: B2B_IMAGES.hero,
+    backgroundImageMobile: B2B_IMAGES.hero,
+    // Dark overlay for white-text legibility over the daylight skyline photo.
+    overlayOpacity: 0.55,
   },
   seo: {
     titleTag: 'diBoaS for Business | Stop Overpaying on Fees and Idle Cash',
@@ -78,7 +78,7 @@ export const B2B_TWO_WORLDS_CONFIG: TwoWorldsSectionConfig = {
       headline: 'landing-b2b.twoWorlds.cardA.headline',
       body: 'landing-b2b.twoWorlds.cardA.body',
       cta: 'landing-b2b.twoWorlds.cardA.cta',
-      ctaHref: '#paymentFees',
+      ctaHref: '/tools/card-fees',
       image: B2B_IMAGES.twoWorldsPayments,
       imageAlt: 'landing-b2b.twoWorlds.cardA.imageAlt',
     },
@@ -86,7 +86,7 @@ export const B2B_TWO_WORLDS_CONFIG: TwoWorldsSectionConfig = {
       headline: 'landing-b2b.twoWorlds.cardB.headline',
       body: 'landing-b2b.twoWorlds.cardB.body',
       cta: 'landing-b2b.twoWorlds.cardB.cta',
-      ctaHref: '#idleCash',
+      ctaHref: '/tools/idle-cash',
       image: B2B_IMAGES.twoWorldsTreasury,
       imageAlt: 'landing-b2b.twoWorlds.cardB.imageAlt',
     },
@@ -231,6 +231,15 @@ export const B2B_FEATURES_CONFIG: ScenarioCardsConfig = {
       backgroundImage: B2B_IMAGES.featureAdelaide,
       imageAlt: 'landing-b2b.features.cards.adelaide.imageAlt',
     },
+    {
+      // Spec §8 4th card: "Records for real operations" (transaction history,
+      // statements, exportable records for accounting/tax/audit).
+      id: 'feature-records',
+      title: 'landing-b2b.features.cards.records.headline',
+      description: 'landing-b2b.features.cards.records.body',
+      backgroundImage: B2B_IMAGES.featureRecords,
+      imageAlt: 'landing-b2b.features.cards.records.imageAlt',
+    },
   ],
   style: {
     backgroundColor: 'var(--section-bg-enterprise)',
@@ -279,7 +288,9 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         competitors: 'landing-b2b.fees.rows.receive.competitors',
         difference: 'landing-b2b.fees.rows.receive.difference',
         example: 'landing-b2b.fees.rows.receive.example',
-        isFree: true,
+        // P1-6: receiving is $0 only between diBoaS users in digital dollars; a
+        // card-funded payment is an on-ramp (0.48% + processor). Not unconditionally free.
+        isFree: false,
       },
       {
         id: 'send',
@@ -288,7 +299,9 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         competitors: 'landing-b2b.fees.rows.send.competitors',
         difference: 'landing-b2b.fees.rows.send.difference',
         example: 'landing-b2b.fees.rows.send.example',
-        isFree: true,
+        // P1-6: sending is $0 only between diBoaS users in digital dollars; paying
+        // an external account is an off-ramp (0.48%). Not unconditionally free.
+        isFree: false,
       },
       {
         id: 'add',
@@ -334,6 +347,12 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
       },
     ],
   },
+  // Lean mode (parity with the b2c landing fee table): collapse to the first 3
+  // rows; an "expand" control reveals the remaining rows. The toggle label
+  // reuses the b2c "See the full cost" key (landing-b2c is loaded on this page),
+  // which also gives the button its accessible name (a11y: button-name).
+  previewRows: 3,
+  expandToggleLabel: 'landing-b2c.comparison.disclosureToggle',
   seo: {
     headingLevel: 'h2',
     ariaLabel: 'landing-b2b.sections.feeTable.ariaLabel',
@@ -420,7 +439,7 @@ export const B2B_WAITLIST_CONFIG = {
   headline: 'landing-b2b.waitlist.header',
   subheadline: 'landing-b2b.waitlist.description',
   hideBenefits: true,
-  hideNoSpam: true,
+  hideNoSpam: false,
   namespace: 'landing-b2b.waitlist',
   confirmationNamespace: 'landing-b2b.waitlistSuccess',
   source: 'landing_b2b' as const,

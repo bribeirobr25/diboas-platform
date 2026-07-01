@@ -16,6 +16,8 @@ import { makeEuLandingConfig, EU_SHARED_ANCHORS, type EuLocale } from '../landin
 const EXPECTED = {
   en: {
     ids: {
+      tension: 'tension-section-en',
+      sidePocket: 'sidepocket-section-en',
       neverHold: 'neverhold-section-en',
       upside: 'upside-section-en',
       pictureFuture: 'picture-future-section-en',
@@ -24,6 +26,8 @@ const EXPECTED = {
       founder: 'founder-section-en',
     },
     anchors: {
+      tension: 'what-is-this-for',
+      sidePocket: 'a-place-of-its-own',
       neverHold: 'we-never-hold',
       upside: 'the-upside',
       pictureFuture: 'picture',
@@ -35,6 +39,8 @@ const EXPECTED = {
   },
   de: {
     ids: {
+      tension: 'tension-section-de',
+      sidePocket: 'sidepocket-section-de',
       neverHold: 'neverhold-section-de',
       upside: 'upside-section-de',
       pictureFuture: 'picture-future-section-de',
@@ -43,6 +49,8 @@ const EXPECTED = {
       founder: 'founder-section-de',
     },
     anchors: {
+      tension: 'wofuer-dieses-geld',
+      sidePocket: 'ein-eigener-platz',
       neverHold: 'wir-halten-nie',
       upside: 'der-gewinn',
       pictureFuture: 'stell-dir-vor',
@@ -54,6 +62,8 @@ const EXPECTED = {
   },
   es: {
     ids: {
+      tension: 'tension-section-es',
+      sidePocket: 'sidepocket-section-es',
       neverHold: 'neverhold-section-es',
       upside: 'upside-section-es',
       pictureFuture: 'picture-future-section-es',
@@ -62,6 +72,8 @@ const EXPECTED = {
       founder: 'founder-section-es',
     },
     anchors: {
+      tension: 'para-que-este-dinero',
+      sidePocket: 'un-lugar-propio',
       neverHold: 'nunca-guardamos',
       upside: 'el-rendimiento',
       pictureFuture: 'imagina',
@@ -83,10 +95,13 @@ describe('EU landing config — id/anchor preservation (Phase B)', () => {
     // Locale-suffixed section-ids (single source of truth used by the spine JSX).
     expect(cfg.ids).toEqual(exp.ids);
     // Each ProseSection's analytics.sectionId must equal the spine id.
+    expect(cfg.tension.analytics?.sectionId).toBe(exp.ids.tension);
+    expect(cfg.sidePocket.analytics?.sectionId).toBe(exp.ids.sidePocket);
     expect(cfg.neverHold.analytics?.sectionId).toBe(exp.ids.neverHold);
     expect(cfg.upside.analytics?.sectionId).toBe(exp.ids.upside);
     expect(cfg.pictureFuture.analytics?.sectionId).toBe(exp.ids.pictureFuture);
-    expect(cfg.howItWorks.analytics?.sectionId).toBe(exp.ids.howItWorks);
+    // (howItWorks is now the visual HowItWorks 3-up section, not a ProseSection on
+    //  this config — only its id/anchor remain here, asserted via cfg.ids + below.)
     expect(cfg.catch.analytics?.sectionId).toBe(exp.ids.catch);
     expect(cfg.founder.analytics?.sectionId).toBe(exp.ids.founder);
     // Shared, non-locale ids.

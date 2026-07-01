@@ -91,24 +91,9 @@ export const B2C_PTBR_IMAGINE_CONFIG: ProseSectionConfig = {
   ],
 } as const;
 
-/** §5 Como funciona (3 passos + porta de saída) — clear day. */
-export const B2C_PTBR_HOWITWORKS_CONFIG: ProseSectionConfig = {
-  content: {
-    header: 'landing-b2c.ptbr.howItWorks.header',
-    paragraphs: [
-      'landing-b2c.ptbr.howItWorks.step1',
-      'landing-b2c.ptbr.howItWorks.step2',
-      'landing-b2c.ptbr.howItWorks.step3',
-    ],
-  },
-  style: {
-    backgroundColor: 'var(--section-bg-white)',
-    verticalPadding: 'standard',
-    headerStyle: 'centered',
-  },
-  seo: { ariaLabel: 'landing-b2c.ptbr.howItWorks.header' },
-  analytics: { sectionId: 'how-it-works-ptbr', category: 'landing-b2c' },
-} as const;
+/* §5 "Como funciona" is now the visual HowItWorks 3-up section — config lives in
+   `@/config/howItWorks` (B2C_PTBR_HOW_IT_WORKS_VISUAL_CONFIG). The old text
+   ProseSection config was removed when the visual component was wired in. */
 
 /** §6 E se der errado? (the honest letter, trust) — paper-and-ink dark. */
 export const B2C_PTBR_TRUST_CONFIG: ProseSectionConfig = {

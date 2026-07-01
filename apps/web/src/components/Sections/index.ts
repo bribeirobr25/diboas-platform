@@ -35,6 +35,10 @@ export { WedgeSection } from './WedgeSection';
 export { ScenarioCards } from './ScenarioCards';
 
 export { TwoWorldsSection } from './TwoWorldsSection';
+// HowItWorks (the visual 3-up) is intentionally NOT re-exported from this barrel
+// until it is wired into a page: re-exporting a client component from the
+// app-imported Sections barrel pulls its chunk into the bundle even when unused.
+// Import it directly when wiring: `from '@/components/Sections/HowItWorks'`.
 
 // Page-level Sections
 export { PageHeroSection, type PageHeroSectionProps } from './PageHeroSection';

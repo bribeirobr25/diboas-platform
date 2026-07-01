@@ -265,14 +265,14 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
     },
   },
   platformFees: {
-    deposit: { rate: 0.0048, minFee: 0.25, maxFee: 25.0 },
+    deposit: { rate: 0.0048, minFee: 0, maxFee: 250.0 },
     sell: { rate: 0.0039, minFee: 0.25, maxFee: 25.0 },
     send: { rate: 0, minFee: 0, maxFee: 0 },
     receive: { rate: 0, minFee: 0, maxFee: 0 },
     swap: { rate: 0, minFee: 0, maxFee: 0 },
     strategyEntry: { rate: 0, minFee: 0, maxFee: 0 },
     strategyExit: { rate: 0.0039, minFee: 0.25, maxFee: 25.0 },
-    cashOut: { rate: 0.0048, minFee: 0.25, maxFee: 25.0 },
+    cashOut: { rate: 0.0048, minFee: 0, maxFee: 250.0 },
   },
   thirdPartyFees: {
     paymentProcessor: 0.01,

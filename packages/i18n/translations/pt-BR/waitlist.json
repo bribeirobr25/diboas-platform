@@ -5,11 +5,11 @@
   "header": "Quer acesso antecipado?",
   "subheader": "Estamos abrindo a diBoaS pra um grupo pequeno primeiro. Entre na lista de espera pra ser dos primeiros a ter acesso.",
   "form": {
-    "emailPlaceholder": "Seu email",
+    "emailPlaceholder": "Endereço de e-mail",
     "emailLabel": "Endereço de e-mail",
-    "cta": "Entrar na Lista",
+    "cta": "Entrar na lista de espera",
     "submitting": "Entrando...",
-    "privacyNote": "A gente nunca vai te mandar spam. Só atualizações sobre quando você pode começar.",
+    "privacyNote": "Sem spam. Só atualizações do produto, acesso antecipado e mudanças antes do lançamento.",
     "legendText": "Cadastro na lista de espera"
   },
   "error": {

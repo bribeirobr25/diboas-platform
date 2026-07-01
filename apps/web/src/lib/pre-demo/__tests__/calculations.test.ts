@@ -22,8 +22,8 @@ describe('resolveFeeRates (Phase 8 Item E — service-derived)', () => {
       paymentProcessor: 0.01,
       network: 0.00001,
       diboas: 0.0048,
-      diboasMin: 0.25,
-      diboasMax: 25,
+      diboasMin: 0,
+      diboasMax: 250,
     });
     expect(rates.send).toEqual({
       network: 0.00001,
@@ -48,7 +48,7 @@ describe('resolveFeeRates (Phase 8 Item E — service-derived)', () => {
     expect(overridden.deposit.diboas).toBe(0.01);
     // Other deposit fields preserved
     expect(overridden.deposit.paymentProcessor).toBe(0.01);
-    expect(overridden.deposit.diboasMin).toBe(0.25);
+    expect(overridden.deposit.diboasMin).toBe(0);
     // Send + buy untouched
     expect(overridden.send.priority).toBe(0.009);
     expect(overridden.buy.btcSwap).toBe(0.003);
@@ -71,11 +71,11 @@ describe('calculateDepositFees', () => {
     expect(result.netAmount).toBeCloseTo(98.519, 4);
   });
 
-  it('should enforce diboas min/max bounds', () => {
-    // $10 deposit × 0.48% = $0.048 → clamped UP to $0.25 minimum
-    expect(calculateDepositFees(10).diboasFee).toBe(0.25);
-    // $10,000 deposit × 0.48% = $48 → clamped DOWN to $25 maximum
-    expect(calculateDepositFees(10000).diboasFee).toBe(25);
+  it('should apply the deposit max cap and no minimum (FEES.md B2C: $250 cap, no Add-Money min)', () => {
+    // $10 deposit × 0.48% = $0.048 → no minimum floor on Add Money
+    expect(calculateDepositFees(10).diboasFee).toBeCloseTo(0.048, 4);
+    // $10,000 deposit × 0.48% = $48 → under the $250 maximum (not clamped)
+    expect(calculateDepositFees(10000).diboasFee).toBeCloseTo(48, 4);
   });
 });
 

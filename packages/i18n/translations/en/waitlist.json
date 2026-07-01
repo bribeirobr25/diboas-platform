@@ -7,9 +7,9 @@
   "form": {
     "emailPlaceholder": "Your email address",
     "emailLabel": "Email address",
-    "cta": "Join Waitlist",
+    "cta": "Join the waitlist",
     "submitting": "Joining...",
-    "privacyNote": "We'll never spam you. Just updates on when you can get started.",
+    "privacyNote": "No spam. Just product updates, early access, and what changes before launch.",
     "legendText": "Waitlist signup"
   },
   "error": {

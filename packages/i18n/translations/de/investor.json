@@ -1,0 +1,340 @@
+{
+  "page": {
+    "seo": {
+      "title": "diBoaS Investors | Money With a Purpose. Cash With Rules.",
+      "description": "diBoaS is a Berlin-based pre-seed fintech building a non-custodial financial app that helps consumers assign money to goals and businesses assign cash to rules before money moves.",
+      "ogTitle": "Money should know what it is there to do.",
+      "ogDescription": "A non-custodial control layer for money before it moves. Pre-seed, Berlin. Risks named directly."
+    },
+    "hero": {
+      "eyebrow": "PRE-SEED · BERLIN",
+      "headline": "Money should know what it is there to do.",
+      "subheadline": "diBoaS is building a non-custodial financial app that helps consumers assign money to goals and businesses assign cash to rules before money moves.",
+      "supporting": "Before funds move, diBoaS shows the strategy, cost, liquidity, and risk. Users stay in control. diBoaS is the interface, never the holder.",
+      "ctaPrimary": "Request investor materials",
+      "ctaSecondary": "Read the investor overview",
+      "trustNote": "Pre-launch. Pre-seed. Risks named directly."
+    },
+    "thesis": {
+      "label": "THE THESIS",
+      "headline": "B2C builds trust. B2B builds the business.",
+      "body": [
+        "Consumer fintech looks large from the outside and thin in the unit economics.",
+        "diBoaS does not pretend otherwise.",
+        "The consumer product builds trust, brand, and distribution. The business product drives revenue through cash rules, payment paths, liquidity control, and explicit movement fees.",
+        "That is the company thesis: B2C builds trust and distribution. B2B drives revenue."
+      ],
+      "pullQuote": "The model is not built on hiding consumer ARPU. It is built on being honest about it."
+    },
+    "building": {
+      "label": "WHAT WE ARE BUILDING",
+      "headline": "A control layer for money before it moves.",
+      "body": [
+        "Most financial interfaces show money as one balance. But money has different jobs.",
+        "For a consumer, it may be an emergency reserve, a future purchase, or protection from inflation.",
+        "For a business, it may be payroll, rent, taxes, supplier payments, operating reserves, or excess liquidity.",
+        "diBoaS starts with the job of the money. Then it shows the available path, cost, liquidity, and risk before action."
+      ],
+      "productLine": "Consumers choose a goal. Businesses set rules. diBoaS shows the path before money moves."
+    },
+    "whyNow": {
+      "label": "WHY NOW",
+      "headline": "The rails changed. The interface did not.",
+      "body": [
+        "Money can now move, settle, and be programmed in ways that were not available to ordinary users or small businesses a decade ago. But most products still speak to experts.",
+        "Consumers are offered promises instead of explanations. Businesses manage cash through banks, cards, spreadsheets, payment tools, and reports that rarely fit together.",
+        "diBoaS is built around a simpler standard: before money moves, the user should understand the path, cost, liquidity, and risk."
+      ]
+    },
+    "marketSequence": {
+      "label": "MARKET SEQUENCE",
+      "headline": "One product spine. Four market-native propositions.",
+      "body": "diBoaS is designed for four launch markets, each with a different cultural and financial entry point.",
+      "markets": [
+        "Brazil: objective and dollar protection.",
+        "United States: money with a job, access, and movement.",
+        "Germany: planning, clarity, and visible risk.",
+        "Spain: plan, costs, prudence, and explanation."
+      ],
+      "note": "The product spine stays consistent: purpose, rules, cost, liquidity, risk, and user control. The market story changes because trust is local."
+    },
+    "businessModel": {
+      "label": "BUSINESS MODEL",
+      "headline": "Revenue follows movement, not hidden spread.",
+      "body": [
+        "diBoaS earns through explicit movement fees.",
+        "The company does not take a spread on strategy returns. Revenue scales when money enters, exits, or a strategy closes.",
+        "The honest model is simple: consumer ARPU is structurally small. B2C builds trust and distribution. B2B drives revenue."
+      ],
+      "supporting": "A small number of business clients can be worth more than thousands of individual users."
+    },
+    "status": {
+      "label": "CURRENT STATUS",
+      "headline": "Early, specified, and honest about it.",
+      "body": [
+        "diBoaS is pre-launch and pre-seed.",
+        "The marketing site and market-intelligence product are live. The money product is specified and planned for the funded build.",
+        "The current raise funds the money-product build, regulatory launch gates, security audit, infrastructure, incorporation, and first B2B validation."
+      ],
+      "items": [
+        "Marketing site: live",
+        "Market-intelligence product: live",
+        "Money product: specified, not yet built",
+        "Regulatory analysis: drafted",
+        "Financial model: drafted",
+        "Fundraising: pre-seed preparation"
+      ]
+    },
+    "founder": {
+      "label": "FOUNDER",
+      "headline": "Built by a product operator, not a campaign.",
+      "body": [
+        "diBoaS is based in Berlin and led by a solo founder with 20 years of product and IT experience across Brazil, the United States, Japan, and Germany.",
+        "The founder has built the current product foundation, research, architecture, regulatory analysis, financial model, and investor materials with an AI-assisted build process and a test-driven operating standard.",
+        "The financing supports the next phase of the build: product development, technical support, legal review, security work, infrastructure, incorporation, and early B2B validation."
+      ]
+    },
+    "raise": {
+      "label": "THE RAISE",
+      "headline": "Raising to prove the right thing.",
+      "body": [
+        "diBoaS is preparing a pre-seed raise to fund the money-product build, regulatory launch gates, security audit, infrastructure, incorporation, and first B2B validation.",
+        "The goal of the raise is not scale theater. It is proof: build the money product, clear the launch gates, validate the first B2B demand, and turn assumptions into evidence."
+      ],
+      "privateNote": "Detailed raise structure is shared in the private investor materials."
+    },
+    "materials": {
+      "label": "INVESTOR MATERIALS",
+      "headline": "The full answers are available on request.",
+      "body": [
+        "The investor room includes the Business Plan, Investor FAQ, and supporting materials covering the model, risks, use of funds, regulatory position, product roadmap, fee logic, and technical architecture.",
+        "The FAQ is intentionally direct. If something is unresolved, it is named."
+      ],
+      "items": [
+        "Business Plan",
+        "Investor FAQ",
+        "Use of Funds",
+        "Revenue Model Summary",
+        "Regulatory Position Summary",
+        "Product Roadmap",
+        "Fees Summary",
+        "Technical Architecture Summary (in preparation)"
+      ],
+      "cta": "Request investor materials"
+    },
+    "request": {
+      "title": "Request investor materials",
+      "intro": "Tell us who you are and we will share the appropriate investor materials.",
+      "labels": {
+        "name": "Name",
+        "company": "Fund / Company",
+        "email": "Email",
+        "investorType": "Investor type",
+        "ticketSize": "Typical ticket size",
+        "thesis": "Relevant thesis or interest",
+        "message": "Message"
+      },
+      "typeOptions": {
+        "angel": "Angel investor",
+        "vc": "VC fund",
+        "founder-operator": "Founder / operator investor",
+        "strategic": "Strategic investor",
+        "family-office": "Family office",
+        "other": "Other"
+      },
+      "submit": "Request access",
+      "submitting": "Sending…",
+      "success": "Thanks. We will review your request and follow up with the appropriate materials.",
+      "error": "Something went wrong. Please try again.",
+      "privacyNote": "We use your details only to review your request and follow up. Your information is encrypted."
+    },
+    "riskNote": "diBoaS is pre-launch. The money product is not yet available. diBoaS is designed as a non-custodial interface and is not a bank, deposit account, savings account, or guarantee. Product availability depends on legal review, partner availability, and launch gates."
+  },
+  "room": {
+    "seo": {
+      "title": "diBoaS Investor Room",
+      "description": "Private investor materials for diBoaS, a Berlin-based pre-seed fintech building a non-custodial financial app for consumer goals and business cash rules."
+    },
+    "accessNote": "Private investor materials. Do not distribute without permission.",
+    "hero": {
+      "eyebrow": "PRIVATE INVESTOR ROOM",
+      "headline": "Start with the hard questions.",
+      "subheadline": "This room contains the current pre-seed materials for diBoaS: the Business Plan, Investor FAQ, use of funds, revenue logic, regulatory position, product roadmap, fee logic, and technical architecture.",
+      "supporting": "diBoaS is pre-launch and pre-seed. Numbers are founder assumptions unless stated otherwise. Open risks are named directly."
+    },
+    "startHere": {
+      "headline": "Start here.",
+      "body": [
+        "If you only read two documents, start with the Business Plan and Investor FAQ.",
+        "The Business Plan gives the one-page view.",
+        "The Investor FAQ gives the uncomfortable answers first: business model, unit economics, regulatory assumptions, open risks, solo-founder risk, use of funds, and what still needs to be proven."
+      ]
+    },
+    "materials": {
+      "headline": "Current materials",
+      "intro": "The documents below are organized from overview to deeper diligence.",
+      "docs": [
+        {
+          "slug": "business-plan",
+          "num": "01",
+          "title": "Business Plan",
+          "summary": "One-page investor overview: product, problem, model, market sequence, go-to-market, raise paths, and key model risks.",
+          "status": "available"
+        },
+        {
+          "slug": "investor-faq",
+          "num": "02",
+          "title": "Investor FAQ",
+          "summary": "Detailed investor Q&A with blunt answers on unit economics, regulation, custody, traction, moat, team, deal structure, and unresolved risks.",
+          "status": "available"
+        },
+        {
+          "slug": "pitch-deck",
+          "num": "03",
+          "title": "Pitch Deck",
+          "summary": "Short narrative deck for first conversations.",
+          "status": "available"
+        },
+        {
+          "slug": "use-of-funds",
+          "num": "04",
+          "title": "Use of Funds",
+          "summary": "What the lean path funds, what the larger path buys down, and what milestones the capital is meant to prove.",
+          "status": "available"
+        },
+        {
+          "slug": "revenue-model",
+          "num": "05",
+          "title": "Revenue Model Summary",
+          "summary": "Consumer ARPU, B2B ARPU, break-even logic, first metrics to validate, and what breaks the model.",
+          "status": "available"
+        },
+        {
+          "slug": "regulatory-position",
+          "num": "06",
+          "title": "Regulatory Position Summary",
+          "summary": "Non-custodial architecture, jurisdiction-specific gates, EU risk, Brazil partner dependency, and US user-to-user transfer opinion.",
+          "status": "available"
+        },
+        {
+          "slug": "product-roadmap",
+          "num": "07",
+          "title": "Product Roadmap",
+          "summary": "What is live, what is specified, what the raise funds, and what comes after launch.",
+          "status": "available"
+        },
+        {
+          "slug": "fees-summary",
+          "num": "08",
+          "title": "Fees Summary",
+          "summary": "Canonical fee structure, fee caps, pass-through costs, and where diBoaS charges $0.",
+          "status": "available"
+        },
+        {
+          "slug": "technical-architecture",
+          "num": "09",
+          "title": "Technical Architecture Summary",
+          "summary": "Wallet architecture, provider dependencies, non-custodial flow, recovery model, and technical risk areas.",
+          "status": "in-preparation"
+        }
+      ]
+    },
+    "snapshot": {
+      "headline": "Company snapshot",
+      "rows": [
+        { "label": "Company", "value": "diBoaS" },
+        { "label": "Stage", "value": "Pre-seed" },
+        { "label": "Base", "value": "Berlin" },
+        { "label": "Product", "value": "Non-custodial financial app" },
+        { "label": "Primary users", "value": "Consumers and small businesses" },
+        { "label": "Consumer wedge", "value": "Goals, protection, access, clarity" },
+        { "label": "Business wedge", "value": "Cash rules, payment paths, liquidity control" },
+        { "label": "Revenue model", "value": "Explicit movement fees" },
+        {
+          "label": "Current status",
+          "value": "Marketing site and market-intelligence product live; money product specified"
+        },
+        {
+          "label": "Raise purpose",
+          "value": "Money-product build, regulatory gates, audit, infrastructure, incorporation, first B2B validation"
+        }
+      ]
+    },
+    "builtNotBuilt": {
+      "headline": "What is built, what is not.",
+      "built": [
+        "Marketing site",
+        "Market-intelligence product",
+        "Investor materials",
+        "Product specification",
+        "Regulatory analysis",
+        "Financial model"
+      ],
+      "notBuilt": [
+        "Production wallet flow",
+        "Money-in/out integration",
+        "Goal-to-strategy engine",
+        "User-to-user movement",
+        "B2B cash rules",
+        "Production reporting and records"
+      ],
+      "closing": "That is the point of the raise."
+    },
+    "raiseProves": {
+      "headline": "The raise funds proof, not theater.",
+      "body": [
+        "The first money should prove the right things:",
+        "Can the money product ship safely? Can the regulatory launch gates be cleared? Can a money-in/out partner be signed? Can early users fund accounts? Can B2B demand show up at the assumed deal sizes? Can the founder-built plan hold, or should the senior engineer path be activated earlier?"
+      ]
+    },
+    "openRisks": {
+      "headline": "Open risks are named.",
+      "intro": "The main unresolved items are not hidden:",
+      "items": [
+        "Money-in/out partner unsigned.",
+        "Exact net margin not yet pinned.",
+        "Entity not incorporated.",
+        "B2B pipeline not yet proven.",
+        "US user-to-user transfer opinion still required.",
+        "No traction data yet."
+      ],
+      "closing": "Each one has a gate. None is treated as solved."
+    },
+    "regulatory": {
+      "headline": "Regulation is treated as governed risk.",
+      "body": [
+        "diBoaS is designed as a non-custodial interface. It does not hold customer money, does not hold customer keys, and charges usage fees for software.",
+        "The correct framing is not \"no license required.\" Based on the current regulatory memo, that architecture is designed to reduce licensing triggers, subject to jurisdiction-specific legal review and launch gates in the US, EU, and Brazil. This is a statement of design intent, not a legal opinion.",
+        "The full regulatory summary explains the US, EU, and Brazil dependencies."
+      ]
+    },
+    "contact": {
+      "headline": "Questions, objections, or follow-up.",
+      "body": "If you are reviewing the materials and want to discuss the model, risks, or raise structure, reach out directly.",
+      "founderLabel": "Founder",
+      "emailLabel": "Email",
+      "linkedinLabel": "LinkedIn",
+      "locationLabel": "Location",
+      "location": "Berlin",
+      "cta": "Schedule a conversation"
+    },
+    "footerNote": "These materials are provided for discussion purposes only. They include forward-looking assumptions, unresolved risks, and pre-launch estimates. They are not legal, tax, financial, accounting, or investment advice. Private investor materials. Please do not forward or distribute without permission.",
+    "docPage": {
+      "backToRoom": "Back to the investor room",
+      "statusAvailable": "Available",
+      "statusInPrep": "In preparation",
+      "covers": "What this document covers",
+      "inPrepBody": "This summary is in preparation and will be added to the room shortly. In the meantime, reach out and we will share the current draft directly.",
+      "requestCta": "Request the full document"
+    }
+  },
+  "access": {
+    "eyebrow": "PRIVATE INVESTOR ROOM",
+    "headline": "This room is private.",
+    "body": "Enter the access password shared with your investor materials. If you do not have one, request access from the investor page.",
+    "passwordLabel": "Access password",
+    "submit": "Enter the room",
+    "error": "Incorrect password. Please try again.",
+    "notConfigured": "Investor room access is not configured yet. Please check back shortly."
+  }
+}

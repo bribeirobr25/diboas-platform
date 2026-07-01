@@ -1,5 +1,7 @@
 import nextDynamic from 'next/dynamic';
 import { HeroSection, WedgeSection, ProseSection } from '@/components/Sections';
+import { HowItWorks } from '@/components/Sections/HowItWorks';
+import { B2C_PTBR_HOW_IT_WORKS_VISUAL_CONFIG } from '@/config/howItWorks';
 
 // Below-fold sections: code-split to keep the initial bundle lean.
 const DemoLauncher = nextDynamic(() =>
@@ -26,7 +28,6 @@ import {
   B2C_PTBR_HERO_CONFIG,
   B2C_PTBR_WHATIS_CONFIG,
   B2C_PTBR_IMAGINE_CONFIG,
-  B2C_PTBR_HOWITWORKS_CONFIG,
   B2C_PTBR_TRUST_CONFIG,
   B2C_PTBR_ADELAIDE_CONFIG,
   B2C_PTBR_DEMO_CONFIG,
@@ -114,12 +115,12 @@ export function LandingPtBR() {
       <ScrollReveal>
         <SectionErrorBoundary
           sectionId="how-it-works-ptbr"
-          sectionType="ProseSection"
+          sectionType="HowItWorks"
           enableReporting={true}
           context={{ page: 'landing-b2c', locale: 'pt-BR' }}
         >
           <div id="como-funciona" data-section-id="how-it-works-ptbr">
-            <ProseSection config={B2C_PTBR_HOWITWORKS_CONFIG} enableAnalytics={true} />
+            <HowItWorks config={B2C_PTBR_HOW_IT_WORKS_VISUAL_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>

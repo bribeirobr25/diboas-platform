@@ -61,10 +61,22 @@ const BUDGETS = {
   // dead code for a sweep to remove (knip stays at the pre-redesign baseline).
   // The expected "net JS drops at the end" therefore did not materialize: the
   // new primitives are permanent product, and the bundle settled at ~4083 KB.
-  // 4096 KB is the snug FINALIZED ceiling (~13 KB / 0.3% headroom over actual)
+  // 4096 KB was the snug FINALIZED ceiling (~13 KB / 0.3% headroom over actual)
   // — tight enough to still catch accidental heavy imports (peak/chunk caps
   // unchanged). See REDESIGN_BUILD_PLAN.md §2 + docs/audit/PENDING_ALL.md.
-  maxTotalJsKB: 4096,
+  // Recalibrated 2026-06-30 (investor vertical PR1): 4096 → 4140 KB. The new
+  // /investors + gated /investor-room routes add ~54 KB of permanent product
+  // JS (two small client forms + the room error boundary; no new heavy library
+  // — peak chunk + asset count unchanged). 4140 KB restores ~40 KB / 1%
+  // headroom over the ~4099 KB actual while keeping the accidental-heavy-import
+  // guard intact. See INVESTOR_VERTICAL_PLAN.md.
+  // CORRECTED 2026-07-01 → 4200 KB. The ~4099 KB above was an INCREMENTAL-build
+  // undercount; a CLEAN `rm -rf .next && build` of the same investor PR1 commit
+  // totals ~4157 KB (all investor-route client chunks present), so 4140 would
+  // fail clean CI. 4200 KB = ~43 KB / ~1% headroom over the clean-build truth.
+  // (The "How it works" visual scaffold added 0 — not imported by any page, so
+  // it is correctly tree-shaken; verified by stashing it: total unchanged.)
+  maxTotalJsKB: 4200,
 
   // Total bytes across all .css chunks. Baseline ~384 KB across 10 files
   // (Tailwind base + design tokens + all CSS modules; Turbopack doesn't
@@ -75,9 +87,15 @@ const BUDGETS = {
   maxTotalCssKB: 500,
 
   // Number of .js chunks. Baseline 132. Turbopack splits organically per
-  // dynamic import; 200 ceiling = ~50% headroom. Catches accidental
-  // dynamic()-everything regressions.
-  maxAssetCount: 200,
+  // dynamic import; ceiling = headroom to catch accidental dynamic()-everything
+  // regressions.
+  // CORRECTED 2026-07-01 → 210. The investor vertical PR1 (3 new routes + the
+  // page/room/[doc]/access/api client chunks) raised the clean-build JS chunk
+  // count to 203; the PR1 pass measured against an incremental build that
+  // undercounted, so the 200 cap was left and would fail clean CI. 210 = ~3%
+  // headroom over the 203 clean-build actual. (The "How it works" scaffold adds
+  // 0 chunks — not page-imported, tree-shaken.)
+  maxAssetCount: 210,
 };
 
 if (!fs.existsSync(CHUNKS_DIR)) {

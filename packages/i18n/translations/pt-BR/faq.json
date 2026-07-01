@@ -5,7 +5,7 @@
   "items": {
     "isBank": {
       "question": "O diBoaS é um banco?",
-      "answer": "Não. O diBoaS é uma plataforma que te conecta com oportunidades financeiras, em dólar. A gente não gerencia seu dinheiro e não toma decisões sobre seus fundos. Sua carteira é protegida de forma que só VOCÊ pode autorizar transações. A gente oferece as ferramentas. Você toma as decisões."
+      "answer": "Não.\n\nO diBoaS é um app financeiro. Ele ajuda você a transformar objetivos em caminhos em dólar digital, com informação clara antes de decidir.\n\nVocê guarda o seu próprio dinheiro. A diBoaS é o app, não a guardiã, e mantém apenas uma chave parcial de recuperação, nunca o controle total dos seus fundos, e não toma decisões financeiras por você."
     },
     "isForEveryone": {
       "question": "O diBoaS é pra todo mundo?",
@@ -16,8 +16,8 @@
       "answer": "R$10. O preço de um cafezinho. A maioria das plataformas de investimento exige R$500 a R$50.000 só pra abrir a porta. A gente acha que isso faz parte do problema."
     },
     "afterSignup": {
-      "question": "O que acontece depois que eu me cadastro?",
-      "answer": "Você vai receber um email com seu selo e número de Membro Fundador, seu link pessoal de convite (5 convites pra compartilhar) e instruções pra começar.\n\nA partir daí, você configura sua carteira, adiciona fundos e tá dentro."
+      "question": "O que acontece depois que eu entro na lista?",
+      "answer": "Você recebe atualizações de lançamento, informações de acesso antecipado e instruções quando o diBoaS estiver pronto para testes.\n\nAntes de qualquer dinheiro real entrar, você poderá entender o fluxo, os riscos e como o controle da carteira funciona."
     },
     "whatKindOfMoney": {
       "question": "Qual tipo de dinheiro devo usar pra começar?",
@@ -40,16 +40,16 @@
       "answer": "A Poupança rende 6,83% ao ano (média dos últimos 5 anos). É bom. Mas o real perdeu quase metade do valor frente ao dólar nos últimos 5 anos. Então enquanto seu saldo sobe em reais, seu poder de compra em moeda forte cai.\n\nPoupar em dólar no diBoaS não é pra substituir a Poupança. É pra proteger uma parte do seu dinheiro em moeda forte. Quem viaja, compra importado, manda dinheiro pra fora ou simplesmente pensa no longo prazo, pra essa pessoa, ter parte do dinheiro em dólar faz diferença."
     },
     "safety": {
-      "question": "Meu dinheiro tá seguro?",
-      "answer": "Seu dinheiro é protegido por você. Só você tem as chaves. Ninguém mais pode acessar seus fundos sem sua permissão.\n\nDito isso: isso não é conta bancária. Criptoativos não são cobertos por esquemas de garantia de depósitos. O valor dos seus ativos pode variar, e você pode perder parte ou todo o seu investimento. Além disso, como seu dinheiro tá em dólar, variações no câmbio afetam o valor em reais.\n\nA gente te mostra os dois lados, as oportunidades e os riscos. Sempre."
+      "question": "Quais são os riscos?",
+      "answer": "Você controla sua carteira. Isso importa, mas não elimina o risco.\n\nO diBoaS não é conta bancária. Criptoativos não têm FGC. Dólar digital, junto com a tecnologia e as empresas externas que movem e guardam seu dinheiro, pode falhar ou perder valor.\n\nVocê pode perder parte ou todo o seu dinheiro.\n\nA gente mostra a oportunidade e o risco antes de você decidir."
     },
     "safetyBusiness": {
-      "question": "Meu dinheiro esta seguro?",
-      "answer": "Seu dinheiro e protegido por você. Sua carteira, suas chaves. Ninguem na diBoaS pode acessar seus fundos sem sua autorização.\n\nDito isso, não e uma conta bancaria. Seu dinheiro funciona atraves de tecnologia nova. O valor pode oscilar e você pode perder parte ou todo o seu investimento. Não existe cobertura do FGC.\n\nMostramos os dois lados, as oportunidades e os riscos, sempre."
+      "question": "O dinheiro da empresa está seguro?",
+      "answer": "Sua empresa guarda os próprios fundos. Sua carteira, suas chaves. Ninguém na diBoaS pode mover seus fundos sem a sua autorização.\n\nDito isso, não é uma conta bancária nem um produto de depósito. Os fundos funcionam através de carteiras em dólar digital, redes, provedores de entrada e saída e terceiros, que podem falhar, perder valor ou ficar indisponíveis. O valor pode oscilar, e sua empresa pode perder parte ou todo o dinheiro. Não existe cobertura do FGC.\n\nO diBoaS mostra o caminho, o custo, a liquidez e o risco antes da empresa decidir."
     },
     "withdraw": {
-      "question": "Posso sacar meu dinheiro a qualquer hora?",
-      "answer": "Sim. Seu dinheiro é seu. Saque quando quiser. A taxa é {rate}, então sacar R$100 custa {exampleFee}. Sem carência. Sem multa."
+      "question": "Posso sair quando quiser?",
+      "answer": "O diBoaS foi pensado para você sair quando escolher.\n\nMas a saída pode depender de liquidez dos protocolos, funcionamento das redes, disponibilidade dos provedores de entrada e saída, Pix, bancos e suporte no seu mercado.\n\nAntes de confirmar, o diBoaS mostra o caminho disponível e os custos esperados."
     },
     "shutdown": {
       "question": "O que acontece com meu dinheiro se o diBoaS fechar?",
@@ -76,20 +76,20 @@
       "answer": "Esse e exatamente o ponto da nossa arquitetura.\n\nFinanças tradicionais: você deposita dinheiro, vira dinheiro do banco, e eles te devem um saldo.\n\ndiBoaS: seu dinheiro fica na sua própria carteira. Fornecemos o software que te ajuda a colocar ele em sistemas que geram retorno. Mas nunca temos acesso pra movimenta-lo.\n\nSe a diBoaS falir, seu dinheiro continua sendo seu. Ninguem na diBoaS pode movimentar seus fundos. Cada transação precisa da sua aprovacao.\n\nMais controle pra você. Menos risco nosso."
     },
     "risk": {
-      "question": "Qual e o risco real?",
-      "answer": "Vamos ser honestos.\n\nOs sistemas onde seu dinheiro e colocado são construidos com codigo. Codigo pode ter vulnerabilidades. Reduzimos isso usando apenas sistemas com valor total significativo sob gestao, multiplas auditorias de segurança independentes, anos de histórico atraves de eventos de mercado, e distribuindo seu dinheiro entre multiplos sistemas independentes.\n\nRisco zero? Não. Nada e, incluindo o seu banco.\n\nA pergunta real: vale a pena um perfil de risco diferente em troca de retornos melhores? Pra alguns negocios, sim. Pra outros, não. As duas respostas são validas."
+      "question": "Qual é o risco real?",
+      "answer": "O risco é real.\n\nFundos empresariais podem passar por carteiras em dólar digital, protocolos DeFi, contratos inteligentes, redes, provedores de entrada e saída e terceiros. Esses sistemas podem falhar, perder valor, ficar indisponíveis ou criar restrições de liquidez.\n\nTambém existe risco cambial. O dólar pode cair frente ao real, oscilar ou não proteger o caixa no momento em que a empresa precisa.\n\nSua empresa pode perder dinheiro.\n\nO diBoaS mostra caminho, custo, câmbio, liquidez e risco antes da empresa decidir."
     },
     "canLoseEverything": {
       "question": "Posso perder tudo?",
       "answer": "Nas estratégias estáveis (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): a chance de perda total é extremamente baixa. Em quase 4 anos de testes e milhares de simulações, isso não aconteceu. Mas \"extremamente baixo\" não é zero.\n\nNas estratégias de crescimento: quanto maior a porcentagem de crescimento, maior a faixa de resultados possíveis. Full Throttle com 85% de exposição a crescimento teve quedas simuladas ultrapassando 78%.\n\nO risco é real. Nós não minimizamos isso. Nós ajudamos você a escolher o nível que combina com o que você aguenta."
     },
     "howPossible": {
-      "question": "Como isso é possível sem taxas altas?",
-      "answer": "Eliminando intermediários. Agências, executivos, custos antigos. Tecnologia nova faz o mesmo trabalho por uma fração do preço. A gente repassa essa economia pra você. Esse é o modelo inteiro."
+      "question": "Como o diBoaS mantém custos baixos?",
+      "answer": "O diBoaS é software, não uma rede de agências.\n\nA gente não cobra mensalidade e não pega uma fatia escondida do que o seu dinheiro rende. O diBoaS ganha com taxas claras de movimentação, exibidas antes de você confirmar.\n\nTaxas de terceiros, provedores, rede, Pix, câmbio ou bancos ainda podem se aplicar."
     },
     "catch": {
       "question": "Qual e a pegadinha?",
-      "answer": "Cobramos taxas pequenas quando o dinheiro se move. Gratis quando você recebe pagamentos. Gratis quando você investe. {sellRate} quando você vende ou fecha uma posição. {cashOutRate} quando você saca.\n\nSe você recebe R$50.000 em pagamentos, ficamos com R$0. Se você investe R$50.000, a gente fica com R$0. Se você vende R$50.000, ficamos com {sellExampleFee}. Se você não ganha nada e não envia nada, a gente não ganha nada.\n\nSem taxas escondidas. Sem saldo mínimo. Sem mensalidade. Sem pegadinha."
+      "answer": "Cobramos taxas quando o dinheiro se move, exibidas antes de você confirmar. Receber dólar digital de outro usuário diBoaS é R$0; um pagamento via cartão roda como uma entrada (on-ramp). Iniciar uma estratégia é grátis para começar. {sellRate} quando você vende ou fecha uma posição. {cashOutRate} quando você saca.\n\nSe outro usuário diBoaS te paga R$50.000 em dólar digital, ficamos com R$0. Se você inicia uma estratégia com R$50.000, ficamos com R$0 para começar. Se você vende R$50.000, ficamos com {sellExampleFee}. Se você não ganha nada e não move nada, a gente não ganha nada.\n\nTaxas de terceiros, provedores, rede, bancos ou câmbio também podem se aplicar."
     },
     "justTransfers": {
       "question": "Posso usar o diBoaS só pra transferências internacionais?",
@@ -129,23 +129,23 @@
     },
     "smbOrStartup": {
       "question": "E pra pequenas empresas ou startups?",
-      "answer": "Pras duas. Se você tem uma padaria perdendo 4% em cada venda no cartao, ajudamos você a ficar com esse dinheiro. Se você e uma startup com R$2 milhoes parados no banco rendendo CDI, ajudamos a render mais.\n\nAs ferramentas são as mesmas. So os numeros que mudam."
+      "answer": "As duas. Uma pequena empresa que aceita pagamentos no cartão quer custos mais claros antes de mover dinheiro. Uma startup com runway parado quer regras para o que fica pronto e o que pode se mover.\n\nAs ferramentas são as mesmas. Só as perguntas sobre o caixa que mudam."
     },
     "payments": {
       "question": "Como funcionam os pagamentos instantaneos?",
-      "answer": "Transferencias tradicionais passam por bancos correspondentes. Seu banco, o banco deles, talvez outro banco, e ai o banco do destinatario. Cada etapa leva tempo e cobra taxas.\n\nCom diBoaS, os pagamentos vao direto. Da sua carteira pra carteira deles. Pronto.\n\nSeu freelancer em Miami recebe em segundos, pelo cambio real, gratis. Não R$75 a R$250 e 3 dias uteis."
+      "answer": "Transferências tradicionais passam por bancos correspondentes. Seu banco, o banco deles, talvez outro banco, e aí o banco do destinatário. Cada etapa leva tempo e cobra taxas.\n\nCom o diBoaS, os pagamentos em dólar digital vão de forma mais direta, da sua carteira para a deles, onde houver suporte.\n\nA disponibilidade pode depender de configuração de carteira, redes suportadas, provedores de entrada e saída, contraparte, regulação local, suporte do provedor e análise de compliance. Antes do dinheiro se mover, o diBoaS mostra o caminho disponível e os custos esperados quando houver essa informação."
     },
     "compliance": {
-      "question": "E quanto a compliance e impostos?",
-      "answer": "Construimos a diBoaS pra negocios reais com necessidades reais de compliance.\n\nExtratos mensais formatados pro seu software contábil. Historico de transações com trilha de auditoria completa. Documentacao fiscal no final do ano. Relatorios prontos pro conselho que seu CFO realmente vai entender.\n\nSabemos que uma hora você vai ser auditado. Garantimos que você esteja preparado."
+      "question": "E quanto à contabilidade e aos impostos?",
+      "answer": "O diBoaS está sendo construído para operação real.\n\nIsso inclui histórico de transações, extratos, registros exportáveis e relatórios pensados para apoiar contabilidade, impostos, auditoria e revisão interna.\n\nSua empresa continua responsável por suas obrigações contábeis, fiscais, legais e regulatórias."
     },
     "sendMoney": {
       "question": "Posso mandar dinheiro pra qualquer pessoa?",
-      "answer": "Hoje, você pode mandar dinheiro na hora e de graça pra qualquer usuário do diBoaS. Quanto mais a rede cresce, mais gente você alcança."
+      "answer": "Hoje, você pode enviar dólar digital para outros usuários do diBoaS onde houver suporte. Pagar uma conta externa roda como uma saída (off-ramp), com custos exibidos antes de mover dinheiro. Conforme a rede cresce, aumenta quem você consegue alcançar."
     },
     "whereMoneyGoes": {
       "question": "Pra onde vai meu dinheiro exatamente?",
-      "answer": "Seu dinheiro e colocado em sistemas financeiros estabelecidos que operam ha mais de 3 anos, sobreviveram a multiplas quedas de mercado e são auditados de forma independente em segurança.\n\nTodos os detalhes, incluindo nomes, histórico e nossos criterios de selecao, estao publicados na nossa pagina de Estrategias. Sem necessidade de cadastro.\n\nEscolhemos esses sistemas porque são transparentes, testados em batalha, e você pode ver exatamente onde seus fundos estao a qualquer momento."
+      "answer": "Quando você escolhe uma estratégia, os fundos podem passar por protocolos estabelecidos em dólar digital, redes, provedores de entrada e saída e terceiros.\n\nTodos os detalhes, incluindo nomes, histórico e nossos critérios de seleção, estão publicados nas nossas páginas de Estratégias e Protocolos. Sem necessidade de cadastro.\n\nEsses sistemas podem falhar, perder valor ou ficar indisponíveis, por isso o diBoaS mostra o caminho, o custo, a liquidez e o risco antes de mover dinheiro."
     },
     "protocolsListLimit": {
       "question": "Por que vocês não listam todos os protocolos DeFi?",

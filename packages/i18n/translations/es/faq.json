@@ -5,7 +5,7 @@
   "items": {
     "isBank": {
       "question": "¿Es diBoaS un banco?",
-      "answer": "No. diBoaS es una plataforma que te conecta con oportunidades financieras. No gestionamos tu dinero ni tomamos decisiones sobre tus fondos. Tu cartera está protegida de forma que solo tú puedes autorizar transacciones. Nosotros damos las herramientas. Tú tomas las decisiones."
+      "answer": "No.\n\ndiBoaS es una app financiera. Te ayuda a asignar dinero a un objetivo, entender posibles caminos con dólares digitales y ver información clara antes de decidir.\n\nTú guardas tu propio dinero. diBoaS es la app, no la custodia, y solo conserva una clave parcial de recuperación, nunca el control total de tus fondos. No toma decisiones financieras por ti."
     },
     "isForEveryone": {
       "question": "¿Es diBoaS para todo el mundo?",
@@ -16,8 +16,8 @@
       "answer": "5 €. El precio de un café. La mayoría de las plataformas de inversión exigen 500 a 10.000 € solo para abrirte la puerta. Creemos que eso es parte del problema."
     },
     "afterSignup": {
-      "question": "¿Qué pasa después de registrarme?",
-      "answer": "Recibirás un email con tu insignia y número de Miembro Fundador, tu enlace personal de invitación (5 invitaciones para compartir) e instrucciones para empezar.\n\nA partir de ahí, configuras tu cartera, añades fondos y ya estás dentro."
+      "question": "¿Qué pasa después de unirme a la lista de espera?",
+      "answer": "Recibirás actualizaciones del producto, información de acceso anticipado e instrucciones cuando diBoaS esté listo para pruebas.\n\nAntes de que haya dinero real de por medio, podrás entender el flujo del producto, los riesgos y cómo funciona el control de la cartera."
     },
     "whatKindOfMoney": {
       "question": "¿Con qué tipo de dinero debería empezar?",
@@ -40,16 +40,16 @@
       "answer": "Porque el dólar, como moneda de reserva global, es más estable a largo plazo. Con diBoaS, tu dinero se mantiene en dólares digitales, protegido contra la devaluación de la moneda local."
     },
     "safety": {
-      "question": "¿Está seguro mi dinero?",
-      "answer": "Tu dinero está protegido por ti. Solo tú tienes las claves. Nadie más puede acceder a tus fondos sin tu permiso.\n\nDicho esto, esto no es una cuenta bancaria. Los criptoactivos no están cubiertos por los esquemas de garantía de depósitos. El valor de tus activos puede fluctuar, y podrías perder parte o la totalidad de tu inversión.\n\nTe mostramos ambos lados, las oportunidades y los riesgos. Siempre."
+      "question": "¿Qué riesgos hay?",
+      "answer": "Tú controlas tu cartera. Eso importa, pero no elimina el riesgo.\n\ndiBoaS no es una cuenta bancaria. Los criptoactivos no están cubiertos por el Fondo de Garantía de Depósitos. Los dólares digitales, junto con la tecnología y las empresas externas que mueven y guardan tu dinero, pueden fallar o perder valor.\n\nPuedes perder parte o todo tu dinero.\n\nMostramos la oportunidad y el riesgo antes de que decidas."
     },
     "safetyBusiness": {
       "question": "Esta seguro mi dinero?",
-      "answer": "Tu dinero esta asegurado por ti. Tu cartera, tus claves. Nadie en diBoaS puede acceder a tus fondos sin tu autorización.\n\nDicho esto, no es una cuenta bancaria. Tus fondos funcionan a traves de nueva tecnologia. El valor puede fluctuar y podrias perder parte o la totalidad de tu inversion. No hay seguro de depositos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre."
+      "answer": "Tu empresa guarda sus propios fondos. Tu cartera, tus claves. Nadie en diBoaS puede mover tus fondos sin tu autorización.\n\nDicho esto, no es una cuenta bancaria ni un producto de depósito. Los fondos funcionan a través de carteras de dólares digitales, redes, proveedores de entrada y salida y terceros, que pueden fallar, perder valor o no estar disponibles. El valor puede fluctuar y tu empresa podría perder parte o la totalidad de su dinero. No hay seguro de depósitos.\n\ndiBoaS muestra el camino, el coste, la liquidez y el riesgo antes de que tu empresa decida."
     },
     "withdraw": {
-      "question": "¿Puedo retirar mi dinero en cualquier momento?",
-      "answer": "Sí. Tu dinero es tuyo. Retíralo cuando quieras. La comisión es del {rate}, así que retirar 100 € te cuesta {exampleFee}. Sin periodos de permanencia. Sin penalizaciones."
+      "question": "¿Puedo salir cuando quiera?",
+      "answer": "diBoaS está diseñado para que puedas salir cuando decidas.\n\nAun así, la salida puede depender de la liquidez de los protocolos, la disponibilidad de redes, proveedores de entrada y salida, bancos y disponibilidad local.\n\nAntes de confirmar, diBoaS muestra el camino disponible y los costes esperados."
     },
     "shutdown": {
       "question": "¿Qué pasa con mi dinero si diBoaS cierra?",
@@ -77,19 +77,19 @@
     },
     "risk": {
       "question": "Cual es el riesgo real?",
-      "answer": "Seamos honestos.\n\nLos sistemas donde va tu dinero estan construidos con codigo. El codigo puede tener vulnerabilidades. Reducimos esto usando solo sistemas con un valor total asegurado significativo, multiples auditorias de seguridad independientes, anos de historial a traves de eventos de mercado, y distribuyendo tu dinero entre multiples sistemas independientes.\n\nRiesgo cero? No. Nada lo es, incluido tu banco.\n\nLa pregunta real: merece la pena un perfil de riesgo diferente a cambio de mejores retornos? Para algunos negocios, si. Para otros, no. Ambas respuestas son validas."
+      "answer": "El riesgo es real.\n\ndiBoaS no es una cuenta bancaria ni un producto de depósito. Los criptoactivos y las estrategias no están cubiertos por sistemas de garantía de depósitos.\n\nLos fondos de la empresa pueden pasar por carteras, protocolos, smart contracts, redes, proveedores de entrada y salida y terceros. Estos pueden fallar, perder valor, no estar disponibles o crear restricciones de liquidez.\n\nTu empresa puede perder dinero.\n\ndiBoaS muestra el camino, los costes, la disponibilidad y el riesgo antes de que tu empresa decida."
     },
     "canLoseEverything": {
       "question": "¿Puedo perderlo todo?",
       "answer": "En las estrategias estables (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): la probabilidad de pérdida total es extremadamente baja. En casi 4 años de pruebas y miles de simulaciones, no ocurrió. Pero \"extremadamente baja\" no es cero.\n\nEn las estrategias de crecimiento: cuanto mayor el porcentaje de crecimiento, más amplio el rango de resultados posibles. Full Throttle con un 85% de exposición a crecimiento ha registrado caídas simuladas superiores al 78%.\n\nEl riesgo es real. No lo minimizamos. Te ayudamos a elegir el nivel que encaja con lo que puedes asumir."
     },
     "howPossible": {
-      "question": "¿Cómo es posible sin comisiones altas?",
-      "answer": "Eliminando a los intermediarios. Las sucursales, los ejecutivos, los costes heredados. La nueva tecnología hace el mismo trabajo por una fracción del precio. Te pasamos ese ahorro a ti. Ese es todo el modelo."
+      "question": "¿Cómo mantiene diBoaS los costes bajos?",
+      "answer": "diBoaS es software, no una red de oficinas.\n\nNo cobramos cuota mensual y no aplicamos ningún recargo oculto sobre lo que gana tu dinero. diBoaS gana con comisiones claras de movimiento, mostradas antes de confirmar.\n\nAun así, pueden aplicarse comisiones de terceros, proveedores de entrada y salida, redes, bancos o cambio de divisa."
     },
     "catch": {
       "question": "Cual es la trampa?",
-      "answer": "Cobramos comisiones pequenas cuando el dinero se mueve. Gratis cuando recibes pagos. Gratis cuando inviertes. {sellRate} cuando vendes o cierras una posición. {cashOutRate} cuando retiras.\n\nSi recibes 10.000 EUR en pagos, retenemos 0 EUR. Si inviertes 10.000 EUR, retenemos 0 EUR. Si vendes 10.000 EUR, retenemos {sellExampleFee}. Si no ganas nada y no envias nada, nosotros no ganamos nada.\n\nSin comisiones ocultas. Sin saldos minimos. Sin cargos mensuales. Sin trampa."
+      "answer": "Cobramos comisiones cuando el dinero se mueve, mostradas antes de confirmar. Recibir dólares digitales de otro usuario de diBoaS es 0 €; un pago con tarjeta se procesa como entrada (on-ramp). Iniciar una estrategia es gratis para empezar. {sellRate} cuando vendes o cierras una posición. {cashOutRate} cuando retiras.\n\nSi otro usuario de diBoaS te paga 10.000 € en dólares digitales, retenemos 0 €. Si inicias una estrategia con 10.000 €, retenemos 0 € para empezar. Si vendes 10.000 €, retenemos {sellExampleFee}. Si no ganas nada y no mueves nada, nosotros no ganamos nada.\n\nTambién pueden aplicarse comisiones de terceros, proveedores de entrada y salida, redes, bancos o cambio de divisa."
     },
     "justTransfers": {
       "question": "¿Puedo usar diBoaS solo para transferencias?",
@@ -129,23 +129,23 @@
     },
     "smbOrStartup": {
       "question": "Es esto para pequenas empresas o startups?",
-      "answer": "Para ambas. Si tienes un bar que pierde un 2,5% en cada pago con tarjeta, te ayudamos a quedarte con ese dinero. Si eres una startup con 500.000 EUR parados en el banco ganando un 0,5%, ayudamos a que generen mas.\n\nLas herramientas son las mismas. Solo cambian los numeros."
+      "answer": "Para ambas. Una pequeña empresa que acepta pagos con tarjeta quiere ver costes más claros antes de mover dinero. Una startup con liquidez en caja quiere reglas para lo que debe estar disponible y lo que puede moverse.\n\nLas herramientas son las mismas. Solo cambian las preguntas sobre la caja."
     },
     "payments": {
       "question": "Como funcionan los pagos instantaneos?",
-      "answer": "Las transferencias tradicionales pasan por bancos corresponsales. Tu banco, su banco, quiza otro banco, y luego el banco del receptor. Cada paso lleva tiempo y cobra comisiones.\n\nCon diBoaS, los pagos van directos. De tu cartera a la suya. Hecho.\n\nTu freelancer en Buenos Aires cobra en segundos, al tipo de cambio real, gratis. No 15 a 50 EUR y 3 dias laborables."
+      "answer": "Las transferencias tradicionales pasan por bancos corresponsales. Tu banco, su banco, quizá otro banco, y luego el banco del receptor. Cada paso lleva tiempo y cobra comisiones.\n\nCon diBoaS, los pagos en dólares digitales van de forma más directa, de tu cartera a la suya, donde esté soportado.\n\nLa disponibilidad puede depender de la configuración de la cartera, redes soportadas, proveedores de entrada y salida, contrapartes, regulación local, soporte del proveedor y revisiones de compliance. Antes de mover dinero, diBoaS muestra la vía disponible y los costes esperados cuando estén disponibles."
     },
     "compliance": {
       "question": "Que pasa con el cumplimiento normativo y los impuestos?",
-      "answer": "Construimos diBoaS para negocios reales con necesidades de cumplimiento reales.\n\nExtractos mensuales formateados para tu software contable. Historial de transacciones con rastro de auditoria completo. Documentacion fiscal a final de ano. Informes listos para tu consejo que tu CFO realmente entendera.\n\nSabemos que en algun momento te van a auditar. Nos aseguramos de que estes preparado."
+      "answer": "diBoaS se está construyendo para operaciones reales.\n\nEso incluye historial de transacciones, extractos, datos exportables e informes pensados para apoyar contabilidad, impuestos, auditoría y control interno.\n\nTu empresa sigue siendo responsable de su propia contabilidad, fiscalidad y obligaciones legales y regulatorias."
     },
     "sendMoney": {
       "question": "¿Puedo enviar dinero a cualquier persona?",
-      "answer": "Hoy, puedes enviar dinero al instante y gratis a cualquier usuario de diBoaS. A medida que la red crece, más personas podrás alcanzar."
+      "answer": "Hoy, puedes enviar dólares digitales a otros usuarios de diBoaS donde esté soportado. Pagar a una cuenta externa se procesa como una salida (off-ramp), con los costes mostrados antes de mover dinero. A medida que la red crece, también lo hace a quién puedes alcanzar."
     },
     "whereMoneyGoes": {
       "question": "A donde va mi dinero exactamente?",
-      "answer": "Tu dinero se coloca en sistemas financieros establecidos que llevan operando mas de 3 anos, han sobrevivido a multiples caidas de mercado y son auditados de forma independiente en seguridad.\n\nTodos los detalles, incluyendo nombres, historial y nuestros criterios de seleccion, estan publicados en nuestra pagina de Estrategias. Sin necesidad de registro.\n\nElegimos estos sistemas porque son transparentes, probados en batalla, y puedes ver exactamente donde estan tus fondos en todo momento."
+      "answer": "Cuando eliges una estrategia, los fondos pueden moverse a través de protocolos de dólar digital establecidos, redes, proveedores de entrada y salida y terceros.\n\nTodos los detalles, incluyendo nombres, historial y nuestros criterios de selección, están publicados en nuestras páginas de Estrategias y Protocolos. Sin necesidad de registro.\n\nEstos pueden fallar, perder valor o no estar disponibles, por eso diBoaS muestra el camino, el coste, la liquidez y el riesgo antes de mover dinero."
     },
     "protocolsListLimit": {
       "question": "Por que no listais todos los protocolos DeFi?",

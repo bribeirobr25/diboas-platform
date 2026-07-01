@@ -1,128 +1,102 @@
 {
   "hero": {
-    "headline": "The system isn't broken. It's designed to take a cut of everything you earn.",
-    "subheadline": "You're losing 2 to 3% on every card payment. And the cash in your bank? It's earning returns for everyone except you. That changes now.",
-    "cta": "See what you're losing",
+    "headline": "Cash needs a job.",
+    "subheadline": "Payroll. Rent. Taxes. Suppliers. Runway.\n\ndiBoaS helps businesses separate cash by purpose, see digital-dollar paths, and understand cost and risk before funds move.",
+    "cta": "See how it works",
     "imageAlt": "Business treasury management illustration",
     "trustBadges": {
       "wallet": {
         "label": "Your funds, your wallet"
       },
       "reporting": {
-        "label": "Board-ready reporting"
+        "label": "Exportable records"
       },
       "audited": {
-        "label": "Built on audited protocols"
+        "label": "Built on established protocols"
       }
     }
   },
   "twoWorlds": {
-    "header": "Two ways the system costs you.",
+    "header": "Cash leaks quietly.",
     "cardA": {
-      "headline": "If you accept card payments",
-      "body": "Every time a customer pays with a card, you lose 2 to 3%.\n\nOn $1,000 a day in sales, that's $600 to $900 a month. Gone. Then the money takes 3 to 5 business days to reach your account. Your money, sitting in someone else's pocket, earning them interest.\n\nWhat if you kept all of it?",
-      "cta": "See what you are losing",
+      "headline": "Card fees add up.",
+      "body": "Every swipe, tap, and online checkout has a cost.\n\nFor many small businesses, card processing fees can take 1.5% to 3.5% of a transaction before the money reaches the account.\n\ndiBoaS is designed to help businesses review digital-dollar payment paths where available, with costs shown before funds move.\n\nNot every rail disappears. Not every cost goes away. The point is clarity before approval.",
+      "cta": "Estimate payment costs",
       "imageAlt": "Business payment processing"
     },
     "cardB": {
-      "headline": "If your company has cash sitting idle",
-      "body": "You raised money. You're spending it carefully. But the cash you're not using right now? Your bank puts it to work, earns returns, and pays you almost nothing.\n\nOn $500,000 idle, the gap between what your bank pays and what's possible could be tens of thousands a year.\n\nWhat if that money worked for you instead?",
-      "cta": "See what your bank is keeping",
+      "headline": "Idle cash still has a job.",
+      "body": "Every business needs cash ready.\n\nBut not every dollar needs to sit in the same account doing the same job.\n\nSet an operating floor. Keep what you need available. Review selected digital-dollar strategies for excess cash only when the risk fits your policy.\n\nIdle cash should not move because a landing page got excited. It should move because the rule is clear.",
+      "cta": "Review idle cash",
       "imageAlt": "Treasury management on phone"
-    }
-  },
-  "b2bGoals": {
-    "heading": "Let's make it simple.",
-    "ariaLabel": "Business savings comparison",
-    "withDiboas": "With diBoaS",
-    "yourBank": "Your bank:",
-    "more": "MORE with diBoaS",
-    "cards": {
-      "paymentFees": {
-        "title": "Payment Fees",
-        "titleSummary": "it is not just 3%",
-        "subtitle": "On a $1,000 daily card sales, average 3% processing fee. It costs your business $900/month or more than $10,000 in one year.",
-        "diboasResult": "$11,880",
-        "bankResult": "",
-        "difference": "$11,880/year",
-        "tagline": "You have the chance not only to cut costs, but to transform it into a new revenue line.",
-        "source": "Example based on $1,000/day in card sales at 3% processing fee, with savings invested at a 10% average in annual return (derived 2026-05-13 via scripts/derive-b2b-card-numbers.mjs). Projected returns are illustrative. Actual results may vary.",
-        "howPossible": "How is this possible?"
-      },
-      "idleCash": {
-        "title": "Idle Cash",
-        "titleSummary": "get what is fair",
-        "subtitle": "On a $100,000 idle cash sitting in your business account.",
-        "diboasResult": "$7,000",
-        "bankResult": "$3,500",
-        "difference": "$3,500/year",
-        "tagline": "You have the chance to double or more your returns and fully control your money.",
-        "source": "Example based on $100,000 idle cash with a 3.5% high-yield business savings rate (Bankrate) vs diBoaS Conservative 7% in digital dollar (derived 2026-05-13 via scripts/derive-b2b-card-numbers.mjs). Projected returns are illustrative. Actual results may vary.",
-        "howPossible": "How is this possible?"
-      }
     }
   },
   "origin": {
     "transitionHook": "",
-    "header": "Why we are building this?",
+    "header": "Your businesses know the gap.",
     "paragraphs": {
-      "0": "Our founder's grandmother saved half of everything she earned her entire life. Her bank paid her almost nothing.",
-      "1": "She didn't know there were better options. Nobody told her. The language was too complicated. The minimums were too high. The institutions didn't care about people with small savings.",
-      "2": "We've seen the same thing happen with businesses. Coffee shops losing $10,000 a year to card fees. Startups with half a million in the bank earning less than $200 a month in interest.",
-      "3": "You just saw it.",
-      "4": "New technology made it possible to go around the gatekeepers. We just had to build the door."
+      "0": "A customer pays today. The money lands later.",
+      "1": "A card fee takes its cut.",
+      "2": "Payroll is due Friday. Rent does not wait. Taxes do not care about your cash flow.",
+      "3": "And the money you keep aside? It often sits in one account, with very little explanation of what else may be possible.",
+      "4": "diBoaS exists to make business cash easier to separate, move, and understand. Not with promises. With rules, visible costs, visible risk, and wallet control."
     }
   },
   "howItWorks": {
-    "header": "All your Business can do",
+    "header": "Cash, separated by purpose.",
     "steps": {
       "connect": {
-        "title": "Connect your business",
-        "description": "Link your business account. Two-minute setup. No technical integration needed. No developer. No downtime. You do it during your morning coffee.",
+        "title": "Connect your flow",
+        "description": "Link supported business accounts, wallets, or payment paths where available.",
         "imageAlt": "Connect your business account"
       },
       "rules": {
-        "title": "You set the rules",
-        "description": "Tell us your floor. \"Always keep $50,000 available.\" Everything above that? Put it to work. You set the rules. You change them anytime.",
+        "title": "Set your floor",
+        "description": "Decide what must stay ready for payroll, rent, taxes, suppliers, and emergencies.",
         "imageAlt": "Set your rules and limits"
       },
       "works": {
-        "title": "Your money works",
-        "description": "Your idle cash starts earning. Payments arrive in seconds, not days. Your processing fees drop from 3% to zero. And you didn't have to think about any of it.",
+        "title": "Review the path",
+        "description": "See strategy, cost, liquidity, and risk before funds move.",
         "imageAlt": "Your money works for you"
       },
       "access": {
-        "title": "Access anytime",
-        "description": "Need cash? One tap. No lock-ups. No penalties. Processed instantly. Bank transfer times may vary.",
+        "title": "Move when approved",
+        "description": "Your business approves movement from its wallet. Availability may depend on partners, networks, ramps, liquidity, and compliance review.",
         "imageAlt": "Access your money anytime"
       }
     },
-    "transitionHook": "That's the process. Here's what you actually get."
+    "transitionHook": "That's the flow. Here's what your cash gets."
   },
   "features": {
-    "header": "What your business gets.",
+    "header": "What your cash gets.",
     "cards": {
       "getPaid": {
-        "headline": "Get paid without the cut",
-        "body": "Your customers pay. You keep 100%. Instantly.",
+        "headline": "Payment paths with visible costs",
+        "body": "Review digital-dollar payment options where available, with expected costs shown before funds move.",
         "imageAlt": "Get paid without the cut"
       },
       "payAnyone": {
-        "headline": "Pay anyone, anywhere, instantly",
-        "body": "Contractors, suppliers, freelancers. Worldwide. No fees. Real-time",
+        "headline": "Vendor and contractor payments",
+        "body": "Send payments through supported rails where available. Network, provider, ramp, settlement, and compliance conditions may apply.",
         "imageAlt": "Pay anyone anywhere instantly"
       },
       "adelaide": {
-        "headline": "Adelaide watches your money",
-        "body": "Market intelligence for business owners. No $500-an-hour advisor needed.",
+        "headline": "Rules for idle cash",
+        "body": "Set an operating floor, separate excess cash, and review selected strategies only when they fit your business risk policy.",
         "imageAlt": "Adelaide market intelligence"
+      },
+      "records": {
+        "headline": "Records for real operations",
+        "body": "Transaction history, statements, and exportable records designed to support accounting, tax, audit, and internal review.",
+        "imageAlt": "A desk with laptops and printed financial records under review."
       }
     },
     "transitionHook": "But here's the part nobody else is doing."
   },
   "fees": {
-    "header": "What it costs. All of it.",
-    "subtitle": "No hidden fees. No minimum balances. No monthly charges. Here's every fee, on the table.",
+    "header": "No surprise in the fee stack.",
+    "subtitle": "Clear costs before business funds move.",
     "headers": {
       "action": "Action",
       "diboas": "diBoaS",
@@ -133,103 +107,103 @@
     "rows": {
       "account": {
         "action": "Business Account",
-        "diboas": "Free forever",
-        "competitors": "$10 to $50/month",
-        "difference": "Save $120 to $600/year",
-        "example": "Your account: $0. Always."
+        "diboas": "$0 monthly account fee",
+        "competitors": "Many apps charge monthly fees",
+        "difference": "No monthly diBoaS account fee",
+        "example": "Your account: $0."
       },
       "receive": {
         "action": "Receive Payments",
-        "diboas": "FREE",
-        "competitors": "2 to 3% (card processors)",
-        "difference": "Save $20 to $30 per $1,000",
-        "example": "Receive $1,000: costs $0. Competitors charge $20 to $30."
+        "diboas": "$0 only when another diBoaS user pays you in digital dollars; a card-funded payment is an on-ramp (0.48% plus the card processor's cost)",
+        "competitors": "Card processors may charge 1.5% to 3.5%",
+        "difference": "Card and ramp costs apply when a customer pays by card; only digital-dollar transfers between diBoaS users are free",
+        "example": "A diBoaS user pays you $1,000 in digital dollars: diBoaS fee is $0. A card-funded $1,000 payment runs as an on-ramp: 0.48% ($4.80) plus the card processor's cost."
       },
       "send": {
         "action": "Send / Pay",
-        "diboas": "FREE",
-        "competitors": "$1.50 to $50 (wires)",
-        "difference": "Save $1.50 to $50 per transfer",
-        "example": "Pay a contractor $500: $0"
+        "diboas": "$0 only between diBoaS users in digital dollars; paying an external account is an off-ramp (0.48%)",
+        "competitors": "Wires and transfers may charge fixed fees",
+        "difference": "Only digital-dollar transfers between diBoaS users are free; paying a non-diBoaS contractor runs as an off-ramp",
+        "example": "Pay a contractor who uses diBoaS $500 in digital dollars: diBoaS fee is $0. Pay an external contractor $500: off-ramp 0.48% ($2.40) applies."
       },
       "add": {
         "action": "Add Money",
         "diboas": "{rate} (min {min}, max {max})",
-        "competitors": "0 to 1.5%",
-        "difference": "Comparable to most providers",
-        "example": "Add $10,000: costs $48"
+        "competitors": "Provider fees may vary",
+        "difference": "Shown before confirmation",
+        "example": "Add $10,000: diBoaS fee is $48"
       },
       "invest": {
         "action": "Invest / Grow",
-        "diboas": "FREE",
+        "diboas": "Free to start",
         "competitors": "0.5 to 2% (advisors, platforms)",
-        "difference": "Save $50 to $200 per $10,000",
-        "example": "Invest $10,000: $0. Free to start."
+        "difference": "Strategy costs and risks shown before approval",
+        "example": "Start with $10,000: diBoaS charges $0 to start"
       },
       "sell": {
         "action": "Sell / Close",
         "diboas": "{rate} (min {min}, max {max})",
-        "competitors": "0.5 to 2%",
-        "difference": "Save $11 to $161 per $10,000",
-        "example": "Sell $10,000: costs $39"
+        "competitors": "Provider fees may vary",
+        "difference": "0.39%, capped at $25",
+        "example": "Sell $10,000: diBoaS fee is $25 (0.39% is $39, capped at $25)"
       },
       "swap": {
         "action": "Swap",
-        "diboas": "FREE",
-        "competitors": "0.5 to 2% spread",
-        "difference": "Save $50 to $200 per $10,000",
+        "diboas": "diBoaS fee $0 where supported",
+        "competitors": "Spreads or provider costs may apply",
+        "difference": "diBoaS fee shown before you swap",
         "example": "Swap $10,000: $0"
       },
       "cashOut": {
         "action": "Cash Out",
         "diboas": "{rate} (min {min}, max {max})",
-        "competitors": "1 to 3% plus delays",
-        "difference": "Save $52 to $252 per $10,000",
-        "example": "Cash out $10,000: costs $48"
+        "competitors": "Fees, spreads, and delays may vary",
+        "difference": "Shown before confirmation",
+        "example": "Cash out $10,000: diBoaS fee is $48"
       }
     },
-    "disclaimer": "*diBoaS fee shown. Third-party network fees may apply (typically less than $0.01).",
+    "disclaimer": "*diBoaS fees shown. Third-party provider, ramp, network, banking, settlement, compliance, or exchange fees may apply and are shown before confirmation where available.",
     "pricingNote": "Pricing comparisons based on publicly available rates as of February 2026. Ranges reflect common pricing across major providers. Actual competitor pricing varies by provider, volume, and agreement terms.",
-    "example": "Receive $1,000 in payments: you keep $1,000 in your diBoaS account. Cash out to your bank: $995.20 (after {cashOutRate} cash-out fee). Still cheaper than the $970 to $980 a card processor leaves you.",
+    "example": "A diBoaS user pays you $1,000 in digital dollars: you keep $1,000 in your diBoaS account. Cash out to your bank as an off-ramp: {cashOutRate} applies. A card-funded payment is an on-ramp, with card and ramp costs shown before funds move.",
     "expandableToggle": "No hidden fees. No minimum balances. No monthly charges. See all fees.",
-    "footerLine": "Every fee. On the table. Nothing else.",
-    "transitionHook": "Still reading? Good. Let's make sure this actually fits."
+    "footerLine": "Every cost should be visible before business funds move.",
+    "transitionHook": "Costs first. Then let's see if this is a fit."
   },
   "fitAssessment": {
-    "header": "Is this right for your business?",
+    "header": "Is this a fit?",
     "goodFit": {
       "title": "Good Fit",
       "iconAlt": "Good fit checkmark",
-      "description": "Your business accepts card payments and you're tired of the 2 to 3% cut. Your company has cash sitting idle earning almost nothing.",
+      "description": "Your business wants clearer payment paths, better visibility over idle cash, and rules for what can move, what must stay ready, and what risk is acceptable.",
       "items": [
-        "Tired of losing 2 to 3% on card payments.",
-        "Cash sitting idle earning almost nothing.",
-        "You want full control over your money.",
-        "Comfortable with a different risk for better returns."
+        "You want clearer payment paths, with costs shown before funds move.",
+        "You want better visibility over idle cash.",
+        "You want rules for what can move and what must stay ready.",
+        "You're comfortable defining what risk is acceptable."
       ]
     },
     "notAFit": {
       "title": "Not a Fit",
       "iconAlt": "Not a fit indicator",
-      "description": "You need government deposit insurance above everything else. You have zero tolerance for any risk.",
+      "description": "You need government deposit insurance above everything else. You have zero tolerance for digital-asset, protocol, liquidity, ramp, network, or provider risk. You need a traditional bank account, not a non-custodial cash layer.",
       "items": [
-        "You need government deposit insurance above all.",
-        "Zero tolerance for any risk.",
-        "Prefer traditional banks even if they cost more.",
-        "Need someone else to manage your money."
+        "You need government deposit insurance above everything else.",
+        "You have zero tolerance for digital-asset or protocol risk.",
+        "You can't accept liquidity, ramp, network, or provider risk.",
+        "You need a traditional bank account, not a non-custodial cash layer."
       ]
     }
   },
   "founder": {
-    "header": "Built by Bar.",
+    "header": "Adelaide saved. The system never explained.",
     "paragraphs": {
       "versionA": [
         "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does every business owner like you.",
         "diBoaS is headquartered in Berlin, Germany, building for businesses in the US, EU, and Brazil. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish every small business and startup had."
       ],
       "versionB": [
-        "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does every business owner like you.",
-        "diBoaS is being established in Berlin, Germany, building for businesses in the US, EU, Brazil, with plans to expand to additional markets. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish every small business and startup had."
+        "diBoaS started with my grandmother, Adelaide. She saved with discipline. The system gave her low returns, little explanation, and almost no access to better options.",
+        "The same pattern shows up in business. Owners lose money to payment fees. Startups hold runway in accounts that explain very little. After 20 years building products across Brazil, the US, Japan, and Germany, I wanted to build a clearer cash layer: one where money has rules, risk has a name, and control stays with the people responsible for the business."
       ],
       "versionC": [
         "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does every business owner like you.",
@@ -245,46 +219,14 @@
       "substack": "Substack"
     }
   },
-  "dualCta": {
-    "header": "Join the businesses that are done overpaying.",
-    "counter": "{count} businesses exploring diBoaS. {countries} countries.",
-    "pathA": {
-      "header": "Get early access.",
-      "description": "Drop your email. We'll let you know when your business can start saving.",
-      "emailPlaceholder": "Your business email",
-      "cta": "Get early access",
-      "noSpam": "No spam. Just your invite when we're ready.",
-      "privacyLabel": "I agree to the Privacy Policy"
-    },
-    "pathB": {
-      "header": "Let's look at your numbers.",
-      "description": "15 minutes. No commitment. No pitch deck. Just math.",
-      "cta": "Book a conversation",
-      "alternative": "Or email hello@diboas.com"
-    }
-  },
   "waitlist": {
-    "header": "Join other businesses in this movement.",
-    "description": "Open access and fair opportunities. Let's talk.",
-    "spotsCounter": "{count} founding members spots remaining"
-  },
-  "toolsCallout": {
-    "label": "Want to put numbers to your business?",
-    "cardFeesLink": "Card Fee Savings calculator",
-    "idleCashLink": "Idle Cash Yield calculator"
-  },
-  "socialProof": {
-    "header": "Join the Movement!",
-    "subtext": "Businesses are already joining the opportunity to cut costs and grow their idle cash. Subscribe to our waitlist.",
-    "stats": {
-      "waitlist": "{count} businesses",
-      "countries": "{countries} countries"
-    },
-    "cta": "Join the waitlist",
-    "zeroState": "Be among the first."
+    "header": "Build a better cash policy.",
+    "description": "Payment costs. Idle balances. Operating floors. Strategy risk. Join the business waitlist and be among the first to test diBoaS for Business when it opens.",
+    "spotsCounter": "{count} founding members spots remaining",
+    "noSpam": "No spam. Just product updates, early access, and what changes before launch."
   },
   "faq": {
-    "header": "Before you decide."
+    "header": "Before your business decides."
   },
   "footer": {
     "copyright": "© 2026 diBoaS. All rights reserved.",
@@ -309,7 +251,7 @@
       "terms": "Terms of Service",
       "cookies": "Cookie Policy"
     },
-    "tagline": "The financial tool Adelaide deserved."
+    "tagline": "Business cash deserves rules."
   },
   "waitlistSuccess": {
     "confirmation": {
@@ -371,10 +313,10 @@
     }
   },
   "seo": {
-    "title": "diBoaS for Business | Stop Overpaying on Fees and Idle Cash",
-    "description": "Your card processor takes 2 to 3%. Your bank pays you almost nothing. diBoaS: free payments, instant transfers, and your idle cash working for you.",
-    "ogTitle": "The system isn't broken. It's designed to take a cut of everything you earn.",
-    "ogDescription": "Two tools. One platform. Keep more of your card revenue and make your idle cash earn. diBoaS for Business.",
+    "title": "diBoaS for Business | Cash Needs a Job",
+    "description": "Payroll, rent, taxes, suppliers, runway. diBoaS helps businesses separate cash by purpose, see digital-dollar paths, and understand cost and risk before funds move.",
+    "ogTitle": "Cash needs a job.",
+    "ogDescription": "diBoaS helps businesses separate operating cash, payments, and idle balances into clear digital-dollar paths, with cost, liquidity, and risk visible before funds move.",
     "keywords": "treasury management, startup finance, returns, operating cash, business payments, B2B fintech"
   }
 }
