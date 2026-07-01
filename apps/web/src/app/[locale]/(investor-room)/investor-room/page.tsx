@@ -110,7 +110,11 @@ export default async function InvestorRoomPage({ params }: RoomPageProps) {
         </table>
       </InvestorProse>
 
-      <InvestorProse tone="neutral" header={r.builtNotBuilt.headline} paragraphs={[r.builtNotBuilt.closing]}>
+      <InvestorProse
+        tone="neutral"
+        header={r.builtNotBuilt.headline}
+        paragraphs={[r.builtNotBuilt.closing]}
+      >
         <div className={styles.twoCol}>
           <div>
             <p className={styles.colTitle}>Built</p>

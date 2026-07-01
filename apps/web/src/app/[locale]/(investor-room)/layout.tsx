@@ -72,11 +72,7 @@ export default async function InvestorRoomLayout({ children, params }: InvestorR
               <span className={styles.badge}>Investor Room</span>
             </header>
             <main id="main-content" className={styles.main}>
-              {granted ? (
-                children
-              ) : (
-                <InvestorRoomAccess locale={locale} configured={configured} />
-              )}
+              {granted ? children : <InvestorRoomAccess locale={locale} configured={configured} />}
             </main>
           </div>
         </PageErrorBoundary>

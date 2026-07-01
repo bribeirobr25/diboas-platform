@@ -12,7 +12,13 @@ const INITIAL: AccessState = { error: false };
  * Shared-password prompt for the investor room. Posts to the `grantInvestorAccess`
  * server action; on success the action sets the grant cookie and redirects.
  */
-export function InvestorRoomAccess({ locale, configured }: { locale: string; configured: boolean }) {
+export function InvestorRoomAccess({
+  locale,
+  configured,
+}: {
+  locale: string;
+  configured: boolean;
+}) {
   const intl = useTranslation();
   const t = (key: string) => intl.formatMessage({ id: `investor.access.${key}` });
   const [state, formAction, pending] = useActionState(grantInvestorAccess, INITIAL);

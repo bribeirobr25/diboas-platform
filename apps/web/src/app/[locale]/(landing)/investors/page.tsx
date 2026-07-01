@@ -25,7 +25,13 @@ interface InvestorPageMessages {
     thesis: { label: string; headline: string; body: string[]; pullQuote: string };
     building: { label: string; headline: string; body: string[]; productLine: string };
     whyNow: { label: string; headline: string; body: string[] };
-    marketSequence: { label: string; headline: string; body: string; markets: string[]; note: string };
+    marketSequence: {
+      label: string;
+      headline: string;
+      body: string;
+      markets: string[];
+      note: string;
+    };
     businessModel: { label: string; headline: string; body: string[]; supporting: string };
     status: { label: string; headline: string; body: string[]; items: string[] };
     founder: { label: string; headline: string; body: string[] };
@@ -91,22 +97,61 @@ export default async function InvestorsPage({ params }: PageProps) {
         </div>
       </section>
 
-      <SectionErrorBoundary sectionId="investor-thesis" sectionType="ProseSection" enableReporting context={{ page: 'investors', locale }}>
-        <InvestorProse id="thesis" tone="neutral" eyebrow={p.thesis.label} header={p.thesis.headline} paragraphs={p.thesis.body}>
+      <SectionErrorBoundary
+        sectionId="investor-thesis"
+        sectionType="ProseSection"
+        enableReporting
+        context={{ page: 'investors', locale }}
+      >
+        <InvestorProse
+          id="thesis"
+          tone="neutral"
+          eyebrow={p.thesis.label}
+          header={p.thesis.headline}
+          paragraphs={p.thesis.body}
+        >
           <p className={styles.pullQuote}>{p.thesis.pullQuote}</p>
         </InvestorProse>
       </SectionErrorBoundary>
 
-      <SectionErrorBoundary sectionId="investor-building" sectionType="ProseSection" enableReporting context={{ page: 'investors', locale }}>
-        <InvestorProse eyebrow={p.building.label} header={p.building.headline} paragraphs={[...p.building.body, p.building.productLine]} />
+      <SectionErrorBoundary
+        sectionId="investor-building"
+        sectionType="ProseSection"
+        enableReporting
+        context={{ page: 'investors', locale }}
+      >
+        <InvestorProse
+          eyebrow={p.building.label}
+          header={p.building.headline}
+          paragraphs={[...p.building.body, p.building.productLine]}
+        />
       </SectionErrorBoundary>
 
-      <SectionErrorBoundary sectionId="investor-why-now" sectionType="ProseSection" enableReporting context={{ page: 'investors', locale }}>
-        <InvestorProse tone="neutral" eyebrow={p.whyNow.label} header={p.whyNow.headline} paragraphs={p.whyNow.body} />
+      <SectionErrorBoundary
+        sectionId="investor-why-now"
+        sectionType="ProseSection"
+        enableReporting
+        context={{ page: 'investors', locale }}
+      >
+        <InvestorProse
+          tone="neutral"
+          eyebrow={p.whyNow.label}
+          header={p.whyNow.headline}
+          paragraphs={p.whyNow.body}
+        />
       </SectionErrorBoundary>
 
-      <SectionErrorBoundary sectionId="investor-market-sequence" sectionType="ProseSection" enableReporting context={{ page: 'investors', locale }}>
-        <InvestorProse eyebrow={p.marketSequence.label} header={p.marketSequence.headline} paragraphs={[p.marketSequence.body]}>
+      <SectionErrorBoundary
+        sectionId="investor-market-sequence"
+        sectionType="ProseSection"
+        enableReporting
+        context={{ page: 'investors', locale }}
+      >
+        <InvestorProse
+          eyebrow={p.marketSequence.label}
+          header={p.marketSequence.headline}
+          paragraphs={[p.marketSequence.body]}
+        >
           <ul className={styles.list}>
             {p.marketSequence.markets.map((m) => (
               <li key={m}>{m}</li>
@@ -116,12 +161,31 @@ export default async function InvestorsPage({ params }: PageProps) {
         </InvestorProse>
       </SectionErrorBoundary>
 
-      <SectionErrorBoundary sectionId="investor-business-model" sectionType="ProseSection" enableReporting context={{ page: 'investors', locale }}>
-        <InvestorProse tone="neutral" eyebrow={p.businessModel.label} header={p.businessModel.headline} paragraphs={[...p.businessModel.body, p.businessModel.supporting]} />
+      <SectionErrorBoundary
+        sectionId="investor-business-model"
+        sectionType="ProseSection"
+        enableReporting
+        context={{ page: 'investors', locale }}
+      >
+        <InvestorProse
+          tone="neutral"
+          eyebrow={p.businessModel.label}
+          header={p.businessModel.headline}
+          paragraphs={[...p.businessModel.body, p.businessModel.supporting]}
+        />
       </SectionErrorBoundary>
 
-      <SectionErrorBoundary sectionId="investor-status" sectionType="ProseSection" enableReporting context={{ page: 'investors', locale }}>
-        <InvestorProse eyebrow={p.status.label} header={p.status.headline} paragraphs={p.status.body}>
+      <SectionErrorBoundary
+        sectionId="investor-status"
+        sectionType="ProseSection"
+        enableReporting
+        context={{ page: 'investors', locale }}
+      >
+        <InvestorProse
+          eyebrow={p.status.label}
+          header={p.status.headline}
+          paragraphs={p.status.body}
+        >
           <ul className={styles.list}>
             {p.status.items.map((item) => (
               <li key={item}>{item}</li>
@@ -130,16 +194,45 @@ export default async function InvestorsPage({ params }: PageProps) {
         </InvestorProse>
       </SectionErrorBoundary>
 
-      <SectionErrorBoundary sectionId="investor-founder" sectionType="ProseSection" enableReporting context={{ page: 'investors', locale }}>
-        <InvestorProse tone="neutral" eyebrow={p.founder.label} header={p.founder.headline} paragraphs={p.founder.body} />
+      <SectionErrorBoundary
+        sectionId="investor-founder"
+        sectionType="ProseSection"
+        enableReporting
+        context={{ page: 'investors', locale }}
+      >
+        <InvestorProse
+          tone="neutral"
+          eyebrow={p.founder.label}
+          header={p.founder.headline}
+          paragraphs={p.founder.body}
+        />
       </SectionErrorBoundary>
 
-      <SectionErrorBoundary sectionId="investor-raise" sectionType="ProseSection" enableReporting context={{ page: 'investors', locale }}>
-        <InvestorProse eyebrow={p.raise.label} header={p.raise.headline} paragraphs={[...p.raise.body, p.raise.privateNote]} />
+      <SectionErrorBoundary
+        sectionId="investor-raise"
+        sectionType="ProseSection"
+        enableReporting
+        context={{ page: 'investors', locale }}
+      >
+        <InvestorProse
+          eyebrow={p.raise.label}
+          header={p.raise.headline}
+          paragraphs={[...p.raise.body, p.raise.privateNote]}
+        />
       </SectionErrorBoundary>
 
-      <SectionErrorBoundary sectionId="investor-materials" sectionType="ProseSection" enableReporting context={{ page: 'investors', locale }}>
-        <InvestorProse tone="neutral" eyebrow={p.materials.label} header={p.materials.headline} paragraphs={p.materials.body}>
+      <SectionErrorBoundary
+        sectionId="investor-materials"
+        sectionType="ProseSection"
+        enableReporting
+        context={{ page: 'investors', locale }}
+      >
+        <InvestorProse
+          tone="neutral"
+          eyebrow={p.materials.label}
+          header={p.materials.headline}
+          paragraphs={p.materials.body}
+        >
           <ul className={styles.list}>
             {p.materials.items.map((item) => (
               <li key={item}>{item}</li>
@@ -150,7 +243,12 @@ export default async function InvestorsPage({ params }: PageProps) {
 
       {/* Request form */}
       <section id="request" className={`${styles.section} ${styles.toneWhite}`}>
-        <SectionErrorBoundary sectionId="investor-request" sectionType="InvestorRequestForm" enableReporting context={{ page: 'investors', locale }}>
+        <SectionErrorBoundary
+          sectionId="investor-request"
+          sectionType="InvestorRequestForm"
+          enableReporting
+          context={{ page: 'investors', locale }}
+        >
           <InvestorRequestForm
             locale={locale}
             title={p.request.title}
