@@ -1,340 +1,340 @@
 {
   "page": {
     "seo": {
-      "title": "diBoaS Investors | Money With a Purpose. Cash With Rules.",
-      "description": "diBoaS is a Berlin-based pre-seed fintech building a non-custodial financial app that helps consumers assign money to goals and businesses assign cash to rules before money moves.",
-      "ogTitle": "Money should know what it is there to do.",
-      "ogDescription": "A non-custodial control layer for money before it moves. Pre-seed, Berlin. Risks named directly."
+      "title": "diBoaS Inversores | Dinero con Plan. Liquidez con Reglas.",
+      "description": "diBoaS es una fintech pre-seed con base en Berlín que desarrolla una aplicación financiera no custodial para ayudar a personas a organizar dinero por objetivos y a empresas a organizar liquidez por reglas antes de mover fondos.",
+      "ogTitle": "El dinero necesita un plan. La liquidez necesita reglas.",
+      "ogDescription": "Una capa de control no custodial para el dinero antes de moverse. Pre-seed, Berlín. Riesgos nombrados directamente."
     },
     "hero": {
-      "eyebrow": "PRE-SEED · BERLIN",
-      "headline": "Money should know what it is there to do.",
-      "subheadline": "diBoaS is building a non-custodial financial app that helps consumers assign money to goals and businesses assign cash to rules before money moves.",
-      "supporting": "Before funds move, diBoaS shows the strategy, cost, liquidity, and risk. Users stay in control. diBoaS is the interface, never the holder.",
-      "ctaPrimary": "Request investor materials",
-      "ctaSecondary": "Read the investor overview",
-      "trustNote": "Pre-launch. Pre-seed. Risks named directly."
+      "eyebrow": "PRE-SEED · BERLÍN",
+      "headline": "El dinero necesita un plan. La liquidez necesita reglas.",
+      "subheadline": "diBoaS está construyendo una aplicación financiera no custodial que ayuda a personas a organizar dinero por objetivos y a empresas a organizar liquidez por reglas.",
+      "supporting": "Antes de mover fondos, diBoaS muestra la estrategia, los costes, la liquidez y el riesgo. El usuario mantiene el control. diBoaS es la interfaz, no el custodio.",
+      "ctaPrimary": "Solicitar materiales para inversores",
+      "ctaSecondary": "Leer la visión general",
+      "trustNote": "Pre-lanzamiento. Pre-seed. Riesgos explicados con claridad."
     },
     "thesis": {
-      "label": "THE THESIS",
-      "headline": "B2C builds trust. B2B builds the business.",
+      "label": "LA TESIS",
+      "headline": "B2C crea confianza. B2B sostiene los ingresos.",
       "body": [
-        "Consumer fintech looks large from the outside and thin in the unit economics.",
-        "diBoaS does not pretend otherwise.",
-        "The consumer product builds trust, brand, and distribution. The business product drives revenue through cash rules, payment paths, liquidity control, and explicit movement fees.",
-        "That is the company thesis: B2C builds trust and distribution. B2B drives revenue."
+        "Una fintech de consumo puede parecer enorme desde fuera. Pero la economía por usuario suele ser limitada.",
+        "diBoaS no intenta ocultarlo.",
+        "El producto para personas construye marca, confianza y distribución. El producto para empresas sostiene los ingresos mediante reglas de liquidez, rutas de pago, control de caja y comisiones explícitas por movimiento.",
+        "La tesis es sencilla: B2C crea confianza y distribución. B2B sostiene los ingresos."
       ],
-      "pullQuote": "The model is not built on hiding consumer ARPU. It is built on being honest about it."
+      "pullQuote": "El modelo no depende de exagerar el valor de un usuario consumidor. Depende de convertir confianza en uso empresarial."
     },
     "building": {
-      "label": "WHAT WE ARE BUILDING",
-      "headline": "A control layer for money before it moves.",
+      "label": "QUÉ ESTAMOS CONSTRUYENDO",
+      "headline": "Una capa de decisión antes de mover dinero.",
       "body": [
-        "Most financial interfaces show money as one balance. But money has different jobs.",
-        "For a consumer, it may be an emergency reserve, a future purchase, or protection from inflation.",
-        "For a business, it may be payroll, rent, taxes, supplier payments, operating reserves, or excess liquidity.",
-        "diBoaS starts with the job of the money. Then it shows the available path, cost, liquidity, and risk before action."
+        "La mayoría de interfaces financieras siguen mostrando el dinero como un único saldo. Pero el dinero tiene funciones distintas.",
+        "Para una persona, puede ser un colchón, una compra futura, una protección o un plan a largo plazo.",
+        "Para una empresa, puede ser nómina, alquiler, impuestos, proveedores, capital circulante, reserva operativa o liquidez excedente.",
+        "diBoaS empieza por la función del dinero. Después muestra el camino disponible, los costes, la liquidez y el riesgo antes de la decisión."
       ],
-      "productLine": "Consumers choose a goal. Businesses set rules. diBoaS shows the path before money moves."
+      "productLine": "Las personas eligen un objetivo. Las empresas definen reglas. diBoaS muestra el camino antes de mover dinero."
     },
     "whyNow": {
-      "label": "WHY NOW",
-      "headline": "The rails changed. The interface did not.",
+      "label": "POR QUÉ AHORA",
+      "headline": "La infraestructura ha cambiado. La explicación no siempre.",
       "body": [
-        "Money can now move, settle, and be programmed in ways that were not available to ordinary users or small businesses a decade ago. But most products still speak to experts.",
-        "Consumers are offered promises instead of explanations. Businesses manage cash through banks, cards, spreadsheets, payment tools, and reports that rarely fit together.",
-        "diBoaS is built around a simpler standard: before money moves, the user should understand the path, cost, liquidity, and risk."
+        "El dinero puede moverse, programarse y separarse de formas que hace unos años no estaban al alcance de usuarios normales ni de pequeñas empresas. Pero muchas interfaces siguen hablando para especialistas.",
+        "Las personas reciben promesas en lugar de explicaciones. Las empresas gestionan liquidez entre bancos, tarjetas, hojas de cálculo, proveedores de pago y reportes que rara vez encajan.",
+        "diBoaS parte de una regla sencilla: antes de mover dinero, el usuario debe entender camino, coste, liquidez y riesgo."
       ]
     },
     "marketSequence": {
-      "label": "MARKET SEQUENCE",
-      "headline": "One product spine. Four market-native propositions.",
-      "body": "diBoaS is designed for four launch markets, each with a different cultural and financial entry point.",
+      "label": "MERCADOS",
+      "headline": "Un mismo núcleo. Cuatro propuestas adaptadas al mercado.",
+      "body": "diBoaS está diseñada para cuatro mercados de lanzamiento, cada uno con una puerta de entrada cultural y financiera distinta.",
       "markets": [
-        "Brazil: objective and dollar protection.",
-        "United States: money with a job, access, and movement.",
-        "Germany: planning, clarity, and visible risk.",
-        "Spain: plan, costs, prudence, and explanation."
+        "Brasil: objetivo y protección en dólar.",
+        "Estados Unidos: dinero con función, acceso y movimiento.",
+        "Alemania: planificación, claridad y riesgo visible.",
+        "España: plan, costes, prudencia y explicación."
       ],
-      "note": "The product spine stays consistent: purpose, rules, cost, liquidity, risk, and user control. The market story changes because trust is local."
+      "note": "El núcleo del producto no cambia: objetivo, regla, coste, liquidez, riesgo y control del usuario. Lo que cambia es cómo se construye la confianza en cada mercado."
     },
     "businessModel": {
-      "label": "BUSINESS MODEL",
-      "headline": "Revenue follows movement, not hidden spread.",
+      "label": "MODELO DE INGRESOS",
+      "headline": "Los ingresos vienen del movimiento, no de un spread oculto.",
       "body": [
-        "diBoaS earns through explicit movement fees.",
-        "The company does not take a spread on strategy returns. Revenue scales when money enters, exits, or a strategy closes.",
-        "The honest model is simple: consumer ARPU is structurally small. B2C builds trust and distribution. B2B drives revenue."
+        "diBoaS genera ingresos mediante comisiones explícitas cuando el dinero se mueve.",
+        "La empresa no toma spread sobre los retornos de las estrategias. Los ingresos crecen cuando el dinero entra, sale o se cierra una estrategia.",
+        "El modelo es claro: el ARPU de consumidor es estructuralmente bajo. B2C construye confianza y distribución. B2B sostiene los ingresos."
       ],
-      "supporting": "A small number of business clients can be worth more than thousands of individual users."
+      "supporting": "Un número reducido de clientes empresariales puede pesar más que miles de usuarios individuales."
     },
     "status": {
-      "label": "CURRENT STATUS",
-      "headline": "Early, specified, and honest about it.",
+      "label": "ESTADO ACTUAL",
+      "headline": "Temprano, especificado y claro sobre lo que falta.",
       "body": [
-        "diBoaS is pre-launch and pre-seed.",
-        "The marketing site and market-intelligence product are live. The money product is specified and planned for the funded build.",
-        "The current raise funds the money-product build, regulatory launch gates, security audit, infrastructure, incorporation, and first B2B validation."
+        "diBoaS está en fase pre-seed y pre-lanzamiento.",
+        "La web de marketing y el producto de inteligencia de mercado ya están activos. El producto financiero principal está especificado y planificado para construirse con la ronda.",
+        "La financiación cubre la construcción del producto financiero, los hitos regulatorios de lanzamiento, la auditoría de seguridad, la infraestructura, la constitución de la entidad y la primera validación B2B."
       ],
       "items": [
-        "Marketing site: live",
-        "Market-intelligence product: live",
-        "Money product: specified, not yet built",
-        "Regulatory analysis: drafted",
-        "Financial model: drafted",
-        "Fundraising: pre-seed preparation"
+        "Web de marketing: activa",
+        "Producto de inteligencia de mercado: activo",
+        "Producto financiero principal: especificado, todavía no construido",
+        "Análisis regulatorio: estructurado",
+        "Modelo financiero: estructurado",
+        "Fundraising: preparación pre-seed"
       ]
     },
     "founder": {
-      "label": "FOUNDER",
-      "headline": "Built by a product operator, not a campaign.",
+      "label": "FUNDADOR",
+      "headline": "Construido por un operador de producto.",
       "body": [
-        "diBoaS is based in Berlin and led by a solo founder with 20 years of product and IT experience across Brazil, the United States, Japan, and Germany.",
-        "The founder has built the current product foundation, research, architecture, regulatory analysis, financial model, and investor materials with an AI-assisted build process and a test-driven operating standard.",
-        "The financing supports the next phase of the build: product development, technical support, legal review, security work, infrastructure, incorporation, and early B2B validation."
+        "diBoaS tiene su base en Berlín y la lidera un fundador con 20 años de experiencia en producto y tecnología en Brasil, Estados Unidos, Japón y Alemania.",
+        "La base actual del producto, la investigación, la arquitectura, el análisis regulatorio, el modelo financiero y los materiales para inversores se han construido con un proceso asistido por IA y un estándar de trabajo orientado a pruebas.",
+        "La financiación permite avanzar en la construcción del producto financiero, los hitos regulatorios de lanzamiento, la auditoría de seguridad, la infraestructura, la constitución de la entidad y el soporte técnico necesario para la siguiente fase."
       ]
     },
     "raise": {
-      "label": "THE RAISE",
-      "headline": "Raising to prove the right thing.",
+      "label": "LA RONDA",
+      "headline": "Capital para probar lo importante.",
       "body": [
-        "diBoaS is preparing a pre-seed raise to fund the money-product build, regulatory launch gates, security audit, infrastructure, incorporation, and first B2B validation.",
-        "The goal of the raise is not scale theater. It is proof: build the money product, clear the launch gates, validate the first B2B demand, and turn assumptions into evidence."
+        "diBoaS prepara una ronda pre-seed para construir el producto financiero, cumplir los hitos regulatorios de lanzamiento, cubrir auditoría de seguridad, infraestructura y constitución, y validar la primera demanda B2B.",
+        "El objetivo de la ronda no es hacer ruido. Es demostrar lo esencial: construir el producto financiero, cumplir los hitos de lanzamiento, validar la primera demanda B2B y convertir premisas en evidencia."
       ],
-      "privateNote": "Detailed raise structure is shared in the private investor materials."
+      "privateNote": "Los detalles de la estructura de la ronda se comparten en los materiales privados para inversores."
     },
     "materials": {
-      "label": "INVESTOR MATERIALS",
-      "headline": "The full answers are available on request.",
+      "label": "MATERIALES PARA INVERSORES",
+      "headline": "Las respuestas completas están disponibles bajo solicitud.",
       "body": [
-        "The investor room includes the Business Plan, Investor FAQ, and supporting materials covering the model, risks, use of funds, regulatory position, product roadmap, fee logic, and technical architecture.",
-        "The FAQ is intentionally direct. If something is unresolved, it is named."
+        "La sala de inversores incluye el Business Plan, el Investor FAQ y materiales de apoyo sobre modelo, riesgos, uso de fondos, posición regulatoria, roadmap de producto, lógica de comisiones y arquitectura técnica.",
+        "El FAQ es directo a propósito. Lo que no está resuelto aparece como punto abierto."
       ],
       "items": [
-        "Business Plan",
-        "Investor FAQ",
-        "Use of Funds",
-        "Revenue Model Summary",
-        "Regulatory Position Summary",
-        "Product Roadmap",
-        "Fees Summary",
-        "Technical Architecture Summary (in preparation)"
+        "Business Plan (en preparación en español)",
+        "Investor FAQ (en preparación en español)",
+        "Uso de Fondos",
+        "Resumen del Modelo de Ingresos",
+        "Resumen de la Posición Regulatoria",
+        "Roadmap de Producto",
+        "Resumen de Comisiones",
+        "Resumen de Arquitectura Técnica (en preparación)"
       ],
-      "cta": "Request investor materials"
+      "cta": "Solicitar materiales para inversores"
     },
     "request": {
-      "title": "Request investor materials",
-      "intro": "Tell us who you are and we will share the appropriate investor materials.",
+      "title": "Solicitar materiales para inversores",
+      "intro": "Cuéntenos quién es para que podamos compartir los materiales adecuados.",
       "labels": {
-        "name": "Name",
-        "company": "Fund / Company",
-        "email": "Email",
-        "investorType": "Investor type",
-        "ticketSize": "Typical ticket size",
-        "thesis": "Relevant thesis or interest",
-        "message": "Message"
+        "name": "Nombre",
+        "company": "Fondo / Empresa",
+        "email": "Correo electrónico",
+        "investorType": "Tipo de inversor",
+        "ticketSize": "Ticket habitual",
+        "thesis": "Tesis o interés principal",
+        "message": "Mensaje"
       },
       "typeOptions": {
-        "angel": "Angel investor",
-        "vc": "VC fund",
-        "founder-operator": "Founder / operator investor",
-        "strategic": "Strategic investor",
+        "angel": "Business angel",
+        "vc": "Fondo de venture capital",
+        "founder-operator": "Fundador / operador inversor",
+        "strategic": "Inversor estratégico",
         "family-office": "Family office",
-        "other": "Other"
+        "other": "Otro"
       },
-      "submit": "Request access",
-      "submitting": "Sending…",
-      "success": "Thanks. We will review your request and follow up with the appropriate materials.",
-      "error": "Something went wrong. Please try again.",
-      "privacyNote": "We use your details only to review your request and follow up. Your information is encrypted."
+      "submit": "Solicitar acceso",
+      "submitting": "Enviando…",
+      "success": "Gracias. Revisaremos su solicitud y le enviaremos los materiales adecuados.",
+      "error": "Algo salió mal. Inténtelo de nuevo.",
+      "privacyNote": "Utilizamos sus datos únicamente para revisar su solicitud y darle seguimiento. Su información está cifrada."
     },
-    "riskNote": "diBoaS is pre-launch. The money product is not yet available. diBoaS is designed as a non-custodial interface and is not a bank, deposit account, savings account, or guarantee. Product availability depends on legal review, partner availability, and launch gates."
+    "riskNote": "diBoaS está en fase de pre-lanzamiento. El producto financiero principal todavía no está disponible. diBoaS está diseñada como una interfaz no custodial y no es un banco, una cuenta de depósito ni una garantía. La disponibilidad del producto depende de revisión legal, socios e hitos de lanzamiento."
   },
   "room": {
     "seo": {
       "title": "diBoaS Investor Room",
-      "description": "Private investor materials for diBoaS, a Berlin-based pre-seed fintech building a non-custodial financial app for consumer goals and business cash rules."
+      "description": "Materiales privados para inversores de diBoaS, fintech pre-seed con base en Berlín que construye una aplicación financiera no custodial para objetivos personales y reglas de liquidez empresarial."
     },
-    "accessNote": "Private investor materials. Do not distribute without permission.",
+    "accessNote": "Materiales privados para inversores. No distribuir sin autorización.",
     "hero": {
-      "eyebrow": "PRIVATE INVESTOR ROOM",
-      "headline": "Start with the hard questions.",
-      "subheadline": "This room contains the current pre-seed materials for diBoaS: the Business Plan, Investor FAQ, use of funds, revenue logic, regulatory position, product roadmap, fee logic, and technical architecture.",
-      "supporting": "diBoaS is pre-launch and pre-seed. Numbers are founder assumptions unless stated otherwise. Open risks are named directly."
+      "eyebrow": "SALA PRIVADA DE INVERSORES",
+      "headline": "Empiece por las preguntas difíciles.",
+      "subheadline": "Esta sala reúne los materiales actuales de la ronda pre-seed de diBoaS: Business Plan, Investor FAQ, uso de fondos, lógica de ingresos, posición regulatoria, roadmap de producto, lógica de comisiones y arquitectura técnica.",
+      "supporting": "diBoaS está en fase pre-seed y pre-lanzamiento. Las cifras son premisas del fundador salvo que se indique lo contrario. Los riesgos abiertos se nombran directamente."
     },
     "startHere": {
-      "headline": "Start here.",
+      "headline": "Empiece aquí.",
       "body": [
-        "If you only read two documents, start with the Business Plan and Investor FAQ.",
-        "The Business Plan gives the one-page view.",
-        "The Investor FAQ gives the uncomfortable answers first: business model, unit economics, regulatory assumptions, open risks, solo-founder risk, use of funds, and what still needs to be proven."
+        "Si solo va a leer dos documentos, empiece por el Business Plan y el Investor FAQ.",
+        "El Business Plan ofrece la visión directa de la empresa.",
+        "El Investor FAQ responde primero a las preguntas incómodas: modelo de negocio, unit economics, premisas regulatorias, riesgos abiertos, riesgo de fundador solo, uso de fondos y lo que aún debe demostrarse."
       ]
     },
     "materials": {
-      "headline": "Current materials",
-      "intro": "The documents below are organized from overview to deeper diligence.",
+      "headline": "Materiales actuales",
+      "intro": "Los documentos siguientes están organizados desde la visión general hasta la due diligence más detallada.",
       "docs": [
         {
           "slug": "business-plan",
           "num": "01",
           "title": "Business Plan",
-          "summary": "One-page investor overview: product, problem, model, market sequence, go-to-market, raise paths, and key model risks.",
+          "summary": "Visión general para inversores: producto, problema, modelo, secuencia de mercados, go-to-market, caminos de la ronda y riesgos principales del modelo.",
           "status": "available"
         },
         {
           "slug": "investor-faq",
           "num": "02",
           "title": "Investor FAQ",
-          "summary": "Detailed investor Q&A with blunt answers on unit economics, regulation, custody, traction, moat, team, deal structure, and unresolved risks.",
+          "summary": "Preguntas y respuestas detalladas sobre unit economics, regulación, custodia, tracción, moat, equipo, estructura de la ronda y riesgos abiertos.",
           "status": "available"
         },
         {
           "slug": "pitch-deck",
           "num": "03",
           "title": "Pitch Deck",
-          "summary": "Short narrative deck for first conversations.",
+          "summary": "Deck breve para abrir conversaciones con inversores.",
           "status": "available"
         },
         {
           "slug": "use-of-funds",
           "num": "04",
-          "title": "Use of Funds",
-          "summary": "What the lean path funds, what the larger path buys down, and what milestones the capital is meant to prove.",
+          "title": "Uso de Fondos",
+          "summary": "Qué financia el camino ligero, qué riesgo reduce el camino mayor y qué hitos debe demostrar el capital.",
           "status": "available"
         },
         {
           "slug": "revenue-model",
           "num": "05",
-          "title": "Revenue Model Summary",
-          "summary": "Consumer ARPU, B2B ARPU, break-even logic, first metrics to validate, and what breaks the model.",
+          "title": "Resumen del Modelo de Ingresos",
+          "summary": "ARPU de consumidor, ARPU B2B, lógica de break-even, primeras métricas a validar y qué rompería el modelo.",
           "status": "available"
         },
         {
           "slug": "regulatory-position",
           "num": "06",
-          "title": "Regulatory Position Summary",
-          "summary": "Non-custodial architecture, jurisdiction-specific gates, EU risk, Brazil partner dependency, and US user-to-user transfer opinion.",
+          "title": "Resumen de la Posición Regulatoria",
+          "summary": "Arquitectura no custodial, hitos por jurisdicción, riesgo UE, dependencia del socio de entrada/salida de dinero en Brasil y opinión legal sobre movimientos entre usuarios en EE. UU.",
           "status": "available"
         },
         {
           "slug": "product-roadmap",
           "num": "07",
-          "title": "Product Roadmap",
-          "summary": "What is live, what is specified, what the raise funds, and what comes after launch.",
+          "title": "Roadmap de Producto",
+          "summary": "Qué está activo, qué está especificado, qué financia la ronda y qué viene después del lanzamiento.",
           "status": "available"
         },
         {
           "slug": "fees-summary",
           "num": "08",
-          "title": "Fees Summary",
-          "summary": "Canonical fee structure, fee caps, pass-through costs, and where diBoaS charges $0.",
+          "title": "Resumen de Comisiones",
+          "summary": "Estructura canónica de comisiones, límites, costes trasladados y funciones en las que la comisión de diBoaS es cero.",
           "status": "available"
         },
         {
           "slug": "technical-architecture",
           "num": "09",
-          "title": "Technical Architecture Summary",
-          "summary": "Wallet architecture, provider dependencies, non-custodial flow, recovery model, and technical risk areas.",
+          "title": "Resumen de Arquitectura Técnica",
+          "summary": "Arquitectura de wallet, dependencias de proveedores, flujo no custodial, modelo de recuperación y principales riesgos técnicos.",
           "status": "in-preparation"
         }
       ]
     },
     "snapshot": {
-      "headline": "Company snapshot",
+      "headline": "Resumen de la empresa",
       "rows": [
-        { "label": "Company", "value": "diBoaS" },
-        { "label": "Stage", "value": "Pre-seed" },
-        { "label": "Base", "value": "Berlin" },
-        { "label": "Product", "value": "Non-custodial financial app" },
-        { "label": "Primary users", "value": "Consumers and small businesses" },
-        { "label": "Consumer wedge", "value": "Goals, protection, access, clarity" },
-        { "label": "Business wedge", "value": "Cash rules, payment paths, liquidity control" },
-        { "label": "Revenue model", "value": "Explicit movement fees" },
+        { "label": "Empresa", "value": "diBoaS" },
+        { "label": "Etapa", "value": "Pre-seed" },
+        { "label": "Base", "value": "Berlín" },
+        { "label": "Producto", "value": "Aplicación financiera no custodial" },
+        { "label": "Usuarios principales", "value": "Personas y pequeñas empresas" },
+        { "label": "Entrada B2C", "value": "Objetivos, protección, acceso y claridad" },
+        { "label": "Entrada B2B", "value": "Reglas de liquidez, rutas de pago y control de caja" },
+        { "label": "Modelo de ingresos", "value": "Comisiones explícitas por movimiento" },
         {
-          "label": "Current status",
-          "value": "Marketing site and market-intelligence product live; money product specified"
+          "label": "Estado actual",
+          "value": "Web de marketing y producto de inteligencia de mercado activos; producto financiero principal especificado"
         },
         {
-          "label": "Raise purpose",
-          "value": "Money-product build, regulatory gates, audit, infrastructure, incorporation, first B2B validation"
+          "label": "Objetivo de la ronda",
+          "value": "Producto financiero, hitos regulatorios, auditoría, infraestructura, constitución y validación inicial B2B"
         }
       ]
     },
     "builtNotBuilt": {
-      "headline": "What is built, what is not.",
+      "headline": "Qué está construido. Qué falta por construir.",
       "built": [
-        "Marketing site",
-        "Market-intelligence product",
-        "Investor materials",
-        "Product specification",
-        "Regulatory analysis",
-        "Financial model"
+        "Web de marketing",
+        "Producto de inteligencia de mercado",
+        "Materiales para inversores",
+        "Especificación de producto",
+        "Análisis regulatorio",
+        "Modelo financiero"
       ],
       "notBuilt": [
-        "Production wallet flow",
-        "Money-in/out integration",
-        "Goal-to-strategy engine",
-        "User-to-user movement",
-        "B2B cash rules",
-        "Production reporting and records"
+        "Flujo de wallet en producción",
+        "Integración de entrada y salida de dinero",
+        "Motor objetivo-a-estrategia",
+        "Movimiento entre usuarios",
+        "Reglas de liquidez B2B",
+        "Reporting y registros en producción"
       ],
-      "closing": "That is the point of the raise."
+      "closing": "Para eso existe la ronda."
     },
     "raiseProves": {
-      "headline": "The raise funds proof, not theater.",
+      "headline": "La ronda financia prueba, no ruido.",
       "body": [
-        "The first money should prove the right things:",
-        "Can the money product ship safely? Can the regulatory launch gates be cleared? Can a money-in/out partner be signed? Can early users fund accounts? Can B2B demand show up at the assumed deal sizes? Can the founder-built plan hold, or should the senior engineer path be activated earlier?"
+        "El primer capital debe demostrar los puntos correctos:",
+        "¿Puede construirse el producto financiero con seguridad? ¿Pueden cumplirse los hitos regulatorios de lanzamiento? ¿Puede firmarse un socio de entrada y salida de dinero? ¿Los primeros usuarios aportan dinero? ¿Aparece demanda B2B en los tamaños de contrato asumidos? ¿Se sostiene el plan founder-built o debe activarse antes el camino con ingeniero sénior?"
       ]
     },
     "openRisks": {
-      "headline": "Open risks are named.",
-      "intro": "The main unresolved items are not hidden:",
+      "headline": "Los riesgos abiertos están nombrados.",
+      "intro": "Los principales puntos todavía no resueltos son:",
       "items": [
-        "Money-in/out partner unsigned.",
-        "Exact net margin not yet pinned.",
-        "Entity not incorporated.",
-        "B2B pipeline not yet proven.",
-        "US user-to-user transfer opinion still required.",
-        "No traction data yet."
+        "Socio de entrada y salida de dinero todavía no firmado.",
+        "Margen neto exacto todavía no cerrado.",
+        "Entidad todavía no constituida.",
+        "Pipeline B2B todavía no probado.",
+        "Opinión legal sobre movimiento entre usuarios en EE. UU. todavía necesaria.",
+        "Todavía sin datos reales de tracción."
       ],
-      "closing": "Each one has a gate. None is treated as solved."
+      "closing": "Cada punto tiene un hito. Ninguno se trata como resuelto."
     },
     "regulatory": {
-      "headline": "Regulation is treated as governed risk.",
+      "headline": "La regulación se trata como riesgo gobernado.",
       "body": [
-        "diBoaS is designed as a non-custodial interface. It does not hold customer money, does not hold customer keys, and charges usage fees for software.",
-        "The correct framing is not \"no license required.\" Based on the current regulatory memo, that architecture is designed to reduce licensing triggers, subject to jurisdiction-specific legal review and launch gates in the US, EU, and Brazil. This is a statement of design intent, not a legal opinion.",
-        "The full regulatory summary explains the US, EU, and Brazil dependencies."
+        "diBoaS está diseñada como una interfaz no custodial. No mantiene dinero de clientes, no mantiene claves de clientes y cobra comisiones de uso por software.",
+        "El encuadre correcto no es “no hace falta licencia”. Según el memo regulatorio actual, esta arquitectura está diseñada para reducir los desencadenantes de licencia, sujeta a revisión legal por jurisdicción e hitos de lanzamiento en EE. UU., la UE y Brasil. Es una declaración de intención de diseño, no una opinión legal.",
+        "El resumen regulatorio explica las dependencias en EE. UU., la Unión Europea y Brasil."
       ]
     },
     "contact": {
-      "headline": "Questions, objections, or follow-up.",
-      "body": "If you are reviewing the materials and want to discuss the model, risks, or raise structure, reach out directly.",
-      "founderLabel": "Founder",
-      "emailLabel": "Email",
+      "headline": "Preguntas, objeciones o próximos pasos.",
+      "body": "Si está revisando los materiales y quiere discutir el modelo, los riesgos o la estructura de la ronda, póngase en contacto directamente.",
+      "founderLabel": "Fundador",
+      "emailLabel": "Correo electrónico",
       "linkedinLabel": "LinkedIn",
-      "locationLabel": "Location",
-      "location": "Berlin",
-      "cta": "Schedule a conversation"
+      "locationLabel": "Ubicación",
+      "location": "Berlín",
+      "cta": "Agendar conversación"
     },
-    "footerNote": "These materials are provided for discussion purposes only. They include forward-looking assumptions, unresolved risks, and pre-launch estimates. They are not legal, tax, financial, accounting, or investment advice. Private investor materials. Please do not forward or distribute without permission.",
+    "footerNote": "Estos materiales se proporcionan únicamente con fines de discusión. Incluyen premisas futuras, riesgos abiertos y estimaciones pre-lanzamiento. No constituyen asesoramiento legal, fiscal, contable, financiero ni de inversión. Materiales privados para inversores. No reenviar ni distribuir sin autorización.",
     "docPage": {
-      "backToRoom": "Back to the investor room",
-      "statusAvailable": "Available",
-      "statusInPrep": "In preparation",
-      "covers": "What this document covers",
-      "inPrepBody": "This summary is in preparation and will be added to the room shortly. In the meantime, reach out and we will share the current draft directly.",
-      "requestCta": "Request the full document"
+      "backToRoom": "Volver a la sala de inversores",
+      "statusAvailable": "Disponible",
+      "statusInPrep": "En preparación",
+      "covers": "Qué cubre este documento",
+      "inPrepBody": "Este resumen está en preparación y se añadirá a la sala en breve. Mientras tanto, póngase en contacto y le compartiremos el borrador actual directamente.",
+      "requestCta": "Solicitar el documento completo"
     }
   },
   "access": {
-    "eyebrow": "PRIVATE INVESTOR ROOM",
-    "headline": "This room is private.",
-    "body": "Enter the access password shared with your investor materials. If you do not have one, request access from the investor page.",
-    "passwordLabel": "Access password",
-    "submit": "Enter the room",
-    "error": "Incorrect password. Please try again.",
-    "notConfigured": "Investor room access is not configured yet. Please check back shortly."
+    "eyebrow": "SALA PRIVADA DE INVERSORES",
+    "headline": "Esta sala es privada.",
+    "body": "Introduzca la contraseña de acceso que se compartió con sus materiales para inversores. Si no tiene una, solicite acceso desde la página de inversores.",
+    "passwordLabel": "Contraseña de acceso",
+    "submit": "Entrar en la sala",
+    "error": "Contraseña incorrecta. Inténtelo de nuevo.",
+    "notConfigured": "El acceso a la sala de inversores aún no está configurado. Vuelva a intentarlo en breve."
   }
 }
