@@ -61,9 +61,9 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
     // Dark overlay for white-text legibility over the daylight skyline photo.
     overlayOpacity: 0.55,
   },
-  // Lift the hero copy ~90px above center on desktop (product-owner request).
+  // Lift the hero copy ~90px above center at all breakpoints (product-owner request).
   layout: {
-    desktopContentLift: true,
+    contentLift: true,
   },
   seo: {
     titleTag: 'diBoaS for Business | Stop Overpaying on Fees and Idle Cash',
