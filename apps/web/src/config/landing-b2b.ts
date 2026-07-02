@@ -459,6 +459,11 @@ export const B2B_FOUNDER_CONFIG: FounderSectionConfig = {
     emailHref: 'hello@diboas.com',
     socialLinks: [
       {
+        label: 'landing-b2b.founder.social.email',
+        href: 'mailto:breno@diboas.com',
+        icon: 'email',
+      },
+      {
         label: 'landing-b2b.founder.social.linkedin',
         href: 'https://www.linkedin.com/in/bribeirobr/',
         icon: 'linkedin',

@@ -69,17 +69,22 @@ export const FounderSection = memo(function FounderSection({
           {translated.content.socialLinks ? (
             <div className={styles.socialLinks}>
               {translated.content.socialLinks.map(
-                (link: { label: string; href: string; icon: string }) => (
-                  <a
-                    key={link.icon}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.socialLink}
-                  >
-                    {link.label}
-                  </a>
-                )
+                (link: { label: string; href: string; icon: string }) => {
+                  // Only http(s) links open in a new tab; mailto:/tel: open in the
+                  // native handler (target="_blank" would spawn a blank tab).
+                  const isExternal = /^https?:/i.test(link.href);
+                  return (
+                    <a
+                      key={link.icon}
+                      href={link.href}
+                      target={isExternal ? '_blank' : undefined}
+                      rel={isExternal ? 'noopener noreferrer' : undefined}
+                      className={styles.socialLink}
+                    >
+                      {link.label}
+                    </a>
+                  );
+                }
               )}
             </div>
           ) : translated.content.emailHref ? (
