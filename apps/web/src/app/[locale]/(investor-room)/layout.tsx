@@ -8,6 +8,7 @@ import {
   type SupportedLocale,
 } from '@diboas/i18n/server';
 import { LocaleProvider, I18nProvider, SetHtmlLang } from '@/components/Providers';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { PageErrorBoundary } from '@/components/ErrorBoundary';
 import {
   INVESTOR_GATE_COOKIE,
@@ -70,6 +71,9 @@ export default async function InvestorRoomLayout({ children, params }: InvestorR
                 diBoaS
               </a>
               <span className={styles.badge}>Investor Room</span>
+              <div className={styles.headerRight}>
+                <LanguageSwitcher variant="dropdown" size="sm" />
+              </div>
             </header>
             <main id="main-content" className={styles.main}>
               {granted ? children : <InvestorRoomAccess locale={locale} configured={configured} />}

@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: var(--section-bg-white);
+  /* Subtle tinted "private room" backdrop so white document surfaces read as paper. */
+  background-color: var(--section-bg-neutral);
 }
 
 .header {
@@ -10,7 +11,9 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-lg);
-  border-bottom: 1px solid var(--color-slate-200);
+  background-color: var(--section-bg-white);
+  /* Accent rule marks the private space. */
+  border-bottom: 2px solid var(--color-brand-primary-hover);
 }
 
 .wordmark {
@@ -20,16 +23,35 @@
   text-decoration: none;
 }
 
+/* Accent-filled pill: a clear "you are in the private investor room" marker. */
 .badge {
   font-size: var(--font-size-overline);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-text-muted);
-  padding: var(--spacing-2xs) var(--spacing-xs);
-  border: 1px solid var(--color-slate-200);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-on-dark);
+  background-color: var(--color-brand-primary-hover);
+  padding: var(--spacing-2xs) var(--spacing-sm);
   border-radius: var(--radius-pill);
+}
+
+.headerRight {
+  margin-left: auto;
 }
 
 .main {
   flex: 1;
+}
+
+/* Print → clean ink-on-white document: strip the room chrome + tint. */
+@media print {
+  .shell {
+    background-color: var(--section-bg-white);
+  }
+  .header {
+    display: none;
+  }
+  .main {
+    padding: 0;
+  }
 }

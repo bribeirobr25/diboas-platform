@@ -74,6 +74,14 @@ export interface HeroVariantConfig {
     readonly trackingPrefix: string;
     readonly enabled: boolean;
   };
+  /** Optional per-variant layout tweaks (opt-in; defaults preserve base layout). */
+  readonly layout?: {
+    /**
+     * Lift the (vertically centered) hero content block up by ~90px on desktop
+     * (>= 1024px) only. Opt-in per page; other fullBackground heroes unaffected.
+     */
+    readonly desktopContentLift?: boolean;
+  };
 }
 
 // Configuration Management - Default visual assets

@@ -1,0 +1,4946 @@
+{
+  "docs": {
+    "business-plan": {
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que é a diBoaS"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS é um aplicativo financeiro não custodial que ajuda pessoas e empresas a separar dinheiro por objetivo, antes de qualquer movimentação."
+        },
+        {
+          "type": "paragraph",
+          "text": "Pessoas físicas usam a diBoaS para organizar dinheiro que tem um destino claro: uma reserva, uma proteção, uma compra futura ou um plano de longo prazo."
+        },
+        {
+          "type": "paragraph",
+          "text": "Empresas usam a diBoaS para organizar o caixa por função: o que precisa ficar disponível, o que pode ser separado e qual risco faz sentido assumir."
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS mostra o caminho, os custos, a liquidez e os riscos antes da decisão. O dinheiro continua sob controle do usuário. A diBoaS é a interface, não a custodiante."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O problema"
+        },
+        {
+          "type": "paragraph",
+          "text": "Pessoas guardam dinheiro, mas quase nunca recebem uma explicação clara sobre o que esse dinheiro pode fazer depois."
+        },
+        {
+          "type": "paragraph",
+          "text": "O dinheiro fica parado, os custos aparecem na movimentação, e caminhos melhores costumam vir cheios de jargão."
+        },
+        {
+          "type": "paragraph",
+          "text": "Para pessoas físicas, a dor é simples: o dinheiro precisa ter objetivo, caminho claro e risco visível antes de ser movimentado."
+        },
+        {
+          "type": "paragraph",
+          "text": "Para empresas, o problema aparece em escala maior: um caixa só, muitas obrigações. Folha, aluguel, imposto, fornecedor, maquininha, capital de giro e caixa parado ficam misturados, mesmo quando nem todo real tem a mesma função ou o mesmo risco aceitável."
+        },
+        {
+          "type": "paragraph",
+          "text": "As ferramentas que podem resolver isso existem, mas costumam ser técnicas demais para usuários comuns, fragmentadas demais para pequenas empresas e pequenas demais em ticket para instituições tradicionais explicarem bem."
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS transforma isso num princípio de produto:"
+        },
+        {
+          "type": "quote",
+          "text": "Pessoas escolhem um objetivo. Empresas definem regras. A diBoaS mostra caminho, custo, liquidez e risco antes de qualquer movimentação."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Como gera receita"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS cobra uma pequena taxa apenas quando o dinheiro se move — não sobre dinheiro parado."
+        },
+        {
+          "type": "paragraph",
+          "text": "Adicionar dinheiro ou sacar custa 0,48%: limite máximo de US$250 para pessoas físicas e US$2.500 para empresas. Encerrar uma estratégia custa 0,39%, com limite máximo de US$25."
+        },
+        {
+          "type": "paragraph",
+          "text": "Enviar, trocar, fazer bridge, iniciar estratégia e receber pagamentos B2B não têm taxa da diBoaS quando a função estiver disponível. Custos de rede, provedores, entrada e saída, bancos, câmbio ou compliance ainda podem se aplicar e são repassados a custo."
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS não pega spread sobre rendimento de estratégia. A receita escala com dinheiro se movendo, não com dinheiro parado."
+        },
+        {
+          "type": "paragraph",
+          "text": "O modelo honesto: uma pessoa física vale poucos dólares por ano, cerca de US$5,88 de ARPU médio nos mercados modelados de lançamento. Uma empresa movimentando caixa parado ou excedente vale cerca de US$1.945–19.300/ano com esforço parecido de aquisição."
+        },
+        {
+          "type": "paragraph",
+          "text": "B2C constrói confiança e distribuição. B2B gera receita. Dez clientes empresariais valem mais que 6.000 pessoas físicas."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Mercado e sequência"
+        },
+        {
+          "type": "paragraph",
+          "text": "Lançamento em quatro mercados, ponderados Brasil 40% / EUA 30% / Alemanha 18% / Espanha 12%."
+        },
+        {
+          "type": "paragraph",
+          "text": "Cada mercado entra com uma proposta principal:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Brasil: objetivo e proteção em dólar.",
+            "Estados Unidos: dinheiro com função, acesso e movimentação.",
+            "Alemanha: planejamento, clareza e risco visível.",
+            "Espanha: plano, custos, prudência e explicação."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Transferência gratuita não é a história central fora dos EUA. PIX e transferências bancárias instantâneas já tornam movimentação gratuita algo esperado no Brasil, Alemanha e Espanha. A história durável é objetivo, controle, custo visível e risco antes do movimento."
+        },
+        {
+          "type": "paragraph",
+          "text": "A sequência comercial é deliberada: Brasil primeiro, EUA em segundo, Alemanha em terceiro, Espanha depois. O Brasil tem o gancho inicial mais forte para consumidor e é o mercado nativo do fundador. Os EUA têm maior participação em investimentos e a lacuna mais forte em movimentação. Alemanha e Espanha entram depois com posicionamento nativo da UE e comunicação mais conservadora, baseada em clareza."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Go-to-market"
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "text": "Pessoas físicas: confiança + distribuição"
+        },
+        {
+          "type": "paragraph",
+          "text": "Brasil e EUA lideram a entrada B2C."
+        },
+        {
+          "type": "paragraph",
+          "text": "A aquisição começa liderada pelo fundador e pela comunidade: comunidade, boca a boca, indicações e vídeos curtos como canal de amplificação. O CAC precisa ficar perto de zero porque o ARPU de consumidor é estruturalmente pequeno."
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto de consumidor constrói a marca: dinheiro com objetivo, risco visível, controle da carteira e custos claros antes de mover."
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "text": "Empresas: motor de receita"
+        },
+        {
+          "type": "paragraph",
+          "text": "No primeiro ano, o B2B será liderado diretamente pelo fundador."
+        },
+        {
+          "type": "paragraph",
+          "text": "A prospecção começa com pequenas empresas, prestadores, agências, e-commerces e startups, com uma proposta simples: separar o caixa por finalidade, definir o que precisa ficar líquido e revisar o que pode se mover apenas depois de custo, disponibilidade e risco estarem claros."
+        },
+        {
+          "type": "paragraph",
+          "text": "O canal do primeiro ano é limitado pelo tempo do fundador de propósito. A meta é provar a conversão B2B antes de gastar para escalar."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Posição regulatória"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS foi desenhada como uma interface não custodial: não detém dinheiro do cliente, não detém chaves do cliente e cobra taxas de uso por software."
+        },
+        {
+          "type": "paragraph",
+          "text": "Com base no parecer regulatório de junho de 2026, essa arquitetura foi concebida para reduzir os principais gatilhos de licenciamento analisados nos EUA, UE e Brasil, sujeita a pareceres jurídicos por jurisdição e a marcos obrigatórios antes de cada lançamento."
+        },
+        {
+          "type": "paragraph",
+          "text": "Três pontos são monitorados em calendário datado:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "As posições de staff dos EUA não são vinculantes e podem mudar.",
+            "A UE está consultando se frontends que cobram taxa, como a diBoaS, devem entrar no escopo em uma futura expansão do MiCA.",
+            "A regra brasileira de 30 de outubro de 2026 exige que o parceiro de entrada/saída de dinheiro seja autorizado localmente."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "O lançamento no Brasil depende de assinar um parceiro de entrada/saída autorizado localmente. O recurso de movimentação entre usuários nos EUA depende de um parecer específico de money-transmitter."
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso não é tratado como risco resolvido. É tratado como risco governado."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Como os fundos continuam sob controle do usuário"
+        },
+        {
+          "type": "paragraph",
+          "text": "As carteiras usam tecnologia Turnkey MPC com zero key shares da diBoaS. O usuário aprova as transações, e a recuperação passa por um terceiro integrado, não pela diBoaS."
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS não consegue mover, congelar ou emprestar fundos do usuário por conta própria. O acesso e a recuperação ainda dependem do provedor de carteira, das redes suportadas e do fluxo de recuperação funcionando como previsto."
+        },
+        {
+          "type": "paragraph",
+          "text": "Essa diferença é central: a diBoaS é a interface, não a custodiante."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Time e plano de construção"
+        },
+        {
+          "type": "paragraph",
+          "text": "Fundador solo — 20 anos em produto e TI no Brasil, EUA, Japão e Alemanha — construindo com ferramentas assistidas por IA."
+        },
+        {
+          "type": "paragraph",
+          "text": "O plano é founder-built: o fundador entrega o produto. Isso concentra risco numa pessoa, e o plano nomeia esse risco em vez de escondê-lo."
+        },
+        {
+          "type": "paragraph",
+          "text": "O data room é a evidência: análise regulatória, arquitetura, especificação de produto, auto-auditorias e um padrão de construção orientado por testes. O fundador já entregou o site de marketing e o produto de inteligência de mercado."
+        },
+        {
+          "type": "paragraph",
+          "text": "Capital adicional reduz o risco de pessoa-chave ao financiar um engenheiro sênior para assumir a construção do produto de dinheiro: a única parte em que um bug pode custar dinheiro real de alguém."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Plano e metas do ano um"
+        },
+        {
+          "type": "paragraph",
+          "text": "<small>Cenário-base — premissas do fundador, pré-lançamento.</small>"
+        },
+        {
+          "type": "table",
+          "headers": ["Marco", "Quando"],
+          "rows": [
+            ["Constituir entidade em Berlim: UG para GmbH, ou GmbH direto no raise maior", "Mês 0"],
+            ["Produto de inteligência de mercado no ar: Adelaide / BTC macro", "Mês 0–3"],
+            [
+              "Produto de dinheiro lançado: carteiras + entrada/saída + primeira estratégia",
+              "Mês 3–6"
+            ],
+            ["Primeiros clientes pagantes + primeiros pilotos empresariais", "Mês 6–9"]
+          ]
+        },
+        {
+          "type": "table",
+          "headers": ["Meta do ano um", "Cenário-base"],
+          "rows": [
+            ["Usuários pessoa física com depósito", "2.500–5.000"],
+            ["Clientes empresariais pagantes", "5–10"],
+            ["Receita indicativa", "~US$45 mil"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "O ano um é validação, não retorno: provar que os canais convertem e o modelo funciona, não chegar perto do break-even."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O pedido — dois caminhos"
+        },
+        {
+          "type": "paragraph",
+          "text": "Apresentamos duas formas de entrada, nos mesmos termos: SAFE / conversível alemão (Wandeldarlehen) post-money com cap de €2,5M e 20% de desconto."
+        },
+        {
+          "type": "paragraph",
+          "text": "O cap está ancorado de forma modesta para um valuation honesto de pré-lançamento e sobe à medida que a constituição, um parceiro de entrada/saída assinado e os primeiros LOIs empresariais se concretizam."
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "text": "Caminho A — Enxuto / founder-built"
+        },
+        {
+          "type": "paragraph",
+          "text": "~€200K, principal. Financia o fundador para entregar o produto sozinho, mais os custos externos inegociáveis. Cerca de ~8% de diluição no cap. Este é o plano real."
+        },
+        {
+          "type": "table",
+          "headers": ["Uso dos recursos — Caminho A, ~18 meses", "Valor"],
+          "rows": [
+            ["Salário do fundador, enxuto", "~€60K"],
+            ["Auditoria de segurança, única antes do lançamento", "~€30K"],
+            ["Jurídico: parecer regulatório UE + constituição + papelada do round", "~€28K"],
+            ["Consultor regulatório/compliance fracionado, leve perto do lançamento", "~€20K"],
+            ["Infraestrutura + provedor de carteiras + integração de entrada/saída", "~€20K"],
+            ["Contabilidade / consultor tributário, Steuerberater", "~€8K"],
+            ["Reserva", "~€34K"],
+            ["Total", "~€200K"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "text": "Caminho B — Com mais capital"
+        },
+        {
+          "type": "paragraph",
+          "text": "~€450K, upside. Os ~€250K adicionais reduzem o maior risco do Caminho A: tudo depender de um único construtor."
+        },
+        {
+          "type": "paragraph",
+          "text": "Financia um engenheiro sênior, cerca de ~€172K carregado em 18 meses, para assumir a construção do produto de dinheiro, mais um parecer regulatório dos EUA, compliance mais completo e mais runway. Até ~18% de diluição no cap."
+        },
+        {
+          "type": "paragraph",
+          "text": "O engenheiro é eliminação de risco, não headcount: remove a dependência de pessoa-chave na única parte da construção onde um bug custa dinheiro real de alguém."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Uma possível segunda linha de receita futura"
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto de inteligência de mercado, Adelaide, foi construído como produto separado e portátil que outras plataformas poderiam embarcar."
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso abre uma possível linha futura de licenciamento B2B."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ela não está modelada, não está no pedido e não é necessária para o cenário-base. Hoje serve à própria superfície de mercado da diBoaS e à aquisição."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que mata isto"
+        },
+        {
+          "type": "paragraph",
+          "text": "A demanda empresarial não aparecer nos tamanhos de deal que o modelo assume."
+        },
+        {
+          "type": "paragraph",
+          "text": "Taxas de pessoas físicas sozinhas não sustentam a empresa. O modelo é explícito quanto a isso. Provar demanda empresarial por LOIs e pilotos assinados é a prioridade de curto prazo."
+        },
+        {
+          "type": "paragraph",
+          "text": "Outros itens em aberto estão nomeados e delimitados no Investor FAQ:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "parceiro de entrada/saída não assinado;",
+            "margem líquida exata ainda não fechada;",
+            "entidade não constituída;",
+            "pipeline B2B ainda não provado;",
+            "parecer de money-transmitter para movimentação entre usuários nos EUA ainda necessário;",
+            "ainda sem dados de tração."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Nada disso está escondido. Cada item tem um marco de validação."
+        },
+        {
+          "type": "paragraph",
+          "text": "Respostas mais profundas a qualquer linha acima: ver INVESTOR_FAQ_PT.md. Isto não é aconselhamento jurídico, tributário, contábil, financeiro ou de investimento. Estrutura de constituição e financiamento a confirmar com um Steuerberater e advogado alemães. Números marcados como ilustrativos ou premissa são estimativas pré-lançamento."
+        }
+      ]
+    },
+    "investor-faq": {
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Como ler isto: Onde temos evidência, dizemos claramente. Onde não temos, dizemos exatamente o que está em aberto e quando se resolve. Colocamos as respostas desconfortáveis primeiro em cada seção de propósito — se algo aqui parece uma fraqueza, já a nomeamos com mais força do que você nomearia."
+        },
+        {
+          "type": "paragraph",
+          "text": "Uma linha sobre o que é a diBoaS: a diBoaS é um aplicativo financeiro não custodial que ajuda pessoas e empresas a separar dinheiro por objetivo antes de qualquer movimentação. Pessoas físicas usam a diBoaS para transformar uma reserva, uma proteção ou um plano futuro em um caminho mais claro. Empresas usam a diBoaS para organizar o caixa por função: o que precisa ficar disponível, o que pode ser separado e qual risco faz sentido assumir. A diBoaS mostra caminho, custos, liquidez e riscos antes da decisão. O dinheiro continua sob controle do usuário — a diBoaS é a interface, não a custodiante."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "1. Modelo de negócio e ROI"
+        },
+        {
+          "type": "paragraph",
+          "text": "Como vocês ganham dinheiro?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Taxas de transação sobre a movimentação do dinheiro. Duas linhas: 0,48% no add/cash-out, 0,39% ao encerrar uma estratégia."
+        },
+        {
+          "type": "paragraph",
+          "text": "É isso."
+        },
+        {
+          "type": "paragraph",
+          "text": "Não pegamos spread sobre o rendimento — a diBoaS não ganha nada enquanto o dinheiro fica investido. A receita escala com o dinheiro se movendo, não com o dinheiro parado."
+        },
+        {
+          "type": "paragraph",
+          "text": "Então qual é o unit economic — de verdade?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Um consumidor vale poucos dólares por ano. Um contribuinte mensal nos EUA depositando US$250 paga ~US$14,40/ano em taxas; quem só guarda paga poucos dólares."
+        },
+        {
+          "type": "paragraph",
+          "text": "O ARPU médio de consumidor nos quatro mercados é ~US$5,88/ano (faixa de US$4,48 no cenário Brazil-heavy a US$7,63 no US-heavy). Taxas únicas sobre um usuário que deposita e guarda US$1.000 dão ~US$13 ao longo da vida."
+        },
+        {
+          "type": "paragraph",
+          "text": "O ARPU de fintech de consumo aqui é estruturalmente pequeno, e não vamos fingir o contrário."
+        },
+        {
+          "type": "paragraph",
+          "text": "Então como isso é um negócio?"
+        },
+        {
+          "type": "paragraph",
+          "text": "B2B."
+        },
+        {
+          "type": "paragraph",
+          "text": "Uma empresa aplicando US$200 mil de caixa parado paga ~US$1.945/ano; com US$500 mil girando trimestralmente, ~US$19.300/ano — com mais ou menos o mesmo esforço de aquisição de um consumidor."
+        },
+        {
+          "type": "paragraph",
+          "text": "B2C é distribuição. B2B é receita. Dez clientes B2B valem mais que 6.000 consumidores."
+        },
+        {
+          "type": "paragraph",
+          "text": "Adquirimos consumidores com propostas nativas por mercado: objetivo e proteção em dólar no Brasil; dinheiro com função, acesso e movimentação nos EUA; planejamento, clareza e risco visível na Alemanha; e plano, custos, prudência e explicação na Espanha."
+        },
+        {
+          "type": "paragraph",
+          "text": "B2C constrói confiança e distribuição. B2B monetiza essa mesma confiança por meio de regras de caixa, caminhos de pagamento e controle de liquidez empresarial."
+        },
+        {
+          "type": "paragraph",
+          "text": "Me explique o break-even."
+        },
+        {
+          "type": "paragraph",
+          "text": "No custo de infraestrutura da Fase 3 (~US$60 mil/ano), só B2C precisaria de ~10.200 usuários ativos para empatar — o que, contra um CAC de fintech nos EUA de US$50–200, não se paga sozinho."
+        },
+        {
+          "type": "paragraph",
+          "text": "Somos explícitos quanto a isso."
+        },
+        {
+          "type": "paragraph",
+          "text": "Com B2B na conta, 25 clientes empresariais reduzem a necessidade para ~1.900 consumidores. O break-even é uma história de B2B; a base de consumidores é o funil que barateia a aquisição B2B."
+        },
+        {
+          "type": "paragraph",
+          "text": "Por que os exemplos de valor para o cliente são diferentes do modelo de receita?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Porque medem coisas diferentes."
+        },
+        {
+          "type": "paragraph",
+          "text": "Exemplos de valor para o cliente estimam o que uma empresa pode economizar ou melhorar ao reduzir custos evitáveis de pagamento, dar uma função mais clara ao caixa parado ou separar caixa operacional de caixa estratégico."
+        },
+        {
+          "type": "paragraph",
+          "text": "A nossa receita é a camada menor de taxas de movimentação que cobramos quando o dinheiro entra, sai ou uma estratégia é encerrada."
+        },
+        {
+          "type": "paragraph",
+          "text": "O cliente fica com o valor maior. A diBoaS ganha a taxa menor e explícita."
+        },
+        {
+          "type": "paragraph",
+          "text": "Qual é o CAC, LTV, churn?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Não comprovados — estamos pré-lançamento, e não vamos entregar números inventados."
+        },
+        {
+          "type": "paragraph",
+          "text": "O que há no modelo: ARPU médio de consumidor ~US$5,88/ano, ARPU B2B ~US$1.945–19.300/ano, e a premissa de que a fatia de contribuintes mensais dirige a receita de consumidor."
+        },
+        {
+          "type": "paragraph",
+          "text": "As três primeiras métricas que validamos pós-lançamento são conversão de cadastro→depósito, fatia de contribuintes mensais e tamanho do deal B2B — cada uma com um kill-criterion."
+        },
+        {
+          "type": "paragraph",
+          "text": "Se menos de 10% dos consumidores contribuírem mensalmente, a linha de consumidor é recortada."
+        },
+        {
+          "type": "paragraph",
+          "text": "Qual é a tabela de taxas, exatamente?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Add / cash-out: 0,48%, limite máximo de US$250 para consumidor e US$2.500 para empresa. Encerrar estratégia: 0,39%, limite máximo de US$25."
+        },
+        {
+          "type": "paragraph",
+          "text": "Enviar, trocar, fazer bridge, iniciar estratégia e receber pagamentos B2B não têm taxa da diBoaS quando a função estiver disponível. Custos de rede, ramp, provedor, banco, câmbio ou compliance ainda podem se aplicar e são repassados a custo — a diBoaS nunca aplica markup."
+        },
+        {
+          "type": "paragraph",
+          "text": "O limite dividido é deliberado: o limite de US$25 protege quem está sacando suas economias; os limites maiores de add/cash-out preservam a economia do B2B."
+        },
+        {
+          "type": "paragraph",
+          "text": "Esta tabela é a fonte única de verdade (FEES.md) e está idêntica em todas as superfícies."
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto de analytics é uma segunda linha de receita?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Potencialmente, no futuro — e não estamos contando com isso."
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto de inteligência de mercado (Adelaide) foi construído como um produto separado e portátil que outras plataformas poderiam embarcar, o que abre uma possível linha futura de licenciamento B2B."
+        },
+        {
+          "type": "paragraph",
+          "text": "Está registrado apenas como opcionalidade — não em nenhuma projeção, não nesta captação. Hoje serve à própria superfície /market da diBoaS e à aquisição."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "2. Regulação e jurídico"
+        },
+        {
+          "type": "paragraph",
+          "text": "Por que vocês acreditam que a arquitetura atual pode operar sem licença no lançamento?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Porque a arquitetura atual foi desenhada como não custodial: a diBoaS não detém dinheiro do cliente, não detém chaves do cliente e cobra taxas de uso por uma interface."
+        },
+        {
+          "type": "paragraph",
+          "text": "Com base no parecer regulatório de junho de 2026, essa arquitetura foi concebida para reduzir os principais gatilhos de licenciamento analisados nos EUA, UE e Brasil, sujeita a pareceres jurídicos por jurisdição e a marcos obrigatórios antes de cada lançamento."
+        },
+        {
+          "type": "paragraph",
+          "text": "Nos EUA, o staff statement da SEC de 13/04/2026 e a carta Phantom da CFTC de março/2026 cobrem explicitamente interfaces non-custodial que cobram taxa. Na UE, os Considerandos 22 e 83 do MiCA mantêm software non-custodial fora do perímetro de CASP (crypto-asset service provider). Temos um parecer regulatório datado e com fontes em arquivo."
+        },
+        {
+          "type": "paragraph",
+          "text": "O que poderia mudar isso — qual é a pegadinha?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Três coisas, e preferimos nomeá-las a deixar você descobrir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Um: as proteções dos EUA são posições de staff não vinculantes, revogáveis, e a da SEC expira em abril de 2031."
+        },
+        {
+          "type": "paragraph",
+          "text": "Dois: a consulta do MiCA 2.0 na UE está avaliando se traz frontends que cobram taxa como o nosso para o escopo — mas qualquer proposta não é esperada antes de ~2028."
+        },
+        {
+          "type": "paragraph",
+          "text": "Três: a regra brasileira de 30/10/2026 corta os trilhos bancários de quem for considerado VASP (virtual-asset service provider) não autorizado, e nosso recurso de movimentação entre usuários com stablecoin toca em atividade de câmbio reservada."
+        },
+        {
+          "type": "paragraph",
+          "text": "Monitoramos os três num calendário datado."
+        },
+        {
+          "type": "paragraph",
+          "text": "Este é o maior risco da empresa: se o parecer da UE estiver errado e estivermos no escopo de CASP, o custo e o prazo mudam de ordem de grandeza — por isso o parecer regulatório da UE é o primeiro dinheiro que gastamos."
+        },
+        {
+          "type": "paragraph",
+          "text": "Vocês são custodiais ou não — exatamente?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Não custodiais."
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS tem zero key shares. As carteiras usam tecnologia Turnkey MPC (multi-party computation); o usuário aprova as transações; a recuperação passa pelo provedor terceiro integrado, não pela diBoaS."
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS não consegue mover, congelar ou emprestar fundos do usuário por conta própria. O acesso e a recuperação ainda dependem do provedor de carteira, das redes suportadas e do fluxo de recuperação funcionando como previsto."
+        },
+        {
+          "type": "paragraph",
+          "text": "Essa diferença é central: a diBoaS é a interface, não a custodiante."
+        },
+        {
+          "type": "paragraph",
+          "text": "Quem detém a responsabilidade por KYC, e o parceiro de entrada/saída está assinado?"
+        },
+        {
+          "type": "paragraph",
+          "text": "A responsabilidade por KYC fica com o provedor de on/off-ramp (o parceiro que converte entre dinheiro tradicional e dólares digitais) por design — a diBoaS nunca toca em fiat, então nunca assume essa responsabilidade."
+        },
+        {
+          "type": "paragraph",
+          "text": "O parceiro ainda não está assinado; temos uma shortlist. Contratar um que seja autorizado pelo BCB no Brasil é um pré-requisito explícito antes do lançamento no Brasil e antes do prazo de 30/10/2026."
+        },
+        {
+          "type": "paragraph",
+          "text": "Um marco nomeado e datado, não um risco solto."
+        },
+        {
+          "type": "paragraph",
+          "text": "Qual é o status do parecer do Brasil?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Concluído."
+        },
+        {
+          "type": "paragraph",
+          "text": "A leitura atual é que a arquitetura foi concebida para reduzir os principais gatilhos de licenciamento como desenhada — com uma dependência viva: nosso parceiro de entrada/saída não assinado precisa ser autorizado pelo BCB, ou a regra de isolamento de outubro no Brasil corta os trilhos de dinheiro tradicional."
+        },
+        {
+          "type": "paragraph",
+          "text": "Por isso a escolha do parceiro está atrelada a esse prazo."
+        },
+        {
+          "type": "paragraph",
+          "text": "A movimentação entre usuários é um problema nos EUA?"
+        },
+        {
+          "type": "paragraph",
+          "text": "É o único recurso de consumidor com pergunta em aberto: se a movimentação peer-to-peer com taxa diBoaS US$0 aciona a classificação de money-transmitter nos EUA independentemente da arquitetura non-custodial."
+        },
+        {
+          "type": "paragraph",
+          "text": "Não lançaremos esse recurso nos EUA sem um parecer jurídico específico sobre esse ponto — um marco obrigatório antes do lançamento, não uma premissa."
+        },
+        {
+          "type": "paragraph",
+          "text": "No plano enxuto, esse parecer é adiado até os EUA entrarem no escopo."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "3. Produto, tração e moat"
+        },
+        {
+          "type": "paragraph",
+          "text": "O que de fato está construído?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Hoje: o site de marketing e o produto de inteligência de mercado (o painel de BTC macro, \"Adelaide Daily\")."
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto de dinheiro — carteiras, integração de entrada/saída, o motor de objetivo-para-estratégia, movimentação entre usuários — está totalmente especificado, mas ainda não construído."
+        },
+        {
+          "type": "paragraph",
+          "text": "Estamos no início e não vamos enfeitar. As bases de engenharia e regulatória estão postas para que a construção execute contra uma especificação em vez de inventar pelo caminho."
+        },
+        {
+          "type": "paragraph",
+          "text": "Me mostre a tração."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ainda não há."
+        },
+        {
+          "type": "paragraph",
+          "text": "A waitlist está no ar mas sem divulgação — não começamos a aquisição, então não há números de funil, e a demo roda com dinheiro fictício."
+        },
+        {
+          "type": "paragraph",
+          "text": "Preferimos dizer isso a mostrar métricas de vaidade. Os primeiros números reais vêm pós-lançamento; a captação financia chegar lá."
+        },
+        {
+          "type": "paragraph",
+          "text": "Qual é o moat? Os protocolos são públicos — o que impede um fast-follower?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Não é a tecnologia — é commoditizada, e dizemos isso."
+        },
+        {
+          "type": "paragraph",
+          "text": "O moat é a confiança de marca numa categoria onde confiança é o produto inteiro, uma biblioteca de objetivos e precisão regional que um concorrente genérico não copia rápido (PIX e o 13º salário no Brasil, enquadramento nativo da UE na Alemanha), e custos de troca B2B quando uma empresa constrói regras de caixa, fluxos de pagamento e hábitos de relatório em torno da diBoaS."
+        },
+        {
+          "type": "paragraph",
+          "text": "A janela para ser a primeira marca confiável e simples por região é de 12–18 meses."
+        },
+        {
+          "type": "paragraph",
+          "text": "Movimentação entre usuários é o moat?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Só nos EUA, e mesmo lá é um gancho, não o moat inteiro."
+        },
+        {
+          "type": "paragraph",
+          "text": "Nossa própria pesquisa de mercado matou a premissa de “transferência grátis” nos outros lugares: PIX (Brasil) e transferências bancárias instantâneas (Alemanha, Espanha) já são gratuitas, instantâneas e praticamente universais, então custo de transferência é padrão lá, não diferencial."
+        },
+        {
+          "type": "paragraph",
+          "text": "Nos EUA, a opção gratuita comum é presa ao banco e limitada, então um gancho de movimentação ainda tem força."
+        },
+        {
+          "type": "paragraph",
+          "text": "Posicionamos em objetivo e proteção em dólar no Brasil; dinheiro com função, acesso e movimentação nos EUA; planejamento e risco visível na Alemanha; e prudência, custos e explicação na Espanha."
+        },
+        {
+          "type": "paragraph",
+          "text": "Por que estes quatro mercados, nesta ordem?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Participação em investimentos e força da proposta de valor, com dados de bancos centrais."
+        },
+        {
+          "type": "paragraph",
+          "text": "Brasil primeiro: gancho mais forte — objetivo e proteção em dólar contra inflação de ~4,7% e um real em queda — mais o mercado natal do fundador."
+        },
+        {
+          "type": "paragraph",
+          "text": "EUA em segundo: maior participação em investimentos, ~62%, e o único mercado onde a vantagem de movimentação sobrevive."
+        },
+        {
+          "type": "paragraph",
+          "text": "Alemanha em terceiro: base em Berlim, nativo da UE, cultura de investimento crescendo rápido, mas ~18% de participação; o melhor enquadramento é planejamento, clareza e risco visível."
+        },
+        {
+          "type": "paragraph",
+          "text": "Espanha por último: menor participação, mais presa a depósitos; o melhor enquadramento é plano, custos, prudência e explicação."
+        },
+        {
+          "type": "paragraph",
+          "text": "Mix de coorte de lançamento modelado em Brasil 40% / EUA 30% / Alemanha 18% / Espanha 12%, testado em cenários US-heavy e Brazil-heavy."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "4. Time"
+        },
+        {
+          "type": "paragraph",
+          "text": "Quem é o time, e o que acontece se você for atropelado?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Fundador solo — 20 anos em produto e TI no Brasil, EUA, Japão e Alemanha — construindo com ferramentas assistidas por IA."
+        },
+        {
+          "type": "paragraph",
+          "text": "O plano é founder-built: o fundador entrega o produto."
+        },
+        {
+          "type": "paragraph",
+          "text": "Não vamos fingir que solo não é risco de concentração — é a primeira coisa que apontaríamos na nossa própria diligência."
+        },
+        {
+          "type": "paragraph",
+          "text": "Duas coisas mitigam."
+        },
+        {
+          "type": "paragraph",
+          "text": "Primeiro, a evidência: o que já foi entregue (o site, o produto de analytics, ~1.045 testes, a análise regulatória, as auto-auditorias) mostra que este fundador constrói e governa a um padrão real, sozinho."
+        },
+        {
+          "type": "paragraph",
+          "text": "Segundo, a estrutura do deal: o Caminho B existe justamente para eliminar esse risco — o capital adicional financia um engenheiro sênior para tocar a construção do produto de dinheiro, removendo a dependência de um único construtor na única parte onde um bug custa dinheiro real de alguém."
+        },
+        {
+          "type": "paragraph",
+          "text": "Um consultor regulatório/compliance fracionado (leve no plano enxuto, mais completo no Caminho B) cuida do calendário regulatório, da negociação de KYC do parceiro de entrada/saída e do prazo do Brasil."
+        },
+        {
+          "type": "paragraph",
+          "text": "Então o bus-factor não está escondido: o plano enxuto o aceita de olhos abertos e com base de custo baixa; o Caminho B o reduz."
+        },
+        {
+          "type": "paragraph",
+          "text": "Por que você?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Vinte anos em produto e TI em quatro países."
+        },
+        {
+          "type": "paragraph",
+          "text": "E o parecer regulatório, a arquitetura, o modelo financeiro e o rigor de engenharia neste data room foram produzidos a um padrão que a maioria das empresas pre-seed finge ter — essa é a evidência, não a alegação."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "5. O deal"
+        },
+        {
+          "type": "paragraph",
+          "text": "Existe uma entidade?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Ainda não — e esse é o passo zero, antes de qualquer dinheiro se mover."
+        },
+        {
+          "type": "paragraph",
+          "text": "Não dá para transferir para uma pessoa física. A constituição da entidade em Berlim (uma UG, conversível em GmbH; ou uma GmbH direto no raise maior) vem primeiro; a primeira tranche é liberada na constituição mais um lead assinado."
+        },
+        {
+          "type": "paragraph",
+          "text": "Quanto, qual valuation, qual a estrutura?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Apresentamos dois caminhos nos mesmos termos — um SAFE / conversível alemão (Wandeldarlehen) post-money com cap de €2,5M e 20% de desconto:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Caminho A — Enxuto / founder-built (~€200K, principal, ~8% no cap). Financia o fundador para entregar o produto sozinho mais os custos externos inegociáveis. Este é o plano real.",
+            "Caminho B — Com mais capital (~€450K, upside, até ~18% no cap). Adiciona um engenheiro sênior para tocar a construção do produto de dinheiro (eliminação de risco, não headcount), um parecer regulatório dos EUA, compliance mais completo e mais runway."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Por que um cap de €2,5M e não maior?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Porque estamos pré-constituição, pré-lançamento e solo — e preferimos ancorar onde podemos defender a abrir alto e ser puxados para baixo."
+        },
+        {
+          "type": "paragraph",
+          "text": "A faixa padrão de pre-seed é mais ou menos €1,5–3M; uma leitura fria ancora baixo."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ancoramos em €2,5M, justificado pela profundidade deste data room, e o cap sobe à medida que a constituição, um parceiro de entrada/saída assinado e os primeiros LOIs B2B se concretizam."
+        },
+        {
+          "type": "paragraph",
+          "text": "Preferimos que você nos puxe para cima pela força da evidência a começar num número que não conseguimos defender."
+        },
+        {
+          "type": "paragraph",
+          "text": "Uso dos recursos — Caminho A (~€200K, ~18 meses):"
+        },
+        {
+          "type": "table",
+          "headers": ["Item", "Valor"],
+          "rows": [
+            ["Salário do fundador (enxuto)", "~€60K"],
+            ["Auditoria de segurança (única, pré-lançamento)", "~€30K"],
+            ["Jurídico: parecer regulatório UE + constituição + papelada do round", "~€28K"],
+            ["Consultor regulatório/compliance fracionado (leve, perto do lançamento)", "~€20K"],
+            ["Infraestrutura + provedor de carteiras + integração de entrada/saída", "~€20K"],
+            ["Contabilidade / consultor tributário (Steuerberater)", "~€8K"],
+            ["Reserva", "~€34K"],
+            ["Total", "~€200K"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "O que os ~€250K adicionais compram (Caminho B → ~€450K):"
+        },
+        {
+          "type": "paragraph",
+          "text": "Um engenheiro full-stack/blockchain sênior (~€172K carregado/18 meses) para tocar a construção do produto de dinheiro e eliminar o risco de construtor único; um parecer de money-transmitter dos EUA (~€15K) para liberar o recurso de P2P nos EUA; compliance fracionado mais completo; e mais runway/reserva."
+        },
+        {
+          "type": "paragraph",
+          "text": "Em tranches: ~€80–100K na constituição + lead assinado; o restante com parceiro de entrada/saída assinado, MVP do produto de dinheiro entregue e primeira coorte de receita no ar."
+        },
+        {
+          "type": "paragraph",
+          "text": "Estamos pedindo que você financie prova, não esperança."
+        },
+        {
+          "type": "paragraph",
+          "text": "Qual é a única coisa que mata isto?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Um modelo de receita B2B não resolvido."
+        },
+        {
+          "type": "paragraph",
+          "text": "Taxas de consumidor sozinhas não sustentam a empresa — o modelo é explícito quanto a isso."
+        },
+        {
+          "type": "paragraph",
+          "text": "Se a demanda B2B por controle de caixa não se materializar nos tamanhos de deal que o modelo assume, o negócio não fecha."
+        },
+        {
+          "type": "paragraph",
+          "text": "Por isso validar a demanda B2B (LOIs/pilotos assinados) é nossa prioridade junto com a construção."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que está genuinamente em aberto (e quando se resolve)"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Parceiro de entrada/saída não assinado — há shortlist; assinado antes do lançamento e do prazo de 30/10 no Brasil.",
+            "Margem exata ainda não fechada — o rev-share do parceiro e o custo por usuário do provedor de carteiras convertem o ARPU bruto em margem líquida; resolve quando o parceiro for assinado.",
+            "Entidade não constituída — passo zero, antes do fechamento.",
+            "Pipeline B2B — o modelo prova que B2B é o motor; LOIs assinados são a evidência que falta, e a prioridade de curto prazo.",
+            "Parecer de money-transmitter para movimentação entre usuários nos EUA — marco obrigatório antes do lançamento, adiado no plano enxuto até os EUA entrarem no escopo.",
+            "Sem dados de tração — aquisição não iniciada; primeiros números pós-lançamento."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Cada um deles está delimitado e datado. Nenhum está escondido."
+        },
+        {
+          "type": "paragraph",
+          "text": "Não é aconselhamento jurídico, tributário ou de investimento. Estrutura de constituição e financiamento a confirmar com um Steuerberater e advogado alemães. Números marcados como ilustrativos ou premissa são estimativas pré-lançamento."
+        }
+      ]
+    },
+    "pitch-deck": {
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Princípio do deck"
+        },
+        {
+          "type": "paragraph",
+          "text": "Este deck não deve explicar tudo."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ele deve fazer o investidor querer fazer as perguntas certas."
+        },
+        {
+          "type": "paragraph",
+          "text": "A sala do investidor responde essas perguntas."
+        },
+        {
+          "type": "paragraph",
+          "text": "O deck abre a porta."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 1 — Título"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Dinheiro precisa ter função antes de se mover."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Subline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Um aplicativo financeiro não custodial para objetivos de pessoas e regras de caixa de empresas."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Rodapé"
+        },
+        {
+          "type": "paragraph",
+          "text": "Pre-seed · Berlim · diBoaS"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 2 — O problema"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Dinheiro ainda é tratado como saldo. Pessoas e empresas vivem outra realidade."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pontos-chave"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Pessoas não pensam em saldo. Pensam em reserva, proteção, planos e compras futuras.",
+            "Empresas não pensam em saldo. Pensam em folha, aluguel, impostos, fornecedores e caixa.",
+            "A maioria dos produtos financeiros mostra o número. Não explica a função do dinheiro."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 3 — O insight"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Antes do dinheiro se mover, o usuário precisa entender por quê, para onde, custo, liquidez e risco."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pontos-chave"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "A próxima interface financeira não deve começar pelo produto.",
+            "Deve começar pela função do dinheiro.",
+            "Objetivo primeiro. Estratégia depois. Movimentação só depois da clareza."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 4 — O produto"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Pessoas escolhem objetivos. Empresas definem regras."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pontos-chave"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Consumidores organizam dinheiro por objetivo.",
+            "Empresas organizam caixa por função.",
+            "A diBoaS mostra estratégia, custo, liquidez e risco antes da movimentação.",
+            "O usuário mantém o controle.",
+            "A diBoaS é a interface, não a custodiante."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 5 — Por que agora"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "A infraestrutura mudou. A explicação não."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pontos-chave"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "O dinheiro pode circular por trilhos digitais com mais flexibilidade.",
+            "O acesso via DeFi existe, mas a interface ainda fala com iniciados.",
+            "Pequenas empresas ainda administram caixa entre bancos, cartões, planilhas e meios de pagamento.",
+            "A camada que falta é clareza antes da movimentação."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 6 — Modelo de negócio"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "A receita vem da movimentação, não de spread escondido."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pontos-chave"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Adicionar dinheiro: 0,48%",
+            "Sacar / retirar: 0,48%",
+            "Encerrar estratégia: 0,39%",
+            "Iniciar estratégia: taxa diBoaS zero",
+            "Enviar / swap / bridge: taxa diBoaS zero onde suportado",
+            "Custos externos são repassados quando aplicável."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 7 — Tese B2C vs B2B"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "B2C constrói confiança. B2B sustenta a receita."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pontos-chave"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "ARPU de consumidor é estruturalmente pequeno.",
+            "B2C cria confiança, marca, distribuição e dados de comportamento.",
+            "B2B cria densidade de receita por movimentações maiores de caixa.",
+            "Dez clientes B2B podem valer mais que milhares de consumidores."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 8 — Sequência de mercados"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "A mesma espinha dorsal. Uma entrada de confiança por mercado."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pontos-chave"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Brasil: objetivo e proteção em dólar.",
+            "Estados Unidos: dinheiro com função, acesso e movimentação.",
+            "Alemanha: planejamento, clareza e risco visível.",
+            "Espanha: plano, custos, prudência e explicação."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 9 — Posição regulatória"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Sem custódia. Sem atalho. Gates antes do lançamento."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pontos-chave"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "A diBoaS foi desenhada como interface não custodial.",
+            "Usuários mantêm controle dos fundos.",
+            "Parceiros regulados operam trilhos regulados quando necessário.",
+            "O lançamento depende de gates jurídicos por jurisdição.",
+            "O produto não se apresenta como banco, conta de depósito ou produto garantido."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 10 — Roadmap"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Construir apenas o que prova o próximo risco."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pontos-chave"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Fundação e gates",
+            "Build controlado do produto financeiro",
+            "Segurança, operação e prontidão de parceiro",
+            "Primeiro lançamento controlado",
+            "Validação B2B",
+            "Escalar somente depois da prova"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 11 — Uso dos recursos"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Capital deve comprar evidência."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pontos-chave"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Construir o produto financeiro.",
+            "Cumprir gates de lançamento.",
+            "Assinar parceiro de entrada e saída.",
+            "Concluir revisão de segurança.",
+            "Validar comportamento de aporte.",
+            "Validar primeiro pipeline B2B."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 12 — Fundador"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Construído por alguém que sabe operar produto."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pontos-chave"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "20 anos de experiência em produto e TI.",
+            "Experiência no Brasil, EUA, Japão e Alemanha.",
+            "Construiu base do produto, estratégia, análise regulatória, plano de negócios e materiais para investidores.",
+            "A rodada financia a próxima fase: profundidade técnica, jurídico, segurança, infraestrutura e validação B2B."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 13 — A rodada"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Capital pre-seed para sair de tese e entrar em prova."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pontos-chave"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Construir o primeiro produto financeiro.",
+            "Cumprir gates jurídicos e de parceiros.",
+            "Lançar fluxos controlados.",
+            "Validar o caminho de receita B2B.",
+            "Transformar premissas em evidência."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 14 — Fechamento"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Dinheiro com função. Caixa com regra."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Linha final"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS ajuda pessoas e empresas a entender o que o dinheiro deve fazer antes de se mover."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "CTA"
+        },
+        {
+          "type": "paragraph",
+          "text": "Solicitar materiais / Continuar na sala do investidor."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Slides de apêndice para preparar depois"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Tabela de taxas",
+            "Mapa regulatório",
+            "Fluxo de arquitetura",
+            "Exemplo de regras de caixa B2B",
+            "Detalhe de uso dos recursos",
+            "Riscos e critérios de corte",
+            "Sistema operacional do fundador"
+          ]
+        }
+      ]
+    },
+    "use-of-funds": {
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Resumo em uma linha"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS está captando capital pre-seed para provar o que importa: que um produto financeiro não custodial pode ser construído com segurança, passar pelos marcos de lançamento e validar a primeira demanda B2B."
+        },
+        {
+          "type": "paragraph",
+          "text": "Não é capital para parecer grande. É capital para provar."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Para que serve esse capital"
+        },
+        {
+          "type": "paragraph",
+          "text": "A rodada financia a primeira fase real do produto financeiro."
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso significa:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "construir o produto financeiro;",
+            "cumprir os marcos jurídicos e regulatórios de lançamento;",
+            "assinar o parceiro necessário de entrada e saída de dinheiro;",
+            "concluir a revisão inicial de segurança;",
+            "montar a infraestrutura operacional;",
+            "constituir a entidade da empresa;",
+            "validar a primeira demanda B2B;",
+            "reduzir risco de execução nas partes mais sensíveis do build."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A lógica da rodada não é pagar vaidade. É transformar premissa em evidência."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Os dois caminhos da rodada"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS pode atravessar a primeira fase por dois caminhos."
+        },
+        {
+          "type": "paragraph",
+          "text": "A lógica central permanece igual. O que muda não é a ambição. O que muda é o nível de risco de execução comprado logo no início."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Caminho A — Founder-built enxuto"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Meta"
+        },
+        {
+          "type": "callout",
+          "lines": ["~€200.000"]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Propósito"
+        },
+        {
+          "type": "paragraph",
+          "text": "O Caminho A financia o build mínimo crível e os marcos externos que não podem ser ignorados."
+        },
+        {
+          "type": "paragraph",
+          "text": "Parte do princípio de que o fundador continua liderando diretamente a construção do produto, com apoio externo em jurídico, segurança, infraestrutura e trabalhos especializados."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que financia"
+        },
+        {
+          "type": "table",
+          "headers": ["Categoria", "Finalidade"],
+          "rows": [
+            [
+              "Construção do produto",
+              "Primeira versão do produto financeiro, fluxo de carteira, lógica objetivo-para-estratégia e experiência central do usuário"
+            ],
+            [
+              "Jurídico / regulatório",
+              "Revisão jurídica por jurisdição e marcos necessários para lançamento"
+            ],
+            [
+              "Entrada e saída de dinheiro",
+              "Seleção do parceiro, preparação de integração, onboarding e exigências operacionais"
+            ],
+            [
+              "Segurança",
+              "Revisão inicial de segurança e checagens de risco antes de expor fluxos reais"
+            ],
+            [
+              "Infraestrutura",
+              "Hospedagem, monitoramento, ferramentas, ambientes e base operacional"
+            ],
+            [
+              "Estrutura da empresa",
+              "Constituição, contabilidade, estrutura jurídica básica e administração"
+            ],
+            [
+              "Validação B2B",
+              "Prospecção liderada pelo fundador, primeiras conversas e teste inicial de demanda"
+            ],
+            ["Reserva", "Margem para custos inevitáveis e atritos de lançamento"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que esse caminho precisa provar"
+        },
+        {
+          "type": "paragraph",
+          "text": "O Caminho A deve responder às primeiras perguntas de sobrevivência:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "O produto consegue ser construído com segurança suficiente para um lançamento controlado?",
+            "Os marcos jurídicos e regulatórios conseguem ser cumpridos?",
+            "O parceiro de entrada e saída de dinheiro consegue ser assinado?",
+            "Os primeiros usuários entendem o produto e aportam dinheiro?",
+            "A tese B2B gera conversas sérias e sinais iniciais de demanda?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que esse caminho não resolve"
+        },
+        {
+          "type": "paragraph",
+          "text": "O Caminho A mantém mais risco concentrado no fundador."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ele não reduz por completo:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "risco de concentração em founder solo;",
+            "risco de entrega técnica no produto financeiro;",
+            "risco de velocidade;",
+            "necessidade de investimento maior em segurança;",
+            "capacidade comercial B2B mais ampla;",
+            "colchão regulatório mais robusto."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "O Caminho A funciona apenas se a empresa mantiver disciplina e não confundir build enxuto com build barato."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Caminho B — Caminho de redução de risco"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Meta"
+        },
+        {
+          "type": "callout",
+          "lines": ["~€450.000"]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Propósito"
+        },
+        {
+          "type": "paragraph",
+          "text": "O Caminho B financia o mesmo plano central, mas reduz o risco de concentração mais cedo."
+        },
+        {
+          "type": "paragraph",
+          "text": "A principal diferença está na capacidade técnica. O Caminho B permite trazer suporte sênior de engenharia antes, sobretudo na construção do produto financeiro, onde erro técnico pode afetar dinheiro real."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que financia"
+        },
+        {
+          "type": "table",
+          "headers": ["Categoria", "Finalidade"],
+          "rows": [
+            [
+              "Suporte sênior de engenharia",
+              "Capacidade técnica antecipada para o produto financeiro e integrações sensíveis"
+            ],
+            [
+              "Construção do produto",
+              "Entrega mais rápida e mais resiliente do fluxo de carteira, lógica de estratégia, movimentação entre usuários e base das regras de caixa B2B"
+            ],
+            [
+              "Jurídico / regulatório",
+              "Cobertura jurídica mais forte por jurisdição e revisão mais robusta dos marcos de lançamento"
+            ],
+            [
+              "Entrada e saída de dinheiro",
+              "Contratação do parceiro, trabalho de integração e exigências operacionais"
+            ],
+            [
+              "Segurança",
+              "Revisão mais profunda, melhores controles técnicos e maior prontidão de lançamento"
+            ],
+            [
+              "Infraestrutura",
+              "Ambientes mais robustos, monitoramento, auditabilidade e ferramentas operacionais"
+            ],
+            [
+              "Estrutura da empresa",
+              "Constituição, administração, contabilidade, tributos e base jurídica"
+            ],
+            [
+              "Validação B2B",
+              "Validação comercial mais estruturada, materiais, outreach e formação inicial de pipeline"
+            ],
+            ["Reserva", "Margem maior para atrasos regulatórios, técnicos e de parceiros"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que esse caminho precisa provar"
+        },
+        {
+          "type": "paragraph",
+          "text": "O Caminho B precisa responder às mesmas perguntas centrais do Caminho A, mas com menos fragilidade:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "O produto financeiro consegue ser construído com mais profundidade técnica?",
+            "Os marcos de lançamento conseguem ser cumpridos sem sufocar o build?",
+            "A dependência de parceiro consegue ser tratada com mais folga?",
+            "A primeira demanda B2B consegue ser validada com outreach mais estruturado?",
+            "O risco de um único fundador carregar demais a parte sensível do build consegue ser reduzido?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que esse caminho reduz"
+        },
+        {
+          "type": "paragraph",
+          "text": "O Caminho B reduz:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "concentração de execução no founder solo;",
+            "risco de gargalo técnico;",
+            "risco de tempo;",
+            "risco de prontidão de lançamento;",
+            "risco de profundidade de segurança;",
+            "risco de validação inicial B2B."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Ele não elimina risco de mercado. Ele torna a fase de prova menos frágil."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Lógica do orçamento"
+        },
+        {
+          "type": "paragraph",
+          "text": "O capital pre-seed não existe para formar a empresa final."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ele existe para financiar a camada de prova."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "A camada de prova"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Construir o produto.",
+            "Cumprir os marcos.",
+            "Assinar o parceiro.",
+            "Testar comportamento real de funding.",
+            "Validar demanda B2B.",
+            "Decidir o que merece escala."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Se isso funcionar, a diBoaS passa a ser investível com base em evidência, não apenas em narrativa e arquitetura."
+        },
+        {
+          "type": "paragraph",
+          "text": "Se não funcionar, a rodada deve revelar isso cedo, antes de a empresa gastar como se já soubesse."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Como julgar esse uso dos recursos"
+        },
+        {
+          "type": "paragraph",
+          "text": "Investidor deve julgar o uso do capital por marcos, não por entusiasmo."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Bom uso do capital"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "o produto sai da especificação e entra em build controlado;",
+            "a posição jurídica de lançamento fica mais clara por jurisdição;",
+            "o caminho do parceiro de entrada e saída vira assinatura ou bloqueio claro;",
+            "a revisão de segurança acontece antes da exposição de usuários reais;",
+            "a empresa ganha entidade operacional limpa;",
+            "usuários iniciais são testados em comportamento real de funding;",
+            "as conversas B2B saem de curiosidade e entram em demanda mensurável;",
+            "o fundador aprende o que precisa ser construído, adiado, cortado ou abandonado."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Mau uso do capital"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "gastar em marca antes dos marcos de lançamento;",
+            "fazer marketing amplo antes de provar o produto;",
+            "contratar antes de entender a parte sensível do build;",
+            "tratar risco jurídico como rodapé;",
+            "tratar B2B como slide em vez de pipeline;",
+            "otimizar o site enquanto o produto financeiro continua hipotético."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Deck bonito não cumpre marco regulatório. Injusto, mas real."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Plano de marcos"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Marco 1 — Confirmação jurídica e de lançamento"
+        },
+        {
+          "type": "paragraph",
+          "text": "Objetivo Confirmar o caminho de lançamento por jurisdição e definir o que precisa ser verdade antes da disponibilidade do produto."
+        },
+        {
+          "type": "paragraph",
+          "text": "Entrega Checklist de lançamento por jurisdição e limites operacionais jurídicos."
+        },
+        {
+          "type": "paragraph",
+          "text": "Risco atacado Incerteza regulatória."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Marco 2 — Caminho do parceiro de entrada e saída"
+        },
+        {
+          "type": "paragraph",
+          "text": "Objetivo Selecionar, negociar e avançar para assinatura do parceiro de entrada e saída necessário para o lançamento."
+        },
+        {
+          "type": "paragraph",
+          "text": "Entrega Parceiro assinado ou decisão clara sobre bloqueio e caminho alternativo."
+        },
+        {
+          "type": "paragraph",
+          "text": "Risco atacado Dependência de funding e cash-out."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Marco 3 — Build controlado do produto"
+        },
+        {
+          "type": "paragraph",
+          "text": "Objetivo Construir a primeira versão controlada do produto financeiro."
+        },
+        {
+          "type": "paragraph",
+          "text": "Entrega Fluxo de carteira, lógica objetivo-para-estratégia, visibilidade de custo e risco e jornada controlada do usuário."
+        },
+        {
+          "type": "paragraph",
+          "text": "Risco atacado Entrega técnica e entendimento do produto."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Marco 4 — Segurança e prontidão operacional"
+        },
+        {
+          "type": "paragraph",
+          "text": "Objetivo Revisar o produto antes da exposição a fluxos de dinheiro real."
+        },
+        {
+          "type": "paragraph",
+          "text": "Entrega Revisão de segurança, controles de lançamento, monitoramento, premissas de recuperação e checklist operacional."
+        },
+        {
+          "type": "paragraph",
+          "text": "Risco atacado Risco técnico, operacional e de confiança."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Marco 5 — Primeiro comportamento real de funding"
+        },
+        {
+          "type": "paragraph",
+          "text": "Objetivo Testar se os usuários iniciais entendem o produto e realmente aportam."
+        },
+        {
+          "type": "paragraph",
+          "text": "Entrega Evidência de onboarding, comportamento de funding, compreensão do usuário e pontos de abandono."
+        },
+        {
+          "type": "paragraph",
+          "text": "Risco atacado Adoção e confiança do consumidor."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Marco 6 — Primeira validação B2B"
+        },
+        {
+          "type": "paragraph",
+          "text": "Objetivo Testar se pequenas empresas respondem à proposta de regras de caixa e controle de liquidez."
+        },
+        {
+          "type": "paragraph",
+          "text": "Entrega Conversas qualificadas, pipeline inicial, sinais de disposição a pagar e principais objeções."
+        },
+        {
+          "type": "paragraph",
+          "text": "Risco atacado Tese de receita."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O que a rodada ainda não deve financiar"
+        },
+        {
+          "type": "paragraph",
+          "text": "O primeiro capital não deve ser gasto como se product-market fit já existisse."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ele não deve financiar:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "aquisição paga em escala;",
+            "time comercial grande;",
+            "campanha forte de marca;",
+            "PR caro;",
+            "headcount inflado;",
+            "features enterprise antes da primeira validação;",
+            "expansão especulativa de mercado;",
+            "localização prematura além do necessário para a prova."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A empresa não está na fase de escala."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ela está na fase de prova."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Gates de decisão"
+        },
+        {
+          "type": "paragraph",
+          "text": "A rodada precisa criar pontos de decisão."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Continuar se"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "a revisão jurídica sustenta um lançamento controlado;",
+            "o caminho de entrada e saída é viável;",
+            "o build alcança prontidão controlada;",
+            "o usuário entende custo, liquidez e risco antes de agir;",
+            "surge comportamento inicial de funding;",
+            "a demanda B2B é crível o suficiente para ser perseguida."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Cortar ou estreitar se"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "o custo regulatório muda a forma da empresa;",
+            "a dependência de parceiro não encontra solução;",
+            "consumidores não aportam mesmo após educação;",
+            "interesse B2B não se transforma em pipeline sério;",
+            "a complexidade técnica ultrapassa o caminho de financiamento;",
+            "o modelo depende de premissas que a primeira evidência não sustenta."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Uma rodada pre-seed disciplinada deve deixar a empresa mais certa, não apenas maior."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Conclusão para o investidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "O uso dos recursos está desenhado em torno de uma disciplina:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Capital deve comprar evidência."]
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS não precisa de capital cedo para parecer maior do que é."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ela precisa de capital para responder às perguntas que importam:"
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto pode ser construído com segurança? Pode ser lançado legalmente? Os usuários colocam dinheiro? As empresas pagam por isso? A empresa sai de tese e entra em prova?"
+        },
+        {
+          "type": "paragraph",
+          "text": "É para isso que essa rodada existe."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Nota de confidencialidade"
+        },
+        {
+          "type": "paragraph",
+          "text": "Material privado para investidores. Não encaminhar ou distribuir sem autorização."
+        },
+        {
+          "type": "paragraph",
+          "text": "Este documento é fornecido apenas para fins de discussão. Ele inclui premissas futuras, riscos em aberto e estimativas de pré-lançamento. Não constitui aconselhamento jurídico, tributário, financeiro, contábil ou de investimento."
+        }
+      ]
+    },
+    "revenue-model": {
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Resumo em uma linha"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS não finge que fintech de consumo tem unit economics altos."
+        },
+        {
+          "type": "paragraph",
+          "text": "O modelo parte de uma verdade mais simples:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "B2C constrói confiança e distribuição.",
+            "B2B transforma essa confiança em receita."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O modelo de negócio"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS gera receita quando o dinheiro se move."
+        },
+        {
+          "type": "paragraph",
+          "text": "Não enquanto ele fica parado. Não escondendo spread. Não fingindo que o retorno da estratégia pertence à empresa."
+        },
+        {
+          "type": "paragraph",
+          "text": "As linhas principais de receita são:"
+        },
+        {
+          "type": "table",
+          "headers": ["Linha de receita", "Lógica de taxa da diBoaS"],
+          "rows": [
+            ["Adicionar dinheiro", "taxa de movimentação de 0,48%"],
+            ["Sacar / retirar", "taxa de movimentação de 0,48%"],
+            ["Encerrar estratégia", "taxa de encerramento de 0,39%"],
+            ["Enviar dinheiro", "taxa diBoaS zero onde suportado"],
+            ["Trocar", "taxa diBoaS zero onde suportado"],
+            ["Bridge", "taxa diBoaS zero onde suportado"],
+            ["Iniciar estratégia", "taxa diBoaS zero"],
+            ["Receber pagamentos B2B", "taxa diBoaS zero onde suportado"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Custos externos ainda podem existir: rede, ramp, provedor, banco, câmbio, liquidação ou compliance. Esses custos são repassados quando aplicável."
+        },
+        {
+          "type": "paragraph",
+          "text": "A lógica é simples:"
+        },
+        {
+          "type": "callout",
+          "lines": ["A diBoaS cobra pela movimentação.", "A diBoaS não taxa o upside escondido."]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Por que isso importa"
+        },
+        {
+          "type": "paragraph",
+          "text": "Um produto financeiro pode perder confiança de duas formas."
+        },
+        {
+          "type": "paragraph",
+          "text": "Pode esconder risco."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ou pode esconder como ganha dinheiro."
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS não deve fazer nenhum dos dois."
+        },
+        {
+          "type": "paragraph",
+          "text": "O modelo foi desenhado para ser visível antes da ação. O usuário vê custo, liquidez e risco antes de mover dinheiro. O investidor deve ver a mesma disciplina no modelo de receita."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Economia do consumidor"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "A versão honesta"
+        },
+        {
+          "type": "paragraph",
+          "text": "Um consumidor vale poucos dólares por ano."
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso não é fraqueza quando a empresa admite cedo."
+        },
+        {
+          "type": "paragraph",
+          "text": "Vira fraqueza quando a empresa monta uma fantasia em cima disso."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Premissa atual do modelo"
+        },
+        {
+          "type": "callout",
+          "lines": ["ARPU médio de consumidor: ~US$5,88 por ano"]
+        },
+        {
+          "type": "paragraph",
+          "text": "O ARPU de consumidor varia conforme o mix de mercado:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Cenário mais Brazil-heavy: ~US$4,48 por ano",
+            "Cenário mais US-heavy: ~US$7,63 por ano"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Um usuário que deposita e mantém US$1.000 pode gerar aproximadamente:"
+        },
+        {
+          "type": "callout",
+          "lines": ["~US$13 em taxas de movimentação ao longo da vida"]
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso ajuda na distribuição. Não sustenta a empresa sozinho."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Por que consumidor ainda importa"
+        },
+        {
+          "type": "paragraph",
+          "text": "Consumidor importa porque constrói:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "confiança;",
+            "marca;",
+            "comportamento repetido;",
+            "familiaridade com o produto;",
+            "prova de mercado;",
+            "dados sobre objetivos, movimentação, sensibilidade a custo e abandono;",
+            "a camada de relacionamento que torna B2B mais crível."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "B2C não é o centro de lucro."
+        },
+        {
+          "type": "paragraph",
+          "text": "B2C é a camada de confiança."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Economia B2B"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "A unidade econômica melhor"
+        },
+        {
+          "type": "paragraph",
+          "text": "Empresas movimentam valores maiores e têm necessidades de liquidez mais estruturadas."
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso cria outro perfil de receita."
+        },
+        {
+          "type": "paragraph",
+          "text": "Uma pequena empresa não precisa de um aplicativo de poupança mais bonito."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ela precisa de regras para o caixa."
+        },
+        {
+          "type": "paragraph",
+          "text": "Folha. Aluguel. Imposto. Fornecedores. Piso operacional. Caixa excedente. Caminhos de pagamento. Registro. Aprovação. Risco antes de movimentar."
+        },
+        {
+          "type": "paragraph",
+          "text": "É aí que a diBoaS vira negócio."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Premissa atual do modelo"
+        },
+        {
+          "type": "callout",
+          "lines": ["ARPU B2B: ~US$1.945–19.300 por ano"]
+        },
+        {
+          "type": "paragraph",
+          "text": "Casos ilustrativos:"
+        },
+        {
+          "type": "table",
+          "headers": ["Caso B2B", "Potencial aproximado de receita anual"],
+          "rows": [
+            ["Empresa movimentando ~US$200.000 de caixa parado ou excedente", "~US$1.945/ano"],
+            ["Empresa movimentando ~US$500.000 trimestralmente", "~US$19.300/ano"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Essas são premissas de modelo, não tração."
+        },
+        {
+          "type": "paragraph",
+          "text": "Elas mostram a diferença econômica:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Um cliente B2B pode valer centenas ou milhares de usuários consumidores."]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "A proporção importante"
+        },
+        {
+          "type": "paragraph",
+          "text": "Poucos clientes B2B podem mudar a empresa."
+        },
+        {
+          "type": "callout",
+          "lines": ["10 clientes B2B podem valer mais que 6.000 consumidores."]
+        },
+        {
+          "type": "paragraph",
+          "text": "Por isso B2B não é detalhe."
+        },
+        {
+          "type": "paragraph",
+          "text": "É o modelo de negócio."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O modelo combinado"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "A tese"
+        },
+        {
+          "type": "paragraph",
+          "text": "O modelo combinado não é:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Adquirir consumidores barato e torcer para o ARPU melhorar por mágica."]
+        },
+        {
+          "type": "paragraph",
+          "text": "O modelo combinado é:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Usar B2C para construir confiança e distribuição.",
+            "Usar B2B para monetizar movimentações de caixa de maior valor."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Consumidor cria superfície."
+        },
+        {
+          "type": "paragraph",
+          "text": "Empresa cria densidade de receita."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Por que isso pode funcionar"
+        },
+        {
+          "type": "paragraph",
+          "text": "Consumidores ajudam a diBoaS a aprender:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "no que as pessoas confiam;",
+            "o que elas entendem;",
+            "onde abandonam;",
+            "quais objetivos motivam movimentação;",
+            "como linguagem de custo e risco afeta funding."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Empresas criam monetização por meio de:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "saldos maiores;",
+            "necessidades recorrentes de pagamento;",
+            "regras de liquidez;",
+            "registros operacionais;",
+            "movimentações de maior valor;",
+            "maior disposição a pagar por clareza, controle e auditabilidade."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto de consumo ensina o mercado."
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto empresarial paga a empresa."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Lógica de break-even"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Break-even puramente B2C"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se o custo de infraestrutura chegar a aproximadamente:"
+        },
+        {
+          "type": "callout",
+          "lines": ["~US$60.000/ano"]
+        },
+        {
+          "type": "paragraph",
+          "text": "e o ARPU médio de consumidor for:"
+        },
+        {
+          "type": "callout",
+          "lines": ["~US$5,88/ano"]
+        },
+        {
+          "type": "paragraph",
+          "text": "então o break-even puramente B2C exige aproximadamente:"
+        },
+        {
+          "type": "callout",
+          "lines": ["~10.200 usuários ativos"]
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso antes de considerar aquisição, suporte, compliance e carga operacional."
+        },
+        {
+          "type": "paragraph",
+          "text": "A conclusão é direta:"
+        },
+        {
+          "type": "callout",
+          "lines": ["B2C sozinho não é a melhor história de break-even."]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Break-even com B2B"
+        },
+        {
+          "type": "paragraph",
+          "text": "Com B2B no modelo, a base necessária de consumidores cai bastante."
+        },
+        {
+          "type": "paragraph",
+          "text": "Exemplo ilustrativo:"
+        },
+        {
+          "type": "callout",
+          "lines": ["25 clientes B2B podem reduzir a necessidade para ~1.900 usuários ativos."]
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso muda a forma da empresa."
+        },
+        {
+          "type": "paragraph",
+          "text": "A base de consumidores continua valiosa, mas não precisa carregar o negócio inteiro nas costas."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Desenho das taxas"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Princípios"
+        },
+        {
+          "type": "paragraph",
+          "text": "O modelo de taxas segue cinco regras:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Cobrar por movimentação.",
+            "Não pegar spread escondido.",
+            "Mostrar custos antes da ação.",
+            "Manter o início de estratégia gratuito.",
+            "Fazer a receita B2B vir de movimentações maiores, não de punir usuários pequenos."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Estrutura de taxas"
+        },
+        {
+          "type": "table",
+          "headers": ["Ação", "Taxa diBoaS"],
+          "rows": [
+            ["Adicionar dinheiro", "0,48%"],
+            ["Sacar / retirar", "0,48%"],
+            ["Encerrar estratégia", "0,39%"],
+            ["Iniciar estratégia", "0"],
+            ["Enviar / trocar / bridge", "0 onde suportado"],
+            ["Receber pagamentos B2B", "0 onde suportado"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Limites"
+        },
+        {
+          "type": "table",
+          "headers": ["Tipo de taxa", "Limite"],
+          "rows": [
+            ["Add / cash-out consumidor", "US$250"],
+            ["Add / cash-out empresa", "US$2.500"],
+            ["Encerrar estratégia", "US$25"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A divisão é proposital."
+        },
+        {
+          "type": "paragraph",
+          "text": "O limite menor de encerramento protege quem sai de uma estratégia. O limite maior de movimentação empresarial preserva a economia dos fluxos B2B."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O que valida o modelo"
+        },
+        {
+          "type": "paragraph",
+          "text": "O modelo de receita é validado por comportamento, não por elegância."
+        },
+        {
+          "type": "paragraph",
+          "text": "As primeiras métricas que importam são:"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "1. Conversão cadastro → aporte"
+        },
+        {
+          "type": "paragraph",
+          "text": "As pessoas entendem o suficiente para colocar dinheiro real?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se cadastram mas não aportam, existe interesse. Ainda não existe confiança."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "2. Percentual de contribuição mensal"
+        },
+        {
+          "type": "paragraph",
+          "text": "Quantos usuários adicionam dinheiro repetidamente?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Usuário de uma vez prova curiosidade. Contribuição recorrente prova hábito."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "3. Saldo médio aportado"
+        },
+        {
+          "type": "paragraph",
+          "text": "Quanto o usuário realmente separa para objetivos?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso define volume de movimentação e valor futuro do produto."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "4. Comportamento de encerramento de estratégia"
+        },
+        {
+          "type": "paragraph",
+          "text": "Usuários encerram estratégias de forma natural e entendem o custo?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso valida movimentação e compreensão da taxa."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "5. Pipeline B2B qualificado"
+        },
+        {
+          "type": "paragraph",
+          "text": "Empresas aceitam conversar seriamente sobre regras de caixa, caminhos de pagamento e controle de liquidez?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se B2B continua teórico, o modelo continua teórico."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "6. Tamanho dos deals B2B"
+        },
+        {
+          "type": "paragraph",
+          "text": "As oportunidades empresariais iniciais entram na faixa modelada de receita?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Esse é um dos pontos mais importantes de prova."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "7. Custo de parceiro e margem líquida"
+        },
+        {
+          "type": "paragraph",
+          "text": "A receita líquida depois de ramp, rede, provedor, banco, câmbio, liquidação e compliance ainda sustenta o modelo?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Movimentação bruta não é o negócio."
+        },
+        {
+          "type": "paragraph",
+          "text": "Margem líquida de movimentação é."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O que quebra o modelo"
+        },
+        {
+          "type": "paragraph",
+          "text": "O modelo quebra se a evidência disser uma destas coisas."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Consumidor não aporta"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se usuários gostam da ideia, mas não colocam dinheiro, a diBoaS tem mensagem. Ainda não tem produto."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Contribuição mensal é baixa"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se menos de 10% dos consumidores contribuírem mensalmente, a linha de consumidor deve ser reduzida ou reposicionada."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "B2B não converte"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se empresas demonstram interesse, mas não viram pipeline sério, a tese de receita enfraquece."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Margem líquida comprime"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se custos de parceiro, ramp, banco, câmbio, compliance ou rede consomem demais a taxa de movimentação, o modelo precisa ser revisto."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Regulação muda a estrutura de custo"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se obrigações legais colocarem a diBoaS em um perímetro operacional mais caro, a base de custo e o prazo mudam."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O produto é entendido, mas não gera confiança"
+        },
+        {
+          "type": "paragraph",
+          "text": "Esse é o fracasso mais perigoso."
+        },
+        {
+          "type": "paragraph",
+          "text": "Confusão pode ser corrigida com produto e copy."
+        },
+        {
+          "type": "paragraph",
+          "text": "Desconfiança é mais difícil."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O que investidores devem observar depois do lançamento"
+        },
+        {
+          "type": "paragraph",
+          "text": "Investidores não devem olhar primeiro para métrica de vaidade."
+        },
+        {
+          "type": "paragraph",
+          "text": "Devem olhar para:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "usuários com dinheiro aportado",
+            "contribuintes mensais",
+            "valor médio aportado",
+            "volume movimentado",
+            "margem líquida de movimentação",
+            "pipeline B2B qualificado",
+            "tamanho dos deals B2B",
+            "custo de parceiro",
+            "abandono antes do aporte",
+            "carga de suporte",
+            "progresso dos marcos regulatórios"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A empresa deve ganhar o direito de escalar apenas depois dessas métricas começarem a se comportar."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Conclusão para o investidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "A história de receita é simples."
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Consumidores criam confiança.",
+            "Empresas criam receita.",
+            "Movimentação cria taxas.",
+            "Transparência cria permissão."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS não está tentando fazer o ARPU de consumidor parecer melhor do que é."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ela está tentando usar confiança de consumidor para chegar a movimentações empresariais onde a economia é mais forte."
+        },
+        {
+          "type": "paragraph",
+          "text": "Esse é o modelo."
+        },
+        {
+          "type": "paragraph",
+          "text": "Sem mágica. Sem spread escondido na parede. Sem o conto de fadas do “depois a gente descobre monetização”."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Nota de confidencialidade"
+        },
+        {
+          "type": "paragraph",
+          "text": "Material privado para investidores. Não encaminhar ou distribuir sem autorização."
+        },
+        {
+          "type": "paragraph",
+          "text": "Este documento é fornecido apenas para fins de discussão. Ele inclui premissas futuras, riscos em aberto e estimativas de pré-lançamento. Não constitui aconselhamento jurídico, tributário, financeiro, contábil ou de investimento."
+        }
+      ]
+    },
+    "regulatory-position": {
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Resumo em uma linha"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS não está tentando fugir de regulação."
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS foi desenhada para evitar custódia desnecessária e tratar regulação como marco de lançamento."
+        },
+        {
+          "type": "paragraph",
+          "text": "Essa é a diferença entre um plano fintech e um acidente regulatório vestido de startup."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Tese regulatória central"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS foi desenhada como uma interface não custodial."
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto pretende ajudar usuários a entender, organizar e movimentar dinheiro de acordo com objetivos, estratégias, custos, liquidez e risco."
+        },
+        {
+          "type": "paragraph",
+          "text": "A posição pretendida é:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "A diBoaS é a interface.",
+            "O usuário mantém o controle.",
+            "Parceiros regulados operam os trilhos regulados.",
+            "O lançamento acontece apenas depois dos marcos jurídicos por jurisdição."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A empresa não deve se apresentar como banco, conta de depósito, poupança, produto garantido, corretora, custodiante, exchange ou assessora de investimento, salvo se a análise jurídica aplicável sustentar esse status."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O que a diBoaS foi desenhada para não fazer"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "A diBoaS não deve deter recursos de clientes"
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto deve evitar manter saldos fiat ou recursos de clientes em seu próprio balanço."
+        },
+        {
+          "type": "paragraph",
+          "text": "Entrada e saída de dinheiro devem ocorrer por parceiros regulados quando necessário."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "A diBoaS não deve deter chaves privadas de clientes"
+        },
+        {
+          "type": "paragraph",
+          "text": "O desenho não custodial assume que a diBoaS não toma posse das chaves privadas dos usuários nem controla carteiras de forma que crie custódia."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "A diBoaS não deve prometer retorno"
+        },
+        {
+          "type": "paragraph",
+          "text": "Estratégias podem mostrar possíveis caminhos, custos e riscos."
+        },
+        {
+          "type": "paragraph",
+          "text": "Elas não devem ser apresentadas como rendimento garantido, depósito, poupança ou investimento protegido."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "A diBoaS não deve esconder taxas"
+        },
+        {
+          "type": "paragraph",
+          "text": "O modelo é construído sobre taxas de movimentação visíveis e custos externos repassados quando aplicável."
+        },
+        {
+          "type": "paragraph",
+          "text": "Taxas devem aparecer antes da ação."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "A diBoaS não deve tratar regulação como resolvida"
+        },
+        {
+          "type": "paragraph",
+          "text": "A posição correta não é:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Não precisa de licença."]
+        },
+        {
+          "type": "paragraph",
+          "text": "A posição correta é:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "O produto foi desenhado para reduzir gatilhos de licenciamento, sujeito a revisão jurídica e marcos de lançamento por jurisdição."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Menos empolgante. Mais sobrevivente."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O que a diBoaS foi desenhada para fazer"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS foi desenhada para operar como camada de software e interface que ajuda usuários a tomar decisões sobre dinheiro antes da movimentação."
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto deve mostrar:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "objetivo do usuário;",
+            "caminhos de estratégia disponíveis;",
+            "custo esperado;",
+            "liquidez;",
+            "risco;",
+            "impacto de taxas;",
+            "confirmação de movimentação;",
+            "registro da ação do usuário."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A posição regulatória depende do comportamento do produto, não do branding."
+        },
+        {
+          "type": "paragraph",
+          "text": "Chamar algo de “não custodial” não torna aquilo não custodial. A arquitetura precisa provar."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Lógica por jurisdição"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS foi pensada para múltiplos mercados de lançamento."
+        },
+        {
+          "type": "paragraph",
+          "text": "A posição regulatória precisa ser tratada por mercado, não por frase bonita."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Estados Unidos"
+        },
+        {
+          "type": "paragraph",
+          "text": "A posição nos EUA exige revisão cuidadosa sob regras federais de money transmission, regras estaduais de money transmitter, análise de valores mobiliários, commodities, proteção ao consumidor, sanções e AML."
+        },
+        {
+          "type": "paragraph",
+          "text": "As perguntas principais nos EUA são:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "A diBoaS recebe dinheiro ou valor para transmissão?",
+            "A diBoaS controla ativos de clientes ou chaves privadas?",
+            "A diBoaS atua como exchanger, administrator, broker, adviser ou custodian?",
+            "A movimentação entre usuários aciona obrigações de money transmission?",
+            "Alguma estratégia cria risco de securities, commodities ou investment advice?",
+            "Qual parceiro assume as obrigações reguladas de entrada e saída?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate de lançamento nos EUA"
+        },
+        {
+          "type": "paragraph",
+          "text": "Antes de disponibilidade nos EUA, a diBoaS precisa de parecer específico sobre:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "movimentação entre usuários",
+            "money transmission",
+            "exposição a licenças estaduais",
+            "custódia / controle",
+            "apresentação das estratégias",
+            "responsabilidade do parceiro"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Os EUA podem ser um grande mercado. Não são um mercado para entrar no improviso."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "União Europeia / Alemanha"
+        },
+        {
+          "type": "paragraph",
+          "text": "A posição na UE precisa ser avaliada sob MiCA, implementação alemã, expectativas do supervisor local, regras de serviços de pagamento, AML, proteção ao consumidor e qualquer perímetro de produto de investimento acionado pelo desenho das estratégias."
+        },
+        {
+          "type": "paragraph",
+          "text": "As perguntas principais na UE / Alemanha são:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "A diBoaS presta serviço de criptoativo nos termos da MiCA?",
+            "O produto envolve custódia, transferência, troca, execução, consultoria, gestão de carteira ou colocação?",
+            "O fluxo de entrada e saída aciona obrigações de serviços de pagamento?",
+            "A apresentação do produto cria risco de consultoria de investimento ou instrumento financeiro?",
+            "O lançamento alemão exige análise com foco BaFin ou estrutura com parceiro regulado?",
+            "A arquitetura técnica prova a não custódia?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate de lançamento UE / Alemanha"
+        },
+        {
+          "type": "paragraph",
+          "text": "Antes da disponibilidade na UE ou na Alemanha, a diBoaS precisa de:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "análise de perímetro MiCA",
+            "revisão regulatória alemã",
+            "revisão de serviços de pagamento",
+            "modelo operacional AML / KYC",
+            "revisão das divulgações de risco",
+            "mapa de responsabilidade dos parceiros"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A Alemanha recompensa precisão e pune improviso."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Brasil"
+        },
+        {
+          "type": "paragraph",
+          "text": "O Brasil é estrategicamente importante porque a proposta para consumidor tem uma entrada natural forte: objetivo, proteção e clareza em dólar."
+        },
+        {
+          "type": "paragraph",
+          "text": "Mas o Brasil exige cuidado com regulação de ativos virtuais, exposição cambial, parceiros de entrada e saída, proteção ao consumidor e expectativas do Banco Central."
+        },
+        {
+          "type": "paragraph",
+          "text": "As perguntas principais no Brasil são:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "A diBoaS presta diretamente serviços de ativos virtuais ou atua via parceiro regulado?",
+            "Quem é responsável pela entrada e saída de moeda fiat?",
+            "Algum fluxo toca câmbio ou regras de capitais internacionais?",
+            "O produto exige entidade local, parceiro local ou prestador autorizado?",
+            "Como custos, riscos e avisos ao consumidor são apresentados?",
+            "O Brasil pode ser lançado de forma segura por um modelo partner-first?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate de lançamento Brasil"
+        },
+        {
+          "type": "paragraph",
+          "text": "Antes da disponibilidade no Brasil, a diBoaS precisa de:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "revisão do perímetro de ativos virtuais no Brasil",
+            "avaliação do parceiro de entrada e saída",
+            "revisão de câmbio e capitais internacionais",
+            "revisão de divulgação ao consumidor",
+            "análise de entidade local / parceiro",
+            "mapa de responsabilidade operacional"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "O Brasil é atraente. Também não é atalho. Em fintech, “o Brasil é gigante” não é estratégia. É uma frase."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Espanha"
+        },
+        {
+          "type": "paragraph",
+          "text": "A Espanha deve ser tratada dentro do perímetro UE / MiCA, com atenção às expectativas locais de custo claro, prudência e explicação de risco."
+        },
+        {
+          "type": "paragraph",
+          "text": "As perguntas principais na Espanha são:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "O produto entra em serviço de criptoativo nos termos da MiCA?",
+            "Alguma funcionalidade exige análise local com foco CNMV?",
+            "Custos, riscos e liquidez estão explicados com clareza suficiente?",
+            "Alguma linguagem de estratégia parece assessoria de investimento ou produto protegido?",
+            "O produto pode ser lançado pela mesma estrutura europeia ou exige revisão local?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate de lançamento Espanha"
+        },
+        {
+          "type": "paragraph",
+          "text": "Antes da disponibilidade na Espanha, a diBoaS precisa de:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "análise de perímetro MiCA",
+            "revisão local para Espanha",
+            "revisão da linguagem de risco ao consumidor",
+            "revisão de taxas e liquidez",
+            "mapa de responsabilidade dos parceiros"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Na Espanha, o produto deve soar prudente antes de soar inovador."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Funcionalidades que criam risco regulatório"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Custódia"
+        },
+        {
+          "type": "paragraph",
+          "text": "O risco aumenta se a diBoaS controla ativos, chaves privadas, recuperação, liquidação ou autoridade de saque."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Money transmission"
+        },
+        {
+          "type": "paragraph",
+          "text": "O risco aumenta se a diBoaS recebe e transmite fundos, controla fluxo de valor ou permite movimentação entre usuários sem estrutura de parceiro regulado."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Troca / swap"
+        },
+        {
+          "type": "paragraph",
+          "text": "O risco aumenta se a diBoaS executa troca, roteamento, corretagem ou conversão diretamente, em vez de apenas mostrar opções controladas pelo usuário via parceiros."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Assessoria de investimento"
+        },
+        {
+          "type": "paragraph",
+          "text": "O risco aumenta se a diBoaS recomenda estratégias de forma personalizada, otimiza por retorno, se apresenta como assessora ou implica suitability."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Linguagem de rendimento"
+        },
+        {
+          "type": "paragraph",
+          "text": "O risco aumenta se a copy enfatiza rendimento, renda passiva, promessa de retorno ou resultado protegido."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Regras de caixa B2B"
+        },
+        {
+          "type": "paragraph",
+          "text": "B2B é comercialmente atraente, mas o risco aumenta se a diBoaS controla fundos, toma decisões de tesouraria pela empresa ou se torna responsável por execução regulada de pagamentos."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Princípio operacional"
+        },
+        {
+          "type": "paragraph",
+          "text": "O padrão regulatório deve ser:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Se a ação do produto muda o perímetro regulatório, ela vira gate de lançamento."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Nenhuma funcionalidade escondida deve empurrar a empresa silenciosamente para atividade licenciada."
+        },
+        {
+          "type": "paragraph",
+          "text": "O roadmap de produto precisa permanecer conectado à revisão regulatória."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Gates necessários de lançamento"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate 1 — Confirmação da arquitetura"
+        },
+        {
+          "type": "paragraph",
+          "text": "Confirmar que a arquitetura técnica real corresponde à afirmação de não custódia."
+        },
+        {
+          "type": "paragraph",
+          "text": "Entrega:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "mapa de controle de carteira",
+            "mapa de controle de chaves",
+            "mapa de fluxo de fundos",
+            "mapa de responsabilidade dos parceiros"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate 2 — Revisão de perímetro jurídico"
+        },
+        {
+          "type": "paragraph",
+          "text": "Confirmar o que a diBoaS faz e não faz por jurisdição."
+        },
+        {
+          "type": "paragraph",
+          "text": "Entrega:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "memo jurídico EUA",
+            "memo jurídico UE / Alemanha",
+            "memo jurídico Brasil",
+            "revisão local Espanha, se necessário"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate 3 — Responsabilidade dos parceiros"
+        },
+        {
+          "type": "paragraph",
+          "text": "Confirmar qual parceiro regulado lida com fiat, ramp, pagamento, custódia, liquidação ou fluxo regulado."
+        },
+        {
+          "type": "paragraph",
+          "text": "Entrega:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "matriz de responsabilidade dos parceiros",
+            "mapa contratual de responsabilidade",
+            "posição de divulgação ao cliente"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate 4 — Revisão de linguagem do produto"
+        },
+        {
+          "type": "paragraph",
+          "text": "Confirmar que o produto não implica garantia, depósito, poupança, assessoria ou retorno protegido."
+        },
+        {
+          "type": "paragraph",
+          "text": "Entrega:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "linguagem aprovada de risco",
+            "linguagem aprovada de taxas",
+            "linguagem aprovada de estratégia",
+            "linguagem aprovada de não custódia"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate 5 — Compliance operacional"
+        },
+        {
+          "type": "paragraph",
+          "text": "Confirmar AML / KYC, sanções, monitoramento, registros, reclamações, suporte, resposta a incidentes e prontidão de auditoria."
+        },
+        {
+          "type": "paragraph",
+          "text": "Entrega:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "checklist operacional",
+            "política de suporte",
+            "processo de reclamações",
+            "processo de incidentes",
+            "modelo de registros"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O que pode mudar a posição regulatória"
+        },
+        {
+          "type": "paragraph",
+          "text": "A posição atual pode mudar se a diBoaS mudar o produto."
+        },
+        {
+          "type": "paragraph",
+          "text": "Exemplos:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "a diBoaS detém recursos de clientes;",
+            "a diBoaS controla chaves privadas;",
+            "a diBoaS se torna a parte que executa transferências;",
+            "a diBoaS presta exchange ou brokerage diretamente;",
+            "a diBoaS personaliza recomendações de investimento;",
+            "a diBoaS garante retorno ou proteção contra perda;",
+            "a diBoaS opera transferências entre usuários sem parecer jurídico;",
+            "a diBoaS executa pagamentos B2B diretamente;",
+            "contratos de parceiros deslocam responsabilidade regulada de volta para a diBoaS."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A posição regulatória não é adesivo."
+        },
+        {
+          "type": "paragraph",
+          "text": "É função do comportamento do produto."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O que investidores devem perguntar"
+        },
+        {
+          "type": "paragraph",
+          "text": "Investidores devem perguntar:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Quem controla os fundos?",
+            "Quem controla as chaves?",
+            "Quem executa a movimentação?",
+            "Quem é o parceiro regulado?",
+            "Por qual atividade a diBoaS é paga?",
+            "Quais jurisdições vêm primeiro?",
+            "O que fica bloqueado até parecer jurídico?",
+            "Qual funcionalidade exigiria licença?",
+            "O que acontece se custo de parceiro ou obrigação regulatória subir?",
+            "Qual é o gate antes de dinheiro real tocar o produto?"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Essas perguntas não são hostis."
+        },
+        {
+          "type": "paragraph",
+          "text": "São as perguntas certas."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Conclusão para o investidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "A posição regulatória não é:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Encontramos uma brecha."]
+        },
+        {
+          "type": "paragraph",
+          "text": "A posição é:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Desenhamos o produto para evitar custódia desnecessária, manter o usuário no controle, usar parceiros regulados quando necessário e lançar apenas por meio de gates jurídicos."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Essa é a versão séria."
+        },
+        {
+          "type": "paragraph",
+          "text": "Menos chamativa. Mais investível."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Orientação de referência"
+        },
+        {
+          "type": "paragraph",
+          "text": "Este resumo foi elaborado considerando o perímetro regulatório público atual em 2026-06-30, incluindo implementação da MiCA na UE, orientação da ESMA sobre períodos de transição, orientação da FinCEN sobre moeda virtual conversível e regulação de ativos virtuais do Banco Central do Brasil. Decisões finais de lançamento exigem aconselhamento jurídico por jurisdição."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Nota de confidencialidade"
+        },
+        {
+          "type": "paragraph",
+          "text": "Material privado para investidores. Não encaminhar ou distribuir sem autorização."
+        },
+        {
+          "type": "paragraph",
+          "text": "Este documento é fornecido apenas para fins de discussão. Ele inclui premissas futuras, riscos em aberto e estimativas de pré-lançamento. Não constitui aconselhamento jurídico, regulatório, tributário, financeiro, contábil ou de investimento."
+        }
+      ]
+    },
+    "product-roadmap": {
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Resumo em uma linha"
+        },
+        {
+          "type": "paragraph",
+          "text": "O roadmap não é uma lista de desejos."
+        },
+        {
+          "type": "paragraph",
+          "text": "É uma sequência de prova."
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS não deve construir primeiro o maior produto possível. Deve construir o menor produto capaz de provar a empresa."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Princípio do roadmap"
+        },
+        {
+          "type": "paragraph",
+          "text": "A sequência do produto segue uma regra:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Construir apenas o que prova o próximo risco."]
+        },
+        {
+          "type": "paragraph",
+          "text": "O objetivo da fase pre-seed não é lançar todas as funcionalidades, todos os mercados e todas as versões da visão."
+        },
+        {
+          "type": "paragraph",
+          "text": "O objetivo é provar o núcleo:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Usuários entendem dinheiro por objetivo?",
+            "O produto mostra custo, liquidez e risco antes da movimentação?",
+            "O dinheiro consegue se mover pelos trilhos certos de parceiros?",
+            "A empresa preserva o desenho não custodial?",
+            "A demanda B2B vira pipeline real?"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Se isso for provado, a empresa ganha o direito de expandir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Se não for, o roadmap deve estreitar antes que o burn rate ganhe personalidade própria."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Estado atual"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Já existe"
+        },
+        {
+          "type": "paragraph",
+          "text": "A empresa atualmente possui:"
+        },
+        {
+          "type": "table",
+          "headers": ["Área", "Status"],
+          "rows": [
+            ["Site de marketing", "No ar"],
+            ["Produto de inteligência de mercado", "No ar"],
+            ["Materiais para investidores", "Criados e em empacotamento"],
+            ["Plano de Negócios", "Criado"],
+            ["Investor FAQ", "Criado"],
+            ["Modelo de Receita", "Criado"],
+            ["Uso dos Recursos", "Criado"],
+            ["Posição Regulatória", "Estruturada"],
+            ["Conceito de produto", "Especificado"],
+            ["Produto financeiro", "Ainda não está no ar"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso importa porque a empresa não começa de uma página em branco."
+        },
+        {
+          "type": "paragraph",
+          "text": "Mas também importa porque o produto financeiro ainda não está construído. Investidores não devem confundir prontidão da narrativa com prontidão do produto financeiro."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O que está especificado, mas ainda não construído"
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto financeiro central está especificado em torno de:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "escolha de objetivo;",
+            "caminho de estratégia;",
+            "visibilidade de custos;",
+            "visibilidade de liquidez;",
+            "explicação de risco;",
+            "fluxo de carteira;",
+            "entrada e saída de dinheiro;",
+            "ação controlada pelo usuário;",
+            "início de estratégia;",
+            "encerramento de estratégia;",
+            "registros e confirmações;",
+            "lógica inicial de regras de caixa B2B."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Essas são especificações de produto, não funcionalidades lançadas."
+        },
+        {
+          "type": "paragraph",
+          "text": "O roadmap existe para mover isso da especificação para a realidade controlada."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Fase 0 — Fundação e gates"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Propósito"
+        },
+        {
+          "type": "paragraph",
+          "text": "Antes de construir o produto financeiro real, a diBoaS precisa confirmar o que pode lançar com segurança e sob qual modelo operacional."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Frentes de trabalho"
+        },
+        {
+          "type": "table",
+          "headers": ["Frente", "Entrega"],
+          "rows": [
+            ["Perímetro jurídico", "Restrições de lançamento por jurisdição"],
+            [
+              "Gates regulatórios",
+              "Requisitos de lançamento para EUA, UE/Alemanha, Brasil e Espanha"
+            ],
+            ["Caminho de parceiro", "Shortlist e decisão para parceiro de entrada e saída"],
+            ["Confirmação de arquitetura", "Mapa de carteira não custodial e fluxo de fundos"],
+            ["Escopo de produto", "Limites das primeiras funcionalidades"],
+            ["Linguagem de risco", "Linguagem aprovada de risco e taxas"],
+            ["Setup operacional", "Entidade, administração, contabilidade, suporte e registros"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que essa fase prova"
+        },
+        {
+          "type": "paragraph",
+          "text": "Essa fase prova se o produto planejado pode avançar sem tratar o perímetro jurídico como planta decorativa."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Prova para o investidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "A prova principal ainda não é código."
+        },
+        {
+          "type": "paragraph",
+          "text": "É clareza:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "O que pode lançar?",
+            "Onde pode lançar?",
+            "Quem opera os trilhos regulados?",
+            "O que continua bloqueado?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Fase 1 — Build controlado do produto financeiro"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Propósito"
+        },
+        {
+          "type": "paragraph",
+          "text": "Construir a primeira versão controlada do produto financeiro."
+        },
+        {
+          "type": "paragraph",
+          "text": "Não é a visão completa. É o produto de prova."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Funcionalidades centrais"
+        },
+        {
+          "type": "table",
+          "headers": ["Funcionalidade", "Propósito"],
+          "rows": [
+            ["Escolha de objetivo", "Permitir que o usuário atribua dinheiro a uma função"],
+            ["Caminho de estratégia", "Mostrar o caminho disponível para aquele objetivo"],
+            ["Exibição de custo", "Mostrar taxas e custos externos antes da ação"],
+            ["Exibição de liquidez", "Mostrar quando e como o dinheiro pode se mover"],
+            ["Exibição de risco", "Explicar o que pode dar errado antes da ação"],
+            ["Fluxo de carteira", "Apoiar movimentação controlada pelo usuário"],
+            ["Adicionar dinheiro", "Permitir aporte pelo caminho do parceiro"],
+            ["Sacar / retirar", "Permitir saída pelo caminho do parceiro"],
+            ["Iniciar estratégia", "Permitir que o usuário inicie uma estratégia escolhida"],
+            ["Encerrar estratégia", "Permitir saída com entendimento de custo"],
+            ["Registros", "Manter histórico de confirmações e ações"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que não deve ser construído na Fase 1"
+        },
+        {
+          "type": "paragraph",
+          "text": "A Fase 1 não deve incluir:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "todos os mercados;",
+            "todos os ativos ou estratégias;",
+            "personalização avançada;",
+            "ampla movimentação entre usuários;",
+            "automação complexa de tesouraria B2B;",
+            "aquisição paga em escala;",
+            "controles enterprise antes da prova B2B;",
+            "funcionalidades especulativas que aumentam regulação sem provar o modelo."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "O primeiro build deve ser entediante nos lugares certos."
+        },
+        {
+          "type": "paragraph",
+          "text": "Entediante é subestimado quando dinheiro real está por perto."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Prova para o investidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "A prova é:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "O produto consegue tornar custo, liquidez e risco compreensíveis antes da movimentação?"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Se sim, a diBoaS tem a promessa central do usuário."
+        },
+        {
+          "type": "paragraph",
+          "text": "Se não, o resto do roadmap é decoração."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Fase 2 — Segurança, operação e prontidão de parceiro"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Propósito"
+        },
+        {
+          "type": "paragraph",
+          "text": "Preparar o produto controlado para usuários reais e fluxos reais."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Frentes de trabalho"
+        },
+        {
+          "type": "table",
+          "headers": ["Frente", "Entrega"],
+          "rows": [
+            ["Revisão de segurança", "Revisão de riscos do produto e dos fluxos"],
+            ["Monitoramento", "Monitoramento básico de sistema e transações"],
+            ["Modelo de recuperação", "Premissas de recuperação e incidentes"],
+            ["Suporte", "Processo de suporte e escalonamento"],
+            ["Registros", "Registros de ação, taxa, confirmação e reclamação"],
+            ["Integração de parceiro", "Entrada e saída de dinheiro via parceiros selecionados"],
+            [
+              "Compliance operacional",
+              "KYC / AML / sanções / processo operacional quando necessário"
+            ],
+            ["Divulgação de risco", "Avisos e confirmações aprovados para o usuário"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que essa fase prova"
+        },
+        {
+          "type": "paragraph",
+          "text": "Essa fase prova que o produto não é apenas compreensível, mas operacionalmente controlado."
+        },
+        {
+          "type": "paragraph",
+          "text": "Uma fintech que explica risco, mas não opera com segurança, continua sendo um problema com fonte melhor."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Prova para o investidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "A prova é:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "A diBoaS consegue expor usuários controlados a fluxos reais de dinheiro sem perder a disciplina não custodial?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Fase 3 — Primeiro lançamento controlado"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Propósito"
+        },
+        {
+          "type": "paragraph",
+          "text": "Lançar para um grupo limitado de usuários para testar comportamento, não vaidade."
+        },
+        {
+          "type": "paragraph",
+          "text": "O primeiro lançamento deve medir se as pessoas passam de curiosidade para confiança."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que testar"
+        },
+        {
+          "type": "table",
+          "headers": ["Métrica", "Pergunta"],
+          "rows": [
+            ["Cadastro para aporte", "Usuários confiam o suficiente para colocar dinheiro?"],
+            ["Valor aportado", "Quanto os usuários atribuem a objetivos?"],
+            ["Abandono antes do aporte", "Onde a confiança quebra?"],
+            ["Início de estratégia", "Usuários entendem o caminho?"],
+            ["Encerramento de estratégia", "Usuários entendem custo e liquidez?"],
+            ["Carga de suporte", "O que confunde usuários?"],
+            ["Compreensão de risco", "Usuários entendem o que não é garantido?"],
+            [
+              "Margem líquida de movimentação",
+              "A unit economics sobrevive aos custos de parceiros?"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que não deve acontecer"
+        },
+        {
+          "type": "paragraph",
+          "text": "A empresa não deve escalar aquisição paga imediatamente."
+        },
+        {
+          "type": "paragraph",
+          "text": "Pico de cadastro sem comportamento de aporte não é tração."
+        },
+        {
+          "type": "paragraph",
+          "text": "É uma audiência recusando educadamente confiar dinheiro."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Prova para o investidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "A prova é:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Usuários aportam depois de entender custo, liquidez e risco?"]
+        },
+        {
+          "type": "paragraph",
+          "text": "Esse é o momento em que o produto vira mais que narrativa."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Fase 4 — Validação B2B"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Propósito"
+        },
+        {
+          "type": "paragraph",
+          "text": "Validar o motor de receita."
+        },
+        {
+          "type": "paragraph",
+          "text": "Confiança B2C cria distribuição. B2B precisa provar densidade de receita."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Primeira tese B2B"
+        },
+        {
+          "type": "paragraph",
+          "text": "A primeira proposta B2B deve permanecer estreita:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Caixa por função.",
+            "Regras antes da movimentação.",
+            "Visibilidade antes do pagamento.",
+            "Controle de liquidez antes que caixa parado vire desperdício."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Funcionalidades B2B iniciais"
+        },
+        {
+          "type": "table",
+          "headers": ["Funcionalidade", "Propósito"],
+          "rows": [
+            [
+              "Categorias de caixa",
+              "Folha, aluguel, impostos, fornecedores, piso operacional, caixa excedente"
+            ],
+            ["Regras", "Definir o que cada caixa pode ou não fazer"],
+            [
+              "Prévia de movimentação",
+              "Mostrar custo, liquidez e risco antes da movimentação empresarial"
+            ],
+            ["Permissões", "Apoiar estrutura básica de aprovação ou controle"],
+            ["Registros", "Criar histórico de ações e base de relatório"],
+            ["Lógica de taxa B2B", "Validar receita por movimentação em fluxos maiores"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que testar"
+        },
+        {
+          "type": "table",
+          "headers": ["Métrica", "Pergunta"],
+          "rows": [
+            ["Pipeline qualificado", "Empresas têm interesse sério?"],
+            ["Urgência do caso de uso", "Controle de caixa dói o suficiente?"],
+            ["Tamanho do deal", "A receita fica próxima das premissas modeladas?"],
+            ["Ciclo de venda", "Quanto tempo a confiança leva?"],
+            ["Tipo de comprador", "Founder, financeiro, operações, contador?"],
+            ["Objeções", "Regulação, custódia, custo, confiança, complexidade?"],
+            ["Disposição a pagar", "Empresas pagam por clareza e controle?"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Prova para o investidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "A prova é:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Interesse B2B vira pipeline qualificado em níveis de receita relevantes?"]
+        },
+        {
+          "type": "paragraph",
+          "text": "Se sim, a empresa tem caminho de receita."
+        },
+        {
+          "type": "paragraph",
+          "text": "Se não, continua sendo um produto de consumo com ARPU pequeno."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Fase 5 — Sequência de mercados"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Propósito"
+        },
+        {
+          "type": "paragraph",
+          "text": "Expandir apenas onde a prova e os gates justificam."
+        },
+        {
+          "type": "paragraph",
+          "text": "O roadmap não deve tratar todos os mercados como igualmente prontos."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Lógica de mercado"
+        },
+        {
+          "type": "table",
+          "headers": ["Mercado", "Papel", "Postura no roadmap"],
+          "rows": [
+            [
+              "Brasil",
+              "Entrada B2C forte por objetivos e proteção em dólar",
+              "Caminho partner-first, com revisão cambial e local"
+            ],
+            [
+              "Estados Unidos",
+              "Mercado forte de receita e referência para investidores",
+              "Entrar apenas após revisão de money transmission e movimentação entre usuários"
+            ],
+            [
+              "Alemanha",
+              "Confiança, planejamento e disciplina regulatória",
+              "Alto valor de credibilidade, mais lento por desenho"
+            ],
+            [
+              "Espanha",
+              "Prudência, clareza de custos e explicação ao consumidor",
+              "Lógica UE/MiCA com revisão local de linguagem e disclosure"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Prova para o investidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "A prova é:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Cada mercado ganha entrada por evidência jurídica, de parceiro e de usuário?"]
+        },
+        {
+          "type": "paragraph",
+          "text": "Nenhum mercado deve lançar porque fica bonito no slide."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Fase 6 — Escalar somente depois da prova"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Propósito"
+        },
+        {
+          "type": "paragraph",
+          "text": "Escalar as partes que mostrarem evidência."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Candidatos a escala"
+        },
+        {
+          "type": "table",
+          "headers": ["Candidato", "Escalar apenas se"],
+          "rows": [
+            ["Aquisição B2C", "Conversão para aporte e contribuição mensal se comportarem"],
+            ["Vendas B2B", "Pipeline qualificado e tamanho de deal validarem"],
+            ["Estratégias adicionais", "Linguagem de risco e caminho de parceiros suportarem"],
+            ["Mercados adicionais", "Gates jurídicos e linguagem local estiverem prontos"],
+            ["Movimentação entre usuários", "Parecer jurídico liberar o fluxo"],
+            ["Controles B2B avançados", "Demanda B2B inicial provar necessidade"],
+            ["Marketing pago", "Unit economics suportar CAC"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Prova para o investidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "A prova é:"
+        },
+        {
+          "type": "callout",
+          "lines": ["A empresa sabe o que merece mais capital?"]
+        },
+        {
+          "type": "paragraph",
+          "text": "Escalar antes da prova é só gasto com iluminação melhor."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Dependências do roadmap"
+        },
+        {
+          "type": "paragraph",
+          "text": "O roadmap depende de cinco gates duros."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "1. Gate jurídico"
+        },
+        {
+          "type": "paragraph",
+          "text": "Nenhuma jurisdição lança sem revisão jurídica."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "2. Gate de parceiro"
+        },
+        {
+          "type": "paragraph",
+          "text": "Nenhuma movimentação de dinheiro lança sem o caminho correto de parceiro."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "3. Gate de arquitetura"
+        },
+        {
+          "type": "paragraph",
+          "text": "Nenhuma afirmação de não custódia sem prova técnica."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "4. Gate de segurança"
+        },
+        {
+          "type": "paragraph",
+          "text": "Nenhuma exposição a dinheiro real sem revisão e controles operacionais."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "5. Gate de receita"
+        },
+        {
+          "type": "paragraph",
+          "text": "Nenhuma escala sem evidência de B2B ou comportamento de funding que sustente o modelo."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O que deve esperar"
+        },
+        {
+          "type": "paragraph",
+          "text": "Algumas funcionalidades podem ser atraentes, mas devem esperar."
+        },
+        {
+          "type": "table",
+          "headers": ["Funcionalidade", "Por que espera"],
+          "rows": [
+            [
+              "Movimentação ampla entre usuários",
+              "Risco de money transmission nos EUA precisa ser resolvido"
+            ],
+            ["Muitas estratégias", "Complexidade e risco de disclosure aumentam"],
+            ["Personalização pesada", "Pode criar risco de assessoria de investimento"],
+            ["Automação B2B avançada", "Precisa de prova B2B primeiro"],
+            ["Lançamento multi-mercado", "Gates jurídicos e operacionais diferem"],
+            ["Grande marketing pago", "Precisa esperar comportamento de aporte"],
+            ["Time grande", "Deve seguir gargalos validados"],
+            ["Relatórios enterprise complexos", "Deve seguir necessidade real do comprador B2B"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Um roadmap também é uma lista do que a empresa tem disciplina para não construir ainda."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Marcos para investidores"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Marco A — Gates de lançamento claros"
+        },
+        {
+          "type": "paragraph",
+          "text": "A empresa consegue mostrar o que pode lançar, onde, e sob qual mapa de responsabilidade."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Marco B — Produto chega à prontidão controlada"
+        },
+        {
+          "type": "paragraph",
+          "text": "O primeiro produto financeiro funciona em ambiente controlado."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Marco C — Caminho de parceiro assinado ou bloqueado com clareza"
+        },
+        {
+          "type": "paragraph",
+          "text": "A empresa sabe se o caminho de entrada e saída funciona."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Marco D — Primeiros usuários aportam"
+        },
+        {
+          "type": "paragraph",
+          "text": "Usuários passam de interesse para comportamento financeiro."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Marco E — Pipeline B2B qualifica"
+        },
+        {
+          "type": "paragraph",
+          "text": "Empresas passam de curiosidade para conversa comercial séria."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Marco F — Unit economics sobrevivem à realidade"
+        },
+        {
+          "type": "paragraph",
+          "text": "A margem líquida de movimentação continua viável após custos de parceiros e operação."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O roadmap em uma visão"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "0. Fundação e gates",
+            "1. Build controlado do produto financeiro",
+            "2. Segurança, operação e prontidão de parceiro",
+            "3. Primeiro lançamento controlado",
+            "4. Validação B2B",
+            "5. Sequência de mercados",
+            "6. Escalar somente depois da prova"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Cada etapa existe para responder uma pergunta:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Qual risco estamos provando agora?"]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Conclusão para o investidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "O roadmap não foi desenhado para fazer a diBoaS parecer maior."
+        },
+        {
+          "type": "paragraph",
+          "text": "Foi desenhado para tornar a diBoaS menos incerta."
+        },
+        {
+          "type": "paragraph",
+          "text": "A empresa deve construir nesta ordem:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Confiança antes de escala.",
+            "Gates antes de lançamento.",
+            "Clareza antes de movimentação.",
+            "Prova B2B antes de promessa de receita.",
+            "Evidência antes de expansão."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Esse é o roadmap."
+        },
+        {
+          "type": "paragraph",
+          "text": "Não o maior produto."
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto que prova a empresa."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Nota de confidencialidade"
+        },
+        {
+          "type": "paragraph",
+          "text": "Material privado para investidores. Não encaminhar ou distribuir sem autorização."
+        },
+        {
+          "type": "paragraph",
+          "text": "Este documento é fornecido apenas para fins de discussão. Ele inclui premissas futuras, riscos em aberto e estimativas de pré-lançamento. Não constitui aconselhamento jurídico, regulatório, tributário, financeiro, contábil ou de investimento."
+        }
+      ]
+    },
+    "fees-summary": {
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Resumo em uma linha"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS cobra pela movimentação."
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS não esconde spread."
+        },
+        {
+          "type": "paragraph",
+          "text": "O usuário deve saber o custo antes do dinheiro se mover."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Filosofia de taxas"
+        },
+        {
+          "type": "paragraph",
+          "text": "O modelo de taxas segue uma regra:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Confiança primeiro. Cobrança clara."]
+        },
+        {
+          "type": "paragraph",
+          "text": "Um produto financeiro pode pedir que o usuário assuma risco."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ele não pode também obrigar o usuário a caçar o custo."
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS foi desenhada com taxas visíveis, exposição limitada por caps e custos externos repassados de forma explícita quando provedores cobram pelos trilhos."
+        },
+        {
+          "type": "paragraph",
+          "text": "Sem spread escondido. Sem imposto sobre o upside. Sem produto “gratuito” que vira museu de taxas depois do cadastro."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Pelo que a diBoaS cobra"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS cobra quando valor se move."
+        },
+        {
+          "type": "paragraph",
+          "text": "Os principais eventos de cobrança são:"
+        },
+        {
+          "type": "table",
+          "headers": ["Ação", "Lógica de taxa"],
+          "rows": [
+            ["Adicionar dinheiro", "Taxa de movimentação"],
+            ["Sacar / retirar", "Taxa de movimentação"],
+            ["Encerrar estratégia", "Taxa de encerramento"],
+            ["Grandes movimentações B2B", "Taxa de movimentação com cap empresarial"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "O modelo de taxas é intencionalmente ligado à ação."
+        },
+        {
+          "type": "paragraph",
+          "text": "Se o usuário não move dinheiro, a diBoaS não deve fabricar receita a partir de confusão."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Pelo que a diBoaS não cobra"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS não pretende cobrar uma taxa de plataforma em cada ação do usuário."
+        },
+        {
+          "type": "paragraph",
+          "text": "Lógica atual:"
+        },
+        {
+          "type": "table",
+          "headers": ["Ação", "Taxa diBoaS"],
+          "rows": [
+            ["Iniciar estratégia", "0"],
+            ["Enviar dinheiro", "0 onde suportado"],
+            ["Swap / troca", "0 onde suportado"],
+            ["Bridge", "0 onde suportado"],
+            ["Receber pagamentos B2B", "0 onde suportado"],
+            ["Ver objetivos / opções de estratégia", "0"],
+            ["Ver custos, liquidez e risco", "0"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto deve tornar o entendimento gratuito."
+        },
+        {
+          "type": "paragraph",
+          "text": "Cobrar para o usuário entender o risco só gera pedido de desculpas depois."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Tabela central de taxas"
+        },
+        {
+          "type": "table",
+          "headers": ["Ação do produto", "Taxa diBoaS", "Cap"],
+          "rows": [
+            ["Adicionar dinheiro — consumidor", "0,48%", "US$250"],
+            ["Sacar / retirar — consumidor", "0,48%", "US$250"],
+            ["Adicionar dinheiro — empresa", "0,48%", "US$2.500"],
+            ["Sacar / retirar — empresa", "0,48%", "US$2.500"],
+            ["Encerrar estratégia", "0,39%", "US$25"],
+            ["Iniciar estratégia", "0", "N/A"],
+            ["Enviar / swap / bridge", "0 onde suportado", "N/A"],
+            ["Receber pagamentos B2B", "0 onde suportado", "N/A"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Essas são premissas atuais do modelo."
+        },
+        {
+          "type": "paragraph",
+          "text": "As taxas finais podem mudar após precificação de parceiros, revisão jurídica, teste de mercado, custos de compliance e confirmação dos gates de lançamento."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Por que taxas de movimentação"
+        },
+        {
+          "type": "paragraph",
+          "text": "Movimentação é o momento de valor."
+        },
+        {
+          "type": "paragraph",
+          "text": "Também é o momento em que o usuário consegue entender pelo que está pagando."
+        },
+        {
+          "type": "paragraph",
+          "text": "A taxa não fica presa a um acesso vago."
+        },
+        {
+          "type": "paragraph",
+          "text": "Ela está ligada a uma ação:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Dinheiro entra.", "Dinheiro sai.", "Uma estratégia é encerrada."]
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso torna o modelo mais fácil de explicar e mais fácil de auditar."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Por que o cap de encerramento é menor"
+        },
+        {
+          "type": "paragraph",
+          "text": "A taxa de encerramento de estratégia tem cap de:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$25"]
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso importa."
+        },
+        {
+          "type": "paragraph",
+          "text": "Encerrar uma estratégia é o momento em que o usuário sai. Pode acontecer porque atingiu um objetivo, precisa de liquidez ou quer reduzir exposição."
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto não deve punir a saída."
+        },
+        {
+          "type": "paragraph",
+          "text": "Um produto financeiro que prende o usuário na porta não é produto. É alerta vermelho com tela de onboarding."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Lógica de taxas para consumidor"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Papel do consumidor no modelo"
+        },
+        {
+          "type": "paragraph",
+          "text": "Usuários consumidores não devem carregar a empresa sozinhos."
+        },
+        {
+          "type": "paragraph",
+          "text": "A camada B2C constrói confiança, distribuição, familiaridade com o produto e prova de comportamento."
+        },
+        {
+          "type": "paragraph",
+          "text": "Por isso, o modelo de taxas para consumidor precisa ser compreensível e contido."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Prioridades para consumidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "Para consumidores, as taxas devem ser:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "visíveis antes da ação;",
+            "limitadas por cap;",
+            "simples de explicar;",
+            "ligadas à movimentação;",
+            "sem fricção para iniciar estratégia;",
+            "honestas sobre custos externos."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Exemplo consumidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se um consumidor adiciona:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$1.000"]
+        },
+        {
+          "type": "paragraph",
+          "text": "com taxa de movimentação de 0,48%, a taxa diBoaS é:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$4,80"]
+        },
+        {
+          "type": "paragraph",
+          "text": "Se esse usuário depois retirar o valor total, a mesma lógica de movimentação se aplica novamente, sujeita ao cap."
+        },
+        {
+          "type": "paragraph",
+          "text": "Se o usuário encerrar uma estratégia, aplica-se a taxa de 0,39%, limitada a US$25."
+        },
+        {
+          "type": "paragraph",
+          "text": "O usuário deve ver isso antes da ação, não depois que a confiança já foi gasta."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Lógica de taxas B2B"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Por que B2B sustenta o modelo"
+        },
+        {
+          "type": "paragraph",
+          "text": "Empresas movimentam valores maiores."
+        },
+        {
+          "type": "paragraph",
+          "text": "Também precisam de regras, visibilidade, registros e controle."
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso torna a movimentação B2B mais relevante economicamente do que a movimentação de consumidor."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Prioridades para B2B"
+        },
+        {
+          "type": "paragraph",
+          "text": "Para empresas, as taxas devem ser:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "explícitas;",
+            "defensáveis contra o valor do controle de caixa;",
+            "limitadas por cap em grandes movimentações;",
+            "previsíveis para times financeiros;",
+            "ligadas à ação operacional;",
+            "compatíveis com auditoria e reporting."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Exemplo B2B"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se uma empresa movimenta:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$200.000"]
+        },
+        {
+          "type": "paragraph",
+          "text": "com taxa de 0,48%, a taxa bruta diBoaS antes de cap seria:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$960"]
+        },
+        {
+          "type": "paragraph",
+          "text": "Se uma empresa movimenta:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$500.000"]
+        },
+        {
+          "type": "paragraph",
+          "text": "a taxa sem cap seria:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$2.400"]
+        },
+        {
+          "type": "paragraph",
+          "text": "ainda abaixo do cap empresarial de US$2.500."
+        },
+        {
+          "type": "paragraph",
+          "text": "O cap protege contra resultados extremos de taxa e preserva receita relevante em fluxos empresariais maiores."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Custos externos e repassados"
+        },
+        {
+          "type": "paragraph",
+          "text": "As taxas diBoaS não são os únicos custos possíveis."
+        },
+        {
+          "type": "paragraph",
+          "text": "Custos externos podem incluir:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "taxas de rede;",
+            "taxas de ramp;",
+            "taxas bancárias;",
+            "taxas de provedores;",
+            "custos de câmbio;",
+            "custos de liquidação;",
+            "taxas de blockchain;",
+            "custos de compliance ou verificação;",
+            "custos de serviço de parceiros."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Esses custos devem ser exibidos separadamente sempre que possível."
+        },
+        {
+          "type": "paragraph",
+          "text": "O usuário deve entender:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "O que a diBoaS cobra.",
+            "O que parceiros cobram.",
+            "O que rede ou trilhos cobram.",
+            "O que o usuário recebe após custos."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Se o custo é inevitável, diga."
+        },
+        {
+          "type": "paragraph",
+          "text": "Se é variável, diga."
+        },
+        {
+          "type": "paragraph",
+          "text": "Se é repassado, não finja que é margem."
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso não é apenas ética. É um negócio mais limpo."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O que deve ser gratuito"
+        },
+        {
+          "type": "paragraph",
+          "text": "Algumas ações devem permanecer gratuitas porque criam confiança e compreensão."
+        },
+        {
+          "type": "table",
+          "headers": ["Ação gratuita", "Por que deve continuar gratuita"],
+          "rows": [
+            ["Ver opções", "Usuários precisam entender antes de agir"],
+            ["Iniciar estratégia", "Reduz fricção e apoia adoção"],
+            ["Ver custos", "Visibilidade de custo é requisito de confiança"],
+            ["Ver risco", "Visibilidade de risco não é upsell"],
+            ["Receber pagamentos B2B onde suportado", "Reduz fricção nos fluxos empresariais"],
+            [
+              "Enviar / swap / bridge onde suportado",
+              "Evita cobrar demais por fluxos utilitários internos"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "O produto deve cobrar quando valor se move, não quando o usuário tenta entender."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O que pode mudar"
+        },
+        {
+          "type": "paragraph",
+          "text": "O modelo de taxas pode mudar se a evidência mudar."
+        },
+        {
+          "type": "paragraph",
+          "text": "Possíveis razões:"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Precificação de parceiros"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se parceiros de entrada e saída cobrarem mais do que esperado, taxas ou custos repassados podem precisar de revisão."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Custo regulatório"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se obrigações de compliance forem maiores do que o esperado, a estrutura de custo pode mudar."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Sensibilidade por mercado"
+        },
+        {
+          "type": "paragraph",
+          "text": "Brasil, EUA, Alemanha e Espanha podem responder de forma diferente a taxas, caps e linguagem de repasse."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Valor B2B maior ou menor que o modelado"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se empresas mostrarem maior disposição a pagar, o empacotamento de taxas pode evoluir."
+        },
+        {
+          "type": "paragraph",
+          "text": "Se B2B for mais sensível a preço, a precificação pode precisar estreitar."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Compressão de margem líquida"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se a margem líquida de movimentação for baixa demais após custos externos, o modelo precisa ser revisto antes de escalar."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Mudança de escopo do produto"
+        },
+        {
+          "type": "paragraph",
+          "text": "Se a diBoaS adicionar funcionalidades que criam novas obrigações regulatórias, as taxas podem precisar refletir esse novo custo operacional."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "O que não deve mudar"
+        },
+        {
+          "type": "paragraph",
+          "text": "Mesmo se os números mudarem, os princípios não devem mudar."
+        },
+        {
+          "type": "paragraph",
+          "text": "Os princípios são:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Visível antes da ação.",
+            "Com cap onde a exposição do usuário importa.",
+            "Sem spread escondido.",
+            "Sem taxa para entender.",
+            "Receita baseada em movimentação.",
+            "Custos externos separados sempre que possível."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Isso não é preferência de design."
+        },
+        {
+          "type": "paragraph",
+          "text": "É infraestrutura de confiança."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Perguntas que investidores devem fazer"
+        },
+        {
+          "type": "paragraph",
+          "text": "Investidores devem perguntar:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "As taxas aparecem antes de cada movimentação?",
+            "Quais custos são receita diBoaS e quais são repasse?",
+            "Qual é a margem líquida depois de custos de parceiro e trilhos?",
+            "Os caps protegem usuários e preservam a economia do negócio?",
+            "Taxas de consumidor são baixas o suficiente para sustentar confiança?",
+            "Taxas B2B são relevantes o suficiente para sustentar receita?",
+            "Quais taxas dependem de contratos com parceiros?",
+            "Quais taxas dependem de revisão jurídica ou regulatória?",
+            "Como a sensibilidade a taxas muda por mercado?",
+            "Qual taxa destruiria confiança se fosse introduzida cedo demais?"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A última pergunta importa mais do que fundadores costumam gostar."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Conclusão para o investidor"
+        },
+        {
+          "type": "paragraph",
+          "text": "O modelo de taxas é simples de propósito."
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Movimentação cria receita.",
+            "Transparência cria permissão.",
+            "Caps protegem confiança.",
+            "B2B cria peso econômico."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS não deve vencer escondendo taxas."
+        },
+        {
+          "type": "paragraph",
+          "text": "Deve vencer mostrando o custo antes de o usuário mover dinheiro."
+        },
+        {
+          "type": "paragraph",
+          "text": "Essa é a estratégia de taxas."
+        },
+        {
+          "type": "paragraph",
+          "text": "Sem mágica. Sem armadilha. Sem precificação que precisa de lanterna e advogado para ser entendida."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Nota de confidencialidade"
+        },
+        {
+          "type": "paragraph",
+          "text": "Material privado para investidores. Não encaminhar ou distribuir sem autorização."
+        },
+        {
+          "type": "paragraph",
+          "text": "Este documento é fornecido apenas para fins de discussão. Ele inclui premissas futuras, riscos em aberto e estimativas de pré-lançamento. Não constitui aconselhamento jurídico, regulatório, tributário, financeiro, contábil ou de investimento."
+        }
+      ]
+    }
+  }
+}

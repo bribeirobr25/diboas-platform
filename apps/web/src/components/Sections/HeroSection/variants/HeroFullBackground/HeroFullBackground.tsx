@@ -113,7 +113,11 @@ export function HeroFullBackground({
       )}
 
       <div className={styles.container}>
-        <div className={styles.content}>
+        <div
+          className={`${styles.content}${
+            config.layout?.desktopContentLift ? ` ${styles.contentLiftDesktop}` : ''
+          }`}
+        >
           <h1 id="hero-title" className={styles.title}>
             {config.content.title}
           </h1>
