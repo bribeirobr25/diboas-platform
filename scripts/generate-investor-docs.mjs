@@ -36,6 +36,16 @@ const SLUG_SOURCES = {
     'product-roadmap': `${BASE}/investor-page-en/07_diboas_product_roadmap_EN.md`,
     'fees-summary': `${BASE}/investor-page-en/08_diboas_fees_summary_EN.md`,
   },
+  'pt-BR': {
+    'business-plan': `${BASE}/BUSINESS_PLAN_final_aligned_PT.md`,
+    'investor-faq': `${BASE}/INVESTOR_FAQ_final_aligned_PT.md`,
+    'pitch-deck': `${BASE}/investor-page-ptBR/03_diboas_pitch_deck_outline_PT-BR.md`,
+    'use-of-funds': `${BASE}/investor-page-ptBR/04_diboas_use_of_funds_PT-BR.md`,
+    'revenue-model': `${BASE}/investor-page-ptBR/05_diboas_revenue_model_summary_PT-BR.md`,
+    'regulatory-position': `${BASE}/investor-page-ptBR/06_diboas_regulatory_position_summary_PT-BR.md`,
+    'product-roadmap': `${BASE}/investor-page-ptBR/07_diboas_product_roadmap_PT-BR.md`,
+    'fees-summary': `${BASE}/investor-page-ptBR/08_diboas_fees_summary_PT-BR.md`,
+  },
 };
 
 /** Strip inline markdown control chars, preserving the words. */
