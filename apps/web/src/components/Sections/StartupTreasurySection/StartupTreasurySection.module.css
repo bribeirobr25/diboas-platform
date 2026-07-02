@@ -1,0 +1,161 @@
+/* StartupTreasurySection — card-based, matches the business page's visual language. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4xl);
+}
+.root.generous {
+  gap: var(--spacing-5xl);
+}
+
+/* 1. Intro — centered, same heading treatment as sibling sections */
+.intro {
+  max-width: 48rem;
+  margin-inline: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+.eyebrow {
+  margin: 0;
+}
+.headline {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-section-title);
+  font-size: var(--font-size-section-title-mobile);
+}
+@media (min-width: 768px) {
+  .headline {
+    font-size: var(--font-size-section-title-tablet);
+  }
+}
+@media (min-width: 1024px) {
+  .headline {
+    font-size: var(--font-size-section-title-desktop);
+  }
+}
+/* Subhead in the centered intro — shown on tablet/mobile, hidden on desktop
+   (where it moves into the body column as .lead). */
+.introSubhead {
+  margin: 0;
+  max-width: 42rem;
+  margin-inline: auto;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-body);
+  line-height: var(--line-height-relaxed);
+}
+@media (min-width: 900px) {
+  .introSubhead {
+    display: none;
+  }
+}
+
+/* Subhead as a lead line at the top of the body column — desktop only. */
+.lead {
+  display: none;
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-heading);
+  line-height: var(--line-height-relaxed);
+}
+@media (min-width: 900px) {
+  .lead {
+    display: block;
+  }
+}
+
+/* 2. Body copy beside a supporting image card */
+.split {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+}
+@media (min-width: 900px) {
+  .split {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-4xl);
+  }
+  .split.imageRight {
+    flex-direction: row-reverse;
+  }
+}
+.imageCard {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background-color: var(--color-surface-secondary);
+}
+.image {
+  object-fit: cover;
+}
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+/* Equal columns only on desktop (flex-basis:0 would collapse the image height
+   in the stacked mobile column, so the flex sizing is desktop-scoped). */
+@media (min-width: 900px) {
+  .imageCard {
+    flex: 1 1 0;
+    aspect-ratio: 5 / 4;
+  }
+  .body {
+    flex: 1 1 0;
+  }
+}
+.paragraph {
+  margin: 0;
+  font-size: var(--font-size-md);
+  color: var(--color-text-body);
+  line-height: var(--line-height-relaxed);
+}
+
+/* 3. Bridge line + two CTAs */
+.ctaBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  text-align: center;
+}
+.bridge {
+  margin: 0;
+  max-width: 40rem;
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+}
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-primary-hover);
+  text-decoration: none;
+}
+.secondary:hover {
+  text-decoration: underline;
+}
+.secondaryIcon {
+  width: 1em;
+  height: 1em;
+}

@@ -216,7 +216,8 @@
     "social": {
       "linkedin": "LinkedIn",
       "x": "X",
-      "substack": "Substack"
+      "substack": "Substack",
+      "email": "Schreib mir"
     }
   },
   "waitlist": {
@@ -318,5 +319,22 @@
     "ogTitle": "Jeder Euro braucht eine Aufgabe.",
     "ogDescription": "diBoaS hilft Unternehmen, Betriebsmittel, Zahlungen und Rücklagen nach Zweck zu trennen, mit Kosten, Verfügbarkeit und Risiko sichtbar, bevor Geld bewegt wird.",
     "keywords": "Treasury-Management, Startup-Finanzen, Rendite, Betriebskapital, Geschäftszahlungen, B2B-Fintech"
+  },
+  "startupTreasury": {
+    "eyebrow": "FÜR FINANZIERTE STARTUPS",
+    "headline": "Du hast es nicht eingesammelt, damit es brachliegt.",
+    "subheadline": "Der Großteil deiner Runde ist Runway, den du monatelang nicht anfasst. Er kann an einem Ort warten, der für dich arbeitet — ohne je deine Kontrolle zu verlassen.",
+    "body": {
+      "0": "Eine Runde kommt rein. Die Gehälter nehmen sich jeden Monat ihren Teil. Der Rest — das meiste davon — wartet.",
+      "1": "Er wartet auf einem Konto, bei einer Bank, und bringt fast nichts. Du weißt bereits, was dieser Satz kosten kann.",
+      "2": "diBoaS verlangt nicht, dass du deinen Runway aufs Spiel setzt. Leg den Boden fest für das, was du brauchst. Was darüber liegt, geht arbeiten — und bleibt deins, verdient jeden Tag und ist sofort abrufbar, sobald du es brauchst."
+    },
+    "bridgeLine": "Verlass dich nicht auf das Beispiel. Rechne es mit deinem eigenen Runway durch.",
+    "cta": {
+      "secondary": "Sieh, was deine ungenutzte Liquidität leisten kann",
+      "primary": "Mit Bar sprechen"
+    },
+    "imageAlt": "Ein ruhiger, sonnendurchfluteter Arbeitsplatz am Fenster im Morgenlicht",
+    "ariaLabel": "Startup-Treasury — ungenutzten Runway arbeiten lassen"
   }
 }

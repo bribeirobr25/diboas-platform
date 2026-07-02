@@ -216,7 +216,8 @@
     "social": {
       "linkedin": "LinkedIn",
       "x": "X",
-      "substack": "Substack"
+      "substack": "Substack",
+      "email": "Me escreva"
     }
   },
   "waitlist": {
@@ -318,5 +319,22 @@
     "ogTitle": "Caixa precisa ter função.",
     "ogDescription": "O diBoaS ajuda empresas a separar caixa operacional, pagamentos e dinheiro parado em caminhos claros de dólar digital, com custo, liquidez e risco visíveis antes de mover dinheiro.",
     "keywords": "gestao de tesouraria, finanças para startups, retornos, capital operacional, pagamentos empresariais, fintech B2B"
+  },
+  "startupTreasury": {
+    "eyebrow": "PARA STARTUPS INVESTIDAS",
+    "headline": "Você não levantou capital para vê-lo parado.",
+    "subheadline": "A maior parte da sua rodada é runway que você não vai tocar por meses. Ela pode esperar em um lugar que trabalha para você, sem nunca sair do seu controle.",
+    "body": {
+      "0": "A rodada cai na conta. A folha leva uma parte todo mês. O resto — a maior parte — espera.",
+      "1": "Espera em uma conta, em um único banco, rendendo quase nada. Você já sabe quanto essa frase pode custar.",
+      "2": "diBoaS não pede que você aposte seu runway. Defina o piso do que você precisa. O que fica acima vai trabalhar — e continua seu, rendendo todos os dias, pronto para resgatar no momento em que você precisar."
+    },
+    "bridgeLine": "Não confie só no exemplo. Faça a conta com o seu próprio runway.",
+    "cta": {
+      "secondary": "Veja o que o seu caixa parado pode render",
+      "primary": "Fale com o Bar"
+    },
+    "imageAlt": "Um espaço de trabalho tranquilo e ensolarado junto à janela, na luz da manhã",
+    "ariaLabel": "Tesouraria para startups: coloque o runway ocioso para trabalhar"
   }
 }

@@ -226,6 +226,7 @@ export const B2C_FOOTER_NAV = [
   // 2026-05-13: route renamed to `/market`; label "Adelaide Daily" stays.
   { id: 'adelaideDaily', labelKey: 'landing-b2c.footer.nav.adelaideDaily', href: ROUTES.MARKET },
   { id: 'about', labelKey: 'landing-b2c.footer.nav.about', href: ROUTES.ABOUT },
+  { id: 'investors', labelKey: 'landing-b2c.footer.nav.investors', href: ROUTES.INVESTORS },
   { id: 'strategies', labelKey: 'landing-b2c.footer.nav.strategies', href: ROUTES.STRATEGIES },
   { id: 'protocols', labelKey: 'landing-b2c.footer.nav.protocols', href: ROUTES.PROTOCOLS },
   { id: 'help', labelKey: 'landing-b2c.footer.nav.help', href: '/help' },

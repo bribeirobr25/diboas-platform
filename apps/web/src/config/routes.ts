@@ -23,6 +23,7 @@ export const ROUTES = {
 
   // About & Info
   ABOUT: '/about',
+  INVESTORS: '/investors',
   PROTOCOLS: '/protocols',
   SECURITY: '/security',
   HELP: '/help',

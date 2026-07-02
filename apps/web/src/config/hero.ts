@@ -77,10 +77,10 @@ export interface HeroVariantConfig {
   /** Optional per-variant layout tweaks (opt-in; defaults preserve base layout). */
   readonly layout?: {
     /**
-     * Lift the (vertically centered) hero content block up by ~90px on desktop
-     * (>= 1024px) only. Opt-in per page; other fullBackground heroes unaffected.
+     * Lift the (vertically centered) hero content block up by ~90px at every
+     * breakpoint. Opt-in per page; other fullBackground heroes unaffected.
      */
-    readonly desktopContentLift?: boolean;
+    readonly contentLift?: boolean;
   };
 }
 
