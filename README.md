@@ -143,6 +143,8 @@ Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 | `/tools/card-fees`             | B2B card fee savings calculator                                                         |
 | `/tools/idle-cash`             | B2B idle cash yield calculator                                                          |
 | `/market`                      | Adelaide Daily — BTC macro-regime dashboard (host surface for diboas-analytics)         |
+| `/investors`                   | Investor vertical — public pitch page (thesis, market, raise)                           |
+| `/investor-room`               | Password-gated investor room — full documents + print-to-PDF (noindex)                  |
 | `/email-preferences`           | Email unsubscribe / notification preferences                                            |
 | `/delete-confirm`              | GDPR account/waitlist deletion confirmation                                             |
 | `/share`                       | Social sharing redirect (OG metadata)                                                   |

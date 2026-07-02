@@ -64,7 +64,9 @@ Main pages:
 - `/[locale]/protocols` - Protocol transparency
 - `/[locale]/help` - Help center (6 FAQ topics)
 - `/[locale]/security` - Security information
-- `/[locale]/market` - Adelaide Daily — market updates (placeholder)
+- `/[locale]/market` - Adelaide Daily — BTC macro-regime dashboard (host surface for the diboas-analytics product)
+- `/[locale]/investors` - Investor vertical — public pitch page (thesis, market, raise)
+- `/[locale]/investor-room` - Password-gated investor room (full documents + print-to-PDF; separate route group, noindex)
 - `/[locale]/demo` - Interactive financial demo (noindex)
 - `/[locale]/dream-mode` - Goal calculator simulation (noindex)
 - `/[locale]/share` - Social sharing redirect (OG metadata)

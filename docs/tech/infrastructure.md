@@ -44,7 +44,7 @@ Single web application (`apps/web`). No backend services, no microservices, no m
 
 - **Provider:** Neon serverless PostgreSQL (project ID held in the Neon dashboard and `.env` — not published here).
 - **Driver:** `@neondatabase/serverless` (HTTP-based, no persistent connections).
-- **Usage:** Waitlist signups, referral tracking, position data.
+- **Usage:** Waitlist signups, referral tracking, position data, and investor contact requests (`investor_requests`, migration `014` — AES-256-GCM encrypted PII + HMAC blind index).
 - **Migrations:** `pnpm --filter web db:migrate` (custom migration runner via `tsx`).
 - **Status check:** `pnpm --filter web db:status`.
 - **Env var:** `DATABASE_URL` (pooled connection string from Neon console).
