@@ -3,8 +3,8 @@
  *
  * Static, config-driven B2B section. With useConfigTranslation mocked to identity
  * (the mock config already carries literal copy), we assert the intro (eyebrow +
- * headline + subhead), every body paragraph, the 3-beat mechanic cards (icon +
- * label), the supporting image, the bridge line, and both CTAs with their hrefs.
+ * headline + subhead), every body paragraph, the supporting image, the bridge
+ * line, and both CTAs with their hrefs.
  *
  * @vitest-environment happy-dom
  */
@@ -60,9 +60,6 @@ vi.mock('@/components/UI/CTAButtonLink', () => ({
 
 vi.mock('@/components/UI/LucideIcon', () => ({
   ArrowRight: () => <span data-icon="arrow" />,
-  ShieldCheck: () => <span data-icon="shield" />,
-  Zap: () => <span data-icon="zap" />,
-  RefreshCw: () => <span data-icon="refresh" />,
 }));
 
 import { StartupTreasurySection } from '../StartupTreasurySection';
@@ -75,11 +72,6 @@ const CONFIG: StartupTreasurySectionConfig = {
     subheadline: 'Most of your round is runway you won’t touch for months.',
     body: ['A round lands.', 'It waits at one bank.', 'diBoaS puts the excess to work.'],
   },
-  steps: [
-    { id: 'set-floor', label: 'Set the floor' },
-    { id: 'put-to-work', label: 'Put the excess to work' },
-    { id: 'pull-back', label: 'Pull it back anytime' },
-  ],
   image: { src: '/treasury.avif', alt: 'The floor control', position: 'right' },
   cta: {
     bridgeLine: 'Run it on your own runway.',
@@ -105,18 +97,6 @@ describe('StartupTreasurySection', () => {
     ).toBeGreaterThanOrEqual(1);
     ['A round lands.', 'It waits at one bank.', 'diBoaS puts the excess to work.'].forEach((t) =>
       expect(screen.getByText(t)).toBeTruthy()
-    );
-  });
-
-  it('should render the 3-beat mechanic as three cards with icons and labels', () => {
-    const { container } = render(
-      <StartupTreasurySection config={CONFIG} enableAnalytics={false} />
-    );
-    expect(screen.getAllByRole('listitem')).toHaveLength(3);
-    // one icon per beat (protect → work → retrieve)
-    expect(container.querySelectorAll('li [data-icon]')).toHaveLength(3);
-    ['Set the floor', 'Put the excess to work', 'Pull it back anytime'].forEach((t) =>
-      expect(screen.getByRole('heading', { level: 3, name: t })).toBeTruthy()
     );
   });
 

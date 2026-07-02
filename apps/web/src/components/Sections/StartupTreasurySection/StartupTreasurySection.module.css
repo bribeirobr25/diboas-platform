@@ -121,56 +121,7 @@
   line-height: var(--line-height-relaxed);
 }
 
-/* 3. Operating-floor mechanic — three icon cards */
-.mechanic {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-xl);
-}
-@media (min-width: 768px) {
-  .mechanic {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-2xl);
-  }
-}
-.beatCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: var(--spacing-lg);
-  padding: var(--spacing-2xl);
-  background-color: var(--section-bg-white);
-  border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-sm);
-}
-.beatIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: var(--radius-full);
-  background-color: var(--color-brand-primary-hover);
-  color: var(--color-text-on-dark);
-}
-.beatIcon svg {
-  width: 1.5rem;
-  height: 1.5rem;
-  stroke-width: 1.75;
-}
-.beatLabel {
-  margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-heading);
-  line-height: var(--line-height-snug);
-}
-
-/* 4. Bridge line + two CTAs */
+/* 3. Bridge line + two CTAs */
 .ctaBlock {
   display: flex;
   flex-direction: column;

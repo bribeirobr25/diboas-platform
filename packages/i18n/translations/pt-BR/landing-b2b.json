@@ -328,11 +328,6 @@
       "1": "Espera em uma conta, em um único banco, rendendo quase nada. Você já sabe quanto essa frase pode custar.",
       "2": "diBoaS não pede que você aposte seu runway. Defina o piso do que você precisa. O que fica acima vai trabalhar — e continua seu, rendendo todos os dias, pronto para resgatar no momento em que você precisar."
     },
-    "steps": {
-      "setFloor": "Defina o piso",
-      "putToWork": "Coloque o excedente para trabalhar",
-      "pullBack": "Resgate quando quiser"
-    },
     "bridgeLine": "Não confie só no exemplo. Faça a conta com o seu próprio runway.",
     "cta": {
       "secondary": "Veja o que o seu caixa parado pode render",

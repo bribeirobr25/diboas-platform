@@ -7,13 +7,6 @@
  * Structural fields (image src, CTA hrefs, analytics ids) are literals.
  */
 
-export interface StartupTreasuryStep {
-  /** Stable id (analytics/keys) — not translated. */
-  readonly id: string;
-  /** i18n key for the beat label. */
-  readonly label: string;
-}
-
 export interface StartupTreasuryCta {
   /** i18n key for the button/link text. */
   readonly text: string;
@@ -32,8 +25,6 @@ export interface StartupTreasurySectionConfig {
     /** i18n keys, one per body paragraph. */
     readonly body: readonly string[];
   };
-  /** Operating-floor mechanic as an ordered 3-beat strip. */
-  readonly steps: readonly StartupTreasuryStep[];
   readonly image: {
     /** Literal asset path — not translated. */
     readonly src: string;

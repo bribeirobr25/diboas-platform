@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { LocaleLink } from '@/components/UI/LocaleLink';
 import { CTAButtonLink } from '@/components/UI/CTAButtonLink';
-import { ArrowRight, ShieldCheck, Zap, RefreshCw } from '@/components/UI/LucideIcon';
+import { ArrowRight } from '@/components/UI/LucideIcon';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
 import { useImpressionTracking } from '@/hooks/useImpressionTracking';
 import { analyticsService } from '@/lib/analytics';
@@ -17,17 +17,14 @@ interface StartupTreasurySectionProps {
   readonly className?: string;
 }
 
-/** Icons for the operating-floor mechanic, in beat order (protect → work → retrieve). */
-const STEP_ICONS = [ShieldCheck, Zap, RefreshCw] as const;
-
 /**
  * StartupTreasurySection — B2B "Startup Treasury" section (business landing).
  *
  * Static, text-led, card-based composition matching the rest of the business page:
- * centered intro → body copy beside a supporting image card → the operating-floor
- * mechanic as three icon cards (Set the floor / Put the excess to work / Pull it
- * back anytime) → tool-CTA bridge line + two CTAs (ghost calculator link + solid
- * "Talk to Bar"). No carousel, no motion, no numbers. All copy from i18n keys.
+ * centered intro → body copy beside a supporting image card → tool-CTA bridge line
+ * + two CTAs (ghost calculator link + solid "Talk to Bar"). No carousel, no motion,
+ * no numbers. All copy from i18n keys. (The operating-floor mechanic lives in the
+ * page's dedicated "How It Works" section, so it is not repeated here.)
  *
  * CTA navigation is owned by LocaleLink / CTAButtonLink; onClick only records
  * analytics (fire-and-forget) — never window.location/open (double-navigates; see
@@ -104,21 +101,6 @@ export function StartupTreasurySection({
             ))}
           </div>
         </div>
-
-        {/* Operating-floor mechanic — three icon cards */}
-        <ol className={styles.mechanic}>
-          {t.steps.map((step, index: number) => {
-            const Icon = STEP_ICONS[index] ?? ShieldCheck;
-            return (
-              <li key={step.id} className={styles.beatCard}>
-                <span className={styles.beatIcon} aria-hidden="true">
-                  <Icon />
-                </span>
-                <h3 className={styles.beatLabel}>{step.label}</h3>
-              </li>
-            );
-          })}
-        </ol>
 
         {/* Tool-CTA bridge line + two CTAs */}
         <div className={styles.ctaBlock}>

@@ -93,11 +93,6 @@ export const B2B_STARTUP_TREASURY_CONFIG: StartupTreasurySectionConfig = {
       'landing-b2b.startupTreasury.body.2',
     ],
   },
-  steps: [
-    { id: 'set-floor', label: 'landing-b2b.startupTreasury.steps.setFloor' },
-    { id: 'put-to-work', label: 'landing-b2b.startupTreasury.steps.putToWork' },
-    { id: 'pull-back', label: 'landing-b2b.startupTreasury.steps.pullBack' },
-  ],
   image: {
     src: B2B_IMAGES.startupTreasury,
     alt: 'landing-b2b.startupTreasury.imageAlt',

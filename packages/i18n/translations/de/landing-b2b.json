@@ -328,11 +328,6 @@
       "1": "Er wartet auf einem Konto, bei einer Bank, und bringt fast nichts. Du weißt bereits, was dieser Satz kosten kann.",
       "2": "diBoaS verlangt nicht, dass du deinen Runway aufs Spiel setzt. Leg den Boden fest für das, was du brauchst. Was darüber liegt, geht arbeiten — und bleibt deins, verdient jeden Tag und ist sofort abrufbar, sobald du es brauchst."
     },
-    "steps": {
-      "setFloor": "Boden festlegen",
-      "putToWork": "Überschuss arbeiten lassen",
-      "pullBack": "Jederzeit abrufen"
-    },
     "bridgeLine": "Verlass dich nicht auf das Beispiel. Rechne es mit deinem eigenen Runway durch.",
     "cta": {
       "secondary": "Sieh, was deine ungenutzte Liquidität leisten kann",

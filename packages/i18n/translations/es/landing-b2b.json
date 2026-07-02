@@ -328,11 +328,6 @@
       "1": "Espera en una cuenta, en un solo banco, sin apenas generar nada. Ya sabes lo que esa frase puede costar.",
       "2": "diBoaS no te pide que juegues con tu runway. Fija el suelo de lo que necesitas. Lo que queda por encima se pone a trabajar —y sigue siendo tuyo, generando cada día y listo para retirarlo en el momento en que lo necesites."
     },
-    "steps": {
-      "setFloor": "Fija el suelo",
-      "putToWork": "Pon a trabajar lo que sobra",
-      "pullBack": "Retíralo cuando quieras"
-    },
     "bridgeLine": "No te fíes del ejemplo. Calcúlalo con tu propio runway.",
     "cta": {
       "secondary": "Mira lo que puede hacer tu efectivo parado",
