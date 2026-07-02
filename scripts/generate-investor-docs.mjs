@@ -83,13 +83,22 @@ function parse(md) {
       titleSkipped = true;
       continue;
     }
-    // Skip the leading metadata blockquote block (Module / Language / Version…).
-    if (!metaSkipped && /^>\s?/.test(line)) {
-      while (i < lines.length && (/^>\s?/.test(lines[i]) || lines[i].trim() === '')) {
-        if (lines[i].trim() === '' && i + 1 < lines.length && !/^>\s?/.test(lines[i + 1])) break;
+    // Blockquote. The FIRST `>` block (right after the title) is the internal
+    // front-matter metadata (Module / Language / Version / Status / Scope /
+    // Format / data-room refs) — skip it. Every SUBSEQUENT `>` block is a real
+    // pull-quote → render as a quote block (not a stray `>` paragraph).
+    if (/^>\s?/.test(line)) {
+      flushPara();
+      const wasFirst = !metaSkipped;
+      metaSkipped = true;
+      const inner = [];
+      while (i < lines.length && /^>\s?/.test(lines[i])) {
+        const c = inline(lines[i].replace(/^>\s?/, '').trim());
+        if (c) inner.push(c);
         i++;
       }
-      metaSkipped = true;
+      i--;
+      if (!wasFirst && inner.length) blocks.push({ type: 'quote', text: inner.join(' ') });
       continue;
     }
 
