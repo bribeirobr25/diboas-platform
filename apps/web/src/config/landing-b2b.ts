@@ -14,6 +14,7 @@ import type { HeroVariantConfig } from './hero';
 import type { AppFeaturesCarouselVariantConfig } from './appFeaturesCarousel';
 import type { BenefitsCardsConfig } from '@/components/Sections/BenefitsCards';
 import type { ProseSectionConfig } from './proseSection';
+import type { StartupTreasurySectionConfig } from './startupTreasury';
 import type { FeeTableConfig } from './feeTable';
 import type { FounderSectionConfig } from './founderSection';
 
@@ -38,6 +39,9 @@ const B2B_IMAGES = {
   carouselWorks: '/assets/images/quiet-growth.avif',
   carouselAccess: '/assets/images/moments-we-share.avif',
   founderPhoto: '/assets/images/power-of-us.avif',
+  // Startup Treasury supporting visual — warm, calm, sunlit workspace (Unsplash,
+  // free license). No app UI / figures / charts (holds the no-numbers guardrail).
+  startupTreasury: '/assets/images/business-startup-treasury.jpg',
 } as const;
 
 // ─── Section 1: Hero ─────────────────────────────────────────
@@ -70,6 +74,52 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
   analytics: {
     trackingPrefix: 'hero_b2b_landing',
     enabled: true,
+  },
+} as const;
+
+// ─── Section 2: Startup Treasury ─────────────────────────────
+// Replaced the shared ComparisonTable in this slot (repositioning the B2B page
+// toward funded US startups). Static, text-led; all copy via the landing-b2b
+// i18n namespace. See docs/audit/B2B_STARTUP_SECTION_PLAN.md.
+
+export const B2B_STARTUP_TREASURY_CONFIG: StartupTreasurySectionConfig = {
+  content: {
+    eyebrow: 'landing-b2b.startupTreasury.eyebrow',
+    headline: 'landing-b2b.startupTreasury.headline',
+    subheadline: 'landing-b2b.startupTreasury.subheadline',
+    body: [
+      'landing-b2b.startupTreasury.body.0',
+      'landing-b2b.startupTreasury.body.1',
+      'landing-b2b.startupTreasury.body.2',
+    ],
+  },
+  steps: [
+    { id: 'set-floor', label: 'landing-b2b.startupTreasury.steps.setFloor' },
+    { id: 'put-to-work', label: 'landing-b2b.startupTreasury.steps.putToWork' },
+    { id: 'pull-back', label: 'landing-b2b.startupTreasury.steps.pullBack' },
+  ],
+  image: {
+    src: B2B_IMAGES.startupTreasury,
+    alt: 'landing-b2b.startupTreasury.imageAlt',
+    position: 'right',
+  },
+  cta: {
+    bridgeLine: 'landing-b2b.startupTreasury.bridgeLine',
+    // Secondary (ghost + arrow) → the idle-cash / treasury simulator.
+    secondary: { text: 'landing-b2b.startupTreasury.cta.secondary', href: '/tools/idle-cash' },
+    // Primary (solid) → the founder section on this page (has email + socials).
+    primary: { text: 'landing-b2b.startupTreasury.cta.primary', href: '#founder' },
+  },
+  style: {
+    backgroundColor: 'var(--section-bg-neutral)',
+    verticalPadding: 'generous',
+  },
+  seo: {
+    ariaLabel: 'landing-b2b.startupTreasury.ariaLabel',
+  },
+  analytics: {
+    sectionId: 'startup-treasury-b2b',
+    trackingPrefix: 'startup_treasury',
   },
 } as const;
 

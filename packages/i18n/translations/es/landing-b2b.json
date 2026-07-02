@@ -318,5 +318,27 @@
     "ogTitle": "Cada euro necesita una función.",
     "ogDescription": "diBoaS ayuda a las empresas a separar liquidez operativa, pagos y saldos parados con costes, disponibilidad y riesgo visibles antes de mover dinero.",
     "keywords": "gestion de tesoreria, finanzas para startups, retornos, capital operativo, pagos empresariales, fintech B2B"
+  },
+  "startupTreasury": {
+    "eyebrow": "PARA STARTUPS FINANCIADAS",
+    "headline": "No lo levantaste para verlo parado.",
+    "subheadline": "La mayor parte de tu ronda es runway que no tocarás en meses. Puede esperar en un sitio que trabaje para ti, sin salir nunca de tu control.",
+    "body": {
+      "0": "Cierras una ronda. Las nóminas se llevan su parte cada mes. El resto —la mayoría— espera.",
+      "1": "Espera en una cuenta, en un solo banco, sin apenas generar nada. Ya sabes lo que esa frase puede costar.",
+      "2": "diBoaS no te pide que juegues con tu runway. Fija el suelo de lo que necesitas. Lo que queda por encima se pone a trabajar —y sigue siendo tuyo, generando cada día y listo para retirarlo en el momento en que lo necesites."
+    },
+    "steps": {
+      "setFloor": "Fija el suelo",
+      "putToWork": "Pon a trabajar lo que sobra",
+      "pullBack": "Retíralo cuando quieras"
+    },
+    "bridgeLine": "No te fíes del ejemplo. Calcúlalo con tu propio runway.",
+    "cta": {
+      "secondary": "Mira lo que puede hacer tu efectivo parado",
+      "primary": "Habla con Bar"
+    },
+    "imageAlt": "Un espacio de trabajo tranquilo y soleado junto a la ventana con luz de la mañana",
+    "ariaLabel": "Tesorería para startups: pon a trabajar el runway que no usas"
   }
 }

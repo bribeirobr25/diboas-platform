@@ -318,5 +318,27 @@
     "ogTitle": "Cash needs a job.",
     "ogDescription": "diBoaS helps businesses separate operating cash, payments, and idle balances into clear digital-dollar paths, with cost, liquidity, and risk visible before funds move.",
     "keywords": "treasury management, startup finance, returns, operating cash, business payments, B2B fintech"
+  },
+  "startupTreasury": {
+    "eyebrow": "FOR FUNDED STARTUPS",
+    "headline": "You didn't raise it to watch it sit still.",
+    "subheadline": "Most of your round is runway you won't touch for months. It can wait somewhere that pays you without ever leaving your control.",
+    "body": {
+      "0": "A round lands. Payroll takes a slice every month. The rest — most of it — waits.",
+      "1": "It waits in one account, at one bank, earning close to nothing. You already know what that sentence can cost.",
+      "2": "diBoaS doesn't ask you to gamble your runway. Set the floor for what you need. What sits above it goes to work — and stays yours, earning every day, ready to pull back the moment you need it."
+    },
+    "steps": {
+      "setFloor": "Set the floor",
+      "putToWork": "Put the excess to work",
+      "pullBack": "Pull it back anytime"
+    },
+    "bridgeLine": "Don't take the example's word for it. Run it on your own runway.",
+    "cta": {
+      "secondary": "See what your idle cash could do",
+      "primary": "Talk to Bar"
+    },
+    "imageAlt": "A calm, sunlit workspace by a window in the morning light",
+    "ariaLabel": "Startup treasury — put idle runway to work"
   }
 }

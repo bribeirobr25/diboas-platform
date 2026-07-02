@@ -22,7 +22,10 @@ export { FeeTable } from './FeeTable';
 export { DemoLauncher } from './DemoLauncher';
 export { ExpandableSection } from './ExpandableSection';
 export { FounderSection } from './FounderSection';
-export { ComparisonTable } from './ComparisonTable';
+// ComparisonTable is intentionally NOT re-exported here: its only barrel consumer
+// (the B2B page) moved to StartupTreasurySection. The component still exists and
+// is imported directly (dynamic) by the B2C spine pages (LandingEuSpine/PtBR).
+export { StartupTreasurySection } from './StartupTreasurySection';
 export { GoalExampleCards } from './GoalExampleCards';
 export { SidePocketStrip } from './SidePocketStrip';
 export { FoundingMembersSection } from './FoundingMembersSection';

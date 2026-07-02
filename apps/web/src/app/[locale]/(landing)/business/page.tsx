@@ -8,7 +8,7 @@ import {
   ProseSection,
   ScenarioCards,
   TwoWorldsSection,
-  ComparisonTable,
+  StartupTreasurySection,
 } from '@/components/Sections';
 import { ProcessSteps } from '@/components/Sections/ProcessSteps';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
@@ -36,6 +36,7 @@ import { marketDataService } from '@/lib/market-data';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import {
   B2B_HERO_CONFIG,
+  B2B_STARTUP_TREASURY_CONFIG,
   B2B_TWO_WORLDS_CONFIG,
   B2B_ORIGIN_STORY_CONFIG,
   B2B_HOW_IT_WORKS_CONFIG,
@@ -122,21 +123,24 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
 }
 
 /**
- * B2B Landing Page — 12-section layout
+ * B2B Landing Page — actual rendered layout (section numbers match the JSX below)
  *
- * 1.  Hero
- * 2.  Two Worlds (self-selection cards)
- * 3.  B2B Goal Cards (Payment Fees + Idle Cash)
- * 4.  Cashflow Investing (Save it + Grow it)
- * 5.  Origin Story (Adelaide / Grandmother)
- * 6.  Three Features (3 cards)
- * 7.  How It Works (4 steps carousel)
+ * 1.  Hero (fullBackground)
+ * 2.  Startup Treasury (StartupTreasurySection — replaced the ComparisonTable slot)
+ * 3.  Two Worlds (self-selection cards)
+ * 5.  Origin Story (Adelaide / Grandmother — ProseSection)
+ * 6.  Three Features (ScenarioCards)
+ * 7.  How It Works (static steps — ProcessSteps)
  * 8.  Fee Transparency (FeeTable)
- * 9.  Fit Assessment (Good Fit / Not a Fit)
+ * 9.  Fit Assessment (Good Fit / Not a Fit — BenefitsCards)
  * 10. Waitlist (email signup)
  * 11. About the Founder
  * 12. FAQ
  *     Footer (MinimalFooter)
+ *
+ * ProseSection/FeeTable/FAQ read live fee values from the market snapshot, so the
+ * MarketDataContextProvider wrap below stays even though the ComparisonTable (its
+ * original consumer) is gone. See docs/tech/implementation-notes.md (A8).
  */
 export default async function B2BLandingPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -191,19 +195,15 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
             </div>
           </SectionErrorBoundary>
 
-          {/* Section 2: Comparison Table — neutral bg */}
+          {/* Section 2: Startup Treasury — neutral bg (replaced the ComparisonTable) */}
           <SectionErrorBoundary
-            sectionId="comparison-section-b2b"
-            sectionType="ComparisonTable"
+            sectionId="startup-treasury-section-b2b"
+            sectionType="StartupTreasurySection"
             enableReporting={true}
             context={{ page: 'landing-b2b' }}
           >
-            <div
-              id="comparison"
-              data-section-id="comparison-section-b2b"
-              style={{ backgroundColor: 'var(--section-bg-neutral)' }}
-            >
-              <ComparisonTable enableAnalytics={true} />
+            <div id="startup-treasury" data-section-id="startup-treasury-section-b2b">
+              <StartupTreasurySection config={B2B_STARTUP_TREASURY_CONFIG} enableAnalytics={true} />
             </div>
           </SectionErrorBoundary>
 
