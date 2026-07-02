@@ -242,14 +242,38 @@
     "snapshot": {
       "headline": "Company snapshot",
       "rows": [
-        { "label": "Company", "value": "diBoaS" },
-        { "label": "Stage", "value": "Pre-seed" },
-        { "label": "Base", "value": "Berlin" },
-        { "label": "Product", "value": "Non-custodial financial app" },
-        { "label": "Primary users", "value": "Consumers and small businesses" },
-        { "label": "Consumer wedge", "value": "Goals, protection, access, clarity" },
-        { "label": "Business wedge", "value": "Cash rules, payment paths, liquidity control" },
-        { "label": "Revenue model", "value": "Explicit movement fees" },
+        {
+          "label": "Company",
+          "value": "diBoaS"
+        },
+        {
+          "label": "Stage",
+          "value": "Pre-seed"
+        },
+        {
+          "label": "Base",
+          "value": "Berlin"
+        },
+        {
+          "label": "Product",
+          "value": "Non-custodial financial app"
+        },
+        {
+          "label": "Primary users",
+          "value": "Consumers and small businesses"
+        },
+        {
+          "label": "Consumer wedge",
+          "value": "Goals, protection, access, clarity"
+        },
+        {
+          "label": "Business wedge",
+          "value": "Cash rules, payment paths, liquidity control"
+        },
+        {
+          "label": "Revenue model",
+          "value": "Explicit movement fees"
+        },
         {
           "label": "Current status",
           "value": "Marketing site and market-intelligence product live; money product specified"
@@ -325,7 +349,9 @@
       "statusInPrep": "In preparation",
       "covers": "What this document covers",
       "inPrepBody": "This summary is in preparation and will be added to the room shortly. In the meantime, reach out and we will share the current draft directly.",
-      "requestCta": "Request the full document"
+      "requestCta": "Request the full document",
+      "downloadPdf": "Download PDF",
+      "keyPointsLabel": "Key points"
     }
   },
   "access": {

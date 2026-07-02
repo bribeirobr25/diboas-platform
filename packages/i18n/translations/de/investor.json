@@ -349,7 +349,9 @@
       "statusInPrep": "In Vorbereitung",
       "covers": "Was dieses Dokument abdeckt",
       "inPrepBody": "Diese Zusammenfassung ist in Vorbereitung und wird in Kürze zum Bereich hinzugefügt. Melden Sie sich in der Zwischenzeit, und wir teilen Ihnen den aktuellen Entwurf direkt mit.",
-      "requestCta": "Vollständiges Dokument anfordern"
+      "requestCta": "Vollständiges Dokument anfordern",
+      "downloadPdf": "PDF herunterladen",
+      "keyPointsLabel": "Kernpunkte"
     }
   },
   "access": {

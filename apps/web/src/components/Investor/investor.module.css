@@ -252,3 +252,22 @@
   color: var(--color-brand-primary-hover);
   text-decoration: none;
 }
+
+/* Doc page top bar: back link on the left, Download-PDF action on the right. */
+.docTopBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+.docTopBar .backLink {
+  margin-bottom: 0;
+}
+
+/* Print → strip the on-page chrome; only the document body prints. */
+@media print {
+  .docTopBar {
+    display: none;
+  }
+}

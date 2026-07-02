@@ -1,0 +1,4719 @@
+{
+  "docs": {
+    "business-plan": {
+      "keyPoints": [
+        "What diBoaS is",
+        "The problem",
+        "How it makes money",
+        "Market & sequence",
+        "Go-to-market"
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What diBoaS is"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS is a non-custodial financial app for assigning money to a purpose before it moves."
+        },
+        {
+          "type": "paragraph",
+          "text": "Consumers use diBoaS to turn a reserve, a future purchase, or protection plan into a clearer path. Businesses use diBoaS to organize cash by function: what must stay available, what can be separated, and what risk makes sense."
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS shows the available strategy, cost, liquidity, and risk before funds move."
+        },
+        {
+          "type": "paragraph",
+          "text": "Users keep control of their funds the whole time. diBoaS is the interface, never the holder."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The problem"
+        },
+        {
+          "type": "paragraph",
+          "text": "People earn, save, and plan inside systems that rarely explain what their money could do next. Cash sits in accounts without a clear purpose, fees appear when money moves, and better financial paths often come wrapped in jargon."
+        },
+        {
+          "type": "paragraph",
+          "text": "For consumers, the pain is simple: money needs a purpose, a visible path, and clear risk before it moves."
+        },
+        {
+          "type": "paragraph",
+          "text": "For businesses, the same problem appears at a larger scale: one balance, many obligations. Payroll, rent, taxes, suppliers, card fees, operating reserves, and idle cash all sit together, even though not every dollar has the same job or the same acceptable risk."
+        },
+        {
+          "type": "paragraph",
+          "text": "The tools that can solve this exist, but they are too technical for normal users, too fragmented for small businesses, and too small-ticket for traditional institutions to serve clearly."
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS turns that into a product principle:"
+        },
+        {
+          "type": "paragraph",
+          "text": "> Consumers choose a purpose. Businesses set rules. diBoaS shows path, cost, liquidity, and risk before money moves."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "How it makes money"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS charges a small fee only when money moves — not on money sitting still."
+        },
+        {
+          "type": "paragraph",
+          "text": "Adding money or cashing out costs 0.48%: capped at $250 for consumers and $2,500 for businesses. Closing a strategy costs 0.39%, capped at $25."
+        },
+        {
+          "type": "paragraph",
+          "text": "Sending, swapping, bridging, starting a strategy, and receiving B2B payments carry a diBoaS fee of $0 where supported. Network, provider, ramp, banking, exchange, or compliance-related costs may still apply and are passed through at cost."
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS does not take a spread on strategy returns. Revenue scales with money moving, not with money staying."
+        },
+        {
+          "type": "paragraph",
+          "text": "The honest model: one consumer is worth a few dollars a year, roughly $5.88 average ARPU across the modeled launch markets. One business moving idle or excess cash is worth roughly $1,945–19,300/year for a similar acquisition effort."
+        },
+        {
+          "type": "paragraph",
+          "text": "B2C builds trust and distribution. B2B drives revenue. Ten business clients are worth more than 6,000 individuals."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Market & sequence"
+        },
+        {
+          "type": "paragraph",
+          "text": "Launch across four markets, weighted Brazil 40% / US 30% / Germany 18% / Spain 12%."
+        },
+        {
+          "type": "paragraph",
+          "text": "Each market gets a market-native proposition:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Brazil: objective and dollar protection.",
+            "United States: money with a job, access, and movement.",
+            "Germany: planning, clarity, and visible risk.",
+            "Spain: plan, costs, prudence, and explanation."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Free transfer is not the core story outside the US. PIX and instant bank transfers already make free movement table stakes in Brazil, Germany, and Spain. The durable story is purpose, control, visible cost, and risk before movement."
+        },
+        {
+          "type": "paragraph",
+          "text": "The commercial sequence is deliberate: Brazil first, US second, Germany third, Spain later. Brazil has the strongest initial consumer hook and is the founder-native market. The US has the highest investing participation and the strongest movement gap. Germany and Spain follow with EU-native positioning and more conservative, clarity-first messaging."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Go-to-market"
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "text": "Consumers: trust + distribution"
+        },
+        {
+          "type": "paragraph",
+          "text": "Brazil and the US lead the consumer wedge."
+        },
+        {
+          "type": "paragraph",
+          "text": "Acquisition starts founder- and community-led: community, word of mouth, referrals, and short-form content as amplification. CAC must stay close to zero because consumer ARPU is structurally small."
+        },
+        {
+          "type": "paragraph",
+          "text": "The consumer product builds the brand: money with a purpose, visible risk, wallet control, and clear costs before movement."
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "text": "Businesses: revenue engine"
+        },
+        {
+          "type": "paragraph",
+          "text": "B2B is founder-led in year one."
+        },
+        {
+          "type": "paragraph",
+          "text": "The founder directly prospects small businesses, service firms, agencies, e-commerce operators, and startups with a practical pitch: separate business cash by purpose, define what must stay liquid, and review what can move only after cost, availability, and risk are visible."
+        },
+        {
+          "type": "paragraph",
+          "text": "The year-one channel is deliberately constrained by founder time. The goal is to prove the B2B conversion path before spending to scale it."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Regulatory position"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS is designed as a non-custodial interface: it does not hold customer money, does not hold customer keys, and charges usage fees for software."
+        },
+        {
+          "type": "paragraph",
+          "text": "Based on the June 2026 regulatory memo, that architecture is designed to reduce the main licensing triggers reviewed in the US, EU, and Brazil, subject to jurisdiction-specific legal opinions and launch gates."
+        },
+        {
+          "type": "paragraph",
+          "text": "Three things are monitored on a dated calendar:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "US staff positions are non-binding and can change.",
+            "The EU is consulting on whether fee-charging frontends like diBoaS should be brought into scope in a future MiCA expansion.",
+            "Brazil's 30 October 2026 rule requires the money-in/out partner to be locally authorized."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The Brazil launch is gated on signing a locally authorized money-in/out partner. The US user-to-user movement feature is gated on a specific money-transmitter opinion."
+        },
+        {
+          "type": "paragraph",
+          "text": "This is not treated as solved risk. It is treated as governed risk."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "How user funds stay under user control"
+        },
+        {
+          "type": "paragraph",
+          "text": "Wallets use Turnkey MPC technology with zero diBoaS key shares. The user approves transactions, and recovery runs through an integrated third-party provider, not diBoaS."
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS cannot unilaterally move, freeze, or lend user funds through its own infrastructure. User access and recovery still depend on the wallet provider, supported networks, and the recovery flow working as designed."
+        },
+        {
+          "type": "paragraph",
+          "text": "That distinction is deliberate: diBoaS is the interface, not the custodian."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Team & the build plan"
+        },
+        {
+          "type": "paragraph",
+          "text": "Solo founder — 20 years in product and IT across Brazil, the US, Japan, and Germany — building with AI-assisted tooling."
+        },
+        {
+          "type": "paragraph",
+          "text": "The plan is founder-built: the founder ships the product. That concentrates risk in one person, and the plan names that risk instead of hiding it."
+        },
+        {
+          "type": "paragraph",
+          "text": "The data room is the evidence: regulatory analysis, architecture, product specification, self-audits, and a test-driven build standard. The founder has already shipped the marketing site and market-intelligence product."
+        },
+        {
+          "type": "paragraph",
+          "text": "Additional capital buys down the key-person risk by funding a senior engineer to own the money-product build: the one part where a bug can cost someone real money."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Year-one plan & targets"
+        },
+        {
+          "type": "paragraph",
+          "text": "<small>Base case — founder assumptions, pre-launch.</small>"
+        },
+        {
+          "type": "table",
+          "headers": ["Milestone", "Timing"],
+          "rows": [
+            [
+              "Incorporate Berlin entity: UG to GmbH, or GmbH directly under the larger raise",
+              "Month 0"
+            ],
+            ["Market-intelligence product live: Adelaide / BTC macro", "Month 0–3"],
+            ["Money product ships: wallets + money-in/out + first strategy", "Month 3–6"],
+            ["First paying customers + first business pilots", "Month 6–9"]
+          ]
+        },
+        {
+          "type": "table",
+          "headers": ["Year-one target", "Base case"],
+          "rows": [
+            ["Funded individual users", "2,500–5,000"],
+            ["Paying business clients", "5–10"],
+            ["Indicative revenue", "~$45K"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Year one is validation, not return: proving the channels convert and the model works, not approaching break-even."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The ask — two paths"
+        },
+        {
+          "type": "paragraph",
+          "text": "We present two ways in, on the same terms: a €2.5M cap, 20% discount post-money SAFE / German convertible loan (Wandeldarlehen)."
+        },
+        {
+          "type": "paragraph",
+          "text": "The cap is anchored modestly for an honest pre-launch valuation and steps up as incorporation, a signed money-in/out partner, and first business LOIs land."
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "text": "Path A — Lean / founder-built"
+        },
+        {
+          "type": "paragraph",
+          "text": "~€200K, primary. Funds the founder to ship the product solo, plus the non-negotiable external costs. Roughly ~8% dilution at the cap. This is the real plan."
+        },
+        {
+          "type": "table",
+          "headers": ["Use of funds — Path A, ~18 months", "Amount"],
+          "rows": [
+            ["Founder salary, lean", "~€60K"],
+            ["Security audit, one-time before launch", "~€30K"],
+            ["Legal: EU regulatory opinion + incorporation + round papering", "~€28K"],
+            ["Fractional regulatory/compliance advisor, light near launch", "~€20K"],
+            ["Infrastructure + wallet provider + money-in/out integration", "~€20K"],
+            ["Accounting / tax advisor, Steuerberater", "~€8K"],
+            ["Buffer", "~€34K"],
+            ["Total", "~€200K"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "text": "Path B — With more capital"
+        },
+        {
+          "type": "paragraph",
+          "text": "~€450K, upside. The additional ~€250K buys down the single biggest risk in Path A: that everything rests on one builder."
+        },
+        {
+          "type": "paragraph",
+          "text": "It funds a senior engineer, roughly ~€172K loaded over 18 months, to own the money-product build, plus a US regulatory opinion, fuller compliance, and longer runway. Up to ~18% dilution at the cap."
+        },
+        {
+          "type": "paragraph",
+          "text": "The engineer is risk-retirement, not headcount: it removes the key-person dependency on the one part of the build where a bug costs someone real money."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "A possible future second revenue line"
+        },
+        {
+          "type": "paragraph",
+          "text": "The market-intelligence product, Adelaide, is built as a separate, portable product other platforms could embed."
+        },
+        {
+          "type": "paragraph",
+          "text": "That opens a possible future B2B licensing line."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is not modeled, not in the raise, and not required for the base case. Today it supports diBoaS's own market surface and acquisition."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What kills this"
+        },
+        {
+          "type": "paragraph",
+          "text": "Business demand failing to show up at the deal sizes the model assumes."
+        },
+        {
+          "type": "paragraph",
+          "text": "Consumer fees alone do not carry the company. The model is explicit about that. Proving business demand through signed LOIs and pilots is the top near-term priority."
+        },
+        {
+          "type": "paragraph",
+          "text": "Other open items are named and bounded in the Investor FAQ:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "money-in/out partner unsigned;",
+            "exact net margin not yet pinned;",
+            "entity not incorporated;",
+            "B2B pipeline not yet proven;",
+            "US user-to-user transfer money-transmitter opinion still required;",
+            "no traction data yet."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "None of these is hidden. Each has a gate."
+        },
+        {
+          "type": "paragraph",
+          "text": "Deeper answers to any line above: see INVESTOR_FAQ.md. This is not legal, tax, accounting, financial, or investment advice. Incorporation and financing structure to be confirmed with a German Steuerberater and lawyer. Figures marked illustrative or assumption are pre-launch estimates."
+        }
+      ]
+    },
+    "investor-faq": {
+      "keyPoints": [
+        "1. Business model & ROI",
+        "2. Regulatory & legal",
+        "3. Product, traction & moat",
+        "4. Team",
+        "5. The deal"
+      ],
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "How to read this: Where we have evidence, we state it plainly. Where we don't, we say exactly what's unresolved and when it resolves. We've put the uncomfortable answers first in each section on purpose — if something here looks like a weakness, we've already named it harder than you would."
+        },
+        {
+          "type": "paragraph",
+          "text": "One line on what diBoaS is: diBoaS is a non-custodial financial app that helps consumers assign money to goals and businesses assign cash to rules before money moves. It shows the strategy, cost, liquidity, and risk before the user or business decides. Users keep control of their funds the whole time — diBoaS is the interface, never the holder."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "1. Business model & ROI"
+        },
+        {
+          "type": "paragraph",
+          "text": "How do you make money? Transaction fees on money movement. Two lines: 0.48% on money added or cashed out, 0.39% on closing a strategy. That's it. We do not take a spread on strategy returns — diBoaS earns nothing while money sits invested. Strategy returns accrue to the user; diBoaS earns through explicit movement fees. Revenue scales with money moving, not money staying."
+        },
+        {
+          "type": "paragraph",
+          "text": "So what's the unit economic — honestly? A consumer is worth single-digit dollars a year. A US monthly contributor depositing $250 pays ~$14.40/year in fees; a passive holder pays a few dollars. Blended consumer ARPU across our four launch markets is ~$5.88/year (range $4.48 Brazil-heavy to $7.63 US-heavy). One-time fees on a $1,000 deposit-and-hold user are ~$13 over their lifetime. Consumer fintech ARPU is structurally small here, and we won't pretend otherwise."
+        },
+        {
+          "type": "paragraph",
+          "text": "Then how is this a business? B2B. A business deploying $200K of idle cash pays ~$1,945/year; at $500K cycling quarterly, ~$19,300/year — for roughly the same acquisition effort as one consumer. B2C is distribution; B2B is revenue. Ten B2B clients are worth more than 6,000 consumers. We acquire consumers through market-native hooks: objective and dollar protection in Brazil; money-needs-a-job, access, and movement in the US; planning, clarity, and risk visibility in Germany; and plan, costs, prudence, and explanation in Spain. B2C builds trust and distribution. B2B monetizes the same trust through business cash rules, payment paths, and liquidity control."
+        },
+        {
+          "type": "paragraph",
+          "text": "Walk me through break-even. At Phase-3 infrastructure cost (~$60K/year), pure B2C needs ~10,200 active users to break even — which, against US fintech CAC of $50–200, does not pay back on its own. We're explicit about that. With B2B in the mix, 25 business clients cut the consumer requirement to ~1,900. Break-even is a B2B story; the consumer base is the funnel that makes B2B acquisition cheap."
+        },
+        {
+          "type": "paragraph",
+          "text": "Why do your customer-value examples differ from your revenue model? They measure different things. Customer-value examples estimate what a business might save or improve by reducing avoidable payment costs, assigning idle cash a clearer function, or separating operating cash from strategy cash. Our revenue is the smaller movement-fee layer we charge when money enters, exits, or strategies close. The customer keeps the larger value. diBoaS earns the smaller, explicit fee."
+        },
+        {
+          "type": "paragraph",
+          "text": "What's your CAC, LTV, churn? Unproven — we're pre-launch, and we won't hand you invented numbers. What's in the model: blended consumer ARPU ~$5.88/year, B2B ARPU ~$1,945–19,300/year, and the assumption that the monthly-contributor share drives consumer revenue. The first three metrics we validate post-launch are signup→funded conversion, monthly-contributor share, and B2B deal size — each with a kill-criterion. If under 10% of consumers contribute monthly, the consumer line gets re-cut."
+        },
+        {
+          "type": "paragraph",
+          "text": "What's the fee schedule, exactly? Add money / cash out: 0.48%, capped at $250 for consumers and $2,500 for business. Close a strategy: 0.39%, capped at $25. Send, swap, bridge, starting a strategy, and receiving B2B payments: diBoaS fee $0 where supported. Network, ramp, provider, banking, exchange, or compliance-related costs may still apply and are passed through at cost — diBoaS never marks them up. The split cap is deliberate: the $25 cap protects someone cashing out their savings; the higher add/cash-out caps keep B2B economics intact. This schedule is the single source of truth (FEES.md) and is stated identically across every surface."
+        },
+        {
+          "type": "paragraph",
+          "text": "Is the analytics product a second revenue line? Potentially, later — and we're not counting it. The market-intelligence product (Adelaide) is built as a separate, portable product other platforms could embed, which opens a possible future B2B licensing line. It is noted as optionality only — not in any projection, not in this raise. Today it serves diBoaS's own /market surface and acquisition."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "2. Regulatory & legal"
+        },
+        {
+          "type": "paragraph",
+          "text": "Why do you believe the current architecture can operate without a license at launch? Because the current architecture is designed as non-custodial: diBoaS does not hold customer money, does not hold customer keys, and charges usage fees for an interface. Based on the June 2026 regulatory memo, that design is expected to reduce the main licensing triggers we reviewed in the US, EU, and Brazil, subject to jurisdiction-specific legal opinions and launch gates. In the US, the SEC's April 13 2026 staff statement on covered user-interface providers and the CFTC's March 2026 Phantom letter both expressly cover non-custodial, fee-charging interfaces. In the EU, MiCA Recitals 22 and 83 keep non-custodial software outside the CASP (crypto-asset service provider) perimeter. We have a dated, sourced regulatory memo on file."
+        },
+        {
+          "type": "paragraph",
+          "text": "What could change that — what's the catch? Three things, and we'd rather name them than have you find them. One: the US protections are non-binding staff positions, withdrawable, and the SEC one sunsets in April 2031. Two: the EU's MiCA 2.0 consultation (open now) is explicitly considering whether to bring fee-collecting frontends like ours into scope — but any proposal is not expected before ~2028. Three: Brazil's October 30 2026 rule cuts banking rails to anyone deemed an unauthorized VASP (virtual-asset service provider), and our user-to-user stablecoin feature touches reserved FX activity there. We track all three on a dated calendar. This is the single biggest risk in the company: if the EU opinion is wrong and we're in CASP scope, the cost and timeline change by an order of magnitude — which is why the EU regulatory opinion is the first money we spend."
+        },
+        {
+          "type": "paragraph",
+          "text": "Are you custodial or not — exactly? Not custodial. diBoaS holds zero key shares. Wallets use Turnkey MPC (multi-party computation) technology; the user approves transactions; recovery runs through the integrated third-party provider, not diBoaS."
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS cannot unilaterally move, freeze, or lend user funds through its own infrastructure. User access and recovery still depend on the wallet provider, supported networks, and the recovery flow working as designed."
+        },
+        {
+          "type": "paragraph",
+          "text": "That distinction is intentional: diBoaS is the interface, not the custodian."
+        },
+        {
+          "type": "paragraph",
+          "text": "Who holds KYC liability, and is your money-in/out partner signed? KYC liability sits with the on/off-ramp provider (the partner that converts between regular money and digital dollars) by design — diBoaS never touches fiat, so it never holds that liability. The partner is not yet signed; we have a shortlist. Contracting one that is BCB-authorized in Brazil is an explicit prerequisite before the Brazil launch and before the October 30 2026 deadline. A named, dated gate, not an open-ended risk."
+        },
+        {
+          "type": "paragraph",
+          "text": "What's the status of the Brazil opinion? Done. The current read is that the architecture is designed to reduce the main licensing triggers — with one live dependency: our unsigned money-in/out partner must be BCB-authorized, or Brazil's October isolation rule cuts the regular-money rails. That's why partner selection is gated to that deadline."
+        },
+        {
+          "type": "paragraph",
+          "text": "Is user-to-user transfer a problem in the US? It's the one consumer feature with an open question: whether peer-to-peer money movement with diBoaS fee $0 triggers US money-transmitter classification regardless of the non-custodial architecture. We will not launch it in the US without a specific legal opinion on that point — a named pre-launch gate, not an assumption. (Under the lean plan, this opinion is deferred until the US is in scope.)"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "3. Product, traction & moat"
+        },
+        {
+          "type": "paragraph",
+          "text": "What's actually built? Today: the marketing site and the market-intelligence product (the BTC macro dashboard, \"Adelaide Daily\"). The money product — wallets, money-in/out integration, the goal-to-strategy engine, user-to-user transfer — is fully specified but not yet built. We're early and we won't dress it up. The engineering and regulatory foundations are laid so the build executes against a spec rather than inventing as it goes."
+        },
+        {
+          "type": "paragraph",
+          "text": "Show me traction. There is none yet. The waitlist is live but unpromoted — we have not started acquisition, so there are no funnel numbers, and the demo runs on play money. We'd rather tell you that than show you vanity metrics. The first real numbers come post-launch; the raise funds getting there."
+        },
+        {
+          "type": "paragraph",
+          "text": "What's the moat? The protocols are public — what stops a fast-follower? Not the technology — it's commoditized, and we say so. The moat is brand trust in a category where trust is the entire product, a goal library and regional precision a generic competitor can't copy quickly (PIX and the 13º salário in Brazil, EU-native framing in Germany), and B2B switching costs once a business builds cash rules, payment workflows, and reporting habits around diBoaS. The window to be the first trusted, grandmother-simple brand per region is 12–18 months."
+        },
+        {
+          "type": "paragraph",
+          "text": "Is user-to-user movement your moat? Only in the US, and even there it is a hook, not the whole moat. Our own market research killed the “free transfer” assumption elsewhere: PIX (Brazil) and instant bank transfers (Germany, Spain) are already free, instant, and effectively universal, so transfer cost is table stakes there, not a differentiator. In the US, the common free option is bank-tethered and limited, so a movement hook retains real pull. We position on objective and dollar protection in Brazil; money-needs-a-job, access, and movement in the US; planning and risk visibility in Germany; and prudence, costs, and explanation in Spain."
+        },
+        {
+          "type": "paragraph",
+          "text": "Why these four markets, in this order? Investment participation and value-prop strength, from central-bank data. Brazil first (strongest single hook — objective and dollar protection against ~4.7% inflation and a sliding real — plus founder-native market). US second (highest investment participation at ~62%, and the one market where the movement edge survives). Germany third (Berlin base, EU-native, fast-rising investing culture, but ~18% participation; strongest framing is planning, clarity, and visible risk). Spain last (lowest participation, more deposit-bound; strongest framing is plan, costs, prudence, and explanation). Launch-cohort mix modeled at Brazil 40% / US 30% / Germany 18% / Spain 12%, stress-tested across US-heavy and Brazil-heavy scenarios."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "4. Team"
+        },
+        {
+          "type": "paragraph",
+          "text": "Who's the team, and what happens if you're hit by a bus? Solo founder — 20 years in product and IT across Brazil, the US, Japan, and Germany — building with AI-assisted tooling. The plan is founder-built: the founder ships the product. We won't pretend solo isn't concentration risk — it's the first thing we'd flag in our own diligence. Two things mitigate it. First, the evidence: what's already shipped (the site, the analytics product, ~1,045 tests, the regulatory analysis, the self-audits) shows this founder builds and governs to a real standard, solo. Second, the deal structure: Path B exists precisely to retire this risk — the additional capital funds a senior engineer to own the money-product build, removing the single-builder dependency on the one part where a bug costs someone real money. A fractional regulatory/compliance advisor (light under the lean plan, fuller under Path B) owns the regulatory calendar, the money-in/out KYC negotiation, and the Brazil deadline. So the bus-factor isn't hidden: the lean plan accepts it with eyes open and a low cost base; Path B buys it down."
+        },
+        {
+          "type": "paragraph",
+          "text": "Why you? Twenty years in product and IT across four countries. And the regulatory memo, the architecture, the financial model, and the engineering rigor in this data room were produced to a standard most pre-seed companies fake — that's the evidence, not the claim."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "5. The deal"
+        },
+        {
+          "type": "paragraph",
+          "text": "Is there an entity? Not yet — and that's step zero, before any money moves. You cannot wire into a person. Incorporation of the Berlin entity (a UG, convertible to a GmbH; or a GmbH directly under the larger raise) happens first; the first tranche releases on incorporation plus a signed lead."
+        },
+        {
+          "type": "paragraph",
+          "text": "How much, what valuation, what's the structure? We present two paths on the same terms — a €2.5M cap, 20% discount post-money SAFE / German convertible (Wandeldarlehen):"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Path A — Lean / founder-built (~€200K, primary, ~8% at the cap). Funds the founder to ship the product solo plus the non-negotiable external costs. This is the real plan.",
+            "Path B — With more capital (~€450K, upside, up to ~18% at the cap). Adds a senior engineer to own the money-product build (risk-retirement, not headcount), a US regulatory opinion, fuller compliance, and longer runway."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Why a €2.5M cap and not higher? Because we're pre-incorporation, pre-launch, and solo — and we'd rather anchor where we can defend than open high and get talked down. The standard pre-seed band is roughly €1.5–3M; a cold read anchors low. We anchor at €2.5M, justified by the depth of this data room, and the cap steps up as incorporation, a signed money-in/out partner, and first B2B LOIs land. We'd rather you talk us up on the strength of the evidence than start at a number we can't defend."
+        },
+        {
+          "type": "paragraph",
+          "text": "Use of funds — Path A (~€200K, ~18 months):"
+        },
+        {
+          "type": "table",
+          "headers": ["Item", "Amount"],
+          "rows": [
+            ["Founder salary (lean)", "~€60K"],
+            ["Security audit (one-time, pre-launch)", "~€30K"],
+            ["Legal: EU regulatory opinion + incorporation + round papering", "~€28K"],
+            ["Fractional regulatory/compliance advisor (light, near launch)", "~€20K"],
+            ["Infrastructure + wallet provider + money-in/out integration", "~€20K"],
+            ["Accounting / tax advisor (Steuerberater)", "~€8K"],
+            ["Buffer", "~€34K"],
+            ["Total", "~€200K"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "What the additional ~€250K buys (Path B → ~€450K): a senior full-stack/blockchain engineer (~€172K loaded/18mo) to own the money-product build and retire the single-builder risk; a US money-transmitter opinion (~€15K) to open the US P2P feature; fuller fractional compliance; and longer runway/buffer."
+        },
+        {
+          "type": "paragraph",
+          "text": "Tranched: ~€80–100K on incorporation + signed lead; the remainder on money-in/out partner signed, money-product MVP shipped, and first revenue cohort live. We're asking you to fund proof, not hope."
+        },
+        {
+          "type": "paragraph",
+          "text": "What's the one thing that kills this? An unresolved B2B revenue model. Consumer fees alone don't carry the company — the model is explicit about that. If B2B cash-control demand doesn't materialize at the deal sizes our model assumes, the business doesn't clear. That's why validating B2B demand (signed LOIs/pilots) is our top priority alongside the build."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What's genuinely unresolved (and when it resolves)"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Money-in/out partner unsigned — shortlist exists; signed before launch and before Brazil's Oct 30 deadline.",
+            "Exact margin not yet pinned — the partner's rev-share and wallet-provider per-user cost convert gross ARPU to net margin; resolves when the partner is signed.",
+            "Entity not incorporated — step zero, before the raise closes.",
+            "B2B pipeline — the model proves B2B is the engine; signed LOIs are the missing evidence, and the near-term priority.",
+            "US user-to-user transfer money-transmitter opinion — a named pre-launch gate (deferred under the lean plan until US is in scope).",
+            "No traction data — acquisition hasn't started; first numbers post-launch."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Every one of these is bounded and dated. None is hidden."
+        },
+        {
+          "type": "paragraph",
+          "text": "Not legal, tax, or investment advice. Incorporation and financing structure to be confirmed with a German Steuerberater and lawyer. Figures marked illustrative or assumption are pre-launch estimates."
+        }
+      ]
+    },
+    "pitch-deck": {
+      "keyPoints": [
+        "Slide 1 — Title",
+        "Slide 2 — The problem",
+        "Slide 3 — The insight",
+        "Slide 4 — The product",
+        "Slide 5 — Why now"
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Deck principle"
+        },
+        {
+          "type": "paragraph",
+          "text": "This deck should not explain everything."
+        },
+        {
+          "type": "paragraph",
+          "text": "It should make the investor want to ask the right questions."
+        },
+        {
+          "type": "paragraph",
+          "text": "The investor room answers those questions."
+        },
+        {
+          "type": "paragraph",
+          "text": "The deck opens the door."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 1 — Title"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Money should know what it is there to do."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Subline"
+        },
+        {
+          "type": "paragraph",
+          "text": "A non-custodial financial app for consumer goals and business cash rules."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Footer"
+        },
+        {
+          "type": "paragraph",
+          "text": "Pre-seed · Berlin · diBoaS"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Visual direction"
+        },
+        {
+          "type": "paragraph",
+          "text": "Minimal. Product name, one sharp line, restrained confidence."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 2 — The problem"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Money is treated like a balance. People and businesses live differently."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Key points"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Consumers do not think in balances. They think in emergencies, plans, protection, and future purchases.",
+            "Small businesses do not think in balances. They think in payroll, rent, taxes, suppliers, and cash runway.",
+            "Most financial products show the number. They do not explain the job of the money."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Speaker note"
+        },
+        {
+          "type": "paragraph",
+          "text": "The problem is not lack of financial products. The problem is that most products start from accounts, not purpose."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 3 — The insight"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Before money moves, people should know why, where, cost, liquidity, and risk."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Key points"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "The next financial interface should not start with a product.",
+            "It should start with the job of the money.",
+            "Goal first. Strategy second. Movement only after clarity."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Speaker note"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS starts where most financial interfaces do not: with what the money is for."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 4 — The product"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Consumers choose goals. Businesses set rules."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Key points"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Consumers assign money to goals.",
+            "Businesses assign cash to rules.",
+            "diBoaS shows strategy, cost, liquidity, and risk before movement.",
+            "The user stays in control.",
+            "diBoaS is the interface, not the holder."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Speaker note"
+        },
+        {
+          "type": "paragraph",
+          "text": "The product is not a bank account. It is a control layer before money moves."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 5 — Why now"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "The rails changed. The interface did not."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Key points"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Money can now move and settle through digital rails with more flexibility.",
+            "DeFi access exists, but the interface is still built for insiders.",
+            "Small businesses still manage liquidity across banks, cards, spreadsheets, and payment tools.",
+            "The missing layer is clarity before movement."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Speaker note"
+        },
+        {
+          "type": "paragraph",
+          "text": "The opportunity is not just better yield or faster movement. It is understandable access."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 6 — Business model"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Revenue follows movement, not hidden spread."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Key points"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Add money: 0.48%",
+            "Cash out: 0.48%",
+            "Close strategy: 0.39%",
+            "Start strategy: diBoaS fee 0",
+            "Send / swap / bridge: diBoaS fee 0 where supported",
+            "External costs are passed through where applicable."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Speaker note"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS should not hide how it makes money. Trust is not built with mystery fees."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 7 — B2C vs B2B thesis"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "B2C builds trust. B2B builds the business."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Key points"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Consumer ARPU is structurally small.",
+            "B2C creates trust, brand, distribution, and behavior data.",
+            "B2B creates revenue density through larger cash movement.",
+            "Ten B2B clients can matter more than thousands of consumers."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Speaker note"
+        },
+        {
+          "type": "paragraph",
+          "text": "The company does not depend on pretending consumer ARPU is better than it is."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 8 — Market sequence"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Same product spine. Different trust entry point."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Key points"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Brazil: objective and dollar protection.",
+            "United States: money with a job, access, and movement.",
+            "Germany: planning, clarity, and visible risk.",
+            "Spain: plan, costs, prudence, and explanation."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Speaker note"
+        },
+        {
+          "type": "paragraph",
+          "text": "Trust is local. The product spine stays consistent, but the market story changes."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 9 — Regulatory posture"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Not custody. Not shortcuts. Gates before launch."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Key points"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "diBoaS is designed as a non-custodial interface.",
+            "Users keep control of funds.",
+            "Regulated partners handle regulated rails where required.",
+            "Launch depends on jurisdiction-specific legal gates.",
+            "The product does not market itself as a bank, deposit account, or guaranteed product."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Speaker note"
+        },
+        {
+          "type": "paragraph",
+          "text": "The regulatory story is not “no license needed.” It is “designed to reduce licensing triggers, subject to legal review.”"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 10 — Roadmap"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Build only what proves the next risk."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Key points"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Foundation and launch gates",
+            "Controlled money-product build",
+            "Security, operations, and partner readiness",
+            "First controlled launch",
+            "B2B validation",
+            "Scale only after proof"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Speaker note"
+        },
+        {
+          "type": "paragraph",
+          "text": "The roadmap is not a wish list. It is a proof sequence."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 11 — Use of funds"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Capital should buy evidence."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Key points"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Build the money product.",
+            "Clear launch gates.",
+            "Sign the money-in/out partner.",
+            "Complete security review.",
+            "Validate first user funding behavior.",
+            "Validate first B2B pipeline."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Speaker note"
+        },
+        {
+          "type": "paragraph",
+          "text": "The raise is not for scale theater. It is for proof."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 12 — Founder"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Built by a product operator."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Key points"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "20 years of product and IT experience.",
+            "Experience across Brazil, the US, Japan, and Germany.",
+            "Built current product foundation, strategy, regulatory analysis, business plan, and investor materials.",
+            "Funding supports the next phase: technical depth, legal review, security, infrastructure, and B2B validation."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Speaker note"
+        },
+        {
+          "type": "paragraph",
+          "text": "The founder risk is real. The plan names it and funds the next step to reduce it."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 13 — The ask"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Pre-seed capital to move from thesis to proof."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Key points"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Fund the first money-product build.",
+            "Clear legal and partner gates.",
+            "Launch controlled flows.",
+            "Validate B2B revenue path.",
+            "Turn assumptions into evidence."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Speaker note"
+        },
+        {
+          "type": "paragraph",
+          "text": "The ask is about proof, not performance theater."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 14 — Closing"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Money with a purpose. Cash with rules."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Closing line"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS helps people and businesses understand what money should do before it moves."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "CTA"
+        },
+        {
+          "type": "paragraph",
+          "text": "Request investor materials / Continue in the investor room."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Appendix slides to prepare later"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Fee table",
+            "Regulatory map",
+            "Architecture flow",
+            "B2B cash-rule example",
+            "Use of funds detail",
+            "Risk and kill criteria",
+            "Founder operating system"
+          ]
+        }
+      ]
+    },
+    "use-of-funds": {
+      "keyPoints": [
+        "Path A — Lean founder-built path",
+        "Path B — Risk-reduction path",
+        "Budget logic",
+        "How the money should be judged",
+        "Milestone plan"
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "One-line summary"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS is raising pre-seed capital to prove the right thing: that a non-custodial money product can be built safely, cleared through launch gates, and validated with early B2B demand."
+        },
+        {
+          "type": "paragraph",
+          "text": "Not scale theater. Proof."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What the capital is for"
+        },
+        {
+          "type": "paragraph",
+          "text": "The round funds the first real money-product phase."
+        },
+        {
+          "type": "paragraph",
+          "text": "That means:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "building the financial product;",
+            "clearing legal and regulatory launch gates;",
+            "signing the required money-in/out partner;",
+            "completing security review;",
+            "setting up infrastructure;",
+            "incorporating the operating entity;",
+            "validating the first B2B demand;",
+            "reducing execution risk around the most sensitive parts of the build."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The raise is not designed to buy vanity growth. It is designed to turn assumptions into evidence."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The two funding paths"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS can move through the first phase in two ways."
+        },
+        {
+          "type": "paragraph",
+          "text": "The terms are intended to remain aligned across both paths. The difference is not ambition. The difference is how much execution risk gets reduced at the start."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Path A — Lean founder-built path"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Target"
+        },
+        {
+          "type": "callout",
+          "lines": ["~€200,000"]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Purpose"
+        },
+        {
+          "type": "paragraph",
+          "text": "Path A funds the minimum credible build and the external gates that cannot be skipped."
+        },
+        {
+          "type": "paragraph",
+          "text": "It assumes the founder continues leading the product build directly, with external support for legal, security, infrastructure, and required specialist work."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What it funds"
+        },
+        {
+          "type": "table",
+          "headers": ["Category", "Purpose"],
+          "rows": [
+            [
+              "Product build",
+              "First version of the money product, wallet flow, goal-to-strategy logic, and core user experience"
+            ],
+            ["Legal / regulatory", "Jurisdiction-specific legal review and launch gating"],
+            [
+              "Money-in/out readiness",
+              "Partner selection, onboarding, integration preparation, and operating requirements"
+            ],
+            ["Security", "Initial security review and risk checks before handling real user flows"],
+            [
+              "Infrastructure",
+              "Core hosting, monitoring, tools, environments, and operational setup"
+            ],
+            [
+              "Company setup",
+              "Incorporation, accounting, basic legal structure, and operating administration"
+            ],
+            [
+              "B2B validation",
+              "Founder-led business outreach, first conversations, and early demand testing"
+            ],
+            ["Contingency", "Buffer for unavoidable external costs and launch-gate friction"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What Path A is meant to prove"
+        },
+        {
+          "type": "paragraph",
+          "text": "Path A should answer the early survival questions:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Can the product be built safely enough to launch a controlled first version?",
+            "Can the legal and regulatory gates be cleared?",
+            "Can a money-in/out partner be signed?",
+            "Can early users understand and fund the product?",
+            "Can the B2B thesis generate serious conversations and first demand signals?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What Path A does not solve"
+        },
+        {
+          "type": "paragraph",
+          "text": "Path A keeps more execution risk on the founder."
+        },
+        {
+          "type": "paragraph",
+          "text": "It does not fully buy down:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "solo-founder concentration risk;",
+            "technical delivery risk in the financial product;",
+            "speed risk;",
+            "deeper security investment;",
+            "broader B2B sales capacity;",
+            "larger regulatory buffer."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Path A is viable only if the company stays disciplined and does not confuse a lean build with a cheap build."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Path B — Risk-reduction path"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Target"
+        },
+        {
+          "type": "callout",
+          "lines": ["~€450,000"]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Purpose"
+        },
+        {
+          "type": "paragraph",
+          "text": "Path B funds the same core plan, but reduces concentration risk earlier."
+        },
+        {
+          "type": "paragraph",
+          "text": "The main difference is technical capacity. Path B allows diBoaS to bring in senior engineering support sooner, especially for the financial product build, where technical error can affect real money."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What it funds"
+        },
+        {
+          "type": "table",
+          "headers": ["Category", "Purpose"],
+          "rows": [
+            [
+              "Senior engineering support",
+              "Earlier technical ownership for the financial product and sensitive integrations"
+            ],
+            [
+              "Product build",
+              "Faster and more resilient delivery of wallet flow, strategy logic, user movement, and B2B cash-rule foundations"
+            ],
+            [
+              "Legal / regulatory",
+              "Stronger jurisdiction-specific legal coverage and launch-gate review"
+            ],
+            [
+              "Money-in/out readiness",
+              "Partner contracting, integration work, and operating requirements"
+            ],
+            [
+              "Security",
+              "Deeper review, improved technical controls, and stronger launch readiness"
+            ],
+            [
+              "Infrastructure",
+              "More robust environments, monitoring, auditability, and operational tooling"
+            ],
+            [
+              "Company setup",
+              "Incorporation, administration, accounting, tax, and legal foundations"
+            ],
+            [
+              "B2B validation",
+              "More structured business validation, materials, outreach, and early pipeline work"
+            ],
+            ["Contingency", "Larger buffer for regulatory, technical, and partner delays"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What Path B is meant to prove"
+        },
+        {
+          "type": "paragraph",
+          "text": "Path B should answer the same core questions as Path A, with less fragility:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Can the money product be built with stronger technical depth?",
+            "Can the launch gates be cleared without starving the build?",
+            "Can partner dependency be handled with more buffer?",
+            "Can the first B2B demand be validated with more structured outreach?",
+            "Can the company reduce the risk of one founder carrying too much of the sensitive build?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What Path B buys down"
+        },
+        {
+          "type": "paragraph",
+          "text": "Path B reduces:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "solo-founder execution concentration;",
+            "technical bottleneck risk;",
+            "timing risk;",
+            "launch-readiness risk;",
+            "security depth risk;",
+            "early B2B validation risk."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "It does not remove market risk. It makes the first proof phase less brittle."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Budget logic"
+        },
+        {
+          "type": "paragraph",
+          "text": "The pre-seed capital is not meant to create the final company."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is meant to fund the proof layer."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The proof layer"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Build the product.",
+            "Clear the gates.",
+            "Sign the partner.",
+            "Test real funding behavior.",
+            "Validate B2B demand.",
+            "Decide what deserves scale."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "If those things work, diBoaS becomes investable on evidence instead of only architecture and narrative."
+        },
+        {
+          "type": "paragraph",
+          "text": "If they do not work, the round should expose that early, before the company spends like a company that already knows."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "How the money should be judged"
+        },
+        {
+          "type": "paragraph",
+          "text": "Investors should judge the use of funds against milestones, not vibes."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Good use of capital looks like this"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "the product moves from specification to controlled build;",
+            "the legal launch position becomes clearer by jurisdiction;",
+            "the money-in/out partner path becomes signed or decisively blocked;",
+            "security review happens before real user exposure;",
+            "the company has a clean operating entity;",
+            "early users can be tested against real funding behavior;",
+            "B2B conversations move from interest to measurable demand;",
+            "the founder learns what must be built, delayed, cut, or killed."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Bad use of capital looks like this"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "spending on brand before launch gates;",
+            "broad marketing before product proof;",
+            "hiring before the sensitive build is understood;",
+            "treating legal risk as a footnote;",
+            "treating B2B as a slide instead of a pipeline;",
+            "optimizing the website while the money product remains hypothetical."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Beautiful decks do not clear launch gates."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Milestone plan"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Milestone 1 — Legal and launch-gate confirmation"
+        },
+        {
+          "type": "paragraph",
+          "text": "Goal Confirm the launch path by jurisdiction and define what must be true before product availability."
+        },
+        {
+          "type": "paragraph",
+          "text": "Output Jurisdiction-specific launch checklist and legal operating boundaries."
+        },
+        {
+          "type": "paragraph",
+          "text": "Risk addressed Regulatory uncertainty."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Milestone 2 — Money-in/out partner path"
+        },
+        {
+          "type": "paragraph",
+          "text": "Goal Select, negotiate, and move toward signing the money-in/out partner required for launch."
+        },
+        {
+          "type": "paragraph",
+          "text": "Output Signed partner or clear decision on blocker and alternative path."
+        },
+        {
+          "type": "paragraph",
+          "text": "Risk addressed User funding and cash-out dependency."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Milestone 3 — Controlled product build"
+        },
+        {
+          "type": "paragraph",
+          "text": "Goal Build the first controlled version of the money product."
+        },
+        {
+          "type": "paragraph",
+          "text": "Output Wallet flow, goal-to-strategy logic, cost/risk visibility, and controlled user journey."
+        },
+        {
+          "type": "paragraph",
+          "text": "Risk addressed Technical delivery and product comprehension."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Milestone 4 — Security and operational readiness"
+        },
+        {
+          "type": "paragraph",
+          "text": "Goal Review the product before exposing real money flows."
+        },
+        {
+          "type": "paragraph",
+          "text": "Output Security review, launch controls, monitoring, recovery assumptions, and operating checklist."
+        },
+        {
+          "type": "paragraph",
+          "text": "Risk addressed Technical, operational, and trust risk."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Milestone 5 — First user funding behavior"
+        },
+        {
+          "type": "paragraph",
+          "text": "Goal Test whether early users understand the product and actually fund accounts."
+        },
+        {
+          "type": "paragraph",
+          "text": "Output Evidence from onboarding, funding behavior, user comprehension, and drop-off points."
+        },
+        {
+          "type": "paragraph",
+          "text": "Risk addressed Consumer adoption and trust."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Milestone 6 — First B2B validation"
+        },
+        {
+          "type": "paragraph",
+          "text": "Goal Test whether small businesses respond to the cash-rules and liquidity-control proposition."
+        },
+        {
+          "type": "paragraph",
+          "text": "Output Qualified B2B conversations, early pipeline, willingness-to-pay evidence, and objections."
+        },
+        {
+          "type": "paragraph",
+          "text": "Risk addressed Revenue thesis."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What the round should not fund yet"
+        },
+        {
+          "type": "paragraph",
+          "text": "The first capital should not be spent as if product-market fit already exists."
+        },
+        {
+          "type": "paragraph",
+          "text": "It should not fund:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "broad paid acquisition;",
+            "large sales team;",
+            "big brand campaign;",
+            "expensive PR;",
+            "large headcount;",
+            "complex enterprise features before first validation;",
+            "speculative market expansion;",
+            "premature localization beyond proof needs."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The company is not at the scale phase."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is at the proof phase."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Decision gates"
+        },
+        {
+          "type": "paragraph",
+          "text": "The round should create decision points."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Continue if"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "legal review supports controlled launch;",
+            "money-in/out path is viable;",
+            "product build reaches controlled readiness;",
+            "users can understand cost, liquidity, and risk before action;",
+            "early funding behavior appears;",
+            "B2B demand is credible enough to pursue."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Cut or narrow if"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "regulatory cost changes the company’s shape;",
+            "partner dependency cannot be solved;",
+            "consumers do not fund after education;",
+            "B2B interest does not convert into serious pipeline;",
+            "technical complexity exceeds the funding path;",
+            "the model depends on assumptions that first evidence does not support."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A disciplined pre-seed round should make the company more certain, not merely bigger."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Investor takeaway"
+        },
+        {
+          "type": "paragraph",
+          "text": "The use of funds is designed around one discipline:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Capital should buy evidence."]
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS does not need early capital to look larger than it is."
+        },
+        {
+          "type": "paragraph",
+          "text": "It needs capital to answer the questions that matter:"
+        },
+        {
+          "type": "paragraph",
+          "text": "Can this product be built safely? Can it launch legally? Can users fund it? Can businesses pay for it? Can the company move from thesis to proof?"
+        },
+        {
+          "type": "paragraph",
+          "text": "That is what this round is for."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Confidentiality note"
+        },
+        {
+          "type": "paragraph",
+          "text": "Private investor material. Do not forward or distribute without permission."
+        },
+        {
+          "type": "paragraph",
+          "text": "This document is provided for discussion purposes only. It includes forward-looking assumptions, unresolved risks, and pre-launch estimates. It is not legal, tax, financial, accounting, or investment advice."
+        }
+      ]
+    },
+    "revenue-model": {
+      "keyPoints": [
+        "Consumer economics",
+        "Business economics",
+        "The blended model",
+        "Break-even logic",
+        "Fee design"
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "One-line summary"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS does not pretend consumer fintech has rich unit economics."
+        },
+        {
+          "type": "paragraph",
+          "text": "The model is built on a cleaner truth:"
+        },
+        {
+          "type": "callout",
+          "lines": ["B2C builds trust and distribution.", "B2B turns that trust into revenue."]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The business model"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS earns revenue when money moves."
+        },
+        {
+          "type": "paragraph",
+          "text": "Not while it sits. Not by hiding spread. Not by pretending strategy returns belong to the company."
+        },
+        {
+          "type": "paragraph",
+          "text": "The core revenue lines are:"
+        },
+        {
+          "type": "table",
+          "headers": ["Revenue line", "diBoaS fee logic"],
+          "rows": [
+            ["Add money", "0.48% movement fee"],
+            ["Cash out", "0.48% movement fee"],
+            ["Close strategy", "0.39% closing fee"],
+            ["Send money", "diBoaS fee $0 where supported"],
+            ["Swap", "diBoaS fee $0 where supported"],
+            ["Bridge", "diBoaS fee $0 where supported"],
+            ["Start strategy", "diBoaS fee $0"],
+            ["Receive B2B payments", "diBoaS fee $0 where supported"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "External costs can still apply: network, ramp, provider, bank, FX, settlement, or compliance costs. Those are passed through where relevant."
+        },
+        {
+          "type": "paragraph",
+          "text": "The point is simple:"
+        },
+        {
+          "type": "callout",
+          "lines": ["diBoaS charges for movement.", "diBoaS does not tax the upside."]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why that matters"
+        },
+        {
+          "type": "paragraph",
+          "text": "A financial product can lose trust in two ways."
+        },
+        {
+          "type": "paragraph",
+          "text": "It can hide risk."
+        },
+        {
+          "type": "paragraph",
+          "text": "Or it can hide how it gets paid."
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS should do neither."
+        },
+        {
+          "type": "paragraph",
+          "text": "The model is designed to be visible before action. The user sees cost, liquidity, and risk before moving money. Investors should see the same discipline in the business model."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Consumer economics"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The honest version"
+        },
+        {
+          "type": "paragraph",
+          "text": "A consumer is not worth much revenue per year."
+        },
+        {
+          "type": "paragraph",
+          "text": "That is not a weakness if the company admits it early."
+        },
+        {
+          "type": "paragraph",
+          "text": "It becomes a weakness only if the company builds a fantasy around it."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Current model assumption"
+        },
+        {
+          "type": "callout",
+          "lines": ["Average consumer ARPU: ~US$5.88 per year"]
+        },
+        {
+          "type": "paragraph",
+          "text": "Modeled consumer ARPU varies by market mix:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Brazil-heavy scenario: ~US$4.48 per year",
+            "US-heavy scenario: ~US$7.63 per year"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A user who deposits and holds US$1,000 may generate roughly:"
+        },
+        {
+          "type": "callout",
+          "lines": ["~US$13 in lifetime movement fees"]
+        },
+        {
+          "type": "paragraph",
+          "text": "That is useful distribution revenue. It is not enough to carry the company alone."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why consumer still matters"
+        },
+        {
+          "type": "paragraph",
+          "text": "Consumer matters because it builds:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "trust;",
+            "brand recognition;",
+            "repeat behavior;",
+            "product familiarity;",
+            "market proof;",
+            "user data around goals, movement, cost sensitivity, and drop-off;",
+            "the relationship layer that makes B2B more credible."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "B2C is not the profit center."
+        },
+        {
+          "type": "paragraph",
+          "text": "B2C is the trust layer."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Business economics"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The better economic unit"
+        },
+        {
+          "type": "paragraph",
+          "text": "Businesses move larger amounts of money and have more structured liquidity needs."
+        },
+        {
+          "type": "paragraph",
+          "text": "That creates a different revenue profile."
+        },
+        {
+          "type": "paragraph",
+          "text": "A small business does not need a prettier savings app."
+        },
+        {
+          "type": "paragraph",
+          "text": "It needs rules for cash."
+        },
+        {
+          "type": "paragraph",
+          "text": "Payroll. Rent. Taxes. Suppliers. Operating floor. Excess liquidity. Payment paths. Audit trail. Approval. Risk before movement."
+        },
+        {
+          "type": "paragraph",
+          "text": "That is where diBoaS becomes a business."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Current model assumption"
+        },
+        {
+          "type": "callout",
+          "lines": ["B2B ARPU range: ~US$1,945–19,300 per year"]
+        },
+        {
+          "type": "paragraph",
+          "text": "Illustrative cases:"
+        },
+        {
+          "type": "table",
+          "headers": ["Business use case", "Approximate annual revenue potential"],
+          "rows": [
+            ["Business moving ~US$200,000 of idle or excess cash", "~US$1,945/year"],
+            ["Business moving ~US$500,000 quarterly", "~US$19,300/year"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "These are model assumptions, not traction."
+        },
+        {
+          "type": "paragraph",
+          "text": "They exist to show the economic gap:"
+        },
+        {
+          "type": "callout",
+          "lines": ["One business client can be worth hundreds or thousands of consumer users."]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The key ratio"
+        },
+        {
+          "type": "paragraph",
+          "text": "A small number of B2B clients can change the company."
+        },
+        {
+          "type": "callout",
+          "lines": ["10 B2B clients can be worth more than 6,000 consumers."]
+        },
+        {
+          "type": "paragraph",
+          "text": "That is the reason B2B is not a side note."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is the business model."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "The blended model"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The thesis"
+        },
+        {
+          "type": "paragraph",
+          "text": "The blended model is not:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Acquire consumers cheaply, hope ARPU magically improves."]
+        },
+        {
+          "type": "paragraph",
+          "text": "The blended model is:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Use B2C to build trust and distribution.",
+            "Use B2B to monetize higher-value cash movement."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Consumer creates surface area."
+        },
+        {
+          "type": "paragraph",
+          "text": "Business creates revenue density."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why this can work"
+        },
+        {
+          "type": "paragraph",
+          "text": "Consumers help diBoaS learn:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "what people trust;",
+            "what they understand;",
+            "where they drop off;",
+            "which goals motivate movement;",
+            "how cost and risk language affects funding behavior."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Businesses create monetization through:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "larger cash balances;",
+            "recurring payment needs;",
+            "liquidity rules;",
+            "operational reporting;",
+            "higher-value movement;",
+            "a stronger willingness to pay for clarity, control, and auditability."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The consumer product teaches the market."
+        },
+        {
+          "type": "paragraph",
+          "text": "The business product pays for the company."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Break-even logic"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pure B2C break-even"
+        },
+        {
+          "type": "paragraph",
+          "text": "If infrastructure costs reach roughly:"
+        },
+        {
+          "type": "callout",
+          "lines": ["~US$60,000/year"]
+        },
+        {
+          "type": "paragraph",
+          "text": "and average consumer ARPU is:"
+        },
+        {
+          "type": "callout",
+          "lines": ["~US$5.88/year"]
+        },
+        {
+          "type": "paragraph",
+          "text": "then pure B2C break-even requires approximately:"
+        },
+        {
+          "type": "callout",
+          "lines": ["~10,200 active users"]
+        },
+        {
+          "type": "paragraph",
+          "text": "That is before fully considering acquisition cost, support cost, compliance drag, and operational overhead."
+        },
+        {
+          "type": "paragraph",
+          "text": "So the conclusion is direct:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Pure B2C is not the right break-even story."]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "B2B-assisted break-even"
+        },
+        {
+          "type": "paragraph",
+          "text": "With B2B revenue in the model, the required consumer base drops materially."
+        },
+        {
+          "type": "paragraph",
+          "text": "Illustrative example:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "25 B2B clients can reduce the consumer break-even requirement to ~1,900 active users."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "That changes the company shape."
+        },
+        {
+          "type": "paragraph",
+          "text": "It makes the consumer base valuable without forcing it to carry the entire business alone."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Fee design"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Core principles"
+        },
+        {
+          "type": "paragraph",
+          "text": "The fee model follows five rules:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Charge for movement.",
+            "Do not take hidden spread.",
+            "Make costs visible before action.",
+            "Keep starting a strategy free.",
+            "Let B2B revenue come from larger, higher-value movement, not from punishing small users."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Fee structure"
+        },
+        {
+          "type": "table",
+          "headers": ["Action", "diBoaS fee"],
+          "rows": [
+            ["Add money", "0.48%"],
+            ["Cash out", "0.48%"],
+            ["Close strategy", "0.39%"],
+            ["Start strategy", "0"],
+            ["Send / swap / bridge", "0 where supported"],
+            ["Receive B2B payments", "0 where supported"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Fee caps"
+        },
+        {
+          "type": "table",
+          "headers": ["Fee type", "Cap"],
+          "rows": [
+            ["Consumer add / cash-out", "US$250"],
+            ["Business add / cash-out", "US$2,500"],
+            ["Close strategy", "US$25"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The split is intentional."
+        },
+        {
+          "type": "paragraph",
+          "text": "The lower closing cap protects users exiting a strategy. The higher business movement cap preserves the economics of larger B2B flows."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What validates the model"
+        },
+        {
+          "type": "paragraph",
+          "text": "The revenue model is validated by behavior, not by elegance."
+        },
+        {
+          "type": "paragraph",
+          "text": "The first metrics that matter are:"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "1. Registration-to-funding conversion"
+        },
+        {
+          "type": "paragraph",
+          "text": "Do people understand enough to put real money in?"
+        },
+        {
+          "type": "paragraph",
+          "text": "If they register but do not fund, the product has interest but not trust."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "2. Monthly contributor share"
+        },
+        {
+          "type": "paragraph",
+          "text": "How many users add money repeatedly?"
+        },
+        {
+          "type": "paragraph",
+          "text": "A one-time user proves curiosity. A recurring contributor proves habit."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "3. Average funded balance"
+        },
+        {
+          "type": "paragraph",
+          "text": "How much does the user actually assign to goals?"
+        },
+        {
+          "type": "paragraph",
+          "text": "This determines movement volume and future product value."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "4. Close-strategy behavior"
+        },
+        {
+          "type": "paragraph",
+          "text": "Do users close strategies naturally and understand the cost?"
+        },
+        {
+          "type": "paragraph",
+          "text": "This validates both movement and fee comprehension."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "5. B2B qualified pipeline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Are businesses willing to discuss liquidity rules, payment paths, and cash control seriously?"
+        },
+        {
+          "type": "paragraph",
+          "text": "If B2B remains theoretical, the revenue model remains theoretical."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "6. B2B deal size"
+        },
+        {
+          "type": "paragraph",
+          "text": "Do early business opportunities fall within the modeled revenue range?"
+        },
+        {
+          "type": "paragraph",
+          "text": "This is one of the most important proof points."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "7. Partner cost and net margin"
+        },
+        {
+          "type": "paragraph",
+          "text": "Does the net revenue after ramp, network, provider, bank, FX, settlement, and compliance costs still support the model?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Gross movement is not the business."
+        },
+        {
+          "type": "paragraph",
+          "text": "Net movement margin is."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What breaks the model"
+        },
+        {
+          "type": "paragraph",
+          "text": "The model breaks if the evidence says one of the following."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Consumer does not fund"
+        },
+        {
+          "type": "paragraph",
+          "text": "If users like the idea but do not put money in, diBoaS has a message, not a product."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Monthly contribution is too low"
+        },
+        {
+          "type": "paragraph",
+          "text": "If fewer than 10% of consumers contribute monthly, the consumer line should be cut back or repositioned."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "B2B does not convert"
+        },
+        {
+          "type": "paragraph",
+          "text": "If businesses show interest but do not move toward serious pipeline, the revenue thesis weakens."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Net margin compresses"
+        },
+        {
+          "type": "paragraph",
+          "text": "If partner, ramp, bank, FX, compliance, or network costs consume too much of the movement fee, the model must be revised."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Regulation changes the cost structure"
+        },
+        {
+          "type": "paragraph",
+          "text": "If legal obligations move diBoaS into a more expensive operating perimeter, the cost base and timeline change."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The product is understood but not trusted"
+        },
+        {
+          "type": "paragraph",
+          "text": "That is the most dangerous failure."
+        },
+        {
+          "type": "paragraph",
+          "text": "Confusion can be fixed with product and copy."
+        },
+        {
+          "type": "paragraph",
+          "text": "Distrust is harder."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What investors should watch after launch"
+        },
+        {
+          "type": "paragraph",
+          "text": "Investors should not watch vanity metrics first."
+        },
+        {
+          "type": "paragraph",
+          "text": "They should watch:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "funded users",
+            "monthly contributors",
+            "average funded amount",
+            "movement volume",
+            "net movement margin",
+            "B2B qualified pipeline",
+            "B2B deal size",
+            "partner cost",
+            "drop-off before funding",
+            "support burden",
+            "regulatory gate progress"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The company should earn the right to scale only after these metrics begin to behave."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Investor takeaway"
+        },
+        {
+          "type": "paragraph",
+          "text": "The revenue story is simple."
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Consumers create trust.",
+            "Businesses create revenue.",
+            "Movement creates fees.",
+            "Transparency creates permission."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS is not trying to make consumer ARPU look better than it is."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is trying to use consumer trust to reach business cash movement where the economics are stronger."
+        },
+        {
+          "type": "paragraph",
+          "text": "That is the model."
+        },
+        {
+          "type": "paragraph",
+          "text": "No magic. No spread hidden in the walls. No “we’ll figure out monetization later” fairy tale."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Confidentiality note"
+        },
+        {
+          "type": "paragraph",
+          "text": "Private investor material. Do not forward or distribute without permission."
+        },
+        {
+          "type": "paragraph",
+          "text": "This document is provided for discussion purposes only. It includes forward-looking assumptions, unresolved risks, and pre-launch estimates. It is not legal, tax, financial, accounting, or investment advice."
+        }
+      ]
+    },
+    "regulatory-position": {
+      "keyPoints": [
+        "What diBoaS is designed not to do",
+        "What diBoaS is designed to do",
+        "Jurisdiction logic",
+        "Product features that create regulatory risk",
+        "The operating principle"
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "One-line summary"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS is not trying to avoid regulation."
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS is designed to avoid unnecessary custody while treating regulation as a launch gate."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Core regulatory thesis"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS is designed as a non-custodial interface."
+        },
+        {
+          "type": "paragraph",
+          "text": "The product is intended to help users understand, assign, and move money according to goals, strategies, costs, liquidity, and risk."
+        },
+        {
+          "type": "paragraph",
+          "text": "The intended position is:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "diBoaS is the interface.",
+            "The user keeps control.",
+            "Regulated partners handle regulated rails.",
+            "Launch happens only after jurisdiction-specific gates are cleared."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The company should not market itself as a bank, deposit account, savings account, guaranteed product, broker, custodian, exchange, or investment adviser unless and until the relevant legal analysis supports that status."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What diBoaS is designed not to do"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "diBoaS should not hold customer funds"
+        },
+        {
+          "type": "paragraph",
+          "text": "The product should avoid holding fiat balances or customer funds on its own balance sheet."
+        },
+        {
+          "type": "paragraph",
+          "text": "Money-in and money-out should run through regulated partners where required."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "diBoaS should not hold customer private keys"
+        },
+        {
+          "type": "paragraph",
+          "text": "The non-custodial design assumes that diBoaS does not take possession of customer private keys or control wallets in a way that creates custody."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "diBoaS should not promise returns"
+        },
+        {
+          "type": "paragraph",
+          "text": "Strategies may reference possible outcomes, costs, and risks."
+        },
+        {
+          "type": "paragraph",
+          "text": "They should not be presented as guaranteed yields, deposits, savings products, or protected investments."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "diBoaS should not hide fees"
+        },
+        {
+          "type": "paragraph",
+          "text": "The business model is built around visible movement fees and pass-through external costs."
+        },
+        {
+          "type": "paragraph",
+          "text": "Fees should be visible before action."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "diBoaS should not treat regulation as solved"
+        },
+        {
+          "type": "paragraph",
+          "text": "The correct position is not:"
+        },
+        {
+          "type": "callout",
+          "lines": ["No license needed."]
+        },
+        {
+          "type": "paragraph",
+          "text": "The correct position is:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "The product is designed to reduce licensing triggers, subject to legal review and launch gates by jurisdiction."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "That sentence is less exciting. It is also more defensible."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What diBoaS is designed to do"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS is designed to operate as a software and interface layer that helps users make money decisions before movement."
+        },
+        {
+          "type": "paragraph",
+          "text": "The product should show:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "the user’s goal;",
+            "available strategy paths;",
+            "expected cost;",
+            "liquidity;",
+            "risk;",
+            "fee impact;",
+            "movement confirmation;",
+            "record of the user’s action."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The regulatory posture depends on product behavior, not branding."
+        },
+        {
+          "type": "paragraph",
+          "text": "Calling something “non-custodial” does not make it non-custodial. The architecture has to prove it."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Jurisdiction logic"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS is designed for multiple launch markets."
+        },
+        {
+          "type": "paragraph",
+          "text": "The regulatory position must therefore be handled by market, not by slogan."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "United States"
+        },
+        {
+          "type": "paragraph",
+          "text": "The US position requires careful review under federal money-transmission rules, state money-transmitter rules, securities analysis, commodities analysis, consumer protection, sanctions, and AML obligations."
+        },
+        {
+          "type": "paragraph",
+          "text": "The key US questions are:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Does diBoaS receive money or value for transmission?",
+            "Does diBoaS control customer assets or private keys?",
+            "Does diBoaS act as an exchanger, administrator, broker, adviser, or custodian?",
+            "Does user-to-user movement trigger money-transmission obligations?",
+            "Do any strategies create securities, commodities, or investment-advice issues?",
+            "Which partner holds the regulated money-in/out obligations?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "US launch gate"
+        },
+        {
+          "type": "paragraph",
+          "text": "Before US availability, diBoaS needs a specific legal opinion on:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "user-to-user transfers",
+            "money transmission",
+            "state licensing exposure",
+            "custody / control",
+            "strategy presentation",
+            "partner responsibility"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The US can be a major market, but it is not a market to enter on vibes."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "European Union / Germany"
+        },
+        {
+          "type": "paragraph",
+          "text": "The EU position must be assessed under MiCA, German implementation, local supervisory expectations, payment-services rules, AML obligations, consumer protection, and any investment-product perimeter triggered by the strategy design."
+        },
+        {
+          "type": "paragraph",
+          "text": "The key EU / Germany questions are:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Does diBoaS provide a crypto-asset service under MiCA?",
+            "Does the product involve custody, transfer, exchange, execution, advice, portfolio management, or placement?",
+            "Does the money-in/out flow trigger payment-services obligations?",
+            "Does the product presentation create investment-advice or financial-instrument risk?",
+            "Does the German launch require BaFin-facing analysis or a regulated partner structure?",
+            "Does the technical architecture prove non-custody?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "EU / Germany launch gate"
+        },
+        {
+          "type": "paragraph",
+          "text": "Before EU or German availability, diBoaS needs:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "MiCA perimeter analysis",
+            "German regulatory perimeter review",
+            "payment-services review",
+            "AML / KYC operating model",
+            "risk disclosure review",
+            "partner responsibility map"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Germany rewards precision and punishes improvisation."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Brazil"
+        },
+        {
+          "type": "paragraph",
+          "text": "Brazil is strategically important because the consumer proposition has a strong natural entry point: objective, protection, and dollar-based clarity."
+        },
+        {
+          "type": "paragraph",
+          "text": "But Brazil also requires careful handling of virtual-asset regulation, foreign-exchange exposure, money-in/out partners, consumer protection, and Central Bank expectations."
+        },
+        {
+          "type": "paragraph",
+          "text": "The key Brazil questions are:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Does diBoaS itself provide virtual-asset services or rely on a regulated partner?",
+            "Who is responsible for fiat entry and exit?",
+            "Does any flow touch FX or international capital rules?",
+            "Does the product require a local entity, local partner, or licensed provider?",
+            "How are customer disclosures, risk warnings, and costs presented?",
+            "Can Brazil launch safely through a partner-first model?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Brazil launch gate"
+        },
+        {
+          "type": "paragraph",
+          "text": "Before Brazil availability, diBoaS needs:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Brazil virtual-asset perimeter review",
+            "money-in/out partner assessment",
+            "FX and international capital review",
+            "consumer disclosure review",
+            "local entity / partner analysis",
+            "operating responsibility map"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Brazil is attractive. It is also not a shortcut."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Spain"
+        },
+        {
+          "type": "paragraph",
+          "text": "Spain should be treated as part of the EU / MiCA perimeter, with local investor and consumer expectations around cost clarity, prudence, and risk explanation."
+        },
+        {
+          "type": "paragraph",
+          "text": "The key Spain questions are:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Does the product fall inside MiCA crypto-asset service activity?",
+            "Does any feature trigger local CNMV-facing analysis?",
+            "Are costs, risks, and liquidity explained plainly enough?",
+            "Does any strategy language look like investment advice or a protected product?",
+            "Can the product be launched through the same EU structure, or does Spain need local review?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Spain launch gate"
+        },
+        {
+          "type": "paragraph",
+          "text": "Before Spain availability, diBoaS needs:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "MiCA perimeter analysis",
+            "Spain-specific local review",
+            "consumer-risk language review",
+            "fee and liquidity disclosure review",
+            "partner responsibility map"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For Spain, the product should sound prudent before it sounds innovative."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Product features that create regulatory risk"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Custody"
+        },
+        {
+          "type": "paragraph",
+          "text": "Risk increases if diBoaS controls user assets, private keys, recovery, settlement, or withdrawal authority."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Money transmission"
+        },
+        {
+          "type": "paragraph",
+          "text": "Risk increases if diBoaS receives and transmits funds, controls flow of value, or enables user-to-user movement without a regulated partner structure."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Exchange / swap"
+        },
+        {
+          "type": "paragraph",
+          "text": "Risk increases if diBoaS executes exchange, routing, brokerage, or conversion activity rather than merely displaying user-controlled options through partners."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Investment advice"
+        },
+        {
+          "type": "paragraph",
+          "text": "Risk increases if diBoaS recommends strategies personally, optimizes for return, presents itself as advising the user, or implies suitability."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Yield / return language"
+        },
+        {
+          "type": "paragraph",
+          "text": "Risk increases if product copy emphasizes yield, passive income, return promises, or protected outcomes."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "B2B cash rules"
+        },
+        {
+          "type": "paragraph",
+          "text": "B2B is commercially attractive, but risk increases if diBoaS controls funds, makes treasury decisions for the business, or becomes responsible for regulated payment execution."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "The operating principle"
+        },
+        {
+          "type": "paragraph",
+          "text": "The regulatory standard should be:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "If the product action changes the regulatory perimeter, it becomes a launch gate."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "No hidden feature should quietly move the company into a licensed activity."
+        },
+        {
+          "type": "paragraph",
+          "text": "The product roadmap must remain tied to regulatory review."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Required launch gates"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate 1 — Architecture confirmation"
+        },
+        {
+          "type": "paragraph",
+          "text": "Confirm that the actual technical architecture matches the non-custodial claim."
+        },
+        {
+          "type": "paragraph",
+          "text": "Output:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "wallet-control map",
+            "key-control map",
+            "funds-flow map",
+            "partner responsibility map"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate 2 — Legal perimeter review"
+        },
+        {
+          "type": "paragraph",
+          "text": "Confirm what diBoaS is and is not doing by jurisdiction."
+        },
+        {
+          "type": "paragraph",
+          "text": "Output:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "US legal memo",
+            "EU / Germany legal memo",
+            "Brazil legal memo",
+            "Spain local review if needed"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate 3 — Partner responsibility"
+        },
+        {
+          "type": "paragraph",
+          "text": "Confirm which regulated partner handles fiat, ramp, payment, custody, settlement, or regulated flow."
+        },
+        {
+          "type": "paragraph",
+          "text": "Output:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "partner responsibility matrix",
+            "contractual responsibility map",
+            "customer disclosure position"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate 4 — Product-language review"
+        },
+        {
+          "type": "paragraph",
+          "text": "Confirm that the product does not imply guarantee, deposit, savings account, advice, or protected return."
+        },
+        {
+          "type": "paragraph",
+          "text": "Output:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "approved risk language",
+            "approved fee language",
+            "approved strategy language",
+            "approved no-custody language"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Gate 5 — Operational compliance"
+        },
+        {
+          "type": "paragraph",
+          "text": "Confirm AML / KYC, sanctions, monitoring, records, complaints, support, incident response, and audit readiness."
+        },
+        {
+          "type": "paragraph",
+          "text": "Output:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "operating checklist",
+            "support policy",
+            "complaints process",
+            "incident process",
+            "recordkeeping model"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What can change the regulatory position"
+        },
+        {
+          "type": "paragraph",
+          "text": "The current position can change if diBoaS changes the product."
+        },
+        {
+          "type": "paragraph",
+          "text": "Examples:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "diBoaS holds customer funds;",
+            "diBoaS controls private keys;",
+            "diBoaS becomes the party executing transfers;",
+            "diBoaS provides exchange or brokerage directly;",
+            "diBoaS personalizes investment recommendations;",
+            "diBoaS guarantees returns or loss protection;",
+            "diBoaS operates user-to-user transfers without legal clearance;",
+            "diBoaS handles B2B payment execution directly;",
+            "partner contracts shift regulated responsibility back to diBoaS."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The regulatory position is not a sticker."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is a function of product behavior."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What investors should ask"
+        },
+        {
+          "type": "paragraph",
+          "text": "Investors should ask:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Who controls the funds?",
+            "Who controls the keys?",
+            "Who executes the movement?",
+            "Who is the regulated partner?",
+            "Which activity is diBoaS paid for?",
+            "Which jurisdictions are available first?",
+            "What is blocked until legal opinion?",
+            "What feature would require licensing?",
+            "What happens if partner costs or regulatory obligations rise?",
+            "What is the launch gate before real money touches the product?"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Those questions are not hostile."
+        },
+        {
+          "type": "paragraph",
+          "text": "They are the right questions."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Investor takeaway"
+        },
+        {
+          "type": "paragraph",
+          "text": "The regulatory position is not:"
+        },
+        {
+          "type": "callout",
+          "lines": ["We found a loophole."]
+        },
+        {
+          "type": "paragraph",
+          "text": "The position is:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "We designed the product to avoid unnecessary custody, keep the user in control, use regulated partners where required, and launch only through legal gates."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "That is the serious version."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is less flashy. It is more investable."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Reference orientation"
+        },
+        {
+          "type": "paragraph",
+          "text": "This summary was drafted with awareness of the current public regulatory perimeter as of 2026-06-30, including MiCA implementation in the EU, ESMA transition-period guidance, FinCEN virtual-currency guidance, and Brazil Central Bank virtual-asset regulation. Final launch decisions require jurisdiction-specific legal advice."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Confidentiality note"
+        },
+        {
+          "type": "paragraph",
+          "text": "Private investor material. Do not forward or distribute without permission."
+        },
+        {
+          "type": "paragraph",
+          "text": "This document is provided for discussion purposes only. It includes forward-looking assumptions, unresolved risks, and pre-launch estimates. It is not legal, tax, financial, accounting, regulatory, or investment advice."
+        }
+      ]
+    },
+    "product-roadmap": {
+      "keyPoints": [
+        "Current state",
+        "What is specified but not yet built",
+        "Phase 0 — Foundation and gating",
+        "Phase 1 — Controlled money-product build",
+        "Phase 2 — Security, operations, and partner readiness"
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "One-line summary"
+        },
+        {
+          "type": "paragraph",
+          "text": "The roadmap is not a wish list."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is a sequence of proof."
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS should not build the biggest product first. It should build the smallest product that proves the company."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Roadmap principle"
+        },
+        {
+          "type": "paragraph",
+          "text": "The product sequence follows one rule:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Build only what proves the next risk."]
+        },
+        {
+          "type": "paragraph",
+          "text": "The goal of the pre-seed phase is not to launch every feature, every market, and every version of the vision."
+        },
+        {
+          "type": "paragraph",
+          "text": "The goal is to prove the core:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Can users understand money by purpose?",
+            "Can the product show cost, liquidity, and risk before movement?",
+            "Can money move through the right partner rails?",
+            "Can the company stay non-custodial by design?",
+            "Can B2B demand become real pipeline?"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "If those are proven, the company earns the right to expand."
+        },
+        {
+          "type": "paragraph",
+          "text": "If not, the roadmap should narrow before the burn rate gets an ego."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Current state"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Already live"
+        },
+        {
+          "type": "paragraph",
+          "text": "The company currently has:"
+        },
+        {
+          "type": "table",
+          "headers": ["Area", "Status"],
+          "rows": [
+            ["Marketing website", "Live"],
+            ["Market-intelligence product", "Live"],
+            ["Investor materials", "Drafted and being packaged"],
+            ["Business plan", "Created"],
+            ["Investor FAQ", "Created"],
+            ["Revenue model", "Created"],
+            ["Use of funds", "Created"],
+            ["Regulatory position", "Drafted"],
+            ["Product concept", "Specified"],
+            ["Money product", "Not yet live"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This matters because the company is not starting from a blank page."
+        },
+        {
+          "type": "paragraph",
+          "text": "But it also matters because the money product is not yet built. Investors should not confuse readiness of the story with readiness of the financial product."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What is specified but not yet built"
+        },
+        {
+          "type": "paragraph",
+          "text": "The core money product is specified around:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "goal selection;",
+            "strategy path;",
+            "cost visibility;",
+            "liquidity visibility;",
+            "risk explanation;",
+            "wallet flow;",
+            "money-in and money-out;",
+            "user-controlled action;",
+            "strategy start;",
+            "strategy close;",
+            "records and confirmations;",
+            "early B2B cash-rule logic."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "These are product specifications, not launched features."
+        },
+        {
+          "type": "paragraph",
+          "text": "The roadmap exists to move them from specification to controlled reality."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Phase 0 — Foundation and gating"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Purpose"
+        },
+        {
+          "type": "paragraph",
+          "text": "Before building the real money product, diBoaS needs to confirm what can safely launch and under which operating model."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Workstreams"
+        },
+        {
+          "type": "table",
+          "headers": ["Workstream", "Output"],
+          "rows": [
+            ["Legal perimeter", "Jurisdiction-specific launch constraints"],
+            ["Regulatory gates", "US, EU/Germany, Brazil, Spain launch requirements"],
+            ["Partner path", "Money-in/out partner shortlist and decision path"],
+            ["Architecture confirmation", "Non-custodial wallet and funds-flow map"],
+            ["Product scope", "First launch feature boundaries"],
+            ["Risk language", "Approved user-facing risk and fee language"],
+            ["Operating setup", "Entity, admin, accounting, support, records"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What this phase proves"
+        },
+        {
+          "type": "paragraph",
+          "text": "This phase proves whether the planned product can move forward without pretending the legal perimeter is a decorative plant."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Investor proof point"
+        },
+        {
+          "type": "paragraph",
+          "text": "The key proof point is not code."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is clarity:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "What can launch?",
+            "Where can it launch?",
+            "Who handles regulated rails?",
+            "What remains blocked?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Phase 1 — Controlled money-product build"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Purpose"
+        },
+        {
+          "type": "paragraph",
+          "text": "Build the first controlled version of the money product."
+        },
+        {
+          "type": "paragraph",
+          "text": "This is not the full vision. It is the proof product."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Core features"
+        },
+        {
+          "type": "table",
+          "headers": ["Feature", "Purpose"],
+          "rows": [
+            ["Goal selection", "Let users assign money to a purpose"],
+            ["Strategy path", "Show the available way to pursue that goal"],
+            ["Cost display", "Show fees and external costs before action"],
+            ["Liquidity display", "Show when and how money can move"],
+            ["Risk display", "Explain what can go wrong before action"],
+            ["Wallet flow", "Support user-controlled money movement"],
+            ["Add money", "Enable funding through the partner path"],
+            ["Cash out", "Enable withdrawal through the partner path"],
+            ["Start strategy", "Let user begin a selected strategy"],
+            ["Close strategy", "Let user exit and understand cost"],
+            ["Records", "Keep confirmation and action history"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What should not be built in Phase 1"
+        },
+        {
+          "type": "paragraph",
+          "text": "Phase 1 should not include:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "every market;",
+            "every asset or strategy;",
+            "advanced personalization;",
+            "broad user-to-user movement;",
+            "complex B2B treasury automation;",
+            "large-scale paid acquisition;",
+            "enterprise-grade controls before B2B proof;",
+            "speculative features that make regulation heavier without proving the model."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The first build should be boring in the right places."
+        },
+        {
+          "type": "paragraph",
+          "text": "Boring is underrated when real money is nearby."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Investor proof point"
+        },
+        {
+          "type": "paragraph",
+          "text": "The proof point is:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Can the product make cost, liquidity, and risk understandable before the user moves money?"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "If yes, diBoaS has the core user promise."
+        },
+        {
+          "type": "paragraph",
+          "text": "If no, the rest of the roadmap is decoration."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Phase 2 — Security, operations, and partner readiness"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Purpose"
+        },
+        {
+          "type": "paragraph",
+          "text": "Prepare the controlled product for real users and real flows."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Workstreams"
+        },
+        {
+          "type": "table",
+          "headers": ["Workstream", "Output"],
+          "rows": [
+            ["Security review", "Product and flow risk review"],
+            ["Monitoring", "Basic system and transaction monitoring"],
+            ["Recovery model", "User recovery and incident assumptions"],
+            ["Support", "User support process and escalation"],
+            ["Records", "Action, fee, confirmation, and complaint records"],
+            ["Partner integration", "Money-in/out flow through selected partners"],
+            ["Compliance operations", "KYC / AML / sanctions / operating process where required"],
+            ["Risk disclosure", "Approved user-facing warnings and confirmations"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What this phase proves"
+        },
+        {
+          "type": "paragraph",
+          "text": "This phase proves that the product is not only understandable, but operationally controlled."
+        },
+        {
+          "type": "paragraph",
+          "text": "A fintech that explains risk but cannot operate safely is still a problem with a nicer font."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Investor proof point"
+        },
+        {
+          "type": "paragraph",
+          "text": "The proof point is:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Can diBoaS expose controlled users to real money flows without losing the non-custodial discipline?"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Phase 3 — First controlled launch"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Purpose"
+        },
+        {
+          "type": "paragraph",
+          "text": "Launch to a limited group of users to test behavior, not vanity."
+        },
+        {
+          "type": "paragraph",
+          "text": "The first launch should measure whether people move from curiosity to trust."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What to test"
+        },
+        {
+          "type": "table",
+          "headers": ["Metric", "Question"],
+          "rows": [
+            ["Registration-to-funding", "Do users trust the product enough to add money?"],
+            ["Funding amount", "How much do users assign to goals?"],
+            ["Drop-off before funding", "Where does trust break?"],
+            ["Strategy start", "Do users understand the path?"],
+            ["Strategy close", "Do users understand cost and liquidity?"],
+            ["Support burden", "What confuses users?"],
+            ["Risk comprehension", "Do users understand what is not guaranteed?"],
+            ["Net movement margin", "Does the unit economics survive partner costs?"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What should not happen"
+        },
+        {
+          "type": "paragraph",
+          "text": "The company should not scale paid acquisition immediately."
+        },
+        {
+          "type": "paragraph",
+          "text": "A registration spike without funding behavior is not traction."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is an audience politely refusing to trust you with money."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Investor proof point"
+        },
+        {
+          "type": "paragraph",
+          "text": "The proof point is:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Do users fund after understanding cost, liquidity, and risk?"]
+        },
+        {
+          "type": "paragraph",
+          "text": "That is the moment the product becomes more than a narrative."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Phase 4 — B2B validation"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Purpose"
+        },
+        {
+          "type": "paragraph",
+          "text": "Validate the revenue engine."
+        },
+        {
+          "type": "paragraph",
+          "text": "Consumer trust creates distribution. B2B needs to prove revenue density."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "First B2B product angle"
+        },
+        {
+          "type": "paragraph",
+          "text": "The first B2B proposition should remain narrow:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Cash by function.",
+            "Rules before movement.",
+            "Visibility before payment.",
+            "Liquidity control before idle cash becomes waste."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Early B2B features"
+        },
+        {
+          "type": "table",
+          "headers": ["Feature", "Purpose"],
+          "rows": [
+            ["Cash categories", "Payroll, rent, tax, suppliers, operating floor, excess cash"],
+            ["Rule setup", "Define what each cash bucket can and cannot do"],
+            ["Movement preview", "Show cost, liquidity, and risk before business movement"],
+            ["Permission logic", "Support basic approval or control structure"],
+            ["Records", "Create action history and reporting foundation"],
+            ["B2B fee logic", "Validate movement-based revenue on larger flows"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "What to test"
+        },
+        {
+          "type": "table",
+          "headers": ["Metric", "Question"],
+          "rows": [
+            ["Qualified pipeline", "Are businesses seriously interested?"],
+            ["Use-case urgency", "Is cash control painful enough?"],
+            ["Deal size", "Does revenue fall near modeled assumptions?"],
+            ["Sales cycle", "How long does trust take?"],
+            ["Buyer type", "Founder, finance lead, operations, accountant?"],
+            ["Objections", "Regulation, custody, cost, trust, complexity?"],
+            ["Willingness to pay", "Do businesses pay for clarity and control?"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Investor proof point"
+        },
+        {
+          "type": "paragraph",
+          "text": "The proof point is:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Can B2B interest become qualified pipeline at revenue levels that matter?"]
+        },
+        {
+          "type": "paragraph",
+          "text": "If yes, the company has a revenue path."
+        },
+        {
+          "type": "paragraph",
+          "text": "If no, the company remains a consumer product with small ARPU."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Phase 5 — Market sequencing"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Purpose"
+        },
+        {
+          "type": "paragraph",
+          "text": "Expand only where the proof and gates justify it."
+        },
+        {
+          "type": "paragraph",
+          "text": "The roadmap should not treat all markets as equally ready."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Market logic"
+        },
+        {
+          "type": "table",
+          "headers": ["Market", "Role", "Roadmap posture"],
+          "rows": [
+            [
+              "Brazil",
+              "Strong consumer wedge around objectives and dollar protection",
+              "Partner-first path, FX and local review required"
+            ],
+            [
+              "United States",
+              "Strong revenue and investor reference market",
+              "Enter only after money-transmission and user-to-user transfer review"
+            ],
+            [
+              "Germany",
+              "Trust, planning, and regulatory discipline",
+              "High value for credibility, slower by design"
+            ],
+            [
+              "Spain",
+              "Prudence, cost clarity, and consumer explanation",
+              "EU/MiCA logic with local language and disclosure review"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Investor proof point"
+        },
+        {
+          "type": "paragraph",
+          "text": "The proof point is:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Does each market earn entry through legal, partner, and user evidence?"]
+        },
+        {
+          "type": "paragraph",
+          "text": "No market should launch because it looks good in a slide."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Phase 6 — Scale only after proof"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Purpose"
+        },
+        {
+          "type": "paragraph",
+          "text": "Scale the parts that show evidence."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Scale candidates"
+        },
+        {
+          "type": "table",
+          "headers": ["Candidate", "Scale only if"],
+          "rows": [
+            ["Consumer acquisition", "Funding conversion and monthly contribution behave"],
+            ["B2B sales", "Qualified pipeline and deal size validate"],
+            ["Additional strategies", "Risk language and partner path support them"],
+            ["Additional markets", "Legal gates and local trust language are ready"],
+            ["User-to-user movement", "Legal opinion clears the flow"],
+            ["Advanced B2B controls", "Early B2B demand proves need"],
+            ["Paid marketing", "Unit economics can tolerate acquisition cost"]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Investor proof point"
+        },
+        {
+          "type": "paragraph",
+          "text": "The proof point is:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Does the company know what deserves more capital?"]
+        },
+        {
+          "type": "paragraph",
+          "text": "Scaling before proof is just spending with better lighting."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Roadmap dependencies"
+        },
+        {
+          "type": "paragraph",
+          "text": "The product roadmap depends on five hard gates."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "1. Legal gate"
+        },
+        {
+          "type": "paragraph",
+          "text": "No jurisdiction launches without legal review."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "2. Partner gate"
+        },
+        {
+          "type": "paragraph",
+          "text": "No money movement launches without the right partner path."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "3. Architecture gate"
+        },
+        {
+          "type": "paragraph",
+          "text": "No non-custodial claim without technical proof."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "4. Security gate"
+        },
+        {
+          "type": "paragraph",
+          "text": "No real-money exposure without review and operating controls."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "5. Revenue gate"
+        },
+        {
+          "type": "paragraph",
+          "text": "No scale spend without evidence that B2B or funded consumer behavior supports it."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What must wait"
+        },
+        {
+          "type": "paragraph",
+          "text": "Some features may be attractive but should wait."
+        },
+        {
+          "type": "table",
+          "headers": ["Feature", "Why it waits"],
+          "rows": [
+            ["Broad user-to-user movement", "US money-transmission risk must be cleared"],
+            ["Many strategies", "Complexity and disclosure risk increase"],
+            ["Heavy personalization", "May create investment-advice risk"],
+            ["Advanced B2B treasury automation", "Needs B2B proof first"],
+            ["Multi-market launch", "Legal and operational gates differ"],
+            ["Large marketing spend", "Must wait for funding behavior"],
+            ["Large team", "Must follow validated bottlenecks"],
+            ["Complex enterprise reporting", "Must follow actual B2B buyer need"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A roadmap is also a list of things the company is disciplined enough not to build yet."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Investor milestones"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Milestone A — Launch gates clear"
+        },
+        {
+          "type": "paragraph",
+          "text": "The company can show what can launch, where, and under what responsibility map."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Milestone B — Product build reaches controlled readiness"
+        },
+        {
+          "type": "paragraph",
+          "text": "The first money product works in a controlled environment."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Milestone C — Partner path is signed or decisively blocked"
+        },
+        {
+          "type": "paragraph",
+          "text": "The company knows whether the money-in/out path works."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Milestone D — First users fund"
+        },
+        {
+          "type": "paragraph",
+          "text": "Users move from interest to money behavior."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Milestone E — B2B pipeline qualifies"
+        },
+        {
+          "type": "paragraph",
+          "text": "Businesses move from curiosity to serious commercial discussion."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Milestone F — Unit economics survive reality"
+        },
+        {
+          "type": "paragraph",
+          "text": "Net movement margin remains viable after partner and operational costs."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "The roadmap in one view"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "0. Foundation and gates",
+            "1. Controlled money-product build",
+            "2. Security, operations, and partner readiness",
+            "3. First controlled launch",
+            "4. B2B validation",
+            "5. Market sequencing",
+            "6. Scale only after proof"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Each step exists to answer one question:"
+        },
+        {
+          "type": "callout",
+          "lines": ["What risk are we proving next?"]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Investor takeaway"
+        },
+        {
+          "type": "paragraph",
+          "text": "The roadmap is not designed to make diBoaS look larger."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is designed to make diBoaS less uncertain."
+        },
+        {
+          "type": "paragraph",
+          "text": "The company should build in the following order:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Trust before scale.",
+            "Gates before launch.",
+            "Clarity before movement.",
+            "B2B proof before revenue claims.",
+            "Evidence before expansion."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "That is the roadmap."
+        },
+        {
+          "type": "paragraph",
+          "text": "Not the biggest product."
+        },
+        {
+          "type": "paragraph",
+          "text": "The product that proves the company."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Confidentiality note"
+        },
+        {
+          "type": "paragraph",
+          "text": "Private investor material. Do not forward or distribute without permission."
+        },
+        {
+          "type": "paragraph",
+          "text": "This document is provided for discussion purposes only. It includes forward-looking assumptions, unresolved risks, and pre-launch estimates. It is not legal, tax, financial, accounting, regulatory, or investment advice."
+        }
+      ]
+    },
+    "fees-summary": {
+      "keyPoints": [
+        "What diBoaS charges for",
+        "What diBoaS does not charge for",
+        "Core fee table",
+        "Why movement fees",
+        "Why closing fee is capped lower"
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "One-line summary"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS charges for movement."
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS does not hide spread."
+        },
+        {
+          "type": "paragraph",
+          "text": "The user should know the cost before the money moves."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Fee philosophy"
+        },
+        {
+          "type": "paragraph",
+          "text": "The fee model follows one rule:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Trust first. Charge clearly."]
+        },
+        {
+          "type": "paragraph",
+          "text": "A financial product can ask users to take risk."
+        },
+        {
+          "type": "paragraph",
+          "text": "It cannot also make them hunt for the cost."
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS is designed around visible fees, capped user exposure, and explicit pass-through costs where outside providers charge for the rails."
+        },
+        {
+          "type": "paragraph",
+          "text": "No hidden spread. No return tax."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What diBoaS charges for"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS charges when value moves."
+        },
+        {
+          "type": "paragraph",
+          "text": "The core fee events are:"
+        },
+        {
+          "type": "table",
+          "headers": ["Action", "Fee logic"],
+          "rows": [
+            ["Add money", "Movement fee"],
+            ["Cash out", "Movement fee"],
+            ["Close strategy", "Closing fee"],
+            ["Large B2B movement", "Movement fee with business cap"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The fee model is intentionally tied to action."
+        },
+        {
+          "type": "paragraph",
+          "text": "If the user does not move money, diBoaS should not manufacture revenue from confusion."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What diBoaS does not charge for"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS does not intend to charge a platform fee for every user action."
+        },
+        {
+          "type": "paragraph",
+          "text": "Current logic:"
+        },
+        {
+          "type": "table",
+          "headers": ["Action", "diBoaS fee"],
+          "rows": [
+            ["Start strategy", "0"],
+            ["Send money", "0 where supported"],
+            ["Swap", "0 where supported"],
+            ["Bridge", "0 where supported"],
+            ["Receive B2B payments", "0 where supported"],
+            ["View goals / strategy options", "0"],
+            ["See costs, liquidity, and risk", "0"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The product should make understanding free."
+        },
+        {
+          "type": "paragraph",
+          "text": "Charging people to understand risk is the wrong place to put a fee."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Core fee table"
+        },
+        {
+          "type": "table",
+          "headers": ["Product action", "diBoaS fee", "Cap"],
+          "rows": [
+            ["Add money — consumer", "0.48%", "US$250"],
+            ["Cash out — consumer", "0.48%", "US$250"],
+            ["Add money — business", "0.48%", "US$2,500"],
+            ["Cash out — business", "0.48%", "US$2,500"],
+            ["Close strategy", "0.39%", "US$25"],
+            ["Start strategy", "0", "N/A"],
+            ["Send / swap / bridge", "0 where supported", "N/A"],
+            ["Receive B2B payments", "0 where supported", "N/A"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "These are current model assumptions."
+        },
+        {
+          "type": "paragraph",
+          "text": "Final fees may change after partner pricing, legal review, market testing, compliance costs, and launch-gate confirmation."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Why movement fees"
+        },
+        {
+          "type": "paragraph",
+          "text": "Movement is the moment of value."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is also the moment the user can understand what they are paying for."
+        },
+        {
+          "type": "paragraph",
+          "text": "The fee is not attached to vague access."
+        },
+        {
+          "type": "paragraph",
+          "text": "It is attached to an action:"
+        },
+        {
+          "type": "callout",
+          "lines": ["Money enters.", "Money exits.", "A strategy closes."]
+        },
+        {
+          "type": "paragraph",
+          "text": "That makes the model easier to explain and easier to audit."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Why closing fee is capped lower"
+        },
+        {
+          "type": "paragraph",
+          "text": "The strategy-closing fee is capped at:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$25"]
+        },
+        {
+          "type": "paragraph",
+          "text": "That matters."
+        },
+        {
+          "type": "paragraph",
+          "text": "Closing a strategy is the moment a user exits. It may happen because the user reached a goal, needs liquidity, or wants to reduce exposure."
+        },
+        {
+          "type": "paragraph",
+          "text": "The product should not punish exit."
+        },
+        {
+          "type": "paragraph",
+          "text": "A financial product that traps users at the door is not a product. It is a warning sign with onboarding screens."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Consumer fee logic"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Consumer role in the model"
+        },
+        {
+          "type": "paragraph",
+          "text": "Consumer users are not expected to carry the company alone."
+        },
+        {
+          "type": "paragraph",
+          "text": "The consumer layer builds trust, distribution, product familiarity, and proof of behavior."
+        },
+        {
+          "type": "paragraph",
+          "text": "That is why the consumer fee model must be understandable and restrained."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Consumer fee priorities"
+        },
+        {
+          "type": "paragraph",
+          "text": "For consumers, fees should be:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "visible before action;",
+            "capped;",
+            "simple to explain;",
+            "tied to movement;",
+            "low-friction for strategy start;",
+            "honest about external costs."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Consumer example"
+        },
+        {
+          "type": "paragraph",
+          "text": "If a consumer adds:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$1,000"]
+        },
+        {
+          "type": "paragraph",
+          "text": "at a 0.48% movement fee, the diBoaS fee is:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$4.80"]
+        },
+        {
+          "type": "paragraph",
+          "text": "If that user later cashes out the full amount, the same movement logic applies again, subject to the cap."
+        },
+        {
+          "type": "paragraph",
+          "text": "If the user closes a strategy, the 0.39% closing fee applies, capped at US$25."
+        },
+        {
+          "type": "paragraph",
+          "text": "The user should see this before action, not after trust has already been spent."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "B2B fee logic"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why B2B supports the business model"
+        },
+        {
+          "type": "paragraph",
+          "text": "Businesses move larger amounts of cash."
+        },
+        {
+          "type": "paragraph",
+          "text": "They also need rules, visibility, reporting, and control."
+        },
+        {
+          "type": "paragraph",
+          "text": "That makes B2B movement more economically relevant than consumer movement."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "B2B fee priorities"
+        },
+        {
+          "type": "paragraph",
+          "text": "For businesses, fees should be:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "explicit;",
+            "defensible against the value of cash control;",
+            "capped for large movements;",
+            "predictable enough for finance teams;",
+            "tied to operational action;",
+            "compatible with audit and reporting."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "B2B example"
+        },
+        {
+          "type": "paragraph",
+          "text": "If a business moves:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$200,000"]
+        },
+        {
+          "type": "paragraph",
+          "text": "at a 0.48% movement fee, gross diBoaS fee before cap logic would be:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$960"]
+        },
+        {
+          "type": "paragraph",
+          "text": "If a business moves:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$500,000"]
+        },
+        {
+          "type": "paragraph",
+          "text": "the uncapped fee would be:"
+        },
+        {
+          "type": "callout",
+          "lines": ["US$2,400"]
+        },
+        {
+          "type": "paragraph",
+          "text": "still below the US$2,500 business cap."
+        },
+        {
+          "type": "paragraph",
+          "text": "The cap protects against extreme fee outcomes while preserving meaningful revenue on larger business flows."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "External and pass-through costs"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS fees are not the only possible costs."
+        },
+        {
+          "type": "paragraph",
+          "text": "External costs may include:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "network fees;",
+            "ramp fees;",
+            "bank fees;",
+            "provider fees;",
+            "FX costs;",
+            "settlement costs;",
+            "blockchain transaction costs;",
+            "compliance or verification costs;",
+            "partner service costs."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "These costs should be shown separately where possible."
+        },
+        {
+          "type": "paragraph",
+          "text": "The user should understand:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "What diBoaS charges.",
+            "What partners charge.",
+            "What the network or rails charge.",
+            "What the user receives after costs."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "If a cost is unavoidable, name it."
+        },
+        {
+          "type": "paragraph",
+          "text": "If a cost is variable, say so."
+        },
+        {
+          "type": "paragraph",
+          "text": "If a cost is pass-through, do not pretend it is margin."
+        },
+        {
+          "type": "paragraph",
+          "text": "That is not just ethical. It is cleaner business."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What should be free"
+        },
+        {
+          "type": "paragraph",
+          "text": "Some actions should remain free because they create trust and comprehension."
+        },
+        {
+          "type": "table",
+          "headers": ["Free action", "Why it should stay free"],
+          "rows": [
+            ["Viewing options", "Users should understand before acting"],
+            ["Starting a strategy", "Reduces friction and supports adoption"],
+            ["Seeing costs", "Cost visibility is a trust requirement"],
+            ["Seeing risk", "Risk visibility is not an upsell"],
+            ["Receiving B2B payments where supported", "Reduces friction for business workflows"],
+            ["Send / swap / bridge where supported", "Avoids overcharging internal utility flows"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The product should charge when value moves, not when the user is trying to understand."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What could change"
+        },
+        {
+          "type": "paragraph",
+          "text": "The fee model can change if evidence changes."
+        },
+        {
+          "type": "paragraph",
+          "text": "Potential reasons:"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Partner pricing changes"
+        },
+        {
+          "type": "paragraph",
+          "text": "If money-in/out partners charge more than expected, fees or pass-through costs may need revision."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Regulatory cost changes"
+        },
+        {
+          "type": "paragraph",
+          "text": "If compliance obligations are heavier than expected, the cost structure may change."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Market sensitivity differs"
+        },
+        {
+          "type": "paragraph",
+          "text": "Brazil, the US, Germany, and Spain may respond differently to fees, caps, and pass-through language."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "B2B value is higher or lower than modeled"
+        },
+        {
+          "type": "paragraph",
+          "text": "If businesses show stronger willingness to pay, fee packaging may evolve."
+        },
+        {
+          "type": "paragraph",
+          "text": "If B2B is more price-sensitive than expected, pricing may need to narrow."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Net margin compresses"
+        },
+        {
+          "type": "paragraph",
+          "text": "If net movement margin is too low after external costs, the model must be revised before scale."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Product scope changes"
+        },
+        {
+          "type": "paragraph",
+          "text": "If diBoaS adds features that create new regulated obligations, fees may need to reflect the new operating cost."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What should not change"
+        },
+        {
+          "type": "paragraph",
+          "text": "Even if fee numbers change, the principles should not."
+        },
+        {
+          "type": "paragraph",
+          "text": "The principles are:"
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Visible before action.",
+            "Capped where user exposure matters.",
+            "No hidden spread.",
+            "No fee on understanding.",
+            "Movement-based revenue.",
+            "External costs separated where possible."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "These are not design preferences."
+        },
+        {
+          "type": "paragraph",
+          "text": "They are trust infrastructure."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Investor questions to ask"
+        },
+        {
+          "type": "paragraph",
+          "text": "Investors should ask:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Are fees shown before every money movement?",
+            "Which costs are diBoaS revenue and which are pass-through?",
+            "What is the net margin after partner and rail costs?",
+            "Do caps protect users while preserving business economics?",
+            "Are consumer fees low enough to support trust?",
+            "Are B2B fees meaningful enough to support revenue?",
+            "Which fees depend on partner contracts?",
+            "Which fees depend on legal or regulatory review?",
+            "How does fee sensitivity differ by market?",
+            "What fee would damage trust if introduced too early?"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The last question matters more than founders usually enjoy."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Investor takeaway"
+        },
+        {
+          "type": "paragraph",
+          "text": "The fee model is simple by design."
+        },
+        {
+          "type": "callout",
+          "lines": [
+            "Movement creates revenue.",
+            "Transparency creates permission.",
+            "Caps protect trust.",
+            "B2B creates economic weight."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS should not win by hiding fees."
+        },
+        {
+          "type": "paragraph",
+          "text": "It should win by making the cost visible before the user moves money."
+        },
+        {
+          "type": "paragraph",
+          "text": "That is the fee strategy."
+        },
+        {
+          "type": "paragraph",
+          "text": "No magic. No trap doors. No pricing model that needs a flashlight and a lawyer to understand."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Confidentiality note"
+        },
+        {
+          "type": "paragraph",
+          "text": "Private investor material. Do not forward or distribute without permission."
+        },
+        {
+          "type": "paragraph",
+          "text": "This document is provided for discussion purposes only. It includes forward-looking assumptions, unresolved risks, and pre-launch estimates. It is not legal, tax, financial, accounting, regulatory, or investment advice."
+        }
+      ]
+    }
+  }
+}

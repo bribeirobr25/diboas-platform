@@ -76,7 +76,19 @@ const BUDGETS = {
   // fail clean CI. 4200 KB = ~43 KB / ~1% headroom over the clean-build truth.
   // (The "How it works" visual scaffold added 0 — not imported by any page, so
   // it is correctly tree-shaken; verified by stashing it: total unchanged.)
-  maxTotalJsKB: 4200,
+  // Recalibrated 2026-07-02 (investor-room document content, PR3): 4200 → 4800 KB.
+  // The gated /investor-room/[doc] pages render the full investor documents,
+  // stored as the `investor-docs` i18n namespace (generated blocks[] mirroring the
+  // source MD). Because i18n namespaces load via the client-reachable dynamic-
+  // import context, the ~178 KB/locale × 4 content lands as DELIBERATE, LAZY,
+  // per-namespace chunks (~+444 KB EN; ~4625 KB total). These chunks download
+  // ONLY for authenticated investors opening a document — never on any public
+  // marketing route — so there is ZERO public-user runtime/LCP impact; only the
+  // on-disk total (this metric) grows. 4800 KB covers all 4 locales incl. the
+  // Phase-2 native-translation expansion (German ~+30% text), with ~1% headroom,
+  // while the peak-asset (650 KB) + chunk-count guards stay unchanged to still
+  // catch accidental heavy imports. See INVESTOR_ROOM_DOCS_PLAN_2026-07-02.md §7.
+  maxTotalJsKB: 4800,
 
   // Total bytes across all .css chunks. Baseline ~384 KB across 10 files
   // (Tailwind base + design tokens + all CSS modules; Turbopack doesn't

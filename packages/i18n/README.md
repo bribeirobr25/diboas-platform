@@ -2,7 +2,7 @@
 
 Complete internationalization solution for the diBoaS platform with support for 4 locales.
 
-> **Scope:** This README is the canonical **namespace registry** (the 31-namespace inventory below) plus the package API reference. For app-level integration patterns — the config-translation layer (`useConfigTranslation`, `valuesByKey`), locale detection in middleware, SEO-per-locale, and the architecture principles — see `docs/tech/internationalization.md`.
+> **Scope:** This README is the canonical **namespace registry** (the 32-namespace inventory below) plus the package API reference. For app-level integration patterns — the config-translation layer (`useConfigTranslation`, `valuesByKey`), locale detection in middleware, SEO-per-locale, and the architecture principles — see `docs/tech/internationalization.md`.
 
 ## Supported Locales
 
@@ -14,7 +14,7 @@ Complete internationalization solution for the diBoaS platform with support for 
 ## Features
 
 ✅ **Automatic Locale Detection** - Browser language detection with fallback to English
-✅ **Complete Translation Coverage** - 31 namespaces per locale across all 4 locales (see Translation Files below)
+✅ **Complete Translation Coverage** - 32 namespaces per locale across all 4 locales (see Translation Files below)
 ✅ **Server & Client Support** - Separate entry points for optimal bundle size
 ✅ **Type-Safe** - Full TypeScript support
 ✅ **Zero Hardcoded Values** - All text externalized to JSON files
@@ -70,7 +70,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@diboas/i18n/config';
 
 ## Translation Files
 
-Translation files are organized by locale × namespace (31 namespaces per locale — most recently `market.json` for the Adelaide Daily dashboard):
+Translation files are organized by locale × namespace (32 namespaces per locale — most recently `investor-docs.json` — generated investor-room document bodies):
 
 ```
 packages/i18n/translations/{en, pt-BR, es, de}/
@@ -78,6 +78,7 @@ packages/i18n/translations/{en, pt-BR, es, de}/
 ├── common.json                         # Navigation, buttons, forms
 ├── dreamMode.json                      # Dream-mode goal simulator
 ├── faq.json                            # FAQ content
+├── investor-docs.json                  # Investor-room document bodies (generated blocks[])
 ├── landing-b2b.json                    # B2B landing page (incl. goal cards)
 ├── landing-b2c.json                    # B2C landing page
 ├── landing-help.json                   # Help center
@@ -119,7 +120,7 @@ Namespace parity across the 4 locales is enforced by `scripts/validate-translati
 ### Server-Safe Functions
 
 ```typescript
-// Load messages for a specific namespace (one of the 31 — see Translation Files)
+// Load messages for a specific namespace (one of the 32 — see Translation Files)
 loadMessages(locale: SupportedLocale, namespace: string): Promise<Messages>
 
 // Load all namespaces

@@ -349,7 +349,9 @@
       "statusInPrep": "En preparación",
       "covers": "Qué cubre este documento",
       "inPrepBody": "Este resumen está en preparación y se añadirá a la sala en breve. Mientras tanto, póngase en contacto y le compartiremos el borrador actual directamente.",
-      "requestCta": "Solicitar el documento completo"
+      "requestCta": "Solicitar el documento completo",
+      "downloadPdf": "Descargar PDF",
+      "keyPointsLabel": "Puntos clave"
     }
   },
   "access": {
