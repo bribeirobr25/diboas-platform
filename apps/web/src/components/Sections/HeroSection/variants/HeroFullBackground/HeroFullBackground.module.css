@@ -178,6 +178,12 @@
     margin: var(--spacing-xl);
     gap: var(--spacing-2xl);
   }
+
+  /* Opt-in (config.layout.desktopContentLift): lift the centered content block
+     ~90px above center on desktop. Desktop-only; other breakpoints unchanged. */
+  .contentLiftDesktop {
+    transform: translateY(-90px);
+  }
 }
 
 /* ================================
