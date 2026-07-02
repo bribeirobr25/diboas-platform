@@ -3,6 +3,115 @@
   margin-inline: auto;
 }
 
+/* Two-column layout: jump-to ToC beside the document body (desktop). */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--spacing-lg);
+}
+
+@media (min-width: 64rem) {
+  .layout {
+    grid-template-columns: 15rem minmax(0, 46rem);
+    justify-content: center;
+    align-items: start;
+    gap: var(--spacing-2xl);
+  }
+}
+
+/* Jump-to "On this page" nav. */
+.toc {
+  font-size: var(--font-size-sm);
+}
+
+.tocDetails {
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-secondary);
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.tocSummary {
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-primary-hover);
+  font-size: var(--font-size-overline);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  list-style: none;
+}
+.tocSummary::-webkit-details-marker {
+  display: none;
+}
+.tocSummary::after {
+  content: '▾';
+  float: right;
+  transition: transform 0.15s ease;
+}
+.tocDetails[open] .tocSummary::after {
+  transform: rotate(180deg);
+}
+
+.tocList {
+  list-style: none;
+  margin: var(--spacing-sm) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.tocList a {
+  display: block;
+  padding: var(--spacing-2xs) var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-body);
+  text-decoration: none;
+  line-height: var(--line-height-snug);
+}
+.tocList a:hover {
+  color: var(--color-brand-primary-hover);
+  background-color: var(--color-surface-elevated);
+}
+
+/* Desktop: sticky sidebar, always-open list, hide the toggle affordance. */
+@media (min-width: 64rem) {
+  .toc {
+    position: sticky;
+    top: var(--spacing-xl);
+  }
+  .tocDetails {
+    background-color: transparent;
+    border: none;
+    border-left: 2px solid var(--color-slate-200);
+    border-radius: 0;
+    padding: var(--spacing-2xs) 0 var(--spacing-2xs) var(--spacing-md);
+  }
+  /* Locked open on desktop (the summary is a static section label). */
+  .tocSummary {
+    pointer-events: none;
+    margin-bottom: var(--spacing-2xs);
+  }
+  .tocSummary::after {
+    display: none;
+  }
+}
+
+/* Anchored headings clear the top edge on jump. */
+.heading {
+  scroll-margin-top: var(--spacing-xl);
+}
+
+/* Print: no ToC chrome, body goes full width. */
+@media print {
+  .layout {
+    display: block;
+  }
+  .toc {
+    display: none;
+  }
+}
+
 /* Highlighted key-points callout */
 .keyPoints {
   margin: var(--spacing-lg) 0 var(--spacing-2xl);
