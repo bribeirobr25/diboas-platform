@@ -1,13 +1,6 @@
 {
   "docs": {
     "business-plan": {
-      "keyPoints": [
-        "What diBoaS is",
-        "The problem",
-        "How it makes money",
-        "Market & sequence",
-        "Go-to-market"
-      ],
       "blocks": [
         {
           "type": "heading",
@@ -375,13 +368,6 @@
       ]
     },
     "investor-faq": {
-      "keyPoints": [
-        "1. Business model & ROI",
-        "2. Regulatory & legal",
-        "3. Product, traction & moat",
-        "4. Team",
-        "5. The deal"
-      ],
       "blocks": [
         {
           "type": "paragraph",
@@ -586,13 +572,6 @@
       ]
     },
     "pitch-deck": {
-      "keyPoints": [
-        "Slide 1 — Title",
-        "Slide 2 — The problem",
-        "Slide 3 — The insight",
-        "Slide 4 — The product",
-        "Slide 5 — Why now"
-      ],
       "blocks": [
         {
           "type": "heading",
@@ -1172,13 +1151,6 @@
       ]
     },
     "use-of-funds": {
-      "keyPoints": [
-        "Path A — Lean founder-built path",
-        "Path B — Risk-reduction path",
-        "Budget logic",
-        "How the money should be judged",
-        "Milestone plan"
-      ],
       "blocks": [
         {
           "type": "heading",
@@ -1783,13 +1755,6 @@
       ]
     },
     "revenue-model": {
-      "keyPoints": [
-        "Consumer economics",
-        "Business economics",
-        "The blended model",
-        "Break-even logic",
-        "Fee design"
-      ],
       "blocks": [
         {
           "type": "heading",
@@ -2528,13 +2493,6 @@
       ]
     },
     "regulatory-position": {
-      "keyPoints": [
-        "What diBoaS is designed not to do",
-        "What diBoaS is designed to do",
-        "Jurisdiction logic",
-        "Product features that create regulatory risk",
-        "The operating principle"
-      ],
       "blocks": [
         {
           "type": "heading",
@@ -3227,13 +3185,6 @@
       ]
     },
     "product-roadmap": {
-      "keyPoints": [
-        "Current state",
-        "What is specified but not yet built",
-        "Phase 0 — Foundation and gating",
-        "Phase 1 — Controlled money-product build",
-        "Phase 2 — Security, operations, and partner readiness"
-      ],
       "blocks": [
         {
           "type": "heading",
@@ -4080,13 +4031,6 @@
       ]
     },
     "fees-summary": {
-      "keyPoints": [
-        "What diBoaS charges for",
-        "What diBoaS does not charge for",
-        "Core fee table",
-        "Why movement fees",
-        "Why closing fee is capped lower"
-      ],
       "blocks": [
         {
           "type": "heading",

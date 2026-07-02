@@ -186,27 +186,6 @@ function parse(md) {
   return blocks;
 }
 
-/**
- * Key points = the document's top-level section headings (its real "main
- * points" / table of contents), the first ~5 — skipping meta/summary/index
- * headings. A doc's `#` sections are its outline, so this is grounded and
- * meaningful for every document without hand-authoring.
- */
-const SKIP_HEADING = /summary|resumo|resumen|zusammenfassung|contents|index|inhalt|índice|conteúd/i;
-function keyPoints(blocks) {
-  const tops = blocks
-    .filter((b) => b.type === 'heading' && b.level === 2 && !SKIP_HEADING.test(b.text))
-    .map((b) => b.text);
-  if (tops.length >= 3) return tops.slice(0, 5);
-  // Fallbacks for docs that lead with `##` sub-headings or a summary list.
-  const anyHead = blocks
-    .filter((b) => b.type === 'heading' && !SKIP_HEADING.test(b.text))
-    .map((b) => b.text);
-  if (anyHead.length >= 3) return anyHead.slice(0, 5);
-  const firstList = blocks.find((b) => b.type === 'list');
-  return firstList ? firstList.items.slice(0, 5) : anyHead.slice(0, 5);
-}
-
 const sources = SLUG_SOURCES[locale] || SLUG_SOURCES.en;
 const docs = {};
 for (const [slug, rel] of Object.entries(sources)) {
@@ -216,11 +195,9 @@ for (const [slug, rel] of Object.entries(sources)) {
     continue;
   }
   const blocks = parse(readFileSync(path, 'utf8'));
-  docs[slug] = { keyPoints: keyPoints(blocks), blocks };
+  docs[slug] = { blocks };
   const tbl = blocks.filter((b) => b.type === 'table').length;
-  console.log(
-    `  ✓ ${slug}: ${blocks.length} blocks (${tbl} tables), ${docs[slug].keyPoints.length} key points`
-  );
+  console.log(`  ✓ ${slug}: ${blocks.length} blocks (${tbl} tables)`);
 }
 
 const out = resolve(ROOT, `packages/i18n/translations/${locale}/investor-docs.json`);

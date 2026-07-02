@@ -1,9 +1,10 @@
 /**
  * InvestorDocBody — render contract.
  *
- * Presentational mapping of generated `blocks[]` to semantic HTML. We assert the
- * key-points callout, each block type (heading level, paragraph, list, table
- * with header scope, quote), and that an empty keyPoints list is omitted.
+ * Presentational mapping of generated `blocks[]` to semantic HTML. We assert
+ * each block type (heading level, paragraph, list, table with header scope,
+ * quote, callout) and the jump-to "On this page" nav (shown only for docs with
+ * >= 3 sections, anchored to each section's stable slug id).
  *
  * @vitest-environment happy-dom
  */
@@ -13,7 +14,6 @@ import { render, screen } from '@testing-library/react';
 import { InvestorDocBody, type InvestorDocContent } from '../InvestorDocBody';
 
 const CONTENT: InvestorDocContent = {
-  keyPoints: ['Point one', 'Point two'],
   blocks: [
     { type: 'heading', level: 2, text: 'Section A' },
     { type: 'paragraph', text: 'A paragraph.' },
@@ -24,15 +24,9 @@ const CONTENT: InvestorDocContent = {
   ],
 };
 
-const LABELS = { keyPointsLabel: 'Key points', onThisPageLabel: 'On this page' };
+const LABELS = { onThisPageLabel: 'On this page' };
 
 describe('InvestorDocBody', () => {
-  it('should render the key-points callout with each point', () => {
-    render(<InvestorDocBody content={CONTENT} {...LABELS} />);
-    expect(screen.getByText('Point one')).toBeTruthy();
-    expect(screen.getByText('Point two')).toBeTruthy();
-  });
-
   it('should render each block type with correct semantics', () => {
     const { container } = render(<InvestorDocBody content={CONTENT} {...LABELS} />);
     expect(screen.getByRole('heading', { level: 2, name: 'Section A' })).toBeTruthy();
@@ -45,13 +39,6 @@ describe('InvestorDocBody', () => {
     expect(screen.getByText('Trust first. Charge clearly.')).toBeTruthy();
   });
 
-  it('should omit the callout when there are no key points', () => {
-    const { container } = render(
-      <InvestorDocBody content={{ keyPoints: [], blocks: [] }} {...LABELS} />
-    );
-    expect(container.querySelector('aside')).toBeNull();
-  });
-
   it('should omit the jump-to nav when there are fewer than three sections', () => {
     // CONTENT has a single level-2 heading — below the ToC threshold.
     const { container } = render(<InvestorDocBody content={CONTENT} {...LABELS} />);
@@ -60,7 +47,6 @@ describe('InvestorDocBody', () => {
 
   it('should render a jump-to nav with anchored links to each section', () => {
     const multi: InvestorDocContent = {
-      keyPoints: [],
       blocks: [
         { type: 'heading', level: 2, text: 'What diBoaS is' },
         { type: 'heading', level: 2, text: 'The problem' },
@@ -70,7 +56,7 @@ describe('InvestorDocBody', () => {
     const { container } = render(<InvestorDocBody content={multi} {...LABELS} />);
     const nav = container.querySelector('nav');
     expect(nav).toBeTruthy();
-    // each level-2 heading has a stable slug id that a ToC link targets
+    // each section heading has a stable slug id that a ToC link targets
     const link = nav?.querySelector('a[href="#how-it-makes-money"]');
     expect(link?.textContent).toBe('How it makes money');
     expect(container.querySelector('h2#how-it-makes-money')).toBeTruthy();

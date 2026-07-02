@@ -11,14 +11,11 @@ export type DocBlock =
   | { type: 'callout'; lines: string[] };
 
 export interface InvestorDocContent {
-  readonly keyPoints: string[];
   readonly blocks: DocBlock[];
 }
 
 interface InvestorDocBodyProps {
   readonly content: InvestorDocContent;
-  /** Localized label for the key-points callout (e.g. "Key points"). */
-  readonly keyPointsLabel: string;
   /** Localized label for the jump-to table of contents (e.g. "On this page"). */
   readonly onThisPageLabel: string;
   readonly className?: string;
@@ -80,34 +77,23 @@ function buildHeadingIds(blocks: DocBlock[]): {
 /**
  * InvestorDocBody — renders a generated investor-room document.
  *
- * Server-rendered, presentational. A highlighted "key points" callout, then the
- * document's ordered `blocks[]` rendered by type (heading / paragraph / list /
- * table / quote). The content is an exact, generated mirror of the source
- * markdown, so this component only maps blocks to semantic HTML — no parsing.
+ * Server-rendered, presentational. Renders the document's ordered `blocks[]` by
+ * type (heading / paragraph / list / table / quote / callout) beside a jump-to
+ * "On this page" nav (for docs with >= 3 sections). The content is an exact,
+ * generated mirror of the source markdown, so this component only maps blocks to
+ * semantic HTML — no parsing.
  */
 export function InvestorDocBody({
   content,
-  keyPointsLabel,
   onThisPageLabel,
   className = '',
 }: InvestorDocBodyProps) {
-  const { keyPoints, blocks } = content;
+  const { blocks } = content;
   const { idByIndex, toc } = buildHeadingIds(blocks);
   const showToc = toc.length >= TOC_MIN_SECTIONS;
 
   const doc = (
     <div className={`${styles.doc} ${className}`}>
-      {keyPoints.length > 0 ? (
-        <aside className={styles.keyPoints} aria-label={keyPointsLabel}>
-          <p className={styles.keyPointsLabel}>{keyPointsLabel}</p>
-          <ul className={styles.keyPointsList}>
-            {keyPoints.map((point, i) => (
-              <li key={i}>{point}</li>
-            ))}
-          </ul>
-        </aside>
-      ) : null}
-
       {blocks.map((block, i) => {
         switch (block.type) {
           case 'heading': {

@@ -26,7 +26,6 @@ interface DocMessages {
       inPrepBody: string;
       requestCta: string;
       downloadPdf: string;
-      keyPointsLabel: string;
       onThisPage: string;
     };
   };
@@ -76,11 +75,7 @@ export default async function InvestorDocPage({ params }: DocPageProps) {
         <p className={styles.paragraph}>{inPrep ? dp.inPrepBody : entry.summary}</p>
 
         {hasBody ? (
-          <InvestorDocBody
-            content={content}
-            keyPointsLabel={dp.keyPointsLabel}
-            onThisPageLabel={dp.onThisPage}
-          />
+          <InvestorDocBody content={content} onThisPageLabel={dp.onThisPage} />
         ) : !inPrep ? (
           <>
             <p className={styles.eyebrow}>{dp.covers}</p>
