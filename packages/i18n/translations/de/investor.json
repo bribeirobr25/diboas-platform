@@ -142,13 +142,13 @@
         "family-office": "Family Office",
         "other": "Sonstiges"
       },
-      "submit": "Zugang anfragen",
+      "submit": "Zugang anfordern",
       "submitting": "Wird gesendet…",
       "success": "Vielen Dank. Wir prüfen Ihre Anfrage und melden uns mit den passenden Unterlagen.",
       "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
       "privacyNote": "Wir verwenden Ihre Angaben ausschließlich, um Ihre Anfrage zu prüfen und uns bei Ihnen zu melden. Ihre Daten werden verschlüsselt."
     },
-    "riskNote": "diBoaS ist vor dem Launch. Das Finanzprodukt ist noch nicht verfügbar. diBoaS ist als nicht-verwahrende Oberfläche konzipiert und ist keine Bank, kein Einlagenkonto und keine Garantie. Die Produktverfügbarkeit hängt von rechtlicher Prüfung, Partnern und Launch-Gates ab."
+    "riskNote": "diBoaS ist vor dem Launch. Das Finanzprodukt ist noch nicht verfügbar. diBoaS ist als nicht-verwahrende Oberfläche konzipiert und ist keine Bank, kein Einlagenkonto, kein Sparkonto und keine Garantie. Die Produktverfügbarkeit hängt von rechtlicher Prüfung, Partnern und Launch-Gates ab."
   },
   "room": {
     "seo": {
@@ -242,17 +242,38 @@
     "snapshot": {
       "headline": "Unternehmenssnapshot",
       "rows": [
-        { "label": "Unternehmen", "value": "diBoaS" },
-        { "label": "Phase", "value": "Pre-Seed" },
-        { "label": "Standort", "value": "Berlin" },
-        { "label": "Produkt", "value": "Nicht-verwahrende Finanz-App" },
-        { "label": "Primäre Nutzer", "value": "Privatpersonen und kleine Unternehmen" },
-        { "label": "B2C-Einstieg", "value": "Ziele, Absicherung, Zugang und Klarheit" },
+        {
+          "label": "Unternehmen",
+          "value": "diBoaS"
+        },
+        {
+          "label": "Phase",
+          "value": "Pre-Seed"
+        },
+        {
+          "label": "Standort",
+          "value": "Berlin"
+        },
+        {
+          "label": "Produkt",
+          "value": "Nicht-verwahrende Finanz-App"
+        },
+        {
+          "label": "Primäre Nutzer",
+          "value": "Privatpersonen und kleine Unternehmen"
+        },
+        {
+          "label": "B2C-Einstieg",
+          "value": "Ziele, Absicherung, Zugang und Klarheit"
+        },
         {
           "label": "B2B-Einstieg",
           "value": "Liquiditätsregeln, Zahlungswege und Liquiditätssteuerung"
         },
-        { "label": "Umsatzmodell", "value": "Explizite Bewegungsgebühren" },
+        {
+          "label": "Umsatzmodell",
+          "value": "Explizite Bewegungsgebühren"
+        },
         {
           "label": "Aktueller Stand",
           "value": "Marketing-Website und Market-Intelligence-Produkt live; Finanzprodukt spezifiziert"

@@ -148,7 +148,7 @@
       "error": "Algo salió mal. Inténtelo de nuevo.",
       "privacyNote": "Utilizamos sus datos únicamente para revisar su solicitud y darle seguimiento. Su información está cifrada."
     },
-    "riskNote": "diBoaS está en fase de pre-lanzamiento. El producto financiero principal todavía no está disponible. diBoaS está diseñada como una interfaz no custodial y no es un banco, una cuenta de depósito ni una garantía. La disponibilidad del producto depende de revisión legal, socios e hitos de lanzamiento."
+    "riskNote": "diBoaS está en fase de pre-lanzamiento. El producto financiero principal todavía no está disponible. diBoaS está diseñada como una interfaz no custodial y no es un banco, una cuenta de depósito, una cuenta de ahorros ni una garantía. La disponibilidad del producto depende de revisión legal, socios e hitos de lanzamiento."
   },
   "room": {
     "seo": {
@@ -242,14 +242,38 @@
     "snapshot": {
       "headline": "Resumen de la empresa",
       "rows": [
-        { "label": "Empresa", "value": "diBoaS" },
-        { "label": "Etapa", "value": "Pre-seed" },
-        { "label": "Base", "value": "Berlín" },
-        { "label": "Producto", "value": "Aplicación financiera no custodial" },
-        { "label": "Usuarios principales", "value": "Personas y pequeñas empresas" },
-        { "label": "Entrada B2C", "value": "Objetivos, protección, acceso y claridad" },
-        { "label": "Entrada B2B", "value": "Reglas de liquidez, rutas de pago y control de caja" },
-        { "label": "Modelo de ingresos", "value": "Comisiones explícitas por movimiento" },
+        {
+          "label": "Empresa",
+          "value": "diBoaS"
+        },
+        {
+          "label": "Etapa",
+          "value": "Pre-seed"
+        },
+        {
+          "label": "Base",
+          "value": "Berlín"
+        },
+        {
+          "label": "Producto",
+          "value": "Aplicación financiera no custodial"
+        },
+        {
+          "label": "Usuarios principales",
+          "value": "Personas y pequeñas empresas"
+        },
+        {
+          "label": "Entrada B2C",
+          "value": "Objetivos, protección, acceso y claridad"
+        },
+        {
+          "label": "Entrada B2B",
+          "value": "Reglas de liquidez, rutas de pago y control de caja"
+        },
+        {
+          "label": "Modelo de ingresos",
+          "value": "Comisiones explícitas por movimiento"
+        },
         {
           "label": "Estado actual",
           "value": "Web de marketing y producto de inteligencia de mercado activos; producto financiero principal especificado"
@@ -316,7 +340,7 @@
       "linkedinLabel": "LinkedIn",
       "locationLabel": "Ubicación",
       "location": "Berlín",
-      "cta": "Agendar conversación"
+      "cta": "Agendar una conversación"
     },
     "footerNote": "Estos materiales se proporcionan únicamente con fines de discusión. Incluyen premisas futuras, riesgos abiertos y estimaciones pre-lanzamiento. No constituyen asesoramiento legal, fiscal, contable, financiero ni de inversión. Materiales privados para inversores. No reenviar ni distribuir sin autorización.",
     "docPage": {
@@ -331,7 +355,7 @@
   "access": {
     "eyebrow": "SALA PRIVADA DE INVERSORES",
     "headline": "Esta sala es privada.",
-    "body": "Introduzca la contraseña de acceso que se compartió con sus materiales para inversores. Si no tiene una, solicite acceso desde la página de inversores.",
+    "body": "Introduzca la contraseña de acceso que recibió con sus materiales para inversores. Si no tiene una, solicite acceso desde la página de inversores.",
     "passwordLabel": "Contraseña de acceso",
     "submit": "Entrar en la sala",
     "error": "Contraseña incorrecta. Inténtelo de nuevo.",

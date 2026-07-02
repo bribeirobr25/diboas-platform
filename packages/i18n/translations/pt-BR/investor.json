@@ -242,17 +242,38 @@
     "snapshot": {
       "headline": "Resumo da empresa",
       "rows": [
-        { "label": "Empresa", "value": "diBoaS" },
-        { "label": "Estágio", "value": "Pre-seed" },
-        { "label": "Base", "value": "Berlim" },
-        { "label": "Produto", "value": "Aplicativo financeiro não custodial" },
-        { "label": "Usuários principais", "value": "Pessoas físicas e pequenas empresas" },
-        { "label": "Entrada B2C", "value": "Objetivos, proteção, acesso e clareza" },
+        {
+          "label": "Empresa",
+          "value": "diBoaS"
+        },
+        {
+          "label": "Estágio",
+          "value": "Pre-seed"
+        },
+        {
+          "label": "Base",
+          "value": "Berlim"
+        },
+        {
+          "label": "Produto",
+          "value": "Aplicativo financeiro não custodial"
+        },
+        {
+          "label": "Usuários principais",
+          "value": "Pessoas físicas e pequenas empresas"
+        },
+        {
+          "label": "Entrada B2C",
+          "value": "Objetivos, proteção, acesso e clareza"
+        },
         {
           "label": "Entrada B2B",
           "value": "Regras de caixa, caminhos de pagamento e controle de liquidez"
         },
-        { "label": "Modelo de receita", "value": "Taxas explícitas de movimentação" },
+        {
+          "label": "Modelo de receita",
+          "value": "Taxas explícitas de movimentação"
+        },
         {
           "label": "Status atual",
           "value": "Site de marketing e produto de inteligência de mercado no ar; produto financeiro principal especificado"
@@ -319,7 +340,7 @@
       "linkedinLabel": "LinkedIn",
       "locationLabel": "Localização",
       "location": "Berlim",
-      "cta": "Agendar conversa"
+      "cta": "Agendar uma conversa"
     },
     "footerNote": "Estes materiais são fornecidos apenas para fins de discussão. Eles incluem premissas futuras, riscos em aberto e estimativas pré-lançamento. Não constituem aconselhamento jurídico, tributário, contábil, financeiro ou de investimento. Materiais privados para investidores. Não encaminhar ou distribuir sem autorização.",
     "docPage": {
