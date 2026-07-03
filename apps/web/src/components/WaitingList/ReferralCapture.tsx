@@ -8,7 +8,7 @@ import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
  * Captures ?ref= parameter from URL on first page load and persists
  * it in sessionStorage so the referral survives cross-page navigation.
  *
- * Rendered in both (landing) and (marketing) layouts — no UI output.
+ * Rendered in the (landing) route-group layout — no UI output.
  */
 export function ReferralCapture() {
   useEffect(() => {

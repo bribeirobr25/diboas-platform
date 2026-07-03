@@ -34,10 +34,10 @@ const DEFAULT_CONFIG: ProseSectionConfig = {
     header: 'Why We Built diBoaS',
     transitionHook: "The financial system wasn't built for you. We're changing that.",
     paragraphs: [
-      'Traditional banks charge hidden fees, lock your money in outdated systems, and offer near-zero returns on your savings.',
-      'diBoaS combines the best of traditional banking with DeFi innovation — giving you complete control over your money while earning real yields.',
+      'People save, but the system rarely explains what that money could do next. Fees appear when money moves, and better paths come wrapped in jargon.',
+      'diBoaS is a non-custodial side pocket for your goals: assign money to a purpose, see the path, cost, and risk before it moves, and keep control the whole time.',
     ],
-    emphasisLine: 'Your money should work as hard as you do.',
+    emphasisLine: 'Clear paths, named risk, money that stays yours.',
   },
   style: {
     backgroundColor: '#ffffff',
