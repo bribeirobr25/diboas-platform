@@ -43,7 +43,6 @@ diboas-platform/
     mvp/               # Spec for diboas-analytics — a SEPARATE product diBoaS hosts at /market
     tools/             # Money Tools suite docs + weekly live-data runbook
     researches/        # Dated regulatory + market deep-research reports (reference)
-    redesign/          # Redesign proposal, growth/waitlist plan, social calendars
     roadmap/           # Phase-2 forward analysis (aspirational; superseded-flagged — verify vs this file)
 ```
 
@@ -360,7 +359,7 @@ Condensed reference from `docs/tech/coding-standards.md`:
 
 ## Audit Status
 
-**Current state:** 12/12 principles of excellence compliant. The Tools audit-bundle (externally validated to v1.8), the 2026-05-26 architecture challenge, and the Track A fix backlog (A0–A17) are all closed. **~1,061 tests passing.**
+**Current state:** 12/12 principles of excellence compliant. The Tools audit-bundle (externally validated to v1.8), the 2026-05-26 architecture challenge, and the Track A fix backlog (A0–A17) are all closed. **~1,089 tests passing.**
 
 - Full audit narrative + test-count progression: **`docs/audit/AUDIT_HISTORY.md`**
 - Live security findings ledger: `docs/audit/SECURITY_FINDINGS_2026-05.md`

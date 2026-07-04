@@ -516,7 +516,7 @@ Add the event to this documentation file:
 The platform integrates with GA4 when configured via environment variables:
 
 ```env
-NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 NEXT_PUBLIC_ANALYTICS_ENDPOINT=https://your-custom-endpoint.com/events
 ```
 
