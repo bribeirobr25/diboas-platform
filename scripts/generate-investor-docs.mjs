@@ -17,6 +17,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { format, resolveConfig } from 'prettier';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -211,5 +212,12 @@ for (const [slug, rel] of Object.entries(sources)) {
 }
 
 const out = resolve(ROOT, `packages/i18n/translations/${locale}/investor-docs.json`);
-writeFileSync(out, JSON.stringify({ docs }, null, 2) + '\n');
+// Format through Prettier (repo config) so the committed JSON passes `format:check`.
+// `JSON.stringify(…, 2)` expands every array element onto its own line; Prettier
+// collapses short arrays — leaving raw output permanently out of sync with CI.
+const formatted = await format(JSON.stringify({ docs }, null, 2), {
+  ...(await resolveConfig(out)),
+  filepath: out,
+});
+writeFileSync(out, formatted);
 console.log(`\nWrote ${out}`);

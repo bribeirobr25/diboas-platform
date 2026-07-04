@@ -124,14 +124,54 @@
       "gatedNote": "Full documents are shared on request.",
       "statusLabels": { "available": "Available", "inPrep": "In preparation" },
       "docs": [
-        { "num": "01", "title": "Business Plan", "summary": "One-page overview: product, model, market, and the raise.", "status": "available" },
-        { "num": "02", "title": "Investor FAQ", "summary": "Blunt answers on economics, regulation, risk, and team.", "status": "available" },
-        { "num": "03", "title": "Use of Funds", "summary": "What the capital funds — and what it must prove.", "status": "available" },
-        { "num": "04", "title": "Revenue Model Summary", "summary": "ARPU, break-even, market sizing, and scenarios.", "status": "available" },
-        { "num": "05", "title": "Regulatory Position Summary", "summary": "Non-custodial design and jurisdiction-by-jurisdiction gates.", "status": "available" },
-        { "num": "06", "title": "Product Roadmap", "summary": "What is live, and what the raise builds, in order.", "status": "available" },
-        { "num": "07", "title": "Fees Summary", "summary": "Movement fees, caps, and where diBoaS charges $0.", "status": "available" },
-        { "num": "08", "title": "Technical Architecture Summary", "summary": "Wallet, custody model, and provider dependencies.", "status": "in-preparation" }
+        {
+          "num": "01",
+          "title": "Business Plan",
+          "summary": "One-page overview: product, model, market, and the raise.",
+          "status": "available"
+        },
+        {
+          "num": "02",
+          "title": "Investor FAQ",
+          "summary": "Blunt answers on economics, regulation, risk, and team.",
+          "status": "available"
+        },
+        {
+          "num": "03",
+          "title": "Use of Funds",
+          "summary": "What the capital funds — and what it must prove.",
+          "status": "available"
+        },
+        {
+          "num": "04",
+          "title": "Revenue Model Summary",
+          "summary": "ARPU, break-even, market sizing, and scenarios.",
+          "status": "available"
+        },
+        {
+          "num": "05",
+          "title": "Regulatory Position Summary",
+          "summary": "Non-custodial design and jurisdiction-by-jurisdiction gates.",
+          "status": "available"
+        },
+        {
+          "num": "06",
+          "title": "Product Roadmap",
+          "summary": "What is live, and what the raise builds, in order.",
+          "status": "available"
+        },
+        {
+          "num": "07",
+          "title": "Fees Summary",
+          "summary": "Movement fees, caps, and where diBoaS charges $0.",
+          "status": "available"
+        },
+        {
+          "num": "08",
+          "title": "Technical Architecture Summary",
+          "summary": "Wallet, custody model, and provider dependencies.",
+          "status": "in-preparation"
+        }
       ],
       "cta": "See the full answers"
     },

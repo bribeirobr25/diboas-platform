@@ -54,8 +54,7 @@ export default async function InvestorRoomLayout({ children, params }: InvestorR
     loadMessages(contentLocale, 'investor'),
     loadMessages(locale, 'common'),
   ]);
-  const roomBadge = (investorMessages as unknown as { room: { roomBadge: string } }).room
-    .roomBadge;
+  const roomBadge = (investorMessages as unknown as { room: { roomBadge: string } }).room.roomBadge;
   const allMessages = {
     ...flattenMessages(commonMessages, 'common'),
     ...flattenMessages(investorMessages, 'investor'),

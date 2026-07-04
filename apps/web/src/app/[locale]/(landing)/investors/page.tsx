@@ -168,7 +168,11 @@ export default async function InvestorsPage({ params }: PageProps) {
         enableReporting
         context={{ page: 'investors', locale }}
       >
-        <InvestorProse eyebrow={p.building.label} header={p.building.headline} paragraphs={p.building.body}>
+        <InvestorProse
+          eyebrow={p.building.label}
+          header={p.building.headline}
+          paragraphs={p.building.body}
+        >
           <p className={styles.pullQuote}>{p.building.pullQuote}</p>
           <p className={styles.paragraph}>{p.building.productLine}</p>
         </InvestorProse>
@@ -270,7 +274,11 @@ export default async function InvestorsPage({ params }: PageProps) {
         enableReporting
         context={{ page: 'investors', locale }}
       >
-        <InvestorProse eyebrow={p.materials.label} header={p.materials.headline} paragraphs={p.materials.body}>
+        <InvestorProse
+          eyebrow={p.materials.label}
+          header={p.materials.headline}
+          paragraphs={p.materials.body}
+        >
           <p className={styles.gatedNote}>{p.materials.gatedNote}</p>
           <InvestorDocCards docs={p.materials.docs} statusLabels={p.materials.statusLabels} />
           <div className={styles.ctaRow}>

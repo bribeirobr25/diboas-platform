@@ -21,7 +21,10 @@
         { "value": "Pre-seed · Berlim", "label": "Estágio e base" },
         { "value": "Você tem as chaves — e o dinheiro", "label": "Não custodial por design" },
         { "value": "Quatro mercados, uma espinha", "label": "Brasil · EUA · Alemanha · Espanha" },
-        { "value": "Confiança primeiro. Receita depois.", "label": "B2C ganha confiança → B2B ganha receita" },
+        {
+          "value": "Confiança primeiro. Receita depois.",
+          "label": "B2C ganha confiança → B2B ganha receita"
+        },
         { "value": "0% do seu retorno", "label": "Taxa na movimentação, nunca spread escondido" }
       ]
     },
@@ -124,14 +127,54 @@
       "gatedNote": "Os documentos completos são compartilhados sob solicitação.",
       "statusLabels": { "available": "Disponível", "inPrep": "Em preparação" },
       "docs": [
-        { "num": "01", "title": "Plano de Negócios", "summary": "Visão de uma página: produto, modelo, mercado e a rodada.", "status": "available" },
-        { "num": "02", "title": "Investor FAQ", "summary": "Respostas diretas sobre economia, regulação, risco e time.", "status": "available" },
-        { "num": "03", "title": "Uso dos Recursos", "summary": "O que o capital financia — e o que precisa provar.", "status": "available" },
-        { "num": "04", "title": "Resumo do Modelo de Receita", "summary": "ARPU, break-even, dimensionamento de mercado e cenários.", "status": "available" },
-        { "num": "05", "title": "Resumo da Posição Regulatória", "summary": "Design não custodial e os gates por jurisdição.", "status": "available" },
-        { "num": "06", "title": "Roadmap do Produto", "summary": "O que está no ar e o que a rodada constrói, em ordem.", "status": "available" },
-        { "num": "07", "title": "Resumo de Taxas", "summary": "Taxas de movimentação, limites e onde a diBoaS cobra US$0.", "status": "available" },
-        { "num": "08", "title": "Resumo da Arquitetura Técnica", "summary": "Carteira, modelo de custódia e dependências de parceiros.", "status": "in-preparation" }
+        {
+          "num": "01",
+          "title": "Plano de Negócios",
+          "summary": "Visão de uma página: produto, modelo, mercado e a rodada.",
+          "status": "available"
+        },
+        {
+          "num": "02",
+          "title": "Investor FAQ",
+          "summary": "Respostas diretas sobre economia, regulação, risco e time.",
+          "status": "available"
+        },
+        {
+          "num": "03",
+          "title": "Uso dos Recursos",
+          "summary": "O que o capital financia — e o que precisa provar.",
+          "status": "available"
+        },
+        {
+          "num": "04",
+          "title": "Resumo do Modelo de Receita",
+          "summary": "ARPU, break-even, dimensionamento de mercado e cenários.",
+          "status": "available"
+        },
+        {
+          "num": "05",
+          "title": "Resumo da Posição Regulatória",
+          "summary": "Design não custodial e os gates por jurisdição.",
+          "status": "available"
+        },
+        {
+          "num": "06",
+          "title": "Roadmap do Produto",
+          "summary": "O que está no ar e o que a rodada constrói, em ordem.",
+          "status": "available"
+        },
+        {
+          "num": "07",
+          "title": "Resumo de Taxas",
+          "summary": "Taxas de movimentação, limites e onde a diBoaS cobra US$0.",
+          "status": "available"
+        },
+        {
+          "num": "08",
+          "title": "Resumo da Arquitetura Técnica",
+          "summary": "Carteira, modelo de custódia e dependências de parceiros.",
+          "status": "in-preparation"
+        }
       ],
       "cta": "Ver as respostas completas"
     },
@@ -175,7 +218,10 @@
       "ariaLabel": "A sala num relance",
       "items": [
         { "value": "Você tem as chaves e o dinheiro", "label": "Não custodial por design" },
-        { "value": "Especificado, ainda não construído", "label": "O produto financeiro, com honestidade" },
+        {
+          "value": "Especificado, ainda não construído",
+          "label": "O produto financeiro, com honestidade"
+        },
         { "value": "4 mercados — BR · EUA · DE · ES", "label": "Uma única espinha dorsal" },
         { "value": "Confiança B2C → receita B2B", "label": "A tese em cinco palavras" },
         { "value": "Riscos nomeados, não escondidos", "label": "Itens em aberto ditos com clareza" }

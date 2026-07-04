@@ -94,7 +94,11 @@ export function InvestorRequestForm({
     // Consent-gated conversion funnel (no PII — never the email address).
     analyticsService.track({
       name: INVESTOR_EVENTS.submit,
-      parameters: { locale, investorType: form.investorType || 'unset', hasTicket: !!form.ticketSize },
+      parameters: {
+        locale,
+        investorType: form.investorType || 'unset',
+        hasTicket: !!form.ticketSize,
+      },
     });
     try {
       const { website: _honeypot, ...payload } = form;

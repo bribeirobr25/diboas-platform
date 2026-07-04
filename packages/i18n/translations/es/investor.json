@@ -20,8 +20,14 @@
       "items": [
         { "value": "Pre-seed · Berlín", "label": "Etapa y base" },
         { "value": "Tú tienes las llaves — y el dinero", "label": "No custodial por diseño" },
-        { "value": "Cuatro mercados, un mismo núcleo", "label": "Brasil · EE. UU. · Alemania · España" },
-        { "value": "Confianza primero. Ingresos después.", "label": "B2C gana confianza → B2B gana ingresos" },
+        {
+          "value": "Cuatro mercados, un mismo núcleo",
+          "label": "Brasil · EE. UU. · Alemania · España"
+        },
+        {
+          "value": "Confianza primero. Ingresos después.",
+          "label": "B2C gana confianza → B2B gana ingresos"
+        },
         { "value": "0% de tu rentabilidad", "label": "Comisión al mover, nunca un spread oculto" }
       ]
     },
@@ -124,14 +130,54 @@
       "gatedNote": "Los documentos completos se comparten bajo solicitud.",
       "statusLabels": { "available": "Disponible", "inPrep": "En preparación" },
       "docs": [
-        { "num": "01", "title": "Business Plan", "summary": "Visión de una página: producto, modelo, mercado y la ronda.", "status": "available" },
-        { "num": "02", "title": "Investor FAQ", "summary": "Respuestas directas sobre economía, regulación, riesgo y equipo.", "status": "available" },
-        { "num": "03", "title": "Uso de Fondos", "summary": "Qué financia el capital — y qué debe demostrar.", "status": "available" },
-        { "num": "04", "title": "Resumen del Modelo de Ingresos", "summary": "ARPU, break-even, tamaño de mercado y escenarios.", "status": "available" },
-        { "num": "05", "title": "Resumen de la Posición Regulatoria", "summary": "Diseño no custodial y los gates por jurisdicción.", "status": "available" },
-        { "num": "06", "title": "Roadmap de Producto", "summary": "Qué está activo y qué construye la ronda, en orden.", "status": "available" },
-        { "num": "07", "title": "Resumen de Comisiones", "summary": "Comisiones por movimiento, límites y dónde diBoaS cobra 0 $.", "status": "available" },
-        { "num": "08", "title": "Resumen de Arquitectura Técnica", "summary": "Cartera, modelo de custodia y dependencias de socios.", "status": "in-preparation" }
+        {
+          "num": "01",
+          "title": "Business Plan",
+          "summary": "Visión de una página: producto, modelo, mercado y la ronda.",
+          "status": "available"
+        },
+        {
+          "num": "02",
+          "title": "Investor FAQ",
+          "summary": "Respuestas directas sobre economía, regulación, riesgo y equipo.",
+          "status": "available"
+        },
+        {
+          "num": "03",
+          "title": "Uso de Fondos",
+          "summary": "Qué financia el capital — y qué debe demostrar.",
+          "status": "available"
+        },
+        {
+          "num": "04",
+          "title": "Resumen del Modelo de Ingresos",
+          "summary": "ARPU, break-even, tamaño de mercado y escenarios.",
+          "status": "available"
+        },
+        {
+          "num": "05",
+          "title": "Resumen de la Posición Regulatoria",
+          "summary": "Diseño no custodial y los gates por jurisdicción.",
+          "status": "available"
+        },
+        {
+          "num": "06",
+          "title": "Roadmap de Producto",
+          "summary": "Qué está activo y qué construye la ronda, en orden.",
+          "status": "available"
+        },
+        {
+          "num": "07",
+          "title": "Resumen de Comisiones",
+          "summary": "Comisiones por movimiento, límites y dónde diBoaS cobra 0 $.",
+          "status": "available"
+        },
+        {
+          "num": "08",
+          "title": "Resumen de Arquitectura Técnica",
+          "summary": "Cartera, modelo de custodia y dependencias de socios.",
+          "status": "in-preparation"
+        }
       ],
       "cta": "Ver las respuestas completas"
     },

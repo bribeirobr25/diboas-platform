@@ -19,9 +19,15 @@
       "ariaLabel": "diBoaS auf einen Blick",
       "items": [
         { "value": "Pre-Seed · Berlin", "label": "Phase und Standort" },
-        { "value": "Sie halten die Schlüssel — und das Geld", "label": "Nicht-verwahrend by design" },
+        {
+          "value": "Sie halten die Schlüssel — und das Geld",
+          "label": "Nicht-verwahrend by design"
+        },
         { "value": "Vier Märkte, ein Kern", "label": "Brasilien · USA · Deutschland · Spanien" },
-        { "value": "Vertrauen zuerst. Umsatz danach.", "label": "B2C schafft Vertrauen → B2B trägt den Umsatz" },
+        {
+          "value": "Vertrauen zuerst. Umsatz danach.",
+          "label": "B2C schafft Vertrauen → B2B trägt den Umsatz"
+        },
         { "value": "0 % Ihrer Rendite", "label": "Gebühr auf Bewegung, nie versteckter Spread" }
       ]
     },
@@ -124,14 +130,54 @@
       "gatedNote": "Die vollständigen Dokumente werden auf Anfrage geteilt.",
       "statusLabels": { "available": "Verfügbar", "inPrep": "In Vorbereitung" },
       "docs": [
-        { "num": "01", "title": "Business Plan", "summary": "Einseitiger Überblick: Produkt, Modell, Markt und die Finanzierung.", "status": "available" },
-        { "num": "02", "title": "Investor FAQ", "summary": "Direkte Antworten zu Ökonomie, Regulierung, Risiko und Team.", "status": "available" },
-        { "num": "03", "title": "Mittelverwendung", "summary": "Was das Kapital finanziert — und was es beweisen muss.", "status": "available" },
-        { "num": "04", "title": "Zusammenfassung des Umsatzmodells", "summary": "ARPU, Break-even, Marktgröße und Szenarien.", "status": "available" },
-        { "num": "05", "title": "Zusammenfassung der regulatorischen Position", "summary": "Nicht-verwahrendes Design und die Gates je Jurisdiktion.", "status": "available" },
-        { "num": "06", "title": "Produkt-Roadmap", "summary": "Was live ist und was die Finanzierung baut, der Reihe nach.", "status": "available" },
-        { "num": "07", "title": "Gebührenübersicht", "summary": "Bewegungsgebühren, Caps und wo diBoaS 0 $ berechnet.", "status": "available" },
-        { "num": "08", "title": "Zusammenfassung der technischen Architektur", "summary": "Wallet, Verwahrmodell und Partnerabhängigkeiten.", "status": "in-preparation" }
+        {
+          "num": "01",
+          "title": "Business Plan",
+          "summary": "Einseitiger Überblick: Produkt, Modell, Markt und die Finanzierung.",
+          "status": "available"
+        },
+        {
+          "num": "02",
+          "title": "Investor FAQ",
+          "summary": "Direkte Antworten zu Ökonomie, Regulierung, Risiko und Team.",
+          "status": "available"
+        },
+        {
+          "num": "03",
+          "title": "Mittelverwendung",
+          "summary": "Was das Kapital finanziert — und was es beweisen muss.",
+          "status": "available"
+        },
+        {
+          "num": "04",
+          "title": "Zusammenfassung des Umsatzmodells",
+          "summary": "ARPU, Break-even, Marktgröße und Szenarien.",
+          "status": "available"
+        },
+        {
+          "num": "05",
+          "title": "Zusammenfassung der regulatorischen Position",
+          "summary": "Nicht-verwahrendes Design und die Gates je Jurisdiktion.",
+          "status": "available"
+        },
+        {
+          "num": "06",
+          "title": "Produkt-Roadmap",
+          "summary": "Was live ist und was die Finanzierung baut, der Reihe nach.",
+          "status": "available"
+        },
+        {
+          "num": "07",
+          "title": "Gebührenübersicht",
+          "summary": "Bewegungsgebühren, Caps und wo diBoaS 0 $ berechnet.",
+          "status": "available"
+        },
+        {
+          "num": "08",
+          "title": "Zusammenfassung der technischen Architektur",
+          "summary": "Wallet, Verwahrmodell und Partnerabhängigkeiten.",
+          "status": "in-preparation"
+        }
       ],
       "cta": "Die vollständigen Antworten ansehen"
     },
