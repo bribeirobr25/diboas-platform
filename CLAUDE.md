@@ -76,7 +76,7 @@ apps/web/src/app/
                            #   goal-savings, emergency-fund, time-to-target, asset-history,
                            #   inflation-impact, currency-depreciation, card-fees, idle-cash)
     (investor-room)/       # Password-gated investor room (separate route group; noindex)
-      investor-room/       # Room landing + gated document pages (full docs + print-to-PDF, 4 locales)
+      investor-room/       # Room landing + gated document pages (full docs + print-to-PDF; EN + pt-BR native, DE/ES render EN via roomContentLocale)
   api/                     # API routes
     consent/               # Cookie/privacy consent (POST/DELETE)
     cron/                  # Audit-log retention purge (Vercel cron, daily 03:00 UTC)

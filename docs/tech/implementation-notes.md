@@ -59,6 +59,16 @@
 
 ---
 
+## Investor vertical / room (already in place — do not regress)
+
+- **Room content locale (`roomContentLocale`) — EN + pt-BR only; DE/ES render EN (2026-07-04, founder decision).** The entire gated `/investor-room` (landing + doc sub-pages + chrome/badge + doc bodies) serves **EN + pt-BR native; DE/ES render the EN content**. Mechanism: `apps/web/src/lib/i18n/roomContentLocale.ts` (`locale === 'pt-BR' ? 'pt-BR' : 'en'`), used for ALL room content loads (`investor` **and** `investor-docs`) **and** `SetHtmlLang` (html `lang` = content locale, so AT pronounces the EN content correctly). EN is the single source; the de/es `room.*` keys carry the EN value for `validate:translations` key-parity only and are **never rendered**. **The `LocaleProvider`, `LanguageSwitcher`, and URL stay on the REAL locale** — never point the provider at the content locale (that reintroduces a language-switcher bug). The public `/investors` page is UNAFFECTED and stays 4-locale native (it reads the `page.*` sub-tree at the real locale; only the room reads `room.*` via the mapper). Unit-tested: `apps/web/src/lib/i18n/__tests__/roomContentLocale.test.ts`.
+- **`InvestorReadingProgress` (client, doc pages):** thin top scroll-progress hairline; rAF-throttled passive scroll+resize listeners removed in cleanup (no `setState` thrash, no leaked listeners); **decorative** (`aria-hidden`, no `role="progressbar"`) — AT navigates by headings + the "On this page" ToC. Hidden in `@media print`. No CSS transition (width tracks scroll directly, so there is nothing to gate on `prefers-reduced-motion`).
+- **`InvestorDocNav` (server, doc pages):** prev / back-to-room / next; order derived from `room.materials.docs` (fails safe to back-to-room only if the current slug isn't found). Landmark labelled via `room.docPage.docNavAria` ("Document navigation"), kept distinct from the ToC's "On this page" nav.
+- **Doc-page analytics:** `PrintDocButton` fires `investor_pdf_download` (consent-gated via `analyticsService`, non-PII `{ doc: slug }`). **Doc-VIEW relies on auto page-views — do NOT add a duplicate `investor_doc_view`.** `investor_doc_nav` / `investor_contact_cta` are intentionally NOT wired (server-first nav; env-gated contact CTA). Request-form funnel = `investor_request_{submit,success,error}` in `InvestorRequestForm`.
+- **Derived counts + framed layout:** "Document X of 9" takes `total` from `room.materials.docs.length` (never a literal). The framed doc layout (`.docFrame`, "Option B") collapses to full-width on mobile; the frame + room chrome join the `@media print` reset so only the document body prints. The hardcoded `"Investor Room"` header badge is now i18n (`room.roomBadge`).
+
+---
+
 ## "Apply now" and "Apply post-launch" guidance
 
 These forward-looking React performance rules remain in `CLAUDE.md` § React Performance Guidelines (they are prospective rules for new code, not historical do-not-regress notes, so they stay surfaced). See that section for the "Apply now (all new code)" and "Apply post-launch (product features)" lists.

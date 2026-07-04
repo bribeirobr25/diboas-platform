@@ -15,6 +15,16 @@
       "ctaSecondary": "Leer la visión general",
       "trustNote": "Pre-lanzamiento. Pre-seed. Riesgos explicados con claridad."
     },
+    "glance": {
+      "ariaLabel": "diBoaS de un vistazo",
+      "items": [
+        { "value": "Pre-seed · Berlín", "label": "Etapa y base" },
+        { "value": "Tú tienes las llaves — y el dinero", "label": "No custodial por diseño" },
+        { "value": "Cuatro mercados, un mismo núcleo", "label": "Brasil · EE. UU. · Alemania · España" },
+        { "value": "Confianza primero. Ingresos después.", "label": "B2C gana confianza → B2B gana ingresos" },
+        { "value": "0% de tu rentabilidad", "label": "Comisión al mover, nunca un spread oculto" }
+      ]
+    },
     "thesis": {
       "label": "LA TESIS",
       "headline": "B2C crea confianza. B2B sostiene los ingresos.",
@@ -27,34 +37,25 @@
       "pullQuote": "El modelo no depende de exagerar el valor de un usuario consumidor. Depende de convertir confianza en uso empresarial."
     },
     "building": {
-      "label": "QUÉ ESTAMOS CONSTRUYENDO",
-      "headline": "Una capa de decisión antes de mover dinero.",
+      "label": "QUÉ ESTAMOS CONSTRUYENDO — Y POR QUÉ AHORA",
+      "headline": "Una capa de control para el dinero, antes de que se mueva.",
       "body": [
-        "La mayoría de interfaces financieras siguen mostrando el dinero como un único saldo. Pero el dinero tiene funciones distintas.",
-        "Para una persona, puede ser un colchón, una compra futura, una protección o un plan a largo plazo.",
-        "Para una empresa, puede ser nómina, alquiler, impuestos, proveedores, capital circulante, reserva operativa o liquidez excedente.",
-        "diBoaS empieza por la función del dinero. Después muestra el camino disponible, los costes, la liquidez y el riesgo antes de la decisión."
+        "La mayoría de las apps muestran tu dinero como un único número. Pero el dinero siempre tiene una función: un colchón de emergencia, la nómina del mes que viene, protección frente a una moneda que no deja de perder valor.",
+        "diBoaS empieza por la función del dinero. Antes de mover nada, muestra el camino, el coste, la liquidez y el riesgo. Después decides tú.",
+        "La infraestructura para hacerlo por fin existe: el dinero puede moverse, liquidarse y programarse de formas que hace una década no estaban al alcance de personas normales ni de pequeñas empresas. Pero la interfaz sigue hablando para expertos: las personas reciben promesas en vez de explicaciones; las empresas cosen su liquidez entre bancos, tarjetas, hojas de cálculo y herramientas que nunca terminan de encajar."
       ],
+      "pullQuote": "Antes de que el dinero se mueva, deberías entender el camino, el coste, la liquidez y el riesgo.",
       "productLine": "Las personas eligen un objetivo. Las empresas definen reglas. diBoaS muestra el camino antes de mover dinero."
-    },
-    "whyNow": {
-      "label": "POR QUÉ AHORA",
-      "headline": "La infraestructura ha cambiado. La explicación no siempre.",
-      "body": [
-        "El dinero puede moverse, programarse y separarse de formas que hace unos años no estaban al alcance de usuarios normales ni de pequeñas empresas. Pero muchas interfaces siguen hablando para especialistas.",
-        "Las personas reciben promesas en lugar de explicaciones. Las empresas gestionan liquidez entre bancos, tarjetas, hojas de cálculo, proveedores de pago y reportes que rara vez encajan.",
-        "diBoaS parte de una regla sencilla: antes de mover dinero, el usuario debe entender camino, coste, liquidez y riesgo."
-      ]
     },
     "marketSequence": {
       "label": "MERCADOS",
       "headline": "Un mismo núcleo. Cuatro propuestas adaptadas al mercado.",
       "body": "diBoaS está diseñada para cuatro mercados de lanzamiento, cada uno con una puerta de entrada cultural y financiera distinta.",
       "markets": [
-        "Brasil: objetivo y protección en dólar.",
-        "Estados Unidos: dinero con función, acceso y movimiento.",
-        "Alemania: planificación, claridad y riesgo visible.",
-        "España: plan, costes, prudencia y explicación."
+        { "name": "Brasil", "line": "Objetivo, y protección en dólar." },
+        { "name": "Estados Unidos", "line": "Dinero con función — acceso y movimiento." },
+        { "name": "Alemania", "line": "Planificación, claridad y riesgo visible." },
+        { "name": "España", "line": "Un plan, los costes y prudencia explicada." }
       ],
       "note": "El núcleo del producto no cambia: objetivo, regla, coste, liquidez, riesgo y control del usuario. Lo que cambia es cómo se construye la confianza en cada mercado."
     },
@@ -66,7 +67,11 @@
         "La empresa no toma spread sobre los retornos de las estrategias. Los ingresos crecen cuando el dinero entra, sale o se cierra una estrategia.",
         "El modelo es claro: el ARPU de consumidor es estructuralmente bajo. B2C construye confianza y distribución. B2B sostiene los ingresos."
       ],
-      "supporting": "Un número reducido de clientes empresariales puede pesar más que miles de usuarios individuales."
+      "supporting": "Un número reducido de clientes empresariales puede pesar más que miles de usuarios individuales.",
+      "statCallout": {
+        "value": "Unos pocos clientes empresariales",
+        "label": "pueden valer más que miles de consumidores"
+      }
     },
     "status": {
       "label": "ESTADO ACTUAL",
@@ -76,13 +81,19 @@
         "La web de marketing y el producto de inteligencia de mercado ya están activos. El producto financiero principal está especificado y planificado para construirse con la ronda.",
         "La financiación cubre la construcción del producto financiero, los hitos regulatorios de lanzamiento, la auditoría de seguridad, la infraestructura, la constitución de la entidad y la primera validación B2B."
       ],
-      "items": [
-        "Web de marketing: activa",
-        "Producto de inteligencia de mercado: activo",
-        "Producto financiero principal: especificado, todavía no construido",
-        "Análisis regulatorio: estructurado",
-        "Modelo financiero: estructurado",
-        "Fundraising: preparación pre-seed"
+      "builtLabel": "Activo hoy",
+      "built": [
+        "Web de marketing",
+        "Producto de inteligencia de mercado",
+        "Análisis regulatorio (estructurado)",
+        "Modelo financiero (estructurado)"
+      ],
+      "plannedLabel": "Lo que construye la ronda",
+      "planned": [
+        "El producto financiero",
+        "Hitos regulatorios de lanzamiento",
+        "Auditoría de seguridad e infraestructura",
+        "Primera validación B2B"
       ]
     },
     "founder": {
@@ -105,22 +116,24 @@
     },
     "materials": {
       "label": "MATERIALES PARA INVERSORES",
-      "headline": "Las respuestas completas están disponibles bajo solicitud.",
+      "headline": "Las respuestas que querríamos ver, si estuviéramos en tu lugar.",
       "body": [
         "La sala de inversores incluye el Business Plan, el Investor FAQ y materiales de apoyo sobre modelo, riesgos, uso de fondos, posición regulatoria, roadmap de producto, lógica de comisiones y arquitectura técnica.",
         "El FAQ es directo a propósito. Lo que no está resuelto aparece como punto abierto."
       ],
-      "items": [
-        "Business Plan (en preparación en español)",
-        "Investor FAQ (en preparación en español)",
-        "Uso de Fondos",
-        "Resumen del Modelo de Ingresos",
-        "Resumen de la Posición Regulatoria",
-        "Roadmap de Producto",
-        "Resumen de Comisiones",
-        "Resumen de Arquitectura Técnica (en preparación)"
+      "gatedNote": "Los documentos completos se comparten bajo solicitud.",
+      "statusLabels": { "available": "Disponible", "inPrep": "En preparación" },
+      "docs": [
+        { "num": "01", "title": "Business Plan", "summary": "Visión de una página: producto, modelo, mercado y la ronda.", "status": "available" },
+        { "num": "02", "title": "Investor FAQ", "summary": "Respuestas directas sobre economía, regulación, riesgo y equipo.", "status": "available" },
+        { "num": "03", "title": "Uso de Fondos", "summary": "Qué financia el capital — y qué debe demostrar.", "status": "available" },
+        { "num": "04", "title": "Resumen del Modelo de Ingresos", "summary": "ARPU, break-even, tamaño de mercado y escenarios.", "status": "available" },
+        { "num": "05", "title": "Resumen de la Posición Regulatoria", "summary": "Diseño no custodial y los gates por jurisdicción.", "status": "available" },
+        { "num": "06", "title": "Roadmap de Producto", "summary": "Qué está activo y qué construye la ronda, en orden.", "status": "available" },
+        { "num": "07", "title": "Resumen de Comisiones", "summary": "Comisiones por movimiento, límites y dónde diBoaS cobra 0 $.", "status": "available" },
+        { "num": "08", "title": "Resumen de Arquitectura Técnica", "summary": "Cartera, modelo de custodia y dependencias de socios.", "status": "in-preparation" }
       ],
-      "cta": "Solicitar materiales para inversores"
+      "cta": "Ver las respuestas completas"
     },
     "request": {
       "title": "Solicitar materiales para inversores",
@@ -132,7 +145,8 @@
         "investorType": "Tipo de inversor",
         "ticketSize": "Ticket habitual",
         "thesis": "Tesis o interés principal",
-        "message": "Mensaje"
+        "message": "Mensaje",
+        "emailHint": "Introduce un correo electrónico válido."
       },
       "typeOptions": {
         "angel": "Business angel",
@@ -156,6 +170,17 @@
       "description": "Materiales privados para inversores de diBoaS, fintech pre-seed con base en Berlín que construye una aplicación financiera no custodial para objetivos personales y reglas de liquidez empresarial."
     },
     "accessNote": "Materiales privados para inversores. No distribuir sin autorización.",
+    "roomBadge": "Investor Room",
+    "glance": {
+      "ariaLabel": "The room at a glance",
+      "items": [
+        { "value": "You hold the keys and the funds", "label": "Non-custodial by design" },
+        { "value": "Specified, not yet built", "label": "The money product, honestly" },
+        { "value": "4 markets — BR · US · DE · ES", "label": "One product spine" },
+        { "value": "B2C trust → B2B revenue", "label": "The thesis in five words" },
+        { "value": "Risks named, not hidden", "label": "Open items stated plainly" }
+      ]
+    },
     "hero": {
       "eyebrow": "SALA PRIVADA DE INVERSORES",
       "headline": "Empiece por las preguntas difíciles.",
@@ -213,7 +238,7 @@
           "slug": "regulatory-position",
           "num": "06",
           "title": "Resumen de la Posición Regulatoria",
-          "summary": "Arquitectura no custodial, hitos por jurisdicción, riesgo UE, dependencia del socio de entrada/salida de dinero en Brasil y opinión legal sobre movimientos entre usuarios en EE. UU.",
+          "summary": "Arquitectura no custodial, hitos por jurisdicción, riesgo UE, dependencia del socio de entrada/salida de dinero en Brasil y opiniones legales sobre movimientos entre usuarios en EE. UU. y Brasil.",
           "status": "available"
         },
         {
@@ -286,6 +311,8 @@
     },
     "builtNotBuilt": {
       "headline": "Qué está construido. Qué falta por construir.",
+      "builtLabel": "Construido",
+      "notBuiltLabel": "Todavía no construido",
       "built": [
         "Web de marketing",
         "Producto de inteligencia de mercado",
@@ -306,6 +333,7 @@
     },
     "raiseProves": {
       "headline": "La ronda financia prueba, no ruido.",
+      "pullQuote": "The first money should buy proof — not scale theater.",
       "body": [
         "El primer capital debe demostrar los puntos correctos:",
         "¿Puede construirse el producto financiero con seguridad? ¿Pueden cumplirse los hitos regulatorios de lanzamiento? ¿Puede firmarse un socio de entrada y salida de dinero? ¿Los primeros usuarios aportan dinero? ¿Aparece demanda B2B en los tamaños de contrato asumidos? ¿Se sostiene el plan founder-built o debe activarse antes el camino con ingeniero sénior?"
@@ -319,7 +347,7 @@
         "Margen neto exacto todavía no cerrado.",
         "Entidad todavía no constituida.",
         "Pipeline B2B todavía no probado.",
-        "Opinión legal sobre movimiento entre usuarios en EE. UU. todavía necesaria.",
+        "Opiniones legales sobre movimiento entre usuarios en EE. UU. y Brasil todavía necesarias.",
         "Todavía sin datos reales de tracción."
       ],
       "closing": "Cada punto tiene un hito. Ninguno se trata como resuelto."
@@ -351,7 +379,12 @@
       "inPrepBody": "Este resumen está en preparación y se añadirá a la sala en breve. Mientras tanto, póngase en contacto y le compartiremos el borrador actual directamente.",
       "requestCta": "Solicitar el documento completo",
       "downloadPdf": "Descargar PDF",
-      "onThisPage": "En esta página"
+      "onThisPage": "En esta página",
+      "prev": "Previous",
+      "next": "Next",
+      "docOf": "Document {num} of {total}",
+      "footerPrompt": "Questions, objections, or follow-up? We'd rather you ask.",
+      "docNavAria": "Document navigation"
     }
   },
   "access": {

@@ -2,7 +2,11 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
 import { InvestorProse } from '@/components/Investor/InvestorProse';
+import { InvestorGlance } from '@/components/Investor/InvestorGlance';
+import { InvestorDocCards } from '@/components/Investor/InvestorDocCards';
+import { InvestorSplitList } from '@/components/Investor/InvestorSplitList';
 import { InvestorRequestForm } from '@/components/Investor/InvestorRequestForm';
+import { StickyMobileCTA } from '@/components/UI';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import styles from '@/components/Investor/investor.module.css';
 
@@ -22,21 +26,54 @@ interface InvestorPageMessages {
       ctaSecondary: string;
       trustNote: string;
     };
+    glance: { ariaLabel: string; items: { value: string; label: string }[] };
     thesis: { label: string; headline: string; body: string[]; pullQuote: string };
-    building: { label: string; headline: string; body: string[]; productLine: string };
-    whyNow: { label: string; headline: string; body: string[] };
+    building: {
+      label: string;
+      headline: string;
+      body: string[];
+      pullQuote: string;
+      productLine: string;
+    };
     marketSequence: {
       label: string;
       headline: string;
       body: string;
-      markets: string[];
+      markets: { name: string; line: string }[];
       note: string;
     };
-    businessModel: { label: string; headline: string; body: string[]; supporting: string };
-    status: { label: string; headline: string; body: string[]; items: string[] };
+    businessModel: {
+      label: string;
+      headline: string;
+      body: string[];
+      supporting: string;
+      statCallout: { value: string; label: string };
+    };
+    status: {
+      label: string;
+      headline: string;
+      body: string[];
+      builtLabel: string;
+      built: string[];
+      plannedLabel: string;
+      planned: string[];
+    };
     founder: { label: string; headline: string; body: string[] };
     raise: { label: string; headline: string; body: string[]; privateNote: string };
-    materials: { label: string; headline: string; body: string[]; items: string[]; cta: string };
+    materials: {
+      label: string;
+      headline: string;
+      body: string[];
+      gatedNote: string;
+      statusLabels: { available: string; inPrep: string };
+      docs: {
+        num: string;
+        title: string;
+        summary: string;
+        status: 'available' | 'in-preparation';
+      }[];
+      cta: string;
+    };
     request: {
       title: string;
       intro: string;
@@ -79,7 +116,7 @@ export default async function InvestorsPage({ params }: PageProps) {
   return (
     <div className="main-page-wrapper">
       {/* Hero */}
-      <section className={styles.hero}>
+      <section className={styles.hero} data-section-id="investor-hero">
         <div className={styles.heroInner}>
           <p className={styles.eyebrow}>{p.hero.eyebrow}</p>
           <h1 className={styles.heroHeadline}>{p.hero.headline}</h1>
@@ -96,6 +133,16 @@ export default async function InvestorsPage({ params }: PageProps) {
           <p className={styles.trustNote}>{p.hero.trustNote}</p>
         </div>
       </section>
+
+      {/* At a glance */}
+      <SectionErrorBoundary
+        sectionId="investor-glance"
+        sectionType="ProseSection"
+        enableReporting
+        context={{ page: 'investors', locale }}
+      >
+        <InvestorGlance items={p.glance.items} ariaLabel={p.glance.ariaLabel} />
+      </SectionErrorBoundary>
 
       <SectionErrorBoundary
         sectionId="investor-thesis"
@@ -114,31 +161,17 @@ export default async function InvestorsPage({ params }: PageProps) {
         </InvestorProse>
       </SectionErrorBoundary>
 
+      {/* What we're building — and why now (merged) */}
       <SectionErrorBoundary
         sectionId="investor-building"
         sectionType="ProseSection"
         enableReporting
         context={{ page: 'investors', locale }}
       >
-        <InvestorProse
-          eyebrow={p.building.label}
-          header={p.building.headline}
-          paragraphs={[...p.building.body, p.building.productLine]}
-        />
-      </SectionErrorBoundary>
-
-      <SectionErrorBoundary
-        sectionId="investor-why-now"
-        sectionType="ProseSection"
-        enableReporting
-        context={{ page: 'investors', locale }}
-      >
-        <InvestorProse
-          tone="neutral"
-          eyebrow={p.whyNow.label}
-          header={p.whyNow.headline}
-          paragraphs={p.whyNow.body}
-        />
+        <InvestorProse eyebrow={p.building.label} header={p.building.headline} paragraphs={p.building.body}>
+          <p className={styles.pullQuote}>{p.building.pullQuote}</p>
+          <p className={styles.paragraph}>{p.building.productLine}</p>
+        </InvestorProse>
       </SectionErrorBoundary>
 
       <SectionErrorBoundary
@@ -148,15 +181,19 @@ export default async function InvestorsPage({ params }: PageProps) {
         context={{ page: 'investors', locale }}
       >
         <InvestorProse
+          tone="neutral"
           eyebrow={p.marketSequence.label}
           header={p.marketSequence.headline}
           paragraphs={[p.marketSequence.body]}
         >
-          <ul className={styles.list}>
+          <div className={styles.marketGrid}>
             {p.marketSequence.markets.map((m) => (
-              <li key={m}>{m}</li>
+              <div key={m.name} className={styles.docCard}>
+                <h3 className={styles.marketName}>{m.name}</h3>
+                <p className={styles.marketLine}>{m.line}</p>
+              </div>
             ))}
-          </ul>
+          </div>
           <p className={styles.paragraph}>{p.marketSequence.note}</p>
         </InvestorProse>
       </SectionErrorBoundary>
@@ -168,13 +205,18 @@ export default async function InvestorsPage({ params }: PageProps) {
         context={{ page: 'investors', locale }}
       >
         <InvestorProse
-          tone="neutral"
           eyebrow={p.businessModel.label}
           header={p.businessModel.headline}
-          paragraphs={[...p.businessModel.body, p.businessModel.supporting]}
-        />
+          paragraphs={p.businessModel.body}
+        >
+          <div className={styles.statCallout}>
+            <span className={styles.statValue}>{p.businessModel.statCallout.value}</span>
+            <span className={styles.statLabel}>{p.businessModel.statCallout.label}</span>
+          </div>
+        </InvestorProse>
       </SectionErrorBoundary>
 
+      {/* Current status — Live / Planned split */}
       <SectionErrorBoundary
         sectionId="investor-status"
         sectionType="ProseSection"
@@ -182,15 +224,15 @@ export default async function InvestorsPage({ params }: PageProps) {
         context={{ page: 'investors', locale }}
       >
         <InvestorProse
+          tone="neutral"
           eyebrow={p.status.label}
           header={p.status.headline}
           paragraphs={p.status.body}
         >
-          <ul className={styles.list}>
-            {p.status.items.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+          <InvestorSplitList
+            left={{ title: p.status.builtLabel, items: p.status.built }}
+            right={{ title: p.status.plannedLabel, items: p.status.planned }}
+          />
         </InvestorProse>
       </SectionErrorBoundary>
 
@@ -201,7 +243,6 @@ export default async function InvestorsPage({ params }: PageProps) {
         context={{ page: 'investors', locale }}
       >
         <InvestorProse
-          tone="neutral"
           eyebrow={p.founder.label}
           header={p.founder.headline}
           paragraphs={p.founder.body}
@@ -215,29 +256,28 @@ export default async function InvestorsPage({ params }: PageProps) {
         context={{ page: 'investors', locale }}
       >
         <InvestorProse
+          tone="neutral"
           eyebrow={p.raise.label}
           header={p.raise.headline}
           paragraphs={[...p.raise.body, p.raise.privateNote]}
         />
       </SectionErrorBoundary>
 
+      {/* Investor materials — data-room card grid */}
       <SectionErrorBoundary
         sectionId="investor-materials"
         sectionType="ProseSection"
         enableReporting
         context={{ page: 'investors', locale }}
       >
-        <InvestorProse
-          tone="neutral"
-          eyebrow={p.materials.label}
-          header={p.materials.headline}
-          paragraphs={p.materials.body}
-        >
-          <ul className={styles.list}>
-            {p.materials.items.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+        <InvestorProse eyebrow={p.materials.label} header={p.materials.headline} paragraphs={p.materials.body}>
+          <p className={styles.gatedNote}>{p.materials.gatedNote}</p>
+          <InvestorDocCards docs={p.materials.docs} statusLabels={p.materials.statusLabels} />
+          <div className={styles.ctaRow}>
+            <a href="#request" className={styles.ctaPrimary}>
+              {p.materials.cta}
+            </a>
+          </div>
         </InvestorProse>
       </SectionErrorBoundary>
 
@@ -265,6 +305,14 @@ export default async function InvestorsPage({ params }: PageProps) {
       </section>
 
       <p className={styles.footerNote}>{p.riskNote}</p>
+
+      {/* Persistent mobile CTA → the request form */}
+      <StickyMobileCTA
+        appearAfterSelector='[data-section-id="investor-hero"]'
+        hideNearId="request"
+        targetId="request"
+        ctaText={p.hero.ctaPrimary}
+      />
     </div>
   );
 }

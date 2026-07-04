@@ -33,7 +33,26 @@ function getReducedMotionServerSnapshot() {
   return false;
 }
 
-export function StickyMobileCTA() {
+interface StickyMobileCTAProps {
+  /** CSS selector for the element the CTA appears after (defaults to the B2C hero). */
+  appearAfterSelector?: string;
+  /** Element id that hides the CTA when it becomes visible (defaults to `waitlist`). */
+  hideNearId?: string;
+  /** Element id the CTA scrolls to on click (defaults to `waitlist`). */
+  targetId?: string;
+  /** i18n message id for the button label (defaults to the B2C mobile CTA). */
+  ctaTextId?: string;
+  /** Pre-resolved label string; when provided it bypasses `ctaTextId` (avoids needing the namespace client-side). */
+  ctaText?: string;
+}
+
+export function StickyMobileCTA({
+  appearAfterSelector = '[data-section-id="hero-section-b2c"]',
+  hideNearId = 'waitlist',
+  targetId = 'waitlist',
+  ctaTextId = 'landing-b2c.nav.ctaMobile',
+  ctaText,
+}: StickyMobileCTAProps = {}) {
   const intl = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   const heroVisibleRef = useRef(true);
@@ -54,8 +73,8 @@ export function StickyMobileCTA() {
   }, []);
 
   useEffect(() => {
-    const heroEl = document.querySelector('[data-section-id="hero-section-b2c"]');
-    const waitlistEl = document.getElementById('waitlist');
+    const heroEl = document.querySelector(appearAfterSelector);
+    const waitlistEl = document.getElementById(hideNearId);
 
     if (!heroEl) return;
 
@@ -84,16 +103,16 @@ export function StickyMobileCTA() {
       heroObserver.disconnect();
       waitlistObserver.disconnect();
     };
-  }, [updateVisibility]);
+  }, [updateVisibility, appearAfterSelector, hideNearId]);
 
-  const handleClick = useCallback(() => {
-    const waitlistEl = document.getElementById('waitlist');
-    if (waitlistEl) {
-      waitlistEl.scrollIntoView({ behavior: 'smooth' });
+  const handleClick = () => {
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth' });
     }
-  }, []);
+  };
 
-  const ctaText = intl.formatMessage({ id: 'landing-b2c.nav.ctaMobile' });
+  const label = ctaText ?? intl.formatMessage({ id: ctaTextId });
 
   return (
     <div
@@ -132,9 +151,9 @@ export function StickyMobileCTA() {
           letterSpacing: 'var(--letter-spacing-wide)',
         }}
         tabIndex={isVisible ? 0 : -1}
-        aria-label={ctaText}
+        aria-label={label}
       >
-        {ctaText}
+        {label}
       </button>
     </div>
   );

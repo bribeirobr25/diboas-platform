@@ -15,6 +15,16 @@
       "ctaSecondary": "Read the investor overview",
       "trustNote": "Pre-launch. Pre-seed. Risks named directly."
     },
+    "glance": {
+      "ariaLabel": "diBoaS at a glance",
+      "items": [
+        { "value": "Pre-seed · Berlin", "label": "Stage and base" },
+        { "value": "You hold the keys — and the funds", "label": "Non-custodial by design" },
+        { "value": "Four markets, one spine", "label": "Brazil · US · Germany · Spain" },
+        { "value": "Trust first. Revenue next.", "label": "B2C earns trust → B2B earns revenue" },
+        { "value": "0% of your returns", "label": "Fees on movement, never a hidden spread" }
+      ]
+    },
     "thesis": {
       "label": "THE THESIS",
       "headline": "B2C builds trust. B2B builds the business.",
@@ -27,34 +37,25 @@
       "pullQuote": "The model is not built on hiding consumer ARPU. It is built on being honest about it."
     },
     "building": {
-      "label": "WHAT WE ARE BUILDING",
-      "headline": "A control layer for money before it moves.",
+      "label": "WHAT WE'RE BUILDING — AND WHY NOW",
+      "headline": "A control layer for money, before it moves.",
       "body": [
-        "Most financial interfaces show money as one balance. But money has different jobs.",
-        "For a consumer, it may be an emergency reserve, a future purchase, or protection from inflation.",
-        "For a business, it may be payroll, rent, taxes, supplier payments, operating reserves, or excess liquidity.",
-        "diBoaS starts with the job of the money. Then it shows the available path, cost, liquidity, and risk before action."
+        "Most apps show your money as one number. But money always has a job — an emergency reserve, next quarter's payroll, protection from a currency that keeps slipping.",
+        "diBoaS starts with the job of the money. Before anything moves, it shows the path, the cost, the liquidity, and the risk. Then you decide.",
+        "The rails to do this finally exist: money can move, settle, and be programmed in ways ordinary people and small businesses could not reach a decade ago. But the interface still speaks to insiders — consumers get promises instead of explanations; businesses stitch cash across banks, cards, spreadsheets, and tools that never quite fit together."
       ],
+      "pullQuote": "Before money moves, you should understand the path, the cost, the liquidity, and the risk.",
       "productLine": "Consumers choose a goal. Businesses set rules. diBoaS shows the path before money moves."
-    },
-    "whyNow": {
-      "label": "WHY NOW",
-      "headline": "The rails changed. The interface did not.",
-      "body": [
-        "Money can now move, settle, and be programmed in ways that were not available to ordinary users or small businesses a decade ago. But most products still speak to experts.",
-        "Consumers are offered promises instead of explanations. Businesses manage cash through banks, cards, spreadsheets, payment tools, and reports that rarely fit together.",
-        "diBoaS is built around a simpler standard: before money moves, the user should understand the path, cost, liquidity, and risk."
-      ]
     },
     "marketSequence": {
       "label": "MARKET SEQUENCE",
       "headline": "One product spine. Four market-native propositions.",
       "body": "diBoaS is designed for four launch markets, each with a different cultural and financial entry point.",
       "markets": [
-        "Brazil: objective and dollar protection.",
-        "United States: money with a job, access, and movement.",
-        "Germany: planning, clarity, and visible risk.",
-        "Spain: plan, costs, prudence, and explanation."
+        { "name": "Brazil", "line": "Objective, and protection in dollars." },
+        { "name": "United States", "line": "Money with a job — access and movement." },
+        { "name": "Germany", "line": "Planning, clarity, and visible risk." },
+        { "name": "Spain", "line": "A plan, the costs, and prudence explained." }
       ],
       "note": "The product spine stays consistent: purpose, rules, cost, liquidity, risk, and user control. The market story changes because trust is local."
     },
@@ -66,7 +67,11 @@
         "The company does not take a spread on strategy returns. Revenue scales when money enters, exits, or a strategy closes.",
         "The honest model is simple: consumer ARPU is structurally small. B2C builds trust and distribution. B2B drives revenue."
       ],
-      "supporting": "A small number of business clients can be worth more than thousands of individual users."
+      "supporting": "A small number of business clients can be worth more than thousands of individual users.",
+      "statCallout": {
+        "value": "A few business clients",
+        "label": "can be worth more than thousands of consumers"
+      }
     },
     "status": {
       "label": "CURRENT STATUS",
@@ -76,13 +81,19 @@
         "The marketing site and market-intelligence product are live. The money product is specified and planned for the funded build.",
         "The current raise funds the money-product build, regulatory launch gates, security audit, infrastructure, incorporation, and first B2B validation."
       ],
-      "items": [
-        "Marketing site: live",
-        "Market-intelligence product: live",
-        "Money product: specified, not yet built",
-        "Regulatory analysis: drafted",
-        "Financial model: drafted",
-        "Fundraising: pre-seed preparation"
+      "builtLabel": "Live today",
+      "built": [
+        "Marketing site",
+        "Market-intelligence product",
+        "Regulatory analysis (drafted)",
+        "Financial model (drafted)"
+      ],
+      "plannedLabel": "What the raise builds",
+      "planned": [
+        "The money product",
+        "Regulatory launch gates",
+        "Security audit and infrastructure",
+        "First B2B validation"
       ]
     },
     "founder": {
@@ -105,22 +116,24 @@
     },
     "materials": {
       "label": "INVESTOR MATERIALS",
-      "headline": "The full answers are available on request.",
+      "headline": "The answers we would want to see, if we were you.",
       "body": [
         "The investor room includes the Business Plan, Investor FAQ, and supporting materials covering the model, risks, use of funds, regulatory position, product roadmap, fee logic, and technical architecture.",
         "The FAQ is intentionally direct. If something is unresolved, it is named."
       ],
-      "items": [
-        "Business Plan",
-        "Investor FAQ",
-        "Use of Funds",
-        "Revenue Model Summary",
-        "Regulatory Position Summary",
-        "Product Roadmap",
-        "Fees Summary",
-        "Technical Architecture Summary (in preparation)"
+      "gatedNote": "Full documents are shared on request.",
+      "statusLabels": { "available": "Available", "inPrep": "In preparation" },
+      "docs": [
+        { "num": "01", "title": "Business Plan", "summary": "One-page overview: product, model, market, and the raise.", "status": "available" },
+        { "num": "02", "title": "Investor FAQ", "summary": "Blunt answers on economics, regulation, risk, and team.", "status": "available" },
+        { "num": "03", "title": "Use of Funds", "summary": "What the capital funds — and what it must prove.", "status": "available" },
+        { "num": "04", "title": "Revenue Model Summary", "summary": "ARPU, break-even, market sizing, and scenarios.", "status": "available" },
+        { "num": "05", "title": "Regulatory Position Summary", "summary": "Non-custodial design and jurisdiction-by-jurisdiction gates.", "status": "available" },
+        { "num": "06", "title": "Product Roadmap", "summary": "What is live, and what the raise builds, in order.", "status": "available" },
+        { "num": "07", "title": "Fees Summary", "summary": "Movement fees, caps, and where diBoaS charges $0.", "status": "available" },
+        { "num": "08", "title": "Technical Architecture Summary", "summary": "Wallet, custody model, and provider dependencies.", "status": "in-preparation" }
       ],
-      "cta": "Request investor materials"
+      "cta": "See the full answers"
     },
     "request": {
       "title": "Request investor materials",
@@ -132,7 +145,8 @@
         "investorType": "Investor type",
         "ticketSize": "Typical ticket size",
         "thesis": "Relevant thesis or interest",
-        "message": "Message"
+        "message": "Message",
+        "emailHint": "Please enter a valid email address."
       },
       "typeOptions": {
         "angel": "Angel investor",
@@ -156,6 +170,17 @@
       "description": "Private investor materials for diBoaS, a Berlin-based pre-seed fintech building a non-custodial financial app for consumer goals and business cash rules."
     },
     "accessNote": "Private investor materials. Do not distribute without permission.",
+    "roomBadge": "Investor Room",
+    "glance": {
+      "ariaLabel": "The room at a glance",
+      "items": [
+        { "value": "You hold the keys and the funds", "label": "Non-custodial by design" },
+        { "value": "Specified, not yet built", "label": "The money product, honestly" },
+        { "value": "4 markets — BR · US · DE · ES", "label": "One product spine" },
+        { "value": "B2C trust → B2B revenue", "label": "The thesis in five words" },
+        { "value": "Risks named, not hidden", "label": "Open items stated plainly" }
+      ]
+    },
     "hero": {
       "eyebrow": "PRIVATE INVESTOR ROOM",
       "headline": "Start with the hard questions.",
@@ -213,7 +238,7 @@
           "slug": "regulatory-position",
           "num": "06",
           "title": "Regulatory Position Summary",
-          "summary": "Non-custodial architecture, jurisdiction-specific gates, EU risk, Brazil partner dependency, and US user-to-user transfer opinion.",
+          "summary": "Non-custodial architecture, jurisdiction-specific gates, EU risk, Brazil partner dependency, and US and Brazil user-to-user transfer opinions.",
           "status": "available"
         },
         {
@@ -286,6 +311,8 @@
     },
     "builtNotBuilt": {
       "headline": "What is built, what is not.",
+      "builtLabel": "Built",
+      "notBuiltLabel": "Not yet built",
       "built": [
         "Marketing site",
         "Market-intelligence product",
@@ -306,6 +333,7 @@
     },
     "raiseProves": {
       "headline": "The raise funds proof, not theater.",
+      "pullQuote": "The first money should buy proof — not scale theater.",
       "body": [
         "The first money should prove the right things:",
         "Can the money product ship safely? Can the regulatory launch gates be cleared? Can a money-in/out partner be signed? Can early users fund accounts? Can B2B demand show up at the assumed deal sizes? Can the founder-built plan hold, or should the senior engineer path be activated earlier?"
@@ -319,7 +347,7 @@
         "Exact net margin not yet pinned.",
         "Entity not incorporated.",
         "B2B pipeline not yet proven.",
-        "US user-to-user transfer opinion still required.",
+        "US and Brazil user-to-user transfer opinions still required.",
         "No traction data yet."
       ],
       "closing": "Each one has a gate. None is treated as solved."
@@ -351,7 +379,12 @@
       "inPrepBody": "This summary is in preparation and will be added to the room shortly. In the meantime, reach out and we will share the current draft directly.",
       "requestCta": "Request the full document",
       "downloadPdf": "Download PDF",
-      "onThisPage": "On this page"
+      "onThisPage": "On this page",
+      "prev": "Previous",
+      "next": "Next",
+      "docOf": "Document {num} of {total}",
+      "footerPrompt": "Questions, objections, or follow-up? We'd rather you ask.",
+      "docNavAria": "Document navigation"
     }
   },
   "access": {
