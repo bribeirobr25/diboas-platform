@@ -187,7 +187,7 @@ Documented in `apps/web/.env.example` (~120 variables across these categories):
 | Waitlist      | `FOUNDING_MEMBER_CAP`, `INTERNAL_API_KEY`                                 |
 | Cron          | `CRON_SECRET` (Bearer-auths the Vercel cron `/api/cron/purge-audit-logs`) |
 | Analytics     | `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_POSTHOG_KEY`  |
-| Security      | `CSP_NONCE_SECRET`, `ENCRYPTION_KEY`, `HMAC_KEY`                          |
+| Security      | `ENCRYPTION_KEY`, `HMAC_KEY`, `CSRF_ADDITIONAL_ORIGINS`                   |
 | Rate limiting | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`                      |
 | Feature flags | `NEXT_PUBLIC_ENABLE_BOOKING`, `NEXT_PUBLIC_ENABLE_REFERRALS`              |
 | Brand / SEO   | `NEXT_PUBLIC_BRAND_NAME`, `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`          |

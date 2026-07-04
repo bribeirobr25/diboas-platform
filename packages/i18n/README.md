@@ -2,7 +2,7 @@
 
 Complete internationalization solution for the diBoaS platform with support for 4 locales.
 
-> **Scope:** This README is the canonical **namespace registry** (the 32-namespace inventory below) plus the package API reference. For app-level integration patterns — the config-translation layer (`useConfigTranslation`, `valuesByKey`), locale detection in middleware, SEO-per-locale, and the architecture principles — see `docs/tech/internationalization.md`.
+> **Scope:** This README is the canonical **namespace registry** (the 33-namespace inventory below) plus the package API reference. For app-level integration patterns — the config-translation layer (`useConfigTranslation`, `valuesByKey`), locale detection in middleware, SEO-per-locale, and the architecture principles — see `docs/tech/internationalization.md`.
 
 ## Supported Locales
 
@@ -121,7 +121,7 @@ Namespace parity across the 4 locales is enforced by `scripts/validate-translati
 ### Server-Safe Functions
 
 ```typescript
-// Load messages for a specific namespace (one of the 32 — see Translation Files)
+// Load messages for a specific namespace (one of the 33 — see Translation Files)
 loadMessages(locale: SupportedLocale, namespace: string): Promise<Messages>
 
 // Load all namespaces

@@ -43,7 +43,7 @@ apps/web/public/assets/
     └── security-banner.avif
 ```
 
-**Note:** The `ASSET_PATHS` config in `assets.ts` also defines paths for `socials/` and `mascots/` subdirectories. These physical files have not been added yet; the config is pre-wired for upcoming assets.
+**Note:** The `ASSET_PATHS` config in `assets.ts` also defines paths for `socials/` and `mascots/` subdirectories. The `socials/` assets have shipped (`apps/web/public/assets/socials/`, referenced from `assets.ts`); `mascots/` physical files are not added yet (config pre-wired for upcoming assets).
 
 ## Image Formats
 
