@@ -15,6 +15,22 @@
       "ctaSecondary": "Überblick lesen",
       "trustNote": "Pre-Seed. Vor dem Launch. Risiken klar benannt."
     },
+    "glance": {
+      "ariaLabel": "diBoaS auf einen Blick",
+      "items": [
+        { "value": "Pre-Seed · Berlin", "label": "Phase und Standort" },
+        {
+          "value": "Sie halten die Schlüssel — und das Geld",
+          "label": "Nicht-verwahrend by design"
+        },
+        { "value": "Vier Märkte, ein Kern", "label": "Brasilien · USA · Deutschland · Spanien" },
+        {
+          "value": "Vertrauen zuerst. Umsatz danach.",
+          "label": "B2C schafft Vertrauen → B2B trägt den Umsatz"
+        },
+        { "value": "0 % Ihrer Rendite", "label": "Gebühr auf Bewegung, nie versteckter Spread" }
+      ]
+    },
     "thesis": {
       "label": "DIE THESE",
       "headline": "B2C schafft Vertrauen. B2B trägt den Umsatz.",
@@ -27,34 +43,25 @@
       "pullQuote": "Das Modell versteckt keine schwache Consumer-Ökonomie. Es erklärt, wo Vertrauen wirtschaftlich wird."
     },
     "building": {
-      "label": "WAS WIR BAUEN",
-      "headline": "Eine Entscheidungsebene, bevor Geld bewegt wird.",
+      "label": "WAS WIR BAUEN — UND WARUM JETZT",
+      "headline": "Eine Kontrollebene für Geld, bevor es sich bewegt.",
       "body": [
-        "Viele Finanzoberflächen zeigen Geld als einen Kontostand. In der Realität hat Geld unterschiedliche Aufgaben.",
-        "Für Privatpersonen kann es Rücklage, Absicherung, größere Anschaffung oder langfristiger Plan sein.",
-        "Für Unternehmen kann es Gehalt, Miete, Steuern, Lieferanten, Betriebsmittel, Reserve oder überschüssige Liquidität sein.",
-        "diBoaS beginnt mit der Aufgabe des Geldes. Danach zeigt das Produkt den verfügbaren Weg, die Kosten, die Liquidität und das Risiko vor der Entscheidung."
+        "Die meisten Apps zeigen Ihr Geld als eine einzige Zahl. Dabei hat Geld immer eine Aufgabe — eine Notreserve, die nächste Gehaltsrunde, Schutz vor einer Währung, die stetig an Wert verliert.",
+        "diBoaS beginnt mit der Aufgabe des Geldes. Bevor sich etwas bewegt, zeigt es Weg, Kosten, Liquidität und Risiko. Dann entscheiden Sie.",
+        "Die Infrastruktur dafür existiert endlich: Geld lässt sich bewegen, abwickeln und programmieren, wie es normalen Menschen und kleinen Unternehmen vor einem Jahrzehnt nicht möglich war. Aber die Oberfläche spricht weiter Insider an — Privatpersonen bekommen Versprechen statt Erklärungen; Unternehmen flicken ihre Liquidität über Banken, Karten, Tabellen und Tools zusammen, die nie ganz zueinander passen."
       ],
+      "pullQuote": "Bevor Geld sich bewegt, sollten Sie Weg, Kosten, Liquidität und Risiko verstehen.",
       "productLine": "Privatpersonen wählen ein Ziel. Unternehmen definieren Regeln. diBoaS zeigt den Weg, bevor Geld bewegt wird."
-    },
-    "whyNow": {
-      "label": "WARUM JETZT",
-      "headline": "Die Infrastruktur hat sich verändert. Die Erklärung oft nicht.",
-      "body": [
-        "Geld kann heute anders bewegt, programmiert und getrennt werden als noch vor wenigen Jahren. Aber viele Produkte sprechen weiterhin vor allem Expertinnen und Experten an.",
-        "Privatpersonen bekommen Versprechen statt Erklärung. Unternehmen verwalten Liquidität über Banken, Karten, Tabellen, Zahlungsanbieter und Berichte, die selten zusammenpassen.",
-        "diBoaS folgt einem einfachen Standard: Bevor Geld bewegt wird, müssen Weg, Kosten, Liquidität und Risiko verständlich sein."
-      ]
     },
     "marketSequence": {
       "label": "MARKTSEQUENZ",
       "headline": "Ein Produktkern. Vier unterschiedliche Marktzugänge.",
       "body": "diBoaS ist für vier Launch-Märkte konzipiert. Jeder Markt hat einen anderen kulturellen und finanziellen Einstiegspunkt.",
       "markets": [
-        "Brasilien: Zielorientierung und Schutz in Dollar.",
-        "USA: Geld mit Aufgabe, Zugang und Bewegung.",
-        "Deutschland: Planung, Klarheit und sichtbares Risiko.",
-        "Spanien: Plan, Kosten, Vorsicht und Erklärung."
+        { "name": "Brasilien", "line": "Zielorientierung — und Schutz in Dollar." },
+        { "name": "USA", "line": "Geld mit Aufgabe — Zugang und Bewegung." },
+        { "name": "Deutschland", "line": "Planung, Klarheit und sichtbares Risiko." },
+        { "name": "Spanien", "line": "Ein Plan, die Kosten und erklärte Vorsicht." }
       ],
       "note": "Der Produktkern bleibt gleich: Ziel, Regel, Kosten, Liquidität, Risiko und Nutzerkontrolle. Die Vertrauensbildung ist je Markt unterschiedlich."
     },
@@ -66,7 +73,11 @@
         "Das Unternehmen nimmt keinen Spread auf Strategieerträge. Umsatz entsteht, wenn Geld eingezahlt, ausgezahlt oder eine Strategie geschlossen wird.",
         "Das Modell ist bewusst klar: Consumer-ARPU ist strukturell niedrig. B2C schafft Vertrauen und Distribution. B2B trägt den Umsatz."
       ],
-      "supporting": "Wenige Geschäftskunden können wirtschaftlich mehr bedeuten als Tausende Privatnutzer."
+      "supporting": "Wenige Geschäftskunden können wirtschaftlich mehr bedeuten als Tausende Privatnutzer.",
+      "statCallout": {
+        "value": "Wenige Geschäftskunden",
+        "label": "können mehr wert sein als Tausende Privatnutzer"
+      }
     },
     "status": {
       "label": "AKTUELLER STAND",
@@ -76,13 +87,19 @@
         "Die Marketing-Website und das Market-Intelligence-Produkt sind live. Das Finanzprodukt ist spezifiziert und für den finanzierten Build geplant.",
         "Die Finanzierung dient dem Aufbau des Finanzprodukts, regulatorischen Launch-Gates, Security Audit, Infrastruktur, Gesellschaftsgründung und erster B2B-Validierung."
       ],
-      "items": [
-        "Marketing-Website: live",
-        "Market-Intelligence-Produkt: live",
-        "Finanzprodukt: spezifiziert, noch nicht gebaut",
-        "Regulatorische Analyse: erstellt",
-        "Finanzmodell: erstellt",
-        "Fundraising: Pre-Seed-Vorbereitung"
+      "builtLabel": "Heute live",
+      "built": [
+        "Marketing-Website",
+        "Market-Intelligence-Produkt",
+        "Regulatorische Analyse (erstellt)",
+        "Finanzmodell (erstellt)"
+      ],
+      "plannedLabel": "Was die Finanzierung baut",
+      "planned": [
+        "Das Finanzprodukt",
+        "Regulatorische Launch-Gates",
+        "Security Audit und Infrastruktur",
+        "Erste B2B-Validierung"
       ]
     },
     "founder": {
@@ -105,22 +122,64 @@
     },
     "materials": {
       "label": "INVESTORENUNTERLAGEN",
-      "headline": "Die vollständigen Antworten sind auf Anfrage verfügbar.",
+      "headline": "Die Antworten, die wir sehen wollten, wären wir an Ihrer Stelle.",
       "body": [
         "Der private Investorenbereich enthält Business Plan, Investor FAQ und unterstützende Unterlagen zu Modell, Risiken, Mittelverwendung, regulatorischer Position, Produkt-Roadmap, Gebührenlogik und technischer Architektur.",
         "Die FAQ ist bewusst direkt. Was offen ist, wird als offener Punkt benannt."
       ],
-      "items": [
-        "Business Plan",
-        "Investor FAQ",
-        "Mittelverwendung",
-        "Zusammenfassung des Umsatzmodells",
-        "Zusammenfassung der regulatorischen Position",
-        "Produkt-Roadmap",
-        "Gebührenübersicht",
-        "Zusammenfassung der technischen Architektur (in Vorbereitung)"
+      "gatedNote": "Die vollständigen Dokumente werden auf Anfrage geteilt.",
+      "statusLabels": { "available": "Verfügbar", "inPrep": "In Vorbereitung" },
+      "docs": [
+        {
+          "num": "01",
+          "title": "Business Plan",
+          "summary": "Einseitiger Überblick: Produkt, Modell, Markt und die Finanzierung.",
+          "status": "available"
+        },
+        {
+          "num": "02",
+          "title": "Investor FAQ",
+          "summary": "Direkte Antworten zu Ökonomie, Regulierung, Risiko und Team.",
+          "status": "available"
+        },
+        {
+          "num": "03",
+          "title": "Mittelverwendung",
+          "summary": "Was das Kapital finanziert — und was es beweisen muss.",
+          "status": "available"
+        },
+        {
+          "num": "04",
+          "title": "Zusammenfassung des Umsatzmodells",
+          "summary": "ARPU, Break-even, Marktgröße und Szenarien.",
+          "status": "available"
+        },
+        {
+          "num": "05",
+          "title": "Zusammenfassung der regulatorischen Position",
+          "summary": "Nicht-verwahrendes Design und die Gates je Jurisdiktion.",
+          "status": "available"
+        },
+        {
+          "num": "06",
+          "title": "Produkt-Roadmap",
+          "summary": "Was live ist und was die Finanzierung baut, der Reihe nach.",
+          "status": "available"
+        },
+        {
+          "num": "07",
+          "title": "Gebührenübersicht",
+          "summary": "Bewegungsgebühren, Caps und wo diBoaS 0 $ berechnet.",
+          "status": "available"
+        },
+        {
+          "num": "08",
+          "title": "Zusammenfassung der technischen Architektur",
+          "summary": "Wallet, Verwahrmodell und Partnerabhängigkeiten.",
+          "status": "in-preparation"
+        }
       ],
-      "cta": "Investorenunterlagen anfordern"
+      "cta": "Die vollständigen Antworten ansehen"
     },
     "request": {
       "title": "Investorenunterlagen anfordern",
@@ -132,7 +191,8 @@
         "investorType": "Investorentyp",
         "ticketSize": "Übliche Ticketgröße",
         "thesis": "Relevante These oder Interesse",
-        "message": "Nachricht"
+        "message": "Nachricht",
+        "emailHint": "Bitte geben Sie eine gültige E-Mail-Adresse ein."
       },
       "typeOptions": {
         "angel": "Business Angel",
@@ -156,6 +216,17 @@
       "description": "Private Investorenunterlagen für diBoaS, ein von Berlin aus aufgebautes Pre-Seed-Fintech, das eine nicht-verwahrende Finanz-App für Ziele von Privatpersonen und Liquiditätsregeln von Unternehmen entwickelt."
     },
     "accessNote": "Private Investorenunterlagen. Bitte nicht ohne Zustimmung weiterleiten.",
+    "roomBadge": "Investor Room",
+    "glance": {
+      "ariaLabel": "The room at a glance",
+      "items": [
+        { "value": "You hold the keys and the funds", "label": "Non-custodial by design" },
+        { "value": "Specified, not yet built", "label": "The money product, honestly" },
+        { "value": "4 markets — BR · US · DE · ES", "label": "One product spine" },
+        { "value": "B2C trust → B2B revenue", "label": "The thesis in five words" },
+        { "value": "Risks named, not hidden", "label": "Open items stated plainly" }
+      ]
+    },
     "hero": {
       "eyebrow": "PRIVATER INVESTORENBEREICH",
       "headline": "Beginnen Sie mit den schwierigen Fragen.",
@@ -213,7 +284,7 @@
           "slug": "regulatory-position",
           "num": "06",
           "title": "Zusammenfassung der regulatorischen Position",
-          "summary": "Nicht-verwahrende Architektur, jurisdiktionsspezifische Gates, EU-Risiko, Abhängigkeit vom Money-in/out-Partner in Brasilien und US-Gutachten für Nutzer-zu-Nutzer-Transfers.",
+          "summary": "Nicht-verwahrende Architektur, jurisdiktionsspezifische Gates, EU-Risiko, Abhängigkeit vom Money-in/out-Partner in Brasilien und US- und Brasilien-Gutachten für Nutzer-zu-Nutzer-Transfers.",
           "status": "available"
         },
         {
@@ -286,6 +357,8 @@
     },
     "builtNotBuilt": {
       "headline": "Was gebaut ist. Was noch gebaut werden muss.",
+      "builtLabel": "Gebaut",
+      "notBuiltLabel": "Noch nicht gebaut",
       "built": [
         "Marketing-Website",
         "Market-Intelligence-Produkt",
@@ -306,6 +379,7 @@
     },
     "raiseProves": {
       "headline": "Die Finanzierung dient dem Nachweis, nicht der Inszenierung.",
+      "pullQuote": "The first money should buy proof — not scale theater.",
       "body": [
         "Das erste Kapital soll die richtigen Punkte beweisen:",
         "Kann das Finanzprodukt sicher gebaut werden? Können die regulatorischen Launch-Gates erfüllt werden? Kann ein Money-in/out-Partner unterzeichnet werden? Zahlen erste Nutzer tatsächlich ein? Entsteht B2B-Nachfrage in den angenommenen Ticketgrößen? Hält der founder-built Pfad, oder sollte der Senior-Engineer-Pfad früher aktiviert werden?"
@@ -319,7 +393,7 @@
         "Exakte Nettomarge noch nicht fixiert.",
         "Gesellschaft noch nicht gegründet.",
         "B2B-Pipeline noch nicht bewiesen.",
-        "US-Gutachten für Nutzer-zu-Nutzer-Transfers noch erforderlich.",
+        "US- und Brasilien-Gutachten für Nutzer-zu-Nutzer-Transfers noch erforderlich.",
         "Noch keine echten Traktionsdaten."
       ],
       "closing": "Jeder Punkt hat ein Gate. Keiner wird als gelöst behandelt."
@@ -351,7 +425,12 @@
       "inPrepBody": "Diese Zusammenfassung ist in Vorbereitung und wird in Kürze zum Bereich hinzugefügt. Melden Sie sich in der Zwischenzeit, und wir teilen Ihnen den aktuellen Entwurf direkt mit.",
       "requestCta": "Vollständiges Dokument anfordern",
       "downloadPdf": "PDF herunterladen",
-      "onThisPage": "Auf dieser Seite"
+      "onThisPage": "Auf dieser Seite",
+      "prev": "Previous",
+      "next": "Next",
+      "docOf": "Document {num} of {total}",
+      "footerPrompt": "Questions, objections, or follow-up? We'd rather you ask.",
+      "docNavAria": "Document navigation"
     }
   },
   "access": {

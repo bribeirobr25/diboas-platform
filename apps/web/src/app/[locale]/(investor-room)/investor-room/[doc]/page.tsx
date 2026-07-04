@@ -1,7 +1,10 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
 import { InvestorDocBody, type InvestorDocContent } from '@/components/Investor/InvestorDocBody';
+import { InvestorDocNav } from '@/components/Investor/InvestorDocNav';
+import { InvestorReadingProgress } from '@/components/Investor/InvestorReadingProgress';
 import { PrintDocButton } from '@/components/Investor/PrintDocButton';
+import { roomContentLocale } from '@/lib/i18n/roomContentLocale';
 import styles from '@/components/Investor/investor.module.css';
 
 interface DocPageProps {
@@ -27,6 +30,11 @@ interface DocMessages {
       requestCta: string;
       downloadPdf: string;
       onThisPage: string;
+      prev: string;
+      next: string;
+      docOf: string;
+      footerPrompt: string;
+      docNavAria: string;
     };
   };
 }
@@ -45,9 +53,11 @@ export default async function InvestorDocPage({ params }: DocPageProps) {
   const locale = localeParam as SupportedLocale;
   if (!isValidLocale(locale)) notFound();
 
+  // Room is EN + pt-BR only; de/es read English. Chrome + body both use the content locale.
+  const contentLocale = roomContentLocale(locale);
   const [messages, docsContent] = await Promise.all([
-    loadMessages(locale, 'investor') as unknown as Promise<DocMessages>,
-    loadMessages(locale, 'investor-docs') as unknown as Promise<DocsContent>,
+    loadMessages(contentLocale, 'investor') as unknown as Promise<DocMessages>,
+    loadMessages(contentLocale, 'investor-docs') as unknown as Promise<DocsContent>,
   ]);
   const { docs } = messages.room.materials;
   const dp = messages.room.docPage;
@@ -57,34 +67,52 @@ export default async function InvestorDocPage({ params }: DocPageProps) {
   const inPrep = entry.status === 'in-preparation';
   const content = docsContent?.docs?.[docSlug];
   const hasBody = !inPrep && !!content && content.blocks.length > 0;
+  const docOf = dp.docOf.replace('{num}', entry.num).replace('{total}', String(docs.length));
 
   return (
-    <article className={`${styles.section} ${styles.toneWhite}`}>
-      <div className={styles.inner}>
-        <div className={styles.docTopBar}>
-          <a href={`/${locale}/investor-room`} className={styles.backLink}>
-            {dp.backToRoom}
-          </a>
-          {hasBody ? <PrintDocButton label={dp.downloadPdf} /> : null}
-        </div>
-
-        <p className={styles.eyebrow}>
-          {entry.num} · {inPrep ? dp.statusInPrep : dp.statusAvailable}
-        </p>
-        <h1 className={styles.header}>{entry.title}</h1>
-        <p className={styles.paragraph}>{inPrep ? dp.inPrepBody : entry.summary}</p>
-
-        {hasBody ? (
-          <InvestorDocBody content={content} onThisPageLabel={dp.onThisPage} />
-        ) : !inPrep ? (
-          <>
-            <p className={styles.eyebrow}>{dp.covers}</p>
-            <a href={`/${locale}/investors#request`} className={styles.ctaPrimary}>
-              {dp.requestCta}
+    <>
+      <InvestorReadingProgress />
+      <article className={`${styles.section} ${styles.toneNeutral}`}>
+        <div className={styles.docFrame}>
+          <div className={styles.docTopBar}>
+            <a href={`/${locale}/investor-room`} className={styles.backLink}>
+              {dp.backToRoom}
             </a>
-          </>
-        ) : null}
-      </div>
-    </article>
+            {hasBody ? <PrintDocButton label={dp.downloadPdf} docSlug={docSlug} /> : null}
+          </div>
+
+          <p className={styles.eyebrow}>
+            {docOf} · {inPrep ? dp.statusInPrep : dp.statusAvailable}
+          </p>
+          <h1 className={styles.header}>{entry.title}</h1>
+          <p className={styles.paragraph}>{inPrep ? dp.inPrepBody : entry.summary}</p>
+
+          {hasBody ? (
+            <InvestorDocBody content={content} onThisPageLabel={dp.onThisPage} />
+          ) : !inPrep ? (
+            <>
+              <p className={styles.eyebrow}>{dp.covers}</p>
+              <a href={`/${locale}/investors#request`} className={styles.ctaPrimary}>
+                {dp.requestCta}
+              </a>
+            </>
+          ) : null}
+
+          <InvestorDocNav
+            docs={docs}
+            currentSlug={docSlug}
+            hrefBase={`/${locale}/investor-room/`}
+            roomHref={`/${locale}/investor-room`}
+            labels={{
+              prev: dp.prev,
+              next: dp.next,
+              backToRoom: dp.backToRoom,
+              navAria: dp.docNavAria,
+            }}
+          />
+          <p className={styles.docFooterPrompt}>{dp.footerPrompt}</p>
+        </div>
+      </article>
+    </>
   );
 }

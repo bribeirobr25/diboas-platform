@@ -24,6 +24,52 @@ diBoaS is a pre-launch marketing site with waitlist functionality, interactive d
 - **Hosting:** Vercel (auto-deploy from main branch)
 - **DNS:** Cloudflare (DNS-only mode)
 
+## Architecture
+
+The repository today is the **pre-launch marketing site** — a single Next.js app in a Turborepo monorepo. The diagram below reflects what is actually built and running; the product's non-custodial money architecture is a **Phase 2+ roadmap** (see "Planned product architecture" below), not part of the current build.
+
+```mermaid
+flowchart TD
+  Client["Browser · 4 locales · mobile-first"] --> Edge
+
+  subgraph Edge["Next.js 16 App Router — Vercel + Turbopack"]
+    MW["middleware.ts<br/>locale routing + per-request nonce CSP"]
+    Pages["route groups: (landing) · (investor-room)<br/>+ /api routes"]
+    MW --> Pages
+  end
+
+  subgraph Packages["Monorepo packages (Turborepo + pnpm)"]
+    I18N["@diboas/i18n<br/>33 namespaces × 4 locales (lazy)"]
+    UI["@diboas/ui — design system"]
+    EMAIL["@diboas/email — Resend + retry/backoff"]
+  end
+
+  subgraph Services["Server-side services"]
+    MD["marketDataService<br/>(provider-swap-ready)"]
+    RL["Upstash Redis — rate limiting"]
+    DB[("Neon PostgreSQL<br/>waitlist · investor_requests<br/>(AES-256-GCM + HMAC blind index)")]
+  end
+
+  subgraph Obs["Monitoring — consent-gated, lazy"]
+    SENTRY["Sentry (same-origin tunnel)"]
+    PH["PostHog (identified_only)"]
+    GA["GA4 + web-vitals"]
+  end
+
+  Pages --> Packages
+  Pages --> Services
+  Pages --> Obs
+```
+
+### Engineering posture (built — verifiable in this repo)
+
+- **Testing & CI:** strict TypeScript, ~1,061 automated tests (Vitest), Lighthouse CI + pa11y (WCAG 2.1 AA), and 5 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse).
+- **Security:** per-request **nonce-based CSP** (`'unsafe-inline'` prohibited for scripts), **AES-256-GCM** encryption for PII at rest, **HMAC blind indexing**, Upstash rate limiting, DOMPurify sanitization, and CSRF protection on mutation endpoints.
+- **i18n:** 33 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
+- **Monitoring:** Sentry, PostHog, and GA4 — all consent-gated and lazy-loaded behind a cookie-consent check.
+
+> **Product architecture is Phase 2+, not in this build.** The money product's design — non-custodial by design (users hold their own funds; diBoaS cannot unilaterally move them), MPC wallets (Turnkey), Solana-first multi-chain — is roadmap. Those decisions live in [`CLAUDE.md`](./CLAUDE.md); the full technical write-up for reviewers belongs in the investor room's technical-architecture summary.
+
 ## Prerequisites
 
 - **Node.js:** >= 20.0.0
@@ -119,34 +165,36 @@ Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 
 ## Pages
 
-| Route                          | Description                                                                             |
-| ------------------------------ | --------------------------------------------------------------------------------------- |
-| `/`                            | B2C landing page (waitlist, comparison table, goals, demo)                              |
-| `/business`                    | B2B landing page (Payment Fees + Idle Cash goal cards)                                  |
-| `/about`                       | About page (founder story, mission, beliefs)                                            |
-| `/strategies`                  | Investment strategies                                                                   |
-| `/protocols`                   | Protocol transparency                                                                   |
-| `/help`                        | Help center (6 FAQ topics)                                                              |
-| `/security`                    | Security information                                                                    |
-| `/demo`                        | Interactive financial demo                                                              |
-| `/dream-mode`                  | Goal calculator simulation                                                              |
-| `/learn/compound-interest`     | Lesson 01 — How Money Really Grows (3-beat lesson + calculator)                         |
-| `/tools`                       | Money tools landing — purpose-grouped calculators                                       |
-| `/tools/compound-interest`     | Compound interest calculator (tool variant — currency-hedge for non-USD)                |
-| `/tools/retirement`            | Retirement planning calculator                                                          |
-| `/tools/goal-savings`          | Goal savings calculator                                                                 |
-| `/tools/emergency-fund`        | Emergency fund time-to-target calculator                                                |
-| `/tools/inflation-impact`      | Inflation impact calculator                                                             |
-| `/tools/time-to-target`        | Time-to-target calculator                                                               |
-| `/tools/currency-depreciation` | Currency depreciation calculator (with hedge math)                                      |
-| `/tools/asset-history`         | Retrospective asset DCA replay (8 assets, monthly-precision FX path for cross-currency) |
-| `/tools/card-fees`             | B2B card fee savings calculator                                                         |
-| `/tools/idle-cash`             | B2B idle cash yield calculator                                                          |
-| `/market`                      | Adelaide Daily — BTC macro-regime dashboard (host surface for diboas-analytics)         |
-| `/email-preferences`           | Email unsubscribe / notification preferences                                            |
-| `/delete-confirm`              | GDPR account/waitlist deletion confirmation                                             |
-| `/share`                       | Social sharing redirect (OG metadata)                                                   |
-| `/legal/*`                     | Terms, Privacy, Cookies                                                                 |
+| Route                          | Description                                                                                                |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| `/`                            | B2C landing page (waitlist, comparison table, goals, demo)                                                 |
+| `/business`                    | B2B landing page (Payment Fees + Idle Cash goal cards)                                                     |
+| `/about`                       | About page (founder story, mission, beliefs)                                                               |
+| `/strategies`                  | Investment strategies                                                                                      |
+| `/protocols`                   | Protocol transparency                                                                                      |
+| `/help`                        | Help center (6 FAQ topics)                                                                                 |
+| `/security`                    | Security information                                                                                       |
+| `/demo`                        | Interactive financial demo                                                                                 |
+| `/dream-mode`                  | Goal calculator simulation                                                                                 |
+| `/learn/compound-interest`     | Lesson 01 — How Money Really Grows (3-beat lesson + calculator)                                            |
+| `/tools`                       | Money tools landing — purpose-grouped calculators                                                          |
+| `/tools/compound-interest`     | Compound interest calculator (tool variant — currency-hedge for non-USD)                                   |
+| `/tools/retirement`            | Retirement planning calculator                                                                             |
+| `/tools/goal-savings`          | Goal savings calculator                                                                                    |
+| `/tools/emergency-fund`        | Emergency fund time-to-target calculator                                                                   |
+| `/tools/inflation-impact`      | Inflation impact calculator                                                                                |
+| `/tools/time-to-target`        | Time-to-target calculator                                                                                  |
+| `/tools/currency-depreciation` | Currency depreciation calculator (with hedge math)                                                         |
+| `/tools/asset-history`         | Retrospective asset DCA replay (8 assets, monthly-precision FX path for cross-currency)                    |
+| `/tools/card-fees`             | B2B card fee savings calculator                                                                            |
+| `/tools/idle-cash`             | B2B idle cash yield calculator                                                                             |
+| `/market`                      | Adelaide Daily — BTC macro-regime dashboard (host surface for diboas-analytics)                            |
+| `/investors`                   | Investor vertical — public pitch page (thesis, market, raise)                                              |
+| `/investor-room`               | Password-gated investor room — full documents + print-to-PDF (noindex; EN + pt-BR native, DE/ES render EN) |
+| `/email-preferences`           | Email unsubscribe / notification preferences                                                               |
+| `/delete-confirm`              | GDPR account/waitlist deletion confirmation                                                                |
+| `/share`                       | Social sharing redirect (OG metadata)                                                                      |
+| `/legal/*`                     | Terms, Privacy, Cookies                                                                                    |
 
 All pages available in `/en`, `/pt-BR`, `/es`, `/de`.
 

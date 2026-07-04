@@ -1,6 +1,6 @@
 # diBoaS Platform - Web Application
 
-The main web application for the diBoaS unified financial services platform.
+The main web application for diBoaS — a goal-driven wealth building platform (see the root `README.md` for product framing and current phase).
 
 ## Tech Stack
 
@@ -64,7 +64,9 @@ Main pages:
 - `/[locale]/protocols` - Protocol transparency
 - `/[locale]/help` - Help center (6 FAQ topics)
 - `/[locale]/security` - Security information
-- `/[locale]/market` - Adelaide Daily — market updates (placeholder)
+- `/[locale]/market` - Adelaide Daily — BTC macro-regime dashboard (host surface for the diboas-analytics product)
+- `/[locale]/investors` - Investor vertical — public pitch page (thesis, market, raise)
+- `/[locale]/investor-room` - Password-gated investor room (full documents + print-to-PDF; separate route group, noindex; EN + pt-BR native, DE/ES render EN via `roomContentLocale`)
 - `/[locale]/demo` - Interactive financial demo (noindex)
 - `/[locale]/dream-mode` - Goal calculator simulation (noindex)
 - `/[locale]/share` - Social sharing redirect (OG metadata)

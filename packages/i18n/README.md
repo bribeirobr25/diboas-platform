@@ -14,7 +14,7 @@ Complete internationalization solution for the diBoaS platform with support for 
 ## Features
 
 ✅ **Automatic Locale Detection** - Browser language detection with fallback to English
-✅ **Complete Translation Coverage** - 32 namespaces per locale across all 4 locales (see Translation Files below)
+✅ **Complete Translation Coverage** - 33 namespaces per locale across all 4 locales (see Translation Files below)
 ✅ **Server & Client Support** - Separate entry points for optimal bundle size
 ✅ **Type-Safe** - Full TypeScript support
 ✅ **Zero Hardcoded Values** - All text externalized to JSON files
@@ -70,7 +70,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@diboas/i18n/config';
 
 ## Translation Files
 
-Translation files are organized by locale × namespace (32 namespaces per locale — most recently `investor-docs.json` — generated investor-room document bodies):
+Translation files are organized by locale × namespace (33 namespaces per locale — most recently the investor vertical: `investor.json` (public `/investors` page) + `investor-docs.json` (generated investor-room document bodies)):
 
 ```
 packages/i18n/translations/{en, pt-BR, es, de}/
@@ -78,6 +78,7 @@ packages/i18n/translations/{en, pt-BR, es, de}/
 ├── common.json                         # Navigation, buttons, forms
 ├── dreamMode.json                      # Dream-mode goal simulator
 ├── faq.json                            # FAQ content
+├── investor.json                       # Investor vertical — public /investors page + room UI
 ├── investor-docs.json                  # Investor-room document bodies (generated blocks[])
 ├── landing-b2b.json                    # B2B landing page (incl. goal cards)
 ├── landing-b2c.json                    # B2C landing page

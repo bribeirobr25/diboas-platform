@@ -25,7 +25,7 @@ ComponentName/
       index.ts
 ```
 
-Examples: `HeroSection`, `CinematicHero`, `ComparisonTable`, `WedgeSection`, `TwoWorldsSection`, `SidePocketStrip`, `ResultMoment`, `GoalExampleCards`, `WaitlistSection`.
+Examples: `HeroSection`, `CinematicHero`, `ComparisonTable`, `StartupTreasurySection` (B2B `/business` Section 2 — replaced the ComparisonTable slot there; ComparisonTable is still used on the B2C spine), `WedgeSection`, `TwoWorldsSection`, `SidePocketStrip`, `ResultMoment`, `GoalExampleCards`, `WaitlistSection`.
 
 ### Component Categories
 
@@ -47,6 +47,7 @@ Examples: `HeroSection`, `CinematicHero`, `ComparisonTable`, `WedgeSection`, `Tw
 | `Performance/`      | `MonitoringInit`, `WebVitalsTracker`, `PageViewTracker`                                                                                                                                                                                                                                                                                                                                                                    |
 | `Legal/`            | `LegalDocument`, privacy/cookie/terms content                                                                                                                                                                                                                                                                                                                                                                              |
 | `Pages/`            | Page-level compositions (Protocols, Strategies)                                                                                                                                                                                                                                                                                                                                                                            |
+| `Investor/`         | Investor vertical — `InvestorDocBody` (gated room document renderer + jump-to "On this page" ToC), `PrintDocButton` (print-to-PDF), the room password gate, and the public `/investors` request form                                                                                                                                                                                                                       |
 
 ### Server vs Client Components
 

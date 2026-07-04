@@ -1,6 +1,10 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
 import { InvestorProse } from '@/components/Investor/InvestorProse';
+import { InvestorDocCards } from '@/components/Investor/InvestorDocCards';
+import { InvestorSplitList } from '@/components/Investor/InvestorSplitList';
+import { InvestorGlance } from '@/components/Investor/InvestorGlance';
+import { roomContentLocale } from '@/lib/i18n/roomContentLocale';
 import styles from '@/components/Investor/investor.module.css';
 
 interface RoomPageProps {
@@ -18,11 +22,19 @@ interface RoomMessages {
   room: {
     accessNote: string;
     hero: { eyebrow: string; headline: string; subheadline: string; supporting: string };
+    glance: { ariaLabel: string; items: { value: string; label: string }[] };
     startHere: { headline: string; body: string[] };
     materials: { headline: string; intro: string; docs: DocEntry[] };
     snapshot: { headline: string; rows: { label: string; value: string }[] };
-    builtNotBuilt: { headline: string; built: string[]; notBuilt: string[]; closing: string };
-    raiseProves: { headline: string; body: string[] };
+    builtNotBuilt: {
+      headline: string;
+      builtLabel: string;
+      notBuiltLabel: string;
+      built: string[];
+      notBuilt: string[];
+      closing: string;
+    };
+    raiseProves: { headline: string; pullQuote: string; body: string[] };
     openRisks: { headline: string; intro: string; items: string[]; closing: string };
     regulatory: { headline: string; body: string[] };
     contact: {
@@ -45,7 +57,10 @@ export default async function InvestorRoomPage({ params }: RoomPageProps) {
   const locale = localeParam as SupportedLocale;
   if (!isValidLocale(locale)) notFound();
 
-  const messages = (await loadMessages(locale, 'investor')) as unknown as RoomMessages;
+  const messages = (await loadMessages(
+    roomContentLocale(locale),
+    'investor'
+  )) as unknown as RoomMessages;
   const r = messages.room;
 
   // Founder contact renders from env (filled by the founder); falls back to a dash.
@@ -63,6 +78,8 @@ export default async function InvestorRoomPage({ params }: RoomPageProps) {
         paragraphs={[r.hero.subheadline, r.hero.supporting]}
       />
 
+      <InvestorGlance items={r.glance.items} ariaLabel={r.glance.ariaLabel} />
+
       <InvestorProse header={r.startHere.headline} paragraphs={r.startHere.body}>
         <div className={styles.ctaRow}>
           <a href={`/${locale}/investor-room/business-plan`} className={styles.ctaPrimary}>
@@ -75,26 +92,11 @@ export default async function InvestorRoomPage({ params }: RoomPageProps) {
       </InvestorProse>
 
       <InvestorProse tone="neutral" header={r.materials.headline} paragraphs={[r.materials.intro]}>
-        <div className={styles.docGrid}>
-          {r.materials.docs.map((doc) => (
-            <a
-              key={doc.slug}
-              href={`/${locale}/investor-room/${doc.slug}`}
-              className={styles.docCard}
-            >
-              <span className={styles.docNum}>{doc.num}</span>
-              <h3 className={styles.docTitle}>{doc.title}</h3>
-              <p className={styles.docSummary}>{doc.summary}</p>
-              <span
-                className={`${styles.docStatus} ${doc.status === 'in-preparation' ? styles.docStatusPrep : ''}`}
-              >
-                {doc.status === 'in-preparation'
-                  ? r.docPage.statusInPrep
-                  : r.docPage.statusAvailable}
-              </span>
-            </a>
-          ))}
-        </div>
+        <InvestorDocCards
+          docs={r.materials.docs}
+          hrefBase={`/${locale}/investor-room/`}
+          statusLabels={{ available: r.docPage.statusAvailable, inPrep: r.docPage.statusInPrep }}
+        />
       </InvestorProse>
 
       <InvestorProse header={r.snapshot.headline}>
@@ -115,27 +117,15 @@ export default async function InvestorRoomPage({ params }: RoomPageProps) {
         header={r.builtNotBuilt.headline}
         paragraphs={[r.builtNotBuilt.closing]}
       >
-        <div className={styles.twoCol}>
-          <div>
-            <p className={styles.colTitle}>Built</p>
-            <ul className={styles.list}>
-              {r.builtNotBuilt.built.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className={styles.colTitle}>Not yet built</p>
-            <ul className={styles.list}>
-              {r.builtNotBuilt.notBuilt.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <InvestorSplitList
+          left={{ title: r.builtNotBuilt.builtLabel, items: r.builtNotBuilt.built }}
+          right={{ title: r.builtNotBuilt.notBuiltLabel, items: r.builtNotBuilt.notBuilt }}
+        />
       </InvestorProse>
 
-      <InvestorProse header={r.raiseProves.headline} paragraphs={r.raiseProves.body} />
+      <InvestorProse header={r.raiseProves.headline} paragraphs={r.raiseProves.body}>
+        <p className={styles.pullQuote}>{r.raiseProves.pullQuote}</p>
+      </InvestorProse>
 
       <InvestorProse tone="neutral" header={r.openRisks.headline} paragraphs={[r.openRisks.intro]}>
         <ol className={styles.list}>
@@ -173,6 +163,13 @@ export default async function InvestorRoomPage({ params }: RoomPageProps) {
           <dt>{r.contact.locationLabel}</dt>
           <dd>{r.contact.location}</dd>
         </dl>
+        {contactEmail ? (
+          <div className={styles.ctaRow}>
+            <a href={`mailto:${contactEmail}`} className={styles.ctaPrimary}>
+              {r.contact.cta}
+            </a>
+          </div>
+        ) : null}
       </InvestorProse>
 
       <p className={styles.footerNote}>{r.footerNote}</p>

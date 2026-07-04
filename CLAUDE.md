@@ -33,7 +33,7 @@ diboas-platform/
   packages/investing/  # @diboas/investing - Investment domain (Phase 2+ stub)
   config/              # Design tokens JSON + schema
   scripts/             # Build/validation scripts
-  docs/                # Documentation (only docs/tech/ is git-tracked; the rest is local-only)
+  docs/                # Documentation (only docs/tech/ + docs/integrations/ are git-tracked; the rest is local-only)
     tech/              # Technical guides (committed) — canonical engineering reference
     audit/             # Audit history, security findings ledger, pending-work queue
     security/          # Recon/diagnostics reference + API defensive review
@@ -61,6 +61,7 @@ apps/web/src/app/
       dream-mode/          # Goal calculator simulation (noindex)
       email-preferences/   # Email unsubscribe preferences
       help/                # Help center — FAQ by topic (6 topics)
+      investors/           # Investor vertical — public pitch page (thesis, market, raise)
       learn/               # Learn center landing
         compound-interest/ # Lesson 01 — How Money Really Grows (3-beat + calculator)
       legal/               # Legal pages
@@ -74,11 +75,14 @@ apps/web/src/app/
       tools/               # Money Tools — 10-calculator suite (compound-interest, retirement,
                            #   goal-savings, emergency-fund, time-to-target, asset-history,
                            #   inflation-impact, currency-depreciation, card-fees, idle-cash)
+    (investor-room)/       # Password-gated investor room (separate route group; noindex)
+      investor-room/       # Room landing + gated document pages (full docs + print-to-PDF; EN + pt-BR native, DE/ES render EN via roomContentLocale)
   api/                     # API routes
     consent/               # Cookie/privacy consent (POST/DELETE)
     cron/                  # Audit-log retention purge (Vercel cron, daily 03:00 UTC)
     email/unsubscribe/     # RFC 8058 email unsubscribe
     health/                # Health check (liveness + readiness)
+    investor-request/      # Investor contact request (encrypted store + founder notification)
     monitoring/            # Sentry envelope tunnel (same-origin; bypasses ad-blockers)
     og/                    # Dynamic Open Graph image generation
     waitlist/              # Waitlist (signup, delete, position, referral, stats)
@@ -246,7 +250,7 @@ The full register of locked-in implementation decisions (bundler / Turbopack, pr
 
 - Reference locale: `en` (source of truth)
 - Translations: `packages/i18n/translations/{locale}/`
-- **31 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the demo + dream flows, and the `tools-*` calculator suite.
+- **33 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the investor vertical (`investor` + `investor-docs`), the demo + dream flows, and the `tools-*` calculator suite.
 - Client/server split exports to avoid bundling React on server
 - All new user-facing strings must be added to all 4 locales
 

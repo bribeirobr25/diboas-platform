@@ -71,6 +71,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: var(--spacing-xs);
+  /* Mobile-first: full-width tap target; auto width from tablet up. */
+  width: 100%;
   padding: var(--spacing-sm) var(--spacing-xl);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
@@ -80,10 +83,57 @@
   border-radius: var(--radius-md);
   cursor: pointer;
 }
+@media (min-width: 640px) {
+  .submit {
+    width: auto;
+  }
+}
+
+.submit:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
 
 .submit:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* Pending spinner (respects reduced motion). */
+.spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--radius-full);
+  animation: investor-spin 0.7s linear infinite;
+}
+@keyframes investor-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}
+
+/* Inline field-level hint (e.g. email format). */
+.hint {
+  display: block;
+  margin-top: var(--spacing-2xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+}
+
+/* Honeypot — visually hidden, off-screen, ignored by assistive tech. */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 .privacy {

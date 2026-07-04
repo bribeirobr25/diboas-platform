@@ -15,6 +15,7 @@ import {
   verifyInvestorGate,
   isInvestorGateConfigured,
 } from '@/lib/security/investorGate';
+import { roomContentLocale } from '@/lib/i18n/roomContentLocale';
 import { InvestorRoomAccess } from './InvestorRoomAccess';
 import styles from './layout.module.css';
 
@@ -46,10 +47,14 @@ export default async function InvestorRoomLayout({ children, params }: InvestorR
     notFound();
   }
 
+  // The room is EN + pt-BR only; de/es read the English version. Content (and the
+  // room's html lang) use the content locale; the URL/switcher stay on `locale`.
+  const contentLocale = roomContentLocale(locale);
   const [investorMessages, commonMessages] = await Promise.all([
-    loadMessages(locale, 'investor'),
+    loadMessages(contentLocale, 'investor'),
     loadMessages(locale, 'common'),
   ]);
+  const roomBadge = (investorMessages as unknown as { room: { roomBadge: string } }).room.roomBadge;
   const allMessages = {
     ...flattenMessages(commonMessages, 'common'),
     ...flattenMessages(investorMessages, 'investor'),
@@ -63,14 +68,14 @@ export default async function InvestorRoomLayout({ children, params }: InvestorR
   return (
     <LocaleProvider initialLocale={locale}>
       <I18nProvider locale={locale} messages={allMessages}>
-        <SetHtmlLang locale={locale} />
+        <SetHtmlLang locale={contentLocale} />
         <PageErrorBoundary>
           <div className={styles.shell}>
             <header className={styles.header}>
               <a href={`/${locale}`} className={styles.wordmark}>
                 diBoaS
               </a>
-              <span className={styles.badge}>Investor Room</span>
+              <span className={styles.badge}>{roomBadge}</span>
               <div className={styles.headerRight}>
                 <LanguageSwitcher variant="dropdown" size="sm" />
               </div>

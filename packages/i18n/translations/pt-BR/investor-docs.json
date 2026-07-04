@@ -335,6 +335,32 @@
         {
           "type": "heading",
           "level": 3,
+          "text": "Como fica \"certo\" em 18 meses"
+        },
+        {
+          "type": "paragraph",
+          "text": "O contraponto de \"O que mata isto\": se os riscos nomeados se resolverem como o plano pretende, esta é a empresa da qual você tem um pedaço."
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Entidade constituída na Alemanha; rodada fechada.",
+            "Parceiro de entrada/saída de dinheiro assinado — colapsando a faixa de margem líquida para um número e destravando o Brasil.",
+            "Produto de dinheiro no ar, só web: on-ramp e envio entre usuários primeiro (por mercado, à medida que a liberação legal chega), estratégias após auditoria de segurança.",
+            "As metas canônicas do ano 1 atingidas: 2.500–5.000 usuários com aporte e 5–10 clientes empresariais pagantes — com a evidência B2B publicada seja qual for o resultado.",
+            "Validação B2B pública: as ≥30 conversas e ≥3 cartas de intenção comprometidas convertidas em primeiros pilotos.",
+            "Aquisição orgânica compondo pela superfície de ferramentas e inteligência de mercado, a custo próximo de zero.",
+            "Posicionada para uma rodada seed: break-even assistido por B2B à vista (~1.900 usuários + 25 clientes), um co-fundador comercial no time, e um data room que acompanhou as próprias previsões em público por 18 meses."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Se isso valer, o cap de €2,5M deste instrumento precifica o período de maior risco da empresa, não o seu potencial."
+        },
+        {
+          "type": "heading",
+          "level": 3,
           "text": "O que mata isto"
         },
         {
@@ -795,6 +821,10 @@
         },
         {
           "type": "paragraph",
+          "text": "Mais dois pontos sobre continuidade. Primeiro, a arquitetura é o backstop final — como o produto é não custodial, se a diBoaS desaparecesse por completo, os ativos dos usuários não desapareceriam: os fundos ficam em carteiras controladas pelo usuário, então nenhuma falha do fundador deixa o dinheiro de ninguém preso. Segundo, o fundador está ativamente recrutando um co-fundador comercial (vendas B2B / growth) durante esta rodada — essa contratação é ao mesmo tempo a correção de go-to-market e a resposta durável ao risco de pessoa-chave. A continuidade operacional (uma segunda pessoa com acesso a código e contas) é nomeada abertamente como ainda em aberto, com uma medida interina de credenciais lacradas disponível antes/na constituição."
+        },
+        {
+          "type": "paragraph",
           "text": "Por que você?"
         },
         {
@@ -925,7 +955,7 @@
             "Margem exata ainda não fechada — o rev-share do parceiro e o custo por usuário do provedor de carteiras convertem o ARPU bruto em margem líquida; resolve quando o parceiro for assinado.",
             "Entidade não constituída — passo zero, antes do fechamento.",
             "Pipeline B2B — o modelo prova que B2B é o motor; LOIs assinados são a evidência que falta, e a prioridade de curto prazo.",
-            "Parecer de money-transmitter para movimentação entre usuários nos EUA — marco obrigatório antes do lançamento, adiado no plano enxuto até os EUA entrarem no escopo.",
+            "Pareceres de envio entre usuários (EUA + Brasil) — o envio é habilitado por mercado à medida que a liberação legal chega: a UE está liberada sob a arquitetura não custodial; os EUA dependem de um parecer de money-transmitter e o Brasil do parecer sobre o perímetro de câmbio / ativos virtuais. Adiado no plano enxuto até esses mercados entrarem no escopo.",
             "Sem dados de tração — aquisição não iniciada; primeiros números pós-lançamento."
           ]
         },
@@ -1103,10 +1133,11 @@
           "type": "list",
           "ordered": false,
           "items": [
-            "O dinheiro pode circular por trilhos digitais com mais flexibilidade.",
-            "O acesso via DeFi existe, mas a interface ainda fala com iniciados.",
-            "Pequenas empresas ainda administram caixa entre bancos, cartões, planilhas e meios de pagamento.",
-            "A camada que falta é clareza antes da movimentação."
+            "Brasil: poupar em dólar é hoje valioso — inflação de ~4,7% e um real em queda — enquanto o PIX (93% dos adultos) prova que a população já movimenta dinheiro digitalmente.",
+            "Clareza regulatória está chegando, não pendente: MiCA operante na UE, marco de ativos virtuais do Brasil datado e em vigor, orientação dos EUA sobre interfaces não custodiais amadurecida em 2026. A janela de compliant-by-design está aberta agora — e não vai ficar aberta.",
+            "A infraestrutura de stablecoin cruzou a maturidade de nível-consumidor: USDC mais rendimento on-chain é trilho de commodity em 2026 de um jeito que não era em 2022.",
+            "Descompasso de incentivo dos incumbentes: a economia baseada em custódia impede os neobanks de repassar rendimento on-chain — abrindo uma janela regional antes de qualquer resposta estrutural.",
+            "A camada que falta continua sendo clareza antes da movimentação."
           ]
         },
         {
@@ -1197,6 +1228,144 @@
             "Alemanha: planejamento, clareza e risco visível.",
             "Espanha: plano, custos, prudência e explicação."
           ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Slide 8b — Concorrência"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Headline"
+        },
+        {
+          "type": "paragraph",
+          "text": "Uma combinação não ocupada — e honesta sobre onde perdemos."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "A matriz"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Dimensão",
+            "Neobanks (Nubank, MP, C6, Inter; Revolut, N26)",
+            "Câmbio/transfer (Wise)",
+            "Cripto custodial (Coinbase, Binance)",
+            "Autocustódia DIY",
+            "Ferramentas de tesouraria B2B (Mercury; Brex — parte da Capital One desde abr. 2026; Meow)",
+            "diBoaS"
+          ],
+          "rows": [
+            [
+              "Modelo de custódia",
+              "Custodial",
+              "Custodial",
+              "Custodial",
+              "Não custodial",
+              "Custodial / corretado",
+              "Não custodial"
+            ],
+            [
+              "Separação por propósito/objetivo",
+              "Sim — as Caixinhas do Nubank fazem bem isso",
+              "Parcial (Jars)",
+              "Não",
+              "Manual",
+              "Parcial",
+              "Primitiva central"
+            ],
+            [
+              "Transparência de custo + risco antes de mover",
+              "Parcial",
+              "Sim — a Wise definiu o padrão em câmbio",
+              "Parcial",
+              "Não",
+              "Parcial",
+              "Antes de cada movimento"
+            ],
+            [
+              "Rendimento em dólar ao usuário",
+              "Limitado (moeda local)",
+              "Não",
+              "Sim (custodial, mercados selecionados)",
+              "Sim, se souber operar",
+              "Sim (foco EUA)",
+              "Sim (USDC on-chain)"
+            ],
+            [
+              "Regras de caixa / tesouraria B2B",
+              "Básico",
+              "Câmbio empresarial",
+              "Não",
+              "Não",
+              "Sim — o mais próximo do motor de receita",
+              "Sim (mesma arquitetura)"
+            ],
+            [
+              "Multiativo (BTC/ETH/SOL/SUI/XAUt)",
+              "Parcial (custodial)",
+              "Não",
+              "Sim — muito mais amplo",
+              "Sim",
+              "Não",
+              "Escopo de 5 + USDC"
+            ],
+            [
+              "Maturidade / confiança / usuários",
+              "100M+ usuários, com seguro — a diBoaS perde essa linha hoje",
+              "Milhões, listada",
+              "Dezenas de milhões",
+              "n/a",
+              "Financiadas, operando",
+              "Pré-lançamento, zero usuários"
+            ],
+            [
+              "Seguro de depósito",
+              "Sim (FGC / locais)",
+              "Salvaguarda",
+              "Varia",
+              "Não",
+              "Varia",
+              "Não — ativos on-chain não têm seguro; dito claramente"
+            ],
+            [
+              "Crédito / cartões / banco completo",
+              "Sim — vantagem real para muitos",
+              "Não",
+              "Não",
+              "Não",
+              "Não",
+              "Não — excluído permanentemente, uma ausência deliberada"
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Pontos-chave"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Onde os incumbentes ganham, dito com franqueza: as Caixinhas do Nubank são um produto de separação por propósito genuinamente bom; a Wise definiu a transparência de taxa em câmbio; Coinbase e Binance oferecem muito mais ativos; todo incumbente supera a diBoaS em confiança, seguro e maturidade hoje — por ordens de magnitude.",
+            "A cunha é a combinação, não uma célula: nenhum player combina arquitetura não custodial + separação por propósito/regra + transparência de custo-e-risco antes de mover + rendimento em dólar on-chain + regras de caixa B2B numa única interface entre Brasil, UE e EUA. Cada um tem duas ou três células; nenhum tem a linha.",
+            "Por que o incumbente não faz o mesmo? Funcionalidades, sim — arquitetura, não. Acreditamos que a economia de custódia (depósitos, float, margem de juros) é central para como os neobanks financiam seus produtos, e que repassar rendimento em dólar on-chain diretamente aos usuários pressionaria esse P&L central e mudaria sua postura regulatória. Copiar a aparência da separação por propósito é fácil; copiar o modelo de custódia e o repasse de rendimento é um pivô estrutural fora da tese.",
+            "O fosso durável são os custos de troca B2B (uma vez que a empresa conecta suas regras de caixa) mais a confiança regional acumulada na janela de 12–18 meses — apostas em execução e timing, rotuladas como tal."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Nota do apresentador"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS não afirma vencer o Nubank em banco, a Wise em câmbio ou a Coinbase em amplitude de ativos. Ela reivindica uma combinação não ocupada cuja parte mais difícil é estruturalmente pouco atraente para os incumbentes copiarem — e é honesta que hoje perde em confiança, seguro e maturidade para todos os nomes da página. Descrições de concorrentes refletem informação pública de meados de 2026 e nossa interpretação de boa-fé; funcionalidades e termos mudam."
         },
         {
           "type": "heading",
@@ -2357,6 +2526,99 @@
         {
           "type": "heading",
           "level": 2,
+          "text": "Dimensionamento de mercado (bottom-up)"
+        },
+        {
+          "type": "quote",
+          "text": "Nota prospectiva: os números desta seção e de \"Cenários de três anos\" abaixo são premissas do fundador e ilustrações de cenário na data deste documento — não são previsões, promessas ou garantias, e os resultados reais podem diferir materialmente. Números marcados como premissa são estimativas sem verificação de terceiros. Dados de população e universo de empresas têm fonte em estatísticas públicas (verificados em julho de 2026)."
+        },
+        {
+          "type": "paragraph",
+          "text": "Dimensionamos de baixo para cima — empresas e usuários, vezes captura realista, vezes ARPU — e não de cima para baixo como um percentual de um mercado de trilhões. Um mercado obtível defensável vale mais do que um mercado teórico grande."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Mix de mercados de lançamento"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS lança em quatro mercados, ponderados por força da proposta e comportamento de investimento existente: Brasil 40% / EUA 30% / Alemanha 18% / Espanha 12%."
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Brasil: gancho mais forte — proteção em dólar contra inflação de ~4,7% (IPCA, maio/2026); o PIX prova o comportamento digital em massa (93% dos adultos — EBANX, com dados do BCB/IBGE).",
+            "EUA: maior ARPU de consumo (~US$7,63 num mix concentrado nos EUA); a vantagem de movimentação gratuita sobrevive (o Zelle é só P2P).",
+            "Alemanha: mercado-sede em Berlim; alta taxa de poupança (~20% bruta, Eurostat 2024), baixa participação em investimentos (~18%).",
+            "Espanha: famílias com muito depósito; porta de entrada UE / MiCA."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Consumidores (B2C)"
+        },
+        {
+          "type": "paragraph",
+          "text": "Nos quatro mercados, cerca de 283 milhões de adultos têm comportamento de poupança (IBGE, US Census, Destatis, INE). Com o ARPU de consumo combinado de US$5,88/ano, o TAM de receita B2C é de ~US$1,65 bi/ano."
+        },
+        {
+          "type": "paragraph",
+          "text": "Com honestidade: o TAM de receita de consumo é estruturalmente modesto. É a aritmética por trás da posição deste documento de que o ARPU de consumo é pequeno e os consumidores não pagam as contas — impresso, não escondido."
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Alcançável (SAM): poupadores alcançáveis dado o escopo real — digital-first, dispostos a experimentar um produto em dólar não custodial — numa faixa premissada de early-adopters de 10–20% → ~28–57 mi alcançáveis ≈ US$165–335 mi/ano.",
+            "Obtível (SOM, 12–36 meses): construído a partir da capacidade de go-to-market, não do desejo. O ano 1 são 2.500–5.000 usuários com aporte a custo de aquisição próximo de zero. Uma base de 36 meses de ~12.000 usuários com aporte ≈ ~US$70 mil/ano em receita de consumo (premissa: ~2,5× a faixa do ano 1 até o ano 3, liderado por orgânico)."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Empresas (B2B) — o número que importa"
+        },
+        {
+          "type": "paragraph",
+          "text": "Há ~12 milhões de PMEs empregadoras nos quatro mercados (US Census SUSB, Sebrae / CEMPRE, IfM Bonn, INE DIRCE). Filtrando para a fatia relevante para tesouraria — caixa parado ou movimentação significativa, uma premissa de 10–20% — chega-se a ~1,2–2,4 mi de empresas."
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "TAM: a um conservador US$2.000–5.000/ano por empresa (ancorado no piso de US$1.945; o número de US$19.300 é cauda superior, não típico) → ~US$2,4–12 bi/ano. Uma faixa larga, rotulada como tal.",
+            "Alcançável (SAM): alcançável com um produto não custodial e com parceiro regulado (premissa de 5–10%) → ~60–240 mil empresas ≈ US$120 mi–1,2 bi/ano.",
+            "Obtível (SOM, 12–36 meses): o ano 1 são 5–10 clientes liderados pelo fundador. Uma base de 36 meses de ~40 clientes ≈ ~US$120 mil/ano (premissa: ~US$3 mil/cliente, faixa média-baixa)."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Reconciliação com o break-even"
+        },
+        {
+          "type": "paragraph",
+          "text": "A posição base de 36 meses (~12.000 usuários + ~40 clientes B2B) fica acima dos dois limiares de break-even abaixo: cruza a linha assistida por B2B (~1.900 usuários + 25 clientes) dentro da janela, a um run-rate base combinado de ~US$190 mil/ano bruto — cerca de US$76–133 mil líquido numa faixa de margem de 40–70% — contra a base de infraestrutura de ~US$60 mil/ano. O cenário pessimista (~4.000 usuários + ~8 B2B ≈ ~US$45 mil/ano) fica abaixo do break-even, que é, por desenho, o cenário em que a tese B2B é reavaliada."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que este dimensionamento não afirma"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Não afirma que o mercado alcançável converte — a captura é uma premissa, e a conversão B2B de piloto para pagante é exatamente o que o fluxo de validação existe para testar.",
+            "O mercado alcançável combinado honesto (~US$0,3–1,5 bi/ano) é modesto para alguns fundos; o caso de escala de venture repousa na faixa B2B mais a expansão além dos quatro mercados de lançamento, deliberadamente não contada aqui."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
           "text": "Lógica de break-even"
         },
         {
@@ -2424,6 +2686,77 @@
         {
           "type": "paragraph",
           "text": "A base de consumidores continua valiosa, mas não precisa carregar o negócio inteiro nas costas."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Cenários de três anos"
+        },
+        {
+          "type": "paragraph",
+          "text": "Quadros de cenário, não previsões. O ano 1 tem as metas acima; os anos 2–3 estendem premissas rotuladas. Nada aqui é promessa de resultado. (As taxas seguem a tabela canônica e não são repetidas aqui.)"
+        },
+        {
+          "type": "paragraph",
+          "text": "Três alavancas movem tudo: crescimento de usuários com aporte, conversão B2B de piloto para pagante e o take-rate do parceiro que define a margem líquida. Como o parceiro de entrada/saída de dinheiro não está assinado, a margem é mostrada como faixa, nunca um ponto."
+        },
+        {
+          "type": "table",
+          "headers": ["Cenário", "Ano 1 (metas)", "Ano 2 (premissa)", "Ano 3 (premissa)"],
+          "rows": [
+            [
+              "Base — usuários / clientes B2B",
+              "2.500–5.000 / 5–10",
+              "~8.000 / ~20",
+              "~12.000 / ~40"
+            ],
+            [
+              "Base — receita bruta",
+              "~US$45 mil (validação, não retorno)",
+              "~US$45–110 mil",
+              "~US$190 mil"
+            ],
+            ["Otimista — usuários / clientes B2B", "5.000 / 10", "~15.000 / ~50", "~30.000 / ~120"],
+            ["Otimista — receita bruta", "~US$45–60 mil", "~US$150–240 mil", "~US$530–780 mil"],
+            ["Pessimista — usuários / clientes B2B", "~2.000 / ~3", "~3.000 / ~6", "~4.000 / ~8"],
+            ["Pessimista — receita bruta", "~US$20–30 mil", "~US$30–40 mil", "~US$45 mil"]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "A receita B2B assume ~US$3 mil/cliente (média-baixa; o número de US$19.300 é cauda superior). O B2C usa os US$5,88 combinados, ajustados pelo mix de mercados."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Cruzamentos de break-even"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Base: cruza o limiar assistido por B2B (~1.900 usuários + 25 clientes) por volta do mês 24–30 — a restrição determinante são os 25 clientes, não o número de usuários; o bruto do ano 3 de ~US$190 mil cobre a base de ~US$60 mil em qualquer margem na faixa de 40–70% (~US$76–133 mil líquido).",
+            "Otimista: cruza o break-even assistido dentro do ano 2; o líquido do ano 3 financia a fase seguinte sem novo aporte para operações.",
+            "Pessimista: nunca cruza. Líquido do ano 3 de ~US$18–32 mil contra a base de US$60 mil. É, por desenho, o cenário de encerramento — aquele em que os próprios critérios de kill do modelo disparam. Modela a saída da tese, não um resgate."
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O que tornaria estes números errados"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "A conversão B2B é a sensibilidade dominante — dez clientes B2B equivalem a cerca de 6.000 consumidores em termos de receita, então uma falha ali não pode ser compensada por crescimento realista de consumo.",
+            "Custo de aquisição próximo de zero é requisito, não esperança; a mitigação é a superfície orgânica (ferramentas, learn, inteligência de mercado), e é mensurável cedo.",
+            "Uma mudança regulatória (por exemplo, o escopo do MiCA-review sobre interfaces que cobram taxa) é invalidadora de cenário, não uma alavanca — tratada no resumo de Posição Regulatória, não modelada aqui."
+          ]
+        },
+        {
+          "type": "quote",
+          "text": "Os critérios de kill são portões internos de gestão para a disciplina de alocação de capital do fundador. Não são compromissos contratuais com investidores e não criam obrigação de encerrar, pivotar ou devolver capital."
         },
         {
           "type": "heading",
