@@ -9,7 +9,7 @@
   "backToTop": "Back to top",
   "header": {
     "title": "Terms of Use",
-    "lastUpdated": "Last Updated: January 3, 2026",
+    "lastUpdated": "Last Updated: July 5, 2026",
     "intro": "Welcome to diBoaS. By accessing our website, you agree to these Terms of Use."
   },
   "sections": {
@@ -29,7 +29,7 @@
       "intro": "By using our website, you confirm that:",
       "items": [
         "You are at least 18 years old",
-        "You are not located in a restricted jurisdiction (currently: United States, Brazil)",
+        "You are not located in a jurisdiction subject to international sanctions, or in a jurisdiction where diBoaS does not offer access (currently: China, Russia)",
         "You agree to these Terms of Use"
       ]
     },
@@ -54,7 +54,7 @@
     },
     "geographicRestrictions": {
       "title": "4. Geographic Availability",
-      "intro": "diBoaS is currently in pre-launch. When services become available, they will initially be offered to users in the United States, European Union, and Brazil. Availability in other regions will be announced as we expand.",
+      "intro": "diBoaS is currently in pre-launch. When services become available, they will initially be offered to users in the United States, European Union, and Brazil. Availability in other regions will be announced as we expand. Certain features, such as sending money to other users, are enabled market by market as the legal requirements of each market are confirmed.",
       "note": "During the pre-launch period, the website and waitlist are accessible worldwide. Certain features or services may be restricted in jurisdictions where they are not permitted under local law, including countries subject to international sanctions. You are responsible for determining whether your use of this interface complies with applicable laws in your jurisdiction."
     },
     "intellectualProperty": {

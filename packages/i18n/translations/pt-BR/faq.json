@@ -5,7 +5,7 @@
   "items": {
     "isBank": {
       "question": "O diBoaS é um banco?",
-      "answer": "Não.\n\nO diBoaS é um app financeiro. Ele ajuda você a transformar objetivos em caminhos em dólar digital, com informação clara antes de decidir.\n\nVocê guarda o seu próprio dinheiro. A diBoaS é o app, não a guardiã, e mantém apenas uma chave parcial de recuperação, nunca o controle total dos seus fundos, e não toma decisões financeiras por você."
+      "answer": "Não.\n\nO diBoaS é um app financeiro. Ele ajuda você a transformar objetivos em caminhos em dólar digital, com informação clara antes de decidir.\n\nO dinheiro é seu e fica com você. O diBoaS é o aplicativo, não o cofre. O diBoaS não guarda nenhuma parte da sua chave, nenhuma. Se um dia você precisar recuperar o acesso, isso acontece por um parceiro independente de recuperação, não pelo diBoaS. Ninguém no diBoaS consegue mover o seu dinheiro, e ninguém aqui toma decisões financeiras por você."
     },
     "isForEveryone": {
       "question": "O diBoaS é pra todo mundo?",
@@ -29,7 +29,7 @@
     },
     "micaRegulated": {
       "question": "O diBoaS é regulamentado pela MiCA?",
-      "answer": "A MiCA é uma regulamentação da União Europeia. O diBoaS é uma plataforma não-custodial. Carteiras não-custodiais estão fora do escopo regulatório da MiCA porque não custodiam fundos de clientes."
+      "answer": "O diBoaS foi construído sem custódia: ele nunca guarda o seu dinheiro nem as suas chaves. Pelas regras europeias de criptoativos (MiCA), quem guarda fundos de clientes precisa de licença, e o diBoaS foi desenhado para não guardar. As regras continuam evoluindo, e a gente acompanha de perto; o diBoaS só abre em cada mercado quando o caminho legal está confirmado. De todo jeito, o seu dinheiro fica sob o seu controle."
     },
     "pixFaq": {
       "question": "Posso usar PIX no diBoaS?",

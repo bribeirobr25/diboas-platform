@@ -265,40 +265,7 @@
   margin-bottom: 0;
 }
 
-/* At-a-glance strip (public investor page) — mobile-first, scales to 5-up */
-.glanceStrip {
-  max-width: 60rem;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-md);
-}
-@media (min-width: 640px) {
-  .glanceStrip {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (min-width: 1024px) {
-  .glanceStrip {
-    grid-template-columns: repeat(5, 1fr);
-    gap: var(--spacing-lg);
-  }
-}
-.glanceItem {
-  margin: 0;
-}
-.glanceValue {
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-heading);
-  line-height: var(--line-height-tight);
-}
-.glanceLabel {
-  margin: var(--spacing-2xs) 0 0;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  line-height: var(--line-height-relaxed);
-}
+/* At-a-glance strip: rendered by the shared StatStrip primitive (StatStrip.module.css). */
 
 /* Market cards — reuse the .docCard chrome; base mobile 1-up → 2 → 4 */
 .marketGrid {

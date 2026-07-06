@@ -9,7 +9,7 @@
   "backToTop": "Nach oben",
   "header": {
     "title": "Nutzungsbedingungen",
-    "lastUpdated": "Zuletzt aktualisiert: 3. Januar 2026",
+    "lastUpdated": "Zuletzt aktualisiert: 5. Juli 2026",
     "intro": "Willkommen bei diBoaS. Durch den Zugriff auf unsere Website stimmen Sie diesen Nutzungsbedingungen zu."
   },
   "sections": {
@@ -29,7 +29,7 @@
       "intro": "Durch die Nutzung unserer Website bestätigen Sie:",
       "items": [
         "Sie sind mindestens 18 Jahre alt",
-        "Sie befinden sich nicht in einer eingeschränkten Gerichtsbarkeit (derzeit: Vereinigte Staaten, Brasilien)",
+        "Sie befinden sich nicht in einer Jurisdiktion, die internationalen Sanktionen unterliegt, oder in einer Jurisdiktion, in der diBoaS keinen Zugang anbietet (derzeit: China, Russland)",
         "Sie stimmen diesen Nutzungsbedingungen zu"
       ]
     },
@@ -54,7 +54,7 @@
     },
     "geographicRestrictions": {
       "title": "4. Geografische Verfügbarkeit",
-      "intro": "diBoaS befindet sich derzeit in der Pre-Launch-Phase. Wenn die Dienste verfügbar werden, werden sie zunächst Nutzern in den Vereinigten Staaten, der Europäischen Union und Brasilien angeboten. Die Verfügbarkeit in weiteren Regionen wird bekannt gegeben, sobald wir expandieren.",
+      "intro": "diBoaS befindet sich derzeit in der Pre-Launch-Phase. Wenn die Dienste verfügbar werden, werden sie zunächst Nutzern in den Vereinigten Staaten, der Europäischen Union und Brasilien angeboten. Die Verfügbarkeit in weiteren Regionen wird bekannt gegeben, sobald wir expandieren. Bestimmte Funktionen, etwa das Senden von Geld an andere Nutzer, werden Markt für Markt freigeschaltet, sobald die rechtlichen Anforderungen des jeweiligen Marktes bestätigt sind.",
       "note": "Während der Pre-Launch-Phase sind die Website und die Warteliste weltweit zugänglich. Bestimmte Funktionen oder Dienste können in Ländern eingeschränkt sein, in denen sie nach geltendem Recht nicht zulässig sind, einschließlich Länder, die internationalen Sanktionen unterliegen. Du bist dafür verantwortlich, sicherzustellen, dass deine Nutzung dieser Plattform mit den geltenden Gesetzen deines Landes vereinbar ist."
     },
     "intellectualProperty": {

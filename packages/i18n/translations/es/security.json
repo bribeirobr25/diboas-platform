@@ -15,7 +15,7 @@
       "title": "Tu Billetera, Tus Llaves",
       "paragraphs": [
         "Cada usuario tiene su propia billetera con su propia clave privada.",
-        "diBoaS nunca ve, guarda ni tiene acceso a tu clave.",
+        "diBoaS nunca ve, guarda ni tiene acceso a tu clave. Si necesitas recuperar el acceso, la recuperación pasa por un socio independiente, nunca por diBoaS.",
         "Si diBoaS desapareciera mañana, tu dinero seguiría siendo tuyo."
       ]
     },

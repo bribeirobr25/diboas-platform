@@ -5,7 +5,7 @@
   "items": {
     "isBank": {
       "question": "Ist diBoaS eine Bank?",
-      "answer": "Nein.\n\ndiBoaS ist eine Finanz-App. Sie hilft dir, Geld einem Zweck zuzuordnen, mögliche Wege mit digitalen Dollar zu verstehen und vor einer Entscheidung klare Informationen zu sehen.\n\nDu verwahrst dein eigenes Geld. diBoaS ist die App, nicht der Verwahrer. diBoaS behält nur einen Teil-Wiederherstellungsschlüssel, nie die volle Kontrolle über dein Geld, und trifft keine finanziellen Entscheidungen für dich."
+      "answer": "Nein.\n\ndiBoaS ist eine Finanz-App. Sie hilft dir, Geld einem Zweck zuzuordnen, mögliche Wege mit digitalen Dollar zu verstehen und vor einer Entscheidung klare Informationen zu sehen.\n\nDein Geld gehört dir und bleibt bei dir. diBoaS ist die App, nicht der Verwahrer. diBoaS hält keinen Teil deines Schlüssels, keinen einzigen. Falls du deinen Zugang jemals wiederherstellen musst, läuft das über einen unabhängigen Partner für die Wiederherstellung, nicht über diBoaS. Niemand bei diBoaS kann dein Geld bewegen, und niemand hier trifft finanzielle Entscheidungen für dich."
     },
     "isForEveryone": {
       "question": "Ist diBoaS für jeden?",
@@ -29,7 +29,7 @@
     },
     "micaRegulated": {
       "question": "Ist diBoaS MiCA-reguliert?",
-      "answer": "diBoaS ist eine nicht-verwahrende Plattform. Gemäß der EU-Verordnung über Märkte für Kryptowerte (MiCA) fallen nicht-verwahrende Wallets nicht in den regulatorischen Geltungsbereich, da sie keine Kundengelder verwahren. Das bedeutet: Kein Kontoeinfrieren durch die Plattform. Dein Geld bleibt unter deiner Kontrolle. Siehe den vollständigen MiCA-Hinweis in unserer Fußzeile."
+      "answer": "diBoaS ist ohne Verwahrung gebaut: Es hält niemals dein Geld oder deine Schlüssel. Nach den EU-Kryptoregeln (MiCA) braucht eine Lizenz, wer Kundengelder verwahrt, und diBoaS ist so gebaut, dass es das nicht tut. Die Regeln entwickeln sich weiter, und wir verfolgen sie genau; diBoaS startet in jedem Markt erst, wenn der rechtliche Weg bestätigt ist. So oder so: Dein Geld bleibt unter deiner Kontrolle. Den vollständigen MiCA-Hinweis findest du in unserer Fußzeile."
     },
     "pixFaq": {
       "question": "Kann ich PIX bei diBoaS nutzen?",

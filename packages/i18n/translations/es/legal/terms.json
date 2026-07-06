@@ -9,7 +9,7 @@
   "backToTop": "Volver arriba",
   "header": {
     "title": "Términos de Uso",
-    "lastUpdated": "Última Actualización: 3 de enero de 2026",
+    "lastUpdated": "Última actualización: 5 de julio de 2026",
     "intro": "Bienvenido a diBoaS. Al acceder a nuestro sitio web, aceptas estos Términos de Uso."
   },
   "sections": {
@@ -29,7 +29,7 @@
       "intro": "Al usar nuestro sitio web, confirmas que:",
       "items": [
         "Tienes al menos 18 años de edad",
-        "No te encuentras en una jurisdicción restringida (actualmente: Estados Unidos, Brasil)",
+        "No te encuentras en una jurisdicción sujeta a sanciones internacionales, ni en una jurisdicción donde diBoaS no ofrece acceso (actualmente: China, Rusia)",
         "Aceptas estos Términos de Uso"
       ]
     },
@@ -54,7 +54,7 @@
     },
     "geographicRestrictions": {
       "title": "4. Disponibilidad Geográfica",
-      "intro": "diBoaS se encuentra actualmente en fase de prelanzamiento. Cuando los servicios estén disponibles, se ofrecerán inicialmente a usuarios en Estados Unidos, la Unión Europea y Brasil. La disponibilidad en otras regiones se anunciará a medida que nos expandamos.",
+      "intro": "diBoaS se encuentra actualmente en fase de prelanzamiento. Cuando los servicios estén disponibles, se ofrecerán inicialmente a usuarios en Estados Unidos, la Unión Europea y Brasil. La disponibilidad en otras regiones se anunciará a medida que nos expandamos. Ciertas funciones, como enviar dinero a otros usuarios, se habilitan mercado por mercado, a medida que se confirman los requisitos legales de cada mercado.",
       "note": "Durante el período de prelanzamiento, el sitio web y la lista de espera son accesibles a nivel mundial. Ciertas funciones o servicios pueden estar restringidos en jurisdicciones donde no están permitidos por la legislación local, incluidos los países sujetos a sanciones internacionales. Eres responsable de determinar si tu uso de esta plataforma cumple con las leyes aplicables en tu jurisdicción."
     },
     "intellectualProperty": {

@@ -5,7 +5,7 @@
   "items": {
     "isBank": {
       "question": "Is diBoaS a bank?",
-      "answer": "No.\n\ndiBoaS is a financial app. It helps you turn goals into digital-dollar paths, with clear information before you decide.\n\nYou hold your own money. diBoaS is the app, not the holder. diBoaS keeps only a partial recovery key, never full control of your funds, and does not make financial decisions for you."
+      "answer": "No.\n\ndiBoaS is a financial app. It helps you turn goals into digital-dollar paths, with clear information before you decide.\n\nYou hold your own money. diBoaS is the app, not the holder. diBoaS holds no part of your key, none. If you ever need to recover access, that runs through an independent recovery partner, not through diBoaS. No one at diBoaS can move your funds, and no one here makes financial decisions for you."
     },
     "isForEveryone": {
       "question": "Is diBoaS for everyone?",
@@ -29,7 +29,7 @@
     },
     "micaRegulated": {
       "question": "Is diBoaS MiCA-regulated?",
-      "answer": "diBoaS is a non-custodial platform. Under the EU Markets in Crypto-Assets Regulation (MiCA), non-custodial wallets fall outside the regulatory scope because they do not hold customer funds. This means: no account freezing by the platform. Your money stays under your control. See the full MiCA notice in our footer."
+      "answer": "diBoaS is built non-custodial: it never holds your money or your keys. Under the EU's crypto rules (MiCA), a license is required for services that hold customer funds, and diBoaS is designed not to hold them. The rules keep evolving, and we track them closely; diBoaS opens in each market only when its legal path is confirmed. Either way, your money stays under your control. See the full MiCA notice in our footer."
     },
     "pixFaq": {
       "question": "Can I use PIX with diBoaS?",
@@ -37,7 +37,7 @@
     },
     "whySaveDollar": {
       "question": "Why save in dollars instead of a savings account?",
-      "answer": "Because the real loses value every year against the dollar. Even when your savings account pays 7-8%, inflation and currency depreciation can eat most of that return. With diBoaS, your money is in digital dollars, protected against BRL depreciation. When you withdraw, you get more reais than you put in, not just from yield, but from the exchange rate working in your favor."
+      "answer": "Because the real has lost ground against the dollar in most years, and even when a savings account pays 7-8%, inflation and a weakening currency can quietly eat most of it. With diBoaS, your money sits in digital dollars. If the dollar strengthens against the real, the exchange rate works in your favor when you withdraw. If it moves the other way, it works against you. Two sides. We show you both before you decide."
     },
     "safety": {
       "question": "What are the risks?",

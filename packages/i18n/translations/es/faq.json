@@ -5,7 +5,7 @@
   "items": {
     "isBank": {
       "question": "¿Es diBoaS un banco?",
-      "answer": "No.\n\ndiBoaS es una app financiera. Te ayuda a asignar dinero a un objetivo, entender posibles caminos con dólares digitales y ver información clara antes de decidir.\n\nTú guardas tu propio dinero. diBoaS es la app, no la custodia, y solo conserva una clave parcial de recuperación, nunca el control total de tus fondos. No toma decisiones financieras por ti."
+      "answer": "No.\n\ndiBoaS es una app financiera. Te ayuda a asignar dinero a un objetivo, entender posibles caminos con dólares digitales y ver información clara antes de decidir.\n\nTu dinero es tuyo y se queda contigo. diBoaS es la aplicación, no el guardián. diBoaS no guarda ninguna parte de tu clave, ninguna. Si algún día necesitas recuperar el acceso, eso pasa por un socio independiente de recuperación, no por diBoaS. Nadie en diBoaS puede mover tu dinero, y nadie aquí toma decisiones financieras por ti."
     },
     "isForEveryone": {
       "question": "¿Es diBoaS para todo el mundo?",
@@ -29,7 +29,7 @@
     },
     "micaRegulated": {
       "question": "¿Es diBoaS compatible con MiCA?",
-      "answer": "diBoaS es una plataforma de custodia propia. Según el Reglamento europeo sobre los Mercados de Criptoactivos (MiCA), las carteras de custodia propia no entran en el ámbito regulatorio porque no custodian fondos de los usuarios. Esto significa: ningún bloqueo de cuenta por parte de la plataforma. Tu dinero permanece bajo tu control. Consulta el aviso MiCA completo en nuestro pie de página."
+      "answer": "diBoaS está construido sin custodia: nunca guarda tu dinero ni tus claves. Según las normas europeas de criptoactivos (MiCA), quien custodia fondos de clientes necesita una licencia, y diBoaS está diseñado para no custodiarlos. Las normas siguen evolucionando y las seguimos de cerca; diBoaS abre en cada mercado solo cuando su camino legal está confirmado. En cualquier caso, tu dinero queda bajo tu control. Consulta el aviso completo de MiCA en nuestro pie de página."
     },
     "pixFaq": {
       "question": "¿Puedo usar PIX con diBoaS?",
