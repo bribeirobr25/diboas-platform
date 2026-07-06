@@ -1,0 +1,131 @@
+{
+  "$schema": "./investor-figures.schema.json",
+  "figures": {
+    "fees.rate.ramp": {
+      "value": { "en": "0.48%", "pt-BR": "0,48%" },
+      "source": "FEES.md",
+      "feesRow": "Add Money",
+      "feesCanonical": ["0.48%"],
+      "asOf": "2026-07-05",
+      "status": "active"
+    },
+    "fees.rate.exit": {
+      "value": { "en": "0.39%", "pt-BR": "0,39%" },
+      "source": "FEES.md",
+      "feesRow": "Sell / Close",
+      "feesCanonical": ["0.39%"],
+      "asOf": "2026-07-05",
+      "status": "active"
+    },
+    "fees.cap.rampB2C": {
+      "value": { "en": "$250", "pt-BR": "US$250", "de": "€250", "es": "€250" },
+      "source": "FEES.md",
+      "feesRow": "Add Money",
+      "feesCanonical": ["$250", "€250", "R$250"],
+      "asOf": "2026-07-05",
+      "status": "active",
+      "note": "per-market-currency consumer cap (D-005)"
+    },
+    "fees.cap.rampB2C.all": {
+      "value": "$250 / €250 / R$250",
+      "source": "FEES.md",
+      "feesRow": "Add Money",
+      "feesCanonical": ["$250", "€250", "R$250"],
+      "asOf": "2026-07-05",
+      "status": "active",
+      "note": "multi-currency enumeration form — for sites that list all three caps in one sentence"
+    },
+    "fees.cap.rampB2B": {
+      "value": { "en": "no cap", "pt-BR": "sem limite" },
+      "source": "DECISION_LOG#D-005",
+      "feesRow": "Add Money",
+      "feesCanonical": ["no cap"],
+      "anchors": ["no cap"],
+      "asOf": "2026-07-05",
+      "status": "pending",
+      "forbidLiterals": ["\\$2,500", "US\\$2\\.500"],
+      "note": "flips to active in R3 when the room propagation lands; forbidLiterals then bans the superseded $2,500 cap from generated docs"
+    },
+    "fees.cap.exit": {
+      "value": { "en": "$25", "pt-BR": "US$25" },
+      "source": "FEES.md",
+      "feesRow": "Sell / Close",
+      "feesCanonical": ["$25"],
+      "asOf": "2026-07-05",
+      "status": "active"
+    },
+    "raise.cap": {
+      "value": { "en": "€2.5M", "pt-BR": "€2,5M" },
+      "source": "business-plan",
+      "asOf": "2026-07-03",
+      "status": "active"
+    },
+    "raise.discount": {
+      "value": "20%",
+      "source": "business-plan",
+      "asOf": "2026-07-03",
+      "status": "active"
+    },
+    "raise.pathA": {
+      "value": "~€200K",
+      "source": "use-of-funds",
+      "asOf": "2026-07-03",
+      "status": "active"
+    },
+    "raise.pathB": {
+      "value": "~€450K",
+      "source": "use-of-funds",
+      "asOf": "2026-07-03",
+      "status": "active"
+    },
+    "raise.runway": {
+      "value": { "en": "~18 months", "pt-BR": "~18 meses" },
+      "source": "use-of-funds",
+      "asOf": "2026-07-03",
+      "status": "active"
+    },
+    "arpu.b2c": {
+      "value": { "en": "~US$5.88", "pt-BR": "~US$5,88" },
+      "source": "revenue-model",
+      "asOf": "2026-06-26",
+      "status": "active",
+      "note": "assumption-labeled — blended consumer ARPU per year"
+    },
+    "validation.interim": {
+      "value": {
+        "en": "≥15 logged conversations by 2026-08-15",
+        "pt-BR": "≥15 conversas registradas até 15/08/2026"
+      },
+      "source": "DECISION_LOG#D-003",
+      "anchors": ["2026-08-15"],
+      "asOf": "2026-07-03",
+      "status": "active",
+      "note": "consumed by the A3 stats bands; no prose site yet"
+    },
+    "validation.full": {
+      "value": {
+        "en": "≥30 logged conversations + ≥3 signed non-binding LOIs by 2026-08-29",
+        "pt-BR": "≥30 conversas registradas + ≥3 LOIs não vinculantes assinadas até 29/08/2026"
+      },
+      "source": "DECISION_LOG#D-003",
+      "anchors": ["2026-08-29"],
+      "asOf": "2026-07-03",
+      "status": "active",
+      "note": "consumed by the A3 stats bands; no prose site yet"
+    }
+  },
+  "protected": [
+    {
+      "pattern": "2,500–5,000",
+      "locales": ["en", "de", "es"],
+      "minCount": 4,
+      "why": "Year-1 funded-users target — never a fee cap, never tokenized (B2B_NO_CAP_PROPAGATION_PLAN protected string)"
+    },
+    {
+      "pattern": "2.500–5.000",
+      "locales": ["pt-BR"],
+      "minCount": 3,
+      "why": "same target, pt-BR number formatting"
+    }
+  ]
+}
