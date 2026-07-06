@@ -434,7 +434,7 @@
         },
         {
           "type": "paragraph",
-          "text": "What's the fee schedule, exactly? Add money / cash out: 0.48%, capped at $250 for consumers and $2,500 for business. Close a strategy: 0.39%, capped at $25. Send, swap, bridge, starting a strategy, and receiving B2B payments: diBoaS fee $0 where supported. Network, ramp, provider, banking, exchange, or compliance-related costs may still apply and are passed through at cost — diBoaS never marks them up. The split cap is deliberate: the $25 cap protects someone cashing out their savings; the higher add/cash-out caps keep B2B economics intact. This schedule is the single source of truth (FEES.md) and is stated identically across every surface."
+          "text": "What's the fee schedule, exactly? Add money / cash out: 0.48%, capped at $250 for consumers and $2,500 for business. Close a strategy: 0.39%, capped at $25. Send, swap, bridge, starting a strategy, and receiving B2B payments: diBoaS fee $0 where supported. Network, ramp, provider, banking, exchange, or compliance-related costs may still apply and are passed through at cost — diBoaS never marks them up. The split cap is deliberate: the $25 cap protects someone cashing out their savings; the higher add/cash-out caps keep B2B economics intact. This schedule is the single source of truth (FEES.md) and is stated consistently on every surface, in each market's currency (consumer add/cash-out caps: $250 / €250 / R$250)."
         },
         {
           "type": "paragraph",
