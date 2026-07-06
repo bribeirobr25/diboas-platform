@@ -15,7 +15,7 @@
       "title": "Your Wallet, Your Keys",
       "paragraphs": [
         "Every user gets their own wallet with their own private key.",
-        "diBoaS never sees, holds, or has access to your key.",
+        "diBoaS never sees, holds, or has access to your key. If you ever need to recover access, recovery runs through an independent partner, never through diBoaS.",
         "If diBoaS disappeared tomorrow, your money would still be yours."
       ]
     },
