@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
+import { cookies } from 'next/headers';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
+import { verifyInvestorGate, INVESTOR_GATE_COOKIE } from '@/lib/security/investorGate';
 import { InvestorDocBody, type InvestorDocContent } from '@/components/Investor/InvestorDocBody';
 import { InvestorDocNav } from '@/components/Investor/InvestorDocNav';
 import { InvestorReadingProgress } from '@/components/Investor/InvestorReadingProgress';
@@ -43,15 +45,23 @@ interface DocsContent {
 }
 
 /**
- * Gated investor-room document page. Lives under the room layout, so it inherits
- * the password gate. Renders the full document body (generated `blocks[]` from
- * the `investor-docs` namespace) with a "Download PDF" (print) action; the
- * in-preparation doc keeps its request fallback.
+ * Gated investor-room document page. Renders the full document body (generated
+ * `blocks[]` from the `investor-docs` namespace) with a "Download PDF" (print)
+ * action; the in-preparation doc keeps its request fallback.
+ *
+ * SECURITY: the page MUST verify the gate itself. The room layout's
+ * `granted ? children : <InvestorRoomAccess/>` only controls what is PLACED in
+ * the tree — pages render in parallel with layouts, so without this check the
+ * full document content ships in the RSC flight payload of the password screen
+ * (found + fixed 2026-07-06). When not granted, the page contributes nothing.
  */
 export default async function InvestorDocPage({ params }: DocPageProps) {
   const { locale: localeParam, doc: docSlug } = await params;
   const locale = localeParam as SupportedLocale;
   if (!isValidLocale(locale)) notFound();
+
+  const cookieStore = await cookies();
+  if (!verifyInvestorGate(cookieStore.get(INVESTOR_GATE_COOKIE)?.value)) return null;
 
   // Room is EN + pt-BR only; de/es read English. Chrome + body both use the content locale.
   const contentLocale = roomContentLocale(locale);

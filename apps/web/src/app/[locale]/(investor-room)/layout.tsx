@@ -55,15 +55,26 @@ export default async function InvestorRoomLayout({ children, params }: InvestorR
     loadMessages(locale, 'common'),
   ]);
   const roomBadge = (investorMessages as unknown as { room: { roomBadge: string } }).room.roomBadge;
-  const allMessages = {
-    ...flattenMessages(commonMessages, 'common'),
-    ...flattenMessages(investorMessages, 'investor'),
-  };
 
   // Per-request gate check (cookies() makes this subtree dynamic).
   const cookieStore = await cookies();
   const granted = verifyInvestorGate(cookieStore.get(INVESTOR_GATE_COOKIE)?.value);
   const configured = isInvestorGateConfigured();
+
+  // SECURITY: the i18n bundle ships to the client in the flight payload. When
+  // the gate is NOT granted, only the access-screen strings may ship — the
+  // rest of the investor namespace is room content and must stay behind the
+  // password (found + fixed 2026-07-06, with the parallel page-render leak).
+  const investorFlat = flattenMessages(investorMessages, 'investor');
+  const investorForClient = granted
+    ? investorFlat
+    : Object.fromEntries(
+        Object.entries(investorFlat).filter(([key]) => key.startsWith('investor.access.'))
+      );
+  const allMessages = {
+    ...flattenMessages(commonMessages, 'common'),
+    ...investorForClient,
+  };
 
   return (
     <LocaleProvider initialLocale={locale}>
