@@ -63,7 +63,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Adding money or cashing out costs 0.48%: capped at $250 for consumers and $2,500 for businesses. Closing a strategy costs 0.39%, capped at $25."
+          "text": "Adding money or cashing out costs 0.48%: capped at $250 / €250 / R$250 for consumers, no cap for businesses. Closing a strategy costs 0.39%, capped at $25."
         },
         {
           "type": "paragraph",
@@ -434,7 +434,7 @@
         },
         {
           "type": "paragraph",
-          "text": "What's the fee schedule, exactly? Add money / cash out: 0.48%, capped at $250 for consumers and $2,500 for business. Close a strategy: 0.39%, capped at $25. Send, swap, bridge, starting a strategy, and receiving B2B payments: diBoaS fee $0 where supported. Network, ramp, provider, banking, exchange, or compliance-related costs may still apply and are passed through at cost — diBoaS never marks them up. The split cap is deliberate: the $25 cap protects someone cashing out their savings; the higher add/cash-out caps keep B2B economics intact. This schedule is the single source of truth (FEES.md) and is stated identically across every surface."
+          "text": "What's the fee schedule, exactly? Add money / cash out: 0.48%, capped at $250 / €250 / R$250 for consumers and uncapped for business. Close a strategy: 0.39%, capped at $25. Send, swap, bridge, starting a strategy, and receiving B2B payments: diBoaS fee $0 where supported. Network, ramp, provider, banking, exchange, or compliance-related costs may still apply and are passed through at cost — diBoaS never marks them up. The caps protect the consumer: the $25 close cap shields someone cashing out their savings, and the consumer add/cash-out caps keep everyday costs predictable. Business pays the same 0.48% at any size — no tiers, no games. This schedule is the single source of truth (FEES.md) and is stated consistently on every surface, in each market's currency (consumer add/cash-out caps: $250 / €250 / R$250)."
         },
         {
           "type": "paragraph",
@@ -2538,17 +2538,21 @@
           "headers": ["Fee type", "Cap"],
           "rows": [
             ["Consumer add / cash-out", "US$250"],
-            ["Business add / cash-out", "US$2,500"],
+            ["Business add / cash-out", "no cap"],
             ["Close strategy", "US$25"]
           ]
         },
         {
           "type": "paragraph",
-          "text": "The split is intentional."
+          "text": "The consumer caps are intentional."
         },
         {
           "type": "paragraph",
-          "text": "The lower closing cap protects users exiting a strategy. The higher business movement cap preserves the economics of larger B2B flows."
+          "text": "The lower closing cap protects users exiting a strategy. Business movements pay the same 0.48% at any size — no cap."
+        },
+        {
+          "type": "paragraph",
+          "text": "Fee-revenue projections assume typical B2B transactions below the level where the former $2,500 cap would have applied (~$520K per transaction); under this assumption, uncapped pricing leaves all projected figures unchanged. Very large individual transactions would create additional revenue not modeled here."
         },
         {
           "type": "heading",
@@ -4494,8 +4498,8 @@
           "rows": [
             ["Add money — consumer", "0.48%", "US$250"],
             ["Cash out — consumer", "0.48%", "US$250"],
-            ["Add money — business", "0.48%", "US$2,500"],
-            ["Cash out — business", "0.48%", "US$2,500"],
+            ["Add money — business", "0.48%", "no cap"],
+            ["Cash out — business", "0.48%", "no cap"],
             ["Close strategy", "0.39%", "US$25"],
             ["Start strategy", "0", "N/A"],
             ["Send / swap / bridge", "0 where supported", "N/A"],
@@ -4681,7 +4685,7 @@
           "items": [
             "explicit;",
             "defensible against the value of cash control;",
-            "capped for large movements;",
+            "the same rate at any size — no tiers, no cap;",
             "predictable enough for finance teams;",
             "tied to operational action;",
             "compatible with audit and reporting."
@@ -4702,7 +4706,7 @@
         },
         {
           "type": "paragraph",
-          "text": "at a 0.48% movement fee, gross diBoaS fee before cap logic would be:"
+          "text": "at a 0.48% movement fee, the gross diBoaS fee would be:"
         },
         {
           "type": "callout",
@@ -4718,7 +4722,7 @@
         },
         {
           "type": "paragraph",
-          "text": "the uncapped fee would be:"
+          "text": "the fee would be:"
         },
         {
           "type": "callout",
@@ -4726,11 +4730,11 @@
         },
         {
           "type": "paragraph",
-          "text": "still below the US$2,500 business cap."
+          "text": "and the fee scales linearly from there — business pays the same 0.48% at any size, with no cap."
         },
         {
           "type": "paragraph",
-          "text": "The cap protects against extreme fee outcomes while preserving meaningful revenue on larger business flows."
+          "text": "The consumer caps protect individuals against extreme fee outcomes; business pricing stays the same 0.48% at any size — no tiers, no games."
         },
         {
           "type": "heading",

@@ -67,7 +67,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Adicionar dinheiro ou sacar custa 0,48%: limite máximo de US$250 para pessoas físicas e US$2.500 para empresas. Encerrar uma estratégia custa 0,39%, com limite máximo de US$25."
+          "text": "Adicionar dinheiro ou sacar custa 0,48%: limite máximo de US$ 250 / € 250 / R$ 250 para pessoas físicas, sem limite para empresas. Encerrar uma estratégia custa 0,39%, com limite máximo de US$25."
         },
         {
           "type": "paragraph",
@@ -530,7 +530,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Add / cash-out: 0,48%, limite máximo de US$250 para consumidor e US$2.500 para empresa. Encerrar estratégia: 0,39%, limite máximo de US$25."
+          "text": "Add / cash-out: 0,48%, limite máximo de US$ 250 / € 250 / R$ 250 para consumidor e sem limite para empresa. Encerrar estratégia: 0,39%, limite máximo de US$25."
         },
         {
           "type": "paragraph",
@@ -538,7 +538,7 @@
         },
         {
           "type": "paragraph",
-          "text": "O limite dividido é deliberado: o limite de US$25 protege quem está sacando suas economias; os limites maiores de add/cash-out preservam a economia do B2B."
+          "text": "Os limites protegem o consumidor: o limite de US$25 no encerramento protege quem está sacando suas economias, e os limites de add/cash-out do consumidor mantêm os custos do dia a dia previsíveis. Empresas pagam os mesmos 0,48% em qualquer valor — sem faixas, sem pegadinhas."
         },
         {
           "type": "paragraph",
@@ -2810,17 +2810,21 @@
           "headers": ["Tipo de taxa", "Limite"],
           "rows": [
             ["Add / cash-out consumidor", "US$250"],
-            ["Add / cash-out empresa", "US$2.500"],
+            ["Add / cash-out empresa", "sem limite"],
             ["Encerrar estratégia", "US$25"]
           ]
         },
         {
           "type": "paragraph",
-          "text": "A divisão é proposital."
+          "text": "Os limites do consumidor são propositais."
         },
         {
           "type": "paragraph",
-          "text": "O limite menor de encerramento protege quem sai de uma estratégia. O limite maior de movimentação empresarial preserva a economia dos fluxos B2B."
+          "text": "O limite menor de encerramento protege quem sai de uma estratégia. Movimentações empresariais pagam os mesmos 0,48% em qualquer valor — sem limite."
+        },
+        {
+          "type": "paragraph",
+          "text": "As projeções de receita assumem transações B2B típicas abaixo do nível em que o antigo teto de US$ 2.500 se aplicaria (~US$ 520 mil por transação); sob essa premissa, a precificação sem teto mantém todos os números projetados inalterados. Transações individuais muito grandes gerariam receita adicional não modelada aqui."
         },
         {
           "type": "heading",
@@ -4767,8 +4771,8 @@
           "rows": [
             ["Adicionar dinheiro — consumidor", "0,48%", "US$250"],
             ["Sacar / retirar — consumidor", "0,48%", "US$250"],
-            ["Adicionar dinheiro — empresa", "0,48%", "US$2.500"],
-            ["Sacar / retirar — empresa", "0,48%", "US$2.500"],
+            ["Adicionar dinheiro — empresa", "0,48%", "sem limite"],
+            ["Sacar / retirar — empresa", "0,48%", "sem limite"],
             ["Encerrar estratégia", "0,39%", "US$25"],
             ["Iniciar estratégia", "0", "N/A"],
             ["Enviar / swap / bridge", "0 onde suportado", "N/A"],
@@ -4954,7 +4958,7 @@
           "items": [
             "explícitas;",
             "defensáveis contra o valor do controle de caixa;",
-            "limitadas por cap em grandes movimentações;",
+            "a mesma taxa em qualquer valor — sem faixas, sem cap;",
             "previsíveis para times financeiros;",
             "ligadas à ação operacional;",
             "compatíveis com auditoria e reporting."
@@ -4975,7 +4979,7 @@
         },
         {
           "type": "paragraph",
-          "text": "com taxa de 0,48%, a taxa bruta diBoaS antes de cap seria:"
+          "text": "com taxa de 0,48%, a taxa bruta diBoaS seria:"
         },
         {
           "type": "callout",
@@ -4991,7 +4995,7 @@
         },
         {
           "type": "paragraph",
-          "text": "a taxa sem cap seria:"
+          "text": "a taxa seria:"
         },
         {
           "type": "callout",
@@ -4999,11 +5003,11 @@
         },
         {
           "type": "paragraph",
-          "text": "ainda abaixo do cap empresarial de US$2.500."
+          "text": "e a taxa cresce de forma linear a partir daí — empresas pagam os mesmos 0,48% em qualquer valor, sem limite."
         },
         {
           "type": "paragraph",
-          "text": "O cap protege contra resultados extremos de taxa e preserva receita relevante em fluxos empresariais maiores."
+          "text": "Os limites do consumidor protegem pessoas físicas contra resultados extremos de taxa; o preço para empresas é o mesmo 0,48% em qualquer valor — sem faixas, sem pegadinhas."
         },
         {
           "type": "heading",

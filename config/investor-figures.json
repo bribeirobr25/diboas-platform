@@ -27,13 +27,13 @@
       "note": "per-market-currency consumer cap (D-005)"
     },
     "fees.cap.rampB2C.all": {
-      "value": "$250 / €250 / R$250",
+      "value": { "en": "$250 / €250 / R$250", "pt-BR": "US$ 250 / € 250 / R$ 250" },
       "source": "FEES.md",
       "feesRow": "Add Money",
       "feesCanonical": ["$250", "€250", "R$250"],
       "asOf": "2026-07-05",
       "status": "active",
-      "note": "multi-currency enumeration form — for sites that list all three caps in one sentence"
+      "note": "multi-currency enumeration form — for sites that list all three caps in one sentence; pt-BR keeps its spaced formatting (no silent reformatting)"
     },
     "fees.cap.rampB2B": {
       "value": { "en": "no cap", "pt-BR": "sem limite" },
@@ -42,9 +42,9 @@
       "feesCanonical": ["no cap"],
       "anchors": ["no cap"],
       "asOf": "2026-07-05",
-      "status": "pending",
-      "forbidLiterals": ["\\$2,500", "US\\$2\\.500"],
-      "note": "flips to active in R3 when the room propagation lands; forbidLiterals then bans the superseded $2,500 cap from generated docs"
+      "status": "active",
+      "forbidLiterals": ["(?<!former )\\$2,500", "US\\$2\\.500"],
+      "note": "activated 2026-07-06 with the R3 propagation. forbidLiterals bans the superseded $2,500 cap from generated docs; the lookbehind exempts the founder-approved assumption label's historical reference ('the former $2,500 cap'). pt-BR label writes 'US$ 2.500' (spaced), which the unspaced pattern deliberately does not match"
     },
     "fees.cap.exit": {
       "value": { "en": "$25", "pt-BR": "US$25" },
