@@ -4715,7 +4715,7 @@
             ["Adicionar dinheiro", "Taxa de movimentação"],
             ["Sacar / retirar", "Taxa de movimentação"],
             ["Encerrar estratégia", "Taxa de encerramento"],
-            ["Grandes movimentações B2B", "Taxa de movimentação com cap empresarial"]
+            ["Grandes movimentações B2B", "Taxa de movimentação, sem limite"]
           ]
         },
         {

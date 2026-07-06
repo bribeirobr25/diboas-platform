@@ -4442,7 +4442,7 @@
             ["Add money", "Movement fee"],
             ["Cash out", "Movement fee"],
             ["Close strategy", "Closing fee"],
-            ["Large B2B movement", "Movement fee with business cap"]
+            ["Large B2B movement", "Movement fee, no cap"]
           ]
         },
         {
