@@ -1,7 +1,125 @@
 {
   "docs": {
+    "investment-summary": {
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "diBoaS is a non-custodial financial app for assigning money to a purpose before it moves. This page is the one-screen version: the ask, the terms, and the numbers that decide it — everything else in the room is the detail behind these."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The ask"
+        },
+        {
+          "type": "stats",
+          "hero": {
+            "label": "The ask",
+            "value": "€200K–450K",
+            "note": "post-money SAFE / Wandeldarlehen"
+          },
+          "items": [
+            {
+              "label": "Valuation cap",
+              "value": "€2.5M",
+              "note": "20% discount"
+            },
+            {
+              "label": "Runway",
+              "value": "~18 months",
+              "note": "Path A ~€200K primary → Path B ~€450K upside, same terms"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Two ways in on the same terms: a lean founder-built path and a with-more-capital path that buys down the single-builder risk. The cap prices the riskiest period, not the potential."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The numbers that matter"
+        },
+        {
+          "type": "stats",
+          "hero": {
+            "label": "Break-even",
+            "value": "~1,900 users + 25 B2B",
+            "note": "B2B-assisted line, inside the 36-month window"
+          },
+          "items": [
+            {
+              "label": "Validation targets",
+              "value": "≥30 logged conversations + ≥3 signed non-binding LOIs by 2026-08-29",
+              "note": "committed dates — D-003"
+            },
+            {
+              "label": "Base case (36-month SOM)",
+              "value": "~12,000 users · ~40 B2B",
+              "note": "go-to-market capacity, not desire"
+            },
+            {
+              "label": "Net margin",
+              "value": "40–70%",
+              "note": "at break-even; partner unsigned"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Consumer fees alone do not carry the company, and the model says so. The business proves out through signed LOIs and paying clients — which is exactly what the validation targets above commit to, on dated milestones."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Status"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS has been live since March 11, 2026 — the marketing site and the market-intelligence product are in production; the money product is specified, not yet built. What an investor is funding is the build, on a non-custodial architecture where user funds survive any single point of failure."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The risk we name first"
+        },
+        {
+          "type": "paragraph",
+          "text": "The EU regulatory opinion is the single biggest risk in the company: if the opinion is wrong and diBoaS is in CASP scope, the cost and timeline change by an order of magnitude — which is why that opinion is the first money spent."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Talk to us"
+        },
+        {
+          "type": "paragraph",
+          "text": "The full documents behind every number here are in this room. To go deeper or ask anything, use the contact request on the investors page."
+        }
+      ]
+    },
     "business-plan": {
       "blocks": [
+        {
+          "type": "stats",
+          "hero": {
+            "label": "Year-1 target",
+            "value": "2,500–5,000 users · 5–10 B2B",
+            "note": "canonical Y1"
+          },
+          "items": [
+            {
+              "label": "Launch mix",
+              "value": "BR 40 · US 30 · DE 18 · ES 12",
+              "note": "% weighting by market"
+            },
+            {
+              "label": "Base case (36-month)",
+              "value": "~12,000 users · ~40 B2B",
+              "note": "SOM — go-to-market capacity"
+            }
+          ]
+        },
         {
           "type": "heading",
           "level": 3,
@@ -63,7 +181,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Adding money or cashing out costs 0.48%: capped at $250 for consumers and $2,500 for businesses. Closing a strategy costs 0.39%, capped at $25."
+          "text": "Adding money or cashing out costs 0.48%: capped at $250 / €250 / R$250 for consumers, no cap for businesses. Closing a strategy costs 0.39%, capped at $25."
         },
         {
           "type": "paragraph",
@@ -404,6 +522,31 @@
           "text": "One line on what diBoaS is: diBoaS is a non-custodial financial app that helps consumers assign money to goals and businesses assign cash to rules before money moves. It shows the strategy, cost, liquidity, and risk before the user or business decides. Users keep control of their funds the whole time — diBoaS is the interface, never the holder."
         },
         {
+          "type": "stats",
+          "hero": {
+            "label": "Terms",
+            "value": "€2.5M cap",
+            "note": "20% discount"
+          },
+          "items": [
+            {
+              "label": "The ask",
+              "value": "€200K–450K",
+              "note": "post-money SAFE / Wandeldarlehen"
+            },
+            {
+              "label": "Validation targets",
+              "value": "≥30 logged conversations + ≥3 signed non-binding LOIs by 2026-08-29",
+              "note": "committed dates — D-003"
+            },
+            {
+              "label": "B2C ARPU",
+              "value": "~US$5.88/yr",
+              "note": "honest: consumer fintech is small"
+            }
+          ]
+        },
+        {
           "type": "heading",
           "level": 3,
           "text": "1. Business model & ROI"
@@ -434,7 +577,7 @@
         },
         {
           "type": "paragraph",
-          "text": "What's the fee schedule, exactly? Add money / cash out: 0.48%, capped at $250 for consumers and $2,500 for business. Close a strategy: 0.39%, capped at $25. Send, swap, bridge, starting a strategy, and receiving B2B payments: diBoaS fee $0 where supported. Network, ramp, provider, banking, exchange, or compliance-related costs may still apply and are passed through at cost — diBoaS never marks them up. The split cap is deliberate: the $25 cap protects someone cashing out their savings; the higher add/cash-out caps keep B2B economics intact. This schedule is the single source of truth (FEES.md) and is stated identically across every surface."
+          "text": "What's the fee schedule, exactly? Add money / cash out: 0.48%, capped at $250 / €250 / R$250 for consumers and uncapped for business. Close a strategy: 0.39%, capped at $25. Send, swap, bridge, starting a strategy, and receiving B2B payments: diBoaS fee $0 where supported. Network, ramp, provider, banking, exchange, or compliance-related costs may still apply and are passed through at cost — diBoaS never marks them up. The caps protect the consumer: the $25 close cap shields someone cashing out their savings, and the consumer add/cash-out caps keep everyday costs predictable. Business pays the same 0.48% at any size — no tiers, no games. This schedule is the single source of truth (FEES.md) and is stated consistently on every surface, in each market's currency (consumer add/cash-out caps: $250 / €250 / R$250)."
         },
         {
           "type": "paragraph",
@@ -1318,6 +1461,26 @@
     "use-of-funds": {
       "blocks": [
         {
+          "type": "stats",
+          "hero": {
+            "label": "Runway",
+            "value": "~18 months",
+            "note": "what the capital buys"
+          },
+          "items": [
+            {
+              "label": "Path A (lean)",
+              "value": "~€200K",
+              "note": "founder-built — the real plan"
+            },
+            {
+              "label": "Path B (upside)",
+              "value": "~€450K",
+              "note": "+ senior engineer, buys down builder risk"
+            }
+          ]
+        },
+        {
           "type": "heading",
           "level": 3,
           "text": "One-line summary"
@@ -1921,6 +2084,31 @@
     },
     "revenue-model": {
       "blocks": [
+        {
+          "type": "stats",
+          "hero": {
+            "label": "Break-even",
+            "value": "~1,900 users + 25 B2B",
+            "note": "B2B-assisted, inside 36 months"
+          },
+          "items": [
+            {
+              "label": "B2C ARPU",
+              "value": "~US$5.88/yr",
+              "note": "blended; assumption-labeled"
+            },
+            {
+              "label": "B2B ARPU",
+              "value": "~$1,945–19,300/yr",
+              "note": "uncapped upper tail (D-005)"
+            },
+            {
+              "label": "Net margin",
+              "value": "40–70%",
+              "note": "at break-even; partner unsigned"
+            }
+          ]
+        },
         {
           "type": "heading",
           "level": 3,
@@ -2538,17 +2726,21 @@
           "headers": ["Fee type", "Cap"],
           "rows": [
             ["Consumer add / cash-out", "US$250"],
-            ["Business add / cash-out", "US$2,500"],
+            ["Business add / cash-out", "no cap"],
             ["Close strategy", "US$25"]
           ]
         },
         {
           "type": "paragraph",
-          "text": "The split is intentional."
+          "text": "The consumer caps are intentional."
         },
         {
           "type": "paragraph",
-          "text": "The lower closing cap protects users exiting a strategy. The higher business movement cap preserves the economics of larger B2B flows."
+          "text": "The lower closing cap protects users exiting a strategy. Business movements pay the same 0.48% at any size — no cap."
+        },
+        {
+          "type": "paragraph",
+          "text": "Fee-revenue projections assume typical B2B transactions below the level where the former $2,500 cap would have applied (~$520K per transaction); under this assumption, uncapped pricing leaves all projected figures unchanged. Very large individual transactions would create additional revenue not modeled here."
         },
         {
           "type": "heading",
@@ -2813,6 +3005,26 @@
     },
     "regulatory-position": {
       "blocks": [
+        {
+          "type": "stats",
+          "hero": {
+            "label": "Licenses required at launch",
+            "value": "0",
+            "note": "by design — software/interface layer; subject to legal review + launch gates per market"
+          },
+          "items": [
+            {
+              "label": "Hard requirements",
+              "value": "sanctions screening + China/Russia geofence",
+              "note": "enforced at launch, non-negotiable"
+            },
+            {
+              "label": "Market posture",
+              "value": "opens only when the legal path is confirmed",
+              "note": "launch gate per jurisdiction"
+            }
+          ]
+        },
         {
           "type": "heading",
           "level": 3,
@@ -4373,6 +4585,26 @@
     "fees-summary": {
       "blocks": [
         {
+          "type": "stats",
+          "hero": {
+            "label": "Invest / Send",
+            "value": "FREE",
+            "note": "on-chain transfers cost diBoaS nothing"
+          },
+          "items": [
+            {
+              "label": "Add / Cash out",
+              "value": "0.48%",
+              "note": "caps $250 / €250 / R$250 B2C · no cap B2B"
+            },
+            {
+              "label": "Sell / Close",
+              "value": "0.39%",
+              "note": "$25 cap"
+            }
+          ]
+        },
+        {
           "type": "heading",
           "level": 3,
           "text": "One-line summary"
@@ -4438,7 +4670,7 @@
             ["Add money", "Movement fee"],
             ["Cash out", "Movement fee"],
             ["Close strategy", "Closing fee"],
-            ["Large B2B movement", "Movement fee with business cap"]
+            ["Large B2B movement", "Movement fee, no cap"]
           ]
         },
         {
@@ -4494,8 +4726,8 @@
           "rows": [
             ["Add money — consumer", "0.48%", "US$250"],
             ["Cash out — consumer", "0.48%", "US$250"],
-            ["Add money — business", "0.48%", "US$2,500"],
-            ["Cash out — business", "0.48%", "US$2,500"],
+            ["Add money — business", "0.48%", "no cap"],
+            ["Cash out — business", "0.48%", "no cap"],
             ["Close strategy", "0.39%", "US$25"],
             ["Start strategy", "0", "N/A"],
             ["Send / swap / bridge", "0 where supported", "N/A"],
@@ -4681,7 +4913,7 @@
           "items": [
             "explicit;",
             "defensible against the value of cash control;",
-            "capped for large movements;",
+            "the same rate at any size — no tiers, no cap;",
             "predictable enough for finance teams;",
             "tied to operational action;",
             "compatible with audit and reporting."
@@ -4702,7 +4934,7 @@
         },
         {
           "type": "paragraph",
-          "text": "at a 0.48% movement fee, gross diBoaS fee before cap logic would be:"
+          "text": "at a 0.48% movement fee, the gross diBoaS fee would be:"
         },
         {
           "type": "callout",
@@ -4718,7 +4950,7 @@
         },
         {
           "type": "paragraph",
-          "text": "the uncapped fee would be:"
+          "text": "the fee would be:"
         },
         {
           "type": "callout",
@@ -4726,11 +4958,11 @@
         },
         {
           "type": "paragraph",
-          "text": "still below the US$2,500 business cap."
+          "text": "and the fee scales linearly from there — business pays the same 0.48% at any size, with no cap."
         },
         {
           "type": "paragraph",
-          "text": "The cap protects against extreme fee outcomes while preserving meaningful revenue on larger business flows."
+          "text": "The consumer caps protect individuals against extreme fee outcomes; business pricing stays the same 0.48% at any size — no tiers, no games."
         },
         {
           "type": "heading",

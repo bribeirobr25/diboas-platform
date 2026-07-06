@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
+import { cookies } from 'next/headers';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
+import { verifyInvestorGate, INVESTOR_GATE_COOKIE } from '@/lib/security/investorGate';
 import { InvestorProse } from '@/components/Investor/InvestorProse';
 import { InvestorDocCards } from '@/components/Investor/InvestorDocCards';
 import { InvestorSplitList } from '@/components/Investor/InvestorSplitList';
@@ -56,6 +58,13 @@ export default async function InvestorRoomPage({ params }: RoomPageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
   if (!isValidLocale(locale)) notFound();
+
+  // SECURITY: pages render in parallel with layouts — the layout's conditional
+  // alone leaves this page's content in the RSC flight payload of the password
+  // screen. The page gates itself; when not granted it contributes nothing
+  // (found + fixed 2026-07-06).
+  const cookieStore = await cookies();
+  if (!verifyInvestorGate(cookieStore.get(INVESTOR_GATE_COOKIE)?.value)) return null;
 
   const messages = (await loadMessages(
     roomContentLocale(locale),

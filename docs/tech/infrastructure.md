@@ -132,9 +132,10 @@ Five workflows in `.github/workflows/`: `ci.yml`, `security.yml`, `accessibility
   7. `pnpm validate:sdk-invariant`
   8. `pnpm validate:translations`
   9. `pnpm validate:design-tokens`
-  10. `pnpm build`
-  11. `pnpm check:budget` (bundle-budget gate)
-  12. `pnpm --filter web build-storybook` (Storybook build artifact)
+  10. `pnpm validate:investor-figures` (figures-registry L2 gate; L1 canon checks auto-skip in CI)
+  11. `pnpm build`
+  12. `pnpm check:budget` (bundle-budget gate)
+  13. `pnpm --filter web build-storybook` (Storybook build artifact)
 
 ### `security.yml` — Dependency audit
 

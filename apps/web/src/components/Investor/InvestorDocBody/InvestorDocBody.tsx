@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { StatStrip, type Stat } from '../StatStrip';
 import styles from './InvestorDocBody.module.css';
 
 /** Typed content blocks — mirror the generator output (scripts/generate-investor-docs.mjs). */
@@ -8,7 +9,8 @@ export type DocBlock =
   | { type: 'list'; ordered: boolean; items: string[] }
   | { type: 'table'; headers: string[]; rows: string[][] }
   | { type: 'quote'; text: string }
-  | { type: 'callout'; lines: string[] };
+  | { type: 'callout'; lines: string[] }
+  | { type: 'stats'; hero: Stat; items: Stat[] };
 
 export interface InvestorDocContent {
   readonly blocks: DocBlock[];
@@ -19,6 +21,12 @@ interface InvestorDocBodyProps {
   /** Localized label for the jump-to table of contents (e.g. "On this page"). */
   readonly onThisPageLabel: string;
   readonly className?: string;
+  /**
+   * `doc` (default) — flowing document with a jump-to ToC.
+   * `slides` — each shallowest-level section renders as a slide card; the deck
+   * prints one slide per page (the pitch-deck layout, A3.4).
+   */
+  readonly layout?: 'doc' | 'slides';
 }
 
 const HEADING_TAGS: Record<number, 'h2' | 'h3' | 'h4'> = { 2: 'h2', 3: 'h3', 4: 'h4' };
@@ -52,6 +60,7 @@ function slugify(text: string): string {
 function buildHeadingIds(blocks: DocBlock[]): {
   idByIndex: Record<number, string>;
   toc: { id: string; text: string }[];
+  sectionLevel: number;
 } {
   const levels = blocks
     .filter((b): b is Extract<DocBlock, { type: 'heading' }> => b.type === 'heading')
@@ -71,7 +80,117 @@ function buildHeadingIds(blocks: DocBlock[]): {
     idByIndex[i] = id;
     toc.push({ id, text: block.text });
   });
-  return { idByIndex, toc };
+  return { idByIndex, toc, sectionLevel };
+}
+
+/** Render one content block to semantic HTML. Shared by the doc + slide layouts. */
+function renderBlock(block: DocBlock, i: number, idByIndex: Record<number, string>) {
+  switch (block.type) {
+    case 'heading': {
+      const Tag = HEADING_TAGS[block.level] ?? 'h3';
+      return (
+        <Tag key={i} id={idByIndex[i]} className={styles.heading} data-level={block.level}>
+          {block.text}
+        </Tag>
+      );
+    }
+    case 'paragraph':
+      return (
+        <p key={i} className={styles.paragraph}>
+          {block.text}
+        </p>
+      );
+    case 'list':
+      return block.ordered ? (
+        <ol key={i} className={styles.list}>
+          {block.items.map((item, j) => (
+            <li key={j}>{item}</li>
+          ))}
+        </ol>
+      ) : (
+        <ul key={i} className={styles.list}>
+          {block.items.map((item, j) => (
+            <li key={j}>{item}</li>
+          ))}
+        </ul>
+      );
+    case 'table':
+      return (
+        <div key={i} className={styles.tableWrap}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                {block.headers.map((h, j) => (
+                  <th key={j} scope="col">
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {block.rows.map((row, r) => (
+                <tr key={r}>
+                  {row.map((cell, c) => (
+                    <td key={c}>{cell}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    case 'quote':
+      return (
+        <blockquote key={i} className={styles.quote}>
+          {block.text}
+        </blockquote>
+      );
+    case 'callout':
+      return (
+        <div key={i} className={styles.callout}>
+          {block.lines.map((line, j) => (
+            <p key={j}>{line}</p>
+          ))}
+        </div>
+      );
+    case 'stats':
+      // Defensive: a malformed band (no hero) contributes nothing rather than
+      // crash the doc. Build-time validation makes this unreachable.
+      return block.hero ? (
+        <StatStrip key={i} hero={block.hero} items={block.items ?? []} variant="doc" />
+      ) : (
+        <Fragment key={i} />
+      );
+    default:
+      return <Fragment key={i} />;
+  }
+}
+
+/**
+ * Group blocks into slide cards, one per shallowest-level (`sectionLevel`)
+ * heading. Each block keeps its original index `i` (for stable keys + heading
+ * anchor ids) so rendering needs no mutable counter.
+ */
+function groupIntoSlides(
+  blocks: DocBlock[],
+  sectionLevel: number
+): { block: DocBlock; i: number }[][] {
+  const slides: { block: DocBlock; i: number }[][] = [];
+  let current: { block: DocBlock; i: number }[] | null = null;
+  blocks.forEach((block, i) => {
+    const entry = { block, i };
+    if (block.type === 'heading' && block.level === sectionLevel) {
+      current = [entry];
+      slides.push(current);
+    } else if (current) {
+      current.push(entry);
+    } else {
+      // Preamble before the first section heading → its own lead slide.
+      current = [entry];
+      slides.push(current);
+    }
+  });
+  return slides;
 }
 
 /**
@@ -87,89 +206,36 @@ export function InvestorDocBody({
   content,
   onThisPageLabel,
   className = '',
+  layout = 'doc',
 }: InvestorDocBodyProps) {
   const { blocks } = content;
-  const { idByIndex, toc } = buildHeadingIds(blocks);
-  const showToc = toc.length >= TOC_MIN_SECTIONS;
+  const { idByIndex, toc, sectionLevel } = buildHeadingIds(blocks);
+
+  // Slides layout (pitch-deck): each section becomes a numbered card; one slide
+  // per page in print. No ToC — the cards ARE the navigation.
+  if (layout === 'slides') {
+    const slides = groupIntoSlides(blocks, sectionLevel);
+    return (
+      <div className={`${styles.deck} ${className}`}>
+        {slides.map((slideBlocks, s) => (
+          <section key={s} className={styles.slide} aria-label={`Slide ${s + 1}`}>
+            <span className={styles.slideNumber} aria-hidden="true">
+              {String(s + 1).padStart(2, '0')}
+            </span>
+            {slideBlocks.map(({ block, i }) => renderBlock(block, i, idByIndex))}
+          </section>
+        ))}
+      </div>
+    );
+  }
 
   const doc = (
     <div className={`${styles.doc} ${className}`}>
-      {blocks.map((block, i) => {
-        switch (block.type) {
-          case 'heading': {
-            const Tag = HEADING_TAGS[block.level] ?? 'h3';
-            return (
-              <Tag key={i} id={idByIndex[i]} className={styles.heading} data-level={block.level}>
-                {block.text}
-              </Tag>
-            );
-          }
-          case 'paragraph':
-            return (
-              <p key={i} className={styles.paragraph}>
-                {block.text}
-              </p>
-            );
-          case 'list':
-            return block.ordered ? (
-              <ol key={i} className={styles.list}>
-                {block.items.map((item, j) => (
-                  <li key={j}>{item}</li>
-                ))}
-              </ol>
-            ) : (
-              <ul key={i} className={styles.list}>
-                {block.items.map((item, j) => (
-                  <li key={j}>{item}</li>
-                ))}
-              </ul>
-            );
-          case 'table':
-            return (
-              <div key={i} className={styles.tableWrap}>
-                <table className={styles.table}>
-                  <thead>
-                    <tr>
-                      {block.headers.map((h, j) => (
-                        <th key={j} scope="col">
-                          {h}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {block.rows.map((row, r) => (
-                      <tr key={r}>
-                        {row.map((cell, c) => (
-                          <td key={c}>{cell}</td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            );
-          case 'quote':
-            return (
-              <blockquote key={i} className={styles.quote}>
-                {block.text}
-              </blockquote>
-            );
-          case 'callout':
-            return (
-              <div key={i} className={styles.callout}>
-                {block.lines.map((line, j) => (
-                  <p key={j}>{line}</p>
-                ))}
-              </div>
-            );
-          default:
-            return <Fragment key={i} />;
-        }
-      })}
+      {blocks.map((block, i) => renderBlock(block, i, idByIndex))}
     </div>
   );
 
+  const showToc = toc.length >= TOC_MIN_SECTIONS;
   if (!showToc) return doc;
 
   return (
