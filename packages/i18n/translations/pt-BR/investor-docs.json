@@ -101,6 +101,26 @@
     "business-plan": {
       "blocks": [
         {
+          "type": "stats",
+          "hero": {
+            "label": "Meta do ano 1",
+            "value": "2.500–5.000 usuários · 5–10 B2B",
+            "note": "Y1 canônico"
+          },
+          "items": [
+            {
+              "label": "Mix de lançamento",
+              "value": "BR 40 · EUA 30 · DE 18 · ES 12",
+              "note": "ponderação % por mercado"
+            },
+            {
+              "label": "Caso-base (36 meses)",
+              "value": "~12.000 usuários · ~40 B2B",
+              "note": "SOM — capacidade de go-to-market"
+            }
+          ]
+        },
+        {
           "type": "heading",
           "level": 3,
           "text": "O que é a diBoaS"
@@ -1695,6 +1715,26 @@
     },
     "use-of-funds": {
       "blocks": [
+        {
+          "type": "stats",
+          "hero": {
+            "label": "Fôlego (runway)",
+            "value": "~18 meses",
+            "note": "o que o capital compra"
+          },
+          "items": [
+            {
+              "label": "Caminho A (enxuto)",
+              "value": "~€200K",
+              "note": "founder-built — o plano real"
+            },
+            {
+              "label": "Caminho B (upside)",
+              "value": "~€450K",
+              "note": "+ engenheiro sênior, reduz risco de construtor"
+            }
+          ]
+        },
         {
           "type": "heading",
           "level": 3,
@@ -4797,6 +4837,26 @@
     },
     "fees-summary": {
       "blocks": [
+        {
+          "type": "stats",
+          "hero": {
+            "label": "Investir / Enviar",
+            "value": "GRÁTIS",
+            "note": "transferências on-chain não custam nada à diBoaS"
+          },
+          "items": [
+            {
+              "label": "Adicionar / Sacar",
+              "value": "0,48%",
+              "note": "tetos US$ 250 / € 250 / R$ 250 B2C · sem limite B2B"
+            },
+            {
+              "label": "Vender / Encerrar",
+              "value": "0,39%",
+              "note": "teto US$25"
+            }
+          ]
+        },
         {
           "type": "heading",
           "level": 3,
