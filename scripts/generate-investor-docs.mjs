@@ -18,7 +18,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { format, resolveConfig } from 'prettier';
-import { substituteTokens } from './lib/investor-figures.mjs';
+import { substituteTokens, parseStatsBlock } from './lib/investor-figures.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -41,6 +41,7 @@ const resolutionLocale = locale === 'pt-BR' ? 'pt-BR' : 'en';
 const BASE = 'docs/get-ready/investor-material';
 const SLUG_SOURCES = {
   en: {
+    'investment-summary': `${BASE}/investor-page-en/01a_diboas_investment_summary_EN.md`,
     'business-plan': `${BASE}/BUSINESS_PLAN_final_aligned_EN.md`,
     'investor-faq': `${BASE}/INVESTOR_FAQ_final_aligned_EN.md`,
     'pitch-deck': `${BASE}/investor-page-en/03_diboas_pitch_deck_outline_EN.md`,
@@ -51,6 +52,7 @@ const SLUG_SOURCES = {
     'fees-summary': `${BASE}/investor-page-en/08_diboas_fees_summary_EN.md`,
   },
   'pt-BR': {
+    'investment-summary': `${BASE}/investor-page-ptBR/01a_diboas_investment_summary_PT-BR.md`,
     'business-plan': `${BASE}/BUSINESS_PLAN_final_aligned_PT.md`,
     'investor-faq': `${BASE}/INVESTOR_FAQ_final_aligned_PT.md`,
     'pitch-deck': `${BASE}/investor-page-ptBR/03_diboas_pitch_deck_outline_PT-BR.md`,
@@ -84,7 +86,7 @@ const splitRow = (l) =>
     .map((c) => inline(c.trim()));
 
 /** Parse one markdown document into an ordered blocks[] array. */
-function parse(md) {
+function parse(md, rel = '(source)') {
   const lines = md.replace(/\r\n/g, '\n').split('\n');
   const blocks = [];
   let para = [];
@@ -131,19 +133,31 @@ function parse(md) {
       continue;
     }
 
-    // Fenced block (``` … ```): used in these docs for emphasized taglines /
-    // callouts, not real code. Capture the inner lines as a callout block.
-    if (/^```/.test(line)) {
+    // Fenced block. An untagged fence (``` … ```) is an emphasized tagline /
+    // callout (not real code). A ```stats fence is an investor stat band
+    // (A3 numbers layer): `label | value | note?` rows, first row = hero.
+    // {{fig:}} tokens already resolved (pre-parse pass), so we only see values.
+    const fence = line.match(/^```(\w+)?/);
+    if (fence) {
       flushPara();
       metaSkipped = true;
-      const inner = [];
+      const lang = fence[1];
+      const raw = [];
       i++;
       while (i < lines.length && !/^```/.test(lines[i])) {
-        const c = inline(lines[i].trim());
-        if (c) inner.push(c);
+        raw.push(lines[i]);
         i++;
       }
-      if (inner.length) blocks.push({ type: 'callout', lines: inner });
+      if (lang === 'stats') {
+        try {
+          blocks.push(parseStatsBlock(raw, inline));
+        } catch (e) {
+          throw new Error(`${e.message} (in ${rel})`);
+        }
+      } else {
+        const inner = raw.map((l) => inline(l.trim())).filter(Boolean);
+        if (inner.length) blocks.push({ type: 'callout', lines: inner });
+      }
       continue;
     }
 
@@ -219,11 +233,12 @@ for (const [slug, rel] of Object.entries(sources)) {
     continue;
   }
   const substituted = substituteTokens(readFileSync(path, 'utf8'), FIGURES, resolutionLocale);
-  const blocks = parse(substituted.text);
+  const blocks = parse(substituted.text, rel);
   docs[slug] = { blocks };
   const tbl = blocks.filter((b) => b.type === 'table').length;
+  const stats = blocks.filter((b) => b.type === 'stats').length;
   console.log(
-    `  ✓ ${slug}: ${blocks.length} blocks (${tbl} tables, ${substituted.resolved} figures resolved)`
+    `  ✓ ${slug}: ${blocks.length} blocks (${tbl} tables, ${stats} stats, ${substituted.resolved} figures resolved)`
   );
 }
 

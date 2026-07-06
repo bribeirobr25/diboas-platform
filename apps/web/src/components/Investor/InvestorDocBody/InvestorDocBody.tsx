@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { StatStrip, type Stat } from '../StatStrip';
 import styles from './InvestorDocBody.module.css';
 
 /** Typed content blocks — mirror the generator output (scripts/generate-investor-docs.mjs). */
@@ -8,7 +9,8 @@ export type DocBlock =
   | { type: 'list'; ordered: boolean; items: string[] }
   | { type: 'table'; headers: string[]; rows: string[][] }
   | { type: 'quote'; text: string }
-  | { type: 'callout'; lines: string[] };
+  | { type: 'callout'; lines: string[] }
+  | { type: 'stats'; hero: Stat; items: Stat[] };
 
 export interface InvestorDocContent {
   readonly blocks: DocBlock[];
@@ -162,6 +164,14 @@ export function InvestorDocBody({
                   <p key={j}>{line}</p>
                 ))}
               </div>
+            );
+          case 'stats':
+            // Defensive: a malformed band (no hero) contributes nothing rather
+            // than crash the doc. Build-time validation makes this unreachable.
+            return block.hero ? (
+              <StatStrip key={i} hero={block.hero} items={block.items ?? []} variant="doc" />
+            ) : (
+              <Fragment key={i} />
             );
           default:
             return <Fragment key={i} />;

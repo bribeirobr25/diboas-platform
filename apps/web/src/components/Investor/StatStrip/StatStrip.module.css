@@ -1,0 +1,112 @@
+/*
+ * StatStrip — the single stat-grid implementation (A3 numbers layer).
+ * Hierarchy is created by TYPOGRAPHY + SPACING, never colored boxes
+ * (CLAUDE.md anti-slop). Mobile-first; prints as a compact row.
+ */
+
+.strip {
+  margin: 0;
+}
+
+/* ── page variant: flat equal-weight strip (public /investors band) ── */
+.page {
+  max-width: 60rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+}
+.page .items {
+  display: contents;
+}
+@media (min-width: 640px) {
+  .page {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 1024px) {
+  .page {
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacing-lg);
+  }
+}
+
+/* ── doc variant: one hero + secondaries, hierarchy by type ── */
+.doc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg) 0;
+  border-top: 1px solid var(--color-slate-200);
+  border-bottom: 1px solid var(--color-slate-200);
+}
+.doc .items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md) var(--spacing-lg);
+}
+@media (min-width: 768px) {
+  .doc .items {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.hero,
+.item {
+  margin: 0;
+  min-width: 0;
+}
+
+/* value = the prominent figure */
+.value {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-heading);
+  line-height: var(--line-height-tight);
+  overflow-wrap: break-word;
+}
+.item .value {
+  font-size: var(--font-size-lg);
+}
+/* hero dominance: ~2× the secondary value scale + breathing room */
+.hero .value {
+  font-size: var(--font-size-3xl);
+  line-height: var(--line-height-title);
+}
+
+.label {
+  margin: var(--spacing-2xs) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+}
+.hero .label {
+  font-size: var(--font-size-md);
+}
+
+/* note = the honesty rider, smallest, travels under the value/label */
+.note {
+  margin: var(--spacing-2xs) 0 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
+  font-style: italic;
+}
+
+/* Print: the stat band is a first-class part of the forwardable PDF —
+   collapse the hero scale slightly and keep the secondaries as a compact row. */
+@media print {
+  .doc {
+    padding: var(--spacing-sm) 0;
+    break-inside: avoid;
+  }
+  .doc .items {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-sm);
+  }
+  .hero .value {
+    font-size: var(--font-size-xl);
+  }
+  .item .value {
+    font-size: var(--font-size-md);
+  }
+}

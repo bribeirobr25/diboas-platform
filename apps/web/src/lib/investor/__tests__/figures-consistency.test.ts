@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import {
   validateRegistryShape,
   checkGeneratedArtifacts,
+  checkStatsBlocks,
 } from '../../../../../../scripts/lib/investor-figures.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../../../../..');
@@ -43,5 +44,9 @@ describe('investor figures registry (committed state)', () => {
 
   it('should keep committed investor-docs artifacts consistent with the registry', () => {
     expect(checkGeneratedArtifacts(registry, artifacts)).toEqual([]);
+  });
+
+  it('should keep every committed stats band well-formed', () => {
+    expect(checkStatsBlocks(artifacts)).toEqual([]);
   });
 });

@@ -25,6 +25,7 @@ import {
   validateRegistryShape,
   checkGeneratedArtifacts,
   checkCanonicalSources,
+  checkStatsBlocks,
 } from './lib/investor-figures.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -61,8 +62,12 @@ for (const locale of LOCALES) {
 }
 const artifactErrors = checkGeneratedArtifacts(registry, artifacts);
 if (artifactErrors.length) fail(artifactErrors);
+
+const statsErrors = checkStatsBlocks(artifacts);
+if (statsErrors.length) fail(statsErrors);
+
 console.log(
-  `  ✓ L2: schema valid, ${Object.keys(registry.figures).length} figures, artifacts consistent (4 locales)`
+  `  ✓ L2: schema valid, ${Object.keys(registry.figures).length} figures, artifacts + stats bands consistent (4 locales)`
 );
 
 // ── L1: canonical local-only sources (auto-skip in CI) ─────────────────

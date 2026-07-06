@@ -95,6 +95,81 @@ export function substituteTokens(text, figures, locale) {
   return { text: out, resolved: ids.length, ids };
 }
 
+/**
+ * Parse one `label | value | note?` stats row. Only the FIRST TWO pipes
+ * delimit, so a note may itself contain `|` (a resolved value may not).
+ * `inline` strips residual markdown per cell (identity by default, for tests).
+ * Throws on a missing/empty label or value.
+ */
+export function parseStatsRow(line, inline = (s) => s) {
+  const first = line.indexOf('|');
+  if (first === -1) throw new Error(`stats row needs "label | value": "${line}"`);
+  const label = inline(line.slice(0, first).trim());
+  const rest = line.slice(first + 1);
+  const second = rest.indexOf('|');
+  const value = inline((second === -1 ? rest : rest.slice(0, second)).trim());
+  const note = second === -1 ? undefined : inline(rest.slice(second + 1).trim()) || undefined;
+  if (!label || !value) throw new Error(`stats row needs non-empty label and value: "${line}"`);
+  return note ? { label, value, note } : { label, value };
+}
+
+/**
+ * Parse a ```stats fence body (array of raw lines) into {hero, items}.
+ * 1 hero + 0–4 secondaries (1–5 non-empty rows). Fail-loud outside that range.
+ */
+export function parseStatsBlock(rawLines, inline = (s) => s) {
+  const rows = rawLines
+    .map((l) => l.trim())
+    .filter(Boolean)
+    .map((l) => parseStatsRow(l, inline));
+  if (rows.length === 0 || rows.length > 5) {
+    throw new Error(
+      `stats block must have 1 hero + 0–4 secondaries (1–5 rows); got ${rows.length}`
+    );
+  }
+  const [hero, ...items] = rows;
+  return { type: 'stats', hero, items };
+}
+
+/**
+ * CI-safe check of every `stats` block in the committed generated artifacts:
+ * a non-empty hero, 0–4 secondaries each with non-empty label+value, and the
+ * `investment-summary` doc carries at most 2 bands (A3 §3). Returns messages.
+ */
+export function checkStatsBlocks(artifactsByLocale) {
+  const errors = [];
+  for (const [locale, content] of Object.entries(artifactsByLocale)) {
+    let parsed;
+    try {
+      parsed = JSON.parse(content);
+    } catch {
+      errors.push(`[${locale}] investor-docs.json is not valid JSON`);
+      continue;
+    }
+    for (const [slug, doc] of Object.entries(parsed.docs || {})) {
+      const bands = (doc.blocks || []).filter((b) => b.type === 'stats');
+      if (slug === 'investment-summary' && bands.length > 2) {
+        errors.push(`[${locale}] ${slug} has ${bands.length} stats bands (max 2)`);
+      }
+      for (const band of bands) {
+        if (!band.hero || !band.hero.label || !band.hero.value) {
+          errors.push(`[${locale}] ${slug} stats band missing a hero label/value`);
+        }
+        const items = band.items || [];
+        if (items.length > 4) {
+          errors.push(`[${locale}] ${slug} stats band has ${items.length} secondaries (max 4)`);
+        }
+        for (const it of items) {
+          if (!it.label || !it.value) {
+            errors.push(`[${locale}] ${slug} stats secondary missing a label/value`);
+          }
+        }
+      }
+    }
+  }
+  return errors;
+}
+
 function countOccurrences(haystack, needle) {
   let count = 0;
   let idx = haystack.indexOf(needle);

@@ -112,6 +112,71 @@
       "asOf": "2026-07-03",
       "status": "active",
       "note": "consumed by the A3 stats bands; no prose site yet"
+    },
+    "raise.range": {
+      "value": "€200K–450K",
+      "source": "business-plan",
+      "asOf": "2026-07-06",
+      "status": "active",
+      "note": "Path A ~€200K primary → Path B ~€450K upside, same terms"
+    },
+    "raise.instrument": {
+      "value": {
+        "en": "post-money SAFE / Wandeldarlehen",
+        "pt-BR": "SAFE post-money / Wandeldarlehen"
+      },
+      "source": "business-plan",
+      "asOf": "2026-07-06",
+      "status": "active"
+    },
+    "breakeven.assisted": {
+      "value": { "en": "~1,900 users + 25 B2B", "pt-BR": "~1.900 usuários + 25 B2B" },
+      "source": "revenue-model",
+      "asOf": "2026-07-06",
+      "status": "active",
+      "note": "B2B-assisted break-even line; attested — renders in revenue-model prose (A3 §6)"
+    },
+    "breakeven.pure": {
+      "value": { "en": "~10,200 users", "pt-BR": "~10.200 usuários" },
+      "source": "revenue-model",
+      "asOf": "2026-07-06",
+      "status": "active",
+      "note": "pure B2C break-even; attested — renders in revenue-model prose"
+    },
+    "arpu.b2b.band": {
+      "value": { "en": "~$1,945–19,300/yr", "pt-BR": "~US$1.945–19.300/ano" },
+      "source": "revenue-model",
+      "asOf": "2026-07-06",
+      "status": "active",
+      "note": "assumption — uncapped upper tail per D-005; attested (renders in revenue-model prose)"
+    },
+    "margin.net.range": {
+      "value": "40–70%",
+      "source": "revenue-model",
+      "asOf": "2026-07-06",
+      "status": "active",
+      "note": "net margin band — partner unsigned; attested"
+    },
+    "scenario.y3.base": {
+      "value": { "en": "~12,000 users · ~40 B2B", "pt-BR": "~12.000 usuários · ~40 B2B" },
+      "source": "revenue-model",
+      "asOf": "2026-07-06",
+      "status": "active",
+      "note": "36-month base case (SOM); attested"
+    },
+    "targets.mix": {
+      "value": { "en": "BR 40 · US 30 · DE 18 · ES 12", "pt-BR": "BR 40 · EUA 30 · DE 18 · ES 12" },
+      "source": "FINANCIAL_MAP",
+      "asOf": "2026-07-06",
+      "status": "active",
+      "note": "launch market weighting (%); attested"
+    },
+    "status.liveSince": {
+      "value": { "en": "March 11, 2026", "pt-BR": "11 de março de 2026" },
+      "source": "verified-stat",
+      "asOf": "2026-07-06",
+      "status": "active",
+      "note": "marketing site + market-intelligence product live since"
     }
   },
   "protected": [

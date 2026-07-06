@@ -1,5 +1,103 @@
 {
   "docs": {
+    "investment-summary": {
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "diBoaS is a non-custodial financial app for assigning money to a purpose before it moves. This page is the one-screen version: the ask, the terms, and the numbers that decide it — everything else in the room is the detail behind these."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The ask"
+        },
+        {
+          "type": "stats",
+          "hero": {
+            "label": "The ask",
+            "value": "€200K–450K",
+            "note": "post-money SAFE / Wandeldarlehen"
+          },
+          "items": [
+            {
+              "label": "Valuation cap",
+              "value": "€2.5M",
+              "note": "20% discount"
+            },
+            {
+              "label": "Runway",
+              "value": "~18 months",
+              "note": "Path A ~€200K primary → Path B ~€450K upside, same terms"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Two ways in on the same terms: a lean founder-built path and a with-more-capital path that buys down the single-builder risk. The cap prices the riskiest period, not the potential."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The numbers that matter"
+        },
+        {
+          "type": "stats",
+          "hero": {
+            "label": "Break-even",
+            "value": "~1,900 users + 25 B2B",
+            "note": "B2B-assisted line, inside the 36-month window"
+          },
+          "items": [
+            {
+              "label": "Validation targets",
+              "value": "≥30 logged conversations + ≥3 signed non-binding LOIs by 2026-08-29",
+              "note": "committed dates — D-003"
+            },
+            {
+              "label": "Base case (36-month SOM)",
+              "value": "~12,000 users · ~40 B2B",
+              "note": "go-to-market capacity, not desire"
+            },
+            {
+              "label": "Net margin",
+              "value": "40–70%",
+              "note": "at break-even; partner unsigned"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Consumer fees alone do not carry the company, and the model says so. The business proves out through signed LOIs and paying clients — which is exactly what the validation targets above commit to, on dated milestones."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Status"
+        },
+        {
+          "type": "paragraph",
+          "text": "diBoaS has been live since March 11, 2026 — the marketing site and the market-intelligence product are in production; the money product is specified, not yet built. What an investor is funding is the build, on a non-custodial architecture where user funds survive any single point of failure."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The risk we name first"
+        },
+        {
+          "type": "paragraph",
+          "text": "The EU regulatory opinion is the single biggest risk in the company: if the opinion is wrong and diBoaS is in CASP scope, the cost and timeline change by an order of magnitude — which is why that opinion is the first money spent."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Talk to us"
+        },
+        {
+          "type": "paragraph",
+          "text": "The full documents behind every number here are in this room. To go deeper or ask anything, use the contact request on the investors page."
+        }
+      ]
+    },
     "business-plan": {
       "blocks": [
         {

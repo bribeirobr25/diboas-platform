@@ -18,17 +18,26 @@
     "glance": {
       "ariaLabel": "diBoaS auf einen Blick",
       "items": [
-        { "value": "Pre-Seed · Berlin", "label": "Phase und Standort" },
+        {
+          "value": "Pre-Seed · Berlin",
+          "label": "Phase und Standort"
+        },
         {
           "value": "Sie halten die Schlüssel — und das Geld",
           "label": "Nicht-verwahrend by design"
         },
-        { "value": "Vier Märkte, ein Kern", "label": "Brasilien · USA · Deutschland · Spanien" },
+        {
+          "value": "Vier Märkte, ein Kern",
+          "label": "Brasilien · USA · Deutschland · Spanien"
+        },
         {
           "value": "Vertrauen zuerst. Umsatz danach.",
           "label": "B2C schafft Vertrauen → B2B trägt den Umsatz"
         },
-        { "value": "0 % Ihrer Rendite", "label": "Gebühr auf Bewegung, nie versteckter Spread" }
+        {
+          "value": "0 % Ihrer Rendite",
+          "label": "Gebühr auf Bewegung, nie versteckter Spread"
+        }
       ]
     },
     "thesis": {
@@ -58,10 +67,22 @@
       "headline": "Ein Produktkern. Vier unterschiedliche Marktzugänge.",
       "body": "diBoaS ist für vier Launch-Märkte konzipiert. Jeder Markt hat einen anderen kulturellen und finanziellen Einstiegspunkt.",
       "markets": [
-        { "name": "Brasilien", "line": "Zielorientierung — und Schutz in Dollar." },
-        { "name": "USA", "line": "Geld mit Aufgabe — Zugang und Bewegung." },
-        { "name": "Deutschland", "line": "Planung, Klarheit und sichtbares Risiko." },
-        { "name": "Spanien", "line": "Ein Plan, die Kosten und erklärte Vorsicht." }
+        {
+          "name": "Brasilien",
+          "line": "Zielorientierung — und Schutz in Dollar."
+        },
+        {
+          "name": "USA",
+          "line": "Geld mit Aufgabe — Zugang und Bewegung."
+        },
+        {
+          "name": "Deutschland",
+          "line": "Planung, Klarheit und sichtbares Risiko."
+        },
+        {
+          "name": "Spanien",
+          "line": "Ein Plan, die Kosten und erklärte Vorsicht."
+        }
       ],
       "note": "Der Produktkern bleibt gleich: Ziel, Regel, Kosten, Liquidität, Risiko und Nutzerkontrolle. Die Vertrauensbildung ist je Markt unterschiedlich."
     },
@@ -128,7 +149,10 @@
         "Die FAQ ist bewusst direkt. Was offen ist, wird als offener Punkt benannt."
       ],
       "gatedNote": "Die vollständigen Dokumente werden auf Anfrage geteilt.",
-      "statusLabels": { "available": "Verfügbar", "inPrep": "In Vorbereitung" },
+      "statusLabels": {
+        "available": "Verfügbar",
+        "inPrep": "In Vorbereitung"
+      },
       "docs": [
         {
           "num": "01",
@@ -220,11 +244,26 @@
     "glance": {
       "ariaLabel": "The room at a glance",
       "items": [
-        { "value": "You hold the keys and the funds", "label": "Non-custodial by design" },
-        { "value": "Specified, not yet built", "label": "The money product, honestly" },
-        { "value": "4 markets — BR · US · DE · ES", "label": "One product spine" },
-        { "value": "B2C trust → B2B revenue", "label": "The thesis in five words" },
-        { "value": "Risks named, not hidden", "label": "Open items stated plainly" }
+        {
+          "value": "You hold the keys and the funds",
+          "label": "Non-custodial by design"
+        },
+        {
+          "value": "Specified, not yet built",
+          "label": "The money product, honestly"
+        },
+        {
+          "value": "4 markets — BR · US · DE · ES",
+          "label": "One product spine"
+        },
+        {
+          "value": "B2C trust → B2B revenue",
+          "label": "The thesis in five words"
+        },
+        {
+          "value": "Risks named, not hidden",
+          "label": "Open items stated plainly"
+        }
       ]
     },
     "hero": {
@@ -246,64 +285,71 @@
       "intro": "Die folgenden Dokumente sind vom Überblick bis zur tieferen Due Diligence geordnet.",
       "docs": [
         {
-          "slug": "business-plan",
+          "slug": "investment-summary",
           "num": "01",
+          "title": "Investment Summary",
+          "summary": "The one-screen decision page: the ask, the terms, break-even, validation targets, and status — the whole room at a glance.",
+          "status": "available"
+        },
+        {
+          "slug": "business-plan",
+          "num": "02",
           "title": "Business Plan",
           "summary": "Kompakter Investorenüberblick: Produkt, Problem, Modell, Marktsequenz, Go-to-Market, Finanzierungspfade und zentrale Risiken des Modells.",
           "status": "available"
         },
         {
           "slug": "investor-faq",
-          "num": "02",
+          "num": "03",
           "title": "Investor FAQ",
           "summary": "Detaillierte Fragen und Antworten zu Unit Economics, Regulierung, Verwahrung, Traktion, Moat, Team, Deal-Struktur und offenen Risiken.",
           "status": "available"
         },
         {
           "slug": "pitch-deck",
-          "num": "03",
+          "num": "04",
           "title": "Pitch Deck",
           "summary": "Kurzes Narrativ für erste Investorengespräche.",
           "status": "available"
         },
         {
           "slug": "use-of-funds",
-          "num": "04",
+          "num": "05",
           "title": "Mittelverwendung",
           "summary": "Was der schlanke Pfad finanziert, welches Risiko der größere Pfad reduziert und welche Meilensteine das Kapital beweisen soll.",
           "status": "available"
         },
         {
           "slug": "revenue-model",
-          "num": "05",
+          "num": "06",
           "title": "Zusammenfassung des Umsatzmodells",
           "summary": "Consumer-ARPU, B2B-ARPU, Break-even-Logik, erste Validierungsmetriken und was das Modell brechen würde.",
           "status": "available"
         },
         {
           "slug": "regulatory-position",
-          "num": "06",
+          "num": "07",
           "title": "Zusammenfassung der regulatorischen Position",
           "summary": "Nicht-verwahrende Architektur, jurisdiktionsspezifische Gates, EU-Risiko, Abhängigkeit vom Money-in/out-Partner in Brasilien und US- und Brasilien-Gutachten für Nutzer-zu-Nutzer-Transfers.",
           "status": "available"
         },
         {
           "slug": "product-roadmap",
-          "num": "07",
+          "num": "08",
           "title": "Produkt-Roadmap",
           "summary": "Was live ist, was spezifiziert ist, was die Finanzierung ermöglicht und was nach dem Launch folgt.",
           "status": "available"
         },
         {
           "slug": "fees-summary",
-          "num": "08",
+          "num": "09",
           "title": "Gebührenübersicht",
           "summary": "Kanonische Gebührenstruktur, Gebührenobergrenzen, durchgereichte Kosten und Funktionen mit diBoaS-Gebühr von 0.",
           "status": "available"
         },
         {
           "slug": "technical-architecture",
-          "num": "09",
+          "num": "10",
           "title": "Zusammenfassung der technischen Architektur",
           "summary": "Wallet-Architektur, Provider-Abhängigkeiten, nicht-verwahrender Ablauf, Recovery-Modell und zentrale technische Risikofelder.",
           "status": "in-preparation"

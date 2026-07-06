@@ -9,6 +9,9 @@ import {
   substituteTokens,
   validateRegistryShape,
   checkGeneratedArtifacts,
+  parseStatsRow,
+  parseStatsBlock,
+  checkStatsBlocks,
   TOKEN_RE,
 } from '../../../../../../scripts/lib/investor-figures.mjs';
 
@@ -180,5 +183,99 @@ describe('checkGeneratedArtifacts', () => {
       en: 'business: no cap, only one 2,500–5,000',
     });
     expect(errors.join(' ')).toMatch(/protected literal/);
+  });
+});
+
+describe('parseStatsRow', () => {
+  it('should parse a label|value row without a note', () => {
+    expect(parseStatsRow('The ask | €200K–450K')).toEqual({
+      label: 'The ask',
+      value: '€200K–450K',
+    });
+  });
+
+  it('should parse a label|value|note row', () => {
+    expect(parseStatsRow('Cap | €2.5M | 20% discount')).toEqual({
+      label: 'Cap',
+      value: '€2.5M',
+      note: '20% discount',
+    });
+  });
+
+  it('should let a note contain pipes (only the first two pipes delimit)', () => {
+    expect(parseStatsRow('Mix | BR40 | US 30 | DE 18 | ES 12')).toEqual({
+      label: 'Mix',
+      value: 'BR40',
+      note: 'US 30 | DE 18 | ES 12',
+    });
+  });
+
+  it('should apply the inline stripper to each cell', () => {
+    expect(parseStatsRow('**Ask** | `€200K` | _note_', (s) => s.replace(/[*`_]/g, ''))).toEqual({
+      label: 'Ask',
+      value: '€200K',
+      note: 'note',
+    });
+  });
+
+  it('should throw on a row with no pipe', () => {
+    expect(() => parseStatsRow('just text')).toThrow(/needs "label \| value"/);
+  });
+
+  it('should throw on an empty value', () => {
+    expect(() => parseStatsRow('Label |   ')).toThrow(/non-empty label and value/);
+  });
+});
+
+describe('parseStatsBlock', () => {
+  it('should split the first row as hero and the rest as items', () => {
+    const block = parseStatsBlock(['Ask | €200K–450K', 'Cap | €2.5M | 20%', 'Runway | 18mo']);
+    expect(block.type).toBe('stats');
+    expect(block.hero).toEqual({ label: 'Ask', value: '€200K–450K' });
+    expect(block.items).toHaveLength(2);
+  });
+
+  it('should ignore blank lines inside the fence', () => {
+    const block = parseStatsBlock(['Ask | €200K', '', '  ', 'Cap | €2.5M']);
+    expect(block.items).toHaveLength(1);
+  });
+
+  it('should throw on an empty block (0 rows)', () => {
+    expect(() => parseStatsBlock(['', '   '])).toThrow(/1–5 rows/);
+  });
+
+  it('should throw on more than 5 rows (1 hero + >4 secondaries)', () => {
+    const rows = Array.from({ length: 6 }, (_, i) => `L${i} | V${i}`);
+    expect(() => parseStatsBlock(rows)).toThrow(/1–5 rows/);
+  });
+});
+
+describe('checkStatsBlocks', () => {
+  const band = (hero: unknown, items: unknown[]) => ({ type: 'stats', hero, items });
+  const docJson = (blocks: unknown[]) =>
+    JSON.stringify({ docs: { 'investment-summary': { blocks } } });
+
+  it('should pass a well-formed band', () => {
+    const artifacts = {
+      en: docJson([band({ label: 'Ask', value: '€200K' }, [{ label: 'Cap', value: '€2.5M' }])]),
+    };
+    expect(checkStatsBlocks(artifacts)).toEqual([]);
+  });
+
+  it('should flag a band whose hero has no value', () => {
+    const artifacts = { en: docJson([band({ label: 'Ask', value: '' }, [])]) };
+    expect(checkStatsBlocks(artifacts).join(' ')).toMatch(/missing a hero/);
+  });
+
+  it('should flag more than 4 secondaries', () => {
+    const items = Array.from({ length: 5 }, (_, i) => ({ label: `L${i}`, value: `V${i}` }));
+    const artifacts = { en: docJson([band({ label: 'H', value: 'V' }, items)]) };
+    expect(checkStatsBlocks(artifacts).join(' ')).toMatch(/max 4/);
+  });
+
+  it('should flag more than 2 bands on the investment-summary doc', () => {
+    const b = band({ label: 'H', value: 'V' }, []);
+    const artifacts = { en: docJson([b, b, b]) };
+    expect(checkStatsBlocks(artifacts).join(' ')).toMatch(/max 2/);
   });
 });

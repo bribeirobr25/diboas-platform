@@ -18,14 +18,26 @@
     "glance": {
       "ariaLabel": "diBoaS num relance",
       "items": [
-        { "value": "Pre-seed · Berlim", "label": "Estágio e base" },
-        { "value": "Você tem as chaves — e o dinheiro", "label": "Não custodial por design" },
-        { "value": "Quatro mercados, uma espinha", "label": "Brasil · EUA · Alemanha · Espanha" },
+        {
+          "value": "Pre-seed · Berlim",
+          "label": "Estágio e base"
+        },
+        {
+          "value": "Você tem as chaves — e o dinheiro",
+          "label": "Não custodial por design"
+        },
+        {
+          "value": "Quatro mercados, uma espinha",
+          "label": "Brasil · EUA · Alemanha · Espanha"
+        },
         {
           "value": "Confiança primeiro. Receita depois.",
           "label": "B2C ganha confiança → B2B ganha receita"
         },
-        { "value": "0% do seu retorno", "label": "Taxa na movimentação, nunca spread escondido" }
+        {
+          "value": "0% do seu retorno",
+          "label": "Taxa na movimentação, nunca spread escondido"
+        }
       ]
     },
     "thesis": {
@@ -55,10 +67,22 @@
       "headline": "A mesma espinha dorsal. Uma proposta diferente em cada mercado.",
       "body": "A diBoaS foi pensada para quatro mercados de lançamento, cada um com uma porta de entrada cultural e financeira diferente.",
       "markets": [
-        { "name": "Brasil", "line": "Objetivo, e proteção em dólar." },
-        { "name": "Estados Unidos", "line": "Dinheiro com função — acesso e movimentação." },
-        { "name": "Alemanha", "line": "Planejamento, clareza e risco visível." },
-        { "name": "Espanha", "line": "Um plano, os custos e prudência explicada." }
+        {
+          "name": "Brasil",
+          "line": "Objetivo, e proteção em dólar."
+        },
+        {
+          "name": "Estados Unidos",
+          "line": "Dinheiro com função — acesso e movimentação."
+        },
+        {
+          "name": "Alemanha",
+          "line": "Planejamento, clareza e risco visível."
+        },
+        {
+          "name": "Espanha",
+          "line": "Um plano, os custos e prudência explicada."
+        }
       ],
       "note": "A espinha dorsal do produto permanece igual: objetivo, regra, custo, liquidez, risco e controle do usuário. A forma de construir confiança muda por mercado."
     },
@@ -125,7 +149,10 @@
         "O FAQ é direto de propósito. O que ainda não está resolvido aparece como item aberto."
       ],
       "gatedNote": "Os documentos completos são compartilhados sob solicitação.",
-      "statusLabels": { "available": "Disponível", "inPrep": "Em preparação" },
+      "statusLabels": {
+        "available": "Disponível",
+        "inPrep": "Em preparação"
+      },
       "docs": [
         {
           "num": "01",
@@ -217,14 +244,26 @@
     "glance": {
       "ariaLabel": "A sala num relance",
       "items": [
-        { "value": "Você tem as chaves e o dinheiro", "label": "Não custodial por design" },
+        {
+          "value": "Você tem as chaves e o dinheiro",
+          "label": "Não custodial por design"
+        },
         {
           "value": "Especificado, ainda não construído",
           "label": "O produto financeiro, com honestidade"
         },
-        { "value": "4 mercados — BR · EUA · DE · ES", "label": "Uma única espinha dorsal" },
-        { "value": "Confiança B2C → receita B2B", "label": "A tese em cinco palavras" },
-        { "value": "Riscos nomeados, não escondidos", "label": "Itens em aberto ditos com clareza" }
+        {
+          "value": "4 mercados — BR · EUA · DE · ES",
+          "label": "Uma única espinha dorsal"
+        },
+        {
+          "value": "Confiança B2C → receita B2B",
+          "label": "A tese em cinco palavras"
+        },
+        {
+          "value": "Riscos nomeados, não escondidos",
+          "label": "Itens em aberto ditos com clareza"
+        }
       ]
     },
     "hero": {
@@ -246,64 +285,71 @@
       "intro": "Os documentos abaixo estão organizados da visão geral para a diligência mais detalhada.",
       "docs": [
         {
-          "slug": "business-plan",
+          "slug": "investment-summary",
           "num": "01",
+          "title": "Resumo do Investimento",
+          "summary": "A página de decisão em uma tela: o aporte, os termos, o break-even, as metas de validação e o status — a sala inteira num relance.",
+          "status": "available"
+        },
+        {
+          "slug": "business-plan",
+          "num": "02",
           "title": "Plano de Negócios",
           "summary": "Visão geral para investidores: produto, problema, modelo, sequência de mercados, go-to-market, caminhos da rodada e principais riscos do modelo.",
           "status": "available"
         },
         {
           "slug": "investor-faq",
-          "num": "02",
+          "num": "03",
           "title": "Investor FAQ",
           "summary": "Perguntas e respostas detalhadas sobre unit economics, regulação, custódia, tração, moat, time, estrutura da rodada e riscos em aberto.",
           "status": "available"
         },
         {
           "slug": "pitch-deck",
-          "num": "03",
+          "num": "04",
           "title": "Pitch Deck",
           "summary": "Deck curto para abrir conversas com investidores.",
           "status": "available"
         },
         {
           "slug": "use-of-funds",
-          "num": "04",
+          "num": "05",
           "title": "Uso dos Recursos",
           "summary": "O que o caminho enxuto financia, o que o caminho maior reduz de risco e quais marcos o capital deve provar.",
           "status": "available"
         },
         {
           "slug": "revenue-model",
-          "num": "05",
+          "num": "06",
           "title": "Resumo do Modelo de Receita",
           "summary": "ARPU de consumidor, ARPU B2B, lógica de break-even, primeiras métricas a validar e o que quebra o modelo.",
           "status": "available"
         },
         {
           "slug": "regulatory-position",
-          "num": "06",
+          "num": "07",
           "title": "Resumo da Posição Regulatória",
           "summary": "Arquitetura não custodial, marcos por jurisdição, risco UE, dependência do parceiro de entrada/saída no Brasil e pareceres sobre movimentação entre usuários nos EUA e no Brasil.",
           "status": "available"
         },
         {
           "slug": "product-roadmap",
-          "num": "07",
+          "num": "08",
           "title": "Roadmap do Produto",
           "summary": "O que está no ar, o que está especificado, o que a rodada financia e o que vem depois do lançamento.",
           "status": "available"
         },
         {
           "slug": "fees-summary",
-          "num": "08",
+          "num": "09",
           "title": "Resumo de Taxas",
           "summary": "Estrutura canônica de taxas, limites, custos repassados e funções em que a taxa da diBoaS é zero.",
           "status": "available"
         },
         {
           "slug": "technical-architecture",
-          "num": "09",
+          "num": "10",
           "title": "Resumo da Arquitetura Técnica",
           "summary": "Arquitetura de carteira, dependências de provedores, fluxo não custodial, recuperação e principais riscos técnicos.",
           "status": "in-preparation"

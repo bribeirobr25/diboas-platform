@@ -1,5 +1,103 @@
 {
   "docs": {
+    "investment-summary": {
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A diBoaS é um aplicativo financeiro não custodial para destinar dinheiro a um propósito antes de movimentá-lo. Esta página é a versão de uma tela: o aporte, os termos e os números que decidem — todo o resto na sala é o detalhe por trás deles."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O aporte"
+        },
+        {
+          "type": "stats",
+          "hero": {
+            "label": "O aporte",
+            "value": "€200K–450K",
+            "note": "SAFE post-money / Wandeldarlehen"
+          },
+          "items": [
+            {
+              "label": "Cap de avaliação",
+              "value": "€2,5M",
+              "note": "20% de desconto"
+            },
+            {
+              "label": "Fôlego (runway)",
+              "value": "~18 meses",
+              "note": "Caminho A ~€200K principal → Caminho B ~€450K upside, mesmos termos"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Duas formas de entrada nos mesmos termos: um caminho enxuto, tocado pelo fundador, e um caminho com mais capital que reduz o risco de construtor único. O cap precifica o período de maior risco, não o potencial."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Os números que importam"
+        },
+        {
+          "type": "stats",
+          "hero": {
+            "label": "Break-even",
+            "value": "~1.900 usuários + 25 B2B",
+            "note": "linha B2B-assistida, dentro da janela de 36 meses"
+          },
+          "items": [
+            {
+              "label": "Metas de validação",
+              "value": "≥30 conversas registradas + ≥3 LOIs não vinculantes assinadas até 29/08/2026",
+              "note": "datas comprometidas — D-003"
+            },
+            {
+              "label": "Caso-base (SOM de 36 meses)",
+              "value": "~12.000 usuários · ~40 B2B",
+              "note": "capacidade de go-to-market, não desejo"
+            },
+            {
+              "label": "Margem líquida",
+              "value": "40–70%",
+              "note": "no break-even; parceiro não assinado"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "As taxas de consumidor sozinhas não sustentam a empresa, e o modelo diz isso. O negócio se prova por LOIs assinadas e clientes pagantes — que é exatamente o que as metas de validação acima comprometem, em marcos com data."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Status"
+        },
+        {
+          "type": "paragraph",
+          "text": "A diBoaS está no ar desde 11 de março de 2026 — o site de marketing e o produto de inteligência de mercado estão em produção; o produto de dinheiro está especificado, ainda não construído. O que um investidor financia é a construção, sobre uma arquitetura não custodial em que o dinheiro do usuário sobrevive a qualquer ponto único de falha."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "O risco que nomeamos primeiro"
+        },
+        {
+          "type": "paragraph",
+          "text": "O parecer regulatório da UE é o maior risco da empresa: se o parecer estiver errado e a diBoaS estiver no escopo de CASP, o custo e o prazo mudam de ordem de grandeza — por isso esse parecer é o primeiro dinheiro que gastamos."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Fale com a gente"
+        },
+        {
+          "type": "paragraph",
+          "text": "Os documentos completos por trás de cada número aqui estão nesta sala. Para se aprofundar ou perguntar qualquer coisa, use a solicitação de contato na página de investidores."
+        }
+      ]
+    },
     "business-plan": {
       "blocks": [
         {
