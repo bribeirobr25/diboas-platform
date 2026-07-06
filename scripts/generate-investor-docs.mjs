@@ -18,10 +18,23 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { format, resolveConfig } from 'prettier';
+import { substituteTokens } from './lib/investor-figures.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const locale = process.argv[2] || 'en';
+
+// Figures registry: every settled investor number is authored once in
+// config/investor-figures.json and referenced from source markdown as
+// {{fig:id}} tokens, resolved here before parsing. Unknown or status:pending
+// figures throw — a flagged-wrong number can never render (rule 0.2).
+// Resolution-locale rule: pt-BR resolves natively; en/de/es all resolve as
+// `en` (de/es consume the EN sources and are parity-only, never rendered —
+// see docs/tech/implementation-notes.md § Investor vertical).
+const FIGURES = JSON.parse(
+  readFileSync(resolve(ROOT, 'config/investor-figures.json'), 'utf8')
+).figures;
+const resolutionLocale = locale === 'pt-BR' ? 'pt-BR' : 'en';
 
 // slug -> source markdown file, per locale. EN wired for Phase 1; the other
 // locales point at their native production docs for Phase 2.
@@ -205,10 +218,13 @@ for (const [slug, rel] of Object.entries(sources)) {
     console.error(`  ✗ MISSING source for ${slug}: ${rel}`);
     continue;
   }
-  const blocks = parse(readFileSync(path, 'utf8'));
+  const substituted = substituteTokens(readFileSync(path, 'utf8'), FIGURES, resolutionLocale);
+  const blocks = parse(substituted.text);
   docs[slug] = { blocks };
   const tbl = blocks.filter((b) => b.type === 'table').length;
-  console.log(`  ✓ ${slug}: ${blocks.length} blocks (${tbl} tables)`);
+  console.log(
+    `  ✓ ${slug}: ${blocks.length} blocks (${tbl} tables, ${substituted.resolved} figures resolved)`
+  );
 }
 
 const out = resolve(ROOT, `packages/i18n/translations/${locale}/investor-docs.json`);
