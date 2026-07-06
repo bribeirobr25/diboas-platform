@@ -347,7 +347,7 @@
       }
     },
     "belowTable": "Nada más. Sin spreads ni cargos ocultos.\n\nMeter dinero en una estrategia no cuesta nada. Solo cobramos cuando sacas tu dinero. Si tu dinero está en una estrategia generando retornos, nosotros no ganamos nada hasta que salgas.",
-    "microText": "Pueden aplicarse comisiones de red de terceros (normalmente menos de 0,01 EUR). Para el cuadro completo de comisiones incluyendo transferencias y retiradas, consulta nuestra página de comisiones."
+    "microText": "Pueden aplicarse tarifas de red de terceros (normalmente menos de 0,01 $). Para la tabla completa de costes, incluidas transferencias y retiros, consulta la tabla de costes en nuestra página de inicio."
   },
   "howToChoose": {
     "header": "Empieza aquí",
@@ -415,7 +415,7 @@
       "safe": {
         "question": "¿Mi dinero está seguro?",
         "answerA": "Tu dinero está protegido por ti. Tu monedero, tus claves. Nadie en diBoaS puede acceder a tus fondos sin tu autorización.\n\nDicho esto, esto no es una cuenta bancaria. Tus fondos trabajan a través de sistemas automatizados construidos sobre código. El valor puede fluctuar, y podrías perder parte o toda tu inversión. No existe seguro de depósitos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre.",
-        "answerB": "Tu dinero está protegido por seguridad multi-parte. Tu autorización es necesaria para cada transacción. DiBoaS posee una parte parcial de la clave con fines de recuperación, pero no puede mover tus fondos de forma unilateral.\n\nDicho esto, esto no es una cuenta bancaria. Tus fondos trabajan a través de sistemas automatizados construidos sobre código. El valor puede fluctuar, y podrías perder parte o toda tu inversión. No existe seguro de depósitos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre."
+        "answerB": "Tu dinero lo proteges tú. Tu billetera, tus claves, y diBoaS no guarda ninguna parte de ellas. Si necesitas recuperar el acceso, eso pasa por un socio independiente, no por diBoaS. Nadie en diBoaS puede mover tu dinero.\n\nDicho esto, esto no es una cuenta bancaria. Tus fondos trabajan a través de sistemas automatizados construidos sobre código. El valor puede fluctuar, y podrías perder parte o toda tu inversión. No existe seguro de depósitos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre."
       },
       "loseEverything": {
         "question": "¿Puedo perderlo todo?",

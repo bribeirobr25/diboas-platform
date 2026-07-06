@@ -347,7 +347,7 @@
       }
     },
     "belowTable": "Sonst nichts. Keine versteckten Spreads oder Gebühren.\n\nGeld in eine Strategie zu stecken kostet nichts. Wir berechnen nur dann eine Gebühr, wenn du dein Geld herausnimmst. Wenn dein Geld in einer Strategie Rendite erwirtschaftet, verdienen wir nichts, bis du aussteigst.",
-    "microText": "Netzwerkgebühren Dritter können anfallen (in der Regel weniger als 0,01 EUR). Den vollständigen Gebührenkatalog einschließlich Überweisungen und Auszahlungen findest du auf unserer Gebührenseite."
+    "microText": "Netzwerkgebühren von Drittanbietern können anfallen (in der Regel unter 0,01 $). Die vollständige Kostenübersicht, einschließlich Überweisungen und Auszahlungen, findest du in der Kostentabelle auf unserer Startseite."
   },
   "howToChoose": {
     "header": "Fang hier an",
@@ -415,7 +415,7 @@
       "safe": {
         "question": "Ist mein Geld sicher?",
         "answerA": "Dein Geld wird von dir gesichert. Deine Wallet, deine Schlüssel. Niemand bei diBoaS kann ohne deine Genehmigung auf dein Guthaben zugreifen.\n\nAllerdings: Das ist kein Bankkonto. Dein Geld arbeitet in automatisierten Systemen, die auf Code basieren. Der Wert kann schwanken, und du kannst einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer.",
-        "answerB": "Dein Geld ist durch Multi-Party-Sicherheit geschützt. Deine Genehmigung ist für jede Transaktion erforderlich. DiBoaS hält einen teilweisen Schlüsselanteil für Wiederherstellungszwecke, kann dein Guthaben aber nicht einseitig bewegen.\n\nAllerdings: Das ist kein Bankkonto. Dein Geld arbeitet in automatisierten Systemen, die auf Code basieren. Der Wert kann schwanken, und du kannst einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer."
+        "answerB": "Dein Geld sicherst du selbst. Deine Wallet, deine Schlüssel, und diBoaS hält keinen Teil davon. Falls du den Zugang wiederherstellen musst, läuft das über einen unabhängigen Partner, nicht über diBoaS. Niemand bei diBoaS kann dein Geld bewegen.\n\nAllerdings: Das ist kein Bankkonto. Dein Geld arbeitet in automatisierten Systemen, die auf Code basieren. Der Wert kann schwanken, und du kannst einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer."
       },
       "loseEverything": {
         "question": "Kann ich alles verlieren?",

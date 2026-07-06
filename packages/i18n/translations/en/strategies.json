@@ -347,7 +347,7 @@
       }
     },
     "belowTable": "Nothing else. No hidden spreads or charges.\n\nPutting money into a strategy costs nothing. We only charge when you take money out. If your money sits in a strategy earning returns, we earn nothing until you exit.",
-    "microText": "Third-party network fees may apply (typically less than $0.01). For the full fee schedule including transfers and cash-outs, see our fee page."
+    "microText": "Third-party network fees may apply (typically less than $0.01). For the full fee schedule including transfers and cash-outs, see the cost table on our home page."
   },
   "howToChoose": {
     "header": "Start here",
@@ -415,7 +415,7 @@
       "safe": {
         "question": "Is my money safe?",
         "answerA": "Your money is secured by you. Your wallet, your keys. No one at diBoaS can access your funds without your authorization.\n\nThat said, this isn't a bank account. Your funds work through automated systems built on code. The value can fluctuate, and you could lose some or all of your investment. There is no deposit insurance.\n\nWe show you both sides, the opportunities and the risks, always.",
-        "answerB": "Your money is protected by multi-party security. Your authorization is required for every transaction. DiBoaS holds a partial key share for recovery purposes, but cannot unilaterally move your funds.\n\nThat said, this isn't a bank account. Your funds work through automated systems built on code. The value can fluctuate, and you could lose some or all of your investment. There is no deposit insurance.\n\nWe show you both sides, the opportunities and the risks, always."
+        "answerB": "Your money is secured by you. Your wallet, your keys, and diBoaS holds no part of them. If you ever need to recover access, that runs through an independent partner, not diBoaS. No one at diBoaS can move your funds.\n\nThat said, this isn't a bank account. Your funds work through automated systems built on code. The value can fluctuate, and you could lose some or all of your investment. There is no deposit insurance.\n\nWe show you both sides, the opportunities and the risks, always."
       },
       "loseEverything": {
         "question": "Can I lose everything?",

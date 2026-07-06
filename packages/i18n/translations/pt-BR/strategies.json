@@ -347,7 +347,7 @@
       }
     },
     "belowTable": "Nada mais. Sem spreads ou cobranças ocultas.\n\nColocar dinheiro em uma estratégia não custa nada. Nós só cobramos quando você resgata. Se seu dinheiro está em uma estratégia rendendo, nós não ganhamos nada até você sair.",
-    "microText": "Taxas de rede de terceiros podem se aplicar (normalmente menos de R$0,05). Para a tabela completa de taxas incluindo transferências e saques, veja nossa página de taxas."
+    "microText": "Taxas de rede de terceiros podem se aplicar (normalmente menos de US$ 0,01). Para a tabela completa de custos, incluindo transferências e saques, veja a tabela de custos na nossa página inicial."
   },
   "howToChoose": {
     "header": "Comece aqui",
@@ -415,7 +415,7 @@
       "safe": {
         "question": "Meu dinheiro está seguro?",
         "answerA": "Seu dinheiro é protegido por você. Sua carteira, suas chaves. Ninguém no diBoaS pode acessar seus fundos sem sua autorização.\n\nDito isso, isso não é uma conta bancária. Seus fundos trabalham através de sistemas automatizados construídos em código. O valor pode oscilar, e você pode perder parte ou todo o seu dinheiro. Não existe seguro de depósito.\n\nNós mostramos os dois lados, as oportunidades e os riscos, sempre.",
-        "answerB": "Seu dinheiro é protegido por segurança multi-parte. Sua autorização é necessária pra cada transação. O diBoaS detém uma parcela parcial da chave pra fins de recuperação, mas não pode mover seus fundos unilateralmente.\n\nDito isso, isso não é uma conta bancária. Seus fundos trabalham através de sistemas automatizados construídos em código. O valor pode oscilar, e você pode perder parte ou todo o seu dinheiro. Não existe seguro de depósito.\n\nNós mostramos os dois lados, as oportunidades e os riscos, sempre."
+        "answerB": "Seu dinheiro é protegido por você. Sua carteira, suas chaves, e o diBoaS não guarda nenhuma parte delas. Se precisar recuperar o acesso, isso acontece por um parceiro independente, não pelo diBoaS. Ninguém no diBoaS consegue mover o seu dinheiro.\n\nDito isso, isso não é uma conta bancária. Seus fundos trabalham através de sistemas automatizados construídos em código. O valor pode oscilar, e você pode perder parte ou todo o seu dinheiro. Não existe seguro de depósito.\n\nNós mostramos os dois lados, as oportunidades e os riscos, sempre."
       },
       "loseEverything": {
         "question": "Posso perder tudo?",
