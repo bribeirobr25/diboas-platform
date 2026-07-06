@@ -98,7 +98,11 @@ export default async function InvestorDocPage({ params }: DocPageProps) {
           <p className={styles.paragraph}>{inPrep ? dp.inPrepBody : entry.summary}</p>
 
           {hasBody ? (
-            <InvestorDocBody content={content} onThisPageLabel={dp.onThisPage} />
+            <InvestorDocBody
+              content={content}
+              onThisPageLabel={dp.onThisPage}
+              layout={docSlug === 'pitch-deck' ? 'slides' : 'doc'}
+            />
           ) : !inPrep ? (
             <>
               <p className={styles.eyebrow}>{dp.covers}</p>
