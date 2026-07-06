@@ -3278,6 +3278,26 @@
     "regulatory-position": {
       "blocks": [
         {
+          "type": "stats",
+          "hero": {
+            "label": "Licenças exigidas no lançamento",
+            "value": "0",
+            "note": "por design — camada de software/interface; sujeito a revisão jurídica + marcos de lançamento por mercado"
+          },
+          "items": [
+            {
+              "label": "Requisitos obrigatórios",
+              "value": "triagem de sanções + geofence China/Rússia",
+              "note": "aplicados no lançamento, inegociáveis"
+            },
+            {
+              "label": "Postura de mercado",
+              "value": "abre apenas quando o caminho legal está confirmado",
+              "note": "gate de lançamento por jurisdição"
+            }
+          ]
+        },
+        {
           "type": "heading",
           "level": 3,
           "text": "Resumo em uma linha"

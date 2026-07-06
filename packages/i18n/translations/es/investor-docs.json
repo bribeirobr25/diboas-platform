@@ -3006,6 +3006,26 @@
     "regulatory-position": {
       "blocks": [
         {
+          "type": "stats",
+          "hero": {
+            "label": "Licenses required at launch",
+            "value": "0",
+            "note": "by design — software/interface layer; subject to legal review + launch gates per market"
+          },
+          "items": [
+            {
+              "label": "Hard requirements",
+              "value": "sanctions screening + China/Russia geofence",
+              "note": "enforced at launch, non-negotiable"
+            },
+            {
+              "label": "Market posture",
+              "value": "opens only when the legal path is confirmed",
+              "note": "launch gate per jurisdiction"
+            }
+          ]
+        },
+        {
           "type": "heading",
           "level": 3,
           "text": "One-line summary"
