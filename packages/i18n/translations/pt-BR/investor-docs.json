@@ -506,6 +506,31 @@
           "text": "Uma linha sobre o que é a diBoaS: a diBoaS é um aplicativo financeiro não custodial que ajuda pessoas e empresas a separar dinheiro por objetivo antes de qualquer movimentação. Pessoas físicas usam a diBoaS para transformar uma reserva, uma proteção ou um plano futuro em um caminho mais claro. Empresas usam a diBoaS para organizar o caixa por função: o que precisa ficar disponível, o que pode ser separado e qual risco faz sentido assumir. A diBoaS mostra caminho, custos, liquidez e riscos antes da decisão. O dinheiro continua sob controle do usuário — a diBoaS é a interface, não a custodiante."
         },
         {
+          "type": "stats",
+          "hero": {
+            "label": "Termos",
+            "value": "cap de €2,5M",
+            "note": "20% de desconto"
+          },
+          "items": [
+            {
+              "label": "O aporte",
+              "value": "€200K–450K",
+              "note": "SAFE post-money / Wandeldarlehen"
+            },
+            {
+              "label": "Metas de validação",
+              "value": "≥30 conversas registradas + ≥3 LOIs não vinculantes assinadas até 29/08/2026",
+              "note": "datas comprometidas — D-003"
+            },
+            {
+              "label": "ARPU B2C",
+              "value": "~US$5,88/ano",
+              "note": "honesto: fintech de consumo é pequena"
+            }
+          ]
+        },
+        {
           "type": "heading",
           "level": 3,
           "text": "1. Modelo de negócio e ROI"
@@ -2280,6 +2305,31 @@
     },
     "revenue-model": {
       "blocks": [
+        {
+          "type": "stats",
+          "hero": {
+            "label": "Break-even",
+            "value": "~1.900 usuários + 25 B2B",
+            "note": "linha B2B-assistida, dentro de 36 meses"
+          },
+          "items": [
+            {
+              "label": "ARPU B2C",
+              "value": "~US$5,88/ano",
+              "note": "blended; premissa rotulada"
+            },
+            {
+              "label": "ARPU B2B",
+              "value": "~US$1.945–19.300/ano",
+              "note": "cauda superior sem teto (D-005)"
+            },
+            {
+              "label": "Margem líquida",
+              "value": "40–70%",
+              "note": "no break-even; parceiro não assinado"
+            }
+          ]
+        },
         {
           "type": "heading",
           "level": 3,

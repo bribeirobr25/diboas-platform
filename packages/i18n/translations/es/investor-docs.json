@@ -502,6 +502,31 @@
           "text": "One line on what diBoaS is: diBoaS is a non-custodial financial app that helps consumers assign money to goals and businesses assign cash to rules before money moves. It shows the strategy, cost, liquidity, and risk before the user or business decides. Users keep control of their funds the whole time — diBoaS is the interface, never the holder."
         },
         {
+          "type": "stats",
+          "hero": {
+            "label": "Terms",
+            "value": "€2.5M cap",
+            "note": "20% discount"
+          },
+          "items": [
+            {
+              "label": "The ask",
+              "value": "€200K–450K",
+              "note": "post-money SAFE / Wandeldarlehen"
+            },
+            {
+              "label": "Validation targets",
+              "value": "≥30 logged conversations + ≥3 signed non-binding LOIs by 2026-08-29",
+              "note": "committed dates — D-003"
+            },
+            {
+              "label": "B2C ARPU",
+              "value": "~US$5.88/yr",
+              "note": "honest: consumer fintech is small"
+            }
+          ]
+        },
+        {
           "type": "heading",
           "level": 3,
           "text": "1. Business model & ROI"
@@ -2019,6 +2044,31 @@
     },
     "revenue-model": {
       "blocks": [
+        {
+          "type": "stats",
+          "hero": {
+            "label": "Break-even",
+            "value": "~1,900 users + 25 B2B",
+            "note": "B2B-assisted, inside 36 months"
+          },
+          "items": [
+            {
+              "label": "B2C ARPU",
+              "value": "~US$5.88/yr",
+              "note": "blended; assumption-labeled"
+            },
+            {
+              "label": "B2B ARPU",
+              "value": "~$1,945–19,300/yr",
+              "note": "uncapped upper tail (D-005)"
+            },
+            {
+              "label": "Net margin",
+              "value": "40–70%",
+              "note": "at break-even; partner unsigned"
+            }
+          ]
+        },
         {
           "type": "heading",
           "level": 3,
