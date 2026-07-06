@@ -38,16 +38,15 @@ function StatCell({ stat, kind }: { stat: Stat; kind: 'hero' | 'item' }) {
  */
 export function StatStrip({ items, hero, ariaLabel, variant = 'page' }: StatStripProps) {
   const wrapClass = `${styles.strip} ${variant === 'doc' ? styles.doc : styles.page}`;
+  // The <dl> IS the grid: hero spans all columns, each secondary is a cell.
+  // Every child is a <div> directly wrapping its dt/dd — a valid <dl> content
+  // model (no intermediate wrapper, which would break the description list).
   return (
     <dl className={wrapClass} aria-label={ariaLabel}>
       {hero ? <StatCell stat={hero} kind="hero" /> : null}
-      {items.length > 0 ? (
-        <div className={styles.items}>
-          {items.map((stat) => (
-            <StatCell key={stat.value + stat.label} stat={stat} kind="item" />
-          ))}
-        </div>
-      ) : null}
+      {items.map((stat) => (
+        <StatCell key={stat.value + stat.label} stat={stat} kind="item" />
+      ))}
     </dl>
   );
 }

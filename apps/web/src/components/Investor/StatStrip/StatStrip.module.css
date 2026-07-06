@@ -4,20 +4,19 @@
  * (CLAUDE.md anti-slop). Mobile-first; prints as a compact row.
  */
 
+/* The <dl> is the grid; every child <div> is a cell. The hero spans all
+   columns so it stays dominant above the secondaries. */
 .strip {
   margin: 0;
+  display: grid;
 }
 
 /* ── page variant: flat equal-weight strip (public /investors band) ── */
 .page {
   max-width: 60rem;
   margin: 0 auto;
-  display: grid;
   grid-template-columns: 1fr;
   gap: var(--spacing-md);
-}
-.page .items {
-  display: contents;
 }
 @media (min-width: 640px) {
   .page {
@@ -31,24 +30,22 @@
   }
 }
 
-/* ── doc variant: one hero + secondaries, hierarchy by type ── */
+/* ── doc variant: one hero (full-width) + secondaries, hierarchy by type ── */
 .doc {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md) var(--spacing-lg);
   padding: var(--spacing-lg) 0;
   border-top: 1px solid var(--color-slate-200);
   border-bottom: 1px solid var(--color-slate-200);
 }
-.doc .items {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-md) var(--spacing-lg);
-}
 @media (min-width: 768px) {
-  .doc .items {
+  .doc {
     grid-template-columns: repeat(4, 1fr);
   }
+}
+.doc .hero {
+  grid-column: 1 / -1;
+  margin-bottom: var(--spacing-xs);
 }
 
 .hero,
@@ -96,12 +93,10 @@
    collapse the hero scale slightly and keep the secondaries as a compact row. */
 @media print {
   .doc {
-    padding: var(--spacing-sm) 0;
-    break-inside: avoid;
-  }
-  .doc .items {
     grid-template-columns: repeat(4, 1fr);
     gap: var(--spacing-sm);
+    padding: var(--spacing-sm) 0;
+    break-inside: avoid;
   }
   .hero .value {
     font-size: var(--font-size-xl);
