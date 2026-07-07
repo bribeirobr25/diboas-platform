@@ -128,7 +128,7 @@
       },
       "add": {
         "action": "Adicionar dinheiro",
-        "diboas": "{rate} (mín {min}, máx {max})",
+        "diboas": "{rate} (mín {min}, sem limite)",
         "competitors": "Taxas de provedores podem variar",
         "difference": "Mostrado antes de confirmar",
         "example": "Adicionar R$50.000: taxa diBoaS de R$240"
@@ -144,8 +144,8 @@
         "action": "Vender / Fechar",
         "diboas": "{rate} (mín {min}, máx {max})",
         "competitors": "Taxas e spreads podem variar",
-        "difference": "0,39%, com teto de US$ 25",
-        "example": "Vender R$50.000: 0,39% daria R$195, mas a taxa diBoaS tem teto de US$ 25"
+        "difference": "0,39%, com teto de R$ 25",
+        "example": "Vender R$50.000: 0,39% daria R$195, mas a taxa diBoaS tem teto de R$ 25"
       },
       "swap": {
         "action": "Trocar",
@@ -156,7 +156,7 @@
       },
       "cashOut": {
         "action": "Sacar",
-        "diboas": "{rate} (mín {min}, máx {max})",
+        "diboas": "{rate} (mín {min}, sem limite)",
         "competitors": "Taxas, spreads e prazos podem variar",
         "difference": "Mostrado antes de confirmar",
         "example": "Sacar R$50.000: taxa diBoaS de R$240"

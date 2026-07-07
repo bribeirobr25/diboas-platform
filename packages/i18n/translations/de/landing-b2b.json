@@ -128,7 +128,7 @@
       },
       "add": {
         "action": "Geld einzahlen",
-        "diboas": "{rate} (min {min}, max {max})",
+        "diboas": "{rate} (min {min}, ohne Obergrenze)",
         "competitors": "Anbietergebühren können variieren",
         "difference": "Wird vor der Bestätigung angezeigt",
         "example": "10.000 € einzahlen: diBoaS-Gebühr 48 €"
@@ -156,7 +156,7 @@
       },
       "cashOut": {
         "action": "Auszahlen",
-        "diboas": "{rate} (min {min}, max {max})",
+        "diboas": "{rate} (min {min}, ohne Obergrenze)",
         "competitors": "Gebühren, Spreads und Verzögerungen können variieren",
         "difference": "Wird vor der Bestätigung angezeigt",
         "example": "10.000 € auszahlen: diBoaS-Gebühr 48 €"

@@ -127,8 +127,8 @@
         "example": "Pagar 500 € a un proveedor que usa diBoaS en dólares digitales: comisión diBoaS 0 €. Pagar 500 € a un proveedor externo: se aplica una salida del 0,48 % (2,40 €)."
       },
       "add": {
-        "action": "Anadir dinero",
-        "diboas": "{rate} (mín {min}, máx {max})",
+        "action": "Añadir dinero",
+        "diboas": "{rate} (mín {min}, sin límite)",
         "competitors": "Las comisiones de proveedores pueden variar",
         "difference": "Se muestra antes de confirmar",
         "example": "Añadir 10.000 €: comisión diBoaS de 48 €"
@@ -156,7 +156,7 @@
       },
       "cashOut": {
         "action": "Retirar",
-        "diboas": "{rate} (mín {min}, máx {max})",
+        "diboas": "{rate} (mín {min}, sin límite)",
         "competitors": "Comisiones, spreads y retrasos pueden variar",
         "difference": "Se muestra antes de confirmar",
         "example": "Retirar 10.000 €: comisión diBoaS de 48 €"

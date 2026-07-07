@@ -128,7 +128,7 @@
       },
       "add": {
         "action": "Add Money",
-        "diboas": "{rate} (min {min}, max {max})",
+        "diboas": "{rate} (min {min}, no cap)",
         "competitors": "Provider fees may vary",
         "difference": "Shown before confirmation",
         "example": "Add $10,000: diBoaS fee is $48"
@@ -156,7 +156,7 @@
       },
       "cashOut": {
         "action": "Cash Out",
-        "diboas": "{rate} (min {min}, max {max})",
+        "diboas": "{rate} (min {min}, no cap)",
         "competitors": "Fees, spreads, and delays may vary",
         "difference": "Shown before confirmation",
         "example": "Cash out $10,000: diBoaS fee is $48"
