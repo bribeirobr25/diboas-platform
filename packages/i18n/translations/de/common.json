@@ -7,7 +7,7 @@
       "forBusiness": "Für Unternehmen",
       "moneyTools": "Rechner",
       "strategies": "Strategien",
-      "futureYou": "Ihre Zukunft",
+      "futureYou": "Deine Zukunft",
       "about": "Über uns",
       "protocols": "Protokolle",
       "adelaideDaily": "Adelaide Daily",
@@ -30,7 +30,7 @@
     },
     "learn": {
       "label": "Lern-Center",
-      "description": "Meistern Sie Ihre Finanzen mit Experten-Leitfäden und Bildungsinhalten",
+      "description": "Meistere deine Finanzen mit Experten-Leitfäden und Bildungsinhalten",
       "subItems": {
         "center": "Das Lern-Center",
         "basics": "Finanz-Grundlagen",
@@ -56,7 +56,7 @@
     },
     "rewards": {
       "label": "Belohnungen",
-      "description": "Verdienen Sie Belohnungen und lernen Sie mit KI-gestützten Maskottchen-Guides",
+      "description": "Verdiene Belohnungen und lerne mit KI-gestützten Maskottchen-Guides",
       "subItems": {
         "program": "diBoaS Rewards",
         "mascots": "KI-Maskottchen-Guides",
@@ -69,7 +69,7 @@
     },
     "security": {
       "label": "Sicherheit",
-      "description": "Ihre Sicherheit ist unsere oberste Priorität",
+      "description": "Deine Sicherheit ist unsere oberste Priorität",
       "subItems": {
         "protection": "diBoaS Schutz",
         "audits": "Audit & Berichte",
@@ -79,7 +79,7 @@
     },
     "aboutMenu": {
       "label": "Über",
-      "description": "Erfahren Sie mehr über diBoaS und unsere Mission",
+      "description": "Erfahre mehr über diBoaS und unsere Mission",
       "subItems": {
         "about": "Mehr Über diBoaS",
         "protocols": "Vertrauenswürdige Protokolle",
@@ -96,7 +96,7 @@
         "rewards": "Belohnungen"
       },
       "sections": {
-        "forYou": "Für Sie",
+        "forYou": "Für dich",
         "forBusiness": "Für Unternehmen"
       }
     },
@@ -108,9 +108,9 @@
     "joinWaitlist": "Zur Warteliste",
     "tools": {
       "calculator": "Rechner",
-      "calculatorDescription": "Sehen Sie Ihr Geld wachsen",
+      "calculatorDescription": "Sieh dein Geld wachsen",
       "dreamMode": "Dream Mode",
-      "dreamModeDescription": "Visualisieren Sie Ihre Zukunft"
+      "dreamModeDescription": "Visualisiere deine Zukunft"
     }
   },
   "buttons": {
@@ -120,11 +120,11 @@
   "common": {},
   "forms": {
     "required": "Dieses Feld ist erforderlich",
-    "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "email": "Bitte gib eine gültige E-Mail-Adresse ein",
     "password": "Das Passwort muss mindestens 8 Zeichen lang sein",
     "confirmPassword": "Die Passwörter stimmen nicht überein",
-    "terms": "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen",
-    "privacy": "Bitte akzeptieren Sie die Datenschutzerklärung"
+    "terms": "Bitte akzeptiere die Allgemeinen Geschäftsbedingungen",
+    "privacy": "Bitte akzeptiere die Datenschutzerklärung"
   },
   "accessibility": {
     "skipToMain": "Zum Hauptinhalt springen",
@@ -179,7 +179,7 @@
     },
     "serverError": {
       "title": "Etwas Ist Schiefgelaufen",
-      "description": "Wir haben technische Schwierigkeiten. Bitte versuchen Sie es später erneut.",
+      "description": "Wir haben technische Schwierigkeiten. Bitte versuche es später erneut.",
       "action": "Erneut versuchen"
     },
     "boundary": {
@@ -189,12 +189,12 @@
     },
     "offline": {
       "title": "Keine Internetverbindung",
-      "description": "Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+      "description": "Bitte überprüfe deine Verbindung und versuche es erneut.",
       "action": "Erneut versuchen"
     },
     "page": {
       "title": "Etwas ist schiefgelaufen",
-      "message": "Ein unerwarteter Fehler ist aufgetreten. Bitte aktualisieren Sie die Seite oder kontaktieren Sie den Support.",
+      "message": "Ein unerwarteter Fehler ist aufgetreten. Bitte aktualisiere die Seite oder kontaktiere den Support.",
       "tryAgain": "Erneut versuchen",
       "refreshPage": "Seite aktualisieren",
       "devDetails": "Fehlerdetails (Entwicklung)"
@@ -202,11 +202,11 @@
     "section": {
       "title": "Etwas ist schiefgelaufen",
       "message": "Dieser Bereich konnte leider nicht geladen werden.",
-      "canRetry": "Sie können versuchen, ihn unten neu zu laden.",
+      "canRetry": "Du kannst versuchen, ihn unten neu zu laden.",
       "tryAgain": "Erneut versuchen",
       "reloadPage": "Seite neu laden",
       "devDetails": "Fehlerdetails (nur Entwicklung)",
-      "persistHelp": "Wenn dieses Problem weiterhin besteht, aktualisieren Sie bitte die Seite oder kontaktieren Sie den Support."
+      "persistHelp": "Wenn dieses Problem weiterhin besteht, aktualisiere bitte die Seite oder kontaktiere den Support."
     }
   },
   "footer": {
@@ -264,7 +264,7 @@
   },
   "cookieConsent": {
     "ariaLabel": "Cookie-Zustimmung",
-    "message": "Wir verwenden Cookies, um Ihre Erfahrung zu verbessern und die Nutzung der Website zu analysieren. Durch Klicken auf \"Akzeptieren\" stimmen Sie der Verwendung von Analyse-Cookies zu.",
+    "message": "Wir verwenden Cookies, um deine Erfahrung zu verbessern und die Nutzung der Website zu analysieren. Durch Klicken auf \"Akzeptieren\" stimmst du der Verwendung von Analyse-Cookies zu.",
     "cookiePolicy": "Cookie-Richtlinie",
     "privacyPolicy": "Datenschutzrichtlinie",
     "decline": "Ablehnen",
@@ -275,24 +275,24 @@
   "bookCall": {
     "notConfigured": "Buchungskalender nicht konfiguriert",
     "loading": "Kalender wird geladen...",
-    "contactUs": "Kontaktieren Sie uns direkt um einen Termin zu vereinbaren",
+    "contactUs": "Kontaktiere uns direkt, um einen Termin zu vereinbaren",
     "error": "Buchungskalender konnte nicht geladen werden",
     "loadError": "Buchungskalender konnte nicht geladen werden",
-    "contactDirectly": "Kontaktieren Sie uns direkt, um einen Anruf zu vereinbaren"
+    "contactDirectly": "Kontaktiere uns direkt, um einen Anruf zu vereinbaren"
   },
   "waitingList": {
     "title": "Auf die Warteliste setzen",
-    "subtitle": "Seien Sie der Erste, der die Zukunft der Finanzen erlebt. Melden Sie sich jetzt an, um frühzeitigen Zugang zu diBoaS zu erhalten.",
+    "subtitle": "Sei der Erste, der die Zukunft der Finanzen erlebt. Melde dich jetzt an, um frühzeitigen Zugang zu diBoaS zu erhalten.",
     "imageAlt": "diBoaS Plattform Vorschau",
     "close": "Schließen",
     "form": {
       "name": {
         "label": "Name",
-        "placeholder": "Geben Sie Ihren Namen ein"
+        "placeholder": "Gib deinen Namen ein"
       },
       "email": {
         "label": "E-Mail",
-        "placeholder": "Geben Sie Ihre E-Mail-Adresse ein"
+        "placeholder": "Gib deine E-Mail-Adresse ein"
       },
       "xAccount": {
         "label": "X (Twitter) Konto",
@@ -306,27 +306,27 @@
       "submit": "Auf Warteliste setzen"
     },
     "success": {
-      "title": "Sie sind auf der Liste!",
-      "message": "Vielen Dank, dass Sie sich auf unsere Warteliste gesetzt haben. Wir halten Sie über unseren Start auf dem Laufenden und senden Ihnen Informationen zum frühzeitigen Zugang.",
+      "title": "Du bist auf der Liste!",
+      "message": "Vielen Dank, dass du dich auf unsere Warteliste gesetzt hast. Wir halten dich über unseren Start auf dem Laufenden und senden dir Informationen zum frühzeitigen Zugang.",
       "emailSent": "Bestätigung gesendet an {email}",
       "close": "Schließen"
     },
     "errors": {
-      "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
-      "invalidName": "Bitte geben Sie einen gültigen Namen ein",
-      "invalidXAccount": "Bitte geben Sie ein gültiges X-Konto ein (z.B. @benutzername)",
-      "consentRequired": "Sie müssen dem Empfang von Mitteilungen zustimmen",
+      "invalidEmail": "Bitte gib eine gültige E-Mail-Adresse ein",
+      "invalidName": "Bitte gib einen gültigen Namen ein",
+      "invalidXAccount": "Bitte gib ein gültiges X-Konto ein (z.B. @benutzername)",
+      "consentRequired": "Du musst dem Empfang von Mitteilungen zustimmen",
       "emailRequired": "E-Mail ist erforderlich",
       "duplicateEmail": "Diese E-Mail-Adresse ist bereits auf unserer Warteliste",
-      "submissionFailed": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
-      "storageError": "Ihre Informationen konnten nicht gespeichert werden. Bitte versuchen Sie es erneut."
+      "submissionFailed": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+      "storageError": "Deine Informationen konnten nicht gespeichert werden. Bitte versuche es erneut."
     },
     "position": {
-      "label": "Ihre Position",
+      "label": "Deine Position",
       "spotsGained": "{spots} Plätze gewonnen!",
       "referrals": "Empfehlungen",
       "spotsPerReferral": "Plätze/Empfehlung",
-      "yourCode": "Ihr Code:"
+      "yourCode": "Dein Code:"
     }
   },
   "share": {

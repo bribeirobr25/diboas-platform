@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Interaktive Demo - diBoaS",
-    "description": "Erleben Sie diBoaS in unserer interaktiven Demo. Einzahlen, senden, investieren und Ihre finanzielle Zukunft entdecken."
+    "description": "Erlebe diBoaS in unserer interaktiven Demo. Einzahlen, senden, investieren und deine finanzielle Zukunft entdecken."
   },
   "common": {
     "back": "Zurück",
@@ -13,7 +13,7 @@
   },
   "login": {
     "title": "Willkommen bei diBoaS",
-    "subtitle": "Erleben Sie die Zukunft der persönlichen Finanzen",
+    "subtitle": "Erlebe die Zukunft der persönlichen Finanzen",
     "emailLabel": "E-Mail",
     "passwordLabel": "Passwort",
     "orContinueWith": "ODER FORTFAHREN MIT",
@@ -23,34 +23,34 @@
   },
   "loading": {
     "creatingAccount": "Konto wird erstellt",
-    "creatingAccountSubtitle": "Ihr sicheres Profil wird eingerichtet",
+    "creatingAccountSubtitle": "Dein sicheres Profil wird eingerichtet",
     "checkIdentity": "Identität verifiziert",
     "checkCompliance": "Compliance-Prüfung bestanden",
     "creatingWallet": "Wallet wird eingerichtet",
-    "creatingWalletSubtitle": "Ihre digitale Wallet wird vorbereitet",
+    "creatingWalletSubtitle": "Deine digitale Wallet wird vorbereitet",
     "checkWallet": "Wallet erstellt"
   },
   "processing": {
     "depositProcessing": "Zahlung wird verarbeitet",
-    "depositProcessingSub": "Verbindung mit Ihrer Zahlungsmethode",
+    "depositProcessingSub": "Verbindung mit deiner Zahlungsmethode",
     "depositApproved": "Zahlung genehmigt",
-    "depositApprovedSub": "Ihre Transaktion wurde verifiziert",
+    "depositApprovedSub": "Deine Transaktion wurde verifiziert",
     "depositComplete": "Einzahlung abgeschlossen!",
-    "depositCompleteSub": "Guthaben wurde Ihrer Wallet gutgeschrieben",
+    "depositCompleteSub": "Guthaben wurde deiner Wallet gutgeschrieben",
     "sendProcessing": "Guthaben wird gesendet",
-    "sendProcessingSub": "Ihre Überweisung wird verarbeitet",
+    "sendProcessingSub": "Deine Überweisung wird verarbeitet",
     "sendComplete": "Überweisung abgeschlossen!",
     "sendCompleteSub": "Guthaben erfolgreich gesendet",
     "buyProcessing": "Kauf wird verarbeitet",
-    "buyProcessingSub": "Ihre Investition wird verarbeitet",
+    "buyProcessingSub": "Deine Investition wird verarbeitet",
     "buyComplete": "Kauf abgeschlossen!",
-    "buyCompleteSub": "Anlage wurde Ihrem Portfolio hinzugefügt"
+    "buyCompleteSub": "Anlage wurde deinem Portfolio hinzugefügt"
   },
   "home": {
     "totalBalance": "Gesamtguthaben",
     "cash": "Barguthaben",
     "investments": "Investitionen",
-    "tapToViewWallets": "Tippen, um Ihre Wallets anzuzeigen",
+    "tapToViewWallets": "Tippe, um deine Wallets zu sehen",
     "quickActions": "Schnellaktionen",
     "addMoney": "Ein-/Auszahlen",
     "addMoneySubtitle": "1-Klick",
@@ -65,16 +65,16 @@
     "activity": "Aktivität",
     "recentActivity": "Letzte Aktivitäten",
     "noActivity": "Noch keine Aktivitäten",
-    "noActivitySubtitle": "Ihre Transaktionen werden hier angezeigt",
-    "copyright": "© 2026 diBoaS · Ihr Geld, Ihre Kontrolle"
+    "noActivitySubtitle": "Deine Transaktionen werden hier angezeigt",
+    "copyright": "© 2026 diBoaS · Dein Geld, deine Kontrolle"
   },
   "footer": {
     "disclaimer": "Dies ist eine Demo-Umgebung. Es wird kein echtes Geld oder echte Daten verwendet. Alle gezeigten Funktionen können im fertigen Produkt verfügbar sein.",
-    "copyright": "© 2026 diBoaS · Ihr Geld, Ihre Kontrolle"
+    "copyright": "© 2026 diBoaS · Dein Geld, deine Kontrolle"
   },
   "transaction": {
     "fees": "Gebühren",
-    "youllReceive": "Sie erhalten",
+    "youllReceive": "Du erhältst",
     "theyReceive": "Empfänger erhält",
     "approximate": "≈"
   },
@@ -133,7 +133,7 @@
     "amountLabel": "Kaufbetrag",
     "comingSoon": "Demnächst verfügbar",
     "proceed": "Weiter",
-    "insufficientFunds": "Unzureichendes Guthaben. Bitte zahlen Sie zuerst Geld ein.",
+    "insufficientFunds": "Unzureichendes Guthaben. Bitte zahle zuerst Geld ein.",
     "categoryETFs": "ETFs",
     "categoryStocks": "Aktien",
     "categoryCrypto": "Krypto",
@@ -154,18 +154,18 @@
     "asset": "Anlage",
     "totalAmount": "Gesamtbetrag",
     "theyReceive": "Empfänger erhält",
-    "youReceive": "Sie erhalten",
+    "youReceive": "Du erhältst",
     "termsDeposit": "Ich verstehe, dass mein Guthaben in Stablecoins umgewandelt und in einer selbstverwalteten Wallet aufbewahrt wird. Mir ist bewusst, dass ich für die Sicherheit meiner Wallet selbst verantwortlich bin.",
     "termsSend": "Ich verstehe, dass diese Überweisung endgültig ist und nicht rückgängig gemacht werden kann. Ich habe die Empfängeradresse überprüft und bestätigt.",
     "termsBuy": "Ich verstehe, dass ich einen digitalen Vermögenswert erwerbe, dessen Kurs schwanken kann. Mir ist bewusst, dass Kryptowährungs-Investitionen mit Risiken verbunden sind.",
-    "subtitle": "Bitte überprüfen Sie die Angaben vor der Bestätigung",
+    "subtitle": "Bitte überprüfe die Angaben vor der Bestätigung",
     "confirmButton": "Bestätigen",
     "confirmDeposit": "Einzahlung bestätigen",
     "confirmTransfer": "Überweisung bestätigen",
     "confirmPurchase": "Kauf bestätigen"
   },
   "wallet": {
-    "title": "Ihre Wallets",
+    "title": "Deine Wallets",
     "subtitle": "Selbstverwaltet · Gesichert durch externen Anbieter",
     "totalBalance": "Gesamtportfolio",
     "cash": "Barguthaben",
@@ -176,19 +176,19 @@
     "copy": "Kopieren",
     "exportKey": "Private Key exportieren",
     "selfCustodyTitle": "100% Selbstverwahrung",
-    "selfCustodyText": "Ihre Wallets gehören vollständig Ihnen. diBoaS stellt die Oberfläche bereit, verwahrt aber niemals Ihr Guthaben und hat keinen Zugriff auf Ihre Private Keys. Sie können Ihre Wallets exportieren und mit jeder Web3-Anwendung nutzen.",
-    "exportModalTitle": "Ihre Private Keys",
-    "exportModalDesc1Prefix": "Ihre Private Keys werden durch einen ",
+    "selfCustodyText": "Deine Wallets gehören vollständig dir. diBoaS stellt die Oberfläche bereit, verwahrt aber niemals dein Guthaben und hat keinen Zugriff auf deine Private Keys. Du kannst deine Wallets exportieren und mit jeder Web3-Anwendung nutzen.",
+    "exportModalTitle": "Deine Private Keys",
+    "exportModalDesc1Prefix": "Deine Private Keys werden durch einen ",
     "exportModalDesc1Bold": "vertrauenswürdigen externen Wallet-Anbieter",
     "exportModalDesc1Suffix": " gesichert.",
-    "exportModalDesc2Bold": "diBoaS speichert Ihre Private Keys nicht und hat keinen Zugriff darauf.",
-    "exportModalDesc2Suffix": " Sie behalten die volle Kontrolle über Ihre Wallets.",
-    "exportModalStepsTitle": "So exportieren Sie Ihre Keys:",
-    "exportModalStep1": "Öffnen Sie das Dashboard Ihres Wallet-Anbieters",
-    "exportModalStep2": "Verifizieren Sie Ihre Identität",
-    "exportModalStep3": "Rufen Sie Ihre Wiederherstellungsphrase ab",
+    "exportModalDesc2Bold": "diBoaS speichert deine Private Keys nicht und hat keinen Zugriff darauf.",
+    "exportModalDesc2Suffix": " Du behältst die volle Kontrolle über deine Wallets.",
+    "exportModalStepsTitle": "So exportierst du deine Keys:",
+    "exportModalStep1": "Öffne das Dashboard deines Wallet-Anbieters",
+    "exportModalStep2": "Verifiziere deine Identität",
+    "exportModalStep3": "Rufe deine Wiederherstellungsphrase ab",
     "exportModalWarningLabel": "Achtung:",
-    "exportModalWarningBody": " Teilen Sie Ihre Private Keys niemals mit anderen Personen. Jeder, der Ihre Keys besitzt, kann auf Ihr Guthaben zugreifen.",
+    "exportModalWarningBody": " Teile deine Private Keys niemals mit anderen Personen. Jeder, der deine Keys besitzt, kann auf dein Guthaben zugreifen.",
     "exportModalButton": "Wallet-Dashboard öffnen",
     "exportModalButtonDemo": "(Demo)",
     "exportModalFooter": "Gesichert durch externen Anbieter · Branchenführende Sicherheit",

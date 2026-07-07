@@ -1,9 +1,9 @@
 {
   "seo": {
     "title": "Seguridad | diBoaS",
-    "description": "Cómo diBoaS protege tu dinero. Tu billetera, tus llaves. Arquitectura sin custodia. Monitoreo 24/7.",
+    "description": "Cómo diBoaS protege tu dinero. Tu cartera, tus claves. Arquitectura sin custodia. Monitorización 24/7.",
     "ogTitle": "Seguridad | diBoaS",
-    "ogDescription": "Tu billetera, tus llaves. Cómo diBoaS protege tu dinero con arquitectura sin custodia y monitoreo 24/7."
+    "ogDescription": "Tu cartera, tus claves. Cómo diBoaS protege tu dinero con arquitectura sin custodia y monitoreo 24/7."
   },
   "hero": {
     "title": "Seguridad",
@@ -11,10 +11,10 @@
   },
   "sections": {
     "wallet": {
-      "ariaLabel": "Tu billetera, tus llaves",
-      "title": "Tu Billetera, Tus Llaves",
+      "ariaLabel": "Tu cartera, tus claves",
+      "title": "Tu Cartera, Tus Claves",
       "paragraphs": [
-        "Cada usuario tiene su propia billetera con su propia clave privada.",
+        "Cada usuario tiene su propia cartera con su propia clave privada.",
         "diBoaS nunca ve, guarda ni tiene acceso a tu clave. Si necesitas recuperar el acceso, la recuperación pasa por un socio independiente, nunca por diBoaS.",
         "Si diBoaS desapareciera mañana, tu dinero seguiría siendo tuyo."
       ]
@@ -26,7 +26,7 @@
         "Nadie, incluyendo diBoaS, puede acceder a tus fondos.",
         "Solo tú puedes autorizar transacciones.",
         "La firma de transacciones siempre requiere tu aprobación.",
-        "Monitoreamos todas las posiciones las 24 horas del día, los 7 días de la semana."
+        "Monitorizamos todas las posiciones las 24 horas del día, los 7 días de la semana."
       ]
     },
     "technology": {

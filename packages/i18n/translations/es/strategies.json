@@ -116,7 +116,7 @@
         "typicalReturn": "7-11% anual",
         "bumpiness": "Olas moderadas. En el peor momento, tu saldo bajó temporalmente un 11% antes de recuperarse."
       },
-      "bestFor": "Personas ahorrando para una meta que pueden manejar ver su saldo bajar temporalmente.",
+      "bestFor": "Personas ahorrando para una meta que pueden soportar ver su saldo bajar temporalmente.",
       "riskLevel": "Bajo-Medio. Tu saldo se moverá con los precios de activos digitales."
     },
     "patientBuilder": {
@@ -415,7 +415,7 @@
       "safe": {
         "question": "¿Mi dinero está seguro?",
         "answerA": "Tu dinero está protegido por ti. Tu monedero, tus claves. Nadie en diBoaS puede acceder a tus fondos sin tu autorización.\n\nDicho esto, esto no es una cuenta bancaria. Tus fondos trabajan a través de sistemas automatizados construidos sobre código. El valor puede fluctuar, y podrías perder parte o toda tu inversión. No existe seguro de depósitos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre.",
-        "answerB": "Tu dinero lo proteges tú. Tu billetera, tus claves, y diBoaS no guarda ninguna parte de ellas. Si necesitas recuperar el acceso, eso pasa por un socio independiente, no por diBoaS. Nadie en diBoaS puede mover tu dinero.\n\nDicho esto, esto no es una cuenta bancaria. Tus fondos trabajan a través de sistemas automatizados construidos sobre código. El valor puede fluctuar, y podrías perder parte o toda tu inversión. No existe seguro de depósitos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre."
+        "answerB": "Tu dinero lo proteges tú. Tu cartera, tus claves, y diBoaS no guarda ninguna parte de ellas. Si necesitas recuperar el acceso, eso pasa por un socio independiente, no por diBoaS. Nadie en diBoaS puede mover tu dinero.\n\nDicho esto, esto no es una cuenta bancaria. Tus fondos trabajan a través de sistemas automatizados construidos sobre código. El valor puede fluctuar, y podrías perder parte o toda tu inversión. No existe seguro de depósitos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre."
       },
       "loseEverything": {
         "question": "¿Puedo perderlo todo?",

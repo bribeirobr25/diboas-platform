@@ -61,7 +61,7 @@
     },
     "lostPhone": {
       "question": "¿Y si pierdo mi móvil?",
-      "answer": "Cuando diBoaS lance su aplicación, tu billetera usará seguridad avanzada de claves para proteger contra la pérdida del dispositivo. Nuestra arquitectura está diseñada para la recuperación de billetera sin frases semilla ni respaldos de 24 palabras. Tu dinero no desaparecerá porque tu teléfono lo hizo."
+      "answer": "Cuando diBoaS lance su aplicación, tu cartera usará seguridad avanzada de claves para proteger contra la pérdida del dispositivo. Nuestra arquitectura está diseñada para la recuperación de cartera sin frases semilla ni respaldos de 24 palabras. Tu dinero no desaparecerá porque tu teléfono lo hizo."
     },
     "whatIsBalance": {
       "question": "¿Qué es mi saldo realmente?",
