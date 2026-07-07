@@ -3,7 +3,7 @@
     "headline": "Caixa precisa ter função.",
     "subheadline": "Folha e aluguel não podem esperar. O resto não precisa ficar parado.\n\ndiBoaS dá à sua empresa a oportunidade de colocar o caixa ocioso para trabalhar, rendendo todos os dias, nas suas condições e sob o seu controle.",
     "cta": "Ver como funciona",
-    "imageAlt": "Ilustracao de gestao de tesouraria empresarial",
+    "imageAlt": "Ilustração de gestão de tesouraria empresarial",
     "trustBadges": {
       "wallet": {
         "label": "Seu dinheiro, sua carteira"
@@ -28,7 +28,7 @@
       "headline": "Real parado também decide.",
       "body": "Toda empresa precisa de dinheiro pronto.\n\nMas nem todo real precisa ficar no mesmo lugar, na mesma moeda e com o mesmo risco.\n\nDefina um piso operacional. Separe o que precisa ficar disponível. Revise caminhos em dólar digital para o excedente apenas quando o risco fizer sentido para a empresa.\n\nCaixa não deve se mover porque uma página prometeu.\n\nDeve se mover porque a regra ficou clara.",
       "cta": "Revisar caixa parado",
-      "imageAlt": "Gestao de tesouraria no celular"
+      "imageAlt": "Gestão de tesouraria no celular"
     }
   },
   "origin": {
@@ -74,7 +74,7 @@
       "getPaid": {
         "headline": "Pagamentos com custo visível",
         "body": "Revise caminhos de pagamento em dólar digital onde estiverem disponíveis, com custos esperados antes de mover dinheiro.",
-        "imageAlt": "Receba sem perder um pedaco"
+        "imageAlt": "Receba sem perder um pedaço"
       },
       "payAnyone": {
         "headline": "Fornecedores e prestadores",
@@ -84,7 +84,7 @@
       "adelaide": {
         "headline": "Regras para caixa parado",
         "body": "Defina um piso operacional, separe excedente e revise estratégias apenas quando fizerem sentido para o risco da empresa.",
-        "imageAlt": "Inteligencia de mercado Adelaide"
+        "imageAlt": "Inteligência de mercado Adelaide"
       },
       "records": {
         "headline": "Registros para operação real",
@@ -92,7 +92,7 @@
         "imageAlt": "Uma mesa com laptops e registros financeiros impressos em análise."
       }
     },
-    "transitionHook": "Mas aqui vem a parte que ninguém mais esta fazendo."
+    "transitionHook": "Mas aqui vem a parte que ninguém mais está fazendo."
   },
   "fees": {
     "header": "Sem surpresa escondida na taxa.",
@@ -100,7 +100,7 @@
     "headers": {
       "action": "Ação",
       "diboas": "diBoaS",
-      "competitors": "Provedores tipicos",
+      "competitors": "Provedores típicos",
       "difference": "Diferença",
       "example": "Exemplo"
     },
@@ -163,7 +163,7 @@
       }
     },
     "disclaimer": "*Taxas diBoaS mostradas. Taxas de terceiros, provedores de entrada e saída, redes, bancos, câmbio, liquidação ou compliance podem se aplicar e serão exibidas quando disponíveis antes da confirmação.",
-    "pricingNote": "Comparacoes de precos baseadas em tarifas publicas de fevereiro de 2026. As faixas refletem precos comuns entre os principais provedores. O preço real de cada concorrente varia por provedor, volume e condições contratuais.",
+    "pricingNote": "Comparações de preços baseadas em tarifas públicas de fevereiro de 2026. As faixas refletem preços comuns entre os principais provedores. O preço real de cada concorrente varia por provedor, volume e condições contratuais.",
     "example": "Um usuário diBoaS te paga R$5.000 em dólar digital: você fica com R$5.000 na sua conta diBoaS. Sacar para o banco é uma saída (off-ramp): {cashOutRate} se aplica. Um pagamento via cartão é uma entrada (on-ramp), com custos de cartão e de entrada exibidos antes de mover dinheiro.",
     "expandableToggle": "Sem taxas escondidas. Sem saldo mínimo. Sem mensalidade. Veja todas as taxas.",
     "footerLine": "Todo custo deveria aparecer antes do caixa sair do lugar.",
@@ -198,16 +198,16 @@
     "header": "A Adelaide guardava. O sistema explicava pouco.",
     "paragraphs": {
       "versionA": [
-        "Eu cresci vendo minha avó Adelaide navegar um sistema financeiro que não foi feito pra ela. Ela merecia ferramentas melhores. Assim como cada dono de negocio como você.",
-        "A diBoaS tem sede em Berlim, Alemanha, construindo para negocios nos EUA, na UE e no Brasil. Passei mais de 20 anos trabalhando com Produtos e Tecnologia no Brasil, nos EUA, no Japao e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que cada pequeno negocio e startup tivesse."
+        "Eu cresci vendo minha avó Adelaide navegar um sistema financeiro que não foi feito pra ela. Ela merecia ferramentas melhores. Assim como cada dono de negócio como você.",
+        "A diBoaS tem sede em Berlim, Alemanha, construindo para negócios nos EUA, na UE e no Brasil. Passei mais de 20 anos trabalhando com Produtos e Tecnologia no Brasil, nos EUA, no Japão e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que cada pequeno negócio e startup tivesse."
       ],
       "versionB": [
         "O diBoaS começou com a minha avó, Adelaide. Ela guardava com disciplina. O sistema entregava pouco rendimento, pouca explicação e quase nenhum acesso a opções melhores.",
         "A mesma lógica aparece nas empresas. O dono perde dinheiro em taxa. A startup deixa runway parado. O operador cuida do caixa em banco, planilha, maquininha, cartão, Pix e aplicativo que não conversam entre si. E quando o dólar muda, quase ninguém explica o que isso faz com o caixa. Depois de 20 anos criando produtos no Brasil, nos EUA, no Japão e na Alemanha, eu quis construir uma camada de caixa mais clara: um lugar onde o dinheiro tem regra, o risco tem nome e o controle fica com quem responde pelo negócio."
       ],
       "versionC": [
-        "Eu cresci vendo minha avó Adelaide navegar um sistema financeiro que não foi feito pra ela. Ela merecia ferramentas melhores. Assim como cada dono de negocio como você.",
-        "Estamos construindo a diBoaS de Berlim, Alemanha, para negocios nos EUA, na UE e no Brasil. Passei mais de 20 anos trabalhando com Produtos e Tecnologia no Brasil, nos EUA, no Japao e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que cada pequeno negocio e startup tivesse."
+        "Eu cresci vendo minha avó Adelaide navegar um sistema financeiro que não foi feito pra ela. Ela merecia ferramentas melhores. Assim como cada dono de negócio como você.",
+        "Estamos construindo a diBoaS de Berlim, Alemanha, para negócios nos EUA, na UE e no Brasil. Passei mais de 20 anos trabalhando com Produtos e Tecnologia no Brasil, nos EUA, no Japão e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que cada pequeno negócio e startup tivesse."
       ]
     },
     "email": "Vamos nos conectar.",
@@ -231,54 +231,54 @@
   },
   "footer": {
     "copyright": "© 2026 diBoaS. Todos os direitos reservados.",
-    "riskDisclaimer": "A diBoaS conecta você a sistemas de finanças descentralizadas. Retornos não são garantidos. Desempenho passado não preve resultados futuros. Envolve riscos incluindo vulnerabilidades de codigo, flutuacoes de mercado e desafios de acesso. Use apenas fundos que você pode se dar ao luxo de arriscar. A diBoaS não e um banco. Não se aplica seguro de depositos ou cobertura do FGC.",
+    "riskDisclaimer": "A diBoaS conecta você a sistemas de finanças descentralizadas. Retornos não são garantidos. Desempenho passado não prevê resultados futuros. Envolve riscos incluindo vulnerabilidades de código, flutuações de mercado e desafios de acesso. Use apenas fundos que você pode se dar ao luxo de arriscar. A diBoaS não é um banco. Não se aplica seguro de depósitos ou cobertura do FGC.",
     "micaArticle68": "",
     "micaArticle7": "",
     "usDisclosure": "",
-    "cvmWarning": "Retornos passados não são garantia de retorno futuro. Investimentos envolvem riscos e podem ensejar perdas, inclusive da totalidade do capital investido. Percentuais prospectivos refletem apenas a opiniao do autor, com base em informações disponiveis a epoca e consideradas confiaveis.",
-    "aiDisclosure": "Determinados conteudos desta plataforma, incluindo analises de mercado e materiais educativos, são gerados ou assistidos por inteligencia artificial. Conteudo gerado por IA pode conter erros ou limitacoes. Usuarios devem verificar informações de forma independente antes de tomar decisões financeiras.",
-    "fictionalResults": "Os exemplos nesta pagina são ilustrativos e não representam negocios reais ou resultados reais. Projecoes das calculadoras são baseadas em cenarios hipoteticos e medias historicas. Os resultados reais irao variar.",
+    "cvmWarning": "Retornos passados não são garantia de retorno futuro. Investimentos envolvem riscos e podem ensejar perdas, inclusive da totalidade do capital investido. Percentuais prospectivos refletem apenas a opinião do autor, com base em informações disponíveis à época e consideradas confiáveis.",
+    "aiDisclosure": "Determinados conteúdos desta plataforma, incluindo análises de mercado e materiais educativos, são gerados ou assistidos por inteligência artificial. Conteúdo gerado por IA pode conter erros ou limitações. Usuários devem verificar informações de forma independente antes de tomar decisões financeiras.",
+    "fictionalResults": "Os exemplos nesta página são ilustrativos e não representam negócios reais ou resultados reais. Projeções das calculadoras são baseadas em cenários hipotéticos e médias históricas. Os resultados reais irão variar.",
     "cryptoDisclosure": "Criptoativos são altamente voláteis. Você pode perder parte ou todo o seu investimento. Desempenho passado não é indicativo de resultados futuros.",
     "closing": "diBoaS é uma plataforma de tecnologia, não um banco ou consultor financeiro. Todas as decisões financeiras são de sua própria responsabilidade.",
     "nav": {
       "forYou": "Para Você",
       "forBusiness": "Para Empresas",
       "adelaideDaily": "Adelaide Daily",
-      "about": "Sobre nos",
+      "about": "Sobre nós",
       "help": "Ajuda",
       "strategies": "Estratégias",
       "protocols": "Protocolos",
-      "privacy": "Politica de Privacidade",
+      "privacy": "Política de Privacidade",
       "terms": "Termos de Serviço",
-      "cookies": "Politica de Cookies"
+      "cookies": "Política de Cookies"
     },
     "tagline": "O caixa da empresa merece regras."
   },
   "waitlistSuccess": {
     "confirmation": {
       "headline": "Bem-vindo a bordo.",
-      "positionIntro": "Seu negocio e:",
-      "shareIntro": "Conte para outros negocios",
-      "shareBenefit": "Compartilhe para ajudar outros negocios a ter acesso antecipado",
-      "shareExplanation": "Quanto antes lancarmos, antes isso se torna realidade.",
-      "referralLinkLabel": "Seu link de indicacao empresarial:",
+      "positionIntro": "Seu negócio é:",
+      "shareIntro": "Conte para outros negócios",
+      "shareBenefit": "Compartilhe para ajudar outros negócios a ter acesso antecipado",
+      "shareExplanation": "Quanto antes lançarmos, antes isso se torna realidade.",
+      "referralLinkLabel": "Seu link de indicação empresarial:",
       "copy": "Copiar link",
       "copied": "Copiado!",
       "dreamModeCta": "Testar o Dream Mode →"
     },
     "tier": {
       "badge": {
-        "foundingMember": "Você e um Negocio Fundador!",
-        "earlyMember": "Você e um Negocio Inicial!"
+        "foundingMember": "Você é um Negócio Fundador!",
+        "earlyMember": "Você é um Negócio Inicial!"
       },
       "explanation": {
-        "foundingMember": "Você esta entre os primeiros 24 negocios. Compartilhe seu link — você tem 5 convites para outros negocios.",
-        "earlyMember": "Convidado por um Negocio Fundador. Compartilhe seu link para ajudar outros negocios a ter acesso antecipado.",
-        "priorityWaitlist": "Você esta na lista de espera prioritaria. Compartilhe seu link para subir e ajudar outros negocios."
+        "foundingMember": "Você está entre os primeiros 24 negócios. Compartilhe seu link — você tem 5 convites para outros negócios.",
+        "earlyMember": "Convidado por um Negócio Fundador. Compartilhe seu link para ajudar outros negócios a ter acesso antecipado.",
+        "priorityWaitlist": "Você está na lista de espera prioritária. Compartilhe seu link para subir e ajudar outros negócios."
       }
     },
     "returningUser": {
-      "referralCount": "Você indicou {count} negocios"
+      "referralCount": "Você indicou {count} negócios"
     }
   },
   "sections": {
@@ -318,7 +318,7 @@
     "description": "Folha. Aluguel. Imposto. Fornecedor. Estoque. O diBoaS ajuda empresas a separar caixa por finalidade, ver caminhos em dólar digital e entender custo, liquidez e risco antes de mover dinheiro.",
     "ogTitle": "Caixa precisa ter função.",
     "ogDescription": "O diBoaS ajuda empresas a separar caixa operacional, pagamentos e dinheiro parado em caminhos claros de dólar digital, com custo, liquidez e risco visíveis antes de mover dinheiro.",
-    "keywords": "gestao de tesouraria, finanças para startups, retornos, capital operacional, pagamentos empresariais, fintech B2B"
+    "keywords": "gestão de tesouraria, finanças para startups, retornos, capital operacional, pagamentos empresariais, fintech B2B"
   },
   "startupTreasury": {
     "eyebrow": "PARA STARTUPS INVESTIDAS",

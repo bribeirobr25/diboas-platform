@@ -1,34 +1,34 @@
 {
   "seo": {
     "title": "Sobre diBoaS | Construido para los que los bancos olvidaron",
-    "description": "diBoaS se construyo porque una abuela merecia algo mejor. Ahora todos lo merecen. Transferencias gratis, opciones reales de crecimiento, desde 5 EUR.",
+    "description": "diBoaS se construyó porque una abuela merecía algo mejor. Ahora todos lo merecen. Transferencias gratis, opciones reales de crecimiento, desde 5 EUR.",
     "ogTitle": "Sobre diBoaS | Construido para los que los bancos olvidaron",
-    "ogDescription": "diBoaS se construyo porque una abuela merecia algo mejor. Ahora todos lo merecen. Transferencias gratis, opciones reales de crecimiento, desde 5 EUR."
+    "ogDescription": "diBoaS se construyó porque una abuela merecía algo mejor. Ahora todos lo merecen. Transferencias gratis, opciones reales de crecimiento, desde 5 EUR."
   },
   "hero": {
     "title": "Una abuela. Un problema. Una plataforma.",
     "subtitle": "Acceso abierto y oportunidades justas para todos."
   },
   "transitions": {
-    "t1": "Dejame contarte una historia.",
-    "t2": "Esto es lo que construi.",
+    "t1": "Déjame contarte una historia.",
+    "t2": "Esto es lo que construí.",
     "t3": "Y no es solo para particulares.",
-    "t4": "Quieres hablar? Estoy aqui."
+    "t4": "¿Quieres hablar? Estoy aquí."
   },
   "story": {
     "header": "Se llamaba Adelaide.",
-    "paragraph1": "Mi abuela vivio toda su vida en Rio de Janeiro. Me enseno a ahorrar. Me dijo que intentara ahorrar la mitad de todo lo que ganara. Ella misma lo intento. Toda su vida.",
+    "paragraph1": "Mi abuela vivió toda su vida en Río de Janeiro. Me enseñó a ahorrar. Me dijo que intentara ahorrar la mitad de todo lo que ganara. Ella misma lo intentó. Toda su vida.",
     "paragraph2": "Trabajar duro. Comprar solo lo básico. Intentar ahorrar.",
-    "paragraph3": "Aun asi no fue suficiente.",
-    "gapExplanation": "Lo que nadie le dijo: su banco le pagaba casi nada mientras ganaba rendimientos reales con su dinero. Esa diferencia, entre lo que los bancos ganan y lo que comparten, es el sistema funcionando como fue disenado. Solo que no para gente como ella.",
-    "accessLocked": "El acceso estaba bloqueado detras de importes minimos altos, palabras complicadas e instituciones a las que no les importaba la gente con pocos ahorros.",
+    "paragraph3": "Aún así no fue suficiente.",
+    "gapExplanation": "Lo que nadie le dijo: su banco le pagaba casi nada mientras ganaba rendimientos reales con su dinero. Esa diferencia, entre lo que los bancos ganan y lo que comparten, es el sistema funcionando como fue diseñado. Solo que no para gente como ella.",
+    "accessLocked": "El acceso estaba bloqueado detrás de importes mínimos altos, palabras complicadas e instituciones a las que no les importaba la gente con pocos ahorros.",
     "turning": "En 2024, decidí hacer algo al respecto. La nueva tecnología hizo posible eludir a los intermediarios. Solo tenía que construir la puerta.",
     "namedAfterHer": "BAR el fundador."
   },
   "beliefs": {
-    "header": "En que creemos",
+    "header": "En qué creemos",
     "money": {
-      "title": "Tu dinero deberia trabajar para ti.",
+      "title": "Tu dinero debería trabajar para ti.",
       "description": "No para tu banco. No para un intermediario. Para ti."
     },
     "honesty": {
@@ -41,26 +41,26 @@
     }
   },
   "mission": {
-    "header": "La Mision",
-    "story": "Adelaide nunca tuvo eleccion. Importes minimos altos, comisiones ocultas y palabras complicadas mantuvieron la puerta cerrada.",
+    "header": "La Misión",
+    "story": "Adelaide nunca tuvo elección. Importes mínimos altos, comisiones ocultas y palabras complicadas mantuvieron la puerta cerrada.",
     "statement": "Estamos construyendo la puerta que ella nunca tuvo.",
     "pillars": "Movimiento de dinero gratuito. Opciones reales de crecimiento. Transparencia total. Para todos."
   },
   "business": {
     "header": "Para Empresas",
-    "description": "Si aceptas pagos con tarjeta, las comisiones de procesamiento se comen cada transacción. Si tienes dinero parado en la cuenta de empresa, tu banco esta ganando con el y a ti te paga casi nada. El mismo sistema que le fallo a mi abuela esta sentado sobre las reservas de tu empresa.",
-    "pitch": "diBoaS for Business ayuda a las empresas a quedarse con mas de lo que ganan, con liquidez en el mismo dia, informes listos para direccion, y acceso a los mismos sistemas de confianza que impulsan nuestra plataforma personal.",
-    "cta": "Saber mas sobre diBoaS for Business"
+    "description": "Si aceptas pagos con tarjeta, las comisiones de procesamiento se comen cada transacción. Si tienes dinero parado en la cuenta de empresa, tu banco está ganando con él y a ti te paga casi nada. El mismo sistema que le falló a mi abuela está sentado sobre las reservas de tu empresa.",
+    "pitch": "diBoaS for Business ayuda a las empresas a quedarse con más de lo que ganan, con liquidez en el mismo día, informes listos para dirección, y acceso a los mismos sistemas de confianza que impulsan nuestra plataforma personal.",
+    "cta": "Saber más sobre diBoaS for Business"
   },
   "contact": {
     "header": "Contacto",
     "founder": "Fundador:",
     "founderName": "Bar",
-    "location": "Ubicacion:",
-    "locationValue": "Berlin, Alemania",
+    "location": "Ubicación:",
+    "locationValue": "Berlín, Alemania",
     "email": "Email:",
     "emailValue": "hello@diboas.com",
-    "personal": "Preguntas? Leo cada email.",
+    "personal": "¿Preguntas? Leo cada email.",
     "personalEmail": "hello@diboas.com",
     "social": {
       "linkedin": "LinkedIn",
@@ -72,7 +72,7 @@
     "general": "Este contenido es solo para fines educativos y no constituye asesoramiento de inversión, asesoramiento financiero ni ningún otro tipo de asesoramiento. La rentabilidad pasada no es un indicador fiable de resultados futuros. Los datos históricos y las simulaciones son hipotéticos y no constituyen garantías.",
     "crypto": "El valor de los criptoactivos puede fluctuar. Puede perder parte o la totalidad de su dinero. Los criptoactivos no están cubiertos por los sistemas de garantía de depósitos.",
     "stories": "Los testimonios en esta página son ejemplos ilustrativos y no representan usuarios reales.",
-    "ai": "Cierto contenido de esta plataforma, incluidos análisis de mercado y materiales educativos, es generado o asistido por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la información de forma independente antes de tomar decisiones financieras.",
+    "ai": "Cierto contenido de esta plataforma, incluidos análisis de mercado y materiales educativos, es generado o asistido por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la información de forma independiente antes de tomar decisiones financieras.",
     "closing": "Tú decides lo que es mejor para tu situación.",
     "mica": "",
     "micaArticle7": "Esta comunicación comercial sobre criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningún Estado miembro de la Unión Europea. El oferente de los criptoactivos es el único responsable del contenido de esta comunicación comercial sobre criptoactivos.",

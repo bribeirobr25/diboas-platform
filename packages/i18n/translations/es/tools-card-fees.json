@@ -5,14 +5,14 @@
   },
   "hero": {
     "kicker": "Calculadora de comisiones de tarjeta",
-    "headline": "¿Qué se llevan los procesadores de tu negocio?",
-    "subtitle": "La mayoría de comercios pagan 2,5–3% en cada cobro. Ve cuánto suma al año."
+    "headline": "¿Cuánto te cuestan de verdad los pagos con tarjeta?",
+    "subtitle": "Entre intercambio, margen del adquirente y extras, la mayoría paga un 0,4–1,0 % efectivo — muchas veces sin saberlo. Compruébalo."
   },
   "inputs": {
     "monthlyVolumeLabel": "Volumen mensual con tarjeta",
     "monthlyVolumeHelp": "Ingresos por tarjeta que tu negocio procesa al mes",
     "processorFeeLabel": "Comisión actual (%)",
-    "processorFeeHelp": "Tasa media típica en Europa ~1,5–2%",
+    "processorFeeHelp": "Tasa efectiva típica en Europa: 0,4–1,0 % (IFR UE). Ajusta a tu tarifa real",
     "avgTxLabel": "Ticket medio (opcional)",
     "avgTxHelp": "Se usa para calcular la comisión por transacción"
   },

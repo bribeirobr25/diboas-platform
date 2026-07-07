@@ -1,27 +1,27 @@
 {
   "seo": {
     "title": "Über diBoaS | Gebaut für die, die Banken vergessen haben",
-    "description": "diBoaS wurde gebaut, weil eine Grossmutter etwas Besseres verdient hat. Jetzt alle. Kostenlose Ueberweisungen, echte Wachstumsoptionen, ab 5 EUR.",
+    "description": "diBoaS wurde gebaut, weil eine Großmutter etwas Besseres verdient hat. Jetzt alle. Kostenlose Überweisungen, echte Wachstumsoptionen, ab 5 EUR.",
     "ogTitle": "Über diBoaS | Gebaut für die, die Banken vergessen haben",
-    "ogDescription": "diBoaS wurde gebaut, weil eine Grossmutter etwas Besseres verdient hat. Jetzt alle. Kostenlose Ueberweisungen, echte Wachstumsoptionen, ab 5 EUR."
+    "ogDescription": "diBoaS wurde gebaut, weil eine Großmutter etwas Besseres verdient hat. Jetzt alle. Kostenlose Überweisungen, echte Wachstumsoptionen, ab 5 EUR."
   },
   "hero": {
     "title": "Eine Großmutter. Ein Problem. Eine Plattform.",
     "subtitle": "Offener Zugang und faire Chancen für alle."
   },
   "transitions": {
-    "t1": "Lass mich dir eine Geschichte erzaehlen.",
+    "t1": "Lass mich dir eine Geschichte erzählen.",
     "t2": "Das hier habe ich gebaut.",
     "t3": "Und das gilt nicht nur für Privatpersonen.",
     "t4": "Du willst reden? Ich bin hier."
   },
   "story": {
     "header": "Ihr Name war Adelaide.",
-    "paragraph1": "Meine Grossmutter hat ihr ganzes Leben in Rio de Janeiro gelebt. Sie hat mir beigebracht zu sparen. Sie sagte, ich solle versuchen, die Haelfte von allem zu sparen, was ich verdiene. Sie selbst hat das auch versucht. Ihr ganzes Leben lang.",
-    "paragraph2": "Hart arbeiten. Nur das Noetigste kaufen. Versuchen zu sparen.",
+    "paragraph1": "Meine Großmutter hat ihr ganzes Leben in Rio de Janeiro gelebt. Sie hat mir beigebracht zu sparen. Sie sagte, ich solle versuchen, die Hälfte von allem zu sparen, was ich verdiene. Sie selbst hat das auch versucht. Ihr ganzes Leben lang.",
+    "paragraph2": "Hart arbeiten. Nur das Nötigste kaufen. Versuchen zu sparen.",
     "paragraph3": "Es hat trotzdem nicht gereicht.",
-    "gapExplanation": "Was ihr niemand gesagt hat: Ihre Bank hat ihr fast nichts gezahlt, während sie mit ihrem Geld echte Renditen erwirtschaftet hat. Diese Luecke, zwischen dem, was Banken verdienen, und dem, was sie weitergeben, ist kein Fehler im System. Das System funktioniert genau so. Nur nicht für Menschen wie sie.",
-    "accessLocked": "Der Zugang war versperrt hinter hohen Mindestbetraegen, komplizierten Woertern und Institutionen, denen Menschen mit kleinen Ersparnissen egal waren.",
+    "gapExplanation": "Was ihr niemand gesagt hat: Ihre Bank hat ihr fast nichts gezahlt, während sie mit ihrem Geld echte Renditen erwirtschaftet hat. Diese Lücke, zwischen dem, was Banken verdienen, und dem, was sie weitergeben, ist kein Fehler im System. Das System funktioniert genau so. Nur nicht für Menschen wie sie.",
+    "accessLocked": "Der Zugang war versperrt hinter hohen Mindestbeträgen, komplizierten Wörtern und Institutionen, denen Menschen mit kleinen Ersparnissen egal waren.",
     "turning": "2024 entschied ich mich, etwas dagegen zu tun. Neue Technologie machte es möglich, die Torwächter zu umgehen. Ich musste nur die Tür bauen.",
     "namedAfterHer": "BAR der Gründer."
   },
@@ -33,7 +33,7 @@
     },
     "honesty": {
       "title": "Ehrlichkeit statt Hype.",
-      "description": "Wir versprechen keine garantierten Renditen, denn das kann niemand. Was wir bieten: echte Daten, klare Erklaerungen. Du verstehst, was du tust, bevor du es tust."
+      "description": "Wir versprechen keine garantierten Renditen, denn das kann niemand. Was wir bieten: echte Daten, klare Erklärungen. Du verstehst, was du tust, bevor du es tust."
     },
     "startSmall": {
       "title": "Starte mit 5 EUR. Lerne dabei.",
@@ -42,19 +42,19 @@
   },
   "mission": {
     "header": "Die Mission",
-    "story": "Adelaide hatte nie eine Wahl. Hohe Mindestbetraege, versteckte Gebühren und komplizierte Woerter hielten die Tuer verschlossen.",
-    "statement": "Wir bauen die Tuer, die sie nie bekommen hat.",
+    "story": "Adelaide hatte nie eine Wahl. Hohe Mindestbeträge, versteckte Gebühren und komplizierte Wörter hielten die Tür verschlossen.",
+    "statement": "Wir bauen die Tür, die sie nie bekommen hat.",
     "pillars": "Kostenloser Geldtransfer. Echte Wachstumsoptionen. Volle Transparenz. Für alle."
   },
   "business": {
     "header": "Für Unternehmen",
-    "description": "Wenn du Kartenzahlungen akzeptierst, fressen Bearbeitungsgebuehren an jeder Transaktion. Wenn Geld auf deinem Geschäftskonto liegt, verdient deine Bank damit, während du fast nichts davon siehst. Das gleiche System, das meiner Grossmutter nicht geholfen hat, sitzt auf den Ruecklagen deines Unternehmens.",
-    "pitch": "diBoaS for Business hilft Unternehmen, mehr von dem zu behalten, was sie verdienen, mit taggleicher Liquiditaet, Berichten für die Geschäftsfuehrung und Zugang zu den gleichen vertrauenswuerdigen Systemen, die unsere Plattform für Privatkunden antreiben.",
+    "description": "Wenn du Kartenzahlungen akzeptierst, fressen Bearbeitungsgebühren an jeder Transaktion. Wenn Geld auf deinem Geschäftskonto liegt, verdient deine Bank damit, während du fast nichts davon siehst. Das gleiche System, das meiner Großmutter nicht geholfen hat, sitzt auf den Rücklagen deines Unternehmens.",
+    "pitch": "diBoaS for Business hilft Unternehmen, mehr von dem zu behalten, was sie verdienen, mit taggleicher Liquidität, Berichten für die Geschäftsführung und Zugang zu den gleichen vertrauenswürdigen Systemen, die unsere Plattform für Privatkunden antreiben.",
     "cta": "Mehr erfahren über diBoaS for Business"
   },
   "contact": {
     "header": "Kontakt",
-    "founder": "Gruender:",
+    "founder": "Gründer:",
     "founderName": "Bar",
     "location": "Standort:",
     "locationValue": "Berlin, Deutschland",
