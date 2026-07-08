@@ -39,7 +39,6 @@ export const ABOUT_HERO_CONFIG: HeroVariantConfig = {
     posterDuotone: true,
   },
   seo: {
-    titleTag: 'About diBoaS',
     imageAlt: {
       background: 'About diBoaS background',
     },

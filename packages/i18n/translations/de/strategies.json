@@ -427,20 +427,6 @@
       }
     }
   },
-  "footer": {
-    "disclaimer": "Alle Performancedaten basieren auf historischer Analyse (Mai 2022 - Dezember 2025) und tausenden Monte-Carlo-Simulationen. Vergangene Wertentwicklungen garantieren keine zukünftigen Ergebnisse. Dein Geld wird in automatisierten Systemen angelegt, die technisches Risiko, Marktrisiko, Liquiditätsrisiko und Stablecoin-Entkopplungsrisiko tragen. Wachstumsstrategien sind mit zusätzlichem Kursvolatilitätsrisiko verbunden. Wachstumsstrategien nutzen Protokolle auf der Solana-Blockchain; Ereignisse, die Solana spezifisch betreffen, könnten alle Wachstumsstrategien gleichzeitig beeinträchtigen. Verwende nur Geld, das du verlieren kannst. diBoaS ist keine Bank und deine Gelder sind nicht versichert.",
-    "micaArticle68": "Der Wert von Kryptowerten kann schwanken. Sie können Ihr gesamtes investiertes Geld oder einen Teil davon verlieren. Kryptowerte sind nicht durch Einlagensicherungssysteme gedeckt.",
-    "micaArticle7": "Diese Marketingmitteilung für Kryptowerte wurde von keiner zuständigen Behörde eines Mitgliedstaats der Europäischen Union überprüft oder genehmigt. Der Anbieter des Kryptowertes ist allein für den Inhalt dieser Marketingmitteilung für Kryptowerte verantwortlich.",
-    "aiDisclosure": "Bestimmte Inhalte auf dieser Plattform, einschließlich Marktanalysen und Bildungsmaterialien, werden durch künstliche Intelligenz generiert oder unterstützt. KI-generierte Inhalte können Fehler oder Einschränkungen enthalten. Nutzer sollten Informationen unabhängig überprüfen, bevor sie Finanzentscheidungen treffen.",
-    "fictionalResults": "Projizierte Renditen, Wahrscheinlichkeitsschätzungen und Simulationsergebnisse auf dieser Seite sind illustrativ und stellen keine garantierten Ergebnisse dar. Rechner-Projektionen basieren auf hypothetischen Szenarien und historischen Durchschnittswerten. Tatsächliche Ergebnisse werden abweichen.",
-    "usDisclosure": "",
-    "professionalAdvice": "Die Informationen auf dieser Seite dienen ausschließlich Bildungs- und Informationszwecken. Sie stellen keine Anlageberatung, Finanzberatung oder sonstige professionelle Beratung dar. Ziehe in Betracht, einen zugelassenen Finanzberater zu konsultieren, bevor du Anlageentscheidungen triffst."
-  },
-  "cvmWarnings": {
-    "warning1": "",
-    "warning2": "",
-    "warning3": ""
-  },
   "sections": {
     "faq": {
       "ariaLabel": "Häufig gestellte Fragen zu Strategien"

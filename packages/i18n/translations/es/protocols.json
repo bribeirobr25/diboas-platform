@@ -417,23 +417,6 @@
       "answer": "No. diBoaS gestiona todas las interacciones con los protocolos en tu nombre cuando eliges una estrategia. No necesitas crear cuentas en ningún protocolo, gestionar wallets en diferentes blockchains ni entender los detalles técnicos. Esta página existe por transparencia, no porque necesites hacer nada con ella."
     }
   },
-  "cvmWarnings": {
-    "warning1": "",
-    "warning2": "",
-    "warning3": ""
-  },
-  "footer": {
-    "lastUpdated": "Última actualización: febrero de 2026",
-    "dataSources": "Fuentes de datos: DeFiLlama (TVL), documentación oficial de protocolos, informes de auditorías de seguridad publicados, SEC EDGAR (presentaciones regulatorias), CoinGecko y comunicaciones directas con protocolos.",
-    "mainDisclaimer": "La información en esta página es únicamente con fines educativos y de transparencia. No constituye asesoramiento de inversión, asesoramiento financiero ni una recomendación de usar ningún protocolo listado. La inclusión de protocolos refleja nuestra investigación y no implica respaldo por ni afiliación con ningún protocolo listado. Todos los protocolos DeFi conllevan riesgo técnico, riesgo de smart contracts, riesgo de mercado, riesgo de liquidez y riesgo de desvinculación de stablecoins. El rendimiento, TVL y estado regulatorio de los protocolos pueden cambiar en cualquier momento. Usa solo dinero que puedas permitirte perder. diBoaS no es un banco y tus fondos no están asegurados.",
-    "micaArt68": "El valor de los criptoactivos puede fluctuar. Puede perder la totalidad o parte de su dinero invertido. Los criptoactivos no están cubiertos por los sistemas de garantía de depósitos.",
-    "micaArt7": "Esta comunicación comercial relativa a criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningún Estado miembro de la Unión Europea. El emisor del criptoactivo es el único responsable del contenido de esta comunicación comercial relativa a criptoactivos.",
-    "aiDisclosure": "Ciertos contenidos de esta plataforma, incluyendo análisis de mercado y materiales educativos, son generados o asistidos por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la información de forma independiente antes de tomar decisiones financieras.",
-    "usDisclosure": "",
-    "externalLinks": "Los enlaces externos en esta página conducen a sitios web de terceros no controlados por diBoaS. No somos responsables de su contenido, prácticas de privacidad o disponibilidad.",
-    "professionalAdvice": "Considere consultar a un asesor financiero autorizado antes de tomar decisiones de inversión.",
-    "copyright": "© 2026 diBoaS. Todos los derechos reservados."
-  },
   "sections": {
     "faq": {
       "ariaLabel": "Preguntas frecuentes sobre protocolos"

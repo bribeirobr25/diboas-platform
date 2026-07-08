@@ -53,9 +53,6 @@ export interface HeroBackgroundAssets {
 }
 
 export interface HeroSEO {
-  /** Optional: only the `default`/`cinematic` variants surface a per-hero title;
-   *  `fullBackground` heroes take their <title> from the page's generateMetadata. */
-  readonly titleTag?: string;
   readonly imageAlt: {
     readonly phone?: string;
     readonly mascot?: string;
@@ -117,7 +114,6 @@ export const HERO_CONFIGS = {
     content: DEFAULT_HERO_CONTENT,
     visualAssets: DEFAULT_VISUAL_ASSETS,
     seo: {
-      titleTag: 'diBoaS - Complete Financial Ecosystem',
       imageAlt: {
         phone: 'diBoaS mobile application interface showing account dashboard',
         mascot: 'Acqua, the diBoaS financial assistant mascot',
@@ -134,7 +130,6 @@ export const HERO_CONFIGS = {
     content: DEFAULT_HERO_CONTENT,
     backgroundAssets: DEFAULT_BACKGROUND_ASSETS,
     seo: {
-      titleTag: 'diBoaS - Complete Financial Ecosystem',
       imageAlt: {
         background: 'Abstract diBoaS brand background illustration',
       },
@@ -155,7 +150,6 @@ export const HERO_CONFIGS = {
       align: 'left',
     },
     seo: {
-      titleTag: 'diBoaS - Complete Financial Ecosystem',
       imageAlt: {
         background: 'Abstract diBoaS animated brand background',
       },

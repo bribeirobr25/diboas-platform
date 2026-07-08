@@ -427,20 +427,6 @@
       }
     }
   },
-  "footer": {
-    "disclaimer": "Todos los datos de rentabilidad se basan en análisis histórico (mayo 2022 - diciembre 2025) y miles de simulaciones Monte Carlo. Rentabilidades pasadas no garantizan resultados futuros. Tu dinero se coloca en sistemas automatizados que conllevan riesgo técnico, riesgo de mercado, riesgo de liquidez y riesgo de desvinculación de stablecoins. Las estrategias de crecimiento conllevan riesgo adicional de volatilidad de precio. Las estrategias de crecimiento usan protocolos en la blockchain Solana; eventos que afecten a Solana específicamente podrían impactar todas las estrategias de crecimiento simultáneamente. Usa solo dinero que puedas permitirte perder. diBoaS no es un banco y tus fondos no están asegurados.",
-    "micaArticle68": "El valor de los criptoactivos puede fluctuar. Puede perder la totalidad o parte de su dinero invertido. Los criptoactivos no están cubiertos por los sistemas de garantía de depósitos.",
-    "micaArticle7": "Esta comunicación comercial relativa a criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningún Estado miembro de la Unión Europea. El emisor del criptoactivo es el único responsable del contenido de esta comunicación comercial relativa a criptoactivos.",
-    "aiDisclosure": "Ciertos contenidos de esta plataforma, incluyendo análisis de mercado y materiales educativos, son generados o asistidos por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la información de forma independiente antes de tomar decisiones financieras.",
-    "fictionalResults": "Los retornos proyectados, las estimaciones de probabilidad y los resultados de simulación en esta página son ilustrativos y no representan resultados garantizados. Las proyecciones de la calculadora se basan en escenarios hipotéticos y medias históricas. Los resultados reales variarán.",
-    "usDisclosure": "",
-    "professionalAdvice": "La información de esta página tiene fines exclusivamente educativos e informativos. No constituye asesoramiento de inversión, asesoramiento financiero ni ninguna otra forma de asesoramiento profesional. Considere consultar a un asesor financiero autorizado antes de tomar decisiones de inversión."
-  },
-  "cvmWarnings": {
-    "warning1": "",
-    "warning2": "",
-    "warning3": ""
-  },
   "sections": {
     "faq": {
       "ariaLabel": "Preguntas frecuentes sobre estrategias"

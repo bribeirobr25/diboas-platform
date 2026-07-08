@@ -417,23 +417,6 @@
       "answer": "Não. O diBoaS cuida de todas as interações com os protocolos quando você escolhe uma estratégia. Você não precisa criar contas em nenhum protocolo, gerenciar wallets em diferentes blockchains ou entender os detalhes técnicos. Essa página existe pela transparência, não porque você precisa fazer algo com ela."
     }
   },
-  "cvmWarnings": {
-    "warning1": "As operações com criptoativos envolvem riscos. Esses ativos podem aumentar ou diminuir de valor e podem perder todo o seu valor. Não há garantia de que os ativos digitais possam ser convertidos para a moeda de referência.",
-    "warning2": "Desempenho passado não é garantia de resultados futuros.",
-    "warning3": "Este produto pode não ser adequado para o perfil do investidor."
-  },
-  "footer": {
-    "lastUpdated": "Última atualização: fevereiro de 2026",
-    "dataSources": "Fontes de dados: DeFiLlama (TVL), documentação oficial de protocolos, relatórios de auditoria de segurança publicados, SEC EDGAR (registros regulatórios), CoinGecko e comunicações diretas com protocolos.",
-    "mainDisclaimer": "As informações nesta página são exclusivamente para fins educacionais e de transparência. Não constituem assessoria de investimentos, assessoria financeira ou recomendação de uso de qualquer protocolo listado. A inclusão de protocolos reflete nossa pesquisa e não implica endosso por ou afiliação com qualquer protocolo listado. Todos os protocolos DeFi carregam risco técnico, risco de smart contract, risco de mercado, risco de liquidez e risco de perda de lastro de stablecoins. Performance, TVL e status regulatório dos protocolos podem mudar a qualquer momento. Use apenas dinheiro que você pode perder. diBoaS não é um banco e seus fundos não são segurados.",
-    "micaArt68": "",
-    "micaArt7": "",
-    "aiDisclosure": "Determinados conteúdos nesta plataforma, incluindo análises de mercado e materiais educacionais, são gerados ou assistidos por inteligência artificial. Conteúdo gerado por IA pode conter erros ou limitações. Usuários devem verificar informações de forma independente antes de tomar decisões financeiras.",
-    "usDisclosure": "",
-    "externalLinks": "Links externos nesta página levam a sites de terceiros não controlados pelo diBoaS. Não somos responsáveis pelo conteúdo, práticas de privacidade ou disponibilidade desses sites.",
-    "professionalAdvice": "Considere consultar um assessor de investimentos antes de tomar decisões financeiras.",
-    "copyright": "© 2026 diBoaS. Todos os direitos reservados."
-  },
   "sections": {
     "faq": {
       "ariaLabel": "Perguntas frequentes sobre protocolos"

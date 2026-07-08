@@ -1,1 +1,0 @@
-export { SidePocketStrip } from './SidePocketStrip';

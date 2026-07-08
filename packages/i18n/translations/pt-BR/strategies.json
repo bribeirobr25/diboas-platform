@@ -427,20 +427,6 @@
       }
     }
   },
-  "cvmWarnings": {
-    "warning1": "As operações com criptoativos envolvem riscos. Esses ativos podem aumentar ou diminuir de valor e podem perder todo o seu valor. Não há garantia de que os ativos digitais possam ser convertidos para a moeda de referência.",
-    "warning2": "Desempenho passado não é garantia de resultados futuros.",
-    "warning3": "Este produto pode não ser adequado para o perfil do investidor."
-  },
-  "footer": {
-    "disclaimer": "Todos os dados de desempenho são baseados em análise histórica (maio 2022 - dezembro 2025) e milhares de simulações Monte Carlo. Desempenho passado não garante resultados futuros. Seu dinheiro é colocado em sistemas automatizados que carregam risco técnico, risco de mercado, risco de liquidez e risco de desvalorização de stablecoin. Estratégias de crescimento envolvem risco adicional de volatilidade de preço. Estratégias de crescimento usam protocolos na blockchain Solana; eventos que afetem o Solana especificamente podem impactar todas as estratégias de crescimento simultaneamente. Use apenas dinheiro que você pode perder. O diBoaS não é um banco e seus fundos não são segurados.",
-    "aiDisclosure": "Certos conteúdos nesta plataforma, incluindo análise de mercado e materiais educacionais, são gerados ou assistidos por inteligência artificial. Conteúdo gerado por IA pode conter erros ou limitações. Usuários devem verificar as informações de forma independente antes de tomar decisões financeiras.",
-    "fictionalResults": "Retornos projetados, estimativas de probabilidade e resultados de simulação nesta página são ilustrativos e não representam resultados garantidos. Projeções de calculadora são baseadas em cenários hipotéticos e médias históricas. Resultados reais vão variar.",
-    "micaArticle68": "",
-    "micaArticle7": "",
-    "usDisclosure": "",
-    "professionalAdvice": "As informações nesta página são apenas para fins educacionais e informativos. Não constituem aconselhamento de investimento, aconselhamento financeiro, nem qualquer outra forma de aconselhamento profissional. Considere consultar um consultor financeiro licenciado antes de tomar decisões de investimento."
-  },
   "sections": {
     "faq": {
       "ariaLabel": "Perguntas frequentes sobre estratégias"

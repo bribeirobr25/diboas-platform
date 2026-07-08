@@ -207,11 +207,6 @@ export const B2C_FAQ_CONFIG: FAQAccordionVariantConfig = {
 };
 
 /**
- * Footer disclaimer key
- */
-export const B2C_DISCLAIMER_KEY = 'landing-b2c.footer.disclosures.general';
-
-/**
  * Footer nav links for B2C landing page
  */
 export const B2C_FOOTER_NAV = [

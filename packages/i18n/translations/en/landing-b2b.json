@@ -197,17 +197,9 @@
   "founder": {
     "header": "Adelaide saved. The system never explained.",
     "paragraphs": {
-      "versionA": [
-        "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does every business owner like you.",
-        "diBoaS is headquartered in Berlin, Germany, building for businesses in the US, EU, and Brazil. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish every small business and startup had."
-      ],
       "versionB": [
         "diBoaS started with my grandmother, Adelaide. She saved with discipline. The system gave her low returns, little explanation, and almost no access to better options.",
         "The same pattern shows up in business. Owners lose money to payment fees. Startups hold runway in accounts that explain very little. After 20 years building products across Brazil, the US, Japan, and Germany, I wanted to build a clearer cash layer: one where money has rules, risk has a name, and control stays with the people responsible for the business."
-      ],
-      "versionC": [
-        "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does every business owner like you.",
-        "We're building diBoaS from Berlin, Germany, for businesses in the US, EU, and Brazil. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish every small business and startup had."
       ]
     },
     "email": "Let's connect.",

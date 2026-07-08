@@ -1,20 +1,8 @@
 {
   "eyebrows": {
     "math": "DIE RECHNUNG",
-    "goals": "DEINE ZIELE",
-    "story": "UNSERE GESCHICHTE",
-    "howItWorks": "SO FUNKTIONIERT'S",
     "fees": "WAS ES KOSTET",
-    "honest": "KEIN HAKEN",
-    "join": "FRÜHER ZUGANG",
-    "founder": "WER DAHINTERSTECKT",
-    "faq": "FRAGEN"
-  },
-  "hero": {
-    "headline": "Das Geldsystem ist nicht kaputt. Es wurde nur nicht für dich gebaut.",
-    "subheadline": "Sieh, was 1.000 € in einem Jahr machen, wenn du Zugang zu fairen Chancen hast.",
-    "cta": "Zeig mir",
-    "phoneMockupLabel": "Vorschau. Demnächst verfügbar"
+    "founder": "WER DAHINTERSTECKT"
   },
   "wedge": {
     "eyebrow": "Die Wahrheit über Tagesgeld",
@@ -40,69 +28,6 @@
     "footnote": "Vergleichszinsen basieren auf öffentlich verfügbaren EU-Daten als Durchschnitt der letzten 5 Jahre. Renditen können sich ändern und je nach Produkt variieren. Renditen in digitalen Dollar beinhalten Risiken, einschließlich eines möglichen Totalverlusts.",
     "disclosureToggle": "Alle Kosten ansehen"
   },
-  "goalExamples": {
-    "heading": "Baue Vermögen auf mit deinen Zielen.",
-    "cards": {
-      "retirement": {
-        "title": "Ziel: Altersvorsorge",
-        "subtitle": "Angenommen Gehalt = 50.000 €/Jahr und ein monatlicher Beitrag von 100 € über 30 Jahre.",
-        "tagline": "Gleiches Geld. Anderer Ort. Großer Unterschied.",
-        "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von {rate}. Quelle: Bundesbank/EZB.",
-        "seeAnother": "Simuliere mit deinen Zahlen",
-        "howPossible": "Wie ist das möglich?"
-      },
-      "emergency": {
-        "title": "Ziel: Notgroschen",
-        "subtitle": "Angenommen monatliche Ausgaben = 2.000 €, Notgroschen für 6 Monate (12.000 €), und ein monatlicher Beitrag von 200 €.",
-        "tagline": "Gleicher Einsatz. Weniger warten.",
-        "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von {rate}. Quelle: Bundesbank/EZB.",
-        "seeAnother": "Simuliere mit deinen Zahlen",
-        "howPossible": "Wie ist das möglich?"
-      },
-      "christmas": {
-        "title": "Ziel: Weihnachtsgeld",
-        "subtitle": "Angenommen Gehalt = 50.000 €/Jahr, 415 €/Monat über 12 Monate sparen.",
-        "tagline": "Gleiches Gehalt. Andere Strategie. 84 € mehr in deiner Tasche.",
-        "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von {rate}. Quelle: Bundesbank/EZB.",
-        "seeAnother": "Simuliere mit deinen Zahlen",
-        "howPossible": "Wie ist das möglich?"
-      },
-      "wealthy": {
-        "title": "Ziel: Die 10%-Regel",
-        "subtitle": "Bei 2.200 €/Monat, 10% (220 €/Monat) über 5 Jahre investieren.",
-        "tagline": "Ein bewährter Ansatz für langfristiges Sparen: Lege immer 10% deines Einkommens zur Seite, egal was passiert.",
-        "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von {rate}. Quelle: Bundesbank/EZB.",
-        "seeAnother": "Simuliere mit deinen Zahlen",
-        "howPossible": "Wie ist das möglich?"
-      },
-      "custom": {
-        "title": "Deine Ziele sind einzigartig.",
-        "subtitle": "diBoaS auch.",
-        "cta": "Frühen Zugang sichern"
-      }
-    },
-    "withDiboas": "Mit diBoaS",
-    "yourBank": "Deine Bank würde dir bieten:",
-    "more": "MEHR mit diBoaS",
-    "less": "WENIGER mit diBoaS",
-    "openStandaloneTool": "Eigenständigen Rechner öffnen →"
-  },
-  "sidePocket": {
-    "text": "Es geht nicht ums Investieren. Es geht um dich, zum ersten Mal die Chance zu haben, das Spiel zu deinen Gunsten zu verändern."
-  },
-  "origin": {
-    "transitionHook": "Darum gibt es uns.",
-    "header": "Warum wir das bauen",
-    "paragraphs": {
-      "p1": "Die Großmutter unseres Gründers hat ihr ganzes Leben lang die Hälfte von allem gespart, was sie verdient hat. Ihre Bank hat ihr dafür fast nichts gegeben.",
-      "p2": "Sie wusste nicht, dass es bessere Möglichkeiten gab. Niemand hat es ihr gesagt. Die Sprache war zu kompliziert. Die Mindestbeträge zu hoch. Die Institutionen haben sich nicht für Menschen mit kleinen Ersparnissen interessiert.",
-      "p3": "10.000 € um ein Investmentkonto zu eröffnen. 15 € im Monat nur für die Kontoführung. Das war der Preis des Zugangs.",
-      "p4": "Sie hatte nie ein Werkzeug, das ihr in 30 Sekunden zeigen konnte, was aus ihrem Geld werden könnte.",
-      "p5": "Du hast es gerade benutzt.",
-      "p6": "Neue Technologie machte es möglich, die Torwächter zu umgehen. Wir mussten nur die Tür bauen.",
-      "p7": "Wir haben sie nach ihr benannt."
-    }
-  },
   "howItWorks": {
     "transitionHook": "",
     "header": "Übernimm die Kontrolle und befreie dein Geld",
@@ -125,26 +50,6 @@
       "title": "Kaufen und Halten",
       "description": "Kaufe digitale Vermögenswerte und halte sie in deiner eigenen Wallet. Angefangen mit BTC, ETH und SOL. Aktien und Gold kommen bald.",
       "imageAlt": "Digitale Vermögenswerte kaufen und halten"
-    }
-  },
-  "howItWorksDetailed": {
-    "transitionHook": "",
-    "header": "Mehr als Ziele",
-    "card1": {
-      "title": "Woher kommt das Wachstum?",
-      "p1": "Das Wachstum ist keine Magie. Es ist dein Geld, das tut, was Banken damit tun, aber bei diBoaS behältst du den Großteil des Gewinns.",
-      "p2": ""
-    },
-    "card2": {
-      "title": "Was passiert mit deinem Geld?",
-      "p1": "Dein Geld lebt als digitale Dollars in einer Wallet, die dir gehört, nicht uns.",
-      "p2": "Kein Guthaben, das wir einfrieren können. Kein Fonds, den wir verleihen können. Nichts, das verschwindet, wenn diBoaS verschwindet.",
-      "p3": "Verfügbares Geld und investiertes Geld werden getrennt angezeigt, damit du immer weißt, was bereit ist und was arbeitet."
-    },
-    "card3": {
-      "title": "Was, wenn etwas schiefgeht?",
-      "p1": "Du kannst Geld verlieren. Echtes Geld. Aber du behältst immer die Kontrolle. Pausiere Einzahlungen jederzeit. Hole dein Geld zurück, wenn du es brauchst. Wähle sicherere oder mutigere Strategien je nach deinem Ziel.",
-      "p2": ""
     }
   },
   "fees": {
@@ -224,34 +129,7 @@
   },
   "catch": {
     "header": "Wo ist der Haken?",
-    "feeParagraph": "Eine Strategie zu starten ist kostenlos.\n\nWenn du eine Strategie schließt, berechnet diBoaS {sellRate} des verkauften Betrags. Verkaufst du 100 €, verdient diBoaS {exampleFee}.\n\nKein versteckter Aufschlag auf den Wechselkurs. Keine monatliche Kontogebühr. Die Kosten erscheinen, bevor du entscheidest.",
-    "paragraphs": {
-      "p1": "Berechtigte Frage. Die stellen uns alle.",
-      "p2": "Dein Geld sitzt nicht einfach bei deiner Bank rum. Sie arbeiten damit. Sie erwirtschaften damit echte Renditen. Was geben sie dir davon zurück? Fast nichts.",
-      "p3": "Die Differenz zwischen dem, was sie verdienen und dem, was sie dir zahlen, das ist ihr gesamtes Geschäftsmodell.",
-      "p4": "Wir schließen diese Lücke. Bei diBoaS gehen die Erträge an dich. Nicht an Vorstände. Nicht an Filialen. An dich.",
-      "p5": "Investieren ist kostenlos. Wenn du verkaufst, nimmt diBoaS 0,39%. Du verkaufst 100 €, diBoaS verdient 39 Cent. Das ist alles. diBoaS verdient nur dann mehr, wenn dein Geld zuerst wächst. Die Gebühr übersteigt nie 25 €.",
-      "p6": "Keine monatlichen Gebühren. Keine überraschenden Kosten. Keine Strafgebühren beim Auszahlen.",
-      "p7": "Wie geht das? Wir haben keine Bankfilialen gebaut. Wir haben keine Vorstände eingestellt. Wir haben nicht die Kosten eines Systems geerbt, das 1950 gebaut wurde. Neue Technologie erledigt die gleiche Arbeit. Wir geben die Ersparnis an dich weiter.",
-      "p8": "Gibt es Risiken? Ja. Wir müssen ehrlich mit dir darüber sein.",
-      "p9": "Dein Geld liegt nicht in einem Banktresor. Es arbeitet mit neuer Finanztechnologie. Das bedeutet, es kann stärker wachsen. Aber es bedeutet auch, dass du Geld verlieren kannst. Echtes Geld. Das ist der Kompromiss.",
-      "p10": "Was wir dagegen tun:",
-      "p11": "Wir nutzen nur Systeme, die jeden großen Crash seit 2020 überstanden haben, darunter COVID, FTX und Terra. Wir verteilen dein Geld auf mehrere unabhängige Systeme. Wir überwachen alles, 24 Stunden am Tag. Wir testen jede Strategie gegen vergangene Krisen, bevor du sie je siehst.",
-      "p12": "Wir können keine Rendite garantieren. Niemand kann das. Und wer dir das Gegenteil erzählt, lügt dich an.",
-      "p13": "Wir gewinnen, wenn du gewinnst. Wir zeigen dir beide Seiten, die Chancen und die Risiken. Immer."
-    }
-  },
-  "underTheHood": {
-    "toggleLabel": "Willst du wissen, wie es wirklich funktioniert?",
-    "trustBadge": "Deine Schlüssel, dein Geld.",
-    "paragraphs": {
-      "p1": "Architektur: diBoaS basiert auf offener Finanzinfrastruktur. Jede Transaktion wird öffentlich aufgezeichnet. Jedes System ist auditierbar. Dein Geld bewegt sich ohne Zwischenhändler, die mitkassieren.",
-      "p2": "Deine Wallet: Wenn du dich registrierst, bekommst du deine eigene Wallet mit deinem eigenen Schlüssel. diBoaS sieht ihn nie. diBoaS speichert ihn nie. diBoaS kann nicht darauf zugreifen. Wenn diBoaS morgen verschwinden würde, wäre dein Geld immer noch deins. Das ist keine Funktion, die wir hinzugefügt haben. So wurde das gesamte System gebaut.",
-      "p3": "Sicherheit: Niemand kann dein Geld ohne deine Genehmigung bewegen. Kein Hacker. Kein Mitarbeiter. Nicht wir. Jede Strategie wird gegen historische Crashs getestet, bevor du sie siehst. Jede Transaktion erfordert deine Freigabe.",
-      "p4": "Handy verloren? Wallet wiederhergestellt. Keine Seed Phrases, keine Panik.",
-      "p5": "Transparenz: Jede Gebühr wird dir vorher angezeigt. Jedes Risiko wird klar benannt. Keine versteckten Mechanismen. Keine bösen Überraschungen im Kleingedruckten."
-    },
-    "linkText": "Vollständige technische Dokumentation ansehen"
+    "feeParagraph": "Eine Strategie zu starten ist kostenlos.\n\nWenn du eine Strategie schließt, berechnet diBoaS {sellRate} des verkauften Betrags. Verkaufst du 100 €, verdient diBoaS {exampleFee}.\n\nKein versteckter Aufschlag auf den Wechselkurs. Keine monatliche Kontogebühr. Die Kosten erscheinen, bevor du entscheidest."
   },
   "demo": {
     "transitionHook": "",
@@ -259,31 +137,6 @@
     "subtext": "Was würde dein Geld hier machen?",
     "ctaPrimary": "Demo testen",
     "ctaSecondary": "Mit Testgeld ausprobieren"
-  },
-  "socialProof": {
-    "header": "Werde Teil der Bewegung!",
-    "subtext": "Sei Teil der Veränderung. Viele erleben zum ersten Mal fairen Zugang. Trage dich in unsere Warteliste ein.",
-    "stats": {
-      "waitlist": "{count} Nutzer",
-      "countries": "{countries} Länder"
-    },
-    "cta": "Zur Warteliste",
-    "zeroState": "Gehöre zu den Ersten."
-  },
-  "founder": {
-    "header": "Gebaut von Bar",
-    "paragraphs": {
-      "p1": "Ich bin aufgewachsen und habe zugesehen, wie meine Großmutter Adelaide ein Finanzsystem navigierte, das nicht für sie gemacht war.",
-      "p2": "Sie verdiente bessere Werkzeuge. Alle, die so sind wie sie, verdienen das auch.",
-      "p3": "Ich habe 20 Jahre Produkte für andere Unternehmen gebaut. In São Paulo, New York, Tokyo, Berlin. Jetzt baue ich das eine Werkzeug, das ich mir für sie gewünscht hätte.",
-      "p4": "Ich lese jede E-Mail. bar@diboas.com"
-    },
-    "emailText": "bar@diboas.com",
-    "social": {
-      "linkedin": "LinkedIn",
-      "x": "X",
-      "substack": "Substack"
-    }
   },
   "waitlist": {
     "header": "Werde Teil davon.",

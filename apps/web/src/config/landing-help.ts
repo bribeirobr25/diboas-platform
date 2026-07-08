@@ -30,7 +30,6 @@ export const HELP_HERO_CONFIG: HeroVariantConfig = {
     overlayOpacity: 0.3,
   },
   seo: {
-    titleTag: 'Help Center | diBoaS',
     imageAlt: {
       background: 'Help Center background',
     },

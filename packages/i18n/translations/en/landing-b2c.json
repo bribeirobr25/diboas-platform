@@ -1,20 +1,8 @@
 {
   "eyebrows": {
     "math": "THE MATH",
-    "goals": "YOUR GOALS",
-    "story": "OUR STORY",
-    "howItWorks": "HOW IT WORKS",
     "fees": "WHAT IT COSTS",
-    "honest": "NO CATCH",
-    "join": "EARLY ACCESS",
-    "founder": "WHO BUILT THIS",
-    "faq": "QUESTIONS"
-  },
-  "hero": {
-    "headline": "The money system isn't broken. It just wasn't built for you.",
-    "subheadline": "See what $1,000 does in a year when you have access to fair opportunities.",
-    "cta": "Show me",
-    "phoneMockupLabel": "Preview. Coming soon"
+    "founder": "WHO BUILT THIS"
   },
   "wedge": {
     "eyebrow": "The honest math",
@@ -40,69 +28,6 @@
     "footnote": "Comparison rates based on publicly available US data as a last 5 years average. Yield rates are subject to change and may vary across products. Digital dollar yields involve risk, including potential loss of principal.",
     "disclosureToggle": "See the full cost"
   },
-  "goalExamples": {
-    "heading": "Build wealth using your Goals.",
-    "cards": {
-      "retirement": {
-        "title": "Goal: Retirement Plan",
-        "subtitle": "On a $60,000/year salary, putting aside $100/month for 30 years.",
-        "tagline": "Same money. Different place. Big difference.",
-        "bankSource": "Based on {rate} last 5 years average savings rate. Source: FDIC National Average.",
-        "seeAnother": "Try with your numbers",
-        "howPossible": "How is this possible?"
-      },
-      "emergency": {
-        "title": "Goal: Emergency Fund",
-        "subtitle": "If you spend $2,900/month and want 6 months saved ($17,400), putting aside $300/month.",
-        "tagline": "Same effort. Less waiting.",
-        "bankSource": "Based on {rate} last 5 years average savings rate. Source: FDIC National Average.",
-        "seeAnother": "Try with your numbers",
-        "howPossible": "How is this possible?"
-      },
-      "christmas": {
-        "title": "Goal: Christmas Bonus",
-        "subtitle": "On a $60,000/year salary, saving $500/month for 12 months.",
-        "tagline": "Every dollar matters when you start small.",
-        "bankSource": "Based on {rate} last 5 years average savings rate. Source: FDIC National Average.",
-        "seeAnother": "Try with your numbers",
-        "howPossible": "How is this possible?"
-      },
-      "wealthy": {
-        "title": "Goal: The 10% Rule",
-        "subtitle": "On a $4,600 monthly salary, investing 10% ($460/month) for 5 years.",
-        "tagline": "A popular approach to long-term saving: always set aside 10% of your income, no matter what.",
-        "bankSource": "Based on {rate} last 5 years average savings rate. Source: FDIC National Average.",
-        "seeAnother": "Try with your numbers",
-        "howPossible": "How is this possible?"
-      },
-      "custom": {
-        "title": "Your goals are unique.",
-        "subtitle": "So is diBoaS.",
-        "cta": "Get early access"
-      }
-    },
-    "withDiboas": "With diBoaS",
-    "yourBank": "Your bank would give you:",
-    "more": "MORE with diBoaS",
-    "less": "LESS with diBoaS",
-    "openStandaloneTool": "Open the standalone tool →"
-  },
-  "sidePocket": {
-    "text": "This is not about investing. It is about you, for the first time, having the opportunity to change the game in your favor."
-  },
-  "origin": {
-    "transitionHook": "Here's why this exists.",
-    "header": "Why we are building this?",
-    "paragraphs": {
-      "p1": "Our founder's grandmother saved half of everything she earned her entire life. Her bank paid her almost nothing.",
-      "p2": "She didn't know there were better options. Nobody told her. The language was too complicated. The minimums were too high. The institutions didn't care about people with small savings.",
-      "p3": "$10,000 to open an investment account. $25 a month just to keep a checking account open. That was the price of access.",
-      "p4": "She never had a tool that could show her, in 30 seconds, exactly what her money could become.",
-      "p5": "You just used it.",
-      "p6": "New technology made it possible to go around the gatekeepers. We just had to build the door.",
-      "p7": "We named it after her."
-    }
-  },
   "howItWorks": {
     "transitionHook": "",
     "header": "Take Control and Free your Money",
@@ -125,26 +50,6 @@
       "title": "Buy and Hold",
       "description": "Buy digital assets and hold them in your own wallet. Starting with BTC, ETH, and SOL. Stocks and Gold coming soon.",
       "imageAlt": "Buy and hold digital assets"
-    }
-  },
-  "howItWorksDetailed": {
-    "transitionHook": "",
-    "header": "More than Goals",
-    "card1": {
-      "title": "Where does the growth come from?",
-      "p1": "The growth isn't magic. It's your money doing what banks do with it, but with diBoaS, you keep most of the profit instead of them.",
-      "p2": ""
-    },
-    "card2": {
-      "title": "What happens to your money?",
-      "p1": "Your money lives as digital dollars in a wallet that's yours, not ours.",
-      "p2": "Not a balance we can freeze. Not a fund we can lend out. Not something that disappears if diBoaS disappears.",
-      "p3": "Available money and invested money are shown separately, so you always know what's ready and what's working."
-    },
-    "card3": {
-      "title": "What if something goes wrong?",
-      "p1": "You can lose money. Real money. However, you're always in control. Pause deposits anytime. Pull money back when you need it. Choose safer or bolder strategies depending on your goal.",
-      "p2": ""
     }
   },
   "fees": {
@@ -224,34 +129,7 @@
   },
   "catch": {
     "header": "What's the catch?",
-    "feeParagraph": "Starting a strategy is free.\n\nWhen you close a strategy, diBoaS charges {sellRate} of the amount sold. Sell $100, and diBoaS earns {exampleFee}.\n\nNo hidden markup on the exchange rate. No monthly account fee. The cost appears before you decide.",
-    "paragraphs": {
-      "p1": "Fair question. We get it every time.",
-      "p2": "Your money doesn't sit still at your bank. They put it to work. They earn real returns on it. What do they give you back? Almost nothing.",
-      "p3": "The gap between what they earn and what they pay you is their entire business model.",
-      "p4": "We close that gap. With diBoaS, the returns go to you. Not to executives. Not to branches. To you.",
-      "p5": "Investing is free. When you sell, diBoaS takes 0.39%. You sell $100, diBoaS makes 39 cents. That's it. The only way diBoaS earns more is if your money grows first. The fee never goes above $25.",
-      "p6": "No monthly charges. No surprise fees. No penalties for leaving.",
-      "p7": "How is that possible? We didn't build bank branches. We didn't hire executives. We didn't inherit the costs of a system built in 1950. New technology does the same job. We pass the savings to you.",
-      "p8": "Is there risk? Yes. We need to be straight with you about this.",
-      "p9": "Your money isn't sitting in a bank vault. It's working through new financial technology. That means it can grow more. But it also means you can lose money. Real money. That's the tradeoff.",
-      "p10": "What we do about it:",
-      "p11": "We only use systems that have survived every major crash since 2020, including COVID, FTX, and Terra. We spread your money across multiple independent systems. We monitor everything, 24 hours a day. We test every strategy against past disasters before you ever see it.",
-      "p12": "We can't guarantee returns. Nobody can. And anyone who tells you they can is lying to you.",
-      "p13": "We win when you win. We show you both sides, the opportunities and the risks. Always."
-    }
-  },
-  "underTheHood": {
-    "toggleLabel": "Want to know how it actually works?",
-    "trustBadge": "Your keys, your money.",
-    "paragraphs": {
-      "p1": "Architecture: diBoaS runs on open financial infrastructure. Every transaction is recorded publicly. Every system is auditable. Your money moves without middlemen taking a cut.",
-      "p2": "Your wallet: When you sign up, you get your own wallet with your own key. diBoaS never sees it. diBoaS never stores it. diBoaS can't access it. If diBoaS disappeared tomorrow, your money would still be yours. That's not a feature we added. That's how the whole thing was built.",
-      "p3": "Security: Nobody can move your money without your permission. Not a hacker. Not an employee. Not us. Every strategy is tested against historical crashes before you ever see it. Every transaction requires your approval.",
-      "p4": "Lose your phone? You recover your wallet. No seed phrases, no panic.",
-      "p5": "Transparency: Every fee is shown before you pay it. Every risk is stated plainly. No hidden mechanics. No fine print surprises."
-    },
-    "linkText": "See full technical documentation"
+    "feeParagraph": "Starting a strategy is free.\n\nWhen you close a strategy, diBoaS charges {sellRate} of the amount sold. Sell $100, and diBoaS earns {exampleFee}.\n\nNo hidden markup on the exchange rate. No monthly account fee. The cost appears before you decide."
   },
   "demo": {
     "transitionHook": "",
@@ -259,31 +137,6 @@
     "subtext": "What would your money do here?",
     "ctaPrimary": "Try the Demo",
     "ctaSecondary": "Try with play money"
-  },
-  "socialProof": {
-    "header": "Join the Movement!",
-    "subtext": "Be part of the change. Many are experiencing fair access for the first time. Subscribe to our waitlist.",
-    "stats": {
-      "waitlist": "{count} users",
-      "countries": "{countries} countries"
-    },
-    "cta": "Join the waitlist",
-    "zeroState": "Be among the first."
-  },
-  "founder": {
-    "header": "Built by Bar",
-    "paragraphs": {
-      "p1": "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her.",
-      "p2": "She deserved better tools. So does everyone like her.",
-      "p3": "I spent 20 years building products for other people's companies. In São Paulo, New York, Tokyo, Berlin. Now I'm building the one thing I wish had existed for her.",
-      "p4": "I read every email. bar@diboas.com"
-    },
-    "emailText": "bar@diboas.com",
-    "social": {
-      "linkedin": "LinkedIn",
-      "x": "X",
-      "substack": "Substack"
-    }
   },
   "waitlist": {
     "header": "Join us.",

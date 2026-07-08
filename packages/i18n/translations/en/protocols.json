@@ -417,23 +417,6 @@
       "answer": "No. diBoaS handles all protocol interactions on your behalf when you choose a strategy. You do not need to create accounts with any protocol, manage wallets on different blockchains, or understand the technical details. This page is here for transparency, not because you need to do anything with it."
     }
   },
-  "cvmWarnings": {
-    "warning1": "",
-    "warning2": "",
-    "warning3": ""
-  },
-  "footer": {
-    "lastUpdated": "Last updated: February 2026",
-    "dataSources": "Data sources: DeFiLlama (TVL), official protocol documentation, published security audit reports, SEC EDGAR (regulatory filings), CoinGecko, and direct protocol communications.",
-    "mainDisclaimer": "The information on this page is for educational and transparency purposes only. It does not constitute investment advice, financial advice, or a recommendation to use any protocol listed. Protocol inclusion reflects our research and does not imply endorsement by or affiliation with any listed protocol. All DeFi protocols carry technical risk, smart contract risk, market risk, liquidity risk, and stablecoin depeg risk. Protocol performance, TVL, and regulatory status can change at any time. Only invest money you can afford to lose. diBoaS is not a bank and your funds are not insured.",
-    "micaArt68": "The value of crypto-assets may fluctuate. You may lose some or all of your money. Crypto-assets are not covered by deposit guarantee schemes.",
-    "micaArt7": "This crypto-asset marketing communication has not been reviewed or approved by any competent authority in any Member State of the European Union. The offeror of the crypto-asset is solely responsible for the content of this crypto-asset marketing communication.",
-    "aiDisclosure": "Certain content on this platform, including market analysis and educational materials, is generated or assisted by artificial intelligence. AI-generated content may contain errors or limitations. Users should verify information independently before making financial decisions.",
-    "usDisclosure": "diBoaS is a non-custodial interface providing access to decentralized finance protocols. diBoaS is not registered with the SEC, CFTC, FinCEN, or any state regulatory agency. US regulatory treatment of DeFi is evolving. You are responsible for determining whether your use of this interface complies with applicable laws.",
-    "externalLinks": "External links on this page lead to third-party websites not controlled by diBoaS. We are not responsible for their content, privacy practices, or availability.",
-    "professionalAdvice": "Consider consulting a licensed financial advisor before making investment decisions.",
-    "copyright": "© 2026 diBoaS. All rights reserved."
-  },
   "sections": {
     "faq": {
       "ariaLabel": "Protocol frequently asked questions"

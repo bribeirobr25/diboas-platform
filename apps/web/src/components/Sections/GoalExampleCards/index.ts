@@ -1,1 +1,0 @@
-export { GoalExampleCards } from './GoalExampleCards';
