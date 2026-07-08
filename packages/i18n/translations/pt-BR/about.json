@@ -1,29 +1,29 @@
 {
   "seo": {
-    "title": "Sobre o diBoaS | Construido pra quem os bancos esqueceram",
-    "description": "O diBoaS foi construido porque uma avó merecia mais. Agora todo mundo merece. Transferencias gratis, opcoes reais de crescimento, a partir de R$10.",
-    "ogTitle": "Sobre o diBoaS | Construido pra quem os bancos esqueceram",
-    "ogDescription": "O diBoaS foi construido porque uma avó merecia mais. Agora todo mundo merece. Transferencias gratis, opcoes reais de crescimento, a partir de R$10."
+    "title": "Sobre o diBoaS | Construído pra quem os bancos esqueceram",
+    "description": "O diBoaS foi construído porque uma avó merecia mais. Agora todo mundo merece. Transferências grátis, opções reais de crescimento, a partir de R$10.",
+    "ogTitle": "Sobre o diBoaS | Construído pra quem os bancos esqueceram",
+    "ogDescription": "O diBoaS foi construído porque uma avó merecia mais. Agora todo mundo merece. Transferências grátis, opções reais de crescimento, a partir de R$10."
   },
   "hero": {
     "title": "Uma avó. Um problema. Uma plataforma.",
     "subtitle": "Acesso aberto e oportunidades justas para todos."
   },
   "transitions": {
-    "t1": "Deixa eu te contar uma historia.",
-    "t2": "Isso aqui e o que eu construi.",
-    "t3": "E não e só pra pessoa fisica.",
-    "t4": "Quer conversar? To aqui."
+    "t1": "Deixa eu te contar uma história.",
+    "t2": "Isso aqui é o que eu construí.",
+    "t3": "E não é só pra pessoa física.",
+    "t4": "Quer conversar? Tô aqui."
   },
   "story": {
     "header": "O nome dela era Adelaide.",
     "paragraph1": "Minha avó viveu a vida inteira no Rio de Janeiro. Ela me ensinou a economizar. Ela dizia que eu deveria tentar guardar metade de tudo que eu ganhasse. Ela mesma tentou isso. A vida inteira.",
     "paragraph2": "Trabalhar duro. Comprar só o básico. Tentar guardar.",
     "paragraph3": "Mesmo assim não deu.",
-    "gapExplanation": "O que ninguém contou pra ela: o banco dela pagava quase nada enquanto ganhava rendimentos de verdade com o dinheiro dela. Essa diferença, entre o que os bancos ganham e o que eles repassam, e o sistema funcionando exatamente como foi feito. So que não pra gente como ela.",
-    "accessLocked": "O acesso tava trancado atras de valores minimos altos, palavras complicadas e instituicoes que não se importavam com quem tinha pouca economia.",
-    "turning": "Em 2024, decidi fazer algo sobre esse problema. Nova tecnologia tornou possível contornar os intermediarios. Eu só precisava construir a porta.",
-    "namedAfterHer": "BAR o fundador."
+    "gapExplanation": "O que ninguém contou pra ela: o banco dela pagava quase nada enquanto ganhava rendimentos de verdade com o dinheiro dela. Essa diferença, entre o que os bancos ganham e o que eles repassam, é o sistema funcionando exatamente como foi feito. Só que não pra gente como ela.",
+    "accessLocked": "O acesso tava trancado atrás de valores mínimos altos, palavras complicadas e instituições que não se importavam com quem tinha pouca economia.",
+    "turning": "Em 2024, decidi fazer algo sobre esse problema. Nova tecnologia tornou possível contornar os intermediários. Eu só precisava construir a porta.",
+    "namedAfterHer": "O nome dela tá no que eu construí. Adelaide — pra eu nunca esquecer pra quem é a porta."
   },
   "beliefs": {
     "header": "No que a gente acredita",
@@ -33,23 +33,23 @@
     },
     "honesty": {
       "title": "Honestidade acima de promessa.",
-      "description": "A gente não promete retorno garantido porque ninguém pode. O que a gente oferece: dados reais, explicacoes claras. Você entende o que ta fazendo antes de fazer."
+      "description": "A gente não promete retorno garantido porque ninguém pode. O que a gente oferece: dados reais, explicações claras. Você entende o que tá fazendo antes de fazer."
     },
     "startSmall": {
       "title": "Comece com R$10. Aprenda no caminho.",
-      "description": "Acesso aberto pra construir patrimonio. A gente construiu a porta pra você acessar as melhores oportunidades, construir seu patrimonio e manter o controle do seu dinheiro."
+      "description": "Acesso aberto pra construir patrimônio. A gente construiu a porta pra você acessar as melhores oportunidades, construir seu patrimônio e manter o controle do seu dinheiro."
     }
   },
   "mission": {
     "header": "A Missão",
-    "story": "Adelaide nunca teve escolha. Valores minimos altos, taxas escondidas e palavras complicadas mantiveram a porta fechada.",
-    "statement": "A gente ta construindo a porta que ela nunca teve.",
-    "pillars": "Dinheiro que se move de graca. Opcoes reais de crescimento. Transparencia total. Pra todo mundo."
+    "story": "Adelaide nunca teve escolha. Valores mínimos altos, taxas escondidas e palavras complicadas mantiveram a porta fechada.",
+    "statement": "A gente tá construindo a porta que ela nunca teve.",
+    "pillars": "Dinheiro que se move de graça. Opções reais de crescimento. Transparência total. Pra todo mundo."
   },
   "business": {
     "header": "Pra Empresas",
-    "description": "Se você aceita pagamento com cartao, as taxas de processamento comem cada transação. Se tem dinheiro parado na conta da empresa, seu banco ta ganhando com ele e te pagando quase nada. O mesmo sistema que não serviu pra minha avó ta sentado em cima das reservas da sua empresa.",
-    "pitch": "diBoaS for Business ajuda empresas a ficar com mais do que ganham, com liquidez no mesmo dia, relatorios prontos pra diretoria, e acesso aos mesmos sistemas confiaveis que movem nossa plataforma pessoal.",
+    "description": "Se você aceita pagamento com cartão, as taxas de processamento comem cada transação. Se tem dinheiro parado na conta da empresa, seu banco tá ganhando com ele e te pagando quase nada. O mesmo sistema que não serviu pra minha avó tá sentado em cima das reservas da sua empresa.",
+    "pitch": "diBoaS for Business ajuda empresas a ficar com mais do que ganham, com liquidez no mesmo dia, relatórios prontos pra diretoria, e acesso aos mesmos sistemas confiáveis que movem nossa plataforma pessoal.",
     "cta": "Saiba mais sobre o diBoaS for Business"
   },
   "contact": {
@@ -69,7 +69,7 @@
     }
   },
   "footer": {
-    "general": "Este conteúdo é apenas para fins educativos e não constitui aconselhamento de investimento, aconselhamento financeiro ou qualquer outro tipo de aconselhamento.",
+    "general": "Este conteúdo é apenas para fins educativos e não constitui aconselhamento de investimento, aconselhamento financeiro ou qualquer outro tipo de aconselhamento. Desempenho passado não é indicativo de resultados futuros. Quaisquer dados históricos ou simulações são hipotéticos e não constituem garantias.",
     "crypto": "O valor dos criptoativos pode flutuar. Você pode perder parte ou a totalidade do seu dinheiro. Criptoativos não são protegidos por sistemas de garantia de depósito.",
     "stories": "Depoimentos nesta página são exemplos ilustrativos e não representam usuários reais.",
     "ai": "Parte do conteúdo desta plataforma, incluindo análises de mercado e materiais educacionais, é gerado ou assistido por inteligência artificial. Conteúdo gerado por IA pode conter erros ou limitações. Usuários devem verificar informações de forma independente antes de tomar decisões financeiras.",

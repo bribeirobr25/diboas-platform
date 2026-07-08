@@ -77,20 +77,20 @@ describe('buildAllFeeValues', () => {
     });
   });
 
-  it('should apply the higher $2,500 b2b cap on add/cashOut while b2c stays $250 (Bar 2026-06-30)', () => {
+  it('should expose NO max on b2b add/cashOut (no cap, D-005) while b2c stays $250', () => {
     const map = buildAllFeeValues(fees, 'en');
-    // B2B Add-Money + cash-out carry the $2,500 cap; rate/min stay shared.
+    // B2B Add-Money + cash-out have no cap: only rate/min, no `max` slot.
     expect(map.get('landing-b2b.fees.rows.add.diboas')).toEqual({
       rate: '0.48%',
       min: '$0.00',
-      max: '$2,500',
     });
     expect(map.get('landing-b2b.fees.rows.cashOut.diboas')).toEqual({
       rate: '0.48%',
       min: '$0.00',
-      max: '$2,500',
     });
-    // B2C must NOT inherit the b2b cap — still $250.
+    // B2B sell keeps the shared per-market cap.
+    expect(map.get('landing-b2b.fees.rows.sell.diboas')?.max).toBe('$25');
+    // B2C must NOT lose its cap — still $250.
     expect(map.get('landing-b2c.fees.rows.adding.diboas')?.max).toBe('$250');
   });
 

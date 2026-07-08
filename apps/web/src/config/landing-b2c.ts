@@ -6,23 +6,11 @@
  * Configuration Management: Centralized landing page content
  * No Hardcoded Values: All values from design tokens and i18n keys
  *
- * 15-Section Layout + Footer (Visual Overhaul v2):
- * 1.  Hero — Dark bg with headline and CTA
- * 2.  ComparisonTable — Rate comparison (NEW)
- * 3.  GoalExampleCards — Expandable goal cards (NEW)
- * 4.  SidePocketStrip — Brand-tinted breathing strip (NEW)
- * 5.  Adelaide Story (ProseSection) — warm bg
- * 6.  How It Works Detailed — 3-card static grid (NEW)
- * 7.  Money That Moves (AppFeaturesCarousel) — 4 feature cards
- * 8.  Fee Table — Transparent fee table
- * 9.  What's the Catch? (ProseSection) — dark bg
- * 10. Under the Hood (ExpandableSection)
- * 11. Demo (DemoLauncher)
- * 12. Founding Members (NEW wrapper)
- * 13. Built by Bar (FounderSection)
- * 14. Waitlist — dark bg
- * 15. FAQ (top 5; full FAQ at /help)
- * —  Footer (MinimalFooter)
+ * NOTE (2026-07-07, MSG-07): the legacy 15-section composition this file once
+ * described was retired by the Draper redesign. The rendered compositions live
+ * in `landing-b2c-eu.ts` (en/de/es) and `landing-b2c-ptbr.ts` (pt-BR); this
+ * file retains only the shared live exports: B2C_FEES_CONFIG, B2C_FAQ_ITEMS/
+ * B2C_FAQ_CONFIG, B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES.
  */
 
 import { ROUTES } from './routes';
@@ -205,11 +193,6 @@ export const B2C_FAQ_CONFIG: FAQAccordionVariantConfig = {
     enabled: true,
   },
 };
-
-/**
- * Footer disclaimer key
- */
-export const B2C_DISCLAIMER_KEY = 'landing-b2c.footer.disclosures.general';
 
 /**
  * Footer nav links for B2C landing page

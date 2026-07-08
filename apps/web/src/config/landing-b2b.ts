@@ -1,9 +1,9 @@
 /**
  * B2B Landing Page Configuration
  *
- * 14-section layout: Hero → Two Worlds → Cashflow Calculator → Treasury Calculator
- * → Origin Story → How It Works → Features → Cashflow Investing → Fees
- * → Fit Assessment → Founder → Waitlist → FAQ → Footer
+ * Rendered section order lives in `business/page.tsx` (authoritative):
+ * Hero → Startup Treasury → Two Worlds → Origin Story → Features
+ * → How It Works → Fee Table → Fit Assessment → Waitlist → Founder → FAQ → Footer
  *
  * Domain-Driven Design: B2B landing page domain configuration
  * Service Agnostic Abstraction: Decoupled content from presentation
@@ -66,7 +66,6 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
     contentLift: true,
   },
   seo: {
-    titleTag: 'diBoaS for Business | Stop Overpaying on Fees and Idle Cash',
     imageAlt: {
       background: 'landing-b2b.hero.imageAlt',
     },

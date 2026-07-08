@@ -156,50 +156,62 @@
       "docs": [
         {
           "num": "01",
-          "title": "Plano de Negócios",
-          "summary": "Visão de uma página: produto, modelo, mercado e a rodada.",
+          "title": "Resumo do Investimento",
+          "summary": "A página de decisão em uma tela: o aporte, os termos, o break-even, as metas de validação e o status — a sala inteira num relance.",
           "status": "available"
         },
         {
           "num": "02",
-          "title": "Investor FAQ",
-          "summary": "Respostas diretas sobre economia, regulação, risco e time.",
+          "title": "Plano de Negócios",
+          "summary": "Visão geral para investidores: produto, problema, modelo, sequência de mercados, go-to-market, caminhos da rodada e principais riscos do modelo.",
           "status": "available"
         },
         {
           "num": "03",
-          "title": "Uso dos Recursos",
-          "summary": "O que o capital financia — e o que precisa provar.",
+          "title": "Investor FAQ",
+          "summary": "Perguntas e respostas detalhadas sobre unit economics, regulação, custódia, tração, moat, time, estrutura da rodada e riscos em aberto.",
           "status": "available"
         },
         {
           "num": "04",
-          "title": "Resumo do Modelo de Receita",
-          "summary": "ARPU, break-even, dimensionamento de mercado e cenários.",
+          "title": "Pitch Deck",
+          "summary": "Deck curto para abrir conversas com investidores.",
           "status": "available"
         },
         {
           "num": "05",
-          "title": "Resumo da Posição Regulatória",
-          "summary": "Design não custodial e os gates por jurisdição.",
+          "title": "Uso dos Recursos",
+          "summary": "O que o caminho enxuto financia, o que o caminho maior reduz de risco e quais marcos o capital deve provar.",
           "status": "available"
         },
         {
           "num": "06",
-          "title": "Roadmap do Produto",
-          "summary": "O que está no ar e o que a rodada constrói, em ordem.",
+          "title": "Resumo do Modelo de Receita",
+          "summary": "ARPU de consumidor, ARPU B2B, lógica de break-even, primeiras métricas a validar e o que quebra o modelo.",
           "status": "available"
         },
         {
           "num": "07",
-          "title": "Resumo de Taxas",
-          "summary": "Taxas de movimentação, limites e onde a diBoaS cobra US$0.",
+          "title": "Resumo da Posição Regulatória",
+          "summary": "Arquitetura não custodial, marcos por jurisdição, risco UE, dependência do parceiro de entrada/saída no Brasil e pareceres sobre movimentação entre usuários nos EUA e no Brasil.",
           "status": "available"
         },
         {
           "num": "08",
+          "title": "Roadmap do Produto",
+          "summary": "O que está no ar, o que está especificado, o que a rodada financia e o que vem depois do lançamento.",
+          "status": "available"
+        },
+        {
+          "num": "09",
+          "title": "Resumo de Taxas",
+          "summary": "Estrutura canônica de taxas, limites, custos repassados e funções em que a taxa da diBoaS é zero.",
+          "status": "available"
+        },
+        {
+          "num": "10",
           "title": "Resumo da Arquitetura Técnica",
-          "summary": "Carteira, modelo de custódia e dependências de parceiros.",
+          "summary": "Arquitetura de carteira, dependências de provedores, fluxo não custodial, recuperação e principais riscos técnicos.",
           "status": "in-preparation"
         }
       ],

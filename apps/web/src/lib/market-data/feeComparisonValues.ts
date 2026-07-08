@@ -112,15 +112,6 @@ const B2B_EXAMPLE_PRINCIPAL_UNITS: Record<SupportedLocale, number> = {
  *
  * Future entries (PR-3, PR-5) extend this builder rather than spawning new ones.
  */
-/**
- * B2B Add-Money / cash-out cap is $2,500 — higher than the b2c $250 (FEES.md;
- * Bar 2026-06-30). Only the cap differs from the shared engine values: the 0.48%
- * rate and the $0 minimum are identical, so we override just `maxFee` on the two
- * b2b rows rather than forking a whole parallel fee profile. Stays data-driven —
- * the rate/min still flow from `platformFees`, and the cap formats per locale.
- */
-const B2B_DEPOSIT_MAX_FEE = 2500;
-
 export function buildAllFeeValues(
   fees: PlatformFees,
   locale: SupportedLocale
@@ -137,17 +128,17 @@ export function buildAllFeeValues(
     exitRate: formatRate(fees.strategyExit.rate * 100, locale),
   });
 
-  // B2B fees.rows — Add-Money + cash-out carry the higher $2,500 b2b cap (vs the
-  // b2c $250); rate/min stay shared. Sell keeps the shared $25 cap.
-  map.set(
-    'landing-b2b.fees.rows.add.diboas',
-    fmtRowValues({ ...fees.deposit, maxFee: B2B_DEPOSIT_MAX_FEE }, locale)
-  );
+  // B2B fees.rows — Add-Money + cash-out have NO cap for business accounts
+  // (FEES.md; DECISION_LOG#D-005, founder-confirmed 2026-07-05): their i18n
+  // templates carry no {max} slot, so only rate/min are provided. Do not
+  // reintroduce a maxFee override here. Sell keeps the shared per-market cap.
+  const noCapRow = (fee: PlatformFees['deposit']) => {
+    const { rate, min } = fmtRowValues(fee, locale);
+    return { rate, min };
+  };
+  map.set('landing-b2b.fees.rows.add.diboas', noCapRow(fees.deposit));
   map.set('landing-b2b.fees.rows.sell.diboas', fmtRowValues(fees.sell, locale));
-  map.set(
-    'landing-b2b.fees.rows.cashOut.diboas',
-    fmtRowValues({ ...fees.cashOut, maxFee: B2B_DEPOSIT_MAX_FEE }, locale)
-  );
+  map.set('landing-b2b.fees.rows.cashOut.diboas', noCapRow(fees.cashOut));
 
   // B2B fees.example (only cashOut rate is parameterized; worked-example
   // numerics + competitor compares stay literal).

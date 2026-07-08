@@ -8,7 +8,8 @@
  *
  * R2 unit convention verified: bank rates divided by 100; inflation passed
  * directly (decimal); depreciation passed directly (decimal). Same precedent
- * as `useGoalCardData.ts:54` and `calculateCompoundProjectionHedged`.
+ * as `lib/inflation-impact/calculator.ts` (selectInflationRate, decimal, no /100)
+ * and `calculateCompoundProjectionHedged`.
  */
 
 import { describe, it, expect } from 'vitest';

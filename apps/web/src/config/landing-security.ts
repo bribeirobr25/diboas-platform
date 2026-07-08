@@ -34,7 +34,6 @@ export const SECURITY_HERO_CONFIG: HeroVariantConfig = {
     overlayOpacity: 0.3,
   },
   seo: {
-    titleTag: 'Security at diBoaS',
     imageAlt: {
       background: 'Security at diBoaS background',
     },

@@ -1,5 +1,5 @@
 {
-  "_comment": "Per-card sub-signal detail rendered by SignalCardsGrid when expanded. Generated 2026-06-26 against docs/mvp/engine/02_regime_engine_specification.md v2.1 §8 (Signal Registry — 4 groups × 11 signals total: BTC Structure 4 / Macro Environment 3 / Institutional Demand 1 / Relative Strength 3), via apps/web/scripts/data-fetchers/compute-regime.mjs. Monthly signals (BTC-01..04) anchored at the 2026-05-31 confirmed monthly close per §5.1; weekly signals (MAC/REL) at the 2026-06-19 confirmed Friday close; M2 (MAC-03) at the latest May 2026 monthly release. This-cycle change vs 2026-05-29: BTC-04 flipped INACTIVE→ACTIVE (monthly Stoch-RSI %K recovered above the 10 threshold), lifting BTC Structure 3→4 and the overall regime DEFENSIVE→NEUTRAL_MIXED. ETF-01 is UNAVAILABLE per §10.1 (CoinGlass routes 404, Farside Cloudflare-blocked). _translation_status flags non-EN content as machine-draft.",
+  "_comment": "Per-card sub-signal detail rendered by SignalCardsGrid when expanded. Generated 2026-06-26 against docs/mvp/engine/02_regime_engine_specification.md v2.1 §8 (Signal Registry — 4 groups × 11 signals total: BTC Structure 4 / Macro Environment 3 / Institutional Demand 1 / Relative Strength 3), via apps/web/scripts/data-fetchers/compute-regime.mjs. Monthly signals (BTC-01..04) anchored at the 2026-05-31 confirmed monthly close per §5.1; weekly signals (MAC/REL) at the 2026-06-19 confirmed Friday close; M2 (MAC-03) at the latest May 2026 monthly release. This-cycle change vs 2026-05-29: BTC-04 flipped INACTIVE→ACTIVE (monthly Stoch-RSI %K recovered above the 10 threshold), lifting BTC Structure 3→4 and the overall regime DEFENSIVE→NEUTRAL_MIXED. ETF-01 is UNAVAILABLE per §10.1 (CoinGlass routes 404, Farside Cloudflare-blocked). _translation_status tracks non-EN content review state (claude-reviewed 2026-07-07 per MSG-11; professional pass pending).",
   "groups": [
     {
       "id": "btc_structure",
@@ -34,7 +34,7 @@
           "summary": {
             "en": "May close $77,539 sits about 6% below the 20-month EMA ($82,412) — the intermediate-term structure remains broken.",
             "pt-BR": "O fechamento de maio de US$ 77.539 está cerca de 6% abaixo da EMA de 20 meses (US$ 82.412) — a estrutura de médio prazo segue rompida.",
-            "es": "El cierre de mayo de USD 77.539 está alrededor de 6% por debajo de la EMA de 20 meses (USD 82.412) — la estructura de plazo intermedio sigue rota.",
+            "es": "El cierre de mayo de USD 77.539 está alrededor de 6% por debajo de la EMA de 20 meses (USD 82.412) — la estructura de medio plazo sigue rota.",
             "de": "Der Mai-Schluss von 77.539 USD liegt rund 6% unter der 20-Monats-EMA (82.412 USD) — die mittelfristige Struktur bleibt gebrochen."
           },
           "last_updated_at": "2026-05-31T00:00:00Z"
@@ -71,8 +71,8 @@
           "max_points": 1,
           "summary": {
             "en": "May monthly RSI(14) 49.2 vs April 48.6 — momentum continues to firm month-over-month.",
-            "pt-BR": "RSI(14) mensal de maio 49,2 vs abril 48,6 — o momentum segue firmando mês a mês.",
-            "es": "RSI(14) mensual de mayo 49,2 vs abril 48,6 — el momentum sigue firmándose mes a mes.",
+            "pt-BR": "RSI(14) mensal de maio 49,2 vs abril 48,6 — o momentum segue se firmando mês a mês.",
+            "es": "RSI(14) mensual de mayo 49,2 vs abril 48,6 — el momentum sigue afianzándose mes a mes.",
             "de": "Monatlicher RSI(14) im Mai 49,2 gegenüber April 48,6 — das Momentum festigt sich weiter im Monatsvergleich."
           },
           "last_updated_at": "2026-05-31T00:00:00Z"
@@ -112,7 +112,7 @@
       "max_points": 3,
       "summary": {
         "en": "Macro conditions remain restrictive overall — firm dollar, elevated yields — though global liquidity continues to expand.",
-        "pt-BR": "As condições macro permanecem restritivas no geral — dólar firme, rendimentos elevados — embora a liquidez global siga expandindo.",
+        "pt-BR": "As condições macro permanecem restritivas no geral — dólar firme, rendimentos elevados — embora a liquidez global siga em expansão.",
         "es": "Las condiciones macro siguen restrictivas en general — dólar firme, rendimientos elevados — aunque la liquidez global continúa expandiéndose.",
         "de": "Die Makro-Bedingungen bleiben insgesamt restriktiv — fester Dollar, erhöhte Renditen — auch wenn die globale Liquidität weiter expandiert."
       },
@@ -130,9 +130,9 @@
           "max_points": 1,
           "summary": {
             "en": "Dollar index closed June 19 at 119.51 vs 20-week EMA 119.32 — sits 0.16% above trend, and RSI 50.2 fails the < 50 condition. Both spec conditions (close below EMA AND RSI < 50) are unmet.",
-            "pt-BR": "O índice do dólar fechou em 19 de junho em 119,51 vs EMA de 20 semanas 119,32 — situa-se 0,16% acima da tendência, e o RSI 50,2 não satisfaz a condição < 50. Ambas as condições da especificação (fechamento abaixo da EMA E RSI < 50) não foram atendidas.",
-            "es": "El índice del dólar cerró el 19 de junio en 119,51 vs EMA de 20 semanas 119,32 — se ubica 0,16% por encima de la tendencia, y el RSI 50,2 no satisface la condición < 50. Ambas condiciones de la especificación (cierre por debajo de la EMA Y RSI < 50) no se cumplen.",
-            "de": "Der Dollar-Index schloss am 19. Juni bei 119,51 gegenüber der 20-Wochen-EMA 119,32 — er liegt 0,16% über dem Trend, und RSI 50,2 erfüllt die Bedingung < 50 nicht. Beide Spezifikationsbedingungen (Schluss unter der EMA UND RSI < 50) sind nicht erfüllt."
+            "pt-BR": "O índice do dólar fechou em 19 de junho em 119,51 vs EMA de 20 semanas 119,32 — está 0,16% acima da tendência, e o RSI de 50,2 não satisfaz a condição < 50. Nenhuma das duas condições da especificação (fechamento abaixo da EMA E RSI < 50) foi atendida.",
+            "es": "El índice del dólar cerró el 19 de junio en 119,51 vs EMA de 20 semanas 119,32 — se sitúa 0,16% por encima de la tendencia, y el RSI de 50,2 no satisface la condición < 50. Ninguna de las dos condiciones de la especificación (cierre por debajo de la EMA Y RSI < 50) se cumple.",
+            "de": "Der Dollar-Index schloss am 19. Juni bei 119,51 gegenüber der 20-Wochen-EMA von 119,32 — er liegt 0,16% über dem Trend, und der RSI von 50,2 erfüllt die Bedingung < 50 nicht. Keine der beiden Spezifikationsbedingungen (Schluss unter der EMA UND RSI < 50) ist erfüllt."
           },
           "last_updated_at": "2026-06-19T00:00:00Z"
         },
@@ -140,17 +140,17 @@
           "id": "MAC-02",
           "title": {
             "en": "US 10-Year Yield Easing",
-            "pt-BR": "Afrouxamento do Tesouro americano de 10 anos",
-            "es": "Distensión del bono del Tesoro a 10 años de EE. UU.",
-            "de": "US-10-Jahres-Rendite-Entspannung"
+            "pt-BR": "Alívio no rendimento americano de 10 anos",
+            "es": "Relajación del rendimiento de EE. UU. a 10 años",
+            "de": "Entspannung der US-10-Jahres-Rendite"
           },
           "state": "INACTIVE",
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
             "en": "US 10-year yield closed June 19 at 4.46% vs 20-week EMA 4.37% — yields remain elevated above trend, no easing yet.",
-            "pt-BR": "O rendimento do Tesouro americano de 10 anos fechou em 19 de junho em 4,46% vs EMA de 20 semanas 4,37% — os rendimentos seguem elevados acima da tendência, ainda sem afrouxamento.",
-            "es": "El rendimiento del bono del Tesoro a 10 años cerró el 19 de junio en 4,46% vs EMA de 20 semanas 4,37% — los rendimientos siguen elevados sobre la tendencia, sin distensión todavía.",
+            "pt-BR": "O rendimento do Tesouro americano de 10 anos fechou em 19 de junho em 4,46% vs EMA de 20 semanas 4,37% — os rendimentos seguem elevados acima da tendência, ainda sem alívio.",
+            "es": "El rendimiento del Tesoro estadounidense a 10 años cerró el 19 de junio en 4,46% vs EMA de 20 semanas 4,37% — los rendimientos siguen elevados sobre la tendencia, todavía sin relajación.",
             "de": "Die US-10-Jahres-Rendite schloss am 19. Juni bei 4,46% gegenüber der 20-Wochen-EMA 4,37% — die Renditen bleiben oberhalb des Trends erhöht, noch keine Entspannung."
           },
           "last_updated_at": "2026-06-19T00:00:00Z"
@@ -208,9 +208,9 @@
           "max_points": 2,
           "summary": {
             "en": "ETF net-flows could not be observed this cycle (2026-06-26): the CoinGlass provisional fallback returned HTTP 404 on every spot-ETF route attempted (its data-route structure changed since the prior render), and the spec-canonical Farside feed is behind a Cloudflare challenge wall that policy forbids evading. With fewer than the required trailing-four confirmed weekly aggregates observable, the signal is UNAVAILABLE per §10.1 and contributes 0 of 2 points (an INACTIVE read would also award 0, so the score is unaffected).",
-            "pt-BR": "Os fluxos líquidos de ETFs não puderam ser observados neste ciclo (2026-06-26): o recurso provisório do CoinGlass retornou HTTP 404 em todas as rotas de ETF à vista tentadas (sua estrutura de rotas de dados mudou desde a leitura anterior), e o feed canônico da Farside está atrás de um muro de desafio Cloudflare cuja evasão a política proíbe. Com menos do que os quatro agregados semanais confirmados exigidos observáveis, o sinal é UNAVAILABLE conforme §10.1 e soma 0 de 2 pontos (uma leitura INACTIVE também daria 0, então o score não é afetado).",
-            "es": "Los flujos netos de ETFs no pudieron observarse este ciclo (2026-06-26): el recurso provisional de CoinGlass devolvió HTTP 404 en todas las rutas de ETF al contado intentadas (su estructura de rutas de datos cambió desde la lectura anterior), y el feed canónico de Farside está detrás de un muro de desafío Cloudflare cuya evasión la política prohíbe. Con menos de los cuatro agregados semanales confirmados requeridos observables, la señal es UNAVAILABLE según §10.1 y aporta 0 de 2 puntos (una lectura INACTIVE también daría 0, por lo que el score no se ve afectado).",
-            "de": "Die ETF-Nettozuflüsse konnten in diesem Zyklus (2026-06-26) nicht beobachtet werden: Der provisorische CoinGlass-Rückfall lieferte HTTP 404 auf jeder versuchten Spot-ETF-Route (seine Datenrouten-Struktur hat sich seit der vorherigen Abfrage geändert), und der kanonische Farside-Feed liegt hinter einer Cloudflare-Challenge-Wand, deren Umgehung die Richtlinie verbietet. Da weniger als die erforderlichen vier bestätigten Wochenaggregate beobachtbar sind, ist das Signal gemäß §10.1 UNAVAILABLE und trägt 0 von 2 Punkten bei (eine INACTIVE-Lesart würde ebenfalls 0 ergeben, der Score bleibt also unberührt)."
+            "pt-BR": "Os fluxos líquidos de ETFs não puderam ser observados neste ciclo (2026-06-26): a fonte provisória de contingência (CoinGlass) retornou HTTP 404 em todas as rotas de ETF à vista tentadas (a estrutura de rotas de dados do site mudou desde a leitura anterior), e o feed canônico da especificação (Farside) está protegido por um desafio de verificação da Cloudflare, que a política proíbe contornar. Com menos observações do que os quatro agregados semanais confirmados mais recentes exigidos, o sinal é avaliado como UNAVAILABLE conforme o §10.1 e soma 0 de 2 pontos (uma leitura INACTIVE também atribuiria 0, então a pontuação não é afetada).",
+            "es": "Los flujos netos de ETFs no pudieron observarse este ciclo (2026-06-26): la fuente provisional de respaldo (CoinGlass) devolvió HTTP 404 en todas las rutas de ETF al contado intentadas (la estructura de rutas de datos del sitio cambió desde la lectura anterior), y el feed canónico de la especificación (Farside) está protegido por un desafío de verificación de Cloudflare que la política prohíbe eludir. Al observarse menos de los cuatro agregados semanales confirmados más recientes requeridos, la señal queda UNAVAILABLE según el §10.1 y aporta 0 de 2 puntos (una lectura INACTIVE también otorgaría 0, por lo que la puntuación no se ve afectada).",
+            "de": "Die ETF-Nettozuflüsse konnten in diesem Zyklus (2026-06-26) nicht beobachtet werden: Die provisorische Ausweichquelle (CoinGlass) lieferte auf jeder versuchten Spot-ETF-Route HTTP 404 (die Datenrouten-Struktur der Seite hat sich seit der vorherigen Abfrage geändert), und der laut Spezifikation kanonische Farside-Feed liegt hinter einer Cloudflare-Verifizierungssperre, deren Umgehung die Richtlinie untersagt. Da weniger als die erforderlichen vier zuletzt bestätigten Wochenaggregate beobachtbar waren, gilt das Signal gemäß §10.1 als UNAVAILABLE und trägt 0 von 2 Punkten bei (eine INACTIVE-Wertung würde ebenfalls 0 ergeben, der Score bleibt also unverändert)."
           },
           "last_updated_at": "2026-06-26T22:30:00Z"
         }
@@ -230,8 +230,8 @@
       "max_points": 3,
       "summary": {
         "en": "Bitcoin is lagging both gold and the Nasdaq on a 20-week basis; broader equity strength persists.",
-        "pt-BR": "O Bitcoin está perdendo tanto para o ouro quanto para o Nasdaq em base de 20 semanas; a força do mercado acionário em geral persiste.",
-        "es": "Bitcoin está perdiendo frente al oro y al Nasdaq en base de 20 semanas; la fortaleza más amplia de la renta variable persiste.",
+        "pt-BR": "O Bitcoin está perdendo tanto para o ouro quanto para o Nasdaq na janela de 20 semanas; a força do mercado acionário em geral persiste.",
+        "es": "Bitcoin está perdiendo frente al oro y al Nasdaq en la ventana de 20 semanas; la fortaleza general de la renta variable persiste.",
         "de": "Bitcoin liegt sowohl gegenüber Gold als auch gegenüber dem Nasdaq auf 20-Wochen-Sicht zurück; die breitere Aktienmarktstärke hält an."
       },
       "signals": [
@@ -248,8 +248,8 @@
           "max_points": 1,
           "summary": {
             "en": "BTC/Gold ratio at 14.58 sits about 8% below its 20-week EMA of 15.83 — Bitcoin underperforming the defensive asset on a 20-week basis (Yahoo GC=F substitute; FRED LBMA series retired).",
-            "pt-BR": "A razão BTC/Ouro em 14,58 está cerca de 8% abaixo da EMA de 20 semanas de 15,83 — o Bitcoin está perdendo para o ativo defensivo em base de 20 semanas (substituto Yahoo GC=F; série LBMA do FRED descontinuada).",
-            "es": "La razón BTC/Oro en 14,58 está alrededor de 8% por debajo de la EMA de 20 semanas de 15,83 — Bitcoin pierde frente al activo defensivo en base de 20 semanas (sustituto Yahoo GC=F; serie LBMA del FRED retirada).",
+            "pt-BR": "A relação BTC/ouro em 14,58 está cerca de 8% abaixo da EMA de 20 semanas de 15,83 — o Bitcoin está perdendo para o ativo defensivo na janela de 20 semanas (substituto Yahoo GC=F; série LBMA do FRED descontinuada).",
+            "es": "La relación BTC/oro en 14,58 está alrededor de 8% por debajo de su EMA de 20 semanas de 15,83 — Bitcoin pierde frente al activo defensivo en la ventana de 20 semanas (sustituto Yahoo GC=F; serie LBMA de FRED retirada).",
             "de": "Das BTC/Gold-Verhältnis von 14,58 liegt rund 8% unterhalb seiner 20-Wochen-EMA von 15,83 — Bitcoin bleibt auf 20-Wochen-Sicht hinter dem defensiven Asset zurück (Yahoo GC=F-Substitut; FRED-LBMA-Serie eingestellt)."
           },
           "last_updated_at": "2026-06-19T00:00:00Z"
@@ -267,8 +267,8 @@
           "max_points": 1,
           "summary": {
             "en": "BTC/Nasdaq ratio at 2.40 sits about 19% below its 20-week EMA of 2.96 — Bitcoin underperforming tech equities on a 20-week basis.",
-            "pt-BR": "A razão BTC/Nasdaq em 2,40 está cerca de 19% abaixo da EMA de 20 semanas de 2,96 — o Bitcoin perde para as ações de tecnologia em base de 20 semanas.",
-            "es": "La razón BTC/Nasdaq en 2,40 está alrededor de 19% por debajo de la EMA de 20 semanas de 2,96 — Bitcoin pierde frente a las acciones tecnológicas en base de 20 semanas.",
+            "pt-BR": "A relação BTC/Nasdaq em 2,40 está cerca de 19% abaixo da EMA de 20 semanas de 2,96 — o Bitcoin perde para as ações de tecnologia na janela de 20 semanas.",
+            "es": "La relación BTC/Nasdaq en 2,40 está alrededor de 19% por debajo de su EMA de 20 semanas de 2,96 — Bitcoin pierde frente a las acciones tecnológicas en la ventana de 20 semanas.",
             "de": "Das BTC/Nasdaq-Verhältnis von 2,40 liegt rund 19% unterhalb seiner 20-Wochen-EMA von 2,96 — Bitcoin bleibt gegenüber Tech-Aktien auf 20-Wochen-Sicht zurück."
           },
           "last_updated_at": "2026-06-19T00:00:00Z"
@@ -287,7 +287,7 @@
           "summary": {
             "en": "Nasdaq closed June 19 at 26,518 vs 20-week EMA 24,686 — about 7% above trend. Broader risk appetite remains constructive.",
             "pt-BR": "O Nasdaq fechou em 19 de junho em 26.518 vs EMA de 20 semanas 24.686 — cerca de 7% acima da tendência. O apetite por risco em geral segue construtivo.",
-            "es": "El Nasdaq cerró el 19 de junio en 26.518 vs EMA de 20 semanas 24.686 — alrededor de 7% por encima de la tendencia. El apetito por riesgo en general sigue constructivo.",
+            "es": "El Nasdaq cerró el 19 de junio en 26.518 vs EMA de 20 semanas 24.686 — alrededor de 7% por encima de la tendencia. El apetito por el riesgo en general sigue constructivo.",
             "de": "Der Nasdaq schloss am 19. Juni bei 26.518 gegenüber der 20-Wochen-EMA 24.686 — rund 7% über dem Trend. Die breitere Risikobereitschaft bleibt konstruktiv."
           },
           "last_updated_at": "2026-06-19T00:00:00Z"
@@ -296,10 +296,22 @@
     }
   ],
   "_translation_status": {
-    "_comment": "Machine-draft flag per market-editorial.md §5. EN is authoritative; pt-BR / es / de drafted by engineering with research-memo voice (doc 03 §5.2) and the Phase 7 jargon ban (see scripts/check-market-data-jargon.mjs for the banned-terms list). Translator pass priority: 1) signal summaries (data-tied narrative, lower risk), 2) group summaries (already terse), 3) signal titles (constant-shape, low risk). The corresponding regime.json#_translation_status governs the higher-stakes summary.detailed field.",
-    "signals.*.title": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
-    "signals.*.summary": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
-    "groups.*.summary": { "pt-BR": "machine-draft", "es": "machine-draft", "de": "machine-draft" },
+    "_comment": "Translation status per market-editorial.md §5. EN is authoritative; pt-BR / es / de drafted by engineering with research-memo voice (doc 03 §5.2) and the Phase 7 jargon ban (see scripts/check-market-data-jargon.mjs for the banned-terms list), then reviewed by Claude 2026-07-07 per messaging fix plan MSG-11 (D-MSG-10) — fixed mistranslated titles (MAC-02), false-cognate errors (ETF-01 de), and calques against the EN source. A professional-translator pass is still required before the MARKET_INDEXABLE flip. The corresponding regime.json#_translation_status governs the higher-stakes summary.detailed field.",
+    "signals.*.title": {
+      "pt-BR": "claude-reviewed",
+      "es": "claude-reviewed",
+      "de": "claude-reviewed"
+    },
+    "signals.*.summary": {
+      "pt-BR": "claude-reviewed",
+      "es": "claude-reviewed",
+      "de": "claude-reviewed"
+    },
+    "groups.*.summary": {
+      "pt-BR": "claude-reviewed",
+      "es": "claude-reviewed",
+      "de": "claude-reviewed"
+    },
     "groups.*.title": {
       "pt-BR": "preserved-from-iter3",
       "es": "preserved-from-iter3",

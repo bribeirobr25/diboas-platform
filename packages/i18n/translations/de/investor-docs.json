@@ -4870,7 +4870,7 @@
         },
         {
           "type": "paragraph",
-          "text": "If the user closes a strategy, the 0.39% closing fee applies, capped at US$25."
+          "text": "If the user closes a strategy, the 0.39% closing fee applies, capped at $25."
         },
         {
           "type": "paragraph",

@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Demo Interactiva - diBoaS",
-    "description": "Conoce diBoaS con nuestra demo interactiva. Deposita, envia, invierte y descubre tu futuro financiero."
+    "description": "Conoce diBoaS con nuestra demo interactiva. Deposita, envía, invierte y descubre tu futuro financiero."
   },
   "common": {
     "back": "Volver",
@@ -26,9 +26,9 @@
     "creatingAccountSubtitle": "Configurando tu perfil seguro",
     "checkIdentity": "Identidad verificada",
     "checkCompliance": "Verificación de cumplimiento aprobada",
-    "creatingWallet": "Preparando tu billetera",
-    "creatingWalletSubtitle": "Configurando tu billetera digital",
-    "checkWallet": "Billetera creada"
+    "creatingWallet": "Preparando tu cartera",
+    "creatingWalletSubtitle": "Configurando tu cartera digital",
+    "checkWallet": "Cartera creada"
   },
   "processing": {
     "depositProcessing": "Procesando pago",
@@ -36,7 +36,7 @@
     "depositApproved": "Pago aprobado",
     "depositApprovedSub": "Tu transacción fue verificada",
     "depositComplete": "¡Depósito completado!",
-    "depositCompleteSub": "Fondos agregados a tu billetera",
+    "depositCompleteSub": "Fondos añadidos a tu cartera",
     "sendProcessing": "Enviando fondos",
     "sendProcessingSub": "Procesando tu transferencia",
     "sendComplete": "¡Transferencia completada!",
@@ -44,15 +44,15 @@
     "buyProcessing": "Procesando compra",
     "buyProcessingSub": "Procesando tu inversión",
     "buyComplete": "¡Compra completada!",
-    "buyCompleteSub": "Activo agregado a tu portafolio"
+    "buyCompleteSub": "Activo añadido a tu cartera de inversión"
   },
   "home": {
     "totalBalance": "Saldo Total",
     "cash": "Efectivo",
     "investments": "Inversiones",
-    "tapToViewWallets": "Toca para ver tus billeteras",
+    "tapToViewWallets": "Toca para ver tus carteras",
     "quickActions": "Acciones Rápidas",
-    "addMoney": "Ingresar/Retirar",
+    "addMoney": "Añadir/Retirar",
     "addMoneySubtitle": "1 clic",
     "send": "Enviar/Pagar",
     "sendSubtitle": "al instante y mundial",
@@ -109,13 +109,13 @@
     }
   },
   "deposit": {
-    "addMoney": "Ingresar Dinero",
+    "addMoney": "Añadir dinero",
     "withdraw": "Retirar",
     "paymentMethod": "Método de Pago",
     "card": "Tarjeta",
     "bank": "Banco",
-    "mobile": "Celular",
-    "amountLabel": "Monto",
+    "mobile": "Móvil",
+    "amountLabel": "Importe",
     "proceed": "Continuar"
   },
   "send": {
@@ -123,14 +123,14 @@
     "payment": "Pago",
     "recipientLabel": "Destinatario",
     "onChainTransfer": "Transferencia on-chain",
-    "amountLabel": "Monto",
-    "insufficientFunds": "Fondos insuficientes para este monto",
+    "amountLabel": "Importe",
+    "insufficientFunds": "Fondos insuficientes para este importe",
     "proceed": "Continuar"
   },
   "buy": {
     "categoryLabel": "Categoría",
     "selectAsset": "Elegir Activo",
-    "amountLabel": "Monto a Comprar",
+    "amountLabel": "Importe a Comprar",
     "comingSoon": "Próximamente",
     "proceed": "Continuar",
     "insufficientFunds": "Fondos insuficientes. Primero ingresa dinero a tu cuenta.",
@@ -146,16 +146,16 @@
     "titleDeposit": "Confirmar Depósito",
     "titleSend": "Confirmar Transferencia",
     "titleBuy": "Confirmar Compra",
-    "typeDeposit": "Ingresar Dinero",
+    "typeDeposit": "Añadir dinero",
     "typeSend": "Enviar Dinero",
     "typeBuy": "Comprar Activo",
     "method": "Método de Pago",
     "recipient": "Destinatario",
     "asset": "Activo",
-    "totalAmount": "Monto Total",
+    "totalAmount": "Importe Total",
     "theyReceive": "Va a recibir",
     "youReceive": "Vas a recibir",
-    "termsDeposit": "Entiendo que mis fondos serán convertidos a stablecoins y almacenados en una billetera de autocustodia. Reconozco que soy responsable de la seguridad de mi billetera.",
+    "termsDeposit": "Entiendo que mis fondos serán convertidos a stablecoins y almacenados en una cartera de autocustodia. Reconozco que soy responsable de la seguridad de mi cartera.",
     "termsSend": "Entiendo que esta transferencia es definitiva y no se puede revertir. He verificado que la dirección del destinatario es correcta.",
     "termsBuy": "Entiendo que estoy comprando un activo digital que puede ser volátil. Reconozco que las inversiones en criptomonedas conllevan riesgos.",
     "subtitle": "Revisa los detalles antes de confirmar",
@@ -165,9 +165,9 @@
     "confirmPurchase": "Confirmar Compra"
   },
   "wallet": {
-    "title": "Tus Billeteras",
+    "title": "Tus Carteras",
     "subtitle": "Autocustodia · Protegida por proveedor externo",
-    "totalBalance": "Portafolio Total",
+    "totalBalance": "Cartera total",
     "cash": "Efectivo",
     "investments": "Inversiones",
     "copyAddress": "Copiar dirección",
@@ -176,20 +176,20 @@
     "copy": "Copiar",
     "exportKey": "Exportar Clave Privada",
     "selfCustodyTitle": "100% Autocustodia",
-    "selfCustodyText": "Tus billeteras son completamente tuyas. diBoaS te ofrece la interfaz, pero nunca tiene acceso a tus fondos ni a tus claves privadas. Puedes exportar y usar estas billeteras con cualquier aplicación web3.",
+    "selfCustodyText": "Tus carteras son completamente tuyas. diBoaS te ofrece la interfaz, pero nunca tiene acceso a tus fondos ni a tus claves privadas. Puedes exportar y usar estas carteras con cualquier aplicación web3.",
     "exportModalTitle": "Tus Claves Privadas",
     "exportModalDesc1Prefix": "Tus claves privadas están protegidas por un ",
-    "exportModalDesc1Bold": "proveedor de billeteras externo de confianza",
+    "exportModalDesc1Bold": "proveedor de carteras externo de confianza",
     "exportModalDesc1Suffix": ".",
     "exportModalDesc2Bold": "diBoaS nunca almacena ni tiene acceso a tus claves privadas.",
-    "exportModalDesc2Suffix": " Tú mantienes el control total de tus billeteras.",
+    "exportModalDesc2Suffix": " Tú mantienes el control total de tus carteras.",
     "exportModalStepsTitle": "Para exportar tus claves:",
-    "exportModalStep1": "Abre el panel de tu proveedor de billetera",
+    "exportModalStep1": "Abre el panel de tu proveedor de cartera",
     "exportModalStep2": "Verifica tu identidad",
     "exportModalStep3": "Accede a tu frase de recuperación",
     "exportModalWarningLabel": "Advertencia:",
     "exportModalWarningBody": " Nunca compartas tus claves privadas con nadie. Cualquier persona con tus claves puede acceder a tus fondos.",
-    "exportModalButton": "Abrir Panel de Billetera",
+    "exportModalButton": "Abrir Panel de Cartera",
     "exportModalButtonDemo": "(Demo)",
     "exportModalFooter": "Protegida por proveedor externo · Seguridad de nivel empresarial",
     "solNetworkFees": "SOL para comisiones de red",

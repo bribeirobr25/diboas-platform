@@ -1,6 +1,6 @@
 {
-  "headline": "Teilen Sie Ihren Traum",
-  "subhead": "Zeigen Sie anderen, was möglich ist",
+  "headline": "Teile deinen Traum",
+  "subhead": "Zeig anderen, was möglich ist",
   "modal": {
     "title": "Teilen",
     "close": "Schließen",
@@ -8,7 +8,7 @@
     "copyLink": "Link kopieren",
     "copied": "Kopiert!",
     "download": "Bild herunterladen",
-    "generating": "Ihre Karte wird erstellt...",
+    "generating": "Deine Karte wird erstellt...",
     "noPreview": "Keine Vorschau verfügbar"
   },
   "platform": {
@@ -29,18 +29,18 @@
     "downloadStarted": "Wird heruntergeladen...",
     "downloadComplete": "Bild gespeichert!",
     "shareSuccess": "Geteilt!",
-    "shareFailed": "Teilen nicht möglich. Versuchen Sie den Download.",
+    "shareFailed": "Teilen nicht möglich. Versuch es mit dem Download.",
     "shareCancelled": "Teilen abgebrochen",
-    "linkedInCopied": "Text kopiert! Fügen Sie ihn in Ihren LinkedIn-Beitrag ein."
+    "linkedInCopied": "Text kopiert! Füge ihn in deinen LinkedIn-Beitrag ein."
   },
-  "instagramInstructions": "Bild gespeichert! Öffnen Sie Instagram und teilen Sie aus Ihrer Galerie.",
+  "instagramInstructions": "Bild gespeichert! Öffne Instagram und teile aus deiner Galerie.",
   "card": {
-    "cta": "Sehen Sie, was Ihres erreichen könnte →",
-    "generating": "Ihre Karte wird erstellt...",
-    "ready": "Ihre Karte ist fertig!"
+    "cta": "Sieh, was deins erreichen könnte →",
+    "generating": "Deine Karte wird erstellt...",
+    "ready": "Deine Karte ist fertig!"
   },
   "referral": {
-    "intro": "Ihr persönlicher Link:",
+    "intro": "Dein persönlicher Link:",
     "benefit": "Teilen, um Freunden frühzeitigen Zugang zu ermöglichen",
     "copied": "Link in die Zwischenablage kopiert!"
   },

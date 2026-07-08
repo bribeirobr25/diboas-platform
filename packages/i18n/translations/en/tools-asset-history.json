@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Asset History Calculator — what actually happened since 2010",
+    "title": "Asset History Calculator — what actually happened",
     "description": "Free asset history calculator. Pick BTC, stocks, gold, or bonds; see what $100 lump sum or $100/month would have done since 2010 or 2016."
   },
   "hero": {
@@ -80,7 +80,7 @@
   },
   "landing": {
     "cardTitle": "Asset History",
-    "cardTagline": "What actually happened since 2010?"
+    "cardTagline": "What actually happened?"
   },
   "lessonLink": {
     "label": "Want the methodology?",

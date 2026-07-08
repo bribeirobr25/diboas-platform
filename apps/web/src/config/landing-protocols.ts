@@ -59,36 +59,7 @@ export const PROTOCOLS_FAQ_CONFIG: FAQAccordionVariantConfig = {
   },
 };
 
-// ─── Footer Disclaimer Keys (locale-conditional) ────────────
-
-/**
- * Returns the ordered list of footer disclaimer translation keys
- * for the Protocols page, conditioned on the active locale.
- *
- * MiCA Art. 68 / Art. 7: EN, DE, ES only
- * US disclosure: EN only
- * All other disclaimers: every locale
- *
- * Keys are relative to the `protocols` namespace —
- * e.g. `'footer.lastUpdated'` resolves to `protocols.footer.lastUpdated`.
- */
-export function getProtocolsDisclaimerKeys(locale: string): string[] {
-  const keys: string[] = ['footer.lastUpdated', 'footer.dataSources', 'footer.mainDisclaimer'];
-
-  if (['en', 'de', 'es'].includes(locale)) {
-    keys.push('footer.micaArt68');
-    keys.push('footer.micaArt7');
-  }
-
-  keys.push('footer.aiDisclosure');
-
-  if (locale === 'en') {
-    keys.push('footer.usDisclosure');
-  }
-
-  keys.push('footer.externalLinks');
-  keys.push('footer.professionalAdvice');
-  keys.push('footer.copyright');
-
-  return keys;
-}
+// getProtocolsDisclaimerKeys was removed 2026-07-07 (messaging fix plan MSG-07):
+// its consumers were deleted as dead code earlier, and the per-page
+// `protocols.footer.*` keys it targeted were pruned. The rendered footer uses
+// MinimalFooter + B2C_FOOTER_DISCLOSURES (landing-b2c namespace).

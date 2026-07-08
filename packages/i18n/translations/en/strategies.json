@@ -427,20 +427,6 @@
       }
     }
   },
-  "footer": {
-    "disclaimer": "All performance data is based on historical analysis (May 2022 - December 2025) and thousands of Monte Carlo simulations. Past performance does not guarantee future results. Your money is placed in automated systems that carry technical risk, market risk, liquidity risk, and stablecoin depeg risk. Growth strategies involve additional price volatility risk. Growth strategies use protocols on the Solana blockchain; events affecting Solana specifically could impact all growth strategies simultaneously. Only use money you can afford to lose. diBoaS is not a bank and your funds are not insured.",
-    "micaArticle68": "The value of crypto-assets may fluctuate. You may lose some or all of your money. Crypto-assets are not covered by deposit guarantee schemes.",
-    "micaArticle7": "This crypto-asset marketing communication has not been reviewed or approved by any competent authority in any Member State of the European Union. The offeror of the crypto-asset is solely responsible for the content of this crypto-asset marketing communication.",
-    "aiDisclosure": "Certain content on this platform, including market analysis and educational materials, is generated or assisted by artificial intelligence. AI-generated content may contain errors or limitations. Users should verify information independently before making financial decisions.",
-    "usDisclosure": "diBoaS is a non-custodial interface providing access to decentralized finance protocols. diBoaS is not registered with the SEC, CFTC, FinCEN, or any state regulatory agency. US regulatory treatment of DeFi is evolving. You are responsible for determining whether your use of this interface complies with applicable laws.",
-    "fictionalResults": "Projected returns, probability estimates, and simulation results on this page are illustrative and do not represent guaranteed outcomes. Calculator projections are based on hypothetical scenarios and historical averages. Actual results will vary.",
-    "professionalAdvice": "The information on this page is for educational and informational purposes only. It does not constitute investment advice, financial advice, or any other form of professional advice. Consider consulting a licensed financial advisor before making investment decisions."
-  },
-  "cvmWarnings": {
-    "warning1": "",
-    "warning2": "",
-    "warning3": ""
-  },
   "sections": {
     "faq": {
       "ariaLabel": "Strategy frequently asked questions"

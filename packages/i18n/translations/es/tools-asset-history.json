@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Historial de activos — qué pasó realmente desde 2010",
+    "title": "Historial de activos — qué pasó realmente",
     "description": "Calculadora gratuita de historial de activos. Elige BTC, acciones, oro o bonos; mira qué habría hecho una inversión única o $100/mes desde 2010 o 2016."
   },
   "hero": {
@@ -80,7 +80,7 @@
   },
   "landing": {
     "cardTitle": "Historial de activos",
-    "cardTagline": "¿Qué pasó realmente desde 2010?"
+    "cardTagline": "¿Qué pasó realmente?"
   },
   "lessonLink": {
     "label": "¿Quieres la metodología?",

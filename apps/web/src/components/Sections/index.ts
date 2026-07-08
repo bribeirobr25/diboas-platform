@@ -26,10 +26,9 @@ export { FounderSection } from './FounderSection';
 // (the B2B page) moved to StartupTreasurySection. The component still exists and
 // is imported directly (dynamic) by the B2C spine pages (LandingEuSpine/PtBR).
 export { StartupTreasurySection } from './StartupTreasurySection';
-export { GoalExampleCards } from './GoalExampleCards';
-export { SidePocketStrip } from './SidePocketStrip';
-export { FoundingMembersSection } from './FoundingMembersSection';
-export { HowItWorksGrid } from './HowItWorksGrid';
+// GoalExampleCards, SidePocketStrip, FoundingMembersSection, SocialProofSection,
+// and HowItWorksGrid were removed 2026-07-07 (messaging fix plan MSG-07):
+// zero renderers after the Draper redesign; their landing-b2c keys were pruned too.
 
 // Per-market wedge (Phase 4 redesign)
 export { WedgeSection } from './WedgeSection';

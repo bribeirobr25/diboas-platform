@@ -1,6 +1,6 @@
 {
   "title": "Häufig gestellte Fragen",
-  "description": "Finden Sie Antworten auf Ihre wichtigsten Fragen. Wenn Sie sie hier nicht finden, antwortet unser Chat in Minuten.",
+  "description": "Finde Antworten auf deine wichtigsten Fragen. Wenn du sie hier nicht findest, antwortet unser Chat in Minuten.",
   "ctaText": "Alle Fragen ansehen",
   "items": {
     "isBank": {
@@ -61,7 +61,7 @@
     },
     "lostPhone": {
       "question": "Was, wenn ich mein Handy verliere?",
-      "answer": "Wenn diBoaS seine App startet, wird Ihre Wallet fortschrittliche Schlüsselsicherheit verwenden, um vor Geräteverlust zu schützen. Unsere Architektur ist für die Wallet-Wiederherstellung ohne Seed-Phrasen oder 24-Wort-Backups konzipiert. Ihr Geld verschwindet nicht, weil Ihr Telefon es getan hat."
+      "answer": "Wenn diBoaS seine App startet, wird deine Wallet fortschrittliche Schlüsselsicherheit verwenden, um vor Geräteverlust zu schützen. Unsere Architektur ist für die Wallet-Wiederherstellung ohne Seed-Phrasen oder 24-Wort-Backups konzipiert. Dein Geld verschwindet nicht, weil dein Telefon es getan hat."
     },
     "whatIsBalance": {
       "question": "Was ist mein Guthaben eigentlich?",

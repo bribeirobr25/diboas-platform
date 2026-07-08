@@ -119,6 +119,11 @@ export interface CurrencyDepreciationRetrospectiveResult {
   readonly historicalCagr: number;
   readonly rateStart: number;
   readonly rateEnd: number;
+  /** ISO anchor dates of the locked historical window (Data Vintage P-6):
+   *  the UI derives its "Now (<month year>)" label and "<n> years" span from
+   *  these instead of hardcoding dates that rot when the series appends. */
+  readonly anchorStart: string;
+  readonly anchorEnd: string;
 }
 
 export function calculateCurrencyDepreciationForward(
@@ -183,9 +188,18 @@ export function calculateCurrencyDepreciationRetrospective(
 ): CurrencyDepreciationRetrospectiveResult | null {
   if (input.amount <= 0) return null;
   if (input.currency === 'USD') return null;
-  // Same C42-pattern guard: protect against partial provider responses.
+  // Same C42-pattern guard: protect against partial provider responses. The
+  // anchor dates travel with the rate endpoints (D4: the historical* fields
+  // ship as a complete set or not at all), so they join the guard.
   const currencyRate = snapshot.exchangeRates.rates[input.currency];
-  if (!currencyRate?.historicalRateStart || !currencyRate?.historicalRateEnd) return null;
+  if (
+    !currencyRate?.historicalRateStart ||
+    !currencyRate?.historicalRateEnd ||
+    !currencyRate?.historicalAnchorStart ||
+    !currencyRate?.historicalAnchorEnd
+  ) {
+    return null;
+  }
   const usdValueThen = input.amount / currencyRate.historicalRateStart;
   const usdValueNow = input.amount / currencyRate.historicalRateEnd;
   const percentLossInUsdTerms = (1 - usdValueNow / usdValueThen) * 100;
@@ -196,5 +210,7 @@ export function calculateCurrencyDepreciationRetrospective(
     historicalCagr: currencyRate.historicalCagr ?? 0,
     rateStart: currencyRate.historicalRateStart,
     rateEnd: currencyRate.historicalRateEnd,
+    anchorStart: currencyRate.historicalAnchorStart,
+    anchorEnd: currencyRate.historicalAnchorEnd,
   };
 }

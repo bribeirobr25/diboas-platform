@@ -359,7 +359,7 @@ Condensed reference from `docs/tech/coding-standards.md`:
 
 ## Audit Status
 
-**Current state:** 12/12 principles of excellence compliant. The Tools audit-bundle (externally validated to v1.8), the 2026-05-26 architecture challenge, and the Track A fix backlog (A0–A17) are all closed. The investor workstream (red-team copy fixes, the figures registry + B2B no-cap propagation, the F22 room-gate security fix, and the A3 numbers layer) shipped 2026-07-06. **~1,134 tests passing.**
+**Current state:** 12/12 principles of excellence compliant. The Tools audit-bundle (externally validated to v1.8), the 2026-05-26 architecture challenge, and the Track A fix backlog (A0–A17) are all closed. The investor workstream (red-team copy fixes, the figures registry + B2B no-cap propagation, the F22 room-gate security fix, and the A3 numbers layer) shipped 2026-07-06. The messaging/locale-consistency sweep (branch `messaging-locale-fixes`, 2026-07-08: B2B no-cap fee rows per D-005, per-market exit caps, EU post-IFR card-fees copy, locale diacritics repair, DE du-register, ES peninsular standardization, dead-copy prune, anchor-derived date labels, 10-doc public investor list, `/market` editorial claude-reviewed) was audited end-to-end — decisions D-MSG-1…10 in `docs/audit/MESSAGING_FIX_PLAN_2026-07-07.md`, do-not-regress entries in `docs/tech/implementation-notes.md`. **~1,136 tests passing.**
 
 - Full audit narrative + test-count progression: **`docs/audit/AUDIT_HISTORY.md`**
 - Live security findings ledger: `docs/audit/SECURITY_FINDINGS_2026-05.md`

@@ -3,7 +3,7 @@
     "headline": "Cada euro necesita una función.",
     "subheadline": "Las nóminas y el alquiler no pueden esperar. El resto no tiene por qué quedarse quieto.\n\ndiBoaS le da a tu empresa la oportunidad de poner a trabajar el efectivo parado, generando rendimiento cada día, en tus términos y bajo tu control.",
     "cta": "Ver cómo funciona",
-    "imageAlt": "Ilustracion de gestion de tesoreria empresarial",
+    "imageAlt": "Ilustración de gestión de tesorería empresarial",
     "trustBadges": {
       "wallet": {
         "label": "Tu dinero, tu cartera"
@@ -28,7 +28,7 @@
       "headline": "El colchón necesita reglas.",
       "body": "Toda empresa necesita dinero disponible.\n\nPero no todo euro tiene que estar en la misma cuenta y con la misma función.\n\nDefine un mínimo operativo. Separa lo que debe estar listo para nóminas, alquiler, IVA, proveedores y gastos próximos.\n\nLo que quede por encima puede revisarse.\n\nNo automáticamente. No sin riesgo. Con reglas.",
       "cta": "Revisar liquidez",
-      "imageAlt": "Gestion de tesoreria en el movil"
+      "imageAlt": "Gestión de tesorería en el móvil"
     }
   },
   "origin": {
@@ -53,7 +53,7 @@
       "rules": {
         "title": "Define el mínimo",
         "description": "Marca lo que debe estar listo para nóminas, alquiler, IVA, proveedores, colchón y gastos próximos.",
-        "imageAlt": "Define tus reglas y limites"
+        "imageAlt": "Define tus reglas y límites"
       },
       "works": {
         "title": "Revisa el excedente",
@@ -92,15 +92,15 @@
         "imageAlt": "Un escritorio con laptops y registros financieros impresos en revisión."
       }
     },
-    "transitionHook": "Pero aqui viene la parte que nadie mas esta haciendo."
+    "transitionHook": "Pero aquí viene la parte que nadie más está haciendo."
   },
   "fees": {
     "header": "Sin sorpresa en la letra pequeña.",
     "subtitle": "Costes claros antes de mover dinero de empresa.",
     "headers": {
-      "action": "Accion",
+      "action": "Acción",
       "diboas": "diBoaS",
-      "competitors": "Proveedores tipicos",
+      "competitors": "Proveedores típicos",
       "difference": "Diferencia",
       "example": "Ejemplo"
     },
@@ -127,8 +127,8 @@
         "example": "Pagar 500 € a un proveedor que usa diBoaS en dólares digitales: comisión diBoaS 0 €. Pagar 500 € a un proveedor externo: se aplica una salida del 0,48 % (2,40 €)."
       },
       "add": {
-        "action": "Anadir dinero",
-        "diboas": "{rate} (mín {min}, máx {max})",
+        "action": "Añadir dinero",
+        "diboas": "{rate} (mín {min}, sin límite)",
         "competitors": "Las comisiones de proveedores pueden variar",
         "difference": "Se muestra antes de confirmar",
         "example": "Añadir 10.000 €: comisión diBoaS de 48 €"
@@ -156,14 +156,14 @@
       },
       "cashOut": {
         "action": "Retirar",
-        "diboas": "{rate} (mín {min}, máx {max})",
+        "diboas": "{rate} (mín {min}, sin límite)",
         "competitors": "Comisiones, spreads y retrasos pueden variar",
         "difference": "Se muestra antes de confirmar",
         "example": "Retirar 10.000 €: comisión diBoaS de 48 €"
       }
     },
     "disclaimer": "*Se muestran las comisiones de diBoaS. Pueden aplicarse comisiones de terceros, proveedores de entrada y salida, redes, bancos, liquidación o revisiones de compliance, y se mostrarán cuando estén disponibles antes de confirmar.",
-    "pricingNote": "Comparaciones de precios basadas en tarifas publicas a febrero de 2026. Los rangos reflejan precios comunes entre los principales proveedores. El precio real de cada competidor varia segun proveedor, volumen y condiciones contractuales.",
+    "pricingNote": "Comparaciones de precios basadas en tarifas públicas a febrero de 2026. Los rangos reflejan precios comunes entre los principales proveedores. El precio real de cada competidor varía según proveedor, volumen y condiciones contractuales.",
     "example": "Un usuario de diBoaS te paga 1.000 € en dólares digitales: te quedas con 1.000 € en tu cuenta diBoaS. Retirar a tu banco es una salida (off-ramp): se aplica {cashOutRate}. Un pago con tarjeta es una entrada (on-ramp), con costes de tarjeta y de entrada mostrados antes de mover dinero.",
     "expandableToggle": "Sin comisiones ocultas. Sin saldo mínimo. Sin cargos mensuales. Ver todas las comisiones.",
     "footerLine": "Cada coste relevante debería verse antes de mover dinero de empresa.",
@@ -197,17 +197,9 @@
   "founder": {
     "header": "Adelaide ahorraba. El sistema explicaba poco.",
     "paragraphs": {
-      "versionA": [
-        "Creci viendo a mi abuela Adelaide navegar un sistema financiero que no estaba hecho para ella. Merecia mejores herramientas. Igual que cada propietario de negocio como tu.",
-        "diBoaS tiene su sede en Berlin, Alemania, construyendo para negocios en EEUU, la UE y Brasil. He pasado mas de 20 anos trabajando en Producto y Tecnologia en Brasil, EEUU, Japon y Alemania. Ahora estoy construyendo la herramienta financiera que desearia que cada pequeno negocio y startup tuviera."
-      ],
       "versionB": [
         "diBoaS empezó con mi abuela Adelaide. Ahorraba con disciplina. El sistema le daba poca explicación y casi ningún acceso a mejores opciones.",
         "Ese mismo patrón aparece en las empresas. Las comisiones se ven cuando miras de cerca. El colchón queda a menudo sin una función clara. Los equipos gestionan caja entre bancos, tarjetas, herramientas, hojas de cálculo y documentos para la gestoría que rara vez encajan bien. Después de 20 años creando productos en Brasil, Estados Unidos, Japón y Alemania, quise construir una capa de liquidez más clara: un lugar donde el dinero tiene una función, el riesgo tiene nombre y el control se queda con quienes responden por la empresa."
-      ],
-      "versionC": [
-        "Creci viendo a mi abuela Adelaide navegar un sistema financiero que no estaba hecho para ella. Merecia mejores herramientas. Igual que cada propietario de negocio como tu.",
-        "Estamos construyendo diBoaS desde Berlin, Alemania, para negocios en EEUU, la UE y Brasil. He pasado mas de 20 anos trabajando en Producto y Tecnologia en Brasil, EEUU, Japon y Alemania. Ahora estoy construyendo la herramienta financiera que desearia que cada pequeno negocio y startup tuviera."
       ]
     },
     "email": "Conectemos.",
@@ -231,13 +223,13 @@
   },
   "footer": {
     "copyright": "© 2026 diBoaS. Todos los derechos reservados.",
-    "riskDisclaimer": "diBoaS te conecta a sistemas de finanzas descentralizadas. Los retornos no estan garantizados. El rendimiento pasado no predice resultados futuros. Implica riesgos incluyendo vulnerabilidades de codigo, fluctuaciones de mercado y desafios de acceso. Usa solo fondos que puedas permitirte arriesgar. diBoaS no es un banco. No se aplica seguro de depositos.",
-    "micaArticle68": "El valor de los criptoactivos puede fluctuar. Puede perder parte o la totalidad de su dinero. Los criptoactivos no estan cubiertos por los sistemas de garantia de depositos.",
-    "micaArticle7": "Esta comunicacion de marketing sobre criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningun Estado miembro de la Union Europea. El oferente del criptoactivo es el único responsable del contenido de esta comunicacion de marketing sobre criptoactivos.",
-    "aiDisclosure": "Ciertos contenidos de esta plataforma, incluyendo analisis de mercado y materiales educativos, son generados o asistidos por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la información de forma independiente antes de tomar decisiones financieras.",
+    "riskDisclaimer": "diBoaS te conecta a sistemas de finanzas descentralizadas. Los retornos no están garantizados. El rendimiento pasado no predice resultados futuros. Implica riesgos incluyendo vulnerabilidades de código, fluctuaciones de mercado y desafíos de acceso. Usa solo fondos que puedas permitirte arriesgar. diBoaS no es un banco. No se aplica seguro de depósitos.",
+    "micaArticle68": "El valor de los criptoactivos puede fluctuar. Puede perder parte o la totalidad de su dinero. Los criptoactivos no están cubiertos por los sistemas de garantía de depósitos.",
+    "micaArticle7": "Esta comunicación de marketing sobre criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningún Estado miembro de la Unión Europea. El oferente del criptoactivo es el único responsable del contenido de esta comunicación de marketing sobre criptoactivos.",
+    "aiDisclosure": "Ciertos contenidos de esta plataforma, incluyendo análisis de mercado y materiales educativos, son generados o asistidos por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la información de forma independiente antes de tomar decisiones financieras.",
     "usDisclosure": "",
     "cvmWarning": "",
-    "fictionalResults": "Los ejemplos en esta pagina son ilustrativos y no representan negocios reales ni resultados reales. Las proyecciones de las calculadoras se basan en escenarios hipoteticos y medias historicas. Los resultados reales variaran.",
+    "fictionalResults": "Los ejemplos en esta página son ilustrativos y no representan negocios reales ni resultados reales. Las proyecciones de las calculadoras se basan en escenarios hipotéticos y medias históricas. Los resultados reales variarán.",
     "cryptoDisclosure": "Los criptoactivos son altamente volátiles. Puede perder parte o la totalidad de su inversión. El rendimiento pasado no es indicativo de resultados futuros.",
     "closing": "diBoaS es una plataforma tecnológica, no un banco ni un asesor financiero. Todas las decisiones financieras son su propia responsabilidad.",
     "nav": {
@@ -248,9 +240,9 @@
       "help": "Ayuda",
       "strategies": "Estrategias",
       "protocols": "Protocolos",
-      "privacy": "Politica de Privacidad",
-      "terms": "Terminos de Servicio",
-      "cookies": "Politica de Cookies"
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio",
+      "cookies": "Política de Cookies"
     },
     "tagline": "El efectivo de tu empresa merece reglas."
   },
@@ -260,21 +252,21 @@
       "positionIntro": "Tu negocio es:",
       "shareIntro": "Comparte con otros negocios",
       "shareBenefit": "Comparte para que otros negocios obtengan acceso anticipado",
-      "shareExplanation": "Cuanto antes lancemos, antes esto se hara realidad.",
+      "shareExplanation": "Cuanto antes lancemos, antes esto se hará realidad.",
       "referralLinkLabel": "Tu enlace de referido empresarial:",
       "copy": "Copiar enlace",
-      "copied": "Copiado!",
+      "copied": "¡Copiado!",
       "dreamModeCta": "Probar el Dream Mode →"
     },
     "tier": {
       "badge": {
-        "foundingMember": "Eres un Negocio Fundador!",
-        "earlyMember": "Eres un Negocio Temprano!"
+        "foundingMember": "¡Eres un Negocio Fundador!",
+        "earlyMember": "¡Eres un Negocio Temprano!"
       },
       "explanation": {
-        "foundingMember": "Estas entre los primeros 24 negocios. Comparte tu enlace — tienes 5 invitaciones para otros negocios.",
+        "foundingMember": "Estás entre los primeros 24 negocios. Comparte tu enlace — tienes 5 invitaciones para otros negocios.",
         "earlyMember": "Invitado por un Negocio Fundador. Comparte tu enlace para ayudar a otros negocios a obtener acceso anticipado.",
-        "priorityWaitlist": "Estas en la lista de espera prioritaria. Comparte tu enlace para subir y ayudar a otros negocios."
+        "priorityWaitlist": "Estás en la lista de espera prioritaria. Comparte tu enlace para subir y ayudar a otros negocios."
       }
     },
     "returningUser": {
@@ -318,7 +310,7 @@
     "description": "Nóminas. Alquiler. IVA. Proveedores. Colchón. diBoaS ayuda a las empresas a separar liquidez por finalidad, revisar estrategias y ver costes, disponibilidad y riesgo antes de mover dinero.",
     "ogTitle": "Cada euro necesita una función.",
     "ogDescription": "diBoaS ayuda a las empresas a separar liquidez operativa, pagos y saldos parados con costes, disponibilidad y riesgo visibles antes de mover dinero.",
-    "keywords": "gestion de tesoreria, finanzas para startups, retornos, capital operativo, pagos empresariales, fintech B2B"
+    "keywords": "gestión de tesorería, finanzas para startups, retornos, capital operativo, pagos empresariales, fintech B2B"
   },
   "startupTreasury": {
     "eyebrow": "PARA STARTUPS FINANCIADAS",

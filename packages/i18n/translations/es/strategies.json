@@ -116,7 +116,7 @@
         "typicalReturn": "7-11% anual",
         "bumpiness": "Olas moderadas. En el peor momento, tu saldo bajó temporalmente un 11% antes de recuperarse."
       },
-      "bestFor": "Personas ahorrando para una meta que pueden manejar ver su saldo bajar temporalmente.",
+      "bestFor": "Personas ahorrando para una meta que pueden soportar ver su saldo bajar temporalmente.",
       "riskLevel": "Bajo-Medio. Tu saldo se moverá con los precios de activos digitales."
     },
     "patientBuilder": {
@@ -415,7 +415,7 @@
       "safe": {
         "question": "¿Mi dinero está seguro?",
         "answerA": "Tu dinero está protegido por ti. Tu monedero, tus claves. Nadie en diBoaS puede acceder a tus fondos sin tu autorización.\n\nDicho esto, esto no es una cuenta bancaria. Tus fondos trabajan a través de sistemas automatizados construidos sobre código. El valor puede fluctuar, y podrías perder parte o toda tu inversión. No existe seguro de depósitos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre.",
-        "answerB": "Tu dinero lo proteges tú. Tu billetera, tus claves, y diBoaS no guarda ninguna parte de ellas. Si necesitas recuperar el acceso, eso pasa por un socio independiente, no por diBoaS. Nadie en diBoaS puede mover tu dinero.\n\nDicho esto, esto no es una cuenta bancaria. Tus fondos trabajan a través de sistemas automatizados construidos sobre código. El valor puede fluctuar, y podrías perder parte o toda tu inversión. No existe seguro de depósitos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre."
+        "answerB": "Tu dinero lo proteges tú. Tu cartera, tus claves, y diBoaS no guarda ninguna parte de ellas. Si necesitas recuperar el acceso, eso pasa por un socio independiente, no por diBoaS. Nadie en diBoaS puede mover tu dinero.\n\nDicho esto, esto no es una cuenta bancaria. Tus fondos trabajan a través de sistemas automatizados construidos sobre código. El valor puede fluctuar, y podrías perder parte o toda tu inversión. No existe seguro de depósitos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre."
       },
       "loseEverything": {
         "question": "¿Puedo perderlo todo?",
@@ -426,20 +426,6 @@
         "answer": "Una cuenta de ahorro bancaria está asegurada por el Fondo de Garantía de Depósitos (hasta 100.000 EUR por entidad). Tu dinero genera un tipo fijo. El banco lo controla.\n\nLas estrategias de diBoaS usan sistemas automatizados de préstamo y staking. Los retornos son variables. Tu dinero no está asegurado. Tú lo controlas a través de tu propio monedero.\n\nLa contrapartida: retornos potencialmente mayores, pero aceptas el riesgo que conlleva un tipo de sistema diferente."
       }
     }
-  },
-  "footer": {
-    "disclaimer": "Todos los datos de rentabilidad se basan en análisis histórico (mayo 2022 - diciembre 2025) y miles de simulaciones Monte Carlo. Rentabilidades pasadas no garantizan resultados futuros. Tu dinero se coloca en sistemas automatizados que conllevan riesgo técnico, riesgo de mercado, riesgo de liquidez y riesgo de desvinculación de stablecoins. Las estrategias de crecimiento conllevan riesgo adicional de volatilidad de precio. Las estrategias de crecimiento usan protocolos en la blockchain Solana; eventos que afecten a Solana específicamente podrían impactar todas las estrategias de crecimiento simultáneamente. Usa solo dinero que puedas permitirte perder. diBoaS no es un banco y tus fondos no están asegurados.",
-    "micaArticle68": "El valor de los criptoactivos puede fluctuar. Puede perder la totalidad o parte de su dinero invertido. Los criptoactivos no están cubiertos por los sistemas de garantía de depósitos.",
-    "micaArticle7": "Esta comunicación comercial relativa a criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningún Estado miembro de la Unión Europea. El emisor del criptoactivo es el único responsable del contenido de esta comunicación comercial relativa a criptoactivos.",
-    "aiDisclosure": "Ciertos contenidos de esta plataforma, incluyendo análisis de mercado y materiales educativos, son generados o asistidos por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la información de forma independiente antes de tomar decisiones financieras.",
-    "fictionalResults": "Los retornos proyectados, las estimaciones de probabilidad y los resultados de simulación en esta página son ilustrativos y no representan resultados garantizados. Las proyecciones de la calculadora se basan en escenarios hipotéticos y medias históricas. Los resultados reales variarán.",
-    "usDisclosure": "",
-    "professionalAdvice": "La información de esta página tiene fines exclusivamente educativos e informativos. No constituye asesoramiento de inversión, asesoramiento financiero ni ninguna otra forma de asesoramiento profesional. Considere consultar a un asesor financiero autorizado antes de tomar decisiones de inversión."
-  },
-  "cvmWarnings": {
-    "warning1": "",
-    "warning2": "",
-    "warning3": ""
   },
   "sections": {
     "faq": {

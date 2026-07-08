@@ -50,9 +50,10 @@
       "value": { "en": "$25", "pt-BR": "US$25" },
       "source": "FEES.md",
       "feesRow": "Sell / Close",
-      "feesCanonical": ["$25"],
-      "asOf": "2026-07-05",
-      "status": "active"
+      "feesCanonical": ["$25", "€25", "R$25"],
+      "asOf": "2026-07-07",
+      "status": "active",
+      "note": "exit caps are per-market-currency since 2026-07-07 (D-MSG-6); investor docs keep USD-denominated notation per NUMBERS_REGISTER A2, so the pt-BR value stays US$25. Product surfaces (fee tables) already render the cap per-locale via formatCurrency."
     },
     "raise.cap": {
       "value": { "en": "€2.5M", "pt-BR": "€2,5M" },

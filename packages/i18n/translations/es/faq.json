@@ -44,7 +44,7 @@
       "answer": "Tú controlas tu cartera. Eso importa, pero no elimina el riesgo.\n\ndiBoaS no es una cuenta bancaria. Los criptoactivos no están cubiertos por el Fondo de Garantía de Depósitos. Los dólares digitales, junto con la tecnología y las empresas externas que mueven y guardan tu dinero, pueden fallar o perder valor.\n\nPuedes perder parte o todo tu dinero.\n\nMostramos la oportunidad y el riesgo antes de que decidas."
     },
     "safetyBusiness": {
-      "question": "Esta seguro mi dinero?",
+      "question": "¿Está seguro mi dinero?",
       "answer": "Tu empresa guarda sus propios fondos. Tu cartera, tus claves. Nadie en diBoaS puede mover tus fondos sin tu autorización.\n\nDicho esto, no es una cuenta bancaria ni un producto de depósito. Los fondos funcionan a través de carteras de dólares digitales, redes, proveedores de entrada y salida y terceros, que pueden fallar, perder valor o no estar disponibles. El valor puede fluctuar y tu empresa podría perder parte o la totalidad de su dinero. No hay seguro de depósitos.\n\ndiBoaS muestra el camino, el coste, la liquidez y el riesgo antes de que tu empresa decida."
     },
     "withdraw": {
@@ -61,22 +61,22 @@
     },
     "lostPhone": {
       "question": "¿Y si pierdo mi móvil?",
-      "answer": "Cuando diBoaS lance su aplicación, tu billetera usará seguridad avanzada de claves para proteger contra la pérdida del dispositivo. Nuestra arquitectura está diseñada para la recuperación de billetera sin frases semilla ni respaldos de 24 palabras. Tu dinero no desaparecerá porque tu teléfono lo hizo."
+      "answer": "Cuando diBoaS lance su aplicación, tu cartera usará seguridad avanzada de claves para proteger contra la pérdida del dispositivo. Nuestra arquitectura está diseñada para la recuperación de cartera sin frases semilla ni respaldos de 24 palabras. Tu dinero no desaparecerá porque tu teléfono lo hizo."
     },
     "whatIsBalance": {
       "question": "¿Qué es mi saldo realmente?",
       "answer": "Tu dinero disponible vive como dólares digitales, mostrado en tu moneda local dentro de diBoaS. El dinero disponible y el invertido se muestran por separado, para que siempre sepas qué está listo y qué está trabajando."
     },
     "liquidity": {
-      "question": "Puedo acceder a mi dinero en cualquier momento?",
-      "answer": "Si. Sin bloqueos. Tu pones el mínimo: \"siempre tener 50.000 EUR liquidos.\" Solo ponemos a trabajar lo que esta por encima.\n\nNecesitas efectivo? Un toque. Lo procesamos al instante. Los tiempos de transferencia bancaria pueden variar. Sin penalizaciones. Sin preguntas."
+      "question": "¿Puedo acceder a mi dinero en cualquier momento?",
+      "answer": "Sí. Sin bloqueos. Tú pones el mínimo: \"siempre tener 50.000 EUR líquidos.\" Solo ponemos a trabajar lo que está por encima.\n\n¿Necesitas efectivo? Un toque. Lo procesamos al instante. Los tiempos de transferencia bancaria pueden variar. Sin penalizaciones. Sin preguntas."
     },
     "whyCantTouch": {
-      "question": "Por que diBoaS no puede tocar mi dinero?",
-      "answer": "Ese es precisamente el punto de como estamos construidos.\n\nFinanzas tradicionales: depositas dinero, pasa a ser del banco, y te deben un saldo.\n\ndiBoaS: tu dinero se queda en tu propia cartera. Proporcionamos el software que te ayuda a desplegarlo en sistemas que generan retornos. Pero nunca tenemos acceso para moverlo nosotros mismos.\n\nSi diBoaS quiebra, tu dinero sigue siendo tuyo. Nadie en diBoaS puede mover tus fondos. Cada transacción requiere tu aprobacion.\n\nMas control para ti. Menos riesgo nuestro."
+      "question": "¿Por qué diBoaS no puede tocar mi dinero?",
+      "answer": "Ese es precisamente el punto de cómo estamos construidos.\n\nFinanzas tradicionales: depositas dinero, pasa a ser del banco, y te deben un saldo.\n\ndiBoaS: tu dinero se queda en tu propia cartera. Proporcionamos el software que te ayuda a desplegarlo en sistemas que generan retornos. Pero nunca tenemos acceso para moverlo nosotros mismos.\n\nSi diBoaS quiebra, tu dinero sigue siendo tuyo. Nadie en diBoaS puede mover tus fondos. Cada transacción requiere tu aprobación.\n\nMás control para ti. Menos riesgo nuestro."
     },
     "risk": {
-      "question": "Cual es el riesgo real?",
+      "question": "¿Cuál es el riesgo real?",
       "answer": "El riesgo es real.\n\ndiBoaS no es una cuenta bancaria ni un producto de depósito. Los criptoactivos y las estrategias no están cubiertos por sistemas de garantía de depósitos.\n\nLos fondos de la empresa pueden pasar por carteras, protocolos, smart contracts, redes, proveedores de entrada y salida y terceros. Estos pueden fallar, perder valor, no estar disponibles o crear restricciones de liquidez.\n\nTu empresa puede perder dinero.\n\ndiBoaS muestra el camino, los costes, la disponibilidad y el riesgo antes de que tu empresa decida."
     },
     "canLoseEverything": {
@@ -88,7 +88,7 @@
       "answer": "diBoaS es software, no una red de oficinas.\n\nNo cobramos cuota mensual y no aplicamos ningún recargo oculto sobre lo que gana tu dinero. diBoaS gana con comisiones claras de movimiento, mostradas antes de confirmar.\n\nAun así, pueden aplicarse comisiones de terceros, proveedores de entrada y salida, redes, bancos o cambio de divisa."
     },
     "catch": {
-      "question": "Cual es la trampa?",
+      "question": "¿Cuál es la trampa?",
       "answer": "Cobramos comisiones cuando el dinero se mueve, mostradas antes de confirmar. Recibir dólares digitales de otro usuario de diBoaS es 0 €; un pago con tarjeta se procesa como entrada (on-ramp). Iniciar una estrategia es gratis para empezar. {sellRate} cuando vendes o cierras una posición. {cashOutRate} cuando retiras.\n\nSi otro usuario de diBoaS te paga 10.000 € en dólares digitales, retenemos 0 €. Si inicias una estrategia con 10.000 €, retenemos 0 € para empezar. Si vendes 10.000 €, retenemos {sellExampleFee}. Si no ganas nada y no mueves nada, nosotros no ganamos nada.\n\nTambién pueden aplicarse comisiones de terceros, proveedores de entrada y salida, redes, bancos o cambio de divisa."
     },
     "justTransfers": {
@@ -128,15 +128,15 @@
       "answer": "Una cuenta de ahorro bancaria está asegurada por el Fondo de Garantía de Depósitos (hasta 100.000 EUR por entidad). Tu dinero genera un tipo fijo. El banco lo controla.\n\nLas estrategias de diBoaS usan sistemas automatizados de préstamo y staking. Los retornos son variables. Tu dinero no está asegurado. Tú lo controlas a través de tu propio monedero.\n\nLa contrapartida: retornos potencialmente mayores, pero aceptas el riesgo que conlleva un tipo de sistema diferente."
     },
     "smbOrStartup": {
-      "question": "Es esto para pequenas empresas o startups?",
+      "question": "¿Es esto para pequeñas empresas o startups?",
       "answer": "Para ambas. Una pequeña empresa que acepta pagos con tarjeta quiere ver costes más claros antes de mover dinero. Una startup con liquidez en caja quiere reglas para lo que debe estar disponible y lo que puede moverse.\n\nLas herramientas son las mismas. Solo cambian las preguntas sobre la caja."
     },
     "payments": {
-      "question": "Como funcionan los pagos instantaneos?",
+      "question": "¿Cómo funcionan los pagos instantáneos?",
       "answer": "Las transferencias tradicionales pasan por bancos corresponsales. Tu banco, su banco, quizá otro banco, y luego el banco del receptor. Cada paso lleva tiempo y cobra comisiones.\n\nCon diBoaS, los pagos en dólares digitales van de forma más directa, de tu cartera a la suya, donde esté soportado.\n\nLa disponibilidad puede depender de la configuración de la cartera, redes soportadas, proveedores de entrada y salida, contrapartes, regulación local, soporte del proveedor y revisiones de compliance. Antes de mover dinero, diBoaS muestra la vía disponible y los costes esperados cuando estén disponibles."
     },
     "compliance": {
-      "question": "Que pasa con el cumplimiento normativo y los impuestos?",
+      "question": "¿Qué pasa con el cumplimiento normativo y los impuestos?",
       "answer": "diBoaS se está construyendo para operaciones reales.\n\nEso incluye historial de transacciones, extractos, datos exportables e informes pensados para apoyar contabilidad, impuestos, auditoría y control interno.\n\nTu empresa sigue siendo responsable de su propia contabilidad, fiscalidad y obligaciones legales y regulatorias."
     },
     "sendMoney": {
@@ -144,40 +144,40 @@
       "answer": "Hoy, puedes enviar dólares digitales a otros usuarios de diBoaS donde esté soportado. Pagar a una cuenta externa se procesa como una salida (off-ramp), con los costes mostrados antes de mover dinero. A medida que la red crece, también lo hace a quién puedes alcanzar."
     },
     "whereMoneyGoes": {
-      "question": "A donde va mi dinero exactamente?",
+      "question": "¿A dónde va mi dinero exactamente?",
       "answer": "Cuando eliges una estrategia, los fondos pueden moverse a través de protocolos de dólar digital establecidos, redes, proveedores de entrada y salida y terceros.\n\nTodos los detalles, incluyendo nombres, historial y nuestros criterios de selección, están publicados en nuestras páginas de Estrategias y Protocolos. Sin necesidad de registro.\n\nEstos pueden fallar, perder valor o no estar disponibles, por eso diBoaS muestra el camino, el coste, la liquidez y el riesgo antes de mover dinero."
     },
     "protocolsListLimit": {
-      "question": "Por que no listais todos los protocolos DeFi?",
+      "question": "¿Por qué no listáis todos los protocolos DeFi?",
       "answer": "Hay miles de protocolos DeFi. Preferimos listar 25 que hemos investigado a fondo a 200 que no conocemos."
     },
     "protocolsUpdateFrequency": {
-      "question": "Con que frecuencia actualizais esta lista?",
-      "answer": "Monitorizamos todos los protocolos listados de forma continua. Si un protocolo tiene un incidente de seguridad, cambio regulatorio o problema operativo significativo, actualizamos esta página. También revisamos la lista completa trimestralmente para decidir si anadir o eliminar protocolos."
+      "question": "¿Con qué frecuencia actualizáis esta lista?",
+      "answer": "Monitorizamos todos los protocolos listados de forma continua. Si un protocolo tiene un incidente de seguridad, cambio regulatorio o problema operativo significativo, actualizamos esta página. También revisamos la lista completa trimestralmente para decidir si añadir o eliminar protocolos."
     },
     "protocolsRequest": {
-      "question": "Puedo solicitar que se anade un protocolo?",
-      "answer": "Si. Escribe a hello@diboas.com con tu sugerencia y por que crees que debería incluirse. Revisamos cada solicitud según nuestros criterios de seleccion."
+      "question": "¿Puedo solicitar que se añade un protocolo?",
+      "answer": "Sí. Escribe a hello@diboas.com con tu sugerencia y por qué crees que debería incluirse. Revisamos cada solicitud según nuestros criterios de selección."
     },
     "protocolsEndorsement": {
-      "question": "Estar listado aquí significa que diBoaS recomienda estos protocolos?",
-      "answer": "No. Estar listado significa que los hemos investigado, cumplen nuestros criterios y los usamos en nuestras estrategias. No estamos afiliados con ningun protocolo. Su inclusion no implica que ellos respalden a diBoaS, y nuestra lista no constituye una recomendación de usarlos directamente."
+      "question": "¿Estar listado aquí significa que diBoaS recomienda estos protocolos?",
+      "answer": "No. Estar listado significa que los hemos investigado, cumplen nuestros criterios y los usamos en nuestras estrategias. No estamos afiliados con ningún protocolo. Su inclusión no implica que ellos respalden a diBoaS, y nuestra lista no constituye una recomendación de usarlos directamente."
     },
     "protocolHacked": {
-      "question": "Que pasa si un protocolo es hackeado?",
-      "answer": "Depende de la gravedad. Para incidentes menores que se resuelven rapidamente, podemos mantener el protocolo listado con una nota de advertencia actualizada. Para exploits graves donde los fondos de usuarios se pierden permanentemente, eliminamos el protocolo de nuestra lista y ajustamos las estrategias afectadas. Si el exploit afecto a una versión anterior que no usamos, podemos mantener el protocolo listado con una advertencia clara. Consulta nuestros criterios de seleccion arriba para detalles. Siempre comunicaremos los cambios a nuestros usuarios."
+      "question": "¿Qué pasa si un protocolo es hackeado?",
+      "answer": "Depende de la gravedad. Para incidentes menores que se resuelven rápidamente, podemos mantener el protocolo listado con una nota de advertencia actualizada. Para exploits graves donde los fondos de usuarios se pierden permanentemente, eliminamos el protocolo de nuestra lista y ajustamos las estrategias afectadas. Si el exploit afectó a una versión anterior que no usamos, podemos mantener el protocolo listado con una advertencia clara. Consulta nuestros criterios de selección arriba para detalles. Siempre comunicaremos los cambios a nuestros usuarios."
     },
     "protocolsWarningBadges": {
-      "question": "Por que algunos protocolos tienen badges de advertencia?",
-      "answer": "El badge de advertencia ambar significa que el protocolo ha tenido un incidente de seguridad notable, problema regulatorio o un perfil de riesgo elevado comparado con sus pares. Incluimos estos protocolos porque siguen cumpliendo nuestros criterios generales, pero queremos que veas el panorama completo. Los detalles están en cada tarjeta."
+      "question": "¿Por qué algunos protocolos tienen badges de advertencia?",
+      "answer": "El badge de advertencia ámbar significa que el protocolo ha tenido un incidente de seguridad notable, problema regulatorio o un perfil de riesgo elevado comparado con sus pares. Incluimos estos protocolos porque siguen cumpliendo nuestros criterios generales, pero queremos que veas el panorama completo. Los detalles están en cada tarjeta."
     },
     "tvlMeaning": {
-      "question": "Que es TVL y por que importa?",
-      "answer": "TVL significa Total Value Locked (Valor Total Bloqueado). Es la cantidad total de dinero depositada en un protocolo por todos los usuarios a nivel mundial. Un TVL más alto generalmente significa que más personas confian en el sistema con dinero real. No es garantia de seguridad, pero es una senal que tenemos en cuenta."
+      "question": "¿Qué es TVL y por qué importa?",
+      "answer": "TVL significa Total Value Locked (Valor Total Bloqueado). Es la cantidad total de dinero depositada en un protocolo por todos los usuarios a nivel mundial. Un TVL más alto generalmente significa que más personas confían en el sistema con dinero real. No es garantía de seguridad, pero es una señal que tenemos en cuenta."
     },
     "protocolsDirectInteraction": {
-      "question": "Necesito interactuar con estos protocolos yo mismo?",
-      "answer": "No. diBoaS gestiona todas las interacciones con los protocolos en tu nombre cuando eliges una estrategia. No necesitas crear cuentas en ningun protocolo, gestionar wallets en diferentes blockchains ni entender los detalles técnicos. Esta página existe por transparencia, no porque necesites hacer nada con ella."
+      "question": "¿Necesito interactuar con estos protocolos yo mismo?",
+      "answer": "No. diBoaS gestiona todas las interacciones con los protocolos en tu nombre cuando eliges una estrategia. No necesitas crear cuentas en ningún protocolo, gestionar wallets en diferentes blockchains ni entender los detalles técnicos. Esta página existe por transparencia, no porque necesites hacer nada con ella."
     }
   }
 }
