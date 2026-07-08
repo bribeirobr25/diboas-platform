@@ -168,6 +168,23 @@ export function CurrencyDepreciationCalculator() {
     [effectiveMode, form.amount, form.currency, snapshot]
   );
 
+  // Vintage labels derived from the locked anchor window (Data Vintage P-4/P-6):
+  // the "Now (<month year>)" label and the "<n> years" span must equal the
+  // series' verified end anchor — never a hand-typed date in the i18n string.
+  const retrospectiveVintage = useMemo(() => {
+    if (!retrospectiveResult) return null;
+    const start = new Date(retrospectiveResult.anchorStart);
+    const end = new Date(retrospectiveResult.anchorEnd);
+    return {
+      asOfMonth: new Intl.DateTimeFormat(localeKey, {
+        month: 'long',
+        year: 'numeric',
+        timeZone: 'UTC',
+      }).format(end),
+      years: Math.round((end.getTime() - start.getTime()) / (365.25 * 24 * 60 * 60 * 1000)),
+    };
+  }, [retrospectiveResult, localeKey]);
+
   // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
   useCalculatorAnalytics(
     'currency-depreciation',
@@ -444,7 +461,7 @@ export function CurrencyDepreciationCalculator() {
           );
         })()}
 
-      {effectiveMode === 'retrospective' && retrospectiveResult && (
+      {effectiveMode === 'retrospective' && retrospectiveResult && retrospectiveVintage && (
         <div className={styles.resultsGrid}>
           <div className={styles.resultCardCash}>
             <p className={styles.resultLabel}>{t('output.retrospectiveThenLabel')}</p>
@@ -461,7 +478,9 @@ export function CurrencyDepreciationCalculator() {
             </p>
           </div>
           <div className={styles.resultCardBank}>
-            <p className={styles.resultLabel}>{t('output.retrospectiveNowLabel')}</p>
+            <p className={styles.resultLabel}>
+              {t('output.retrospectiveNowLabel', { asOfMonth: retrospectiveVintage.asOfMonth })}
+            </p>
             <p className={styles.resultValueMuted}>
               {formatCurrency(retrospectiveResult.usdValueNow, usdLocale, {
                 maximumFractionDigits: 0,
@@ -483,6 +502,7 @@ export function CurrencyDepreciationCalculator() {
               {t('output.retrospectiveLossNote', {
                 currency,
                 cagr: (retrospectiveResult.historicalCagr * 100).toFixed(2),
+                years: retrospectiveVintage.years,
               })}
             </p>
             {/* FX-16 Phase 2 step 4 baseline (2026-05-26): confidence map

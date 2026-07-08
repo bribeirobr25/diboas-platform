@@ -32,6 +32,11 @@ import type {
  * `SHIPPED_TOOLS` ↔ `TOOL_DESCRIPTORS` parity without crossing the
  * `app/` ↔ `lib/` boundary (C40 close).
  */
+// NOTE (editor trap, 2026-07-07): the /tools landing page GROUPS cards by
+// `TOOL_DESCRIPTORS[key].section` (grow/protect/target/business), NOT by this
+// array's order. `SHIPPED_TOOLS` order only breaks ties within a section and
+// feeds the registry parity test — reordering it will not move a card between
+// sections.
 export const SHIPPED_TOOLS: ReadonlyArray<ToolKey> = [
   // Tier 1 (6C)
   'compound-interest',

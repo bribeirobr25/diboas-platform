@@ -156,50 +156,62 @@
       "docs": [
         {
           "num": "01",
-          "title": "Business Plan",
-          "summary": "One-page overview: product, model, market, and the raise.",
+          "title": "Investment Summary",
+          "summary": "The one-screen decision page: the ask, the terms, break-even, validation targets, and status — the whole room at a glance.",
           "status": "available"
         },
         {
           "num": "02",
-          "title": "Investor FAQ",
-          "summary": "Blunt answers on economics, regulation, risk, and team.",
+          "title": "Business Plan",
+          "summary": "One-page investor overview: product, problem, model, market sequence, go-to-market, raise paths, and key model risks.",
           "status": "available"
         },
         {
           "num": "03",
-          "title": "Use of Funds",
-          "summary": "What the capital funds — and what it must prove.",
+          "title": "Investor FAQ",
+          "summary": "Detailed investor Q&A with blunt answers on unit economics, regulation, custody, traction, moat, team, deal structure, and unresolved risks.",
           "status": "available"
         },
         {
           "num": "04",
-          "title": "Revenue Model Summary",
-          "summary": "ARPU, break-even, market sizing, and scenarios.",
+          "title": "Pitch Deck",
+          "summary": "Short narrative deck for first conversations.",
           "status": "available"
         },
         {
           "num": "05",
-          "title": "Regulatory Position Summary",
-          "summary": "Non-custodial design and jurisdiction-by-jurisdiction gates.",
+          "title": "Use of Funds",
+          "summary": "What the lean path funds, what the larger path buys down, and what milestones the capital is meant to prove.",
           "status": "available"
         },
         {
           "num": "06",
-          "title": "Product Roadmap",
-          "summary": "What is live, and what the raise builds, in order.",
+          "title": "Revenue Model Summary",
+          "summary": "Consumer ARPU, B2B ARPU, break-even logic, first metrics to validate, and what breaks the model.",
           "status": "available"
         },
         {
           "num": "07",
-          "title": "Fees Summary",
-          "summary": "Movement fees, caps, and where diBoaS charges $0.",
+          "title": "Regulatory Position Summary",
+          "summary": "Non-custodial architecture, jurisdiction-specific gates, EU risk, Brazil partner dependency, and US and Brazil user-to-user transfer opinions.",
           "status": "available"
         },
         {
           "num": "08",
+          "title": "Product Roadmap",
+          "summary": "What is live, what is specified, what the raise funds, and what comes after launch.",
+          "status": "available"
+        },
+        {
+          "num": "09",
+          "title": "Fees Summary",
+          "summary": "Canonical fee structure, fee caps, pass-through costs, and where diBoaS charges $0.",
+          "status": "available"
+        },
+        {
+          "num": "10",
           "title": "Technical Architecture Summary",
-          "summary": "Wallet, custody model, and provider dependencies.",
+          "summary": "Wallet architecture, provider dependencies, non-custodial flow, recovery model, and technical risk areas.",
           "status": "in-preparation"
         }
       ],
