@@ -1,7 +1,7 @@
 /**
  * useWaitlistStats Hook
  *
- * Shared hook for waitlist stats consumed by SocialProofSection and WaitlistSection.
+ * Shared hook for waitlist stats consumed by WaitlistSection.
  * Single fetch with sessionStorage cache (5-min TTL) and real-time event updates.
  */
 

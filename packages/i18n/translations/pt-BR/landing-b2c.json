@@ -191,38 +191,8 @@
     "comparison": {
       "ariaLabel": "Tabela comparativa de rendimentos entre poupança, CDB, Tesouro Direto e diBoaS"
     },
-    "goalExamples": {
-      "ariaLabel": "Exemplos de metas com possíveis resultados de economia"
-    },
-    "sidePocket": {
-      "ariaLabel": "Pausa visual"
-    },
-    "originStory": {
-      "ariaLabel": "História de origem, por que o diBoaS existe"
-    },
-    "howItWorks": {
-      "ariaLabel": "Como o diBoaS funciona, 4 cards de funcionalidades"
-    },
-    "howItWorksDetailed": {
-      "ariaLabel": "Explicação detalhada de como o diBoaS funciona"
-    },
     "feeTable": {
       "ariaLabel": "Tabela completa de transparência de taxas"
-    },
-    "honestCatch": {
-      "ariaLabel": "Qual é a pegadinha, transparência honesta"
-    },
-    "techDetails": {
-      "ariaLabel": "Detalhes técnicos da arquitetura do diBoaS"
-    },
-    "demo": {
-      "ariaLabel": "Seção de demonstração interativa"
-    },
-    "socialProof": {
-      "ariaLabel": "Membros fundadores prova social"
-    },
-    "founder": {
-      "ariaLabel": "Sobre o fundador do diBoaS"
     },
     "waitlist": {
       "ariaLabel": "Seção de cadastro na lista de espera"

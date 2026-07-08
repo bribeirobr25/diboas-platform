@@ -191,38 +191,8 @@
     "comparison": {
       "ariaLabel": "Tabla comparativa de rendimientos entre bancos, neobancos, bonos del estado y diBoaS"
     },
-    "goalExamples": {
-      "ariaLabel": "Ejemplos de metas con posibles resultados de ahorro"
-    },
-    "sidePocket": {
-      "ariaLabel": "Pausa visual"
-    },
-    "originStory": {
-      "ariaLabel": "Historia de origen, por qué existe diBoaS"
-    },
-    "howItWorks": {
-      "ariaLabel": "Cómo funciona diBoaS, 4 tarjetas de funciones"
-    },
-    "howItWorksDetailed": {
-      "ariaLabel": "Explicación detallada de cómo funciona diBoaS"
-    },
     "feeTable": {
       "ariaLabel": "Tabla completa de transparencia de comisiones"
-    },
-    "honestCatch": {
-      "ariaLabel": "Dónde está la trampa, transparencia honesta"
-    },
-    "techDetails": {
-      "ariaLabel": "Detalles técnicos de la arquitectura de diBoaS"
-    },
-    "demo": {
-      "ariaLabel": "Sección de demostración interactiva"
-    },
-    "socialProof": {
-      "ariaLabel": "Miembros fundadores prueba social"
-    },
-    "founder": {
-      "ariaLabel": "Sobre el fundador de diBoaS"
     },
     "waitlist": {
       "ariaLabel": "Sección de inscripción en la lista de espera"

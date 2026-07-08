@@ -191,38 +191,8 @@
     "comparison": {
       "ariaLabel": "Vergleichstabelle mit Renditen von Banken, Neobanken, Staatsanleihen und diBoaS"
     },
-    "goalExamples": {
-      "ariaLabel": "Zielbasierte Beispiele mit möglichen Sparergebnissen"
-    },
-    "sidePocket": {
-      "ariaLabel": "Visuelle Atempause"
-    },
-    "originStory": {
-      "ariaLabel": "Entstehungsgeschichte, warum diBoaS existiert"
-    },
-    "howItWorks": {
-      "ariaLabel": "Wie diBoaS funktioniert, 4 Funktionskarten"
-    },
-    "howItWorksDetailed": {
-      "ariaLabel": "Detaillierte Erklärung, wie diBoaS funktioniert"
-    },
     "feeTable": {
       "ariaLabel": "Vollständige Gebührentransparenztabelle"
-    },
-    "honestCatch": {
-      "ariaLabel": "Wo ist der Haken, ehrliche Transparenz"
-    },
-    "techDetails": {
-      "ariaLabel": "Technische Details zur diBoaS-Architektur"
-    },
-    "demo": {
-      "ariaLabel": "Interaktiver Demo-Bereich"
-    },
-    "socialProof": {
-      "ariaLabel": "Gründungsmitglieder Social Proof"
-    },
-    "founder": {
-      "ariaLabel": "Über den Gründer von diBoaS"
     },
     "waitlist": {
       "ariaLabel": "Wartelisten-Anmeldung"

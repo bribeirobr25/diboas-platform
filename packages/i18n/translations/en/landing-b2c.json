@@ -191,38 +191,8 @@
     "comparison": {
       "ariaLabel": "Comparison table showing returns across banks, neobanks, treasuries, and diBoaS"
     },
-    "goalExamples": {
-      "ariaLabel": "Goal-based examples showing potential savings outcomes"
-    },
-    "sidePocket": {
-      "ariaLabel": "Side-pocket breathing strip"
-    },
-    "originStory": {
-      "ariaLabel": "Origin story, why diBoaS exists"
-    },
-    "howItWorks": {
-      "ariaLabel": "How diBoaS works, 4 feature cards"
-    },
-    "howItWorksDetailed": {
-      "ariaLabel": "Detailed explanation of how diBoaS works"
-    },
     "feeTable": {
       "ariaLabel": "Complete fee transparency table"
-    },
-    "honestCatch": {
-      "ariaLabel": "What is the catch, honest transparency"
-    },
-    "techDetails": {
-      "ariaLabel": "Technical details about diBoaS architecture"
-    },
-    "demo": {
-      "ariaLabel": "Interactive demo section"
-    },
-    "socialProof": {
-      "ariaLabel": "Founding members social proof"
-    },
-    "founder": {
-      "ariaLabel": "About the founder of diBoaS"
     },
     "waitlist": {
       "ariaLabel": "Waitlist signup section"

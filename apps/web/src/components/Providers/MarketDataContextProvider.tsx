@@ -10,8 +10,8 @@
  * very first render, not the static fallback.
  *
  * **What this fixes:**
- * 1. SSR-to-client depreciation flip on `/` (ComparisonTable + GoalExampleCards
- *    using `useMarketData` would re-render with different numbers post-hydration).
+ * 1. SSR-to-client depreciation flip on `/` (ComparisonTable — and any consumer
+ *    of `useMarketData` — would re-render with different numbers post-hydration).
  * 2. Silently-stale data on `/tools/*` pages (calculators read `getSync()`
  *    directly with no `get()` trigger — they were stuck on static fallback).
  *

@@ -6,7 +6,7 @@
  * Performance Optimization: Variant-specific CSS for better bundle splitting
  * No Hardcoded Values: All values from design tokens
  *
- * Layout Implementation (matches SocialProofSection):
+ * Layout Implementation (shared responsive card-grid pattern):
  * - Mobile: Single column, cards stacked vertically
  * - Tablet: 2-column grid
  * - Desktop: 3-column centered grid (max-width 900px)
@@ -102,7 +102,7 @@
 
 /* ================================
    CARDS GRID - Centered layout (max 3 columns)
-   Matches SocialProofSection grid pattern
+   Shared responsive card-grid pattern
    ================================ */
 
 .cardsGrid {

@@ -235,6 +235,46 @@ describe('FX-16 retrospective gate (D4 — BRL/EUR only)', () => {
     // 1.4272 → 1.1706 USD/EUR over 16.33y produces 1.227% CAGR.
     expect(r!.historicalCagr).toBeCloseTo(0.0123, 3);
   });
+
+  it('carries the locked anchor dates on the result (MSG-08 vintage labels)', () => {
+    // The UI derives "Now (<month year>)" and the "<n> years" span from these —
+    // they must equal the constants' anchor pair, never a hand-typed date.
+    const r = calculateCurrencyDepreciationRetrospective(
+      { amount: 50000, currency: 'BRL' },
+      snapshot
+    );
+    expect(r!.anchorStart).toBe('2010-01-01');
+    expect(r!.anchorEnd).toBe('2026-05-22');
+    const eur = calculateCurrencyDepreciationRetrospective(
+      { amount: 50000, currency: 'EUR' },
+      snapshot
+    );
+    expect(eur!.anchorEnd).toBe('2026-04-30');
+  });
+
+  it('returns null when rate endpoints exist but anchor dates are missing (D4 complete-set rule)', () => {
+    // historical* fields ship as a complete set or not at all; a partial
+    // provider response must fail safe (retrospective card hides).
+    const partial = {
+      ...snapshot,
+      exchangeRates: {
+        ...snapshot.exchangeRates,
+        rates: {
+          ...snapshot.exchangeRates.rates,
+          BRL: {
+            ...snapshot.exchangeRates.rates.BRL,
+            historicalAnchorStart: undefined,
+            historicalAnchorEnd: undefined,
+          },
+        },
+      },
+    } as typeof snapshot;
+    const r = calculateCurrencyDepreciationRetrospective(
+      { amount: 50000, currency: 'BRL' },
+      partial
+    );
+    expect(r).toBeNull();
+  });
 });
 
 describe('FX-16 audit §6.1 — cashUsdEquivalent clamp (defensive)', () => {

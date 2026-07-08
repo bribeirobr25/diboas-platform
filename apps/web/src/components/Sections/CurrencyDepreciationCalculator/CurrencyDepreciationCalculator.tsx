@@ -169,21 +169,26 @@ export function CurrencyDepreciationCalculator() {
   );
 
   // Vintage labels derived from the locked anchor window (Data Vintage P-4/P-6):
-  // the "Now (<month year>)" label and the "<n> years" span must equal the
-  // series' verified end anchor — never a hand-typed date in the i18n string.
+  // the "Then/Now (<month year>)" labels, the "<n> years" span, and the
+  // methodology footnote must all equal the series' anchor pair — never a
+  // hand-typed date in the i18n string. Derived from the snapshot (not the
+  // result) so the footnote renders even when the amount input is invalid.
   const retrospectiveVintage = useMemo(() => {
-    if (!retrospectiveResult) return null;
-    const start = new Date(retrospectiveResult.anchorStart);
-    const end = new Date(retrospectiveResult.anchorEnd);
+    const rate = snapshot.exchangeRates.rates[form.currency];
+    if (!rate?.historicalAnchorStart || !rate?.historicalAnchorEnd) return null;
+    const start = new Date(rate.historicalAnchorStart);
+    const end = new Date(rate.historicalAnchorEnd);
+    const fmt = new Intl.DateTimeFormat(localeKey, {
+      month: 'long',
+      year: 'numeric',
+      timeZone: 'UTC',
+    });
     return {
-      asOfMonth: new Intl.DateTimeFormat(localeKey, {
-        month: 'long',
-        year: 'numeric',
-        timeZone: 'UTC',
-      }).format(end),
+      startMonth: fmt.format(start),
+      asOfMonth: fmt.format(end),
       years: Math.round((end.getTime() - start.getTime()) / (365.25 * 24 * 60 * 60 * 1000)),
     };
-  }, [retrospectiveResult, localeKey]);
+  }, [snapshot, form.currency, localeKey]);
 
   // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
   useCalculatorAnalytics(
@@ -301,8 +306,14 @@ export function CurrencyDepreciationCalculator() {
           {t('output.depSourceForward', { years: form.years })}
         </p>
       )}
-      {showDepSourceNote && effectiveMode === 'retrospective' && (
-        <p className={styles.depSourceNote}>{t('output.depSourceRetrospective', { currency })}</p>
+      {showDepSourceNote && effectiveMode === 'retrospective' && retrospectiveVintage && (
+        <p className={styles.depSourceNote}>
+          {t('output.depSourceRetrospective', {
+            currency,
+            startMonth: retrospectiveVintage.startMonth,
+            asOfMonth: retrospectiveVintage.asOfMonth,
+          })}
+        </p>
       )}
       {/* FX-16 D6/peg variant: explicit note for pegged currencies (HKD/AED) */}
       {!isUsd && isPeg && effectiveMode === 'forward' && (
@@ -464,7 +475,9 @@ export function CurrencyDepreciationCalculator() {
       {effectiveMode === 'retrospective' && retrospectiveResult && retrospectiveVintage && (
         <div className={styles.resultsGrid}>
           <div className={styles.resultCardCash}>
-            <p className={styles.resultLabel}>{t('output.retrospectiveThenLabel')}</p>
+            <p className={styles.resultLabel}>
+              {t('output.retrospectiveThenLabel', { startMonth: retrospectiveVintage.startMonth })}
+            </p>
             <p className={styles.resultValueMuted}>
               {formatCurrency(retrospectiveResult.usdValueThen, usdLocale, {
                 maximumFractionDigits: 0,
