@@ -25,7 +25,7 @@ ComponentName/
       index.ts
 ```
 
-Examples: `HeroSection`, `CinematicHero`, `ComparisonTable`, `StartupTreasurySection` (B2B `/business` Section 2 — replaced the ComparisonTable slot there; ComparisonTable is still used on the B2C spine), `WedgeSection`, `TwoWorldsSection`, `SidePocketStrip`, `ResultMoment`, `GoalExampleCards`, `WaitlistSection`.
+Examples: `HeroSection`, `CinematicHero`, `ComparisonTable`, `StartupTreasurySection` (B2B `/business` Section 2 — replaced the ComparisonTable slot there; ComparisonTable is still used on the B2C spine), `WedgeSection`, `TwoWorldsSection`, `ResultMoment`, `WaitlistSection`. (The orphaned post-Draper sections — GoalExampleCards, SidePocketStrip, SocialProofSection, FoundingMembersSection, HowItWorksGrid — were deleted 2026-07-07, MSG-07 prune.)
 
 ### Component Categories
 
@@ -97,7 +97,7 @@ All components reference design tokens via CSS custom properties rather than har
 ### Caching
 
 - **Static assets:** Immutable `Cache-Control` headers for `/_next/static/` and `/fonts/`.
-- **`SocialProofSection`:** Uses `sessionStorage` cache for waitlist stats (5-minute TTL via `useWaitlistStats`).
+- **Waitlist stats:** `useWaitlistStats` provides a `sessionStorage` cache (5-minute TTL) for `WaitlistSection` consumers.
 
 ### Dynamic Imports
 

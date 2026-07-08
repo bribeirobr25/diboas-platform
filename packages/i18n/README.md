@@ -76,11 +76,11 @@ Translation files are organized by locale × namespace (33 namespaces per locale
 packages/i18n/translations/{en, pt-BR, es, de}/
 ├── about.json                          # About page
 ├── common.json                         # Navigation, buttons, forms
-├── dreamMode.json                      # Dream-mode goal simulator
+├── dreamMode.json                      # Dream-mode waitlist gate + bank-source labels only (legacy flow keys pruned 2026-07-07; live flow strings live in preDream.json)
 ├── faq.json                            # FAQ content
 ├── investor.json                       # Investor vertical — public /investors page + room UI
 ├── investor-docs.json                  # Investor-room document bodies (generated blocks[])
-├── landing-b2b.json                    # B2B landing page (incl. goal cards)
+├── landing-b2b.json                    # B2B landing page (qualitative Two-Worlds cards + fee table)
 ├── landing-b2c.json                    # B2C landing page
 ├── landing-help.json                   # Help center
 ├── learn.json                          # Learn center landing
