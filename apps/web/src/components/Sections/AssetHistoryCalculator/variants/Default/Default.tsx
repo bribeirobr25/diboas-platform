@@ -18,6 +18,8 @@
 import { useEffect, useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Select } from '@diboas/ui';
+import { SegmentedControl } from '@/components/UI';
+import { LucideIcon, Info } from '@/components/UI/LucideIcon';
 import { useLocale } from '@/components/Providers';
 import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
 import {
@@ -305,7 +307,7 @@ export function AssetHistoryCalculatorDefault() {
               tabIndex={0}
             >
               {' '}
-              <sup>?</sup>
+              <LucideIcon icon={Info} size="xs" />
             </span>
           </label>
           <Select
@@ -337,20 +339,16 @@ export function AssetHistoryCalculatorDefault() {
           </Select>
         </div>
         <div className={styles.field}>
-          <label htmlFor={`${baseId}-mode`} className={styles.label}>
+          {/* UX-36 (F7-F11 review P1-a, 2026-07-10): 2 options — visible, not a dropdown */}
+          <span id={`${baseId}-mode-label`} className={styles.label}>
             {t('inputs.modeLabel')}
-          </label>
-          <Select
-            id={`${baseId}-mode`}
+          </span>
+          <SegmentedControl
+            ariaLabelledby={`${baseId}-mode-label`}
             value={form.mode}
-            onChange={(e) => handleMode(e.target.value as AssetHistoryMode)}
-          >
-            {MODE_OPTIONS.map((m) => (
-              <option key={m} value={m}>
-                {t(`inputs.modeOptions.${m}`)}
-              </option>
-            ))}
-          </Select>
+            onChange={(m) => handleMode(m)}
+            options={MODE_OPTIONS.map((m) => ({ value: m, label: t(`inputs.modeOptions.${m}`) }))}
+          />
         </div>
         <div className={styles.field}>
           <label htmlFor={`${baseId}-amount`} className={styles.label}>
@@ -369,17 +367,19 @@ export function AssetHistoryCalculatorDefault() {
         </div>
         {showBasisToggle && (
           <div className={styles.field}>
-            <label htmlFor={`${baseId}-basis`} className={styles.label}>
+            {/* UX-36 (F7-F11 review P1-a, 2026-07-10): binary choice — visible, not a dropdown */}
+            <span id={`${baseId}-basis-label`} className={styles.label}>
               {t('inputs.returnsBasisLabel')}
-            </label>
-            <Select
-              id={`${baseId}-basis`}
+            </span>
+            <SegmentedControl
+              ariaLabelledby={`${baseId}-basis-label`}
               value={form.returnsBasis}
-              onChange={(e) => handleReturnsBasis(e.target.value as ReturnsBasis)}
-            >
-              <option value="total_return">{t('inputs.returnsBasisOptions.totalReturn')}</option>
-              <option value="price_only">{t('inputs.returnsBasisOptions.priceOnly')}</option>
-            </Select>
+              onChange={(b) => handleReturnsBasis(b)}
+              options={[
+                { value: 'total_return', label: t('inputs.returnsBasisOptions.totalReturn') },
+                { value: 'price_only', label: t('inputs.returnsBasisOptions.priceOnly') },
+              ]}
+            />
           </div>
         )}
       </div>

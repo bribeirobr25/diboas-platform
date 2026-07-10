@@ -8,6 +8,7 @@ import {
   ChevronDown,
   ChevronUp,
   ArrowRight,
+  ArrowUpRight,
   Sparkles,
   Check,
   CheckCircle,
@@ -35,6 +36,7 @@ import {
   History,
   RefreshCw,
   Share2,
+  Info,
   type LucideIcon as LucideIconType,
 } from 'lucide-react';
 
@@ -51,6 +53,7 @@ export {
   ChevronDown,
   ChevronUp,
   ArrowRight,
+  ArrowUpRight,
   Check,
   CheckCircle,
   CheckCircle2,
@@ -77,6 +80,7 @@ export {
   History,
   RefreshCw,
   Share2,
+  Info,
 };
 
 export type { LucideIconType };

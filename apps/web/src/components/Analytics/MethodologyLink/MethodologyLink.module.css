@@ -18,3 +18,9 @@
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }
+
+.externalIcon {
+  align-self: center;
+  margin-left: var(--spacing-xs);
+  flex-shrink: 0;
+}

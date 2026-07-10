@@ -9,6 +9,7 @@ import {
 } from '@/lib/compound-interest';
 import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
 import { CompoundChart } from '@/components/UI/CompoundChart';
+import { LucideIcon, Info } from '@/components/UI/LucideIcon';
 import styles from './CalculatorDefault.module.css';
 
 interface CalculatorOutputsProps {
@@ -124,7 +125,7 @@ export function CalculatorOutputs({
                     tabIndex={0}
                   >
                     {' '}
-                    <sup>?</sup>
+                    <LucideIcon icon={Info} size="xs" />
                   </span>
                 )}
               </span>

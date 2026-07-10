@@ -21,6 +21,7 @@
 
 import { useRef, useState } from 'react';
 import Image from 'next/image';
+import { useTranslation } from '@diboas/i18n/client';
 import { analyticsService } from '@/lib/analytics';
 import { LucideIcon, Play } from '@/components/UI/LucideIcon';
 import styles from './VideoPlayer.module.css';
@@ -67,6 +68,7 @@ export function VideoPlayer({
   contextId,
   className,
 }: VideoPlayerProps) {
+  const intl = useTranslation();
   const [isPlaying, setIsPlaying] = useState(false);
   const [showTranscript, setShowTranscript] = useState(false);
   // Fire-once tracker for milestone events. Persists across renders, resets per mount.
@@ -168,7 +170,9 @@ export function VideoPlayer({
           open={showTranscript}
           onToggle={(e) => setShowTranscript((e.target as HTMLDetailsElement).open)}
         >
-          <summary className={styles.transcriptSummary}>Transcript</summary>
+          <summary className={styles.transcriptSummary}>
+            {intl.formatMessage({ id: 'common.videoPlayer.transcript' })}
+          </summary>
           <div className={styles.transcriptContent}>{transcript}</div>
         </details>
       )}

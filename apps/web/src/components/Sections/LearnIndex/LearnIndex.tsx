@@ -6,6 +6,7 @@ import { isValidLocale, type SupportedLocale } from '@diboas/i18n/config';
 import { analyticsService } from '@/lib/analytics';
 import { LESSON_EVENTS } from '@/lib/learn';
 import { LocaleLink } from '@/components/UI/LocaleLink';
+import { LucideIcon, ArrowRight } from '@/components/UI/LucideIcon';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { CinematicHeroFactory } from '@/components/Sections/CinematicHero';
 import { LessonRoadmap } from '@/components/Sections/LessonRoadmap';
@@ -66,7 +67,9 @@ export function LearnIndex({ enableAnalytics = true }: LearnIndexProps) {
             <p className={styles.activeCardDescription}>
               {t('lessons.compoundInterest.cardDescription')}
             </p>
-            <span className={styles.activeCardCta}>{t('lessons.compoundInterest.cardCta')} →</span>
+            <span className={styles.activeCardCta}>
+              {t('lessons.compoundInterest.cardCta')} <LucideIcon icon={ArrowRight} size="xs" />
+            </span>
           </LocaleLink>
         </div>
       </SectionContainer>

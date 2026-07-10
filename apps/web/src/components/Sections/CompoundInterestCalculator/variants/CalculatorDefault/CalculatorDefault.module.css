@@ -315,3 +315,9 @@
   color: var(--color-slate-600);
   font-style: italic;
 }
+
+/* Info icon inside the tooltip trigger (P2-b, F7-F11 review 2026-07-10):
+   em offset is a documented token-policy exception (relative sizing). */
+.tooltip svg {
+  vertical-align: -0.125em;
+}

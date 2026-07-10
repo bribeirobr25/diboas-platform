@@ -1,0 +1,41 @@
+/* Mirrors the currency-depreciation mode toggle (the house segmented style).
+   flex-wrap lets 4-option groups (inflation-impact country) wrap at 375px. */
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--color-slate-100);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xs);
+  gap: var(--spacing-2xs);
+  align-self: stretch;
+}
+
+.segment {
+  flex: 1 1 auto;
+  text-align: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  background: transparent;
+  border-radius: calc(var(--radius-lg) - 4px);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-600);
+  cursor: pointer;
+}
+
+.segmentActive {
+  background: var(--color-white);
+  color: var(--color-slate-900);
+  box-shadow: 0 1px 2px var(--shadow-black-faint);
+}
+
+.segment:focus-visible {
+  outline: 2px solid var(--text-brand-accessible);
+  outline-offset: 2px;
+}
+
+.segment:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

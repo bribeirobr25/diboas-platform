@@ -375,5 +375,8 @@
   },
   "disclaimers": {
     "educationalProjection": "Valores ilustrativos baseados em premissas históricas de juros compostos. Desempenho passado não garante resultados futuros. Use apenas dinheiro que você pode perder. O diBoaS não é um banco e seus fundos não são segurados."
+  },
+  "videoPlayer": {
+    "transcript": "Transcrição"
   }
 }

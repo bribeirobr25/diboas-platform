@@ -11,6 +11,7 @@ import {
   type CalculatorInput,
 } from '@/lib/compound-interest';
 import { UsdEquivalentBadge } from '@/components/UI';
+import { LucideIcon, Info } from '@/components/UI/LucideIcon';
 import styles from './CalculatorDefault.module.css';
 
 interface CalculatorInputsProps {
@@ -160,22 +161,37 @@ export function CalculatorInputs({
         <label htmlFor={`${baseId}-years`} className={styles.label}>
           {labelYears}
           <span className={styles.tooltip} title={yearsTooltip}>
-            ⓘ
+            <LucideIcon icon={Info} size="xs" />
           </span>
         </label>
+        {/* UX-16 (F7-F11 review P2-a, 2026-07-10): typed entry beside the slider —
+            same dual-bound pattern as the amount field above. */}
         <div className={styles.yearsRow}>
           <input
             id={`${baseId}-years`}
+            type="number"
+            inputMode="numeric"
+            min={INPUT_BOUNDS.years.min}
+            max={yearsMax}
+            step={1}
+            value={value.years}
+            onChange={(e) => setYears(Number(e.target.value))}
+            aria-label={labelYears}
+            className={styles.numberInput}
+          />
+          <input
+            id={`${baseId}-years-range`}
+            name={`${baseId}-years-range`}
             type="range"
             min={INPUT_BOUNDS.years.min}
             max={yearsMax}
             step={1}
             value={Math.min(value.years, yearsMax)}
             onChange={(e) => setYears(Number(e.target.value))}
+            aria-label={labelYears}
             aria-valuetext={`${value.years}`}
             className={styles.range}
           />
-          <span className={styles.yearsValue}>{value.years}</span>
         </div>
       </div>
     </div>

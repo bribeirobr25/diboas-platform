@@ -27,6 +27,7 @@ import {
   clampInput,
 } from '@/lib/tools';
 import { UsdEquivalentBadge } from '@/components/UI';
+import { LucideIcon, Info } from '@/components/UI/LucideIcon';
 import styles from './EmergencyFundCalculator.module.css';
 
 interface FormState {
@@ -184,7 +185,7 @@ export function EmergencyFundCalculator() {
                 tabIndex={0}
               >
                 {' '}
-                <sup>?</sup>
+                <LucideIcon icon={Info} size="xs" />
               </span>
             </p>
           </div>

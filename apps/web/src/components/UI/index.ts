@@ -40,3 +40,9 @@ export { StickyMobileCTA } from './StickyMobileCTA';
 // LanguageSwitcher is exported from @/components/LanguageSwitcher
 // Phase I extension (2026-05-23) — USD equivalent badge on forward tools
 export { UsdEquivalentBadge } from './UsdEquivalentBadge';
+// UX-36 (design-review F7-F11 pass, 2026-07-10) — visible options for ≤5-choice sets
+export {
+  SegmentedControl,
+  type SegmentedControlProps,
+  type SegmentedOption,
+} from './SegmentedControl';
