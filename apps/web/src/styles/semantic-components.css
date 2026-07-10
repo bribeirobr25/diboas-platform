@@ -1415,6 +1415,12 @@ a:focus-visible {
 /* STICKY MOBILE CTA BAR */
 /* =================================================================== */
 
+/* Layer: tokenized z-index (P2-d, 2026-07-11). Static, so it lives here —
+   the component's inline styles carry only the dynamic properties. */
+.sticky-mobile-cta {
+  z-index: var(--z-index-stickyCta);
+}
+
 /* Hide on desktop viewports (768px+) */
 @media (min-width: 768px) {
   .sticky-mobile-cta {

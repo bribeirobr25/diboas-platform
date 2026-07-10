@@ -142,6 +142,9 @@
   --cta-mini-height-tablet: 48px;
   --cta-mini-height-mobile: 44px;
 
+  /* Sticky mobile CTA bar (StickyMobileCTA — P2-d tokenization, 2026-07-11) */
+  --sticky-cta-height: 60px;
+
   /* CTA Button Spacing */
   --cta-padding-desktop: 16px 32px;
   --cta-padding-tablet: 16px 32px;
@@ -716,6 +719,7 @@
 
   /* Z-Index Hierarchy */
   --z-index-dropdown: 40;
+  --z-index-stickyCta: 40; /* same layer as dropdown; below mobileMenu (P2-d, 2026-07-11) */
   --z-index-mobileMenu: 50;
   --z-index-modal: 60;
   --z-index-fixed: 65;
