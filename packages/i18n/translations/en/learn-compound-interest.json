@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "How Money Really Grows — Compound Interest Explained",
-    "description": "Learn how compound interest works — the math banks and Wall Street have used for decades. Plug in your own numbers and see what 12 years looks like."
+    "description": "Learn how compound interest works: the math banks and Wall Street have used for decades. Plug in your own numbers and see what 12 years looks like."
   },
   "lesson": {
     "h1": "How Money Really Grows",
@@ -32,11 +32,23 @@
       "So let's talk about something simpler. Small things you already spend on without thinking."
     ],
     "habitsLine": "Your daily latte. Your Friday takeout. Your monthly streaming bundle.",
-    "vignettesIntro": "If just one of those went to work instead of away — at the same 10% historical compound rate — here's what 12 years looks like:",
+    "vignettesIntro": "If just one of those went to work instead of away, at the same 10% historical compound rate, here's what 12 years looks like:",
     "vignettes": [
-      { "habit": "Daily latte ($5)", "yearly": "$1,800", "yearlyAmount": "1800" },
-      { "habit": "Friday takeout ($40)", "yearly": "$2,080", "yearlyAmount": "2080" },
-      { "habit": "Streaming bundle ($25/mo)", "yearly": "$300", "yearlyAmount": "300" }
+      {
+        "habit": "Daily latte ($5)",
+        "yearly": "$1,800",
+        "yearlyAmount": "1800"
+      },
+      {
+        "habit": "Friday takeout ($40)",
+        "yearly": "$2,080",
+        "yearlyAmount": "2080"
+      },
+      {
+        "habit": "Streaming bundle ($25/mo)",
+        "yearly": "$300",
+        "yearlyAmount": "300"
+      }
     ],
     "vignettesTableHeaders": {
       "habit": "Habit",
@@ -101,6 +113,6 @@
     "tableHeaderRate": "Annual rate",
     "tableHeaderTotal": "After {years} years",
     "loadingState": "Calculating…",
-    "calibrationNote": "What the rates mean. Conservative 7% lines up with what the digital-dollar yield envelope delivers via the Solana-first DeFi stack. Historical 10% sits in the middle of the long-run blended range. Optimistic 14% reflects curated/looped strategies. Independently — the S&P 500 total return averaged ~15.5% per year from 2010 to 2026, gold ~9% per year, and a Brazilian saver in BRL underperformed a Brazilian saver who held the digital dollar over the same window (full numbers in our research notes)."
+    "calibrationNote": "What the rates mean. Conservative 7% lines up with what the digital-dollar yield envelope delivers via the Solana-first DeFi stack. Historical 10% sits in the middle of the long-run blended range. Optimistic 14% reflects curated/looped strategies. Independently: the S&P 500 total return averaged ~15.5% per year from 2010 to 2026, gold ~9% per year, and a Brazilian saver in BRL underperformed a Brazilian saver who held the digital dollar over the same window (full numbers in our research notes)."
   }
 }

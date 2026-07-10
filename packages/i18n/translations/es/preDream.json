@@ -23,7 +23,7 @@
   },
   "goalStrategy": {
     "title": "¿Con qué meta estás soñando?",
-    "subtitle": "Elige una — adaptaremos la simulación a ella.",
+    "subtitle": "Elige una. Adaptaremos la simulación a ella.",
     "options": {
       "retirement": {
         "label": "Meta Jubilación",

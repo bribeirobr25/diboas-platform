@@ -23,7 +23,7 @@
   },
   "goalStrategy": {
     "title": "Wovon träumst du?",
-    "subtitle": "Wähle ein Ziel — wir passen die Simulation darauf an.",
+    "subtitle": "Wähle ein Ziel. Wir passen die Simulation darauf an.",
     "options": {
       "retirement": {
         "label": "Ziel Ruhestand",

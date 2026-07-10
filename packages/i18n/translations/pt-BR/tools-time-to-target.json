@@ -16,7 +16,7 @@
     "targetLine": "Chegando a {target}…",
     "monthsLabel": "{months} meses",
     "yearsLabel": "{years} anos",
-    "cannotReach": "Fora de alcance com esta contribuição — tente um valor mensal maior ou uma meta menor."
+    "cannotReach": "Fora de alcance com esta contribuição. Tente um valor mensal maior ou uma meta menor."
   },
   "guidance": {
     "oneTimeNeedsInitial": "Informe um valor inicial para ver quando você alcançaria sua meta."

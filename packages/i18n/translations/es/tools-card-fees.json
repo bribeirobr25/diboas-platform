@@ -1,12 +1,12 @@
 {
   "seo": {
     "title": "Calculadora de comisiones de tarjeta — ve qué se llevan los procesadores",
-    "description": "Calculadora B2B gratuita de comisiones de tarjeta. Ve cuánto paga tu negocio al año a procesadores — y cuánto podría ahorrar diBoaS."
+    "description": "Calculadora B2B gratuita de comisiones de tarjeta. Ve cuánto paga tu negocio al año a procesadores, y cuánto podría ahorrar diBoaS."
   },
   "hero": {
     "kicker": "Calculadora de comisiones de tarjeta",
     "headline": "¿Cuánto te cuestan de verdad los pagos con tarjeta?",
-    "subtitle": "Entre intercambio, margen del adquirente y extras, la mayoría paga un 0,4–1,0 % efectivo — muchas veces sin saberlo. Compruébalo."
+    "subtitle": "Entre intercambio, margen del adquirente y extras, la mayoría paga un 0,4–1,0 % efectivo, muchas veces sin saberlo. Compruébalo."
   },
   "inputs": {
     "monthlyVolumeLabel": "Volumen mensual con tarjeta",
@@ -17,7 +17,7 @@
     "avgTxHelp": "Se usa para calcular la comisión por transacción"
   },
   "warnings": {
-    "feeTooHigh": "Esa comisión parece muy alta. Las comisiones reales de procesadores están entre 0,3% y 3,5% — ¿quisiste decir un número más pequeño?"
+    "feeTooHigh": "Esa comisión parece muy alta. Las comisiones reales de procesadores están entre 0,3% y 3,5%. ¿Quisiste decir un número más pequeño?"
   },
   "disclaimers": {
     "euIfrCap": "El Reglamento (UE) 2015/751 limita la tasa de intercambio de tarjetas de consumo al 0,2% (débito) / 0,3% (crédito). Las comisiones efectivas para comercios promedian entre 0,4% y 1,0% según el adquirente y la combinación de tarjetas."
@@ -26,7 +26,7 @@
     "monthlyFee": "A procesadores al mes",
     "annualSavings": "Podrías ahorrar con diBoaS",
     "perTxLabel": "Comisión por transacción",
-    "caveat": "Esto muestra el ahorro máximo potencial, asumiendo que el 100% de los pagos con tarjeta pasan por diBoaS. El ahorro real crece a medida que tus clientes adoptan diBoaS — es una estimación superior."
+    "caveat": "Esto muestra el ahorro máximo potencial, asumiendo que el 100% de los pagos con tarjeta pasan por diBoaS. El ahorro real crece a medida que tus clientes adoptan diBoaS. Es una estimación superior."
   },
   "resultMoment": {
     "eyebrow": "Lo que realmente cuestan las comisiones de tarjeta",

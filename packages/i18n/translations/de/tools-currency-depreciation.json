@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Währungs-Wertverlust-Rechner",
     "headline": "Was verdient deine Währung wirklich?",
-    "subtitle": "Vergleiche bar, Bank und Digital-Dollar über die Jahre — unter Berücksichtigung des Wertverlusts."
+    "subtitle": "Vergleiche bar, Bank und Digital-Dollar über die Jahre, unter Berücksichtigung des Wertverlusts."
   },
   "mode": {
     "ariaLabel": "Modus des Rechners",
@@ -41,8 +41,8 @@
     "depSourceForward": "Vorwärts-Projektion: horizontangepasster CAGR aus dem {years}-jährigen Zeitfenster der FX-Serie.",
     "depSourceRetrospective": "Retrospektiv: basiert auf den Ankerpunkten des {currency}/USD-Paares von {startMonth} bis {asOfMonth}.",
     "depSourcePeg": "{currency} ist durch die Geldpolitik der Zentralbank an den US-Dollar gekoppelt. Die Wechselkursveränderung ist konstruktionsbedingt 0.",
-    "uncertaintyMedium": "Diese Währung hatte im Zeitraum mäßige Volatilität — die punktuelle CAGR spiegelt das durchschnittliche Verhalten wider; die kumulative Bewegung war von Jahr zu Jahr ungleichmäßig.",
-    "uncertaintyLow": "Diese Währung durchlief Perioden struktureller Volatilität oder Regimewechsel — eine einzelne CAGR glättet sehr unterschiedliche Teilzeiträume erheblich. Verwende das Ergebnis als Richtwert, nicht als Prognose."
+    "uncertaintyMedium": "Diese Währung hatte im Zeitraum mäßige Volatilität. Die punktuelle CAGR spiegelt das durchschnittliche Verhalten wider; die kumulative Bewegung war von Jahr zu Jahr ungleichmäßig.",
+    "uncertaintyLow": "Diese Währung durchlief Perioden struktureller Volatilität oder Regimewechsel. Eine einzelne CAGR glättet sehr unterschiedliche Teilzeiträume erheblich. Verwende das Ergebnis als Richtwert, nicht als Prognose."
   },
   "resultMoment": {
     "eyebrow": "Was dein Geld wirklich verdient",

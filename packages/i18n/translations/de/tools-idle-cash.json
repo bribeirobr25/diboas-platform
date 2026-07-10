@@ -22,8 +22,8 @@
     "diboasNote": "{rate}% konservative Rendite im Digital-Dollar über {years} Jahre",
     "differenceHighlight": "Deine {cash} verdienen bei diBoaS {difference} mehr über {years} Jahre.",
     "differencePositive": "Deine {cash} verdienen bei diBoaS {difference} mehr über {years} Jahre.",
-    "differenceZero": "Bei deinem aktuellen Bankzins liegt diBoaS über {years} Jahre gleichauf — und die Position wird im Digital-Dollar gehalten.",
-    "differenceNegative": "Mit {bankRate}% schlägt deine Bank das konservative diBoaS-Szenario über {years} Jahre. diBoaS bietet dir trotzdem eine Position im Digital-Dollar — der Vergleich ist hier nur die Rendite."
+    "differenceZero": "Bei deinem aktuellen Bankzins liegt diBoaS über {years} Jahre gleichauf, und die Position wird im Digital-Dollar gehalten.",
+    "differenceNegative": "Mit {bankRate}% schlägt deine Bank das konservative diBoaS-Szenario über {years} Jahre. diBoaS bietet dir trotzdem eine Position im Digital-Dollar. Der Vergleich ist hier nur die Rendite."
   },
   "resultMoment": {
     "eyebrow": "Was aus deinem ungenutzten Geld werden kann",

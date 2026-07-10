@@ -23,7 +23,7 @@
   },
   "goalStrategy": {
     "title": "What goal are you dreaming about?",
-    "subtitle": "Pick one — we'll tailor the simulation to it.",
+    "subtitle": "Pick one. We'll tailor the simulation to it.",
     "options": {
       "retirement": {
         "label": "Retirement Goal",
