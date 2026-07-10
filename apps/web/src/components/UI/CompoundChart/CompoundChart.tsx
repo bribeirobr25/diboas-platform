@@ -149,26 +149,33 @@ export function CompoundChart({
         })}
       </svg>
 
-      {/* Visually-hidden data table fallback for screen readers */}
-      <table id={tableId} className={styles.srOnlyTable}>
-        <caption>{ariaLabel}</caption>
-        <thead>
-          <tr>
-            <th scope="col">{tableLabels.scenario}</th>
-            <th scope="col">{tableLabels.rate}</th>
-            <th scope="col">{tableLabels.total}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {series.map((s) => (
-            <tr key={s.scenario}>
-              <th scope="row">{scenarioLabels[s.scenario]}</th>
-              <td>{s.rate}%</td>
-              <td>{formatCurrency(s.finalValue, locale)}</td>
+      {/* Visually-hidden data table fallback for screen readers.
+          The sr-only class sits on a wrapper div, NOT the <table>: width:1px is
+          only a minimum for table layout, so a clipped table still stretched the
+          page's scroll area to ~640px at 375vw (horizontal-overflow bug found in
+          the 2026-07-10 mobile audit). A div clips correctly and the inner table
+          keeps its semantics for assistive tech. */}
+      <div className={styles.srOnlyTable}>
+        <table id={tableId}>
+          <caption>{ariaLabel}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{tableLabels.scenario}</th>
+              <th scope="col">{tableLabels.rate}</th>
+              <th scope="col">{tableLabels.total}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {series.map((s) => (
+              <tr key={s.scenario}>
+                <th scope="row">{scenarioLabels[s.scenario]}</th>
+                <td>{s.rate}%</td>
+                <td>{formatCurrency(s.finalValue, locale)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </figure>
   );
 }
