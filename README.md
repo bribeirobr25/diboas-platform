@@ -72,7 +72,7 @@ flowchart TD
 
 ## Prerequisites
 
-- **Node.js:** >= 20.0.0
+- **Node.js:** >= 22.0.0
 - **pnpm:** >= 8.0.0
 
 ```bash

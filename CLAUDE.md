@@ -35,6 +35,7 @@ diboas-platform/
   scripts/             # Build/validation scripts
   docs/                # Documentation (only docs/tech/ + docs/integrations/ are git-tracked; the rest is local-only)
     tech/              # Technical guides (committed) — canonical engineering reference
+      ux-governance/   #   UX enforcement layer (committed): anti-slop checklist, principles canon, usage protocol
     audit/             # Audit history, security findings ledger, pending-work queue
     security/          # Recon/diagnostics reference + API defensive review
     full-view/         # Product/business/brand bible + FEES.md (canonical fee source)
@@ -120,7 +121,7 @@ pnpm build            # Production build (all workspaces)
 ### Validation
 
 ```bash
-pnpm validate:all              # Full pipeline: type-check -> lint -> test -> build -> budget -> design-tokens -> translations -> market-data -> sdk-invariant -> investor-figures
+pnpm validate:all              # Full pipeline: type-check -> lint -> test -> build -> budget -> design-tokens -> translations -> market-data -> sdk-invariant -> investor-figures -> ux-canon
 pnpm validate:design-tokens    # Validate design tokens against schema
 pnpm validate:translations     # Check translation key parity across locales
 pnpm check:dead-code           # Dead code detection (knip)
@@ -439,3 +440,5 @@ Invoke `@agent design-reviewer` for thorough design validation when:
 - Regulatory disclaimers (MiCA for EU, CVM 3-warning for BR, FTC for US) have required text per locale — check translation files
 - Use Factory pattern with variants for all new components
 - Motion must respect `prefers-reduced-motion` (already in Accessibility Standards above)
+- **Pre-PR friction/dark-pattern self-check (mandatory):** any PR touching user-facing copy, flows, forms, or selectors runs `docs/tech/ux-governance/anti-slop-checklist.md` Part 3 (rows 1–21) and cites the results (PASS/FAIL per row, with UX-NN principle IDs from `docs/tech/ux-governance/UX_PRINCIPLES_CANON.md`) in the PR description — **a FAIL on rows 10–17 (the canonical veto list) blocks merge, regardless of measured lift.** Structural drift in the governance files themselves is caught by `pnpm validate:ux-canon` (part of `validate:all`).
+- **UX governance operating protocol** (build mode / audit mode / role table / finding format): `docs/tech/ux-governance/UX_GOVERNANCE_USAGE.md`. The three enforcement files (`anti-slop-checklist.md`, `UX_PRINCIPLES_CANON.md`, `UX_GOVERNANCE_USAGE.md`) live in `docs/tech/ux-governance/` and are **git-tracked** (G-1 revisited and accepted via relocation, founder 2026-07-10) — the ux-canon validator runs for real in CI. The retention rule still stands for the untracked areas: **cleanup routines must archive with a status header, never delete, anything in `docs/audit/`, `docs/ui-ux/`, or the Writing System** (standing policy, `docs/audit/UX_GOVERNANCE_FIX_PLAN_2026-07-10.md`).

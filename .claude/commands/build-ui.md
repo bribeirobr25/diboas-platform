@@ -11,7 +11,7 @@ Read these files in order. Note which are present and which are missing or empty
 - `docs/brand-brief.md`
 - `docs/design-principles.md`
 - `docs/design-system-notes.md`
-- `docs/anti-slop-checklist.md`
+- `docs/tech/ux-governance/anti-slop-checklist.md`
 
 Also check for existing design tokens, component libraries, and global styles in the codebase.
 

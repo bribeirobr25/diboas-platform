@@ -197,10 +197,10 @@ Secret rotation policy: 90-day cycle for `ENCRYPTION_KEY`, `HMAC_KEY`, `RESEND_A
 
 ## 11. Node.js & Runtime
 
-- **Required:** Node.js >= 20.0.0, pnpm >= 8.0.0 (enforced in root `package.json` `engines`).
+- **Required:** Node.js >= 22.0.0, pnpm >= 8.0.0 (enforced in root `package.json` `engines`).
 - **CI:** Node.js **24** (set in both workflow files; bumped 20 → 24, audit/2026-05-08, to match Vercel's current default per the 2026-02-27 platform update).
 - **Vercel:** Node.js 24.x in dashboard — **matches CI.** Earlier note about a 20.x mismatch is stale: per the 2026-02-27 Vercel platform update, Node 24 LTS is the default; CI was bumped to align (Vercel runtime + CI both on Node 24).
-- **`engines` field:** still pins `>= 20.0.0` as the minimum supported (Node 24 satisfies it). Bumping the floor to 22 or 24 is a separate question — not blocking.
+- **`engines` field:** pins `>= 22.0.0` (founder decision 2026-07-10, prompted by verification finding V-1: a script imported the Node-22-only `fs.globSync` while the floor still claimed 20, a crash on any Node the repo nominally supported but nobody ran). Every real environment satisfies it: local dev 22.x, CI + Vercel 24.x.
 - **Next.js runtime:** `nodejs` (not Edge) for server functions. `NEXT_RUNTIME` is set by the framework per execution context (`nodejs` / `edge`) — it is read, not configured; `instrumentation.ts` switches on it to load the matching Sentry config. Middleware (`apps/web/middleware.ts`) runs in the Edge Runtime regardless of this setting — see `docs/tech/security.md` §2 for the Edge-Runtime constraints on CSP nonce generation.
 
 ## 12. Build Configuration — Turborepo

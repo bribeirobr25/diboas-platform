@@ -16,7 +16,7 @@ vs. missing or empty:
 - `docs/brand-brief.md`
 - `docs/design-principles.md`
 - `docs/design-system-notes.md`
-- `docs/anti-slop-checklist.md`
+- `docs/tech/ux-governance/anti-slop-checklist.md`
 
 Also scan the codebase for existing design tokens, component libraries, and global styles.
 
@@ -163,7 +163,7 @@ If Docker MCP browser tools are NOT available:
 
 ### Review before delivering
 
-Run the anti-slop checklist from `docs/anti-slop-checklist.md` — both visually (against
+Run the anti-slop checklist from `docs/tech/ux-governance/anti-slop-checklist.md` — both visually (against
 screenshots) AND via code-level grep:
 
 - Emoji in components: `grep -rP '[\x{1F300}-\x{1F9FF}]' apps/web/src/components/ --include="*.tsx"`
@@ -262,7 +262,7 @@ For EACH section identified in Phase 1:
 
 ### Phase 4: Anti-slop checklist (visual + code cross-reference)
 
-For EVERY item in `docs/anti-slop-checklist.md`:
+For EVERY item in `docs/tech/ux-governance/anti-slop-checklist.md`:
 
 1. **Check visually** in the screenshots and accessibility tree — state PASS or FAIL
 2. **Check in code** with grep commands — state PASS or FAIL
@@ -530,7 +530,7 @@ For EACH interactive component on the page:
 
 #### B6. Anti-slop checklist (visual + code cross-reference)
 
-For EVERY item in `docs/anti-slop-checklist.md`:
+For EVERY item in `docs/tech/ux-governance/anti-slop-checklist.md`:
 
 1. **Visual check:** Look at the screenshots and accessibility tree — PASS or FAIL
 2. **Code check:** Run the corresponding grep command — PASS or FAIL

@@ -72,7 +72,7 @@ For EACH section identified in step 2:
 
 ### 5. Anti-slop checklist (visual + code cross-reference)
 
-Check every item in `docs/anti-slop-checklist.md` — both visually AND via code grep.
+Check every item in `docs/tech/ux-governance/anti-slop-checklist.md` — both visually AND via code grep.
 
 For each item, state PASS or FAIL based on what you actually see in the rendered page.
 
