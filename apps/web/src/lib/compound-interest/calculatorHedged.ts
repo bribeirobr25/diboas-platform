@@ -39,7 +39,8 @@ import {
 } from './types';
 import { validateCompoundCalculatorInput } from './validation';
 
-const HIGHLIGHTED_DEFAULT = 'historical' as const;
+// Founder ruling 2026-07-10 (closes P2-c): Conservative is the emphasized default.
+const HIGHLIGHTED_DEFAULT = 'conservative' as const;
 
 export function calculateCompoundProjectionHedged(input: CalculatorInput): CalculatorOutput {
   validateCompoundCalculatorInput(input);

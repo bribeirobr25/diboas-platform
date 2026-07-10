@@ -51,7 +51,8 @@ import { validateCompoundCalculatorInput } from './validation';
 import { toISODateString } from '@/lib/utils/date';
 import type { FxBucket } from '@/lib/market-data';
 
-const HIGHLIGHTED_DEFAULT = 'historical' as const;
+// Founder ruling 2026-07-10 (closes P2-c): Conservative is the emphasized default.
+const HIGHLIGHTED_DEFAULT = 'conservative' as const;
 
 export function calculateCompoundProjectionPathDependent(input: CalculatorInput): CalculatorOutput {
   validateCompoundCalculatorInput(input, {
