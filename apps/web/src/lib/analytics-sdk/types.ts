@@ -18,18 +18,10 @@ import type { SupportedLocale } from '@diboas/i18n/server';
 // ---------------------------------------------------------------------------
 
 export type RegimeCode =
-  | 'VERY_FAVORABLE'
-  | 'CONSTRUCTIVE'
-  | 'NEUTRAL_MIXED'
-  | 'DEFENSIVE'
-  | 'HOSTILE';
+  'VERY_FAVORABLE' | 'CONSTRUCTIVE' | 'NEUTRAL_MIXED' | 'DEFENSIVE' | 'HOSTILE';
 
 export type RegimeLabel =
-  | 'Very Favorable'
-  | 'Constructive'
-  | 'Neutral / Mixed'
-  | 'Defensive'
-  | 'Hostile';
+  'Very Favorable' | 'Constructive' | 'Neutral / Mixed' | 'Defensive' | 'Hostile';
 
 export type SignalState = 'ACTIVE' | 'INACTIVE' | 'STALE' | 'UNAVAILABLE' | 'ERROR';
 
@@ -38,17 +30,10 @@ export type ConfidenceLevel = 'HIGH' | 'MODERATE' | 'LOW';
 export type FreshnessStatus = 'FRESH' | 'STALE' | 'DELAYED' | 'UNAVAILABLE';
 
 export type SignalCategory =
-  | 'BTC_STRUCTURE'
-  | 'MACRO_ENVIRONMENT'
-  | 'INSTITUTIONAL_DEMAND'
-  | 'RELATIVE_STRENGTH';
+  'BTC_STRUCTURE' | 'MACRO_ENVIRONMENT' | 'INSTITUTIONAL_DEMAND' | 'RELATIVE_STRENGTH';
 
 export type EnvironmentBias =
-  | 'STRONG_ALIGNMENT'
-  | 'CONSTRUCTIVE'
-  | 'MIXED'
-  | 'DEFENSIVE'
-  | 'HOSTILE';
+  'STRONG_ALIGNMENT' | 'CONSTRUCTIVE' | 'MIXED' | 'DEFENSIVE' | 'HOSTILE';
 
 export type Timeframe = 'DAILY' | 'WEEKLY' | 'MONTHLY';
 

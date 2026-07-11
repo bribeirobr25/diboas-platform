@@ -1,0 +1,52 @@
+# Quarterly security scan (PENDING_ALL 5.24 — supply-chain sprint 2026-07-11).
+#
+# Runs scripts/security-scan.sh --live against production on the first Monday
+# of Jan/Apr/Jul/Oct (06:00 UTC) + on manual dispatch after any major
+# dependency or infrastructure change. Read-only: passive recon + local
+# dependency/secrets checks; no state changes.
+#
+# Output lands as a run artifact; findings are triaged manually into the
+# security findings ledger (docs/audit/SECURITY_FINDINGS_<DATE>.md — local-
+# only per the docs retention policy). The scan failing marks the run red so
+# the cadence can't silently rot.
+
+name: Security Scan (quarterly)
+
+on:
+  schedule:
+    # First week of each quarter, Monday-ish anchor: Jan/Apr/Jul/Oct day 1-7.
+    # GitHub cron has no "first Monday" — run on day 1 and let the artifact
+    # carry the quarter's baseline.
+    - cron: '0 6 1 1,4,7,10 *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies (frozen)
+        run: pnpm install --frozen-lockfile
+
+      - name: Run security scan (live, read-only)
+        run: bash scripts/security-scan.sh --live | tee security-scan-output.txt
+
+      - name: Upload scan output
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: security-scan-${{ github.run_id }}
+          path: security-scan-output.txt
+          retention-days: 400

@@ -1,10 +1,7 @@
 export type WaitlistTier = 'founding_member' | 'early_member' | 'priority_waitlist' | 'standard';
 
 export type EmailTemplate =
-  | 'welcome'
-  | 'referral-success'
-  | 'deletion-confirmation'
-  | 'deletion-complete';
+  'welcome' | 'referral-success' | 'deletion-confirmation' | 'deletion-complete';
 
 export interface EmailPayload {
   to: string;

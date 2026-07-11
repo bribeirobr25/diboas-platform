@@ -110,8 +110,7 @@ export interface RequestDeletionInput extends AuditContext {
 }
 
 export type RequestDeletionResult =
-  | { ok: true; entryExists: boolean }
-  | { ok: false; code: 'SERVER_ERROR'; cause?: unknown };
+  { ok: true; entryExists: boolean } | { ok: false; code: 'SERVER_ERROR'; cause?: unknown };
 
 export interface ConfirmDeletionInput extends AuditContext {
   token: string;

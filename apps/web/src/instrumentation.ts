@@ -32,9 +32,7 @@ export async function onRequestError(
     routePath: string;
     routeType: 'render' | 'route' | 'action' | 'middleware';
     renderSource:
-      | 'react-server-components'
-      | 'react-server-components-payload'
-      | 'server-rendering';
+      'react-server-components' | 'react-server-components-payload' | 'server-rendering';
     revalidateReason: 'on-demand' | 'stale' | undefined;
     renderType: 'dynamic' | 'dynamic-resume';
   }

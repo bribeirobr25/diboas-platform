@@ -24,13 +24,7 @@ export interface FAQItem {
   readonly question: string;
   readonly answer: string;
   readonly category:
-    | 'getting-started'
-    | 'guides'
-    | 'security'
-    | 'fees'
-    | 'general'
-    | 'compliance'
-    | 'operations';
+    'getting-started' | 'guides' | 'security' | 'fees' | 'general' | 'compliance' | 'operations';
 }
 
 /**

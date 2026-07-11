@@ -93,14 +93,7 @@ export interface IdleCashDefaults {
  * coupling the marketing layer to the data layer's internal naming.
  */
 export type AssetHistoryAssetKey =
-  | 'BTC'
-  | 'SP500'
-  | 'QQQ'
-  | 'MSCI_WORLD'
-  | 'GOLD'
-  | 'TLT'
-  | 'IBOVESPA'
-  | 'DAX';
+  'BTC' | 'SP500' | 'QQQ' | 'MSCI_WORLD' | 'GOLD' | 'TLT' | 'IBOVESPA' | 'DAX';
 
 // Phase E v2 (TOOLS_IMPROVEMENT.md, 2026-05-23): expanded from {2010, 2016} to
 // the full 17-year range. 2010 floors at July (data start); 2011+ start in January.

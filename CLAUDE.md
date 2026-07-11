@@ -11,7 +11,7 @@ diBoaS is a goal-driven wealth building platform — your side-pocket for wealth
 - **Framework:** Next.js 16 (App Router, Turbopack)
 - **Language:** TypeScript (strict mode)
 - **UI:** React 18, Tailwind CSS 3
-- **Monorepo:** Turborepo + pnpm 8.15 workspaces
+- **Monorepo:** Turborepo + pnpm 10.33 workspaces (supply-chain hardened: script-blocking allowlist + 3-day `minimumReleaseAge` — see `docs/audit/SUPPLY_CHAIN_SPRINT_2026-07-11.md`)
 - **i18n:** react-intl (4 locales: en, pt-BR, es, de)
 - **Testing:** Vitest, @vitest/coverage-v8, Lighthouse CI, pa11y
 - **Monitoring:** Sentry (error tracking + session replay), PostHog (product analytics), GA4 (traffic analytics), web-vitals
