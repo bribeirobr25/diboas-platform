@@ -16,3 +16,11 @@
   font-size: clamp(1.02rem, 1.4vw, 1.2rem);
   line-height: 1.7;
 }
+
+/* Plain (grandmother) layer — larger, warmer, the first thing read (P3). */
+.plain {
+  font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+  line-height: 1.65;
+  color: var(--editorial-ink);
+  font-weight: 450;
+}

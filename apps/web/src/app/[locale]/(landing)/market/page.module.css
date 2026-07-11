@@ -109,6 +109,12 @@
   flex-direction: column;
   gap: 1.25rem;
 }
+/* Plain (grandmother) layer sits above the memo voice, divided by a hairline
+   so the two registers read as deliberately distinct (P3, 2026-07-11). */
+.plainLead {
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--editorial-line);
+}
 .pills {
   display: flex;
   gap: 10px;

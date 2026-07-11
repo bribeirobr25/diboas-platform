@@ -232,6 +232,13 @@ export default async function MarketPage({ params }: LocalePageProps) {
                       </div>
                     </div>
                     <div className={styles.scoreCopy}>
+                      {regime.summary.plain && (
+                        <CalmSummary
+                          data={regime.summary}
+                          length="plain"
+                          className={styles.plainLead}
+                        />
+                      )}
                       <CalmSummary data={regime.summary} length="detailed" />
                     </div>
                   </div>

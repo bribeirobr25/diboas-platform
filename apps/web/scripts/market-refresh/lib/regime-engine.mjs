@@ -160,6 +160,10 @@ export function evaluateBtcStructure(btcMonths, today) {
   }
   const closes = btcMonths.filter((m) => m.ym <= lastConfirmedYm).map((m) => m.close);
   const lastClose = closes[closes.length - 1];
+  const prevClose = closes[closes.length - 2];
+  // Month-over-month price move of the confirmed close — the honest number for
+  // the plain-layer "gave back about a quarter in June" line (Stage 4).
+  const monthMovePct = prevClose ? ((lastClose - prevClose) / prevClose) * 100 : 0;
   const ema20 = ema(closes, 20);
   const sma50 = sma(closes, 50);
   const rsiCurrent = rsi(closes, 14);
@@ -172,7 +176,12 @@ export function evaluateBtcStructure(btcMonths, today) {
       state: lastClose > ema20 ? 'ACTIVE' : 'INACTIVE',
       weight: 2,
       detail: `close ${fmtUsd(lastClose)} vs 20M EMA ${fmtUsd(ema20)}`,
-      values: { close: lastClose, ema20, gapPct: ((lastClose - ema20) / ema20) * 100 },
+      values: {
+        close: lastClose,
+        ema20,
+        gapPct: ((lastClose - ema20) / ema20) * 100,
+        monthMovePct,
+      },
       anchor: monthAnchor,
       anchorKind: 'monthly',
     },

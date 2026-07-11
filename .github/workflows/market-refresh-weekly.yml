@@ -1,0 +1,88 @@
+# Weekly /market refresh — automated PR (P3, founder ruling 2026-07-11: Mondays 06:00 UTC).
+#
+# The pipeline NEVER pushes to main. It opens a PR with the compute log in the
+# body; CODEOWNERS reviews the editorial copy and merges. The 14-day staleness
+# gate remains the backstop of last resort. Merge stays human until trust is
+# earned (plan §B Stage 4).
+#
+# Flow: fetch (dual-source verified) → quality gate (fail-closed) → engine →
+# computed.json → generate editorial JSONs from templates → reconcile → PR.
+#
+# Requires repo secret POLYGON_API_KEY (founder-owned) for the ETF-01 leg.
+# Without it the ETF snapshot step is skipped and ETF-01 stays UNAVAILABLE —
+# the run still succeeds (fail-open on the optional leg, fail-closed on core).
+
+name: Market Refresh (weekly)
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Mondays 06:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies (frozen)
+        run: pnpm install --frozen-lockfile
+
+      - name: Build i18n (validators need it)
+        run: pnpm --filter @diboas/i18n build
+
+      - name: ETF-01 weekly snapshot (optional leg)
+        if: ${{ env.POLYGON_API_KEY != '' }}
+        env:
+          POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
+        run: node apps/web/scripts/market-refresh/run.mjs --etf-snapshot --no-archive || true
+
+      - name: Refresh pipeline (fetch → gate → compute → archive)
+        env:
+          POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
+        run: node apps/web/scripts/market-refresh/run.mjs --append-btc
+
+      - name: Tools monthlies (F-M8 leg — idempotent, appends only at month-roll)
+        run: node apps/web/scripts/market-refresh/tools-monthlies.mjs
+
+      - name: Generate editorial copy from templates
+        run: node apps/web/scripts/market-refresh/generate.mjs
+
+      - name: Reconcile + jargon gate + market tests
+        run: |
+          node apps/web/scripts/market-refresh/generate.mjs --check
+          node scripts/check-market-data-jargon.mjs
+          pnpm --filter web exec vitest run src/lib/market-data
+
+      - name: Open refresh PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: editorial/market-refresh-auto
+          commit-message: 'data(market): weekly refresh (automated)'
+          title: 'data(market): weekly refresh — review before merge'
+          body: |
+            Automated weekly /market refresh (P3 pipeline).
+
+            - Fetch → fail-closed quality gate → engine → `computed.json`
+            - Editorial copy generated from the reviewed template library
+            - `generate.mjs --check` + jargon gate + market vitest all green
+
+            **Review the plain-language summary and per-signal copy before merging.**
+            If a cycle needs a human override, add it to
+            `apps/web/data/market/editorial-override.json` and re-run
+            `generate.mjs`. The 14-day staleness gate is the backstop.
+          labels: |
+            market-refresh
+            needs-editorial-review

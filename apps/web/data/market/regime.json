@@ -23,7 +23,8 @@
         "June's close slipped about 1% below the 50-month SMA — the long-term trend line broke for the first time this cycle",
         "Monthly RSI turned back down (49.2 → 40.8) — momentum is deteriorating again",
         "The dollar is firm and US 10-year yields hold above trend; spot ETF net-flows could not be confirmed (scored unavailable, no points)"
-      ]
+      ],
+      "plain": "This was the month the floor creaked: the price gave back about a quarter in June and bent the long lines it had held. Most of the things we track leaned cautious at once. Storms pass — this one hasn't yet. What we're watching: whether the dollar loosens its grip, and whether the price can reclaim the slow line it has held for years."
     },
     "pt-BR": {
       "short": "As condições recuaram de Neutra / Mista para Defensiva. A queda de junho rompeu de forma decisiva a tendência intermediária do Bitcoin e o levou, pela primeira vez neste ciclo, para baixo da linha de 50 meses de longo prazo, enquanto o cenário macro segue restritivo. A liquidez em expansão e o piso de momentum de curto prazo, que ainda resiste, são os apoios restantes.",
@@ -41,7 +42,8 @@
         "O fechamento de junho caiu cerca de 1% abaixo da SMA de 50 meses — a linha de tendência de longo prazo rompeu pela primeira vez neste ciclo",
         "O RSI mensal voltou a cair (49,2 → 40,8) — o momentum está se deteriorando novamente",
         "O dólar está firme e os rendimentos do Tesouro americano de 10 anos seguem acima da tendência; os fluxos líquidos de ETFs à vista não puderam ser confirmados (pontuados como indisponíveis, sem pontos)"
-      ]
+      ],
+      "plain": "Este foi o mês em que o chão rangeu: o preço devolveu cerca de um quarto em junho e vergou as linhas longas que vinha segurando. A maior parte do que acompanhamos pendeu para a cautela de uma vez. Tempestades passam — esta ainda não passou. O que estamos observando: se o dólar afrouxa o aperto, and se o preço consegue retomar a linha lenta que segurou por anos."
     },
     "es": {
       "short": "Las condiciones retrocedieron de Neutral / Mixta a Defensiva. La caída de junio rompió de forma decisiva la tendencia intermedia de Bitcoin y lo llevó, por primera vez en este ciclo, por debajo de la línea de 50 meses de largo plazo, mientras el entorno macro sigue restrictivo. La liquidez en expansión y el piso de momentum de corto plazo, que aún resiste, son los apoyos restantes.",
@@ -59,7 +61,8 @@
         "El cierre de junio cayó alrededor de 1% por debajo de la SMA de 50 meses — la línea de tendencia de largo plazo se rompió por primera vez en este ciclo",
         "El RSI mensual volvió a girar a la baja (49,2 → 40,8) — el momentum se deteriora de nuevo",
         "El dólar está firme y los rendimientos del Tesoro estadounidense a 10 años siguen sobre la tendencia; los flujos netos de ETFs al contado no pudieron confirmarse (puntuados como no disponibles, sin puntos)"
-      ]
+      ],
+      "plain": "Este fue el mes en que crujió el suelo: el precio devolvió cerca de una cuarta parte en junio y dobló las líneas largas que venía sosteniendo. La mayoría de lo que seguimos se inclinó a la cautela a la vez. Las tormentas pasan; esta aún no. Qué estamos observando: si el dólar afloja su presión, and si el precio recupera la línea lenta que sostuvo durante años."
     },
     "de": {
       "short": "Die Bedingungen fielen von Neutral / Gemischt auf Defensiv zurück. Der Juni-Abverkauf brach Bitcoins mittelfristigen Trend deutlich und drückte den Kurs erstmals in diesem Zyklus unter die langfristige 50-Monats-Linie, während das Makro-Umfeld restriktiv bleibt. Die expandierende Liquidität und der noch haltende kurzfristige Momentum-Boden sind die verbleibenden Stützen.",
@@ -77,7 +80,8 @@
         "Der Juni-Schluss rutschte rund 1% unter die 50-Monats-SMA — die langfristige Trendlinie brach zum ersten Mal in diesem Zyklus",
         "Der monatliche RSI drehte wieder nach unten (49,2 → 40,8) — das Momentum verschlechtert sich erneut",
         "Der Dollar ist fest und die US-10-Jahres-Renditen bleiben über dem Trend; Spot-ETF-Nettozuflüsse konnten nicht bestätigt werden (als nicht verfügbar bewertet, keine Punkte)"
-      ]
+      ],
+      "plain": "Dies war der Monat, in dem der Boden knarrte: der Preis gab im Juni etwa ein Viertel ab und bog die langen Linien, die er gehalten hatte. Das meiste, was wir verfolgen, neigte sich auf einmal zur Vorsicht. Stürme ziehen vorbei — dieser noch nicht. Worauf wir achten: ob der Dollar seinen Griff lockert, and ob der Preis die langsame Linie zurückerobern kann, die er jahrelang gehalten hat."
     }
   },
   "signal_groups": [
@@ -94,10 +98,10 @@
       "points_awarded": 1,
       "max_points": 6,
       "summary": {
-        "en": "June's sell-off broke both the intermediate (20-month EMA) and, marginally, the long-term (50-month SMA) trend lines, and monthly momentum turned down; only the short-term Stoch-RSI floor is holding.",
-        "pt-BR": "A queda de junho rompeu tanto a linha intermediária (EMA de 20 meses) quanto, por margem estreita, a de longo prazo (SMA de 50 meses), e o momentum mensal virou para baixo; apenas o piso do Stoch-RSI de curto prazo está segurando.",
-        "es": "La caída de junio rompió tanto la línea intermedia (EMA de 20 meses) como, por poco margen, la de largo plazo (SMA de 50 meses), y el momentum mensual giró a la baja; solo aguanta el piso del Stoch-RSI de corto plazo.",
-        "de": "Der Juni-Abverkauf brach sowohl die mittelfristige Linie (20-Monats-EMA) als auch — knapp — die langfristige (50-Monats-SMA), und das Monats-Momentum drehte nach unten; nur der kurzfristige Stoch-RSI-Boden hält."
+        "en": "Bitcoin's own structure is damaged: the monthly trend lines are broken and momentum offers little support (1 of 6 points).",
+        "pt-BR": "A estrutura própria do Bitcoin está danificada: as linhas de tendência mensais estão rompidas e o momentum dá pouco suporte (1 de 6 pontos).",
+        "es": "La estructura propia de Bitcoin está dañada: las líneas de tendencia mensuales están rotas y el impulso ofrece poco apoyo (1 de 6 puntos).",
+        "de": "Bitcoins eigene Struktur ist beschädigt: Die monatlichen Trendlinien sind gebrochen und das Momentum bietet wenig Halt (1 von 6 Punkten)."
       }
     },
     {
@@ -113,10 +117,10 @@
       "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Macro conditions remain restrictive overall — firm dollar, elevated yields — though global liquidity continues to expand.",
-        "pt-BR": "As condições macro permanecem restritivas no geral — dólar firme, rendimentos elevados — embora a liquidez global siga em expansão.",
-        "es": "Las condiciones macro siguen restrictivas en general — dólar firme, rendimientos elevados — aunque la liquidez global continúa expandiéndose.",
-        "de": "Die Makro-Bedingungen bleiben insgesamt restriktiv — fester Dollar, erhöhte Renditen — auch wenn die globale Liquidität weiter expandiert."
+        "en": "Macro conditions are mixed: part of the backdrop leans supportive while the rest stays restrictive (1 of 3 points).",
+        "pt-BR": "As condições macro estão mistas: parte do cenário pende para o suporte enquanto o resto segue restritivo (1 de 3 pontos).",
+        "es": "Las condiciones macro están mixtas: parte del trasfondo apoya mientras el resto sigue restrictivo (1 de 3 puntos).",
+        "de": "Die Makro-Bedingungen sind gemischt: Ein Teil des Umfelds stützt, der Rest bleibt restriktiv (1 von 3 Punkten)."
       }
     },
     {
@@ -132,10 +136,10 @@
       "points_awarded": 0,
       "max_points": 2,
       "summary": {
-        "en": "Spot ETF net-flow data could not be confirmed from available sources this cycle; the signal is treated as unavailable and contributes no points.",
-        "pt-BR": "Os dados de fluxo líquido de ETFs à vista não puderam ser confirmados pelas fontes disponíveis neste ciclo; o sinal é tratado como indisponível e não soma pontos.",
-        "es": "Los datos de flujo neto de ETFs al contado no pudieron confirmarse desde las fuentes disponibles este ciclo; la señal se trata como no disponible y no aporta puntos.",
-        "de": "Die Spot-ETF-Nettozuflussdaten konnten in diesem Zyklus nicht aus den verfügbaren Quellen bestätigt werden; das Signal wird als nicht verfügbar behandelt und trägt keine Punkte bei."
+        "en": "Institutional demand is not confirming: ETF flows are absent or negative on the observed weeks (0 of 2 points).",
+        "pt-BR": "A demanda institucional não confirma: os fluxos de ETF estão ausentes ou negativos nas semanas observadas (0 de 2 pontos).",
+        "es": "La demanda institucional no confirma: los flujos de ETF están ausentes o negativos en las semanas observadas (0 de 2 puntos).",
+        "de": "Institutionelle Nachfrage bestätigt nicht: ETF-Flüsse fehlen oder sind in den beobachteten Wochen negativ (0 von 2 Punkten)."
       }
     },
     {
@@ -151,10 +155,10 @@
       "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Bitcoin is lagging both gold and the Nasdaq on a 20-week basis — the gold gap narrowed, the tech gap did not; broader equity strength persists.",
-        "pt-BR": "O Bitcoin está atrás do ouro e do Nasdaq na janela de 20 semanas — a distância para o ouro encurtou, a distância para a tecnologia não; a força do mercado acionário em geral persiste.",
-        "es": "Bitcoin va por detrás del oro y del Nasdaq en la ventana de 20 semanas — la brecha con el oro se estrechó, la brecha con la tecnología no; la fortaleza general de la renta variable persiste.",
-        "de": "Bitcoin liegt auf 20-Wochen-Sicht hinter Gold und dem Nasdaq zurück — der Abstand zu Gold verringerte sich, der zu Tech nicht; die breitere Aktienmarktstärke hält an."
+        "en": "Relative strength is split: Bitcoin leads on part of the board while the rest holds firm against it (1 of 3 points).",
+        "pt-BR": "A força relativa está dividida: o Bitcoin lidera em parte do quadro enquanto o resto resiste (1 de 3 pontos).",
+        "es": "La fuerza relativa está dividida: Bitcoin lidera en parte del tablero mientras el resto resiste (1 de 3 puntos).",
+        "de": "Die relative Stärke ist geteilt: Bitcoin führt auf einem Teil des Feldes, der Rest hält dagegen (1 von 3 Punkten)."
       }
     }
   ],
