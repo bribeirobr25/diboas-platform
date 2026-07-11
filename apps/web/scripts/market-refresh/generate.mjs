@@ -188,7 +188,17 @@ function groupSummary(groupId, locale) {
   };
   const points = totals[groupId];
   const max = maxByGroup[groupId];
-  const level = groupLevel(points, max);
+  let level = groupLevel(points, max);
+  // Honesty override (2026-07-11 audit): a group scored 0 only because its
+  // signal is UNAVAILABLE must not read as observed-weak. The /market page's
+  // whole identity is honest unavailability — say "unavailable, not weak".
+  if (
+    groupId === 'institutional_demand' &&
+    byId['ETF-01']?.state === 'UNAVAILABLE' &&
+    groupTpl[groupId].unavailable
+  ) {
+    level = 'unavailable';
+  }
   return fill(groupTpl[groupId][level][locale], { points: String(points), max: String(max) });
 }
 

@@ -58,6 +58,12 @@
       "pt-BR": "A demanda institucional está entrando: as emissões dos ETFs à vista superaram os resgates na maioria das semanas recentes ({points} de {max} pontos).",
       "es": "La demanda institucional está entrando: las creaciones de los ETF al contado superaron los reembolsos en la mayoría de las semanas recientes ({points} de {max} puntos).",
       "de": "Institutionelle Nachfrage fließt: Anteilsschöpfungen der Spot-ETFs überwogen in den meisten der letzten Wochen ({points} von {max} Punkten)."
+    },
+    "unavailable": {
+      "en": "Institutional demand could not be measured this cycle — the ETF flow read is unavailable, not weak ({points} of {max} points).",
+      "pt-BR": "A demanda institucional não pôde ser medida neste ciclo — a leitura de fluxos de ETF está indisponível, não fraca ({points} de {max} pontos).",
+      "es": "La demanda institucional no pudo medirse en este ciclo: la lectura de flujos de ETF no está disponible, no es débil ({points} de {max} puntos).",
+      "de": "Die institutionelle Nachfrage konnte in diesem Zyklus nicht gemessen werden — der ETF-Fluss-Wert ist nicht verfügbar, nicht schwach ({points} von {max} Punkten)."
     }
   },
   "relative_strength": {

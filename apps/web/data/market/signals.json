@@ -189,10 +189,10 @@
       "points_awarded": 0,
       "max_points": 2,
       "summary": {
-        "en": "Institutional demand is not confirming: ETF flows are absent or negative on the observed weeks (0 of 2 points).",
-        "pt-BR": "A demanda institucional não confirma: os fluxos de ETF estão ausentes ou negativos nas semanas observadas (0 de 2 pontos).",
-        "es": "La demanda institucional no confirma: los flujos de ETF están ausentes o negativos en las semanas observadas (0 de 2 puntos).",
-        "de": "Institutionelle Nachfrage bestätigt nicht: ETF-Flüsse fehlen oder sind in den beobachteten Wochen negativ (0 von 2 Punkten)."
+        "en": "Institutional demand could not be measured this cycle — the ETF flow read is unavailable, not weak (0 of 2 points).",
+        "pt-BR": "A demanda institucional não pôde ser medida neste ciclo — a leitura de fluxos de ETF está indisponível, não fraca (0 de 2 pontos).",
+        "es": "La demanda institucional no pudo medirse en este ciclo: la lectura de flujos de ETF no está disponible, no es débil (0 de 2 puntos).",
+        "de": "Die institutionelle Nachfrage konnte in diesem Zyklus nicht gemessen werden — der ETF-Fluss-Wert ist nicht verfügbar, nicht schwach (0 von 2 Punkten)."
       },
       "signals": [
         {
