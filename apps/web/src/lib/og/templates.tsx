@@ -31,7 +31,7 @@ export type OGPageType =
   | 'tools-idle-cash'
   // Phase E (2026-05-16) — Asset history retrospective tool.
   | 'tools-asset-history'
-  // Iteration 4 §3.5 — Adelaide Daily (/market). Static OG via Path B
+  // Iteration 4 §3.5 — Adelaide Market (/market). Static OG via Path B
   // (NF1 round-3 lock). v1 reuses the teal-themed default body with brand
   // + title; dynamic OG with regime score is iter-4.5 / post-launch.
   | 'market';
@@ -166,11 +166,11 @@ export const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
     badge: 'Tools',
     theme: 'teal',
   },
-  // Iteration 4 §3.5 — Adelaide Daily (/market). Path B static template
+  // Iteration 4 §3.5 — Adelaide Market (/market). Path B static template
   // (NF1 round-3 lock). v1 reuses the teal-themed body with brand + title;
   // dynamic OG with regime score is iter-4.5 / post-launch.
   market: {
-    title: 'Adelaide Daily',
+    title: 'Adelaide Market',
     subtitle: 'Calm macro intelligence for Bitcoin.',
     badge: 'Market',
     theme: 'teal',
@@ -363,7 +363,7 @@ export function isValidPageType(page: string): page is OGPageType {
     'tools-idle-cash',
     // Phase E (2026-05-16) — Asset history retrospective tool.
     'tools-asset-history',
-    // Iteration 4 §3.5 — Adelaide Daily. NF1 round-3 Path B (static OG).
+    // Iteration 4 §3.5 — Adelaide Market. NF1 round-3 Path B (static OG).
     'market',
   ].includes(page);
 }

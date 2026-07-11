@@ -28,7 +28,7 @@ import { ROUTES } from '@/config/routes';
 
 /**
  * Landing page navigation links configuration
- * For Business | Money Tools | Adelaide Daily | Learn | About
+ * For Business | Money Tools | Adelaide Market | Learn | About
  */
 const LANDING_NAV_LINKS = [
   {
@@ -46,7 +46,7 @@ const LANDING_NAV_LINKS = [
   {
     id: 'adelaide-daily',
     labelKey: 'common.navigation.landing.adelaideDaily',
-    // 2026-05-13: route renamed to `/market`; label "Adelaide Daily" stays.
+    // 2026-05-13: route renamed to `/market`; label "Adelaide Market" stays.
     href: ROUTES.MARKET,
   },
   {

@@ -44,7 +44,7 @@ const PAGE_PRIORITIES: Record<string, number> = {
   '/tools/idle-cash': 0.8,
   // Phase E (2026-05-16) — Asset history retrospective tool
   '/tools/asset-history': 0.8,
-  // Iteration 4 (2026-05-15) — Adelaide Daily (/market)
+  // Iteration 4 (2026-05-15) — Adelaide Market (/market)
   // Priority 0.7 places it alongside primary user destinations (/help,
   // /security) but below feature-tree roots (0.8 tools, 0.9 b2b).
   '/market': 0.7,
@@ -96,7 +96,7 @@ const PATH_TO_OG_KEY: Record<string, string> = {
   '/tools/idle-cash': 'tools-idle-cash',
   // Phase E — Asset history OG key
   '/tools/asset-history': 'tools-asset-history',
-  // Iteration 4 §3.6 — Adelaide Daily. Path B static OG (§6.3 locked):
+  // Iteration 4 §3.6 — Adelaide Market. Path B static OG (§6.3 locked):
   // registered in `lib/og/templates.tsx` PAGE_CONFIGS.market; renders via
   // the shared `/api/og/[page]/route.tsx` (zero new chunks).
   '/market': 'market',

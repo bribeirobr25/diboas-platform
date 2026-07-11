@@ -41,6 +41,13 @@ import {
   OUTLIER_BOUNDS_PCT,
 } from './lib/quality-gate.mjs';
 import { fetchFredSeries } from './providers/fred.mjs';
+import { fetchEtfSharesOutstanding, SPOT_BTC_ETFS } from './providers/polygon.mjs';
+import {
+  readSnapshots,
+  appendSnapshot,
+  evaluateEtf01FromFlows,
+  WARMUP_SNAPSHOTS,
+} from './lib/etf-flows.mjs';
 import { fetchYahooDaily, fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { fetchBtcMonthCloseVerifier } from './providers/coingecko.mjs';
 import { btcMonths, appendBtcMonth, REPO_ROOT } from './providers/inrepo.mjs';
@@ -74,9 +81,47 @@ async function maybeAppendBtc() {
   return { ym: expectedYm, row, verifier: verifier.price, divergencePct };
 }
 
+/**
+ * Weekly ETF-01 leg (P4, Polygon route): snapshot per-fund shares outstanding
+ * + NAV proxy (Yahoo close), append to the append-only ledger. Idempotent per
+ * Friday anchor. Paced for the free tier (~2.4 min for 11 tickers).
+ */
+async function maybeSnapshotEtfShares() {
+  // Anchor = the most recent past Friday (strict-Friday spirit; the snapshot
+  // describes the week that closed on that Friday).
+  const anchorDate = new Date(TODAY);
+  while (anchorDate.getUTCDay() !== 5) anchorDate.setUTCDate(anchorDate.getUTCDate() - 1);
+  const anchor = anchorDate.toISOString().slice(0, 10);
+  const existing = readSnapshots();
+  if (existing.some((snap) => snap.anchor === anchor)) {
+    console.log(`[etf-snapshot] ${anchor} already recorded — nothing to do.`);
+    return;
+  }
+  console.log(`[etf-snapshot] fetching ${SPOT_BTC_ETFS.length} funds (paced, ~2.4 min)…`);
+  const { funds } = await fetchEtfSharesOutstanding();
+  const snap = { anchor, funds: {} };
+  for (const t of SPOT_BTC_ETFS) {
+    let price = null;
+    try {
+      const { series } = await fetchYahooDaily(t, '5d');
+      price = series.length ? series[series.length - 1][1] : null;
+    } catch (e) {
+      console.log(`[etf-snapshot] NAV proxy fetch failed for ${t}: ${e.message}`);
+    }
+    snap.funds[t] = { shares: funds[t].shares, price, lastUpdated: funds[t].lastUpdated };
+  }
+  const res = appendSnapshot(snap);
+  console.log(
+    res.appended
+      ? `[etf-snapshot] recorded ${anchor} (${readSnapshots().length}/${WARMUP_SNAPSHOTS} toward ETF-01 warm-up)`
+      : `[etf-snapshot] ${res.reason}`
+  );
+}
+
 async function main() {
   const appendRequested = process.argv.includes('--append-btc');
   const appendResult = appendRequested ? await maybeAppendBtc() : null;
+  if (process.argv.includes('--etf-snapshot')) await maybeSnapshotEtfShares();
 
   // ── Stage 1: FETCH ───────────────────────────────────────────────────────
   console.log('[fetch] pulling sources…');
@@ -124,7 +169,14 @@ async function main() {
     { btcDaily: btc.series, goldDaily: gold.series, nasdaqDaily: nasdaq.series },
     TODAY
   );
-  const etfSignals = evaluateEtfManual(etfManual, TODAY);
+  // ETF-01: the Polygon flow ledger takes precedence once warmed up
+  // (>= WARMUP_SNAPSHOTS weekly snapshots); the manual file remains the
+  // fallback during warm-up / outage (auto-expiring, doc 02 §10.1).
+  const etfSnapshots = readSnapshots();
+  const etfSignals =
+    etfSnapshots.length > 0
+      ? [evaluateEtf01FromFlows(etfSnapshots, TODAY)] // warming-up UNAVAILABLE until ≥5 snapshots
+      : evaluateEtfManual(etfManual, TODAY);
 
   const all = [...btcSignals, ...macroSignals, ...etfSignals, ...relSignals];
   const { groupTotals, score, band } = scoreSignals({

@@ -94,11 +94,11 @@ export const PAGE_SEO_CONFIG = {
   // English string is the fallback when generateMetadata cannot resolve the
   // translation (e.g., SSR boundary or missing namespace).
   market: {
-    title: 'Adelaide Daily',
+    title: 'Adelaide Market',
     description:
       'Calm macro intelligence for Bitcoin. Understand the environment, not the next candle.',
     keywords: [
-      'adelaide daily',
+      'adelaide market',
       'bitcoin macro',
       'macro regime',
       'btc environment',

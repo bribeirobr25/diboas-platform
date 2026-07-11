@@ -85,7 +85,7 @@ packages/i18n/translations/{en, pt-BR, es, de}/
 ├── landing-help.json                   # Help center
 ├── learn.json                          # Learn center landing
 ├── learn-compound-interest.json        # Lesson 01 + Beat 2 vignettes + calculator
-├── market.json                         # Adelaide Daily — BTC macro-regime dashboard (/market)
+├── market.json                         # Adelaide Market — BTC macro-regime dashboard (/market)
 ├── preDemo.json                        # Demo onboarding
 ├── preDream.json                       # Dream-mode onboarding
 ├── protocols.json                      # Protocol transparency

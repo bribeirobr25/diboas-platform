@@ -3,7 +3,7 @@
 /**
  * useWebShare — the provider-agnostic share engine shared by every redesign
  * share surface (Money Tools result moment via `useResultShare`, and the
- * Adelaide Daily `MarketCtaBand`). Owns ONE copy of the mechanics so the two
+ * Adelaide Market `MarketCtaBand`). Owns ONE copy of the mechanics so the two
  * surfaces can never drift (Principle 4 / DRY):
  *
  *   - Web Share API where available (mobile/native sheet), copy-to-clipboard

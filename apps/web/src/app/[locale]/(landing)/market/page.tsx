@@ -40,7 +40,7 @@ export const dynamic = 'auto';
 export const revalidate = 3600;
 
 /**
- * `/market` (Adelaide Daily)
+ * `/market` (Adelaide Market)
  *
  * Iteration 2 of `docs/audit/MARKET_INTEGRATION_PLAN_2026-05-13.md` — replaces
  * the iteration-1 coming-soon placeholder with the full BTC Macro Regime
@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
   const messages = await loadPageNamespaces(validLocale, ['market']);
-  const title = messages['market.seo.title'] ?? 'Adelaide Daily';
+  const title = messages['market.seo.title'] ?? 'Adelaide Market';
   const description =
     messages['market.seo.description'] ??
     'Calm macro intelligence for Bitcoin. Understand the environment, not the next candle.';
@@ -96,7 +96,7 @@ export default async function MarketPage({ params }: LocalePageProps) {
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
       { name: 'Home', url: '/' },
-      { name: pageMessages['market.hero.title'] ?? 'Adelaide Daily', url: '/market' },
+      { name: pageMessages['market.hero.title'] ?? 'Adelaide Market', url: '/market' },
     ],
     locale
   );
@@ -110,7 +110,7 @@ export default async function MarketPage({ params }: LocalePageProps) {
   const articleDescription =
     pageMessages['market.seo.description'] ??
     'Calm macro intelligence for Bitcoin. Understand the environment, not the next candle.';
-  const articleHeadline = pageMessages['market.hero.title'] ?? 'Adelaide Daily';
+  const articleHeadline = pageMessages['market.hero.title'] ?? 'Adelaide Market';
   const articleData = marketArticleSchema({
     data: initialData,
     locale,
@@ -125,7 +125,7 @@ export default async function MarketPage({ params }: LocalePageProps) {
   const t = (key: string, fallback: string) => pageMessages[`market.${key}`] ?? fallback;
 
   const heroKicker = t('hero.kicker', 'Macro environment score');
-  const heroTitle = t('hero.title', 'Adelaide Daily');
+  const heroTitle = t('hero.title', 'Adelaide Market');
   const heroSubtitle = t('hero.subtitle', 'Calm macro intelligence for Bitcoin.');
 
   const confidenceLabels = {
@@ -341,14 +341,14 @@ export default async function MarketPage({ params }: LocalePageProps) {
             headline={t('cta.headline', 'Calm intelligence, every week.')}
             body={t(
               'cta.body',
-              'Adelaide Daily is free and refreshed every week. Join the waitlist to be first when diBoaS opens.'
+              'Adelaide Market is free and refreshed every week. Join the waitlist to be first when diBoaS opens.'
             )}
             waitlistLabel={t('cta.waitlist', 'Join the waitlist')}
             shareLabel={t('cta.share', 'Share Adelaide')}
             shareCopied={t('cta.shareCopied', 'Link copied')}
             shareUrl={`${siteUrl}/${locale}/market`}
-            shareText={t('cta.shareText', 'Adelaide Daily: calm macro intelligence for Bitcoin.')}
-            shareTitle={t('hero.title', 'Adelaide Daily')}
+            shareText={t('cta.shareText', 'Adelaide Market: calm macro intelligence for Bitcoin.')}
+            shareTitle={t('hero.title', 'Adelaide Market')}
           />
 
           {/* Methodology — dark editorial block (full-bleed). */}

@@ -244,7 +244,7 @@
   --scene-paper: #e8efe9; /* calm light fluid/particle base (learn/tools) */
   --scene-paper-teal: #a9d8cd; /* calm light soft teal */
 
-  /* Editorial palette — scoped to /market ("Adelaide Daily" world, replicating
+  /* Editorial palette — scoped to /market ("Adelaide Market" world, replicating
      02-editorial-motion). Deliberately distinct from the cinematic teal system.
      Fraunces serif + IBM Plex Mono are wired in layout.tsx. */
   --editorial-paper: #f4f0e8; /* warm cream page */

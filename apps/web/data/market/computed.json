@@ -1,6 +1,6 @@
 {
   "_comment": "Machine-readable regime computation (P2 Stage 3 output). Written ONLY by scripts/market-refresh/run.mjs after the quality gate passes. The reconciliation vitest asserts regime.json agrees with this file — hand-edit regime.json scores and CI goes red (F-M4). Regenerate by running the pipeline, never by hand.",
-  "computed_at": "2026-07-11T16:15:18.066Z",
+  "computed_at": "2026-07-11T17:59:09.946Z",
   "score": 3,
   "max_score": 14,
   "regime_code": "DEFENSIVE",
@@ -82,9 +82,9 @@
       "state": "UNAVAILABLE",
       "weight": 2,
       "points": 0,
-      "detail": "ETF flows source unavailable this cycle: CoinGlass spot-ETF routes 404 (page structure changed) and the free-tier API excludes etf/bitcoin/flow-history (401); Farside remains Cloudflare-blocked (not evaded, per sourcing policy). Scored UNAVAILABLE per doc 02 §10.1 — effective ceiling 12/14 until the P4 route lands.",
-      "anchor": "2026-07-11",
-      "anchorKind": "manual"
+      "detail": "Polygon shares-outstanding ledger warming up: 1/5 weekly snapshots recorded — 4 weekly flows need 5. No guessed backfill.",
+      "anchor": "2026-07-10",
+      "anchorKind": "weekly"
     },
     {
       "id": "REL-01",
@@ -118,37 +118,37 @@
     {
       "source": "FRED:DTWEXBGS",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS&cosd=2023-01-01",
-      "fetchedAt": "2026-07-11T16:15:17.923Z",
+      "fetchedAt": "2026-07-11T17:59:09.897Z",
       "licence": "public-domain"
     },
     {
       "source": "FRED:DGS10",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2023-01-01",
-      "fetchedAt": "2026-07-11T16:15:17.925Z",
+      "fetchedAt": "2026-07-11T17:59:09.520Z",
       "licence": "public-domain"
     },
     {
       "source": "FRED:M2SL",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=M2SL&cosd=2023-01-01",
-      "fetchedAt": "2026-07-11T16:15:17.930Z",
+      "fetchedAt": "2026-07-11T17:59:09.886Z",
       "licence": "public-domain"
     },
     {
       "source": "FRED:NASDAQCOM",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQCOM&cosd=2023-01-01",
-      "fetchedAt": "2026-07-11T16:15:17.927Z",
+      "fetchedAt": "2026-07-11T17:59:09.919Z",
       "licence": "public-domain"
     },
     {
       "source": "Yahoo:BTC-USD",
       "url": "chart/BTC-USD?interval=1d",
-      "fetchedAt": "2026-07-11T16:15:18.041Z",
+      "fetchedAt": "2026-07-11T17:59:09.431Z",
       "licence": "quote-display"
     },
     {
       "source": "Yahoo:GC=F",
       "url": "chart/GC=F?interval=1d",
-      "fetchedAt": "2026-07-11T16:15:18.041Z",
+      "fetchedAt": "2026-07-11T17:59:09.528Z",
       "licence": "quote-display"
     }
   ]
