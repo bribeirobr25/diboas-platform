@@ -64,6 +64,9 @@ const MONTHLY_PRICES_PATH = path.join(
   'apps/web/src/lib/market-data/data/monthlyPrices.json'
 );
 
+const REGIME_PATH = path.join(REPO_ROOT, 'apps/web/data/market/regime.json');
+const ARCHIVE_PATH = path.join(REPO_ROOT, 'apps/web/data/market/run-archive.jsonl');
+
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36';
 const TODAY = new Date();
 
@@ -221,6 +224,19 @@ function evaluateBtcStructure() {
   // Candle-lock: include only months <= April 2026 (the last confirmed close).
   // May 2026 ym='2026-05-01' is the in-progress month — exclude.
   const lastConfirmedYm = lastConfirmedMonthYM(TODAY);
+  // P1 guard (F-M2, 2026-07-11): "latest present" is never silently accepted
+  // as "latest expected". Once the month-roll grace has passed, the last
+  // CONFIRMED month's candle must be in monthlyPrices.json — otherwise this
+  // run would score BTC-01..04 on a stale candle (exactly how the 2026-07-10
+  // near-miss would have printed a wrong 6/14). Hard exit, no warning-only.
+  const expectedYm = expectedConfirmedMonthYM(TODAY);
+  if (!months.some((m) => m.ym === expectedYm)) {
+    throw new Error(
+      `STALE INPUT (F-M2): monthlyPrices.json BTC is missing the expected confirmed ` +
+        `monthly candle ${expectedYm} (grace of ${MONTH_APPEND_GRACE_DAYS} days after ` +
+        `month-roll has passed). Append the candle per the /market playbook before computing.`
+    );
+  }
   const closes = months.filter((m) => m.ym <= lastConfirmedYm).map((m) => m.close);
   const lastClose = closes[closes.length - 1];
   const ema20 = ema(closes, 20);
@@ -256,6 +272,19 @@ function evaluateBtcStructure() {
   ];
 }
 
+/**
+ * P1 guard helper (F-M2): the month whose candle MUST already be appended.
+ * For the first MONTH_APPEND_GRACE_DAYS days after a month-roll the refresh
+ * may legitimately not have run yet, so the requirement steps back one month.
+ */
+export const MONTH_APPEND_GRACE_DAYS = 3;
+
+export function expectedConfirmedMonthYM(now) {
+  const monthsBack = now.getUTCDate() <= MONTH_APPEND_GRACE_DAYS ? 2 : 1;
+  const prev = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - monthsBack, 1));
+  return prev.toISOString().slice(0, 7) + '-01';
+}
+
 function lastConfirmedMonthYM(now) {
   // The current month is in progress; the last confirmed close is end of
   // (current_month - 1). Return as 'YYYY-MM-01' to compare against raw ym.
@@ -284,24 +313,36 @@ async function evaluateMacro() {
   const m2Prev = m2Vals[m2Vals.length - 2];
   const roc12m = (m2Current / m2_12mAgo - 1) * 100;
   const mom = m2Current - m2Prev;
+  // P1 guard (F-M3): record each signal's anchor date so mixed anchors are
+  // visible in every run (this cycle's DTWEXBGS Jun-26 vs NASDAQCOM Jul-10
+  // 2-week spread was silent before this printout).
+  const dxyAnchor = anchorOf(dxyWeekly);
+  const us10yAnchor = anchorOf(us10yWeekly);
+  const m2Anchor = anchorOf(m2Monthly);
   return [
     {
       id: 'MAC-01',
       state: dxyClose < dxyEma20 && dxyRsi < 50 ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `DXY ${dxyClose.toFixed(4)} vs EMA20W ${dxyEma20.toFixed(4)} (Δ ${(((dxyClose - dxyEma20) / dxyEma20) * 100).toFixed(3)}%); RSI ${dxyRsi.toFixed(2)}`,
+      anchor: dxyAnchor,
+      anchorKind: 'weekly',
     },
     {
       id: 'MAC-02',
       state: us10yClose < us10yEma20 ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `US10Y ${us10yClose.toFixed(2)}% vs EMA20W ${us10yEma20.toFixed(2)}%`,
+      anchor: us10yAnchor,
+      anchorKind: 'weekly',
     },
     {
       id: 'MAC-03',
       state: roc12m > 0 && mom >= 0 ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `M2 12M ROC ${roc12m.toFixed(2)}%, MoM ${mom > 0 ? '+' : ''}${mom.toFixed(1)}B`,
+      anchor: m2Anchor,
+      anchorKind: 'monthly',
     },
   ];
 }
@@ -336,26 +377,43 @@ async function evaluateRelativeStrength() {
   const nasdaqLatest = nasdaqCloses[nasdaqCloses.length - 1];
   const nasdaqEma = ema(nasdaqCloses, 20);
 
+  // P1 guard (F-M3): ratio signals anchor at the last COMMON Friday.
+  const bgAnchor = bgFridays[bgFridays.length - 1];
+  const bnAnchor = bnFridays[bnFridays.length - 1];
+  const nasdaqAnchor = anchorOf(nasdaqWeekly);
+
   return [
     {
       id: 'REL-01',
       state: bgLatest > bgEma ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `BTC/Gold ratio ${bgLatest.toFixed(3)} vs EMA20W ${bgEma.toFixed(3)} (Yahoo GC=F substitute)`,
+      anchor: bgAnchor,
+      anchorKind: 'weekly',
     },
     {
       id: 'REL-02',
       state: bnLatest > bnEma ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `BTC/Nasdaq ratio ${bnLatest.toFixed(3)} vs EMA20W ${bnEma.toFixed(3)}`,
+      anchor: bnAnchor,
+      anchorKind: 'weekly',
     },
     {
       id: 'REL-03',
       state: nasdaqLatest > nasdaqEma ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `Nasdaq ${nasdaqLatest.toFixed(2)} vs EMA20W ${nasdaqEma.toFixed(2)}`,
+      anchor: nasdaqAnchor,
+      anchorKind: 'weekly',
     },
   ];
+}
+
+/** P1 (F-M3): last date of a [Date, value] series as YYYY-MM-DD, or null. */
+function anchorOf(series) {
+  if (!series || !series.length) return null;
+  return series[series.length - 1][0].toISOString().slice(0, 10);
 }
 
 function fmt(n) {
@@ -411,7 +469,75 @@ async function main() {
   ];
   const band = bands.find((b) => score >= b.min && score <= b.max);
 
-  console.log(`\n=== Total: ${score} / 14 → ${band.code} (${band.label}) ===\n`);
+  console.log(`\n=== Total: ${score} / 14 → ${band.code} (${band.label}) ===`);
+
+  // === P1 guard (F-M3): per-signal anchor printout + coherence check ======
+  const anchored = all.filter((x) => x.anchor);
+  console.log('\n=== Anchors (F-M3) ===');
+  for (const x of anchored) {
+    console.log(`  ${x.id.padEnd(8)} ${x.anchorKind.padEnd(8)} ${x.anchor}`);
+  }
+  const weeklyAnchors = anchored.filter((x) => x.anchorKind === 'weekly');
+  const anchorDates = weeklyAnchors.map((x) => new Date(`${x.anchor}T00:00:00Z`).getTime());
+  const spreadDays = (Math.max(...anchorDates) - Math.min(...anchorDates)) / 86400000;
+  let anchorWarning = null;
+  if (spreadDays > 7) {
+    const newest = Math.max(...anchorDates);
+    const laggards = weeklyAnchors
+      .filter((x) => (newest - new Date(`${x.anchor}T00:00:00Z`).getTime()) / 86400000 > 7)
+      .map((x) => `${x.id}@${x.anchor}`);
+    anchorWarning =
+      `weekly anchor spread ${spreadDays.toFixed(0)}d > 7d — mark the laggards DELAYED ` +
+      `in data-status.json instead of silently mixing anchors: ${laggards.join(', ')}`;
+    console.log(`\n  ⚠ ANCHOR COHERENCE (F-M3): ${anchorWarning}`);
+  } else {
+    console.log(`  Weekly anchor spread: ${spreadDays.toFixed(0)}d (coherent)`);
+  }
+
+  // === P1: reconciliation vs the published regime.json ====================
+  let published = null;
+  try {
+    published = JSON.parse(fs.readFileSync(REGIME_PATH, 'utf8'));
+  } catch {
+    /* published file absent (fresh clone mid-edit) — archive still records computed */
+  }
+  if (published) {
+    if (published.score !== score || published.regime_code !== band.code) {
+      console.log(
+        `\n  ⚠ PUBLISH DRIFT: computed ${score}/${band.code} vs published ` +
+          `${published.score}/${published.regime_code} — expected mid-refresh; ` +
+          `unexpected on a verification re-run.`
+      );
+    } else {
+      console.log(`  Published regime.json matches (${score}/${band.code}).`);
+    }
+  }
+
+  // === P1: append-only run archive =========================================
+  // One JSONL line per compute run — inputs digest + full signal set +
+  // computed vs published. Never rewritten, never pruned (automation plan
+  // Part D: "impossible to recreate retroactively"). Excluded from the
+  // jargon gate by extension (.jsonl) and not user-facing.
+  if (!process.argv.includes('--no-archive')) {
+    const line = {
+      run_at: new Date().toISOString(),
+      computed: { score, regime_code: band.code, group_totals: groupTotals },
+      published: published ? { score: published.score, regime_code: published.regime_code } : null,
+      anchor_spread_days: Number(spreadDays.toFixed(2)),
+      anchor_warning: anchorWarning,
+      signals: all.map(({ id, state, weight, detail, anchor = null, anchorKind = null }) => ({
+        id,
+        state,
+        weight,
+        detail,
+        anchor,
+        anchorKind,
+      })),
+    };
+    fs.appendFileSync(ARCHIVE_PATH, JSON.stringify(line) + '\n');
+    console.log(`  Archived run → ${path.relative(REPO_ROOT, ARCHIVE_PATH)}`);
+  }
+  console.log('');
 }
 
 // Only run if invoked directly (allows import for tests)

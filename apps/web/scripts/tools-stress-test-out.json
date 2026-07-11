@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T14:37:20.905Z",
+  "generatedAt": "2026-07-11T15:59:19.906Z",
   "schema": "tools-stress-test-v1",
   "inputData": {
     "bankRates": {
@@ -102,11 +102,11 @@
       }
     },
     "horizonMatchedDepreciations": {
-      "BRL_5y": 0.0004793961738009944,
-      "BRL_10y": 0.046011261713237106,
-      "BRL_25y": 0.06209916537486593,
-      "EUR_5y": 0.007524418895517249,
-      "EUR_25y": 0.012269802068557212
+      "BRL_5y": 0.0021751401012342075,
+      "BRL_10y": 0.04842537524102308,
+      "BRL_25y": 0.0638407709181612,
+      "EUR_5y": 0.005309290173594494,
+      "EUR_25y": 0.013145233463686123
     }
   },
   "scenarios": {
@@ -1019,9 +1019,9 @@
         "output": {
           "months": 126,
           "totalContributed": 63000,
-          "terminalValue": 1392277,
-          "rangeLow": 1270677,
-          "rangeHigh": 1629628,
+          "terminalValue": 1437414,
+          "rangeLow": 1311873,
+          "rangeHigh": 1682463,
           "confidence": "MEDIUM",
           "basis": "total_return",
           "displayCurrency": "BRL",
@@ -1043,9 +1043,9 @@
         "output": {
           "months": 126,
           "totalContributed": 12600,
-          "terminalValue": 187271,
-          "rangeLow": 170536,
-          "rangeHigh": 218789,
+          "terminalValue": 190332,
+          "rangeLow": 173324,
+          "rangeHigh": 222366,
           "confidence": "MEDIUM",
           "basis": "total_return",
           "displayCurrency": "EUR",
@@ -1067,9 +1067,9 @@
         "output": {
           "months": 126,
           "totalContributed": 12600,
-          "terminalValue": 187271,
-          "rangeLow": 170536,
-          "rangeHigh": 218789,
+          "terminalValue": 190332,
+          "rangeLow": 173324,
+          "rangeHigh": 222366,
           "confidence": "MEDIUM",
           "basis": "total_return",
           "displayCurrency": "EUR",
@@ -1109,16 +1109,16 @@
           "amount": 100
         },
         "output": {
-          "months": 125,
-          "totalContributed": 12500,
-          "terminalValue": 29638,
-          "rangeLow": 28926,
-          "rangeHigh": 30948,
+          "months": 126,
+          "totalContributed": 12600,
+          "terminalValue": 29898,
+          "rangeLow": 29180,
+          "rangeHigh": 31221,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-05-01"
+          "endYm": "2026-06-01"
         }
       },
       {
@@ -1131,16 +1131,16 @@
           "amount": 100
         },
         "output": {
-          "months": 125,
-          "totalContributed": 12500,
-          "terminalValue": 40284,
-          "rangeLow": 39099,
-          "rangeHigh": 42511,
+          "months": 126,
+          "totalContributed": 12600,
+          "terminalValue": 41615,
+          "rangeLow": 40392,
+          "rangeHigh": 43920,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-05-01"
+          "endYm": "2026-06-01"
         }
       },
       {
@@ -1153,16 +1153,16 @@
           "amount": 100
         },
         "output": {
-          "months": 125,
-          "totalContributed": 12500,
-          "terminalValue": 26621,
-          "rangeLow": 25960,
-          "rangeHigh": 27732,
+          "months": 126,
+          "totalContributed": 12600,
+          "terminalValue": 26795,
+          "rangeLow": 26130,
+          "rangeHigh": 27914,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-05-01"
+          "endYm": "2026-06-01"
         }
       },
       {
@@ -1175,16 +1175,16 @@
           "amount": 100
         },
         "output": {
-          "months": 125,
-          "totalContributed": 12500,
-          "terminalValue": 32438,
-          "rangeLow": 31554,
-          "rangeHigh": 33515,
+          "months": 126,
+          "totalContributed": 12600,
+          "terminalValue": 28757,
+          "rangeLow": 27965,
+          "rangeHigh": 29710,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-05-01"
+          "endYm": "2026-06-01"
         }
       },
       {
@@ -1197,16 +1197,16 @@
           "amount": 100
         },
         "output": {
-          "months": 125,
-          "totalContributed": 12500,
-          "terminalValue": 10632,
-          "rangeLow": 10352,
-          "rangeHigh": 10962,
+          "months": 126,
+          "totalContributed": 12600,
+          "terminalValue": 11008,
+          "rangeLow": 10721,
+          "rangeHigh": 11350,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-05-01"
+          "endYm": "2026-06-01"
         }
       },
       {
@@ -1219,16 +1219,16 @@
           "amount": 100
         },
         "output": {
-          "months": 125,
-          "totalContributed": 12500,
-          "terminalValue": 20577,
-          "rangeLow": 19766,
-          "rangeHigh": 21766,
+          "months": 126,
+          "totalContributed": 12600,
+          "terminalValue": 19403,
+          "rangeLow": 18638,
+          "rangeHigh": 20519,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-05-01"
+          "endYm": "2026-06-01"
         }
       },
       {
@@ -1241,16 +1241,16 @@
           "amount": 100
         },
         "output": {
-          "months": 125,
-          "totalContributed": 12500,
-          "terminalValue": 22983,
-          "rangeLow": 22261,
-          "rangeHigh": 24054,
+          "months": 126,
+          "totalContributed": 12600,
+          "terminalValue": 22810,
+          "rangeLow": 22094,
+          "rangeHigh": 23877,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-05-01"
+          "endYm": "2026-06-01"
         }
       },
       {
@@ -1308,9 +1308,9 @@
           "amount": 100
         },
         "output": {
-          "totalReturn": 69602,
-          "priceOnly": 58820,
-          "deltaPct": 18.33
+          "totalReturn": 70080,
+          "priceOnly": 59007,
+          "deltaPct": 18.77
         }
       },
       {
@@ -1338,16 +1338,16 @@
           "amount": 100
         },
         "output": {
-          "months": 5,
-          "totalContributed": 500,
-          "terminalValue": 534,
-          "rangeLow": 524,
-          "rangeHigh": 558,
+          "months": 6,
+          "totalContributed": 600,
+          "terminalValue": 635,
+          "rangeLow": 624,
+          "rangeHigh": 665,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2026-01-01",
-          "endYm": "2026-05-01"
+          "endYm": "2026-06-01"
         }
       },
       {
