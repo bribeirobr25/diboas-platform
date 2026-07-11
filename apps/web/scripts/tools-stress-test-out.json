@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-26T18:21:45.446Z",
+  "generatedAt": "2026-07-11T08:49:58.375Z",
   "schema": "tools-stress-test-v1",
   "inputData": {
     "bankRates": {
@@ -1376,8 +1376,8 @@
         "output": {
           "cashRealValue": 644,
           "loss": 356,
-          "investedNominal": 2594,
-          "investedReal": 1670
+          "investedNominal": 1967,
+          "investedReal": 1267
         }
       },
       {
@@ -1391,8 +1391,8 @@
         "output": {
           "cashRealValue": 2818,
           "loss": 2182,
-          "investedNominal": 12969,
-          "investedReal": 7310
+          "investedNominal": 9836,
+          "investedReal": 5544
         }
       },
       {
@@ -1406,8 +1406,8 @@
         "output": {
           "cashRealValue": 669,
           "loss": 331,
-          "investedNominal": 2594,
-          "investedReal": 1735
+          "investedNominal": 1967,
+          "investedReal": 1316
         }
       },
       {
@@ -1421,8 +1421,8 @@
         "output": {
           "cashRealValue": 669,
           "loss": 331,
-          "investedNominal": 2594,
-          "investedReal": 1735
+          "investedNominal": 1967,
+          "investedReal": 1316
         }
       },
       {

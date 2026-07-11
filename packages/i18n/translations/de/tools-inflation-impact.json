@@ -34,7 +34,7 @@
     "ifYouKeepCash": "Wenn du es bar hältst",
     "ifYouInvest": "Wenn du es arbeiten lässt",
     "lostToInflation": "−{amount} durch Inflation verloren",
-    "investedNote": "Bei {rate}% historischer Rendite",
+    "investedNote": "Bei {rate}% (konservatives Szenario)",
     "retrospectiveLabel": "Heutige Kaufkraft",
     "retrospectiveDetail": "Inflation seit 2010: ~{cumulative}%. Das gleiche Geld kauft heute ungefähr {percent}% weniger ({lost} an Kaufkraft verloren).",
     "uncertaintyMedium": "Die Inflation in Brasilien war in diesem Zeitraum schwankend. Der reale Kaufkraftverlust für einen spezifischen Warenkorb kann vom Verbraucherpreisindex um 1–3 Prozentpunkte pro Jahr abweichen.",
