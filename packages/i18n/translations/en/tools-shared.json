@@ -25,7 +25,9 @@
       "business": {
         "title": "For your business",
         "question": "What's my company leaving on the table?"
-      }
+      },
+      "countOne": "1 calculator",
+      "countOther": "{count} calculators"
     },
     "filterChip": {
       "all": "All tools",

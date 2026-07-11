@@ -25,7 +25,9 @@
       "business": {
         "title": "Für dein Unternehmen",
         "question": "Was lässt mein Unternehmen liegen?"
-      }
+      },
+      "countOne": "1 Rechner",
+      "countOther": "{count} Rechner"
     },
     "filterChip": {
       "all": "Alle Tools",

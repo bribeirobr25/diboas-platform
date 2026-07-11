@@ -25,7 +25,9 @@
       "business": {
         "title": "Para sua empresa",
         "question": "O que minha empresa está deixando na mesa?"
-      }
+      },
+      "countOne": "1 calculadora",
+      "countOther": "{count} calculadoras"
     },
     "filterChip": {
       "all": "Todas as ferramentas",

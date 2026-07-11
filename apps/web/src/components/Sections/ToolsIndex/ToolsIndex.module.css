@@ -64,11 +64,49 @@
   gap: var(--spacing-md);
 }
 
+/* UX-15 (F-7 upgrade, 2026-07-11): category-level tint per section — the icon
+   chips share one hue inside a section and differ across sections (the canon's
+   color-block pattern). Cards themselves stay byte-identical within a section;
+   this is navigation aid, never option-steering (veto rows 13/17 untouched). */
+.section[data-section='grow'] {
+  --tool-section-tint: var(--color-teal-50);
+  --tool-section-ink: var(--text-brand-accessible);
+}
+.section[data-section='protect'] {
+  --tool-section-tint: var(--color-emerald-50);
+  --tool-section-ink: var(--color-green-600);
+}
+.section[data-section='target'] {
+  --tool-section-tint: var(--color-amber-50);
+  --tool-section-ink: var(--color-amber-700);
+}
+.section[data-section='business'] {
+  --tool-section-tint: var(--color-slate-100);
+  --tool-section-ink: var(--color-slate-600);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+}
+
 .sectionTitle {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-heading);
   margin: 0;
+}
+
+/* Real count per section (UX-34: a verifiable number, not "a small set") */
+.sectionCount {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-600);
+  background: var(--tool-section-tint, var(--color-slate-100));
+  border-radius: var(--radius-pill);
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  white-space: nowrap;
 }
 
 .sectionQuestion {
@@ -131,8 +169,8 @@
   width: 44px;
   height: 44px;
   border-radius: var(--radius-md);
-  background: var(--color-teal-50);
-  color: var(--text-brand-accessible);
+  background: var(--tool-section-tint, var(--color-teal-50));
+  color: var(--tool-section-ink, var(--text-brand-accessible));
 }
 
 .cardTitle {
