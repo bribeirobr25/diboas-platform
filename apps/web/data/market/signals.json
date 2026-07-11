@@ -10,14 +10,14 @@
         "es": "Estructura del BTC",
         "de": "BTC-Struktur"
       },
-      "status": "MIXED",
-      "points_awarded": 4,
+      "status": "WEAK",
+      "points_awarded": 1,
       "max_points": 6,
       "summary": {
-        "en": "Bitcoin's long-term trend is intact and short-term momentum is recovering, but the intermediate trend is still below its 20-month EMA.",
-        "pt-BR": "A tendência de longo prazo do Bitcoin está intacta e o momentum de curto prazo se recupera, mas a tendência intermediária segue abaixo da EMA de 20 meses.",
-        "es": "La tendencia de largo plazo de Bitcoin está intacta y el momentum de corto plazo se recupera, pero la tendencia intermedia sigue por debajo de su EMA de 20 meses.",
-        "de": "Bitcoins langfristiger Trend ist intakt und das kurzfristige Momentum erholt sich, doch der mittelfristige Trend liegt weiterhin unter der 20-Monats-EMA."
+        "en": "June's sell-off broke both the intermediate (20-month EMA) and, marginally, the long-term (50-month SMA) trend lines, and monthly momentum turned down; only the short-term Stoch-RSI floor is holding.",
+        "pt-BR": "A queda de junho rompeu tanto a linha intermediária (EMA de 20 meses) quanto, por margem estreita, a de longo prazo (SMA de 50 meses), e o momentum mensal virou para baixo; apenas o piso do Stoch-RSI de curto prazo está segurando.",
+        "es": "La caída de junio rompió tanto la línea intermedia (EMA de 20 meses) como, por poco margen, la de largo plazo (SMA de 50 meses), y el momentum mensual giró a la baja; solo aguanta el piso del Stoch-RSI de corto plazo.",
+        "de": "Der Juni-Abverkauf brach sowohl die mittelfristige Linie (20-Monats-EMA) als auch — knapp — die langfristige (50-Monats-SMA), und das Monats-Momentum drehte nach unten; nur der kurzfristige Stoch-RSI-Boden hält."
       },
       "signals": [
         {
@@ -32,12 +32,12 @@
           "points_awarded": 0,
           "max_points": 2,
           "summary": {
-            "en": "May close $77,539 sits about 6% below the 20-month EMA ($82,412) — the intermediate-term structure remains broken.",
-            "pt-BR": "O fechamento de maio de US$ 77.539 está cerca de 6% abaixo da EMA de 20 meses (US$ 82.412) — a estrutura de médio prazo segue rompida.",
-            "es": "El cierre de mayo de USD 77.539 está alrededor de 6% por debajo de la EMA de 20 meses (USD 82.412) — la estructura de medio plazo sigue rota.",
-            "de": "Der Mai-Schluss von 77.539 USD liegt rund 6% unter der 20-Monats-EMA (82.412 USD) — die mittelfristige Struktur bleibt gebrochen."
+            "en": "June close $58,559 sits about 27% below the 20-month EMA ($80,140) — the intermediate-term structure broke decisively in June's sell-off.",
+            "pt-BR": "O fechamento de junho de US$ 58.559 está cerca de 27% abaixo da EMA de 20 meses (US$ 80.140) — a estrutura de médio prazo rompeu de forma decisiva na queda de junho.",
+            "es": "El cierre de junio de USD 58.559 está alrededor de 27% por debajo de la EMA de 20 meses (USD 80.140) — la estructura de medio plazo se rompió de forma decisiva en la caída de junio.",
+            "de": "Der Juni-Schluss von 58.559 USD liegt rund 27% unter der 20-Monats-EMA (80.140 USD) — die mittelfristige Struktur brach im Juni-Abverkauf deutlich."
           },
-          "last_updated_at": "2026-05-31T00:00:00Z"
+          "last_updated_at": "2026-06-30T00:00:00Z"
         },
         {
           "id": "BTC-02",
@@ -47,16 +47,16 @@
             "es": "BTC por encima de la SMA de 50 meses",
             "de": "BTC über der 50-Monats-SMA"
           },
-          "state": "ACTIVE",
-          "points_awarded": 2,
+          "state": "INACTIVE",
+          "points_awarded": 0,
           "max_points": 2,
           "summary": {
-            "en": "May close $77,539 sits about 32% above the 50-month SMA ($58,925) — long-term structural trend remains intact.",
-            "pt-BR": "O fechamento de maio de US$ 77.539 está cerca de 32% acima da SMA de 50 meses (US$ 58.925) — a tendência estrutural de longo prazo permanece intacta.",
-            "es": "El cierre de mayo de USD 77.539 está alrededor de 32% por encima de la SMA de 50 meses (USD 58.925) — la tendencia estructural de largo plazo se mantiene intacta.",
-            "de": "Der Mai-Schluss von 77.539 USD liegt rund 32% über der 50-Monats-SMA (58.925 USD) — der langfristige strukturelle Trend bleibt intakt."
+            "en": "June close $58,559 slipped about 1% below the 50-month SMA ($59,342) — the long-term structural trend line broke for the first time this cycle.",
+            "pt-BR": "O fechamento de junho de US$ 58.559 caiu cerca de 1% abaixo da SMA de 50 meses (US$ 59.342) — a linha de tendência estrutural de longo prazo rompeu pela primeira vez neste ciclo.",
+            "es": "El cierre de junio de USD 58.559 cayó alrededor de 1% por debajo de la SMA de 50 meses (USD 59.342) — la línea de tendencia estructural de largo plazo se rompió por primera vez en este ciclo.",
+            "de": "Der Juni-Schluss von 58.559 USD rutschte rund 1% unter die 50-Monats-SMA (59.342 USD) — die langfristige strukturelle Trendlinie brach zum ersten Mal in diesem Zyklus."
           },
-          "last_updated_at": "2026-05-31T00:00:00Z"
+          "last_updated_at": "2026-06-30T00:00:00Z"
         },
         {
           "id": "BTC-03",
@@ -66,16 +66,16 @@
             "es": "RSI mensual mejorando",
             "de": "Monatlicher RSI verbessert sich"
           },
-          "state": "ACTIVE",
-          "points_awarded": 1,
+          "state": "INACTIVE",
+          "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "May monthly RSI(14) 49.2 vs April 48.6 — momentum continues to firm month-over-month.",
-            "pt-BR": "RSI(14) mensal de maio 49,2 vs abril 48,6 — o momentum segue se firmando mês a mês.",
-            "es": "RSI(14) mensual de mayo 49,2 vs abril 48,6 — el momentum sigue afianzándose mes a mes.",
-            "de": "Monatlicher RSI(14) im Mai 49,2 gegenüber April 48,6 — das Momentum festigt sich weiter im Monatsvergleich."
+            "en": "June monthly RSI(14) fell to 40.8 from May's 49.2 — momentum turned back down with the June sell-off.",
+            "pt-BR": "O RSI(14) mensal de junho caiu para 40,8, vindo de 49,2 em maio — o momentum voltou a cair com a queda de junho.",
+            "es": "El RSI(14) mensual de junio cayó a 40,8 desde 49,2 en mayo — el momentum volvió a girar a la baja con la caída de junio.",
+            "de": "Der monatliche RSI(14) fiel im Juni auf 40,8 nach 49,2 im Mai — das Momentum drehte mit dem Juni-Abverkauf wieder nach unten."
           },
-          "last_updated_at": "2026-05-31T00:00:00Z"
+          "last_updated_at": "2026-06-30T00:00:00Z"
         },
         {
           "id": "BTC-04",
@@ -89,12 +89,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "Monthly Stoch-RSI %K at 12.9 has recovered back above the 10 threshold (was 6.5 last cycle) — short-term momentum is lifting off deeply-oversold territory.",
-            "pt-BR": "O %K do Stoch-RSI mensal em 12,9 recuperou acima do limite de 10 (estava em 6,5 no ciclo anterior) — o momentum de curto prazo está saindo da zona profundamente sobrevendida.",
-            "es": "El %K del Stoch-RSI mensual en 12,9 se recuperó por encima del umbral de 10 (estaba en 6,5 el ciclo anterior) — el momentum de corto plazo sale de la zona profundamente sobrevendida.",
-            "de": "Der monatliche Stoch-RSI %K bei 12,9 hat sich wieder über die Schwelle von 10 erholt (im letzten Zyklus 6,5) — das kurzfristige Momentum löst sich aus tief überverkauftem Terrain."
+            "en": "Monthly Stoch-RSI %K at 12.1 still holds above the 10 threshold — the short-term momentum floor has not given way despite June's drop.",
+            "pt-BR": "O %K do Stoch-RSI mensal em 12,1 ainda se sustenta acima do limite de 10 — o piso de momentum de curto prazo não cedeu apesar da queda de junho.",
+            "es": "El %K del Stoch-RSI mensual en 12,1 aún se mantiene por encima del umbral de 10 — el piso de momentum de corto plazo no cedió pese a la caída de junio.",
+            "de": "Der monatliche Stoch-RSI %K hält sich mit 12,1 weiter über der 10er-Schwelle — der kurzfristige Momentum-Boden gab trotz des Juni-Rückgangs nicht nach."
           },
-          "last_updated_at": "2026-05-31T00:00:00Z"
+          "last_updated_at": "2026-06-30T00:00:00Z"
         }
       ]
     },
@@ -129,12 +129,12 @@
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "Dollar index closed June 19 at 119.51 vs 20-week EMA 119.32 — sits 0.16% above trend, and RSI 50.2 fails the < 50 condition. Both spec conditions (close below EMA AND RSI < 50) are unmet.",
-            "pt-BR": "O índice do dólar fechou em 19 de junho em 119,51 vs EMA de 20 semanas 119,32 — está 0,16% acima da tendência, e o RSI de 50,2 não satisfaz a condição < 50. Nenhuma das duas condições da especificação (fechamento abaixo da EMA E RSI < 50) foi atendida.",
-            "es": "El índice del dólar cerró el 19 de junio en 119,51 vs EMA de 20 semanas 119,32 — se sitúa 0,16% por encima de la tendencia, y el RSI de 50,2 no satisface la condición < 50. Ninguna de las dos condiciones de la especificación (cierre por debajo de la EMA Y RSI < 50) se cumple.",
-            "de": "Der Dollar-Index schloss am 19. Juni bei 119,51 gegenüber der 20-Wochen-EMA von 119,32 — er liegt 0,16% über dem Trend, und der RSI von 50,2 erfüllt die Bedingung < 50 nicht. Keine der beiden Spezifikationsbedingungen (Schluss unter der EMA UND RSI < 50) ist erfüllt."
+            "en": "Dollar index at 120.89 sits about 1.1% above its 20-week EMA (119.56) at the most recent confirmed weekly close (June 26 — the July 3 holiday week and publication lag delay newer weekly prints). A firm dollar stays a headwind.",
+            "pt-BR": "O índice do dólar em 120,89 está cerca de 1,1% acima da EMA de 20 semanas (119,56) no fechamento semanal confirmado mais recente (26 de junho — a semana curta do feriado de 3 de julho e o atraso de publicação seguram leituras mais novas). Dólar firme segue sendo vento contrário.",
+            "es": "El índice del dólar en 120,89 está alrededor de 1,1% por encima de su EMA de 20 semanas (119,56) en el cierre semanal confirmado más reciente (26 de junio — la semana corta del festivo del 3 de julio y el rezago de publicación retrasan lecturas más nuevas). Un dólar firme sigue siendo un viento en contra.",
+            "de": "Der Dollar-Index liegt mit 120,89 rund 1,1% über seiner 20-Wochen-EMA (119,56) zum jüngsten bestätigten Wochenschluss (26. Juni — die Feiertagswoche zum 3. Juli und der Publikationsverzug verzögern neuere Wochenwerte). Ein fester Dollar bleibt Gegenwind."
           },
-          "last_updated_at": "2026-06-19T00:00:00Z"
+          "last_updated_at": "2026-07-11T10:30:00Z"
         },
         {
           "id": "MAC-02",
@@ -148,12 +148,12 @@
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "US 10-year yield closed June 19 at 4.46% vs 20-week EMA 4.37% — yields remain elevated above trend, no easing yet.",
-            "pt-BR": "O rendimento do Tesouro americano de 10 anos fechou em 19 de junho em 4,46% vs EMA de 20 semanas 4,37% — os rendimentos seguem elevados acima da tendência, ainda sem alívio.",
-            "es": "El rendimiento del Tesoro estadounidense a 10 años cerró el 19 de junio en 4,46% vs EMA de 20 semanas 4,37% — los rendimientos siguen elevados sobre la tendencia, todavía sin relajación.",
-            "de": "Die US-10-Jahres-Rendite schloss am 19. Juni bei 4,46% gegenüber der 20-Wochen-EMA 4,37% — die Renditen bleiben oberhalb des Trends erhöht, noch keine Entspannung."
+            "en": "US 10-year yield at 4.49% holds above its 20-week EMA (4.39%) at the most recent confirmed weekly close — financing conditions remain restrictive.",
+            "pt-BR": "O rendimento do Tesouro americano de 10 anos em 4,49% segue acima da EMA de 20 semanas (4,39%) no fechamento semanal confirmado mais recente — as condições de financiamento continuam restritivas.",
+            "es": "El rendimiento del Tesoro estadounidense a 10 años en 4,49% se mantiene por encima de su EMA de 20 semanas (4,39%) en el cierre semanal confirmado más reciente — las condiciones de financiación siguen restrictivas.",
+            "de": "Die US-10-Jahres-Rendite hält sich mit 4,49% über ihrer 20-Wochen-EMA (4,39%) zum jüngsten bestätigten Wochenschluss — die Finanzierungsbedingungen bleiben restriktiv."
           },
-          "last_updated_at": "2026-06-19T00:00:00Z"
+          "last_updated_at": "2026-07-11T10:30:00Z"
         },
         {
           "id": "MAC-03",
@@ -167,12 +167,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "US M2 12-month rate-of-change +5.58%, May month-over-month about +$248B — liquidity continues to expand on both structural and short-term measures.",
-            "pt-BR": "Taxa de variação de 12 meses do M2 dos EUA +5,58%; variação mês a mês de maio cerca de +US$ 248 bilhões — a liquidez segue se expandindo nas medidas estrutural e de curto prazo.",
-            "es": "Tasa de variación a 12 meses del M2 estadounidense +5,58%; variación mes a mes de mayo alrededor de +USD 248.000 millones — la liquidez continúa expandiéndose en las medidas estructural y de corto plazo.",
-            "de": "12-Monats-Veränderungsrate des US-M2 +5,58%; Monatsveränderung im Mai rund +248 Mrd. USD — die Liquidität expandiert sowohl strukturell als auch kurzfristig."
+            "en": "US M2 12-month rate-of-change at +5.6%, with the latest monthly print (May, released late June) up about $248B — global liquidity keeps expanding.",
+            "pt-BR": "A variação de 12 meses do M2 americano está em +5,6%, com a leitura mensal mais recente (maio, divulgada no fim de junho) subindo cerca de US$ 248 bilhões — a liquidez global segue em expansão.",
+            "es": "La variación a 12 meses del M2 estadounidense está en +5,6%, con la lectura mensual más reciente (mayo, publicada a fines de junio) subiendo alrededor de USD 248.000 millones — la liquidez global sigue expandiéndose.",
+            "de": "Die 12-Monats-Veränderung der US-Geldmenge M2 liegt bei +5,6%, der jüngste Monatswert (Mai, veröffentlicht Ende Juni) stieg um rund 248 Mrd. USD — die globale Liquidität expandiert weiter."
           },
-          "last_updated_at": "2026-05-01T00:00:00Z"
+          "last_updated_at": "2026-07-11T10:30:00Z"
         }
       ]
     },
@@ -207,12 +207,12 @@
           "points_awarded": 0,
           "max_points": 2,
           "summary": {
-            "en": "ETF net-flows could not be observed this cycle (2026-06-26): the CoinGlass provisional fallback returned HTTP 404 on every spot-ETF route attempted (its data-route structure changed since the prior render), and the spec-canonical Farside feed is behind a Cloudflare challenge wall that policy forbids evading. With fewer than the required trailing-four confirmed weekly aggregates observable, the signal is UNAVAILABLE per §10.1 and contributes 0 of 2 points (an INACTIVE read would also award 0, so the score is unaffected).",
-            "pt-BR": "Os fluxos líquidos de ETFs não puderam ser observados neste ciclo (2026-06-26): a fonte provisória de contingência (CoinGlass) retornou HTTP 404 em todas as rotas de ETF à vista tentadas (a estrutura de rotas de dados do site mudou desde a leitura anterior), e o feed canônico da especificação (Farside) está protegido por um desafio de verificação da Cloudflare, que a política proíbe contornar. Com menos observações do que os quatro agregados semanais confirmados mais recentes exigidos, o sinal é avaliado como UNAVAILABLE conforme o §10.1 e soma 0 de 2 pontos (uma leitura INACTIVE também atribuiria 0, então a pontuação não é afetada).",
-            "es": "Los flujos netos de ETFs no pudieron observarse este ciclo (2026-06-26): la fuente provisional de respaldo (CoinGlass) devolvió HTTP 404 en todas las rutas de ETF al contado intentadas (la estructura de rutas de datos del sitio cambió desde la lectura anterior), y el feed canónico de la especificación (Farside) está protegido por un desafío de verificación de Cloudflare que la política prohíbe eludir. Al observarse menos de los cuatro agregados semanales confirmados más recientes requeridos, la señal queda UNAVAILABLE según el §10.1 y aporta 0 de 2 puntos (una lectura INACTIVE también otorgaría 0, por lo que la puntuación no se ve afectada).",
-            "de": "Die ETF-Nettozuflüsse konnten in diesem Zyklus (2026-06-26) nicht beobachtet werden: Die provisorische Ausweichquelle (CoinGlass) lieferte auf jeder versuchten Spot-ETF-Route HTTP 404 (die Datenrouten-Struktur der Seite hat sich seit der vorherigen Abfrage geändert), und der laut Spezifikation kanonische Farside-Feed liegt hinter einer Cloudflare-Verifizierungssperre, deren Umgehung die Richtlinie untersagt. Da weniger als die erforderlichen vier zuletzt bestätigten Wochenaggregate beobachtbar waren, gilt das Signal gemäß §10.1 als UNAVAILABLE und trägt 0 von 2 Punkten bei (eine INACTIVE-Wertung würde ebenfalls 0 ergeben, der Score bleibt also unverändert)."
+            "en": "Spot ETF net-flows could not be observed this cycle (July 11): the CoinGlass routes still return 404 and the canonical Farside feed remains behind a challenge wall (policy forbids evasion). Scored UNAVAILABLE per §10.1 — 0 of 2 points either way.",
+            "pt-BR": "Os fluxos líquidos de ETFs à vista não puderam ser observados neste ciclo (11 de julho): as rotas do CoinGlass seguem retornando 404 e a fonte canônica Farside permanece atrás de um bloqueio de verificação (a política proíbe contorná-lo). Pontuado como INDISPONÍVEL conforme §10.1 — 0 de 2 pontos de qualquer forma.",
+            "es": "Los flujos netos de ETFs al contado no pudieron observarse este ciclo (11 de julio): las rutas de CoinGlass siguen devolviendo 404 y la fuente canónica Farside permanece tras un muro de verificación (la política prohíbe evadirlo). Puntuado como NO DISPONIBLE según §10.1 — 0 de 2 puntos en cualquier caso.",
+            "de": "Spot-ETF-Nettozuflüsse konnten in diesem Zyklus (11. Juli) nicht beobachtet werden: Die CoinGlass-Routen liefern weiterhin 404 und die kanonische Farside-Quelle bleibt hinter einer Challenge-Wall (Umgehung ist per Richtlinie untersagt). Gemäß §10.1 als NICHT VERFÜGBAR bewertet — so oder so 0 von 2 Punkten."
           },
-          "last_updated_at": "2026-06-26T22:30:00Z"
+          "last_updated_at": "2026-07-11T10:30:00Z"
         }
       ]
     },
@@ -229,10 +229,10 @@
       "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Bitcoin is lagging both gold and the Nasdaq on a 20-week basis; broader equity strength persists.",
-        "pt-BR": "O Bitcoin está perdendo tanto para o ouro quanto para o Nasdaq na janela de 20 semanas; a força do mercado acionário em geral persiste.",
-        "es": "Bitcoin está perdiendo frente al oro y al Nasdaq en la ventana de 20 semanas; la fortaleza general de la renta variable persiste.",
-        "de": "Bitcoin liegt sowohl gegenüber Gold als auch gegenüber dem Nasdaq auf 20-Wochen-Sicht zurück; die breitere Aktienmarktstärke hält an."
+        "en": "Bitcoin is lagging both gold and the Nasdaq on a 20-week basis — the gold gap narrowed, the tech gap did not; broader equity strength persists.",
+        "pt-BR": "O Bitcoin está atrás do ouro e do Nasdaq na janela de 20 semanas — a distância para o ouro encurtou, a distância para a tecnologia não; a força do mercado acionário em geral persiste.",
+        "es": "Bitcoin va por detrás del oro y del Nasdaq en la ventana de 20 semanas — la brecha con el oro se estrechó, la brecha con la tecnología no; la fortaleza general de la renta variable persiste.",
+        "de": "Bitcoin liegt auf 20-Wochen-Sicht hinter Gold und dem Nasdaq zurück — der Abstand zu Gold verringerte sich, der zu Tech nicht; die breitere Aktienmarktstärke hält an."
       },
       "signals": [
         {
@@ -247,12 +247,12 @@
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "BTC/Gold ratio at 14.58 sits about 8% below its 20-week EMA of 15.83 — Bitcoin underperforming the defensive asset on a 20-week basis (Yahoo GC=F substitute; FRED LBMA series retired).",
-            "pt-BR": "A relação BTC/ouro em 14,58 está cerca de 8% abaixo da EMA de 20 semanas de 15,83 — o Bitcoin está perdendo para o ativo defensivo na janela de 20 semanas (substituto Yahoo GC=F; série LBMA do FRED descontinuada).",
-            "es": "La relación BTC/oro en 14,58 está alrededor de 8% por debajo de su EMA de 20 semanas de 15,83 — Bitcoin pierde frente al activo defensivo en la ventana de 20 semanas (sustituto Yahoo GC=F; serie LBMA de FRED retirada).",
-            "de": "Das BTC/Gold-Verhältnis von 14,58 liegt rund 8% unterhalb seiner 20-Wochen-EMA von 15,83 — Bitcoin bleibt auf 20-Wochen-Sicht hinter dem defensiven Asset zurück (Yahoo GC=F-Substitut; FRED-LBMA-Serie eingestellt)."
+            "en": "BTC/Gold ratio at 15.6 sits about 1.5% below its 20-week EMA (15.9) — still underperforming gold, though the gap narrowed sharply from about 8% last cycle.",
+            "pt-BR": "A razão BTC/Ouro em 15,6 está cerca de 1,5% abaixo da EMA de 20 semanas (15,9) — ainda perdendo para o ouro, embora a distância tenha encurtado bastante ante os cerca de 8% do ciclo anterior.",
+            "es": "La relación BTC/Oro en 15,6 está alrededor de 1,5% por debajo de su EMA de 20 semanas (15,9) — sigue rindiendo menos que el oro, aunque la brecha se estrechó con fuerza desde cerca de 8% el ciclo anterior.",
+            "de": "Das BTC/Gold-Verhältnis liegt mit 15,6 rund 1,5% unter seiner 20-Wochen-EMA (15,9) — weiterhin schwächer als Gold, auch wenn sich der Abstand gegenüber rund 8% im letzten Zyklus deutlich verringert hat."
           },
-          "last_updated_at": "2026-06-19T00:00:00Z"
+          "last_updated_at": "2026-07-11T10:30:00Z"
         },
         {
           "id": "REL-02",
@@ -266,12 +266,12 @@
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "BTC/Nasdaq ratio at 2.40 sits about 19% below its 20-week EMA of 2.96 — Bitcoin underperforming tech equities on a 20-week basis.",
-            "pt-BR": "A relação BTC/Nasdaq em 2,40 está cerca de 19% abaixo da EMA de 20 semanas de 2,96 — o Bitcoin perde para as ações de tecnologia na janela de 20 semanas.",
-            "es": "La relación BTC/Nasdaq en 2,40 está alrededor de 19% por debajo de su EMA de 20 semanas de 2,96 — Bitcoin pierde frente a las acciones tecnológicas en la ventana de 20 semanas.",
-            "de": "Das BTC/Nasdaq-Verhältnis von 2,40 liegt rund 19% unterhalb seiner 20-Wochen-EMA von 2,96 — Bitcoin bleibt gegenüber Tech-Aktien auf 20-Wochen-Sicht zurück."
+            "en": "BTC/Nasdaq ratio at 2.44 sits about 14% below its 20-week EMA (2.85) — Bitcoin continues to underperform large-cap tech.",
+            "pt-BR": "A razão BTC/Nasdaq em 2,44 está cerca de 14% abaixo da EMA de 20 semanas (2,85) — o Bitcoin segue rendendo menos que as grandes empresas de tecnologia.",
+            "es": "La relación BTC/Nasdaq en 2,44 está alrededor de 14% por debajo de su EMA de 20 semanas (2,85) — Bitcoin sigue rindiendo por debajo de las grandes tecnológicas.",
+            "de": "Das BTC/Nasdaq-Verhältnis liegt mit 2,44 rund 14% unter seiner 20-Wochen-EMA (2,85) — Bitcoin bleibt hinter den großen Technologiewerten zurück."
           },
-          "last_updated_at": "2026-06-19T00:00:00Z"
+          "last_updated_at": "2026-07-11T10:30:00Z"
         },
         {
           "id": "REL-03",
@@ -285,12 +285,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "Nasdaq closed June 19 at 26,518 vs 20-week EMA 24,686 — about 7% above trend. Broader risk appetite remains constructive.",
-            "pt-BR": "O Nasdaq fechou em 19 de junho em 26.518 vs EMA de 20 semanas 24.686 — cerca de 7% acima da tendência. O apetite por risco em geral segue construtivo.",
-            "es": "El Nasdaq cerró el 19 de junio en 26.518 vs EMA de 20 semanas 24.686 — alrededor de 7% por encima de la tendencia. El apetito por el riesgo en general sigue constructivo.",
-            "de": "Der Nasdaq schloss am 19. Juni bei 26.518 gegenüber der 20-Wochen-EMA 24.686 — rund 7% über dem Trend. Die breitere Risikobereitschaft bleibt konstruktiv."
+            "en": "Nasdaq at 26,282 holds about 5% above its 20-week EMA (24,984) at the most recent confirmed weekly close — broader risk appetite is intact.",
+            "pt-BR": "O Nasdaq em 26.282 se mantém cerca de 5% acima da EMA de 20 semanas (24.984) no fechamento semanal confirmado mais recente — o apetite por risco em geral segue intacto.",
+            "es": "El Nasdaq en 26.282 se mantiene alrededor de 5% por encima de su EMA de 20 semanas (24.984) en el cierre semanal confirmado más reciente — el apetito por riesgo general sigue intacto.",
+            "de": "Der Nasdaq hält sich mit 26.282 rund 5% über seiner 20-Wochen-EMA (24.984) zum jüngsten bestätigten Wochenschluss — der breitere Risikoappetit ist intakt."
           },
-          "last_updated_at": "2026-06-19T00:00:00Z"
+          "last_updated_at": "2026-07-11T10:30:00Z"
         }
       ]
     }
