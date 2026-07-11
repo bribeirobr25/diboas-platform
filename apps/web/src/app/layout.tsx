@@ -40,7 +40,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 // Fraunces (serif) + IBM Plex Mono — the editorial typeface system for /market
-// ("Adelaide Daily"), replicating 02-editorial-motion. Self-hosted via next/font.
+// ("Adelaide Market"), replicating 02-editorial-motion. Self-hosted via next/font.
 // Not preloaded: only /market uses them, so they load on-demand for that route.
 const fraunces = Fraunces({
   variable: '--font-fraunces',

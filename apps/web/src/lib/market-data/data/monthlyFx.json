@@ -983,6 +983,16 @@
         "ym": "2026-04-01",
         "closeUsdPerLocal": 1.17064,
         "closeLocalPerUsd": 0.854234
+      },
+      {
+        "ym": "2026-05-01",
+        "closeUsdPerLocal": 1.16732,
+        "closeLocalPerUsd": 0.856663
+      },
+      {
+        "ym": "2026-06-01",
+        "closeUsdPerLocal": 1.1518,
+        "closeLocalPerUsd": 0.868206
       }
     ]
   },
@@ -1970,6 +1980,16 @@
         "ym": "2026-04-01",
         "closeUsdPerLocal": 0.70994348,
         "closeLocalPerUsd": 1.40856284
+      },
+      {
+        "ym": "2026-05-01",
+        "closeUsdPerLocal": 0.718013,
+        "closeLocalPerUsd": 1.392733
+      },
+      {
+        "ym": "2026-06-01",
+        "closeUsdPerLocal": 0.702722,
+        "closeLocalPerUsd": 1.423037
       }
     ]
   },
@@ -2957,6 +2977,16 @@
         "ym": "2026-04-01",
         "closeUsdPerLocal": 0.72726143,
         "closeLocalPerUsd": 1.37502136
+      },
+      {
+        "ym": "2026-05-01",
+        "closeUsdPerLocal": 0.728335,
+        "closeLocalPerUsd": 1.372995
+      },
+      {
+        "ym": "2026-06-01",
+        "closeUsdPerLocal": 0.712531,
+        "closeLocalPerUsd": 1.403448
       }
     ]
   },
@@ -3944,6 +3974,16 @@
         "ym": "2026-04-01",
         "closeUsdPerLocal": 1.27057725,
         "closeLocalPerUsd": 0.78704384
+      },
+      {
+        "ym": "2026-05-01",
+        "closeUsdPerLocal": 1.275836,
+        "closeLocalPerUsd": 0.7838
+      },
+      {
+        "ym": "2026-06-01",
+        "closeUsdPerLocal": 1.251215,
+        "closeLocalPerUsd": 0.799223
       }
     ]
   },
@@ -4931,6 +4971,16 @@
         "ym": "2026-04-01",
         "closeUsdPerLocal": 1.34659561,
         "closeLocalPerUsd": 0.74261344
+      },
+      {
+        "ym": "2026-05-01",
+        "closeUsdPerLocal": 1.348493,
+        "closeLocalPerUsd": 0.741569
+      },
+      {
+        "ym": "2026-06-01",
+        "closeUsdPerLocal": 1.333534,
+        "closeLocalPerUsd": 0.749887
       }
     ]
   },
@@ -5918,6 +5968,16 @@
         "ym": "2026-04-01",
         "closeUsdPerLocal": 0.0062868,
         "closeLocalPerUsd": 159.0634183
+      },
+      {
+        "ym": "2026-05-01",
+        "closeUsdPerLocal": 0.00632,
+        "closeLocalPerUsd": 158.233818
+      },
+      {
+        "ym": "2026-06-01",
+        "closeUsdPerLocal": 0.006222,
+        "closeLocalPerUsd": 160.717217
       }
     ]
   },
@@ -6905,6 +6965,16 @@
         "ym": "2026-04-01",
         "closeUsdPerLocal": 0.05737772,
         "closeLocalPerUsd": 17.42836824
+      },
+      {
+        "ym": "2026-05-01",
+        "closeUsdPerLocal": 0.057772,
+        "closeLocalPerUsd": 17.309345
+      },
+      {
+        "ym": "2026-06-01",
+        "closeUsdPerLocal": 0.05756,
+        "closeLocalPerUsd": 17.37325
       }
     ]
   },
@@ -7895,8 +7965,13 @@
       },
       {
         "ym": "2026-05-01",
-        "closeUsdPerLocal": 0.199465,
-        "closeLocalPerUsd": 5.0134
+        "closeUsdPerLocal": 0.197773,
+        "closeLocalPerUsd": 5.0563
+      },
+      {
+        "ym": "2026-06-01",
+        "closeUsdPerLocal": 0.193199,
+        "closeLocalPerUsd": 5.176
       }
     ]
   },

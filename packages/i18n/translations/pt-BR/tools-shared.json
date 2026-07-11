@@ -10,6 +10,10 @@
       "subtitle": "10 calculadoras gratuitas. Coloque seus números, veja o que é possível."
     },
     "sections": {
+      "start": {
+        "title": "Comece aqui",
+        "question": "Para que é esse dinheiro?"
+      },
       "grow": {
         "title": "Fazer crescer o que você tem",
         "question": "Se eu poupar X, no que vira?"

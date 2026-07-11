@@ -38,6 +38,8 @@ import type {
 // feeds the registry parity test — reordering it will not move a card between
 // sections.
 export const SHIPPED_TOOLS: ReadonlyArray<ToolKey> = [
+  // Tool #11 — the /tools entry point (renders first via the 'start' section)
+  'money-jobs',
   // Tier 1 (6C)
   'compound-interest',
   'retirement',
@@ -142,7 +144,41 @@ export const TOOL_DESCRIPTORS: Record<ToolKey, ToolDescriptor> = {
     icon: 'assetHistory',
     forBusiness: false,
   },
+  // Tool #11 — Money Jobs (NEW_TOOL_PROPOSAL.md; the /tools entry point).
+  // section 'start' renders FIRST on the landing (founder decision 3);
+  // forBusiness stays false — the in-tool mode toggle serves B2B (decision 6).
+  'money-jobs': {
+    key: 'money-jobs',
+    section: 'start',
+    slug: 'money-jobs',
+    i18nNamespace: 'tools-money-jobs',
+    icon: 'briefcase',
+    forBusiness: false,
+  },
 };
+
+/**
+ * Default inputs for Money Jobs (attested Bar 2026-07-10 —
+ * MONEY_JOBS_CONSTANTS_ATTESTATION.md §3; lastVerified 2026-07-10):
+ * B2C income: en Census P60-286 post-tax median ≈ $6,028/mo; pt-BR PNAD
+ * mean-household ≈ R$6.460 (deliberate MEAN anchor for the digitally-banked
+ * audience, not the median); es INE ECV inference (weakest citation);
+ * de Destatis EU-SILC median €3,176 (strongest anchor). Essentials pre-fill
+ * derives at runtime from MONEY_JOBS_MODEL.essentialsShare — never stored.
+ * B2B: en Carta pre-seed median burn $25k (exact match); pt-BR Baita/ABSeed;
+ * es/de Atomico SoET-derived (de ≈ es +10% cost differential).
+ */
+export const MONEY_JOBS_DEFAULTS = {
+  personal: {
+    monthlyIncome: { en: 6000, 'pt-BR': 6000, es: 2800, de: 3200 },
+    currentSavings: { en: 0, 'pt-BR': 0, es: 0, de: 0 },
+  },
+  business: {
+    monthlyRevenue: { en: 30_000, 'pt-BR': 120_000, es: 25_000, de: 28_000 },
+    monthlyBurn: { en: 25_000, 'pt-BR': 100_000, es: 22_000, de: 24_000 },
+    cashOnHand: { en: 250_000, 'pt-BR': 600_000, es: 200_000, de: 220_000 },
+  },
+} as const;
 
 /**
  * Tools that reuse the CompoundInterestCalculator (Tier-1 only). Other

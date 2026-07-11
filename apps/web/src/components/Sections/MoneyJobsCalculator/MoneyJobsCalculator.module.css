@@ -1,0 +1,453 @@
+/* Money Jobs (tool #11) — tokens only per design-token policy.
+   Class shapes follow the bespoke-calculator convention
+   (EmergencyFundCalculator / CurrencyDepreciation precedents). */
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background: var(--color-white);
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-xl);
+}
+
+.inputsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+@media (max-width: 640px) {
+  .inputsRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs-plus);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-900);
+}
+
+.numberInput {
+  padding: var(--spacing-sm-plus) var(--spacing-md-plus);
+  border: 1px solid var(--color-slate-300);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-900);
+  background: var(--color-white);
+}
+
+.numberInput:focus-visible {
+  outline: 2px solid var(--text-brand-accessible);
+  outline-offset: 1px;
+}
+
+/* A1 (UX-16): essentials = number field + dual-bound slider, amount-field pattern */
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.range {
+  flex: 1;
+  accent-color: var(--cta-bg-primary);
+}
+
+.help {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-500);
+}
+
+/* ---- Free summary ---- */
+
+.headlineBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.headlineKicker {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-slate-500);
+  margin: 0;
+}
+
+.headline {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-900);
+  margin: 0;
+}
+
+.headlineValue {
+  color: var(--text-brand-accessible);
+  font-family: var(--font-family-mono);
+}
+
+/* M1 cost line — calm, one sentence (C3 keeps the disclaimer adjacent) */
+.costLine {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-600);
+  margin: 0;
+}
+
+/* C3: tool disclaimer ON the free surface, not only the page footer */
+.freeDisclaimer {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-500);
+  margin: 0;
+}
+
+/* ---- Three-job cards ---- */
+
+.jobsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+@media (max-width: 640px) {
+  .jobsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.jobCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+  background: var(--color-slate-50);
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-lg);
+}
+
+.jobLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-slate-600);
+  margin: 0;
+}
+
+.jobValue {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-mono);
+  color: var(--color-slate-900);
+  margin: 0;
+}
+
+.jobMeaning {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-600);
+  margin: 0;
+}
+
+/* ---- Ideal ◄──► max band (one tokenized bar, two markers) ---- */
+
+.band {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.bandTrack {
+  position: relative;
+  height: 8px;
+  background: var(--color-slate-200);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.bandFillIdeal {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--cta-bg-primary);
+  border-radius: var(--radius-pill);
+  transition: width 0.3s ease;
+}
+
+.bandFillMax {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--color-teal-100);
+  border-radius: var(--radius-pill);
+  transition: width 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bandFillIdeal,
+  .bandFillMax {
+    transition: none;
+  }
+}
+
+.bandLegend {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-600);
+}
+
+/* C2: the band explains its own gap */
+.bandExplainer {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-500);
+  margin: 0;
+}
+
+/* ---- Dignity / runway states (F3 + decision 9) ---- */
+
+.stateCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+  background: var(--color-teal-50);
+  border: 1px solid var(--color-teal-100);
+  border-radius: var(--radius-lg);
+}
+
+.stateHeadline {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-900);
+  margin: 0;
+}
+
+.stateBody {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-700);
+  margin: 0;
+}
+
+.stateLink {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-brand-accessible);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  align-self: flex-start;
+}
+
+/* ---- Runway strip (B2B) ---- */
+
+.runwayStrip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+@media (max-width: 640px) {
+  .runwayStrip {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Gate (A3: the single primary action pre-unlock) ---- */
+
+.gateCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: var(--color-slate-50);
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-lg);
+}
+
+.gateTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-900);
+  margin: 0;
+}
+
+.gateList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin: 0;
+  padding-left: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-700);
+}
+
+.gateForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.gateEmailInput {
+  padding: var(--spacing-sm-plus) var(--spacing-md-plus);
+  border: 1px solid var(--color-slate-300);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-900);
+  background: var(--color-white);
+}
+
+.gateEmailInput:focus-visible {
+  outline: 2px solid var(--text-brand-accessible);
+  outline-offset: 1px;
+}
+
+.gateConsentRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-600);
+}
+
+.gateSubmit {
+  padding: var(--spacing-sm-plus) var(--spacing-lg);
+  background: var(--cta-bg-primary);
+  color: var(--cta-color-primary);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-ui-button);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.gateSubmit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.gateSubmit:focus-visible {
+  outline: 2px solid var(--text-brand-accessible);
+  outline-offset: 2px;
+}
+
+.gateFinePrint {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-500);
+  margin: 0;
+}
+
+.gateError {
+  font-size: var(--font-size-sm);
+  color: var(--color-coral-700);
+  margin: 0;
+}
+
+/* A3: share is secondary — quiet link styling, never competing with the gate CTA */
+.shareRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* ---- Gated plan ---- */
+
+.planSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-slate-200);
+}
+
+.planTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-900);
+  margin: 0;
+}
+
+.planLine {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-700);
+  margin: 0;
+}
+
+/* Wide content scrolls inside its own container (CLAUDE.md responsive rule) —
+   at 375px the DE table (suffix-widened labels + mono values) otherwise
+   escapes the card by ~70px. */
+.projTableWrap {
+  overflow-x: auto;
+}
+
+.projTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.projTable th,
+.projTable td {
+  text-align: left;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--color-slate-200);
+}
+
+/* Densify at phone width so the DE table (widest labels) fits the card
+   without needing the wrapper's scroll fallback. */
+@media (max-width: 640px) {
+  .projTable th,
+  .projTable td {
+    padding: var(--spacing-sm) var(--spacing-xs-plus);
+  }
+}
+
+.projTable th {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-slate-500);
+}
+
+/* C4: Conservative leads — first data row carries the emphasis (th included,
+   or the tint starts one column late on the scenario name) */
+.projRowLead td,
+.projRowLead th {
+  background: var(--color-teal-50);
+  font-weight: var(--font-weight-semibold);
+}
+
+.nextSteps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.nextStepLink {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-slate-300);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-700);
+  text-decoration: none;
+}
+
+.nextStepLink:hover {
+  border-color: var(--text-brand-accessible);
+  color: var(--text-brand-accessible);
+}
+
+.mono {
+  font-family: var(--font-family-mono);
+}

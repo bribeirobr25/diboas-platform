@@ -94,11 +94,11 @@ export const PAGE_SEO_CONFIG = {
   // English string is the fallback when generateMetadata cannot resolve the
   // translation (e.g., SSR boundary or missing namespace).
   market: {
-    title: 'Adelaide Daily',
+    title: 'Adelaide Market',
     description:
       'Calm macro intelligence for Bitcoin. Understand the environment, not the next candle.',
     keywords: [
-      'adelaide daily',
+      'adelaide market',
       'bitcoin macro',
       'macro regime',
       'btc environment',
@@ -191,6 +191,13 @@ export const PAGE_SEO_CONFIG = {
     description:
       'Free money calculators to plan your retirement, emergency fund, and savings goals. Built by diBoaS.',
     keywords: ['money tools', 'financial calculators', 'savings calculator'],
+  },
+  // Tool #11 (2026-07-11) — Money Jobs, the /tools entry point (NEW_TOOL_PROPOSAL.md)
+  'tools/money-jobs': {
+    title: 'Money Jobs Calculator',
+    description:
+      'Give every part of your monthly money a job. See what stays ready, what protects you, and what can work. Free calculator from diBoaS.',
+    keywords: ['money jobs calculator', 'budget split calculator', 'money allocation'],
   },
   'tools/compound-interest': {
     title: 'Compound Interest Calculator',

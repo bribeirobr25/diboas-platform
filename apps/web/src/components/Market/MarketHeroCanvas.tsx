@@ -2,7 +2,7 @@
 
 /**
  * MarketHeroCanvas — decorative soft teal particle field behind the editorial
- * "Adelaide Daily" masthead (replicates 02-editorial-motion's hero canvas).
+ * "Adelaide Market" masthead (replicates 02-editorial-motion's hero canvas).
  *
  * Reuses the shared `useWebGLScene` engine (particles scene, light theme →
  * calm teal points, normal-blended for the cream paper). The canvas is

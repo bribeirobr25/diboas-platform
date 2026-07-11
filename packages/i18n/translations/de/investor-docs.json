@@ -627,7 +627,7 @@
         },
         {
           "type": "paragraph",
-          "text": "What's actually built? Today: the marketing site and the market-intelligence product (the BTC macro dashboard, \"Adelaide Daily\"). The money product — wallets, money-in/out integration, the goal-to-strategy engine, user-to-user transfer — is fully specified but not yet built. We're early and we won't dress it up. The engineering and regulatory foundations are laid so the build executes against a spec rather than inventing as it goes."
+          "text": "What's actually built? Today: the marketing site and the market-intelligence product (the BTC macro dashboard, \"Adelaide Market\"). The money product — wallets, money-in/out integration, the goal-to-strategy engine, user-to-user transfer — is fully specified but not yet built. We're early and we won't dress it up. The engineering and regulatory foundations are laid so the build executes against a spec rather than inventing as it goes."
         },
         {
           "type": "paragraph",

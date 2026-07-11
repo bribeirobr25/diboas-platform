@@ -1,0 +1,135 @@
+{
+  "seo": {
+    "title": "Calculadora Dinheiro com Função — cada valor precisa de uma função",
+    "description": "Calculadora gratuita: dê uma função a cada parte do seu dinheiro do mês. Veja o que fica pronto, o que te protege e o que pode trabalhar, antes de mover qualquer coisa."
+  },
+  "hero": {
+    "kicker": "DINHEIRO COM FUNÇÃO",
+    "headline": "Cada real precisa de uma função.",
+    "subtitle": "Coloque o que entra. Veja o que fica pronto, o que te protege e o que pode trabalhar, antes de mover qualquer coisa."
+  },
+  "landing": {
+    "cardTitle": "Dinheiro com Função",
+    "cardTagline": "Qual é a função de cada parte do seu dinheiro?"
+  },
+  "mode": {
+    "ariaLabel": "Escolha para quem é",
+    "personal": "Para você",
+    "business": "Para seu negócio"
+  },
+  "inputs": {
+    "incomeLabel": "Renda mensal (líquida)",
+    "essentialsLabel": "Essenciais do mês",
+    "essentialsHelp": "Estimado para o seu país. Ajuste à sua realidade.",
+    "savingsLabel": "Reserva de emergência hoje",
+    "savingsHelp": "Opcional. O que você já guardou.",
+    "revenueLabel": "Receita mensal",
+    "revenueHelp": "Pré-receita? Deixe 0; o que captou entra em caixa.",
+    "burnLabel": "Gasto mensal (burn)",
+    "burnHelp": "Folha. Aluguel. Imposto. Fornecedor. Um número só.",
+    "cashLabel": "Caixa disponível"
+  },
+  "headline": {
+    "kicker": "A DIVISÃO",
+    "personalSuffix": "do seu mês ainda está sem função.",
+    "businessSuffix": "está acima do piso sem regra definida."
+  },
+  "costLine": {
+    "personal": "Sem função, esse valor perde cerca de {cost} de poder de compra para a inflação em {years} anos.",
+    "business": "Sem regra, esse excedente perde cerca de {cost} de poder de compra para a inflação em {years} anos."
+  },
+  "disclaimer": "Divisão educativa, não é conselho financeiro. Os números são seus, a decisão também.",
+  "jobs": {
+    "floor": {
+      "label": "Piso",
+      "meaning": "Dinheiro com função fixa: aluguel, comida, contas."
+    },
+    "cushion": {
+      "label": "Colchão",
+      "meaning": "Sugestão deste mês rumo à meta de {target}. Você tem {current}."
+    },
+    "working": {
+      "label": "Dinheiro que trabalha",
+      "meaning": "Livre para trabalhar depois de piso e colchão."
+    },
+    "operatingFloor": {
+      "label": "Piso operacional",
+      "meaning": "O que precisa ficar pronto: cerca de 3 meses de burn."
+    },
+    "runway": {
+      "label": "Runway",
+      "value": "{months} meses",
+      "meaning": "No seu burn líquido atual."
+    },
+    "coverage": {
+      "label": "Cobertura",
+      "value": "{months} meses",
+      "meaning": "Se a receita parasse amanhã. Hoje, a receita cobre o burn."
+    },
+    "excess": {
+      "label": "Excedente",
+      "meaning": "Caixa acima do piso, esperando uma regra."
+    }
+  },
+  "band": {
+    "ideal": "Ideal",
+    "maximum": "Máximo",
+    "explainer": "Por que menos que o máximo? Folga faz parte do plano."
+  },
+  "dignity": {
+    "headline": "Esse mês, a função do seu dinheiro é te segurar.",
+    "body": "Sem culpa. Os essenciais vêm primeiro; a divisão pode esperar um mês mais leve.",
+    "cta": "Veja como começa um colchão de emergência"
+  },
+  "runway": {
+    "headline": "Agora, a função do seu caixa é o runway.",
+    "body": "Cerca de {months} meses no burn atual. Seu piso é {floor}. Proteja isso primeiro; colocar o excedente para trabalhar pode esperar até o runway ficar confortável."
+  },
+  "share": {
+    "title": "Dinheiro com Função",
+    "text": "Minha divisão: {value} ainda estava sem função. Cada valor precisa de uma.",
+    "cta": "Compartilhar sua divisão",
+    "copied": "Link copiado"
+  },
+  "gate": {
+    "ariaLabel": "Desbloquear seu plano completo",
+    "title": "Essa é a divisão. O plano está nos detalhes.",
+    "bullets": {
+      "timeline": "Quando seu colchão chega à meta",
+      "projections": "O que seu dinheiro que trabalha pode virar em 5 e 10 anos",
+      "runway": "Sua leitura de runway e o que a protege",
+      "nextSteps": "O próximo passo de cada função"
+    },
+    "emailPlaceholder": "Seu e-mail",
+    "gdprLabel": "Concordo em receber e-mails do diBoaS e aceito a política de privacidade.",
+    "cta": "Ver meu plano completo",
+    "ctaLoading": "Um momento",
+    "finePrint": "Entrar na lista de espera desbloqueia o plano. Sem spam: é a mesma lista de todo o resto. Entrar não movimenta seu dinheiro.",
+    "successLine": "Você está na lista, posição {position}.",
+    "referralLinkLabel": "Seu link de convite"
+  },
+  "plan": {
+    "title": "Seu plano",
+    "cushionFunded": "Seu colchão está completo. Tudo acima do piso está livre para trabalhar.",
+    "cushionTimeline": "Na sugestão deste mês, seu colchão chega à meta em cerca de {months} meses.",
+    "cushionUnreachable": "Com os números atuais, a meta do colchão não é alcançável. Ajuste essenciais ou renda para ver um caminho.",
+    "projectionsIntro": "O que o valor ideal de trabalho pode virar, aportado mensalmente, em três cenários:",
+    "scenarioColumn": "Cenário",
+    "fiveYears": "5 anos",
+    "tenYears": "10 anos",
+    "brDollarLine": "E em dólar digital, sua reserva não depende só do real.",
+    "brDollarBothWays": "O câmbio se move nas duas direções; o valor em reais pode subir ou cair.",
+    "runwayLed": "O runway lidera este plano: cerca de {months} meses no burn atual, com piso de {floor}. Corte custos de pagamento e acompanhe o burn antes de colocar o excedente para trabalhar.",
+    "idleComparison": "Em 12 meses, seu excedente ideal de {amount} poderia render cerca de {delta} a mais do que no seu banco, no cenário conservador.",
+    "nextCushion": "Calculadora de Reserva de Emergência",
+    "nextWorking": "Calculadora de Juros Compostos",
+    "nextCurrency": "Calculadora de Desvalorização Cambial",
+    "nextIdleCash": "Calculadora de Caixa Parado",
+    "nextCardFees": "Calculadora de Taxas de Cartão",
+    "nextFounder": "Falar com o Bar"
+  },
+  "lessonLink": {
+    "label": "Quer entender o porquê primeiro?",
+    "linkText": "Como o dinheiro realmente cresce: a lição dos 12 anos"
+  }
+}

@@ -18,6 +18,8 @@ export type OGPageType =
   // v1 reuses the teal-themed default body with tool-specific copy; bespoke
   // per-tool art is a CMO iteration tracked in PHASE_6_PLAN §6F.2.
   | 'tools'
+  // Tool #11 (2026-07-11) — Money Jobs, the /tools entry point.
+  | 'tools-money-jobs'
   | 'tools-compound-interest'
   | 'tools-retirement'
   | 'tools-emergency-fund'
@@ -29,7 +31,7 @@ export type OGPageType =
   | 'tools-idle-cash'
   // Phase E (2026-05-16) — Asset history retrospective tool.
   | 'tools-asset-history'
-  // Iteration 4 §3.5 — Adelaide Daily (/market). Static OG via Path B
+  // Iteration 4 §3.5 — Adelaide Market (/market). Static OG via Path B
   // (NF1 round-3 lock). v1 reuses the teal-themed default body with brand
   // + title; dynamic OG with regime score is iter-4.5 / post-launch.
   | 'market';
@@ -41,7 +43,8 @@ interface OGTemplateConfig {
   theme: 'teal' | 'coral' | 'dark';
 }
 
-const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
+// Exported for the M3 copy gate (money-jobs kill-list test) — not a public API.
+export const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
   default: {
     title: 'diBoaS',
     subtitle: 'Open access and fair opportunities for everyone',
@@ -89,6 +92,14 @@ const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
   tools: {
     title: 'Money Tools',
     subtitle: 'Free calculators by diBoaS — see what your money could do.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  // Tool #11 — Money Jobs. Subtitle is on the M3 kill-list vitest (C5):
+  // no earn/yield/return verbs, no product promise — split language only.
+  'tools-money-jobs': {
+    title: 'Money Jobs Calculator',
+    subtitle: 'Every amount needs a job. See yours in under a minute.',
     badge: 'Tools',
     theme: 'teal',
   },
@@ -155,11 +166,11 @@ const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
     badge: 'Tools',
     theme: 'teal',
   },
-  // Iteration 4 §3.5 — Adelaide Daily (/market). Path B static template
+  // Iteration 4 §3.5 — Adelaide Market (/market). Path B static template
   // (NF1 round-3 lock). v1 reuses the teal-themed body with brand + title;
   // dynamic OG with regime score is iter-4.5 / post-launch.
   market: {
-    title: 'Adelaide Daily',
+    title: 'Adelaide Market',
     subtitle: 'Calm macro intelligence for Bitcoin.',
     badge: 'Market',
     theme: 'teal',
@@ -340,6 +351,7 @@ export function isValidPageType(page: string): page is OGPageType {
     'help',
     'security',
     'tools',
+    'tools-money-jobs',
     'tools-compound-interest',
     'tools-retirement',
     'tools-emergency-fund',
@@ -351,7 +363,7 @@ export function isValidPageType(page: string): page is OGPageType {
     'tools-idle-cash',
     // Phase E (2026-05-16) — Asset history retrospective tool.
     'tools-asset-history',
-    // Iteration 4 §3.5 — Adelaide Daily. NF1 round-3 Path B (static OG).
+    // Iteration 4 §3.5 — Adelaide Market. NF1 round-3 Path B (static OG).
     'market',
   ].includes(page);
 }

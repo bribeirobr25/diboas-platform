@@ -106,14 +106,7 @@ export interface FxBucket {
 // ---------------------------------------------------------------------------
 
 export type AssetCode =
-  | 'BTC'
-  | 'SP500'
-  | 'QQQ'
-  | 'MSCI_WORLD'
-  | 'GOLD'
-  | 'TLT'
-  | 'IBOVESPA'
-  | 'DAX';
+  'BTC' | 'SP500' | 'QQQ' | 'MSCI_WORLD' | 'GOLD' | 'TLT' | 'IBOVESPA' | 'DAX';
 
 /** M8 round-2: 2020 dropped — research doc has no 2020 anchor table. */
 export type AnchorYear = 2010 | 2016 | 2026;

@@ -1,18 +1,18 @@
 {
   "seo": {
-    "title": "Adelaide Daily",
+    "title": "Adelaide Market",
     "description": "Calm macro intelligence for Bitcoin. Understand the environment, not the next candle.",
-    "ogTitle": "Adelaide Daily",
+    "ogTitle": "Adelaide Market",
     "ogDescription": "Calm macro intelligence for Bitcoin. Understand the environment, not the next candle."
   },
   "hero": {
-    "title": "Adelaide Daily",
+    "title": "Adelaide Market",
     "subtitle": "Calm macro intelligence for Bitcoin.",
     "kicker": "Macro environment score"
   },
   "comingSoon": {
     "title": "Coming soon.",
-    "body": "Adelaide Daily is being built. It will help you understand the Bitcoin macro environment without the noise.",
+    "body": "Adelaide Market is being built. It will help you understand the Bitcoin macro environment without the noise.",
     "backHome": "Back to Home"
   },
   "dashboard": {
@@ -57,11 +57,11 @@
   "cta": {
     "cadence": "Updated weekly",
     "headline": "Calm intelligence, every week.",
-    "body": "Adelaide Daily is free and refreshed every week. Join the waitlist to be first when diBoaS opens.",
+    "body": "Adelaide Market is free and refreshed every week. Join the waitlist to be first when diBoaS opens.",
     "waitlist": "Join the waitlist",
     "share": "Share Adelaide",
     "shareCopied": "Link copied",
-    "shareText": "Adelaide Daily: calm macro intelligence for Bitcoin."
+    "shareText": "Adelaide Market: calm macro intelligence for Bitcoin."
   },
   "fallback": {
     "outageTitle": "Live data is temporarily unavailable",

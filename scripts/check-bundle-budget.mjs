@@ -107,7 +107,11 @@ const BUDGETS = {
   // undercounted, so the 200 cap was left and would fail clean CI. 210 = ~3%
   // headroom over the 203 clean-build actual. (The "How it works" scaffold adds
   // 0 chunks — not page-imported, tree-shaken.)
-  maxAssetCount: 210,
+  // RECALIBRATED 2026-07-11 → 220. Money Jobs (tool #11) adds the route chunk,
+  // the calculator client chunk, and 4 lazy i18n chunks (tools-money-jobs ×
+  // en/pt-BR/es/de per the MIG-8 per-namespace split) → clean-build actual 212.
+  // 220 = ~4% headroom. Documented in docs/audit/PENDING_ALL.md.
+  maxAssetCount: 220,
 };
 
 if (!fs.existsSync(CHUNKS_DIR)) {

@@ -14,10 +14,7 @@ import { Logger } from '@/lib/monitoring/Logger';
 import { logEmailDelivery } from '@/lib/email/deliveryLogger';
 import { CircuitBreaker } from '@/lib/utils/CircuitBreaker';
 type EmailServiceMethod =
-  | 'sendWelcome'
-  | 'sendReferralSuccess'
-  | 'sendDeletionConfirmation'
-  | 'sendDeletionComplete';
+  'sendWelcome' | 'sendReferralSuccess' | 'sendDeletionConfirmation' | 'sendDeletionComplete';
 
 /** Type-safe accessor for email service methods that accept (to, data) args */
 type EmailSendFn = (

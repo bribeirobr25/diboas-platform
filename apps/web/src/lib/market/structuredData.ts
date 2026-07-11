@@ -1,5 +1,5 @@
 /**
- * Structured data (schema.org JSON-LD) for the Adelaide Daily (/market) route.
+ * Structured data (schema.org JSON-LD) for the Adelaide Market (/market) route.
  *
  * Iteration 4 §3.4 — `Article` per Schema.org with `datePublished` derived
  * from `regime.last_updated_at`. Mirrors the feature-specific pattern at
@@ -11,7 +11,7 @@
  * shape) which the real SDK returns. Only the upstream import path changes.
  *
  * `datePublished` / `dateModified` MVP decision (M4 round-1): set both equal
- * to `regime.last_updated_at`. Adelaide Daily is a daily-cadence editorial
+ * to `regime.last_updated_at`. Adelaide Market is a daily-cadence editorial
  * product where each day's regime data IS a new publication, not an update
  * to a prior article. Re-evaluate if iter-5+ introduces archived/permalinked
  * historical regime views.

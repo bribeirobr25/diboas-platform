@@ -23,7 +23,7 @@ interface ToolsPageProps extends LocalePageProps {
   searchParams?: Promise<{ for?: string }>;
 }
 
-const SECTIONS: ReadonlyArray<ToolSectionKey> = ['grow', 'protect', 'target', 'business'];
+const SECTIONS: ReadonlyArray<ToolSectionKey> = ['start', 'grow', 'protect', 'target', 'business'];
 
 export async function generateMetadata({ params }: ToolsPageProps): Promise<Metadata> {
   const { locale } = await params;

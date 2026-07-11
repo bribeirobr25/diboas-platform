@@ -6,3 +6,25 @@ packages:
 # `overrides:` here is a silent no-op on pnpm 8.x (a pnpm 9/10 feature), so the
 # `minimatch@10.x` + `serialize-javascript` pins were unenforced and `rollup` was
 # already redundantly covered by the package.json `rollup@>=4.0.0 <4.59.0` rule.
+
+# ── Supply-chain sprint 2026-07-11 (PENDING_ALL 5.21 + 5.23) ────────────────
+# pnpm 10 blocks dependency lifecycle scripts by default (the Shai-Hulud
+# preinstall-worm defense, 5.23). Only the packages below may run install
+# scripts — every one is a binary-download step the build genuinely needs.
+# A NEW dependency that wants scripts fails visibly and must be added here
+# by hand (curated allowlist, founder-reviewable in the diff).
+# core-js / core-js-pure are deliberately ABSENT (their postinstall is a
+# funding banner, not a build step).
+onlyBuiltDependencies:
+  - '@sentry/cli' # downloads the sentry-cli binary (source-map upload)
+  - esbuild # platform binary fallback check
+  - puppeteer # Chrome download (pa11y accessibility audits)
+  - sharp # libvips binary (Next.js image optimization)
+  - simple-git-hooks # installs the pre-commit secrets-scan hook
+  - unrs-resolver # napi platform binary fallback
+
+# 5.21-adjacent (pnpm-10-native): newly published package versions are not
+# installable until they have been public for 3 days — the compromise window
+# for registry-hijack attacks (PostHog F15 precedent in this codebase) is
+# almost always shorter than that. Does not affect frozen-lockfile CI installs.
+minimumReleaseAge: 4320

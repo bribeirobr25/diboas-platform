@@ -25,9 +25,9 @@ describe('SHIPPED_TOOLS ↔ TOOL_DESCRIPTORS sync (C40)', () => {
     expect(missingFromShipped).toEqual([]);
   });
 
-  it('the sets are identical in cardinality (10 tools)', () => {
+  it('the sets are identical in cardinality (11 tools)', () => {
     expect(SHIPPED_TOOLS.length).toBe(Object.keys(TOOL_DESCRIPTORS).length);
-    expect(SHIPPED_TOOLS.length).toBe(10);
+    expect(SHIPPED_TOOLS.length).toBe(11);
   });
 
   it('every TOOL_DESCRIPTORS entry has matching `key` to its record key (no copy-paste drift)', () => {

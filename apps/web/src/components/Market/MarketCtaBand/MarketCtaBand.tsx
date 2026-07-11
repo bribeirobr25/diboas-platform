@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * MarketCtaBand — the Adelaide Daily closing band (Phase 5 redesign).
+ * MarketCtaBand — the Adelaide Market closing band (Phase 5 redesign).
  *
  * A calm "weekly cadence" frame + the two CTAs the signature surface was missing:
  * subscribe-to-waitlist and a one-tap share of the (OG-card-backed) /market page.
