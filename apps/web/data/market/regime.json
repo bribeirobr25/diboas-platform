@@ -219,13 +219,8 @@
         "message": "ETF net-flows could not be observed this cycle (2026-07-11). The CoinGlass spot-ETF routes still return HTTP 404 (route structure changed 2026-06; homepage loads, so routing change, not a block). The spec-canonical Farside manual feed remains behind a Cloudflare challenge wall (policy forbids evasion per doc 02 §8.3 + doc 06 §6.5); SoSoValue also Cloudflare-blocked. With fewer than the required trailing-four confirmed weekly aggregates observable, ETF-01 is evaluated UNAVAILABLE per §10.1 and contributes 0 of 2 points (score-invariant: an INACTIVE read would also award 0). Canonical Farside acquisition tracked in PENDING_ALL.md 5.28."
       }
     ],
-    "delayed_sources": [
-      "FRED:DTWEXBGS",
-      "FRED:M2SL"
-    ],
-    "unavailable_sources": [
-      "CoinGlass:ETF"
-    ]
+    "delayed_sources": ["FRED:DTWEXBGS", "FRED:M2SL"],
+    "unavailable_sources": ["CoinGlass:ETF"]
   },
   "_translation_status": {
     "_comment": "Translation status per market-editorial.md §5. EN is authoritative; pt-BR / es / de for the 2026-07-11 DEFENSIVE cycle were drafted by engineering in the research-memo voice (doc 03 §5.2) under the Phase 7 jargon ban and self-reviewed the same session (register rules: de du-register n/a here — memo voice; es peninsular; pt-BR neutral-formal memo). A professional-translator pass remains the gate before the MARKET_INDEXABLE flip (PENDING_ALL 5.38).",
