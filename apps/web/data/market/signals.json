@@ -148,10 +148,10 @@
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "The US 10-year yield at 4% holds above its 20-week trend (4.39%) — yields have not eased yet.",
-            "pt-BR": "O juro americano de 10 anos em 4% segue acima da tendência de 20 semanas (4,39%) — os juros ainda não cederam.",
-            "es": "El rendimiento estadounidense a 10 años en 4% sigue por encima de su tendencia de 20 semanas (4,39%); los rendimientos aún no ceden.",
-            "de": "Die 10-jährige US-Rendite bei 4% hält sich über ihrem 20-Wochen-Trend (4,39%) — die Renditen haben noch nicht nachgegeben."
+            "en": "The US 10-year yield at 4.49% holds above its 20-week trend (4.39%) — yields have not eased yet.",
+            "pt-BR": "O juro americano de 10 anos em 4,49% segue acima da tendência de 20 semanas (4,39%) — os juros ainda não cederam.",
+            "es": "El rendimiento estadounidense a 10 años en 4,49% sigue por encima de su tendencia de 20 semanas (4,39%); los rendimientos aún no ceden.",
+            "de": "Die 10-jährige US-Rendite bei 4,49% hält sich über ihrem 20-Wochen-Trend (4,39%) — die Renditen haben noch nicht nachgegeben."
           },
           "last_updated_at": "2026-07-11T10:30:00Z"
         },
@@ -247,10 +247,10 @@
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "The BTC/Gold ratio at  sits below its 20-week trend () — the defensive asset is winning this stretch.",
-            "pt-BR": "A razão BTC/Ouro em  está abaixo da tendência de 20 semanas () — o ativo defensivo vence este trecho.",
-            "es": "La ratio BTC/Oro en  está por debajo de su tendencia de 20 semanas (); el activo defensivo gana este tramo.",
-            "de": "Das BTC/Gold-Verhältnis bei  liegt unter seinem 20-Wochen-Trend () — das defensive Anlagegut gewinnt diese Phase."
+            "en": "The BTC/Gold ratio at 15.625 sits below its 20-week trend (15.864) — the defensive asset is winning this stretch.",
+            "pt-BR": "A razão BTC/Ouro em 15,625 está abaixo da tendência de 20 semanas (15,864) — o ativo defensivo vence este trecho.",
+            "es": "La ratio BTC/Oro en 15,625 está por debajo de su tendencia de 20 semanas (15,864); el activo defensivo gana este tramo.",
+            "de": "Das BTC/Gold-Verhältnis bei 15,625 liegt unter seinem 20-Wochen-Trend (15,864) — das defensive Anlagegut gewinnt diese Phase."
           },
           "last_updated_at": "2026-07-11T10:30:00Z"
         },
@@ -266,10 +266,10 @@
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "The BTC/Nasdaq ratio at  sits below its 20-week trend () — Bitcoin lags the broader risk complex.",
-            "pt-BR": "A razão BTC/Nasdaq em  está abaixo da tendência de 20 semanas () — o Bitcoin fica atrás do complexo de risco.",
-            "es": "La ratio BTC/Nasdaq en  está por debajo de su tendencia de 20 semanas (); Bitcoin va rezagado frente al complejo de riesgo.",
-            "de": "Das BTC/Nasdaq-Verhältnis bei  liegt unter seinem 20-Wochen-Trend () — Bitcoin hinkt dem breiteren Risikokomplex hinterher."
+            "en": "The BTC/Nasdaq ratio at 2.440 sits below its 20-week trend (2.846) — Bitcoin lags the broader risk complex.",
+            "pt-BR": "A razão BTC/Nasdaq em 2,440 está abaixo da tendência de 20 semanas (2,846) — o Bitcoin fica atrás do complexo de risco.",
+            "es": "La ratio BTC/Nasdaq en 2,440 está por debajo de su tendencia de 20 semanas (2,846); Bitcoin va rezagado frente al complejo de riesgo.",
+            "de": "Das BTC/Nasdaq-Verhältnis bei 2,440 liegt unter seinem 20-Wochen-Trend (2,846) — Bitcoin hinkt dem breiteren Risikokomplex hinterher."
           },
           "last_updated_at": "2026-07-11T10:30:00Z"
         },
@@ -285,10 +285,10 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The Nasdaq at  holds above its 20-week trend () — the wider risk market is structurally healthy.",
-            "pt-BR": "O Nasdaq em  segue acima da tendência de 20 semanas () — o mercado de risco mais amplo está estruturalmente saudável.",
-            "es": "El Nasdaq en  se mantiene sobre su tendencia de 20 semanas (); el mercado de riesgo más amplio está estructuralmente sano.",
-            "de": "Der Nasdaq bei  hält sich über seinem 20-Wochen-Trend () — der breitere Risikomarkt ist strukturell gesund."
+            "en": "The Nasdaq at 26,282 holds above its 20-week trend (24,984) — the wider risk market is structurally healthy.",
+            "pt-BR": "O Nasdaq em 26.282 segue acima da tendência de 20 semanas (24.984) — o mercado de risco mais amplo está estruturalmente saudável.",
+            "es": "El Nasdaq en 26.282 se mantiene sobre su tendencia de 20 semanas (24.984); el mercado de riesgo más amplio está estructuralmente sano.",
+            "de": "Der Nasdaq bei 26.282 hält sich über seinem 20-Wochen-Trend (24.984) — der breitere Risikomarkt ist strukturell gesund."
           },
           "last_updated_at": "2026-07-11T10:30:00Z"
         }

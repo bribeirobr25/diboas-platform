@@ -134,12 +134,16 @@ function signalSentence(id, locale) {
   const set = signalTpl[id]?.[sig.state];
   if (!set) return null;
   const v = sig.values ?? {};
+  // Precision follows the magnitude: sub-100 values are rates (yields, indices)
+  // that need 2 decimals; large index/price values read cleaner whole. This
+  // keeps a value and its own trend line at the SAME precision (the MAC-02
+  // yield bug: "4%" beside "4.39%" — caught in the 2026-07-11 audit).
+  const scaleDigits = (x) => (x < 100 ? 2 : 0);
   const slots = {
     monthName: monthName(sig.anchor, locale),
-    close: v.close != null ? num(v.close, locale) : '',
-    ema20:
-      v.ema20 != null ? num(v.ema20, locale, id.startsWith('REL') ? 3 : v.ema20 < 100 ? 2 : 0) : '',
-    sma50: v.sma50 != null ? num(v.sma50, locale) : '',
+    close: v.close != null ? num(v.close, locale, scaleDigits(v.close)) : '',
+    ema20: v.ema20 != null ? num(v.ema20, locale, scaleDigits(v.ema20)) : '',
+    sma50: v.sma50 != null ? num(v.sma50, locale, scaleDigits(v.sma50)) : '',
     gapAbs: v.gapPct != null ? num(Math.abs(v.gapPct), locale) : '',
     rsiCur: v.rsiCurrent != null ? num(v.rsiCurrent, locale) : '',
     rsiPrev: v.rsiPrev != null ? num(v.rsiPrev, locale) : '',
@@ -152,6 +156,18 @@ function signalSentence(id, locale) {
     snapshots: v.snapshots != null ? String(v.snapshots) : '',
     warmupTarget: v.warmupTarget != null ? String(v.warmupTarget) : '',
   };
+  // Guard (2026-07-11 audit): a template slot that resolves to '' means the
+  // engine didn't emit the value the sentence needs (the REL-03 empty-slot
+  // bug — engine `values` missing, --check blind to it because both sides
+  // were equally empty). Fail loudly instead of shipping "the Nasdaq at ".
+  const referenced = [...set[locale].matchAll(/\{(\w+)\}/g)].map((m) => m[1]);
+  const empty = referenced.filter((k) => slots[k] === '');
+  if (empty.length) {
+    throw new Error(
+      `signal ${id} (${sig.state}, ${locale}): template references [${empty.join(', ')}] ` +
+        `but computed.json has no value for them — check the engine emits these in \`values\`.`
+    );
+  }
   return fill(set[locale], slots);
 }
 
