@@ -4,7 +4,7 @@
  * i18n is mocked to id-echo (`tools-money-jobs.headline.kicker …`), so
  * assertions target message IDs + engine-derived numbers, not copy. The
  * engines run REAL (fallback market-data snapshot) — this test locks the
- * component↔engine wiring: default split render, dignity state (F3),
+ * component-to-engine wiring: default split render, dignity state (F3),
  * mode toggle, business runway mode (decision 9), cash-positive coverage
  * card, and the unlock → plan path with Conservative leading (C4).
  *
