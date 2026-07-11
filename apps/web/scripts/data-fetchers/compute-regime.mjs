@@ -3,471 +3,101 @@
  * compute-regime.mjs — reproducible regime-score computation per doc 02 §8.
  *
  * Created 2026-05-29 alongside the D1 enactment as the durable fix for the
- * convention slip surfaced in the first refresh round (intra-week Tue/Wed
- * values being used as "the latest weekly close" instead of the most recent
- * confirmed Friday close). The strict-Friday resampling and the candle-lock
- * discipline are LOCKED in this script so the next weekly refresh can't slip
- * back into intra-week values.
+ * convention slip surfaced in the first refresh round (intra-week values
+ * used as "the latest weekly close").
  *
- * Per handover B2: "Follow the existing pattern: a committed, reproducible
- * fetch script under apps/web/scripts/data-fetchers/ ... so the calculation
- * layer is auditable (doc 02 §3.1)."
+ * P2 refactor (2026-07-11, automation plan §B Stage 3): this CLI is now a
+ * THIN WRAPPER over the shared pure engine at
+ * `apps/web/scripts/market-refresh/lib/regime-engine.mjs` — the pipeline
+ * (`market-refresh/run.mjs`) imports the SAME functions, so there is no
+ * second implementation to drift (Principle 4). The strict-Friday and
+ * candle-lock conventions are LOCKED in the engine; the P1 guards (F-M2
+ * stale-input gate, F-M3 anchors + coherence) travel with it.
  *
  * Usage:
- *   node apps/web/scripts/data-fetchers/compute-regime.mjs
+ *   node apps/web/scripts/data-fetchers/compute-regime.mjs [--no-archive]
  *
- * Outputs to stdout:
- *   - Per-signal evaluation (BTC-01..04, MAC-01..03, ETF-01, REL-01..03)
- *   - Per-group point totals
- *   - Score → band → regime_code mapping
+ * Outputs to stdout: per-signal evaluation, group totals, score → band,
+ * anchors (F-M3), reconciliation vs the published regime.json; appends an
+ * append-only line to apps/web/data/market/run-archive.jsonl.
  *
  * Data sources (all free, no API key required):
- *   - BTC monthly closes: ../../src/lib/market-data/data/monthlyPrices.json
- *     (authoritative for BTC-01..04 per doc 02 §5.1 candle-lock)
- *   - DXY weekly: FRED DTWEXBGS public CSV
- *   - US10Y weekly: FRED DGS10 public CSV
- *   - Global M2 monthly: FRED M2SL public CSV
- *   - Gold weekly: Yahoo GC=F (SUBSTITUTE — FRED GOLDAMGBD228NLBM retired; D-gold-2026-05-29)
- *   - Nasdaq weekly: FRED NASDAQCOM public CSV
- *   - BTC weekly: Yahoo BTC-USD (Mozilla/5.0 User-Agent required)
- *   - ETF-01: NOT auto-fetched (per doc 02 §8.3 + doc 06 §6.5 — manual import).
- *     CoinGlass /etf/bitcoin can be browser-rendered as a provisional secondary
- *     source via Docker MCP; see PENDING_ALL.md 5.28 for canonical Farside acquisition.
+ *   - BTC monthly closes: in-repo monthlyPrices.json (authoritative, §5.1)
+ *   - DXY/US10Y/M2/Nasdaq: FRED public CSV
+ *   - Gold: Yahoo GC=F (SUBSTITUTE — FRED LBMA retired; D-gold-2026-05-29)
+ *   - BTC weekly: Yahoo BTC-USD
+ *   - ETF-01: manual input file apps/web/data/market/etf01-manual.json
+ *     (auto-degrades to UNAVAILABLE on expiry; P4 owns the durable source)
  *
- * Strict-Friday discipline (locked):
- *   - Weekly signals (MAC, REL) evaluate against the MOST RECENT CONFIRMED FRIDAY close.
- *   - "Confirmed" means the Friday's date is in the source data AND <= today.
- *   - Intra-week values (Mon/Tue/Wed/Thu of the current week) are NEVER used
- *     as "the latest weekly close" — they get dropped from the current-week
- *     bucket if the Friday itself isn't yet in the data.
- *   - Resampling: for each Friday in [first_friday >= first_data_date, last_friday <= min(last_data_date, today)],
- *     pick the Friday's reading if present; otherwise fall back to the most
- *     recent prior trading day within that week (handles US bank holidays).
- *
- * Candle-lock (doc 02 §5.1):
- *   - BTC-01..04 use ONLY closed monthly candles. The current in-progress
- *     month (e.g., May 2026 mid-month) is excluded. As of 2026-05-29, the
- *     last confirmed monthly close is April 30, 2026.
- *
- * Note: this script computes signal states but does NOT auto-write data files.
- * The writes go through the editorial pre-write gate per market-editorial.md §7.
+ * Note: this script computes signal states but does NOT write editorial
+ * files. The full pipeline (fetch → quality gate → computed.json) is
+ * `market-refresh/run.mjs`; editorial writes go through the pre-write gate
+ * per market-editorial.md §7.
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  evaluateBtcStructure,
+  evaluateMacro,
+  evaluateRelativeStrength,
+  evaluateEtfManual,
+  scoreSignals,
+  anchorCoherence,
+} from '../market-refresh/lib/regime-engine.mjs';
+import { fetchFredSeries } from '../market-refresh/providers/fred.mjs';
+import { fetchYahooDaily } from '../market-refresh/providers/yahoo.mjs';
+import { btcMonths } from '../market-refresh/providers/inrepo.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '../../../..');
-const MONTHLY_PRICES_PATH = path.join(
-  REPO_ROOT,
-  'apps/web/src/lib/market-data/data/monthlyPrices.json'
-);
-
 const REGIME_PATH = path.join(REPO_ROOT, 'apps/web/data/market/regime.json');
 const ARCHIVE_PATH = path.join(REPO_ROOT, 'apps/web/data/market/run-archive.jsonl');
+const ETF_MANUAL_PATH = path.join(REPO_ROOT, 'apps/web/data/market/etf01-manual.json');
 
-const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36';
 const TODAY = new Date();
 
-// ===========================================================================
-// Source fetchers
-// ===========================================================================
-
-async function fetchFredCSV(seriesId, startDate = '2023-01-01') {
-  const url = `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${seriesId}&cosd=${startDate}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`FRED ${seriesId} returned ${res.status}`);
-  const csv = await res.text();
-  if (!csv.startsWith('observation_date')) {
-    throw new Error(`FRED ${seriesId} returned non-CSV response`);
-  }
-  return csv
-    .split('\n')
-    .slice(1)
-    .map((line) => line.split(','))
-    .filter(([d, v]) => d && v && v !== '.')
-    .map(([d, v]) => [new Date(`${d}T00:00:00Z`), Number.parseFloat(v)]);
-}
-
-async function fetchYahooChart(symbol, range = '1y', interval = '1d') {
-  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=${interval}`;
-  const res = await fetch(url, { headers: { 'User-Agent': UA } });
-  if (!res.ok) throw new Error(`Yahoo ${symbol} returned ${res.status}`);
-  const json = await res.json();
-  const r = json.chart?.result?.[0];
-  if (!r) throw new Error(`Yahoo ${symbol} bad response`);
-  const ts = r.timestamp;
-  const closes = r.indicators.quote[0].close;
-  return ts.map((t, i) => [new Date(t * 1000), closes[i]]).filter((pair) => pair[1] != null);
-}
-
-// ===========================================================================
-// Strict-Friday weekly resampling — LOCKED CONVENTION
-// ===========================================================================
-
-/**
- * Resample a daily series to confirmed weekly Friday closes ONLY.
- *
- * For each candidate Friday in the data range:
- *   - If the Friday date itself is in the data → use that value.
- *   - Else if any Mon-Thu of that week is in the data AND the Friday is in
- *     the past → use the most recent prior trading day of that week (handles
- *     bank holidays falling on Friday).
- *   - Else (Friday is today or in the future AND not yet in the data) → SKIP.
- *
- * This locks the rule that intra-week values of the CURRENT week never
- * silently become "the latest weekly close" — they only count once the
- * Friday close is itself in the data.
- *
- * @param {Array<[Date, number]>} daily — sorted ascending by date
- * @returns {Array<[Date, number]>} — confirmed Friday closes, ascending
- */
-export function strictFridayCloses(daily) {
-  if (!daily.length) return [];
-  const byDate = new Map();
-  for (const [d, v] of daily) {
-    byDate.set(d.toISOString().slice(0, 10), v);
-  }
-  const fridays = [];
-  const first = daily[0][0];
-  const last = daily[daily.length - 1][0];
-  // Snap to first Friday >= first
-  let cur = new Date(first);
-  while (cur.getUTCDay() !== 5) cur.setUTCDate(cur.getUTCDate() + 1);
-  while (cur <= last && cur <= TODAY) {
-    const fridayKey = cur.toISOString().slice(0, 10);
-    if (byDate.has(fridayKey)) {
-      fridays.push([new Date(cur), byDate.get(fridayKey)]);
-    } else {
-      // Friday not in data — only fall back to a prior trading day if the
-      // Friday is in the past (so we know the week has closed)
-      if (cur < TODAY) {
-        for (let back = 1; back <= 4; back += 1) {
-          const candidate = new Date(cur);
-          candidate.setUTCDate(candidate.getUTCDate() - back);
-          const key = candidate.toISOString().slice(0, 10);
-          if (byDate.has(key)) {
-            fridays.push([new Date(cur), byDate.get(key)]);
-            break;
-          }
-        }
-      }
-      // else: current incomplete week — SKIP rather than admit intra-week data
-    }
-    cur.setUTCDate(cur.getUTCDate() + 7);
-  }
-  return fridays;
-}
-
-// ===========================================================================
-// Indicator math
-// ===========================================================================
-
-export function ema(series, period) {
-  const alpha = 2 / (period + 1);
-  let e = series[0];
-  for (let i = 1; i < series.length; i += 1) {
-    e = alpha * series[i] + (1 - alpha) * e;
-  }
-  return e;
-}
-
-export function sma(series, period) {
-  const slice = series.slice(-period);
-  return slice.reduce((s, v) => s + v, 0) / slice.length;
-}
-
-export function rsi(closes, period = 14) {
-  if (closes.length < period + 1) return null;
-  const gains = [];
-  const losses = [];
-  for (let i = 1; i < closes.length; i += 1) {
-    const d = closes[i] - closes[i - 1];
-    gains.push(Math.max(d, 0));
-    losses.push(Math.max(-d, 0));
-  }
-  let avgG = gains.slice(0, period).reduce((s, v) => s + v, 0) / period;
-  let avgL = losses.slice(0, period).reduce((s, v) => s + v, 0) / period;
-  for (let i = period; i < gains.length; i += 1) {
-    avgG = (avgG * (period - 1) + gains[i]) / period;
-    avgL = (avgL * (period - 1) + losses[i]) / period;
-  }
-  if (avgL === 0) return 100;
-  return 100 - 100 / (1 + avgG / avgL);
-}
-
-export function stochRsiK(closes, rsiPeriod = 14, stochPeriod = 14, kSmooth = 3) {
-  const rsis = [];
-  for (let end = rsiPeriod + 1; end <= closes.length; end += 1) {
-    rsis.push(rsi(closes.slice(0, end), rsiPeriod));
-  }
-  const stochRaw = [];
-  for (let end = stochPeriod; end <= rsis.length; end += 1) {
-    const window = rsis.slice(end - stochPeriod, end);
-    const rmin = Math.min(...window);
-    const rmax = Math.max(...window);
-    stochRaw.push(rmax === rmin ? 50 : ((rsis[end - 1] - rmin) / (rmax - rmin)) * 100);
-  }
-  if (stochRaw.length < kSmooth) return null;
-  return stochRaw.slice(-kSmooth).reduce((s, v) => s + v, 0) / kSmooth;
-}
-
-// ===========================================================================
-// Signal evaluations
-// ===========================================================================
-
-function evaluateBtcStructure() {
-  // BTC-01..04 use the in-repo monthlyPrices.json — authoritative per spec §5.1
-  const raw = JSON.parse(fs.readFileSync(MONTHLY_PRICES_PATH, 'utf8'));
-  const months = raw.BTC.months;
-  // Candle-lock: include only months <= April 2026 (the last confirmed close).
-  // May 2026 ym='2026-05-01' is the in-progress month — exclude.
-  const lastConfirmedYm = lastConfirmedMonthYM(TODAY);
-  // P1 guard (F-M2, 2026-07-11): "latest present" is never silently accepted
-  // as "latest expected". Once the month-roll grace has passed, the last
-  // CONFIRMED month's candle must be in monthlyPrices.json — otherwise this
-  // run would score BTC-01..04 on a stale candle (exactly how the 2026-07-10
-  // near-miss would have printed a wrong 6/14). Hard exit, no warning-only.
-  const expectedYm = expectedConfirmedMonthYM(TODAY);
-  if (!months.some((m) => m.ym === expectedYm)) {
-    throw new Error(
-      `STALE INPUT (F-M2): monthlyPrices.json BTC is missing the expected confirmed ` +
-        `monthly candle ${expectedYm} (grace of ${MONTH_APPEND_GRACE_DAYS} days after ` +
-        `month-roll has passed). Append the candle per the /market playbook before computing.`
-    );
-  }
-  const closes = months.filter((m) => m.ym <= lastConfirmedYm).map((m) => m.close);
-  const lastClose = closes[closes.length - 1];
-  const ema20 = ema(closes, 20);
-  const sma50 = sma(closes, 50);
-  const rsiCurrent = rsi(closes, 14);
-  const rsiPrev = rsi(closes.slice(0, -1), 14);
-  const stochK = stochRsiK(closes);
-  return [
-    {
-      id: 'BTC-01',
-      state: lastClose > ema20 ? 'ACTIVE' : 'INACTIVE',
-      weight: 2,
-      detail: `close ${fmt(lastClose)} vs 20M EMA ${fmt(ema20)}`,
-    },
-    {
-      id: 'BTC-02',
-      state: lastClose > sma50 ? 'ACTIVE' : 'INACTIVE',
-      weight: 2,
-      detail: `close ${fmt(lastClose)} vs 50M SMA ${fmt(sma50)}`,
-    },
-    {
-      id: 'BTC-03',
-      state: rsiCurrent > rsiPrev ? 'ACTIVE' : 'INACTIVE',
-      weight: 1,
-      detail: `RSI current ${rsiCurrent.toFixed(2)} vs prev ${rsiPrev.toFixed(2)}`,
-    },
-    {
-      id: 'BTC-04',
-      state: stochK > 10 ? 'ACTIVE' : 'INACTIVE',
-      weight: 1,
-      detail: `Stoch-RSI %K ${stochK.toFixed(2)} vs threshold 10`,
-    },
-  ];
-}
-
-/**
- * P1 guard helper (F-M2): the month whose candle MUST already be appended.
- * For the first MONTH_APPEND_GRACE_DAYS days after a month-roll the refresh
- * may legitimately not have run yet, so the requirement steps back one month.
- */
-export const MONTH_APPEND_GRACE_DAYS = 3;
-
-export function expectedConfirmedMonthYM(now) {
-  const monthsBack = now.getUTCDate() <= MONTH_APPEND_GRACE_DAYS ? 2 : 1;
-  const prev = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - monthsBack, 1));
-  return prev.toISOString().slice(0, 7) + '-01';
-}
-
-function lastConfirmedMonthYM(now) {
-  // The current month is in progress; the last confirmed close is end of
-  // (current_month - 1). Return as 'YYYY-MM-01' to compare against raw ym.
-  const prev = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));
-  return prev.toISOString().slice(0, 7) + '-01';
-}
-
-async function evaluateMacro() {
-  const [dxyDaily, us10yDaily, m2Monthly] = await Promise.all([
-    fetchFredCSV('DTWEXBGS'),
-    fetchFredCSV('DGS10'),
-    fetchFredCSV('M2SL'),
-  ]);
-  const dxyWeekly = strictFridayCloses(dxyDaily);
-  const us10yWeekly = strictFridayCloses(us10yDaily);
-  const dxyCloses = dxyWeekly.map(([, v]) => v);
-  const us10yCloses = us10yWeekly.map(([, v]) => v);
-  const dxyClose = dxyCloses[dxyCloses.length - 1];
-  const dxyEma20 = ema(dxyCloses, 20);
-  const dxyRsi = rsi(dxyCloses, 14);
-  const us10yClose = us10yCloses[us10yCloses.length - 1];
-  const us10yEma20 = ema(us10yCloses, 20);
-  const m2Vals = m2Monthly.map(([, v]) => v);
-  const m2Current = m2Vals[m2Vals.length - 1];
-  const m2_12mAgo = m2Vals[m2Vals.length - 13];
-  const m2Prev = m2Vals[m2Vals.length - 2];
-  const roc12m = (m2Current / m2_12mAgo - 1) * 100;
-  const mom = m2Current - m2Prev;
-  // P1 guard (F-M3): record each signal's anchor date so mixed anchors are
-  // visible in every run (this cycle's DTWEXBGS Jun-26 vs NASDAQCOM Jul-10
-  // 2-week spread was silent before this printout).
-  const dxyAnchor = anchorOf(dxyWeekly);
-  const us10yAnchor = anchorOf(us10yWeekly);
-  const m2Anchor = anchorOf(m2Monthly);
-  return [
-    {
-      id: 'MAC-01',
-      state: dxyClose < dxyEma20 && dxyRsi < 50 ? 'ACTIVE' : 'INACTIVE',
-      weight: 1,
-      detail: `DXY ${dxyClose.toFixed(4)} vs EMA20W ${dxyEma20.toFixed(4)} (Δ ${(((dxyClose - dxyEma20) / dxyEma20) * 100).toFixed(3)}%); RSI ${dxyRsi.toFixed(2)}`,
-      anchor: dxyAnchor,
-      anchorKind: 'weekly',
-    },
-    {
-      id: 'MAC-02',
-      state: us10yClose < us10yEma20 ? 'ACTIVE' : 'INACTIVE',
-      weight: 1,
-      detail: `US10Y ${us10yClose.toFixed(2)}% vs EMA20W ${us10yEma20.toFixed(2)}%`,
-      anchor: us10yAnchor,
-      anchorKind: 'weekly',
-    },
-    {
-      id: 'MAC-03',
-      state: roc12m > 0 && mom >= 0 ? 'ACTIVE' : 'INACTIVE',
-      weight: 1,
-      detail: `M2 12M ROC ${roc12m.toFixed(2)}%, MoM ${mom > 0 ? '+' : ''}${mom.toFixed(1)}B`,
-      anchor: m2Anchor,
-      anchorKind: 'monthly',
-    },
-  ];
-}
-
-async function evaluateRelativeStrength() {
-  const [btcDaily, goldDaily, nasdaqDaily] = await Promise.all([
-    fetchYahooChart('BTC-USD', '6mo'),
-    fetchYahooChart('GC=F', '1y'), // SUBSTITUTE — FRED LBMA retired
-    fetchFredCSV('NASDAQCOM'),
-  ]);
-  const btcWeekly = strictFridayCloses(btcDaily);
-  const goldWeekly = strictFridayCloses(goldDaily);
-  const nasdaqWeekly = strictFridayCloses(nasdaqDaily);
-  const btcMap = new Map(btcWeekly.map(([d, v]) => [d.toISOString().slice(0, 10), v]));
-  const goldMap = new Map(goldWeekly.map(([d, v]) => [d.toISOString().slice(0, 10), v]));
-  const nasdaqMap = new Map(nasdaqWeekly.map(([d, v]) => [d.toISOString().slice(0, 10), v]));
-
-  // BTC/Gold
-  const bgFridays = [...btcMap.keys()].filter((d) => goldMap.has(d)).sort();
-  const bgRatios = bgFridays.map((d) => btcMap.get(d) / goldMap.get(d));
-  const bgLatest = bgRatios[bgRatios.length - 1];
-  const bgEma = ema(bgRatios, 20);
-
-  // BTC/Nasdaq
-  const bnFridays = [...btcMap.keys()].filter((d) => nasdaqMap.has(d)).sort();
-  const bnRatios = bnFridays.map((d) => btcMap.get(d) / nasdaqMap.get(d));
-  const bnLatest = bnRatios[bnRatios.length - 1];
-  const bnEma = ema(bnRatios, 20);
-
-  // Nasdaq alone
-  const nasdaqCloses = nasdaqWeekly.map(([, v]) => v);
-  const nasdaqLatest = nasdaqCloses[nasdaqCloses.length - 1];
-  const nasdaqEma = ema(nasdaqCloses, 20);
-
-  // P1 guard (F-M3): ratio signals anchor at the last COMMON Friday.
-  const bgAnchor = bgFridays[bgFridays.length - 1];
-  const bnAnchor = bnFridays[bnFridays.length - 1];
-  const nasdaqAnchor = anchorOf(nasdaqWeekly);
-
-  return [
-    {
-      id: 'REL-01',
-      state: bgLatest > bgEma ? 'ACTIVE' : 'INACTIVE',
-      weight: 1,
-      detail: `BTC/Gold ratio ${bgLatest.toFixed(3)} vs EMA20W ${bgEma.toFixed(3)} (Yahoo GC=F substitute)`,
-      anchor: bgAnchor,
-      anchorKind: 'weekly',
-    },
-    {
-      id: 'REL-02',
-      state: bnLatest > bnEma ? 'ACTIVE' : 'INACTIVE',
-      weight: 1,
-      detail: `BTC/Nasdaq ratio ${bnLatest.toFixed(3)} vs EMA20W ${bnEma.toFixed(3)}`,
-      anchor: bnAnchor,
-      anchorKind: 'weekly',
-    },
-    {
-      id: 'REL-03',
-      state: nasdaqLatest > nasdaqEma ? 'ACTIVE' : 'INACTIVE',
-      weight: 1,
-      detail: `Nasdaq ${nasdaqLatest.toFixed(2)} vs EMA20W ${nasdaqEma.toFixed(2)}`,
-      anchor: nasdaqAnchor,
-      anchorKind: 'weekly',
-    },
-  ];
-}
-
-/** P1 (F-M3): last date of a [Date, value] series as YYYY-MM-DD, or null. */
-function anchorOf(series) {
-  if (!series || !series.length) return null;
-  return series[series.length - 1][0].toISOString().slice(0, 10);
-}
-
-function fmt(n) {
-  return `$${Math.round(n).toLocaleString('en-US')}`;
-}
-
-// ===========================================================================
-// Main
-// ===========================================================================
-
 async function main() {
-  const btc = evaluateBtcStructure();
-  const macro = await evaluateMacro();
-  const rel = await evaluateRelativeStrength();
-  // ETF-01: NOT computed by this script — manual per spec §8.3. See PENDING_ALL.md 5.28.
-  const etf = [
-    {
-      id: 'ETF-01',
-      state: 'INACTIVE',
-      weight: 2,
-      detail:
-        'Manual feed per spec §8.3 — not auto-computed. Evaluate via CoinGlass browser render + §4.5 partial-data rule.',
-    },
-  ];
+  const [dxy, us10y, m2, nasdaq, btcD, gold] = await Promise.all([
+    fetchFredSeries('DTWEXBGS'),
+    fetchFredSeries('DGS10'),
+    fetchFredSeries('M2SL'),
+    fetchFredSeries('NASDAQCOM'),
+    fetchYahooDaily('BTC-USD', '6mo'),
+    fetchYahooDaily('GC=F', '1y'),
+  ]);
+
+  const btc = evaluateBtcStructure(btcMonths(), TODAY);
+  const macro = evaluateMacro(
+    { dxyDaily: dxy.series, us10yDaily: us10y.series, m2Monthly: m2.series },
+    TODAY
+  );
+  const rel = evaluateRelativeStrength(
+    { btcDaily: btcD.series, goldDaily: gold.series, nasdaqDaily: nasdaq.series },
+    TODAY
+  );
+  const etfManual = fs.existsSync(ETF_MANUAL_PATH)
+    ? JSON.parse(fs.readFileSync(ETF_MANUAL_PATH, 'utf8'))
+    : null;
+  const etf = evaluateEtfManual(etfManual, TODAY);
 
   const all = [...btc, ...macro, ...etf, ...rel];
   console.log('\n=== Signal evaluation ===');
   for (const s of all) {
     const pts = s.state === 'ACTIVE' ? s.weight : 0;
-    console.log(`  ${s.id.padEnd(8)} [${s.state.padEnd(8)}] ${pts}/${s.weight}  — ${s.detail}`);
+    console.log(
+      `  ${s.id.padEnd(8)} [${String(s.state).padEnd(11)}] ${pts}/${s.weight}  — ${s.detail}`
+    );
   }
 
-  const groupTotals = {
-    btc_structure: btc.reduce((s, x) => s + (x.state === 'ACTIVE' ? x.weight : 0), 0),
-    macro_environment: macro.reduce((s, x) => s + (x.state === 'ACTIVE' ? x.weight : 0), 0),
-    institutional_demand: etf.reduce((s, x) => s + (x.state === 'ACTIVE' ? x.weight : 0), 0),
-    relative_strength: rel.reduce((s, x) => s + (x.state === 'ACTIVE' ? x.weight : 0), 0),
-  };
+  const { groupTotals, score, band } = scoreSignals({ btc, macro, etf, rel });
 
   console.log('\n=== Group totals ===');
   console.log(`  BTC Structure (max 6):        ${groupTotals.btc_structure}`);
   console.log(`  Macro Environment (max 3):    ${groupTotals.macro_environment}`);
   console.log(`  Institutional Demand (max 2): ${groupTotals.institutional_demand}`);
   console.log(`  Relative Strength (max 3):    ${groupTotals.relative_strength}`);
-
-  const score = Object.values(groupTotals).reduce((s, v) => s + v, 0);
-  const bands = [
-    { code: 'HOSTILE', label: 'Hostile', min: 0, max: 2 },
-    { code: 'DEFENSIVE', label: 'Defensive', min: 3, max: 5 },
-    { code: 'NEUTRAL_MIXED', label: 'Neutral / Mixed', min: 6, max: 8 },
-    { code: 'CONSTRUCTIVE', label: 'Constructive', min: 9, max: 11 },
-    { code: 'VERY_FAVORABLE', label: 'Very Favorable', min: 12, max: 14 },
-  ];
-  const band = bands.find((b) => score >= b.min && score <= b.max);
 
   console.log(`\n=== Total: ${score} / 14 → ${band.code} (${band.label}) ===`);
 
@@ -477,22 +107,9 @@ async function main() {
   for (const x of anchored) {
     console.log(`  ${x.id.padEnd(8)} ${x.anchorKind.padEnd(8)} ${x.anchor}`);
   }
-  const weeklyAnchors = anchored.filter((x) => x.anchorKind === 'weekly');
-  const anchorDates = weeklyAnchors.map((x) => new Date(`${x.anchor}T00:00:00Z`).getTime());
-  const spreadDays = (Math.max(...anchorDates) - Math.min(...anchorDates)) / 86400000;
-  let anchorWarning = null;
-  if (spreadDays > 7) {
-    const newest = Math.max(...anchorDates);
-    const laggards = weeklyAnchors
-      .filter((x) => (newest - new Date(`${x.anchor}T00:00:00Z`).getTime()) / 86400000 > 7)
-      .map((x) => `${x.id}@${x.anchor}`);
-    anchorWarning =
-      `weekly anchor spread ${spreadDays.toFixed(0)}d > 7d — mark the laggards DELAYED ` +
-      `in data-status.json instead of silently mixing anchors: ${laggards.join(', ')}`;
-    console.log(`\n  ⚠ ANCHOR COHERENCE (F-M3): ${anchorWarning}`);
-  } else {
-    console.log(`  Weekly anchor spread: ${spreadDays.toFixed(0)}d (coherent)`);
-  }
+  const { spreadDays, warning } = anchorCoherence(all);
+  if (warning) console.log(`\n  ⚠ ANCHOR COHERENCE (F-M3): ${warning}`);
+  else console.log(`  Weekly anchor spread: ${spreadDays.toFixed(0)}d (coherent)`);
 
   // === P1: reconciliation vs the published regime.json ====================
   let published = null;
@@ -514,17 +131,14 @@ async function main() {
   }
 
   // === P1: append-only run archive =========================================
-  // One JSONL line per compute run — inputs digest + full signal set +
-  // computed vs published. Never rewritten, never pruned (automation plan
-  // Part D: "impossible to recreate retroactively"). Excluded from the
-  // jargon gate by extension (.jsonl) and not user-facing.
   if (!process.argv.includes('--no-archive')) {
     const line = {
       run_at: new Date().toISOString(),
+      pipeline: 'data-fetchers/compute-regime.mjs',
       computed: { score, regime_code: band.code, group_totals: groupTotals },
       published: published ? { score: published.score, regime_code: published.regime_code } : null,
       anchor_spread_days: Number(spreadDays.toFixed(2)),
-      anchor_warning: anchorWarning,
+      anchor_warning: warning,
       signals: all.map(({ id, state, weight, detail, anchor = null, anchorKind = null }) => ({
         id,
         state,

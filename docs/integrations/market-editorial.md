@@ -152,6 +152,18 @@ Reference: `CLAUDE.md` §"Digital dollar terminology + jargon ban (Phase 7 Q2a/Q
 
 ## 7. Step-by-step PR workflow
 
+> **P2 pipeline first (2026-07-11):** every refresh now STARTS with
+> `node apps/web/scripts/market-refresh/run.mjs` (add `--append-btc` when a
+> monthly candle is due — it appends only after Yahoo↔CoinGecko dual-source
+> verification, ≤0.5%). The run fails closed on stale/corrupt/missing data
+> (quality gate), prints per-signal anchors (F-M3), and writes
+> `apps/web/data/market/computed.json` — the machine truth your editorial
+> edits must agree with. The reconciliation vitest
+> (`computedReconciliation.test.ts`) fails CI whenever `regime.json` /
+> `signals.json` scores disagree with `computed.json`, so transcription
+> errors can no longer merge (F-M4). Then follow the steps below for the
+> editorial copy itself.
+
 ```bash
 # 1. Get the latest main
 git checkout main
