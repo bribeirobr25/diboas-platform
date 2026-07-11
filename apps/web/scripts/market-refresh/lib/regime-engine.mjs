@@ -160,6 +160,10 @@ export function evaluateBtcStructure(btcMonths, today) {
   }
   const closes = btcMonths.filter((m) => m.ym <= lastConfirmedYm).map((m) => m.close);
   const lastClose = closes[closes.length - 1];
+  const prevClose = closes[closes.length - 2];
+  // Month-over-month price move of the confirmed close — the honest number for
+  // the plain-layer "gave back about a quarter in June" line (Stage 4).
+  const monthMovePct = prevClose ? ((lastClose - prevClose) / prevClose) * 100 : 0;
   const ema20 = ema(closes, 20);
   const sma50 = sma(closes, 50);
   const rsiCurrent = rsi(closes, 14);
@@ -172,6 +176,12 @@ export function evaluateBtcStructure(btcMonths, today) {
       state: lastClose > ema20 ? 'ACTIVE' : 'INACTIVE',
       weight: 2,
       detail: `close ${fmtUsd(lastClose)} vs 20M EMA ${fmtUsd(ema20)}`,
+      values: {
+        close: lastClose,
+        ema20,
+        gapPct: ((lastClose - ema20) / ema20) * 100,
+        monthMovePct,
+      },
       anchor: monthAnchor,
       anchorKind: 'monthly',
     },
@@ -180,6 +190,7 @@ export function evaluateBtcStructure(btcMonths, today) {
       state: lastClose > sma50 ? 'ACTIVE' : 'INACTIVE',
       weight: 2,
       detail: `close ${fmtUsd(lastClose)} vs 50M SMA ${fmtUsd(sma50)}`,
+      values: { close: lastClose, sma50, gapPct: ((lastClose - sma50) / sma50) * 100 },
       anchor: monthAnchor,
       anchorKind: 'monthly',
     },
@@ -188,6 +199,7 @@ export function evaluateBtcStructure(btcMonths, today) {
       state: rsiCurrent > rsiPrev ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `RSI current ${rsiCurrent.toFixed(2)} vs prev ${rsiPrev.toFixed(2)}`,
+      values: { rsiCurrent, rsiPrev },
       anchor: monthAnchor,
       anchorKind: 'monthly',
     },
@@ -196,6 +208,7 @@ export function evaluateBtcStructure(btcMonths, today) {
       state: stochK > 10 ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `Stoch-RSI %K ${stochK.toFixed(2)} vs threshold 10`,
+      values: { stochK, threshold: 10 },
       anchor: monthAnchor,
       anchorKind: 'monthly',
     },
@@ -224,6 +237,12 @@ export function evaluateMacro({ dxyDaily, us10yDaily, m2Monthly }, today) {
       state: dxyClose < dxyEma20 && dxyRsi < 50 ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `DXY ${dxyClose.toFixed(4)} vs EMA20W ${dxyEma20.toFixed(4)} (Δ ${(((dxyClose - dxyEma20) / dxyEma20) * 100).toFixed(3)}%); RSI ${dxyRsi.toFixed(2)}`,
+      values: {
+        close: dxyClose,
+        ema20: dxyEma20,
+        gapPct: ((dxyClose - dxyEma20) / dxyEma20) * 100,
+        rsi: dxyRsi,
+      },
       anchor: anchorOf(dxyWeekly),
       anchorKind: 'weekly',
     },
@@ -232,6 +251,7 @@ export function evaluateMacro({ dxyDaily, us10yDaily, m2Monthly }, today) {
       state: us10yClose < us10yEma20 ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `US10Y ${us10yClose.toFixed(2)}% vs EMA20W ${us10yEma20.toFixed(2)}%`,
+      values: { close: us10yClose, ema20: us10yEma20 },
       anchor: anchorOf(us10yWeekly),
       anchorKind: 'weekly',
     },
@@ -240,6 +260,7 @@ export function evaluateMacro({ dxyDaily, us10yDaily, m2Monthly }, today) {
       state: roc12m > 0 && mom >= 0 ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `M2 12M ROC ${roc12m.toFixed(2)}%, MoM ${mom > 0 ? '+' : ''}${mom.toFixed(1)}B`,
+      values: { roc12m, mom },
       anchor: anchorOf(m2Monthly),
       anchorKind: 'monthly',
     },
@@ -274,6 +295,7 @@ export function evaluateRelativeStrength({ btcDaily, goldDaily, nasdaqDaily }, t
       state: bgLatest > bgEma ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `BTC/Gold ratio ${bgLatest.toFixed(3)} vs EMA20W ${bgEma.toFixed(3)} (Yahoo GC=F substitute)`,
+      values: { ratio: bgLatest, ema20: bgEma, gapPct: ((bgLatest - bgEma) / bgEma) * 100 },
       anchor: bgFridays[bgFridays.length - 1],
       anchorKind: 'weekly',
     },
@@ -282,6 +304,7 @@ export function evaluateRelativeStrength({ btcDaily, goldDaily, nasdaqDaily }, t
       state: bnLatest > bnEma ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `BTC/Nasdaq ratio ${bnLatest.toFixed(3)} vs EMA20W ${bnEma.toFixed(3)}`,
+      values: { ratio: bnLatest, ema20: bnEma, gapPct: ((bnLatest - bnEma) / bnEma) * 100 },
       anchor: bnFridays[bnFridays.length - 1],
       anchorKind: 'weekly',
     },
@@ -290,6 +313,11 @@ export function evaluateRelativeStrength({ btcDaily, goldDaily, nasdaqDaily }, t
       state: nasdaqLatest > nasdaqEma ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
       detail: `Nasdaq ${nasdaqLatest.toFixed(2)} vs EMA20W ${nasdaqEma.toFixed(2)}`,
+      values: {
+        close: nasdaqLatest,
+        ema20: nasdaqEma,
+        gapPct: ((nasdaqLatest - nasdaqEma) / nasdaqEma) * 100,
+      },
       anchor: anchorOf(nasdaqWeekly),
       anchorKind: 'weekly',
     },

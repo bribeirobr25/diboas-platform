@@ -238,15 +238,23 @@ async function main() {
           divergence_pct: Number(appendResult.divergencePct.toFixed(3)),
         }
       : null,
-    signals: all.map(({ id, state, weight, detail, anchor = null, anchorKind = null }) => ({
-      id,
-      state,
-      weight,
-      points: state === 'ACTIVE' ? weight : 0,
-      detail,
-      anchor,
-      anchorKind,
-    })),
+    signals: all.map(
+      ({ id, state, weight, detail, values = null, anchor = null, anchorKind = null }) => ({
+        id,
+        state,
+        weight,
+        points: state === 'ACTIVE' ? weight : 0,
+        detail,
+        // Structured values feed the Stage-4 template generator (never re-parsed
+        // from `detail`). warmup fields injected for the ETF UNAVAILABLE case.
+        values:
+          id === 'ETF-01' && state === 'UNAVAILABLE'
+            ? { snapshots: etfSnapshots.length, warmupTarget: WARMUP_SNAPSHOTS }
+            : values,
+        anchor,
+        anchorKind,
+      })
+    ),
     sources: [dxy, us10y, m2, nasdaq, btc, gold].map((s) => s.provenance),
   };
   fs.writeFileSync(COMPUTED_PATH, JSON.stringify(computed, null, 2) + '\n');

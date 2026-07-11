@@ -134,6 +134,7 @@ export function evaluateEtf01FromFlows(snapshots, today = new Date()) {
       `Spot-ETF net flows via Δshares×NAV (Polygon primary): last 4 weekly aggregates ` +
       `[${last4.map((f) => fmt(f.netFlowUsd)).join(', ')}] → ${positives}/4 positive ` +
       `(threshold ≥3)${warnings.length ? `; ${warnings.length} fund-week(s) excluded by quality guards` : ''}`,
+    values: { positives, weeks: 4, lastFlowUsd: last4[last4.length - 1]?.netFlowUsd ?? null },
     anchor: snapshots[snapshots.length - 1].anchor,
     anchorKind: 'weekly',
   };
