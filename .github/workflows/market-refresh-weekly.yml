@@ -27,6 +27,12 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # Map the secret to env at the JOB level so `env.POLYGON_API_KEY` is
+    # reliably visible to every step's `if:` guard (step-level env is NOT
+    # dependable in that same step's own `if` condition — the ETF leg would
+    # otherwise skip even when the secret is set).
+    env:
+      POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
     steps:
       - uses: actions/checkout@v6
 
@@ -45,13 +51,9 @@ jobs:
 
       - name: ETF-01 weekly snapshot (optional leg)
         if: ${{ env.POLYGON_API_KEY != '' }}
-        env:
-          POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
         run: node apps/web/scripts/market-refresh/run.mjs --etf-snapshot --no-archive || true
 
       - name: Refresh pipeline (fetch → gate → compute → archive)
-        env:
-          POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
         run: node apps/web/scripts/market-refresh/run.mjs --append-btc
 
       - name: Tools monthlies (F-M8 leg — idempotent, appends only at month-roll)
