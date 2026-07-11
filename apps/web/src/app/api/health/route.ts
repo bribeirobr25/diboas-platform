@@ -53,11 +53,17 @@ export async function GET(
     const heapTotal = memoryUsage.heapTotal;
     const memoryPercentage = Math.round((heapUsed / heapTotal) * 100);
 
-    // Determine health status based on memory usage and database connectivity
+    // Status semantics (fixed 2026-07-11 — prod was flapping unhealthy/degraded):
+    // heap-percentage is NOT a health input on serverless — V8 grows heapTotal
+    // lazily, so heapUsed/heapTotal routinely exceeds 90% on a perfectly healthy
+    // warm lambda, and the old threshold returned 503s that any uptime monitor
+    // would page as DOWN. Memory stays in the authorized payload as telemetry.
+    //   unhealthy (503) = database unreachable — the site genuinely cannot serve
+    //   degraded  (200) = redis unreachable — rate limiting fails open, site works
     let status: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
-    if (memoryPercentage > 90 || !dbHealthy) {
+    if (!dbHealthy) {
       status = 'unhealthy';
-    } else if (memoryPercentage > 75) {
+    } else if (!redisHealthy) {
       status = 'degraded';
     }
 
