@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Cómo Crece el Dinero de Verdad — El interés compuesto explicado",
-    "description": "Aprende cómo funciona el interés compuesto — las matemáticas que los bancos y Wall Street han usado durante décadas. Introduce tus propios números y mira cómo se ven 12 años."
+    "description": "Aprende cómo funciona el interés compuesto: las matemáticas que los bancos y Wall Street han usado durante décadas. Introduce tus propios números y mira cómo se ven 12 años."
   },
   "lesson": {
     "h1": "Cómo Crece el Dinero de Verdad",
@@ -32,11 +32,23 @@
       "Así que hablemos de algo más sencillo. Pequeñas cosas en las que ya gastas sin pensar."
     ],
     "habitsLine": "El café con tostada de cada mañana. Las cañas con amigos del finde. El streaming y el gimnasio cada mes.",
-    "vignettesIntro": "Si solo uno de esos se pusiera a trabajar para ti en vez de irse — al mismo 10 % de rentabilidad histórica — así se verían 12 años:",
+    "vignettesIntro": "Si solo uno de esos se pusiera a trabajar para ti en vez de irse, al mismo 10 % de rentabilidad histórica, así se verían 12 años:",
     "vignettes": [
-      { "habit": "Café con tostada (3 €/día)", "yearly": "780 €", "yearlyAmount": "780" },
-      { "habit": "Cañas con amigos (25 €/semana)", "yearly": "1.300 €", "yearlyAmount": "1300" },
-      { "habit": "Streaming + gimnasio (40 €/mes)", "yearly": "480 €", "yearlyAmount": "480" }
+      {
+        "habit": "Café con tostada (3 €/día)",
+        "yearly": "780 €",
+        "yearlyAmount": "780"
+      },
+      {
+        "habit": "Cañas con amigos (25 €/semana)",
+        "yearly": "1.300 €",
+        "yearlyAmount": "1300"
+      },
+      {
+        "habit": "Streaming + gimnasio (40 €/mes)",
+        "yearly": "480 €",
+        "yearlyAmount": "480"
+      }
     ],
     "vignettesTableHeaders": {
       "habit": "Hábito",
@@ -101,6 +113,6 @@
     "tableHeaderRate": "Tipo anual",
     "tableHeaderTotal": "Después de {years} años",
     "loadingState": "Calculando…",
-    "calibrationNote": "Qué significan las tasas. El 7% conservador se alinea con el rendimiento del dólar digital vía el stack DeFi centrado en Solana. El 10% histórico queda en el medio del rango mixto de largo plazo. El 14% optimista refleja estrategias seleccionadas o apalancadas. De forma independiente — el S&P 500 retornó ~15,5% al año en promedio de 2010 a 2026, el oro ~9% al año, y un ahorrador brasileño en BRL rindió menos que uno que mantuvo dólar digital en la misma ventana (cifras completas en nuestras notas de investigación)."
+    "calibrationNote": "Qué significan las tasas. El 7% conservador se alinea con el rendimiento del dólar digital vía el stack DeFi centrado en Solana. El 10% histórico queda en el medio del rango mixto de largo plazo. El 14% optimista refleja estrategias seleccionadas o apalancadas. De forma independiente: el S&P 500 retornó ~15,5% al año en promedio de 2010 a 2026, el oro ~9% al año, y un ahorrador brasileño en BRL rindió menos que uno que mantuvo dólar digital en la misma ventana (cifras completas en nuestras notas de investigación)."
   }
 }

@@ -42,14 +42,14 @@
       "earlyMember": "You're an Early Member!"
     },
     "explanation": {
-      "foundingMember": "You're among the first 1,200. Share your link — you have 5 invites to give friends Founding Member status.",
+      "foundingMember": "You're among the first 1,200. Share your link. You have 5 invites to give friends Founding Member status.",
       "earlyMember": "Invited by a Founding Member. Share your link to help friends get early access.",
       "priorityWaitlist": "You're on the priority waitlist. Share your link to move up and help friends join."
     },
     "spotsRemaining": "{spots} spots remaining"
   },
   "stats": {
-    "foundingMembersFull": "All founding member spots claimed — join the early access waitlist"
+    "foundingMembersFull": "All founding member spots claimed. Join the early access waitlist"
   },
   "referral": {
     "friendJoined": "A friend just joined!",

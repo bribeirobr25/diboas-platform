@@ -1,3 +1,4 @@
+import { LucideIcon, ArrowUpRight } from '@/components/UI/LucideIcon';
 import styles from './MethodologyLink.module.css';
 
 interface MethodologyLinkProps {
@@ -15,7 +16,7 @@ export function MethodologyLink({ href, children, className }: MethodologyLinkPr
       className={`${styles.link} ${className ?? ''}`}
     >
       {children}
-      <span aria-hidden="true">&nbsp;↗</span>
+      <LucideIcon icon={ArrowUpRight} size="xs" className={styles.externalIcon} />
     </a>
   );
 }

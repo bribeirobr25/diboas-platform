@@ -28,15 +28,20 @@
     "validate:market-data": "node scripts/check-market-data-jargon.mjs && pnpm --filter web exec vitest run src/lib/analytics-sdk/__tests__/fixtures.test.ts",
     "validate:sdk-invariant": "node scripts/validate-sdk-invariant.mjs",
     "validate:investor-figures": "node scripts/validate-investor-figures.mjs",
-    "check:dead-code": "knip",
+    "validate:ux-canon": "node scripts/validate-ux-canon.mjs",
+    "check:ux-greps": "node scripts/check-ux-greps.mjs",
+    "check:dead-code": "knip --exclude exports,nsExports,types,nsTypes,duplicates",
+    "check:dead-code:full": "knip",
     "check:budget": "node scripts/check-bundle-budget.mjs",
-    "validate:all": "pnpm run type-check && pnpm run lint && pnpm run test && pnpm run build && pnpm run check:budget && pnpm run validate:design-tokens && pnpm run validate:translations && pnpm run validate:market-data && pnpm run validate:sdk-invariant && pnpm run validate:investor-figures",
+    "validate:all": "pnpm run type-check && pnpm run lint && pnpm run test && pnpm run build && pnpm run check:budget && pnpm run validate:design-tokens && pnpm run validate:translations && pnpm run validate:market-data && pnpm run validate:sdk-invariant && pnpm run validate:investor-figures && pnpm run validate:ux-canon",
     "audit:full": "bash scripts/pre-launch-audit.sh",
     "audit:ci": "bash scripts/pre-launch-audit.sh --ci",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "generate:investor-docs": "node scripts/generate-investor-docs.mjs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.59.1",
     "@types/node": "^25.4.0",
     "ajv": "^8.18.0",
@@ -51,7 +56,7 @@
     "pre-commit": "pnpm run secrets:scan-staged"
   },
   "engines": {
-    "node": ">=20.0.0",
+    "node": ">=22.0.0",
     "pnpm": ">=8.0.0"
   },
   "pnpm": {

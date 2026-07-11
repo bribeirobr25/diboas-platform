@@ -1,15 +1,15 @@
 {
   "seo": {
     "title": "Learn how money actually works",
-    "description": "Short, honest lessons on the financial system — written for people the system wasn't built for."
+    "description": "Short, honest lessons on the financial system, written for people the system wasn't built for."
   },
   "nav": {
     "label": "Learn"
   },
   "index": {
     "h1": "Learn how money actually works.",
-    "subhead": "Short, honest lessons on the financial system — written for people the system wasn't built for.",
-    "footerLine": "More lessons coming. We ship one every few months — slowly, carefully, properly written."
+    "subhead": "Short, honest lessons on the financial system, written for people the system wasn't built for.",
+    "footerLine": "More lessons coming. We ship one every few months: slowly, carefully, properly written."
   },
   "lessons": {
     "compoundInterest": {
@@ -24,7 +24,7 @@
     "lessons": {
       "inflation": {
         "title": "Inflation: The Silent Tax",
-        "description": "Why your money loses ground every year — and what to do about it."
+        "description": "Why your money loses ground every year, and what to do about it."
       },
       "savingsVsInvesting": {
         "title": "Savings vs. Investing",

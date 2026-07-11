@@ -42,14 +42,14 @@
       "earlyMember": "¡Eres un Miembro Temprano!"
     },
     "explanation": {
-      "foundingMember": "Estás entre los primeros 1.200. Comparte tu enlace — tienes 5 invitaciones para dar estatus de Miembro Fundador.",
+      "foundingMember": "Estás entre los primeros 1.200. Comparte tu enlace. Tienes 5 invitaciones para dar estatus de Miembro Fundador.",
       "earlyMember": "Invitado por un Miembro Fundador. Comparte tu enlace para ayudar a amigos a tener acceso anticipado.",
       "priorityWaitlist": "Estás en la lista de espera prioritaria. Comparte tu enlace para avanzar y ayudar a amigos."
     },
     "spotsRemaining": "{spots} lugares restantes"
   },
   "stats": {
-    "foundingMembersFull": "Todas las plazas de miembro fundador ocupadas — únete a la lista de espera"
+    "foundingMembersFull": "Todas las plazas de miembro fundador ocupadas. Únete a la lista de espera"
   },
   "referral": {
     "friendJoined": "¡Un amigo acaba de unirse!",

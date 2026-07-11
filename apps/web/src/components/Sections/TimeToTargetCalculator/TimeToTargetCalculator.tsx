@@ -22,6 +22,7 @@ import {
 } from '@/lib/time-to-target';
 import { TIME_TO_TARGET_DEFAULTS } from '@/lib/tools';
 import { UsdEquivalentBadge } from '@/components/UI';
+import { LucideIcon, Info } from '@/components/UI/LucideIcon';
 import styles from './TimeToTargetCalculator.module.css';
 
 const CADENCE_OPTIONS: readonly Cadence[] = [
@@ -200,7 +201,7 @@ export function TimeToTargetCalculator() {
           return (
             <div
               key={key}
-              className={key === 'historical' ? styles.resultCardHighlight : styles.resultCard}
+              className={key === 'conservative' ? styles.resultCardHighlight : styles.resultCard}
             >
               <p className={styles.resultLabel}>
                 {tShared(`scenarios.${key}`)}
@@ -214,11 +215,11 @@ export function TimeToTargetCalculator() {
                     tabIndex={0}
                   >
                     {' '}
-                    <sup>?</sup>
+                    <LucideIcon icon={Info} size="xs" />
                   </span>
                 )}
               </p>
-              <p className={key === 'historical' ? styles.resultValue : styles.resultValueMuted}>
+              <p className={key === 'conservative' ? styles.resultValue : styles.resultValueMuted}>
                 {formatTime(results[key])}
               </p>
             </div>

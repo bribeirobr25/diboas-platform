@@ -7,7 +7,7 @@
     "hero": {
       "kicker": "Herramientas financieras",
       "headline": "¿Qué podría hacer tu dinero?",
-      "subtitle": "Un pequeño conjunto de calculadoras gratuitas. Pon tus números y ve lo que es posible."
+      "subtitle": "10 calculadoras gratuitas. Pon tus números y ve lo que es posible."
     },
     "sections": {
       "grow": {
@@ -25,7 +25,9 @@
       "business": {
         "title": "Para tu empresa",
         "question": "¿Qué está dejando mi empresa sobre la mesa?"
-      }
+      },
+      "countOne": "1 calculadora",
+      "countOther": "{count} calculadoras"
     },
     "filterChip": {
       "all": "Todas las herramientas",

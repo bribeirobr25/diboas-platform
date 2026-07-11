@@ -1,12 +1,12 @@
 {
   "seo": {
     "title": "Vermögensverlauf-Rechner — was wirklich geschah",
-    "description": "Kostenloser Rechner für die Wertentwicklung von Vermögenswerten. Wähle BTC, Aktien, Gold oder Anleihen — sieh, was eine einmalige Anlage oder 100 €/Monat seit 2010 oder 2016 geleistet hätte."
+    "description": "Kostenloser Rechner für die Wertentwicklung von Vermögenswerten. Wähle BTC, Aktien, Gold oder Anleihen. Sieh, was eine einmalige Anlage oder 100 €/Monat seit 2010 oder 2016 geleistet hätte."
   },
   "hero": {
     "kicker": "Vermögensverlauf-Rechner",
     "headline": "Was ist tatsächlich passiert?",
-    "subtitle": "Wähle einen Vermögenswert, ein Startjahr und einen Modus. Sieh den realen Weg, den dein Geld genommen hätte — mit ehrlichen Unsicherheitsmargen an den verrauschten Stellen."
+    "subtitle": "Wähle einen Vermögenswert, ein Startjahr und einen Modus. Sieh den realen Weg, den dein Geld genommen hätte, mit ehrlichen Unsicherheitsmargen an den verrauschten Stellen."
   },
   "inputs": {
     "assetLabel": "Vermögenswert",
@@ -34,7 +34,7 @@
       "SP500": "S&P 500 — US-Large-Cap-Aktien via SPY ETF. Total-Return-Basis enthält reinvestierte Dividenden.",
       "QQQ": "NASDAQ-100 — US-Large-Cap-Tech via QQQ ETF. Total-Return-Basis enthält reinvestierte Dividenden.",
       "MSCI_WORLD": "MSCI World — Aktien aus Industrieländern via URTH ETF. Total-Return-Basis enthält reinvestierte Dividenden. Daten seit Januar 2012 (ETF-Auflage).",
-      "GOLD": "Gold Spot via GLD ETF. Keine laufende Rendite — der Ertrag stammt rein aus Preisänderungen.",
+      "GOLD": "Gold Spot via GLD ETF. Keine laufende Rendite: der Ertrag stammt rein aus Preisänderungen.",
       "TLT": "US-Staatsanleihen mit 20+ Jahren Laufzeit via TLT ETF. Die lange Duration (~17 Jahre) macht diesen Wert besonders zinssensitiv. Verlor während des Fed-Zinserhöhungszyklus 2022-2023 etwa 50% vom Höchst- zum Tiefststand.",
       "IBOVESPA": "Ibovespa, der brasilianische Aktienindex der B3. Nativer Gesamtertrag.",
       "DAX": "DAX, der deutsche Aktienindex der Deutschen Börse. Nativer Gesamtertrag."

@@ -23,7 +23,7 @@
   },
   "goalStrategy": {
     "title": "What goal are you dreaming about?",
-    "subtitle": "Pick one — we'll tailor the simulation to it.",
+    "subtitle": "Pick one. We'll tailor the simulation to it.",
     "options": {
       "retirement": {
         "label": "Retirement Goal",
@@ -38,8 +38,8 @@
         "caption": "Peace of mind when life surprises you"
       },
       "wealthy": {
-        "label": "10% Growth Goal",
-        "caption": "Build long-term wealth one paycheck at a time"
+        "label": "70/20/10 Goal",
+        "caption": "Live on 70%, clear debts with 20%, always invest 10%"
       }
     }
   },

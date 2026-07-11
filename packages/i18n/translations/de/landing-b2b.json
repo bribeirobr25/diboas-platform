@@ -264,7 +264,7 @@
         "earlyMember": "Du bist ein frühes Unternehmen!"
       },
       "explanation": {
-        "foundingMember": "Du gehörst zu den ersten 24 Unternehmen. Teile deinen Link — du hast 5 Einladungen für andere Unternehmen.",
+        "foundingMember": "Du gehörst zu den ersten 24 Unternehmen. Teile deinen Link. Du hast 5 Einladungen für andere Unternehmen.",
         "earlyMember": "Eingeladen von einem Gründungsunternehmen. Teile deinen Link, damit andere Unternehmen frühen Zugang erhalten.",
         "priorityWaitlist": "Du bist auf der Prioritäts-Warteliste. Teile deinen Link, um aufzurücken und anderen Unternehmen zu helfen."
       }
@@ -315,11 +315,11 @@
   "startupTreasury": {
     "eyebrow": "FÜR FINANZIERTE STARTUPS",
     "headline": "Du hast es nicht eingesammelt, damit es brachliegt.",
-    "subheadline": "Der Großteil deiner Runde ist Runway, den du monatelang nicht anfasst. Er kann an einem Ort warten, der für dich arbeitet — ohne je deine Kontrolle zu verlassen.",
+    "subheadline": "Der Großteil deiner Runde ist Runway, den du monatelang nicht anfasst. Er kann an einem Ort warten, der für dich arbeitet, ohne je deine Kontrolle zu verlassen.",
     "body": {
       "0": "Eine Runde kommt rein. Die Gehälter nehmen sich jeden Monat ihren Teil. Der Rest — das meiste davon — wartet.",
       "1": "Er wartet auf einem Konto, bei einer Bank, und bringt fast nichts. Du weißt bereits, was dieser Satz kosten kann.",
-      "2": "diBoaS verlangt nicht, dass du deinen Runway aufs Spiel setzt. Leg den Boden fest für das, was du brauchst. Was darüber liegt, geht arbeiten — und bleibt deins, verdient jeden Tag und ist sofort abrufbar, sobald du es brauchst."
+      "2": "diBoaS verlangt nicht, dass du deinen Runway aufs Spiel setzt. Leg den Boden fest für das, was du brauchst. Was darüber liegt, geht arbeiten und bleibt deins, verdient jeden Tag und ist sofort abrufbar, sobald du es brauchst."
     },
     "bridgeLine": "Verlass dich nicht auf das Beispiel. Rechne es mit deinem eigenen Runway durch.",
     "cta": {

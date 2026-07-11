@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Calculadora de desvalorização cambial",
     "headline": "O que sua moeda realmente rende?",
-    "subtitle": "Compare dinheiro, banco e dólar digital ao longo dos anos — considerando a desvalorização."
+    "subtitle": "Compare dinheiro, banco e dólar digital ao longo dos anos, considerando a desvalorização."
   },
   "mode": {
     "ariaLabel": "Modo da calculadora",
@@ -41,8 +41,8 @@
     "depSourceForward": "Depreciação projetada: CAGR ajustado ao horizonte com base na janela de {years} anos da série de câmbio.",
     "depSourceRetrospective": "Retrospectivo: baseado nos pontos âncora do par {currency}/USD entre {startMonth} e {asOfMonth}.",
     "depSourcePeg": "{currency} é atrelada ao dólar dos EUA por política do banco central. A variação cambial é 0 por desenho.",
-    "uncertaintyMedium": "Esta moeda teve volatilidade moderada na janela — o CAGR pontual reflete o comportamento médio; o movimento acumulado foi desigual ano a ano.",
-    "uncertaintyLow": "Esta moeda passou por períodos de volatilidade estrutural ou mudança de regime — um único CAGR alisa materialmente sub-períodos muito diferentes. Use o resultado como referência direcional, não como previsão."
+    "uncertaintyMedium": "Esta moeda teve volatilidade moderada na janela. O CAGR pontual reflete o comportamento médio; o movimento acumulado foi desigual ano a ano.",
+    "uncertaintyLow": "Esta moeda passou por períodos de volatilidade estrutural ou mudança de regime. Um único CAGR alisa materialmente sub-períodos muito diferentes. Use o resultado como referência direcional, não como previsão."
   },
   "resultMoment": {
     "eyebrow": "O que seu dinheiro realmente rende",

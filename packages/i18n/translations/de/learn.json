@@ -1,15 +1,15 @@
 {
   "seo": {
     "title": "Lerne, wie Geld wirklich funktioniert",
-    "description": "Kurze, ehrliche Lektionen über das Finanzsystem — geschrieben für die Menschen, für die das System nicht gemacht wurde."
+    "description": "Kurze, ehrliche Lektionen über das Finanzsystem, geschrieben für die Menschen, für die das System nicht gemacht wurde."
   },
   "nav": {
     "label": "Lernen"
   },
   "index": {
     "h1": "Lerne, wie Geld wirklich funktioniert.",
-    "subhead": "Kurze, ehrliche Lektionen über das Finanzsystem — geschrieben für die Menschen, für die das System nicht gemacht wurde.",
-    "footerLine": "Weitere Lektionen folgen. Wir veröffentlichen alle paar Monate eine — langsam, sorgfältig, gut geschrieben."
+    "subhead": "Kurze, ehrliche Lektionen über das Finanzsystem, geschrieben für die Menschen, für die das System nicht gemacht wurde.",
+    "footerLine": "Weitere Lektionen folgen. Wir veröffentlichen alle paar Monate eine: langsam, sorgfältig, gut geschrieben."
   },
   "lessons": {
     "compoundInterest": {
@@ -24,7 +24,7 @@
     "lessons": {
       "inflation": {
         "title": "Inflation: Die stille Steuer",
-        "description": "Warum dein Geld jedes Jahr an Wert verliert — und was du dagegen tun kannst."
+        "description": "Warum dein Geld jedes Jahr an Wert verliert, und was du dagegen tun kannst."
       },
       "savingsVsInvesting": {
         "title": "Sparen vs. Investieren",

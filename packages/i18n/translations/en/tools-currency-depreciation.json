@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Currency depreciation calculator",
     "headline": "What does your local currency really earn?",
-    "subtitle": "Compare cash, bank, and digital dollar over time — accounting for currency depreciation."
+    "subtitle": "Compare cash, bank, and digital dollar over time, accounting for currency depreciation."
   },
   "mode": {
     "ariaLabel": "Calculator mode",
@@ -41,8 +41,8 @@
     "depSourceForward": "Forward depreciation: horizon-matched CAGR derived from the {years}-year trailing FX window.",
     "depSourceRetrospective": "Retrospective: based on the actual {currency}/USD anchor pair {startMonth} → {asOfMonth}.",
     "depSourcePeg": "{currency} is pegged to the US dollar by central-bank policy. FX change is 0 by design.",
-    "uncertaintyMedium": "This currency had moderate volatility over the window — point CAGR reflects average behavior; cumulative movement was uneven year-to-year.",
-    "uncertaintyLow": "This currency went through periods of structural volatility or regime change — a single CAGR materially smooths over very different sub-periods. Use the result as a directional reference, not a forecast."
+    "uncertaintyMedium": "This currency had moderate volatility over the window. Point CAGR reflects average behavior; cumulative movement was uneven year-to-year.",
+    "uncertaintyLow": "This currency went through periods of structural volatility or regime change. A single CAGR materially smooths over very different sub-periods. Use the result as a directional reference, not a forecast."
   },
   "resultMoment": {
     "eyebrow": "What your money really earns",

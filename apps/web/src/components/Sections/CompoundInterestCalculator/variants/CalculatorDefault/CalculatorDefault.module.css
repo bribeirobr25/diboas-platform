@@ -178,15 +178,6 @@
   gap: var(--spacing-md-minus);
 }
 
-.yearsValue {
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-slate-900);
-  min-width: 32px;
-  text-align: right;
-}
-
 .outputs {
   display: flex;
   flex-direction: column;
@@ -314,4 +305,10 @@
   font-size: 0.85em;
   color: var(--color-slate-600);
   font-style: italic;
+}
+
+/* Info icon inside the tooltip trigger (P2-b, F7-F11 review 2026-07-10):
+   em offset is a documented token-policy exception (relative sizing). */
+.tooltip svg {
+  vertical-align: -0.125em;
 }

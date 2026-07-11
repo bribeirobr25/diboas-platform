@@ -1,1 +1,0 @@
-export { HeroDefault } from './HeroDefault';

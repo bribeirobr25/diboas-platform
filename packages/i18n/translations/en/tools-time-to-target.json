@@ -16,7 +16,7 @@
     "targetLine": "Reaching {target}…",
     "monthsLabel": "{months} months",
     "yearsLabel": "{years} years",
-    "cannotReach": "Out of reach at this contribution — try a larger monthly amount or a smaller target."
+    "cannotReach": "Out of reach at this contribution. Try a larger monthly amount or a smaller target."
   },
   "guidance": {
     "oneTimeNeedsInitial": "Enter a starting amount to see when you'd reach your target."

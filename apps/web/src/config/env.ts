@@ -131,9 +131,19 @@ export function getCsrfAllowedOrigins(): string[] {
     .map((o) => o.trim())
     .filter(Boolean);
 
-  // Add development origins
+  // Add development origins. DEV_ALLOWED_ORIGINS (the same machine-specific var
+  // next.config.js feeds into `allowedDevOrigins`) extends the list so LAN-IP
+  // testing — e.g. the Docker MCP browser at http://<network-ip>:3000 — can
+  // exercise CSRF-protected routes like /api/consent instead of hitting a 403
+  // blind spot (dev-audit fix, 2026-07-11). Bare hosts expand to http://<host>:3000;
+  // entries with a scheme pass through. Dev-only: production never reads this.
+  const devLanOrigins = (process.env.DEV_ALLOWED_ORIGINS || '')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean)
+    .map((o) => (o.includes('://') ? o : `http://${o}:3000`));
   const devOrigins = IS_DEVELOPMENT
-    ? ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000']
+    ? ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000', ...devLanOrigins]
     : [];
 
   return [...new Set([...baseOrigins, ...additionalOrigins, ...devOrigins])];

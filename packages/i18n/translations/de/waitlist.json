@@ -42,14 +42,14 @@
       "earlyMember": "Du bist ein Early Member!"
     },
     "explanation": {
-      "foundingMember": "Du gehörst zu den ersten 1.200. Teile deinen Link — du hast 5 Einladungen für den Gründungsmitglied-Status.",
+      "foundingMember": "Du gehörst zu den ersten 1.200. Teile deinen Link. Du hast 5 Einladungen für den Gründungsmitglied-Status.",
       "earlyMember": "Eingeladen von einem Gründungsmitglied. Teile deinen Link, um Freunden frühen Zugang zu ermöglichen.",
       "priorityWaitlist": "Du bist auf der prioritären Warteliste. Teile deinen Link, um aufzusteigen und Freunden zu helfen."
     },
     "spotsRemaining": "{spots} Plätze verbleibend"
   },
   "stats": {
-    "foundingMembersFull": "Alle Gründungsmitglied-Plätze vergeben — tritt der Warteliste bei"
+    "foundingMembersFull": "Alle Gründungsmitglied-Plätze vergeben. Tritt der Warteliste bei"
   },
   "referral": {
     "friendJoined": "Ein Freund ist gerade beigetreten!",

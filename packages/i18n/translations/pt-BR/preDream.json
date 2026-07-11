@@ -23,7 +23,7 @@
   },
   "goalStrategy": {
     "title": "Com qual meta você está sonhando?",
-    "subtitle": "Escolha uma — vamos adaptar a simulação a ela.",
+    "subtitle": "Escolha uma. Vamos adaptar a simulação a ela.",
     "options": {
       "retirement": {
         "label": "Meta Aposentadoria",
@@ -38,8 +38,8 @@
         "caption": "Tranquilidade quando a vida surpreende"
       },
       "wealthy": {
-        "label": "Meta Crescimento 10%",
-        "caption": "Construir riqueza passo a passo"
+        "label": "Meta 70/20/10",
+        "caption": "Viva com 70%, quite dívidas com 20% e invista sempre 10%"
       }
     }
   },

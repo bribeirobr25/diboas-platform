@@ -32,7 +32,10 @@ import {
 } from './types';
 import { validateCompoundCalculatorInput } from './validation';
 
-const HIGHLIGHTED_DEFAULT = 'historical' as const;
+// Founder ruling 2026-07-10 (closes P2-c, F7-F11 review): the emphasized default
+// is Conservative (~7%) — the canonical user-yield figure — not Historical (10%).
+// Under-promise; Historical stays visible, just not highlighted.
+const HIGHLIGHTED_DEFAULT = 'conservative' as const;
 
 export function calculateCompoundProjection(input: CalculatorInput): CalculatorOutput {
   validateCompoundCalculatorInput(input);

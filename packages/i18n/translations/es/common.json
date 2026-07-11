@@ -375,5 +375,8 @@
   },
   "disclaimers": {
     "educationalProjection": "Cifras ilustrativas basadas en supuestos históricos de interés compuesto. Rentabilidades pasadas no garantizan resultados futuros. Usa solo dinero que puedas permitirte perder. diBoaS no es un banco y tus fondos no están asegurados."
+  },
+  "videoPlayer": {
+    "transcript": "Transcripción"
   }
 }

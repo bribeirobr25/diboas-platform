@@ -1,15 +1,15 @@
 {
   "seo": {
     "title": "Aprenda como o dinheiro funciona de verdade",
-    "description": "Lições curtas e honestas sobre o sistema financeiro — escritas para quem o sistema não foi feito."
+    "description": "Lições curtas e honestas sobre o sistema financeiro, escritas para quem o sistema não foi feito."
   },
   "nav": {
     "label": "Aprender"
   },
   "index": {
     "h1": "Aprenda como o dinheiro funciona de verdade.",
-    "subhead": "Lições curtas e honestas sobre o sistema financeiro — escritas para quem o sistema não foi feito.",
-    "footerLine": "Mais lições em breve. A gente publica uma a cada poucos meses — devagar, com cuidado, bem escrita."
+    "subhead": "Lições curtas e honestas sobre o sistema financeiro, escritas para quem o sistema não foi feito.",
+    "footerLine": "Mais lições em breve. A gente publica uma a cada poucos meses: devagar, com cuidado, bem escrita."
   },
   "lessons": {
     "compoundInterest": {
@@ -24,7 +24,7 @@
     "lessons": {
       "inflation": {
         "title": "Inflação: o imposto silencioso",
-        "description": "Por que o seu dinheiro perde valor todo ano — e o que dá pra fazer."
+        "description": "Por que o seu dinheiro perde valor todo ano, e o que dá pra fazer."
       },
       "savingsVsInvesting": {
         "title": "Poupar vs. Investir",
@@ -32,7 +32,7 @@
       },
       "currencyDepreciation": {
         "title": "Desvalorização da moeda",
-        "description": "Quando guardar o seu dinheiro local é o risco maior — e não investir."
+        "description": "Quando guardar o seu dinheiro local é o risco maior, não investir."
       }
     }
   }

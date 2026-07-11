@@ -1,1 +1,0 @@
-export { AppFeaturesCarouselDefault } from './AppFeaturesCarouselDefault';

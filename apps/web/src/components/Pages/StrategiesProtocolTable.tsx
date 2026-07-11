@@ -11,6 +11,7 @@
 import { useState, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { LocaleLink } from '@/components/UI';
+import { LucideIcon, ChevronDown, ChevronRight } from '@/components/UI/LucideIcon';
 import styles from './StrategiesPageContent.module.css';
 
 const I18N_PREFIX = 'strategies';
@@ -97,7 +98,7 @@ export function StrategiesProtocolTable() {
                   {t(`protocols.items.${protocolId}.name`)}
                 </span>
                 <span className={styles.expandIcon} aria-hidden="true">
-                  {isExpanded ? '\u25BC' : '\u25B6'}
+                  <LucideIcon icon={isExpanded ? ChevronDown : ChevronRight} size="xs" />
                 </span>
               </button>
               <p className={styles.mobileProtocolSubtitle}>
@@ -172,7 +173,7 @@ function ProtocolDesktopRow({
           >
             {t(`protocols.items.${protocolId}.name`)}
             <span className={styles.expandIcon} aria-hidden="true">
-              {isExpanded ? '▼' : '▶'}
+              <LucideIcon icon={isExpanded ? ChevronDown : ChevronRight} size="xs" />
             </span>
           </button>
         </td>

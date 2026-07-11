@@ -57,8 +57,14 @@ Always start with positive acknowledgment of what works well.
 
 #### Phase 0: Preparation
 
-- Read project docs: `docs/brand-brief.md`, `docs/design-principles.md`,
-  `docs/design-system-notes.md`, `docs/anti-slop-checklist.md`
+- Read project docs: `docs/tech/ux-governance/anti-slop-checklist.md` (ALL four parts — Part 1 visual slop AND
+  Part 3 friction & dark patterns are both in scope for every review),
+  `docs/tech/ux-governance/UX_PRINCIPLES_CANON.md` (the evidence library behind Part 3 — cite its UX-NN
+  IDs in findings), `docs/tech/ux-governance/UX_GOVERNANCE_USAGE.md` (operating protocol: build mode /
+  audit mode / finding format), and `docs/tech/design-system.md` (tokens, type, brand).
+  These governance files are local-only (untracked, founder ruling G-1 2026-07-10) — if any
+  is absent in this environment, say so explicitly in the report and fall back to the
+  anti-slop rules inlined in CLAUDE.md.
 - Analyze what changed: run `git diff --name-only origin/HEAD...` to understand scope
 - If reviewing a PR, read the PR description for context and testing notes
 - Set up the live preview environment using Playwright
@@ -157,7 +163,7 @@ For every item, state your finding based on BOTH what you see AND what the code 
 
 **Visual inspection (from screenshots and accessibility tree):**
 
-- Run every item in `docs/anti-slop-checklist.md` against the current rendered output
+- Run every item in `docs/tech/ux-governance/anti-slop-checklist.md` against the current rendered output
 - For each anti-slop item, explicitly state PASS or FAIL based on what you SEE in screenshots
   and the accessibility tree — do not rely solely on code analysis
 - Specifically look for and call out:
@@ -168,42 +174,48 @@ For every item, state your finding based on BOTH what you see AND what the code 
   - Card soup with no visual hierarchy
   - Mixed icon families or inconsistent icon weights
 
-**Code-level verification (mandatory grep commands):**
+**Friction & dark-pattern audit (checklist Part 3 — mandatory, unprompted):**
+For any surface containing a flow, form, selector, or decision screen, run Part 3
+rows 1–21 explicitly and report them in the Part-3 table of the report template:
+
+- State PASS / FAIL / N/A per row, citing the row number AND its canon ID(s) — e.g.
+  "Row 6 [UX-37, UX-44, UX-52]: FAIL — the fee appears only after the confirm button."
+- **Rows 10–17 are the canonical veto list: any YES on rows 10–17 is a BLOCKER (P0),
+  regardless of measured lift or any other consideration.** Never downgrade these.
+- Rows 1–9 and 18–21 are friction rows: a FAIL there is at least P1.
+- Evidence for contested verdicts: quote the principle from
+  `docs/tech/ux-governance/UX_PRINCIPLES_CANON.md` (its UX-NN entries carry the before/after evidence).
+- Pure content pages with no flow/form/selector: state "Part 3: N/A (no decision surface)"
+  rather than silently skipping the section.
+
+**Code-level verification (mandatory commands):**
 Run ALL of the following and report results:
 
-1. Emoji in component files:
+1. Portable slop detection (replaces the former raw greps — the old `grep -P` commands
+   fail on stock macOS grep and their ranges missed whole emoji blocks):
 
    ```
-   grep -rP '[\x{1F300}-\x{1F9FF}\x{2600}-\x{26FF}\x{2700}-\x{27BF}]' apps/web/src/components/ --include="*.tsx"
+   pnpm check:ux-greps
    ```
 
-2. Emoji in translation strings:
-
-   ```
-   grep -rP '[\x{1F300}-\x{1F9FF}\x{2600}-\x{26FF}\x{2700}-\x{27BF}]' packages/i18n/translations/ --include="*.json"
-   ```
-
-3. Hardcoded English strings in components (bypassing i18n):
-
-   ```
-   grep -rn 'className.*>[A-Z][a-z]' apps/web/src/components/ --include="*.tsx" | grep -v 'intl\|FormattedMessage\|formatMessage\|translation\|\.stories\.'
-   ```
-
+   Covers: emoji in components (hard fail; text-default glyph-icons like `▶`/`↗`
+   reported as leads — flag them as design-system findings: use `LucideIcon`),
+   emoji in translations, em-dash density per locale, hardcoded-English heuristic.
    Also check for raw string literals in JSX that should be translation keys.
 
-4. Hardcoded hex colors (should use design tokens):
+2. Hardcoded hex colors (should use design tokens):
 
    ```
    grep -rn '#[0-9a-fA-F]\{3,8\}' apps/web/src/components/ --include="*.tsx" --include="*.css" | grep -v 'design-tokens\|\.stories\.'
    ```
 
-5. Hardcoded pixel values (should use spacing tokens):
+3. Hardcoded pixel values (should use spacing tokens):
 
    ```
    grep -rn '[0-9]\+px' apps/web/src/components/ --include="*.tsx" --include="*.module.css" | grep -v 'design-tokens\|\.stories\.'
    ```
 
-6. Button className patterns (check sizing consistency across the page):
+4. Button className patterns (check sizing consistency across the page):
    ```
    grep -rn 'className.*btn\|className.*button\|className.*Button' apps/web/src/components/ --include="*.tsx" | head -30
    ```
@@ -337,11 +349,21 @@ Ask the user for screenshots if visual validation matters.
 
 [Per-section spacing, button consistency, content density, and transition findings]
 
-### Anti-Slop Audit Results
+### Anti-Slop Audit Results (Part 1 — visual)
 
 | Checklist Item | Visual (PASS/FAIL) | Code (PASS/FAIL) | Notes     |
 | -------------- | ------------------ | ---------------- | --------- |
 | [item]         | [result]           | [result]         | [details] |
+
+### Friction & Dark-Pattern Audit (Part 3 — rows 1–21, canon-ID cited)
+
+State "Part 3: N/A (no decision surface)" for pure content pages; otherwise fill every row.
+
+| Row              | Principle(s) | PASS/FAIL/N/A | Notes                                                   |
+| ---------------- | ------------ | ------------- | ------------------------------------------------------- |
+| 1–9 (friction)   | [UX-IDs]     | [result]      | [FAIL here = at least P1]                               |
+| 10–17 (veto)     | [UX-IDs]     | [result]      | **any YES/FAIL here is a P0 BLOCKER — never downgrade** |
+| 18–21 (friction) | [UX-IDs]     | [result]      | [FAIL here = at least P1]                               |
 
 ### Multi-Locale Results
 

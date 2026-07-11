@@ -17,7 +17,8 @@
 
 import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
-import { Select } from '@diboas/ui';
+import { SegmentedControl } from '@/components/UI';
+import { LucideIcon, Info } from '@/components/UI/LucideIcon';
 import { useLocale } from '@/components/Providers';
 import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
 import { marketDataService, type SupportedLocale } from '@/lib/market-data';
@@ -175,26 +176,25 @@ export function InflationImpactCalculator() {
                 role="note"
                 tabIndex={0}
               >
-                <sup>?</sup>
+                <LucideIcon icon={Info} size="xs" />
               </span>
             </span>
           </div>
         )}
         <div className={styles.field}>
-          <label htmlFor={`${baseId}-country`} className={styles.label}>
+          {/* UX-36 (F7-F11 review P1-a, 2026-07-10): 4 options — visible, not a dropdown */}
+          <span id={`${baseId}-country-label`} className={styles.label}>
             {t('inputs.countryLabel')}
-          </label>
-          <Select
-            id={`${baseId}-country`}
+          </span>
+          <SegmentedControl
+            ariaLabelledby={`${baseId}-country-label`}
             value={form.country}
-            onChange={(e) => handleCountry(e.target.value as SupportedLocale)}
-          >
-            {COUNTRY_OPTIONS.map((opt) => (
-              <option key={opt} value={opt}>
-                {t(`inputs.countryOptions.${opt}`)}
-              </option>
-            ))}
-          </Select>
+            onChange={(c) => handleCountry(c)}
+            options={COUNTRY_OPTIONS.map((opt) => ({
+              value: opt,
+              label: t(`inputs.countryOptions.${opt}`),
+            }))}
+          />
           <span className={styles.help}>{t('inputs.countryHelp')}</span>
         </div>
       </div>

@@ -16,7 +16,7 @@
     "targetLine": "{target} erreichen…",
     "monthsLabel": "{months} Monate",
     "yearsLabel": "{years} Jahre",
-    "cannotReach": "Mit dieser Sparrate nicht erreichbar — versuche einen höheren monatlichen Betrag oder ein kleineres Ziel."
+    "cannotReach": "Mit dieser Sparrate nicht erreichbar. Versuche einen höheren monatlichen Betrag oder ein kleineres Ziel."
   },
   "guidance": {
     "oneTimeNeedsInitial": "Gib einen Startbetrag ein, um zu sehen, wann du dein Ziel erreichst."

@@ -264,7 +264,7 @@
         "earlyMember": "You're an Early Business!"
       },
       "explanation": {
-        "foundingMember": "You're among the first 24 businesses. Share your link — you have 5 invites to give other businesses Founding status.",
+        "foundingMember": "You're among the first 24 businesses. Share your link. You have 5 invites to give other businesses Founding status.",
         "earlyMember": "Invited by a Founding Business. Share your link to help other businesses get early access.",
         "priorityWaitlist": "You're on the priority waitlist. Share your link to move up and help other businesses join."
       }
@@ -319,7 +319,7 @@
     "body": {
       "0": "A round lands. Payroll takes a slice every month. The rest — most of it — waits.",
       "1": "It waits in one account, at one bank, earning close to nothing. You already know what that sentence can cost.",
-      "2": "diBoaS doesn't ask you to gamble your runway. Set the floor for what you need. What sits above it goes to work — and stays yours, earning every day, ready to pull back the moment you need it."
+      "2": "diBoaS doesn't ask you to gamble your runway. Set the floor for what you need. What sits above it goes to work and stays yours, earning every day, ready to pull back the moment you need it."
     },
     "bridgeLine": "Don't take the example's word for it. Run it on your own runway.",
     "cta": {

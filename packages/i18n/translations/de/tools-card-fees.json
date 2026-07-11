@@ -1,12 +1,12 @@
 {
   "seo": {
     "title": "Kartengebühren-Rechner — was Zahlungsdienstleister wirklich kosten",
-    "description": "Kostenloser B2B-Kartengebühren-Rechner. Sieh, wie viel dein Unternehmen jährlich an Zahlungsdienstleister zahlt — und wie viel diBoaS sparen könnte."
+    "description": "Kostenloser B2B-Kartengebühren-Rechner. Sieh, wie viel dein Unternehmen jährlich an Zahlungsdienstleister zahlt, und wie viel diBoaS sparen könnte."
   },
   "hero": {
     "kicker": "Kartengebühren-Rechner",
     "headline": "Was kosten Kartenzahlungen dein Geschäft wirklich?",
-    "subtitle": "Zwischen Interchange, Acquirer-Marge und Zusatzgebühren zahlen die meisten Händler effektiv 0,4–1,0 % — oft ohne es genau zu wissen. Rechne nach."
+    "subtitle": "Zwischen Interchange, Acquirer-Marge und Zusatzgebühren zahlen die meisten Händler effektiv 0,4–1,0 %, oft ohne es genau zu wissen. Rechne nach."
   },
   "inputs": {
     "monthlyVolumeLabel": "Monatliches Kartenzahlungs-Volumen",
@@ -17,7 +17,7 @@
     "avgTxHelp": "Wird genutzt, um die Pro-Transaktions-Gebühr zu berechnen"
   },
   "warnings": {
-    "feeTooHigh": "Diese Gebühr wirkt ungewöhnlich hoch. Echte Kartenakzeptanz-Gebühren liegen zwischen 0,3% und 3,5% — meinst du eine kleinere Zahl?"
+    "feeTooHigh": "Diese Gebühr wirkt ungewöhnlich hoch. Echte Kartenakzeptanz-Gebühren liegen zwischen 0,3% und 3,5%. Meinst du eine kleinere Zahl?"
   },
   "disclaimers": {
     "euIfrCap": "Die EU-Verordnung 2015/751 begrenzt das Interbankenentgelt für Verbraucherkarten auf 0,2% (Debit) / 0,3% (Kredit). Die effektiven Händlergebühren liegen im Durchschnitt zwischen 0,4% und 1,0% je nach Acquirer und Kartenmix."
@@ -26,7 +26,7 @@
     "monthlyFee": "Monatlich an Anbieter",
     "annualSavings": "Mit diBoaS sparen",
     "perTxLabel": "Gebühr pro Transaktion",
-    "caveat": "Hier siehst du die maximalen Einsparungen — angenommen, 100% der Kartenzahlungen laufen über diBoaS. Die tatsächlichen Einsparungen wachsen mit der diBoaS-Adoption deiner Kunden — das ist eine obere Schätzgrenze."
+    "caveat": "Hier siehst du die maximalen Einsparungen, angenommen, 100% der Kartenzahlungen laufen über diBoaS. Die tatsächlichen Einsparungen wachsen mit der diBoaS-Adoption deiner Kunden. Das ist eine obere Schätzgrenze."
   },
   "resultMoment": {
     "eyebrow": "Was Kartengebühren wirklich kosten",

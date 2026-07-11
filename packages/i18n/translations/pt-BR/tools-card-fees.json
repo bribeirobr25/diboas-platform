@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Calculadora de taxas de cartão — veja o que adquirentes levam",
-    "description": "Calculadora B2B gratuita de taxas de cartão. Veja quanto seu negócio paga por ano a adquirentes — e quanto o diBoaS poderia economizar."
+    "description": "Calculadora B2B gratuita de taxas de cartão. Veja quanto seu negócio paga por ano a adquirentes, e quanto o diBoaS poderia economizar."
   },
   "hero": {
     "kicker": "Calculadora de taxas de cartão",
@@ -17,13 +17,13 @@
     "avgTxHelp": "Usado para calcular a taxa por transação"
   },
   "warnings": {
-    "feeTooHigh": "Essa taxa parece muito alta. As taxas reais das adquirentes ficam entre 0,3% e 3,5% — você quis dizer um número menor?"
+    "feeTooHigh": "Essa taxa parece muito alta. As taxas reais das adquirentes ficam entre 0,3% e 3,5%. Você quis dizer um número menor?"
   },
   "output": {
     "monthlyFee": "Para adquirentes por mês",
     "annualSavings": "Poderia economizar com diBoaS",
     "perTxLabel": "Taxa por transação",
-    "caveat": "Esse valor mostra a economia máxima possível, supondo que 100% dos pagamentos com cartão passem pelo diBoaS. A economia real cresce conforme seus clientes adotam o diBoaS — é uma estimativa de teto."
+    "caveat": "Esse valor mostra a economia máxima possível, supondo que 100% dos pagamentos com cartão passem pelo diBoaS. A economia real cresce conforme seus clientes adotam o diBoaS. É uma estimativa de teto."
   },
   "resultMoment": {
     "eyebrow": "Quanto as taxas de cartão realmente custam",

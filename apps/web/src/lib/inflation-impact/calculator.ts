@@ -31,12 +31,14 @@ import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
 import type { SupportedLocale } from '@diboas/i18n/config';
 
 /**
- * Historical scenario (10%) is the only diBoaS rate offered on this tool. The
+ * Conservative scenario (7%) is the only diBoaS rate offered on this tool
+ * (founder ruling 2026-07-11, F-6 family Decision 2A — under-promise with the
+ * canonical user-yield figure, consistent with the P2-c emphasis ruling). The
  * forward mode's "if you had invested" comparison uses this single rate; we
- * deliberately do NOT show conservative/optimistic here — the tool is about
+ * deliberately do NOT show historical/optimistic here — the tool is about
  * inflation, not yield-tier selection.
  */
-export const INFLATION_IMPACT_SCENARIO_USD_PERCENT = SCENARIO_RATES.historical;
+export const INFLATION_IMPACT_SCENARIO_USD_PERCENT = SCENARIO_RATES.conservative;
 
 export interface InflationImpactForwardInput {
   readonly amount: number;

@@ -735,8 +735,9 @@ function runInflationImpact() {
       output: {
         cashRealValue: Math.round(purchasingPower(amt, yrs, inflRate)),
         loss: Math.round(amt - purchasingPower(amt, yrs, inflRate)),
-        investedNominal: Math.round(lumpSumFV(amt, 0.1, yrs)),
-        investedReal: Math.round(lumpSumFV(amt, 0.1, yrs) / Math.pow(1 + inflRate, yrs)),
+        // 0.07 = conservative scenario — founder F-6 ruling 2026-07-11 (was 0.1 historical)
+        investedNominal: Math.round(lumpSumFV(amt, 0.07, yrs)),
+        investedReal: Math.round(lumpSumFV(amt, 0.07, yrs) / Math.pow(1 + inflRate, yrs)),
       },
     });
   }

@@ -35,7 +35,7 @@ interface ToolsIndexProps {
     heroKicker: string;
     heroHeadline: string;
     heroSubtitle: string;
-    sections: Record<ToolSectionKey, { title: string; question: string }>;
+    sections: Record<ToolSectionKey, { title: string; question: string; count: string }>;
     /** Per-tool card copy keyed by ToolKey. */
     cards: Partial<Record<ToolKey, { title: string; tagline: string }>>;
     /** Filter chip labels (Phase 6E.tools-page-integration). */
@@ -116,7 +116,13 @@ export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexPro
             if (sectionTools.length === 0) return null;
             return (
               <section key={section} className={styles.section} data-section={section}>
-                <h2 className={styles.sectionTitle}>{copy.sections[section].title}</h2>
+                {/* UX-15: real count beside the title; per-section tint rides the
+                    data-section attribute in the module CSS (category-level only —
+                    cards within a section stay identical, per the veto-row rules). */}
+                <div className={styles.sectionHeader}>
+                  <h2 className={styles.sectionTitle}>{copy.sections[section].title}</h2>
+                  <span className={styles.sectionCount}>{copy.sections[section].count}</span>
+                </div>
                 <p className={styles.sectionQuestion}>{copy.sections[section].question}</p>
                 <div className={styles.cardGrid}>
                   {sectionTools.map((toolKey) => {

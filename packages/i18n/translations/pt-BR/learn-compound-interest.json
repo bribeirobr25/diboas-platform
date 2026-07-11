@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Como o Dinheiro Realmente Cresce — Juros compostos explicados",
-    "description": "Entenda como os juros compostos funcionam — a matemática que bancos e Wall Street usam há décadas. Coloque seus próprios números e veja como ficam 12 anos."
+    "description": "Entenda como os juros compostos funcionam: a matemática que bancos e Wall Street usam há décadas. Coloque seus próprios números e veja como ficam 12 anos."
   },
   "lesson": {
     "h1": "Como o Dinheiro Realmente Cresce",
@@ -32,11 +32,23 @@
       "Então vamos falar de algo mais simples. Coisas pequenas que você já gasta sem pensar."
     ],
     "habitsLine": "Aquele iFood do almoço. O cinema com pipoca de sábado. O combo de streaming todo mês.",
-    "vignettesIntro": "Se só um desses fosse trabalhar pra você em vez de ir embora — no mesmo rendimento histórico de 10% ao ano — olha como ficam 12 anos:",
+    "vignettesIntro": "Se só um desses fosse trabalhar pra você em vez de ir embora, no mesmo rendimento histórico de 10% ao ano, olha como ficam 12 anos:",
     "vignettes": [
-      { "habit": "iFood no almoço (R$ 25/dia útil)", "yearly": "R$ 6.500", "yearlyAmount": "6500" },
-      { "habit": "Cinema com pipoca (R$ 80/semana)", "yearly": "R$ 4.160", "yearlyAmount": "4160" },
-      { "habit": "Combo de streaming (R$ 80/mês)", "yearly": "R$ 960", "yearlyAmount": "960" }
+      {
+        "habit": "iFood no almoço (R$ 25/dia útil)",
+        "yearly": "R$ 6.500",
+        "yearlyAmount": "6500"
+      },
+      {
+        "habit": "Cinema com pipoca (R$ 80/semana)",
+        "yearly": "R$ 4.160",
+        "yearlyAmount": "4160"
+      },
+      {
+        "habit": "Combo de streaming (R$ 80/mês)",
+        "yearly": "R$ 960",
+        "yearlyAmount": "960"
+      }
     ],
     "vignettesTableHeaders": {
       "habit": "Hábito",
@@ -101,6 +113,6 @@
     "tableHeaderRate": "Taxa anual",
     "tableHeaderTotal": "Após {years} anos",
     "loadingState": "Calculando…",
-    "calibrationNote": "O que as taxas significam. Os 7% conservadores estão alinhados com o envelope de rendimento do dólar digital via stack DeFi com foco em Solana. Os 10% históricos ficam no meio da faixa mista de longo prazo. Os 14% otimistas refletem estratégias selecionadas ou alavancadas. De forma independente — o S&P 500 retornou ~15,5% ao ano em média de 2010 a 2026, o ouro ~9% ao ano, e um poupador brasileiro em BRL teve desempenho inferior a um que manteve dólar digital na mesma janela (números completos nas nossas notas de pesquisa)."
+    "calibrationNote": "O que as taxas significam. Os 7% conservadores estão alinhados com o envelope de rendimento do dólar digital via stack DeFi com foco em Solana. Os 10% históricos ficam no meio da faixa mista de longo prazo. Os 14% otimistas refletem estratégias selecionadas ou alavancadas. De forma independente: o S&P 500 retornou ~15,5% ao ano em média de 2010 a 2026, o ouro ~9% ao ano, e um poupador brasileiro em BRL teve desempenho inferior a um que manteve dólar digital na mesma janela (números completos nas nossas notas de pesquisa)."
   }
 }

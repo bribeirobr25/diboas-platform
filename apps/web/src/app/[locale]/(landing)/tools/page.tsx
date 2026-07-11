@@ -10,6 +10,7 @@ import { seoService, socialCardMetadata } from '@/lib/seo';
 import {
   buildToolsIndexStructuredData,
   SHIPPED_TOOLS,
+  TOOL_DESCRIPTORS,
   type ToolKey,
   type ToolSectionKey,
 } from '@/lib/tools';
@@ -81,15 +82,26 @@ export default async function ToolsLandingPage({ params, searchParams }: ToolsPa
 
   const get = (k: string, fallback = ''): string => pageMessages[k] ?? fallback;
 
+  // UX-15 (F-7 upgrade, founder-approved 2026-07-11): each section states its
+  // real calculator count — a verifiable number, resolved server-side because
+  // `get` is a flat lookup (no ICU interpolation client-side).
+  const countFor = (n: number): string =>
+    n === 1
+      ? get('tools-shared.landing.sections.countOne')
+      : get('tools-shared.landing.sections.countOther').replace('{count}', String(n));
+
   const sections = Object.fromEntries(
     SECTIONS.map((section) => [
       section,
       {
         title: get(`tools-shared.landing.sections.${section}.title`),
         question: get(`tools-shared.landing.sections.${section}.question`),
+        count: countFor(
+          SHIPPED_TOOLS.filter((toolKey) => TOOL_DESCRIPTORS[toolKey].section === section).length
+        ),
       },
     ])
-  ) as Record<ToolSectionKey, { title: string; question: string }>;
+  ) as Record<ToolSectionKey, { title: string; question: string; count: string }>;
 
   const cards = Object.fromEntries(
     SHIPPED_TOOLS.map((toolKey) => {

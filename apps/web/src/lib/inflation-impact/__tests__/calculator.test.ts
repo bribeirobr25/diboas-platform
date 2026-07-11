@@ -98,7 +98,7 @@ describe('calculateInflationImpactRetrospective', () => {
 });
 
 describe('Constants', () => {
-  it('INFLATION_IMPACT_SCENARIO_USD_PERCENT = 10 (historical only)', () => {
-    expect(INFLATION_IMPACT_SCENARIO_USD_PERCENT).toBe(10);
+  it('INFLATION_IMPACT_SCENARIO_USD_PERCENT = 7 (conservative only, founder F-6 ruling 2026-07-11)', () => {
+    expect(INFLATION_IMPACT_SCENARIO_USD_PERCENT).toBe(7);
   });
 });

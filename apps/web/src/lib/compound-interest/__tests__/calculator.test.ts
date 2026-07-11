@@ -33,9 +33,9 @@ describe('calculateCompoundProjection — happy path', () => {
     });
   });
 
-  it('should highlight historical as the default scenario', () => {
+  it('should highlight conservative as the default scenario when founder ruling P2-c applies', () => {
     const out = calculateCompoundProjection(baseInput);
-    expect(out.highlightedScenario).toBe('historical');
+    expect(out.highlightedScenario).toBe('conservative');
   });
 
   it('should expose monthlyEquivalent and inputEcho on the output', () => {

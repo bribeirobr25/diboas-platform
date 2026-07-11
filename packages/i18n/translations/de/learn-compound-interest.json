@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Wie Geld wirklich wächst — Zinseszins erklärt",
-    "description": "Verstehe, wie Zinseszins funktioniert — die Mathematik, die Banken und die Wall Street seit Jahrzehnten nutzen. Gib deine eigenen Zahlen ein und sieh, wie 12 Jahre aussehen."
+    "description": "Verstehe, wie Zinseszins funktioniert: die Mathematik, die Banken und die Wall Street seit Jahrzehnten nutzen. Gib deine eigenen Zahlen ein und sieh, wie 12 Jahre aussehen."
   },
   "lesson": {
     "h1": "Wie Geld wirklich wächst",
@@ -32,7 +32,7 @@
       "Reden wir also über etwas Einfacheres. Kleine Dinge, für die du Geld ausgibst, ohne darüber nachzudenken."
     ],
     "habitsLine": "Dein Bäckerei-Frühstück morgens. Das Restaurant am Wochenende. Streaming und Fitnessstudio jeden Monat.",
-    "vignettesIntro": "Wenn nur eines davon für dich arbeiten würde, statt einfach wegzufließen — beim gleichen historischen Zinssatz von 10 % — dann sehen 12 Jahre so aus:",
+    "vignettesIntro": "Wenn nur eines davon für dich arbeiten würde, statt einfach wegzufließen, beim gleichen historischen Zinssatz von 10 %, dann sehen 12 Jahre so aus:",
     "vignettes": [
       {
         "habit": "Bäckerei-Frühstück (4 €/Tag werktags)",
@@ -113,6 +113,6 @@
     "tableHeaderRate": "Jahreszins",
     "tableHeaderTotal": "Nach {years} Jahren",
     "loadingState": "Wird berechnet…",
-    "calibrationNote": "Was die Raten bedeuten. Die konservativen 7% entsprechen dem Digital-Dollar-Rendite-Korridor über den Solana-zentrierten DeFi-Stack. Die historischen 10% liegen in der Mitte des langfristig gemischten Bereichs. Die optimistischen 14% spiegeln kuratierte oder gehebelte Strategien wider. Unabhängig davon — der S&P 500 erzielte von 2010 bis 2026 im Schnitt ~15,5% pro Jahr Gesamtrendite, Gold ~9% pro Jahr, und ein brasilianischer Sparer in BRL schnitt schlechter ab als einer, der im gleichen Zeitraum den Digital-Dollar hielt (vollständige Zahlen in unseren Recherchenotizen)."
+    "calibrationNote": "Was die Raten bedeuten. Die konservativen 7% entsprechen dem Digital-Dollar-Rendite-Korridor über den Solana-zentrierten DeFi-Stack. Die historischen 10% liegen in der Mitte des langfristig gemischten Bereichs. Die optimistischen 14% spiegeln kuratierte oder gehebelte Strategien wider. Unabhängig davon: der S&P 500 erzielte von 2010 bis 2026 im Schnitt ~15,5% pro Jahr Gesamtrendite, Gold ~9% pro Jahr, und ein brasilianischer Sparer in BRL schnitt schlechter ab als einer, der im gleichen Zeitraum den Digital-Dollar hielt (vollständige Zahlen in unseren Recherchenotizen)."
   }
 }
