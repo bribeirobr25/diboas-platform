@@ -23,10 +23,11 @@ export type ToolKey =
   | 'currency-depreciation'
   | 'card-fees'
   | 'idle-cash'
-  | 'asset-history';
+  | 'asset-history'
+  | 'money-jobs';
 
 /** Section grouping shown on the /tools landing (per Q9 — Option B). */
-export type ToolSectionKey = 'grow' | 'protect' | 'target' | 'business';
+export type ToolSectionKey = 'start' | 'grow' | 'protect' | 'target' | 'business';
 
 /** Input config for tools that reuse the existing CompoundInterestCalculator. */
 export interface CompoundToolDefaults {
@@ -148,6 +149,7 @@ export interface ToolDescriptor {
     | 'currencyDepreciation'
     | 'cardFees'
     | 'idleCash'
-    | 'assetHistory';
+    | 'assetHistory'
+    | 'briefcase';
   readonly forBusiness: boolean;
 }

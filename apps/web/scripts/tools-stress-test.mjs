@@ -2,7 +2,7 @@
 /**
  * Tools Stress Test — comprehensive scenario coverage (2026-05-23).
  *
- * Runs default + happy-path + edge-case + negative scenarios across all 10
+ * Runs default + happy-path + edge-case + negative scenarios across all 11
  * /tools calculators × 4 locales. Output drives docs/tech/TOOLS_VALIDATION.md.
  *
  * Usage:
@@ -953,6 +953,193 @@ function runIdleCash() {
   return scenarios;
 }
 
+function runMoneyJobs() {
+  // Tool #11 — Money Jobs (M5). Constants mirror MONEY_JOBS_MODEL
+  // (apps/web/src/lib/money-jobs/calculator.ts — attested Bar 2026-07-10).
+  const MODEL = {
+    essentialsShare: { en: 0.62, 'pt-BR': 0.61, es: 0.56, de: 0.47 },
+    cushionMonths: 6,
+    prudenceFactor: 0.75,
+    floorCoverageMonths: 3,
+    cushionStep: { highRate: 0.35, normalRate: 0.25, fundedThreshold: 0.25 },
+    runwayComfortMonths: 12,
+    dignityFloorRatio: 0.05,
+  };
+  const P_DEFAULTS = { en: 6000, 'pt-BR': 6000, es: 2800, de: 3200 };
+  const B_DEFAULTS = {
+    en: { revenue: 30000, burn: 25000, cash: 250000 },
+    'pt-BR': { revenue: 120000, burn: 100000, cash: 600000 },
+    es: { revenue: 25000, burn: 22000, cash: 200000 },
+    de: { revenue: 28000, burn: 24000, cash: 220000 },
+  };
+
+  function personal(income, essentials, savings, loc) {
+    const surplus = income - essentials;
+    const dignity = surplus <= income * MODEL.dignityFloorRatio;
+    const cushionTarget = essentials * MODEL.cushionMonths;
+    const funded = cushionTarget > 0 ? savings / cushionTarget : 1;
+    const rate = dignity
+      ? 0
+      : funded < MODEL.cushionStep.fundedThreshold
+        ? MODEL.cushionStep.highRate
+        : funded < 1
+          ? MODEL.cushionStep.normalRate
+          : 0;
+    const effSurplus = dignity ? 0 : surplus;
+    const contribution = effSurplus * rate;
+    const workingMax = effSurplus - contribution;
+    // M4 reconcile invariant: floor + contribution + workingMax === income
+    // (outside the dignity state). A drift here is a model regression.
+    if (!dignity && Math.abs(essentials + contribution + workingMax - income) > 1e-9) {
+      throw new Error(
+        `moneyJobs M4 reconcile violated: ${loc} income=${income} essentials=${essentials}`
+      );
+    }
+    const jobless = Math.max(0, surplus);
+    const inflRate = selectInflationRate(loc, 5 * 12);
+    return {
+      floor: essentials,
+      cushionTarget,
+      cushionRate: rate,
+      cushionContribution: Math.round(contribution),
+      workingMax: Math.round(workingMax),
+      workingIdeal: Math.round(workingMax * MODEL.prudenceFactor),
+      joblessMoney: jobless,
+      joblessCost5y:
+        jobless > 0 ? Math.round(jobless - purchasingPower(jobless, 5, inflRate)) : null,
+      dignityState: dignity,
+    };
+  }
+
+  function business(revenue, burn, cash, loc) {
+    const operatingFloor = burn * MODEL.floorCoverageMonths;
+    const excess = Math.max(0, cash - operatingFloor);
+    const netBurn = burn - revenue;
+    const cashPositive = netBurn <= 0;
+    const runwayMonths = cashPositive ? null : cash / netBurn;
+    const runwayMode = !cashPositive && runwayMonths < MODEL.runwayComfortMonths;
+    const inflRate = selectInflationRate(loc, 5 * 12);
+    return {
+      operatingFloor,
+      excess,
+      excessIdeal: Math.round(excess * MODEL.prudenceFactor),
+      idleExcessCost5y:
+        excess > 0 ? Math.round(excess - purchasingPower(excess, 5, inflRate)) : null,
+      netBurn,
+      cashPositive,
+      runwayMonths: runwayMonths === null ? null : Math.round(runwayMonths * 10) / 10,
+      grossCoverageMonths: Math.round((cash / burn) * 10) / 10,
+      runwayMode,
+    };
+  }
+
+  const scenarios = [];
+  // Personal defaults ×4 locales (essentials pre-filled from the attested share)
+  for (const loc of LOCALES) {
+    const income = P_DEFAULTS[loc];
+    const essentials = Math.round(income * MODEL.essentialsShare[loc]);
+    scenarios.push({
+      category: 'default-personal',
+      label: `default ${loc} (essentials pre-fill ${MODEL.essentialsShare[loc]})`,
+      input: {
+        monthlyIncome: income,
+        monthlyEssentials: essentials,
+        currentSavings: 0,
+        locale: loc,
+      },
+      output: personal(income, essentials, 0, loc),
+    });
+  }
+  // Business defaults ×4 locales (pt-BR mirrors the campaign vignette 600k/100k/120k)
+  for (const loc of LOCALES) {
+    const b = B_DEFAULTS[loc];
+    scenarios.push({
+      category: 'default-business',
+      label: `default business ${loc}`,
+      input: { monthlyRevenue: b.revenue, monthlyBurn: b.burn, cashOnHand: b.cash, locale: loc },
+      output: business(b.revenue, b.burn, b.cash, loc),
+    });
+  }
+  // Safety-first step transitions at the exact thresholds (decision 2)
+  for (const funded of [0.249, 0.25, 0.999, 1.0]) {
+    const income = 6000;
+    const essentials = 3000;
+    const savings = essentials * MODEL.cushionMonths * funded;
+    scenarios.push({
+      category: 'edge-step',
+      label: `en: funded ratio ${funded} → rate ${personal(income, essentials, savings, 'en').cushionRate}`,
+      input: {
+        monthlyIncome: income,
+        monthlyEssentials: essentials,
+        currentSavings: savings,
+        locale: 'en',
+      },
+      output: personal(income, essentials, savings, 'en'),
+    });
+  }
+  // Dignity state (F3): essentials ≥ income, and thin-surplus boundary at 5%
+  scenarios.push({
+    category: 'edge-dignity',
+    label: 'en: essentials = income → dignity, engine never throws',
+    input: { monthlyIncome: 3000, monthlyEssentials: 3000, currentSavings: 0, locale: 'en' },
+    output: personal(3000, 3000, 0, 'en'),
+  });
+  scenarios.push({
+    category: 'edge-dignity',
+    label: 'en: surplus exactly 5% of income → dignity (boundary is <=)',
+    input: { monthlyIncome: 3000, monthlyEssentials: 2850, currentSavings: 0, locale: 'en' },
+    output: personal(3000, 2850, 0, 'en'),
+  });
+  // Bounds: max income, min income
+  scenarios.push({
+    category: 'edge-max',
+    label: 'en: income at 1M bound',
+    input: { monthlyIncome: 1000000, monthlyEssentials: 620000, currentSavings: 0, locale: 'en' },
+    output: personal(1000000, 620000, 0, 'en'),
+  });
+  scenarios.push({
+    category: 'edge-min',
+    label: 'en: income 1 (min bound), essentials 0',
+    input: { monthlyIncome: 1, monthlyEssentials: 0, currentSavings: 0, locale: 'en' },
+    output: personal(1, 0, 0, 'en'),
+  });
+  // B2B: campaign case (600k cash / 120k net burn = 5mo → runway mode)
+  scenarios.push({
+    category: 'runway-mode',
+    label: 'pt-BR: 600k cash, 120k net burn → 5mo runway, runway-led',
+    input: { monthlyRevenue: 0, monthlyBurn: 120000, cashOnHand: 600000, locale: 'pt-BR' },
+    output: business(0, 120000, 600000, 'pt-BR'),
+  });
+  // B2B: runway boundary — exactly 12 months is comfortable (strict <)
+  scenarios.push({
+    category: 'runway-boundary',
+    label: 'en: runway exactly 12.0 → NOT runway mode (decision 9 strict boundary)',
+    input: { monthlyRevenue: 0, monthlyBurn: 10000, cashOnHand: 120000, locale: 'en' },
+    output: business(0, 10000, 120000, 'en'),
+  });
+  scenarios.push({
+    category: 'runway-boundary',
+    label: 'en: runway 11.9999 → runway mode',
+    input: { monthlyRevenue: 0, monthlyBurn: 10000, cashOnHand: 119999, locale: 'en' },
+    output: business(0, 10000, 119999, 'en'),
+  });
+  // B2B: cash-positive never enters runway mode
+  scenarios.push({
+    category: 'cash-positive',
+    label: 'en: revenue > burn → runway null, runwayMode false',
+    input: { monthlyRevenue: 40000, monthlyBurn: 25000, cashOnHand: 50000, locale: 'en' },
+    output: business(40000, 25000, 50000, 'en'),
+  });
+  // Negative/invalid: engine contract returns null (documented, not computed here)
+  scenarios.push({
+    category: 'negative',
+    label: 'invalid inputs (income<=0, burn<=0, negatives, NaN)',
+    input: { monthlyIncome: -1, locale: 'en' },
+    output: { note: 'engine returns null; UI clamps via MONEY_JOBS_*_BOUNDS' },
+  });
+  return scenarios;
+}
+
 function runBrazilPoupanca() {
   return [
     {
@@ -1034,6 +1221,7 @@ const baseline = {
     currencyDepreciation: runCurrencyDepreciation(),
     cardFees: runCardFees(),
     idleCash: runIdleCash(),
+    moneyJobs: runMoneyJobs(),
     brazilPoupanca: runBrazilPoupanca(),
   },
 };

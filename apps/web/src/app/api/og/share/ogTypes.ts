@@ -85,6 +85,8 @@ export interface ToolResultTemplateProps {
  * heavy import. Expanded as each tool is wired to ResultMoment.
  */
 export const SHAREABLE_TOOL_KEYS = [
+  // Tool #11 (2026-07-11) — Money Jobs (share text is split-language only; C5).
+  'money-jobs',
   'currency-depreciation',
   'idle-cash',
   'asset-history',

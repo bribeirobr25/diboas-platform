@@ -117,6 +117,10 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       import(
         /* webpackChunkName: "i18n-en-tools-inflation-impact" */ '../translations/en/tools-inflation-impact.json'
       ).then(resolveDefault),
+    'tools-money-jobs': () =>
+      import(
+        /* webpackChunkName: "i18n-en-tools-money-jobs" */ '../translations/en/tools-money-jobs.json'
+      ).then(resolveDefault),
     'tools-time-to-target': () =>
       import(
         /* webpackChunkName: "i18n-en-tools-time-to-target" */ '../translations/en/tools-time-to-target.json'
@@ -218,6 +222,10 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     'tools-inflation-impact': () =>
       import(
         /* webpackChunkName: "i18n-de-tools-inflation-impact" */ '../translations/de/tools-inflation-impact.json'
+      ).then(resolveDefault),
+    'tools-money-jobs': () =>
+      import(
+        /* webpackChunkName: "i18n-de-tools-money-jobs" */ '../translations/de/tools-money-jobs.json'
       ).then(resolveDefault),
     'tools-time-to-target': () =>
       import(
@@ -321,6 +329,10 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       import(
         /* webpackChunkName: "i18n-es-tools-inflation-impact" */ '../translations/es/tools-inflation-impact.json'
       ).then(resolveDefault),
+    'tools-money-jobs': () =>
+      import(
+        /* webpackChunkName: "i18n-es-tools-money-jobs" */ '../translations/es/tools-money-jobs.json'
+      ).then(resolveDefault),
     'tools-time-to-target': () =>
       import(
         /* webpackChunkName: "i18n-es-tools-time-to-target" */ '../translations/es/tools-time-to-target.json'
@@ -422,6 +434,10 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     'tools-inflation-impact': () =>
       import(
         /* webpackChunkName: "i18n-pt-BR-tools-inflation-impact" */ '../translations/pt-BR/tools-inflation-impact.json'
+      ).then(resolveDefault),
+    'tools-money-jobs': () =>
+      import(
+        /* webpackChunkName: "i18n-pt-BR-tools-money-jobs" */ '../translations/pt-BR/tools-money-jobs.json'
       ).then(resolveDefault),
     'tools-time-to-target': () =>
       import(

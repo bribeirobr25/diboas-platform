@@ -10,6 +10,10 @@
       "subtitle": "10 kostenlose Rechner. Trag deine Zahlen ein, sieh, was möglich ist."
     },
     "sections": {
+      "start": {
+        "title": "Fang hier an",
+        "question": "Wofür ist dieses Geld?"
+      },
       "grow": {
         "title": "Vermögen aufbauen",
         "question": "Wenn ich X € spare, was wird daraus?"

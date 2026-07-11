@@ -1,0 +1,136 @@
+{
+  "seo": {
+    "title": "Calculadora Dinero con Función — cada cantidad necesita una función",
+    "description": "Calculadora gratuita: dale una función a cada parte de tu dinero del mes. Ve qué queda listo, qué te protege y qué puede trabajar, antes de mover nada."
+  },
+  "hero": {
+    "kicker": "DINERO CON FUNCIÓN",
+    "headline": "Cada euro necesita una función.",
+    "subtitle": "Añade lo que entra. Ve qué queda listo, qué te protege y qué puede trabajar, antes de mover nada."
+  },
+  "landing": {
+    "cardTitle": "Dinero con Función",
+    "cardTagline": "¿Qué función tiene cada parte de tu dinero?"
+  },
+  "mode": {
+    "ariaLabel": "Elige para quién es",
+    "personal": "Para ti",
+    "business": "Para tu negocio"
+  },
+  "inputs": {
+    "incomeLabel": "Ingresos mensuales (netos)",
+    "essentialsLabel": "Esenciales del mes",
+    "essentialsHelp": "Estimado para tu país. Ajústalo a tu realidad.",
+    "savingsLabel": "Ahorro de emergencia hoy",
+    "savingsHelp": "Opcional. Lo que ya tienes apartado.",
+    "revenueLabel": "Ingresos mensuales del negocio",
+    "revenueHelp": "¿Aún sin ingresos? Deja 0; lo captado va en caja.",
+    "burnLabel": "Gasto mensual (burn)",
+    "burnHelp": "Nóminas. Alquiler. Impuestos. Proveedores. Un solo número.",
+    "cashLabel": "Caja disponible"
+  },
+  "headline": {
+    "kicker": "EL REPARTO",
+    "personalPrefix": "",
+    "personalSuffix": "de tu mes aún no tiene función.",
+    "businessSuffix": "está por encima de tu suelo sin regla definida."
+  },
+  "costLine": {
+    "personal": "Sin función, esa cantidad pierde alrededor de {cost} de poder adquisitivo por la inflación en {years} años.",
+    "business": "Sin regla, ese excedente pierde alrededor de {cost} de poder adquisitivo por la inflación en {years} años."
+  },
+  "disclaimer": "Reparto educativo, no es asesoramiento financiero. Los números son tuyos, la decisión también.",
+  "jobs": {
+    "floor": {
+      "label": "Suelo",
+      "meaning": "Dinero con función fija: alquiler, comida, facturas."
+    },
+    "cushion": {
+      "label": "Colchón",
+      "meaning": "Sugerencia de este mes hacia tu meta de {target}. Tienes {current}."
+    },
+    "working": {
+      "label": "Dinero que trabaja",
+      "meaning": "Libre para trabajar una vez cubiertos suelo y colchón."
+    },
+    "operatingFloor": {
+      "label": "Suelo operativo",
+      "meaning": "Lo que debe quedar listo: unos 3 meses de gasto."
+    },
+    "runway": {
+      "label": "Runway",
+      "value": "{months} meses",
+      "meaning": "A tu ritmo de gasto neto actual."
+    },
+    "coverage": {
+      "label": "Cobertura",
+      "value": "{months} meses",
+      "meaning": "Si los ingresos pararan mañana. Hoy, los ingresos cubren el gasto."
+    },
+    "excess": {
+      "label": "Excedente",
+      "meaning": "Caja por encima del suelo, esperando una regla."
+    }
+  },
+  "band": {
+    "ideal": "Ideal",
+    "maximum": "Máximo",
+    "explainer": "¿Por qué menos que el máximo? El margen forma parte del plan."
+  },
+  "dignity": {
+    "headline": "Este mes, la función de tu dinero es sostenerte.",
+    "body": "Sin culpa. Lo esencial va primero; el reparto puede esperar a un mes más ligero.",
+    "cta": "Mira cómo empieza un colchón de emergencia"
+  },
+  "runway": {
+    "headline": "Ahora mismo, la función de tu caja es el runway.",
+    "body": "Unos {months} meses a tu gasto actual. Tu suelo es {floor}. Protege eso primero; poner el excedente a trabajar puede esperar hasta que el runway sea cómodo."
+  },
+  "share": {
+    "title": "Dinero con Función",
+    "text": "Mi reparto: {value} aún no tenía función. Cada cantidad necesita una.",
+    "cta": "Compartir tu reparto",
+    "copied": "Enlace copiado"
+  },
+  "gate": {
+    "ariaLabel": "Desbloquear tu plan completo",
+    "title": "Este es el reparto. El plan está en los detalles.",
+    "bullets": {
+      "timeline": "Cuándo llega tu colchón a su meta",
+      "projections": "En qué podría convertirse tu dinero que trabaja en 5 y 10 años",
+      "runway": "Tu lectura de runway y qué la protege",
+      "nextSteps": "El siguiente paso de cada función"
+    },
+    "emailPlaceholder": "Tu correo",
+    "gdprLabel": "Acepto recibir correos de diBoaS y la política de privacidad.",
+    "cta": "Ver mi plan completo",
+    "ctaLoading": "Un momento",
+    "finePrint": "Unirte a la lista de espera lo desbloquea. Sin spam: es la misma lista que todo lo demás. Unirte no mueve tu dinero.",
+    "successLine": "Estás en la lista, posición {position}.",
+    "referralLinkLabel": "Tu enlace de invitación"
+  },
+  "plan": {
+    "title": "Tu plan",
+    "cushionFunded": "Tu colchón está completo. Todo lo que queda por encima del suelo puede trabajar.",
+    "cushionTimeline": "Con la sugerencia de este mes, tu colchón llega a su meta en unos {months} meses.",
+    "cushionUnreachable": "Con los números actuales, la meta del colchón no es alcanzable. Ajusta esenciales o ingresos para ver un camino.",
+    "projectionsIntro": "En qué podría convertirse la cantidad ideal de trabajo, aportada cada mes, en tres escenarios:",
+    "scenarioColumn": "Escenario",
+    "fiveYears": "5 años",
+    "tenYears": "10 años",
+    "brDollarLine": "Y en dólar digital, tu reserva no depende de una sola moneda.",
+    "brDollarBothWays": "El tipo de cambio se mueve en ambas direcciones; el valor en tu moneda puede subir o bajar.",
+    "runwayLed": "El runway lidera este plan: unos {months} meses al gasto actual, con un suelo de {floor}. Recorta costes de pago y vigila el gasto antes de poner el excedente a trabajar.",
+    "idleComparison": "En 12 meses, tu excedente ideal de {amount} podría generar unos {delta} más que en tu banco, en el escenario conservador.",
+    "nextCushion": "Calculadora de Fondo de Emergencia",
+    "nextWorking": "Calculadora de Interés Compuesto",
+    "nextCurrency": "Calculadora de Depreciación de Moneda",
+    "nextIdleCash": "Calculadora de Caja Parada",
+    "nextCardFees": "Calculadora de Comisiones de Tarjeta",
+    "nextFounder": "Hablar con Bar"
+  },
+  "lessonLink": {
+    "label": "¿Quieres entender antes el porqué?",
+    "linkText": "Cómo crece el dinero de verdad: la lección de los 12 años"
+  }
+}

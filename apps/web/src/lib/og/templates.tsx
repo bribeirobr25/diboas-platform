@@ -18,6 +18,8 @@ export type OGPageType =
   // v1 reuses the teal-themed default body with tool-specific copy; bespoke
   // per-tool art is a CMO iteration tracked in PHASE_6_PLAN §6F.2.
   | 'tools'
+  // Tool #11 (2026-07-11) — Money Jobs, the /tools entry point.
+  | 'tools-money-jobs'
   | 'tools-compound-interest'
   | 'tools-retirement'
   | 'tools-emergency-fund'
@@ -41,7 +43,8 @@ interface OGTemplateConfig {
   theme: 'teal' | 'coral' | 'dark';
 }
 
-const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
+// Exported for the M3 copy gate (money-jobs kill-list test) — not a public API.
+export const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
   default: {
     title: 'diBoaS',
     subtitle: 'Open access and fair opportunities for everyone',
@@ -89,6 +92,14 @@ const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
   tools: {
     title: 'Money Tools',
     subtitle: 'Free calculators by diBoaS — see what your money could do.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  // Tool #11 — Money Jobs. Subtitle is on the M3 kill-list vitest (C5):
+  // no earn/yield/return verbs, no product promise — split language only.
+  'tools-money-jobs': {
+    title: 'Money Jobs Calculator',
+    subtitle: 'Every amount needs a job. See yours in under a minute.',
     badge: 'Tools',
     theme: 'teal',
   },
@@ -340,6 +351,7 @@ export function isValidPageType(page: string): page is OGPageType {
     'help',
     'security',
     'tools',
+    'tools-money-jobs',
     'tools-compound-interest',
     'tools-retirement',
     'tools-emergency-fund',

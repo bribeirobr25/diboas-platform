@@ -29,6 +29,8 @@ const PAGE_PRIORITIES: Record<string, number> = {
   '/learn/compound-interest': 0.8,
   // Phase 6C — Money Tools (Tier 1)
   '/tools': 0.8,
+  // Tool #11 (2026-07-11) — Money Jobs entry point
+  '/tools/money-jobs': 0.8,
   '/tools/compound-interest': 0.8,
   '/tools/retirement': 0.8,
   '/tools/emergency-fund': 0.8,
@@ -79,6 +81,8 @@ const PATH_TO_OG_KEY: Record<string, string> = {
   // these stable keys ensure the sitemap is correct now and the renderer can
   // attach bespoke art later without sitemap churn.
   '/tools': 'tools',
+  // Tool #11 — Money Jobs OG key
+  '/tools/money-jobs': 'tools-money-jobs',
   '/tools/compound-interest': 'tools-compound-interest',
   '/tools/retirement': 'tools-retirement',
   '/tools/emergency-fund': 'tools-emergency-fund',

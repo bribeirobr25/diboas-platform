@@ -21,6 +21,14 @@
  */
 
 import { calculateInflationImpactForward } from '@/lib/inflation-impact';
+import { calculateIdleCashYield, type IdleCashResult } from '@/lib/idle-cash';
+import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
+import {
+  applyEffectiveRateClamp,
+  monthsToInflationAdjustedTarget,
+  resolveHorizonMatchedDepreciation,
+} from '@/lib/market-data/formulas';
+import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
 import type { MarketDataSnapshot } from '@/lib/market-data/types';
 import type { SupportedLocale } from '@diboas/i18n/config';
 
@@ -251,4 +259,107 @@ export function calculateMoneyJobsBusiness(
     runwayMode,
     inputEcho: input,
   };
+}
+
+// ============================================================================
+// Gated plan (decision 8: plan + projections behind the email gate)
+// ============================================================================
+
+/** Cap mirrors EMERGENCY_FUND_MAX_HORIZON_YEARS (C12 alignment). */
+const PLAN_MAX_HORIZON_YEARS = 40;
+
+export interface MoneyJobsPersonalPlan {
+  /** Months to reach the cushion target at the suggested contribution
+   *  (conservative-hedged, inflation-adjusted). Null when unreachable;
+   *  0 when already funded. */
+  readonly cushionMonthsToTarget: number | null;
+  /** True when the non-USD hedge path applied (digitalDollarSuffix gates on this). */
+  readonly hedged: boolean;
+}
+
+/**
+ * B2C gated plan — the cushion timeline. Uses the CONSERVATIVE scenario
+ * (CLO condition C4 / P2-c consistency: the plan under-promises), hedged per
+ * the emergency-fund composition (applyEffectiveRateClamp + horizon-matched
+ * depreciation). The working-money projections are rendered from
+ * `calculateCompoundProjectionHedged` directly in the plan component (the
+ * hedged engine already returns all three canonical scenarios and reads the
+ * live snapshot itself).
+ */
+export function calculateMoneyJobsPersonalPlan(
+  result: MoneyJobsPersonalResult,
+  snapshot: MarketDataSnapshot
+): MoneyJobsPersonalPlan | null {
+  const remaining = Math.max(0, result.cushionTarget - result.cushionCurrent);
+  if (remaining === 0) {
+    return { cushionMonthsToTarget: 0, hedged: false };
+  }
+  if (result.cushionContribution <= 0) {
+    return { cushionMonthsToTarget: null, hedged: false };
+  }
+
+  const locale = result.inputEcho.locale;
+  const inflation = snapshot.inflationRates.rates[locale]?.average5y ?? 0;
+  const currency = LOCALE_CURRENCY[locale];
+  const estimatedHorizonYears = Math.min(
+    PLAN_MAX_HORIZON_YEARS,
+    Math.max(1, remaining / (result.cushionContribution * 12))
+  );
+  const depreciation = resolveHorizonMatchedDepreciation(snapshot, currency, estimatedHorizonYears);
+  const conservativeUsd = SCENARIO_RATES.conservative / 100;
+  const effective =
+    depreciation === 0
+      ? conservativeUsd
+      : applyEffectiveRateClamp((1 + conservativeUsd) * (1 + depreciation) - 1, {
+          source: 'calculateMoneyJobsPersonalPlan',
+          usdYield: conservativeUsd,
+          depreciation,
+        });
+
+  let months: number | null;
+  try {
+    months = monthsToInflationAdjustedTarget(
+      result.cushionTarget,
+      result.cushionContribution,
+      effective,
+      inflation,
+      'end',
+      result.cushionCurrent
+    );
+  } catch {
+    months = null;
+  }
+
+  return { cushionMonthsToTarget: months, hedged: depreciation !== 0 };
+}
+
+export interface MoneyJobsBusinessPlan {
+  /** Conservative-only idle-cash comparison on the IDEAL excess over 12 months.
+   *  Null in runway mode (held back per decision 9) or when there is no excess. */
+  readonly idleComparison: IdleCashResult | null;
+}
+
+/**
+ * B2B gated plan. In runway mode the idle-cash yield comparison is HELD —
+ * the plan is runway-led (decision 9); the component renders runway detail
+ * from the free result instead.
+ */
+export function calculateMoneyJobsBusinessPlan(
+  result: MoneyJobsBusinessResult,
+  snapshot: MarketDataSnapshot
+): MoneyJobsBusinessPlan {
+  if (result.runwayMode || result.excessIdeal <= 0) {
+    return { idleComparison: null };
+  }
+  const locale = result.inputEcho.locale;
+  const idleComparison = calculateIdleCashYield(
+    {
+      idleCash: result.excessIdeal,
+      years: 1,
+      bankYieldPct: snapshot.rates.bankRates[locale]?.savings ?? 0,
+      locale,
+    },
+    snapshot
+  );
+  return { idleComparison };
 }

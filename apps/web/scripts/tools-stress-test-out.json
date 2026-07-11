@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T10:55:27.252Z",
+  "generatedAt": "2026-07-11T14:37:20.905Z",
   "schema": "tools-stress-test-v1",
   "inputData": {
     "bankRates": {
@@ -2141,6 +2141,439 @@
         },
         "output": {
           "note": "calculator clamps to 0 via handleChange; engine rejects negative"
+        }
+      }
+    ],
+    "moneyJobs": [
+      {
+        "category": "default-personal",
+        "label": "default en (essentials pre-fill 0.62)",
+        "input": {
+          "monthlyIncome": 6000,
+          "monthlyEssentials": 3720,
+          "currentSavings": 0,
+          "locale": "en"
+        },
+        "output": {
+          "floor": 3720,
+          "cushionTarget": 22320,
+          "cushionRate": 0.35,
+          "cushionContribution": 798,
+          "workingMax": 1482,
+          "workingIdeal": 1112,
+          "joblessMoney": 2280,
+          "joblessCost5y": 450,
+          "dignityState": false
+        }
+      },
+      {
+        "category": "default-personal",
+        "label": "default pt-BR (essentials pre-fill 0.61)",
+        "input": {
+          "monthlyIncome": 6000,
+          "monthlyEssentials": 3660,
+          "currentSavings": 0,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "floor": 3660,
+          "cushionTarget": 21960,
+          "cushionRate": 0.35,
+          "cushionContribution": 819,
+          "workingMax": 1521,
+          "workingIdeal": 1141,
+          "joblessMoney": 2340,
+          "joblessCost5y": 583,
+          "dignityState": false
+        }
+      },
+      {
+        "category": "default-personal",
+        "label": "default es (essentials pre-fill 0.56)",
+        "input": {
+          "monthlyIncome": 2800,
+          "monthlyEssentials": 1568,
+          "currentSavings": 0,
+          "locale": "es"
+        },
+        "output": {
+          "floor": 1568,
+          "cushionTarget": 9408,
+          "cushionRate": 0.35,
+          "cushionContribution": 431,
+          "workingMax": 801,
+          "workingIdeal": 601,
+          "joblessMoney": 1232,
+          "joblessCost5y": 224,
+          "dignityState": false
+        }
+      },
+      {
+        "category": "default-personal",
+        "label": "default de (essentials pre-fill 0.47)",
+        "input": {
+          "monthlyIncome": 3200,
+          "monthlyEssentials": 1504,
+          "currentSavings": 0,
+          "locale": "de"
+        },
+        "output": {
+          "floor": 1504,
+          "cushionTarget": 9024,
+          "cushionRate": 0.35,
+          "cushionContribution": 594,
+          "workingMax": 1102,
+          "workingIdeal": 827,
+          "joblessMoney": 1696,
+          "joblessCost5y": 309,
+          "dignityState": false
+        }
+      },
+      {
+        "category": "default-business",
+        "label": "default business en",
+        "input": {
+          "monthlyRevenue": 30000,
+          "monthlyBurn": 25000,
+          "cashOnHand": 250000,
+          "locale": "en"
+        },
+        "output": {
+          "operatingFloor": 75000,
+          "excess": 175000,
+          "excessIdeal": 131250,
+          "idleExcessCost5y": 34571,
+          "netBurn": -5000,
+          "cashPositive": true,
+          "runwayMonths": null,
+          "grossCoverageMonths": 10,
+          "runwayMode": false
+        }
+      },
+      {
+        "category": "default-business",
+        "label": "default business pt-BR",
+        "input": {
+          "monthlyRevenue": 120000,
+          "monthlyBurn": 100000,
+          "cashOnHand": 600000,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "operatingFloor": 300000,
+          "excess": 300000,
+          "excessIdeal": 225000,
+          "idleExcessCost5y": 74762,
+          "netBurn": -20000,
+          "cashPositive": true,
+          "runwayMonths": null,
+          "grossCoverageMonths": 6,
+          "runwayMode": false
+        }
+      },
+      {
+        "category": "default-business",
+        "label": "default business es",
+        "input": {
+          "monthlyRevenue": 25000,
+          "monthlyBurn": 22000,
+          "cashOnHand": 200000,
+          "locale": "es"
+        },
+        "output": {
+          "operatingFloor": 66000,
+          "excess": 134000,
+          "excessIdeal": 100500,
+          "idleExcessCost5y": 24390,
+          "netBurn": -3000,
+          "cashPositive": true,
+          "runwayMonths": null,
+          "grossCoverageMonths": 9.1,
+          "runwayMode": false
+        }
+      },
+      {
+        "category": "default-business",
+        "label": "default business de",
+        "input": {
+          "monthlyRevenue": 28000,
+          "monthlyBurn": 24000,
+          "cashOnHand": 220000,
+          "locale": "de"
+        },
+        "output": {
+          "operatingFloor": 72000,
+          "excess": 148000,
+          "excessIdeal": 111000,
+          "idleExcessCost5y": 26938,
+          "netBurn": -4000,
+          "cashPositive": true,
+          "runwayMonths": null,
+          "grossCoverageMonths": 9.2,
+          "runwayMode": false
+        }
+      },
+      {
+        "category": "edge-step",
+        "label": "en: funded ratio 0.249 → rate 0.35",
+        "input": {
+          "monthlyIncome": 6000,
+          "monthlyEssentials": 3000,
+          "currentSavings": 4482,
+          "locale": "en"
+        },
+        "output": {
+          "floor": 3000,
+          "cushionTarget": 18000,
+          "cushionRate": 0.35,
+          "cushionContribution": 1050,
+          "workingMax": 1950,
+          "workingIdeal": 1463,
+          "joblessMoney": 3000,
+          "joblessCost5y": 593,
+          "dignityState": false
+        }
+      },
+      {
+        "category": "edge-step",
+        "label": "en: funded ratio 0.25 → rate 0.25",
+        "input": {
+          "monthlyIncome": 6000,
+          "monthlyEssentials": 3000,
+          "currentSavings": 4500,
+          "locale": "en"
+        },
+        "output": {
+          "floor": 3000,
+          "cushionTarget": 18000,
+          "cushionRate": 0.25,
+          "cushionContribution": 750,
+          "workingMax": 2250,
+          "workingIdeal": 1688,
+          "joblessMoney": 3000,
+          "joblessCost5y": 593,
+          "dignityState": false
+        }
+      },
+      {
+        "category": "edge-step",
+        "label": "en: funded ratio 0.999 → rate 0.25",
+        "input": {
+          "monthlyIncome": 6000,
+          "monthlyEssentials": 3000,
+          "currentSavings": 17982,
+          "locale": "en"
+        },
+        "output": {
+          "floor": 3000,
+          "cushionTarget": 18000,
+          "cushionRate": 0.25,
+          "cushionContribution": 750,
+          "workingMax": 2250,
+          "workingIdeal": 1688,
+          "joblessMoney": 3000,
+          "joblessCost5y": 593,
+          "dignityState": false
+        }
+      },
+      {
+        "category": "edge-step",
+        "label": "en: funded ratio 1 → rate 0",
+        "input": {
+          "monthlyIncome": 6000,
+          "monthlyEssentials": 3000,
+          "currentSavings": 18000,
+          "locale": "en"
+        },
+        "output": {
+          "floor": 3000,
+          "cushionTarget": 18000,
+          "cushionRate": 0,
+          "cushionContribution": 0,
+          "workingMax": 3000,
+          "workingIdeal": 2250,
+          "joblessMoney": 3000,
+          "joblessCost5y": 593,
+          "dignityState": false
+        }
+      },
+      {
+        "category": "edge-dignity",
+        "label": "en: essentials = income → dignity, engine never throws",
+        "input": {
+          "monthlyIncome": 3000,
+          "monthlyEssentials": 3000,
+          "currentSavings": 0,
+          "locale": "en"
+        },
+        "output": {
+          "floor": 3000,
+          "cushionTarget": 18000,
+          "cushionRate": 0,
+          "cushionContribution": 0,
+          "workingMax": 0,
+          "workingIdeal": 0,
+          "joblessMoney": 0,
+          "joblessCost5y": null,
+          "dignityState": true
+        }
+      },
+      {
+        "category": "edge-dignity",
+        "label": "en: surplus exactly 5% of income → dignity (boundary is <=)",
+        "input": {
+          "monthlyIncome": 3000,
+          "monthlyEssentials": 2850,
+          "currentSavings": 0,
+          "locale": "en"
+        },
+        "output": {
+          "floor": 2850,
+          "cushionTarget": 17100,
+          "cushionRate": 0,
+          "cushionContribution": 0,
+          "workingMax": 0,
+          "workingIdeal": 0,
+          "joblessMoney": 150,
+          "joblessCost5y": 30,
+          "dignityState": true
+        }
+      },
+      {
+        "category": "edge-max",
+        "label": "en: income at 1M bound",
+        "input": {
+          "monthlyIncome": 1000000,
+          "monthlyEssentials": 620000,
+          "currentSavings": 0,
+          "locale": "en"
+        },
+        "output": {
+          "floor": 620000,
+          "cushionTarget": 3720000,
+          "cushionRate": 0.35,
+          "cushionContribution": 133000,
+          "workingMax": 247000,
+          "workingIdeal": 185250,
+          "joblessMoney": 380000,
+          "joblessCost5y": 75069,
+          "dignityState": false
+        }
+      },
+      {
+        "category": "edge-min",
+        "label": "en: income 1 (min bound), essentials 0",
+        "input": {
+          "monthlyIncome": 1,
+          "monthlyEssentials": 0,
+          "currentSavings": 0,
+          "locale": "en"
+        },
+        "output": {
+          "floor": 0,
+          "cushionTarget": 0,
+          "cushionRate": 0,
+          "cushionContribution": 0,
+          "workingMax": 1,
+          "workingIdeal": 1,
+          "joblessMoney": 1,
+          "joblessCost5y": 0,
+          "dignityState": false
+        }
+      },
+      {
+        "category": "runway-mode",
+        "label": "pt-BR: 600k cash, 120k net burn → 5mo runway, runway-led",
+        "input": {
+          "monthlyRevenue": 0,
+          "monthlyBurn": 120000,
+          "cashOnHand": 600000,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "operatingFloor": 360000,
+          "excess": 240000,
+          "excessIdeal": 180000,
+          "idleExcessCost5y": 59810,
+          "netBurn": 120000,
+          "cashPositive": false,
+          "runwayMonths": 5,
+          "grossCoverageMonths": 5,
+          "runwayMode": true
+        }
+      },
+      {
+        "category": "runway-boundary",
+        "label": "en: runway exactly 12.0 → NOT runway mode (decision 9 strict boundary)",
+        "input": {
+          "monthlyRevenue": 0,
+          "monthlyBurn": 10000,
+          "cashOnHand": 120000,
+          "locale": "en"
+        },
+        "output": {
+          "operatingFloor": 30000,
+          "excess": 90000,
+          "excessIdeal": 67500,
+          "idleExcessCost5y": 17779,
+          "netBurn": 10000,
+          "cashPositive": false,
+          "runwayMonths": 12,
+          "grossCoverageMonths": 12,
+          "runwayMode": false
+        }
+      },
+      {
+        "category": "runway-boundary",
+        "label": "en: runway 11.9999 → runway mode",
+        "input": {
+          "monthlyRevenue": 0,
+          "monthlyBurn": 10000,
+          "cashOnHand": 119999,
+          "locale": "en"
+        },
+        "output": {
+          "operatingFloor": 30000,
+          "excess": 89999,
+          "excessIdeal": 67499,
+          "idleExcessCost5y": 17779,
+          "netBurn": 10000,
+          "cashPositive": false,
+          "runwayMonths": 12,
+          "grossCoverageMonths": 12,
+          "runwayMode": true
+        }
+      },
+      {
+        "category": "cash-positive",
+        "label": "en: revenue > burn → runway null, runwayMode false",
+        "input": {
+          "monthlyRevenue": 40000,
+          "monthlyBurn": 25000,
+          "cashOnHand": 50000,
+          "locale": "en"
+        },
+        "output": {
+          "operatingFloor": 75000,
+          "excess": 0,
+          "excessIdeal": 0,
+          "idleExcessCost5y": null,
+          "netBurn": -15000,
+          "cashPositive": true,
+          "runwayMonths": null,
+          "grossCoverageMonths": 2,
+          "runwayMode": false
+        }
+      },
+      {
+        "category": "negative",
+        "label": "invalid inputs (income<=0, burn<=0, negatives, NaN)",
+        "input": {
+          "monthlyIncome": -1,
+          "locale": "en"
+        },
+        "output": {
+          "note": "engine returns null; UI clamps via MONEY_JOBS_*_BOUNDS"
         }
       }
     ],

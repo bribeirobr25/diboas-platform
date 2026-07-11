@@ -192,6 +192,13 @@ export const PAGE_SEO_CONFIG = {
       'Free money calculators to plan your retirement, emergency fund, and savings goals. Built by diBoaS.',
     keywords: ['money tools', 'financial calculators', 'savings calculator'],
   },
+  // Tool #11 (2026-07-11) — Money Jobs, the /tools entry point (NEW_TOOL_PROPOSAL.md)
+  'tools/money-jobs': {
+    title: 'Money Jobs Calculator',
+    description:
+      'Give every part of your monthly money a job. See what stays ready, what protects you, and what can work. Free calculator from diBoaS.',
+    keywords: ['money jobs calculator', 'budget split calculator', 'money allocation'],
+  },
   'tools/compound-interest': {
     title: 'Compound Interest Calculator',
     description:

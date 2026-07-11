@@ -2,7 +2,7 @@
 
 Complete internationalization solution for the diBoaS platform with support for 4 locales.
 
-> **Scope:** This README is the canonical **namespace registry** (the 33-namespace inventory below) plus the package API reference. For app-level integration patterns — the config-translation layer (`useConfigTranslation`, `valuesByKey`), locale detection in middleware, SEO-per-locale, and the architecture principles — see `docs/tech/internationalization.md`.
+> **Scope:** This README is the canonical **namespace registry** (the 34-namespace inventory below) plus the package API reference. For app-level integration patterns — the config-translation layer (`useConfigTranslation`, `valuesByKey`), locale detection in middleware, SEO-per-locale, and the architecture principles — see `docs/tech/internationalization.md`.
 
 ## Supported Locales
 
@@ -14,7 +14,7 @@ Complete internationalization solution for the diBoaS platform with support for 
 ## Features
 
 ✅ **Automatic Locale Detection** - Browser language detection with fallback to English
-✅ **Complete Translation Coverage** - 33 namespaces per locale across all 4 locales (see Translation Files below)
+✅ **Complete Translation Coverage** - 34 namespaces per locale across all 4 locales (see Translation Files below)
 ✅ **Server & Client Support** - Separate entry points for optimal bundle size
 ✅ **Type-Safe** - Full TypeScript support
 ✅ **Zero Hardcoded Values** - All text externalized to JSON files
@@ -70,7 +70,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@diboas/i18n/config';
 
 ## Translation Files
 
-Translation files are organized by locale × namespace (33 namespaces per locale — most recently the investor vertical: `investor.json` (public `/investors` page) + `investor-docs.json` (generated investor-room document bodies)):
+Translation files are organized by locale × namespace (34 namespaces per locale — most recently `tools-money-jobs.json`, the Money Jobs entry-point tool):
 
 ```
 packages/i18n/translations/{en, pt-BR, es, de}/
@@ -102,6 +102,7 @@ packages/i18n/translations/{en, pt-BR, es, de}/
 ├── tools-goal-savings.json             # Goal Savings tool
 ├── tools-idle-cash.json                # B2B Idle Cash tool
 ├── tools-inflation-impact.json         # Inflation Impact tool
+├── tools-money-jobs.json               # Money Jobs tool (#11 — /tools entry point)
 ├── tools-retirement.json               # Retirement tool
 ├── tools-time-to-target.json           # Time-to-Target tool
 └── legal/
@@ -121,7 +122,7 @@ Namespace parity across the 4 locales is enforced by `scripts/validate-translati
 ### Server-Safe Functions
 
 ```typescript
-// Load messages for a specific namespace (one of the 33 — see Translation Files)
+// Load messages for a specific namespace (one of the 34 — see Translation Files)
 loadMessages(locale: SupportedLocale, namespace: string): Promise<Messages>
 
 // Load all namespaces

@@ -20,6 +20,7 @@ import {
   BarChart3,
   Award,
   History,
+  Briefcase,
 } from '@/components/UI/LucideIcon';
 import { TOOL_DESCRIPTORS, type ToolKey, type ToolSectionKey } from '@/lib/tools';
 import styles from './ToolsIndex.module.css';
@@ -43,7 +44,13 @@ interface ToolsIndexProps {
   };
 }
 
-const SECTION_ORDER: ReadonlyArray<ToolSectionKey> = ['grow', 'protect', 'target', 'business'];
+const SECTION_ORDER: ReadonlyArray<ToolSectionKey> = [
+  'start',
+  'grow',
+  'protect',
+  'target',
+  'business',
+];
 
 const ICON_MAP = {
   compound: LineChart,
@@ -56,6 +63,7 @@ const ICON_MAP = {
   cardFees: BarChart3,
   idleCash: Award,
   assetHistory: History,
+  briefcase: Briefcase,
 } as const;
 
 export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexProps) {
