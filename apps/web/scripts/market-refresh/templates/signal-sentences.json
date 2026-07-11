@@ -1,0 +1,163 @@
+{
+  "_comment": "P3 Stage-4 signal sentence templates — one per (signal × state) ×4 locales. Slots: {close} {ema20} {sma50} {gapAbs} (absolute % gap, no sign) {rsiCur} {rsiPrev} {stochK} {rsi} {roc12m} {momAbs} {ratio} {ratioEma} {monthName} (anchor month, localized) {positives} {snapshots} {warmupTarget}. Filled from computed.json values by generate.mjs; numbers arrive pre-formatted per locale. Voice: technical-but-calm memo register matching the existing signals.json corpus. CLO-reviewed as a finite set (founder GO 2026-07-11).",
+  "BTC-01": {
+    "ACTIVE": {
+      "en": "{monthName} close ${close} holds about {gapAbs}% above the 20-month EMA (${ema20}) — the intermediate-term structure remains intact.",
+      "pt-BR": "O fechamento de {monthName} em ${close} segue cerca de {gapAbs}% acima da EMA de 20 meses (${ema20}) — a estrutura de médio prazo permanece intacta.",
+      "es": "El cierre de {monthName} en ${close} se mantiene alrededor de un {gapAbs}% por encima de la EMA de 20 meses (${ema20}); la estructura de medio plazo sigue intacta.",
+      "de": "Der {monthName}-Schluss bei ${close} hält sich rund {gapAbs}% über dem 20-Monats-EMA (${ema20}) — die mittelfristige Struktur bleibt intakt."
+    },
+    "INACTIVE": {
+      "en": "{monthName} close ${close} sits about {gapAbs}% below the 20-month EMA (${ema20}) — the intermediate-term structure is broken.",
+      "pt-BR": "O fechamento de {monthName} em ${close} está cerca de {gapAbs}% abaixo da EMA de 20 meses (${ema20}) — a estrutura de médio prazo está rompida.",
+      "es": "El cierre de {monthName} en ${close} está alrededor de un {gapAbs}% por debajo de la EMA de 20 meses (${ema20}); la estructura de medio plazo está rota.",
+      "de": "Der {monthName}-Schluss bei ${close} liegt rund {gapAbs}% unter dem 20-Monats-EMA (${ema20}) — die mittelfristige Struktur ist gebrochen."
+    }
+  },
+  "BTC-02": {
+    "ACTIVE": {
+      "en": "{monthName} close ${close} holds about {gapAbs}% above the 50-month SMA (${sma50}) — the long-term structural trend is intact.",
+      "pt-BR": "O fechamento de {monthName} em ${close} segue cerca de {gapAbs}% acima da SMA de 50 meses (${sma50}) — a tendência estrutural de longo prazo está intacta.",
+      "es": "El cierre de {monthName} en ${close} se mantiene alrededor de un {gapAbs}% por encima de la SMA de 50 meses (${sma50}); la tendencia estructural de largo plazo sigue intacta.",
+      "de": "Der {monthName}-Schluss bei ${close} hält sich rund {gapAbs}% über dem 50-Monats-SMA (${sma50}) — der langfristige Strukturtrend ist intakt."
+    },
+    "INACTIVE": {
+      "en": "{monthName} close ${close} slipped about {gapAbs}% below the 50-month SMA (${sma50}) — the long-term structural trend line is broken.",
+      "pt-BR": "O fechamento de {monthName} em ${close} caiu cerca de {gapAbs}% abaixo da SMA de 50 meses (${sma50}) — a linha estrutural de longo prazo está rompida.",
+      "es": "El cierre de {monthName} en ${close} cayó alrededor de un {gapAbs}% por debajo de la SMA de 50 meses (${sma50}); la línea estructural de largo plazo está rota.",
+      "de": "Der {monthName}-Schluss bei ${close} rutschte rund {gapAbs}% unter den 50-Monats-SMA (${sma50}) — die langfristige Strukturlinie ist gebrochen."
+    }
+  },
+  "BTC-03": {
+    "ACTIVE": {
+      "en": "Monthly RSI improved to {rsiCur} from {rsiPrev} — momentum is turning up.",
+      "pt-BR": "O RSI mensal melhorou para {rsiCur}, vindo de {rsiPrev} — o momentum está virando para cima.",
+      "es": "El RSI mensual mejoró a {rsiCur} desde {rsiPrev}; el impulso está girando al alza.",
+      "de": "Der Monats-RSI verbesserte sich auf {rsiCur} von {rsiPrev} — das Momentum dreht nach oben."
+    },
+    "INACTIVE": {
+      "en": "Monthly RSI eased to {rsiCur} from {rsiPrev} — momentum turned down this month.",
+      "pt-BR": "O RSI mensal recuou para {rsiCur}, vindo de {rsiPrev} — o momentum virou para baixo neste mês.",
+      "es": "El RSI mensual retrocedió a {rsiCur} desde {rsiPrev}; el impulso giró a la baja este mes.",
+      "de": "Der Monats-RSI gab auf {rsiCur} von {rsiPrev} nach — das Momentum drehte in diesem Monat nach unten."
+    }
+  },
+  "BTC-04": {
+    "ACTIVE": {
+      "en": "Monthly Stoch-RSI %K at {stochK} holds above the 10 floor — short-term momentum has not capitulated.",
+      "pt-BR": "O Stoch-RSI mensal (%K) em {stochK} segue acima do piso de 10 — o momentum de curto prazo não capitulou.",
+      "es": "El Stoch-RSI mensual (%K) en {stochK} se mantiene sobre el suelo de 10; el impulso de corto plazo no ha capitulado.",
+      "de": "Der monatliche Stoch-RSI (%K) bei {stochK} hält sich über der 10er-Marke — das kurzfristige Momentum hat nicht kapituliert."
+    },
+    "INACTIVE": {
+      "en": "Monthly Stoch-RSI %K at {stochK} sits below the 10 floor — short-term momentum is washed out.",
+      "pt-BR": "O Stoch-RSI mensal (%K) em {stochK} está abaixo do piso de 10 — o momentum de curto prazo está esgotado.",
+      "es": "El Stoch-RSI mensual (%K) en {stochK} está bajo el suelo de 10; el impulso de corto plazo está agotado.",
+      "de": "Der monatliche Stoch-RSI (%K) bei {stochK} liegt unter der 10er-Marke — das kurzfristige Momentum ist ausgewaschen."
+    }
+  },
+  "MAC-01": {
+    "ACTIVE": {
+      "en": "The broad dollar index at {close} sits below its 20-week EMA ({ema20}) with RSI {rsi} — a softening dollar supports risk assets.",
+      "pt-BR": "O índice amplo do dólar em {close} está abaixo da EMA de 20 semanas ({ema20}), com RSI {rsi} — um dólar mais fraco favorece ativos de risco.",
+      "es": "El índice amplio del dólar en {close} está por debajo de su EMA de 20 semanas ({ema20}), con RSI {rsi}; un dólar más débil favorece a los activos de riesgo.",
+      "de": "Der breite Dollar-Index bei {close} liegt unter seinem 20-Wochen-EMA ({ema20}), RSI {rsi} — ein weicherer Dollar stützt Risikoanlagen."
+    },
+    "INACTIVE": {
+      "en": "The broad dollar index at {close} holds above its 20-week EMA ({ema20}) with RSI {rsi} — a firm dollar keeps the macro backdrop restrictive.",
+      "pt-BR": "O índice amplo do dólar em {close} segue acima da EMA de 20 semanas ({ema20}), com RSI {rsi} — um dólar firme mantém o cenário macro restritivo.",
+      "es": "El índice amplio del dólar en {close} sigue por encima de su EMA de 20 semanas ({ema20}), con RSI {rsi}; un dólar firme mantiene restrictivo el entorno macro.",
+      "de": "Der breite Dollar-Index bei {close} hält sich über seinem 20-Wochen-EMA ({ema20}), RSI {rsi} — ein fester Dollar hält das Makro-Umfeld restriktiv."
+    }
+  },
+  "MAC-02": {
+    "ACTIVE": {
+      "en": "The US 10-year yield at {close}% sits below its 20-week trend ({ema20}%) — easing yields loosen financial conditions.",
+      "pt-BR": "O juro americano de 10 anos em {close}% está abaixo da tendência de 20 semanas ({ema20}%) — juros em queda afrouxam as condições financeiras.",
+      "es": "El rendimiento estadounidense a 10 años en {close}% está por debajo de su tendencia de 20 semanas ({ema20}%); unos rendimientos a la baja relajan las condiciones financieras.",
+      "de": "Die 10-jährige US-Rendite bei {close}% liegt unter ihrem 20-Wochen-Trend ({ema20}%) — nachgebende Renditen lockern die Finanzbedingungen."
+    },
+    "INACTIVE": {
+      "en": "The US 10-year yield at {close}% holds above its 20-week trend ({ema20}%) — yields have not eased yet.",
+      "pt-BR": "O juro americano de 10 anos em {close}% segue acima da tendência de 20 semanas ({ema20}%) — os juros ainda não cederam.",
+      "es": "El rendimiento estadounidense a 10 años en {close}% sigue por encima de su tendencia de 20 semanas ({ema20}%); los rendimientos aún no ceden.",
+      "de": "Die 10-jährige US-Rendite bei {close}% hält sich über ihrem 20-Wochen-Trend ({ema20}%) — die Renditen haben noch nicht nachgegeben."
+    }
+  },
+  "MAC-03": {
+    "ACTIVE": {
+      "en": "US M2 money supply is growing {roc12m}% year-over-year and rose month-over-month — the liquidity backdrop is expanding.",
+      "pt-BR": "A oferta monetária M2 dos EUA cresce {roc12m}% em 12 meses e subiu no mês — o pano de fundo de liquidez está em expansão.",
+      "es": "La masa monetaria M2 de EE. UU. crece un {roc12m}% interanual y subió en el mes; el trasfondo de liquidez se expande.",
+      "de": "Die US-Geldmenge M2 wächst {roc12m}% im Jahresvergleich und legte im Monat zu — das Liquiditätsumfeld expandiert."
+    },
+    "INACTIVE": {
+      "en": "US M2 money supply growth stalled ({roc12m}% year-over-year, softer month-over-month) — the liquidity tailwind is missing.",
+      "pt-BR": "O crescimento do M2 dos EUA estagnou ({roc12m}% em 12 meses, mais fraco no mês) — falta o vento de cauda da liquidez.",
+      "es": "El crecimiento del M2 de EE. UU. se estancó ({roc12m}% interanual, más débil en el mes); falta el viento de cola de la liquidez.",
+      "de": "Das Wachstum der US-Geldmenge M2 stockt ({roc12m}% im Jahresvergleich, im Monat schwächer) — der Liquiditäts-Rückenwind fehlt."
+    }
+  },
+  "ETF-01": {
+    "ACTIVE": {
+      "en": "Spot-ETF creations outpaced redemptions in {positives} of the last 4 weeks (share-count method) — institutional demand is flowing in.",
+      "pt-BR": "As emissões dos ETFs à vista superaram os resgates em {positives} das últimas 4 semanas (método de cotas) — a demanda institucional está entrando.",
+      "es": "Las creaciones de los ETF al contado superaron los reembolsos en {positives} de las últimas 4 semanas (método de participaciones); la demanda institucional está entrando.",
+      "de": "Bei den Spot-ETFs überwogen die Anteilsschöpfungen in {positives} der letzten 4 Wochen (Anteilszahl-Methode) — institutionelle Nachfrage fließt zu."
+    },
+    "INACTIVE": {
+      "en": "Spot-ETF flows were positive in only {positives} of the last 4 weeks (share-count method) — institutional demand is not confirming.",
+      "pt-BR": "Os fluxos dos ETFs à vista foram positivos em apenas {positives} das últimas 4 semanas (método de cotas) — a demanda institucional não confirma.",
+      "es": "Los flujos de los ETF al contado fueron positivos solo en {positives} de las últimas 4 semanas (método de participaciones); la demanda institucional no confirma.",
+      "de": "Die Spot-ETF-Flüsse waren nur in {positives} der letzten 4 Wochen positiv (Anteilszahl-Methode) — institutionelle Nachfrage bestätigt nicht."
+    },
+    "UNAVAILABLE": {
+      "en": "The ETF flow ledger is warming up ({snapshots} of {warmupTarget} weekly share-count snapshots recorded) — scored unavailable until four full weekly flows exist. No points either way.",
+      "pt-BR": "O registro de fluxos de ETF está em aquecimento ({snapshots} de {warmupTarget} fotografias semanais de cotas registradas) — pontuado como indisponível até existirem quatro fluxos semanais completos. Sem pontos em nenhuma direção.",
+      "es": "El registro de flujos de ETF está en calentamiento ({snapshots} de {warmupTarget} instantáneas semanales de participaciones registradas); se puntúa como no disponible hasta que existan cuatro flujos semanales completos. Sin puntos en ningún sentido.",
+      "de": "Das ETF-Fluss-Register läuft sich warm ({snapshots} von {warmupTarget} wöchentlichen Anteils-Momentaufnahmen erfasst) — bis vier volle Wochenflüsse vorliegen als nicht verfügbar gewertet. Keine Punkte in keine Richtung."
+    }
+  },
+  "REL-01": {
+    "ACTIVE": {
+      "en": "The BTC/Gold ratio at {ratio} holds above its 20-week trend ({ratioEma}) — Bitcoin is outpacing the defensive asset.",
+      "pt-BR": "A razão BTC/Ouro em {ratio} segue acima da tendência de 20 semanas ({ratioEma}) — o Bitcoin supera o ativo defensivo.",
+      "es": "La ratio BTC/Oro en {ratio} se mantiene sobre su tendencia de 20 semanas ({ratioEma}); Bitcoin supera al activo defensivo.",
+      "de": "Das BTC/Gold-Verhältnis bei {ratio} hält sich über seinem 20-Wochen-Trend ({ratioEma}) — Bitcoin läuft dem defensiven Anlagegut voraus."
+    },
+    "INACTIVE": {
+      "en": "The BTC/Gold ratio at {ratio} sits below its 20-week trend ({ratioEma}) — the defensive asset is winning this stretch.",
+      "pt-BR": "A razão BTC/Ouro em {ratio} está abaixo da tendência de 20 semanas ({ratioEma}) — o ativo defensivo vence este trecho.",
+      "es": "La ratio BTC/Oro en {ratio} está por debajo de su tendencia de 20 semanas ({ratioEma}); el activo defensivo gana este tramo.",
+      "de": "Das BTC/Gold-Verhältnis bei {ratio} liegt unter seinem 20-Wochen-Trend ({ratioEma}) — das defensive Anlagegut gewinnt diese Phase."
+    }
+  },
+  "REL-02": {
+    "ACTIVE": {
+      "en": "The BTC/Nasdaq ratio at {ratio} holds above its 20-week trend ({ratioEma}) — Bitcoin leads risk assets.",
+      "pt-BR": "A razão BTC/Nasdaq em {ratio} segue acima da tendência de 20 semanas ({ratioEma}) — o Bitcoin lidera os ativos de risco.",
+      "es": "La ratio BTC/Nasdaq en {ratio} se mantiene sobre su tendencia de 20 semanas ({ratioEma}); Bitcoin lidera los activos de riesgo.",
+      "de": "Das BTC/Nasdaq-Verhältnis bei {ratio} hält sich über seinem 20-Wochen-Trend ({ratioEma}) — Bitcoin führt die Risikoanlagen an."
+    },
+    "INACTIVE": {
+      "en": "The BTC/Nasdaq ratio at {ratio} sits below its 20-week trend ({ratioEma}) — Bitcoin lags the broader risk complex.",
+      "pt-BR": "A razão BTC/Nasdaq em {ratio} está abaixo da tendência de 20 semanas ({ratioEma}) — o Bitcoin fica atrás do complexo de risco.",
+      "es": "La ratio BTC/Nasdaq en {ratio} está por debajo de su tendencia de 20 semanas ({ratioEma}); Bitcoin va rezagado frente al complejo de riesgo.",
+      "de": "Das BTC/Nasdaq-Verhältnis bei {ratio} liegt unter seinem 20-Wochen-Trend ({ratioEma}) — Bitcoin hinkt dem breiteren Risikokomplex hinterher."
+    }
+  },
+  "REL-03": {
+    "ACTIVE": {
+      "en": "The Nasdaq at {close} holds above its 20-week trend ({ema20}) — the wider risk market is structurally healthy.",
+      "pt-BR": "O Nasdaq em {close} segue acima da tendência de 20 semanas ({ema20}) — o mercado de risco mais amplo está estruturalmente saudável.",
+      "es": "El Nasdaq en {close} se mantiene sobre su tendencia de 20 semanas ({ema20}); el mercado de riesgo más amplio está estructuralmente sano.",
+      "de": "Der Nasdaq bei {close} hält sich über seinem 20-Wochen-Trend ({ema20}) — der breitere Risikomarkt ist strukturell gesund."
+    },
+    "INACTIVE": {
+      "en": "The Nasdaq at {close} sits below its 20-week trend ({ema20}) — the wider risk market has lost its structural footing.",
+      "pt-BR": "O Nasdaq em {close} está abaixo da tendência de 20 semanas ({ema20}) — o mercado de risco mais amplo perdeu a base estrutural.",
+      "es": "El Nasdaq en {close} está por debajo de su tendencia de 20 semanas ({ema20}); el mercado de riesgo más amplio perdió su base estructural.",
+      "de": "Der Nasdaq bei {close} liegt unter seinem 20-Wochen-Trend ({ema20}) — der breitere Risikomarkt hat seinen strukturellen Halt verloren."
+    }
+  }
+}
