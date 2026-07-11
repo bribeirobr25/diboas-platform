@@ -68,6 +68,10 @@
    chips share one hue inside a section and differ across sections (the canon's
    color-block pattern). Cards themselves stay byte-identical within a section;
    this is navigation aid, never option-steering (veto rows 13/17 untouched). */
+.section[data-section='start'] {
+  --tool-section-tint: var(--color-coral-50);
+  --tool-section-ink: var(--color-coral-700);
+}
 .section[data-section='grow'] {
   --tool-section-tint: var(--color-teal-50);
   --tool-section-ink: var(--text-brand-accessible);

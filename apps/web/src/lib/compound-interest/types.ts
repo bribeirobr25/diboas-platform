@@ -9,13 +9,7 @@ import type { SupportedLocale } from '@diboas/i18n/config';
 import type { ScenarioKey } from './scenarios';
 
 export type Cadence =
-  | 'oneTime'
-  | 'daily'
-  | 'weekly'
-  | 'monthly'
-  | 'quarterly'
-  | 'semiAnnual'
-  | 'yearly';
+  'oneTime' | 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'semiAnnual' | 'yearly';
 
 export type SeriesKey = ScenarioKey | 'bank';
 

@@ -50,6 +50,7 @@ export const SUPPORTED_NAMESPACES = [
   'tools-goal-savings',
   'tools-idle-cash',
   'tools-inflation-impact',
+  'tools-money-jobs',
   'tools-retirement',
   'tools-shared',
   'tools-time-to-target',

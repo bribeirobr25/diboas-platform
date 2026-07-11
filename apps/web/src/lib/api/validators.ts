@@ -17,6 +17,7 @@ const KNOWN_SOURCES = new Set([
   'interactive_demo',
   'dream_mode',
   'calculator',
+  'tool_money_jobs',
   'referral',
   'direct',
 ]);

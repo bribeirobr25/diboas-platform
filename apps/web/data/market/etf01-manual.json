@@ -1,0 +1,8 @@
+{
+  "_comment": "ETF-01 manual input (P2 Stage 1 — plan §B: 'ETF-01 stays a manual input file; the pipeline consumes it and marks it UNAVAILABLE automatically when expired'). state is one of ACTIVE | INACTIVE | UNAVAILABLE per doc 02 §10.1. Refresh this file each cycle until the P4 founder decision lands a durable source (Polygon shares-outstanding route tested 2026-07-11). The expiry is deliberately short: a stale institutional-demand read must degrade to UNAVAILABLE, never silently persist.",
+  "state": "UNAVAILABLE",
+  "detail": "ETF flows source unavailable this cycle: CoinGlass spot-ETF routes 404 (page structure changed) and the free-tier API excludes etf/bitcoin/flow-history (401); Farside remains Cloudflare-blocked (not evaded, per sourcing policy). Scored UNAVAILABLE per doc 02 §10.1 — effective ceiling 12/14 until the P4 route lands.",
+  "entered_by": "claude (per data-status.json v3 state, founder-reviewed refresh 2026-07-11)",
+  "entered_at": "2026-07-11T16:00:00Z",
+  "expires_at": "2026-07-18T23:59:59Z"
+}

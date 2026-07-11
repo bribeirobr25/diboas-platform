@@ -2,7 +2,7 @@
   "BTC": {
     "basis": "price_only",
     "source": "coinmetrics:btc-PriceUSD-daily-2010-07-to-2014-08 + yahoo:BTC-USD-2014-09-onwards",
-    "note": "spot crypto; no dividends. Backfilled 2026-05-23: monthly OHLC for 2010-07 → 2014-08 derived from CoinMetrics community-tier daily PriceUSD (open=first-day, close=last-day, high=max, low=min). Yahoo Finance covers 2014-09 onwards. Splice point validated (2014-08-31 CoinMetrics close $478.51 → 2014-09-01 Yahoo open $465.86, 2.6% day-to-day drop is within normal BTC volatility).",
+    "note": "spot crypto; no dividends. Backfilled 2026-05-23: monthly OHLC for 2010-07 \u2192 2014-08 derived from CoinMetrics community-tier daily PriceUSD (open=first-day, close=last-day, high=max, low=min). Yahoo Finance covers 2014-09 onwards. Splice point validated (2014-08-31 CoinMetrics close $478.51 \u2192 2014-09-01 Yahoo open $465.86, 2.6% day-to-day drop is within normal BTC volatility).",
     "months": [
       {
         "ym": "2010-07-01",
@@ -2878,10 +2878,18 @@
       {
         "ym": "2026-05-01",
         "open": 721.25,
-        "high": 749.53,
+        "high": 758.08,
         "low": 714.99,
-        "close": 742.72,
-        "closePriceOnly": 745.64
+        "close": 754.5361,
+        "closePriceOnly": 756.48
+      },
+      {
+        "ym": "2026-06-01",
+        "open": 755.36,
+        "high": 760.4,
+        "low": 716.58,
+        "close": 746.77,
+        "closePriceOnly": 746.77
       }
     ]
   },
@@ -4413,10 +4421,18 @@
       {
         "ym": "2026-05-01",
         "open": 669.16,
-        "high": 722.03,
+        "high": 741.63,
         "low": 668.8,
-        "close": 714.51,
-        "closePriceOnly": 717.54
+        "close": 737.4995,
+        "closePriceOnly": 738.31
+      },
+      {
+        "ym": "2026-06-01",
+        "open": 737.04,
+        "high": 748.65,
+        "low": 686.37,
+        "close": 736.4,
+        "closePriceOnly": 736.4
       }
     ]
   },
@@ -5804,17 +5820,25 @@
       {
         "ym": "2026-05-01",
         "open": 196.9,
-        "high": 203.17,
+        "high": 205.65,
         "low": 194.92,
-        "close": 202.07,
-        "closePriceOnly": 202.54
+        "close": 203.57,
+        "closePriceOnly": 204.93
+      },
+      {
+        "ym": "2026-06-01",
+        "open": 204.37,
+        "high": 206.33,
+        "low": 196.71,
+        "close": 202.64,
+        "closePriceOnly": 202.64
       }
     ]
   },
   "GOLD": {
     "basis": "price_only",
     "source": "yahoo:GLD",
-    "note": "GLD adjusted close ≈ gold spot",
+    "note": "GLD adjusted close \u2248 gold spot",
     "months": [
       {
         "ym": "2010-07-01",
@@ -7150,8 +7174,15 @@
         "ym": "2026-05-01",
         "open": 421.41,
         "high": 437.42,
-        "low": 409.88,
-        "close": 416.99
+        "low": 404.3,
+        "close": 417.12
+      },
+      {
+        "ym": "2026-06-01",
+        "open": 409.86,
+        "high": 414.4,
+        "low": 363.32,
+        "close": 368.38
       }
     ]
   },
@@ -8685,8 +8716,16 @@
         "open": 85.5,
         "high": 86.29,
         "low": 82.77,
-        "close": 83.9102,
-        "closePriceOnly": 84.68
+        "close": 85.1097,
+        "closePriceOnly": 85.76
+      },
+      {
+        "ym": "2026-06-01",
+        "open": 84.93,
+        "high": 87.79,
+        "low": 84.62,
+        "close": 86.102,
+        "closePriceOnly": 86.42
       }
     ]
   },
@@ -10029,8 +10068,15 @@
         "ym": "2026-05-01",
         "open": 187318,
         "high": 188674,
-        "low": 173544,
-        "close": 177650
+        "low": 172686,
+        "close": 173788
+      },
+      {
+        "ym": "2026-06-01",
+        "open": 173790,
+        "high": 174894,
+        "low": 167658,
+        "close": 172024
       }
     ]
   },
@@ -11378,10 +11424,17 @@
       },
       {
         "ym": "2026-05-01",
-        "open": 24768.4902,
-        "high": 24943.75,
-        "low": 24676.2695,
-        "close": 24888.5605
+        "open": 24274.5,
+        "high": 25438.4102,
+        "low": 23797.3301,
+        "close": 25104.6992
+      },
+      {
+        "ym": "2026-06-01",
+        "open": 25083.2402,
+        "high": 25362.8301,
+        "low": 24043.5195,
+        "close": 24995.8105
       }
     ]
   }

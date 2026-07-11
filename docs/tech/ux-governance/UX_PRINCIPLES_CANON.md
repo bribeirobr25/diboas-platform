@@ -4,15 +4,16 @@
 > **Provenance:** distilled from **seven** YouTube UX/UI teardown videos captured to `docs/ui-ux/ux-tips-{0..6}/` (transcript + screenshots, captured July 2026). Source files are retained as optional illustration; **this document is self-contained and remains valid if they are removed.** Sponsor/marketing content in the sources (playbook and tool promotions) is excluded as noise.
 >
 > **Source map (authoritative — Part numbers are NOT directory numbers):**
-> | Part | Source directory | Topic |
-> |---|---|---|
-> | 1 | `ux-tips-1` | Visual craft |
-> | 2 | `ux-tips-0` | Conversion psychology (6 principles) |
-> | 3 | `ux-tips-3` | Advanced UX |
-> | 4 | `ux-tips-4` | Bottom navigation |
-> | 5 | `ux-tips-5` | Product-page conversion |
-> | 6 | `ux-tips-6` | Three A/B teardowns |
-> | 7 | `ux-tips-2` | UI patterns (cards, interaction cost, thumb zone, empty states, visual cues) |
+>
+> | Part | Source directory | Topic                                                                        |
+> | ---- | ---------------- | ---------------------------------------------------------------------------- |
+> | 1    | `ux-tips-1`      | Visual craft                                                                 |
+> | 2    | `ux-tips-0`      | Conversion psychology (6 principles)                                         |
+> | 3    | `ux-tips-3`      | Advanced UX                                                                  |
+> | 4    | `ux-tips-4`      | Bottom navigation                                                            |
+> | 5    | `ux-tips-5`      | Product-page conversion                                                      |
+> | 6    | `ux-tips-6`      | Three A/B teardowns                                                          |
+> | 7    | `ux-tips-2`      | UI patterns (cards, interaction cost, thumb zone, empty states, visual cues) |
 >
 > **Verification note (2026-07-05):** transcripts for all seven sets were read in full from disk. Screenshots were visually inspected for sets `ux-tips-0` (via founder paste), `-1`, `-3`, `-4`, `-5`, `-6`. The eight screenshots in **`ux-tips-2` could not be rendered for inspection**; Part 7 is derived from that set's transcript only, and its visual specifics are correspondingly less detailed. Flagged rather than papered over.
 > **Authority:** subordinate to `docs/full-view/BRAND_POSITIONING.md` §Voice & Tone → The Writing System (canonical voice + Lens 4) and to `FEES.md` / CLO gates. Where a principle here conflicts with those, they win.

@@ -29,6 +29,8 @@ const PAGE_PRIORITIES: Record<string, number> = {
   '/learn/compound-interest': 0.8,
   // Phase 6C — Money Tools (Tier 1)
   '/tools': 0.8,
+  // Tool #11 (2026-07-11) — Money Jobs entry point
+  '/tools/money-jobs': 0.8,
   '/tools/compound-interest': 0.8,
   '/tools/retirement': 0.8,
   '/tools/emergency-fund': 0.8,
@@ -42,7 +44,7 @@ const PAGE_PRIORITIES: Record<string, number> = {
   '/tools/idle-cash': 0.8,
   // Phase E (2026-05-16) — Asset history retrospective tool
   '/tools/asset-history': 0.8,
-  // Iteration 4 (2026-05-15) — Adelaide Daily (/market)
+  // Iteration 4 (2026-05-15) — Adelaide Market (/market)
   // Priority 0.7 places it alongside primary user destinations (/help,
   // /security) but below feature-tree roots (0.8 tools, 0.9 b2b).
   '/market': 0.7,
@@ -79,6 +81,8 @@ const PATH_TO_OG_KEY: Record<string, string> = {
   // these stable keys ensure the sitemap is correct now and the renderer can
   // attach bespoke art later without sitemap churn.
   '/tools': 'tools',
+  // Tool #11 — Money Jobs OG key
+  '/tools/money-jobs': 'tools-money-jobs',
   '/tools/compound-interest': 'tools-compound-interest',
   '/tools/retirement': 'tools-retirement',
   '/tools/emergency-fund': 'tools-emergency-fund',
@@ -92,7 +96,7 @@ const PATH_TO_OG_KEY: Record<string, string> = {
   '/tools/idle-cash': 'tools-idle-cash',
   // Phase E — Asset history OG key
   '/tools/asset-history': 'tools-asset-history',
-  // Iteration 4 §3.6 — Adelaide Daily. Path B static OG (§6.3 locked):
+  // Iteration 4 §3.6 — Adelaide Market. Path B static OG (§6.3 locked):
   // registered in `lib/og/templates.tsx` PAGE_CONFIGS.market; renders via
   // the shared `/api/og/[page]/route.tsx` (zero new chunks).
   '/market': 'market',

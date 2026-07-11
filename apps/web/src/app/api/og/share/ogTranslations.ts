@@ -56,6 +56,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     },
     toolResult: {
       toolName: {
+        'money-jobs': 'Money Jobs',
         'currency-depreciation': 'Currency depreciation',
         'idle-cash': 'Idle cash',
         'asset-history': 'Asset history',
@@ -63,6 +64,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
       },
       headline: 'What my money could really earn',
       headlineByTool: {
+        'money-jobs': 'Every amount needs a job',
         'asset-history': 'What it would be worth today',
         'card-fees': 'What I could save',
       },
@@ -88,6 +90,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     },
     toolResult: {
       toolName: {
+        'money-jobs': 'Dinheiro com Funcao',
         'currency-depreciation': 'Depreciacao cambial',
         'idle-cash': 'Dinheiro parado',
         'asset-history': 'Historico de ativos',
@@ -95,6 +98,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
       },
       headline: 'O que meu dinheiro realmente renderia',
       headlineByTool: {
+        'money-jobs': 'Cada real precisa de uma funcao',
         'asset-history': 'Quanto valeria hoje',
         'card-fees': 'Quanto eu poderia economizar',
       },
@@ -120,6 +124,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     },
     toolResult: {
       toolName: {
+        'money-jobs': 'Dinero con Funcion',
         'currency-depreciation': 'Depreciacion monetaria',
         'idle-cash': 'Dinero parado',
         'asset-history': 'Historial de activos',
@@ -127,6 +132,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
       },
       headline: 'Lo que mi dinero realmente ganaria',
       headlineByTool: {
+        'money-jobs': 'Cada euro necesita una funcion',
         'asset-history': 'Cuanto valdria hoy',
         'card-fees': 'Cuanto podria ahorrar',
       },
@@ -152,6 +158,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     },
     toolResult: {
       toolName: {
+        'money-jobs': 'Geld mit Aufgabe',
         'currency-depreciation': 'Wahrungsabwertung',
         'idle-cash': 'Ungenutztes Geld',
         'asset-history': 'Anlage-Historie',
@@ -159,6 +166,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
       },
       headline: 'Was mein Geld wirklich verdienen konnte',
       headlineByTool: {
+        'money-jobs': 'Jeder Euro braucht eine Aufgabe',
         'asset-history': 'Was es heute wert ware',
         'card-fees': 'Was ich sparen konnte',
       },

@@ -1,18 +1,18 @@
 {
   "seo": {
-    "title": "Adelaide Daily",
+    "title": "Adelaide Market",
     "description": "Ruhige Makro-Intelligenz für Bitcoin. Verstehe das Umfeld, nicht die nächste Kerze.",
-    "ogTitle": "Adelaide Daily",
+    "ogTitle": "Adelaide Market",
     "ogDescription": "Ruhige Makro-Intelligenz für Bitcoin. Verstehe das Umfeld, nicht die nächste Kerze."
   },
   "hero": {
-    "title": "Adelaide Daily",
+    "title": "Adelaide Market",
     "subtitle": "Ruhige Makro-Intelligenz für Bitcoin.",
     "kicker": "Makro-Umfeld-Score"
   },
   "comingSoon": {
     "title": "Demnächst verfügbar.",
-    "body": "Adelaide Daily wird gerade gebaut. Es wird dir helfen, das Bitcoin-Makro-Umfeld ohne das Rauschen zu verstehen.",
+    "body": "Adelaide Market wird gerade gebaut. Es wird dir helfen, das Bitcoin-Makro-Umfeld ohne das Rauschen zu verstehen.",
     "backHome": "Zurück zur Startseite"
   },
   "dashboard": {
@@ -57,11 +57,11 @@
   "cta": {
     "cadence": "Wöchentlich aktualisiert",
     "headline": "Ruhige Einordnung, jede Woche.",
-    "body": "Adelaide Daily ist kostenlos und wird wöchentlich aktualisiert. Tritt der Warteliste bei, um beim Start von diBoaS dabei zu sein.",
+    "body": "Adelaide Market ist kostenlos und wird wöchentlich aktualisiert. Tritt der Warteliste bei, um beim Start von diBoaS dabei zu sein.",
     "waitlist": "Der Warteliste beitreten",
     "share": "Adelaide teilen",
     "shareCopied": "Link kopiert",
-    "shareText": "Adelaide Daily: ruhige Makro-Einordnung für Bitcoin."
+    "shareText": "Adelaide Market: ruhige Makro-Einordnung für Bitcoin."
   },
   "fallback": {
     "outageTitle": "Live-Daten vorübergehend nicht verfügbar",

@@ -102,6 +102,15 @@ export const CURRENCY_DEPRECIATION_AMOUNT_BOUNDS: NumberInputBounds = {
 };
 
 /** Currency-Depreciation `years`. Forward-mode horizon. UI: 1–40. */
+/** Money Jobs input bounds (tool #11). Personal money inputs share the 1M/mo
+ * ceiling; business cash allows 100M (startup treasuries). */
+export const MONEY_JOBS_INCOME_BOUNDS: NumberInputBounds = { min: 1, max: 1_000_000 };
+export const MONEY_JOBS_ESSENTIALS_BOUNDS: NumberInputBounds = { min: 0, max: 1_000_000 };
+export const MONEY_JOBS_SAVINGS_BOUNDS: NumberInputBounds = { min: 0, max: 10_000_000 };
+export const MONEY_JOBS_REVENUE_BOUNDS: NumberInputBounds = { min: 0, max: 10_000_000 };
+export const MONEY_JOBS_BURN_BOUNDS: NumberInputBounds = { min: 1, max: 10_000_000 };
+export const MONEY_JOBS_CASH_BOUNDS: NumberInputBounds = { min: 0, max: 100_000_000 };
+
 export const CURRENCY_DEPRECIATION_YEARS_BOUNDS: NumberInputBounds = {
   min: 1,
   max: 40,

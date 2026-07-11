@@ -37,6 +37,7 @@ import {
   RefreshCw,
   Share2,
   Info,
+  Briefcase,
   type LucideIcon as LucideIconType,
 } from 'lucide-react';
 
@@ -81,6 +82,7 @@ export {
   RefreshCw,
   Share2,
   Info,
+  Briefcase,
 };
 
 export type { LucideIconType };

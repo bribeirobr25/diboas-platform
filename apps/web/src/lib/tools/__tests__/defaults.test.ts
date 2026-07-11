@@ -1,5 +1,5 @@
 /**
- * Phase 7 §7.2 — Defaults pinning tests for all 10 tools.
+ * Phase 7 §7.2 — Defaults pinning tests for all 11 tools.
  *
  * Pre-Phase 7, the audit-bundle vectors (PT1/PT3 product-truth gates) tested
  * the ENGINE with explicit inputs — not the page defaults. If
@@ -20,6 +20,7 @@ import {
   EMERGENCY_FUND_DEFAULTS,
   IDLE_CASH_DEFAULTS,
   INFLATION_IMPACT_DEFAULTS,
+  MONEY_JOBS_DEFAULTS,
   TIME_TO_TARGET_DEFAULTS,
 } from '../constants';
 
@@ -122,5 +123,27 @@ describe('ASSET_HISTORY_DEFAULTS', () => {
     expect(ASSET_HISTORY_DEFAULTS.contribution['pt-BR']).toBe(500);
     expect(ASSET_HISTORY_DEFAULTS.contribution.es).toBe(100);
     expect(ASSET_HISTORY_DEFAULTS.contribution.de).toBe(100);
+  });
+});
+
+describe('MONEY_JOBS_DEFAULTS — tool #11 (attestation 2026-07-10)', () => {
+  it('personal income per locale (US Census-anchored en=6000; pt-BR nominal BRL)', () => {
+    expect(MONEY_JOBS_DEFAULTS.personal.monthlyIncome.en).toBe(6000);
+    expect(MONEY_JOBS_DEFAULTS.personal.monthlyIncome['pt-BR']).toBe(6000);
+    expect(MONEY_JOBS_DEFAULTS.personal.monthlyIncome.es).toBe(2800);
+    expect(MONEY_JOBS_DEFAULTS.personal.monthlyIncome.de).toBe(3200);
+  });
+
+  it('personal savings default to 0 (no presumed cushion)', () => {
+    expect(MONEY_JOBS_DEFAULTS.personal.currentSavings.en).toBe(0);
+    expect(MONEY_JOBS_DEFAULTS.personal.currentSavings['pt-BR']).toBe(0);
+  });
+
+  it('business defaults mirror the campaign vignette (pt-BR 600k cash / 100k burn)', () => {
+    expect(MONEY_JOBS_DEFAULTS.business.cashOnHand['pt-BR']).toBe(600000);
+    expect(MONEY_JOBS_DEFAULTS.business.monthlyBurn['pt-BR']).toBe(100000);
+    expect(MONEY_JOBS_DEFAULTS.business.monthlyRevenue['pt-BR']).toBe(120000);
+    expect(MONEY_JOBS_DEFAULTS.business.cashOnHand.en).toBe(250000);
+    expect(MONEY_JOBS_DEFAULTS.business.monthlyBurn.en).toBe(25000);
   });
 });

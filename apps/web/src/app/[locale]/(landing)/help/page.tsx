@@ -90,8 +90,7 @@ export default async function HelpPage({ params }: LocalePageProps) {
   );
 
   const helpMessages = pageMessages['landing-help'] as unknown as
-    | Record<string, unknown>
-    | undefined;
+    Record<string, unknown> | undefined;
   const topics = (helpMessages?.topics ?? {}) as Record<
     string,
     { questions?: Record<string, { question?: string; answer?: string }> }

@@ -11,7 +11,7 @@ diBoaS is a goal-driven wealth building platform — your side-pocket for wealth
 - **Framework:** Next.js 16 (App Router, Turbopack)
 - **Language:** TypeScript (strict mode)
 - **UI:** React 18, Tailwind CSS 3
-- **Monorepo:** Turborepo + pnpm 8.15 workspaces
+- **Monorepo:** Turborepo + pnpm 10.33 workspaces (supply-chain hardened: script-blocking allowlist + 3-day `minimumReleaseAge` — see `docs/audit/SUPPLY_CHAIN_SPRINT_2026-07-11.md`)
 - **i18n:** react-intl (4 locales: en, pt-BR, es, de)
 - **Testing:** Vitest, @vitest/coverage-v8, Lighthouse CI, pa11y
 - **Monitoring:** Sentry (error tracking + session replay), PostHog (product analytics), GA4 (traffic analytics), web-vitals
@@ -55,7 +55,7 @@ apps/web/src/app/
     (landing)/             # All user-facing pages (single route group)
       about/               # About us — founder story, mission, beliefs
       business/            # B2B landing page
-      market/        # Adelaide Daily — BTC macro-regime dashboard (placeholder; host surface for the separate diboas-analytics product, spec'd in docs/mvp/)
+      market/        # Adelaide Market — BTC macro-regime dashboard (placeholder; host surface for the separate diboas-analytics product, spec'd in docs/mvp/)
       delete-confirm/      # GDPR account deletion confirmation
       demo/                # Interactive financial demo (noindex)
       dream-mode/          # Goal calculator simulation (noindex)
@@ -250,7 +250,7 @@ The full register of locked-in implementation decisions (bundler / Turbopack, pr
 
 - Reference locale: `en` (source of truth)
 - Translations: `packages/i18n/translations/{locale}/`
-- **33 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the investor vertical (`investor` + `investor-docs`), the demo + dream flows, and the `tools-*` calculator suite.
+- **34 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the investor vertical (`investor` + `investor-docs`), the demo + dream flows, and the `tools-*` calculator suite.
 - Client/server split exports to avoid bundling React on server
 - All new user-facing strings must be added to all 4 locales
 

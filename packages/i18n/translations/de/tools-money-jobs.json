@@ -1,0 +1,135 @@
+{
+  "seo": {
+    "title": "Geld mit Aufgabe Rechner — jeder Betrag braucht eine Aufgabe",
+    "description": "Kostenloser Rechner: Gib jedem Teil deines Monatsgelds eine Aufgabe. Sieh, was bereit bleibt, was dich schützt und was arbeiten kann, bevor sich etwas bewegt."
+  },
+  "hero": {
+    "kicker": "GELD MIT AUFGABE",
+    "headline": "Jeder Euro braucht eine Aufgabe.",
+    "subtitle": "Trag ein, was reinkommt. Sieh, was bereit bleibt, was dich schützt und was arbeiten kann, bevor sich etwas bewegt."
+  },
+  "landing": {
+    "cardTitle": "Geld mit Aufgabe",
+    "cardTagline": "Welche Aufgabe hat jeder Teil deines Geldes?"
+  },
+  "mode": {
+    "ariaLabel": "Wähle, für wen das ist",
+    "personal": "Für dich",
+    "business": "Für dein Unternehmen"
+  },
+  "inputs": {
+    "incomeLabel": "Monatliches Einkommen (netto)",
+    "essentialsLabel": "Essenzielles im Monat",
+    "essentialsHelp": "Für dein Land geschätzt. Passe es an deine Realität an.",
+    "savingsLabel": "Notgroschen heute",
+    "savingsHelp": "Optional. Was du schon zur Seite gelegt hast.",
+    "revenueLabel": "Monatlicher Umsatz",
+    "revenueHelp": "Noch kein Umsatz? Lass 0 stehen; das Kapital gehört in die Kasse.",
+    "burnLabel": "Monatlicher Burn",
+    "burnHelp": "Gehälter. Miete. Steuern. Lieferanten. Eine Zahl.",
+    "cashLabel": "Verfügbare Kasse"
+  },
+  "headline": {
+    "kicker": "DIE AUFTEILUNG",
+    "personalSuffix": "deines Monats hat noch keine Aufgabe.",
+    "businessSuffix": "liegt über deinem Boden, ohne feste Regel."
+  },
+  "costLine": {
+    "personal": "Ohne Aufgabe verliert dieser Betrag über {years} Jahre rund {cost} an Kaufkraft durch Inflation.",
+    "business": "Ohne Regel verliert dieser Überschuss über {years} Jahre rund {cost} an Kaufkraft durch Inflation."
+  },
+  "disclaimer": "Eine Aufteilung zum Lernen, keine Finanzberatung. Deine Zahlen, deine Entscheidung.",
+  "jobs": {
+    "floor": {
+      "label": "Boden",
+      "meaning": "Geld mit fester Aufgabe: Miete, Essen, Rechnungen."
+    },
+    "cushion": {
+      "label": "Polster",
+      "meaning": "Vorschlag dieses Monats Richtung Ziel von {target}. Du hast {current}."
+    },
+    "working": {
+      "label": "Arbeitendes Geld",
+      "meaning": "Frei zum Arbeiten, sobald Boden und Polster stehen."
+    },
+    "operatingFloor": {
+      "label": "Operativer Boden",
+      "meaning": "Was bereit bleiben muss: rund 3 Monate Burn."
+    },
+    "runway": {
+      "label": "Runway",
+      "value": "{months} Monate",
+      "meaning": "Bei deinem aktuellen Netto-Burn."
+    },
+    "coverage": {
+      "label": "Deckung",
+      "value": "{months} Monate",
+      "meaning": "Falls der Umsatz morgen stoppt. Heute deckt der Umsatz deinen Burn."
+    },
+    "excess": {
+      "label": "Überschuss",
+      "meaning": "Kasse über dem Boden, die auf eine Regel wartet."
+    }
+  },
+  "band": {
+    "ideal": "Ideal",
+    "maximum": "Maximum",
+    "explainer": "Warum weniger als das Maximum? Spielraum gehört zum Plan."
+  },
+  "dignity": {
+    "headline": "Diesen Monat ist die Aufgabe deines Geldes, dich zu tragen.",
+    "body": "Ohne schlechtes Gewissen. Das Essenzielle kommt zuerst; die Aufteilung kann auf einen leichteren Monat warten.",
+    "cta": "Sieh, wie ein Notgroschen anfängt"
+  },
+  "runway": {
+    "headline": "Gerade jetzt ist die Aufgabe deiner Kasse der Runway.",
+    "body": "Rund {months} Monate bei deinem aktuellen Burn. Dein Boden liegt bei {floor}. Schütze das zuerst; den Überschuss arbeiten zu lassen kann warten, bis der Runway komfortabel ist."
+  },
+  "share": {
+    "title": "Geld mit Aufgabe",
+    "text": "Meine Aufteilung: {value} hatte noch keine Aufgabe. Jeder Betrag braucht eine.",
+    "cta": "Deine Aufteilung teilen",
+    "copied": "Link kopiert"
+  },
+  "gate": {
+    "ariaLabel": "Deinen vollständigen Plan freischalten",
+    "title": "Das ist die Aufteilung. Der Plan steckt in den Details.",
+    "bullets": {
+      "timeline": "Wann dein Polster sein Ziel erreicht",
+      "projections": "Was dein arbeitendes Geld in 5 und 10 Jahren werden könnte",
+      "runway": "Deine Runway-Einschätzung und was sie schützt",
+      "nextSteps": "Der nächste Schritt für jede Aufgabe"
+    },
+    "emailPlaceholder": "Deine E-Mail",
+    "gdprLabel": "Ich bin einverstanden, E-Mails von diBoaS zu erhalten, und akzeptiere die Datenschutzerklärung.",
+    "cta": "Meinen ganzen Plan sehen",
+    "ctaLoading": "Einen Moment",
+    "finePrint": "Der Wartelisten-Beitritt schaltet ihn frei. Kein Spam: Es ist dieselbe Liste wie überall sonst. Der Beitritt bewegt kein Geld.",
+    "successLine": "Du bist auf der Liste, Position {position}.",
+    "referralLinkLabel": "Dein Einladungslink"
+  },
+  "plan": {
+    "title": "Dein Plan",
+    "cushionFunded": "Dein Polster ist voll. Alles über dem Boden kann arbeiten.",
+    "cushionTimeline": "Mit dem Vorschlag dieses Monats erreicht dein Polster sein Ziel in rund {months} Monaten.",
+    "cushionUnreachable": "Mit den aktuellen Zahlen ist das Polster-Ziel nicht erreichbar. Passe Essenzielles oder Einkommen an, um einen Weg zu sehen.",
+    "projectionsIntro": "Was der ideale Arbeitsbetrag, monatlich eingezahlt, in drei Szenarien werden könnte:",
+    "scenarioColumn": "Szenario",
+    "fiveYears": "5 Jahre",
+    "tenYears": "10 Jahre",
+    "brDollarLine": "Und im Digital-Dollar hängt deine Reserve nicht an einer einzigen Währung.",
+    "brDollarBothWays": "Wechselkurse bewegen sich in beide Richtungen; der Wert in deiner Währung kann steigen oder fallen.",
+    "runwayLed": "Der Runway führt diesen Plan: rund {months} Monate beim aktuellen Burn, mit einem Boden von {floor}. Senke Zahlungskosten und beobachte den Burn, bevor der Überschuss arbeiten geht.",
+    "idleComparison": "Über 12 Monate könnte dein idealer Überschuss von {amount} rund {delta} mehr erwirtschaften als bei deiner Bank, im konservativen Szenario.",
+    "nextCushion": "Notgroschen-Rechner",
+    "nextWorking": "Zinseszins-Rechner",
+    "nextCurrency": "Währungsverlust-Rechner",
+    "nextIdleCash": "Rechner für ungenutzte Kasse",
+    "nextCardFees": "Kartengebühren-Rechner",
+    "nextFounder": "Mit Bar sprechen"
+  },
+  "lessonLink": {
+    "label": "Willst du zuerst das Warum?",
+    "linkText": "Wie Geld wirklich wächst: die 12-Jahres-Lektion"
+  }
+}

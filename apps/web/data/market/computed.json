@@ -1,0 +1,155 @@
+{
+  "_comment": "Machine-readable regime computation (P2 Stage 3 output). Written ONLY by scripts/market-refresh/run.mjs after the quality gate passes. The reconciliation vitest asserts regime.json agrees with this file — hand-edit regime.json scores and CI goes red (F-M4). Regenerate by running the pipeline, never by hand.",
+  "computed_at": "2026-07-11T17:59:09.946Z",
+  "score": 3,
+  "max_score": 14,
+  "regime_code": "DEFENSIVE",
+  "group_totals": {
+    "btc_structure": 1,
+    "macro_environment": 1,
+    "institutional_demand": 0,
+    "relative_strength": 1
+  },
+  "anchor_spread_days": 14,
+  "anchor_warning": "weekly anchor spread 14d > 7d — mark the laggards DELAYED in data-status.json instead of silently mixing anchors: MAC-01@2026-06-26",
+  "btc_append": null,
+  "signals": [
+    {
+      "id": "BTC-01",
+      "state": "INACTIVE",
+      "weight": 2,
+      "points": 0,
+      "detail": "close $58,559 vs 20M EMA $80,140",
+      "anchor": "2026-06-01",
+      "anchorKind": "monthly"
+    },
+    {
+      "id": "BTC-02",
+      "state": "INACTIVE",
+      "weight": 2,
+      "points": 0,
+      "detail": "close $58,559 vs 50M SMA $59,342",
+      "anchor": "2026-06-01",
+      "anchorKind": "monthly"
+    },
+    {
+      "id": "BTC-03",
+      "state": "INACTIVE",
+      "weight": 1,
+      "points": 0,
+      "detail": "RSI current 40.83 vs prev 49.24",
+      "anchor": "2026-06-01",
+      "anchorKind": "monthly"
+    },
+    {
+      "id": "BTC-04",
+      "state": "ACTIVE",
+      "weight": 1,
+      "points": 1,
+      "detail": "Stoch-RSI %K 12.14 vs threshold 10",
+      "anchor": "2026-06-01",
+      "anchorKind": "monthly"
+    },
+    {
+      "id": "MAC-01",
+      "state": "INACTIVE",
+      "weight": 1,
+      "points": 0,
+      "detail": "DXY 120.8866 vs EMA20W 119.5630 (Δ 1.107%); RSI 57.41",
+      "anchor": "2026-06-26",
+      "anchorKind": "weekly"
+    },
+    {
+      "id": "MAC-02",
+      "state": "INACTIVE",
+      "weight": 1,
+      "points": 0,
+      "detail": "US10Y 4.49% vs EMA20W 4.39%",
+      "anchor": "2026-07-03",
+      "anchorKind": "weekly"
+    },
+    {
+      "id": "MAC-03",
+      "state": "ACTIVE",
+      "weight": 1,
+      "points": 1,
+      "detail": "M2 12M ROC 5.58%, MoM +247.8B",
+      "anchor": "2026-05-01",
+      "anchorKind": "monthly"
+    },
+    {
+      "id": "ETF-01",
+      "state": "UNAVAILABLE",
+      "weight": 2,
+      "points": 0,
+      "detail": "Polygon shares-outstanding ledger warming up: 1/5 weekly snapshots recorded — 4 weekly flows need 5. No guessed backfill.",
+      "anchor": "2026-07-10",
+      "anchorKind": "weekly"
+    },
+    {
+      "id": "REL-01",
+      "state": "INACTIVE",
+      "weight": 1,
+      "points": 0,
+      "detail": "BTC/Gold ratio 15.625 vs EMA20W 15.864 (Yahoo GC=F substitute)",
+      "anchor": "2026-07-10",
+      "anchorKind": "weekly"
+    },
+    {
+      "id": "REL-02",
+      "state": "INACTIVE",
+      "weight": 1,
+      "points": 0,
+      "detail": "BTC/Nasdaq ratio 2.440 vs EMA20W 2.846",
+      "anchor": "2026-07-10",
+      "anchorKind": "weekly"
+    },
+    {
+      "id": "REL-03",
+      "state": "ACTIVE",
+      "weight": 1,
+      "points": 1,
+      "detail": "Nasdaq 26281.61 vs EMA20W 24984.15",
+      "anchor": "2026-07-10",
+      "anchorKind": "weekly"
+    }
+  ],
+  "sources": [
+    {
+      "source": "FRED:DTWEXBGS",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS&cosd=2023-01-01",
+      "fetchedAt": "2026-07-11T17:59:09.897Z",
+      "licence": "public-domain"
+    },
+    {
+      "source": "FRED:DGS10",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2023-01-01",
+      "fetchedAt": "2026-07-11T17:59:09.520Z",
+      "licence": "public-domain"
+    },
+    {
+      "source": "FRED:M2SL",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=M2SL&cosd=2023-01-01",
+      "fetchedAt": "2026-07-11T17:59:09.886Z",
+      "licence": "public-domain"
+    },
+    {
+      "source": "FRED:NASDAQCOM",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQCOM&cosd=2023-01-01",
+      "fetchedAt": "2026-07-11T17:59:09.919Z",
+      "licence": "public-domain"
+    },
+    {
+      "source": "Yahoo:BTC-USD",
+      "url": "chart/BTC-USD?interval=1d",
+      "fetchedAt": "2026-07-11T17:59:09.431Z",
+      "licence": "quote-display"
+    },
+    {
+      "source": "Yahoo:GC=F",
+      "url": "chart/GC=F?interval=1d",
+      "fetchedAt": "2026-07-11T17:59:09.528Z",
+      "licence": "quote-display"
+    }
+  ]
+}

@@ -10,6 +10,10 @@
       "subtitle": "10 calculadoras gratuitas. Pon tus números y ve lo que es posible."
     },
     "sections": {
+      "start": {
+        "title": "Empieza aquí",
+        "question": "¿Para qué es este dinero?"
+      },
       "grow": {
         "title": "Hacer crecer lo que tienes",
         "question": "Si ahorro X, ¿en qué se convierte?"

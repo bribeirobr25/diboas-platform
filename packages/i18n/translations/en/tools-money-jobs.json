@@ -1,0 +1,135 @@
+{
+  "seo": {
+    "title": "Money Jobs Calculator — every amount needs a job",
+    "description": "Free calculator: give every part of your monthly money a job. See what stays ready, what protects you, and what can work, before anything moves."
+  },
+  "hero": {
+    "kicker": "MONEY JOBS",
+    "headline": "Every amount needs a job.",
+    "subtitle": "Add what comes in. See what stays ready, what protects you, and what's free to work, before anything moves."
+  },
+  "landing": {
+    "cardTitle": "Money Jobs",
+    "cardTagline": "What job does each part of my money have?"
+  },
+  "mode": {
+    "ariaLabel": "Choose who this is for",
+    "personal": "For you",
+    "business": "For your business"
+  },
+  "inputs": {
+    "incomeLabel": "Monthly income (after tax)",
+    "essentialsLabel": "Monthly essentials",
+    "essentialsHelp": "Estimated for your country. Adjust to your reality.",
+    "savingsLabel": "Emergency savings today",
+    "savingsHelp": "Optional. What you already have set aside.",
+    "revenueLabel": "Monthly revenue",
+    "revenueHelp": "Pre-revenue? Leave 0; your raise goes under cash.",
+    "burnLabel": "Monthly burn",
+    "burnHelp": "Payroll. Rent. Taxes. Suppliers. One number.",
+    "cashLabel": "Cash on hand"
+  },
+  "headline": {
+    "kicker": "THE SPLIT",
+    "personalSuffix": "of your month has no job yet.",
+    "businessSuffix": "is sitting above your floor with no rule yet."
+  },
+  "costLine": {
+    "personal": "Left without a job, that amount loses about {cost} of purchasing power to inflation over {years} years.",
+    "business": "Left without a rule, that excess loses about {cost} of purchasing power to inflation over {years} years."
+  },
+  "disclaimer": "Educational split, not financial advice. Your numbers, your call.",
+  "jobs": {
+    "floor": {
+      "label": "Floor",
+      "meaning": "Money with a standing job: rent, food, bills."
+    },
+    "cushion": {
+      "label": "Cushion",
+      "meaning": "This month's suggestion toward your {target} target. You have {current}."
+    },
+    "working": {
+      "label": "Working money",
+      "meaning": "Free to work once the floor and cushion are set."
+    },
+    "operatingFloor": {
+      "label": "Operating floor",
+      "meaning": "What must stay ready: about 3 months of burn."
+    },
+    "runway": {
+      "label": "Runway",
+      "value": "{months} months",
+      "meaning": "At your current net burn."
+    },
+    "coverage": {
+      "label": "Coverage",
+      "value": "{months} months",
+      "meaning": "If revenue stopped tomorrow. Today, revenue covers your burn."
+    },
+    "excess": {
+      "label": "Excess",
+      "meaning": "Cash above the floor, waiting for a rule."
+    }
+  },
+  "band": {
+    "ideal": "Ideal",
+    "maximum": "Maximum",
+    "explainer": "Why less than the maximum? Slack is part of the plan."
+  },
+  "dignity": {
+    "headline": "This month, your money's job is holding you up.",
+    "body": "No guilt. Essentials come first; the split can wait for a lighter month.",
+    "cta": "See how an emergency cushion starts"
+  },
+  "runway": {
+    "headline": "Right now, your cash's job is runway.",
+    "body": "About {months} months at your current burn. Your floor is {floor}. Protect that first; putting excess to work can wait until runway is comfortable."
+  },
+  "share": {
+    "title": "Money Jobs",
+    "text": "My split: {value} had no job yet. Every amount needs one.",
+    "cta": "Share your split",
+    "copied": "Link copied"
+  },
+  "gate": {
+    "ariaLabel": "Unlock your full plan",
+    "title": "This is the split. The plan is in the details.",
+    "bullets": {
+      "timeline": "When your cushion reaches its target",
+      "projections": "What your working money could become in 5 and 10 years",
+      "runway": "Your runway read and what protects it",
+      "nextSteps": "The next step for each job"
+    },
+    "emailPlaceholder": "Your email",
+    "gdprLabel": "I agree to receive emails from diBoaS and accept the privacy policy.",
+    "cta": "See my full plan",
+    "ctaLoading": "One moment",
+    "finePrint": "Joining the waitlist unlocks it. No spam: this is the same list everything else joins. Joining doesn't move your money.",
+    "successLine": "You're on the list, position {position}.",
+    "referralLinkLabel": "Your invite link"
+  },
+  "plan": {
+    "title": "Your plan",
+    "cushionFunded": "Your cushion is fully funded. Everything above the floor is free to work.",
+    "cushionTimeline": "At this month's suggestion, your cushion reaches its target in about {months} months.",
+    "cushionUnreachable": "At the current numbers the cushion target isn't reachable. Adjust essentials or income to see a path.",
+    "projectionsIntro": "What the ideal working amount could become, added monthly, under three scenarios:",
+    "scenarioColumn": "Scenario",
+    "fiveYears": "5 years",
+    "tenYears": "10 years",
+    "brDollarLine": "And in digital dollar, your reserve doesn't depend on a single currency.",
+    "brDollarBothWays": "Exchange rates move both ways; the value in your local currency can rise or fall.",
+    "runwayLed": "Runway leads this plan: about {months} months at current burn, with a floor of {floor}. Cut payment costs and watch burn before putting excess to work.",
+    "idleComparison": "Over 12 months, your ideal excess of {amount} could earn about {delta} more than at your bank, under the conservative scenario.",
+    "nextCushion": "Emergency Fund calculator",
+    "nextWorking": "Compound Interest calculator",
+    "nextCurrency": "Currency Depreciation calculator",
+    "nextIdleCash": "Idle Cash calculator",
+    "nextCardFees": "Card Fees calculator",
+    "nextFounder": "Talk to Bar"
+  },
+  "lessonLink": {
+    "label": "Want the why first?",
+    "linkText": "How money really grows: the 12-year lesson"
+  }
+}

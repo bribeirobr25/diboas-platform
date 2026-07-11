@@ -15,7 +15,7 @@ import type { AnalyticsInitialData, RegimeData } from '@/lib/analytics-sdk/types
 
 const SITE_URL = 'https://diboas.com';
 const DESCRIPTION = 'Calm macro intelligence for Bitcoin.';
-const HEADLINE = 'Adelaide Daily';
+const HEADLINE = 'Adelaide Market';
 
 const VALID_REGIME = {
   score: 10,

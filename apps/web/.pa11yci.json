@@ -29,6 +29,10 @@
       "screenCapture": "./pa11y-screenshots/tools.png"
     },
     {
+      "url": "http://localhost:3000/en/tools/money-jobs",
+      "screenCapture": "./pa11y-screenshots/tools-money-jobs.png"
+    },
+    {
       "url": "http://localhost:3000/en/tools/compound-interest",
       "screenCapture": "./pa11y-screenshots/tools-compound-interest.png"
     },
