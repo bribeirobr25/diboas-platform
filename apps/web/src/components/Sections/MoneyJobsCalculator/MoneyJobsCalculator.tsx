@@ -322,7 +322,6 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
               <div className={styles.headlineBlock}>
                 <p className={styles.headlineKicker}>{t('headline.kicker')}</p>
                 <p className={styles.headline}>
-                  {t('headline.personalPrefix')}{' '}
                   <span className={styles.headlineValue}>{fmt(personal.joblessMoney)}</span>{' '}
                   {t('headline.personalSuffix')}
                 </p>
