@@ -385,33 +385,41 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
                               months: Math.ceil(personalPlan.cushionMonthsToTarget),
                             })
                           : t('plan.cushionUnreachable')}
-                      {personalPlan.hedged ? ` ${tShared('scenarios.digitalDollarSuffix')}` : ''}
                     </p>
                   ) : null}
                   {projections ? (
                     <>
                       <p className={styles.planLine}>{t('plan.projectionsIntro')}</p>
-                      <table className={styles.projTable}>
-                        <thead>
-                          <tr>
-                            <th scope="col">{t('plan.scenarioColumn')}</th>
-                            <th scope="col">{t('plan.fiveYears')}</th>
-                            <th scope="col">{t('plan.tenYears')}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {projections.map((row, i) => (
-                            <tr
-                              key={row.scenario}
-                              className={i === 0 ? styles.projRowLead : undefined}
-                            >
-                              <th scope="row">{tShared(`scenarios.${row.scenario}`)}</th>
-                              <td className={styles.mono}>{fmt(row.fiveYear)}</td>
-                              <td className={styles.mono}>{fmt(row.tenYear)}</td>
+                      <div className={styles.projTableWrap}>
+                        <table className={styles.projTable}>
+                          <thead>
+                            <tr>
+                              <th scope="col">{t('plan.scenarioColumn')}</th>
+                              <th scope="col">{t('plan.fiveYears')}</th>
+                              <th scope="col">{t('plan.tenYears')}</th>
                             </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                          </thead>
+                          <tbody>
+                            {projections.map((row, i) => (
+                              <tr
+                                key={row.scenario}
+                                className={i === 0 ? styles.projRowLead : undefined}
+                              >
+                                {/* Hedge disclosure rides the rate label (house
+                                  pattern: TimeToTarget per-scenario suffix) */}
+                                <th scope="row">
+                                  {tShared(`scenarios.${row.scenario}`)}
+                                  {personalPlan?.hedged
+                                    ? tShared('scenarios.digitalDollarSuffix')
+                                    : ''}
+                                </th>
+                                <td className={styles.mono}>{fmt(row.fiveYear)}</td>
+                                <td className={styles.mono}>{fmt(row.tenYear)}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
                       <p className={styles.freeDisclaimer}>{tShared('disclaimer')}</p>
                     </>
                   ) : null}
@@ -593,7 +601,9 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
                             amount: fmt(business.excessIdeal),
                             delta: fmt(businessPlan.idleComparison.difference),
                           })}
-                          {` ${tShared('scenarios.digitalDollarSuffix')}`}
+                          {businessPlan.idleComparison.hedged
+                            ? ` ${tShared('scenarios.digitalDollarSuffix')}`
+                            : ''}
                         </p>
                       ) : null}
                       <p className={styles.freeDisclaimer}>{tShared('disclaimer')}</p>
