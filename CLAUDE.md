@@ -197,7 +197,7 @@ ComponentName/
 ### Key Conventions
 
 - **Path alias:** `@/*` maps to `apps/web/src/*`
-- **Barrel exports:** Every directory has `index.ts`
+- **Barrel exports:** directories expose an `index.ts` barrel **where consumers use it** — unconsumed barrels are dead code and get deleted (knip Option A, founder 2026-07-11; `pnpm check:dead-code` guards files/deps/binaries)
 - **Strict TypeScript:** No implicit any, strict null checks
 - **Tailwind CSS:** Utility-first styling, design tokens via CSS custom properties
 - **Error boundaries:** Layered (page-level, navigation-level, global)

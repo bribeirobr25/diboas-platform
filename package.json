@@ -30,15 +30,18 @@
     "validate:investor-figures": "node scripts/validate-investor-figures.mjs",
     "validate:ux-canon": "node scripts/validate-ux-canon.mjs",
     "check:ux-greps": "node scripts/check-ux-greps.mjs",
-    "check:dead-code": "knip",
+    "check:dead-code": "knip --exclude exports,nsExports,types,nsTypes,duplicates",
+    "check:dead-code:full": "knip",
     "check:budget": "node scripts/check-bundle-budget.mjs",
     "validate:all": "pnpm run type-check && pnpm run lint && pnpm run test && pnpm run build && pnpm run check:budget && pnpm run validate:design-tokens && pnpm run validate:translations && pnpm run validate:market-data && pnpm run validate:sdk-invariant && pnpm run validate:investor-figures && pnpm run validate:ux-canon",
     "audit:full": "bash scripts/pre-launch-audit.sh",
     "audit:ci": "bash scripts/pre-launch-audit.sh --ci",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "generate:investor-docs": "node scripts/generate-investor-docs.mjs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.59.1",
     "@types/node": "^25.4.0",
     "ajv": "^8.18.0",

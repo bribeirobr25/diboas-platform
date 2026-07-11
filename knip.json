@@ -1,5 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
+  "ignoreBinaries": ["du", "tsx", "gitleaks", "sleep", "storybook"],
   "workspaces": {
     "apps/web": {
       "eslint": false,
@@ -11,15 +12,7 @@
         "src/app/**/error.tsx",
         "src/app/**/not-found.tsx",
         "src/app/**/global-error.tsx",
-        "src/app/**/opengraph-image.{ts,tsx}",
-        "src/app/**/twitter-image.{ts,tsx}",
-        "src/app/**/icon.{ts,tsx}",
-        "src/app/**/manifest.{ts,json}",
-        "src/app/sitemap.ts",
         "src/app/globals.css",
-        "middleware.ts",
-        "src/instrumentation.ts",
-        "src/instrumentation-client.ts",
         "src/test/**",
         "src/types/**",
         "src/styles/**",
@@ -28,42 +21,31 @@
         "next.config.*",
         "postcss.config.*",
         "tailwind.config.*",
-        "sentry.*.config.*",
-        "vitest.config.ts",
-        "eslint.config.mjs"
+        "sentry.*.config.*"
       ],
       "project": [
         "src/**/*.{ts,tsx,js,jsx}",
-        "middleware.ts",
         "next.config.*",
         "postcss.config.*",
         "tailwind.config.*",
-        "sentry.*.config.*",
-        "vitest.config.ts",
-        "eslint.config.mjs"
+        "sentry.*.config.*"
       ],
-      "ignore": ["src/**/*.test.{ts,tsx}"],
+      "ignore": ["src/lib/analytics-sdk/theme.ts", "src/lib/waitingList/domain/**"],
       "ignoreDependencies": [
-        "autoprefixer",
-        "@next/bundle-analyzer",
-        "eslint-config-next",
-        "storybook",
         "@storybook/*",
-        "eslint-plugin-storybook",
-        "@lhci/cli",
-        "pa11y"
+        "pa11y",
+        "@eslint/js",
+        "eslint-config-next",
+        "eslint-plugin-storybook"
       ]
     },
     "packages/i18n": {
-      "entry": ["src/index.ts", "src/server.ts", "src/client.ts", "src/config.ts"],
       "project": ["src/**/*.ts"]
     },
     "packages/ui": {
-      "entry": ["src/index.ts"],
       "project": ["src/**/*.{ts,tsx}"]
     },
     "packages/email": {
-      "entry": ["src/index.ts"],
       "project": ["src/**/*.{ts,tsx}"]
     }
   }
