@@ -283,7 +283,18 @@ let govFileCount = null;
     eight: 8,
     nine: 9,
     ten: 10,
+    eleven: 11,
+    twelve: 12,
   };
+  // Match ONLY an explicit count token (number-word or digits) before
+  // "enforcement files" — never a bare \w+. A non-count phrasing like "the
+  // enforcement files below" makes no count claim and must not red-CI; the
+  // earlier [A-Za-z]+ form would have captured "the" and false-failed as
+  // "unparseable". Every token this now matches is guaranteed parseable.
+  const COUNT_TOKEN = new RegExp(
+    `\\b(${Object.keys(WORD_TO_NUM).join('|')}|\\d+)\\s+enforcement files\\b`,
+    'gi'
+  );
   if (existsSync(govDir)) {
     govFileCount = readdirSync(govDir).filter((f) => f.endsWith('.md')).length;
     const countSources = [
@@ -293,11 +304,9 @@ let govFileCount = null;
     for (const [name, path] of countSources) {
       if (!existsSync(path)) continue; // absent in fixtures / fresh clones
       const text = readFileSync(path, 'utf8');
-      for (const m of text.matchAll(/\b([A-Za-z]+|\d+)\s+enforcement files\b/g)) {
+      for (const m of text.matchAll(COUNT_TOKEN)) {
         const claimed = WORD_TO_NUM[m[1].toLowerCase()] ?? Number(m[1]);
-        if (!Number.isFinite(claimed))
-          fail('g', `${name}: unparseable enforcement-file count "${m[1]}"`);
-        else if (claimed !== govFileCount)
+        if (claimed !== govFileCount)
           fail(
             'g',
             `${name}: says "${m[1]} enforcement files" but docs/tech/ux-governance/ has ${govFileCount} .md files`
