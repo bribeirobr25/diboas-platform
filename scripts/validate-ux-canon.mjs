@@ -7,16 +7,27 @@
  *  (a) canon ID sequence UX-01…UX-NN is contiguous — no duplicates, no gaps —
  *      and matches the canon's own "<N> numbered principles" self-description;
  *  (b) every UX-ID cited in the checklist, the Writing System, the usage
- *      protocol, and any docs/audit/UX_AUDIT_*.md exists in the canon;
+ *      protocol, the VOICE_RUBRIC, and any docs/audit/UX_AUDIT_*.md exists in
+ *      the canon;
  *  (c) veto-list parity — the checklist's dark-pattern block (rows 10–N) and
  *      canon Appendix B carry the same number of items, and all three homes
  *      (checklist, canon Appendix B, BRAND_POSITIONING Gate 4) carry the
  *      canonical-source declaration;
- *  (d) governance cross-references to docs/**.md resolve on disk (lines that
- *      annotate a reference as removed/lost/deleted are exempt — that is the
- *      documented-dead form required by G-2);
+ *  (d) governance cross-references to docs/**.md resolve on disk — checklist,
+ *      canon, usage, VOICE_RUBRIC, and the audit files (lines that annotate a
+ *      reference as removed/lost/deleted are exempt — the documented-dead form
+ *      required by G-2);
  *  (e) the "How to use it" blocking-range sentence names exactly the last veto
- *      row (kills the C-1 off-by-one defect class permanently).
+ *      row (kills the C-1 off-by-one defect class permanently);
+ *  (f) "rows 1–NN" band citations across the four homes match the checklist's
+ *      actual last Part-3 row;
+ *  (g) any "<N> enforcement files" claim (CLAUDE.md / usage) matches the real
+ *      count of .md files in docs/tech/ux-governance/ — the VOICE_RUBRIC
+ *      addition (CMO Session 030) is exactly the fifth-file drift this guards.
+ *
+ * The VOICE_RUBRIC is a JUDGMENT gate (Q1–Q4 scored by a reasoning pass); this
+ * validator guards only its structural wiring (citations, links, count) and
+ * never scores voice.
  *
  * G-1 history: originally declined (2026-07-10 AM, files untracked, validator
  * local-only), then REVISITED AND ACCEPTED via relocation (same day, PM): the
@@ -46,6 +57,10 @@ const FILES = {
   checklist: join(ROOT, 'docs/tech/ux-governance/anti-slop-checklist.md'),
   brand: join(ROOT, 'docs/full-view/BRAND_POSITIONING.md'),
   usage: join(ROOT, 'docs/tech/ux-governance/UX_GOVERNANCE_USAGE.md'),
+  // The scorable voice gate (CMO Session 030). Validator guards only its
+  // structural wiring — citations, docs/ links, and the "N enforcement files"
+  // count — never the voice judgment itself (Q1–Q4 are a reasoning pass).
+  voiceRubric: join(ROOT, 'docs/tech/ux-governance/VOICE_RUBRIC.md'),
 };
 
 // ---- safety skip (should not trigger since the G-1 relocation made these tracked) ----
@@ -61,6 +76,7 @@ const canon = read(FILES.canon);
 const checklist = read(FILES.checklist);
 const brand = existsSync(FILES.brand) ? read(FILES.brand) : '';
 const usage = existsSync(FILES.usage) ? read(FILES.usage) : '';
+const voiceRubric = existsSync(FILES.voiceRubric) ? read(FILES.voiceRubric) : '';
 
 let auditFiles = [];
 const auditDir = join(ROOT, 'docs/audit');
@@ -105,6 +121,7 @@ const maxId = Math.max(...defined);
     ['checklist', checklist],
     ['BRAND_POSITIONING', brand],
     ['UX_GOVERNANCE_USAGE', usage],
+    ['VOICE_RUBRIC', voiceRubric],
     ...auditFiles.map((f) => [f.replace(ROOT + '/', ''), read(f)]),
   ];
   for (const [name, text] of sources) {
@@ -162,6 +179,7 @@ let lastVetoRow = null;
     ['checklist', FILES.checklist, checklist],
     ['canon', FILES.canon, canon],
     ['usage', FILES.usage, usage],
+    ['VOICE_RUBRIC', FILES.voiceRubric, voiceRubric],
     ...auditFiles.map((f) => [f.replace(ROOT + '/', ''), f, read(f)]),
   ];
   const DEAD_OK =
@@ -243,6 +261,52 @@ let lastRow = null;
   }
 }
 
+// ---- (g) governance file-count assertion ----
+// CLAUDE.md (and any governance doc) that claims "<N> enforcement files" must
+// match the real count of .md files in docs/tech/ux-governance/. Kills the
+// silent-count-drift class the way "three lenses" once drifted — add a fifth
+// governance file (as VOICE_RUBRIC just was) and forget the prose, and this
+// fails. Only "<N> enforcement files" is matched, never a bare "four" — the
+// usage protocol's "four qualities / four lenses / four-locale rule" are a
+// different four and must not be conflated with the file count.
+let govFileCount = null;
+{
+  const govDir = join(ROOT, 'docs/tech/ux-governance');
+  const WORD_TO_NUM = {
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9,
+    ten: 10,
+  };
+  if (existsSync(govDir)) {
+    govFileCount = readdirSync(govDir).filter((f) => f.endsWith('.md')).length;
+    const countSources = [
+      ['CLAUDE.md', join(ROOT, 'CLAUDE.md')],
+      ['UX_GOVERNANCE_USAGE', FILES.usage],
+    ];
+    for (const [name, path] of countSources) {
+      if (!existsSync(path)) continue; // absent in fixtures / fresh clones
+      const text = readFileSync(path, 'utf8');
+      for (const m of text.matchAll(/\b([A-Za-z]+|\d+)\s+enforcement files\b/g)) {
+        const claimed = WORD_TO_NUM[m[1].toLowerCase()] ?? Number(m[1]);
+        if (!Number.isFinite(claimed))
+          fail('g', `${name}: unparseable enforcement-file count "${m[1]}"`);
+        else if (claimed !== govFileCount)
+          fail(
+            'g',
+            `${name}: says "${m[1]} enforcement files" but docs/tech/ux-governance/ has ${govFileCount} .md files`
+          );
+      }
+    }
+  }
+}
+
 // ---- report ----
 if (errors.length) {
   console.error(`validate:ux-canon FAILED — ${errors.length} defect(s):`);
@@ -250,5 +314,5 @@ if (errors.length) {
   process.exit(1);
 }
 console.log(
-  `✓ validate:ux-canon OK — ${defined.length} canon IDs contiguous; all citations resolve; veto list in parity (rows 10–${lastVetoRow}); no broken governance references; blocking range consistent; rows-range citations match Part 3's ${lastRow} rows.`
+  `✓ validate:ux-canon OK — ${defined.length} canon IDs contiguous; all citations resolve; veto list in parity (rows 10–${lastVetoRow}); no broken governance references; blocking range consistent; rows-range citations match Part 3's ${lastRow} rows; VOICE_RUBRIC wired (citations + docs/ links guarded, "${govFileCount} enforcement files" count matches).`
 );
