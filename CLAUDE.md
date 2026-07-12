@@ -390,7 +390,7 @@ Landed 2026-07-11 (one continuous session, five stacked merges + one follow-up):
 - **Supply-chain hardening (pnpm 8.15 → 10.33)** — dependency lifecycle scripts blocked by default + curated `onlyBuiltDependencies` allowlist, 3-day `minimumReleaseAge` registry-hijack guard, quarterly security-scan workflow. Record: `docs/audit/SUPPLY_CHAIN_SPRINT_2026-07-11.md`.
 - **Health endpoint fix** — serverless-correct status semantics (heap% is telemetry, not a health input; DB-down = 503, redis-down = degraded 200) — stopped prod 503-flapping.
 
-Prior context (still true): Tools audit-bundle externally validated to v1.8; the 2026-05-26 architecture challenge and Track A backlog (A0–A17) closed; the investor workstream (figures registry, F22 room-gate fix, A3 numbers layer) shipped 2026-07-06; the messaging/locale sweep (D-MSG-1…10, `docs/audit/MESSAGING_FIX_PLAN_2026-07-07.md`) audited end-to-end. **~1,207 tests passing.**
+Prior context (still true): Tools audit-bundle externally validated to v1.8; the 2026-05-26 architecture challenge and Track A backlog (A0–A17) closed; the investor workstream (figures registry, F22 room-gate fix, A3 numbers layer) shipped 2026-07-06; the messaging/locale sweep (D-MSG-1…10, `docs/audit/MESSAGING_FIX_PLAN_2026-07-07.md`) audited end-to-end. **~1,212 tests passing.**
 
 - Full audit narrative + test-count progression: **`docs/audit/AUDIT_HISTORY.md`**
 - Live security findings ledger: `docs/audit/SECURITY_FINDINGS_2026-05.md`

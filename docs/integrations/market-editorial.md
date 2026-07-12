@@ -288,5 +288,5 @@ If you're unsure whether a change is editorial or engineering, default to engine
 - i18n locale list + naming conventions: `docs/tech/internationalization.md`
 - ETF-01 net-flow sourcing + source fetchability / headless-browser policy: `docs/researches/MoneyTools_LiveData_Consolidated.md` §4.5
 - canonical-vs-live drift log (signal-taxonomy + score-band decisions, D1/D2): `docs/mvp/integration/13_host_integration_guides/diboas_platform.md` §23
-- reproducible compute helper (strict-Friday weekly resampling locked, §5.1 candle-lock for BTC monthlies, evaluates 10 of 11 signals — ETF-01 manual per §8.3): `apps/web/scripts/data-fetchers/compute-regime.mjs`
+- reproducible compute helper (strict-Friday weekly resampling locked, §5.1 candle-lock for BTC monthlies, evaluates all 11 signals — ETF-01 now auto-derived from the Polygon shares-outstanding ledger, P4): `apps/web/scripts/data-fetchers/compute-regime.mjs`
 - standing pre-launch carry-forwards (chart strategy, Farside acquisition, LBMA replacement): `docs/audit/PENDING_ALL.md` items 5.27 / 5.28 / 5.29
