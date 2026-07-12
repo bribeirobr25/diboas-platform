@@ -41,6 +41,17 @@ jobs:
       # absent. The registry↔artifact consistency is ALSO covered by `pnpm test`
       # (figures-consistency.test.ts); this makes the script gate explicit too.
       - run: pnpm validate:investor-figures
+      # UX governance drift guard (2026-07-12): makes the governance layer a
+      # REAL merge gate, not just a local check. `validate:ux-canon` was in
+      # `validate:all` but never mirrored here when the other static gates were
+      # pulled out (C-3), so it had never actually run in CI — the whole canon /
+      # checklist / VOICE_RUBRIC drift guard was inert. CI-safe: it existsSync-
+      # guards the untracked areas (docs/full-view/, docs/audit/) and passes on
+      # the tracked-only tree (verified via `git archive HEAD`). `check:ux-greps`
+      # is the machine-tell gate (emoji hard-fail; em-dash/hardcoded-English are
+      # advisory, non-failing) — also previously manual-only.
+      - run: pnpm validate:ux-canon
+      - run: pnpm check:ux-greps
       - run: pnpm build
       # Phase 5.2 (audit/2026-05-09): Turbopack-aware bundle-budget gate.
       # Replaces the original webpack-plugin enforcement (was inert under
