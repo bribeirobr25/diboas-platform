@@ -5,22 +5,22 @@
 
 ## 1. Overview
 
-| Layer          | Technology                                          | Version        |
-| -------------- | --------------------------------------------------- | -------------- |
-| Framework      | Next.js (App Router)                                | 16.2.6         |
-| Language       | TypeScript (strict)                                 | 5.9.x          |
-| UI             | React + Tailwind CSS                                | 18.3.x / 3.4.x |
+| Layer          | Technology                                          | Version          |
+| -------------- | --------------------------------------------------- | ---------------- |
+| Framework      | Next.js (App Router)                                | 16.2.6           |
+| Language       | TypeScript (strict)                                 | 5.9.x            |
+| UI             | React + Tailwind CSS                                | 18.3.x / 3.4.x   |
 | Monorepo       | Turborepo + pnpm                                    | 2.10.x / 10.33.0 |
-| i18n           | react-intl (en, pt-BR, es, de)                      | 6.4.x          |
-| Testing        | Vitest + @vitest/coverage-v8                        | 4.1.x          |
-| Component dev  | Storybook                                           | 10.3.x         |
-| Database       | Neon PostgreSQL (@neondatabase/serverless)          | 1.0.x          |
-| Email          | Resend (@diboas/email)                              | workspace      |
-| Error tracking | Sentry (@sentry/nextjs)                             | 10.49.x        |
-| Analytics      | PostHog (consent-gated, lazy-loaded)                | 1.313.x        |
-| Rate limiting  | Upstash Redis (@upstash/ratelimit + @upstash/redis) | 2.0.x / 1.36.x |
-| Performance    | web-vitals                                          | 5.1.x          |
-| Sanitization   | DOMPurify                                           | 3.4.x          |
+| i18n           | react-intl (en, pt-BR, es, de)                      | 6.4.x            |
+| Testing        | Vitest + @vitest/coverage-v8                        | 4.1.x            |
+| Component dev  | Storybook                                           | 10.3.x           |
+| Database       | Neon PostgreSQL (@neondatabase/serverless)          | 1.0.x            |
+| Email          | Resend (@diboas/email)                              | workspace        |
+| Error tracking | Sentry (@sentry/nextjs)                             | 10.49.x          |
+| Analytics      | PostHog (consent-gated, lazy-loaded)                | 1.313.x          |
+| Rate limiting  | Upstash Redis (@upstash/ratelimit + @upstash/redis) | 2.0.x / 1.36.x   |
+| Performance    | web-vitals                                          | 5.1.x            |
+| Sanitization   | DOMPurify                                           | 3.4.x            |
 
 Single web application (`apps/web`). No backend services, no microservices, no message queues.
 
