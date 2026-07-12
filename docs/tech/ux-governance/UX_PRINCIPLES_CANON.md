@@ -93,12 +93,12 @@ Evidence: a bare order screen (order number, plain item list, courier name and p
 
 **UX-15 · Category screens: colour-coded cards with isolated imagery beat photo-overlay cards. — ADOPT**
 Evidence: three versions — (a) a plain text list with "See selection" links: clean but no hierarchy, every row identical; (b) full-bleed photo cards with text over the image: looks designed, but contrast fails even with an overlay, the photos clash stylistically (bright, moody, magazine), and the visual noise slows comprehension; (c) soft solid colour blocks, each with one cleanly isolated subject image, a title and an item count ("Fresh fruits · 32 items") plus an affordance arrow. Version (c) is cohesive, on-brand, scannable in seconds, and accessible.
-Directly applicable to `/tools` (10 calculators) and `/learn`.
+Directly applicable to `/tools` (11 calculators) and `/learn`.
 
 **UX-16 · Match the input method to the task, not to the data type. — ADOPT**
 Evidence: a one-time setup asking height and weight via a horizontal scroll-wheel ruler showing "170 cm" and "70 kg" with a unit toggle — low effort, values within a known range, no keyboard. Versus daily food logging, where a scroll wheel is slow and imprecise and a numeric text field ("120 g") wins. And a counter-example: three bare numeric fields for height, weight and goal weight — technically fine, unnecessarily effortful.
 **Rule:** sliders and wheels for casual, one-time, bounded inputs; text fields, steppers or numeric keypads for frequent, precise, or repeated entry.
-Applies today to the 10 calculators and the Dream Mode amount inputs.
+Applies today to the 11 calculators and the Dream Mode amount inputs.
 
 ---
 

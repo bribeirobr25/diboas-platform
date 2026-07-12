@@ -55,7 +55,9 @@ apps/web/src/app/
     (landing)/             # All user-facing pages (single route group)
       about/               # About us — founder story, mission, beliefs
       business/            # B2B landing page
-      market/        # Adelaide Market — BTC macro-regime dashboard (placeholder; host surface for the separate diboas-analytics product, spec'd in docs/mvp/)
+      market/        # Adelaide Market — BTC macro-regime dashboard (live; weekly refresh via the
+                     #   apps/web/scripts/market-refresh/ pipeline; host surface for the separate
+                     #   diboas-analytics product spec'd in docs/mvp/ — swap-ready via RegimeDataProvider)
       delete-confirm/      # GDPR account deletion confirmation
       demo/                # Interactive financial demo (noindex)
       dream-mode/          # Goal calculator simulation (noindex)
@@ -72,9 +74,12 @@ apps/web/src/app/
       security/            # Security information
       share/               # Social sharing redirect (OG metadata)
       strategies/          # Investment strategies
-      tools/               # Money Tools — 10-calculator suite (compound-interest, retirement,
+      tools/               # Money Tools — 11-calculator suite. Entry point: money-jobs
+                           #   (tool #11, "start" section); then compound-interest, retirement,
                            #   goal-savings, emergency-fund, time-to-target, asset-history,
-                           #   inflation-impact, currency-depreciation, card-fees, idle-cash)
+                           #   inflation-impact, currency-depreciation, card-fees, idle-cash
+        money-jobs/        #   Money Jobs — give every part of a monthly amount a job (B2C
+                           #   split + B2B runway; email-gated plan; ?for=business opens B2B)
     (investor-room)/       # Password-gated investor room (separate route group; noindex)
       investor-room/       # Room landing + gated document pages (full docs + print-to-PDF; EN + pt-BR native, DE/ES render EN via roomContentLocale)
   api/                     # API routes
@@ -125,6 +130,22 @@ pnpm validate:all              # Full pipeline: type-check -> lint -> test -> bu
 pnpm validate:design-tokens    # Validate design tokens against schema
 pnpm validate:translations     # Check translation key parity across locales
 pnpm check:dead-code           # Dead code detection (knip)
+```
+
+### Market data refresh (`/market` — Adelaide Market)
+
+Build-time pipeline; never runs at request time. Editorial writes go out as a
+PR, never a direct push (weekly workflow: `.github/workflows/market-refresh-weekly.yml`).
+
+```bash
+# full pipeline: fetch -> fail-closed quality gate -> engine -> computed.json (+ run archive)
+node apps/web/scripts/market-refresh/run.mjs
+node apps/web/scripts/market-refresh/run.mjs --append-btc    # also append the due monthly BTC candle (dual-source verified)
+node apps/web/scripts/market-refresh/run.mjs --etf-snapshot  # weekly ETF-01 shares-outstanding snapshot (needs POLYGON_API_KEY)
+node apps/web/scripts/market-refresh/generate.mjs            # render editorial JSONs from the template library
+node apps/web/scripts/market-refresh/generate.mjs --check    # reconcile committed JSONs vs the generator (CI drift gate)
+node apps/web/scripts/market-refresh/tools-monthlies.mjs     # F-M8 leg: append the due month for the 7 non-BTC tools series
+node apps/web/scripts/data-fetchers/compute-regime.mjs       # thin CLI over the shared engine (manual score check)
 ```
 
 ### Formatting
@@ -360,7 +381,16 @@ Condensed reference from `docs/tech/coding-standards.md`:
 
 ## Audit Status
 
-**Current state:** 12/12 principles of excellence compliant. The Tools audit-bundle (externally validated to v1.8), the 2026-05-26 architecture challenge, and the Track A fix backlog (A0–A17) are all closed. The investor workstream (red-team copy fixes, the figures registry + B2B no-cap propagation, the F22 room-gate security fix, and the A3 numbers layer) shipped 2026-07-06. The messaging/locale-consistency sweep (branch `messaging-locale-fixes`, 2026-07-08: B2B no-cap fee rows per D-005, per-market exit caps, EU post-IFR card-fees copy, locale diacritics repair, DE du-register, ES peninsular standardization, dead-copy prune, anchor-derived date labels, 10-doc public investor list, `/market` editorial claude-reviewed) was audited end-to-end — decisions D-MSG-1…10 in `docs/audit/MESSAGING_FIX_PLAN_2026-07-07.md`, do-not-regress entries in `docs/tech/implementation-notes.md`. **~1,136 tests passing.**
+**Current state:** 12/12 principles of excellence compliant. Everything below is merged to `main` and live in production as of 2026-07-11.
+
+Landed 2026-07-11 (one continuous session, five stacked merges + one follow-up):
+
+- **Money Jobs (tool #11)** — the `/tools` entry point: give every part of a monthly amount a job (B2C Floor/Cushion/Working split + B2B operating-floor/runway), attested `MONEY_JOBS_MODEL` constants, dignity state, B2B runway mode, email-gated plan (unlock repairs the dream-mode gate), `?for=business` deep-link. CLO-light pass + full Docker MCP visual. Register + do-not-regress entries in `docs/tech/implementation-notes.md`.
+- **/market data pipeline (automation program)** — the page was renamed **"Adelaide Daily" → "Adelaide Market"** (honest cadence is weekly). The refresh is now a build-time pipeline under `apps/web/scripts/market-refresh/` (fetch w/ dual-source verify → fail-closed quality gate → shared regime engine → `computed.json` → template generator → editorial JSONs), with P1 stale-input/anchor guards, ETF-01 via the free Polygon shares-outstanding route (weekly ledger, warms up ~2026-08-10), the `summary.plain` grandmother layer (45-template matrix ×4 locales rendered above the memo voice), and a Mondays-06:00-UTC auto-PR workflow (`market-refresh-weekly.yml`, needs the `POLYGON_API_KEY` repo secret). Incident corrected in the same pass: the 2026-05-23 refresh had shipped partial mid-May candles as May closes for the 7 non-BTC tools series + BRL FX — do-not-regress entry added. Full design + execution record: `docs/audit/MARKET_REFRESH_AUDIT_AND_AUTOMATION_PLAN_2026-07-11.md` (Parts A–E).
+- **Supply-chain hardening (pnpm 8.15 → 10.33)** — dependency lifecycle scripts blocked by default + curated `onlyBuiltDependencies` allowlist, 3-day `minimumReleaseAge` registry-hijack guard, quarterly security-scan workflow. Record: `docs/audit/SUPPLY_CHAIN_SPRINT_2026-07-11.md`.
+- **Health endpoint fix** — serverless-correct status semantics (heap% is telemetry, not a health input; DB-down = 503, redis-down = degraded 200) — stopped prod 503-flapping.
+
+Prior context (still true): Tools audit-bundle externally validated to v1.8; the 2026-05-26 architecture challenge and Track A backlog (A0–A17) closed; the investor workstream (figures registry, F22 room-gate fix, A3 numbers layer) shipped 2026-07-06; the messaging/locale sweep (D-MSG-1…10, `docs/audit/MESSAGING_FIX_PLAN_2026-07-07.md`) audited end-to-end. **~1,207 tests passing.**
 
 - Full audit narrative + test-count progression: **`docs/audit/AUDIT_HISTORY.md`**
 - Live security findings ledger: `docs/audit/SECURITY_FINDINGS_2026-05.md`

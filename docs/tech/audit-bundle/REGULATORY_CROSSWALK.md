@@ -1,7 +1,7 @@
 # Tools Suite — Regulatory Disclosure Crosswalk
 
 **Document version:** 1.1 (2026-06-10) — Phase I copy bundle shipped; see §8 changelog
-**Scope:** All 10 calculators at `/tools` × 4 locales × applicable consumer-finance / investment-marketing regulations.
+**Scope:** All 11 calculators at `/tools` (money-jobs = tool #11) × 4 locales × applicable consumer-finance / investment-marketing regulations.
 **Audit purpose:** Verify each tool meets the disclosure requirements of the regulator with jurisdiction over the locale, AND that the disclosure copy lives in i18n source where claimed.
 **Pre-launch caveat:** diBoaS is in pre-launch / waitlist phase. The tools are **educational projections**, not investment recommendations, not regulated financial advice, and do NOT execute trades. This affects which regulations apply (consumer-marketing rather than full prospectus).
 
@@ -36,7 +36,7 @@
 
 The "via key" column references the i18n translation key path: `{namespace}.{key}`. All keys verified to exist at audit snapshot.
 
-### 2.1 Universal disclaimer (applies to all 10 tools)
+### 2.1 Universal disclaimer (applies to all 11 tools)
 
 Surface: `tools-shared.disclaimer` — rendered on every tool result card via the `<ToolPage>` wrapper.
 
@@ -241,4 +241,5 @@ The following are intentionally NOT in scope for tools-suite regulatory complian
 ## 8. Changelog
 
 - **v1.1 (2026-06-10):** Phase I sub-PR shipped — closes all 5 ⚠️ "partial" gaps. (§5.1) `tools-shared.disclaimer` strengthened across all 4 locales: en adds APY + "All investments involve risk; you may lose money." + "diBoaS is not a registered investment adviser."; pt-BR now CVM 3-warning compliant; es adds CNMV phrasing; de adds BaFin phrasing + explicit risk. (§5.2) `tools-card-fees.disclaimers.euIfrCap` added for es/de (EU IFR 2015/751 caps), rendered via `ToolPage`, registered as a locale-specific key in `validate-translations.js`. (§5.3) en bank-rate now labeled "APY" — Emergency Fund via new `scenarios.bankApyDisplay` template (en-only "APY:" form, non-en keep `(rate%)`), Idle Cash label + note. Verified: `validate:translations` (parity + slot-name), type-check, lint, 994 tests, production build all green. Outstanding: §3.1 item 2 (FDIC source-provenance note) deferred.
+- **v1.1 (2026-07-12):** Money Jobs added as tool #11 (`/tools/money-jobs`). It is an educational budget-split tool (Floor/Cushion/Working; B2B operating-floor/runway) carrying the universal §2.1 disclaimer + the tool-level cost-only framing; it makes no return promise and no per-market fee claim, so it inherits the existing §2.1 universal coverage and the §3 projection-display rules (Conservative-led, hedge-disclosed). Matrix extends to 13 × 11 × 4 = 572 cells; no new ⚠️ partial gaps introduced (CLO-light pass GO, 2026-07-11).
 - **v1.0 (2026-05-23):** Initial crosswalk. Documents 13 regulatory frameworks × 10 tools × 4 locales = 520-cell matrix. Identifies 5 ⚠️ "partial" gaps for Phase I sub-PR (en APY terminology, pt-BR CVM 3-warning, es CNMV-specific copy, de BaFin-specific copy, es/de IFR cap disclosure).

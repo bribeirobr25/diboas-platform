@@ -10,7 +10,7 @@
 | Framework      | Next.js (App Router)                                | 16.2.6         |
 | Language       | TypeScript (strict)                                 | 5.9.x          |
 | UI             | React + Tailwind CSS                                | 18.3.x / 3.4.x |
-| Monorepo       | Turborepo + pnpm                                    | 2.8.x / 8.15.0 |
+| Monorepo       | Turborepo + pnpm                                    | 2.10.x / 10.33.0 |
 | i18n           | react-intl (en, pt-BR, es, de)                      | 6.4.x          |
 | Testing        | Vitest + @vitest/coverage-v8                        | 4.1.x          |
 | Component dev  | Storybook                                           | 10.3.x         |

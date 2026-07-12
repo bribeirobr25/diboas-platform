@@ -64,7 +64,7 @@ Main pages:
 - `/[locale]/protocols` - Protocol transparency
 - `/[locale]/help` - Help center (6 FAQ topics)
 - `/[locale]/security` - Security information
-- `/[locale]/market` - Adelaide Daily — BTC macro-regime dashboard (host surface for the diboas-analytics product)
+- `/[locale]/market` - Adelaide Market — BTC macro-regime dashboard (weekly refresh pipeline; host surface for the diboas-analytics product)
 - `/[locale]/investors` - Investor vertical — public pitch page (thesis, market, raise)
 - `/[locale]/investor-room` - Password-gated investor room (full documents + print-to-PDF; separate route group, noindex; EN + pt-BR native, DE/ES render EN via `roomContentLocale`)
 - `/[locale]/demo` - Interactive financial demo (noindex)
@@ -76,9 +76,10 @@ Learning surface:
 - `/[locale]/learn` - Learn center landing
 - `/[locale]/learn/compound-interest` - Lesson 01 — How Money Really Grows (3-beat lesson + embedded calculator)
 
-Money tools (10 calculators):
+Money tools (11 calculators):
 
-- `/[locale]/tools` - Tools landing — purpose-grouped (Grow / Protect / Target / Business)
+- `/[locale]/tools` - Tools landing — purpose-grouped (Start / Grow / Protect / Target / Business)
+- `/[locale]/tools/money-jobs` - Money Jobs — give every part of a monthly amount a job (B2C split + B2B runway; suite entry point; email-gated plan)
 - `/[locale]/tools/compound-interest` - Compound interest calculator (currency-hedge for non-USD locales)
 - `/[locale]/tools/retirement` - Retirement planning
 - `/[locale]/tools/goal-savings` - Goal savings
@@ -101,7 +102,7 @@ Legal pages:
 - `/[locale]/legal/terms` - Terms of service
 - `/[locale]/legal/cookies` - Cookie policy
 
-> Routes that were listed in earlier revisions (`/future-you`, `/benefits`, `/banking-services`, `/investing`, `/cryptocurrency`, `/rewards`) do not exist in the current app — they belong to Phase 2+ product roadmap. Phase 2+ planning artifacts live in `docs/roadmap/need-future-analysis/` and `docs/mvp/` (Adelaide Daily analytics) plus the CEO-confirmed architecture decisions captured in CLAUDE.md memory.
+> Routes that were listed in earlier revisions (`/future-you`, `/benefits`, `/banking-services`, `/investing`, `/cryptocurrency`, `/rewards`) do not exist in the current app — they belong to Phase 2+ product roadmap. Phase 2+ planning artifacts live in `docs/roadmap/need-future-analysis/` and `docs/mvp/` (diboas-analytics — the Adelaide Market data product) plus the CEO-confirmed architecture decisions captured in CLAUDE.md memory.
 
 ## Project Structure
 
