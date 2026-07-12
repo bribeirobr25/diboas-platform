@@ -61,9 +61,12 @@ Always start with positive acknowledgment of what works well.
   Part 3 friction & dark patterns are both in scope for every review),
   `docs/tech/ux-governance/UX_PRINCIPLES_CANON.md` (the evidence library behind Part 3 — cite its UX-NN
   IDs in findings), `docs/tech/ux-governance/UX_GOVERNANCE_USAGE.md` (operating protocol: build mode /
-  audit mode / finding format), and `docs/tech/design-system.md` (tokens, type, brand).
-  These governance files are local-only (untracked, founder ruling G-1 2026-07-10) — if any
-  is absent in this environment, say so explicitly in the report and fall back to the
+  audit mode / finding format), `docs/tech/ux-governance/VOICE_RUBRIC.md` (the voice gate — you own the
+  IMAGE half of rubric Q1: does each photograph make the reader feel something true, or is it decorative
+  stock manufacturing a mood the copy didn't earn? report it alongside the visual findings), and
+  `docs/tech/design-system.md` (tokens, type, brand).
+  These governance files are committed (`docs/tech/ux-governance/` is git-tracked, per the 2026-07-10 G-1
+  relocation) — if any is absent in this environment, say so explicitly in the report and fall back to the
   anti-slop rules inlined in CLAUDE.md.
 - Analyze what changed: run `git diff --name-only origin/HEAD...` to understand scope
 - If reviewing a PR, read the PR description for context and testing notes

@@ -2,7 +2,9 @@
 
 > **Purpose:** the enforcement checklist for `docs/full-view/BRAND_POSITIONING.md` §Voice & Tone → The Writing System — the canonical definition of the diBoaS voice. This file is the mechanical pass/fail layer in four parts: visual slop (rendered UI), writing slop (copy and docs), friction & dark patterns (flows and decision screens), and detection commands. The positioning document defines the voice and **wins on any conflict**. Referenced by `.claude/agents/design-reviewer.md` (Phase 4). _(The B0 copy-audit rubric formerly at `docs/audit/FINAL_FIXES_AUDIT_PLAN.md` was removed in the 2026-07-07 cleanup; the B0 scoring format was lifted into the Writing System before removal — the rubric's canonical home is now the Writing System itself.)_
 >
-> **Companions:** `docs/full-view/BRAND_POSITIONING.md` §Voice & Tone → The Writing System (canonical voice source), CLAUDE.md "Anti-slop defaults" (the source for Part 1), `docs/full-view/FEES.md` (fee truth).
+> **This checklist catches what is _wrong_; the voice rubric catches whether copy is _good_.** Part 2 below finds machine-generated tells — em-dashes, banned vocabulary, over-balanced triads — the mechanical fingerprints of AI text. It cannot tell you whether a clean, tell-free paragraph actually makes a reader feel something or quietly reads as a promise. That judgment lives in `docs/tech/ux-governance/VOICE_RUBRIC.md` (the four qualities: Draper feeling, Adelaide tone, the three nevers, the want). Run both: Part 2 to strip the slop, the rubric to earn the voice.
+>
+> **Companions:** `docs/full-view/BRAND_POSITIONING.md` §Voice & Tone → The Writing System (canonical voice source), `docs/tech/ux-governance/VOICE_RUBRIC.md` (the scorable voice gate), CLAUDE.md "Anti-slop defaults" (the source for Part 1), `docs/full-view/FEES.md` (fee truth).
 
 ## Part 1 — Visual slop (frontend)
 
@@ -25,7 +27,7 @@ Avoid these unless a brand rule explicitly allows them:
 
 ## Part 2 — Writing slop (copy and docs)
 
-The goal: copy that reads as if a thoughtful person wrote it for one specific reader (Adelaide), not text a model produced. The tells below are what make writing feel machine-made.
+The goal: copy that reads as if a thoughtful person wrote it for one specific reader (Adelaide), not text a model produced. The tells below are what make writing feel machine-made. **This part removes the tells; it does not confer the voice** — tell-free copy can still be flat, or can still sell/promise/advise. After Part 2 passes, score the surface against `docs/tech/ux-governance/VOICE_RUBRIC.md` to confirm it actually feels like something and clears the three nevers.
 
 ### Punctuation and symbols
 
