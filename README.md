@@ -13,7 +13,7 @@ diBoaS is a pre-launch marketing site with waitlist functionality, interactive d
 - **Framework:** Next.js 16.2.6 (App Router, Turbopack)
 - **Language:** TypeScript ~5.9.3 (strict mode)
 - **UI:** React 18.3.1, Tailwind CSS 3.4.17
-- **Monorepo:** Turborepo 2.8.15 + pnpm 8.15.0
+- **Monorepo:** Turborepo 2.10.4 + pnpm 10.33.2
 - **i18n:** react-intl 6.4.7 (4 locales: en, pt-BR, es, de)
 - **Testing:** Vitest 4.1.5, @vitest/coverage-v8, Lighthouse CI, pa11y
 - **Monitoring:** Sentry 10.49.0 (errors + session replay), PostHog (product analytics), GA4 (traffic), web-vitals
@@ -39,7 +39,7 @@ flowchart TD
   end
 
   subgraph Packages["Monorepo packages (Turborepo + pnpm)"]
-    I18N["@diboas/i18n<br/>33 namespaces × 4 locales (lazy)"]
+    I18N["@diboas/i18n<br/>34 namespaces × 4 locales (lazy)"]
     UI["@diboas/ui — design system"]
     EMAIL["@diboas/email — Resend + retry/backoff"]
   end
@@ -63,9 +63,9 @@ flowchart TD
 
 ### Engineering posture (built — verifiable in this repo)
 
-- **Testing & CI:** strict TypeScript, ~1,136 automated tests (Vitest), Lighthouse CI + pa11y (WCAG 2.1 AA), and 5 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse).
+- **Testing & CI:** strict TypeScript, ~1,207 automated tests (Vitest), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
 - **Security:** per-request **nonce-based CSP** (`'unsafe-inline'` prohibited for scripts), **AES-256-GCM** encryption for PII at rest, **HMAC blind indexing**, Upstash rate limiting, DOMPurify sanitization, and CSRF protection on mutation endpoints.
-- **i18n:** 33 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
+- **i18n:** 34 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
 - **Monitoring:** Sentry, PostHog, and GA4 — all consent-gated and lazy-loaded behind a cookie-consent check.
 
 > **Product architecture is Phase 2+, not in this build.** The money product's design — non-custodial by design (users hold their own funds; diBoaS holds no key shares, and recovery runs through an integrated third-party provider), MPC wallets (Turnkey), multi-chain DeFi (stable strategies on Arbitrum, growth on Solana) — is roadmap. Those decisions live in [`CLAUDE.md`](./CLAUDE.md); the full technical write-up for reviewers belongs in the investor room's technical-architecture summary.
@@ -78,7 +78,7 @@ flowchart TD
 ```bash
 # Install pnpm via Corepack (recommended)
 corepack enable
-corepack prepare pnpm@8.15.0 --activate
+corepack prepare pnpm@10.33.2 --activate
 ```
 
 ## Installation
@@ -177,7 +177,8 @@ Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 | `/demo`                        | Interactive financial demo                                                                                 |
 | `/dream-mode`                  | Goal calculator simulation                                                                                 |
 | `/learn/compound-interest`     | Lesson 01 — How Money Really Grows (3-beat lesson + calculator)                                            |
-| `/tools`                       | Money tools landing — purpose-grouped calculators                                                          |
+| `/tools`                       | Money tools landing — purpose-grouped calculators (11 tools)                                               |
+| `/tools/money-jobs`            | Money Jobs — give every part of a monthly amount a job (B2C split + B2B runway; the suite's entry point)   |
 | `/tools/compound-interest`     | Compound interest calculator (tool variant — currency-hedge for non-USD)                                   |
 | `/tools/retirement`            | Retirement planning calculator                                                                             |
 | `/tools/goal-savings`          | Goal savings calculator                                                                                    |
@@ -188,7 +189,7 @@ Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 | `/tools/asset-history`         | Retrospective asset DCA replay (8 assets, monthly-precision FX path for cross-currency)                    |
 | `/tools/card-fees`             | B2B card fee savings calculator                                                                            |
 | `/tools/idle-cash`             | B2B idle cash yield calculator                                                                             |
-| `/market`                      | Adelaide Daily — BTC macro-regime dashboard (host surface for diboas-analytics)                            |
+| `/market`                      | Adelaide Market — BTC macro-regime dashboard (weekly refresh pipeline; host surface for diboas-analytics)  |
 | `/investors`                   | Investor vertical — public pitch page (thesis, market, raise)                                              |
 | `/investor-room`               | Password-gated investor room — full documents + print-to-PDF (noindex; EN + pt-BR native, DE/ES render EN) |
 | `/email-preferences`           | Email unsubscribe / notification preferences                                                               |
@@ -208,7 +209,7 @@ All pages available in `/en`, `/pt-BR`, `/es`, `/de`.
 - **Distributed rate limiting:** Upstash Redis with in-memory fallback
 - **Email circuit breaker:** 3-layer resilience (retry + client error detection + circuit breaker)
 - **Database query timeouts:** 8s timeout prevents hung serverless functions
-- **10-calculator tool suite** (8 forward + asset-history retrospective + tools landing) with split engine (lesson non-hedged vs tools currency-hedged for non-USD locales); canonical effective-rate model `(1 + usdYield)(1 + localDep) − 1`
+- **11-calculator tool suite** (money-jobs entry point + 8 forward + asset-history retrospective + tools landing) with split engine (lesson non-hedged vs tools currency-hedged for non-USD locales); canonical effective-rate model `(1 + usdYield)(1 + localDep) − 1`
 - **Service-agnostic numeric data:** all rates, inflation, depreciation, fees flow through `marketDataService.getSync()` (provider-swap-ready for live API)
 - **"Digital dollar" terminology:** body copy avoids crypto/DeFi jargon; technical terms reserved for regulatory disclosures (MiCA / CVM / FTC / TILA)
 

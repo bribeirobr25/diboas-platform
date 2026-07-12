@@ -1,7 +1,7 @@
 # Tools Validation — Stress-Test Coverage Report
 
 **Generated:** 2026-05-23
-**Scope:** All 10 calculators at `/tools` + 1 supporting formula (Brazil poupança). Default values + happy-path + edge-case + negative scenarios × 4 locales where math diverges.
+**Scope:** All 11 calculators at `/tools` (incl. money-jobs, tool #11 — engine vectors in the money-jobs stress leg) + 1 supporting formula (Brazil poupança). Default values + happy-path + edge-case + negative scenarios × 4 locales where math diverges.
 **Method:** Standalone Node simulator (`apps/web/scripts/tools-stress-test.mjs`) mirrors every formula in `apps/web/src/lib/market-data/formulas/` and consumes the live `monthlyPrices.json`/`monthlyFx.json` data files. Re-runs reproduce the JSON output deterministically.
 **Total scenarios:** 140 across 11 tools.
 

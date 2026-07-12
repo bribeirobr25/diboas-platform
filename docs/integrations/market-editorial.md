@@ -1,10 +1,10 @@
-# Adelaide Daily — Editorial Handoff Guide
+# Adelaide Market — Editorial Handoff Guide
 
 > **Scope:** The editorial JSON-update workflow for `/market` only (cadence, per-field rules, PR flow). Host-side integration wiring lives in `diboas-analytics.md`; the canonical analytics product spec + drift log lives in `docs/mvp/integration/13_host_integration_guides/diboas_platform.md`. Do not duplicate either here.
 
-> **Audience:** the editorial owner of `/market` (Adelaide Daily). The macro analyst, content owner, or designated curator who keeps the regime score, signal states, and commentary fresh.
+> **Audience:** the editorial owner of `/market` (Adelaide Market). The macro analyst, content owner, or designated curator who keeps the regime score, signal states, and commentary fresh.
 > **Goal:** ship a regime-score / signals / commentary update in under 30 minutes, end-to-end, without engineering hand-holding.
-> **Last updated:** 2026-05-14 (iteration 3 of `docs/audit/MARKET_INTEGRATION_PLAN_2026-05-13.md`).
+> **Last updated:** 2026-07-12 (P2/P3 automation shipped — see the pipeline note in §7 and `docs/audit/MARKET_REFRESH_AUDIT_AND_AUTOMATION_PLAN_2026-07-11.md`). Prior baseline: 2026-05-14 (iteration 3).
 
 ---
 
@@ -36,7 +36,7 @@ apps/web/data/market/
   product-disclaimer.json     # Educational-framing disclaimer text (legal-driven; rare edits)
 ```
 
-**Reproducible compute helper:** `apps/web/scripts/data-fetchers/compute-regime.mjs` is the engineering-owned, doc-02-conformant compute path for the 11-signal registry. It pulls the underlying data (FRED, Yahoo, in-repo BTC monthlies), applies the strict-Friday weekly resampling convention (locked — never use intra-week values as "the latest weekly close"), enforces the §5.1 confirmed-candle rule on BTC monthly signals, and prints per-signal state + group totals + score. Run it before every refresh and copy the resulting state/points into `regime.json` + `signals.json`. ETF-01 is the only signal it does NOT auto-compute (manual feed per spec §8.3 — see §8 troubleshooting below).
+**Reproducible compute helper:** `apps/web/scripts/data-fetchers/compute-regime.mjs` is the engineering-owned, doc-02-conformant compute path for the 11-signal registry. It pulls the underlying data (FRED, Yahoo, in-repo BTC monthlies), applies the strict-Friday weekly resampling convention (locked — never use intra-week values as "the latest weekly close"), enforces the §5.1 confirmed-candle rule on BTC monthly signals, and prints per-signal state + group totals + score. Run it before every refresh and copy the resulting state/points into `regime.json` + `signals.json`. ETF-01 is now auto-derived by the P4 pipeline from the Polygon shares-outstanding ledger (`apps/web/scripts/market-refresh/lib/etf-flows.mjs`), NOT a manual feed — it warms up over 5 weekly snapshots and stays UNAVAILABLE (not weak) until then. **Preferred path: run the full pipeline `apps/web/scripts/market-refresh/run.mjs` + `generate.mjs`, not this CLI-copy step** — the CLI remains for a quick manual score check only.
 
 ### What each file drives on the rendered page
 
@@ -163,6 +163,19 @@ Reference: `CLAUDE.md` §"Digital dollar terminology + jargon ban (Phase 7 Q2a/Q
 > `signals.json` scores disagree with `computed.json`, so transcription
 > errors can no longer merge (F-M4). Then follow the steps below for the
 > editorial copy itself.
+>
+> **P3 generator (2026-07-11):** the signal sentences, group summaries, and
+> the plain-language `summary.plain` "grandmother layer" (rendered on
+> `/market` ABOVE the research-memo `detailed` voice) are now GENERATED from
+> a reviewed template library (`apps/web/scripts/market-refresh/templates/`)
+> by `generate.mjs` — do NOT hand-edit those fields; run the generator and
+> commit its output (`generate.mjs --check` is the CI drift gate,
+> `generatedCopyReconciliation.test.ts`). Only the memo-voice fields
+> (`summary.short`/`detailed`/`key_*`) stay hand-authored. For a
+> cycle-specific override, use `apps/web/data/market/editorial-override.json`
+> and re-run the generator. The whole flow is automated weekly by
+> `.github/workflows/market-refresh-weekly.yml` (Mondays 06:00 UTC → PR,
+> never a direct push).
 
 ```bash
 # 1. Get the latest main
@@ -248,9 +261,9 @@ Two valid paths to a 0-pt verdict, both producing identical scoring:
 
 Default to the more conservative §10.1 path when in doubt — overclaiming "confirmed net-negative" weeks that you can't actually see on the source is the methodology error to avoid. Both paths award 0 pts so the score outcome is invariant; only the messaging surfaces (signal-card summary + `data-status.json` source message) differ.
 
-**CoinGlass route currently dead (as of 2026-06-26):** the CoinGlass spot-ETF routes (`/bitcoin-etf`, `/etf/bitcoin`, `/bitcoin-spot-etf`, plus the `/en/` and `/pro/i/` variants) all now return **HTTP 404** — the site's data-route structure changed and the page described above is no longer reachable. With no observable source, ETF-01 cannot confirm any trailing week, so it **defaults to the §10.1 UNAVAILABLE path** until a working source is wired. The real fix is the canonical Farside manual feed below.
+**ETF-01 source RESOLVED (2026-07-11, P4):** the founder approved the free **Polygon shares-outstanding** route. Weekly flow = Δshares × NAV proxy across the 11 spot-BTC funds; the pipeline records one snapshot per Friday to an append-only ledger and activates ETF-01 on the doc-02 §8.3 rule (≥3 of trailing 4 weekly flows positive). It warms up over 5 snapshots (first snapshot 2026-07-10 → scores ~2026-08-10) and reports UNAVAILABLE-not-weak until then. The CoinGlass 404 / Farside-Cloudflare story below is retained only as historical context for why Polygon was chosen.
 
-The deeper fix is the canonical Farside manual feed, tracked in PENDING_ALL.md 5.28 — once acquired, the full trailing-4 window is auditable and §4.5 invocation becomes deterministic.
+~~The deeper fix is the canonical Farside manual feed~~ — SUPERSEDED 2026-07-11 by the Polygon shares-outstanding route (P4); Farside is no longer needed.
 
 ---
 
