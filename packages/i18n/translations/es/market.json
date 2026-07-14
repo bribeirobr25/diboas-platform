@@ -10,11 +10,6 @@
     "subtitle": "Inteligencia macro serena para Bitcoin.",
     "kicker": "Score del entorno macro"
   },
-  "comingSoon": {
-    "title": "Próximamente.",
-    "body": "Adelaide Market se está construyendo. Te ayudará a entender el entorno macro de Bitcoin sin el ruido.",
-    "backHome": "Volver al Inicio"
-  },
   "dashboard": {
     "scoreAriaLabel": "Score actual del entorno macro",
     "confidence": {
@@ -30,9 +25,6 @@
       "HOSTILE": "Hostil"
     },
     "signalsSectionTitle": "Grupos de señales",
-    "signalsSectionLead": "Cuatro grupos componen el score de 14 puntos. Expande una tarjeta para ver las señales.",
-    "signalsExpand": "Mostrar señales",
-    "signalsCollapse": "Ocultar señales",
     "signalsPoints": "pts",
     "historicalTitle": "Score a lo largo del tiempo",
     "historicalLead": "Dónde estuvo el entorno durante el último año.",
@@ -51,7 +43,7 @@
     "methodologyTitle": "Cómo se calcula esto",
     "methodologyLead": "Cada señal, umbral y peso está documentado en diBoaS Analytics.",
     "methodologyLinkLabel": "Leer la metodología",
-    "poweredByLabel": "Provisto por",
+    "poweredByLabel": "Con la tecnología de",
     "poweredByProduct": "diBoaS Analytics"
   },
   "cta": {

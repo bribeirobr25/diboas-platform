@@ -120,7 +120,7 @@
     "brDollarLine": "Y en dólar digital, tu reserva no depende de una sola moneda.",
     "brDollarBothWays": "El tipo de cambio se mueve en ambas direcciones; el valor en tu moneda puede subir o bajar.",
     "runwayLed": "El runway lidera este plan: unos {months} meses al gasto actual, con un suelo de {floor}. Recorta costes de pago y vigila el gasto antes de poner el excedente a trabajar.",
-    "idleComparison": "En 12 meses, tu excedente ideal de {amount} podría generar unos {delta} más que en tu banco, en el escenario conservador.",
+    "idleComparison": "En 12 meses, tu excedente ideal de {amount} podría generar unos {delta} más que en tu banco, en el escenario conservador. Solo ilustrativo.",
     "nextCushion": "Calculadora de Fondo de Emergencia",
     "nextWorking": "Calculadora de Interés Compuesto",
     "nextCurrency": "Calculadora de Depreciación de Moneda",

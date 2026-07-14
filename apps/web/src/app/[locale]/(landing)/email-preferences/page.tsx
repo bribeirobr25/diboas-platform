@@ -106,9 +106,26 @@ export default function EmailPreferencesPage() {
         </>
       ) : null}
 
-      {state === 'invalid' ? <h1 className={styles.titleError}>{t('invalidLink')}</h1> : null}
+      {state === 'invalid' ? (
+        <>
+          <h1 className={styles.titleError}>{t('invalidLink')}</h1>
+          <a href={`/${locale}/`} className={styles.secondaryButton}>
+            {t('backHome')}
+          </a>
+        </>
+      ) : null}
 
-      {state === 'error' ? <h1 className={styles.titleError}>{t('error')}</h1> : null}
+      {state === 'error' ? (
+        <>
+          <h1 className={styles.titleError}>{t('error')}</h1>
+          <button onClick={handleUnsubscribe} className={styles.primaryButton}>
+            {t('tryAgainButton')}
+          </button>
+          <a href={`/${locale}/`} className={styles.secondaryButton}>
+            {t('backHome')}
+          </a>
+        </>
+      ) : null}
     </div>
   );
 }

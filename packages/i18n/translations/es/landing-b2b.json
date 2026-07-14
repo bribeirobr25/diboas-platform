@@ -1,7 +1,7 @@
 {
   "hero": {
     "headline": "Cada euro necesita una función.",
-    "subheadline": "Las nóminas y el alquiler no pueden esperar. El resto no tiene por qué quedarse quieto.\n\ndiBoaS le da a tu empresa la oportunidad de poner a trabajar el efectivo parado, generando rendimiento cada día, en tus términos y bajo tu control.",
+    "subheadline": "Ya tengas una tienda o una startup con financiación, las nóminas y el alquiler no pueden esperar. El resto no tiene por qué quedarse quieto.\n\ndiBoaS le da a tu empresa una forma de poner a trabajar el efectivo parado en estrategias de dólar digital, en tus términos y bajo tu control. Ves el coste y el riesgo antes de mover.",
     "cta": "Ver cómo funciona",
     "imageAlt": "Ilustración de gestión de tesorería empresarial",
     "trustBadges": {
@@ -58,7 +58,7 @@
       "works": {
         "title": "Revisa el excedente",
         "description": "Ve qué parte de la liquidez puede tener otra función sin poner en riesgo la operación.",
-        "imageAlt": "Tu dinero trabaja para ti"
+        "imageAlt": "Revisando el camino de una estrategia antes de mover"
       },
       "access": {
         "title": "Mueve solo al aprobar",
@@ -88,7 +88,7 @@
       },
       "records": {
         "headline": "Registros para operaciones reales",
-        "body": "Historial de transacciones, extractos y datos exportables pensados para contabilidad, impuestos, auditoría y control interno.",
+        "body": "Cuando tu contable pide el último trimestre, lo exportas, no lo reconstruyes. Historial, extractos y registros hechos para contabilidad, impuestos y auditoría.",
         "imageAlt": "Un escritorio con laptops y registros financieros impresos en revisión."
       }
     },
@@ -315,11 +315,11 @@
   "startupTreasury": {
     "eyebrow": "PARA STARTUPS FINANCIADAS",
     "headline": "No lo levantaste para verlo parado.",
-    "subheadline": "La mayor parte de tu ronda es runway que no tocarás en meses. Puede esperar en un sitio que trabaje para ti, sin salir nunca de tu control.",
+    "subheadline": "La mayor parte de tu ronda es runway que no tocarás en meses. Puede esperar en un sitio que eliges, con el coste y el riesgo a la vista, sin salir nunca de tu control.",
     "body": {
       "0": "Cierras una ronda. Las nóminas se llevan su parte cada mes. El resto —la mayoría— espera.",
       "1": "Espera en una cuenta, en un solo banco, sin apenas generar nada. Ya sabes lo que esa frase puede costar.",
-      "2": "diBoaS no te pide que juegues con tu runway. Fija el suelo de lo que necesitas. Lo que queda por encima se pone a trabajar y sigue siendo tuyo, generando cada día y listo para retirarlo en el momento en que lo necesites."
+      "2": "diBoaS no te pide que juegues con tu runway. Fija el suelo de lo que necesitas. Lo que queda por encima puede ir a estrategias de dólar digital y sigue bajo tu control, listo para retirarlo cuando lo necesites. Toda estrategia tiene riesgo, visible antes de mover."
     },
     "bridgeLine": "No te fíes del ejemplo. Calcúlalo con tu propio runway.",
     "cta": {

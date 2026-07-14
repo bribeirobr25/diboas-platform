@@ -37,10 +37,10 @@ const VARIANT_MAP: FAQAccordionVariantMap = {
  * @example
  * ```tsx
  * import { FAQAccordion } from '@/components/Sections';
- * import { DEFAULT_FAQ_ACCORDION_CONFIG } from '@/config/faqAccordion';
+ * import { B2C_FAQ_CONFIG } from '@/config/landing-b2c';
  *
  * export function MyPage() {
- *   return <FAQAccordion config={DEFAULT_FAQ_ACCORDION_CONFIG} />;
+ *   return <FAQAccordion config={B2C_FAQ_CONFIG} />;
  * }
  * ```
  */

@@ -33,6 +33,10 @@ export function PrivacyPolicyContent() {
   const intl = useTranslation();
 
   const t = (id: string) => intl.formatMessage({ id: `legal/privacy.${id}` });
+  // pt-BR-only keys (brazilNote, 8th LGPD right) are absent in en/es/de; guard
+  // on runtime message presence so those locales render nothing (D8).
+  const has = (id: string) => Boolean(intl.messages[`legal/privacy.${id}`]);
+  const hasBrazilNote = has('sections.brazilNote.title');
 
   // Table of contents items
   const tocItems = [
@@ -48,6 +52,7 @@ export function PrivacyPolicyContent() {
     { id: 'childrens-privacy', title: t('sections.childrenPrivacy.title') },
     { id: 'changes-to-this-policy', title: t('sections.changes.title') },
     { id: 'contact-us', title: t('sections.contact.title') },
+    ...(hasBrazilNote ? [{ id: 'brazil-note', title: t('sections.brazilNote.title') }] : []),
   ];
 
   // Data usage table
@@ -114,6 +119,15 @@ export function PrivacyPolicyContent() {
       t('sections.yourRights.table.rows.6.right'),
       t('sections.yourRights.table.rows.6.description'),
     ],
+    // 8th LGPD right (automated-decision review) — pt-BR only, guarded.
+    ...(has('sections.yourRights.table.rows.7.right')
+      ? [
+          [
+            t('sections.yourRights.table.rows.7.right'),
+            t('sections.yourRights.table.rows.7.description'),
+          ],
+        ]
+      : []),
   ];
 
   // Data lists
@@ -264,6 +278,12 @@ export function PrivacyPolicyContent() {
             {t('sections.contact.content').replace('{email}', t('sections.contact.email'))}
           </LegalParagraph>
         </LegalContentSection>
+
+        {hasBrazilNote ? (
+          <LegalContentSection title={t('sections.brazilNote.title')} id="brazil-note">
+            <LegalParagraph>{t('sections.brazilNote.content')}</LegalParagraph>
+          </LegalContentSection>
+        ) : null}
 
         <LegalBackToTop label={t('backToTop')} />
       </SectionContainer>

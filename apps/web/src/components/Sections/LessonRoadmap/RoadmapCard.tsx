@@ -1,5 +1,6 @@
 'use client';
 
+import type { KeyboardEvent } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { analyticsService } from '@/lib/analytics';
 import { LESSON_EVENTS, type RoadmapLessonKey } from '@/lib/learn';
@@ -33,8 +34,24 @@ export function RoadmapCard({ lessonKey, enableAnalytics = true }: RoadmapCardPr
     });
   };
 
+  // Keyboard parity for the click handler (visual-audit F-L2): the card carried an
+  // onClick with no role/keyboard, so keyboard + screen-reader users couldn't reach it.
+  const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleClick();
+    }
+  };
+
   return (
-    <article className={styles.card} data-status="comingSoon" onClick={handleClick}>
+    <article
+      className={styles.card}
+      data-status="comingSoon"
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+    >
       <span className={styles.badge}>{comingSoonLabel}</span>
       <h3 className={styles.cardTitle}>{title}</h3>
       <p className={styles.cardDescription}>{description}</p>

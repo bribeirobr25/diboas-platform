@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Calculadora de histórico de ativos",
     "headline": "O que realmente aconteceu?",
-    "subtitle": "Escolha um ativo, um ano de início e um modo. Veja o caminho real que seu dinheiro teria tomado, com as barras honestas de incerteza nos trechos mais ruidosos."
+    "subtitle": "Escolha um ativo, um ano de início e um modo. Veja o caminho real que seu dinheiro teria tomado, e uma faixa honesta onde os números são menos certos."
   },
   "inputs": {
     "assetLabel": "Ativo",

@@ -7,7 +7,7 @@
   "wedge": {
     "eyebrow": "A verdade sobre o real",
     "claim": "O real perdeu {value} pro dólar desde 2010.",
-    "honest": "Ninguém prevê o câmbio, mas a direção de longo prazo é difícil de ignorar. O dólar digital te dá acesso a essa força, com você no controle.",
+    "honest": "Ninguém prevê o câmbio. O dólar digital te dá acesso a essa moeda, com você no controle. Todo mercado tem risco.",
     "cta": "Veja o que seu real perde"
   },
   "waitlistFounding": {
@@ -27,30 +27,6 @@
     },
     "footnote": "Taxas comparativas baseadas em dados públicos brasileiros com média dos últimos 5 anos. Rendimentos podem mudar. Dólares digitais envolvem riscos, incluindo possível perda do capital.",
     "disclosureToggle": "Ver custo completo"
-  },
-  "howItWorks": {
-    "transitionHook": "",
-    "header": "Assuma o Controle e Liberte seu Dinheiro",
-    "step1": {
-      "title": "Enviar e Receber",
-      "description": "Mande dinheiro pra qualquer pessoa no diBoaS. Em qualquer lugar do mundo. Em segundos. De graça. Saque quando quiser.",
-      "imageAlt": "Enviar e receber dinheiro"
-    },
-    "step2": {
-      "title": "Investir e Crescer",
-      "description": "Escolha entre 10 formas de fazer seu dinheiro crescer. Seu dinheiro trabalha enquanto você dorme.",
-      "imageAlt": "Investir e fazer seu dinheiro crescer"
-    },
-    "step3": {
-      "title": "Acompanhar e Aprender",
-      "description": "O que se moveu. O que significa. O que você pode fazer. Adelaide, sua guia de IA, explica tudo em linguagem clara, sem jargão.",
-      "imageAlt": "Acompanhar e aprender sobre suas finanças"
-    },
-    "step4": {
-      "title": "Comprar e Guardar",
-      "description": "Compre ativos digitais e guarde na sua própria carteira. Começando com BTC, ETH e SOL. Ações e Ouro em breve.",
-      "imageAlt": "Comprar e manter ativos digitais"
-    }
   },
   "fees": {
     "transitionHook": "Custo claro. Antes do clique.",
@@ -142,7 +118,6 @@
     "header": "Faz parte.",
     "description": "Acesso aberto e oportunidades justas pra todo mundo.",
     "emailPlaceholder": "Seu email",
-    "submitButton": "Garantir minha vaga",
     "privacyNote": "Sem spam. Só uma mensagem quando for sua vez.",
     "privacyConsent": "Ao se cadastrar, você concorda com nossa Política de Privacidade.",
     "benefits": {
@@ -189,7 +164,7 @@
   },
   "sections": {
     "comparison": {
-      "ariaLabel": "Tabela comparativa de rendimentos entre poupança, CDB, Tesouro Direto e diBoaS"
+      "ariaLabel": "Tabela comparativa de rendimentos entre poupança, bancos digitais, Tesouro Direto e diBoaS"
     },
     "feeTable": {
       "ariaLabel": "Tabela completa de transparência de taxas"
@@ -241,7 +216,7 @@
   "ptbr": {
     "hero": {
       "headline": "Você não guarda dinheiro. Você guarda futuro.",
-      "subtitle": "Uma reserva. Uma proteção. Um plano que sai do papel.\n\nA oportunidade de ver seu dinheiro trabalhando usando o poder do dólar digital.",
+      "subtitle": "Uma reserva. Uma proteção. Um plano que sai do papel.\n\nVeja o caminho em dólar digital, com você no controle.",
       "whatIs": "Seu dinheiro guardado em dólar e rendendo. Você no controle, sem banco no meio.",
       "microcopy": "Comece com R$10. Sem mensalidade. Saia quando quiser.",
       "cta": "Ver como funciona"

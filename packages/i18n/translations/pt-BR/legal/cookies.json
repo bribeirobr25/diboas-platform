@@ -1,46 +1,46 @@
 {
   "seo": {
-    "title": "Politica de Cookies | diBoaS",
-    "description": "Saiba como o diBoaS utiliza cookies para melhorar sua experiência e analisar o trafego do site."
+    "title": "Política de Cookies | diBoaS",
+    "description": "Saiba como o diBoaS utiliza cookies para melhorar sua experiência e analisar o tráfego do site."
   },
   "toc": {
     "title": "Conteúdo"
   },
   "backToTop": "Voltar ao topo",
   "header": {
-    "title": "Politica de Cookies",
+    "title": "Política de Cookies",
     "lastUpdated": "Última atualização: 5 de julho de 2026"
   },
   "sections": {
     "whatAreCookies": {
       "title": "O Que São Cookies?",
-      "content": "Cookies são pequenos arquivos de texto armazenados em seu dispositivo quando você visita nosso site. Eles nos ajudam a lembrar suas preferencias e entender como você interage com o diBoaS."
+      "content": "Cookies são pequenos arquivos de texto armazenados em seu dispositivo quando você visita nosso site. Eles nos ajudam a lembrar suas preferências e entender como você interage com o diBoaS."
     },
     "cookiesWeUse": {
       "title": "Cookies Que Utilizamos",
       "essential": {
-        "title": "Cookies Essenciais (Obrigatorios)",
-        "description": "Estes cookies são necessarios para o funcionamento do site. Você não pode desativa-los.",
+        "title": "Cookies Essenciais (Obrigatórios)",
+        "description": "Estes cookies são necessários para o funcionamento do site. Você não pode desativá-los.",
         "table": {
           "headers": {
             "cookie": "Cookie",
             "purpose": "Finalidade",
-            "duration": "Duracao"
+            "duration": "Duração"
           },
           "rows": [
             {
               "cookie": "session_id",
-              "purpose": "Mantem sua sessão ativa",
-              "duration": "Sessao"
+              "purpose": "Mantém sua sessão ativa",
+              "duration": "Sessão"
             },
             {
               "cookie": "locale",
-              "purpose": "Lembra sua preferencia de idioma",
+              "purpose": "Lembra sua preferência de idioma",
               "duration": "1 ano"
             },
             {
               "cookie": "cookie_consent",
-              "purpose": "Armazena suas preferencias de cookies",
+              "purpose": "Armazena suas preferências de cookies",
               "duration": "1 ano"
             }
           ]
@@ -53,7 +53,7 @@
           "headers": {
             "cookie": "Cookie",
             "purpose": "Finalidade",
-            "duration": "Duracao"
+            "duration": "Duração"
           },
           "rows": [
             {
@@ -81,18 +81,18 @@
           "headers": {
             "cookie": "Cookie",
             "purpose": "Finalidade",
-            "duration": "Duracao"
+            "duration": "Duração"
           },
           "rows": [
             {
               "cookie": "theme",
-              "purpose": "Lembra preferencia de modo claro/escuro",
+              "purpose": "Lembra preferência de modo claro/escuro",
               "duration": "1 ano"
             },
             {
               "cookie": "dream_mode_data",
               "purpose": "Armazena seus dados de simulação do Dream Mode localmente",
-              "duration": "Sessao"
+              "duration": "Sessão"
             }
           ]
         }
@@ -100,25 +100,25 @@
     },
     "yourChoices": {
       "title": "Suas Escolhas",
-      "content": "Você pode gerenciar cookies atraves de:",
+      "content": "Você pode gerenciar cookies através de:",
       "options": [
         "Nosso banner de consentimento de cookies (aparece na primeira visita)",
-        "Configuracoes do seu navegador",
-        "O link \"Configuracoes de Cookies\" no rodape do site"
+        "Configurações do seu navegador",
+        "O link \"Configurações de Cookies\" no rodapé do site"
       ],
       "deleteNote": "Para excluir cookies existentes, utilize as configurações do seu navegador."
     },
     "changes": {
-      "title": "Alteracoes Nesta Politica",
-      "content": "Podemos atualizar esta politica ocasionalmente. A data de \"Ultima Atualizacao\" refletira quaisquer mudancas."
+      "title": "Alterações Nesta Política",
+      "content": "Podemos atualizar esta política ocasionalmente. A data de \"Última Atualização\" refletirá quaisquer mudanças."
     },
     "brazilNote": {
-      "title": "Nota para Usuarios Brasileiros",
-      "content": "Este site esta disponível para visualizacao informativa. A lista de espera e recursos interativos estarao disponiveis quando o serviço for lancado no Brasil, sujeito as aprovacoes regulatorias da ANPD (Autoridade Nacional de Proteção de Dados)."
+      "title": "Nota para Usuários Brasileiros",
+      "content": "Este site está disponível para visualização informativa. A lista de espera e recursos interativos estarão disponíveis quando o serviço for lançado no Brasil, sujeito às aprovações regulatórias da ANPD (Autoridade Nacional de Proteção de Dados)."
     },
     "contact": {
       "title": "Fale Conosco",
-      "content": "Duvidas sobre cookies? Envie um e-mail para {email}",
+      "content": "Dúvidas sobre cookies? Envie um e-mail para {email}",
       "email": "privacy@diboas.com"
     }
   }

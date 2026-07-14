@@ -5,17 +5,16 @@
   },
   "hero": {
     "kicker": "Retirement calculator",
-    "headline": "Plan a future where work is optional.",
-    "subtitle": "Pick a monthly amount. See what 25 years could become."
+    "headline": "Plan for the retirement you want.",
+    "subtitle": "Pick a monthly amount. Watch 25 years of it compound into a number you can plan around."
   },
   "vignette": {
-    "headline": "{monthly}/month for {years} years could become {result}",
-    "subtitle": "That's what diBoaS could give you, vs your bank's near-zero yield."
+    "subtitle": "A projection, not a promise. Markets move, and results will vary."
   },
   "disclaimer": "This tool projects retirement savings accumulation. It does not model withdrawals, longevity, or what a sustainable retirement income would look like. Those are different questions worth their own planning.",
   "landing": {
     "cardTitle": "Retirement",
-    "cardTagline": "What does your savings become at 65?"
+    "cardTagline": "What do your savings become at 65?"
   },
   "lessonLink": {
     "label": "Want to learn how this works?",

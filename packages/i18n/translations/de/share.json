@@ -1,16 +1,4 @@
 {
-  "headline": "Teile deinen Traum",
-  "subhead": "Zeig anderen, was möglich ist",
-  "modal": {
-    "title": "Teilen",
-    "close": "Schließen",
-    "shareVia": "Teilen über",
-    "copyLink": "Link kopieren",
-    "copied": "Kopiert!",
-    "download": "Bild herunterladen",
-    "generating": "Deine Karte wird erstellt...",
-    "noPreview": "Keine Vorschau verfügbar"
-  },
   "platform": {
     "instagram": "Instagram",
     "twitter": "X / Twitter",
@@ -33,23 +21,6 @@
     "shareCancelled": "Teilen abgebrochen",
     "linkedInCopied": "Text kopiert! Füge ihn in deinen LinkedIn-Beitrag ein."
   },
-  "instagramInstructions": "Bild gespeichert! Öffne Instagram und teile aus deiner Galerie.",
-  "card": {
-    "cta": "Sieh, was deins erreichen könnte →",
-    "generating": "Deine Karte wird erstellt...",
-    "ready": "Deine Karte ist fertig!"
-  },
-  "referral": {
-    "intro": "Dein persönlicher Link:",
-    "benefit": "Teilen, um Freunden frühzeitigen Zugang zu ermöglichen",
-    "copied": "Link in die Zwischenablage kopiert!"
-  },
-  "timeframes": {
-    "1week": "1 Woche",
-    "1month": "1 Monat",
-    "1year": "1 Jahr",
-    "5years": "5 Jahren"
-  },
   "waitlist": {
     "text": "Ich habe einen einfachen und fairen Weg gefunden, Geld wachsen zu lassen und zu bewegen. Es ist so gut, dass ich es teilen muss"
   },
@@ -59,11 +30,11 @@
       "description": "Komm zu mir auf diBoaS - Finanzielle Freiheit Einfach Gemacht"
     },
     "calculator": {
-      "title": "Meine Investition könnte auf {formattedAmount} wachsen!",
+      "title": "Meine Investition könnte auf {formattedAmount} wachsen",
       "description": "In {years} Jahren mit dem diBoaS Dream Mode Rechner"
     },
     "toolResult": {
-      "title": "Was mein Geld wirklich verdienen könnte: {value}",
+      "title": "Was mein Geld verdienen könnte: {value}",
       "titleByTool": {
         "asset-history": "Was es heute wert wäre: {value}",
         "card-fees": "Was ich sparen könnte: {value}"

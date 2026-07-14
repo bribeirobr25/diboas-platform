@@ -1,12 +1,12 @@
 {
   "hero": {
     "headline": "Jeder Euro braucht eine Aufgabe.",
-    "subheadline": "Löhne und Miete können nicht warten. Der Rest muss nicht brachliegen.\n\ndiBoaS gibt deinem Unternehmen die Möglichkeit, ungenutzte Liquidität arbeiten zu lassen, Tag für Tag, zu deinen Bedingungen und unter deiner Kontrolle.",
+    "subheadline": "Ob Laden oder finanziertes Startup, Löhne und Miete können nicht warten. Der Rest muss nicht brachliegen.\n\ndiBoaS gibt deinem Unternehmen einen Weg, ungenutzte Liquidität in Digital-Dollar-Strategien arbeiten zu lassen, zu deinen Bedingungen und unter deiner Kontrolle. Du siehst die Kosten und das Risiko, bevor etwas bewegt wird.",
     "cta": "So funktioniert es",
     "imageAlt": "Illustration zur Unternehmens-Treasury-Verwaltung",
     "trustBadges": {
       "wallet": {
-        "label": "Dein Geld, dein Wallet"
+        "label": "Dein Geld, deine Wallet"
       },
       "reporting": {
         "label": "Exportierbare Unterlagen"
@@ -58,7 +58,7 @@
       "works": {
         "title": "Prüfe den Überschuss",
         "description": "Sieh, welcher Teil der Liquidität eine andere Aufgabe haben kann, ohne den operativen Bedarf zu gefährden.",
-        "imageAlt": "Dein Geld arbeitet für dich"
+        "imageAlt": "Den Weg einer Strategie prüfen, bevor Geld bewegt wird"
       },
       "access": {
         "title": "Bewege nur nach Freigabe",
@@ -88,7 +88,7 @@
       },
       "records": {
         "headline": "Belege für den echten Betrieb",
-        "body": "Transaktionshistorie, Auszüge und exportierbare Daten für Buchhaltung, Steuern, Prüfung und interne Kontrolle.",
+        "body": "Wenn dein Buchhalter das letzte Quartal braucht, exportierst du es, statt es zu rekonstruieren. Historie, Auszüge und Daten für Buchhaltung, Steuern und Prüfung.",
         "imageAlt": "Ein Schreibtisch mit Laptops und ausgedruckten Finanzunterlagen zur Prüfung."
       }
     },
@@ -315,11 +315,11 @@
   "startupTreasury": {
     "eyebrow": "FÜR FINANZIERTE STARTUPS",
     "headline": "Du hast es nicht eingesammelt, damit es brachliegt.",
-    "subheadline": "Der Großteil deiner Runde ist Runway, den du monatelang nicht anfasst. Er kann an einem Ort warten, der für dich arbeitet, ohne je deine Kontrolle zu verlassen.",
+    "subheadline": "Der Großteil deiner Runde ist Runway, den du monatelang nicht anfasst. Er kann an einem Ort warten, den du wählst, mit Kosten und Risiko im Blick, ohne je deine Kontrolle zu verlassen.",
     "body": {
       "0": "Eine Runde kommt rein. Die Gehälter nehmen sich jeden Monat ihren Teil. Der Rest — das meiste davon — wartet.",
       "1": "Er wartet auf einem Konto, bei einer Bank, und bringt fast nichts. Du weißt bereits, was dieser Satz kosten kann.",
-      "2": "diBoaS verlangt nicht, dass du deinen Runway aufs Spiel setzt. Leg den Boden fest für das, was du brauchst. Was darüber liegt, geht arbeiten und bleibt deins, verdient jeden Tag und ist sofort abrufbar, sobald du es brauchst."
+      "2": "diBoaS verlangt nicht, dass du deinen Runway aufs Spiel setzt. Leg den Boden fest für das, was du brauchst. Was darüber liegt, kann in Digital-Dollar-Strategien gehen und bleibt unter deiner Kontrolle, sofort abrufbar, sobald du es brauchst. Jede Strategie trägt Risiko, sichtbar vor jeder Bewegung."
     },
     "bridgeLine": "Verlass dich nicht auf das Beispiel. Rechne es mit deinem eigenen Runway durch.",
     "cta": {

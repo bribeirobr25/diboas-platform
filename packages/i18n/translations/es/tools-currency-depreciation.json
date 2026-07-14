@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Calculadora de depreciación monetaria",
     "headline": "¿Qué gana realmente tu moneda?",
-    "subtitle": "Compara efectivo, banco y dólar digital con el tiempo, considerando la depreciación."
+    "subtitle": "Tu dinero puede crecer en papel y aun así comprar menos. Compara efectivo, banco y dólar digital con el tiempo."
   },
   "mode": {
     "ariaLabel": "Modo de la calculadora",
@@ -19,17 +19,17 @@
     "amountLabel": "Cantidad en {currency}",
     "amountLabel2010": "Cantidad en {currency} (ene 2010)",
     "yearsLabel": "Años a partir de ahora",
-    "depreciationHelp": "El {currency} se deprecia ~{rate}% al año vs USD"
+    "depreciationHelp": "El {currency} varía ~{rate}% al año vs USD"
   },
   "output": {
     "usdLocaleNote": "Esta calculadora es más útil para monedas distintas al USD. Para tenedores de USD, la depreciación se establece en 0.",
     "usdRetrospectiveNote": "Elige BRL o EUR para ver cómo tu moneda local se ha comportado frente al USD desde 2010.",
     "usdStabilityFramingTitle": "El dólar estadounidense es la moneda de reserva global.",
-    "usdStabilityFramingBody": "En cuestiones de estabilidad, quien tiene USD ya está del lado fuerte. Cambia la moneda arriba a BRL o EUR para ver lo que realmente cuesta mantener una moneda que se debilita a 5 años.",
+    "usdStabilityFramingBody": "En cuestiones de estabilidad, el dólar ha sido el lado estable del par. Cambia la moneda arriba a BRL o EUR para ver cómo una moneda que perdió terreno frente al dólar cambió el panorama con el tiempo.",
     "cashLabel": "Si lo dejas en efectivo",
     "cashEvolution": "Equivalente en USD tras una variación de {rate}% al año frente al dólar. Los números negativos indican que tu moneda local se fortaleció frente al USD.",
     "bankLabel": "Rendimiento bancario",
-    "bankRateNote": "{rate}% tasa local",
+    "bankRateNote": "{rate}% tipo local",
     "diboasLabel": "Dólar digital en diBoaS",
     "diboasNote": "{rate}% rendimiento histórico, guardado en dólar digital",
     "retrospectiveThenLabel": "Entonces ({startMonth})",

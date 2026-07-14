@@ -275,7 +275,10 @@
 }
 
 .accordionContentExpanded {
-  max-height: 500px;
+  /* No fixed cap: content toggles via the `hidden` attribute (instant, a11y-safe),
+     so a max-height here only silently clips long answers (esp. German at 375px —
+     visual-audit G-4). `none` lets the full answer render. */
+  max-height: none;
   opacity: 1;
 }
 

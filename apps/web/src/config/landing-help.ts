@@ -12,6 +12,7 @@
 
 import type { HeroVariantConfig } from './hero';
 import type { FAQAccordionVariantConfig, FAQItem } from './faqAccordion';
+import { FAQ_TOPICS } from './faqRegistry';
 
 // ─── Section 1: Hero ─────────────────────────────────────────
 
@@ -58,60 +59,11 @@ export const HELP_TOPIC_IDS = [
 export type HelpTopicId = (typeof HELP_TOPIC_IDS)[number];
 
 /**
- * Semantic-ID lists per topic — references entries in the canonical `faq.json`
- * namespace (Phase 8 Item A consolidation, 2026-05-20). Order matters: items
- * render top-to-bottom in the help accordion in the order listed here.
- *
- * To add a question to /help: add the semantic ID to the relevant topic list
- * (or coin a new ID + add the entry to `packages/i18n/translations/{locale}/faq.json`).
+ * The per-topic ordered semantic-id lists (`FAQ_TOPICS`) now live in the canonical
+ * FAQ registry (`@/config/faqRegistry`) so /help and the JSON-LD builder share one
+ * taxonomy. To add a question to /help: extend the relevant topic list there AND
+ * add the entry to `packages/i18n/translations/{locale}/faq.json` (all 4 locales).
  */
-const TOPIC_FAQ_IDS: Record<HelpTopicId, readonly string[]> = {
-  gettingStarted: [
-    'isBank',
-    'isForEveryone',
-    'minimum',
-    'afterSignup',
-    'whatKindOfMoney',
-    'understanding',
-    'micaRegulated',
-    'pixFaq',
-    'whySaveDollar',
-  ],
-  moneySafety: [
-    'safety',
-    'withdraw',
-    'shutdown',
-    'whatIfWrong',
-    'lostPhone',
-    'whatIsBalance',
-    'liquidity',
-    'whyCantTouch',
-    'risk',
-    'canLoseEverything',
-  ],
-  feesCosts: ['howPossible', 'catch', 'justTransfers'],
-  investingStrategies: [
-    'audited',
-    'canSwitchStrategies',
-    'multipleStrategies',
-    'rebalancing',
-    'returnsGuaranteed',
-    'whereMoneyGoesProtocols',
-    'protocolProblems',
-    'vsBankSavings',
-  ],
-  forBusinesses: ['smbOrStartup', 'payments', 'compliance', 'sendMoney', 'whereMoneyGoes'],
-  protocolsTransparency: [
-    'protocolsListLimit',
-    'protocolsUpdateFrequency',
-    'protocolsRequest',
-    'protocolsEndorsement',
-    'protocolHacked',
-    'protocolsWarningBadges',
-    'tvlMeaning',
-    'protocolsDirectInteraction',
-  ],
-};
 
 /**
  * Human-readable labels for aria-label attributes (accessibility).
@@ -143,7 +95,7 @@ const TOPIC_CATEGORIES: Record<HelpTopicId, FAQItem['category']> = {
  */
 function buildTopicItems(topicId: HelpTopicId): FAQItem[] {
   const category = TOPIC_CATEGORIES[topicId];
-  return TOPIC_FAQ_IDS[topicId].map((faqId) => ({
+  return FAQ_TOPICS[topicId].map((faqId) => ({
     id: `${topicId}-${faqId}`,
     question: `faq.items.${faqId}.question`,
     answer: `faq.items.${faqId}.answer`,
@@ -159,7 +111,9 @@ function buildTopicConfig(topicId: HelpTopicId): FAQAccordionVariantConfig {
     variant: 'default',
     content: {
       title: `landing-help.topics.${topicId}.title`,
-      description: '',
+      // One-line topic lead — gives each cluster a spine/promise instead of a bare
+      // category tab (storytelling F-help-2). Renders under the topic heading.
+      description: `landing-help.topics.${topicId}.lead`,
       ctaText: '',
       ctaHref: '',
       items: buildTopicItems(topicId),

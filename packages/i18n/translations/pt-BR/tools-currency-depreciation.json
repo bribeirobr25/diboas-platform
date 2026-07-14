@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Calculadora de desvalorização cambial",
     "headline": "O que sua moeda realmente rende?",
-    "subtitle": "Compare dinheiro, banco e dólar digital ao longo dos anos, considerando a desvalorização."
+    "subtitle": "Seu dinheiro pode crescer no papel e ainda comprar menos. Compare dinheiro, banco e dólar digital ao longo dos anos."
   },
   "mode": {
     "ariaLabel": "Modo da calculadora",
@@ -19,13 +19,13 @@
     "amountLabel": "Valor em {currency}",
     "amountLabel2010": "Valor em {currency} (jan 2010)",
     "yearsLabel": "Anos a partir de agora",
-    "depreciationHelp": "{currency} desvaloriza ~{rate}% ao ano frente ao USD"
+    "depreciationHelp": "{currency} varia ~{rate}% ao ano frente ao USD"
   },
   "output": {
     "usdLocaleNote": "Esta calculadora é mais útil para moedas que não o USD. Para quem usa USD, a desvalorização é 0.",
     "usdRetrospectiveNote": "Escolha BRL ou EUR para ver como sua moeda local se comportou contra o USD desde 2010.",
     "usdStabilityFramingTitle": "O dólar dos EUA é a moeda de reserva global.",
-    "usdStabilityFramingBody": "Em questões de estabilidade, quem detém USD já está do lado forte. Troque a moeda acima para BRL ou EUR para ver o que segurar uma moeda em depreciação realmente custa em 5 anos.",
+    "usdStabilityFramingBody": "Em questões de estabilidade, o dólar tem sido o lado estável do par. Troque a moeda acima para BRL ou EUR para ver como uma moeda que perdeu terreno para o dólar mudou o quadro ao longo do tempo.",
     "cashLabel": "Se ficar em dinheiro",
     "cashEvolution": "Equivalente em USD após variação de {rate}% ao ano frente ao dólar. Números negativos indicam que sua moeda local se fortaleceu frente ao USD.",
     "bankLabel": "Rendimento do banco",

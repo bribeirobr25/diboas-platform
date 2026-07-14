@@ -9,6 +9,7 @@ import { useMarketData } from '@/hooks/useMarketData';
 import type { SupportedLocale } from '@/lib/market-data';
 import { formatRate } from '@/lib/market-data/formatters';
 import { useLocale } from '@/components/Providers';
+import { TrendingUp } from '@/components/UI/LucideIcon';
 import { analyticsService } from '@/lib/analytics';
 import styles from '../PreDream.module.css';
 
@@ -57,7 +58,12 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
 
   if (!result) return null;
 
-  const bankBarWidth = result.defiBalance > 0 ? (bankBalance / result.defiBalance) * 100 : 0;
+  // Scale BOTH bars to a common max so the chart reflects the real outcome, rather
+  // than hard-pinning diBoaS to 100% (visual-audit F-2: the diBoaS bar was
+  // `width:100%` regardless, always "winning" the chart on a projected number).
+  const maxBalance = Math.max(result.defiBalance, bankBalance);
+  const diboasBarWidth = maxBalance > 0 ? (result.defiBalance / maxBalance) * 100 : 0;
+  const bankBarWidth = maxBalance > 0 ? (bankBalance / maxBalance) * 100 : 0;
 
   const goalName = state.selectedGoal
     ? intl.formatMessage({ id: `preDream.goalStrategy.options.${state.selectedGoal}.label` })
@@ -99,7 +105,7 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
             </div>
           </div>
           <div className={styles.progressBarBg}>
-            <div className={styles.progressBarDiboas} style={{ width: '100%' }} />
+            <div className={styles.progressBarDiboas} style={{ width: `${diboasBarWidth}%` }} />
           </div>
         </div>
 
@@ -128,18 +134,7 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
       {/* Difference Highlight */}
       <div className={styles.differenceHighlight}>
         <div className={styles.differenceIcon}>
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            aria-hidden="true"
-          >
-            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-            <polyline points="17 6 23 6 23 12" />
-          </svg>
+          <TrendingUp width={20} height={20} strokeWidth={2} aria-hidden="true" />
         </div>
         <div>
           <p className={styles.differenceText}>

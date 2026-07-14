@@ -5,7 +5,7 @@
   },
   "hero": {
     "headline": "The access they kept. Now yours to choose.",
-    "subheadline": "Different goals. Different risk levels. Different needs",
+    "subheadline": "Different goals. Different timelines. See the risk and the path before you pick one.",
     "subheadline2": ""
   },
   "matrix": {
@@ -44,7 +44,7 @@
       },
       "wealthBuilding": {
         "goal": "Retirement Plan",
-        "stable": "Yield Maximizer",
+        "stable": "Full Harvest",
         "growth": "Full Throttle"
       }
     },
@@ -186,9 +186,9 @@
       "warning": "In thousands of simulations, outcomes ranged from -60% to +200%+. The drop figure (47%) is the worst temporary decline during our test. The range (-60% to +200%+) is the full spread from simulations. Only for people who can tolerate significant losses."
     },
     "yieldMaximizer": {
-      "name": "Yield Maximizer",
+      "name": "Full Harvest",
       "badge": "Stable Returns | Wealth Building",
-      "tagline": "Maximum returns, minimum volatility",
+      "tagline": "Steady returns, low price swings.",
       "description": "You want the highest stable returns over 10+ years without exposure to digital asset prices. No growth component. Just optimized returns across all three stable lending systems.",
       "allocation": "45% Sky SSR + 35% Aave V3 + 20% Compound V3",
       "allocationNote": "Our highest-returning stable-only configuration.",
@@ -235,7 +235,7 @@
     "riskLevel": "Risk level"
   },
   "allStrategiesHeader": "All 10 Strategies",
-  "allCardsHonestLimitation": "All stats are based on historical analysis (May 2022 - December 2025) and thousands of Monte Carlo simulations. For newer protocols, earlier-period returns are estimated using validated proxies based on similar systems. What happened in the past may not happen again. These numbers help you compare strategies, not predict the future.",
+  "allCardsHonestLimitation": "All stats are based on the protocols' public on-chain history (May 2022 to December 2025) and thousands of Monte Carlo simulations. We're pre-launch, so these are protocol figures, not diBoaS results. For newer protocols, earlier-period returns are estimated using validated proxies based on similar systems. What happened in the past may not happen again. These numbers help you compare strategies, not predict the future.",
   "growthBadge": "Growth",
   "card": {
     "showMore": "More details",
@@ -355,11 +355,11 @@
     "question1": {
       "title": "What's this money for?",
       "options": {
-        "emergency": "Emergency fund: Safe Harbor. Money you might need tomorrow stays stable.",
+        "emergency": "Emergency fund: Safe Harbor. Money you might need tomorrow, built to stay stable.",
         "beatInflation": "Outpace inflation: Stable Growth. Your money works harder, but 30% moves with the market.",
         "shortTerm": "Something in the next 2 years: Goal Keeper (stable) or Steady Progress (with growth). Depends on how you feel about price movement.",
         "mediumTerm": "Something in 2-5 years: Patient Builder (stable) or Balanced Builder (with growth). More time means you can consider more growth.",
-        "longTerm": "Long-term wealth: Steady Compounder, Wealth Accelerator, Yield Maximizer, or Full Throttle. Your timeline is your biggest advantage."
+        "longTerm": "Long-term wealth: Steady Compounder, Wealth Accelerator, Full Harvest, or Full Throttle. Your timeline is your biggest advantage."
       }
     },
     "question2": {
@@ -382,50 +382,7 @@
     "goldenRule": "When in doubt, start safe. You can always move up later. Consider consulting a licensed financial advisor if you're unsure which approach fits your situation."
   },
   "faq": {
-    "header": "Before you decide",
-    "items": {
-      "switch": {
-        "question": "Can I switch strategies?",
-        "answer": "Yes, anytime. No penalties. No questions asked.\n\nHere's something to keep in mind: if you switch during a market dip, you might lock in a temporary loss. The best time to switch is when your goals change, not when the market moves."
-      },
-      "multiple": {
-        "question": "Can I use multiple strategies at once?",
-        "answer": "Yes. Many people do.\n\nThink of it like different accounts for different purposes: emergency fund in Safe Harbor, vacation savings in Goal Keeper, long-term wealth in Balanced Builder."
-      },
-      "rebalancing": {
-        "question": "How does rebalancing work?",
-        "answer": "When market movements push your allocation off target (more than 10% drift), we notify you. For example, if your target is 60% stable and 40% growth, and market movements push it to around 55/45 or further, we let you know.\n\nYou'll see exactly what changed and why. Then you decide: approve the rebalance, or leave it as is.\n\nWe never move your money without your approval."
-      },
-      "guaranteed": {
-        "question": "Are these returns guaranteed?",
-        "answer": "No. And anyone who guarantees returns is lying to you.\n\nWhat we can tell you: we tested every strategy across nearly 4 years of real market data (May 2022 - December 2025). The numbers are based on what actually happened and thousands of Monte Carlo simulations.\n\nThese numbers help you compare strategies and understand the range of outcomes. They don't predict the future. Start with what you can afford to learn with."
-      },
-      "systemProblem": {
-        "question": "What if one of the systems has a problem?",
-        "answer": "This is a real risk. These systems are built on code, and code can have vulnerabilities.\n\nWe reduce this risk by only using systems that have secured billions of dollars for years, spreading your money across multiple independent systems, and monitoring for unusual activity continuously.\n\nWe can't eliminate this risk. No one can. But we can be honest about it."
-      },
-      "whereMoneyGoes": {
-        "question": "Where does my money actually go?",
-        "answer": "The protocols behind every strategy are listed on this page with their names, chains, asset types, and track records. No signup required. No hidden information.\n\nSky SSR, Aave V3, and Compound V3 handle stable returns. Sanctum INF, Jupiter JLP, and Jito handle growth. Every strategy is a specific combination of these protocols with exact percentages shown on each strategy card above.\n\nWe chose these protocols because they're transparent, battle-tested, and you can verify everything yourself."
-      },
-      "fullThrottleReqs": {
-        "question": "Why are there extra requirements for Full Throttle?",
-        "answer": "Because we want to protect you from yourself.\n\nFull Throttle can lose most of its value. The requirements aren't there to exclude you. They're there to make sure you've thought it through: 6 months of experience, a minimum balance, a cap at 20% of your portfolio, and a 24-hour cooling period."
-      },
-      "safe": {
-        "question": "Is my money safe?",
-        "answerA": "Your money is secured by you. Your wallet, your keys. No one at diBoaS can access your funds without your authorization.\n\nThat said, this isn't a bank account. Your funds work through automated systems built on code. The value can fluctuate, and you could lose some or all of your investment. There is no deposit insurance.\n\nWe show you both sides, the opportunities and the risks, always.",
-        "answerB": "Your money is secured by you. Your wallet, your keys, and diBoaS holds no part of them. If you ever need to recover access, that runs through an independent partner, not diBoaS. No one at diBoaS can move your funds.\n\nThat said, this isn't a bank account. Your funds work through automated systems built on code. The value can fluctuate, and you could lose some or all of your investment. There is no deposit insurance.\n\nWe show you both sides, the opportunities and the risks, always."
-      },
-      "loseEverything": {
-        "question": "Can I lose everything?",
-        "answer": "In stable strategies (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): the chance of total loss is extremely low. In nearly 4 years of testing and thousands of simulations, it didn't happen. But \"extremely low\" is not zero.\n\nIn growth strategies: the higher the growth percentage, the wider the range of outcomes. Full Throttle at 85% growth exposure has seen simulated drops exceeding 78%.\n\nThe risk is real. We don't minimize it. We help you choose the level that matches what you can handle."
-      },
-      "bankDifference": {
-        "question": "How is this different from a bank savings account?",
-        "answer": "A bank savings account is insured by the government (up to limits). Your money earns a fixed rate. The bank controls it.\n\ndiBoaS strategies use automated lending and staking systems. Returns are variable. Your money is not insured. You control it through your own wallet.\n\nThe trade-off: potentially higher returns, but you accept the risk that comes with a different kind of system."
-      }
-    }
+    "header": "Before you decide"
   },
   "sections": {
     "faq": {

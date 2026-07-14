@@ -1,19 +1,14 @@
 {
   "seo": {
     "title": "Adelaide Market",
-    "description": "Calm macro intelligence for Bitcoin. Understand the environment, not the next candle.",
+    "description": "A calm read on Bitcoin. Understand the environment, not the next price move.",
     "ogTitle": "Adelaide Market",
-    "ogDescription": "Calm macro intelligence for Bitcoin. Understand the environment, not the next candle."
+    "ogDescription": "A calm read on Bitcoin. Understand the environment, not the next price move."
   },
   "hero": {
     "title": "Adelaide Market",
-    "subtitle": "Calm macro intelligence for Bitcoin.",
+    "subtitle": "A calm read on Bitcoin, without the noise.",
     "kicker": "Macro environment score"
-  },
-  "comingSoon": {
-    "title": "Coming soon.",
-    "body": "Adelaide Market is being built. It will help you understand the Bitcoin macro environment without the noise.",
-    "backHome": "Back to Home"
   },
   "dashboard": {
     "scoreAriaLabel": "Current macro environment score",
@@ -30,9 +25,6 @@
       "HOSTILE": "Hostile"
     },
     "signalsSectionTitle": "Signal groups",
-    "signalsSectionLead": "Four groups make up the 14-point score. Expand a card to see the signals inside.",
-    "signalsExpand": "Show signals",
-    "signalsCollapse": "Hide signals",
     "signalsPoints": "pts",
     "historicalTitle": "Score over time",
     "historicalLead": "Where the environment has been over the last year.",

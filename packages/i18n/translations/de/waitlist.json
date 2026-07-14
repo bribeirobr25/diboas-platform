@@ -39,7 +39,7 @@
     "standard": "Warteliste",
     "badge": {
       "foundingMember": "Du bist Gründungsmitglied!",
-      "earlyMember": "Du bist ein Early Member!"
+      "earlyMember": "Du bist ein frühes Mitglied!"
     },
     "explanation": {
       "foundingMember": "Du gehörst zu den ersten 1.200. Teile deinen Link. Du hast 5 Einladungen für den Gründungsmitglied-Status.",
@@ -68,7 +68,7 @@
   },
   "deletion": {
     "confirmTitle": "Datenlöschung bestätigen",
-    "confirmBody": "Klicke auf den Button unten, um alle deine Daten dauerhaft von der diBoaS-Warteliste zu löschen. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "confirmBody": "Dies löscht dauerhaft alle deine Daten von der diBoaS-Warteliste. Diese Aktion kann nicht rückgängig gemacht werden.",
     "confirmButton": "Löschung bestätigen",
     "confirming": "Deine Daten werden gelöscht...",
     "success": "Daten gelöscht",
@@ -76,7 +76,8 @@
     "expired": "Link abgelaufen",
     "expiredBody": "Dieser Löschungslink ist abgelaufen. Bitte sende eine neue Löschungsanfrage.",
     "error": "Etwas ist schiefgelaufen",
-    "errorBody": "Wir konnten deine Anfrage nicht verarbeiten. Bitte versuch es erneut oder kontaktiere den Support."
+    "errorBody": "Wir konnten deine Anfrage nicht verarbeiten. Bitte versuch es erneut oder kontaktiere den Support.",
+    "backHome": "Zurück zur Startseite"
   },
   "email": {
     "welcome": "Willkommen bei diBoaS, du bist #{position}"

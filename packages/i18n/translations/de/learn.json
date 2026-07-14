@@ -14,7 +14,7 @@
   "lessons": {
     "compoundInterest": {
       "cardTitle": "Wie Geld wirklich wächst",
-      "cardDescription": "Die Mathematik, die Banken seit Jahrhunderten nutzen. Jetzt bist du dran.",
+      "cardDescription": "Die Mathematik, die Banken seit Jahrhunderten nutzen. Was 1.000 € im Stillstand über 12 Jahre verpasst.",
       "cardReadTime": "~5 Min Lesezeit",
       "cardCta": "Lektion lesen"
     }
@@ -24,7 +24,7 @@
     "lessons": {
       "inflation": {
         "title": "Inflation: Die stille Steuer",
-        "description": "Warum dein Geld jedes Jahr an Wert verliert, und was du dagegen tun kannst."
+        "description": "Warum dein Geld jedes Jahr an Wert verliert, und wohin dieser Wert geht."
       },
       "savingsVsInvesting": {
         "title": "Sparen vs. Investieren",
@@ -32,7 +32,7 @@
       },
       "currencyDepreciation": {
         "title": "Währungsabwertung",
-        "description": "Wann es riskanter ist, dein lokales Geld zu halten, als zu investieren."
+        "description": "Warum es ein eigenes Risiko ist, alles in deiner lokalen Währung zu halten."
       }
     }
   }

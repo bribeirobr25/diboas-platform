@@ -13,9 +13,9 @@
   },
   "welcome": {
     "title": "Modo Sueño",
-    "subtitle": "Mira lo que tu dinero podría hacer mientras duermes",
+    "subtitle": "Mira lo que tu dinero podría hacer con el tiempo.",
     "features": {
-      "strategies": "Elige entre estrategias DeFi probadas",
+      "strategies": "Elige entre distintas formas de hacer crecer tu dinero",
       "projections": "Mira proyecciones basadas en datos reales",
       "comparison": "Compara con la banca tradicional"
     },
@@ -27,7 +27,7 @@
     "options": {
       "retirement": {
         "label": "Meta Jubilación",
-        "caption": "Un futuro donde trabajar sea opcional"
+        "caption": "Ahorrar para el día en que trabajar sea una elección"
       },
       "christmas": {
         "label": "Meta Navidad",
@@ -39,7 +39,7 @@
       },
       "wealthy": {
         "label": "Meta 70/20/10",
-        "caption": "Vive con el 70%, paga deudas con el 20% e invierte siempre el 10%"
+        "caption": "Un enfoque común: 70% para vivir, 20% para pagar deudas, 10% invertido."
       }
     }
   },
@@ -50,7 +50,7 @@
     "paths": {
       "safety": {
         "name": "Seguridad Primero",
-        "description": "Rendimientos estables. Tu dinero se mantiene seguro. Duerme tranquilo.",
+        "description": "La vía más estable, con altibajos menores y un crecimiento esperado más bajo.",
         "riskLabel": "Riesgo mínimo"
       },
       "balance": {
@@ -110,10 +110,10 @@
     "shareTitle": "Compartir mi sueño",
     "shareTitleWithGoal": "Compartir mi {goalName}",
     "shareCopied": "¡Copiado!",
-    "shareText": "Esta simulación orientada a metas es la forma más fácil y efectiva de construir riqueza. Convirtió {start} en {end}, eso es {difference} más de lo que mi banco me daría. Pruébalo:",
+    "shareText": "Probé el Modo Sueño de diBoaS. En esta proyección, {start} se convirtió en {end}, {difference} más de lo que mi banco me daría. Mira lo que podría hacer el tuyo:",
     "yieldCurrencyValue": "Valor en dólares digitales: {amount}",
     "bankSource": "Basado en una tasa de ahorro promedio de {rate}%. Fuente: Estadísticas del BCE, enero 2026.",
-    "bankComparison": "vs tu banco al {rate}% APY",
+    "bankComparison": "vs tu banco al {rate}% anual",
     "tryDifferent": "Probar Otros Números",
     "backToHome": "Volver al Inicio"
   },

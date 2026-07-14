@@ -15,19 +15,6 @@
       "joinWaitlist": "Auf die Warteliste",
       "tryDemo": "Demo testen"
     },
-    "diboas": {
-      "label": "diBoaS",
-      "description": "Komplettes Finanz-Ökosystem mit Banking, Investieren und DeFi auf einer Plattform",
-      "subItems": {
-        "know": "diBoaS Kennenlernen",
-        "account": "diBoaS Konto",
-        "banking": "Banking",
-        "investing": "Investieren",
-        "crypto": "Krypto",
-        "strategies": "Strategien (DeFi)",
-        "credit": "Kredit"
-      }
-    },
     "learn": {
       "label": "Lern-Center",
       "description": "Meistere deine Finanzen mit Experten-Leitfäden und Bildungsinhalten",
@@ -39,32 +26,6 @@
         "crypto": "Krypto A-Z",
         "defi": "DeFi Erklärt",
         "special": "Spezielle Inhalte"
-      }
-    },
-    "business": {
-      "label": "diBoaS Business",
-      "description": "Komplette Finanzlösungen für moderne Unternehmen",
-      "subItems": {
-        "know": "diBoaS Business Kennenlernen",
-        "account": "Geschäftskonto",
-        "bank": "Geschäftsbank",
-        "payments": "Zahlungen",
-        "treasury": "Treasury",
-        "yield": "Cashflow-Rendite",
-        "credit": "P2P-Kredit"
-      }
-    },
-    "rewards": {
-      "label": "Belohnungen",
-      "description": "Verdiene Belohnungen und lerne mit KI-gestützten Maskottchen-Guides",
-      "subItems": {
-        "program": "diBoaS Rewards",
-        "mascots": "KI-Maskottchen-Guides",
-        "referral": "Empfehlung",
-        "points": "Punkte Verdienen",
-        "badges": "Abzeichen & Bestenliste",
-        "campaigns": "Kampagnen",
-        "token": "Token & Airdrop"
       }
     },
     "security": {
@@ -259,7 +220,7 @@
       "youtube": "YouTube",
       "linkedin": "LinkedIn"
     },
-    "copyright": "© 2025 diBoaS. Alle Rechte vorbehalten.",
+    "copyright": "© 2026 diBoaS. Alle Rechte vorbehalten.",
     "brandName": "diBoaS"
   },
   "cookieConsent": {
@@ -361,7 +322,6 @@
     "showLess": "Weniger anzeigen"
   },
   "emailPreferences": {
-    "title": "E-Mail-Einstellungen",
     "heading": "Verwalte deine E-Mails",
     "description": "Du wirst von diBoaS-E-Mails abgemeldet. Deine Wartelistenposition und Empfehlungsguthaben bleiben erhalten.",
     "unsubscribeButton": "Abmelden",
@@ -369,9 +329,11 @@
     "successUnsubscribed": "Du wurdest von diBoaS-E-Mails abgemeldet.",
     "positionPreserved": "Deine Wartelistenposition wurde beibehalten.",
     "redirectingHome": "Weiterleitung zur Startseite...",
-    "invalidLink": "Dieser Link ist ungültig oder abgelaufen.",
+    "invalidLink": "Dieser Link hat nicht funktioniert, aber kein Problem.",
     "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
-    "processing": "Wird verarbeitet..."
+    "processing": "Wird verarbeitet...",
+    "backHome": "Zurück zur Startseite",
+    "tryAgainButton": "Erneut versuchen"
   },
   "disclaimers": {
     "educationalProjection": "Veranschaulichende Zahlen basierend auf historischen Annahmen zum Zinseszins. Vergangene Wertentwicklungen garantieren keine zukünftigen Ergebnisse. Verwende nur Geld, das du verlieren kannst. diBoaS ist keine Bank und deine Gelder sind nicht versichert."

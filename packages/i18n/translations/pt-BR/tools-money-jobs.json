@@ -120,7 +120,7 @@
     "brDollarLine": "E em dólar digital, sua reserva não depende só do real.",
     "brDollarBothWays": "O câmbio se move nas duas direções; o valor em reais pode subir ou cair.",
     "runwayLed": "O runway lidera este plano: cerca de {months} meses no burn atual, com piso de {floor}. Corte custos de pagamento e acompanhe o burn antes de colocar o excedente para trabalhar.",
-    "idleComparison": "Em 12 meses, seu excedente ideal de {amount} poderia render cerca de {delta} a mais do que no seu banco, no cenário conservador.",
+    "idleComparison": "Em 12 meses, seu excedente ideal de {amount} poderia render cerca de {delta} a mais do que no seu banco, no cenário conservador. Apenas ilustrativo.",
     "nextCushion": "Calculadora de Reserva de Emergência",
     "nextWorking": "Calculadora de Juros Compostos",
     "nextCurrency": "Calculadora de Desvalorização Cambial",

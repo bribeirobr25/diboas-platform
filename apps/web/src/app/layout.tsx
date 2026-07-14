@@ -85,8 +85,15 @@ export const metadata: Metadata = {
   // description: BRAND_CONFIG.DESCRIPTION,
   manifest: '/manifest.json',
   icons: {
-    icon: [{ url: '/favicon.avif', type: 'image/avif' }],
-    shortcut: '/favicon.avif',
+    // Browser-tab favicon rebuilt from the official palm-"B" monogram (2026-07-13,
+    // F-BRAND): the prior /favicon.avif baked in the "diBoaS" wordmark, illegible at
+    // 16-32px. .ico (multi-res) + PNG set are the legible monogram.
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icons/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/icons/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+    ],
+    shortcut: '/favicon.ico',
     apple: '/assets/logos/logo-icon.avif',
   },
 };

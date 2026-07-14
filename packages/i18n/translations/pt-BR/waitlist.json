@@ -14,7 +14,7 @@
   },
   "error": {
     "generic": "Algo deu errado. Tenta de novo.",
-    "invalidEmail": "Coloca um email válido.",
+    "invalidEmail": "Coloca um e-mail válido.",
     "consentRequired": "Marca a caixinha pra continuar.",
     "alreadyRegistered": "Você já tá na lista!",
     "network": "Erro de conexão. Verifica sua internet e tenta de novo."
@@ -68,7 +68,7 @@
   },
   "deletion": {
     "confirmTitle": "Confirmar exclusão de dados",
-    "confirmBody": "Clique no botão abaixo para excluir permanentemente todos os seus dados da lista de espera do diBoaS. Esta ação não pode ser desfeita.",
+    "confirmBody": "Isto exclui permanentemente todos os seus dados da lista de espera do diBoaS. Esta ação não pode ser desfeita.",
     "confirmButton": "Confirmar exclusão",
     "confirming": "Excluindo seus dados...",
     "success": "Dados excluídos",
@@ -76,7 +76,8 @@
     "expired": "Link expirado",
     "expiredBody": "Este link de exclusão expirou. Por favor, envie uma nova solicitação de exclusão.",
     "error": "Algo deu errado",
-    "errorBody": "Não conseguimos processar sua solicitação. Tente novamente ou entre em contato com o suporte."
+    "errorBody": "Não conseguimos processar sua solicitação. Tente novamente ou entre em contato com o suporte.",
+    "backHome": "Voltar para o início"
   },
   "email": {
     "welcome": "Bem-vindo ao diBoaS, Você é o #{position}"

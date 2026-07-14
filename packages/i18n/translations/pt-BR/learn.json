@@ -1,20 +1,20 @@
 {
   "seo": {
     "title": "Aprenda como o dinheiro funciona de verdade",
-    "description": "Lições curtas e honestas sobre o sistema financeiro, escritas para quem o sistema não foi feito."
+    "description": "Lições curtas e honestas sobre o sistema financeiro, escritas para quem o sistema deixou de fora."
   },
   "nav": {
     "label": "Aprender"
   },
   "index": {
     "h1": "Aprenda como o dinheiro funciona de verdade.",
-    "subhead": "Lições curtas e honestas sobre o sistema financeiro, escritas para quem o sistema não foi feito.",
+    "subhead": "Lições curtas e honestas sobre o sistema financeiro, escritas para quem o sistema deixou de fora.",
     "footerLine": "Mais lições em breve. A gente publica uma a cada poucos meses: devagar, com cuidado, bem escrita."
   },
   "lessons": {
     "compoundInterest": {
       "cardTitle": "Como o Dinheiro Realmente Cresce",
-      "cardDescription": "A matemática que os bancos vêm usando há séculos. Agora é a sua vez.",
+      "cardDescription": "A matemática que os bancos usam há séculos. O que R$1.000 parado perde em 12 anos.",
       "cardReadTime": "~5 min de leitura",
       "cardCta": "Ler lição"
     }
@@ -24,7 +24,7 @@
     "lessons": {
       "inflation": {
         "title": "Inflação: o imposto silencioso",
-        "description": "Por que o seu dinheiro perde valor todo ano, e o que dá pra fazer."
+        "description": "Por que o seu dinheiro perde valor todo ano, e para onde esse valor vai."
       },
       "savingsVsInvesting": {
         "title": "Poupar vs. Investir",
@@ -32,7 +32,7 @@
       },
       "currencyDepreciation": {
         "title": "Desvalorização da moeda",
-        "description": "Quando guardar o seu dinheiro local é o risco maior, não investir."
+        "description": "Por que deixar tudo na moeda local também tem o seu risco."
       }
     }
   }

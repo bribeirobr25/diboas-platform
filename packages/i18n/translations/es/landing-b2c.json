@@ -22,35 +22,11 @@
       "diboas": "diBoaS"
     },
     "rows": {
-      "apy": "Tasa anual",
+      "apy": "Tipo anual",
       "return": "Rendimiento a 1 año"
     },
-    "footnote": "Tasas comparativas basadas en datos públicos de la UE como promedio de los últimos 5 años. Los rendimientos pueden cambiar y variar según el producto. Los rendimientos en dólares digitales implican riesgo, incluida la posible pérdida del capital.",
+    "footnote": "Tipos comparativos basados en datos públicos de la UE como promedio de los últimos 5 años. Los rendimientos pueden cambiar y variar según el producto. Los rendimientos en dólares digitales implican riesgo, incluida la posible pérdida del capital.",
     "disclosureToggle": "Ver todos los costes"
-  },
-  "howItWorks": {
-    "transitionHook": "",
-    "header": "Toma el Control y Libera tu Dinero",
-    "step1": {
-      "title": "Enviar y Recibir",
-      "description": "Envía dinero a cualquiera en diBoaS. En cualquier lugar del mundo. En segundos. Gratis. Retíralo cuando quieras.",
-      "imageAlt": "Enviar y recibir dinero"
-    },
-    "step2": {
-      "title": "Invertir y Crecer",
-      "description": "Elige entre 10 formas de hacer crecer tu dinero. Tu dinero trabaja mientras duermes.",
-      "imageAlt": "Invertir y hacer crecer tu dinero"
-    },
-    "step3": {
-      "title": "Seguir y Aprender",
-      "description": "Qué se mueve. Qué significa. Qué podrías hacer. Adelaide, tu guía de IA, te lo explica en lenguaje claro, sin jerga.",
-      "imageAlt": "Seguir y aprender sobre tus finanzas"
-    },
-    "step4": {
-      "title": "Comprar y Guardar",
-      "description": "Compra activos digitales y guárdalos en tu propia cartera. Empezando con BTC, ETH y SOL. Acciones y Oro próximamente.",
-      "imageAlt": "Comprar y mantener activos digitales"
-    }
   },
   "fees": {
     "transitionHook": "Costes claros. Antes de decidir.",
@@ -142,7 +118,6 @@
     "header": "Únete.",
     "description": "Acceso abierto y oportunidades justas para todos.",
     "emailPlaceholder": "Tu correo electrónico",
-    "submitButton": "Asegurar mi plaza",
     "privacyNote": "Sin spam. Solo un mensaje cuando sea tu turno.",
     "privacyConsent": "Al unirte, aceptas nuestra Política de Privacidad.",
     "benefits": {
@@ -254,12 +229,12 @@
     },
     "upside": {
       "header": "El acceso siempre fue la parte difícil.",
-      "body": "Durante años, muchas oportunidades financieras parecían hechas solo para quienes ya eran ricos. Bancos, instituciones y gente que entiende cada línea de la letra pequeña.\n\ndiBoaS hace la entrada más comprensible.\n\nMenos jerga. Más claridad. Riesgo visible. Te llevas la parte grande.",
+      "body": "Durante años, muchas oportunidades financieras parecían hechas solo para quienes ya eran ricos. Bancos, instituciones y gente que entiende cada línea de la letra pequeña.\n\ndiBoaS hace la entrada más comprensible.\n\nMenos jerga. Más claridad. Riesgo visible. Cuando hay ganancia, la mayor parte se queda contigo.",
       "imageAlt": "El trabajo que hace tu dinero"
     },
     "pictureFuture": {
       "header": "El futuro no llega de golpe.",
-      "body": "Llega como una subida del alquiler.\n\nComo una cuota que pesa más.\n\nComo un imprevisto que no esperaba turno.\n\nComo un plan que sigues dejando para después.\n\ndiBoaS no promete arreglarte la vida. Te ayuda a separar dinero por objetivo, entender el camino y ver el riesgo antes de decidir.",
+      "body": "Llega como una subida del alquiler.\n\nComo una cuota que pesa más.\n\nComo un imprevisto que no viste venir.\n\nComo un plan que sigues dejando para después.\n\ndiBoaS no promete arreglarte la vida. Te ayuda a separar dinero por objetivo, entender el camino y ver el riesgo antes de decidir.",
       "cta": "Ver mis números",
       "imageAlt": "Una persona al atardecer mirando al horizonte"
     },

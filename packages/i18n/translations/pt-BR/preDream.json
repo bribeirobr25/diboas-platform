@@ -13,9 +13,9 @@
   },
   "welcome": {
     "title": "Modo Sonho",
-    "subtitle": "Veja o que seu dinheiro pode fazer enquanto você dorme",
+    "subtitle": "Veja o que seu dinheiro pode fazer ao longo do tempo.",
     "features": {
-      "strategies": "Escolha entre estratégias DeFi comprovadas",
+      "strategies": "Escolha entre diferentes formas de crescer seu dinheiro",
       "projections": "Veja projeções baseadas em dados reais",
       "comparison": "Compare com a poupança tradicional"
     },
@@ -27,7 +27,7 @@
     "options": {
       "retirement": {
         "label": "Meta Aposentadoria",
-        "caption": "Um futuro em que trabalhar é uma escolha"
+        "caption": "Poupar para o dia em que trabalhar seja uma escolha"
       },
       "christmas": {
         "label": "Meta Natal",
@@ -39,7 +39,7 @@
       },
       "wealthy": {
         "label": "Meta 70/20/10",
-        "caption": "Viva com 70%, quite dívidas com 20% e invista sempre 10%"
+        "caption": "Uma abordagem comum: 70% para viver, 20% para quitar dívidas, 10% investido."
       }
     }
   },
@@ -50,7 +50,7 @@
     "paths": {
       "safety": {
         "name": "Segurança em Primeiro Lugar",
-        "description": "Rendimentos estáveis. Seu dinheiro fica seguro. Durma tranquilo.",
+        "description": "O caminho mais estável, com oscilações menores e crescimento esperado mais baixo.",
         "riskLabel": "Risco mínimo"
       },
       "balance": {
@@ -110,7 +110,7 @@
     "shareTitle": "Compartilhar meu sonho",
     "shareTitleWithGoal": "Compartilhar minha {goalName}",
     "shareCopied": "Copiado!",
-    "shareText": "Esta simulação orientada por metas é a forma mais fácil e eficaz de construir riqueza. Transformou {start} em {end}, isso é {difference} a mais do que meu banco daria. Experimente:",
+    "shareText": "Testei o Modo Sonho da diBoaS. Nesta projeção, {start} virou {end}, {difference} a mais do que meu banco daria. Veja o que o seu poderia render:",
     "bankSource": "Baseado em taxa média de poupança de {rate}%. Fonte: Banco Central do Brasil, janeiro de 2026.",
     "bankComparison": "vs poupança a {rate}% ao ano",
     "yieldCurrencyValue": "Valor em dólares digitais: {amount}",

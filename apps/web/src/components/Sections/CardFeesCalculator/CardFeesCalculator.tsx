@@ -161,10 +161,13 @@ export function CardFeesCalculator() {
 
       {result &&
         (() => {
-          // The annual fee equals the savings hero in the 100%-adoption model
-          // (savings = the full processor fee), so it's omitted here to avoid
-          // showing the same figure twice. The monthly fee + per-transaction
-          // fee give the relatable fee context without duplicating the hero.
+          // The hero (annualSavingsWithDiboas) is the annual processor fee NET of
+          // diBoaS's own 0.48% movement fee (A3, 2026-07-13) — so it no longer
+          // equals the gross annual fee. We show the monthly fee + per-transaction
+          // fee as relatable fee context; the gross annual fee is intentionally not
+          // surfaced as a supporting point (it would read as a second, larger
+          // "savings" figure and muddy the net hero). The net framing is spelled
+          // out in the caveat disclaimer.
           const points: ResultMomentSupportingPoint[] = [
             {
               id: 'monthly-fee',

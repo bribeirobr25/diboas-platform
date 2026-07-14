@@ -8,7 +8,28 @@
 
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { FAQAccordion } from './FAQAccordionFactory';
-import { FAQ_ACCORDION_CONFIGS, DEFAULT_FAQ_ITEMS } from '@/config/faqAccordion';
+import {
+  DEFAULT_FAQ_ACCORDION_SETTINGS,
+  type FAQAccordionVariantConfig,
+} from '@/config/faqAccordion';
+import { getFAQForSurface } from '@/config/faqRegistry';
+
+// Story-local demo config sourced from the canonical FAQ registry (the landing
+// surface's 5 items). Storybook has no i18n provider, so the accordion renders the
+// translation keys literally — the same behaviour as before consolidation.
+const DEMO_FAQ_CONFIG: FAQAccordionVariantConfig = {
+  variant: 'default',
+  content: {
+    title: 'faq.title',
+    description: '',
+    ctaText: '',
+    ctaHref: '',
+    items: getFAQForSurface('landing'),
+  },
+  settings: DEFAULT_FAQ_ACCORDION_SETTINGS,
+  seo: { ariaLabel: 'faq', region: 'faq' },
+  analytics: { trackingPrefix: 'faq_accordion', enabled: true },
+};
 
 const meta: Meta<typeof FAQAccordion> = {
   title: 'Sections/FAQAccordion',
@@ -50,7 +71,7 @@ type Story = StoryObj<typeof FAQAccordion>;
  */
 export const Default: Story = {
   args: {
-    config: FAQ_ACCORDION_CONFIGS.default,
+    config: DEMO_FAQ_CONFIG,
   },
 };
 
@@ -62,9 +83,9 @@ export const Default: Story = {
 export const MultipleOpen: Story = {
   args: {
     config: {
-      ...FAQ_ACCORDION_CONFIGS.default,
+      ...DEMO_FAQ_CONFIG,
       settings: {
-        ...FAQ_ACCORDION_CONFIGS.default.settings,
+        ...DEMO_FAQ_CONFIG.settings,
         autoClose: false,
       },
     },
@@ -79,9 +100,9 @@ export const MultipleOpen: Story = {
 export const NoAnimations: Story = {
   args: {
     config: {
-      ...FAQ_ACCORDION_CONFIGS.default,
+      ...DEMO_FAQ_CONFIG,
       settings: {
-        ...FAQ_ACCORDION_CONFIGS.default.settings,
+        ...DEMO_FAQ_CONFIG.settings,
         enableAnimations: false,
       },
     },
@@ -96,11 +117,11 @@ export const NoAnimations: Story = {
 export const CustomItems: Story = {
   args: {
     config: {
-      ...FAQ_ACCORDION_CONFIGS.default,
+      ...DEMO_FAQ_CONFIG,
       content: {
-        ...FAQ_ACCORDION_CONFIGS.default.content,
+        ...DEMO_FAQ_CONFIG.content,
         title: 'Business FAQ',
-        items: DEFAULT_FAQ_ITEMS.slice(0, 3),
+        items: getFAQForSurface('business'),
       },
     },
   },
@@ -113,7 +134,7 @@ export const CustomItems: Story = {
  */
 export const MobileOptimized: Story = {
   args: {
-    config: FAQ_ACCORDION_CONFIGS.default,
+    config: DEMO_FAQ_CONFIG,
   },
   parameters: {
     viewport: {
@@ -129,7 +150,7 @@ export const MobileOptimized: Story = {
  */
 export const DarkTheme: Story = {
   args: {
-    config: FAQ_ACCORDION_CONFIGS.default,
+    config: DEMO_FAQ_CONFIG,
   },
   parameters: {
     backgrounds: {

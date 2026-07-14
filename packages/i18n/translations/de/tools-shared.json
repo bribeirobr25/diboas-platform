@@ -7,7 +7,7 @@
     "hero": {
       "kicker": "Geld-Tools",
       "headline": "Was könnte dein Geld erreichen?",
-      "subtitle": "10 kostenlose Rechner. Trag deine Zahlen ein, sieh, was möglich ist."
+      "subtitle": "11 kostenlose Tools. Trag deine Zahlen ein und sieh, was dein Geld wirklich tut."
     },
     "sections": {
       "start": {
@@ -57,7 +57,7 @@
     "historical": "Historisch (10%)",
     "optimistic": "Optimistisch (14%)",
     "digitalDollarSuffix": " im Digital-Dollar",
-    "conservativeTooltip": "Konservative Digital-Dollar-Renditebandbreite über lange Zeiträume, basierend auf den besten verfügbaren passiven Zinssätzen in 2026.",
+    "conservativeTooltip": "Konservative Digital-Dollar-Renditebandbreite über lange Zeiträume, basierend auf den besten verfügbaren passiven Zinssätzen im Jahr 2026.",
     "historicalTooltip": "diBoaS Multi-Asset-Strategiebandbreite basierend auf der langfristigen S&P-500-Gesamtrendite-CAGR von 1928–2024.",
     "optimisticTooltip": "diBoaS Multi-Asset-Strategiebandbreite der letzten 10 Jahre unter Berücksichtigung der Marktbedingungen nach 2014.",
     "tooltipLabel": "Mehr Infos"
@@ -76,9 +76,9 @@
     "tryOtherTools": "Weitere Geld-Tools ausprobieren",
     "adelaideAttribution": "Geld-Tools von Adelaide"
   },
-  "disclaimer": "Nur als Bildungsprojektion. Keine Anlageberatung. Wertentwicklung der Vergangenheit ist kein verlässlicher Indikator für zukünftige Ergebnisse. Jede Anlage birgt Risiken; Sie können Geld verlieren. diBoaS-Renditen werden im Digital-Dollar ausgewiesen; für Nicht-US-Währungen kombiniert der lokale Endwert die Dollar-Rendite mit der typischen Wechselkursentwicklung deiner Währung gegenüber dem US-Dollar.",
+  "disclaimer": "Nur als Bildungsprojektion. Keine Anlageberatung. Wertentwicklung der Vergangenheit ist kein verlässlicher Indikator für zukünftige Ergebnisse. Jede Anlage birgt Risiken; du kannst Geld verlieren. diBoaS bietet keine Anlageberatung. diBoaS-Renditen werden im Digital-Dollar ausgewiesen; für Nicht-US-Währungen kombiniert der lokale Endwert die Dollar-Rendite mit der typischen Wechselkursentwicklung deiner Währung gegenüber dem US-Dollar.",
   "warnings": {
-    "over30Years": "Dieses Ziel dauert mit deiner aktuellen Sparrate mehr als 30 Jahre. Erhöhe deinen monatlichen Betrag oder verlängere den Zeitraum."
+    "over30Years": "Bei deiner aktuellen Sparrate dauert es mehr als 30 Jahre, dieses Ziel zu erreichen. Ein höherer monatlicher Betrag oder ein längerer Zeitraum ändert das."
   },
   "confidence": {
     "high": "Hohe Konfidenz (±5%)",
@@ -98,6 +98,6 @@
     "shareTitle": "Mein diBoaS-Ergebnis",
     "ctaHeadline": "Das ändert fairer Zugang.",
     "ctaBody": "Tritt der Warteliste bei, um es wirklich zu nutzen.",
-    "ctaLabel": "Sichere dir deinen Platz"
+    "ctaLabel": "Auf die Warteliste"
   }
 }

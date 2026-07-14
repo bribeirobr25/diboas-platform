@@ -9,22 +9,28 @@
   },
   "topics": {
     "gettingStarted": {
-      "title": "Primeiros Passos"
+      "title": "Primeiros Passos",
+      "lead": "Comece aqui: o que é o diBoaS, para quem é e como começar com R$10."
     },
     "moneySafety": {
-      "title": "Dinheiro e Segurança"
+      "title": "Dinheiro e Segurança",
+      "lead": "A versão honesta: o que pode dar certo e o que pode dar errado."
     },
     "feesCosts": {
-      "title": "Taxas e Custos"
+      "title": "Taxas e Custos",
+      "lead": "Quanto custa e o que não custa. Sem margem escondida."
     },
     "investingStrategies": {
-      "title": "Investimentos e Estratégias"
+      "title": "Investimentos e Estratégias",
+      "lead": "Como as estratégias funcionam e como escolher a que combina com você."
     },
     "forBusinesses": {
-      "title": "Para Empresas"
+      "title": "Para Empresas",
+      "lead": "Para empresas: caixa ocioso, taxas de cartão e liquidez no mesmo dia."
     },
     "protocolsTransparency": {
-      "title": "Protocolos e Transparência"
+      "title": "Protocolos e Transparência",
+      "lead": "Onde seu dinheiro realmente trabalha e como verificar."
     }
   }
 }

@@ -28,30 +28,6 @@
     "footnote": "Vergleichszinsen basieren auf öffentlich verfügbaren EU-Daten als Durchschnitt der letzten 5 Jahre. Renditen können sich ändern und je nach Produkt variieren. Renditen in digitalen Dollar beinhalten Risiken, einschließlich eines möglichen Totalverlusts.",
     "disclosureToggle": "Alle Kosten ansehen"
   },
-  "howItWorks": {
-    "transitionHook": "",
-    "header": "Übernimm die Kontrolle und befreie dein Geld",
-    "step1": {
-      "title": "Senden und Empfangen",
-      "description": "Sende Geld an jeden auf diBoaS. Überall auf der Welt. In Sekunden. Kostenlos. Jederzeit abheben.",
-      "imageAlt": "Geld senden und empfangen"
-    },
-    "step2": {
-      "title": "Investieren und Wachsen",
-      "description": "Wähle aus 10 Wegen, dein Geld zu vermehren. Dein Geld arbeitet, während du schläfst.",
-      "imageAlt": "Investieren und Geld vermehren"
-    },
-    "step3": {
-      "title": "Verfolgen und Verstehen",
-      "description": "Was sich bewegt. Was es bedeutet. Was du tun könntest. Adelaide, dein KI-Guide, erklärt dir alles in klarer Sprache, kein Fachjargon.",
-      "imageAlt": "Finanzen verfolgen und lernen"
-    },
-    "step4": {
-      "title": "Kaufen und Halten",
-      "description": "Kaufe digitale Vermögenswerte und halte sie in deiner eigenen Wallet. Angefangen mit BTC, ETH und SOL. Aktien und Gold kommen bald.",
-      "imageAlt": "Digitale Vermögenswerte kaufen und halten"
-    }
-  },
   "fees": {
     "transitionHook": "Klare Kosten. Vor der Entscheidung.",
     "title": "Keine Überraschung im Kleingedruckten.",
@@ -142,7 +118,6 @@
     "header": "Werde Teil davon.",
     "description": "Offener Zugang und faire Chancen für alle.",
     "emailPlaceholder": "Deine E-Mail-Adresse",
-    "submitButton": "Meinen Platz sichern",
     "privacyNote": "Kein Spam. Nur eine Nachricht, wenn es losgeht.",
     "privacyConsent": "Mit der Anmeldung stimmst du unserer Datenschutzerklärung zu.",
     "benefits": {
@@ -216,7 +191,7 @@
     },
     "disclosures": {
       "general": "Dieser Inhalt dient ausschließlich Bildungszwecken und stellt keine Anlageberatung, Finanzberatung oder sonstige Beratung dar. Die Wertentwicklung der Vergangenheit ist kein verlässlicher Indikator für die zukünftige Wertentwicklung. Historische Daten und Simulationen sind hypothetisch und keine Garantien.",
-      "crypto": "Der Wert von Kryptowerten kann schwanken. Sie können Ihr gesamtes investiertes Geld oder einen Teil davon verlieren. Kryptowerte sind nicht durch Einlagensicherungssysteme gedeckt.",
+      "crypto": "Der Wert von Kryptowerten kann schwanken. Du kannst dein gesamtes investiertes Geld oder einen Teil davon verlieren. Kryptowerte sind nicht durch Einlagensicherungssysteme gedeckt.",
       "ai": "Bestimmte Inhalte auf dieser Plattform, einschließlich Marktanalysen und Bildungsmaterialien, werden durch künstliche Intelligenz generiert oder unterstützt. KI-generierte Inhalte können Fehler oder Einschränkungen enthalten. Nutzer sollten Informationen unabhängig überprüfen, bevor sie finanzielle Entscheidungen treffen.",
       "mica": "",
       "micaArticle7": "Diese Marketingmitteilung für Kryptowerte wurde von keiner zuständigen Behörde eines Mitgliedstaats der Europäischen Union überprüft oder genehmigt. Der Anbieter der Kryptowerte ist allein für den Inhalt dieser Marketingmitteilung für Kryptowerte verantwortlich.",
@@ -241,7 +216,7 @@
   "draper": {
     "hero": {
       "headline": "Geld braucht einen Plan. Nicht nur ein Konto.",
-      "subtitle": "Für Rücklagen, größere Vorhaben und Geld, das nicht einfach herumliegen soll.\n\ndiBoaS zeigt dir, welcher Weg möglich ist, was er kostet und welches Risiko dazugehört, bevor du entscheidest.",
+      "subtitle": "Für die Rücklage. Für das größere Vorhaben. Für den Plan, den du immer wieder verschiebst.\n\ndiBoaS zeigt dir, welcher Weg möglich ist, was er kostet und welches Risiko dazugehört, bevor du entscheidest.",
       "whatIs": "diBoaS ist ein einfacher Weg, dein Geld in digitalen Dollar wachsen zu lassen. Du behältst die Kontrolle.",
       "microcopy": "Start mit 5 €. Keine Monatsgebühr. Jederzeit abheben.",
       "cta": "So funktioniert es",
@@ -254,7 +229,7 @@
     },
     "upside": {
       "header": "Der Zugang war lange der schwierige Teil.",
-      "body": "Viele finanzielle Möglichkeiten standen lange vor allem denen offen, die ohnehin schon reich waren. Institutionen, Fachleute und Menschen, die jedes Wort im Kleingedruckten verstehen.\n\ndiBoaS macht den Einstieg verständlicher.\n\nMehr Klarheit. Sichtbares Risiko. Du bekommst das große Stück.",
+      "body": "Viele finanzielle Möglichkeiten standen lange vor allem denen offen, die ohnehin schon reich waren. Institutionen, Fachleute und Menschen, die jedes Wort im Kleingedruckten verstehen.\n\ndiBoaS macht den Einstieg verständlicher.\n\nMehr Klarheit. Sichtbares Risiko. Wenn es Gewinn gibt, bleibt der größere Teil bei dir.",
       "imageAlt": "Die Arbeit, die dein Geld leistet"
     },
     "pictureFuture": {

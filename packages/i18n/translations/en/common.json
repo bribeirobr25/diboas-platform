@@ -15,19 +15,6 @@
       "joinWaitlist": "Join Waitlist",
       "tryDemo": "Try Demo"
     },
-    "diboas": {
-      "label": "diBoaS",
-      "description": "Complete financial ecosystem with banking, investing, and DeFi in one platform",
-      "subItems": {
-        "know": "Know diBoaS",
-        "account": "diBoaS Account",
-        "banking": "Banking",
-        "investing": "Investing",
-        "crypto": "Crypto",
-        "strategies": "Strategies (DeFi)",
-        "credit": "Credit"
-      }
-    },
     "learn": {
       "label": "Learn Center",
       "description": "Master your finances with expert guides and educational content",
@@ -39,32 +26,6 @@
         "crypto": "Crypto A-Z",
         "defi": "DeFi Explained",
         "special": "Special Content"
-      }
-    },
-    "business": {
-      "label": "diBoaS Business",
-      "description": "Complete financial solutions for modern businesses",
-      "subItems": {
-        "know": "Know diBoaS Business",
-        "account": "Business Account",
-        "bank": "Business Bank",
-        "payments": "Payments",
-        "treasury": "Treasury",
-        "yield": "Cash Flow Yield",
-        "credit": "P2P Credit"
-      }
-    },
-    "rewards": {
-      "label": "Rewards",
-      "description": "Earn rewards and learn with AI-powered mascot guides",
-      "subItems": {
-        "program": "diBoaS Rewards",
-        "mascots": "AI Mascot Guides",
-        "referral": "Referral",
-        "points": "Earn Points",
-        "badges": "Badges & Leaderboard",
-        "campaigns": "Campaigns",
-        "token": "Token & Airdrop"
       }
     },
     "security": {
@@ -361,17 +322,18 @@
     "showLess": "Show less"
   },
   "emailPreferences": {
-    "title": "Email Preferences",
-    "heading": "Manage your emails",
+    "heading": "Your email settings",
     "description": "You will be unsubscribed from diBoaS emails. Your waitlist position and referral credits are preserved.",
     "unsubscribeButton": "Unsubscribe",
     "staySubscribedButton": "Stay subscribed",
     "successUnsubscribed": "You have been unsubscribed from diBoaS emails.",
     "positionPreserved": "Your waitlist position is preserved.",
     "redirectingHome": "Redirecting you to the homepage...",
-    "invalidLink": "This link is invalid or has expired.",
+    "invalidLink": "That link didn't work, but no harm done.",
     "error": "Something went wrong. Please try again.",
-    "processing": "Processing..."
+    "processing": "Processing...",
+    "backHome": "Back to home",
+    "tryAgainButton": "Try again"
   },
   "disclaimers": {
     "educationalProjection": "Illustrative figures based on historical compound interest assumptions. Past performance does not guarantee future results. Use only money you can afford to lose. diBoaS is not a bank and your funds are not insured."

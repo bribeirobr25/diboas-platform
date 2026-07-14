@@ -14,7 +14,7 @@
   "lessons": {
     "compoundInterest": {
       "cardTitle": "How Money Really Grows",
-      "cardDescription": "The math the banks have been using for centuries. Now it's your turn.",
+      "cardDescription": "The math the banks have used for centuries. What $1,000 sitting still misses over 12 years.",
       "cardReadTime": "~5 min read",
       "cardCta": "Read lesson"
     }
@@ -24,15 +24,15 @@
     "lessons": {
       "inflation": {
         "title": "Inflation: The Silent Tax",
-        "description": "Why your money loses ground every year, and what to do about it."
+        "description": "Why your money loses ground every year, and where that ground goes."
       },
       "savingsVsInvesting": {
         "title": "Savings vs. Investing",
         "description": "They sound similar. They aren't. Here's where the difference shows up."
       },
       "currencyDepreciation": {
-        "title": "Currency Depreciation",
-        "description": "When holding your local money is the bigger risk than not investing."
+        "title": "When Your Money Loses Value",
+        "description": "Why keeping everything in your local currency carries its own risk."
       }
     }
   }

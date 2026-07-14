@@ -23,14 +23,14 @@
     "monthlyFee": "Para adquirentes por mês",
     "annualSavings": "Poderia economizar com diBoaS",
     "perTxLabel": "Taxa por transação",
-    "caveat": "Esse valor mostra a economia máxima possível, supondo que 100% dos pagamentos com cartão passem pelo diBoaS. A economia real cresce conforme seus clientes adotam o diBoaS. É uma estimativa de teto."
+    "caveat": "Esse valor mostra a economia máxima possível, supondo que 100% dos pagamentos com cartão passem pelo diBoaS. A economia real cresce conforme seus clientes adotam o diBoaS. É uma estimativa de teto. O valor já desconta a própria taxa de movimentação do diBoaS."
   },
   "resultMoment": {
     "eyebrow": "Quanto as taxas de cartão realmente custam",
     "shareText": "As taxas de cartão pesam no caixa. Meu negócio poderia economizar {value} por ano com o diBoaS. Veja as suas nas Ferramentas diBoaS."
   },
   "vignette": {
-    "subtitle": "Mesmo faturamento. Outro adquirente. Grande diferença."
+    "subtitle": "Mesmo faturamento. Menos taxas. Grande diferença."
   },
   "landing": {
     "cardTitle": "Economia em taxas",

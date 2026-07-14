@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Vermögensverlauf-Rechner",
     "headline": "Was ist tatsächlich passiert?",
-    "subtitle": "Wähle einen Vermögenswert, ein Startjahr und einen Modus. Sieh den realen Weg, den dein Geld genommen hätte, mit ehrlichen Unsicherheitsmargen an den verrauschten Stellen."
+    "subtitle": "Wähle einen Vermögenswert, ein Startjahr und einen Modus. Sieh den realen Weg, den dein Geld genommen hätte, und eine ehrliche Spanne dort, wo die Zahlen weniger sicher sind."
   },
   "inputs": {
     "assetLabel": "Vermögenswert",

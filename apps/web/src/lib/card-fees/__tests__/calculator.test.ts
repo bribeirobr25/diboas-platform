@@ -12,9 +12,16 @@ describe('projectCardFeeSavings', () => {
     expect(result.annualFeePaid).toBeCloseTo(17_400, 5);
   });
 
-  it('should set annualSavingsWithDiboas equal to annualFeePaid (v1 model)', () => {
+  it('should net annualSavingsWithDiboas of the 0.48% diBoaS movement fee', () => {
+    // 17,400 processor fee − (50,000 × 12 × 0.0048 = 2,880) = 14,520 net.
     const result = projectCardFeeSavings(50_000, 0.029);
-    expect(result.annualSavingsWithDiboas).toBe(result.annualFeePaid);
+    expect(result.annualSavingsWithDiboas).toBeCloseTo(14_520, 5);
+  });
+
+  it('should clamp annualSavingsWithDiboas to 0 when processor rate < 0.48%', () => {
+    // Processor rate below the diBoaS movement fee → honest floor of 0.
+    const result = projectCardFeeSavings(50_000, 0.003);
+    expect(result.annualSavingsWithDiboas).toBe(0);
   });
 
   it('should return perTransactionFee when avgTransactionAmount is provided', () => {

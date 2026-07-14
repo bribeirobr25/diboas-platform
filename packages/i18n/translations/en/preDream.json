@@ -13,9 +13,9 @@
   },
   "welcome": {
     "title": "Dream Mode",
-    "subtitle": "See what your money could do while you sleep",
+    "subtitle": "See what your money could do over time.",
     "features": {
-      "strategies": "Choose from proven DeFi strategies",
+      "strategies": "Choose from different ways to grow your money",
       "projections": "See projections based on real data",
       "comparison": "Compare with traditional banking"
     },
@@ -27,7 +27,7 @@
     "options": {
       "retirement": {
         "label": "Retirement Goal",
-        "caption": "A future where work is optional"
+        "caption": "Saving toward the day work is a choice"
       },
       "christmas": {
         "label": "Christmas Goal",
@@ -39,7 +39,7 @@
       },
       "wealthy": {
         "label": "70/20/10 Goal",
-        "caption": "Live on 70%, clear debts with 20%, always invest 10%"
+        "caption": "A common approach: 70% to live on, 20% to clear debts, 10% invested."
       }
     }
   },
@@ -50,7 +50,7 @@
     "paths": {
       "safety": {
         "name": "Safety First",
-        "description": "Steady returns. Your money stays stable. Sleep easy.",
+        "description": "The steadier path, with smaller ups and downs and lower expected growth.",
         "riskLabel": "Minimal risk"
       },
       "balance": {
@@ -97,7 +97,7 @@
     }
   },
   "simulation": {
-    "title": "Your money is growing...",
+    "title": "Building your projection...",
     "watermark": "PROJECTION"
   },
   "results": {
@@ -110,9 +110,9 @@
     "shareTitle": "Share my dream",
     "shareTitleWithGoal": "Share my {goalName}",
     "shareCopied": "Copied!",
-    "shareText": "This Goal-Driven simulation is the easiest and best way to build wealth. It turned {start} into {end}, that is {difference} more than my bank would give me. Try it yourself:",
+    "shareText": "I tried diBoaS Dream Mode. In this projection, {start} became {end}, {difference} more than my bank would give me. See what yours could do:",
     "bankSource": "Based on {rate}% average savings rate. Source: FDIC National Average, January 2026.",
-    "bankComparison": "vs your bank at {rate}% APY",
+    "bankComparison": "vs your bank at {rate}% per year",
     "yieldCurrencyValue": "Digital dollar value: {amount}",
     "tryDifferent": "Try Different Numbers",
     "backToHome": "Back to Home"

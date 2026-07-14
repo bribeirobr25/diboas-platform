@@ -8,14 +8,13 @@
   "hero": {
     "h1": "Donde trabaja tu dinero",
     "subtitle": "Cada sistema. Cada nombre. Nada oculto.",
-    "trustLine": "25 protocolos. 7 categorías. Transparencia total sobre cada sistema que toca tu dinero."
+    "trustLine": "25 protocolos. 7 categorías. Cada nombre, red e historial aquí para que lo verifiques."
   },
   "transitions": {
     "t1": "Por eso construimos esta página.",
     "t2": "¿Cómo llegaron estos 25 a la lista?",
     "t3": "Entonces, ¿cuánto dinero real hay en estos sistemas?",
-    "t4": "Antes de seguir, algo importante.",
-    "t5": "Probablemente aún tienes preguntas. Bien."
+    "t4": "Antes de seguir, algo importante."
   },
   "why": {
     "h2": "Transparencia",
@@ -62,7 +61,6 @@
     }
   },
   "protocolLabels": {
-    "whatItDoes": "Qué hace:",
     "founded": "Fundado",
     "tvl": "Valor Total Bloqueado",
     "blockchains": "Blockchains",
@@ -84,7 +82,7 @@
         "audits": "30+ auditorías independientes",
         "regulatory": "La SEC cerró su investigación de 4 años sin cargos (diciembre 2025). Fuente: carta de cierre de la SEC compartida por el fundador de Aave; informado por Yahoo Finance, CoinDesk, Unchained."
       },
-      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer"
+      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Full Harvest"
     },
     "compoundV3": {
       "name": "Compound V3",
@@ -96,7 +94,7 @@
         "audits": "4+ auditorías independientes",
         "regulatory": "Completamente descentralizado. Sin licencias específicas requeridas."
       },
-      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer"
+      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Full Harvest"
     },
     "kamino": {
       "name": "Kamino",
@@ -221,7 +219,7 @@
         "audits": "10+ auditorías independientes",
         "regulatory": "10+ años de operación continua a través de múltiples ciclos de mercado"
       },
-      "usedInStrategies": "Las 10 estrategias (Safe Harbor, Stable Growth, Goal Keeper, Steady Progress, Patient Builder, Balanced Builder, Steady Compounder, Wealth Accelerator, Yield Maximizer, Full Throttle)"
+      "usedInStrategies": "Las 10 estrategias (Safe Harbor, Stable Growth, Goal Keeper, Steady Progress, Patient Builder, Balanced Builder, Steady Compounder, Wealth Accelerator, Full Harvest, Full Throttle)"
     },
     "ethena": {
       "name": "Ethena",
@@ -373,49 +371,17 @@
     "h2": "Valor combinado asegurado",
     "textBefore": "Los protocolos en esta página mantienen colectivamente más de",
     "number": "120.000 millones USD",
-    "textAfter": "en depósitos de usuarios a través de todos sus despliegues. Eso es más de lo que la mayoría de bancos regionales mantienen en depósitos totales.",
+    "textAfter": "en depósitos de usuarios a través de todos sus despliegues. Es dinero real, de gente real, ya dentro de estos sistemas.",
     "context": "Esto no significa que tu dinero esté en todos ellos. Cada estrategia de diBoaS usa protocolos específicos adecuados a su nivel de riesgo y objetivos. Consulta la página de Estrategias para ver qué protocolos se usan en cada estrategia.",
     "source": "TVL combinado obtenido de DeFiLlama. Última verificación: febrero de 2026. Los valores fluctúan diariamente."
   },
   "notIs": {
     "h2": "Atención",
-    "text": "Esto no es una recomendación de usar ninguno de estos protocolos directamente.\n\nLas estrategias de diBoaS están construidas sobre estos sistemas, y nuestro equipo maneja la complejidad. No necesitas interactuar con ningún protocolo tú mismo. Esta página existe para que puedas ver exactamente dónde va tu dinero y verificar todo lo que decimos.\n\nCada protocolo aquí conlleva riesgo. Los smart contracts pueden tener bugs. Los mercados pueden desplomarse. Las stablecoins pueden perder su vinculación. Sistemas que han operado de forma segura durante años pueden enfrentar problemas mañana. Monitorizamos estos sistemas de forma continua, pero no podemos eliminar el riesgo. Nadie puede.\n\nEsta página existe porque creemos que mereces saberlo. No porque tengas que hacer nada con ella.",
-    "warmLine": "Si no estás seguro de si esto es adecuado para ti, consulta a un asesor financiero autorizado antes de tomar decisiones de inversión."
+    "text": "Esto no es una recomendación de usar ninguno de estos protocolos directamente.\n\nLas estrategias de diBoaS están construidas sobre estos sistemas, y nuestro equipo maneja la complejidad. No necesitas interactuar con ningún protocolo tú mismo. Esta página existe para que puedas ver exactamente dónde va tu dinero y verificar todo lo que decimos.\n\nCada protocolo aquí conlleva riesgo. Los smart contracts pueden tener bugs. Los mercados pueden desplomarse. Las stablecoins pueden perder su vinculación. Sistemas que han operado de forma segura durante años pueden enfrentar problemas mañana. Monitorizamos estos sistemas de forma continua, pero no podemos eliminar el riesgo. Nadie puede.\n\nSi no estás seguro de si esto es adecuado para ti, consulta a un asesor financiero autorizado antes de tomar decisiones de inversión.",
+    "warmLine": "Esta página existe porque creemos que mereces saberlo. No porque tengas que hacer nada con ella."
   },
   "faq": {
-    "h2": "Preguntas sobre nuestros protocolos",
-    "q1": {
-      "question": "¿Por qué no listáis todos los protocolos DeFi?",
-      "answer": "Hay miles de protocolos DeFi. Preferimos listar 25 que hemos investigado a fondo a 200 que no conocemos."
-    },
-    "q2": {
-      "question": "¿Con qué frecuencia actualizáis esta lista?",
-      "answer": "Monitorizamos todos los protocolos listados de forma continua. Si un protocolo tiene un incidente de seguridad, cambio regulatorio o problema operativo significativo, actualizamos esta página. También revisamos la lista completa trimestralmente para decidir si añadir o eliminar protocolos."
-    },
-    "q3": {
-      "question": "¿Puedo solicitar que se añade un protocolo?",
-      "answer": "Sí. Escribe a hello@diboas.com con tu sugerencia y por qué crees que debería incluirse. Revisamos cada solicitud según nuestros criterios de selección."
-    },
-    "q4": {
-      "question": "¿Estar listado aquí significa que diBoaS recomienda estos protocolos?",
-      "answer": "No. Estar listado significa que los hemos investigado, cumplen nuestros criterios y los usamos en nuestras estrategias. No estamos afiliados con ningún protocolo. Su inclusión no implica que ellos respalden a diBoaS, y nuestra lista no constituye una recomendación de usarlos directamente."
-    },
-    "q5": {
-      "question": "¿Qué pasa si un protocolo es hackeado?",
-      "answer": "Depende de la gravedad. Para incidentes menores que se resuelven rápidamente, podemos mantener el protocolo listado con una nota de advertencia actualizada. Para exploits graves donde los fondos de usuarios se pierden permanentemente, eliminamos el protocolo de nuestra lista y ajustamos las estrategias afectadas. Si el exploit afectó a una versión anterior que no usamos, podemos mantener el protocolo listado con una advertencia clara. Consulta nuestros criterios de selección arriba para detalles. Siempre comunicaremos los cambios a nuestros usuarios."
-    },
-    "q6": {
-      "question": "¿Por qué algunos protocolos tienen badges de advertencia?",
-      "answer": "El badge de advertencia ámbar significa que el protocolo ha tenido un incidente de seguridad notable, problema regulatorio o un perfil de riesgo elevado comparado con sus pares. Incluimos estos protocolos porque siguen cumpliendo nuestros criterios generales, pero queremos que veas el panorama completo. Los detalles están en cada tarjeta."
-    },
-    "q7": {
-      "question": "¿Qué es TVL y por qué importa?",
-      "answer": "TVL significa Total Value Locked (Valor Total Bloqueado). Es la cantidad total de dinero depositada en un protocolo por todos los usuarios a nivel mundial. Un TVL más alto generalmente significa que más personas confían en el sistema con dinero real. No es garantía de seguridad, pero es una señal que tenemos en cuenta."
-    },
-    "q8": {
-      "question": "¿Necesito interactuar con estos protocolos yo mismo?",
-      "answer": "No. diBoaS gestiona todas las interacciones con los protocolos en tu nombre cuando eliges una estrategia. No necesitas crear cuentas en ningún protocolo, gestionar wallets en diferentes blockchains ni entender los detalles técnicos. Esta página existe por transparencia, no porque necesites hacer nada con ella."
-    }
+    "h2": "Preguntas sobre nuestros protocolos"
   },
   "sections": {
     "faq": {

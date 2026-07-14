@@ -4,7 +4,7 @@
     "description": "Calculadora B2B gratuita de rendimiento de efectivo ocioso. Compara qué gana el efectivo de tu empresa en el banco vs en diBoaS conservador."
   },
   "hero": {
-    "kicker": "Calculadora de efectivo ocioso",
+    "kicker": "Calculadora de efectivo parado",
     "headline": "¿Qué gana el efectivo de tu empresa mientras descansa?",
     "subtitle": "Las cuentas de empresa rinden casi nada. Mira lo que añadiría un rendimiento conservador."
   },
@@ -20,9 +20,8 @@
     "bankNote": "{rate}% de rendimiento durante {years} años",
     "diboasLabel": "En diBoaS",
     "diboasNote": "{rate}% de rendimiento conservador en dólar digital durante {years} años",
-    "differenceHighlight": "Tus {cash} ganan {difference} más en diBoaS durante {years} años.",
-    "differencePositive": "Tus {cash} ganan {difference} más en diBoaS durante {years} años.",
-    "differenceZero": "A la tasa de tu banco, diBoaS iguala tu rendimiento local durante {years} años, y la posición se mantiene en dólar digital.",
+    "differencePositive": "Tus {cash} podrían ganar {difference} más en diBoaS durante {years} años.",
+    "differenceZero": "Al tipo de tu banco, diBoaS iguala tu rendimiento local durante {years} años, y la posición se mantiene en dólar digital.",
     "differenceNegative": "Al {bankRate}% tu banco supera el escenario conservador de diBoaS durante {years} años. diBoaS aún te da una posición en dólar digital. Esta comparación es solo de rendimiento."
   },
   "resultMoment": {
@@ -31,7 +30,7 @@
     "shareText": "Mi dinero parado podría convertirse en {value} en diBoaS en {years} años. Mira cuánto podría ganar el tuyo."
   },
   "vignette": {
-    "subtitle": "El efectivo parado no gana. El que trabaja, sí. Tú eliges."
+    "subtitle": "El efectivo parado casi no gana. Dale un propósito, y puede rendir más."
   },
   "landing": {
     "cardTitle": "Rendimiento de efectivo",

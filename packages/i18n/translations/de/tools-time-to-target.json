@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Zielerreichungs-Rechner",
     "headline": "Wann komme ich an?",
-    "subtitle": "Wähle Ziel und Frequenz. Sieh die Jahre bis zum Ziel über vier Renditesätze."
+    "subtitle": "Wähle Ziel und Sparrhythmus. Gleiches Ziel, vier Renditepfade. Sieh die Jahre für jeden Pfad."
   },
   "inputs": {
     "targetLabel": "Zielbetrag",
@@ -16,7 +16,7 @@
     "targetLine": "{target} erreichen…",
     "monthsLabel": "{months} Monate",
     "yearsLabel": "{years} Jahre",
-    "cannotReach": "Mit dieser Sparrate nicht erreichbar. Versuche einen höheren monatlichen Betrag oder ein kleineres Ziel."
+    "cannotReach": "Mit dieser Sparrate nicht erreichbar. Ein höherer monatlicher Betrag oder ein kleineres Ziel rückt es in Reichweite."
   },
   "guidance": {
     "oneTimeNeedsInitial": "Gib einen Startbetrag ein, um zu sehen, wann du dein Ziel erreichst."

@@ -4,7 +4,7 @@
     "description": "Calculadora B2B gratuita de rendimento de caixa ocioso. Compare o que o caixa da sua empresa rende no banco vs no diBoaS conservador."
   },
   "hero": {
-    "kicker": "Calculadora de caixa ocioso",
+    "kicker": "Calculadora de caixa parado",
     "headline": "O que o caixa da sua empresa está rendendo enquanto fica parado?",
     "subtitle": "A maioria das contas empresariais rende quase nada. Veja o que rendimento conservador somaria."
   },
@@ -20,8 +20,7 @@
     "bankNote": "{rate}% de rendimento ao longo de {years} anos",
     "diboasLabel": "No diBoaS",
     "diboasNote": "{rate}% de rendimento conservador em dólar digital ao longo de {years} anos",
-    "differenceHighlight": "Seus {cash} rendem {difference} a mais no diBoaS ao longo de {years} anos.",
-    "differencePositive": "Seus {cash} rendem {difference} a mais no diBoaS ao longo de {years} anos.",
+    "differencePositive": "Seus {cash} poderiam render {difference} a mais no diBoaS ao longo de {years} anos.",
     "differenceZero": "Com a taxa atual do seu banco, o diBoaS empata em rendimento ao longo de {years} anos, e a posição fica em dólar digital.",
     "differenceNegative": "A {bankRate}% seu banco supera o cenário conservador do diBoaS ao longo de {years} anos. O diBoaS ainda te dá uma posição em dólar digital. Esta comparação é só de rendimento."
   },
@@ -31,7 +30,7 @@
     "shareText": "Meu dinheiro parado poderia se tornar {value} no diBoaS em {years} anos. Veja quanto o seu poderia render."
   },
   "vignette": {
-    "subtitle": "Caixa parado não rende. Caixa que trabalha, sim. Você escolhe."
+    "subtitle": "Caixa parado rende quase nada. Dê a ele uma função, e pode render mais."
   },
   "landing": {
     "cardTitle": "Rendimento do caixa",

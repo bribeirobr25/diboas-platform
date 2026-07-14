@@ -120,7 +120,7 @@
     "brDollarLine": "Und im Digital-Dollar hängt deine Reserve nicht an einer einzigen Währung.",
     "brDollarBothWays": "Wechselkurse bewegen sich in beide Richtungen; der Wert in deiner Währung kann steigen oder fallen.",
     "runwayLed": "Der Runway führt diesen Plan: rund {months} Monate beim aktuellen Burn, mit einem Boden von {floor}. Senke Zahlungskosten und beobachte den Burn, bevor der Überschuss arbeiten geht.",
-    "idleComparison": "Über 12 Monate könnte dein idealer Überschuss von {amount} rund {delta} mehr erwirtschaften als bei deiner Bank, im konservativen Szenario.",
+    "idleComparison": "Über 12 Monate könnte dein idealer Überschuss von {amount} rund {delta} mehr erwirtschaften als bei deiner Bank, im konservativen Szenario. Nur zur Veranschaulichung.",
     "nextCushion": "Notgroschen-Rechner",
     "nextWorking": "Zinseszins-Rechner",
     "nextCurrency": "Währungsverlust-Rechner",

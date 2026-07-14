@@ -23,11 +23,10 @@
     "yearsLabel": "{years} anos",
     "saved": "Tempo economizado",
     "targetLabel": "Meta: {amount}",
-    "noResult": "Aumente sua poupança mensal para alcançar a meta.",
+    "noResult": "Neste ritmo, a meta fica fora de alcance. Um valor mensal maior muda isso.",
     "unreachable": "Neste ritmo de poupança, a inflação supera o retorno do seu banco."
   },
   "vignette": {
-    "headline": "{target} de reserva em {time}",
     "bankHeadline": "vs {bankTime} com seu banco",
     "subtitle": "Mesmo esforço. Menos espera."
   },

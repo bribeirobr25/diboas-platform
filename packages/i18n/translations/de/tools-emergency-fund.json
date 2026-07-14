@@ -23,11 +23,10 @@
     "yearsLabel": "{years} Jahre",
     "saved": "Eingesparte Zeit",
     "targetLabel": "Ziel: {amount}",
-    "noResult": "Erhöhe deine monatliche Ersparnis, um das Ziel zu erreichen.",
+    "noResult": "Bei dieser Sparrate bleibt das Ziel außer Reichweite. Ein höherer monatlicher Betrag ändert das.",
     "unreachable": "Bei dieser Sparrate übertrifft die Inflation die Rendite deiner Bank."
   },
   "vignette": {
-    "headline": "{target} Notgroschen in {time}",
     "bankHeadline": "vs. {bankTime} mit deiner Bank",
     "subtitle": "Gleicher Einsatz. Weniger warten."
   },

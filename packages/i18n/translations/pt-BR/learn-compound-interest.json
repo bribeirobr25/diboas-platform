@@ -56,7 +56,7 @@
       "twelveYear": "Poderia virar em 12 anos"
     },
     "vignettesOutro": "Mesmo dinheiro. Outro trabalho.",
-    "vignettesDisclaimer": "Valores ilustrativos baseados em 10% de juros compostos históricos (envelope de rendimento em dólar digital). Desempenho passado não garante resultados futuros.",
+    "vignettesDisclaimer": "Valores ilustrativos baseados em 10% de juros compostos históricos. Desempenho passado não garante resultados futuros.",
     "habitsRecap": "Ninguém está te pedindo pra cortar o iFood. Nem o cinema. Nem o streaming. Mantém o que faz a vida valer a pena.",
     "outro": [
       "Mas se só um deles — só um — fosse trabalhar pra você em vez de sumir todo mês, é a conta que você acabou de ver lá em cima.",
@@ -113,6 +113,6 @@
     "tableHeaderRate": "Taxa anual",
     "tableHeaderTotal": "Após {years} anos",
     "loadingState": "Calculando…",
-    "calibrationNote": "O que as taxas significam. Os 7% conservadores estão alinhados com o envelope de rendimento do dólar digital via stack DeFi com foco em Solana. Os 10% históricos ficam no meio da faixa mista de longo prazo. Os 14% otimistas refletem estratégias selecionadas ou alavancadas. De forma independente: o S&P 500 retornou ~15,5% ao ano em média de 2010 a 2026, o ouro ~9% ao ano, e um poupador brasileiro em BRL teve desempenho inferior a um que manteve dólar digital na mesma janela (números completos nas nossas notas de pesquisa)."
+    "calibrationNote": "O que as taxas significam. Os 7% conservadores são o cenário mais estável, os 10% históricos ficam no meio da faixa de longo prazo, e os 14% otimistas são o cenário mais ativo. São cenários, não promessas, e toda taxa tem risco. De forma independente: o S&P 500 rendeu, em média, cerca de 10% ao ano no longo prazo (nominal, com dividendos reinvestidos; cerca de 7% após a inflação), e o ouro cerca de 7% ao ano. No longo prazo, poupar em reais rendeu menos do que manter o dólar digital (números completos nas nossas notas de pesquisa)."
   }
 }

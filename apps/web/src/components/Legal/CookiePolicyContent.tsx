@@ -32,6 +32,9 @@ export function CookiePolicyContent() {
   const intl = useTranslation();
 
   const t = (id: string) => intl.formatMessage({ id: `legal/cookies.${id}` });
+  // pt-BR-only brazilNote is absent in en/es/de; guard on message presence (D8).
+  const has = (id: string) => Boolean(intl.messages[`legal/cookies.${id}`]);
+  const hasBrazilNote = has('sections.brazilNote.title');
 
   // Table of contents items
   const tocItems = [
@@ -40,6 +43,7 @@ export function CookiePolicyContent() {
     { id: 'your-choices', title: t('sections.yourChoices.title') },
     { id: 'changes', title: t('sections.changes.title') },
     { id: 'contact-us', title: t('sections.contact.title') },
+    ...(hasBrazilNote ? [{ id: 'brazil-note', title: t('sections.brazilNote.title') }] : []),
   ];
 
   // Build cookie tables from translations
@@ -83,6 +87,12 @@ export function CookiePolicyContent() {
       '_gid',
       t('sections.cookiesWeUse.analytics.table.rows.1.purpose'),
       t('sections.cookiesWeUse.analytics.table.rows.1.duration'),
+    ],
+    // PostHog analytics cookie — present in all locales (GDPR completeness, D8).
+    [
+      'ph_*',
+      t('sections.cookiesWeUse.analytics.table.rows.2.purpose'),
+      t('sections.cookiesWeUse.analytics.table.rows.2.duration'),
     ],
   ];
 
@@ -166,6 +176,12 @@ export function CookiePolicyContent() {
             {t('sections.contact.content').replace('{email}', t('sections.contact.email'))}
           </LegalParagraph>
         </LegalContentSection>
+
+        {hasBrazilNote ? (
+          <LegalContentSection title={t('sections.brazilNote.title')} id="brazil-note">
+            <LegalParagraph>{t('sections.brazilNote.content')}</LegalParagraph>
+          </LegalContentSection>
+        ) : null}
 
         <LegalBackToTop label={t('backToTop')} />
       </SectionContainer>

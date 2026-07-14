@@ -9,22 +9,28 @@
   },
   "topics": {
     "gettingStarted": {
-      "title": "Primeros Pasos"
+      "title": "Primeros pasos",
+      "lead": "Empieza aquí: qué es diBoaS, para quién es y cómo empezar con 5 €."
     },
     "moneySafety": {
-      "title": "Dinero y Seguridad"
+      "title": "Dinero y seguridad",
+      "lead": "La versión honesta: qué puede salir bien y qué puede salir mal."
     },
     "feesCosts": {
-      "title": "Comisiones y Costes"
+      "title": "Comisiones y costes",
+      "lead": "Cuánto cuesta y qué no cuesta. Sin margen oculto."
     },
     "investingStrategies": {
-      "title": "Inversión y Estrategias"
+      "title": "Inversión y estrategias",
+      "lead": "Cómo funcionan las estrategias y cómo elegir la que encaja."
     },
     "forBusinesses": {
-      "title": "Para Empresas"
+      "title": "Para empresas",
+      "lead": "Para empresas: efectivo parado, comisiones de tarjeta y liquidez el mismo día."
     },
     "protocolsTransparency": {
-      "title": "Protocolos y Transparencia"
+      "title": "Protocolos y transparencia",
+      "lead": "Dónde trabaja de verdad tu dinero y cómo verificarlo."
     }
   }
 }

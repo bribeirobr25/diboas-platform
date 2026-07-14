@@ -7,7 +7,7 @@
     "hero": {
       "kicker": "Money tools",
       "headline": "What could your money do?",
-      "subtitle": "10 free calculators. Plug in your numbers, see what's possible."
+      "subtitle": "11 free tools. Plug in your numbers, see what your money's actually doing."
     },
     "sections": {
       "start": {
@@ -78,7 +78,7 @@
   },
   "disclaimer": "Educational projection only. Annual percentage yield (APY) shown for deposit accounts. Not financial advice. Past performance does not guarantee future results. All investments involve risk; you may lose money. diBoaS is not a registered investment adviser. diBoaS returns are shown in digital dollar; for non-US currencies, the local-currency total combines the dollar return with how your local currency typically moves against the US dollar over time.",
   "warnings": {
-    "over30Years": "This target takes more than 30 years to reach at your current contribution. Consider increasing your monthly amount or extending your timeline."
+    "over30Years": "This target takes more than 30 years to reach at your current contribution. A higher monthly amount, or a longer timeline, changes that."
   },
   "confidence": {
     "high": "High confidence (±5%)",
@@ -98,6 +98,6 @@
     "shareTitle": "My diBoaS result",
     "ctaHeadline": "This is what fair access changes.",
     "ctaBody": "Join the waitlist to put it to work for real.",
-    "ctaLabel": "Claim your spot"
+    "ctaLabel": "Join the waitlist"
   }
 }

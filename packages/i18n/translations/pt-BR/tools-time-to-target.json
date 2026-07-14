@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Calculadora de tempo até a meta",
     "headline": "Quando eu chego lá?",
-    "subtitle": "Escolha meta e frequência. Veja os anos até a meta em quatro taxas diferentes."
+    "subtitle": "Escolha meta e frequência. Mesma meta, quatro caminhos de taxa. Veja os anos de cada um."
   },
   "inputs": {
     "targetLabel": "Meta",
@@ -16,7 +16,7 @@
     "targetLine": "Chegando a {target}…",
     "monthsLabel": "{months} meses",
     "yearsLabel": "{years} anos",
-    "cannotReach": "Fora de alcance com esta contribuição. Tente um valor mensal maior ou uma meta menor."
+    "cannotReach": "Fora de alcance com esta contribuição. Um valor mensal maior ou uma meta menor colocaria isso ao seu alcance."
   },
   "guidance": {
     "oneTimeNeedsInitial": "Informe um valor inicial para ver quando você alcançaria sua meta."

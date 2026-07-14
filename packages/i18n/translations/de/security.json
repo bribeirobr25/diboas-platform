@@ -23,7 +23,7 @@
       "ariaLabel": "Wie wir dein Geld schützen",
       "title": "Wie wir dein Geld schützen",
       "paragraphs": [
-        "Niemand, einschließlich diBoaS, kann auf dein Geld zugreifen.",
+        "Nicht einmal diBoaS kann auf dein Geld zugreifen.",
         "Nur du kannst Transaktionen autorisieren.",
         "Jede Transaktionssignierung erfordert deine Zustimmung.",
         "Wir überwachen alle Positionen rund um die Uhr."
@@ -35,8 +35,8 @@
       "paragraphs": [
         "Aufgebaut auf quelloffener und dezentraler Finanzinfrastruktur.",
         "Jede Transaktion ist nachprüfbar, jedes System ist überprüfbar.",
-        "Wir nutzen ausschließlich geprüfte und etablierte Protokolle.",
-        "Jede Strategie wird gegen historische Marktzusammenbrüche getestet."
+        "Wir nutzen nur geprüfte, etablierte Protokolle. Jedes ist auf unserer Protokoll-Seite mit seiner Historie aufgeführt.",
+        "Jede Strategie basiert auf Protokollen mit öffentlicher On-Chain-Historie, und Positionen werden rund um die Uhr überwacht."
       ]
     },
     "whatWeDontDo": {
@@ -60,13 +60,5 @@
       "cta": "Alle Protokolle ansehen",
       "ctaHref": "/protocols"
     }
-  },
-  "footer": {
-    "general": "Dieser Inhalt dient ausschließlich zu Informationszwecken und stellt keine Anlage-, Finanz- oder sonstige Beratung dar.",
-    "crypto": "Der Wert von Krypto-Assets kann schwanken. Du könntest einen Teil oder dein gesamtes Geld verlieren. Krypto-Assets sind nicht durch Einlagensicherungssysteme gedeckt.",
-    "mica": "",
-    "micaArticle7": "Diese Krypto-Asset-Marketingmitteilung wurde von keiner zuständigen Behörde eines Mitgliedstaats der Europäischen Union geprüft oder genehmigt. Der Anbieter des Krypto-Assets ist allein für den Inhalt dieser Marketingmitteilung verantwortlich.",
-    "us": "diBoaS ist eine nicht-verwahrende Schnittstelle für dezentrale Finanzprotokolle. diBoaS ist nicht bei der SEC, CFTC, FinCEN oder einer staatlichen Regulierungsbehörde registriert. Die US-amerikanische regulatorische Behandlung von DeFi entwickelt sich weiter. Du bist dafür verantwortlich festzustellen, ob deine Nutzung dieser Schnittstelle den geltenden Gesetzen entspricht.",
-    "closing": "Du entscheidest, was für deine Situation am besten ist."
   }
 }

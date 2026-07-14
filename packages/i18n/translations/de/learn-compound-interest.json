@@ -56,7 +56,7 @@
       "twelveYear": "Könnte in 12 Jahren werden"
     },
     "vignettesOutro": "Dasselbe Geld. Andere Aufgabe.",
-    "vignettesDisclaimer": "Illustrative Zahlen auf Basis eines historischen Zinssatzes von 10 % (Digital-Dollar-Renditeumschlag). Vergangene Wertentwicklungen garantieren keine zukünftigen Ergebnisse.",
+    "vignettesDisclaimer": "Illustrative Zahlen auf Basis eines historischen Zinssatzes von 10 %. Vergangene Wertentwicklungen garantieren keine zukünftigen Ergebnisse.",
     "habitsRecap": "Niemand verlangt von dir, das Frühstück zu streichen. Oder das Restaurant. Oder das Streaming. Behalte, was dein Leben besser macht.",
     "outro": [
       "Aber wenn nur eines davon — nur eines — für dich arbeiten würde, statt jeden Monat zu verschwinden, dann passiert genau die Mathematik, die du oben gesehen hast.",
@@ -113,6 +113,6 @@
     "tableHeaderRate": "Jahreszins",
     "tableHeaderTotal": "Nach {years} Jahren",
     "loadingState": "Wird berechnet…",
-    "calibrationNote": "Was die Raten bedeuten. Die konservativen 7% entsprechen dem Digital-Dollar-Rendite-Korridor über den Solana-zentrierten DeFi-Stack. Die historischen 10% liegen in der Mitte des langfristig gemischten Bereichs. Die optimistischen 14% spiegeln kuratierte oder gehebelte Strategien wider. Unabhängig davon: der S&P 500 erzielte von 2010 bis 2026 im Schnitt ~15,5% pro Jahr Gesamtrendite, Gold ~9% pro Jahr, und ein brasilianischer Sparer in BRL schnitt schlechter ab als einer, der im gleichen Zeitraum den Digital-Dollar hielt (vollständige Zahlen in unseren Recherchenotizen)."
+    "calibrationNote": "Was die Raten bedeuten. Die 7% konservativ sind das stabilere Szenario, die 10% historisch liegen in der Mitte des langfristigen Bereichs, und die 14% optimistisch sind das aktivere Szenario. Das sind Szenarien, keine Versprechen, und jede Rate trägt Risiko. Unabhängig davon: der S&P 500 erzielte langfristig im Schnitt rund 10% Gesamtrendite pro Jahr (nominal, mit reinvestierten Dividenden; rund 7% nach Inflation), Gold rund 7% pro Jahr. Langfristig schnitt Sparen in brasilianischen Real schlechter ab als das Halten des Digital-Dollar (vollständige Zahlen in unseren Recherchenotizen)."
   }
 }

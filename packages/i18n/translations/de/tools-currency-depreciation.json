@@ -6,26 +6,26 @@
   "hero": {
     "kicker": "Währungs-Wertverlust-Rechner",
     "headline": "Was verdient deine Währung wirklich?",
-    "subtitle": "Vergleiche bar, Bank und Digital-Dollar über die Jahre, unter Berücksichtigung des Wertverlusts."
+    "subtitle": "Dein Geld kann auf dem Papier wachsen und trotzdem an Kaufkraft verlieren. Vergleiche Bargeld, Bank und Digital-Dollar über die Jahre."
   },
   "mode": {
     "ariaLabel": "Modus des Rechners",
     "forward": "Vorwärts",
     "retrospective": "Seit 2010",
-    "retrospectiveDisabledTooltip": "Der Retrospektiv-Modus ist für BRL und EUR verfügbar. Für andere Währungen fehlen uns noch die Ankerdaten."
+    "retrospectiveDisabledTooltip": "Der Rückblick-Modus ist für BRL und EUR verfügbar. Für andere Währungen fehlen uns noch die Ankerdaten."
   },
   "inputs": {
     "currencyLabel": "Währung",
     "amountLabel": "Betrag in {currency}",
     "amountLabel2010": "Betrag in {currency} (Jan 2010)",
     "yearsLabel": "Jahre ab heute",
-    "depreciationHelp": "{currency} verliert ~{rate}% pro Jahr gegenüber dem USD"
+    "depreciationHelp": "{currency} verändert sich ~{rate}% pro Jahr gegenüber dem USD"
   },
   "output": {
     "usdLocaleNote": "Dieser Rechner ist am nützlichsten für Nicht-USD-Währungen. Für USD-Halter ist der Wertverlust standardmäßig 0.",
     "usdRetrospectiveNote": "Wähle BRL oder EUR, um zu sehen, wie sich deine lokale Währung seit 2010 gegenüber dem USD entwickelt hat.",
     "usdStabilityFramingTitle": "Der US-Dollar ist die globale Reservewährung.",
-    "usdStabilityFramingBody": "Bei Stabilitätsfragen sind USD-Halter ohnehin auf der starken Seite. Wechsle die Währung oben auf BRL oder EUR, um zu sehen, was das Halten einer schwächer werdenden Währung über 5 Jahre wirklich kostet.",
+    "usdStabilityFramingBody": "Bei Stabilitätsfragen war der Dollar bisher die stabile Seite des Paares. Wechsle die Währung oben auf BRL oder EUR, um zu sehen, wie eine Währung, die gegenüber dem Dollar an Boden verlor, das Bild im Lauf der Zeit veränderte.",
     "cashLabel": "Wenn bar gehalten",
     "cashEvolution": "USD-Äquivalent nach {rate}% / Jahr Veränderung gegenüber dem Dollar. Negative Werte bedeuten, dass deine lokale Währung gegenüber dem USD stärker wurde.",
     "bankLabel": "Bank-Rendite",

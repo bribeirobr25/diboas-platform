@@ -9,7 +9,8 @@
  * Service Agnostic Abstraction: Decoupled content from presentation
  */
 
-import type { FAQAccordionVariantConfig, FAQItem } from './faqAccordion';
+import type { FAQAccordionVariantConfig } from './faqAccordion';
+import { getFAQForSurface } from './faqRegistry';
 import type { HeroVariantConfig } from './hero';
 import type { AppFeaturesCarouselVariantConfig } from './appFeaturesCarousel';
 import type { BenefitsCardsConfig } from '@/components/Sections/BenefitsCards';
@@ -499,43 +500,12 @@ export const B2B_WAITLIST_CONFIG = {
 } as const;
 
 // ─── Section 13: FAQ (5 items) — top questions; full FAQ at /help ─
-// All FAQ content is sourced from the canonical `faq.json` namespace
-// (Phase 8 Item A consolidation — single source of truth for /help, /, /business).
+// All FAQ content is sourced from the canonical `faq.json` namespace via the FAQ
+// registry (single source of truth for /help, /, /business — 2026-07-13 SSOT).
 // `safetyBusiness` is the B2B-tailored variant of `safety` (B2C/help use the
 // consumer-friendly variant); per-surface variants preserve audience tone.
 
-export const B2B_FAQ_ITEMS: FAQItem[] = [
-  {
-    id: 'catch',
-    question: 'faq.items.catch.question',
-    answer: 'faq.items.catch.answer',
-    category: 'general',
-  },
-  {
-    id: 'safety',
-    question: 'faq.items.safetyBusiness.question',
-    answer: 'faq.items.safetyBusiness.answer',
-    category: 'security',
-  },
-  {
-    id: 'payments',
-    question: 'faq.items.payments.question',
-    answer: 'faq.items.payments.answer',
-    category: 'operations',
-  },
-  {
-    id: 'compliance',
-    question: 'faq.items.compliance.question',
-    answer: 'faq.items.compliance.answer',
-    category: 'compliance',
-  },
-  {
-    id: 'risk',
-    question: 'faq.items.risk.question',
-    answer: 'faq.items.risk.answer',
-    category: 'security',
-  },
-];
+export const B2B_FAQ_ITEMS = getFAQForSurface('business');
 
 export const B2B_FAQ_CONFIG: FAQAccordionVariantConfig = {
   variant: 'default',

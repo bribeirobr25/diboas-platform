@@ -8,14 +8,13 @@
   "hero": {
     "h1": "Where Your Money Works",
     "subtitle": "Every system. Every name. Nothing hidden.",
-    "trustLine": "25 protocols. 7 categories. Full transparency about every system your money touches."
+    "trustLine": "25 protocols. 7 categories. Every name, chain, and track record here for you to check yourself."
   },
   "transitions": {
     "t1": "Here's why we built this page.",
     "t2": "How did these 25 make the list?",
     "t3": "So how much real money is in these systems?",
-    "t4": "Before you go further, something important.",
-    "t5": "You probably still have questions. Good."
+    "t4": "Before you go further, something important."
   },
   "why": {
     "h2": "Transparency",
@@ -62,7 +61,6 @@
     }
   },
   "protocolLabels": {
-    "whatItDoes": "What it does:",
     "founded": "Founded",
     "tvl": "Total Value Locked",
     "blockchains": "Blockchains",
@@ -84,7 +82,7 @@
         "audits": "30+ independent audits",
         "regulatory": "SEC closed its 4-year investigation without charges (December 2025). Source: SEC closure letter shared by Aave founder; reported by Yahoo Finance, CoinDesk, Unchained."
       },
-      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer"
+      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Full Harvest"
     },
     "compoundV3": {
       "name": "Compound V3",
@@ -96,7 +94,7 @@
         "audits": "4+ independent audits",
         "regulatory": "Fully decentralized. No specific licenses required."
       },
-      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer"
+      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Full Harvest"
     },
     "kamino": {
       "name": "Kamino",
@@ -221,7 +219,7 @@
         "audits": "10+ independent audits",
         "regulatory": "10+ years of continuous operation through multiple market cycles"
       },
-      "usedInStrategies": "All 10 strategies (Safe Harbor, Stable Growth, Goal Keeper, Steady Progress, Patient Builder, Balanced Builder, Steady Compounder, Wealth Accelerator, Yield Maximizer, Full Throttle)"
+      "usedInStrategies": "All 10 strategies (Safe Harbor, Stable Growth, Goal Keeper, Steady Progress, Patient Builder, Balanced Builder, Steady Compounder, Wealth Accelerator, Full Harvest, Full Throttle)"
     },
     "ethena": {
       "name": "Ethena",
@@ -373,7 +371,7 @@
     "h2": "Combined Value Secured",
     "textBefore": "The protocols on this page collectively hold over",
     "number": "$120 billion",
-    "textAfter": "in user deposits across all their deployments. That is more than most regional banks hold in total deposits.",
+    "textAfter": "in user deposits across all their deployments. That is real money, from real people, already in these systems.",
     "context": "This does not mean your money is in all of them. Each diBoaS strategy uses specific protocols suited to its risk level and goals. See the Strategies page for which protocols are used in which strategy.",
     "source": "Combined TVL sourced from DeFiLlama. Last verified: February 2026. Values fluctuate daily."
   },
@@ -383,39 +381,7 @@
     "warmLine": "This page exists because we believe you deserve to know. Not because you need to act on it."
   },
   "faq": {
-    "h2": "Questions About Our Protocols",
-    "q1": {
-      "question": "Why don't you list every DeFi protocol?",
-      "answer": "There are thousands of DeFi protocols. We would rather list 25 we have thoroughly researched than 200 we have not."
-    },
-    "q2": {
-      "question": "How often do you update this list?",
-      "answer": "We monitor all listed protocols continuously. If a protocol has a security incident, regulatory change, or significant operational issue, we update this page. We also review the full list quarterly to decide whether to add or remove protocols."
-    },
-    "q3": {
-      "question": "Can I request a protocol to be added?",
-      "answer": "Yes. Email hello@diboas.com with your suggestion and why you think it should be included. We review every request against our selection criteria."
-    },
-    "q4": {
-      "question": "Does being listed here mean diBoaS endorses these protocols?",
-      "answer": "No. Being listed means we have researched them, they meet our criteria, and we use them in our strategies. We are not affiliated with any protocol. Their inclusion does not imply they endorse diBoaS, and our listing does not constitute an endorsement or recommendation to use them directly."
-    },
-    "q5": {
-      "question": "What happens if a protocol gets hacked?",
-      "answer": "It depends on the severity. For minor incidents that are resolved quickly, we may keep the protocol listed with an updated warning note. For serious exploits where user funds are permanently lost, we remove the protocol from our list and adjust any affected strategies. If the exploit affected an older version that we do not use, we may keep the protocol listed with a clear warning. See our selection criteria above for details. We will always communicate changes to our users."
-    },
-    "q6": {
-      "question": "Why do some protocols have warning badges?",
-      "answer": "The amber warning badge means the protocol has had a notable security incident, regulatory issue, or carries an elevated risk profile compared to peers. We include these protocols because they still meet our overall criteria, but we want you to see the full picture. The details are on each card."
-    },
-    "q7": {
-      "question": "What is TVL and why does it matter?",
-      "answer": "TVL stands for Total Value Locked. It is the total amount of money deposited in a protocol by all users worldwide. Higher TVL generally means more people trust the system with real money. It is not a guarantee of safety, but it is one signal we look at."
-    },
-    "q8": {
-      "question": "Do I need to interact with these protocols myself?",
-      "answer": "No. diBoaS handles all protocol interactions on your behalf when you choose a strategy. You do not need to create accounts with any protocol, manage wallets on different blockchains, or understand the technical details. This page is here for transparency, not because you need to do anything with it."
-    }
+    "h2": "Questions About Our Protocols"
   },
   "sections": {
     "faq": {

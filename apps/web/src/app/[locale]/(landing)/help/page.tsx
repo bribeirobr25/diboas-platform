@@ -9,6 +9,7 @@ import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import { HELP_HERO_CONFIG, HELP_TOPIC_IDS, HELP_TOPIC_CONFIGS } from '@/config/landing-help';
+import { FAQ_TOPICS, buildFAQStructuredData } from '@/config/faqRegistry';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 
@@ -89,42 +90,22 @@ export default async function HelpPage({ params }: LocalePageProps) {
     locale
   );
 
-  const helpMessages = pageMessages['landing-help'] as unknown as
-    Record<string, unknown> | undefined;
-  const topics = (helpMessages?.topics ?? {}) as Record<
-    string,
-    { questions?: Record<string, { question?: string; answer?: string }> }
-  >;
+  // FAQPage JSON-LD is derived from the canonical `faq.json` answers (E10 fix,
+  // 2026-07-13). The previous builder read `landing-help.topics.*.questions.*` —
+  // a path that never existed AND, critically, was accessed as a nested object
+  // when `loadPageNamespaces` returns a FLATTENED `Record<string,string>` (keys
+  // like `faq.items.isBank.question`), so `mainEntity` always shipped empty. We
+  // now read those flattened keys directly for every id in FAQ_TOPICS (topic
+  // order), across all 4 locales — resolved strings, not translation keys.
+  const faqMainEntity = Object.values(FAQ_TOPICS)
+    .flat()
+    .map((id) => ({
+      question: pageMessages[`faq.items.${id}.question`],
+      answer: pageMessages[`faq.items.${id}.answer`],
+    }))
+    .filter((q): q is { question: string; answer: string } => !!q.question && !!q.answer);
 
-  const getFAQEntry = (topicId: string, qKey: string) => {
-    const q = topics[topicId]?.questions?.[qKey];
-    if (!q?.question || !q?.answer) return null;
-    return {
-      '@type': 'Question',
-      name: q.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: q.answer,
-      },
-    };
-  };
-
-  const faqEntries = [
-    getFAQEntry('gettingStarted', 'q1'),
-    getFAQEntry('gettingStarted', 'q3'),
-    getFAQEntry('moneySafety', 'q1'),
-    getFAQEntry('moneySafety', 'q2'),
-    getFAQEntry('moneySafety', 'q3'),
-    getFAQEntry('feesCosts', 'q1'),
-    getFAQEntry('feesCosts', 'q2'),
-    getFAQEntry('investingStrategies', 'q1'),
-  ].filter(Boolean);
-
-  const faqStructuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqEntries,
-  };
+  const faqStructuredData = buildFAQStructuredData(faqMainEntity);
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>

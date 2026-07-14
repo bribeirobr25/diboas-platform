@@ -15,8 +15,8 @@
 import {
   DEFAULT_FAQ_ACCORDION_SETTINGS,
   type FAQAccordionVariantConfig,
-  type FAQItem,
 } from '@/config/faqAccordion';
+import { getFAQForSurface } from '@/config/faqRegistry';
 
 // ─── i18n Prefix (Pattern B: dynamic components) ────────────
 
@@ -24,15 +24,11 @@ import {
 export const PROTOCOLS_I18N_PREFIX = 'protocols' as const;
 
 // ─── FAQ Configuration ──────────────────────────────────────
+// Content is sourced from the canonical `faq.json` namespace via the FAQ registry
+// (2026-07-13 SSOT consolidation — the page's own `protocols.faq.qN` block was
+// byte-identical to the canonical ids and has been removed).
 
-const PROTOCOLS_FAQ_ITEM_IDS = ['q1', 'q5', 'q7', 'q8', 'q4'] as const;
-
-const PROTOCOLS_FAQ_ITEMS: FAQItem[] = PROTOCOLS_FAQ_ITEM_IDS.map((itemId) => ({
-  id: `faq-${itemId}`,
-  question: `${PROTOCOLS_I18N_PREFIX}.faq.${itemId}.question`,
-  answer: `${PROTOCOLS_I18N_PREFIX}.faq.${itemId}.answer`,
-  category: 'general' as const,
-}));
+const PROTOCOLS_FAQ_ITEMS = getFAQForSurface('protocols');
 
 /**
  * FAQ Accordion config for the Protocols page.

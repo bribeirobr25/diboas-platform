@@ -32,7 +32,7 @@ The goal: copy that reads as if a thoughtful person wrote it for one specific re
 ### Punctuation and symbols
 
 - **Emoji: none in product copy.** Not in headings, body, buttons, or as bullet markers. (Internal status docs may use a small, consistent set, but never page copy or translation strings.)
-- **Em-dash (—): use sparingly.** Heavy em-dash use is the most common AI tell. Prefer a comma, a period, a colon, or parentheses. A rough ceiling: at most one em-dash per paragraph, and most paragraphs should have none.
+- **Em-dash (—) and dash-as-punctuation: avoid it; replace, don't ration.** The em-dash is the single most common AI tell, so the default is **none**. Wherever one would go, use whatever the break actually calls for: a **comma** (a light join), a **period** (a clean stop), a **colon** (a setup), **parentheses** (an aside), or **nothing** (drop it and re-flow the sentence). This targets the _punctuation_ dash only. It does **not** touch hyphens inside compound words (friend-to-friend, non-custodial, pt-BR, 65-year-old, on/off-ramp) or numeric ranges. Not a Part-3 merge-blocker, but every one gets replaced on sight.
 - No decorative separators in prose (middot ·, bullets inside a sentence, arrows → as connectors).
 - No exclamation-mark inflation. One is plenty for a whole page; usually zero.
 - Straight quotes and apostrophes, used consistently (do not mix straight and curly).
@@ -109,7 +109,7 @@ What it checks (severities encoded in the script):
    failures. `.stories.` fixtures excluded. Escaped forms (`▼`, `\u{1F600}`) are
    decoded and scanned too — a literal-only scan missed one (2026-07-10).
 2. **Emoji in translation strings** — same rule, all locales.
-3. **Em-dash density per locale** — hot-spot review, never a fail.
+3. **Em-dash density per locale.** Flag every em-dash for replacement (the default is none); a style sweep, not a Part-3 blocker.
 4. **Hardcoded-English heuristic** — leads only (the heuristic only sees JSX text on lines
    carrying `className`; absence of hits is not absence of violations).
 

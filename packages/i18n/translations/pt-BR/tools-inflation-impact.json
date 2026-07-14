@@ -32,7 +32,7 @@
   },
   "output": {
     "ifYouKeepCash": "Se ficar em dinheiro",
-    "ifYouInvest": "Se for posto pra trabalhar",
+    "ifYouInvest": "Se você investir",
     "lostToInflation": "−{amount} perdidos pra inflação",
     "investedNote": "A {rate}% (cenário conservador)",
     "retrospectiveLabel": "Poder de compra hoje",

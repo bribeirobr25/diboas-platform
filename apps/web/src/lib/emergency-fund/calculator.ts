@@ -51,13 +51,15 @@ export const EMERGENCY_FUND_MAX_HORIZON_YEARS = 40;
 export const EMERGENCY_FUND_FALLBACK_HORIZON_YEARS = 5;
 
 /**
- * The defining design choice of emergency-fund: only the `historical` scenario
- * is shown. Conservative/optimistic alongside introduces optionality that
- * conflicts with the tool's safety framing — emergency funds are not the place
- * to optimize yield (C13 close: this is the rationale, recorded as a comment
- * on the constant instead of a code smell).
+ * The defining design choice of emergency-fund: only the `conservative`
+ * scenario is shown. Conservative/optimistic alongside introduces optionality
+ * that conflicts with the tool's safety framing — emergency funds are not the
+ * place to optimize yield (C13 close: this is the rationale, recorded as a
+ * comment on the constant instead of a code smell). The conservative (7%)
+ * envelope is the more defensible choice for an emergency fund and aligns with
+ * the product-wide Conservative-led default (founder P2-c / 2026-07-13 ruling).
  */
-export const EMERGENCY_FUND_SCENARIO_USD_PERCENT = SCENARIO_RATES.historical;
+export const EMERGENCY_FUND_SCENARIO_USD_PERCENT = SCENARIO_RATES.conservative;
 
 export interface EmergencyFundInput {
   /** Monthly cost of living, positive number */

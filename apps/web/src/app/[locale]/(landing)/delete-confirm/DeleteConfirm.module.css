@@ -49,3 +49,16 @@
   font-weight: var(--font-weight-semibold);
   cursor: pointer;
 }
+
+/* Recovery affordance on the expired/error terminal states (F-delete-confirm-2). */
+.backHomeLink {
+  display: inline-block;
+  margin-top: var(--spacing-2xl);
+  color: var(--text-brand-accessible);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+.backHomeLink:hover {
+  text-decoration: underline;
+}

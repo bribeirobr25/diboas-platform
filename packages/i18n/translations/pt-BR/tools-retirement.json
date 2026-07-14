@@ -5,12 +5,11 @@
   },
   "hero": {
     "kicker": "Calculadora de aposentadoria",
-    "headline": "Planeje um futuro em que trabalhar é uma escolha.",
-    "subtitle": "Escolha um valor mensal. Veja no que 25 anos podem virar."
+    "headline": "Planeje a aposentadoria que você quer.",
+    "subtitle": "Escolha um valor mensal. Veja 25 anos disso virarem um número em torno do qual você pode se planejar."
   },
   "vignette": {
-    "headline": "{monthly}/mês por {years} anos podem virar {result}",
-    "subtitle": "Isso é o que o diBoaS pode te dar, vs. o rendimento quase zero do seu banco."
+    "subtitle": "Uma projeção, não uma promessa. O mercado oscila, e os resultados variam."
   },
   "disclaimer": "Esta ferramenta projeta acumulação de poupança para aposentadoria. Ela não modela retiradas, longevidade ou qual seria uma renda de aposentadoria sustentável. Esses são temas distintos, que merecem seu próprio planejamento.",
   "landing": {

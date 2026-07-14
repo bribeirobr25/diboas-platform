@@ -24,7 +24,7 @@ import { marketDataService } from '@/lib/market-data/service';
 const snapshot = marketDataService.getSync();
 
 describe('calculateEmergencyFundTimeline — golden path', () => {
-  it('should compute en timeline (expenses 2900, savings 300, multiplier 6) ≈ 57/76 months', () => {
+  it('should compute en timeline (expenses 2900, savings 300, multiplier 6) ≈ 61/76 months', () => {
     const result = calculateEmergencyFundTimeline(
       { monthlyExpenses: 2900, monthlySavings: 300, targetMultiplier: 6, locale: 'en' },
       snapshot
@@ -32,8 +32,9 @@ describe('calculateEmergencyFundTimeline — golden path', () => {
     expect(result).not.toBeNull();
     expect(result!.target).toBe(17400);
     // Per per-tool doc §6 worked example. Audit-bundle vector reproduces.
-    expect(result!.diboasMonths).toBeGreaterThanOrEqual(55);
-    expect(result!.diboasMonths).toBeLessThanOrEqual(60);
+    // Conservative (7%) scenario (founder P2-c / 2026-07-13): diBoaS ≈ 61 months.
+    expect(result!.diboasMonths).toBeGreaterThanOrEqual(58);
+    expect(result!.diboasMonths).toBeLessThanOrEqual(64);
     expect(result!.bankMonths).toBeGreaterThanOrEqual(72);
     expect(result!.bankMonths).toBeLessThanOrEqual(80);
     expect(result!.savedMonths).toBeGreaterThan(0);
@@ -90,7 +91,7 @@ describe('calculateEmergencyFundTimeline — invariants', () => {
     expect(EMERGENCY_FUND_FALLBACK_HORIZON_YEARS).toBe(5);
   });
 
-  it('EMERGENCY_FUND_SCENARIO_USD_PERCENT = 10 (historical only; C13 close)', () => {
-    expect(EMERGENCY_FUND_SCENARIO_USD_PERCENT).toBe(10);
+  it('EMERGENCY_FUND_SCENARIO_USD_PERCENT = 7 (conservative only; C13 close)', () => {
+    expect(EMERGENCY_FUND_SCENARIO_USD_PERCENT).toBe(7);
   });
 });

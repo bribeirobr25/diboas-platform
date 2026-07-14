@@ -10,11 +10,6 @@
     "subtitle": "Inteligência macro serena para Bitcoin.",
     "kicker": "Score do ambiente macro"
   },
-  "comingSoon": {
-    "title": "Em breve.",
-    "body": "Adelaide Market está sendo construído. Vai te ajudar a entender o ambiente macro do Bitcoin sem o ruído.",
-    "backHome": "Voltar ao Início"
-  },
   "dashboard": {
     "scoreAriaLabel": "Score atual do ambiente macro",
     "confidence": {
@@ -30,9 +25,6 @@
       "HOSTILE": "Hostil"
     },
     "signalsSectionTitle": "Grupos de sinais",
-    "signalsSectionLead": "Quatro grupos compõem o score de 14 pontos. Expanda um cartão para ver os sinais.",
-    "signalsExpand": "Mostrar sinais",
-    "signalsCollapse": "Ocultar sinais",
     "signalsPoints": "pts",
     "historicalTitle": "Score ao longo do tempo",
     "historicalLead": "Onde o ambiente esteve no último ano.",

@@ -13,14 +13,12 @@ const CDN_BASE_URL = process.env.NEXT_PUBLIC_CDN_URL || '';
 const ASSETS_BASE = CDN_BASE_URL || '/assets';
 
 export const ASSET_PATHS = {
-  // Navigation Banners
+  // Navigation Banners.
+  // NOTE: only LEARN_BANNER is live (LessonHero default illustration). The other
+  // five (diboas/business/about/rewards/security) were unreferenced AI-generated
+  // assets depicting excluded features — pruned per the visual/brand audit (G-2).
   NAVIGATION: {
-    DIBOAS_BANNER: `${ASSETS_BASE}/navigation/diboas-banner.avif`,
     LEARN_BANNER: `${ASSETS_BASE}/navigation/learn-banner.avif`,
-    BUSINESS_BANNER: `${ASSETS_BASE}/navigation/business-banner.avif`,
-    REWARDS_BANNER: `${ASSETS_BASE}/navigation/rewards-banner.avif`,
-    SECURITY_BANNER: `${ASSETS_BASE}/navigation/security-banner.avif`,
-    ABOUT_BANNER: `${ASSETS_BASE}/navigation/about-banner.avif`,
   },
 
   // Logo Assets

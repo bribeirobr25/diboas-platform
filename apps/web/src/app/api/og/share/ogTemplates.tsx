@@ -14,34 +14,16 @@ import {
 } from './ogTypes';
 import { getTranslations, getDefaultName } from './ogTranslations';
 import { formatNumber, formatCurrency, formatResultCurrency } from './ogUtils';
+import { OGMonogram } from '../_brand/monogram';
 
 /**
- * Shared Logo Component
+ * Shared Logo Component — the official palm-"B" monogram (2026-07-13, F-BRAND / G-3;
+ * replaces the banned "dB" gradient-circle-with-initials on every share card).
  */
-function LogoBadge({ gradient, shadowColor }: { gradient: string; shadowColor: string }) {
+function LogoBadge() {
   return (
-    <div
-      style={{
-        width: '80px',
-        height: '80px',
-        borderRadius: '50%',
-        background: gradient,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: '32px',
-        boxShadow: `0 20px 40px ${shadowColor}`,
-      }}
-    >
-      <span
-        style={{
-          fontSize: '32px',
-          fontWeight: 'bold',
-          color: OG_COLORS.white,
-        }}
-      >
-        dB
-      </span>
+    <div style={{ display: 'flex', marginBottom: '32px' }}>
+      <OGMonogram size={80} />
     </div>
   );
 }
@@ -63,7 +45,7 @@ function BottomBranding() {
       <span
         style={{
           fontSize: '20px',
-          color: OG_COLORS.brandingGrey,
+          color: OG_COLORS.inkMuted,
         }}
       >
         diboas.com
@@ -85,7 +67,7 @@ function OGBackground({ children }: { children: React.ReactNode }) {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        background: `linear-gradient(135deg, ${OG_COLORS.darkBg} 0%, ${OG_COLORS.darkBgSecondary} 50%, ${OG_COLORS.darkBg} 100%)`,
+        background: OG_COLORS.warmBackground,
         fontFamily: 'system-ui, -apple-system, sans-serif',
         padding: '60px',
       }}
@@ -105,10 +87,7 @@ export function WaitlistTemplate({ position, name, locale = 'en' }: WaitlistTemp
 
   return (
     <OGBackground>
-      <LogoBadge
-        gradient={`linear-gradient(135deg, ${OG_COLORS.teal}, ${OG_COLORS.tealDark})`}
-        shadowColor={`${OG_COLORS.teal}33`}
-      />
+      <LogoBadge />
 
       {/* Main Message */}
       <div
@@ -122,7 +101,7 @@ export function WaitlistTemplate({ position, name, locale = 'en' }: WaitlistTemp
         <p
           style={{
             fontSize: '28px',
-            color: OG_COLORS.subtitleGrey,
+            color: OG_COLORS.inkSoft,
             margin: 0,
           }}
         >
@@ -144,7 +123,7 @@ export function WaitlistTemplate({ position, name, locale = 'en' }: WaitlistTemp
           <span
             style={{
               fontSize: '24px',
-              color: OG_COLORS.subtitleGrey,
+              color: OG_COLORS.inkSoft,
               textTransform: 'uppercase',
               letterSpacing: '0.1em',
             }}
@@ -155,7 +134,7 @@ export function WaitlistTemplate({ position, name, locale = 'en' }: WaitlistTemp
             style={{
               fontSize: '72px',
               fontWeight: 'bold',
-              color: OG_COLORS.teal,
+              color: OG_COLORS.tealDark,
               lineHeight: 1,
             }}
           >
@@ -167,7 +146,7 @@ export function WaitlistTemplate({ position, name, locale = 'en' }: WaitlistTemp
         <p
           style={{
             fontSize: '24px',
-            color: OG_COLORS.white,
+            color: OG_COLORS.ink,
             marginTop: '24px',
           }}
         >
@@ -198,10 +177,7 @@ export function CalculatorTemplate({
 
   return (
     <OGBackground>
-      <LogoBadge
-        gradient={`linear-gradient(135deg, ${OG_COLORS.coral}, ${OG_COLORS.coralDark})`}
-        shadowColor={`${OG_COLORS.coral}33`}
-      />
+      <LogoBadge />
 
       {/* Badge */}
       <div
@@ -217,7 +193,7 @@ export function CalculatorTemplate({
       >
         <span
           style={{
-            color: OG_COLORS.coral,
+            color: OG_COLORS.coralDark,
             fontSize: '16px',
             fontWeight: '600',
             textTransform: 'uppercase',
@@ -232,7 +208,7 @@ export function CalculatorTemplate({
       <p
         style={{
           fontSize: '24px',
-          color: OG_COLORS.subtitleGrey,
+          color: OG_COLORS.inkSoft,
           margin: 0,
           marginBottom: '16px',
         }}
@@ -274,7 +250,7 @@ export function CalculatorTemplate({
             <span
               style={{
                 fontSize: '14px',
-                color: OG_COLORS.brandingGrey,
+                color: OG_COLORS.inkMuted,
                 textTransform: 'uppercase',
               }}
             >
@@ -284,7 +260,7 @@ export function CalculatorTemplate({
               style={{
                 fontSize: '24px',
                 fontWeight: 'bold',
-                color: OG_COLORS.white,
+                color: OG_COLORS.ink,
               }}
             >
               {formatCurrency(initialInvestment)}
@@ -296,7 +272,7 @@ export function CalculatorTemplate({
             style={{
               width: '1px',
               height: '40px',
-              background: OG_COLORS.brandingGrey,
+              background: OG_COLORS.inkMuted,
             }}
           />
         )}
@@ -310,7 +286,7 @@ export function CalculatorTemplate({
           <span
             style={{
               fontSize: '14px',
-              color: OG_COLORS.brandingGrey,
+              color: OG_COLORS.inkMuted,
               textTransform: 'uppercase',
             }}
           >
@@ -320,7 +296,7 @@ export function CalculatorTemplate({
             style={{
               fontSize: '24px',
               fontWeight: 'bold',
-              color: OG_COLORS.white,
+              color: OG_COLORS.ink,
             }}
           >
             {displayStrategy}
@@ -332,7 +308,7 @@ export function CalculatorTemplate({
       <p
         style={{
           fontSize: '20px',
-          color: OG_COLORS.subtitleGrey,
+          color: OG_COLORS.inkSoft,
           marginTop: '40px',
         }}
       >
@@ -367,18 +343,11 @@ export function ToolResultTemplate({
   // Honesty on the viral surface: a loss is rendered in error red, a
   // low-confidence/neutral result in white — never the celebratory green.
   const heroColor =
-    tone === 'negative'
-      ? OG_COLORS.error
-      : tone === 'neutral'
-        ? OG_COLORS.white
-        : OG_COLORS.success;
+    tone === 'negative' ? OG_COLORS.error : tone === 'neutral' ? OG_COLORS.ink : OG_COLORS.success;
 
   return (
     <OGBackground>
-      <LogoBadge
-        gradient={`linear-gradient(135deg, ${OG_COLORS.coral}, ${OG_COLORS.coralDark})`}
-        shadowColor={`${OG_COLORS.coral}33`}
-      />
+      <LogoBadge />
 
       {/* Tool badge (allowlisted, localized) — omitted if the key is unknown */}
       {toolName ? (
@@ -411,7 +380,7 @@ export function ToolResultTemplate({
       <p
         style={{
           fontSize: '24px',
-          color: OG_COLORS.subtitleGrey,
+          color: OG_COLORS.inkSoft,
           margin: 0,
           marginBottom: '16px',
         }}
@@ -438,7 +407,7 @@ export function ToolResultTemplate({
         <p
           style={{
             fontSize: '22px',
-            color: OG_COLORS.white,
+            color: OG_COLORS.ink,
             marginTop: '28px',
           }}
         >
@@ -450,7 +419,7 @@ export function ToolResultTemplate({
       <p
         style={{
           fontSize: '20px',
-          color: OG_COLORS.subtitleGrey,
+          color: OG_COLORS.inkSoft,
           marginTop: years ? '24px' : '40px',
         }}
       >
@@ -478,38 +447,18 @@ export function DefaultTemplate({ locale = 'en' }: DefaultTemplateProps) {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        background: `linear-gradient(135deg, ${OG_COLORS.darkBg} 0%, ${OG_COLORS.darkBgSecondary} 50%, ${OG_COLORS.darkBg} 100%)`,
+        background: OG_COLORS.warmBackground,
         fontFamily: 'system-ui, -apple-system, sans-serif',
       }}
     >
-      <div
-        style={{
-          width: '120px',
-          height: '120px',
-          borderRadius: '50%',
-          background: `linear-gradient(135deg, ${OG_COLORS.teal}, ${OG_COLORS.tealDark})`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: '40px',
-          boxShadow: `0 20px 40px ${OG_COLORS.teal}33`,
-        }}
-      >
-        <span
-          style={{
-            fontSize: '48px',
-            fontWeight: 'bold',
-            color: OG_COLORS.white,
-          }}
-        >
-          dB
-        </span>
+      <div style={{ display: 'flex', marginBottom: '40px' }}>
+        <OGMonogram size={120} />
       </div>
       <h1
         style={{
           fontSize: '80px',
           fontWeight: 'bold',
-          color: OG_COLORS.white,
+          color: OG_COLORS.ink,
           margin: 0,
         }}
       >
@@ -518,7 +467,7 @@ export function DefaultTemplate({ locale = 'en' }: DefaultTemplateProps) {
       <p
         style={{
           fontSize: '28px',
-          color: OG_COLORS.subtitleGrey,
+          color: OG_COLORS.inkSoft,
           marginTop: '24px',
         }}
       >

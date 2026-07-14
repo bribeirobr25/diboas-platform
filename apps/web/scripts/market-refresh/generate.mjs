@@ -315,8 +315,13 @@ function plainSummary(locale) {
   });
   const ids = watchingIds();
   const watchParts = ids.map((id) => phrases.watching[id]?.[locale]).filter(Boolean);
+  // Localize the joining conjunction — a hardcoded English "and" leaked into the
+  // pt-BR/es/de grandmother layer (voice audit F-2, 2026-07-12).
+  const AND = { en: 'and', 'pt-BR': 'e', es: 'y', de: 'und' };
   const watching =
-    watchParts.length === 2 ? `${watchParts[0]}, and ${watchParts[1]}` : (watchParts[0] ?? '');
+    watchParts.length === 2
+      ? `${watchParts[0]}, ${AND[locale] ?? 'and'} ${watchParts[1]}`
+      : (watchParts[0] ?? '');
   return fill(variant[locale], { whatChanged: changed, watching });
 }
 

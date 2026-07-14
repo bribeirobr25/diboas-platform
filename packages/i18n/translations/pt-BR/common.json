@@ -15,19 +15,6 @@
       "joinWaitlist": "Entrar na Lista",
       "tryDemo": "Testar Demo"
     },
-    "diboas": {
-      "label": "diBoaS",
-      "description": "Ecossistema financeiro completo com banco, investimentos e DeFi em uma plataforma",
-      "subItems": {
-        "know": "Conheça o diBoaS",
-        "account": "Conta diBoaS",
-        "banking": "Banco",
-        "investing": "Investimentos",
-        "crypto": "Cripto",
-        "strategies": "Estratégias (DeFi)",
-        "credit": "Crédito"
-      }
-    },
     "learn": {
       "label": "Centro de Aprendizado",
       "description": "Domine suas finanças com guias especializados e conteúdo educacional",
@@ -39,32 +26,6 @@
         "crypto": "Cripto de A a Z",
         "defi": "DeFi Explicado",
         "special": "Conteúdo Especial"
-      }
-    },
-    "business": {
-      "label": "diBoaS Business",
-      "description": "Soluções financeiras completas para negócios modernos",
-      "subItems": {
-        "know": "Conheça o diBoaS Business",
-        "account": "Conta Business",
-        "bank": "Banco Business",
-        "payments": "Pagamentos",
-        "treasury": "Tesouraria",
-        "yield": "Rendimento do Fluxo de Caixa",
-        "credit": "Crédito P2P"
-      }
-    },
-    "rewards": {
-      "label": "Recompensas",
-      "description": "Ganhe recompensas e aprenda com guias mascotes impulsionados por IA",
-      "subItems": {
-        "program": "Recompensas diBoaS",
-        "mascots": "Guias Mascotes IA",
-        "referral": "Indicação",
-        "points": "Ganhe Pontos",
-        "badges": "Emblemas e Ranking",
-        "campaigns": "Campanhas",
-        "token": "Token e Airdrop"
       }
     },
     "security": {
@@ -361,17 +322,18 @@
     "showLess": "Ver menos"
   },
   "emailPreferences": {
-    "title": "Preferências de Email",
-    "heading": "Gerencie seus emails",
-    "description": "Você será descadastrado dos emails do diBoaS. Sua posição na lista de espera e créditos de indicação serão preservados.",
+    "heading": "Suas preferências de e-mail",
+    "description": "Você será descadastrado dos e-mails do diBoaS. Sua posição na lista de espera e créditos de indicação serão preservados.",
     "unsubscribeButton": "Cancelar inscrição",
     "staySubscribedButton": "Manter inscrição",
-    "successUnsubscribed": "Você foi descadastrado dos emails do diBoaS.",
+    "successUnsubscribed": "Você foi descadastrado dos e-mails do diBoaS.",
     "positionPreserved": "Sua posição na lista de espera foi preservada.",
     "redirectingHome": "Redirecionando para a página inicial...",
-    "invalidLink": "Este link é inválido ou expirou.",
+    "invalidLink": "Esse link não funcionou, mas sem problema.",
     "error": "Algo deu errado. Tente novamente.",
-    "processing": "Processando..."
+    "processing": "Processando...",
+    "backHome": "Voltar para o início",
+    "tryAgainButton": "Tentar novamente"
   },
   "disclaimers": {
     "educationalProjection": "Valores ilustrativos baseados em premissas históricas de juros compostos. Desempenho passado não garante resultados futuros. Use apenas dinheiro que você pode perder. O diBoaS não é um banco e seus fundos não são segurados."

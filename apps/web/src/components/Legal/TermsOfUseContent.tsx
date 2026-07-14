@@ -31,6 +31,9 @@ export function TermsOfUseContent() {
   const intl = useTranslation();
 
   const t = (id: string) => intl.formatMessage({ id: `legal/terms.${id}` });
+  // pt-BR-only brazilNote is absent in en/es/de; guard on message presence (D8).
+  const has = (id: string) => Boolean(intl.messages[`legal/terms.${id}`]);
+  const hasBrazilNote = has('sections.brazilNote.title');
 
   // Table of contents items
   const tocItems = [
@@ -45,6 +48,7 @@ export function TermsOfUseContent() {
     { id: 'changes-to-terms', title: t('sections.changes.title') },
     { id: 'governing-law', title: t('sections.governingLaw.title') },
     { id: 'contact-us', title: t('sections.contact.title') },
+    ...(hasBrazilNote ? [{ id: 'brazil-note', title: t('sections.brazilNote.title') }] : []),
   ];
 
   // Build lists from translations
@@ -186,6 +190,12 @@ export function TermsOfUseContent() {
             {t('sections.contact.content').replace('{email}', t('sections.contact.email'))}
           </LegalParagraph>
         </LegalContentSection>
+
+        {hasBrazilNote ? (
+          <LegalContentSection title={t('sections.brazilNote.title')} id="brazil-note">
+            <LegalParagraph>{t('sections.brazilNote.content')}</LegalParagraph>
+          </LegalContentSection>
+        ) : null}
 
         <LegalBackToTop label={t('backToTop')} />
       </SectionContainer>

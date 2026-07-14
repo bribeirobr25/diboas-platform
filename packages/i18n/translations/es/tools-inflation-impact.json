@@ -32,7 +32,7 @@
   },
   "output": {
     "ifYouKeepCash": "Si lo dejas en efectivo",
-    "ifYouInvest": "Si lo pones a trabajar",
+    "ifYouInvest": "Si lo inviertes",
     "lostToInflation": "−{amount} perdidos por la inflación",
     "investedNote": "Al {rate}% (escenario conservador)",
     "retrospectiveLabel": "Poder de compra hoy",
@@ -48,7 +48,7 @@
     "cardTagline": "¿Qué me cuesta tener efectivo?"
   },
   "lessonLink": {
-    "label": "¿Quieres entender la matemática?",
+    "label": "¿Quieres entender las cuentas?",
     "href": "/learn/compound-interest",
     "linkText": "Lee: Cómo crece el dinero de verdad"
   }

@@ -25,7 +25,7 @@
     },
     "understanding": {
       "question": "What if I don't understand investing?",
-      "answer": "That's exactly who we built this for. The goal is to make it so simple that anyone can do it. No jargon. No complicated decisions. Just clear options and transparent information. Start with $5. Explore. Learn. We're here every step."
+      "answer": "That's exactly who we built this for. You open the app, you see one number, one goal, and a plain-language next step. No jargon, no complicated decisions. Start with $5. Explore. Learn. We're here every step."
     },
     "micaRegulated": {
       "question": "Is diBoaS MiCA-regulated?",
@@ -53,11 +53,11 @@
     },
     "shutdown": {
       "question": "What happens to my money if diBoaS shuts down?",
-      "answer": "Your money is in your wallet. Not ours.\n\nIf diBoaS shut down tomorrow, your money would still be there. Accessible through your keys.\n\ndiBoaS never holds your money. diBoaS never can. That's not something we added as a feature. It's how we built the entire system."
+      "answer": "Your money is in your wallet. Not ours.\n\nIf diBoaS shut down tomorrow, your funds would stay in your own wallet, reachable through your keys, because diBoaS never held them.\n\ndiBoaS never holds your money. diBoaS never can. That's not something we added as a feature. It's how we built the entire system."
     },
     "whatIfWrong": {
       "question": "What if something goes wrong?",
-      "answer": "Yes, you can lose money. We covered this honestly in the section above. The short version: we test every strategy against past crashes, we monitor 24/7, and we'll always tell you what's happening. But we can't eliminate all risk, and we won't pretend we can."
+      "answer": "Yes, you can lose money. We covered this honestly in the section above. The short version: we only use audited, established protocols, we monitor 24/7, and we'll always tell you what's happening. But we can't eliminate all risk, and we won't pretend we can."
     },
     "lostPhone": {
       "question": "What if I lose my phone?",
@@ -69,7 +69,7 @@
     },
     "liquidity": {
       "question": "Can I access my money anytime?",
-      "answer": "Yes. No lock-ups. You set the floor: \"always keep $50,000 liquid.\" We only deploy what's above that.\n\nNeed cash? One tap. We process it instantly. Bank transfer times may vary. No penalties. No questions."
+      "answer": "Yes. No lock-ups. You set the floor: \"always keep $500 liquid.\" We only deploy what's above that.\n\nNeed cash? One tap. We process it instantly. Bank transfer times may vary. No penalties."
     },
     "whyCantTouch": {
       "question": "Why can't diBoaS touch my money?",
@@ -81,7 +81,7 @@
     },
     "canLoseEverything": {
       "question": "Can I lose everything?",
-      "answer": "In stable strategies (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): the chance of total loss is extremely low. In nearly 4 years of testing and thousands of simulations, it didn't happen. But \"extremely low\" is not zero.\n\nIn growth strategies: the higher the growth percentage, the wider the range of outcomes. Full Throttle at 85% growth exposure has seen simulated drops exceeding 78%.\n\nThe risk is real. We don't minimize it. We help you choose the level that matches what you can handle."
+      "answer": "In stable strategies (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Full Harvest): the chance of total loss is extremely low. Across the protocols' public on-chain history and thousands of simulations, total loss didn't occur. These are protocol figures, not diBoaS results. But \"extremely low\" is not zero.\n\nIn growth strategies: the higher the growth percentage, the wider the range of outcomes. Full Throttle at 85% growth exposure has seen simulated drops exceeding 78%.\n\nThe risk is real. We don't minimize it. We help you choose the level that matches what you can handle."
     },
     "howPossible": {
       "question": "How does diBoaS keep costs low?",
@@ -97,11 +97,11 @@
     },
     "audited": {
       "question": "Has diBoaS been audited?",
-      "answer": "We're a pre-launch platform. Our strategies are stress-tested against historical crashes and real-world scenarios, and we use audited, established protocols. As we grow, we plan to pursue independent third-party audits. For full details on the protocols and technology behind each strategy, visit our Strategies and Protocols pages."
+      "answer": "We're a pre-launch platform. We model each strategy against the public on-chain history of the protocols it uses, and we use audited, established protocols. As we grow, we plan to pursue independent third-party audits. For full details on the protocols and technology behind each strategy, visit our Strategies and Protocols pages."
     },
     "canSwitchStrategies": {
       "question": "Can I switch strategies?",
-      "answer": "Yes, anytime. No penalties. No questions asked.\n\nHere's something to keep in mind: if you switch during a market dip, you might lock in a temporary loss. The best time to switch is when your goals change, not when the market moves."
+      "answer": "Yes, anytime. No penalties. No questions asked.\n\nHere's something to keep in mind: if you switch during a market dip, you might lock in a temporary loss. Switching tends to make sense when your goals change, less so when the market moves. You decide when."
     },
     "multipleStrategies": {
       "question": "Can I use multiple strategies at once?",
@@ -113,7 +113,7 @@
     },
     "returnsGuaranteed": {
       "question": "Are these returns guaranteed?",
-      "answer": "No. And anyone who guarantees returns is lying to you.\n\nWhat we can tell you: we tested every strategy across nearly 4 years of real market data (May 2022 - December 2025). The numbers are based on what actually happened and thousands of Monte Carlo simulations.\n\nThese numbers help you compare strategies and understand the range of outcomes. They don't predict the future. Start with what you can afford to learn with."
+      "answer": "No. And anyone who guarantees returns is lying to you.\n\nWhat we can tell you: our figures come from the protocols' public on-chain history (May 2022 to December 2025) and thousands of Monte Carlo simulations. We're pre-launch, so these are protocol figures, not diBoaS results.\n\nThese numbers help you compare strategies and understand the range of outcomes. They don't predict the future. Start with what you can afford to learn with."
     },
     "whereMoneyGoesProtocols": {
       "question": "Where does my money actually go?",
@@ -178,6 +178,11 @@
     "protocolsDirectInteraction": {
       "question": "Do I need to interact with these protocols myself?",
       "answer": "No. diBoaS handles all protocol interactions on your behalf when you choose a strategy. You do not need to create accounts with any protocol, manage wallets on different blockchains, or understand the technical details. This page is here for transparency, not because you need to do anything with it."
+    },
+    "safeStrategy": {
+      "question": "Is my money safe?",
+      "answerA": "Your money is secured by you. Your wallet, your keys. No one at diBoaS can access your funds without your authorization.\n\nThat said, this isn't a bank account. Your funds work through automated systems built on code. The value can fluctuate, and you could lose some or all of your investment. There is no deposit insurance.\n\nWe show you both sides, the opportunities and the risks, always.",
+      "answerB": "Your money is secured by you. Your wallet, your keys, and diBoaS holds no part of them. If you ever need to recover access, that runs through an independent partner, not diBoaS. No one at diBoaS can move your funds.\n\nThat said, this isn't a bank account. Your funds work through automated systems built on code. The value can fluctuate, and you could lose some or all of your investment. There is no deposit insurance.\n\nWe show you both sides, the opportunities and the risks, always."
     }
   }
 }

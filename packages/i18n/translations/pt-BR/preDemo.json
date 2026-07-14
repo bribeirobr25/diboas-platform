@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Demo Interativo - diBoaS",
-    "description": "Experimente o diBoaS no nosso demo interativo. Deposite, envie, invista e descubra o seu futuro financeiro."
+    "title": "Demo Interativa - diBoaS",
+    "description": "Experimente o diBoaS na nossa demo interativa. Deposite, envie, invista e descubra o seu futuro financeiro."
   },
   "common": {
     "back": "Voltar",
@@ -9,16 +9,16 @@
   },
   "header": {
     "demoBadge": "Demo",
-    "exitDemo": "Sair do demo"
+    "exitDemo": "Sair da demo"
   },
   "login": {
     "title": "Bem-vindo ao diBoaS",
-    "subtitle": "Descubra o futuro das suas finanças",
+    "subtitle": "Veja como funciona: depositar, investir, enviar. Sem dinheiro de verdade.",
     "emailLabel": "E-mail",
     "passwordLabel": "Senha",
     "orContinueWith": "OU CONTINUE COM",
     "startDemo": "Iniciar Demo",
-    "disclaimer": "Este é um ambiente de demonstração. Todas as funcionalidades mostradas estarão disponíveis no produto final.",
+    "disclaimer": "Este é um ambiente de demonstração. Todas as funcionalidades mostradas podem estar disponíveis no produto final.",
     "backToHome": "Voltar para a página inicial"
   },
   "loading": {
@@ -59,7 +59,7 @@
     "invest": "Investir",
     "investSubtitle": "Comprar/Vender ativos",
     "goals": "Metas",
-    "goalsSubtitle": "Faça seu dinheiro render",
+    "goalsSubtitle": "Planeje um objetivo",
     "badgeStart": "Começar",
     "badgeNext": "Próximo",
     "activity": "Atividade",

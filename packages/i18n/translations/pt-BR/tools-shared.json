@@ -7,7 +7,7 @@
     "hero": {
       "kicker": "Ferramentas financeiras",
       "headline": "O que seu dinheiro poderia fazer?",
-      "subtitle": "10 calculadoras gratuitas. Coloque seus números, veja o que é possível."
+      "subtitle": "11 ferramentas gratuitas. Coloque seus números e veja o que seu dinheiro está realmente fazendo."
     },
     "sections": {
       "start": {
@@ -78,7 +78,7 @@
   },
   "disclaimer": "Apenas projeção educativa. Não é orientação financeira. Rentabilidade passada não é garantia de rentabilidade futura. Investimentos envolvem riscos e você pode perder dinheiro. diBoaS não é um produto de investimento registrado na CVM. Rendimentos do diBoaS são mostrados em dólar digital; para moedas diferentes do dólar americano, o total em moeda local combina o rendimento do dólar com o movimento típico da sua moeda frente ao dólar americano ao longo do tempo.",
   "warnings": {
-    "over30Years": "Esta meta leva mais de 30 anos com sua contribuição atual. Considere aumentar o valor mensal ou estender o prazo."
+    "over30Years": "Esta meta leva mais de 30 anos com sua contribuição atual. Um valor mensal maior, ou um prazo mais longo, muda isso."
   },
   "confidence": {
     "high": "Alta confiança (±5%)",
@@ -98,6 +98,6 @@
     "shareTitle": "Meu resultado diBoaS",
     "ctaHeadline": "É isto que o acesso justo muda.",
     "ctaBody": "Entre na lista de espera para colocar isto pra funcionar de verdade.",
-    "ctaLabel": "Garanta sua vaga"
+    "ctaLabel": "Entrar na lista de espera"
   }
 }

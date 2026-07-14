@@ -23,7 +23,7 @@
       "ariaLabel": "Como protegemos seus fundos",
       "title": "Como Protegemos Seus Fundos",
       "paragraphs": [
-        "Ninguém, incluindo o diBoaS, pode acessar seus fundos.",
+        "Nem o diBoaS pode acessar seus fundos.",
         "Somente você pode autorizar transações.",
         "A assinatura de transações sempre requer sua aprovação.",
         "Monitoramos todas as posições 24 horas por dia, 7 dias por semana."
@@ -35,8 +35,8 @@
       "paragraphs": [
         "Construído sobre infraestrutura financeira descentralizada e de código aberto.",
         "Cada transação é verificável, cada sistema é auditável.",
-        "Usamos apenas protocolos auditados e estabelecidos.",
-        "Cada estratégia é testada contra quedas históricas do mercado."
+        "Usamos apenas protocolos auditados e estabelecidos. Cada um está listado na nossa página de protocolos com seu histórico.",
+        "Cada estratégia é construída sobre protocolos com histórico público on-chain, e as posições são monitoradas 24/7."
       ]
     },
     "whatWeDontDo": {
@@ -60,13 +60,5 @@
       "cta": "Veja todos os protocolos que usamos",
       "ctaHref": "/protocols"
     }
-  },
-  "footer": {
-    "general": "Este conteúdo é apenas para fins educacionais e não constitui aconselhamento de investimento, financeiro ou de qualquer outro tipo.",
-    "crypto": "O valor dos criptoativos pode flutuar. Você pode perder parte ou todo o seu dinheiro. Criptoativos não são cobertos por esquemas de garantia de depósitos.",
-    "mica": "",
-    "micaArticle7": "Esta comunicação de marketing de criptoativos não foi revisada ou aprovada por nenhuma autoridade competente de nenhum Estado-membro da União Europeia. O ofertante do criptoativo é o único responsável pelo conteúdo desta comunicação de marketing.",
-    "us": "O diBoaS é uma interface sem custódia que fornece acesso a protocolos de finanças descentralizadas. O diBoaS não é registrado na SEC, CFTC, FinCEN ou em nenhuma agência reguladora estadual. O tratamento regulatório dos EUA para DeFi está em evolução. Você é responsável por determinar se o uso desta interface está em conformidade com as leis aplicáveis.",
-    "closing": "Você decide o que é melhor para a sua situação."
   }
 }

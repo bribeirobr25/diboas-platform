@@ -58,6 +58,26 @@ export function SimulationScreen() {
     completedRef.current = false;
     startTimeRef.current = 0;
 
+    // Respect prefers-reduced-motion (visual-audit F-3): the JS count-up + progress
+    // ring must not animate for reduced-motion users. Jump straight to the final
+    // state and keep the same auto-advance so the flow still reaches results.
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      setDisplayValue(finalValue);
+      setProgress(100);
+      completedRef.current = true;
+      autoAdvanceRef.current = setTimeout(() => {
+        goToScreen('results');
+      }, AUTO_ADVANCE_DELAY_MS);
+      return () => {
+        clearTimeout(autoAdvanceRef.current);
+      };
+    }
+
     function tick(timestamp: number) {
       if (!startTimeRef.current) startTimeRef.current = timestamp;
       const elapsed = timestamp - startTimeRef.current;

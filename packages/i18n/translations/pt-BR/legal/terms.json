@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Termos de Uso | diBoaS",
-    "description": "Termos de Uso do site pre-lancamento do diBoaS. Regras claras, compromissos serios."
+    "description": "Termos de Uso do site pré-lançamento do diBoaS. Regras claras, compromissos sérios."
   },
   "toc": {
     "title": "Conteúdo"
@@ -15,17 +15,17 @@
   "sections": {
     "aboutDiboas": {
       "title": "1. Sobre o diBoaS",
-      "content": "O diBoaS e uma plataforma de tecnologia financeira atualmente em fase de pre-lancamento. Nosso site oferece:",
+      "content": "O diBoaS é uma plataforma de tecnologia financeira atualmente em fase de pré-lançamento. Nosso site oferece:",
       "items": [
         "Informações sobre nossos serviços futuros",
         "Uma lista de espera para acesso antecipado",
         "Ferramenta de simulação Dream Mode",
         "Calculadora Você do Futuro"
       ],
-      "important": "Importante: O diBoaS NÃO esta atualmente oferecendo serviços financeiros. O site de pre-lancamento e apenas para fins informativos e educacionais."
+      "important": "Importante: O diBoaS NÃO está atualmente oferecendo serviços financeiros. O site de pré-lançamento é apenas para fins informativos e educacionais."
     },
     "acceptance": {
-      "title": "2. Aceitacao dos Termos",
+      "title": "2. Aceitação dos Termos",
       "intro": "Ao utilizar nosso site, você confirma que:",
       "items": [
         "Você tem pelo menos 18 anos de idade",
@@ -34,12 +34,12 @@
       ]
     },
     "preLaunchLimitations": {
-      "title": "3. Limitacoes do Pre-Lancamento",
+      "title": "3. Limitações do Pré-Lançamento",
       "simulationTools": {
         "title": "Dream Mode e Calculadora Você do Futuro:",
         "items": [
-          "Estas ferramentas fornecem apenas simulacoes, não aconselhamento financeiro",
-          "Os resultados são baseados em dados historicos e premissas",
+          "Estas ferramentas fornecem apenas simulações, não aconselhamento financeiro",
+          "Os resultados são baseados em dados históricos e premissas",
           "Desempenho passado não garante resultados futuros",
           "Retornos simulados podem diferir significativamente dos retornos reais"
         ]
@@ -47,7 +47,7 @@
       "noFinancialAdvice": {
         "title": "Sem Aconselhamento Financeiro:",
         "items": [
-          "Nada neste site constitui aconselhamento financeiro, de investimento, tributario ou juridico",
+          "Nada neste site constitui aconselhamento financeiro, de investimento, tributário ou jurídico",
           "Você deve consultar profissionais qualificados antes de tomar decisões financeiras"
         ]
       }
@@ -59,7 +59,7 @@
     },
     "intellectualProperty": {
       "title": "5. Propriedade Intelectual",
-      "intro": "Todo o conteúdo deste site, incluindo texto, graficos, logos e software, e de propriedade do diBoaS ou de seus licenciadores. Você não pode:",
+      "intro": "Todo o conteúdo deste site, incluindo texto, gráficos, logos e software, é de propriedade do diBoaS ou de seus licenciadores. Você não pode:",
       "items": [
         "Copiar, modificar ou distribuir nosso conteúdo sem permissão",
         "Usar nossas marcas registradas sem autorização",
@@ -67,27 +67,27 @@
       ]
     },
     "userConduct": {
-      "title": "6. Conduta do Usuario",
+      "title": "6. Conduta do Usuário",
       "intro": "Você concorda em não:",
       "items": [
         "Usar o site para qualquer finalidade ilegal",
         "Tentar obter acesso não autorizado aos nossos sistemas",
-        "Interferir no acesso de outros usuarios ao site",
+        "Interferir no acesso de outros usuários ao site",
         "Enviar informações falsas ou enganosas"
       ]
     },
     "disclaimer": {
-      "title": "7. Isencao de Garantias",
-      "content": "O SITE E FORNECIDO \"NO ESTADO EM QUE SE ENCONTRA\" SEM GARANTIAS DE QUALQUER TIPO, EXPRESSAS OU IMPLICITAS. NÃO GARANTIMOS QUE:",
+      "title": "7. Isenção de Garantias",
+      "content": "O SITE E FORNECIDO \"NO ESTADO EM QUE SE ENCONTRA\" SEM GARANTIAS DE QUALQUER TIPO, EXPRESSAS OU IMPLÍCITAS. NÃO GARANTIMOS QUE:",
       "items": [
-        "O site estara disponível em todos os momentos",
-        "As informações serao precisas ou completas",
-        "O site estara livre de erros ou virus"
+        "O site estará disponível em todos os momentos",
+        "As informações serão precisas ou completas",
+        "O site estará livre de erros ou vírus"
       ]
     },
     "limitation": {
-      "title": "8. Limitacao de Responsabilidade",
-      "content": "NA MAXIMA EXTENSAO PERMITIDA POR LEI, O DIBOAS NÃO SERA RESPONSAVEL POR:",
+      "title": "8. Limitação de Responsabilidade",
+      "content": "NA MÁXIMA EXTENSÃO PERMITIDA POR LEI, O DIBOAS NÃO SERÁ RESPONSÁVEL POR:",
       "items": [
         "Danos indiretos, incidentais ou consequenciais",
         "Perda de lucros, dados ou fundo de comercio",
@@ -95,12 +95,12 @@
       ]
     },
     "changes": {
-      "title": "9. Alteracoes nos Termos",
-      "content": "Podemos modificar estes Termos a qualquer momento. O uso continuado do site apos as alteracoes constitui aceitacao dos novos Termos."
+      "title": "9. Alterações nos Termos",
+      "content": "Podemos modificar estes Termos a qualquer momento. O uso continuado do site após as alterações constitui aceitação dos novos Termos."
     },
     "governingLaw": {
-      "title": "10. Lei Aplicavel",
-      "content": "Estes Termos são regidos pelas leis da Uniao Europeia. Disputas serao resolvidas de acordo com os regulamentos aplicaveis da UE. Para usuarios brasileiros, aplicam-se também as disposicoes do Codigo de Defesa do Consumidor (Lei n. 8.078/1990) e demais legislacoes aplicaveis."
+      "title": "10. Lei Aplicável",
+      "content": "Estes Termos são regidos pelas leis da União Europeia. Disputas serão resolvidas de acordo com os regulamentos aplicáveis da UE. Para usuários brasileiros, aplicam-se também as disposições do Código de Defesa do Consumidor (Lei n. 8.078/1990) e demais legislações aplicáveis."
     },
     "brazilNote": {
       "title": "Nota para Usuários Brasileiros",
@@ -108,7 +108,7 @@
     },
     "contact": {
       "title": "11. Contato",
-      "content": "Duvidas sobre estes Termos? Envie um e-mail para {email}",
+      "content": "Dúvidas sobre estes Termos? Envie um e-mail para {email}",
       "email": "legal@diboas.com"
     }
   }

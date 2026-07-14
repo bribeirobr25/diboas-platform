@@ -96,11 +96,9 @@ const nextConfig = {
   // Redirects
   async redirects() {
     return [
-      {
-        source: '/favicon.ico',
-        destination: '/favicon.avif',
-        permanent: false,
-      },
+      // 2026-07-13 (F-BRAND): removed the /favicon.ico → /favicon.avif redirect —
+      // /favicon.ico is now a real static file (the rebuilt monogram), so the
+      // redirect would wrongly intercept it before the static file is served.
       // 2026-05-13: `/daily-market` renamed to `/market`. Locale-prefixed
       // redirect covers the path after middleware has already prefixed the
       // locale (the standard navigation path).

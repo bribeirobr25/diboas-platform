@@ -175,12 +175,12 @@ export function EmergencyFundCalculator() {
             <p className={styles.resultLabel}>{t('output.withDiboas')}</p>
             <p className={styles.resultValue}>{formatMonths(result.diboasMonths)}</p>
             <p className={styles.resultRate}>
-              {tShared('scenarios.historical')}
+              {tShared('scenarios.conservative')}
               {hedged ? tShared('scenarios.digitalDollarSuffix') : ''}
               <span
                 className={styles.tooltip}
-                title={tShared('scenarios.historicalTooltip')}
-                aria-label={tShared('scenarios.historicalTooltip')}
+                title={tShared('scenarios.conservativeTooltip')}
+                aria-label={tShared('scenarios.conservativeTooltip')}
                 role="note"
                 tabIndex={0}
               >

@@ -1,12 +1,12 @@
 {
   "seo": {
     "title": "Calculadora de tiempo a la meta — ¿cuándo llego a mi cifra?",
-    "description": "Calculadora gratuita de tiempo a la meta. Elige una meta y un ritmo de ahorro; mira cuántos años tomará a tasas de banco, conservadora, histórica y optimista."
+    "description": "Calculadora gratuita de tiempo a la meta. Elige una meta y un ritmo de ahorro; mira cuántos años tarda a tipos de banco, conservador, histórico y optimista."
   },
   "hero": {
     "kicker": "Calculadora de tiempo a la meta",
     "headline": "¿Cuándo llego a mi cifra?",
-    "subtitle": "Elige meta y frecuencia. Mira los años hasta la meta a cuatro tasas distintas."
+    "subtitle": "Elige meta y frecuencia. Misma meta, cuatro caminos de rentabilidad. Mira los años de cada uno."
   },
   "inputs": {
     "targetLabel": "Cantidad objetivo",
@@ -16,7 +16,7 @@
     "targetLine": "Llegando a {target}…",
     "monthsLabel": "{months} meses",
     "yearsLabel": "{years} años",
-    "cannotReach": "Fuera de alcance con esta contribución. Prueba un monto mensual mayor o una meta más pequeña."
+    "cannotReach": "Fuera de alcance con esta contribución. Un importe mensual mayor o una meta más pequeña lo pondría a tu alcance."
   },
   "guidance": {
     "oneTimeNeedsInitial": "Introduce un importe inicial para ver cuándo alcanzarías tu meta."
@@ -29,7 +29,7 @@
     "cardTagline": "¿Cuándo llego a mi cifra?"
   },
   "lessonLink": {
-    "label": "¿Quieres entender la matemática?",
+    "label": "¿Quieres entender las cuentas?",
     "href": "/learn/compound-interest",
     "linkText": "Lee: Cómo crece el dinero de verdad"
   }

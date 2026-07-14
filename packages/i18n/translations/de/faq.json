@@ -25,7 +25,7 @@
     },
     "understanding": {
       "question": "Was, wenn ich nichts von Investitionen verstehe?",
-      "answer": "Genau dafür haben wir das gebaut. Unser Ziel ist es, es so einfach zu machen, dass es jeder kann. Kein Fachjargon. Keine komplizierten Entscheidungen. Nur klare Optionen und transparente Informationen. Fang mit 5 € an. Entdecke. Lerne. Wir sind bei jedem Schritt dabei."
+      "answer": "Genau dafür haben wir das gebaut. Du öffnest die App, siehst eine Zahl, ein Ziel und einen nächsten Schritt in klarer Sprache. Kein Fachjargon, keine komplizierten Entscheidungen. Starte mit 5 €. Erkunde. Lerne. Wir sind bei jedem Schritt dabei."
     },
     "micaRegulated": {
       "question": "Ist diBoaS MiCA-reguliert?",
@@ -57,7 +57,7 @@
     },
     "whatIfWrong": {
       "question": "Was, wenn etwas schiefgeht?",
-      "answer": "Ja, du kannst Geld verlieren. Das haben wir im Abschnitt oben ehrlich erklärt. Kurzfassung: Wir testen jede Strategie gegen vergangene Krisen, überwachen rund um die Uhr und sagen dir immer, was passiert. Aber wir können nicht jedes Risiko eliminieren, und wir werden nicht so tun, als könnten wir das."
+      "answer": "Ja, du kannst Geld verlieren. Das haben wir im Abschnitt oben ehrlich erklärt. Kurzfassung: Wir nutzen ausschließlich auditierte, etablierte Protokolle, überwachen rund um die Uhr und sagen dir immer, was passiert. Aber wir können nicht jedes Risiko eliminieren, und wir werden nicht so tun, als könnten wir das."
     },
     "lostPhone": {
       "question": "Was, wenn ich mein Handy verliere?",
@@ -69,7 +69,7 @@
     },
     "liquidity": {
       "question": "Kann ich jederzeit auf mein Geld zugreifen?",
-      "answer": "Ja. Keine Sperrfristen. Du legst die Untergrenze fest: \"Immer 50.000 EUR liquide halten.\" Wir setzen nur ein, was darüber liegt.\n\nDu brauchst Bargeld? Ein Tipp. Wir verarbeiten es sofort. Banktransferzeiten können variieren. Keine Strafen. Keine Fragen."
+      "answer": "Ja. Keine Sperrfristen. Du legst die Untergrenze fest: \"Immer 500 EUR liquide halten.\" Wir setzen nur ein, was darüber liegt.\n\nDu brauchst Bargeld? Ein Tipp. Wir verarbeiten es sofort. Banktransferzeiten können variieren. Keine Strafen."
     },
     "whyCantTouch": {
       "question": "Warum kann diBoaS mein Geld nicht anfassen?",
@@ -81,7 +81,7 @@
     },
     "canLoseEverything": {
       "question": "Kann ich alles verlieren?",
-      "answer": "Bei den stabilen Strategien (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): Die Wahrscheinlichkeit eines Totalverlusts ist äußerst gering. In fast 4 Jahren Tests und tausenden Simulationen ist es nicht passiert. Aber \"äußerst gering\" ist nicht null.\n\nBei den Wachstumsstrategien: Je höher der Wachstumsanteil, desto breiter die Bandbreite möglicher Ergebnisse. Full Throttle mit 85% Wachstums-Exposure hat simulierte Rückgänge von über 78% gezeigt.\n\nDas Risiko ist real. Wir verharmlosen es nicht. Wir helfen dir, das Niveau zu wählen, das zu dem passt, was du verkraften kannst."
+      "answer": "Bei den stabilen Strategien (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Full Harvest): Die Wahrscheinlichkeit eines Totalverlusts ist äußerst gering. In der öffentlichen On-Chain-Historie der Protokolle und in tausenden Simulationen ist ein Totalverlust nicht eingetreten. Das sind Zahlen der Protokolle, keine diBoaS-Ergebnisse. Aber \"äußerst gering\" ist nicht null.\n\nBei den Wachstumsstrategien: Je höher der Wachstumsanteil, desto breiter die Bandbreite möglicher Ergebnisse. Full Throttle mit 85% Wachstums-Exposure hat simulierte Rückgänge von über 78% gezeigt.\n\nDas Risiko ist real. Wir verharmlosen es nicht. Wir helfen dir, das Niveau zu wählen, das zu dem passt, was du verkraften kannst."
     },
     "howPossible": {
       "question": "Wie hält diBoaS die Kosten niedrig?",
@@ -97,15 +97,15 @@
     },
     "audited": {
       "question": "Wurde diBoaS auditiert?",
-      "answer": "Wir sind eine Plattform vor dem Launch. Unsere Strategien werden gegen historische Krisen und reale Szenarien getestet, und wir nutzen auditierte, etablierte Protokolle. Wenn wir wachsen, planen wir unabhängige Drittanbieter-Audits. Für vollständige Details zu den Protokollen und der Technologie hinter jeder Strategie besuche unsere Strategien- und Protokoll-Seiten."
+      "answer": "Wir sind eine Plattform vor dem Launch. Wir modellieren jede Strategie anhand der öffentlichen On-Chain-Historie der Protokolle, die sie nutzt, und wir setzen auditierte, etablierte Protokolle ein. Wenn wir wachsen, planen wir unabhängige Drittanbieter-Audits. Für vollständige Details zu den Protokollen und der Technologie hinter jeder Strategie besuche unsere Strategien- und Protokoll-Seiten."
     },
     "canSwitchStrategies": {
       "question": "Kann ich die Strategie wechseln?",
-      "answer": "Ja, jederzeit. Ohne Strafen. Ohne Fragen.\n\nEtwas zum Beachten: Wenn du während eines Markteinbruchs wechselst, könntest du einen vorübergehenden Verlust realisieren. Der beste Zeitpunkt zum Wechseln ist, wenn sich deine Ziele ändern, nicht wenn sich der Markt bewegt."
+      "answer": "Ja, jederzeit. Ohne Strafen. Ohne Fragen.\n\nEtwas zum Beachten: Wenn du während eines Markteinbruchs wechselst, könntest du einen vorübergehenden Verlust realisieren. Ein Wechsel ergibt eher Sinn, wenn sich deine Ziele ändern, weniger wenn sich der Markt bewegt. Du entscheidest wann."
     },
     "multipleStrategies": {
       "question": "Kann ich mehrere Strategien gleichzeitig nutzen?",
-      "answer": "Ja. Viele Leute machen das.\n\nStell dir das wie verschiedene Konten für verschiedene Zwecke vor: Notgroschen im Sicheren Hafen, Urlaubssparen im Goal Keeper, langfristiger Vermögensaufbau im Ausgewogenen Aufbauer."
+      "answer": "Ja. Viele Leute machen das.\n\nStell dir das wie verschiedene Konten für verschiedene Zwecke vor: Notgroschen in Safe Harbor, Urlaubssparen in Goal Keeper, langfristiger Vermögensaufbau in Balanced Builder."
     },
     "rebalancing": {
       "question": "Wie funktioniert das Rebalancing?",
@@ -113,7 +113,7 @@
     },
     "returnsGuaranteed": {
       "question": "Sind diese Renditen garantiert?",
-      "answer": "Nein. Und jeder, der dir Renditen garantiert, lügt dich an.\n\nWas wir dir sagen können: Wir haben jede Strategie mit fast 4 Jahren realer Marktdaten getestet (Mai 2022 - Dezember 2025). Die Zahlen basieren auf dem, was tatsächlich passiert ist, und tausenden Monte-Carlo-Simulationen.\n\nDiese Zahlen helfen dir, Strategien zu vergleichen und die Bandbreite möglicher Ergebnisse zu verstehen. Sie sagen nicht die Zukunft voraus. Starte mit dem, was du dir leisten kannst zu lernen."
+      "answer": "Nein. Und jeder, der dir Renditen garantiert, lügt dich an.\n\nWas wir dir sagen können: Unsere Zahlen stammen aus der öffentlichen On-Chain-Historie der Protokolle (Mai 2022 bis Dezember 2025) und tausenden Monte-Carlo-Simulationen. Wir sind vor dem Launch, daher sind das Zahlen der Protokolle, keine diBoaS-Ergebnisse.\n\nDiese Zahlen helfen dir, Strategien zu vergleichen und die Bandbreite möglicher Ergebnisse zu verstehen. Sie sagen nicht die Zukunft voraus. Starte mit dem, was du dir leisten kannst zu lernen."
     },
     "whereMoneyGoesProtocols": {
       "question": "Wohin geht mein Geld wirklich?",
@@ -133,7 +133,7 @@
     },
     "payments": {
       "question": "Wie funktionieren Zahlungen?",
-      "answer": "Traditionelle Überweisungen laufen über Korrespondenzbanken. Deine Bank, deren Bank, vielleicht noch eine Bank, dann die Bank des Empfängers. Jeder Schritt kostet Zeit und Gebühren.\n\nMit diBoaS gehen Zahlungen in digitalen Dollar direkter, von deinem Wallet zu deren, wo unterstützt.\n\nVerfügbarkeit kann von Wallet-Einrichtung, unterstützten Netzwerken, Ramp-Anbietern, Gegenparteien, lokaler Regulierung, Anbieterunterstützung und Compliance-Prüfung abhängen. Bevor Geld bewegt wird, zeigt diBoaS den verfügbaren Weg und erwartete Kosten, soweit verfügbar."
+      "answer": "Traditionelle Überweisungen laufen über Korrespondenzbanken. Deine Bank, deren Bank, vielleicht noch eine Bank, dann die Bank des Empfängers. Jeder Schritt kostet Zeit und Gebühren.\n\nMit diBoaS gehen Zahlungen in digitalen Dollar direkter, von deiner Wallet zu deren, wo unterstützt.\n\nVerfügbarkeit kann von Wallet-Einrichtung, unterstützten Netzwerken, Ramp-Anbietern, Gegenparteien, lokaler Regulierung, Anbieterunterstützung und Compliance-Prüfung abhängen. Bevor Geld bewegt wird, zeigt diBoaS den verfügbaren Weg und erwartete Kosten, soweit verfügbar."
     },
     "compliance": {
       "question": "Was ist mit Compliance und Steuern?",
@@ -153,7 +153,7 @@
     },
     "protocolsUpdateFrequency": {
       "question": "Wie oft aktualisiert ihr diese Liste?",
-      "answer": "Wir überwachen alle gelisteten Protokolle fortlaufend. Wenn ein Protokoll einen Sicherheitsvorfall, eine regulatorische Änderung oder ein bedeutendes betriebliches Problem hat, aktualisieren wir diese Seite. Ausserdem überprüfen wir die gesamte Liste vierteljährlich, um zu entscheiden, ob Protokolle hinzugefügt oder entfernt werden."
+      "answer": "Wir überwachen alle gelisteten Protokolle fortlaufend. Wenn ein Protokoll einen Sicherheitsvorfall, eine regulatorische Änderung oder ein bedeutendes betriebliches Problem hat, aktualisieren wir diese Seite. Außerdem überprüfen wir die gesamte Liste vierteljährlich, um zu entscheiden, ob Protokolle hinzugefügt oder entfernt werden."
     },
     "protocolsRequest": {
       "question": "Kann ich ein Protokoll zur Aufnahme vorschlagen?",
@@ -161,23 +161,28 @@
     },
     "protocolsEndorsement": {
       "question": "Bedeutet die Listung hier, dass diBoaS diese Protokolle empfiehlt?",
-      "answer": "Nein. Gelistet zu sein bedeutet, dass wir sie recherchiert haben, sie unsere Kriterien erfuellen und wir sie in unseren Strategien nutzen. Wir sind mit keinem Protokoll verbunden. Ihre Aufnahme impliziert weder, dass sie diBoaS unterstützen, noch stellt unsere Listung eine Empfehlung dar, sie direkt zu nutzen."
+      "answer": "Nein. Gelistet zu sein bedeutet, dass wir sie recherchiert haben, sie unsere Kriterien erfüllen und wir sie in unseren Strategien nutzen. Wir sind mit keinem Protokoll verbunden. Ihre Aufnahme impliziert weder, dass sie diBoaS unterstützen, noch stellt unsere Listung eine Empfehlung dar, sie direkt zu nutzen."
     },
     "protocolHacked": {
       "question": "Was passiert, wenn ein Protokoll gehackt wird?",
-      "answer": "Das hängt von der Schwere ab. Bei kleineren Vorfällen, die schnell behoben werden, behalten wir das Protokoll möglicherweise mit einem aktualisierten Warnhinweis gelistet. Bei schwerwiegenden Exploits, bei denen Nutzergelder daürhaft verloren gehen, entfernen wir das Protokoll von unserer Liste und passen betroffene Strategien an. Wenn der Exploit eine ältere Version betraf, die wir nicht nutzen, behalten wir das Protokoll möglicherweise mit einer klaren Warnung gelistet. Siehe unsere Auswahlkriterien oben für Details. Wir werden Änderungen immer an unsere Nutzer kommunizieren."
+      "answer": "Das hängt von der Schwere ab. Bei kleineren Vorfällen, die schnell behoben werden, behalten wir das Protokoll möglicherweise mit einem aktualisierten Warnhinweis gelistet. Bei schwerwiegenden Exploits, bei denen Nutzergelder dauerhaft verloren gehen, entfernen wir das Protokoll von unserer Liste und passen betroffene Strategien an. Wenn der Exploit eine ältere Version betraf, die wir nicht nutzen, behalten wir das Protokoll möglicherweise mit einer klaren Warnung gelistet. Siehe unsere Auswahlkriterien oben für Details. Wir werden Änderungen immer an unsere Nutzer kommunizieren."
     },
     "protocolsWarningBadges": {
       "question": "Warum haben manche Protokolle Warnbadges?",
-      "answer": "Das bernsteinfarbene Warnbadge bedeutet, dass das Protokoll einen bemerkenswerten Sicherheitsvorfall, ein regulatorisches Problem oder ein erhöhtes Risikoprofil im Vergleich zu Mitbewerbern hat. Wir nehmen diese Protokolle auf, weil sie unsere Gesamtkriterien weiterhin erfuellen, aber wir möchten, dass du das vollständige Bild siehst. Die Details stehen auf jeder Karte."
+      "answer": "Das bernsteinfarbene Warnbadge bedeutet, dass das Protokoll einen bemerkenswerten Sicherheitsvorfall, ein regulatorisches Problem oder ein erhöhtes Risikoprofil im Vergleich zu Mitbewerbern hat. Wir nehmen diese Protokolle auf, weil sie unsere Gesamtkriterien weiterhin erfüllen, aber wir möchten, dass du das vollständige Bild siehst. Die Details stehen auf jeder Karte."
     },
     "tvlMeaning": {
       "question": "Was ist TVL und warum ist es wichtig?",
-      "answer": "TVL steht für Total Valü Locked (gesperrter Gesamtwert). Es ist der Gesamtbetrag, den alle Nutzer weltweit in einem Protokoll eingezahlt haben. Höheres TVL bedeutet im Allgemeinen, dass mehr Menschen dem System echtes Geld anvertrauen. Es ist keine Garantie für Sicherheit, aber es ist ein Signal, das wir berücksichtigen."
+      "answer": "TVL steht für Total Value Locked (gesperrter Gesamtwert). Es ist der Gesamtbetrag, den alle Nutzer weltweit in einem Protokoll eingezahlt haben. Höheres TVL bedeutet im Allgemeinen, dass mehr Menschen dem System echtes Geld anvertrauen. Es ist keine Garantie für Sicherheit, aber es ist ein Signal, das wir berücksichtigen."
     },
     "protocolsDirectInteraction": {
       "question": "Muss ich mit diesen Protokollen selbst interagieren?",
       "answer": "Nein. diBoaS übernimmt alle Protokoll-Interaktionen in deinem Namen, wenn du eine Strategie wählst. Du musst bei keinem Protokoll ein Konto erstellen, Wallets auf verschiedenen Blockchains verwalten oder die technischen Details verstehen. Diese Seite dient der Transparenz, nicht weil du etwas damit tun musst."
+    },
+    "safeStrategy": {
+      "question": "Ist mein Geld sicher?",
+      "answerA": "Dein Geld wird von dir gesichert. Deine Wallet, deine Schlüssel. Niemand bei diBoaS kann ohne deine Genehmigung auf dein Guthaben zugreifen.\n\nAllerdings: Das ist kein Bankkonto. Dein Geld arbeitet in automatisierten Systemen, die auf Code basieren. Der Wert kann schwanken, und du kannst einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer.",
+      "answerB": "Dein Geld sicherst du selbst. Deine Wallet, deine Schlüssel, und diBoaS hält keinen Teil davon. Falls du den Zugang wiederherstellen musst, läuft das über einen unabhängigen Partner, nicht über diBoaS. Niemand bei diBoaS kann dein Geld bewegen.\n\nAllerdings: Das ist kein Bankkonto. Dein Geld arbeitet in automatisierten Systemen, die auf Code basieren. Der Wert kann schwanken, und du kannst einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer."
     }
   }
 }

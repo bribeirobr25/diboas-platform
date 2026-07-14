@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Calculadora de historial de activos",
     "headline": "¿Qué pasó realmente?",
-    "subtitle": "Elige un activo, un año de inicio y un modo. Mira el camino real que habría tomado tu dinero, con barras honestas de incertidumbre en los tramos ruidosos."
+    "subtitle": "Elige un activo, un año de inicio y un modo. Mira el camino real que habría tomado tu dinero, y un rango honesto donde los números son menos ciertos."
   },
   "inputs": {
     "assetLabel": "Activo",
@@ -60,7 +60,7 @@
       "dec": "diciembre"
     },
     "uncertaintyMedium": "La volatilidad hace que el momento mensual de entrada altere significativamente el resultado. El rango anterior muestra el mejor vs peor momento.",
-    "uncertaintyLow": "La volatilidad de Bitcoin a principios de la década significa que aportaciones de 100/mes entre 2010 y 2012 podrían haber terminado de formas muy diferentes según el momento exacto. Mostramos un rango, no un único número.",
+    "uncertaintyLow": "La volatilidad de Bitcoin a principios de la década significa que aportaciones de 100 €/mes entre 2010 y 2012 podrían haber terminado de formas muy diferentes según el momento exacto. Mostramos un rango, no un único número.",
     "comparisonHeader": "vs S&P 500 en el mismo periodo",
     "btcDcaRangeNote": "Para BTC empezando en 2010, el valor terminal del DCA depende mucho del camino mensual exacto de entrada. Las calculadoras públicas difieren ±50%."
   },

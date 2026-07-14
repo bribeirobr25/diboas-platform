@@ -8,14 +8,13 @@
   "hero": {
     "h1": "Wo dein Geld arbeitet",
     "subtitle": "Jedes System. Jeder Name. Nichts versteckt.",
-    "trustLine": "25 Protokolle. 7 Kategorien. Volle Transparenz über jedes System, das dein Geld berührt."
+    "trustLine": "25 Protokolle. 7 Kategorien. Jeder Name, jede Chain und jede Historie hier, damit du selbst prüfen kannst."
   },
   "transitions": {
     "t1": "Warum wir diese Seite gebaut haben.",
     "t2": "Wie haben es diese 25 auf die Liste geschafft?",
     "t3": "Wie viel echtes Geld steckt also in diesen Systemen?",
-    "t4": "Bevor du weiter gehst, etwas Wichtiges.",
-    "t5": "Du hast wahrscheinlich noch Fragen. Gut so."
+    "t4": "Bevor du weiter gehst, etwas Wichtiges."
   },
   "why": {
     "h2": "Transparenz",
@@ -62,9 +61,8 @@
     }
   },
   "protocolLabels": {
-    "whatItDoes": "Was es macht:",
     "founded": "Gegründet",
-    "tvl": "Total Valü Locked",
+    "tvl": "Total Value Locked",
     "blockchains": "Blockchains",
     "audits": "Sicherheitsprüfungen",
     "regulatory": "Regulatorisch / Erfolgsbilanz",
@@ -84,7 +82,7 @@
         "audits": "30+ unabhängige Audits",
         "regulatory": "SEC hat ihre 4-jährige Untersuchung ohne Auflagen eingestellt (Dezember 2025). Quelle: SEC-Einstellungsschreiben, bestätigt durch Aave-Gründer; berichtet von Yahoo Finance, CoinDesk, Unchained."
       },
-      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer"
+      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Full Harvest"
     },
     "compoundV3": {
       "name": "Compound V3",
@@ -96,7 +94,7 @@
         "audits": "4+ unabhängige Audits",
         "regulatory": "Vollständig dezentralisiert. Keine spezifischen Lizenzen erforderlich."
       },
-      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer"
+      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Full Harvest"
     },
     "kamino": {
       "name": "Kamino",
@@ -122,7 +120,7 @@
     },
     "sparkProtocol": {
       "name": "Spark Protocol",
-      "description": "Kreditsystem auf Basis des bewehrten Aave-Codes, verbunden mit der tiefen Liquidität von Sky/MakerDAO. Profitiert von der längsten Betriebsgeschichte in DeFi (seit 2014).",
+      "description": "Kreditsystem auf Basis des bewährten Aave-Codes, verbunden mit der tiefen Liquidität von Sky/MakerDAO. Profitiert von der längsten Betriebsgeschichte in DeFi (seit 2014).",
       "details": {
         "founded": "2023",
         "tvl": "~4 Milliarden USD",
@@ -221,7 +219,7 @@
         "audits": "10+ unabhängige Audits",
         "regulatory": "10+ Jahre ununterbrochener Betrieb durch mehrere Marktzyklen"
       },
-      "usedInStrategies": "Alle 10 Strategien (Safe Harbor, Stable Growth, Goal Keeper, Steady Progress, Patient Builder, Balanced Builder, Steady Compounder, Wealth Accelerator, Yield Maximizer, Full Throttle)"
+      "usedInStrategies": "Alle 10 Strategien (Safe Harbor, Stable Growth, Goal Keeper, Steady Progress, Patient Builder, Balanced Builder, Steady Compounder, Wealth Accelerator, Full Harvest, Full Throttle)"
     },
     "ethena": {
       "name": "Ethena",
@@ -342,7 +340,7 @@
         "tvl": "~258 Millionen USD (nach Exploit; vorher ~775 Mio. USD vor November 2025)",
         "blockchains": "Ethereum, Arbitrum, Polygon",
         "audits": "11+ unabhängige Audits",
-        "regulatory": "3. November 2025: 128 Mio. USD Exploit, der V2-Pools auf Ethereum, Polygon, Base, Arbitrum und anderen Chains betraf. Rundungsfehler-Schwachstelle in ComposableStablePool-Verträgen. Etwa 28 Mio. USD durch Whitehat-Operationen und Protokollinterventionen wiederhergestellt. Der Grossteil der Mittel (~100 Mio. USD) bleibt per Februar 2026 unwiederbringlich verloren. Balancer DAO genehmigte 10% Recovery-Bounty (BIP-908, Februar 2026). V3 (aktuelle Version) war von diesem Exploit NICHT betroffen. diBoaS-Strategien nutzen ausschließlich V3. Quellen: Check Point Research, CoinJournal, The Defiant, DL News, Halborn."
+        "regulatory": "3. November 2025: 128 Mio. USD Exploit, der V2-Pools auf Ethereum, Polygon, Base, Arbitrum und anderen Chains betraf. Rundungsfehler-Schwachstelle in ComposableStablePool-Verträgen. Etwa 28 Mio. USD durch Whitehat-Operationen und Protokollinterventionen wiederhergestellt. Der Großteil der Mittel (~100 Mio. USD) bleibt per Februar 2026 unwiederbringlich verloren. Balancer DAO genehmigte 10% Recovery-Bounty (BIP-908, Februar 2026). V3 (aktuelle Version) war von diesem Exploit NICHT betroffen. diBoaS-Strategien nutzen ausschließlich V3. Quellen: Check Point Research, CoinJournal, The Defiant, DL News, Halborn."
       }
     },
     "huma": {
@@ -363,7 +361,7 @@
     "criteria": {
       "1": "Mindestens 1 Jahr ununterbrochener Betrieb. Wir machen Ausnahmen für Protokolle, die von Teams mit langer Erfolgsgeschichte entwickelt wurden, aber wir kennzeichnen das klar.",
       "2": "Professionelle Sicherheitsaudits von anerkannten Firmen. Nicht nur eines. Wir suchen nach mehreren unabhängigen Audits.",
-      "3": "Keine ungelösten Exploits in der von uns genutzten Version, bei denen Nutzergelder daürhaft verloren gingen. Vergangene Vorfälle und versionsspezifische Exploits werden auf jeder Karte mit einem Warnbadge offengelegt.",
+      "3": "Keine ungelösten Exploits in der von uns genutzten Version, bei denen Nutzergelder dauerhaft verloren gingen. Vergangene Vorfälle und versionsspezifische Exploits werden auf jeder Karte mit einem Warnbadge offengelegt.",
       "4": "Transparenter Betrieb. Wir können überprüfen, wie das Protokoll funktioniert. Open-Source-Code wird bevorzugt.",
       "5": "Echte Nutzung. Tatsächliche Nutzer, die echtes Geld einzahlen. Nicht nur Hype, nicht nur ein Token-Preis."
     },
@@ -373,7 +371,7 @@
     "h2": "Gemeinsam gesicherter Wert",
     "textBefore": "Die Protokolle auf dieser Seite halten zusammen über",
     "number": "120 Milliarden USD",
-    "textAfter": "an Nutzereinlagen über alle ihre Deployments. Das ist mehr als die meisten Regionalbanken an Gesamteinlagen halten.",
+    "textAfter": "an Nutzereinlagen über alle ihre Deployments. Das ist echtes Geld, von echten Menschen, das bereits in diesen Systemen steckt.",
     "context": "Das bedeutet nicht, dass dein Geld in allen steckt. Jede diBoaS-Strategie nutzt bestimmte Protokolle, die zu ihrem Risikoniveau und ihren Zielen passen. Auf der Strategieseite siehst du, welche Protokolle in welcher Strategie eingesetzt werden.",
     "source": "Gesamt-TVL von DeFiLlama. Letzte Überprüfung: Februar 2026. Die Werte schwanken täglich."
   },
@@ -383,39 +381,7 @@
     "warmLine": "Diese Seite existiert, weil wir glauben, dass du es verdienst, es zu wissen. Nicht weil du etwas tun musst."
   },
   "faq": {
-    "h2": "Fragen zu unseren Protokollen",
-    "q1": {
-      "question": "Warum listet ihr nicht jedes DeFi-Protokoll?",
-      "answer": "Es gibt Tausende von DeFi-Protokollen. Wir listen lieber 25, die wir gründlich recherchiert haben, als 200, die wir nicht kennen."
-    },
-    "q2": {
-      "question": "Wie oft aktualisiert ihr diese Liste?",
-      "answer": "Wir überwachen alle gelisteten Protokolle fortlaufend. Wenn ein Protokoll einen Sicherheitsvorfall, eine regulatorische Änderung oder ein bedeutendes betriebliches Problem hat, aktualisieren wir diese Seite. Ausserdem überprüfen wir die gesamte Liste vierteljährlich, um zu entscheiden, ob Protokolle hinzugefügt oder entfernt werden."
-    },
-    "q3": {
-      "question": "Kann ich ein Protokoll zur Aufnahme vorschlagen?",
-      "answer": "Ja. Schreib an hello@diboas.com mit deinem Vorschlag und warum du denkst, es sollte aufgenommen werden. Wir prüfen jeden Vorschlag anhand unserer Auswahlkriterien."
-    },
-    "q4": {
-      "question": "Bedeutet die Listung hier, dass diBoaS diese Protokolle empfiehlt?",
-      "answer": "Nein. Gelistet zu sein bedeutet, dass wir sie recherchiert haben, sie unsere Kriterien erfuellen und wir sie in unseren Strategien nutzen. Wir sind mit keinem Protokoll verbunden. Ihre Aufnahme impliziert weder, dass sie diBoaS unterstützen, noch stellt unsere Listung eine Empfehlung dar, sie direkt zu nutzen."
-    },
-    "q5": {
-      "question": "Was passiert, wenn ein Protokoll gehackt wird?",
-      "answer": "Das hängt von der Schwere ab. Bei kleineren Vorfällen, die schnell behoben werden, behalten wir das Protokoll möglicherweise mit einem aktualisierten Warnhinweis gelistet. Bei schwerwiegenden Exploits, bei denen Nutzergelder daürhaft verloren gehen, entfernen wir das Protokoll von unserer Liste und passen betroffene Strategien an. Wenn der Exploit eine ältere Version betraf, die wir nicht nutzen, behalten wir das Protokoll möglicherweise mit einer klaren Warnung gelistet. Siehe unsere Auswahlkriterien oben für Details. Wir werden Änderungen immer an unsere Nutzer kommunizieren."
-    },
-    "q6": {
-      "question": "Warum haben manche Protokolle Warnbadges?",
-      "answer": "Das bernsteinfarbene Warnbadge bedeutet, dass das Protokoll einen bemerkenswerten Sicherheitsvorfall, ein regulatorisches Problem oder ein erhöhtes Risikoprofil im Vergleich zu Mitbewerbern hat. Wir nehmen diese Protokolle auf, weil sie unsere Gesamtkriterien weiterhin erfuellen, aber wir möchten, dass du das vollständige Bild siehst. Die Details stehen auf jeder Karte."
-    },
-    "q7": {
-      "question": "Was ist TVL und warum ist es wichtig?",
-      "answer": "TVL steht für Total Valü Locked (gesperrter Gesamtwert). Es ist der Gesamtbetrag, den alle Nutzer weltweit in einem Protokoll eingezahlt haben. Höheres TVL bedeutet im Allgemeinen, dass mehr Menschen dem System echtes Geld anvertrauen. Es ist keine Garantie für Sicherheit, aber es ist ein Signal, das wir berücksichtigen."
-    },
-    "q8": {
-      "question": "Muss ich mit diesen Protokollen selbst interagieren?",
-      "answer": "Nein. diBoaS übernimmt alle Protokoll-Interaktionen in deinem Namen, wenn du eine Strategie wählst. Du musst bei keinem Protokoll ein Konto erstellen, Wallets auf verschiedenen Blockchains verwalten oder die technischen Details verstehen. Diese Seite dient der Transparenz, nicht weil du etwas damit tun musst."
-    }
+    "h2": "Fragen zu unseren Protokollen"
   },
   "sections": {
     "faq": {

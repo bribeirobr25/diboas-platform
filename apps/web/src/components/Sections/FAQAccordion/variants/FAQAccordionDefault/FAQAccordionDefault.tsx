@@ -14,6 +14,7 @@
 import { useState, useCallback, useEffect, useRef, useMemo, KeyboardEvent } from 'react';
 import { sanitizeHtml } from '@/lib/security/htmlSanitizer';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { Plus } from '@/components/UI/LucideIcon';
 import type { FAQAccordionVariantProps } from '../types';
 import styles from './FAQAccordionDefault.module.css';
 
@@ -231,20 +232,10 @@ export function FAQAccordionDefault({
                   aria-controls={contentId}
                 >
                   <span className={styles.question}>{item.question}</span>
-                  <svg
+                  <Plus
                     className={`${styles.icon} ${isExpanded ? styles.iconExpanded : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
                     aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
+                  />
                 </button>
               </h3>
               <div

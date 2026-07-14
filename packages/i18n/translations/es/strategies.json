@@ -5,20 +5,20 @@
   },
   "hero": {
     "headline": "El acceso que se guardaban. Ahora es tuyo.",
-    "subheadline": "Diferentes metas. Diferentes niveles de riesgo. Diferentes necesidades",
+    "subheadline": "Metas distintas. Plazos distintos. Mira el riesgo y el camino antes de elegir.",
     "subheadline2": ""
   },
   "matrix": {
-    "header": "Elige o Crea tu Meta",
+    "header": "Elige o crea tu meta",
     "instructions": "Tu objetivo a la izquierda. Tu apetito de riesgo a la derecha.",
     "columns": {
-      "goal": "Tu Objetivo",
-      "stable": "Retornos Estables",
-      "growth": "Potencial de Crecimiento"
+      "goal": "Tu objetivo",
+      "stable": "Rentabilidad estable",
+      "growth": "Potencial de crecimiento"
     },
     "rows": {
       "emergency": {
-        "goal": "Fondo de Emergencia",
+        "goal": "Fondo de emergencia",
         "stable": "Safe Harbor",
         "growth": ""
       },
@@ -28,23 +28,23 @@
         "growth": "Stable Growth"
       },
       "shortTerm": {
-        "goal": "Bono Navideño",
+        "goal": "Paga de Navidad",
         "stable": "Goal Keeper",
         "growth": "Steady Progress"
       },
       "mediumTerm": {
-        "goal": "Viaje Soñado",
+        "goal": "Viaje soñado",
         "stable": "Patient Builder",
         "growth": "Balanced Builder"
       },
       "longTerm": {
-        "goal": "Comprar una Casa",
+        "goal": "Comprar una casa",
         "stable": "Steady Compounder",
         "growth": "Wealth Accelerator"
       },
       "wealthBuilding": {
-        "goal": "Plan de Jubilación",
-        "stable": "Yield Maximizer",
+        "goal": "Plan de jubilación",
+        "stable": "Full Harvest",
         "growth": "Full Throttle"
       }
     },
@@ -53,10 +53,10 @@
   "strategies": {
     "safeHarbor": {
       "name": "Safe Harbor",
-      "badge": "Retornos Estables | Fondo de Emergencia",
+      "badge": "Rentabilidad estable | Fondo de emergencia",
       "tagline": "Tu colchón de seguridad que realmente crece",
       "description": "Aquí guardas el dinero que puedes necesitar mañana. Tiene que estar ahí cuando lo necesites. Sin sorpresas.",
-      "description2": "Safe Harbor utiliza solo dólares digitales estables. Sin exposición a precios de activos digitales. Tus 1.000 EUR están diseñados para mantenerse cerca de 1.000 EUR mientras generan retornos, aunque las stablecoins utilizadas pueden fluctuar en valor.",
+      "description2": "Safe Harbor utiliza solo dólares digitales estables. Sin exposición a precios de activos digitales. Tus 1.000 EUR están diseñados para mantenerse cerca de 1.000 EUR mientras generan rendimiento, aunque las stablecoins utilizadas pueden fluctuar en valor.",
       "allocation": "50% Sky SSR + 30% Aave V3 + 20% Compound V3",
       "allocationNote": "Tu dinero se distribuye entre tres sistemas de préstamo independientes para reducir el riesgo.",
       "commonUseCase": "Primer fondo de emergencia. Aprender cómo funciona todo sin oscilaciones de precio.",
@@ -70,12 +70,12 @@
     },
     "stableGrowth": {
       "name": "Stable Growth",
-      "badge": "Potencial de Crecimiento (30%) | Ganar Más Que la Inflación",
+      "badge": "Potencial de crecimiento (30%) | Ganar más que la inflación",
       "tagline": "Supera la inflación con riesgo controlado",
-      "description": "Tu dinero se divide: el 70% genera retornos estables, el 30% participa en el crecimiento de activos digitales. Aceptas algo de movimiento de precio a cambio de retornos potencialmente mayores.",
+      "description": "Tu dinero se divide: el 70% genera rendimiento estable, el 30% participa en el crecimiento de activos digitales. Aceptas algo de movimiento de precio a cambio de una rentabilidad potencialmente mayor.",
       "description2": "Esto no es un fondo de emergencia. Es para dinero que quieres hacer crecer por encima de la inflación, entendiendo que la parte de crecimiento se moverá con los precios del mercado.",
       "allocation": "70% Sky SSR + 30% Sanctum INF",
-      "allocationNote": "La mayor parte se queda en dólares digitales estables. La parte en Sanctum se mueve con los retornos de staking de Solana.",
+      "allocationNote": "La mayor parte se queda en dólares digitales estables. La parte en Sanctum se mueve con el rendimiento del staking de Solana.",
       "commonUseCase": "Segunda capa de ahorro. Ya tiene fondo de emergencia y busca crecimiento por encima de la inflación.",
       "note": "No diseñada como fondo de emergencia principal.",
       "stats": {
@@ -88,7 +88,7 @@
     },
     "goalKeeper": {
       "name": "Goal Keeper",
-      "badge": "Retornos Estables | Corto Plazo",
+      "badge": "Rentabilidad estable | Corto plazo",
       "tagline": "Protegiendo tus metas a corto plazo",
       "description": "¿Estás ahorrando para algo en los próximos 2 años? ¿Un viaje, una boda, un coche? Esto mantiene cada euro trabajando hacia tu objetivo sin arriesgarlo.",
       "description2": "¿Estás ahorrando para algo en los próximos 2 años? ¿Un viaje, una boda, un coche? Aquí cada euro trabaja hacia tu objetivo sin ponerlo en riesgo.",
@@ -101,15 +101,15 @@
         "bumpiness": "Muy tranquilo."
       },
       "bestFor": "Cualquiera con una meta específica y un plazo menor de 2 años.",
-      "riskLevel": "Mínimo. Diseñado para preservación de capital con retornos estables. Los riesgos incluyen posibles vulnerabilidades técnicas y la posibilidad de que las stablecoins utilizadas pierdan su paridad con el dólar."
+      "riskLevel": "Mínimo. Diseñado para preservación de capital con rentabilidad estable. Los riesgos incluyen posibles vulnerabilidades técnicas y la posibilidad de que las stablecoins utilizadas pierdan su paridad con el dólar."
     },
     "steadyProgress": {
       "name": "Steady Progress",
-      "badge": "Potencial de Crecimiento (35%) | Corto Plazo",
+      "badge": "Potencial de crecimiento (35%) | Corto plazo",
       "tagline": "Metas a corto plazo con potencial de crecimiento",
-      "description": "Tienes una meta en los próximos 2 años, pero aceptas algo de movimiento de precio si eso significa retornos mayores. La mayor parte se queda estable. Una parte participa en el crecimiento de activos digitales.",
+      "description": "Tienes una meta en los próximos 2 años, pero aceptas algo de movimiento de precio si eso significa una rentabilidad mayor. La mayor parte se queda estable. Una parte participa en el crecimiento de activos digitales.",
       "allocation": "65% Sky SSR + 35% Sanctum INF",
-      "allocationNote": "La mayor parte se queda estable. La parte en Sanctum se mueve con los retornos de staking de Solana.",
+      "allocationNote": "La mayor parte se queda estable. La parte en Sanctum se mueve con el rendimiento del staking de Solana.",
       "commonUseCase": "Meta a corto plazo donde algo de movimiento de precio es aceptable.",
       "stats": {
         "lossChance": "Alrededor del 7%",
@@ -121,11 +121,11 @@
     },
     "patientBuilder": {
       "name": "Patient Builder",
-      "badge": "Retornos Estables | Medio Plazo",
+      "badge": "Rentabilidad estable | Medio plazo",
       "tagline": "Crecimiento constante para quien sabe esperar",
       "description": "Estás pensando a 2-5 años vista. Quizá la entrada de un piso, quizá montar un negocio. No necesitas crecimiento agresivo. Necesitas que tu dinero esté ahí, un poco más grande, cuando estés preparado.",
       "allocation": "50% Sky SSR + 30% Aave V3 + 20% Compound V3",
-      "allocationNote": "Mismos sistemas estables que Safe Harbor, modelados para un horizonte de medio plazo. Los retornos se proyectan de forma más conservadora para el horizonte de 2-5 años.",
+      "allocationNote": "Mismos sistemas estables que Safe Harbor, modelados para un horizonte de medio plazo. La rentabilidad se proyecta de forma más conservadora para el horizonte de 2-5 años.",
       "commonUseCase": "Entrada de un piso. Capital para montar un negocio. Cualquier cosa a 2-5 años donde la previsibilidad importa.",
       "stats": {
         "lossChance": "Menos del 1%",
@@ -137,11 +137,11 @@
     },
     "balancedBuilder": {
       "name": "Balanced Builder",
-      "badge": "Potencial de Crecimiento (40%) | Medio Plazo",
+      "badge": "Potencial de crecimiento (40%) | Medio plazo",
       "tagline": "Estabilidad y crecimiento en una sola estrategia",
       "description": "La mayor parte de tu dinero se mantiene segura. Una parte captura el crecimiento de activos digitales. Esta estrategia está diseñada para personas con horizontes de 3-5 años que entienden que los precios suben y bajan.",
       "allocation": "60% Sky SSR + 25% Sanctum INF + 15% Jupiter JLP",
-      "allocationNote": "Una combinación equilibrada: retornos de préstamo más retornos de staking y comisiones de trading de dos sistemas Solana.",
+      "allocationNote": "Una combinación equilibrada: rendimiento de préstamo más rendimiento de staking y comisiones de trading de dos sistemas Solana.",
       "commonUseCase": "Horizonte de 3-5 años con tolerancia a movimiento temporal de precio.",
       "stats": {
         "lossChance": "Alrededor del 12%",
@@ -153,9 +153,9 @@
     },
     "steadyCompounder": {
       "name": "Steady Compounder",
-      "badge": "Retornos Estables | Largo Plazo",
+      "badge": "Rentabilidad estable | Largo plazo",
       "tagline": "Deja que el tiempo haga el trabajo pesado",
-      "description": "Estás jugando a largo plazo. 5-10 años. No necesitas asumir grandes riesgos porque el tiempo juega a tu favor. Retornos estables, compuestos año tras año.",
+      "description": "Estás jugando a largo plazo. 5-10 años. No necesitas asumir grandes riesgos porque el tiempo juega a tu favor. Rentabilidad estable, compuesta año tras año.",
       "allocation": "55% Sky SSR + 30% Aave V3 + 15% Compound V3",
       "allocationNote": "Optimizado para composición a largo plazo con volatilidad mínima.",
       "commonUseCase": "Horizonte de 5-10 años. Prioriza la consistencia sobre el máximo rendimiento.",
@@ -169,44 +169,44 @@
     },
     "wealthAccelerator": {
       "name": "Wealth Accelerator",
-      "badge": "Potencial de Crecimiento (70%) | Largo Plazo",
+      "badge": "Potencial de crecimiento (70%) | Largo plazo",
       "tagline": "Para quienes han hecho los deberes",
       "description": "Esto no es para todo el mundo. Un 70% de exposición a crecimiento significa que tu saldo se moverá significativamente con los precios de activos digitales.",
       "description2": "Necesitas poder ver cómo tu saldo cae un 40% o más y no entrar en pánico. Si esa frase te ha puesto nervioso, esta no es la estrategia adecuada para ti.",
       "allocation": "30% Sky SSR + 35% Sanctum INF + 35% Jupiter JLP",
-      "allocationNote": "Muy inclinada hacia el crecimiento. Retornos de staking más comisiones de trading de dos sistemas Solana.",
+      "allocationNote": "Muy inclinada hacia el crecimiento. Rendimiento de staking más comisiones de trading de dos sistemas Solana.",
       "commonUseCase": "Asignación a largo plazo con alta tolerancia a la volatilidad.",
       "stats": {
         "lossChance": "Alrededor del 24%",
         "typicalReturn": "Muy variable. Puede ser negativo o superar el 50%.",
         "bumpiness": "Grandes oscilaciones. En el peor momento, tu saldo bajó un 47% antes de recuperarse."
       },
-      "bestFor": "Personas a largo plazo que pueden soportar volatilidad extrema por retornos potencialmente mayores.",
+      "bestFor": "Personas a largo plazo que pueden soportar volatilidad extrema por una rentabilidad potencialmente mayor.",
       "riskLevel": "Alto. Probabilidad significativa de pérdidas relevantes en plazos cortos.",
       "warning": "En miles de simulaciones, los resultados variaron de -60% a +200%+. La cifra de caída (47%) es el peor declive temporal durante nuestra prueba. El rango (-60% a +200%+) es la amplitud completa de las simulaciones. Solo para personas que pueden tolerar pérdidas significativas."
     },
     "yieldMaximizer": {
-      "name": "Yield Maximizer",
-      "badge": "Retornos Estables | Construir Patrimonio",
-      "tagline": "Máximo retorno, mínima volatilidad",
-      "description": "Quieres los mayores retornos estables a lo largo de 10+ años sin exposición a precios de activos digitales. Sin componente de crecimiento. Solo retornos optimizados en los tres sistemas de préstamo estables.",
+      "name": "Full Harvest",
+      "badge": "Rentabilidad estable | Construir patrimonio",
+      "tagline": "Rentabilidad estable, pocas oscilaciones de precio.",
+      "description": "Quieres la mayor rentabilidad estable a lo largo de 10+ años sin exposición a precios de activos digitales. Sin componente de crecimiento. Solo rendimiento optimizado en los tres sistemas de préstamo estables.",
       "allocation": "45% Sky SSR + 35% Aave V3 + 20% Compound V3",
-      "allocationNote": "Nuestra configuración estable de mayor retorno.",
-      "commonUseCase": "Horizonte de 10+ años. Máximo retorno estable, cero exposición a cripto.",
+      "allocationNote": "Nuestra configuración estable de mayor rentabilidad.",
+      "commonUseCase": "Horizonte de 10+ años. Máxima rentabilidad estable, cero exposición a cripto.",
       "stats": {
         "lossChance": "Menos del 1%",
         "typicalReturn": "7-11% anual",
         "bumpiness": "Muy tranquilo."
       },
-      "bestFor": "Constructores de patrimonio conservadores a largo plazo que quieren retornos fuertes sin oscilaciones de precio.",
-      "riskLevel": "Mínimo. Nuestra estrategia estable de mayor retorno. Los riesgos incluyen posibles vulnerabilidades técnicas y la posibilidad de que las stablecoins utilizadas pierdan su paridad con el dólar."
+      "bestFor": "Constructores de patrimonio conservadores a largo plazo que quieren una rentabilidad fuerte sin oscilaciones de precio.",
+      "riskLevel": "Mínimo. Nuestra estrategia estable de mayor rentabilidad. Los riesgos incluyen posibles vulnerabilidades técnicas y la posibilidad de que las stablecoins utilizadas pierdan su paridad con el dólar."
     },
     "fullThrottle": {
       "name": "Full Throttle",
-      "badge": "Potencial de Crecimiento (85%) | Construir Patrimonio",
+      "badge": "Potencial de crecimiento (85%) | Construir patrimonio",
       "tagline": "Riesgo máximo. Potencial máximo.",
       "description": "Esta es nuestra estrategia más agresiva. 85% de exposición a crecimiento. Diseñada para una parte pequeña de tu cartera que estés dispuesto a perder por completo.",
-      "description2": "¿El lado bueno? En escenarios simulados excepcionales, los retornos superaron el 1.000%. ¿El lado malo? Un 27% de probabilidad de pérdida. Tu saldo bajó un 66% en el peor momento de nuestra prueba.",
+      "description2": "¿El lado bueno? En escenarios simulados excepcionales, la rentabilidad superó el 1.000%. ¿El lado malo? Un 27% de probabilidad de pérdida. Tu saldo bajó un 66% en el peor momento de nuestra prueba.",
       "allocation": "15% Sky SSR + 30% Sanctum INF + 35% Jupiter JLP + 20% Jito",
       "allocationNote": "Exposición máxima a crecimiento: staking, comisiones de trading y recompensas MEV en tres sistemas Solana con un buffer mínimo de estabilidad.",
       "commonUseCase": "Asignación pequeña de tu cartera con plena comprensión del potencial de pérdida.",
@@ -230,12 +230,12 @@
   },
   "statsLabels": {
     "lossChance": "Probabilidad de perder dinero",
-    "typicalReturn": "Retorno anual típico",
+    "typicalReturn": "Rentabilidad anual típica",
     "bumpiness": "¿Cómo de movido es el camino?",
     "riskLevel": "Nivel de riesgo"
   },
-  "allStrategiesHeader": "Las 10 Estrategias",
-  "allCardsHonestLimitation": "Todas las estadísticas se basan en análisis histórico (mayo 2022 - diciembre 2025) y miles de simulaciones Monte Carlo. Para protocolos más recientes, los retornos de periodos anteriores se estiman usando proxies validados basados en sistemas similares. Lo que pasó en el pasado puede no repetirse. Estos números te ayudan a comparar estrategias, no a predecir el futuro.",
+  "allStrategiesHeader": "Las 10 estrategias",
+  "allCardsHonestLimitation": "Todas las estadísticas se basan en el historial público on-chain de los protocolos (mayo 2022 a diciembre 2025) y miles de simulaciones Monte Carlo. Estamos en pre-lanzamiento, así que estas son cifras de los protocolos, no resultados de diBoaS. Para protocolos más recientes, la rentabilidad de periodos anteriores se estima usando proxies validados basados en sistemas similares. Lo que pasó en el pasado puede no repetirse. Estos números te ayudan a comparar estrategias, no a predecir el futuro.",
   "growthBadge": "Crecimiento",
   "card": {
     "showMore": "Más detalles",
@@ -249,7 +249,7 @@
       "type": "Tipo",
       "chain": "Red",
       "asset": "Activo",
-      "cryptoExposure": "Exposición Cripto",
+      "cryptoExposure": "Exposición cripto",
       "operatingSince": "En funcionamiento desde"
     },
     "items": {
@@ -260,7 +260,7 @@
         "asset": "USDS",
         "cryptoExposure": "Ninguna",
         "operatingSince": "2022",
-        "summary": "Retornos generados prestando USDS a prestatarios. Tipo variable.",
+        "summary": "Rendimiento generado prestando USDS a prestatarios. Tipo variable.",
         "verifyUrl": "https://sky.money",
         "defillamaUrl": "https://defillama.com/protocol/sky"
       },
@@ -271,7 +271,7 @@
         "asset": "USDC",
         "cryptoExposure": "Ninguna",
         "operatingSince": "2020 (V3: 2022)",
-        "summary": "Retornos generados prestando USDC a prestatarios. Tipo variable. Múltiples auditorías independientes.",
+        "summary": "Rendimiento generado prestando USDC a prestatarios. Tipo variable. Múltiples auditorías independientes.",
         "verifyUrl": "https://aave.com",
         "defillamaUrl": "https://defillama.com/protocol/aave-v3"
       },
@@ -282,7 +282,7 @@
         "asset": "USDC",
         "cryptoExposure": "Ninguna",
         "operatingSince": "2018 (V3: 2022)",
-        "summary": "Retornos generados prestando USDC a prestatarios. Tipo variable. Uno de los protocolos de préstamo DeFi más antiguos.",
+        "summary": "Rendimiento generado prestando USDC a prestatarios. Tipo variable. Uno de los protocolos de préstamo DeFi más antiguos.",
         "verifyUrl": "https://compound.finance",
         "defillamaUrl": "https://defillama.com/protocol/compound-v3"
       },
@@ -293,7 +293,7 @@
         "asset": "SOL",
         "cryptoExposure": "Sí, se mueve con el precio de SOL",
         "operatingSince": "2024",
-        "summary": "Retornos generados a partir de recompensas de staking de Solana en una cesta de tokens de staking líquido.",
+        "summary": "Rendimiento generado a partir de recompensas de staking de Solana en una cesta de tokens de staking líquido.",
         "verifyUrl": "https://sanctum.so",
         "defillamaUrl": "https://defillama.com/protocol/sanctum"
       },
@@ -304,7 +304,7 @@
         "asset": "45% SOL / 27% ETH / 27% BTC / 1% otros",
         "cryptoExposure": "Sí, se mueve con precios de SOL, ETH, BTC",
         "operatingSince": "2024",
-        "summary": "Retornos generados a partir de comisiones pagadas por traders de futuros perpetuos. Actúa como contraparte de operaciones apalancadas.",
+        "summary": "Rendimiento generado a partir de comisiones pagadas por traders de futuros perpetuos. Actúa como contraparte de operaciones apalancadas.",
         "verifyUrl": "https://jup.ag",
         "defillamaUrl": "https://defillama.com/protocol/jupiter-perpetual-exchange"
       },
@@ -315,16 +315,16 @@
         "asset": "JitoSOL",
         "cryptoExposure": "Sí, se mueve con el precio de SOL",
         "operatingSince": "2022",
-        "summary": "Retornos generados a partir de recompensas de staking de Solana más ingresos MEV (Maximal Extractable Value).",
+        "summary": "Rendimiento generado a partir de recompensas de staking de Solana más ingresos MEV (Maximal Extractable Value).",
         "verifyUrl": "https://jito.network",
         "defillamaUrl": "https://defillama.com/protocol/jito"
       }
     },
-    "belowTable": "Los nombres de los protocolos se usan por transparencia. Su inclusión no implica que estos protocolos respalden a diBoaS. Para protocolos en funcionamiento menos de 4 años, los retornos de periodos anteriores se estiman usando metodologías proxy validadas basadas en sistemas similares.",
+    "belowTable": "Los nombres de los protocolos se usan por transparencia. Su inclusión no implica que estos protocolos respalden a diBoaS. Para protocolos en funcionamiento menos de 4 años, la rentabilidad de periodos anteriores se estima usando metodologías proxy validadas basadas en sistemas similares.",
     "honestLimitation": "Código abierto y auditado no significa libre de riesgo. El código puede tener vulnerabilidades no descubiertas. Tu riesgo se reduce distribuyendo tu dinero entre múltiples protocolos independientes, pero no podemos eliminarlo.",
     "verifyOnDefillama": "Verificar en DeFiLlama",
     "verifyOnSite": "Visitar sitio del protocolo",
-    "checkProtocolsPage": "Consulta la Página de Protocolos"
+    "checkProtocolsPage": "Consulta la página de protocolos"
   },
   "fees": {
     "header": "Cuánto cuesta",
@@ -346,7 +346,7 @@
         "example": "Vendes 1.000 EUR: cuesta 3,90 EUR"
       }
     },
-    "belowTable": "Nada más. Sin spreads ni cargos ocultos.\n\nMeter dinero en una estrategia no cuesta nada. Solo cobramos cuando sacas tu dinero. Si tu dinero está en una estrategia generando retornos, nosotros no ganamos nada hasta que salgas.",
+    "belowTable": "Nada más. Sin spreads ni cargos ocultos.\n\nMeter dinero en una estrategia no cuesta nada. Solo cobramos cuando sacas tu dinero. Si tu dinero está en una estrategia generando rendimiento, nosotros no ganamos nada hasta que salgas.",
     "microText": "Pueden aplicarse tarifas de red de terceros (normalmente menos de 0,01 $). Para la tabla completa de costes, incluidas transferencias y retiros, consulta la tabla de costes en nuestra página de inicio."
   },
   "howToChoose": {
@@ -355,25 +355,25 @@
     "question1": {
       "title": "¿Para qué es este dinero?",
       "options": {
-        "emergency": "Fondo de emergencia: Safe Harbor. Dinero que puedes necesitar mañana se queda estable.",
+        "emergency": "Fondo de emergencia: Safe Harbor. Dinero que puedes necesitar mañana, pensado para mantenerse estable.",
         "beatInflation": "Superar la inflación: Stable Growth. Tu dinero trabaja más, pero el 30% se mueve con el mercado.",
         "shortTerm": "Algo en los próximos 2 años: Goal Keeper (estable) o Steady Progress (con crecimiento). Depende de cómo te sientes con el movimiento de precio.",
         "mediumTerm": "Algo a 2-5 años: Patient Builder (estable) o Balanced Builder (con crecimiento). Más tiempo significa que puedes considerar más crecimiento.",
-        "longTerm": "Patrimonio a largo plazo: Steady Compounder, Wealth Accelerator, Yield Maximizer o Full Throttle. Tu horizonte temporal es tu mayor ventaja."
+        "longTerm": "Patrimonio a largo plazo: Steady Compounder, Wealth Accelerator, Full Harvest o Full Throttle. Tu horizonte temporal es tu mayor ventaja."
       }
     },
     "question2": {
       "title": "¿Cómo te sientes con las oscilaciones de precio?",
       "options": {
-        "none": "\"No quiero ninguna.\" Quédate en la columna de Retornos Estables. Cinco estrategias, cero exposición a cripto.",
-        "understand": "\"Las entiendo y puedo esperar a que pasen las caídas.\" Considera la columna de Potencial de Crecimiento. Cuanto más largo tu horizonte, más exposición a crecimiento puedes considerar.",
+        "none": "\"No quiero ninguna.\" Quédate en la columna de Rentabilidad estable. Cinco estrategias, cero exposición a cripto.",
+        "understand": "\"Las entiendo y puedo esperar a que pasen las caídas.\" Considera la columna de Potencial de crecimiento. Cuanto más largo tu horizonte, más exposición a crecimiento puedes considerar.",
         "unsure": "\"No estoy seguro.\" Empieza en estable. Aprende cómo funciona todo con dinero que te sientas cómodo arriesgando. Siempre puedes añadir exposición a crecimiento después."
       }
     },
     "question3": {
       "title": "¿Qué harías si tu saldo bajara un 20%?",
       "options": {
-        "panic": "\"Entraría en pánico y retiraría.\" Solo estrategias de Retornos Estables. Eso no es debilidad. Es autoconocimiento.",
+        "panic": "\"Entraría en pánico y retiraría.\" Solo estrategias de Rentabilidad estable. Eso no es debilidad. Es autoconocimiento.",
         "wait": "\"Esperaría a que se recupere.\" Las estrategias de crecimiento bajo-medio podrían funcionar para ti.",
         "addMore": "\"Metería más dinero.\" Puede que estés preparado para más exposición a crecimiento. Es inteligente si está planificado. Menos inteligente si es pánico intentando recuperar lo que perdiste. Asegúrate de saber cuál de las dos es."
       }
@@ -382,50 +382,7 @@
     "goldenRule": "En caso de duda, empieza seguro. Siempre puedes subir después. Considera consultar a un asesor financiero autorizado si no tienes claro qué enfoque se ajusta a tu situación."
   },
   "faq": {
-    "header": "Antes de decidir",
-    "items": {
-      "switch": {
-        "question": "¿Puedo cambiar de estrategia?",
-        "answer": "Sí, en cualquier momento. Sin penalizaciones. Sin preguntas.\n\nAlgo a tener en cuenta: si cambias durante una caída del mercado, podrías materializar una pérdida temporal. El mejor momento para cambiar es cuando tus objetivos cambian, no cuando el mercado se mueve."
-      },
-      "multiple": {
-        "question": "¿Puedo usar varias estrategias a la vez?",
-        "answer": "Sí. Mucha gente lo hace.\n\nPiensa en ello como diferentes cuentas para diferentes propósitos: fondo de emergencia en Safe Harbor, ahorro para vacaciones en Goal Keeper, patrimonio a largo plazo en Balanced Builder."
-      },
-      "rebalancing": {
-        "question": "¿Cómo funciona el rebalanceo?",
-        "answer": "Cuando los movimientos del mercado empujan tu asignación fuera del objetivo (más del 10% de desviación), te avisamos. Por ejemplo, si tu objetivo es 60% estable y 40% crecimiento, y los movimientos del mercado lo llevan a algo como 55/45 o más lejos, te lo hacemos saber.\n\nVerás exactamente qué cambió y por qué. Luego tú decides: apruebas el rebalanceo o lo dejas como está.\n\nNunca movemos tu dinero sin tu aprobación."
-      },
-      "guaranteed": {
-        "question": "¿Están garantizados estos retornos?",
-        "answer": "No. Y cualquiera que te garantice retornos te está mintiendo.\n\nLo que podemos decirte: hemos probado cada estrategia con casi 4 años de datos reales de mercado (mayo 2022 - diciembre 2025). Los números se basan en lo que realmente ocurrió y en miles de simulaciones Monte Carlo.\n\nEstos números te ayudan a comparar estrategias y entender el rango de resultados posibles. No predicen el futuro. Empieza con lo que puedas permitirte aprender."
-      },
-      "systemProblem": {
-        "question": "¿Y si uno de los sistemas tiene un problema?",
-        "answer": "Es un riesgo real. Estos sistemas están construidos sobre código, y el código puede tener vulnerabilidades.\n\nReducimos este riesgo usando solo sistemas que han protegido miles de millones de euros durante años, distribuyendo tu dinero entre múltiples sistemas independientes, y monitorizando continuamente cualquier actividad inusual.\n\nNo podemos eliminar este riesgo. Nadie puede. Pero podemos ser honestos al respecto."
-      },
-      "whereMoneyGoes": {
-        "question": "¿Dónde va realmente mi dinero?",
-        "answer": "Los protocolos detrás de cada estrategia están listados en esta página con sus nombres, redes, tipos de activo e historial. Sin necesidad de registrarte. Sin información oculta.\n\nSky SSR, Aave V3 y Compound V3 gestionan los retornos estables. Sanctum INF, Jupiter JLP y Jito gestionan el crecimiento. Cada estrategia es una combinación específica de estos protocolos con porcentajes exactos mostrados en cada tarjeta de estrategia.\n\nElegimos estos protocolos porque son transparentes, están probados en batalla, y puedes verificar todo tú mismo."
-      },
-      "fullThrottleReqs": {
-        "question": "¿Por qué hay requisitos extra para Full Throttle?",
-        "answer": "Porque queremos protegerte de ti mismo.\n\nFull Throttle puede perder la mayor parte de su valor. Los requisitos no están para excluirte. Están para asegurarse de que lo has pensado bien: 6 meses de experiencia, un saldo mínimo, un límite del 20% de tu cartera, y un período de espera de 24 horas."
-      },
-      "safe": {
-        "question": "¿Mi dinero está seguro?",
-        "answerA": "Tu dinero está protegido por ti. Tu monedero, tus claves. Nadie en diBoaS puede acceder a tus fondos sin tu autorización.\n\nDicho esto, esto no es una cuenta bancaria. Tus fondos trabajan a través de sistemas automatizados construidos sobre código. El valor puede fluctuar, y podrías perder parte o toda tu inversión. No existe seguro de depósitos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre.",
-        "answerB": "Tu dinero lo proteges tú. Tu cartera, tus claves, y diBoaS no guarda ninguna parte de ellas. Si necesitas recuperar el acceso, eso pasa por un socio independiente, no por diBoaS. Nadie en diBoaS puede mover tu dinero.\n\nDicho esto, esto no es una cuenta bancaria. Tus fondos trabajan a través de sistemas automatizados construidos sobre código. El valor puede fluctuar, y podrías perder parte o toda tu inversión. No existe seguro de depósitos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre."
-      },
-      "loseEverything": {
-        "question": "¿Puedo perderlo todo?",
-        "answer": "En las estrategias estables (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): la probabilidad de pérdida total es extremadamente baja. En casi 4 años de pruebas y miles de simulaciones, no ocurrió. Pero \"extremadamente baja\" no es cero.\n\nEn las estrategias de crecimiento: cuanto mayor el porcentaje de crecimiento, más amplio el rango de resultados posibles. Full Throttle con un 85% de exposición a crecimiento ha registrado caídas simuladas superiores al 78%.\n\nEl riesgo es real. No lo minimizamos. Te ayudamos a elegir el nivel que encaja con lo que puedes asumir."
-      },
-      "bankDifference": {
-        "question": "¿En qué se diferencia de una cuenta de ahorro?",
-        "answer": "Una cuenta de ahorro bancaria está asegurada por el Fondo de Garantía de Depósitos (hasta 100.000 EUR por entidad). Tu dinero genera un tipo fijo. El banco lo controla.\n\nLas estrategias de diBoaS usan sistemas automatizados de préstamo y staking. Los retornos son variables. Tu dinero no está asegurado. Tú lo controlas a través de tu propio monedero.\n\nLa contrapartida: retornos potencialmente mayores, pero aceptas el riesgo que conlleva un tipo de sistema diferente."
-      }
-    }
+    "header": "Antes de decidir"
   },
   "sections": {
     "faq": {

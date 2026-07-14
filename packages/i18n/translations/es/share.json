@@ -1,16 +1,4 @@
 {
-  "headline": "Comparte tu sueño",
-  "subhead": "Muestra a otros lo que es posible",
-  "modal": {
-    "title": "Compartir",
-    "close": "Cerrar",
-    "shareVia": "Compartir vía",
-    "copyLink": "Copiar enlace",
-    "copied": "¡Copiado!",
-    "download": "Descargar imagen",
-    "generating": "Creando tu tarjeta...",
-    "noPreview": "Sin vista previa disponible"
-  },
   "platform": {
     "instagram": "Instagram",
     "twitter": "X / Twitter",
@@ -33,37 +21,20 @@
     "shareCancelled": "Compartir cancelado",
     "linkedInCopied": "¡Texto copiado! Pégalo en tu publicación de LinkedIn."
   },
-  "instagramInstructions": "¡Imagen guardada! Abre Instagram y comparte desde tu galería.",
-  "card": {
-    "cta": "Mira lo que el tuyo podría hacer →",
-    "generating": "Creando tu tarjeta...",
-    "ready": "¡Tu tarjeta está lista!"
-  },
-  "referral": {
-    "intro": "Tu enlace personal:",
-    "benefit": "Comparte para ayudar a amigos a tener acceso anticipado",
-    "copied": "¡Enlace copiado!"
-  },
-  "timeframes": {
-    "1week": "1 semana",
-    "1month": "1 mes",
-    "1year": "1 año",
-    "5years": "5 años"
-  },
   "waitlist": {
     "text": "Acabo de encontrar una forma fácil y justa de hacer crecer y mover mi dinero. Es tan bueno que tengo que compartirlo"
   },
   "og": {
     "waitlist": {
-      "title": "Soy #{position} en la lista de espera de diBoaS!",
+      "title": "¡Soy #{position} en la lista de espera de diBoaS!",
       "description": "Únete a mí en diBoaS - Libertad Financiera Simplificada"
     },
     "calculator": {
-      "title": "Mi inversión podría crecer a {formattedAmount}!",
+      "title": "Mi inversión podría crecer a {formattedAmount}",
       "description": "En {years} años con la Calculadora Dream Mode de diBoaS"
     },
     "toolResult": {
-      "title": "Lo que mi dinero realmente ganaría: {value}",
+      "title": "Lo que mi dinero podría ganar: {value}",
       "titleByTool": {
         "asset-history": "Cuánto valdría hoy: {value}",
         "card-fees": "Cuánto podría ahorrar: {value}"

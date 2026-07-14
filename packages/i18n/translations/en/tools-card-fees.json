@@ -23,14 +23,14 @@
     "monthlyFee": "Going to processors monthly",
     "annualSavings": "Could save with diBoaS",
     "perTxLabel": "Fee per transaction",
-    "caveat": "This shows the maximum potential savings, assuming 100% of card payments flow through diBoaS. Real savings scale with diBoaS adoption by your customers. This is an upper-bound estimate."
+    "caveat": "This shows the maximum potential savings, assuming 100% of card payments flow through diBoaS. Real savings scale with diBoaS adoption by your customers. This is an upper-bound estimate. The figure is already net of diBoaS's own movement fee."
   },
   "resultMoment": {
     "eyebrow": "What card fees really cost",
     "shareText": "Card processing fees quietly add up. My business could save {value} a year with diBoaS. Check yours on diBoaS Money Tools."
   },
   "vignette": {
-    "subtitle": "Same revenue. Different processor. Big difference."
+    "subtitle": "Same revenue. Lower fees. Big difference."
   },
   "landing": {
     "cardTitle": "Card Fee Savings",

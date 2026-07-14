@@ -109,7 +109,9 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
   }
 
   // Load page-specific namespaces (common + waitlist already provided by landing layout)
-  const pageMessages = await loadPageNamespaces(locale, ['protocols', 'landing-b2c']);
+  // 'faq' provides the canonical FAQ strings (2026-07-13 SSOT — the page's FAQ
+  // now sources from faq.json via the FAQ registry, not the protocols namespace).
+  const pageMessages = await loadPageNamespaces(locale, ['protocols', 'landing-b2c', 'faq']);
 
   // Generate structured data
   const organizationData = SEOMetadataFactory.generateServiceStructuredData({

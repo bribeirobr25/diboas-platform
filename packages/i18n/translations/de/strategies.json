@@ -5,7 +5,7 @@
   },
   "hero": {
     "headline": "Der Zugang, den sie sich vorbehalten haben. Jetzt gehört er dir.",
-    "subheadline": "Verschiedene Ziele. Verschiedene Risikolevel. Verschiedene Bedürfnisse",
+    "subheadline": "Verschiedene Ziele. Verschiedene Zeithorizonte. Sieh Risiko und Weg, bevor du wählst.",
     "subheadline2": ""
   },
   "matrix": {
@@ -44,7 +44,7 @@
       },
       "wealthBuilding": {
         "goal": "Altersvorsorge",
-        "stable": "Yield Maximizer",
+        "stable": "Full Harvest",
         "growth": "Full Throttle"
       }
     },
@@ -186,9 +186,9 @@
       "warning": "In tausenden Simulationen reichten die Ergebnisse von -60% bis +200%+. Die Verlustziffer (47%) ist der schlimmste vorübergehende Rückgang während unseres Tests. Die Spanne (-60% bis +200%+) ist die gesamte Bandbreite der Simulationen. Nur für Menschen, die erhebliche Verluste verkraften können."
     },
     "yieldMaximizer": {
-      "name": "Yield Maximizer",
+      "name": "Full Harvest",
       "badge": "Stabile Renditen | Vermögensaufbau",
-      "tagline": "Maximale Rendite, minimale Volatilität",
+      "tagline": "Stabile Renditen, geringe Kursschwankungen.",
       "description": "Du willst die höchsten stabilen Renditen über 10+ Jahre ohne Abhängigkeit von Krypto-Kursen. Kein Wachstumsanteil. Nur optimierte Renditen über alle drei stabilen Verleihsysteme.",
       "allocation": "45% Sky SSR + 35% Aave V3 + 20% Compound V3",
       "allocationNote": "Unsere Konfiguration mit der höchsten stabilen Rendite.",
@@ -235,7 +235,7 @@
     "riskLevel": "Risikoniveau"
   },
   "allStrategiesHeader": "Alle 10 Strategien",
-  "allCardsHonestLimitation": "Alle Statistiken basieren auf historischer Analyse (Mai 2022 - Dezember 2025) und tausenden Monte-Carlo-Simulationen. Für neuere Protokolle werden Renditen früherer Zeiträume mithilfe validierter Proxy-Methoden auf Basis ähnlicher Systeme geschätzt. Was in der Vergangenheit passiert ist, muss nicht wieder passieren. Diese Zahlen helfen dir, Strategien zu vergleichen, nicht die Zukunft vorherzusagen.",
+  "allCardsHonestLimitation": "Alle Statistiken basieren auf der öffentlichen On-Chain-Historie der Protokolle (Mai 2022 bis Dezember 2025) und tausenden Monte-Carlo-Simulationen. Wir sind vor dem Launch, daher sind das Zahlen der Protokolle, keine diBoaS-Ergebnisse. Für neuere Protokolle werden Renditen früherer Zeiträume mithilfe validierter Proxy-Methoden auf Basis ähnlicher Systeme geschätzt. Was in der Vergangenheit passiert ist, muss nicht wieder passieren. Diese Zahlen helfen dir, Strategien zu vergleichen, nicht die Zukunft vorherzusagen.",
   "growthBadge": "Wachstum",
   "card": {
     "showMore": "Mehr Details",
@@ -355,11 +355,11 @@
     "question1": {
       "title": "Wofür ist dieses Geld?",
       "options": {
-        "emergency": "Notgroschen: Safe Harbor. Geld, das du morgen brauchen könntest, bleibt stabil.",
+        "emergency": "Notgroschen: Safe Harbor. Geld, das du morgen brauchen könntest, darauf ausgelegt, stabil zu bleiben.",
         "beatInflation": "Inflation schlagen: Stable Growth. Dein Geld arbeitet härter, aber 30% bewegen sich mit dem Markt.",
         "shortTerm": "Etwas in den nächsten 2 Jahren: Goal Keeper (stabil) oder Steady Progress (mit Wachstum). Kommt darauf an, wie du dich bei Kursschwankungen fühlst.",
         "mediumTerm": "Etwas in 2-5 Jahren: Patient Builder (stabil) oder Balanced Builder (mit Wachstum). Mehr Zeit bedeutet, du kannst mehr Wachstum in Betracht ziehen.",
-        "longTerm": "Langfristiger Vermögensaufbau: Steady Compounder, Wealth Accelerator, Yield Maximizer oder Full Throttle. Dein Zeithorizont ist dein größter Vorteil."
+        "longTerm": "Langfristiger Vermögensaufbau: Steady Compounder, Wealth Accelerator, Full Harvest oder Full Throttle. Dein Zeithorizont ist dein größter Vorteil."
       }
     },
     "question2": {
@@ -382,50 +382,7 @@
     "goldenRule": "Im Zweifel: Starte sicher. Du kannst später immer wechseln. Ziehe in Betracht, einen zugelassenen Finanzberater zu konsultieren, wenn du dir nicht sicher bist, welcher Ansatz zu deiner Situation passt."
   },
   "faq": {
-    "header": "Bevor du dich entscheidest",
-    "items": {
-      "switch": {
-        "question": "Kann ich die Strategie wechseln?",
-        "answer": "Ja, jederzeit. Ohne Strafen. Ohne Fragen.\n\nEtwas zum Beachten: Wenn du während eines Markteinbruchs wechselst, könntest du einen vorübergehenden Verlust realisieren. Der beste Zeitpunkt zum Wechseln ist, wenn sich deine Ziele ändern, nicht wenn sich der Markt bewegt."
-      },
-      "multiple": {
-        "question": "Kann ich mehrere Strategien gleichzeitig nutzen?",
-        "answer": "Ja. Viele Leute machen das.\n\nStell dir das wie verschiedene Konten für verschiedene Zwecke vor: Notgroschen im Sicheren Hafen, Urlaubssparen im Goal Keeper, langfristiger Vermögensaufbau im Ausgewogenen Aufbauer."
-      },
-      "rebalancing": {
-        "question": "Wie funktioniert das Rebalancing?",
-        "answer": "Wenn Marktbewegungen deine Allokation vom Ziel abdriften lassen (mehr als 10% Abweichung), benachrichtigen wir dich. Zum Beispiel: Wenn dein Ziel 60% stabil und 40% Wachstum ist, und Marktbewegungen es auf etwa 55/45 oder weiter schieben, geben wir dir Bescheid.\n\nDu siehst genau, was sich geändert hat und warum. Dann entscheidest du: Rebalancing genehmigen oder so lassen.\n\nWir bewegen dein Geld nie ohne deine Zustimmung."
-      },
-      "guaranteed": {
-        "question": "Sind diese Renditen garantiert?",
-        "answer": "Nein. Und jeder, der dir Renditen garantiert, lügt dich an.\n\nWas wir dir sagen können: Wir haben jede Strategie mit fast 4 Jahren realer Marktdaten getestet (Mai 2022 - Dezember 2025). Die Zahlen basieren auf dem, was tatsächlich passiert ist, und tausenden Monte-Carlo-Simulationen.\n\nDiese Zahlen helfen dir, Strategien zu vergleichen und die Bandbreite möglicher Ergebnisse zu verstehen. Sie sagen nicht die Zukunft voraus. Starte mit dem, was du dir leisten kannst zu lernen."
-      },
-      "systemProblem": {
-        "question": "Was ist, wenn eines der Systeme ein Problem hat?",
-        "answer": "Das ist ein reales Risiko. Diese Systeme basieren auf Code, und Code kann Schwachstellen haben.\n\nWir reduzieren dieses Risiko, indem wir nur Systeme verwenden, die seit Jahren Milliarden von Euro gesichert haben, dein Geld auf mehrere unabhängige Systeme verteilen und kontinuierlich auf ungewöhnliche Aktivitäten überwachen.\n\nWir können dieses Risiko nicht beseitigen. Niemand kann das. Aber wir können ehrlich darüber sein."
-      },
-      "whereMoneyGoes": {
-        "question": "Wohin geht mein Geld wirklich?",
-        "answer": "Die Protokolle hinter jeder Strategie sind auf dieser Seite mit Namen, Netzwerken, Vermögenswerttypen und Leistungshistorie aufgelistet. Ohne Registrierung. Ohne versteckte Informationen.\n\nSky SSR, Aave V3 und Compound V3 kümmern sich um stabile Renditen. Sanctum INF, Jupiter JLP und Jito kümmern sich um das Wachstum. Jede Strategie ist eine spezifische Kombination dieser Protokolle mit exakten Prozentsätzen auf jeder Strategiekarte.\n\nWir haben diese Protokolle gewählt, weil sie transparent und kampferprobt sind und du alles selbst überprüfen kannst."
-      },
-      "fullThrottleReqs": {
-        "question": "Warum gibt es zusätzliche Anforderungen für Full Throttle?",
-        "answer": "Weil wir dich vor dir selbst schützen wollen.\n\nFull Throttle kann den Großteil seines Wertes verlieren. Die Anforderungen sind nicht dazu da, dich auszuschließen. Sie sind dazu da sicherzustellen, dass du es durchdacht hast: 6 Monate Erfahrung, ein Mindestguthaben, eine Obergrenze von 20% deines Portfolios und eine 24-Stunden-Abkühlphase."
-      },
-      "safe": {
-        "question": "Ist mein Geld sicher?",
-        "answerA": "Dein Geld wird von dir gesichert. Deine Wallet, deine Schlüssel. Niemand bei diBoaS kann ohne deine Genehmigung auf dein Guthaben zugreifen.\n\nAllerdings: Das ist kein Bankkonto. Dein Geld arbeitet in automatisierten Systemen, die auf Code basieren. Der Wert kann schwanken, und du kannst einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer.",
-        "answerB": "Dein Geld sicherst du selbst. Deine Wallet, deine Schlüssel, und diBoaS hält keinen Teil davon. Falls du den Zugang wiederherstellen musst, läuft das über einen unabhängigen Partner, nicht über diBoaS. Niemand bei diBoaS kann dein Geld bewegen.\n\nAllerdings: Das ist kein Bankkonto. Dein Geld arbeitet in automatisierten Systemen, die auf Code basieren. Der Wert kann schwanken, und du kannst einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer."
-      },
-      "loseEverything": {
-        "question": "Kann ich alles verlieren?",
-        "answer": "Bei den stabilen Strategien (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): Die Wahrscheinlichkeit eines Totalverlusts ist äußerst gering. In fast 4 Jahren Tests und tausenden Simulationen ist es nicht passiert. Aber \"äußerst gering\" ist nicht null.\n\nBei den Wachstumsstrategien: Je höher der Wachstumsanteil, desto breiter die Bandbreite möglicher Ergebnisse. Full Throttle mit 85% Wachstums-Exposure hat simulierte Rückgänge von über 78% gezeigt.\n\nDas Risiko ist real. Wir verharmlosen es nicht. Wir helfen dir, das Niveau zu wählen, das zu dem passt, was du verkraften kannst."
-      },
-      "bankDifference": {
-        "question": "Was ist der Unterschied zu einem Tagesgeldkonto?",
-        "answer": "Ein Tagesgeldkonto ist durch die Einlagensicherung geschützt (bis zu 100.000 EUR pro Institut). Dein Geld verdient einen festen Zinssatz. Die Bank kontrolliert es.\n\nDie Strategien von diBoaS nutzen automatisierte Verleih- und Staking-Systeme. Die Renditen sind variabel. Dein Geld ist nicht versichert. Du kontrollierst es über deine eigene Wallet.\n\nDer Kompromiss: Potenziell höhere Renditen, aber du akzeptierst das Risiko, das mit einer anderen Art von System einhergeht."
-      }
-    }
+    "header": "Bevor du dich entscheidest"
   },
   "sections": {
     "faq": {

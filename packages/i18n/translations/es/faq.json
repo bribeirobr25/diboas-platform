@@ -1,7 +1,7 @@
 {
-  "title": "Preguntas Frecuentes",
+  "title": "Preguntas frecuentes",
   "description": "Encuentra respuestas a tus principales dudas. Si no la encuentras aquí, nuestro chat responde en minutos.",
-  "ctaText": "Ver Todas las Preguntas",
+  "ctaText": "Ver todas las preguntas",
   "items": {
     "isBank": {
       "question": "¿Es diBoaS un banco?",
@@ -25,7 +25,7 @@
     },
     "understanding": {
       "question": "¿Y si no entiendo de inversiones?",
-      "answer": "Para eso exactamente lo hemos construido. Nuestro objetivo es hacerlo tan sencillo que cualquiera pueda hacerlo. Sin jerga. Sin decisiones complicadas. Solo opciones claras e información transparente. Empieza con 5 €. Explora. Aprende. Estamos aquí en cada paso."
+      "answer": "Para exactamente eso lo construimos. Abres la app, ves un número, una meta y un siguiente paso en lenguaje claro. Sin jerga, sin decisiones complicadas. Empieza con 5 €. Explora. Aprende. Estamos contigo en cada paso."
     },
     "micaRegulated": {
       "question": "¿Es diBoaS compatible con MiCA?",
@@ -57,7 +57,7 @@
     },
     "whatIfWrong": {
       "question": "¿Y si algo sale mal?",
-      "answer": "Sí, puedes perder dinero. Lo cubrimos honestamente en la sección anterior. En resumen: probamos cada estrategia contra crisis pasadas, monitorizamos las 24 horas y siempre te diremos qué está pasando. Pero no podemos eliminar todo el riesgo, y no vamos a fingir que podemos."
+      "answer": "Sí, puedes perder dinero. Lo cubrimos honestamente en la sección anterior. En resumen: usamos solo protocolos auditados y establecidos, monitorizamos las 24 horas y siempre te diremos qué está pasando. Pero no podemos eliminar todo el riesgo, y no vamos a fingir que podemos."
     },
     "lostPhone": {
       "question": "¿Y si pierdo mi móvil?",
@@ -69,7 +69,7 @@
     },
     "liquidity": {
       "question": "¿Puedo acceder a mi dinero en cualquier momento?",
-      "answer": "Sí. Sin bloqueos. Tú pones el mínimo: \"siempre tener 50.000 EUR líquidos.\" Solo ponemos a trabajar lo que está por encima.\n\n¿Necesitas efectivo? Un toque. Lo procesamos al instante. Los tiempos de transferencia bancaria pueden variar. Sin penalizaciones. Sin preguntas."
+      "answer": "Sí. Sin bloqueos. Tú pones el mínimo: \"siempre tener 500 EUR líquidos.\" Solo ponemos a trabajar lo que está por encima.\n\n¿Necesitas efectivo? Un toque. Lo procesamos al instante. Los tiempos de transferencia bancaria pueden variar. Sin penalizaciones."
     },
     "whyCantTouch": {
       "question": "¿Por qué diBoaS no puede tocar mi dinero?",
@@ -81,7 +81,7 @@
     },
     "canLoseEverything": {
       "question": "¿Puedo perderlo todo?",
-      "answer": "En las estrategias estables (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): la probabilidad de pérdida total es extremadamente baja. En casi 4 años de pruebas y miles de simulaciones, no ocurrió. Pero \"extremadamente baja\" no es cero.\n\nEn las estrategias de crecimiento: cuanto mayor el porcentaje de crecimiento, más amplio el rango de resultados posibles. Full Throttle con un 85% de exposición a crecimiento ha registrado caídas simuladas superiores al 78%.\n\nEl riesgo es real. No lo minimizamos. Te ayudamos a elegir el nivel que encaja con lo que puedes asumir."
+      "answer": "En las estrategias estables (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Full Harvest): la probabilidad de pérdida total es extremadamente baja. En el historial público on-chain de los protocolos y en miles de simulaciones, la pérdida total no ocurrió. Estas son cifras de los protocolos, no resultados de diBoaS. Pero \"extremadamente baja\" no es cero.\n\nEn las estrategias de crecimiento: cuanto mayor el porcentaje de crecimiento, más amplio el rango de resultados posibles. Full Throttle con un 85% de exposición a crecimiento ha registrado caídas simuladas superiores al 78%.\n\nEl riesgo es real. No lo minimizamos. Te ayudamos a elegir el nivel que encaja con lo que puedes asumir."
     },
     "howPossible": {
       "question": "¿Cómo mantiene diBoaS los costes bajos?",
@@ -97,11 +97,11 @@
     },
     "audited": {
       "question": "¿Ha sido diBoaS auditado?",
-      "answer": "Somos una plataforma en pre-lanzamiento. Nuestras estrategias se prueban contra crisis históricas y escenarios reales, y usamos protocolos auditados y establecidos. A medida que crezcamos, buscaremos auditorías independientes de terceros. Para detalles completos, visita nuestras páginas de Estrategias y Protocolos."
+      "answer": "Somos una plataforma en pre-lanzamiento. Modelamos cada estrategia a partir del historial público on-chain de los protocolos que utiliza, y usamos protocolos auditados y establecidos. A medida que crezcamos, buscaremos auditorías independientes de terceros. Para detalles completos, visita nuestras páginas de Estrategias y Protocolos."
     },
     "canSwitchStrategies": {
       "question": "¿Puedo cambiar de estrategia?",
-      "answer": "Sí, en cualquier momento. Sin penalizaciones. Sin preguntas.\n\nAlgo a tener en cuenta: si cambias durante una caída del mercado, podrías materializar una pérdida temporal. El mejor momento para cambiar es cuando tus objetivos cambian, no cuando el mercado se mueve."
+      "answer": "Sí, en cualquier momento. Sin penalizaciones. Sin preguntas.\n\nAlgo a tener en cuenta: si cambias durante una caída del mercado, podrías materializar una pérdida temporal. Cambiar suele tener sentido cuando cambian tus objetivos, menos cuando se mueve el mercado. Tú decides cuándo."
     },
     "multipleStrategies": {
       "question": "¿Puedo usar varias estrategias a la vez?",
@@ -113,7 +113,7 @@
     },
     "returnsGuaranteed": {
       "question": "¿Están garantizados estos retornos?",
-      "answer": "No. Y cualquiera que te garantice retornos te está mintiendo.\n\nLo que podemos decirte: hemos probado cada estrategia con casi 4 años de datos reales de mercado (mayo 2022 - diciembre 2025). Los números se basan en lo que realmente ocurrió y en miles de simulaciones Monte Carlo.\n\nEstos números te ayudan a comparar estrategias y entender el rango de resultados posibles. No predicen el futuro. Empieza con lo que puedas permitirte aprender."
+      "answer": "No. Y cualquiera que te garantice retornos te está mintiendo.\n\nLo que podemos decirte: nuestras cifras provienen del historial público on-chain de los protocolos (mayo 2022 a diciembre 2025) y de miles de simulaciones Monte Carlo. Estamos en pre-lanzamiento, así que estas son cifras de los protocolos, no resultados de diBoaS.\n\nEstos números te ayudan a comparar estrategias y entender el rango de resultados posibles. No predicen el futuro. Empieza con lo que puedas permitirte aprender."
     },
     "whereMoneyGoesProtocols": {
       "question": "¿Dónde va realmente mi dinero?",
@@ -178,6 +178,11 @@
     "protocolsDirectInteraction": {
       "question": "¿Necesito interactuar con estos protocolos yo mismo?",
       "answer": "No. diBoaS gestiona todas las interacciones con los protocolos en tu nombre cuando eliges una estrategia. No necesitas crear cuentas en ningún protocolo, gestionar wallets en diferentes blockchains ni entender los detalles técnicos. Esta página existe por transparencia, no porque necesites hacer nada con ella."
+    },
+    "safeStrategy": {
+      "question": "¿Mi dinero está seguro?",
+      "answerA": "Tu dinero está protegido por ti. Tu monedero, tus claves. Nadie en diBoaS puede acceder a tus fondos sin tu autorización.\n\nDicho esto, esto no es una cuenta bancaria. Tus fondos trabajan a través de sistemas automatizados construidos sobre código. El valor puede fluctuar, y podrías perder parte o toda tu inversión. No existe seguro de depósitos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre.",
+      "answerB": "Tu dinero lo proteges tú. Tu cartera, tus claves, y diBoaS no guarda ninguna parte de ellas. Si necesitas recuperar el acceso, eso pasa por un socio independiente, no por diBoaS. Nadie en diBoaS puede mover tu dinero.\n\nDicho esto, esto no es una cuenta bancaria. Tus fondos trabajan a través de sistemas automatizados construidos sobre código. El valor puede fluctuar, y podrías perder parte o toda tu inversión. No existe seguro de depósitos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre."
     }
   }
 }

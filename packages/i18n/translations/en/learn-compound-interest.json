@@ -16,7 +16,7 @@
     "body": [
       "Difficult. Necessary. The first step. But on its own, never life-changing.",
       "$1,000 saved is $1,000 in six months. In one year. In forty years.",
-      "But that same $1,000 could be **~$2,252 in 12 years.**",
+      "But that same $1,000 could grow to about **$2,252 in 12 years.**",
       "How?",
       "Doing what every bank and every Wall Street firm has been doing for centuries. Using compound interest.",
       "The banks know this. The funds know this. They've been using it on your money — and paying you almost nothing back.",
@@ -56,7 +56,7 @@
       "twelveYear": "Could become in 12 years"
     },
     "vignettesOutro": "Same money. Different job.",
-    "vignettesDisclaimer": "Illustrative figures based on 10% historical compound rate (digital dollar yield envelope). Past performance does not guarantee future results.",
+    "vignettesDisclaimer": "Illustrative figures based on a 10% historical compound rate. Past performance does not guarantee future results.",
     "habitsRecap": "Nobody is asking you to give up your latte. Or your Friday takeout. Or your streaming. Keep what makes life good.",
     "outro": [
       "But if even one of these — just one — went to work for you instead of disappearing every month, the math you saw above is what happens.",
@@ -113,6 +113,6 @@
     "tableHeaderRate": "Annual rate",
     "tableHeaderTotal": "After {years} years",
     "loadingState": "Calculating…",
-    "calibrationNote": "What the rates mean. Conservative 7% lines up with what the digital-dollar yield envelope delivers via the Solana-first DeFi stack. Historical 10% sits in the middle of the long-run blended range. Optimistic 14% reflects curated/looped strategies. Independently: the S&P 500 total return averaged ~15.5% per year from 2010 to 2026, gold ~9% per year, and a Brazilian saver in BRL underperformed a Brazilian saver who held the digital dollar over the same window (full numbers in our research notes)."
+    "calibrationNote": "What the rates mean. The 7% conservative rate is the steadier scenario, 10% historical is the mid-range, and 14% optimistic is the more active one. These are scenarios, not promises, and every rate carries risk. Independently: the S&P 500 total return has averaged about 10% a year over the long run (nominal, with dividends reinvested; roughly 7% after inflation), and gold about 7% a year. Over the long run, saving in Brazilian reais lagged holding the digital dollar (full numbers in our research notes)."
   }
 }

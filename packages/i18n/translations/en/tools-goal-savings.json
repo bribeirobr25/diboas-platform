@@ -1,16 +1,15 @@
 {
   "seo": {
     "title": "Goal-Based Savings Calculator — plan toward any number",
-    "description": "Pick a goal amount and a timeframe. See what your monthly savings need to be, and what diBoaS could add. Free calculator from diBoaS."
+    "description": "Pick a goal amount and a timeframe. See what your monthly savings need to be, and compare bank vs diBoaS. Free calculator from diBoaS."
   },
   "hero": {
     "kicker": "Goal savings calculator",
     "headline": "Plan toward any number.",
-    "subtitle": "Pick what you want, by when. See bank vs diBoaS side-by-side."
+    "subtitle": "The deposit. The trip. The buffer. Name the number, then see bank vs diBoaS side-by-side."
   },
   "vignette": {
-    "headline": "{monthly}/month for {years} years could become {result}",
-    "subtitle": "Pick the cadence and amount that fits your life."
+    "subtitle": "Pick how often and how much fits your life."
   },
   "landing": {
     "cardTitle": "Goal-Based Savings",

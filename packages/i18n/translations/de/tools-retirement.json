@@ -5,12 +5,11 @@
   },
   "hero": {
     "kicker": "Rentenrechner",
-    "headline": "Plane eine Zukunft, in der Arbeit optional ist.",
-    "subtitle": "Wähle einen monatlichen Betrag. Sieh, was 25 Jahre werden könnten."
+    "headline": "Plane den Ruhestand, den du dir wünschst.",
+    "subtitle": "Wähle einen monatlichen Betrag. Sieh, wie 25 Jahre daraus zu einer Zahl werden, mit der du planen kannst."
   },
   "vignette": {
-    "headline": "{monthly}/Monat für {years} Jahre könnten {result} werden",
-    "subtitle": "Das bietet diBoaS, vs. der nahezu null Rendite deiner Bank."
+    "subtitle": "Eine Projektion, kein Versprechen. Märkte schwanken, und Ergebnisse variieren."
   },
   "disclaimer": "Dieses Werkzeug projiziert die Ansparphase fürs Rentenalter. Es modelliert keine Entnahmen, keine Lebenserwartung und kein tragfähiges Renteneinkommen. Das sind separate Fragen, die eigene Planung verdienen.",
   "landing": {

@@ -10,6 +10,7 @@
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslation } from '@diboas/i18n/client';
+import { useLocale } from '@/components/Providers';
 import styles from './DeleteConfirm.module.css';
 
 type DeletionState = 'idle' | 'confirming' | 'success' | 'expired' | 'error';
@@ -18,7 +19,10 @@ export default function DeleteConfirmPage() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
   const intl = useTranslation();
-  const [state, setState] = useState<DeletionState>(token ? 'idle' : 'error');
+  const { locale } = useLocale();
+  // A missing/malformed token is an invalid-link case, not a system failure —
+  // initialise to `expired` (accurate frame) rather than `error` (F-delete-confirm-1).
+  const [state, setState] = useState<DeletionState>(token ? 'idle' : 'expired');
 
   const t = (key: string) => {
     return intl.formatMessage({ id: `waitlist.deletion.${key}` });
@@ -75,6 +79,9 @@ export default function DeleteConfirmPage() {
         <>
           <h1 className={styles.titleExpired}>{t('expired')}</h1>
           <p className={styles.statusText}>{t('expiredBody')}</p>
+          <a href={`/${locale}/`} className={styles.backHomeLink}>
+            {t('backHome')}
+          </a>
         </>
       ) : null}
 
@@ -82,6 +89,9 @@ export default function DeleteConfirmPage() {
         <>
           <h1 className={styles.titleError}>{t('error')}</h1>
           <p className={styles.statusText}>{t('errorBody')}</p>
+          <a href={`/${locale}/`} className={styles.backHomeLink}>
+            {t('backHome')}
+          </a>
         </>
       ) : null}
     </div>

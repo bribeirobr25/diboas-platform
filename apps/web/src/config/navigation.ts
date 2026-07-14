@@ -7,7 +7,6 @@
  */
 
 import { NavigationConfig } from '@/types/navigation';
-import { ASSET_PATHS } from '@/config/assets';
 import { BUSINESS_URL } from '@/config/env';
 import { ROUTES } from '@/config/routes';
 
@@ -18,7 +17,6 @@ export const navigationConfig: NavigationConfig = {
     {
       id: 'about',
       label: 'common.navigation.aboutMenu.label',
-      banner: ASSET_PATHS.NAVIGATION.ABOUT_BANNER,
       description: 'common.navigation.aboutMenu.description',
       subItems: [
         {

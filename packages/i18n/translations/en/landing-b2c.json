@@ -28,33 +28,9 @@
     "footnote": "Comparison rates based on publicly available US data as a last 5 years average. Yield rates are subject to change and may vary across products. Digital dollar yields involve risk, including potential loss of principal.",
     "disclosureToggle": "See the full cost"
   },
-  "howItWorks": {
-    "transitionHook": "",
-    "header": "Take Control and Free your Money",
-    "step1": {
-      "title": "Send and Receive",
-      "description": "Send money to anyone on diBoaS. Anywhere in the world. In seconds. Free. Withdraw it anytime.",
-      "imageAlt": "Send and receive money"
-    },
-    "step2": {
-      "title": "Invest and Grow",
-      "description": "Choose from 10 ways to grow your money. Your money works while you sleep.",
-      "imageAlt": "Invest and grow your money"
-    },
-    "step3": {
-      "title": "Track and Learn",
-      "description": "What's moving. What it means. What you could do. Adelaide, your AI guide, explains it all in clear language, not jargon.",
-      "imageAlt": "Track and learn about your finances"
-    },
-    "step4": {
-      "title": "Buy and Hold",
-      "description": "Buy digital assets and hold them in your own wallet. Starting with BTC, ETH, and SOL. Stocks and Gold coming soon.",
-      "imageAlt": "Buy and hold digital assets"
-    }
-  },
   "fees": {
     "transitionHook": "Clear costs. Before you click.",
-    "title": "No surprise hiding at the bottom.",
+    "title": "No surprise in the fine print.",
     "subtitle": "",
     "painIntro": "",
     "disclaimer": "*diBoaS fees shown. Third-party provider, ramp, network, banking, or exchange fees may apply and are shown before confirmation where available.",
@@ -142,11 +118,10 @@
     "header": "Join us.",
     "description": "Open access and fair opportunities for everyone.",
     "emailPlaceholder": "Your email address",
-    "submitButton": "Get my spot",
     "privacyNote": "No spam. Just a message when it's your turn.",
     "privacyConsent": "By joining, you agree to our Privacy Policy.",
     "benefits": {
-      "badge": "Permanent Founding Member badge (#47 of 1,200)",
+      "badge": "Permanent Founding Member badge (1 of 1,200)",
       "wall": "Your name on the Founders Wall",
       "invites": "5 personal invites",
       "exclusive": "Future exclusive benefits for Founding Members only"
@@ -254,7 +229,7 @@
     },
     "upside": {
       "header": "The door was always there. It just didn't open for everyone.",
-      "body": "For years, better financial opportunities seemed to open for people who were already rich.\n\nInstitutions. Insiders. People fluent in jargon.\n\ndiBoaS opens another door.\n\nAccess gets simpler. Risk gets clearer. You get the big slice.",
+      "body": "For years, better financial opportunities seemed to open for people who were already rich.\n\nInstitutions. Insiders. People fluent in jargon.\n\ndiBoaS opens another door.\n\nAccess gets simpler. Risk gets clearer. When there is upside, more of it stays with you.",
       "imageAlt": "The work your money does"
     },
     "pictureFuture": {

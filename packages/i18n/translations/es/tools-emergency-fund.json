@@ -23,11 +23,10 @@
     "yearsLabel": "{years} años",
     "saved": "Tiempo ahorrado",
     "targetLabel": "Meta: {amount}",
-    "noResult": "Aumenta tu ahorro mensual para alcanzar la meta.",
+    "noResult": "A este ritmo, la meta queda fuera de alcance. Un importe mensual mayor lo cambia.",
     "unreachable": "A este ritmo de ahorro, la inflación supera el rendimiento de tu banco."
   },
   "vignette": {
-    "headline": "{target} de fondo en {time}",
     "bankHeadline": "vs {bankTime} con tu banco",
     "subtitle": "Mismo esfuerzo. Menos espera."
   },
@@ -36,7 +35,7 @@
     "cardTagline": "¿Cuánto tardo en ahorrar 6 meses?"
   },
   "lessonLink": {
-    "label": "¿Quieres entender la matemática?",
+    "label": "¿Quieres entender las cuentas?",
     "href": "/learn/compound-interest",
     "linkText": "Lee: Cómo crece el dinero de verdad"
   }

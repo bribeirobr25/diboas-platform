@@ -1,13 +1,13 @@
 {
   "seo": {
     "title": "Sobre diBoaS | Construido para los que los bancos olvidaron",
-    "description": "diBoaS se construyó porque una abuela merecía algo mejor. Ahora todos lo merecen. Transferencias gratis, opciones reales de crecimiento, desde 5 EUR.",
+    "description": "diBoaS se construyó porque una abuela merecía algo mejor. Ahora todos lo merecen. Transferencias gratis, opciones reales de crecimiento, desde 5 €.",
     "ogTitle": "Sobre diBoaS | Construido para los que los bancos olvidaron",
-    "ogDescription": "diBoaS se construyó porque una abuela merecía algo mejor. Ahora todos lo merecen. Transferencias gratis, opciones reales de crecimiento, desde 5 EUR."
+    "ogDescription": "diBoaS se construyó porque una abuela merecía algo mejor. Ahora todos lo merecen. Transferencias gratis, opciones reales de crecimiento, desde 5 €."
   },
   "hero": {
     "title": "Una abuela. Un problema. Una plataforma.",
-    "subtitle": "Acceso abierto y oportunidades justas para todos."
+    "subtitle": "El acceso que los bancos se reservaron. Ahora abierto para todos."
   },
   "transitions": {
     "t1": "Déjame contarte una historia.",
@@ -36,8 +36,8 @@
       "description": "No prometemos rendimientos garantizados porque nadie puede. Lo que ofrecemos: datos reales, explicaciones claras. Entiendes lo que haces antes de hacerlo."
     },
     "startSmall": {
-      "title": "Empieza con 5 EUR. Aprende sobre la marcha.",
-      "description": "Acceso abierto para construir patrimonio. Construimos la puerta para que accedas a las mejores oportunidades, puedas crear tu patrimonio y mantengas el control de tu dinero."
+      "title": "Empieza con 5 €. Aprende sobre la marcha.",
+      "description": "Construimos la puerta para que empieces poco a poco y mantengas el control de tu dinero. Opciones reales, explicadas antes de usarlas."
     }
   },
   "mission": {

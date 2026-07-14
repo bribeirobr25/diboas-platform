@@ -21,14 +21,21 @@ const CHART_H = VIEWBOX_H - PADDING.top - PADDING.bottom;
 const MAX_SCORE = 14;
 const Y_TICKS = [0, 3, 6, 9, 12, 14];
 
+// Warm editorial ramp (B5 / F-2, 2026-07-13): repointed off the semantic
+// green/amber/red stoplight tokens — that grammar reads as buy/sell (Q3
+// advisory) and clashed with the warm /market palette. The ramp runs
+// teal-deep, teal, ink-soft, deep-copper, rust (the same copper/teal
+// family as the RegimeScore gauge arc and RegimeLabel pill fills), so the
+// chart, gauge, and pill share one warm system with no green-up/red-down read.
+// VERY_FAVORABLE takes the deepest teal so the colour-only points stay
+// all-five distinguishable (the pill can merge it with CONSTRUCTIVE because it
+// also carries a text label). Do-not-regress: implementation-notes.md (F-2).
 const POINT_FILL_BY_REGIME: Record<RegimeCode, string> = {
-  VERY_FAVORABLE: 'var(--text-success-accessible)',
-  CONSTRUCTIVE: 'var(--text-brand-accessible)',
-  NEUTRAL_MIXED: 'var(--color-text-secondary)',
-  // Pa11y fix 2026-05-30: aligned with regime.module.css — uses the accessible
-  // amber-800 token (matches other regimes' use of *-accessible tokens).
-  DEFENSIVE: 'var(--text-warning-accessible)',
-  HOSTILE: 'var(--text-error-accessible)',
+  VERY_FAVORABLE: 'var(--editorial-teal-deep)',
+  CONSTRUCTIVE: 'var(--editorial-teal)',
+  NEUTRAL_MIXED: 'var(--editorial-ink-soft)',
+  DEFENSIVE: 'var(--editorial-defensive)',
+  HOSTILE: 'var(--editorial-hostile)',
 };
 
 function rangeToCount(range: HistoricalRegimeChartProps['range']): number {

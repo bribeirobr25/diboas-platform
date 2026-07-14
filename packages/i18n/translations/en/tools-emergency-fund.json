@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Emergency fund calculator",
     "headline": "Peace of mind, faster.",
-    "subtitle": "Build 6 months of expenses. See how much sooner you get there with diBoaS."
+    "subtitle": "Build 6 months of expenses. See how the timeline could change with diBoaS."
   },
   "inputs": {
     "monthlyExpensesLabel": "Monthly expenses",
@@ -23,11 +23,10 @@
     "yearsLabel": "{years} years",
     "saved": "Time saved",
     "targetLabel": "Target: {amount}",
-    "noResult": "Increase your monthly savings to reach the goal.",
+    "noResult": "At this savings rate, the goal stays out of reach. A higher monthly amount changes that.",
     "unreachable": "At this savings rate, inflation outpaces your bank's return."
   },
   "vignette": {
-    "headline": "{target} fund in {time}",
     "bankHeadline": "vs {bankTime} with your bank",
     "subtitle": "Same effort. Less waiting."
   },

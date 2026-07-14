@@ -4,7 +4,7 @@
     "description": "Kostenloser B2B-Rechner für Liquiditätsrendite. Vergleiche, was dein Firmenguthaben bei der Bank vs. bei diBoaS konservativer Rendite verdient."
   },
   "hero": {
-    "kicker": "Liquiditäts-Rendite-Rechner",
+    "kicker": "Rechner für liegendes Geld",
     "headline": "Was verdient dein Firmenguthaben, während es liegt?",
     "subtitle": "Die meisten Geschäftskonten zahlen kaum Zinsen. Sieh, was konservative Rendite hinzufügen könnte."
   },
@@ -12,7 +12,7 @@
     "idleCashLabel": "Liegendes Firmenguthaben",
     "idleCashHelp": "Bargeld, das heute auf deinem Geschäftskonto liegt",
     "bankYieldLabel": "Aktueller Bank-Zins (%)",
-    "bankYieldHelp": "Locale-Standard: {rate}%. Überschreib, falls anders.",
+    "bankYieldHelp": "Standard für deine Region: {rate}%. Ändere ihn, falls er abweicht.",
     "yearsLabel": "Jahre"
   },
   "output": {
@@ -20,8 +20,7 @@
     "bankNote": "{rate}% Rendite über {years} Jahre",
     "diboasLabel": "Bei diBoaS",
     "diboasNote": "{rate}% konservative Rendite im Digital-Dollar über {years} Jahre",
-    "differenceHighlight": "Deine {cash} verdienen bei diBoaS {difference} mehr über {years} Jahre.",
-    "differencePositive": "Deine {cash} verdienen bei diBoaS {difference} mehr über {years} Jahre.",
+    "differencePositive": "Deine {cash} könnten bei diBoaS über {years} Jahre {difference} mehr verdienen.",
     "differenceZero": "Bei deinem aktuellen Bankzins liegt diBoaS über {years} Jahre gleichauf, und die Position wird im Digital-Dollar gehalten.",
     "differenceNegative": "Mit {bankRate}% schlägt deine Bank das konservative diBoaS-Szenario über {years} Jahre. diBoaS bietet dir trotzdem eine Position im Digital-Dollar. Der Vergleich ist hier nur die Rendite."
   },
@@ -31,7 +30,7 @@
     "shareText": "Mein ungenutztes Geld könnte bei diBoaS in {years} Jahren {value} werden. Sieh, was deins verdienen könnte."
   },
   "vignette": {
-    "subtitle": "Liegendes Geld verdient nichts. Arbeitendes Geld zinst. Du wählst."
+    "subtitle": "Liegendes Geld verdient kaum etwas. Gib ihm eine Aufgabe, und es kann wachsen."
   },
   "landing": {
     "cardTitle": "Liquiditätsrendite",

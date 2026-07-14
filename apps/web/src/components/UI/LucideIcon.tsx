@@ -38,6 +38,10 @@ import {
   Share2,
   Info,
   Briefcase,
+  Plus,
+  CreditCard,
+  PiggyBank,
+  Wallet,
   type LucideIcon as LucideIconType,
 } from 'lucide-react';
 
@@ -83,6 +87,10 @@ export {
   Share2,
   Info,
   Briefcase,
+  Plus,
+  CreditCard,
+  PiggyBank,
+  Wallet,
 };
 
 export type { LucideIconType };

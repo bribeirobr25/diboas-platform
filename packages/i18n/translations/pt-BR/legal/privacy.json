@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Politica de Privacidade | diBoaS",
+    "title": "Política de Privacidade | diBoaS",
     "description": "Saiba como o diBoaS coleta, utiliza e protege seus dados pessoais. Em conformidade com LGPD e GDPR."
   },
   "toc": {
@@ -8,14 +8,14 @@
   },
   "backToTop": "Voltar ao topo",
   "header": {
-    "title": "Politica de Privacidade",
+    "title": "Política de Privacidade",
     "lastUpdated": "Última atualização: 5 de julho de 2026",
-    "intro": "O diBoaS (\"nos\", \"nosso\", \"nossa\") esta comprometido em proteger sua privacidade. Esta politica explica como coletamos, utilizamos e protegemos seus dados pessoais."
+    "intro": "O diBoaS (\"nos\", \"nosso\", \"nossa\") está comprometido em proteger sua privacidade. Esta política explica como coletamos, utilizamos e protegemos seus dados pessoais."
   },
   "sections": {
     "whoWeAre": {
       "title": "Quem Somos",
-      "content": "O diBoaS e uma plataforma de tecnologia financeira. Somos o controlador de dados pessoais coletados atraves do nosso site e serviços.",
+      "content": "O diBoaS é uma plataforma de tecnologia financeira. Somos o controlador de dados pessoais coletados através do nosso site e serviços.",
       "contact": {
         "label": "Contato:",
         "email": "privacy@diboas.com",
@@ -29,10 +29,10 @@
       "provided": {
         "title": "Informações Que Você Fornece:",
         "items": [
-          "Endereco de e-mail (ao entrar na lista de espera)",
+          "Endereço de e-mail (ao entrar na lista de espera)",
           "Nome (opcional)",
-          "Preferencia de idioma",
-          "Preferencias de comunicação"
+          "Preferência de idioma",
+          "Preferências de comunicação"
         ]
       },
       "automatic": {
@@ -41,14 +41,14 @@
           "Endereço IP (usado para limitação de taxa de segurança e registro de auditoria, retido por até 90 dias; não enviado para serviços de análise)",
           "Tipo e versão do navegador",
           "Informações do dispositivo",
-          "Paginas visitadas e tempo de permanencia",
+          "Páginas visitadas e tempo de permanência",
           "Fonte de referência"
         ]
       },
       "dreamMode": {
         "title": "Dados do Dream Mode:",
         "items": [
-          "Entradas de simulação (valor do depósito, selecao de estrategia)",
+          "Entradas de simulação (valor do depósito, seleção de estratégia)",
           "Estes dados são armazenados localmente em seu dispositivo, não em nossos servidores"
         ]
       }
@@ -62,24 +62,24 @@
         },
         "rows": [
           {
-            "purpose": "Gerenciar sua inscricao na lista de espera",
-            "legalBasis": "Execucao de contrato"
+            "purpose": "Gerenciar sua inscrição na lista de espera",
+            "legalBasis": "Execução de contrato"
           },
           {
-            "purpose": "Enviar atualizacoes sobre o lancamento do diBoaS",
-            "legalBasis": "Interesse legítimo (com opcao de exclusão)"
+            "purpose": "Enviar atualizações sobre o lançamento do diBoaS",
+            "legalBasis": "Interesse legítimo (com opção de exclusão)"
           },
           {
             "purpose": "Melhorar nosso site e serviços",
             "legalBasis": "Interesse legítimo"
           },
           {
-            "purpose": "Responder as suas solicitacoes",
-            "legalBasis": "Execucao de contrato"
+            "purpose": "Responder às suas solicitações",
+            "legalBasis": "Execução de contrato"
           },
           {
             "purpose": "Cumprir obrigações legais",
-            "legalBasis": "Exigencia legal"
+            "legalBasis": "Exigência legal"
           }
         ]
       }
@@ -92,21 +92,21 @@
         "content": "Resend (envio de e-mail), Vercel (hospedagem), Sentry (monitoramento de erros), Google Analytics e PostHog (análise, somente após seu consentimento), Upstash (limitação de taxa de segurança)"
       },
       "legal": {
-        "title": "Exigencias Legais:",
+        "title": "Exigências Legais:",
         "content": "Quando exigido por lei ou para proteger nossos direitos"
       },
-      "note": "Todos os prestadores de serviços estao contratualmente obrigados a proteger seus dados."
+      "note": "Todos os prestadores de serviços estão contratualmente obrigados a proteger seus dados."
     },
     "internationalTransfers": {
-      "title": "Transferencias Internacionais",
-      "content": "Seus dados podem ser transferidos para paises fora do Espaco Economico Europeu (EEE) ou do Brasil. Garantimos salvaguardas apropriadas atraves de Clausulas Contratuais Padrao ou decisões de adequacao."
+      "title": "Transferências Internacionais",
+      "content": "Seus dados podem ser transferidos para países fora do Espaço Econômico Europeu (EEE) ou do Brasil. Garantimos salvaguardas apropriadas através de Cláusulas Contratuais Padrão ou decisões de adequação."
     },
     "dataRetention": {
-      "title": "Retencao de Dados",
+      "title": "Retenção de Dados",
       "items": [
         {
           "type": "Dados da lista de espera:",
-          "duration": "Ate você cancelar a inscricao ou 2 anos apos a ultima interacao"
+          "duration": "Até você cancelar a inscrição ou 2 anos após a última interação"
         },
         {
           "type": "Dados de análise:",
@@ -124,31 +124,31 @@
       "table": {
         "headers": {
           "right": "Direito",
-          "description": "Descricao"
+          "description": "Descrição"
         },
         "rows": [
           {
             "right": "Acesso",
-            "description": "Solicitar uma copia dos seus dados pessoais"
+            "description": "Solicitar uma cópia dos seus dados pessoais"
           },
           {
-            "right": "Retificacao",
+            "right": "Retificação",
             "description": "Corrigir dados imprecisos"
           },
           {
-            "right": "Exclusao",
+            "right": "Exclusão",
             "description": "Solicitar a exclusão dos seus dados"
           },
           {
-            "right": "Restricao",
+            "right": "Restrição",
             "description": "Limitar como processamos seus dados"
           },
           {
             "right": "Portabilidade",
-            "description": "Receber seus dados em formato portatil"
+            "description": "Receber seus dados em formato portátil"
           },
           {
-            "right": "Oposicao",
+            "right": "Oposição",
             "description": "Opor-se ao processamento baseado em interesse legítimo"
           },
           {
@@ -156,41 +156,41 @@
             "description": "Revogar o consentimento a qualquer momento"
           },
           {
-            "right": "Revisao de Decisoes Automatizadas",
+            "right": "Revisão de Decisões Automatizadas",
             "description": "Solicitar revisão humana de decisões automatizadas (LGPD)"
           }
         ]
       },
-      "exerciseRights": "Para exercer seus direitos, envie um e-mail para {email}. Responderemos em ate 15 dias (LGPD) ou 30 dias (GDPR)."
+      "exerciseRights": "Para exercer seus direitos, envie um e-mail para {email}. Responderemos em até 15 dias (LGPD) ou 30 dias (GDPR)."
     },
     "complaints": {
-      "title": "Reclamacoes",
-      "content": "Se você acredita que violamos seus direitos de privacidade, pode registrar uma reclamacao junto a sua autoridade local de proteção de dados. No Brasil, a autoridade competente e a ANPD (Autoridade Nacional de Proteção de Dados)."
+      "title": "Reclamações",
+      "content": "Se você acredita que violamos seus direitos de privacidade, pode registrar uma reclamação junto à sua autoridade local de proteção de dados. No Brasil, a autoridade competente é a ANPD (Autoridade Nacional de Proteção de Dados)."
     },
     "security": {
       "title": "Segurança",
-      "intro": "Implementamos medidas tecnicas e organizacionais apropriadas para proteger seus dados, incluindo:",
+      "intro": "Implementamos medidas técnicas e organizacionais apropriadas para proteger seus dados, incluindo:",
       "measures": [
-        "Criptografia em transito (HTTPS)",
+        "Criptografia em trânsito (HTTPS)",
         "Controles de acesso",
-        "Revisoes de segurança regulares"
+        "Revisões de segurança regulares"
       ]
     },
     "childrenPrivacy": {
       "title": "Privacidade de Menores",
-      "content": "O diBoaS não e destinado a menores de 18 anos. Não coletamos intencionalmente dados de menores."
+      "content": "O diBoaS não é destinado a menores de 18 anos. Não coletamos intencionalmente dados de menores."
     },
     "brazilNote": {
-      "title": "Nota para Usuarios Brasileiros",
-      "content": "Este site esta disponível para visualizacao informativa. A lista de espera e recursos interativos estarao disponiveis quando o serviço for lancado no Brasil, sujeito as aprovacoes regulatorias da ANPD (Autoridade Nacional de Proteção de Dados). O tratamento de dados pessoais de usuarios brasileiros seguira integralmente a Lei Geral de Proteção de Dados (LGPD - Lei n. 13.709/2018)."
+      "title": "Nota para Usuários Brasileiros",
+      "content": "Este site está disponível para visualização informativa. A lista de espera e recursos interativos estarão disponíveis quando o serviço for lançado no Brasil, sujeito às aprovações regulatórias da ANPD (Autoridade Nacional de Proteção de Dados). O tratamento de dados pessoais de usuários brasileiros seguirá integralmente a Lei Geral de Proteção de Dados (LGPD - Lei n. 13.709/2018)."
     },
     "changes": {
-      "title": "Alteracoes Nesta Politica",
-      "content": "Podemos atualizar esta politica. Mudancas significativas serao comunicadas por e-mail ou aviso no site."
+      "title": "Alterações Nesta Política",
+      "content": "Podemos atualizar esta política. Mudanças significativas serão comunicadas por e-mail ou aviso no site."
     },
     "contact": {
       "title": "Fale Conosco",
-      "content": "Duvidas? Envie um e-mail para {email}",
+      "content": "Dúvidas? Envie um e-mail para {email}",
       "email": "privacy@diboas.com"
     }
   }

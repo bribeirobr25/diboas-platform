@@ -13,12 +13,12 @@
   },
   "login": {
     "title": "Willkommen bei diBoaS",
-    "subtitle": "Erlebe die Zukunft der persönlichen Finanzen",
+    "subtitle": "Sieh, wie es funktioniert: einzahlen, investieren, senden. Ohne echtes Geld.",
     "emailLabel": "E-Mail",
     "passwordLabel": "Passwort",
     "orContinueWith": "ODER FORTFAHREN MIT",
     "startDemo": "Demo starten",
-    "disclaimer": "Dies ist eine Demo-Umgebung. Alle gezeigten Funktionen werden im fertigen Produkt verfügbar sein.",
+    "disclaimer": "Dies ist eine Demo-Umgebung. Alle gezeigten Funktionen könnten im fertigen Produkt verfügbar sein.",
     "backToHome": "Zurück zur Startseite"
   },
   "loading": {

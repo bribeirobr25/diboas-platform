@@ -1,70 +1,31 @@
 {
   "navigation": {
     "about": "Acerca de",
-    "quickActions": "Acciones Rápidas",
+    "quickActions": "Acciones rápidas",
     "back": "Atrás",
     "landing": {
-      "forBusiness": "Para Empresas",
+      "forBusiness": "Para empresas",
       "moneyTools": "Herramientas",
       "strategies": "Estrategias",
-      "futureYou": "Tu Futuro",
+      "futureYou": "Tu futuro",
       "about": "Acerca de",
       "protocols": "Protocolos",
       "adelaideDaily": "Adelaide Market",
       "learn": "Aprender",
-      "joinWaitlist": "Unirse a la Lista",
-      "tryDemo": "Probar Demo"
-    },
-    "diboas": {
-      "label": "diBoaS",
-      "description": "Ecosistema financiero completo con banca, inversiones y DeFi en una sola plataforma",
-      "subItems": {
-        "know": "Conoce diBoaS",
-        "account": "Cuenta diBoaS",
-        "banking": "Banca",
-        "investing": "Inversiones",
-        "crypto": "Cripto",
-        "strategies": "Estrategias (DeFi)",
-        "credit": "Crédito"
-      }
+      "joinWaitlist": "Unirse a la lista",
+      "tryDemo": "Probar demo"
     },
     "learn": {
-      "label": "Centro de Aprendizaje",
+      "label": "Centro de aprendizaje",
       "description": "Domina tus finanzas con guías de expertos y contenido educativo",
       "subItems": {
-        "center": "El Centro de Aprendizaje",
-        "basics": "Fundamentos Financieros",
-        "management": "Gestión del Dinero",
-        "investing": "Guía de Inversiones",
+        "center": "El centro de aprendizaje",
+        "basics": "Fundamentos financieros",
+        "management": "Gestión del dinero",
+        "investing": "Guía de inversiones",
         "crypto": "Cripto de la A a la Z",
-        "defi": "DeFi Explicado",
-        "special": "Contenido Especial"
-      }
-    },
-    "business": {
-      "label": "diBoaS Business",
-      "description": "Soluciones financieras completas para empresas modernas",
-      "subItems": {
-        "know": "Conoce diBoaS Business",
-        "account": "Cuenta Empresarial",
-        "bank": "Banca Empresarial",
-        "payments": "Pagos",
-        "treasury": "Tesorería",
-        "yield": "Rendimiento del Flujo de Efectivo",
-        "credit": "Crédito P2P"
-      }
-    },
-    "rewards": {
-      "label": "Recompensas",
-      "description": "Gana recompensas y aprende con guías mascota impulsadas por IA",
-      "subItems": {
-        "program": "Recompensas diBoaS",
-        "mascots": "Guías Mascota IA",
-        "referral": "Referidos",
-        "points": "Gana Puntos",
-        "badges": "Insignias y Clasificación",
-        "campaigns": "Campañas",
-        "token": "Token y Airdrop"
+        "defi": "DeFi explicado",
+        "special": "Contenido especial"
       }
     },
     "security": {
@@ -72,18 +33,18 @@
       "description": "Tu seguridad es nuestra máxima prioridad",
       "subItems": {
         "protection": "Protección diBoaS",
-        "audits": "Auditorías e Informes",
-        "safe": "Mantente Seguro",
-        "faq": "Preguntas Frecuentes"
+        "audits": "Auditorías e informes",
+        "safe": "Mantente seguro",
+        "faq": "Preguntas frecuentes"
       }
     },
     "aboutMenu": {
       "label": "Acerca de",
       "description": "Aprende más sobre diBoaS y nuestra misión",
       "subItems": {
-        "about": "Más Sobre diBoaS",
-        "protocols": "Protocolos de Confianza",
-        "careers": "Únete a Nuestro Equipo",
+        "about": "Más sobre diBoaS",
+        "protocols": "Protocolos de confianza",
+        "careers": "Únete a nuestro equipo",
         "documentation": "Documentación",
         "investors": "Inversores",
         "compliance": "Cumplimiento"
@@ -92,20 +53,20 @@
     "mobile": {
       "highlights": {
         "benefits": "Beneficios diBoaS",
-        "learn": "Centro de Aprendizaje",
+        "learn": "Centro de aprendizaje",
         "rewards": "Recompensas"
       },
       "sections": {
-        "forYou": "Para Ti",
-        "forBusiness": "Para Empresas"
+        "forYou": "Para ti",
+        "forBusiness": "Para empresas"
       }
     },
     "actions": {
       "primary": "Comenzar",
-      "secondary": "Inicio de Sesión Empresarial",
-      "demo": "Probar Demo"
+      "secondary": "Inicio de sesión empresarial",
+      "demo": "Probar demo"
     },
-    "joinWaitlist": "Unirse a la Lista",
+    "joinWaitlist": "Unirse a la lista",
     "tools": {
       "calculator": "Calculadora",
       "calculatorDescription": "Mira tu dinero crecer",
@@ -114,8 +75,8 @@
     }
   },
   "buttons": {
-    "getStarted": "Empezar Ahora",
-    "learnMore": "Saber Más"
+    "getStarted": "Empezar ahora",
+    "learnMore": "Saber más"
   },
   "common": {},
   "forms": {
@@ -173,22 +134,22 @@
   },
   "errors": {
     "notFound": {
-      "title": "Página No Encontrada",
+      "title": "Página no encontrada",
       "description": "Lo sentimos, no pudimos encontrar la página que buscas.",
       "action": "Volver al inicio"
     },
     "serverError": {
-      "title": "Algo Salió Mal",
+      "title": "Algo salió mal",
       "description": "Estamos experimentando dificultades técnicas. Por favor, inténtalo de nuevo más tarde.",
       "action": "Intentar de nuevo"
     },
     "boundary": {
-      "title": "¡Ups! Algo Salió Mal",
+      "title": "¡Ups! Algo salió mal",
       "description": "Ocurrió un error inesperado. Nuestro equipo ha sido notificado.",
       "action": "Actualizar página"
     },
     "offline": {
-      "title": "Sin Conexión a Internet",
+      "title": "Sin conexión a internet",
       "description": "Por favor, verifica tu conexión e inténtalo de nuevo.",
       "action": "Reintentar"
     },
@@ -239,11 +200,11 @@
       "help": {
         "title": "Ayuda",
         "links": {
-          "faq": "Preguntas Frecuentes",
+          "faq": "Preguntas frecuentes",
           "contact": "Contacto",
           "gettingStarted": "Comenzar",
           "support": "Soporte",
-          "troubleshooting": "Solución de Problemas"
+          "troubleshooting": "Solución de problemas"
         }
       },
       "legal": {
@@ -259,7 +220,7 @@
       "youtube": "YouTube",
       "linkedin": "LinkedIn"
     },
-    "copyright": "© 2025 diBoaS. Todos los derechos reservados.",
+    "copyright": "© 2026 diBoaS. Todos los derechos reservados.",
     "brandName": "diBoaS"
   },
   "cookieConsent": {
@@ -278,10 +239,10 @@
     "contactUs": "Contáctanos directamente para programar una llamada",
     "error": "No se pudo cargar el calendario",
     "loadError": "No se pudo cargar el calendario de reservas",
-    "contactDirectly": "Contáctenos directamente para programar una llamada"
+    "contactDirectly": "Contáctanos directamente para programar una llamada"
   },
   "waitingList": {
-    "title": "Únete a la Lista de Espera",
+    "title": "Únete a la lista de espera",
     "subtitle": "Sé el primero en experimentar el futuro de las finanzas. Regístrate ahora para obtener acceso anticipado a diBoaS.",
     "imageAlt": "Vista previa de la Plataforma diBoaS",
     "close": "Cerrar",
@@ -303,7 +264,7 @@
         "text": "Acepto recibir comunicaciones de diBoaS y estoy de acuerdo con la",
         "privacyPolicy": "Política de Privacidad"
       },
-      "submit": "Unirse a la Lista de Espera"
+      "submit": "Unirse a la lista de espera"
     },
     "success": {
       "title": "¡Estás en la lista!",
@@ -322,11 +283,11 @@
       "storageError": "No se pudo guardar tu información. Por favor, inténtalo de nuevo."
     },
     "position": {
-      "label": "Tu Posición",
+      "label": "Tu posición",
       "spotsGained": "¡{spots} lugares ganados!",
       "referrals": "Referidos",
       "spotsPerReferral": "Lugares/Referido",
-      "yourCode": "Tu Código:"
+      "yourCode": "Tu código:"
     }
   },
   "share": {
@@ -361,17 +322,18 @@
     "showLess": "Ver menos"
   },
   "emailPreferences": {
-    "title": "Preferencias de Email",
-    "heading": "Gestiona tus emails",
-    "description": "Serás dado de baja de los emails de diBoaS. Tu posición en la lista de espera y créditos de referencia se conservarán.",
+    "heading": "Tus preferencias de correo",
+    "description": "Se te dará de baja de los correos de diBoaS. Tu posición en la lista de espera y tus créditos por referidos se conservarán.",
     "unsubscribeButton": "Cancelar suscripción",
     "staySubscribedButton": "Mantener suscripción",
-    "successUnsubscribed": "Has sido dado de baja de los emails de diBoaS.",
+    "successUnsubscribed": "Se te ha dado de baja de los correos de diBoaS.",
     "positionPreserved": "Tu posición en la lista de espera se ha conservado.",
     "redirectingHome": "Redirigiendo a la página principal...",
-    "invalidLink": "Este enlace es inválido o ha expirado.",
+    "invalidLink": "Ese enlace no funcionó, pero sin problema.",
     "error": "Algo salió mal. Inténtalo de nuevo.",
-    "processing": "Procesando..."
+    "processing": "Procesando...",
+    "backHome": "Volver al inicio",
+    "tryAgainButton": "Intentar de nuevo"
   },
   "disclaimers": {
     "educationalProjection": "Cifras ilustrativas basadas en supuestos históricos de interés compuesto. Rentabilidades pasadas no garantizan resultados futuros. Usa solo dinero que puedas permitirte perder. diBoaS no es un banco y tus fondos no están asegurados."

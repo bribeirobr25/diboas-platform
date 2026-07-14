@@ -1,16 +1,4 @@
 {
-  "headline": "Share your dream",
-  "subhead": "Show others what's possible",
-  "modal": {
-    "title": "Share",
-    "close": "Close",
-    "shareVia": "Share via",
-    "copyLink": "Copy link",
-    "copied": "Copied!",
-    "download": "Download image",
-    "generating": "Creating your card...",
-    "noPreview": "No preview available"
-  },
   "platform": {
     "instagram": "Instagram",
     "twitter": "X / Twitter",
@@ -33,23 +21,6 @@
     "shareCancelled": "Share cancelled",
     "linkedInCopied": "Text copied! Paste it in your LinkedIn post."
   },
-  "instagramInstructions": "Image saved! Open Instagram and share from your gallery.",
-  "card": {
-    "cta": "See what yours could do →",
-    "generating": "Creating your card...",
-    "ready": "Your card is ready!"
-  },
-  "referral": {
-    "intro": "Your personal link:",
-    "benefit": "Share to help friends get early access",
-    "copied": "Link copied to clipboard!"
-  },
-  "timeframes": {
-    "1week": "1 week",
-    "1month": "1 month",
-    "1year": "1 year",
-    "5years": "5 years"
-  },
   "waitlist": {
     "text": "I just found an easy and fair access to grow and move money. It is so good, that I have to share it"
   },
@@ -59,11 +30,11 @@
       "description": "Join me on diBoaS - Financial Freedom Made Simple"
     },
     "calculator": {
-      "title": "My investment could grow to {formattedAmount}!",
+      "title": "My investment could grow to {formattedAmount}",
       "description": "In {years} years with diBoaS Dream Mode Calculator"
     },
     "toolResult": {
-      "title": "What my money could really earn: {value}",
+      "title": "What my money could earn: {value}",
       "titleByTool": {
         "asset-history": "What it would be worth today: {value}",
         "card-fees": "What I could save: {value}"

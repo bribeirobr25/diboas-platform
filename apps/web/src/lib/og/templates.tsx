@@ -4,6 +4,7 @@
  */
 
 import { diBoasColors } from '@/lib/colors';
+import { OGMonogram } from '@/app/api/og/_brand/monogram';
 
 export type OGPageType =
   | 'default'
@@ -177,38 +178,25 @@ export const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
   },
 };
 
-// OG Image specific colors - using design tokens
-// Note: OG images render server-side and can't use CSS variables
-const OG_COLORS = {
-  white: '#ffffff',
-  subtitleGrey: diBoasColors.neutral[400], // #94a3b8
-  brandingGrey: diBoasColors.neutral[500], // #64748b
-  darkBg: diBoasColors.neutral[900], // #0f172a
-  darkBgSecondary: diBoasColors.neutral[800], // #1e293b
+// Warm editorial brand palette (2026-07-13, F-BRAND / G-3). OG images render
+// server-side and can't read CSS vars, so the canonical editorial tokens
+// (--editorial-paper / --editorial-ink / --editorial-ink-soft in design-tokens.css)
+// are inlined here as hex. Replaces the banned dark-SaaS gradient (anti-slop Part 1).
+const OG_WARM = {
+  paper: '#f4f0e8', // --editorial-paper (warm cream page)
+  paperDeep: '#ebe5d8', // --editorial-paper-deep
+  ink: '#14110f', // --editorial-ink (near-black title)
+  inkSoft: '#3a332d', // --editorial-ink-soft (muted subtitle)
+  inkMuted: '#6b6459', // derived warm mid-grey (footer branding)
+  background: 'linear-gradient(135deg, #f4f0e8 0%, #ebe5d8 100%)',
 } as const;
 
+// Per-theme ACCENT only — the background is warm cream for every theme now; the
+// theme just picks the badge/accent hue (teal for B2C/most pages, coral for B2B).
 const THEME_COLORS = {
-  teal: {
-    primary: diBoasColors.primary[500],
-    secondary: diBoasColors.primary[600],
-    background: `linear-gradient(135deg, ${OG_COLORS.darkBg} 0%, ${OG_COLORS.darkBgSecondary} 50%, ${OG_COLORS.darkBg} 100%)`,
-    text: OG_COLORS.white,
-    badge: diBoasColors.primary[500],
-  },
-  coral: {
-    primary: diBoasColors.secondary.coral[500],
-    secondary: diBoasColors.secondary.coral[600],
-    background: `linear-gradient(135deg, ${OG_COLORS.darkBg} 0%, ${OG_COLORS.darkBgSecondary} 50%, ${OG_COLORS.darkBg} 100%)`,
-    text: OG_COLORS.white,
-    badge: diBoasColors.secondary.coral[500],
-  },
-  dark: {
-    primary: OG_COLORS.white,
-    secondary: OG_COLORS.subtitleGrey,
-    background: `linear-gradient(135deg, ${OG_COLORS.darkBg} 0%, ${OG_COLORS.darkBgSecondary} 100%)`,
-    text: OG_COLORS.white,
-    badge: diBoasColors.primary[500],
-  },
+  teal: { accent: diBoasColors.primary[600] }, // #0d9488
+  coral: { accent: diBoasColors.secondary.coral[600] }, // #dc2626
+  dark: { accent: diBoasColors.primary[600] }, // security page — warm now, teal accent
 };
 
 /**
@@ -227,34 +215,14 @@ export function getOGTemplate(pageType: OGPageType): React.ReactElement {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        background: theme.background,
+        background: OG_WARM.background,
         fontFamily: 'system-ui, -apple-system, sans-serif',
         padding: '60px',
       }}
     >
-      {/* Logo Circle */}
-      <div
-        style={{
-          width: '120px',
-          height: '120px',
-          borderRadius: '50%',
-          background: `linear-gradient(135deg, ${theme.primary}, ${theme.secondary})`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: '40px',
-          boxShadow: `0 20px 40px ${theme.primary}33`,
-        }}
-      >
-        <span
-          style={{
-            fontSize: '48px',
-            fontWeight: 'bold',
-            color: OG_COLORS.white,
-          }}
-        >
-          dB
-        </span>
+      {/* Brand monogram (real palm-"B" mark, not initials-in-a-circle) */}
+      <div style={{ display: 'flex', marginBottom: '40px' }}>
+        <OGMonogram size={120} />
       </div>
 
       {/* Badge */}
@@ -264,8 +232,8 @@ export function getOGTemplate(pageType: OGPageType): React.ReactElement {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: `${theme.badge}22`,
-            border: `1px solid ${theme.badge}44`,
+            background: `${theme.accent}1f`,
+            border: `1px solid ${theme.accent}59`,
             borderRadius: '999px',
             padding: '8px 24px',
             marginBottom: '24px',
@@ -273,7 +241,7 @@ export function getOGTemplate(pageType: OGPageType): React.ReactElement {
         >
           <span
             style={{
-              color: theme.badge,
+              color: theme.accent,
               fontSize: '18px',
               fontWeight: '600',
               textTransform: 'uppercase',
@@ -290,7 +258,7 @@ export function getOGTemplate(pageType: OGPageType): React.ReactElement {
         style={{
           fontSize: pageType === 'default' ? '80px' : '56px',
           fontWeight: 'bold',
-          color: theme.text,
+          color: OG_WARM.ink,
           margin: 0,
           textAlign: 'center',
           lineHeight: 1.1,
@@ -304,7 +272,7 @@ export function getOGTemplate(pageType: OGPageType): React.ReactElement {
         <p
           style={{
             fontSize: '28px',
-            color: OG_COLORS.subtitleGrey,
+            color: OG_WARM.inkSoft,
             marginTop: '24px',
             textAlign: 'center',
             maxWidth: '800px',
@@ -327,7 +295,7 @@ export function getOGTemplate(pageType: OGPageType): React.ReactElement {
         <span
           style={{
             fontSize: '20px',
-            color: OG_COLORS.brandingGrey,
+            color: OG_WARM.inkMuted,
           }}
         >
           diboas.com

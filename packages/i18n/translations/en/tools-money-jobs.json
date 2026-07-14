@@ -120,7 +120,7 @@
     "brDollarLine": "And in digital dollar, your reserve doesn't depend on a single currency.",
     "brDollarBothWays": "Exchange rates move both ways; the value in your local currency can rise or fall.",
     "runwayLed": "Runway leads this plan: about {months} months at current burn, with a floor of {floor}. Cut payment costs and watch burn before putting excess to work.",
-    "idleComparison": "Over 12 months, your ideal excess of {amount} could earn about {delta} more than at your bank, under the conservative scenario.",
+    "idleComparison": "Over 12 months, your ideal excess of {amount} could earn about {delta} more than at your bank, under the conservative scenario. Illustrative only.",
     "nextCushion": "Emergency Fund calculator",
     "nextWorking": "Compound Interest calculator",
     "nextCurrency": "Currency Depreciation calculator",

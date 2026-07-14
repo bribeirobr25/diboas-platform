@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Asset history calculator",
     "headline": "What actually happened?",
-    "subtitle": "Pick an asset, a start year, and a mode. See the real path your money would have taken, with the honest uncertainty bars on the noisy parts."
+    "subtitle": "Pick an asset, a start year, and a mode. See the real path your money would have taken, and an honest range where the numbers are less certain."
   },
   "inputs": {
     "assetLabel": "Asset",

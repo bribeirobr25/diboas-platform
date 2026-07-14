@@ -6,14 +6,14 @@
   "hero": {
     "kicker": "Zinseszins-Rechner",
     "headline": "Gleiches Geld. Anderer Job.",
-    "subtitle": "Trag deine Zahlen ein. Sieh 12 Jahre bei drei verschiedenen Zinssätzen."
+    "subtitle": "Trag deine Zahlen ein. Sieh, wie dasselbe Geld über 12 Jahre ganz Verschiedenes tut."
   },
   "landing": {
     "cardTitle": "Zinseszins",
     "cardTagline": "Was werden 1.000 € in 12 Jahren?"
   },
   "lessonLink": {
-    "label": "Wissen, wie es funktioniert?",
+    "label": "Wie funktioniert das?",
     "href": "/learn/compound-interest",
     "linkText": "Zur Lektion: Wie Geld wirklich wächst"
   }

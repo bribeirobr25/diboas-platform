@@ -11,6 +11,7 @@ import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
 
 import { OG_DIMENSIONS, OG_COLORS } from '../share/ogTypes';
+import { OGMonogram } from '../_brand/monogram';
 import { sanitizeInput } from '../share/ogUtils';
 import { checkRateLimit, getClientIP, createRateLimitHeaders } from '@/lib/security/rateLimiter';
 import { RATE_LIMIT_CONFIG } from '@/config/env';
@@ -88,34 +89,14 @@ export async function GET(request: NextRequest) {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          background: `linear-gradient(135deg, ${OG_COLORS.darkBg} 0%, ${OG_COLORS.darkBgSecondary} 50%, ${OG_COLORS.darkBg} 100%)`,
+          background: OG_COLORS.warmBackground,
           fontFamily: 'system-ui, -apple-system, sans-serif',
           padding: '60px',
         }}
       >
-        {/* Logo badge */}
-        <div
-          style={{
-            width: '80px',
-            height: '80px',
-            borderRadius: '50%',
-            background: `linear-gradient(135deg, ${OG_COLORS.teal}, ${OG_COLORS.tealDark})`,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '32px',
-            boxShadow: `0 20px 40px ${OG_COLORS.teal}33`,
-          }}
-        >
-          <span
-            style={{
-              fontSize: '32px',
-              fontWeight: 'bold',
-              color: OG_COLORS.white,
-            }}
-          >
-            dB
-          </span>
+        {/* Brand monogram (real palm-"B" mark, not initials — F-BRAND / G-3) */}
+        <div style={{ display: 'flex', marginBottom: '32px' }}>
+          <OGMonogram size={80} />
         </div>
 
         {/* Badge */}
@@ -123,8 +104,8 @@ export async function GET(request: NextRequest) {
           style={{
             display: 'flex',
             alignItems: 'center',
-            background: `${OG_COLORS.teal}15`,
-            border: `1px solid ${OG_COLORS.teal}44`,
+            background: `${OG_COLORS.teal}1f`,
+            border: `1px solid ${OG_COLORS.teal}59`,
             borderRadius: '999px',
             padding: '8px 24px',
             marginBottom: '24px',
@@ -132,7 +113,7 @@ export async function GET(request: NextRequest) {
         >
           <span
             style={{
-              color: OG_COLORS.teal,
+              color: OG_COLORS.tealDark,
               fontSize: '18px',
               fontWeight: '600',
               letterSpacing: '0.05em',
@@ -161,7 +142,7 @@ export async function GET(request: NextRequest) {
         <div
           style={{
             fontSize: '24px',
-            color: OG_COLORS.teal,
+            color: OG_COLORS.tealDark,
             marginBottom: '40px',
             display: 'flex',
           }}
@@ -182,7 +163,7 @@ export async function GET(request: NextRequest) {
           <span
             style={{
               fontSize: '20px',
-              color: OG_COLORS.brandingGrey,
+              color: OG_COLORS.inkMuted,
             }}
           >
             diboas.com — {dt.cta}

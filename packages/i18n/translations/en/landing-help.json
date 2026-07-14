@@ -9,22 +9,28 @@
   },
   "topics": {
     "gettingStarted": {
-      "title": "Getting Started"
+      "title": "Getting Started",
+      "lead": "Start here: what diBoaS is, who it's for, and how to begin with $5."
     },
     "moneySafety": {
-      "title": "Money & Safety"
+      "title": "Money & Safety",
+      "lead": "The honest version: what can go right, and what can go wrong."
     },
     "feesCosts": {
-      "title": "Fees & Costs"
+      "title": "Fees & Costs",
+      "lead": "What it costs, and what it doesn't. No hidden markup."
     },
     "investingStrategies": {
-      "title": "Investing & Strategies"
+      "title": "Investing & Strategies",
+      "lead": "How the strategies work, and how to pick one that fits."
     },
     "forBusinesses": {
-      "title": "For Businesses"
+      "title": "For Businesses",
+      "lead": "For companies: idle cash, card fees, and same-day liquidity."
     },
     "protocolsTransparency": {
-      "title": "Protocols & Transparency"
+      "title": "Protocols & Transparency",
+      "lead": "Where your money actually works, and how to verify it."
     }
   }
 }

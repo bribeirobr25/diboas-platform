@@ -13,12 +13,12 @@
   },
   "login": {
     "title": "Welcome to diBoaS",
-    "subtitle": "Experience the future of personal finance",
+    "subtitle": "See how it works: deposit, invest, send. No real money needed.",
     "emailLabel": "Email",
     "passwordLabel": "Password",
     "orContinueWith": "OR CONTINUE WITH",
     "startDemo": "Start Demo",
-    "disclaimer": "This is a demo environment. All features shown will be available in the full product.",
+    "disclaimer": "This is a demo environment. All features shown might be available in the full product.",
     "backToHome": "Back to home page"
   },
   "loading": {
@@ -59,7 +59,7 @@
     "invest": "Invest",
     "investSubtitle": "Buy/Sell assets",
     "goals": "Goals",
-    "goalsSubtitle": "Grow your money",
+    "goalsSubtitle": "Plan toward a goal",
     "badgeStart": "Start",
     "badgeNext": "Next",
     "activity": "Activity",

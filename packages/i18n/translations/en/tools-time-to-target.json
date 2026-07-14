@@ -1,12 +1,12 @@
 {
   "seo": {
     "title": "Time-to-Target Calculator — when will I reach my goal?",
-    "description": "Free time-to-target calculator. Pick a goal and a savings cadence; see how many years it takes at bank, conservative, historical, and optimistic yields."
+    "description": "Free time-to-target calculator. Pick a goal and how often you save; see how many years it takes at bank, conservative, historical, and optimistic rates."
   },
   "hero": {
     "kicker": "Time-to-target calculator",
     "headline": "When do I get there?",
-    "subtitle": "Pick a goal and a cadence. See years to target across bank, conservative, historical, and optimistic yields."
+    "subtitle": "Pick a goal and how often you'll save. Same goal, four rate paths. See the years each one takes."
   },
   "inputs": {
     "targetLabel": "Goal amount",
@@ -16,7 +16,7 @@
     "targetLine": "Reaching {target}…",
     "monthsLabel": "{months} months",
     "yearsLabel": "{years} years",
-    "cannotReach": "Out of reach at this contribution. Try a larger monthly amount or a smaller target."
+    "cannotReach": "Out of reach at this contribution. A larger monthly amount or a smaller target would bring it within range."
   },
   "guidance": {
     "oneTimeNeedsInitial": "Enter a starting amount to see when you'd reach your target."

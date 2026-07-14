@@ -68,7 +68,7 @@
   },
   "deletion": {
     "confirmTitle": "Confirmar eliminación de datos",
-    "confirmBody": "Haz clic en el botón de abajo para eliminar permanentemente todos tus datos de la lista de espera de diBoaS. Esta acción no se puede deshacer.",
+    "confirmBody": "Esto elimina permanentemente todos tus datos de la lista de espera de diBoaS. Esta acción no se puede deshacer.",
     "confirmButton": "Confirmar eliminación",
     "confirming": "Eliminando tus datos...",
     "success": "Datos eliminados",
@@ -76,7 +76,8 @@
     "expired": "Enlace expirado",
     "expiredBody": "Este enlace de eliminación ha expirado. Por favor, envía una nueva solicitud de eliminación.",
     "error": "Algo salió mal",
-    "errorBody": "No pudimos procesar tu solicitud. Intenta de nuevo o contacta a soporte."
+    "errorBody": "No pudimos procesar tu solicitud. Intenta de nuevo o contacta con soporte.",
+    "backHome": "Volver al inicio"
   },
   "email": {
     "welcome": "Bienvenido a diBoaS, Eres el #{position}"

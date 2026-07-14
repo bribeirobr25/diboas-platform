@@ -7,7 +7,7 @@
   },
   "hero": {
     "title": "Uma avó. Um problema. Uma plataforma.",
-    "subtitle": "Acesso aberto e oportunidades justas para todos."
+    "subtitle": "O acesso que os bancos guardaram pra si. Agora aberto pra todo mundo."
   },
   "transitions": {
     "t1": "Deixa eu te contar uma história.",
@@ -37,7 +37,7 @@
     },
     "startSmall": {
       "title": "Comece com R$10. Aprenda no caminho.",
-      "description": "Acesso aberto pra construir patrimônio. A gente construiu a porta pra você acessar as melhores oportunidades, construir seu patrimônio e manter o controle do seu dinheiro."
+      "description": "A gente construiu a porta pra você começar pequeno e manter o controle do seu dinheiro. Opções reais, explicadas antes de você usar."
     }
   },
   "mission": {
@@ -49,8 +49,8 @@
   "business": {
     "header": "Pra Empresas",
     "description": "Se você aceita pagamento com cartão, as taxas de processamento comem cada transação. Se tem dinheiro parado na conta da empresa, seu banco tá ganhando com ele e te pagando quase nada. O mesmo sistema que não serviu pra minha avó tá sentado em cima das reservas da sua empresa.",
-    "pitch": "diBoaS for Business ajuda empresas a ficar com mais do que ganham, com liquidez no mesmo dia, relatórios prontos pra diretoria, e acesso aos mesmos sistemas confiáveis que movem nossa plataforma pessoal.",
-    "cta": "Saiba mais sobre o diBoaS for Business"
+    "pitch": "diBoaS para Empresas ajuda empresas a ficar com mais do que ganham, com liquidez no mesmo dia, relatórios prontos pra diretoria, e acesso aos mesmos sistemas confiáveis que movem nossa plataforma pessoal.",
+    "cta": "Saiba mais sobre o diBoaS para Empresas"
   },
   "contact": {
     "header": "Contato",

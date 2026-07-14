@@ -56,7 +56,7 @@
       "twelveYear": "Podría convertirse en 12 años"
     },
     "vignettesOutro": "Mismo dinero. Otro trabajo.",
-    "vignettesDisclaimer": "Cifras ilustrativas basadas en un 10 % de interés compuesto histórico (envolvente de rentabilidad en dólar digital). Rentabilidades pasadas no garantizan resultados futuros.",
+    "vignettesDisclaimer": "Cifras ilustrativas basadas en un 10 % de interés compuesto histórico. Rentabilidades pasadas no garantizan resultados futuros.",
     "habitsRecap": "Nadie te está pidiendo que dejes el café. Ni las cañas. Ni el streaming. Quédate con lo que hace que la vida valga la pena.",
     "outro": [
       "Pero si solo uno de ellos — solo uno — trabajara para ti en vez de desaparecer cada mes, lo que pasa es justo la cuenta que acabas de ver arriba.",
@@ -113,6 +113,6 @@
     "tableHeaderRate": "Tipo anual",
     "tableHeaderTotal": "Después de {years} años",
     "loadingState": "Calculando…",
-    "calibrationNote": "Qué significan las tasas. El 7% conservador se alinea con el rendimiento del dólar digital vía el stack DeFi centrado en Solana. El 10% histórico queda en el medio del rango mixto de largo plazo. El 14% optimista refleja estrategias seleccionadas o apalancadas. De forma independiente: el S&P 500 retornó ~15,5% al año en promedio de 2010 a 2026, el oro ~9% al año, y un ahorrador brasileño en BRL rindió menos que uno que mantuvo dólar digital en la misma ventana (cifras completas en nuestras notas de investigación)."
+    "calibrationNote": "Qué significan las tasas. El 7% conservador es el escenario más estable, el 10% histórico queda en el medio del rango de largo plazo, y el 14% optimista es el escenario más activo. Son escenarios, no promesas, y todo tipo de interés conlleva riesgo. De forma independiente: el S&P 500 retornó, de media, alrededor del 10% al año a largo plazo (nominal, con dividendos reinvertidos; cerca del 7% tras la inflación), y el oro alrededor del 7% al año. Mientras tanto, una cuenta de ahorro o un depósito en euros ha estado años pagando cerca de cero, y la inflación se va comiendo en silencio ese dinero parado (cifras completas en nuestras notas de investigación)."
   }
 }

@@ -32,7 +32,7 @@
   },
   "output": {
     "ifYouKeepCash": "Wenn du es bar hältst",
-    "ifYouInvest": "Wenn du es arbeiten lässt",
+    "ifYouInvest": "Wenn du es investierst",
     "lostToInflation": "−{amount} durch Inflation verloren",
     "investedNote": "Bei {rate}% (konservatives Szenario)",
     "retrospectiveLabel": "Heutige Kaufkraft",

@@ -71,10 +71,10 @@
         "de": "Das Wetter drehte diesen Monat: {whatChanged}. Das entscheidet nichts für immer — aber es macht dies zu einer Jahreszeit der Geduld. Worauf wir achten: {watching}."
       },
       {
-        "en": "This was the month the floor creaked: {whatChanged}. Most of the things we track leaned cautious at once. Storms pass — this one hasn't yet. What we're watching: {watching}.",
-        "pt-BR": "Este foi o mês em que o chão rangeu: {whatChanged}. A maior parte do que acompanhamos pendeu para a cautela de uma vez. Tempestades passam — esta ainda não passou. O que estamos observando: {watching}.",
-        "es": "Este fue el mes en que crujió el suelo: {whatChanged}. La mayoría de lo que seguimos se inclinó a la cautela a la vez. Las tormentas pasan; esta aún no. Qué estamos observando: {watching}.",
-        "de": "Dies war der Monat, in dem der Boden knarrte: {whatChanged}. Das meiste, was wir verfolgen, neigte sich auf einmal zur Vorsicht. Stürme ziehen vorbei — dieser noch nicht. Worauf wir achten: {watching}."
+        "en": "This was the month the floor creaked: {whatChanged}. Most of the things we track leaned cautious at once. Nothing here says what comes next. What we're watching: {watching}.",
+        "pt-BR": "Este foi o mês em que o chão rangeu: {whatChanged}. A maior parte do que acompanhamos pendeu para a cautela de uma vez. Nada aqui diz o que vem a seguir. O que estamos observando: {watching}.",
+        "es": "Este fue el mes en que crujió el suelo: {whatChanged}. La mayoría de lo que seguimos se inclinó a la cautela a la vez. Nada de esto dice lo que viene después. Qué estamos observando: {watching}.",
+        "de": "Dies war der Monat, in dem der Boden knarrte: {whatChanged}. Das meiste, was wir verfolgen, neigte sich auf einmal zur Vorsicht. Nichts hier sagt, was als Nächstes kommt. Worauf wir achten: {watching}."
       },
       {
         "en": "Some months whisper and some speak plainly. This one spoke plainly: {whatChanged}. The mood of the market cooled with it. What we're watching: {watching}.",

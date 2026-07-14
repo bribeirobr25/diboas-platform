@@ -31,6 +31,14 @@ export const OG_COLORS = {
   coralDark: diBoasColors.secondary.coral[600],
   success: diBoasColors.semantic.success,
   error: diBoasColors.semantic.error,
+  // Warm editorial brand palette (2026-07-13, F-BRAND / G-3) — canonical editorial
+  // tokens (--editorial-paper / --editorial-ink…) inlined for server-side OG render.
+  paper: '#f4f0e8',
+  paperDeep: '#ebe5d8',
+  ink: '#14110f',
+  inkSoft: '#3a332d',
+  inkMuted: '#6b6459',
+  warmBackground: 'linear-gradient(135deg, #f4f0e8 0%, #ebe5d8 100%)',
 } as const;
 
 /**

@@ -13,9 +13,9 @@
   },
   "welcome": {
     "title": "Dream Mode",
-    "subtitle": "Sieh, was dein Geld erreichen könnte, während du schläfst",
+    "subtitle": "Sieh, was dein Geld im Lauf der Zeit erreichen könnte.",
     "features": {
-      "strategies": "Wähle aus bewährten DeFi-Strategien",
+      "strategies": "Wähle aus verschiedenen Wegen, dein Geld wachsen zu lassen",
       "projections": "Projektionen auf Basis realer Marktdaten",
       "comparison": "Vergleich mit traditionellen Bankprodukten"
     },
@@ -27,7 +27,7 @@
     "options": {
       "retirement": {
         "label": "Ziel Ruhestand",
-        "caption": "Eine Zukunft, in der Arbeit optional ist"
+        "caption": "Sparen für den Tag, an dem Arbeit eine Wahl ist"
       },
       "christmas": {
         "label": "Ziel Weihnachten",
@@ -39,7 +39,7 @@
       },
       "wealthy": {
         "label": "Ziel 70/20/10",
-        "caption": "Lebe von 70 %, tilge Schulden mit 20 % und investiere immer 10 %"
+        "caption": "Ein verbreiteter Ansatz: 70 % zum Leben, 20 % für Schulden, 10 % investiert."
       }
     }
   },
@@ -50,7 +50,7 @@
     "paths": {
       "safety": {
         "name": "Sicherheit zuerst",
-        "description": "Stabile Renditen. Dein Geld bleibt sicher. Ruhig schlafen.",
+        "description": "Der ruhigere Weg, mit kleineren Schwankungen und niedrigerem erwartetem Wachstum.",
         "riskLabel": "Minimales Risiko"
       },
       "balance": {
@@ -75,7 +75,7 @@
   "timeframe": {
     "title": "Wie weit in die Zukunft?",
     "back": "Zurück",
-    "simulateButton": "Ergebnis anzeigen",
+    "simulateButton": "Zeig mir mein Ergebnis",
     "daysUnit": "Tage",
     "options": {
       "1year": {
@@ -110,10 +110,10 @@
     "shareTitle": "Meine Projektion teilen",
     "shareTitleWithGoal": "Mein {goalName} teilen",
     "shareCopied": "Kopiert!",
-    "shareText": "Diese zielorientierte Simulation ist der einfachste und beste Weg, Vermögen aufzubauen. Sie hat {start} in {end} verwandelt, das sind {difference} mehr als meine Bank mir geben würde. Probier es selbst:",
+    "shareText": "Ich habe den Dream Mode von diBoaS ausprobiert. In dieser Projektion wurden aus {start} ganze {end}, {difference} mehr als meine Bank mir geben würde. Sieh, was deins könnte:",
     "yieldCurrencyValue": "Digitaler Dollarwert: {amount}",
     "bankSource": "Basierend auf {rate}% durchschnittlichem Sparzins. Quelle: EZB-Statistik, Januar 2026.",
-    "bankComparison": "vs deine Bank bei {rate}% APY",
+    "bankComparison": "vs deine Bank bei {rate}% pro Jahr",
     "tryDifferent": "Andere Beträge ausprobieren",
     "backToHome": "Zurück zur Startseite"
   },

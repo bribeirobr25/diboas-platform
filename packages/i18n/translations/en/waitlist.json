@@ -68,7 +68,7 @@
   },
   "deletion": {
     "confirmTitle": "Confirm data deletion",
-    "confirmBody": "Click the button below to permanently delete all your data from the diBoaS waitlist. This action cannot be undone.",
+    "confirmBody": "This permanently deletes all your data from the diBoaS waitlist. It cannot be undone.",
     "confirmButton": "Confirm deletion",
     "confirming": "Deleting your data...",
     "success": "Data deleted",
@@ -76,7 +76,8 @@
     "expired": "Link expired",
     "expiredBody": "This deletion link has expired. Please submit a new deletion request.",
     "error": "Something went wrong",
-    "errorBody": "We couldn't process your request. Please try again or contact support."
+    "errorBody": "We couldn't process your request. Please try again or contact support.",
+    "backHome": "Back to home"
   },
   "email": {
     "welcome": "Welcome to diBoaS, You're #{position}"

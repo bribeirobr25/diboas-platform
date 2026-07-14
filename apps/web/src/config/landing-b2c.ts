@@ -14,7 +14,8 @@
  */
 
 import { ROUTES } from './routes';
-import type { FAQAccordionVariantConfig, FAQItem } from './faqAccordion';
+import type { FAQAccordionVariantConfig } from './faqAccordion';
+import { getFAQForSurface } from './faqRegistry';
 import type { FeeTableConfig } from './feeTable';
 /**
  * Section 8: Fees Configuration (FeeTable)
@@ -129,41 +130,10 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
 /**
  * Section 15: FAQ Items for B2C Landing Page
  * 5 items — top questions; full FAQ available at /help.
- * All FAQ content is sourced from the canonical `faq.json` namespace
- * (Phase 8 Item A consolidation — single source of truth for /help, /, /business).
+ * All FAQ content is sourced from the canonical `faq.json` namespace via the FAQ
+ * registry (single source of truth for /help, /, /business — 2026-07-13 SSOT).
  */
-export const B2C_FAQ_ITEMS: FAQItem[] = [
-  {
-    id: 'isBank',
-    question: 'faq.items.isBank.question',
-    answer: 'faq.items.isBank.answer',
-    category: 'general',
-  },
-  {
-    id: 'safety',
-    question: 'faq.items.safety.question',
-    answer: 'faq.items.safety.answer',
-    category: 'security',
-  },
-  {
-    id: 'howPossible',
-    question: 'faq.items.howPossible.question',
-    answer: 'faq.items.howPossible.answer',
-    category: 'fees',
-  },
-  {
-    id: 'withdraw',
-    question: 'faq.items.withdraw.question',
-    answer: 'faq.items.withdraw.answer',
-    category: 'fees',
-  },
-  {
-    id: 'afterSignup',
-    question: 'faq.items.afterSignup.question',
-    answer: 'faq.items.afterSignup.answer',
-    category: 'getting-started',
-  },
-];
+export const B2C_FAQ_ITEMS = getFAQForSurface('landing');
 
 /**
  * Section 15: FAQ Section Configuration

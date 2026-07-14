@@ -1,7 +1,7 @@
 {
   "hero": {
     "headline": "Cash needs a job.",
-    "subheadline": "Payroll and rent can't wait. The rest doesn't have to sit still.\n\ndiBoaS gives your business the opportunity to put idle cash to work, earning every day, on your terms, under your control.",
+    "subheadline": "Whether you run a shop or a funded startup, payroll and rent can't wait. The rest doesn't have to sit still.\n\ndiBoaS gives your business a way to put idle cash to work in digital-dollar strategies, on your terms, under your control. You see the cost and the risk before anything moves.",
     "cta": "See how it works",
     "imageAlt": "Business treasury management illustration",
     "trustBadges": {
@@ -33,7 +33,7 @@
   },
   "origin": {
     "transitionHook": "",
-    "header": "Your businesses know the gap.",
+    "header": "Your business knows the gap.",
     "paragraphs": {
       "0": "A customer pays today. The money lands later.",
       "1": "A card fee takes its cut.",
@@ -58,7 +58,7 @@
       "works": {
         "title": "Review the path",
         "description": "See strategy, cost, liquidity, and risk before funds move.",
-        "imageAlt": "Your money works for you"
+        "imageAlt": "Reviewing a strategy path before moving funds"
       },
       "access": {
         "title": "Move when approved",
@@ -88,7 +88,7 @@
       },
       "records": {
         "headline": "Records for real operations",
-        "body": "Transaction history, statements, and exportable records designed to support accounting, tax, audit, and internal review.",
+        "body": "When your accountant asks for last quarter, you export it, not reconstruct it. History, statements, and records built for accounting, tax, and audit.",
         "imageAlt": "A desk with laptops and printed financial records under review."
       }
     },
@@ -315,11 +315,11 @@
   "startupTreasury": {
     "eyebrow": "FOR FUNDED STARTUPS",
     "headline": "You didn't raise it to watch it sit still.",
-    "subheadline": "Most of your round is runway you won't touch for months. It can wait somewhere that pays you without ever leaving your control.",
+    "subheadline": "Most of your round is runway you won't touch for months. It can wait somewhere you choose, with the cost and the risk in view, without ever leaving your control.",
     "body": {
       "0": "A round lands. Payroll takes a slice every month. The rest — most of it — waits.",
       "1": "It waits in one account, at one bank, earning close to nothing. You already know what that sentence can cost.",
-      "2": "diBoaS doesn't ask you to gamble your runway. Set the floor for what you need. What sits above it goes to work and stays yours, earning every day, ready to pull back the moment you need it."
+      "2": "diBoaS doesn't ask you to gamble your runway. Set the floor for what you need. What sits above it can go to work in digital-dollar strategies and stays under your control, ready to pull back when you need it. Every strategy carries risk, shown before you move."
     },
     "bridgeLine": "Don't take the example's word for it. Run it on your own runway.",
     "cta": {

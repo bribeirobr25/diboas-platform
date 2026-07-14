@@ -24,6 +24,7 @@
  */
 
 import { ReactNode, useId } from 'react';
+import { ChevronUp } from '@/components/UI/LucideIcon';
 import styles from './LegalDocument.module.css';
 
 // ============================================
@@ -266,17 +267,7 @@ export function LegalBackToTop({ label = 'Back to top' }: LegalBackToTopProps) {
 
   return (
     <a href="#top" className={styles.backToTop} onClick={handleClick} aria-label={label}>
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        aria-hidden="true"
-      >
-        <path d="M18 15l-6-6-6 6" />
-      </svg>
+      <ChevronUp width={16} height={16} strokeWidth={2} aria-hidden="true" />
       {label}
     </a>
   );

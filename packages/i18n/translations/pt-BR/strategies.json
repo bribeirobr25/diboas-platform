@@ -5,7 +5,7 @@
   },
   "hero": {
     "headline": "O acesso que eles guardavam. Agora é você quem escolhe.",
-    "subheadline": "Diferentes objetivos. Diferentes níveis de risco. Diferentes necessidades",
+    "subheadline": "Objetivos diferentes. Prazos diferentes. Veja o risco e o caminho antes de escolher.",
     "subheadline2": ""
   },
   "matrix": {
@@ -44,7 +44,7 @@
       },
       "wealthBuilding": {
         "goal": "Aposentadoria",
-        "stable": "Yield Maximizer",
+        "stable": "Full Harvest",
         "growth": "Full Throttle"
       }
     },
@@ -186,9 +186,9 @@
       "warning": "Em milhares de simulações, os resultados variaram de -60% a +200%+. O número da queda (47%) é o pior declínio temporário durante nosso teste. A faixa (-60% a +200%+) é a amplitude completa das simulações. Apenas pra quem tolera perdas significativas."
     },
     "yieldMaximizer": {
-      "name": "Yield Maximizer",
+      "name": "Full Harvest",
       "badge": "Retornos Estáveis | Construção de Patrimônio",
-      "tagline": "Máximo retorno, mínima volatilidade",
+      "tagline": "Retornos estáveis, poucas oscilações de preço.",
       "description": "Você quer os maiores retornos estáveis ao longo de 10+ anos sem exposição a preços de ativos digitais. Sem componente de crescimento. Apenas retornos otimizados nos três sistemas de empréstimo estáveis.",
       "allocation": "45% Sky SSR + 35% Aave V3 + 20% Compound V3",
       "allocationNote": "Nossa configuração estável de maior retorno.",
@@ -235,7 +235,7 @@
     "riskLevel": "Nível de risco"
   },
   "allStrategiesHeader": "Todas as 10 Estratégias",
-  "allCardsHonestLimitation": "Todas as estatísticas são baseadas em análise histórica (maio 2022 - dezembro 2025) e milhares de simulações Monte Carlo. Para protocolos mais recentes, os retornos de períodos anteriores são estimados usando proxies validados baseados em sistemas similares. O que aconteceu no passado pode não acontecer de novo. Esses números ajudam você a comparar estratégias, não a prever o futuro.",
+  "allCardsHonestLimitation": "Todas as estatísticas são baseadas no histórico público on-chain dos protocolos (maio 2022 a dezembro 2025) e em milhares de simulações Monte Carlo. Estamos em pré-lançamento, então esses são números dos protocolos, não resultados do diBoaS. Para protocolos mais recentes, os retornos de períodos anteriores são estimados usando proxies validados baseados em sistemas similares. O que aconteceu no passado pode não acontecer de novo. Esses números ajudam você a comparar estratégias, não a prever o futuro.",
   "growthBadge": "Crescimento",
   "card": {
     "showMore": "Mais detalhes",
@@ -355,11 +355,11 @@
     "question1": {
       "title": "Pra que é esse dinheiro?",
       "options": {
-        "emergency": "Reserva de emergência: Safe Harbor. Dinheiro que você pode precisar amanhã fica estável.",
+        "emergency": "Reserva de emergência: Safe Harbor. Dinheiro que você pode precisar amanhã, feito pra ficar estável.",
         "beatInflation": "Ganhar acima da inflação: Stable Growth. Seu dinheiro trabalha mais, mas 30% se move com o mercado.",
         "shortTerm": "Algo nos próximos 2 anos: Goal Keeper (estável) ou Steady Progress (com crescimento). Depende de como você se sente com oscilação de preço.",
         "mediumTerm": "Algo em 2-5 anos: Patient Builder (estável) ou Balanced Builder (com crescimento). Mais tempo significa que você pode considerar mais crescimento.",
-        "longTerm": "Patrimônio de longo prazo: Steady Compounder, Wealth Accelerator, Yield Maximizer ou Full Throttle. Seu horizonte de tempo é sua maior vantagem."
+        "longTerm": "Patrimônio de longo prazo: Steady Compounder, Wealth Accelerator, Full Harvest ou Full Throttle. Seu horizonte de tempo é sua maior vantagem."
       }
     },
     "question2": {
@@ -382,50 +382,7 @@
     "goldenRule": "Na dúvida, comece no seguro. Você sempre pode subir depois. Considere consultar um consultor financeiro licenciado se não tiver certeza de qual abordagem se encaixa na sua situação."
   },
   "faq": {
-    "header": "Antes de decidir",
-    "items": {
-      "switch": {
-        "question": "Posso trocar de estratégia?",
-        "answer": "Sim, a qualquer momento. Sem multas. Sem perguntas.\n\nAlgo pra ter em mente: se você trocar durante uma queda do mercado, pode travar uma perda temporária. O melhor momento pra trocar é quando seus objetivos mudam, não quando o mercado se move."
-      },
-      "multiple": {
-        "question": "Posso usar mais de uma estratégia ao mesmo tempo?",
-        "answer": "Sim. Muita gente faz isso.\n\nPense como contas diferentes pra propósitos diferentes: reserva de emergência no Safe Harbor, poupança pra férias no Goal Keeper, patrimônio de longo prazo no Balanced Builder."
-      },
-      "rebalancing": {
-        "question": "Como funciona o rebalanceamento?",
-        "answer": "Quando os movimentos do mercado empurram sua alocação pra fora do alvo (mais de 10% de desvio), nós avisamos você. Por exemplo, se seu alvo é 60% estável e 40% crescimento, e os movimentos do mercado empurrarem pra perto de 55/45 ou mais longe, a gente avisa.\n\nVocê vai ver exatamente o que mudou e por quê. Aí você decide: aprova o rebalanceamento ou deixa como está.\n\nNós nunca movemos seu dinheiro sem sua aprovação."
-      },
-      "guaranteed": {
-        "question": "Esses retornos são garantidos?",
-        "answer": "Não. E qualquer um que garanta retornos está mentindo pra você.\n\nO que podemos dizer: testamos cada estratégia com quase 4 anos de dados reais de mercado (maio 2022 - dezembro 2025). Os números são baseados no que realmente aconteceu e em milhares de simulações Monte Carlo.\n\nEsses números ajudam você a comparar estratégias e entender a faixa de resultados possíveis. Eles não preveem o futuro. Comece com o que você pode se dar ao luxo de aprender."
-      },
-      "systemProblem": {
-        "question": "E se um dos sistemas tiver um problema?",
-        "answer": "Esse é um risco real. Esses sistemas são construídos em código, e código pode ter vulnerabilidades.\n\nNós reduzimos esse risco usando apenas sistemas que protegeram bilhões de dólares por anos, distribuindo seu dinheiro entre múltiplos sistemas independentes, e monitorando continuamente pra atividade incomum.\n\nNão podemos eliminar esse risco. Ninguém pode. Mas podemos ser honestos sobre ele."
-      },
-      "whereMoneyGoes": {
-        "question": "Onde meu dinheiro realmente vai?",
-        "answer": "Os protocolos por trás de cada estratégia estão listados nesta página com seus nomes, redes, tipos de ativo e histórico. Sem precisar se cadastrar. Sem informação escondida.\n\nSky SSR, Aave V3 e Compound V3 cuidam dos retornos estáveis. Sanctum INF, Jupiter JLP e Jito cuidam do crescimento. Cada estratégia é uma combinação específica desses protocolos com porcentagens exatas mostradas em cada card de estratégia acima.\n\nNós escolhemos esses protocolos porque são transparentes, testados em batalha, e você pode verificar tudo por conta própria."
-      },
-      "fullThrottleReqs": {
-        "question": "Por que tem requisitos extras pro Full Throttle?",
-        "answer": "Porque queremos proteger você de você mesmo.\n\nFull Throttle pode perder a maior parte do seu valor. Os requisitos não existem pra te excluir. Existem pra garantir que você pensou bem: 6 meses de experiência, saldo mínimo, limite de 20% do seu patrimônio, e um período de espera de 24 horas."
-      },
-      "safe": {
-        "question": "Meu dinheiro está seguro?",
-        "answerA": "Seu dinheiro é protegido por você. Sua carteira, suas chaves. Ninguém no diBoaS pode acessar seus fundos sem sua autorização.\n\nDito isso, isso não é uma conta bancária. Seus fundos trabalham através de sistemas automatizados construídos em código. O valor pode oscilar, e você pode perder parte ou todo o seu dinheiro. Não existe seguro de depósito.\n\nNós mostramos os dois lados, as oportunidades e os riscos, sempre.",
-        "answerB": "Seu dinheiro é protegido por você. Sua carteira, suas chaves, e o diBoaS não guarda nenhuma parte delas. Se precisar recuperar o acesso, isso acontece por um parceiro independente, não pelo diBoaS. Ninguém no diBoaS consegue mover o seu dinheiro.\n\nDito isso, isso não é uma conta bancária. Seus fundos trabalham através de sistemas automatizados construídos em código. O valor pode oscilar, e você pode perder parte ou todo o seu dinheiro. Não existe seguro de depósito.\n\nNós mostramos os dois lados, as oportunidades e os riscos, sempre."
-      },
-      "loseEverything": {
-        "question": "Posso perder tudo?",
-        "answer": "Nas estratégias estáveis (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): a chance de perda total é extremamente baixa. Em quase 4 anos de testes e milhares de simulações, isso não aconteceu. Mas \"extremamente baixo\" não é zero.\n\nNas estratégias de crescimento: quanto maior a porcentagem de crescimento, maior a faixa de resultados possíveis. Full Throttle com 85% de exposição a crescimento teve quedas simuladas ultrapassando 78%.\n\nO risco é real. Nós não minimizamos isso. Nós ajudamos você a escolher o nível que combina com o que você aguenta."
-      },
-      "bankDifference": {
-        "question": "Qual a diferença pra uma poupança?",
-        "answer": "A caderneta de poupança é protegida pelo FGC (até R$250.000 por instituição). Seu dinheiro rende uma taxa fixa. O banco controla tudo.\n\nAs estratégias do diBoaS usam sistemas automatizados de empréstimo e staking. Os retornos são variáveis. Seu dinheiro não é segurado. Você controla através da sua própria carteira.\n\nA troca: retornos potencialmente maiores, mas você aceita o risco que vem com um tipo diferente de sistema."
-      }
-    }
+    "header": "Antes de decidir"
   },
   "sections": {
     "faq": {

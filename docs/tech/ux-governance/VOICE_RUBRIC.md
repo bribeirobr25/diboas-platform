@@ -26,9 +26,9 @@ Score each **PASS / WEAK / FAIL** per quality, per surface. WEAK means "on-brand
 
 ### Q2 — Adelaide: normal language, her reality, never patronising
 
-- **PASS:** a 65-year-old non-technical reader understands it and trusts it; plain-language swaps hold (earn/goal/digital dollar, no DeFi/APY/blockchain in body); it respects a smart adult who was failed by the system.
+- **PASS:** a 65-year-old non-technical reader understands it and trusts it; plain-language swaps hold (earn/goal/digital dollar, no DeFi/APY/blockchain in body); it respects a smart adult who was failed by the system — and it reads as **a peer trading ideas, not a teacher giving a lesson** (a friend who says "here's how this works, you decide," never "let me teach you what to do").
 - **WEAK:** a stray technical term that has a plain-language equivalent; slightly stiff or over-formal, but comprehensible.
-- **FAIL — two directions, both fail:** (a) **jargon wall** — "hedge against currency debasement via non-custodial stablecoin exposure"; OR (b) **patronising** — baby-talk, over-explaining the obvious, a "don't worry your head" tone. Adelaide was failed by the system, not by her own intelligence; talking down to her is as much a failure as talking over her.
+- **FAIL — two directions, both fail:** (a) **jargon wall** — "hedge against currency debasement via non-custodial stablecoin exposure"; OR (b) **patronising** — baby-talk, over-explaining the obvious, a "don't worry your head" tone, or **lecturing from above** (a teacher-to-student hierarchy — "today you'll learn…" — instead of a peer trading ideas). Adelaide was failed by the system, not by her own intelligence; talking down to her is as much a failure as talking over her.
 - **The bar (shipped copy):** _"She saved with discipline. With care. With trust. The system gave her low returns, little explanation, and almost no access to better options."_ Plain, warm, and it treats her as capable. PASS.
 
 ### Q3 — The three nevers: never selling, never promising, never advising (BLOCKER on FAIL)

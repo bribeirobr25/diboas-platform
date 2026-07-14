@@ -25,7 +25,7 @@
     },
     "understanding": {
       "question": "E se eu não entendo de investimento?",
-      "answer": "É exatamente pra você que a gente construiu isso. Nosso objetivo é fazer tão simples que qualquer pessoa consiga. Sem jargão. Sem decisões complicadas. Só opções claras e informações transparentes. Comece com R$10. Explore. Aprenda. A gente tá aqui em cada passo."
+      "answer": "É exatamente para quem construímos isto. Você abre o app, vê um número, um objetivo e um próximo passo em linguagem clara. Sem jargão, sem decisões complicadas. Comece com R$10. Explore. Aprenda. Estamos com você em cada passo."
     },
     "micaRegulated": {
       "question": "O diBoaS é regulamentado pela MiCA?",
@@ -33,7 +33,7 @@
     },
     "pixFaq": {
       "question": "Posso usar PIX no diBoaS?",
-      "answer": "Sim, pra entrar e sair. No Brasil você deposita e saca pelo Pix, rápido e do seu jeito — e em qualquer mercado dá pra usar cartão de crédito ou débito e transferência bancária. O que o diBoaS não faz é substituir o Pix no dia a dia: pra mandar reais entre pessoas, o Pix já é ótimo e a gente não compete com isso. Aqui, o seu dinheiro fica guardado em dólar, protegido da desvalorização do real, e essas são as portas de entrada e de saída."
+      "answer": "Sim, pra entrar e sair. No Brasil você deposita e saca pelo Pix, rápido e do seu jeito — e em qualquer mercado dá pra usar cartão de crédito ou débito e transferência bancária. O que o diBoaS não faz é substituir o Pix no dia a dia: pra mandar reais entre pessoas, o Pix já é ótimo e a gente não compete com isso. Aqui, o seu dinheiro fica guardado em dólar, e essas são as portas de entrada e de saída."
     },
     "whySaveDollar": {
       "question": "Por que poupar em dólar e não na Poupança?",
@@ -57,7 +57,7 @@
     },
     "whatIfWrong": {
       "question": "E se algo der errado?",
-      "answer": "Sim, você pode perder dinheiro. A gente cobriu isso honestamente na seção acima. Resumo: a gente testa toda estratégia contra crises passadas, monitora 24 horas por dia e sempre vai te dizer o que tá acontecendo. Mas não dá pra eliminar todo risco, e a gente não vai fingir que dá."
+      "answer": "Sim, você pode perder dinheiro. A gente cobriu isso honestamente na seção acima. Resumo: a gente usa apenas protocolos auditados e estabelecidos, monitora 24 horas por dia e sempre vai te dizer o que tá acontecendo. Mas não dá pra eliminar todo risco, e a gente não vai fingir que dá."
     },
     "lostPhone": {
       "question": "E se eu perder meu celular?",
@@ -65,11 +65,11 @@
     },
     "whatIsBalance": {
       "question": "O que é meu saldo, afinal?",
-      "answer": "Seu dinheiro disponível vive como dólares digitais, mostrado em reais dentro do diBoaS. Dinheiro disponível e investido aparecem separados, pra você sempre saber o que tá pronto e o que tá trabalhando."
+      "answer": "Seu dinheiro disponível fica em dólares digitais, mostrado em reais dentro do diBoaS. Dinheiro disponível e investido aparecem separados, pra você sempre saber o que tá pronto e o que tá trabalhando."
     },
     "liquidity": {
       "question": "Posso acessar meu dinheiro a qualquer momento?",
-      "answer": "Sim. Sem bloqueios. Você define o mínimo: \"sempre manter R$250.000 líquidos.\" Só colocamos pra trabalhar o que está acima disso.\n\nPrecisa de dinheiro? Um toque. Processamos na hora. Tempos de transferência bancária podem variar. Sem multas. Sem perguntas."
+      "answer": "Sim. Sem bloqueios. Você define o mínimo: \"sempre manter R$2.500 líquidos.\" Só colocamos pra trabalhar o que está acima disso.\n\nPrecisa de dinheiro? Um toque. Processamos na hora. Tempos de transferência bancária podem variar. Sem multas."
     },
     "whyCantTouch": {
       "question": "Por que a diBoaS não pode tocar no meu dinheiro?",
@@ -81,7 +81,7 @@
     },
     "canLoseEverything": {
       "question": "Posso perder tudo?",
-      "answer": "Nas estratégias estáveis (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): a chance de perda total é extremamente baixa. Em quase 4 anos de testes e milhares de simulações, isso não aconteceu. Mas \"extremamente baixo\" não é zero.\n\nNas estratégias de crescimento: quanto maior a porcentagem de crescimento, maior a faixa de resultados possíveis. Full Throttle com 85% de exposição a crescimento teve quedas simuladas ultrapassando 78%.\n\nO risco é real. Nós não minimizamos isso. Nós ajudamos você a escolher o nível que combina com o que você aguenta."
+      "answer": "Nas estratégias estáveis (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Full Harvest): a chance de perda total é extremamente baixa. No histórico público on-chain dos protocolos e em milhares de simulações, a perda total não aconteceu. Esses são números dos protocolos, não resultados do diBoaS. Mas \"extremamente baixo\" não é zero.\n\nNas estratégias de crescimento: quanto maior a porcentagem de crescimento, maior a faixa de resultados possíveis. Full Throttle com 85% de exposição a crescimento teve quedas simuladas ultrapassando 78%.\n\nO risco é real. Nós não minimizamos isso. Nós ajudamos você a escolher o nível que combina com o que você aguenta."
     },
     "howPossible": {
       "question": "Como o diBoaS mantém custos baixos?",
@@ -97,11 +97,11 @@
     },
     "audited": {
       "question": "O diBoaS já foi auditado?",
-      "answer": "Somos uma plataforma em pré-lançamento. Nossas estratégias são testadas contra crises históricas e cenários reais, e usamos protocolos auditados e estabelecidos. Conforme crescemos, planejamos buscar auditorias independentes de terceiros. Pra detalhes completos sobre os protocolos e a tecnologia por trás de cada estratégia, visite nossas páginas de Estratégias e Protocolos."
+      "answer": "Somos uma plataforma em pré-lançamento. Modelamos cada estratégia com base no histórico público on-chain dos protocolos que ela usa, e usamos protocolos auditados e estabelecidos. Conforme crescemos, planejamos buscar auditorias independentes de terceiros. Pra detalhes completos sobre os protocolos e a tecnologia por trás de cada estratégia, visite nossas páginas de Estratégias e Protocolos."
     },
     "canSwitchStrategies": {
       "question": "Posso trocar de estratégia?",
-      "answer": "Sim, a qualquer momento. Sem multas. Sem perguntas.\n\nAlgo pra ter em mente: se você trocar durante uma queda do mercado, pode travar uma perda temporária. O melhor momento pra trocar é quando seus objetivos mudam, não quando o mercado se move."
+      "answer": "Sim, a qualquer momento. Sem multas. Sem perguntas.\n\nAlgo pra ter em mente: se você trocar durante uma queda do mercado, pode travar uma perda temporária. Trocar costuma fazer sentido quando seus objetivos mudam, menos quando o mercado se move. Você decide a hora."
     },
     "multipleStrategies": {
       "question": "Posso usar mais de uma estratégia ao mesmo tempo?",
@@ -113,7 +113,7 @@
     },
     "returnsGuaranteed": {
       "question": "Esses retornos são garantidos?",
-      "answer": "Não. E qualquer um que garanta retornos está mentindo pra você.\n\nO que podemos dizer: testamos cada estratégia com quase 4 anos de dados reais de mercado (maio 2022 - dezembro 2025). Os números são baseados no que realmente aconteceu e em milhares de simulações Monte Carlo.\n\nEsses números ajudam você a comparar estratégias e entender a faixa de resultados possíveis. Eles não preveem o futuro. Comece com o que você pode se dar ao luxo de aprender."
+      "answer": "Não. E qualquer um que garanta retornos está mentindo pra você.\n\nO que podemos dizer: nossos números vêm do histórico público on-chain dos protocolos (maio 2022 a dezembro 2025) e de milhares de simulações Monte Carlo. Estamos em pré-lançamento, então esses são números dos protocolos, não resultados do diBoaS.\n\nEsses números ajudam você a comparar estratégias e entender a faixa de resultados possíveis. Eles não preveem o futuro. Comece com o que você pode se dar ao luxo de aprender."
     },
     "whereMoneyGoesProtocols": {
       "question": "Onde meu dinheiro realmente vai?",
@@ -178,6 +178,11 @@
     "protocolsDirectInteraction": {
       "question": "Preciso interagir com esses protocolos pessoalmente?",
       "answer": "Não. O diBoaS cuida de todas as interações com os protocolos quando você escolhe uma estratégia. Você não precisa criar contas em nenhum protocolo, gerenciar wallets em diferentes blockchains ou entender os detalhes técnicos. Essa página existe pela transparência, não porque você precisa fazer algo com ela."
+    },
+    "safeStrategy": {
+      "question": "Meu dinheiro está seguro?",
+      "answerA": "Seu dinheiro é protegido por você. Sua carteira, suas chaves. Ninguém no diBoaS pode acessar seus fundos sem sua autorização.\n\nDito isso, isso não é uma conta bancária. Seus fundos trabalham através de sistemas automatizados construídos em código. O valor pode oscilar, e você pode perder parte ou todo o seu dinheiro. Não existe seguro de depósito.\n\nNós mostramos os dois lados, as oportunidades e os riscos, sempre.",
+      "answerB": "Seu dinheiro é protegido por você. Sua carteira, suas chaves, e o diBoaS não guarda nenhuma parte delas. Se precisar recuperar o acesso, isso acontece por um parceiro independente, não pelo diBoaS. Ninguém no diBoaS consegue mover o seu dinheiro.\n\nDito isso, isso não é uma conta bancária. Seus fundos trabalham através de sistemas automatizados construídos em código. O valor pode oscilar, e você pode perder parte ou todo o seu dinheiro. Não existe seguro de depósito.\n\nNós mostramos os dois lados, as oportunidades e os riscos, sempre."
     }
   }
 }

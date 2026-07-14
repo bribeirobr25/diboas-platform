@@ -24,9 +24,9 @@
   },
   "output": {
     "monthlyFee": "Monatlich an Anbieter",
-    "annualSavings": "Mit diBoaS sparen",
+    "annualSavings": "Mit diBoaS möglich",
     "perTxLabel": "Gebühr pro Transaktion",
-    "caveat": "Hier siehst du die maximalen Einsparungen, angenommen, 100% der Kartenzahlungen laufen über diBoaS. Die tatsächlichen Einsparungen wachsen mit der diBoaS-Adoption deiner Kunden. Das ist eine obere Schätzgrenze."
+    "caveat": "Hier siehst du die maximalen Einsparungen, angenommen, 100% der Kartenzahlungen laufen über diBoaS. Die tatsächlichen Einsparungen wachsen mit der diBoaS-Adoption deiner Kunden. Das ist eine obere Schätzgrenze. Der Betrag ist bereits abzüglich der diBoaS-Bewegungsgebühr."
   },
   "resultMoment": {
     "eyebrow": "Was Kartengebühren wirklich kosten",
