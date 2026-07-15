@@ -6,7 +6,7 @@
   "hero": {
     "kicker": "Card fee savings calculator",
     "headline": "What are card processors taking from your business?",
-    "subtitle": "Most merchants pay 2.5–3% on every card transaction. See what that adds up to."
+    "subtitle": "On a $75 sale, $2.18 never reaches you. Most merchants pay 2.5–3% on every card transaction. See what that adds up to."
   },
   "inputs": {
     "monthlyVolumeLabel": "Monthly card-payment volume",
