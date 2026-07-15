@@ -381,9 +381,26 @@ Condensed reference from `docs/tech/coding-standards.md`:
 
 ## Audit Status
 
-**Current state:** 12/12 principles of excellence compliant. Everything below is merged to `main` and live in production as of 2026-07-11.
+**Current state:** 12/12 principles of excellence compliant. Everything below is merged to `main` as of **2026-07-15** (a multi-day content-quality / brand / i18n session landed on top of the 2026-07-11 baseline).
 
-Landed 2026-07-11 (one continuous session, five stacked merges + one follow-up):
+Landed 2026-07-12→15 (one long content-quality + brand + i18n session on `figures-registry`, now merged):
+
+- **Site-wide copy + storytelling + brand audit-and-apply** — audited all consumer pages × 4 locales against the Voice / anti-slop / Storytelling gates, then applied: **FAQ single-source-of-truth** (`config/faqRegistry.ts`; `/strategies`+`/protocols` migrated to `faq.json`) + the `/help` **FAQPage JSON-LD fix** (E10, reads flattened keys); browser-tab **favicon rebuilt from the palm-"B" monogram** + the **OG cards rebuilt** to the warm editorial palette + monogram (G-3 — no more "dB" gradient circle, tone-map honesty preserved); ~24 storytelling copy enrichments. Do-not-regress entries in `implementation-notes.md`.
+- **4-locale native + compliance pass** (pt-BR/es/de reviewed by native lens, not literal translation) — the **"Yield Maximizer" strategy renamed "Full Harvest"** (display only; the `yieldMaximizer` code key is unchanged), the **es Title-Case → sentence-case sweep**, **de du-register** fixes (MiCA disclaimer on B2C/About, `/market`), pt-BR `dreamMode` 70/20/10 imperative→descriptive, two pt-BR diacritics bugs, `$`→`€`/`R$` currency localization, dead excluded-feature ("Credit") mega-menu nav pruned. **No confirmed hard-veto rendered in any locale.**
+- **Doc hygiene** — README dep versions corrected (Turborepo 2.8.15 / Sentry 10.65 / DOMPurify 3.4.11); completed session plans archived to `docs/audit/_archive/` with status headers.
+
+**Open / paused — a new session should pick these up:**
+
+- **Held for founder sign-off:** the card-fees storytelling enrich `F-card-fees-1` (introduces a specific "$75 → $2.18" figure — the standing "numbers" rule).
+- **Deferred, needs an image toolchain** (sharp/pngquant/ImageMagick — absent locally, only `sips`): transparent nav wordmarks + nav image-swap wiring, the optimized PWA app-icon set + manifest, and the JSON-LD/SEO logo repoints (`layout.tsx:150`, `metadata-factory.ts`, `structuredData.ts` still point at `logo-icon.avif`). See `implementation-notes.md` F-BRAND + `docs/audit/_archive/PLAN_BRAND_WIRING_2026-07-13.md`.
+- ~~Non-EN copy native confirm~~ — **APPROVED by founder 2026-07-15** (review record: `docs/audit/LOCALE_COMPLIANCE_AUDIT_{en,pt-BR,es,de}_2026-07-14.md`). The pt-BR/es/de copy is locked. Note: the separate **market-editorial professional-translator pass (PENDING_ALL 5.38)** before the `MARKET_INDEXABLE` flip is still its own gate — not covered by this approval.
+- **2 DE founder decisions:** `apps/web/data/market/product-disclaimer.json` (formal Sie — the intentional diBoaS-Analytics product surface) + the wholesale-Sie legal/investor surfaces (keep-and-document vs move-to-du).
+- **Deferred, low priority:** a few storytelling minor enriches (Lesson numbering `F-learn-3`, lesson Adelaide line `F-ci-2/-4`, dream-mode form `F-dream-2`).
+- **In progress on a 2nd work front (parallel Claude Code session, founder-confirmed 2026-07-15):** the Docker MCP visual-regression pass + the deferred brand-asset work. **Coordination rule:** this front owns copy/content/decisions; the 2nd front owns visual/brand/`public/` assets — pull before starting work on either front to avoid clobbering.
+
+> **Continuity note:** the detailed audit records (voice / visual / storytelling / locale audits — ~90 docs — and the archived plans) are **local-only** in `docs/audit/` + `docs/audit/_archive/` (retention-protected, `.gitignore`'d — a fresh clone won't have them). This CLAUDE.md summary + `implementation-notes.md` carry the load-bearing state.
+
+Prior — landed 2026-07-11 (one continuous session, five stacked merges + one follow-up):
 
 - **Money Jobs (tool #11)** — the `/tools` entry point: give every part of a monthly amount a job (B2C Floor/Cushion/Working split + B2B operating-floor/runway), attested `MONEY_JOBS_MODEL` constants, dignity state, B2B runway mode, email-gated plan (unlock repairs the dream-mode gate), `?for=business` deep-link. CLO-light pass + full Docker MCP visual. Register + do-not-regress entries in `docs/tech/implementation-notes.md`.
 - **/market data pipeline (automation program)** — the page was renamed **"Adelaide Daily" → "Adelaide Market"** (honest cadence is weekly). The refresh is now a build-time pipeline under `apps/web/scripts/market-refresh/` (fetch w/ dual-source verify → fail-closed quality gate → shared regime engine → `computed.json` → template generator → editorial JSONs), with P1 stale-input/anchor guards, ETF-01 via the free Polygon shares-outstanding route (weekly ledger, warms up ~2026-08-10), the `summary.plain` grandmother layer (45-template matrix ×4 locales rendered above the memo voice), and a Mondays-06:00-UTC auto-PR workflow (`market-refresh-weekly.yml`, needs the `POLYGON_API_KEY` repo secret). Incident corrected in the same pass: the 2026-05-23 refresh had shipped partial mid-May candles as May closes for the 7 non-BTC tools series + BRL FX — do-not-regress entry added. Full design + execution record: `docs/audit/MARKET_REFRESH_AUDIT_AND_AUTOMATION_PLAN_2026-07-11.md` (Parts A–E).
