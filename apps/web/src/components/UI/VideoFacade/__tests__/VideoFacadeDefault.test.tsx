@@ -46,9 +46,19 @@ describe('VideoFacadeDefault', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.useFakeTimers();
+    // Hermeticity note (Phase-3 audit, 2026-07-16): happy-dom initiates a
+    // real fetch for the iframe src on insert. `disableIframePageLoading` is
+    // set in vitest.config.mts and verifiably reaches window.happyDOM, but
+    // happy-dom 20.10.x iframes read settings from a DETACHED browser
+    // context that does not inherit it (upstream quirk), so an aborted
+    // "NetworkError" line may appear in output. It is cosmetic: NO assertion
+    // here depends on the network (the load-path test fires fireEvent.load
+    // synthetically; the timeout test advances fake timers synchronously
+    // before any real response could land). Re-check when happy-dom updates.
   });
   afterEach(() => {
     vi.useRealTimers();
+    vi.unstubAllGlobals();
   });
 
   it('should render NO iframe and NO YouTube URL before the click (the performance guarantee)', () => {
