@@ -117,3 +117,27 @@
 .ctaSecondary:focus-visible {
   text-decoration: underline;
 }
+
+/* Phase 2 (F-3 education-first CTA order): pre-drip fallback line when no
+   next talk is live, and the demoted tertiary waitlist link. */
+.ctaFallback {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-500);
+  margin: var(--spacing-md-minus) 0 0;
+  text-align: center;
+}
+
+.ctaTertiary {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xs-plus);
+  color: var(--color-slate-600);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-top: var(--spacing-sm);
+}
+
+.ctaTertiary:hover,
+.ctaTertiary:focus-visible {
+  color: var(--color-teal-700);
+}

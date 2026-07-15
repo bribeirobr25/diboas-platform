@@ -79,7 +79,7 @@ export function buildLearnIndexStructuredData(args: {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'diBoaS Learn: Lessons',
+    name: 'diBoaS Real Talk',
     inLanguage: args.locale,
     itemListElement: lessons.map((lesson, index) => {
       const path = `/learn/${lesson.slug}`;

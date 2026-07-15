@@ -93,10 +93,9 @@ export default async function LessonPage({ params }: LessonPageProps) {
   ]);
 
   const lessonTitle = pageMessages[`${lesson.namespace}.lesson.h1`] ?? lesson.slug;
-  const lessonDescription =
-    pageMessages[`${lesson.namespace}.seo.description`] ??
-    pageMessages[`learn.lessons.compoundInterest.cardDescription`] ??
-    '';
+  // Phase 2: every live talk's namespace carries seo.description (the old
+  // learn.lessons.* card keys retired with the TalkArc).
+  const lessonDescription = pageMessages[`${lesson.namespace}.seo.description`] ?? '';
 
   // B-3 (learn redesign plan, 2026-07-15): breadcrumb names localized via the
   // learn namespace (wires the previously-dead `learn.nav.label`, F-8).
@@ -127,7 +126,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
       <ScrollToHash />
 
       <div className="main-page-wrapper">
-        <LessonFactory lessonId={lesson.id} primaryCtaHref="/#waitlist" secondaryCtaHref="/learn" />
+        <LessonFactory lessonId={lesson.id} waitlistCtaHref="/#waitlist" />
 
         <MinimalFooter
           taglineKey="landing-b2c.footer.tagline"

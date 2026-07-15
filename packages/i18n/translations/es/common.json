@@ -11,7 +11,7 @@
       "about": "Acerca de",
       "protocols": "Protocolos",
       "adelaideDaily": "Adelaide Market",
-      "learn": "Aprender",
+      "learn": "Hablando claro",
       "joinWaitlist": "Unirse a la lista",
       "tryDemo": "Probar demo"
     },
@@ -121,7 +121,7 @@
     "warningBadge": "Insignia de advertencia",
     "complianceBadge": "Insignia de cumplimiento",
     "mobileMenu": "Menú de navegación móvil",
-    "lessonProgress": "Progreso de la lección"
+    "lessonProgress": "Progreso de la charla"
   },
   "languageSwitcher": {
     "label": "Idioma",

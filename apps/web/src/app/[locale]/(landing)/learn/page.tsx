@@ -52,15 +52,13 @@ export default async function LearnIndexPage({ params }: LocalePageProps) {
     locale
   );
 
-  // Phase 1: titles resolve per live lesson from its own namespace-agnostic
-  // card key (Talk 1) or its lesson h1 once later talks load their namespace
-  // on this page. Registry-driven so new live talks appear automatically.
+  // Phase 2: titles resolve from the arc block (learn.arc.<id>.title, the
+  // approved talk titles), which ships in the already-loaded learn namespace
+  // for every talk. Registry-driven so new live talks appear automatically.
   const lessonTitles = Object.fromEntries(
     getActiveLessons().map((lesson) => [
       lesson.id,
-      pageMessages['learn.lessons.compoundInterest.cardTitle'] && lesson.id === 'compound-interest'
-        ? pageMessages['learn.lessons.compoundInterest.cardTitle']
-        : (pageMessages[`${lesson.namespace}.lesson.h1`] ?? lesson.slug),
+      pageMessages[`learn.arc.${lesson.id}.title`] ?? lesson.slug,
     ])
   ) as Partial<Record<LessonId, string>>;
 

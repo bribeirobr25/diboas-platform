@@ -166,16 +166,18 @@ export const PAGE_SEO_CONFIG = {
   // `... | diBoaS | diBoaS` in the rendered <title>. These English
   // strings act as the fallback only — V2 wires per-locale lookups in
   // `lib/learn/lessonMetadata.ts` that take precedence.
+  // Phase 2 Real Talk rename (RV-1, learn redesign plan): talks register,
+  // em-dash-free; "learn" search keywords kept deliberately (D-3).
   learn: {
     title: 'Learn how money actually works',
     description:
-      "Short, honest lessons on the financial system — written for people the system wasn't built for.",
+      "Honest talks about how money works, written for people the system wasn't built for.",
     keywords: ['compound interest', 'financial literacy', 'how money grows', 'learn investing'],
   },
   'learn/compound-interest': {
-    title: 'How Money Really Grows — Compound Interest Explained',
+    title: 'How Money Really Grows: Compound Interest Explained',
     description:
-      'Learn how compound interest works — the math banks and Wall Street have used for decades. Plug in your own numbers and see what 12 years looks like.',
+      'Learn how compound interest works, the math banks and Wall Street have used for decades. Plug in your own numbers and see what 12 years looks like.',
     keywords: [
       'compound interest calculator',
       'how money grows',

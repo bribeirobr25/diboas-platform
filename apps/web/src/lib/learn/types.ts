@@ -71,17 +71,3 @@ export interface LessonMetadata {
   next?: LessonId;
   blocks: LessonBlocks;
 }
-
-/**
- * @deprecated Phase 1 keeps the legacy coming-soon roadmap rendering
- * unchanged (zero-visible-change constraint); Phase 2 replaces it with the
- * registry-driven arc. Do not extend.
- */
-export type RoadmapLessonKey = 'inflation' | 'savingsVsInvesting' | 'currencyDepreciation';
-
-/** @deprecated See RoadmapLessonKey. */
-export interface RoadmapLesson {
-  key: RoadmapLessonKey;
-  /** Title and description live in the `learn` namespace under roadmap.lessons.<key>. */
-  status: 'comingSoon';
-}

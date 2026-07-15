@@ -18,17 +18,12 @@ import { getLesson, type LessonId } from '@/lib/learn';
 
 interface LessonFactoryProps {
   lessonId: LessonId;
-  primaryCtaHref?: string;
-  secondaryCtaHref?: string;
+  /** Phase 2 (F-3): the demoted tertiary waitlist link's destination. */
+  waitlistCtaHref?: string;
   enableAnalytics?: boolean;
 }
 
-export function LessonFactory({
-  lessonId,
-  primaryCtaHref,
-  secondaryCtaHref,
-  enableAnalytics,
-}: LessonFactoryProps) {
+export function LessonFactory({ lessonId, waitlistCtaHref, enableAnalytics }: LessonFactoryProps) {
   const lesson = getLesson(lessonId);
   if (!lesson) {
     return null;
@@ -40,8 +35,7 @@ export function LessonFactory({
       return (
         <LessonThreeBeat
           lesson={lesson}
-          primaryCtaHref={primaryCtaHref}
-          secondaryCtaHref={secondaryCtaHref}
+          waitlistCtaHref={waitlistCtaHref}
           enableAnalytics={enableAnalytics}
         />
       );

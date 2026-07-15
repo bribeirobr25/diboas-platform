@@ -1,40 +1,49 @@
 {
   "seo": {
     "title": "Lerne, wie Geld wirklich funktioniert",
-    "description": "Kurze, ehrliche Lektionen über das Finanzsystem, geschrieben für die Menschen, für die das System nicht gemacht wurde."
+    "description": "Ehrliche Talks darüber, wie Geld funktioniert, für Menschen, für die das System nicht gebaut wurde. Zinseszins, Sparen und die Grundlagen, die nie jemand erklärt hat."
   },
   "nav": {
-    "label": "Lernen",
+    "label": "Klartext",
     "home": "Startseite"
   },
   "index": {
-    "h1": "Lerne, wie Geld wirklich funktioniert.",
-    "subhead": "Kurze, ehrliche Lektionen über das Finanzsystem, geschrieben für die Menschen, für die das System nicht gemacht wurde.",
-    "footerLine": "Weitere Lektionen folgen. Wir veröffentlichen alle paar Monate eine: langsam, sorgfältig, gut geschrieben."
+    "h1": "Geld, im Klartext.",
+    "subhead": "Ehrliche Talks darüber, wie Geld funktioniert. Kein Unterricht, kein Fachjargon, und niemand sagt dir, was du tun sollst.",
+    "footerLine": "Es kommen weitere Talks. In Ruhe, und mit Sorgfalt geschrieben."
   },
-  "lessons": {
-    "compoundInterest": {
-      "cardTitle": "Wie Geld wirklich wächst",
-      "cardDescription": "Die Mathematik, die Banken seit Jahrhunderten nutzen. Was 1.000 € im Stillstand über 12 Jahre verpasst.",
-      "cardReadTime": "~5 Min Lesezeit",
-      "cardCta": "Lektion lesen"
-    }
-  },
-  "roadmap": {
+  "arc": {
+    "badge": "Talk {n} von 7",
+    "readTime": "~{minutes} Min Lesezeit",
+    "cardCta": "Zum Talk",
     "comingSoon": "Demnächst",
-    "lessons": {
-      "inflation": {
-        "title": "Inflation: Die stille Steuer",
-        "description": "Warum dein Geld jedes Jahr an Wert verliert, und wohin dieser Wert geht."
-      },
-      "savingsVsInvesting": {
-        "title": "Sparen vs. Investieren",
-        "description": "Klingt ähnlich. Ist es nicht. Hier zeigt sich der Unterschied."
-      },
-      "currencyDepreciation": {
-        "title": "Währungsabwertung",
-        "description": "Warum es ein eigenes Risiko ist, alles in deiner lokalen Währung zu halten."
-      }
+    "compound-interest": {
+      "title": "Wie Geld wirklich wächst",
+      "line": "Dasselbe Geld. Andere Aufgabe."
+    },
+    "money-objective": {
+      "title": "Wo bleibt es bloß?",
+      "line": "Ein Name ist ein Schutz."
+    },
+    "pay-yourself-first": {
+      "title": "Zahl dich zuerst.",
+      "line": "Zuerst, nicht zuletzt."
+    },
+    "ten-percent": {
+      "title": "Die 10 %.",
+      "line": "Klein zum Hergeben, groß, dass es zählt."
+    },
+    "seventy-percent": {
+      "title": "Von 70 % leben.",
+      "line": "Die Lücke ist der Punkt."
+    },
+    "clearing-debt": {
+      "title": "Die anderen 20 %.",
+      "line": "Die Zinsen, die du nicht mehr zahlst."
+    },
+    "putting-it-together": {
+      "title": "Alles zusammen.",
+      "line": "Du hast die Grundlagen."
     }
   }
 }

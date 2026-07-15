@@ -180,13 +180,13 @@ export const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
     badge: 'Market',
     theme: 'teal',
   },
-  // Learn redesign Phase 1 (2026-07-15). Copy stays pre-rename ("Learn")
-  // until the Phase-2 Real Talk deck lands; this key exists so lesson pages
-  // stop sharing /api/og/default.
+  // Learn redesign Phase 2 (RV-2, 2026-07-15): the Real Talk rename. Shared
+  // OG for /learn + all talk pages; bespoke per-talk art is a later CMO
+  // iteration.
   learn: {
-    title: 'Learn how money actually works',
+    title: 'Real Talk',
     subtitle: 'Honest talks about money, made plain.',
-    badge: 'Learn',
+    badge: 'Real Talk',
     theme: 'teal',
   },
 };
@@ -346,5 +346,10 @@ export function isValidPageType(page: string): page is OGPageType {
     'tools-asset-history',
     // Iteration 4 §3.5 — Adelaide Market. NF1 round-3 Path B (static OG).
     'market',
+    // Learn redesign Phase 2 (2026-07-15): Phase 1 added the 'learn' type +
+    // config but missed this validator, so /api/og/learn silently rendered
+    // the default template. The PAGE_CONFIGS<->validator drift guard test now
+    // fails loudly on this class of miss.
+    'learn',
   ].includes(page);
 }

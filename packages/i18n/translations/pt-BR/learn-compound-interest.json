@@ -78,9 +78,11 @@
       "Mas tem uma pegadinha, e é o Papo 2: juros compostos só funcionam com dinheiro que tem pra onde ir. A maioria do dinheiro nunca tem essa chance. Ele vaza antes. A seguir, a gente olha o porquê."
     ],
     "cta": {
-      "primary": "Entrar na lista de espera",
+      "primary": "Ver nos seus próprios números",
       "primaryNote": "Entrar na lista não mexe no seu dinheiro. Você decide depois.",
-      "secondary": "Mais lições em breve →"
+      "next": "Próximo papo: {title}",
+      "waitlist": "Entrar na lista de espera",
+      "secondary": "Mais papos vindo aí"
     }
   },
   "calculator": {

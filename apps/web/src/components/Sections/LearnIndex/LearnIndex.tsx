@@ -5,11 +5,9 @@ import { useTranslation } from '@diboas/i18n/client';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/config';
 import { analyticsService } from '@/lib/analytics';
 import { LESSON_EVENTS } from '@/lib/learn';
-import { LocaleLink } from '@/components/UI/LocaleLink';
-import { LucideIcon, ArrowRight } from '@/components/UI/LucideIcon';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { CinematicHeroFactory } from '@/components/Sections/CinematicHero';
-import { LessonRoadmap } from '@/components/Sections/LessonRoadmap';
+import { TalkArcFactory } from '@/components/Sections/TalkArc';
 import styles from './LearnIndex.module.css';
 
 interface LearnIndexProps {
@@ -45,38 +43,12 @@ export function LearnIndex({ enableAnalytics = true }: LearnIndexProps) {
         priority
       />
 
+      {/* Phase 2 (learn redesign plan): the hardcoded Talk-1 card + the legacy
+       * coming-soon roadmap are replaced by the registry-driven TalkArc (live
+       * cards keep the W7 prefetch={false} trade inside the arc). */}
       <SectionContainer variant="standard" padding="standard" as="section">
-        <div className={styles.lessonsBlock}>
-          {/* W7 (audit/2026-05-08): prefetch={false} so Next.js doesn't
-           * preemptively load the lesson page's ~11KB CSS bundle
-           * (LessonThreeBeat / CalculatorDefault / CompoundChart) on
-           * /learn. The trigger was mobile viewport rendering this card
-           * in-viewport early, firing prefetch before the user could
-           * click. The lesson page is the user's destination not a
-           * transient stop, so paying for CSS on click rather than
-           * preemptively is the right trade. */}
-          <LocaleLink
-            href="/learn/compound-interest"
-            className={styles.activeCard}
-            prefetch={false}
-          >
-            <span className={styles.activeCardKicker}>
-              {t('lessons.compoundInterest.cardReadTime')}
-            </span>
-            <h2 className={styles.activeCardTitle}>{t('lessons.compoundInterest.cardTitle')}</h2>
-            <p className={styles.activeCardDescription}>
-              {t('lessons.compoundInterest.cardDescription')}
-            </p>
-            <span className={styles.activeCardCta}>
-              {t('lessons.compoundInterest.cardCta')} <LucideIcon icon={ArrowRight} size="xs" />
-            </span>
-          </LocaleLink>
-        </div>
-      </SectionContainer>
-
-      <SectionContainer variant="standard" padding="standard" as="section">
-        <div className={styles.roadmapBlock}>
-          <LessonRoadmap enableAnalytics={enableAnalytics} />
+        <div className={styles.arcBlock}>
+          <TalkArcFactory enableAnalytics={enableAnalytics} />
         </div>
       </SectionContainer>
 

@@ -78,9 +78,11 @@
       "But there's a catch, and it's Talk 2: compound interest only works on money that has somewhere to go. Most money never gets the chance. It leaks out first. Next, we'll look at why."
     ],
     "cta": {
-      "primary": "Join the Waitlist",
+      "primary": "See it in your own numbers",
       "primaryNote": "Joining doesn't move your money. You decide later.",
-      "secondary": "More lessons coming →"
+      "next": "Next talk: {title}",
+      "waitlist": "Join the waitlist",
+      "secondary": "More talks are on the way"
     }
   },
   "calculator": {

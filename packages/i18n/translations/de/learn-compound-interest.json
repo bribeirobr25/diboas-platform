@@ -78,9 +78,11 @@
       "Aber da ist ein Haken, und das ist Talk 2: Zinseszins funktioniert nur bei Geld, das irgendwo hin kann. Das meiste Geld bekommt diese Chance nie. Es versickert vorher. Als Nächstes schauen wir uns an, warum."
     ],
     "cta": {
-      "primary": "Auf die Warteliste",
+      "primary": "Sieh es in deinen eigenen Zahlen",
       "primaryNote": "Du musst kein Geld bewegen, um auf die Warteliste zu kommen. Du entscheidest später.",
-      "secondary": "Weitere Lektionen folgen →"
+      "next": "Nächster Talk: {title}",
+      "waitlist": "Auf die Warteliste",
+      "secondary": "Weitere Talks kommen"
     }
   },
   "calculator": {
