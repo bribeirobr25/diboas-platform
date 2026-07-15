@@ -216,7 +216,9 @@ export function LessonThreeBeat({
                 <p className={styles.habitsLine}>{t('beat2.habitsLine')}</p>
                 <p className={styles.beatBody}>{t('beat2.vignettesIntro')}</p>
                 <CalculatorVignettes />
-                <DisclaimerNote variant="projection">{t('beat2.vignettesDisclaimer')}</DisclaimerNote>
+                <DisclaimerNote variant="projection">
+                  {t('beat2.vignettesDisclaimer')}
+                </DisclaimerNote>
                 <p className={styles.brandCallback}>{t('beat2.vignettesOutro')}</p>
                 <p className={styles.beatBody}>{t('beat2.habitsRecap')}</p>
               </>

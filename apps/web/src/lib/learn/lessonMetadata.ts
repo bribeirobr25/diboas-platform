@@ -97,9 +97,9 @@ export async function generateLessonMetadata(
   // (registry invariant: every live lesson has one), never from hardcoded
   // lesson-01 strings. Shared learn OG template registered in
   // lib/og/templates.tsx; bespoke per-talk art is a later CMO iteration.
-  const seoConfig = (
-    PAGE_SEO_CONFIG as Record<string, { title?: string; description?: string }>
-  )[`learn/${lesson.slug}`];
+  const seoConfig = (PAGE_SEO_CONFIG as Record<string, { title?: string; description?: string }>)[
+    `learn/${lesson.slug}`
+  ];
 
   return buildLearnMetadata({
     locale,

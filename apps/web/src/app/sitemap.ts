@@ -147,8 +147,10 @@ function buildLocalizedUrl(baseUrl: string, locale: string, path: string): strin
 }
 
 function getOgImageUrl(baseUrl: string, path: string): string {
-  const ogKey =
-    PATH_TO_OG_KEY[path] ?? (path.startsWith('/learn') ? 'learn' : 'default');
+  // '/learn' itself has an exact entry above; the prefix branch covers only
+  // lesson sub-paths ('/learn/...'), so an unrelated future '/learn-x' page
+  // can never inherit the learn template by accident.
+  const ogKey = PATH_TO_OG_KEY[path] ?? (path.startsWith('/learn/') ? 'learn' : 'default');
   return `${baseUrl}/api/og/${ogKey}`;
 }
 

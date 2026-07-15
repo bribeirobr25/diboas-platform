@@ -24,11 +24,18 @@ import type { Metadata } from 'next';
 // separate platform task; keep this until then.)
 export const dynamic = 'force-dynamic';
 
-// Router-level slug allowlist: without this, an unknown or announced slug
-// matches the route and notFound() fires only after the route group's
-// loading.tsx has streamed a 200 shell (a soft 404). dynamicParams=false
-// makes non-listed slugs a real router 404 (status 404), like every other
-// unknown URL on the site; rendering itself stays force-dynamic.
+// 404 handling for unknown/announced slugs, audited on BOTH dev and
+// `next start` (2026-07-15), which behave differently:
+// - dev: dynamicParams=false + the allowlist below gives real router 404s.
+// - production: under force-dynamic, the segment still matches and Next 16
+//   STREAMS metadata, so both the page's and generateMetadata's notFound()
+//   resolve after the 200 shell has started. Result: correct 404 UI, no
+//   content leak, but HTTP 200 (a soft 404). KNOWN LIMITATION, accepted for
+//   now: announced slugs are linked nowhere, and the real-status fix is
+//   either a middleware slug allowlist (touches the CSP-critical middleware;
+//   founder decision) or the D-4 static-rendering rework, where
+//   dynamicParams=false binds. Both layers below stay: dev 404s today,
+//   correct behavior automatically when D-4 lands.
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -44,7 +51,8 @@ export async function generateMetadata({ params }: LessonPageProps): Promise<Met
   const validLocale = (isValidLocale(locale) ? locale : 'en') as SupportedLocale;
   const lesson = getLessonBySlug(slug);
   if (!lesson || lesson.status !== 'live') {
-    return {};
+    // Real 404 status in production (see the mechanism note above).
+    notFound();
   }
   return generateLessonMetadata(lesson.id, validLocale);
 }
@@ -73,7 +81,12 @@ export default async function LessonPage({ params }: LessonPageProps) {
   // resolve. Extra namespaces come from the registry (Talk 1: 'tools-shared'
   // for the embedded calculator's UsdEquivalentBadge). A8: the market
   // snapshot is pre-fetched in parallel only when the lesson needs it.
-  const namespaces = ['learn', lesson.namespace, 'landing-b2c', ...(lesson.blocks.extraNamespaces ?? [])];
+  const namespaces = [
+    'learn',
+    lesson.namespace,
+    'landing-b2c',
+    ...(lesson.blocks.extraNamespaces ?? []),
+  ];
   const [pageMessages, snapshot] = await Promise.all([
     loadPageNamespaces(locale, namespaces),
     lesson.blocks.needsMarketData ? marketDataService.get() : Promise.resolve(null),
@@ -114,11 +127,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
       <ScrollToHash />
 
       <div className="main-page-wrapper">
-        <LessonFactory
-          lessonId={lesson.id}
-          primaryCtaHref="/#waitlist"
-          secondaryCtaHref="/learn"
-        />
+        <LessonFactory lessonId={lesson.id} primaryCtaHref="/#waitlist" secondaryCtaHref="/learn" />
 
         <MinimalFooter
           taglineKey="landing-b2c.footer.tagline"
