@@ -1,0 +1,1 @@
+export { TalkArcDefault } from './TalkArcDefault';

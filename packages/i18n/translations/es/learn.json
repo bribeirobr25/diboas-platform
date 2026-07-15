@@ -1,40 +1,49 @@
 {
   "seo": {
     "title": "Aprende cómo funciona el dinero de verdad",
-    "description": "Lecciones cortas y honestas sobre el sistema financiero, escritas para quienes el sistema dejó fuera."
+    "description": "Charlas honestas sobre cómo funciona el dinero, para la gente para la que el sistema no fue diseñado. Interés compuesto, ahorro y lo básico que nadie explicó."
   },
   "nav": {
-    "label": "Aprender",
+    "label": "Hablando claro",
     "home": "Inicio"
   },
   "index": {
-    "h1": "Aprende cómo funciona el dinero de verdad.",
-    "subhead": "Lecciones cortas y honestas sobre el sistema financiero, escritas para quienes el sistema dejó fuera.",
-    "footerLine": "Más lecciones próximamente. Publicamos una cada pocos meses: despacio, con cuidado, bien escritas."
+    "h1": "El dinero, hablando claro.",
+    "subhead": "Charlas honestas sobre cómo funciona el dinero. Sin clases, sin jerga y sin nadie diciéndote qué hacer.",
+    "footerLine": "Vendrán más charlas. Sin prisa, y escritas con cuidado."
   },
-  "lessons": {
-    "compoundInterest": {
-      "cardTitle": "Cómo Crece el Dinero de Verdad",
-      "cardDescription": "Las cuentas que los bancos usan desde hace siglos. Lo que 1.000 € quieto se pierde en 12 años.",
-      "cardReadTime": "~5 min de lectura",
-      "cardCta": "Leer lección"
-    }
-  },
-  "roadmap": {
+  "arc": {
+    "badge": "Charla {n} de 7",
+    "readTime": "~{minutes} min de lectura",
+    "cardCta": "Leer la charla",
     "comingSoon": "Próximamente",
-    "lessons": {
-      "inflation": {
-        "title": "La inflación: el impuesto silencioso",
-        "description": "Por qué tu dinero pierde valor cada año, y adónde va ese valor."
-      },
-      "savingsVsInvesting": {
-        "title": "Ahorrar vs. Invertir",
-        "description": "Suenan parecido. No lo son. Aquí está donde aparece la diferencia."
-      },
-      "currencyDepreciation": {
-        "title": "Devaluación de la moneda",
-        "description": "Por qué tener todo en tu moneda local también conlleva un riesgo."
-      }
+    "compound-interest": {
+      "title": "Cómo Crece el Dinero de Verdad",
+      "line": "Mismo dinero. Otro trabajo."
+    },
+    "money-objective": {
+      "title": "¿A dónde se va todo?",
+      "line": "Un nombre es una defensa."
+    },
+    "pay-yourself-first": {
+      "title": "Págate a ti primero.",
+      "line": "Primero, no lo último."
+    },
+    "ten-percent": {
+      "title": "El 10 %",
+      "line": "Poco que ceder, mucho que ganar."
+    },
+    "seventy-percent": {
+      "title": "Vivir con el 70 %",
+      "line": "El hueco es lo que cuenta."
+    },
+    "clearing-debt": {
+      "title": "El otro 20 %",
+      "line": "Los intereses que dejas de pagar."
+    },
+    "putting-it-together": {
+      "title": "Juntándolo todo",
+      "line": "Ya tienes Lo básico."
     }
   }
 }

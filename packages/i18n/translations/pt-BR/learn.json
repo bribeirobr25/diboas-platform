@@ -1,40 +1,49 @@
 {
   "seo": {
     "title": "Aprenda como o dinheiro funciona de verdade",
-    "description": "Lições curtas e honestas sobre o sistema financeiro, escritas para quem o sistema deixou de fora."
+    "description": "Papos honestos sobre como o dinheiro funciona, feitos pra quem o sistema não foi desenhado. Juros compostos, poupar e o básico que nunca explicaram."
   },
   "nav": {
-    "label": "Aprender",
+    "label": "Bater um papo",
     "home": "Início"
   },
   "index": {
-    "h1": "Aprenda como o dinheiro funciona de verdade.",
-    "subhead": "Lições curtas e honestas sobre o sistema financeiro, escritas para quem o sistema deixou de fora.",
-    "footerLine": "Mais lições em breve. A gente publica uma a cada poucos meses: devagar, com cuidado, bem escrita."
+    "h1": "Dinheiro, explicado na real.",
+    "subhead": "Papos honestos sobre como o dinheiro funciona. Sem aula, sem jargão e sem ninguém te dizendo o que fazer.",
+    "footerLine": "Mais papos vindo aí. Sem pressa, e escritos com cuidado."
   },
-  "lessons": {
-    "compoundInterest": {
-      "cardTitle": "Como o Dinheiro Realmente Cresce",
-      "cardDescription": "A matemática que os bancos usam há séculos. O que R$1.000 parado perde em 12 anos.",
-      "cardReadTime": "~5 min de leitura",
-      "cardCta": "Ler lição"
-    }
-  },
-  "roadmap": {
+  "arc": {
+    "badge": "Papo {n} de 7",
+    "readTime": "~{minutes} min de leitura",
+    "cardCta": "Ler o papo",
     "comingSoon": "Em breve",
-    "lessons": {
-      "inflation": {
-        "title": "Inflação: o imposto silencioso",
-        "description": "Por que o seu dinheiro perde valor todo ano, e para onde esse valor vai."
-      },
-      "savingsVsInvesting": {
-        "title": "Poupar vs. Investir",
-        "description": "Parecem iguais. Não são. Aqui está onde a diferença aparece."
-      },
-      "currencyDepreciation": {
-        "title": "Desvalorização da moeda",
-        "description": "Por que deixar tudo na moeda local também tem o seu risco."
-      }
+    "compound-interest": {
+      "title": "Como o Dinheiro Realmente Cresce",
+      "line": "Mesmo dinheiro. Outro trabalho."
+    },
+    "money-objective": {
+      "title": "Pra onde é que vai tudo?",
+      "line": "Um nome é uma defesa."
+    },
+    "pay-yourself-first": {
+      "title": "Pague-se primeiro.",
+      "line": "Primeiro, não por último."
+    },
+    "ten-percent": {
+      "title": "Os 10%",
+      "line": "Pequeno pra abrir mão, grande pra importar."
+    },
+    "seventy-percent": {
+      "title": "Viver com 70%.",
+      "line": "A folga é o ponto."
+    },
+    "clearing-debt": {
+      "title": "Os outros 20%.",
+      "line": "Os juros que você deixa de pagar."
+    },
+    "putting-it-together": {
+      "title": "Juntando tudo",
+      "line": "Você tem o Básico."
     }
   }
 }

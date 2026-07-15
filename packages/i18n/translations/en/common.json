@@ -11,7 +11,7 @@
       "about": "About",
       "protocols": "Protocols",
       "adelaideDaily": "Adelaide Market",
-      "learn": "Learn",
+      "learn": "Real Talk",
       "joinWaitlist": "Join Waitlist",
       "tryDemo": "Try Demo"
     },
@@ -121,7 +121,7 @@
     "warningBadge": "Warning badge",
     "complianceBadge": "Compliance badge",
     "mobileMenu": "Mobile navigation menu",
-    "lessonProgress": "Lesson progress"
+    "lessonProgress": "Talk progress"
   },
   "languageSwitcher": {
     "label": "Language",

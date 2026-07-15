@@ -1,40 +1,49 @@
 {
   "seo": {
     "title": "Learn how money actually works",
-    "description": "Short, honest lessons on the financial system, written for people the system wasn't built for."
+    "description": "Honest talks about how money works, written for people the system wasn't built for. Learn compound interest, saving, and the basics nobody explained."
   },
   "nav": {
-    "label": "Learn",
+    "label": "Real Talk",
     "home": "Home"
   },
   "index": {
-    "h1": "Learn how money actually works.",
-    "subhead": "Short, honest lessons on the financial system, written for people the system wasn't built for.",
-    "footerLine": "More lessons coming. We ship one every few months: slowly, carefully, properly written."
+    "h1": "Money, made plain.",
+    "subhead": "Honest talks about how money works. No lecture, no jargon, and nobody telling you what to do.",
+    "footerLine": "More talks are coming. Slowly, and written with care."
   },
-  "lessons": {
-    "compoundInterest": {
-      "cardTitle": "How Money Really Grows",
-      "cardDescription": "The math the banks have used for centuries. What $1,000 sitting still misses over 12 years.",
-      "cardReadTime": "~5 min read",
-      "cardCta": "Read lesson"
-    }
-  },
-  "roadmap": {
+  "arc": {
+    "badge": "Talk {n} of 7",
+    "readTime": "~{minutes} min read",
+    "cardCta": "Read the talk",
     "comingSoon": "Coming soon",
-    "lessons": {
-      "inflation": {
-        "title": "Inflation: The Silent Tax",
-        "description": "Why your money loses ground every year, and where that ground goes."
-      },
-      "savingsVsInvesting": {
-        "title": "Savings vs. Investing",
-        "description": "They sound similar. They aren't. Here's where the difference shows up."
-      },
-      "currencyDepreciation": {
-        "title": "When Your Money Loses Value",
-        "description": "Why keeping everything in your local currency carries its own risk."
-      }
+    "compound-interest": {
+      "title": "How Money Really Grows",
+      "line": "Same money. Different job."
+    },
+    "money-objective": {
+      "title": "Where does it all go?",
+      "line": "A name is a defense."
+    },
+    "pay-yourself-first": {
+      "title": "Pay yourself first.",
+      "line": "First, not last."
+    },
+    "ten-percent": {
+      "title": "The 10%.",
+      "line": "Small to give up, big to matter."
+    },
+    "seventy-percent": {
+      "title": "Living on 70%.",
+      "line": "The gap is the point."
+    },
+    "clearing-debt": {
+      "title": "The other 20%.",
+      "line": "The interest you stop paying."
+    },
+    "putting-it-together": {
+      "title": "Putting it together.",
+      "line": "You've got the Basics."
     }
   }
 }

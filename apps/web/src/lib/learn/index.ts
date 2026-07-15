@@ -3,17 +3,16 @@ export type {
   LessonStatus,
   LessonMetadata,
   LessonBlocks,
-  RoadmapLesson,
-  RoadmapLessonKey,
   VideoSourceConfig,
 } from './types';
 export {
   LESSONS,
-  ROADMAP,
   getLesson,
   getLessonBySlug,
   getActiveLessons,
   getAnnouncedLessons,
+  getSeriesLessons,
+  getNextLiveLesson,
 } from './registry';
 export { LESSON_EVENTS, type LessonEventName } from './constants';
 export { readMessageArray } from './i18nArrays';

@@ -78,9 +78,11 @@
       "Pero hay una trampa, y es la Charla 2: el interés compuesto solo funciona con dinero que tiene a dónde ir. La mayoría del dinero nunca tiene la oportunidad. Se escapa antes. La próxima vez vemos por qué."
     ],
     "cta": {
-      "primary": "Apuntarme a la lista de espera",
+      "primary": "Verlo en tus propios números",
       "primaryNote": "Apuntarte no mueve tu dinero. Tú decides después.",
-      "secondary": "Más lecciones próximamente →"
+      "next": "Siguiente charla: {title}",
+      "waitlist": "Apuntarme a la lista de espera",
+      "secondary": "Vendrán más charlas"
     }
   },
   "calculator": {

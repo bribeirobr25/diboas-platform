@@ -12,7 +12,7 @@
  * (docs/learn/30-day-series/lesson-0N-*.md).
  */
 
-import type { LessonId, LessonMetadata, RoadmapLesson } from './types';
+import type { LessonId, LessonMetadata } from './types';
 
 export const LESSONS: Readonly<Record<LessonId, LessonMetadata>> = {
   'compound-interest': {
@@ -98,13 +98,6 @@ export const LESSONS: Readonly<Record<LessonId, LessonMetadata>> = {
   },
 };
 
-/** @deprecated Phase-2 replaces the legacy coming-soon roadmap with the registry-driven arc. */
-export const ROADMAP: ReadonlyArray<RoadmapLesson> = [
-  { key: 'inflation', status: 'comingSoon' },
-  { key: 'savingsVsInvesting', status: 'comingSoon' },
-  { key: 'currencyDepreciation', status: 'comingSoon' },
-];
-
 export function getLesson(id: string): LessonMetadata | undefined {
   return (LESSONS as Readonly<Record<string, LessonMetadata>>)[id];
 }
@@ -119,4 +112,42 @@ export function getActiveLessons(): LessonMetadata[] {
 
 export function getAnnouncedLessons(): LessonMetadata[] {
   return Object.values(LESSONS).filter((l) => l.status === 'announced');
+}
+
+/**
+ * The 7 talks in series order, walked along the prev/next spine from the head
+ * (the talk with no `prev`). Phase 2: the TalkArc renders this, so series
+ * order is derived from the spine, never from object-key order or a
+ * hand-numbered list. The `lessons` param exists for test fixtures; the
+ * invariants test guarantees the real registry walks completely.
+ */
+export function getSeriesLessons(
+  lessons: Readonly<Partial<Record<LessonId, LessonMetadata>>> = LESSONS
+): LessonMetadata[] {
+  const all = Object.values(lessons).filter(Boolean) as LessonMetadata[];
+  const head = all.find((l) => !l.prev);
+  if (!head) return [];
+
+  const ordered: LessonMetadata[] = [];
+  const seen = new Set<LessonId>();
+  let current: LessonMetadata | undefined = head;
+  while (current && !seen.has(current.id)) {
+    ordered.push(current);
+    seen.add(current.id);
+    current = current.next ? lessons[current.next] : undefined;
+  }
+  return ordered;
+}
+
+/**
+ * The next talk in the spine ONLY if it is live (D-2 drip: talk pages link
+ * forward only to published talks; otherwise the CTA falls back to the
+ * honest "more talks are on the way" line).
+ */
+export function getNextLiveLesson(
+  lesson: LessonMetadata,
+  lessons: Readonly<Partial<Record<LessonId, LessonMetadata>>> = LESSONS
+): LessonMetadata | undefined {
+  const next = lesson.next ? lessons[lesson.next] : undefined;
+  return next?.status === 'live' ? next : undefined;
 }

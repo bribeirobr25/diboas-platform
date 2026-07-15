@@ -4,7 +4,12 @@ import { useEffect, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/config';
 import { analyticsService } from '@/lib/analytics';
-import { LESSON_EVENTS, readMessageArray, type LessonMetadata } from '@/lib/learn';
+import {
+  LESSON_EVENTS,
+  getNextLiveLesson,
+  readMessageArray,
+  type LessonMetadata,
+} from '@/lib/learn';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { LessonHero } from '@/components/UI/LessonHero';
 import { LessonProgressBar } from '@/components/UI/LessonProgressBar';
@@ -34,10 +39,11 @@ import styles from './LessonThreeBeat.module.css';
 interface LessonThreeBeatProps {
   /** The registry entry: namespace, blocks, spine, video, read time. */
   lesson: LessonMetadata;
-  /** Where the primary CTA scrolls/links to. Default `#waitlist`. */
-  primaryCtaHref?: string;
-  /** Where the secondary CTA links to. Default `/learn`. */
-  secondaryCtaHref?: string;
+  /**
+   * Where the demoted waitlist CTA links to (Phase 2, F-3 education-first:
+   * the primary CTA anchors to the Beat-3 tool; the waitlist is tertiary).
+   */
+  waitlistCtaHref?: string;
   enableAnalytics?: boolean;
 }
 
@@ -54,8 +60,7 @@ const BEAT_IDS = ['beat1', 'beat2', 'beat3'] as const;
  */
 export function LessonThreeBeat({
   lesson,
-  primaryCtaHref = '#waitlist',
-  secondaryCtaHref = '/learn',
+  waitlistCtaHref = '/#waitlist',
   enableAnalytics = true,
 }: LessonThreeBeatProps) {
   const intl = useTranslation();
@@ -89,21 +94,35 @@ export function LessonThreeBeat({
     });
   }, [enableAnalytics, lessonId, lesson.readTimeMinutes, locale]);
 
+  // Phase 2 CTA order (F-3 education-first): primary anchors back to the
+  // Beat-3 tool, the next-talk link renders only when the next talk is live
+  // (D-2 drip), and the waitlist demotes to the tertiary slot with its honest
+  // note kept verbatim. Wire names stay stable; `target` disambiguates.
   const handlePrimaryCta = () => {
     if (!enableAnalytics) return;
     analyticsService.track({
       name: LESSON_EVENTS.CTA_PRIMARY_CLICKED,
-      parameters: { lessonId, locale, timestamp: Date.now() },
+      parameters: { lessonId, locale, target: 'calculator', timestamp: Date.now() },
     });
   };
 
-  const handleSecondaryCta = () => {
+  const handleNextTalkCta = () => {
     if (!enableAnalytics) return;
     analyticsService.track({
       name: LESSON_EVENTS.CTA_SECONDARY_CLICKED,
-      parameters: { lessonId, locale, timestamp: Date.now() },
+      parameters: { lessonId, locale, target: 'next-talk', timestamp: Date.now() },
     });
   };
+
+  const handleWaitlistCta = () => {
+    if (!enableAnalytics) return;
+    analyticsService.track({
+      name: LESSON_EVENTS.CTA_SECONDARY_CLICKED,
+      parameters: { lessonId, locale, target: 'waitlist', timestamp: Date.now() },
+    });
+  };
+
+  const nextTalk = getNextLiveLesson(lesson);
 
   // B-4a: the lesson -> tool funnel edge.
   const toolHref =
@@ -284,18 +303,36 @@ export function LessonThreeBeat({
             ))}
 
             <div className={styles.ctaGroup} ref={ctaGroupRef}>
-              <CTAButtonLink href={primaryCtaHref} variant="primary" onClick={handlePrimaryCta}>
+              {/* Hash-only href: CTAButtonLink wraps internal hrefs in plain
+               * next/link, so `#beat3` scrolls same-page natively without
+               * locale-prefix mangling (verified in the Phase-2 spec). */}
+              <CTAButtonLink href="#beat3" variant="primary" onClick={handlePrimaryCta}>
                 {t('beat3.cta.primary')}
               </CTAButtonLink>
-              <p className={styles.ctaNote}>{t('beat3.cta.primaryNote')}</p>
+              {nextTalk ? (
+                <LocaleLink
+                  href={`/learn/${nextTalk.slug}`}
+                  className={styles.ctaSecondary}
+                  onClick={handleNextTalkCta}
+                  prefetch={false}
+                >
+                  {intl.formatMessage(
+                    { id: `${ns}.beat3.cta.next` },
+                    { title: intl.formatMessage({ id: `learn.arc.${nextTalk.id}.title` }) }
+                  )}
+                </LocaleLink>
+              ) : (
+                <p className={styles.ctaFallback}>{t('beat3.cta.secondary')}</p>
+              )}
               <LocaleLink
-                href={secondaryCtaHref}
-                className={styles.ctaSecondary}
-                onClick={handleSecondaryCta}
+                href={waitlistCtaHref}
+                className={styles.ctaTertiary}
+                onClick={handleWaitlistCta}
                 prefetch={false}
               >
-                {t('beat3.cta.secondary')}
+                {t('beat3.cta.waitlist')}
               </LocaleLink>
+              <p className={styles.ctaNote}>{t('beat3.cta.primaryNote')}</p>
             </div>
           </div>
         </SectionContainer>

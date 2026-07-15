@@ -37,6 +37,7 @@ import enToolsCardFees from '../../../packages/i18n/translations/en/tools-card-f
 import enToolsIdleCash from '../../../packages/i18n/translations/en/tools-idle-cash.json';
 import enToolsAssetHistory from '../../../packages/i18n/translations/en/tools-asset-history.json';
 import enLearnCompoundInterest from '../../../packages/i18n/translations/en/learn-compound-interest.json';
+import enLearn from '../../../packages/i18n/translations/en/learn.json';
 
 // ---- pt-BR ----
 import ptBRCommon from '../../../packages/i18n/translations/pt-BR/common.json';
@@ -52,6 +53,7 @@ import ptBRToolsCardFees from '../../../packages/i18n/translations/pt-BR/tools-c
 import ptBRToolsIdleCash from '../../../packages/i18n/translations/pt-BR/tools-idle-cash.json';
 import ptBRToolsAssetHistory from '../../../packages/i18n/translations/pt-BR/tools-asset-history.json';
 import ptBRLearnCompoundInterest from '../../../packages/i18n/translations/pt-BR/learn-compound-interest.json';
+import ptBRLearn from '../../../packages/i18n/translations/pt-BR/learn.json';
 
 // ---- es ----
 import esCommon from '../../../packages/i18n/translations/es/common.json';
@@ -67,6 +69,7 @@ import esToolsCardFees from '../../../packages/i18n/translations/es/tools-card-f
 import esToolsIdleCash from '../../../packages/i18n/translations/es/tools-idle-cash.json';
 import esToolsAssetHistory from '../../../packages/i18n/translations/es/tools-asset-history.json';
 import esLearnCompoundInterest from '../../../packages/i18n/translations/es/learn-compound-interest.json';
+import esLearn from '../../../packages/i18n/translations/es/learn.json';
 
 // ---- de ----
 import deCommon from '../../../packages/i18n/translations/de/common.json';
@@ -82,6 +85,7 @@ import deToolsCardFees from '../../../packages/i18n/translations/de/tools-card-f
 import deToolsIdleCash from '../../../packages/i18n/translations/de/tools-idle-cash.json';
 import deToolsAssetHistory from '../../../packages/i18n/translations/de/tools-asset-history.json';
 import deLearnCompoundInterest from '../../../packages/i18n/translations/de/learn-compound-interest.json';
+import deLearn from '../../../packages/i18n/translations/de/learn.json';
 
 import type { SupportedLocale } from '@diboas/i18n/config';
 
@@ -98,7 +102,9 @@ function buildLocale(
   toolsCardFees: Record<string, unknown>,
   toolsIdleCash: Record<string, unknown>,
   toolsAssetHistory: Record<string, unknown>,
-  learnCompoundInterest: Record<string, unknown>
+  learnCompoundInterest: Record<string, unknown>,
+  // TalkArc story (learn redesign Phase 2, 2026-07-15): learn.arc.* + index copy.
+  learn: Record<string, unknown>
 ): Record<string, string> {
   return {
     // `common` namespace surfaces shared disclaimers + button labels referenced
@@ -116,6 +122,7 @@ function buildLocale(
     ...flattenMessages(toolsIdleCash, 'tools-idle-cash'),
     ...flattenMessages(toolsAssetHistory, 'tools-asset-history'),
     ...flattenMessages(learnCompoundInterest, 'learn-compound-interest'),
+    ...flattenMessages(learn, 'learn'),
   };
 }
 
@@ -133,7 +140,8 @@ export const STORYBOOK_MESSAGES: Record<SupportedLocale, Record<string, string>>
     enToolsCardFees as Record<string, unknown>,
     enToolsIdleCash as Record<string, unknown>,
     enToolsAssetHistory as Record<string, unknown>,
-    enLearnCompoundInterest as Record<string, unknown>
+    enLearnCompoundInterest as Record<string, unknown>,
+    enLearn as Record<string, unknown>
   ),
   'pt-BR': buildLocale(
     ptBRCommon as Record<string, unknown>,
@@ -148,7 +156,8 @@ export const STORYBOOK_MESSAGES: Record<SupportedLocale, Record<string, string>>
     ptBRToolsCardFees as Record<string, unknown>,
     ptBRToolsIdleCash as Record<string, unknown>,
     ptBRToolsAssetHistory as Record<string, unknown>,
-    ptBRLearnCompoundInterest as Record<string, unknown>
+    ptBRLearnCompoundInterest as Record<string, unknown>,
+    ptBRLearn as Record<string, unknown>
   ),
   es: buildLocale(
     esCommon as Record<string, unknown>,
@@ -163,7 +172,8 @@ export const STORYBOOK_MESSAGES: Record<SupportedLocale, Record<string, string>>
     esToolsCardFees as Record<string, unknown>,
     esToolsIdleCash as Record<string, unknown>,
     esToolsAssetHistory as Record<string, unknown>,
-    esLearnCompoundInterest as Record<string, unknown>
+    esLearnCompoundInterest as Record<string, unknown>,
+    esLearn as Record<string, unknown>
   ),
   de: buildLocale(
     deCommon as Record<string, unknown>,
@@ -178,6 +188,7 @@ export const STORYBOOK_MESSAGES: Record<SupportedLocale, Record<string, string>>
     deToolsCardFees as Record<string, unknown>,
     deToolsIdleCash as Record<string, unknown>,
     deToolsAssetHistory as Record<string, unknown>,
-    deLearnCompoundInterest as Record<string, unknown>
+    deLearnCompoundInterest as Record<string, unknown>,
+    deLearn as Record<string, unknown>
   ),
 };
