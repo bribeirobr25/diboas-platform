@@ -5,6 +5,7 @@ import { useTranslation } from '@diboas/i18n/client';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/config';
 import { analyticsService } from '@/lib/analytics';
 import {
+  BEAT_PARAGRAPH_COUNTS,
   LESSON_EVENTS,
   READ_TIME_MINUTES,
   type LessonId,
@@ -102,11 +103,50 @@ export function LessonThreeBeat({
     });
   };
 
-  const beat1Body = tArray('beat1.body', 7);
-  const beat2Intro = tArray('beat2.intro', 4);
-  const beat2Outro = tArray('beat2.outro', 3);
-  const beat3Intro = tArray('beat3.intro', 5);
-  const beat3Wrap = tArray('beat3.wrap', 2);
+  // B-4a: the lesson -> tool funnel edge (was untracked).
+  const handleToolDeepLink = () => {
+    if (!enableAnalytics) return;
+    analyticsService.track({
+      name: LESSON_EVENTS.TOOL_DEEPLINK_CLICKED,
+      parameters: { lessonId, locale, tool: 'compound-interest', timestamp: Date.now() },
+    });
+  };
+
+  // B-4b: LESSON_COMPLETED fires when the end-of-content CTA group becomes
+  // >=50% visible, once per mount (the KPI definition in lib/learn/constants).
+  const ctaGroupRef = useRef<HTMLDivElement | null>(null);
+  const completedRef = useRef(false);
+  useEffect(() => {
+    if (!enableAnalytics) return;
+    const el = ctaGroupRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting || completedRef.current) continue;
+          completedRef.current = true;
+          analyticsService.track({
+            name: LESSON_EVENTS.LESSON_COMPLETED,
+            parameters: { lessonId, locale, timestamp: Date.now() },
+          });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [enableAnalytics, lessonId, locale]);
+
+  // Counts come from the shared contract in lib/learn/constants.ts; drift
+  // against the translation JSONs is caught by lessonCopyShape.test.ts.
+  const beat1Body = tArray('beat1.body', BEAT_PARAGRAPH_COUNTS.beat1Body);
+  const beat2Intro = tArray('beat2.intro', BEAT_PARAGRAPH_COUNTS.beat2Intro);
+  const beat2Outro = tArray('beat2.outro', BEAT_PARAGRAPH_COUNTS.beat2Outro);
+  const beat3Intro = tArray('beat3.intro', BEAT_PARAGRAPH_COUNTS.beat3Intro);
+  const beat3Wrap = tArray('beat3.wrap', BEAT_PARAGRAPH_COUNTS.beat3Wrap);
 
   const beatLabels = [t('beat1.title'), t('beat2.title'), t('beat3.title')];
 
@@ -202,6 +242,7 @@ export function LessonThreeBeat({
                       key="tool-deep-link"
                       href="/tools/compound-interest"
                       prefetch={false}
+                      onClick={handleToolDeepLink}
                     >
                       {chunks}
                     </LocaleLink>
@@ -216,7 +257,7 @@ export function LessonThreeBeat({
               </p>
             ))}
 
-            <div className={styles.ctaGroup}>
+            <div className={styles.ctaGroup} ref={ctaGroupRef}>
               <CTAButtonLink href={primaryCtaHref} variant="primary" onClick={handlePrimaryCta}>
                 {t('beat3.cta.primary')}
               </CTAButtonLink>

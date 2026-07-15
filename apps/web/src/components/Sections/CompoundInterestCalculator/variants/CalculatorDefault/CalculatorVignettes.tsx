@@ -21,9 +21,10 @@ interface VignetteRow {
  * rates — never hardcoded. This eliminates the arithmetic-vs-geometric
  * monthly-rate drift documented in Phase-7 audit L3.
  *
- * The lesson stays NON-HEDGED per Q7(a) / R2 — non-USD locales see raw
- * Historical 10% (NOT effective-rate APY). The tools' real-world numbers
- * differ from the lesson's; that's intentional pedagogical design.
+ * The vignettes use the CONSERVATIVE 7% scenario (Option A, founder
+ * 2026-07-14), matching the reworked Talk 1 copy that labels them a careful
+ * 7% recurring estimate. The calculator below still shows 7/10/14. The lesson
+ * stays NON-HEDGED (NOT effective-rate APY); real-tool numbers may differ.
  *
  * Each vignette row in translations must have `yearlyAmount` (number) — the
  * machine-readable annual contribution that feeds the engine. The
@@ -42,14 +43,14 @@ export function CalculatorVignettes() {
     }),
   };
 
-  const historicalDecimal = SCENARIO_RATES.historical / 100;
+  const conservativeDecimal = SCENARIO_RATES.conservative / 100;
 
   const rows: VignetteRow[] = [0, 1, 2].map((i) => {
     const yearlyAmount = Number(
       intl.formatMessage({ id: `learn-compound-interest.beat2.vignettes.${i}.yearlyAmount` })
     );
     const monthly = yearlyAmount / 12;
-    const fv = calculateMonthlyContributions(monthly, historicalDecimal, 0, 144).nominalFV;
+    const fv = calculateMonthlyContributions(monthly, conservativeDecimal, 0, 144).nominalFV;
     return {
       habit: intl.formatMessage({ id: `learn-compound-interest.beat2.vignettes.${i}.habit` }),
       yearly: intl.formatMessage({ id: `learn-compound-interest.beat2.vignettes.${i}.yearly` }),

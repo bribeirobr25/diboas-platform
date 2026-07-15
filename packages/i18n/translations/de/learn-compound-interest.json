@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Wie Geld wirklich wächst — Zinseszins erklärt",
+    "title": "Wie Geld wirklich wächst: Zinseszins erklärt",
     "description": "Verstehe, wie Zinseszins funktioniert: die Mathematik, die Banken und die Wall Street seit Jahrzehnten nutzen. Gib deine eigenen Zahlen ein und sieh, wie 12 Jahre aussehen."
   },
   "lesson": {
@@ -8,77 +8,74 @@
     "readTime": "~5 Min Lesezeit",
     "lastUpdated": {
       "label": "Zuletzt aktualisiert:",
-      "date": "Mai 2026"
+      "date": "Juli 2026"
     }
   },
   "beat1": {
     "title": "Sparen ist nur die halbe Wahrheit.",
     "body": [
-      "Schwierig. Notwendig. Der erste Schritt. Aber für sich genommen verändert es dein Leben nicht.",
-      "1.000 € gespart sind 1.000 € — in sechs Monaten. In einem Jahr. In vierzig Jahren.",
-      "Dieselben 1.000 € könnten aber **~2.252 € in 12 Jahren** sein.",
-      "Wie?",
-      "Indem du machst, was jede Bank und jeder Wall-Street-Fonds seit Jahrhunderten macht. Zinseszins.",
-      "Die Banken wissen das. Die Fonds wissen das. Sie nutzen es seit Jahrzehnten mit deinem Geld — und zahlen dir fast nichts dafür zurück.",
-      "Jetzt bist du dran."
+      "Leg vor einem Jahr 1.000 € aufs Sparkonto, und heute sind sie ungefähr… 1.003 € wert. Das ist das ganze Problem, und es ist nicht deine Schuld. Dir hat nie jemand die andere Hälfte gezeigt.",
+      "1.000 € gespart sind 1.000 €. In sechs Monaten. In einem Jahr. In vierzig Jahren.",
+      "Dieselben 1.000 € könnten aber, **selbst zu vorsichtigen 7 %,** in 12 Jahren zu ungefähr **2.252 €** werden. Du hast keinen Cent dazugelegt. Der Zuwachs hat angefangen, seinen eigenen Zuwachs zu verdienen.",
+      "Das ist Zinseszins, die Mathematik, die jede Bank und jeder Wall-Street-Fonds seit Jahrhunderten nutzt.",
+      "Er liegt in keinem Tresor. Es hat sich nur nie jemand hingesetzt und ihn dir erklärt. (Meine Oma hat jahrzehntelang alles richtig gemacht, und ihr hat das nie jemand gezeigt.)",
+      "Er ist die stärkste Kraft im ganzen Thema Geld, und fast niemand außerhalb dieser Welt nutzt sie wirklich. In den nächsten Talks geht es um das *Warum*. In diesem hier geht es darum, *wie er funktioniert*."
     ]
   },
   "beat2": {
-    "title": "Der unsichtbare Motor des Systems.",
+    "title": "Du brauchst kein Vermögen, um anzufangen.",
     "intro": [
-      "Du denkst vielleicht — *woher soll ich denn das Geld zum Investieren nehmen?*",
-      "Keine Sorge. Wir kommen dir nicht mit der alten 50/30/20-Regel. Die hat funktioniert, als Mieten noch bezahlbar waren, als die Inflation unter Kontrolle war, als der Wocheneinkauf nicht ein halbes Vermögen gekostet hat.",
-      "Diese Welt ist vorbei. Wir leben in dieser hier.",
-      "Reden wir also über etwas Einfacheres. Kleine Dinge, für die du Geld ausgibst, ohne darüber nachzudenken."
+      "Du denkst dir vielleicht: *Wo soll ich denn das Geld zum Investieren hernehmen?*",
+      "Verständlich. Und wir halten dir keinen Vortrag über die alte 50/30/20-Regel. Die hat mit Mieten, Wocheneinkäufen und einer Inflation gerechnet, die es so nicht mehr gibt. Diese Welt ist vorbei. Wir leben in dieser.",
+      "Also vergiss Regeln. Denk an die kleinen Dinge, für die du sowieso schon Geld ausgibst, ohne nachzudenken."
     ],
-    "habitsLine": "Dein Bäckerei-Frühstück morgens. Das Restaurant am Wochenende. Streaming und Fitnessstudio jeden Monat.",
-    "vignettesIntro": "Wenn nur eines davon für dich arbeiten würde, statt einfach wegzufließen, beim gleichen historischen Zinssatz von 10 %, dann sehen 12 Jahre so aus:",
+    "habitsLine": "Dein Kaffee unterwegs. Der Lieferdienst am Freitag. Deine Streaming-Abos jeden Monat.",
+    "vignettesIntro": "Die 1.000 € waren einmalig, so wie das Weihnachtsgeld. Gewohnheiten sind anders: sie *wiederholen* sich. Stell dir also vor, du lenkst eine kleine Gewohnheit um, Monat für Monat, 12 Jahre lang. Ein Kaffee für 3 € an Werktagen sind rund 60 € im Monat. Zum selben vorsichtigen Zinssatz von 7 % investiert, könnte jede einzelne davon hier landen:",
     "vignettes": [
       {
-        "habit": "Bäckerei-Frühstück (4 €/Tag werktags)",
-        "yearly": "1.040 €",
-        "yearlyAmount": "1040"
+        "habit": "Kaffee unterwegs (3 €/Tag an Werktagen)",
+        "yearly": "720 €",
+        "yearlyAmount": "720"
       },
       {
-        "habit": "Restaurant am Wochenende (35 €/Woche)",
-        "yearly": "1.820 €",
-        "yearlyAmount": "1820"
+        "habit": "Lieferdienst am Freitag (30 €/Woche)",
+        "yearly": "1.560 €",
+        "yearlyAmount": "1560"
       },
       {
-        "habit": "Streaming + Fitnessstudio (40 €/Monat)",
-        "yearly": "480 €",
-        "yearlyAmount": "480"
+        "habit": "Streaming-Abos (20 €/Monat)",
+        "yearly": "240 €",
+        "yearlyAmount": "240"
       }
     ],
     "vignettesTableHeaders": {
       "habit": "Gewohnheit",
       "yearly": "Pro Jahr",
-      "twelveYear": "Könnte in 12 Jahren werden"
+      "twelveYear": "Könnte in 12 Jahren werden (Schätzung)"
     },
     "vignettesOutro": "Dasselbe Geld. Andere Aufgabe.",
-    "vignettesDisclaimer": "Illustrative Zahlen auf Basis eines historischen Zinssatzes von 10 %. Vergangene Wertentwicklungen garantieren keine zukünftigen Ergebnisse.",
-    "habitsRecap": "Niemand verlangt von dir, das Frühstück zu streichen. Oder das Restaurant. Oder das Streaming. Behalte, was dein Leben besser macht.",
+    "vignettesDisclaimer": "Illustrative Zahlen. Sie unterstellen, dass diese Gewohnheit in gleichen monatlichen Beträgen investiert wird, Monat für Monat, 12 Jahre lang, zu vorsichtigen 7 % Zinseszins. Die historischen 10 % und optimistische 14 % findest du im Rechner unten. Szenarien, keine Versprechen. Vergangene Wertentwicklung ist keine Garantie für die Zukunft.",
+    "habitsRecap": "Niemand verlangt von dir, deinen Kaffee, deinen Lieferdienst oder dein Streaming aufzugeben. Behalte, was dein Leben gut macht.",
     "outro": [
-      "Aber wenn nur eines davon — nur eines — für dich arbeiten würde, statt jeden Monat zu verschwinden, dann passiert genau die Mathematik, die du oben gesehen hast.",
-      "Genau das machen die Banken. Mit deinem Geld. Seit Jahrzehnten.",
-      "Jetzt bist du dran."
+      "Aber wenn nur eine davon, nur eine einzige, für dich arbeiten würde, statt jeden Monat zu verschwinden, dann ist das genau die Mathematik, die du gerade gesehen hast.",
+      "Die Banken machen das seit Jahrzehnten. Adelaide hat es nie jemand gezeigt. Jetzt hast du es gesehen."
     ]
   },
   "beat3": {
-    "title": "Jetzt benutze es selbst.",
+    "title": "Jetzt nimm deine eigenen Zahlen.",
     "intro": [
-      "Die Rechnung oben war mit Bäckerei, Restaurant und Streaming. Das sind Beispiele. Dein Leben ist deins.",
-      "Setz also deine eigenen Zahlen ein.",
-      "Wofür gibst du täglich, wöchentlich oder monatlich Geld aus, das du nicht wirklich vermissen würdest, wenn es stattdessen für dich arbeiten würde?",
-      "Das wöchentliche Essengehen. Die Abos, die sich angesammelt haben. Die paar Euro, die jeden Tag auf dem Weg zur Arbeit verschwinden. Was auch immer es ist — gib es unten ein.",
-      "Die Grafik zeigt dir, wie 12 Jahre aussehen. Bei drei verschiedenen Zinssätzen. Verglichen mit dem, was deine Bank dir gerade zahlt."
+      "Das waren meine Beispiele: ein Kaffee, ein Lieferdienst, ein paar Abos. Dein Leben ist deins.",
+      "Und hier der ehrliche Teil: Ich stehe hinter diBoaS, ich habe also einen Grund, zu wollen, dass dich das hier begeistert. Glaub mir deshalb kein Wort.",
+      "Setz unten deine eigenen Zahlen ein, das, was du wirklich ausgibst und nicht wirklich vermissen würdest. Wähl deine Jahre. Die Grafik zeigt, was passiert, bei drei verschiedenen Zinssätzen, direkt neben dem, was deine Bank dir gerade zahlt.",
+      "Lass deine eigene Rechnung sprechen. Das ist die einzige Zahl, die zählt."
     ],
     "calculatorTagline": "Dasselbe Geld. Andere Aufgabe.",
     "afterCalculator": "Zahlen verstanden?",
     "toolDeepLink": "Willst du diesen Rechner allein? <link>Zum eigenständigen Zinseszins-Rechner</link>",
     "wrap": [
-      "Genau dafür ist diBoaS da. Der Teil deines Geldes, den du zur Seite legen kannst, der zu einem Zinssatz arbeitet, den sich das System bisher selbst behalten hat.",
-      "Deine Bank bleibt, wo sie ist — für Ausgaben, Rechnungen und den Alltag. diBoaS ist für Geld mit einem Ziel."
+      "Das ist Zinseszins. Du hast gerade die eine Idee verstanden, auf der das ganze Finanzsystem läuft, und du kannst sie jetzt in deinen eigenen Zahlen sehen.",
+      "Genau für diesen Teil deines Geldes ist diBoaS da: den Teil, den du zur Seite legen kannst, mit einem Ziel, der zu einem Zinssatz arbeitet, den sich das System bisher meist selbst behalten hat. Deine Bank bleibt, wo sie ist, für Ausgaben, Rechnungen und den Alltag.",
+      "Aber da ist ein Haken, und das ist Talk 2: Zinseszins funktioniert nur bei Geld, das irgendwo hin kann. Das meiste Geld bekommt diese Chance nie. Es versickert vorher. Als Nächstes schauen wir uns an, warum."
     ],
     "cta": {
       "primary": "Auf die Warteliste",
@@ -113,6 +110,6 @@
     "tableHeaderRate": "Jahreszins",
     "tableHeaderTotal": "Nach {years} Jahren",
     "loadingState": "Wird berechnet…",
-    "calibrationNote": "Was die Raten bedeuten. Die 7% konservativ sind das stabilere Szenario, die 10% historisch liegen in der Mitte des langfristigen Bereichs, und die 14% optimistisch sind das aktivere Szenario. Das sind Szenarien, keine Versprechen, und jede Rate trägt Risiko. Unabhängig davon: der S&P 500 erzielte langfristig im Schnitt rund 10% Gesamtrendite pro Jahr (nominal, mit reinvestierten Dividenden; rund 7% nach Inflation), Gold rund 7% pro Jahr. Langfristig schnitt Sparen in brasilianischen Real schlechter ab als das Halten des Digital-Dollar (vollständige Zahlen in unseren Recherchenotizen)."
+    "calibrationNote": "Was die Zinssätze bedeuten. Die vorsichtigen 7 % sind das stabilere Szenario, die historischen 10 % liegen langfristig in der Mitte, die optimistischen 14 % sind das bewegtere. Das sind Szenarien, keine Versprechen, und jede Rate trägt Risiko. Zur Einordnung: Der S&P 500 erzielte langfristig im Schnitt rund 10 % pro Jahr (nominal, mit reinvestierten Dividenden; rund 7 % nach Inflation), Gold rund 7 % pro Jahr. Deine Bank zahlt seit Jahren nahe null, während die Inflation dein Erspartes still auffrisst (vollständige Zahlen in unseren Recherche-Notizen)."
   }
 }

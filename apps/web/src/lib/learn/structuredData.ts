@@ -47,7 +47,7 @@ export function buildLessonStructuredData(args: {
     learningResourceType: 'Lesson',
     educationalLevel: 'beginner',
     teaches: 'Personal finance: how compound interest works',
-    timeRequired: `PT${READ_TIME_MINUTES}M`,
+    timeRequired: `PT${READ_TIME_MINUTES[lesson.id]}M`,
     isAccessibleForFree: true,
     audience: {
       '@type': 'EducationalAudience',

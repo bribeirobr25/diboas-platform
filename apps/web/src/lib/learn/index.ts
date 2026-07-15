@@ -7,6 +7,11 @@ export type {
   VideoSourceConfig,
 } from './types';
 export { LESSONS, ROADMAP, getLesson, getActiveLessons } from './registry';
-export { LESSON_EVENTS, READ_TIME_MINUTES, type LessonEventName } from './constants';
+export {
+  LESSON_EVENTS,
+  READ_TIME_MINUTES,
+  BEAT_PARAGRAPH_COUNTS,
+  type LessonEventName,
+} from './constants';
 export { generateLessonMetadata, generateLearnIndexMetadata } from './lessonMetadata';
 export { buildLessonStructuredData, buildLearnIndexStructuredData } from './structuredData';

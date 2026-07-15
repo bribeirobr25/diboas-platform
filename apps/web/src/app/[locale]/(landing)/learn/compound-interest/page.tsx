@@ -48,10 +48,12 @@ export default async function CompoundInterestLessonPage({ params }: LocalePageP
     pageMessages['learn.lessons.compoundInterest.cardDescription'] ??
     "The math the banks have been using for centuries. Now it's your turn.";
 
+  // B-3 (learn redesign plan, 2026-07-15): breadcrumb names localized via the
+  // learn namespace (wires the previously-dead `learn.nav.label`, F-8).
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
-      { name: 'Home', url: '/' },
-      { name: 'Learn', url: '/learn' },
+      { name: pageMessages['learn.nav.home'] ?? 'Home', url: '/' },
+      { name: pageMessages['learn.nav.label'] ?? 'Learn', url: '/learn' },
       { name: lessonTitle, url: '/learn/compound-interest' },
     ],
     locale
