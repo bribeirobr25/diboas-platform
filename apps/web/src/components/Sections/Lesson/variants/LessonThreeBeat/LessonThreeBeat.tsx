@@ -262,7 +262,13 @@ export function LessonThreeBeat({
             {showVignettes && (
               <>
                 <p className={styles.habitsLine}>{t('beat2.habitsLine')}</p>
-                <p className={styles.beatBody}>{t('beat2.vignettesIntro')}</p>
+                <p
+                  className={styles.beatBody}
+                  // V-4 (visual pass, 2026-07-16): this string carries the
+                  // approved *repeat* emphasis; without the helper the
+                  // asterisks rendered literally in all 4 locales.
+                  dangerouslySetInnerHTML={renderInlineEmphasis(t('beat2.vignettesIntro'))}
+                />
                 <CalculatorVignettes />
                 <DisclaimerNote variant="projection">
                   {t('beat2.vignettesDisclaimer')}
