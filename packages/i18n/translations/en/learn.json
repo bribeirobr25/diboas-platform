@@ -56,5 +56,10 @@
       "copied": "Copied",
       "copyFailed": "Couldn't copy"
     }
+  },
+  "video": {
+    "playLabel": "Play the talk",
+    "privacyNote": "Plays via YouTube's privacy-enhanced player.",
+    "watchOnYouTube": "Watch on YouTube"
   }
 }

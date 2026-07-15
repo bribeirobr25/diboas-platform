@@ -32,6 +32,10 @@ export const LESSON_EVENTS = {
   // per-question answers: non-sensitive by design).
   QUIZ_SUBMITTED: 'learn_quiz_submitted',
   SHARE_COPIED: 'learn_share_copied',
+  // Phase 3 (Slice B). Watch-time completion is deliberately NOT tracked
+  // (needs the IFrame API; YouTube Studio owns that KPI).
+  VIDEO_STARTED: 'learn_video_started',
+  VIDEO_ERROR: 'learn_video_error',
 } as const;
 
 export type LessonEventName = (typeof LESSON_EVENTS)[keyof typeof LESSON_EVENTS];

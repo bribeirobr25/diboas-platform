@@ -74,6 +74,14 @@ export interface LessonMetadata {
   illustration?: string;
   /** Self-hosted video config (existing path); populated when a recording lands. */
   video?: VideoSourceConfig;
+  /**
+   * YouTube-nocookie recordings (Phase 3 Slice B, D-1), keyed by locale. A
+   * locale without an id renders the illustration hero (no facade, no broken
+   * embed). Precedence when both exist: self-hosted `video` wins (RV-6).
+   */
+  youtube?: Partial<Record<SupportedLocale, string>>;
+  /** ISO date of the FIRST recording's publish (feeds VideoObject uploadDate; never invented). */
+  youtubePublishedAt?: string;
   /** Series spine. Undefined prev = first talk; undefined next = last talk. */
   prev?: LessonId;
   next?: LessonId;

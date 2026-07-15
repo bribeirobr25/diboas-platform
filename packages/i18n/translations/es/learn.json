@@ -56,5 +56,10 @@
       "copied": "Copiado",
       "copyFailed": "No se pudo copiar"
     }
+  },
+  "video": {
+    "playLabel": "Reproducir la charla",
+    "privacyNote": "Se reproduce con el reproductor de YouTube con privacidad mejorada.",
+    "watchOnYouTube": "Ver en YouTube"
   }
 }

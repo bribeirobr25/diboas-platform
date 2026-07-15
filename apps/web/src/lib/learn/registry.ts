@@ -22,6 +22,9 @@ export const LESSONS: Readonly<Record<LessonId, LessonMetadata>> = {
     status: 'live',
     variant: 'threeBeat',
     readTimeMinutes: 5,
+    // Founder-generated Talk-1 still (docs/learn/30-day-series/talk1/, 2026-07-16),
+    // optimized to AVIF via sharp; also the facade's thumbnail fallback.
+    illustration: '/assets/learn/talk-01-hero.avif',
     video: undefined, // D-1: YouTube facade lands in Phase 3; self-hosted config stays supported
     next: 'money-objective',
     blocks: {

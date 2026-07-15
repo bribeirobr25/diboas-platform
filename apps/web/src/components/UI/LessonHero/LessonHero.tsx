@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import { VideoPlayer } from '@/components/UI/VideoPlayer';
-import type { VideoSourceConfig } from '@/lib/learn';
+import { VideoFacadeFactory } from '@/components/UI/VideoFacade';
+import type { LessonId, VideoSourceConfig } from '@/lib/learn';
 import type { SupportedLocale } from '@diboas/i18n/config';
 import styles from './LessonHero.module.css';
 
@@ -20,6 +21,17 @@ interface LessonHeroProps {
   illustrationAlt?: string;
   /** A11y label passed through to the video player. */
   videoAriaLabel?: string;
+  /**
+   * YouTube-nocookie facade (Phase 3 Slice B, D-1). Rendered only when no
+   * self-hosted `video` is set (RV-6 precedence: self-hosted > youtube >
+   * illustration). Callers resolve the id per locale from the registry.
+   */
+  youtubeVideoId?: string;
+  /** Required alongside youtubeVideoId (facade analytics payloads). */
+  youtubeLessonId?: LessonId;
+  /** The recording's locale (may differ from the UI locale). */
+  youtubeVideoLocale?: string;
+  enableAnalytics?: boolean;
 }
 
 const DEFAULT_ILLUSTRATION = '/assets/navigation/learn-banner.avif';
@@ -32,8 +44,13 @@ export function LessonHero({
   illustrationSrc = DEFAULT_ILLUSTRATION,
   illustrationAlt = '',
   videoAriaLabel = '',
+  youtubeVideoId,
+  youtubeLessonId,
+  youtubeVideoLocale,
+  enableAnalytics,
 }: LessonHeroProps) {
   const hasVideo = Boolean(video?.sources?.length);
+  const hasYoutube = Boolean(youtubeVideoId && youtubeLessonId);
 
   return (
     <header className={styles.hero}>
@@ -56,6 +73,15 @@ export function LessonHero({
               }))}
             ariaLabel={videoAriaLabel || title}
             contextId="lesson-hero"
+          />
+        ) : hasYoutube ? (
+          <VideoFacadeFactory
+            videoId={youtubeVideoId!}
+            title={title}
+            thumbnailSrc={illustrationSrc}
+            lessonId={youtubeLessonId!}
+            videoLocale={youtubeVideoLocale ?? locale}
+            enableAnalytics={enableAnalytics}
           />
         ) : (
           <div className={styles.illustration}>

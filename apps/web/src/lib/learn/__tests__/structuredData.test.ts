@@ -86,3 +86,34 @@ describe('buildLearnIndexStructuredData', () => {
     });
   });
 });
+
+describe('VideoObject (Phase 3 Slice B, G-5)', () => {
+  it('should embed a VideoObject only when the video arg is passed', () => {
+    const withVideo = buildLessonStructuredData({
+      lessonId: 'compound-interest',
+      locale: 'en',
+      title: 'T',
+      description: 'D',
+      video: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/abc',
+        thumbnailUrl: 'https://diboas.com/assets/learn/talk-01-hero.avif',
+        uploadDate: '2026-08-01',
+      },
+    }) as Record<string, unknown>;
+    const video = withVideo.video as Record<string, unknown>;
+    expect(video['@type']).toBe('VideoObject');
+    expect(video.embedUrl).toBe('https://www.youtube-nocookie.com/embed/abc');
+    expect(video.uploadDate).toBe('2026-08-01');
+    expect(video.name).toBe('T');
+  });
+
+  it('should emit NO video key without the arg (regression-locks the emitter)', () => {
+    const without = buildLessonStructuredData({
+      lessonId: 'compound-interest',
+      locale: 'en',
+      title: 'T',
+      description: 'D',
+    }) as Record<string, unknown>;
+    expect('video' in without).toBe(false);
+  });
+});
