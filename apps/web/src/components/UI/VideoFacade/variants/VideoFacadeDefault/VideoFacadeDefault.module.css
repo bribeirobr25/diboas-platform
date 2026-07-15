@@ -41,6 +41,18 @@
   transition: background 150ms ease;
 }
 
+/* V-3 (Phase-3 visual pass): the bare glyph was easy to miss; a circular
+ * scrim gives the affordance real presence at every viewport. */
+.playBadge > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-5xl);
+  height: var(--spacing-5xl);
+  border-radius: var(--radius-pill);
+  background: var(--overlay-image-heavy);
+}
+
 .playButton:hover .playBadge,
 .playButton:focus-visible .playBadge {
   background: var(--overlay-image-medium);

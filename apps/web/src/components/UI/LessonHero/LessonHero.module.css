@@ -1,8 +1,20 @@
 .hero {
   display: grid;
   gap: var(--spacing-3xl);
-  padding-top: var(--spacing-lg);
-  padding-bottom: var(--spacing-lg);
+  /* V-2 (Phase-3 visual pass, 2026-07-16): the hero sits OUTSIDE any
+   * SectionContainer, so it must pad + cap itself; without this the h1
+   * touched the viewport edge at every width. Mirrors the standard
+   * section tokens. */
+  max-width: var(--container-max-width-standard);
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--padding-section-mobile-x);
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-left: var(--padding-section-tablet-x);
+    padding-right: var(--padding-section-tablet-x);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -10,8 +22,7 @@
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: var(--spacing-5xl);
-    padding-top: var(--spacing-5xl);
-    padding-bottom: var(--spacing-3xl);
+    padding: var(--spacing-5xl) var(--padding-section-desktop-x) var(--spacing-3xl);
   }
 }
 
