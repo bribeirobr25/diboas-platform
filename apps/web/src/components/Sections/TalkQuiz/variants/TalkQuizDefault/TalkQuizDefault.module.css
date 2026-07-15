@@ -1,0 +1,150 @@
+/* TalkQuiz — retrieval practice in the talk's own voice. Quiet card, no
+   gamification chrome; state is shown by border + text, never by score
+   theatrics. All values tokenized. */
+
+.quiz {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-xl);
+  background: var(--color-slate-50);
+  border: 1px solid var(--color-slate-200);
+  margin-top: var(--spacing-lg);
+  font-family: var(--font-family-primary);
+}
+
+.title {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-900);
+  margin: 0;
+}
+
+.question {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.legend {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-800);
+  padding: 0;
+  margin-bottom: var(--spacing-sm);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.option {
+  text-align: left;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-slate-300);
+  background: var(--color-white);
+  color: var(--color-slate-800);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family-primary);
+  cursor: pointer;
+  transition: border-color 150ms ease;
+}
+
+.option:hover:not(:disabled),
+.option:focus-visible {
+  border-color: var(--color-teal-500);
+}
+
+.option:focus-visible {
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .option {
+    transition: none;
+  }
+}
+
+.option:disabled {
+  cursor: default;
+}
+
+.option[data-state='correct'] {
+  border-color: var(--color-teal-600);
+  background: var(--teal-overlay-12);
+  color: var(--color-slate-900);
+}
+
+.option[data-state='incorrect'] {
+  border-color: var(--color-coral-600);
+  color: var(--color-slate-700);
+}
+
+.option[data-state='muted'] {
+  color: var(--color-slate-500);
+}
+
+.feedback {
+  min-height: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-600);
+  margin: var(--spacing-xs) 0 0;
+}
+
+.score {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-700);
+  margin: 0;
+}
+
+.reflection {
+  font-size: var(--font-size-md);
+  color: var(--color-slate-700);
+  line-height: 1.6;
+  margin: 0;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--color-slate-200);
+}
+
+.share {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  align-items: flex-start;
+}
+
+.shareLine {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-600);
+  font-style: italic;
+  margin: 0;
+}
+
+.shareButton {
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-slate-300);
+  background: var(--color-white);
+  color: var(--color-slate-700);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family-primary);
+  cursor: pointer;
+}
+
+.shareButton:hover,
+.shareButton:focus-visible {
+  border-color: var(--color-teal-500);
+  color: var(--color-teal-700);
+}
+
+.shareButton:focus-visible {
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
+}

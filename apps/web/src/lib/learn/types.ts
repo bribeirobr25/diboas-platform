@@ -46,6 +46,14 @@ export interface LessonBlocks {
   extraNamespaces?: string[];
   /** Whether the page must prefetch the market snapshot (Talk 1: yes, A8). */
   needsMarketData?: boolean;
+  /**
+   * Graded quiz: correct-option indexes (0-based), one per graded question
+   * (Phase 3, RV-4). One source of truth for ALL locales; i18n carries only
+   * display strings (`quiz.qN.question` + until-exhausted `quiz.qN.options`).
+   * Option order is fixed by the approved talk docs; translators must never
+   * reorder options. Absent = the talk renders no quiz.
+   */
+  quiz?: { correctIndexes: readonly number[] };
 }
 
 export interface LessonMetadata {

@@ -45,5 +45,16 @@
       "title": "Putting it together.",
       "line": "You've got the Basics."
     }
+  },
+  "quiz": {
+    "title": "Quick check",
+    "correct": "That's the one.",
+    "incorrect": "Not quite.",
+    "score": "{count} of {total}",
+    "share": {
+      "button": "Copy to share",
+      "copied": "Copied",
+      "copyFailed": "Couldn't copy"
+    }
   }
 }

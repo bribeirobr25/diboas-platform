@@ -45,5 +45,16 @@
       "title": "Juntando tudo",
       "line": "Você tem o Básico."
     }
+  },
+  "quiz": {
+    "title": "Bora conferir?",
+    "correct": "É essa mesmo.",
+    "incorrect": "Não é essa.",
+    "score": "{count} de {total}",
+    "share": {
+      "button": "Copiar pra compartilhar",
+      "copied": "Copiado",
+      "copyFailed": "Não deu pra copiar"
+    }
   }
 }

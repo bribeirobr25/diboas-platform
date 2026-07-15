@@ -45,5 +45,16 @@
       "title": "Juntándolo todo",
       "line": "Ya tienes Lo básico."
     }
+  },
+  "quiz": {
+    "title": "Un repaso rápido",
+    "correct": "Esa es.",
+    "incorrect": "Esa no es.",
+    "score": "{count} de {total}",
+    "share": {
+      "button": "Copiar para compartir",
+      "copied": "Copiado",
+      "copyFailed": "No se pudo copiar"
+    }
   }
 }

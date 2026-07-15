@@ -7,9 +7,11 @@ import { analyticsService } from '@/lib/analytics';
 import {
   LESSON_EVENTS,
   getNextLiveLesson,
+  getPrevLiveLesson,
   readMessageArray,
   type LessonMetadata,
 } from '@/lib/learn';
+import { setCtaSource } from '@/lib/analytics/ctaAttribution';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { LessonHero } from '@/components/UI/LessonHero';
 import { LessonProgressBar } from '@/components/UI/LessonProgressBar';
@@ -20,6 +22,7 @@ import {
   CalculatorVignettes,
   CompoundInterestCalculator,
 } from '@/components/Sections/CompoundInterestCalculator';
+import { TalkQuizFactory } from '@/components/Sections/TalkQuiz';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import styles from './LessonThreeBeat.module.css';
 
@@ -115,6 +118,11 @@ export function LessonThreeBeat({
   };
 
   const handleWaitlistCta = () => {
+    // Phase 3 (RV-2): per-talk waitlist attribution through the existing
+    // sessionStorage machinery (mirrors DemoLauncher). Runs regardless of
+    // analytics consent: cta_source is first-party funnel context on the
+    // signup itself, same as every other CTA source.
+    setCtaSource(`learn-${lessonId}`);
     if (!enableAnalytics) return;
     analyticsService.track({
       name: LESSON_EVENTS.CTA_SECONDARY_CLICKED,
@@ -122,7 +130,24 @@ export function LessonThreeBeat({
     });
   };
 
+  const handlePrevTalkCta = () => {
+    if (!enableAnalytics) return;
+    analyticsService.track({
+      name: LESSON_EVENTS.CTA_SECONDARY_CLICKED,
+      parameters: { lessonId, locale, target: 'prev-talk', timestamp: Date.now() },
+    });
+  };
+
+  const handleToolsHubCta = () => {
+    if (!enableAnalytics) return;
+    analyticsService.track({
+      name: LESSON_EVENTS.CTA_SECONDARY_CLICKED,
+      parameters: { lessonId, locale, target: 'tools', timestamp: Date.now() },
+    });
+  };
+
   const nextTalk = getNextLiveLesson(lesson);
+  const prevTalk = getPrevLiveLesson(lesson);
 
   // B-4a: the lesson -> tool funnel edge.
   const toolHref =
@@ -302,6 +327,12 @@ export function LessonThreeBeat({
               </p>
             ))}
 
+            {/* Phase 3 quiz (registry-gated). Placed BEFORE the CTA group so
+             * the LESSON_COMPLETED sentinel keeps meaning "reached the end". */}
+            {lesson.blocks.quiz ? (
+              <TalkQuizFactory lesson={lesson} enableAnalytics={enableAnalytics} />
+            ) : null}
+
             <div className={styles.ctaGroup} ref={ctaGroupRef}>
               {/* Hash-only href: CTAButtonLink wraps internal hrefs in plain
                * next/link, so `#beat3` scrolls same-page natively without
@@ -321,9 +352,34 @@ export function LessonThreeBeat({
                     { title: intl.formatMessage({ id: `learn.arc.${nextTalk.id}.title` }) }
                   )}
                 </LocaleLink>
-              ) : (
+              ) : lesson.next ? (
                 <p className={styles.ctaFallback}>{t('beat3.cta.secondary')}</p>
+              ) : (
+                /* D-P3-1: the last talk in the spine points forward to the
+                 * tools hub; the "more talks are on the way" line would be
+                 * false once the series is complete. */
+                <LocaleLink
+                  href="/tools"
+                  className={styles.ctaSecondary}
+                  onClick={handleToolsHubCta}
+                  prefetch={false}
+                >
+                  {t('beat3.cta.toolsHub')}
+                </LocaleLink>
               )}
+              {prevTalk ? (
+                <LocaleLink
+                  href={`/learn/${prevTalk.slug}`}
+                  className={styles.ctaTertiary}
+                  onClick={handlePrevTalkCta}
+                  prefetch={false}
+                >
+                  {intl.formatMessage(
+                    { id: `${ns}.beat3.cta.prev` },
+                    { title: intl.formatMessage({ id: `learn.arc.${prevTalk.id}.title` }) }
+                  )}
+                </LocaleLink>
+              ) : null}
               <LocaleLink
                 href={waitlistCtaHref}
                 className={styles.ctaTertiary}
