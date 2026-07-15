@@ -2,16 +2,20 @@ export type {
   LessonId,
   LessonStatus,
   LessonMetadata,
+  LessonBlocks,
   RoadmapLesson,
   RoadmapLessonKey,
   VideoSourceConfig,
 } from './types';
-export { LESSONS, ROADMAP, getLesson, getActiveLessons } from './registry';
 export {
-  LESSON_EVENTS,
-  READ_TIME_MINUTES,
-  BEAT_PARAGRAPH_COUNTS,
-  type LessonEventName,
-} from './constants';
+  LESSONS,
+  ROADMAP,
+  getLesson,
+  getLessonBySlug,
+  getActiveLessons,
+  getAnnouncedLessons,
+} from './registry';
+export { LESSON_EVENTS, type LessonEventName } from './constants';
+export { readMessageArray } from './i18nArrays';
 export { generateLessonMetadata, generateLearnIndexMetadata } from './lessonMetadata';
 export { buildLessonStructuredData, buildLearnIndexStructuredData } from './structuredData';

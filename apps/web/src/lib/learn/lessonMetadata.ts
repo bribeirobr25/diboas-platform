@@ -13,7 +13,7 @@
 
 import type { Metadata } from 'next';
 import { loadMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { SEO_DEFAULTS } from '@/lib/seo/constants';
+import { SEO_DEFAULTS, PAGE_SEO_CONFIG } from '@/lib/seo/constants';
 import { getLesson } from './registry';
 
 const SITE_URL = SEO_DEFAULTS.siteUrl;
@@ -93,15 +93,20 @@ export async function generateLessonMetadata(
   const messages = await loadMessages(locale, lesson.namespace);
   const seo = (messages?.seo ?? {}) as LearnSeoFields;
 
+  // Phase 1: fallbacks come from the lesson's own PAGE_SEO_CONFIG entry
+  // (registry invariant: every live lesson has one), never from hardcoded
+  // lesson-01 strings. Shared learn OG template registered in
+  // lib/og/templates.tsx; bespoke per-talk art is a later CMO iteration.
+  const seoConfig = (PAGE_SEO_CONFIG as Record<string, { title?: string; description?: string }>)[
+    `learn/${lesson.slug}`
+  ];
+
   return buildLearnMetadata({
     locale,
     path: `/learn/${lesson.slug}`,
-    // Per-lesson OG art falls back to /default if a specific template
-    // isn't registered yet; the lesson page registers via its slug.
-    ogImagePath: '/api/og/default',
-    fallbackTitle: 'How Money Really Grows — Compound Interest Explained',
-    fallbackDescription:
-      'Learn how compound interest works — the math banks and Wall Street have used for decades. Plug in your own numbers and see what 12 years looks like.',
+    ogImagePath: '/api/og/learn',
+    fallbackTitle: seoConfig?.title ?? 'Real Talk',
+    fallbackDescription: seoConfig?.description ?? '',
     seo,
   });
 }
@@ -113,10 +118,10 @@ export async function generateLearnIndexMetadata(locale: SupportedLocale): Promi
   return buildLearnMetadata({
     locale,
     path: '/learn',
-    ogImagePath: '/api/og/default',
+    ogImagePath: '/api/og/learn',
     fallbackTitle: 'Learn how money actually works',
     fallbackDescription:
-      "Short, honest lessons on the financial system — written for people the system wasn't built for.",
+      "Short, honest lessons on the financial system, written for people the system wasn't built for.",
     seo,
   });
 }

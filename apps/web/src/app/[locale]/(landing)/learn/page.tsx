@@ -7,7 +7,12 @@ import { SEOMetadataFactory } from '@/lib/seo';
 import { LearnIndex } from '@/components/Sections/LearnIndex';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
-import { generateLearnIndexMetadata, buildLearnIndexStructuredData } from '@/lib/learn';
+import {
+  generateLearnIndexMetadata,
+  buildLearnIndexStructuredData,
+  getActiveLessons,
+  type LessonId,
+} from '@/lib/learn';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
@@ -47,12 +52,21 @@ export default async function LearnIndexPage({ params }: LocalePageProps) {
     locale
   );
 
+  // Phase 1: titles resolve per live lesson from its own namespace-agnostic
+  // card key (Talk 1) or its lesson h1 once later talks load their namespace
+  // on this page. Registry-driven so new live talks appear automatically.
+  const lessonTitles = Object.fromEntries(
+    getActiveLessons().map((lesson) => [
+      lesson.id,
+      pageMessages['learn.lessons.compoundInterest.cardTitle'] && lesson.id === 'compound-interest'
+        ? pageMessages['learn.lessons.compoundInterest.cardTitle']
+        : (pageMessages[`${lesson.namespace}.lesson.h1`] ?? lesson.slug),
+    ])
+  ) as Partial<Record<LessonId, string>>;
+
   const indexStructuredData = buildLearnIndexStructuredData({
     locale,
-    lessonTitles: {
-      'compound-interest':
-        pageMessages['learn.lessons.compoundInterest.cardTitle'] ?? 'How Money Really Grows',
-    },
+    lessonTitles,
   });
 
   const structuredDataItems = indexStructuredData

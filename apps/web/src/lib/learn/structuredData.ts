@@ -10,7 +10,6 @@
 import type { SupportedLocale } from '@diboas/i18n/config';
 import { seoService } from '@/lib/seo';
 import { LESSONS, getActiveLessons } from './registry';
-import { READ_TIME_MINUTES } from './constants';
 
 const ORGANIZATION = {
   '@type': 'Organization',
@@ -29,6 +28,12 @@ export function buildLessonStructuredData(args: {
   locale: SupportedLocale;
   title: string;
   description: string;
+  /**
+   * Localized "teaches" line (from the lesson namespace's seo.teaches key).
+   * Falls back to the description so no lesson ever emits another lesson's
+   * subject (the pre-Phase-1 hardcode).
+   */
+  teaches?: string;
 }) {
   const lesson = LESSONS[args.lessonId];
   if (!lesson) return null;
@@ -46,8 +51,8 @@ export function buildLessonStructuredData(args: {
     inLanguage: args.locale,
     learningResourceType: 'Lesson',
     educationalLevel: 'beginner',
-    teaches: 'Personal finance: how compound interest works',
-    timeRequired: `PT${READ_TIME_MINUTES[lesson.id]}M`,
+    teaches: args.teaches || args.description,
+    timeRequired: `PT${lesson.readTimeMinutes}M`,
     isAccessibleForFree: true,
     audience: {
       '@type': 'EducationalAudience',
@@ -74,7 +79,7 @@ export function buildLearnIndexStructuredData(args: {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'diBoaS Learn — Lessons',
+    name: 'diBoaS Learn: Lessons',
     inLanguage: args.locale,
     itemListElement: lessons.map((lesson, index) => {
       const path = `/learn/${lesson.slug}`;

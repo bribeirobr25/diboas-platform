@@ -7,8 +7,10 @@
  * - Every lesson advances the diBoaS thesis.
  * - Adelaide Filter on every line. See packages/i18n/translations/TRANSLATORS.md.
  *
- * Future engineers and AI agents adding Lessons 02–05: read this guideline
- * before drafting any beat copy or building any new lesson variant.
+ * Future engineers and AI agents adding talks: read this guideline before
+ * drafting any beat copy or building any new lesson variant. Phase 1
+ * refactor (2026-07-15): the resolved registry entry is passed down whole,
+ * so variants are namespace- and blocks-driven (no per-lesson hardcoding).
  */
 
 import { LessonThreeBeat } from './variants/LessonThreeBeat';
@@ -37,8 +39,7 @@ export function LessonFactory({
     default:
       return (
         <LessonThreeBeat
-          lessonId={lessonId}
-          video={lesson.video}
+          lesson={lesson}
           primaryCtaHref={primaryCtaHref}
           secondaryCtaHref={secondaryCtaHref}
           enableAnalytics={enableAnalytics}
