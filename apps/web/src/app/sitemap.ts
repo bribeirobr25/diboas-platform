@@ -100,6 +100,11 @@ const PATH_TO_OG_KEY: Record<string, string> = {
   // registered in `lib/og/templates.tsx` PAGE_CONFIGS.market; renders via
   // the shared `/api/og/[page]/route.tsx` (zero new chunks).
   '/market': 'market',
+  // Learn redesign Phase 1 (2026-07-15) — shared learn OG for the index;
+  // /learn/<slug> paths resolve via the prefix branch in getOgImageUrl so
+  // new live talks need no entry here (bespoke per-talk art can add exact
+  // entries later without churn).
+  '/learn': 'learn',
 };
 
 function getAllUrls(): string[] {
@@ -142,7 +147,8 @@ function buildLocalizedUrl(baseUrl: string, locale: string, path: string): strin
 }
 
 function getOgImageUrl(baseUrl: string, path: string): string {
-  const ogKey = PATH_TO_OG_KEY[path] ?? 'default';
+  const ogKey =
+    PATH_TO_OG_KEY[path] ?? (path.startsWith('/learn') ? 'learn' : 'default');
   return `${baseUrl}/api/og/${ogKey}`;
 }
 

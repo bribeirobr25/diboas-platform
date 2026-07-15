@@ -1,49 +1,81 @@
 /**
- * Registry invariants (Phase 0 of the learn redesign plan, 2026-07-15).
+ * Registry invariants (Phase 0 + Phase 1 of the learn redesign plan).
  *
- * Adding a lesson currently requires keeping several hand-maintained maps in
- * sync (the technical audit's "registry facade" finding). Until the Phase-1
- * refactor collapses them, this test makes every sync point fail loudly:
- *  - READ_TIME_MINUTES has an entry per lesson
- *  - the lesson's i18n namespace is registered in SUPPORTED_NAMESPACES
- *  - the lesson's route has a PAGE_SEO_CONFIG entry (drives sitemap + metadata)
+ * The registry is the single source of truth for the 7-talk series; these
+ * tests make every remaining hand-maintained sync point fail loudly:
+ *  - LIVE lessons: i18n namespace registered in SUPPORTED_NAMESPACES and a
+ *    PAGE_SEO_CONFIG entry (drives sitemap + metadata). Announced lessons
+ *    must have NEITHER (they'd leak into the sitemap / break i18n loading).
+ *  - Slugs unique; namespace follows the learn-<slug> convention.
+ *  - The prev/next spine is mutually consistent and covers all 7 talks.
+ *  - Illustrations (when present) follow the /assets/learn/ convention.
  */
 
 import { describe, it, expect } from 'vitest';
 import { SUPPORTED_NAMESPACES } from '@diboas/i18n/config';
-import { LESSONS, getActiveLessons } from '../registry';
-import { READ_TIME_MINUTES } from '../constants';
+import { LESSONS, getActiveLessons, getLessonBySlug } from '../registry';
 import { PAGE_SEO_CONFIG } from '@/lib/seo/constants';
 
-describe('lesson registry invariants', () => {
-  const lessons = Object.values(LESSONS);
+const lessons = Object.values(LESSONS);
+const namespaceSet = SUPPORTED_NAMESPACES as readonly string[];
 
-  it('should register at least one lesson and expose active ones', () => {
-    expect(lessons.length).toBeGreaterThan(0);
+describe('lesson registry invariants', () => {
+  it('should register the full 7-talk series with at least one live', () => {
+    expect(lessons).toHaveLength(7);
     expect(getActiveLessons().length).toBeGreaterThan(0);
   });
 
+  it('should have unique slugs that resolve via getLessonBySlug', () => {
+    const slugs = lessons.map((l) => l.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+    for (const lesson of lessons) {
+      expect(getLessonBySlug(lesson.slug)?.id).toBe(lesson.id);
+    }
+  });
+
   it.each(lessons.map((l) => [l.id, l] as const))(
-    'lesson "%s" has all hand-maintained sync points',
+    'lesson "%s" satisfies its per-status sync points',
     (_id, lesson) => {
-      // Read time
-      expect(
-        READ_TIME_MINUTES[lesson.id],
-        `READ_TIME_MINUTES missing "${lesson.id}"`
-      ).toBeGreaterThan(0);
+      expect(lesson.readTimeMinutes).toBeGreaterThan(0);
+      expect(lesson.namespace).toBe(`learn-${lesson.slug}`);
 
-      // i18n namespace registered (drift-guarded against the file set elsewhere)
-      expect(
-        (SUPPORTED_NAMESPACES as readonly string[]).includes(lesson.namespace),
-        `SUPPORTED_NAMESPACES missing "${lesson.namespace}"`
-      ).toBe(true);
-
-      // SEO config drives the sitemap; without it the lesson never gets indexed
       const seoKey = `learn/${lesson.slug}`;
-      expect(
-        Object.prototype.hasOwnProperty.call(PAGE_SEO_CONFIG, seoKey),
-        `PAGE_SEO_CONFIG missing "${seoKey}" (sitemap + metadata)`
-      ).toBe(true);
+      const hasSeo = Object.prototype.hasOwnProperty.call(PAGE_SEO_CONFIG, seoKey);
+      const hasNamespace = namespaceSet.includes(lesson.namespace);
+
+      if (lesson.status === 'live') {
+        expect(hasNamespace, `SUPPORTED_NAMESPACES missing "${lesson.namespace}"`).toBe(true);
+        expect(hasSeo, `PAGE_SEO_CONFIG missing "${seoKey}" (sitemap + metadata)`).toBe(true);
+      } else {
+        // Announced talks must not leak: no sitemap entry until they go live.
+        expect(hasSeo, `announced "${lesson.id}" must not have PAGE_SEO_CONFIG yet`).toBe(false);
+      }
+
+      if (lesson.illustration) {
+        expect(lesson.illustration).toMatch(/^\/assets\/learn\//);
+      }
     }
   );
+
+  it('should have a mutually-consistent prev/next spine covering the series', () => {
+    for (const lesson of lessons) {
+      if (lesson.next) {
+        const next = LESSONS[lesson.next];
+        expect(next, `"${lesson.id}".next points at unknown "${lesson.next}"`).toBeDefined();
+        expect(next.prev, `spine broken between "${lesson.id}" and "${lesson.next}"`).toBe(
+          lesson.id
+        );
+      }
+      if (lesson.prev) {
+        const prev = LESSONS[lesson.prev];
+        expect(prev, `"${lesson.id}".prev points at unknown "${lesson.prev}"`).toBeDefined();
+        expect(prev.next, `spine broken between "${lesson.prev}" and "${lesson.id}"`).toBe(
+          lesson.id
+        );
+      }
+    }
+    // Exactly one head (no prev) and one tail (no next).
+    expect(lessons.filter((l) => !l.prev)).toHaveLength(1);
+    expect(lessons.filter((l) => !l.next)).toHaveLength(1);
+  });
 });

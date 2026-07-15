@@ -4,13 +4,7 @@ import { useEffect, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/config';
 import { analyticsService } from '@/lib/analytics';
-import {
-  BEAT_PARAGRAPH_COUNTS,
-  LESSON_EVENTS,
-  READ_TIME_MINUTES,
-  type LessonId,
-  type VideoSourceConfig,
-} from '@/lib/learn';
+import { LESSON_EVENTS, readMessageArray, type LessonMetadata } from '@/lib/learn';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { LessonHero } from '@/components/UI/LessonHero';
 import { LessonProgressBar } from '@/components/UI/LessonProgressBar';
@@ -38,9 +32,8 @@ import styles from './LessonThreeBeat.module.css';
 // consumers; knip's duplicate-export flag is expected per CLAUDE.md).
 
 interface LessonThreeBeatProps {
-  lessonId: LessonId;
-  /** From the lesson registry; if undefined, hero falls back to text + illustration. */
-  video?: VideoSourceConfig;
+  /** The registry entry: namespace, blocks, spine, video, read time. */
+  lesson: LessonMetadata;
   /** Where the primary CTA scrolls/links to. Default `#waitlist`. */
   primaryCtaHref?: string;
   /** Where the secondary CTA links to. Default `/learn`. */
@@ -51,15 +44,16 @@ interface LessonThreeBeatProps {
 const BEAT_IDS = ['beat1', 'beat2', 'beat3'] as const;
 
 /**
- * Lesson 01 — "How Money Really Grows" three-beat variant.
+ * Three-beat talk variant (Phase 1 refactor, learn redesign plan 2026-07-15).
  *
- * Composes the calculator + chart + vignettes built in Phase A.1/A.2 with
- * the lesson copy from `learn-compound-interest.json`. Translation IDs follow
- * the namespace-prefix convention (`learn-compound-interest.beat1.title`).
+ * Namespace, paragraph counts, and block composition all come from the lesson
+ * registry entry: copy is read from `lesson.namespace` with until-exhausted
+ * arrays (the JSON is the single source of truth for paragraph counts), and
+ * `lesson.blocks` decides whether Beat 2 shows the vignette cluster and
+ * whether Beat 3 embeds the calculator (Talk 1) or links out to a tool.
  */
 export function LessonThreeBeat({
-  lessonId,
-  video,
+  lesson,
   primaryCtaHref = '#waitlist',
   secondaryCtaHref = '/learn',
   enableAnalytics = true,
@@ -67,10 +61,18 @@ export function LessonThreeBeat({
   const intl = useTranslation();
   const locale: SupportedLocale = isValidLocale(intl.locale) ? intl.locale : 'en';
 
-  const t = (key: string) => intl.formatMessage({ id: `learn-compound-interest.${key}` });
+  const ns = lesson.namespace;
+  const lessonId = lesson.id;
 
-  const tArray = (key: string, length: number): string[] =>
-    Array.from({ length }, (_, i) => t(`${key}.${i}`));
+  const t = (key: string) => intl.formatMessage({ id: `${ns}.${key}` });
+
+  // Until-exhausted array reading: the flattened catalog (intl.messages)
+  // decides the paragraph count, so copy edits never desync from the code
+  // (the Phase-0 B-0 bug class, retired for good).
+  const tArray = (key: string): string[] =>
+    readMessageArray(intl.messages as Record<string, unknown>, `${ns}.${key}`, (id) =>
+      intl.formatMessage({ id })
+    );
 
   const lessonViewedRef = useRef(false);
   useEffect(() => {
@@ -81,11 +83,11 @@ export function LessonThreeBeat({
       parameters: {
         lessonId,
         locale,
-        readTimeMinutes: READ_TIME_MINUTES[lessonId],
+        readTimeMinutes: lesson.readTimeMinutes,
         timestamp: Date.now(),
       },
     });
-  }, [enableAnalytics, lessonId, locale]);
+  }, [enableAnalytics, lessonId, lesson.readTimeMinutes, locale]);
 
   const handlePrimaryCta = () => {
     if (!enableAnalytics) return;
@@ -103,12 +105,21 @@ export function LessonThreeBeat({
     });
   };
 
-  // B-4a: the lesson -> tool funnel edge (was untracked).
+  // B-4a: the lesson -> tool funnel edge.
+  const toolHref =
+    lesson.blocks.beat3Tool.kind === 'toolCard'
+      ? lesson.blocks.beat3Tool.href
+      : '/tools/compound-interest';
   const handleToolDeepLink = () => {
     if (!enableAnalytics) return;
     analyticsService.track({
       name: LESSON_EVENTS.TOOL_DEEPLINK_CLICKED,
-      parameters: { lessonId, locale, tool: 'compound-interest', timestamp: Date.now() },
+      parameters: {
+        lessonId,
+        locale,
+        tool: toolHref.replace('/tools/', ''),
+        timestamp: Date.now(),
+      },
     });
   };
 
@@ -140,23 +151,25 @@ export function LessonThreeBeat({
     return () => observer.disconnect();
   }, [enableAnalytics, lessonId, locale]);
 
-  // Counts come from the shared contract in lib/learn/constants.ts; drift
-  // against the translation JSONs is caught by lessonCopyShape.test.ts.
-  const beat1Body = tArray('beat1.body', BEAT_PARAGRAPH_COUNTS.beat1Body);
-  const beat2Intro = tArray('beat2.intro', BEAT_PARAGRAPH_COUNTS.beat2Intro);
-  const beat2Outro = tArray('beat2.outro', BEAT_PARAGRAPH_COUNTS.beat2Outro);
-  const beat3Intro = tArray('beat3.intro', BEAT_PARAGRAPH_COUNTS.beat3Intro);
-  const beat3Wrap = tArray('beat3.wrap', BEAT_PARAGRAPH_COUNTS.beat3Wrap);
+  const beat1Body = tArray('beat1.body');
+  const beat2Intro = tArray('beat2.intro');
+  const beat2Outro = tArray('beat2.outro');
+  const beat3Intro = tArray('beat3.intro');
+  const beat3Wrap = tArray('beat3.wrap');
 
   const beatLabels = [t('beat1.title'), t('beat2.title'), t('beat3.title')];
+
+  const showVignettes = lesson.blocks.beat2Media === 'calculatorVignettes';
+  const embedsCalculator = lesson.blocks.beat3Tool.kind === 'embeddedCalculator';
 
   return (
     <article className={styles.lesson}>
       <LessonHero
         title={t('lesson.h1')}
         readTime={t('lesson.readTime')}
-        video={video}
+        video={lesson.video}
         locale={locale}
+        illustrationSrc={lesson.illustration}
         illustrationAlt=""
         videoAriaLabel={t('lesson.h1')}
       />
@@ -170,7 +183,7 @@ export function LessonThreeBeat({
         enableAnalytics={enableAnalytics}
       />
 
-      {/* BEAT 1 — Saving is half of the story. */}
+      {/* BEAT 1 */}
       <SectionErrorBoundary sectionId="lesson-beat-1" sectionType="lesson">
         <SectionContainer variant="standard" padding="standard" as="section">
           <div id="beat1" className={styles.beat}>
@@ -186,7 +199,7 @@ export function LessonThreeBeat({
         </SectionContainer>
       </SectionErrorBoundary>
 
-      {/* BEAT 2 — The system's secret engine. */}
+      {/* BEAT 2 */}
       <SectionErrorBoundary sectionId="lesson-beat-2" sectionType="lesson">
         <SectionContainer variant="standard" padding="standard" as="section">
           <div id="beat2" className={styles.beat}>
@@ -198,12 +211,16 @@ export function LessonThreeBeat({
                 dangerouslySetInnerHTML={renderInlineEmphasis(p)}
               />
             ))}
-            <p className={styles.habitsLine}>{t('beat2.habitsLine')}</p>
-            <p className={styles.beatBody}>{t('beat2.vignettesIntro')}</p>
-            <CalculatorVignettes />
-            <DisclaimerNote variant="projection">{t('beat2.vignettesDisclaimer')}</DisclaimerNote>
-            <p className={styles.brandCallback}>{t('beat2.vignettesOutro')}</p>
-            <p className={styles.beatBody}>{t('beat2.habitsRecap')}</p>
+            {showVignettes && (
+              <>
+                <p className={styles.habitsLine}>{t('beat2.habitsLine')}</p>
+                <p className={styles.beatBody}>{t('beat2.vignettesIntro')}</p>
+                <CalculatorVignettes />
+                <DisclaimerNote variant="projection">{t('beat2.vignettesDisclaimer')}</DisclaimerNote>
+                <p className={styles.brandCallback}>{t('beat2.vignettesOutro')}</p>
+                <p className={styles.beatBody}>{t('beat2.habitsRecap')}</p>
+              </>
+            )}
             {beat2Outro.map((p) => (
               <p key={p} className={styles.beatBody}>
                 {p}
@@ -213,7 +230,7 @@ export function LessonThreeBeat({
         </SectionContainer>
       </SectionErrorBoundary>
 
-      {/* BEAT 3 — Now use it yourself. */}
+      {/* BEAT 3 */}
       <SectionErrorBoundary sectionId="lesson-beat-3" sectionType="lesson">
         <SectionContainer variant="standard" padding="standard" as="section">
           <div id="beat3" className={styles.beat}>
@@ -224,14 +241,21 @@ export function LessonThreeBeat({
               </p>
             ))}
 
-            <CompoundInterestCalculator variant="default" enableAnalytics={enableAnalytics} />
+            {embedsCalculator && (
+              <>
+                <CompoundInterestCalculator variant="default" enableAnalytics={enableAnalytics} />
+                <p className={styles.brandCallback}>{t('beat3.calculatorTagline')}</p>
+                <p className={styles.afterCalculator}>{t('beat3.afterCalculator')}</p>
+              </>
+            )}
 
-            <p className={styles.brandCallback}>{t('beat3.calculatorTagline')}</p>
-            <p className={styles.afterCalculator}>{t('beat3.afterCalculator')}</p>
-
+            {/* Talks without an embedded calculator link out instead; both
+             * kinds share the toolDeepLink copy pattern. (Extract to a
+             * ToolLinkCard component when the first toolCard talk goes live,
+             * Phase 4.) */}
             <p className={styles.toolDeepLink}>
               {intl.formatMessage(
-                { id: 'learn-compound-interest.beat3.toolDeepLink' },
+                { id: `${ns}.beat3.toolDeepLink` },
                 {
                   // react-intl rich-text chunks callback. The callback's return
                   // element needs an explicit `key` because react-intl appends
@@ -240,7 +264,7 @@ export function LessonThreeBeat({
                   link: (chunks: React.ReactNode) => (
                     <LocaleLink
                       key="tool-deep-link"
-                      href="/tools/compound-interest"
+                      href={toolHref}
                       prefetch={false}
                       onClick={handleToolDeepLink}
                     >

@@ -35,7 +35,11 @@ export type OGPageType =
   // Iteration 4 §3.5 — Adelaide Market (/market). Static OG via Path B
   // (NF1 round-3 lock). v1 reuses the teal-themed default body with brand
   // + title; dynamic OG with regime score is iter-4.5 / post-launch.
-  | 'market';
+  | 'market'
+  // Learn redesign Phase 1 (2026-07-15) — shared OG for /learn + all talk
+  // pages. Bespoke per-talk art from the generated asset system is a later
+  // CMO iteration; one honest shared template beats seven defaults.
+  | 'learn';
 
 interface OGTemplateConfig {
   title: string;
@@ -174,6 +178,15 @@ export const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
     title: 'Adelaide Market',
     subtitle: 'Calm macro intelligence for Bitcoin.',
     badge: 'Market',
+    theme: 'teal',
+  },
+  // Learn redesign Phase 1 (2026-07-15). Copy stays pre-rename ("Learn")
+  // until the Phase-2 Real Talk deck lands; this key exists so lesson pages
+  // stop sharing /api/og/default.
+  learn: {
+    title: 'Learn how money actually works',
+    subtitle: 'Honest talks about money, made plain.',
+    badge: 'Learn',
     theme: 'teal',
   },
 };
