@@ -82,7 +82,9 @@
       "primaryNote": "Joining doesn't move your money. You decide later.",
       "next": "Next talk: {title}",
       "waitlist": "Join the waitlist",
-      "secondary": "More talks are on the way"
+      "secondary": "More talks are on the way",
+      "prev": "Back to: {title}",
+      "toolsHub": "Keep going with the tools"
     }
   },
   "calculator": {
@@ -113,5 +115,23 @@
     "tableHeaderTotal": "After {years} years",
     "loadingState": "Calculating…",
     "calibrationNote": "What the rates mean. The 7% conservative rate is the steadier scenario, 10% historical is the mid-range, and 14% optimistic is the more active one. These are scenarios, not promises, and every rate carries risk. Independently: the S&P 500 total return has averaged about 10% a year over the long run (nominal, with dividends reinvested; roughly 7% after inflation), and gold about 7% a year (full numbers in our research notes)."
+  },
+  "quiz": {
+    "q1": {
+      "question": "What makes compound interest different from just saving?",
+      "options": [
+        "you add money each month",
+        "the growth starts earning its own growth",
+        "the bank guarantees it"
+      ]
+    },
+    "q2": {
+      "question": "The $1,000 to ~$2,252 example used which rate?",
+      "options": ["a careful 7%", "a guaranteed 20%", "whatever the bank promises"]
+    },
+    "reflection": "Look at last month and name one small spend you wouldn't really miss. No pressure to change it. Just notice it.",
+    "share": {
+      "line": "Turns out the most powerful idea in money takes about 5 minutes to get. Here's Talk 1."
+    }
   }
 }

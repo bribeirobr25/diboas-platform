@@ -29,6 +29,8 @@ export const LESSONS: Readonly<Record<LessonId, LessonMetadata>> = {
       beat3Tool: { kind: 'embeddedCalculator' },
       extraNamespaces: ['tools-shared'], // UsdEquivalentBadge inside the embedded calculator
       needsMarketData: true, // A8: prime the market snapshot before render
+      // Approved Talk-1 quiz (docs §5): Q1 correct = (b), Q2 correct = (a).
+      quiz: { correctIndexes: [1, 0] },
     },
   },
   'money-objective': {
@@ -150,4 +152,16 @@ export function getNextLiveLesson(
 ): LessonMetadata | undefined {
   const next = lesson.next ? lessons[lesson.next] : undefined;
   return next?.status === 'live' ? next : undefined;
+}
+
+/**
+ * The previous talk in the spine ONLY if it is live (Phase 3 mirror of
+ * getNextLiveLesson: a prev link to an announced talk would 404).
+ */
+export function getPrevLiveLesson(
+  lesson: LessonMetadata,
+  lessons: Readonly<Partial<Record<LessonId, LessonMetadata>>> = LESSONS
+): LessonMetadata | undefined {
+  const prev = lesson.prev ? lessons[lesson.prev] : undefined;
+  return prev?.status === 'live' ? prev : undefined;
 }

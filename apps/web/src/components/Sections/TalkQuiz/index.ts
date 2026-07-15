@@ -1,0 +1,1 @@
+export { TalkQuizFactory } from './TalkQuizFactory';

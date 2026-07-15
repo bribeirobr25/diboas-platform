@@ -27,6 +27,11 @@ export const LESSON_EVENTS = {
   CTA_PRIMARY_CLICKED: 'learn_cta_primary_clicked',
   CTA_SECONDARY_CLICKED: 'learn_cta_secondary_clicked',
   TOOL_DEEPLINK_CLICKED: 'learn_tool_deeplink_clicked',
+  // Phase 3 (Slice A). QUIZ_SUBMITTED fires ONCE per mount when the last
+  // graded answer lands; payload carries correctCount only (never the
+  // per-question answers: non-sensitive by design).
+  QUIZ_SUBMITTED: 'learn_quiz_submitted',
+  SHARE_COPIED: 'learn_share_copied',
 } as const;
 
 export type LessonEventName = (typeof LESSON_EVENTS)[keyof typeof LESSON_EVENTS];

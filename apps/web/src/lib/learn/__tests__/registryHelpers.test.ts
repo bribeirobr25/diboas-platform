@@ -14,7 +14,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
-import { LESSONS, getSeriesLessons, getNextLiveLesson } from '../registry';
+import { LESSONS, getSeriesLessons, getNextLiveLesson, getPrevLiveLesson } from '../registry';
 import type { LessonId, LessonMetadata } from '../types';
 
 function makeLesson(id: LessonId, overrides: Partial<LessonMetadata> = {}): LessonMetadata {
@@ -113,5 +113,72 @@ describe('arc i18n drift guard (registry <-> learn.arc.*)', () => {
     const entry = learnJson.arc?.[id] as { title?: unknown; line?: unknown } | undefined;
     expect(typeof entry?.title, `learn.arc.${id}.title missing in en`).toBe('string');
     expect(typeof entry?.line, `learn.arc.${id}.line missing in en`).toBe('string');
+  });
+});
+
+describe('getPrevLiveLesson (Phase 3 mirror)', () => {
+  it('should return the previous talk when it is live', () => {
+    const prev = makeLesson('compound-interest', { status: 'live', next: 'money-objective' });
+    const current = makeLesson('money-objective', { status: 'live', prev: 'compound-interest' });
+    expect(
+      getPrevLiveLesson(current, { 'compound-interest': prev, 'money-objective': current })?.id
+    ).toBe('compound-interest');
+  });
+
+  it('should return undefined when the previous talk is only announced', () => {
+    const prev = makeLesson('compound-interest', { next: 'money-objective' });
+    const current = makeLesson('money-objective', { status: 'live', prev: 'compound-interest' });
+    expect(
+      getPrevLiveLesson(current, { 'compound-interest': prev, 'money-objective': current })
+    ).toBeUndefined();
+  });
+
+  it('should return undefined for the first talk (no prev)', () => {
+    expect(getPrevLiveLesson(LESSONS['compound-interest'])).toBeUndefined();
+  });
+});
+
+describe('quiz drift guards (registry <-> en quiz keys, RV-4)', () => {
+  const enDir = join(findTranslationsDir(), 'en');
+
+  function enNamespace(ns: string): Record<string, unknown> {
+    return JSON.parse(readFileSync(join(enDir, `${ns}.json`), 'utf-8')) as Record<string, unknown>;
+  }
+
+  it.each(Object.values(LESSONS).filter((l) => l.blocks.quiz))(
+    'talk "$id": every correctIndex is in bounds of the en option list and questions exist',
+    (lesson) => {
+      const json = enNamespace(lesson.namespace) as {
+        quiz?: Record<string, { question?: string; options?: string[] }> & {
+          reflection?: string;
+          share?: { line?: string };
+        };
+      };
+      expect(
+        json.quiz,
+        `${lesson.namespace} has a registry quiz but no en quiz block`
+      ).toBeTruthy();
+      lesson.blocks.quiz!.correctIndexes.forEach((correctIndex, i) => {
+        const q = json.quiz![`q${i + 1}`] as { question?: string; options?: string[] };
+        expect(q?.question, `quiz.q${i + 1}.question missing in en`).toBeTypeOf('string');
+        expect(Array.isArray(q?.options), `quiz.q${i + 1}.options missing in en`).toBe(true);
+        expect(
+          correctIndex,
+          `correctIndex ${correctIndex} out of bounds for q${i + 1}`
+        ).toBeLessThan(q!.options!.length);
+        expect(correctIndex).toBeGreaterThanOrEqual(0);
+      });
+      expect(json.quiz!.reflection, 'quiz.reflection missing').toBeTypeOf('string');
+      expect(json.quiz!.share?.line, 'quiz.share.line missing').toBeTypeOf('string');
+    }
+  );
+
+  it('should have a registry quiz block for every LIVE talk namespace that ships quiz keys (two-way seam)', () => {
+    for (const lesson of Object.values(LESSONS).filter((l) => l.status === 'live')) {
+      const json = enNamespace(lesson.namespace) as { quiz?: unknown };
+      const hasKeys = Boolean(json.quiz);
+      const hasRegistry = Boolean(lesson.blocks.quiz);
+      expect(hasKeys, `"${lesson.id}": quiz keys/registry mismatch`).toBe(hasRegistry);
+    }
   });
 });

@@ -82,7 +82,9 @@
       "primaryNote": "Apuntarte no mueve tu dinero. Tú decides después.",
       "next": "Siguiente charla: {title}",
       "waitlist": "Apuntarme a la lista de espera",
-      "secondary": "Vendrán más charlas"
+      "secondary": "Vendrán más charlas",
+      "prev": "Volver a: {title}",
+      "toolsHub": "Sigue con las herramientas"
     }
   },
   "calculator": {
@@ -113,5 +115,23 @@
     "tableHeaderTotal": "Después de {years} años",
     "loadingState": "Calculando…",
     "calibrationNote": "Qué significan los tipos. El 7 % prudente es el escenario más estable, el 10 % histórico queda en mitad del rango a largo plazo, y el 14 % optimista es el más movido. Son escenarios, no promesas, y todo tipo de interés conlleva riesgo. Como referencia independiente: el S&P 500 ha rentado de media en torno al 10 % anual a largo plazo (nominal, con dividendos reinvertidos; cerca del 7 % descontada la inflación), y el oro alrededor del 7 % anual. Mientras tanto, lo que paga una cuenta de ahorro o un depósito en euros ha estado años cerca del cero, y la inflación se va comiendo en silencio ese dinero parado (cifras completas en nuestras notas de investigación)."
+  },
+  "quiz": {
+    "q1": {
+      "question": "¿Qué hace que el interés compuesto sea distinto de solo ahorrar?",
+      "options": [
+        "que añades dinero cada mes",
+        "que el crecimiento empieza a generar su propio crecimiento",
+        "que el banco lo garantiza"
+      ]
+    },
+    "q2": {
+      "question": "El ejemplo de 1.000 € a ~2.252 €, ¿qué tipo de interés usó?",
+      "options": ["un prudente 7 %", "un 20 % garantizado", "lo que prometa el banco"]
+    },
+    "reflection": "Mira el mes pasado y señala un pequeño gasto que no echarías de menos. Sin presión por cambiarlo. Solo fíjate en él.",
+    "share": {
+      "line": "Resulta que la idea más potente que existe sobre el dinero se entiende en unos 5 minutos. Aquí tienes la Charla 1."
+    }
   }
 }

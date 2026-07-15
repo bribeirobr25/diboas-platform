@@ -13,6 +13,7 @@ export {
   getAnnouncedLessons,
   getSeriesLessons,
   getNextLiveLesson,
+  getPrevLiveLesson,
 } from './registry';
 export { LESSON_EVENTS, type LessonEventName } from './constants';
 export { readMessageArray } from './i18nArrays';

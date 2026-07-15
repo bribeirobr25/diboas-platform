@@ -45,5 +45,16 @@
       "title": "Alles zusammen.",
       "line": "Du hast die Grundlagen."
     }
+  },
+  "quiz": {
+    "title": "Kurz nachgehakt",
+    "correct": "Genau die.",
+    "incorrect": "Nicht ganz.",
+    "score": "{count} von {total}",
+    "share": {
+      "button": "Zum Teilen kopieren",
+      "copied": "Kopiert",
+      "copyFailed": "Kopieren ging nicht"
+    }
   }
 }

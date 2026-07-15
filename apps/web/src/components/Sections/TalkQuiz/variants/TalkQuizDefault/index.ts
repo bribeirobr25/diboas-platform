@@ -1,0 +1,1 @@
+export { TalkQuizDefault } from './TalkQuizDefault';
