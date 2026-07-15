@@ -56,5 +56,10 @@
       "copied": "Copiado",
       "copyFailed": "Não deu pra copiar"
     }
+  },
+  "video": {
+    "playLabel": "Dar o play no papo",
+    "privacyNote": "Toca pelo player do YouTube com privacidade reforçada.",
+    "watchOnYouTube": "Assistir no YouTube"
   }
 }

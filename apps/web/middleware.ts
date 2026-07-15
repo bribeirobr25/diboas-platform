@@ -76,6 +76,10 @@ export function middleware(request: NextRequest): NextResponse {
       // the swap so production never ships a broken CSP.
       `connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com https://api.diboas-analytics.com${isDev ? ' https://staging.api.diboas-analytics.com' : ''} https://app.posthog.com https://*.posthog.com https://*.google-analytics.com https://*.googletagmanager.com https://*.doubleclick.net${isDev ? ' http://localhost:* https://localhost:* ws://localhost:* wss://localhost:*' : ''}`,
       `frame-ancestors 'none'`,
+      // Phase 3 (learn redesign, D-1): the ONLY frame we ever embed is the
+      // learn talk pages' click-to-load YouTube facade. This directive exists
+      // solely for that; do not widen (register entry in implementation-notes).
+      `frame-src https://www.youtube-nocookie.com`,
       `object-src 'none'`,
       `base-uri 'self'`,
       `form-action 'self' https://diboas.com https://app.diboas.com`,

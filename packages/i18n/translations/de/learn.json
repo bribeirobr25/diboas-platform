@@ -56,5 +56,10 @@
       "copied": "Kopiert",
       "copyFailed": "Kopieren ging nicht"
     }
+  },
+  "video": {
+    "playLabel": "Talk abspielen",
+    "privacyNote": "Läuft über YouTubes datenschutzfreundlicheren Player.",
+    "watchOnYouTube": "Auf YouTube ansehen"
   }
 }

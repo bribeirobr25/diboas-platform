@@ -216,6 +216,10 @@ export function LessonThreeBeat({
         illustrationSrc={lesson.illustration}
         illustrationAlt=""
         videoAriaLabel={t('lesson.h1')}
+        youtubeVideoId={lesson.youtube?.[locale]}
+        youtubeLessonId={lessonId}
+        youtubeVideoLocale={locale}
+        enableAnalytics={enableAnalytics}
       />
 
       <LessonProgressBar

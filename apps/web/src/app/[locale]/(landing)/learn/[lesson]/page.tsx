@@ -108,12 +108,25 @@ export default async function LessonPage({ params }: LessonPageProps) {
     locale
   );
 
+  // Phase 3 Slice B (G-5): VideoObject only when this locale has a recording
+  // AND the registry carries a real publish date (never invented).
+  const youtubeId = lesson.youtube?.[locale];
+  const videoArg =
+    youtubeId && lesson.youtubePublishedAt
+      ? {
+          embedUrl: `https://www.youtube-nocookie.com/embed/${youtubeId}`,
+          thumbnailUrl: `https://diboas.com${lesson.illustration ?? '/assets/navigation/learn-banner.avif'}`,
+          uploadDate: lesson.youtubePublishedAt,
+        }
+      : undefined;
+
   const lessonStructuredData = buildLessonStructuredData({
     lessonId: lesson.id,
     locale,
     title: lessonTitle,
     description: lessonDescription,
     teaches: pageMessages[`${lesson.namespace}.seo.teaches`],
+    video: videoArg,
   });
 
   const structuredDataItems = lessonStructuredData

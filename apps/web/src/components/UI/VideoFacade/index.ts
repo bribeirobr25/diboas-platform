@@ -1,0 +1,1 @@
+export { VideoFacadeFactory } from './VideoFacadeFactory';

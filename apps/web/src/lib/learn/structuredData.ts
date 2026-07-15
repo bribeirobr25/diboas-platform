@@ -34,6 +34,12 @@ export function buildLessonStructuredData(args: {
    * subject (the pre-Phase-1 hardcode).
    */
   teaches?: string;
+  /**
+   * VideoObject (Phase 3 Slice B, G-5): passed ONLY when the locale has a
+   * recording (lesson.youtube?.[locale]); uploadDate comes from the registry
+   * (youtubePublishedAt), never invented.
+   */
+  video?: { embedUrl: string; thumbnailUrl: string; uploadDate: string };
 }) {
   const lesson = LESSONS[args.lessonId];
   if (!lesson) return null;
@@ -60,6 +66,18 @@ export function buildLessonStructuredData(args: {
     },
     provider: ORGANIZATION,
     publisher: ORGANIZATION,
+    ...(args.video
+      ? {
+          video: {
+            '@type': 'VideoObject',
+            name: args.title,
+            description: args.description,
+            thumbnailUrl: args.video.thumbnailUrl,
+            embedUrl: args.video.embedUrl,
+            uploadDate: args.video.uploadDate,
+          },
+        }
+      : {}),
   };
 }
 
