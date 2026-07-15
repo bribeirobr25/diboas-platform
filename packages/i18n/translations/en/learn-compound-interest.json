@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "How Money Really Grows — Compound Interest Explained",
+    "title": "How Money Really Grows: Compound Interest Explained",
     "description": "Learn how compound interest works: the math banks and Wall Street have used for decades. Plug in your own numbers and see what 12 years looks like."
   },
   "lesson": {
@@ -8,31 +8,29 @@
     "readTime": "~5 min read",
     "lastUpdated": {
       "label": "Last updated:",
-      "date": "May 2026"
+      "date": "July 2026"
     }
   },
   "beat1": {
-    "title": "Saving is half of the story.",
+    "title": "Saving is only half the story.",
     "body": [
-      "Difficult. Necessary. The first step. But on its own, never life-changing.",
-      "$1,000 saved is $1,000 in six months. In one year. In forty years.",
-      "But that same $1,000 could grow to about **$2,252 in 12 years.**",
-      "How?",
-      "Doing what every bank and every Wall Street firm has been doing for centuries. Using compound interest.",
-      "The banks know this. The funds know this. They've been using it on your money — and paying you almost nothing back.",
-      "Now it's your turn."
+      "Put $1,000 in a savings account a year ago, and today it's worth about… $1,003. That's the whole problem, and it isn't your fault. Nobody ever showed you the other half.",
+      "$1,000 saved is $1,000. In six months. In a year. In forty years.",
+      "But that same $1,000, left to grow, **even at a careful 7%**, could become about **$2,252 in 12 years.** You didn't add a cent. The growth started earning its own growth.",
+      "That's compound interest, the math every bank and every Wall Street firm has used for centuries.",
+      "It isn't hidden in a vault. Nobody just ever sat you down and explained it. (My grandmother did everything right for decades and was never shown this.)",
+      "It's the most powerful force in money, and almost nobody outside that world actually uses it. The talks ahead are about *why*. This one is about *how it works*."
     ]
   },
   "beat2": {
-    "title": "The system's secret engine.",
+    "title": "You don't need a fortune to start.",
     "intro": [
-      "You might be thinking — *how am I supposed to find money to invest?*",
-      "Don't worry. We won't lecture you about the old 50/30/20 rule. That worked when housing prices weren't skyrocketing, when inflation was under control, when groceries didn't cost an arm and a leg.",
-      "That world is gone. We live in this one.",
-      "So let's talk about something simpler. Small things you already spend on without thinking."
+      "You might be thinking, *where am I supposed to find money to invest?*",
+      "Fair. And we won't lecture you about the old 50/30/20 rule. That math assumed housing prices, groceries, and inflation that don't exist anymore. That world is gone. We live in this one.",
+      "So forget rules. Think about the small stuff you already spend on without thinking."
     ],
     "habitsLine": "Your daily latte. Your Friday takeout. Your monthly streaming bundle.",
-    "vignettesIntro": "If just one of those went to work instead of away, at the same 10% historical compound rate, here's what 12 years looks like:",
+    "vignettesIntro": "That was a one-time $1,000. Habits are different: they *repeat*. So picture redirecting one small habit, month after month, for 12 years. A $5-a-day coffee is about $150 a month. Kept invested at that same careful 7%, here's where each one could land:",
     "vignettes": [
       {
         "habit": "Daily latte ($5)",
@@ -53,32 +51,31 @@
     "vignettesTableHeaders": {
       "habit": "Habit",
       "yearly": "Yearly cost",
-      "twelveYear": "Could become in 12 years"
+      "twelveYear": "Could become in 12 years (estimate)"
     },
     "vignettesOutro": "Same money. Different job.",
-    "vignettesDisclaimer": "Illustrative figures based on a 10% historical compound rate. Past performance does not guarantee future results.",
-    "habitsRecap": "Nobody is asking you to give up your latte. Or your Friday takeout. Or your streaming. Keep what makes life good.",
+    "vignettesDisclaimer": "Illustrative figures assume that habit is invested in equal monthly amounts, month after month, for 12 years at a careful 7% compound rate; the historical 10% and an optimistic 14% are in the calculator below. Past performance does not guarantee future results.",
+    "habitsRecap": "Nobody's asking you to give up your latte, your takeout, or your streaming. Keep what makes life good.",
     "outro": [
-      "But if even one of these — just one — went to work for you instead of disappearing every month, the math you saw above is what happens.",
-      "This is what the banks have been doing. With your money. For decades.",
-      "Now it's your turn."
+      "But if even one of them, just one, went to work for you instead of vanishing every month, that's the math you just saw.",
+      "The banks have done this for decades. Adelaide never got shown it. Now you have."
     ]
   },
   "beat3": {
-    "title": "Now use it yourself.",
+    "title": "Now use your own numbers.",
     "intro": [
-      "The math above used a daily latte, a Friday takeout, a monthly streaming bundle. Those are examples. Your life is yours.",
-      "So plug in your own numbers.",
-      "What do you spend on, every day or every week or every month, that you wouldn't really miss if it went to work for you instead?",
-      "Your weekly takeout. Your monthly subscription stack. The few dollars you spend on the way to work without thinking. Whatever it is — type it in below.",
-      "The chart will show you what 12 years looks like. At three different rates. Compared against what your bank is paying you right now."
+      "Those were my examples: a latte, takeout, streaming. Your life is yours.",
+      "And here's the honest part: I run diBoaS, so I've got a reason to want you excited about this. Don't take my word for it.",
+      "Plug in your own numbers below, whatever you actually spend and wouldn't really miss. Pick your years. The chart shows what happens, at three different rates, next to what your bank pays you right now.",
+      "Let your own math tell you. That's the only number that matters."
     ],
     "calculatorTagline": "Same money. Different job.",
     "afterCalculator": "Numbers landed?",
     "toolDeepLink": "Want this calculator on its own? <link>Open the standalone Compound Interest tool</link>",
     "wrap": [
-      "This is what diBoaS is for. The part of your money you can set aside, working at a rate the system has been keeping for itself.",
-      "Your bank stays where it is — for spending, bills, and daily life. diBoaS is for money with a goal."
+      "That's compound interest. You just learned the single idea the whole financial system runs on, and now you can see it in your own numbers.",
+      "This is the part of your money diBoaS is built for: the part you can set aside, with a goal, working at a rate the system mostly kept for itself. Your bank stays where it is, for spending, bills, and daily life.",
+      "But there's a catch, and it's Talk 2: compound interest only works on money that has somewhere to go. Most money never gets the chance. It leaks out first. Next, we'll look at why."
     ],
     "cta": {
       "primary": "Join the Waitlist",
@@ -113,6 +110,6 @@
     "tableHeaderRate": "Annual rate",
     "tableHeaderTotal": "After {years} years",
     "loadingState": "Calculating…",
-    "calibrationNote": "What the rates mean. The 7% conservative rate is the steadier scenario, 10% historical is the mid-range, and 14% optimistic is the more active one. These are scenarios, not promises, and every rate carries risk. Independently: the S&P 500 total return has averaged about 10% a year over the long run (nominal, with dividends reinvested; roughly 7% after inflation), and gold about 7% a year. Over the long run, saving in Brazilian reais lagged holding the digital dollar (full numbers in our research notes)."
+    "calibrationNote": "What the rates mean. The 7% conservative rate is the steadier scenario, 10% historical is the mid-range, and 14% optimistic is the more active one. These are scenarios, not promises, and every rate carries risk. Independently: the S&P 500 total return has averaged about 10% a year over the long run (nominal, with dividends reinvested; roughly 7% after inflation), and gold about 7% a year (full numbers in our research notes)."
   }
 }

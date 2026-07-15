@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Como o Dinheiro Realmente Cresce — Juros compostos explicados",
+    "title": "Como o Dinheiro Realmente Cresce: Juros compostos explicados",
     "description": "Entenda como os juros compostos funcionam: a matemática que bancos e Wall Street usam há décadas. Coloque seus próprios números e veja como ficam 12 anos."
   },
   "lesson": {
@@ -8,77 +8,74 @@
     "readTime": "~5 min de leitura",
     "lastUpdated": {
       "label": "Última atualização:",
-      "date": "Maio 2026"
+      "date": "julho de 2026"
     }
   },
   "beat1": {
     "title": "Poupar é só metade da história.",
     "body": [
-      "Difícil. Necessário. O primeiro passo. Mas, sozinho, nunca vai mudar a sua vida.",
-      "R$ 1.000 guardados continuam sendo R$ 1.000 daqui a seis meses. Daqui a um ano. Daqui a quarenta anos.",
-      "Mas esses mesmos R$ 1.000 poderiam virar **~R$ 2.252 em 12 anos.**",
-      "Como?",
-      "Fazendo o que todo banco e toda Wall Street vêm fazendo há séculos. Usando juros compostos.",
-      "Os bancos sabem disso. Os fundos sabem disso. Eles vêm usando isso com o seu dinheiro — e te pagando quase nada em troca.",
-      "Agora é a sua vez."
+      "Você deixou R$ 1.000 na poupança um ano atrás. Hoje rendeu... um pouquinho. Mas o aluguel subiu, o mercado subiu, o dólar subiu. Na prática, seu dinheiro mal saiu do lugar. Esse é o problema todo, e a culpa não é sua. Ninguém nunca te mostrou a outra metade.",
+      "R$ 1.000 guardados continuam sendo R$ 1.000. Daqui a seis meses. Daqui a um ano. Daqui a quarenta anos. E, enquanto isso, a vida vai ficando mais cara em volta deles.",
+      "Mas esses mesmos R$ 1.000, deixados pra crescer, mesmo num ritmo cauteloso de 7%, poderiam virar uns **R$ 2.252 em 12 anos.** Você não botou nem um centavo. O crescimento começou a render em cima do próprio crescimento. Não é promessa, é cenário.",
+      "Isso são juros compostos, a conta que todo banco e todo fundo usam há séculos.",
+      "Não está escondido num cofre. Só que ninguém nunca sentou e explicou. (A minha avó fez tudo certo por décadas e nunca uma vez mostraram isso pra ela.)",
+      "É a força mais poderosa que existe sobre dinheiro, e quase ninguém fora desse mundo usa de verdade. Os próximos papos são sobre o *porquê*. Esse aqui é sobre *como funciona*."
     ]
   },
   "beat2": {
-    "title": "A engrenagem secreta do sistema.",
+    "title": "Você não precisa de uma fortuna pra começar.",
     "intro": [
-      "Você deve estar pensando — *e de onde eu vou tirar dinheiro pra investir?*",
-      "Pode ficar tranquilo. A gente não vai vir com a velha regra dos 50/30/20. Aquilo funcionava quando o aluguel não estava nas alturas, quando a inflação estava sob controle, quando o mercado não doía no bolso toda semana.",
-      "Esse mundo já era. A gente vive nesse aqui.",
-      "Então vamos falar de algo mais simples. Coisas pequenas que você já gasta sem pensar."
+      "Você deve estar pensando: *e de onde eu vou tirar dinheiro pra investir?*",
+      "Justo. E a gente não vai vir com a velha regra dos 50/30/20. Aquela conta pressupunha aluguel, mercado e inflação que não existem mais. Aquele mundo já era. A gente vive nesse aqui.",
+      "Então esquece regra. Pensa nas coisinhas que você já gasta sem nem pensar."
     ],
-    "habitsLine": "Aquele iFood do almoço. O cinema com pipoca de sábado. O combo de streaming todo mês.",
-    "vignettesIntro": "Se só um desses fosse trabalhar pra você em vez de ir embora, no mesmo rendimento histórico de 10% ao ano, olha como ficam 12 anos:",
+    "habitsLine": "O cafezinho de todo dia. A comida por app na sexta. O combo de streaming todo mês.",
+    "vignettesIntro": "Aquilo foram R$ 1.000 de uma vez só. Hábito é diferente: ele se repete. Então imagina redirecionar um hábito pequeno, mês após mês, por 12 anos. Um cafezinho de uns R$ 10 por dia dá uns R$ 200 por mês. Investido naquele mesmo ritmo cauteloso de 7%, olha onde cada um poderia chegar:",
     "vignettes": [
       {
-        "habit": "iFood no almoço (R$ 25/dia útil)",
-        "yearly": "R$ 6.500",
-        "yearlyAmount": "6500"
+        "habit": "Cafezinho de todo dia (R$ 10/dia útil)",
+        "yearly": "R$ 2.400",
+        "yearlyAmount": "2400"
       },
       {
-        "habit": "Cinema com pipoca (R$ 80/semana)",
-        "yearly": "R$ 4.160",
-        "yearlyAmount": "4160"
+        "habit": "Comida por app na sexta (R$ 50/semana)",
+        "yearly": "R$ 2.600",
+        "yearlyAmount": "2600"
       },
       {
-        "habit": "Combo de streaming (R$ 80/mês)",
-        "yearly": "R$ 960",
-        "yearlyAmount": "960"
+        "habit": "Combo de streaming (R$ 60/mês)",
+        "yearly": "R$ 720",
+        "yearlyAmount": "720"
       }
     ],
     "vignettesTableHeaders": {
       "habit": "Hábito",
       "yearly": "Custo por ano",
-      "twelveYear": "Poderia virar em 12 anos"
+      "twelveYear": "Poderia virar em 12 anos (estimativa)"
     },
     "vignettesOutro": "Mesmo dinheiro. Outro trabalho.",
-    "vignettesDisclaimer": "Valores ilustrativos baseados em 10% de juros compostos históricos. Desempenho passado não garante resultados futuros.",
-    "habitsRecap": "Ninguém está te pedindo pra cortar o iFood. Nem o cinema. Nem o streaming. Mantém o que faz a vida valer a pena.",
+    "vignettesDisclaimer": "Valores ilustrativos, considerando que o hábito é investido em parcelas mensais iguais, mês após mês, por 12 anos, a um ritmo cauteloso de 7% de juros compostos. Os 10% históricos e os 14% otimistas estão na calculadora aqui embaixo. São cenários, não promessas, e desempenho passado não garante resultado futuro.",
+    "habitsRecap": "Ninguém está te pedindo pra cortar o cafezinho, a comida por app ou o streaming. Fica com o que faz a vida valer a pena.",
     "outro": [
-      "Mas se só um deles — só um — fosse trabalhar pra você em vez de sumir todo mês, é a conta que você acabou de ver lá em cima.",
-      "É isso que os bancos vêm fazendo. Com o seu dinheiro. Há décadas.",
-      "Agora é a sua vez."
+      "Mas se só um deles, só um, fosse trabalhar pra você em vez de sumir todo mês, é a conta que você acabou de ver ali em cima.",
+      "Os bancos fazem isso há décadas. A minha avó nunca teve quem sentasse e explicasse. Agora você teve."
     ]
   },
   "beat3": {
-    "title": "Agora é a sua vez de usar.",
+    "title": "Agora, com os seus números.",
     "intro": [
-      "A conta lá em cima usou iFood, cinema e streaming. São só exemplos. A sua vida é sua.",
-      "Então coloca os seus próprios números.",
-      "No que você gasta, todo dia, toda semana ou todo mês, que você nem sentiria falta se fosse trabalhar pra você?",
-      "Aquele rolê semanal. As assinaturas que se acumularam. Os trocados que somem todo dia no caminho do trabalho. Seja o que for — coloca aí embaixo.",
-      "O gráfico vai te mostrar como ficam 12 anos. Em três cenários diferentes. Comparado com o que o seu banco está te pagando agora."
+      "Aqueles eram os meus exemplos: cafezinho, comida por app, streaming. A sua vida é sua.",
+      "E aqui vai a parte honesta: eu toco a diBoaS, então eu tenho um motivo pra querer você animado com isso. Não acredita em mim de boca.",
+      "Coloca os seus próprios números aqui embaixo, o que você de fato gasta e não sentiria falta. Escolhe os anos. O gráfico mostra o que acontece, em três cenários diferentes, do lado do que o seu banco te paga agora.",
+      "Deixa a sua própria conta te dizer. É o único número que importa."
     ],
     "calculatorTagline": "Mesmo dinheiro. Outro trabalho.",
     "afterCalculator": "As contas fizeram sentido?",
     "toolDeepLink": "Quer essa calculadora separada? <link>Abrir a calculadora de juros compostos</link>",
     "wrap": [
-      "É pra isso que existe a diBoaS. A parte do seu dinheiro que você pode separar, rendendo num ritmo que o sistema vinha guardando só pra ele.",
-      "O seu banco continua onde está — pra gastos, contas e o dia a dia. A diBoaS é pra dinheiro com um objetivo."
+      "É isso, juros compostos. Você acabou de aprender a única ideia em que o sistema financeiro inteiro se apoia, e agora consegue ver ela nos seus próprios números.",
+      "É essa a parte do seu dinheiro pra qual a diBoaS foi feita: a parte que você pode separar, com um objetivo, trabalhando num ritmo que o sistema mais guardou pra ele mesmo. O seu banco continua onde está, pra gastos, contas e o dia a dia.",
+      "Mas tem uma pegadinha, e é o Papo 2: juros compostos só funcionam com dinheiro que tem pra onde ir. A maioria do dinheiro nunca tem essa chance. Ele vaza antes. A seguir, a gente olha o porquê."
     ],
     "cta": {
       "primary": "Entrar na lista de espera",

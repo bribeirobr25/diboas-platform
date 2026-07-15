@@ -4,7 +4,8 @@
     "description": "Lecciones cortas y honestas sobre el sistema financiero, escritas para quienes el sistema dejó fuera."
   },
   "nav": {
-    "label": "Aprender"
+    "label": "Aprender",
+    "home": "Inicio"
   },
   "index": {
     "h1": "Aprende cómo funciona el dinero de verdad.",

@@ -4,7 +4,8 @@
     "description": "Short, honest lessons on the financial system, written for people the system wasn't built for."
   },
   "nav": {
-    "label": "Learn"
+    "label": "Learn",
+    "home": "Home"
   },
   "index": {
     "h1": "Learn how money actually works.",

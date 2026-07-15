@@ -36,10 +36,13 @@ export default async function LearnIndexPage({ params }: LocalePageProps) {
   // shared MinimalFooter's `landing-b2c.footer.*` keys resolve.
   const pageMessages = await loadPageNamespaces(locale, ['learn', 'landing-b2c']);
 
+  // B-3 (learn redesign plan, 2026-07-15): breadcrumb names are localized via
+  // the learn namespace (this also wires the previously-dead `learn.nav.label`
+  // key, gate-audit F-8). Fallbacks keep the JSON-LD valid if a key is absent.
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
-      { name: 'Home', url: '/' },
-      { name: 'Learn', url: '/learn' },
+      { name: pageMessages['learn.nav.home'] ?? 'Home', url: '/' },
+      { name: pageMessages['learn.nav.label'] ?? 'Learn', url: '/learn' },
     ],
     locale
   );

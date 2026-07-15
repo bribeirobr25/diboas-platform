@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Cómo Crece el Dinero de Verdad — El interés compuesto explicado",
+    "title": "Cómo Crece el Dinero de Verdad: El interés compuesto explicado",
     "description": "Aprende cómo funciona el interés compuesto: las matemáticas que los bancos y Wall Street han usado durante décadas. Introduce tus propios números y mira cómo se ven 12 años."
   },
   "lesson": {
@@ -8,77 +8,74 @@
     "readTime": "~5 min de lectura",
     "lastUpdated": {
       "label": "Última actualización:",
-      "date": "Mayo 2026"
+      "date": "julio de 2026"
     }
   },
   "beat1": {
     "title": "Ahorrar es solo la mitad de la historia.",
     "body": [
-      "Difícil. Necesario. El primer paso. Pero, por sí solo, nunca cambia la vida.",
-      "1.000 € ahorrados siguen siendo 1.000 € dentro de seis meses. Dentro de un año. Dentro de cuarenta años.",
-      "Pero esos mismos 1.000 € podrían ser **~2.252 € en 12 años.**",
-      "¿Cómo?",
-      "Haciendo lo que cada banco y cada gran fondo lleva siglos haciendo. Usando el interés compuesto.",
-      "Los bancos lo saben. Los fondos lo saben. Llevan décadas usándolo con tu dinero — y pagándote casi nada a cambio.",
-      "Ahora te toca a ti."
+      "Metiste 1.000 € en una cuenta de ahorro hace un año, y hoy valen… unos 1.003 €. Ese es el problema entero, y no es culpa tuya. Nadie te enseñó nunca la otra mitad.",
+      "1.000 € ahorrados son 1.000 €. Dentro de seis meses. Dentro de un año. Dentro de cuarenta.",
+      "Pero esos mismos 1.000 €, dejándolos crecer, **aunque sea a un prudente 7 %**, podrían convertirse en unos **2.252 € en 12 años.** No has añadido ni un céntimo. El crecimiento empezó a generar su propio crecimiento.",
+      "Eso es el interés compuesto, las cuentas que cada banco y cada gran fondo llevan siglos usando.",
+      "No está escondido en ninguna caja fuerte. Es que nadie se sentó nunca a explicártelo. (Mi abuela lo hizo todo bien durante décadas y nadie se lo enseñó.)",
+      "Es la fuerza más potente que existe sobre el dinero, y casi nadie fuera de ese mundo la usa de verdad. Las charlas que vienen van de *por qué*. Esta va de *cómo funciona*."
     ]
   },
   "beat2": {
-    "title": "El motor secreto del sistema.",
+    "title": "No hace falta una fortuna para empezar.",
     "intro": [
-      "A lo mejor estás pensando — *¿de dónde se supone que voy a sacar dinero para invertir?*",
-      "Tranquilo. No te vamos a soltar la vieja regla del 50/30/20. Eso funcionaba cuando los pisos no estaban por las nubes, cuando la inflación estaba controlada, cuando hacer la compra no costaba un riñón.",
-      "Ese mundo ya pasó. Vivimos en este.",
-      "Así que hablemos de algo más sencillo. Pequeñas cosas en las que ya gastas sin pensar."
+      "A lo mejor estás pensando: *¿de dónde saco yo dinero para invertir?*",
+      "Normal. Y no te vamos a dar la charla de la vieja regla del 50/30/20. Esas cuentas daban por hechos unos precios de la vivienda, una compra y una inflación que ya no existen. Ese mundo se acabó. Vivimos en este.",
+      "Así que olvídate de reglas. Piensa en las cosas pequeñas en las que ya gastas sin pensar."
     ],
-    "habitsLine": "El café con tostada de cada mañana. Las cañas con amigos del finde. El streaming y el gimnasio cada mes.",
-    "vignettesIntro": "Si solo uno de esos se pusiera a trabajar para ti en vez de irse, al mismo 10 % de rentabilidad histórica, así se verían 12 años:",
+    "habitsLine": "El café de cada mañana. La comida a domicilio del viernes. El streaming de cada mes.",
+    "vignettesIntro": "Aquello eran 1.000 € una sola vez. Los hábitos son otra cosa: se *repiten*. Así que imagina redirigir un pequeño hábito, mes tras mes, durante 12 años. Un café de 1,80 € al día son unos 55 € al mes. Invertido a ese mismo prudente 7 %, esto es más o menos donde podría acabar cada uno:",
     "vignettes": [
       {
-        "habit": "Café con tostada (3 €/día)",
+        "habit": "Café cada mañana (1,80 €/día)",
+        "yearly": "650 €",
+        "yearlyAmount": "650"
+      },
+      {
+        "habit": "Comida a domicilio del viernes (15 €/semana)",
         "yearly": "780 €",
         "yearlyAmount": "780"
       },
       {
-        "habit": "Cañas con amigos (25 €/semana)",
-        "yearly": "1.300 €",
-        "yearlyAmount": "1300"
-      },
-      {
-        "habit": "Streaming + gimnasio (40 €/mes)",
-        "yearly": "480 €",
-        "yearlyAmount": "480"
+        "habit": "Streaming (20 €/mes)",
+        "yearly": "240 €",
+        "yearlyAmount": "240"
       }
     ],
     "vignettesTableHeaders": {
       "habit": "Hábito",
       "yearly": "Coste al año",
-      "twelveYear": "Podría convertirse en 12 años"
+      "twelveYear": "Podría convertirse en 12 años (estimación)"
     },
     "vignettesOutro": "Mismo dinero. Otro trabajo.",
-    "vignettesDisclaimer": "Cifras ilustrativas basadas en un 10 % de interés compuesto histórico. Rentabilidades pasadas no garantizan resultados futuros.",
-    "habitsRecap": "Nadie te está pidiendo que dejes el café. Ni las cañas. Ni el streaming. Quédate con lo que hace que la vida valga la pena.",
+    "vignettesDisclaimer": "Cifras ilustrativas: suponen que ese hábito se invierte en cantidades mensuales iguales, mes tras mes, durante 12 años a un prudente 7 % de interés compuesto; el 10 % histórico y un 14 % optimista están en la calculadora de abajo. Rentabilidades pasadas no garantizan resultados futuros. Son escenarios, no promesas.",
+    "habitsRecap": "Nadie te pide que dejes el café, la comida a domicilio ni el streaming. Quédate con lo que te hace la vida buena.",
     "outro": [
-      "Pero si solo uno de ellos — solo uno — trabajara para ti en vez de desaparecer cada mes, lo que pasa es justo la cuenta que acabas de ver arriba.",
-      "Esto es lo que los bancos llevan haciendo. Con tu dinero. Durante décadas.",
-      "Ahora te toca a ti."
+      "Pero si solo uno de ellos, solo uno, se pusiera a trabajar para ti en vez de esfumarse cada mes, esa es la cuenta que acabas de ver.",
+      "Los bancos llevan décadas haciéndolo. A Adelaide nadie se lo enseñó. Ahora ya lo sabes tú."
     ]
   },
   "beat3": {
-    "title": "Ahora úsalo tú.",
+    "title": "Ahora usa tus propios números.",
     "intro": [
-      "Las cuentas de arriba usan café, cañas y streaming. Son ejemplos. Tu vida es tuya.",
-      "Así que pon tus propios números.",
-      "¿En qué gastas, cada día, cada semana o cada mes, que no echarías de menos si trabajara para ti?",
-      "Esa cena de los viernes. Las suscripciones que se han ido acumulando. Los pocos euros que se van cada mañana de camino al trabajo. Lo que sea — escríbelo abajo.",
-      "El gráfico te enseñará cómo se ven 12 años. A tres tipos de interés diferentes. Comparado con lo que tu banco te está pagando ahora mismo."
+      "Esos eran mis ejemplos: un café, la comida a domicilio, el streaming. Tu vida es tuya.",
+      "Y aquí va la parte honesta: yo llevo diBoaS, así que tengo un motivo para querer que esto te ilusione. No te fíes de mi palabra.",
+      "Mete abajo tus propios números, lo que gastas de verdad y no echarías de menos. Elige tus años. El gráfico enseña lo que pasa, a tres tipos de interés distintos, al lado de lo que tu banco te paga ahora mismo.",
+      "Que te lo digan tus propias cuentas. Ese es el único número que importa."
     ],
     "calculatorTagline": "Mismo dinero. Otro trabajo.",
     "afterCalculator": "¿Te ha cuadrado la cuenta?",
     "toolDeepLink": "¿Quieres esta calculadora por separado? <link>Abre la calculadora de interés compuesto</link>",
     "wrap": [
-      "Para esto está diBoaS. La parte de tu dinero que puedes apartar, trabajando a un ritmo que el sistema se venía guardando solo para él.",
-      "Tu banco se queda donde está — para gastos, recibos y el día a día. diBoaS es para el dinero con un objetivo."
+      "Eso es el interés compuesto. Acabas de aprender la única idea sobre la que funciona todo el sistema financiero, y ahora la ves en tus propios números.",
+      "Esta es la parte de tu dinero para la que está hecho diBoaS: la que puedes apartar, con un objetivo, trabajando a un ritmo que el sistema se venía guardando casi todo para él. Tu banco se queda donde está, para gastos, recibos y el día a día.",
+      "Pero hay una trampa, y es la Charla 2: el interés compuesto solo funciona con dinero que tiene a dónde ir. La mayoría del dinero nunca tiene la oportunidad. Se escapa antes. La próxima vez vemos por qué."
     ],
     "cta": {
       "primary": "Apuntarme a la lista de espera",
@@ -113,6 +110,6 @@
     "tableHeaderRate": "Tipo anual",
     "tableHeaderTotal": "Después de {years} años",
     "loadingState": "Calculando…",
-    "calibrationNote": "Qué significan las tasas. El 7% conservador es el escenario más estable, el 10% histórico queda en el medio del rango de largo plazo, y el 14% optimista es el escenario más activo. Son escenarios, no promesas, y todo tipo de interés conlleva riesgo. De forma independiente: el S&P 500 retornó, de media, alrededor del 10% al año a largo plazo (nominal, con dividendos reinvertidos; cerca del 7% tras la inflación), y el oro alrededor del 7% al año. Mientras tanto, una cuenta de ahorro o un depósito en euros ha estado años pagando cerca de cero, y la inflación se va comiendo en silencio ese dinero parado (cifras completas en nuestras notas de investigación)."
+    "calibrationNote": "Qué significan los tipos. El 7 % prudente es el escenario más estable, el 10 % histórico queda en mitad del rango a largo plazo, y el 14 % optimista es el más movido. Son escenarios, no promesas, y todo tipo de interés conlleva riesgo. Como referencia independiente: el S&P 500 ha rentado de media en torno al 10 % anual a largo plazo (nominal, con dividendos reinvertidos; cerca del 7 % descontada la inflación), y el oro alrededor del 7 % anual. Mientras tanto, lo que paga una cuenta de ahorro o un depósito en euros ha estado años cerca del cero, y la inflación se va comiendo en silencio ese dinero parado (cifras completas en nuestras notas de investigación)."
   }
 }
