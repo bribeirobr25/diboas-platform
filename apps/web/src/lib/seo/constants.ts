@@ -185,6 +185,52 @@ export const PAGE_SEO_CONFIG = {
       'savings vs investing',
     ],
   },
+  'learn/money-objective': {
+    title: 'Where does it all go? The money leak, explained',
+    description:
+      'Rent you can point to. Bills you can point to. The rest just disappears. Why money with no name leaks, and what a name changes.',
+    keywords: ['money leak', 'where does my money go', 'naming your money', 'learn saving'],
+  },
+  'learn/pay-yourself-first': {
+    title: 'Pay yourself first: the oldest fix in money, explained',
+    description:
+      "Waiting for what's left over never works, because there's never anything left. The 4,000-year-old order flip: yourself first, then the month.",
+    keywords: ['pay yourself first', 'saving habit', 'richest man in babylon', 'learn saving'],
+  },
+  'learn/ten-percent': {
+    title: 'The 10%: the Babylon starting point, explained',
+    description:
+      'Small enough to give up, big enough to matter. Where the tenth comes from, why 1% beats 0%, and how to see your own number.',
+    keywords: ['save 10 percent', 'babylon tenth', 'how much to save', 'learn saving'],
+  },
+  'learn/seventy-percent': {
+    title: 'Living on 70%: the gap is the point, explained',
+    description:
+      "Living on less than you make isn't deprivation. It's the whole trick: the gap between what comes in and what goes out is where everything else lives.",
+    keywords: ['live on less than you make', 'spending gap', 'budget basics', 'learn budgeting'],
+  },
+  'learn/clearing-debt': {
+    title: 'The other 20%: expensive debt, explained',
+    description:
+      'High-interest debt is compound interest running against you. Why paying off a 25% card is the interest you stop paying, and where the line sits.',
+    keywords: [
+      'high interest debt',
+      'credit card interest',
+      'pay off debt first',
+      'learn debt basics',
+    ],
+  },
+  'learn/putting-it-together': {
+    title: 'Putting it together: the six ideas, explained',
+    description:
+      'Grow, name, first, tenth, gap, debt. The whole Basics series in one picture, with the tools in your hands and the door open.',
+    keywords: [
+      'money basics',
+      'personal finance basics',
+      'financial literacy series',
+      'learn money',
+    ],
+  },
   // Phase 6C — Money Tools (Tier 1): purpose-grouped landing + 4 calculators.
   // Per-locale titles/descriptions resolve via each route's `generateMetadata`
   // (tools-shared.json + tools-{slug}.json); these English strings are fallback only.

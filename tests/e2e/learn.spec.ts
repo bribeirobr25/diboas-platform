@@ -74,12 +74,13 @@ test.describe('Talk page (/en/learn/compound-interest)', () => {
   });
 });
 
-test.describe('Announced talk slug', () => {
+test.describe('Unknown talk slug', () => {
   test('shows the 404 UI and leaks no talk content', async ({ page }) => {
-    // Known limitation (Phase-1, founder-accepted): under force-dynamic the
-    // production response is a soft-404 (404 UI over HTTP 200), so this
-    // asserts CONTENT, not status. Drop or adapt when all 7 talks are live.
-    await page.goto('/en/learn/money-objective');
+    // All 7 talks are live (founder flip 2026-07-16), so the no-leak check
+    // moves to an unknown slug. Known limitation (Phase-1, founder-accepted):
+    // under force-dynamic the production response is a soft-404 (404 UI over
+    // HTTP 200), so this asserts CONTENT, not status.
+    await page.goto('/en/learn/not-a-real-talk');
     await expect(page.locator('#beat1')).not.toBeAttached();
     await expect(page.locator('section[aria-labelledby="talk-quiz-title"]')).not.toBeAttached();
   });
