@@ -287,9 +287,11 @@ export function LessonThreeBeat({
               </>
             )}
             {beat2Outro.map((p) => (
-              <p key={p} className={styles.beatBody}>
-                {p}
-              </p>
+              <p
+                key={p}
+                className={styles.beatBody}
+                dangerouslySetInnerHTML={renderInlineEmphasis(p)}
+              />
             ))}
           </div>
         </SectionContainer>
@@ -301,49 +303,75 @@ export function LessonThreeBeat({
           <div id="beat3" className={styles.beat}>
             <h2 className={styles.beatTitle}>{t('beat3.title')}</h2>
             {beat3Intro.map((p) => (
-              <p key={p} className={styles.beatBody}>
-                {p}
-              </p>
+              <p
+                key={p}
+                className={styles.beatBody}
+                dangerouslySetInnerHTML={renderInlineEmphasis(p)}
+              />
             ))}
 
-            {embedsCalculator && (
+            {embedsCalculator ? (
               <>
                 <CompoundInterestCalculator variant="default" enableAnalytics={enableAnalytics} />
                 <p className={styles.brandCallback}>{t('beat3.calculatorTagline')}</p>
                 <p className={styles.afterCalculator}>{t('beat3.afterCalculator')}</p>
+                <p className={styles.toolDeepLink}>
+                  {intl.formatMessage(
+                    { id: `${ns}.beat3.toolDeepLink` },
+                    {
+                      // react-intl rich-text chunks callback. The callback's
+                      // return element needs an explicit `key` because
+                      // react-intl appends the result to a children array
+                      // without auto-keying (v6.4.7 behavior — confirmed
+                      // warning gone with this key).
+                      link: (chunks: React.ReactNode) => (
+                        <LocaleLink
+                          key="tool-deep-link"
+                          href={toolHref}
+                          prefetch={false}
+                          onClick={handleToolDeepLink}
+                        >
+                          {chunks}
+                        </LocaleLink>
+                      ),
+                    }
+                  )}
+                </p>
+              </>
+            ) : (
+              /* Phase 4 (RV-9): the toolCard talks' tool moment. The approved
+               * copy defines toolDeepLink (the card), toolTagline (the brand
+               * callback), and afterTool; the card is the C5 payoff so it
+               * gets the prominent treatment. Same TOOL_DEEPLINK wire name. */
+              <>
+                <LocaleLink
+                  className={styles.toolCard}
+                  href={toolHref}
+                  prefetch={false}
+                  onClick={handleToolDeepLink}
+                >
+                  {intl.formatMessage(
+                    { id: `${ns}.beat3.toolDeepLink` },
+                    {
+                      link: (chunks: React.ReactNode) => (
+                        <span key="tool-card-cta" className={styles.toolCardCta}>
+                          {chunks} <LucideIcon icon={ArrowRight} size="xs" />
+                        </span>
+                      ),
+                    }
+                  )}
+                </LocaleLink>
+                <p className={styles.brandCallback}>{t('beat3.toolTagline')}</p>
+                <p className={styles.afterCalculator}>{t('beat3.afterTool')}</p>
               </>
             )}
 
-            {/* Talks without an embedded calculator link out instead; both
-             * kinds share the toolDeepLink copy pattern. (Extract to a
-             * ToolLinkCard component when the first toolCard talk goes live,
-             * Phase 4.) */}
-            <p className={styles.toolDeepLink}>
-              {intl.formatMessage(
-                { id: `${ns}.beat3.toolDeepLink` },
-                {
-                  // react-intl rich-text chunks callback. The callback's return
-                  // element needs an explicit `key` because react-intl appends
-                  // the result to a children array without auto-keying (v6.4.7
-                  // behavior — confirmed warning gone with this key).
-                  link: (chunks: React.ReactNode) => (
-                    <LocaleLink
-                      key="tool-deep-link"
-                      href={toolHref}
-                      prefetch={false}
-                      onClick={handleToolDeepLink}
-                    >
-                      {chunks}
-                    </LocaleLink>
-                  ),
-                }
-              )}
-            </p>
-
             {beat3Wrap.map((p) => (
-              <p key={p} className={styles.beatBody}>
-                {p}
-              </p>
+              <p
+                key={p}
+                className={styles.beatBody}
+                dangerouslySetInnerHTML={renderInlineEmphasis(p)}
+              />
             ))}
 
             {/* Phase 3 quiz (registry-gated). Placed BEFORE the CTA group so

@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "Vivir con el 70 %: el hueco es lo que cuenta, explicado",
+    "description": "Vivir con menos de lo que ganas no es privarte. Es el truco entero: el hueco entre lo que entra y lo que sale es donde vive todo lo demás."
+  },
+  "lesson": {
+    "h1": "Vivir con el 70 %",
+    "readTime": "~5 min de lectura"
+  },
+  "beat1": {
+    "title": "De dónde sale el 10 %.",
+    "body": [
+      "La Charla 4 dejó una pregunta: ¿de dónde sale el 10 % si tu dinero ya está todo pillado? La respuesta es que le haces sitio. Y hay un número clásico, un setenta por ciento.",
+      "El marco de siempre: págate a ti primero, ocúpate de lo que debes, vive con el resto (~70 %). Pero el número no es la lección. La lección es una frase incómoda: la \"primera parte\" solo sobrevive si tu vida cuesta menos de lo que ganas. A propósito."
+    ]
+  },
+  "beat2": {
+    "title": "El enemigo de verdad es la inflación del estilo de vida.",
+    "intro": [
+      "No es fuerza de voluntad. El nivel de vida sube con el sueldo. ¿Esa subida del año pasado? Desaparecida, y no sabrías decir en qué. Tu tren de vida creció sin hacer ruido hasta igualarla. Eso es lo que se come el 10 %.",
+      "Así que el 70 % no es una regla que yo te entregue. Es un tope que eliges tú: mi día a día cabe dentro de casi todo lo que gano, no de todo. A lo mejor para ti es un 70, a lo mejor un 90, a lo mejor ahora mismo, siendo sincero, pasas del 100 y solo estás sobreviviendo. Si eres tú, no voy a fingir que un porcentaje lo arregla.",
+      "Pero allí donde puedas abrir aunque sea un pequeño hueco entre lo que ganas y lo que gastas, ese hueco no es dinero que te estés perdiendo. Es tu futuro. Es el único sitio del que sale el 10 %."
+    ]
+  },
+  "beat3": {
+    "title": "Encuentra tu hueco.",
+    "intro": [
+      "La herramienta de abajo te enseña tu dinero repartido en sus tareas: la parte que mantiene tu vida en marcha, y la parte que está libre para trabajar. Mueve la línea tú mismo.",
+      "Tu vida, tu número. Yo llevo diBoaS, así que no te fíes de mi palabra. Mueve la línea y míralo."
+    ],
+    "toolTagline": "El hueco es lo que cuenta.",
+    "afterTool": "¿Ya has encontrado tu línea?",
+    "toolDeepLink": "Mira las tareas de tu dinero: <link>Abre Money Jobs</link>",
+    "wrap": [
+      "Vivir con menos de lo que ganas no es privarte de nada. Es el truco. El hueco entre lo que ganas y lo que gastas es donde vive todo lo demás de esta serie.",
+      "Pero ¿y si una parte grande de tu sueldo ya se está yendo a pagar deudas? Entonces las cuentas cambian, y puede que cambie lo que haces primero. Esa es la Charla 6, la que nadie quiere tener."
+    ],
+    "cta": {
+      "primary": "Encuentra tu hueco",
+      "primaryNote": "Apuntarte no mueve tu dinero. Tú decides después.",
+      "next": "Siguiente charla: {title}",
+      "waitlist": "Apuntarme a la lista de espera",
+      "secondary": "Vendrán más charlas",
+      "prev": "Volver a: {title}",
+      "toolsHub": "Sigue con las herramientas"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Según la charla, ¿qué es lo que de verdad se come tu 10 %?",
+      "options": [
+        "un sueldo bajo",
+        "la inflación del estilo de vida, el gasto que sube para igualar el sueldo",
+        "solo la inflación"
+      ]
+    },
+    "q2": {
+      "question": "El 70 % se entiende mejor como:",
+      "options": [
+        "una regla estricta que todos deben cumplir",
+        "un tope que eliges tú, gastar menos de lo que ganas",
+        "lo que recomienda el banco"
+      ]
+    },
+    "reflection": "Piensa en tu última subida de sueldo. ¿Sabrías decir en qué se fue? Sin juzgarte, solo fíjate.",
+    "share": {
+      "line": "comparte para desbloquear"
+    }
+  }
+}

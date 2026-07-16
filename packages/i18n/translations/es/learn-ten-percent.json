@@ -1,0 +1,72 @@
+{
+  "seo": {
+    "title": "El 10 %: el punto de partida de Babilonia, explicado",
+    "description": "Poco que ceder, mucho que ganar. De dónde viene el décimo, por qué el 1 % gana al 0 %, y cómo ver tu propio número."
+  },
+  "lesson": {
+    "h1": "El 10 %",
+    "readTime": "~5 min de lectura"
+  },
+  "beat1": {
+    "title": "¿Cuánto? Una décima parte.",
+    "body": [
+      "La Charla 3 dijo págate a ti primero, y esquivó la pregunta: ¿cuánto? Aquí está la respuesta famosa, y suena casi demasiado simple. Un diez por ciento.",
+      "El mismo libro de la vez pasada. Babilonia: \"una parte de todo lo que ganas es tuya para guardar, y que no sea menos de una décima parte.\" Un diez por ciento.",
+      "Por qué ha durado 4.000 años: lo bastante pequeño como para que te acostumbras a vivir sin él en un mes o dos, lo bastante grande como para que, con tiempo, se convierta en algo que te cambia la vida. Poco que ceder, mucho que recibir. Por eso es un diez y no un cincuenta."
+    ]
+  },
+  "beat2": {
+    "title": "No es una regla. Es un punto de partida.",
+    "intro": [
+      "Hablando claro: a lo mejor un 10 % no te es posible ahora mismo. Si no lo es, un uno por ciento pagado el primero le gana a un cero por ciento todas las veces. El número no es lo importante, el hábito sí. Empieza donde estás de verdad.",
+      "No te voy a decir que ahorres el 10 % de un dinero que no tienes. El diez por ciento es un *punto de partida* famoso, no una ley, y desde luego no algo que diBoaS te esté diciendo que hagas. El número lo eliges tú."
+    ]
+  },
+  "beat3": {
+    "title": "Donde encajan las piezas.",
+    "intro": [
+      "Ahora tres cosas encajan a la vez: el 10 % (esta charla), pagado el primero (Charla 3), apuntado a un objetivo y dejado componer (Charlas 2 y 1).",
+      "Aquí va una ilustración, y no es más que eso. El diez por ciento de un sueldo de 3.000 € (usa el tuyo) son 300 € al mes. Pagado el primero, a un prudente 7 %, doce años son una **estimación** de en torno a **66.000 €**. No una promesa, una estimación. El coste real de no empezar nunca fueron los 300 € al mes, fueron esos ~66.000 € que te saltaste.",
+      "Así que no te quedes con mis 300 € y mis 12 años. Mete tu propio sueldo, tu porcentaje, tus años, y apúntalo al objetivo que le pusiste nombre en la Charla 2.",
+      "Yo llevo diBoaS, así que compruébame las cuentas tú mismo."
+    ],
+    "toolTagline": "Poco que ceder, mucho que ganar. *(Paralelismo corregido, founder 2026-07-15; era \"mucho para que importe\". [NATIVE PASS REQUIRED])*",
+    "afterTool": "¿Ya ves tu propio número?",
+    "toolDeepLink": "Saca tu propio 10 %: <link>Abre la calculadora de interés compuesto</link>",
+    "wrap": [
+      "Un diez por ciento. Lo bastante pequeño para cederlo, lo bastante grande para que importe. Pagado el primero, apuntado a un objetivo, dejado crecer. Ese es el motor entero, en marcha.",
+      "Pero ¿de dónde sale ese 10 % si tu dinero ya está todo pillado? Le haces sitio. Hay una forma clásica de pensar en eso, y es la Charla 5."
+    ],
+    "cta": {
+      "primary": "Saca tu propio 10 %",
+      "primaryNote": "Apuntarte no mueve tu dinero. Tú decides después.",
+      "next": "Siguiente charla: {title}",
+      "waitlist": "Apuntarme a la lista de espera",
+      "secondary": "Vendrán más charlas",
+      "prev": "Volver a: {title}",
+      "toolsHub": "Sigue con las herramientas"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "¿De dónde sale el \"10 %\" en la charla?",
+      "options": [
+        "una regla de diBoaS",
+        "la idea de Babilonia, \"que no sea menos de una décima parte\"",
+        "una directriz del Gobierno"
+      ]
+    },
+    "q2": {
+      "question": "Si un 10 % no te es posible ahora mismo, la charla dice:",
+      "options": [
+        "no te molestes",
+        "un 1 % pagado el primero le gana a un 0 %",
+        "pide prestado para llegar al 10 %"
+      ]
+    },
+    "reflection": "¿Cuánto es el 10 % de lo que te llevas a casa cada mes? Y si eso es demasiado ahora mismo, ¿qué número podrías empezar de verdad?",
+    "share": {
+      "line": "comparte para desbloquear"
+    }
+  }
+}

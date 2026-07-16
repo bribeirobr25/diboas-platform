@@ -1,0 +1,69 @@
+{
+  "seo": {
+    "title": "Págate a ti primero: el arreglo más antiguo del dinero, explicado",
+    "description": "Esperar a lo que sobra nunca funciona, porque nunca sobra nada. El giro de hace 4.000 años: tú primero, después el mes."
+  },
+  "lesson": {
+    "h1": "Págate a ti primero.",
+    "readTime": "~5 min de lectura"
+  },
+  "beat1": {
+    "title": "Págate a ti primero.",
+    "body": [
+      "La Charla 2 dejó un problema: un objetivo con nombre no se financia solo, y si esperas a lo que *sobra* a final de mes, nunca sobra nada.",
+      "El arreglo tiene unos 4.000 años. \"El hombre más rico de Babilonia\" se resume en una frase: una parte de todo lo que ganas es tuya para guardar. No lo que sobra. Una parte, apartada la primera.",
+      "Casi todos pagamos primero a los demás: el alquiler, los recibos, la tarjeta, la compra. Lo que sobrevive a todo eso es lo que \"ahorramos\", que es nada, porque nada sobrevive a todo eso.",
+      "Pagarte a ti primero le da la vuelta al orden: antes que a ninguno de ellos, apartas un trozo por arriba y lo pones fuera de tu alcance. Y luego vives con el resto. El mismo sueldo, la misma vida, otro orden. El orden es el truco entero."
+    ]
+  },
+  "beat2": {
+    "title": "No es fuerza de voluntad. Es el orden.",
+    "intro": [
+      "Esto no va de ganar más, y no va de disciplina. Va de no dejar el pago más importante para el final, que es donde siempre se muere.",
+      "Mi abuela Adelaide hacía esto sin ningún libro. El sobre se llenaba al principio del mes, no al final. Ese era el sistema.",
+      "Y la parte honesta: no te voy a decir cuánto (eso es la Charla 4), y no te digo que tengas que hacerlo. Te enseño que \"primero\" y \"último\" son dos finales completamente distintos para exactamente el mismo dinero."
+    ]
+  },
+  "beat3": {
+    "title": "Dale una función a ese trozo \"primero\".",
+    "intro": [
+      "Yo llevo diBoaS, así que no te fíes de mi palabra. La herramienta de abajo te deja darle una función a ese trozo \"primero\", antes de que nada más toque tu dinero.",
+      "Configúralo, y mira cómo deja de ser eso que nunca pasa. Tu trozo, tú decides."
+    ],
+    "toolTagline": "Primero, no lo último.",
+    "afterTool": "¿Notas la diferencia que hace el orden?",
+    "toolDeepLink": "¿Quieres darle una función a cada parte? <link>Abre Money Jobs</link>",
+    "wrap": [
+      "Págate a ti primero. Ni más dinero, ni más fuerza de voluntad. Otro orden.",
+      "Esta es la parte de tu dinero para la que está hecho diBoaS: el trozo que mueves el primero, antes de que el mes se lo coma. Tu banco se queda donde está, para el resto.",
+      "Pero \"primero\" necesita un número. ¿Cómo de grande es el trozo? Lo bastante pequeño para no notarlo, lo bastante grande para que importe. Eso es la Charla 4."
+    ],
+    "cta": {
+      "primary": "Dale una función a tu trozo \"primero\"",
+      "primaryNote": "Apuntarte no mueve tu dinero. Tú decides después.",
+      "next": "Siguiente charla: {title}",
+      "waitlist": "Apuntarme a la lista de espera",
+      "secondary": "Vendrán más charlas",
+      "prev": "Volver a: {title}",
+      "toolsHub": "Sigue con las herramientas"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "¿Cuál es la idea de fondo de \"págate a ti primero\"?",
+      "options": [
+        "ganar más para poder ahorrar más",
+        "apartar un trozo por arriba antes de pagar nada más",
+        "ahorrar lo que quede a final de mes"
+      ]
+    },
+    "q2": {
+      "question": "Según la charla, ¿qué marca la diferencia?",
+      "options": ["más disciplina", "el orden: primero frente a último", "un sueldo más alto"]
+    },
+    "reflection": "Si este mes te pagaras a ti primero, ¿a dónde iría ese trozo para que no pudieras gastarlo? Solo imagínalo.",
+    "share": {
+      "line": "comparte para desbloquear"
+    }
+  }
+}

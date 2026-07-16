@@ -163,9 +163,13 @@ describe('TalkQuizDefault', () => {
   });
 
   it('Factory should render nothing for a talk without a quiz block', () => {
-    const { container } = render(
-      <TalkQuizFactory lesson={LESSONS['money-objective']} enableAnalytics={false} />
-    );
+    // Synthetic fixture: since Phase 4 every registry talk carries a quiz,
+    // so the no-quiz case only exists as a constructed lesson.
+    const noQuiz = {
+      ...LESSONS['money-objective'],
+      blocks: { beat3Tool: { kind: 'toolCard' as const, href: '/tools/goal-savings' } },
+    };
+    const { container } = render(<TalkQuizFactory lesson={noQuiz} enableAnalytics={false} />);
     expect(container.innerHTML).toBe('');
   });
 });

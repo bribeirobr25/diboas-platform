@@ -1,0 +1,74 @@
+{
+  "seo": {
+    "title": "Wo bleibt es bloß? Das Geldleck, erklärt",
+    "description": "Die Miete kannst du zeigen. Die Rechnungen auch. Der Rest verschwindet einfach. Warum Geld ohne Namen leckt, und was ein Name ändert."
+  },
+  "lesson": {
+    "h1": "Wo bleibt es bloß?",
+    "readTime": "~5 Min Lesezeit"
+  },
+  "beat1": {
+    "title": "Wo bleibt es bloß?",
+    "body": [
+      "Du hast vor zwei Wochen Gehalt bekommen. Die Miete, die kannst du benennen. Die Rechnungen, die kannst du benennen. Aber der Rest, der Teil, der einfach deiner war? Versuch mal zu sagen, wo er hin ist. Die meisten von uns können es nicht.",
+      "Das ist das Leck. Und es liegt nicht daran, dass du schlecht mit Geld umgehst.",
+      "Es liegt daran, dass dieses Geld keine Aufgabe hatte. Geld ohne Ziel verhält sich anders als Geld mit Ziel: Es verdunstet, ein bisschen hier, ein bisschen da, und am Monatsende ist es einfach weg.",
+      "Talk 1 endete auf einem Haken: Zinseszins funktioniert nur bei Geld, das irgendwo hin kann. Das hier ist der Grund, warum das meiste Geld nie dort ankommt. Es versickert vorher."
+    ]
+  },
+  "beat2": {
+    "title": "Ein Name ist ein Schutz.",
+    "intro": [
+      "Denk an das Geld, dem du *doch* einen Namen gegeben hast. Die 200 €, die du \"für die Reise\" zur Seite gelegt hast. Die haben überlebt. Gleiches Konto, gleicher Monat. Der einzige Unterschied ist: Sie hatten eine Aufgabe.",
+      "Meine Oma Adelaide hatte ihre Umschläge, auf jedem stand ein Name. Das war nicht altmodisch. Das war das ganze Geheimnis. Ein Name ist ein Schutz. (Wenn deine Oma ein Haushaltsbuch geführt hat, kennst du dasselbe Prinzip.)",
+      "Und hier der ehrliche Teil: Ich sage dir nicht, wofür dein Geld sein soll. Vielleicht ist es eine Reise. Vielleicht ist es einfach, dieses Monatsende-Ziehen im Bauch nie wieder zu spüren. Das ist deins. Was so oder so stimmt: In dem Moment, in dem Geld ein Ziel hat, fängt es an, sich zu benehmen."
+    ]
+  },
+  "beat3": {
+    "title": "Gib einem Teil davon eine Aufgabe.",
+    "intro": [
+      "Ich stehe hinter diBoaS, und ehrlich, genau dafür sind wir gebaut: Geld mit einem Ziel. Glaub mir also kein Wort. Probier es aus.",
+      "Such dir eine Sache aus. Gib einem Teil deines Geldes diese Aufgabe im Tool unten und schau dir den Unterschied an zwischen Geld, das irgendwo hinwill, und Geld, das einfach nur rumliegt.",
+      "Dein Ziel, deine Zahlen. Ich reiche dir nur den Umschlag."
+    ],
+    "toolTagline": "Ein Name ist ein Schutz.",
+    "afterTool": "Siehst du den Unterschied?",
+    "toolDeepLink": "Willst du den Ziel-Rechner für sich allein? <link>Zum Sparziel-Rechner</link>",
+    "wrap": [
+      "Geld ohne Ziel ist Geld ohne Schutz. Ein Name ist das Erste, was es zu deinem macht, zu einem, das dir bleibt.",
+      "Genau für diesen Teil deines Geldes ist diBoaS da: den Teil mit einem Ziel. Deine Bank bleibt, wo sie ist, für den Alltag.",
+      "Aber ein Geld mit Namen füllt sich nicht von allein. Das ist Talk 3: Wenn du wartest, was *übrig* ist, bleibt nie etwas übrig. Als Nächstes der älteste Trick, den es gibt."
+    ],
+    "cta": {
+      "primary": "Gib einem Teil davon eine Aufgabe",
+      "primaryNote": "Du musst kein Geld bewegen, um auf die Warteliste zu kommen. Du entscheidest später.",
+      "next": "Nächster Talk: {title}",
+      "waitlist": "Auf die Warteliste",
+      "secondary": "Weitere Talks kommen",
+      "prev": "Zurück zu: {title}",
+      "toolsHub": "Mach mit den Tools weiter"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Warum verschwindet \"übriges\" Geld meistens?",
+      "options": [
+        "die Inflation frisst es sofort",
+        "Geld ohne Ziel gibt man leicht aus, ohne zu entscheiden",
+        "die Bank nimmt es sich"
+      ]
+    },
+    "q2": {
+      "question": "Was hat die \"200 € für die Reise\" im Talk überleben lassen?",
+      "options": [
+        "ein besonderes Konto",
+        "sie hatten einen Namen, eine Aufgabe",
+        "sie haben Zinsen verdient"
+      ]
+    },
+    "reflection": "Nenne eine Sache, für die du einen Teil deines Geldes gern hättest. Kein Druck, sofort anzufangen. Benenn sie einfach nur.",
+    "share": {
+      "line": "teilen zum Freischalten"
+    }
+  }
+}

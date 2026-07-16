@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "Pra onde é que vai tudo? O vazamento do dinheiro, explicado",
+    "description": "Aluguel você sabe onde foi. Contas também. O resto some. Por que dinheiro sem nome vaza, e o que um nome muda."
+  },
+  "lesson": {
+    "h1": "Pra onde é que vai tudo?",
+    "readTime": "~5 min de leitura"
+  },
+  "beat1": {
+    "title": "Pra onde é que vai tudo?",
+    "body": [
+      "Você recebeu faz duas semanas. O aluguel, você sabe apontar. As contas, você sabe apontar. Mas o resto, a parte que era só sua? Tenta dizer pra onde foi. A maioria da gente não consegue.",
+      "Esse é o vazamento. E não é porque você é ruim com dinheiro.",
+      "É porque aquele dinheiro não tinha função. Dinheiro sem destino se comporta diferente de dinheiro com destino: ele evapora, um PIX aqui, um delivery ali, e no fim do mês simplesmente sumiu.",
+      "O Papo 1 terminou numa pegadinha: juros compostos só funcionam com dinheiro que tem pra onde ir. É por isso que a maioria do dinheiro nunca chega lá. Ele vaza antes."
+    ]
+  },
+  "beat2": {
+    "title": "Um nome é uma defesa.",
+    "intro": [
+      "Pensa no dinheiro que você *deu* nome. Os R$ 200 que você separou \"pra viagem\". Esse sobreviveu. Mesma conta, mesmo mês. A única diferença é que ele tinha função.",
+      "A minha avó, a Adelaide, guardava envelopes, cada um com um nome escrito na frente. Isso não era coisa de antigamente. Era o segredo todo. Um nome é uma defesa.",
+      "E aqui vai a parte honesta: eu não vou te dizer pra que o seu dinheiro deve servir. Talvez seja uma viagem. Talvez seja só nunca mais sentir aquele aperto de fim de mês. Essa parte é sua. O que é verdade dos dois jeitos: no instante em que o dinheiro ganha um destino, ele começa a se comportar."
+    ]
+  },
+  "beat3": {
+    "title": "Dá uma função a um pedaço.",
+    "intro": [
+      "Eu toco a diBoaS, e, sendo honesto, é exatamente pra isso que a gente foi feito: dinheiro com um objetivo. Então não acredita em mim de boca. Testa.",
+      "Escolhe uma coisa. Dá essa função a um pedaço do seu dinheiro na ferramenta aqui embaixo, e olha a diferença entre o dinheiro que tá indo pra algum lugar e o dinheiro que tá só rolando por aí.",
+      "A sua meta, os seus números. Eu tô só te passando o envelope."
+    ],
+    "toolTagline": "Um nome é uma defesa.",
+    "afterTool": "Deu pra ver a diferença?",
+    "toolDeepLink": "Quer a calculadora de metas separada? <link>Abrir a calculadora de objetivos</link>",
+    "wrap": [
+      "Dinheiro sem objetivo é dinheiro sem defesa. Um nome é a primeira coisa que faz ele virar seu de verdade, seu pra guardar.",
+      "É essa a parte do seu dinheiro pra qual a diBoaS foi feita: a parte que tem um destino. O seu banco continua onde está, pro dia a dia.",
+      "Mas uma meta com nome não se financia sozinha. Esse é o Papo 3: se você esperar pra ver o que *sobra*, nunca sobra nada. A seguir, a correção mais antiga que existe."
+    ],
+    "cta": {
+      "primary": "Dá uma função a um pedaço",
+      "primaryNote": "Entrar na lista não mexe no seu dinheiro. Você decide depois.",
+      "next": "Próximo papo: {title}",
+      "waitlist": "Entrar na lista de espera",
+      "secondary": "Mais papos vindo aí",
+      "prev": "Voltar pro: {title}",
+      "toolsHub": "Continue com as ferramentas"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Por que o dinheiro que \"sobra\" tende a sumir?",
+      "options": [
+        "a inflação come ele na hora",
+        "dinheiro sem destino é fácil de gastar sem nem decidir",
+        "o banco fica com ele"
+      ]
+    },
+    "q2": {
+      "question": "No papo, o que fez os \"R$ 200 da viagem\" sobreviverem?",
+      "options": ["uma conta especial", "ele tinha um nome, uma função", "rendeu juros"]
+    },
+    "reflection": "Dá um nome a uma coisa pra qual você gostaria que um pedaço do seu dinheiro servisse. Sem pressão pra começar. Só dá o nome.",
+    "share": {
+      "line": "compartilhe pra desbloquear"
+    }
+  }
+}

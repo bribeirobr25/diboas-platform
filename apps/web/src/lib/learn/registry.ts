@@ -5,9 +5,9 @@
  * status (D-2 weekly drip: flip 'announced' -> 'live' per release), the
  * series spine (prev/next), read times, and per-talk block composition.
  *
- * Going live with a talk = flip its status + add its 4 locale JSON files,
- * SUPPORTED_NAMESPACES + translations-map entries, and a PAGE_SEO_CONFIG
- * entry. `__tests__/registryInvariants.test.ts` fails loudly on any missing
+ * Phase-4 batch model (2026-07-16): all 7 talks' JSONs, namespaces, loader
+ * entries, and quiz blocks are ALREADY landed while 'announced'. Going live
+ * with a talk = flip its status + add its PAGE_SEO_CONFIG entry (2 edits). `__tests__/registryInvariants.test.ts` fails loudly on any missing
  * sync point. Tool hrefs come from the approved talk docs
  * (docs/learn/30-day-series/lesson-0N-*.md).
  */
@@ -46,7 +46,11 @@ export const LESSONS: Readonly<Record<LessonId, LessonMetadata>> = {
     illustration: '/assets/learn/talk-02-hero.avif',
     prev: 'compound-interest',
     next: 'pay-yourself-first',
-    blocks: { beat3Tool: { kind: 'toolCard', href: '/tools/goal-savings' } },
+    blocks: {
+      beat3Tool: { kind: 'toolCard', href: '/tools/goal-savings' },
+      // Approved quiz (docs SS Quiz): correct answers cross-checked 4/4 locales.
+      quiz: { correctIndexes: [1, 1] },
+    },
   },
   'pay-yourself-first': {
     id: 'pay-yourself-first',
@@ -58,7 +62,11 @@ export const LESSONS: Readonly<Record<LessonId, LessonMetadata>> = {
     illustration: '/assets/learn/talk-03-hero.avif',
     prev: 'money-objective',
     next: 'ten-percent',
-    blocks: { beat3Tool: { kind: 'toolCard', href: '/tools/money-jobs' } },
+    blocks: {
+      beat3Tool: { kind: 'toolCard', href: '/tools/money-jobs' },
+      // Approved quiz (docs SS Quiz): correct answers cross-checked 4/4 locales.
+      quiz: { correctIndexes: [1, 1] },
+    },
   },
   'ten-percent': {
     id: 'ten-percent',
@@ -70,7 +78,11 @@ export const LESSONS: Readonly<Record<LessonId, LessonMetadata>> = {
     illustration: '/assets/learn/talk-04-hero.avif',
     prev: 'pay-yourself-first',
     next: 'seventy-percent',
-    blocks: { beat3Tool: { kind: 'toolCard', href: '/tools/compound-interest' } },
+    blocks: {
+      beat3Tool: { kind: 'toolCard', href: '/tools/compound-interest' },
+      // Approved quiz (docs SS Quiz): correct answers cross-checked 4/4 locales.
+      quiz: { correctIndexes: [1, 1] },
+    },
   },
   'seventy-percent': {
     id: 'seventy-percent',
@@ -82,7 +94,11 @@ export const LESSONS: Readonly<Record<LessonId, LessonMetadata>> = {
     illustration: '/assets/learn/talk-05-hero.avif',
     prev: 'ten-percent',
     next: 'clearing-debt',
-    blocks: { beat3Tool: { kind: 'toolCard', href: '/tools/money-jobs' } },
+    blocks: {
+      beat3Tool: { kind: 'toolCard', href: '/tools/money-jobs' },
+      // Approved quiz (docs SS Quiz): correct answers cross-checked 4/4 locales.
+      quiz: { correctIndexes: [1, 1] },
+    },
   },
   'clearing-debt': {
     id: 'clearing-debt',
@@ -94,7 +110,11 @@ export const LESSONS: Readonly<Record<LessonId, LessonMetadata>> = {
     illustration: '/assets/learn/talk-06-hero.avif',
     prev: 'seventy-percent',
     next: 'putting-it-together',
-    blocks: { beat3Tool: { kind: 'toolCard', href: '/tools/money-jobs' } },
+    blocks: {
+      beat3Tool: { kind: 'toolCard', href: '/tools/money-jobs' },
+      // Approved quiz (docs SS Quiz): correct answers cross-checked 4/4 locales.
+      quiz: { correctIndexes: [1, 0] },
+    },
   },
   'putting-it-together': {
     id: 'putting-it-together',
@@ -105,7 +125,11 @@ export const LESSONS: Readonly<Record<LessonId, LessonMetadata>> = {
     readTimeMinutes: 5,
     illustration: '/assets/learn/talk-07-hero.avif',
     prev: 'clearing-debt',
-    blocks: { beat3Tool: { kind: 'toolCard', href: '/tools/money-jobs' } },
+    blocks: {
+      beat3Tool: { kind: 'toolCard', href: '/tools/money-jobs' },
+      // Approved quiz (docs SS Quiz): correct answers cross-checked 4/4 locales.
+      quiz: { correctIndexes: [1, 1] },
+    },
   },
 };
 

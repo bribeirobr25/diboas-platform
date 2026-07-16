@@ -88,7 +88,12 @@ const BUDGETS = {
   // Phase-2 native-translation expansion (German ~+30% text), with ~1% headroom,
   // while the peak-asset (650 KB) + chunk-count guards stay unchanged to still
   // catch accidental heavy imports. See INVESTOR_ROOM_DOCS_PLAN_2026-07-02.md §7.
-  maxTotalJsKB: 4800,
+  // Recalibrated 2026-07-16 (Phase-4 batch; was 4800, baseline hit 4812):
+  // talks 2-7 land as 24 LAZY per-locale i18n chunks (~103 KB total JS,
+  // ~4 KB each, loaded only when that talk page is visited in that
+  // locale). Content growth, not library weight; the series is complete
+  // at 7 talks. 4900 keeps the accidental-heavy-import guard meaningful.
+  maxTotalJsKB: 4900,
 
   // Total bytes across all .css chunks. Baseline ~384 KB across 10 files
   // (Tailwind base + design tokens + all CSS modules; Turbopack doesn't
@@ -116,7 +121,10 @@ const BUDGETS = {
   // the calculator client chunk, and 4 lazy i18n chunks (tools-money-jobs ×
   // en/pt-BR/es/de per the MIG-8 per-namespace split) → clean-build actual 212.
   // 220 = ~4% headroom. Documented in docs/audit/PENDING_ALL.md.
-  maxAssetCount: 220,
+  // Recalibrated 2026-07-16 (Phase-4 batch; was 220, baseline hit 237):
+  // +24 deliberate lazy i18n chunks (talks 2-7 x 4 locales). 250 keeps
+  // the dynamic()-everything guard meaningful.
+  maxAssetCount: 250,
 };
 
 if (!fs.existsSync(CHUNKS_DIR)) {

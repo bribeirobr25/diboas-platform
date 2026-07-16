@@ -1,0 +1,72 @@
+{
+  "seo": {
+    "title": "Die 10 %: der Startpunkt aus Babylon, erklärt",
+    "description": "Klein zum Hergeben, groß, dass es zählt. Woher das Zehntel kommt, warum 1 % besser ist als 0 %, und wie du deine eigene Zahl siehst."
+  },
+  "lesson": {
+    "h1": "Die 10 %.",
+    "readTime": "~5 Min Lesezeit"
+  },
+  "beat1": {
+    "title": "Wie viel? Ein Zehntel.",
+    "body": [
+      "Talk 3 sagte: Zahl dich zuerst, und wich der Frage aus: wie viel? Hier ist die berühmte Antwort, und sie klingt fast zu einfach. Zehn Prozent.",
+      "Dasselbe Buch wie letztes Mal. Babylon: \"Ein Teil von allem, was du verdienst, gehört dir zum Behalten, und es sei nicht weniger als ein Zehntel.\" Zehn Prozent.",
+      "Warum sie 4.000 Jahre gehalten hat: klein genug, dass du dich in ein, zwei Monaten daran gewöhnst, ohne sie zu leben, groß genug, dass sie mit der Zeit zu etwas wird, das dein Leben verändert. Klein zum Hergeben, groß zum Bekommen. Deshalb sind es zehn und nicht fünfzig."
+    ]
+  },
+  "beat2": {
+    "title": "Keine Regel. Ein Startpunkt.",
+    "intro": [
+      "Klartext: Vielleicht sind 10 % gerade nicht drin. Wenn nicht, dann schlägt ein Prozent, zuerst gezahlt, null Prozent jedes Mal. Die Zahl ist nicht der Punkt, die Gewohnheit ist es. Fang da an, wo du wirklich stehst.",
+      "Ich sage dir nicht, du sollst 10 % von einem Geld sparen, das du nicht hast. Zehn Prozent sind ein berühmter *Startpunkt*, kein Gesetz, und ganz sicher nichts, das diBoaS dir vorschreibt. Die Zahl wählst du."
+    ]
+  },
+  "beat3": {
+    "title": "Wo die Stücke einrasten.",
+    "intro": [
+      "Jetzt rasten drei Sachen zusammen ein: 10 % (dieser Talk), zuerst gezahlt (Talk 3), auf ein Ziel gerichtet und wachsen gelassen (Talk 2 und 1).",
+      "Hier eine Illustration, und sie ist nur das. Zehn Prozent von einem Gehalt von 3.000 € (nimm dein eigenes) sind 300 € im Monat. Zuerst gezahlt, zu vorsichtigen 7 %, sind zwölf Jahre eine **Schätzung** von rund **66.000 €**. Kein Versprechen, eine Schätzung. Die echten Kosten, nicht anzufangen, waren nie die 300 € im Monat, es waren die ~66.000 €, die du ausgelassen hast.",
+      "Nimm also nicht meine 300 € und meine 12 Jahre. Setz dein eigenes Gehalt ein, deinen Prozentsatz, deine Jahre, und richte es auf das Ziel, dem du in Talk 2 einen Namen gegeben hast.",
+      "Ich stehe hinter diBoaS, also prüf die Mathematik selbst."
+    ],
+    "toolTagline": "Klein zum Hergeben, groß, dass es zählt.",
+    "afterTool": "Siehst du deine eigene Zahl?",
+    "toolDeepLink": "Rechne deine eigenen 10 %: <link>Zum Zinseszins-Rechner</link>",
+    "wrap": [
+      "Zehn Prozent. Klein genug zum Hergeben, groß genug, dass es zählt. Zuerst gezahlt, auf ein Ziel gerichtet, wachsen gelassen. Das ist der ganze Motor, in Betrieb.",
+      "Aber woher kommen die 10 %, wenn dein Geld schon verplant ist? Du machst Platz. Es gibt eine klassische Art, darüber nachzudenken, und das ist Talk 5."
+    ],
+    "cta": {
+      "primary": "Rechne deine eigenen 10 %",
+      "primaryNote": "Du musst kein Geld bewegen, um auf die Warteliste zu kommen. Du entscheidest später.",
+      "next": "Nächster Talk: {title}",
+      "waitlist": "Auf die Warteliste",
+      "secondary": "Weitere Talks kommen",
+      "prev": "Zurück zu: {title}",
+      "toolsHub": "Mach mit den Tools weiter"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Woher kommen die \"10 %\" im Talk?",
+      "options": [
+        "eine diBoaS-Regel",
+        "der Babylon-Gedanke, \"nicht weniger als ein Zehntel\"",
+        "eine staatliche Vorgabe"
+      ]
+    },
+    "q2": {
+      "question": "Wenn 10 % gerade nicht drin sind, sagt der Talk:",
+      "options": [
+        "lass es bleiben",
+        "1 % zuerst gezahlt schlägt 0 %",
+        "nimm einen Kredit auf, um auf 10 % zu kommen"
+      ]
+    },
+    "reflection": "Was sind 10 % von deinem monatlichen Netto? Und wenn das gerade zu viel ist, mit welcher Zahl könntest du wirklich anfangen?",
+    "share": {
+      "line": "teilen zum Freischalten"
+    }
+  }
+}

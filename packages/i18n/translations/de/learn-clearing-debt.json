@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "Die anderen 20 %: teure Schulden, erklärt",
+    "description": "Schulden mit hohen Zinsen sind Zinseszins, der gegen dich läuft. Warum das Abzahlen einer 25-%-Karte die Zinsen sind, die du nicht mehr zahlst, und wo die Grenze liegt."
+  },
+  "lesson": {
+    "h1": "Die anderen 20 %.",
+    "readTime": "~5 Min Lesezeit"
+  },
+  "beat1": {
+    "title": "Der schwere Teil, den ich nicht ausgelassen habe.",
+    "body": [
+      "Talk 5 hat den schweren Teil versprochen. Hier ist er: Wenn du einen Dispo oder eine Teilzahlung mit über zwanzig Prozent Zinsen mit dir herumträgst, dann ändert alles bisher die Reihenfolge. Ich tue nicht so, als wäre das nicht so.",
+      "Erinnerst du dich an den Zinseszins aus Talk 1? Er läuft in beide Richtungen. Auf dem Ersparten für dich, langsam. Auf einem Dispo zu 25 % gegen dich, schnell. Diese Schuld ist derselbe Motor, rückwärts laufend, auf dich gerichtet."
+    ]
+  },
+  "beat2": {
+    "title": "Teure Schulden zu tilgen ist die beste \"Geldanlage\", die du hast.",
+    "intro": [
+      "Eine einzige Zahl ändert alles: Keine ehrliche Anlage bringt verlässlich 25 % im Jahr. Aber ein Euro, der eine Schuld zu 25 % tilgt, hat dir gerade 25 % eingebracht, garantiert, null Risiko, weil es 25 % an Zinsen sind, die du nie mehr zahlst. Diese garantierte Rendite ist kein Angebot von diBoaS. Sie ist einfach das Geld, das die Schuld dir aufhört wegzunehmen, eine mathematische Tatsache über die Schuld. Mathematisch ist das Abzahlen teurer Schulden der renditestärkste, risikoärmste Einsatz für einen Euro, den du hast. Das ist keine Meinung, das ist Mathematik.",
+      "Die klassische Aufteilung steckt ungefähr 20 % in Schulden, aber vergiss die Zahl. Die Nuance, die zählt: Nicht jede Schuld ist der Feind. Eine Immobilienfinanzierung zu 3 bis 4 % oder ein zinsgünstiges Darlehen ist langsame Schuld, mit der du leben kannst. Jage das Teure, den Dispo und die Teilzahlung über zwanzig Prozent. Diese zuerst."
+    ]
+  },
+  "beat3": {
+    "title": "Die Grenze, und das Tool.",
+    "intro": [
+      "Lass mich klar sein: diBoaS verleiht kein Geld. Keine Umschuldung, kein Kredit, den wir dir verkaufen, nichts davon. Das hier ist einfach die Rechnung, damit du sie nicht als Letzte oder Letzter siehst.",
+      "Ich sage dir nicht, welche Schuld oder wie schnell. Das ist dein Leben. Das Tool unten lässt dich dem Teil \"Schulden\" eine echte Aufgabe geben. Und du kannst den Zinseszins-Rechner aus Talk 1 nehmen, ihn auf den Zinssatz deines Dispos richten und sehen, was er dich kostet.",
+      "Ich stehe hinter diBoaS, also prüf die Rechnung selbst."
+    ],
+    "toolTagline": "Die Zinsen, die du nicht mehr zahlst.",
+    "afterTool": "Siehst du, was der Dispo wirklich kostet?",
+    "toolDeepLink": "Gib dem Schulden-Teil eine Aufgabe: <link>Zu Money Jobs</link>",
+    "wrap": [
+      "Manchmal ist der renditestärkste Einsatz für dein erstes Stück, es auf die Schuld zu richten, die es auffrisst. Die Zinsen, die du nicht mehr zahlst, sind eine Rendite, die fast nichts anderes im Thema Geld erreicht.",
+      "Und das ist das letzte Stück. Jetzt alle sechs: der Motor, das Ziel, die Reihenfolge, der Betrag, der Platz und die Schuld. Als Nächstes setzen wir sie zusammen, und du wirst sehen, es waren nie sechs Dinge."
+    ],
+    "cta": {
+      "primary": "Gib dem Schulden-Teil eine Aufgabe",
+      "primaryNote": "Du musst kein Geld bewegen, um auf die Warteliste zu kommen. Du entscheidest später.",
+      "next": "Nächster Talk: {title}",
+      "waitlist": "Auf die Warteliste",
+      "secondary": "Weitere Talks kommen",
+      "prev": "Zurück zu: {title}",
+      "toolsHub": "Mach mit den Tools weiter"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Warum sind hochverzinste Schulden so wichtig?",
+      "options": [
+        "die Bank mag sie nicht",
+        "es ist Zinseszins, der gegen dich läuft, schnell",
+        "sie betreffen nur deine Bonität"
+      ]
+    },
+    "q2": {
+      "question": "Eine Schuld zu 25 % abzuzahlen entspricht:",
+      "options": [
+        "einer garantierten Rendite von rund 25 %, null Risiko (die Zinsen, die du dir jetzt sparst)",
+        "einem kleinen Steuervorteil",
+        "nichts, nur brav sein"
+      ]
+    },
+    "reflection": "Trägst du Schulden über etwa 15 bis 20 %? Wenn ja, wie hoch ist der Satz? Schau ihn einfach nach. Kein Druck.",
+    "share": {
+      "line": "teilen zum Freischalten"
+    }
+  }
+}
