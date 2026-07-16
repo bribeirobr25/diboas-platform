@@ -85,12 +85,12 @@ packages/i18n/translations/{en, pt-BR, es, de}/
 ├── landing-help.json                   # Help center
 ├── learn.json                          # Learn center landing
 ├── learn-compound-interest.json        # Lesson 01 + Beat 2 vignettes + calculator
-├── learn-money-objective.json          # Talk 2 (announced until its drip flip)
-├── learn-pay-yourself-first.json       # Talk 3 (announced until its drip flip)
-├── learn-ten-percent.json              # Talk 4 (announced until its drip flip)
-├── learn-seventy-percent.json          # Talk 5 (announced until its drip flip)
-├── learn-clearing-debt.json            # Talk 6 (announced until its drip flip)
-├── learn-putting-it-together.json      # Talk 7 (announced until its drip flip)
+├── learn-money-objective.json          # Talk 2 (live 2026-07-16)
+├── learn-pay-yourself-first.json       # Talk 3 (live 2026-07-16)
+├── learn-ten-percent.json              # Talk 4 (live 2026-07-16)
+├── learn-seventy-percent.json          # Talk 5 (live 2026-07-16)
+├── learn-clearing-debt.json            # Talk 6 (live 2026-07-16)
+├── learn-putting-it-together.json      # Talk 7 (live 2026-07-16)
 ├── market.json                         # Adelaide Market — BTC macro-regime dashboard (/market)
 ├── preDemo.json                        # Demo onboarding
 ├── preDream.json                       # Dream-mode onboarding
