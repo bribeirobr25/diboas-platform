@@ -82,8 +82,13 @@ describe('getNextLiveLesson', () => {
     expect(getNextLiveLesson(current, { 'putting-it-together': current })).toBeUndefined();
   });
 
-  it('should reflect the real registry today: talk 1 has no live next yet', () => {
-    expect(getNextLiveLesson(LESSONS['compound-interest'])).toBeUndefined();
+  it('should reflect the real registry: the full series is live and chains end to end', () => {
+    // Founder flip 2026-07-16: all 7 talks live. Every talk except the last
+    // resolves a live next; the last talk resolves none (the tools-hub branch).
+    expect(getNextLiveLesson(LESSONS['compound-interest'])?.id).toBe('money-objective');
+    expect(getNextLiveLesson(LESSONS['clearing-debt'])?.id).toBe('putting-it-together');
+    expect(getNextLiveLesson(LESSONS['putting-it-together'])).toBeUndefined();
+    expect(getPrevLiveLesson(LESSONS['money-objective'])?.id).toBe('compound-interest');
   });
 });
 
