@@ -21,6 +21,7 @@
  */
 
 import * as Sentry from '@sentry/nextjs';
+import { initBotId } from 'botid/client/core';
 import {
   applicationEventBus,
   ApplicationEventType,
@@ -198,3 +199,21 @@ if (SENTRY_DSN) {
  * Required by @sentry/nextjs v10+ for App Router navigation instrumentation.
  */
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
+
+// BotID client challenge (5.22, founder-approved 2026-07-16; Stage 1 log-only).
+// Declares which requests carry the challenge solution — paths NOT listed here
+// make checkBotId() fail on the server, so this list and the server checks in
+// signup/investor-request must stay in sync. The unsubscribe endpoint is
+// deliberately ABSENT (RFC 8058 one-click: mail-provider bots must POST it).
+// Plan: docs/audit/PLAN_BOTID_2026-07-15.md
+try {
+  initBotId({
+    protect: [
+      { path: '/api/waitlist/signup', method: 'POST' },
+      { path: '/api/investor-request', method: 'POST' },
+    ],
+  });
+} catch {
+  // Defensive (P7): a bot-detection init failure must never break client boot —
+  // the server-side check fails open independently (verifyHuman Stage-1 contract).
+}

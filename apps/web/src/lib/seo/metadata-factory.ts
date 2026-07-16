@@ -50,7 +50,7 @@ export class SEOMetadataFactory {
           '@type': 'Organization',
           name: SEO_DEFAULTS.organization.name,
           url: SEO_DEFAULTS.siteUrl,
-          logo: `${SEO_DEFAULTS.siteUrl}/assets/logos/logo-icon.avif`,
+          logo: `${SEO_DEFAULTS.siteUrl}/assets/logos/logo-icon-monogram.avif`,
           sameAs: [...SEO_DEFAULTS.organization.sameAs],
           contactPoint: {
             '@type': 'ContactPoint',

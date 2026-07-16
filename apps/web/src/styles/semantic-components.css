@@ -1547,27 +1547,47 @@ a:focus-visible {
 /* CINEMATIC REDESIGN #1 — WORDMARK + GOLD PILL CTA + LANG SWITCHER     */
 /* =================================================================== */
 
-/* Text wordmark (replaces the icon logo) — Space Grotesk, per data-cinematic.
-   Colour adapts to the hero theme exactly like the nav links. */
+/* Official wordmark image (F-BRAND wiring, 2026-07-16 — replaced the text
+   wordmark). Two pre-rendered theme variants; the SAME nav state classes that
+   previously recoloured the text now toggle image visibility, preserving the
+   pure-CSS scroll transparent→solid transition with zero JS. Fixed height keeps
+   the swap layout-stable (no CLS). */
 .brand-wordmark {
-  font-family: var(--font-family-display);
-  font-weight: 700;
-  font-size: 1.4rem;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  color: var(--color-text-heading);
+  display: flex;
+  align-items: center;
 }
-.minimal-navigation-bar.nav-transparent .brand-wordmark {
-  color: var(--color-white);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+.brand-wordmark-img {
+  display: none;
 }
-.minimal-navigation-bar.nav-transparent.nav-transparent--on-light .brand-wordmark {
-  color: var(--color-slate-900);
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.65);
+.brand-wordmark-img img {
+  height: 26px;
+  width: auto;
+  display: block;
 }
-.minimal-navigation-bar.nav-solid .brand-wordmark {
-  color: var(--color-text-heading);
-  text-shadow: none;
+/* default + nav-solid + transparent-over-light hero → dark-ink variant */
+.brand-wordmark-img--onlight {
+  display: block;
+}
+/* transparent over a dark hero → cream-ink variant */
+.minimal-navigation-bar.nav-transparent .brand-wordmark-img--onlight {
+  display: none;
+}
+.minimal-navigation-bar.nav-transparent .brand-wordmark-img--ondark {
+  display: block;
+}
+/* transparent over a LIGHT hero → back to the dark-ink variant */
+.minimal-navigation-bar.nav-transparent.nav-transparent--on-light .brand-wordmark-img--onlight {
+  display: block;
+}
+.minimal-navigation-bar.nav-transparent.nav-transparent--on-light .brand-wordmark-img--ondark {
+  display: none;
+}
+/* solid state is the default (dark-ink) — explicit for clarity */
+.minimal-navigation-bar.nav-solid .brand-wordmark-img--onlight {
+  display: block;
+}
+.minimal-navigation-bar.nav-solid .brand-wordmark-img--ondark {
+  display: none;
 }
 
 /* Try Demo — coastal-style filled gold pill. Double class beats the

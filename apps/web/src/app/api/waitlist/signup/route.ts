@@ -16,6 +16,7 @@ import { applyRateLimit, applyCsrf, validateEmail, emitErrorEvent } from '@/lib/
 import { isValidLocale, isValidSource, isValidTags, isValidName } from '@/lib/api/validators';
 import { logRequestStart, logRequestEnd } from '@/lib/api/requestLogger';
 import { Logger } from '@/lib/monitoring/Logger';
+import { classifyRequest } from '@/lib/security/verifyHuman';
 import { waitlistApplicationService } from '@/lib/waitingList/WaitlistApplicationService';
 import type { WaitlistSource, WaitlistTier } from '@/lib/waitingList/store';
 
@@ -82,6 +83,10 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
   try {
     const rateLimited = await applyRateLimit(request, 'signup', 'strict');
     if (rateLimited) return rateLimited as NextResponse<SignupResponse>;
+    // BotID Stage 1 (5.22): LOG-ONLY classification — placed AFTER the rate-limit
+    // early-return so rate-limited requests never trigger the (billed) check.
+    // Fire-and-forget: classifyRequest never rejects (fail-open, unit-proven).
+    void classifyRequest('waitlist-signup');
 
     const body = (await request.json()) as SignupRequestBody;
 

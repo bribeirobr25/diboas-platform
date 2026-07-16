@@ -125,11 +125,11 @@ describe('marketArticleSchema — schema shape', () => {
     expect(result?.dateModified).toBe(VALID_REGIME.last_updated_at);
   });
 
-  it('should set publisher.logo.url to canonical /assets/logos/logo-icon.avif (M6 round-2)', () => {
+  it('should set publisher.logo.url to canonical /assets/logos/logo-icon-monogram.avif (M6 round-2)', () => {
     const result = marketArticleSchema(buildArgs());
     const publisher = result?.publisher as Record<string, unknown>;
     const logo = publisher?.logo as Record<string, unknown>;
-    expect(logo?.url).toBe(`${SITE_URL}/assets/logos/logo-icon.avif`);
+    expect(logo?.url).toBe(`${SITE_URL}/assets/logos/logo-icon-monogram.avif`);
   });
 
   it('should mark the article isAccessibleForFree', () => {

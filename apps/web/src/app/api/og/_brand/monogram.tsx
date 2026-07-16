@@ -1,14 +1,14 @@
 /**
  * Shared OG brand monogram (2026-07-13, F-BRAND / G-3).
  *
- * The official palm-"B" monogram (`public/assets/logos/logo-icon.png`), downscaled
+ * The official palm-"B" monogram (`apps/web/brand-source/logo-icon.png`), downscaled
  * to 96px and inlined as a base64 PNG data-URI so next/og (Satori) renders it at the
  * edge with NO runtime fetch (edge-fetch of a remote <img> is flaky + CSP-sensitive).
  * One constant, consumed by all three OG code paths (DRY) — it replaces the banned
  * "dB" gradient-circle-with-initials on every share card (anti-slop Part 1).
  *
  * ~12 KB base64 (≤ 20 KB budget). Regenerate from the official PNG with:
- *   sips -z 96 96 apps/web/public/assets/logos/logo-icon.png --out /tmp/m.png
+ *   sips -z 96 96 apps/web/brand-source/logo-icon.png --out /tmp/m.png
  *   base64 -i /tmp/m.png
  */
 

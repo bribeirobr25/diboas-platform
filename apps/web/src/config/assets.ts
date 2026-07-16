@@ -23,8 +23,7 @@ export const ASSET_PATHS = {
 
   // Logo Assets
   LOGOS: {
-    ICON: `${ASSETS_BASE}/logos/logo-icon.avif`,
-    WORDMARK: `${ASSETS_BASE}/logos/logo-wordmark.avif`,
+    ICON: `${ASSETS_BASE}/logos/logo-icon-monogram.avif`,
   },
 
   // General Images
@@ -37,7 +36,9 @@ export const ASSET_PATHS = {
 
   // SEO Assets
   SEO: {
-    DEFAULT_OG: `${ASSETS_BASE}/logos/logo-wordmark.avif`,
+    // Dynamic OG route (F-BRAND 2026-07-16): the warm-palette monogram card — a real
+    // 1200×630, replacing the old wordmark file that never matched the declared size.
+    DEFAULT_OG: '/api/og/default',
   },
 
   // Social Media Assets - Real Images (Categorized)
