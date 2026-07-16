@@ -85,6 +85,10 @@ export default async function LessonPage({ params }: LessonPageProps) {
     'learn',
     lesson.namespace,
     'landing-b2c',
+    // P-4 audit fix (2026-07-16): the quiz share-icon row reads
+    // share.platform.* aria-labels; without this namespace three of them
+    // render raw key ids.
+    'share',
     ...(lesson.blocks.extraNamespaces ?? []),
   ];
   const [pageMessages, snapshot] = await Promise.all([

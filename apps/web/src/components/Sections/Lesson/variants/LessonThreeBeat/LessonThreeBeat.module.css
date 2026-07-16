@@ -105,19 +105,6 @@
   text-align: center;
 }
 
-.ctaSecondary {
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-sm);
-  color: var(--color-teal-700);
-  text-decoration: none;
-  margin-top: var(--spacing-md-minus);
-}
-
-.ctaSecondary:hover,
-.ctaSecondary:focus-visible {
-  text-decoration: underline;
-}
-
 /* Phase 2 (F-3 education-first CTA order): pre-drip fallback line when no
    next talk is live, and the demoted tertiary waitlist link. */
 .ctaFallback {
