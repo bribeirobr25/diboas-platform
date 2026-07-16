@@ -96,7 +96,12 @@ const BUDGETS = {
   // webpack mode). 500 KB ceiling = ~30% headroom. Catches accidental
   // bundling of Tailwind's full unminified output (~3 MB) or large
   // unintended CSS imports.
-  maxTotalCssKB: 500,
+  // Recalibrated 2026-07-16 (PR #430; was 500, baseline hit 501): the learn
+  // Phase-3 components (TalkQuiz, VideoFacade, talk spine nav, share-icon
+  // row) are real shipped surface, ~5 KB combined. Phase-4 talks reuse the
+  // talk template and add ZERO css, so 512 is a stable ceiling, not a
+  // creeping ratchet. See docs/audit/PENDING_ALL.md.
+  maxTotalCssKB: 512,
 
   // Number of .js chunks. Baseline 132. Turbopack splits organically per
   // dynamic import; ceiling = headroom to catch accidental dynamic()-everything
