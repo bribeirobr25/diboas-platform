@@ -52,7 +52,6 @@
     "incorrect": "Esa no es.",
     "score": "{count} de {total}",
     "share": {
-      "button": "Copiar para compartir",
       "copied": "Copiado",
       "copyFailed": "No se pudo copiar"
     }
@@ -61,5 +60,9 @@
     "playLabel": "Reproducir la charla",
     "privacyNote": "Se reproduce con el reproductor de YouTube con privacidad mejorada.",
     "watchOnYouTube": "Ver en YouTube"
+  },
+  "talkNav": {
+    "label": "Navegación de las charlas",
+    "allTalks": "Todas las charlas"
   }
 }

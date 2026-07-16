@@ -5,6 +5,24 @@ import { useTranslation } from '@diboas/i18n/client';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/config';
 import { analyticsService } from '@/lib/analytics';
 import { LESSON_EVENTS, readMessageArray, type LessonMetadata } from '@/lib/learn';
+import { getShareUrl, type SharePlatform } from '@/lib/share';
+import {
+  copyToClipboard,
+  getFacebookShareUrl,
+  getLinkedInShareUrl,
+  getTwitterShareUrl,
+  getWhatsAppShareUrl,
+  openShareWindow,
+} from '@/lib/share/platformUrls';
+import {
+  FacebookIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  SubstackIcon,
+  TwitterIcon,
+  WhatsAppIcon,
+} from '@/components/WaitingList/ReferralIcons';
+import { LucideIcon, Check, Link2 } from '@/components/UI/LucideIcon';
 import styles from './TalkQuizDefault.module.css';
 
 interface TalkQuizDefaultProps {
@@ -16,7 +34,10 @@ type ShareState = 'idle' | 'copied' | 'failed';
 
 /**
  * The talk quiz: N graded multiple-choice questions (N = the registry's
- * correctIndexes length) + an ungraded reflection + a copy-to-share line.
+ * correctIndexes length) + an ungraded reflection + the platform share-icon
+ * row (P-4: same lib/share + ReferralIcons stack as the preDream results and
+ * the waitlist success; the approved share line is the payload, never
+ * share-to-unlock).
  *
  * One answer per question (retrieval practice: changing after seeing the
  * answer is noise). Feedback is announced via aria-live. The single
@@ -76,30 +97,54 @@ export function TalkQuizDefault({ lesson, enableAnalytics = true }: TalkQuizDefa
     });
   };
 
-  const handleShare = async () => {
-    const url = `${window.location.origin}${window.location.pathname}`;
+  // P-4: one handler for all platforms, mirroring ShareDreamSection. The
+  // share URL is the talk's own page + the learn UTM config (registry slug,
+  // never window parsing). Copy-type platforms (instagram/substack/copy)
+  // copy text+link; the rest open the platform's share window.
+  const handleShare = async (platform: SharePlatform) => {
+    const shareText = t('quiz.share.line');
+    const shareUrl = getShareUrl('learn', platform, undefined, locale, `/learn/${lesson.slug}`);
+    if (enableAnalytics) {
+      analyticsService.track({
+        // Historical wire name (pre-icons, when copy was the only path);
+        // covers ALL platforms via the `platform` param. Keep stable.
+        name: LESSON_EVENTS.SHARE_COPIED,
+        parameters: { lessonId, locale, platform, timestamp: Date.now() },
+      });
+    }
     try {
-      await navigator.clipboard.writeText(`${t('quiz.share.line')} ${url}`);
-      setShareState('copied');
-      if (enableAnalytics) {
-        analyticsService.track({
-          name: LESSON_EVENTS.SHARE_COPIED,
-          parameters: { lessonId, locale, timestamp: Date.now() },
-        });
+      switch (platform) {
+        case 'whatsapp':
+          openShareWindow(getWhatsAppShareUrl(shareText, shareUrl));
+          break;
+        case 'twitter':
+          openShareWindow(getTwitterShareUrl(shareText, shareUrl));
+          break;
+        case 'facebook':
+          openShareWindow(getFacebookShareUrl(shareText, shareUrl));
+          break;
+        case 'linkedin':
+          await copyToClipboard(shareText);
+          openShareWindow(getLinkedInShareUrl(shareUrl));
+          break;
+        case 'instagram':
+        case 'substack':
+        case 'copy': {
+          const ok = await copyToClipboard(`${shareText} ${shareUrl}`);
+          setShareState(ok ? 'copied' : 'failed');
+          if (shareTimerRef.current) clearTimeout(shareTimerRef.current);
+          shareTimerRef.current = setTimeout(() => setShareState('idle'), 2000);
+          break;
+        }
       }
     } catch {
       setShareState('failed');
+      if (shareTimerRef.current) clearTimeout(shareTimerRef.current);
+      shareTimerRef.current = setTimeout(() => setShareState('idle'), 2000);
     }
-    if (shareTimerRef.current) clearTimeout(shareTimerRef.current);
-    shareTimerRef.current = setTimeout(() => setShareState('idle'), 2000);
   };
 
-  const shareLabel =
-    shareState === 'copied'
-      ? chrome('share.copied')
-      : shareState === 'failed'
-        ? chrome('share.copyFailed')
-        : chrome('share.button');
+  const a11y = (key: string) => intl.formatMessage({ id: key });
 
   return (
     <section className={styles.quiz} aria-labelledby="talk-quiz-title">
@@ -155,9 +200,83 @@ export function TalkQuizDefault({ lesson, enableAnalytics = true }: TalkQuizDefa
 
       <div className={styles.share}>
         <p className={styles.shareLine}>{t('quiz.share.line')}</p>
-        <button type="button" className={styles.shareButton} onClick={handleShare}>
-          {shareLabel}
-        </button>
+        <div className={styles.shareButtons}>
+          <button
+            type="button"
+            onClick={() => handleShare('whatsapp')}
+            className={styles.shareIconButton}
+            title="WhatsApp"
+            aria-label={a11y('common.accessibility.shareOnWhatsapp')}
+          >
+            <WhatsAppIcon />
+          </button>
+          <button
+            type="button"
+            onClick={() => handleShare('twitter')}
+            className={styles.shareIconButton}
+            title="X / Twitter"
+            aria-label={a11y('common.accessibility.shareOnX')}
+          >
+            <TwitterIcon />
+          </button>
+          <button
+            type="button"
+            onClick={() => handleShare('facebook')}
+            className={styles.shareIconButton}
+            title="Facebook"
+            aria-label={a11y('share.platform.facebook')}
+          >
+            <FacebookIcon />
+          </button>
+          <button
+            type="button"
+            onClick={() => handleShare('linkedin')}
+            className={styles.shareIconButton}
+            title="LinkedIn"
+            aria-label={a11y('common.accessibility.shareOnLinkedin')}
+          >
+            <LinkedInIcon />
+          </button>
+          <button
+            type="button"
+            onClick={() => handleShare('instagram')}
+            className={styles.shareIconButton}
+            title="Instagram"
+            aria-label={a11y('share.platform.instagram')}
+          >
+            <InstagramIcon />
+          </button>
+          <button
+            type="button"
+            onClick={() => handleShare('substack')}
+            className={styles.shareIconButton}
+            title="Substack"
+            aria-label={a11y('share.platform.substack')}
+          >
+            <SubstackIcon />
+          </button>
+          <button
+            type="button"
+            onClick={() => handleShare('copy')}
+            className={styles.shareIconButton}
+            data-state={shareState}
+            title={
+              shareState === 'copied'
+                ? chrome('share.copied')
+                : a11y('common.accessibility.copyToClipboard')
+            }
+            aria-label={a11y('common.accessibility.copyToClipboard')}
+          >
+            <LucideIcon icon={shareState === 'copied' ? Check : Link2} size="sm" />
+          </button>
+        </div>
+        <p className={styles.shareFeedback} aria-live="polite">
+          {shareState === 'copied'
+            ? chrome('share.copied')
+            : shareState === 'failed'
+              ? chrome('share.copyFailed')
+              : ''}
+        </p>
       </div>
     </section>
   );

@@ -127,24 +127,55 @@
   margin: 0;
 }
 
-.shareButton {
-  padding: var(--spacing-xs) var(--spacing-md);
+/* P-4: the platform icon row (same stack as preDream results / waitlist
+   success; quiet tokenized buttons to match the quiz card). */
+.shareButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.shareIconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-3xl);
+  height: var(--spacing-3xl);
   border-radius: var(--radius-pill);
   border: 1px solid var(--color-slate-300);
   background: var(--color-white);
   color: var(--color-slate-700);
-  font-size: var(--font-size-sm);
-  font-family: var(--font-family-primary);
   cursor: pointer;
+  transition: border-color 150ms ease;
 }
 
-.shareButton:hover,
-.shareButton:focus-visible {
+.shareIconButton:hover,
+.shareIconButton:focus-visible {
   border-color: var(--color-teal-500);
   color: var(--color-teal-700);
 }
 
-.shareButton:focus-visible {
+.shareIconButton:focus-visible {
   outline: 2px solid var(--color-teal-500);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shareIconButton {
+    transition: none;
+  }
+}
+
+.shareIconButton[data-state='copied'] {
+  border-color: var(--color-teal-600);
+  color: var(--color-teal-700);
+  background: var(--teal-overlay-12);
+}
+
+.shareFeedback {
+  min-height: var(--spacing-md);
+  font-size: var(--font-size-xs-plus);
+  color: var(--color-slate-500);
+  font-family: var(--font-family-primary);
+  margin: 0;
 }

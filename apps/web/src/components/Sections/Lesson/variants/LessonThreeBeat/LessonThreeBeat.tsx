@@ -23,6 +23,7 @@ import {
   CompoundInterestCalculator,
 } from '@/components/Sections/CompoundInterestCalculator';
 import { TalkQuizFactory } from '@/components/Sections/TalkQuiz';
+import { LucideIcon, ArrowLeft, ArrowRight } from '@/components/UI/LucideIcon';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import styles from './LessonThreeBeat.module.css';
 
@@ -143,6 +144,14 @@ export function LessonThreeBeat({
     analyticsService.track({
       name: LESSON_EVENTS.CTA_SECONDARY_CLICKED,
       parameters: { lessonId, locale, target: 'tools', timestamp: Date.now() },
+    });
+  };
+
+  const handleAllTalksCta = () => {
+    if (!enableAnalytics) return;
+    analyticsService.track({
+      name: LESSON_EVENTS.CTA_SECONDARY_CLICKED,
+      parameters: { lessonId, locale, target: 'all-talks', timestamp: Date.now() },
     });
   };
 
@@ -350,45 +359,8 @@ export function LessonThreeBeat({
               <CTAButtonLink href="#beat3" variant="primary" onClick={handlePrimaryCta}>
                 {t('beat3.cta.primary')}
               </CTAButtonLink>
-              {nextTalk ? (
-                <LocaleLink
-                  href={`/learn/${nextTalk.slug}`}
-                  className={styles.ctaSecondary}
-                  onClick={handleNextTalkCta}
-                  prefetch={false}
-                >
-                  {intl.formatMessage(
-                    { id: `${ns}.beat3.cta.next` },
-                    { title: intl.formatMessage({ id: `learn.arc.${nextTalk.id}.title` }) }
-                  )}
-                </LocaleLink>
-              ) : lesson.next ? (
+              {!nextTalk && lesson.next ? (
                 <p className={styles.ctaFallback}>{t('beat3.cta.secondary')}</p>
-              ) : (
-                /* D-P3-1: the last talk in the spine points forward to the
-                 * tools hub; the "more talks are on the way" line would be
-                 * false once the series is complete. */
-                <LocaleLink
-                  href="/tools"
-                  className={styles.ctaSecondary}
-                  onClick={handleToolsHubCta}
-                  prefetch={false}
-                >
-                  {t('beat3.cta.toolsHub')}
-                </LocaleLink>
-              )}
-              {prevTalk ? (
-                <LocaleLink
-                  href={`/learn/${prevTalk.slug}`}
-                  className={styles.ctaTertiary}
-                  onClick={handlePrevTalkCta}
-                  prefetch={false}
-                >
-                  {intl.formatMessage(
-                    { id: `${ns}.beat3.cta.prev` },
-                    { title: intl.formatMessage({ id: `learn.arc.${prevTalk.id}.title` }) }
-                  )}
-                </LocaleLink>
               ) : null}
               <LocaleLink
                 href={waitlistCtaHref}
@@ -400,6 +372,67 @@ export function LessonThreeBeat({
               </LocaleLink>
               <p className={styles.ctaNote}>{t('beat3.cta.primaryNote')}</p>
             </div>
+
+            {/* P-3 (talk-page polish): the two-slot spine navigation. Left =
+             * previous live talk, or the Real Talk index on the first talk.
+             * Right = next live talk (drip-gated), or the tools hub on the
+             * last talk (D-P3-1). Sits BELOW the CTA group so the
+             * education-first hierarchy is untouched. */}
+            <nav
+              className={styles.talkNav}
+              aria-label={intl.formatMessage({ id: 'learn.talkNav.label' })}
+            >
+              {prevTalk ? (
+                <LocaleLink
+                  href={`/learn/${prevTalk.slug}`}
+                  className={styles.talkNavLink}
+                  onClick={handlePrevTalkCta}
+                  prefetch={false}
+                >
+                  <LucideIcon icon={ArrowLeft} size="xs" />
+                  {intl.formatMessage(
+                    { id: `${ns}.beat3.cta.prev` },
+                    { title: intl.formatMessage({ id: `learn.arc.${prevTalk.id}.title` }) }
+                  )}
+                </LocaleLink>
+              ) : (
+                <LocaleLink
+                  href="/learn"
+                  className={styles.talkNavLink}
+                  onClick={handleAllTalksCta}
+                  prefetch={false}
+                >
+                  <LucideIcon icon={ArrowLeft} size="xs" />
+                  {intl.formatMessage({ id: 'learn.talkNav.allTalks' })}
+                </LocaleLink>
+              )}
+              {nextTalk ? (
+                <LocaleLink
+                  href={`/learn/${nextTalk.slug}`}
+                  className={styles.talkNavLink}
+                  onClick={handleNextTalkCta}
+                  prefetch={false}
+                >
+                  {intl.formatMessage(
+                    { id: `${ns}.beat3.cta.next` },
+                    { title: intl.formatMessage({ id: `learn.arc.${nextTalk.id}.title` }) }
+                  )}
+                  <LucideIcon icon={ArrowRight} size="xs" />
+                </LocaleLink>
+              ) : !lesson.next ? (
+                <LocaleLink
+                  href="/tools"
+                  className={styles.talkNavLink}
+                  onClick={handleToolsHubCta}
+                  prefetch={false}
+                >
+                  {t('beat3.cta.toolsHub')}
+                  <LucideIcon icon={ArrowRight} size="xs" />
+                </LocaleLink>
+              ) : (
+                <span aria-hidden="true" />
+              )}
+            </nav>
           </div>
         </SectionContainer>
       </SectionErrorBoundary>

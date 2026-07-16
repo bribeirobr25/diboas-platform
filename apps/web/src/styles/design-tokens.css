@@ -538,6 +538,10 @@
      ================================ */
 
   /* Navigation CTA Dimensions - Compact for navigation bar */
+  /* P-1 (talk-page polish, 2026-07-16): the fixed .minimal-navigation-bar is
+     h-20 = 80px; content that starts at the top of the page must clear it.
+     Keep in sync with .minimal-navigation-content in semantic-components.css. */
+  --nav-height: 80px;
   --nav-cta-min-width-desktop: 140px;
   --nav-cta-min-width-tablet: 140px;
   --nav-cta-min-width-mobile: 130px;

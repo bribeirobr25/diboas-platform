@@ -7,7 +7,9 @@
    * section tokens. */
   max-width: var(--container-max-width-standard);
   margin: 0 auto;
-  padding: var(--spacing-lg) var(--padding-section-mobile-x);
+  /* P-1: clear the fixed nav (the hero is the first element on the page). */
+  padding: calc(var(--nav-height) + var(--spacing-lg)) var(--padding-section-mobile-x)
+    var(--spacing-lg);
 }
 
 @media (min-width: 768px) {
@@ -22,7 +24,8 @@
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: var(--spacing-5xl);
-    padding: var(--spacing-5xl) var(--padding-section-desktop-x) var(--spacing-3xl);
+    padding: calc(var(--nav-height) + var(--spacing-3xl)) var(--padding-section-desktop-x)
+      var(--spacing-3xl);
   }
 }
 

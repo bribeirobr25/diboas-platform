@@ -6,7 +6,8 @@
  * - One answer per question; feedback + correct option revealed; no retries.
  * - `learn_quiz_submitted` fires exactly once, when the LAST graded answer
  *   lands, with the aggregate correctCount only.
- * - Share copies line + canonical URL; failure path is quiet.
+ * - Share: 7-platform icon row (P-4); copy path copies line + UTM URL with
+ *   the platform param on the stable wire name; failure path is quiet.
  *
  * @vitest-environment happy-dom
  */
@@ -103,16 +104,45 @@ describe('TalkQuizDefault', () => {
     ).toBeTruthy();
   });
 
-  it('should copy the share line + canonical URL and swap the label', async () => {
+  it('should render the 7-platform share icon row', () => {
+    render(<TalkQuizDefault lesson={talk1} enableAnalytics={false} />);
+    for (const label of [
+      'common.accessibility.shareOnWhatsapp',
+      'common.accessibility.shareOnX',
+      'share.platform.facebook',
+      'common.accessibility.shareOnLinkedin',
+      'share.platform.instagram',
+      'share.platform.substack',
+      'common.accessibility.copyToClipboard',
+    ]) {
+      expect(screen.getByRole('button', { name: label })).toBeTruthy();
+    }
+  });
+
+  it('should copy line + UTM talk URL on copy, swap feedback, and fire the platform param', async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     vi.stubGlobal('navigator', { ...navigator, clipboard: { writeText } });
     render(<TalkQuizDefault lesson={talk1} />);
-    fireEvent.click(screen.getByText('learn.quiz.share.button'));
+    fireEvent.click(screen.getByRole('button', { name: 'common.accessibility.copyToClipboard' }));
     await waitFor(() => expect(screen.getByText('learn.quiz.share.copied')).toBeTruthy());
-    expect(writeText.mock.calls[0][0]).toContain('learn-compound-interest.quiz.share.line');
-    expect(
-      mockTrack.mock.calls.filter(([e]) => e.name === LESSON_EVENTS.SHARE_COPIED)
-    ).toHaveLength(1);
+    const payload = writeText.mock.calls[0][0] as string;
+    expect(payload).toContain('learn-compound-interest.quiz.share.line');
+    expect(payload).toContain('/learn/compound-interest');
+    expect(payload).toContain('utm_campaign=real_talk');
+    const calls = mockTrack.mock.calls.filter(([e]) => e.name === LESSON_EVENTS.SHARE_COPIED);
+    expect(calls).toHaveLength(1);
+    expect(calls[0][0].parameters?.platform).toBe('copy');
+  });
+
+  it('should open a share window (not copy) for window platforms', () => {
+    const open = vi.fn();
+    vi.stubGlobal('open', open);
+    render(<TalkQuizDefault lesson={talk1} />);
+    fireEvent.click(screen.getByRole('button', { name: 'common.accessibility.shareOnWhatsapp' }));
+    expect(open).toHaveBeenCalledTimes(1);
+    expect(String(open.mock.calls[0][0])).toContain('wa.me');
+    const calls = mockTrack.mock.calls.filter(([e]) => e.name === LESSON_EVENTS.SHARE_COPIED);
+    expect(calls[0][0].parameters?.platform).toBe('whatsapp');
   });
 
   it('should fail quietly when the clipboard is unavailable', async () => {
@@ -121,11 +151,8 @@ describe('TalkQuizDefault', () => {
       clipboard: { writeText: vi.fn().mockRejectedValue(new Error('denied')) },
     });
     render(<TalkQuizDefault lesson={talk1} />);
-    fireEvent.click(screen.getByText('learn.quiz.share.button'));
+    fireEvent.click(screen.getByRole('button', { name: 'common.accessibility.copyToClipboard' }));
     await waitFor(() => expect(screen.getByText('learn.quiz.share.copyFailed')).toBeTruthy());
-    expect(
-      mockTrack.mock.calls.filter(([e]) => e.name === LESSON_EVENTS.SHARE_COPIED)
-    ).toHaveLength(0);
   });
 
   it('should fire nothing when analytics is disabled', () => {
