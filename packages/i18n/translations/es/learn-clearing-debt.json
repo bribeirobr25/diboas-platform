@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "El otro 20 %: la deuda cara, explicada",
+    "description": "La deuda con intereses altos es interés compuesto corriendo en tu contra. Por qué pagar una tarjeta al 25 % son los intereses que dejas de pagar, y dónde está la línea."
+  },
+  "lesson": {
+    "h1": "El otro 20 %",
+    "readTime": "~5 min de lectura"
+  },
+  "beat1": {
+    "title": "La parte difícil que no me salté.",
+    "body": [
+      "La Charla 5 prometía la parte difícil. Aquí está: si arrastras una tarjeta al veinti-tantos por ciento, todo lo de antes cambia de orden. No voy a fingir que no.",
+      "¿Te acuerdas del interés compuesto de la Charla 1? Funciona en las dos direcciones. Sobre tus ahorros, para ti, despacio. Sobre una tarjeta al 25 %, contra ti, rápido. Esa deuda es el mismo motor, del revés, apuntándote a ti."
+    ]
+  },
+  "beat2": {
+    "title": "Matar la deuda cara es la mejor \"inversión\" que tienes.",
+    "intro": [
+      "Un solo número lo cambia todo: ninguna inversión honesta te da de forma fiable un 25 % al año. Pero un euro que mata una deuda al 25 % acaba de ganarte un 25 %, garantizado, riesgo cero, porque es un 25 % de intereses que ya nunca vas a pagar. Matemáticamente, quitarte de encima la deuda cara es el uso de mayor rentabilidad y menor riesgo que puedes darle a un euro. Eso no es opinión, son cuentas.",
+      "El reparto clásico pone más o menos un 20 % a las deudas, pero olvídate del número. El matiz que importa: no toda deuda es el enemigo. Una hipoteca al 3 o 4 %, o un préstamo a tipo bajo, es deuda lenta con la que puedes convivir. Caza lo caro: las tarjetas y el revolving del 20 y pico por ciento. A eso dale caza primero."
+    ]
+  },
+  "beat3": {
+    "title": "El límite, y la herramienta.",
+    "intro": [
+      "Déjame ser claro: diBoaS no presta dinero. Nada de reunificación de deudas, ni préstamo que te vendamos, ni pago aplazado, nada de eso. Esto son solo las cuentas, para que no seas el último en verlas.",
+      "No te voy a decir qué deuda ni a qué ritmo. Esa es tu vida. La herramienta de abajo te deja darle a la parte de \"deuda\" una tarea de verdad. Y puedes coger la calculadora de interés compuesto de la Charla 1, apuntarla al tipo de tu tarjeta, y ver lo que te está costando.",
+      "Yo llevo diBoaS, así que compruébate las cuentas tú mismo."
+    ],
+    "toolTagline": "Los intereses que dejas de pagar.",
+    "afterTool": "¿Ya ves lo que te cuesta de verdad la tarjeta?",
+    "toolDeepLink": "Dale una tarea a la parte de deuda: <link>Abre Money Jobs</link>",
+    "wrap": [
+      "A veces el uso de mayor rentabilidad para tu primera parte es apuntarla a la deuda que se la está comiendo. Los intereses que dejas de pagar son una rentabilidad que casi nada más en el dinero puede igualar.",
+      "Y esa es la última pieza. Ya las seis: el motor, el destino, el orden, la cantidad, el sitio y la deuda. La próxima las juntamos, y vas a ver que nunca fueron seis cosas."
+    ],
+    "cta": {
+      "primary": "Dale una tarea a la parte de deuda",
+      "primaryNote": "Apuntarte no mueve tu dinero. Tú decides después.",
+      "next": "Siguiente charla: {title}",
+      "waitlist": "Apuntarme a la lista de espera",
+      "secondary": "Vendrán más charlas",
+      "prev": "Volver a: {title}",
+      "toolsHub": "Sigue con las herramientas"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Según la charla, ¿por qué importa tanto la deuda cara?",
+      "options": [
+        "porque al banco no le gusta",
+        "porque es interés compuesto corriendo contra ti, rápido",
+        "porque solo afecta a tu historial de crédito"
+      ]
+    },
+    "q2": {
+      "question": "Pagar una deuda al 25 % equivale a:",
+      "options": [
+        "una rentabilidad garantizada de ~25 %, riesgo cero (los intereses que ahora te ahorras)",
+        "una pequeña desgravación",
+        "nada, solo ser responsable"
+      ]
+    },
+    "reflection": "¿Arrastras alguna deuda por encima de un 15-20 % más o menos? Si es así, ¿a qué tipo está? Solo míralo. Sin presión.",
+    "share": {
+      "line": "comparte para desbloquear"
+    }
+  }
+}

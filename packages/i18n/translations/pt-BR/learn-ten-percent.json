@@ -1,0 +1,72 @@
+{
+  "seo": {
+    "title": "Os 10%: o ponto de partida da Babilônia, explicado",
+    "description": "Pequeno pra abrir mão, grande pra importar. De onde vem o décimo, por que 1% ganha de 0%, e como ver o seu próprio número."
+  },
+  "lesson": {
+    "h1": "Os 10%",
+    "readTime": "~5 min de leitura"
+  },
+  "beat1": {
+    "title": "Quanto? Um décimo.",
+    "body": [
+      "O Papo 3 disse pra se pagar primeiro, e escapou da pergunta: quanto? Aqui vai a resposta famosa, e ela soa simples demais. Dez por cento.",
+      "Mesmo livro da última vez. A Babilônia: \"uma parte de tudo que você ganha é sua pra guardar, e que não seja menos que um décimo.\" Dez por cento.",
+      "Por que atravessou 4.000 anos: pequeno o bastante pra que em um mês ou dois você já se acostume a viver sem ele, grande o bastante pra que, com tempo, ele vire uma coisa que muda a sua vida. Pequeno pra abrir mão, grande pra receber. É por isso que é dez, e não cinquenta."
+    ]
+  },
+  "beat2": {
+    "title": "Não é regra. É um ponto de partida.",
+    "intro": [
+      "Sinceramente: pode ser que 10% não caiba pra você agora. Se não cabe, um por cento separado primeiro ganha de zero por cento toda vez. O número não é o ponto, o hábito é. Comece de onde você realmente está.",
+      "Eu não vou te dizer pra guardar 10% de um dinheiro que você não tem. Dez por cento é um *ponto de partida* famoso, não uma lei, e com certeza não é a diBoaS te dizendo o que fazer. Você escolhe o número."
+    ]
+  },
+  "beat3": {
+    "title": "Onde as peças se encaixam.",
+    "intro": [
+      "Agora três coisas se encaixam: 10% (este papo), separado primeiro (Papo 3), apontado pra uma meta e deixado render (Papos 2 e 1).",
+      "Aqui vai uma ilustração, e é só isso que ela é. Dez por cento de um salário de R$ 3.000 (usa o seu) dá R$ 300 por mês. Separado primeiro, num ritmo cauteloso de 7%, doze anos é uma **estimativa** de uns **R$ 66.000**. Não é promessa, é estimativa. O custo real de não começar nunca foi os R$ 300 por mês, foi os ~R$ 66.000 que você deixou passar.",
+      "Então não fica com os meus R$ 300 e os meus 12 anos. Coloca o seu próprio salário, a sua porcentagem, os seus anos, e aponta ela pra aquela meta que você batizou no Papo 2.",
+      "Eu toco a diBoaS, então confere a conta você mesmo."
+    ],
+    "toolTagline": "Pequeno pra abrir mão, grande pra importar.",
+    "afterTool": "Viu o seu próprio número?",
+    "toolDeepLink": "Roda os seus próprios 10%: <link>Abrir a calculadora de juros compostos</link>",
+    "wrap": [
+      "Dez por cento. Pequeno o bastante pra abrir mão, grande o bastante pra importar. Separado primeiro, apontado pra uma meta, deixado crescer. É a engrenagem inteira, funcionando.",
+      "Mas de onde sai o 10% se o seu dinheiro já tem dono? Você abre espaço. Tem um jeito clássico de pensar nisso, e é o Papo 5."
+    ],
+    "cta": {
+      "primary": "Roda os seus próprios 10%",
+      "primaryNote": "Entrar na lista não mexe no seu dinheiro. Você decide depois.",
+      "next": "Próximo papo: {title}",
+      "waitlist": "Entrar na lista de espera",
+      "secondary": "Mais papos vindo aí",
+      "prev": "Voltar pro: {title}",
+      "toolsHub": "Continue com as ferramentas"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "De onde vêm os \"10%\" no papo?",
+      "options": [
+        "uma regra da diBoaS",
+        "a ideia da Babilônia, \"que não seja menos que um décimo\"",
+        "uma diretriz do governo"
+      ]
+    },
+    "q2": {
+      "question": "Se 10% não cabe agora, o papo diz:",
+      "options": [
+        "deixa pra lá",
+        "1% separado primeiro ganha de 0%",
+        "pega emprestado pra fechar os 10%"
+      ]
+    },
+    "reflection": "Quanto é 10% do que você leva pra casa por mês? E se isso for demais agora, qual é um número que você conseguiria começar de verdade?",
+    "share": {
+      "line": "compartilhe pra desbloquear"
+    }
+  }
+}

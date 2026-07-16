@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "Von 70 % leben: die Lücke ist der Punkt, erklärt",
+    "description": "Von weniger zu leben, als du verdienst, ist kein Verzicht. Es ist der ganze Trick: In der Lücke zwischen rein und raus wohnt alles andere."
+  },
+  "lesson": {
+    "h1": "Von 70 % leben.",
+    "readTime": "~5 Min Lesezeit"
+  },
+  "beat1": {
+    "title": "Woher die 10 % kommen.",
+    "body": [
+      "Talk 4 ließ eine Frage offen: Woher kommen die 10 %, wenn dein Geld schon verplant ist? Die Antwort ist, dass du Platz machst. Und es gibt eine klassische Zahl, siebzig Prozent.",
+      "Der alte Rahmen: Zahl dich zuerst, kümmere dich um das, was du schuldest, lebe vom Rest (~70 %). Aber die Zahl ist nicht die Lektion. Die Lektion ist ein einziger unbequemer Satz: Das \"erste Stück\" überlebt nur, wenn dein Leben weniger kostet, als du verdienst. Mit Absicht."
+    ]
+  },
+  "beat2": {
+    "title": "Der wahre Gegner ist die Lifestyle-Inflation.",
+    "intro": [
+      "Es ist keine Frage der Willenskraft. Das Leben dehnt sich aus, bis es alles ausfüllt, was du verdienst. Die Gehaltserhöhung letztes Jahr? Weg, und du könntest nicht sagen, wofür. Dein Lebensstandard ist leise mitgewachsen. Das ist es, was die 10 % auffrisst.",
+      "Die 70 % sind also keine Regel, die ich dir in die Hand drücke. Sie sind eine Obergrenze, die du wählst: Mein Alltag passt in das meiste von dem, was ich verdiene, nicht in alles. Vielleicht sind das für dich 70, vielleicht 90, vielleicht bist du gerade ehrlich über 100 und kommst gerade so durch. Wenn das du bist, dann tue ich nicht so, als würde ein Prozentsatz das lösen.",
+      "Aber wo auch immer du auch nur eine kleine Lücke zwischen dem, was du verdienst, und dem, was du ausgibst, öffnen kannst, diese Lücke ist kein Geld, das dir entgeht. Sie ist deine Zukunft. Sie ist der einzige Ort, aus dem die 10 % kommen."
+    ]
+  },
+  "beat3": {
+    "title": "Finde deine Lücke.",
+    "intro": [
+      "Das Tool unten zeigt dein Geld in seine Aufgaben aufgeteilt: der Teil, der dein Leben am Laufen hält, und der Teil, der frei ist, zu arbeiten. Verschieb die Linie selbst.",
+      "Dein Leben, deine Zahl. Ich stehe hinter diBoaS, also glaub mir nicht einfach. Verschieb die Linie und schau."
+    ],
+    "toolTagline": "Die Lücke ist der Punkt.",
+    "afterTool": "Deine Linie gefunden?",
+    "toolDeepLink": "Sieh die Aufgaben deines Geldes: <link>Zu Money Jobs</link>",
+    "wrap": [
+      "Von weniger zu leben, als du verdienst, ist kein Verzicht. Es ist der Trick. Die Lücke zwischen dem, was du verdienst, und dem, was du ausgibst, ist der Ort, an dem alles andere in dieser Reihe lebt.",
+      "Aber was, wenn ein großes Stück deines Einkommens schon für Schulden zur Tür hinaus geht? Dann ändert sich die Rechnung, und es könnte ändern, was du zuerst tust. Das ist Talk 6, der, den niemand führen will."
+    ],
+    "cta": {
+      "primary": "Finde deine Lücke",
+      "primaryNote": "Du musst kein Geld bewegen, um auf die Warteliste zu kommen. Du entscheidest später.",
+      "next": "Nächster Talk: {title}",
+      "waitlist": "Auf die Warteliste",
+      "secondary": "Weitere Talks kommen",
+      "prev": "Zurück zu: {title}",
+      "toolsHub": "Mach mit den Tools weiter"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Was frisst laut Talk wirklich deine 10 % auf?",
+      "options": [
+        "zu niedriges Einkommen",
+        "die Lifestyle-Inflation, Ausgaben, die mit dem Einkommen mitwachsen",
+        "allein die Inflation"
+      ]
+    },
+    "q2": {
+      "question": "Die 70 % versteht man am besten als:",
+      "options": [
+        "eine strenge Regel, die jeder erreichen muss",
+        "eine Obergrenze, die du wählst: gib weniger aus, als du verdienst",
+        "das, was die Bank empfiehlt"
+      ]
+    },
+    "reflection": "Denk an deine letzte Gehaltserhöhung. Kannst du sagen, wo sie geblieben ist? Kein Urteil, nimm es einfach nur wahr.",
+    "share": {
+      "line": "teilen zum Freischalten"
+    }
+  }
+}

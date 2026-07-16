@@ -14,7 +14,7 @@ Complete internationalization solution for the diBoaS platform with support for 
 ## Features
 
 ✅ **Automatic Locale Detection** - Browser language detection with fallback to English
-✅ **Complete Translation Coverage** - 34 namespaces per locale across all 4 locales (see Translation Files below)
+✅ **Complete Translation Coverage** - 40 namespaces per locale across all 4 locales (see Translation Files below)
 ✅ **Server & Client Support** - Separate entry points for optimal bundle size
 ✅ **Type-Safe** - Full TypeScript support
 ✅ **Zero Hardcoded Values** - All text externalized to JSON files
@@ -70,7 +70,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@diboas/i18n/config';
 
 ## Translation Files
 
-Translation files are organized by locale × namespace (34 namespaces per locale — most recently `tools-money-jobs.json`, the Money Jobs entry-point tool):
+Translation files are organized by locale × namespace (40 namespaces per locale — most recently `tools-money-jobs.json`, the Money Jobs entry-point tool):
 
 ```
 packages/i18n/translations/{en, pt-BR, es, de}/
@@ -85,6 +85,12 @@ packages/i18n/translations/{en, pt-BR, es, de}/
 ├── landing-help.json                   # Help center
 ├── learn.json                          # Learn center landing
 ├── learn-compound-interest.json        # Lesson 01 + Beat 2 vignettes + calculator
+├── learn-money-objective.json          # Talk 2 (announced until its drip flip)
+├── learn-pay-yourself-first.json       # Talk 3 (announced until its drip flip)
+├── learn-ten-percent.json              # Talk 4 (announced until its drip flip)
+├── learn-seventy-percent.json          # Talk 5 (announced until its drip flip)
+├── learn-clearing-debt.json            # Talk 6 (announced until its drip flip)
+├── learn-putting-it-together.json      # Talk 7 (announced until its drip flip)
 ├── market.json                         # Adelaide Market — BTC macro-regime dashboard (/market)
 ├── preDemo.json                        # Demo onboarding
 ├── preDream.json                       # Dream-mode onboarding

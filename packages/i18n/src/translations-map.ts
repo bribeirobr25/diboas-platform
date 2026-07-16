@@ -93,6 +93,30 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       import(
         /* webpackChunkName: "i18n-en-learn-compound-interest" */ '../translations/en/learn-compound-interest.json'
       ).then(resolveDefault),
+    'learn-money-objective': () =>
+      import(
+        /* webpackChunkName: "i18n-en-learn-money-objective" */ '../translations/en/learn-money-objective.json'
+      ).then(resolveDefault),
+    'learn-pay-yourself-first': () =>
+      import(
+        /* webpackChunkName: "i18n-en-learn-pay-yourself-first" */ '../translations/en/learn-pay-yourself-first.json'
+      ).then(resolveDefault),
+    'learn-ten-percent': () =>
+      import(
+        /* webpackChunkName: "i18n-en-learn-ten-percent" */ '../translations/en/learn-ten-percent.json'
+      ).then(resolveDefault),
+    'learn-seventy-percent': () =>
+      import(
+        /* webpackChunkName: "i18n-en-learn-seventy-percent" */ '../translations/en/learn-seventy-percent.json'
+      ).then(resolveDefault),
+    'learn-clearing-debt': () =>
+      import(
+        /* webpackChunkName: "i18n-en-learn-clearing-debt" */ '../translations/en/learn-clearing-debt.json'
+      ).then(resolveDefault),
+    'learn-putting-it-together': () =>
+      import(
+        /* webpackChunkName: "i18n-en-learn-putting-it-together" */ '../translations/en/learn-putting-it-together.json'
+      ).then(resolveDefault),
     'tools-shared': () =>
       import(
         /* webpackChunkName: "i18n-en-tools-shared" */ '../translations/en/tools-shared.json'
@@ -198,6 +222,30 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     'learn-compound-interest': () =>
       import(
         /* webpackChunkName: "i18n-de-learn-compound-interest" */ '../translations/de/learn-compound-interest.json'
+      ).then(resolveDefault),
+    'learn-money-objective': () =>
+      import(
+        /* webpackChunkName: "i18n-de-learn-money-objective" */ '../translations/de/learn-money-objective.json'
+      ).then(resolveDefault),
+    'learn-pay-yourself-first': () =>
+      import(
+        /* webpackChunkName: "i18n-de-learn-pay-yourself-first" */ '../translations/de/learn-pay-yourself-first.json'
+      ).then(resolveDefault),
+    'learn-ten-percent': () =>
+      import(
+        /* webpackChunkName: "i18n-de-learn-ten-percent" */ '../translations/de/learn-ten-percent.json'
+      ).then(resolveDefault),
+    'learn-seventy-percent': () =>
+      import(
+        /* webpackChunkName: "i18n-de-learn-seventy-percent" */ '../translations/de/learn-seventy-percent.json'
+      ).then(resolveDefault),
+    'learn-clearing-debt': () =>
+      import(
+        /* webpackChunkName: "i18n-de-learn-clearing-debt" */ '../translations/de/learn-clearing-debt.json'
+      ).then(resolveDefault),
+    'learn-putting-it-together': () =>
+      import(
+        /* webpackChunkName: "i18n-de-learn-putting-it-together" */ '../translations/de/learn-putting-it-together.json'
       ).then(resolveDefault),
     'tools-shared': () =>
       import(
@@ -305,6 +353,30 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       import(
         /* webpackChunkName: "i18n-es-learn-compound-interest" */ '../translations/es/learn-compound-interest.json'
       ).then(resolveDefault),
+    'learn-money-objective': () =>
+      import(
+        /* webpackChunkName: "i18n-es-learn-money-objective" */ '../translations/es/learn-money-objective.json'
+      ).then(resolveDefault),
+    'learn-pay-yourself-first': () =>
+      import(
+        /* webpackChunkName: "i18n-es-learn-pay-yourself-first" */ '../translations/es/learn-pay-yourself-first.json'
+      ).then(resolveDefault),
+    'learn-ten-percent': () =>
+      import(
+        /* webpackChunkName: "i18n-es-learn-ten-percent" */ '../translations/es/learn-ten-percent.json'
+      ).then(resolveDefault),
+    'learn-seventy-percent': () =>
+      import(
+        /* webpackChunkName: "i18n-es-learn-seventy-percent" */ '../translations/es/learn-seventy-percent.json'
+      ).then(resolveDefault),
+    'learn-clearing-debt': () =>
+      import(
+        /* webpackChunkName: "i18n-es-learn-clearing-debt" */ '../translations/es/learn-clearing-debt.json'
+      ).then(resolveDefault),
+    'learn-putting-it-together': () =>
+      import(
+        /* webpackChunkName: "i18n-es-learn-putting-it-together" */ '../translations/es/learn-putting-it-together.json'
+      ).then(resolveDefault),
     'tools-shared': () =>
       import(
         /* webpackChunkName: "i18n-es-tools-shared" */ '../translations/es/tools-shared.json'
@@ -410,6 +482,30 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     'learn-compound-interest': () =>
       import(
         /* webpackChunkName: "i18n-pt-BR-learn-compound-interest" */ '../translations/pt-BR/learn-compound-interest.json'
+      ).then(resolveDefault),
+    'learn-money-objective': () =>
+      import(
+        /* webpackChunkName: "i18n-pt-BR-learn-money-objective" */ '../translations/pt-BR/learn-money-objective.json'
+      ).then(resolveDefault),
+    'learn-pay-yourself-first': () =>
+      import(
+        /* webpackChunkName: "i18n-pt-BR-learn-pay-yourself-first" */ '../translations/pt-BR/learn-pay-yourself-first.json'
+      ).then(resolveDefault),
+    'learn-ten-percent': () =>
+      import(
+        /* webpackChunkName: "i18n-pt-BR-learn-ten-percent" */ '../translations/pt-BR/learn-ten-percent.json'
+      ).then(resolveDefault),
+    'learn-seventy-percent': () =>
+      import(
+        /* webpackChunkName: "i18n-pt-BR-learn-seventy-percent" */ '../translations/pt-BR/learn-seventy-percent.json'
+      ).then(resolveDefault),
+    'learn-clearing-debt': () =>
+      import(
+        /* webpackChunkName: "i18n-pt-BR-learn-clearing-debt" */ '../translations/pt-BR/learn-clearing-debt.json'
+      ).then(resolveDefault),
+    'learn-putting-it-together': () =>
+      import(
+        /* webpackChunkName: "i18n-pt-BR-learn-putting-it-together" */ '../translations/pt-BR/learn-putting-it-together.json'
       ).then(resolveDefault),
     'tools-shared': () =>
       import(

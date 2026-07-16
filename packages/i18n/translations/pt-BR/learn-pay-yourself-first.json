@@ -1,0 +1,69 @@
+{
+  "seo": {
+    "title": "Pague-se primeiro: a correção mais antiga do dinheiro, explicada",
+    "description": "Esperar o que sobra nunca funciona, porque nunca sobra nada. A inversão de 4.000 anos: você primeiro, depois o mês."
+  },
+  "lesson": {
+    "h1": "Pague-se primeiro.",
+    "readTime": "~5 min de leitura"
+  },
+  "beat1": {
+    "title": "Pague-se primeiro.",
+    "body": [
+      "O Papo 2 deixou um problema: uma meta com nome não se financia sozinha, e se você esperar pelo que *sobra* no fim do mês, nunca sobra nada.",
+      "A correção tem uns 4.000 anos. \"O Homem Mais Rico da Babilônia\" cabe numa frase só: uma parte de tudo que você ganha é sua pra guardar. Não o que sobra. Uma parte, separada primeiro.",
+      "A maioria da gente paga todo mundo primeiro: o aluguel, as contas, o cartão, o mercado. O que sobrevive a tudo isso é o que a gente \"poupa\", que é nada, porque nada sobrevive a tudo isso.",
+      "Pagar você primeiro inverte a ordem: antes de qualquer um deles, você separa uma parte do topo e leva pra fora do alcance. Aí vive com o resto. Mesma renda, mesma vida, ordem diferente. A ordem é o truque inteiro."
+    ]
+  },
+  "beat2": {
+    "title": "Não é força de vontade. É a ordem.",
+    "intro": [
+      "Isso não é sobre ganhar mais, e não é sobre disciplina. É sobre não deixar o pagamento mais importante pro final, onde ele sempre morre.",
+      "A minha avó, a Adelaide, fazia isso sem livro nenhum. O envelope era enchido no começo do mês, não no fim. Era esse o sistema.",
+      "E a parte honesta: eu não vou te dizer quanto (isso é o Papo 4), e eu não tô dizendo que você tem que. Eu tô te mostrando que \"primeiro\" e \"último\" são dois finais completamente diferentes pro mesmo dinheiro."
+    ]
+  },
+  "beat3": {
+    "title": "Dá uma função à parte que vem primeiro.",
+    "intro": [
+      "Eu toco a diBoaS, então não acredita em mim de boca. A ferramenta aqui embaixo deixa você dar uma função a essa parte que vem \"primeiro\", antes de qualquer outra coisa encostar no seu dinheiro.",
+      "Configura, e olha ela deixar de ser aquela coisa que nunca acontece. A sua parte, a sua decisão."
+    ],
+    "toolTagline": "Primeiro, não por último.",
+    "afterTool": "Deu pra sentir a diferença que a ordem faz?",
+    "toolDeepLink": "Quer dar função a cada parte do dinheiro? <link>Abrir o Money Jobs</link>",
+    "wrap": [
+      "Pague-se primeiro. Não é mais dinheiro, não é mais força de vontade. É uma ordem diferente.",
+      "É essa a parte pra qual a diBoaS ajuda: a parte que você separa primeiro, antes do mês comer. O seu banco continua onde está, pro resto.",
+      "Mas \"primeiro\" precisa de um número. Do tamanho da parte. Pequena o bastante pra você nem sentir, grande o bastante pra fazer diferença. Esse é o Papo 4."
+    ],
+    "cta": {
+      "primary": "Dá uma função à sua parte \"primeiro\"",
+      "primaryNote": "Entrar na lista não mexe no seu dinheiro. Você decide depois.",
+      "next": "Próximo papo: {title}",
+      "waitlist": "Entrar na lista de espera",
+      "secondary": "Mais papos vindo aí",
+      "prev": "Voltar pro: {title}",
+      "toolsHub": "Continue com as ferramentas"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Qual é a ideia central de \"pague-se primeiro\"?",
+      "options": [
+        "ganhar mais pra conseguir poupar mais",
+        "separar uma parte do topo antes de pagar qualquer outra coisa",
+        "poupar o que sobrar no fim do mês"
+      ]
+    },
+    "q2": {
+      "question": "O que faz a diferença, segundo o papo?",
+      "options": ["mais disciplina", "a ordem: primeiro versus último", "uma renda maior"]
+    },
+    "reflection": "Se você se pagasse primeiro este mês, pra onde iria essa parte pra você não conseguir gastar? Só imagina.",
+    "share": {
+      "line": "compartilhe pra desbloquear"
+    }
+  }
+}

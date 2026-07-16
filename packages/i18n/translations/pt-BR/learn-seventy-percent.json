@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "Viver com 70%: a folga é o ponto, explicado",
+    "description": "Viver com menos do que você ganha não é privação. É o truque inteiro: a folga entre o que entra e o que sai é onde mora todo o resto."
+  },
+  "lesson": {
+    "h1": "Viver com 70%.",
+    "readTime": "~5 min de leitura"
+  },
+  "beat1": {
+    "title": "De onde vêm os 10%.",
+    "body": [
+      "O Papo 4 deixou uma pergunta: de onde sai o 10% se o seu dinheiro já tem dono? A resposta é que você abre espaço. E tem um número clássico, setenta por cento.",
+      "O jeito antigo de pensar: se pague primeiro, dê conta do que você deve, viva com o resto (uns 70%). Mas o número não é a lição. A lição é uma frase meio incômoda: aquela \"primeira fatia\" só sobrevive se a sua vida custar menos do que você ganha. De propósito."
+    ]
+  },
+  "beat2": {
+    "title": "O inimigo de verdade é o padrão de vida subindo.",
+    "intro": [
+      "Não é força de vontade. A vida se estica pra ocupar tudo que você ganha. Aquele aumento do ano passado? Sumiu, e você nem saberia dizer onde. O seu padrão de vida subiu, caladinho, pra bater com ele. É isso que come o 10%.",
+      "Então os 70% não são uma regra que eu tô te entregando. É um teto que você escolhe: o meu dia a dia cabe dentro da maior parte do que eu ganho, não de tudo. Pode ser 70 pra você, pode ser 90, pode ser que hoje seja honestamente mais de 100 e você só tá sobrevivendo. Se for você, eu não vou fingir que uma porcentagem resolve.",
+      "Mas onde quer que você consiga abrir uma folga, mesmo pequena, entre o que você ganha e o que você gasta, essa folga não é dinheiro que você tá perdendo. É o seu futuro. É o único lugar de onde o 10% sai."
+    ]
+  },
+  "beat3": {
+    "title": "Ache a sua folga.",
+    "intro": [
+      "A ferramenta aqui embaixo mostra o seu dinheiro dividido nas funções dele: a parte que mantém a sua vida rodando, e a parte que tá livre pra trabalhar. Move a linha você mesmo.",
+      "A sua vida, o seu número. Eu toco a diBoaS, então não acredita na minha palavra. Move a linha e vê."
+    ],
+    "toolTagline": "A folga é o ponto.",
+    "afterTool": "Achou a sua linha?",
+    "toolDeepLink": "Veja as funções do seu dinheiro: <link>Abrir o Money Jobs</link>",
+    "wrap": [
+      "Viver com menos do que você ganha não é privação. É o truque. O espaço entre o que você ganha e o que você gasta é onde mora todo o resto dessa série.",
+      "Mas e se um pedaço grande da sua renda já tá indo embora pra dívida? Então a conta muda, e pode mudar o que você faz primeiro. Esse é o Papo 6, aquele que ninguém quer ter."
+    ],
+    "cta": {
+      "primary": "Ache a sua folga",
+      "primaryNote": "Entrar na lista não mexe no seu dinheiro. Você decide depois.",
+      "next": "Próximo papo: {title}",
+      "waitlist": "Entrar na lista de espera",
+      "secondary": "Mais papos vindo aí",
+      "prev": "Voltar pro: {title}",
+      "toolsHub": "Continue com as ferramentas"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Segundo o papo, o que realmente come os seus 10%?",
+      "options": [
+        "renda baixa",
+        "o padrão de vida subindo, o gasto subindo junto com o salário",
+        "só a inflação"
+      ]
+    },
+    "q2": {
+      "question": "Os 70% se entendem melhor como:",
+      "options": [
+        "uma regra rígida que todo mundo tem que bater",
+        "um teto que você escolhe, gastar menos do que ganha",
+        "o que o banco recomenda"
+      ]
+    },
+    "reflection": "Pensa no seu último aumento. Você consegue dizer pra onde ele foi? Sem julgamento, só repara.",
+    "share": {
+      "line": "compartilhe pra desbloquear"
+    }
+  }
+}

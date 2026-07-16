@@ -1,0 +1,72 @@
+{
+  "seo": {
+    "title": "Putting it together: the six ideas, explained",
+    "description": "Grow, name, first, tenth, gap, debt. The whole Basics series in one picture, with the tools in your hands and the door open."
+  },
+  "lesson": {
+    "h1": "Putting it together.",
+    "readTime": "~5 min read"
+  },
+  "beat1": {
+    "title": "It was never six things.",
+    "body": [
+      "Six talks: the engine, the destination, the order, the amount, the room, and the debt. And I said it was never six things. Here's the one thing.",
+      "Every one was the same instinct in a different hat: being on purpose with your money instead of leaving it to chance.",
+      "Compound interest = money left to grow, on purpose. A goal = money with a name, on purpose. Pay yourself first = protecting a slice, on purpose. Ten percent = a real amount, on purpose. Living on 70 = making room, on purpose. Clearing debt = killing what eats it, on purpose. Six hats. One head. Being deliberate."
+    ]
+  },
+  "beat2": {
+    "title": "Money you direct behaves.",
+    "intro": [
+      "Here's what's true, and almost nobody says it plainly: money you direct behaves; money you don't, leaks. That's the whole lesson. Everything else is detail.",
+      "The people who seem good with money aren't smarter, and plenty don't earn more. They decided what their money was for, before it decided for them.",
+      "My grandmother Adelaide did everything right and was never shown one of the six. That's why diBoaS exists, and why I made these. This was the conversation she never got. Now you've had it."
+    ]
+  },
+  "beat3": {
+    "title": "The door is open.",
+    "intro": [
+      "Notice what I never did: I never told you what to do. I showed you how it works and handed you the tools, and every time, the number was yours. That doesn't change now.",
+      "I'm not going to end by telling you to hurry, or sign up, or that you're missing out. You're not. The math will still be true tomorrow.",
+      "Whether you do this with diBoaS or a shoebox, these six ideas are yours now. Free. The tools are right here if you want to run your whole life through them, together. I run diBoaS and I'd love you to use it, but the point was never the app. It was the door. And it's open."
+    ],
+    "toolTagline": "You've got the Basics.",
+    "afterTool": "Run your whole plan?",
+    "toolDeepLink": "Put it all together: <link>Open Money Jobs</link>",
+    "wrap": [
+      "That's the Basics. Six ideas most people are never told, now told. What you do with them is, and always was, completely up to you.",
+      "More talks are coming when you want them. But you already have the part that matters."
+    ],
+    "cta": {
+      "primary": "Run your whole plan",
+      "primaryNote": "Joining doesn't move your money. You decide later.",
+      "next": "Next talk: {title}",
+      "waitlist": "Join the waitlist",
+      "secondary": "More talks are on the way",
+      "prev": "Back to: {title}",
+      "toolsHub": "Keep going with the tools"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "What's the single idea underneath all six talks?",
+      "options": [
+        "earn more money",
+        "be on purpose with your money instead of leaving it to chance",
+        "use one specific app"
+      ]
+    },
+    "q2": {
+      "question": "The talk says people who seem \"good with money\":",
+      "options": [
+        "are smarter and earn more",
+        "decided what their money was for, before it decided for them",
+        "just got lucky"
+      ]
+    },
+    "reflection": "Of the six, which one will you actually try first? No wrong answer. Just pick one.",
+    "share": {
+      "line": "Six money ideas, and they're really just one: money you direct behaves, money you don't, leaks. That's the whole thing. Here's the last of the Basics."
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "seo": {
+    "title": "Juntando tudo: as seis ideias, explicadas",
+    "description": "Crescer, nomear, primeiro, décimo, folga, dívida. A série do Básico inteira num quadro só, com as ferramentas na sua mão e a porta aberta."
+  },
+  "lesson": {
+    "h1": "Juntando tudo",
+    "readTime": "~5 min de leitura"
+  },
+  "beat1": {
+    "title": "Nunca foram seis coisas.",
+    "body": [
+      "Seis papos: o motor, o destino, a ordem, a quantia, o espaço, e a dívida. E eu disse que nunca foram seis coisas. Aqui está a única coisa.",
+      "Cada um era o mesmo instinto usando um chapéu diferente: ser deliberado com o seu dinheiro, em vez de deixar por conta do acaso.",
+      "Juros compostos = dinheiro deixado pra crescer, de propósito. Um objetivo = dinheiro com um nome, de propósito. Se pagar primeiro = proteger uma fatia, de propósito. Os dez por cento = uma quantia de verdade, de propósito. Viver com 70 = abrir espaço, de propósito. Quitar dívida = matar o que come ela, de propósito. Seis chapéus. Uma cabeça só. Ser deliberado."
+    ]
+  },
+  "beat2": {
+    "title": "Dinheiro que você direciona se comporta.",
+    "intro": [
+      "Olha o que é verdade, e quase ninguém fala com clareza: dinheiro que você direciona se comporta; dinheiro que você não direciona, vaza. É a lição inteira. Todo o resto é detalhe.",
+      "As pessoas que parecem boas com dinheiro não são mais espertas, e um monte delas não ganha mais. Elas decidiram pra que servia o dinheiro delas, antes que o dinheiro decidisse por elas.",
+      "A minha avó, a Adelaide, fez tudo certo e nunca mostraram nenhum dos seis pra ela. É por isso que a diBoaS existe, e por isso que eu fiz esses papos. Essa era a conversa que ela nunca teve. Agora você teve."
+    ]
+  },
+  "beat3": {
+    "title": "A porta tá aberta.",
+    "intro": [
+      "Repara no que eu nunca fiz: eu nunca te disse o que fazer. Eu te mostrei como funciona e coloquei as ferramentas na sua mão, e todas as vezes, o número era seu. Isso não muda agora.",
+      "Eu não vou fechar te dizendo pra correr, pra se inscrever, nem que você tá perdendo alguma coisa. Você não tá. A conta vai continuar verdadeira amanhã.",
+      "Seja com a diBoaS ou com um pé de meia numa caixa de sapato, essas seis ideias são suas agora. De graça. As ferramentas tão bem aqui se você quiser rodar a sua vida inteira por elas, tudo junto. Eu toco a diBoaS e ia adorar que você usasse, mas o ponto nunca foi o app. Era a porta. E ela tá aberta."
+    ],
+    "toolTagline": "Você tem o Básico.",
+    "afterTool": "Rodar o seu plano inteiro?",
+    "toolDeepLink": "Junta tudo: <link>Abrir o Money Jobs</link>",
+    "wrap": [
+      "É esse o Básico. Seis ideias que a maioria das pessoas nunca ouve, agora contadas. O que você faz com elas é, e sempre foi, inteiramente com você.",
+      "Mais papos vindo aí, quando você quiser. Mas você já tem a parte que importa."
+    ],
+    "cta": {
+      "primary": "Rodar o seu plano inteiro",
+      "primaryNote": "Entrar na lista não mexe no seu dinheiro. Você decide depois.",
+      "next": "Próximo papo: {title}",
+      "waitlist": "Entrar na lista de espera",
+      "secondary": "Mais papos vindo aí",
+      "prev": "Voltar pro: {title}",
+      "toolsHub": "Continue com as ferramentas"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Qual é a ideia única por baixo dos seis papos?",
+      "options": [
+        "ganhar mais dinheiro",
+        "ser deliberado com o seu dinheiro em vez de deixar por conta do acaso",
+        "usar um app específico"
+      ]
+    },
+    "q2": {
+      "question": "O papo diz que as pessoas que parecem \"boas com dinheiro\":",
+      "options": [
+        "são mais espertas e ganham mais",
+        "decidiram pra que servia o dinheiro delas, antes que ele decidisse por elas",
+        "só tiveram sorte"
+      ]
+    },
+    "reflection": "Das seis, qual você vai de fato tentar primeiro? Não tem resposta errada. Só escolhe uma.",
+    "share": {
+      "line": "compartilhe pra desbloquear"
+    }
+  }
+}

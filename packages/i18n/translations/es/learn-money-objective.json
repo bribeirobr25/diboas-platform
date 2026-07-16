@@ -1,0 +1,74 @@
+{
+  "seo": {
+    "title": "¿A dónde se va todo? La fuga del dinero, explicada",
+    "description": "El alquiler sabes dónde fue. Las facturas también. El resto desaparece. Por qué el dinero sin nombre se fuga, y qué cambia un nombre."
+  },
+  "lesson": {
+    "h1": "¿A dónde se va todo?",
+    "readTime": "~5 min de lectura"
+  },
+  "beat1": {
+    "title": "¿A dónde se va todo?",
+    "body": [
+      "Cobraste hace dos semanas. El alquiler, lo puedes señalar. Los recibos, los puedes señalar. ¿Pero el resto, la parte que era simplemente tuya? Intenta decir dónde se fue. Casi ninguno sabemos.",
+      "Esa es la fuga. Y no es porque se te dé mal el dinero.",
+      "Es porque ese dinero no tenía ninguna función. El dinero sin destino se comporta distinto al dinero que sí lo tiene: se esfuma, un poco aquí, un poco allá, y a final de mes simplemente ya no está.",
+      "La Charla 1 terminaba con una trampa: el interés compuesto solo funciona con dinero que tiene a dónde ir. Por esto la mayoría del dinero nunca llega. Se escapa antes."
+    ]
+  },
+  "beat2": {
+    "title": "Un nombre es una defensa.",
+    "intro": [
+      "Piensa en el dinero al que *sí* le pusiste nombre. Esos 200 € que apartaste \"para el viaje\". Ese sobrevivió. Misma cuenta, mismo mes. La única diferencia es que tenía una función.",
+      "Mi abuela Adelaide guardaba el dinero en sobres, cada uno con un nombre escrito. Eso no era cosa de antes. Ese era el secreto entero. Un nombre es una defensa.",
+      "Y aquí está la parte honesta: no te voy a decir para qué debe ser tu dinero. A lo mejor es un viaje. A lo mejor es simplemente no volver a notar ese apretón de final de mes. Eso es tuyo. Lo que es verdad en cualquier caso: en el momento en que el dinero tiene un destino, empieza a portarse bien."
+    ]
+  },
+  "beat3": {
+    "title": "Dale una función a un trozo.",
+    "intro": [
+      "Yo llevo diBoaS, y siendo honesto, esto es justo para lo que estamos hechos: dinero con un objetivo. Así que no te fíes de mi palabra. Pruébalo.",
+      "Elige una cosa. Dale esa función a un trozo de tu dinero en la herramienta de abajo, y mira la diferencia entre el dinero que va a algún sitio y el que solo anda por ahí.",
+      "Tu objetivo, tus números. Yo solo te paso el sobre."
+    ],
+    "toolTagline": "Un nombre es una defensa.",
+    "afterTool": "¿Ves la diferencia?",
+    "toolDeepLink": "¿Quieres la herramienta de objetivos por separado? <link>Abre la calculadora de metas de ahorro</link>",
+    "wrap": [
+      "El dinero sin objetivo es dinero sin defensa. Un nombre es lo primero que hace que sea tuyo de verdad, para quedártelo.",
+      "Esta es la parte de tu dinero para la que está hecho diBoaS: la que tiene un destino. Tu banco se queda donde está, para el día a día.",
+      "Pero un objetivo con nombre no se financia solo. Eso es la Charla 3: si esperas a lo que *sobra*, nunca sobra nada. La próxima vez, el arreglo más viejo que existe."
+    ],
+    "cta": {
+      "primary": "Dale una función a un trozo",
+      "primaryNote": "Apuntarte no mueve tu dinero. Tú decides después.",
+      "next": "Siguiente charla: {title}",
+      "waitlist": "Apuntarme a la lista de espera",
+      "secondary": "Vendrán más charlas",
+      "prev": "Volver a: {title}",
+      "toolsHub": "Sigue con las herramientas"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "¿Por qué tiende a desaparecer el dinero \"que sobra\"?",
+      "options": [
+        "la inflación se lo come al instante",
+        "el dinero sin destino es fácil de gastar sin decidirlo",
+        "el banco se lo queda"
+      ]
+    },
+    "q2": {
+      "question": "En la charla, ¿qué hizo que los \"200 € para el viaje\" sobrevivieran?",
+      "options": [
+        "una cuenta especial",
+        "que tenía un nombre, una función",
+        "que generaba intereses"
+      ]
+    },
+    "reflection": "Nombra una cosa para la que te gustaría apartar un trozo de tu dinero. Sin presión por empezar. Solo ponle nombre.",
+    "share": {
+      "line": "comparte para desbloquear"
+    }
+  }
+}

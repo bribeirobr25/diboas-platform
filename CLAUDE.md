@@ -271,7 +271,7 @@ The full register of locked-in implementation decisions (bundler / Turbopack, pr
 
 - Reference locale: `en` (source of truth)
 - Translations: `packages/i18n/translations/{locale}/`
-- **34 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the investor vertical (`investor` + `investor-docs`), the demo + dream flows, and the `tools-*` calculator suite.
+- **40 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the investor vertical (`investor` + `investor-docs`), the demo + dream flows, and the `tools-*` calculator suite.
 - Client/server split exports to avoid bundling React on server
 - All new user-facing strings must be added to all 4 locales
 

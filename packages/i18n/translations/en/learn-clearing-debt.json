@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "The other 20%: expensive debt, explained",
+    "description": "High-interest debt is compound interest running against you. Why paying off a 25% card is the interest you stop paying, and where the line sits."
+  },
+  "lesson": {
+    "h1": "The other 20%.",
+    "readTime": "~5 min read"
+  },
+  "beat1": {
+    "title": "The hard part I didn't skip.",
+    "body": [
+      "Talk 5 promised the hard part. Here it is: if you carry a credit card at 20-something percent, everything so far changes order. I won't pretend it doesn't.",
+      "Remember Talk 1's compound interest? It runs both directions. On savings, for you, slowly. On a 25% card, against you, fast. That debt is the same engine, in reverse, pointed at you."
+    ]
+  },
+  "beat2": {
+    "title": "Killing expensive debt is the best \"investment\" you have.",
+    "intro": [
+      "One number changes everything: no honest investment reliably earns 25% a year. But a dollar that kills a 25% debt just earned you 25%, guaranteed, zero risk, because it's 25% of interest you'll never pay. Mathematically, paying down expensive debt is the highest-return, lowest-risk use of a dollar you have. That isn't opinion, it's math.",
+      "The classic split puts about 20% toward debt, but forget the number. The nuance that matters: not all debt is the enemy. A 3-4% mortgage or a low-rate student loan is slow debt you can live alongside. Hunt the expensive stuff, the 20%-plus cards. Kill those first."
+    ]
+  },
+  "beat3": {
+    "title": "The boundary, and the tool.",
+    "intro": [
+      "Let me be clear: diBoaS does not lend money. No debt consolidation, no loan we're selling you, none of that. This is just the math, so you're not the last to see it.",
+      "I'm not going to tell you which debt or how fast. That's your life. The tool below lets you give the \"debt\" slice a real job. And you can take Talk 1's compound calculator, point it at your card's rate, and see what it's costing you.",
+      "I run diBoaS, so check the math yourself."
+    ],
+    "toolTagline": "The interest you stop paying.",
+    "afterTool": "See what the card really costs?",
+    "toolDeepLink": "Give the debt slice a job: <link>Open Money Jobs</link>",
+    "wrap": [
+      "Sometimes the highest-return thing to do with your first slice is aim it at the debt eating it. The interest you stop paying is a return almost nothing else in money can match.",
+      "And that's the last piece. All six now: the engine, the destination, the order, the amount, the room, and the debt. Next, we put them together, and you'll see it was never six things."
+    ],
+    "cta": {
+      "primary": "Give the debt slice a job",
+      "primaryNote": "Joining doesn't move your money. You decide later.",
+      "next": "Next talk: {title}",
+      "waitlist": "Join the waitlist",
+      "secondary": "More talks are on the way",
+      "prev": "Back to: {title}",
+      "toolsHub": "Keep going with the tools"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Why does high-interest debt matter so much?",
+      "options": [
+        "the bank dislikes it",
+        "it's compound interest running against you, fast",
+        "it only affects your credit score"
+      ]
+    },
+    "q2": {
+      "question": "Paying off a 25% debt is equivalent to:",
+      "options": [
+        "a guaranteed ~25% return, zero risk (the interest you now avoid)",
+        "a small tax break",
+        "nothing, just being responsible"
+      ]
+    },
+    "reflection": "Do you carry any debt over roughly 15-20%? If so, what's the rate? Just look it up. No pressure.",
+    "share": {
+      "line": "High-interest debt is compound interest running in reverse, against you. Paying it off is the closest thing to a guaranteed return in all of money. Here's Talk 6."
+    }
+  }
+}

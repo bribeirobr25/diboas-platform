@@ -1,0 +1,73 @@
+{
+  "seo": {
+    "title": "Zahl dich zuerst: der älteste Kniff beim Geld, erklärt",
+    "description": "Auf den Rest zu warten funktioniert nie, weil nie etwas übrig bleibt. Der 4.000 Jahre alte Dreh: du zuerst, dann der Monat."
+  },
+  "lesson": {
+    "h1": "Zahl dich zuerst.",
+    "readTime": "~5 Min Lesezeit"
+  },
+  "beat1": {
+    "title": "Zahl dich zuerst.",
+    "body": [
+      "Talk 2 ließ ein Problem zurück: Ein Geld mit Namen füllt sich nicht von allein, und wenn du auf das wartest, was am Monatsende *übrig* ist, bleibt nie etwas übrig.",
+      "Die Lösung ist ungefähr 4.000 Jahre alt. \"Der reichste Mann von Babylon\" läuft auf einen einzigen Satz hinaus: Ein Teil von allem, was du verdienst, gehört dir zum Behalten. Nicht das, was übrig ist. Ein Teil, zuerst weggenommen.",
+      "Die meisten von uns bezahlen zuerst alle anderen: Miete, Rechnungen, die Karte, den Wocheneinkauf. Was das alles überlebt, das \"sparen\" wir, was nichts ist, weil nichts das alles überlebt.",
+      "Dich zuerst zu bezahlen dreht die Reihenfolge um: Bevor irgendjemand von ihnen dran ist, nimmst du dir einen Teil vom Anfang weg und legst ihn außer Reichweite. Und vom Rest lebst du. Gleiches Einkommen, gleiches Leben, andere Reihenfolge. Die Reihenfolge ist der ganze Trick."
+    ]
+  },
+  "beat2": {
+    "title": "Keine Willenskraft. Reihenfolge.",
+    "intro": [
+      "Es geht nicht darum, mehr zu verdienen, und es geht nicht um Disziplin. Es geht darum, die wichtigste Zahlung nicht als Letztes stehen zu lassen, wo sie immer stirbt.",
+      "Meine Oma Adelaide hat das ohne Buch gemacht. Der Umschlag wurde am Anfang des Monats gefüllt, nicht am Ende. Das war das System. (Wenn deine Oma ihre Umschläge schon am Zahltag gefüllt hat, kennst du dasselbe Prinzip.)",
+      "Und der ehrliche Teil: Ich sage dir nicht, wie viel (das ist Talk 4), und ich sage dir nicht, dass du musst. Ich zeige dir, dass \"zuerst\" und \"zuletzt\" zwei völlig verschiedene Enden für genau dasselbe Geld sind."
+    ]
+  },
+  "beat3": {
+    "title": "Gib dem \"ersten\" Teil eine Aufgabe.",
+    "intro": [
+      "Ich stehe hinter diBoaS, also glaub mir kein Wort. Das Tool unten lässt dich diesem \"ersten\" Teil eine Aufgabe geben, bevor irgendetwas anderes dein Geld anrührt.",
+      "Stell es ein und schau zu, wie es aufhört, die Sache zu sein, die nie passiert. Dein Teil, deine Entscheidung."
+    ],
+    "toolTagline": "Zuerst, nicht zuletzt.",
+    "afterTool": "Spürst du den Unterschied in der Reihenfolge?",
+    "toolDeepLink": "Willst du jedem Teil eine Aufgabe geben? <link>Money Jobs öffnen</link>",
+    "wrap": [
+      "Zahl dich zuerst. Nicht mehr Geld, nicht mehr Willenskraft. Eine andere Reihenfolge.",
+      "Genau dabei hilft diBoaS: der Teil, den du zuerst wegbewegst, bevor der Monat ihn auffrisst. Deine Bank bleibt, wo sie ist, für den Rest.",
+      "Aber \"zuerst\" braucht eine Zahl. Wie groß ist der Teil? Klein genug, dass du ihn nicht merkst, groß genug, dass er zählt. Das ist Talk 4."
+    ],
+    "cta": {
+      "primary": "Gib deinem \"ersten\" Teil eine Aufgabe",
+      "primaryNote": "Du musst kein Geld bewegen, um auf die Warteliste zu kommen. Du entscheidest später.",
+      "next": "Nächster Talk: {title}",
+      "waitlist": "Auf die Warteliste",
+      "secondary": "Weitere Talks kommen",
+      "prev": "Zurück zu: {title}",
+      "toolsHub": "Mach mit den Tools weiter"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Was ist der Kerngedanke von \"zahl dich zuerst\"?",
+      "options": [
+        "mehr verdienen, um mehr sparen zu können",
+        "nimm dir einen Teil vom Anfang weg, bevor du irgendetwas anderes bezahlst",
+        "spar, was am Monatsende übrig ist"
+      ]
+    },
+    "q2": {
+      "question": "Was macht laut Talk den Unterschied?",
+      "options": [
+        "mehr Disziplin",
+        "die Reihenfolge: zuerst gegen zuletzt",
+        "ein höheres Einkommen"
+      ]
+    },
+    "reflection": "Wenn du dich diesen Monat zuerst bezahlen würdest, wohin käme dieser Teil, damit du ihn nicht ausgeben kannst? Stell es dir einfach nur vor.",
+    "share": {
+      "line": "teilen zum Freischalten"
+    }
+  }
+}

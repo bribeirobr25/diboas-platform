@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "Where does it all go? The money leak, explained",
+    "description": "Rent you can point to. Bills you can point to. The rest just disappears. Why money with no name leaks, and what a name changes."
+  },
+  "lesson": {
+    "h1": "Where does it all go?",
+    "readTime": "~5 min read"
+  },
+  "beat1": {
+    "title": "Where does it all go?",
+    "body": [
+      "You got paid two weeks ago. The rent, you can point to. The bills, you can point to. But the rest, the part that was just yours? Try to say where it went. Most of us can't.",
+      "That's the leak. And it isn't because you're bad with money.",
+      "It's because that money had no job. Money with no destination behaves differently from money with one: it evaporates, a little here, a little there, and by the end of the month it's just gone.",
+      "Talk 1 ended on a catch: compound interest only works on money that has somewhere to go. This is why most money never gets there. It leaks out first."
+    ]
+  },
+  "beat2": {
+    "title": "A name is a defense.",
+    "intro": [
+      "Think about the money you *did* name. The $200 you set aside \"for the trip.\" That one survived. Same account, same month. The only difference is it had a job.",
+      "My grandmother Adelaide kept envelopes, each with a name on it. That wasn't old-fashioned. That was the whole difference. A name is a defense.",
+      "And here's the honest part: I'm not going to tell you what your money should be for. Maybe it's a trip. Maybe it's just never feeling that end-of-month squeeze again. That's yours. What's true either way: the moment money has a destination, it starts behaving."
+    ]
+  },
+  "beat3": {
+    "title": "Give a piece of it a job.",
+    "intro": [
+      "I run diBoaS, and honestly, this is the thing we're built for: money with a goal. So don't take my word for it. Try it.",
+      "Pick one thing. Give a piece of your money that job in the tool below, and watch the difference between money that's going somewhere and money that's just around.",
+      "Your goal, your numbers. I'm only handing you the envelope."
+    ],
+    "toolTagline": "A name is a defense.",
+    "afterTool": "See the difference?",
+    "toolDeepLink": "Want the goal tool on its own? <link>Open the Goal-savings calculator</link>",
+    "wrap": [
+      "Money with no objective is money with no defense. A name is the first thing that makes it yours to keep.",
+      "This is the part of your money diBoaS is built for: the part with a destination. Your bank stays where it is, for the day-to-day.",
+      "But a named goal doesn't fund itself. That's Talk 3: if you wait for what's *left*, there's never anything left. Next, the oldest fix there is."
+    ],
+    "cta": {
+      "primary": "Give a piece of it a job",
+      "primaryNote": "Joining doesn't move your money. You decide later.",
+      "next": "Next talk: {title}",
+      "waitlist": "Join the waitlist",
+      "secondary": "More talks are on the way",
+      "prev": "Back to: {title}",
+      "toolsHub": "Keep going with the tools"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Why does \"leftover\" money tend to disappear?",
+      "options": [
+        "inflation eats it instantly",
+        "money with no destination is easy to spend without deciding",
+        "the bank takes it"
+      ]
+    },
+    "q2": {
+      "question": "In the talk, what made the \"$200 for the trip\" survive?",
+      "options": ["a special account", "it had a name, a job", "it earned interest"]
+    },
+    "reflection": "Name one thing you'd want a piece of your money to be for. No pressure to start. Just name it.",
+    "share": {
+      "line": "The money that disappears every month isn't a willpower problem. It's a no-name problem. Here's Talk 2."
+    }
+  }
+}

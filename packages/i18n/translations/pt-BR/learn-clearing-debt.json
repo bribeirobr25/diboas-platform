@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "Os outros 20%: a dívida cara, explicada",
+    "description": "Dívida com juros altos é juros compostos correndo contra você. Por que quitar um cartão de 25% são os juros que você deixa de pagar, e onde fica a linha."
+  },
+  "lesson": {
+    "h1": "Os outros 20%.",
+    "readTime": "~5 min de leitura"
+  },
+  "beat1": {
+    "title": "A parte difícil que eu não pulei.",
+    "body": [
+      "O Papo 5 prometeu a parte difícil. Aqui está ela: se você carrega um cartão a vinte e tantos por cento, ou mais, tudo até agora muda de ordem. Eu não vou fingir que não muda.",
+      "Lembra dos juros compostos do Papo 1? Eles rodam nos dois sentidos. Na poupança, pra você, devagar. Num cartão caro, contra você, rápido. Essa dívida é o mesmo motor, em marcha ré, apontado pra você."
+    ]
+  },
+  "beat2": {
+    "title": "Matar dívida cara é o melhor \"investimento\" que você tem.",
+    "intro": [
+      "Um número muda tudo: nenhum investimento honesto rende de forma confiável vinte e tantos por cento ao ano. Mas cada real que mata uma dívida que te cobra vinte e tantos por cento acabou de te render vinte e tantos por cento, garantido, risco zero, porque são juros que você nunca mais vai pagar. E esse \"garantido\" é sobre os juros que você deixa de pagar na dívida, um fato matemático sobre ela, não um retorno da diBoaS. Matematicamente, quitar dívida cara é o uso de maior retorno e menor risco pra um real seu. Isso não é opinião, é conta.",
+      "A divisão clássica põe uns 20% em cima da dívida, mas esquece o número. A nuance que importa: nem toda dívida é a inimiga. Um financiamento a 3 ou 4 por cento, um crédito estudantil a juros baixos, é dívida lenta, dá pra viver ao lado dela. Cace o que é caro, os cartões, o rotativo. Aqui no Brasil o rotativo cobra alguns dos juros mais altos do mundo. Mata esses primeiro."
+    ]
+  },
+  "beat3": {
+    "title": "A fronteira, e a ferramenta.",
+    "intro": [
+      "Deixa eu ser claro: a diBoaS não empresta dinheiro. Sem consolidação de dívida, sem empréstimo que a gente tá te vendendo, nada disso. Isso é só a conta, pra você não ser o último a ver.",
+      "Eu não vou te dizer qual dívida nem em quanto tempo. Isso é a sua vida. A ferramenta aqui embaixo te deixa dar uma função de verdade pra fatia da \"dívida\". E você pode pegar a calculadora de juros compostos do Papo 1, apontar pra taxa do seu cartão, e ver quanto ela tá te custando.",
+      "Eu toco a diBoaS, então confere a conta você mesmo."
+    ],
+    "toolTagline": "Os juros que você deixa de pagar.",
+    "afterTool": "Viu quanto o cartão custa de verdade?",
+    "toolDeepLink": "Dá uma função pra fatia da dívida: <link>Abrir o Money Jobs</link>",
+    "wrap": [
+      "Às vezes o uso de maior retorno pra sua primeira fatia é mirar ela na dívida que tá comendo ela. Os juros que você deixa de pagar são um retorno que quase nada mais em dinheiro consegue igualar.",
+      "E essa é a última peça. Todas as seis agora: o motor, o destino, a ordem, a quantia, o espaço, e a dívida. A seguir, a gente junta tudo, e você vai ver que nunca foram seis coisas."
+    ],
+    "cta": {
+      "primary": "Dá uma função pra fatia da dívida",
+      "primaryNote": "Entrar na lista não mexe no seu dinheiro. Você decide depois.",
+      "next": "Próximo papo: {title}",
+      "waitlist": "Entrar na lista de espera",
+      "secondary": "Mais papos vindo aí",
+      "prev": "Voltar pro: {title}",
+      "toolsHub": "Continue com as ferramentas"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Por que dívida de juros altos importa tanto?",
+      "options": [
+        "o banco não gosta dela",
+        "é juros compostos rodando contra você, e rápido",
+        "ela só afeta o seu score de crédito"
+      ]
+    },
+    "q2": {
+      "question": "Quitar uma dívida cara equivale a:",
+      "options": [
+        "um retorno garantido, risco zero (os juros que você deixa de pagar)",
+        "um pequeno desconto no imposto",
+        "nada, só ser responsável"
+      ]
+    },
+    "reflection": "Você carrega alguma dívida acima de uns 15 a 20 por cento? Se sim, qual é a taxa? Só dá uma olhada. Sem pressão.",
+    "share": {
+      "line": "compartilhe pra desbloquear"
+    }
+  }
+}

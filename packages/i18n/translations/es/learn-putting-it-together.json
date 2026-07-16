@@ -1,0 +1,72 @@
+{
+  "seo": {
+    "title": "Juntándolo todo: las seis ideas, explicadas",
+    "description": "Crecer, nombrar, primero, décimo, hueco, deuda. Toda la serie de Lo básico en un solo cuadro, con las herramientas en tu mano y la puerta abierta."
+  },
+  "lesson": {
+    "h1": "Juntándolo todo",
+    "readTime": "~5 min de lectura"
+  },
+  "beat1": {
+    "title": "Nunca fueron seis cosas.",
+    "body": [
+      "Seis charlas: el motor, el destino, el orden, la cantidad, el sitio y la deuda. Y te dije que nunca fueron seis cosas. Aquí está la única.",
+      "Cada una era el mismo instinto con un sombrero distinto: ser deliberado con tu dinero, en vez de dejarlo al azar.",
+      "Interés compuesto = dinero que dejas crecer, a propósito. Un objetivo = dinero con un nombre, a propósito. Pagarte a ti primero = proteger una parte, a propósito. El diez por ciento = una cantidad de verdad, a propósito. Vivir con el 70 = hacerle sitio, a propósito. Quitarte la deuda = matar lo que se lo come, a propósito. Seis sombreros. Una cabeza. Ser deliberado."
+    ]
+  },
+  "beat2": {
+    "title": "El dinero que diriges se porta bien.",
+    "intro": [
+      "Esto es lo que es cierto, y casi nadie lo dice así de claro: el dinero que diriges se porta bien; el dinero que no diriges, se escapa. Esa es la lección entera. Todo lo demás son detalles.",
+      "La gente que parece que se le da bien el dinero no es más lista, y muchos no ganan más. Solo decidieron para qué era su dinero, antes de que el dinero lo decidiera por ellos.",
+      "Mi abuela Adelaide lo hizo todo bien y nunca le enseñaron ni una de las seis. Por eso existe diBoaS, y por eso hice estas charlas. Esta era la conversación que ella nunca tuvo. Ahora tú ya la has tenido."
+    ]
+  },
+  "beat3": {
+    "title": "La puerta está abierta.",
+    "intro": [
+      "Fíjate en lo que no hice ni una vez: nunca te dije qué hacer. Te enseñé cómo funciona y te puse las herramientas delante, y cada vez, el número era tuyo. Eso no cambia ahora.",
+      "No voy a terminar diciéndote que corras, ni que te apuntes, ni que te estás perdiendo nada. No te lo pierdes. Las cuentas seguirán siendo verdad mañana.",
+      "Lo hagas con diBoaS o con una caja de zapatos debajo de la cama, estas seis ideas ya son tuyas. Gratis. Las herramientas están aquí mismo si quieres pasar toda tu vida por ellas, junta. Yo llevo diBoaS y me encantaría que lo usaras, pero el objetivo nunca fue la app. Era la puerta. Y está abierta."
+    ],
+    "toolTagline": "Ya tienes Lo básico.",
+    "afterTool": "¿Juntas todo tu plan?",
+    "toolDeepLink": "Ponlo todo junto: <link>Abre Money Jobs</link>",
+    "wrap": [
+      "Eso es Lo básico. Seis ideas que a casi nadie le cuentan, ahora contadas. Lo que hagas con ellas es, y siempre fue, solo cosa tuya.",
+      "Vendrán más charlas cuando las quieras. Pero la parte que importa ya la tienes."
+    ],
+    "cta": {
+      "primary": "Junta todo tu plan",
+      "primaryNote": "Apuntarte no mueve tu dinero. Tú decides después.",
+      "next": "Siguiente charla: {title}",
+      "waitlist": "Apuntarme a la lista de espera",
+      "secondary": "Vendrán más charlas",
+      "prev": "Volver a: {title}",
+      "toolsHub": "Sigue con las herramientas"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "¿Cuál es la única idea que hay debajo de las seis charlas?",
+      "options": [
+        "ganar más dinero",
+        "ser deliberado con tu dinero en vez de dejarlo al azar",
+        "usar una app concreta"
+      ]
+    },
+    "q2": {
+      "question": "Según la charla, la gente que parece que \"se le da bien el dinero\":",
+      "options": [
+        "es más lista y gana más",
+        "decidió para qué era su dinero, antes de que el dinero lo decidiera por ella",
+        "solo tuvo suerte"
+      ]
+    },
+    "reflection": "De las seis, ¿cuál vas a probar tú primero de verdad? No hay respuesta mala. Solo elige una.",
+    "share": {
+      "line": "comparte para desbloquear"
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "Living on 70%: the gap is the point, explained",
+    "description": "Living on less than you make isn't deprivation. It's the whole trick: the gap between what comes in and what goes out is where everything else lives."
+  },
+  "lesson": {
+    "h1": "Living on 70%.",
+    "readTime": "~5 min read"
+  },
+  "beat1": {
+    "title": "Where the 10% comes from.",
+    "body": [
+      "Talk 4 left a question: where does the 10% come from if your money is already spoken for? The answer is that you make room. And there's a classic number, seventy percent.",
+      "The old frame: pay yourself first, handle what you owe, live on the rest (~70%). But the number isn't the lesson. The lesson is one uncomfortable sentence: the \"first slice\" only survives if your life costs less than you earn. On purpose."
+    ]
+  },
+  "beat2": {
+    "title": "The real enemy is lifestyle creep.",
+    "intro": [
+      "It isn't willpower. Life expands to fill whatever you make. That raise last year? Gone, and you couldn't say where. Your lifestyle quietly grew to match. That's what eats the 10%.",
+      "So the 70% isn't a rule I'm handing you. It's a cap you choose: my day-to-day fits inside most of what I make, not all of it. Maybe that's 70 for you, maybe 90, maybe right now it's honestly over 100 and you're just surviving. If that's you, I'm not going to pretend a percentage fixes it.",
+      "But wherever you can open even a small gap between what you make and what you spend, that gap isn't money you're missing. It's your future. It's the only place the 10% comes from."
+    ]
+  },
+  "beat3": {
+    "title": "Find your gap.",
+    "intro": [
+      "The tool below shows your money split into its jobs: the part that keeps your life running, and the part that's free to work. Move the line yourself.",
+      "Your life, your number. I run diBoaS, so don't take my word. Move the line and see."
+    ],
+    "toolTagline": "The gap is the point.",
+    "afterTool": "Found your line?",
+    "toolDeepLink": "See your money's jobs: <link>Open Money Jobs</link>",
+    "wrap": [
+      "Living on less than you make isn't deprivation. It's the trick. The gap between what you earn and what you spend is where everything else in this series lives.",
+      "But what if a big piece of your income is already going out to debt? Then the math changes, and it might change what you do first. That's Talk 6, the one nobody wants to have."
+    ],
+    "cta": {
+      "primary": "Find your gap",
+      "primaryNote": "Joining doesn't move your money. You decide later.",
+      "next": "Next talk: {title}",
+      "waitlist": "Join the waitlist",
+      "secondary": "More talks are on the way",
+      "prev": "Back to: {title}",
+      "toolsHub": "Keep going with the tools"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "According to the talk, what really eats your 10%?",
+      "options": [
+        "low income",
+        "lifestyle creep, spending rising to match income",
+        "inflation alone"
+      ]
+    },
+    "q2": {
+      "question": "The 70% is best understood as:",
+      "options": [
+        "a strict rule everyone must hit",
+        "a cap you choose, spend less than you earn",
+        "what the bank recommends"
+      ]
+    },
+    "reflection": "Think of your last raise. Can you say where it went? No judgment, just notice.",
+    "share": {
+      "line": "The thing eating your savings isn't your income. It's your lifestyle quietly rising to meet it. Here's Talk 5."
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "seo": {
+    "title": "The 10%: the Babylon starting point, explained",
+    "description": "Small enough to give up, big enough to matter. Where the tenth comes from, why 1% beats 0%, and how to see your own number."
+  },
+  "lesson": {
+    "h1": "The 10%.",
+    "readTime": "~5 min read"
+  },
+  "beat1": {
+    "title": "How much? A tenth.",
+    "body": [
+      "Talk 3 said pay yourself first, and dodged the question: how much? Here's the famous answer, and it sounds almost too simple. Ten percent.",
+      "Same book as last time. Babylon: \"a part of all you earn is yours to keep, and let it be not less than a tenth.\" Ten percent.",
+      "Why it lasted 4,000 years: small enough that you adapt to living without it in a month or two, big enough that, given time, it becomes something that changes your life. Small to give up, big to receive. That's why it's ten and not fifty."
+    ]
+  },
+  "beat2": {
+    "title": "Not a rule. A starting point.",
+    "intro": [
+      "Real talk: maybe 10% isn't possible right now. If it isn't, one percent paid first beats zero percent every time. The number isn't the point, the habit is. Start where you actually are.",
+      "I'm not going to tell you to save 10% of money you don't have. Ten percent is a famous *starting point*, not a law, and definitely not something diBoaS is telling you to do. You pick the number."
+    ]
+  },
+  "beat3": {
+    "title": "Where the pieces click.",
+    "intro": [
+      "Now three things click together: 10% (this talk), paid first (Talk 3), pointed at a goal and left to compound (Talks 2 and 1).",
+      "Here's an illustration, and it is only that. Ten percent of a $3,000 paycheck (use your own) is $300 a month. Paid first, at a careful 7%, twelve years is an **estimate** of around **$66,000**. Not a promise, an estimate. The real cost of not starting was never the $300 a month, it was the ~$66,000 you skipped.",
+      "So don't take my $300 and my 12 years. Put in your own paycheck, your percentage, your years, and point it at the goal you named in Talk 2.",
+      "I run diBoaS, so check the math yourself."
+    ],
+    "toolTagline": "Small to give up, big to matter.",
+    "afterTool": "See your own number?",
+    "toolDeepLink": "Run your own 10%: <link>Open the Compound Interest calculator</link>",
+    "wrap": [
+      "Ten percent. Small enough to give up, big enough to matter. Paid first, pointed at a goal, left to grow. That's the whole engine, running.",
+      "But where does the 10% come from if your money is already spoken for? You make room. There's a classic way to think about that, and it's Talk 5."
+    ],
+    "cta": {
+      "primary": "Run your own 10%",
+      "primaryNote": "Joining doesn't move your money. You decide later.",
+      "next": "Next talk: {title}",
+      "waitlist": "Join the waitlist",
+      "secondary": "More talks are on the way",
+      "prev": "Back to: {title}",
+      "toolsHub": "Keep going with the tools"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Where does the \"10%\" come from in the talk?",
+      "options": [
+        "a diBoaS rule",
+        "the Babylon idea, \"not less than a tenth\"",
+        "a government guideline"
+      ]
+    },
+    "q2": {
+      "question": "If 10% isn't possible right now, the talk says:",
+      "options": ["don't bother", "1% paid first beats 0%", "borrow to hit 10%"]
+    },
+    "reflection": "What's 10% of your monthly take-home? And if that's too much right now, what's a number you could actually start with?",
+    "share": {
+      "line": "10% isn't a rule, it's a 4,000-year-old starting point: small enough to give up, big enough to matter. Here's Talk 4."
+    }
+  }
+}

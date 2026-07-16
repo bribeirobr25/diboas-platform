@@ -1,0 +1,72 @@
+{
+  "seo": {
+    "title": "Alles zusammen: die sechs Ideen, erklärt",
+    "description": "Wachsen, benennen, zuerst, Zehntel, Lücke, Schulden. Die ganze Grundlagen-Serie in einem Bild, mit den Tools in deiner Hand und offener Tür."
+  },
+  "lesson": {
+    "h1": "Alles zusammen.",
+    "readTime": "~5 Min Lesezeit"
+  },
+  "beat1": {
+    "title": "Es waren nie sechs Dinge.",
+    "body": [
+      "Sechs Talks: der Motor, das Ziel, die Reihenfolge, der Betrag, der Platz und die Schuld. Und ich habe gesagt, es waren nie sechs Dinge. Hier ist die eine Sache.",
+      "Jedes einzelne war derselbe Instinkt, nur mit einem anderen Hut: bewusst mit deinem Geld umgehen, statt es dem Zufall zu überlassen.",
+      "Zinseszins = Geld, das du wachsen lässt, mit Absicht. Ein Ziel = Geld mit einem Namen, mit Absicht. Sich zuerst zahlen = einen Teil schützen, mit Absicht. Zehn Prozent = ein echter Betrag, mit Absicht. Von 70 leben = Platz machen, mit Absicht. Schulden abbauen = töten, was dein Geld auffrisst, mit Absicht. Sechs Hüte. Ein Kopf. Bewusst handeln."
+    ]
+  },
+  "beat2": {
+    "title": "Geld, das du lenkst, benimmt sich.",
+    "intro": [
+      "Hier ist, was wahr ist, und fast niemand sagt es so deutlich: Geld, das du lenkst, benimmt sich. Geld, das du nicht lenkst, versickert. Das ist die ganze Lektion. Alles andere ist Detail.",
+      "Die Leute, die gut mit Geld umgehen, sind nicht klüger, und viele verdienen nicht mehr. Sie haben entschieden, wofür ihr Geld da ist, bevor es das für sie entschieden hat.",
+      "Meine Oma Adelaide hat alles richtig gemacht, und ihr wurde nie eins von den sechs gezeigt. Genau deshalb gibt es diBoaS, und deshalb habe ich das hier gemacht. Das war das Gespräch, das sie nie bekommen hat. Jetzt hast du es geführt."
+    ]
+  },
+  "beat3": {
+    "title": "Die Tür ist offen.",
+    "intro": [
+      "Merk dir, was ich nie getan habe: Ich habe dir nie gesagt, was du tun sollst. Ich habe dir gezeigt, wie es funktioniert, und dir die Tools in die Hand gegeben, und jedes Mal war die Zahl deine. Das ändert sich jetzt nicht.",
+      "Ich sage dir nicht, du sollst dich beeilen oder dich anmelden oder dass du etwas verpasst. Tust du nicht. Die Rechnung stimmt morgen genauso.",
+      "Ob du das mit diBoaS machst oder mit einer Schuhschachtel unter deinem Bett, diese sechs Ideen gehören jetzt dir. Kostenlos. Die Tools sind direkt hier, wenn du dein ganzes Leben durch sie rechnen willst, zusammen. Ich stehe hinter diBoaS und würde mich freuen, wenn du es nutzt, aber es ging nie um die App. Es ging um die Tür. Und die ist offen."
+    ],
+    "toolTagline": "Du hast die Grundlagen.",
+    "afterTool": "Deinen ganzen Plan durchrechnen?",
+    "toolDeepLink": "Alles zusammenbringen: <link>Zu Money Jobs</link>",
+    "wrap": [
+      "Das sind die Grundlagen. Sechs Ideen, die den meisten Menschen nie jemand erzählt, jetzt erzählt. Was du damit machst, ist, und war immer, ganz allein deine Sache.",
+      "Es kommen mehr Talks, wann immer du willst. Aber den Teil, auf den es ankommt, hast du schon."
+    ],
+    "cta": {
+      "primary": "Rechne deinen ganzen Plan durch",
+      "primaryNote": "Du musst kein Geld bewegen, um auf die Warteliste zu kommen. Du entscheidest später.",
+      "next": "Nächster Talk: {title}",
+      "waitlist": "Auf die Warteliste",
+      "secondary": "Weitere Talks kommen",
+      "prev": "Zurück zu: {title}",
+      "toolsHub": "Mach mit den Tools weiter"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "Was ist die eine Idee unter allen sechs Talks?",
+      "options": [
+        "mehr Geld verdienen",
+        "bewusst mit deinem Geld umgehen, statt es dem Zufall zu überlassen",
+        "eine bestimmte App nutzen"
+      ]
+    },
+    "q2": {
+      "question": "Der Talk sagt über Leute, die \"gut mit Geld\" wirken:",
+      "options": [
+        "sie sind klüger und verdienen mehr",
+        "sie haben entschieden, wofür ihr Geld da ist, bevor es das für sie entschied",
+        "sie hatten einfach Glück"
+      ]
+    },
+    "reflection": "Welche der sechs wirst du wirklich zuerst ausprobieren? Es gibt keine falsche Antwort. Wähl einfach eine.",
+    "share": {
+      "line": "teilen zum Freischalten"
+    }
+  }
+}

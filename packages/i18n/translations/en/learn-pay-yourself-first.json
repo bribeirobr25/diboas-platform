@@ -1,0 +1,69 @@
+{
+  "seo": {
+    "title": "Pay yourself first: the oldest fix in money, explained",
+    "description": "Waiting for what's left over never works, because there's never anything left. The 4,000-year-old order flip: yourself first, then the month."
+  },
+  "lesson": {
+    "h1": "Pay yourself first.",
+    "readTime": "~5 min read"
+  },
+  "beat1": {
+    "title": "Pay yourself first.",
+    "body": [
+      "Talk 2 left a problem: a named goal doesn't fund itself, and if you wait for what's *left* at the end of the month, there's never anything left.",
+      "The fix is about 4,000 years old. \"The Richest Man in Babylon\" comes down to one line: a part of all you earn is yours to keep. Not what's left. A part, taken first.",
+      "Most of us pay everyone else first: rent, bills, the card, the groceries. Whatever survives all that is what we \"save,\" which is nothing, because nothing survives all that.",
+      "Paying yourself first flips the order: before any of them, you take a slice off the top and move it out of reach. Then you live on the rest. Same income, same life, different order. The order is everything."
+    ]
+  },
+  "beat2": {
+    "title": "Not willpower. Order.",
+    "intro": [
+      "This isn't about earning more, and it isn't about discipline. It's about not leaving the most important payment for last, where it always dies.",
+      "My grandmother Adelaide did this without a book. The envelope got filled at the start of the month, not the end. That was the system.",
+      "And the honest part: I'm not going to tell you how much (that's Talk 4), and I'm not telling you that you have to. I'm showing you that \"first\" and \"last\" are two completely different endings for the exact same money."
+    ]
+  },
+  "beat3": {
+    "title": "Give the \"first\" slice a job.",
+    "intro": [
+      "I run diBoaS, so don't take my word for it. The tool below lets you give that \"first\" slice a job, before anything else touches your money.",
+      "Set it, and watch it stop being the thing that never happens. Your slice, your call."
+    ],
+    "toolTagline": "First, not last.",
+    "afterTool": "Feel the difference in the order?",
+    "toolDeepLink": "Want to give every part a job? <link>Open Money Jobs</link>",
+    "wrap": [
+      "Pay yourself first. Not more money, not more willpower. A different order.",
+      "This is part of what diBoaS helps with: the slice you move first, before the month eats it. Your bank stays where it is, for the rest.",
+      "But \"first\" needs a number. How big is the slice? Small enough that you don't feel it, big enough that it matters. That's Talk 4."
+    ],
+    "cta": {
+      "primary": "Give your \"first\" slice a job",
+      "primaryNote": "Joining doesn't move your money. You decide later.",
+      "next": "Next talk: {title}",
+      "waitlist": "Join the waitlist",
+      "secondary": "More talks are on the way",
+      "prev": "Back to: {title}",
+      "toolsHub": "Keep going with the tools"
+    }
+  },
+  "quiz": {
+    "q1": {
+      "question": "What's the core idea of \"pay yourself first\"?",
+      "options": [
+        "earn more so you can save more",
+        "take a slice off the top before you pay anything else",
+        "save whatever is left at month's end"
+      ]
+    },
+    "q2": {
+      "question": "What makes the difference, according to the talk?",
+      "options": ["more discipline", "the order: first vs last", "a higher income"]
+    },
+    "reflection": "If you paid yourself first this month, where would that slice go so you couldn't spend it? Just picture it.",
+    "share": {
+      "line": "The people who build something didn't have more discipline. They paid themselves first. A 4,000-year-old idea, here's Talk 3."
+    }
+  }
+}
