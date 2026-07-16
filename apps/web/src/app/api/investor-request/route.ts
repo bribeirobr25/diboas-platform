@@ -19,6 +19,7 @@ import {
 import { isValidLocale } from '@/lib/api/validators';
 import { sanitizeText } from '@/lib/utils/sanitize';
 import { Logger } from '@/lib/monitoring/Logger';
+import { classifyRequest } from '@/lib/security/verifyHuman';
 import { investorRequestService, isInvestorType } from '@/lib/investor';
 
 interface InvestorRequestBody {
@@ -65,6 +66,10 @@ export async function POST(request: NextRequest): Promise<NextResponse<InvestorR
   try {
     const rateLimited = await applyRateLimit(request, 'investor-request', 'strict');
     if (rateLimited) return rateLimited as NextResponse<InvestorRequestResponse>;
+    // BotID Stage 1 (5.22): LOG-ONLY classification — placed AFTER the rate-limit
+    // early-return so rate-limited requests never trigger the (billed) check.
+    // Fire-and-forget: classifyRequest never rejects (fail-open, unit-proven).
+    void classifyRequest('investor-request');
 
     const body = (await request.json()) as InvestorRequestBody;
 

@@ -94,7 +94,7 @@ export const metadata: Metadata = {
       { url: '/icons/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
     ],
     shortcut: '/favicon.ico',
-    apple: '/assets/logos/logo-icon.avif',
+    apple: '/icons/apple-touch-icon.png',
   },
 };
 
@@ -154,7 +154,7 @@ export default async function RootLayout({
               '@type': 'Organization',
               name: 'diBoaS',
               url: 'https://diboas.com',
-              logo: 'https://diboas.com/assets/logos/logo-icon.avif',
+              logo: 'https://diboas.com/assets/logos/logo-icon-monogram.avif',
             }),
           }}
         />

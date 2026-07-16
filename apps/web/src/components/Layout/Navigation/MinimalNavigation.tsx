@@ -20,6 +20,7 @@ import { usePathname } from 'next/navigation';
 import { useTranslation } from '@diboas/i18n/client';
 import { Button } from '@diboas/ui';
 import { Container, FlexBetween, LocaleLink } from '@/components/UI';
+import { BrandWordmark } from '@/components/UI/BrandWordmark';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { BRAND_CONFIG } from '@/config/brand';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
@@ -153,8 +154,9 @@ export default function MinimalNavigation() {
               { brand: BRAND_CONFIG.NAME }
             )}
           >
-            {/* Cinematic redesign (#1): text wordmark, per 04-data-cinematic. */}
-            <span className="brand-wordmark">{BRAND_CONFIG.NAME}</span>
+            {/* Official wordmark image (F-BRAND wiring, 2026-07-16) — replaced the
+                text wordmark; theme variant toggled by nav state via CSS. */}
+            <BrandWordmark />
           </LocaleLink>
 
           {/* Desktop Navigation Links */}

@@ -42,6 +42,10 @@ diboas-platform/
     monitoring/        # INFRASTRUCTURE_GUIDE.md — env-var + deploy-values reference
     integrations/      # Host-side wiring for analytics + market-editorial workflow
     mvp/               # Spec for diboas-analytics — a SEPARATE product diBoaS hosts at /market
+    playbooks/         # Playbook registry (local-only): index of every repeatable
+                       #   end-to-end process + home of cross-domain playbooks
+                       #   (talk-series creation; social/motion/cinema generators
+                       #   stay in docs/socials/ and are pointed to)
     tools/             # Money Tools suite docs + weekly live-data runbook
     researches/        # Dated regulatory + market deep-research reports (reference)
     roadmap/           # Phase-2 forward analysis (aspirational; superseded-flagged — verify vs this file)

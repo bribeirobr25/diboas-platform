@@ -159,6 +159,6 @@ export const config = {
     // the nested `/.well-known/security.txt`. The Vercel `/.well-known is
     // reserved` doc note was hopeful but production disproved it — middleware
     // does run on this path. Trailing slash matches `assets/` convention.
-    '/((?!api|_next/static|_next/image|favicon|robots.txt|sitemap.xml|security.txt|\\.well-known/|assets/|.*\\.(?:ico|svg|png|jpg|jpeg|gif|webp|avif|css|js|woff|woff2|ttf|eot)).*)',
+    '/((?!api|149e9513-01fa-4fb0-aad4-566afd725d1b/|_next/static|_next/image|favicon|robots.txt|sitemap.xml|security.txt|\\.well-known/|assets/|.*\\.(?:ico|svg|png|jpg|jpeg|gif|webp|avif|css|js|woff|woff2|ttf|eot)).*)',
   ],
 };

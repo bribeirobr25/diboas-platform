@@ -95,7 +95,7 @@ export function marketArticleSchema(args: {
       ...ORGANIZATION,
       logo: {
         '@type': 'ImageObject',
-        url: `${siteUrl}/assets/logos/logo-icon.avif`,
+        url: `${siteUrl}/assets/logos/logo-icon-monogram.avif`,
       },
     },
     inLanguage: localeToBCP47(args.locale),

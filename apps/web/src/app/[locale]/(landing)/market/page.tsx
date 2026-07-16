@@ -77,7 +77,24 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     // not SERP) — same rationale as the noindex share page.
     ...socialCardMetadata('market', ogTitle, ogDescription, validLocale),
     robots: MARKET_INDEXABLE ? { index: true, follow: true } : { index: false, follow: false },
-    alternates: { canonical: `${siteUrl}/${validLocale}/market` },
+    // SEO-1 index-flip half (5.38, founder go 2026-07-16 — the professional-translator
+    // language gate was collapsed by the founder's native-approval ruling): hreflang
+    // alternates mirror the `about` pattern. Only emitted when MARKET_INDEXABLE is
+    // true (hreflang belongs on indexable pages, per the original A17 deferral).
+    alternates: {
+      canonical: `${siteUrl}/${validLocale}/market`,
+      ...(MARKET_INDEXABLE
+        ? {
+            languages: {
+              en: `${siteUrl}/en/market`,
+              de: `${siteUrl}/de/market`,
+              es: `${siteUrl}/es/market`,
+              'pt-br': `${siteUrl}/pt-BR/market`,
+              'x-default': `${siteUrl}/en/market`,
+            },
+          }
+        : {}),
+    },
   };
 }
 

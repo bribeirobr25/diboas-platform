@@ -1,4 +1,9 @@
 const { withSentryConfig } = require('@sentry/nextjs');
+// BotID (5.22, founder-approved 2026-07-16): withBotId adds the first-party proxy
+// rewrites (/149e9513-…/* → api.vercel.com/bot-protection/*) so ad-blockers can't
+// strip the challenge. Composed INSIDE withSentryConfig; the middleware matcher
+// excludes the proxy prefix (see middleware.ts). Plan: docs/audit/PLAN_BOTID_2026-07-15.md
+const { withBotId } = require('botid/next/config');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -265,5 +270,5 @@ const sentryWebpackPluginOptions = {
 
 // Export with Sentry wrapper if DSN is configured, otherwise export plain config
 module.exports = process.env.NEXT_PUBLIC_SENTRY_DSN
-  ? withSentryConfig(nextConfig, sentryWebpackPluginOptions)
-  : nextConfig;
+  ? withSentryConfig(withBotId(nextConfig), sentryWebpackPluginOptions)
+  : withBotId(nextConfig);
