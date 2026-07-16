@@ -11,7 +11,7 @@ import { APP_URL } from '@/config/env';
 /**
  * UTM source types
  */
-export type UtmSource = 'dream_mode' | 'waitlist' | 'referral' | 'calculator';
+export type UtmSource = 'dream_mode' | 'waitlist' | 'referral' | 'calculator' | 'learn';
 
 /**
  * UTM medium types
@@ -52,6 +52,12 @@ export const UTM_CONFIGS: Record<CardType, Omit<UtmParams, 'utm_content'>> = {
     utm_source: 'waitlist',
     utm_medium: 'share',
     utm_campaign: 'milestone_share',
+  },
+  // P-4 (talk-page polish, 2026-07-16): Real Talk quiz share.
+  learn: {
+    utm_source: 'learn',
+    utm_medium: 'share',
+    utm_campaign: 'real_talk',
   },
 } as const;
 
@@ -112,12 +118,15 @@ export function getShareUrl(
   cardType: CardType = 'dream',
   platform?: SharePlatform,
   referralCode?: string,
-  locale?: string
+  locale?: string,
+  /** Optional page path (e.g. `/learn/compound-interest`) so non-homepage
+   *  surfaces can share their own URL with the same UTM machinery (P-4). */
+  path: string = ''
 ): string {
   // Include locale to avoid root redirect (which could lose params)
   // and to land the recipient on the sharer's locale version
   const localePath = locale ? `/${locale}` : '';
-  const baseUrl = `${APP_URL}${localePath}`;
+  const baseUrl = `${APP_URL}${localePath}${path}`;
 
   let url = buildUtmUrl(baseUrl, cardType, platform);
 

@@ -52,7 +52,6 @@
     "incorrect": "Not quite.",
     "score": "{count} of {total}",
     "share": {
-      "button": "Copy to share",
       "copied": "Copied",
       "copyFailed": "Couldn't copy"
     }
@@ -61,5 +60,9 @@
     "playLabel": "Play the talk",
     "privacyNote": "Plays via YouTube's privacy-enhanced player.",
     "watchOnYouTube": "Watch on YouTube"
+  },
+  "talkNav": {
+    "label": "Talk navigation",
+    "allTalks": "All talks"
   }
 }
