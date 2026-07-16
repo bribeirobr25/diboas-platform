@@ -64,8 +64,10 @@ apps/web/src/app/
       email-preferences/   # Email unsubscribe preferences
       help/                # Help center — FAQ by topic (6 topics)
       investors/           # Investor vertical — public pitch page (thesis, market, raise)
-      learn/               # Learn center landing
-        compound-interest/ # Lesson 01 — How Money Really Grows (3-beat + calculator)
+      learn/               # "Real Talk" — the 7-talk Money Basics series (all live
+        [lesson]/          #   2026-07-16; registry-driven at lib/learn/registry.ts:
+                           #   3-beat talks + quiz + tool moment; Talk 1 embeds the
+                           #   calculator; YouTube facade ships dark until recordings)
       legal/               # Legal pages
         cookies/           # Cookie policy
         privacy/           # Privacy policy
@@ -380,6 +382,8 @@ Condensed reference from `docs/tech/coding-standards.md`:
 - Environment: node (default); add jsdom as dev dependency for DOM-based component tests
 
 ## Audit Status
+
+**Landed 2026-07-15→16 — the Learn/"Real Talk" program (PRs #422–#433, all merged + production-verified):** the 7-talk "Money Basics" series live in 4 locales at `/learn`. Registry-driven platform (`lib/learn/registry.ts` = the single source of truth; adding/flipping a talk is registry + i18n + one SEO entry, drift-guarded by `registryInvariants`/quiz/arc tests); until-exhausted i18n arrays (JSON owns paragraph counts); TalkArc index; per-talk quiz (correctness registry-side, display i18n-side); share-icon row (lib/share + `learn` UTM config); spine navigation; click-to-load YouTube facade (dark — lights per talk via `youtube` + `youtubePublishedAt` registry fields); CSP gained exactly `frame-src https://www.youtube-nocookie.com` (guard-tested, do not widen); talk heroes/thumbs in `public/assets/learn/` (sharp IS usable from the pnpm store). Register entries in `implementation-notes.md` §Learn. Bundle budgets recalibrated + documented (JS 4900/count 250/CSS 512). Remaining: YouTube ids per talk per locale (founder), soft-404 accepted until D-4.
 
 **Current state:** 12/12 principles of excellence compliant. Everything below is merged to `main` as of **2026-07-15** (a multi-day content-quality / brand / i18n session landed on top of the 2026-07-11 baseline).
 

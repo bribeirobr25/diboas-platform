@@ -165,37 +165,37 @@ Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 
 ## Pages
 
-| Route                          | Description                                                                                                |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| `/`                            | B2C landing page (waitlist, comparison table, goals, demo)                                                 |
-| `/business`                    | B2B landing page (Payment Fees + Idle Cash goal cards)                                                     |
-| `/about`                       | About page (founder story, mission, beliefs)                                                               |
-| `/strategies`                  | Investment strategies                                                                                      |
-| `/protocols`                   | Protocol transparency                                                                                      |
-| `/help`                        | Help center (6 FAQ topics)                                                                                 |
-| `/security`                    | Security information                                                                                       |
-| `/demo`                        | Interactive financial demo                                                                                 |
-| `/dream-mode`                  | Goal calculator simulation                                                                                 |
-| `/learn/compound-interest`     | Lesson 01 — How Money Really Grows (3-beat lesson + calculator)                                            |
-| `/tools`                       | Money tools landing — purpose-grouped calculators (11 tools)                                               |
-| `/tools/money-jobs`            | Money Jobs — give every part of a monthly amount a job (B2C split + B2B runway; the suite's entry point)   |
-| `/tools/compound-interest`     | Compound interest calculator (tool variant — currency-hedge for non-USD)                                   |
-| `/tools/retirement`            | Retirement planning calculator                                                                             |
-| `/tools/goal-savings`          | Goal savings calculator                                                                                    |
-| `/tools/emergency-fund`        | Emergency fund time-to-target calculator                                                                   |
-| `/tools/inflation-impact`      | Inflation impact calculator                                                                                |
-| `/tools/time-to-target`        | Time-to-target calculator                                                                                  |
-| `/tools/currency-depreciation` | Currency depreciation calculator (with hedge math)                                                         |
-| `/tools/asset-history`         | Retrospective asset DCA replay (8 assets, monthly-precision FX path for cross-currency)                    |
-| `/tools/card-fees`             | B2B card fee savings calculator                                                                            |
-| `/tools/idle-cash`             | B2B idle cash yield calculator                                                                             |
-| `/market`                      | Adelaide Market — BTC macro-regime dashboard (weekly refresh pipeline; host surface for diboas-analytics)  |
-| `/investors`                   | Investor vertical — public pitch page (thesis, market, raise)                                              |
-| `/investor-room`               | Password-gated investor room — full documents + print-to-PDF (noindex; EN + pt-BR native, DE/ES render EN) |
-| `/email-preferences`           | Email unsubscribe / notification preferences                                                               |
-| `/delete-confirm`              | GDPR account/waitlist deletion confirmation                                                                |
-| `/share`                       | Social sharing redirect (OG metadata)                                                                      |
-| `/legal/*`                     | Terms, Privacy, Cookies                                                                                    |
+| Route                          | Description                                                                                                  |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `/`                            | B2C landing page (waitlist, comparison table, goals, demo)                                                   |
+| `/business`                    | B2B landing page (Payment Fees + Idle Cash goal cards)                                                       |
+| `/about`                       | About page (founder story, mission, beliefs)                                                                 |
+| `/strategies`                  | Investment strategies                                                                                        |
+| `/protocols`                   | Protocol transparency                                                                                        |
+| `/help`                        | Help center (6 FAQ topics)                                                                                   |
+| `/security`                    | Security information                                                                                         |
+| `/demo`                        | Interactive financial demo                                                                                   |
+| `/dream-mode`                  | Goal calculator simulation                                                                                   |
+| `/learn/<talk>`                | Real Talk — the 7-talk Money Basics series (3-beat talks + quiz + tool moment; Talk 1 embeds the calculator) |
+| `/tools`                       | Money tools landing — purpose-grouped calculators (11 tools)                                                 |
+| `/tools/money-jobs`            | Money Jobs — give every part of a monthly amount a job (B2C split + B2B runway; the suite's entry point)     |
+| `/tools/compound-interest`     | Compound interest calculator (tool variant — currency-hedge for non-USD)                                     |
+| `/tools/retirement`            | Retirement planning calculator                                                                               |
+| `/tools/goal-savings`          | Goal savings calculator                                                                                      |
+| `/tools/emergency-fund`        | Emergency fund time-to-target calculator                                                                     |
+| `/tools/inflation-impact`      | Inflation impact calculator                                                                                  |
+| `/tools/time-to-target`        | Time-to-target calculator                                                                                    |
+| `/tools/currency-depreciation` | Currency depreciation calculator (with hedge math)                                                           |
+| `/tools/asset-history`         | Retrospective asset DCA replay (8 assets, monthly-precision FX path for cross-currency)                      |
+| `/tools/card-fees`             | B2B card fee savings calculator                                                                              |
+| `/tools/idle-cash`             | B2B idle cash yield calculator                                                                               |
+| `/market`                      | Adelaide Market — BTC macro-regime dashboard (weekly refresh pipeline; host surface for diboas-analytics)    |
+| `/investors`                   | Investor vertical — public pitch page (thesis, market, raise)                                                |
+| `/investor-room`               | Password-gated investor room — full documents + print-to-PDF (noindex; EN + pt-BR native, DE/ES render EN)   |
+| `/email-preferences`           | Email unsubscribe / notification preferences                                                                 |
+| `/delete-confirm`              | GDPR account/waitlist deletion confirmation                                                                  |
+| `/share`                       | Social sharing redirect (OG metadata)                                                                        |
+| `/legal/*`                     | Terms, Privacy, Cookies                                                                                      |
 
 All pages available in `/en`, `/pt-BR`, `/es`, `/de`.
 
