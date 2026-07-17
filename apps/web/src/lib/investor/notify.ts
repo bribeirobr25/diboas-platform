@@ -58,10 +58,14 @@ export function notifyFounderOfInvestorRequest(input: InvestorRequestInput): voi
   ].join('');
 
   // Fire-and-forget — dynamic import keeps the Resend provider out of the hot path.
+  // replyTo carries the requester's address so the founder can answer with a plain
+  // "Reply" — the address rides only in the mail header; the stored record and the
+  // visible body stay masked/encrypted.
   void import('@diboas/email')
     .then(({ sendViaResend }) =>
       sendViaResend({
         to,
+        replyTo: input.email,
         subject,
         text,
         html,

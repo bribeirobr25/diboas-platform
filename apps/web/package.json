@@ -17,7 +17,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "db:migrate": "tsx src/lib/database/migrate.ts",
-    "db:status": "tsx -e \"require('./src/lib/database/migrate').getMigrationStatus().then(s => console.log(JSON.stringify(s, null, 2)))\""
+    "db:status": "tsx -e \"require('./src/lib/database/migrate').getMigrationStatus().then(s => console.log(JSON.stringify(s, null, 2)))\"",
+    "investor:read": "npx tsx --env-file=.env.local scripts/investor-read.ts"
   },
   "//dependencies-notes": [
     "lucide-react: ^0.544.0 — 0.x semver allows breaking minor bumps, but only stable core icons (Menu, ChevronRight, etc.) are used; brand icons replaced with custom SVGs. Acceptable risk.",
