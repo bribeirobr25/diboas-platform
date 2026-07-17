@@ -99,6 +99,13 @@
     {
       "url": "http://localhost:3000/en/investors",
       "screenCapture": "./pa11y-screenshots/investors.png"
-    }
+    },
+    "http://localhost:3000/en/learn",
+    "http://localhost:3000/en/learn/money-objective",
+    "http://localhost:3000/en/learn/pay-yourself-first",
+    "http://localhost:3000/en/learn/ten-percent",
+    "http://localhost:3000/en/learn/seventy-percent",
+    "http://localhost:3000/en/learn/clearing-debt",
+    "http://localhost:3000/en/learn/putting-it-together"
   ]
 }

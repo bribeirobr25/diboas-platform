@@ -50,6 +50,7 @@ jobs:
       # the tracked-only tree (verified via `git archive HEAD`). `check:ux-greps`
       # is the machine-tell gate (emoji hard-fail; em-dash/hardcoded-English are
       # advisory, non-failing) — also previously manual-only.
+      - run: pnpm validate:seo
       - run: pnpm validate:ux-canon
       - run: pnpm check:ux-greps
       - run: pnpm build
