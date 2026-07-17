@@ -347,6 +347,10 @@ Condensed reference from `docs/tech/coding-standards.md`:
 11. **Concurrency & Race Conditions** — Locks, optimistic locking, queues, idempotency
 12. **Monitoring & Observability** — Tracing, structured logging, health checks, Sentry
 
+## Engineering Gates
+
+Every quality domain (SEO, accessibility, performance, security, robustness) maps to LIVE enforcement — CI job, lint rule, drift-guard test, or mandatory review checklist — in **`docs/tech/engineering-gates.md`** (the registry; UNENFORCED gaps are listed there honestly with dispositions). `pnpm validate:seo` runs in CI and `validate:all`. **Any PR touching effects, timers, listeners, async flows, or error paths cites the applicable R-rows from `docs/tech/robustness-checklist.md` (PASS/N-A per row) in its self-check** — same discipline as the anti-slop Part-3 rows for UX.
+
 ## Race Condition & Async Patterns
 
 - Every `useEffect` with timers → store IDs, clear in cleanup

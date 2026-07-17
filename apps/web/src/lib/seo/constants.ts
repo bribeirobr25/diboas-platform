@@ -119,7 +119,7 @@ export const PAGE_SEO_CONFIG = {
   help: {
     title: 'Help Center - Support & Resources',
     description:
-      'Everything you need to know about diBoaS — how it works, fees, safety, and getting started. Clear answers, no jargon.',
+      'Everything you need to know about diBoaS, how it works, fees, safety, and getting started. Clear answers, no jargon.',
     keywords: ['help', 'support', 'FAQ', 'getting started'],
   },
   protocols: {
@@ -235,7 +235,7 @@ export const PAGE_SEO_CONFIG = {
   // Per-locale titles/descriptions resolve via each route's `generateMetadata`
   // (tools-shared.json + tools-{slug}.json); these English strings are fallback only.
   tools: {
-    title: 'Money Tools — free financial calculators',
+    title: 'Money Tools: free financial calculators',
     description:
       'Free money calculators to plan your retirement, emergency fund, and savings goals. Built by diBoaS.',
     keywords: ['money tools', 'financial calculators', 'savings calculator'],
@@ -275,7 +275,7 @@ export const PAGE_SEO_CONFIG = {
   'tools/inflation-impact': {
     title: 'Inflation Impact Calculator',
     description:
-      'See what your cash loses to inflation each year — and what it could become if it worked instead. Free calculator from diBoaS.',
+      'See what your cash loses to inflation each year, and what it could become if it worked instead. Free calculator from diBoaS.',
     keywords: ['inflation calculator', 'purchasing power calculator', 'inflation impact'],
   },
   'tools/time-to-target': {
@@ -311,7 +311,7 @@ export const PAGE_SEO_CONFIG = {
   'tools/asset-history': {
     title: 'Asset History Calculator',
     description:
-      'See how Bitcoin, stocks, gold, and bonds actually performed since 2010 or 2016 — lump sum and monthly DCA.',
+      'See how Bitcoin, stocks, gold, and bonds actually performed since 2010 or 2016, lump sum and monthly DCA.',
     keywords: [
       'asset history calculator',
       'BTC vs stocks',
