@@ -63,7 +63,7 @@ flowchart TD
 
 ### Engineering posture (built — verifiable in this repo)
 
-- **Testing & CI:** strict TypeScript, ~1,222 automated tests (Vitest), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
+- **Testing & CI:** strict TypeScript, ~1,329 automated tests (Vitest), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
 - **Security:** per-request **nonce-based CSP** (`'unsafe-inline'` prohibited for scripts), **AES-256-GCM** encryption for PII at rest, **HMAC blind indexing**, Upstash rate limiting, DOMPurify sanitization, and CSRF protection on mutation endpoints.
 - **i18n:** 40 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
 - **Monitoring:** Sentry, PostHog, and GA4 — all consent-gated and lazy-loaded behind a cookie-consent check.

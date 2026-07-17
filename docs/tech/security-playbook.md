@@ -232,6 +232,7 @@ CSP is nonce-based with `frame-ancestors 'none'` (clickjacking defense), `object
 
 - `pnpm install --frozen-lockfile` in CI (locked dependency graph)
 - `pnpm audit --prod --audit-level=critical` weekly (via `.github/workflows/security.yml`)
+- **Known blind spot (F24, 2026-07-17):** `pnpm audit` reads the npm/GHSA DB only — advisories with a Snyk-only ID and no CVE never appear in it. Coverage for those: Snyk PR checks + the secret-gated `snyk test` step in `security-scan-quarterly.yml` (`SNYK_TOKEN` repo secret, armed 2026-07-17)
 - Gitleaks pre-commit hook (added 2026-05-27) — scans staged diffs for secret-shaped strings
 - Gitleaks CI job — scans every PR for secret regressions
 - No `.env*` files ever committed (verified across full history)

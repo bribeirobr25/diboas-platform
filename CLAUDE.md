@@ -179,8 +179,9 @@ pnpm --filter web build-storybook  # Build Storybook for deployment
 ### Database
 
 ```bash
-pnpm --filter web db:migrate   # Run database migrations
-pnpm --filter web db:status    # Check migration status
+pnpm --filter web db:migrate      # Run database migrations
+pnpm --filter web db:status       # Check migration status
+pnpm --filter web investor:read   # Decrypt stored /investors requests to the terminal (founder runbook; needs live DATABASE_URL + ENCRYPTION_KEY in .env.local)
 ```
 
 ### Production
