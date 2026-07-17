@@ -43,6 +43,25 @@ jobs:
       - name: Run security scan (live, read-only)
         run: bash scripts/security-scan.sh --live | tee security-scan-output.txt
 
+      # Snyk full-project test (F24 lesson, 2026-07-17): pnpm audit reads the
+      # npm/GHSA DB only — advisories with a Snyk-only ID and no CVE (e.g.
+      # SNYK-JS-ESBUILD-17750822) never appear in it. This step closes that
+      # blind spot on the quarterly cadence. Requires the SNYK_TOKEN repo
+      # secret (app.snyk.io → Account settings → API token); skips cleanly
+      # when unset so the workflow stays green on forks/before setup.
+      # Fails the run only on NEW critical findings; accepted findings live
+      # in SECURITY_FINDINGS_2026-05.md (F23/F24 dispositions).
+      - name: Snyk full-project test (no-CVE advisory coverage)
+        if: always()
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          if [ -z "$SNYK_TOKEN" ]; then
+            echo "::warning title=Snyk skipped::SNYK_TOKEN secret not configured — no-CVE advisory coverage relies on app.snyk.io PR checks only."
+            exit 0
+          fi
+          npx --yes snyk@latest test --all-projects --severity-threshold=critical | tee -a security-scan-output.txt
+
       - name: Upload scan output
         if: always()
         uses: actions/upload-artifact@v6

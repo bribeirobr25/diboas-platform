@@ -45,17 +45,21 @@ jobs:
         run: |
           # Fail only on CRITICAL vulnerabilities.
           #
-          # Known MODERATE with no runtime exposure (build-time transitive only,
-          # tracked in docs/audit/SECURITY_FINDINGS_2026-05.md § F21):
-          #   - brace-expansion 2.0.0–2.0.2 (GHSA-f886-m6hf-6m8v) — via @sentry/bundler-plugin-core > glob > minimatch
-          #   - brace-expansion 5.0.0–5.0.5 (GHSA-jxxr-4gwj-5jf2) — via @sentry/node > @fastify/otel > minimatch
-          #   - postcss (GHSA-qx2v-qp2m-jg93) — via next@16.2.6 > postcss@8.4.31; resolves on next minor Next.js bump
+          # Known findings with no runtime exposure (dev/build-time transitive only,
+          # tracked in docs/audit/SECURITY_FINDINGS_2026-05.md § F21/F23/F24):
+          #   - uuid (moderate) — via @lhci/cli (dev-only)
+          #   - elliptic (low) — via @storybook node-polyfill (dev-only, no fix exists)
           #
-          # Previously-known HIGH defanged via pnpm.overrides at root (F21 closeout, 2026-06-01):
-          #   - fast-uri <=3.1.1 (GHSA-q3j6-qgpj-74h6 + GHSA-v39h-62p7-jpjc) — overridden to >=3.1.2
+          # Defanged via pnpm.overrides at root (update SECURITY_FINDINGS when lifted):
+          #   - fast-uri <=3.1.1 — overridden to >=3.1.2 (F21, 2026-06-01)
+          #   - postcss@8.4.31 (next-internal pin, CVE-2026-41305) — overridden to 8.5.16
+          #     (F24, 2026-07-17; remove when next >=16.3.x bumps its own pin)
           #
-          # Baseline post-override: 4 moderate / 0 high. Update this list when
-          # the override resolves or a new transitive HIGH appears.
+          # KNOWN BLIND SPOT (F24): pnpm audit reads the npm/GHSA DB only — advisories
+          # with a Snyk-only ID and no CVE (e.g. SNYK-JS-ESBUILD-17750822) are invisible
+          # here. Coverage for those = Snyk PR checks + the quarterly workflow's snyk step.
+          #
+          # Baseline 2026-07-17: prod audit CLEAN; full audit 1 moderate / 1 low (dev-only).
           #
           # 2026-07-16: npm RETIRED the audit endpoints pnpm 10.33 calls
           # (HTTP 410 on both /audits/quick and /audits; ERR_PNPM_AUDIT_BAD_RESPONSE),
