@@ -120,8 +120,20 @@ while ((m = talkRe.exec(registry))) {
 
 // ---------- OG parity ----------
 const og = read('apps/web/src/lib/og/templates.tsx');
-const ogKeys = [...og.matchAll(/^  '?([a-z-]+)'?: \{\s*\n\s*title:/gm)].map((x) => x[1]);
-const validBlock = og.slice(og.indexOf('function isValidPageType'));
+// Parse the WHOLE PAGE_CONFIGS block (comment-robust: keys may have comment
+// lines between the key and its first prop).
+const cfgStart = og.indexOf('PAGE_CONFIGS');
+const cfgBlock = og.slice(cfgStart, og.indexOf('} as const', cfgStart));
+const ogKeys = [...cfgBlock.matchAll(/^  '?([a-z][a-z0-9-]*)'?: \{/gm)].map((x) => x[1]);
+if (ogKeys.length < 20)
+  errors.push(
+    `parser sanity: only ${ogKeys.length} OG PAGE_CONFIGS keys parsed (expected 20+) — source format changed; update this script`
+  );
+// Bound the allowlist to the array literal and STRIP COMMENTS before
+// matching — a comment mentioning a key must never satisfy the check
+// (mutation-audit finding, 2026-07-17).
+const fnStart = og.indexOf('function isValidPageType');
+const validBlock = og.slice(fnStart, og.indexOf('].includes', fnStart)).replace(/\/\/[^\n]*/g, '');
 for (const k of ogKeys) {
   if (!validBlock.includes(`'${k}'`))
     errors.push(

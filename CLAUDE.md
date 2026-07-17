@@ -132,9 +132,10 @@ pnpm build            # Production build (all workspaces)
 ### Validation
 
 ```bash
-pnpm validate:all              # Full pipeline: type-check -> lint -> test -> build -> budget -> design-tokens -> translations -> market-data -> sdk-invariant -> investor-figures -> ux-canon
+pnpm validate:all              # Full pipeline: type-check -> lint -> test -> build -> budget -> design-tokens -> translations -> market-data -> sdk-invariant -> investor-figures -> seo -> ux-canon
 pnpm validate:design-tokens    # Validate design tokens against schema
 pnpm validate:translations     # Check translation key parity across locales
+pnpm validate:seo              # SEO gate: config bounds/uniqueness, route/OG parity, per-locale seo keys
 pnpm check:dead-code           # Dead code detection (knip)
 ```
 
