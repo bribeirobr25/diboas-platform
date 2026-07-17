@@ -414,8 +414,8 @@ Landed 2026-07-12→15 (one long content-quality + brand + i18n session on `figu
 **Still open (small):**
 
 - **BotID Stage 2 enforcement** — founder go after the clean observation week (~2026-07-24), then Stage 3 Deep Analysis dashboard toggle.
-- **Founder verifications:** `/investors` form end-to-end test + Sentry `Investor request error` volume check (lost-contact recovery decision); Search Console sitemap resubmit + Request Indexing for `/market` (meta confirmed live).
-- **Monday 2026-07-20:** merge the self-regenerated `editorial/market-refresh-auto` PR; confirm `POLYGON_API_KEY` GitHub secret first.
+- **`/investors` form end-to-end test + Sentry `Investor request error` volume check** (post-incident-fix verification + the lost-contact recovery decision) — **the ONE remaining founder verification.** ~~Search Console sitemap resubmit + Request Indexing~~ ✅ DONE (founder, 2026-07-17); ~~How-it-Works section visual + prod spot-check~~ ✅ DONE (founder-verified 2026-07-17, new editorial trio live).
+- **Monday 2026-07-20:** merge the self-regenerated `editorial/market-refresh-auto` PR. ~~Confirm `POLYGON_API_KEY`~~ ✅ CONFIRMED present in GitHub secrets (founder, 2026-07-17) — the workflow runs fully unblocked, incl. the ETF-01 snapshot leg.
 - **2 DE founder decisions:** `product-disclaimer.json` analytics-product Sie (kept; sync diboas-analytics.com German to du eventually) + wholesale-Sie legal/investor surfaces — **RESOLVED 2026-07-15: Sie stays ONLY on legal ×3 + investor vertical** (do-not-regress entry exists); the analytics-site sync remains open.
 - **Low priority:** storytelling minor enriches — `F-learn-3`/`F-ci-2/-4` superseded by the Real Talk redesign; `F-dream-2` remains; DMARC 5.34 mailbox re-eval still overdue.
 
