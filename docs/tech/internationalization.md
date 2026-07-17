@@ -8,7 +8,7 @@
 
 The platform supports **4 locales** — English (`en`, reference/source of truth), Brazilian Portuguese (`pt-BR`), Spanish (`es`), German (`de`) — with automatic browser-language detection and a reusable, config-driven translation system.
 
-- **Canonical namespace inventory** (currently **34 namespaces per locale** — the investor vertical added `investor` + `investor-docs`) + the Phase-7 Q4 banned-term grep gate: **`packages/i18n/README.md`**.
+- **Canonical namespace inventory** (currently **40 namespaces per locale** — most recently the 6 Real Talk talk namespaces (`learn-*`, Phase 4 2026-07-16)) + the Phase-7 Q4 banned-term grep gate: **`packages/i18n/README.md`**.
 - **Translation files:** `packages/i18n/translations/{en,pt-BR,es,de}/<namespace>.json` (+ `legal/` subdirectory).
 - **Parity enforcement:** `pnpm validate:translations` (`scripts/validate-translations.js`) checks key parity across all 4 locales — required before any PR that touches copy.
 - **All new user-facing strings must be added to all 4 locales.** German text runs ~30% longer than English — verify components handle expansion.

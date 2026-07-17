@@ -26,6 +26,7 @@
 | R-12 | Cross-origin embeds (iframes) never rely on `onError`; detection uses load-timeout heuristics, and an always-present honest fallback link exists regardless of detection                                | Undetectable blocked embeds; ad-blocker dead-ends                 |
 | R-13 | Every error path is TESTED per the testing policy (error handlers, rejected promises, failure branches) — a fallback that has never run in a test does not exist                                        | Fallbacks that crash when finally exercised                       |
 | R-14 | Failures are observable: errors reach Sentry through the single-coordinator pattern (never a second global handler); background jobs fail closed, not silent                                            | Invisible breakage; competing error handlers                      |
+| R-15 | Every route group ships a `loading.tsx` (Suspense shell) and async sections show explicit loading states — no blank flash while data resolves                                                           | Perceived crashes; CLS regressions on slow networks               |
 
 ## How to cite
 
