@@ -397,14 +397,22 @@ Landed 2026-07-12→15 (one long content-quality + brand + i18n session on `figu
 - **4-locale native + compliance pass** (pt-BR/es/de reviewed by native lens, not literal translation) — the **"Yield Maximizer" strategy renamed "Full Harvest"** (display only; the `yieldMaximizer` code key is unchanged), the **es Title-Case → sentence-case sweep**, **de du-register** fixes (MiCA disclaimer on B2C/About, `/market`), pt-BR `dreamMode` 70/20/10 imperative→descriptive, two pt-BR diacritics bugs, `$`→`€`/`R$` currency localization, dead excluded-feature ("Credit") mega-menu nav pruned. **No confirmed hard-veto rendered in any locale.**
 - **Doc hygiene** — README dep versions corrected (Turborepo 2.8.15 / Sentry 10.65 / DOMPurify 3.4.11); completed session plans archived to `docs/audit/_archive/` with status headers.
 
-**Open / paused — a new session should pick these up:**
+**Landed 2026-07-16→17 (execution wave on the 07-12→15 session's open items — all shipped + prod-verified):**
 
-- **Held for founder sign-off:** the card-fees storytelling enrich `F-card-fees-1` (introduces a specific "$75 → $2.18" figure — the standing "numbers" rule).
-- **Deferred, needs an image toolchain** (sharp/pngquant/ImageMagick — absent locally, only `sips`): transparent nav wordmarks + nav image-swap wiring, the optimized PWA app-icon set + manifest, and the JSON-LD/SEO logo repoints (`layout.tsx:150`, `metadata-factory.ts`, `structuredData.ts` still point at `logo-icon.avif`). See `implementation-notes.md` F-BRAND + `docs/audit/_archive/PLAN_BRAND_WIRING_2026-07-13.md`.
-- ~~Non-EN copy native confirm~~ — **APPROVED by founder 2026-07-15** (review record: `docs/audit/LOCALE_COMPLIANCE_AUDIT_{en,pt-BR,es,de}_2026-07-14.md`). The pt-BR/es/de copy is locked. Note: the separate **market-editorial professional-translator pass (PENDING_ALL 5.38)** before the `MARKET_INDEXABLE` flip is still its own gate — not covered by this approval.
-- **2 DE founder decisions:** `apps/web/data/market/product-disclaimer.json` (formal Sie — the intentional diBoaS-Analytics product surface) + the wholesale-Sie legal/investor surfaces (keep-and-document vs move-to-du).
-- **Deferred, low priority:** a few storytelling minor enriches (Lesson numbering `F-learn-3`, lesson Adelaide line `F-ci-2/-4`, dream-mode form `F-dream-2`).
-- **In progress on a 2nd work front (parallel Claude Code session, founder-confirmed 2026-07-15):** the Docker MCP visual-regression pass + the deferred brand-asset work. **Coordination rule:** this front owns copy/content/decisions; the 2nd front owns visual/brand/`public/` assets — pull before starting work on either front to avoid clobbering.
+- **Brand assets DONE** (the F-BRAND deferral cleared — sharp works from the pnpm store): `BrandWordmark` nav component (theme-aware `-onlight`/`-ondark` image swap, pure-CSS state transition), optimized PWA icon set + manifest, JSON-LD/SEO logo → `logo-icon-monogram.avif`, `SEO.DEFAULT_OG` → dynamic `/api/og/default`; 900 KB sources moved to `apps/web/brand-source/` (unserved); legacy avifs deleted. Full register entry in `implementation-notes.md`.
+- **`/market` is INDEXABLE in production** (5.38 closed; founder collapsed the pro-translator gate 2026-07-15 via the native approval): `NEXT_PUBLIC_MARKET_INDEXABLE=true` live, robots `index,follow` + 5 hreflang links verified on diboas.com.
+- **BotID Stage 0+1 live** (5.22): botid@1.5.11, `withBotId` wrapper, middleware proxy-path exclusion (verified on prod), log-only fail-open `classifyRequest()` on waitlist-signup + investor-request (P3 wrapper `lib/security/verifyHuman.ts`, 5 unit tests). **Observation week runs → Stage 2 enforcement decision ~2026-07-24.**
+- **Audit-log retention cron ARMED** (5.39 closed): `CRON_SECRET` in Vercel Production (endpoint 401-when-unauthed = armed), migration 013 applied, nightly 03:00 UTC.
+- **⚠ INCIDENT found + fixed:** the `investor_requests` table was missing in prod — every `/investors` request since ~2026-06-30 500ed. Root cause: hand-applied prod migrations with no `schema_migrations` tracking. Fixed 2026-07-17 (table created, tracking backfilled 001–014). **New rule in `implementation-notes.md`: migrations ship only applied-to-prod + tracked; run `db:status` on schema-touching deploys.** Record: `docs/audit/INCIDENT_INVESTOR_REQUESTS_TABLE_2026-07-17.md`.
+- Also: 13 stale merged branches deleted; Week-3/4 campaign swap confirmed already-executed; `CRON_SECRET` added to `turbo.json#build.env`; Vercel Node runtime bumped to 24.x (was 20.x, below the repo's `>=22` engines).
+
+**Still open (small):**
+
+- **BotID Stage 2 enforcement** — founder go after the clean observation week (~2026-07-24), then Stage 3 Deep Analysis dashboard toggle.
+- **Founder verifications:** `/investors` form end-to-end test + Sentry `Investor request error` volume check (lost-contact recovery decision); Search Console sitemap resubmit + Request Indexing for `/market` (meta confirmed live).
+- **Monday 2026-07-20:** merge the self-regenerated `editorial/market-refresh-auto` PR; confirm `POLYGON_API_KEY` GitHub secret first.
+- **2 DE founder decisions:** `product-disclaimer.json` analytics-product Sie (kept; sync diboas-analytics.com German to du eventually) + wholesale-Sie legal/investor surfaces — **RESOLVED 2026-07-15: Sie stays ONLY on legal ×3 + investor vertical** (do-not-regress entry exists); the analytics-site sync remains open.
+- **Low priority:** storytelling minor enriches — `F-learn-3`/`F-ci-2/-4` superseded by the Real Talk redesign; `F-dream-2` remains; DMARC 5.34 mailbox re-eval still overdue.
 
 > **Continuity note:** the detailed audit records (voice / visual / storytelling / locale audits — ~90 docs — and the archived plans) are **local-only** in `docs/audit/` + `docs/audit/_archive/` (retention-protected, `.gitignore`'d — a fresh clone won't have them). This CLAUDE.md summary + `implementation-notes.md` carry the load-bearing state.
 

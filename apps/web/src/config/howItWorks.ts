@@ -5,10 +5,14 @@
  * caption. Config-driven (i18n keys) so the Factory's `useConfigTranslation`
  * resolves copy per locale.
  *
- * IMAGES: `how-it-works-{goal,path,move}.jpg` are TEMPORARY stock placeholders
- * (portrait, for layout review only). Replace with the final product-screen
- * mockups (same file names, or update the paths) when they are ready. Assets
- * live directly in `public/assets/images/` (project convention — no sub-dir).
+ * IMAGES (2026-07-17): `how-it-works-{goal,path,move}.avif` — phone-portrait
+ * (600×1280) crops of the house editorial set (morning-pause / veil-of-dawn /
+ * above-the-noise), replacing the temporary stock placeholders. The trio reads
+ * as the step arc: decide → see the path → ready to move. Regeneration: sharp
+ * crops from the source AVIFs in `public/assets/images/` (goal = extract
+ * left:640 of morning-pause; path = centre; move = attention). If real
+ * product-screen mockups land later, swap paths here + update the step*Alt
+ * strings (all 4 locales) to describe screens again.
  */
 
 export interface HowItWorksStep {
@@ -38,11 +42,11 @@ export interface HowItWorksConfig {
   };
 }
 
-/** Temporary placeholder screens (replace with final mockups). */
-const PLACEHOLDER_IMAGES = {
-  step1: '/assets/images/how-it-works-goal.jpg',
-  step2: '/assets/images/how-it-works-path.jpg',
-  step3: '/assets/images/how-it-works-move.jpg',
+/** Editorial step images (see header note; shared by the EU + pt-BR spines). */
+const STEP_IMAGES = {
+  step1: '/assets/images/how-it-works-goal.avif',
+  step2: '/assets/images/how-it-works-path.avif',
+  step3: '/assets/images/how-it-works-move.avif',
 } as const;
 
 /** Default config for the en/de/es EU spine (shared `draper.*` keys). */
@@ -54,17 +58,17 @@ export const B2C_HOW_IT_WORKS_VISUAL_CONFIG: HowItWorksConfig = {
       {
         caption: 'landing-b2c.draper.howItWorks.step1',
         imageAlt: 'landing-b2c.draper.howItWorks.step1Alt',
-        image: PLACEHOLDER_IMAGES.step1,
+        image: STEP_IMAGES.step1,
       },
       {
         caption: 'landing-b2c.draper.howItWorks.step2',
         imageAlt: 'landing-b2c.draper.howItWorks.step2Alt',
-        image: PLACEHOLDER_IMAGES.step2,
+        image: STEP_IMAGES.step2,
       },
       {
         caption: 'landing-b2c.draper.howItWorks.step3',
         imageAlt: 'landing-b2c.draper.howItWorks.step3Alt',
-        image: PLACEHOLDER_IMAGES.step3,
+        image: STEP_IMAGES.step3,
       },
     ],
   },
@@ -81,17 +85,17 @@ export const B2C_PTBR_HOW_IT_WORKS_VISUAL_CONFIG: HowItWorksConfig = {
       {
         caption: 'landing-b2c.ptbr.howItWorks.step1',
         imageAlt: 'landing-b2c.ptbr.howItWorks.step1Alt',
-        image: PLACEHOLDER_IMAGES.step1,
+        image: STEP_IMAGES.step1,
       },
       {
         caption: 'landing-b2c.ptbr.howItWorks.step2',
         imageAlt: 'landing-b2c.ptbr.howItWorks.step2Alt',
-        image: PLACEHOLDER_IMAGES.step2,
+        image: STEP_IMAGES.step2,
       },
       {
         caption: 'landing-b2c.ptbr.howItWorks.step3',
         imageAlt: 'landing-b2c.ptbr.howItWorks.step3Alt',
-        image: PLACEHOLDER_IMAGES.step3,
+        image: STEP_IMAGES.step3,
       },
     ],
   },
