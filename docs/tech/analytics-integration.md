@@ -185,13 +185,35 @@ The two layers are NOT mirrors of each other — a single user action may emit o
 
 ### Calculator Events
 
-| Event Name                     | Constant                              | Description                   |
-| ------------------------------ | ------------------------------------- | ----------------------------- |
-| `calculator_opened`            | `CALCULATOR_EVENTS.CALCULATOR_OPENED` | Calculator component loads    |
-| `calculator_input_changed`     | `CALCULATOR_EVENTS.INPUT_CHANGED`     | User changes input value      |
-| `calculator_timeframe_changed` | `CALCULATOR_EVENTS.TIMEFRAME_CHANGED` | User changes timeframe        |
-| `calculator_share_result`      | `CALCULATOR_EVENTS.SHARE_RESULT`      | User shares calculator result |
-| `calculator_cta_clicked`       | `CALCULATOR_EVENTS.CTA_CLICKED`       | User clicks CTA button        |
+| Event Name                         | Constant                                  | Description                       |
+| ---------------------------------- | ----------------------------------------- | --------------------------------- |
+| `calculator_opened`                | `CALCULATOR_EVENTS.OPENED`                | Calculator component loads        |
+| `calculator_amount_changed`        | `CALCULATOR_EVENTS.AMOUNT_CHANGED`        | User changes the amount           |
+| `calculator_cadence_changed`       | `CALCULATOR_EVENTS.CADENCE_CHANGED`       | User changes contribution cadence |
+| `calculator_years_changed`         | `CALCULATOR_EVENTS.YEARS_CHANGED`         | User changes the horizon          |
+| `calculator_scenario_focused`      | `CALCULATOR_EVENTS.SCENARIO_FOCUSED`      | User focuses a scenario           |
+| `calculator_computation_completed` | `CALCULATOR_EVENTS.COMPUTATION_COMPLETED` | A computation resolves            |
+
+Source: `apps/web/src/lib/compound-interest/constants.ts` (the earlier table drifted from the constants — corrected 2026-07-17).
+
+### Learn / Real Talk Events (`LESSON_EVENTS`, `apps/web/src/lib/learn/constants.ts`)
+
+| Event Name                    | Fired when                                                                      |
+| ----------------------------- | ------------------------------------------------------------------------------- |
+| `learn_index_viewed`          | The Real Talk index mounts (once per mount)                                     |
+| `learn_lesson_viewed`         | A talk page mounts (`lessonId` + `readTimeMinutes` params)                      |
+| `learn_beat_viewed`           | A beat becomes ≥50% visible (per beat, once)                                    |
+| `learn_lesson_completed`      | The CTA group becomes ≥50% visible, once — THE completion KPI; do not change    |
+| `learn_roadmap_card_viewed`   | An announced arc card impression (`lessonId` param since Phase 2)               |
+| `learn_cta_primary_clicked`   | The education-first primary (`target: 'calculator'`)                            |
+| `learn_cta_secondary_clicked` | Secondary CTAs (`target: next-talk / prev-talk / waitlist / tools / all-talks`) |
+| `learn_tool_deeplink_clicked` | The talk → tool edge (embedded link or the toolCard)                            |
+| `learn_quiz_submitted`        | The last graded answer lands; aggregate `correctCount` only                     |
+| `learn_share_copied`          | Any share action (`platform` param; name is historical, covers all platforms)   |
+| `learn_video_started`         | Facade play click (`videoLocale` param) — dark until recordings                 |
+| `learn_video_error`           | Facade load-timeout fallback shown                                              |
+
+Waitlist attribution from talks rides `cta_source: learn-<lessonId>` (the sessionStorage machinery), not a bespoke event.
 
 ### Navigation & System Events
 
