@@ -375,7 +375,7 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
 
               {unlocked ? (
                 <section className={styles.planSection} data-testid="personal-plan">
-                  <h3 className={styles.planTitle}>{t('plan.title')}</h3>
+                  <h2 className={styles.planTitle}>{t('plan.title')}</h2>
                   {personalPlan ? (
                     <p className={styles.planLine}>
                       {personalPlan.cushionMonthsToTarget === 0
@@ -565,7 +565,7 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
 
               {unlocked ? (
                 <section className={styles.planSection} data-testid="business-plan">
-                  <h3 className={styles.planTitle}>{t('plan.title')}</h3>
+                  <h2 className={styles.planTitle}>{t('plan.title')}</h2>
                   {business.runwayMode ? (
                     <>
                       {/* Runway-led plan (decision 9): idle-cash table HELD. */}

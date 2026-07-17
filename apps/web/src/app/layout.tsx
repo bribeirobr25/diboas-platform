@@ -135,7 +135,11 @@ export default async function RootLayout({
         */}
         {requestId && <meta name="x-request-id" content={requestId} />}
         {/* Google Fonts removed for GDPR compliance - using next/font/google self-hosted */}
-        <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
+        {/* vitals.vercel-analytics.com preconnect removed (PSI 2026-07-17):
+            Vercel Analytics is not in the stack — web-vitals report to GA4.
+            GTM/GA preconnects stay: their scripts are consent-gated, so PSI's
+            cold-load trace flags them as "unused", but they cut connection
+            setup for every consented visitor. */}
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
         <link
           rel="preconnect"

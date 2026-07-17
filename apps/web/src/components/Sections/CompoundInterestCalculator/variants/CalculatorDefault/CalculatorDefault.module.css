@@ -137,19 +137,34 @@
   outline-offset: 2px;
 }
 
+/* The input itself is the touch target: 28px tall (≥24px per WCAG 2.5.8 —
+   PSI 2026-07-17 finding); the visible 6px track moves to the track
+   pseudo-elements, so the look is unchanged. */
 .range {
   appearance: none;
   width: 100%;
+  height: 28px;
+  background: transparent;
+  outline: none;
+}
+
+.range::-webkit-slider-runnable-track {
   height: 6px;
   background: var(--color-slate-200);
   border-radius: var(--radius-md);
-  outline: none;
+}
+
+.range::-moz-range-track {
+  height: 6px;
+  background: var(--color-slate-200);
+  border-radius: var(--radius-md);
 }
 
 .range::-webkit-slider-thumb {
   appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
+  margin-top: -9px; /* centres the 24px thumb on the 6px track */
   border-radius: var(--radius-full);
   background: var(--color-teal-500);
   cursor: pointer;
@@ -158,8 +173,8 @@
 }
 
 .range::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   border-radius: var(--radius-full);
   background: var(--color-teal-500);
   cursor: pointer;

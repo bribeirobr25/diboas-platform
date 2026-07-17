@@ -51,6 +51,25 @@ export interface SceneController {
   dispose(): void;
   /** Gently fade the canvas in once the first frame is painted (GSAP). */
   reveal(canvas: HTMLCanvasElement, reduced: boolean): void;
+  /**
+   * True when WebGL is CPU-rasterized (SwiftShader/llvmpipe — headless
+   * browsers, GPU-less VMs, some low-end devices). Every frame then runs on
+   * the main thread (~100-200 ms each) — the caller must render one static
+   * frame and never start the rAF loop.
+   */
+  softwareRenderer: boolean;
+}
+
+/** Detect CPU-rasterized WebGL via the unmasked renderer string. */
+function isSoftwareGL(renderer: WebGLRenderer): boolean {
+  try {
+    const gl = renderer.getContext();
+    const info = gl.getExtension('WEBGL_debug_renderer_info');
+    const name = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : '';
+    return /swiftshader|llvmpipe|softpipe|software|basic render/i.test(name);
+  } catch {
+    return false;
+  }
 }
 
 type Uniforms = Record<string, { value: unknown }>;
@@ -80,6 +99,7 @@ export function createSceneController(
 ): SceneController {
   const renderer = makeRenderer(canvas, size.dpr);
   renderer.setSize(size.width, size.height, false);
+  const softwareRenderer = isSoftwareGL(renderer);
 
   const cA = new Color(colors.a);
   const cB = new Color(colors.b);
@@ -107,6 +127,7 @@ export function createSceneController(
     scene.add(mesh);
 
     return {
+      softwareRenderer,
       frame(elapsed, mouse) {
         uniforms.uTime.value = elapsed;
         (uniforms.uMouse.value as Vector2).set(mouse.x, mouse.y);
@@ -156,6 +177,7 @@ export function createSceneController(
     scene.add(mesh);
 
     return {
+      softwareRenderer,
       frame(elapsed) {
         uniforms.uTime.value = elapsed;
         mesh.rotation.y = Math.sin(elapsed * 0.05) * 0.06;
@@ -218,6 +240,7 @@ export function createSceneController(
   scene.add(points);
 
   return {
+    softwareRenderer,
     frame(elapsed) {
       uniforms.uTime.value = elapsed;
       points.rotation.y = Math.sin(elapsed * 0.1) * 0.15;

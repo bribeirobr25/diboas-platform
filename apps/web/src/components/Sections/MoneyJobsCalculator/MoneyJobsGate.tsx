@@ -104,7 +104,7 @@ export function MoneyJobsGate({ onUnlocked, unlocked }: MoneyJobsGateProps) {
 
   return (
     <section className={styles.gateCard} aria-label={t('ariaLabel')}>
-      <h3 className={styles.gateTitle}>{t('title')}</h3>
+      <h2 className={styles.gateTitle}>{t('title')}</h2>
       <ul className={styles.gateList}>
         <li>{t('bullets.timeline')}</li>
         <li>{t('bullets.projections')}</li>

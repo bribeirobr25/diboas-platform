@@ -115,3 +115,7 @@
 ## "Apply now" and "Apply post-launch" guidance
 
 These forward-looking React performance rules remain in `CLAUDE.md` § React Performance Guidelines (they are prospective rules for new code, not historical do-not-regress notes, so they stay surfaced). See that section for the "Apply now (all new code)" and "Apply post-launch (product features)" lists.
+
+## Cinematic hero: software-GL static-frame guard (PSI 2026-07-17 — do not regress)
+
+`useWebGLScene` + `threeLoader.SceneController.softwareRenderer`: when the WebGL context reports a CPU rasterizer (SwiftShader/llvmpipe via `WEBGL_debug_renderer_info`), the hero renders exactly ONE static frame and never starts the rAF loop — same path as `prefers-reduced-motion`. Why: software-GL frames run ~100–200 ms each ON THE MAIN THREAD, which produced TBT 16.5 s on /learn and 22.7 s on /strategies in PageSpeed (headless Chromium has no GPU) and equally punishes real GPU-less devices (the F23 llvmpipe visitor). Removing this guard silently reverts /learn to a 38 performance score. The gradient/poster fallback keeps the visual. Related same-batch locks: hero poster `quality={70}` requires `70` in `next.config.js images.qualities`; `fetchPriority="high"` rides the priority poster; the `vitals.vercel-analytics.com` preconnect is deliberately gone (no Vercel Analytics in the stack); calculator `.range` inputs are 28 px tall with the 6 px track drawn by track pseudo-elements (WCAG 2.5.8 touch target) — don't "simplify" the height back onto the input.

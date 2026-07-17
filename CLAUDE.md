@@ -367,6 +367,8 @@ Every quality domain (SEO, accessibility, performance, security, robustness) map
 - All interactive elements: native `<button>` or `<a>` (never `div role="button"`)
 - All modals/dialogs: use `useFocusTrap` hook with `returnFocus: true`
 - Minimum contrast: 4.5:1 for text, 3:1 for UI components — use `text-gray-500` minimum
+- Touch targets ≥24×24 CSS px with spacing (WCAG 2.5.8) — includes range sliders (the input element is the target, not the track) and adjacent form controls. NOT covered by the pa11y WCAG2AA gate — review-time check (PSI 2026-07-17 lesson)
+- Heading levels never skip (h1→h2→h3) — axe rates this best-practice tier, so pa11y won't catch it either; review-time check (PSI 2026-07-17 lesson)
 - Form groups: `<fieldset>` + `<legend>` for screen readers
 - Dropdowns: handle Escape key, return focus to trigger
 - Reduced motion: all animations must respect `prefers-reduced-motion`

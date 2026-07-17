@@ -72,6 +72,11 @@ export function useWebGLScene({ scene, theme, enabled = true }: UseWebGLSceneArg
     const reduced =
       typeof window.matchMedia === 'function' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Widened to `staticOnly` once the controller reports a software (CPU)
+    // WebGL rasterizer — SwiftShader/llvmpipe frames run ~100-200 ms on the
+    // main thread, so animating would wreck TBT/INP (Lighthouse headless,
+    // GPU-less VMs, some low-end devices). Static frame + gradient instead.
+    let staticOnly = reduced;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     let disposed = false;
@@ -114,7 +119,7 @@ export function useWebGLScene({ scene, theme, enabled = true }: UseWebGLSceneArg
         raf = requestAnimationFrame(loop);
       };
       const startLoop = () => {
-        if (running || reduced || disposed || !controller) return;
+        if (running || staticOnly || disposed || !controller) return;
         running = true;
         raf = requestAnimationFrame(loop);
       };
@@ -143,9 +148,10 @@ export function useWebGLScene({ scene, theme, enabled = true }: UseWebGLSceneArg
           return;
         }
         started = true;
+        staticOnly = reduced || controller.softwareRenderer;
         renderOne(); // paint the first frame immediately
-        controller.reveal(canvas, reduced);
-        if (!reduced) {
+        controller.reveal(canvas, staticOnly);
+        if (!staticOnly) {
           container.addEventListener('pointermove', onMove, { passive: true });
           io = new IntersectionObserver(
             (entries) => {
@@ -168,7 +174,7 @@ export function useWebGLScene({ scene, theme, enabled = true }: UseWebGLSceneArg
         const s2 = size();
         if (s2.width && s2.height) {
           controller?.resize(s2.width, s2.height, dpr);
-          if (reduced) renderOne();
+          if (staticOnly) renderOne();
         }
       });
       ro.observe(container);

@@ -71,7 +71,8 @@ export function CinematicHeroFactory({
             alt={posterAlt}
             fill
             priority={priority}
-            quality={80}
+            fetchPriority={priority ? 'high' : undefined}
+            quality={70}
             sizes="100vw"
             style={{ objectFit: 'cover' }}
           />
