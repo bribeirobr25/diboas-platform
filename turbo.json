@@ -22,7 +22,8 @@
         "INVESTOR_NOTIFY_EMAIL",
         "INVESTOR_CONTACT_NAME",
         "INVESTOR_CONTACT_EMAIL",
-        "INVESTOR_CONTACT_LINKEDIN"
+        "INVESTOR_CONTACT_LINKEDIN",
+        "CRON_SECRET"
       ]
     },
     "dev": {
