@@ -72,16 +72,29 @@
   -moz-appearance: textfield;
 }
 
-/* Range slider styling */
+/* Range slider styling — the input is the ≥24px touch target (WCAG 2.5.8,
+   PSI 2026-07-17 batch); the slim visual track is drawn by the track
+   pseudo-elements, so the look is unchanged. */
 .slider {
   width: var(--percent-100);
-  height: var(--spacing-sm);
-  border-radius: var(--radius-sm);
-  background: var(--color-slate-200);
+  height: 28px;
+  background: transparent;
   outline: none;
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
+}
+
+.slider::-webkit-slider-runnable-track {
+  height: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  background: var(--color-slate-200);
+}
+
+.slider::-moz-range-track {
+  height: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  background: var(--color-slate-200);
 }
 
 .slider:focus-visible {
@@ -94,6 +107,7 @@
   appearance: none;
   width: var(--spacing-2xl);
   height: var(--spacing-2xl);
+  margin-top: -8px; /* centres the 24px thumb on the 8px track */
   border-radius: var(--radius-full);
   background: var(--color-teal-500);
   cursor: pointer;
