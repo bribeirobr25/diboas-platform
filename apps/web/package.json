@@ -44,7 +44,7 @@
     "@upstash/ratelimit": "^2.0.7",
     "@upstash/redis": "^1.36.0",
     "botid": "^1.5.11",
-    "dompurify": "^3.4.11",
+    "dompurify": "^3.4.12",
     "gsap": "^3.12.5",
     "lucide-react": "^0.544.0",
     "next": "16.2.6",
