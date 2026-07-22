@@ -1,0 +1,80 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.badge {
+  align-self: flex-start;
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  background: var(--sb-accent-tint);
+  color: var(--sb-accent-strong);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* The warm serif welcome beat (matches FirstRun's tone). */
+.title {
+  margin: 0;
+  font-family: var(--sb-serif);
+  font-size: clamp(1.9rem, 8vw, 2.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--sb-text-heading);
+  outline: none; /* focused programmatically for a11y (tabIndex -1), no ring */
+}
+
+.body {
+  margin: 0;
+  color: var(--sb-text-body);
+  line-height: var(--line-height-relaxed);
+  font-size: var(--font-size-md);
+}
+
+.points {
+  list-style: none;
+  margin: var(--spacing-2xs) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.point {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-body);
+  line-height: var(--line-height-relaxed);
+}
+
+.pointIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent-tint);
+  color: var(--sb-accent-strong);
+}
+
+.cta {
+  min-height: 52px;
+  margin-top: var(--spacing-sm);
+  border: none;
+  border-radius: var(--radius-lg);
+  background: var(--sb-accent);
+  color: var(--color-white);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.cta:hover {
+  background: var(--sb-accent-strong);
+}

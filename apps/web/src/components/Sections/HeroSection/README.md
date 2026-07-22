@@ -154,7 +154,9 @@ export const HERO_VARIANT_REGISTRY = {
 
 ---
 
-## 🔄 **Migration Path**
+## 🔄 **Migration Path** — ✅ COMPLETE (historical)
+
+> The factory migration is **done**. There is no monolithic `HeroSection.tsx`; `HeroSectionFactory` + the `variants/` directory are the established architecture. The phases below are retained only as the historical record of how the migration ran — they are not open work.
 
 ### **Phase 1: Gradual Migration (No Breaking Changes)**
 
@@ -177,7 +179,7 @@ export const HERO_VARIANT_REGISTRY = {
 
 ---
 
-## 📊 **Current vs. New Comparison**
+## 📊 **Current vs. New Comparison** (the "New" column is now the shipped state)
 
 | Aspect               | Current Approach              | New Architecture             |
 | -------------------- | ----------------------------- | ---------------------------- |

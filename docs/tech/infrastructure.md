@@ -116,7 +116,7 @@ The `.env.example` lists placeholders for these services, but none are integrate
 
 ## 8. CI/CD — GitHub Actions
 
-Five workflows in `.github/workflows/`: `ci.yml`, `security.yml`, `accessibility.yml`, `e2e.yml`, `lighthouse.yml`.
+Seven workflows in `.github/workflows/`. Five run on push/PR (`ci.yml`, `security.yml`, `accessibility.yml`, `e2e.yml`, `lighthouse.yml`); two run only on a schedule (`market-refresh-weekly.yml`, `security-scan-quarterly.yml`). `security.yml` runs on both. For the consolidated cross-system view of every recurring job (including the Vercel cron), see **Scheduled jobs — every cadence in one place** at the end of this section.
 
 ### `ci.yml` — Quality gate
 
@@ -137,13 +137,13 @@ Five workflows in `.github/workflows/`: `ci.yml`, `security.yml`, `accessibility
   12. `pnpm check:budget` (bundle-budget gate)
   13. `pnpm --filter web build-storybook` (Storybook build artifact)
 
-### `security.yml` — Dependency audit
+### `security.yml` — Secrets scan + dependency audit
 
 - **Triggers:** Push to `main`, PRs targeting `main`, weekly cron (Monday 00:00 UTC).
-- **Steps:**
-  1. `pnpm audit --prod --audit-level=critical`
-  2. On failure: Slack notification via `slackapi/slack-github-action@v2`.
-  3. Fails the job if vulnerabilities are found.
+- **Jobs:**
+  1. **gitleaks** — secret-scanning over full history (`fetch-depth: 0`), configured by `.gitleaks.toml`; hard-fails on any unallowlisted secret.
+  2. **Dependency audit** — `pnpm audit --prod --audit-level=critical`. On a real finding: Slack notification via `slackapi/slack-github-action@v3`, then the job fails.
+- **Endpoint-outage-aware (since PR #428):** npm retired the bulk-advisory endpoints pnpm 10.33 calls (HTTP 410 → `ERR_PNPM_AUDIT_BAD_RESPONSE`). That specific error is treated as an **infrastructure warning, not a finding**, so an npm outage no longer reddens every PR; any other audit failure still fails the job. Dependency coverage during the outage leans on the Snyk PR checks + the quarterly scan. Remove the outage branch when pnpm ships the endpoint fix.
 
 ### `accessibility.yml` — pa11y WCAG2AA
 
@@ -159,10 +159,38 @@ Five workflows in `.github/workflows/`: `ci.yml`, `security.yml`, `accessibility
   (`continue-on-error: true`; assertions are `["warn", …]`) — does not block merge
   pending threshold calibration against CI-runner noise (see PENDING_ALL §5.37).
 
+### `market-refresh-weekly.yml` — Adelaide Market data refresh (scheduled)
+
+- **Triggers:** weekly cron (**Mondays 06:00 UTC**) + manual `workflow_dispatch`.
+- **What it does:** runs the full `/market` build-time pipeline — fetch (dual-source verified) → fail-closed quality gate → regime engine → `computed.json` → generate editorial copy from the reviewed template library → reconcile (`generate.mjs --check`) + jargon gate + market vitest.
+- **Output:** opens a PR on branch `editorial/market-refresh-auto` (labels `market-refresh`, `needs-editorial-review`). It **never pushes to `main`** — a human reviews the plain-language copy and merges. The 14-day staleness gate is the backstop; each Monday's PR self-resets, so unmerged weeks accrue no debt.
+- **Secret:** `POLYGON_API_KEY` (founder-owned) arms the optional ETF-01 snapshot leg; the run still succeeds without it (fail-open on the optional leg, fail-closed on the core pipeline). Full design: `docs/audit/MARKET_REFRESH_AUDIT_AND_AUTOMATION_PLAN_2026-07-11.md`; editorial workflow: `docs/integrations/market-editorial.md`.
+
+### `security-scan-quarterly.yml` — Deep security scan (scheduled)
+
+- **Triggers:** quarterly cron (**day 1 of Jan/Apr/Jul/Oct, 06:00 UTC**) + manual `workflow_dispatch`.
+- **What it does:** read-only, no state changes — `scripts/security-scan.sh --live` (passive recon against production + local dependency/secrets checks) followed by a **Snyk full-project test** (`--severity-threshold=critical`).
+- **Why it exists:** closes the F24 blind spot — `pnpm audit` reads the npm/GHSA DB only, so Snyk-only advisories with **no CVE** (e.g. `SNYK-JS-ESBUILD-17750822`) are invisible to `security.yml`. The Snyk step is the only automated coverage for those on a repo cadence.
+- **Secret:** `SNYK_TOKEN` arms the Snyk step; it skips cleanly (warning, still green) when unset. Output uploads as a 400-day artifact; findings are triaged manually into the security findings ledger. A failing run marks the cadence red so it can't silently rot. See `docs/tech/security-playbook.md` §quarterly scan.
+
 ### What is NOT in CI
 
 - No staging deployment step.
-- No CodeQL or Snyk scanning.
+- No CodeQL scanning.
+- **Note:** Snyk scanning IS covered — as PR checks via the Snyk GitHub App (not a workflow file in this repo) plus the quarterly `security-scan-quarterly.yml` step above. It is simply not a `.github/workflows/` file, which is why it does not appear in the catalog.
+
+### Scheduled jobs — every cadence in one place
+
+Four recurring jobs run without human action, across two systems (Vercel cron + GitHub Actions). This table is the single source of truth for "what runs on a timer and why"; the per-workflow detail is above and (for the Vercel cron) in §2.
+
+| Job                    | Cadence   | Cron                                                     | System                                     | What / why                                                                                                                                                                                         | Fails how                                                                               |
+| ---------------------- | --------- | -------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Audit-log purge**    | Daily     | `0 3 * * *` (03:00 UTC)                                  | Vercel cron → `/api/cron/purge-audit-logs` | Deletes `audit_logs` rows older than 90 days (`AUDIT_LOG_RETENTION_DAYS`). Enforces GDPR storage-limitation on the raw-IP audit trail. Bearer-authed against `CRON_SECRET`; inert (503) until set. | Logs + 500 response; never throws. The only scheduled job that mutates production data. |
+| **Security audit**     | Weekly    | `0 0 * * 1` (Mon 00:00 UTC)                              | GitHub `security.yml`                      | gitleaks + `pnpm audit` (critical). Catches vulnerabilities in already-merged deps that generate no commit.                                                                                        | Slack alert + red run on a real finding; npm-endpoint outage warns only.                |
+| **Market refresh**     | Weekly    | `0 6 * * 1` (Mon 06:00 UTC)                              | GitHub `market-refresh-weekly.yml`         | Regenerates `/market` regime data + editorial copy; opens a review PR (never pushes). Keeps the publicly-indexed weekly-cadence page honest without a manual chore.                                | Red run on pipeline/gate failure; 14-day staleness gate is the backstop.                |
+| **Deep security scan** | Quarterly | `0 6 1 1,4,7,10 *` (day 1 of Jan/Apr/Jul/Oct, 06:00 UTC) | GitHub `security-scan-quarterly.yml`       | Live recon + Snyk full-project test. Closes the no-CVE advisory blind spot (F24) that `pnpm audit` can't see.                                                                                      | Red run marks the cadence so it can't rot silently; artifact retained 400 days.         |
+
+**Cross-references:** enforcement view in `docs/tech/engineering-gates.md` (Security & Performance rows); runtime-monitoring procedures in `docs/tech/MONITORING_OPS.md`; secret arming/verification in `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 
 ## 9. Security — Middleware
 

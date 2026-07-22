@@ -225,6 +225,27 @@ export default async function MarketPage({ params }: LocalePageProps) {
             </Container>
           </section>
 
+          {/* Outage banner (B-2, robustness / Principle-7 fix): when the core
+              reading is null the page body silently collapsed; now it says so
+              honestly instead. Fires only on a genuine null feed — the normal
+              per-source DELAYED/UNAVAILABLE states stay handled by the freshness
+              badges, so this never noises on ordinary lag. */}
+          {!regime ? (
+            <Container size="md">
+              <div className={styles.outageBanner} role="status">
+                <strong>{fallbackMessages.outageTitle}</strong>
+                <span>{fallbackMessages.outageBody}</span>
+              </div>
+            </Container>
+          ) : !signals ? (
+            <Container size="md">
+              <div className={styles.outageBanner} role="status">
+                <strong>{fallbackMessages.partialOutageTitle}</strong>
+                <span>{fallbackMessages.partialOutageBody}</span>
+              </div>
+            </Container>
+          ) : null}
+
           <Container size="md">
             {regime && (
               <SectionErrorBoundary

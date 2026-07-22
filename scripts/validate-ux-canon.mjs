@@ -7,23 +7,26 @@
  *  (a) canon ID sequence UX-01…UX-NN is contiguous — no duplicates, no gaps —
  *      and matches the canon's own "<N> numbered principles" self-description;
  *  (b) every UX-ID cited in the checklist, the Writing System, the usage
- *      protocol, the VOICE_RUBRIC, and any docs/audit/UX_AUDIT_*.md exists in
+ *      protocol, the VOICE_RUBRIC, the asset-compliance checklist, the
+ *      STORYTELLING_CRAFT companion, and any docs/audit/UX_AUDIT_*.md exists in
  *      the canon;
  *  (c) veto-list parity — the checklist's dark-pattern block (rows 10–N) and
  *      canon Appendix B carry the same number of items, and all three homes
  *      (checklist, canon Appendix B, BRAND_POSITIONING Gate 4) carry the
  *      canonical-source declaration;
  *  (d) governance cross-references to docs/**.md resolve on disk — checklist,
- *      canon, usage, VOICE_RUBRIC, and the audit files (lines that annotate a
- *      reference as removed/lost/deleted are exempt — the documented-dead form
- *      required by G-2);
+ *      canon, usage, VOICE_RUBRIC, asset-compliance, STORYTELLING_CRAFT, and the
+ *      audit files (lines that annotate a reference as removed/lost/deleted are
+ *      exempt — the documented-dead form required by G-2);
  *  (e) the "How to use it" blocking-range sentence names exactly the last veto
  *      row (kills the C-1 off-by-one defect class permanently);
  *  (f) "rows 1–NN" band citations across the four homes match the checklist's
  *      actual last Part-3 row;
- *  (g) any "<N> enforcement files" claim (CLAUDE.md / usage) matches the real
- *      count of .md files in docs/tech/ux-governance/ — the VOICE_RUBRIC
- *      addition (CMO Session 030) is exactly the fifth-file drift this guards.
+ *  (g) any "<N> enforcement files" / "<N> governance files" claim (CLAUDE.md /
+ *      usage) matches the real count of .md files in docs/tech/ux-governance/ —
+ *      the VOICE_RUBRIC addition (CMO Session 030) was the fifth-file drift this
+ *      guards; the CC-3 reword (2026-07-13) switched CLAUDE.md to "governance
+ *      files" (four enforcement / one asset gate / one advisory), still counted.
  *
  * The VOICE_RUBRIC is a JUDGMENT gate (Q1–Q4 scored by a reasoning pass); this
  * validator guards only its structural wiring (citations, links, count) and
@@ -58,9 +61,14 @@ const FILES = {
   brand: join(ROOT, 'docs/full-view/BRAND_POSITIONING.md'),
   usage: join(ROOT, 'docs/tech/ux-governance/UX_GOVERNANCE_USAGE.md'),
   // The scorable voice gate (CMO Session 030). Validator guards only its
-  // structural wiring — citations, docs/ links, and the "N enforcement files"
+  // structural wiring — citations, docs/ links, and the "N governance files"
   // count — never the voice judgment itself (Q1–Q4 are a reasoning pass).
   voiceRubric: join(ROOT, 'docs/tech/ux-governance/VOICE_RUBRIC.md'),
+  // The two 2026-07-13 additions (CC-2, UX_GOVERNANCE_WIRING_FIX_2026-07-13):
+  // the asset gate and the advisory storytelling companion. Guarded for the same
+  // structural wiring (UX-ID citations + docs/ links) as the rest of the layer.
+  assetCompliance: join(ROOT, 'docs/tech/ux-governance/asset-compliance-checklist.md'),
+  storytelling: join(ROOT, 'docs/tech/ux-governance/STORYTELLING_CRAFT.md'),
 };
 
 // ---- safety skip (should not trigger since the G-1 relocation made these tracked) ----
@@ -77,6 +85,8 @@ const checklist = read(FILES.checklist);
 const brand = existsSync(FILES.brand) ? read(FILES.brand) : '';
 const usage = existsSync(FILES.usage) ? read(FILES.usage) : '';
 const voiceRubric = existsSync(FILES.voiceRubric) ? read(FILES.voiceRubric) : '';
+const assetCompliance = existsSync(FILES.assetCompliance) ? read(FILES.assetCompliance) : '';
+const storytelling = existsSync(FILES.storytelling) ? read(FILES.storytelling) : '';
 
 let auditFiles = [];
 const auditDir = join(ROOT, 'docs/audit');
@@ -122,6 +132,8 @@ const maxId = Math.max(...defined);
     ['BRAND_POSITIONING', brand],
     ['UX_GOVERNANCE_USAGE', usage],
     ['VOICE_RUBRIC', voiceRubric],
+    ['asset-compliance-checklist', assetCompliance],
+    ['STORYTELLING_CRAFT', storytelling],
     ...auditFiles.map((f) => [f.replace(ROOT + '/', ''), read(f)]),
   ];
   for (const [name, text] of sources) {
@@ -180,6 +192,8 @@ let lastVetoRow = null;
     ['canon', FILES.canon, canon],
     ['usage', FILES.usage, usage],
     ['VOICE_RUBRIC', FILES.voiceRubric, voiceRubric],
+    ['asset-compliance-checklist', FILES.assetCompliance, assetCompliance],
+    ['STORYTELLING_CRAFT', FILES.storytelling, storytelling],
     ...auditFiles.map((f) => [f.replace(ROOT + '/', ''), f, read(f)]),
   ];
   const DEAD_OK =
@@ -287,12 +301,16 @@ let govFileCount = null;
     twelve: 12,
   };
   // Match ONLY an explicit count token (number-word or digits) before
-  // "enforcement files" — never a bare \w+. A non-count phrasing like "the
-  // enforcement files below" makes no count claim and must not red-CI; the
-  // earlier [A-Za-z]+ form would have captured "the" and false-failed as
-  // "unparseable". Every token this now matches is guaranteed parseable.
+  // "enforcement files" OR "governance files" — never a bare \w+. (CC-3,
+  // 2026-07-13: CLAUDE.md was reworded from "six enforcement files" to "six
+  // governance files — four enforcement / one asset gate / one advisory-craft"
+  // because two of the six are not enforcement by their own declaration. The
+  // guard tracks BOTH phrasings so the count claim stays armed whichever a doc
+  // uses; "four enforcement (" carries no "files" and is correctly not matched.)
+  // A non-count phrasing like "the governance files below" makes no count claim
+  // and must not red-CI; every token this now matches is guaranteed parseable.
   const COUNT_TOKEN = new RegExp(
-    `\\b(${Object.keys(WORD_TO_NUM).join('|')}|\\d+)\\s+enforcement files\\b`,
+    `\\b(${Object.keys(WORD_TO_NUM).join('|')}|\\d+)\\s+(?:enforcement|governance) files\\b`,
     'gi'
   );
   if (existsSync(govDir)) {
@@ -309,7 +327,7 @@ let govFileCount = null;
         if (claimed !== govFileCount)
           fail(
             'g',
-            `${name}: says "${m[1]} enforcement files" but docs/tech/ux-governance/ has ${govFileCount} .md files`
+            `${name}: says "${m[0]}" but docs/tech/ux-governance/ has ${govFileCount} .md files`
           );
       }
     }
@@ -323,5 +341,5 @@ if (errors.length) {
   process.exit(1);
 }
 console.log(
-  `✓ validate:ux-canon OK — ${defined.length} canon IDs contiguous; all citations resolve; veto list in parity (rows 10–${lastVetoRow}); no broken governance references; blocking range consistent; rows-range citations match Part 3's ${lastRow} rows; VOICE_RUBRIC wired (citations + docs/ links guarded, "${govFileCount} enforcement files" count matches).`
+  `✓ validate:ux-canon OK — ${defined.length} canon IDs contiguous; all citations resolve; veto list in parity (rows 10–${lastVetoRow}); no broken governance references; blocking range consistent; rows-range citations match Part 3's ${lastRow} rows; VOICE_RUBRIC + STORYTELLING_CRAFT + asset-compliance wired (citations + docs/ links guarded, "${govFileCount} governance files" count matches).`
 );

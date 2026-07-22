@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDream } from '../PreDreamProvider';
 import { ShareDreamSection } from '../components/ShareDreamSection';
-import { formatCurrency } from '@/lib/pre-dream';
+import { formatCurrency, calculatePreDreamResult } from '@/lib/pre-dream';
 import { useMarketData } from '@/hooks/useMarketData';
 import type { SupportedLocale } from '@/lib/market-data';
 import { formatRate } from '@/lib/market-data/formatters';
@@ -65,6 +65,26 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
   const diboasBarWidth = maxBalance > 0 ? (result.defiBalance / maxBalance) * 100 : 0;
   const bankBarWidth = maxBalance > 0 ? (bankBalance / maxBalance) * 100 : 0;
 
+  // UX-60 (canon Part 9): the chosen path is one of three assumptions, not a
+  // certainty. Show what the SAME money would show on the other two paths so the
+  // outcome reads as a scenario spread, not a single deterministic number. The
+  // chosen path keeps its exact figure above; these are the alternatives.
+  const scenarioSpread = (['safety', 'balance', 'growth'] as const)
+    .filter((p) => p !== state.selectedPath)
+    .map((p) => ({
+      path: p,
+      label: intl.formatMessage({ id: `preDream.pathSelect.paths.${p}.name` }),
+      balance: calculatePreDreamResult(
+        p,
+        state.selectedTimeframe,
+        state.initialAmount,
+        state.monthlyContribution,
+        result.bankApy,
+        locale,
+        marketData
+      ).defiBalance,
+    }));
+
   const goalName = state.selectedGoal
     ? intl.formatMessage({ id: `preDream.goalStrategy.options.${state.selectedGoal}.label` })
     : null;
@@ -86,19 +106,21 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
           <div className={styles.comparisonHeader}>
             <div>
               <p className={styles.comparisonLabel}>{t('withDiboas')}</p>
-              <p className={styles.comparisonApy}>{result.pathApy}% APY</p>
+              <p className={styles.comparisonApy}>
+                {t('assumedApy', { apy: String(result.pathApy) })}
+              </p>
             </div>
             <div className={styles.comparisonValues}>
               <p className={styles.comparisonAmount}>
-                {formatCurrency(result.defiBalance, 2, locale)}
+                {formatCurrency(result.defiBalance, 0, locale)}
               </p>
               <p className={styles.comparisonGain}>
-                +{formatCurrency(result.defiInterest, 2, locale)}
+                +{formatCurrency(result.defiInterest, 0, locale)}
               </p>
               {hasCurrencyHedge && result.diboasYieldBalance != null && (
                 <p className={styles.comparisonGainMuted}>
                   {t('yieldCurrencyValue', {
-                    amount: formatCurrency(result.diboasYieldBalance, 2, 'en'),
+                    amount: formatCurrency(result.diboasYieldBalance, 0, 'en'),
                   })}
                 </p>
               )}
@@ -118,10 +140,10 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
             </div>
             <div className={styles.comparisonValues}>
               <p className={styles.comparisonAmountMuted}>
-                {formatCurrency(bankBalance, 2, locale)}
+                {formatCurrency(bankBalance, 0, locale)}
               </p>
               <p className={styles.comparisonGainMuted}>
-                +{formatCurrency(bankInterest, 2, locale)}
+                +{formatCurrency(bankInterest, 0, locale)}
               </p>
             </div>
           </div>
@@ -138,11 +160,28 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
         </div>
         <div>
           <p className={styles.differenceText}>
-            {t('differenceMore', { amount: formatCurrency(difference, 2, locale) })}
+            {t('differenceMore', { amount: formatCurrency(difference, 0, locale) })}
           </p>
           <p className={styles.differenceSubtext}>{t('differenceSubtext')}</p>
         </div>
       </div>
+
+      {/* UX-60: the same money on the other paths — the outcome is a scenario,
+          not a single certain number. */}
+      <p className={styles.scenarioSpread}>
+        {t('scenarioPrefix')}{' '}
+        {scenarioSpread.map((s, i) => (
+          <span key={s.path} className={styles.scenarioItem}>
+            {i > 0 ? ' · ' : ''}
+            {s.label} {formatCurrency(s.balance, 0, locale)}
+          </span>
+        ))}
+      </p>
+
+      {/* UX-63: the caveat travels with the figures, not a footnote. */}
+      <p className={styles.resultCaveat}>
+        {intl.formatMessage({ id: 'preDream.disclaimer.bullets.pastPerformance' })}
+      </p>
 
       {/* Share Section */}
       <ShareDreamSection result={result} difference={difference} />

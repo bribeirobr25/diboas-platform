@@ -1,0 +1,112 @@
+/* The gate: an ink-teal editorial hero, cream serif — the campaign signature. */
+.wrap {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: var(--spacing-lg);
+  background:
+    radial-gradient(120% 90% at 15% 0%, var(--sb-ink-soft) 0%, var(--sb-ink) 55%), var(--sb-ink);
+}
+
+.card {
+  width: 100%;
+  max-width: 27rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  color: var(--sb-text-on-ink);
+}
+
+.badge {
+  margin: 0;
+  align-self: flex-start;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sb-accent-bright);
+  border: 1px solid color-mix(in srgb, var(--sb-accent-bright) 40%, transparent);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-2xs) var(--spacing-md);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--sb-serif);
+  font-size: clamp(2.4rem, 6vw, 3.1rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--sb-text-on-ink);
+}
+
+.title em {
+  font-style: italic;
+  color: var(--sb-accent-bright);
+}
+
+.subtitle {
+  margin: 0 0 var(--spacing-sm);
+  color: var(--sb-text-on-ink-muted);
+  line-height: var(--line-height-relaxed);
+  font-size: var(--font-size-lg);
+  max-width: 24rem;
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--sb-text-on-ink-muted);
+}
+
+.input {
+  min-height: var(--sb-tap);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid color-mix(in srgb, var(--sb-accent-bright) 30%, transparent);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-md);
+  background: color-mix(in srgb, var(--sb-ink-soft) 60%, transparent);
+  color: var(--sb-text-on-ink);
+}
+
+.input::placeholder {
+  color: color-mix(in srgb, var(--sb-text-on-ink-muted) 70%, transparent);
+}
+
+.error {
+  margin: 0;
+  color: var(--sb-accent-bright);
+  font-size: var(--font-size-sm);
+}
+
+.submit {
+  min-height: 48px;
+  margin-top: var(--spacing-2xs);
+  border: none;
+  border-radius: var(--radius-lg);
+  background: var(--sb-accent);
+  color: var(--sb-ink);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  transition:
+    transform 0.12s ease,
+    background 0.12s ease;
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--sb-accent-bright);
+  transform: translateY(-1px);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.disclaimer {
+  margin: var(--spacing-sm) 0 0;
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-on-ink-muted);
+  line-height: var(--line-height-relaxed);
+  opacity: 0.85;
+}

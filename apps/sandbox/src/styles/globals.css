@@ -1,0 +1,109 @@
+/*
+ * diBoaS Sandbox — global baseline + the "diBoaS mobile-app" design language.
+ *
+ * DESIGN LANGUAGE (2026-07-18 mobile-app redesign, docs/sandbox-app/UI-UX-REDESIGN.md):
+ * a modern, minimalist, WARM light mobile app — grounded in the campaign's own
+ * app mockups (light card-list + bottom tab bar). Soft warm-white ground, clean
+ * white cards, one teal accent, sans headings for scannability, ink-teal reserved
+ * for the high-gravity path/manifest sheet. Brand-warmth guardrail: warm neutrals
+ * (never pure #FFF/#000), the palm-B, human copy, generous space.
+ *
+ * The `--sb-*` layer below is the single semantic surface: every component
+ * references it, so a palette/type change is a one-file edit. Every value is
+ * sourced from an existing design token (R-3: no magic literals) — this layer
+ * only names them for the app's intent.
+ */
+
+:root {
+  /* Grounds + surfaces (light-primary, warm) */
+  --sb-ground: var(--surface-paper); /* soft warm-white app canvas backdrop */
+  --sb-surround: var(--editorial-paper-deep); /* deeper cream behind the app canvas on desktop */
+  --sb-card: var(--color-white); /* clean white card */
+  --sb-card-tint: var(--color-teal-50); /* faint teal wash for the emphasized job */
+  --sb-ink: var(--accent-ink); /* #0b1f24 ink-teal — the path/manifest gravity surface */
+  --sb-ink-soft: var(--accent-ink-soft); /* #112a30 */
+
+  /* Type: sans is the app voice; serif is a sparing accent (first-run welcome). */
+  --sb-sans: var(--font-family-primary);
+  --sb-serif: var(--font-sandbox-serif), 'Iowan Old Style', Georgia, serif;
+  --sb-heading: var(--sb-sans); /* headings use sans by default (modern app feel) */
+
+  /* Text */
+  --sb-text-heading: var(--editorial-ink); /* warm near-black */
+  --sb-text-body: var(--color-slate-700);
+  --sb-text-muted: var(--color-slate-500);
+  --sb-text-on-ink: var(--editorial-paper); /* cream on ink-teal */
+  --sb-text-on-ink-muted: var(--color-teal-100);
+
+  /* Accents */
+  --sb-accent: var(--color-teal-600);
+  --sb-accent-strong: var(--color-teal-700);
+  --sb-accent-tint: var(--color-teal-50);
+  --sb-accent-bright: var(--color-teal-400);
+  --sb-warn-tint: var(--color-amber-100);
+  --sb-warn-text: var(--color-amber-700);
+  --sb-danger: var(--color-red-700);
+
+  /* Lines + elevation (soft, warm) */
+  --sb-hairline: var(--editorial-paper-deep);
+  --sb-hairline-strong: var(--color-gray-300);
+  --sb-shadow-tint-a: color-mix(in srgb, var(--editorial-ink) 4%, transparent);
+  --sb-shadow-tint-b: color-mix(in srgb, var(--editorial-ink) 9%, transparent);
+  --sb-shadow-tint-c: color-mix(in srgb, var(--editorial-ink) 16%, transparent);
+  --sb-shadow-soft: 0 1px 2px var(--sb-shadow-tint-a), 0 6px 20px -12px var(--sb-shadow-tint-b);
+  --sb-shadow-lift: 0 2px 4px var(--sb-shadow-tint-a), 0 20px 44px -20px var(--sb-shadow-tint-c);
+  --sb-shadow-sheet: 0 -8px 40px -12px var(--sb-shadow-tint-c);
+
+  /* Rhythm */
+  --sb-radius: var(--radius-xl); /* 16px cards */
+  --sb-radius-lg: var(--radius-2xl); /* 24px hero */
+  --sb-tap: 44px;
+
+  /* The mobile-app canvas width (constrained; centered on desktop). */
+  --sb-canvas: 30rem; /* ~480px */
+  --sb-tabbar-h: 4.25rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--sb-sans);
+  background: var(--sb-surround); /* the desktop surround; the canvas sits on top */
+  color: var(--sb-text-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100dvh;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--sb-accent);
+  outline-offset: 2px;
+}

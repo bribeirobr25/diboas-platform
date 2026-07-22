@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Calculadora de desvalorização cambial",
-    "description": "Calculadora gratuita de desvalorização cambial. Compare sua moeda local em dinheiro, no banco e em dólar digital ao rendimento histórico de 10%."
+    "description": "Calculadora gratuita de desvalorização cambial. Compare sua moeda local em dinheiro, no banco e em dólar digital, com retorno histórico de estratégia de 10%."
   },
   "hero": {
     "kicker": "Calculadora de desvalorização cambial",
@@ -31,7 +31,7 @@
     "bankLabel": "Rendimento do banco",
     "bankRateNote": "{rate}% taxa local",
     "diboasLabel": "Dólar digital no diBoaS",
-    "diboasNote": "{rate}% rendimento histórico, mantido em dólar digital",
+    "diboasNote": "{rate}% de retorno histórico da estratégia, mantido em dólar digital",
     "retrospectiveThenLabel": "Então ({startMonth})",
     "retrospectiveThenNote": "1 USD = {rate} {currency}",
     "retrospectiveNowLabel": "Agora ({asOfMonth})",
@@ -49,7 +49,7 @@
     "eyebrowUsd": "O que seus dólares parados rendem",
     "chartAria": "Como o {currency} se compara em {years} anos mantido em dinheiro, em banco local e em dólar digital no diBoaS.",
     "chartAriaUsd": "Como seus dólares se comparam em {years} anos em um banco versus em dólar digital no diBoaS.",
-    "shareText": "Em {years} anos, meus {currency} poderiam valer {value} em dólar digital no diBoaS. Veja quanto o seu realmente rende."
+    "shareText": "Em {years} anos, meus {currency} poderiam valer {value} em dólar digital no diBoaS. Veja como o seu se segura."
   },
   "vignette": {
     "subtitle": "Onde você guarda seu dinheiro importa. A moeda em que ele rende, importa mais."

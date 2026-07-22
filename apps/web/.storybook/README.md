@@ -92,14 +92,15 @@ When adding new stories:
 ### Main Configuration
 
 - **main.ts** - Storybook configuration with Next.js integration
-- **preview.ts** - Global parameters, themes, and decorators
+- **preview.tsx** - Global parameters, themes, and decorators
 
 ### Addons
 
-- **Essentials** - Controls, docs, actions, viewport
-- **A11y** - Accessibility testing and auditing
-- **Viewport** - Responsive design testing
-- **Docs** - Automated documentation generation
+Only installed addons are referenced (Phase 3A cleanup, 2026-05-18 — controls/actions/viewport are Storybook 10 auto-included):
+
+- **Onboarding** (`@storybook/addon-onboarding`) - First-run guided tour
+- **A11y** (`@storybook/addon-a11y`) - Accessibility testing and auditing
+- **Docs** (`@storybook/addon-docs`) - Automated documentation generation
 
 ## Documentation Standards
 

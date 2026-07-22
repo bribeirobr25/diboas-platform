@@ -76,7 +76,6 @@
     "title": "How far into the future?",
     "back": "Back",
     "simulateButton": "Show me what happens",
-    "daysUnit": "days",
     "options": {
       "1year": {
         "label": "1 Year",
@@ -104,6 +103,8 @@
     "titlePrefix": "Your {amount} could become...",
     "titleWithGoal": "Your {goalName} could be:",
     "withDiboas": "With diBoaS",
+    "assumedApy": "at an assumed {apy}% a year",
+    "scenarioPrefix": "Same money on the other paths:",
     "bankWouldGive": "Your bank would give you:",
     "differenceMore": "That's {amount} MORE with diBoaS",
     "differenceSubtext": "Same money. Different place. Big difference.",

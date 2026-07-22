@@ -102,3 +102,11 @@ Each locale gets unique titles/descriptions, `hreflang` tags for all locales, an
 - **Service-agnostic abstraction:** components render variants (`<HeroSection variant="…" />`); the factory resolves translations internally via `useConfigTranslation` — components never know about the translation implementation.
 - **DRY / config-driven:** all config files use translation keys, never hardcoded English. Adding a language = add the locale's JSON files + extend `SUPPORTED_LOCALES`.
 - **No hardcoded values:** all user-facing content comes from translation files; non-content values (URLs, flags) come from environment variables.
+
+## Voice & cultural quality — the UX half (C-5, 2026-07-19)
+
+This document is the **engineering** of four locales (namespace parity, the resolution layer, `validate:translations`, German +30% expansion awareness). It does **not** cover whether a translation is culturally _alive_ vs merely _faithful_ — that quality question is owned by the voice layer:
+
+- **`docs/tech/ux-governance/VOICE_RUBRIC.md` § "The four-locale rule"** is the authority: score each locale in its own register (never against the English), a perfect translation can still fail the rubric (flat in the target language), and mark anything you can't confirm natively `[NATIVE PASS REQUIRED]`. Register decisions (German `Sie`/`du`, peninsular vs LatAm Spanish, Brazilian-plain Portuguese) and native financial phrasing live there, not here.
+- **UX convention:** language selectors use explicit **endonym labels** ("Deutsch", "Português", "Español"), never country flags (English ≠ USA); local number/date/currency formats via `Intl`. (Verified 2026-07-19: the desktop dropdown is compliant; the mobile inline selector was corrected from flags to labels — see `LanguageSwitcher.tsx`.)
+- **Engineering suggestion (CTO/infra backlog, not governance):** pseudo-localization in CI catches text-expansion overflow before a translator is paid.

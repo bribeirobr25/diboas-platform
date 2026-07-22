@@ -356,24 +356,48 @@
         },
         {
           "type": "table",
-          "headers": ["Marco", "Quando"],
+          "headers": [
+            "Marco",
+            "Quando"
+          ],
           "rows": [
-            ["Constituir entidade em Berlim: UG para GmbH, ou GmbH direto no raise maior", "Mês 0"],
-            ["Produto de inteligência de mercado no ar: Adelaide / BTC macro", "Mês 0–3"],
+            [
+              "Constituir entidade em Berlim: UG para GmbH, ou GmbH direto no raise maior",
+              "Mês 0"
+            ],
+            [
+              "Produto de inteligência de mercado no ar: Adelaide / BTC macro",
+              "Mês 0–3"
+            ],
             [
               "Produto de dinheiro lançado: carteiras + entrada/saída + primeira estratégia",
               "Mês 3–6"
             ],
-            ["Primeiros clientes pagantes + primeiros pilotos empresariais", "Mês 6–9"]
+            [
+              "Primeiros clientes pagantes + primeiros pilotos empresariais",
+              "Mês 6–9"
+            ]
           ]
         },
         {
           "type": "table",
-          "headers": ["Meta do ano um", "Cenário-base"],
+          "headers": [
+            "Meta do ano um",
+            "Cenário-base"
+          ],
           "rows": [
-            ["Usuários pessoa física com depósito", "2.500–5.000"],
-            ["Clientes empresariais pagantes", "5–10"],
-            ["Receita indicativa", "~US$45 mil"]
+            [
+              "Usuários pessoa física com depósito",
+              "2.500–5.000"
+            ],
+            [
+              "Clientes empresariais pagantes",
+              "5–10"
+            ],
+            [
+              "Receita indicativa",
+              "~US$45 mil"
+            ]
           ]
         },
         {
@@ -404,16 +428,43 @@
         },
         {
           "type": "table",
-          "headers": ["Uso dos recursos — Caminho A, ~18 meses", "Valor"],
+          "headers": [
+            "Uso dos recursos — Caminho A, ~18 meses",
+            "Valor"
+          ],
           "rows": [
-            ["Salário do fundador, enxuto", "~€60K"],
-            ["Auditoria de segurança, única antes do lançamento", "~€30K"],
-            ["Jurídico: parecer regulatório UE + constituição + papelada do round", "~€28K"],
-            ["Consultor regulatório/compliance fracionado, leve perto do lançamento", "~€20K"],
-            ["Infraestrutura + provedor de carteiras + integração de entrada/saída", "~€20K"],
-            ["Contabilidade / consultor tributário, Steuerberater", "~€8K"],
-            ["Reserva", "~€34K"],
-            ["Total", "~€200K"]
+            [
+              "Salário do fundador, enxuto",
+              "~€60K"
+            ],
+            [
+              "Auditoria de segurança, única antes do lançamento",
+              "~€30K"
+            ],
+            [
+              "Jurídico: parecer regulatório UE + constituição + papelada do round",
+              "~€28K"
+            ],
+            [
+              "Consultor regulatório/compliance fracionado, leve perto do lançamento",
+              "~€20K"
+            ],
+            [
+              "Infraestrutura + provedor de carteiras + integração de entrada/saída",
+              "~€20K"
+            ],
+            [
+              "Contabilidade / consultor tributário, Steuerberater",
+              "~€8K"
+            ],
+            [
+              "Reserva",
+              "~€34K"
+            ],
+            [
+              "Total",
+              "~€200K"
+            ]
           ]
         },
         {
@@ -1037,16 +1088,43 @@
         },
         {
           "type": "table",
-          "headers": ["Item", "Valor"],
+          "headers": [
+            "Item",
+            "Valor"
+          ],
           "rows": [
-            ["Salário do fundador (enxuto)", "~€60K"],
-            ["Auditoria de segurança (única, pré-lançamento)", "~€30K"],
-            ["Jurídico: parecer regulatório UE + constituição + papelada do round", "~€28K"],
-            ["Consultor regulatório/compliance fracionado (leve, perto do lançamento)", "~€20K"],
-            ["Infraestrutura + provedor de carteiras + integração de entrada/saída", "~€20K"],
-            ["Contabilidade / consultor tributário (Steuerberater)", "~€8K"],
-            ["Reserva", "~€34K"],
-            ["Total", "~€200K"]
+            [
+              "Salário do fundador (enxuto)",
+              "~€60K"
+            ],
+            [
+              "Auditoria de segurança (única, pré-lançamento)",
+              "~€30K"
+            ],
+            [
+              "Jurídico: parecer regulatório UE + constituição + papelada do round",
+              "~€28K"
+            ],
+            [
+              "Consultor regulatório/compliance fracionado (leve, perto do lançamento)",
+              "~€20K"
+            ],
+            [
+              "Infraestrutura + provedor de carteiras + integração de entrada/saída",
+              "~€20K"
+            ],
+            [
+              "Contabilidade / consultor tributário (Steuerberater)",
+              "~€8K"
+            ],
+            [
+              "Reserva",
+              "~€34K"
+            ],
+            [
+              "Total",
+              "~€200K"
+            ]
           ]
         },
         {
@@ -1278,8 +1356,8 @@
           "items": [
             "Brasil: poupar em dólar é hoje valioso — inflação de ~4,7% e um real em queda — enquanto o PIX (93% dos adultos) prova que a população já movimenta dinheiro digitalmente.",
             "Clareza regulatória está chegando, não pendente: MiCA operante na UE, marco de ativos virtuais do Brasil datado e em vigor, orientação dos EUA sobre interfaces não custodiais amadurecida em 2026. A janela de compliant-by-design está aberta agora — e não vai ficar aberta.",
-            "A infraestrutura de stablecoin cruzou a maturidade de nível-consumidor: USDC mais rendimento on-chain é trilho de commodity em 2026 de um jeito que não era em 2022.",
-            "Descompasso de incentivo dos incumbentes: a economia baseada em custódia impede os neobanks de repassar rendimento on-chain — abrindo uma janela regional antes de qualquer resposta estrutural.",
+            "A infraestrutura de stablecoin cruzou a maturidade de nível-consumidor: USDC mais retorno on-chain é trilho de commodity em 2026 de um jeito que não era em 2022.",
+            "Descompasso de incentivo dos incumbentes: a economia baseada em custódia impede os neobanks de repassar retorno on-chain — abrindo uma janela regional antes de qualquer resposta estrutural.",
             "A camada que falta continua sendo clareza antes da movimentação."
           ]
         },
@@ -1804,7 +1882,9 @@
         },
         {
           "type": "callout",
-          "lines": ["~€200.000"]
+          "lines": [
+            "~€200.000"
+          ]
         },
         {
           "type": "heading",
@@ -1826,7 +1906,10 @@
         },
         {
           "type": "table",
-          "headers": ["Categoria", "Finalidade"],
+          "headers": [
+            "Categoria",
+            "Finalidade"
+          ],
           "rows": [
             [
               "Construção do produto",
@@ -1856,7 +1939,10 @@
               "Validação B2B",
               "Prospecção liderada pelo fundador, primeiras conversas e teste inicial de demanda"
             ],
-            ["Reserva", "Margem para custos inevitáveis e atritos de lançamento"]
+            [
+              "Reserva",
+              "Margem para custos inevitáveis e atritos de lançamento"
+            ]
           ]
         },
         {
@@ -1920,7 +2006,9 @@
         },
         {
           "type": "callout",
-          "lines": ["~€450.000"]
+          "lines": [
+            "~€450.000"
+          ]
         },
         {
           "type": "heading",
@@ -1942,7 +2030,10 @@
         },
         {
           "type": "table",
-          "headers": ["Categoria", "Finalidade"],
+          "headers": [
+            "Categoria",
+            "Finalidade"
+          ],
           "rows": [
             [
               "Suporte sênior de engenharia",
@@ -1976,7 +2067,10 @@
               "Validação B2B",
               "Validação comercial mais estruturada, materiais, outreach e formação inicial de pipeline"
             ],
-            ["Reserva", "Margem maior para atrasos regulatórios, técnicos e de parceiros"]
+            [
+              "Reserva",
+              "Margem maior para atrasos regulatórios, técnicos e de parceiros"
+            ]
           ]
         },
         {
@@ -2310,7 +2404,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Capital deve comprar evidência."]
+          "lines": [
+            "Capital deve comprar evidência."
+          ]
         },
         {
           "type": "paragraph",
@@ -2409,16 +2505,43 @@
         },
         {
           "type": "table",
-          "headers": ["Linha de receita", "Lógica de taxa da diBoaS"],
+          "headers": [
+            "Linha de receita",
+            "Lógica de taxa da diBoaS"
+          ],
           "rows": [
-            ["Adicionar dinheiro", "taxa de movimentação de 0,48%"],
-            ["Sacar / retirar", "taxa de movimentação de 0,48%"],
-            ["Encerrar estratégia", "taxa de encerramento de 0,39%"],
-            ["Enviar dinheiro", "taxa diBoaS zero onde suportado"],
-            ["Trocar", "taxa diBoaS zero onde suportado"],
-            ["Bridge", "taxa diBoaS zero onde suportado"],
-            ["Iniciar estratégia", "taxa diBoaS zero"],
-            ["Receber pagamentos B2B", "taxa diBoaS zero onde suportado"]
+            [
+              "Adicionar dinheiro",
+              "taxa de movimentação de 0,48%"
+            ],
+            [
+              "Sacar / retirar",
+              "taxa de movimentação de 0,48%"
+            ],
+            [
+              "Encerrar estratégia",
+              "taxa de encerramento de 0,39%"
+            ],
+            [
+              "Enviar dinheiro",
+              "taxa diBoaS zero onde suportado"
+            ],
+            [
+              "Trocar",
+              "taxa diBoaS zero onde suportado"
+            ],
+            [
+              "Bridge",
+              "taxa diBoaS zero onde suportado"
+            ],
+            [
+              "Iniciar estratégia",
+              "taxa diBoaS zero"
+            ],
+            [
+              "Receber pagamentos B2B",
+              "taxa diBoaS zero onde suportado"
+            ]
           ]
         },
         {
@@ -2431,7 +2554,10 @@
         },
         {
           "type": "callout",
-          "lines": ["A diBoaS cobra pela movimentação.", "A diBoaS não taxa o upside escondido."]
+          "lines": [
+            "A diBoaS cobra pela movimentação.",
+            "A diBoaS não taxa o upside escondido."
+          ]
         },
         {
           "type": "heading",
@@ -2487,7 +2613,9 @@
         },
         {
           "type": "callout",
-          "lines": ["ARPU médio de consumidor: ~US$5,88 por ano"]
+          "lines": [
+            "ARPU médio de consumidor: ~US$5,88 por ano"
+          ]
         },
         {
           "type": "paragraph",
@@ -2506,7 +2634,9 @@
         },
         {
           "type": "callout",
-          "lines": ["~US$13 em taxas de movimentação ao longo da vida"]
+          "lines": [
+            "~US$13 em taxas de movimentação ao longo da vida"
+          ]
         },
         {
           "type": "paragraph",
@@ -2583,7 +2713,9 @@
         },
         {
           "type": "callout",
-          "lines": ["ARPU B2B: ~US$1.945–19.300 por ano"]
+          "lines": [
+            "ARPU B2B: ~US$1.945–19.300 por ano"
+          ]
         },
         {
           "type": "paragraph",
@@ -2591,10 +2723,19 @@
         },
         {
           "type": "table",
-          "headers": ["Caso B2B", "Potencial aproximado de receita anual"],
+          "headers": [
+            "Caso B2B",
+            "Potencial aproximado de receita anual"
+          ],
           "rows": [
-            ["Empresa movimentando ~US$200.000 de caixa parado ou excedente", "~US$1.945/ano"],
-            ["Empresa movimentando ~US$500.000 trimestralmente", "~US$19.300/ano"]
+            [
+              "Empresa movimentando ~US$200.000 de caixa parado ou excedente",
+              "~US$1.945/ano"
+            ],
+            [
+              "Empresa movimentando ~US$500.000 trimestralmente",
+              "~US$19.300/ano"
+            ]
           ]
         },
         {
@@ -2607,7 +2748,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Um cliente B2B pode valer centenas ou milhares de usuários consumidores."]
+          "lines": [
+            "Um cliente B2B pode valer centenas ou milhares de usuários consumidores."
+          ]
         },
         {
           "type": "heading",
@@ -2620,7 +2763,9 @@
         },
         {
           "type": "callout",
-          "lines": ["10 clientes B2B podem valer mais que 6.000 consumidores."]
+          "lines": [
+            "10 clientes B2B podem valer mais que 6.000 consumidores."
+          ]
         },
         {
           "type": "paragraph",
@@ -2646,7 +2791,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Adquirir consumidores barato e torcer para o ARPU melhorar por mágica."]
+          "lines": [
+            "Adquirir consumidores barato e torcer para o ARPU melhorar por mágica."
+          ]
         },
         {
           "type": "paragraph",
@@ -2820,7 +2967,9 @@
         },
         {
           "type": "callout",
-          "lines": ["~US$60.000/ano"]
+          "lines": [
+            "~US$60.000/ano"
+          ]
         },
         {
           "type": "paragraph",
@@ -2828,7 +2977,9 @@
         },
         {
           "type": "callout",
-          "lines": ["~US$5,88/ano"]
+          "lines": [
+            "~US$5,88/ano"
+          ]
         },
         {
           "type": "paragraph",
@@ -2836,7 +2987,9 @@
         },
         {
           "type": "callout",
-          "lines": ["~10.200 usuários ativos"]
+          "lines": [
+            "~10.200 usuários ativos"
+          ]
         },
         {
           "type": "paragraph",
@@ -2848,7 +3001,9 @@
         },
         {
           "type": "callout",
-          "lines": ["B2C sozinho não é a melhor história de break-even."]
+          "lines": [
+            "B2C sozinho não é a melhor história de break-even."
+          ]
         },
         {
           "type": "heading",
@@ -2865,7 +3020,9 @@
         },
         {
           "type": "callout",
-          "lines": ["25 clientes B2B podem reduzir a necessidade para ~1.900 usuários ativos."]
+          "lines": [
+            "25 clientes B2B podem reduzir a necessidade para ~1.900 usuários ativos."
+          ]
         },
         {
           "type": "paragraph",
@@ -2890,7 +3047,12 @@
         },
         {
           "type": "table",
-          "headers": ["Cenário", "Ano 1 (metas)", "Ano 2 (premissa)", "Ano 3 (premissa)"],
+          "headers": [
+            "Cenário",
+            "Ano 1 (metas)",
+            "Ano 2 (premissa)",
+            "Ano 3 (premissa)"
+          ],
           "rows": [
             [
               "Base — usuários / clientes B2B",
@@ -2904,10 +3066,30 @@
               "~US$45–110 mil",
               "~US$190 mil"
             ],
-            ["Otimista — usuários / clientes B2B", "5.000 / 10", "~15.000 / ~50", "~30.000 / ~120"],
-            ["Otimista — receita bruta", "~US$45–60 mil", "~US$150–240 mil", "~US$530–780 mil"],
-            ["Pessimista — usuários / clientes B2B", "~2.000 / ~3", "~3.000 / ~6", "~4.000 / ~8"],
-            ["Pessimista — receita bruta", "~US$20–30 mil", "~US$30–40 mil", "~US$45 mil"]
+            [
+              "Otimista — usuários / clientes B2B",
+              "5.000 / 10",
+              "~15.000 / ~50",
+              "~30.000 / ~120"
+            ],
+            [
+              "Otimista — receita bruta",
+              "~US$45–60 mil",
+              "~US$150–240 mil",
+              "~US$530–780 mil"
+            ],
+            [
+              "Pessimista — usuários / clientes B2B",
+              "~2.000 / ~3",
+              "~3.000 / ~6",
+              "~4.000 / ~8"
+            ],
+            [
+              "Pessimista — receita bruta",
+              "~US$20–30 mil",
+              "~US$30–40 mil",
+              "~US$45 mil"
+            ]
           ]
         },
         {
@@ -2978,14 +3160,35 @@
         },
         {
           "type": "table",
-          "headers": ["Ação", "Taxa diBoaS"],
+          "headers": [
+            "Ação",
+            "Taxa diBoaS"
+          ],
           "rows": [
-            ["Adicionar dinheiro", "0,48%"],
-            ["Sacar / retirar", "0,48%"],
-            ["Encerrar estratégia", "0,39%"],
-            ["Iniciar estratégia", "0"],
-            ["Enviar / trocar / bridge", "0 onde suportado"],
-            ["Receber pagamentos B2B", "0 onde suportado"]
+            [
+              "Adicionar dinheiro",
+              "0,48%"
+            ],
+            [
+              "Sacar / retirar",
+              "0,48%"
+            ],
+            [
+              "Encerrar estratégia",
+              "0,39%"
+            ],
+            [
+              "Iniciar estratégia",
+              "0"
+            ],
+            [
+              "Enviar / trocar / bridge",
+              "0 onde suportado"
+            ],
+            [
+              "Receber pagamentos B2B",
+              "0 onde suportado"
+            ]
           ]
         },
         {
@@ -2995,11 +3198,23 @@
         },
         {
           "type": "table",
-          "headers": ["Tipo de taxa", "Limite"],
+          "headers": [
+            "Tipo de taxa",
+            "Limite"
+          ],
           "rows": [
-            ["Add / cash-out consumidor", "US$250"],
-            ["Add / cash-out empresa", "sem limite"],
-            ["Encerrar estratégia", "US$25"]
+            [
+              "Add / cash-out consumidor",
+              "US$250"
+            ],
+            [
+              "Add / cash-out empresa",
+              "sem limite"
+            ],
+            [
+              "Encerrar estratégia",
+              "US$25"
+            ]
           ]
         },
         {
@@ -3408,7 +3623,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Não precisa de licença."]
+          "lines": [
+            "Não precisa de licença."
+          ]
         },
         {
           "type": "paragraph",
@@ -3947,7 +4164,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Encontramos uma brecha."]
+          "lines": [
+            "Encontramos uma brecha."
+          ]
         },
         {
           "type": "paragraph",
@@ -4021,7 +4240,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Construir apenas o que prova o próximo risco."]
+          "lines": [
+            "Construir apenas o que prova o próximo risco."
+          ]
         },
         {
           "type": "paragraph",
@@ -4065,18 +4286,51 @@
         },
         {
           "type": "table",
-          "headers": ["Área", "Status"],
+          "headers": [
+            "Área",
+            "Status"
+          ],
           "rows": [
-            ["Site de marketing", "No ar"],
-            ["Produto de inteligência de mercado", "No ar"],
-            ["Materiais para investidores", "Criados e em empacotamento"],
-            ["Plano de Negócios", "Criado"],
-            ["Investor FAQ", "Criado"],
-            ["Modelo de Receita", "Criado"],
-            ["Uso dos Recursos", "Criado"],
-            ["Posição Regulatória", "Estruturada"],
-            ["Conceito de produto", "Especificado"],
-            ["Produto financeiro", "Ainda não está no ar"]
+            [
+              "Site de marketing",
+              "No ar"
+            ],
+            [
+              "Produto de inteligência de mercado",
+              "No ar"
+            ],
+            [
+              "Materiais para investidores",
+              "Criados e em empacotamento"
+            ],
+            [
+              "Plano de Negócios",
+              "Criado"
+            ],
+            [
+              "Investor FAQ",
+              "Criado"
+            ],
+            [
+              "Modelo de Receita",
+              "Criado"
+            ],
+            [
+              "Uso dos Recursos",
+              "Criado"
+            ],
+            [
+              "Posição Regulatória",
+              "Estruturada"
+            ],
+            [
+              "Conceito de produto",
+              "Especificado"
+            ],
+            [
+              "Produto financeiro",
+              "Ainda não está no ar"
+            ]
           ]
         },
         {
@@ -4143,18 +4397,39 @@
         },
         {
           "type": "table",
-          "headers": ["Frente", "Entrega"],
+          "headers": [
+            "Frente",
+            "Entrega"
+          ],
           "rows": [
-            ["Perímetro jurídico", "Restrições de lançamento por jurisdição"],
+            [
+              "Perímetro jurídico",
+              "Restrições de lançamento por jurisdição"
+            ],
             [
               "Gates regulatórios",
               "Requisitos de lançamento para EUA, UE/Alemanha, Brasil e Espanha"
             ],
-            ["Caminho de parceiro", "Shortlist e decisão para parceiro de entrada e saída"],
-            ["Confirmação de arquitetura", "Mapa de carteira não custodial e fluxo de fundos"],
-            ["Escopo de produto", "Limites das primeiras funcionalidades"],
-            ["Linguagem de risco", "Linguagem aprovada de risco e taxas"],
-            ["Setup operacional", "Entidade, administração, contabilidade, suporte e registros"]
+            [
+              "Caminho de parceiro",
+              "Shortlist e decisão para parceiro de entrada e saída"
+            ],
+            [
+              "Confirmação de arquitetura",
+              "Mapa de carteira não custodial e fluxo de fundos"
+            ],
+            [
+              "Escopo de produto",
+              "Limites das primeiras funcionalidades"
+            ],
+            [
+              "Linguagem de risco",
+              "Linguagem aprovada de risco e taxas"
+            ],
+            [
+              "Setup operacional",
+              "Entidade, administração, contabilidade, suporte e registros"
+            ]
           ]
         },
         {
@@ -4213,19 +4488,55 @@
         },
         {
           "type": "table",
-          "headers": ["Funcionalidade", "Propósito"],
+          "headers": [
+            "Funcionalidade",
+            "Propósito"
+          ],
           "rows": [
-            ["Escolha de objetivo", "Permitir que o usuário atribua dinheiro a uma função"],
-            ["Caminho de estratégia", "Mostrar o caminho disponível para aquele objetivo"],
-            ["Exibição de custo", "Mostrar taxas e custos externos antes da ação"],
-            ["Exibição de liquidez", "Mostrar quando e como o dinheiro pode se mover"],
-            ["Exibição de risco", "Explicar o que pode dar errado antes da ação"],
-            ["Fluxo de carteira", "Apoiar movimentação controlada pelo usuário"],
-            ["Adicionar dinheiro", "Permitir aporte pelo caminho do parceiro"],
-            ["Sacar / retirar", "Permitir saída pelo caminho do parceiro"],
-            ["Iniciar estratégia", "Permitir que o usuário inicie uma estratégia escolhida"],
-            ["Encerrar estratégia", "Permitir saída com entendimento de custo"],
-            ["Registros", "Manter histórico de confirmações e ações"]
+            [
+              "Escolha de objetivo",
+              "Permitir que o usuário atribua dinheiro a uma função"
+            ],
+            [
+              "Caminho de estratégia",
+              "Mostrar o caminho disponível para aquele objetivo"
+            ],
+            [
+              "Exibição de custo",
+              "Mostrar taxas e custos externos antes da ação"
+            ],
+            [
+              "Exibição de liquidez",
+              "Mostrar quando e como o dinheiro pode se mover"
+            ],
+            [
+              "Exibição de risco",
+              "Explicar o que pode dar errado antes da ação"
+            ],
+            [
+              "Fluxo de carteira",
+              "Apoiar movimentação controlada pelo usuário"
+            ],
+            [
+              "Adicionar dinheiro",
+              "Permitir aporte pelo caminho do parceiro"
+            ],
+            [
+              "Sacar / retirar",
+              "Permitir saída pelo caminho do parceiro"
+            ],
+            [
+              "Iniciar estratégia",
+              "Permitir que o usuário inicie uma estratégia escolhida"
+            ],
+            [
+              "Encerrar estratégia",
+              "Permitir saída com entendimento de custo"
+            ],
+            [
+              "Registros",
+              "Manter histórico de confirmações e ações"
+            ]
           ]
         },
         {
@@ -4303,19 +4614,43 @@
         },
         {
           "type": "table",
-          "headers": ["Frente", "Entrega"],
+          "headers": [
+            "Frente",
+            "Entrega"
+          ],
           "rows": [
-            ["Revisão de segurança", "Revisão de riscos do produto e dos fluxos"],
-            ["Monitoramento", "Monitoramento básico de sistema e transações"],
-            ["Modelo de recuperação", "Premissas de recuperação e incidentes"],
-            ["Suporte", "Processo de suporte e escalonamento"],
-            ["Registros", "Registros de ação, taxa, confirmação e reclamação"],
-            ["Integração de parceiro", "Entrada e saída de dinheiro via parceiros selecionados"],
+            [
+              "Revisão de segurança",
+              "Revisão de riscos do produto e dos fluxos"
+            ],
+            [
+              "Monitoramento",
+              "Monitoramento básico de sistema e transações"
+            ],
+            [
+              "Modelo de recuperação",
+              "Premissas de recuperação e incidentes"
+            ],
+            [
+              "Suporte",
+              "Processo de suporte e escalonamento"
+            ],
+            [
+              "Registros",
+              "Registros de ação, taxa, confirmação e reclamação"
+            ],
+            [
+              "Integração de parceiro",
+              "Entrada e saída de dinheiro via parceiros selecionados"
+            ],
             [
               "Compliance operacional",
               "KYC / AML / sanções / processo operacional quando necessário"
             ],
-            ["Divulgação de risco", "Avisos e confirmações aprovados para o usuário"]
+            [
+              "Divulgação de risco",
+              "Avisos e confirmações aprovados para o usuário"
+            ]
           ]
         },
         {
@@ -4371,15 +4706,39 @@
         },
         {
           "type": "table",
-          "headers": ["Métrica", "Pergunta"],
+          "headers": [
+            "Métrica",
+            "Pergunta"
+          ],
           "rows": [
-            ["Cadastro para aporte", "Usuários confiam o suficiente para colocar dinheiro?"],
-            ["Valor aportado", "Quanto os usuários atribuem a objetivos?"],
-            ["Abandono antes do aporte", "Onde a confiança quebra?"],
-            ["Início de estratégia", "Usuários entendem o caminho?"],
-            ["Encerramento de estratégia", "Usuários entendem custo e liquidez?"],
-            ["Carga de suporte", "O que confunde usuários?"],
-            ["Compreensão de risco", "Usuários entendem o que não é garantido?"],
+            [
+              "Cadastro para aporte",
+              "Usuários confiam o suficiente para colocar dinheiro?"
+            ],
+            [
+              "Valor aportado",
+              "Quanto os usuários atribuem a objetivos?"
+            ],
+            [
+              "Abandono antes do aporte",
+              "Onde a confiança quebra?"
+            ],
+            [
+              "Início de estratégia",
+              "Usuários entendem o caminho?"
+            ],
+            [
+              "Encerramento de estratégia",
+              "Usuários entendem custo e liquidez?"
+            ],
+            [
+              "Carga de suporte",
+              "O que confunde usuários?"
+            ],
+            [
+              "Compreensão de risco",
+              "Usuários entendem o que não é garantido?"
+            ],
             [
               "Margem líquida de movimentação",
               "A unit economics sobrevive aos custos de parceiros?"
@@ -4414,7 +4773,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Usuários aportam depois de entender custo, liquidez e risco?"]
+          "lines": [
+            "Usuários aportam depois de entender custo, liquidez e risco?"
+          ]
         },
         {
           "type": "paragraph",
@@ -4463,20 +4824,35 @@
         },
         {
           "type": "table",
-          "headers": ["Funcionalidade", "Propósito"],
+          "headers": [
+            "Funcionalidade",
+            "Propósito"
+          ],
           "rows": [
             [
               "Categorias de caixa",
               "Folha, aluguel, impostos, fornecedores, piso operacional, caixa excedente"
             ],
-            ["Regras", "Definir o que cada caixa pode ou não fazer"],
+            [
+              "Regras",
+              "Definir o que cada caixa pode ou não fazer"
+            ],
             [
               "Prévia de movimentação",
               "Mostrar custo, liquidez e risco antes da movimentação empresarial"
             ],
-            ["Permissões", "Apoiar estrutura básica de aprovação ou controle"],
-            ["Registros", "Criar histórico de ações e base de relatório"],
-            ["Lógica de taxa B2B", "Validar receita por movimentação em fluxos maiores"]
+            [
+              "Permissões",
+              "Apoiar estrutura básica de aprovação ou controle"
+            ],
+            [
+              "Registros",
+              "Criar histórico de ações e base de relatório"
+            ],
+            [
+              "Lógica de taxa B2B",
+              "Validar receita por movimentação em fluxos maiores"
+            ]
           ]
         },
         {
@@ -4486,15 +4862,39 @@
         },
         {
           "type": "table",
-          "headers": ["Métrica", "Pergunta"],
+          "headers": [
+            "Métrica",
+            "Pergunta"
+          ],
           "rows": [
-            ["Pipeline qualificado", "Empresas têm interesse sério?"],
-            ["Urgência do caso de uso", "Controle de caixa dói o suficiente?"],
-            ["Tamanho do deal", "A receita fica próxima das premissas modeladas?"],
-            ["Ciclo de venda", "Quanto tempo a confiança leva?"],
-            ["Tipo de comprador", "Founder, financeiro, operações, contador?"],
-            ["Objeções", "Regulação, custódia, custo, confiança, complexidade?"],
-            ["Disposição a pagar", "Empresas pagam por clareza e controle?"]
+            [
+              "Pipeline qualificado",
+              "Empresas têm interesse sério?"
+            ],
+            [
+              "Urgência do caso de uso",
+              "Controle de caixa dói o suficiente?"
+            ],
+            [
+              "Tamanho do deal",
+              "A receita fica próxima das premissas modeladas?"
+            ],
+            [
+              "Ciclo de venda",
+              "Quanto tempo a confiança leva?"
+            ],
+            [
+              "Tipo de comprador",
+              "Founder, financeiro, operações, contador?"
+            ],
+            [
+              "Objeções",
+              "Regulação, custódia, custo, confiança, complexidade?"
+            ],
+            [
+              "Disposição a pagar",
+              "Empresas pagam por clareza e controle?"
+            ]
           ]
         },
         {
@@ -4508,7 +4908,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Interesse B2B vira pipeline qualificado em níveis de receita relevantes?"]
+          "lines": [
+            "Interesse B2B vira pipeline qualificado em níveis de receita relevantes?"
+          ]
         },
         {
           "type": "paragraph",
@@ -4543,7 +4945,11 @@
         },
         {
           "type": "table",
-          "headers": ["Mercado", "Papel", "Postura no roadmap"],
+          "headers": [
+            "Mercado",
+            "Papel",
+            "Postura no roadmap"
+          ],
           "rows": [
             [
               "Brasil",
@@ -4578,7 +4984,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Cada mercado ganha entrada por evidência jurídica, de parceiro e de usuário?"]
+          "lines": [
+            "Cada mercado ganha entrada por evidência jurídica, de parceiro e de usuário?"
+          ]
         },
         {
           "type": "paragraph",
@@ -4605,15 +5013,39 @@
         },
         {
           "type": "table",
-          "headers": ["Candidato", "Escalar apenas se"],
+          "headers": [
+            "Candidato",
+            "Escalar apenas se"
+          ],
           "rows": [
-            ["Aquisição B2C", "Conversão para aporte e contribuição mensal se comportarem"],
-            ["Vendas B2B", "Pipeline qualificado e tamanho de deal validarem"],
-            ["Estratégias adicionais", "Linguagem de risco e caminho de parceiros suportarem"],
-            ["Mercados adicionais", "Gates jurídicos e linguagem local estiverem prontos"],
-            ["Movimentação entre usuários", "Parecer jurídico liberar o fluxo"],
-            ["Controles B2B avançados", "Demanda B2B inicial provar necessidade"],
-            ["Marketing pago", "Unit economics suportar CAC"]
+            [
+              "Aquisição B2C",
+              "Conversão para aporte e contribuição mensal se comportarem"
+            ],
+            [
+              "Vendas B2B",
+              "Pipeline qualificado e tamanho de deal validarem"
+            ],
+            [
+              "Estratégias adicionais",
+              "Linguagem de risco e caminho de parceiros suportarem"
+            ],
+            [
+              "Mercados adicionais",
+              "Gates jurídicos e linguagem local estiverem prontos"
+            ],
+            [
+              "Movimentação entre usuários",
+              "Parecer jurídico liberar o fluxo"
+            ],
+            [
+              "Controles B2B avançados",
+              "Demanda B2B inicial provar necessidade"
+            ],
+            [
+              "Marketing pago",
+              "Unit economics suportar CAC"
+            ]
           ]
         },
         {
@@ -4627,7 +5059,9 @@
         },
         {
           "type": "callout",
-          "lines": ["A empresa sabe o que merece mais capital?"]
+          "lines": [
+            "A empresa sabe o que merece mais capital?"
+          ]
         },
         {
           "type": "paragraph",
@@ -4698,19 +5132,43 @@
         },
         {
           "type": "table",
-          "headers": ["Funcionalidade", "Por que espera"],
+          "headers": [
+            "Funcionalidade",
+            "Por que espera"
+          ],
           "rows": [
             [
               "Movimentação ampla entre usuários",
               "Risco de money transmission nos EUA precisa ser resolvido"
             ],
-            ["Muitas estratégias", "Complexidade e risco de disclosure aumentam"],
-            ["Personalização pesada", "Pode criar risco de assessoria de investimento"],
-            ["Automação B2B avançada", "Precisa de prova B2B primeiro"],
-            ["Lançamento multi-mercado", "Gates jurídicos e operacionais diferem"],
-            ["Grande marketing pago", "Precisa esperar comportamento de aporte"],
-            ["Time grande", "Deve seguir gargalos validados"],
-            ["Relatórios enterprise complexos", "Deve seguir necessidade real do comprador B2B"]
+            [
+              "Muitas estratégias",
+              "Complexidade e risco de disclosure aumentam"
+            ],
+            [
+              "Personalização pesada",
+              "Pode criar risco de assessoria de investimento"
+            ],
+            [
+              "Automação B2B avançada",
+              "Precisa de prova B2B primeiro"
+            ],
+            [
+              "Lançamento multi-mercado",
+              "Gates jurídicos e operacionais diferem"
+            ],
+            [
+              "Grande marketing pago",
+              "Precisa esperar comportamento de aporte"
+            ],
+            [
+              "Time grande",
+              "Deve seguir gargalos validados"
+            ],
+            [
+              "Relatórios enterprise complexos",
+              "Deve seguir necessidade real do comprador B2B"
+            ]
           ]
         },
         {
@@ -4799,7 +5257,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Qual risco estamos provando agora?"]
+          "lines": [
+            "Qual risco estamos provando agora?"
+          ]
         },
         {
           "type": "heading",
@@ -4905,7 +5365,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Confiança primeiro. Cobrança clara."]
+          "lines": [
+            "Confiança primeiro. Cobrança clara."
+          ]
         },
         {
           "type": "paragraph",
@@ -4938,12 +5400,27 @@
         },
         {
           "type": "table",
-          "headers": ["Ação", "Lógica de taxa"],
+          "headers": [
+            "Ação",
+            "Lógica de taxa"
+          ],
           "rows": [
-            ["Adicionar dinheiro", "Taxa de movimentação"],
-            ["Sacar / retirar", "Taxa de movimentação"],
-            ["Encerrar estratégia", "Taxa de encerramento"],
-            ["Grandes movimentações B2B", "Taxa de movimentação, sem limite"]
+            [
+              "Adicionar dinheiro",
+              "Taxa de movimentação"
+            ],
+            [
+              "Sacar / retirar",
+              "Taxa de movimentação"
+            ],
+            [
+              "Encerrar estratégia",
+              "Taxa de encerramento"
+            ],
+            [
+              "Grandes movimentações B2B",
+              "Taxa de movimentação, sem limite"
+            ]
           ]
         },
         {
@@ -4969,15 +5446,39 @@
         },
         {
           "type": "table",
-          "headers": ["Ação", "Taxa diBoaS"],
+          "headers": [
+            "Ação",
+            "Taxa diBoaS"
+          ],
           "rows": [
-            ["Iniciar estratégia", "0"],
-            ["Enviar dinheiro", "0 onde suportado"],
-            ["Swap / troca", "0 onde suportado"],
-            ["Bridge", "0 onde suportado"],
-            ["Receber pagamentos B2B", "0 onde suportado"],
-            ["Ver objetivos / opções de estratégia", "0"],
-            ["Ver custos, liquidez e risco", "0"]
+            [
+              "Iniciar estratégia",
+              "0"
+            ],
+            [
+              "Enviar dinheiro",
+              "0 onde suportado"
+            ],
+            [
+              "Swap / troca",
+              "0 onde suportado"
+            ],
+            [
+              "Bridge",
+              "0 onde suportado"
+            ],
+            [
+              "Receber pagamentos B2B",
+              "0 onde suportado"
+            ],
+            [
+              "Ver objetivos / opções de estratégia",
+              "0"
+            ],
+            [
+              "Ver custos, liquidez e risco",
+              "0"
+            ]
           ]
         },
         {
@@ -4995,16 +5496,52 @@
         },
         {
           "type": "table",
-          "headers": ["Ação do produto", "Taxa diBoaS", "Cap"],
+          "headers": [
+            "Ação do produto",
+            "Taxa diBoaS",
+            "Cap"
+          ],
           "rows": [
-            ["Adicionar dinheiro — consumidor", "0,48%", "US$250"],
-            ["Sacar / retirar — consumidor", "0,48%", "US$250"],
-            ["Adicionar dinheiro — empresa", "0,48%", "sem limite"],
-            ["Sacar / retirar — empresa", "0,48%", "sem limite"],
-            ["Encerrar estratégia", "0,39%", "US$25"],
-            ["Iniciar estratégia", "0", "N/A"],
-            ["Enviar / swap / bridge", "0 onde suportado", "N/A"],
-            ["Receber pagamentos B2B", "0 onde suportado", "N/A"]
+            [
+              "Adicionar dinheiro — consumidor",
+              "0,48%",
+              "US$250"
+            ],
+            [
+              "Sacar / retirar — consumidor",
+              "0,48%",
+              "US$250"
+            ],
+            [
+              "Adicionar dinheiro — empresa",
+              "0,48%",
+              "sem limite"
+            ],
+            [
+              "Sacar / retirar — empresa",
+              "0,48%",
+              "sem limite"
+            ],
+            [
+              "Encerrar estratégia",
+              "0,39%",
+              "US$25"
+            ],
+            [
+              "Iniciar estratégia",
+              "0",
+              "N/A"
+            ],
+            [
+              "Enviar / swap / bridge",
+              "0 onde suportado",
+              "N/A"
+            ],
+            [
+              "Receber pagamentos B2B",
+              "0 onde suportado",
+              "N/A"
+            ]
           ]
         },
         {
@@ -5038,7 +5575,11 @@
         },
         {
           "type": "callout",
-          "lines": ["Dinheiro entra.", "Dinheiro sai.", "Uma estratégia é encerrada."]
+          "lines": [
+            "Dinheiro entra.",
+            "Dinheiro sai.",
+            "Uma estratégia é encerrada."
+          ]
         },
         {
           "type": "paragraph",
@@ -5055,7 +5596,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$25"]
+          "lines": [
+            "US$25"
+          ]
         },
         {
           "type": "paragraph",
@@ -5127,7 +5670,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$1.000"]
+          "lines": [
+            "US$1.000"
+          ]
         },
         {
           "type": "paragraph",
@@ -5135,7 +5680,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$4,80"]
+          "lines": [
+            "US$4,80"
+          ]
         },
         {
           "type": "paragraph",
@@ -5203,7 +5750,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$200.000"]
+          "lines": [
+            "US$200.000"
+          ]
         },
         {
           "type": "paragraph",
@@ -5211,7 +5760,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$960"]
+          "lines": [
+            "US$960"
+          ]
         },
         {
           "type": "paragraph",
@@ -5219,7 +5770,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$500.000"]
+          "lines": [
+            "US$500.000"
+          ]
         },
         {
           "type": "paragraph",
@@ -5227,7 +5780,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$2.400"]
+          "lines": [
+            "US$2.400"
+          ]
         },
         {
           "type": "paragraph",
@@ -5309,13 +5864,31 @@
         },
         {
           "type": "table",
-          "headers": ["Ação gratuita", "Por que deve continuar gratuita"],
+          "headers": [
+            "Ação gratuita",
+            "Por que deve continuar gratuita"
+          ],
           "rows": [
-            ["Ver opções", "Usuários precisam entender antes de agir"],
-            ["Iniciar estratégia", "Reduz fricção e apoia adoção"],
-            ["Ver custos", "Visibilidade de custo é requisito de confiança"],
-            ["Ver risco", "Visibilidade de risco não é upsell"],
-            ["Receber pagamentos B2B onde suportado", "Reduz fricção nos fluxos empresariais"],
+            [
+              "Ver opções",
+              "Usuários precisam entender antes de agir"
+            ],
+            [
+              "Iniciar estratégia",
+              "Reduz fricção e apoia adoção"
+            ],
+            [
+              "Ver custos",
+              "Visibilidade de custo é requisito de confiança"
+            ],
+            [
+              "Ver risco",
+              "Visibilidade de risco não é upsell"
+            ],
+            [
+              "Receber pagamentos B2B onde suportado",
+              "Reduz fricção nos fluxos empresariais"
+            ],
             [
               "Enviar / swap / bridge onde suportado",
               "Evita cobrar demais por fluxos utilitários internos"

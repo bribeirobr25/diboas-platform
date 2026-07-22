@@ -39,7 +39,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "generate:investor-docs": "node scripts/generate-investor-docs.mjs",
-    "validate:seo": "node scripts/validate-seo.mjs"
+    "validate:seo": "node scripts/validate-seo.mjs",
+    "dev:sandbox": "turbo run build --filter=@diboas/banking --filter=@diboas/defi --filter=@diboas/investing && pnpm --filter sandbox dev",
+    "start:sandbox": "pnpm --filter sandbox start"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",

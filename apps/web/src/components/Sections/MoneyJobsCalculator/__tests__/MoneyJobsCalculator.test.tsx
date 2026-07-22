@@ -84,9 +84,9 @@ describe('MoneyJobsCalculator', () => {
     // en default: income 6000, essentials 0.62 pre-fill → surplus 2280 above dignity floor
     expect(screen.queryByTestId('dignity-state')).toBeNull();
     expect(screen.getByText(/costLine\.personal/)).toBeTruthy();
-    expect(screen.getByText('tools-money-jobs.jobs.floor.label')).toBeTruthy();
-    expect(screen.getByText(/jobs\.cushion\.label/)).toBeTruthy();
+    expect(screen.getByText('tools-money-jobs.jobs.essentials.label')).toBeTruthy();
     expect(screen.getByText('tools-money-jobs.jobs.working.label')).toBeTruthy();
+    expect(screen.getByText(/jobs\.emergencyFund\.label/)).toBeTruthy();
     // C2: band explains its own gap
     expect(screen.getByText('tools-money-jobs.band.explainer')).toBeTruthy();
     // C3: tool disclaimer on the free surface
@@ -102,7 +102,7 @@ describe('MoneyJobsCalculator', () => {
     expect(screen.getByTestId('dignity-state')).toBeTruthy();
     // Dignity: split, gate and share all suppressed — one caring next step.
     expect(screen.queryByTestId('gate-unlock')).toBeNull();
-    expect(screen.queryByText('tools-money-jobs.jobs.floor.label')).toBeNull();
+    expect(screen.queryByText('tools-money-jobs.jobs.essentials.label')).toBeNull();
     setEssentials(3000);
     expect(screen.queryByTestId('dignity-state')).toBeNull();
     expect(screen.getByTestId('gate-unlock')).toBeTruthy();

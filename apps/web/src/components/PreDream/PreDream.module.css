@@ -984,6 +984,27 @@
   margin: 0 0 var(--spacing-md);
 }
 
+/* UX-60 scenario spread — the same money on the other paths (canon Part 9). */
+.scenarioSpread {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-700);
+  text-align: center;
+  margin: 0 0 var(--spacing-xs);
+  line-height: var(--line-height-relaxed);
+}
+
+.scenarioItem {
+  white-space: nowrap;
+}
+
+/* UX-63 caveat — travels with the figures, not a footnote. */
+.resultCaveat {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-500);
+  text-align: center;
+  margin: 0 0 var(--spacing-lg);
+}
+
 /* Result Actions */
 .resultActions {
   width: 100%;

@@ -40,17 +40,17 @@
   },
   "disclaimer": "Divisão educativa, não é conselho financeiro. Os números são seus, a decisão também.",
   "jobs": {
-    "floor": {
-      "label": "Piso",
-      "meaning": "Dinheiro com função fixa: aluguel, comida, contas."
+    "essentials": {
+      "label": "Essenciais",
+      "meaning": "Fica no seu banco: aluguel, comida, contas. A diBoaS nunca toca nele."
     },
-    "cushion": {
-      "label": "Colchão",
-      "meaning": "Sugestão deste mês rumo à meta de {target}. Você tem {current}."
+    "emergencyFund": {
+      "label": "Reserva de Emergência",
+      "meaning": "A primeira função do seu dinheiro que trabalha. Sugestão deste mês rumo à meta de {target}; você tem {current}. Quando estiver completa, todo o seu dinheiro que trabalha fica livre para outros objetivos."
     },
     "working": {
       "label": "Dinheiro que trabalha",
-      "meaning": "Livre para trabalhar depois de piso e colchão."
+      "meaning": "O que sobra depois dos essenciais. É isso que vem pra diBoaS pra colocar pra trabalhar."
     },
     "operatingFloor": {
       "label": "Piso operacional",
@@ -79,7 +79,7 @@
   "dignity": {
     "headline": "Esse mês, a função do seu dinheiro é te segurar.",
     "body": "Sem culpa. Os essenciais vêm primeiro; a divisão pode esperar um mês mais leve.",
-    "cta": "Veja como começa um colchão de emergência"
+    "cta": "Veja como começa uma reserva de emergência"
   },
   "runway": {
     "headline": "Agora, a função do seu caixa é o runway.",
@@ -95,7 +95,7 @@
     "ariaLabel": "Desbloquear seu plano completo",
     "title": "Essa é a divisão. O plano está nos detalhes.",
     "bullets": {
-      "timeline": "Quando seu colchão chega à meta",
+      "timeline": "Quando sua reserva de emergência chega à meta",
       "projections": "O que seu dinheiro que trabalha pode virar em 5 e 10 anos",
       "runway": "Sua leitura de runway e o que a protege",
       "nextSteps": "O próximo passo de cada função"
@@ -110,9 +110,9 @@
   },
   "plan": {
     "title": "Seu plano",
-    "cushionFunded": "Seu colchão está completo. Tudo acima do piso está livre para trabalhar.",
-    "cushionTimeline": "Na sugestão deste mês, seu colchão chega à meta em cerca de {months} meses.",
-    "cushionUnreachable": "Com os números atuais, a meta do colchão não é alcançável. Ajuste essenciais ou renda para ver um caminho.",
+    "cushionFunded": "Sua reserva de emergência está completa. Todo o seu dinheiro que trabalha fica livre para outros objetivos.",
+    "cushionTimeline": "Na sugestão deste mês, sua reserva de emergência chega à meta em cerca de {months} meses.",
+    "cushionUnreachable": "Com os números atuais, a meta da reserva de emergência não é alcançável. Ajuste essenciais ou renda para ver um caminho.",
     "projectionsIntro": "O que o valor ideal de trabalho pode virar, aportado mensalmente, em três cenários:",
     "scenarioColumn": "Cenário",
     "fiveYears": "5 anos",

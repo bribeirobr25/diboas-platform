@@ -186,3 +186,27 @@
 .method p {
   color: var(--editorial-paper-dim);
 }
+
+/* B-2 outage banner — a calm, honest "temporarily unavailable" state (never an
+   alarm tone; the research warns red-heavy alarms erode trust). Warm editorial
+   copper on paper, tokens only. */
+.outageBanner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  margin: var(--spacing-xl) 0 0;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background: var(--editorial-paper-deep);
+  border: 1px solid var(--editorial-copper-soft);
+  border-radius: var(--radius-lg);
+}
+
+.outageBanner strong {
+  font-weight: var(--font-weight-semibold);
+  color: var(--editorial-ink);
+}
+
+.outageBanner span {
+  font-size: var(--font-size-sm);
+  color: var(--editorial-muted);
+}

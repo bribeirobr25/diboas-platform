@@ -63,7 +63,7 @@ export const DefaultGrowth: Story = {
     tagline: 'Beat inflation with a touch of upside.',
     growthExposure: 35,
     description:
-      'Most of your capital stays in stablecoins earning yield, while a smaller portion captures growth from blue-chip assets.',
+      'Most of your capital stays in a stable base while the strategy generates returns, and a smaller portion captures growth from blue-chip assets.',
     allocation: '40% Sky SSR + 25% Compound V3 + 35% Lido stETH',
     allocationNote: 'Balanced between stability and growth exposure.',
     commonUseCase:
@@ -150,7 +150,7 @@ export const WithDescription2: Story = {
     tagline: 'Beat inflation while keeping most of your money safe.',
     growthExposure: 30,
     description:
-      'A conservative mix. Most capital in stablecoins earning yield, with a small growth allocation.',
+      'A conservative mix. Most capital in a stable base with the strategy generating returns, plus a small growth allocation.',
     description2:
       "Designed for people who want more than savings accounts but aren't ready for full crypto exposure.",
     allocation: '40% Sky SSR + 30% Aave V3 + 30% Lido stETH',

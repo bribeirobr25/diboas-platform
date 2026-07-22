@@ -12,7 +12,7 @@ The main web application for diBoaS — a goal-driven wealth building platform (
 - **Tailwind CSS 3.4.17**
 - **react-intl 6.4.7** for internationalization (4 locales: en, pt-BR, es, de)
 - **Storybook 10.3.5** for component development
-- **Sentry 10.49.0** for error monitoring + session replay
+- **Sentry 10.65.0** for error monitoring + session replay
 
 ## Installation
 
@@ -73,8 +73,8 @@ Main pages:
 
 Learning surface:
 
-- `/[locale]/learn` - Learn center landing
-- `/[locale]/learn/compound-interest` - Lesson 01 — How Money Really Grows (3-beat lesson + embedded calculator)
+- `/[locale]/learn` - "Real Talk" landing — the 7-talk Money Basics series (all live 2026-07-16, registry-driven at `lib/learn/registry.ts`)
+- `/[locale]/learn/[lesson]` - Individual talk — 3-beat talk + quiz + tool moment; Talk 1 (compound-interest) embeds the calculator (YouTube facade ships dark until recordings)
 
 Money tools (11 calculators):
 

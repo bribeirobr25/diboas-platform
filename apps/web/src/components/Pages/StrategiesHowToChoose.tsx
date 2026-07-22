@@ -3,8 +3,11 @@
 /**
  * StrategiesHowToChoose
  *
- * Renders 3 decision-guide questions with options,
- * brand promise, and golden rule.
+ * Neutral, Case-4-safe organization guide (ESMA35-43-3861): presents the
+ * objective ways to narrow the strategy list (purpose/horizon, price-movement
+ * tolerance) with NO suitability verdict, opinion, or default-steer — the user
+ * matches and picks. Renders an intro, 3 framing prompts with options, the
+ * honesty promise, and the "diBoaS never chooses for you" golden rule.
  */
 
 import { useTranslation } from '@diboas/i18n/client';
@@ -16,9 +19,11 @@ const I18N_PREFIX = 'strategies';
 export function StrategiesHowToChoose() {
   const intl = useTranslation();
   const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });
+  const intro = t('howToChoose.intro');
   return (
     <>
       <h2 className={styles.sectionTitle}>{t('howToChoose.header')}</h2>
+      {intro ? <p className={styles.sectionSubtitle}>{intro}</p> : null}
 
       <div className={styles.questionsList}>
         <ContentCard variant="muted" title={t('howToChoose.question1.title')}>

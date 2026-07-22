@@ -2,7 +2,7 @@
 
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDream } from '../PreDreamProvider';
-import { PRE_DREAM_TIMEFRAMES, type PreDreamTimeframe } from '@/lib/pre-dream';
+import { type PreDreamTimeframe } from '@/lib/pre-dream';
 import styles from '../PreDream.module.css';
 
 const TIMEFRAME_ORDER: PreDreamTimeframe[] = ['1year', '3years', '5years', '10years'];
@@ -21,7 +21,6 @@ export function TimeframeScreen() {
 
       <div className={styles.timeframeGrid}>
         {TIMEFRAME_ORDER.map((key) => {
-          const tf = PRE_DREAM_TIMEFRAMES[key];
           const isSelected = state.selectedTimeframe === key;
 
           return (
@@ -45,10 +44,16 @@ export function TimeframeScreen() {
               <p
                 className={`${styles.timeframeLabel} ${isSelected ? styles.timeframeLabelSelected : ''}`}
               >
-                {tf.label}
+                {/* i18n label, not the hardcoded English `PRE_DREAM_TIMEFRAMES[key].label`
+                    (which leaked "1 Year"/"10 Years" onto pt-BR/es/de). The translated
+                    labels already exist under preDream.timeframe.options.*.label. */}
+                {intl.formatMessage({ id: `preDream.timeframe.options.${key}.label` })}
               </p>
               <p className={styles.timeframeDays}>
-                {tf.days.toLocaleString()} {t('daysUnit')}
+                {/* i18n days string — already locale-formatted per locale (e.g. "1.095
+                    dias" on pt-BR), unlike tf.days.toLocaleString() which used the
+                    runtime-default (en) thousands separators on every locale. */}
+                {intl.formatMessage({ id: `preDream.timeframe.options.${key}.days` })}
               </p>
             </button>
           );

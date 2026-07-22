@@ -1,0 +1,297 @@
+{
+  "common": {
+    "appName": "diBoaS Sandbox",
+    "playBadge": "Play money",
+    "playDisclaimer": "Everything here runs on play money. It never converts to real money, prizes, or anything of value. Market data is real; results show what would have happened.",
+    "navHome": "Your jobs",
+    "navHistory": "History",
+    "back": "Back",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "loading": "Loading",
+    "dataLive": "Live from {source}, fetched {date}",
+    "dataFixture": "Documented fallback values ({date}). Live data is unavailable right now",
+    "frameCaption": "Practice mode. Play money, real market.",
+    "resetSandbox": "Start the sandbox over",
+    "resetConfirm": "This clears your play ledger and starts fresh. Nothing real is affected. Start over?",
+    "skipToContent": "Skip to content"
+  },
+  "gate": {
+    "title": "diBoaS Sandbox",
+    "subtitle": "The product, in practice mode. Play money, real market. Nothing to lose while you learn the controls.",
+    "passwordLabel": "Access password",
+    "enter": "Enter the sandbox",
+    "error": "That password did not open the door. Try again.",
+    "notConfigured": "The sandbox gate is not configured yet. Set SANDBOX_ACCESS_PASSWORD and restart."
+  },
+  "firstRun": {
+    "title": "Your Working money has arrived.",
+    "body": "diBoaS is a side pocket: only your Working money comes here. The rest of your money stays where it is.",
+    "workingAmount": "{amount} of Working money",
+    "workingBody": "This is yours to practice with. Give it a goal, pick a strategy, and see what the real market does.",
+    "cta": "Put it to work"
+  },
+  "salary": {
+    "title": "First, what lands in your account each month?",
+    "body": "Your monthly take-home, after tax. It stays on this device and only helps the sandbox show your whole picture. Change it any time, or skip it.",
+    "inputLabel": "Monthly take-home ({currency})",
+    "continue": "Continue",
+    "skip": "Skip for now"
+  },
+  "home": {
+    "title": "Your money's jobs",
+    "subtitle": "Every amount here has a job you gave it.",
+    "workingCard": "Working money",
+    "goalsTitle": "Goals",
+    "noGoalsTitle": "No goals yet.",
+    "noGoalsBody": "A goal gives working money somewhere to go. Name it, give it a target, and see the path before anything moves.",
+    "newGoal": "New goal",
+    "historyLink": "See the full trail",
+    "timeMachineTitle": "Time machine",
+    "timeMachineNote": "Practice is compressed time: advance the clock and replay what the market actually did.",
+    "advanceMonth": "+1 month",
+    "simDay": "Day {day} of your practice",
+    "workingBalanceNote": "Yours to put to work. Pick a goal below.",
+    "awayBeat": "{days, plural, one {# day} other {# days}} of real market passed while you were away.",
+    "advanceYear": "+1 year"
+  },
+  "goalNew": {
+    "title": "A new goal",
+    "subtitle": "Name the want first. Everything else follows from it.",
+    "nameLabel": "What is this for?",
+    "namePlaceholder": "Six months of breathing room",
+    "iconLabel": "Pick its picture",
+    "icon": {
+      "plane": "Airplane",
+      "home": "House",
+      "shield": "Shield",
+      "graduation-cap": "Graduation cap",
+      "heart": "Heart",
+      "car": "Car",
+      "palmtree": "Palm tree",
+      "briefcase": "Briefcase",
+      "gift": "Gift",
+      "sprout": "Sprout"
+    },
+    "targetLabel": "Target amount",
+    "horizonLabel": "When do you want to get there?",
+    "horizonValue": "{months, plural, one {# month} other {# months}}",
+    "fundLabel": "Move this much working money into the goal now",
+    "fundAvailable": "{amount} available",
+    "errorName": "Give the goal a name. It is the reason the money moves.",
+    "errorTarget": "The target needs to be a positive amount.",
+    "errorHorizon": "Pick a horizon between 1 month and 40 years.",
+    "errorFund": "That is more than your working money right now.",
+    "createCta": "Create the goal",
+    "strategiesTitle": "Strategies whose horizon matches yours",
+    "strategiesNote": "This list is a filter, not advice: every strategy matching the horizon you set is here, in the same order for everyone. Nothing is pre-picked. You read, you choose.",
+    "riskStable": "Stable",
+    "riskGrowth": "Growth",
+    "growthExposure": "{percent}% growth exposure",
+    "apyNow": "Current pool rate: {apy}%/yr (real, variable)",
+    "allocationTitle": "Where it actually goes",
+    "chainLine": "Runs on {chain}",
+    "skipStrategy": "Keep it as cash in the goal for now",
+    "reviewPath": "See the path before it moves",
+    "stepLabel": "Step {current} of {total}",
+    "step1Title": "Name the want",
+    "step2Title": "Set the plan",
+    "step3Title": "Choose the path",
+    "next": "Next",
+    "recurringLabel": "Add a monthly amount (optional)",
+    "recurringHint": "Each month, this moves from your working money into the goal so it stays invested. Play money.",
+    "noFundPath": "Add a first amount on the previous step to put this goal to work. Or create it as cash for now.",
+    "pathUnavailable": "The live market isn't available right now, so the path can't be shown. Try again in a moment, or create this as cash for now.",
+    "cashDropsRecurring": "Keeping it as cash won't include the monthly amount. Choose the path below to set that up."
+  },
+  "pathCard": {
+    "title": "The path, the cost, the risk.",
+    "subtitle": "Read this before anything moves.",
+    "pathTitle": "Path",
+    "pathLine": "{goal} → {strategy} → real protocols on {chain}",
+    "costTitle": "Cost",
+    "entryFee": "Entering: free",
+    "networkFee": "Network fee (passed through at cost): about {amount}",
+    "exitFee": "Leaving later: 0.39% (at least {min}, at most {max})",
+    "riskTitle": "Risk",
+    "riskStable": "Stable strategies aim to hold their value. Risks remain: the systems can have flaws, and the digital dollars used can lose their peg.",
+    "riskGrowth": "{percent}% of this strategy moves with market prices, so with real money it can fall as well as rise. Practice mode previews the returns these systems pay, not the price swings, so keep the real risk in mind.",
+    "noPromise": "No promises live here. The numbers are history and current rates, not the future."
+  },
+  "manifest": {
+    "title": "Read before you approve",
+    "fromLabel": "From",
+    "toLabel": "To",
+    "amountLabel": "Amount",
+    "costLabel": "Cost now",
+    "exitCostLabel": "Cost when you leave",
+    "riskLabel": "Risk",
+    "approve": "Approve this move",
+    "approveEntry": "Approve · move {amount}",
+    "approveExit": "Approve · take out {amount}",
+    "withdrawReassurance": "You can take this out any time.",
+    "footer": "Nothing moves until you approve. This is play money."
+  },
+  "settlement": {
+    "title": "Confirming",
+    "badge": "Practice confirmation",
+    "step1": "Submitted",
+    "step2": "Confirming",
+    "step3": "Confirmed",
+    "note": "This is how a real move would settle. In the sandbox it always confirms, and no real transaction happens."
+  },
+  "goalDetail": {
+    "progress": "{current} of {target}",
+    "cashInGoal": "In the goal, not yet working: {amount}",
+    "investedLine": "Working in {strategy}: {amount}",
+    "earningsTitle": "What this strategy would have returned",
+    "earningsLine": "{amount} so far, replaying real market history",
+    "contributions": "You moved in: {amount}",
+    "apySourceTitle": "Where the numbers come from",
+    "exitCta": "Take the money out",
+    "exitTitle": "Leaving {strategy}",
+    "backToGoal": "Back to your jobs",
+    "noPositionTitle": "Holding as cash",
+    "noPosition": "This goal's money is sitting as cash. It can stay that way as long as you want.",
+    "putToWork": "Put it to work",
+    "milestoneTitle": "You reached this goal, in practice.",
+    "milestoneBody": "In real life, this is where you would decide what is next. Nothing here is real money."
+  },
+  "history": {
+    "title": "The trail",
+    "subtitle": "Every move, in plain words, in order. Nothing here is hidden.",
+    "empty": "Nothing yet. The trail starts when your money gets its first job.",
+    "granted": "Play money arrived: {amount}",
+    "split": "It all arrived as Working money.",
+    "goalCreated": "Goal created: {name}",
+    "funded": "{amount} moved into {name}",
+    "entered": "{amount} put to work in {strategy} (network fee {fee})",
+    "accrued": "{name} would have returned {amount}",
+    "exited": "Left {strategy}: {gross} back, exit fee {fee}",
+    "timeAdvanced": "Time machine: {days, plural, one {# day} other {# days}} forward",
+    "day": "Day {day}",
+    "recurringSet": "Set {amount} a month into {name}",
+    "recurringCleared": "Turned off the monthly amount for {name}",
+    "recurringContribution": "Added {amount} to {name} (monthly)",
+    "feeDrag": "Practice costs so far: {amount} in network and exit fees."
+  },
+  "catalog": {
+    "protocols": {
+      "skySsr": "Sky SSR",
+      "aaveV3": "Aave V3",
+      "compoundV3": "Compound V3",
+      "sanctumInf": "Sanctum INF",
+      "jupiterJlp": "Jupiter JLP",
+      "jito": "Jito"
+    },
+    "strategies": {
+      "safeHarbor": {
+        "name": "Safe Harbor",
+        "tagline": "A steady home for money you can't risk"
+      },
+      "stableGrowth": {
+        "name": "Stable Growth",
+        "tagline": "A step past stable, with guardrails on"
+      },
+      "goalKeeper": {
+        "name": "Goal Keeper",
+        "tagline": "Protecting your near-term goals"
+      },
+      "steadyProgress": {
+        "name": "Steady Progress",
+        "tagline": "Short-term goals, a little market in the mix"
+      },
+      "patientBuilder": {
+        "name": "Patient Builder",
+        "tagline": "Built for a long, patient horizon"
+      },
+      "balancedBuilder": {
+        "name": "Balanced Builder",
+        "tagline": "Stable ground and market exposure, together"
+      },
+      "steadyCompounder": {
+        "name": "Steady Compounder",
+        "tagline": "Let time do the heavy lifting"
+      },
+      "wealthAccelerator": {
+        "name": "Wealth Accelerator",
+        "tagline": "For those at ease with real ups and downs"
+      },
+      "fullHarvest": {
+        "name": "Full Harvest",
+        "tagline": "Low price swings, patient by design"
+      },
+      "fullThrottle": {
+        "name": "Full Throttle",
+        "tagline": "Maximum risk, maximum exposure"
+      }
+    }
+  },
+  "mirror": {
+    "caption": "Roughly how a month like yours divides:",
+    "floorLabel": "Essentials",
+    "floorNote": "Stays in your bank",
+    "workingLabel": "Working money",
+    "workingNote": "Free to put to work",
+    "dignity": "This month, your money is holding you up. That is its job right now, and that is okay.",
+    "perMonth": "/mo",
+    "adjust": "Adjust your costs",
+    "adjustEdit": "Edit your costs",
+    "captionReal": "How your month divides:"
+  },
+  "presets": {
+    "caption": "Start from a common template",
+    "emergencyFund": {
+      "name": "Emergency Fund",
+      "desc": "6 months of essentials, about {target}. A calm first goal."
+    },
+    "financialFreedom": {
+      "name": "Financial Freedom",
+      "desc": "Enough to replace your income, about {target}.",
+      "projection": "At a common ~10%-of-income guide (about {monthly}/mo) and an assumed {rate}%, roughly {years} years. A long game."
+    }
+  },
+  "costAdjust": {
+    "title": "Your real costs",
+    "body": "We used a rule of thumb for your fixed costs. Put in your real number to see your actual picture. If it's higher, less is free to put to work.",
+    "label": "Your monthly fixed costs",
+    "save": "Save",
+    "useDefault": "Use the rule-of-thumb instead"
+  },
+  "recurring": {
+    "setupCta": "Add a monthly amount",
+    "amountLabel": "How much each month",
+    "amountPlaceholder": "e.g. 200",
+    "explainer": "Each month, this moves from your working money into this goal, so it stays invested.",
+    "note": "Play money, and it runs only while your working money lasts. No fee on these in the sandbox.",
+    "confirm": "Turn it on",
+    "activeLine": "Adding {amount} every month",
+    "pausedBody": "Paused for now. Your working money ran out, so nothing new is going in. Add more or lower the amount.",
+    "edit": "Change amount",
+    "turnOff": "Turn off"
+  },
+  "projection": {
+    "heading": "The path from here",
+    "rangeLine": "At {amount} a month, an assumed {low} to {high} percent would reach {target} in about {minYears} to {maxYears} years.",
+    "singleLine": "At {amount} a month, an assumed {low} to {high} percent would reach {target} in about {years, plural, one {# year} other {# years}}.",
+    "caveat": "An assumption you can check, not a promise. Real returns move around and can be negative.",
+    "paceWithin": "This pace fits inside your {months}-month timeframe.",
+    "paceEdge": "This pace lands around your {months}-month timeframe.",
+    "paceBeyond": "This pace runs longer than your {months}-month timeframe.",
+    "underYear": "At {amount} a month, an assumed {low} to {high} percent would reach {target} within a year."
+  },
+  "welcome": {
+    "title": "Your side pocket for building wealth.",
+    "body": "diBoaS is the side pocket for your Working money. The rest of your money stays right where it is. Here you practice the real thing on play money, with the real market, so there is nothing to lose while you learn the controls.",
+    "point1": "Only your Working money comes here. The rest stays put.",
+    "point2": "Play money, real market. It never becomes real money.",
+    "point3": "See the path, the cost, and the risk before anything moves.",
+    "cta": "Start practising"
+  },
+  "geofence": {
+    "badge": "Regionsprüfung",
+    "title": "In deiner Region nicht verfügbar",
+    "body": "Die diBoaS-Übungsumgebung ist dort, wo du gerade bist, nicht verfügbar. Es liegt nicht an dir.",
+    "link": "Zu diboas.com"
+  }
+}

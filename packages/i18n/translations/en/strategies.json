@@ -48,15 +48,15 @@
         "growth": "Full Throttle"
       }
     },
-    "note": "Not sure? Start with Safe Harbor. Learn first. Switch anytime. No penalties."
+    "note": "Learn first. Switch anytime. No penalties."
   },
   "strategies": {
     "safeHarbor": {
       "name": "Safe Harbor",
       "badge": "Stable Returns | Emergency Fund",
-      "tagline": "Your safety net that actually grows",
+      "tagline": "A steady home for money you can't risk",
       "description": "This is where you keep money you might need tomorrow. It needs to be there when you need it. No surprises.",
-      "description2": "Safe Harbor uses only stable digital dollars. No exposure to digital asset prices. Your $1,000 is designed to stay close to $1,000 while earning returns, though the stablecoins used can fluctuate in value.",
+      "description2": "Safe Harbor uses only stable digital dollars. No exposure to digital asset prices. Your $1,000 is designed to stay close to $1,000; the returns come from the lending strategy, not from holding the dollars, and the stablecoins used can fluctuate in value.",
       "allocation": "50% Sky SSR + 30% Aave V3 + 20% Compound V3",
       "allocationNote": "Your money is distributed across three independent lending systems to reduce risk.",
       "commonUseCase": "First emergency fund. Learning how this works without price swings.",
@@ -70,20 +70,20 @@
     },
     "stableGrowth": {
       "name": "Stable Growth",
-      "badge": "Growth Potential (30%) | Beat Inflation",
-      "tagline": "Outpace inflation with controlled risk",
-      "description": "Your money is split: 70% earns stable returns, 30% participates in digital asset growth. You're accepting some price movement for higher potential returns.",
-      "description2": "This is not an emergency fund. It's for money you want to grow faster than inflation, with the understanding that the growth portion will move with market prices.",
+      "badge": "Growth Potential (30%) | vs Inflation",
+      "tagline": "A step past stable, with guardrails on",
+      "description": "Your money is split: 70% in stable-yield systems, 30% participates in digital asset growth. You're accepting some price movement for more growth exposure.",
+      "description2": "This is not an emergency fund. It's for money you want to grow, accepting that the growth portion will move with market prices.",
       "allocation": "70% Sky SSR + 30% Sanctum INF",
       "allocationNote": "The majority stays in stable digital dollars. The Sanctum portion moves with Solana staking returns.",
-      "commonUseCase": "Second-layer savings. Already has an emergency fund, wants growth above inflation.",
+      "commonUseCase": "Second-layer savings. Already has an emergency fund, wants some growth exposure on top of a stable base.",
       "note": "Not designed as a primary emergency fund.",
       "stats": {
         "lossChance": "Around 5%",
         "typicalReturn": "7-12% per year",
         "bumpiness": "Some waves. At worst, your balance temporarily dropped 8% before recovering."
       },
-      "bestFor": "People comfortable with some price movement who want their safety net to capture growth potential.",
+      "bestFor": "People comfortable with some price movement who want some growth exposure on a stable base.",
       "riskLevel": "Low. 30% of your balance will move with digital asset prices."
     },
     "goalKeeper": {
@@ -101,13 +101,13 @@
         "bumpiness": "Very smooth."
       },
       "bestFor": "Anyone with a specific goal and timeline under 2 years.",
-      "riskLevel": "Minimal. Designed for capital preservation with steady returns. Risks include possible technical vulnerabilities and the possibility that the stablecoins used lose their dollar peg."
+      "riskLevel": "Minimal. Designed for capital preservation. Risks include possible technical vulnerabilities and the possibility that the stablecoins used lose their dollar peg."
     },
     "steadyProgress": {
       "name": "Steady Progress",
       "badge": "Growth Potential (35%) | Short-Term",
-      "tagline": "Short-term goals with growth potential",
-      "description": "You have a goal in the next 2 years, but you're okay with some price movement if it means higher returns. The majority stays stable. A portion participates in digital asset growth.",
+      "tagline": "Short-term goals, a little market in the mix",
+      "description": "You have a goal in the next 2 years, but you're okay with some price movement in exchange for growth exposure. The majority stays stable. A portion participates in digital asset growth.",
       "allocation": "65% Sky SSR + 35% Sanctum INF",
       "allocationNote": "Most stays stable. The Sanctum portion moves with Solana staking returns.",
       "commonUseCase": "Near-term goal where some price movement is acceptable.",
@@ -122,7 +122,7 @@
     "patientBuilder": {
       "name": "Patient Builder",
       "badge": "Stable Returns | Medium-Term",
-      "tagline": "Steady growth for the patient saver",
+      "tagline": "Built for a long, patient horizon",
       "description": "You're thinking 2-5 years out. Maybe a down payment, maybe starting a business. You don't need aggressive growth. You need your money to be there, a bit bigger, when you're ready for it.",
       "allocation": "50% Sky SSR + 30% Aave V3 + 20% Compound V3",
       "allocationNote": "Same stable systems as Safe Harbor, modeled for medium-term holding. Returns are projected more conservatively for the 2-5 year horizon.",
@@ -138,7 +138,7 @@
     "balancedBuilder": {
       "name": "Balanced Builder",
       "badge": "Growth Potential (40%) | Medium-Term",
-      "tagline": "Stability and growth in one strategy",
+      "tagline": "Stable ground and market exposure, together",
       "description": "Most of your money stays safe. Some captures digital asset growth. This strategy is designed for people with 3-5 year horizons who understand that prices go up and down.",
       "allocation": "60% Sky SSR + 25% Sanctum INF + 15% Jupiter JLP",
       "allocationNote": "A balanced mix: lending returns plus staking and trading fee income from two Solana systems.",
@@ -155,7 +155,7 @@
       "name": "Steady Compounder",
       "badge": "Stable Returns | Long-Term",
       "tagline": "Let time do the heavy lifting",
-      "description": "You're playing the long game. 5-10 years. You don't need to take big risks because you have time on your side. Steady returns, compounding year after year.",
+      "description": "You're playing the long game. 5-10 years. You don't need to take big risks because you have time on your side. It's built to compound over the years.",
       "allocation": "55% Sky SSR + 30% Aave V3 + 15% Compound V3",
       "allocationNote": "Optimized for long-term compounding with minimal volatility.",
       "commonUseCase": "5-10 year horizon. Prioritizes consistency over maximum upside.",
@@ -170,9 +170,9 @@
     "wealthAccelerator": {
       "name": "Wealth Accelerator",
       "badge": "Growth Potential (70%) | Long-Term",
-      "tagline": "For people who've done the research",
+      "tagline": "For those at ease with real ups and downs",
       "description": "This is not for everyone. 70% growth exposure means your balance will move significantly with digital asset prices.",
-      "description2": "You need to be able to watch your balance drop 40%+ and not panic. If that sentence made you uncomfortable, this isn't the right strategy for you.",
+      "description2": "You need to be able to watch your balance drop 40%+ and not panic. If that sentence made you uncomfortable, that discomfort is worth listening to. This sits at the most volatile end of the range.",
       "allocation": "30% Sky SSR + 35% Sanctum INF + 35% Jupiter JLP",
       "allocationNote": "Heavily tilted toward growth. Staking returns plus trading fee income from two Solana systems.",
       "commonUseCase": "Long-term allocation with high volatility tolerance.",
@@ -181,30 +181,30 @@
         "typicalReturn": "Highly variable. Could be negative or exceed 50%.",
         "bumpiness": "Big swings. At worst, your balance dropped 47% before recovering."
       },
-      "bestFor": "Long-term people who can stomach extreme volatility for potentially higher returns.",
+      "bestFor": "Long-term people who can stomach extreme volatility and the wide swings that come with it.",
       "riskLevel": "High. Significant chance of meaningful losses in shorter timeframes.",
       "warning": "In thousands of simulations, outcomes ranged from -60% to +200%+. The drop figure (47%) is the worst temporary decline during our test. The range (-60% to +200%+) is the full spread from simulations. Only for people who can tolerate significant losses."
     },
     "yieldMaximizer": {
       "name": "Full Harvest",
       "badge": "Stable Returns | Wealth Building",
-      "tagline": "Steady returns, low price swings.",
-      "description": "You want the highest stable returns over 10+ years without exposure to digital asset prices. No growth component. Just optimized returns across all three stable lending systems.",
+      "tagline": "Low price swings, patient by design.",
+      "description": "You want a stable-only strategy over 10+ years without exposure to digital asset prices. No growth component, spread across all three stable lending systems.",
       "allocation": "45% Sky SSR + 35% Aave V3 + 20% Compound V3",
-      "allocationNote": "Our highest-returning stable-only configuration.",
-      "commonUseCase": "10+ year horizon. Maximum stable returns, zero crypto exposure.",
+      "allocationNote": "A stable-only configuration weighted toward yield.",
+      "commonUseCase": "10+ year horizon. Stable-only, zero crypto exposure.",
       "stats": {
         "lossChance": "Less than 1%",
         "typicalReturn": "7-11% per year",
         "bumpiness": "Very smooth."
       },
-      "bestFor": "Conservative long-term wealth builders who want strong returns without price swings.",
-      "riskLevel": "Minimal. Our highest-returning stable strategy. Risks include possible technical vulnerabilities and the possibility that the stablecoins used lose their dollar peg."
+      "bestFor": "Conservative long-term wealth builders who want a stable-only strategy without price swings.",
+      "riskLevel": "Minimal. A stable-only strategy weighted toward yield. Risks include possible technical vulnerabilities and the possibility that the stablecoins used lose their dollar peg."
     },
     "fullThrottle": {
       "name": "Full Throttle",
       "badge": "Growth Potential (85%) | Wealth Building",
-      "tagline": "Maximum risk. Maximum potential.",
+      "tagline": "Maximum risk, maximum exposure.",
       "description": "This is our most aggressive strategy. 85% growth exposure. Designed for a small portion of your portfolio that you're willing to lose entirely.",
       "description2": "The upside? In rare simulated scenarios, returns exceeded 1,000%. The downside? 27% chance of loss. Your balance dropped 66% at its worst moment in our test.",
       "allocation": "15% Sky SSR + 30% Sanctum INF + 35% Jupiter JLP + 20% Jito",
@@ -350,36 +350,36 @@
     "microText": "Third-party network fees may apply (typically less than $0.01). For the full fee schedule including transfers and cash-outs, see the cost table on our home page."
   },
   "howToChoose": {
-    "header": "Start here",
-    "intro": "",
+    "header": "Match a strategy to your goal",
+    "intro": "These are ways to narrow the list, by what the money is for and how much price movement you're okay with. You match, then you pick.",
     "question1": {
       "title": "What's this money for?",
       "options": {
-        "emergency": "Emergency fund: Safe Harbor. Money you might need tomorrow, built to stay stable.",
-        "beatInflation": "Outpace inflation: Stable Growth. Your money works harder, but 30% moves with the market.",
-        "shortTerm": "Something in the next 2 years: Goal Keeper (stable) or Steady Progress (with growth). Depends on how you feel about price movement.",
-        "mediumTerm": "Something in 2-5 years: Patient Builder (stable) or Balanced Builder (with growth). More time means you can consider more growth.",
-        "longTerm": "Long-term wealth: Steady Compounder, Wealth Accelerator, Full Harvest, or Full Throttle. Your timeline is your biggest advantage."
+        "emergency": "Emergency fund, money you might need tomorrow: the Stable Returns strategies, built to stay steady.",
+        "beatInflation": "If inflation is your concern: Stable Growth adds market exposure (about 30%) to a stable base.",
+        "shortTerm": "Within about 2 years: Goal Keeper (stable) and Steady Progress (with growth) match that horizon; they differ in how much price movement they carry.",
+        "mediumTerm": "About 2 to 5 years: Patient Builder (stable) and Balanced Builder (with growth) match that horizon. More time widens the options.",
+        "longTerm": "Long-term wealth: Steady Compounder, Wealth Accelerator, Full Harvest, and Full Throttle match that horizon. A long timeline carries the most options."
       }
     },
     "question2": {
       "title": "How do you feel about price swings?",
       "options": {
-        "none": "\"I don't want any.\" Stick to the Stable Returns column. Five strategies, zero crypto exposure.",
-        "understand": "\"I understand them and can wait out dips.\" Consider the Growth Potential column. The longer your timeline, the more growth exposure you can consider.",
-        "unsure": "\"I'm not sure.\" Start stable. Learn how everything works with money you're comfortable risking. You can always add growth exposure later."
+        "none": "None: the Stable Returns column, five strategies with zero crypto exposure.",
+        "understand": "Some, and you can wait out dips: the Growth Potential column. Longer timelines carry more growth exposure.",
+        "unsure": "Not sure yet: the Stable Returns column carries the least price movement. You can move to growth exposure whenever you choose."
       }
     },
     "question3": {
       "title": "What would you do if your balance dropped 20%?",
       "options": {
-        "panic": "\"I'd panic and withdraw.\" Stable Returns strategies only. That's not a weakness. It's self-awareness.",
-        "wait": "\"I'd wait for it to recover.\" Low-medium growth strategies could work for you.",
-        "addMore": "\"I'd add more money.\" You might be ready for higher growth exposure. That's smart if it's planned. Less smart if it's panic trying to make back what you lost. Make sure you know which one you mean."
+        "panic": "\"I'd want out.\" The Stable Returns strategies carry no crypto exposure and the least price movement.",
+        "wait": "\"I'd wait for it to recover.\" The low-to-medium growth strategies sit between stable and full growth.",
+        "addMore": "\"I'd add more.\" Higher growth exposure means bigger swings, down as often as up."
       }
     },
     "brandPromise": "We show you both sides, the opportunities and the risks, always.",
-    "goldenRule": "When in doubt, start safe. You can always move up later. Consider consulting a licensed financial advisor if you're unsure which approach fits your situation."
+    "goldenRule": "diBoaS lays out every strategy in the same order for everyone and never chooses the strategy for you. If you're unsure which approach fits your situation, consider consulting a licensed financial advisor."
   },
   "faq": {
     "header": "Before you decide"

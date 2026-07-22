@@ -19,10 +19,10 @@
     "bankLabel": "No seu banco",
     "bankNote": "{rate}% de rendimento ao longo de {years} anos",
     "diboasLabel": "No diBoaS",
-    "diboasNote": "{rate}% de rendimento conservador em dólar digital ao longo de {years} anos",
+    "diboasNote": "{rate}% de retorno conservador da estratégia, mantido em dólar digital, ao longo de {years} anos",
     "differencePositive": "Seus {cash} poderiam render {difference} a mais no diBoaS ao longo de {years} anos.",
     "differenceZero": "Com a taxa atual do seu banco, o diBoaS empata em rendimento ao longo de {years} anos, e a posição fica em dólar digital.",
-    "differenceNegative": "A {bankRate}% seu banco supera o cenário conservador do diBoaS ao longo de {years} anos. O diBoaS ainda te dá uma posição em dólar digital. Esta comparação é só de rendimento."
+    "differenceNegative": "A {bankRate}% seu banco supera o cenário conservador do diBoaS ao longo de {years} anos. O diBoaS ainda te dá uma posição em dólar digital. Esta comparação é só de retorno da estratégia."
   },
   "resultMoment": {
     "eyebrow": "No que seu dinheiro parado pode se tornar",

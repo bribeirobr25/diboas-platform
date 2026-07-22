@@ -1,0 +1,70 @@
+/* Manifest content — always inside the ink-teal BottomSheet (cream on ink). */
+.rows {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  border-bottom: 1px solid color-mix(in srgb, var(--sb-text-on-ink) 14%, transparent);
+  padding-bottom: var(--spacing-sm);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  color: var(--sb-accent-bright);
+  flex-shrink: 0;
+}
+
+.value {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-on-ink);
+  text-align: right;
+  overflow-wrap: anywhere;
+  font-weight: var(--font-weight-medium);
+}
+
+/* The top-fear answer, inside the box (UX-53) — quiet but present, not fine print. */
+.reassurance {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  margin: var(--spacing-md) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-accent-bright);
+  font-weight: var(--font-weight-medium);
+}
+
+.footer {
+  margin: var(--spacing-sm) 0 var(--spacing-md);
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-on-ink-muted);
+  line-height: var(--line-height-relaxed);
+}
+
+.approve {
+  width: 100%;
+  min-height: 52px;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: var(--sb-accent);
+  color: var(--sb-ink);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.approve:hover:not(:disabled) {
+  background: var(--sb-accent-bright);
+}
+
+.approve:disabled {
+  opacity: 0.6;
+  cursor: default;
+}

@@ -33,6 +33,8 @@ Score each **PASS / WEAK / FAIL** per quality, per surface. WEAK means "on-brand
 
 ### Q3 — The three nevers: never selling, never promising, never advising (BLOCKER on FAIL)
 
+_Regulatory anchor (CLO-verified 2026-07-20, D-2 LIGHT): the never-promising / never-"safe-or-guaranteed" instinct is the mainstream financial-conduct standard, not diBoaS eccentricity — R-1 (ESMA over-optimistic-wording ban) + R-2 (FCA "fair, clear, not misleading" / restricted "guaranteed/protected/secure"). Supporting authority, not a binding gate on diBoaS. Full wording: `docs/tech/ux-governance/UX_PRINCIPLES_CANON.md` Appendix E._
+
 - **PASS:** states what is true and leaves the decision with the reader. Upside always travels with its risk. No "you should," no guarantee, no pressure.
 - **FAIL — selling:** manufactured urgency, "don't miss out," pushing the click. (Also a Part-3 veto — cross-check rows 10–17.)
 - **FAIL — promising:** any guarantee of return, safety, or outcome, explicit or implied. _"Your money works while you sleep"_ is a promise (it implies reliable, effortless gain); it must be balanced or cut. Watch the shipped `howItWorks.step2` line for exactly this.

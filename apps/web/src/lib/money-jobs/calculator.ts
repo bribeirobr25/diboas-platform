@@ -1,11 +1,14 @@
 /**
  * Money Jobs engine (tool #11 — spec: docs/tools/NEW_TOOL_PROPOSAL.md §4/§7).
  *
- * Gives every part of a monthly amount a job: Floor (essentials), Cushion
- * (emergency reserve), Working money (surplus with slack). B2C and B2B are
- * two named engines per R1 discipline (financial-calculations.md) — NEVER
- * one function with a mode flag: the business engine models an operating
- * floor + runway, not a household split.
+ * Two-bucket model (sandbox model-coherence D-M1, 2026-07-20): a monthly
+ * amount divides into just two buckets — Essentials (stays in the person's
+ * bank) and Working money (everything free after essentials). Working money
+ * is then given jobs, and the FIRST job is the Emergency Fund (target
+ * essentials × emergencyFundMonths); it is a goal within working money, not a
+ * standing third bucket. B2C and B2B are two named engines per R1 discipline
+ * (financial-calculations.md) — NEVER one function with a mode flag: the
+ * business engine models an operating floor + runway, not a household split.
  *
  * Unit convention (CLAUDE.md "Inflation/depreciation rate unit convention"):
  *   - `inflationRates.*` is DECIMAL → used directly (via inflation-impact).
@@ -45,10 +48,10 @@ export const MONEY_JOBS_MODEL = {
     es: 0.56, // INE EPF 2024 (G1+G4+G6+G7 €21,674) / ECV renta neta media €38,994 = 0.556; lastVerified 2026-07-10; attested Bar 2026-07-10; MEDIUM (cross-source, imputed-rent asymmetry noted).
     de: 0.47, // Destatis LWR 2022 same-survey: €1,907 / €4,056 = 0.470 (EVS-2023 structure cross-check 67.0%); lastVerified 2026-07-10; attested Bar 2026-07-10; MEDIUM-HIGH. Re-attest on EVS-2023 income module.
   },
-  cushionMonths: 6, // flat, all locales — C-B1 option (i), aligns with EMERGENCY_FUND_DEFAULTS.targetMultiplier = 6; Bar 2026-07-10
+  emergencyFundMonths: 6, // flat, all locales — C-B1 option (i), aligns with EMERGENCY_FUND_DEFAULTS.targetMultiplier = 6; Bar 2026-07-10 (was cushionMonths; two-bucket rename D-M1)
   prudenceFactor: 0.75, // policy — anti-hype slack; Bar 2026-07-10
   floorCoverageMonths: 3, // policy — /business operating-floor model; Bar 2026-07-10
-  cushionStep: { highRate: 0.35, normalRate: 0.25, fundedThreshold: 0.25 }, // decision 2 (safety-first); Bar 2026-07-10
+  emergencyFundStep: { highRate: 0.35, normalRate: 0.25, fundedThreshold: 0.25 }, // decision 2 (safety-first); Bar 2026-07-10 (was cushionStep; two-bucket rename D-M1)
   runwayComfortMonths: 12, // decision 9 (B2B runway mode); Bar 2026-07-10
   dignityFloorRatio: 0.05, // finding F3 (dignity state when surplus < 5% of income); Bar 2026-07-10
 } as const;
@@ -69,22 +72,34 @@ export interface MoneyJobsPersonalInput {
 }
 
 export interface MoneyJobsPersonalResult {
-  /** Floor — money with a standing job (the essentials input, echoed). */
-  readonly floor: number;
-  /** Cushion target = essentials × cushionMonths (flat 6). */
-  readonly cushionTarget: number;
-  readonly cushionCurrent: number;
-  /** Funded ratio [0, 1+] — currentSavings / cushionTarget. */
-  readonly cushionFundedRatio: number;
+  /** Bucket 1 — Essentials: money that stays in the person's bank (the
+   *  essentials input, echoed). diBoaS never touches it. */
+  readonly essentials: number;
+  /** Bucket 2 — Working money: everything free after essentials (the full
+   *  surplus). This is what comes to diBoaS to be given jobs. Outside the
+   *  dignity state this equals `joblessMoney` (working money starts jobless);
+   *  in the dignity state the split is suppressed, so `working` is 0. */
+  readonly working: number;
+  /** First job of working money — Emergency Fund target = essentials ×
+   *  emergencyFundMonths (flat 6). A goal, not a standing bucket. */
+  readonly emergencyFundTarget: number;
+  readonly emergencyFundCurrent: number;
+  /** Funded ratio [0, 1+] — currentSavings / emergencyFundTarget. */
+  readonly emergencyFundFundedRatio: number;
   /** Safety-first step rate applied this month: 0.35 / 0.25 / 0. */
-  readonly cushionRate: number;
-  /** Monthly contribution suggestion = surplus × cushionRate. */
-  readonly cushionContribution: number;
-  /** Working money band: maximum = full remaining surplus. */
-  readonly workingMax: number;
-  /** Working money band: ideal = maximum × prudenceFactor (the slack number). */
-  readonly workingIdeal: number;
-  /** The share-hook headline: income not yet assigned to any job. */
+  readonly emergencyFundRate: number;
+  /** This month's suggested contribution to the emergency fund, taken from
+   *  working money = working × emergencyFundRate. */
+  readonly emergencyFundContribution: number;
+  /** Working money left for other goals after the emergency fund's share:
+   *  working − emergencyFundContribution (the band maximum). */
+  readonly workingForGoals: number;
+  /** workingForGoals × prudenceFactor — the prudent (slack) amount to deploy. */
+  readonly workingForGoalsIdeal: number;
+  /** The share-hook headline: working money not yet assigned to any job.
+   *  Equals `working` outside the dignity state; kept distinct because the
+   *  headline/cost-line role uses the raw positive surplus (max(0, surplus)),
+   *  which stays positive even in a thin-surplus dignity month. */
   readonly joblessMoney: number;
   /** M1 cost line: purchasing power the jobless amount loses to locale
    *  inflation over MONEY_JOBS_COST_LINE_YEARS. Null when jobless ≤ 0 or
@@ -121,25 +136,29 @@ export function calculateMoneyJobsPersonal(
   // dignity floor the split is suppressed — protection leads.
   const dignityState = surplus <= monthlyIncome * MONEY_JOBS_MODEL.dignityFloorRatio;
 
-  const cushionTarget = monthlyEssentials * MONEY_JOBS_MODEL.cushionMonths;
-  const cushionFundedRatio = cushionTarget > 0 ? currentSavings / cushionTarget : 1;
+  const emergencyFundTarget = monthlyEssentials * MONEY_JOBS_MODEL.emergencyFundMonths;
+  const emergencyFundFundedRatio =
+    emergencyFundTarget > 0 ? currentSavings / emergencyFundTarget : 1;
 
   // Safety-first step (decision 2): 35% while <25% funded → 25% until funded → 0.
-  const { highRate, normalRate, fundedThreshold } = MONEY_JOBS_MODEL.cushionStep;
-  const cushionRate = dignityState
+  const { highRate, normalRate, fundedThreshold } = MONEY_JOBS_MODEL.emergencyFundStep;
+  const emergencyFundRate = dignityState
     ? 0
-    : cushionFundedRatio < fundedThreshold
+    : emergencyFundFundedRatio < fundedThreshold
       ? highRate
-      : cushionFundedRatio < 1
+      : emergencyFundFundedRatio < 1
         ? normalRate
         : 0;
 
-  const effectiveSurplus = dignityState ? 0 : surplus;
-  const cushionContribution = effectiveSurplus * cushionRate;
-  // M4 reconcile invariant: floor + cushionContribution + workingMax === income
-  // (when not in dignity state). Guarded by tests and the stress harness.
-  const workingMax = effectiveSurplus - cushionContribution;
-  const workingIdeal = workingMax * MONEY_JOBS_MODEL.prudenceFactor;
+  // Bucket 2 — working money is the FULL surplus (0 in the dignity state).
+  const working = dignityState ? 0 : surplus;
+  // The emergency fund is working money's first job (a share of working money),
+  // not a carve-out that shrinks it.
+  const emergencyFundContribution = working * emergencyFundRate;
+  const workingForGoals = working - emergencyFundContribution;
+  const workingForGoalsIdeal = workingForGoals * MONEY_JOBS_MODEL.prudenceFactor;
+  // Reconcile invariant (M4, two-bucket form): essentials + working === income
+  // and working === emergencyFundContribution + workingForGoals. Guarded by tests.
 
   const joblessMoney = Math.max(0, surplus);
   const cost =
@@ -151,14 +170,15 @@ export function calculateMoneyJobsPersonal(
       : null;
 
   return {
-    floor: monthlyEssentials,
-    cushionTarget,
-    cushionCurrent: currentSavings,
-    cushionFundedRatio,
-    cushionRate,
-    cushionContribution,
-    workingMax,
-    workingIdeal,
+    essentials: monthlyEssentials,
+    working,
+    emergencyFundTarget,
+    emergencyFundCurrent: currentSavings,
+    emergencyFundFundedRatio,
+    emergencyFundRate,
+    emergencyFundContribution,
+    workingForGoals,
+    workingForGoalsIdeal,
     joblessMoney,
     joblessCostOfInflation: cost ? cost.lostToInflation : null,
     dignityState,
@@ -269,16 +289,16 @@ export function calculateMoneyJobsBusiness(
 const PLAN_MAX_HORIZON_YEARS = 40;
 
 export interface MoneyJobsPersonalPlan {
-  /** Months to reach the cushion target at the suggested contribution
+  /** Months to reach the emergency-fund target at the suggested contribution
    *  (conservative-hedged, inflation-adjusted). Null when unreachable;
    *  0 when already funded. */
-  readonly cushionMonthsToTarget: number | null;
+  readonly emergencyFundMonthsToTarget: number | null;
   /** True when the non-USD hedge path applied (digitalDollarSuffix gates on this). */
   readonly hedged: boolean;
 }
 
 /**
- * B2C gated plan — the cushion timeline. Uses the CONSERVATIVE scenario
+ * B2C gated plan — the emergency-fund timeline. Uses the CONSERVATIVE scenario
  * (CLO condition C4 / P2-c consistency: the plan under-promises), hedged per
  * the emergency-fund composition (applyEffectiveRateClamp + horizon-matched
  * depreciation). The working-money projections are rendered from
@@ -290,12 +310,12 @@ export function calculateMoneyJobsPersonalPlan(
   result: MoneyJobsPersonalResult,
   snapshot: MarketDataSnapshot
 ): MoneyJobsPersonalPlan | null {
-  const remaining = Math.max(0, result.cushionTarget - result.cushionCurrent);
+  const remaining = Math.max(0, result.emergencyFundTarget - result.emergencyFundCurrent);
   if (remaining === 0) {
-    return { cushionMonthsToTarget: 0, hedged: false };
+    return { emergencyFundMonthsToTarget: 0, hedged: false };
   }
-  if (result.cushionContribution <= 0) {
-    return { cushionMonthsToTarget: null, hedged: false };
+  if (result.emergencyFundContribution <= 0) {
+    return { emergencyFundMonthsToTarget: null, hedged: false };
   }
 
   const locale = result.inputEcho.locale;
@@ -303,7 +323,7 @@ export function calculateMoneyJobsPersonalPlan(
   const currency = LOCALE_CURRENCY[locale];
   const estimatedHorizonYears = Math.min(
     PLAN_MAX_HORIZON_YEARS,
-    Math.max(1, remaining / (result.cushionContribution * 12))
+    Math.max(1, remaining / (result.emergencyFundContribution * 12))
   );
   const depreciation = resolveHorizonMatchedDepreciation(snapshot, currency, estimatedHorizonYears);
   const conservativeUsd = SCENARIO_RATES.conservative / 100;
@@ -319,18 +339,18 @@ export function calculateMoneyJobsPersonalPlan(
   let months: number | null;
   try {
     months = monthsToInflationAdjustedTarget(
-      result.cushionTarget,
-      result.cushionContribution,
+      result.emergencyFundTarget,
+      result.emergencyFundContribution,
       effective,
       inflation,
       'end',
-      result.cushionCurrent
+      result.emergencyFundCurrent
     );
   } catch {
     months = null;
   }
 
-  return { cushionMonthsToTarget: months, hedged: depreciation !== 0 };
+  return { emergencyFundMonthsToTarget: months, hedged: depreciation !== 0 };
 }
 
 export interface MoneyJobsBusinessPlan {

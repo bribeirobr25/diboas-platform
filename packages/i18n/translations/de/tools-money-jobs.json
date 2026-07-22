@@ -40,17 +40,17 @@
   },
   "disclaimer": "Eine Aufteilung zum Lernen, keine Finanzberatung. Deine Zahlen, deine Entscheidung.",
   "jobs": {
-    "floor": {
-      "label": "Boden",
-      "meaning": "Geld mit fester Aufgabe: Miete, Essen, Rechnungen."
+    "essentials": {
+      "label": "Essenzielles",
+      "meaning": "Bleibt auf deinem Konto: Miete, Essen, Rechnungen. diBoaS rührt es nie an."
     },
-    "cushion": {
-      "label": "Polster",
-      "meaning": "Vorschlag dieses Monats Richtung Ziel von {target}. Du hast {current}."
+    "emergencyFund": {
+      "label": "Notgroschen",
+      "meaning": "Die erste Aufgabe deines arbeitenden Geldes. Vorschlag dieses Monats Richtung Ziel von {target}; du hast {current}. Sobald er voll ist, ist dein gesamtes arbeitendes Geld frei für andere Ziele."
     },
     "working": {
       "label": "Arbeitendes Geld",
-      "meaning": "Frei zum Arbeiten, sobald Boden und Polster stehen."
+      "meaning": "Was nach dem Essenziellen frei ist. Das ist es, was zu diBoaS kommt, um zu arbeiten."
     },
     "operatingFloor": {
       "label": "Operativer Boden",
@@ -95,7 +95,7 @@
     "ariaLabel": "Deinen vollständigen Plan freischalten",
     "title": "Das ist die Aufteilung. Der Plan steckt in den Details.",
     "bullets": {
-      "timeline": "Wann dein Polster sein Ziel erreicht",
+      "timeline": "Wann dein Notgroschen sein Ziel erreicht",
       "projections": "Was dein arbeitendes Geld in 5 und 10 Jahren werden könnte",
       "runway": "Deine Runway-Einschätzung und was sie schützt",
       "nextSteps": "Der nächste Schritt für jede Aufgabe"
@@ -110,9 +110,9 @@
   },
   "plan": {
     "title": "Dein Plan",
-    "cushionFunded": "Dein Polster ist voll. Alles über dem Boden kann arbeiten.",
-    "cushionTimeline": "Mit dem Vorschlag dieses Monats erreicht dein Polster sein Ziel in rund {months} Monaten.",
-    "cushionUnreachable": "Mit den aktuellen Zahlen ist das Polster-Ziel nicht erreichbar. Passe Essenzielles oder Einkommen an, um einen Weg zu sehen.",
+    "cushionFunded": "Dein Notgroschen ist voll. Dein gesamtes arbeitendes Geld ist frei für andere Ziele.",
+    "cushionTimeline": "Mit dem Vorschlag dieses Monats erreicht dein Notgroschen sein Ziel in rund {months} Monaten.",
+    "cushionUnreachable": "Mit den aktuellen Zahlen ist das Notgroschen-Ziel nicht erreichbar. Passe Essenzielles oder Einkommen an, um einen Weg zu sehen.",
     "projectionsIntro": "Was der ideale Arbeitsbetrag, monatlich eingezahlt, in drei Szenarien werden könnte:",
     "scenarioColumn": "Szenario",
     "fiveYears": "5 Jahre",

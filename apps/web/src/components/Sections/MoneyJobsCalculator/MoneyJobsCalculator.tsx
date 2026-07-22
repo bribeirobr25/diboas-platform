@@ -5,9 +5,10 @@
  *
  * Thin client renderer over the lib/money-jobs engines. Instant compute on
  * input (no button); the free summary is complete on its own (headline +
- * cost line + three-job split); the gate below unlocks plan + projections
- * (decision 8). Dignity state (F3) and B2B runway mode (decision 9) are
- * first-class paths that suppress the sell.
+ * cost line + two-bucket split: Essentials + Working money, with the
+ * Emergency Fund as working money's first job); the gate below unlocks plan +
+ * projections (decision 8). Dignity state (F3) and B2B runway mode (decision
+ * 9) are first-class paths that suppress the sell.
  *
  * Build conditions honored (CLO C1–C5 + UX-governance A1–A4):
  *  A1 essentials = number field + dual-bound slider · A2 mode pills =
@@ -141,10 +142,10 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
   // scenarios; C4: Conservative renders first with the lead emphasis).
   const projections = useMemo(() => {
     if (!unlocked || mode !== 'personal' || !personal || personal.dignityState) return null;
-    if (personal.workingIdeal <= 0) return null;
+    if (personal.workingForGoalsIdeal <= 0) return null;
     try {
       const out = calculateCompoundProjectionHedged({
-        amount: Math.round(personal.workingIdeal),
+        amount: Math.round(personal.workingForGoalsIdeal),
         cadence: 'monthly',
         years: 10,
         locale: localeKey,
@@ -337,30 +338,33 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
                 <p className={styles.freeDisclaimer}>{t('disclaimer')}</p>
               </div>
 
+              {/* Two-bucket model (D-M1): cards 1+2 are the buckets
+                  (Essentials + Working money = income); card 3 is working
+                  money's FIRST job (Emergency Fund), not a third bucket. */}
               <div className={styles.jobsGrid}>
                 <div className={styles.jobCard}>
-                  <p className={styles.jobLabel}>{t('jobs.floor.label')}</p>
-                  <p className={styles.jobValue}>{fmt(personal.floor)}</p>
-                  <p className={styles.jobMeaning}>{t('jobs.floor.meaning')}</p>
-                </div>
-                <div className={styles.jobCard}>
-                  <p className={styles.jobLabel}>{t('jobs.cushion.label')}</p>
-                  <p className={styles.jobValue}>{fmt(personal.cushionContribution)}</p>
-                  <p className={styles.jobMeaning}>
-                    {t('jobs.cushion.meaning', {
-                      target: fmt(personal.cushionTarget),
-                      current: fmt(personal.cushionCurrent),
-                    })}
-                  </p>
+                  <p className={styles.jobLabel}>{t('jobs.essentials.label')}</p>
+                  <p className={styles.jobValue}>{fmt(personal.essentials)}</p>
+                  <p className={styles.jobMeaning}>{t('jobs.essentials.meaning')}</p>
                 </div>
                 <div className={styles.jobCard}>
                   <p className={styles.jobLabel}>{t('jobs.working.label')}</p>
-                  <p className={styles.jobValue}>{fmt(personal.workingIdeal)}</p>
+                  <p className={styles.jobValue}>{fmt(personal.working)}</p>
                   <p className={styles.jobMeaning}>{t('jobs.working.meaning')}</p>
+                </div>
+                <div className={styles.jobCard}>
+                  <p className={styles.jobLabel}>{t('jobs.emergencyFund.label')}</p>
+                  <p className={styles.jobValue}>{fmt(personal.emergencyFundContribution)}</p>
+                  <p className={styles.jobMeaning}>
+                    {t('jobs.emergencyFund.meaning', {
+                      target: fmt(personal.emergencyFundTarget),
+                      current: fmt(personal.emergencyFundCurrent),
+                    })}
+                  </p>
                 </div>
               </div>
 
-              {jobsBand(personal.workingIdeal, personal.workingMax)}
+              {jobsBand(personal.workingForGoalsIdeal, personal.workingForGoals)}
 
               {/* A3: share stays secondary — quiet link, never a second primary */}
               {personal.joblessMoney > 0 ? (
@@ -378,11 +382,11 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
                   <h2 className={styles.planTitle}>{t('plan.title')}</h2>
                   {personalPlan ? (
                     <p className={styles.planLine}>
-                      {personalPlan.cushionMonthsToTarget === 0
+                      {personalPlan.emergencyFundMonthsToTarget === 0
                         ? t('plan.cushionFunded')
-                        : personalPlan.cushionMonthsToTarget !== null
+                        : personalPlan.emergencyFundMonthsToTarget !== null
                           ? t('plan.cushionTimeline', {
-                              months: Math.ceil(personalPlan.cushionMonthsToTarget),
+                              months: Math.ceil(personalPlan.emergencyFundMonthsToTarget),
                             })
                           : t('plan.cushionUnreachable')}
                     </p>

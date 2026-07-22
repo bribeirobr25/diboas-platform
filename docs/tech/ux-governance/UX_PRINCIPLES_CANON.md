@@ -160,6 +160,7 @@ Herd inducement on a financial decision. Prohibited.
 A dropdown forces a click, a scroll and a read merely to learn what the choices are. Three visible flavour chips with icons remove that entirely. Applies to our calculator selectors and locale/currency pickers.
 
 **UX-37 · Answer the fear at the exact moment of hesitation. — ADOPT**
+_Regulatory anchor (CLO-verified, D-2 LIGHT): R-1 — Appendix E._
 Evidence: hovering a flavour reveals "Light, tart, and not overly sweet" — the unspoken worry ("what if it tastes awful?") answered where it arises, without cluttering the layout. Good UX anticipates the question and replies in place.
 diBoaS analogue: the risk sentence belongs _next to the strategy selector_, not in a footnote; the fee appears _before_ the button, not on the next screen.
 
@@ -167,6 +168,7 @@ diBoaS analogue: the risk sentence belongs _next to the strategy selector_, not 
 Two equal radio buttons let people default to the lowest-risk choice; side-by-side cards with one visually favoured card steer them. The source pre-selects "Subscribe", tints it, and tags it "MOST POPULAR" — that is steering toward the vendor's revenue. **We may use the card layout; we may not use the tag, the tint, or the pre-selection to favour the option that earns diBoaS more.**
 
 **UX-39 · Put the reassurance inside the decision box. — ADOPT**
+_Regulatory anchor (CLO-verified, D-2 LIGHT): R-1 — Appendix E._
 "Save 15% · Cancel anytime, no fees · Priority dispatch" sits inside the selection card, at the second the user is deciding — not in an FAQ. Ours: fee, cap, and "you can withdraw any time" inside the confirm box.
 
 **UX-40 · Progressive disclosure. — ADOPT**
@@ -188,6 +190,7 @@ Paywall A: hero art, "Get access to 1000+ … games", $19/month, three feature b
 **Truth-gate boundary (2026-07-10):** reframing the question is craft; hiding the decision is a dark pattern. Where money moves, the easier question must never suppress the substance of "should I do this at all?" — the cost, the risk, and the commitment stay visible on the same screen the easier question is asked. Same boundary family as UX-41.
 
 **UX-44 · Transparency bias: proactively disclose the downside — trust converts. — ADOPT. THE MOST IMPORTANT PRINCIPLE IN THIS DOCUMENT FOR DIBOAS.**
+_Regulatory anchor (CLO-verified, D-2 LIGHT): R-1 + R-2 — Appendix E._
 Paywall B replaces feature bullets with a three-step timeline: **Today** — full access; **Day 5** — we send a reminder that the trial is ending; **Day 7** — the first charge begins, cancel any time before. The Day-5 line does more work than every feature bullet combined, because it says _we will warn you before we take your money_. Revealing a potential downside makes users trust you more, not less; the screen stops being a sales pitch and becomes a safety net. People buy from safety nets.
 **This is empirical support for diBoaS's entire positioning.** Radical honesty is not a conversion tax; it is the conversion mechanism. The corollaries: state the fee before the button; disclose the FX spread before the transaction (open usability item C3); tell the user what happens if they do nothing.
 
@@ -198,6 +201,7 @@ Paywall B replaces feature bullets with a three-step timeline: **Today** — ful
 "Start in two taps" answers "will there be a form? do I need my card? how many steps?" in three words. (Same family as UX-34.)
 
 **UX-47 · Never show a range where you can show a number. — ADOPT for fees and costs; ADAPT (CLO gate) for projections — amended 2026-07-10**
+_Regulatory anchor (CLO-verified, D-2 LIGHT): R-3 — Appendix E._
 Ride-hailing A lists "$13–17", "$17–22", "$16–21". The brain anchors on the high end and then negotiates across three options simultaneously; the easiest outcome is to close the app. Version B shows one price per ride ("$15.99", "$19.99", "$20.99"). Evaluative ease: the less work a decision takes, the likelier it is taken. **A range you could resolve is not transparency, it is doubt — and doubt is the most expensive thing in an interface.**
 **Amendment (post-evaluation, 2026-07-10) — the rule inverts for projections.** For fees and costs, one exact number is the honest form (the fee IS $0.48 on $100; a range would manufacture doubt). For **projected returns**, one precise figure reads as a promise — regulators push hypothetical performance toward scenario framing precisely because the future is not a resolvable number. Projections use labelled scenarios (the existing 7/10/14 structure), CLO-gated per Gate 4 on hypothetical performance. The unifying principle: **show a single number wherever a single number is the truth; show scenarios wherever pretending to a single number would be a lie.**
 
@@ -216,6 +220,7 @@ Booking A: small thumbnail, "Beach house with garden", 4.82 stars, €89/night, 
 This _is_ Lens 2 (make the reader feel it) with a screenshot attached.
 
 **UX-52 · Show the total, not the unit. — ADOPT**
+_Regulatory anchor (CLO-verified, D-2 LIGHT): R-1 — Appendix E._
 "Reserve" became "Reserve · €445 total". The total pre-empts hidden-fee anxiety. Ours: the confirm button should carry the all-in figure — including pass-throughs — not the headline percentage.
 
 **UX-53 · Answer the top objection in one line, before it is voiced. — ADOPT**
@@ -261,6 +266,27 @@ And the corpus's dark side is equally clear. Manufactured loss (UX-10), volume h
 
 ---
 
+# Part 9 — Honest data-visualization (external research, 2026-07-13)
+
+_Added 2026-07-19 from the deep-research report (`docs/researches/UX Governance Research.md`) via `docs/audit/UX_RESEARCH_INTEGRATION_PLAN_2026-07-13.md` (task C-1). The canon was strong on copy/flow/dark-patterns and near-silent on how to **draw** money — the highest-risk surface for an implied-promise violation once the product renders projections and yield. These four extend UX-47 ("show a single number where a single number is the truth; scenarios where pretending to one would be a lie"). **The regulatory anchors (R-1 ESMA, R-3 FINRA) are pending CLO verification** (R-register in the integration plan); until each clears, these ship on their peer-reviewed evidence and diBoaS's own plain-language caveats, never a verbatim regulatory string._
+
+**UX-60 · Visualize uncertainty; never draw a single deterministic line for an uncertain future. — ADAPT (CLO gate on projections).**
+_Regulatory anchor (CLO-verified, D-2 LIGHT): R-3 — Appendix E._
+A lone projection line implies a promise. Show the future as a range, a set of labelled scenarios, or a distribution — never one hard number or one line. _Evidence (peer-reviewed, not marketing):_ Hullman, Resnick & Adar 2015 (_PLoS ONE_); Kale, Nguyen, Kay & Hullman 2018 (_IEEE TVCG_, on Hypothetical Outcome Plots); Weiskopf 2022 (_Frontiers in Bioinformatics_). Extends UX-47; aligns with Gate 4 on hypothetical performance. _Regulatory anchor pending CLO: R-1/R-3._ _diBoaS surfaces:_ the `/tools` calculators are the reference implementation (a 4-scenario band); Dream Mode is the one surface that regressed to a single line (see `docs/audit/UX_RESEARCH_IMPLEMENTATION_REVIEW_2026-07-19.md`).
+
+**UX-61 · No fake precision on volatile values. — ADOPT.**
+Excess decimal places imply a certainty that does not exist. Round yield, return, and projection figures to an honest resolution — the tools suite's currency default of 0 decimals is the baseline; cents on a multi-year projection are false precision. _Evidence:_ NN/g chart-clarity guidance and the HCI false-precision critique.
+
+**UX-62 · A projection is a transparent calculator, never a prediction. — ADAPT (CLO gate).**
+_Regulatory anchor (CLO-verified, D-2 LIGHT): R-3 — Appendix E._
+Show the assumptions and the math, let the user change the inputs, and label every assumed rate _as assumed_ — never present the output as a forecast, and never dramatize an assumption into a settled outcome (no count-up-to-a-guaranteed-number theatre). _Evidence to verify (R-3):_ FINRA Rule 2210(d)(1)(F) permits a "hypothetical illustration of mathematical principles," not a prediction — **pending CLO** (a Feb-2026 FINRA proposal to permit projections is flagged not-in-force). Until R-3 clears, ship on the plain-language principle, not the regulatory text. Pairs with the existing 7/10/14-style scenario structure.
+
+**UX-63 · Every historical or performance figure travels with its honest caveat. — ADOPT.**
+_Regulatory anchor (CLO-verified, D-2 LIGHT): R-1 — Appendix E. (UX-63 ships diBoaS's own plain-language caveat, never the ESMA verbatim string.)_
+Any past-performance, historical, or return figure carries a plain-language caveat that past results do not predict the future, shown _with_ the figure (never in a footnote). _Evidence to verify (R-1):_ the ESMA-mandated "Past performance does not predict future returns" and its equal-prominence-of-risk rule — **pending CLO**; until R-1 clears, ship diBoaS's own plain-language caveat, never the verbatim regulatory string.
+
+---
+
 # Appendix A — Unverified claims register
 
 | Claim as asserted in source                          | Where used | Status                                                                                                       |
@@ -274,6 +300,10 @@ And the corpus's dark side is equally clear. Manufactured loss (UX-10), volume h
 | Product page: 2% → 7% ("3.5×")                       | Part 5     | Unverified. Vendor's own claim.                                                                              |
 | The three A/B tests (paywall, ride-hailing, booking) | Part 6     | Unverified. No methodology, sample size, or source given. **Treat as illustrative reasoning, not evidence.** |
 | Interaction cost as a named concept                  | UX-56      | Established HCI concept (Nielsen Norman Group). No figure asserted.                                          |
+| ~90-second / ~90%-of-first-impression is colour-driven (attrib. Institute for Color Research) | research (colour/trust) | **Industry lore.** Widely repeated, not peer-reviewed. Do not cite. (C-4, 2026-07-19) |
+| "Transparency lifts conversion 30–60%"               | research (conversion) | **Unsourced marketing claim.** Do not cite. Use the honesty-as-retention framing on its reasoning, not this figure. (C-4) |
+| Magritte ad library "proven to perform"              | research (platform eval) | **Vendor claim;** performance criteria undisclosed. Do not cite. (C-4) |
+| "25–95%" retention→profit range                      | UX-44 / retention | Cite the Bain/Reichheld financial-services figure (**"~5% retention → >25% profit"**, Reichheld & Sasser 1990, HBR), _not_ the popularized composite "25–95%" range. (C-4) |
 
 **None of these figures may appear in diBoaS marketing, investor, or product material.** The principles are adopted on their reasoning, not on these numbers.
 
@@ -282,8 +312,10 @@ And the corpus's dark side is equally clear. Manufactured loss (UX-10), volume h
 > **Canonical enforcement list: `docs/tech/ux-governance/anti-slop-checklist.md` Part 3 rows 10–17.** This appendix and `BRAND_POSITIONING.md` Gate 4 are narrative forms of those rows; on any drift, the checklist rows win. (Single-source rule, 2026-07-10.)
 
 1. Manufactured urgency, countdowns, or threat framing about a person's money (UX-10).
+   - _Precedent (academic, not law — no CLO gate): Princeton "Dark Patterns at Scale" (Mathur et al. 2019) audited these at scale — activity notifications, low-stock messages, and countdown timers were among the most-deployed manipulative patterns._
 2. Volume/herd social proof on financial products (UX-35).
 3. Status or performance badges on strategies, goals, or assets (UX-32, UX-49 uncleared).
+   - _Precedent (CLO-verified, R-4): In re Robinhood Financial LLC, Massachusetts Securities Division consent order, 18 Jan 2024 ($7.5M) — the regulator required cessation of celebratory imagery tied to trading frequency, "most popular" list push-notifications, and game-of-chance features. Real-world enforcement support for rows 2 (volume/herd proof) and 3 (celebration/status framing on financial actions). Cited as enforcement climate, not a settled holding (Robinhood settled without admitting the premise). See Appendix E._
 4. Defaults, pre-selections, or visual emphasis that favour the option earning diBoaS more (UX-06 finance rule, UX-38).
 5. Anchoring returns or projections; fabricated reference prices (UX-11, UX-54).
 6. Computing a real result and hiding it behind a signup (UX-08 boundary).
@@ -294,8 +326,9 @@ And the corpus's dark side is equally clear. Manufactured loss (UX-10), volume h
 
 - **CMO board (this chat):** UX-06…11, 15, 32…54, 55, 56, 58 — copy, flow, brand.
 - **Design-reviewer / frontend-design skill:** UX-01…05, 16, 59 — craft, contrast, tokens, visual cues, input-component inventory (UX-16 flow semantics reviewed by CMO).
-- **CTO board (deferred handoff):** UX-12, 13, 14, 17…31, 57 — money-product structure, thumb zone. Recorded here in full; scheduled as a separate task.
-- **CLO board:** gates on UX-11, 32, 41, 49 and the whole of Appendix B.
+- **CMO + design-reviewer (data-viz honesty):** UX-60…63 — how money is drawn (Part 9). The design-reviewer enforces them per its data-viz phase (`.claude/agents/design-reviewer.md`, C-1b); CLO-gated where they touch projected returns (UX-60/62).
+- **CTO board (deferred handoff):** UX-12, 13, 14, 17…31, 57 — money-product structure, thumb zone. Recorded here in full; scheduled as a separate task. **User-onboarding input (C-6, added 2026-07-19):** the research's account-opening best-practice set — progressive disclosure; NN/g pyramid of trust; aha-moment-fast; contextual help over upfront tours; modern self-custody recovery UX (social-recovery / passkeys over seed-phrase terror); "you hold the keys" stated early — is a named input to the CTO onboarding design alongside UX-12/13/14/57. It is **NOT** marketing-site canon (the surface it governs, the money product's account-opening flow, isn't built).
+- **CLO board:** gates on UX-11, 32, 41, 49, 60, 62 and the whole of Appendix B.
 
 # Appendix D — Audit trail
 
@@ -303,4 +336,25 @@ And the corpus's dark side is equally clear. Manufactured loss (UX-10), volume h
 
 **2026-07-10, founder ratification.** G-3 confirmed by founder: this canon is RATIFIED as amended (status line updated). G-2 confirmed: the citation-annotation standard stands, and reconstruction of founder rulings F-1…F-12 from the session log (plan task CC-5) is unblocked. G-1 (git-tracking the governance layer) declined for now — consequence: the retention rule in `UX_GOVERNANCE_FIX_PLAN_2026-07-10.md` (archive with status header, never delete) remains the ONLY protection for these files and is standing policy until G-1 is revisited.
 
+**2026-07-19, research integration (UX_RESEARCH_INTEGRATION_PLAN_2026-07-13 execution).** Added **Part 9 — honest data-visualization (UX-60…63)**, the one real gap the deep-research report surfaced (canon was silent on how to draw money): visualize uncertainty not a deterministic line (UX-60), no fake precision (UX-61), calculator-not-prediction (UX-62), every performance figure caveated (UX-63) — on peer-reviewed evidence, with the ESMA/FINRA regulatory anchors held **pending CLO** (R-register). ID sequence now UX-01…UX-63, contiguous. Appendix A (C-4) absorbed the research's own unverified-claim flags (colour-lore, "transparency lifts 30–60%", Magritte "proven", the "25–95%" composite). Appendix C: UX-60…63 ownership recorded (CMO + design-reviewer, CLO-gated on projections) and the design-reviewer wired to enforce them (C-1b); user-onboarding best-practice recorded as a CTO-cluster input, not marketing canon (C-6). Regulatory-anchor tasks C-2/C-3 remain open pending CLO verification of R-1…R-6. Full record: `docs/audit/UX_RESEARCH_IMPLEMENTATION_REVIEW_2026-07-19.md`.
+
 **2026-07-10, post-evaluation hardening (Claude Code's governance evaluation, findings verified then applied).** Taxonomy corrected — four gated principles relabelled ADOPT→ADAPT per this document's own definitions (UX-05, 08, 48, 55). UX-47 amended: ADOPT for fees/costs, CLO-gated ADAPT for projections (a single precise projection reads as a promise; scenario framing is the honest form — aligns with Gate 4 on hypothetical performance). Truth-gate boundaries added to UX-43 and UX-50 (reframing is craft; hiding the decision is a dark pattern). UX-16 assigned an owner. Live operational state de-baked from UX-58 (canon entries stay durable; outages live in the queue). Appendix B subordinated to the canonical veto list (checklist Part 3 rows 10–17) under the single-source rule. Coordination plan: `docs/audit/UX_GOVERNANCE_FIX_PLAN_2026-07-10.md`; operating protocol: `docs/tech/ux-governance/UX_GOVERNANCE_USAGE.md`.
+
+**2026-07-20, regulatory anchors landed (C-2/C-3, CLO Session 023 return).** The R-register cleared CLO verification (`docs/audit/CLO_BOARD_R_REGISTER_VERIFICATION_2026-07-20.md`): **Appendix E** added holding the R-1/R-2/R-3 anchors (C-2) on UX-37/39/44/47/52/60/62/63 + the three-nevers, each carrying its jurisdiction caveat (diBoaS not bound; supporting authority under **D-2 LIGHT**). Appendix B gained the R-4 (Robinhood) precedent on rows 2/3 and the Princeton "Dark Patterns at Scale" academic note on row 1 (C-3). **Founder ruled option B (2026-07-20):** cancellation (R-5/DSA) and consent (R-6/Planet49) prohibitions are **not** added to the veto list now, so R-5…R-12 stay recorded-verified authority in the verification doc, not canonized. UX-63 keeps its own plain-language caveat, never the ESMA verbatim string.
+
+---
+
+# Appendix E — Regulatory anchors (CLO-verified 2026-07-20, D-2 LIGHT)
+
+> **Board condition (CLO Session 023, unanimous — `docs/audit/CLO_BOARD_R_REGISTER_VERIFICATION_2026-07-20.md`).** Every anchor below is **supporting authority for a principle diBoaS already holds on its own logic — NOT a binding gate on diBoaS.** diBoaS is not a fund, not FCA-authorised, and not a FINRA member; these are cited as the authoritative external articulation of principles diBoaS applies by choice (the **D-2 LIGHT** posture the founder ratified 2026-07-20). Converting any anchor to a *binding* gate is a separate CLO decision at funding / counsel engagement. **UX-63 always ships diBoaS's own plain-language caveat ("Past performance ≠ future results"), never a verbatim regulatory string presented as a compliance badge.**
+
+**R-1 · ESMA34-45-1272 — VERIFIED WITH CAVEAT. Anchors: UX-37, UX-39, UX-44, UX-52, UX-63, and the three-nevers.**
+> Regulatory anchor (CLO-verified, R-1): ESMA Guidelines on Marketing Communications (ESMA34-45-1272, in force 2 Feb 2022) require, in EU fund marketing, that risk be given equal prominence to reward, at a font size ≥ the predominant size, never in footnotes. diBoaS is not a fund and is not bound by these guidelines; they are cited as the authoritative EU articulation of the equal-prominence principle diBoaS already applies.
+
+**R-2 · FCA COBS 4.2.1R + financial-promotions regime — VERIFIED WITH CAVEAT. Anchors: the three-nevers, UX-44.**
+> Regulatory anchor (CLO-verified, R-2): the FCA's "fair, clear and not misleading" standard (COBS 4.2.1R) and its financial-promotions regime restrict unjustified "guaranteed/protected/secure" language. diBoaS is not FCA-authorised and not UK-targeted; cited as the mainstream regulatory articulation of the never-promising principle diBoaS already enforces.
+
+**R-3 · FINRA Rule 2210(d)(1)(F) — VERIFIED (both limbs). Anchors: UX-47, UX-60, UX-62.**
+> Regulatory anchor (CLO-verified, R-3): FINRA Rule 2210(d)(1)(F) prohibits performance projections in broker-dealer communications; a transparent "hypothetical illustration of mathematical principles" (an assumptions calculator) is the permitted form, not a prediction. In force as of 2026-07-20; a Feb-2026 FINRA proposal to permit projections is pending SEC proceedings (Release 34-105524, instituted 26 May 2026) and is not in force. diBoaS is not a FINRA member; cited as the US regulatory articulation of calculator-not-prediction.
+
+**Precedent annotations (C-3):** R-4 (Robinhood) is attached in **Appendix B** rows 2/3; the Princeton "Dark Patterns at Scale" academic note is on row 1. **R-5 (DSA Art. 25 cancellation), R-6 (Planet49 consent), and R-7…R-12** are CLO-verified but **recorded-only** — the founder ruled option B (2026-07-20): the canon does not add cancellation- or consent-prohibition rows now, so these stand as verified supporting authority in the verification doc, to be canonized only if/when those surfaces gain a prohibition. **Monitoring:** if SR-FINRA-2026-004 is ever approved, update the R-3 anchor (rule shifts from "prohibits" to "permits under conditions"; the UX-62 *principle* is unchanged — diBoaS refuses predictive framing by choice).

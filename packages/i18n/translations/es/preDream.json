@@ -76,7 +76,6 @@
     "title": "¿Qué tan lejos en el futuro?",
     "back": "Volver",
     "simulateButton": "Muéstrame qué pasa",
-    "daysUnit": "días",
     "options": {
       "1year": {
         "label": "1 Año",
@@ -104,6 +103,8 @@
     "titlePrefix": "Tus {amount} podrían convertirse en...",
     "titleWithGoal": "Tu {goalName} podría ser:",
     "withDiboas": "Con diBoaS",
+    "assumedApy": "a una tasa supuesta del {apy}% al año",
+    "scenarioPrefix": "El mismo dinero en los otros caminos:",
     "bankWouldGive": "Tu banco te daría:",
     "differenceMore": "Eso es {amount} MÁS con diBoaS",
     "differenceSubtext": "El mismo dinero. Diferente lugar. Gran diferencia.",

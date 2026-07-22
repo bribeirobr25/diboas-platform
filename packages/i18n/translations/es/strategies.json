@@ -48,13 +48,13 @@
         "growth": "Full Throttle"
       }
     },
-    "note": "¿No sabes por dónde empezar? Empieza con Safe Harbor. Aprende primero. Cambia cuando quieras. Sin penalizaciones."
+    "note": "Aprende primero. Cambia cuando quieras. Sin penalizaciones."
   },
   "strategies": {
     "safeHarbor": {
       "name": "Safe Harbor",
       "badge": "Rentabilidad estable | Fondo de emergencia",
-      "tagline": "Tu colchón de seguridad que realmente crece",
+      "tagline": "Un lugar firme para el dinero que no puedes arriesgar",
       "description": "Aquí guardas el dinero que puedes necesitar mañana. Tiene que estar ahí cuando lo necesites. Sin sorpresas.",
       "description2": "Safe Harbor utiliza solo dólares digitales estables. Sin exposición a precios de activos digitales. Tus 1.000 EUR están diseñados para mantenerse cerca de 1.000 EUR mientras generan rendimiento, aunque las stablecoins utilizadas pueden fluctuar en valor.",
       "allocation": "50% Sky SSR + 30% Aave V3 + 20% Compound V3",
@@ -70,20 +70,20 @@
     },
     "stableGrowth": {
       "name": "Stable Growth",
-      "badge": "Potencial de crecimiento (30%) | Ganar más que la inflación",
-      "tagline": "Supera la inflación con riesgo controlado",
-      "description": "Tu dinero se divide: el 70% genera rendimiento estable, el 30% participa en el crecimiento de activos digitales. Aceptas algo de movimiento de precio a cambio de una rentabilidad potencialmente mayor.",
-      "description2": "Esto no es un fondo de emergencia. Es para dinero que quieres hacer crecer por encima de la inflación, entendiendo que la parte de crecimiento se moverá con los precios del mercado.",
+      "badge": "Potencial de crecimiento (30%) | vs Inflación",
+      "tagline": "Un paso más allá de lo estable, con frenos",
+      "description": "Tu dinero se divide: el 70% queda en sistemas de rendimiento estable, el 30% participa en el crecimiento de activos digitales. Aceptas algo de movimiento de precio a cambio de más exposición a crecimiento.",
+      "description2": "Esto no es un fondo de emergencia. Es para dinero que quieres hacer crecer, entendiendo que la parte de crecimiento se moverá con los precios del mercado.",
       "allocation": "70% Sky SSR + 30% Sanctum INF",
       "allocationNote": "La mayor parte se queda en dólares digitales estables. La parte en Sanctum se mueve con el rendimiento del staking de Solana.",
-      "commonUseCase": "Segunda capa de ahorro. Ya tiene fondo de emergencia y busca crecimiento por encima de la inflación.",
+      "commonUseCase": "Segunda capa de ahorro. Ya tiene fondo de emergencia y busca algo de exposición a crecimiento sobre una base estable.",
       "note": "No diseñada como fondo de emergencia principal.",
       "stats": {
         "lossChance": "Alrededor del 5%",
         "typicalReturn": "7-12% anual",
         "bumpiness": "Algunas olas. En el peor momento, tu saldo bajó temporalmente un 8% antes de recuperarse."
       },
-      "bestFor": "Personas cómodas con algo de movimiento de precio que quieren que su red de seguridad capture potencial de crecimiento.",
+      "bestFor": "Personas cómodas con algo de movimiento de precio que quieren algo de exposición a crecimiento sobre una base estable.",
       "riskLevel": "Bajo. El 30% de tu saldo se moverá con los precios de activos digitales."
     },
     "goalKeeper": {
@@ -101,13 +101,13 @@
         "bumpiness": "Muy tranquilo."
       },
       "bestFor": "Cualquiera con una meta específica y un plazo menor de 2 años.",
-      "riskLevel": "Mínimo. Diseñado para preservación de capital con rentabilidad estable. Los riesgos incluyen posibles vulnerabilidades técnicas y la posibilidad de que las stablecoins utilizadas pierdan su paridad con el dólar."
+      "riskLevel": "Mínimo. Diseñado para preservación de capital. Los riesgos incluyen posibles vulnerabilidades técnicas y la posibilidad de que las stablecoins utilizadas pierdan su paridad con el dólar."
     },
     "steadyProgress": {
       "name": "Steady Progress",
       "badge": "Potencial de crecimiento (35%) | Corto plazo",
-      "tagline": "Metas a corto plazo con potencial de crecimiento",
-      "description": "Tienes una meta en los próximos 2 años, pero aceptas algo de movimiento de precio si eso significa una rentabilidad mayor. La mayor parte se queda estable. Una parte participa en el crecimiento de activos digitales.",
+      "tagline": "Objetivos cortos, con algo de mercado en la mezcla",
+      "description": "Tienes una meta en los próximos 2 años, pero aceptas algo de movimiento de precio a cambio de exposición a crecimiento. La mayor parte se queda estable. Una parte participa en el crecimiento de activos digitales.",
       "allocation": "65% Sky SSR + 35% Sanctum INF",
       "allocationNote": "La mayor parte se queda estable. La parte en Sanctum se mueve con el rendimiento del staking de Solana.",
       "commonUseCase": "Meta a corto plazo donde algo de movimiento de precio es aceptable.",
@@ -122,7 +122,7 @@
     "patientBuilder": {
       "name": "Patient Builder",
       "badge": "Rentabilidad estable | Medio plazo",
-      "tagline": "Crecimiento constante para quien sabe esperar",
+      "tagline": "Hecho para un horizonte largo y paciente",
       "description": "Estás pensando a 2-5 años vista. Quizá la entrada de un piso, quizá montar un negocio. No necesitas crecimiento agresivo. Necesitas que tu dinero esté ahí, un poco más grande, cuando estés preparado.",
       "allocation": "50% Sky SSR + 30% Aave V3 + 20% Compound V3",
       "allocationNote": "Mismos sistemas estables que Safe Harbor, modelados para un horizonte de medio plazo. La rentabilidad se proyecta de forma más conservadora para el horizonte de 2-5 años.",
@@ -138,7 +138,7 @@
     "balancedBuilder": {
       "name": "Balanced Builder",
       "badge": "Potencial de crecimiento (40%) | Medio plazo",
-      "tagline": "Estabilidad y crecimiento en una sola estrategia",
+      "tagline": "Suelo firme y exposición al mercado, juntos",
       "description": "La mayor parte de tu dinero se mantiene segura. Una parte captura el crecimiento de activos digitales. Esta estrategia está diseñada para personas con horizontes de 3-5 años que entienden que los precios suben y bajan.",
       "allocation": "60% Sky SSR + 25% Sanctum INF + 15% Jupiter JLP",
       "allocationNote": "Una combinación equilibrada: rendimiento de préstamo más rendimiento de staking y comisiones de trading de dos sistemas Solana.",
@@ -155,7 +155,7 @@
       "name": "Steady Compounder",
       "badge": "Rentabilidad estable | Largo plazo",
       "tagline": "Deja que el tiempo haga el trabajo pesado",
-      "description": "Estás jugando a largo plazo. 5-10 años. No necesitas asumir grandes riesgos porque el tiempo juega a tu favor. Rentabilidad estable, compuesta año tras año.",
+      "description": "Estás jugando a largo plazo. 5-10 años. No necesitas asumir grandes riesgos porque el tiempo juega a tu favor. Está pensado para componer a lo largo de los años.",
       "allocation": "55% Sky SSR + 30% Aave V3 + 15% Compound V3",
       "allocationNote": "Optimizado para composición a largo plazo con volatilidad mínima.",
       "commonUseCase": "Horizonte de 5-10 años. Prioriza la consistencia sobre el máximo rendimiento.",
@@ -170,9 +170,9 @@
     "wealthAccelerator": {
       "name": "Wealth Accelerator",
       "badge": "Potencial de crecimiento (70%) | Largo plazo",
-      "tagline": "Para quienes han hecho los deberes",
+      "tagline": "Para quien está a gusto con las subidas y bajadas de verdad",
       "description": "Esto no es para todo el mundo. Un 70% de exposición a crecimiento significa que tu saldo se moverá significativamente con los precios de activos digitales.",
-      "description2": "Necesitas poder ver cómo tu saldo cae un 40% o más y no entrar en pánico. Si esa frase te ha puesto nervioso, esta no es la estrategia adecuada para ti.",
+      "description2": "Necesitas poder ver cómo tu saldo cae un 40% o más y no entrar en pánico. Si esa frase te ha puesto nervioso, merece la pena prestarle atención. Este es el extremo más volátil de la lista.",
       "allocation": "30% Sky SSR + 35% Sanctum INF + 35% Jupiter JLP",
       "allocationNote": "Muy inclinada hacia el crecimiento. Rendimiento de staking más comisiones de trading de dos sistemas Solana.",
       "commonUseCase": "Asignación a largo plazo con alta tolerancia a la volatilidad.",
@@ -181,30 +181,30 @@
         "typicalReturn": "Muy variable. Puede ser negativo o superar el 50%.",
         "bumpiness": "Grandes oscilaciones. En el peor momento, tu saldo bajó un 47% antes de recuperarse."
       },
-      "bestFor": "Personas a largo plazo que pueden soportar volatilidad extrema por una rentabilidad potencialmente mayor.",
+      "bestFor": "Personas a largo plazo que pueden soportar volatilidad extrema y las amplias oscilaciones que conlleva.",
       "riskLevel": "Alto. Probabilidad significativa de pérdidas relevantes en plazos cortos.",
       "warning": "En miles de simulaciones, los resultados variaron de -60% a +200%+. La cifra de caída (47%) es el peor declive temporal durante nuestra prueba. El rango (-60% a +200%+) es la amplitud completa de las simulaciones. Solo para personas que pueden tolerar pérdidas significativas."
     },
     "yieldMaximizer": {
       "name": "Full Harvest",
       "badge": "Rentabilidad estable | Construir patrimonio",
-      "tagline": "Rentabilidad estable, pocas oscilaciones de precio.",
-      "description": "Quieres la mayor rentabilidad estable a lo largo de 10+ años sin exposición a precios de activos digitales. Sin componente de crecimiento. Solo rendimiento optimizado en los tres sistemas de préstamo estables.",
+      "tagline": "Pocas oscilaciones de precio, paciente por diseño.",
+      "description": "Quieres una estrategia solo-estable a lo largo de 10+ años sin exposición a precios de activos digitales. Sin componente de crecimiento, repartida entre los tres sistemas de préstamo estables.",
       "allocation": "45% Sky SSR + 35% Aave V3 + 20% Compound V3",
-      "allocationNote": "Nuestra configuración estable de mayor rentabilidad.",
-      "commonUseCase": "Horizonte de 10+ años. Máxima rentabilidad estable, cero exposición a cripto.",
+      "allocationNote": "Una configuración solo-estable orientada al rendimiento.",
+      "commonUseCase": "Horizonte de 10+ años. Solo-estable, cero exposición a cripto.",
       "stats": {
         "lossChance": "Menos del 1%",
         "typicalReturn": "7-11% anual",
         "bumpiness": "Muy tranquilo."
       },
-      "bestFor": "Constructores de patrimonio conservadores a largo plazo que quieren una rentabilidad fuerte sin oscilaciones de precio.",
-      "riskLevel": "Mínimo. Nuestra estrategia estable de mayor rentabilidad. Los riesgos incluyen posibles vulnerabilidades técnicas y la posibilidad de que las stablecoins utilizadas pierdan su paridad con el dólar."
+      "bestFor": "Constructores de patrimonio conservadores a largo plazo que quieren una estrategia solo-estable sin oscilaciones de precio.",
+      "riskLevel": "Mínimo. Una estrategia solo-estable orientada al rendimiento. Los riesgos incluyen posibles vulnerabilidades técnicas y la posibilidad de que las stablecoins utilizadas pierdan su paridad con el dólar."
     },
     "fullThrottle": {
       "name": "Full Throttle",
       "badge": "Potencial de crecimiento (85%) | Construir patrimonio",
-      "tagline": "Riesgo máximo. Potencial máximo.",
+      "tagline": "Riesgo máximo, exposición máxima.",
       "description": "Esta es nuestra estrategia más agresiva. 85% de exposición a crecimiento. Diseñada para una parte pequeña de tu cartera que estés dispuesto a perder por completo.",
       "description2": "¿El lado bueno? En escenarios simulados excepcionales, la rentabilidad superó el 1.000%. ¿El lado malo? Un 27% de probabilidad de pérdida. Tu saldo bajó un 66% en el peor momento de nuestra prueba.",
       "allocation": "15% Sky SSR + 30% Sanctum INF + 35% Jupiter JLP + 20% Jito",
@@ -350,36 +350,36 @@
     "microText": "Pueden aplicarse tarifas de red de terceros (normalmente menos de 0,01 $). Para la tabla completa de costes, incluidas transferencias y retiros, consulta la tabla de costes en nuestra página de inicio."
   },
   "howToChoose": {
-    "header": "Empieza aquí",
-    "intro": "",
+    "header": "Relaciona una estrategia con tu objetivo",
+    "intro": "Estas son formas de acotar la lista, según para qué es el dinero y cuánto movimiento de precio aceptas. Tú relacionas, y tú eliges.",
     "question1": {
       "title": "¿Para qué es este dinero?",
       "options": {
-        "emergency": "Fondo de emergencia: Safe Harbor. Dinero que puedes necesitar mañana, pensado para mantenerse estable.",
-        "beatInflation": "Superar la inflación: Stable Growth. Tu dinero trabaja más, pero el 30% se mueve con el mercado.",
-        "shortTerm": "Algo en los próximos 2 años: Goal Keeper (estable) o Steady Progress (con crecimiento). Depende de cómo te sientes con el movimiento de precio.",
-        "mediumTerm": "Algo a 2-5 años: Patient Builder (estable) o Balanced Builder (con crecimiento). Más tiempo significa que puedes considerar más crecimiento.",
-        "longTerm": "Patrimonio a largo plazo: Steady Compounder, Wealth Accelerator, Full Harvest o Full Throttle. Tu horizonte temporal es tu mayor ventaja."
+        "emergency": "Fondo de emergencia, dinero que puedes necesitar mañana: las estrategias de Rentabilidad estable, pensadas para mantenerse firmes.",
+        "beatInflation": "Si te preocupa la inflación: Stable Growth añade exposición al mercado (alrededor del 30%) sobre una base estable.",
+        "shortTerm": "En unos 2 años: Goal Keeper (estable) y Steady Progress (con crecimiento) encajan con ese horizonte; se diferencian en cuánto movimiento de precio cargan.",
+        "mediumTerm": "Unos 2 a 5 años: Patient Builder (estable) y Balanced Builder (con crecimiento) encajan con ese horizonte. Más tiempo amplía las opciones.",
+        "longTerm": "Patrimonio a largo plazo: Steady Compounder, Wealth Accelerator, Full Harvest y Full Throttle encajan con ese horizonte. Un horizonte largo carga más opciones."
       }
     },
     "question2": {
       "title": "¿Cómo te sientes con las oscilaciones de precio?",
       "options": {
-        "none": "\"No quiero ninguna.\" Quédate en la columna de Rentabilidad estable. Cinco estrategias, cero exposición a cripto.",
-        "understand": "\"Las entiendo y puedo esperar a que pasen las caídas.\" Considera la columna de Potencial de crecimiento. Cuanto más largo tu horizonte, más exposición a crecimiento puedes considerar.",
-        "unsure": "\"No estoy seguro.\" Empieza en estable. Aprende cómo funciona todo con dinero que te sientas cómodo arriesgando. Siempre puedes añadir exposición a crecimiento después."
+        "none": "Ninguna: la columna de Rentabilidad estable, cinco estrategias con cero exposición a cripto.",
+        "understand": "Algo, y puedes esperar a que pasen las caídas: la columna de Potencial de crecimiento. Los horizontes más largos cargan más exposición a crecimiento.",
+        "unsure": "Aún no estás seguro: la columna de Rentabilidad estable carga el menor movimiento de precio. Puedes pasar a exposición a crecimiento cuando quieras."
       }
     },
     "question3": {
       "title": "¿Qué harías si tu saldo bajara un 20%?",
       "options": {
-        "panic": "\"Entraría en pánico y retiraría.\" Solo estrategias de Rentabilidad estable. Eso no es debilidad. Es autoconocimiento.",
-        "wait": "\"Esperaría a que se recupere.\" Las estrategias de crecimiento bajo-medio podrían funcionar para ti.",
-        "addMore": "\"Metería más dinero.\" Puede que estés preparado para más exposición a crecimiento. Es inteligente si está planificado. Menos inteligente si es pánico intentando recuperar lo que perdiste. Asegúrate de saber cuál de las dos es."
+        "panic": "\"Querría salir.\" Las estrategias de Rentabilidad estable no tienen exposición a cripto y cargan el menor movimiento de precio.",
+        "wait": "\"Esperaría a que se recupere.\" Las estrategias de crecimiento bajo-medio están entre lo estable y el crecimiento total.",
+        "addMore": "\"Metería más.\" Más exposición a crecimiento significa oscilaciones mayores, tanto hacia abajo como hacia arriba."
       }
     },
     "brandPromise": "Te mostramos las dos caras, las oportunidades y los riesgos, siempre.",
-    "goldenRule": "En caso de duda, empieza seguro. Siempre puedes subir después. Considera consultar a un asesor financiero autorizado si no tienes claro qué enfoque se ajusta a tu situación."
+    "goldenRule": "diBoaS muestra todas las estrategias en el mismo orden para todos y nunca elige la estrategia por ti. Si no tienes claro qué enfoque se ajusta a tu situación, considera consultar a un asesor financiero autorizado."
   },
   "faq": {
     "header": "Antes de decidir"

@@ -122,8 +122,16 @@
 .inline {
   display: flex;
   align-items: center;
-  gap: var(--spacing-lg);
-  flex-wrap: nowrap;
+  gap: var(--spacing-sm) var(--spacing-md);
+  /* Endonym labels are wider than the old flag+code — wrap gracefully on narrow
+     mobile menus instead of overflowing (C-5/B-3, 2026-07-19). */
+  flex-wrap: wrap;
+}
+
+.localeLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
 }
 
 .inlineButton {
@@ -170,37 +178,6 @@
   border-radius: var(--radius-sm);
 }
 
-.flagEmoji {
-  font-size: var(--font-size-2xl);
-  line-height: 1;
-  display: block;
-}
-
-/* SVG flag icon for inline variant */
-.flagIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 0;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-xs);
-}
-
-/* Locale code label beneath the flag */
-.localeCode {
-  font-size: var(--font-size-xs-minus);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: 0.05em;
-  color: var(--color-slate-600);
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-.inlineButton.active .localeCode {
-  color: var(--text-brand-accessible);
-}
-
 /* Size Variants */
 .size-sm .dropdownButton {
   padding: var(--spacing-xs) var(--spacing-sm);
@@ -209,14 +186,6 @@
 
 .size-sm .inlineButton {
   padding: var(--spacing-xs) var(--spacing-sm);
-}
-
-.size-sm .flagEmoji {
-  font-size: var(--font-size-lg);
-}
-
-.size-sm .localeCode {
-  font-size: var(--font-size-2xs);
 }
 
 .size-sm .icon,
@@ -235,10 +204,6 @@
   padding: var(--spacing-sm) var(--spacing-md);
 }
 
-.size-md .flagEmoji {
-  font-size: var(--font-size-2xl);
-}
-
 .size-md .icon,
 .size-md .chevron,
 .size-md .checkmark {
@@ -253,14 +218,6 @@
 
 .size-lg .inlineButton {
   padding: var(--spacing-md) var(--spacing-lg);
-}
-
-.size-lg .flagEmoji {
-  font-size: var(--font-size-3xl);
-}
-
-.size-lg .localeCode {
-  font-size: var(--font-size-xs);
 }
 
 .size-lg .icon,

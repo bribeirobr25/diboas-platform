@@ -1,0 +1,324 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--sb-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-2xl);
+  letter-spacing: -0.02em;
+  color: var(--sb-text-heading);
+}
+
+.timePill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  min-height: var(--sb-tap);
+  padding: var(--spacing-2xs) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--sb-accent-strong);
+  background: var(--sb-accent-tint);
+  border: none;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.timePill:hover {
+  background: color-mix(in srgb, var(--sb-accent) 16%, transparent);
+}
+
+/* WS-F: the "real market moved while you were away" beat (shown after a real-time settle). */
+.awayBeat {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  margin: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--sb-accent-tint);
+  border-radius: var(--sb-radius);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--sb-accent-strong);
+}
+
+.workingBalance {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-md);
+  background: var(--sb-accent-tint);
+  border-radius: var(--sb-radius);
+}
+
+.workingBalanceLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--sb-accent-strong);
+}
+
+.workingBalanceAmount {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+  font-variant-numeric: tabular-nums;
+}
+
+.workingBalanceNote {
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-family: var(--sb-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+  color: var(--sb-text-heading);
+}
+
+.goalsHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.newGoal {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  min-height: var(--sb-tap);
+  padding: 0 var(--spacing-md);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--sb-accent-strong);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+}
+
+.newGoal:hover {
+  background: var(--sb-accent-tint);
+}
+
+/* Empty state — warm and inviting (not instructional). */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-xs);
+  background: var(--sb-card);
+  border: 1px dashed var(--sb-hairline-strong);
+  border-radius: var(--sb-radius-lg);
+  padding: var(--spacing-2xl) var(--spacing-lg);
+}
+
+.emptyIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent-tint);
+  color: var(--sb-accent-strong);
+  margin-bottom: var(--spacing-2xs);
+}
+
+.emptyTitle {
+  margin: 0;
+  font-family: var(--sb-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+  color: var(--sb-text-heading);
+}
+
+.emptyBody {
+  margin: 0;
+  color: var(--sb-text-body);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.emptyCta {
+  margin-top: var(--spacing-sm);
+  min-height: var(--sb-tap);
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--spacing-lg);
+  border-radius: var(--radius-full);
+  background: var(--sb-accent);
+  color: var(--color-white);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+}
+
+.emptyCta:hover {
+  background: var(--sb-accent-strong);
+}
+
+.goals {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.goalCard {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: var(--sb-card);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius);
+  padding: var(--spacing-md);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--sb-shadow-soft);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.goalCard:active {
+  transform: scale(0.99);
+}
+
+.goalCard:hover {
+  box-shadow: var(--sb-shadow-lift);
+}
+
+.goalIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent-tint);
+  color: var(--sb-accent-strong);
+  flex-shrink: 0;
+}
+
+.goalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.goalName {
+  font-weight: var(--font-weight-semibold);
+  color: var(--sb-text-heading);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.goalProgressText {
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.progressTrack {
+  display: block;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--sb-ground-deep, var(--sb-hairline));
+  overflow: hidden;
+  margin-top: 3px;
+}
+
+.progressFill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--sb-accent), var(--sb-accent-bright));
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+.goalPct {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--sb-accent-strong);
+  font-variant-numeric: tabular-nums;
+}
+
+.goalChevron {
+  color: var(--sb-text-muted);
+  flex-shrink: 0;
+}
+
+.reset {
+  align-self: center;
+  min-height: var(--sb-tap);
+  padding: 0 var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.reset:hover {
+  color: var(--sb-text-body);
+}
+
+/* Time-machine sheet content. */
+.timeNote {
+  margin: 0 0 var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-body);
+  line-height: var(--line-height-relaxed);
+}
+
+.timeButtons {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.timeButton {
+  flex: 1;
+  min-height: 52px;
+  border: 1px solid var(--sb-accent);
+  border-radius: var(--radius-lg);
+  background: var(--sb-accent-tint);
+  color: var(--sb-accent-strong);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.timeButton:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--sb-accent) 18%, transparent);
+}
+
+.timeButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}

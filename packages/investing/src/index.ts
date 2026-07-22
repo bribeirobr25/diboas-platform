@@ -1,8 +1,14 @@
 /**
- * @diboas/investing — Investing domain package
+ * @diboas/investing — Investing domain package.
  *
- * Phase 2: Will contain investing entities, services, repositories, events, and errors.
- * Domains: portfolios, assets, orders, strategies, risk profiles.
+ * MVP-0 (Sandbox) activation, 2026-07-18: jobs split model, goal drafts and
+ * validation, and the accrual-replay engine (real APY history onto play
+ * positions, "would have" by construction).
+ * See docs/sandbox-app/ for the governing rules.
  */
 
-export const INVESTING_PACKAGE_VERSION = '0.1.0';
+export const INVESTING_PACKAGE_VERSION = '0.2.0';
+
+export * from './jobs';
+export * from './goals';
+export * from './accrual';

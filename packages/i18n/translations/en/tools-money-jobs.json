@@ -40,17 +40,17 @@
   },
   "disclaimer": "Educational split, not financial advice. Your numbers, your call.",
   "jobs": {
-    "floor": {
-      "label": "Floor",
-      "meaning": "Money with a standing job: rent, food, bills."
+    "essentials": {
+      "label": "Essentials",
+      "meaning": "Stays in your bank: rent, food, bills. diBoaS never touches it."
     },
-    "cushion": {
-      "label": "Cushion",
-      "meaning": "This month's suggestion toward your {target} target. You have {current}."
+    "emergencyFund": {
+      "label": "Emergency Fund",
+      "meaning": "Working money's first job. This month's suggestion toward your {target} target; you have {current}. Once it's funded, all your working money is free for other goals."
     },
     "working": {
       "label": "Working money",
-      "meaning": "Free to work once the floor and cushion are set."
+      "meaning": "What's free after essentials. This is what comes to diBoaS to put to work."
     },
     "operatingFloor": {
       "label": "Operating floor",
@@ -79,7 +79,7 @@
   "dignity": {
     "headline": "This month, your money's job is holding you up.",
     "body": "No guilt. Essentials come first; the split can wait for a lighter month.",
-    "cta": "See how an emergency cushion starts"
+    "cta": "See how an emergency fund starts"
   },
   "runway": {
     "headline": "Right now, your cash's job is runway.",
@@ -95,7 +95,7 @@
     "ariaLabel": "Unlock your full plan",
     "title": "This is the split. The plan is in the details.",
     "bullets": {
-      "timeline": "When your cushion reaches its target",
+      "timeline": "When your emergency fund reaches its target",
       "projections": "What your working money could become in 5 and 10 years",
       "runway": "Your runway read and what protects it",
       "nextSteps": "The next step for each job"
@@ -110,9 +110,9 @@
   },
   "plan": {
     "title": "Your plan",
-    "cushionFunded": "Your cushion is fully funded. Everything above the floor is free to work.",
-    "cushionTimeline": "At this month's suggestion, your cushion reaches its target in about {months} months.",
-    "cushionUnreachable": "At the current numbers the cushion target isn't reachable. Adjust essentials or income to see a path.",
+    "cushionFunded": "Your emergency fund is fully funded. All your working money is free for other goals.",
+    "cushionTimeline": "At this month's suggestion, your emergency fund reaches its target in about {months} months.",
+    "cushionUnreachable": "At the current numbers the emergency-fund target isn't reachable. Adjust essentials or income to see a path.",
     "projectionsIntro": "What the ideal working amount could become, added monthly, under three scenarios:",
     "scenarioColumn": "Scenario",
     "fiveYears": "5 years",

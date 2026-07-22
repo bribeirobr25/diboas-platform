@@ -1,0 +1,297 @@
+{
+  "common": {
+    "appName": "diBoaS Sandbox",
+    "playBadge": "Dinheiro de mentira",
+    "playDisclaimer": "Aqui tudo roda com dinheiro de mentira. Ele nunca vira dinheiro de verdade, prêmio, nem nada de valor. Os dados de mercado são reais; os resultados mostram o que teria acontecido.",
+    "navHome": "Suas funções",
+    "navHistory": "Histórico",
+    "back": "Voltar",
+    "cancel": "Cancelar",
+    "continue": "Continuar",
+    "loading": "Carregando",
+    "dataLive": "Ao vivo de {source}, buscado em {date}",
+    "dataFixture": "Valores de referência documentados ({date}), dados ao vivo indisponíveis agora",
+    "frameCaption": "Modo treino. Dinheiro de mentira, mercado real.",
+    "resetSandbox": "Recomeçar o sandbox",
+    "resetConfirm": "Isso limpa seu registro de mentira e começa do zero. Nada real é afetado. Recomeçar?",
+    "skipToContent": "Pular para o conteúdo"
+  },
+  "gate": {
+    "title": "diBoaS Sandbox",
+    "subtitle": "O produto, em modo treino. Dinheiro de mentira, mercado de verdade. Nada a perder enquanto você aprende os controles. Ambiente de prática: não é um sandbox regulatório nem programa oficial.",
+    "passwordLabel": "Senha de acesso",
+    "enter": "Entrar no sandbox",
+    "error": "Essa senha não abriu a porta. Tenta de novo.",
+    "notConfigured": "A porta do sandbox ainda não foi configurada. Defina SANDBOX_ACCESS_PASSWORD e reinicie."
+  },
+  "firstRun": {
+    "title": "Seu dinheiro que trabalha chegou.",
+    "body": "A diBoaS é um bolso paralelo: só o seu dinheiro que trabalha vem pra cá. O resto fica onde está.",
+    "workingAmount": "{amount} de dinheiro que trabalha",
+    "workingBody": "Esse é seu pra praticar. Dá um objetivo pra ele, escolhe uma estratégia e vê o que o mercado real faz.",
+    "cta": "Pôr pra trabalhar"
+  },
+  "salary": {
+    "title": "Primeiro: quanto cai na sua conta por mês?",
+    "body": "Seu líquido mensal, depois dos impostos. Fica só neste aparelho e serve pra mostrar seu quadro completo. Mude quando quiser, ou pule.",
+    "inputLabel": "Líquido mensal ({currency})",
+    "continue": "Continuar",
+    "skip": "Pular por enquanto"
+  },
+  "home": {
+    "title": "As funções do seu dinheiro",
+    "subtitle": "Cada valor aqui tem uma função que você deu.",
+    "workingCard": "Dinheiro que trabalha",
+    "goalsTitle": "Objetivos",
+    "noGoalsTitle": "Nenhum objetivo ainda.",
+    "noGoalsBody": "Um objetivo dá um destino pro dinheiro que trabalha. Dá um nome, define um alvo, e veja o caminho antes de qualquer movimento.",
+    "newGoal": "Novo objetivo",
+    "historyLink": "Ver o rastro completo",
+    "timeMachineTitle": "Máquina do tempo",
+    "timeMachineNote": "Treinar é comprimir o tempo: avance o relógio e reveja o que o mercado realmente fez.",
+    "advanceMonth": "+1 mês",
+    "simDay": "Dia {day} do seu treino",
+    "workingBalanceNote": "Seu pra pôr pra trabalhar. Escolhe um objetivo embaixo.",
+    "awayBeat": "{days, plural, one {# dia} other {# dias}} de mercado real passou enquanto você esteve fora.",
+    "advanceYear": "+1 ano"
+  },
+  "goalNew": {
+    "title": "Um novo objetivo",
+    "subtitle": "Dê nome à vontade primeiro. Todo o resto vem dela.",
+    "nameLabel": "Pra que é esse dinheiro?",
+    "namePlaceholder": "Seis meses de fôlego",
+    "iconLabel": "Escolha a imagem dele",
+    "icon": {
+      "plane": "Avião",
+      "home": "Casa",
+      "shield": "Escudo",
+      "graduation-cap": "Chapéu de formatura",
+      "heart": "Coração",
+      "car": "Carro",
+      "palmtree": "Palmeira",
+      "briefcase": "Maleta",
+      "gift": "Presente",
+      "sprout": "Broto"
+    },
+    "targetLabel": "Valor alvo",
+    "horizonLabel": "Quando você quer chegar lá?",
+    "horizonValue": "{months, plural, one {# mês} other {# meses}}",
+    "fundLabel": "Mover agora este valor do dinheiro que trabalha pro objetivo",
+    "fundAvailable": "{amount} disponível",
+    "errorName": "Dê um nome pro objetivo, ele é o motivo do dinheiro se mover.",
+    "errorTarget": "O alvo precisa ser um valor positivo.",
+    "errorHorizon": "Escolha um prazo entre 1 mês e 40 anos.",
+    "errorFund": "Isso é mais do que seu dinheiro que trabalha tem agora.",
+    "createCta": "Criar o objetivo",
+    "strategiesTitle": "Estratégias com prazo parecido com o seu",
+    "strategiesNote": "Esta lista é um filtro, não um conselho: toda estratégia que combina com o horizonte que você definiu está aqui, na mesma ordem pra todo mundo. Nada vem pré-escolhido. Você lê e escolhe.",
+    "riskStable": "Estável",
+    "riskGrowth": "Crescimento",
+    "growthExposure": "{percent}% de exposição a crescimento",
+    "apyNow": "Taxa atual do pool: {apy}%/ano (real, variável)",
+    "allocationTitle": "Pra onde o dinheiro vai de verdade",
+    "chainLine": "Roda em {chain}",
+    "skipStrategy": "Deixar como caixa no objetivo por enquanto",
+    "reviewPath": "Ver o caminho antes de mover",
+    "stepLabel": "Passo {current} de {total}",
+    "step1Title": "Dê um nome ao desejo",
+    "step2Title": "Defina o plano",
+    "step3Title": "Escolha o caminho",
+    "next": "Avançar",
+    "recurringLabel": "Adicionar um valor mensal (opcional)",
+    "recurringHint": "Todo mês, esse valor sai do dinheiro que trabalha e entra no objetivo, para continuar investido. Dinheiro de brincadeira.",
+    "noFundPath": "Adicione um valor inicial no passo anterior para pôr esse objetivo pra trabalhar. Ou crie como dinheiro parado por enquanto.",
+    "pathUnavailable": "O mercado ao vivo não está disponível agora, então o caminho não pode ser mostrado. Tente de novo em um instante, ou crie como dinheiro parado por enquanto.",
+    "cashDropsRecurring": "Manter como dinheiro parado não inclui o valor mensal. Escolha o caminho abaixo para configurar isso."
+  },
+  "pathCard": {
+    "title": "O caminho, o custo, o risco.",
+    "subtitle": "Leia isto antes de qualquer movimento.",
+    "pathTitle": "Caminho",
+    "pathLine": "{goal} → {strategy} → protocolos reais em {chain}",
+    "costTitle": "Custo",
+    "entryFee": "Entrar: de graça",
+    "networkFee": "Taxa de rede (repassada a custo): cerca de {amount}",
+    "exitFee": "Sair depois: 0,39% (no mínimo {min}, no máximo {max})",
+    "riskTitle": "Risco",
+    "riskStable": "Estratégias estáveis buscam manter o valor. Riscos existem: os sistemas podem ter falhas, e os dólares digitais usados podem perder a paridade.",
+    "riskGrowth": "{percent}% desta estratégia se move com os preços do mercado, então com dinheiro de verdade pode cair além de subir. O modo treino mostra o retorno que esses sistemas pagam, não as oscilações de preço, então mantenha o risco real em mente.",
+    "noPromise": "Aqui não mora promessa. Os números são história e taxas atuais, não o futuro."
+  },
+  "manifest": {
+    "title": "Leia antes de aprovar",
+    "fromLabel": "De",
+    "toLabel": "Para",
+    "amountLabel": "Valor",
+    "costLabel": "Custo agora",
+    "exitCostLabel": "Custo quando sair",
+    "riskLabel": "Risco",
+    "approve": "Aprovar este movimento",
+    "approveEntry": "Aprovar · mover {amount}",
+    "approveExit": "Aprovar · tirar {amount}",
+    "withdrawReassurance": "Você pode tirar isso quando quiser.",
+    "footer": "Nada se move até você aprovar. É dinheiro de mentira."
+  },
+  "settlement": {
+    "title": "Confirmando",
+    "badge": "Confirmação de treino",
+    "step1": "Enviado",
+    "step2": "Confirmando",
+    "step3": "Confirmado",
+    "note": "É assim que um movimento real seria concluído. No sandbox ele sempre confirma, e nenhuma transação real acontece."
+  },
+  "goalDetail": {
+    "progress": "{current} de {target}",
+    "cashInGoal": "No objetivo, ainda sem trabalhar: {amount}",
+    "investedLine": "Trabalhando em {strategy}: {amount}",
+    "earningsTitle": "O que essa estratégia teria rendido",
+    "earningsLine": "{amount} até agora, repetindo a história real do mercado",
+    "contributions": "Você colocou: {amount}",
+    "apySourceTitle": "De onde vêm os números",
+    "exitCta": "Tirar o dinheiro",
+    "exitTitle": "Saindo de {strategy}",
+    "backToGoal": "Voltar pras suas funções",
+    "noPositionTitle": "Parado como caixa",
+    "noPosition": "O dinheiro deste objetivo está parado como caixa. Pode ficar assim o tempo que você quiser.",
+    "putToWork": "Colocar pra trabalhar",
+    "milestoneTitle": "Você alcançou esse objetivo, na prática.",
+    "milestoneBody": "Na vida real, é aqui que você decidiria o próximo passo. Nada aqui é dinheiro de verdade."
+  },
+  "history": {
+    "title": "O rastro",
+    "subtitle": "Cada movimento, em palavras simples, na ordem. Nada aqui fica escondido.",
+    "empty": "Nada ainda. O rastro começa quando seu dinheiro ganha a primeira função.",
+    "granted": "Dinheiro de mentira chegou: {amount}",
+    "split": "Tudo chegou como dinheiro que trabalha.",
+    "goalCreated": "Objetivo criado: {name}",
+    "funded": "{amount} movido pra {name}",
+    "entered": "{amount} colocado pra trabalhar em {strategy} (taxa de rede {fee})",
+    "accrued": "{name} teria rendido {amount}",
+    "exited": "Saiu de {strategy}: {gross} de volta, taxa de saída {fee}",
+    "timeAdvanced": "Máquina do tempo: {days, plural, one {# dia} other {# dias}} pra frente",
+    "day": "Dia {day}",
+    "recurringSet": "Definiu {amount} por mês para {name}",
+    "recurringCleared": "Desligou o valor mensal de {name}",
+    "recurringContribution": "Adicionou {amount} a {name} (mensal)",
+    "feeDrag": "Custos da prática até agora: {amount} em taxas de rede e de saída."
+  },
+  "catalog": {
+    "protocols": {
+      "skySsr": "Sky SSR",
+      "aaveV3": "Aave V3",
+      "compoundV3": "Compound V3",
+      "sanctumInf": "Sanctum INF",
+      "jupiterJlp": "Jupiter JLP",
+      "jito": "Jito"
+    },
+    "strategies": {
+      "safeHarbor": {
+        "name": "Safe Harbor",
+        "tagline": "Um lugar firme pro dinheiro que você não pode arriscar"
+      },
+      "stableGrowth": {
+        "name": "Stable Growth",
+        "tagline": "Um passo além do estável, com freios"
+      },
+      "goalKeeper": {
+        "name": "Goal Keeper",
+        "tagline": "Protegendo seus objetivos de curto prazo"
+      },
+      "steadyProgress": {
+        "name": "Steady Progress",
+        "tagline": "Objetivos curtos, com um pouco de mercado na jogada"
+      },
+      "patientBuilder": {
+        "name": "Patient Builder",
+        "tagline": "Feito pra um horizonte longo e paciente"
+      },
+      "balancedBuilder": {
+        "name": "Balanced Builder",
+        "tagline": "Chão firme e exposição ao mercado, juntos"
+      },
+      "steadyCompounder": {
+        "name": "Steady Compounder",
+        "tagline": "Deixe o tempo fazer o trabalho pesado"
+      },
+      "wealthAccelerator": {
+        "name": "Wealth Accelerator",
+        "tagline": "Pra quem fica à vontade com o sobe e desce de verdade"
+      },
+      "fullHarvest": {
+        "name": "Full Harvest",
+        "tagline": "Pouca oscilação, paciente por natureza"
+      },
+      "fullThrottle": {
+        "name": "Full Throttle",
+        "tagline": "Risco máximo, exposição máxima"
+      }
+    }
+  },
+  "mirror": {
+    "caption": "Mais ou menos como um mês como o seu se divide:",
+    "floorLabel": "Essenciais",
+    "floorNote": "Fica no seu banco",
+    "workingLabel": "Dinheiro que trabalha",
+    "workingNote": "Livre pra pôr pra trabalhar",
+    "dignity": "Esse mês, a função do seu dinheiro é te segurar. E tá tudo bem.",
+    "perMonth": "/mês",
+    "adjust": "Ajustar seus custos",
+    "adjustEdit": "Editar seus custos",
+    "captionReal": "Como o seu mês se divide:"
+  },
+  "presets": {
+    "caption": "Comece por um modelo comum",
+    "emergencyFund": {
+      "name": "Reserva de emergência",
+      "desc": "6 meses de essenciais, cerca de {target}. Um primeiro objetivo tranquilo."
+    },
+    "financialFreedom": {
+      "name": "Liberdade financeira",
+      "desc": "O suficiente pra substituir sua renda, cerca de {target}.",
+      "projection": "Numa regra geral de ~10% da renda (cerca de {monthly}/mês) e uns {rate}% supostos, uns {years} anos. Um jogo longo."
+    }
+  },
+  "costAdjust": {
+    "title": "Seus custos reais",
+    "body": "Usamos uma regra geral pros seus custos fixos. Ponha seu número real pra ver seu quadro de verdade. Se for maior, sobra menos pra pôr pra trabalhar.",
+    "label": "Seus custos fixos mensais",
+    "save": "Salvar",
+    "useDefault": "Usar a regra geral"
+  },
+  "recurring": {
+    "setupCta": "Adicionar um valor mensal",
+    "amountLabel": "Quanto por mês",
+    "amountPlaceholder": "ex.: 200",
+    "explainer": "Todo mês, esse valor sai do dinheiro que trabalha e entra nesse objetivo, para continuar investido.",
+    "note": "Dinheiro de brincadeira, e só funciona enquanto durar o dinheiro que trabalha. Sem taxa nisso no sandbox.",
+    "confirm": "Ativar",
+    "activeLine": "Adicionando {amount} todo mês",
+    "pausedBody": "Pausado por enquanto. O dinheiro que trabalha acabou, então nada novo está entrando. Adicione mais ou reduza o valor.",
+    "edit": "Alterar valor",
+    "turnOff": "Desligar"
+  },
+  "projection": {
+    "heading": "O caminho a partir daqui",
+    "rangeLine": "Com {amount} por mês, um retorno estimado de {low} a {high} por cento chegaria a {target} em cerca de {minYears} a {maxYears} anos.",
+    "singleLine": "Com {amount} por mês, um retorno estimado de {low} a {high} por cento chegaria a {target} em cerca de {years, plural, one {# ano} other {# anos}}.",
+    "caveat": "Uma suposição que você pode conferir, não uma promessa. Retornos reais variam e podem ser negativos.",
+    "paceWithin": "Esse ritmo cabe no seu prazo de {months} meses.",
+    "paceEdge": "Esse ritmo fica perto do seu prazo de {months} meses.",
+    "paceBeyond": "Esse ritmo passa do seu prazo de {months} meses.",
+    "underYear": "Com {amount} por mês, um retorno estimado de {low} a {high} por cento chegaria a {target} em menos de um ano."
+  },
+  "welcome": {
+    "title": "Seu bolso paralelo pra construir patrimônio.",
+    "body": "O diBoaS é o bolso paralelo do seu dinheiro que trabalha. O resto do seu dinheiro fica exatamente onde está. Aqui você pratica a coisa de verdade com dinheiro de mentira, no mercado real, então não tem nada a perder enquanto aprende os controles. Ambiente de prática: não é um sandbox regulatório nem programa oficial.",
+    "point1": "Só o seu dinheiro que trabalha vem pra cá. O resto fica onde está.",
+    "point2": "Dinheiro de mentira, mercado real. Nunca vira dinheiro de verdade.",
+    "point3": "Veja o caminho, o custo e o risco antes de qualquer movimento.",
+    "cta": "Começar a praticar"
+  },
+  "geofence": {
+    "badge": "Verificação de região",
+    "title": "Indisponível na sua região",
+    "body": "O sandbox de prática da diBoaS não está disponível onde você está agora. Não é nada do seu lado.",
+    "link": "Ir para diboas.com"
+  }
+}

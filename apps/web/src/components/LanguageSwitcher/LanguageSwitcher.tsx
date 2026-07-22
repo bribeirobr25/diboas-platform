@@ -12,9 +12,9 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
-import { SUPPORTED_LOCALES, LOCALE_CONFIG } from '@diboas/i18n/server';
+import { SUPPORTED_LOCALES } from '@diboas/i18n/server';
 import { Globe } from '@/components/UI/LucideIcon';
-import { ChevronIcon, CheckmarkIcon, FlagIcon } from './LanguageSwitcherIcons';
+import { ChevronIcon, CheckmarkIcon } from './LanguageSwitcherIcons';
 import { useLanguageSwitcher } from './useLanguageSwitcher';
 import styles from './LanguageSwitcher.module.css';
 
@@ -59,15 +59,11 @@ export function LanguageSwitcher({
             onClick={() => switchLocale(locale)}
             className={`${styles.inlineButton} ${locale === currentLocale ? styles.active : ''}`}
             aria-current={locale === currentLocale ? 'true' : undefined}
-            aria-label={intl.formatMessage({
-              id: `common.languageSwitcher.languages.${locale}`,
-            })}
           >
-            <span className={styles.flagIcon}>
-              <FlagIcon locale={locale} size={size === 'sm' ? 20 : size === 'lg' ? 28 : 24} />
-            </span>
-            <span className={styles.localeCode}>
-              {LOCALE_CONFIG[locale].code.split('-')[0].toUpperCase()}
+            {/* Endonym label, not a country flag (English ≠ USA; flags carry
+                nationality baggage a trust-first fintech avoids). C-5/B-3, 2026-07-19. */}
+            <span className={styles.localeLabel}>
+              {intl.formatMessage({ id: `common.languageSwitcher.languages.${locale}` })}
             </span>
           </button>
         ))}

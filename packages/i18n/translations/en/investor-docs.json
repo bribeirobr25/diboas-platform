@@ -352,24 +352,48 @@
         },
         {
           "type": "table",
-          "headers": ["Milestone", "Timing"],
+          "headers": [
+            "Milestone",
+            "Timing"
+          ],
           "rows": [
             [
               "Incorporate Berlin entity: UG to GmbH, or GmbH directly under the larger raise",
               "Month 0"
             ],
-            ["Market-intelligence product live: Adelaide / BTC macro", "Month 0–3"],
-            ["Money product ships: wallets + money-in/out + first strategy", "Month 3–6"],
-            ["First paying customers + first business pilots", "Month 6–9"]
+            [
+              "Market-intelligence product live: Adelaide / BTC macro",
+              "Month 0–3"
+            ],
+            [
+              "Money product ships: wallets + money-in/out + first strategy",
+              "Month 3–6"
+            ],
+            [
+              "First paying customers + first business pilots",
+              "Month 6–9"
+            ]
           ]
         },
         {
           "type": "table",
-          "headers": ["Year-one target", "Base case"],
+          "headers": [
+            "Year-one target",
+            "Base case"
+          ],
           "rows": [
-            ["Funded individual users", "2,500–5,000"],
-            ["Paying business clients", "5–10"],
-            ["Indicative revenue", "~$45K"]
+            [
+              "Funded individual users",
+              "2,500–5,000"
+            ],
+            [
+              "Paying business clients",
+              "5–10"
+            ],
+            [
+              "Indicative revenue",
+              "~$45K"
+            ]
           ]
         },
         {
@@ -400,16 +424,43 @@
         },
         {
           "type": "table",
-          "headers": ["Use of funds — Path A, ~18 months", "Amount"],
+          "headers": [
+            "Use of funds — Path A, ~18 months",
+            "Amount"
+          ],
           "rows": [
-            ["Founder salary, lean", "~€60K"],
-            ["Security audit, one-time before launch", "~€30K"],
-            ["Legal: EU regulatory opinion + incorporation + round papering", "~€28K"],
-            ["Fractional regulatory/compliance advisor, light near launch", "~€20K"],
-            ["Infrastructure + wallet provider + money-in/out integration", "~€20K"],
-            ["Accounting / tax advisor, Steuerberater", "~€8K"],
-            ["Buffer", "~€34K"],
-            ["Total", "~€200K"]
+            [
+              "Founder salary, lean",
+              "~€60K"
+            ],
+            [
+              "Security audit, one-time before launch",
+              "~€30K"
+            ],
+            [
+              "Legal: EU regulatory opinion + incorporation + round papering",
+              "~€28K"
+            ],
+            [
+              "Fractional regulatory/compliance advisor, light near launch",
+              "~€20K"
+            ],
+            [
+              "Infrastructure + wallet provider + money-in/out integration",
+              "~€20K"
+            ],
+            [
+              "Accounting / tax advisor, Steuerberater",
+              "~€8K"
+            ],
+            [
+              "Buffer",
+              "~€34K"
+            ],
+            [
+              "Total",
+              "~€200K"
+            ]
           ]
         },
         {
@@ -689,16 +740,43 @@
         },
         {
           "type": "table",
-          "headers": ["Item", "Amount"],
+          "headers": [
+            "Item",
+            "Amount"
+          ],
           "rows": [
-            ["Founder salary (lean)", "~€60K"],
-            ["Security audit (one-time, pre-launch)", "~€30K"],
-            ["Legal: EU regulatory opinion + incorporation + round papering", "~€28K"],
-            ["Fractional regulatory/compliance advisor (light, near launch)", "~€20K"],
-            ["Infrastructure + wallet provider + money-in/out integration", "~€20K"],
-            ["Accounting / tax advisor (Steuerberater)", "~€8K"],
-            ["Buffer", "~€34K"],
-            ["Total", "~€200K"]
+            [
+              "Founder salary (lean)",
+              "~€60K"
+            ],
+            [
+              "Security audit (one-time, pre-launch)",
+              "~€30K"
+            ],
+            [
+              "Legal: EU regulatory opinion + incorporation + round papering",
+              "~€28K"
+            ],
+            [
+              "Fractional regulatory/compliance advisor (light, near launch)",
+              "~€20K"
+            ],
+            [
+              "Infrastructure + wallet provider + money-in/out integration",
+              "~€20K"
+            ],
+            [
+              "Accounting / tax advisor (Steuerberater)",
+              "~€8K"
+            ],
+            [
+              "Buffer",
+              "~€34K"
+            ],
+            [
+              "Total",
+              "~€200K"
+            ]
           ]
         },
         {
@@ -942,8 +1020,8 @@
           "items": [
             "Brazil: dollar-denominated saving is currently valuable — ~4.7% inflation and a sliding real — while PIX (93% of adults) proves the population already moves money digitally.",
             "Regulatory clarity is arriving, not pending: MiCA operative in the EU, Brazil's virtual-asset framework dated and in force, US non-custodial-interface guidance matured in 2026. The compliant-by-design window is open now — and will not stay open.",
-            "Stablecoin infrastructure crossed consumer-grade maturity: USDC plus on-chain yield is commodity rail in 2026 in a way it was not in 2022.",
-            "Incumbents' incentive lag: custody-based economics keep neobanks from passing on-chain yield through — opening a regional window before any structural response.",
+            "Stablecoin infrastructure crossed consumer-grade maturity: USDC plus on-chain returns is commodity rail in 2026 in a way it was not in 2022.",
+            "Incumbents' incentive lag: custody-based economics keep neobanks from passing on-chain returns through — opening a regional window before any structural response.",
             "The missing layer is still clarity before movement."
           ]
         },
@@ -1549,7 +1627,9 @@
         },
         {
           "type": "callout",
-          "lines": ["~€200,000"]
+          "lines": [
+            "~€200,000"
+          ]
         },
         {
           "type": "heading",
@@ -1571,18 +1651,27 @@
         },
         {
           "type": "table",
-          "headers": ["Category", "Purpose"],
+          "headers": [
+            "Category",
+            "Purpose"
+          ],
           "rows": [
             [
               "Product build",
               "First version of the money product, wallet flow, goal-to-strategy logic, and core user experience"
             ],
-            ["Legal / regulatory", "Jurisdiction-specific legal review and launch gating"],
+            [
+              "Legal / regulatory",
+              "Jurisdiction-specific legal review and launch gating"
+            ],
             [
               "Money-in/out readiness",
               "Partner selection, onboarding, integration preparation, and operating requirements"
             ],
-            ["Security", "Initial security review and risk checks before handling real user flows"],
+            [
+              "Security",
+              "Initial security review and risk checks before handling real user flows"
+            ],
             [
               "Infrastructure",
               "Core hosting, monitoring, tools, environments, and operational setup"
@@ -1595,7 +1684,10 @@
               "B2B validation",
               "Founder-led business outreach, first conversations, and early demand testing"
             ],
-            ["Contingency", "Buffer for unavoidable external costs and launch-gate friction"]
+            [
+              "Contingency",
+              "Buffer for unavoidable external costs and launch-gate friction"
+            ]
           ]
         },
         {
@@ -1659,7 +1751,9 @@
         },
         {
           "type": "callout",
-          "lines": ["~€450,000"]
+          "lines": [
+            "~€450,000"
+          ]
         },
         {
           "type": "heading",
@@ -1681,7 +1775,10 @@
         },
         {
           "type": "table",
-          "headers": ["Category", "Purpose"],
+          "headers": [
+            "Category",
+            "Purpose"
+          ],
           "rows": [
             [
               "Senior engineering support",
@@ -1715,7 +1812,10 @@
               "B2B validation",
               "More structured business validation, materials, outreach, and early pipeline work"
             ],
-            ["Contingency", "Larger buffer for regulatory, technical, and partner delays"]
+            [
+              "Contingency",
+              "Larger buffer for regulatory, technical, and partner delays"
+            ]
           ]
         },
         {
@@ -2049,7 +2149,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Capital should buy evidence."]
+          "lines": [
+            "Capital should buy evidence."
+          ]
         },
         {
           "type": "paragraph",
@@ -2124,7 +2226,10 @@
         },
         {
           "type": "callout",
-          "lines": ["B2C builds trust and distribution.", "B2B turns that trust into revenue."]
+          "lines": [
+            "B2C builds trust and distribution.",
+            "B2B turns that trust into revenue."
+          ]
         },
         {
           "type": "heading",
@@ -2145,16 +2250,43 @@
         },
         {
           "type": "table",
-          "headers": ["Revenue line", "diBoaS fee logic"],
+          "headers": [
+            "Revenue line",
+            "diBoaS fee logic"
+          ],
           "rows": [
-            ["Add money", "0.48% movement fee"],
-            ["Cash out", "0.48% movement fee"],
-            ["Close strategy", "0.39% closing fee"],
-            ["Send money", "diBoaS fee $0 where supported"],
-            ["Swap", "diBoaS fee $0 where supported"],
-            ["Bridge", "diBoaS fee $0 where supported"],
-            ["Start strategy", "diBoaS fee $0"],
-            ["Receive B2B payments", "diBoaS fee $0 where supported"]
+            [
+              "Add money",
+              "0.48% movement fee"
+            ],
+            [
+              "Cash out",
+              "0.48% movement fee"
+            ],
+            [
+              "Close strategy",
+              "0.39% closing fee"
+            ],
+            [
+              "Send money",
+              "diBoaS fee $0 where supported"
+            ],
+            [
+              "Swap",
+              "diBoaS fee $0 where supported"
+            ],
+            [
+              "Bridge",
+              "diBoaS fee $0 where supported"
+            ],
+            [
+              "Start strategy",
+              "diBoaS fee $0"
+            ],
+            [
+              "Receive B2B payments",
+              "diBoaS fee $0 where supported"
+            ]
           ]
         },
         {
@@ -2167,7 +2299,10 @@
         },
         {
           "type": "callout",
-          "lines": ["diBoaS charges for movement.", "diBoaS does not tax the upside."]
+          "lines": [
+            "diBoaS charges for movement.",
+            "diBoaS does not tax the upside."
+          ]
         },
         {
           "type": "heading",
@@ -2223,7 +2358,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Average consumer ARPU: ~US$5.88 per year"]
+          "lines": [
+            "Average consumer ARPU: ~US$5.88 per year"
+          ]
         },
         {
           "type": "paragraph",
@@ -2242,7 +2379,9 @@
         },
         {
           "type": "callout",
-          "lines": ["~US$13 in lifetime movement fees"]
+          "lines": [
+            "~US$13 in lifetime movement fees"
+          ]
         },
         {
           "type": "paragraph",
@@ -2319,7 +2458,9 @@
         },
         {
           "type": "callout",
-          "lines": ["B2B ARPU range: ~US$1,945–19,300 per year"]
+          "lines": [
+            "B2B ARPU range: ~US$1,945–19,300 per year"
+          ]
         },
         {
           "type": "paragraph",
@@ -2327,10 +2468,19 @@
         },
         {
           "type": "table",
-          "headers": ["Business use case", "Approximate annual revenue potential"],
+          "headers": [
+            "Business use case",
+            "Approximate annual revenue potential"
+          ],
           "rows": [
-            ["Business moving ~US$200,000 of idle or excess cash", "~US$1,945/year"],
-            ["Business moving ~US$500,000 quarterly", "~US$19,300/year"]
+            [
+              "Business moving ~US$200,000 of idle or excess cash",
+              "~US$1,945/year"
+            ],
+            [
+              "Business moving ~US$500,000 quarterly",
+              "~US$19,300/year"
+            ]
           ]
         },
         {
@@ -2343,7 +2493,9 @@
         },
         {
           "type": "callout",
-          "lines": ["One business client can be worth hundreds or thousands of consumer users."]
+          "lines": [
+            "One business client can be worth hundreds or thousands of consumer users."
+          ]
         },
         {
           "type": "heading",
@@ -2356,7 +2508,9 @@
         },
         {
           "type": "callout",
-          "lines": ["10 B2B clients can be worth more than 6,000 consumers."]
+          "lines": [
+            "10 B2B clients can be worth more than 6,000 consumers."
+          ]
         },
         {
           "type": "paragraph",
@@ -2382,7 +2536,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Acquire consumers cheaply, hope ARPU magically improves."]
+          "lines": [
+            "Acquire consumers cheaply, hope ARPU magically improves."
+          ]
         },
         {
           "type": "paragraph",
@@ -2556,7 +2712,9 @@
         },
         {
           "type": "callout",
-          "lines": ["~US$60,000/year"]
+          "lines": [
+            "~US$60,000/year"
+          ]
         },
         {
           "type": "paragraph",
@@ -2564,7 +2722,9 @@
         },
         {
           "type": "callout",
-          "lines": ["~US$5.88/year"]
+          "lines": [
+            "~US$5.88/year"
+          ]
         },
         {
           "type": "paragraph",
@@ -2572,7 +2732,9 @@
         },
         {
           "type": "callout",
-          "lines": ["~10,200 active users"]
+          "lines": [
+            "~10,200 active users"
+          ]
         },
         {
           "type": "paragraph",
@@ -2584,7 +2746,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Pure B2C is not the right break-even story."]
+          "lines": [
+            "Pure B2C is not the right break-even story."
+          ]
         },
         {
           "type": "heading",
@@ -2628,14 +2792,49 @@
         },
         {
           "type": "table",
-          "headers": ["Scenario", "Year 1 (targets)", "Year 2 (assumption)", "Year 3 (assumption)"],
+          "headers": [
+            "Scenario",
+            "Year 1 (targets)",
+            "Year 2 (assumption)",
+            "Year 3 (assumption)"
+          ],
           "rows": [
-            ["Base — users / B2B clients", "2,500–5,000 / 5–10", "~8,000 / ~20", "~12,000 / ~40"],
-            ["Base — gross revenue", "~$45K (validation, not return)", "~$45–110K", "~$190K"],
-            ["Bull — users / B2B clients", "5,000 / 10", "~15,000 / ~50", "~30,000 / ~120"],
-            ["Bull — gross revenue", "~$45–60K", "~$150–240K", "~$530–780K"],
-            ["Bear — users / B2B clients", "~2,000 / ~3", "~3,000 / ~6", "~4,000 / ~8"],
-            ["Bear — gross revenue", "~$20–30K", "~$30–40K", "~$45K"]
+            [
+              "Base — users / B2B clients",
+              "2,500–5,000 / 5–10",
+              "~8,000 / ~20",
+              "~12,000 / ~40"
+            ],
+            [
+              "Base — gross revenue",
+              "~$45K (validation, not return)",
+              "~$45–110K",
+              "~$190K"
+            ],
+            [
+              "Bull — users / B2B clients",
+              "5,000 / 10",
+              "~15,000 / ~50",
+              "~30,000 / ~120"
+            ],
+            [
+              "Bull — gross revenue",
+              "~$45–60K",
+              "~$150–240K",
+              "~$530–780K"
+            ],
+            [
+              "Bear — users / B2B clients",
+              "~2,000 / ~3",
+              "~3,000 / ~6",
+              "~4,000 / ~8"
+            ],
+            [
+              "Bear — gross revenue",
+              "~$20–30K",
+              "~$30–40K",
+              "~$45K"
+            ]
           ]
         },
         {
@@ -2706,14 +2905,35 @@
         },
         {
           "type": "table",
-          "headers": ["Action", "diBoaS fee"],
+          "headers": [
+            "Action",
+            "diBoaS fee"
+          ],
           "rows": [
-            ["Add money", "0.48%"],
-            ["Cash out", "0.48%"],
-            ["Close strategy", "0.39%"],
-            ["Start strategy", "0"],
-            ["Send / swap / bridge", "0 where supported"],
-            ["Receive B2B payments", "0 where supported"]
+            [
+              "Add money",
+              "0.48%"
+            ],
+            [
+              "Cash out",
+              "0.48%"
+            ],
+            [
+              "Close strategy",
+              "0.39%"
+            ],
+            [
+              "Start strategy",
+              "0"
+            ],
+            [
+              "Send / swap / bridge",
+              "0 where supported"
+            ],
+            [
+              "Receive B2B payments",
+              "0 where supported"
+            ]
           ]
         },
         {
@@ -2723,11 +2943,23 @@
         },
         {
           "type": "table",
-          "headers": ["Fee type", "Cap"],
+          "headers": [
+            "Fee type",
+            "Cap"
+          ],
           "rows": [
-            ["Consumer add / cash-out", "US$250"],
-            ["Business add / cash-out", "no cap"],
-            ["Close strategy", "US$25"]
+            [
+              "Consumer add / cash-out",
+              "US$250"
+            ],
+            [
+              "Business add / cash-out",
+              "no cap"
+            ],
+            [
+              "Close strategy",
+              "US$25"
+            ]
           ]
         },
         {
@@ -3132,7 +3364,9 @@
         },
         {
           "type": "callout",
-          "lines": ["No license needed."]
+          "lines": [
+            "No license needed."
+          ]
         },
         {
           "type": "paragraph",
@@ -3671,7 +3905,9 @@
         },
         {
           "type": "callout",
-          "lines": ["We found a loophole."]
+          "lines": [
+            "We found a loophole."
+          ]
         },
         {
           "type": "paragraph",
@@ -3766,7 +4002,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Build only what proves the next risk."]
+          "lines": [
+            "Build only what proves the next risk."
+          ]
         },
         {
           "type": "paragraph",
@@ -3810,18 +4048,51 @@
         },
         {
           "type": "table",
-          "headers": ["Area", "Status"],
+          "headers": [
+            "Area",
+            "Status"
+          ],
           "rows": [
-            ["Marketing website", "Live"],
-            ["Market-intelligence product", "Live"],
-            ["Investor materials", "Drafted and being packaged"],
-            ["Business plan", "Created"],
-            ["Investor FAQ", "Created"],
-            ["Revenue model", "Created"],
-            ["Use of funds", "Created"],
-            ["Regulatory position", "Drafted"],
-            ["Product concept", "Specified"],
-            ["Money product", "Not yet live"]
+            [
+              "Marketing website",
+              "Live"
+            ],
+            [
+              "Market-intelligence product",
+              "Live"
+            ],
+            [
+              "Investor materials",
+              "Drafted and being packaged"
+            ],
+            [
+              "Business plan",
+              "Created"
+            ],
+            [
+              "Investor FAQ",
+              "Created"
+            ],
+            [
+              "Revenue model",
+              "Created"
+            ],
+            [
+              "Use of funds",
+              "Created"
+            ],
+            [
+              "Regulatory position",
+              "Drafted"
+            ],
+            [
+              "Product concept",
+              "Specified"
+            ],
+            [
+              "Money product",
+              "Not yet live"
+            ]
           ]
         },
         {
@@ -3888,15 +4159,39 @@
         },
         {
           "type": "table",
-          "headers": ["Workstream", "Output"],
+          "headers": [
+            "Workstream",
+            "Output"
+          ],
           "rows": [
-            ["Legal perimeter", "Jurisdiction-specific launch constraints"],
-            ["Regulatory gates", "US, EU/Germany, Brazil, Spain launch requirements"],
-            ["Partner path", "Money-in/out partner shortlist and decision path"],
-            ["Architecture confirmation", "Non-custodial wallet and funds-flow map"],
-            ["Product scope", "First launch feature boundaries"],
-            ["Risk language", "Approved user-facing risk and fee language"],
-            ["Operating setup", "Entity, admin, accounting, support, records"]
+            [
+              "Legal perimeter",
+              "Jurisdiction-specific launch constraints"
+            ],
+            [
+              "Regulatory gates",
+              "US, EU/Germany, Brazil, Spain launch requirements"
+            ],
+            [
+              "Partner path",
+              "Money-in/out partner shortlist and decision path"
+            ],
+            [
+              "Architecture confirmation",
+              "Non-custodial wallet and funds-flow map"
+            ],
+            [
+              "Product scope",
+              "First launch feature boundaries"
+            ],
+            [
+              "Risk language",
+              "Approved user-facing risk and fee language"
+            ],
+            [
+              "Operating setup",
+              "Entity, admin, accounting, support, records"
+            ]
           ]
         },
         {
@@ -3955,19 +4250,55 @@
         },
         {
           "type": "table",
-          "headers": ["Feature", "Purpose"],
+          "headers": [
+            "Feature",
+            "Purpose"
+          ],
           "rows": [
-            ["Goal selection", "Let users assign money to a purpose"],
-            ["Strategy path", "Show the available way to pursue that goal"],
-            ["Cost display", "Show fees and external costs before action"],
-            ["Liquidity display", "Show when and how money can move"],
-            ["Risk display", "Explain what can go wrong before action"],
-            ["Wallet flow", "Support user-controlled money movement"],
-            ["Add money", "Enable funding through the partner path"],
-            ["Cash out", "Enable withdrawal through the partner path"],
-            ["Start strategy", "Let user begin a selected strategy"],
-            ["Close strategy", "Let user exit and understand cost"],
-            ["Records", "Keep confirmation and action history"]
+            [
+              "Goal selection",
+              "Let users assign money to a purpose"
+            ],
+            [
+              "Strategy path",
+              "Show the available way to pursue that goal"
+            ],
+            [
+              "Cost display",
+              "Show fees and external costs before action"
+            ],
+            [
+              "Liquidity display",
+              "Show when and how money can move"
+            ],
+            [
+              "Risk display",
+              "Explain what can go wrong before action"
+            ],
+            [
+              "Wallet flow",
+              "Support user-controlled money movement"
+            ],
+            [
+              "Add money",
+              "Enable funding through the partner path"
+            ],
+            [
+              "Cash out",
+              "Enable withdrawal through the partner path"
+            ],
+            [
+              "Start strategy",
+              "Let user begin a selected strategy"
+            ],
+            [
+              "Close strategy",
+              "Let user exit and understand cost"
+            ],
+            [
+              "Records",
+              "Keep confirmation and action history"
+            ]
           ]
         },
         {
@@ -4045,16 +4376,43 @@
         },
         {
           "type": "table",
-          "headers": ["Workstream", "Output"],
+          "headers": [
+            "Workstream",
+            "Output"
+          ],
           "rows": [
-            ["Security review", "Product and flow risk review"],
-            ["Monitoring", "Basic system and transaction monitoring"],
-            ["Recovery model", "User recovery and incident assumptions"],
-            ["Support", "User support process and escalation"],
-            ["Records", "Action, fee, confirmation, and complaint records"],
-            ["Partner integration", "Money-in/out flow through selected partners"],
-            ["Compliance operations", "KYC / AML / sanctions / operating process where required"],
-            ["Risk disclosure", "Approved user-facing warnings and confirmations"]
+            [
+              "Security review",
+              "Product and flow risk review"
+            ],
+            [
+              "Monitoring",
+              "Basic system and transaction monitoring"
+            ],
+            [
+              "Recovery model",
+              "User recovery and incident assumptions"
+            ],
+            [
+              "Support",
+              "User support process and escalation"
+            ],
+            [
+              "Records",
+              "Action, fee, confirmation, and complaint records"
+            ],
+            [
+              "Partner integration",
+              "Money-in/out flow through selected partners"
+            ],
+            [
+              "Compliance operations",
+              "KYC / AML / sanctions / operating process where required"
+            ],
+            [
+              "Risk disclosure",
+              "Approved user-facing warnings and confirmations"
+            ]
           ]
         },
         {
@@ -4110,16 +4468,43 @@
         },
         {
           "type": "table",
-          "headers": ["Metric", "Question"],
+          "headers": [
+            "Metric",
+            "Question"
+          ],
           "rows": [
-            ["Registration-to-funding", "Do users trust the product enough to add money?"],
-            ["Funding amount", "How much do users assign to goals?"],
-            ["Drop-off before funding", "Where does trust break?"],
-            ["Strategy start", "Do users understand the path?"],
-            ["Strategy close", "Do users understand cost and liquidity?"],
-            ["Support burden", "What confuses users?"],
-            ["Risk comprehension", "Do users understand what is not guaranteed?"],
-            ["Net movement margin", "Does the unit economics survive partner costs?"]
+            [
+              "Registration-to-funding",
+              "Do users trust the product enough to add money?"
+            ],
+            [
+              "Funding amount",
+              "How much do users assign to goals?"
+            ],
+            [
+              "Drop-off before funding",
+              "Where does trust break?"
+            ],
+            [
+              "Strategy start",
+              "Do users understand the path?"
+            ],
+            [
+              "Strategy close",
+              "Do users understand cost and liquidity?"
+            ],
+            [
+              "Support burden",
+              "What confuses users?"
+            ],
+            [
+              "Risk comprehension",
+              "Do users understand what is not guaranteed?"
+            ],
+            [
+              "Net movement margin",
+              "Does the unit economics survive partner costs?"
+            ]
           ]
         },
         {
@@ -4150,7 +4535,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Do users fund after understanding cost, liquidity, and risk?"]
+          "lines": [
+            "Do users fund after understanding cost, liquidity, and risk?"
+          ]
         },
         {
           "type": "paragraph",
@@ -4199,14 +4586,35 @@
         },
         {
           "type": "table",
-          "headers": ["Feature", "Purpose"],
+          "headers": [
+            "Feature",
+            "Purpose"
+          ],
           "rows": [
-            ["Cash categories", "Payroll, rent, tax, suppliers, operating floor, excess cash"],
-            ["Rule setup", "Define what each cash bucket can and cannot do"],
-            ["Movement preview", "Show cost, liquidity, and risk before business movement"],
-            ["Permission logic", "Support basic approval or control structure"],
-            ["Records", "Create action history and reporting foundation"],
-            ["B2B fee logic", "Validate movement-based revenue on larger flows"]
+            [
+              "Cash categories",
+              "Payroll, rent, tax, suppliers, operating floor, excess cash"
+            ],
+            [
+              "Rule setup",
+              "Define what each cash bucket can and cannot do"
+            ],
+            [
+              "Movement preview",
+              "Show cost, liquidity, and risk before business movement"
+            ],
+            [
+              "Permission logic",
+              "Support basic approval or control structure"
+            ],
+            [
+              "Records",
+              "Create action history and reporting foundation"
+            ],
+            [
+              "B2B fee logic",
+              "Validate movement-based revenue on larger flows"
+            ]
           ]
         },
         {
@@ -4216,15 +4624,39 @@
         },
         {
           "type": "table",
-          "headers": ["Metric", "Question"],
+          "headers": [
+            "Metric",
+            "Question"
+          ],
           "rows": [
-            ["Qualified pipeline", "Are businesses seriously interested?"],
-            ["Use-case urgency", "Is cash control painful enough?"],
-            ["Deal size", "Does revenue fall near modeled assumptions?"],
-            ["Sales cycle", "How long does trust take?"],
-            ["Buyer type", "Founder, finance lead, operations, accountant?"],
-            ["Objections", "Regulation, custody, cost, trust, complexity?"],
-            ["Willingness to pay", "Do businesses pay for clarity and control?"]
+            [
+              "Qualified pipeline",
+              "Are businesses seriously interested?"
+            ],
+            [
+              "Use-case urgency",
+              "Is cash control painful enough?"
+            ],
+            [
+              "Deal size",
+              "Does revenue fall near modeled assumptions?"
+            ],
+            [
+              "Sales cycle",
+              "How long does trust take?"
+            ],
+            [
+              "Buyer type",
+              "Founder, finance lead, operations, accountant?"
+            ],
+            [
+              "Objections",
+              "Regulation, custody, cost, trust, complexity?"
+            ],
+            [
+              "Willingness to pay",
+              "Do businesses pay for clarity and control?"
+            ]
           ]
         },
         {
@@ -4238,7 +4670,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Can B2B interest become qualified pipeline at revenue levels that matter?"]
+          "lines": [
+            "Can B2B interest become qualified pipeline at revenue levels that matter?"
+          ]
         },
         {
           "type": "paragraph",
@@ -4273,7 +4707,11 @@
         },
         {
           "type": "table",
-          "headers": ["Market", "Role", "Roadmap posture"],
+          "headers": [
+            "Market",
+            "Role",
+            "Roadmap posture"
+          ],
           "rows": [
             [
               "Brazil",
@@ -4308,7 +4746,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Does each market earn entry through legal, partner, and user evidence?"]
+          "lines": [
+            "Does each market earn entry through legal, partner, and user evidence?"
+          ]
         },
         {
           "type": "paragraph",
@@ -4335,15 +4775,39 @@
         },
         {
           "type": "table",
-          "headers": ["Candidate", "Scale only if"],
+          "headers": [
+            "Candidate",
+            "Scale only if"
+          ],
           "rows": [
-            ["Consumer acquisition", "Funding conversion and monthly contribution behave"],
-            ["B2B sales", "Qualified pipeline and deal size validate"],
-            ["Additional strategies", "Risk language and partner path support them"],
-            ["Additional markets", "Legal gates and local trust language are ready"],
-            ["User-to-user movement", "Legal opinion clears the flow"],
-            ["Advanced B2B controls", "Early B2B demand proves need"],
-            ["Paid marketing", "Unit economics can tolerate acquisition cost"]
+            [
+              "Consumer acquisition",
+              "Funding conversion and monthly contribution behave"
+            ],
+            [
+              "B2B sales",
+              "Qualified pipeline and deal size validate"
+            ],
+            [
+              "Additional strategies",
+              "Risk language and partner path support them"
+            ],
+            [
+              "Additional markets",
+              "Legal gates and local trust language are ready"
+            ],
+            [
+              "User-to-user movement",
+              "Legal opinion clears the flow"
+            ],
+            [
+              "Advanced B2B controls",
+              "Early B2B demand proves need"
+            ],
+            [
+              "Paid marketing",
+              "Unit economics can tolerate acquisition cost"
+            ]
           ]
         },
         {
@@ -4357,7 +4821,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Does the company know what deserves more capital?"]
+          "lines": [
+            "Does the company know what deserves more capital?"
+          ]
         },
         {
           "type": "paragraph",
@@ -4428,16 +4894,43 @@
         },
         {
           "type": "table",
-          "headers": ["Feature", "Why it waits"],
+          "headers": [
+            "Feature",
+            "Why it waits"
+          ],
           "rows": [
-            ["Broad user-to-user movement", "US money-transmission risk must be cleared"],
-            ["Many strategies", "Complexity and disclosure risk increase"],
-            ["Heavy personalization", "May create investment-advice risk"],
-            ["Advanced B2B treasury automation", "Needs B2B proof first"],
-            ["Multi-market launch", "Legal and operational gates differ"],
-            ["Large marketing spend", "Must wait for funding behavior"],
-            ["Large team", "Must follow validated bottlenecks"],
-            ["Complex enterprise reporting", "Must follow actual B2B buyer need"]
+            [
+              "Broad user-to-user movement",
+              "US money-transmission risk must be cleared"
+            ],
+            [
+              "Many strategies",
+              "Complexity and disclosure risk increase"
+            ],
+            [
+              "Heavy personalization",
+              "May create investment-advice risk"
+            ],
+            [
+              "Advanced B2B treasury automation",
+              "Needs B2B proof first"
+            ],
+            [
+              "Multi-market launch",
+              "Legal and operational gates differ"
+            ],
+            [
+              "Large marketing spend",
+              "Must wait for funding behavior"
+            ],
+            [
+              "Large team",
+              "Must follow validated bottlenecks"
+            ],
+            [
+              "Complex enterprise reporting",
+              "Must follow actual B2B buyer need"
+            ]
           ]
         },
         {
@@ -4526,7 +5019,9 @@
         },
         {
           "type": "callout",
-          "lines": ["What risk are we proving next?"]
+          "lines": [
+            "What risk are we proving next?"
+          ]
         },
         {
           "type": "heading",
@@ -4632,7 +5127,9 @@
         },
         {
           "type": "callout",
-          "lines": ["Trust first. Charge clearly."]
+          "lines": [
+            "Trust first. Charge clearly."
+          ]
         },
         {
           "type": "paragraph",
@@ -4665,12 +5162,27 @@
         },
         {
           "type": "table",
-          "headers": ["Action", "Fee logic"],
+          "headers": [
+            "Action",
+            "Fee logic"
+          ],
           "rows": [
-            ["Add money", "Movement fee"],
-            ["Cash out", "Movement fee"],
-            ["Close strategy", "Closing fee"],
-            ["Large B2B movement", "Movement fee, no cap"]
+            [
+              "Add money",
+              "Movement fee"
+            ],
+            [
+              "Cash out",
+              "Movement fee"
+            ],
+            [
+              "Close strategy",
+              "Closing fee"
+            ],
+            [
+              "Large B2B movement",
+              "Movement fee, no cap"
+            ]
           ]
         },
         {
@@ -4696,15 +5208,39 @@
         },
         {
           "type": "table",
-          "headers": ["Action", "diBoaS fee"],
+          "headers": [
+            "Action",
+            "diBoaS fee"
+          ],
           "rows": [
-            ["Start strategy", "0"],
-            ["Send money", "0 where supported"],
-            ["Swap", "0 where supported"],
-            ["Bridge", "0 where supported"],
-            ["Receive B2B payments", "0 where supported"],
-            ["View goals / strategy options", "0"],
-            ["See costs, liquidity, and risk", "0"]
+            [
+              "Start strategy",
+              "0"
+            ],
+            [
+              "Send money",
+              "0 where supported"
+            ],
+            [
+              "Swap",
+              "0 where supported"
+            ],
+            [
+              "Bridge",
+              "0 where supported"
+            ],
+            [
+              "Receive B2B payments",
+              "0 where supported"
+            ],
+            [
+              "View goals / strategy options",
+              "0"
+            ],
+            [
+              "See costs, liquidity, and risk",
+              "0"
+            ]
           ]
         },
         {
@@ -4722,16 +5258,52 @@
         },
         {
           "type": "table",
-          "headers": ["Product action", "diBoaS fee", "Cap"],
+          "headers": [
+            "Product action",
+            "diBoaS fee",
+            "Cap"
+          ],
           "rows": [
-            ["Add money — consumer", "0.48%", "US$250"],
-            ["Cash out — consumer", "0.48%", "US$250"],
-            ["Add money — business", "0.48%", "no cap"],
-            ["Cash out — business", "0.48%", "no cap"],
-            ["Close strategy", "0.39%", "US$25"],
-            ["Start strategy", "0", "N/A"],
-            ["Send / swap / bridge", "0 where supported", "N/A"],
-            ["Receive B2B payments", "0 where supported", "N/A"]
+            [
+              "Add money — consumer",
+              "0.48%",
+              "US$250"
+            ],
+            [
+              "Cash out — consumer",
+              "0.48%",
+              "US$250"
+            ],
+            [
+              "Add money — business",
+              "0.48%",
+              "no cap"
+            ],
+            [
+              "Cash out — business",
+              "0.48%",
+              "no cap"
+            ],
+            [
+              "Close strategy",
+              "0.39%",
+              "US$25"
+            ],
+            [
+              "Start strategy",
+              "0",
+              "N/A"
+            ],
+            [
+              "Send / swap / bridge",
+              "0 where supported",
+              "N/A"
+            ],
+            [
+              "Receive B2B payments",
+              "0 where supported",
+              "N/A"
+            ]
           ]
         },
         {
@@ -4765,7 +5337,11 @@
         },
         {
           "type": "callout",
-          "lines": ["Money enters.", "Money exits.", "A strategy closes."]
+          "lines": [
+            "Money enters.",
+            "Money exits.",
+            "A strategy closes."
+          ]
         },
         {
           "type": "paragraph",
@@ -4782,7 +5358,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$25"]
+          "lines": [
+            "US$25"
+          ]
         },
         {
           "type": "paragraph",
@@ -4854,7 +5432,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$1,000"]
+          "lines": [
+            "US$1,000"
+          ]
         },
         {
           "type": "paragraph",
@@ -4862,7 +5442,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$4.80"]
+          "lines": [
+            "US$4.80"
+          ]
         },
         {
           "type": "paragraph",
@@ -4930,7 +5512,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$200,000"]
+          "lines": [
+            "US$200,000"
+          ]
         },
         {
           "type": "paragraph",
@@ -4938,7 +5522,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$960"]
+          "lines": [
+            "US$960"
+          ]
         },
         {
           "type": "paragraph",
@@ -4946,7 +5532,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$500,000"]
+          "lines": [
+            "US$500,000"
+          ]
         },
         {
           "type": "paragraph",
@@ -4954,7 +5542,9 @@
         },
         {
           "type": "callout",
-          "lines": ["US$2,400"]
+          "lines": [
+            "US$2,400"
+          ]
         },
         {
           "type": "paragraph",
@@ -5036,14 +5626,35 @@
         },
         {
           "type": "table",
-          "headers": ["Free action", "Why it should stay free"],
+          "headers": [
+            "Free action",
+            "Why it should stay free"
+          ],
           "rows": [
-            ["Viewing options", "Users should understand before acting"],
-            ["Starting a strategy", "Reduces friction and supports adoption"],
-            ["Seeing costs", "Cost visibility is a trust requirement"],
-            ["Seeing risk", "Risk visibility is not an upsell"],
-            ["Receiving B2B payments where supported", "Reduces friction for business workflows"],
-            ["Send / swap / bridge where supported", "Avoids overcharging internal utility flows"]
+            [
+              "Viewing options",
+              "Users should understand before acting"
+            ],
+            [
+              "Starting a strategy",
+              "Reduces friction and supports adoption"
+            ],
+            [
+              "Seeing costs",
+              "Cost visibility is a trust requirement"
+            ],
+            [
+              "Seeing risk",
+              "Risk visibility is not an upsell"
+            ],
+            [
+              "Receiving B2B payments where supported",
+              "Reduces friction for business workflows"
+            ],
+            [
+              "Send / swap / bridge where supported",
+              "Avoids overcharging internal utility flows"
+            ]
           ]
         },
         {

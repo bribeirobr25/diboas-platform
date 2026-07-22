@@ -1,0 +1,2845 @@
+/* ============================================================================
+ * SYNCED COPY of the canonical design tokens (apps/web/src/styles/design-tokens.css).
+ * Decision G-7 (docs/sandbox-app/BUILD_ORDER.md): do NOT hand-edit this file;
+ * re-sync from the canonical file. Extraction to a shared package is the
+ * Stage-1 item. Synced: 2026-07-18.
+ * ============================================================================ */
+/**
+ * Design System CSS Variables
+ *
+ * Source of Truth — manually maintained
+ * This CSS file is the canonical source for design tokens.
+ *
+ * Version: 1.1.0
+ * Last updated: 2026-03-10
+ */
+
+:root {
+  /* ================================
+     TYPOGRAPHY DESIGN SYSTEM
+     ================================ */
+
+  /* Font Families - Single source of truth */
+  --font-family-primary:
+    'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', sans-serif;
+  /* Display face — Space Grotesk (cinematic redesign), Geist + Inter as graceful fallbacks. */
+  --font-family-display:
+    var(--font-space-grotesk), var(--font-geist), 'Inter', system-ui, sans-serif;
+  /* Semantic alias consumed by the global h1–h3 rule + section/hero headings. */
+  --font-family-heading: var(--font-family-display);
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Typography Scale - Desktop */
+  --font-size-title-desktop: 48px;
+  --font-size-subtitle-desktop: 22px;
+  --font-size-description-desktop: 22px;
+  --font-size-text-desktop: 16px;
+
+  /* Typography Scale - Tablet */
+  --font-size-title-tablet: 42px;
+  --font-size-subtitle-tablet: 20px;
+  --font-size-description-tablet: 20px;
+  --font-size-text-tablet: 16px;
+
+  /* Typography Scale - Mobile */
+  --font-size-title-mobile: 38px;
+  --font-size-subtitle-mobile: 18px;
+  --font-size-description-mobile: 18px;
+  --font-size-text-mobile: 16px;
+
+  /* Section Title Typography (non-hero sections) */
+  --font-size-section-title-desktop: 38px;
+  --font-size-section-title-tablet: 32px;
+  --font-size-section-title-mobile: 28px;
+  --color-section-title: var(--color-slate-900);
+
+  /* Social Proof Stat Text */
+  --font-size-stat-text-desktop: 28px;
+  --font-size-stat-text-tablet: 24px;
+  --font-size-stat-text-mobile: 20px;
+
+  /* Icon Sizes */
+  --icon-size-desktop: 48px;
+  --icon-size-mobile: 40px;
+
+  /* UI Elements */
+  --font-size-ui-link: 14px;
+  --font-size-ui-button: 16px;
+
+  /* Line Heights */
+  --line-height-title: 1.2;
+  --line-height-subtitle: 1.3;
+  --line-height-description: 1.5;
+  --line-height-text: 1.6;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
+  --letter-spacing-wider: 0.1em;
+
+  /* Mobile Typography Overrides */
+  --hs-font-size-title-mobile: 30px;
+  --hs-font-weight-title: 600;
+  --section-title-font-size-mobile: 26px;
+
+  /* Prose Typography */
+  --prose-line-height: 1.7;
+  --prose-paragraph-spacing: 1.5em;
+
+  /* ================================
+     PADDING DESIGN SYSTEM
+     ================================ */
+
+  /* Section Padding - Standard (all sections except Hero & Navigation) */
+  --padding-section-desktop-y: 64px;
+  --padding-section-desktop-x: 120px;
+  --padding-section-tablet-y: 48px;
+  --padding-section-tablet-x: 64px;
+  --padding-section-mobile-y: 48px;
+  --padding-section-mobile-x: 24px;
+
+  /* Hero & Navigation Padding - No padding */
+  --padding-hero-nav-desktop-y: 0;
+  --padding-hero-nav-desktop-x: 0;
+  --padding-hero-nav-tablet-y: 0;
+  --padding-hero-nav-tablet-x: 0;
+  --padding-hero-nav-mobile-y: 0;
+  --padding-hero-nav-mobile-x: 0;
+
+  /* Component Internal Padding - Buttons, Cards, Panels */
+  --padding-button-y: 12px;
+  --padding-button-x: 24px;
+  --padding-card-mobile: 16px;
+  --padding-card-tablet: 20px;
+  --padding-card-desktop: 24px;
+  --padding-panel-mobile: 0px;
+  --padding-panel-tablet: 0px;
+  --padding-panel-desktop: 0px;
+
+  /* ================================
+     UNIFIED SECTION CTA BUTTON DESIGN TOKENS
+     ================================
+
+     These tokens are for ALL section CTA buttons (e.g., HeroSection,
+     FAQAccordion, FeatureShowcase, etc.). Use these for prominent
+     call-to-action buttons within marketing sections.
+
+     Reference Implementation: FAQAccordion.module.css (lines 95-170)
+     ================================ */
+
+  /* CTA Button Dimensions */
+  --cta-min-width-desktop: 261px;
+  --cta-min-width-tablet: 261px;
+  --cta-min-width-mobile: 70%;
+  --cta-min-height-desktop: 56px;
+  --cta-min-height-tablet: 56px;
+  --cta-min-height-mobile: 48px;
+
+  /* CTA Mini Button Heights (for navigation and compact buttons) */
+  --cta-mini-height-desktop: 48px;
+  --cta-mini-height-tablet: 48px;
+  --cta-mini-height-mobile: 44px;
+
+  /* Sticky mobile CTA bar (StickyMobileCTA — P2-d tokenization, 2026-07-11) */
+  --sticky-cta-height: 60px;
+
+  /* CTA Button Spacing */
+  --cta-padding-desktop: 16px 32px;
+  --cta-padding-tablet: 16px 32px;
+  --cta-padding-mobile: 12px 24px;
+
+  /* CTA Button Colors */
+  --cta-bg-primary: #0f766e;
+  --cta-bg-secondary: #ffffff;
+  --cta-color-primary: #ffffff;
+  --cta-color-secondary: #1a365d;
+  --cta-bg-hover: #115e59;
+  --cta-focus-color: #0d9488;
+
+  /* ================================
+     BRAND COLORS
+     ================================ */
+  --brand-logo: #02c3cf;
+  --brand-primary: #14b8a6;
+  --brand-primary-dark: #0d9488;
+
+  /* A13 (2026-06-11): external social-platform brand colors, for share/referral
+     buttons. Hardcoded in ReferralLink.module.css before; promoted to tokens. */
+  --brand-facebook: #1877f2;
+  --brand-instagram: #e4405f;
+  --brand-substack: #ff6719;
+
+  /* Accessible Text Colors (WCAG AA 4.5:1 on white) */
+  --text-primary-accessible: #0f766e; /* Teal-700: 4.85:1 on white — use for text on white */
+  /* W2 (audit/2026-05-08): emerald-600 (#059669) measures 3.76:1 in axe — fails AA.
+   * Bumped to emerald-700 (#047857) which is 5.53:1 on white. Affects FeeTable
+   * "Free" labels and StrategiesPageContent fee row. */
+  --text-success-accessible: #047857; /* Emerald-700: 5.53:1 on white */
+  --text-error-accessible: #dc2626; /* Red-600: 4.63:1 contrast */
+  /* W2: accessible variant of the brand teal for clickable text on light bg.
+   * Use this (not --color-teal-600) wherever the teal appears as text. */
+  --text-brand-accessible: #0f766e; /* Teal-700: 4.85:1 on white */
+
+  /* A13 (2026-06-11): tokens referenced by component CSS but never defined —
+     they survived only on hardcoded hex fallbacks (latent design-system gap
+     surfaced during the A-7 hex-fallback pass). Defined here as their canonical
+     palette values so the references resolve and the fallbacks become redundant.
+     Values preserve current rendering (FounderSection's two TEXT uses of
+     --color-brand-primary, which fell back to teal-700 for contrast, were
+     repointed to --text-brand-accessible instead). */
+  --color-brand-primary: #0d9488; /* teal-600 (= --brand-primary-dark) — borders & backgrounds */
+  --color-brand-primary-hover: #0f766e; /* teal-700 — hover for --color-brand-primary */
+  --color-error: #dc2626; /* red-600 (= --text-error-accessible) */
+  --text-primary: #111827; /* gray-900 (= --color-gray-900) */
+  --text-secondary: #4b5563; /* gray-600 (= --color-gray-600) */
+  --color-text-on-dark-secondary: #cbd5e1; /* slate-300 (= --color-slate-300) */
+  /* Pa11y fix 2026-05-30: amber-700 (#b45309) measures 4.45:1 on the 8% amber-tinted
+   * regime-pill background (#f9f1eb) — fails AA by a hair. Bumped to amber-800 which
+   * is 7.09:1 on white and 6.35:1 on the same tinted background. Issue surfaced when
+   * /market regime flipped from CONSTRUCTIVE 10 to DEFENSIVE 5 (W2 audit had only
+   * exercised the brand/success/error palettes against live data — amber was latent).
+   * Use this for any warning/defensive-tinted text on light bg. */
+  --text-warning-accessible: #92400e; /* Amber-800: 7.09:1 on white */
+
+  /* Unified Text Color Tokens */
+  --color-text-heading: #0f172a; /* Slate-900: primary headings */
+  --color-text-body: #334155; /* Slate-700: body text */
+  --color-text-secondary: #64748b; /* Slate-500: secondary/muted text */
+  --color-text-on-dark: #ffffff; /* White text on dark backgrounds */
+  /* W2 (audit/2026-05-08): bumped 0.85 → 0.95 for WCAG AA contrast on dark hero
+   * gradients and image overlays. The 0.85 value was just below 4.5:1 against
+   * mid-brightness gradient zones (Hero description, ScenarioCards
+   * description/cost). 0.95 keeps the visual mute against pure white while
+   * passing axe contrast checks on every overlay tone we ship. */
+  --color-text-on-dark-muted: rgba(255, 255, 255, 0.95); /* Muted white text on dark */
+
+  /* ================================
+     CINEMATIC REDESIGN — ACCENT RAMP (additive; teal stays brand primary)
+     Introduced for the GSAP/Three.js hero family, the reskinned nav, and /market.
+     Decorative golds are for large/graphical use only; use --text-gold-accessible
+     for any normal-size gold text (computed 5.0:1 on white — passes WCAG AA).
+     ================================ */
+  --accent-ink: #0b1f24; /* deep ink-teal — dark hero/nav surfaces */
+  --accent-ink-soft: #112a30;
+  --teal-deep-800: #134e4a; /* teal-800 — calm deep accents */
+  --teal-deep-900: #042f2e; /* teal-900 — deepest accent */
+  --accent-gold: #d29a46; /* decorative gold (graphical/large only) — hue-aligned */
+  --accent-gold-strong: #ad7f36; /* decorative gold, stronger */
+  --text-gold-accessible: #8a6526; /* Gold-on-white text: ~5.0:1 — WCAG AA pass */
+
+  /* Nav CTA gold pill (coastal-atmospheric "Try Demo" aesthetic). --accent-ink
+     (#0b1f24) on --cta-gold is ~8:1 — WCAG AA pass for the filled pill label. */
+  --cta-gold: #e8a14b;
+  --cta-gold-hover: #d68f37;
+
+  /* WebGL scene palette — read at runtime by useWebGLScene (NOT for component CSS).
+     Values match the awwwards prototypes the cinematic heroes replicate:
+     liquid-capital (fluid), data-cinematic (wireframe/particles). */
+  --scene-ink: #06120f; /* liquid-capital dark fluid base (business) */
+  --scene-gold: #ecbe82; /* cinematic gold — filament/accent (hue-aligned to --cta-gold) */
+  --scene-emerald: #2dd4bf; /* teal-400 — bright "data" teal (unified on the brand ramp) */
+  --scene-terra: #bd823f; /* warm copper trough (unified warm; was a one-off terracotta) */
+  --scene-paper: #e8efe9; /* calm light fluid/particle base (learn/tools) */
+  --scene-paper-teal: #a9d8cd; /* calm light soft teal */
+
+  /* Editorial palette — scoped to /market ("Adelaide Market" world, replicating
+     02-editorial-motion). Deliberately distinct from the cinematic teal system.
+     Fraunces serif + IBM Plex Mono are wired in layout.tsx. */
+  --editorial-paper: #f4f0e8; /* warm cream page */
+  --editorial-paper-deep: #ebe5d8;
+  --editorial-ink: #14110f; /* near-black ink */
+  --editorial-ink-soft: #3a332d;
+  --editorial-teal: #0f766e; /* teal-700 — reconciled to the brand ramp (was forest #1f6e63) */
+  --editorial-teal-deep: #134e4a; /* teal-900 */
+  --editorial-copper: #b67d44; /* copper = deeper sibling of the cinematic gold (same hue) */
+  --editorial-copper-soft: #cc9a64;
+  --editorial-copper-text: #875a2b; /* AA-safe copper for eyebrow text on cream — ~5.8:1 */
+  --editorial-line: #d8d0bf; /* hairline rules */
+  --editorial-muted: #6b6358; /* mono fine print on cream — ~4.6:1 on paper */
+  /* Regime pill fills — deepened so the paper-coloured label clears WCAG AA. */
+  --editorial-defensive: #8c5a2c; /* deep copper (DEFENSIVE) — sibling of the warm family */
+  --editorial-hostile: #9c4128; /* deep rust (HOSTILE) — nudged toward the warm hue */
+  --editorial-paper-dim: #c8c0b5; /* muted body text on the dark methodology block */
+
+  /* ===================================================================
+     REDESIGN SEMANTIC ROLES ("Adelaide's World") — additive aliases only.
+     Components reference INTENT (surface / text / accent / type), never raw
+     hues, so the system can be re-themed by repointing these. Discipline:
+     TEAL is reserved for ACTION + LIVE DATA only; editorial warmth uses
+     paper + copper. No new colour values — all alias existing tokens.
+     =================================================================== */
+  /* Surfaces */
+  --surface-paper: var(--editorial-paper); /* warm cream page */
+  --surface-paper-deep: var(--editorial-paper-deep);
+  --surface-ink: var(--editorial-ink); /* near-black editorial ink */
+  --surface-ink-soft: var(--accent-ink-soft);
+  /* Text on surfaces */
+  --text-on-paper: var(--editorial-ink);
+  --text-on-paper-muted: var(--editorial-muted); /* ~4.6:1 on paper (AA) */
+  --text-on-ink: var(--editorial-paper); /* light text on ink */
+  --text-on-ink-muted: var(--editorial-paper-dim);
+  /* Accents — the ONLY teal is action / live-data; warmth is editorial */
+  --accent-action: var(--brand-primary); /* teal — interactive + live numbers ONLY */
+  --accent-action-strong: var(--cta-bg-primary);
+  --accent-action-text: var(--text-brand-accessible); /* teal-700 — AA clickable text */
+  --accent-warm: var(--editorial-copper); /* copper — editorial warmth (decorative/large) */
+  --accent-warm-text: var(--editorial-copper-text); /* AA copper text on paper (~5.8:1) */
+  --rule-hairline: var(--editorial-line); /* hairline rules on paper */
+  /* Type roles — numbers are the hero */
+  --font-display: var(--font-family-display); /* editorial display face (Space Grotesk) */
+  --font-numeric: var(--font-family-mono); /* tabular-mono — every figure */
+
+  /* Hero theme tokens — switched by [data-theme] on the cinematic hero/nav.
+     Overlays sit between the WebGL canvas/poster and the SSR text to guarantee
+     ≥4.5:1 contrast on the headline regardless of the animated scene. */
+  --hero-overlay-dark: rgba(6, 18, 16, 0.58);
+  --hero-overlay-light: rgba(247, 245, 240, 0.32);
+  --hero-overlay-lighter: rgba(255, 255, 255, 0.42);
+  --hero-fg-dark: #f4f0e8; /* heading/text on dark hero */
+  --hero-fg-dark-muted: rgba(244, 240, 232, 0.82);
+  --hero-fg-light: var(--color-text-heading); /* heading on light hero */
+  --hero-fg-light-muted: var(--color-text-body);
+  --hero-eyebrow: var(--text-brand-accessible); /* mono eyebrow accent */
+  --hero-fallback-dark: linear-gradient(
+    135deg,
+    var(--teal-deep-900) 0%,
+    var(--accent-ink) 55%,
+    var(--teal-deep-800) 100%
+  );
+  --hero-fallback-light: linear-gradient(135deg, #f7f5f0 0%, #e9f2ef 60%, #f2ece1 100%);
+
+  /* ================================
+     SOCIAL PLATFORM COLORS
+     ================================ */
+  --social-whatsapp: #25d366;
+  --social-twitter: #000000; /* Twitter/X brand color — exception to no-pure-black rule */
+  --social-instagram: #e4405f;
+  --social-instagram-gradient: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+  --social-linkedin: #0a66c2;
+  --social-facebook: #1877f2;
+  --social-telegram: #0088cc;
+  --social-copy: #64748b;
+  --social-download: #0d9488;
+
+  /* ================================
+     FOCUS & ACCESSIBILITY TOKENS
+     ================================ */
+  --focus-ring-width: 2px;
+  --focus-ring-color: #14b8a6;
+  --focus-ring-offset: 2px;
+  --focus-ring-blue: rgba(59, 130, 246, 0.1);
+
+  /* ================================
+     OVERLAY COLORS
+     ================================ */
+  --overlay-dark: rgba(15, 23, 42, 0.9);
+  --overlay-light: rgba(255, 255, 255, 0.9);
+  --overlay-backdrop: rgba(0, 0, 0, 0.8);
+  --overlay-modal: rgba(15, 23, 42, 0.7);
+  --overlay-subtle: rgba(0, 0, 0, 0.5);
+  /* A13 (2026-06-11): image-overlay scrim scale — tokenized at the exact alphas
+     in use (NOT rounded) to preserve text-over-image legibility/contrast. */
+  --overlay-image-subtle: rgba(0, 0, 0, 0.25);
+  --overlay-image-mild: rgba(0, 0, 0, 0.3);
+  --overlay-image-light: rgba(0, 0, 0, 0.35);
+  --overlay-image-medium: rgba(0, 0, 0, 0.4);
+  --overlay-image-heavy: rgba(0, 0, 0, 0.6);
+  --overlay-image-darkest: rgba(0, 0, 0, 0.85);
+
+  /* Glass Effect Colors (for glassmorphism UI) */
+  --glass-bg-light: rgba(255, 255, 255, 0.9);
+  --glass-bg-dark: rgba(15, 23, 42, 0.9);
+  --glass-border-light: rgba(255, 255, 255, 0.2);
+  --glass-border-medium: rgba(255, 255, 255, 0.5);
+  --glass-border-dark: rgba(255, 255, 255, 0.1);
+  --glass-surface-elevated: rgba(255, 255, 255, 0.05);
+  --glass-surface-hover: rgba(255, 255, 255, 0.08);
+  --glass-surface-muted: rgba(255, 255, 255, 0.1);
+  --glass-surface-subtle: rgba(255, 255, 255, 0.15);
+  --slate-gradient-end: rgba(30, 41, 59, 0.98);
+
+  /* Text Opacity Variants */
+  --text-white-muted: rgba(255, 255, 255, 0.5);
+  --text-white-secondary: rgba(255, 255, 255, 0.7);
+  --text-white-primary: rgba(255, 255, 255, 0.8);
+  --text-white-emphasis: rgba(255, 255, 255, 0.95);
+
+  /* Brand Color with Opacity (Teal) */
+  --teal-overlay-subtle: rgba(20, 184, 166, 0.1);
+  --teal-overlay-light: rgba(20, 184, 166, 0.2);
+  --teal-overlay-medium: rgba(20, 184, 166, 0.3);
+  /* A13 (2026-06-11): brand-tinted overlay gaps between subtle(0.1) and light(0.2),
+     plus the teal-700 / amber / white one-off tints — tokenized at exact values. */
+  --teal-overlay-12: rgba(20, 184, 166, 0.12);
+  --teal-overlay-15: rgba(20, 184, 166, 0.15);
+  --teal-700-overlay-soft: rgba(15, 118, 110, 0.08);
+  /* NOTE: an --amber-overlay-subtle (0.15) + --amber-overlay-medium (0.3) scale
+     already exists below; this 0.1 tint sits below it, hence -faint (not -subtle,
+     which would collide and silently resolve to 0.15). */
+  --amber-overlay-faint: rgba(245, 158, 11, 0.1);
+  --white-overlay-strong: rgba(255, 255, 255, 0.85);
+  --teal-shadow: rgba(20, 184, 166, 0.3);
+  --teal-border-subtle: rgba(20, 184, 166, 0.2);
+  --teal-border-light: rgba(20, 184, 166, 0.3);
+
+  /* Warning Color with Opacity (Amber) */
+  --amber-overlay-subtle: rgba(245, 158, 11, 0.15);
+  --amber-overlay-medium: rgba(245, 158, 11, 0.3);
+  --amber-text-muted: rgba(245, 158, 11, 0.8);
+  --amber-text-bright: rgba(245, 158, 11, 0.9);
+
+  /* Error Color with Opacity (Red) */
+  --error-overlay-subtle: rgba(239, 68, 68, 0.1);
+  --error-border-subtle: rgba(239, 68, 68, 0.3);
+  --error-focus-ring: rgba(239, 68, 68, 0.1);
+
+  /* Success Color with Opacity (Green) */
+  --success-overlay-subtle: rgba(16, 185, 129, 0.1);
+  --success-focus-ring: rgba(16, 185, 129, 0.1);
+
+  /* ================================
+     SEMANTIC UI COLORS
+     ================================ */
+
+  /* Alert Severity Colors */
+  --alert-info: #0066cc;
+  --alert-warning: #ff9900;
+  --alert-error: #cc0000;
+  --alert-critical: #990000;
+
+  /* Error Boundary UI Colors */
+  --error-bg-light: #fef2f2;
+  --error-border-light: #fecaca;
+  --error-text-primary: #dc2626;
+  --error-text-secondary: #374151;
+  --error-bg-code: #f9fafb;
+  --error-border-code: #d1d5db;
+  --error-button-primary: #3b82f6;
+  --error-button-primary-hover: #2563eb;
+  --error-button-secondary: #6b7280;
+  --error-button-secondary-hover: #4b5563;
+
+  /* PreDream Path Colors */
+  --path-safety-bg: #eff6ff;
+  --path-safety-border: #bfdbfe;
+  --path-safety-text: #2563eb;
+  --path-safety-icon-bg: #dbeafe;
+  --path-safety-badge-text: #1d4ed8;
+  --path-balance-bg: #f5f3ff;
+  --path-balance-border: #c4b5fd;
+  --path-balance-text: #7c3aed;
+  --path-balance-icon-bg: #ede9fe;
+  --path-balance-badge-text: #6d28d9;
+  --path-growth-bg: #fef2f2;
+  --path-growth-border: #fca5a5;
+  --path-growth-text: #dc2626;
+  --path-growth-icon-bg: #fee2e2;
+  /* Difference Highlight */
+  --difference-success-bg: #ecfdf5;
+  --difference-success-border: #a7f3d0;
+  --difference-success-icon-bg: #d1fae5;
+
+  /* Card Rendering Colors */
+  --card-bank-comparison: #ef4444;
+  --card-watermark-amber: rgba(245, 158, 11, 0.8);
+  --card-highlight-amber: #f59e0b;
+  --card-overlay-dark: rgba(0, 0, 0, 0.5);
+
+  /* Shadow Colors with Opacity */
+  --shadow-black-subtle: rgba(0, 0, 0, 0.03);
+  /* A13 (2026-06-11): faint card shadow — covers the 0.04 sites + the single
+     0.05 site (snapped to 0.04 per the locked round-to-nearest default). */
+  --shadow-black-faint: rgba(0, 0, 0, 0.04);
+  --shadow-black-light: rgba(0, 0, 0, 0.06);
+  --shadow-black-soft: rgba(0, 0, 0, 0.08);
+  --shadow-black-medium: rgba(0, 0, 0, 0.1);
+  --shadow-black-heavy: rgba(0, 0, 0, 0.15);
+
+  /* Hairline borders (B2C modernization) — derived from existing overlay tokens,
+     no new literals. Use for table rows, card edges, eyebrow rules. */
+  --border-hairline: 1px solid var(--shadow-black-light);
+  --border-hairline-teal: 1px solid var(--teal-overlay-15);
+  /* A13 (2026-06-11): text-shadow colors for legibility of text over images
+     (hero headlines, FAQ-over-image). Distinct from box-shadow (--shadow-black-*)
+     and background scrims (--overlay-image-*) — referenced by `text-shadow`. */
+  --text-shadow-subtle: rgba(0, 0, 0, 0.2);
+  --text-shadow-medium: rgba(0, 0, 0, 0.4);
+  --text-shadow-strong: rgba(0, 0, 0, 0.5);
+  --shadow-black-moderate: rgba(0, 0, 0, 0.2);
+  --shadow-black-intense: rgba(0, 0, 0, 0.3);
+  --shadow-black-dark: rgba(0, 0, 0, 0.4);
+  --shadow-black-semi: rgba(0, 0, 0, 0.5);
+  --shadow-black-very-dark: rgba(0, 0, 0, 0.6);
+  --shadow-black-deep: rgba(0, 0, 0, 0.7);
+  --shadow-black-almost-opaque: rgba(0, 0, 0, 0.8);
+  --shadow-black-opaque-90: rgba(0, 0, 0, 0.9);
+  --shadow-black-opaque: rgba(0, 0, 0, 1);
+
+  /* Teal Focus/Hover States */
+  --teal-deep-overlay-subtle: rgba(15, 118, 110, 0.08);
+  --teal-deep-overlay-light: rgba(15, 118, 110, 0.1);
+  --teal-deep-overlay-medium: rgba(15, 118, 110, 0.2);
+  --teal-deep-shadow: rgba(15, 118, 110, 0.1);
+  --teal-bright-overlay: rgba(45, 212, 191, 0.08);
+
+  /* CTA Shadow Colors */
+  --cta-shadow-teal: rgba(13, 148, 136, 0.4);
+  --cta-outline-teal: rgba(13, 148, 136, 0.5);
+  --cta-shadow-brand: rgba(56, 178, 172, 0.25);
+  --cta-outline-brand: rgba(56, 178, 172, 0.2);
+
+  /* Text decoration opacity */
+  --text-decoration-subtle: rgba(100, 116, 139, 0.3);
+
+  /* CTA Button Typography */
+  --cta-font-size-desktop: 16px;
+  --cta-font-size-tablet: 16px;
+  --cta-font-size-mobile: 14px;
+  --cta-font-weight: 600;
+  --cta-line-height: 1.5;
+
+  /* CTA Button Borders & Shapes */
+  --cta-border-radius: 50px;
+  --cta-border-width: 2px;
+
+  /* CTA Button Effects */
+  --cta-shadow-default: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --cta-shadow-hover: 0 8px 25px rgba(56, 178, 172, 0.25);
+  --cta-shadow-focus: 0 0 0 3px rgba(56, 178, 172, 0.2);
+
+  /* CTA Button Transitions */
+  --cta-transition-duration: 300ms;
+  --cta-transition-easing: ease-in-out;
+  --cta-transform-hover: translateY(-2px);
+  --cta-transform-active: translateY(0);
+
+  /* CTA Button States */
+  --cta-opacity-disabled: 0.5;
+  --cta-cursor-disabled: not-allowed;
+
+  /* ================================
+     NAVIGATION CTA BUTTON DESIGN TOKENS
+     ================================
+
+     These tokens are ONLY for Navigation bar CTA buttons. These are
+     more compact than section CTAs to fit in the navigation bar.
+
+     Used in: DesktopNav, MobileNav components
+     Implementation: semantic-components.css (.desktop-get-started-button, .mobile-get-started-button)
+     ================================ */
+
+  /* Navigation CTA Dimensions - Compact for navigation bar */
+  /* P-1 (talk-page polish, 2026-07-16): the fixed .minimal-navigation-bar is
+     h-20 = 80px; content that starts at the top of the page must clear it.
+     Keep in sync with .minimal-navigation-content in semantic-components.css. */
+  --nav-height: 80px;
+  --nav-cta-min-width-desktop: 140px;
+  --nav-cta-min-width-tablet: 140px;
+  --nav-cta-min-width-mobile: 130px;
+  --nav-cta-min-height-desktop: 44px;
+  --nav-cta-min-height-tablet: 44px;
+  --nav-cta-min-height-mobile: 44px;
+
+  /* Navigation CTA Spacing */
+  --nav-cta-padding-desktop: 10px 32px;
+  --nav-cta-padding-tablet: 10px 32px;
+  --nav-cta-padding-mobile: 8px 24px;
+
+  /* Navigation CTA Typography - Smaller for compact navigation */
+  --nav-cta-font-size-desktop: 12px;
+  --nav-cta-font-size-tablet: 12px;
+  --nav-cta-font-size-mobile: 11px;
+  --nav-cta-font-weight: 600;
+  --nav-cta-line-height: 1.5;
+
+  /* Navigation CTA Colors (same as section CTAs) */
+  --nav-cta-bg-primary: var(--cta-bg-primary);
+  --nav-cta-bg-secondary: var(--cta-bg-secondary);
+  --nav-cta-color-primary: var(--cta-color-primary);
+  --nav-cta-color-secondary: var(--cta-color-secondary);
+  --nav-cta-bg-hover: var(--cta-bg-hover);
+  --nav-cta-focus-color: var(--cta-focus-color);
+
+  /* Navigation CTA Borders & Shapes */
+  --nav-cta-border-radius: 50px;
+  --nav-cta-border-width: 2px;
+
+  /* Navigation CTA Effects */
+  --nav-cta-shadow-default: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --nav-cta-shadow-hover: 0 4px 12px rgba(56, 178, 172, 0.2);
+  --nav-cta-shadow-focus: 0 0 0 3px rgba(56, 178, 172, 0.15);
+
+  /* Navigation CTA Transitions (same as section CTAs) */
+  --nav-cta-transition-duration: var(--cta-transition-duration);
+  --nav-cta-transition-easing: var(--cta-transition-easing);
+  --nav-cta-transform-hover: var(--cta-transform-hover);
+  --nav-cta-transform-active: var(--cta-transform-active);
+
+  /* Navigation CTA States (same as section CTAs) */
+  --nav-cta-opacity-disabled: var(--cta-opacity-disabled);
+  --nav-cta-cursor-disabled: var(--cta-cursor-disabled);
+
+  /* ================================
+     SECTION DIMENSIONS
+     ================================ */
+
+  /* Section Heights - Fixed heights for all section components */
+  /* Hero Section - Dynamic min-height with responsive adjustments */
+  --section-min-height-hero-desktop: 632px; /* Desktop: minimum 632px, dynamic based on content */
+  --section-min-height-hero-tablet: 550px; /* Tablet: proportional scaling */
+  --section-min-height-hero-mobile: 480px; /* Mobile: proportional scaling */
+  --section-hero-bottom-padding: 20px; /* Additional bottom padding for dynamic height calculation */
+
+  /* Hero Section - Left Column Top Spacing (to show more background) */
+  --hs-left-column-offset-desktop: 300px; /* Desktop: push content 100px down */
+  --hs-left-column-offset-tablet: 300px; /* Tablet: push content 100px down */
+  --hs-left-column-offset-mobile: 300px; /* Mobile: push content 60px down */
+
+  /* AppFeaturesCarousel Heights (-90px from original 980px) */
+  --section-height-app-features-carousel: 890px; /* Desktop: 980px - 90px */
+  --section-height-app-features-carousel-tablet: 836px; /* Tablet: proportional ratio */
+  --section-height-app-features-carousel-mobile: 744px; /* Mobile: proportional ratio */
+
+  /* ProductCarousel Heights - Auto-fit to content */
+  --section-height-product-carousel: auto; /* Desktop/Tablet: Auto-height based on content */
+  --section-height-product-carousel-mobile: auto; /* Mobile: Auto-height based on content */
+
+  /* OneFeature Heights (-200px from original 980px) */
+  --section-height-one-feature: 780px; /* All viewports: 980px - 200px */
+
+  /* FeatureShowcase Heights (-50px from original 632px) */
+  --section-height-feature: 582px; /* All viewports: 632px - 50px */
+
+  /* Legacy carousel heights (deprecated - use section-specific tokens above) */
+  --section-height-carousel: 890px; /* Default to AppFeaturesCarousel height */
+  --section-height-carousel-tablet: 836px;
+  --section-height-carousel-mobile: 744px;
+
+  /* Section Widths - All sections are full width */
+  --section-width-full: 100%;
+
+  /* Container Max-Width System - Semantic Tokens */
+  --container-max-width-standard: 1200px; /* Most common - ProductCarousel, AppFeaturesCarousel, HeroSection, FeatureShowcase */
+  --container-max-width-wide: 1400px; /* Wide layout - FAQAccordion */
+  --container-max-width-narrow: 872px; /* Narrow layout - StickyFeaturesNav */
+
+  /* Section Background System - Semantic Tokens */
+  --section-bg-white: #ffffff; /* White backgrounds for cards/containers/panels */
+  --section-bg-neutral: #fafafa; /* Primary neutral section background - FeatureShowcase, ProductCarousel, AppFeaturesCarousel, StickyFeaturesNav */
+  --section-bg-neutral-alt: #f8f9fa; /* Alternative neutral section background - OneFeature, FAQAccordion */
+  --section-bg-warm: #f8f7f4; /* Warm background - prose sections, story content */
+  --section-bg-brand: #f0fdfa; /* Brand teal tint - waitlist, CTA sections */
+  --section-bg-dark: #0f172a; /* Dark background - footer */
+  --section-bg-hover: #f7fafc; /* Hover state backgrounds for interactive elements */
+  --section-bg-enterprise: #f0f4f8; /* Light enterprise blue - subtle professional tone for B2B sections */
+
+  /* ================================
+     PRODUCT CAROUSEL DIMENSIONS
+     ================================ */
+
+  /* Product Carousel - Image Sizes */
+  /* Desktop & Tablet Active Image */
+  --pc-image-active-width-desktop: 310px;
+  --pc-image-active-height-desktop: 467px;
+
+  /* Desktop & Tablet Inactive Images */
+  --pc-image-inactive-width-desktop: 258px;
+  --pc-image-inactive-height-desktop: 389px;
+
+  /* Mobile Active Image */
+  --pc-image-active-width-mobile: 240px;
+  --pc-image-active-height-mobile: 359px;
+
+  /* Mobile Inactive Images */
+  --pc-image-inactive-width-mobile: 202px;
+  --pc-image-inactive-height-mobile: 303px;
+
+  /* Product Carousel - Visibility Percentages */
+  --pc-inactive-visibility-desktop: 90%;
+  --pc-inactive-visibility-tablet: 40%;
+  --pc-inactive-visibility-mobile: 10%;
+
+  /* Product Carousel - Animation */
+  --pc-rotation-interval: 5s;
+  --pc-rotation-interval-ms: 5000;
+  --pc-transition-duration: 0.6s;
+  --pc-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Product Carousel - Z-Index */
+  --pc-z-index-inactive: 1;
+  --pc-z-index-active: 3;
+
+  /* Product Carousel - Positioning */
+  --pc-position-center: 50%;
+  --pc-transform-center: translate(-50%, -50%);
+
+  /* Product Carousel - Vertical Positioning */
+  --pc-vertical-offset-active: -50%;
+  --pc-vertical-offset-inactive-mobile: -50%;
+  --pc-vertical-offset-inactive-tablet: -50%;
+  --pc-vertical-offset-inactive-desktop: -50%; /* Keep centered vertically */
+
+  /* Product Carousel - Top Position for Inactive Cards */
+  --pc-inactive-top-desktop: 50%; /* Position inactive cards higher */
+
+  /* Product Carousel - Layout */
+  --pc-margin-auto: 0 auto;
+  --pc-width-full: 100%;
+  --pc-aspect-ratio: 3/4;
+
+  /* Product Carousel - Card Offsets (pre-calculated) */
+  /* Desktop offsets */
+  --pc-left-card-offset-desktop: -380px;
+  --pc-right-card-offset-desktop: 120px;
+
+  /* Tablet offsets */
+  --pc-left-card-offset-tablet: -300px;
+  --pc-right-card-offset-tablet: 36px;
+
+  /* Mobile offsets */
+  --pc-left-card-offset-mobile: -190px;
+  --pc-right-card-offset-mobile: -13px;
+
+  /* Animation Tokens */
+  --animation-duration-fast: 0.15s;
+  --animation-duration-normal: 0.3s;
+  --animation-duration-slow: 0.6s;
+  --animation-duration-bounce: 1.4s;
+  --animation-easing-easeout: cubic-bezier(0.16, 1, 0.3, 1);
+  --animation-easing-easeinout: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Spinner Tokens */
+  --spinner-border-width: 3px;
+
+  /* Z-Index Hierarchy */
+  --z-index-dropdown: 40;
+  --z-index-stickyCta: 40; /* same layer as dropdown; below mobileMenu (P2-d, 2026-07-11) */
+  --z-index-mobileMenu: 50;
+  --z-index-modal: 60;
+  --z-index-fixed: 65;
+  --z-index-toast: 70;
+
+  /* FeatureShowcase Design Tokens */
+  /* ================================
+     IMAGE SCALING & POSITIONING
+     ================================ */
+  /* Image Scale Configuration - Control all sizes from here */
+  --fs-primary-scale-mobile: 0.7;
+  --fs-primary-scale-tablet: 0.8;
+  --fs-primary-scale-desktop: 0.8;
+
+  --fs-secondary-scale-mobile: 0.7;
+  --fs-secondary-scale-tablet: 0.8;
+  --fs-secondary-scale-desktop: 0.8;
+
+  /* Image Base Dimensions */
+  --fs-image-base-width: 280px;
+  --fs-image-base-height: 360px;
+
+  /* Calculated Image Sizes - Primary */
+  --fs-primary-image-width-mobile: 235px; /* 196px * 1.2 (20% bigger) */
+  --fs-primary-image-height-mobile: 302px; /* 252px * 1.2 (20% bigger) */
+  --fs-primary-image-width-tablet: 269px; /* 224px * 1.2 (20% bigger) */
+  --fs-primary-image-height-tablet: 346px; /* 288px * 1.2 (20% bigger) */
+  --fs-primary-image-width-desktop: 269px; /* 224px * 1.2 (20% bigger) */
+  --fs-primary-image-height-desktop: 346px; /* 288px * 1.2 (20% bigger) */
+
+  /* Calculated Image Sizes - Secondary */
+  --fs-secondary-image-width-mobile: 235px; /* 196px * 1.2 (20% bigger) */
+  --fs-secondary-image-height-mobile: 302px; /* 252px * 1.2 (20% bigger) */
+  --fs-secondary-image-width-tablet: 269px; /* 224px * 1.2 (20% bigger) */
+  --fs-secondary-image-height-tablet: 346px; /* 288px * 1.2 (20% bigger) */
+  --fs-secondary-image-width-desktop: 269px; /* 224px * 1.2 (20% bigger) */
+  --fs-secondary-image-height-desktop: 346px; /* 288px * 1.2 (20% bigger) */
+
+  /* Container Heights */
+  --fs-container-height-mobile: 300px;
+  --fs-container-height-tablet: 360px;
+  --fs-container-height-desktop: 420px;
+
+  /* Primary Image Positioning */
+  --fs-primary-position-x: -70%;
+  --fs-primary-position-y: -50%;
+  --fs-position-primary-top: 50%;
+  --fs-position-primary-left: 35%;
+  --fs-transform-primary-tablet-x: -50%;
+  --fs-transform-primary-desktop-x: -55%;
+
+  /* Secondary Image Positioning */
+  --fs-secondary-position-x: 20%;
+  --fs-secondary-position-y: 5%;
+  --fs-secondary-position-top: 5%;
+  --fs-secondary-position-right: -7%;
+  --fs-transform-secondary-tablet-x: -10%;
+  --fs-transform-secondary-desktop-x: -20%;
+  --fs-secondary-opacity: 0.9;
+
+  /* ================================
+     COLORS & THEMING
+     ================================ */
+  /* Background Colors */
+  --fs-color-section-bg: var(--section-bg-neutral);
+  --fs-color-nav-button-bg: var(--section-bg-white);
+  --fs-color-nav-button-hover-bg: var(--section-bg-hover);
+  --fs-color-transparent: transparent;
+
+  /* Surface Colors - Neutral Backgrounds */
+  --surface-50: #fafafa;
+
+  /* Text Colors */
+  --fs-color-title: #1a365d;
+  --fs-color-description: #0f172a;
+  --fs-color-button-text: white;
+  --fs-color-muted: #a0aec0;
+
+  /* ================================
+     VISUAL PANEL STYLING
+     ================================ */
+  /* Panel Container */
+  --fs-panel-bg: var(--section-bg-white);
+  --fs-panel-border-radius: 32px;
+  --fs-panel-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  /* Image Rotations */
+  --fs-primary-image-rotation: 10deg;
+  --fs-secondary-image-rotation: -8deg;
+
+  /* Image Transforms and Z-Index */
+  --fs-primary-image-translate-y: 12px;
+  --fs-primary-image-scale-min: 0.88;
+  --fs-primary-image-scale-max: 0.92;
+  --fs-primary-image-scale: 0.9; /* Mid-range default */
+  --fs-secondary-image-scale: 1;
+  --fs-primary-image-z-index: 1;
+  --fs-secondary-image-z-index: 2;
+
+  /* ================================
+     LAYOUT & CONTAINER TOKENS
+     ================================ */
+  /* Container Specifications */
+  --fs-container-max-width: var(--container-max-width-standard);
+
+  /* Grid Layout */
+  --fs-grid-gap-desktop: 48px;
+  --fs-text-column-ratio: 1fr;
+  --fs-visual-column-ratio: 1.2fr;
+
+  /* ================================
+     TYPOGRAPHY SPECIFICATIONS
+     ================================ */
+  /* Title Typography */
+  --fs-title-desktop-min: 48px;
+  --fs-title-desktop-max: 56px;
+  --fs-title-mobile-min: 32px;
+  --fs-title-mobile-max: 36px;
+  --fs-title-line-height-tight: 1.1;
+
+  /* Description Typography */
+  --fs-description-font-size-desktop: 18px;
+  --fs-description-font-size-mobile: 16px;
+  --fs-description-max-width: 520px;
+  --fs-description-line-height: 1.5;
+
+  /* Navigation Buttons */
+  --fs-nav-button-size: 40px;
+  --fs-nav-button-style: ghost;
+
+  /* ================================
+     ANIMATION & TRANSITION TOKENS
+     ================================ */
+  /* Transition Durations */
+  --fs-text-transition-duration: 250ms;
+  --fs-visual-transition-duration: 350ms;
+  --fs-cross-fade-duration: 200ms;
+  --fs-slide-duration: 300ms;
+
+  /* Animation Easings */
+  --fs-easing-text: cubic-bezier(0.4, 0, 0.2, 1);
+  --fs-easing-visual: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Transform Properties */
+  --fs-translate-distance: 16px;
+  --fs-fade-opacity-start: 0;
+  --fs-fade-opacity-end: 1;
+
+  /* Border Colors */
+  --fs-color-border-primary: #e2e8f0;
+  --fs-color-border-hover: #cbd5e0;
+  --fs-color-accent: #38b2ac;
+
+  /* Gradient Colors */
+  --fs-gradient-button: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
+
+  /* ================================
+     SPACING & LAYOUT
+     ================================ */
+  /* Gaps & Spacing */
+  --fs-gap-xs: 12px;
+  --fs-gap-sm: 16px;
+  --fs-gap-md: 32px;
+  --fs-gap-lg: 64px;
+  --fs-gap-nav: 0.5rem;
+  --fs-gap-cta-mobile: 1rem;
+  --fs-gap-cta-tablet: 1.25rem;
+  --fs-gap-cta-desktop: 1.5rem;
+
+  /* Layout Dimensions */
+  --fs-max-width-container: var(--container-max-width-standard);
+  --fs-max-width-visual-desktop: 496px;
+  --fs-max-width-visual-mobile: 400px;
+  --fs-max-width-visual-tablet: 450px;
+  --fs-image-container-width: 1;
+  --fs-image-container-width-percent: 100%;
+
+  /* Component Sizes */
+  --fs-size-button: 40px;
+  --fs-size-dot: 8px;
+  --fs-size-dot-active: 12px;
+  --fs-size-icon: 18px;
+
+  /* ================================
+     TYPOGRAPHY
+     ================================ */
+  /* Font Weights */
+  --fs-font-weight-bold: 700;
+  --fs-font-weight-semibold: 600;
+
+  /* Line Heights */
+  --fs-line-height-title: 1.2;
+  --fs-line-height-description: 1.6;
+
+  /* ================================
+     BORDERS & SHAPES
+     ================================ */
+  /* Border Radius */
+  --fs-border-radius-button: 24px;
+  --fs-border-radius-circle: 50%;
+  --fs-border-radius-dot-active: 4px;
+  --fs-border-radius-image-primary: 24px;
+  --fs-border-radius-image-secondary: 20px;
+
+  /* Border Widths */
+  --fs-border-width-button: 2px;
+  --fs-border-width-spinner: 3px;
+
+  /* ================================
+     DEPTH & LAYERING
+     ================================ */
+  /* Z-Index Hierarchy */
+  --fs-z-index-content: 2;
+  --fs-z-index-secondary: 1;
+  --fs-z-index-overlay: 10;
+
+  /* Opacity Levels */
+  --fs-opacity-full: 1;
+  --fs-opacity-content-exit: 0.3;
+  --fs-opacity-images-exit: 0.5;
+
+  /* ================================
+     ANIMATIONS & INTERACTIONS
+     ================================ */
+  /* Transition Properties */
+  --fs-transition-duration: 200ms;
+  --fs-transition-easing: ease-in-out;
+  --fs-transition-duration-fast: 200ms;
+  --fs-transition-easing-smooth: ease-in-out;
+  --fs-transition-easing-standard: ease;
+
+  /* Animation Properties */
+  --fs-animation-duration-spinner: 600ms;
+  --fs-animation-easing-linear: linear;
+
+  /* Transform Values */
+  --fs-transform-center: translate(-50%, -50%);
+  --fs-transform-hover-lift: translateY(-2px);
+
+  /* ================================
+     EFFECTS & SHADOWS
+     ================================ */
+  /* Box Shadows */
+  --fs-shadow-button-hover: 0 8px 25px rgba(56, 178, 172, 0.25);
+  --fs-shadow-image-primary: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --fs-shadow-image-secondary: 0 6px 24px rgba(0, 0, 0, 0.08);
+
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values */
+  --fs-breakpoint-tablet: 768px;
+  --fs-breakpoint-desktop: 1024px;
+
+  /* ProductCarousel Design Tokens */
+  /* ================================
+     PC (PRODUCT CAROUSEL) DESIGN TOKENS
+     ================================ */
+
+  /* ================================
+     COLORS & THEMING
+     ================================ */
+  /* Background Colors */
+  --pc-color-section-bg: var(--section-bg-neutral);
+  --pc-color-heading: #1a365d;
+  --pc-color-subtitle: #4a5568;
+  --pc-color-card-bg: transparent; /* Transparent so gradient fallback in .imageWrapper shows when image assets are missing */
+  --pc-color-cta-bg: #0f766e;
+  --pc-color-cta-text: #ffffff;
+
+  /* Navigation Controls */
+  --pc-color-dot-inactive: #cbd5e0;
+  --pc-color-dot-active: #0d9488;
+  --pc-color-control-bg: var(--section-bg-white);
+  --pc-color-control-border: #e2e8f0;
+  --pc-color-control-border-hover: #cbd5e0;
+  --pc-color-control-icon: #4a5568;
+  --pc-color-accent: #0d9488;
+
+  /* Overlay Effects */
+  --pc-color-overlay-start: rgba(0, 0, 0, 0.95);
+  --pc-color-overlay-mid: rgba(0, 0, 0, 0.92);
+  --pc-color-overlay-end: transparent;
+  --pc-gradient-overlay: linear-gradient(
+    180deg,
+    var(--pc-color-overlay-end) 0%,
+    var(--pc-color-overlay-mid) 60%,
+    var(--pc-color-overlay-start) 100%
+  );
+
+  /* ================================
+     SPACING & LAYOUT
+     ================================ */
+  /* Container Dimensions */
+  --pc-container-max-width: var(--container-max-width-standard);
+  --pc-track-height-mobile: 400px;
+  --pc-track-height-tablet: 420px;
+  --pc-track-height-desktop: 520px;
+
+  /* 3-Card Layout Dimensions */
+  --pc-card-width-desktop: 360px;
+  --pc-card-height-desktop: 480px;
+  --pc-card-width-tablet: 306px; /* 15% smaller */
+  --pc-card-height-tablet: 408px; /* 15% smaller */
+  --pc-card-width-mobile: 280px;
+  --pc-card-height-mobile: 373px; /* Maintains 3:4 ratio */
+
+  /* Card Spacing & Peek */
+  --pc-card-peek: 20px;
+
+  /* Legacy Slide Dimensions (backward compatibility) */
+  --pc-slide-width-mobile: 70%;
+  --pc-slide-max-width: 280px;
+  --pc-subtitle-max-width: 490px;
+  --pc-subtitle-min-height: 2.8em;
+
+  /* Spacing */
+  --pc-heading-margin-mobile: 1rem;
+  --pc-heading-margin-desktop: 2rem;
+  --pc-subtitle-margin: 1rem auto 1.5rem;
+  --pc-controls-gap: 1rem;
+
+  /* ================================
+     TYPOGRAPHY
+     ================================ */
+  /* Font Weights */
+  --pc-font-weight-bold: 700;
+
+  /* Line Heights */
+  --pc-line-height-subtitle: 1.4;
+  --pc-webkit-line-clamp: 2;
+
+  /* Text Alignment */
+  --pc-subtitle-text-align: left;
+
+  /* ================================
+     BORDERS & SHAPES
+     ================================ */
+  /* Border Radius */
+  --pc-card-border-radius: 24px;
+  --pc-dot-border-radius: 50%;
+  --pc-dot-active-border-radius: 5px;
+  --pc-control-border-radius: 50%;
+
+  /* Border Widths */
+  --pc-control-border-width: 2px;
+
+  /* ================================
+     DEPTH & LAYERING
+     ================================ */
+  /* Shadows */
+  --pc-card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+  /* Z-Index */
+  --pc-z-index-controls: 10;
+  --pc-z-index-overlay: 5;
+  --pc-z-index-content: 1;
+
+  /* ================================
+     ANIMATIONS & INTERACTIONS
+     ================================ */
+  /* Transition Properties */
+  --pc-transition-duration: 600ms;
+  --pc-transition-easing: ease-in-out;
+  --pc-control-transition-duration: 200ms;
+  --pc-control-transition-easing: ease;
+
+  /* Transform Values */
+  /* 3-Card Layout Transforms & Opacity */
+  --pc-transform-active-scale: var(--transform-scale-110);
+  --pc-transform-side-scale: var(--transform-scale-90);
+  --pc-transform-side-translate-left: translateX(var(--spacing-xl-negative));
+  --pc-transform-side-translate-right: translateX(var(--spacing-xl));
+  --pc-opacity-active: var(--opacity-100);
+  --pc-opacity-side: var(--opacity-75);
+  --pc-opacity-mobile-side: var(--opacity-60);
+
+  /* Touch & Swipe Interaction */
+  --pc-swipe-threshold: var(--spacing-4xl); /* 40px */
+  --pc-swipe-velocity-threshold: 0.3; /* px/ms */
+
+  /* Image Responsive Sizes */
+  --pc-image-size-mobile: 280px;
+  --pc-image-size-tablet: 306px;
+  --pc-image-size-desktop: 360px;
+
+  /* Image Sizes String for Next.js Image component */
+  --pc-image-sizes: (max-width: 768px) 280px, (max-width: 1024px) 306px, 360px;
+
+  /* Z-index Values */
+  --pc-z-index-active-card: 3;
+  --pc-z-index-side-card: 2;
+  --pc-z-index-hidden-card: 1;
+
+  /* Transform Values */
+  --pc-subtitle-transform-in: translateY(var(--spacing-sm));
+  --pc-subtitle-transform-out: translateY(0);
+
+  /* Mobile Layout */
+  --pc-mobile-container-padding: var(--spacing-lg); /* 16px */
+  --pc-mobile-card-max-width: 360px;
+  --pc-card-max-width-mobile: 400px;
+
+  /* 3-Card Layout Positioning */
+  --pc-card-active-left: 50%;
+  --pc-card-active-top: 50%;
+  --pc-card-side-desktop-offset: 15%;
+  --pc-card-side-mobile-offset: 5%;
+  --pc-transform-hover-lift: translateY(-2px);
+
+  /* Subtitle Animation */
+  --pc-subtitle-transition-duration: 300ms;
+  --pc-subtitle-transition-easing: ease-in-out;
+
+  /* ================================
+     COMPONENT SIZES
+     ================================ */
+  /* Navigation Elements */
+  --pc-dot-size: 10px;
+  --pc-dot-active-width: 18px;
+  --pc-control-button-size: 40px;
+  --pc-control-icon-size: 18px;
+
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values (inherited from global) */
+  --pc-breakpoint-tablet: 768px;
+  --pc-breakpoint-desktop: 1024px;
+
+  /* OneFeature Design Tokens */
+  /* ================================
+     OF (ONE FEATURE) DESIGN TOKENS
+     ================================ */
+
+  /* ================================
+     COLORS & THEMING
+     ================================ */
+  /* Background Colors */
+  --of-color-section-bg: var(--section-bg-neutral-alt);
+  --of-color-container-bg: var(--section-bg-white);
+  --of-color-card-bg: #f4f4f4;
+  --of-color-cta-bg: #0f172a;
+
+  /* Text Colors */
+  --of-color-title: #1a1a1a;
+  --of-color-subtitle: #4a5568;
+  --of-color-feature-title: #1a1a1a;
+  --of-color-feature-description: #6b7280;
+  --of-color-cta-text: #ffffff;
+  --of-color-icon: #6b7280;
+
+  /* Gradient Colors */
+  --of-gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+
+  /* Border Colors */
+  --of-color-border-light: #e2e8f0;
+  --of-color-border-medium: #cbd5e0;
+
+  /* ================================
+     SPACING & LAYOUT
+     ================================ */
+  /* Container Spacing */
+  --of-container-margin-top: 96px;
+  --of-container-gap: 32px;
+  --of-container-gap-large: 40px;
+
+  /* Feature Grid */
+  --of-features-gap: 32px;
+  --of-feature-padding-large: 24px;
+
+  /* CTA Spacing - Component-specific spacing (not button styling) */
+  --of-cta-margin-top: 40px;
+
+  /* ================================
+     BORDERS & SHAPES
+     ================================ */
+  /* Border Radius */
+  --of-border-radius-section: 30px;
+  --of-border-radius-card: 20px;
+  --of-border-radius-cta: 8px;
+
+  /* ================================
+     EFFECTS & SHADOWS
+     ================================ */
+  /* Box Shadows */
+  --of-shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --of-shadow-card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --of-shadow-cta: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
+  --of-shadow-cta-hover: 0 6px 20px rgba(0, 0, 0, 0.15);
+
+  /* ================================
+     ANIMATIONS & INTERACTIONS
+     ================================ */
+  /* Transition Properties */
+  --of-transition-duration-fast: 300ms;
+  --of-transition-duration-normal: 600ms;
+  --of-transition-duration-slow: 600ms;
+  --of-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --of-transition-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Transform Values */
+  --of-transform-hover-lift: translateY(-4px);
+  --of-transform-scale-hover: scale(1.02);
+
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values (inherited from global) */
+  --of-breakpoint-tablet: 768px;
+  --of-breakpoint-desktop: 1024px;
+
+  /* AppFeaturesCarousel Design Tokens */
+  /* ================================
+     AFC (APP FEATURES CAROUSEL) DESIGN TOKENS
+     ================================ */
+
+  /* ================================
+     IMAGE DIMENSIONS (Desktop & Tablet Fixed Width Layout)
+     ================================ */
+  /* Active Image - Desktop */
+  --afc-image-active-width-desktop: var(--dimension-416); /* 416px */
+  --afc-image-active-height-desktop: var(--dimension-500); /* 500px */
+
+  /* Inactive Image - Desktop */
+  --afc-image-inactive-width-desktop: var(--dimension-195); /* 195px */
+  --afc-image-inactive-height-desktop: var(--dimension-500); /* 500px */
+
+  /* Active Image - Tablet (single image at a time) */
+  --afc-image-width-tablet: var(--dimension-490); /* 490px */
+  --afc-image-height-tablet: var(--dimension-500); /* 500px */
+
+  /* Active Image - Mobile (single image at a time, 3:4 aspect ratio) */
+  --afc-image-width-mobile: var(--percent-90); /* 90% of screen width */
+  --afc-image-aspect-ratio-mobile: 3 / 4; /* 3:4 aspect ratio */
+
+  /* Image Gap - Desktop */
+  --afc-image-gap-desktop: var(--spacing-xl); /* 20px */
+
+  /* Description Width - Desktop (matches active image width) */
+  --afc-description-width-desktop: var(--dimension-416); /* 416px */
+
+  /* Description Width - Tablet (matches tablet image width) */
+  --afc-description-width-tablet: var(--dimension-490); /* 490px */
+
+  /* Description Width - Mobile (matches mobile image width) */
+  --afc-description-width-mobile: var(--percent-90); /* 90% of screen width */
+
+  /* Z-Index Values */
+  --afc-z-index-active: 3;
+  --afc-z-index-inactive: 1;
+
+  /* ================================
+     COLORS & THEMING
+     ================================ */
+  /* Background Colors */
+  --afc-color-section-bg: var(--section-bg-neutral);
+  --afc-color-container-bg: var(--section-bg-white);
+  --afc-color-card-bg: var(--section-bg-white);
+  --afc-color-overlay-start: rgba(0, 0, 0, 0.7);
+  --afc-color-overlay-end: transparent;
+
+  /* Text Colors */
+  --afc-color-title: #1a365d;
+  --afc-color-description: #0f172a;
+  --afc-color-chip-text: #ffffff;
+
+  /* Accent Colors */
+  --afc-color-accent: #0f766e;
+  --afc-color-accent-hover: #115e59;
+
+  /* Navigation Colors */
+  --afc-color-dot-inactive: #cbd5e0;
+  --afc-color-dot-hover: #a0aec0;
+  --afc-color-dot-active: #8b5cf6;
+  --afc-color-control-bg: var(--section-bg-white);
+  --afc-color-control-hover-bg: var(--section-bg-hover);
+  --afc-color-border: #e2e8f0;
+  --afc-color-border-hover: #cbd5e0;
+
+  /* Text & Link Colors */
+  --afc-color-text-primary: #1a365d;
+  --afc-color-link: #38b2ac;
+  --afc-color-link-hover: #319795;
+  --afc-color-indicator-default: #d1d5db;
+  --afc-color-indicator-active: #8b5cf6;
+  --afc-color-muted: #9ca3af;
+  --afc-color-bg-white: var(--section-bg-white);
+
+  /* Spinner & Loading Colors */
+  --afc-color-spinner-border: #e5e7eb;
+  --afc-color-spinner-active: #8b5cf6;
+
+  /* Gradient Fallbacks */
+  --afc-gradient-fallback: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+
+  /* ================================
+     SPACING & LAYOUT
+     ================================ */
+  /* Container Spacing */
+  --afc-container-gap: 19px; /* Reduced by 40% from 32px */
+  --afc-container-gap-desktop: 24px; /* Reduced by 40% from 40px */
+
+  /* Grid Layout */
+  --afc-grid-gap: 16px;
+  --afc-grid-gap-large: 20px;
+
+  /* Card Spacing */
+  --afc-card-padding: 20px;
+  --afc-card-gap: 12px;
+
+  /* ================================
+     BORDERS & SHAPES
+     ================================ */
+  /* Border Radius */
+  --afc-border-radius-card: 20px;
+  --afc-border-radius-chip: 16px;
+
+  /* ================================
+     EFFECTS & SHADOWS
+     ================================ */
+  /* Box Shadows */
+  --afc-shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --afc-shadow-card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* Gradient Overlays */
+  --afc-gradient-overlay: linear-gradient(
+    to top,
+    var(--afc-color-overlay-start) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    var(--afc-color-overlay-end) 100%
+  );
+
+  /* ================================
+     ANIMATIONS & INTERACTIONS
+     ================================ */
+  /* Transition Properties */
+  --afc-transition-duration: 300ms;
+  --afc-transition-easing: ease-in-out;
+
+  /* Transform Values */
+  --afc-transform-scale-active: 1.04;
+  --afc-transform-scale-inactive: 0.98;
+
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values (inherited from global) */
+  --afc-breakpoint-tablet: 768px;
+  --afc-breakpoint-desktop: 1024px;
+
+  /* FeatureShowcaseBenefits Design Tokens */
+  /* ================================
+     FSB (FEATURE SHOWCASE BENEFITS) DESIGN TOKENS
+     ================================ */
+
+  /* Benefits-Specific Image Sizing */
+  --fsb-image-container-width: 0.8;
+  --fsb-image-container-width-percent: 80%;
+
+  /* Benefits-Specific Border Radius */
+  --fsb-border-radius-image: 24px;
+
+  /* Benefits-Specific Shadows */
+  --fsb-shadow-image: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+  /* Footer Design Tokens */
+  /* ================================
+     FOOTER DESIGN TOKENS
+     ================================ */
+
+  /* Footer Colors */
+  --footer-bg-color: #1a1a1a;
+  --footer-text-color: #ffffff;
+  --footer-border-color: #2a2a2a;
+  --footer-icon-bg: #333333;
+
+  /* Footer Spacing */
+  --footer-padding-mobile: 48px 24px 24px;
+  --footer-padding-desktop: 48px 24px 32px;
+
+  /* Footer Transitions */
+  --footer-transition: 0.2s ease;
+
+  /* Footer Layout */
+  --footer-column-min-width: 220px;
+
+  /* ================================
+     COMMON DIMENSION TOKENS
+     ================================ */
+  /* Common Fixed Dimensions */
+  --dimension-56: 56px;
+  --dimension-100: 100px;
+  --dimension-106: 106px;
+  --dimension-120: 120px;
+  --dimension-125: 125px;
+  --dimension-136: 136px;
+  --dimension-368: 368px;
+  --dimension-140: 140px;
+  --dimension-150: 150px;
+  --dimension-172: 172px;
+  --dimension-195: 195px;
+  --dimension-200: 200px;
+  --dimension-250: 250px;
+  --dimension-280: 280px;
+  --dimension-300: 300px;
+  --dimension-350: 350px;
+  --dimension-390: 390px;
+  --dimension-400: 400px;
+  --dimension-416: 416px;
+  --dimension-450: 450px;
+  --dimension-480: 480px;
+  --dimension-490: 490px;
+  --dimension-500: 500px;
+  --dimension-550: 550px;
+  --dimension-560: 560px;
+  --dimension-600: 600px;
+  --dimension-700: 700px;
+  --dimension-800: 800px;
+  --dimension-832: 832px;
+  --dimension-900: 900px;
+  --dimension-1000: 1000px;
+  --dimension-1200: 1200px;
+
+  /* Common Spacing Values */
+  --spacing-2xs: 2px;
+  --spacing-xs: 4px;
+  --spacing-xs-plus: 6px;
+  --spacing-sm: 8px;
+  --spacing-sm-plus: 10px;
+  --spacing-md-minus: 12px;
+  --spacing-md-plus: 14px;
+  --spacing-md: 16px;
+  --spacing-base: 16px;
+
+  /* Negative Spacing Values */
+  --spacing-xs-negative: -4px;
+  --spacing-md-negative: -16px;
+  --spacing-xl-negative: -20px;
+  --spacing-lg: 24px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  --spacing-3xl: 32px;
+  --spacing-custom-35: 35px;
+  /* A13 (2026-06-11): exact tokens for the 56/60px section-spacing values used
+     in component CSS (between 5xl=48 and 6xl=64) — preserves rendering exactly. */
+  --spacing-custom-56: 56px;
+  --spacing-custom-60: 60px;
+  --spacing-4xl: 40px;
+  --spacing-5xl: 48px;
+  --spacing-6xl: 64px;
+  --spacing-7xl: 80px;
+  --spacing-8xl: 96px;
+
+  /* Fixed-nav clearance — MinimalNavigation is 80px tall (h-20). The shared
+     (landing) layout applies .main-content-landing (padding-top: 0) so full-bleed
+     cinematic heroes sit behind the transparent nav; light-hero content pages
+     (investors, tools, legal) use this token on their top element to clear the nav
+     plus breathing room instead. */
+  --layout-nav-clearance: calc(var(--spacing-7xl) + var(--spacing-3xl)); /* 112px */
+
+  /* Semantic Spacing Tokens */
+  --card-padding-desktop: 64px;
+
+  /* Common Percentage Values */
+  --percent-10: 10%;
+  --percent-15: 15%;
+  --percent-20: 20%;
+  --percent-25: 25%;
+  --percent-30: 30%;
+  --percent-33: 33.333%;
+  --percent-40: 40%;
+  --percent-50: 50%;
+  --percent-60: 60%;
+  --percent-66: 66.666%;
+  --percent-70: 70%;
+  --percent-75: 75%;
+  --percent-80: 80%;
+  --percent-85: 85%;
+  --percent-90: 90%;
+  --percent-95: 95%;
+  --percent-100: 100%;
+
+  /* Common Opacity Values */
+  --opacity-0: 0;
+  --opacity-10: 0.1;
+  --opacity-20: 0.2;
+  --opacity-30: 0.3;
+  --opacity-40: 0.4;
+  --opacity-50: 0.5;
+  --opacity-60: 0.6;
+  --opacity-70: 0.7;
+  --opacity-80: 0.8;
+  --opacity-85: 0.85;
+  --opacity-90: 0.9;
+  --opacity-95: 0.95;
+  --opacity-100: 1;
+  --opacity-12: 0.12;
+  --opacity-15: 0.15;
+  --opacity-45: 0.45;
+  --opacity-98: 0.98;
+
+  /* Common Transform Values */
+  --transform-scale-90: scale(0.9);
+  --transform-scale-95: scale(0.95);
+  --transform-scale-98: scale(0.98);
+  --transform-scale-100: scale(1);
+  --transform-scale-102: scale(1.02);
+  --transform-scale-105: scale(1.05);
+  --transform-scale-110: scale(1.1);
+  --transform-scale-115: scale(1.15);
+  --transform-scale-120: scale(1.2);
+  --transform-scale-104: scale(1.04);
+  --transform-rotate-90: rotate(90deg);
+  --transform-rotate-180: rotate(180deg);
+  --transform-rotate-270: rotate(270deg);
+
+  /* Common Breakpoint Values
+   * NOTE: For responsive layout, tailwind.config.ts is authoritative for breakpoints.
+   * Tailwind screens: sm=640px, md=1024px, lg=1280px, xl=1440px, 2xl=1536px.
+   * These CSS custom properties are used only for component-level media queries
+   * and JS-based breakpoint detection. */
+  --breakpoint-mobile: 480px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-wide: 1280px;
+  --breakpoint-ultra: 1440px;
+
+  /* Common Border Radius Values */
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-md-plus: 6px;
+  --radius-lg: 8px;
+  --radius-lg-plus: 10px;
+  --radius-lg-extra: 12px;
+  --radius-xl-minus: 14px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-4xl: 24px;
+  --radius-5xl: 28px;
+  --radius-6xl: 32px;
+  --radius-pill: 9999px;
+  --radius-full: 50%;
+
+  /* Common Line Height Values */
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.5;
+  --line-height-loose: 1.6;
+
+  /* Semantic Typography Tokens */
+  --font-title-hero-desktop: var(--font-size-5xl);
+  --font-title-hero-mobile: var(--font-size-3xl);
+  --font-title-section-desktop: var(--font-size-4xl);
+  --font-title-section-mobile: var(--font-size-2xl);
+  --font-body-subtitle: var(--font-size-lg);
+  --font-body-description: var(--font-size-md);
+  --font-size-body-desktop: var(--font-size-md);
+  --font-size-body-tablet: var(--font-size-md);
+  --font-size-body-mobile: var(--font-size-sm);
+  --line-height-body: var(--line-height-relaxed);
+
+  /* Mobile Banner Image Heights */
+  --mobile-banner-image-height-small: 180px;
+  --mobile-banner-image-height-medium: 240px;
+  --mobile-banner-image-height-large: 300px;
+  --mobile-banner-image-height-tablet: 360px;
+
+  /* Common Font Weight Values */
+  --font-weight-thin: 100;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  /* Common Font Size Values */
+  --font-size-2xs: 9px;
+  --font-size-xs-minus: 10px;
+  --font-size-xs: 12px;
+  --font-size-xs-plus: 13px;
+  --font-size-sm: 14px;
+  --font-size-sm-plus: 15px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+  --font-size-5xl: 48px;
+  --font-size-6xl: 60px;
+
+  /* Heading Scale (Desktop) */
+  --font-size-h1: var(--font-size-5xl);
+  --font-size-h2: var(--font-size-4xl);
+  --font-size-h3: var(--font-size-3xl);
+  --font-size-h4: var(--font-size-2xl);
+  --font-size-h5: var(--font-size-xl);
+  --font-size-h6: var(--font-size-lg);
+
+  /* Heading Scale (Mobile) */
+  --font-size-h1-mobile: var(--font-size-4xl);
+  --font-size-h2-mobile: var(--font-size-3xl);
+  --font-size-h3-mobile: var(--font-size-2xl);
+  --font-size-h4-mobile: var(--font-size-xl);
+  --font-size-h5-mobile: var(--font-size-lg);
+  --font-size-h6-mobile: var(--font-size-md);
+
+  /* Small Text Variants */
+  --font-size-small: var(--font-size-sm);
+  --font-size-overline: var(--font-size-xs);
+  --font-size-caption: var(--font-size-xs);
+
+  /* Common Color Values */
+  --color-white: #ffffff;
+  --color-black: #0f172a;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* Slate Palette (Neutral) - Maps to diBoasColors.neutral */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+
+  /* Teal Palette (Primary Brand) - Maps to diBoasColors.primary */
+  --color-teal-50: #f0fdfa;
+  --color-teal-100: #ccfbf1;
+  --color-teal-200: #99f6e4;
+  --color-teal-300: #5eead4;
+  --color-teal-400: #2dd4bf;
+  --color-teal-500: #14b8a6;
+  --color-teal-600: #0d9488;
+  --color-teal-700: #0f766e;
+  --color-teal-800: #115e59;
+  --color-teal-900: #134e4a;
+
+  /* Amber Palette (Growth/Warning Accent) */
+  --color-amber-50: #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #fde68a;
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-amber-700: #b45309;
+  --color-amber-800: #92400e;
+  --color-amber-900: #78350f;
+
+  /* A13 (2026-06-11): blue/green/red/emerald/rose palette shades referenced by
+     PreDemo status badges + ExportModal error states. Previously these existed
+     ONLY as hardcoded hex fallbacks on undefined tokens in component CSS;
+     promoted to real tokens here (canonical source) so the CSS references them
+     cleanly. Only the in-use shades are defined (no dead tokens). */
+  --color-blue-100: #dbeafe;
+  --color-blue-600: #2563eb;
+  --color-green-100: #dcfce7;
+  --color-green-600: #16a34a;
+  --color-red-200: #fecaca;
+  --color-red-300: #fca5a5;
+  --color-red-500: #ef4444;
+  --color-red-700: #b91c1c;
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-200: #a7f3d0;
+  --color-rose-50: #fff1f2;
+  --color-rose-700: #be123c;
+
+  /* Purple Palette (Accent) */
+  --color-purple-50: #faf5ff;
+  --color-purple-100: #f3e8ff;
+  --color-purple-200: #e9d5ff;
+  --color-purple-300: #d8b4fe;
+  --color-purple-400: #c084fc;
+  --color-purple-500: #a855f7;
+  --color-purple-600: #9333ea;
+  --color-purple-700: #7e22ce;
+  --color-purple-800: #6b21a8;
+  --color-purple-900: #581c87;
+
+  /* Coral Palette (Accent) */
+  --color-coral-50: #fff7ed;
+  --color-coral-100: #ffedd5;
+  --color-coral-200: #fed7aa;
+  --color-coral-300: #fdba74;
+  --color-coral-400: #fb923c;
+  --color-coral-500: #f97316;
+  --color-coral-600: #ea580c;
+  --color-coral-700: #c2410c;
+  --color-coral-800: #9a3412;
+  --color-coral-900: #7c2d12;
+
+  /* Chart / Data Visualization Palette */
+  --chart-1: var(--color-teal-500);
+  --chart-2: var(--color-purple-500);
+  --chart-3: var(--color-coral-500);
+  --chart-4: var(--color-amber-500);
+  --chart-5: var(--color-teal-300);
+  --chart-6: var(--color-purple-300);
+  --chart-7: var(--color-coral-300);
+  --chart-8: var(--color-amber-300);
+
+  /* Semantic Color Aliases (for components using text/surface naming) */
+  --color-primary: var(--color-teal-500);
+  --color-text-primary: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-600);
+  --color-text-muted: var(--color-slate-500);
+  --color-surface-elevated: var(--color-white);
+  --color-surface-secondary: var(--color-slate-50);
+
+  /* Common Shadow Values */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* Text Shadow Values */
+  --shadow-text-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-text-strong: 0 1px 3px rgba(0, 0, 0, 0.8);
+  --shadow-text-high-contrast: 2px 2px 4px rgba(0, 0, 0, 1);
+
+  /* Common Transition Values */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
+  --transition-transform: transform 300ms ease-in-out;
+  --transition-opacity: opacity 300ms ease-in-out;
+  --transition-colors:
+    color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+
+  /* ================================
+     THEME SYSTEM - SEMANTIC COLORS
+     ================================ */
+
+  /* Light Theme (Default) */
+  --theme-bg-primary: var(--color-white);
+  --theme-bg-secondary: var(--color-gray-50);
+  --theme-bg-tertiary: var(--color-gray-100);
+  --theme-bg-accent: var(--color-gray-200);
+
+  --theme-text-primary: var(--color-gray-900);
+  --theme-text-secondary: var(--color-gray-700);
+  --theme-text-tertiary: var(--color-gray-600);
+  --theme-text-muted: var(--color-gray-500);
+  --theme-text-inverse: var(--color-white);
+
+  --theme-border-primary: var(--color-gray-200);
+  --theme-border-secondary: var(--color-gray-300);
+  --theme-border-accent: var(--color-gray-400);
+
+  --theme-surface-elevated: var(--color-white);
+  --theme-surface-overlay: rgba(0, 0, 0, 0.5);
+  --theme-surface-disabled: var(--color-gray-100);
+
+  /* Interactive States */
+  --theme-interactive-primary: #0d9488;
+  --theme-interactive-primary-hover: #0a7c74;
+  --theme-interactive-primary-active: #2c7a7b;
+  --theme-interactive-secondary: var(--color-gray-600);
+  --theme-interactive-secondary-hover: var(--color-gray-700);
+
+  /* Status Colors */
+  --theme-status-success: #10b981;
+  --theme-status-warning: #f59e0b;
+  --theme-status-error: #ef4444;
+  --theme-status-info: #3b82f6;
+
+  /* Focus and Selection */
+  --theme-focus-ring: var(--theme-interactive-primary);
+  --theme-selection-bg: rgba(56, 178, 172, 0.1);
+  --theme-selection-text: var(--theme-text-primary);
+
+  /* ================================
+     HERO SECTION DESIGN TOKENS
+     ================================ */
+  /* Mobile Viewport Height */
+  --hs-mobile-visual-height: 75vh;
+
+  /* Background Circle Dimensions */
+  --hs-circle-width-mobile: 100%;
+  --hs-circle-height-mobile: 75vh;
+  --hs-circle-width-tablet: 75%;
+  --hs-circle-height-tablet: calc(75vh * 0.75);
+  --hs-circle-width-desktop: 400px;
+  --hs-circle-height-desktop: 400px;
+
+  /* Phone Image Dimensions */
+  --hs-phone-width-mobile: 110%;
+  --hs-phone-height-mobile: 420px;
+  --hs-phone-width-tablet: 82.5%;
+  --hs-phone-height-tablet: 315px;
+  --hs-phone-width-desktop: 460px;
+  --hs-phone-height-desktop: 480px;
+
+  /* Mascot Image Dimensions */
+  --hs-mascot-width-mobile: 120px;
+  --hs-mascot-height-mobile: 120px;
+  --hs-mascot-width-tablet: 140px;
+  --hs-mascot-height-tablet: 140px;
+  --hs-mascot-width-desktop: 160px;
+  --hs-mascot-height-desktop: 160px;
+
+  /* Mascot Positioning */
+  --hs-mascot-offset-top: 50%;
+  --hs-mascot-offset-right: -20px;
+
+  /* Content Spacing */
+  --hs-content-gap-mobile: 24px;
+  --hs-content-gap-desktop: 48px;
+  --hs-content-padding-mobile: 48px 24px;
+  --hs-content-padding-desktop: 64px 120px;
+
+  /* Section Configuration */
+  --hs-section-max-height: none;
+  --hs-section-border-radius-bottom-left: 0px; /* Mobile: No bottom left corner radius */
+  --hs-section-border-radius-bottom-right: 0px; /* Mobile: No bottom right corner radius */
+
+  /* Typography Spacing */
+  --hs-title-margin-bottom: 16px;
+  --hs-description-margin-bottom: 24px;
+  --hs-cta-margin-top-mobile: 24px;
+  --hs-cta-margin-top-tablet: 32px;
+  --hs-cta-margin-top-desktop: 32px;
+
+  /* Visual Scaling */
+  --hs-tablet-visual-scale: 0.75;
+
+  /* Colors */
+  --hs-color-title: #1a365d;
+  --hs-color-loading-bg: rgba(255, 255, 255, 0.9);
+  --hs-color-cta-focus: #3b82f6;
+
+  /* Gradients */
+  --hs-gradient-bg: linear-gradient(135deg, #f7fefc 0%, #40c2aa 50%, #f0fdfa 100%);
+  --hs-gradient-cta: linear-gradient(135deg, #0d9488 0%, #0a7c74 100%);
+
+  /* Shadows */
+  --hs-shadow-image: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.1));
+  --hs-shadow-cta-hover: 0 8px 25px rgba(56, 178, 172, 0.25);
+
+  /* Spinner */
+  --hs-spinner-border-width: 3px;
+  --hs-spinner-border-color: #e5e7eb;
+  --hs-spinner-border-top-color: #38b2ac;
+
+  /* Content Layout (migrated from legacy hero block) */
+  --hs-content-padding-top: 276px;
+  --hs-content-max-width: 660px;
+
+  /* Stats Colors (migrated from legacy hero block) */
+  --hs-color-stats-text: #ffffff;
+
+  /* Overlay Gradient (migrated from legacy hero block) */
+  --hs-gradient-overlay: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.92) 50%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+
+  /* Calculated Visual Heights (migrated from legacy hero block) */
+  --hs-visual-content-height-tablet: 56.25vh;
+
+  /* Common Dimensions */
+  --dimension-60: 60px;
+  --dimension-180: 180px;
+  --dimension-216: 216px;
+  --dimension-450: 450px;
+  --dimension-480: 480px;
+  --dimension-500: 500px;
+
+  /* ================================
+     FAQ ACCORDION DESIGN TOKENS
+     ================================ */
+
+  /* Container & Layout */
+  --faq-container-max-width: var(--container-max-width-wide);
+  --faq-bg-color: var(--section-bg-neutral-alt);
+
+  /* Grid Layout */
+  --faq-grid-columns-mobile: 1fr;
+  --faq-grid-columns-desktop: 40fr 60fr;
+  --faq-grid-gap-mobile: 32px;
+  --faq-grid-gap-desktop: 48px;
+
+  /* Element Order (for mobile/tablet single column) */
+  --faq-order-heading: 1;
+  --faq-order-description: 2;
+  --faq-order-accordion: 3;
+  --faq-order-cta: 4;
+
+  /* Left Panel (Intro) */
+  --faq-intro-heading-size-mobile: 36px;
+  --faq-intro-heading-size-desktop: 48px;
+  --faq-intro-heading-color: var(--color-gray-900);
+  --faq-intro-heading-weight: var(--font-weight-bold);
+  --faq-intro-heading-line-height: 1.2;
+  --faq-intro-heading-margin-bottom: 24px;
+
+  --faq-intro-description-size: 18px;
+  --faq-intro-description-color: var(--color-gray-600);
+  --faq-intro-description-line-height: 1.6;
+  --faq-intro-description-max-width: 400px;
+  --faq-intro-description-margin-bottom: 32px;
+
+  /* Accordion Items */
+  --faq-accordion-gap: 16px;
+  --faq-item-bg: var(--section-bg-white);
+  --faq-item-border-radius: 16px;
+  --faq-item-padding: 24px;
+  --faq-item-shadow: var(--shadow-sm);
+  --faq-item-border-expanded: 2px solid var(--theme-interactive-primary);
+  --faq-item-hover-bg: var(--section-bg-hover);
+
+  /* Question Typography */
+  --faq-question-size: 18px;
+  --faq-question-weight: var(--font-weight-semibold);
+  --faq-question-color: var(--color-gray-900);
+  --faq-question-line-height: 1.4;
+
+  /* Answer Typography */
+  --faq-answer-size: 16px;
+  --faq-answer-weight: var(--font-weight-normal);
+  --faq-answer-color: var(--color-gray-600);
+  --faq-answer-line-height: 1.6;
+  --faq-answer-padding-top: 20px;
+
+  /* Icons */
+  --faq-icon-size: 24px;
+  --faq-icon-color: var(--color-gray-900);
+
+  /* Animations */
+  --faq-transition-duration: 400ms;
+  --faq-transition-easing: ease-in-out;
+  --faq-icon-rotation-duration: 300ms;
+  --faq-content-fade-duration: 200ms;
+
+  /* ================================
+     STICKY FEATURES NAV DESIGN TOKENS
+     Card-Based Layout (No Sticky Navigation)
+     ================================ */
+
+  /* SFN Colors */
+  --sfn-bg-section: var(--section-bg-neutral);
+  --sfn-bg-container: var(--section-bg-white);
+  --sfn-bg-card: var(--section-bg-white);
+  --sfn-color-title: #1a365d;
+  --sfn-color-card-heading: #1a365d;
+  --sfn-color-card-description: #4a5568;
+  --sfn-color-border-light: #e2e8f0;
+  --sfn-color-accent-primary: #115e59;
+
+  /* SFN Section Layout - Desktop Only */
+  --sfn-section-padding-desktop-y: 32px;
+  --sfn-section-padding-desktop-x: 132px;
+
+  /* SFN Container - Fixed width inside section */
+  --sfn-container-width: var(--container-max-width-narrow);
+  --sfn-container-bg: var(--section-bg-white);
+  --sfn-container-border-radius: 30px;
+  --sfn-container-row-gap: 20px;
+
+  /* SFN Title Container */
+  --sfn-title-container-height: 60px;
+  --sfn-title-container-width: 100%;
+
+  /* SFN Card Layout */
+  --sfn-card-padding-top: 32px;
+  --sfn-card-padding-x: 32px;
+  --sfn-card-padding-bottom: 72px;
+  --sfn-card-margin-bottom: 118px;
+  --sfn-card-width: 100%;
+  --sfn-card-height: 356px;
+  --sfn-card-row-gap: 20px;
+
+  /* SFN Card Heading */
+  --sfn-card-heading-margin-bottom: 24px;
+
+  /* SFN Card Content (2 columns: image left, text right) */
+  --sfn-card-content-height: 190px;
+  --sfn-card-content-column-gap: 20px;
+
+  /* SFN Typography */
+  --sfn-title-size-mobile: 36px;
+  --sfn-title-size-desktop: 48px;
+  --sfn-title-weight: 700;
+  --sfn-card-heading-size: 24px;
+  --sfn-card-heading-weight: 700;
+  --sfn-card-description-size-mobile: 16px;
+  --sfn-card-description-size-desktop: 18px;
+  --sfn-card-description-line-height: 1.6;
+
+  /* SFN Borders & Shadows */
+  --sfn-card-border-radius: 16px;
+  --sfn-card-border-width: 1px;
+  --sfn-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  /* SFN Image */
+  --sfn-image-aspect-ratio: 16 / 10;
+  --sfn-image-border-radius: 12px;
+  --sfn-image-width-desktop: 486px;
+  --sfn-image-height-desktop: 243px;
+
+  /* SFN Image Transitions */
+  --sfn-image-hover-scale: 1.05;
+  --sfn-image-hover-duration: 400ms;
+  --sfn-image-hover-easing: ease;
+
+  /* SFN Scroll Condensing Animation */
+  --sfn-condense-transition-duration: 0ms; /* Instant for scroll-based animation */
+  --sfn-condense-transition-easing: linear; /* Smooth linear for scroll tracking */
+
+  /* SFN Card Heading Heights (for condensation calculation) */
+  --sfn-card-heading-height-mobile: 80px; /* Approximate: font-size + margin + padding */
+  --sfn-card-heading-height-tablet: 90px;
+  --sfn-card-heading-height-desktop: 100px; /* Based on font-size 24px + margins */
+
+  /* SFN Sticky Positioning */
+  --sfn-sticky-top-mobile: 60px; /* Stick 60px from top of viewport */
+  --sfn-sticky-top-tablet: 80px; /* Stick 80px from top of viewport */
+  --sfn-sticky-top-desktop: 80px; /* Stick 80px from top of viewport */
+
+  /* SFN Card Z-Index for Stacking */
+  --sfn-card-z-index-base: 1;
+  --sfn-card-z-index-condensed: 10; /* Higher z-index when condensed */
+  --sfn-card-z-index-increment: 1; /* Each card above gets +1 z-index */
+
+  /* ================================
+     BC (BENEFITS CARDS) DESIGN TOKENS
+     ================================ */
+
+  /* ================================
+     COLORS & THEMING
+     ================================ */
+  /* Background Colors */
+  --bc-color-section-bg: var(--section-bg-neutral); /* Section background (unified) */
+  --bc-color-card-bg: var(--section-bg-white); /* White card backgrounds */
+
+  /* Text Colors */
+  --bc-color-title: #1a365d; /* Main title color */
+  --bc-color-card-title: #1a1a1a; /* Card title color */
+  --bc-color-card-description: #4a5568; /* Card description color */
+
+  /* Icon Colors */
+  --bc-color-icon-bg: transparent; /* Icon background (transparent for minimal style) */
+
+  /* ================================
+     SPACING & LAYOUT
+     ================================ */
+  /* Container Specifications */
+  --bc-container-max-width: var(--container-max-width-standard);
+
+  /* Grid Layout - Desktop (staggered 3 + 2 cards layout) */
+  --bc-grid-columns-mobile: 1fr; /* 1 column on mobile */
+  --bc-grid-columns-tablet: 1fr; /* 1 column on tablet */
+  --bc-grid-columns-desktop: repeat(6, 1fr); /* 6 columns for staggered layout on desktop */
+  --bc-grid-gap-desktop: 32px; /* Gap between cards on desktop */
+  --bc-grid-gap-tablet: 24px; /* Gap between cards on tablet */
+  --bc-grid-gap-mobile: 20px; /* Gap between cards on mobile */
+
+  /* Grid Column Spans - Desktop Staggered Layout */
+  --bc-card-1-column-span: 1 / 3; /* Card 1: Columns 1-2 */
+  --bc-card-2-column-span: 3 / 5; /* Card 2: Columns 3-4 */
+  --bc-card-3-column-span: 5 / 7; /* Card 3: Columns 5-6 */
+  --bc-card-4-column-span: 2 / 4; /* Card 4: Columns 2-3 (offset between 1 & 2) */
+  --bc-card-5-column-span: 4 / 6; /* Card 5: Columns 4-5 (offset between 2 & 3) */
+
+  /* Section Spacing */
+  --bc-section-title-margin-bottom: 48px; /* Space below section title */
+  --bc-description-max-width: 600px; /* Max width for section description */
+
+  /* Card Spacing */
+  --bc-card-padding-desktop: 32px; /* Card internal padding - desktop */
+  --bc-card-padding-tablet: 28px; /* Card internal padding - tablet */
+  --bc-card-padding-mobile: 24px; /* Card internal padding - mobile */
+  --bc-card-content-gap: 16px; /* Gap between icon, title, and description */
+
+  /* Icon Dimensions */
+  --bc-icon-size-desktop: 48px; /* Icon size - desktop */
+  --bc-icon-size-tablet: 44px; /* Icon size - tablet */
+  --bc-icon-size-mobile: 40px; /* Icon size - mobile */
+  --bc-icon-padding: 0; /* Icon background padding (0 for full fill) */
+  --bc-icon-color: #0f172a; /* Icon color - slate-900 */
+
+  /* ================================
+     TYPOGRAPHY
+     ================================ */
+  /* Section Title Typography */
+  --bc-title-font-size-desktop: 48px;
+  --bc-title-font-size-tablet: 40px;
+  --bc-title-font-size-mobile: 34px;
+  --bc-title-font-weight: var(--font-weight-medium);
+  --bc-title-line-height: var(--line-height-title);
+
+  /* Card Title Typography */
+  --bc-card-title-font-size-desktop: 28px;
+  --bc-card-title-font-size-tablet: 26px;
+  --bc-card-title-font-size-mobile: 24px;
+  --bc-card-title-font-weight: var(--font-weight-medium);
+  --bc-card-title-line-height: 1.3;
+
+  /* Card Description Typography */
+  --bc-card-description-font-size-desktop: 20px;
+  --bc-card-description-font-size-tablet: 19px;
+  --bc-card-description-font-size-mobile: 18px;
+  --bc-card-description-font-weight: var(--font-weight-medium);
+  --bc-card-description-line-height: 1.6;
+
+  /* ================================
+     BORDERS & SHAPES
+     ================================ */
+  /* Border Radius */
+  --bc-card-border-radius: 16px;
+  --bc-icon-border-radius: 12px;
+
+  /* Border Widths */
+  --bc-border-width: 2px; /* Standard border width */
+  --bc-outline-width: 2px; /* Focus outline width */
+  --bc-outline-offset: 2px; /* Focus outline offset */
+
+  /* ================================
+     EFFECTS & SHADOWS
+     ================================ */
+  /* Box Shadows */
+  --bc-card-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --bc-card-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+  /* ================================
+     ANIMATIONS & INTERACTIONS
+     ================================ */
+  /* Transition Properties */
+  --bc-transition-duration: 300ms;
+  --bc-transition-easing: ease-in-out;
+
+  /* Transform Values */
+  --bc-transform-hover: translateY(-4px);
+
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values (inherited from global) */
+  --bc-breakpoint-tablet: 768px;
+  --bc-breakpoint-desktop: 1024px;
+
+  /* ================================
+     BGHIGHLIGHT SECTION (BG)
+     Background highlight section with full-width image and bottom-left content
+     ================================ */
+
+  /* ================================
+     SECTION DIMENSIONS
+     ================================ */
+  /* Section Height */
+  --bg-section-height-desktop: 700px; /* Section height - desktop */
+  --bg-section-height-tablet: 500px; /* Section height - tablet */
+  --bg-section-height-mobile: 400px; /* Section height - mobile */
+
+  /* Section Width */
+  --bg-section-width: var(--percent-100); /* Full width section */
+
+  /* ================================
+     CONTENT CONTAINER
+     ================================ */
+  /* Content Container Dimensions */
+  --bg-content-max-width: 640px; /* Content container max width */
+  --bg-content-height: var(--percent-100); /* Content container height */
+
+  /* Content Padding */
+  --bg-content-padding-top-desktop: 450px; /* Top padding - desktop */
+  --bg-content-padding-top-tablet: 300px; /* Top padding - tablet */
+  --bg-content-padding-top-mobile: 200px; /* Top padding - mobile */
+  --bg-content-padding-bottom: 40px; /* Bottom padding - all sizes */
+  --bg-content-padding-left-desktop: 120px; /* Left padding - desktop */
+  --bg-content-padding-left-tablet: 64px; /* Left padding - tablet */
+  --bg-content-padding-left-mobile: 24px; /* Left padding - mobile */
+  --bg-content-padding-right: 0; /* Right padding - no padding */
+
+  /* Content Internal Spacing */
+  --bg-content-gap: var(--spacing-md); /* Gap between title and description */
+
+  /* ================================
+     TYPOGRAPHY
+     ================================ */
+  /* Title Typography */
+  --bg-title-font-size-desktop: var(--font-size-title-desktop);
+  --bg-title-font-size-tablet: var(--font-size-title-tablet);
+  --bg-title-font-size-mobile: var(--font-size-title-mobile);
+  --bg-title-font-weight: var(--font-weight-bold);
+  --bg-title-line-height: var(--line-height-title);
+
+  /* Description Typography */
+  --bg-description-font-size-desktop: var(--font-size-description-desktop);
+  --bg-description-font-size-tablet: var(--font-size-description-tablet);
+  --bg-description-font-size-mobile: var(--font-size-description-mobile);
+  --bg-description-font-weight: var(--font-weight-normal);
+  --bg-description-line-height: var(--line-height-description);
+
+  /* ================================
+     COLORS & THEMING
+     ================================ */
+  /* Text Colors */
+  --bg-color-title: var(--section-bg-white); /* Title color - white */
+  --bg-color-description: var(--section-bg-white); /* Description color - white */
+
+  /* Background Overlay */
+  --bg-overlay-gradient: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.09) 50%,
+    rgba(0, 0, 0, 0.09) 100%
+  ); /* Gradient overlay for text readability */
+
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values */
+  --bg-breakpoint-tablet: 768px;
+  --bg-breakpoint-desktop: 1024px;
+
+  /* ================================
+     STEPGUIDE SECTION (SG)
+     Step-by-step guide section with numbered instructions
+     ================================ */
+
+  /* ================================
+     CONTAINER DIMENSIONS
+     ================================ */
+  /* Container Dimensions */
+  --sg-container-width: var(--percent-100); /* Full width container */
+  --sg-container-min-height: 300px; /* Minimum container height */
+
+  /* Container Padding */
+  --sg-container-padding-desktop-y: var(--padding-section-desktop-y);
+  --sg-container-padding-desktop-x: var(--padding-section-desktop-x);
+  --sg-container-padding-tablet-y: var(--padding-section-tablet-y);
+  --sg-container-padding-tablet-x: var(--padding-section-tablet-x);
+  --sg-container-padding-mobile-y: var(--padding-section-mobile-y);
+  --sg-container-padding-mobile-x: var(--padding-section-mobile-x);
+
+  /* ================================
+     CONTENT DIMENSIONS
+     ================================ */
+  /* Content Container */
+  --sg-content-width: var(--percent-100); /* Full width of container */
+  --sg-content-max-width: 1200px; /* Maximum content width */
+
+  /* Content Padding */
+  --sg-content-padding-left-desktop: 120px; /* Left padding - desktop */
+  --sg-content-padding-right-desktop: 120px; /* Right padding - desktop */
+  --sg-content-padding-left-tablet: 0; /* Left padding - tablet (no padding) */
+  --sg-content-padding-right-tablet: 0; /* Right padding - tablet (no padding) */
+  --sg-content-padding-left-mobile: 0; /* Left padding - mobile (no padding) */
+  --sg-content-padding-right-mobile: 0; /* Right padding - mobile (no padding) */
+
+  /* ================================
+     TITLE STYLES
+     ================================ */
+  /* Title Spacing */
+  --sg-title-margin-bottom-desktop: 48px; /* Title bottom margin - desktop */
+  --sg-title-margin-bottom-tablet: 40px; /* Title bottom margin - tablet */
+  --sg-title-margin-bottom-mobile: 32px; /* Title bottom margin - mobile */
+
+  /* Title Typography */
+  --sg-title-font-size-desktop: var(--font-size-title-desktop);
+  --sg-title-font-size-tablet: var(--font-size-title-tablet);
+  --sg-title-font-size-mobile: var(--font-size-title-mobile);
+  --sg-title-font-weight: var(--font-weight-bold);
+  --sg-title-line-height: var(--line-height-title);
+  --sg-title-color: var(--color-text-primary);
+
+  /* ================================
+     STEPS CONTAINER STYLES
+     ================================ */
+  /* Steps Container Dimensions */
+  --sg-steps-container-width: var(--percent-100); /* Full width */
+  --sg-steps-container-bg: var(--section-bg-white); /* White background */
+  --sg-steps-container-border-radius: 16px; /* Rounded corners */
+
+  /* Steps Container Padding */
+  --sg-steps-container-padding-desktop-y: 64px; /* Top/bottom padding - desktop */
+  --sg-steps-container-padding-desktop-x: 64px; /* Left/right padding - desktop */
+  --sg-steps-container-padding-tablet-y: 48px; /* Top/bottom padding - tablet */
+  --sg-steps-container-padding-tablet-x: 48px; /* Left/right padding - tablet */
+  --sg-steps-container-padding-mobile-y: 32px; /* Top/bottom padding - mobile */
+  --sg-steps-container-padding-mobile-x: 24px; /* Left/right padding - mobile */
+
+  /* Steps Container Shadow */
+  --sg-steps-container-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  /* ================================
+     STEP ROW STYLES
+     ================================ */
+  /* Step Row Dimensions */
+  --sg-step-row-width: 90%; /* 90% of steps container width */
+  --sg-step-row-gap-desktop: 24px; /* Gap between number and text - desktop */
+  --sg-step-row-gap-tablet: 20px; /* Gap between number and text - tablet */
+  --sg-step-row-gap-mobile: 16px; /* Gap between number and text - mobile */
+  --sg-step-row-margin-bottom-desktop: 24px; /* Margin between steps - desktop */
+  --sg-step-row-margin-bottom-tablet: 20px; /* Margin between steps - tablet */
+  --sg-step-row-margin-bottom-mobile: 16px; /* Margin between steps - mobile */
+
+  /* Step Row Border */
+  --sg-step-row-border-top-width: 1px; /* Border width */
+  --sg-step-row-border-top-color: #e2e8f0; /* Subtle border color */
+
+  /* ================================
+     STEP NUMBER STYLES
+     ================================ */
+  /* Step Number Typography */
+  --sg-step-number-font-size-desktop: 24px; /* Number font size - desktop */
+  --sg-step-number-font-size-tablet: 22px; /* Number font size - tablet */
+  --sg-step-number-font-size-mobile: 20px; /* Number font size - mobile */
+  --sg-step-number-font-weight: var(--font-weight-bold);
+  --sg-step-number-line-height: 1.4;
+  --sg-step-number-color: var(--color-primary); /* Primary color for numbers */
+  --sg-step-number-min-width: 48px; /* Minimum width for alignment */
+
+  /* ================================
+     STEP TEXT STYLES
+     ================================ */
+  /* Step Text Typography */
+  --sg-step-text-font-size-desktop: var(--font-size-body-desktop);
+  --sg-step-text-font-size-tablet: var(--font-size-body-tablet);
+  --sg-step-text-font-size-mobile: var(--font-size-body-mobile);
+  --sg-step-text-font-weight: var(--font-weight-normal);
+  --sg-step-text-line-height: var(--line-height-body);
+  --sg-step-text-color: var(--color-text-primary);
+
+  /* ================================
+     INTERACTIVE DEMO TOKENS
+     ================================ */
+  /* Demo Screen 1 Typography - Pain Screen */
+  /* Header: "Your savings today" - responsive sizes */
+  --demo-header-font-size-desktop: 28px;
+  --demo-header-font-size-tablet: 24px;
+  --demo-header-font-size-mobile: 20px;
+
+  /* Subtext: "What your bank gave you this year:" - responsive sizes */
+  --demo-subtext-font-size-desktop: var(--font-size-md); /* 16px */
+  --demo-subtext-font-size-tablet: var(--font-size-md); /* 16px */
+  --demo-subtext-font-size-mobile: var(--font-size-sm); /* 14px */
+
+  /* Hook: "What they made with it" - responsive sizes */
+  --demo-hook-font-size-desktop: var(--font-size-md); /* 16px */
+  --demo-hook-font-size-tablet: var(--font-size-md); /* 16px */
+  --demo-hook-font-size-mobile: var(--font-size-sm); /* 14px */
+
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values */
+  --sg-breakpoint-tablet: 768px;
+  --sg-breakpoint-desktop: 1024px;
+}
+
+/* ================================
+   DARK THEME OVERRIDES
+   ================================ */
+
+[data-theme='dark'] {
+  /* Dark Theme Background Colors */
+  --theme-bg-primary: var(--color-gray-900);
+  --theme-bg-secondary: var(--color-gray-800);
+  --theme-bg-tertiary: var(--color-gray-700);
+  --theme-bg-accent: var(--color-gray-600);
+
+  /* Dark Theme Text Colors */
+  --theme-text-primary: var(--color-gray-100);
+  --theme-text-secondary: var(--color-gray-300);
+  --theme-text-tertiary: var(--color-gray-400);
+  --theme-text-muted: var(--color-gray-500);
+  --theme-text-inverse: var(--color-gray-900);
+
+  /* Dark Theme Border Colors */
+  --theme-border-primary: var(--color-gray-700);
+  --theme-border-secondary: var(--color-gray-600);
+  --theme-border-accent: var(--color-gray-500);
+
+  /* Dark Theme Surfaces */
+  --theme-surface-elevated: var(--color-gray-800);
+  --theme-surface-overlay: rgba(0, 0, 0, 0.8);
+  --theme-surface-disabled: var(--color-gray-800);
+
+  /* Dark Theme Interactive States */
+  --theme-interactive-primary: #4fd1c7;
+  --theme-interactive-primary-hover: #38b2ac;
+  --theme-interactive-primary-active: #319795;
+  --theme-interactive-secondary: var(--color-gray-400);
+  --theme-interactive-secondary-hover: var(--color-gray-300);
+
+  /* Dark Theme Status Colors */
+  --theme-status-success: #34d399;
+  --theme-status-warning: #fbbf24;
+  --theme-status-error: #f87171;
+  --theme-status-info: #60a5fa;
+
+  /* Dark Theme Focus and Selection */
+  --theme-focus-ring: var(--theme-interactive-primary);
+  --theme-selection-bg: rgba(79, 209, 199, 0.2);
+  --theme-selection-text: var(--theme-text-primary);
+
+  /* ── Component-level overrides for WCAG compliance ──
+     These override the semantic text color tokens used by
+     ProseSection, WaitlistSection, FAQAccordion, etc.
+     when rendered on dark backgrounds (--section-bg-dark).
+     Contrast ratios verified against #0f172a background:
+       #ffffff = 17.9:1 (AAA), #e2e8f0 = 14.5:1 (AAA),
+       #cbd5e1 = 12.0:1 (AAA), #5eead4 = 12.1:1 (AA)   */
+  --color-text-heading: #ffffff;
+  --color-text-body: #e2e8f0;
+  --color-text-secondary: #cbd5e1;
+  --color-section-title: #ffffff;
+  --text-primary-accessible: #5eead4;
+  /* Brand-accent text (u-eyebrow kicker) on dark surfaces — #5eead4 = 12.1:1
+     on #0f172a (AA), keeps the editorial eyebrow legible on the dark Catch. */
+  --text-brand-accessible: #5eead4;
+  --cta-bg-primary: #5eead4;
+  --cta-color-primary: #0f172a;
+  --color-slate-200: #e2e8f0;
+}
+
+/* ================================
+   HIGH CONTRAST THEME
+   ================================ */
+
+[data-theme='high-contrast'] {
+  /* High Contrast Colors */
+  --theme-bg-primary: var(--color-white);
+  --theme-bg-secondary: var(--color-white);
+  --theme-bg-tertiary: var(--color-white);
+  --theme-bg-accent: var(--color-white);
+
+  --theme-text-primary: var(--color-black);
+  --theme-text-secondary: var(--color-black);
+  --theme-text-tertiary: var(--color-black);
+  --theme-text-muted: var(--color-black);
+  --theme-text-inverse: var(--color-white);
+
+  --theme-border-primary: var(--color-black);
+  --theme-border-secondary: var(--color-black);
+  --theme-border-accent: var(--color-black);
+
+  --theme-surface-elevated: var(--color-white);
+  --theme-surface-overlay: rgba(0, 0, 0, 0.9);
+  --theme-surface-disabled: var(--color-gray-300);
+
+  --theme-interactive-primary: var(--color-black);
+  --theme-interactive-primary-hover: var(--color-black);
+  --theme-interactive-primary-active: var(--color-black);
+  --theme-interactive-secondary: var(--color-black);
+  --theme-interactive-secondary-hover: var(--color-black);
+
+  --theme-status-success: var(--color-black);
+  --theme-status-warning: var(--color-black);
+  --theme-status-error: var(--color-black);
+  --theme-status-info: var(--color-black);
+
+  --theme-focus-ring: var(--color-black);
+  --theme-selection-bg: var(--color-gray-300);
+  --theme-selection-text: var(--color-black);
+}
+
+/* ================================
+   DARK HIGH CONTRAST THEME
+   ================================ */
+
+[data-theme='dark-high-contrast'] {
+  /* Dark High Contrast Colors */
+  --theme-bg-primary: var(--color-black);
+  --theme-bg-secondary: var(--color-black);
+  --theme-bg-tertiary: var(--color-black);
+  --theme-bg-accent: var(--color-black);
+
+  --theme-text-primary: var(--color-white);
+  --theme-text-secondary: var(--color-white);
+  --theme-text-tertiary: var(--color-white);
+  --theme-text-muted: var(--color-white);
+  --theme-text-inverse: var(--color-black);
+
+  --theme-border-primary: var(--color-white);
+  --theme-border-secondary: var(--color-white);
+  --theme-border-accent: var(--color-white);
+
+  --theme-surface-elevated: var(--color-black);
+  --theme-surface-overlay: rgba(255, 255, 255, 0.9);
+  --theme-surface-disabled: var(--color-gray-700);
+
+  --theme-interactive-primary: var(--color-white);
+  --theme-interactive-primary-hover: var(--color-white);
+  --theme-interactive-primary-active: var(--color-white);
+  --theme-interactive-secondary: var(--color-white);
+  --theme-interactive-secondary-hover: var(--color-white);
+
+  --theme-status-success: var(--color-white);
+  --theme-status-warning: var(--color-white);
+  --theme-status-error: var(--color-white);
+  --theme-status-info: var(--color-white);
+
+  --theme-focus-ring: var(--color-white);
+  --theme-selection-bg: var(--color-gray-700);
+  --theme-selection-text: var(--color-white);
+}
+
+/* ================================
+   THEME TRANSITION ANIMATIONS
+   ================================ */
+
+/*
+ * Theme transitions are applied per-component via their own CSS rules
+ * (e.g. .button { transition: ... }, .link { transition: ... }).
+ *
+ * IMPORTANT: Do NOT use `* { transition: ... }` here.
+ * A universal transition rule forces the browser to track transitions on
+ * every DOM element during scroll, which disables the compositor-driven
+ * fast-scroll path on iOS Safari and causes touch scrolling to break
+ * (only press-and-hold drag works, normal swipe gestures fail).
+ */
+
+/* Disable transitions for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Manual transition disable */
+.no-transitions,
+.no-transitions * {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* ================================
+   ACCESSIBILITY OVERRIDES
+   ================================ */
+
+/* System preference dark mode */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    /* Apply dark theme when no explicit theme is set */
+    --theme-bg-primary: var(--color-gray-900);
+    --theme-bg-secondary: var(--color-gray-800);
+    --theme-bg-tertiary: var(--color-gray-700);
+    --theme-bg-accent: var(--color-gray-600);
+
+    --theme-text-primary: var(--color-gray-100);
+    --theme-text-secondary: var(--color-gray-300);
+    --theme-text-tertiary: var(--color-gray-400);
+    --theme-text-muted: var(--color-gray-500);
+    --theme-text-inverse: var(--color-gray-900);
+
+    --theme-border-primary: var(--color-gray-700);
+    --theme-border-secondary: var(--color-gray-600);
+    --theme-border-accent: var(--color-gray-500);
+
+    --theme-surface-elevated: var(--color-gray-800);
+    --theme-surface-overlay: rgba(0, 0, 0, 0.8);
+    --theme-surface-disabled: var(--color-gray-800);
+
+    --theme-interactive-primary: #4fd1c7;
+    --theme-interactive-primary-hover: #38b2ac;
+    --theme-interactive-primary-active: #319795;
+    --theme-interactive-secondary: var(--color-gray-400);
+    --theme-interactive-secondary-hover: var(--color-gray-300);
+
+    --theme-status-success: #34d399;
+    --theme-status-warning: #fbbf24;
+    --theme-status-error: #f87171;
+    --theme-status-info: #60a5fa;
+
+    --theme-focus-ring: var(--theme-interactive-primary);
+    --theme-selection-bg: rgba(79, 209, 199, 0.2);
+    --theme-selection-text: var(--theme-text-primary);
+  }
+}
+
+/* System preference high contrast */
+@media (prefers-contrast: high) {
+  :root:not([data-theme]) {
+    /* Apply high contrast theme when no explicit theme is set */
+    --theme-border-primary: var(--color-black);
+    --theme-border-secondary: var(--color-black);
+    --theme-border-accent: var(--color-black);
+
+    --theme-text-primary: var(--color-black);
+    --theme-text-secondary: var(--color-black);
+
+    --theme-interactive-primary: var(--color-black);
+    --theme-interactive-primary-hover: var(--color-black);
+    --theme-interactive-primary-active: var(--color-black);
+
+    --theme-focus-ring: var(--color-black);
+  }
+}
+
+/* Combined dark + high contrast system preference */
+@media (prefers-color-scheme: dark) and (prefers-contrast: high) {
+  :root:not([data-theme]) {
+    /* Apply dark high contrast theme */
+    --theme-bg-primary: var(--color-black);
+    --theme-bg-secondary: var(--color-black);
+    --theme-bg-tertiary: var(--color-black);
+    --theme-bg-accent: var(--color-black);
+
+    --theme-text-primary: var(--color-white);
+    --theme-text-secondary: var(--color-white);
+    --theme-text-tertiary: var(--color-white);
+    --theme-text-muted: var(--color-white);
+    --theme-text-inverse: var(--color-black);
+
+    --theme-border-primary: var(--color-white);
+    --theme-border-secondary: var(--color-white);
+    --theme-border-accent: var(--color-white);
+
+    --theme-surface-elevated: var(--color-black);
+    --theme-surface-overlay: rgba(255, 255, 255, 0.9);
+    --theme-surface-disabled: var(--color-gray-700);
+
+    --theme-interactive-primary: var(--color-white);
+    --theme-interactive-primary-hover: var(--color-white);
+    --theme-interactive-primary-active: var(--color-white);
+    --theme-interactive-secondary: var(--color-white);
+    --theme-interactive-secondary-hover: var(--color-white);
+
+    --theme-status-success: var(--color-white);
+    --theme-status-warning: var(--color-white);
+    --theme-status-error: var(--color-white);
+    --theme-status-info: var(--color-white);
+
+    --theme-focus-ring: var(--color-white);
+    --theme-selection-bg: var(--color-gray-700);
+    --theme-selection-text: var(--color-white);
+  }
+}
+
+/* Typography Utilities */
+.typography-title-hero {
+  font-size: var(--font-title-hero-desktop);
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  .typography-title-hero {
+    font-size: var(--font-title-hero-mobile);
+  }
+}
+.typography-title-section {
+  font-size: var(--font-title-section-desktop);
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  .typography-title-section {
+    font-size: var(--font-title-section-mobile);
+  }
+}
+.typography-body-subtitle {
+  font-size: var(--font-body-subtitle);
+  font-weight: 700;
+}
+.typography-body-description {
+  font-size: var(--font-body-description);
+  font-weight: 700;
+}
+
+/* ================================
+   SECTION PADDING UTILITIES
+   ================================ */
+
+/* Standard Section Padding (all sections except Hero & Navigation) */
+.section-padding {
+  padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding: var(--padding-section-desktop-y) var(--padding-section-desktop-x);
+  }
+}
+
+/* Hero & Navigation Section Padding (no padding) */
+.section-padding-hero-nav {
+  padding: var(--padding-hero-nav-mobile-y) var(--padding-hero-nav-mobile-x);
+}
+
+@media (min-width: 768px) {
+  .section-padding-hero-nav {
+    padding: var(--padding-hero-nav-tablet-y) var(--padding-hero-nav-tablet-x);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding-hero-nav {
+    padding: var(--padding-hero-nav-desktop-y) var(--padding-hero-nav-desktop-x);
+  }
+}
+
+/* Legacy Section Container (for backwards compatibility) */
+.section-container {
+  padding: var(--spacing-section-mobile-y) var(--spacing-section-mobile-x);
+}
+
+@media (min-width: 768px) {
+  .section-container {
+    padding: var(--spacing-section-tablet-y) var(--spacing-section-tablet-x);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-container {
+    padding: var(--spacing-section-desktop-y) var(--spacing-section-desktop-x);
+  }
+}
+
+/* ================================
+   TYPOGRAPHY UTILITY CLASSES
+   ================================ */
+
+/* Base Typography Classes */
+.typography-title {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  font-size: var(--font-size-title-mobile);
+}
+
+.typography-subtitle {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-normal); /* Changed from bold to normal (400) */
+  line-height: var(--line-height-subtitle);
+  font-size: var(--font-size-subtitle-mobile);
+}
+
+.typography-description {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-normal); /* Changed from bold to normal (400) */
+  line-height: var(--line-height-description);
+  font-size: var(--font-size-description-mobile);
+}
+
+.typography-text {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-text);
+  font-size: var(--font-size-text-mobile);
+}
+
+/* Responsive Typography - Tablet */
+@media (min-width: 768px) {
+  .typography-title {
+    font-size: var(--font-size-title-tablet);
+  }
+
+  .typography-subtitle {
+    font-size: var(--font-size-subtitle-tablet);
+  }
+
+  .typography-description {
+    font-size: var(--font-size-description-tablet);
+  }
+
+  .typography-text {
+    font-size: var(--font-size-text-tablet);
+  }
+}
+
+/* Responsive Typography - Desktop */
+@media (min-width: 1024px) {
+  .typography-title {
+    font-size: var(--font-size-title-desktop);
+  }
+
+  .typography-subtitle {
+    font-size: var(--font-size-subtitle-desktop);
+  }
+
+  .typography-description {
+    font-size: var(--font-size-description-desktop);
+  }
+
+  .typography-text {
+    font-size: var(--font-size-text-desktop);
+  }
+}

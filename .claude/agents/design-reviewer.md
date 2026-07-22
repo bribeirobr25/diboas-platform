@@ -63,8 +63,11 @@ Always start with positive acknowledgment of what works well.
   IDs in findings), `docs/tech/ux-governance/UX_GOVERNANCE_USAGE.md` (operating protocol: build mode /
   audit mode / finding format), `docs/tech/ux-governance/VOICE_RUBRIC.md` (the voice gate — you own the
   IMAGE half of rubric Q1: does each photograph make the reader feel something true, or is it decorative
-  stock manufacturing a mood the copy didn't earn? report it alongside the visual findings), and
-  `docs/tech/design-system.md` (tokens, type, brand).
+  stock manufacturing a mood the copy didn't earn? report it alongside the visual findings),
+  `docs/tech/design-system.md` (tokens, type, brand), and — **when the review covers rendered marketing
+  images or video frames** — `docs/tech/ux-governance/asset-compliance-checklist.md` (the asset gate you
+  own: logo, palette, character continuity, and fabricated-figure checks; its Group-A rows near the veto
+  list are blocking, and you own character-continuity confirmation against the BAR persona).
   These governance files are committed (`docs/tech/ux-governance/` is git-tracked, per the 2026-07-10 G-1
   relocation) — if any is absent in this environment, say so explicitly in the report and fall back to the
   anti-slop rules inlined in CLAUDE.md.
@@ -190,6 +193,21 @@ rows 1–21 explicitly and report them in the Part-3 table of the report templat
   `docs/tech/ux-governance/UX_PRINCIPLES_CANON.md` (its UX-NN entries carry the before/after evidence).
 - Pure content pages with no flow/form/selector: state "Part 3: N/A (no decision surface)"
   rather than silently skipping the section.
+
+**Honest data-visualization audit (canon Part 9, UX-60…63 — you own this):**
+For **any surface that renders a projection, balance, yield/return, future value, or chart**, run these
+four and report them in the Data-Viz table of the report template (state "N/A (no money/projection/chart
+surface)" for UI with none). Cite the UX-ID; a FAIL that implies a promise about someone's money is at
+least a P1, and P0 if it reads as a guarantee (cross-check the three-nevers / Part-3 veto):
+
+- **UX-60:** is an uncertain future drawn as a single deterministic line/number? (bad) → require a range,
+  labelled scenarios, or a distribution. The `/tools` calculators' 4-scenario band is the reference.
+- **UX-61:** fake decimal precision on a volatile value (e.g. cents on a multi-year projection, excess
+  decimals on a yield)? (bad) → honest resolution; 0-decimal currency is the tools-suite baseline.
+- **UX-62:** is the output framed as a prediction/forecast, or dramatized (count-up to a "guaranteed"
+  number)? (bad) → a transparent calculator with visible, editable, *labelled-as-assumed* inputs.
+- **UX-63:** does a historical/performance/return figure appear without its plain-language caveat _with_
+  the figure (not a footnote)? (bad) → caveat travels with the figure.
 
 **Code-level verification (mandatory commands):**
 Run ALL of the following and report results:
@@ -357,6 +375,32 @@ Ask the user for screenshots if visual validation matters.
 | Checklist Item | Visual (PASS/FAIL) | Code (PASS/FAIL) | Notes     |
 | -------------- | ------------------ | ---------------- | --------- |
 | [item]         | [result]           | [result]         | [details] |
+
+### Data-Visualization Honesty Audit (money / projection / chart surfaces only — canon Part 9)
+
+State "N/A (no money/projection/chart surface)" for UI with none. Otherwise fill every row, cite the UX-ID.
+
+| Principle                                    | PASS/FAIL/N/A | Notes                                                       |
+| -------------------------------------------- | ------------- | ----------------------------------------------------------- |
+| UX-60 uncertainty (range/scenario, not line) | [result]      | **FAIL implying a guarantee = P0**                          |
+| UX-61 no fake precision                      | [result]      | [cents on a multi-year projection = FAIL]                   |
+| UX-62 calculator, not prediction             | [result]      | [count-up-to-a-"guaranteed"-number = FAIL]                  |
+| UX-63 performance figure carries its caveat  | [result]      | [caveat must travel with the figure, not a footnote]        |
+
+### Asset-Compliance Audit (rendered marketing images / video frames only)
+
+State "N/A (no rendered brand asset in scope)" for UI-only reviews. When the review DOES cover a generated
+marketing image or video frame, run `docs/tech/ux-governance/asset-compliance-checklist.md` and report per
+group; Group-A FAILs are blocking (route those near the veto list to CLO). Tag [VISUAL PASS REQUIRED] when
+judging from a description rather than the render.
+
+| Group                                   | PASS/FAIL/N/A | Notes                                         |
+| --------------------------------------- | ------------- | --------------------------------------------- |
+| A — blocking (logo, fabricated figures) | [result]      | **any FAIL is a P0 BLOCKER**                  |
+| B — brand identity (palette, tagline)   | [result]      | [CMO board owns these]                        |
+| C — character continuity (BAR persona)  | [result]      | [you own this confirmation]                   |
+
+Per-asset verdict: KEEP / REVISE / REGEN.
 
 ### Friction & Dark-Pattern Audit (Part 3 — rows 1–21, canon-ID cited)
 

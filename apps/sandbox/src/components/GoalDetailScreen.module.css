@@ -1,0 +1,267 @@
+.wrap {
+  max-width: 36rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  color: var(--sb-accent-strong);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  min-height: var(--sb-tap);
+}
+
+.backLink:hover {
+  color: var(--sb-accent);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.goalIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent-tint);
+  color: var(--sb-accent-strong);
+  flex-shrink: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--sb-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-3xl);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--sb-text-heading);
+}
+
+.progressText {
+  margin: var(--spacing-2xs) 0 0;
+  color: var(--sb-text-body);
+  font-variant-numeric: tabular-nums;
+}
+
+.progressTrack {
+  display: block;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--sb-hairline-strong);
+  overflow: hidden;
+}
+
+.progressFill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--sb-accent), var(--sb-accent-bright));
+  border-radius: var(--radius-full);
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.stat {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-body);
+}
+
+/* Designed empty state — a goal holding cash, not a dead end (UX-58). The
+   single clear action ("Put it to work") sits in the invest block just below. */
+.noPosition {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-2xs);
+  background: var(--sb-card);
+  border: 1px dashed var(--sb-hairline-strong);
+  border-radius: var(--sb-radius);
+  padding: var(--spacing-lg);
+}
+
+.noPositionIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent-tint);
+  color: var(--sb-accent-strong);
+  margin-bottom: var(--spacing-2xs);
+}
+
+.noPositionTitle {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  color: var(--sb-text-heading);
+}
+
+.noPositionBody {
+  margin: 0;
+  color: var(--sb-text-body);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.position {
+  background: var(--sb-card);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  box-shadow: var(--sb-shadow-soft);
+}
+
+.positionTitle {
+  margin: 0;
+  font-family: var(--sb-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+  color: var(--sb-text-heading);
+}
+
+.earningsTitle {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sb-text-muted);
+}
+
+.earningsLine {
+  margin: 0;
+  font-size: var(--font-size-md);
+  color: var(--sb-accent-strong);
+  font-weight: var(--font-weight-medium);
+}
+
+.exit {
+  align-self: flex-start;
+  min-height: var(--sb-tap);
+  padding: 0 var(--spacing-lg);
+  border: 1px solid var(--sb-hairline-strong);
+  border-radius: var(--radius-full);
+  background: var(--sb-card);
+  color: var(--sb-text-body);
+  cursor: pointer;
+}
+
+.exit:hover {
+  border-color: var(--sb-accent);
+  color: var(--sb-accent-strong);
+}
+
+.investBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--sb-text-heading);
+}
+
+.input {
+  min-height: var(--sb-tap);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--sb-hairline-strong);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-md);
+  background: var(--sb-card);
+  color: var(--sb-text-heading);
+}
+
+.hint {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+}
+
+.primary {
+  min-height: 52px;
+  padding: 0 var(--spacing-xl);
+  border: none;
+  border-radius: var(--radius-lg);
+  background: var(--sb-ink);
+  color: var(--sb-text-on-ink);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  align-self: flex-start;
+  transition:
+    background 0.12s ease,
+    transform 0.12s ease;
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--sb-ink-soft);
+  transform: translateY(-1px);
+}
+
+.primary:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Goal-reached milestone (WS-E) — warm, quiet, no gamification (R-2). */
+.milestone {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--sb-accent-tint);
+  border-radius: var(--sb-radius);
+}
+
+.milestoneIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent);
+  color: var(--color-white);
+}
+
+.milestoneTitle {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  color: var(--sb-text-heading);
+}
+
+.milestoneBody {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-body);
+  line-height: var(--line-height-relaxed);
+}

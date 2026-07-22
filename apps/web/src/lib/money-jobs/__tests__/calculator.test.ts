@@ -27,7 +27,7 @@ const B2C_INCOME: Record<SupportedLocale, number> = {
 
 describe('calculateMoneyJobsPersonal — golden paths', () => {
   it.each(LOCALES)(
-    'should produce a reconciled three-job split for the %s default income when savings are zero',
+    'should produce a reconciled two-bucket split (essentials + working) for the %s default income when savings are zero',
     (locale) => {
       const income = B2C_INCOME[locale];
       const essentials = income * MONEY_JOBS_MODEL.essentialsShare[locale];
@@ -38,28 +38,31 @@ describe('calculateMoneyJobsPersonal — golden paths', () => {
       expect(r).not.toBeNull();
       const res = r!;
       expect(res.dignityState).toBe(false);
-      expect(res.floor).toBeCloseTo(essentials, 6);
-      expect(res.cushionTarget).toBeCloseTo(essentials * 6, 6);
+      expect(res.essentials).toBeCloseTo(essentials, 6);
+      expect(res.emergencyFundTarget).toBeCloseTo(essentials * 6, 6);
       // 0% funded → high rate 35%
-      expect(res.cushionRate).toBe(MONEY_JOBS_MODEL.cushionStep.highRate);
-      // M4: floor + cushion contribution + workingMax reconcile to income
-      expect(res.floor + res.cushionContribution + res.workingMax).toBeCloseTo(income, 6);
+      expect(res.emergencyFundRate).toBe(MONEY_JOBS_MODEL.emergencyFundStep.highRate);
+      // M4 (two-bucket): essentials + working reconcile to income
+      expect(res.essentials + res.working).toBeCloseTo(income, 6);
+      // working money's first job + what's left for goals reconcile to working
+      expect(res.emergencyFundContribution + res.workingForGoals).toBeCloseTo(res.working, 6);
       // ideal < max invariant (prudence slack)
-      expect(res.workingIdeal).toBeLessThan(res.workingMax);
-      expect(res.workingIdeal).toBeCloseTo(res.workingMax * 0.75, 6);
-      // headline: the unassigned pile is the surplus
-      expect(res.joblessMoney).toBeCloseTo(income - essentials, 6);
+      expect(res.workingForGoalsIdeal).toBeLessThan(res.workingForGoals);
+      expect(res.workingForGoalsIdeal).toBeCloseTo(res.workingForGoals * 0.75, 6);
+      // working money is the full surplus; the headline hook equals it
+      expect(res.working).toBeCloseTo(income - essentials, 6);
+      expect(res.joblessMoney).toBeCloseTo(res.working, 6);
       // cost line present and positive (inflation > 0 in all locales)
       expect(res.joblessCostOfInflation).not.toBeNull();
       expect(res.joblessCostOfInflation!).toBeGreaterThan(0);
     }
   );
 
-  it('should step the cushion rate 35% → 25% → 0 exactly at the funding thresholds', () => {
+  it('should step the emergency-fund rate 35% → 25% → 0 exactly at the funding thresholds', () => {
     const base = { monthlyIncome: 6000, monthlyEssentials: 3720, locale: 'en' as const };
     const target = 3720 * 6; // 22,320
     const rateAt = (savings: number) =>
-      calculateMoneyJobsPersonal({ ...base, currentSavings: savings }, snapshot)!.cushionRate;
+      calculateMoneyJobsPersonal({ ...base, currentSavings: savings }, snapshot)!.emergencyFundRate;
     expect(rateAt(0)).toBe(0.35);
     expect(rateAt(target * 0.249)).toBe(0.35);
     expect(rateAt(target * 0.25)).toBe(0.25); // threshold reached → normal rate
@@ -74,8 +77,9 @@ describe('calculateMoneyJobsPersonal — golden paths', () => {
       snapshot
     )!;
     expect(r.dignityState).toBe(true);
-    expect(r.cushionContribution).toBe(0);
-    expect(r.workingMax).toBe(0);
+    expect(r.working).toBe(0);
+    expect(r.emergencyFundContribution).toBe(0);
+    expect(r.workingForGoals).toBe(0);
     expect(r.joblessMoney).toBe(0);
     expect(r.joblessCostOfInflation).toBeNull();
   });
@@ -95,7 +99,7 @@ describe('calculateMoneyJobsPersonal — golden paths', () => {
       snapshot
     )!;
     expect(r.dignityState).toBe(false);
-    expect(r.workingMax).toBeGreaterThan(0);
+    expect(r.workingForGoals).toBeGreaterThan(0);
   });
 
   it('should return null on invalid input', () => {

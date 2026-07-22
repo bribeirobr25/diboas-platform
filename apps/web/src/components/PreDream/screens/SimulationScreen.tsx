@@ -138,7 +138,7 @@ export function SimulationScreen() {
         <p className={styles.simulationLabel}>{t('title')}</p>
 
         <div className={styles.valueDisplay}>
-          <span className={styles.simulationValue}>{formatCurrency(displayValue, 2, locale)}</span>
+          <span className={styles.simulationValue}>{formatCurrency(displayValue, 0, locale)}</span>
         </div>
 
         {/* Progress ring */}

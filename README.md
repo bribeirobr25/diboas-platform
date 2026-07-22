@@ -73,7 +73,7 @@ flowchart TD
 ## Prerequisites
 
 - **Node.js:** >= 22.0.0
-- **pnpm:** >= 8.0.0
+- **pnpm:** >= 10.0.0
 
 ```bash
 # Install pnpm via Corepack (recommended)

@@ -1,0 +1,92 @@
+.wrap {
+  max-width: 36rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--sb-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--sb-text-heading);
+}
+
+.subtitle {
+  margin: 0 0 var(--spacing-xs);
+  color: var(--sb-text-body);
+}
+
+.empty {
+  margin: 0;
+  color: var(--sb-text-muted);
+  font-style: italic;
+}
+
+/* The trail as an editorial timeline: a hairline rail with day markers. */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: baseline;
+  padding: var(--spacing-sm) 0 var(--spacing-sm) var(--spacing-lg);
+  border-left: 2px solid var(--sb-hairline);
+  position: relative;
+}
+
+.item::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: var(--spacing-md);
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent);
+}
+
+.item:first-child {
+  padding-top: var(--spacing-2xs);
+}
+
+.item:last-child {
+  border-left-color: transparent;
+}
+
+.day {
+  font-size: var(--font-size-xs);
+  color: var(--sb-accent-strong);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  min-width: 3.2rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.text {
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-body);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Fee-drag transparency line (WS-E) — neutral, factual, subordinate. */
+.feeDrag {
+  margin: 0;
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: var(--sb-card);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius);
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+  font-variant-numeric: tabular-nums;
+}

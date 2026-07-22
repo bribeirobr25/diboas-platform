@@ -1,0 +1,66 @@
+/* Geofence block page — the gate's calm, centered, ink-editorial pattern. */
+.wrap {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: var(--spacing-lg);
+  background:
+    radial-gradient(120% 90% at 15% 0%, var(--sb-ink-soft) 0%, var(--sb-ink) 55%), var(--sb-ink);
+}
+
+.card {
+  width: 100%;
+  max-width: 27rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  color: var(--sb-text-on-ink);
+}
+
+.badge {
+  margin: 0;
+  align-self: flex-start;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sb-accent-bright);
+  border: 1px solid color-mix(in srgb, var(--sb-accent-bright) 40%, transparent);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-2xs) var(--spacing-md);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--sb-serif);
+  font-size: clamp(2.1rem, 5vw, 2.7rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--sb-text-on-ink);
+}
+
+.body {
+  margin: 0;
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--sb-text-on-ink) 82%, transparent);
+}
+
+.link {
+  align-self: flex-start;
+  margin-top: var(--spacing-xs);
+  min-height: var(--sb-tap); /* WCAG 2.5.8 touch target */
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-2xs) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--sb-ink);
+  background: var(--sb-accent-bright);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+}
+
+.link:hover {
+  background: color-mix(in srgb, var(--sb-accent-bright) 88%, white);
+}
