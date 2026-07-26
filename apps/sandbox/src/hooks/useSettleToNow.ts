@@ -29,6 +29,15 @@ const MAX_SETTLE_DAYS = 730;
  * new) so the caller can surface the "real market moved while you were away"
  * beat. Deployed/`next start` runs single-invoke (verified); the lock keeps it
  * correct under dev StrictMode too.
+ *
+ * ⚠ READY-DEPENDENCY IS STRUCTURAL (CTO §17 F4). This settles against
+ * `getLedgerState()` on mount (`[]` deps → once). Its correctness relies on the
+ * caller being BEHIND the `<LedgerReadyGate>`: today it lives only in
+ * `HomeGate`, which mounts only after the ledger has hydrated, so the settle
+ * reads a hydrated log. Do NOT hoist this to an ungated location (a layout, an
+ * always-mounted shell) without gating it on ledger-`ready` first — an
+ * unhydrated read settles 0 days and, with `[]` deps, never re-runs, silently
+ * reinstating the §7 "skipped real-time settle" bug that nothing fails.
  */
 export function useSettleToNow(): number {
   const [settled, setSettled] = useState(0);

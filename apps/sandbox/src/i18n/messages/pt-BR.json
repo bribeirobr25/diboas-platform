@@ -292,6 +292,7 @@
     "badge": "Verificação de região",
     "title": "Indisponível na sua região",
     "body": "O sandbox de prática da diBoaS não está disponível onde você está agora. Não é nada do seu lado.",
+    "legal": "O acesso a partir da sua região está restrito por motivos de conformidade regulatória.",
     "link": "Ir para diboas.com"
   }
 }

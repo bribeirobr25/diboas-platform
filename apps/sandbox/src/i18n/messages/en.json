@@ -292,6 +292,7 @@
     "badge": "Region check",
     "title": "Not available in your region",
     "body": "The diBoaS practice sandbox isn't available where you are right now. Nothing's wrong on your end.",
+    "legal": "Access from your region is restricted for regulatory-compliance reasons.",
     "link": "Visit diboas.com"
   }
 }

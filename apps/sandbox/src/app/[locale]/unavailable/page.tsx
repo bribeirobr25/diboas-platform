@@ -24,6 +24,7 @@ export default async function UnavailablePage({
         <p className={styles.badge}>{t['geofence.badge']}</p>
         <h1 className={styles.title}>{t['geofence.title']}</h1>
         <p className={styles.body}>{t['geofence.body']}</p>
+        <p className={styles.legal}>{t['geofence.legal']}</p>
         <a className={styles.link} href="https://diboas.com">
           {t['geofence.link']}
         </a>

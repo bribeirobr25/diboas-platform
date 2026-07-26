@@ -9,12 +9,15 @@
     "start": "next start -p 3002",
     "lint": "eslint src",
     "type-check": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "db:migrate": "node --env-file=.env.local src/lib/database/migrate.mjs migrate",
+    "db:status": "node --env-file=.env.local src/lib/database/migrate.mjs status"
   },
   "dependencies": {
     "@diboas/banking": "workspace:*",
     "@diboas/defi": "workspace:*",
     "@diboas/investing": "workspace:*",
+    "@neondatabase/serverless": "^1.0.2",
     "decimal.js": "^10.4.3",
     "lucide-react": "^0.544.0",
     "next": "16.2.6",

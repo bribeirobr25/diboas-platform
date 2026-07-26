@@ -46,6 +46,13 @@
   color: color-mix(in srgb, var(--sb-text-on-ink) 82%, transparent);
 }
 
+.legal {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--sb-text-on-ink) 62%, transparent);
+}
+
 .link {
   align-self: flex-start;
   margin-top: var(--spacing-xs);

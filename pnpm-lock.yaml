@@ -67,6 +67,9 @@ importers:
       '@diboas/investing':
         specifier: workspace:*
         version: link:../../packages/investing
+      '@neondatabase/serverless':
+        specifier: ^1.0.2
+        version: 1.1.0
       decimal.js:
         specifier: ^10.4.3
         version: 10.6.0
@@ -247,6 +250,9 @@ importers:
         specifier: ^10.4.3
         version: 10.6.0
     devDependencies:
+      '@vitest/coverage-v8':
+        specifier: ^4.1.5
+        version: 4.1.10(vitest@4.1.10)
       tsup:
         specifier: ^8.0.0
         version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)

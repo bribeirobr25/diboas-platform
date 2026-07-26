@@ -180,12 +180,12 @@ describe('fee/amount split exactness (guards the A-2 float-drift bug)', () => {
 });
 
 describe('InMemoryLedgerStore (idempotency, Principle 11)', () => {
-  it('should ignore replayed eventIds', () => {
+  it('should ignore replayed eventIds', async () => {
     const store = new InMemoryLedgerStore();
     const [grant] = journey();
-    store.append(grant);
-    store.append(grant);
-    expect(store.getAll()).toHaveLength(1);
+    await store.append(grant);
+    await store.append(grant);
+    expect(await store.getAll()).toHaveLength(1);
   });
 });
 

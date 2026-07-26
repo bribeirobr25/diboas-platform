@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { LucideIcon } from './LucideIcon';
+import { LedgerReadyGate } from './LedgerReadyGate';
 import styles from './AppChrome.module.css';
 
 /**
@@ -55,7 +56,9 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
 
         <div className={styles.scroll}>
           <main id="main" className={styles.main}>
-            {children}
+            {/* Hold ledger-reading content until hydrate settles — the shell
+                (app bar, tab bar, PLAY MONEY badge) stays up around it (§7). */}
+            <LedgerReadyGate>{children}</LedgerReadyGate>
           </main>
           {/* The full disclaimer rides on home/first-run only; the persistent
               PLAY MONEY chip (above) is the per-screen label (R-4). */}

@@ -292,6 +292,7 @@
     "badge": "Regionsprüfung",
     "title": "In deiner Region nicht verfügbar",
     "body": "Die diBoaS-Übungsumgebung ist dort, wo du gerade bist, nicht verfügbar. Es liegt nicht an dir.",
+    "legal": "Der Zugriff aus deiner Region ist aus Gründen der regulatorischen Compliance eingeschränkt.",
     "link": "Zu diboas.com"
   }
 }
