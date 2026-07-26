@@ -205,7 +205,7 @@ least a P1, and P0 if it reads as a guarantee (cross-check the three-nevers / Pa
 - **UX-61:** fake decimal precision on a volatile value (e.g. cents on a multi-year projection, excess
   decimals on a yield)? (bad) → honest resolution; 0-decimal currency is the tools-suite baseline.
 - **UX-62:** is the output framed as a prediction/forecast, or dramatized (count-up to a "guaranteed"
-  number)? (bad) → a transparent calculator with visible, editable, *labelled-as-assumed* inputs.
+  number)? (bad) → a transparent calculator with visible, editable, _labelled-as-assumed_ inputs.
 - **UX-63:** does a historical/performance/return figure appear without its plain-language caveat _with_
   the figure (not a footnote)? (bad) → caveat travels with the figure.
 
@@ -380,12 +380,12 @@ Ask the user for screenshots if visual validation matters.
 
 State "N/A (no money/projection/chart surface)" for UI with none. Otherwise fill every row, cite the UX-ID.
 
-| Principle                                    | PASS/FAIL/N/A | Notes                                                       |
-| -------------------------------------------- | ------------- | ----------------------------------------------------------- |
-| UX-60 uncertainty (range/scenario, not line) | [result]      | **FAIL implying a guarantee = P0**                          |
-| UX-61 no fake precision                      | [result]      | [cents on a multi-year projection = FAIL]                   |
-| UX-62 calculator, not prediction             | [result]      | [count-up-to-a-"guaranteed"-number = FAIL]                  |
-| UX-63 performance figure carries its caveat  | [result]      | [caveat must travel with the figure, not a footnote]        |
+| Principle                                    | PASS/FAIL/N/A | Notes                                                |
+| -------------------------------------------- | ------------- | ---------------------------------------------------- |
+| UX-60 uncertainty (range/scenario, not line) | [result]      | **FAIL implying a guarantee = P0**                   |
+| UX-61 no fake precision                      | [result]      | [cents on a multi-year projection = FAIL]            |
+| UX-62 calculator, not prediction             | [result]      | [count-up-to-a-"guaranteed"-number = FAIL]           |
+| UX-63 performance figure carries its caveat  | [result]      | [caveat must travel with the figure, not a footnote] |
 
 ### Asset-Compliance Audit (rendered marketing images / video frames only)
 
@@ -394,11 +394,11 @@ marketing image or video frame, run `docs/tech/ux-governance/asset-compliance-ch
 group; Group-A FAILs are blocking (route those near the veto list to CLO). Tag [VISUAL PASS REQUIRED] when
 judging from a description rather than the render.
 
-| Group                                   | PASS/FAIL/N/A | Notes                                         |
-| --------------------------------------- | ------------- | --------------------------------------------- |
-| A — blocking (logo, fabricated figures) | [result]      | **any FAIL is a P0 BLOCKER**                  |
-| B — brand identity (palette, tagline)   | [result]      | [CMO board owns these]                        |
-| C — character continuity (BAR persona)  | [result]      | [you own this confirmation]                   |
+| Group                                   | PASS/FAIL/N/A | Notes                        |
+| --------------------------------------- | ------------- | ---------------------------- |
+| A — blocking (logo, fabricated figures) | [result]      | **any FAIL is a P0 BLOCKER** |
+| B — brand identity (palette, tagline)   | [result]      | [CMO board owns these]       |
+| C — character continuity (BAR persona)  | [result]      | [you own this confirmation]  |
 
 Per-asset verdict: KEEP / REVISE / REGEN.
 

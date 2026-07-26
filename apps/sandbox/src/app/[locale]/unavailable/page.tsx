@@ -11,11 +11,7 @@ import styles from './Unavailable.module.css';
  */
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
-export default async function UnavailablePage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function UnavailablePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = getMessages(isSandboxLocale(locale) ? locale : DEFAULT_LOCALE);
   return (

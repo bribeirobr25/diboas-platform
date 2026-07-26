@@ -70,7 +70,11 @@ const ALLOW: ReadonlySet<string> = new Set([
   // pair and are intentionally NOT allow-listed here.
 ]);
 
-function walkStrings(value: unknown, keyPath: string, fn: (leaf: string, path: string) => void): void {
+function walkStrings(
+  value: unknown,
+  keyPath: string,
+  fn: (leaf: string, path: string) => void
+): void {
   if (typeof value === 'string') return fn(value, keyPath);
   if (Array.isArray(value)) return value.forEach((v, i) => walkStrings(v, `${keyPath}[${i}]`, fn));
   if (value && typeof value === 'object') {

@@ -34,7 +34,11 @@ export class PostgresLedgerStore implements ILedgerStore {
         ON CONFLICT (event_id) DO NOTHING
       `;
     } catch (error) {
-      Logger.error('PostgresLedgerStore append failed', { eventId: event.eventId, type: event.type }, error);
+      Logger.error(
+        'PostgresLedgerStore append failed',
+        { eventId: event.eventId, type: event.type },
+        error
+      );
       throw error;
     }
   }

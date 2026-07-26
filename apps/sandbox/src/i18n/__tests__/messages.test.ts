@@ -135,12 +135,18 @@ describe('B2-5 — GENIUS-Act stablecoin/yield wall (sandbox side)', () => {
   // have returned") it carries zero pairings, and it must stay that way.
   const EARN = String.raw`earn|yield|rendend|rend[eo]|verdien|rendi`;
   const STABLE = String.raw`digital dollar|d[oó]lar[es]* digital|USDC|stablecoin`;
-  const PAIRING = new RegExp(`(?:${EARN}).{0,40}(?:${STABLE})|(?:${STABLE}).{0,40}(?:${EARN})`, 'i');
+  const PAIRING = new RegExp(
+    `(?:${EARN}).{0,40}(?:${STABLE})|(?:${STABLE}).{0,40}(?:${EARN})`,
+    'i'
+  );
 
   it('should have no earn/yield-near-stablecoin pairing in any locale', () => {
     for (const locale of SANDBOX_LOCALES) {
       for (const [id, msg] of Object.entries(getMessages(locale))) {
-        expect(PAIRING.test(msg), `${locale}:${id} pairs earn/yield with a stablecoin token: ${msg}`).toBe(false);
+        expect(
+          PAIRING.test(msg),
+          `${locale}:${id} pairs earn/yield with a stablecoin token: ${msg}`
+        ).toBe(false);
       }
     }
   });

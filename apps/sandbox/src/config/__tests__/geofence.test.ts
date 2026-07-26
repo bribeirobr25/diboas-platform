@@ -1,10 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  BLOCKED_COUNTRIES,
-  isCountryBlocked,
-  shouldBlock,
-  localeFromPathname,
-} from '../geofence';
+import { BLOCKED_COUNTRIES, isCountryBlocked, shouldBlock, localeFromPathname } from '../geofence';
 
 describe('geofence — BLOCKED_COUNTRIES (M1, CLO-ratified CN/RU/KP)', () => {
   it('should block exactly China, Russia, North Korea', () => {

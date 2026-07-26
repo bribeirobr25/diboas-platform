@@ -25,7 +25,9 @@ function emit(level: LogLevel, message: string, context?: LogContext, error?: un
     // Keep the stack — it's how a Phase-2 write-through persist failure is
     // diagnosed (CTO §16.8). `console` shows it; an external sink can strip it.
     entry.error =
-      error instanceof Error ? { name: error.name, message: error.message, stack: error.stack } : error;
+      error instanceof Error
+        ? { name: error.name, message: error.message, stack: error.stack }
+        : error;
   }
   const tag = `[sandbox] ${message}`;
   if (level === 'error') console.error(tag, entry);

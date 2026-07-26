@@ -20,6 +20,19 @@
  *   - signals.json groups[].summary            (per-group summaries)
  *   - regime.signal_groups[].summary           (group summary mirror)
  *   - historical.json                          (append + 52-cap prune + seed flip)
+ *   - NUMERIC ENGINE-MIRRORS (added 2026-07-27 — the weekly-workflow root-cause-B
+ *     fix: these were hand-transcribed before, so any week the engine's result
+ *     changed, the F-M4 reconcile gate correctly failed the automated refresh):
+ *       regime.json  score / max_score / regime_code / regime_label /
+ *                    environment_bias / last_updated_at (:= computed_at) /
+ *                    signal_groups[].{points_awarded,status}
+ *       signals.json groups[].{points_awarded,status} +
+ *                    groups[].signals[].{state,points_awarded,max_points,last_updated_at}
+ *     All are pure deterministic transcriptions of computed.json — no editorial
+ *     judgment. Group status maps from the SAME groupLevel() band that drives
+ *     the group summary copy (status chip and copy can no longer disagree).
+ *     Per-signal last_updated_at: monthly-anchored → end of the anchor month;
+ *     weekly-anchored → computed_at (preserves the committed semantics).
  *
  * PRESERVED (editorial-owned, never touched here): the research-memo voice
  * (regime.summary.<locale>.{short,detailed,confidence_level,mixed_signals,
@@ -129,6 +142,46 @@ function fill(template, slots) {
 // ── signal sentences ───────────────────────────────────────────────────────
 const byId = Object.fromEntries(computed.signals.map((s) => [s.id, s]));
 
+// ── numeric engine-mirror maps (root-cause-B fix, 2026-07-27) ───────────────
+// Shared group max (was duplicated inline in groupSummary + driverKey).
+const MAX_BY_GROUP = {
+  btc_structure: 6,
+  macro_environment: 3,
+  institutional_demand: 2,
+  relative_strength: 3,
+};
+// regime_code → display label / bias (fixture-confirmed pure maps,
+// apps/web/src/lib/analytics-sdk/types.ts RegimeLabel/EnvironmentBias).
+const REGIME_LABELS = {
+  VERY_FAVORABLE: 'Very Favorable',
+  CONSTRUCTIVE: 'Constructive',
+  NEUTRAL_MIXED: 'Neutral / Mixed',
+  DEFENSIVE: 'Defensive',
+  HOSTILE: 'Hostile',
+};
+const ENVIRONMENT_BIAS = {
+  VERY_FAVORABLE: 'STRONG_ALIGNMENT',
+  CONSTRUCTIVE: 'CONSTRUCTIVE',
+  NEUTRAL_MIXED: 'MIXED',
+  DEFENSIVE: 'DEFENSIVE',
+  HOSTILE: 'HOSTILE',
+};
+// Group status chip ← the SAME band that selects the group summary copy
+// (groupLevel below), so the chip and the sentence can never disagree.
+const GROUP_STATUS = { weak: 'WEAK', mixed: 'MIXED', strong: 'CONSTRUCTIVE' };
+/** '2026-06-01' (anchor month) → '2026-06-30T00:00:00Z' (end of that month). */
+function monthEnd(anchor) {
+  const y = Number(anchor.slice(0, 4));
+  const m = Number(anchor.slice(5, 7));
+  const lastDay = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  return `${anchor.slice(0, 7)}-${String(lastDay).padStart(2, '0')}T00:00:00Z`;
+}
+/** Committed vintage semantics: monthly signals date to their anchor month's
+ *  end; weekly signals date to the refresh moment. */
+function signalUpdatedAt(sig) {
+  return sig.anchorKind === 'monthly' ? monthEnd(sig.anchor) : computed.computed_at;
+}
+
 function signalSentence(id, locale) {
   const sig = byId[id];
   const set = signalTpl[id]?.[sig.state];
@@ -180,12 +233,7 @@ function groupLevel(points, max) {
 }
 function groupSummary(groupId, locale) {
   const totals = computed.group_totals;
-  const maxByGroup = {
-    btc_structure: 6,
-    macro_environment: 3,
-    institutional_demand: 2,
-    relative_strength: 3,
-  };
+  const maxByGroup = MAX_BY_GROUP;
   const points = totals[groupId];
   const max = maxByGroup[groupId];
   let level = groupLevel(points, max);
@@ -233,12 +281,7 @@ function isoWeek(dateStr) {
 /** The dominant driver for the {whatChanged} slot. */
 function driverKey(trans) {
   const totals = computed.group_totals;
-  const maxByGroup = {
-    btc_structure: 6,
-    macro_environment: 3,
-    institutional_demand: 2,
-    relative_strength: 3,
-  };
+  const maxByGroup = MAX_BY_GROUP;
   // A group whose signals are ALL unobservable (e.g. ETF-01 UNAVAILABLE) cannot
   // be "the story" — unobserved is not a headwind. Exclude such groups from the
   // driver pick so we never say "the big funds stepped back" when we simply
@@ -366,12 +409,85 @@ function realSnapshotCount() {
 }
 
 // ── write / check ───────────────────────────────────────────────────────────
-function patchEditorial(gen, write) {
+/**
+ * Write JSON in the repo's committed style. Prettier collapses short primitive
+ * arrays (e.g. data_status.delayed_sources) that JSON.stringify always expands
+ * — without this, every generate-written regime.json fails CI `format:check`
+ * (found 2026-07-27 fixing the weekly workflow). Falls back to raw stringify
+ * if prettier isn't installed (the output is still valid JSON; CI formatting
+ * is then the caller's job).
+ */
+async function writeJsonFormatted(p, obj) {
+  let text = JSON.stringify(obj, null, 2) + '\n';
+  try {
+    const { format } = await import('prettier');
+    text = await format(text, { parser: 'json', filepath: p });
+  } catch {
+    /* prettier unavailable — raw JSON.stringify remains valid */
+  }
+  fs.writeFileSync(p, text);
+}
+
+async function patchEditorial(gen, write) {
   const regimePath = path.join(MARKET_DIR, 'regime.json');
   const signalsPath = path.join(MARKET_DIR, 'signals.json');
   const regime = read(regimePath);
   const signals = read(signalsPath);
   const drift = [];
+  const setField = (obj, key, want, label) => {
+    if (obj[key] !== want) {
+      drift.push(label);
+      obj[key] = want;
+    }
+  };
+
+  // ── numeric engine-mirrors (root-cause-B fix): pure transcription of
+  //    computed.json. Before 2026-07-27 these had NO automated writer, so any
+  //    week the engine's result changed, the F-M4 reconcile gate failed the
+  //    weekly workflow (07-20: REL-01 flipped ACTIVE → rel total 1→2 while
+  //    signals.json still said 1). ─────────────────────────────────────────
+  setField(regime, 'score', computed.score, 'regime.score');
+  setField(regime, 'max_score', computed.max_score, 'regime.max_score');
+  setField(regime, 'regime_code', computed.regime_code, 'regime.regime_code');
+  setField(regime, 'regime_label', REGIME_LABELS[computed.regime_code], 'regime.regime_label');
+  setField(
+    regime,
+    'environment_bias',
+    ENVIRONMENT_BIAS[computed.regime_code],
+    'regime.environment_bias'
+  );
+  setField(regime, 'last_updated_at', computed.computed_at, 'regime.last_updated_at');
+  for (const g of regime.signal_groups) {
+    setField(
+      g,
+      'points_awarded',
+      computed.group_totals[g.id],
+      `regime.signal_groups.${g.id}.points_awarded`
+    );
+    setField(
+      g,
+      'status',
+      GROUP_STATUS[groupLevel(computed.group_totals[g.id], MAX_BY_GROUP[g.id])],
+      `regime.signal_groups.${g.id}.status`
+    );
+  }
+  for (const g of signals.groups) {
+    setField(g, 'points_awarded', computed.group_totals[g.id], `signals.${g.id}.points_awarded`);
+    setField(
+      g,
+      'status',
+      GROUP_STATUS[groupLevel(computed.group_totals[g.id], MAX_BY_GROUP[g.id])],
+      `signals.${g.id}.status`
+    );
+    for (const s of g.signals) {
+      const c = byId[s.id];
+      if (!c) continue; // a registry drift is caught by the market vitest, not silently synced
+      setField(s, 'state', c.state, `signals.${s.id}.state`);
+      setField(s, 'points_awarded', c.points, `signals.${s.id}.points_awarded`);
+      setField(s, 'max_points', c.weight, `signals.${s.id}.max_points`);
+      setField(s, 'last_updated_at', signalUpdatedAt(c), `signals.${s.id}.last_updated_at`);
+    }
+  }
 
   for (const loc of LOCALES) {
     if (regime.summary[loc].plain !== gen.plain[loc]) {
@@ -412,19 +528,16 @@ function patchEditorial(gen, write) {
   if (JSON.stringify(curHist) !== JSON.stringify(nextHist)) drift.push('historical.json');
 
   if (write) {
-    fs.writeFileSync(regimePath, JSON.stringify(regime, null, 2) + '\n');
-    fs.writeFileSync(signalsPath, JSON.stringify(signals, null, 2) + '\n');
-    fs.writeFileSync(
-      path.join(MARKET_DIR, 'historical.json'),
-      JSON.stringify(nextHist, null, 2) + '\n'
-    );
+    await writeJsonFormatted(regimePath, regime);
+    await writeJsonFormatted(signalsPath, signals);
+    await writeJsonFormatted(path.join(MARKET_DIR, 'historical.json'), nextHist);
   }
   return drift;
 }
 
 const checkMode = process.argv.includes('--check');
 const gen = generate();
-const drift = patchEditorial(gen, !checkMode);
+const drift = await patchEditorial(gen, !checkMode);
 
 console.log(`\n=== market generate (Stage 4) — ${checkMode ? 'CHECK' : 'WRITE'} ===`);
 console.log(

@@ -84,7 +84,9 @@ async function runMigrations() {
     }
   }
   console.log(
-    newly.length === 0 ? '[migrate] all migrations already applied' : `[migrate] applied ${newly.length} migration(s)`
+    newly.length === 0
+      ? '[migrate] all migrations already applied'
+      : `[migrate] applied ${newly.length} migration(s)`
   );
   return newly;
 }

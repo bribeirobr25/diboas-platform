@@ -31,7 +31,8 @@ function makeMockSql(): { sql: SqlExecutor; rowCount: () => number } {
     }
     if (q.includes('DELETE FROM ledger_events')) {
       const [ownerKey] = values as [string];
-      for (let i = rows.length - 1; i >= 0; i--) if (rows[i].ownerKey === ownerKey) rows.splice(i, 1);
+      for (let i = rows.length - 1; i >= 0; i--)
+        if (rows[i].ownerKey === ownerKey) rows.splice(i, 1);
       return [];
     }
     throw new Error(`mock sql: unrecognized query: ${q}`);
@@ -50,13 +51,59 @@ const base = (id: string) => ({
 const oneOfEach: LedgerEvent[] = [
   { ...base('e1'), type: 'PlayMoneyGranted', amount: '10000.00', currency: 'USD', mode: 'b2c' },
   { ...base('e2'), type: 'JobsSplitSet', floorPercent: 30, cushionPercent: 20, workingPercent: 50 },
-  { ...base('e3'), type: 'GoalCreated', goalId: 'g1', name: 'Trip', icon: 'plane', targetAmount: '3000.00', horizonMonths: 24 },
+  {
+    ...base('e3'),
+    type: 'GoalCreated',
+    goalId: 'g1',
+    name: 'Trip',
+    icon: 'plane',
+    targetAmount: '3000.00',
+    horizonMonths: 24,
+  },
   { ...base('e4'), type: 'GoalFunded', goalId: 'g1', amount: '1000.00' },
-  { ...base('e5'), type: 'StrategyEntered', goalId: 'g1', positionId: 'p1', strategyId: 'safeHarbor', amount: '990.00', networkFee: '10.00' },
-  { ...base('e6'), type: 'AccrualApplied', positionId: 'p1', fromSimDay: 0, toSimDay: 30, earnings: '5.00', apySource: 'defillama' },
-  { ...base('e7'), type: 'StrategyExited', positionId: 'p1', goalId: 'g1', grossAmount: '995.00', exitFee: '3.88', networkFee: '10.00' },
-  { ...base('e8'), type: 'RecurringSet', goalId: 'g1', positionId: 'p1', monthlyAmount: '100.00', startSimDay: 0 },
-  { ...base('e9'), type: 'RecurringContributionApplied', goalId: 'g1', positionId: 'p1', amount: '100.00', onSimDay: 30 },
+  {
+    ...base('e5'),
+    type: 'StrategyEntered',
+    goalId: 'g1',
+    positionId: 'p1',
+    strategyId: 'safeHarbor',
+    amount: '990.00',
+    networkFee: '10.00',
+  },
+  {
+    ...base('e6'),
+    type: 'AccrualApplied',
+    positionId: 'p1',
+    fromSimDay: 0,
+    toSimDay: 30,
+    earnings: '5.00',
+    apySource: 'defillama',
+  },
+  {
+    ...base('e7'),
+    type: 'StrategyExited',
+    positionId: 'p1',
+    goalId: 'g1',
+    grossAmount: '995.00',
+    exitFee: '3.88',
+    networkFee: '10.00',
+  },
+  {
+    ...base('e8'),
+    type: 'RecurringSet',
+    goalId: 'g1',
+    positionId: 'p1',
+    monthlyAmount: '100.00',
+    startSimDay: 0,
+  },
+  {
+    ...base('e9'),
+    type: 'RecurringContributionApplied',
+    goalId: 'g1',
+    positionId: 'p1',
+    amount: '100.00',
+    onSimDay: 30,
+  },
   { ...base('e10'), type: 'TimeAdvanced', days: 365, source: 'machine' },
 ];
 

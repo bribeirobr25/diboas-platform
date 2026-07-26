@@ -1,12 +1,12 @@
 {
   "_comment": "Per-source freshness map used by DataFreshnessIndicator. Matches doc 07 §26 DataStatus schema. v3 (2026-06-26): refreshed against the 2026-06-19 confirmed Friday close + May 2026 monthly releases. Two changes vs v2 (2026-05-29): (i) in-repo BTC monthlies now carry the confirmed May 31 close, so the source flips DELAYED→FRESH (no newer confirmed monthly candle exists until June 30); (ii) CoinGlass:ETF flips DELAYED→UNAVAILABLE — its spot-ETF data routes now 404 (page structure changed) and the canonical Farside cross-check stays Cloudflare-blocked, so ETF-01 is scored UNAVAILABLE per doc 02 §10.1 this cycle. Yahoo:GC=F remains a SUBSTITUTE for the retired FRED LBMA gold series (methodology drift D-gold-2026-05-29). This file and apps/web/data/market/regime.json#data_status MUST list the same source set (audit gate).",
   "overall_confidence": "MODERATE",
-  "last_successful_update_at": "2026-07-11T10:30:00Z",
+  "last_successful_update_at": "2026-07-26T22:18:23.596Z",
   "sources": [
     {
       "source": "in-repo:monthlyPrices.json (BTC)",
       "status": "FRESH",
-      "last_updated_at": "2026-07-11T10:00:00Z",
+      "last_updated_at": "2026-06-30T00:00:00Z",
       "expected_next_update_at": "2026-07-31T23:59:59Z",
       "stale_after": "2026-09-01T00:00:00Z",
       "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04); June 2026 monthly candle appended 2026-07-11 (Yahoo close $58,558.86, cross-verified against CoinGecko $58,557.70 at the July 1 UTC boundary). Last confirmed monthly close June 30, 2026 per doc 02 §5.1. Next update due at July 31 monthly close."
@@ -14,15 +14,15 @@
     {
       "source": "FRED:DGS10",
       "status": "FRESH",
-      "last_updated_at": "2026-07-10T20:00:00Z",
+      "last_updated_at": "2026-07-17T00:00:00Z",
       "expected_next_update_at": "2026-07-13T20:00:00Z",
       "stale_after": "2026-07-17T20:00:00Z",
       "message": null
     },
     {
       "source": "FRED:DTWEXBGS",
-      "status": "DELAYED",
-      "last_updated_at": "2026-07-02T20:00:00Z",
+      "status": "FRESH",
+      "last_updated_at": "2026-07-17T00:00:00Z",
       "expected_next_update_at": "2026-07-13T20:00:00Z",
       "stale_after": "2026-07-17T20:00:00Z",
       "message": "Trade-weighted broad-dollar index used per doc 02 §9 (DXY proxy; license-free alternative to ICE DXY). Series published through July 2 at refresh time (July 3 was a US holiday; ~1-week publication lag) — the strict-Friday convention therefore anchors MAC-01 at the June 26 weekly close this cycle."
@@ -38,7 +38,7 @@
     {
       "source": "FRED:NASDAQCOM",
       "status": "FRESH",
-      "last_updated_at": "2026-07-10T20:00:00Z",
+      "last_updated_at": "2026-07-24T00:00:00Z",
       "expected_next_update_at": "2026-07-13T20:00:00Z",
       "stale_after": "2026-07-17T20:00:00Z",
       "message": null
@@ -46,7 +46,7 @@
     {
       "source": "Yahoo:GC=F",
       "status": "FRESH",
-      "last_updated_at": "2026-07-11T10:00:00Z",
+      "last_updated_at": "2026-07-24T00:00:00Z",
       "expected_next_update_at": "2026-07-17T20:00:00Z",
       "stale_after": "2026-07-24T20:00:00Z",
       "message": "Methodology drift D-gold-2026-05-29: spec primary FRED GOLDAMGBD228NLBM (LBMA AM fix) and GOLDPMGBD228NLBM (LBMA PM fix) both returned 404 — FRED retired the LBMA series. Yahoo GC=F (front-month gold futures) substituted; fetched live this cycle. Result direction for REL-01 (ratio-vs-EMA-of-self) is robust to the substitute. Replacement canonical source tracked in PENDING_ALL.md 5.29."
@@ -54,12 +54,12 @@
     {
       "source": "CoinGlass:ETF",
       "status": "UNAVAILABLE",
-      "last_updated_at": "2026-07-11T10:30:00Z",
+      "last_updated_at": "2026-07-10T00:00:00Z",
       "expected_next_update_at": "2026-07-18T10:30:00Z",
       "stale_after": "2026-07-25T10:30:00Z",
       "message": "ETF net-flows could not be observed this cycle (2026-07-11). The CoinGlass spot-ETF routes still return HTTP 404 (route structure changed 2026-06; homepage loads, so routing change, not a block). The spec-canonical Farside manual feed remains behind a Cloudflare challenge wall (policy forbids evasion per doc 02 §8.3 + doc 06 §6.5); SoSoValue also Cloudflare-blocked. With fewer than the required trailing-four confirmed weekly aggregates observable, ETF-01 is evaluated UNAVAILABLE per §10.1 and contributes 0 of 2 points (score-invariant: an INACTIVE read would also award 0). Canonical Farside acquisition tracked in PENDING_ALL.md 5.28."
     }
   ],
-  "delayed_sources": ["FRED:DTWEXBGS", "FRED:M2SL"],
+  "delayed_sources": ["FRED:M2SL"],
   "unavailable_sources": ["CoinGlass:ETF"]
 }

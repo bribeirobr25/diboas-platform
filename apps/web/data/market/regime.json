@@ -5,7 +5,7 @@
   "regime_code": "DEFENSIVE",
   "regime_label": "Defensive",
   "environment_bias": "DEFENSIVE",
-  "last_updated_at": "2026-07-11T10:30:00Z",
+  "last_updated_at": "2026-07-26T22:18:23.596Z",
   "summary": {
     "en": {
       "short": "Conditions stepped back from Neutral / Mixed to Defensive. June's sell-off broke Bitcoin's intermediate trend decisively and nudged it below the long-term 50-month line for the first time this cycle, while macro stays restrictive. Expanding liquidity and a still-holding short-term momentum floor are the remaining supports.",
@@ -24,7 +24,7 @@
         "Monthly RSI turned back down (49.2 → 40.8) — momentum is deteriorating again",
         "The dollar is firm and US 10-year yields hold above trend; spot ETF net-flows could not be confirmed (scored unavailable, no points)"
       ],
-      "plain": "This was the month the floor creaked: the price gave back about a quarter in June and bent the long lines it had held. Most of the things we track leaned cautious at once. Nothing here says what comes next. What we're watching: whether the dollar loosens its grip, and whether the price can reclaim the slow line it has held for years."
+      "plain": "The careful season continues: little moved beneath the surface — the season held its shape. Nothing dramatic — and in months like this, undramatic is information too. What we're watching: whether the stock market itself stays steady, and whether the dollar loosens its grip."
     },
     "pt-BR": {
       "short": "As condições recuaram de Neutra / Mista para Defensiva. A queda de junho rompeu de forma decisiva a tendência intermediária do Bitcoin e o levou, pela primeira vez neste ciclo, para baixo da linha de 50 meses de longo prazo, enquanto o cenário macro segue restritivo. A liquidez em expansão e o piso de momentum de curto prazo, que ainda resiste, são os apoios restantes.",
@@ -43,7 +43,7 @@
         "O RSI mensal voltou a cair (49,2 → 40,8) — o momentum está se deteriorando novamente",
         "O dólar está firme e os rendimentos do Tesouro americano de 10 anos seguem acima da tendência; os fluxos líquidos de ETFs à vista não puderam ser confirmados (pontuados como indisponíveis, sem pontos)"
       ],
-      "plain": "Este foi o mês em que o chão rangeu: o preço devolveu cerca de um quarto em junho e vergou as linhas longas que vinha segurando. A maior parte do que acompanhamos pendeu para a cautela de uma vez. Nada aqui diz o que vem a seguir. O que estamos observando: se o dólar afrouxa o aperto, e se o preço consegue retomar a linha lenta que segurou por anos."
+      "plain": "A estação de cuidado continua: pouco se moveu por baixo da superfície — a estação manteve a forma. Nada dramático — e em meses assim, o não-dramático também é informação. O que estamos observando: se a própria bolsa segue firme, e se o dólar afrouxa o aperto."
     },
     "es": {
       "short": "Las condiciones retrocedieron de Neutral / Mixta a Defensiva. La caída de junio rompió de forma decisiva la tendencia intermedia de Bitcoin y lo llevó, por primera vez en este ciclo, por debajo de la línea de 50 meses de largo plazo, mientras el entorno macro sigue restrictivo. La liquidez en expansión y el piso de momentum de corto plazo, que aún resiste, son los apoyos restantes.",
@@ -62,7 +62,7 @@
         "El RSI mensual volvió a girar a la baja (49,2 → 40,8) — el momentum se deteriora de nuevo",
         "El dólar está firme y los rendimientos del Tesoro estadounidense a 10 años siguen sobre la tendencia; los flujos netos de ETFs al contado no pudieron confirmarse (puntuados como no disponibles, sin puntos)"
       ],
-      "plain": "Este fue el mes en que crujió el suelo: el precio devolvió cerca de una cuarta parte en junio y dobló las líneas largas que venía sosteniendo. La mayoría de lo que seguimos se inclinó a la cautela a la vez. Nada de esto dice lo que viene después. Qué estamos observando: si el dólar afloja su presión, y si el precio recupera la línea lenta que sostuvo durante años."
+      "plain": "La estación de cuidado continúa: poco se movió bajo la superficie: la estación mantuvo su forma. Nada dramático, y en meses así lo no dramático también es información. Qué estamos observando: si la propia bolsa se mantiene firme, y si el dólar afloja su presión."
     },
     "de": {
       "short": "Die Bedingungen fielen von Neutral / Gemischt auf Defensiv zurück. Der Juni-Abverkauf brach Bitcoins mittelfristigen Trend deutlich und drückte den Kurs erstmals in diesem Zyklus unter die langfristige 50-Monats-Linie, während das Makro-Umfeld restriktiv bleibt. Die expandierende Liquidität und der noch haltende kurzfristige Momentum-Boden sind die verbleibenden Stützen.",
@@ -81,7 +81,7 @@
         "Der monatliche RSI drehte wieder nach unten (49,2 → 40,8) — das Momentum verschlechtert sich erneut",
         "Der Dollar ist fest und die US-10-Jahres-Renditen bleiben über dem Trend; Spot-ETF-Nettozuflüsse konnten nicht bestätigt werden (als nicht verfügbar bewertet, keine Punkte)"
       ],
-      "plain": "Dies war der Monat, in dem der Boden knarrte: der Preis gab im Juni etwa ein Viertel ab und bog die langen Linien, die er gehalten hatte. Das meiste, was wir verfolgen, neigte sich auf einmal zur Vorsicht. Nichts hier sagt, was als Nächstes kommt. Worauf wir achten: ob der Dollar seinen Griff lockert, und ob der Preis die langsame Linie zurückerobern kann, die er jahrelang gehalten hat."
+      "plain": "Die vorsichtige Jahreszeit geht weiter: unter der Oberfläche bewegte sich wenig — die Jahreszeit behielt ihre Form. Nichts Dramatisches — und in solchen Monaten ist das Undramatische auch eine Information. Worauf wir achten: ob der Aktienmarkt selbst stabil bleibt, und ob der Dollar seinen Griff lockert."
     }
   },
   "signal_groups": [
@@ -113,7 +113,7 @@
         "es": "Entorno macro",
         "de": "Makro-Umfeld"
       },
-      "status": "WEAK",
+      "status": "MIXED",
       "points_awarded": 1,
       "max_points": 3,
       "summary": {
@@ -164,12 +164,12 @@
   ],
   "data_status": {
     "overall_confidence": "MODERATE",
-    "last_successful_update_at": "2026-07-11T10:30:00Z",
+    "last_successful_update_at": "2026-07-26T22:18:23.596Z",
     "sources": [
       {
         "source": "in-repo:monthlyPrices.json (BTC)",
         "status": "FRESH",
-        "last_updated_at": "2026-07-11T10:00:00Z",
+        "last_updated_at": "2026-06-30T00:00:00Z",
         "expected_next_update_at": "2026-07-31T23:59:59Z",
         "stale_after": "2026-09-01T00:00:00Z",
         "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04); June 2026 monthly candle appended 2026-07-11 (Yahoo close $58,558.86, cross-verified against CoinGecko $58,557.70 at the July 1 UTC boundary). Last confirmed monthly close June 30, 2026 per doc 02 §5.1. Next update due at July 31 monthly close."
@@ -177,15 +177,15 @@
       {
         "source": "FRED:DGS10",
         "status": "FRESH",
-        "last_updated_at": "2026-07-10T20:00:00Z",
+        "last_updated_at": "2026-07-17T00:00:00Z",
         "expected_next_update_at": "2026-07-13T20:00:00Z",
         "stale_after": "2026-07-17T20:00:00Z",
         "message": null
       },
       {
         "source": "FRED:DTWEXBGS",
-        "status": "DELAYED",
-        "last_updated_at": "2026-07-02T20:00:00Z",
+        "status": "FRESH",
+        "last_updated_at": "2026-07-17T00:00:00Z",
         "expected_next_update_at": "2026-07-13T20:00:00Z",
         "stale_after": "2026-07-17T20:00:00Z",
         "message": "Trade-weighted broad-dollar index used per doc 02 §9 (DXY proxy; license-free alternative to ICE DXY). Series published through July 2 at refresh time (July 3 was a US holiday; ~1-week publication lag) — the strict-Friday convention therefore anchors MAC-01 at the June 26 weekly close this cycle."
@@ -201,7 +201,7 @@
       {
         "source": "FRED:NASDAQCOM",
         "status": "FRESH",
-        "last_updated_at": "2026-07-10T20:00:00Z",
+        "last_updated_at": "2026-07-24T00:00:00Z",
         "expected_next_update_at": "2026-07-13T20:00:00Z",
         "stale_after": "2026-07-17T20:00:00Z",
         "message": null
@@ -209,7 +209,7 @@
       {
         "source": "Yahoo:GC=F",
         "status": "FRESH",
-        "last_updated_at": "2026-07-11T10:00:00Z",
+        "last_updated_at": "2026-07-24T00:00:00Z",
         "expected_next_update_at": "2026-07-17T20:00:00Z",
         "stale_after": "2026-07-24T20:00:00Z",
         "message": "Methodology drift D-gold-2026-05-29: spec primary FRED GOLDAMGBD228NLBM (LBMA AM fix) and GOLDPMGBD228NLBM (LBMA PM fix) both returned 404 — FRED retired the LBMA series. Yahoo GC=F (front-month gold futures) substituted; fetched live this cycle. Result direction for REL-01 (ratio-vs-EMA-of-self) is robust to the substitute. Replacement canonical source tracked in PENDING_ALL.md 5.29."
@@ -217,13 +217,13 @@
       {
         "source": "CoinGlass:ETF",
         "status": "UNAVAILABLE",
-        "last_updated_at": "2026-07-11T10:30:00Z",
+        "last_updated_at": "2026-07-10T00:00:00Z",
         "expected_next_update_at": "2026-07-18T10:30:00Z",
         "stale_after": "2026-07-25T10:30:00Z",
         "message": "ETF net-flows could not be observed this cycle (2026-07-11). The CoinGlass spot-ETF routes still return HTTP 404 (route structure changed 2026-06; homepage loads, so routing change, not a block). The spec-canonical Farside manual feed remains behind a Cloudflare challenge wall (policy forbids evasion per doc 02 §8.3 + doc 06 §6.5); SoSoValue also Cloudflare-blocked. With fewer than the required trailing-four confirmed weekly aggregates observable, ETF-01 is evaluated UNAVAILABLE per §10.1 and contributes 0 of 2 points (score-invariant: an INACTIVE read would also award 0). Canonical Farside acquisition tracked in PENDING_ALL.md 5.28."
       }
     ],
-    "delayed_sources": ["FRED:DTWEXBGS", "FRED:M2SL"],
+    "delayed_sources": ["FRED:M2SL"],
     "unavailable_sources": ["CoinGlass:ETF"]
   },
   "_translation_status": {
