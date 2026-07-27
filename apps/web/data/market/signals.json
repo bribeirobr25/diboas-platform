@@ -134,7 +134,7 @@
             "es": "El índice amplio del dólar en 121 sigue por encima de su EMA de 20 semanas (120), con RSI 55; un dólar firme mantiene restrictivo el entorno macro.",
             "de": "Der breite Dollar-Index bei 121 hält sich über seinem 20-Wochen-EMA (120), RSI 55 — ein fester Dollar hält das Makro-Umfeld restriktiv."
           },
-          "last_updated_at": "2026-07-26T22:18:23.596Z"
+          "last_updated_at": "2026-07-27T10:05:26.000Z"
         },
         {
           "id": "MAC-02",
@@ -153,7 +153,7 @@
             "es": "El rendimiento estadounidense a 10 años en 4,55% sigue por encima de su tendencia de 20 semanas (4,42%); los rendimientos aún no ceden.",
             "de": "Die 10-jährige US-Rendite bei 4,55% hält sich über ihrem 20-Wochen-Trend (4,42%) — die Renditen haben noch nicht nachgegeben."
           },
-          "last_updated_at": "2026-07-26T22:18:23.596Z"
+          "last_updated_at": "2026-07-27T10:05:26.000Z"
         },
         {
           "id": "MAC-03",
@@ -207,12 +207,12 @@
           "points_awarded": 0,
           "max_points": 2,
           "summary": {
-            "en": "The ETF flow ledger is warming up (1 of 5 weekly share-count snapshots recorded) — scored unavailable until four full weekly flows exist. No points either way.",
-            "pt-BR": "O registro de fluxos de ETF está em aquecimento (1 de 5 fotografias semanais de cotas registradas) — pontuado como indisponível até existirem quatro fluxos semanais completos. Sem pontos em nenhuma direção.",
-            "es": "El registro de flujos de ETF está en calentamiento (1 de 5 instantáneas semanales de participaciones registradas); se puntúa como no disponible hasta que existan cuatro flujos semanales completos. Sin puntos en ningún sentido.",
-            "de": "Das ETF-Fluss-Register läuft sich warm (1 von 5 wöchentlichen Anteils-Momentaufnahmen erfasst) — bis vier volle Wochenflüsse vorliegen als nicht verfügbar gewertet. Keine Punkte in keine Richtung."
+            "en": "The ETF flow ledger is warming up (2 of 5 weekly share-count snapshots recorded) — scored unavailable until four full weekly flows exist. No points either way.",
+            "pt-BR": "O registro de fluxos de ETF está em aquecimento (2 de 5 fotografias semanais de cotas registradas) — pontuado como indisponível até existirem quatro fluxos semanais completos. Sem pontos em nenhuma direção.",
+            "es": "El registro de flujos de ETF está en calentamiento (2 de 5 instantáneas semanales de participaciones registradas); se puntúa como no disponible hasta que existan cuatro flujos semanales completos. Sin puntos en ningún sentido.",
+            "de": "Das ETF-Fluss-Register läuft sich warm (2 von 5 wöchentlichen Anteils-Momentaufnahmen erfasst) — bis vier volle Wochenflüsse vorliegen als nicht verfügbar gewertet. Keine Punkte in keine Richtung."
           },
-          "last_updated_at": "2026-07-26T22:18:23.596Z"
+          "last_updated_at": "2026-07-27T10:05:26.000Z"
         }
       ]
     },
@@ -252,7 +252,7 @@
             "es": "La ratio BTC/Oro en 15,758 se mantiene sobre su tendencia de 20 semanas (15,659); Bitcoin supera al activo defensivo.",
             "de": "Das BTC/Gold-Verhältnis bei 15,758 hält sich über seinem 20-Wochen-Trend (15,659) — Bitcoin läuft dem defensiven Anlagegut voraus."
           },
-          "last_updated_at": "2026-07-26T22:18:23.596Z"
+          "last_updated_at": "2026-07-27T10:05:26.000Z"
         },
         {
           "id": "REL-02",
@@ -271,7 +271,7 @@
             "es": "La ratio BTC/Nasdaq en 2,566 está por debajo de su tendencia de 20 semanas (2,756); Bitcoin va rezagado frente al complejo de riesgo.",
             "de": "Das BTC/Nasdaq-Verhältnis bei 2,566 liegt unter seinem 20-Wochen-Trend (2,756) — Bitcoin hinkt dem breiteren Risikokomplex hinterher."
           },
-          "last_updated_at": "2026-07-26T22:18:23.596Z"
+          "last_updated_at": "2026-07-27T10:05:26.000Z"
         },
         {
           "id": "REL-03",
@@ -290,7 +290,7 @@
             "es": "El Nasdaq en 24.976 está por debajo de su tendencia de 20 semanas (25.030); el mercado de riesgo más amplio perdió su base estructural.",
             "de": "Der Nasdaq bei 24.976 liegt unter seinem 20-Wochen-Trend (25.030) — der breitere Risikomarkt hat seinen strukturellen Halt verloren."
           },
-          "last_updated_at": "2026-07-26T22:18:23.596Z"
+          "last_updated_at": "2026-07-27T10:05:26.000Z"
         }
       ]
     }
