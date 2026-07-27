@@ -18,8 +18,12 @@
   border-radius: var(--radius-sm);
 }
 
-/* Non-link product name for the "coming soon" state (site not yet public). */
+/* Non-link product name for the "coming soon" state (site not yet public).
+   Inherits the surrounding text colour (on /market that's the dark block's
+   accessible `.method p` paper-dim) instead of the light-bg
+   `--color-text-secondary`, which fails contrast on `--editorial-ink`
+   (a11y: pa11y color-contrast). */
 .product {
-  color: var(--color-text-secondary);
+  color: inherit;
   font-weight: var(--font-weight-medium);
 }
