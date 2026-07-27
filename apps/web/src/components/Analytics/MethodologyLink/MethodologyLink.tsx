@@ -5,9 +5,18 @@ interface MethodologyLinkProps {
   href: string;
   children: React.ReactNode;
   className?: string;
+  /**
+   * When true, render a non-interactive "coming soon" label instead of a link —
+   * used while the diBoaS Analytics site is not yet public. No href is emitted,
+   * so users are never led to an unlaunched page.
+   */
+  comingSoon?: boolean;
 }
 
-export function MethodologyLink({ href, children, className }: MethodologyLinkProps) {
+export function MethodologyLink({ href, children, className, comingSoon }: MethodologyLinkProps) {
+  if (comingSoon) {
+    return <span className={`${styles.comingSoon} ${className ?? ''}`}>{children}</span>;
+  }
   return (
     <a
       href={href}

@@ -44,14 +44,25 @@
     "methodologyLead": "Cada sinal, limite e peso está documentado no diBoaS Analytics.",
     "methodologyLinkLabel": "Ler a metodologia",
     "poweredByLabel": "Provido por",
-    "poweredByProduct": "diBoaS Analytics"
+    "poweredByProduct": "diBoaS Analytics",
+    "methodologyComingSoon": "Metodologia completa em breve",
+    "comingSoon": "em breve",
+    "sources": {
+      "btc": "Preço do Bitcoin",
+      "us10y": "Juros do Tesouro dos EUA de 10 anos",
+      "dxy": "Índice do dólar americano",
+      "m2": "Oferta de moeda (M2)",
+      "nasdaq": "Nasdaq Composite",
+      "gold": "Preço do ouro",
+      "btcEtf": "Fluxos de ETFs de Bitcoin"
+    }
   },
   "cta": {
     "cadence": "Atualizado toda semana",
     "headline": "Inteligência calma, toda semana.",
     "body": "O Adelaide Market é gratuito e atualizado toda semana. Entre na lista de espera pra ser o primeiro quando o diBoaS abrir.",
     "waitlist": "Entrar na lista de espera",
-    "share": "Compartilhar o Adelaide",
+    "share": "Compartilhar",
     "shareCopied": "Link copiado",
     "shareText": "Adelaide Market: inteligência macro calma para Bitcoin."
   },

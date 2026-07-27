@@ -15,9 +15,9 @@
       "max_points": 6,
       "summary": {
         "en": "Bitcoin's own structure is damaged: the monthly trend lines are broken and momentum offers little support (1 of 6 points).",
-        "pt-BR": "A estrutura própria do Bitcoin está danificada: as linhas de tendência mensais estão rompidas e o momentum dá pouco suporte (1 de 6 pontos).",
-        "es": "La estructura propia de Bitcoin está dañada: las líneas de tendencia mensuales están rotas y el impulso ofrece poco apoyo (1 de 6 puntos).",
-        "de": "Bitcoins eigene Struktur ist beschädigt: Die monatlichen Trendlinien sind gebrochen und das Momentum bietet wenig Halt (1 von 6 Punkten)."
+        "pt-BR": "A própria estrutura do Bitcoin está comprometida: as linhas de tendência mensais estão rompidas e o momentum dá pouco suporte (1 de 6 pontos).",
+        "es": "La estructura de Bitcoin está deteriorada: las líneas de tendencia mensuales están rotas y el impulso ofrece poco apoyo (1 de 6 puntos).",
+        "de": "Bitcoins Struktur ist angeschlagen: Die monatlichen Trendlinien sind gebrochen und das Momentum bietet wenig Halt (1 von 6 Punkten)."
       },
       "signals": [
         {
@@ -111,10 +111,10 @@
       "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Macro conditions are mixed: part of the backdrop leans supportive while the rest stays restrictive (1 of 3 points).",
-        "pt-BR": "As condições macro estão mistas: parte do cenário pende para o suporte enquanto o resto segue restritivo (1 de 3 pontos).",
-        "es": "Las condiciones macro están mixtas: parte del trasfondo apoya mientras el resto sigue restrictivo (1 de 3 puntos).",
-        "de": "Die Makro-Bedingungen sind gemischt: Ein Teil des Umfelds stützt, der Rest bleibt restriktiv (1 von 3 Punkten)."
+        "en": "Macro conditions are mixed: liquidity on the supportive side, the dollar and yields on the restrictive side (1 of 3 points).",
+        "pt-BR": "As condições macro estão mistas: a liquidez do lado favorável, o dólar e os juros do lado restritivo (1 de 3 pontos).",
+        "es": "Las condiciones macro son mixtas: la liquidez del lado favorable, el dólar y los rendimientos del lado restrictivo (1 de 3 puntos).",
+        "de": "Die Makro-Bedingungen sind gemischt: die Liquidität auf der unterstützenden Seite, der Dollar und die Renditen auf der restriktiven Seite (1 von 3 Punkten)."
       },
       "signals": [
         {
@@ -192,7 +192,7 @@
         "en": "Institutional demand could not be measured this cycle — the ETF flow read is unavailable, not weak (0 of 2 points).",
         "pt-BR": "A demanda institucional não pôde ser medida neste ciclo — a leitura de fluxos de ETF está indisponível, não fraca (0 de 2 pontos).",
         "es": "La demanda institucional no pudo medirse en este ciclo: la lectura de flujos de ETF no está disponible, no es débil (0 de 2 puntos).",
-        "de": "Die institutionelle Nachfrage konnte in diesem Zyklus nicht gemessen werden — der ETF-Fluss-Wert ist nicht verfügbar, nicht schwach (0 von 2 Punkten)."
+        "de": "Die institutionelle Nachfrage konnte in diesem Zyklus nicht gemessen werden — die ETF-Flussdaten sind nicht verfügbar, nicht schwach (0 von 2 Punkten)."
       },
       "signals": [
         {
@@ -229,10 +229,10 @@
       "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Relative strength is split: Bitcoin leads on part of the board while the rest holds firm against it (1 of 3 points).",
-        "pt-BR": "A força relativa está dividida: o Bitcoin lidera em parte do quadro enquanto o resto resiste (1 de 3 pontos).",
-        "es": "La fuerza relativa está dividida: Bitcoin lidera en parte del tablero mientras el resto resiste (1 de 3 puntos).",
-        "de": "Die relative Stärke ist geteilt: Bitcoin führt auf einem Teil des Feldes, der Rest hält dagegen (1 von 3 Punkten)."
+        "en": "Relative strength is split: Bitcoin leads gold but lags the Nasdaq (1 of 3 points).",
+        "pt-BR": "A força relativa está dividida: o Bitcoin supera o ouro, mas perde para a Nasdaq (1 de 3 pontos).",
+        "es": "La fuerza relativa está dividida: Bitcoin supera al oro, pero va por detrás del Nasdaq (1 de 3 puntos).",
+        "de": "Die relative Stärke ist geteilt: Bitcoin schlägt Gold, verliert aber gegen den Nasdaq (1 von 3 Punkten)."
       },
       "signals": [
         {

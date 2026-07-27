@@ -71,12 +71,18 @@ interface MinimalFooterProps {
     stories?: string;
     ai?: string;
     closing?: string;
-    mica?: string;
     micaArticle7?: string;
     cvm?: string;
     bcb?: string;
     us?: string;
   };
+  /**
+   * Page-specific disclosure i18n keys, appended after the standard set but
+   * before the closing line. Used by surfaces that carry an extra disclaimer —
+   * e.g. `/market` adds the forward-looking analyst-opinion note (CVM-flavoured,
+   * shown in all locales on that page only). Empty/missing keys are skipped.
+   */
+  extraDisclosureKeys?: readonly string[];
 }
 
 interface SocialIconProps {
@@ -88,27 +94,27 @@ interface SocialIconProps {
 /**
  * Locale-conditional disclosure logic
  * - general, crypto, stories, ai, closing: ALL locales
- * - mica: DE, ES, PT-BR only
+ *   (crypto = the MiCA-style risk warning "value may fluctuate / you may lose
+ *   your money / not covered by deposit guarantee" — required in every locale,
+ *   incl. the EU markets DE/ES; CLO-approved 2026-07-27)
  * - cvm, bcb: PT-BR only
  * - us: EN only
  */
 function getDisclosureKeysForLocale(
   locale: string,
-  keys: NonNullable<MinimalFooterProps['disclosureKeys']>
+  keys: NonNullable<MinimalFooterProps['disclosureKeys']>,
+  extraKeys: readonly string[] = []
 ): string[] {
   const result: string[] = [];
 
   if (keys.general) result.push(keys.general);
 
-  // Generic crypto disclaimer: only for locales that don't receive MiCA (which covers the same ground)
-  if (keys.crypto && !['de', 'es'].includes(locale)) result.push(keys.crypto);
+  // Crypto risk warning (MiCA-style): ALL locales. Previously suppressed for
+  // DE/ES on the assumption an (empty) `mica` key covered it — that left the two
+  // EU-language footers with no risk warning at all. Rendered everywhere now.
+  if (keys.crypto) result.push(keys.crypto);
 
-  // MiCA Article 68: DE, ES only (not PT-BR, they use CVM)
-  if (keys.mica && ['de', 'es'].includes(locale)) {
-    result.push(keys.mica);
-  }
-
-  // MiCA Article 7: EN, ES, DE only
+  // MiCA Article 7 (marketing communication not approved): EN, ES, DE only
   if (keys.micaArticle7 && ['en', 'es', 'de'].includes(locale)) {
     result.push(keys.micaArticle7);
   }
@@ -122,6 +128,11 @@ function getDisclosureKeysForLocale(
 
   if (keys.stories) result.push(keys.stories);
   if (keys.ai) result.push(keys.ai);
+
+  // Page-specific extras (e.g. the /market analyst-opinion disclaimer) render
+  // after the standard disclosures but before the warm closing line.
+  for (const key of extraKeys) result.push(key);
+
   if (keys.closing) result.push(keys.closing);
 
   return result;
@@ -133,12 +144,15 @@ export function MinimalFooter({
   copyrightKey = 'landing-b2c.footer.copyright',
   navLinks,
   disclosureKeys,
+  extraDisclosureKeys,
 }: MinimalFooterProps) {
   const intl = useTranslation();
   const { locale } = useLocale();
   const config = FOOTER_CONFIG;
 
-  const disclosures = disclosureKeys ? getDisclosureKeysForLocale(locale, disclosureKeys) : [];
+  const disclosures = disclosureKeys
+    ? getDisclosureKeysForLocale(locale, disclosureKeys, extraDisclosureKeys)
+    : [];
 
   return (
     // Phase 4 W4 (audit/2026-05-08): removed `aria-label` — `<footer>` at

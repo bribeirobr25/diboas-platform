@@ -68,6 +68,7 @@ const readIfExists = (p) => (fs.existsSync(p) ? read(p) : null);
 const computed = read(path.join(MARKET_DIR, 'computed.json'));
 const signalTpl = read(path.join(TPL_DIR, 'signal-sentences.json'));
 const groupTpl = read(path.join(TPL_DIR, 'group-summaries.json'));
+const signalLabels = read(path.join(TPL_DIR, 'signal-labels.json'));
 const plainTpl = read(path.join(TPL_DIR, 'plain-summaries.json'));
 const phrases = read(path.join(TPL_DIR, 'plain-phrases.json'));
 const overrides = readIfExists(path.join(MARKET_DIR, 'editorial-override.json')) ?? {};
@@ -150,6 +151,16 @@ const MAX_BY_GROUP = {
   institutional_demand: 2,
   relative_strength: 3,
 };
+// Signal ids per group (single source — also used by driverKey's observable check
+// and the composed 'mixed' group summaries).
+const GROUP_SIGNALS = {
+  btc_structure: ['BTC-01', 'BTC-02', 'BTC-03', 'BTC-04'],
+  macro_environment: ['MAC-01', 'MAC-02', 'MAC-03'],
+  institutional_demand: ['ETF-01'],
+  relative_strength: ['REL-01', 'REL-02', 'REL-03'],
+};
+// Localized list conjunction ("A, B and C").
+const LOCALE_AND = { en: 'and', 'pt-BR': 'e', es: 'y', de: 'und' };
 // regime_code → display label / bias (fixture-confirmed pure maps,
 // apps/web/src/lib/analytics-sdk/types.ts RegimeLabel/EnvironmentBias).
 const REGIME_LABELS = {
@@ -231,6 +242,40 @@ function groupLevel(points, max) {
   if (r <= 2 / 3) return 'mixed';
   return 'strong';
 }
+/** Localized list join: 1 → "a"; 2 → "a and b"; 3+ → "a, b and c". */
+function joinList(parts, locale) {
+  const and = LOCALE_AND[locale] ?? 'and';
+  if (parts.length <= 1) return parts[0] ?? '';
+  if (parts.length === 2) return `${parts[0]} ${and} ${parts[1]}`;
+  return `${parts.slice(0, -1).join(', ')} ${and} ${parts[parts.length - 1]}`;
+}
+/** Option B: name the actual split in a mixed group instead of "part/the rest".
+ *  Splits the group's signals into supportive (ACTIVE) and against (INACTIVE),
+ *  maps to plain labels, and fills the group's mixedComposed frame. Relative
+ *  strength uses only its two BTC-vs-benchmark signals (REL-03 is a backdrop, not
+ *  a lead/lag). Returns null (→ fall back to the generic 'mixed' template) when
+ *  the frame or a needed label is not yet localized, or when either side is
+ *  empty (then "split" wouldn't be true anyway). */
+function composeMixed(groupId, locale, points, max) {
+  const frame = groupTpl[groupId]?.mixedComposed?.[locale];
+  if (!frame) return null;
+  const ids = groupId === 'relative_strength' ? ['REL-01', 'REL-02'] : GROUP_SIGNALS[groupId];
+  const labelOf = (id) => signalLabels[id]?.[locale];
+  const supportive = ids.filter((id) => byId[id]?.state === 'ACTIVE').map(labelOf);
+  const against = ids.filter((id) => byId[id]?.state === 'INACTIVE').map(labelOf);
+  if (!supportive.length || !against.length) return null;
+  if ([...supportive, ...against].some((x) => !x)) return null;
+  let out = fill(frame, {
+    supportive: joinList(supportive, locale),
+    against: joinList(against, locale),
+    points: String(points),
+    max: String(max),
+  });
+  // Spanish contractions: a benchmark label ("el oro", "el Nasdaq") can follow
+  // "a"/"de" in the composed frame — "a el" → "al", "de el" → "del".
+  if (locale === 'es') out = out.replace(/ a el /g, ' al ').replace(/ de el /g, ' del ');
+  return out;
+}
 function groupSummary(groupId, locale) {
   const totals = computed.group_totals;
   const maxByGroup = MAX_BY_GROUP;
@@ -246,6 +291,10 @@ function groupSummary(groupId, locale) {
     groupTpl[groupId].unavailable
   ) {
     level = 'unavailable';
+  }
+  if (level === 'mixed') {
+    const composed = composeMixed(groupId, locale, points, max);
+    if (composed) return composed;
   }
   return fill(groupTpl[groupId][level][locale], { points: String(points), max: String(max) });
 }
@@ -287,12 +336,7 @@ function driverKey(trans) {
   // driver pick so we never say "the big funds stepped back" when we simply
   // couldn't see the flows.
   const observable = (g) => {
-    const ids = {
-      btc_structure: ['BTC-01', 'BTC-02', 'BTC-03', 'BTC-04'],
-      macro_environment: ['MAC-01', 'MAC-02', 'MAC-03'],
-      institutional_demand: ['ETF-01'],
-      relative_strength: ['REL-01', 'REL-02', 'REL-03'],
-    }[g];
+    const ids = GROUP_SIGNALS[g];
     return ids.some((id) => byId[id] && byId[id].state !== 'UNAVAILABLE');
   };
   const ratios = Object.entries(totals)
@@ -356,16 +400,27 @@ function plainSummary(locale) {
     monthName: btcMonth,
     plainMove: plainMove(btcMovePct, locale),
   });
+  // German (Duden D 88): a full sentence after a colon is capitalized. The
+  // {whatChanged} fill is always a full sentence, but the same fill is reused
+  // lowercase mid-sentence (after "und") in some templates — so capitalize only
+  // when the placeholder follows ": " in THIS template, and only for de.
+  const tpl = variant[locale];
+  const wcIdx = tpl.indexOf('{whatChanged}');
+  const afterColon = wcIdx >= 2 && tpl.slice(wcIdx - 2, wcIdx) === ': ';
+  const changedFill =
+    locale === 'de' && afterColon && changed
+      ? changed.charAt(0).toUpperCase() + changed.slice(1)
+      : changed;
   const ids = watchingIds();
   const watchParts = ids.map((id) => phrases.watching[id]?.[locale]).filter(Boolean);
   // Localize the joining conjunction — a hardcoded English "and" leaked into the
-  // pt-BR/es/de grandmother layer (voice audit F-2, 2026-07-12).
+  // pt-BR/es/de grandmother layer (voice audit F-2, 2026-07-12). German joins two
+  // "ob"-clauses without a comma ("ob A und ob B"); es/pt keep the comma.
   const AND = { en: 'and', 'pt-BR': 'e', es: 'y', de: 'und' };
+  const sep = locale === 'de' ? ` ${AND[locale]} ` : `, ${AND[locale] ?? 'and'} `;
   const watching =
-    watchParts.length === 2
-      ? `${watchParts[0]}, ${AND[locale] ?? 'and'} ${watchParts[1]}`
-      : (watchParts[0] ?? '');
-  return fill(variant[locale], { whatChanged: changed, watching });
+    watchParts.length === 2 ? `${watchParts[0]}${sep}${watchParts[1]}` : (watchParts[0] ?? '');
+  return fill(tpl, { whatChanged: changedFill, watching });
 }
 
 // ── assemble the generated object per locale ────────────────────────────────

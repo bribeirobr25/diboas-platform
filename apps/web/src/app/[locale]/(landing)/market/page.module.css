@@ -95,7 +95,9 @@
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   gap: clamp(36px, 6vw, 80px);
-  align-items: center;
+  /* start (not center): pin the gauge to the top of the row so a taller text
+     column never floats it vertically-centered (desktop). */
+  align-items: start;
 }
 .gaugeWrap {
   position: relative;
@@ -109,11 +111,17 @@
   flex-direction: column;
   gap: 1.25rem;
 }
-/* Plain (grandmother) layer sits above the memo voice, divided by a hairline
-   so the two registers read as deliberately distinct (P3, 2026-07-11). */
-.plainLead {
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--editorial-line);
+/* The memo voice drops below the gauge row and fills the container width, so a
+   long memo no longer stretches the gauge row and floats the gauge centered.
+   The P3 plain/memo split is preserved — the two registers now read as distinct
+   by sitting in separate rows, divided by the hairline above the memo. */
+.scoreDetail {
+  margin-top: clamp(36px, 6vh, 64px);
+  padding-top: clamp(28px, 5vh, 44px);
+  border-top: 1px solid var(--editorial-line);
+}
+.scoreDetail .scoreDetailBody {
+  max-width: none;
 }
 .pills {
   display: flex;

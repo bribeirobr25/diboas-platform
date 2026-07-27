@@ -42,7 +42,6 @@ const SAMPLE_DISCLOSURES = {
   stories: 'landing-b2c.footer.disclosures.stories',
   ai: 'landing-b2c.footer.disclosures.ai',
   closing: 'landing-b2c.footer.disclosures.closing',
-  mica: 'landing-b2c.footer.disclosures.mica',
   cvm: 'landing-b2c.footer.disclosures.cvm',
   bcb: 'landing-b2c.footer.disclosures.bcb',
   us: 'landing-b2c.footer.disclosures.us',

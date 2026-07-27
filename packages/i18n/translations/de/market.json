@@ -44,14 +44,25 @@
     "methodologyLead": "Jedes Signal, jeder Schwellenwert und jede Gewichtung ist auf diBoaS Analytics dokumentiert.",
     "methodologyLinkLabel": "Methodik lesen",
     "poweredByLabel": "Bereitgestellt von",
-    "poweredByProduct": "diBoaS Analytics"
+    "poweredByProduct": "diBoaS Analytics",
+    "methodologyComingSoon": "Vollständige Methodik in Kürze",
+    "comingSoon": "in Kürze",
+    "sources": {
+      "btc": "Bitcoin-Preis",
+      "us10y": "Rendite 10-jähriger US-Staatsanleihen",
+      "dxy": "US-Dollar-Index",
+      "m2": "Geldmenge (M2)",
+      "nasdaq": "Nasdaq Composite",
+      "gold": "Goldpreis",
+      "btcEtf": "Bitcoin-ETF-Zuflüsse"
+    }
   },
   "cta": {
     "cadence": "Wöchentlich aktualisiert",
     "headline": "Ruhige Einordnung, jede Woche.",
     "body": "Adelaide Market ist kostenlos und wird wöchentlich aktualisiert. Tritt der Warteliste bei, um beim Start von diBoaS dabei zu sein.",
     "waitlist": "Der Warteliste beitreten",
-    "share": "Adelaide teilen",
+    "share": "Teilen",
     "shareCopied": "Link kopiert",
     "shareText": "Adelaide Market: ruhige Makro-Einordnung für Bitcoin."
   },

@@ -10,14 +10,14 @@ diBoaS is a pre-launch marketing site with waitlist functionality, interactive d
 
 ## Tech Stack
 
-- **Framework:** Next.js 16.2.6 (App Router, Turbopack)
+- **Framework:** Next.js 16.2.11 (App Router, Turbopack)
 - **Language:** TypeScript ~5.9.3 (strict mode)
 - **UI:** React 18.3.1, Tailwind CSS 3.4.17
 - **Monorepo:** Turborepo 2.8.15 + pnpm 10.33.2
 - **i18n:** react-intl 6.4.7 (4 locales: en, pt-BR, es, de)
 - **Testing:** Vitest 4.1.5, @vitest/coverage-v8, Lighthouse CI, pa11y
 - **Monitoring:** Sentry 10.65.0 (errors + session replay), PostHog (product analytics), GA4 (traffic), web-vitals
-- **Security:** DOMPurify 3.4.11, Upstash Redis (rate limiting), AES-256-GCM encryption, HMAC blind indexing
+- **Security:** DOMPurify 3.4.12, Upstash Redis (rate limiting), AES-256-GCM encryption, HMAC blind indexing
 - **Email:** Resend (transactional email with circuit breaker)
 - **Database:** Neon PostgreSQL (serverless)
 - **Component dev:** Storybook 10.3.5
@@ -63,7 +63,7 @@ flowchart TD
 
 ### Engineering posture (built — verifiable in this repo)
 
-- **Testing & CI:** strict TypeScript, ~1,329 automated tests (Vitest), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
+- **Testing & CI:** strict TypeScript, ~1,334 automated tests (Vitest), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
 - **Security:** per-request **nonce-based CSP** (`'unsafe-inline'` prohibited for scripts), **AES-256-GCM** encryption for PII at rest, **HMAC blind indexing**, Upstash rate limiting, DOMPurify sanitization, and CSRF protection on mutation endpoints.
 - **i18n:** 40 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
 - **Monitoring:** Sentry, PostHog, and GA4 — all consent-gated and lazy-loaded behind a cookie-consent check.

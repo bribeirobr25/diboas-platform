@@ -17,3 +17,9 @@
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
+
+/* Non-link product name for the "coming soon" state (site not yet public). */
+.product {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}

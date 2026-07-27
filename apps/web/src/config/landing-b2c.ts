@@ -196,9 +196,20 @@ export const B2C_FOOTER_DISCLOSURES = {
   ai: 'landing-b2c.footer.disclosures.ai',
   closing: 'landing-b2c.footer.disclosures.closing',
   // Locale-conditional (keys may not exist in all locales)
-  mica: 'landing-b2c.footer.disclosures.mica',
   micaArticle7: 'landing-b2c.footer.disclosures.micaArticle7',
   cvm: 'landing-b2c.footer.disclosures.cvm',
   bcb: 'landing-b2c.footer.disclosures.bcb',
   us: 'landing-b2c.footer.disclosures.us',
 } as const;
+
+/**
+ * Page-specific footer disclosures. Passed to <MinimalFooter extraDisclosureKeys>
+ * so they render on one surface only, never in the site-wide footer.
+ *
+ * `/market` (Adelaide Market) carries the forward-looking analyst-opinion note —
+ * CVM-flavoured but shown in all locales, since the regime analysis is
+ * forward-looking on every locale of that page.
+ */
+export const MARKET_FOOTER_EXTRA_DISCLOSURES = [
+  'landing-b2c.footer.disclosures.marketAnalysis',
+] as const;

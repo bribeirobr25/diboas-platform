@@ -51,9 +51,18 @@ jobs:
           #   - elliptic (low) — via @storybook node-polyfill (dev-only, no fix exists)
           #
           # Defanged via pnpm.overrides at root (update SECURITY_FINDINGS when lifted):
-          #   - fast-uri <=3.1.1 — overridden to >=3.1.2 (F21, 2026-06-01)
-          #   - postcss@8.4.31 (next-internal pin, CVE-2026-41305) — overridden to 8.5.16
-          #     (F24, 2026-07-17; remove when next >=16.3.x bumps its own pin)
+          #   - fast-uri — overridden to >=4.1.1 (F21→2026-07-27: raised from >=3.1.2 to
+          #     clear CVE-2026-16221 backslash-host SSRF; build-time via @sentry webpack plugin)
+          #   - postcss <8.5.18 — overridden to 8.5.18 (F24→2026-07-27: raised from 8.5.16 to
+          #     clear SNYK-JS-POSTCSS-18313038 loadMap traversal; build-time, our own CSS)
+          #   - dompurify — overridden to 3.4.12 (2026-07-27: CVE-2026-66010 low, CUSTOM_ELEMENT
+          #     unused; also aged out the old 3.4.11 pin)
+          #   - brace-expansion 5.x <5.0.8 — overridden to 5.0.8 (2026-07-27: DoS, build-time
+          #     via @sentry webpack>glob>minimatch; pnpm audit misreports it as still-high)
+          # Batch note (2026-07-27, Snyk app report): next 16.2.6→16.2.11 cleared the
+          # CVE-2026-6464x set of 8; sharp stays 0.34.5 via next's pin — RISK-ACCEPTED
+          # (our code never imports sharp; build-time/repo-owned assets only; re-check on
+          # next→sharp 0.35.x). All the above are HIGH-not-CRITICAL, so this gate stays green.
           #
           # KNOWN BLIND SPOT (F24): pnpm audit reads the npm/GHSA DB only — advisories
           # with a Snyk-only ID and no CVE (e.g. SNYK-JS-ESBUILD-17750822) are invisible

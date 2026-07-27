@@ -1,0 +1,63 @@
+{
+  "_comment": "Short, plain, jargon-free subject labels per signal, used by the composed 'mixed' group summaries (generate.mjs composeMixed) to name the actual split this cycle instead of generic 'part/the rest'. One neutral noun phrase per signal; the group frame supplies the supportive/against polarity. REL-03 is not used in composition (backdrop, not a BTC-vs-benchmark) but carried for completeness. pt-BR/es/de filled per locale pass; empty → composeMixed falls back to the generic group-summaries.json 'mixed' template.",
+  "BTC-01": {
+    "en": "the mid-term trend",
+    "pt-BR": "a tendência de médio prazo",
+    "es": "la tendencia a medio plazo",
+    "de": "der mittelfristige Trend"
+  },
+  "BTC-02": {
+    "en": "the long-term trend",
+    "pt-BR": "a tendência de longo prazo",
+    "es": "la tendencia a largo plazo",
+    "de": "der langfristige Trend"
+  },
+  "BTC-03": {
+    "en": "monthly momentum",
+    "pt-BR": "o momentum mensal",
+    "es": "el impulso mensual",
+    "de": "das monatliche Momentum"
+  },
+  "BTC-04": {
+    "en": "short-term momentum",
+    "pt-BR": "o momentum de curto prazo",
+    "es": "el impulso a corto plazo",
+    "de": "das kurzfristige Momentum"
+  },
+  "MAC-01": {
+    "en": "the dollar",
+    "pt-BR": "o dólar",
+    "es": "el dólar",
+    "de": "der Dollar"
+  },
+  "MAC-02": {
+    "en": "yields",
+    "pt-BR": "os juros",
+    "es": "los rendimientos",
+    "de": "die Renditen"
+  },
+  "MAC-03": {
+    "en": "liquidity",
+    "pt-BR": "a liquidez",
+    "es": "la liquidez",
+    "de": "die Liquidität"
+  },
+  "REL-01": {
+    "en": "gold",
+    "pt-BR": "o ouro",
+    "es": "el oro",
+    "de": "Gold"
+  },
+  "REL-02": {
+    "en": "the Nasdaq",
+    "pt-BR": "a Nasdaq",
+    "es": "el Nasdaq",
+    "de": "den Nasdaq"
+  },
+  "REL-03": {
+    "en": "the wider market",
+    "pt-BR": "o mercado amplo",
+    "es": "el mercado amplio",
+    "de": "der breitere Markt"
+  }
+}

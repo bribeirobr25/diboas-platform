@@ -3,85 +3,103 @@
   "btc_structure": {
     "weak": {
       "en": "Bitcoin's own structure is damaged: the monthly trend lines are broken and momentum offers little support ({points} of {max} points).",
-      "pt-BR": "A estrutura própria do Bitcoin está danificada: as linhas de tendência mensais estão rompidas e o momentum dá pouco suporte ({points} de {max} pontos).",
-      "es": "La estructura propia de Bitcoin está dañada: las líneas de tendencia mensuales están rotas y el impulso ofrece poco apoyo ({points} de {max} puntos).",
-      "de": "Bitcoins eigene Struktur ist beschädigt: Die monatlichen Trendlinien sind gebrochen und das Momentum bietet wenig Halt ({points} von {max} Punkten)."
+      "pt-BR": "A própria estrutura do Bitcoin está comprometida: as linhas de tendência mensais estão rompidas e o momentum dá pouco suporte ({points} de {max} pontos).",
+      "es": "La estructura de Bitcoin está deteriorada: las líneas de tendencia mensuales están rotas y el impulso ofrece poco apoyo ({points} de {max} puntos).",
+      "de": "Bitcoins Struktur ist angeschlagen: Die monatlichen Trendlinien sind gebrochen und das Momentum bietet wenig Halt ({points} von {max} Punkten)."
     },
     "mixed": {
       "en": "Bitcoin's structure is split: some monthly trend measures hold while others have given way ({points} of {max} points).",
-      "pt-BR": "A estrutura do Bitcoin está dividida: algumas medidas mensais de tendência seguram enquanto outras cederam ({points} de {max} pontos).",
-      "es": "La estructura de Bitcoin está dividida: algunas medidas mensuales de tendencia aguantan mientras otras cedieron ({points} de {max} puntos).",
+      "pt-BR": "A estrutura do Bitcoin está dividida: algumas medidas mensais de tendência se sustentam enquanto outras cederam ({points} de {max} pontos).",
+      "es": "La estructura de Bitcoin está dividida: algunas medidas mensuales de tendencia aguantan mientras otras han cedido ({points} de {max} puntos).",
       "de": "Bitcoins Struktur ist gespalten: Einige monatliche Trendmaße halten, andere haben nachgegeben ({points} von {max} Punkten)."
+    },
+    "mixedComposed": {
+      "en": "Bitcoin's structure is split: {supportive} still holding, {against} faltering ({points} of {max} points).",
+      "pt-BR": "A estrutura do Bitcoin está dividida: {supportive} ainda se sustentando, {against} enfraquecendo ({points} de {max} pontos).",
+      "es": "La estructura de Bitcoin está dividida: {supportive} aún aguantando, {against} flaqueando ({points} de {max} puntos).",
+      "de": "Bitcoins Struktur ist gespalten: {supportive} auf der stabilen Seite, {against} auf der schwachen Seite ({points} von {max} Punkten)."
     },
     "strong": {
       "en": "Bitcoin's structure is sound: price holds its monthly trend lines and momentum confirms ({points} of {max} points).",
       "pt-BR": "A estrutura do Bitcoin está sólida: o preço mantém as linhas de tendência mensais e o momentum confirma ({points} de {max} pontos).",
       "es": "La estructura de Bitcoin es sólida: el precio mantiene sus líneas de tendencia mensuales y el impulso confirma ({points} de {max} puntos).",
-      "de": "Bitcoins Struktur ist solide: Der Preis hält seine monatlichen Trendlinien und das Momentum bestätigt ({points} von {max} Punkten)."
+      "de": "Bitcoins Struktur ist solide: Der Preis hält seine monatlichen Trendlinien und das Momentum stützt ({points} von {max} Punkten)."
     }
   },
   "macro_environment": {
     "weak": {
       "en": "The macro backdrop is restrictive: the dollar and yields are not helping, and liquidity gives no offset ({points} of {max} points).",
       "pt-BR": "O cenário macro é restritivo: dólar e juros não ajudam, e a liquidez não compensa ({points} de {max} pontos).",
-      "es": "El trasfondo macro es restrictivo: el dólar y los rendimientos no ayudan, y la liquidez no lo compensa ({points} de {max} puntos).",
+      "es": "El entorno macro es restrictivo: el dólar y los rendimientos no ayudan, y la liquidez no lo compensa ({points} de {max} puntos).",
       "de": "Das Makro-Umfeld ist restriktiv: Dollar und Renditen helfen nicht, und die Liquidität gleicht nichts aus ({points} von {max} Punkten)."
     },
     "mixed": {
       "en": "Macro conditions are mixed: part of the backdrop leans supportive while the rest stays restrictive ({points} of {max} points).",
       "pt-BR": "As condições macro estão mistas: parte do cenário pende para o suporte enquanto o resto segue restritivo ({points} de {max} pontos).",
-      "es": "Las condiciones macro están mixtas: parte del trasfondo apoya mientras el resto sigue restrictivo ({points} de {max} puntos).",
+      "es": "Las condiciones macro son mixtas: parte del entorno apoya mientras el resto sigue restrictivo ({points} de {max} puntos).",
       "de": "Die Makro-Bedingungen sind gemischt: Ein Teil des Umfelds stützt, der Rest bleibt restriktiv ({points} von {max} Punkten)."
+    },
+    "mixedComposed": {
+      "en": "Macro conditions are mixed: {supportive} on the supportive side, {against} on the restrictive side ({points} of {max} points).",
+      "pt-BR": "As condições macro estão mistas: {supportive} do lado favorável, {against} do lado restritivo ({points} de {max} pontos).",
+      "es": "Las condiciones macro son mixtas: {supportive} del lado favorable, {against} del lado restrictivo ({points} de {max} puntos).",
+      "de": "Die Makro-Bedingungen sind gemischt: {supportive} auf der unterstützenden Seite, {against} auf der restriktiven Seite ({points} von {max} Punkten)."
     },
     "strong": {
       "en": "The macro backdrop is supportive: a softer dollar, easing yields and expanding liquidity are aligned ({points} of {max} points).",
       "pt-BR": "O cenário macro é favorável: dólar mais fraco, juros cedendo e liquidez em expansão estão alinhados ({points} de {max} pontos).",
-      "es": "El trasfondo macro es favorable: un dólar más débil, rendimientos a la baja y liquidez en expansión están alineados ({points} de {max} puntos).",
-      "de": "Das Makro-Umfeld ist unterstützend: weicherer Dollar, nachgebende Renditen und wachsende Liquidität ziehen an einem Strang ({points} von {max} Punkten)."
+      "es": "El entorno macro es favorable: un dólar más débil, rendimientos a la baja y liquidez en expansión están alineados ({points} de {max} puntos).",
+      "de": "Das Makro-Umfeld ist unterstützend: Weicherer Dollar, nachgebende Renditen und wachsende Liquidität ziehen an einem Strang ({points} von {max} Punkten)."
     }
   },
   "institutional_demand": {
     "weak": {
-      "en": "Institutional demand is not confirming: ETF flows are absent or negative on the observed weeks ({points} of {max} points).",
+      "en": "Institutional demand is not confirming: ETF flows are absent or negative in the observed weeks ({points} of {max} points).",
       "pt-BR": "A demanda institucional não confirma: os fluxos de ETF estão ausentes ou negativos nas semanas observadas ({points} de {max} pontos).",
       "es": "La demanda institucional no confirma: los flujos de ETF están ausentes o negativos en las semanas observadas ({points} de {max} puntos).",
-      "de": "Institutionelle Nachfrage bestätigt nicht: ETF-Flüsse fehlen oder sind in den beobachteten Wochen negativ ({points} von {max} Punkten)."
+      "de": "Die institutionelle Nachfrage bestätigt nicht: ETF-Flüsse fehlen oder sind in den beobachteten Wochen negativ ({points} von {max} Punkten)."
     },
     "mixed": {
-      "en": "Institutional demand is partial this cycle ({points} of {max} points).",
-      "pt-BR": "A demanda institucional está parcial neste ciclo ({points} de {max} pontos).",
-      "es": "La demanda institucional es parcial en este ciclo ({points} de {max} puntos).",
-      "de": "Die institutionelle Nachfrage ist in diesem Zyklus nur teilweise vorhanden ({points} von {max} Punkten)."
+      "en": "Institutional demand is only partly confirming: ETF flows turned positive in some weeks but not enough for a full score ({points} of {max} points).",
+      "pt-BR": "A demanda institucional confirma só em parte: os fluxos de ETF ficaram positivos em algumas semanas, mas não o bastante para a pontuação máxima ({points} de {max} pontos).",
+      "es": "La demanda institucional solo confirma en parte: los flujos de ETF fueron positivos algunas semanas, pero no lo suficiente para la puntuación completa ({points} de {max} puntos).",
+      "de": "Die institutionelle Nachfrage bestätigt nur teilweise: Die ETF-Flüsse waren in einigen Wochen positiv, aber nicht genug für die volle Punktzahl ({points} von {max} Punkten)."
     },
     "strong": {
-      "en": "Institutional demand is flowing: spot-ETF creations outpaced redemptions in most recent weeks ({points} of {max} points).",
+      "en": "Institutional demand is flowing: spot-ETF creations outpaced redemptions in most of the recent weeks ({points} of {max} points).",
       "pt-BR": "A demanda institucional está entrando: as emissões dos ETFs à vista superaram os resgates na maioria das semanas recentes ({points} de {max} pontos).",
       "es": "La demanda institucional está entrando: las creaciones de los ETF al contado superaron los reembolsos en la mayoría de las semanas recientes ({points} de {max} puntos).",
-      "de": "Institutionelle Nachfrage fließt: Anteilsschöpfungen der Spot-ETFs überwogen in den meisten der letzten Wochen ({points} von {max} Punkten)."
+      "de": "Die institutionelle Nachfrage fließt: Zuflüsse in die Spot-ETFs überwogen die Abflüsse in den meisten der letzten Wochen ({points} von {max} Punkten)."
     },
     "unavailable": {
       "en": "Institutional demand could not be measured this cycle — the ETF flow read is unavailable, not weak ({points} of {max} points).",
       "pt-BR": "A demanda institucional não pôde ser medida neste ciclo — a leitura de fluxos de ETF está indisponível, não fraca ({points} de {max} pontos).",
       "es": "La demanda institucional no pudo medirse en este ciclo: la lectura de flujos de ETF no está disponible, no es débil ({points} de {max} puntos).",
-      "de": "Die institutionelle Nachfrage konnte in diesem Zyklus nicht gemessen werden — der ETF-Fluss-Wert ist nicht verfügbar, nicht schwach ({points} von {max} Punkten)."
+      "de": "Die institutionelle Nachfrage konnte in diesem Zyklus nicht gemessen werden — die ETF-Flussdaten sind nicht verfügbar, nicht schwach ({points} von {max} Punkten)."
     }
   },
   "relative_strength": {
     "weak": {
       "en": "Bitcoin is lagging its benchmarks: it trails gold and the Nasdaq on the weekly trend ({points} of {max} points).",
-      "pt-BR": "O Bitcoin está atrás dos seus referenciais: perde do ouro e do Nasdaq na tendência semanal ({points} de {max} pontos).",
+      "pt-BR": "O Bitcoin está atrás dos seus referenciais: perde para o ouro e para a Nasdaq na tendência semanal ({points} de {max} pontos).",
       "es": "Bitcoin va rezagado frente a sus referencias: pierde contra el oro y el Nasdaq en la tendencia semanal ({points} de {max} puntos).",
       "de": "Bitcoin hinkt seinen Vergleichsmaßstäben hinterher: Gegen Gold und Nasdaq liegt es im Wochentrend zurück ({points} von {max} Punkten)."
     },
     "mixed": {
       "en": "Relative strength is split: Bitcoin leads on part of the board while the rest holds firm against it ({points} of {max} points).",
       "pt-BR": "A força relativa está dividida: o Bitcoin lidera em parte do quadro enquanto o resto resiste ({points} de {max} pontos).",
-      "es": "La fuerza relativa está dividida: Bitcoin lidera en parte del tablero mientras el resto resiste ({points} de {max} puntos).",
+      "es": "La fuerza relativa está dividida: Bitcoin lidera frente a algunos de sus referentes mientras el resto resiste ({points} de {max} puntos).",
       "de": "Die relative Stärke ist geteilt: Bitcoin führt auf einem Teil des Feldes, der Rest hält dagegen ({points} von {max} Punkten)."
+    },
+    "mixedComposed": {
+      "en": "Relative strength is split: Bitcoin leads {supportive} but lags {against} ({points} of {max} points).",
+      "pt-BR": "A força relativa está dividida: o Bitcoin supera {supportive}, mas perde para {against} ({points} de {max} pontos).",
+      "es": "La fuerza relativa está dividida: Bitcoin supera a {supportive}, pero va por detrás de {against} ({points} de {max} puntos).",
+      "de": "Die relative Stärke ist geteilt: Bitcoin schlägt {supportive}, verliert aber gegen {against} ({points} von {max} Punkten)."
     },
     "strong": {
       "en": "Bitcoin leads its benchmarks: it outpaces gold and the Nasdaq on the weekly trend ({points} of {max} points).",
-      "pt-BR": "O Bitcoin lidera seus referenciais: supera o ouro e o Nasdaq na tendência semanal ({points} de {max} pontos).",
+      "pt-BR": "O Bitcoin lidera seus referenciais: supera o ouro e a Nasdaq na tendência semanal ({points} de {max} pontos).",
       "es": "Bitcoin lidera sus referencias: supera al oro y al Nasdaq en la tendencia semanal ({points} de {max} puntos).",
       "de": "Bitcoin führt seine Vergleichsmaßstäbe an: Im Wochentrend läuft es Gold und dem Nasdaq voraus ({points} von {max} Punkten)."
     }

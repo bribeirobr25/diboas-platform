@@ -24,3 +24,15 @@
   margin-left: var(--spacing-xs);
   flex-shrink: 0;
 }
+
+/* Non-link "coming soon" state (diBoaS Analytics not yet public). Muted, no
+   underline, no external-link affordance so it doesn't read as clickable. */
+.comingSoon {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  font-style: italic;
+}

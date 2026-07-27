@@ -24,7 +24,7 @@
         "Monthly RSI turned back down (49.2 → 40.8) — momentum is deteriorating again",
         "The dollar is firm and US 10-year yields hold above trend; spot ETF net-flows could not be confirmed (scored unavailable, no points)"
       ],
-      "plain": "Same coat, same weather: little moved beneath the surface — the season held its shape. The read stays defensive, and there's a quiet usefulness in a page that doesn't flinch every week. What we're watching: whether the stock market itself stays steady, and whether the dollar loosens its grip."
+      "plain": "Same coat, same sky this month: little changed from the month before. The read stays defensive, the balance of signals still tilted against the price. What we're watching: whether the stock market itself stays steady, and whether the dollar loosens its grip."
     },
     "pt-BR": {
       "short": "As condições recuaram de Neutra / Mista para Defensiva. A queda de junho rompeu de forma decisiva a tendência intermediária do Bitcoin e o levou, pela primeira vez neste ciclo, para baixo da linha de 50 meses de longo prazo, enquanto o cenário macro segue restritivo. A liquidez em expansão e o piso de momentum de curto prazo, que ainda resiste, são os apoios restantes.",
@@ -43,7 +43,7 @@
         "O RSI mensal voltou a cair (49,2 → 40,8) — o momentum está se deteriorando novamente",
         "O dólar está firme e os rendimentos do Tesouro americano de 10 anos seguem acima da tendência; os fluxos líquidos de ETFs à vista não puderam ser confirmados (pontuados como indisponíveis, sem pontos)"
       ],
-      "plain": "Mesmo casaco, mesmo tempo: pouco se moveu por baixo da superfície — a estação manteve a forma. A leitura segue defensiva, e há uma utilidade silenciosa numa página que não se assusta toda semana. O que estamos observando: se a própria bolsa segue firme, e se o dólar afrouxa o aperto."
+      "plain": "Mesmo casaco, mesmo céu neste mês: pouco mudou em relação ao mês anterior. O cenário segue defensivo, com o balanço dos sinais ainda inclinado contra o preço. O que estamos observando: se a própria bolsa segue firme, e se o dólar afrouxa o aperto."
     },
     "es": {
       "short": "Las condiciones retrocedieron de Neutral / Mixta a Defensiva. La caída de junio rompió de forma decisiva la tendencia intermedia de Bitcoin y lo llevó, por primera vez en este ciclo, por debajo de la línea de 50 meses de largo plazo, mientras el entorno macro sigue restrictivo. La liquidez en expansión y el piso de momentum de corto plazo, que aún resiste, son los apoyos restantes.",
@@ -62,7 +62,7 @@
         "El RSI mensual volvió a girar a la baja (49,2 → 40,8) — el momentum se deteriora de nuevo",
         "El dólar está firme y los rendimientos del Tesoro estadounidense a 10 años siguen sobre la tendencia; los flujos netos de ETFs al contado no pudieron confirmarse (puntuados como no disponibles, sin puntos)"
       ],
-      "plain": "Mismo abrigo, mismo tiempo: poco se movió bajo la superficie: la estación mantuvo su forma. La lectura sigue defensiva, y hay una utilidad callada en una página que no se sobresalta cada semana. Qué estamos observando: si la propia bolsa se mantiene firme, y si el dólar afloja su presión."
+      "plain": "Mismo abrigo, mismo cielo este mes: poco cambió respecto al mes anterior. El escenario sigue defensivo, con la balanza de las señales aún inclinada en contra del precio. Lo que observamos: si la propia bolsa se mantiene firme, y si el dólar afloja su presión."
     },
     "de": {
       "short": "Die Bedingungen fielen von Neutral / Gemischt auf Defensiv zurück. Der Juni-Abverkauf brach Bitcoins mittelfristigen Trend deutlich und drückte den Kurs erstmals in diesem Zyklus unter die langfristige 50-Monats-Linie, während das Makro-Umfeld restriktiv bleibt. Die expandierende Liquidität und der noch haltende kurzfristige Momentum-Boden sind die verbleibenden Stützen.",
@@ -81,7 +81,7 @@
         "Der monatliche RSI drehte wieder nach unten (49,2 → 40,8) — das Momentum verschlechtert sich erneut",
         "Der Dollar ist fest und die US-10-Jahres-Renditen bleiben über dem Trend; Spot-ETF-Nettozuflüsse konnten nicht bestätigt werden (als nicht verfügbar bewertet, keine Punkte)"
       ],
-      "plain": "Gleicher Mantel, gleiches Wetter: unter der Oberfläche bewegte sich wenig — die Jahreszeit behielt ihre Form. Die Lesart bleibt defensiv, und es liegt ein stiller Nutzen in einer Seite, die nicht jede Woche zusammenzuckt. Worauf wir achten: ob der Aktienmarkt selbst stabil bleibt, und ob der Dollar seinen Griff lockert."
+      "plain": "Gleicher Mantel, gleicher Himmel diesen Monat: Wenig änderte sich gegenüber dem Vormonat. Die Lage bleibt defensiv, die Waage der Signale bleibt gegen den Preis geneigt. Worauf wir achten: ob der Aktienmarkt selbst stabil bleibt und ob der Dollar seinen Griff lockert."
     }
   },
   "signal_groups": [
@@ -99,9 +99,9 @@
       "max_points": 6,
       "summary": {
         "en": "Bitcoin's own structure is damaged: the monthly trend lines are broken and momentum offers little support (1 of 6 points).",
-        "pt-BR": "A estrutura própria do Bitcoin está danificada: as linhas de tendência mensais estão rompidas e o momentum dá pouco suporte (1 de 6 pontos).",
-        "es": "La estructura propia de Bitcoin está dañada: las líneas de tendencia mensuales están rotas y el impulso ofrece poco apoyo (1 de 6 puntos).",
-        "de": "Bitcoins eigene Struktur ist beschädigt: Die monatlichen Trendlinien sind gebrochen und das Momentum bietet wenig Halt (1 von 6 Punkten)."
+        "pt-BR": "A própria estrutura do Bitcoin está comprometida: as linhas de tendência mensais estão rompidas e o momentum dá pouco suporte (1 de 6 pontos).",
+        "es": "La estructura de Bitcoin está deteriorada: las líneas de tendencia mensuales están rotas y el impulso ofrece poco apoyo (1 de 6 puntos).",
+        "de": "Bitcoins Struktur ist angeschlagen: Die monatlichen Trendlinien sind gebrochen und das Momentum bietet wenig Halt (1 von 6 Punkten)."
       }
     },
     {
@@ -117,10 +117,10 @@
       "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Macro conditions are mixed: part of the backdrop leans supportive while the rest stays restrictive (1 of 3 points).",
-        "pt-BR": "As condições macro estão mistas: parte do cenário pende para o suporte enquanto o resto segue restritivo (1 de 3 pontos).",
-        "es": "Las condiciones macro están mixtas: parte del trasfondo apoya mientras el resto sigue restrictivo (1 de 3 puntos).",
-        "de": "Die Makro-Bedingungen sind gemischt: Ein Teil des Umfelds stützt, der Rest bleibt restriktiv (1 von 3 Punkten)."
+        "en": "Macro conditions are mixed: liquidity on the supportive side, the dollar and yields on the restrictive side (1 of 3 points).",
+        "pt-BR": "As condições macro estão mistas: a liquidez do lado favorável, o dólar e os juros do lado restritivo (1 de 3 pontos).",
+        "es": "Las condiciones macro son mixtas: la liquidez del lado favorable, el dólar y los rendimientos del lado restrictivo (1 de 3 puntos).",
+        "de": "Die Makro-Bedingungen sind gemischt: die Liquidität auf der unterstützenden Seite, der Dollar und die Renditen auf der restriktiven Seite (1 von 3 Punkten)."
       }
     },
     {
@@ -139,7 +139,7 @@
         "en": "Institutional demand could not be measured this cycle — the ETF flow read is unavailable, not weak (0 of 2 points).",
         "pt-BR": "A demanda institucional não pôde ser medida neste ciclo — a leitura de fluxos de ETF está indisponível, não fraca (0 de 2 pontos).",
         "es": "La demanda institucional no pudo medirse en este ciclo: la lectura de flujos de ETF no está disponible, no es débil (0 de 2 puntos).",
-        "de": "Die institutionelle Nachfrage konnte in diesem Zyklus nicht gemessen werden — der ETF-Fluss-Wert ist nicht verfügbar, nicht schwach (0 von 2 Punkten)."
+        "de": "Die institutionelle Nachfrage konnte in diesem Zyklus nicht gemessen werden — die ETF-Flussdaten sind nicht verfügbar, nicht schwach (0 von 2 Punkten)."
       }
     },
     {
@@ -155,10 +155,10 @@
       "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Relative strength is split: Bitcoin leads on part of the board while the rest holds firm against it (1 of 3 points).",
-        "pt-BR": "A força relativa está dividida: o Bitcoin lidera em parte do quadro enquanto o resto resiste (1 de 3 pontos).",
-        "es": "La fuerza relativa está dividida: Bitcoin lidera en parte del tablero mientras el resto resiste (1 de 3 puntos).",
-        "de": "Die relative Stärke ist geteilt: Bitcoin führt auf einem Teil des Feldes, der Rest hält dagegen (1 von 3 Punkten)."
+        "en": "Relative strength is split: Bitcoin leads gold but lags the Nasdaq (1 of 3 points).",
+        "pt-BR": "A força relativa está dividida: o Bitcoin supera o ouro, mas perde para a Nasdaq (1 de 3 pontos).",
+        "es": "La fuerza relativa está dividida: Bitcoin supera al oro, pero va por detrás del Nasdaq (1 de 3 puntos).",
+        "de": "Die relative Stärke ist geteilt: Bitcoin schlägt Gold, verliert aber gegen den Nasdaq (1 von 3 Punkten)."
       }
     }
   ],

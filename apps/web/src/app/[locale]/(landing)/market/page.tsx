@@ -8,7 +8,11 @@ import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { MarketHeroCanvas, MarketCtaBand } from '@/components/Market';
 import { Container } from '@/components/UI/Container';
-import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
+import {
+  B2C_FOOTER_NAV,
+  B2C_FOOTER_DISCLOSURES,
+  MARKET_FOOTER_EXTRA_DISCLOSURES,
+} from '@/config/landing-b2c';
 import nextDynamic from 'next/dynamic';
 import {
   RegimeScore,
@@ -55,6 +59,23 @@ export const revalidate = 3600;
  */
 const MARKET_INDEXABLE = process.env.NEXT_PUBLIC_MARKET_INDEXABLE === 'true';
 const ANALYTICS_API_URL = process.env.NEXT_PUBLIC_ANALYTICS_API_URL ?? '/_mock';
+
+// The diBoaS Analytics site (diboas-analytics.com) is not yet public — surface
+// its methodology/attribution links as "coming soon" (no outbound href) until it
+// launches. Flip to true when the site goes live.
+const ANALYTICS_SITE_LIVE = false;
+
+// Raw upstream provenance ids → friendly, localized display-label i18n keys for
+// the "Data sources" panel. Unmapped sources fall back to the raw id.
+const SOURCE_LABEL_KEYS: Record<string, string> = {
+  'in-repo:monthlyPrices.json (BTC)': 'dashboard.sources.btc',
+  'FRED:DGS10': 'dashboard.sources.us10y',
+  'FRED:DTWEXBGS': 'dashboard.sources.dxy',
+  'FRED:M2SL': 'dashboard.sources.m2',
+  'FRED:NASDAQCOM': 'dashboard.sources.nasdaq',
+  'Yahoo:GC=F': 'dashboard.sources.gold',
+  'CoinGlass:ETF': 'dashboard.sources.btcEtf',
+};
 
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
@@ -270,15 +291,18 @@ export default async function MarketPage({ params }: LocalePageProps) {
                       </div>
                     </div>
                     <div className={styles.scoreCopy}>
-                      {regime.summary.plain && (
-                        <CalmSummary
-                          data={regime.summary}
-                          length="plain"
-                          className={styles.plainLead}
-                        />
-                      )}
-                      <CalmSummary data={regime.summary} length="detailed" />
+                      {regime.summary.plain && <CalmSummary data={regime.summary} length="plain" />}
                     </div>
+                  </div>
+                  {/* The memo voice drops below the gauge row and spans the full
+                      container width, so a long memo no longer forces the gauge
+                      to float vertically-centered in a tall right column. */}
+                  <div className={styles.scoreDetail}>
+                    <CalmSummary
+                      data={regime.summary}
+                      length="detailed"
+                      className={styles.scoreDetailBody}
+                    />
                   </div>
                 </section>
               </SectionErrorBoundary>
@@ -367,6 +391,11 @@ export default async function MarketPage({ params }: LocalePageProps) {
                       <li key={src.source}>
                         <DataFreshnessBadge
                           source={src.source}
+                          label={
+                            SOURCE_LABEL_KEYS[src.source]
+                              ? t(SOURCE_LABEL_KEYS[src.source], src.source)
+                              : src.source
+                          }
                           status={src.status}
                           labels={freshnessLabels}
                           message={src.message}
@@ -389,7 +418,7 @@ export default async function MarketPage({ params }: LocalePageProps) {
               'Adelaide Market is free and refreshed every week. Join the waitlist to be first when diBoaS opens.'
             )}
             waitlistLabel={t('cta.waitlist', 'Join the waitlist')}
-            shareLabel={t('cta.share', 'Share Adelaide')}
+            shareLabel={t('cta.share', 'Share')}
             shareCopied={t('cta.shareCopied', 'Link copied')}
             shareUrl={`${siteUrl}/${locale}/market`}
             shareText={t('cta.shareText', 'Adelaide Market: calm macro intelligence for Bitcoin.')}
@@ -410,8 +439,13 @@ export default async function MarketPage({ params }: LocalePageProps) {
                       'Every signal, threshold, and weight is documented on diBoaS Analytics.'
                     )}
                   </h2>
-                  <MethodologyLink href={methodology.methodology_url}>
-                    {t('dashboard.methodologyLinkLabel', 'Read the methodology')}
+                  <MethodologyLink
+                    href={methodology.methodology_url}
+                    comingSoon={!ANALYTICS_SITE_LIVE}
+                  >
+                    {ANALYTICS_SITE_LIVE
+                      ? t('dashboard.methodologyLinkLabel', 'Read the methodology')
+                      : t('dashboard.methodologyComingSoon', 'Full methodology coming soon')}
                   </MethodologyLink>
                 </div>
               )}
@@ -433,11 +467,17 @@ export default async function MarketPage({ params }: LocalePageProps) {
                 href="https://diboas-analytics.com"
                 label={t('dashboard.poweredByLabel', 'Powered by')}
                 productName={t('dashboard.poweredByProduct', 'diBoaS Analytics')}
+                comingSoon={!ANALYTICS_SITE_LIVE}
+                comingSoonLabel={t('dashboard.comingSoon', 'coming soon')}
               />
             </Container>
           </section>
 
-          <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={B2C_FOOTER_DISCLOSURES} />
+          <MinimalFooter
+            navLinks={B2C_FOOTER_NAV}
+            disclosureKeys={B2C_FOOTER_DISCLOSURES}
+            extraDisclosureKeys={MARKET_FOOTER_EXTRA_DISCLOSURES}
+          />
         </div>
       </AnalyticsProvider>
     </PageI18nProvider>

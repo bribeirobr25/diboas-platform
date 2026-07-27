@@ -44,14 +44,25 @@
     "methodologyLead": "Every signal, threshold, and weight is documented on diBoaS Analytics.",
     "methodologyLinkLabel": "Read the methodology",
     "poweredByLabel": "Powered by",
-    "poweredByProduct": "diBoaS Analytics"
+    "poweredByProduct": "diBoaS Analytics",
+    "methodologyComingSoon": "Full methodology coming soon",
+    "comingSoon": "coming soon",
+    "sources": {
+      "btc": "Bitcoin price",
+      "us10y": "10-year Treasury yield",
+      "dxy": "U.S. dollar index",
+      "m2": "Money supply (M2)",
+      "nasdaq": "Nasdaq Composite",
+      "gold": "Gold price",
+      "btcEtf": "Bitcoin ETF flows"
+    }
   },
   "cta": {
     "cadence": "Updated weekly",
     "headline": "Calm intelligence, every week.",
     "body": "Adelaide Market is free and refreshed every week. Join the waitlist to be first when diBoaS opens.",
     "waitlist": "Join the waitlist",
-    "share": "Share Adelaide",
+    "share": "Share",
     "shareCopied": "Link copied",
     "shareText": "Adelaide Market: calm macro intelligence for Bitcoin."
   },

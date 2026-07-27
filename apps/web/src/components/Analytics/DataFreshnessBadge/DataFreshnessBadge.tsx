@@ -14,6 +14,12 @@ interface DataFreshnessBadgeProps {
   source: string;
   labels: Record<FreshnessStatus, string>;
   message?: string | null;
+  /**
+   * User-friendly display name for the feed (e.g. "Gold price"). Falls back to
+   * the raw `source` id when omitted. The raw `source` still rides on the hover
+   * title (via `message ?? source`) so upstream provenance stays discoverable.
+   */
+  label?: string;
   className?: string;
 }
 
@@ -29,16 +35,17 @@ export function DataFreshnessBadge({
   source,
   labels,
   message,
+  label,
   className,
 }: DataFreshnessBadgeProps) {
   return (
     <span
       className={`${styles.badge} ${className ?? ''}`}
       data-status={status.toLowerCase()}
-      title={message ?? undefined}
+      title={message ?? source}
     >
       <LucideIcon icon={ICON_BY_STATUS[status]} size="xs" aria-hidden="true" />
-      <span className={styles.source}>{source}</span>
+      <span className={styles.source}>{label ?? source}</span>
       <span className={styles.divider} aria-hidden="true">
         ·
       </span>
