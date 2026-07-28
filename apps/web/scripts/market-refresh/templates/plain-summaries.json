@@ -1,312 +1,112 @@
 {
-  "_comment": "P3 grandmother layer — summary.plain templates: 5 bands × 3 transitions (improved/worsened/unchanged) × 3 rotating variants ×4 locales. Two slots: {whatChanged}, {watching}. Rotated by ISO-week % 3 so repeat visitors don't reread the same sentence. CLO GO (founder 2026-07-11); reviewed as a finite set.",
+  "_comment": "P3 grandmother layer — summary.plain MONTHLY 'standing' read: 5 bands × 3 rotating variants (ISO-week % 3) × 4 locales. Transition-agnostic — it describes the current month's state + why, not the change; the week-over-week change lives in the separate weekly-openers.json lead-in (prepended by generate.mjs), and the monthly numbers live in the detailed memo. Self-contained so it also reads well with no weekly opener (synthetic-seed / no prior). One slot: {watching}. Warm, filler-cut voice; three nevers (no selling/promising/advising). CLO GO (founder 2026-07-11); native-reviewed per locale.",
   "HOSTILE": {
-    "worsened": [
+    "standing": [
       {
-        "en": "Winter deepened for Bitcoin this month: {whatChanged}. The read is hostile now — nearly everything we track is working against the price at once. What we're watching: {watching}.",
-        "pt-BR": "O inverno se aprofundou para o Bitcoin neste mês: {whatChanged}. Agora o cenário está hostil — quase tudo o que acompanhamos está pesando contra o preço ao mesmo tempo. O que estamos observando: {watching}.",
-        "es": "El invierno se hizo más hondo para Bitcoin este mes: {whatChanged}. Ahora el escenario es hostil: casi todo lo que seguimos está en contra del precio a la vez. Lo que observamos: {watching}.",
-        "de": "Der Winter vertiefte sich diesen Monat für Bitcoin: {whatChanged}. Die Lage ist jetzt ungünstig — fast alles, was wir verfolgen, arbeitet zugleich gegen den Preis. Worauf wir achten: {watching}."
+        "en": "It's a hostile month for Bitcoin: nearly everything we track is working against the price. What we're watching: {watching}.",
+        "pt-BR": "É um mês hostil para o Bitcoin: quase tudo o que acompanhamos está pesando contra o preço. O que estamos observando: {watching}.",
+        "es": "Es un mes hostil para Bitcoin: casi todo lo que seguimos está en contra del precio. Lo que observamos: {watching}.",
+        "de": "Es ist ein ungünstiger Monat für Bitcoin: Fast alles, was wir verfolgen, arbeitet gegen den Preis. Worauf wir achten: {watching}."
       },
       {
-        "en": "A cold, hard month, and the read turned hostile: {whatChanged}. When the price trend, the money backdrop, and demand all lean against Bitcoin together, the score falls to its lowest band — and it did. What we're watching: {watching}.",
-        "pt-BR": "Um mês frio e duro, e o cenário virou hostil: {whatChanged}. Quando a tendência do preço, o pano de fundo do dinheiro e a demanda pesam juntos contra o Bitcoin, a pontuação cai para a faixa mais baixa — e caiu. O que estamos observando: {watching}.",
-        "es": "Un mes frío y duro, y el escenario se volvió hostil: {whatChanged}. Cuando la tendencia del precio, el trasfondo del dinero y la demanda pesan a la vez contra Bitcoin, la puntuación cae a su banda más baja, y así fue. Lo que observamos: {watching}.",
-        "de": "Ein kalter, harter Monat, und die Lage kippte ins Ungünstige: {whatChanged}. Wenn Preistrend, Geldumfeld und Nachfrage gemeinsam gegen Bitcoin sprechen, fällt der Wert in seine tiefste Stufe — und das tat er. Worauf wir achten: {watching}."
+        "en": "The monthly read is hostile — the price trend, the money backdrop, and demand are all leaning against Bitcoin. What we're watching: {watching}.",
+        "pt-BR": "A leitura do mês é hostil — a tendência do preço, o pano de fundo do dinheiro e a demanda estão todos pendendo contra o Bitcoin. O que estamos observando: {watching}.",
+        "es": "La lectura del mes es hostil: la tendencia del precio, el entorno del dinero y la demanda están todos en contra de Bitcoin. Lo que observamos: {watching}.",
+        "de": "Die Lage im Monat ist ungünstig — Preistrend, Geldumfeld und Nachfrage arbeiten alle gegen Bitcoin. Worauf wir achten: {watching}."
       },
       {
-        "en": "The environment slipped to hostile this month: {whatChanged}. Almost nothing we track is supporting the price right now, and that broad weakness is the whole read. What we're watching: {watching}.",
-        "pt-BR": "O ambiente escorregou para hostil neste mês: {whatChanged}. Quase nada do que acompanhamos está sustentando o preço agora, e essa fraqueza generalizada é a leitura inteira. O que estamos observando: {watching}.",
-        "es": "El entorno se deslizó a hostil este mes: {whatChanged}. Casi nada de lo que seguimos sostiene el precio ahora, y esa debilidad generalizada es toda la lectura. Lo que observamos: {watching}.",
-        "de": "Das Umfeld rutschte diesen Monat ins Ungünstige: {whatChanged}. Fast nichts, was wir verfolgen, stützt den Preis gerade, und diese breite Schwäche ist die ganze Lage. Worauf wir achten: {watching}."
-      }
-    ],
-    "improved": [
-      {
-        "en": "Still winter, but a window cracked open: {whatChanged}. The read is hostile — one part turned friendlier, yet most of what we track still leans against the price. What we're watching: {watching}.",
-        "pt-BR": "Ainda é inverno, mas uma fresta se abriu: {whatChanged}. O cenário está hostil — um sinal ficou mais ameno, mas a maior parte ainda pesa contra o preço. O que estamos observando: {watching}.",
-        "es": "Sigue siendo invierno, pero se abrió una rendija: {whatChanged}. El escenario es hostil: una pieza se volvió más benigna, pero la mayoría sigue en contra del precio. Lo que observamos: {watching}.",
-        "de": "Noch Winter, aber ein Spalt ging auf: {whatChanged}. Die Lage ist ungünstig — ein Teil wurde freundlicher, doch das meiste arbeitet weiter gegen den Preis. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "A little light got in this month: {whatChanged}. It's a real shift, but a lone one; the read stays hostile until more of the board turns with it. What we're watching: {watching}.",
-        "pt-BR": "Um pouco de luz entrou neste mês: {whatChanged}. É uma mudança real, mas solitária; o cenário segue hostil até que mais do quadro vire junto. O que estamos observando: {watching}.",
-        "es": "Entró un poco de luz este mes: {whatChanged}. Es un cambio real, pero solitario; el escenario sigue hostil hasta que gire más del tablero con él. Lo que observamos: {watching}.",
-        "de": "Diesen Monat kam etwas Licht herein: {whatChanged}. Es ist eine echte, aber einzelne Wende; die Lage bleibt ungünstig, bis mehr davon mitzieht. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "The worst of the pressure eased a shade: {whatChanged}. The environment is still hostile — most signals haven't moved, and one turning doesn't change the season. What we're watching: {watching}.",
-        "pt-BR": "O pior da pressão aliviou um pouco: {whatChanged}. O ambiente ainda está hostil — a maioria dos sinais não se moveu, e uma virada só não muda a estação. O que estamos observando: {watching}.",
-        "es": "Lo peor de la presión cedió un tono: {whatChanged}. El entorno sigue hostil: la mayoría de las señales no se movió, y que gire una no cambia la estación. Lo que observamos: {watching}.",
-        "de": "Der schlimmste Druck ließ eine Spur nach: {whatChanged}. Das Umfeld ist weiter ungünstig — die meisten Signale bewegten sich nicht, und eine Wende ändert die Jahreszeit nicht. Worauf wir achten: {watching}."
-      }
-    ],
-    "unchanged": [
-      {
-        "en": "Deep winter, another month of it: {whatChanged}. The read stays hostile — the price trend, the money backdrop, and demand are all still leaning against Bitcoin. What we're watching: {watching}.",
-        "pt-BR": "Inverno profundo, mais um mês dele: {whatChanged}. O cenário segue hostil — a tendência do preço, o pano de fundo do dinheiro e a demanda continuam pesando contra o Bitcoin. O que estamos observando: {watching}.",
-        "es": "Invierno profundo, otro mes más: {whatChanged}. El escenario sigue hostil: la tendencia del precio, el trasfondo del dinero y la demanda siguen todos en contra de Bitcoin. Lo que observamos: {watching}.",
-        "de": "Tiefer Winter, ein weiterer Monat davon: {whatChanged}. Die Lage bleibt ungünstig — Preistrend, Geldumfeld und Nachfrage arbeiten alle weiter gegen Bitcoin. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "The hard season held this month: {whatChanged}. Nearly everything we track is still working against the price, the same broad weakness as before. What we're watching: {watching}.",
-        "pt-BR": "A estação dura se manteve neste mês: {whatChanged}. Quase tudo o que acompanhamos ainda pesa contra o preço, a mesma fraqueza ampla de antes. O que estamos observando: {watching}.",
-        "es": "La estación dura se mantuvo este mes: {whatChanged}. Casi todo lo que seguimos sigue en contra del precio, la misma debilidad generalizada de antes. Lo que observamos: {watching}.",
-        "de": "Die harte Jahreszeit hielt diesen Monat an: {whatChanged}. Fast alles, was wir verfolgen, arbeitet weiter gegen den Preis, dieselbe breite Schwäche wie zuvor. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "No thaw this month; the read is still hostile: {whatChanged}. Most of what we follow remains against the price, and until that broadens the score stays at the bottom. What we're watching: {watching}.",
-        "pt-BR": "Nenhum degelo neste mês; o cenário ainda está hostil: {whatChanged}. A maior parte do que seguimos permanece contra o preço, e enquanto isso não mudar a pontuação fica lá embaixo. O que estamos observando: {watching}.",
-        "es": "Sin deshielo este mes; el escenario sigue hostil: {whatChanged}. La mayor parte de lo que seguimos permanece en contra del precio, y hasta que eso se amplíe la puntuación se queda abajo. Lo que observamos: {watching}.",
-        "de": "Keine Entspannung diesen Monat; die Lage ist weiter ungünstig: {whatChanged}. Das meiste, was wir verfolgen, bleibt gegen den Preis, und bis sich das verbreitert, bleibt der Wert ganz unten. Worauf wir achten: {watching}."
+        "en": "Over the month, the read stays hostile: almost nothing we track is supporting the price. What we're watching: {watching}.",
+        "pt-BR": "No mês, a leitura segue hostil: quase nada do que acompanhamos sustenta o preço. O que estamos observando: {watching}.",
+        "es": "En el mes, la lectura sigue hostil: casi nada de lo que seguimos sostiene el precio. Lo que observamos: {watching}.",
+        "de": "Im Monat bleibt die Lage ungünstig: Fast nichts, was wir verfolgen, stützt den Preis. Worauf wir achten: {watching}."
       }
     ]
   },
   "DEFENSIVE": {
-    "worsened": [
+    "standing": [
       {
-        "en": "The air turned cooler for Bitcoin this month: {whatChanged}. The read is defensive now — more of what we track leans against the price than for it. What we're watching: {watching}.",
-        "pt-BR": "O ar esfriou para o Bitcoin neste mês: {whatChanged}. Agora o cenário está defensivo — mais coisas que acompanhamos pesam contra o preço do que a favor. O que estamos observando: {watching}.",
-        "es": "El aire se enfrió para Bitcoin este mes: {whatChanged}. Ahora el escenario es defensivo: la balanza de lo que seguimos se inclina en contra del precio. Lo que observamos: {watching}.",
-        "de": "Die Luft wurde diesen Monat kühler für Bitcoin: {whatChanged}. Die Lage ist jetzt defensiv — die Waage dessen, was wir verfolgen, neigt sich gegen den Preis. Worauf wir achten: {watching}."
+        "en": "It's a cautious, defensive month for Bitcoin: more of what we track leans against the price than for it. What we're watching: {watching}.",
+        "pt-BR": "É um mês cauteloso e defensivo para o Bitcoin: mais coisas que acompanhamos pesam contra o preço do que a favor. O que estamos observando: {watching}.",
+        "es": "Es un mes cauto y defensivo para Bitcoin: la balanza de lo que seguimos se inclina en contra del precio. Lo que observamos: {watching}.",
+        "de": "Es ist ein vorsichtiger, defensiver Monat für Bitcoin: Die Waage dessen, was wir verfolgen, neigt sich gegen den Preis. Worauf wir achten: {watching}."
       },
       {
-        "en": "This was the month the floor creaked: {whatChanged}. Enough signals leaned cautious at once to step the read down to defensive. What we're watching: {watching}.",
-        "pt-BR": "Este foi o mês em que o chão rangeu: {whatChanged}. Sinais suficientes penderam para a cautela de uma vez para rebaixar o cenário a defensivo. O que estamos observando: {watching}.",
-        "es": "Este fue el mes en que crujió el suelo: {whatChanged}. Suficientes señales se inclinaron a la cautela a la vez como para bajar el escenario a defensivo. Lo que observamos: {watching}.",
-        "de": "Dies war der Monat, in dem der Boden knarrte: {whatChanged}. Genug Signale neigten sich auf einmal zur Vorsicht, um die Lage auf defensiv herabzustufen. Worauf wir achten: {watching}."
+        "en": "The monthly read stays defensive — the balance of what we track is tilted against the price, and that's worth naming plainly. What we're watching: {watching}.",
+        "pt-BR": "A leitura do mês segue defensiva — a balança do que acompanhamos está inclinada contra o preço, e vale dizer isso com clareza. O que estamos observando: {watching}.",
+        "es": "La lectura del mes sigue defensiva: la balanza de lo que seguimos está inclinada en contra del precio, y conviene decirlo con claridad. Lo que observamos: {watching}.",
+        "de": "Die Lage im Monat bleibt defensiv — die Waage dessen, was wir verfolgen, ist gegen den Preis geneigt, und das sagen wir klar. Worauf wir achten: {watching}."
       },
       {
-        "en": "Some months speak plainly, and this one did: {whatChanged}. The read stepped down to defensive, the balance of what we track now tilted against the price. What we're watching: {watching}.",
-        "pt-BR": "Alguns meses falam claro, e este falou: {whatChanged}. O cenário desceu para defensivo, com o balanço do que acompanhamos agora inclinado contra o preço. O que estamos observando: {watching}.",
-        "es": "Algunos meses hablan claro, y este lo hizo: {whatChanged}. El escenario bajó a defensivo, con la balanza de lo que seguimos ahora inclinada en contra del precio. Lo que observamos: {watching}.",
-        "de": "Manche Monate sprechen Klartext, und dieser tat es: {whatChanged}. Die Lage sank auf defensiv, die Waage dessen, was wir verfolgen, neigt sich nun gegen den Preis. Worauf wir achten: {watching}."
-      }
-    ],
-    "improved": [
-      {
-        "en": "Still a cautious season, but the sky lightened a shade: {whatChanged}. The read stays defensive — one part improved, but most still leans against the price. What we're watching: {watching}.",
-        "pt-BR": "Ainda uma estação de cautela, mas o céu clareou um tom: {whatChanged}. O cenário segue defensivo — uma parte melhorou, mas a maioria ainda pesa contra o preço. O que estamos observando: {watching}.",
-        "es": "Sigue siendo una estación de cautela, pero el cielo se aclaró un tono: {whatChanged}. El escenario sigue defensivo: una parte mejoró, pero la mayoría aún pesa en contra del precio. Lo que observamos: {watching}.",
-        "de": "Noch eine vorsichtige Jahreszeit, aber der Himmel klarte eine Spur auf: {whatChanged}. Die Lage bleibt defensiv — ein Teil besserte sich, doch das meiste arbeitet weiter gegen den Preis. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "A better month inside a careful season: {whatChanged}. The read is still defensive; one good month moves a signal, not the whole balance. What we're watching: {watching}.",
-        "pt-BR": "Um mês melhor dentro de uma estação cautelosa: {whatChanged}. O cenário ainda está defensivo; um mês bom move um sinal, não o balanço inteiro. O que estamos observando: {watching}.",
-        "es": "Un mes mejor dentro de una estación cauta: {whatChanged}. El escenario sigue defensivo; un buen mes mueve una señal, no la balanza entera. Lo que observamos: {watching}.",
-        "de": "Ein besserer Monat in einer vorsichtigen Jahreszeit: {whatChanged}. Die Lage ist weiter defensiv; ein guter Monat bewegt ein Signal, nicht die ganze Waage. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "The ground firmed up a little: {whatChanged}. Defensive still fits — the tilt against the price eased, but hasn't turned. What we're watching: {watching}.",
-        "pt-BR": "O chão firmou um pouco: {whatChanged}. Defensivo ainda serve — a inclinação contra o preço aliviou, mas não virou. O que estamos observando: {watching}.",
-        "es": "El suelo se afirmó un poco: {whatChanged}. Defensivo aún encaja: la inclinación en contra del precio cedió, pero no giró. Lo que observamos: {watching}.",
-        "de": "Der Boden festigte sich etwas: {whatChanged}. Defensiv passt noch — die Neigung gegen den Preis ließ nach, drehte aber nicht. Worauf wir achten: {watching}."
-      }
-    ],
-    "unchanged": [
-      {
-        "en": "It's still a cautious season for Bitcoin, and {whatChanged}. The read stays defensive — more of what we track is leaning against the price than for it, and that's worth naming plainly. What we're watching: {watching}.",
-        "pt-BR": "Ainda é uma estação de cautela para o Bitcoin, e {whatChanged}. O cenário segue defensivo — mais coisas que acompanhamos pesam contra o preço do que a favor, e vale dizer isso com clareza. O que estamos observando: {watching}.",
-        "es": "Sigue siendo una estación de cautela para Bitcoin, y {whatChanged}. El escenario sigue defensivo: la balanza de lo que seguimos se inclina en contra del precio, y conviene decirlo con claridad. Lo que observamos: {watching}.",
-        "de": "Es ist weiter eine vorsichtige Jahreszeit für Bitcoin, und {whatChanged}. Die Lage bleibt defensiv — die Waage dessen, was wir verfolgen, neigt sich gegen den Preis, und das sagen wir klar. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "Same coat, same sky this month: {whatChanged}. The read stays defensive, the balance of signals still tilted against the price. What we're watching: {watching}.",
-        "pt-BR": "Mesmo casaco, mesmo céu neste mês: {whatChanged}. O cenário segue defensivo, com o balanço dos sinais ainda inclinado contra o preço. O que estamos observando: {watching}.",
-        "es": "Mismo abrigo, mismo cielo este mes: {whatChanged}. El escenario sigue defensivo, con la balanza de las señales aún inclinada en contra del precio. Lo que observamos: {watching}.",
-        "de": "Gleicher Mantel, gleicher Himmel diesen Monat: {whatChanged}. Die Lage bleibt defensiv, die Waage der Signale bleibt gegen den Preis geneigt. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "A holding month in a defensive stretch: {whatChanged}. Nothing broke and nothing turned — the read is where it was, cautious and tilted against the price. What we're watching: {watching}.",
-        "pt-BR": "Um mês de espera num trecho defensivo: {whatChanged}. Nada quebrou e nada virou — o cenário está onde estava, cauteloso e inclinado contra o preço. O que estamos observando: {watching}.",
-        "es": "Un mes de espera en un tramo defensivo: {whatChanged}. Nada se rompió y nada giró: el escenario está donde estaba, cauto e inclinado en contra del precio. Lo que observamos: {watching}.",
-        "de": "Ein abwartender Monat in einer defensiven Phase: {whatChanged}. Nichts brach und nichts drehte — die Lage ist, wo sie war, vorsichtig und gegen den Preis geneigt. Worauf wir achten: {watching}."
+        "en": "Over the month, the read holds defensive: more of what we track leans against the price than for it. What we're watching: {watching}.",
+        "pt-BR": "No mês, a leitura se mantém defensiva: mais do quadro pende contra o preço do que a favor. O que estamos observando: {watching}.",
+        "es": "En el mes, la lectura se mantiene defensiva: la balanza sigue inclinada en contra del precio. Lo que observamos: {watching}.",
+        "de": "Im Monat hält die Lage defensiv: Ein größerer Teil des Feldes neigt sich gegen den Preis als dafür. Worauf wir achten: {watching}."
       }
     ]
   },
   "NEUTRAL_MIXED": {
-    "worsened": [
+    "standing": [
       {
-        "en": "The balance tipped a little cooler this month: {whatChanged}. The read is mixed — the signals are split almost evenly, just a shade more against the price than before. What we're watching: {watching}.",
-        "pt-BR": "O equilíbrio pendeu um pouco para o frio neste mês: {whatChanged}. O cenário está misto — os sinais estão divididos quase pela metade, só um tom mais contra o preço do que antes. O que estamos observando: {watching}.",
-        "es": "La balanza se inclinó un poco al frío este mes: {whatChanged}. El escenario es mixto: las señales están divididas casi por igual, solo un tono más en contra del precio que antes. Lo que observamos: {watching}.",
-        "de": "Die Waage neigte sich diesen Monat eine Spur ins Kühlere: {whatChanged}. Die Lage ist gemischt — die Signale sind fast gleich verteilt, nur eine Spur mehr gegen den Preis als zuvor. Worauf wir achten: {watching}."
+        "en": "It's a mixed month for Bitcoin: the signals are split almost evenly, some helping, some not. What we're watching: {watching}.",
+        "pt-BR": "É um mês misto para o Bitcoin: os sinais estão divididos quase por igual, alguns ajudando, outros não. O que estamos observando: {watching}.",
+        "es": "Es un mes mixto para Bitcoin: las señales están divididas casi por igual, algunas ayudan y otras no. Lo que observamos: {watching}.",
+        "de": "Es ist ein gemischter Monat für Bitcoin: Die Signale sind fast gleich verteilt, manches hilft, manches nicht. Worauf wir achten: {watching}."
       },
       {
-        "en": "A step back inside a balanced season: {whatChanged}. Nothing broke, but the read stays mixed, the split leaning slightly the wrong way this month. What we're watching: {watching}.",
-        "pt-BR": "Um passo atrás dentro de uma estação equilibrada: {whatChanged}. Nada quebrou, mas o cenário segue misto, com a divisão pendendo levemente para o lado errado neste mês. O que estamos observando: {watching}.",
-        "es": "Un paso atrás dentro de una estación equilibrada: {whatChanged}. Nada se rompió, pero el escenario sigue mixto, con el reparto inclinándose levemente al lado equivocado este mes. Lo que observamos: {watching}.",
-        "de": "Ein Schritt zurück in einer ausgewogenen Jahreszeit: {whatChanged}. Nichts brach, aber die Lage bleibt gemischt, die Verteilung diesen Monat leicht zur falschen Seite geneigt. Worauf wir achten: {watching}."
+        "en": "The monthly read is genuinely mixed — half of what we track leans one way, half the other. What we're watching: {watching}.",
+        "pt-BR": "A leitura do mês é genuinamente mista — metade do que acompanhamos pende para um lado, metade para o outro. O que estamos observando: {watching}.",
+        "es": "La lectura del mes es realmente mixta: la mitad de lo que seguimos se inclina a un lado y la mitad al otro. Lo que observamos: {watching}.",
+        "de": "Die Lage im Monat ist wirklich gemischt — die Hälfte von dem, was wir verfolgen, neigt sich hierhin, die Hälfte dorthin. Worauf wir achten: {watching}."
       },
       {
-        "en": "The month leaned cautious without committing: {whatChanged}. Mixed is still the honest read — some signals help, some don't, a touch cooler than before. What we're watching: {watching}.",
-        "pt-BR": "O mês pendeu para a cautela sem se comprometer: {whatChanged}. Misto ainda é a leitura honesta — alguns sinais ajudam, outros não, um tom mais frio que antes. O que estamos observando: {watching}.",
-        "es": "El mes se inclinó a la cautela sin comprometerse: {whatChanged}. Mixto sigue siendo la lectura honesta: algunas señales ayudan, otras no, un tono más frío que antes. Lo que observamos: {watching}.",
-        "de": "Der Monat neigte zur Vorsicht, ohne sich festzulegen: {whatChanged}. Gemischt ist weiter die ehrliche Lage — manche Signale helfen, manche nicht, eine Spur kühler als zuvor. Worauf wir achten: {watching}."
-      }
-    ],
-    "improved": [
-      {
-        "en": "The balance tipped a little warmer this month: {whatChanged}. The read is still mixed — split almost evenly, but drifting a shade in the price's favor. What we're watching: {watching}.",
-        "pt-BR": "O equilíbrio pendeu um pouco para o calor neste mês: {whatChanged}. O cenário segue misto — dividido quase pela metade, mas deslizando um tom a favor do preço. O que estamos observando: {watching}.",
-        "es": "La balanza se inclinó un poco al calor este mes: {whatChanged}. El escenario sigue mixto: dividido casi por igual, pero deslizándose un tono a favor del precio. Lo que observamos: {watching}.",
-        "de": "Die Waage neigte sich diesen Monat eine Spur ins Wärmere: {whatChanged}. Die Lage bleibt gemischt — fast gleich verteilt, driftet aber eine Spur zugunsten des Preises. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "A better month in a balanced season: {whatChanged}. The read stays mixed; more of the board is pulling the right way, but not yet enough to tip it. What we're watching: {watching}.",
-        "pt-BR": "Um mês melhor numa estação equilibrada: {whatChanged}. O cenário segue misto; mais do quadro puxa para o lado certo, mas ainda não o bastante para virar. O que estamos observando: {watching}.",
-        "es": "Un mes mejor en una estación equilibrada: {whatChanged}. El escenario sigue mixto; más del tablero tira hacia el lado correcto, pero aún no lo suficiente para inclinarlo. Lo que observamos: {watching}.",
-        "de": "Ein besserer Monat in einer ausgewogenen Jahreszeit: {whatChanged}. Die Lage bleibt gemischt; mehr davon zieht in die richtige Richtung, aber noch nicht genug, um sie zu kippen. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "The ground steadied and warmed a little: {whatChanged}. Mixed still fits — the signals are close to even, with a bit more light coming in. What we're watching: {watching}.",
-        "pt-BR": "O chão firmou e esquentou um pouco: {whatChanged}. Misto ainda serve — os sinais estão perto do empate, com um tanto mais de luz entrando. O que estamos observando: {watching}.",
-        "es": "El suelo se afirmó y templó un poco: {whatChanged}. Mixto aún encaja: las señales están cerca del empate, con algo más de luz entrando. Lo que observamos: {watching}.",
-        "de": "Der Boden festigte und erwärmte sich etwas: {whatChanged}. Gemischt passt noch — die Signale sind nah am Gleichstand, mit etwas mehr Licht. Worauf wir achten: {watching}."
-      }
-    ],
-    "unchanged": [
-      {
-        "en": "A balanced month, much like the last: {whatChanged}. The read is mixed — the signals are split almost down the middle, and that even split is the message. What we're watching: {watching}.",
-        "pt-BR": "Um mês equilibrado, bem parecido com o anterior: {whatChanged}. O cenário está misto — os sinais estão divididos quase no meio, e esse equilíbrio é a mensagem. O que estamos observando: {watching}.",
-        "es": "Un mes equilibrado, muy parecido al anterior: {whatChanged}. El escenario es mixto: las señales están divididas casi por la mitad, y ese equilibrio es el mensaje. Lo que observamos: {watching}.",
-        "de": "Ein ausgewogener Monat, ähnlich dem letzten: {whatChanged}. Die Lage ist gemischt — die Signale sind fast in der Mitte geteilt, und dieses Gleichgewicht ist die Botschaft. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "The season held its balance this month: {whatChanged}. Half of what we track leans one way, half the other — a genuinely undecided read. What we're watching: {watching}.",
-        "pt-BR": "A estação manteve seu equilíbrio neste mês: {whatChanged}. Metade do que acompanhamos pende para um lado, metade para o outro — uma leitura genuinamente indecisa. O que estamos observando: {watching}.",
-        "es": "La estación mantuvo su equilibrio este mes: {whatChanged}. La mitad de lo que seguimos se inclina a un lado, la mitad al otro: una lectura genuinamente indecisa. Lo que observamos: {watching}.",
-        "de": "Die Jahreszeit hielt diesen Monat ihre Balance: {whatChanged}. Die Hälfte von dem, was wir verfolgen, neigt sich hierhin, die Hälfte dorthin — eine wirklich unentschiedene Lage. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "Steady and split, another month: {whatChanged}. Mixed isn't exciting, but it's honest — the signals are close to even, neither side in charge. What we're watching: {watching}.",
-        "pt-BR": "Firme e dividido, mais um mês: {whatChanged}. Misto não é empolgante, mas é honesto — os sinais estão perto do empate, nenhum lado no comando. O que estamos observando: {watching}.",
-        "es": "Firme y dividido, otro mes: {whatChanged}. Mixto no es emocionante, pero es honesto: las señales están cerca del empate, ningún lado al mando. Lo que observamos: {watching}.",
-        "de": "Stabil und geteilt, ein weiterer Monat: {whatChanged}. Gemischt ist nicht aufregend, aber ehrlich — die Signale sind nah am Gleichstand, keine Seite am Ruder. Worauf wir achten: {watching}."
+        "en": "Over the month, the read is neutral: what we track is close to even, with no side in charge. What we're watching: {watching}.",
+        "pt-BR": "No mês, a leitura é neutra: o quadro está perto do empate, sem nenhum lado no comando. O que estamos observando: {watching}.",
+        "es": "En el mes, la lectura es neutral: las señales están cerca del empate, sin ningún lado al mando. Lo que observamos: {watching}.",
+        "de": "Im Monat ist die Lage neutral: Das Feld ist nah am Gleichstand, keine Seite am Ruder. Worauf wir achten: {watching}."
       }
     ]
   },
   "CONSTRUCTIVE": {
-    "improved": [
+    "standing": [
       {
-        "en": "The season warmed for Bitcoin this month: {whatChanged}. The read is constructive — more of what we track now leans in the price's favor than against it. What we're watching: {watching}.",
-        "pt-BR": "A estação esquentou para o Bitcoin neste mês: {whatChanged}. O cenário está construtivo — mais coisas que acompanhamos agora pendem a favor do preço do que contra. O que estamos observando: {watching}.",
-        "es": "La estación se templó para Bitcoin este mes: {whatChanged}. El escenario es constructivo: la balanza de lo que seguimos se inclina a favor del precio. Lo que observamos: {watching}.",
-        "de": "Die Jahreszeit erwärmte sich diesen Monat für Bitcoin: {whatChanged}. Die Lage ist konstruktiv — die Waage dessen, was wir verfolgen, neigt sich nun zugunsten des Preises. Worauf wir achten: {watching}."
+        "en": "It's a constructive month for Bitcoin: more of what we track leans in the price's favor than against it. What we're watching: {watching}.",
+        "pt-BR": "É um mês construtivo para o Bitcoin: mais coisas que acompanhamos pendem a favor do preço do que contra. O que estamos observando: {watching}.",
+        "es": "Es un mes constructivo para Bitcoin: la balanza de lo que seguimos se inclina a favor del precio. Lo que observamos: {watching}.",
+        "de": "Es ist ein konstruktiver Monat für Bitcoin: Die Waage dessen, was wir verfolgen, neigt sich zugunsten des Preises. Worauf wir achten: {watching}."
       },
       {
-        "en": "More things lined up in the price's favor: {whatChanged}. Constructive is the fair word — a description of the balance, not a promise about what's next. What we're watching: {watching}.",
-        "pt-BR": "Mais coisas se alinharam a favor do preço: {whatChanged}. Construtivo é a palavra justa — uma descrição do balanço, não uma promessa sobre o que vem. O que estamos observando: {watching}.",
-        "es": "Más cosas se alinearon a favor del precio: {whatChanged}. Constructivo es la palabra justa: una descripción de la balanza, no una promesa sobre lo que viene. Lo que observamos: {watching}.",
-        "de": "Mehr Dinge stellten sich zugunsten des Preises auf: {whatChanged}. Konstruktiv ist das faire Wort — eine Beschreibung der Waage, kein Versprechen über das, was kommt. Worauf wir achten: {watching}."
+        "en": "The monthly read is constructive — the balance of signals is tilted toward the price, though that's a description, not a promise. What we're watching: {watching}.",
+        "pt-BR": "A leitura do mês é construtiva — a balança dos sinais está inclinada a favor do preço, ainda que isso seja uma descrição, não uma promessa. O que estamos observando: {watching}.",
+        "es": "La lectura del mes es constructiva: la balanza de las señales se inclina a favor del precio, aunque eso es una descripción, no una promesa. Lo que observamos: {watching}.",
+        "de": "Die Lage im Monat ist konstruktiv — die Waage der Signale ist zugunsten des Preises geneigt, auch wenn das eine Beschreibung ist, kein Versprechen. Worauf wir achten: {watching}."
       },
       {
-        "en": "The tailwinds outnumbered the headwinds this month: {whatChanged}. The read is constructive, the balance of signals tilted toward the price for the first time in a while. What we're watching: {watching}.",
-        "pt-BR": "Os ventos a favor superaram os contrários neste mês: {whatChanged}. O cenário está construtivo, com o balanço dos sinais inclinado a favor do preço pela primeira vez em um tempo. O que estamos observando: {watching}.",
-        "es": "Los vientos a favor superaron a los contrarios este mes: {whatChanged}. El escenario es constructivo, con la balanza de las señales inclinada a favor del precio por primera vez en mucho tiempo. Lo que observamos: {watching}.",
-        "de": "Diesen Monat gab es mehr Rückenwind als Gegenwind: {whatChanged}. Die Lage ist konstruktiv, die Waage der Signale neigt sich zum ersten Mal seit Langem zugunsten des Preises. Worauf wir achten: {watching}."
-      }
-    ],
-    "worsened": [
-      {
-        "en": "A good season gave a little back this month: {whatChanged}. The read stays constructive — more still leans in the price's favor than against it, so for now this reads as a dip, not a turn. What we're watching: {watching}.",
-        "pt-BR": "Uma boa estação devolveu um pouco neste mês: {whatChanged}. O cenário segue construtivo — mais ainda pende a favor do preço do que contra, então por ora isto é um recuo, não uma virada. O que estamos observando: {watching}.",
-        "es": "Una buena estación devolvió un poco este mes: {whatChanged}. El escenario sigue constructivo: aún se inclina más a favor del precio que en contra, así que por ahora es un bache, no un giro. Lo que observamos: {watching}.",
-        "de": "Eine gute Jahreszeit gab diesen Monat etwas zurück: {whatChanged}. Die Lage bleibt konstruktiv — mehr neigt sich weiter zugunsten des Preises als dagegen, also ist das vorerst ein Dämpfer, keine Wende. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "Some warmth came off the month: {whatChanged}. The read is still constructive on balance, but a shift in the wind is worth marking, even a small one. What we're watching: {watching}.",
-        "pt-BR": "Um pouco do calor saiu do mês: {whatChanged}. O cenário segue construtivo no geral, mas vale marcar quando o vento muda, mesmo que pouco. O que estamos observando: {watching}.",
-        "es": "Algo de calor salió del mes: {whatChanged}. El escenario sigue constructivo en conjunto, pero conviene anotar cuando el viento cambia, aunque sea poco. Lo que observamos: {watching}.",
-        "de": "Etwas Wärme wich aus dem Monat: {whatChanged}. Die Lage bleibt insgesamt konstruktiv, aber es ist bemerkenswert, wenn der Wind auch nur ein wenig dreht. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "The good stretch cooled a degree: {whatChanged}. Constructive still fits — the balance stayed in the price's favor, just by a bit less than before. What we're watching: {watching}.",
-        "pt-BR": "O bom trecho esfriou um grau: {whatChanged}. Construtivo ainda serve — o balanço seguiu a favor do preço, só que um pouco menos que antes. O que estamos observando: {watching}.",
-        "es": "El buen tramo se enfrió un grado: {whatChanged}. Constructivo aún encaja: la balanza siguió a favor del precio, solo que un poco menos que antes. Lo que observamos: {watching}.",
-        "de": "Die gute Phase kühlte um ein Grad ab: {whatChanged}. Konstruktiv passt noch — die Waage blieb zugunsten des Preises, nur ein wenig weniger als zuvor. Worauf wir achten: {watching}."
-      }
-    ],
-    "unchanged": [
-      {
-        "en": "A steady, constructive month: {whatChanged}. The read holds constructive — the favorable pieces stayed in place, with more of the board leaning toward the price than against. What we're watching: {watching}.",
-        "pt-BR": "Um mês firme e construtivo: {whatChanged}. O cenário segue construtivo — as peças favoráveis ficaram no lugar, com mais do quadro pendendo a favor do preço do que contra. O que estamos observando: {watching}.",
-        "es": "Un mes firme y constructivo: {whatChanged}. El escenario sigue constructivo: las piezas favorables se mantuvieron, con la balanza inclinada más a favor del precio que en contra. Lo que observamos: {watching}.",
-        "de": "Ein stetiger, konstruktiver Monat: {whatChanged}. Die Lage bleibt konstruktiv — die günstigen Teile blieben an ihrem Platz, und die Waage neigt sich mehr zugunsten des Preises als dagegen. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "The favorable season held this month: {whatChanged}. The read stays constructive; when the balance is this steady, the useful part is naming what could change it. What we're watching: {watching}.",
-        "pt-BR": "A estação favorável se manteve neste mês: {whatChanged}. O cenário segue construtivo; quando o balanço está assim de firme, a parte útil é nomear o que poderia mudá-lo. O que estamos observando: {watching}.",
-        "es": "La estación favorable se mantuvo este mes: {whatChanged}. El escenario sigue constructivo; cuando la balanza está así de firme, lo útil es nombrar qué podría cambiarla. Lo que observamos: {watching}.",
-        "de": "Die günstige Jahreszeit hielt diesen Monat: {whatChanged}. Die Lage bleibt konstruktiv; wenn die Waage so stetig ist, ist das Nützliche, zu benennen, was sie ändern könnte. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "Constructive, and quietly so: {whatChanged}. The read is unchanged — more of what we track still leans in the price's favor than against it. What we're watching: {watching}.",
-        "pt-BR": "Construtivo, e de forma discreta: {whatChanged}. O cenário está inalterado — mais coisas que acompanhamos ainda pendem a favor do preço do que contra. O que estamos observando: {watching}.",
-        "es": "Constructivo, y de forma discreta: {whatChanged}. El escenario está sin cambios: la balanza de lo que seguimos sigue inclinada a favor del precio. Lo que observamos: {watching}.",
-        "de": "Konstruktiv, und das leise: {whatChanged}. Die Lage ist unverändert — die Waage dessen, was wir verfolgen, neigt sich weiter zugunsten des Preises. Worauf wir achten: {watching}."
+        "en": "Over the month, the read holds constructive: more of what we track leans toward the price than against. What we're watching: {watching}.",
+        "pt-BR": "No mês, a leitura se mantém construtiva: mais do quadro pende a favor do preço do que contra. O que estamos observando: {watching}.",
+        "es": "En el mes, la lectura se mantiene constructiva: la balanza sigue inclinada a favor del precio. Lo que observamos: {watching}.",
+        "de": "Im Monat hält die Lage konstruktiv: Ein größerer Teil des Feldes neigt sich zugunsten des Preises als dagegen. Worauf wir achten: {watching}."
       }
     ]
   },
   "VERY_FAVORABLE": {
-    "improved": [
+    "standing": [
       {
-        "en": "A bright month, and brighter than the last: {whatChanged}. The read is very favorable — almost the whole board is lined up in the price's favor now. What we're watching: {watching}.",
-        "pt-BR": "Um mês luminoso, e mais que o anterior: {whatChanged}. O cenário está muito favorável — quase todo o quadro está alinhado a favor do preço agora. O que estamos observando: {watching}.",
-        "es": "Un mes luminoso, y más que el anterior: {whatChanged}. El escenario es muy favorable: casi todo el tablero está alineado a favor del precio ahora. Lo que observamos: {watching}.",
-        "de": "Ein heller Monat, und heller als der letzte: {whatChanged}. Die Lage ist sehr günstig — fast das ganze Feld ist nun zugunsten des Preises ausgerichtet. Worauf wir achten: {watching}."
+        "en": "It's a very favorable month for Bitcoin: almost everything we track is lined up in the price's favor. What we're watching: {watching}.",
+        "pt-BR": "É um mês muito favorável para o Bitcoin: quase tudo o que acompanhamos está alinhado a favor do preço. O que estamos observando: {watching}.",
+        "es": "Es un mes muy favorable para Bitcoin: casi todo lo que seguimos está alineado a favor del precio. Lo que observamos: {watching}.",
+        "de": "Es ist ein sehr günstiger Monat für Bitcoin: Fast alles, was wir verfolgen, ist zugunsten des Preises ausgerichtet. Worauf wir achten: {watching}."
       },
       {
-        "en": "The board lit up further this month: {whatChanged}. This is about as aligned as the environment gets, which is exactly when a level head matters most. What we're watching: {watching}.",
-        "pt-BR": "O quadro acendeu ainda mais neste mês: {whatChanged}. O ambiente está quase no alinhamento máximo, e é justo aí que a cabeça fria mais importa. O que estamos observando: {watching}.",
-        "es": "El tablero se encendió aún más este mes: {whatChanged}. El entorno está casi en su alineación máxima, y es justo ahí donde más importa la cabeza fría. Lo que observamos: {watching}.",
-        "de": "Das Feld leuchtete diesen Monat weiter auf: {whatChanged}. Das Umfeld ist fast in seiner höchsten Ausrichtung, und genau dann zählt ein kühler Kopf am meisten. Worauf wir achten: {watching}."
+        "en": "The monthly read is very favorable — nearly all of what we track is aligned toward the price. What we're watching: {watching}.",
+        "pt-BR": "A leitura do mês é muito favorável — quase todo o quadro está alinhado a favor do preço. O que estamos observando: {watching}.",
+        "es": "La lectura del mes es muy favorable: casi todo el conjunto está alineado a favor del precio. Lo que observamos: {watching}.",
+        "de": "Die Lage im Monat ist sehr günstig — fast das ganze Feld ist zugunsten des Preises ausgerichtet. Worauf wir achten: {watching}."
       },
       {
-        "en": "Almost everything turned favorable this month: {whatChanged}. A rare full-strength read — nearly all of what we track is supporting the price. What we're watching: {watching}.",
-        "pt-BR": "Quase tudo virou favorável neste mês: {whatChanged}. Uma leitura de força total, rara — quase tudo o que acompanhamos está sustentando o preço. O que estamos observando: {watching}.",
-        "es": "Casi todo se volvió favorable este mes: {whatChanged}. Una lectura de fuerza plena, rara: casi todo lo que seguimos sostiene el precio. Lo que observamos: {watching}.",
-        "de": "Fast alles wurde diesen Monat günstig: {whatChanged}. Eine seltene Lage voller Stärke — fast alles, was wir verfolgen, stützt den Preis. Worauf wir achten: {watching}."
-      }
-    ],
-    "worsened": [
-      {
-        "en": "A strong season eased slightly this month: {whatChanged}. The read is still very favorable — almost everything we track supports the price, apart from one small step back. What we're watching: {watching}.",
-        "pt-BR": "Uma estação forte cedeu um pouco neste mês: {whatChanged}. O cenário segue muito favorável — quase tudo o que acompanhamos sustenta o preço, tirando um pequeno passo atrás. O que estamos observando: {watching}.",
-        "es": "Una estación fuerte cedió algo este mes: {whatChanged}. El escenario sigue muy favorable: casi todo lo que seguimos sostiene el precio, salvo un pequeño paso atrás. Lo que observamos: {watching}.",
-        "de": "Eine starke Jahreszeit ließ diesen Monat leicht nach: {whatChanged}. Die Lage ist weiter sehr günstig — fast alles, was wir verfolgen, stützt den Preis, bis auf einen kleinen Schritt zurück. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "The brightest board dimmed a shade: {whatChanged}. Very favorable still fits — the balance is heavily in the price's favor, just a touch less than its peak. What we're watching: {watching}.",
-        "pt-BR": "O quadro mais luminoso escureceu um tom: {whatChanged}. Muito favorável ainda serve — o balanço está fortemente a favor do preço, só um tanto abaixo do pico. O que estamos observando: {watching}.",
-        "es": "El tablero más luminoso se atenuó un tono: {whatChanged}. Muy favorable aún encaja: la balanza está muy a favor del precio, solo un poco por debajo de su pico. Lo que observamos: {watching}.",
-        "de": "Das hellste Feld verdunkelte sich eine Spur: {whatChanged}. Sehr günstig passt noch — die Waage ist stark zugunsten des Preises, nur etwas unter ihrem Höhepunkt. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "Peak conditions cooled a touch: {whatChanged}. The read stays very favorable — a strong month giving a little back isn't a warning, just a fact worth marking. What we're watching: {watching}.",
-        "pt-BR": "As condições de pico esfriaram um toque: {whatChanged}. O cenário segue muito favorável — um mês forte devolvendo um pouco não é um alerta, só um fato que vale marcar. O que estamos observando: {watching}.",
-        "es": "Las condiciones de pico se enfriaron un toque: {whatChanged}. El escenario sigue muy favorable: un mes fuerte devolviendo algo no es una advertencia, solo un hecho que conviene anotar. Lo que observamos: {watching}.",
-        "de": "Spitzenbedingungen kühlten eine Spur ab: {whatChanged}. Die Lage bleibt sehr günstig — ein starker Monat, der etwas zurückgibt, ist keine Warnung, nur ein Fakt, den man vermerkt. Worauf wir achten: {watching}."
-      }
-    ],
-    "unchanged": [
-      {
-        "en": "A bright month, holding: {whatChanged}. The read is very favorable — nearly everything we track stayed lined up in the price's favor. What we're watching: {watching}.",
-        "pt-BR": "Um mês luminoso, se mantendo: {whatChanged}. O cenário está muito favorável — quase tudo o que acompanhamos seguiu alinhado a favor do preço. O que estamos observando: {watching}.",
-        "es": "Un mes luminoso, sosteniéndose: {whatChanged}. El escenario es muy favorable: casi todo lo que seguimos siguió alineado a favor del precio. Lo que observamos: {watching}.",
-        "de": "Ein heller Monat, der hält: {whatChanged}. Die Lage ist sehr günstig — fast alles, was wir verfolgen, blieb zugunsten des Preises ausgerichtet. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "The strong season held its ground this month: {whatChanged}. Very favorable again — the board is broadly supporting the price, the same as before. What we're watching: {watching}.",
-        "pt-BR": "A estação forte manteve o terreno neste mês: {whatChanged}. Muito favorável de novo — o quadro está sustentando o preço amplamente, como antes. O que estamos observando: {watching}.",
-        "es": "La estación fuerte mantuvo el terreno este mes: {whatChanged}. Muy favorable otra vez: el tablero sostiene el precio ampliamente, como antes. Lo que observamos: {watching}.",
-        "de": "Die starke Jahreszeit behauptete diesen Monat ihr Terrain: {whatChanged}. Wieder sehr günstig — das Feld stützt den Preis auf breiter Front, wie zuvor. Worauf wir achten: {watching}."
-      },
-      {
-        "en": "Full strength, and quietly held: {whatChanged}. The read is unchanged and very favorable, with almost all of what we track still in the price's favor. What we're watching: {watching}.",
-        "pt-BR": "Força total, e mantida em silêncio: {whatChanged}. O cenário está inalterado e muito favorável, com quase tudo o que acompanhamos ainda a favor do preço. O que estamos observando: {watching}.",
-        "es": "Fuerza plena, y sostenida en silencio: {whatChanged}. El escenario está sin cambios y muy favorable, con casi todo lo que seguimos aún a favor del precio. Lo que observamos: {watching}.",
-        "de": "Volle Stärke, und still gehalten: {whatChanged}. Die Lage ist unverändert und sehr günstig, und fast alles, was wir verfolgen, bleibt zugunsten des Preises. Worauf wir achten: {watching}."
+        "en": "Over the month, the read is very favorable: almost all of what we track supports the price. What we're watching: {watching}.",
+        "pt-BR": "No mês, a leitura é muito favorável: quase tudo o que acompanhamos sustenta o preço. O que estamos observando: {watching}.",
+        "es": "En el mes, la lectura es muy favorable: casi todo lo que seguimos sostiene el precio. Lo que observamos: {watching}.",
+        "de": "Im Monat ist die Lage sehr günstig: Fast alles, was wir verfolgen, stützt den Preis. Worauf wir achten: {watching}."
       }
     ]
   }

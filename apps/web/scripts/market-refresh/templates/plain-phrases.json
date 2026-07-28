@@ -1,5 +1,5 @@
 {
-  "_comment": "P3 plain-phrase library. `watching` keyed by signal id — used for the two nearest-to-flip signals; `changed` keyed by dominant-driver — selected from the score delta's largest group contribution. Jargon-free per the C3 voice rules (no EMA/RSI/SMA).",
+  "_comment": "P3 plain-phrase library. watching keyed by signal id — used for the two nearest-to-flip signals that fill the {watching} slot of the monthly standing read. Jargon-free per C3 (no EMA/RSI/SMA). (The old change-driver phrases were retired when the plain layer moved to weekly-opener + transition-agnostic standing, 2026-07-28.)",
   "watching": {
     "BTC-01": {
       "en": "whether the price can climb back above its long middle line",
@@ -66,56 +66,6 @@
       "pt-BR": "se a própria bolsa segue firme",
       "es": "si la propia bolsa se mantiene firme",
       "de": "ob der Aktienmarkt selbst stabil bleibt"
-    }
-  },
-  "changed": {
-    "btc_broke": {
-      "en": "the price gave back {plainMove} in {monthName} and bent the long lines it had held",
-      "pt-BR": "o preço devolveu {plainMove} em {monthName} e vergou as linhas longas que vinha segurando",
-      "es": "el precio devolvió {plainMove} en {monthName} y dobló las líneas largas que venía sosteniendo",
-      "de": "der Preis gab im {monthName} {plainMove} ab und bog die langen Linien, die er gehalten hatte"
-    },
-    "btc_recovered": {
-      "en": "the price found its feet in {monthName} and climbed back toward the lines that matter",
-      "pt-BR": "o preço achou o chão em {monthName} e voltou a subir em direção às linhas que importam",
-      "es": "el precio encontró suelo en {monthName} y volvió a subir hacia las líneas que importan",
-      "de": "der Preis fand im {monthName} wieder Halt und kletterte zurück in Richtung der Linien, die zählen"
-    },
-    "macro_tightened": {
-      "en": "the money weather outside Bitcoin turned harsher — a firmer dollar and stubborn rates",
-      "pt-BR": "o clima do dinheiro fora do Bitcoin ficou mais duro — dólar mais firme e juros teimosos",
-      "es": "el clima del dinero fuera de Bitcoin se endureció, con un dólar más firme y tipos tercos",
-      "de": "das Geldumfeld außerhalb von Bitcoin wurde rauer — festerer Dollar und sture Zinsen"
-    },
-    "macro_eased": {
-      "en": "the money weather outside Bitcoin softened — the dollar and rates gave some room",
-      "pt-BR": "o clima do dinheiro fora do Bitcoin amoleceu — dólar e juros deram algum espaço",
-      "es": "el clima del dinero fuera de Bitcoin se suavizó, con el dólar y los tipos dando algo de espacio",
-      "de": "das Geldumfeld außerhalb von Bitcoin wurde milder — Dollar und Zinsen gaben etwas Raum"
-    },
-    "flows_in": {
-      "en": "the big funds leaned back in, week after week",
-      "pt-BR": "os grandes fundos voltaram a entrar, semana após semana",
-      "es": "los grandes fondos volvieron a entrar, semana tras semana",
-      "de": "die großen Fonds stiegen wieder ein, Woche für Woche"
-    },
-    "flows_out": {
-      "en": "the big funds stepped back and let the price stand alone",
-      "pt-BR": "os grandes fundos recuaram e deixaram o preço sozinho",
-      "es": "los grandes fondos dieron un paso atrás y dejaron solo al precio",
-      "de": "die großen Fonds traten zurück und ließen den Preis allein stehen"
-    },
-    "little_moved": {
-      "en": "little changed from the month before",
-      "pt-BR": "pouco mudou em relação ao mês anterior",
-      "es": "poco cambió respecto al mes anterior",
-      "de": "wenig änderte sich gegenüber dem Vormonat"
-    },
-    "mixed_shift": {
-      "en": "the picture shifted in pieces — some things firmed while others gave way",
-      "pt-BR": "o quadro mudou em partes — algumas coisas se firmaram enquanto outras cederam",
-      "es": "el cuadro cambió por partes, y algunas cosas se afirmaron mientras otras cedieron",
-      "de": "das Bild verschob sich stückweise — manches festigte sich, anderes gab nach"
     }
   }
 }

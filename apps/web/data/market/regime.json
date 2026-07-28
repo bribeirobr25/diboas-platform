@@ -24,7 +24,7 @@
         "Monthly RSI turned back down (49.2 → 40.8) — momentum is deteriorating again",
         "The dollar is firm and US 10-year yields hold above trend; spot ETF net-flows could not be confirmed (scored unavailable, no points)"
       ],
-      "plain": "Same coat, same sky this month: little changed from the month before. The read stays defensive, the balance of signals still tilted against the price. What we're watching: whether the stock market itself stays steady, and whether the dollar loosens its grip."
+      "plain": "The monthly read stays defensive — the balance of what we track is tilted against the price, and that's worth naming plainly. What we're watching: whether the stock market itself stays steady, and whether the dollar loosens its grip."
     },
     "pt-BR": {
       "short": "As condições recuaram de Neutra / Mista para Defensiva. A queda de junho rompeu de forma decisiva a tendência intermediária do Bitcoin e o levou, pela primeira vez neste ciclo, para baixo da linha de 50 meses de longo prazo, enquanto o cenário macro segue restritivo. A liquidez em expansão e o piso de momentum de curto prazo, que ainda resiste, são os apoios restantes.",
@@ -43,7 +43,7 @@
         "O RSI mensal voltou a cair (49,2 → 40,8) — o momentum está se deteriorando novamente",
         "O dólar está firme e os rendimentos do Tesouro americano de 10 anos seguem acima da tendência; os fluxos líquidos de ETFs à vista não puderam ser confirmados (pontuados como indisponíveis, sem pontos)"
       ],
-      "plain": "Mesmo casaco, mesmo céu neste mês: pouco mudou em relação ao mês anterior. O cenário segue defensivo, com o balanço dos sinais ainda inclinado contra o preço. O que estamos observando: se a própria bolsa segue firme, e se o dólar afrouxa o aperto."
+      "plain": "A leitura do mês segue defensiva — a balança do que acompanhamos está inclinada contra o preço, e vale dizer isso com clareza. O que estamos observando: se a própria bolsa segue firme, e se o dólar afrouxa o aperto."
     },
     "es": {
       "short": "Las condiciones retrocedieron de Neutral / Mixta a Defensiva. La caída de junio rompió de forma decisiva la tendencia intermedia de Bitcoin y lo llevó, por primera vez en este ciclo, por debajo de la línea de 50 meses de largo plazo, mientras el entorno macro sigue restrictivo. La liquidez en expansión y el piso de momentum de corto plazo, que aún resiste, son los apoyos restantes.",
@@ -62,7 +62,7 @@
         "El RSI mensual volvió a girar a la baja (49,2 → 40,8) — el momentum se deteriora de nuevo",
         "El dólar está firme y los rendimientos del Tesoro estadounidense a 10 años siguen sobre la tendencia; los flujos netos de ETFs al contado no pudieron confirmarse (puntuados como no disponibles, sin puntos)"
       ],
-      "plain": "Mismo abrigo, mismo cielo este mes: poco cambió respecto al mes anterior. El escenario sigue defensivo, con la balanza de las señales aún inclinada en contra del precio. Lo que observamos: si la propia bolsa se mantiene firme, y si el dólar afloja su presión."
+      "plain": "La lectura del mes sigue defensiva: la balanza de lo que seguimos está inclinada en contra del precio, y conviene decirlo con claridad. Lo que observamos: si la propia bolsa se mantiene firme, y si el dólar afloja su presión."
     },
     "de": {
       "short": "Die Bedingungen fielen von Neutral / Gemischt auf Defensiv zurück. Der Juni-Abverkauf brach Bitcoins mittelfristigen Trend deutlich und drückte den Kurs erstmals in diesem Zyklus unter die langfristige 50-Monats-Linie, während das Makro-Umfeld restriktiv bleibt. Die expandierende Liquidität und der noch haltende kurzfristige Momentum-Boden sind die verbleibenden Stützen.",
@@ -81,7 +81,7 @@
         "Der monatliche RSI drehte wieder nach unten (49,2 → 40,8) — das Momentum verschlechtert sich erneut",
         "Der Dollar ist fest und die US-10-Jahres-Renditen bleiben über dem Trend; Spot-ETF-Nettozuflüsse konnten nicht bestätigt werden (als nicht verfügbar bewertet, keine Punkte)"
       ],
-      "plain": "Gleicher Mantel, gleicher Himmel diesen Monat: Wenig änderte sich gegenüber dem Vormonat. Die Lage bleibt defensiv, die Waage der Signale bleibt gegen den Preis geneigt. Worauf wir achten: ob der Aktienmarkt selbst stabil bleibt und ob der Dollar seinen Griff lockert."
+      "plain": "Die Lage im Monat bleibt defensiv — die Waage dessen, was wir verfolgen, ist gegen den Preis geneigt, und das sagen wir klar. Worauf wir achten: ob der Aktienmarkt selbst stabil bleibt und ob der Dollar seinen Griff lockert."
     }
   },
   "signal_groups": [

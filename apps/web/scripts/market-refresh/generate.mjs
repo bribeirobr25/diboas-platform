@@ -39,11 +39,15 @@
  * key_*}) and data_status (P2's output). An `editorial-override.json` may
  * replace any single generated string for a cycle (judgment preserved).
  *
- * Plain-layer selection (plan §C3): band × transition (improved/worsened/
- * unchanged, from the score delta vs the prior published snapshot) × a
- * week-rotated variant (ISO-week % 3, so repeat visitors don't reread the
- * same sentence). Slots fill from plain-phrases.json in plain terms
- * ("about a quarter", not "-24.4%").
+ * Plain-layer assembly (2026-07-28 restructure): the grandmother lead is
+ *   [weekly opener] + [monthly "standing" read] + "What we're watching: …".
+ * The weekly opener (weekly-openers.json) names the week-over-week score/band
+ * move vs the prior snapshot — shown only once the ledger is real (not
+ * synthetic_seed). The monthly standing (plain-summaries.json, per band ×
+ * week-rotated variant, ISO-week % 3) is transition-agnostic (state + why) and
+ * reads standalone when no opener applies. {watching} fills from
+ * plain-phrases.json. This split killed the earlier week/month blur (a weekly
+ * delta driving month-framed copy).
  *
  * synthetic_seed flip (founder ruling 2026-07-11): flips to false once the
  * archive holds >= REAL_SNAPSHOTS_FOR_FLIP consecutive real snapshots.
@@ -69,6 +73,7 @@ const computed = read(path.join(MARKET_DIR, 'computed.json'));
 const signalTpl = read(path.join(TPL_DIR, 'signal-sentences.json'));
 const groupTpl = read(path.join(TPL_DIR, 'group-summaries.json'));
 const signalLabels = read(path.join(TPL_DIR, 'signal-labels.json'));
+const weeklyTpl = read(path.join(TPL_DIR, 'weekly-openers.json'));
 const plainTpl = read(path.join(TPL_DIR, 'plain-summaries.json'));
 const phrases = read(path.join(TPL_DIR, 'plain-phrases.json'));
 const overrides = readIfExists(path.join(MARKET_DIR, 'editorial-override.json')) ?? {};
@@ -100,42 +105,6 @@ function num(value, locale, digits = 0) {
     maximumFractionDigits: digits,
   }).format(value);
 }
-/** Plain-terms magnitude for a percentage move (C3: "about a quarter"). */
-const PLAIN_MOVE = {
-  en: [
-    [30, 'roughly a third'],
-    [22, 'about a quarter'],
-    [16, 'about a fifth'],
-    [8, 'about a tenth'],
-    [0, 'a small slice'],
-  ],
-  'pt-BR': [
-    [30, 'cerca de um terço'],
-    [22, 'cerca de um quarto'],
-    [16, 'cerca de um quinto'],
-    [8, 'cerca de um décimo'],
-    [0, 'uma pequena fatia'],
-  ],
-  es: [
-    [30, 'alrededor de un tercio'],
-    [22, 'cerca de una cuarta parte'],
-    [16, 'alrededor de un quinto'],
-    [8, 'alrededor de un décimo'],
-    [0, 'una pequeña porción'],
-  ],
-  de: [
-    [30, 'rund ein Drittel'],
-    [22, 'etwa ein Viertel'],
-    [16, 'rund ein Fünftel'],
-    [8, 'rund ein Zehntel'],
-    [0, 'ein kleines Stück'],
-  ],
-};
-function plainMove(absPct, locale) {
-  for (const [floor, phrase] of PLAIN_MOVE[locale]) if (absPct >= floor) return phrase;
-  return PLAIN_MOVE[locale].at(-1)[1];
-}
-
 function fill(template, slots) {
   return template.replace(/\{(\w+)\}/g, (_, k) => (k in slots ? slots[k] : `{${k}}`));
 }
@@ -144,15 +113,15 @@ function fill(template, slots) {
 const byId = Object.fromEntries(computed.signals.map((s) => [s.id, s]));
 
 // ── numeric engine-mirror maps (root-cause-B fix, 2026-07-27) ───────────────
-// Shared group max (was duplicated inline in groupSummary + driverKey).
+// Shared group max points.
 const MAX_BY_GROUP = {
   btc_structure: 6,
   macro_environment: 3,
   institutional_demand: 2,
   relative_strength: 3,
 };
-// Signal ids per group (single source — also used by driverKey's observable check
-// and the composed 'mixed' group summaries).
+// Signal ids per group (single source — used by the composed 'mixed' group
+// summaries; groupLevel/groupSummary key off group_totals).
 const GROUP_SIGNALS = {
   btc_structure: ['BTC-01', 'BTC-02', 'BTC-03', 'BTC-04'],
   macro_environment: ['MAC-01', 'MAC-02', 'MAC-03'],
@@ -180,6 +149,38 @@ const ENVIRONMENT_BIAS = {
 // Group status chip ← the SAME band that selects the group summary copy
 // (groupLevel below), so the chip and the sentence can never disagree.
 const GROUP_STATUS = { weak: 'WEAK', mixed: 'MIXED', strong: 'CONSTRUCTIVE' };
+// Plain-language regime word per locale — the {band} slot in the weekly opener's
+// band-change case (kept plain; distinct from the UI's title-case regime labels).
+const PLAIN_BAND = {
+  en: {
+    HOSTILE: 'hostile',
+    DEFENSIVE: 'defensive',
+    NEUTRAL_MIXED: 'mixed',
+    CONSTRUCTIVE: 'constructive',
+    VERY_FAVORABLE: 'very favorable',
+  },
+  'pt-BR': {
+    HOSTILE: 'hostil',
+    DEFENSIVE: 'defensivo',
+    NEUTRAL_MIXED: 'misto',
+    CONSTRUCTIVE: 'construtivo',
+    VERY_FAVORABLE: 'muito favorável',
+  },
+  es: {
+    HOSTILE: 'hostil',
+    DEFENSIVE: 'defensivo',
+    NEUTRAL_MIXED: 'mixto',
+    CONSTRUCTIVE: 'constructivo',
+    VERY_FAVORABLE: 'muy favorable',
+  },
+  de: {
+    HOSTILE: 'ungünstig',
+    DEFENSIVE: 'defensiv',
+    NEUTRAL_MIXED: 'gemischt',
+    CONSTRUCTIVE: 'konstruktiv',
+    VERY_FAVORABLE: 'sehr günstig',
+  },
+};
 /** '2026-06-01' (anchor month) → '2026-06-30T00:00:00Z' (end of that month). */
 function monthEnd(anchor) {
   const y = Number(anchor.slice(0, 4));
@@ -300,21 +301,46 @@ function groupSummary(groupId, locale) {
 }
 
 // ── plain (grandmother) summary ─────────────────────────────────────────────
-function priorScore() {
+/** Most recent snapshot on a DIFFERENT date than today's (the prior refresh), or
+ *  null if none — the basis for the week-over-week lead-in. */
+function priorSnapshot() {
   const hist = read(path.join(MARKET_DIR, 'historical.json'));
-  const snaps = hist.snapshots;
+  const snaps = hist.snapshots ?? [];
   const today = computed.computed_at.slice(0, 10);
-  // Prior = the most recent snapshot on a DIFFERENT date than today's.
   for (let i = snaps.length - 1; i >= 0; i -= 1) {
-    if (snaps[i].date.slice(0, 10) !== today) return snaps[i].score;
+    if (snaps[i].date.slice(0, 10) !== today) return snaps[i];
   }
-  return computed.score; // no prior → unchanged
+  return null;
 }
-function transition() {
-  const delta = computed.score - priorScore();
-  if (delta > 0) return 'improved';
-  if (delta < 0) return 'worsened';
-  return 'unchanged';
+/** Week-over-week lead-in for the plain read: names the score/band move since the
+ *  prior refresh. Returns '' when the real weekly ledger isn't trusted yet
+ *  (synthetic_seed) or there is no genuine prior — so the monthly "standing" read
+ *  stands alone rather than claim a comparison against seed data. Priority:
+ *  band change > score move > held. */
+function weeklyOpener(locale) {
+  const hist = read(path.join(MARKET_DIR, 'historical.json'));
+  // FORCE_WEEKLY_OPENER=1 previews the opener before the real ledger flips
+  // synthetic_seed to false (dev/preview only — never set in CI/prod, so the
+  // committed output and the drift gate stay opener-off until the data is real).
+  if (hist.synthetic_seed && !process.env.FORCE_WEEKLY_OPENER) return '';
+  const prior = priorSnapshot();
+  if (!prior || prior.score == null) return '';
+  const score = computed.score;
+  const slots = {
+    score: String(score),
+    max: String(computed.max_score),
+    prior: String(prior.score),
+  };
+  if (prior.regime_code && prior.regime_code !== computed.regime_code) {
+    const key = score > prior.score ? 'bandUp' : 'bandDown';
+    return fill(weeklyTpl[key][locale], {
+      ...slots,
+      band: PLAIN_BAND[locale][computed.regime_code],
+    });
+  }
+  if (score > prior.score) return fill(weeklyTpl.moveUp[locale], slots);
+  if (score < prior.score) return fill(weeklyTpl.moveDown[locale], slots);
+  return fill(weeklyTpl.held[locale], slots);
 }
 /** ISO week number for deterministic variant rotation (no Date.now — passed in). */
 function isoWeek(dateStr) {
@@ -325,52 +351,6 @@ function isoWeek(dateStr) {
   const firstDay = (firstThu.getUTCDay() + 6) % 7;
   firstThu.setUTCDate(firstThu.getUTCDate() - firstDay + 3);
   return 1 + Math.round((d - firstThu) / (7 * 86400000));
-}
-
-/** The dominant driver for the {whatChanged} slot. */
-function driverKey(trans) {
-  const totals = computed.group_totals;
-  const maxByGroup = MAX_BY_GROUP;
-  // A group whose signals are ALL unobservable (e.g. ETF-01 UNAVAILABLE) cannot
-  // be "the story" — unobserved is not a headwind. Exclude such groups from the
-  // driver pick so we never say "the big funds stepped back" when we simply
-  // couldn't see the flows.
-  const observable = (g) => {
-    const ids = GROUP_SIGNALS[g];
-    return ids.some((id) => byId[id] && byId[id].state !== 'UNAVAILABLE');
-  };
-  const ratios = Object.entries(totals)
-    .filter(([g]) => observable(g))
-    .map(([g, p]) => [g, p / maxByGroup[g]]);
-  const weakest = ratios.reduce((a, b) => (b[1] < a[1] ? b : a));
-  const strongest = ratios.reduce((a, b) => (b[1] > a[1] ? b : a));
-  if (trans === 'unchanged') {
-    // If the board is genuinely split, say so; else name the weakest driver.
-    const spread = strongest[1] - weakest[1];
-    if (spread < 0.34) return 'little_moved';
-  }
-  const focus = trans === 'improved' ? strongest[0] : weakest[0];
-  const map = {
-    improved: {
-      btc_structure: 'btc_recovered',
-      macro_environment: 'macro_eased',
-      institutional_demand: 'flows_in',
-      relative_strength: 'mixed_shift',
-    },
-    worsened: {
-      btc_structure: 'btc_broke',
-      macro_environment: 'macro_tightened',
-      institutional_demand: 'flows_out',
-      relative_strength: 'mixed_shift',
-    },
-    unchanged: {
-      btc_structure: 'btc_broke',
-      macro_environment: 'macro_tightened',
-      institutional_demand: 'flows_out',
-      relative_strength: 'mixed_shift',
-    },
-  };
-  return map[trans][focus] ?? 'mixed_shift';
 }
 
 /** The two signals nearest to flipping — the {watching} slot. */
@@ -390,37 +370,22 @@ function watchingIds() {
 }
 
 function plainSummary(locale) {
-  const trans = transition();
+  // Monthly "standing" read (transition-agnostic: state + why), rotated weekly.
+  const variants = plainTpl[computed.regime_code].standing;
   const week = isoWeek(computed.computed_at.slice(0, 10));
-  const variant = plainTpl[computed.regime_code][trans][week % 3];
-  const btcMonth = monthName(byId['BTC-01']?.anchor, locale);
-  const btcMovePct =
-    byId['BTC-01']?.values?.monthMovePct != null ? Math.abs(byId['BTC-01'].values.monthMovePct) : 0;
-  const changed = fill(phrases.changed[driverKey(trans)][locale], {
-    monthName: btcMonth,
-    plainMove: plainMove(btcMovePct, locale),
-  });
-  // German (Duden D 88): a full sentence after a colon is capitalized. The
-  // {whatChanged} fill is always a full sentence, but the same fill is reused
-  // lowercase mid-sentence (after "und") in some templates — so capitalize only
-  // when the placeholder follows ": " in THIS template, and only for de.
-  const tpl = variant[locale];
-  const wcIdx = tpl.indexOf('{whatChanged}');
-  const afterColon = wcIdx >= 2 && tpl.slice(wcIdx - 2, wcIdx) === ': ';
-  const changedFill =
-    locale === 'de' && afterColon && changed
-      ? changed.charAt(0).toUpperCase() + changed.slice(1)
-      : changed;
+  const standing = variants[week % variants.length][locale];
   const ids = watchingIds();
   const watchParts = ids.map((id) => phrases.watching[id]?.[locale]).filter(Boolean);
-  // Localize the joining conjunction — a hardcoded English "and" leaked into the
-  // pt-BR/es/de grandmother layer (voice audit F-2, 2026-07-12). German joins two
+  // Localize the joining conjunction (F-2, 2026-07-12). German joins two
   // "ob"-clauses without a comma ("ob A und ob B"); es/pt keep the comma.
   const AND = { en: 'and', 'pt-BR': 'e', es: 'y', de: 'und' };
   const sep = locale === 'de' ? ` ${AND[locale]} ` : `, ${AND[locale] ?? 'and'} `;
   const watching =
     watchParts.length === 2 ? `${watchParts[0]}${sep}${watchParts[1]}` : (watchParts[0] ?? '');
-  return fill(tpl, { whatChanged: changedFill, watching });
+  const body = fill(standing, { watching });
+  // Prepend the week-over-week lead-in (empty while the ledger is seed-only).
+  const opener = weeklyOpener(locale);
+  return opener ? `${opener} ${body}` : body;
 }
 
 // ── assemble the generated object per locale ────────────────────────────────
@@ -596,7 +561,7 @@ const drift = await patchEditorial(gen, !checkMode);
 
 console.log(`\n=== market generate (Stage 4) — ${checkMode ? 'CHECK' : 'WRITE'} ===`);
 console.log(
-  `  transition: ${transition()} · variant: week ${isoWeek(computed.computed_at.slice(0, 10)) % 3}`
+  `  variant: week ${isoWeek(computed.computed_at.slice(0, 10)) % 3} · weekly-opener: ${weeklyOpener('en') ? 'on' : 'off (seed/no prior)'}`
 );
 console.log(`  plain (en): ${gen.plain.en.slice(0, 120)}…`);
 if (checkMode) {

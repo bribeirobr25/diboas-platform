@@ -1,0 +1,33 @@
+{
+  "_comment": "Weekly lead-in for summary.plain (the grandmother layer). generate.mjs weeklyOpener() compares this week's score/band to the most recent prior snapshot in historical.json and prepends one of these, ahead of the transition-agnostic monthly 'standing' read. Slots: {score} {max} {prior} {band}. {band} = plain-language regime word (PLAIN_BAND in generate.mjs). Shown only when a genuine prior snapshot exists; the monthly read stands alone otherwise. Keep it a couple of words — the week is the 'what's new', the month is the substance.",
+  "held": {
+    "en": "A steady week — still {score} of {max}.",
+    "pt-BR": "Uma semana estável — ainda {score} de {max}.",
+    "es": "Una semana estable — todavía {score} de {max}.",
+    "de": "Eine ruhige Woche — weiterhin {score} von {max}."
+  },
+  "moveUp": {
+    "en": "The score firmed a little this week, from {prior} to {score} of {max}.",
+    "pt-BR": "A pontuação se firmou um pouco nesta semana, de {prior} para {score} de {max}.",
+    "es": "La puntuación mejoró un poco esta semana, de {prior} a {score} de {max}.",
+    "de": "Der Wert festigte sich diese Woche etwas, von {prior} auf {score} von {max}."
+  },
+  "moveDown": {
+    "en": "The score eased a little this week, from {prior} to {score} of {max}.",
+    "pt-BR": "A pontuação cedeu um pouco nesta semana, de {prior} para {score} de {max}.",
+    "es": "La puntuación cedió un poco esta semana, de {prior} a {score} de {max}.",
+    "de": "Der Wert gab diese Woche etwas nach, von {prior} auf {score} von {max}."
+  },
+  "bandUp": {
+    "en": "This week the read stepped up a level, from {prior} to {score} of {max}.",
+    "pt-BR": "Nesta semana a leitura subiu um nível, de {prior} para {score} de {max}.",
+    "es": "Esta semana la lectura subió un nivel, de {prior} a {score} de {max}.",
+    "de": "Diese Woche rückte die Bewertung eine Stufe höher, von {prior} auf {score} von {max}."
+  },
+  "bandDown": {
+    "en": "This week the read stepped down a level, from {prior} to {score} of {max}.",
+    "pt-BR": "Nesta semana a leitura desceu um nível, de {prior} para {score} de {max}.",
+    "es": "Esta semana la lectura bajó un nivel, de {prior} a {score} de {max}.",
+    "de": "Diese Woche rückte die Bewertung eine Stufe tiefer, von {prior} auf {score} von {max}."
+  }
+}
