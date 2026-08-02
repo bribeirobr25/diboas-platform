@@ -182,13 +182,16 @@ For every item, state your finding based on BOTH what you see AND what the code 
 
 **Friction & dark-pattern audit (checklist Part 3 — mandatory, unprompted):**
 For any surface containing a flow, form, selector, or decision screen, run Part 3
-rows 1–21 explicitly and report them in the Part-3 table of the report template:
+rows 1–26 explicitly and report them in the Part-3 table of the report template:
 
 - State PASS / FAIL / N/A per row, citing the row number AND its canon ID(s) — e.g.
   "Row 6 [UX-37, UX-44, UX-52]: FAIL — the fee appears only after the confirm button."
 - **Rows 10–17 are the canonical veto list: any YES on rows 10–17 is a BLOCKER (P0),
   regardless of measured lift or any other consideration.** Never downgrade these.
-- Rows 1–9 and 18–21 are friction rows: a FAIL there is at least P1.
+- Rows 1–9 and 18–26 are friction rows: a FAIL there is at least P1. (Rows 22–26 —
+  permission pre-prompts, time honesty, equal-weight decline, unbundled consent,
+  whole-truth feed — mostly bite on app/onboarding surfaces; on pure marketing pages
+  they are usually N/A, but a cookie-consent or email-ask surface can trigger 24/25.)
 - Evidence for contested verdicts: quote the principle from
   `docs/tech/ux-governance/UX_PRINCIPLES_CANON.md` (its UX-NN entries carry the before/after evidence).
 - Pure content pages with no flow/form/selector: state "Part 3: N/A (no decision surface)"
@@ -402,7 +405,7 @@ judging from a description rather than the render.
 
 Per-asset verdict: KEEP / REVISE / REGEN.
 
-### Friction & Dark-Pattern Audit (Part 3 — rows 1–21, canon-ID cited)
+### Friction & Dark-Pattern Audit (Part 3 — rows 1–26, canon-ID cited)
 
 State "Part 3: N/A (no decision surface)" for pure content pages; otherwise fill every row.
 
@@ -410,7 +413,7 @@ State "Part 3: N/A (no decision surface)" for pure content pages; otherwise fill
 | ---------------- | ------------ | ------------- | ------------------------------------------------------- |
 | 1–9 (friction)   | [UX-IDs]     | [result]      | [FAIL here = at least P1]                               |
 | 10–17 (veto)     | [UX-IDs]     | [result]      | **any YES/FAIL here is a P0 BLOCKER — never downgrade** |
-| 18–21 (friction) | [UX-IDs]     | [result]      | [FAIL here = at least P1]                               |
+| 18–26 (friction) | [UX-IDs]     | [result]      | [FAIL here = at least P1; 22–26 often N/A on marketing pages] |
 
 ### Multi-Locale Results
 

@@ -29,7 +29,7 @@ Join every beat with **but** or **therefore**, never "and then." "And then" pile
 - **"Call them by their name."** Name the reader's real fear or moment so precisely they recognise themselves ("She saved with care. The system paid her back with silence."). Recognition, not selling — the single most on-brand hook we have.
 - **Belief → truthful reveal (contrast).** "Most think X; here's what's actually true." Only ever a _true_ reframe, never a promise.
 - **Honest open loops / questions.** A question the piece genuinely answers. Never widen the gap to withhold, never a cliffhanger that doesn't pay off.
-- **For educational pieces (Learn / YouTube), the 3P intro:** who is speaking (proof) → the path you'll walk → what you'll **understand** by the end. The "promise" is always understanding — **never** a money outcome (that would breach never-promising).
+- **For educational pieces (Learn / YouTube), the 3P intro:** who is speaking (proof) → the path you'll walk → what you'll **understand** by the end. The "promise" is always understanding — **never** a money outcome (that would breach never-promising). _The same pattern applies inside product flows, not just content:_ a setup checklist that names the path and its honest time cost before asking for anything (canon UX-65, Part 10) is the 3P intro as UI — the path you'll walk, stated where the walking starts.
 
 ## 4. Make them feel it — Draper, operationalised
 

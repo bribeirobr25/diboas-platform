@@ -37,7 +37,7 @@ _Regulatory anchor (CLO-verified 2026-07-20, D-2 LIGHT): the never-promising / n
 
 - **PASS:** states what is true and leaves the decision with the reader. Upside always travels with its risk. No "you should," no guarantee, no pressure.
 - **FAIL — selling:** manufactured urgency, "don't miss out," pushing the click. (Also a Part-3 veto — cross-check rows 10–17.)
-- **FAIL — promising:** any guarantee of return, safety, or outcome, explicit or implied. _"Your money works while you sleep"_ is a promise (it implies reliable, effortless gain); it must be balanced or cut. Watch the shipped `howItWorks.step2` line for exactly this.
+- **FAIL — promising:** any guarantee of return, safety, or outcome, explicit or implied. _"Your money works while you sleep"_ is a promise (it implies reliable, effortless gain); it must be balanced or cut. Watch the shipped `howItWorks.step2` line for exactly this. A **promotional or incentive-boosted rate presented as the headline rate** is also an implied promise — the durable base rate leads, and boosts are broken out and labelled with their conditions (canon UX-63 amendment, 2026-07-30; counter-example: "up to 5%" where 3 points are a temporary promo).
 - **FAIL — advising:** "you should," "the smart move," "the right choice is" — diBoaS is not the reader's advisor and never speaks as one.
 - **The bar (shipped copy):** _"diBoaS does not promise to fix your life. It helps you separate money by what it is meant to do, understand the path, and see the risk before you decide."_ Names the non-promise out loud, then hands the decision back. PASS. This is the single clearest example in the product of the three nevers done right.
 

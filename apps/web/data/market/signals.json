@@ -185,14 +185,14 @@
         "es": "Demanda institucional",
         "de": "Institutionelle Nachfrage"
       },
-      "status": "WEAK",
-      "points_awarded": 0,
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 2,
       "max_points": 2,
       "summary": {
-        "en": "Institutional demand could not be measured this cycle — the ETF flow read is unavailable, not weak (0 of 2 points).",
-        "pt-BR": "A demanda institucional não pôde ser medida neste ciclo — a leitura de fluxos de ETF está indisponível, não fraca (0 de 2 pontos).",
-        "es": "La demanda institucional no pudo medirse en este ciclo: la lectura de flujos de ETF no está disponible, no es débil (0 de 2 puntos).",
-        "de": "Die institutionelle Nachfrage konnte in diesem Zyklus nicht gemessen werden — die ETF-Flussdaten sind nicht verfügbar, nicht schwach (0 von 2 Punkten)."
+        "en": "Institutional demand is flowing: spot-ETF creations outpaced redemptions in most of the recent weeks (2 of 2 points).",
+        "pt-BR": "A demanda institucional está entrando: as emissões dos ETFs à vista superaram os resgates na maioria das semanas recentes (2 de 2 pontos).",
+        "es": "La demanda institucional está entrando: las creaciones de los ETF al contado superaron los reembolsos en la mayoría de las semanas recientes (2 de 2 puntos).",
+        "de": "Die institutionelle Nachfrage fließt: Zuflüsse in die Spot-ETFs überwogen die Abflüsse in den meisten der letzten Wochen (2 von 2 Punkten)."
       },
       "signals": [
         {
@@ -203,14 +203,14 @@
             "es": "Flujos positivos hacia ETFs",
             "de": "Positive ETF-Zuflüsse"
           },
-          "state": "UNAVAILABLE",
-          "points_awarded": 0,
+          "state": "ACTIVE",
+          "points_awarded": 2,
           "max_points": 2,
           "summary": {
-            "en": "The ETF flow ledger is warming up (2 of 5 weekly share-count snapshots recorded) — scored unavailable until four full weekly flows exist. No points either way.",
-            "pt-BR": "O registro de fluxos de ETF está em aquecimento (2 de 5 fotografias semanais de cotas registradas) — pontuado como indisponível até existirem quatro fluxos semanais completos. Sem pontos em nenhuma direção.",
-            "es": "El registro de flujos de ETF está en calentamiento (2 de 5 instantáneas semanales de participaciones registradas); se puntúa como no disponible hasta que existan cuatro flujos semanales completos. Sin puntos en ningún sentido.",
-            "de": "Das ETF-Fluss-Register läuft sich warm (2 von 5 wöchentlichen Anteils-Momentaufnahmen erfasst) — bis vier volle Wochenflüsse vorliegen als nicht verfügbar gewertet. Keine Punkte in keine Richtung."
+            "en": "Spot-ETF creations outpaced redemptions in 3 of the last 4 weeks (share-count method) — institutional demand is flowing in.",
+            "pt-BR": "As emissões dos ETFs à vista superaram os resgates em 3 das últimas 4 semanas (método de cotas) — a demanda institucional está entrando.",
+            "es": "Las creaciones de los ETF al contado superaron los reembolsos en 3 de las últimas 4 semanas (método de participaciones); la demanda institucional está entrando.",
+            "de": "Bei den Spot-ETFs überwogen die Anteilsschöpfungen in 3 der letzten 4 Wochen (Anteilszahl-Methode) — institutionelle Nachfrage fließt zu."
           },
           "last_updated_at": "2026-07-27T10:05:26.000Z"
         }

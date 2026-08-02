@@ -5,6 +5,8 @@
 **Method:** Standalone Node simulator (`apps/web/scripts/tools-stress-test.mjs`) mirrors every formula in `apps/web/src/lib/market-data/formulas/` and consumes the live `monthlyPrices.json`/`monthlyFx.json` data files. Re-runs reproduce the JSON output deterministically.
 **Total scenarios:** 140 across 11 tools.
 
+> ℹ️ **Count note (2026-07-28):** figures below are the 2026-05-23 snapshot (971/971 full suite then; tools-subset 969). The full suite has since grown — current baseline **1061/1061** (see `docs/audit/AUDIT_HISTORY.md`). The tools coverage/scenarios below remain valid; only the aggregate pass-count is a point-in-time value.
+
 ## TL;DR
 
 - **Input data:** all 4 locales' FALLBACK_MARKET_DATA constants verified against May 2026 live sources (FDIC, BCB SGS, ECB MIR, BLS, IBGE, Eurostat, Destatis). Monthly OHLC time-series (8 assets × 142–192 months, 8 of 12 currency pairs × 191 months) refreshed via the K.3 weekly runbook.

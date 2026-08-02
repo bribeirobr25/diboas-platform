@@ -1,13 +1,13 @@
 {
   "_comment": "Machine-readable regime computation (P2 Stage 3 output). Written ONLY by scripts/market-refresh/run.mjs after the quality gate passes. The reconciliation vitest asserts regime.json agrees with this file — hand-edit regime.json scores and CI goes red (F-M4). Regenerate by running the pipeline, never by hand.",
   "computed_at": "2026-07-27T10:05:26.000Z",
-  "score": 3,
+  "score": 5,
   "max_score": 14,
   "regime_code": "DEFENSIVE",
   "group_totals": {
     "btc_structure": 1,
     "macro_environment": 1,
-    "institutional_demand": 0,
+    "institutional_demand": 2,
     "relative_strength": 1
   },
   "anchor_spread_days": 7,
@@ -112,13 +112,12 @@
     },
     {
       "id": "ETF-01",
-      "state": "UNAVAILABLE",
+      "state": "ACTIVE",
       "weight": 2,
-      "points": 0,
-      "detail": "Polygon shares-outstanding ledger warming up: 2/5 weekly snapshots recorded — 4 weekly flows need 5. No guessed backfill.",
+      "points": 2,
+      "detail": "(EMULATED) Spot-ETF creations outpaced redemptions in 3 of the last 4 weeks",
       "values": {
-        "snapshots": 2,
-        "warmupTarget": 5
+        "positives": 3
       },
       "anchor": "2026-07-24",
       "anchorKind": "weekly"

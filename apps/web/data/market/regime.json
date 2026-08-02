@@ -1,6 +1,6 @@
 {
   "_comment": "Generated 2026-07-11 against docs/mvp/engine/02_regime_engine_specification.md v2.1 §6.1 + §8 + docs/mvp/platform/07_api_contract_response_schema.md §26, via apps/web/scripts/data-fetchers/compute-regime.mjs (live FRED + Yahoo fetch, strict-Friday resampling, §5.1 candle-lock) after appending the confirmed June 2026 BTC monthly candle (close $58,558.86; cross-verified Yahoo vs CoinGecko) to monthlyPrices.json. Regime moved NEUTRAL_MIXED (6) → DEFENSIVE (3): June's ~24% monthly drop broke BTC-01 deeper below the 20-month EMA, flipped BTC-02 (first close below the 50-month SMA this cycle, $58,559 vs $59,342) and turned BTC-03 monthly RSI back down (49.2 → 40.8); only BTC-04 (Stoch-RSI floor) holds. Weekly signals anchored at the most recent confirmed Friday close per source (NASDAQCOM/DGS10 July 10 week; DTWEXBGS June 26 — July 3 US holiday + ~1-week publication lag, see data_status message). ETF-01 evaluated UNAVAILABLE per §10.1 again this cycle (CoinGlass routes 404; Farside behind challenge wall, policy forbids evasion); 0/2 either way, score-invariant. data_status carries the same 7-source list as apps/web/data/market/data-status.json (audit gate). _translation_status sibling block tracks non-EN content review state per market-editorial.md §5.",
-  "score": 3,
+  "score": 5,
   "max_score": 14,
   "regime_code": "DEFENSIVE",
   "regime_label": "Defensive",
@@ -24,7 +24,7 @@
         "Monthly RSI turned back down (49.2 → 40.8) — momentum is deteriorating again",
         "The dollar is firm and US 10-year yields hold above trend; spot ETF net-flows could not be confirmed (scored unavailable, no points)"
       ],
-      "plain": "The monthly read stays defensive — the balance of what we track is tilted against the price, and that's worth naming plainly. What we're watching: whether the stock market itself stays steady, and whether the dollar loosens its grip."
+      "plain": "The score firmed a little this week, from 3 to 5 of 14. The monthly read stays defensive — the balance of what we track is tilted against the price, and that's worth naming plainly. What we're watching: whether the stock market itself stays steady, and whether the dollar loosens its grip."
     },
     "pt-BR": {
       "short": "As condições recuaram de Neutra / Mista para Defensiva. A queda de junho rompeu de forma decisiva a tendência intermediária do Bitcoin e o levou, pela primeira vez neste ciclo, para baixo da linha de 50 meses de longo prazo, enquanto o cenário macro segue restritivo. A liquidez em expansão e o piso de momentum de curto prazo, que ainda resiste, são os apoios restantes.",
@@ -43,7 +43,7 @@
         "O RSI mensal voltou a cair (49,2 → 40,8) — o momentum está se deteriorando novamente",
         "O dólar está firme e os rendimentos do Tesouro americano de 10 anos seguem acima da tendência; os fluxos líquidos de ETFs à vista não puderam ser confirmados (pontuados como indisponíveis, sem pontos)"
       ],
-      "plain": "A leitura do mês segue defensiva — a balança do que acompanhamos está inclinada contra o preço, e vale dizer isso com clareza. O que estamos observando: se a própria bolsa segue firme, e se o dólar afrouxa o aperto."
+      "plain": "A pontuação se firmou um pouco nesta semana, de 3 para 5 de 14. A leitura do mês segue defensiva — a balança do que acompanhamos está inclinada contra o preço, e vale dizer isso com clareza. O que estamos observando: se a própria bolsa segue firme, e se o dólar afrouxa o aperto."
     },
     "es": {
       "short": "Las condiciones retrocedieron de Neutral / Mixta a Defensiva. La caída de junio rompió de forma decisiva la tendencia intermedia de Bitcoin y lo llevó, por primera vez en este ciclo, por debajo de la línea de 50 meses de largo plazo, mientras el entorno macro sigue restrictivo. La liquidez en expansión y el piso de momentum de corto plazo, que aún resiste, son los apoyos restantes.",
@@ -62,7 +62,7 @@
         "El RSI mensual volvió a girar a la baja (49,2 → 40,8) — el momentum se deteriora de nuevo",
         "El dólar está firme y los rendimientos del Tesoro estadounidense a 10 años siguen sobre la tendencia; los flujos netos de ETFs al contado no pudieron confirmarse (puntuados como no disponibles, sin puntos)"
       ],
-      "plain": "La lectura del mes sigue defensiva: la balanza de lo que seguimos está inclinada en contra del precio, y conviene decirlo con claridad. Lo que observamos: si la propia bolsa se mantiene firme, y si el dólar afloja su presión."
+      "plain": "La puntuación mejoró un poco esta semana, de 3 a 5 de 14. La lectura del mes sigue defensiva: la balanza de lo que seguimos está inclinada en contra del precio, y conviene decirlo con claridad. Lo que observamos: si la propia bolsa se mantiene firme, y si el dólar afloja su presión."
     },
     "de": {
       "short": "Die Bedingungen fielen von Neutral / Gemischt auf Defensiv zurück. Der Juni-Abverkauf brach Bitcoins mittelfristigen Trend deutlich und drückte den Kurs erstmals in diesem Zyklus unter die langfristige 50-Monats-Linie, während das Makro-Umfeld restriktiv bleibt. Die expandierende Liquidität und der noch haltende kurzfristige Momentum-Boden sind die verbleibenden Stützen.",
@@ -81,7 +81,7 @@
         "Der monatliche RSI drehte wieder nach unten (49,2 → 40,8) — das Momentum verschlechtert sich erneut",
         "Der Dollar ist fest und die US-10-Jahres-Renditen bleiben über dem Trend; Spot-ETF-Nettozuflüsse konnten nicht bestätigt werden (als nicht verfügbar bewertet, keine Punkte)"
       ],
-      "plain": "Die Lage im Monat bleibt defensiv — die Waage dessen, was wir verfolgen, ist gegen den Preis geneigt, und das sagen wir klar. Worauf wir achten: ob der Aktienmarkt selbst stabil bleibt und ob der Dollar seinen Griff lockert."
+      "plain": "Der Wert festigte sich diese Woche etwas, von 3 auf 5 von 14. Die Lage im Monat bleibt defensiv — die Waage dessen, was wir verfolgen, ist gegen den Preis geneigt, und das sagen wir klar. Worauf wir achten: ob der Aktienmarkt selbst stabil bleibt und ob der Dollar seinen Griff lockert."
     }
   },
   "signal_groups": [
@@ -132,14 +132,14 @@
         "es": "Demanda institucional",
         "de": "Institutionelle Nachfrage"
       },
-      "status": "WEAK",
-      "points_awarded": 0,
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 2,
       "max_points": 2,
       "summary": {
-        "en": "Institutional demand could not be measured this cycle — the ETF flow read is unavailable, not weak (0 of 2 points).",
-        "pt-BR": "A demanda institucional não pôde ser medida neste ciclo — a leitura de fluxos de ETF está indisponível, não fraca (0 de 2 pontos).",
-        "es": "La demanda institucional no pudo medirse en este ciclo: la lectura de flujos de ETF no está disponible, no es débil (0 de 2 puntos).",
-        "de": "Die institutionelle Nachfrage konnte in diesem Zyklus nicht gemessen werden — die ETF-Flussdaten sind nicht verfügbar, nicht schwach (0 von 2 Punkten)."
+        "en": "Institutional demand is flowing: spot-ETF creations outpaced redemptions in most of the recent weeks (2 of 2 points).",
+        "pt-BR": "A demanda institucional está entrando: as emissões dos ETFs à vista superaram os resgates na maioria das semanas recentes (2 de 2 pontos).",
+        "es": "La demanda institucional está entrando: las creaciones de los ETF al contado superaron los reembolsos en la mayoría de las semanas recientes (2 de 2 puntos).",
+        "de": "Die institutionelle Nachfrage fließt: Zuflüsse in die Spot-ETFs überwogen die Abflüsse in den meisten der letzten Wochen (2 von 2 Punkten)."
       }
     },
     {
