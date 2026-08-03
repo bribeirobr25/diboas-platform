@@ -1,14 +1,14 @@
 {
   "_comment": "Machine-readable regime computation (P2 Stage 3 output). Written ONLY by scripts/market-refresh/run.mjs after the quality gate passes. The reconciliation vitest asserts regime.json agrees with this file — hand-edit regime.json scores and CI goes red (F-M4). Regenerate by running the pipeline, never by hand.",
-  "computed_at": "2026-07-27T10:05:26.000Z",
-  "score": 5,
+  "computed_at": "2026-08-03T10:00:46.142Z",
+  "score": 4,
   "max_score": 14,
   "regime_code": "DEFENSIVE",
   "group_totals": {
     "btc_structure": 1,
     "macro_environment": 1,
-    "institutional_demand": 2,
-    "relative_strength": 1
+    "institutional_demand": 0,
+    "relative_strength": 2
   },
   "anchor_spread_days": 7,
   "anchor_warning": null,
@@ -74,14 +74,14 @@
       "state": "INACTIVE",
       "weight": 1,
       "points": 0,
-      "detail": "DXY 120.5315 vs EMA20W 119.8242 (Δ 0.590%); RSI 55.00",
+      "detail": "DXY 120.7105 vs EMA20W 119.9086 (Δ 0.669%); RSI 56.10",
       "values": {
-        "close": 120.5315,
-        "ema20": 119.82422073484457,
-        "gapPct": 0.5902640224304384,
-        "rsi": 54.99502860613503
+        "close": 120.7105,
+        "ema20": 119.90862828390699,
+        "gapPct": 0.6687356260922414,
+        "rsi": 56.10236217825682
       },
-      "anchor": "2026-07-17",
+      "anchor": "2026-07-24",
       "anchorKind": "weekly"
     },
     {
@@ -89,12 +89,12 @@
       "state": "INACTIVE",
       "weight": 1,
       "points": 0,
-      "detail": "US10Y 4.55% vs EMA20W 4.42%",
+      "detail": "US10Y 4.69% vs EMA20W 4.44%",
       "values": {
-        "close": 4.55,
-        "ema20": 4.416789545038421
+        "close": 4.69,
+        "ema20": 4.442809588368095
       },
-      "anchor": "2026-07-17",
+      "anchor": "2026-07-24",
       "anchorKind": "weekly"
     },
     {
@@ -102,24 +102,25 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "M2 12M ROC 5.58%, MoM +247.8B",
+      "detail": "M2 12M ROC 5.53%, MoM +99.6B",
       "values": {
-        "roc12m": 5.580313182711283,
-        "mom": 247.79999999999927
+        "roc12m": 5.525755718302672,
+        "mom": 99.60000000000218
       },
-      "anchor": "2026-05-01",
+      "anchor": "2026-06-01",
       "anchorKind": "monthly"
     },
     {
       "id": "ETF-01",
-      "state": "ACTIVE",
+      "state": "UNAVAILABLE",
       "weight": 2,
-      "points": 2,
-      "detail": "(EMULATED) Spot-ETF creations outpaced redemptions in 3 of the last 4 weeks",
+      "points": 0,
+      "detail": "Polygon shares-outstanding ledger warming up: 3/5 weekly snapshots recorded — 4 weekly flows need 5. No guessed backfill.",
       "values": {
-        "positives": 3
+        "snapshots": 3,
+        "warmupTarget": 5
       },
-      "anchor": "2026-07-24",
+      "anchor": "2026-07-31",
       "anchorKind": "weekly"
     },
     {
@@ -127,13 +128,13 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "BTC/Gold ratio 15.758 vs EMA20W 15.659 (Yahoo GC=F substitute)",
+      "detail": "BTC/Gold ratio 15.513 vs EMA20W 15.378 (Yahoo GC=F substitute)",
       "values": {
-        "ratio": 15.75830822963239,
-        "ema20": 15.658716689133819,
-        "gapPct": 0.636013426104597
+        "ratio": 15.513013899090474,
+        "ema20": 15.37827401474306,
+        "gapPct": 0.8761703960941277
       },
-      "anchor": "2026-07-24",
+      "anchor": "2026-07-31",
       "anchorKind": "weekly"
     },
     {
@@ -141,27 +142,27 @@
       "state": "INACTIVE",
       "weight": 1,
       "points": 0,
-      "detail": "BTC/Nasdaq ratio 2.566 vs EMA20W 2.756",
+      "detail": "BTC/Nasdaq ratio 2.476 vs EMA20W 2.691",
       "values": {
-        "ratio": 2.566422087192733,
-        "ema20": 2.7564786494235403,
-        "gapPct": -6.894904202162197
+        "ratio": 2.475530756812624,
+        "ema20": 2.6910127142480773,
+        "gapPct": -8.007467088302596
       },
-      "anchor": "2026-07-24",
+      "anchor": "2026-07-31",
       "anchorKind": "weekly"
     },
     {
       "id": "REL-03",
-      "state": "INACTIVE",
+      "state": "ACTIVE",
       "weight": 1,
-      "points": 0,
-      "detail": "Nasdaq 24975.82 vs EMA20W 25029.55",
+      "points": 1,
+      "detail": "Nasdaq 25373.85 vs EMA20W 25062.34",
       "values": {
-        "close": 24975.82,
-        "ema20": 25029.550346036045,
-        "gapPct": -0.21466764401764293
+        "close": 25373.85,
+        "ema20": 25062.340789270707,
+        "gapPct": 1.24293741493871
       },
-      "anchor": "2026-07-24",
+      "anchor": "2026-07-31",
       "anchorKind": "weekly"
     }
   ],
@@ -169,37 +170,37 @@
     {
       "source": "FRED:DTWEXBGS",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS&cosd=2023-01-01",
-      "fetchedAt": "2026-07-27T10:05:25.932Z",
+      "fetchedAt": "2026-08-03T10:00:46.056Z",
       "licence": "public-domain"
     },
     {
       "source": "FRED:DGS10",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2023-01-01",
-      "fetchedAt": "2026-07-27T10:05:25.937Z",
+      "fetchedAt": "2026-08-03T10:00:46.025Z",
       "licence": "public-domain"
     },
     {
       "source": "FRED:M2SL",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=M2SL&cosd=2023-01-01",
-      "fetchedAt": "2026-07-27T10:05:25.942Z",
+      "fetchedAt": "2026-08-03T10:00:46.045Z",
       "licence": "public-domain"
     },
     {
       "source": "FRED:NASDAQCOM",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQCOM&cosd=2023-01-01",
-      "fetchedAt": "2026-07-27T10:05:25.940Z",
+      "fetchedAt": "2026-08-03T10:00:46.028Z",
       "licence": "public-domain"
     },
     {
       "source": "Yahoo:BTC-USD",
       "url": "chart/BTC-USD?interval=1d",
-      "fetchedAt": "2026-07-27T10:05:25.953Z",
+      "fetchedAt": "2026-08-03T10:00:46.121Z",
       "licence": "quote-display"
     },
     {
       "source": "Yahoo:GC=F",
       "url": "chart/GC=F?interval=1d",
-      "fetchedAt": "2026-07-27T10:05:25.952Z",
+      "fetchedAt": "2026-08-03T10:00:46.051Z",
       "licence": "quote-display"
     }
   ]
