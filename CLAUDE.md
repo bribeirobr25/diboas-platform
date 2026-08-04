@@ -38,8 +38,8 @@ diboas-platform/
   config/              # Design tokens JSON + schema
   scripts/             # Build/validation scripts
   docs/                # Documentation (only docs/tech/ + docs/integrations/ are git-tracked; the rest is local-only)
-    sandbox-app/       # Sandbox work-front: rules, build order, UI-UX redesign, validation log, CMO eval,
-                       #   release-1 implementation plan (the ordered build document)
+    sandbox-app/       # Sandbox work-front: rules, build order, architecture map + flow traces,
+                       #   board records, release-1 implementation plan (the ordered build document)
     tech/              # Technical guides (committed) — canonical engineering reference
       ux-governance/   #   UX enforcement layer (committed): anti-slop checklist, principles canon, usage protocol
     audit/             # Audit history, security findings ledger, pending-work queue
