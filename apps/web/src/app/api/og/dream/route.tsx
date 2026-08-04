@@ -74,8 +74,15 @@ export async function GET(request: NextRequest) {
 
     const searchParams = request.nextUrl.searchParams;
 
-    const amount = sanitizeInput(searchParams.get('amount')) || '$10,000';
-    const growth = sanitizeInput(searchParams.get('growth')) || '200%';
+    // A8 (defensive review 2026-08-04): allowlist-validate to currency/percent
+    // shapes — the denylist sanitizer alone let arbitrary words/domains render
+    // into a diBoaS-branded shareable image. Mismatch falls back to defaults.
+    const CURRENCYish = /^[0-9$€R,.\s]{1,20}$/;
+    const PERCENTish = /^[0-9,.\s]{1,10}%?$/;
+    const amountRaw = sanitizeInput(searchParams.get('amount'));
+    const growthRaw = sanitizeInput(searchParams.get('growth'));
+    const amount = amountRaw && CURRENCYish.test(amountRaw) ? amountRaw : '$10,000';
+    const growth = growthRaw && PERCENTish.test(growthRaw) ? growthRaw : '200%';
     const locale = searchParams.get('locale') || 'en';
 
     const dt = getDreamTranslations(locale);
