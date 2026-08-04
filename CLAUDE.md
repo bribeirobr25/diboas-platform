@@ -11,7 +11,7 @@ diBoaS is a goal-driven wealth building platform — your side-pocket for wealth
 - **Framework:** Next.js 16 (App Router, Turbopack)
 - **Language:** TypeScript (strict mode)
 - **UI:** React 18, Tailwind CSS 3
-- **Monorepo:** Turborepo + pnpm 10.33 workspaces (supply-chain hardened: script-blocking allowlist + 3-day `minimumReleaseAge` — see `docs/audit/SUPPLY_CHAIN_SPRINT_2026-07-11.md`)
+- **Monorepo:** Turborepo + pnpm 10.33 workspaces (supply-chain hardened: script-blocking allowlist + 3-day `minimumReleaseAge`; re-resolving commands need `--config.minimumReleaseAge=0`)
 - **i18n:** react-intl (4 locales: en, pt-BR, es, de)
 - **Testing:** Vitest, @vitest/coverage-v8, Lighthouse CI, pa11y
 - **Monitoring:** Sentry (error tracking + session replay), PostHog (product analytics), GA4 (traffic analytics), web-vitals
@@ -27,7 +27,8 @@ diboas-platform/
   apps/web/            # Next.js web application (the live marketing/waitlist site)
   apps/sandbox/        # Play-money B2C+B2B practice app (work-front; docs/sandbox-app/) —
                        #   real data/integrations except custody; gated + noindex. Committed on main;
-                       #   architecture ruling-complete (see docs/sandbox-app/SANDBOX_ARCHITECTURE_AND_FLOWS.md).
+                       #   architecture ruling-complete; Release-1 build sequence documented
+                       #   (see docs/sandbox-app/SANDBOX_ARCHITECTURE_AND_FLOWS.md + RELEASE1_IMPLEMENTATION_PLAN).
   packages/email/      # @diboas/email - Email service (Resend)
   packages/i18n/       # @diboas/i18n - Internationalization
   packages/ui/         # @diboas/ui - Design system components
@@ -37,7 +38,8 @@ diboas-platform/
   config/              # Design tokens JSON + schema
   scripts/             # Build/validation scripts
   docs/                # Documentation (only docs/tech/ + docs/integrations/ are git-tracked; the rest is local-only)
-    sandbox-app/       # Sandbox work-front: rules, build order, UI-UX redesign, validation log, CMO eval
+    sandbox-app/       # Sandbox work-front: rules, build order, UI-UX redesign, validation log, CMO eval,
+                       #   release-1 implementation plan (the ordered build document)
     tech/              # Technical guides (committed) — canonical engineering reference
       ux-governance/   #   UX enforcement layer (committed): anti-slop checklist, principles canon, usage protocol
     audit/             # Audit history, security findings ledger, pending-work queue
@@ -396,6 +398,11 @@ Every quality domain (SEO, accessibility, performance, security, robustness) map
 - Required: hooks with async behavior, error handlers, security utilities, API routes
 - Tools: Vitest + @testing-library/react
 - Environment: node (default); add jsdom as dev dependency for DOM-based component tests
+- **`apps/sandbox` has no DOM test environment yet** — it lacks `@vitejs/plugin-react`, and its vitest
+  `include` glob (`src/**/__tests__/**/*.test.ts`) excludes `.tsx`, so a render test there is **silently
+  skipped rather than run**. Wire the harness (plugin + `happy-dom`/`jsdom` + `@testing-library/react` +
+  `globals` + a sandbox-specific `setupFiles`; `apps/web/src/test/setup.ts` is web-specific and does not
+  copy) before adding component tests there, and assert a deliberately-failing render test FAILS.
 
 ## Audit Status
 
@@ -409,7 +416,7 @@ Every quality domain (SEO, accessibility, performance, security, robustness) map
 - diboas-analytics.com German — ✅ RULED 2026-07-30: **du** (the register ruling's mechanical consequence — analytics is neither legal nor investor). Execution = a queued register pass, `[NATIVE PASS REQUIRED]`; Sie stays ONLY on legal ×3 + the investor vertical (do-not-regress).
 - DMARC (5.34) re-eval — scheduled.
 
-**Where the detail lives** (all local-only / `.gitignore`'d — a fresh clone won't have them; retention-protected — archive-with-status-header, never delete):
+**Where the detail lives** (all local-only / `.gitignore`'d — a fresh clone won't have them; docs policy = delete-after-execution, see § Visual Development retention note):
 
 - Load-bearing implementation decisions + do-not-regress register → **`docs/tech/implementation-notes.md`** (committed)
 - Full audit narrative + test-count progression → `docs/audit/AUDIT_HISTORY.md`
@@ -493,4 +500,4 @@ Invoke `@agent design-reviewer` for thorough design validation when:
 - Motion must respect `prefers-reduced-motion` (already in Accessibility Standards above)
 - **Pre-PR friction/dark-pattern self-check (mandatory):** any PR touching user-facing copy, flows, forms, or selectors runs `docs/tech/ux-governance/anti-slop-checklist.md` Part 3 (rows 1–26) and cites the results (PASS/FAIL per row, with UX-NN principle IDs from `docs/tech/ux-governance/UX_PRINCIPLES_CANON.md`) in the PR description — **a FAIL on rows 10–17 (the canonical veto list) blocks merge, regardless of measured lift.** Structural drift in the governance files themselves is caught by `pnpm validate:ux-canon` (part of `validate:all`).
 - **Pre-PR voice self-check (mandatory for copy):** any PR touching user-facing copy also scores the surface against `docs/tech/ux-governance/VOICE_RUBRIC.md` (Q1 Draper feeling / Q2 Adelaide tone / Q3 the three nevers — never selling, promising, or advising / Q4 the want) and cites the scores. A **Q3 FAIL blocks merge** like a veto row (a promise or advice about money is a truth-and-regulatory breach, not a style note); non-English surfaces are scored in their own locale register, with anything unconfirmable natively tagged `[NATIVE PASS REQUIRED]`.
-- **UX governance operating protocol** (build mode / audit mode / role table / finding format): `docs/tech/ux-governance/UX_GOVERNANCE_USAGE.md`. The six governance files — **four enforcement** (`anti-slop-checklist.md`, `UX_PRINCIPLES_CANON.md`, `UX_GOVERNANCE_USAGE.md`, `VOICE_RUBRIC.md`), **one asset gate** (`asset-compliance-checklist.md`), and **one advisory-craft companion** (`STORYTELLING_CRAFT.md`, advisory never a blocker) — live in `docs/tech/ux-governance/` and are **git-tracked** (G-1 revisited and accepted via relocation, founder 2026-07-10) — the ux-canon validator runs for real in CI. `asset-compliance-checklist.md` (added 2026-07-13) is the pass/fail gate for **generated marketing images and video frames** (logo/palette/character/fabricated-figure checks). `STORYTELLING_CRAFT.md` (added 2026-07-13) is the **positive storytelling/content-craft companion** to the Voice Rubric — the frameworks to use (story spine, But/Therefore, honest hooks, show-don't-name emotion, series/format), plus a cross-reference of the growth tactics diBoaS rejects back to the veto rows; it was mined from the reference transcripts in `docs/socials/storytelling/`. The retention rule still stands for the untracked areas: **cleanup routines must archive with a status header, never delete, anything in `docs/audit/`, `docs/ui-ux/`, the Writing System, or `docs/socials/avatar/`** (standing policy, `docs/audit/UX_GOVERNANCE_FIX_PLAN_2026-07-10.md`). `docs/socials/avatar/` was added by founder ruling (G-1, 2026-07-19): the BAR persona doc + reference images + voice samples are **local-only** (gitignored, no git history) yet are the **source-of-truth character inputs to the asset-compliance gate** — losing them is unrecoverable, so they carry the same archive-never-delete protection. (The retention rule is a guardrail on Claude's cleanup, not a backup — true durability still needs an off-repo copy.)
+- **UX governance operating protocol** (build mode / audit mode / role table / finding format): `docs/tech/ux-governance/UX_GOVERNANCE_USAGE.md`. The six governance files — **four enforcement** (`anti-slop-checklist.md`, `UX_PRINCIPLES_CANON.md`, `UX_GOVERNANCE_USAGE.md`, `VOICE_RUBRIC.md`), **one asset gate** (`asset-compliance-checklist.md`), and **one advisory-craft companion** (`STORYTELLING_CRAFT.md`, advisory never a blocker) — live in `docs/tech/ux-governance/` and are **git-tracked** (G-1 revisited and accepted via relocation, founder 2026-07-10) — the ux-canon validator runs for real in CI. `asset-compliance-checklist.md` (added 2026-07-13) is the pass/fail gate for **generated marketing images and video frames** (logo/palette/character/fabricated-figure checks). `STORYTELLING_CRAFT.md` (added 2026-07-13) is the **positive storytelling/content-craft companion** to the Voice Rubric — the frameworks to use (story spine, But/Therefore, honest hooks, show-don't-name emotion, series/format), plus a cross-reference of the growth tactics diBoaS rejects back to the veto rows; it was mined from the reference transcripts in `docs/socials/storytelling/`. **Docs retention policy (founder-ruled 2026-08-04, supersedes archive-never-delete): delete-after-execution.** Executed or superseded docs are DELETED once their substance is recorded in a living doc — no `_archive/` folders, and living docs must not reference deleted material. Deletion of anything is **founder-only**: Claude's cleanup routines never delete files in `docs/audit/`, `docs/ui-ux/`, the Writing System, or `docs/socials/avatar/` — they propose deletions to the founder instead. `docs/socials/avatar/` (BAR persona doc + reference images + voice samples, G-1 founder ruling 2026-07-19) is **local-only** (gitignored, no git history) yet the **source-of-truth character input to the asset-compliance gate** — losing it is unrecoverable, so it must never be part of any cleanup; true durability still needs an off-repo copy.

@@ -30,7 +30,7 @@
    - **Then run the craft scorecard** (`STORYTELLING_CRAFT.md` §10, C1–C6, per surface/locale, PASS/PARTIAL/MISS). This is the advisory "is it any good?" half — catches the on-brand-but-forgettable post: no story spine, a flat "and then" middle, a cold hook, a named-not-shown feeling, an unearned payoff, or a logo/chart-led image. A MISS becomes a craft finding (enrich/revise), **never a blocker** — if a veto row or Q3 also fails, that routing wins.
 4. **Write findings in the F-format** (below), citing the failing checklist row(s) AND/OR voice quality — "feels off" is not a finding; "violates UX-44/UX-52" or "WEAK on Q1 Draper — explains instead of making the reader feel it" is actionable.
 5. **Record what is strong.** Zero instances of the veto rows is a result worth stating (it is an investor-quotable asset), and existing good patterns get named so nobody "fixes" them. Name the surfaces that PASS the rubric cleanly too — they are the reference bar for the rewrites.
-6. **Route per the role table.** Output file: `docs/audit/UX_AUDIT_<scope>_<date>.md` (or `VOICE_AUDIT_<scope>_<date>.md` for a copy-only pass), archived after execution — never deleted (see the retention note in `UX_GOVERNANCE_FIX_PLAN_2026-07-10.md`).
+6. **Route per the role table.** Output file: `docs/audit/UX_AUDIT_<scope>_<date>.md` (or `VOICE_AUDIT_<scope>_<date>.md` for a copy-only pass), deleted after execution once every finding is applied or registered (founder delete-after-execution policy, 2026-08-04).
 
 ## The F-finding format
 

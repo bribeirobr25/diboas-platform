@@ -98,8 +98,8 @@ Enforces `BRAND_POSITIONING.md` §Voice & Tone → The Writing System, Lens 4 an
 
 ## Part 4 — Detection commands
 
-**One portable command runs all four checks** (replaces the former raw greps — CC-4,
-`UX_GOVERNANCE_FIX_PLAN_2026-07-10.md`; the old `grep -P` commands failed on stock macOS grep
+**One portable command runs all four checks** (replaces the former raw greps — CC-4;
+the old `grep -P` commands failed on stock macOS grep
 and their hand-rolled ranges missed whole emoji blocks — ⭐, 🪙, flags, ⏰):
 
 ```

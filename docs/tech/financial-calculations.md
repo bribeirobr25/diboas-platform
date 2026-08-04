@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-05-25 (refreshed Data Source + rate tables to match `constants.ts` post-Phase-C; previously stale by ~5y-avg baseline)
 
-This document is the **canonical source for the financial calculation model** used across the diBoaS platform (comparison table, goal cards, PreDream, 10-tool calculator suite, lesson) — other docs point here, never restate the formulas. All formulas are implemented in `lib/market-data/formulas/` (split across `core.ts`, `currencyHedge.ts`, `horizonMatchedCagr.ts`, `brazilPoupanca.ts`). The external-audit artifacts live in `docs/tech/audit-bundle/` (`TEST_VECTORS.json` = validated test vectors; `REGULATORY_CROSSWALK.md` = disclosure crosswalk); validation methodology and product-truth gates are canonical in `docs/tech/TOOLS_VALIDATION.md`.
+This document is the **canonical source for the financial calculation model** used across the diBoaS platform (comparison table, goal cards, PreDream, the calculator suite — 10 of the 11 tools; tool #11 money-jobs has its own engine in `lib/money-jobs/calculator.ts`, documented in `docs/tools/MONEY_JOBS_CONSTANTS_ATTESTATION.md` — and lesson) — other docs point here, never restate the formulas. All formulas are implemented in `lib/market-data/formulas/` (split across `core.ts`, `currencyHedge.ts`, `horizonMatchedCagr.ts`, `brazilPoupanca.ts`). The external-audit artifacts live in `docs/tech/audit-bundle/` (`TEST_VECTORS.json` = validated test vectors; `REGULATORY_CROSSWALK.md` = disclosure crosswalk); validation methodology and product-truth gates are canonical in `docs/tech/TOOLS_VALIDATION.md`.
 
 ---
 

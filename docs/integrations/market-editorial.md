@@ -4,7 +4,7 @@
 
 > **Audience:** the editorial owner of `/market` (Adelaide Market). The macro analyst, content owner, or designated curator who keeps the regime score, signal states, and commentary fresh.
 > **Goal:** ship a regime-score / signals / commentary update in under 30 minutes, end-to-end, without engineering hand-holding.
-> **Last updated:** 2026-07-12 (P2/P3 automation shipped — see the pipeline note in §7 and `docs/audit/MARKET_REFRESH_AUDIT_AND_AUTOMATION_PLAN_2026-07-11.md`). Prior baseline: 2026-05-14 (iteration 3).
+> **Last updated:** 2026-07-12 (P2/P3 automation shipped — see the pipeline note in §7; the automation-plan record was deleted, the pipeline scripts are self-documenting). Prior baseline: 2026-05-14 (iteration 3).
 
 ---
 
@@ -281,8 +281,6 @@ If you're unsure whether a change is editorial or engineering, default to engine
 
 ## 10. Reference links
 
-- iteration-3 plan: `docs/audit/MARKET_INTEGRATION_ITERATION_3_PLAN_2026-05-14.md`
-- iteration-2 plan (mock-SDK shape + dashboard composition): `docs/audit/MARKET_INTEGRATION_ITERATION_2_PLAN_2026-05-14.md`
 - canonical methodology reference: https://diboas-analytics.com/methodology
 - Phase 7 jargon ban policy: `CLAUDE.md` (search for "digital dollar")
 - i18n locale list + naming conventions: `docs/tech/internationalization.md`

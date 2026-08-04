@@ -16,8 +16,8 @@
 | Component dev  | Storybook                                           | 10.3.x           |
 | Database       | Neon PostgreSQL (@neondatabase/serverless)          | 1.0.x            |
 | Email          | Resend (@diboas/email)                              | workspace        |
-| Error tracking | Sentry (@sentry/nextjs)                             | 10.49.x          |
-| Analytics      | PostHog (consent-gated, lazy-loaded)                | 1.313.x          |
+| Error tracking | Sentry (@sentry/nextjs)                             | 10.65.x          |
+| Analytics      | PostHog (consent-gated, lazy-loaded)                | 1.399.x          |
 | Rate limiting  | Upstash Redis (@upstash/ratelimit + @upstash/redis) | 2.0.x / 1.36.x   |
 | Performance    | web-vitals                                          | 5.1.x            |
 | Sanitization   | DOMPurify                                           | 3.4.x            |
@@ -78,7 +78,7 @@ The monitoring operating invariants (PostHog ingest-host, CSP full-label wildcar
 
 ### Sentry (error tracking + session replay + perf tracing)
 
-- **Package:** `@sentry/nextjs` 10.49.x.
+- **Package:** `@sentry/nextjs` 10.65.x.
 - **Config files:**
   - `apps/web/src/instrumentation.ts` — Next.js root instrumentation; wires server/edge Sentry configs based on `NEXT_RUNTIME`; also exports `onRequestError` hook for server-side error capture (RSC, route handlers, middleware)
   - `apps/web/sentry.server.config.ts` — Node.js runtime (loaded by `instrumentation.ts` when runtime is `nodejs`)
@@ -93,7 +93,7 @@ The monitoring operating invariants (PostHog ingest-host, CSP full-label wildcar
 
 ### PostHog (product analytics, feature flags, surveys, session replay)
 
-- **Package:** `posthog-js` 1.313.x.
+- **Package:** `posthog-js` 1.399.x.
 - **Provider:** `apps/web/src/components/Providers/PostHogProvider.tsx` — lazy `import('posthog-js')` inside a `useEffect` after `hasAnalyticsConsent()` returns true. NEVER imported at module level.
 - **Config source:** `apps/web/src/config/env.ts` § `POSTHOG_CONFIG`.
 - **Env vars:** `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST`.
@@ -164,7 +164,7 @@ Seven workflows in `.github/workflows/`. Five run on push/PR (`ci.yml`, `securit
 - **Triggers:** weekly cron (**Mondays 06:00 UTC**) + manual `workflow_dispatch`.
 - **What it does:** runs the full `/market` build-time pipeline — fetch (dual-source verified) → fail-closed quality gate → regime engine → `computed.json` → generate editorial copy from the reviewed template library → reconcile (`generate.mjs --check`) + jargon gate + market vitest.
 - **Output:** opens a PR on branch `editorial/market-refresh-auto` (labels `market-refresh`, `needs-editorial-review`). It **never pushes to `main`** — a human reviews the plain-language copy and merges. The 14-day staleness gate is the backstop; each Monday's PR self-resets, so unmerged weeks accrue no debt.
-- **Secret:** `POLYGON_API_KEY` (founder-owned) arms the optional ETF-01 snapshot leg; the run still succeeds without it (fail-open on the optional leg, fail-closed on the core pipeline). Full design: `docs/audit/MARKET_REFRESH_AUDIT_AND_AUTOMATION_PLAN_2026-07-11.md`; editorial workflow: `docs/integrations/market-editorial.md`.
+- **Secret:** `POLYGON_API_KEY` (founder-owned) arms the optional ETF-01 snapshot leg; the run still succeeds without it (fail-open on the optional leg, fail-closed on the core pipeline). Full design lives in the pipeline scripts (`apps/web/scripts/market-refresh/`); editorial workflow: `docs/integrations/market-editorial.md`.
 
 ### `security-scan-quarterly.yml` — Deep security scan (scheduled)
 
