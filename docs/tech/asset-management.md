@@ -95,13 +95,13 @@ const IMAGES = {
 
 > Rebuilt 2026-07-13/16 (F-BRAND / G-3 brand wiring — see `docs/tech/implementation-notes.md` for the full rationale). The legacy `logo.avif` / `logo-icon.avif` / `logo-wordmark.avif` / `*-b2b.avif` set was deleted after zero-ref verification.
 
-| File                                        | Use case                                                                                  |
-| ------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `logo-icon-monogram.avif`                   | Palm-"B" monogram (256px) — JSON-LD/SEO logo references                                   |
-| `logo-wordmark-onlight.{avif,webp}`         | Transparent wordmark FOR light surfaces (`BrandWordmark` component)                       |
-| `logo-wordmark-ondark.{avif,webp}`          | Transparent wordmark FOR dark surfaces (`BrandWordmark` component)                        |
-| `public/favicon.ico` + `public/icons/*.png` | Favicon set (16/32) + PWA icons (apple-touch, 192, 512, maskable) — monogram-derived      |
-| `apps/web/brand-source/*.png`               | Official ~900 KB source PNGs (git-kept for re-export; moved OUT of the served tree)       |
+| File                                        | Use case                                                                             |
+| ------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `logo-icon-monogram.avif`                   | Palm-"B" monogram (256px) — JSON-LD/SEO logo references                              |
+| `logo-wordmark-onlight.{avif,webp}`         | Transparent wordmark FOR light surfaces (`BrandWordmark` component)                  |
+| `logo-wordmark-ondark.{avif,webp}`          | Transparent wordmark FOR dark surfaces (`BrandWordmark` component)                   |
+| `public/favicon.ico` + `public/icons/*.png` | Favicon set (16/32) + PWA icons (apple-touch, 192, 512, maskable) — monogram-derived |
+| `apps/web/brand-source/*.png`               | Official ~900 KB source PNGs (git-kept for re-export; moved OUT of the served tree)  |
 
 Naming rule: `-onlight` / `-ondark` = FOR light/dark surfaces. Favicon is always the monogram, never the wordmark (illegible at 16–32px).
 

@@ -409,10 +409,10 @@ Per-asset verdict: KEEP / REVISE / REGEN.
 
 State "Part 3: N/A (no decision surface)" for pure content pages; otherwise fill every row.
 
-| Row              | Principle(s) | PASS/FAIL/N/A | Notes                                                   |
-| ---------------- | ------------ | ------------- | ------------------------------------------------------- |
-| 1–9 (friction)   | [UX-IDs]     | [result]      | [FAIL here = at least P1]                               |
-| 10–17 (veto)     | [UX-IDs]     | [result]      | **any YES/FAIL here is a P0 BLOCKER — never downgrade** |
+| Row              | Principle(s) | PASS/FAIL/N/A | Notes                                                         |
+| ---------------- | ------------ | ------------- | ------------------------------------------------------------- |
+| 1–9 (friction)   | [UX-IDs]     | [result]      | [FAIL here = at least P1]                                     |
+| 10–17 (veto)     | [UX-IDs]     | [result]      | **any YES/FAIL here is a P0 BLOCKER — never downgrade**       |
 | 18–26 (friction) | [UX-IDs]     | [result]      | [FAIL here = at least P1; 22–26 often N/A on marketing pages] |
 
 ### Multi-Locale Results
