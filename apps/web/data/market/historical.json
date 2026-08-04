@@ -4,11 +4,6 @@
   "range": "1y",
   "snapshots": [
     {
-      "date": "2025-06-19T00:00:00Z",
-      "score": 4,
-      "regime_code": "DEFENSIVE"
-    },
-    {
       "date": "2025-06-26T00:00:00Z",
       "score": 5,
       "regime_code": "DEFENSIVE"
@@ -262,6 +257,11 @@
       "date": "2026-08-03T00:00:00Z",
       "score": 4,
       "regime_code": "DEFENSIVE"
+    },
+    {
+      "date": "2026-08-04T00:00:00Z",
+      "score": 7,
+      "regime_code": "NEUTRAL_MIXED"
     }
   ]
 }
