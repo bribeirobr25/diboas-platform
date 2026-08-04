@@ -23,7 +23,7 @@ describe('resolveFeeRates (Phase 8 Item E — service-derived)', () => {
       network: 0.00001,
       diboas: 0.0048,
       diboasMin: 0,
-      diboasMax: 250,
+      diboasMax: Infinity, // FE-1: no cap
     });
     expect(rates.send).toEqual({
       network: 0.00001,

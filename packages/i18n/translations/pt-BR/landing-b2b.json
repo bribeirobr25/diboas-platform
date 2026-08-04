@@ -142,7 +142,7 @@
       },
       "sell": {
         "action": "Vender / Fechar",
-        "diboas": "{rate} (mín {min}, máx {max})",
+        "diboas": "{rate} (mín {min}, sem limite)",
         "competitors": "Taxas e spreads podem variar",
         "difference": "0,39%, com teto de R$ 25",
         "example": "Vender R$50.000: 0,39% daria R$195, mas a taxa diBoaS tem teto de R$ 25"

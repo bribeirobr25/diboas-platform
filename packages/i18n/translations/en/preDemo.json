@@ -96,7 +96,7 @@
     "tooltips": {
       "paymentProcessor": "Payment processor fee charged by the banking network",
       "networkFee": "Blockchain network transaction fee",
-      "diboasFeeDeposit": "diBoaS charges {rate} to add money (minimum {min}, maximum {max}).",
+      "diboasFeeDeposit": "diBoaS charges {rate} to add money — no cap.",
       "diboasFeeSend": "diBoaS does not charge for sending money to other diBoaS users.",
       "diboasFeeBuy": "diBoaS does not charge for buying digital assets.",
       "priorityFee": "Fast transaction priority fee for quick settlement",

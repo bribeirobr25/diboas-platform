@@ -54,7 +54,7 @@
       },
       "adding": {
         "action": "Add Money",
-        "diboas": "{rate} (max {max}, no minimum)",
+        "diboas": "{rate} (no cap, no minimum)",
         "competitors": "Provider fees may vary",
         "difference": "Shown before you confirm",
         "example": "Add $100: diBoaS fee is 48 cents"
@@ -75,7 +75,7 @@
       },
       "selling": {
         "action": "Sell / Close",
-        "diboas": "{rate} (min {min}, max {max})",
+        "diboas": "{rate} (min {min}, no cap)",
         "competitors": "1.5 to 2.5%",
         "difference": "Save $1.11 to $2.11 per $100",
         "example": "Sell $100: costs you 39 cents"

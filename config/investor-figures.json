@@ -18,22 +18,19 @@
       "status": "active"
     },
     "fees.cap.rampB2C": {
-      "value": { "en": "$250", "pt-BR": "US$250", "de": "€250", "es": "€250" },
+      "value": { "en": "no cap", "pt-BR": "sem limite", "de": "no cap", "es": "no cap" },
       "source": "FEES.md",
       "feesRow": "Add Money",
-      "feesCanonical": ["$250", "€250", "R$250"],
-      "asOf": "2026-07-05",
+      "feesCanonical": ["no cap"],
+      "asOf": "2026-08-03",
       "status": "active",
-      "note": "per-market-currency consumer cap (D-005)"
-    },
-    "fees.cap.rampB2C.all": {
-      "value": { "en": "$250 / €250 / R$250", "pt-BR": "US$ 250 / € 250 / R$ 250" },
-      "source": "FEES.md",
-      "feesRow": "Add Money",
-      "feesCanonical": ["$250", "€250", "R$250"],
-      "asOf": "2026-07-05",
-      "status": "active",
-      "note": "multi-currency enumeration form — for sites that list all three caps in one sentence; pt-BR keeps its spaced formatting (no silent reformatting)"
+      "forbidLiterals": [
+        "\\$250 / €250 / R\\$250",
+        "US\\$ ?250 / € ?250 / R\\$ ?250",
+        "capped at \\$250",
+        "limite máximo de US\\$ ?250"
+      ],
+      "note": "FE-1/FC-13 (2026-08-03): ALL ramp caps removed, both segments — supersedes the D-005 $250/€250/R$250 per-currency B2C caps. forbidLiterals bans the superseded cap enumeration + 'capped at' forms from generated docs (context-anchored so the legitimate '$250' in the ARPU worked example survives). The former fees.cap.rampB2C.all enumeration figure was retired in the same ruling."
     },
     "fees.cap.rampB2B": {
       "value": { "en": "no cap", "pt-BR": "sem limite" },
@@ -47,13 +44,23 @@
       "note": "activated 2026-07-06 with the R3 propagation. forbidLiterals bans the superseded $2,500 cap from generated docs; the lookbehind exempts the founder-approved assumption label's historical reference ('the former $2,500 cap'). pt-BR label writes 'US$ 2.500' (spaced), which the unspaced pattern deliberately does not match"
     },
     "fees.cap.exit": {
-      "value": { "en": "$25", "pt-BR": "US$25" },
+      "value": { "en": "no cap", "pt-BR": "sem limite" },
       "source": "FEES.md",
       "feesRow": "Sell / Close",
-      "feesCanonical": ["$25", "€25", "R$25"],
-      "asOf": "2026-07-07",
+      "feesCanonical": ["no cap"],
+      "asOf": "2026-08-03",
       "status": "active",
-      "note": "exit caps are per-market-currency since 2026-07-07 (D-MSG-6); investor docs keep USD-denominated notation per NUMBERS_REGISTER A2, so the pt-BR value stays US$25. Product surfaces (fee tables) already render the cap per-locale via formatCurrency."
+      "forbidLiterals": ["capped at \\$25(?!\\d)", "limite máximo de US\\$ ?25(?!\\d)"],
+      "note": "FE-1a (2026-08-03): the $25/€25/R$25 exit caps are removed; the $0.25 floor is KEPT (see fees.floor.exit). forbidLiterals bans the superseded 'capped at $25' forms (negative lookahead protects $250/$25x contexts)."
+    },
+    "fees.floor.exit": {
+      "value": { "en": "$0.25", "pt-BR": "US$0,25" },
+      "source": "FEES.md",
+      "feesRow": "Sell / Close",
+      "feesCanonical": ["$0.25"],
+      "asOf": "2026-08-03",
+      "status": "active",
+      "note": "FE-1a: the per-currency Sell/Exit floor ($0.25/€0.25/R$0.25), kept when the caps were removed; investor docs use USD notation per NUMBERS_REGISTER A2. Product surfaces render per-locale via formatCurrency."
     },
     "raise.cap": {
       "value": { "en": "€2.5M", "pt-BR": "€2,5M" },

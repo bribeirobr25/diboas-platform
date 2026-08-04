@@ -27,17 +27,17 @@ import type { PlatformFees, SupportedLocale } from './types';
 import { formatRate } from './formatters';
 import { formatCurrency } from '@/lib/compound-interest';
 
-/** Per-row slot values for the `{rate} (min {min}, max {max})` template. */
+/** Per-row slot values for the `{rate} (min {min}, no cap)` template family.
+ *  FE-1 (2026-08-03): all caps removed — no {max} slot exists in any template. */
 function fmtRowValues(
   fee: PlatformFees['deposit'],
   locale: SupportedLocale
-): { rate: string; min: string; max: string } {
+): { rate: string; min: string } {
   return {
     // platformFees.*.rate is stored as a decimal (e.g. 0.0048); formatRate
     // accepts percent units, so multiply by 100.
     rate: formatRate(fee.rate * 100, locale),
     min: formatCurrency(fee.minFee, locale, { maximumFractionDigits: 2 }),
-    max: formatCurrency(fee.maxFee, locale, { maximumFractionDigits: 0 }),
   };
 }
 
@@ -128,14 +128,9 @@ export function buildAllFeeValues(
     exitRate: formatRate(fees.strategyExit.rate * 100, locale),
   });
 
-  // B2B fees.rows — Add-Money + cash-out have NO cap for business accounts
-  // (FEES.md; DECISION_LOG#D-005, founder-confirmed 2026-07-05): their i18n
-  // templates carry no {max} slot, so only rate/min are provided. Do not
-  // reintroduce a maxFee override here. Sell keeps the shared per-market cap.
-  const noCapRow = (fee: PlatformFees['deposit']) => {
-    const { rate, min } = fmtRowValues(fee, locale);
-    return { rate, min };
-  };
+  // FE-1 (2026-08-03): NO caps anywhere — B2C and B2B alike (supersedes D-005).
+  // Every template carries the no-cap wording; only rate/min slots exist.
+  const noCapRow = (fee: PlatformFees['deposit']) => fmtRowValues(fee, locale);
   map.set('landing-b2b.fees.rows.add.diboas', noCapRow(fees.deposit));
   map.set('landing-b2b.fees.rows.sell.diboas', fmtRowValues(fees.sell, locale));
   map.set('landing-b2b.fees.rows.cashOut.diboas', noCapRow(fees.cashOut));
@@ -151,7 +146,6 @@ export function buildAllFeeValues(
   // locale-specific narrative position via `feeParagraphAt`.
   map.set('landing-b2c.catch.feeParagraph', {
     sellRate: formatRate(fees.sell.rate * 100, locale),
-    maxFee: formatCurrency(fees.sell.maxFee, locale, { maximumFractionDigits: 0 }),
     exampleFee: formatSubUnitFee(100, fees.sell.rate, locale),
   });
 

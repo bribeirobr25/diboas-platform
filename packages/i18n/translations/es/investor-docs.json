@@ -181,7 +181,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Adding money or cashing out costs 0.48%: capped at $250 / €250 / R$250 for consumers, no cap for businesses. Closing a strategy costs 0.39%, capped at $25."
+          "text": "Adding money or cashing out costs 0.48% — no cap, consumers and businesses alike. Closing a strategy costs 0.39%, with a $0.25 minimum and no cap."
         },
         {
           "type": "paragraph",
@@ -310,7 +310,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Wallets use Turnkey MPC technology with zero diBoaS key shares. The user approves transactions, and recovery runs through an integrated third-party provider, not diBoaS."
+          "text": "Wallets use Turnkey secure-enclave technology with policy-controlled signing and zero diBoaS key shares. The user approves transactions, and recovery runs through an integrated third-party provider, not diBoaS."
         },
         {
           "type": "paragraph",
@@ -577,7 +577,7 @@
         },
         {
           "type": "paragraph",
-          "text": "What's the fee schedule, exactly? Add money / cash out: 0.48%, capped at $250 / €250 / R$250 for consumers and uncapped for business. Close a strategy: 0.39%, capped at $25. Send, swap, bridge, starting a strategy, and receiving B2B payments: diBoaS fee $0 where supported. Network, ramp, provider, banking, exchange, or compliance-related costs may still apply and are passed through at cost — diBoaS never marks them up. The caps protect the consumer: the $25 close cap shields someone cashing out their savings, and the consumer add/cash-out caps keep everyday costs predictable. Business pays the same 0.48% at any size — no tiers, no games. This schedule is the single source of truth (FEES.md) and is stated consistently on every surface, in each market's currency (consumer add/cash-out caps: $250 / €250 / R$250)."
+          "text": "What's the fee schedule, exactly? Add money / cash out: 0.48%, no cap — consumers and business alike. Close a strategy: 0.39%, with a $0.25 minimum and no cap. Send, swap, bridge, starting a strategy, and receiving B2B payments: diBoaS fee $0 where supported. Network, ramp, provider, banking, exchange, or compliance-related costs may still apply and are passed through at cost — diBoaS never marks them up. A percentage is the whole price: everyone pays the same rate at any size — no tiers, no caps, no games — so large movements pay proportionally, and the only fixed element is the small $0.25 close minimum, disclosed next to the rate wherever it appears. A minimum add of $10 / €10 / R$20 keeps that close minimum at or under 2.5% of even the smallest position. This schedule is the single source of truth (FEES.md) and is stated consistently on every surface."
         },
         {
           "type": "paragraph",
@@ -598,7 +598,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Are you custodial or not — exactly? Not custodial. diBoaS holds zero key shares. Wallets use Turnkey MPC (multi-party computation) technology; the user approves transactions; recovery runs through the integrated third-party provider, not diBoaS."
+          "text": "Are you custodial or not — exactly? Not custodial. diBoaS holds zero key shares. Wallets use Turnkey secure-enclave technology with policy-controlled signing; the user approves transactions; recovery runs through the integrated third-party provider, not diBoaS."
         },
         {
           "type": "paragraph",
@@ -943,7 +943,7 @@
             "Brazil: dollar-denominated saving is currently valuable — ~4.7% inflation and a sliding real — while PIX (93% of adults) proves the population already moves money digitally.",
             "Regulatory clarity is arriving, not pending: MiCA operative in the EU, Brazil's virtual-asset framework dated and in force, US non-custodial-interface guidance matured in 2026. The compliant-by-design window is open now — and will not stay open.",
             "Stablecoin infrastructure crossed consumer-grade maturity: USDC plus on-chain returns is commodity rail in 2026 in a way it was not in 2022.",
-            "Incumbents' incentive lag: custody-based economics keep neobanks from passing on-chain returns through — opening a regional window before any structural response.",
+            "Incumbents' incentive lag: custody-based economics keep neobanks from passing on-chain yield through — opening a regional window before any structural response.",
             "The missing layer is still clarity before movement."
           ]
         },
@@ -2725,7 +2725,7 @@
           "type": "table",
           "headers": ["Fee type", "Cap"],
           "rows": [
-            ["Consumer add / cash-out", "US$250"],
+            ["Consumer add / cash-out", "no cap"],
             ["Business add / cash-out", "no cap"],
             ["Close strategy", "US$25"]
           ]
@@ -4595,12 +4595,12 @@
             {
               "label": "Add / Cash out",
               "value": "0.48%",
-              "note": "caps $250 / €250 / R$250 B2C · no cap B2B"
+              "note": "no cap — B2C and B2B"
             },
             {
               "label": "Sell / Close",
               "value": "0.39%",
-              "note": "$25 cap"
+              "note": "$0.25 minimum · no cap"
             }
           ]
         },
@@ -4644,7 +4644,7 @@
         },
         {
           "type": "paragraph",
-          "text": "diBoaS is designed around visible fees, capped user exposure, and explicit pass-through costs where outside providers charge for the rails."
+          "text": "diBoaS is designed around visible fees, percentage-only pricing, and explicit pass-through costs where outside providers charge for the rails."
         },
         {
           "type": "paragraph",
@@ -4724,8 +4724,8 @@
           "type": "table",
           "headers": ["Product action", "diBoaS fee", "Cap"],
           "rows": [
-            ["Add money — consumer", "0.48%", "US$250"],
-            ["Cash out — consumer", "0.48%", "US$250"],
+            ["Add money — consumer", "0.48%", "no cap"],
+            ["Cash out — consumer", "0.48%", "no cap"],
             ["Add money — business", "0.48%", "no cap"],
             ["Cash out — business", "0.48%", "no cap"],
             ["Close strategy", "0.39%", "US$25"],
@@ -4774,15 +4774,15 @@
         {
           "type": "heading",
           "level": 2,
-          "text": "Why closing fee is capped lower"
+          "text": "Why the closing fee has a floor, not a cap"
         },
         {
           "type": "paragraph",
-          "text": "The strategy-closing fee is capped at:"
+          "text": "The strategy-closing fee is 0.39% of the amount, with a small minimum:"
         },
         {
           "type": "callout",
-          "lines": ["US$25"]
+          "lines": ["US$0.25"]
         },
         {
           "type": "paragraph",
@@ -4836,7 +4836,7 @@
           "ordered": false,
           "items": [
             "visible before action;",
-            "capped;",
+            "percentage-only — no caps, no tiers;",
             "simple to explain;",
             "tied to movement;",
             "low-friction for strategy start;",
@@ -4866,11 +4866,11 @@
         },
         {
           "type": "paragraph",
-          "text": "If that user later cashes out the full amount, the same movement logic applies again, subject to the cap."
+          "text": "If that user later cashes out the full amount, the same movement logic applies again, at the same percentage — no cap."
         },
         {
           "type": "paragraph",
-          "text": "If the user closes a strategy, the 0.39% closing fee applies, capped at $25."
+          "text": "If the user closes a strategy, the 0.39% closing fee applies, with a $0.25 minimum and no cap."
         },
         {
           "type": "paragraph",
@@ -5088,7 +5088,7 @@
         },
         {
           "type": "paragraph",
-          "text": "Brazil, the US, Germany, and Spain may respond differently to fees, caps, and pass-through language."
+          "text": "Brazil, the US, Germany, and Spain may respond differently to fees, minimums, and pass-through language."
         },
         {
           "type": "heading",
@@ -5138,7 +5138,7 @@
           "type": "callout",
           "lines": [
             "Visible before action.",
-            "Capped where user exposure matters.",
+            "Percentage-only, at every size.",
             "No hidden spread.",
             "No fee on understanding.",
             "Movement-based revenue.",
@@ -5169,7 +5169,7 @@
             "Are fees shown before every money movement?",
             "Which costs are diBoaS revenue and which are pass-through?",
             "What is the net margin after partner and rail costs?",
-            "Do caps protect users while preserving business economics?",
+            "Do the exit floor and the add-money minimum stay proportionate for the smallest users?",
             "Are consumer fees low enough to support trust?",
             "Are B2B fees meaningful enough to support revenue?",
             "Which fees depend on partner contracts?",

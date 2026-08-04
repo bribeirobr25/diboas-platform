@@ -54,7 +54,7 @@
       },
       "adding": {
         "action": "Añadir Dinero",
-        "diboas": "{rate} (máximo {max}, sin mínimo)",
+        "diboas": "{rate} (sin límite, sin mínimo)",
         "competitors": "Las comisiones de proveedores pueden variar",
         "difference": "Se muestra antes de confirmar",
         "example": "Añadir 100 €: comisión diBoaS de 48 céntimos"
@@ -75,7 +75,7 @@
       },
       "selling": {
         "action": "Vender / Cerrar",
-        "diboas": "{rate} (mín {min}, máx {max})",
+        "diboas": "{rate} (mín {min}, sin límite)",
         "competitors": "1,5 a 2,5%",
         "difference": "Ahorra 1,11 a 2,11 € por 100 €",
         "example": "Vende 100 €: te cuesta 39 céntimos"

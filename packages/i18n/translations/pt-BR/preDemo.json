@@ -96,7 +96,7 @@
     "tooltips": {
       "paymentProcessor": "Taxa do processador de pagamento cobrada pela rede bancária",
       "networkFee": "Taxa de transação da rede blockchain",
-      "diboasFeeDeposit": "A diBoaS cobra {rate} para adicionar dinheiro (mínimo {min}, máximo {max}).",
+      "diboasFeeDeposit": "A diBoaS cobra {rate} para adicionar dinheiro — sem limite.",
       "diboasFeeSend": "A diBoaS não cobra para enviar dinheiro a outros usuários diBoaS.",
       "diboasFeeBuy": "O diBoaS não cobra pela compra de ativos digitais.",
       "priorityFee": "Taxa de prioridade para liquidação rápida",

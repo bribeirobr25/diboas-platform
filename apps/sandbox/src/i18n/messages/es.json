@@ -112,7 +112,7 @@
     "costTitle": "Cost",
     "entryFee": "Entering: free",
     "networkFee": "Network fee (passed through at cost): about {amount}",
-    "exitFee": "Leaving later: 0.39% (at least {min}, at most {max})",
+    "exitFee": "Leaving later: 0.39% (at least {min}, no cap)",
     "riskTitle": "Risk",
     "riskStable": "Stable strategies aim to hold their value. Risks remain: the systems can have flaws, and the digital dollars used can lose their peg.",
     "riskGrowth": "{percent}% of this strategy moves with market prices, so with real money it can fall as well as rise. Practice mode previews the returns these systems pay, not the price swings, so keep the real risk in mind.",

@@ -78,7 +78,7 @@ export interface PreDemoFeeRateValues {
   crossChainSwap: { rate: string };
   btcMinerFee: { rate: string };
   issuerMintRedemption: { rate: string };
-  diboasFeeDeposit: { rate: string; min: string; max: string };
+  diboasFeeDeposit: { rate: string };
 }
 
 /**
@@ -104,9 +104,8 @@ export function getPreDemoFeeRateValues(locale: SupportedLocale): PreDemoFeeRate
       // formatRate accepts the rate IN PERCENT UNITS (e.g. 0.48 → "0.48%"),
       // while platformFees.deposit.rate is stored as a decimal (e.g. 0.0048).
       // Multiply by 100 before passing — same convention as formatFeeRate above.
+      // FE-1: caps removed — the template carries the no-cap wording; no min/max slots.
       rate: formatRate(deposit.rate * 100, locale),
-      min: formatCurrency(deposit.minFee, locale, { maximumFractionDigits: 2 }),
-      max: formatCurrency(deposit.maxFee, locale, { maximumFractionDigits: 0 }),
     },
   };
 }

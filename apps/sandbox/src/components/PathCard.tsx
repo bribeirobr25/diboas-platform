@@ -2,7 +2,7 @@
 
 import { FormattedMessage, useIntl } from 'react-intl';
 import type { GasQuote, ProtocolApy, StrategyDef } from '@diboas/defi';
-import { EXIT_FEE_CAP, EXIT_FEE_FLOOR } from '@diboas/banking';
+import { EXIT_FEE_FLOOR } from '@diboas/banking';
 import { useFormatters } from '@/hooks/useFormatters';
 import styles from './PathCard.module.css';
 
@@ -91,7 +91,6 @@ export function PathCard({
             id="pathCard.exitFee"
             values={{
               min: money(EXIT_FEE_FLOOR[currency].toNumber()),
-              max: money(EXIT_FEE_CAP[currency].toNumber()),
             }}
           />
         </li>

@@ -54,7 +54,7 @@
       },
       "adding": {
         "action": "Adicionar Dinheiro",
-        "diboas": "{rate} (máx {max}, sem mínimo)",
+        "diboas": "{rate} (sem limite, sem mínimo)",
         "competitors": "Taxas de provedores podem variar",
         "difference": "Mostrado antes de confirmar",
         "example": "Adicionar R$500: taxa diBoaS de R$2,40"
@@ -75,7 +75,7 @@
       },
       "selling": {
         "action": "Vender / Encerrar",
-        "diboas": "{rate} (mín {min}, máx {max})",
+        "diboas": "{rate} (mín {min}, sem limite)",
         "competitors": "1,5 a 2,5%",
         "difference": "Economize R$1,11 a R$2,11 a cada R$100",
         "example": "Venda R$100: custa R$0,39"

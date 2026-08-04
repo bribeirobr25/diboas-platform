@@ -54,7 +54,7 @@
       },
       "adding": {
         "action": "Geld einzahlen",
-        "diboas": "{rate} (max. {max}, kein Mindestbetrag)",
+        "diboas": "{rate} (ohne Obergrenze, kein Mindestbetrag)",
         "competitors": "Anbietergebühren können variieren",
         "difference": "Wird vor der Bestätigung angezeigt",
         "example": "100 € einzahlen: diBoaS-Gebühr 48 Cent"
@@ -75,7 +75,7 @@
       },
       "selling": {
         "action": "Verkaufen / Schließen",
-        "diboas": "{rate} (min {min}, max {max})",
+        "diboas": "{rate} (min {min}, ohne Obergrenze)",
         "competitors": "1,5 bis 2,5%",
         "difference": "Spare 1,11 bis 2,11 € pro 100 €",
         "example": "100 € verkaufen: kostet dich 39 Cent"

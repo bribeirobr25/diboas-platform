@@ -112,7 +112,7 @@
     "costTitle": "Custo",
     "entryFee": "Entrar: de graça",
     "networkFee": "Taxa de rede (repassada a custo): cerca de {amount}",
-    "exitFee": "Sair depois: 0,39% (no mínimo {min}, no máximo {max})",
+    "exitFee": "Sair depois: 0,39% (no mínimo {min}, sem limite)",
     "riskTitle": "Risco",
     "riskStable": "Estratégias estáveis buscam manter o valor. Riscos existem: os sistemas podem ter falhas, e os dólares digitais usados podem perder a paridade.",
     "riskGrowth": "{percent}% desta estratégia se move com os preços do mercado, então com dinheiro de verdade pode cair além de subir. O modo treino mostra o retorno que esses sistemas pagam, não as oscilações de preço, então mantenha o risco real em mente.",

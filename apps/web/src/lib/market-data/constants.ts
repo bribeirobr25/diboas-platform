@@ -265,14 +265,15 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
     },
   },
   platformFees: {
-    deposit: { rate: 0.0048, minFee: 0, maxFee: 250.0 },
-    sell: { rate: 0.0039, minFee: 0.25, maxFee: 25.0 },
+    // FE-1/FC-13 (2026-08-03): ALL caps removed — maxFee: Infinity = no cap (FEES.md v3.5).
+    deposit: { rate: 0.0048, minFee: 0, maxFee: Infinity },
+    sell: { rate: 0.0039, minFee: 0.25, maxFee: Infinity },
     send: { rate: 0, minFee: 0, maxFee: 0 },
     receive: { rate: 0, minFee: 0, maxFee: 0 },
     swap: { rate: 0, minFee: 0, maxFee: 0 },
     strategyEntry: { rate: 0, minFee: 0, maxFee: 0 },
-    strategyExit: { rate: 0.0039, minFee: 0.25, maxFee: 25.0 },
-    cashOut: { rate: 0.0048, minFee: 0, maxFee: 250.0 },
+    strategyExit: { rate: 0.0039, minFee: 0.25, maxFee: Infinity },
+    cashOut: { rate: 0.0048, minFee: 0, maxFee: Infinity },
   },
   thirdPartyFees: {
     paymentProcessor: 0.01,

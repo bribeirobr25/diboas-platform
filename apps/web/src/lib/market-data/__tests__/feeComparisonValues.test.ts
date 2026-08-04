@@ -39,24 +39,23 @@ describe('buildAllFeeValues', () => {
       expect(map.has('landing-b2c.catch.feeParagraph'), `locale=${loc}`).toBe(true);
       const entry = map.get('landing-b2c.catch.feeParagraph')!;
       expect(entry).toHaveProperty('sellRate');
-      expect(entry).toHaveProperty('maxFee');
       expect(entry).toHaveProperty('exampleFee');
+      // FE-1: caps removed — the maxFee slot no longer exists.
+      expect(entry).not.toHaveProperty('maxFee');
     }
   });
 
   it('should render byte-identical strings in en locale for current platformFees', () => {
     const map = buildAllFeeValues(fees, 'en');
 
-    // Multi-slot rows reproduce the current literals exactly.
+    // Multi-slot rows reproduce the current literals exactly (FE-1: no max slot).
     expect(map.get('landing-b2c.fees.rows.adding.diboas')).toEqual({
       rate: '0.48%',
       min: '$0.00',
-      max: '$250',
     });
     expect(map.get('landing-b2c.fees.rows.selling.diboas')).toEqual({
       rate: '0.39%',
       min: '$0.25',
-      max: '$25',
     });
     // Single-slot rows.
     expect(map.get('landing-b2c.fees.rows.cashout.diboas')).toEqual({
@@ -68,7 +67,6 @@ describe('buildAllFeeValues', () => {
     // Paragraph fee citation slots (Phase 8 Item B — uniform feeParagraph).
     expect(map.get('landing-b2c.catch.feeParagraph')).toEqual({
       sellRate: '0.39%',
-      maxFee: '$25',
       exampleFee: '39 cents',
     });
     // B2B example slot.
@@ -77,9 +75,8 @@ describe('buildAllFeeValues', () => {
     });
   });
 
-  it('should expose NO max on b2b add/cashOut (no cap, D-005) while b2c stays $250', () => {
+  it('should expose NO max slot anywhere (FE-1: all caps removed, B2C and B2B)', () => {
     const map = buildAllFeeValues(fees, 'en');
-    // B2B Add-Money + cash-out have no cap: only rate/min, no `max` slot.
     expect(map.get('landing-b2b.fees.rows.add.diboas')).toEqual({
       rate: '0.48%',
       min: '$0.00',
@@ -88,20 +85,18 @@ describe('buildAllFeeValues', () => {
       rate: '0.48%',
       min: '$0.00',
     });
-    // B2B sell keeps the shared per-market cap.
-    expect(map.get('landing-b2b.fees.rows.sell.diboas')?.max).toBe('$25');
-    // B2C must NOT lose its cap — still $250.
-    expect(map.get('landing-b2c.fees.rows.adding.diboas')?.max).toBe('$250');
+    // Sell rows carry the kept floor (FE-1a) — and no cap.
+    expect(map.get('landing-b2b.fees.rows.sell.diboas')).toEqual({
+      rate: '0.39%',
+      min: '$0.25',
+    });
+    expect(map.get('landing-b2c.fees.rows.adding.diboas')).not.toHaveProperty('max');
   });
 
-  it('should honor maxFractionDigits 0 for max fee — $250 not $250.00 (audit M5)', () => {
+  it('should render minFee with 2 decimals ($0.00 / $0.25 — audit M5 precision contract)', () => {
     const map = buildAllFeeValues(fees, 'en');
-    const adding = map.get('landing-b2c.fees.rows.adding.diboas')!;
-    // Critical precision contract: maxFee must NOT have trailing decimals.
-    expect(adding.max).toBe('$250');
-    expect(adding.max).not.toBe('$250.00');
-    // minFee renders with 2 decimals (now $0.00 — no Add-Money minimum per FEES.md).
-    expect(adding.min).toBe('$0.00');
+    expect(map.get('landing-b2c.fees.rows.adding.diboas')!.min).toBe('$0.00');
+    expect(map.get('landing-b2c.fees.rows.selling.diboas')!.min).toBe('$0.25');
   });
 
   it('should produce EUR currency formatting (not USD) in de locale', () => {
@@ -110,8 +105,6 @@ describe('buildAllFeeValues', () => {
     const adding = map.get('landing-b2c.fees.rows.adding.diboas')!;
     expect(adding.min).toMatch(/€/); // EUR symbol
     expect(adding.min).not.toMatch(/\$/); // not USD
-    expect(adding.max).toMatch(/€/);
-    expect(adding.max).not.toMatch(/\$/);
   });
 
   it('should include landing-page FAQ keys (PR-5: B2C withdraw + B2B catch) with Phase 8 Item C exampleFee slots', () => {

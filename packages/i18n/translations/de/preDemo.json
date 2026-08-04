@@ -96,7 +96,7 @@
     "tooltips": {
       "paymentProcessor": "Gebühr des Zahlungsabwicklers, erhoben vom Bankennetzwerk",
       "networkFee": "Blockchain-Netzwerk-Transaktionsgebühr",
-      "diboasFeeDeposit": "diBoaS berechnet {rate} für Einzahlungen (mindestens {min}, höchstens {max}).",
+      "diboasFeeDeposit": "diBoaS berechnet {rate} für Einzahlungen — ohne Obergrenze.",
       "diboasFeeSend": "diBoaS berechnet keine Gebühren für das Senden von Geld an andere diBoaS-Nutzer.",
       "diboasFeeBuy": "diBoaS berechnet keine Gebühren für den Kauf von digitalen Vermögenswerten.",
       "priorityFee": "Prioritätsgebühr für schnelle Abwicklung",

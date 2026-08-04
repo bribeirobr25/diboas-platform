@@ -60,11 +60,11 @@ describe('getPreDemoFeeRateValues — contract', () => {
     expect(v.issuerMintRedemption.rate).toMatch(/0\.25\s?%/);
   });
 
-  it('emits all three slots (rate/min/max) for diboasFeeDeposit', () => {
+  it('emits the rate slot for diboasFeeDeposit (FE-1: caps removed — no min/max slots)', () => {
     const v = getPreDemoFeeRateValues('en');
     expect(v.diboasFeeDeposit.rate).toMatch(/0\.48\s?%/);
-    expect(v.diboasFeeDeposit.min).toContain('0.25');
-    expect(v.diboasFeeDeposit.max).toContain('25');
+    expect(v.diboasFeeDeposit).not.toHaveProperty('min');
+    expect(v.diboasFeeDeposit).not.toHaveProperty('max');
   });
 
   it('non-USD locales use locale-appropriate decimal separator (de uses comma)', () => {
@@ -73,10 +73,9 @@ describe('getPreDemoFeeRateValues — contract', () => {
     expect(v.crossChainSwap.rate).toMatch(/0,\d+\s?%/);
   });
 
-  it('locale-formats currency in min/max for non-USD (pt-BR uses R$)', () => {
+  it('locale-formats the deposit rate for non-USD (pt-BR uses comma decimals)', () => {
     const v = getPreDemoFeeRateValues('pt-BR');
-    // formatCurrency for pt-BR yields BRL symbol "R$" with comma decimals.
-    expect(v.diboasFeeDeposit.min).toContain('R$');
+    expect(v.diboasFeeDeposit.rate).toMatch(/0,48\s?%/);
   });
 
   it('a change in snapshot.thirdPartyFees flows through to the rendered rate string', () => {

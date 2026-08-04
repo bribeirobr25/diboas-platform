@@ -22,43 +22,40 @@ export const FEE_RATES = {
   free: new Decimal('0'),
 } as const;
 
-/** B2C Add Money / Cash Out cap per market currency (B2B: no cap). */
-export const RAMP_FEE_CAP_B2C: Record<FeeCurrency, Decimal> = {
-  USD: new Decimal('250'),
-  EUR: new Decimal('250'),
-  BRL: new Decimal('250'),
-};
-
-/** Strategy Exit / Sell floor and cap per market currency. */
+/** Strategy Exit / Sell floor per market currency (FE-1a: floors kept, caps removed). */
 export const EXIT_FEE_FLOOR: Record<FeeCurrency, Decimal> = {
   USD: new Decimal('0.25'),
   EUR: new Decimal('0.25'),
   BRL: new Decimal('0.25'),
 };
-export const EXIT_FEE_CAP: Record<FeeCurrency, Decimal> = {
-  USD: new Decimal('25'),
-  EUR: new Decimal('25'),
-  BRL: new Decimal('25'),
+
+/** Minimum add-money amount per market currency (FE-1b, 2026-08-03) — a
+ *  transaction minimum, not a fee floor. Bounds the exit floor's worst case
+ *  to ≤2.5% of the smallest position. */
+export const MIN_ADD_MONEY: Record<FeeCurrency, Decimal> = {
+  USD: new Decimal('10'),
+  EUR: new Decimal('10'),
+  BRL: new Decimal('20'),
 };
 
 export type AccountMode = 'b2c' | 'b2b';
 
-/** Add Money fee: 0.48%, B2C capped per currency, B2B uncapped. */
+/** Add Money fee: 0.48%, no cap — B2C and B2B alike (FE-1/FC-13, 2026-08-03).
+ *  `mode` and `currency` stay in the signature: the fee schedule is carried by a
+ *  tier-capable FeePolicy (FE-1c), orthogonal to AccountMode — call sites keep
+ *  passing both so a future tier can differentiate without a signature change. */
 export function computeAddMoneyFee(
   amount: Decimal.Value,
-  currency: FeeCurrency,
-  mode: AccountMode = 'b2c'
+  _currency: FeeCurrency,
+  _mode: AccountMode = 'b2c'
 ): Decimal {
-  const raw = new Decimal(amount).mul(FEE_RATES.ramp);
-  if (mode === 'b2b') return raw.toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
-  return Decimal.min(raw, RAMP_FEE_CAP_B2C[currency]).toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
+  return new Decimal(amount).mul(FEE_RATES.ramp).toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
 }
 
-/** Strategy Exit fee: 0.39% with per-currency floor and cap. */
+/** Strategy Exit fee: 0.39% with per-currency floor — no cap (FE-1a, 2026-08-03). */
 export function computeExitFee(amount: Decimal.Value, currency: FeeCurrency): Decimal {
   const raw = new Decimal(amount).mul(FEE_RATES.exit);
-  const floored = Decimal.max(raw, EXIT_FEE_FLOOR[currency]);
-  return Decimal.min(floored, EXIT_FEE_CAP[currency]).toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
+  return Decimal.max(raw, EXIT_FEE_FLOOR[currency]).toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
 }
 
 /** Strategy Entry is FREE (FEES.md) — expressed as a function so call sites read uniformly. */

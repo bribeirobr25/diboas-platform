@@ -142,7 +142,7 @@
       },
       "sell": {
         "action": "Vender / Cerrar",
-        "diboas": "{rate} (mín {min}, máx {max})",
+        "diboas": "{rate} (mín {min}, sin límite)",
         "competitors": "Comisiones y spreads pueden variar",
         "difference": "0,39 %, con un tope de 25 €",
         "example": "Vender 10.000 €: el 0,39 % serían 39 €, pero la comisión se limita al tope de 25 €"

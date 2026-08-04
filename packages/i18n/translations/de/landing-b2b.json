@@ -142,7 +142,7 @@
       },
       "sell": {
         "action": "Verkaufen / Schließen",
-        "diboas": "{rate} (min {min}, max {max})",
+        "diboas": "{rate} (min {min}, ohne Obergrenze)",
         "competitors": "Anbietergebühren können variieren",
         "difference": "0,39 %, gedeckelt bei 25 €",
         "example": "10.000 € verkaufen: diBoaS-Gebühr 25 € (0,39 % wären 39 €, gedeckelt bei 25 €)"
