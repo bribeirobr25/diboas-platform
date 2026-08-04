@@ -6,13 +6,13 @@ The main web application for diBoaS — a goal-driven wealth building platform (
 
 (See root `README.md` for the canonical version list — kept in sync there.)
 
-- **Next.js 16.2.6** with App Router and Turbopack
-- **React 18.3.1** with Server Components
-- **TypeScript ~5.9.3** (strict mode)
-- **Tailwind CSS 3.4.17**
-- **react-intl 6.4.7** for internationalization (4 locales: en, pt-BR, es, de)
-- **Storybook 10.3.5** for component development
-- **Sentry 10.65.0** for error monitoring + session replay
+- **Next.js** with App Router and Turbopack
+- **React 18** with Server Components
+- **TypeScript** (strict mode)
+- **Tailwind CSS 3**
+- **react-intl** for internationalization (4 locales: en, pt-BR, es, de)
+- **Storybook** for component development
+- **Sentry** for error monitoring + session replay
 
 ## Installation
 

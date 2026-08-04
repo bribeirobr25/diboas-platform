@@ -10,17 +10,17 @@ diBoaS is a pre-launch marketing site with waitlist functionality, interactive d
 
 ## Tech Stack
 
-- **Framework:** Next.js 16.2.11 (App Router, Turbopack)
+- **Framework:** Next.js 16.2.12 (App Router, Turbopack)
 - **Language:** TypeScript ~5.9.3 (strict mode)
 - **UI:** React 18.3.1, Tailwind CSS 3.4.17
 - **Monorepo:** Turborepo 2.8.15 + pnpm 10.33.2
 - **i18n:** react-intl 6.4.7 (4 locales: en, pt-BR, es, de)
 - **Testing:** Vitest 4.1.5, @vitest/coverage-v8, Lighthouse CI, pa11y
-- **Monitoring:** Sentry 10.65.0 (errors + session replay), PostHog (product analytics), GA4 (traffic), web-vitals
+- **Monitoring:** Sentry 10.69.x (errors + session replay), PostHog (product analytics), GA4 (traffic), web-vitals
 - **Security:** DOMPurify 3.4.12, Upstash Redis (rate limiting), AES-256-GCM encryption, HMAC blind indexing
 - **Email:** Resend (transactional email with circuit breaker)
 - **Database:** Neon PostgreSQL (serverless)
-- **Component dev:** Storybook 10.3.5
+- **Component dev:** Storybook 10.5.x
 - **Hosting:** Vercel (auto-deploy from main branch)
 - **DNS:** Cloudflare (DNS-only mode)
 
@@ -68,7 +68,7 @@ flowchart TD
 - **i18n:** 40 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
 - **Monitoring:** Sentry, PostHog, and GA4 — all consent-gated and lazy-loaded behind a cookie-consent check.
 
-> **Product architecture is Phase 2+, not in this build.** The money product's design — non-custodial by design (users hold their own funds; diBoaS holds no key shares, and recovery runs through an integrated third-party provider), MPC wallets (Turnkey), multi-chain DeFi (stable strategies on Arbitrum, growth on Solana) — is roadmap. Those decisions live in [`CLAUDE.md`](./CLAUDE.md); the full technical write-up for reviewers belongs in the investor room's technical-architecture summary.
+> **Product architecture is Phase 2+, not in this build.** The money product's design — non-custodial by design (users hold their own funds; diBoaS holds no key shares, and recovery runs through an integrated third-party provider), embedded wallets (Turnkey — secure enclaves with policy-controlled signing), multi-chain DeFi (stable strategies on Arbitrum, growth on Solana) — is roadmap. Those decisions live in [`CLAUDE.md`](./CLAUDE.md); the full technical write-up for reviewers belongs in the investor room's technical-architecture summary.
 
 ## Prerequisites
 
@@ -103,7 +103,8 @@ The app is available at http://localhost:3000. Locale routes: `/en`, `/pt-BR`, `
 
 ```
 diboas-platform/
-  apps/web/              # Next.js web application
+  apps/web/              # Next.js web application (the live site)
+  apps/sandbox/          # Play-money practice app (gated + noindex; pre-launch work-front)
     src/
       app/               # App Router (pages, API routes, layouts)
       components/        # UI components (Factory pattern with variants)
@@ -117,9 +118,9 @@ diboas-platform/
     email/               # @diboas/email — Transactional email (Resend)
     i18n/                # @diboas/i18n — Internationalization (4 locales)
     ui/                  # @diboas/ui — Design system components
-    banking/             # @diboas/banking — Phase 2+ stub
-    defi/                # @diboas/defi — Phase 2+ stub
-    investing/           # @diboas/investing — Phase 2+ stub
+    banking/             # @diboas/banking — event-sourced play ledger + Decimal.js fee math (backs apps/sandbox)
+    defi/                # @diboas/defi — strategy catalog + market-data providers (backs apps/sandbox)
+    investing/           # @diboas/investing — jobs split, goals, accrual replay (backs apps/sandbox)
   config/                # Design tokens JSON + schema
   scripts/               # Build/validation scripts
   docs/                  # Documentation
