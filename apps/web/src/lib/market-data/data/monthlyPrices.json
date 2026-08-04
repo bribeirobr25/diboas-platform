@@ -2,7 +2,7 @@
   "BTC": {
     "basis": "price_only",
     "source": "coinmetrics:btc-PriceUSD-daily-2010-07-to-2014-08 + yahoo:BTC-USD-2014-09-onwards",
-    "note": "spot crypto; no dividends. Backfilled 2026-05-23: monthly OHLC for 2010-07 \u2192 2014-08 derived from CoinMetrics community-tier daily PriceUSD (open=first-day, close=last-day, high=max, low=min). Yahoo Finance covers 2014-09 onwards. Splice point validated (2014-08-31 CoinMetrics close $478.51 \u2192 2014-09-01 Yahoo open $465.86, 2.6% day-to-day drop is within normal BTC volatility).",
+    "note": "spot crypto; no dividends. Backfilled 2026-05-23: monthly OHLC for 2010-07 → 2014-08 derived from CoinMetrics community-tier daily PriceUSD (open=first-day, close=last-day, high=max, low=min). Yahoo Finance covers 2014-09 onwards. Splice point validated (2014-08-31 CoinMetrics close $478.51 → 2014-09-01 Yahoo open $465.86, 2.6% day-to-day drop is within normal BTC volatility).",
     "months": [
       {
         "ym": "2010-07-01",
@@ -1347,6 +1347,13 @@
         "high": 73969.5703,
         "low": 58075.9219,
         "close": 58558.8594
+      },
+      {
+        "ym": "2026-07-01",
+        "open": 58562.4453,
+        "high": 66910.0625,
+        "low": 57747.7656,
+        "close": 62813.7461
       }
     ]
   },
@@ -2890,6 +2897,14 @@
         "low": 716.58,
         "close": 746.77,
         "closePriceOnly": 746.77
+      },
+      {
+        "ym": "2026-07-01",
+        "open": 745,
+        "high": 755.58,
+        "low": 729.1,
+        "close": 747.03,
+        "closePriceOnly": 747.03
       }
     ]
   },
@@ -4433,6 +4448,14 @@
         "low": 686.37,
         "close": 736.4,
         "closePriceOnly": 736.4
+      },
+      {
+        "ym": "2026-07-01",
+        "open": 729.19,
+        "high": 731.92,
+        "low": 661.14,
+        "close": 687.99,
+        "closePriceOnly": 687.99
       }
     ]
   },
@@ -5832,13 +5855,21 @@
         "low": 196.71,
         "close": 202.64,
         "closePriceOnly": 202.64
+      },
+      {
+        "ym": "2026-07-01",
+        "open": 201.85,
+        "high": 205.04,
+        "low": 199.11,
+        "close": 203.37,
+        "closePriceOnly": 203.37
       }
     ]
   },
   "GOLD": {
     "basis": "price_only",
     "source": "yahoo:GLD",
-    "note": "GLD adjusted close \u2248 gold spot",
+    "note": "GLD adjusted close ≈ gold spot",
     "months": [
       {
         "ym": "2010-07-01",
@@ -7183,6 +7214,13 @@
         "high": 414.4,
         "low": 363.32,
         "close": 368.38
+      },
+      {
+        "ym": "2026-07-01",
+        "open": 371.21,
+        "high": 383.6,
+        "low": 363.6,
+        "close": 371.54
       }
     ]
   },
@@ -8726,6 +8764,14 @@
         "low": 84.62,
         "close": 86.102,
         "closePriceOnly": 86.42
+      },
+      {
+        "ym": "2026-07-01",
+        "open": 85.48,
+        "high": 85.79,
+        "low": 81.89,
+        "close": 81.92,
+        "closePriceOnly": 82.25
       }
     ]
   },
@@ -10077,6 +10123,13 @@
         "high": 174894,
         "low": 167658,
         "close": 172024
+      },
+      {
+        "ym": "2026-07-01",
+        "open": 172017,
+        "high": 178719,
+        "low": 169666,
+        "close": 177999
       }
     ]
   },
@@ -11435,6 +11488,13 @@
         "high": 25362.8301,
         "low": 24043.5195,
         "close": 24995.8105
+      },
+      {
+        "ym": "2026-07-01",
+        "open": 25028.9297,
+        "high": 25900.0996,
+        "low": 24651.3398,
+        "close": 25629.2402
       }
     ]
   }

@@ -993,6 +993,11 @@
         "ym": "2026-06-01",
         "closeUsdPerLocal": 1.1518,
         "closeLocalPerUsd": 0.868206
+      },
+      {
+        "ym": "2026-07-01",
+        "closeUsdPerLocal": 1.141748,
+        "closeLocalPerUsd": 0.87585
       }
     ]
   },
@@ -1990,6 +1995,11 @@
         "ym": "2026-06-01",
         "closeUsdPerLocal": 0.702722,
         "closeLocalPerUsd": 1.423037
+      },
+      {
+        "ym": "2026-07-01",
+        "closeUsdPerLocal": 0.69637,
+        "closeLocalPerUsd": 1.436017
       }
     ]
   },
@@ -2987,6 +2997,11 @@
         "ym": "2026-06-01",
         "closeUsdPerLocal": 0.712531,
         "closeLocalPerUsd": 1.403448
+      },
+      {
+        "ym": "2026-07-01",
+        "closeUsdPerLocal": 0.70832,
+        "closeLocalPerUsd": 1.41179
       }
     ]
   },
@@ -3984,6 +3999,11 @@
         "ym": "2026-06-01",
         "closeUsdPerLocal": 1.251215,
         "closeLocalPerUsd": 0.799223
+      },
+      {
+        "ym": "2026-07-01",
+        "closeUsdPerLocal": 1.233557,
+        "closeLocalPerUsd": 0.810664
       }
     ]
   },
@@ -4981,6 +5001,11 @@
         "ym": "2026-06-01",
         "closeUsdPerLocal": 1.333534,
         "closeLocalPerUsd": 0.749887
+      },
+      {
+        "ym": "2026-07-01",
+        "closeUsdPerLocal": 1.337074,
+        "closeLocalPerUsd": 0.747902
       }
     ]
   },
@@ -5978,6 +6003,11 @@
         "ym": "2026-06-01",
         "closeUsdPerLocal": 0.006222,
         "closeLocalPerUsd": 160.717217
+      },
+      {
+        "ym": "2026-07-01",
+        "closeUsdPerLocal": 0.006154,
+        "closeLocalPerUsd": 162.504474
       }
     ]
   },
@@ -6975,6 +7005,11 @@
         "ym": "2026-06-01",
         "closeUsdPerLocal": 0.05756,
         "closeLocalPerUsd": 17.37325
+      },
+      {
+        "ym": "2026-07-01",
+        "closeUsdPerLocal": 0.057234,
+        "closeLocalPerUsd": 17.472064
       }
     ]
   },
@@ -7972,6 +8007,11 @@
         "ym": "2026-06-01",
         "closeUsdPerLocal": 0.193199,
         "closeLocalPerUsd": 5.176
+      },
+      {
+        "ym": "2026-07-01",
+        "closeUsdPerLocal": 0.195544,
+        "closeLocalPerUsd": 5.113948
       }
     ]
   },
