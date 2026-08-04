@@ -40,7 +40,7 @@
     "@diboas/i18n": "workspace:*",
     "@diboas/ui": "workspace:*",
     "@neondatabase/serverless": "^1.0.2",
-    "@sentry/nextjs": "^10.65.0",
+    "@sentry/nextjs": "^10.69.0",
     "@upstash/ratelimit": "^2.0.7",
     "@upstash/redis": "^1.36.0",
     "botid": "^1.5.11",
