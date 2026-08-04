@@ -1,31 +1,31 @@
 {
-  "_comment": "Per-source freshness map used by DataFreshnessIndicator. Matches doc 07 §26 DataStatus schema. v4 (2026-08-03 refresh, Follow-up L manual leg completed 2026-08-04): anchors from the 2026-08-03 pipeline run — M2SL recovered DELAYED→FRESH (June print, anchor 2026-06-01); DGS10/DTWEXBGS at the 2026-07-24 Friday close; NASDAQCOM + GC=F at 2026-07-31; the ETF source renamed CoinGlass:ETF → Polygon:ETF (shares-outstanding) matching the live P4 route (UNAVAILABLE while warming, 3/5 snapshots); in-repo BTC monthlies flip FRESH→DELAYED (July 31 close confirmable but the dual-source --append-btc leg has not run — signals still anchor June, per doc 02 §5.1). This file and apps/web/data/market/regime.json#data_status MUST list the same source set (audit gate).",
+  "_comment": "Per-source freshness map used by DataFreshnessIndicator. Matches doc 07 §26 DataStatus schema. v5 (2026-08-04 --append-btc refresh: BTC July candle appended dual-source-verified, source back to FRESH; DGS10/DTWEXBGS caught up to the 07-31 Friday close; no delayed sources) · v4 (2026-08-03 refresh, Follow-up L manual leg completed 2026-08-04): anchors from the 2026-08-03 pipeline run — M2SL recovered DELAYED→FRESH (June print, anchor 2026-06-01); DGS10/DTWEXBGS at the 2026-07-24 Friday close; NASDAQCOM + GC=F at 2026-07-31; the ETF source renamed CoinGlass:ETF → Polygon:ETF (shares-outstanding) matching the live P4 route (UNAVAILABLE while warming, 3/5 snapshots); in-repo BTC monthlies flip FRESH→DELAYED (July 31 close confirmable but the dual-source --append-btc leg has not run — signals still anchor June, per doc 02 §5.1). This file and apps/web/data/market/regime.json#data_status MUST list the same source set (audit gate).",
   "overall_confidence": "MODERATE",
-  "last_successful_update_at": "2026-08-03T10:00:46.142Z",
+  "last_successful_update_at": "2026-08-04T17:27:01.683Z",
   "sources": [
     {
       "source": "in-repo:monthlyPrices.json (BTC)",
-      "status": "DELAYED",
-      "last_updated_at": "2026-06-30T00:00:00Z",
-      "expected_next_update_at": "2026-07-31T23:59:59Z",
-      "stale_after": "2026-09-01T00:00:00Z",
-      "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04). Last appended confirmed monthly close: June 30, 2026. The July 31 monthly close is now confirmable but NOT yet appended — the dual-source-verified --append-btc leg is pending (doc 02 §5.1: no unverified appends), so BTC monthly signals still anchor to June. DELAYED until the July candle is appended."
+      "status": "FRESH",
+      "last_updated_at": "2026-07-31T00:00:00Z",
+      "expected_next_update_at": "2026-08-31T23:59:59Z",
+      "stale_after": "2026-10-01T00:00:00Z",
+      "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04). July 2026 monthly candle appended 2026-08-04 (Yahoo close $62,813.75, cross-verified against CoinGecko $62,896.51 — divergence 0.13% ≤ 0.5%). Last confirmed monthly close July 31, 2026 per doc 02 §5.1. Next update due at the August 31 monthly close."
     },
     {
       "source": "FRED:DGS10",
       "status": "FRESH",
-      "last_updated_at": "2026-07-24T00:00:00Z",
-      "expected_next_update_at": "2026-08-07T20:00:00Z",
-      "stale_after": "2026-08-14T20:00:00Z",
-      "message": "US 10-year constant-maturity yield. Weekly signal anchored at the most recent confirmed Friday close (2026-07-24)."
+      "last_updated_at": "2026-07-31T00:00:00Z",
+      "expected_next_update_at": "2026-08-14T20:00:00Z",
+      "stale_after": "2026-08-21T20:00:00Z",
+      "message": "US 10-year constant-maturity yield. Weekly signal anchored at the most recent confirmed Friday close (2026-07-31)."
     },
     {
       "source": "FRED:DTWEXBGS",
       "status": "FRESH",
-      "last_updated_at": "2026-07-24T00:00:00Z",
-      "expected_next_update_at": "2026-08-07T20:00:00Z",
-      "stale_after": "2026-08-14T20:00:00Z",
-      "message": "Broad dollar index (DXY proxy). Weekly signal anchored at the most recent confirmed Friday close (2026-07-24; the series publishes with ~1-week lag)."
+      "last_updated_at": "2026-07-31T00:00:00Z",
+      "expected_next_update_at": "2026-08-14T20:00:00Z",
+      "stale_after": "2026-08-21T20:00:00Z",
+      "message": "Broad dollar index (DXY proxy). Weekly signal anchored at the most recent confirmed Friday close (2026-07-31 — the publication lag caught up this cycle)."
     },
     {
       "source": "FRED:M2SL",
@@ -60,6 +60,6 @@
       "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). Warming up: 3 of 5 weekly snapshots recorded; 4 weekly flows need 5 snapshots. UNAVAILABLE (not weak) per doc 02 §10.1 — no guessed backfill; first scorable evaluation expected ~2026-08-14."
     }
   ],
-  "delayed_sources": ["in-repo:monthlyPrices.json (BTC)"],
+  "delayed_sources": [],
   "unavailable_sources": ["Polygon:ETF (shares-outstanding)"]
 }

@@ -10,14 +10,14 @@
         "es": "Estructura del BTC",
         "de": "BTC-Struktur"
       },
-      "status": "WEAK",
-      "points_awarded": 1,
+      "status": "MIXED",
+      "points_awarded": 3,
       "max_points": 6,
       "summary": {
-        "en": "Bitcoin's own structure is damaged: the monthly trend lines are broken and momentum offers little support (1 of 6 points).",
-        "pt-BR": "A própria estrutura do Bitcoin está comprometida: as linhas de tendência mensais estão rompidas e o momentum dá pouco suporte (1 de 6 pontos).",
-        "es": "La estructura de Bitcoin está deteriorada: las líneas de tendencia mensuales están rotas y el impulso ofrece poco apoyo (1 de 6 puntos).",
-        "de": "Bitcoins Struktur ist angeschlagen: Die monatlichen Trendlinien sind gebrochen und das Momentum bietet wenig Halt (1 von 6 Punkten)."
+        "en": "Bitcoin's structure is split: the long-term trend and monthly momentum still holding, the mid-term trend and short-term momentum faltering (3 of 6 points).",
+        "pt-BR": "A estrutura do Bitcoin está dividida: a tendência de longo prazo e o momentum mensal ainda se sustentando, a tendência de médio prazo e o momentum de curto prazo enfraquecendo (3 de 6 pontos).",
+        "es": "La estructura de Bitcoin está dividida: la tendencia a largo plazo y el impulso mensual aún aguantando, la tendencia a medio plazo y el impulso a corto plazo flaqueando (3 de 6 puntos).",
+        "de": "Bitcoins Struktur ist gespalten: der langfristige Trend und das monatliche Momentum auf der stabilen Seite, der mittelfristige Trend und das kurzfristige Momentum auf der schwachen Seite (3 von 6 Punkten)."
       },
       "signals": [
         {
@@ -32,12 +32,12 @@
           "points_awarded": 0,
           "max_points": 2,
           "summary": {
-            "en": "June close $58,559 sits about 27% below the 20-month EMA ($80,140) — the intermediate-term structure is broken.",
-            "pt-BR": "O fechamento de junho em $58.559 está cerca de 27% abaixo da EMA de 20 meses ($80.140) — a estrutura de médio prazo está rompida.",
-            "es": "El cierre de junio en $58.559 está alrededor de un 27% por debajo de la EMA de 20 meses ($80.140); la estructura de medio plazo está rota.",
-            "de": "Der Juni-Schluss bei $58.559 liegt rund 27% unter dem 20-Monats-EMA ($80.140) — die mittelfristige Struktur ist gebrochen."
+            "en": "July close $62,814 sits about 20% below the 20-month EMA ($78,490) — the intermediate-term structure is broken.",
+            "pt-BR": "O fechamento de julho em $62.814 está cerca de 20% abaixo da EMA de 20 meses ($78.490) — a estrutura de médio prazo está rompida.",
+            "es": "El cierre de julio en $62.814 está alrededor de un 20% por debajo de la EMA de 20 meses ($78.490); la estructura de medio plazo está rota.",
+            "de": "Der Juli-Schluss bei $62.814 liegt rund 20% unter dem 20-Monats-EMA ($78.490) — die mittelfristige Struktur ist gebrochen."
           },
-          "last_updated_at": "2026-06-30T00:00:00Z"
+          "last_updated_at": "2026-07-31T00:00:00Z"
         },
         {
           "id": "BTC-02",
@@ -47,16 +47,16 @@
             "es": "BTC por encima de la SMA de 50 meses",
             "de": "BTC über der 50-Monats-SMA"
           },
-          "state": "INACTIVE",
-          "points_awarded": 0,
+          "state": "ACTIVE",
+          "points_awarded": 2,
           "max_points": 2,
           "summary": {
-            "en": "June close $58,559 slipped about 1% below the 50-month SMA ($59,342) — the long-term structural trend line is broken.",
-            "pt-BR": "O fechamento de junho em $58.559 caiu cerca de 1% abaixo da SMA de 50 meses ($59.342) — a linha estrutural de longo prazo está rompida.",
-            "es": "El cierre de junio en $58.559 cayó alrededor de un 1% por debajo de la SMA de 50 meses ($59.342); la línea estructural de largo plazo está rota.",
-            "de": "Der Juni-Schluss bei $58.559 rutschte rund 1% unter den 50-Monats-SMA ($59.342) — die langfristige Strukturlinie ist gebrochen."
+            "en": "July close $62,814 holds about 5% above the 50-month SMA ($59,963) — the long-term structural trend is intact.",
+            "pt-BR": "O fechamento de julho em $62.814 segue cerca de 5% acima da SMA de 50 meses ($59.963) — a tendência estrutural de longo prazo está intacta.",
+            "es": "El cierre de julio en $62.814 se mantiene alrededor de un 5% por encima de la SMA de 50 meses ($59.963); la tendencia estructural de largo plazo sigue intacta.",
+            "de": "Der Juli-Schluss bei $62.814 hält sich rund 5% über dem 50-Monats-SMA ($59.963) — der langfristige Strukturtrend ist intakt."
           },
-          "last_updated_at": "2026-06-30T00:00:00Z"
+          "last_updated_at": "2026-07-31T00:00:00Z"
         },
         {
           "id": "BTC-03",
@@ -66,16 +66,16 @@
             "es": "RSI mensual mejorando",
             "de": "Monatlicher RSI verbessert sich"
           },
-          "state": "INACTIVE",
-          "points_awarded": 0,
+          "state": "ACTIVE",
+          "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "Monthly RSI eased to 41 from 49 — momentum turned down this month.",
-            "pt-BR": "O RSI mensal recuou para 41, vindo de 49 — o momentum virou para baixo neste mês.",
-            "es": "El RSI mensual retrocedió a 41 desde 49; el impulso giró a la baja este mes.",
-            "de": "Der Monats-RSI gab auf 41 von 49 nach — das Momentum drehte in diesem Monat nach unten."
+            "en": "Monthly RSI improved to 43 from 41 — momentum is turning up.",
+            "pt-BR": "O RSI mensal melhorou para 43, vindo de 41 — o momentum está virando para cima.",
+            "es": "El RSI mensual mejoró a 43 desde 41; el impulso está girando al alza.",
+            "de": "Der Monats-RSI verbesserte sich auf 43 von 41 — das Momentum dreht nach oben."
           },
-          "last_updated_at": "2026-06-30T00:00:00Z"
+          "last_updated_at": "2026-07-31T00:00:00Z"
         },
         {
           "id": "BTC-04",
@@ -85,16 +85,16 @@
             "es": "Recuperación del Stoch-RSI mensual",
             "de": "Monatliche Stoch-RSI-Erholung"
           },
-          "state": "ACTIVE",
-          "points_awarded": 1,
+          "state": "INACTIVE",
+          "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "Monthly Stoch-RSI %K at 12 holds above the 10 floor — short-term momentum has not capitulated.",
-            "pt-BR": "O Stoch-RSI mensal (%K) em 12 segue acima do piso de 10 — o momentum de curto prazo não capitulou.",
-            "es": "El Stoch-RSI mensual (%K) en 12 se mantiene sobre el suelo de 10; el impulso de corto plazo no ha capitulado.",
-            "de": "Der monatliche Stoch-RSI (%K) bei 12 hält sich über der 10er-Marke — das kurzfristige Momentum hat nicht kapituliert."
+            "en": "Monthly Stoch-RSI %K at 9 sits below the 10 floor — short-term momentum is washed out.",
+            "pt-BR": "O Stoch-RSI mensal (%K) em 9 está abaixo do piso de 10 — o momentum de curto prazo está esgotado.",
+            "es": "El Stoch-RSI mensual (%K) en 9 está bajo el suelo de 10; el impulso de corto plazo está agotado.",
+            "de": "Der monatliche Stoch-RSI (%K) bei 9 liegt unter der 10er-Marke — das kurzfristige Momentum ist ausgewaschen."
           },
-          "last_updated_at": "2026-06-30T00:00:00Z"
+          "last_updated_at": "2026-07-31T00:00:00Z"
         }
       ]
     },
@@ -108,13 +108,13 @@
         "de": "Makro-Umfeld"
       },
       "status": "MIXED",
-      "points_awarded": 1,
+      "points_awarded": 2,
       "max_points": 3,
       "summary": {
-        "en": "Macro conditions are mixed: liquidity on the supportive side, the dollar and yields on the restrictive side (1 of 3 points).",
-        "pt-BR": "As condições macro estão mistas: a liquidez do lado favorável, o dólar e os juros do lado restritivo (1 de 3 pontos).",
-        "es": "Las condiciones macro son mixtas: la liquidez del lado favorable, el dólar y los rendimientos del lado restrictivo (1 de 3 puntos).",
-        "de": "Die Makro-Bedingungen sind gemischt: die Liquidität auf der unterstützenden Seite, der Dollar und die Renditen auf der restriktiven Seite (1 von 3 Punkten)."
+        "en": "Macro conditions are mixed: the dollar and liquidity on the supportive side, yields on the restrictive side (2 of 3 points).",
+        "pt-BR": "As condições macro estão mistas: o dólar e a liquidez do lado favorável, os juros do lado restritivo (2 de 3 pontos).",
+        "es": "Las condiciones macro son mixtas: el dólar y la liquidez del lado favorable, los rendimientos del lado restrictivo (2 de 3 puntos).",
+        "de": "Die Makro-Bedingungen sind gemischt: der Dollar und die Liquidität auf der unterstützenden Seite, die Renditen auf der restriktiven Seite (2 von 3 Punkten)."
       },
       "signals": [
         {
@@ -125,16 +125,16 @@
             "es": "Debilidad del DXY",
             "de": "Dollar-Schwäche (DXY)"
           },
-          "state": "INACTIVE",
-          "points_awarded": 0,
+          "state": "ACTIVE",
+          "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The broad dollar index at 121 holds above its 20-week EMA (120) with RSI 56 — a firm dollar keeps the macro backdrop restrictive.",
-            "pt-BR": "O índice amplo do dólar em 121 segue acima da EMA de 20 semanas (120), com RSI 56 — um dólar firme mantém o cenário macro restritivo.",
-            "es": "El índice amplio del dólar en 121 sigue por encima de su EMA de 20 semanas (120), con RSI 56; un dólar firme mantiene restrictivo el entorno macro.",
-            "de": "Der breite Dollar-Index bei 121 hält sich über seinem 20-Wochen-EMA (120), RSI 56 — ein fester Dollar hält das Makro-Umfeld restriktiv."
+            "en": "The broad dollar index at 120 sits below its 20-week EMA (120) with RSI 49 — a softening dollar supports risk assets.",
+            "pt-BR": "O índice amplo do dólar em 120 está abaixo da EMA de 20 semanas (120), com RSI 49 — um dólar mais fraco favorece ativos de risco.",
+            "es": "El índice amplio del dólar en 120 está por debajo de su EMA de 20 semanas (120), con RSI 49; un dólar más débil favorece a los activos de riesgo.",
+            "de": "Der breite Dollar-Index bei 120 liegt unter seinem 20-Wochen-EMA (120), RSI 49 — ein weicherer Dollar stützt Risikoanlagen."
           },
-          "last_updated_at": "2026-08-03T10:00:46.142Z"
+          "last_updated_at": "2026-08-04T17:27:01.683Z"
         },
         {
           "id": "MAC-02",
@@ -148,12 +148,12 @@
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "The US 10-year yield at 4.69% holds above its 20-week trend (4.44%) — yields have not eased yet.",
-            "pt-BR": "O juro americano de 10 anos em 4,69% segue acima da tendência de 20 semanas (4,44%) — os juros ainda não cederam.",
-            "es": "El rendimiento estadounidense a 10 años en 4,69% sigue por encima de su tendencia de 20 semanas (4,44%); los rendimientos aún no ceden.",
-            "de": "Die 10-jährige US-Rendite bei 4,69% hält sich über ihrem 20-Wochen-Trend (4,44%) — die Renditen haben noch nicht nachgegeben."
+            "en": "The US 10-year yield at 4.75% holds above its 20-week trend (4.47%) — yields have not eased yet.",
+            "pt-BR": "O juro americano de 10 anos em 4,75% segue acima da tendência de 20 semanas (4,47%) — os juros ainda não cederam.",
+            "es": "El rendimiento estadounidense a 10 años en 4,75% sigue por encima de su tendencia de 20 semanas (4,47%); los rendimientos aún no ceden.",
+            "de": "Die 10-jährige US-Rendite bei 4,75% hält sich über ihrem 20-Wochen-Trend (4,47%) — die Renditen haben noch nicht nachgegeben."
           },
-          "last_updated_at": "2026-08-03T10:00:46.142Z"
+          "last_updated_at": "2026-08-04T17:27:01.683Z"
         },
         {
           "id": "MAC-03",
@@ -212,7 +212,7 @@
             "es": "El registro de flujos de ETF está en calentamiento (3 de 5 instantáneas semanales de participaciones registradas); se puntúa como no disponible hasta que existan cuatro flujos semanales completos. Sin puntos en ningún sentido.",
             "de": "Das ETF-Fluss-Register läuft sich warm (3 von 5 wöchentlichen Anteils-Momentaufnahmen erfasst) — bis vier volle Wochenflüsse vorliegen als nicht verfügbar gewertet. Keine Punkte in keine Richtung."
           },
-          "last_updated_at": "2026-08-03T10:00:46.142Z"
+          "last_updated_at": "2026-08-04T17:27:01.683Z"
         }
       ]
     },
@@ -252,7 +252,7 @@
             "es": "La ratio BTC/Oro en 15,513 se mantiene sobre su tendencia de 20 semanas (15,378); Bitcoin supera al activo defensivo.",
             "de": "Das BTC/Gold-Verhältnis bei 15,513 hält sich über seinem 20-Wochen-Trend (15,378) — Bitcoin läuft dem defensiven Anlagegut voraus."
           },
-          "last_updated_at": "2026-08-03T10:00:46.142Z"
+          "last_updated_at": "2026-08-04T17:27:01.683Z"
         },
         {
           "id": "REL-02",
@@ -271,7 +271,7 @@
             "es": "La ratio BTC/Nasdaq en 2,476 está por debajo de su tendencia de 20 semanas (2,691); Bitcoin va rezagado frente al complejo de riesgo.",
             "de": "Das BTC/Nasdaq-Verhältnis bei 2,476 liegt unter seinem 20-Wochen-Trend (2,691) — Bitcoin hinkt dem breiteren Risikokomplex hinterher."
           },
-          "last_updated_at": "2026-08-03T10:00:46.142Z"
+          "last_updated_at": "2026-08-04T17:27:01.683Z"
         },
         {
           "id": "REL-03",
@@ -290,7 +290,7 @@
             "es": "El Nasdaq en 25.374 se mantiene sobre su tendencia de 20 semanas (25.062); el mercado de riesgo más amplio está estructuralmente sano.",
             "de": "Der Nasdaq bei 25.374 hält sich über seinem 20-Wochen-Trend (25.062) — der breitere Risikomarkt ist strukturell gesund."
           },
-          "last_updated_at": "2026-08-03T10:00:46.142Z"
+          "last_updated_at": "2026-08-04T17:27:01.683Z"
         }
       ]
     }
