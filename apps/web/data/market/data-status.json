@@ -1,65 +1,65 @@
 {
-  "_comment": "Per-source freshness map used by DataFreshnessIndicator. Matches doc 07 §26 DataStatus schema. v3 (2026-06-26): refreshed against the 2026-06-19 confirmed Friday close + May 2026 monthly releases. Two changes vs v2 (2026-05-29): (i) in-repo BTC monthlies now carry the confirmed May 31 close, so the source flips DELAYED→FRESH (no newer confirmed monthly candle exists until June 30); (ii) CoinGlass:ETF flips DELAYED→UNAVAILABLE — its spot-ETF data routes now 404 (page structure changed) and the canonical Farside cross-check stays Cloudflare-blocked, so ETF-01 is scored UNAVAILABLE per doc 02 §10.1 this cycle. Yahoo:GC=F remains a SUBSTITUTE for the retired FRED LBMA gold series (methodology drift D-gold-2026-05-29). This file and apps/web/data/market/regime.json#data_status MUST list the same source set (audit gate).",
+  "_comment": "Per-source freshness map used by DataFreshnessIndicator. Matches doc 07 §26 DataStatus schema. v4 (2026-08-03 refresh, Follow-up L manual leg completed 2026-08-04): anchors from the 2026-08-03 pipeline run — M2SL recovered DELAYED→FRESH (June print, anchor 2026-06-01); DGS10/DTWEXBGS at the 2026-07-24 Friday close; NASDAQCOM + GC=F at 2026-07-31; the ETF source renamed CoinGlass:ETF → Polygon:ETF (shares-outstanding) matching the live P4 route (UNAVAILABLE while warming, 3/5 snapshots); in-repo BTC monthlies flip FRESH→DELAYED (July 31 close confirmable but the dual-source --append-btc leg has not run — signals still anchor June, per doc 02 §5.1). This file and apps/web/data/market/regime.json#data_status MUST list the same source set (audit gate).",
   "overall_confidence": "MODERATE",
-  "last_successful_update_at": "2026-07-26T22:18:23.596Z",
+  "last_successful_update_at": "2026-08-03T10:00:46.142Z",
   "sources": [
     {
       "source": "in-repo:monthlyPrices.json (BTC)",
-      "status": "FRESH",
+      "status": "DELAYED",
       "last_updated_at": "2026-06-30T00:00:00Z",
       "expected_next_update_at": "2026-07-31T23:59:59Z",
       "stale_after": "2026-09-01T00:00:00Z",
-      "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04); June 2026 monthly candle appended 2026-07-11 (Yahoo close $58,558.86, cross-verified against CoinGecko $58,557.70 at the July 1 UTC boundary). Last confirmed monthly close June 30, 2026 per doc 02 §5.1. Next update due at July 31 monthly close."
+      "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04). Last appended confirmed monthly close: June 30, 2026. The July 31 monthly close is now confirmable but NOT yet appended — the dual-source-verified --append-btc leg is pending (doc 02 §5.1: no unverified appends), so BTC monthly signals still anchor to June. DELAYED until the July candle is appended."
     },
     {
       "source": "FRED:DGS10",
       "status": "FRESH",
-      "last_updated_at": "2026-07-17T00:00:00Z",
-      "expected_next_update_at": "2026-07-13T20:00:00Z",
-      "stale_after": "2026-07-17T20:00:00Z",
-      "message": null
+      "last_updated_at": "2026-07-24T00:00:00Z",
+      "expected_next_update_at": "2026-08-07T20:00:00Z",
+      "stale_after": "2026-08-14T20:00:00Z",
+      "message": "US 10-year constant-maturity yield. Weekly signal anchored at the most recent confirmed Friday close (2026-07-24)."
     },
     {
       "source": "FRED:DTWEXBGS",
       "status": "FRESH",
-      "last_updated_at": "2026-07-17T00:00:00Z",
-      "expected_next_update_at": "2026-07-13T20:00:00Z",
-      "stale_after": "2026-07-17T20:00:00Z",
-      "message": "Trade-weighted broad-dollar index used per doc 02 §9 (DXY proxy; license-free alternative to ICE DXY). Series published through July 2 at refresh time (July 3 was a US holiday; ~1-week publication lag) — the strict-Friday convention therefore anchors MAC-01 at the June 26 weekly close this cycle."
+      "last_updated_at": "2026-07-24T00:00:00Z",
+      "expected_next_update_at": "2026-08-07T20:00:00Z",
+      "stale_after": "2026-08-14T20:00:00Z",
+      "message": "Broad dollar index (DXY proxy). Weekly signal anchored at the most recent confirmed Friday close (2026-07-24; the series publishes with ~1-week lag)."
     },
     {
       "source": "FRED:M2SL",
-      "status": "DELAYED",
-      "last_updated_at": "2026-05-01T00:00:00Z",
-      "expected_next_update_at": "2026-07-25T00:00:00Z",
-      "stale_after": "2026-08-01T00:00:00Z",
-      "message": "Monthly liquidity series; the May 2026 reading (released late June) is the latest available release. Next monthly release expected late July (typical FRED M2SL cadence)."
+      "status": "FRESH",
+      "last_updated_at": "2026-06-01T00:00:00Z",
+      "expected_next_update_at": "2026-08-25T20:00:00Z",
+      "stale_after": "2026-09-30T00:00:00Z",
+      "message": "US M2 money stock, monthly. June 2026 print landed (anchor 2026-06-01) — recovered from the prior DELAYED state; the July print is due ~late August."
     },
     {
       "source": "FRED:NASDAQCOM",
       "status": "FRESH",
-      "last_updated_at": "2026-07-24T00:00:00Z",
-      "expected_next_update_at": "2026-07-13T20:00:00Z",
-      "stale_after": "2026-07-17T20:00:00Z",
-      "message": null
+      "last_updated_at": "2026-07-31T00:00:00Z",
+      "expected_next_update_at": "2026-08-07T20:00:00Z",
+      "stale_after": "2026-08-14T20:00:00Z",
+      "message": "Nasdaq Composite. Weekly signals anchored at the most recent confirmed Friday close (2026-07-31)."
     },
     {
       "source": "Yahoo:GC=F",
       "status": "FRESH",
-      "last_updated_at": "2026-07-24T00:00:00Z",
-      "expected_next_update_at": "2026-07-17T20:00:00Z",
-      "stale_after": "2026-07-24T20:00:00Z",
-      "message": "Methodology drift D-gold-2026-05-29: spec primary FRED GOLDAMGBD228NLBM (LBMA AM fix) and GOLDPMGBD228NLBM (LBMA PM fix) both returned 404 — FRED retired the LBMA series. Yahoo GC=F (front-month gold futures) substituted; fetched live this cycle. Result direction for REL-01 (ratio-vs-EMA-of-self) is robust to the substitute. Replacement canonical source tracked in PENDING_ALL.md 5.29."
+      "last_updated_at": "2026-07-31T00:00:00Z",
+      "expected_next_update_at": "2026-08-07T20:00:00Z",
+      "stale_after": "2026-08-14T20:00:00Z",
+      "message": "Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29). Weekly anchor 2026-07-31."
     },
     {
-      "source": "CoinGlass:ETF",
+      "source": "Polygon:ETF (shares-outstanding)",
       "status": "UNAVAILABLE",
-      "last_updated_at": "2026-07-10T00:00:00Z",
-      "expected_next_update_at": "2026-07-18T10:30:00Z",
-      "stale_after": "2026-07-25T10:30:00Z",
-      "message": "ETF net-flows could not be observed this cycle (2026-07-11). The CoinGlass spot-ETF routes still return HTTP 404 (route structure changed 2026-06; homepage loads, so routing change, not a block). The spec-canonical Farside manual feed remains behind a Cloudflare challenge wall (policy forbids evasion per doc 02 §8.3 + doc 06 §6.5); SoSoValue also Cloudflare-blocked. With fewer than the required trailing-four confirmed weekly aggregates observable, ETF-01 is evaluated UNAVAILABLE per §10.1 and contributes 0 of 2 points (score-invariant: an INACTIVE read would also award 0). Canonical Farside acquisition tracked in PENDING_ALL.md 5.28."
+      "last_updated_at": "2026-07-31T00:00:00Z",
+      "expected_next_update_at": "2026-08-14T00:00:00Z",
+      "stale_after": "2026-08-28T00:00:00Z",
+      "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). Warming up: 3 of 5 weekly snapshots recorded; 4 weekly flows need 5 snapshots. UNAVAILABLE (not weak) per doc 02 §10.1 — no guessed backfill; first scorable evaluation expected ~2026-08-14."
     }
   ],
-  "delayed_sources": ["FRED:M2SL"],
-  "unavailable_sources": ["CoinGlass:ETF"]
+  "delayed_sources": ["in-repo:monthlyPrices.json (BTC)"],
+  "unavailable_sources": ["Polygon:ETF (shares-outstanding)"]
 }
