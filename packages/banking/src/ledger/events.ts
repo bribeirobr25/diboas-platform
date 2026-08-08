@@ -77,7 +77,7 @@ export interface AccrualApplied extends EventBase {
   apySource: 'defillama' | 'fixture';
 }
 
-/** Position exit: 0.39% fee with floor/cap, principal+earnings return to the goal. */
+/** Position exit: 0.39% fee with $0.25 floor, no cap (FE-1a), principal+earnings return to the goal. */
 export interface StrategyExited extends EventBase {
   type: 'StrategyExited';
   positionId: string;
