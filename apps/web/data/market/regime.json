@@ -1,11 +1,11 @@
 {
   "_comment": "Generated 2026-07-11 against docs/mvp/engine/02_regime_engine_specification.md v2.1 §6.1 + §8 + docs/mvp/platform/07_api_contract_response_schema.md §26, via apps/web/scripts/data-fetchers/compute-regime.mjs (live FRED + Yahoo fetch, strict-Friday resampling, §5.1 candle-lock) after appending the confirmed June 2026 BTC monthly candle (close $58,558.86; cross-verified Yahoo vs CoinGecko) to monthlyPrices.json. Regime moved NEUTRAL_MIXED (6) → DEFENSIVE (3): June's ~24% monthly drop broke BTC-01 deeper below the 20-month EMA, flipped BTC-02 (first close below the 50-month SMA this cycle, $58,559 vs $59,342) and turned BTC-03 monthly RSI back down (49.2 → 40.8); only BTC-04 (Stoch-RSI floor) holds. Weekly signals anchored at the most recent confirmed Friday close per source (NASDAQCOM/DGS10 July 10 week; DTWEXBGS June 26 — July 3 US holiday + ~1-week publication lag, see data_status message). ETF-01 evaluated UNAVAILABLE per §10.1 again this cycle (CoinGlass routes 404; Farside behind challenge wall, policy forbids evasion); 0/2 either way, score-invariant. data_status carries the same 7-source list as apps/web/data/market/data-status.json (audit gate). _translation_status sibling block tracks non-EN content review state per market-editorial.md §5.",
-  "score": 7,
+  "score": 6,
   "max_score": 14,
   "regime_code": "NEUTRAL_MIXED",
   "regime_label": "Neutral / Mixed",
   "environment_bias": "MIXED",
-  "last_updated_at": "2026-08-04T17:27:01.683Z",
+  "last_updated_at": "2026-08-10T07:55:30.136Z",
   "summary": {
     "en": {
       "short": "Conditions improved from Defensive to Neutral / Mixed on the July monthly close. Bitcoin's rebound put it back above the long-term 50-month line and turned monthly momentum up, and the dollar eased below its trend — but the intermediate structure is still broken, yields stay firm, and the short-term momentum floor gave way. A genuinely mixed picture.",
@@ -24,7 +24,7 @@
         "US 10-year yields firmed to 4.75%, further above their 20-week trend",
         "Spot-ETF net-flows remain unverifiable while the shares-outstanding ledger warms up (scored unavailable, no points)"
       ],
-      "plain": "This week the read stepped up a level, from 4 to 7 of 14. Over the month, the read is neutral: what we track is close to even, with no side in charge. What we're watching: whether the dollar loosens its grip, and whether Bitcoin starts winning against gold again."
+      "plain": "The score eased a little this week, from 7 to 6 of 14. It's a mixed month for Bitcoin: the signals are split almost evenly, some helping, some not. What we're watching: whether the dollar loosens its grip, and whether Bitcoin starts winning against gold again."
     },
     "pt-BR": {
       "short": "As condições melhoraram de Defensivo para Neutro / Misto no fechamento mensal de julho. A recuperação do Bitcoin o recolocou acima da linha de 50 meses e virou o momentum mensal para cima, e o dólar cedeu abaixo da tendência — mas a estrutura intermediária segue rompida, os juros continuam firmes e o piso de momentum de curto prazo cedeu. Um quadro genuinamente misto.",
@@ -43,7 +43,7 @@
         "Os juros americanos de 10 anos firmaram em 4,75%, ainda mais acima da tendência de 20 semanas",
         "Os fluxos líquidos de ETF à vista seguem não verificáveis enquanto o registro de cotas completa o aquecimento (pontuados como indisponíveis, sem pontos)"
       ],
-      "plain": "Nesta semana a leitura subiu um nível, de 4 para 7 de 14. No mês, a leitura é neutra: o quadro está perto do empate, sem nenhum lado no comando. O que estamos observando: se o dólar afrouxa o aperto, e se o Bitcoin volta a ganhar do ouro."
+      "plain": "A pontuação cedeu um pouco nesta semana, de 7 para 6 de 14. É um mês misto para o Bitcoin: os sinais estão divididos quase por igual, alguns ajudando, outros não. O que estamos observando: se o dólar afrouxa o aperto, e se o Bitcoin volta a ganhar do ouro."
     },
     "es": {
       "short": "Las condiciones mejoraron de Defensivo a Neutral / Mixto en el cierre mensual de julio. El rebote de Bitcoin lo devolvió por encima de la línea de 50 meses y giró el momentum mensual al alza, y el dólar cedió por debajo de su tendencia — pero la estructura intermedia sigue rota, los rendimientos se mantienen firmes y el suelo de momentum de corto plazo cedió. Un cuadro genuinamente mixto.",
@@ -62,7 +62,7 @@
         "Los rendimientos americanos a 10 años se afirmaron en el 4,75%, aún más por encima de su tendencia de 20 semanas",
         "Los flujos netos de ETF al contado siguen sin poder verificarse mientras el registro de participaciones completa su calentamiento (puntuados como no disponibles, sin puntos)"
       ],
-      "plain": "Esta semana la lectura subió un nivel, de 4 a 7 de 14. En el mes, la lectura es neutral: las señales están cerca del empate, sin ningún lado al mando. Lo que observamos: si el dólar afloja su presión, y si Bitcoin vuelve a ganar al oro."
+      "plain": "La puntuación cedió un poco esta semana, de 7 a 6 de 14. Es un mes mixto para Bitcoin: las señales están divididas casi por igual, algunas ayudan y otras no. Lo que observamos: si el dólar afloja su presión, y si Bitcoin vuelve a ganar al oro."
     },
     "de": {
       "short": "Die Bedingungen verbesserten sich mit dem Juli-Monatsschluss von Defensiv auf Neutral / Gemischt. Bitcoins Erholung brachte den Kurs zurück über die langfristige 50-Monats-Linie und drehte das Monats-Momentum nach oben, und der Dollar rutschte unter seinen Trend — aber die mittelfristige Struktur bleibt gebrochen, die Renditen bleiben fest, und der kurzfristige Momentum-Boden gab nach. Ein wirklich gemischtes Bild.",
@@ -81,7 +81,7 @@
         "Die US-Renditen für 10 Jahre zogen auf 4,75% an, noch weiter über ihren 20-Wochen-Trend",
         "Spot-ETF-Nettoflüsse bleiben nicht überprüfbar, solange das Anteilsregister aufwärmt (als nicht verfügbar gewertet, keine Punkte)"
       ],
-      "plain": "Diese Woche rückte die Bewertung eine Stufe höher, von 4 auf 7 von 14. Im Monat ist die Lage neutral: Das Feld ist nah am Gleichstand, keine Seite am Ruder. Worauf wir achten: ob der Dollar seinen Griff lockert und ob Bitcoin wieder gegen Gold gewinnt."
+      "plain": "Der Wert gab diese Woche etwas nach, von 7 auf 6 von 14. Es ist ein gemischter Monat für Bitcoin: Die Signale sind fast gleich verteilt, manches hilft, manches nicht. Worauf wir achten: ob der Dollar seinen Griff lockert und ob Bitcoin wieder gegen Gold gewinnt."
     }
   },
   "signal_groups": [
@@ -152,13 +152,13 @@
         "de": "Relative Stärke"
       },
       "status": "MIXED",
-      "points_awarded": 2,
+      "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Relative strength is split: Bitcoin leads gold but lags the Nasdaq (2 of 3 points).",
-        "pt-BR": "A força relativa está dividida: o Bitcoin supera o ouro, mas perde para a Nasdaq (2 de 3 pontos).",
-        "es": "La fuerza relativa está dividida: Bitcoin supera al oro, pero va por detrás del Nasdaq (2 de 3 puntos).",
-        "de": "Die relative Stärke ist geteilt: Bitcoin schlägt Gold, verliert aber gegen den Nasdaq (2 von 3 Punkten)."
+        "en": "Relative strength is split: Bitcoin leads on part of the board while the rest holds firm against it (1 of 3 points).",
+        "pt-BR": "A força relativa está dividida: o Bitcoin lidera em parte do quadro enquanto o resto resiste (1 de 3 pontos).",
+        "es": "La fuerza relativa está dividida: Bitcoin lidera frente a algunos de sus referentes mientras el resto resiste (1 de 3 puntos).",
+        "de": "Die relative Stärke ist geteilt: Bitcoin führt auf einem Teil des Feldes, der Rest hält dagegen (1 von 3 Punkten)."
       }
     }
   ],

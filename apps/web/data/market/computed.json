@@ -1,22 +1,18 @@
 {
   "_comment": "Machine-readable regime computation (P2 Stage 3 output). Written ONLY by scripts/market-refresh/run.mjs after the quality gate passes. The reconciliation vitest asserts regime.json agrees with this file — hand-edit regime.json scores and CI goes red (F-M4). Regenerate by running the pipeline, never by hand.",
-  "computed_at": "2026-08-04T17:27:01.683Z",
-  "score": 7,
+  "computed_at": "2026-08-10T07:55:30.136Z",
+  "score": 6,
   "max_score": 14,
   "regime_code": "NEUTRAL_MIXED",
   "group_totals": {
     "btc_structure": 3,
     "macro_environment": 2,
     "institutional_demand": 0,
-    "relative_strength": 2
+    "relative_strength": 1
   },
-  "anchor_spread_days": 0,
+  "anchor_spread_days": 7,
   "anchor_warning": null,
-  "btc_append": {
-    "ym": "2026-07-01",
-    "close": 62813.7461,
-    "divergence_pct": 0.132
-  },
+  "btc_append": null,
   "signals": [
     {
       "id": "BTC-01",
@@ -119,26 +115,26 @@
       "state": "UNAVAILABLE",
       "weight": 2,
       "points": 0,
-      "detail": "Polygon shares-outstanding ledger warming up: 3/5 weekly snapshots recorded — 4 weekly flows need 5. No guessed backfill.",
+      "detail": "Polygon shares-outstanding ledger warming up: 4/5 weekly snapshots recorded — 4 weekly flows need 5. No guessed backfill.",
       "values": {
-        "snapshots": 3,
+        "snapshots": 4,
         "warmupTarget": 5
       },
-      "anchor": "2026-07-31",
+      "anchor": "2026-08-07",
       "anchorKind": "weekly"
     },
     {
       "id": "REL-01",
-      "state": "ACTIVE",
+      "state": "INACTIVE",
       "weight": 1,
-      "points": 1,
-      "detail": "BTC/Gold ratio 15.513 vs EMA20W 15.378 (Yahoo GC=F substitute)",
+      "points": 0,
+      "detail": "BTC/Gold ratio 14.947 vs EMA20W 15.297 (Yahoo GC=F substitute)",
       "values": {
-        "ratio": 15.513013899090474,
-        "ema20": 15.37827401474306,
-        "gapPct": 0.8761703960941277
+        "ratio": 14.946941388929323,
+        "ema20": 15.29725397573853,
+        "gapPct": -2.2900357630513466
       },
-      "anchor": "2026-07-31",
+      "anchor": "2026-08-07",
       "anchorKind": "weekly"
     },
     {
@@ -146,13 +142,13 @@
       "state": "INACTIVE",
       "weight": 1,
       "points": 0,
-      "detail": "BTC/Nasdaq ratio 2.476 vs EMA20W 2.691",
+      "detail": "BTC/Nasdaq ratio 2.431 vs EMA20W 2.666",
       "values": {
-        "ratio": 2.475530756812624,
-        "ema20": 2.6910127142480773,
-        "gapPct": -8.007467088302596
+        "ratio": 2.430823690354514,
+        "ema20": 2.665532089176552,
+        "gapPct": -8.805311321333413
       },
-      "anchor": "2026-07-31",
+      "anchor": "2026-08-07",
       "anchorKind": "weekly"
     },
     {
@@ -160,13 +156,13 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "Nasdaq 25373.85 vs EMA20W 25062.34",
+      "detail": "Nasdaq 26690.62 vs EMA20W 25217.41",
       "values": {
-        "close": 25373.85,
-        "ema20": 25062.340789270707,
-        "gapPct": 1.24293741493871
+        "close": 26690.62,
+        "ema20": 25217.414999816352,
+        "gapPct": 5.842014338878016
       },
-      "anchor": "2026-07-31",
+      "anchor": "2026-08-07",
       "anchorKind": "weekly"
     }
   ],
@@ -174,37 +170,37 @@
     {
       "source": "FRED:DTWEXBGS",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS&cosd=2023-01-01",
-      "fetchedAt": "2026-08-04T17:27:01.636Z",
+      "fetchedAt": "2026-08-10T07:55:30.033Z",
       "licence": "public-domain"
     },
     {
       "source": "FRED:DGS10",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2023-01-01",
-      "fetchedAt": "2026-08-04T17:27:01.486Z",
+      "fetchedAt": "2026-08-10T07:55:30.026Z",
       "licence": "public-domain"
     },
     {
       "source": "FRED:M2SL",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=M2SL&cosd=2023-01-01",
-      "fetchedAt": "2026-08-04T17:27:01.489Z",
+      "fetchedAt": "2026-08-10T07:55:30.031Z",
       "licence": "public-domain"
     },
     {
       "source": "FRED:NASDAQCOM",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQCOM&cosd=2023-01-01",
-      "fetchedAt": "2026-08-04T17:27:01.554Z",
+      "fetchedAt": "2026-08-10T07:55:30.029Z",
       "licence": "public-domain"
     },
     {
       "source": "Yahoo:BTC-USD",
       "url": "chart/BTC-USD?interval=1d",
-      "fetchedAt": "2026-08-04T17:27:00.453Z",
+      "fetchedAt": "2026-08-10T07:55:30.095Z",
       "licence": "quote-display"
     },
     {
       "source": "Yahoo:GC=F",
       "url": "chart/GC=F?interval=1d",
-      "fetchedAt": "2026-08-04T17:27:00.539Z",
+      "fetchedAt": "2026-08-10T07:55:30.056Z",
       "licence": "quote-display"
     }
   ]
