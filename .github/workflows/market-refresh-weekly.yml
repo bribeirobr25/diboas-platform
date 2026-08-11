@@ -79,6 +79,13 @@ jobs:
       - name: Open refresh PR
         uses: peter-evans/create-pull-request@v7
         with:
+          # B4(a) 2026-08-11: a PR created with the default GITHUB_TOKEN never
+          # triggers `pull_request` workflows, so the weekly PR got no main CI.
+          # The fine-grained PAT (Contents + Pull requests on this repo only,
+          # founder-owned) makes the full battery run on it. Falls back to the
+          # default token (old no-CI behavior, still guarded by the in-workflow
+          # gates) if the secret is removed or expires.
+          token: ${{ secrets.MARKET_REFRESH_PR_TOKEN || github.token }}
           branch: editorial/market-refresh-auto
           commit-message: 'data(market): weekly refresh (automated)'
           title: 'data(market): weekly refresh — review before merge'
