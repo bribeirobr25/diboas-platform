@@ -296,21 +296,21 @@
     }
   ],
   "_translation_status": {
-    "_comment": "Translation status per market-editorial.md §5. EN is authoritative; pt-BR / es / de drafted by engineering with research-memo voice (doc 03 §5.2) and the Phase 7 jargon ban (see scripts/check-market-data-jargon.mjs for the banned-terms list), then reviewed by Claude 2026-07-07 per messaging fix plan MSG-11 (D-MSG-10) — fixed mistranslated titles (MAC-02), false-cognate errors (ETF-01 de), and calques against the EN source. A professional-translator pass is still required before the MARKET_INDEXABLE flip. The corresponding regime.json#_translation_status governs the higher-stakes summary.detailed field.",
+    "_comment": "Translation status per market-editorial.md §5. EN is authoritative. Since P3 (2026-07-11) the per-signal and per-group summaries are GENERATED from the reviewed template library (scripts/market-refresh/templates/, F-M9 — translated once at the library level; lineage: engineering draft → Claude review 2026-07-07 per D-MSG-10, jargon ban via scripts/check-market-data-jargon.mjs). Titles are static editorial. A professional-translator pass is still required before the MARKET_INDEXABLE flip (PENDING_ALL 5.38). The corresponding regime.json#_translation_status governs the higher-stakes summary.detailed field.",
     "signals.*.title": {
       "pt-BR": "claude-reviewed",
       "es": "claude-reviewed",
       "de": "claude-reviewed"
     },
     "signals.*.summary": {
-      "pt-BR": "claude-reviewed",
-      "es": "claude-reviewed",
-      "de": "claude-reviewed"
+      "pt-BR": "template-generated-claude-reviewed-library",
+      "es": "template-generated-claude-reviewed-library",
+      "de": "template-generated-claude-reviewed-library"
     },
     "groups.*.summary": {
-      "pt-BR": "claude-reviewed",
-      "es": "claude-reviewed",
-      "de": "claude-reviewed"
+      "pt-BR": "template-generated-claude-reviewed-library",
+      "es": "template-generated-claude-reviewed-library",
+      "de": "template-generated-claude-reviewed-library"
     },
     "groups.*.title": {
       "pt-BR": "preserved-from-iter3",

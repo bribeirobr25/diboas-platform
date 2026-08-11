@@ -231,26 +231,26 @@
     "unavailable_sources": ["Polygon:ETF (shares-outstanding)"]
   },
   "_translation_status": {
-    "_comment": "Translation status per market-editorial.md §5. EN is authoritative; pt-BR / es / de for the 2026-07-11 DEFENSIVE cycle were drafted by engineering in the research-memo voice (doc 03 §5.2) under the Phase 7 jargon ban and self-reviewed the same session (register rules: de du-register n/a here — memo voice; es peninsular; pt-BR neutral-formal memo). A professional-translator pass remains the gate before the MARKET_INDEXABLE flip (PENDING_ALL 5.38).",
+    "_comment": "Translation status per market-editorial.md §5. EN is authoritative. The memo-voice fields (summary.short/detailed/key_*) are per-cycle editorial: the 2026-08-10 cycle strings were engineering-drafted in the research-memo voice (doc 03 §5.2, Phase 7 jargon ban) and claude-reviewed in the PR #477 weekly review 2026-08-11 (register rules: de du-register n/a here — memo voice; es peninsular; pt-BR neutral-formal memo). summary.plain and the signal/group summaries are generated from the reviewed template library (F-M9 — translated once at the library level). A professional-translator pass remains the gate before the MARKET_INDEXABLE flip (PENDING_ALL 5.38).",
     "summary.detailed": {
-      "pt-BR": "engineering-draft-self-reviewed-2026-07-11",
-      "es": "engineering-draft-self-reviewed-2026-07-11",
-      "de": "engineering-draft-self-reviewed-2026-07-11"
+      "pt-BR": "engineering-draft-claude-reviewed-2026-08-11",
+      "es": "engineering-draft-claude-reviewed-2026-08-11",
+      "de": "engineering-draft-claude-reviewed-2026-08-11"
     },
     "summary.short": {
-      "pt-BR": "engineering-draft-self-reviewed-2026-07-11",
-      "es": "engineering-draft-self-reviewed-2026-07-11",
-      "de": "engineering-draft-self-reviewed-2026-07-11"
+      "pt-BR": "engineering-draft-claude-reviewed-2026-08-11",
+      "es": "engineering-draft-claude-reviewed-2026-08-11",
+      "de": "engineering-draft-claude-reviewed-2026-08-11"
     },
     "summary.key_supportive_factors": {
-      "pt-BR": "engineering-draft-self-reviewed-2026-07-11",
-      "es": "engineering-draft-self-reviewed-2026-07-11",
-      "de": "engineering-draft-self-reviewed-2026-07-11"
+      "pt-BR": "engineering-draft-claude-reviewed-2026-08-11",
+      "es": "engineering-draft-claude-reviewed-2026-08-11",
+      "de": "engineering-draft-claude-reviewed-2026-08-11"
     },
     "summary.key_headwinds": {
-      "pt-BR": "engineering-draft-self-reviewed-2026-07-11",
-      "es": "engineering-draft-self-reviewed-2026-07-11",
-      "de": "engineering-draft-self-reviewed-2026-07-11"
+      "pt-BR": "engineering-draft-claude-reviewed-2026-08-11",
+      "es": "engineering-draft-claude-reviewed-2026-08-11",
+      "de": "engineering-draft-claude-reviewed-2026-08-11"
     },
     "signal_groups.*.summary": {
       "pt-BR": "engineering-draft-self-reviewed-2026-07-11",
