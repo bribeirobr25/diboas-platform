@@ -97,6 +97,13 @@
       "es": "La fuerza relativa está dividida: Bitcoin supera a {supportive}, pero va por detrás de {against} ({points} de {max} puntos).",
       "de": "Die relative Stärke ist geteilt: Bitcoin schlägt {supportive}, verliert aber gegen {against} ({points} von {max} Punkten)."
     },
+    "mixedBackdropOnly": {
+      "_comment": "B1 (2026-08-11): the 'mixed' state where BOTH BTC-relative reads (REL-01 gold, REL-02 Nasdaq) are INACTIVE and the group's point is REL-03 alone — the generic 'mixed' claim 'Bitcoin leads on part of the board' is false there. First hit 2026-08-10 (shipped that week as an editorial override; copy identical).",
+      "en": "Relative strength is split: Bitcoin trails both gold and the Nasdaq, but the wider risk market itself stays structurally healthy ({points} of {max} points).",
+      "pt-BR": "A força relativa está dividida: o Bitcoin perde para o ouro e para a Nasdaq, mas o mercado de risco mais amplo segue estruturalmente saudável ({points} de {max} pontos).",
+      "es": "La fuerza relativa está dividida: Bitcoin pierde contra el oro y el Nasdaq, pero el mercado de riesgo más amplio sigue estructuralmente sano ({points} de {max} puntos).",
+      "de": "Die relative Stärke ist geteilt: Bitcoin liegt hinter Gold und dem Nasdaq zurück, doch der breitere Risikomarkt bleibt strukturell gesund ({points} von {max} Punkten)."
+    },
     "strong": {
       "en": "Bitcoin leads its benchmarks: it outpaces gold and the Nasdaq on the weekly trend ({points} of {max} points).",
       "pt-BR": "O Bitcoin lidera seus referenciais: supera o ouro e a Nasdaq na tendência semanal ({points} de {max} pontos).",
