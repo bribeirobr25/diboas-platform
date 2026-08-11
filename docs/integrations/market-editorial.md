@@ -4,7 +4,7 @@
 
 > **Audience:** the editorial owner of `/market` (Adelaide Market). The macro analyst, content owner, or designated curator who keeps the regime score, signal states, and commentary fresh.
 > **Goal:** ship a regime-score / signals / commentary update in under 30 minutes, end-to-end, without engineering hand-holding.
-> **Last updated:** 2026-07-12 (P2/P3 automation shipped — see the pipeline note in §7; the automation-plan record was deleted, the pipeline scripts are self-documenting). Prior baseline: 2026-05-14 (iteration 3).
+> **Last updated:** 2026-08-11 (B1–B4: cycle-scoped `_cycle` overrides, `mixedBackdropOnly` REL variant, AUTO-GENERATED `data_status` panel, weekly-PR format gate + full CI via PAT). Prior: 2026-07-12 (P2/P3 automation) · 2026-05-14 (iteration 3).
 
 ---
 
