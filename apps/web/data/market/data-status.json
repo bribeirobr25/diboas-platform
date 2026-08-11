@@ -61,7 +61,5 @@
     }
   ],
   "delayed_sources": [],
-  "unavailable_sources": [
-    "Polygon:ETF (shares-outstanding)"
-  ]
+  "unavailable_sources": ["Polygon:ETF (shares-outstanding)"]
 }
