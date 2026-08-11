@@ -1,87 +1,91 @@
 {
-  "_comment": "Generated 2026-07-11 against docs/mvp/engine/02_regime_engine_specification.md v2.1 §6.1 + §8 + docs/mvp/platform/07_api_contract_response_schema.md §26, via apps/web/scripts/data-fetchers/compute-regime.mjs (live FRED + Yahoo fetch, strict-Friday resampling, §5.1 candle-lock) after appending the confirmed June 2026 BTC monthly candle (close $58,558.86; cross-verified Yahoo vs CoinGecko) to monthlyPrices.json. Regime moved NEUTRAL_MIXED (6) → DEFENSIVE (3): June's ~24% monthly drop broke BTC-01 deeper below the 20-month EMA, flipped BTC-02 (first close below the 50-month SMA this cycle, $58,559 vs $59,342) and turned BTC-03 monthly RSI back down (49.2 → 40.8); only BTC-04 (Stoch-RSI floor) holds. Weekly signals anchored at the most recent confirmed Friday close per source (NASDAQCOM/DGS10 July 10 week; DTWEXBGS June 26 — July 3 US holiday + ~1-week publication lag, see data_status message). ETF-01 evaluated UNAVAILABLE per §10.1 again this cycle (CoinGlass routes 404; Farside behind challenge wall, policy forbids evasion); 0/2 either way, score-invariant. data_status carries the same 7-source list as apps/web/data/market/data-status.json (audit gate). _translation_status sibling block tracks non-EN content review state per market-editorial.md §5.",
-  "score": 7,
+  "_comment": "Weekly refresh generated 2026-08-10 by apps/web/scripts/market-refresh/run.mjs (P2 fetch + fail-closed quality gate + shared engine) with editorial copy from generate.mjs (P3 template library; overrides in editorial-override.json). Cycle 2026-08-10: score 7 → 6, staying NEUTRAL_MIXED — REL-01 (BTC/Gold) flipped INACTIVE (ratio 14.947 vs 20-week trend 15.297). Structural signals anchor the confirmed July 31 monthly close per doc 02 §5.1 (BTC-02 + BTC-03 active; BTC-01 + BTC-04 inactive); weekly signals anchor the most recent confirmed Friday per source — NASDAQCOM/GC=F at 2026-08-07, DGS10/DTWEXBGS at 2026-07-31 (publication lag at the Monday 07:55 UTC run), M2SL at the June print (July due ~late August). ETF-01 evaluated UNAVAILABLE per doc 02 §10.1 while the Polygon shares-outstanding ledger warms up (4 of 5 weekly snapshots; first scorable evaluation expected ~2026-08-17). data_status carries the same source list as apps/web/data/market/data-status.json (byte-parity audit gate, F-M6). _translation_status sibling block tracks non-EN content review state per market-editorial.md §5.",
+  "score": 6,
   "max_score": 14,
   "regime_code": "NEUTRAL_MIXED",
   "regime_label": "Neutral / Mixed",
   "environment_bias": "MIXED",
-  "last_updated_at": "2026-08-04T17:27:01.683Z",
+  "last_updated_at": "2026-08-10T07:55:30.136Z",
   "summary": {
     "en": {
       "short": "Conditions improved from Defensive to Neutral / Mixed on the July monthly close. Bitcoin's rebound put it back above the long-term 50-month line and turned monthly momentum up, and the dollar eased below its trend — but the intermediate structure is still broken, yields stay firm, and the short-term momentum floor gave way. A genuinely mixed picture.",
-      "detailed": "The environment stepped up from Defensive to Neutral / Mixed on the July monthly close: Bitcoin rose about 7% in the month to $62,814, reclaiming its 50-month SMA one month after the cycle's first break, while monthly RSI turned up from 40.8 to 43.2. The intermediate structure remains broken — price still sits roughly 20% below its 20-month EMA — and the monthly Stoch-RSI slipped just below its oversold threshold, giving back the point short-term momentum had been holding. The macro picture split: the dollar eased below its 20-week trend for the first time in months, while US 10-year yields firmed further above trend; global liquidity (M2) kept expanding at about 5.5% year over year. Relative strength is constructive on two of three reads — Bitcoin holds above trend against gold and the Nasdaq itself is extended above trend, while BTC still lags the Nasdaq pair. The structural read is as of the July 31 monthly close per the engine's confirmed-candle rule; the next monthly re-evaluation is the August 31 close. Institutional demand (spot ETF flows) remains unavailable while the new shares-outstanding ledger warms up.",
+      "detailed": "The environment stepped up from Defensive to Neutral / Mixed on the July monthly close: Bitcoin rose about 7% in the month to $62,814, reclaiming its 50-month SMA one month after the cycle's first break, while monthly RSI turned up from 40.8 to 43.2. The intermediate structure remains broken — price still sits roughly 20% below its 20-month EMA — and the monthly Stoch-RSI slipped just below its oversold threshold, giving back the point short-term momentum had been holding. The macro picture split: the dollar eased below its 20-week trend for the first time in months, while US 10-year yields firmed further above trend; global liquidity (M2) kept expanding at about 5.5% year over year. Relative strength thinned to one of three reads — Bitcoin slipped back below its 20-week trend against gold this week and still lags the Nasdaq pair, while the Nasdaq itself remains extended above trend. The structural read is as of the July 31 monthly close per the engine's confirmed-candle rule; the next monthly re-evaluation is the August 31 close. Institutional demand (spot ETF flows) remains unavailable while the new shares-outstanding ledger warms up.",
       "confidence_level": "MODERATE",
       "mixed_signals": true,
       "key_supportive_factors": [
         "July's close reclaimed the 50-month SMA ($62,814 vs $59,963) one month after the cycle's first break — the long-term line is back underfoot",
         "Monthly RSI turned up (40.8 → 43.2) — the momentum deterioration paused",
         "The dollar slipped below its 20-week trend while global liquidity (M2) keeps expanding at about 5.5% year over year",
-        "Bitcoin holds above trend against gold, and the Nasdaq itself sits about 1.2% above trend — broader risk appetite is intact"
+        "The Nasdaq holds about 5.8% above its 20-week trend — the wider risk market is structurally healthy"
       ],
       "key_headwinds": [
         "Price still closed about 20% below the 20-month EMA — the intermediate structure remains broken",
         "The monthly Stoch-RSI %K slipped to 8.9, just under its oversold threshold — the short-term momentum floor gave way",
         "US 10-year yields firmed to 4.75%, further above their 20-week trend",
-        "Spot-ETF net-flows remain unverifiable while the shares-outstanding ledger warms up (scored unavailable, no points)"
+        "Spot-ETF net-flows remain unverifiable while the shares-outstanding ledger warms up (scored unavailable, no points)",
+        "Bitcoin slipped back below its 20-week trend against gold — the defensive asset is winning this stretch"
       ],
-      "plain": "This week the read stepped up a level, from 4 to 7 of 14. Over the month, the read is neutral: what we track is close to even, with no side in charge. What we're watching: whether the dollar loosens its grip, and whether Bitcoin starts winning against gold again."
+      "plain": "The score eased a little this week, from 7 to 6 of 14. It's a mixed month for Bitcoin: the signals are split almost evenly, some helping, some not. What we're watching: whether the dollar loosens its grip, and whether Bitcoin starts winning against gold again."
     },
     "pt-BR": {
       "short": "As condições melhoraram de Defensivo para Neutro / Misto no fechamento mensal de julho. A recuperação do Bitcoin o recolocou acima da linha de 50 meses e virou o momentum mensal para cima, e o dólar cedeu abaixo da tendência — mas a estrutura intermediária segue rompida, os juros continuam firmes e o piso de momentum de curto prazo cedeu. Um quadro genuinamente misto.",
-      "detailed": "O ambiente subiu de Defensivo para Neutro / Misto no fechamento mensal de julho: o Bitcoin subiu cerca de 7% no mês, para US$ 62.814, retomando sua SMA de 50 meses um mês após o primeiro rompimento do ciclo, enquanto o RSI mensal virou para cima, de 40,8 para 43,2. A estrutura intermediária segue rompida — o preço ainda está cerca de 20% abaixo da EMA de 20 meses — e o Stoch-RSI mensal escorregou para logo abaixo do seu limiar de sobrevenda, devolvendo o ponto que o momentum de curto prazo vinha segurando. O quadro macro se dividiu: o dólar cedeu abaixo da tendência de 20 semanas pela primeira vez em meses, enquanto os juros americanos de 10 anos firmaram ainda mais acima da tendência; a liquidez global (M2) segue expandindo a cerca de 5,5% ao ano. A força relativa está construtiva em duas de três leituras — o Bitcoin se mantém acima da tendência contra o ouro e o próprio Nasdaq está esticado acima da tendência, enquanto o BTC ainda fica atrás no par com o Nasdaq. A leitura estrutural é a do fechamento mensal de 31 de julho, pela regra de candle confirmado do motor; a próxima reavaliação mensal é o fechamento de 31 de agosto. A demanda institucional (fluxos de ETF à vista) segue indisponível enquanto o novo registro de cotas em circulação completa o aquecimento.",
+      "detailed": "O ambiente subiu de Defensivo para Neutro / Misto no fechamento mensal de julho: o Bitcoin subiu cerca de 7% no mês, para US$ 62.814, retomando sua SMA de 50 meses um mês após o primeiro rompimento do ciclo, enquanto o RSI mensal virou para cima, de 40,8 para 43,2. A estrutura intermediária segue rompida — o preço ainda está cerca de 20% abaixo da EMA de 20 meses — e o Stoch-RSI mensal escorregou para logo abaixo do seu limiar de sobrevenda, devolvendo o ponto que o momentum de curto prazo vinha segurando. O quadro macro se dividiu: o dólar cedeu abaixo da tendência de 20 semanas pela primeira vez em meses, enquanto os juros americanos de 10 anos firmaram ainda mais acima da tendência; a liquidez global (M2) segue expandindo a cerca de 5,5% ao ano. A força relativa encolheu para uma de três leituras — o Bitcoin voltou a cair abaixo da tendência de 20 semanas contra o ouro nesta semana e segue atrás do par com o Nasdaq, enquanto o próprio Nasdaq permanece esticado acima da tendência. A leitura estrutural é a do fechamento mensal de 31 de julho, pela regra de candle confirmado do motor; a próxima reavaliação mensal é o fechamento de 31 de agosto. A demanda institucional (fluxos de ETF à vista) segue indisponível enquanto o novo registro de cotas em circulação completa o aquecimento.",
       "confidence_level": "MODERATE",
       "mixed_signals": true,
       "key_supportive_factors": [
         "O fechamento de julho retomou a SMA de 50 meses (US$ 62.814 vs US$ 59.963) um mês após o primeiro rompimento do ciclo — a linha de longo prazo voltou a ficar sob os pés",
         "O RSI mensal virou para cima (40,8 → 43,2) — a deterioração do momentum fez uma pausa",
         "O dólar escorregou abaixo da tendência de 20 semanas enquanto a liquidez global (M2) segue expandindo a cerca de 5,5% ao ano",
-        "O Bitcoin se mantém acima da tendência contra o ouro, e o próprio Nasdaq está cerca de 1,2% acima da tendência — o apetite por risco segue intacto"
+        "O Nasdaq se mantém cerca de 5,8% acima da tendência de 20 semanas — o mercado de risco mais amplo está estruturalmente saudável"
       ],
       "key_headwinds": [
         "O preço ainda fechou cerca de 20% abaixo da EMA de 20 meses — a estrutura intermediária segue rompida",
         "O %K do Stoch-RSI mensal escorregou para 8,9, logo abaixo do limiar de sobrevenda — o piso de momentum de curto prazo cedeu",
         "Os juros americanos de 10 anos firmaram em 4,75%, ainda mais acima da tendência de 20 semanas",
-        "Os fluxos líquidos de ETF à vista seguem não verificáveis enquanto o registro de cotas completa o aquecimento (pontuados como indisponíveis, sem pontos)"
+        "Os fluxos líquidos de ETF à vista seguem não verificáveis enquanto o registro de cotas completa o aquecimento (pontuados como indisponíveis, sem pontos)",
+        "O Bitcoin voltou a cair abaixo da tendência de 20 semanas contra o ouro — o ativo defensivo vence este trecho"
       ],
-      "plain": "Nesta semana a leitura subiu um nível, de 4 para 7 de 14. No mês, a leitura é neutra: o quadro está perto do empate, sem nenhum lado no comando. O que estamos observando: se o dólar afrouxa o aperto, e se o Bitcoin volta a ganhar do ouro."
+      "plain": "A pontuação cedeu um pouco nesta semana, de 7 para 6 de 14. É um mês misto para o Bitcoin: os sinais estão divididos quase por igual, alguns ajudando, outros não. O que estamos observando: se o dólar afrouxa o aperto, e se o Bitcoin volta a ganhar do ouro."
     },
     "es": {
       "short": "Las condiciones mejoraron de Defensivo a Neutral / Mixto en el cierre mensual de julio. El rebote de Bitcoin lo devolvió por encima de la línea de 50 meses y giró el momentum mensual al alza, y el dólar cedió por debajo de su tendencia — pero la estructura intermedia sigue rota, los rendimientos se mantienen firmes y el suelo de momentum de corto plazo cedió. Un cuadro genuinamente mixto.",
-      "detailed": "El entorno subió de Defensivo a Neutral / Mixto en el cierre mensual de julio: Bitcoin subió cerca de un 7% en el mes, hasta 62.814 dólares, recuperando su SMA de 50 meses un mes después de la primera ruptura del ciclo, mientras el RSI mensual giró al alza de 40,8 a 43,2. La estructura intermedia sigue rota — el precio aún está en torno a un 20% por debajo de su EMA de 20 meses — y el Stoch-RSI mensual resbaló justo por debajo de su umbral de sobreventa, devolviendo el punto que el momentum de corto plazo venía sosteniendo. El cuadro macro se dividió: el dólar cedió por debajo de su tendencia de 20 semanas por primera vez en meses, mientras los rendimientos americanos a 10 años se afirmaron aún más por encima de la tendencia; la liquidez global (M2) sigue expandiéndose en torno a un 5,5% interanual. La fuerza relativa es constructiva en dos de tres lecturas — Bitcoin se mantiene por encima de la tendencia frente al oro y el propio Nasdaq está extendido por encima de la tendencia, mientras BTC aún queda rezagado en el par con el Nasdaq. La lectura estructural corresponde al cierre mensual del 31 de julio, según la regla de vela confirmada del motor; la próxima reevaluación mensual es el cierre del 31 de agosto. La demanda institucional (flujos de ETF al contado) sigue no disponible mientras el nuevo registro de participaciones en circulación completa su calentamiento.",
+      "detailed": "El entorno subió de Defensivo a Neutral / Mixto en el cierre mensual de julio: Bitcoin subió cerca de un 7% en el mes, hasta 62.814 dólares, recuperando su SMA de 50 meses un mes después de la primera ruptura del ciclo, mientras el RSI mensual giró al alza de 40,8 a 43,2. La estructura intermedia sigue rota — el precio aún está en torno a un 20% por debajo de su EMA de 20 meses — y el Stoch-RSI mensual resbaló justo por debajo de su umbral de sobreventa, devolviendo el punto que el momentum de corto plazo venía sosteniendo. El cuadro macro se dividió: el dólar cedió por debajo de su tendencia de 20 semanas por primera vez en meses, mientras los rendimientos americanos a 10 años se afirmaron aún más por encima de la tendencia; la liquidez global (M2) sigue expandiéndose en torno a un 5,5% interanual. La fuerza relativa se redujo a una de tres lecturas — Bitcoin volvió a caer por debajo de su tendencia de 20 semanas frente al oro esta semana y sigue rezagado en el par con el Nasdaq, mientras el propio Nasdaq se mantiene extendido por encima de la tendencia. La lectura estructural corresponde al cierre mensual del 31 de julio, según la regla de vela confirmada del motor; la próxima reevaluación mensual es el cierre del 31 de agosto. La demanda institucional (flujos de ETF al contado) sigue no disponible mientras el nuevo registro de participaciones en circulación completa su calentamiento.",
       "confidence_level": "MODERATE",
       "mixed_signals": true,
       "key_supportive_factors": [
         "El cierre de julio recuperó la SMA de 50 meses (62.814 vs 59.963 dólares) un mes después de la primera ruptura del ciclo — la línea de largo plazo vuelve a estar bajo los pies",
         "El RSI mensual giró al alza (40,8 → 43,2) — el deterioro del momentum hizo una pausa",
         "El dólar resbaló por debajo de su tendencia de 20 semanas mientras la liquidez global (M2) sigue expandiéndose en torno a un 5,5% interanual",
-        "Bitcoin se mantiene por encima de la tendencia frente al oro, y el propio Nasdaq está cerca de un 1,2% por encima de la tendencia — el apetito por el riesgo sigue intacto"
+        "El Nasdaq se mantiene cerca de un 5,8% por encima de su tendencia de 20 semanas — el mercado de riesgo más amplio está estructuralmente sano"
       ],
       "key_headwinds": [
         "El precio aún cerró en torno a un 20% por debajo de la EMA de 20 meses — la estructura intermedia sigue rota",
         "El %K del Stoch-RSI mensual resbaló hasta 8,9, justo por debajo del umbral de sobreventa — el suelo de momentum de corto plazo cedió",
         "Los rendimientos americanos a 10 años se afirmaron en el 4,75%, aún más por encima de su tendencia de 20 semanas",
-        "Los flujos netos de ETF al contado siguen sin poder verificarse mientras el registro de participaciones completa su calentamiento (puntuados como no disponibles, sin puntos)"
+        "Los flujos netos de ETF al contado siguen sin poder verificarse mientras el registro de participaciones completa su calentamiento (puntuados como no disponibles, sin puntos)",
+        "Bitcoin volvió a caer por debajo de su tendencia de 20 semanas frente al oro — el activo defensivo gana este tramo"
       ],
-      "plain": "Esta semana la lectura subió un nivel, de 4 a 7 de 14. En el mes, la lectura es neutral: las señales están cerca del empate, sin ningún lado al mando. Lo que observamos: si el dólar afloja su presión, y si Bitcoin vuelve a ganar al oro."
+      "plain": "La puntuación cedió un poco esta semana, de 7 a 6 de 14. Es un mes mixto para Bitcoin: las señales están divididas casi por igual, algunas ayudan y otras no. Lo que observamos: si el dólar afloja su presión, y si Bitcoin vuelve a ganar al oro."
     },
     "de": {
       "short": "Die Bedingungen verbesserten sich mit dem Juli-Monatsschluss von Defensiv auf Neutral / Gemischt. Bitcoins Erholung brachte den Kurs zurück über die langfristige 50-Monats-Linie und drehte das Monats-Momentum nach oben, und der Dollar rutschte unter seinen Trend — aber die mittelfristige Struktur bleibt gebrochen, die Renditen bleiben fest, und der kurzfristige Momentum-Boden gab nach. Ein wirklich gemischtes Bild.",
-      "detailed": "Das Umfeld stieg mit dem Juli-Monatsschluss von Defensiv auf Neutral / Gemischt: Bitcoin legte im Monat rund 7% auf 62.814 Dollar zu und eroberte seinen 50-Monats-SMA einen Monat nach dem ersten Bruch dieses Zyklus zurück, während der Monats-RSI von 40,8 auf 43,2 nach oben drehte. Die mittelfristige Struktur bleibt gebrochen — der Kurs liegt weiterhin rund 20% unter seinem 20-Monats-EMA — und der monatliche Stoch-RSI rutschte knapp unter seine Überverkauft-Schwelle und gab damit den Punkt zurück, den das kurzfristige Momentum gehalten hatte. Das Makrobild teilte sich: Der Dollar fiel erstmals seit Monaten unter seinen 20-Wochen-Trend, während die US-Renditen für 10 Jahre weiter über dem Trend anzogen; die globale Liquidität (M2) wächst weiter mit rund 5,5% im Jahresvergleich. Die relative Stärke ist in zwei von drei Messungen konstruktiv — Bitcoin hält sich gegenüber Gold über dem Trend, und der Nasdaq selbst notiert gedehnt über dem Trend, während BTC im Nasdaq-Paar weiter zurückliegt. Die strukturelle Lesart gilt per Monatsschluss 31. Juli nach der Regel der bestätigten Kerze; die nächste monatliche Neubewertung ist der Schluss am 31. August. Die institutionelle Nachfrage (Spot-ETF-Flüsse) bleibt nicht verfügbar, solange das neue Anteilsregister seine Aufwärmphase durchläuft.",
+      "detailed": "Das Umfeld stieg mit dem Juli-Monatsschluss von Defensiv auf Neutral / Gemischt: Bitcoin legte im Monat rund 7% auf 62.814 Dollar zu und eroberte seinen 50-Monats-SMA einen Monat nach dem ersten Bruch dieses Zyklus zurück, während der Monats-RSI von 40,8 auf 43,2 nach oben drehte. Die mittelfristige Struktur bleibt gebrochen — der Kurs liegt weiterhin rund 20% unter seinem 20-Monats-EMA — und der monatliche Stoch-RSI rutschte knapp unter seine Überverkauft-Schwelle und gab damit den Punkt zurück, den das kurzfristige Momentum gehalten hatte. Das Makrobild teilte sich: Der Dollar fiel erstmals seit Monaten unter seinen 20-Wochen-Trend, während die US-Renditen für 10 Jahre weiter über dem Trend anzogen; die globale Liquidität (M2) wächst weiter mit rund 5,5% im Jahresvergleich. Die relative Stärke schrumpfte auf eine von drei Messungen — Bitcoin rutschte diese Woche gegenüber Gold wieder unter seinen 20-Wochen-Trend und liegt im Nasdaq-Paar weiter zurück, während der Nasdaq selbst gedehnt über dem Trend bleibt. Die strukturelle Lesart gilt per Monatsschluss 31. Juli nach der Regel der bestätigten Kerze; die nächste monatliche Neubewertung ist der Schluss am 31. August. Die institutionelle Nachfrage (Spot-ETF-Flüsse) bleibt nicht verfügbar, solange das neue Anteilsregister seine Aufwärmphase durchläuft.",
       "confidence_level": "MODERATE",
       "mixed_signals": true,
       "key_supportive_factors": [
         "Der Juli-Schluss eroberte den 50-Monats-SMA zurück (62.814 vs. 59.963 Dollar), einen Monat nach dem ersten Bruch des Zyklus — die langfristige Linie liegt wieder unter den Füßen",
         "Der Monats-RSI drehte nach oben (40,8 → 43,2) — die Momentum-Verschlechterung pausiert",
         "Der Dollar rutschte unter seinen 20-Wochen-Trend, während die globale Liquidität (M2) mit rund 5,5% im Jahresvergleich weiter wächst",
-        "Bitcoin hält sich gegenüber Gold über dem Trend, und der Nasdaq selbst liegt rund 1,2% über dem Trend — die Risikobereitschaft bleibt intakt"
+        "Der Nasdaq hält sich rund 5,8% über seinem 20-Wochen-Trend — der breitere Risikomarkt ist strukturell gesund"
       ],
       "key_headwinds": [
         "Der Kurs schloss weiterhin rund 20% unter dem 20-Monats-EMA — die mittelfristige Struktur bleibt gebrochen",
         "Der %K des monatlichen Stoch-RSI rutschte auf 8,9, knapp unter die Überverkauft-Schwelle — der kurzfristige Momentum-Boden gab nach",
         "Die US-Renditen für 10 Jahre zogen auf 4,75% an, noch weiter über ihren 20-Wochen-Trend",
-        "Spot-ETF-Nettoflüsse bleiben nicht überprüfbar, solange das Anteilsregister aufwärmt (als nicht verfügbar gewertet, keine Punkte)"
+        "Spot-ETF-Nettoflüsse bleiben nicht überprüfbar, solange das Anteilsregister aufwärmt (als nicht verfügbar gewertet, keine Punkte)",
+        "Bitcoin rutschte gegenüber Gold wieder unter den 20-Wochen-Trend — das defensive Anlagegut gewinnt diese Phase"
       ],
-      "plain": "Diese Woche rückte die Bewertung eine Stufe höher, von 4 auf 7 von 14. Im Monat ist die Lage neutral: Das Feld ist nah am Gleichstand, keine Seite am Ruder. Worauf wir achten: ob der Dollar seinen Griff lockert und ob Bitcoin wieder gegen Gold gewinnt."
+      "plain": "Der Wert gab diese Woche etwas nach, von 7 auf 6 von 14. Es ist ein gemischter Monat für Bitcoin: Die Signale sind fast gleich verteilt, manches hilft, manches nicht. Worauf wir achten: ob der Dollar seinen Griff lockert und ob Bitcoin wieder gegen Gold gewinnt."
     }
   },
   "signal_groups": [
@@ -152,19 +156,19 @@
         "de": "Relative Stärke"
       },
       "status": "MIXED",
-      "points_awarded": 2,
+      "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Relative strength is split: Bitcoin leads gold but lags the Nasdaq (2 of 3 points).",
-        "pt-BR": "A força relativa está dividida: o Bitcoin supera o ouro, mas perde para a Nasdaq (2 de 3 pontos).",
-        "es": "La fuerza relativa está dividida: Bitcoin supera al oro, pero va por detrás del Nasdaq (2 de 3 puntos).",
-        "de": "Die relative Stärke ist geteilt: Bitcoin schlägt Gold, verliert aber gegen den Nasdaq (2 von 3 Punkten)."
+        "en": "Relative strength is split: Bitcoin trails both gold and the Nasdaq, but the wider risk market itself stays structurally healthy (1 of 3 points).",
+        "pt-BR": "A força relativa está dividida: o Bitcoin perde para o ouro e para a Nasdaq, mas o mercado de risco mais amplo segue estruturalmente saudável (1 de 3 pontos).",
+        "es": "La fuerza relativa está dividida: Bitcoin pierde contra el oro y el Nasdaq, pero el mercado de riesgo más amplio sigue estructuralmente sano (1 de 3 puntos).",
+        "de": "Die relative Stärke ist geteilt: Bitcoin liegt hinter Gold und dem Nasdaq zurück, doch der breitere Risikomarkt bleibt strukturell gesund (1 von 3 Punkten)."
       }
     }
   ],
   "data_status": {
     "overall_confidence": "MODERATE",
-    "last_successful_update_at": "2026-08-04T17:27:01.683Z",
+    "last_successful_update_at": "2026-08-10T07:55:30.136Z",
     "sources": [
       {
         "source": "in-repo:monthlyPrices.json (BTC)",
@@ -201,26 +205,26 @@
       {
         "source": "FRED:NASDAQCOM",
         "status": "FRESH",
-        "last_updated_at": "2026-07-31T00:00:00Z",
-        "expected_next_update_at": "2026-08-07T20:00:00Z",
-        "stale_after": "2026-08-14T20:00:00Z",
-        "message": "Nasdaq Composite. Weekly signals anchored at the most recent confirmed Friday close (2026-07-31)."
+        "last_updated_at": "2026-08-07T00:00:00Z",
+        "expected_next_update_at": "2026-08-14T20:00:00Z",
+        "stale_after": "2026-08-21T20:00:00Z",
+        "message": "Nasdaq Composite close. Weekly signal anchored at the most recent confirmed Friday close (2026-08-07)."
       },
       {
         "source": "Yahoo:GC=F",
         "status": "FRESH",
-        "last_updated_at": "2026-07-31T00:00:00Z",
-        "expected_next_update_at": "2026-08-07T20:00:00Z",
-        "stale_after": "2026-08-14T20:00:00Z",
-        "message": "Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29). Weekly anchor 2026-07-31."
+        "last_updated_at": "2026-08-07T00:00:00Z",
+        "expected_next_update_at": "2026-08-14T20:00:00Z",
+        "stale_after": "2026-08-21T20:00:00Z",
+        "message": "Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29). Weekly anchor 2026-08-07."
       },
       {
         "source": "Polygon:ETF (shares-outstanding)",
         "status": "UNAVAILABLE",
-        "last_updated_at": "2026-07-31T00:00:00Z",
+        "last_updated_at": "2026-08-07T00:00:00Z",
         "expected_next_update_at": "2026-08-14T00:00:00Z",
         "stale_after": "2026-08-28T00:00:00Z",
-        "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). Warming up: 3 of 5 weekly snapshots recorded; 4 weekly flows need 5 snapshots. UNAVAILABLE (not weak) per doc 02 §10.1 — no guessed backfill; first scorable evaluation expected ~2026-08-14."
+        "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). Warming up: 4 of 5 weekly snapshots recorded; 4 weekly flows need 5 snapshots. UNAVAILABLE (not weak) per doc 02 §10.1 — no guessed backfill; first scorable evaluation expected ~2026-08-17."
       }
     ],
     "delayed_sources": [],

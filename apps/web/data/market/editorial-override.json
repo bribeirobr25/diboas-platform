@@ -1,0 +1,7 @@
+{
+  "_comment": "Cycle-scoped override for the 2026-08-10 refresh (PR #477 review). The generic 'mixed' REL template asserts 'Bitcoin leads on part of the board', which is false this cycle: REL-01 and REL-02 are both INACTIVE and the group's single point is REL-03 (the Nasdaq's own structural health). composeMixed() cannot compose (supportive set empty) and falls back to the generic template — a template-library edge case. REMOVE this override when the 'mixed with no BTC-relative wins' template variant lands (market-data branch, Part B), or at the next cycle if the REL state changes. Stale-override hazard: nothing auto-clears this file between cycles.",
+  "group.relative_strength.en": "Relative strength is split: Bitcoin trails both gold and the Nasdaq, but the wider risk market itself stays structurally healthy (1 of 3 points).",
+  "group.relative_strength.pt-BR": "A força relativa está dividida: o Bitcoin perde para o ouro e para a Nasdaq, mas o mercado de risco mais amplo segue estruturalmente saudável (1 de 3 pontos).",
+  "group.relative_strength.es": "La fuerza relativa está dividida: Bitcoin pierde contra el oro y el Nasdaq, pero el mercado de riesgo más amplio sigue estructuralmente sano (1 de 3 puntos).",
+  "group.relative_strength.de": "Die relative Stärke ist geteilt: Bitcoin liegt hinter Gold und dem Nasdaq zurück, doch der breitere Risikomarkt bleibt strukturell gesund (1 von 3 Punkten)."
+}
