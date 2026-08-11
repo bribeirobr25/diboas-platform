@@ -56,7 +56,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { MAX_BY_GROUP, GROUP_STATUS, groupLevel, groupSummary } from './lib/group-summaries.mjs';
+import {
+  MAX_BY_GROUP,
+  GROUP_STATUS,
+  fill,
+  groupLevel,
+  groupSummary,
+} from './lib/group-summaries.mjs';
 import { activeOverrides } from './lib/editorial-overrides.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -111,9 +117,6 @@ function num(value, locale, digits = 0) {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   }).format(value);
-}
-function fill(template, slots) {
-  return template.replace(/\{(\w+)\}/g, (_, k) => (k in slots ? slots[k] : `{${k}}`));
 }
 
 // ── signal sentences ───────────────────────────────────────────────────────

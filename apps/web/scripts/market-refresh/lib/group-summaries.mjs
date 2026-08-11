@@ -54,7 +54,8 @@ export function joinList(parts, locale) {
   return `${parts.slice(0, -1).join(', ')} ${and} ${parts[parts.length - 1]}`;
 }
 
-function fill(template, slots) {
+/** Shared template-slot filler (also used by generate.mjs — single copy). */
+export function fill(template, slots) {
   return template.replace(/\{(\w+)\}/g, (_, k) => (k in slots ? slots[k] : `{${k}}`));
 }
 

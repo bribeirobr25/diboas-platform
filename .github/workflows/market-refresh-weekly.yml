@@ -83,8 +83,11 @@ jobs:
 
             **Review the plain-language summary and per-signal copy before merging.**
             If a cycle needs a human override, add it to
-            `apps/web/data/market/editorial-override.json` and re-run
-            `generate.mjs`. The 14-day staleness gate is the backstop.
+            `apps/web/data/market/editorial-override.json` **with a `_cycle`
+            key stamping this cycle's date (computed.json `computed_at`,
+            YYYY-MM-DD)** and re-run `generate.mjs` — overrides are
+            cycle-scoped and an unstamped or stale file is ignored with a
+            warning. The 14-day staleness gate is the backstop.
           labels: |
             market-refresh
             needs-editorial-review

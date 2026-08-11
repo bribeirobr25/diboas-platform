@@ -173,7 +173,11 @@ Reference: `CLAUDE.md` §"Digital dollar terminology + jargon ban (Phase 7 Q2a/Q
 > `generatedCopyReconciliation.test.ts`). Only the memo-voice fields
 > (`summary.short`/`detailed`/`key_*`) stay hand-authored. For a
 > cycle-specific override, use `apps/web/data/market/editorial-override.json`
-> and re-run the generator. The whole flow is automated weekly by
+> — it MUST carry a `_cycle: "YYYY-MM-DD"` key matching the cycle date
+> (computed.json `computed_at`); overrides are cycle-scoped (B2, 2026-08-11)
+> and an unstamped or stale file is IGNORED with a warning, so a forgotten
+> override can never pin old copy onto a new cycle. Re-run the generator
+> after writing it. The whole flow is automated weekly by
 > `.github/workflows/market-refresh-weekly.yml` (Mondays 06:00 UTC → PR,
 > never a direct push).
 
