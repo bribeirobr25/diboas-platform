@@ -64,6 +64,8 @@ import {
   groupSummary,
 } from './lib/group-summaries.mjs';
 import { activeOverrides } from './lib/editorial-overrides.mjs';
+import { deriveDataStatus, DATA_STATUS_COMMENT } from './lib/data-status.mjs';
+import { readSnapshots } from './lib/etf-flows.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '../../../..');
@@ -482,6 +484,20 @@ async function patchEditorial(gen, write) {
     }
   }
 
+  // ── data_status (B3, 2026-08-11 — closes Follow-up L): ONE derivation
+  //    written to BOTH panels, so the F-M6 mirror holds by construction and
+  //    the --check gate makes a hand-edited panel un-mergeable. ─────────────
+  const derivedStatus = deriveDataStatus(computed, readSnapshots());
+  if (JSON.stringify(regime.data_status) !== JSON.stringify(derivedStatus)) {
+    drift.push('regime.data_status');
+    regime.data_status = derivedStatus;
+  }
+  const dataStatusPath = path.join(MARKET_DIR, 'data-status.json');
+  const nextDataStatus = { _comment: DATA_STATUS_COMMENT, ...derivedStatus };
+  if (JSON.stringify(read(dataStatusPath)) !== JSON.stringify(nextDataStatus)) {
+    drift.push('data-status.json');
+  }
+
   const nextHist = nextHistorical(realSnapshotCount());
   const curHist = read(path.join(MARKET_DIR, 'historical.json'));
   if (JSON.stringify(curHist) !== JSON.stringify(nextHist)) drift.push('historical.json');
@@ -489,6 +505,7 @@ async function patchEditorial(gen, write) {
   if (write) {
     await writeJsonFormatted(regimePath, regime);
     await writeJsonFormatted(signalsPath, signals);
+    await writeJsonFormatted(dataStatusPath, nextDataStatus);
     await writeJsonFormatted(path.join(MARKET_DIR, 'historical.json'), nextHist);
   }
   return drift;

@@ -59,14 +59,14 @@ The iter-2 fixtures at `apps/web/src/lib/analytics-sdk/fixtures/` (including `re
 
 ## 3. Editorial cadence guidance
 
-| File                      | Cadence                                        | Trigger                                                                                                       |
-| ------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `regime.json`             | Weekly (or as the macro environment shifts)    | Tuesday before close is the default rhythm. Update whenever you'd say the environment has materially changed. |
-| `historical.json`         | Append-only weekly                             | Add one new snapshot per week. If the array exceeds 52 entries, prune the oldest.                             |
-| `signals.json`            | Weekly                                         | Per-signal `state` + `last_updated_at`. Some sub-signals will be stale faster than others.                    |
-| `data-status.json`        | Daily (or whenever upstream freshness changes) | Flip a source from `FRESH` → `DELAYED` → `STALE` based on the upstream age.                                   |
-| `methodology.json`        | Rare                                           | Only on methodology version bump.                                                                             |
-| `product-disclaimer.json` | Very rare                                      | Only on legal-driven copy change.                                                                             |
+| File                      | Cadence                                     | Trigger                                                                                                        |
+| ------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `regime.json`             | Weekly (or as the macro environment shifts) | Tuesday before close is the default rhythm. Update whenever you'd say the environment has materially changed.  |
+| `historical.json`         | Append-only weekly                          | Add one new snapshot per week. If the array exceeds 52 entries, prune the oldest.                              |
+| `signals.json`            | Weekly                                      | Per-signal `state` + `last_updated_at`. Some sub-signals will be stale faster than others.                     |
+| `data-status.json`        | AUTO-GENERATED weekly (B3, 2026-08-11)      | Written by `generate.mjs` from `computed.json` anchors + the ETF ledger — never hand-edit; `--check` enforces. |
+| `methodology.json`        | Rare                                        | Only on methodology version bump.                                                                              |
+| `product-disclaimer.json` | Very rare                                   | Only on legal-driven copy change.                                                                              |
 
 **Hard floor:** `regime.json#last_updated_at` MUST be within **14 days** of every CI run. The fixture-drift Vitest test (`pnpm validate:market-data`) fails if it's older — this catches the "we forgot for a month" failure mode.
 
@@ -107,7 +107,7 @@ Same shape as `regime.json#signal_groups` but with the full per-signal array pop
 | `overall_confidence` | `HIGH` / `MODERATE` / `LOW`                                                                                                                                                  |
 | `sources[*]`         | Each source has `source` (string), `status` (`FRESH` / `STALE` / `DELAYED` / `UNAVAILABLE`), `last_updated_at`, `expected_next_update_at`, `stale_after`, optional `message` |
 
-**Mirror audit gate:** this file and `regime.json#data_status` MUST list the same source set with byte-identical per-source entries (same `overall_confidence`, `last_successful_update_at`, `sources[]`, `delayed_sources`, `unavailable_sources`). The only legal divergence is this file's `_comment` metadata key (no runtime presence). See the corresponding `regime.json#data_status` field rule above. Quick check: `node -e "const r=require('./regime.json').data_status; const s=require('./data-status.json'); console.log(r.sources.map(x=>JSON.stringify(x)).sort().join('\n')===s.sources.map(x=>JSON.stringify(x)).sort().join('\n'))"` should print `true`.
+**AUTO-GENERATED since B3 (2026-08-11):** both this file and `regime.json#data_status` are written by `generate.mjs` from one derivation (`scripts/market-refresh/lib/data-status.mjs` — status rules per cadence class, F-M3 laggard window, warm-up ledger honesty), so the mirror holds by construction and a hand edit fails the `--check` drift gate + the golden test (`dataStatusDerivation.test.ts`). **Mirror audit gate** (still the contract): this file and `regime.json#data_status` MUST list the same source set with byte-identical per-source entries. The only legal divergence is this file's `_comment` metadata key (no runtime presence). Quick check: `node -e "const r=require('./regime.json').data_status; const s=require('./data-status.json'); console.log(r.sources.map(x=>JSON.stringify(x)).sort().join('\n')===s.sources.map(x=>JSON.stringify(x)).sort().join('\n'))"` should print `true`.
 
 ### `methodology.json`
 

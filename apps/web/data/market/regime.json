@@ -176,7 +176,7 @@
         "last_updated_at": "2026-07-31T00:00:00Z",
         "expected_next_update_at": "2026-08-31T23:59:59Z",
         "stale_after": "2026-10-01T00:00:00Z",
-        "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04). July 2026 monthly candle appended 2026-08-04 (Yahoo close $62,813.75, cross-verified against CoinGecko $62,896.51 — divergence 0.13% ≤ 0.5%). Last confirmed monthly close July 31, 2026 per doc 02 §5.1. Next update due at the August 31 monthly close."
+        "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04). Last confirmed monthly close July 31, 2026 per doc 02 §5.1. Next update due at the August 31 monthly close."
       },
       {
         "source": "FRED:DGS10",
@@ -192,7 +192,7 @@
         "last_updated_at": "2026-07-31T00:00:00Z",
         "expected_next_update_at": "2026-08-14T20:00:00Z",
         "stale_after": "2026-08-21T20:00:00Z",
-        "message": "Broad dollar index (DXY proxy). Weekly signal anchored at the most recent confirmed Friday close (2026-07-31 — the publication lag caught up this cycle)."
+        "message": "Broad dollar index (DXY proxy). Weekly signal anchored at the most recent confirmed Friday close (2026-07-31)."
       },
       {
         "source": "FRED:M2SL",
@@ -200,7 +200,7 @@
         "last_updated_at": "2026-06-01T00:00:00Z",
         "expected_next_update_at": "2026-08-25T20:00:00Z",
         "stale_after": "2026-09-30T00:00:00Z",
-        "message": "US M2 money stock, monthly. June 2026 print landed (anchor 2026-06-01) — recovered from the prior DELAYED state; the July print is due ~late August."
+        "message": "US M2 money stock, monthly. June 2026 print landed (anchor 2026-06-01); the July print is due ~late August."
       },
       {
         "source": "FRED:NASDAQCOM",
