@@ -9,17 +9,17 @@
  * `./fixtures/` remain in place for Storybook stories + the iter-2 fixture
  * drift test; they are NOT consumed by this server fetcher anymore.
  *
- * The `@/../data/market/...` import path resolves to `apps/web/data/market/`
- * under the project's `moduleResolution: "bundler"` tsconfig — verified via
- * L4 POC during iter-3 §3.2 execution.
+ * M2 (Market Macro, plan v3 D-M2-4): the static JSON imports moved into
+ * per-view data modules (`./loaders/<slug>.server.ts`) so build-time inlining
+ * survives per module (Turbopack resolveJsonModule constants — editorial PRs
+ * reach production via Vercel rebuild, never runtime disk reads) while views
+ * dispatch lazily through the static VIEW_DATA_LOADERS map below. Every
+ * fetcher takes an optional `view` slug defaulting to the root view
+ * ('bitcoin'), so pre-M2 call sites and tests are unchanged.
  *
- * Build-time inlining: Next.js + Turbopack treats these static JSON imports
- * as build-time constants (resolveJsonModule). Editorial PRs reach
- * production via Vercel auto-deploy (which rebuilds the bundle with the new
- * inlined JSON), NOT via runtime disk reads.
- *
- * Iteration 5 swap: replace these imports with `@analytics-platform/client`
- * server fetchers. The function names below match the future SDK contract.
+ * Iteration 5 swap: per-view loaders map to the analytics API's per-product
+ * `/v1` endpoints (doc 18); the function names below match the future SDK
+ * contract.
  */
 
 import type { SupportedLocale } from '@diboas/i18n/server';
@@ -35,12 +35,28 @@ import type {
   SignalGroup,
 } from './types';
 
-import currentRegimeJson from '@/../data/market/regime.json';
-import dataStatusJson from '@/../data/market/data-status.json';
-import historicalJson from '@/../data/market/historical.json';
-import methodologyJson from '@/../data/market/methodology.json';
-import productDisclaimerJson from '@/../data/market/product-disclaimer.json';
-import signalsJson from '@/../data/market/signals.json';
+import type { RawViewData } from './loaders/bitcoin.server';
+
+/** The default (root) view — Bitcoin, per the M2 view registry. */
+const DEFAULT_VIEW = 'bitcoin';
+
+/**
+ * Static dispatch map: view slug → lazy import of its data module. STATIC
+ * `import()` literals keep Turbopack's build-time JSON inlining per module;
+ * the map itself is the registry seam (plan v3 D-M2-4 — new views add one
+ * line here plus their `loaders/<slug>.server.ts`).
+ */
+const VIEW_DATA_LOADERS: Record<string, () => Promise<RawViewData>> = {
+  bitcoin: () => import('./loaders/bitcoin.server').then((m) => m.viewData),
+};
+
+async function loadViewData(view: string): Promise<RawViewData> {
+  const loader = VIEW_DATA_LOADERS[view];
+  if (!loader) {
+    throw new Error(`unknown market view "${view}" — no data loader registered`);
+  }
+  return loader();
+}
 
 type LocalizedRegimeSummary = Record<SupportedLocale, RegimeSummary>;
 type LocalizedText = Record<SupportedLocale, string>;
@@ -96,52 +112,68 @@ function flattenRegime(raw: RawRegimeFixture, locale: SupportedLocale): RegimeDa
   };
 }
 
-export async function fetchRegime(locale: SupportedLocale): Promise<RegimeData> {
-  return flattenRegime(currentRegimeJson as unknown as RawRegimeFixture, locale);
+export async function fetchRegime(
+  locale: SupportedLocale,
+  view: string = DEFAULT_VIEW
+): Promise<RegimeData> {
+  const data = await loadViewData(view);
+  return flattenRegime(data.regime as unknown as RawRegimeFixture, locale);
 }
 
-export async function fetchHistoricalRegimes(): Promise<HistoricalRegimes | null> {
+export async function fetchHistoricalRegimes(
+  view: string = DEFAULT_VIEW
+): Promise<HistoricalRegimes | null> {
   // Pass-through per `resilience.test.ts` contract: this fetcher returns the
   // JSON shape as-is; per-endpoint suppression (including the synthetic-seed
   // gate added 2026-05-29 — see PENDING_ALL.md 5.27) lives in the page-level
   // conditional so the fetcher contract stays uniform across all 6 endpoints.
-  return historicalJson as unknown as HistoricalRegimes;
+  const data = await loadViewData(view);
+  return data.historical as unknown as HistoricalRegimes;
 }
 
 export async function fetchSignals(
-  locale: SupportedLocale
+  locale: SupportedLocale,
+  view: string = DEFAULT_VIEW
 ): Promise<{ signal_groups: SignalGroup[] }> {
-  const raw = signalsJson as unknown as { groups: RawSignalGroup[] };
+  const data = await loadViewData(view);
+  const raw = data.signals as unknown as { groups: RawSignalGroup[] };
   return { signal_groups: raw.groups.map((g) => localizeSignalGroup(g, locale)) };
 }
 
-export async function fetchDataStatus(): Promise<DataStatus> {
-  return dataStatusJson as unknown as DataStatus;
+export async function fetchDataStatus(view: string = DEFAULT_VIEW): Promise<DataStatus> {
+  const data = await loadViewData(view);
+  return data.dataStatus as unknown as DataStatus;
 }
 
-export async function fetchMethodology(): Promise<MethodologyData> {
-  return methodologyJson as unknown as MethodologyData;
+export async function fetchMethodology(view: string = DEFAULT_VIEW): Promise<MethodologyData> {
+  const data = await loadViewData(view);
+  return data.methodology as unknown as MethodologyData;
 }
 
-export async function fetchProductDisclaimer(): Promise<ProductDisclaimerData> {
-  return productDisclaimerJson as unknown as ProductDisclaimerData;
+export async function fetchProductDisclaimer(
+  view: string = DEFAULT_VIEW
+): Promise<ProductDisclaimerData> {
+  const data = await loadViewData(view);
+  return data.productDisclaimer as unknown as ProductDisclaimerData;
 }
 
 /**
- * One-shot composite — invoked by /market RSC. Falls through individual
- * fetcher failures so a single source going dark does not blank the page.
+ * One-shot composite — invoked by the /market view shell RSC. Falls through
+ * individual fetcher failures so a single source going dark does not blank
+ * the page.
  */
 export async function fetchInitialAnalyticsData(
-  locale: SupportedLocale
+  locale: SupportedLocale,
+  view: string = DEFAULT_VIEW
 ): Promise<AnalyticsInitialData> {
   const [regime, historical, signals, dataStatus, methodology, productDisclaimer] =
     await Promise.all([
-      fetchRegime(locale).catch(() => null),
-      fetchHistoricalRegimes().catch(() => null),
-      fetchSignals(locale).catch(() => null),
-      fetchDataStatus().catch(() => null),
-      fetchMethodology().catch(() => null),
-      fetchProductDisclaimer().catch(() => null),
+      fetchRegime(locale, view).catch(() => null),
+      fetchHistoricalRegimes(view).catch(() => null),
+      fetchSignals(locale, view).catch(() => null),
+      fetchDataStatus(view).catch(() => null),
+      fetchMethodology(view).catch(() => null),
+      fetchProductDisclaimer(view).catch(() => null),
     ]);
 
   return { regime, historical, signals, dataStatus, methodology, productDisclaimer };
