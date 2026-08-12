@@ -96,9 +96,10 @@ export const PAGE_SEO_CONFIG = {
   market: {
     title: 'Adelaide Market',
     description:
-      'Calm macro intelligence for Bitcoin. Understand the environment, not the next candle.',
+      'Calm macro intelligence for the financial markets, starting with Bitcoin. Understand the environment, not the next candle.',
     keywords: [
       'adelaide market',
+      'market macro',
       'bitcoin macro',
       'macro regime',
       'btc environment',
