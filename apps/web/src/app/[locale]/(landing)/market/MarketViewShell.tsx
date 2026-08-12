@@ -15,7 +15,6 @@
  * wrong UI.
  */
 
-import { notFound } from 'next/navigation';
 import type { SupportedLocale } from '@diboas/i18n/server';
 import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
@@ -55,14 +54,12 @@ import { fetchInitialAnalyticsData } from '@/lib/analytics-sdk/mock-client.serve
 import { marketArticleSchema } from '@/lib/market/structuredData';
 import { viewPath, type MarketViewDef } from '@/lib/market/viewRegistry';
 import { MarketViewSwitcher } from './MarketViewSwitcher';
+import { StateViewSections } from './StateViewSections';
 import styles from './page.module.css';
 
-const ANALYTICS_API_URL = process.env.NEXT_PUBLIC_ANALYTICS_API_URL ?? '/_mock';
+import { ANALYTICS_SITE_LIVE } from '@/lib/market/constants';
 
-// The diBoaS Analytics site (diboas-analytics.com) is not yet public — surface
-// its methodology/attribution links as "coming soon" (no outbound href) until it
-// launches. Flip to true when the site goes live.
-const ANALYTICS_SITE_LIVE = false;
+const ANALYTICS_API_URL = process.env.NEXT_PUBLIC_ANALYTICS_API_URL ?? '/_mock';
 
 interface MarketViewShellProps {
   locale: SupportedLocale;
@@ -70,10 +67,10 @@ interface MarketViewShellProps {
 }
 
 export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
-  // Grammar seam — see the header note. Only 'scored' is implemented in M2.
-  if (view.grammar !== 'scored') {
-    notFound();
-  }
+  // Grammar branch (M3a): 'scored' renders the gauge/signals/history
+  // composition; 'state' renders the condition composition
+  // (StateViewSections) — shared chrome (hero/outage/data-status/CTA/
+  // methodology/footer) is common to both.
 
   // The shared 'market' namespace always loads (page chrome + the switcher's
   // per-view labels at market.views.<slug> — a view's OWN namespace is only
@@ -89,7 +86,15 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
   // i18n keys read directly from the namespace dictionary so server components
   // can pass strings down to the SDK primitives without going through the
   // client-only `useTranslation` hook.
-  const t = (key: string, fallback: string) => pageMessages[`${view.namespace}.${key}`] ?? fallback;
+  // M3a FALLBACK CHAIN (plan v3 D-M3-4, the critical audit finding): view
+  // namespace → shared 'market' namespace → literal. Without the middle step,
+  // a view whose namespace ≠ 'market' would silently resolve all 47 shared
+  // keys to EN literals in de/es/pt-BR. For the root view (namespace =
+  // 'market') the chain is behavior-identical to the old single prefix.
+  // NOTE: the switcher's cross-view labels (market.views.<slug>) bypass t()
+  // by design — shared-namespace-direct; the chain governs view-prefixed keys.
+  const t = (key: string, fallback: string) =>
+    pageMessages[`${view.namespace}.${key}`] ?? pageMessages[`market.${key}`] ?? fallback;
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
@@ -228,7 +233,7 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
           ) : null}
 
           <Container size="md">
-            {regime && (
+            {view.grammar === 'scored' && regime && (
               <SectionErrorBoundary
                 sectionId="market-regime-band"
                 sectionType="dashboard"
@@ -268,7 +273,15 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
               </SectionErrorBoundary>
             )}
 
-            {signals && signals.signal_groups.length > 0 && (
+            {view.grammar === 'state' && signals && (
+              <StateViewSections
+                viewSlug={view.slug}
+                signalGroups={signals.signal_groups}
+                t={t}
+              />
+            )}
+
+            {view.grammar === 'scored' && signals && signals.signal_groups.length > 0 && (
               <SectionErrorBoundary
                 sectionId="market-signals"
                 sectionType="dashboard"
@@ -294,7 +307,7 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
               </SectionErrorBoundary>
             )}
 
-            {historical && historical.snapshots.length > 0 && !historical.synthetic_seed && (
+            {view.grammar === 'scored' && historical && historical.snapshots.length > 0 && !historical.synthetic_seed && (
               <SectionErrorBoundary
                 sectionId="market-historical"
                 sectionType="dashboard"
@@ -330,7 +343,10 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
               </SectionErrorBoundary>
             )}
 
-            {dataStatus && dataStatus.sources.length > 0 && (
+            {dataStatus &&
+              (view.grammar === 'state'
+                ? dataStatus.sources.some((src) => view.sourceLabelKeys[src.source])
+                : dataStatus.sources.length > 0) && (
               <SectionErrorBoundary
                 sectionId="market-data-status"
                 sectionType="dashboard"
@@ -347,7 +363,10 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                     </h2>
                   </div>
                   <ul className={styles.srcPills}>
-                    {dataStatus.sources.map((src) => (
+                    {(view.grammar === 'state'
+                      ? dataStatus.sources.filter((src) => view.sourceLabelKeys[src.source])
+                      : dataStatus.sources
+                    ).map((src) => (
                       <li key={src.source}>
                         <DataFreshnessBadge
                           source={src.source}

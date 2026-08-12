@@ -248,3 +248,64 @@
 .viewSwitcherLink:hover {
   color: var(--editorial-ink);
 }
+
+/* M3 — backdrop condition cards + umbrella cards (latent until the M3c
+   activation; tokenized only). */
+.conditionCard {
+  display: block;
+  padding: var(--spacing-4) 0;
+  border-top: 1px solid var(--editorial-hairline, var(--color-border, #d8d4c8));
+}
+.conditionTitle {
+  font-size: var(--font-size-xl);
+  margin: 0 0 var(--spacing-2);
+}
+.conditionState {
+  color: var(--editorial-teal-deep, inherit);
+  font-style: italic;
+  font-weight: 400;
+}
+.conditionRead {
+  margin: 0 0 var(--spacing-2);
+}
+.conditionExplainer {
+  color: var(--editorial-ink-soft);
+  font-size: var(--font-size-sm);
+  margin: 0;
+}
+.umbrellaGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+@media (min-width: 768px) {
+  .umbrellaGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.umbrellaCard {
+  border: 1px solid var(--editorial-hairline, var(--color-border, #d8d4c8));
+}
+.umbrellaCardLink {
+  display: block;
+  padding: var(--spacing-5);
+  text-decoration: none;
+  color: inherit;
+  min-height: 24px;
+}
+.umbrellaCardTitle {
+  font-size: var(--font-size-2xl);
+  margin: 0 0 var(--spacing-2);
+}
+.umbrellaCardRead {
+  margin: 0 0 var(--spacing-3);
+}
+.umbrellaCardCta {
+  color: var(--editorial-teal-deep, inherit);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

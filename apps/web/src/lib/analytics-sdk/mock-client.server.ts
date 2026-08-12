@@ -48,7 +48,15 @@ const DEFAULT_VIEW = 'bitcoin';
  */
 const VIEW_DATA_LOADERS: Record<string, () => Promise<RawViewData>> = {
   bitcoin: () => import('./loaders/bitcoin.server').then((m) => m.viewData),
+  backdrop: () => import('./loaders/backdrop.server').then((m) => m.viewData),
 };
+
+/** R-1′ invariant surface (M3): the registry drift test asserts every
+ *  registered view slug has a loader — a registered-but-unloadable view would
+ *  otherwise degrade to six silent nulls through the composite's catch. */
+export function hasViewDataLoader(view: string): boolean {
+  return view in VIEW_DATA_LOADERS;
+}
 
 async function loadViewData(view: string): Promise<RawViewData> {
   const loader = VIEW_DATA_LOADERS[view];
