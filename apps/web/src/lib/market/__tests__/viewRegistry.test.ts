@@ -78,8 +78,10 @@ describe('routing status semantics (D-M2-1 — the status-flip mechanism)', () =
     expect(getRoutableView('nonsense')).toBeNull();
   });
 
-  it('should keep generateStaticParams source (routableViewSlugs) equal to the live set', () => {
-    // The [view] page's generateStaticParams is a thin .map over this function.
+  it('should keep the routable set (routableViewSlugs) equal to the live set', () => {
+    // The [view] page routes via getRoutableView; when 5.67 makes SSG real,
+    // its generateStaticParams maps over THIS function (plan §4, reality-
+    // corrected in the M2 parity pass — see the [view] page header).
     const live = viewOrder().filter((v) => v.status === 'live');
     expect(routableViewSlugs()).toEqual(live.map((v) => v.slug));
     // M2 invariant: zero live views while Bitcoin serves the root — the M3

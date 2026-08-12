@@ -1,12 +1,25 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { getRoutableView, routableViewSlugs } from '@/lib/market/viewRegistry';
+import { getRoutableView } from '@/lib/market/viewRegistry';
 import { MarketViewShell } from '../MarketViewShell';
 import { buildMarketViewMetadata } from '../viewMetadata';
 import type { Metadata } from 'next';
 
-export const dynamic = 'auto';
-export const revalidate = 3600;
+// Request-dynamic, deliberately (found in the M2 parity pass): this route has
+// TWO dynamic segments and only [view] is enumerable — [locale] cannot be
+// while the root layout reads x-locale from headers() (the locked V3
+// pattern). An SSG/ISR classification (which `dynamic:'auto'` +
+// generateStaticParams produced) 500s with DYNAMIC_SERVER_USAGE when an
+// unknown slug triggers on-demand static rendering of the headers()-bound
+// layout chain. force-dynamic matches the site's actual rendering reality;
+// notFound() for non-live slugs then renders the not-found boundary as a
+// SOFT 404 (correct content, HTTP 200) — the SAME accepted limitation as
+// /learn/[lesson] under V3 (PENDING_ALL 5.67 retires both with static
+// locale rendering; these URLs are never linked while non-live).
+// generateStaticParams intentionally ABSENT until 5.67 makes SSG real — the
+// registry's routableViewSlugs() is the single source a future
+// implementation maps over, drift-asserted in viewRegistry.test.ts.
+export const dynamic = 'force-dynamic';
 
 /**
  * `/market/[view]` — per-market views (M2, `MARKET_MACRO_PROGRAM_2026-08-12`
@@ -21,13 +34,6 @@ export const revalidate = 3600;
 
 interface MarketViewPageProps {
   params: Promise<{ locale: string; view: string }>;
-}
-
-export function generateStaticParams(): Array<{ view: string }> {
-  // Live slugs only — empty while Bitcoin lives at the root, so nothing
-  // prerenders and every unknown slug 404s dynamically. The registry drift
-  // test asserts this stays ≡ the registry's live set.
-  return routableViewSlugs().map((view) => ({ view }));
 }
 
 export async function generateMetadata({ params }: MarketViewPageProps): Promise<Metadata> {
