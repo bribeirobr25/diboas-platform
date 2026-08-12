@@ -87,7 +87,9 @@ describe('scored cards', () => {
     });
     const unknown = umbrellaCardModel(
       bitcoin,
-      scoredData({ regime: { regime_code: 'BANANAS' } as unknown as AnalyticsInitialData['regime'] })
+      scoredData({
+        regime: { regime_code: 'BANANAS' } as unknown as AnalyticsInitialData['regime'],
+      })
     );
     expect(unknown.available).toBe(false);
   });
@@ -127,9 +129,7 @@ describe('state cards (backdrop)', () => {
     const partial: AnalyticsInitialData = {
       ...NULL_DATA,
       signals: {
-        signal_groups: [
-          { id: 'macro_environment', signals: [{ id: 'MAC-01', state: 'ACTIVE' }] },
-        ],
+        signal_groups: [{ id: 'macro_environment', signals: [{ id: 'MAC-01', state: 'ACTIVE' }] }],
       } as unknown as AnalyticsInitialData['signals'],
     };
     expect(umbrellaCardModel(backdrop, partial).available).toBe(false);
