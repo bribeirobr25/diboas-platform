@@ -1,0 +1,35 @@
+{
+  "seo": {
+    "title": "Entorno Macro",
+    "description": "Dólar, rendimientos y liquidez: las condiciones detrás de los mercados, leídas con serenidad cada semana.",
+    "ogTitle": "Entorno Macro",
+    "ogDescription": "Dólar, rendimientos y liquidez: las condiciones detrás de los mercados, leídas con serenidad cada semana."
+  },
+  "hero": {
+    "kicker": "El entorno macro",
+    "subtitle": "Dólar, rendimientos y liquidez: las condiciones detrás de los mercados."
+  },
+  "conditions": {
+    "title": "Las tres condiciones",
+    "dollar": {
+      "title": "El dólar",
+      "active": "Cediendo",
+      "inactive": "Firme"
+    },
+    "rates": {
+      "title": "Los rendimientos",
+      "active": "A la baja",
+      "inactive": "Firmes"
+    },
+    "liquidity": {
+      "title": "La liquidez",
+      "active": "En expansión",
+      "inactive": "En contracción"
+    }
+  },
+  "explainers": {
+    "dollar": "El índice amplio del dólar sigue al dólar estadounidense frente a las principales monedas. Un dólar más débil tiende a relajar las condiciones financieras globales; uno firme las mantiene tensas.",
+    "rates": "El rendimiento del Treasury americano a 10 años es el precio de referencia del dinero. Rendimientos a la baja bajan el listón para los demás activos; rendimientos firmes lo suben.",
+    "liquidity": "El M2 mide la oferta monetaria amplia. Una liquidez en expansión es un trasfondo favorable; la contracción lo retira."
+  }
+}

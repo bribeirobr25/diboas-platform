@@ -73,10 +73,16 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
 
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
   const heroTitle = t('hero.title', 'Adelaide Market');
-  const heroSubtitle = t('hero.subtitle', 'A calm read on the financial markets, without the noise.');
+  const heroSubtitle = t(
+    'hero.subtitle',
+    'A calm read on the financial markets, without the noise.'
+  );
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
-    [{ name: 'Home', url: '/' }, { name: heroTitle, url: '/market' }],
+    [
+      { name: 'Home', url: '/' },
+      { name: heroTitle, url: '/market' },
+    ],
     locale
   );
   const collectionData = marketCollectionSchema({
@@ -118,9 +124,7 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
           <Container size="md">
             <div className={styles.heroInner}>
               <div className={styles.masthead}>
-                <span className={styles.eyebrow}>
-                  {t('umbrella.kicker', 'Weekly macro reads')}
-                </span>
+                <span className={styles.eyebrow}>{t('umbrella.kicker', 'Weekly macro reads')}</span>
                 {(() => {
                   const d = sharedRegime?.last_updated_at
                     ? new Date(sharedRegime.last_updated_at)
@@ -186,8 +190,8 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
                             .map((c) => {
                               const key = CONDITION_LABEL_KEYS[c.id];
                               return c.active
-                                ? t(`market-backdrop-lite.${key}.active`, key)
-                                : t(`market-backdrop-lite.${key}.inactive`, key);
+                                ? t(`umbrella.conditions.${key}.active`, key)
+                                : t(`umbrella.conditions.${key}.inactive`, key);
                             })
                             .join(' · ')}
                         </p>
@@ -235,7 +239,10 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
                     'Every signal, threshold, and weight is documented on diBoaS Analytics.'
                   )}
                 </h2>
-                <MethodologyLink href={methodology.methodology_url} comingSoon={!ANALYTICS_SITE_LIVE}>
+                <MethodologyLink
+                  href={methodology.methodology_url}
+                  comingSoon={!ANALYTICS_SITE_LIVE}
+                >
                   {ANALYTICS_SITE_LIVE
                     ? t('dashboard.methodologyLinkLabel', 'Read the methodology')
                     : t('dashboard.methodologyComingSoon', 'Full methodology coming soon')}

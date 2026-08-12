@@ -76,5 +76,34 @@
     "host": {
       "regulatory": "diBoaS does not provide investment advice. The framework on this page summarizes the macro and structural environment for Bitcoin for educational purposes only. Crypto-asset values are highly volatile and your capital is at risk. Information is intended for residents of the EU, US, UK, and Brazil where local distribution is permitted; nothing here constitutes a solicitation in any other jurisdiction."
     }
+  },
+  "views": {
+    "bitcoin": "Bitcoin",
+    "backdrop": "Macro backdrop"
+  },
+  "umbrella": {
+    "kicker": "Weekly macro reads",
+    "switcherAriaLabel": "Market views",
+    "direction": {
+      "up": "improved this week",
+      "down": "eased this week",
+      "held": "held this week"
+    },
+    "cardUnavailable": "This read is temporarily unavailable.",
+    "cardCta": "Read the full view",
+    "conditions": {
+      "dollar": {
+        "active": "Dollar softening",
+        "inactive": "Dollar firm"
+      },
+      "rates": {
+        "active": "Rates easing",
+        "inactive": "Rates firm"
+      },
+      "liquidity": {
+        "active": "Liquidity expanding",
+        "inactive": "Liquidity contracting"
+      }
+    }
   }
 }

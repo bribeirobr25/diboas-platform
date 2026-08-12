@@ -1,0 +1,35 @@
+{
+  "seo": {
+    "title": "Makro-Umfeld",
+    "description": "Dollar, Renditen und Liquidität: die Bedingungen hinter den Märkten, jede Woche ruhig eingeordnet.",
+    "ogTitle": "Makro-Umfeld",
+    "ogDescription": "Dollar, Renditen und Liquidität: die Bedingungen hinter den Märkten, jede Woche ruhig eingeordnet."
+  },
+  "hero": {
+    "kicker": "Das Makro-Umfeld",
+    "subtitle": "Dollar, Renditen und Liquidität: die Bedingungen hinter den Märkten."
+  },
+  "conditions": {
+    "title": "Die drei Bedingungen",
+    "dollar": {
+      "title": "Der Dollar",
+      "active": "Nachgebend",
+      "inactive": "Fest"
+    },
+    "rates": {
+      "title": "Die Renditen",
+      "active": "Nachgebend",
+      "inactive": "Fest"
+    },
+    "liquidity": {
+      "title": "Die Liquidität",
+      "active": "Wachsend",
+      "inactive": "Schrumpfend"
+    }
+  },
+  "explainers": {
+    "dollar": "Der breite Dollar-Index verfolgt den US-Dollar gegenüber den wichtigsten Währungen. Ein weicherer Dollar lockert tendenziell die globalen Finanzbedingungen; ein fester hält sie straff.",
+    "rates": "Die Rendite 10-jähriger US-Staatsanleihen ist der Ankerpreis des Geldes. Nachgebende Renditen senken die Messlatte für andere Anlagen; feste Renditen heben sie an.",
+    "liquidity": "M2 misst die breite Geldmenge. Wachsende Liquidität ist ein unterstützendes Umfeld; eine Schrumpfung entzieht es."
+  }
+}

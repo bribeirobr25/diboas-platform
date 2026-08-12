@@ -24,7 +24,10 @@ const COMPONENTS = [
 ] as const;
 
 /** EN literal fallbacks (M3a) — the market-backdrop namespace lands in M3b. */
-const FALLBACKS: Record<string, { title: string; active: string; inactive: string; explainer: string }> = {
+const FALLBACKS: Record<
+  string,
+  { title: string; active: string; inactive: string; explainer: string }
+> = {
   dollar: {
     title: 'The dollar',
     active: 'Softening',
@@ -93,9 +96,7 @@ export function StateViewSections({ viewSlug, signalGroups, t }: StateViewSectio
                 <p className={styles.conditionRead}>{sig.summary}</p>
                 {/* The static educational explainer — this page's earned
                     differentiator (plan §7 anti-slop resolution). */}
-                <p className={styles.conditionExplainer}>
-                  {t(`explainers.${key}`, fb.explainer)}
-                </p>
+                <p className={styles.conditionExplainer}>{t(`explainers.${key}`, fb.explainer)}</p>
               </li>
             );
           })}

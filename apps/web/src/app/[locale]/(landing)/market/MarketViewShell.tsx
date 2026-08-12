@@ -96,11 +96,23 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
   const t = (key: string, fallback: string) =>
     pageMessages[`${view.namespace}.${key}`] ?? pageMessages[`market.${key}`] ?? fallback;
 
+  // 3-level breadcrumbs for subpath views (M3b): Home → Adelaide Market →
+  // the view; the root view keeps the 2-level trail.
+  const marketPageName = pageMessages['market.hero.title'] ?? 'Adelaide Market';
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
-    [
-      { name: 'Home', url: '/' },
-      { name: t('hero.title', 'Adelaide Market'), url: path },
-    ],
+    view.status === 'live-at-root'
+      ? [
+          { name: 'Home', url: '/' },
+          { name: marketPageName, url: path },
+        ]
+      : [
+          { name: 'Home', url: '/' },
+          { name: marketPageName, url: '/market' },
+          {
+            name: pageMessages[`market.views.${view.slug}`] ?? t('hero.title', 'Adelaide Market'),
+            url: path,
+          },
+        ],
     locale
   );
 
@@ -209,7 +221,11 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
 
           {/* View switcher (D-M2-6): renders null until the registry exposes a
               second destination — invisible in M2 by design. */}
-          <MarketViewSwitcher labelFor={(v) => pageMessages[`market.views.${v.slug}`] ?? v.slug} />
+          <MarketViewSwitcher
+            activeSlug={view.slug}
+            labelFor={(v) => pageMessages[`market.views.${v.slug}`] ?? v.slug}
+            navLabel={pageMessages['market.umbrella.switcherAriaLabel'] ?? 'Market views'}
+          />
 
           {/* Outage banner (B-2, robustness / Principle-7 fix): when the core
               reading is null the page body silently collapsed; now it says so
@@ -274,11 +290,7 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
             )}
 
             {view.grammar === 'state' && signals && (
-              <StateViewSections
-                viewSlug={view.slug}
-                signalGroups={signals.signal_groups}
-                t={t}
-              />
+              <StateViewSections viewSlug={view.slug} signalGroups={signals.signal_groups} t={t} />
             )}
 
             {view.grammar === 'scored' && signals && signals.signal_groups.length > 0 && (
@@ -307,84 +319,87 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
               </SectionErrorBoundary>
             )}
 
-            {view.grammar === 'scored' && historical && historical.snapshots.length > 0 && !historical.synthetic_seed && (
-              <SectionErrorBoundary
-                sectionId="market-historical"
-                sectionType="dashboard"
-                enableReporting
-                context={{ page: 'market', section: 'historical', view: view.slug }}
-              >
-                <section className={styles.section}>
-                  <div className={styles.secHead}>
-                    <span className={styles.eyebrow}>
-                      {t('dashboard.historicalTitle', 'Score over time')}
-                    </span>
-                    <h2 className={styles.h2}>
-                      {t(
-                        'dashboard.historicalLead',
-                        'Where the environment has been over the last year.'
+            {view.grammar === 'scored' &&
+              historical &&
+              historical.snapshots.length > 0 &&
+              !historical.synthetic_seed && (
+                <SectionErrorBoundary
+                  sectionId="market-historical"
+                  sectionType="dashboard"
+                  enableReporting
+                  context={{ page: 'market', section: 'historical', view: view.slug }}
+                >
+                  <section className={styles.section}>
+                    <div className={styles.secHead}>
+                      <span className={styles.eyebrow}>
+                        {t('dashboard.historicalTitle', 'Score over time')}
+                      </span>
+                      <h2 className={styles.h2}>
+                        {t(
+                          'dashboard.historicalLead',
+                          'Where the environment has been over the last year.'
+                        )}
+                      </h2>
+                    </div>
+                    <HistoricalRegimeChart
+                      data={historical}
+                      range="1Y"
+                      ariaLabel={t(
+                        'dashboard.historicalAriaLabel',
+                        'Macro environment score over the last 12 months'
                       )}
-                    </h2>
-                  </div>
-                  <HistoricalRegimeChart
-                    data={historical}
-                    range="1Y"
-                    ariaLabel={t(
-                      'dashboard.historicalAriaLabel',
-                      'Macro environment score over the last 12 months'
-                    )}
-                    tableLabels={{
-                      date: t('dashboard.historicalTableDate', 'Date'),
-                      score: t('dashboard.historicalTableScore', 'Score'),
-                      regime: t('dashboard.historicalTableRegime', 'Regime'),
-                    }}
-                  />
-                </section>
-              </SectionErrorBoundary>
-            )}
+                      tableLabels={{
+                        date: t('dashboard.historicalTableDate', 'Date'),
+                        score: t('dashboard.historicalTableScore', 'Score'),
+                        regime: t('dashboard.historicalTableRegime', 'Regime'),
+                      }}
+                    />
+                  </section>
+                </SectionErrorBoundary>
+              )}
 
             {dataStatus &&
               (view.grammar === 'state'
                 ? dataStatus.sources.some((src) => view.sourceLabelKeys[src.source])
                 : dataStatus.sources.length > 0) && (
-              <SectionErrorBoundary
-                sectionId="market-data-status"
-                sectionType="dashboard"
-                enableReporting
-                context={{ page: 'market', section: 'data-status', view: view.slug }}
-              >
-                <section className={styles.section}>
-                  <div className={styles.secHead}>
-                    <span className={styles.eyebrow}>
-                      {t('dashboard.dataStatusTitle', 'Data sources')}
-                    </span>
-                    <h2 className={styles.h2}>
-                      {t('dashboard.dataStatusLead', 'Live confidence per upstream feed.')}
-                    </h2>
-                  </div>
-                  <ul className={styles.srcPills}>
-                    {(view.grammar === 'state'
-                      ? dataStatus.sources.filter((src) => view.sourceLabelKeys[src.source])
-                      : dataStatus.sources
-                    ).map((src) => (
-                      <li key={src.source}>
-                        <DataFreshnessBadge
-                          source={src.source}
-                          label={
-                            view.sourceLabelKeys[src.source]
-                              ? t(view.sourceLabelKeys[src.source], src.source)
-                              : src.source
-                          }
-                          status={src.status}
-                          labels={freshnessLabels}
-                          message={src.message}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              </SectionErrorBoundary>
-            )}
+                <SectionErrorBoundary
+                  sectionId="market-data-status"
+                  sectionType="dashboard"
+                  enableReporting
+                  context={{ page: 'market', section: 'data-status', view: view.slug }}
+                >
+                  <section className={styles.section}>
+                    <div className={styles.secHead}>
+                      <span className={styles.eyebrow}>
+                        {t('dashboard.dataStatusTitle', 'Data sources')}
+                      </span>
+                      <h2 className={styles.h2}>
+                        {t('dashboard.dataStatusLead', 'Live confidence per upstream feed.')}
+                      </h2>
+                    </div>
+                    <ul className={styles.srcPills}>
+                      {(view.grammar === 'state'
+                        ? dataStatus.sources.filter((src) => view.sourceLabelKeys[src.source])
+                        : dataStatus.sources
+                      ).map((src) => (
+                        <li key={src.source}>
+                          <DataFreshnessBadge
+                            source={src.source}
+                            label={
+                              view.sourceLabelKeys[src.source]
+                                ? t(view.sourceLabelKeys[src.source], src.source)
+                                : src.source
+                            }
+                            status={src.status}
+                            labels={freshnessLabels}
+                            message={src.message}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                </SectionErrorBoundary>
+              )}
           </Container>
 
           {/* Closing band — weekly cadence + subscribe-to-waitlist + share (Phase 5). */}

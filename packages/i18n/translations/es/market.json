@@ -76,5 +76,34 @@
     "host": {
       "regulatory": "diBoaS no proporciona asesoramiento de inversión. El framework de esta página resume el entorno macro y estructural de Bitcoin únicamente con fines educativos. Los precios de los criptoactivos son altamente volátiles y tu capital está en riesgo. La información está dirigida a residentes de la UE, EE. UU., Reino Unido y Brasil, donde se permite la distribución local; nada aquí constituye una solicitud en otra jurisdicción."
     }
+  },
+  "views": {
+    "bitcoin": "Bitcoin",
+    "backdrop": "Entorno macro"
+  },
+  "umbrella": {
+    "kicker": "Lecturas macro semanales",
+    "switcherAriaLabel": "Vistas del mercado",
+    "direction": {
+      "up": "mejoró esta semana",
+      "down": "cedió esta semana",
+      "held": "se mantuvo esta semana"
+    },
+    "cardUnavailable": "Esta lectura no está disponible temporalmente.",
+    "cardCta": "Ver la lectura completa",
+    "conditions": {
+      "dollar": {
+        "active": "Dólar cediendo",
+        "inactive": "Dólar firme"
+      },
+      "rates": {
+        "active": "Rendimientos a la baja",
+        "inactive": "Rendimientos firmes"
+      },
+      "liquidity": {
+        "active": "Liquidez en expansión",
+        "inactive": "Liquidez en contracción"
+      }
+    }
   }
 }
