@@ -41,6 +41,8 @@ const ROUTE_EXCEPTIONS = {
   '/delete-confirm': 'GDPR flow page, not a marketing surface',
   '/email-preferences': 'transactional flow page, not a marketing surface',
   '/learn/[lesson]': 'dynamic route: per-talk keys checked via the registry (check 3)',
+  '/market/[view]':
+    'Market Macro view family (M2, plan v3 D-M2-1): only status:live registry views get PAGE_SEO_CONFIG entries + sitemap presence at their status flip; all other slugs notFound(). Zero live views while Bitcoin serves /market.',
 };
 
 /** page key → route mapping where they differ. */
