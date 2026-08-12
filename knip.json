@@ -47,6 +47,9 @@
     },
     "packages/email": {
       "project": ["src/**/*.{ts,tsx}"]
+    },
+    "apps/sandbox": {
+      "ignore": ["src/lib/database/client.ts"]
     }
   }
 }
