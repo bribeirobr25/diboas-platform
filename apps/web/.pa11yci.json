@@ -89,6 +89,22 @@
       "screenCapture": "./pa11y-screenshots/market-de.png"
     },
     {
+      "url": "http://localhost:3000/en/market/bitcoin",
+      "screenCapture": "./pa11y-screenshots/market-bitcoin-en.png"
+    },
+    {
+      "url": "http://localhost:3000/de/market/bitcoin",
+      "screenCapture": "./pa11y-screenshots/market-bitcoin-de.png"
+    },
+    {
+      "url": "http://localhost:3000/en/market/backdrop",
+      "screenCapture": "./pa11y-screenshots/market-backdrop-en.png"
+    },
+    {
+      "url": "http://localhost:3000/de/market/backdrop",
+      "screenCapture": "./pa11y-screenshots/market-backdrop-de.png"
+    },
+    {
       "url": "http://localhost:3000/en/protocols",
       "screenCapture": "./pa11y-screenshots/protocols.png"
     },

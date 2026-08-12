@@ -58,9 +58,14 @@ export const MARKET_VIEWS: Record<string, MarketViewDef> = {
   bitcoin: {
     slug: 'bitcoin',
     grammar: 'scored',
-    status: 'live-at-root',
-    namespace: 'market',
-    seoConfigKey: 'market',
+    // M3c ACTIVATION (2026-08-12): live at /market/bitcoin; /market becomes
+    // the umbrella (resolveRootRendering mode 'umbrella'). The namespace
+    // flips WITH the status — safe only because the shell's t() chain
+    // (M3a) falls back to the shared 'market' namespace for every key not
+    // overridden in market-bitcoin.json.
+    status: 'live',
+    namespace: 'market-bitcoin',
+    seoConfigKey: 'market-bitcoin',
     dataDir: '.',
     sourceLabelKeys: {
       'in-repo:monthlyPrices.json (BTC)': 'dashboard.sources.btc',
@@ -82,7 +87,7 @@ export const MARKET_VIEWS: Record<string, MarketViewDef> = {
   backdrop: {
     slug: 'backdrop',
     grammar: 'state',
-    status: 'announced',
+    status: 'live',
     namespace: 'market-backdrop',
     seoConfigKey: 'market-backdrop',
     dataDir: '.',
