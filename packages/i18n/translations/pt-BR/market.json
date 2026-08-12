@@ -1,14 +1,14 @@
 {
   "seo": {
     "title": "Adelaide Market",
-    "description": "Inteligência macro serena para Bitcoin. Entenda o ambiente, não o próximo candle.",
+    "description": "Inteligência macro serena para os mercados financeiros, começando pelo Bitcoin. Entenda o ambiente, não o próximo candle.",
     "ogTitle": "Adelaide Market",
-    "ogDescription": "Inteligência macro serena para Bitcoin. Entenda o ambiente, não o próximo candle."
+    "ogDescription": "Inteligência macro serena para os mercados financeiros, começando pelo Bitcoin. Entenda o ambiente, não o próximo candle."
   },
   "hero": {
     "title": "Adelaide Market",
-    "subtitle": "Inteligência macro serena para Bitcoin.",
-    "kicker": "Score do ambiente macro"
+    "subtitle": "Inteligência macro serena para os mercados financeiros.",
+    "kicker": "Score do ambiente macro do Bitcoin"
   },
   "dashboard": {
     "scoreAriaLabel": "Score atual do ambiente macro",
@@ -64,7 +64,7 @@
     "waitlist": "Entrar na lista de espera",
     "share": "Compartilhar",
     "shareCopied": "Link copiado",
-    "shareText": "Adelaide Market: inteligência macro calma para Bitcoin."
+    "shareText": "Adelaide Market: inteligência macro calma para os mercados financeiros."
   },
   "fallback": {
     "outageTitle": "Dados ao vivo temporariamente indisponíveis",

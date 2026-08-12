@@ -1,14 +1,14 @@
 {
   "seo": {
     "title": "Adelaide Market",
-    "description": "A calm read on Bitcoin. Understand the environment, not the next price move.",
+    "description": "A calm read on the financial markets, starting with Bitcoin. Understand the environment, not the next price move.",
     "ogTitle": "Adelaide Market",
-    "ogDescription": "A calm read on Bitcoin. Understand the environment, not the next price move."
+    "ogDescription": "A calm read on the financial markets, starting with Bitcoin. Understand the environment, not the next price move."
   },
   "hero": {
     "title": "Adelaide Market",
-    "subtitle": "A calm read on Bitcoin, without the noise.",
-    "kicker": "Macro environment score"
+    "subtitle": "A calm read on the financial markets, without the noise.",
+    "kicker": "Bitcoin macro environment score"
   },
   "dashboard": {
     "scoreAriaLabel": "Current macro environment score",
@@ -64,7 +64,7 @@
     "waitlist": "Join the waitlist",
     "share": "Share",
     "shareCopied": "Link copied",
-    "shareText": "Adelaide Market: calm macro intelligence for Bitcoin."
+    "shareText": "Adelaide Market: calm macro intelligence for the financial markets."
   },
   "fallback": {
     "outageTitle": "Live data is temporarily unavailable",

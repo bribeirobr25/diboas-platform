@@ -1,14 +1,14 @@
 {
   "seo": {
     "title": "Adelaide Market",
-    "description": "Ruhige Makro-Intelligenz für Bitcoin. Verstehe das Umfeld, nicht die nächste Kerze.",
+    "description": "Ruhige Makro-Intelligenz für die Finanzmärkte, beginnend mit Bitcoin. Verstehe das Umfeld, nicht die nächste Kerze.",
     "ogTitle": "Adelaide Market",
-    "ogDescription": "Ruhige Makro-Intelligenz für Bitcoin. Verstehe das Umfeld, nicht die nächste Kerze."
+    "ogDescription": "Ruhige Makro-Intelligenz für die Finanzmärkte, beginnend mit Bitcoin. Verstehe das Umfeld, nicht die nächste Kerze."
   },
   "hero": {
     "title": "Adelaide Market",
-    "subtitle": "Ruhige Makro-Intelligenz für Bitcoin.",
-    "kicker": "Makro-Umfeld-Score"
+    "subtitle": "Ruhige Makro-Intelligenz für die Finanzmärkte.",
+    "kicker": "Bitcoin-Makro-Umfeld-Score"
   },
   "dashboard": {
     "scoreAriaLabel": "Aktueller Makro-Umfeld-Score",
@@ -64,7 +64,7 @@
     "waitlist": "Der Warteliste beitreten",
     "share": "Teilen",
     "shareCopied": "Link kopiert",
-    "shareText": "Adelaide Market: ruhige Makro-Einordnung für Bitcoin."
+    "shareText": "Adelaide Market: ruhige Makro-Einordnung für die Finanzmärkte."
   },
   "fallback": {
     "outageTitle": "Live-Daten vorübergehend nicht verfügbar",
