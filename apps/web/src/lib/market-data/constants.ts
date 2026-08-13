@@ -294,9 +294,13 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
   // manual until iter-5 SDK swap delivers daily via DeFiLlama-equivalent.
   protocolData: {
     tvl: {
-      combined: '$120 billion',
+      // 2026-08-13 refresh (DeFiLlama parent aggregates, monthly-refresh
+      // discipline): Aave $14.8B + Sky $5.8B + Jupiter $1.5B + Sanctum $1.3B
+      // + Compound $1.2B + Jito $0.8B = $25.4B -> "over $25 billion".
+      // The previous $120B was the pre-drawdown February figure.
+      combined: '$25 billion',
     },
-    updatedAt: '2026-05-15T00:00:00Z',
+    updatedAt: '2026-08-13T00:00:00Z',
   },
   metadata: {
     fetchedAt: '2026-03-15T00:00:00Z',
