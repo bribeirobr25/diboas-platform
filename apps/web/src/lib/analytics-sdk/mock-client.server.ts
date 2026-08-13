@@ -17,9 +17,15 @@
  * fetcher takes an optional `view` slug defaulting to the root view
  * ('bitcoin'), so pre-M2 call sites and tests are unchanged.
  *
- * Iteration 5 swap: per-view loaders map to the analytics API's per-product
- * `/v1` endpoints (doc 18); the function names below match the future SDK
- * contract.
+ * Iteration 5 swap: this module IS the swap seam (audit 2026-08-13) — the six
+ * fetchers map 1:1 to the doc-07 `/v1` endpoints (current-regime, historical-
+ * regimes, signals, data-status, methodology, + the v1.3-draft product-
+ * disclaimer). NOTE the doc-09 SDK names its RSC fetchers `get*`
+ * (getRegimeData, options `{apiBaseUrl, apiKey, locale}`) — at swap these
+ * `fetch*` wrappers delegate to them (thin adapter + `{success,data,meta}`
+ * envelope unwrap); an earlier version of this comment wrongly claimed the
+ * names already matched. Per-view/product mapping = the doc-18 Market Macro
+ * extension (drafted 2026-08-13, awaiting ratification).
  */
 
 import type { SupportedLocale } from '@diboas/i18n/server';
