@@ -3,8 +3,7 @@ import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { resolveRootRendering } from '@/lib/market/viewRegistry';
 import { MarketViewShell } from './MarketViewShell';
 import { UmbrellaView } from './UmbrellaView';
-import { buildMarketViewMetadata } from './viewMetadata';
-import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
+import { buildMarketViewMetadata, buildMarketUmbrellaMetadata } from './viewMetadata';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 
@@ -29,16 +28,10 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   if (root.mode === 'view') {
     return buildMarketViewMetadata(locale, root.view);
   }
-  // Umbrella metadata (M3c state): the shared market namespace's seo keys —
-  // the M1 identity copy is already umbrella-shaped.
-  const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
-  const messages = await loadPageNamespaces(validLocale, ['market']);
-  return {
-    title: messages['market.seo.title'] ?? 'Adelaide Market',
-    description:
-      messages['market.seo.description'] ??
-      'A calm read on the financial markets. Understand the environment, not the next price move.',
-  };
+  // Umbrella metadata (M3c state): the shared market namespace's seo keys via
+  // the SAME builder as the views (canonical + OG card + robots + hreflang
+  // wiring) — the M1 identity copy is already umbrella-shaped.
+  return buildMarketUmbrellaMetadata(locale);
 }
 
 export default async function MarketPage({ params }: LocalePageProps) {
