@@ -21,6 +21,8 @@
         "http://localhost:3000/en/about",
         "http://localhost:3000/en/help",
         "http://localhost:3000/en/market",
+        "http://localhost:3000/en/market/bitcoin",
+        "http://localhost:3000/en/market/backdrop",
         "http://localhost:3000/en/protocols",
         "http://localhost:3000/en/strategies"
       ],

@@ -6,9 +6,9 @@
  * — the pa11y + Lighthouse page lists, so a view can never go `live` without
  * being measured.
  *
- * The M3 status flip is a named ROUTE-ACTIVATION REWRITE of the status
- * expectations below (delete-and-rewrite by design — plan v3 §4) — not a
- * regression when it happens.
+ * M3c (2026-08-12) EXECUTED the named ROUTE-ACTIVATION REWRITE (delete-and-
+ * rewrite by design — plan v3 §4): zero live-at-root views, /market renders
+ * the umbrella, bitcoin + backdrop route as live subpath views.
  */
 
 import { existsSync, readFileSync } from 'node:fs';
@@ -19,11 +19,14 @@ import {
   MARKET_VIEW_SPINE_START,
   viewOrder,
   rootView,
+  resolveRootRendering,
   routableViewSlugs,
   getRoutableView,
   viewPath,
   switcherDestinations,
+  type MarketViewDef,
 } from '../viewRegistry';
+import { hasViewDataLoader } from '@/lib/analytics-sdk/mock-client.server';
 import { PAGE_SEO_CONFIG } from '@/lib/seo/constants';
 
 const WEB_ROOT = join(__dirname, '../../../..');
@@ -37,18 +40,24 @@ describe('registry structure (D-M2-2)', () => {
     expect(ordered).toHaveLength(Object.keys(MARKET_VIEWS).length);
   });
 
-  it('should have exactly one live-at-root view serving /market', () => {
-    const root = rootView();
-    expect(root.slug).toBe('bitcoin');
-    expect(viewPath(root)).toBe('/market');
+  it('should have zero live-at-root views after the M3c activation', () => {
+    // rootView() is the pre-activation accessor and throws loudly at zero
+    // roots by design; post-M3c the registry resolves the umbrella instead —
+    // a reappearing live-at-root view would silently demote /market back to
+    // a single-view page.
+    expect(() => rootView()).toThrow();
+    expect(resolveRootRendering().mode).toBe('umbrella');
   });
 
-  it('should keep the documented Bitcoin asymmetry (D-M2-3ii) until the post-2026-08-17 migration', () => {
+  it('should keep the remaining Bitcoin asymmetry (dataDir) until the 5.92 migration', () => {
     const bitcoin = MARKET_VIEWS.bitcoin;
+    // dataDir '.' is the LAST asymmetry — migrating it is pending item 5.92
+    // (post-2026-08-17, after the first hands-free run). namespace +
+    // seoConfigKey flipped WITH the M3c activation.
     expect(bitcoin.dataDir).toBe('.');
-    expect(bitcoin.namespace).toBe('market');
+    expect(bitcoin.namespace).toBe('market-bitcoin');
     expect(bitcoin.grammar).toBe('scored');
-    expect(bitcoin.seoConfigKey).toBe('market');
+    expect(bitcoin.seoConfigKey).toBe('market-bitcoin');
   });
 
   it('should resolve every view data directory on disk', () => {
@@ -58,19 +67,34 @@ describe('registry structure (D-M2-2)', () => {
     }
   });
 
-  it('should have every view namespace present in all 4 locales', () => {
+  it('should have every ROUTABLE view namespace present in all 4 locales', () => {
+    // 'announced' entries are registered intent — their namespaces land with
+    // their content phase (M3b); the go-live pairing below enforces the full
+    // set the moment a view is 'live' or 'live-at-root'.
     for (const view of viewOrder()) {
+      if (view.status === 'announced') continue;
       for (const locale of LOCALES) {
         const nsFile = join(TRANSLATIONS, locale, `${view.namespace}.json`);
         expect(existsSync(nsFile), `${locale}/${view.namespace}.json missing`).toBe(true);
       }
     }
   });
+
+  it('should have a data loader for EVERY registered slug (R-1′ invariant)', () => {
+    // A registered-but-unloadable view degrades to six silent nulls through
+    // the composite catch — this assertion closes that window structurally.
+    for (const view of viewOrder()) {
+      expect(hasViewDataLoader(view.slug), `no data loader for "${view.slug}"`).toBe(true);
+    }
+  });
 });
 
 describe('routing status semantics (D-M2-1 — the status-flip mechanism)', () => {
-  it('should not route the root view at /market/bitcoin while it lives at root', () => {
-    expect(getRoutableView('bitcoin')).toBeNull();
+  it('should route bitcoin at /market/bitcoin after the M3c activation', () => {
+    const bitcoin = getRoutableView('bitcoin');
+    expect(bitcoin?.slug).toBe('bitcoin');
+    expect(viewPath(bitcoin!)).toBe('/market/bitcoin');
+    expect(getRoutableView('backdrop')?.slug).toBe('backdrop');
   });
 
   it('should not route unknown or announced slugs', () => {
@@ -84,9 +108,43 @@ describe('routing status semantics (D-M2-1 — the status-flip mechanism)', () =
     // corrected in the M2 parity pass — see the [view] page header).
     const live = viewOrder().filter((v) => v.status === 'live');
     expect(routableViewSlugs()).toEqual(live.map((v) => v.slug));
-    // M2 invariant: zero live views while Bitcoin serves the root — the M3
-    // route-activation rewrite replaces this expectation deliberately.
-    expect(routableViewSlugs()).toEqual([]);
+    // M3c state: both views live, spine order (R-4 — never by score).
+    expect(routableViewSlugs()).toEqual(['bitcoin', 'backdrop']);
+  });
+});
+
+describe('registry-v2 root rendering (M3 D-M3-1)', () => {
+  const mk = (status: MarketViewDef['status'], slug = 'x'): MarketViewDef => ({
+    slug,
+    grammar: 'scored',
+    status,
+    namespace: 'market',
+    seoConfigKey: 'market',
+    dataDir: '.',
+    sourceLabelKeys: {},
+    next: null,
+  });
+
+  it('should render the umbrella from the REAL registry (the M3c state)', () => {
+    expect(resolveRootRendering().mode).toBe('umbrella');
+  });
+
+  it('should render a single live-at-root view when one exists (injected)', () => {
+    const r = resolveRootRendering({ a: mk('live-at-root', 'a') });
+    expect(r.mode).toBe('view');
+    if (r.mode === 'view') expect(r.view.slug).toBe('a');
+  });
+
+  it('should render the umbrella when zero roots and ≥1 live view (the M3c state)', () => {
+    const r = resolveRootRendering({ a: mk('live', 'a'), b: mk('live', 'b') });
+    expect(r.mode).toBe('umbrella');
+  });
+
+  it('should throw loudly on an unrenderable registry', () => {
+    expect(() => resolveRootRendering({ a: mk('announced', 'a') })).toThrow();
+    expect(() =>
+      resolveRootRendering({ a: mk('live-at-root', 'a'), b: mk('live-at-root', 'b') })
+    ).toThrow();
   });
 });
 
@@ -104,10 +162,11 @@ describe('go-live pairing (plan §9 rider 4e — measured pages only)', () => {
 
   it('should register every live view in the pa11y page list', () => {
     const pa11y = JSON.parse(readFileSync(join(WEB_ROOT, '.pa11yci.json'), 'utf8'));
-    const urls: string[] = pa11y.urls ?? [];
+    // pa11y urls are { url, screenCapture } objects, not strings.
+    const urls: { url: string }[] = pa11y.urls ?? [];
     for (const view of liveViews()) {
       expect(
-        urls.some((u: string) => u.includes(viewPath(view))),
+        urls.some((u) => u.url.includes(viewPath(view))),
         `live view "${view.slug}" missing from .pa11yci.json`
       ).toBe(true);
     }
@@ -136,11 +195,10 @@ describe('go-live pairing (plan §9 rider 4e — measured pages only)', () => {
 });
 
 describe('switcher visibility (D-M2-6 — M2 ships invisible)', () => {
-  it('should expose fewer than two destinations while Bitcoin is the only view', () => {
-    // The switcher component renders null below two destinations; this locks
-    // the zero-visual-change guarantee of M2 at the registry level. The M3
-    // route-activation rewrite flips this expectation.
-    expect(switcherDestinations()).toHaveLength(1);
+  it('should expose both destinations after the M3c activation (switcher visible)', () => {
+    // The switcher renders null below two destinations; with bitcoin +
+    // backdrop live it is now VISIBLE on every view page by design.
+    expect(switcherDestinations()).toHaveLength(2);
   });
 
   it('should order destinations by the spine, never by score (R-4)', () => {

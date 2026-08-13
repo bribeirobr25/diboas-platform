@@ -42,11 +42,18 @@ const ROUTE_EXCEPTIONS = {
   '/email-preferences': 'transactional flow page, not a marketing surface',
   '/learn/[lesson]': 'dynamic route: per-talk keys checked via the registry (check 3)',
   '/market/[view]':
-    'Market Macro view family (M2, plan v3 D-M2-1): only status:live registry views get PAGE_SEO_CONFIG entries + sitemap presence at their status flip; all other slugs notFound(). Zero live views while Bitcoin serves /market.',
+    'Market Macro view family: live views (bitcoin + backdrop since the M3c activation, 2026-08-12) carry their own PAGE_SEO_CONFIG keys (market-bitcoin, market-backdrop -> KEY_TO_ROUTE above); non-live slugs notFound(). The dynamic segment itself stays excepted.',
 };
 
 /** page key → route mapping where they differ. */
-const KEY_TO_ROUTE = { home: '/', organization: null, share: '/share' };
+const KEY_TO_ROUTE = {
+  home: '/',
+  organization: null,
+  share: '/share',
+  // M3c: nested market-view keys -> their real routes.
+  'market-bitcoin': '/market/bitcoin',
+  'market-backdrop': '/market/backdrop',
+};
 
 // ---------- parse PAGE_SEO_CONFIG (source-level) ----------
 const seoSrc = read('apps/web/src/lib/seo/constants.ts');

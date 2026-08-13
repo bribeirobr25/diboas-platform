@@ -48,6 +48,9 @@ const PAGE_PRIORITIES: Record<string, number> = {
   // Priority 0.7 places it alongside primary user destinations (/help,
   // /security) but below feature-tree roots (0.8 tools, 0.9 b2b).
   '/market': 0.7,
+  // M3c — the per-view pages sit below the umbrella.
+  '/market/bitcoin': 0.6,
+  '/market/backdrop': 0.6,
   '/help': 0.7,
   '/security': 0.7,
   // Investor vertical — public page only (the /investor-room is noindex and
@@ -105,6 +108,16 @@ const PATH_TO_OG_KEY: Record<string, string> = {
   // new live talks need no entry here (bespoke per-talk art can add exact
   // entries later without churn).
   '/learn': 'learn',
+  // M3c — per-view OG cards.
+  '/market/bitcoin': 'market-bitcoin',
+  '/market/backdrop': 'market-backdrop',
+};
+
+// M3c (2026-08-12): nested-route config keys → their real paths (the default
+// derivation is `/${key}`, which would emit /market-bitcoin — wrong).
+const KEY_TO_PATH: Record<string, string> = {
+  'market-bitcoin': '/market/bitcoin',
+  'market-backdrop': '/market/backdrop',
 };
 
 function getAllUrls(): string[] {
@@ -112,7 +125,7 @@ function getAllUrls(): string[] {
 
   Object.keys(PAGE_SEO_CONFIG).forEach((pageKey) => {
     if (pageKey !== 'home' && !NOINDEX_PAGES.has(pageKey)) {
-      urls.push(`/${pageKey}`);
+      urls.push(KEY_TO_PATH[pageKey] ?? `/${pageKey}`);
     }
   });
 

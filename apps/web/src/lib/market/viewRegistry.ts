@@ -58,9 +58,14 @@ export const MARKET_VIEWS: Record<string, MarketViewDef> = {
   bitcoin: {
     slug: 'bitcoin',
     grammar: 'scored',
-    status: 'live-at-root',
-    namespace: 'market',
-    seoConfigKey: 'market',
+    // M3c ACTIVATION (2026-08-12): live at /market/bitcoin; /market becomes
+    // the umbrella (resolveRootRendering mode 'umbrella'). The namespace
+    // flips WITH the status — safe only because the shell's t() chain
+    // (M3a) falls back to the shared 'market' namespace for every key not
+    // overridden in market-bitcoin.json.
+    status: 'live',
+    namespace: 'market-bitcoin',
+    seoConfigKey: 'market-bitcoin',
     dataDir: '.',
     sourceLabelKeys: {
       'in-repo:monthlyPrices.json (BTC)': 'dashboard.sources.btc',
@@ -70,6 +75,26 @@ export const MARKET_VIEWS: Record<string, MarketViewDef> = {
       'FRED:NASDAQCOM': 'dashboard.sources.nasdaq',
       'Yahoo:GC=F': 'dashboard.sources.gold',
       'CoinGlass:ETF': 'dashboard.sources.btcEtf',
+    },
+    next: 'backdrop',
+  },
+  // M3 (plan v3 D-M3-2): the Macro Backdrop — the first 'state'-grammar view.
+  // A PRESENTATION of the shared weekly run's macro slice (dataDir '.', the
+  // same files Bitcoin reads — NOT the D-M2-3 new-market case; see 5.92 for
+  // the migration's shared-dir naming call). 'announced' until the M3c
+  // activation; its loader exists from THIS commit (the R-1′ invariant:
+  // registered ⇒ loadable, drift-asserted).
+  backdrop: {
+    slug: 'backdrop',
+    grammar: 'state',
+    status: 'live',
+    namespace: 'market-backdrop',
+    seoConfigKey: 'market-backdrop',
+    dataDir: '.',
+    sourceLabelKeys: {
+      'FRED:DGS10': 'dashboard.sources.us10y',
+      'FRED:DTWEXBGS': 'dashboard.sources.dxy',
+      'FRED:M2SL': 'dashboard.sources.m2',
     },
     next: null,
   },
@@ -96,13 +121,34 @@ export function viewOrder(): MarketViewDef[] {
   return ordered;
 }
 
-/** The single view served by /market itself. */
+/** The single view served by /market itself — valid ONLY while a live-at-root
+ *  view exists; the general entry point is resolveRootRendering() (M3 v2). */
 export function rootView(): MarketViewDef {
   const roots = viewOrder().filter((v) => v.status === 'live-at-root');
   if (roots.length !== 1) {
     throw new Error(`exactly one live-at-root market view required, found ${roots.length}`);
   }
   return roots[0];
+}
+
+/** M3 registry-v2 semantics (plan D-M3-1): what does /market render?
+ *  - exactly one 'live-at-root' view → that view (today: Bitcoin);
+ *  - zero 'live-at-root' AND ≥1 'live' → the UMBRELLA (the M3c activation
+ *    state — Bitcoin and Backdrop flip 'live' in one registry edit);
+ *  - anything else → throw loudly (a mis-edited registry must never render).
+ *  `views` is injectable for tests so both modes are assertable without
+ *  flipping the committed statuses. */
+export function resolveRootRendering(
+  views: Record<string, MarketViewDef> = MARKET_VIEWS
+): { mode: 'view'; view: MarketViewDef } | { mode: 'umbrella' } {
+  const all = Object.values(views);
+  const roots = all.filter((v) => v.status === 'live-at-root');
+  if (roots.length === 1) return { mode: 'view', view: roots[0] };
+  if (roots.length === 0 && all.some((v) => v.status === 'live')) return { mode: 'umbrella' };
+  throw new Error(
+    `unrenderable market registry: ${roots.length} live-at-root, ` +
+      `${all.filter((v) => v.status === 'live').length} live`
+  );
 }
 
 /** Slugs routable at /market/<slug> — status 'live' only. */

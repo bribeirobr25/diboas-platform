@@ -15,7 +15,6 @@
  * wrong UI.
  */
 
-import { notFound } from 'next/navigation';
 import type { SupportedLocale } from '@diboas/i18n/server';
 import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
@@ -55,14 +54,12 @@ import { fetchInitialAnalyticsData } from '@/lib/analytics-sdk/mock-client.serve
 import { marketArticleSchema } from '@/lib/market/structuredData';
 import { viewPath, type MarketViewDef } from '@/lib/market/viewRegistry';
 import { MarketViewSwitcher } from './MarketViewSwitcher';
+import { StateViewSections } from './StateViewSections';
 import styles from './page.module.css';
 
-const ANALYTICS_API_URL = process.env.NEXT_PUBLIC_ANALYTICS_API_URL ?? '/_mock';
+import { ANALYTICS_SITE_LIVE } from '@/lib/market/constants';
 
-// The diBoaS Analytics site (diboas-analytics.com) is not yet public — surface
-// its methodology/attribution links as "coming soon" (no outbound href) until it
-// launches. Flip to true when the site goes live.
-const ANALYTICS_SITE_LIVE = false;
+const ANALYTICS_API_URL = process.env.NEXT_PUBLIC_ANALYTICS_API_URL ?? '/_mock';
 
 interface MarketViewShellProps {
   locale: SupportedLocale;
@@ -70,10 +67,10 @@ interface MarketViewShellProps {
 }
 
 export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
-  // Grammar seam — see the header note. Only 'scored' is implemented in M2.
-  if (view.grammar !== 'scored') {
-    notFound();
-  }
+  // Grammar branch (M3a): 'scored' renders the gauge/signals/history
+  // composition; 'state' renders the condition composition
+  // (StateViewSections) — shared chrome (hero/outage/data-status/CTA/
+  // methodology/footer) is common to both.
 
   // The shared 'market' namespace always loads (page chrome + the switcher's
   // per-view labels at market.views.<slug> — a view's OWN namespace is only
@@ -89,13 +86,33 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
   // i18n keys read directly from the namespace dictionary so server components
   // can pass strings down to the SDK primitives without going through the
   // client-only `useTranslation` hook.
-  const t = (key: string, fallback: string) => pageMessages[`${view.namespace}.${key}`] ?? fallback;
+  // M3a FALLBACK CHAIN (plan v3 D-M3-4, the critical audit finding): view
+  // namespace → shared 'market' namespace → literal. Without the middle step,
+  // a view whose namespace ≠ 'market' would silently resolve all 47 shared
+  // keys to EN literals in de/es/pt-BR. For the root view (namespace =
+  // 'market') the chain is behavior-identical to the old single prefix.
+  // NOTE: the switcher's cross-view labels (market.views.<slug>) bypass t()
+  // by design — shared-namespace-direct; the chain governs view-prefixed keys.
+  const t = (key: string, fallback: string) =>
+    pageMessages[`${view.namespace}.${key}`] ?? pageMessages[`market.${key}`] ?? fallback;
 
+  // 3-level breadcrumbs for subpath views (M3b): Home → Adelaide Market →
+  // the view; the root view keeps the 2-level trail.
+  const marketPageName = pageMessages['market.hero.title'] ?? 'Adelaide Market';
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
-    [
-      { name: 'Home', url: '/' },
-      { name: t('hero.title', 'Adelaide Market'), url: path },
-    ],
+    view.status === 'live-at-root'
+      ? [
+          { name: 'Home', url: '/' },
+          { name: marketPageName, url: path },
+        ]
+      : [
+          { name: 'Home', url: '/' },
+          { name: marketPageName, url: '/market' },
+          {
+            name: pageMessages[`market.views.${view.slug}`] ?? t('hero.title', 'Adelaide Market'),
+            url: path,
+          },
+        ],
     locale
   );
 
@@ -204,7 +221,11 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
 
           {/* View switcher (D-M2-6): renders null until the registry exposes a
               second destination — invisible in M2 by design. */}
-          <MarketViewSwitcher labelFor={(v) => pageMessages[`market.views.${v.slug}`] ?? v.slug} />
+          <MarketViewSwitcher
+            activeSlug={view.slug}
+            labelFor={(v) => pageMessages[`market.views.${v.slug}`] ?? v.slug}
+            navLabel={pageMessages['market.umbrella.switcherAriaLabel'] ?? 'Market views'}
+          />
 
           {/* Outage banner (B-2, robustness / Principle-7 fix): when the core
               reading is null the page body silently collapsed; now it says so
@@ -228,7 +249,7 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
           ) : null}
 
           <Container size="md">
-            {regime && (
+            {view.grammar === 'scored' && regime && (
               <SectionErrorBoundary
                 sectionId="market-regime-band"
                 sectionType="dashboard"
@@ -268,7 +289,11 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
               </SectionErrorBoundary>
             )}
 
-            {signals && signals.signal_groups.length > 0 && (
+            {view.grammar === 'state' && signals && (
+              <StateViewSections viewSlug={view.slug} signalGroups={signals.signal_groups} t={t} />
+            )}
+
+            {view.grammar === 'scored' && signals && signals.signal_groups.length > 0 && (
               <SectionErrorBoundary
                 sectionId="market-signals"
                 sectionType="dashboard"
@@ -294,78 +319,87 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
               </SectionErrorBoundary>
             )}
 
-            {historical && historical.snapshots.length > 0 && !historical.synthetic_seed && (
-              <SectionErrorBoundary
-                sectionId="market-historical"
-                sectionType="dashboard"
-                enableReporting
-                context={{ page: 'market', section: 'historical', view: view.slug }}
-              >
-                <section className={styles.section}>
-                  <div className={styles.secHead}>
-                    <span className={styles.eyebrow}>
-                      {t('dashboard.historicalTitle', 'Score over time')}
-                    </span>
-                    <h2 className={styles.h2}>
-                      {t(
-                        'dashboard.historicalLead',
-                        'Where the environment has been over the last year.'
+            {view.grammar === 'scored' &&
+              historical &&
+              historical.snapshots.length > 0 &&
+              !historical.synthetic_seed && (
+                <SectionErrorBoundary
+                  sectionId="market-historical"
+                  sectionType="dashboard"
+                  enableReporting
+                  context={{ page: 'market', section: 'historical', view: view.slug }}
+                >
+                  <section className={styles.section}>
+                    <div className={styles.secHead}>
+                      <span className={styles.eyebrow}>
+                        {t('dashboard.historicalTitle', 'Score over time')}
+                      </span>
+                      <h2 className={styles.h2}>
+                        {t(
+                          'dashboard.historicalLead',
+                          'Where the environment has been over the last year.'
+                        )}
+                      </h2>
+                    </div>
+                    <HistoricalRegimeChart
+                      data={historical}
+                      range="1Y"
+                      ariaLabel={t(
+                        'dashboard.historicalAriaLabel',
+                        'Macro environment score over the last 12 months'
                       )}
-                    </h2>
-                  </div>
-                  <HistoricalRegimeChart
-                    data={historical}
-                    range="1Y"
-                    ariaLabel={t(
-                      'dashboard.historicalAriaLabel',
-                      'Macro environment score over the last 12 months'
-                    )}
-                    tableLabels={{
-                      date: t('dashboard.historicalTableDate', 'Date'),
-                      score: t('dashboard.historicalTableScore', 'Score'),
-                      regime: t('dashboard.historicalTableRegime', 'Regime'),
-                    }}
-                  />
-                </section>
-              </SectionErrorBoundary>
-            )}
+                      tableLabels={{
+                        date: t('dashboard.historicalTableDate', 'Date'),
+                        score: t('dashboard.historicalTableScore', 'Score'),
+                        regime: t('dashboard.historicalTableRegime', 'Regime'),
+                      }}
+                    />
+                  </section>
+                </SectionErrorBoundary>
+              )}
 
-            {dataStatus && dataStatus.sources.length > 0 && (
-              <SectionErrorBoundary
-                sectionId="market-data-status"
-                sectionType="dashboard"
-                enableReporting
-                context={{ page: 'market', section: 'data-status', view: view.slug }}
-              >
-                <section className={styles.section}>
-                  <div className={styles.secHead}>
-                    <span className={styles.eyebrow}>
-                      {t('dashboard.dataStatusTitle', 'Data sources')}
-                    </span>
-                    <h2 className={styles.h2}>
-                      {t('dashboard.dataStatusLead', 'Live confidence per upstream feed.')}
-                    </h2>
-                  </div>
-                  <ul className={styles.srcPills}>
-                    {dataStatus.sources.map((src) => (
-                      <li key={src.source}>
-                        <DataFreshnessBadge
-                          source={src.source}
-                          label={
-                            view.sourceLabelKeys[src.source]
-                              ? t(view.sourceLabelKeys[src.source], src.source)
-                              : src.source
-                          }
-                          status={src.status}
-                          labels={freshnessLabels}
-                          message={src.message}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              </SectionErrorBoundary>
-            )}
+            {dataStatus &&
+              (view.grammar === 'state'
+                ? dataStatus.sources.some((src) => view.sourceLabelKeys[src.source])
+                : dataStatus.sources.length > 0) && (
+                <SectionErrorBoundary
+                  sectionId="market-data-status"
+                  sectionType="dashboard"
+                  enableReporting
+                  context={{ page: 'market', section: 'data-status', view: view.slug }}
+                >
+                  <section className={styles.section}>
+                    <div className={styles.secHead}>
+                      <span className={styles.eyebrow}>
+                        {t('dashboard.dataStatusTitle', 'Data sources')}
+                      </span>
+                      <h2 className={styles.h2}>
+                        {t('dashboard.dataStatusLead', 'Live confidence per upstream feed.')}
+                      </h2>
+                    </div>
+                    <ul className={styles.srcPills}>
+                      {(view.grammar === 'state'
+                        ? dataStatus.sources.filter((src) => view.sourceLabelKeys[src.source])
+                        : dataStatus.sources
+                      ).map((src) => (
+                        <li key={src.source}>
+                          <DataFreshnessBadge
+                            source={src.source}
+                            label={
+                              view.sourceLabelKeys[src.source]
+                                ? t(view.sourceLabelKeys[src.source], src.source)
+                                : src.source
+                            }
+                            status={src.status}
+                            labels={freshnessLabels}
+                            message={src.message}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                </SectionErrorBoundary>
+              )}
           </Container>
 
           {/* Closing band — weekly cadence + subscribe-to-waitlist + share (Phase 5). */}

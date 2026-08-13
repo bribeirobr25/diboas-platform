@@ -42,6 +42,11 @@ export const SUPPORTED_NAMESPACES = [
   'legal/privacy',
   'legal/terms',
   'market',
+  // M3 (Market Macro, 2026-08-12) — per-view namespaces for /market/bitcoin
+  // and /market/backdrop (SHARED-FILE EDIT: flagged to the sandbox session
+  // per the parallel-session protocol).
+  'market-bitcoin',
+  'market-backdrop',
   'preDemo',
   'preDream',
   'protocols',

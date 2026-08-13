@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { rootView } from '@/lib/market/viewRegistry';
+import { resolveRootRendering } from '@/lib/market/viewRegistry';
 import { MarketViewShell } from './MarketViewShell';
-import { buildMarketViewMetadata } from './viewMetadata';
+import { UmbrellaView } from './UmbrellaView';
+import { buildMarketViewMetadata, buildMarketUmbrellaMetadata } from './viewMetadata';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 
@@ -23,7 +24,14 @@ export const revalidate = 3600;
  */
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
-  return buildMarketViewMetadata(locale, rootView());
+  const root = resolveRootRendering();
+  if (root.mode === 'view') {
+    return buildMarketViewMetadata(locale, root.view);
+  }
+  // Umbrella metadata (M3c state): the shared market namespace's seo keys via
+  // the SAME builder as the views (canonical + OG card + robots + hreflang
+  // wiring) — the M1 identity copy is already umbrella-shaped.
+  return buildMarketUmbrellaMetadata(locale);
 }
 
 export default async function MarketPage({ params }: LocalePageProps) {
@@ -34,5 +42,13 @@ export default async function MarketPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  return <MarketViewShell locale={locale} view={rootView()} />;
+  // M3 registry-v2 root rendering (plan D-M3-1): one live-at-root view →
+  // that view (today: Bitcoin); zero roots + live views → the umbrella
+  // (the M3c activation state).
+  const root = resolveRootRendering();
+  return root.mode === 'view' ? (
+    <MarketViewShell locale={locale} view={root.view} />
+  ) : (
+    <UmbrellaView locale={locale} />
+  );
 }

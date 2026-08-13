@@ -17,24 +17,30 @@ import { switcherDestinations, viewPath, type MarketViewDef } from '@/lib/market
 import styles from './page.module.css';
 
 interface MarketViewSwitcherProps {
+  /** The view (or umbrella) currently rendered — 'umbrella' marks none. */
+  activeSlug: string;
   /** Resolves a view's display label from the SHARED market namespace
-   *  (`market.views.<slug>` — M3 adds the keys ×4 locales). */
+   *  (`market.views.<slug>`). */
   labelFor: (view: MarketViewDef) => string;
+  /** Localized nav label (M3b — from market.umbrella.switcherAriaLabel). */
+  navLabel: string;
 }
 
-// M3 riders (plan §9 rider 4d, deliberately NOT built early): per-view
-// `aria-current` (needs LocaleLink to forward it) + the nav aria-label from
-// i18n. Both land with the first status flip, when this first renders.
-export function MarketViewSwitcher({ labelFor }: MarketViewSwitcherProps) {
+export function MarketViewSwitcher({ activeSlug, labelFor, navLabel }: MarketViewSwitcherProps) {
   const destinations = switcherDestinations();
   if (destinations.length < 2) return null;
 
   return (
-    <nav aria-label="Market views" className={styles.viewSwitcher}>
+    <nav aria-label={navLabel} className={styles.viewSwitcher}>
       <ul className={styles.viewSwitcherList}>
         {destinations.map((view) => (
           <li key={view.slug}>
-            <LocaleLink href={viewPath(view)} prefetch={false} className={styles.viewSwitcherLink}>
+            <LocaleLink
+              href={viewPath(view)}
+              prefetch={false}
+              aria-current={view.slug === activeSlug ? 'page' : undefined}
+              className={styles.viewSwitcherLink}
+            >
               {labelFor(view)}
             </LocaleLink>
           </li>

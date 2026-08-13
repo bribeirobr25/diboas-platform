@@ -1,0 +1,35 @@
+{
+  "seo": {
+    "title": "Cenário Macro",
+    "description": "Dólar, juros e liquidez: as condições por trás dos mercados, lidas com serenidade toda semana.",
+    "ogTitle": "Cenário Macro",
+    "ogDescription": "Dólar, juros e liquidez: as condições por trás dos mercados, lidas com serenidade toda semana."
+  },
+  "hero": {
+    "kicker": "O cenário macro",
+    "subtitle": "Dólar, juros e liquidez: as condições por trás dos mercados."
+  },
+  "conditions": {
+    "title": "As três condições",
+    "dollar": {
+      "title": "O dólar",
+      "active": "Cedendo",
+      "inactive": "Firme"
+    },
+    "rates": {
+      "title": "Os juros",
+      "active": "Cedendo",
+      "inactive": "Firmes"
+    },
+    "liquidity": {
+      "title": "A liquidez",
+      "active": "Em expansão",
+      "inactive": "Em contração"
+    }
+  },
+  "explainers": {
+    "dollar": "O índice amplo do dólar acompanha o dólar americano frente às principais moedas. Um dólar mais fraco tende a afrouxar as condições financeiras globais; um dólar firme as mantém apertadas.",
+    "rates": "O juro do Treasury americano de 10 anos é o preço de referência do dinheiro. Juros cedendo baixam a régua para os outros ativos; juros firmes a elevam.",
+    "liquidity": "O M2 mede a oferta ampla de moeda. Liquidez em expansão é um pano de fundo favorável; a contração a retira."
+  }
+}
