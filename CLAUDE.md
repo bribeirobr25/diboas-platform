@@ -65,9 +65,12 @@ apps/web/src/app/
     (landing)/             # All user-facing pages (single route group)
       about/               # About us — founder story, mission, beliefs
       business/            # B2B landing page
-      market/        # Adelaide Market — BTC macro-regime dashboard (live; weekly refresh via the
+      market/        # Adelaide Market — Market Macro multi-view family (M3, 2026-08-13):
+        [view]/      #   /market = umbrella; /market/bitcoin (scored view); /market/backdrop
+                     #   (state view over the same weekly run). Weekly refresh via the
                      #   apps/web/scripts/market-refresh/ pipeline; host surface for the separate
-                     #   diboas-analytics product spec'd in docs/mvp/ — swap-ready via RegimeDataProvider)
+                     #   diboas-analytics product spec'd in docs/mvp/ — the swap seam is the six
+                     #   fetchers in lib/analytics-sdk/mock-client.server.ts (per-view loaders)
       delete-confirm/      # GDPR account deletion confirmation
       demo/                # Interactive financial demo (noindex)
       dream-mode/          # Goal calculator simulation (noindex)
