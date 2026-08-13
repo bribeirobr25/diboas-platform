@@ -223,15 +223,15 @@
    exposes ≥2 destinations, so these rules are latent until the first status
    flip (M3). Tokenized only; calm link-row, wraps on mobile. */
 .viewSwitcher {
-  padding: var(--spacing-4) 0 0;
+  padding: var(--spacing-md) 0 0;
 }
 .viewSwitcherList {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-2) var(--spacing-4);
+  gap: var(--spacing-sm) var(--spacing-md);
   list-style: none;
   margin: 0 auto;
-  padding: 0 var(--spacing-4);
+  padding: 0 var(--spacing-md);
   max-width: var(--container-md, 48rem);
 }
 .viewSwitcherLink {
@@ -240,7 +240,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
-  padding: var(--spacing-1) 0;
+  padding: var(--spacing-xs) 0;
   min-height: 24px;
   display: inline-flex;
   align-items: center;
@@ -248,17 +248,21 @@
 .viewSwitcherLink:hover {
   color: var(--editorial-ink);
 }
+.viewSwitcherLink[aria-current='page'] {
+  color: var(--editorial-ink);
+  border-bottom: 1px solid currentColor;
+}
 
 /* M3 — backdrop condition cards + umbrella cards (latent until the M3c
    activation; tokenized only). */
 .conditionCard {
   display: block;
-  padding: var(--spacing-4) 0;
-  border-top: 1px solid var(--editorial-hairline, var(--color-border, #d8d4c8));
+  padding: var(--spacing-md) 0;
+  border-top: 1px solid var(--editorial-line);
 }
 .conditionTitle {
   font-size: var(--font-size-xl);
-  margin: 0 0 var(--spacing-2);
+  margin: 0 0 var(--spacing-sm);
 }
 .conditionState {
   color: var(--editorial-teal-deep, inherit);
@@ -266,7 +270,7 @@
   font-weight: 400;
 }
 .conditionRead {
-  margin: 0 0 var(--spacing-2);
+  margin: 0 0 var(--spacing-sm);
 }
 .conditionExplainer {
   color: var(--editorial-ink-soft);
@@ -276,7 +280,7 @@
 .umbrellaGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--spacing-4);
+  gap: var(--spacing-md);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -287,21 +291,21 @@
   }
 }
 .umbrellaCard {
-  border: 1px solid var(--editorial-hairline, var(--color-border, #d8d4c8));
+  border: 1px solid var(--editorial-line);
 }
 .umbrellaCardLink {
   display: block;
-  padding: var(--spacing-5);
+  padding: var(--spacing-xl);
   text-decoration: none;
   color: inherit;
   min-height: 24px;
 }
 .umbrellaCardTitle {
   font-size: var(--font-size-2xl);
-  margin: 0 0 var(--spacing-2);
+  margin: 0 0 var(--spacing-sm);
 }
 .umbrellaCardRead {
-  margin: 0 0 var(--spacing-3);
+  margin: 0 0 var(--spacing-md);
 }
 .umbrellaCardCta {
   color: var(--editorial-teal-deep, inherit);
