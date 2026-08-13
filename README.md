@@ -63,7 +63,7 @@ flowchart TD
 
 ### Engineering posture (built — verifiable in this repo)
 
-- **Testing & CI:** strict TypeScript, ~1,334 automated tests (Vitest), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
+- **Testing & CI:** strict TypeScript, ~1,388 automated tests (Vitest), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
 - **Security:** per-request **nonce-based CSP** (`'unsafe-inline'` prohibited for scripts), **AES-256-GCM** encryption for PII at rest, **HMAC blind indexing**, Upstash rate limiting, DOMPurify sanitization, and CSRF protection on mutation endpoints.
 - **i18n:** 40 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
 - **Monitoring:** Sentry, PostHog, and GA4 — all consent-gated and lazy-loaded behind a cookie-consent check.
@@ -190,7 +190,7 @@ Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 | `/tools/asset-history`         | Retrospective asset DCA replay (8 assets, monthly-precision FX path for cross-currency)                      |
 | `/tools/card-fees`             | B2B card fee savings calculator                                                                              |
 | `/tools/idle-cash`             | B2B idle cash yield calculator                                                                               |
-| `/market`                      | Adelaide Market — BTC macro-regime dashboard (weekly refresh pipeline; host surface for diboas-analytics)    |
+| `/market`                      | Adelaide Market — multi-view macro family (umbrella + `/market/bitcoin` + `/market/backdrop`; weekly refresh pipeline; host surface for diboas-analytics) |
 | `/investors`                   | Investor vertical — public pitch page (thesis, market, raise)                                                |
 | `/investor-room`               | Password-gated investor room — full documents + print-to-PDF (noindex; EN + pt-BR native, DE/ES render EN)   |
 | `/email-preferences`           | Email unsubscribe / notification preferences                                                                 |
