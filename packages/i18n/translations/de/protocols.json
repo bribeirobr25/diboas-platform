@@ -370,10 +370,10 @@
   "tvl": {
     "h2": "Gemeinsam gesicherter Wert",
     "textBefore": "Die Protokolle auf dieser Seite halten zusammen über",
-    "number": "120 Milliarden USD",
+    "number": "25 Milliarden USD",
     "textAfter": "an Nutzereinlagen über alle ihre Deployments. Das ist echtes Geld, von echten Menschen, das bereits in diesen Systemen steckt.",
     "context": "Das bedeutet nicht, dass dein Geld in allen steckt. Jede diBoaS-Strategie nutzt bestimmte Protokolle, die zu ihrem Risikoniveau und ihren Zielen passen. Auf der Strategieseite siehst du, welche Protokolle in welcher Strategie eingesetzt werden.",
-    "source": "Gesamt-TVL von DeFiLlama. Letzte Überprüfung: Februar 2026. Die Werte schwanken täglich."
+    "source": "Gesamt-TVL von DeFiLlama. Letzte Überprüfung: August 2026. Die Werte schwanken täglich."
   },
   "notIs": {
     "h2": "Achtung",
