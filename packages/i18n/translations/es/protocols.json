@@ -370,10 +370,10 @@
   "tvl": {
     "h2": "Valor combinado asegurado",
     "textBefore": "Los protocolos en esta página mantienen colectivamente más de",
-    "number": "120.000 millones USD",
+    "number": "25.000 millones USD",
     "textAfter": "en depósitos de usuarios a través de todos sus despliegues. Es dinero real, de gente real, ya dentro de estos sistemas.",
     "context": "Esto no significa que tu dinero esté en todos ellos. Cada estrategia de diBoaS usa protocolos específicos adecuados a su nivel de riesgo y objetivos. Consulta la página de Estrategias para ver qué protocolos se usan en cada estrategia.",
-    "source": "TVL combinado obtenido de DeFiLlama. Última verificación: febrero de 2026. Los valores fluctúan diariamente."
+    "source": "TVL combinado obtenido de DeFiLlama. Última verificación: agosto de 2026. Los valores fluctúan diariamente."
   },
   "notIs": {
     "h2": "Atención",
