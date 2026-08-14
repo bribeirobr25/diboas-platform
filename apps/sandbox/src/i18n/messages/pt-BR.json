@@ -294,5 +294,14 @@
     "body": "O sandbox de prática da diBoaS não está disponível onde você está agora. Não é nada do seu lado.",
     "legal": "O acesso a partir da sua região está restrito por motivos de conformidade regulatória.",
     "link": "Ir para diboas.com"
+  },
+  "authWelcome": {
+    "tagline": "Pratique com dinheiro. Ganhe sabedoria.",
+    "title": "Pratique decisões de dinheiro. Construa confiança real.",
+    "body": "Explore estratégias, defina objetivos e desenvolva sua intuição financeira. Tudo com dinheiro de mentira, nada real em jogo.",
+    "google": "Continuar com Google",
+    "email": "Continuar com e-mail",
+    "wallet": "Conectar carteira",
+    "legal": "Consulte nossos <terms>Termos</terms> e <privacy>Política de Privacidade</privacy> quando quiser."
   }
 }

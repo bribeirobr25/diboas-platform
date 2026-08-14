@@ -1,0 +1,91 @@
+/*
+ * AuthWelcome (A2 front door). Calm light surface; centered, generous
+ * whitespace; the three methods equal-weight (secondary/outlined per the
+ * Button primitive). Fully tokenized.
+ */
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  max-width: 30rem;
+  margin: 0 auto;
+  min-height: 100dvh;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  text-align: center;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  margin: var(--spacing-xs) 0 0;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-2xl);
+  color: var(--sb-text-heading);
+}
+.wordmark svg {
+  color: var(--sb-accent);
+}
+
+.tagline {
+  margin: 0;
+  color: var(--sb-text-body);
+  font-size: var(--font-size-md);
+}
+
+/* Hero placeholder — calm brand wash; final illustration drops in here. */
+.hero {
+  height: 9rem;
+  border-radius: var(--sb-radius-lg);
+  background: linear-gradient(160deg, var(--sb-accent-tint), var(--color-teal-100));
+}
+
+.title {
+  margin: var(--spacing-xs) 0 0;
+  text-align: center;
+  font-family: var(--sb-serif);
+  font-size: var(--font-size-2xl);
+  line-height: 1.2;
+  color: var(--sb-text-heading);
+}
+
+.body {
+  margin: 0;
+  text-align: center;
+  color: var(--sb-text-body);
+  font-size: var(--font-size-md);
+}
+
+.methods {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+/* space the icon | label | chevron across the button width */
+.method {
+  justify-content: space-between;
+}
+.methodLabel {
+  flex: 1;
+  text-align: center;
+}
+
+.legal {
+  margin: var(--spacing-xs) 0 0;
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+.legalLink {
+  color: var(--text-brand-accessible);
+  text-decoration: underline;
+}

@@ -294,5 +294,14 @@
     "body": "The diBoaS practice sandbox isn't available where you are right now. Nothing's wrong on your end.",
     "legal": "Access from your region is restricted for regulatory-compliance reasons.",
     "link": "Visit diboas.com"
+  },
+  "authWelcome": {
+    "tagline": "Practice money. Build wisdom.",
+    "title": "Practice money decisions. Build real confidence.",
+    "body": "Explore strategies, set goals, and grow your money intuition. All with play money, nothing real at stake.",
+    "google": "Continue with Google",
+    "email": "Continue with email",
+    "wallet": "Connect wallet",
+    "legal": "Review our <terms>Terms</terms> and <privacy>Privacy Policy</privacy> anytime."
   }
 }

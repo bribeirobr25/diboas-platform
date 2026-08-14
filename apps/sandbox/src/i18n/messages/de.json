@@ -294,5 +294,14 @@
     "body": "Die diBoaS-Übungsumgebung ist dort, wo du gerade bist, nicht verfügbar. Es liegt nicht an dir.",
     "legal": "Der Zugriff aus deiner Region ist aus Gründen der regulatorischen Compliance eingeschränkt.",
     "link": "Zu diboas.com"
+  },
+  "authWelcome": {
+    "tagline": "Mit Geld üben. Klugheit aufbauen.",
+    "title": "Übe Geldentscheidungen. Baue echtes Vertrauen auf.",
+    "body": "Entdecke Strategien, setze Ziele und entwickle dein Geldgespür. Alles mit Spielgeld, nichts Echtes steht auf dem Spiel.",
+    "google": "Mit Google fortfahren",
+    "email": "Mit E-Mail fortfahren",
+    "wallet": "Wallet verbinden",
+    "legal": "Lies jederzeit unsere <terms>Nutzungsbedingungen</terms> und <privacy>Datenschutzerklärung</privacy>."
   }
 }
