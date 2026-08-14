@@ -59,11 +59,14 @@ function emit() {
 
 function subscribe(onChange: () => void): () => void {
   listeners.add(onChange);
+  // Each subscriber owns its OS-preference listener, so unsubscribing one never
+  // detaches another's (correct even if more than one provider ever mounts).
   const mq = window.matchMedia('(prefers-color-scheme: dark)');
-  mq.addEventListener('change', emit);
+  const onSystemChange = () => onChange();
+  mq.addEventListener('change', onSystemChange);
   return () => {
     listeners.delete(onChange);
-    mq.removeEventListener('change', emit);
+    mq.removeEventListener('change', onSystemChange);
   };
 }
 
