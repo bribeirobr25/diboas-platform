@@ -26,7 +26,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={fraunces.variable}>
+    // suppressHydrationWarning: ThemeScript stamps <html data-theme> before
+    // hydration (the no-flash pre-paint), so the client <html> carries an
+    // attribute the server HTML doesn't. This is shallow — it silences ONLY the
+    // <html> element's own attribute diff (the intended data-theme), never any
+    // child mismatch. Standard theme-script pattern.
+    <html lang="en" className={fraunces.variable} suppressHydrationWarning>
       <body>
         <ThemeScript />
         <ThemeProvider>{children}</ThemeProvider>
