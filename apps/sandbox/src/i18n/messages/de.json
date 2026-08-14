@@ -303,5 +303,23 @@
     "email": "Mit E-Mail fortfahren",
     "wallet": "Wallet verbinden",
     "legal": "Lies jederzeit unsere <terms>Nutzungsbedingungen</terms> und <privacy>Datenschutzerklärung</privacy>."
+  },
+  "consent": {
+    "title": "Bevor du startest",
+    "intro": "Wir bitten um deine Einwilligung, damit diBoaS so funktioniert, wie du es erwartest.",
+    "requiredTitle": "Deine Einwilligung ist erforderlich",
+    "requiredBody": "Tippe auf Annehmen und fortfahren, um unseren <terms>Nutzungsbedingungen</terms> und der <privacy>Datenschutzerklärung</privacy> zuzustimmen und zu bestätigen, dass du 18 oder älter bist.",
+    "accept": "Annehmen und fortfahren",
+    "optionalTitle": "Gestalte dein Erlebnis",
+    "optionalAll": "alles optional",
+    "optionalIntro": "Diese Einstellungen helfen, diBoaS zu personalisieren. Du kannst sie jederzeit ändern.",
+    "financialProfileTitle": "Finanzprofil",
+    "financialProfileBody": "Teile etwas über deine Ziele und Erfahrung für passendere Vorschläge.",
+    "analyticsTitle": "Analyse",
+    "analyticsBody": "Hilf, diBoaS zu verbessern, indem du anonyme Nutzungsdaten teilst.",
+    "marketingTitle": "Marketing-Mitteilungen",
+    "marketingBody": "Erhalte Produktneuigkeiten, Tipps und Angebote, die du wirklich nutzen kannst.",
+    "optionalHint": "Optional. Alles funktioniert so oder so.",
+    "footer": "Wir verkaufen deine Daten nie. Du hast immer die Kontrolle."
   }
 }

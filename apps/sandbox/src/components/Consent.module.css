@@ -1,0 +1,161 @@
+/*
+ * Consent (A3, W-3). Calm light surface. The required accept card sits ABOVE a
+ * visually separate optional group so the toggles read as genuinely optional.
+ * Fully tokenized.
+ */
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  max-width: 30rem;
+  margin: 0 auto;
+  min-height: 100dvh;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  text-align: center;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  margin: var(--spacing-2xs) 0 0;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-xl);
+  color: var(--sb-text-heading);
+}
+.wordmark svg {
+  color: var(--sb-accent);
+}
+
+.title {
+  margin: var(--spacing-xs) 0 0;
+  font-family: var(--sb-serif);
+  font-size: var(--font-size-2xl);
+  color: var(--sb-text-heading);
+}
+
+.intro {
+  margin: 0;
+  color: var(--sb-text-body);
+  font-size: var(--font-size-md);
+}
+
+.requiredHead {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+.requiredIcon {
+  display: inline-flex;
+  color: var(--sb-accent);
+}
+.requiredTitle {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--sb-text-heading);
+}
+.requiredBody {
+  margin: var(--spacing-sm) 0 var(--spacing-md);
+  color: var(--sb-text-body);
+  font-size: var(--font-size-sm-plus);
+  line-height: 1.5;
+}
+.acceptLabel {
+  flex: 1;
+  text-align: center;
+}
+
+.link {
+  color: var(--text-brand-accessible);
+  text-decoration: underline;
+}
+
+.optional {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+.optionalTitle {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--sb-text-heading);
+}
+.optionalAll {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  color: var(--sb-text-muted);
+}
+.optionalIntro {
+  margin: 0 0 var(--spacing-xs);
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm-plus);
+}
+
+.optList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.optRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) 0;
+  border-top: 1px solid var(--sb-hairline);
+}
+.optRow:first-child {
+  border-top: none;
+}
+.optIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent-tint);
+  color: var(--text-brand-accessible);
+}
+.optText {
+  flex: 1;
+  min-width: 0;
+}
+.optTitle {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  color: var(--sb-text-heading);
+}
+.optBody {
+  margin: var(--spacing-2xs) 0 0;
+  color: var(--sb-text-body);
+  font-size: var(--font-size-sm);
+}
+.optHint {
+  margin: var(--spacing-2xs) 0 0;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2xs);
+  margin: 0;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
+}
+.footer svg {
+  color: var(--sb-accent);
+  flex: none;
+}
