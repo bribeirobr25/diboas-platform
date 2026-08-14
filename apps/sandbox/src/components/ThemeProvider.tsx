@@ -67,6 +67,13 @@ function subscribe(onChange: () => void): () => void {
   };
 }
 
+/** Test-only: reset the module-level store between cases (mirrors the auth
+ *  factory's `__resetAuthProvider`). Not used by app code. */
+export function __resetThemeStore() {
+  override = null;
+  listeners.clear();
+}
+
 function chooseTheme(next: Theme) {
   override = next;
   document.documentElement.setAttribute('data-theme', next);
