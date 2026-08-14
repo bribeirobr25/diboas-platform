@@ -6,6 +6,7 @@ import type { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { LucideIcon } from './LucideIcon';
 import { LedgerReadyGate } from './LedgerReadyGate';
+import { ModeChip } from './ModeChip';
 import styles from './AppChrome.module.css';
 
 /**
@@ -49,9 +50,7 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
               <FormattedMessage id="common.appName" />
             </span>
           </Link>
-          <span className={styles.playBadge}>
-            <FormattedMessage id="common.playBadge" />
-          </span>
+          <ModeChip />
         </header>
 
         <div className={styles.scroll}>

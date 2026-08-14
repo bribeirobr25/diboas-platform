@@ -1,0 +1,18 @@
+/*
+ * ModeChip — the persistent "Sandbox · play money" chip (A1 primitive).
+ * Sea-green pill, sentence case (never uppercase), matching the approved
+ * mockups. Text uses the accessible brand teal (teal-600) on a pale tint so
+ * it clears 4.5:1; the pill never competes with primary actions.
+ */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-primary); /* accessible teal-600 for text contrast */
+  background: var(--sb-accent-tint);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  white-space: nowrap;
+}
