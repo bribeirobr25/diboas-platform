@@ -1,0 +1,19 @@
+/*
+ * Card primitive (A1). Rounded surface (16px, --sb-radius) on the warm page.
+ * default = clean white + hairline (definition without a heavy shadow);
+ * tint = faint teal wash for an emphasized surface. Fully tokenized.
+ */
+.card {
+  border-radius: var(--sb-radius);
+  padding: var(--spacing-md);
+}
+
+.default {
+  background: var(--sb-card);
+  border: 1px solid var(--sb-hairline);
+}
+
+.tint {
+  background: var(--sb-card-tint);
+  border: 1px solid transparent;
+}
