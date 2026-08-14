@@ -381,5 +381,14 @@
   },
   "goalExample": {
     "name": "Viagem a Lisboa"
+  },
+  "goalPause": {
+    "title": "Pausar este plano?",
+    "body": "Pausar interrompe seu plano semanal e os lembretes. Seu dinheiro investido continua trabalhando na estratégia.",
+    "statePlan": "Plano pausado",
+    "stateMoney": "Dinheiro investido ainda trabalhando",
+    "alsoStop": "Quer sair da estratégia também? Você pode pará-la (uma pequena taxa de 0,39% se aplica).",
+    "pause": "Pausar plano",
+    "keepGoing": "Continuar"
   }
 }
