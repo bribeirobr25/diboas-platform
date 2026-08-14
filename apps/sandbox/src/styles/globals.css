@@ -15,12 +15,22 @@
  */
 
 :root {
-  /* Grounds + surfaces (light-primary, warm) */
-  --sb-ground: var(--surface-paper); /* soft warm-white app canvas backdrop */
-  --sb-surround: var(--editorial-paper-deep); /* deeper cream behind the app canvas on desktop */
+  /* MOCKUP PALETTE — sampled directly from the approved mockup PNGs
+     (docs/sandbox-app/screens/*, 2026-08-14). These are the visual source of
+     truth; the sandbox surface tokens below point at them (NOT the MVP-0 warm
+     'editorial-paper' beige #f4f0e8/#ebe5d8, which the mockups are not). */
+  --sb-mk-ground: #faf6f1; /* app canvas — warm off-white (mockup phone bg) */
+  --sb-mk-surround: #f2ede7; /* desktop surround — subtly deeper, same hue */
+  --sb-mk-ink: #0f1a21; /* ceremony/high-gravity ink (mockup confirm sheet) */
+  --sb-mk-sky: #e9f3f4; /* the light teal sky band atop Home */
+  --sb-mk-hairline: #ece6de; /* hairline on the warm ground */
+
+  /* Grounds + surfaces (from the mockup palette) */
+  --sb-ground: var(--sb-mk-ground); /* soft warm-white app canvas backdrop */
+  --sb-surround: var(--sb-mk-surround); /* behind the app canvas on desktop */
   --sb-card: var(--color-white); /* clean white card */
   --sb-card-tint: var(--color-teal-50); /* faint teal wash for the emphasized job */
-  --sb-ink: var(--accent-ink); /* #0b1f24 ink-teal — the path/manifest gravity surface */
+  --sb-ink: var(--sb-mk-ink); /* ink-teal — the path/manifest gravity surface */
   --sb-ink-soft: var(--accent-ink-soft); /* #112a30 */
 
   /* Type: sans is the app voice; serif is a sparing accent (first-run welcome). */
@@ -45,7 +55,7 @@
   --sb-danger: var(--color-red-700);
 
   /* Lines + elevation (soft, warm) */
-  --sb-hairline: var(--editorial-paper-deep);
+  --sb-hairline: var(--sb-mk-hairline);
   --sb-hairline-strong: var(--color-gray-300);
   --sb-shadow-tint-a: color-mix(in srgb, var(--editorial-ink) 4%, transparent);
   --sb-shadow-tint-b: color-mix(in srgb, var(--editorial-ink) 9%, transparent);
