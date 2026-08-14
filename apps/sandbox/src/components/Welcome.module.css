@@ -52,19 +52,8 @@
   color: var(--sb-accent-strong);
 }
 
+/* Layout only — the Button primitive owns all visual styling (fill, radius,
+   type, tap target, accessible teal-700). This just adds the top margin. */
 .cta {
-  min-height: 52px;
   margin-top: var(--spacing-sm);
-  border: none;
-  border-radius: var(--radius-lg);
-  background: var(--sb-accent);
-  color: var(--color-white);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-md);
-  cursor: pointer;
-  transition: background 0.12s ease;
-}
-
-.cta:hover {
-  background: var(--sb-accent-strong);
 }

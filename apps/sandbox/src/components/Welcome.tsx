@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Button } from './Button';
 import { LucideIcon } from './LucideIcon';
 import styles from './Welcome.module.css';
 
@@ -49,9 +50,9 @@ export function Welcome({ onStart }: { onStart: () => void }) {
           </li>
         ))}
       </ul>
-      <button type="button" className={styles.cta} onClick={onStart}>
+      <Button variant="primary" fullWidth onClick={onStart} className={styles.cta}>
         <FormattedMessage id="welcome.cta" />
-      </button>
+      </Button>
     </section>
   );
 }
