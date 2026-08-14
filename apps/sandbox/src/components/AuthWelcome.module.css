@@ -1,48 +1,68 @@
 /*
- * AuthWelcome (A2 front door) — matches mockup 01. Calm light surface; the
- * coastal hero band up top; three white method cards. Fully tokenized.
+ * AuthWelcome (A2 front door) — matches mockup 01: a FULL-BLEED coastal hero
+ * fills the top half with the branding overlaid and fading into the light
+ * content panel below. Fully tokenized.
  */
 .wrap {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
-  padding: var(--spacing-lg);
   max-width: 30rem;
   margin: 0 auto;
   min-height: 100dvh;
+  background: var(--sb-ground);
 }
 
-.top {
+/* --- Full-bleed hero (top ~half) with overlaid branding --- */
+.hero {
+  position: relative;
+  min-height: 48dvh;
+  overflow: hidden;
+}
+.heroImg {
+  object-fit: cover;
+  object-position: center 58%; /* show the waterline + palm, not just sky */
+  z-index: 0;
+}
+/* Blend the beach into the content panel — a soft fade ONLY at the bottom
+   edge so the beach itself stays vivid (not bleached). */
+.heroFade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom, transparent 82%, var(--sb-ground) 100%);
+}
+.brand {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-2xl) var(--spacing-lg) 0;
   text-align: center;
 }
-
 .wordmark {
-  height: 2.25rem;
+  height: 3.25rem;
   width: auto;
   margin-top: var(--spacing-xs);
 }
-
 .tagline {
   margin: 0;
-  color: var(--sb-text-body);
+  color: var(--sb-text-heading);
   font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
 }
 
-/* Real coastal hero band (public/hero-welcome.png). */
-.hero {
-  height: 12rem;
-  border-radius: var(--sb-radius-lg);
-  background-position: center 38%;
-  background-size: cover;
-  background-repeat: no-repeat;
+/* --- Light content panel --- */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
 }
 
 .title {
-  margin: var(--spacing-xs) 0 0;
+  margin: 0;
   text-align: center;
   font-family: var(--sb-sans);
   font-weight: var(--font-weight-bold);
@@ -50,11 +70,10 @@
   line-height: 1.2;
   color: var(--sb-text-heading);
 }
-
 .body {
   margin: 0;
   text-align: center;
-  color: var(--sb-text-body);
+  color: var(--sb-text-muted);
   font-size: var(--font-size-md);
   line-height: 1.5;
 }
@@ -63,18 +82,18 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
-  margin-top: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
 }
 
-/* White method card — icon | label | chevron (the mockup's auth buttons). */
+/* White method card — icon | divider | label | chevron (the mockup). */
 .method {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md);
   width: 100%;
-  min-height: 3.5rem;
-  padding: 0 var(--spacing-md);
-  border: 1px solid var(--sb-hairline);
+  min-height: 3.75rem;
+  padding: 0 var(--spacing-lg);
+  border: none;
   border-radius: var(--sb-radius);
   background: var(--sb-card);
   color: var(--sb-text-heading);
@@ -94,7 +113,14 @@
 }
 .methodIcon {
   display: inline-flex;
+  flex: none;
   color: var(--text-brand-accessible);
+}
+.methodDivider {
+  width: 1px;
+  align-self: stretch;
+  margin: var(--spacing-md) 0;
+  background: var(--sb-hairline);
   flex: none;
 }
 .methodLabel {
@@ -107,7 +133,7 @@
 }
 
 .legal {
-  margin: var(--spacing-xs) 0 0;
+  margin: var(--spacing-2xs) 0 0;
   text-align: center;
   font-size: var(--font-size-sm);
   color: var(--sb-text-muted);

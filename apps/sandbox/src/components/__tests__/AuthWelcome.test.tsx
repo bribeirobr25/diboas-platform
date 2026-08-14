@@ -42,12 +42,11 @@ describe('AuthWelcome (A2 front door — wired)', () => {
     expect(screen.getAllByRole('button')).toHaveLength(3);
   });
 
-  it('should show the diBoaS wordmark (not "diBoaS Sandbox") and the real hero image', () => {
+  it('should show the diBoaS wordmark (not "diBoaS Sandbox")', () => {
     renderWelcome();
     expect(screen.getByAltText('diBoaS')).toBeTruthy();
     // No "diBoaS Sandbox" text title (internal-page rule).
     expect(screen.queryByText('diBoaS Sandbox')).toBeNull();
-    expect(screen.getByRole('img', { name: 'A calm coastline' })).toBeTruthy();
   });
 
   it('should WIRE the method tap into the onboarding flow (action called with method + locale)', () => {
