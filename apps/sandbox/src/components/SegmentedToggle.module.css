@@ -1,0 +1,33 @@
+/*
+ * SegmentedToggle (Phase B). A pill-track with the active segment raised on a
+ * white chip (the approved mockup's Simple|Detailed control). Active label uses
+ * accessible teal-700; inactive muted. Tokenized.
+ */
+.group {
+  display: inline-flex;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-2xs);
+  border-radius: var(--radius-full);
+  background: var(--sb-hairline);
+}
+
+.segment {
+  min-height: 2rem;
+  padding: 0 var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    color 0.12s ease;
+}
+
+.active {
+  background: var(--sb-card);
+  color: var(--text-brand-accessible);
+  box-shadow: 0 1px 2px var(--shadow-black-light);
+}

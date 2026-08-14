@@ -1,0 +1,24 @@
+/*
+ * Sparkline (Phase B). Soft teal line + faint fill, no axes. Matches the
+ * approved diBoaS-view visual. Tokenized.
+ */
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.line {
+  fill: none;
+  stroke: var(--sb-accent-strong);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.fill {
+  fill: var(--sb-accent-tint);
+  opacity: 0.7;
+  stroke: none;
+}
