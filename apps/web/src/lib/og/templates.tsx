@@ -36,6 +36,12 @@ export type OGPageType =
   // (NF1 round-3 lock). v1 reuses the teal-themed default body with brand
   // + title; dynamic OG with regime score is iter-4.5 / post-launch.
   | 'market'
+  // M3 (Market Macro, 2026-08-12) — the per-view OG family: Bitcoin at
+  // /market/bitcoin and the Macro Backdrop at /market/backdrop. Registered
+  // at M3a (typing the registry's seoConfigKey honestly); the pages activate
+  // at M3c. Same Path-B static pattern as 'market'.
+  | 'market-bitcoin'
+  | 'market-backdrop'
   // Learn redesign Phase 1 (2026-07-15) — shared OG for /learn + all talk
   // pages. Bespoke per-talk art from the generated asset system is a later
   // CMO iteration; one honest shared template beats seven defaults.
@@ -176,7 +182,22 @@ export const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
   // dynamic OG with regime score is iter-4.5 / post-launch.
   market: {
     title: 'Adelaide Market',
-    subtitle: 'Calm macro intelligence for Bitcoin.',
+    // M1 identity (caught late, fixed at M3a): the markets framing — this
+    // subtitle renders on the shared OG card.
+    subtitle: 'Calm macro intelligence for the financial markets.',
+    badge: 'Market',
+    theme: 'teal',
+  },
+  // M3 per-view OG cards (Path B static, same rationale as 'market').
+  'market-bitcoin': {
+    title: 'Adelaide Market — Bitcoin',
+    subtitle: 'The Bitcoin macro environment, read calmly.',
+    badge: 'Market',
+    theme: 'teal',
+  },
+  'market-backdrop': {
+    title: 'Adelaide Market — Macro Backdrop',
+    subtitle: 'Dollar, rates, liquidity — the conditions behind the markets.',
     badge: 'Market',
     theme: 'teal',
   },
@@ -346,6 +367,11 @@ export function isValidPageType(page: string): page is OGPageType {
     'tools-asset-history',
     // Iteration 4 §3.5 — Adelaide Market. NF1 round-3 Path B (static OG).
     'market',
+    // M3 (Market Macro, 2026-08-12) — the per-view OG family. Same miss-class
+    // as the 'learn' note below: the drift guard caught this validator on the
+    // first run after the union+configs were added. Kept in the same commit.
+    'market-bitcoin',
+    'market-backdrop',
     // Learn redesign Phase 2 (2026-07-15): Phase 1 added the 'learn' type +
     // config but missed this validator, so /api/og/learn silently rendered
     // the default template. The PAGE_CONFIGS<->validator drift guard test now

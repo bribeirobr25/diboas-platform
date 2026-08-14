@@ -93,7 +93,17 @@ const BUDGETS = {
   // ~4 KB each, loaded only when that talk page is visited in that
   // locale). Content growth, not library weight; the series is complete
   // at 7 talks. 4900 keeps the accidental-heavy-import guard meaningful.
-  maxTotalJsKB: 4900,
+  // Recalibrated 2026-08-13 (Market Macro M3, PR #502; was 4900, clean
+  // baseline hit 4919): the activation adds 8 LAZY per-locale i18n chunks
+  // (market-bitcoin + market-backdrop x4 locales, ~2-8 KB each — the
+  // backdrop's educational explainers are the bulk) plus the umbrella keys
+  // in the shared market namespace x4. Same deliberate-lazy class as the
+  // investor-docs / talks recalibrations above: chunks download only on
+  // /market routes in that locale; zero public-route LCP impact. All M3
+  // page composition is server components (umbrella, state sections,
+  // switcher) — no new client library weight; peak chunk + asset count
+  // unchanged. 4950 = ~31 KB / ~0.6% headroom over the clean-build truth.
+  maxTotalJsKB: 4950,
 
   // Total bytes across all .css chunks. Baseline ~384 KB across 10 files
   // (Tailwind base + design tokens + all CSS modules; Turbopack doesn't

@@ -1,0 +1,35 @@
+{
+  "seo": {
+    "title": "Macro Backdrop",
+    "description": "Dollar, rates and liquidity: the conditions behind the markets, read calmly every week.",
+    "ogTitle": "Macro Backdrop",
+    "ogDescription": "Dollar, rates and liquidity: the conditions behind the markets, read calmly every week."
+  },
+  "hero": {
+    "kicker": "The macro backdrop",
+    "subtitle": "Dollar, rates and liquidity: the conditions behind the markets."
+  },
+  "conditions": {
+    "title": "The three conditions",
+    "dollar": {
+      "title": "The dollar",
+      "active": "Softening",
+      "inactive": "Firm"
+    },
+    "rates": {
+      "title": "Rates",
+      "active": "Easing",
+      "inactive": "Firm"
+    },
+    "liquidity": {
+      "title": "Liquidity",
+      "active": "Expanding",
+      "inactive": "Contracting"
+    }
+  },
+  "explainers": {
+    "dollar": "The broad dollar index tracks the US dollar against major currencies. A softer dollar tends to loosen global financial conditions; a firm one keeps them tight.",
+    "rates": "The US 10-year Treasury yield is the anchor price of money. Easing yields lower the bar for other assets; firm yields raise it.",
+    "liquidity": "M2 measures the broad money supply. Expanding liquidity is a supportive backdrop; contraction withdraws it."
+  }
+}

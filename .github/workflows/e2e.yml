@@ -41,7 +41,13 @@ jobs:
         # from workspace packages (@diboas/i18n, @diboas/ui, @diboas/email)
         # which must be built first; `pnpm --filter web build` skips them
         # and fails with Module not found. (First-CI-run bug fix, 2026-05-09.)
-        run: pnpm build
+        # 5.88 (2026-08-13, founder-approved after 3 same-day recurrences of the
+        # Google-Fonts build-time fetch flake — next/font/google refetches from
+        # fonts.gstatic.com on every cold runner; "Error while requesting
+        # resource" x9): one retry absorbs the transient fetch failure. Turbo
+        # cache makes the retry cheap (packages already built). The durable
+        # next/font/local option stays registered on 5.88 if flakes persist.
+        run: pnpm build || pnpm build
         env:
           NEXT_PUBLIC_APP_URL: 'http://localhost:3000'
           NEXT_PUBLIC_SITE_URL: 'http://localhost:3000'

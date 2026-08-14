@@ -102,3 +102,40 @@ export function marketArticleSchema(args: {
     isAccessibleForFree: true,
   };
 }
+
+/**
+ * CollectionPage JSON-LD for the /market umbrella (M3 — plan v3 D-M3-8,
+ * CTO R-3): /market keeps all its URL history, so the page must not silently
+ * drop schema when it becomes the front door. `Article` would be wrong for a
+ * collection; `dateModified` rides the shared weekly run. Returns null when
+ * the run date is missing/invalid — the caller's `.filter(Boolean)` keeps
+ * breadcrumbs regardless (same contract as marketArticleSchema).
+ */
+export function marketCollectionSchema(args: {
+  locale: SupportedLocale;
+  siteUrl: string;
+  name: string;
+  description: string;
+  lastUpdatedAt: unknown;
+  itemPaths: string[];
+}): Record<string, unknown> | null {
+  const { locale, siteUrl, name, description, lastUpdatedAt, itemPaths } = args;
+  if (!isISO8601(lastUpdatedAt)) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name,
+    description,
+    inLanguage: localeToBCP47(locale),
+    url: `${siteUrl}/${locale}/market`,
+    dateModified: lastUpdatedAt,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: itemPaths.map((path, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `${siteUrl}/${locale}${path}`,
+      })),
+    },
+  };
+}

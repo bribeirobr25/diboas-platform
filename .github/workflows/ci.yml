@@ -53,7 +53,14 @@ jobs:
       - run: pnpm validate:seo
       - run: pnpm validate:ux-canon
       - run: pnpm check:ux-greps
-      - run: pnpm build
+      - name: Build (one retry for the 5.88 font-fetch flake)
+        # 5.88 (2026-08-13, founder-approved after 3 same-day recurrences of the
+        # Google-Fonts build-time fetch flake — next/font/google refetches from
+        # fonts.gstatic.com on every cold runner; "Error while requesting
+        # resource" x9): one retry absorbs the transient fetch failure. Turbo
+        # cache makes the retry cheap (packages already built). The durable
+        # next/font/local option stays registered on 5.88 if flakes persist.
+        run: pnpm build || pnpm build
       # Phase 5.2 (audit/2026-05-09): Turbopack-aware bundle-budget gate.
       # Replaces the original webpack-plugin enforcement (was inert under
       # Turbopack — see F1 audit). Walks `.next/static/chunks` for size /

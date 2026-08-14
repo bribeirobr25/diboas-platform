@@ -370,10 +370,10 @@
   "tvl": {
     "h2": "Combined Value Secured",
     "textBefore": "The protocols on this page collectively hold over",
-    "number": "$120 billion",
+    "number": "$25 billion",
     "textAfter": "in user deposits across all their deployments. That is real money, from real people, already in these systems.",
     "context": "This does not mean your money is in all of them. Each diBoaS strategy uses specific protocols suited to its risk level and goals. See the Strategies page for which protocols are used in which strategy.",
-    "source": "Combined TVL sourced from DeFiLlama. Last verified: February 2026. Values fluctuate daily."
+    "source": "Combined TVL sourced from DeFiLlama. Last verified: August 2026. Values fluctuate daily."
   },
   "notIs": {
     "h2": "Attention",

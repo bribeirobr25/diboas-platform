@@ -296,7 +296,7 @@
     }
   ],
   "_translation_status": {
-    "_comment": "Translation status per market-editorial.md §5. EN is authoritative. Since P3 (2026-07-11) the per-signal and per-group summaries are GENERATED from the reviewed template library (scripts/market-refresh/templates/, F-M9 — translated once at the library level; lineage: engineering draft → Claude review 2026-07-07 per D-MSG-10, jargon ban via scripts/check-market-data-jargon.mjs). Titles are static editorial. A professional-translator pass is still required before the MARKET_INDEXABLE flip (PENDING_ALL 5.38). The corresponding regime.json#_translation_status governs the higher-stakes summary.detailed field.",
+    "_comment": "Translation status per market-editorial.md §5. EN is authoritative. Since P3 (2026-07-11) the per-signal and per-group summaries are GENERATED from the reviewed template library (scripts/market-refresh/templates/, F-M9 — translated once at the library level; lineage: engineering draft → Claude review 2026-07-07 per D-MSG-10, jargon ban via scripts/check-market-data-jargon.mjs). Titles are static editorial. NOTE (annotation corrected 2026-08-12): the professional-translator gate was COLLAPSED by founder ruling 2026-07-15 and MARKET_INDEXABLE has been LIVE since 2026-07-17 (5.38 CLOSED) — the pre-flip gate language earlier versions carried is superseded. The corresponding regime.json#_translation_status governs the higher-stakes summary.detailed field.",
     "signals.*.title": {
       "pt-BR": "claude-reviewed",
       "es": "claude-reviewed",

@@ -64,7 +64,8 @@ Main pages:
 - `/[locale]/protocols` - Protocol transparency
 - `/[locale]/help` - Help center (6 FAQ topics)
 - `/[locale]/security` - Security information
-- `/[locale]/market` - Adelaide Market — BTC macro-regime dashboard (weekly refresh pipeline; host surface for the diboas-analytics product)
+- `/[locale]/market` - Adelaide Market — Market Macro umbrella (multi-view since M3 2026-08-13; weekly refresh pipeline; host surface for the diboas-analytics product)
+- `/[locale]/market/[view]` - Per-view pages: `/market/bitcoin` (scored) + `/market/backdrop` (state view over the same weekly run)
 - `/[locale]/investors` - Investor vertical — public pitch page (thesis, market, raise)
 - `/[locale]/investor-room` - Password-gated investor room (full documents + print-to-PDF; separate route group, noindex; EN + pt-BR native, DE/ES render EN via `roomContentLocale`)
 - `/[locale]/demo` - Interactive financial demo (noindex)

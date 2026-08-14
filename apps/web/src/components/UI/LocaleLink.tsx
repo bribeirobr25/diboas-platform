@@ -23,6 +23,8 @@ interface LocaleLinkProps extends Omit<LinkProps, 'href'> {
   rel?: string;
   onClick?: () => void;
   'aria-label'?: string;
+  /** M3 (Market Macro switcher): current-page marking on path-routed nav. */
+  'aria-current'?: 'page' | undefined;
 }
 
 /**

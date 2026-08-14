@@ -1,14 +1,14 @@
 {
   "seo": {
     "title": "Adelaide Market",
-    "description": "A calm read on Bitcoin. Understand the environment, not the next price move.",
+    "description": "A calm read on the financial markets, starting with Bitcoin. Understand the environment, not the next price move.",
     "ogTitle": "Adelaide Market",
-    "ogDescription": "A calm read on Bitcoin. Understand the environment, not the next price move."
+    "ogDescription": "A calm read on the financial markets, starting with Bitcoin. Understand the environment, not the next price move."
   },
   "hero": {
     "title": "Adelaide Market",
-    "subtitle": "A calm read on Bitcoin, without the noise.",
-    "kicker": "Macro environment score"
+    "subtitle": "A calm read on the financial markets, without the noise.",
+    "kicker": "Bitcoin macro environment score"
   },
   "dashboard": {
     "scoreAriaLabel": "Current macro environment score",
@@ -64,7 +64,7 @@
     "waitlist": "Join the waitlist",
     "share": "Share",
     "shareCopied": "Link copied",
-    "shareText": "Adelaide Market: calm macro intelligence for Bitcoin."
+    "shareText": "Adelaide Market: calm macro intelligence for the financial markets."
   },
   "fallback": {
     "outageTitle": "Live data is temporarily unavailable",
@@ -74,7 +74,36 @@
   },
   "disclaimer": {
     "host": {
-      "regulatory": "diBoaS does not provide investment advice. The framework on this page summarizes the macro and structural environment for Bitcoin for educational purposes only. Crypto-asset values are highly volatile and your capital is at risk. Information is intended for residents of the EU, US, UK, and Brazil where local distribution is permitted; nothing here constitutes a solicitation in any other jurisdiction."
+      "regulatory": "diBoaS does not provide investment advice. The framework on this page summarizes the macro and structural environment of the markets it covers for educational purposes only. Crypto-asset values are highly volatile and your capital is at risk. Information is intended for residents of the EU, US, UK, and Brazil where local distribution is permitted; nothing here constitutes a solicitation in any other jurisdiction."
+    }
+  },
+  "views": {
+    "bitcoin": "Bitcoin",
+    "backdrop": "Macro backdrop"
+  },
+  "umbrella": {
+    "kicker": "Weekly macro reads",
+    "switcherAriaLabel": "Market views",
+    "direction": {
+      "up": "improved this week",
+      "down": "eased this week",
+      "held": "held this week"
+    },
+    "cardUnavailable": "This read is temporarily unavailable.",
+    "cardCta": "Read the full view",
+    "conditions": {
+      "dollar": {
+        "active": "Dollar softening",
+        "inactive": "Dollar firm"
+      },
+      "rates": {
+        "active": "Rates easing",
+        "inactive": "Rates firm"
+      },
+      "liquidity": {
+        "active": "Liquidity expanding",
+        "inactive": "Liquidity contracting"
+      }
     }
   }
 }

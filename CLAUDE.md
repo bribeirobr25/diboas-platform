@@ -65,9 +65,12 @@ apps/web/src/app/
     (landing)/             # All user-facing pages (single route group)
       about/               # About us — founder story, mission, beliefs
       business/            # B2B landing page
-      market/        # Adelaide Market — BTC macro-regime dashboard (live; weekly refresh via the
+      market/        # Adelaide Market — Market Macro multi-view family (M3, 2026-08-13):
+        [view]/      #   /market = umbrella; /market/bitcoin (scored view); /market/backdrop
+                     #   (state view over the same weekly run). Weekly refresh via the
                      #   apps/web/scripts/market-refresh/ pipeline; host surface for the separate
-                     #   diboas-analytics product spec'd in docs/mvp/ — swap-ready via RegimeDataProvider)
+                     #   diboas-analytics product spec'd in docs/mvp/ — the swap seam is the six
+                     #   fetchers in lib/analytics-sdk/mock-client.server.ts (per-view loaders)
       delete-confirm/      # GDPR account deletion confirmation
       demo/                # Interactive financial demo (noindex)
       dream-mode/          # Goal calculator simulation (noindex)
@@ -285,7 +288,7 @@ The full register of locked-in implementation decisions (bundler / Turbopack, pr
 
 - Reference locale: `en` (source of truth)
 - Translations: `packages/i18n/translations/{locale}/`
-- **40 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the investor vertical (`investor` + `investor-docs`), the demo + dream flows, and the `tools-*` calculator suite.
+- **42 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the investor vertical (`investor` + `investor-docs`), the demo + dream flows, the `tools-*` calculator suite, and the market view namespaces (`market` shared + `market-bitcoin` + `market-backdrop`, M3 2026-08-13).
 - Client/server split exports to avoid bundling React on server
 - All new user-facing strings must be added to all 4 locales
 
@@ -406,7 +409,7 @@ Every quality domain (SEO, accessibility, performance, security, robustness) map
 
 ## Audit Status
 
-**Current phase:** Pre-launch marketing site (live since 2026-03-11) — waitlist, interactive demo, goal calculator, the 11-tool Money Tools suite, the 7-talk Learn/"Real Talk" program, the investor vertical, and `/market` (Adelaide Market, weekly auto-refresh). 12/12 principles-of-excellence compliant. **1,361 web tests passing (2026-08-11).** `apps/sandbox/` + `packages/banking|defi|investing` are a **gated, noindex, pre-launch work-front** (B2C+B2B play-money practice app — now a **permanent practice mode** beside the future real-money app). Status 2026-07-29: P1.2 ledger-persistence slices built; **architecture ruling-complete + feasibility-researched** (kill-board green; stack = Turnkey + Transak + Jupiter/CCTP V2; every decision FC-1…FC-15 ruled — the map `docs/sandbox-app/SANDBOX_ARCHITECTURE_AND_FLOWS.md` is the reference). **2026-08-08: the scenario program AND the spec wave are COMPLETE** — 19 scenarios + ops registry walked/ruled (rulings W-1…W-22 in the local work-front docs; map W-block = authority; zero open founder calls), all four domain specs (D-t moderation · D-e goal lifecycle · D-s simulated events · D-r rules engine) written, founder-ratified, and audited (`docs/sandbox-app/SANDBOX_SPEC_D-*_2026-08-08.md`), and the sandbox DOM render-test harness is live (Phase 0). Next = the due flow re-traces → the phase slices, alongside provider validation.
+**Current phase:** Pre-launch marketing site (live since 2026-03-11) — waitlist, interactive demo, goal calculator, the 11-tool Money Tools suite, the 7-talk Learn/"Real Talk" program, the investor vertical, and `/market` (Adelaide Market — multi-view since 2026-08-13: umbrella root + `/market/bitcoin` + `/market/backdrop`; weekly auto-refresh). 12/12 principles-of-excellence compliant. **1,388 web tests passing (2026-08-13).** `apps/sandbox/` + `packages/banking|defi|investing` are a **gated, noindex, pre-launch work-front** (B2C+B2B play-money practice app — now a **permanent practice mode** beside the future real-money app). Status 2026-07-29: P1.2 ledger-persistence slices built; **architecture ruling-complete + feasibility-researched** (kill-board green; stack = Turnkey + Transak + Jupiter/CCTP V2; every decision FC-1…FC-15 ruled — the map `docs/sandbox-app/SANDBOX_ARCHITECTURE_AND_FLOWS.md` is the reference). **2026-08-08: the scenario program AND the spec wave are COMPLETE** — 19 scenarios + ops registry walked/ruled (rulings W-1…W-22 in the local work-front docs; map W-block = authority; zero open founder calls), all four domain specs (D-t moderation · D-e goal lifecycle · D-s simulated events · D-r rules engine) written, founder-ratified, and audited (`docs/sandbox-app/SANDBOX_SPEC_D-*_2026-08-08.md`), and the sandbox DOM render-test harness is live (Phase 0). Next = the due flow re-traces → the phase slices, alongside provider validation.
 
 **Do-not-regress (compliance-critical):** the 3 sandbox covenants — the US GENIUS "stablecoin never adjacent to earn/yield" wall (guard: `apps/web/src/lib/i18n/__tests__/genius-stablecoin-wall.test.ts`), BR-top-up no-incentive, and the CN/RU/KP geofence. Every other locked-in decision (bundler, prefetch, brand assets, market pipeline, Learn platform, currency-hedge math, etc.) lives as an annotated entry in `docs/tech/implementation-notes.md` — read the matching entry there before touching those subsystems.
 

@@ -96,14 +96,30 @@ export const PAGE_SEO_CONFIG = {
   market: {
     title: 'Adelaide Market',
     description:
-      'Calm macro intelligence for Bitcoin. Understand the environment, not the next candle.',
+      'Calm macro intelligence for the financial markets, starting with Bitcoin. Understand the environment, not the next candle.',
     keywords: [
       'adelaide market',
+      'market macro',
       'bitcoin macro',
       'macro regime',
       'btc environment',
       'calm finance',
     ],
+  },
+  // M3c (Market Macro activation, 2026-08-12): the per-view pages. Keys are
+  // nested-route keys — sitemap KEY_TO_PATH + validate-seo KEY_TO_ROUTE map
+  // them to /market/<slug>.
+  'market-bitcoin': {
+    title: 'Bitcoin Macro Environment',
+    description:
+      'The Bitcoin macro environment, read calmly: one weekly score from eleven signals. Understand the environment, not the next price move.',
+    keywords: ['bitcoin macro', 'btc environment', 'macro regime', 'adelaide market'],
+  },
+  'market-backdrop': {
+    title: 'The Macro Backdrop',
+    description:
+      'Dollar, rates and liquidity: the conditions behind the markets, read calmly every week.',
+    keywords: ['macro backdrop', 'market macro', 'dollar index', 'adelaide market'],
   },
   demo: {
     title: 'Interactive Demo - Experience diBoaS',

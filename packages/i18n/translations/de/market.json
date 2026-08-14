@@ -1,14 +1,14 @@
 {
   "seo": {
     "title": "Adelaide Market",
-    "description": "Ruhige Makro-Intelligenz für Bitcoin. Verstehe das Umfeld, nicht die nächste Kerze.",
+    "description": "Ruhige Makro-Intelligenz für die Finanzmärkte, beginnend mit Bitcoin. Verstehe das Umfeld, nicht die nächste Kerze.",
     "ogTitle": "Adelaide Market",
-    "ogDescription": "Ruhige Makro-Intelligenz für Bitcoin. Verstehe das Umfeld, nicht die nächste Kerze."
+    "ogDescription": "Ruhige Makro-Intelligenz für die Finanzmärkte, beginnend mit Bitcoin. Verstehe das Umfeld, nicht die nächste Kerze."
   },
   "hero": {
     "title": "Adelaide Market",
-    "subtitle": "Ruhige Makro-Intelligenz für Bitcoin.",
-    "kicker": "Makro-Umfeld-Score"
+    "subtitle": "Ruhige Makro-Intelligenz für die Finanzmärkte.",
+    "kicker": "Bitcoin-Makro-Umfeld-Score"
   },
   "dashboard": {
     "scoreAriaLabel": "Aktueller Makro-Umfeld-Score",
@@ -64,7 +64,7 @@
     "waitlist": "Der Warteliste beitreten",
     "share": "Teilen",
     "shareCopied": "Link kopiert",
-    "shareText": "Adelaide Market: ruhige Makro-Einordnung für Bitcoin."
+    "shareText": "Adelaide Market: ruhige Makro-Einordnung für die Finanzmärkte."
   },
   "fallback": {
     "outageTitle": "Live-Daten vorübergehend nicht verfügbar",
@@ -74,7 +74,36 @@
   },
   "disclaimer": {
     "host": {
-      "regulatory": "diBoaS bietet keine Anlageberatung. Das Framework auf dieser Seite fasst das makroökonomische und strukturelle Umfeld für Bitcoin ausschließlich zu Bildungszwecken zusammen. Krypto-Asset-Preise sind hochvolatil und dein Kapital ist Risiken ausgesetzt. Die Informationen richten sich an Einwohner der EU, USA, des Vereinigten Königreichs und Brasiliens, in denen die lokale Verbreitung zulässig ist; nichts hierin stellt eine Aufforderung in einer anderen Jurisdiktion dar."
+      "regulatory": "diBoaS bietet keine Anlageberatung. Das Framework auf dieser Seite fasst das makroökonomische und strukturelle Umfeld der abgedeckten Märkte ausschließlich zu Bildungszwecken zusammen. Krypto-Asset-Preise sind hochvolatil und dein Kapital ist Risiken ausgesetzt. Die Informationen richten sich an Einwohner der EU, USA, des Vereinigten Königreichs und Brasiliens, in denen die lokale Verbreitung zulässig ist; nichts hierin stellt eine Aufforderung in einer anderen Jurisdiktion dar."
+    }
+  },
+  "views": {
+    "bitcoin": "Bitcoin",
+    "backdrop": "Makro-Umfeld"
+  },
+  "umbrella": {
+    "kicker": "Wöchentliche Makro-Einordnung",
+    "switcherAriaLabel": "Marktansichten",
+    "direction": {
+      "up": "hat sich diese Woche verbessert",
+      "down": "gab diese Woche nach",
+      "held": "hielt sich diese Woche"
+    },
+    "cardUnavailable": "Diese Einordnung ist vorübergehend nicht verfügbar.",
+    "cardCta": "Zur vollständigen Einordnung",
+    "conditions": {
+      "dollar": {
+        "active": "Dollar nachgebend",
+        "inactive": "Dollar fest"
+      },
+      "rates": {
+        "active": "Renditen nachgebend",
+        "inactive": "Renditen fest"
+      },
+      "liquidity": {
+        "active": "Liquidität wachsend",
+        "inactive": "Liquidität schrumpfend"
+      }
     }
   }
 }
