@@ -3,7 +3,6 @@
 import { useEffect, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { LucideIcon } from './LucideIcon';
-import { ModeChip } from './ModeChip';
 import styles from './Welcome.module.css';
 
 /**
@@ -30,7 +29,10 @@ export function Welcome({ onStart }: { onStart: () => void }) {
 
   return (
     <section className={styles.wrap} aria-labelledby="welcome-title">
-      <ModeChip />
+      {/* No mode chip here: the AppChrome shell already renders the persistent
+          ModeChip on every in-shell screen (one chip per screen — A1). The
+          standalone R1 auth Welcome (A2, rendered OUTSIDE the shell) will use
+          ModeChip on its own. */}
       <h1 id="welcome-title" ref={headingRef} tabIndex={-1} className={styles.title}>
         <FormattedMessage id="welcome.title" />
       </h1>
