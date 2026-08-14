@@ -42,7 +42,7 @@
   color: var(--color-white);
 }
 .primary:hover {
-  background: var(--color-teal-800, #115e59);
+  background: var(--color-teal-800);
 }
 
 /* Secondary — outlined action (Cancel etc.): teal-700 border + accessible text. */
