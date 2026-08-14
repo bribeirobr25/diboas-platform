@@ -90,6 +90,11 @@
   border-bottom: 1px solid var(--sb-hairline);
   background: var(--sb-ground);
 }
+.appbarRight {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+}
 
 .brand {
   display: inline-flex;

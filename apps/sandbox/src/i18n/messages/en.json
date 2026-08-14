@@ -296,8 +296,8 @@
     "link": "Visit diboas.com"
   },
   "authWelcome": {
-    "tagline": "Practice money. Build wisdom.",
-    "title": "Practice money decisions. Build real confidence.",
+    "tagline": "Money works better when it has a job.",
+    "title": "A reserve. A plan. A future you can point to.",
     "body": "Explore strategies, set goals, and grow your money intuition.",
     "google": "Continue with Google",
     "email": "Continue with email",
@@ -396,5 +396,9 @@
     "toggle": "Switch to {target} mode",
     "light": "light",
     "dark": "dark"
+  },
+  "locale": {
+    "label": "Language",
+    "switch": "Change language, current: {current}"
   }
 }

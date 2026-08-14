@@ -296,8 +296,8 @@
     "link": "Ir para diboas.com"
   },
   "authWelcome": {
-    "tagline": "Pratique com dinheiro. Ganhe sabedoria.",
-    "title": "Pratique decisões de dinheiro. Construa confiança real.",
+    "tagline": "Você não guarda dinheiro. Você guarda futuro.",
+    "title": "Uma reserva. Uma proteção. Um plano que sai do papel.",
     "body": "Explore estratégias, defina objetivos e desenvolva sua intuição financeira.",
     "google": "Continuar com Google",
     "email": "Continuar com e-mail",
@@ -396,5 +396,9 @@
     "toggle": "Mudar para o modo {target}",
     "light": "claro",
     "dark": "escuro"
+  },
+  "locale": {
+    "label": "Idioma",
+    "switch": "Alterar idioma, atual: {current}"
   }
 }

@@ -11,6 +11,13 @@ vi.mock('@/app/[locale]/welcome/actions', () => ({
   startOnboarding: (method: string, locale: string) => startOnboarding(method, locale),
 }));
 
+// LocaleSwitcher (in the hero) uses the app router; stub it for render.
+const routerPush = vi.fn();
+vi.mock('next/navigation', () => ({
+  usePathname: () => '/en/welcome',
+  useRouter: () => ({ push: routerPush, replace: vi.fn(), prefetch: vi.fn() }),
+}));
+
 import { AuthWelcome } from '../AuthWelcome';
 
 const MESSAGES = {
@@ -26,6 +33,8 @@ const MESSAGES = {
   'theme.toggle': 'Switch to {target} mode',
   'theme.light': 'light',
   'theme.dark': 'dark',
+  'locale.label': 'Language',
+  'locale.switch': 'Change language, current: {current}',
 };
 
 function renderWelcome(locale = 'en') {
@@ -42,8 +51,15 @@ describe('AuthWelcome (A2 front door — wired)', () => {
     expect(screen.getByText('Continue with Google')).toBeTruthy();
     expect(screen.getByText('Continue with email')).toBeTruthy();
     expect(screen.getByText('Connect wallet')).toBeTruthy();
-    // Three method buttons + the theme toggle = 4 buttons total.
-    expect(screen.getAllByRole('button')).toHaveLength(4);
+    // Three method buttons + the language + theme controls = 5 buttons total.
+    expect(screen.getAllByRole('button')).toHaveLength(5);
+  });
+
+  it('should offer a language chooser on the front door', () => {
+    renderWelcome();
+    expect(
+      screen.getByRole('button', { name: 'Change language, current: English' })
+    ).toBeTruthy();
   });
 
   it('should show the diBoaS wordmark (not "diBoaS Sandbox")', () => {

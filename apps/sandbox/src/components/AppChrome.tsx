@@ -6,6 +6,7 @@ import type { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { LucideIcon } from './LucideIcon';
 import { LedgerReadyGate } from './LedgerReadyGate';
+import { LocaleSwitcher } from './LocaleSwitcher';
 import { ModeChip } from './ModeChip';
 import styles from './AppChrome.module.css';
 
@@ -50,7 +51,10 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
               <FormattedMessage id="common.appName" />
             </span>
           </Link>
-          <ModeChip />
+          <div className={styles.appbarRight}>
+            <LocaleSwitcher locale={locale} variant="bare" />
+            <ModeChip />
+          </div>
         </header>
 
         <div className={styles.scroll}>

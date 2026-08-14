@@ -296,8 +296,8 @@
     "link": "Zu diboas.com"
   },
   "authWelcome": {
-    "tagline": "Mit Geld üben. Klugheit aufbauen.",
-    "title": "Übe Geldentscheidungen. Baue echtes Vertrauen auf.",
+    "tagline": "Geld braucht einen Plan. Nicht nur ein Konto.",
+    "title": "Für die Rücklage. Für das größere Vorhaben. Für den Plan, den du immer wieder verschiebst.",
     "body": "Entdecke Strategien, setze Ziele und entwickle dein Geldgespür.",
     "google": "Mit Google fortfahren",
     "email": "Mit E-Mail fortfahren",
@@ -396,5 +396,9 @@
     "toggle": "In den {target} Modus wechseln",
     "light": "hellen",
     "dark": "dunklen"
+  },
+  "locale": {
+    "label": "Sprache",
+    "switch": "Sprache ändern, aktuell: {current}"
   }
 }

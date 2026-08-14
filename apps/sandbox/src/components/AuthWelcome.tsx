@@ -2,6 +2,7 @@
 
 import { FormattedMessage, useIntl } from 'react-intl';
 import { GoogleG } from './GoogleG';
+import { LocaleSwitcher } from './LocaleSwitcher';
 import { LucideIcon } from './LucideIcon';
 import { ThemeToggle } from './ThemeToggle';
 import { startOnboarding } from '@/app/[locale]/welcome/actions';
@@ -46,7 +47,10 @@ export function AuthWelcome({ locale }: { locale: string }) {
       <div className={styles.hero}>
         <div className={styles.heroImg} aria-hidden />
         <div className={styles.heroFade} aria-hidden />
-        <ThemeToggle className={styles.themeToggle} />
+        <div className={styles.topControls}>
+          <LocaleSwitcher locale={locale} />
+          <ThemeToggle />
+        </div>
         {/* No mode chip / play-money reference here: the Welcome is the clean
             front door; the "Sandbox · play money" framing lives on the internal
             pages only (founder 2026-08-14). */}

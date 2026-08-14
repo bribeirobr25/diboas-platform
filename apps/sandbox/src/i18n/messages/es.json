@@ -296,8 +296,8 @@
     "link": "Ir a diboas.com"
   },
   "authWelcome": {
-    "tagline": "Practica con dinero. Gana sabiduría.",
-    "title": "Practica decisiones de dinero. Gana confianza real.",
+    "tagline": "Tu dinero necesita un plan. No otra promesa.",
+    "title": "Un colchón. Un objetivo. Un plan que no quieres improvisar.",
     "body": "Explora estrategias, fija metas y desarrolla tu intuición financiera.",
     "google": "Continuar con Google",
     "email": "Continuar con correo",
@@ -396,5 +396,9 @@
     "toggle": "Cambiar al modo {target}",
     "light": "claro",
     "dark": "oscuro"
+  },
+  "locale": {
+    "label": "Idioma",
+    "switch": "Cambiar idioma, actual: {current}"
   }
 }

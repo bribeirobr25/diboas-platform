@@ -37,12 +37,16 @@
   }
 }
 
-/* Theme toggle floated top-right over the hero. */
-.themeToggle {
+/* Language + theme controls, floated top-right over the hero (extra top space
+   so they clear the device status bar / notch). */
+.topControls {
   position: absolute;
   z-index: 3;
-  top: var(--spacing-md);
+  top: var(--spacing-xl);
   right: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
 }
 /* Blend the beach into the content panel — a soft fade ONLY at the bottom
    edge so the beach itself stays vivid (not bleached). */
@@ -59,7 +63,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-sm);
-  padding: var(--spacing-2xl) var(--spacing-lg) 0;
+  padding: var(--spacing-3xl) var(--spacing-lg) 0;
   text-align: center;
 }
 /* Theme-aware wordmark (light on-light / white on-dark), as a background so it
@@ -92,7 +96,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-3xl);
 }
 
 .title {

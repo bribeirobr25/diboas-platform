@@ -1,0 +1,90 @@
+/*
+ * Language chooser. The trigger matches the ThemeToggle (round translucent
+ * chip) so the two sit together over the Welcome hero; the menu is a small
+ * card of endonyms. Fully tokenized.
+ */
+.wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sb-tap);
+  height: var(--sb-tap);
+  border: 1px solid var(--sb-hairline-strong);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--sb-ground) 55%, transparent);
+  color: var(--sb-text-heading);
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease;
+}
+.trigger:hover {
+  background: color-mix(in srgb, var(--sb-ground) 75%, transparent);
+}
+.trigger:active {
+  transform: scale(0.94);
+}
+
+/* Bare variant for the app bar: no fill/border/blur, just the glyph. */
+.triggerBare {
+  border-color: transparent;
+  background: transparent;
+  color: var(--sb-text-muted);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.triggerBare:hover {
+  background: var(--sb-card-tint);
+  color: var(--sb-text-heading);
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + var(--spacing-xs));
+  right: 0;
+  z-index: 20;
+  min-width: 11rem;
+  margin: 0;
+  padding: var(--spacing-2xs);
+  list-style: none;
+  background: var(--sb-card);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius);
+  box-shadow: var(--sb-shadow-lift);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0 var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: var(--sb-text-heading);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  text-align: left;
+  cursor: pointer;
+}
+.option:hover {
+  background: var(--sb-card-tint);
+}
+.option[aria-current='true'] {
+  color: var(--text-brand-accessible);
+  font-weight: var(--font-weight-semibold);
+}
+.option > svg {
+  color: var(--text-brand-accessible);
+  flex: none;
+}
