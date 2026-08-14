@@ -2,22 +2,22 @@
 
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { SANDBOX_GATE_COOKIE, gateCookieOptions, gateGrantToken } from '@/lib/gate';
+import { getAuthProvider } from '@/lib/auth/factory';
 import { isSandboxLocale } from '@/i18n/config';
 
 /**
- * Onboarding sign-in seam (A2). SEAM: real sign-in (Auth.js OAuth redirect /
- * email-OTP / wallet challenge) wires HERE at the end — the call site does not
- * change. Until then the SimulatedAuthProvider establishes a session (the same
- * HMAC grant the gate uses) so the REAL onboarding flow (consent -> claim ->
- * home) is reachable and navigable — this is a wired flow, not a no-op preview.
+ * Onboarding sign-in (A2). Goes through the IAuthProvider SEAM (Principle 3) —
+ * establishSession() is the write half. MVP-0's SimulatedAuthProvider wraps the
+ * gate grant; Stage-1's AuthjsProvider does the real OAuth/OTP/wallet handshake.
+ * This action does NOT import lib/gate — so when MVP-0/gate is removed, the call
+ * site is unchanged. A wired flow (session + navigate), not a no-op preview.
  */
 export async function startOnboarding(method: string, localeRaw: string): Promise<void> {
   const locale = isSandboxLocale(localeRaw) ? localeRaw : 'en';
-  const token = gateGrantToken();
-  if (token) {
+  const grant = getAuthProvider().establishSession(method);
+  if (grant) {
     const cookieStore = await cookies();
-    cookieStore.set(SANDBOX_GATE_COOKIE, token, gateCookieOptions());
+    cookieStore.set(grant.cookieName, grant.cookieValue, grant.cookieOptions);
   }
   redirect(`/${locale}/consent`);
 }

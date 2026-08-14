@@ -40,12 +40,24 @@ describe('SimulatedAuthProvider — wraps the shared-password gate (MVP-0 seam)'
     expect(p.verifySession(null)).toBeNull();
   });
 
+  it('should establishSession() a grant that verifySession() then accepts (seam round-trip)', () => {
+    const p = new SimulatedAuthProvider();
+    const grant = p.establishSession('email');
+    expect(grant).not.toBeNull();
+    expect(grant!.cookieName).toBe(SANDBOX_GATE_COOKIE);
+    expect(grant!.cookieOptions.httpOnly).toBe(true);
+    // the issued session must be a valid, verifiable session
+    expect(p.verifySession(grant!.cookieValue)).not.toBeNull();
+  });
+
   it('should FAIL CLOSED when no gate password is configured', () => {
     delete process.env.SANDBOX_ACCESS_PASSWORD;
     const p = new SimulatedAuthProvider();
     expect(p.isConfigured()).toBe(false);
     // even a formerly-valid-looking token is denied when unconfigured
     expect(p.verifySession('anything')).toBeNull();
+    // and no session can be established (fail-closed on the write half too)
+    expect(p.establishSession('google')).toBeNull();
   });
 });
 
