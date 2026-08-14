@@ -1,9 +1,10 @@
 'use client';
 
+import Image from 'next/image';
 import { FormattedMessage } from 'react-intl';
-import { Button } from './Button';
 import { LucideIcon } from './LucideIcon';
 import { ModeChip } from './ModeChip';
+import { startOnboarding } from '@/app/[locale]/welcome/actions';
 import styles from './AuthWelcome.module.css';
 
 type Method = 'google' | 'email' | 'wallet';
@@ -15,36 +16,43 @@ const METHODS: { id: Method; icon: string; labelId: string }[] = [
 ];
 
 /**
- * AuthWelcome — the public front door (slice A2; mockup 01; W-17c: R1 entry =
- * public Welcome + login/create-account, replacing the MVP-0 gate at go-live).
- * The three ruled R1 methods (Google · email · wallet — W-1/PL-1c), equal
- * weight, no "recommended".
+ * AuthWelcome — the public front door (A2; mockup 01; W-17c). Matches the
+ * approved mockup: the "diBoaS" brand wordmark (not "diBoaS Sandbox"), the real
+ * coastal hero image (public/hero-welcome.png, not a faked gradient), the three
+ * ruled R1 methods (Google · email · wallet — W-1/PL-1c) as white method cards.
  *
- * SEAM (no creds yet): the buttons call `onMethod`; the real sign-in (Auth.js
- * OAuth redirect / OTP send / wallet challenge) is wired at the end via the
- * existing IAuthProvider factory — the button boundary changes nothing when it
- * lands. Default handler is a no-op so the screen is honest UI, not a fake
- * success. Copy applies the audit learnings: no "risk-free"; terms/privacy are
- * a NOTICE (links, reviewable anytime), never agreement-by-continuing — the
- * actual consent is captured on the W-3 consent screen (A3).
+ * WIRED (not a preview): a method tap calls the startOnboarding server action —
+ * establishes a session via the auth seam and NAVIGATES into the real flow
+ * (-> consent -> claim -> home). Real sign-in (Auth.js) swaps in at the seam.
+ * Copy applies the learnings: no "risk-free"; Terms/Privacy are a reviewable
+ * NOTICE, never agreement-by-continuing (the actual consent is the W-3 screen).
  */
-export function AuthWelcome({ onMethod }: { onMethod?: (m: Method) => void }) {
+export function AuthWelcome({ locale }: { locale: string }) {
   return (
     <section className={styles.wrap} aria-labelledby="authwelcome-title">
       <header className={styles.top}>
         <ModeChip />
-        <p className={styles.wordmark}>
-          <LucideIcon name="palmtree" size={22} />
-          <FormattedMessage id="common.appName" />
-        </p>
+        {/* The diBoaS brand wordmark (the mockup's logo, not "diBoaS Sandbox"). */}
+        <Image
+          className={styles.wordmark}
+          src="/logo-wordmark.webp"
+          alt="diBoaS"
+          width={132}
+          height={36}
+          priority
+        />
         <p className={styles.tagline}>
           <FormattedMessage id="authWelcome.tagline" />
         </p>
       </header>
 
-      {/* Hero band — calm brand-gradient placeholder; the final coastal
-          illustration (mockup 01) is a design asset dropped in here at handoff. */}
-      <div className={styles.hero} aria-hidden />
+      {/* Real coastal hero (calm water + palm — ties to the brand mark). */}
+      <div
+        className={styles.hero}
+        role="img"
+        aria-label="A calm coastline"
+        style={{ backgroundImage: "url('/hero-welcome.png')" }}
+      />
 
       <h1 id="authwelcome-title" className={styles.title}>
         <FormattedMessage id="authWelcome.title" />
@@ -55,19 +63,20 @@ export function AuthWelcome({ onMethod }: { onMethod?: (m: Method) => void }) {
 
       <div className={styles.methods}>
         {METHODS.map((m) => (
-          <Button
+          <button
             key={m.id}
-            variant="secondary"
-            fullWidth
+            type="button"
             className={styles.method}
-            onClick={() => onMethod?.(m.id)}
+            onClick={() => startOnboarding(m.id, locale)}
           >
-            <LucideIcon name={m.icon} size={18} />
+            <span className={styles.methodIcon}>
+              <LucideIcon name={m.icon} size={20} />
+            </span>
             <span className={styles.methodLabel}>
               <FormattedMessage id={m.labelId} />
             </span>
-            <LucideIcon name="chevron-right" size={16} />
-          </Button>
+            <LucideIcon name="chevron-right" size={18} />
+          </button>
         ))}
       </div>
 
@@ -75,12 +84,17 @@ export function AuthWelcome({ onMethod }: { onMethod?: (m: Method) => void }) {
         <FormattedMessage
           id="authWelcome.legal"
           values={{
+            /* Legal pages live on the marketing site (external), not in the
+               sandbox app — so a plain <a>, not next/link. Final URLs wire at
+               the end with the marketing-domain base. */
             terms: (chunks) => (
+              // eslint-disable-next-line @next/next/no-html-link-for-pages -- external marketing legal page
               <a href="/legal/terms" className={styles.legalLink}>
                 {chunks}
               </a>
             ),
             privacy: (chunks) => (
+              // eslint-disable-next-line @next/next/no-html-link-for-pages -- external marketing legal page
               <a href="/legal/privacy" className={styles.legalLink}>
                 {chunks}
               </a>

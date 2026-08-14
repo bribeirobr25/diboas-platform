@@ -1,7 +1,6 @@
 /*
- * AuthWelcome (A2 front door). Calm light surface; centered, generous
- * whitespace; the three methods equal-weight (secondary/outlined per the
- * Button primitive). Fully tokenized.
+ * AuthWelcome (A2 front door) — matches mockup 01. Calm light surface; the
+ * coastal hero band up top; three white method cards. Fully tokenized.
  */
 .wrap {
   display: flex;
@@ -22,16 +21,9 @@
 }
 
 .wordmark {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2xs);
-  margin: var(--spacing-xs) 0 0;
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-2xl);
-  color: var(--sb-text-heading);
-}
-.wordmark svg {
-  color: var(--sb-accent);
+  height: 2.25rem;
+  width: auto;
+  margin-top: var(--spacing-xs);
 }
 
 .tagline {
@@ -40,17 +32,20 @@
   font-size: var(--font-size-md);
 }
 
-/* Hero placeholder — calm brand wash; final illustration drops in here. */
+/* Real coastal hero band (public/hero-welcome.png). */
 .hero {
-  height: 9rem;
+  height: 12rem;
   border-radius: var(--sb-radius-lg);
-  background: linear-gradient(160deg, var(--sb-accent-tint), var(--color-teal-100));
+  background-position: center 38%;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .title {
   margin: var(--spacing-xs) 0 0;
   text-align: center;
-  font-family: var(--sb-serif);
+  font-family: var(--sb-sans);
+  font-weight: var(--font-weight-bold);
   font-size: var(--font-size-2xl);
   line-height: 1.2;
   color: var(--sb-text-heading);
@@ -61,6 +56,7 @@
   text-align: center;
   color: var(--sb-text-body);
   font-size: var(--font-size-md);
+  line-height: 1.5;
 }
 
 .methods {
@@ -70,13 +66,44 @@
   margin-top: var(--spacing-sm);
 }
 
-/* space the icon | label | chevron across the button width */
+/* White method card — icon | label | chevron (the mockup's auth buttons). */
 .method {
-  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0 var(--spacing-md);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius);
+  background: var(--sb-card);
+  color: var(--sb-text-heading);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  box-shadow: var(--sb-shadow-soft);
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+}
+.method:hover {
+  box-shadow: var(--sb-shadow-lift);
+}
+.method:active {
+  transform: scale(0.995);
+}
+.methodIcon {
+  display: inline-flex;
+  color: var(--text-brand-accessible);
+  flex: none;
 }
 .methodLabel {
   flex: 1;
   text-align: center;
+}
+.method > svg:last-child {
+  color: var(--sb-text-muted);
+  flex: none;
 }
 
 .legal {

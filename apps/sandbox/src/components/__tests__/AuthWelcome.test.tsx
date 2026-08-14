@@ -1,11 +1,19 @@
 // @vitest-environment happy-dom
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { describe, expect, it, vi } from 'vitest';
+
+// The method buttons are WIRED to the onboarding server action; mock it so the
+// test asserts the wiring (called with the chosen method + locale) without
+// invoking real navigation.
+const startOnboarding = vi.fn();
+vi.mock('@/app/[locale]/welcome/actions', () => ({
+  startOnboarding: (method: string, locale: string) => startOnboarding(method, locale),
+}));
+
 import { AuthWelcome } from '../AuthWelcome';
 
 const MESSAGES = {
-  'common.appName': 'diBoaS',
   'common.playBadge': 'Sandbox · play money',
   'authWelcome.tagline': 'Practice money. Build wisdom.',
   'authWelcome.title': 'Practice money decisions. Build real confidence.',
@@ -17,38 +25,42 @@ const MESSAGES = {
     'Review our <terms>Terms</terms> and <privacy>Privacy Policy</privacy> anytime.',
 };
 
-function renderWelcome(onMethod?: (m: 'google' | 'email' | 'wallet') => void) {
+function renderWelcome(locale = 'en') {
   return render(
     <IntlProvider locale="en" messages={MESSAGES}>
-      <AuthWelcome onMethod={onMethod} />
+      <AuthWelcome locale={locale} />
     </IntlProvider>
   );
 }
 
-describe('AuthWelcome (A2 front door)', () => {
+describe('AuthWelcome (A2 front door — wired)', () => {
   it('should offer exactly the three ruled R1 methods, equal weight', () => {
     renderWelcome();
-    expect(screen.getByRole('button', { name: /Continue with Google/ })).toBeTruthy();
-    expect(screen.getByRole('button', { name: /Continue with email/ })).toBeTruthy();
-    expect(screen.getByRole('button', { name: /Connect wallet/ })).toBeTruthy();
-    // No fourth method (Apple correctly absent — PL-1c).
+    expect(screen.getByText('Continue with Google')).toBeTruthy();
+    expect(screen.getByText('Continue with email')).toBeTruthy();
+    expect(screen.getByText('Connect wallet')).toBeTruthy();
     expect(screen.getAllByRole('button')).toHaveLength(3);
   });
 
-  it('should call onMethod with the chosen method', () => {
-    const onMethod = vi.fn();
-    renderWelcome(onMethod);
-    screen.getByRole('button', { name: /Continue with email/ }).click();
-    expect(onMethod).toHaveBeenCalledWith('email');
+  it('should show the diBoaS wordmark (not "diBoaS Sandbox") and the real hero image', () => {
+    renderWelcome();
+    expect(screen.getByAltText('diBoaS')).toBeTruthy();
+    // No "diBoaS Sandbox" text title (internal-page rule).
+    expect(screen.queryByText('diBoaS Sandbox')).toBeNull();
+    expect(screen.getByRole('img', { name: 'A calm coastline' })).toBeTruthy();
+  });
+
+  it('should WIRE the method tap into the onboarding flow (action called with method + locale)', () => {
+    startOnboarding.mockClear();
+    renderWelcome('de');
+    fireEvent.click(screen.getByText('Continue with email'));
+    expect(startOnboarding).toHaveBeenCalledWith('email', 'de');
   });
 
   it('should present Terms/Privacy as reviewable links, not agreement-by-continuing', () => {
     renderWelcome();
-    const terms = screen.getByRole('link', { name: 'Terms' });
-    const privacy = screen.getByRole('link', { name: 'Privacy Policy' });
-    expect(terms).toBeTruthy();
-    expect(privacy).toBeTruthy();
-    // The word "agree" must not appear (bundled agreement-by-continuing declined, W-3).
+    expect(screen.getByRole('link', { name: 'Terms' })).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'Privacy Policy' })).toBeTruthy();
     expect(document.body.textContent).not.toMatch(/agree/i);
   });
 });
