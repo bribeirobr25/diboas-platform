@@ -25,7 +25,7 @@ interface SignalCardProps {
 export function SignalCard({ data, className }: SignalCardProps) {
   const pct = data.max_points > 0 ? Math.round((data.points_awarded / data.max_points) * 100) : 0;
   const [width, setWidth] = useState(pct);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLSpanElement>(null);
   const ran = useRef(false);
 
   useEffect(() => {
@@ -61,20 +61,23 @@ export function SignalCard({ data, className }: SignalCardProps) {
 
   return (
     <details className={`${styles.row} ${className ?? ''}`} data-status={data.status}>
+      {/* Spec note: <summary> permits phrasing content only — every child is
+          a <span> (display set in CSS), never a <div>, so AT sees conforming
+          markup. */}
       <summary className={styles.rowSummary}>
-        <div ref={ref} className={styles.rowHead}>
+        <span ref={ref} className={styles.rowHead}>
           <span className={styles.value}>
             {data.points_awarded}
             <span className={styles.valueMax}>/{data.max_points}</span>
           </span>
-          <div className={styles.body}>
-            <div className={styles.name}>{data.title}</div>
-            <div className={styles.bar}>
+          <span className={styles.body}>
+            <span className={styles.name}>{data.title}</span>
+            <span className={styles.bar}>
               <span className={styles.barFill} style={{ width: `${width}%` }} />
-            </div>
-          </div>
+            </span>
+          </span>
           <span className={styles.chevron} aria-hidden="true" />
-        </div>
+        </span>
       </summary>
       <div className={styles.detailBody}>
         <p className={styles.desc}>{data.summary}</p>

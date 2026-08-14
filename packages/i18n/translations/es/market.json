@@ -3,7 +3,7 @@
     "title": "Adelaide Market",
     "description": "Una lectura serena de los mercados financieros, empezando por Bitcoin. Entiende el entorno, no la próxima vela.",
     "ogTitle": "Adelaide Market",
-    "ogDescription": "Inteligencia macro serena para los mercados financieros, empezando por Bitcoin. Entiende el entorno, no la próxima vela."
+    "ogDescription": "Una lectura serena de los mercados financieros, empezando por Bitcoin. Entiende el entorno, no la próxima vela."
   },
   "hero": {
     "title": "Adelaide Market",
@@ -65,7 +65,7 @@
     "waitlist": "Unirme a la lista de espera",
     "share": "Compartir",
     "shareCopied": "Enlace copiado",
-    "shareText": "Adelaide Market: inteligencia macro calmada para los mercados financieros."
+    "shareText": "Adelaide Market: una lectura serena de los mercados, sin el ruido de siempre."
   },
   "fallback": {
     "outageTitle": "Datos en vivo temporalmente no disponibles",

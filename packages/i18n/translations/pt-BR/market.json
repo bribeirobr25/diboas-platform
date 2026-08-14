@@ -3,7 +3,7 @@
     "title": "Adelaide Market",
     "description": "Uma leitura calma dos mercados financeiros, começando pelo Bitcoin. Entenda o ambiente, não o próximo candle.",
     "ogTitle": "Adelaide Market",
-    "ogDescription": "Inteligência macro serena para os mercados financeiros, começando pelo Bitcoin. Entenda o ambiente, não o próximo candle."
+    "ogDescription": "Uma leitura calma dos mercados financeiros, começando pelo Bitcoin. Entenda o ambiente, não o próximo candle."
   },
   "hero": {
     "title": "Adelaide Market",
@@ -65,7 +65,7 @@
     "waitlist": "Entrar na lista de espera",
     "share": "Compartilhar",
     "shareCopied": "Link copiado",
-    "shareText": "Adelaide Market: inteligência macro calma para os mercados financeiros."
+    "shareText": "Adelaide Market: uma leitura calma dos mercados, sem o barulho de sempre."
   },
   "fallback": {
     "outageTitle": "Dados ao vivo temporariamente indisponíveis",
