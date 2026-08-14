@@ -168,7 +168,7 @@
      BRAND COLORS
      ================================ */
   --brand-logo: #02c3cf;
-  --brand-primary: #14b8a6;
+  --brand-primary: #18c1a3; /* diBoaS Sea Green — approved mockup brand green (2026-08-14; was #14b8a6 raw teal-500). Sandbox-only; web config/design-tokens.json unchanged — brand-unification is a separate cross-lane call. */
   --brand-primary-dark: #0d9488;
 
   /* A13 (2026-06-11): external social-platform brand colors, for share/referral
@@ -340,7 +340,7 @@
      FOCUS & ACCESSIBILITY TOKENS
      ================================ */
   --focus-ring-width: 2px;
-  --focus-ring-color: #14b8a6;
+  --focus-ring-color: #18c1a3;
   --focus-ring-offset: 2px;
   --focus-ring-blue: rgba(59, 130, 246, 0.1);
 
@@ -1679,7 +1679,7 @@
   --color-teal-200: #99f6e4;
   --color-teal-300: #5eead4;
   --color-teal-400: #2dd4bf;
-  --color-teal-500: #14b8a6;
+  --color-teal-500: #18c1a3; /* unified to the approved Sea Green (brand-aligned; intentionally not raw Tailwind teal-500) */
   --color-teal-600: #0d9488;
   --color-teal-700: #0f766e;
   --color-teal-800: #115e59;
