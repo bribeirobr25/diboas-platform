@@ -131,9 +131,12 @@
 }
 
 @media (max-width: 640px) {
+  /* Three children (value · body · chevron) stay on ONE row — the audit's
+     DE-mobile leg caught the 2-column template wrapping the chevron and
+     right-shoving the title into the edge. */
   .rowHead {
-    grid-template-columns: 1fr auto;
-    gap: 8px;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
   }
   .value {
     justify-self: start;
