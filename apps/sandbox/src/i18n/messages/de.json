@@ -298,11 +298,12 @@
   "authWelcome": {
     "tagline": "Mit Geld üben. Klugheit aufbauen.",
     "title": "Übe Geldentscheidungen. Baue echtes Vertrauen auf.",
-    "body": "Entdecke Strategien, setze Ziele und entwickle dein Geldgespür. Alles mit Spielgeld, nichts Echtes steht auf dem Spiel.",
+    "body": "Entdecke Strategien, setze Ziele und entwickle dein Geldgespür.",
     "google": "Mit Google fortfahren",
     "email": "Mit E-Mail fortfahren",
     "wallet": "Wallet verbinden",
-    "legal": "Lies jederzeit unsere <terms>Nutzungsbedingungen</terms> und <privacy>Datenschutzerklärung</privacy>."
+    "legal": "Lies jederzeit unsere <terms>Nutzungsbedingungen</terms> und <privacy>Datenschutzerklärung</privacy>.",
+    "wordmarkAlt": "diBoaS"
   },
   "consent": {
     "title": "Bevor du startest",
@@ -390,5 +391,10 @@
     "alsoStop": "Auch aus der Strategie aussteigen? Du kannst sie ebenfalls stoppen (eine kleine Gebühr von 0,39% fällt an).",
     "pause": "Plan pausieren",
     "keepGoing": "Weitermachen"
+  },
+  "theme": {
+    "toggle": "In den {target} Modus wechseln",
+    "light": "hellen",
+    "dark": "dunklen"
   }
 }

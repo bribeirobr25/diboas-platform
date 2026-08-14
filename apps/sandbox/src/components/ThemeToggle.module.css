@@ -1,0 +1,28 @@
+/*
+ * Theme toggle — a subtle round control. On the Welcome it floats over the
+ * hero, so it carries its own translucent chip for legibility on any image.
+ * 44px tap target (WCAG 2.5.8) with a smaller visual glyph.
+ */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sb-tap);
+  height: var(--sb-tap);
+  border: 1px solid var(--sb-hairline-strong);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--sb-ground) 55%, transparent);
+  color: var(--sb-text-heading);
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease;
+}
+.toggle:hover {
+  background: color-mix(in srgb, var(--sb-ground) 75%, transparent);
+}
+.toggle:active {
+  transform: scale(0.94);
+}

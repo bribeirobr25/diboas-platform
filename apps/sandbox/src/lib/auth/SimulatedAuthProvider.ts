@@ -35,7 +35,7 @@ export class SimulatedAuthProvider implements IAuthProvider {
    * the AuthjsProvider that replaces it (and lets MVP-0/gate be deleted) does
    * the real per-method handshake without changing the call site.
    */
-  establishSession(): SessionGrant | null {
+  establishSession(_method?: string): SessionGrant | null {
     const cookieValue = gateGrantToken();
     if (!cookieValue) return null; // fail-closed when unconfigured
     return {

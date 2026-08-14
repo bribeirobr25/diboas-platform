@@ -18,10 +18,31 @@
   min-height: 48dvh;
   overflow: hidden;
 }
+/* Theme-aware hero: a CSS background (not next/image) so the light↔dark swap
+   happens in the stylesheet with the pre-paint data-theme — no hydration flash.
+   The dark declarations live in two matching selectors (explicit data-theme +
+   system media query); keep them in sync. */
 .heroImg {
-  object-fit: cover;
-  object-position: center 58%; /* show the waterline + palm, not just sky */
+  position: absolute;
+  inset: 0;
   z-index: 0;
+  background: url('/hero-welcome.png') center 58% / cover no-repeat;
+}
+:global(html[data-theme='dark']) .heroImg {
+  background-image: url('/hero-welcome-dark.png');
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme='light'])) .heroImg {
+    background-image: url('/hero-welcome-dark.png');
+  }
+}
+
+/* Theme toggle floated top-right over the hero. */
+.themeToggle {
+  position: absolute;
+  z-index: 3;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
 }
 /* Blend the beach into the content panel — a soft fade ONLY at the bottom
    edge so the beach itself stays vivid (not bleached). */
@@ -41,10 +62,23 @@
   padding: var(--spacing-2xl) var(--spacing-lg) 0;
   text-align: center;
 }
+/* Theme-aware wordmark (light on-light / white on-dark), as a background so it
+   swaps with the theme flash-free. Aspect ~3.6:1. */
 .wordmark {
+  display: block;
   height: 3.25rem;
-  width: auto;
+  width: 12rem;
+  max-width: 62vw;
   margin-top: var(--spacing-xs);
+  background: url('/logo-wordmark.webp') center / contain no-repeat;
+}
+:global(html[data-theme='dark']) .wordmark {
+  background-image: url('/logo-wordmark-dark.webp');
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme='light'])) .wordmark {
+    background-image: url('/logo-wordmark-dark.webp');
+  }
 }
 .tagline {
   margin: 0;
@@ -93,7 +127,7 @@
   width: 100%;
   min-height: 3.75rem;
   padding: 0 var(--spacing-lg);
-  border: none;
+  border: 1px solid var(--sb-hairline);
   border-radius: var(--sb-radius);
   background: var(--sb-card);
   color: var(--sb-text-heading);

@@ -298,11 +298,12 @@
   "authWelcome": {
     "tagline": "Practice money. Build wisdom.",
     "title": "Practice money decisions. Build real confidence.",
-    "body": "Explore strategies, set goals, and grow your money intuition. All with play money, nothing real at stake.",
+    "body": "Explore strategies, set goals, and grow your money intuition.",
     "google": "Continue with Google",
     "email": "Continue with email",
     "wallet": "Connect wallet",
-    "legal": "Review our <terms>Terms</terms> and <privacy>Privacy Policy</privacy> anytime."
+    "legal": "Review our <terms>Terms</terms> and <privacy>Privacy Policy</privacy> anytime.",
+    "wordmarkAlt": "diBoaS"
   },
   "consent": {
     "title": "Before you start",
@@ -390,5 +391,10 @@
     "alsoStop": "Want out of the strategy too? You can also stop it (a small 0.39% fee applies).",
     "pause": "Pause plan",
     "keepGoing": "Keep going"
+  },
+  "theme": {
+    "toggle": "Switch to {target} mode",
+    "light": "light",
+    "dark": "dark"
   }
 }

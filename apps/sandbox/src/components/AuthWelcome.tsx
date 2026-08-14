@@ -1,10 +1,9 @@
 'use client';
 
-import Image from 'next/image';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { GoogleG } from './GoogleG';
 import { LucideIcon } from './LucideIcon';
-import { ModeChip } from './ModeChip';
+import { ThemeToggle } from './ThemeToggle';
 import { startOnboarding } from '@/app/[locale]/welcome/actions';
 import styles from './AuthWelcome.module.css';
 
@@ -33,31 +32,29 @@ function MethodIcon({ id }: { id: Method }) {
  * (-> consent -> claim -> home). Real sign-in (Auth.js) swaps in at the seam.
  * Copy learnings held: no "risk-free"; Terms/Privacy are a reviewable NOTICE,
  * never agreement-by-continuing (the actual consent is the W-3 screen).
+ *
+ * Two designs (founder 2026-08-14): a light and a dark language. The hero image
+ * and wordmark are theme-aware CSS backgrounds (swapped in the stylesheet, so no
+ * hydration flash); the ThemeToggle over the hero lets the user pick either.
  */
 export function AuthWelcome({ locale }: { locale: string }) {
+  const intl = useIntl();
   return (
     <section className={styles.wrap} aria-labelledby="authwelcome-title">
       {/* Full-bleed coastal hero with the branding overlaid and a fade to the
           content panel. */}
       <div className={styles.hero}>
-        <Image
-          className={styles.heroImg}
-          src="/hero-welcome.png"
-          alt=""
-          fill
-          sizes="480px"
-          priority
-        />
+        <div className={styles.heroImg} aria-hidden />
         <div className={styles.heroFade} aria-hidden />
+        <ThemeToggle className={styles.themeToggle} />
+        {/* No mode chip / play-money reference here: the Welcome is the clean
+            front door; the "Sandbox · play money" framing lives on the internal
+            pages only (founder 2026-08-14). */}
         <div className={styles.brand}>
-          <ModeChip />
-          <Image
+          <span
             className={styles.wordmark}
-            src="/logo-wordmark.webp"
-            alt="diBoaS"
-            width={220}
-            height={60}
-            priority
+            role="img"
+            aria-label={intl.formatMessage({ id: 'authWelcome.wordmarkAlt' })}
           />
           <p className={styles.tagline}>
             <FormattedMessage id="authWelcome.tagline" />
@@ -101,13 +98,13 @@ export function AuthWelcome({ locale }: { locale: string }) {
                  sandbox app — a plain <a>, not next/link; final URLs wire at end. */
               terms: (chunks) => (
                 // eslint-disable-next-line @next/next/no-html-link-for-pages -- external marketing legal page
-                <a href="/legal/terms" className={styles.legalLink}>
+                <a key="terms" href="/legal/terms" className={styles.legalLink}>
                   {chunks}
                 </a>
               ),
               privacy: (chunks) => (
                 // eslint-disable-next-line @next/next/no-html-link-for-pages -- external marketing legal page
-                <a href="/legal/privacy" className={styles.legalLink}>
+                <a key="privacy" href="/legal/privacy" className={styles.legalLink}>
                   {chunks}
                 </a>
               ),

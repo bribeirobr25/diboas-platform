@@ -298,11 +298,12 @@
   "authWelcome": {
     "tagline": "Practica con dinero. Gana sabiduría.",
     "title": "Practica decisiones de dinero. Gana confianza real.",
-    "body": "Explora estrategias, fija metas y desarrolla tu intuición financiera. Todo con dinero de práctica, nada real en juego.",
+    "body": "Explora estrategias, fija metas y desarrolla tu intuición financiera.",
     "google": "Continuar con Google",
     "email": "Continuar con correo",
     "wallet": "Conectar billetera",
-    "legal": "Consulta nuestros <terms>Términos</terms> y <privacy>Política de Privacidad</privacy> cuando quieras."
+    "legal": "Consulta nuestros <terms>Términos</terms> y <privacy>Política de Privacidad</privacy> cuando quieras.",
+    "wordmarkAlt": "diBoaS"
   },
   "consent": {
     "title": "Antes de empezar",
@@ -390,5 +391,10 @@
     "alsoStop": "¿Quieres salir de la estrategia también? También puedes pararla (se aplica una pequeña comisión del 0,39%).",
     "pause": "Pausar plan",
     "keepGoing": "Seguir"
+  },
+  "theme": {
+    "toggle": "Cambiar al modo {target}",
+    "light": "claro",
+    "dark": "oscuro"
   }
 }

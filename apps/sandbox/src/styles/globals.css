@@ -72,6 +72,74 @@
   /* The mobile-app canvas width (constrained; centered on desktop). */
   --sb-canvas: 30rem; /* ~480px */
   --sb-tabbar-h: 4.25rem;
+
+  color-scheme: light;
+}
+
+/*
+ * DARK VIEW — the second approved design language (mockups 00/01-*-dark.png,
+ * founder 2026-08-14: "allow users to choose between this design and the dark
+ * mode design"). Deep ink-teal ground, near-white text, brighter teal accent.
+ * Values sampled from the dark mockup PNGs.
+ *
+ * Selection: the user's OS preference is the default; an explicit in-app choice
+ * (data-theme on <html>, persisted, set pre-paint by ThemeScript) overrides it.
+ * The dark declarations live in two matching selectors — explicit `data-theme`
+ * and the system media query — so both paths resolve identically. KEEP THEM IN
+ * SYNC (CSS cannot share one block across an attribute selector and a media
+ * query; this is the compatible pattern, no `light-dark()` dependency).
+ */
+:root[data-theme='dark'] {
+  --sb-mk-ground: #0b171f;
+  --sb-mk-surround: #06121a;
+  --sb-mk-ink: #0b171f;
+  --sb-mk-sky: #0e1e28;
+  --sb-mk-hairline: rgba(255, 255, 255, 0.09);
+
+  --sb-card: #13212b;
+  --sb-card-tint: rgba(45, 212, 191, 0.12);
+  --sb-ink-soft: #0e2129;
+
+  --sb-text-heading: #eef4f4;
+  --sb-text-body: #c2ced2;
+  --sb-text-muted: #8ea0a5;
+  --sb-text-on-ink: #eef4f4;
+  --sb-text-on-ink-muted: var(--color-teal-100);
+
+  --sb-accent: var(--color-teal-400);
+  --sb-accent-strong: var(--color-teal-300);
+  --sb-hairline-strong: rgba(255, 255, 255, 0.16);
+  /* teal-400 clears AA as text/icon on the dark ground (light teal-700 would not). */
+  --text-brand-accessible: var(--color-teal-400);
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --sb-mk-ground: #0b171f;
+    --sb-mk-surround: #06121a;
+    --sb-mk-ink: #0b171f;
+    --sb-mk-sky: #0e1e28;
+    --sb-mk-hairline: rgba(255, 255, 255, 0.09);
+
+    --sb-card: #13212b;
+    --sb-card-tint: rgba(45, 212, 191, 0.12);
+    --sb-ink-soft: #0e2129;
+
+    --sb-text-heading: #eef4f4;
+    --sb-text-body: #c2ced2;
+    --sb-text-muted: #8ea0a5;
+    --sb-text-on-ink: #eef4f4;
+    --sb-text-on-ink-muted: var(--color-teal-100);
+
+    --sb-accent: var(--color-teal-400);
+    --sb-accent-strong: var(--color-teal-300);
+    --sb-hairline-strong: rgba(255, 255, 255, 0.16);
+    --text-brand-accessible: var(--color-teal-400);
+
+    color-scheme: dark;
+  }
 }
 
 *,

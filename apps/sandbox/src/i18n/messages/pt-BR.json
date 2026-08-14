@@ -298,11 +298,12 @@
   "authWelcome": {
     "tagline": "Pratique com dinheiro. Ganhe sabedoria.",
     "title": "Pratique decisões de dinheiro. Construa confiança real.",
-    "body": "Explore estratégias, defina objetivos e desenvolva sua intuição financeira. Tudo com dinheiro de mentira, nada real em jogo.",
+    "body": "Explore estratégias, defina objetivos e desenvolva sua intuição financeira.",
     "google": "Continuar com Google",
     "email": "Continuar com e-mail",
     "wallet": "Conectar carteira",
-    "legal": "Consulte nossos <terms>Termos</terms> e <privacy>Política de Privacidade</privacy> quando quiser."
+    "legal": "Consulte nossos <terms>Termos</terms> e <privacy>Política de Privacidade</privacy> quando quiser.",
+    "wordmarkAlt": "diBoaS"
   },
   "consent": {
     "title": "Antes de começar",
@@ -390,5 +391,10 @@
     "alsoStop": "Quer sair da estratégia também? Você pode pará-la (uma pequena taxa de 0,39% se aplica).",
     "pause": "Pausar plano",
     "keepGoing": "Continuar"
+  },
+  "theme": {
+    "toggle": "Mudar para o modo {target}",
+    "light": "claro",
+    "dark": "escuro"
   }
 }
