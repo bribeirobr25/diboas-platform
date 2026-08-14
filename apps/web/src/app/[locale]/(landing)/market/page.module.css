@@ -253,21 +253,44 @@
   border-bottom: 1px solid currentColor;
 }
 
-/* M3 — backdrop condition cards + umbrella cards (latent until the M3c
-   activation; tokenized only). */
-.conditionCard {
-  display: block;
-  padding: var(--spacing-md) 0;
+/* M3 backdrop conditions, restructured by the view-voice wave (2026-08-14):
+   the rows are native <details> — collapsed = title + state word, expanded =
+   weekly sentence + educational explainer (the cross-view standard shared
+   with the scored views' signal rows). */
+.conditionTable {
   border-top: 1px solid var(--editorial-line);
 }
+.conditionRow {
+  border-bottom: 1px solid var(--editorial-line);
+}
+.conditionSummary {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) 0;
+  cursor: pointer;
+  list-style: none;
+  min-height: 24px;
+}
+.conditionSummary::-webkit-details-marker {
+  display: none;
+}
+.conditionSummary:focus-visible {
+  outline: 2px solid var(--editorial-teal-deep);
+  outline-offset: 2px;
+}
 .conditionTitle {
+  font-family: var(--font-fraunces), Georgia, serif;
   font-size: var(--font-size-xl);
-  margin: 0 0 var(--spacing-sm);
+  color: var(--editorial-ink);
 }
 .conditionState {
   color: var(--editorial-teal-deep, inherit);
   font-style: italic;
   font-weight: 400;
+}
+.conditionBody {
+  padding: 0 0 var(--spacing-md);
 }
 .conditionRead {
   margin: 0 0 var(--spacing-sm);
@@ -276,6 +299,86 @@
   color: var(--editorial-ink-soft);
   font-size: var(--font-size-sm);
   margin: 0;
+}
+/* The state view's big lead + diBoaS context (view-voice standard). */
+.stateLead {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: var(--font-size-2xl);
+  line-height: 1.25;
+  margin: 0 0 var(--spacing-md);
+  max-width: 28ch;
+}
+.stateLeadStrong {
+  font-weight: 600;
+  color: var(--editorial-ink);
+}
+.stateLeadRest {
+  font-weight: 400;
+  color: var(--editorial-ink-soft);
+}
+.stateExplainer {
+  color: var(--editorial-ink-soft);
+  max-width: 62ch;
+  margin: 0;
+}
+/* Shared chevron for details summaries (pure CSS, rotates on open). */
+.chevron {
+  margin-left: auto;
+  width: 0.55em;
+  height: 0.55em;
+  border-right: 1.5px solid var(--editorial-ink-soft);
+  border-bottom: 1.5px solid var(--editorial-ink-soft);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  align-self: center;
+}
+details[open] > summary .chevron {
+  transform: rotate(-135deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    transition: none;
+  }
+}
+/* The memo disclosure (scored views): plain voice stays visible, the analyst
+   memo expands on demand. */
+.memoToggle {
+  cursor: pointer;
+  list-style: none;
+  color: var(--editorial-teal-deep);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: var(--spacing-sm) 0;
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+.memoToggle::-webkit-details-marker {
+  display: none;
+}
+.memoToggle::after {
+  content: '';
+  width: 0.5em;
+  height: 0.5em;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+details[open] > .memoToggle::after {
+  transform: rotate(-135deg);
+}
+.memoToggle:focus-visible {
+  outline: 2px solid var(--editorial-teal-deep);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .memoToggle::after {
+    transition: none;
+  }
 }
 .umbrellaGrid {
   display: grid;
@@ -306,6 +409,38 @@
 }
 .umbrellaCardRead {
   margin: 0 0 var(--spacing-md);
+}
+/* View-voice wave (2026-08-14): the plain line leads in the editorial serif;
+   band/condition words demote to a small meta row. Band coloring uses the SAME
+   warm editorial ramp as the chart + gauge (ruled non-advisory — never the
+   stoplight tokens). */
+.umbrellaCardPlain {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: var(--font-size-lg);
+  line-height: 1.35;
+  color: var(--editorial-ink);
+  margin: 0 0 var(--spacing-sm);
+}
+.umbrellaCardMeta {
+  color: var(--editorial-ink-soft);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.04em;
+  margin: 0 0 var(--spacing-md);
+}
+.umbrellaCardMeta[data-band='VERY_FAVORABLE'] strong {
+  color: var(--editorial-teal-deep);
+}
+.umbrellaCardMeta[data-band='CONSTRUCTIVE'] strong {
+  color: var(--editorial-teal);
+}
+.umbrellaCardMeta[data-band='NEUTRAL_MIXED'] strong {
+  color: var(--editorial-ink-soft);
+}
+.umbrellaCardMeta[data-band='DEFENSIVE'] strong {
+  color: var(--editorial-defensive);
+}
+.umbrellaCardMeta[data-band='HOSTILE'] strong {
+  color: var(--editorial-hostile);
 }
 .umbrellaCardCta {
   color: var(--editorial-teal-deep, inherit);

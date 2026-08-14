@@ -1,13 +1,13 @@
 {
   "seo": {
     "title": "Adelaide Market",
-    "description": "Inteligência macro serena para os mercados financeiros, começando pelo Bitcoin. Entenda o ambiente, não o próximo candle.",
+    "description": "Uma leitura calma dos mercados financeiros, começando pelo Bitcoin. Entenda o ambiente, não o próximo candle.",
     "ogTitle": "Adelaide Market",
     "ogDescription": "Inteligência macro serena para os mercados financeiros, começando pelo Bitcoin. Entenda o ambiente, não o próximo candle."
   },
   "hero": {
     "title": "Adelaide Market",
-    "subtitle": "Inteligência macro serena para os mercados financeiros.",
+    "subtitle": "Uma leitura calma dos mercados, sem o barulho de sempre.",
     "kicker": "Score do ambiente macro do Bitcoin"
   },
   "dashboard": {
@@ -55,11 +55,12 @@
       "nasdaq": "Nasdaq Composite",
       "gold": "Preço do ouro",
       "btcEtf": "Fluxos de ETFs de Bitcoin"
-    }
+    },
+    "memoToggle": "Ler o memorando completo da semana"
   },
   "cta": {
     "cadence": "Atualizado toda semana",
-    "headline": "Inteligência calma, toda semana.",
+    "headline": "Uma leitura calma, toda semana.",
     "body": "O Adelaide Market é gratuito e atualizado toda semana. Entre na lista de espera pra ser o primeiro quando o diBoaS abrir.",
     "waitlist": "Entrar na lista de espera",
     "share": "Compartilhar",
@@ -105,5 +106,8 @@
         "inactive": "Liquidez em contração"
       }
     }
+  },
+  "conditions": {
+    "sectionExplainer": "Três forças definem o clima por trás de todos os mercados: o que o dólar está fazendo, quanto custa o dinheiro e quanto dele está circulando. Nenhuma semana isolada decide nada. O que importa é a direção."
   }
 }

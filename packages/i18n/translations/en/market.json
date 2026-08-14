@@ -55,11 +55,12 @@
       "nasdaq": "Nasdaq Composite",
       "gold": "Gold price",
       "btcEtf": "Bitcoin ETF flows"
-    }
+    },
+    "memoToggle": "Read the full weekly memo"
   },
   "cta": {
     "cadence": "Updated weekly",
-    "headline": "Calm intelligence, every week.",
+    "headline": "A calm read, every week.",
     "body": "Adelaide Market is free and refreshed every week. Join the waitlist to be first when diBoaS opens.",
     "waitlist": "Join the waitlist",
     "share": "Share",
@@ -105,5 +106,8 @@
         "inactive": "Liquidity contracting"
       }
     }
+  },
+  "conditions": {
+    "sectionExplainer": "Three forces set the weather behind every market: what the dollar is doing, what money costs, and how much of it is moving. No single week decides anything. The direction is what matters."
   }
 }

@@ -1,13 +1,13 @@
 {
   "seo": {
     "title": "Adelaide Market",
-    "description": "Ruhige Makro-Intelligenz für die Finanzmärkte, beginnend mit Bitcoin. Verstehe das Umfeld, nicht die nächste Kerze.",
+    "description": "Ein ruhiger Blick auf die Finanzmärkte, beginnend mit Bitcoin. Verstehe das Umfeld, nicht die nächste Kerze.",
     "ogTitle": "Adelaide Market",
     "ogDescription": "Ruhige Makro-Intelligenz für die Finanzmärkte, beginnend mit Bitcoin. Verstehe das Umfeld, nicht die nächste Kerze."
   },
   "hero": {
     "title": "Adelaide Market",
-    "subtitle": "Ruhige Makro-Intelligenz für die Finanzmärkte.",
+    "subtitle": "Ein ruhiger Blick auf die Finanzmärkte, ohne den Lärm.",
     "kicker": "Bitcoin-Makro-Umfeld-Score"
   },
   "dashboard": {
@@ -55,11 +55,12 @@
       "nasdaq": "Nasdaq Composite",
       "gold": "Goldpreis",
       "btcEtf": "Bitcoin-ETF-Zuflüsse"
-    }
+    },
+    "memoToggle": "Das vollständige Wochen-Memo lesen"
   },
   "cta": {
     "cadence": "Wöchentlich aktualisiert",
-    "headline": "Ruhige Einordnung, jede Woche.",
+    "headline": "Ein ruhiger Blick, jede Woche.",
     "body": "Adelaide Market ist kostenlos und wird wöchentlich aktualisiert. Tritt der Warteliste bei, um beim Start von diBoaS dabei zu sein.",
     "waitlist": "Der Warteliste beitreten",
     "share": "Teilen",
@@ -105,5 +106,8 @@
         "inactive": "Liquidität schrumpfend"
       }
     }
+  },
+  "conditions": {
+    "sectionExplainer": "Drei Kräfte bestimmen das Wetter hinter allen Märkten: was der Dollar macht, was Geld kostet und wie viel davon in Bewegung ist. Keine einzelne Woche entscheidet etwas. Die Richtung zählt."
   }
 }
