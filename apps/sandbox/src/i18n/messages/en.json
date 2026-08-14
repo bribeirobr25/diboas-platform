@@ -321,5 +321,13 @@
     "marketingBody": "Get product updates, tips, and offers you can actually use.",
     "optionalHint": "Optional. Everything works either way.",
     "footer": "We never sell your data. You're in control, always."
+  },
+  "claim": {
+    "eyebrow": "Practice credits",
+    "title": "Your first practice credits",
+    "body": "These are play money for practising. They have no cash value and never convert to real money. Use them to learn how everything works, with the real market.",
+    "amountLabel": "practice credits",
+    "cta": "Get your first {amount}",
+    "reassure": "Nothing here ever becomes real money."
   }
 }

@@ -321,5 +321,13 @@
     "marketingBody": "Receba novidades, dicas e ofertas que você realmente pode usar.",
     "optionalHint": "Opcional. Tudo funciona de qualquer forma.",
     "footer": "Nunca vendemos seus dados. Você está no controle, sempre."
+  },
+  "claim": {
+    "eyebrow": "Créditos de prática",
+    "title": "Seus primeiros créditos de prática",
+    "body": "Isto é dinheiro de mentira para praticar. Não tem valor em dinheiro e nunca vira dinheiro real. Use para aprender como tudo funciona, com o mercado real.",
+    "amountLabel": "créditos de prática",
+    "cta": "Receba seus primeiros {amount}",
+    "reassure": "Nada aqui vira dinheiro real."
   }
 }

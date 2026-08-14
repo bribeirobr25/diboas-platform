@@ -321,5 +321,13 @@
     "marketingBody": "Erhalte Produktneuigkeiten, Tipps und Angebote, die du wirklich nutzen kannst.",
     "optionalHint": "Optional. Alles funktioniert so oder so.",
     "footer": "Wir verkaufen deine Daten nie. Du hast immer die Kontrolle."
+  },
+  "claim": {
+    "eyebrow": "Übungsguthaben",
+    "title": "Dein erstes Übungsguthaben",
+    "body": "Das ist Spielgeld zum Üben. Es hat keinen Geldwert und wird nie zu echtem Geld. Nutze es, um mit dem echten Markt zu lernen, wie alles funktioniert.",
+    "amountLabel": "Übungsguthaben",
+    "cta": "Hol dir deine ersten {amount}",
+    "reassure": "Nichts hier wird jemals zu echtem Geld."
   }
 }
