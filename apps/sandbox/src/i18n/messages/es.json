@@ -329,5 +329,33 @@
     "amountLabel": "créditos de práctica",
     "cta": "Consigue tus primeros {amount}",
     "reassure": "Nada aquí se convierte en dinero real."
+  },
+  "strategyDetail": {
+    "simple": "Simple",
+    "detailed": "Detallado",
+    "whatItIs": "Qué es",
+    "howItsDoing": "Cómo va",
+    "whatItCosts": "Cuánto cuesta",
+    "caveat": "Puede bajar algunas semanas. Es normal, y los rendimientos no están garantizados.",
+    "costLine": "Gratis para empezar. Una pequeña comisión del 0,39% cuando retiras. Tu dinero nunca queda bloqueado, párate cuando quieras.",
+    "seeDetail": "Ver el detalle",
+    "putToWork": "Poner a trabajar",
+    "currentApy": "APY actual",
+    "varies": "Varía",
+    "riskFactors": "Factores de riesgo",
+    "riskSmartContract": "Riesgo de contrato inteligente",
+    "riskMarketVolatility": "Volatilidad del mercado",
+    "riskVariableApy": "Rendimientos variables",
+    "whatHappensOnExit": "Qué pasa al salir",
+    "exitFee": "Comisión de salida",
+    "minExit": "mínimo $0,25",
+    "underlyingProtocols": "Protocolos subyacentes",
+    "protocolsNote": "Funciona con protocolos de préstamo de confianza. Los rendimientos no están garantizados."
+  },
+  "strategyExample": {
+    "name": "Crece con constancia",
+    "description": "Una forma estable y de menor riesgo de crecer con el tiempo.",
+    "whatItIs": "Una forma tranquila y de menor riesgo de hacer crecer tu dinero de forma constante.",
+    "howItsDoing": "Creciendo poco a poco, con pequeñas subidas y bajadas por el camino."
   }
 }

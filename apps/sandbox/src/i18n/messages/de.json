@@ -329,5 +329,33 @@
     "amountLabel": "Übungsguthaben",
     "cta": "Hol dir deine ersten {amount}",
     "reassure": "Nichts hier wird jemals zu echtem Geld."
+  },
+  "strategyDetail": {
+    "simple": "Einfach",
+    "detailed": "Detailliert",
+    "whatItIs": "Was es ist",
+    "howItsDoing": "Wie es läuft",
+    "whatItCosts": "Was es kostet",
+    "caveat": "Es kann in manchen Wochen sinken. Das ist normal, und Renditen sind nicht garantiert.",
+    "costLine": "Kostenlos zu starten. Eine kleine Gebühr von 0,39%, wenn du Geld abhebst. Dein Geld ist nie gebunden, jederzeit stoppen.",
+    "seeDetail": "Details ansehen",
+    "putToWork": "Geld arbeiten lassen",
+    "currentApy": "Aktueller APY",
+    "varies": "Variiert",
+    "riskFactors": "Risikofaktoren",
+    "riskSmartContract": "Smart-Contract-Risiko",
+    "riskMarketVolatility": "Marktvolatilität",
+    "riskVariableApy": "Variable Renditen",
+    "whatHappensOnExit": "Was beim Ausstieg passiert",
+    "exitFee": "Ausstiegsgebühr",
+    "minExit": "mindestens 0,25 $",
+    "underlyingProtocols": "Zugrunde liegende Protokolle",
+    "protocolsNote": "Läuft über vertrauenswürdige Lending-Protokolle. Renditen sind nicht garantiert."
+  },
+  "strategyExample": {
+    "name": "Stetig wachsen",
+    "description": "Ein stabiler, risikoärmerer Weg, mit der Zeit zu wachsen.",
+    "whatItIs": "Ein ruhiger, risikoärmerer Weg, dein Geld mit der Zeit stetig wachsen zu lassen.",
+    "howItsDoing": "Wächst sanft, mit kleinen Höhen und Tiefen unterwegs."
   }
 }

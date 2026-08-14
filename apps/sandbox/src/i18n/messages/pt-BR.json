@@ -329,5 +329,33 @@
     "amountLabel": "créditos de prática",
     "cta": "Receba seus primeiros {amount}",
     "reassure": "Nada aqui vira dinheiro real."
+  },
+  "strategyDetail": {
+    "simple": "Simples",
+    "detailed": "Detalhado",
+    "whatItIs": "O que é",
+    "howItsDoing": "Como está indo",
+    "whatItCosts": "Quanto custa",
+    "caveat": "Pode cair em algumas semanas. Isso é normal, e os retornos não são garantidos.",
+    "costLine": "De graça para começar. Uma pequena taxa de 0,39% quando você retira. Seu dinheiro nunca fica preso, pare quando quiser.",
+    "seeDetail": "Ver os detalhes",
+    "putToWork": "Colocar para trabalhar",
+    "currentApy": "APY atual",
+    "varies": "Varia",
+    "riskFactors": "Fatores de risco",
+    "riskSmartContract": "Risco de contrato inteligente",
+    "riskMarketVolatility": "Volatilidade do mercado",
+    "riskVariableApy": "Retornos variáveis",
+    "whatHappensOnExit": "O que acontece ao sair",
+    "exitFee": "Taxa de saída",
+    "minExit": "mínimo de US$0,25",
+    "underlyingProtocols": "Protocolos subjacentes",
+    "protocolsNote": "Funciona em protocolos de empréstimo confiáveis. Retornos não são garantidos."
+  },
+  "strategyExample": {
+    "name": "Cresça com constância",
+    "description": "Um jeito estável e de menor risco de crescer com o tempo.",
+    "whatItIs": "Um jeito calmo e de menor risco de fazer seu dinheiro crescer de forma constante.",
+    "howItsDoing": "Crescendo com suavidade, com pequenas altas e baixas pelo caminho."
   }
 }

@@ -329,5 +329,33 @@
     "amountLabel": "practice credits",
     "cta": "Get your first {amount}",
     "reassure": "Nothing here ever becomes real money."
+  },
+  "strategyDetail": {
+    "simple": "Simple",
+    "detailed": "Detailed",
+    "whatItIs": "What it is",
+    "howItsDoing": "How it's doing",
+    "whatItCosts": "What it costs",
+    "caveat": "It can dip some weeks. That's normal, and returns aren't guaranteed.",
+    "costLine": "Free to start. A small 0.39% when you take money out. Your money is never locked, stop anytime.",
+    "seeDetail": "See the detail",
+    "putToWork": "Put money to work",
+    "currentApy": "Current APY",
+    "varies": "Varies",
+    "riskFactors": "Risk factors",
+    "riskSmartContract": "Smart contract risk",
+    "riskMarketVolatility": "Market volatility",
+    "riskVariableApy": "Variable returns",
+    "whatHappensOnExit": "What happens on exit",
+    "exitFee": "Exit fee",
+    "minExit": "$0.25 minimum",
+    "underlyingProtocols": "Underlying protocols",
+    "protocolsNote": "Works across trusted lending protocols. Returns aren't guaranteed."
+  },
+  "strategyExample": {
+    "name": "Grow steadily",
+    "description": "A steady, lower-risk way to grow over time.",
+    "whatItIs": "A calm, lower-risk way to grow your money steadily over time.",
+    "howItsDoing": "Growing gently, with small ups and downs along the way."
   }
 }

@@ -1,0 +1,211 @@
+/*
+ * StrategyDetail (Phase B dual-view). Simple = ①②③ human hierarchy; Detailed =
+ * factual traditional view. Fully tokenized.
+ */
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  max-width: 30rem;
+  margin: 0 auto;
+  min-height: 100dvh;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--spacing-2xs);
+  min-height: 8rem;
+  padding: var(--spacing-md);
+  border-radius: var(--sb-radius-lg);
+  background: linear-gradient(160deg, var(--sb-accent-tint), var(--color-teal-100));
+}
+.heroTitle {
+  margin: 0;
+  font-family: var(--sb-serif);
+  font-size: var(--font-size-2xl);
+  color: var(--sb-text-heading);
+}
+.heroDesc {
+  margin: 0;
+  color: var(--sb-text-body);
+  font-size: var(--font-size-md);
+}
+
+/* --- Simple view --- */
+.simple {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+.rowCard {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+.rowIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent-tint);
+  color: var(--text-brand-accessible);
+}
+.rowLabel {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sb-text-muted);
+}
+.rowLead {
+  margin: var(--spacing-2xs) 0 0;
+  font-size: var(--font-size-lg);
+  color: var(--sb-text-heading);
+  line-height: 1.3;
+}
+.rowBody {
+  margin: var(--spacing-2xs) 0 0;
+  color: var(--sb-text-body);
+  font-size: var(--font-size-sm-plus);
+  line-height: 1.5;
+}
+.behaveCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+.behaveLead {
+  margin: 0;
+  color: var(--sb-text-heading);
+  font-size: var(--font-size-md);
+}
+.caveat {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  margin: 0;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
+}
+.caveat svg {
+  color: var(--sb-accent);
+  flex: none;
+}
+
+/* --- Detailed view --- */
+.detailed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+.apyRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-xs);
+}
+.apyLabel {
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
+}
+.apyValue {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--sb-accent-strong);
+}
+.apyVaries {
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-xs);
+}
+.detailHead {
+  margin: var(--spacing-sm) 0 0;
+  font-size: var(--font-size-md);
+  color: var(--sb-text-heading);
+}
+.riskList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+.riskRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--sb-text-body);
+  font-size: var(--font-size-sm-plus);
+}
+.riskRow svg {
+  color: var(--sb-accent);
+  flex: none;
+}
+.exitRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--sb-hairline);
+  color: var(--sb-text-body);
+}
+.exitVal {
+  font-weight: var(--font-weight-semibold);
+  color: var(--sb-accent-strong);
+}
+.exitMin {
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+}
+.protocols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+.protocolChip {
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-body);
+}
+.protocolsNote {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  margin: 0;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
+}
+.protocolsNote svg {
+  color: var(--sb-accent);
+  flex: none;
+}
+
+/* Toggle-to-detail link (Simple view only) */
+.seeDetail {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  align-self: flex-start;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--text-brand-accessible);
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+}
