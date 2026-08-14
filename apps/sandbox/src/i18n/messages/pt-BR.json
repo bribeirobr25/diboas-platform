@@ -357,5 +357,29 @@
     "description": "Um jeito estável e de menor risco de crescer com o tempo.",
     "whatItIs": "Um jeito calmo e de menor risco de fazer seu dinheiro crescer de forma constante.",
     "howItsDoing": "Crescendo com suavidade, com pequenas altas e baixas pelo caminho."
+  },
+  "goalDual": {
+    "onTrackLabel": "Estou no caminho para chegar lá?",
+    "onTrack": "No caminho",
+    "pace": "Neste ritmo, faltam cerca de {months} meses.",
+    "paceNote": "Isto é um ritmo, não uma promessa.",
+    "howLabel": "O que seu dinheiro está fazendo",
+    "howLead": "Crescendo com suavidade em {strategy}, com pequenas altas e baixas.",
+    "nextLabel": "O que você pode fazer agora",
+    "add": "Adicionar dinheiro",
+    "pausePlan": "Pausar plano",
+    "more": "Mais",
+    "seeDetail": "Ver os detalhes",
+    "simple": "Simples",
+    "detailed": "Detalhado",
+    "currentOfTarget": "{current} de {target}",
+    "contributions": "Suas contribuições",
+    "marketChange": "Variação do mercado",
+    "inStrategy": "Na estratégia",
+    "paused": "Plano pausado",
+    "moneyStillWorking": "Dinheiro investido ainda trabalhando"
+  },
+  "goalExample": {
+    "name": "Viagem a Lisboa"
   }
 }
