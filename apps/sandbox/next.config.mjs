@@ -13,6 +13,17 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Dev-only: allow the LAN-IP origin so the dev client (HMR socket, Server
+  // Actions) bootstraps and hydrates when the page is opened over the network IP
+  // instead of localhost — e.g. the Docker-hosted Playwright browser used for
+  // visual + dev-log verification, which cannot reach `localhost`. No prod
+  // effect. Env-driven (machine-specific): set DEV_ALLOWED_ORIGINS to a
+  // comma-separated list of LAN IPs. Mirrors apps/web. Find yours via
+  // `ifconfig en0 | grep "inet "`.
+  allowedDevOrigins: (process.env.DEV_ALLOWED_ORIGINS || '')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean),
   async headers() {
     return [
       {
