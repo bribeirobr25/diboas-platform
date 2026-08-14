@@ -4,16 +4,6 @@
   gap: var(--spacing-md);
 }
 
-.badge {
-  align-self: flex-start;
-  padding: var(--spacing-2xs) var(--spacing-sm);
-  border-radius: var(--radius-full);
-  background: var(--sb-accent-tint);
-  color: var(--sb-accent-strong);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-}
-
 /* The warm serif welcome beat (matches FirstRun's tone). */
 .title {
   margin: 0;
