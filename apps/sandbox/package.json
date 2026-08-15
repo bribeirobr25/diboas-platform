@@ -10,6 +10,7 @@
     "lint": "eslint src",
     "type-check": "tsc --noEmit",
     "test": "vitest run",
+    "screen-check": "node scripts/screen-check.mjs",
     "db:migrate": "node --env-file=.env.local src/lib/database/migrate.mjs migrate",
     "db:status": "node --env-file=.env.local src/lib/database/migrate.mjs status"
   },

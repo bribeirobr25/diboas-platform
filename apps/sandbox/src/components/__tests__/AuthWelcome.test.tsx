@@ -57,9 +57,7 @@ describe('AuthWelcome (A2 front door — wired)', () => {
 
   it('should offer a language chooser on the front door', () => {
     renderWelcome();
-    expect(
-      screen.getByRole('button', { name: 'Change language, current: English' })
-    ).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Change language, current: English' })).toBeTruthy();
   });
 
   it('should show the diBoaS wordmark (not "diBoaS Sandbox")', () => {
