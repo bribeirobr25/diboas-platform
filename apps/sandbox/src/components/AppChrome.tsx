@@ -6,8 +6,8 @@ import type { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { LucideIcon } from './LucideIcon';
 import { LedgerReadyGate } from './LedgerReadyGate';
-import { LocaleSwitcher } from './LocaleSwitcher';
 import { ModeChip } from './ModeChip';
+import { Wordmark } from './Wordmark';
 import styles from './AppChrome.module.css';
 
 /**
@@ -22,13 +22,17 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
   const intl = useIntl();
   const pathname = usePathname();
   const home = `/${locale}`;
-  const activity = `/${locale}/history`;
-  const newGoal = `/${locale}/goals/new`;
+  const goals = `/${locale}/goals`;
+  const move = `/${locale}/move`;
+  const learn = `/${locale}/learn`;
+  const profile = `/${locale}/profile`;
+  const notifications = `/${locale}/notifications`;
 
-  // Active tab: home is exact; activity/new-goal match their prefix.
+  // Active tab: home is exact; the others match their route prefix.
   const isHome = pathname === home || pathname === `${home}/`;
-  const isActivity = pathname.startsWith(activity);
-  const isNewGoal = pathname.startsWith(newGoal);
+  const isGoals = pathname.startsWith(goals);
+  const isMove = pathname.startsWith(move);
+  const isLearn = pathname.startsWith(learn);
 
   return (
     <div className={styles.surround}>
@@ -45,16 +49,26 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
           <FormattedMessage id="common.skipToContent" />
         </a>
         <header className={styles.appbar}>
-          <Link href={home} className={styles.brand}>
-            <LucideIcon name="palmtree" size={18} />
-            <span>
-              <FormattedMessage id="common.appName" />
-            </span>
+          <Link
+            href={profile}
+            className={styles.appbarIcon}
+            aria-label={intl.formatMessage({ id: 'nav.profile' })}
+          >
+            <LucideIcon name="user" size={24} />
           </Link>
-          <div className={styles.appbarRight}>
-            <LocaleSwitcher locale={locale} variant="bare" />
+          <div className={styles.appbarCenter}>
+            <Link href={home}>
+              <Wordmark size="1.7rem" />
+            </Link>
             <ModeChip />
           </div>
+          <Link
+            href={notifications}
+            className={styles.appbarIcon}
+            aria-label={intl.formatMessage({ id: 'nav.notifications' })}
+          >
+            <LucideIcon name="bell" size={22} />
+          </Link>
         </header>
 
         <div className={styles.scroll}>
@@ -79,28 +93,42 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
             aria-current={isHome ? 'page' : undefined}
             data-active={isHome}
           >
-            <LucideIcon name="wallet" size={22} />
+            <LucideIcon name="home" size={22} />
             <span className={styles.tabLabel}>
-              <FormattedMessage id="common.navHome" />
+              <FormattedMessage id="nav.home" />
             </span>
           </Link>
           <Link
-            href={newGoal}
-            className={styles.tabPrimary}
-            aria-current={isNewGoal ? 'page' : undefined}
-            aria-label={intl.formatMessage({ id: 'home.newGoal' })}
+            href={goals}
+            className={styles.tab}
+            aria-current={isGoals ? 'page' : undefined}
+            data-active={isGoals}
           >
-            <LucideIcon name="plus" size={24} />
+            <LucideIcon name="target" size={22} />
+            <span className={styles.tabLabel}>
+              <FormattedMessage id="nav.goals" />
+            </span>
           </Link>
           <Link
-            href={activity}
+            href={move}
             className={styles.tab}
-            aria-current={isActivity ? 'page' : undefined}
-            data-active={isActivity}
+            aria-current={isMove ? 'page' : undefined}
+            data-active={isMove}
           >
-            <LucideIcon name="list" size={22} />
+            <LucideIcon name="arrow-right-left" size={22} />
             <span className={styles.tabLabel}>
-              <FormattedMessage id="common.navHistory" />
+              <FormattedMessage id="nav.move" />
+            </span>
+          </Link>
+          <Link
+            href={learn}
+            className={styles.tab}
+            aria-current={isLearn ? 'page' : undefined}
+            data-active={isLearn}
+          >
+            <LucideIcon name="book-open" size={22} />
+            <span className={styles.tabLabel}>
+              <FormattedMessage id="nav.learn" />
             </span>
           </Link>
         </nav>

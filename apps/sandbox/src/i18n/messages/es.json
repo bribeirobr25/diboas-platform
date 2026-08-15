@@ -54,7 +54,16 @@
     "simDay": "Day {day} of your practice",
     "workingBalanceNote": "Yours to put to work. Pick a goal below.",
     "awayBeat": "{days, plural, one {# day} other {# days}} of real market passed while you were away.",
-    "advanceYear": "+1 year"
+    "advanceYear": "+1 year",
+    "playBalance": "Saldo de práctica",
+    "available": "Disponible",
+    "working": "Trabajando",
+    "emergencyReserve": "Reserva de emergencia",
+    "viewAll": "Ver todas",
+    "createGoal": "Crear meta",
+    "onTrack": "En camino",
+    "planPaused": "Plan en pausa",
+    "moneyWorking": "El dinero sigue trabajando"
   },
   "goalNew": {
     "title": "A new goal",
@@ -402,5 +411,13 @@
   "locale": {
     "label": "Idioma",
     "switch": "Cambiar idioma, actual: {current}"
+  },
+  "nav": {
+    "home": "Inicio",
+    "goals": "Metas",
+    "move": "Mover",
+    "learn": "Aprender",
+    "profile": "Perfil",
+    "notifications": "Notificaciones"
   }
 }

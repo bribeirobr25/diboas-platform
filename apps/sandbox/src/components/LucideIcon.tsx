@@ -6,7 +6,10 @@
 
 import {
   ArrowLeft,
+  ArrowRightLeft,
   BarChart3,
+  Bell,
+  BookOpen,
   Briefcase,
   Car,
   Check,
@@ -34,6 +37,7 @@ import {
   Shield,
   ShieldCheck,
   Sprout,
+  Target,
   TreePalm,
   TrendingUp,
   User,
@@ -44,7 +48,10 @@ import {
 
 const ICONS: Record<string, LucideIconType> = {
   'arrow-left': ArrowLeft,
+  'arrow-right-left': ArrowRightLeft,
   'bar-chart': BarChart3,
+  bell: Bell,
+  'book-open': BookOpen,
   briefcase: Briefcase,
   car: Car,
   check: Check,
@@ -72,6 +79,7 @@ const ICONS: Record<string, LucideIconType> = {
   shield: Shield,
   'shield-check': ShieldCheck,
   sprout: Sprout,
+  target: Target,
   palmtree: TreePalm,
   'trending-up': TrendingUp,
   user: User,

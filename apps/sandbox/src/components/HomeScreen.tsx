@@ -1,19 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
 import Decimal from 'decimal.js';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import type { LedgerState } from '@diboas/banking';
 import type { SandboxLocale } from '@/i18n/config';
-import { useFormatters } from '@/hooks/useFormatters';
-import { fetchHistories } from '@/hooks/useMarket';
-import { advanceTime, resetSandbox } from '@/lib/ledgerClient';
-import { resetProfile } from '@/lib/profileStore';
-import { BottomSheet } from './BottomSheet';
-import { CostAdjustSheet } from './CostAdjustSheet';
 import { LucideIcon } from './LucideIcon';
-import { MirrorStrip } from './MirrorStrip';
 import styles from './HomeScreen.module.css';
 
 /** Goal progress = cash + open positions' current value, against the target. */
@@ -27,90 +19,80 @@ function goalCurrent(state: LedgerState, goalId: string): Decimal {
   return total;
 }
 
+/** Plain 2-decimal number (no currency symbol) — the mockup frames play money as
+ *  a labelled "Play balance", not a currency. */
+function Amount({ value }: { value: Decimal }) {
+  return (
+    <FormattedNumber value={value.toNumber()} minimumFractionDigits={2} maximumFractionDigits={2} />
+  );
+}
+
 /**
- * Home — the not-a-bank surface (R-3): GOALS are the hero; jobs appear as a
- * compact purpose strip (no single total-balance number, ever). The time
- * machine is an "Advance time" control that opens a bottom sheet.
+ * Home — "your money's jobs" (B1; mockup 02). Play-balance hero, the
+ * Available/Working/Emergency split, the goals list with progress + status, and
+ * Create goal. The top bar + tab bar are the AppChrome shell.
+ *
+ * ⚠ Bucket mapping (DEFERRED_BACKEND_LEDGER): the mockup's money-jobs model
+ * (available/working/emergency) is mapped onto the current ledger buckets
+ * (floor/cushion/working) — available = undeployed (working+floor), working =
+ * open positions' value, emergency = cushion. The exact model + figures land
+ * with the D-r allocation events; the goal "paused" status lands with D-e.
  */
-export function HomeScreen({
-  locale,
-  state,
-  settledDays = 0,
-}: {
-  locale: SandboxLocale;
-  state: LedgerState;
-  /** WS-F: real days settled on this load (>0 shows the "while you were away" beat). */
-  settledDays?: number;
-}) {
-  const intl = useIntl();
-  const { money } = useFormatters(state.currency);
-  const [advancing, setAdvancing] = useState(false);
-  const [timeSheet, setTimeSheet] = useState(false);
-  const [costSheet, setCostSheet] = useState(false);
-
-  function handleReset() {
-    if (window.confirm(intl.formatMessage({ id: 'common.resetConfirm' }))) {
-      resetSandbox();
-      resetProfile();
-    }
-  }
-
-  async function advance(days: number) {
-    setAdvancing(true);
-    try {
-      const histories = await fetchHistories(Math.max(state.simDay + days + 30, 120));
-      advanceTime(days, histories);
-    } catch {
-      // Providers fail open server-side; a hard fetch failure leaves time unadvanced.
-    } finally {
-      setAdvancing(false);
-      setTimeSheet(false);
-    }
-  }
+export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: LedgerState }) {
+  const available = new Decimal(state.buckets.working).plus(state.buckets.floor);
+  const working = state.positions
+    .filter((p) => p.open)
+    .reduce((sum, p) => sum.plus(p.principal).plus(p.accrued), new Decimal(0));
+  const emergency = new Decimal(state.buckets.cushion);
+  const playBalance = available.plus(working).plus(emergency);
 
   return (
     <section className={styles.wrap} aria-labelledby="home-title">
-      <header className={styles.head}>
-        <h1 id="home-title" className={styles.title}>
-          <FormattedMessage id="home.title" />
-        </h1>
-        <button type="button" className={styles.timePill} onClick={() => setTimeSheet(true)}>
-          <LucideIcon name="clock" size={15} />
-          <FormattedMessage id="home.simDay" values={{ day: state.simDay }} />
-        </button>
-      </header>
-
-      {settledDays > 0 && state.positions.some((p) => p.open) ? (
-        <p className={styles.awayBeat} role="status">
-          <LucideIcon name="clock" size={14} />
-          <FormattedMessage id="home.awayBeat" values={{ days: settledDays }} />
+      <div className={styles.balanceBlock}>
+        <p className={styles.balanceLabel}>
+          <FormattedMessage id="home.playBalance" />
         </p>
-      ) : null}
+        <h1 id="home-title" className={styles.balance}>
+          <Amount value={playBalance} />
+        </h1>
+      </div>
 
-      {/* Your picture (illustrative mirror, if income given) — context, not a
-          split of the play money (D-M1). */}
-      <MirrorStrip locale={locale} onAdjust={() => setCostSheet(true)} />
-
-      {/* The Working play money to deploy — the hero for action. */}
-      <div className={styles.workingBalance}>
-        <span className={styles.workingBalanceLabel}>
-          <LucideIcon name="sprout" size={15} />
-          <FormattedMessage id="home.workingCard" />
-        </span>
-        <span className={styles.workingBalanceAmount}>{money(state.buckets.working)}</span>
-        <span className={styles.workingBalanceNote}>
-          <FormattedMessage id="home.workingBalanceNote" />
-        </span>
+      <div className={styles.split}>
+        <div className={styles.splitCol}>
+          <span className={styles.splitLabel}>
+            <FormattedMessage id="home.available" />
+          </span>
+          <span className={`${styles.splitValue} ${styles.toneAvailable}`}>
+            <Amount value={available} />
+          </span>
+        </div>
+        <div className={styles.splitCol}>
+          <span className={styles.splitLabel}>
+            <FormattedMessage id="home.working" />
+          </span>
+          <span className={`${styles.splitValue} ${styles.toneWorking}`}>
+            <Amount value={working} />
+          </span>
+        </div>
+        <div className={styles.splitCol}>
+          <span className={styles.splitLabel}>
+            <FormattedMessage id="home.emergencyReserve" />
+          </span>
+          <span className={`${styles.splitValue} ${styles.toneEmergency}`}>
+            <Amount value={emergency} />
+          </span>
+        </div>
       </div>
 
       <div className={styles.goalsHead}>
-        <h2 className={styles.sectionTitle}>
+        <h2 className={styles.goalsTitle}>
           <FormattedMessage id="home.goalsTitle" />
         </h2>
-        <Link href={`/${locale}/goals/new`} className={styles.newGoal}>
-          <LucideIcon name="plus" size={16} />
-          <FormattedMessage id="home.newGoal" />
-        </Link>
+        {state.goals.length > 0 ? (
+          <Link href={`/${locale}/goals`} className={styles.viewAll}>
+            <FormattedMessage id="home.viewAll" />
+          </Link>
+        ) : null}
       </div>
 
       {state.goals.length === 0 ? (
@@ -124,9 +106,6 @@ export function HomeScreen({
           <p className={styles.emptyBody}>
             <FormattedMessage id="home.noGoalsBody" />
           </p>
-          <Link href={`/${locale}/goals/new`} className={styles.emptyCta}>
-            <FormattedMessage id="home.newGoal" />
-          </Link>
         </div>
       ) : (
         <ul className={styles.goals}>
@@ -144,14 +123,8 @@ export function HomeScreen({
                   </span>
                   <span className={styles.goalBody}>
                     <span className={styles.goalName}>{goal.name}</span>
-                    <span className={styles.goalProgressText}>
-                      <FormattedMessage
-                        id="goalDetail.progress"
-                        values={{
-                          current: money(current.toFixed(2)),
-                          target: money(goal.targetAmount),
-                        }}
-                      />
+                    <span className={styles.goalAmounts}>
+                      <Amount value={current} /> / <Amount value={target} />
                     </span>
                     <span
                       className={styles.progressTrack}
@@ -163,8 +136,10 @@ export function HomeScreen({
                       <span className={styles.progressFill} style={{ width: `${ratio}%` }} />
                     </span>
                   </span>
-                  <span className={styles.goalPct}>{Math.round(ratio)}%</span>
-                  <LucideIcon name="chevron-right" size={18} className={styles.goalChevron} />
+                  <span className={styles.goalStatus}>
+                    <FormattedMessage id="home.onTrack" />
+                    <LucideIcon name="chevron-right" size={18} />
+                  </span>
                 </Link>
               </li>
             );
@@ -172,37 +147,10 @@ export function HomeScreen({
         </ul>
       )}
 
-      <button type="button" className={styles.reset} onClick={handleReset}>
-        <FormattedMessage id="common.resetSandbox" />
-      </button>
-
-      {timeSheet ? (
-        <BottomSheet titleId="home.timeMachineTitle" onClose={() => setTimeSheet(false)}>
-          <p className={styles.timeNote}>
-            <FormattedMessage id="home.timeMachineNote" />
-          </p>
-          <div className={styles.timeButtons}>
-            <button
-              type="button"
-              className={styles.timeButton}
-              onClick={() => void advance(30)}
-              disabled={advancing}
-            >
-              <FormattedMessage id="home.advanceMonth" />
-            </button>
-            <button
-              type="button"
-              className={styles.timeButton}
-              onClick={() => void advance(365)}
-              disabled={advancing}
-            >
-              <FormattedMessage id="home.advanceYear" />
-            </button>
-          </div>
-        </BottomSheet>
-      ) : null}
-
-      {costSheet ? <CostAdjustSheet locale={locale} onClose={() => setCostSheet(false)} /> : null}
+      <Link href={`/${locale}/goals/new`} className={styles.createGoal}>
+        <LucideIcon name="plus" size={18} />
+        <FormattedMessage id="home.createGoal" />
+      </Link>
     </section>
   );
 }

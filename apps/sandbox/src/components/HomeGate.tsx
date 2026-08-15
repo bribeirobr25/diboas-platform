@@ -18,11 +18,11 @@ import { HomeScreen } from './HomeScreen';
  */
 export function HomeGate({ locale }: { locale: string }) {
   const state = useLedger();
-  // WS-F: settle real elapsed time to now (idempotent, fail-open). Runs on
-  // every app entry; harmless (0 days) before the ledger is initialized.
-  const settledDays = useSettleToNow();
+  // WS-F: settle real elapsed time to now (idempotent, fail-open) — side effect
+  // only; the mockup Home no longer shows a "while you were away" beat.
+  useSettleToNow();
 
   const safeLocale: SandboxLocale = isSandboxLocale(locale) ? locale : 'en';
   if (!state.initialized) return <FirstRun locale={safeLocale} />;
-  return <HomeScreen locale={safeLocale} state={state} settledDays={settledDays} />;
+  return <HomeScreen locale={safeLocale} state={state} />;
 }

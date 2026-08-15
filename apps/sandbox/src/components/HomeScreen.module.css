@@ -1,177 +1,106 @@
+/*
+ * Home — "your money's jobs" (B1), to mockup 02-home(.dark). Play-balance hero,
+ * the Available/Working/Emergency split, the goals list, Create goal. The chrome
+ * (top bar + tab bar) is AppChrome. Fully tokenized.
+ */
 .wrap {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
 }
 
-.head {
+/* --- Play balance hero --- */
+.balanceBlock {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-2xs);
+  padding-top: var(--spacing-sm);
 }
-
-.title {
+.balanceLabel {
   margin: 0;
-  font-family: var(--sb-heading);
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-md);
+}
+.balance {
+  margin: 0;
+  font-family: var(--sb-sans);
   font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-5xl);
+  line-height: 1;
   letter-spacing: -0.02em;
   color: var(--sb-text-heading);
 }
 
-.timePill {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2xs);
-  min-height: var(--sb-tap);
-  padding: var(--spacing-2xs) var(--spacing-md);
-  font-size: var(--font-size-sm);
-  color: var(--sb-accent-strong);
-  background: var(--sb-accent-tint);
-  border: none;
-  border-radius: var(--radius-full);
-  white-space: nowrap;
-  cursor: pointer;
+/* --- Available / Working / Emergency split --- */
+.split {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
-
-.timePill:hover {
-  background: color-mix(in srgb, var(--sb-accent) 16%, transparent);
-}
-
-/* WS-F: the "real market moved while you were away" beat (shown after a real-time settle). */
-.awayBeat {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2xs);
-  margin: 0;
-  padding: var(--spacing-xs) var(--spacing-sm);
-  background: var(--sb-accent-tint);
-  border-radius: var(--sb-radius);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  color: var(--sb-accent-strong);
-}
-
-.workingBalance {
+.splitCol {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2xs);
-  padding: var(--spacing-md);
-  background: var(--sb-accent-tint);
-  border-radius: var(--sb-radius);
-}
-
-.workingBalanceLabel {
-  display: inline-flex;
   align-items: center;
   gap: var(--spacing-2xs);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: var(--sb-accent-strong);
+  padding: var(--spacing-2xs) var(--spacing-xs);
+  text-align: center;
 }
-
-.workingBalanceAmount {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
-  font-variant-numeric: tabular-nums;
+.splitCol + .splitCol {
+  border-left: 1px solid var(--sb-hairline);
 }
-
-.workingBalanceNote {
-  font-size: var(--font-size-xs);
+.splitLabel {
   color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
 }
-
-.sectionTitle {
-  margin: 0;
-  font-family: var(--sb-heading);
-  font-weight: var(--font-weight-bold);
+.splitValue {
+  font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-lg);
-  color: var(--sb-text-heading);
+}
+.toneAvailable {
+  color: var(--text-brand-accessible);
+}
+.toneWorking {
+  color: var(--color-blue-600);
+}
+.toneEmergency {
+  color: var(--color-amber-600);
+}
+/* Dark: lift the fixed tones so they read on the dark ground (falls back to the
+   light shade if a lighter step isn't defined — still legible). */
+:global(html[data-theme='dark']) .toneWorking {
+  color: var(--color-blue-400);
+}
+:global(html[data-theme='dark']) .toneEmergency {
+  color: var(--color-amber-400);
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme='light'])) .toneWorking {
+    color: var(--color-blue-400);
+  }
+  :global(html:not([data-theme='light'])) .toneEmergency {
+    color: var(--color-amber-400);
+  }
 }
 
+/* --- Goals --- */
 .goalsHead {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
-  align-items: center;
-  gap: var(--spacing-md);
+  padding-top: var(--spacing-xs);
+  border-top: 1px solid var(--sb-hairline);
 }
-
-.newGoal {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2xs);
-  min-height: var(--sb-tap);
-  padding: 0 var(--spacing-md);
-  border-radius: var(--radius-full);
-  background: transparent;
-  color: var(--sb-accent-strong);
-  font-weight: var(--font-weight-semibold);
-  text-decoration: none;
-  font-size: var(--font-size-sm);
-}
-
-.newGoal:hover {
-  background: var(--sb-accent-tint);
-}
-
-/* Empty state — warm and inviting (not instructional). */
-.empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: var(--spacing-xs);
-  background: var(--sb-card);
-  border: 1px dashed var(--sb-hairline-strong);
-  border-radius: var(--sb-radius-lg);
-  padding: var(--spacing-2xl) var(--spacing-lg);
-}
-
-.emptyIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: var(--radius-full);
-  background: var(--sb-accent-tint);
-  color: var(--sb-accent-strong);
-  margin-bottom: var(--spacing-2xs);
-}
-
-.emptyTitle {
+.goalsTitle {
   margin: 0;
-  font-family: var(--sb-heading);
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-lg);
   color: var(--sb-text-heading);
 }
-
-.emptyBody {
-  margin: 0;
-  color: var(--sb-text-body);
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-relaxed);
-}
-
-.emptyCta {
-  margin-top: var(--spacing-sm);
-  min-height: var(--sb-tap);
-  display: inline-flex;
-  align-items: center;
-  padding: 0 var(--spacing-lg);
-  border-radius: var(--radius-full);
-  background: var(--sb-accent);
-  color: var(--color-white);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-sm);
+.viewAll {
+  color: var(--text-brand-accessible);
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-medium);
   text-decoration: none;
-}
-
-.emptyCta:hover {
-  background: var(--sb-accent-strong);
 }
 
 .goals {
@@ -180,145 +109,112 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
 }
-
 .goalCard {
-  display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
-  background: var(--sb-card);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius);
-  padding: var(--spacing-md);
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) 0;
   text-decoration: none;
-  color: inherit;
-  box-shadow: var(--sb-shadow-soft);
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease;
+  border-top: 1px solid var(--sb-hairline);
 }
-
-.goalCard:active {
-  transform: scale(0.99);
+.goals li:first-child .goalCard {
+  border-top: none;
 }
-
-.goalCard:hover {
-  box-shadow: var(--sb-shadow-lift);
-}
-
 .goalIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
+  flex: none;
+  width: 3rem;
+  height: 3rem;
   border-radius: var(--radius-full);
-  background: var(--sb-accent-tint);
-  color: var(--sb-accent-strong);
-  flex-shrink: 0;
+  background: var(--sb-accent);
+  color: var(--color-white);
 }
-
 .goalBody {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  min-width: 0;
+  gap: var(--spacing-2xs);
 }
-
 .goalName {
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--sb-text-heading);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
-
-.goalProgressText {
-  font-size: var(--font-size-xs);
+.goalAmounts {
   color: var(--sb-text-muted);
-  font-variant-numeric: tabular-nums;
+  font-size: var(--font-size-sm);
 }
-
 .progressTrack {
   display: block;
   height: 6px;
   border-radius: var(--radius-full);
-  background: var(--sb-ground-deep, var(--sb-hairline));
+  background: var(--sb-hairline-strong);
   overflow: hidden;
-  margin-top: 3px;
 }
-
 .progressFill {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--sb-accent), var(--sb-accent-bright));
   border-radius: var(--radius-full);
-  transition: width 0.4s ease;
+  background: var(--sb-accent);
+}
+.goalStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  flex: none;
+  color: var(--text-brand-accessible);
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-medium);
+}
+.goalStatus svg {
+  color: var(--sb-text-muted);
 }
 
-.goalPct {
-  font-size: var(--font-size-sm);
+/* --- Create goal --- */
+.createGoal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2xs);
+  width: 100%;
+  min-height: 3.25rem;
+  border-radius: var(--sb-radius);
+  background: var(--sb-card-tint);
+  color: var(--text-brand-accessible);
   font-weight: var(--font-weight-semibold);
-  color: var(--sb-accent-strong);
-  font-variant-numeric: tabular-nums;
+  text-decoration: none;
 }
 
-.goalChevron {
-  color: var(--sb-text-muted);
-  flex-shrink: 0;
-}
-
-.reset {
-  align-self: center;
-  min-height: var(--sb-tap);
-  padding: 0 var(--spacing-md);
-  border: none;
-  border-radius: var(--radius-full);
-  background: transparent;
-  color: var(--sb-text-muted);
-  font-size: var(--font-size-sm);
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.reset:hover {
-  color: var(--sb-text-body);
-}
-
-/* Time-machine sheet content. */
-.timeNote {
-  margin: 0 0 var(--spacing-md);
-  font-size: var(--font-size-sm);
-  color: var(--sb-text-body);
-  line-height: var(--line-height-relaxed);
-}
-
-.timeButtons {
+/* --- Empty state --- */
+.empty {
   display: flex;
-  gap: var(--spacing-sm);
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-xl) var(--spacing-md);
+  text-align: center;
 }
-
-.timeButton {
-  flex: 1;
-  min-height: 52px;
-  border: 1px solid var(--sb-accent);
-  border-radius: var(--radius-lg);
-  background: var(--sb-accent-tint);
-  color: var(--sb-accent-strong);
+.emptyIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-card-tint);
+  color: var(--sb-accent);
+  margin-bottom: var(--spacing-2xs);
+}
+.emptyTitle {
+  margin: 0;
   font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-md);
-  cursor: pointer;
-  transition: background 0.12s ease;
+  color: var(--sb-text-heading);
 }
-
-.timeButton:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--sb-accent) 18%, transparent);
-}
-
-.timeButton:disabled {
-  opacity: 0.5;
-  cursor: default;
+.emptyBody {
+  margin: 0;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
 }
