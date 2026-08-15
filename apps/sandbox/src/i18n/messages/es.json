@@ -325,12 +325,13 @@
     "acceptNote": "Al continuar, aceptas nuestros <terms>Términos</terms> y nuestra <privacy>Política de Privacidad</privacy> y confirmas que tienes 18 años o más."
   },
   "claim": {
-    "eyebrow": "Créditos de práctica",
-    "title": "Tus primeros créditos de práctica",
-    "body": "Esto es dinero de práctica. No tiene valor en efectivo y nunca se convierte en dinero real. Úsalo para aprender cómo funciona todo, con el mercado real.",
+    "eyebrow": "Ceremonia de reclamo",
+    "heading": "Estás a punto de recibir",
     "amountLabel": "créditos de práctica",
+    "infoTitle": "Los créditos de práctica son dinero de práctica",
+    "infoBody": "No tienen valor real y nunca se convierten en dinero real.",
     "cta": "Consigue tus primeros {amount}",
-    "reassure": "Nada aquí se convierte en dinero real."
+    "footer": "Seguro. Privado. Tuyo para explorar."
   },
   "strategyDetail": {
     "simple": "Simple",

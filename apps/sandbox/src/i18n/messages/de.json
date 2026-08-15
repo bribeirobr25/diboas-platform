@@ -325,12 +325,13 @@
     "acceptNote": "Wenn du fortfährst, stimmst du unseren <terms>Nutzungsbedingungen</terms> und unserer <privacy>Datenschutzerklärung</privacy> zu und bestätigst, dass du 18 Jahre oder älter bist."
   },
   "claim": {
-    "eyebrow": "Übungsguthaben",
-    "title": "Dein erstes Übungsguthaben",
-    "body": "Das ist Spielgeld zum Üben. Es hat keinen Geldwert und wird nie zu echtem Geld. Nutze es, um mit dem echten Markt zu lernen, wie alles funktioniert.",
+    "eyebrow": "Einlöse-Zeremonie",
+    "heading": "Du erhältst gleich",
     "amountLabel": "Übungsguthaben",
+    "infoTitle": "Übungsguthaben ist Spielgeld",
+    "infoBody": "Es hat keinen realen Wert und wird nie zu echtem Geld.",
     "cta": "Hol dir deine ersten {amount}",
-    "reassure": "Nichts hier wird jemals zu echtem Geld."
+    "footer": "Sicher. Privat. Zum Entdecken."
   },
   "strategyDetail": {
     "simple": "Einfach",

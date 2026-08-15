@@ -325,12 +325,13 @@
     "acceptNote": "Ao continuar, você concorda com nossos <terms>Termos</terms> e nossa <privacy>Política de Privacidade</privacy> e confirma que tem 18 anos ou mais."
   },
   "claim": {
-    "eyebrow": "Créditos de prática",
-    "title": "Seus primeiros créditos de prática",
-    "body": "Isto é dinheiro de mentira para praticar. Não tem valor em dinheiro e nunca vira dinheiro real. Use para aprender como tudo funciona, com o mercado real.",
+    "eyebrow": "Cerimônia de resgate",
+    "heading": "Você está prestes a receber",
     "amountLabel": "créditos de prática",
+    "infoTitle": "Créditos de prática são dinheiro de mentira",
+    "infoBody": "Eles não têm valor real e nunca se convertem em dinheiro real.",
     "cta": "Receba seus primeiros {amount}",
-    "reassure": "Nada aqui vira dinheiro real."
+    "footer": "Seguro. Privado. Seu para explorar."
   },
   "strategyDetail": {
     "simple": "Simples",

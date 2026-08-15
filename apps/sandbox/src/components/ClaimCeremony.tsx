@@ -1,68 +1,88 @@
 'use client';
 
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Button } from './Button';
 import { Card } from './Card';
 import { LucideIcon } from './LucideIcon';
 import { ModeChip } from './ModeChip';
-import { useFormatters } from '@/hooks/useFormatters';
-import { LOCALE_CURRENCY, PLAY_MONEY_GRANT, type SandboxLocale } from '@/i18n/config';
+import { Wordmark } from './Wordmark';
+import { claimGrant } from '@/app/[locale]/claim/actions';
+import { PLAY_MONEY_GRANT, type SandboxLocale } from '@/i18n/config';
 import styles from './ClaimCeremony.module.css';
 
 /**
- * ClaimCeremony — the W-5a claim (slice A3.2; mockup 10). A brief play-money
- * INFORMATION moment (no value, never converts — the C-P0 line in compliance
- * voice) with "Get your first 10,000"; the user's tap is the claim. Calm and
- * significant, like receiving keys — never a jackpot (no confetti). The info
- * precedes receipt (legal clarity), and at real launch this step BECOMES Add
- * Money (money arrives because the user acted).
+ * ClaimCeremony — the W-5a claim (A3.2; mockup 10). A brief, calm play-money
+ * moment: the chip + wordmark over the coastal hero, a gift ceremony, "You're
+ * about to receive 10,000 practice credits", the C-P0 no-real-value info card
+ * (legal clarity BEFORE receipt), and "Get your first 10,000" — the user's tap
+ * IS the claim. Significant, like receiving keys, never a jackpot (no confetti).
+ * At real launch this step becomes Add Money (money arrives because the user
+ * acted). The amount shows as a plain locale-formatted number labelled "practice
+ * credits" (the mockup frames it as credits, not a currency).
  *
- * SEAM: `onClaim` fires on the tap; the real emit (`PlayMoneyGranted` via
- * grantAndSplit, one-grant idempotency guard) is the wiring — here a callback
- * so the ceremony is honest UI. Uses the real grant constant + money formatter.
+ * WIRED: the tap calls the claimGrant action -> app home. The real
+ * `PlayMoneyGranted` emit is DEFERRED + registered (DEFERRED_BACKEND_LEDGER
+ * CL-B1) — the ledger write/one-grant guard is the backend pass, not inlined.
  */
-export function ClaimCeremony({
-  locale,
-  onClaim,
-}: {
-  locale: SandboxLocale;
-  onClaim?: () => void;
-}) {
-  const currency = LOCALE_CURRENCY[locale];
-  const { money } = useFormatters(currency);
-  const amount = PLAY_MONEY_GRANT.b2c;
+export function ClaimCeremony({ locale }: { locale: SandboxLocale }) {
+  const amount = <FormattedNumber value={PLAY_MONEY_GRANT.b2c} />;
 
   return (
     <section className={styles.wrap} aria-labelledby="claim-title">
-      <ModeChip />
+      <header className={styles.hero}>
+        <div className={styles.heroImg} aria-hidden />
+        <div className={styles.heroFade} aria-hidden />
+        <div className={styles.heroTop}>
+          <ModeChip />
+        </div>
+        <div className={styles.brand}>
+          <Wordmark className={styles.wordmark} size="3rem" />
+        </div>
+      </header>
 
-      <Card tone="tint" className={styles.info}>
-        <span className={styles.infoIcon}>
-          <LucideIcon name="gift" size={20} />
-        </span>
-        <h1 id="claim-title" className={styles.eyebrow}>
-          <FormattedMessage id="claim.eyebrow" />
-        </h1>
-        <p className={styles.body}>
-          <FormattedMessage id="claim.body" />
+      <div className={styles.body}>
+        <div className={styles.ceremony}>
+          <span className={styles.giftIcon}>
+            <LucideIcon name="gift" size={26} />
+          </span>
+          <p className={styles.eyebrow}>
+            <FormattedMessage id="claim.eyebrow" />
+          </p>
+          <h1 id="claim-title" className={styles.heading}>
+            <FormattedMessage id="claim.heading" />
+          </h1>
+          <p className={styles.amount}>{amount}</p>
+          <p className={styles.amountLabel}>
+            <FormattedMessage id="claim.amountLabel" />
+          </p>
+        </div>
+
+        <Card className={styles.info}>
+          <span className={styles.infoIcon}>
+            <LucideIcon name="info" size={20} />
+          </span>
+          <div>
+            <p className={styles.infoTitle}>
+              <FormattedMessage id="claim.infoTitle" />
+            </p>
+            <p className={styles.infoBody}>
+              <FormattedMessage id="claim.infoBody" />
+            </p>
+          </div>
+        </Card>
+
+        <Button variant="primary" fullWidth onClick={() => claimGrant(locale)}>
+          <LucideIcon name="key" size={18} />
+          <span className={styles.ctaLabel}>
+            <FormattedMessage id="claim.cta" values={{ amount }} />
+          </span>
+        </Button>
+
+        <p className={styles.footer}>
+          <LucideIcon name="lock" size={14} />
+          <FormattedMessage id="claim.footer" />
         </p>
-      </Card>
-
-      <div className={styles.amountBlock}>
-        <span className={styles.amount}>{money(amount)}</span>
-        <span className={styles.amountLabel}>
-          <FormattedMessage id="claim.amountLabel" />
-        </span>
       </div>
-
-      <Button variant="primary" fullWidth onClick={() => onClaim?.()}>
-        <FormattedMessage id="claim.cta" values={{ amount: money(amount) }} />
-      </Button>
-
-      <p className={styles.reassure}>
-        <LucideIcon name="shield" size={14} />
-        <FormattedMessage id="claim.reassure" />
-      </p>
     </section>
   );
 }

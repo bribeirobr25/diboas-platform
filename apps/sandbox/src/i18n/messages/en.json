@@ -325,12 +325,13 @@
     "acceptNote": "By continuing, you agree to our <terms>Terms</terms> and <privacy>Privacy Policy</privacy> and confirm you're 18 or older."
   },
   "claim": {
-    "eyebrow": "Practice credits",
-    "title": "Your first practice credits",
-    "body": "These are play money for practising. They have no cash value and never convert to real money. Use them to learn how everything works, with the real market.",
+    "eyebrow": "Claim ceremony",
+    "heading": "You're about to receive",
     "amountLabel": "practice credits",
+    "infoTitle": "Practice credits are play money",
+    "infoBody": "They have no real-world value and never convert to real money.",
     "cta": "Get your first {amount}",
-    "reassure": "Nothing here ever becomes real money."
+    "footer": "Secure. Private. Yours to explore."
   },
   "strategyDetail": {
     "simple": "Simple",
