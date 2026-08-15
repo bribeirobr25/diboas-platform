@@ -14,7 +14,8 @@
     "frameCaption": "Modo treino. Dinheiro de mentira, mercado real.",
     "resetSandbox": "Recomeçar o sandbox",
     "resetConfirm": "Isso limpa seu registro de mentira e começa do zero. Nada real é afetado. Recomeçar?",
-    "skipToContent": "Pular para o conteúdo"
+    "skipToContent": "Pular para o conteúdo",
+    "wordmarkAlt": "diBoaS"
   },
   "gate": {
     "title": "diBoaS Sandbox",
@@ -302,8 +303,7 @@
     "google": "Continuar com Google",
     "email": "Continuar com e-mail",
     "wallet": "Conectar carteira",
-    "legal": "Consulte nossos <terms>Termos</terms> e <privacy>Política de Privacidade</privacy> quando quiser.",
-    "wordmarkAlt": "diBoaS"
+    "legal": "Consulte nossos <terms>Termos</terms> e <privacy>Política de Privacidade</privacy> quando quiser."
   },
   "consent": {
     "title": "Antes de começar",
@@ -321,7 +321,8 @@
     "marketingTitle": "Comunicações de marketing",
     "marketingBody": "Receba novidades, dicas e ofertas que você realmente pode usar.",
     "optionalHint": "Opcional. Tudo funciona de qualquer forma.",
-    "footer": "Nunca vendemos seus dados. Você está no controle, sempre."
+    "footer": "Nunca vendemos seus dados. Você está no controle, sempre. Saiba mais na nossa <privacy>Política de Privacidade</privacy>.",
+    "acceptNote": "Ao continuar, você concorda com nossos <terms>Termos</terms> e nossa <privacy>Política de Privacidade</privacy> e confirma que tem 18 anos ou mais."
   },
   "claim": {
     "eyebrow": "Créditos de prática",

@@ -1,10 +1,11 @@
 'use client';
 
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { GoogleG } from './GoogleG';
 import { LocaleSwitcher } from './LocaleSwitcher';
 import { LucideIcon } from './LucideIcon';
 import { ThemeToggle } from './ThemeToggle';
+import { Wordmark } from './Wordmark';
 import { startOnboarding } from '@/app/[locale]/welcome/actions';
 import styles from './AuthWelcome.module.css';
 
@@ -39,7 +40,6 @@ function MethodIcon({ id }: { id: Method }) {
  * hydration flash); the ThemeToggle over the hero lets the user pick either.
  */
 export function AuthWelcome({ locale }: { locale: string }) {
-  const intl = useIntl();
   return (
     <section className={styles.wrap} aria-labelledby="authwelcome-title">
       {/* Full-bleed coastal hero with the branding overlaid and a fade to the
@@ -55,11 +55,7 @@ export function AuthWelcome({ locale }: { locale: string }) {
             front door; the "Sandbox · play money" framing lives on the internal
             pages only (founder 2026-08-14). */}
         <div className={styles.brand}>
-          <span
-            className={styles.wordmark}
-            role="img"
-            aria-label={intl.formatMessage({ id: 'authWelcome.wordmarkAlt' })}
-          />
+          <Wordmark className={styles.wordmark} size="3.25rem" />
           <p className={styles.tagline}>
             <FormattedMessage id="authWelcome.tagline" />
           </p>

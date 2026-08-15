@@ -1,16 +1,19 @@
 /*
- * Consent (A3, W-3). Calm light surface. The required accept card sits ABOVE a
- * visually separate optional group so the toggles read as genuinely optional.
- * Fully tokenized.
+ * Consent (A3, W-3), to mockup 09-consent(.dark).png. The required accept card
+ * sits ABOVE a visually separate optional group so the toggles read as genuinely
+ * optional. Per-mockup theme treatment: the optional rows are hairline-separated
+ * on light, elevated cards on dark (each theme matches its own mockup). Fully
+ * tokenized.
  */
 .wrap {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-3xl);
   max-width: 30rem;
   margin: 0 auto;
   min-height: 100dvh;
+  background: var(--sb-ground);
 }
 
 .top {
@@ -22,22 +25,15 @@
 }
 
 .wordmark {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2xs);
-  margin: var(--spacing-2xs) 0 0;
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-xl);
-  color: var(--sb-text-heading);
-}
-.wordmark svg {
-  color: var(--sb-accent);
+  margin-top: var(--spacing-sm);
 }
 
 .title {
-  margin: var(--spacing-xs) 0 0;
-  font-family: var(--sb-serif);
+  margin: var(--spacing-sm) 0 0;
+  font-family: var(--sb-sans);
+  font-weight: var(--font-weight-bold);
   font-size: var(--font-size-2xl);
+  line-height: 1.2;
   color: var(--sb-text-heading);
 }
 
@@ -45,24 +41,39 @@
   margin: 0;
   color: var(--sb-text-body);
   font-size: var(--font-size-md);
+  line-height: 1.5;
 }
 
+/* --- Required accept (contract gate) --- */
+.required {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
 .requiredHead {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
+  align-items: flex-start;
+  gap: var(--spacing-md);
 }
 .requiredIcon {
   display: inline-flex;
-  color: var(--sb-accent);
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-card-tint);
+  color: var(--text-brand-accessible);
 }
 .requiredTitle {
   margin: 0;
   font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
   color: var(--sb-text-heading);
 }
 .requiredBody {
-  margin: var(--spacing-sm) 0 var(--spacing-md);
+  margin: var(--spacing-2xs) 0 0;
   color: var(--sb-text-body);
   font-size: var(--font-size-sm-plus);
   line-height: 1.5;
@@ -71,12 +82,20 @@
   flex: 1;
   text-align: center;
 }
+.acceptNote {
+  margin: 0;
+  text-align: center;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
 
 .link {
   color: var(--text-brand-accessible);
   text-decoration: underline;
 }
 
+/* --- Optional opt-ins --- */
 .optional {
   display: flex;
   flex-direction: column;
@@ -85,6 +104,7 @@
 .optionalTitle {
   margin: 0;
   font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
   color: var(--sb-text-heading);
 }
 .optionalAll {
@@ -96,6 +116,7 @@
   margin: 0 0 var(--spacing-xs);
   color: var(--sb-text-muted);
   font-size: var(--font-size-sm-plus);
+  line-height: 1.5;
 }
 
 .optList {
@@ -108,7 +129,7 @@
 .optRow {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md);
   padding: var(--spacing-md) 0;
   border-top: 1px solid var(--sb-hairline);
 }
@@ -120,10 +141,10 @@
   align-items: center;
   justify-content: center;
   flex: none;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: var(--radius-full);
-  background: var(--sb-accent-tint);
+  background: var(--sb-card-tint);
   color: var(--text-brand-accessible);
 }
 .optText {
@@ -139,6 +160,7 @@
   margin: var(--spacing-2xs) 0 0;
   color: var(--sb-text-body);
   font-size: var(--font-size-sm);
+  line-height: 1.5;
 }
 .optHint {
   margin: var(--spacing-2xs) 0 0;
@@ -146,16 +168,41 @@
   font-size: var(--font-size-xs);
 }
 
+/* Dark: the optional rows become elevated cards (mockup 09-consent-dark). The
+   two dark selectors (explicit attribute + system media query) stay in sync. */
+:global(html[data-theme='dark']) .optList {
+  gap: var(--spacing-sm);
+}
+:global(html[data-theme='dark']) .optRow {
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius);
+  background: var(--sb-card);
+  padding: var(--spacing-md);
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme='light'])) .optList {
+    gap: var(--spacing-sm);
+  }
+  :global(html:not([data-theme='light'])) .optRow {
+    border: 1px solid var(--sb-hairline);
+    border-radius: var(--sb-radius);
+    background: var(--sb-card);
+    padding: var(--spacing-md);
+  }
+}
+
 .footer {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  gap: var(--spacing-2xs);
+  gap: var(--spacing-xs);
   margin: 0;
   color: var(--sb-text-muted);
   font-size: var(--font-size-sm);
+  line-height: 1.5;
 }
 .footer svg {
   color: var(--sb-accent);
   flex: none;
+  margin-top: 0.15em;
 }

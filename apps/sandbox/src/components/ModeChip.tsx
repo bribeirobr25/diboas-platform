@@ -1,6 +1,7 @@
 'use client';
 
 import { FormattedMessage } from 'react-intl';
+import { LucideIcon } from './LucideIcon';
 import styles from './ModeChip.module.css';
 
 /**
@@ -15,6 +16,7 @@ import styles from './ModeChip.module.css';
 export function ModeChip() {
   return (
     <span className={styles.chip}>
+      <LucideIcon name="flask" size={13} className={styles.flask} />
       <FormattedMessage id="common.playBadge" />
     </span>
   );

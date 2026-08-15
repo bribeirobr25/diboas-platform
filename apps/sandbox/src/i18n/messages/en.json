@@ -14,7 +14,8 @@
     "frameCaption": "Practice mode. Play money, real market.",
     "resetSandbox": "Start the sandbox over",
     "resetConfirm": "This clears your play ledger and starts fresh. Nothing real is affected. Start over?",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "wordmarkAlt": "diBoaS"
   },
   "gate": {
     "title": "diBoaS Sandbox",
@@ -302,8 +303,7 @@
     "google": "Continue with Google",
     "email": "Continue with email",
     "wallet": "Connect wallet",
-    "legal": "Review our <terms>Terms</terms> and <privacy>Privacy Policy</privacy> anytime.",
-    "wordmarkAlt": "diBoaS"
+    "legal": "Review our <terms>Terms</terms> and <privacy>Privacy Policy</privacy> anytime."
   },
   "consent": {
     "title": "Before you start",
@@ -321,7 +321,8 @@
     "marketingTitle": "Marketing communications",
     "marketingBody": "Get product updates, tips, and offers you can actually use.",
     "optionalHint": "Optional. Everything works either way.",
-    "footer": "We never sell your data. You're in control, always."
+    "footer": "We never sell your data. You're in control, always. Learn more in our <privacy>Privacy Policy</privacy>.",
+    "acceptNote": "By continuing, you agree to our <terms>Terms</terms> and <privacy>Privacy Policy</privacy> and confirm you're 18 or older."
   },
   "claim": {
     "eyebrow": "Practice credits",

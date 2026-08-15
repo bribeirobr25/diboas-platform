@@ -1,0 +1,19 @@
+/*
+ * Theme-aware wordmark. The light↔dark asset swap happens in the stylesheet
+ * with the pre-paint data-theme (no hydration flash); the two dark declarations
+ * (explicit attribute + system media query) must stay in sync. Height is set
+ * inline by the component; width follows the aspect ratio.
+ */
+.wordmark {
+  display: block;
+  aspect-ratio: 3.7 / 1;
+  background: url('/logo-wordmark.webp') center / contain no-repeat;
+}
+:global(html[data-theme='dark']) .wordmark {
+  background-image: url('/logo-wordmark-dark.webp');
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme='light'])) .wordmark {
+    background-image: url('/logo-wordmark-dark.webp');
+  }
+}

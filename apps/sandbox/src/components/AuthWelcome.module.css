@@ -66,23 +66,10 @@
   padding: var(--spacing-3xl) var(--spacing-lg) 0;
   text-align: center;
 }
-/* Theme-aware wordmark (light on-light / white on-dark), as a background so it
-   swaps with the theme flash-free. Aspect ~3.6:1. */
+/* The wordmark is the shared <Wordmark> component (theme-aware background); this
+   class only adds the hero spacing. */
 .wordmark {
-  display: block;
-  height: 3.25rem;
-  width: 12rem;
-  max-width: 62vw;
   margin-top: var(--spacing-xs);
-  background: url('/logo-wordmark.webp') center / contain no-repeat;
-}
-:global(html[data-theme='dark']) .wordmark {
-  background-image: url('/logo-wordmark-dark.webp');
-}
-@media (prefers-color-scheme: dark) {
-  :global(html:not([data-theme='light'])) .wordmark {
-    background-image: url('/logo-wordmark-dark.webp');
-  }
 }
 .tagline {
   margin: 0;

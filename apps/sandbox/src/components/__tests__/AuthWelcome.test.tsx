@@ -21,7 +21,7 @@ vi.mock('next/navigation', () => ({
 import { AuthWelcome } from '../AuthWelcome';
 
 const MESSAGES = {
-  'authWelcome.wordmarkAlt': 'diBoaS',
+  'common.wordmarkAlt': 'diBoaS',
   'authWelcome.tagline': 'Practice money. Build wisdom.',
   'authWelcome.title': 'Practice money decisions. Build real confidence.',
   'authWelcome.body': 'Explore strategies, set goals, and grow your money intuition.',

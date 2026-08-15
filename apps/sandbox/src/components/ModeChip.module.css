@@ -12,9 +12,17 @@
   gap: var(--spacing-2xs);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  color: var(--text-brand-accessible); /* teal-700 — accessible teal for text */
-  background: var(--sb-accent-tint);
+  color: var(--text-brand-accessible); /* teal-700 light / teal-400 dark — accessible either way */
+  /* --sb-card-tint is theme-aware (teal-50 on light, translucent teal on dark),
+     so the pill stays a subtle sea-green on light and a quiet dark pill on dark
+     (mockup 09-consent-dark) instead of a bright pale pill. */
+  background: var(--sb-card-tint);
+  border: 1px solid var(--sb-hairline);
   border-radius: var(--radius-full);
   padding: var(--spacing-2xs) var(--spacing-sm);
   white-space: nowrap;
+}
+.flask {
+  color: var(--sb-accent);
+  flex: none;
 }
