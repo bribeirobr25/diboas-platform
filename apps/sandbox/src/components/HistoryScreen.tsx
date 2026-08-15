@@ -1,17 +1,48 @@
 'use client';
 
 import Decimal from 'decimal.js';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { getStrategy } from '@diboas/defi';
 import type { LedgerEvent } from '@diboas/banking';
 import { useLedger } from '@/hooks/useLedger';
 import { useFormatters } from '@/hooks/useFormatters';
+import { LucideIcon } from './LucideIcon';
 import styles from './HistoryScreen.module.css';
 
+type Sign = 'pos' | 'neg' | null;
+
+/** Per-event display: an icon, and the signed amount (money-in green +,
+ *  money-out dark -, config/no-value events a dash). */
+function display(event: LedgerEvent): { icon: string; amount: string | null; sign: Sign } {
+  switch (event.type) {
+    case 'PlayMoneyGranted':
+      return { icon: 'gift', amount: event.amount, sign: 'pos' };
+    case 'AccrualApplied':
+      return { icon: 'trending-up', amount: event.earnings, sign: 'pos' };
+    case 'StrategyExited':
+      return { icon: 'arrow-left', amount: event.grossAmount, sign: 'pos' };
+    case 'StrategyEntered':
+      return { icon: 'trending-up', amount: event.amount, sign: 'neg' };
+    case 'GoalFunded':
+      return { icon: 'target', amount: event.amount, sign: 'neg' };
+    case 'RecurringContributionApplied':
+      return { icon: 'repeat', amount: event.amount, sign: 'neg' };
+    case 'GoalCreated':
+      return { icon: 'target', amount: null, sign: null };
+    case 'RecurringSet':
+      return { icon: 'repeat', amount: null, sign: null };
+    case 'JobsSplitSet':
+      return { icon: 'list', amount: null, sign: null };
+    case 'TimeAdvanced':
+      return { icon: 'clock', amount: null, sign: null };
+  }
+}
+
 /**
- * The trail — every ledger event rendered in plain words, newest first.
- * Completeness invariant: every event type has a line (the P.5 gate); an
- * unknown type would fall through visibly, never silently.
+ * The trail (B3; mockup 18) — every ledger event in plain words, newest first,
+ * with a per-event icon and signed amount. Completeness invariant: every event
+ * type has a line (the P.5 gate); an unknown type falls through visibly. Days
+ * are honest sandbox sim-days (calendar dates arrive with the real-time model).
  */
 export function HistoryScreen() {
   const intl = useIntl();
@@ -96,10 +127,6 @@ export function HistoryScreen() {
   }
 
   const events = [...state.events].reverse();
-
-  // Fee-drag (WS-E): a neutral, factual transparency line — the running cost of
-  // practising, the twin of the provenance stamp. Never a loss-aversion nudge
-  // (R-2); hidden when nothing has been spent.
   const feesPaid = new Decimal(state.networkFeesPaid).plus(state.exitFeesPaid);
 
   return (
@@ -107,28 +134,57 @@ export function HistoryScreen() {
       <h1 id="history-title" className={styles.title}>
         <FormattedMessage id="history.title" />
       </h1>
-      <p className={styles.subtitle}>
+      <p className={styles.reconcile}>
+        <LucideIcon name="shield-check" size={20} />
         <FormattedMessage id="history.subtitle" />
       </p>
       {feesPaid.gt(0) ? (
         <p className={styles.feeDrag}>
-          <FormattedMessage id="history.feeDrag" values={{ amount: money(feesPaid.toFixed(2)) }} />
+          <FormattedMessage
+            id="history.feeDrag"
+            values={{
+              amount: <span className={styles.feeAmount}>{money(feesPaid.toFixed(2))}</span>,
+            }}
+          />
         </p>
       ) : null}
+
       {events.length === 0 ? (
         <p className={styles.empty}>
           <FormattedMessage id="history.empty" />
         </p>
       ) : (
         <ol className={styles.list}>
-          {events.map((event) => (
-            <li key={event.eventId} className={styles.item}>
-              <span className={styles.day}>
-                <FormattedMessage id="history.day" values={{ day: event.simDay }} />
-              </span>
-              <span className={styles.text}>{line(event)}</span>
-            </li>
-          ))}
+          {events.map((event) => {
+            const d = display(event);
+            return (
+              <li key={event.eventId} className={styles.item}>
+                <span className={styles.icon}>
+                  <LucideIcon name={d.icon} size={20} />
+                </span>
+                <span className={styles.body}>
+                  <span className={styles.day}>
+                    <FormattedMessage id="history.day" values={{ day: event.simDay }} />
+                  </span>
+                  <span className={styles.text}>{line(event)}</span>
+                </span>
+                <span className={styles.amount} data-sign={d.sign ?? 'none'}>
+                  {d.amount ? (
+                    <>
+                      {d.sign === 'neg' ? '−' : '+'}
+                      <FormattedNumber
+                        value={new Decimal(d.amount).toNumber()}
+                        minimumFractionDigits={2}
+                        maximumFractionDigits={2}
+                      />
+                    </>
+                  ) : (
+                    '—'
+                  )}
+                </span>
+              </li>
+            );
+          })}
         </ol>
       )}
     </section>

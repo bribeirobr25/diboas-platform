@@ -1,33 +1,43 @@
+/*
+ * History / the trail (B3), to mockup 18-history. Title, the reconcile-trust
+ * line, the fee-drag line, then the event list: icon · plain-words entry ·
+ * signed amount. Fully tokenized.
+ */
 .wrap {
-  max-width: 36rem;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
 }
-
 .title {
   margin: 0;
-  font-family: var(--sb-heading);
+  font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  font-size: clamp(2rem, 5vw, 2.6rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
   color: var(--sb-text-heading);
 }
-
-.subtitle {
-  margin: 0 0 var(--spacing-xs);
-  color: var(--sb-text-body);
-}
-
-.empty {
+.reconcile {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
   margin: 0;
+  color: var(--sb-text-body);
+  font-size: var(--font-size-sm-plus);
+}
+.reconcile svg {
+  color: var(--sb-accent);
+  flex: none;
+}
+.feeDrag {
+  margin: var(--spacing-xs) 0 0;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--sb-hairline);
   color: var(--sb-text-muted);
-  font-style: italic;
+  font-size: var(--font-size-sm-plus);
+}
+.feeAmount {
+  color: var(--text-brand-accessible);
+  font-weight: var(--font-weight-semibold);
 }
 
-/* The trail as an editorial timeline: a hairline rail with day markers. */
 .list {
   list-style: none;
   margin: 0;
@@ -35,58 +45,63 @@
   display: flex;
   flex-direction: column;
 }
-
 .item {
   display: flex;
+  align-items: flex-start;
   gap: var(--spacing-md);
-  align-items: baseline;
-  padding: var(--spacing-sm) 0 var(--spacing-sm) var(--spacing-lg);
-  border-left: 2px solid var(--sb-hairline);
-  position: relative;
+  padding: var(--spacing-md) 0;
+  border-top: 1px solid var(--sb-hairline);
 }
-
-.item::before {
-  content: '';
-  position: absolute;
-  left: -5px;
-  top: var(--spacing-md);
-  width: 8px;
-  height: 8px;
-  border-radius: var(--radius-full);
-  background: var(--sb-accent);
-}
-
 .item:first-child {
-  padding-top: var(--spacing-2xs);
+  border-top: none;
 }
-
-.item:last-child {
-  border-left-color: transparent;
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--sb-accent);
+  color: var(--sb-accent);
 }
-
+.body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 .day {
-  font-size: var(--font-size-xs);
-  color: var(--sb-accent-strong);
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-  min-width: 3.2rem;
-  font-weight: var(--font-weight-medium);
-}
-
-.text {
-  font-size: var(--font-size-sm);
-  color: var(--sb-text-body);
-  line-height: var(--line-height-relaxed);
-}
-
-/* Fee-drag transparency line (WS-E) — neutral, factual, subordinate. */
-.feeDrag {
-  margin: 0;
-  padding: var(--spacing-xs) var(--spacing-md);
-  background: var(--sb-card);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius);
-  font-size: var(--font-size-xs);
   color: var(--sb-text-muted);
-  font-variant-numeric: tabular-nums;
+  font-size: var(--font-size-xs);
+}
+.text {
+  color: var(--sb-text-heading);
+  font-size: var(--font-size-sm-plus);
+  line-height: 1.4;
+}
+.amount {
+  flex: none;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-md);
+  white-space: nowrap;
+  padding-top: 0.9rem;
+}
+.amount[data-sign='pos'] {
+  color: var(--text-brand-accessible);
+}
+.amount[data-sign='neg'] {
+  color: var(--sb-text-heading);
+}
+.amount[data-sign='none'] {
+  color: var(--sb-text-muted);
+}
+
+.empty {
+  margin: var(--spacing-lg) 0;
+  text-align: center;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
 }

@@ -169,7 +169,7 @@
   },
   "history": {
     "title": "The trail",
-    "subtitle": "Every move, in plain words, in order. Nothing here is hidden.",
+    "subtitle": "Cada centavo contabilizado. Todos los saldos cuadran.",
     "empty": "Nothing yet. The trail starts when your money gets its first job.",
     "granted": "Play money arrived: {amount}",
     "split": "It all arrived as Working money.",
