@@ -419,5 +419,9 @@
     "learn": "Learn",
     "profile": "Profile",
     "notifications": "Notifications"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "When there is nothing new, this space stays quiet."
   }
 }

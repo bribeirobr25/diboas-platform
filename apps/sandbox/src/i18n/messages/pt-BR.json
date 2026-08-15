@@ -419,5 +419,9 @@
     "learn": "Aprender",
     "profile": "Perfil",
     "notifications": "Notificações"
+  },
+  "notifications": {
+    "title": "Notificações",
+    "empty": "Quando não há nada novo, este espaço fica tranquilo."
   }
 }

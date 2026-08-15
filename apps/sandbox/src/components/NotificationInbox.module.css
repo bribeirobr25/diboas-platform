@@ -1,0 +1,108 @@
+/*
+ * Notification inbox (B4), to mockup 33. Title, the typed list (icon · title ·
+ * body · time · unread dot), and the calm empty state. Fully tokenized.
+ */
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+.title {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) 0;
+  border-top: 1px solid var(--sb-hairline);
+}
+.item:first-child {
+  border-top: none;
+}
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-card-tint);
+  color: var(--text-brand-accessible);
+}
+.body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.itemTitle {
+  margin: 0;
+  color: var(--sb-text-heading);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.35;
+}
+.itemBody {
+  margin: 0;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-xs);
+  flex: none;
+}
+.time {
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent);
+}
+
+/* --- Calm empty state --- */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-6xl) var(--spacing-lg) var(--spacing-xl);
+  text-align: center;
+}
+.emptyIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-card-tint);
+  color: var(--sb-accent);
+}
+.emptyBody {
+  margin: 0;
+  max-width: 18rem;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+}
