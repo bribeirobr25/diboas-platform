@@ -20,7 +20,8 @@
      truth; the sandbox surface tokens below point at them (NOT the MVP-0 warm
      'editorial-paper' beige #f4f0e8/#ebe5d8, which the mockups are not). */
   --sb-mk-ground: #faf6f1; /* app canvas — warm off-white (mockup phone bg) */
-  --sb-mk-surround: #f2ede7; /* desktop surround — subtly deeper, same hue */
+  --sb-mk-surround: #faf6f1; /* desktop surround = the same off-white (no beige);
+     the phone canvas is framed by its shadow on desktop, not by a warmer gutter */
   --sb-mk-ink: #0f1a21; /* ceremony/high-gravity ink (mockup confirm sheet) */
   --sb-mk-sky: #e9f3f4; /* the light teal sky band atop Home */
   --sb-mk-hairline: #ece6de; /* hairline on the warm ground */
