@@ -12,3 +12,4 @@ export const INVESTING_PACKAGE_VERSION = '0.2.0';
 export * from './jobs';
 export * from './goals';
 export * from './accrual';
+export * from './rules';

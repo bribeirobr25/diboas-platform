@@ -133,6 +133,25 @@ export const ONE_OF_EACH: OneOfEach = {
     disposition: 'held-as-cash',
     expectedVersion: 5,
   },
+  // ── D-r rules engine ────────────────────────────────────────────────────
+  // One rule, sequenced by version — all zero-value, so the log still
+  // reconciles to 0.00 at every prefix (a rule holds no money).
+  RuleCreated: {
+    ...base('e18'),
+    type: 'RuleCreated',
+    ruleId: 'r1',
+    split: [{ goalId: 'g1', percent: 50 }],
+  },
+  RuleUpdated: {
+    ...base('e19'),
+    type: 'RuleUpdated',
+    ruleId: 'r1',
+    split: [{ goalId: 'g1', percent: 60 }],
+    expectedRuleVersion: 0,
+  },
+  RulePaused: { ...base('e20'), type: 'RulePaused', ruleId: 'r1', expectedRuleVersion: 1 },
+  RuleResumed: { ...base('e21'), type: 'RuleResumed', ruleId: 'r1', expectedRuleVersion: 2 },
+  RuleDeleted: { ...base('e22'), type: 'RuleDeleted', ruleId: 'r1', expectedRuleVersion: 3 },
 };
 
 /** The fixture as an ordered, conserving event log (declaration order). */

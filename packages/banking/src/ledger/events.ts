@@ -225,6 +225,60 @@ export interface GoalCashReleased extends EventBase {
   expectedVersion: number;
 }
 
+// ── D-r rules engine (spec: SANDBOX_SPEC_D-R_RULES_ENGINE) ──────────────────
+//
+// The 5 rule-CRUD events — all ZERO-VALUE ledger events (D-r §2, the D-e §6
+// precedent): trail-visible history ("You created your rule: 50/30/20", W-19c),
+// projections need them, reconcile() indifferent. A Rule is a PROPOSAL-
+// GENERATOR that never moves money on its own; the money leg (`RuleApplied` +
+// `GoalFunded` per line) lands with the weekly cycle in §2.3. Proposal
+// lifecycle (`Proposed/Approved/…`) lives in its OWN store, never here (the
+// C-P0 ledger set stays money-pure). CRUD transitions carry `expectedRuleVersion`
+// (optimistic concurrency + the version-safety invariant, D-r §3). The split
+// shape is inlined so `@diboas/banking` stays dependency-free.
+
+/** One line of a rule's split: an integer-percent share to a goal. */
+export interface RuleSplitInput {
+  goalId: string;
+  percent: number;
+}
+
+/** Create the (one active, R1) rule with its split. Version starts at 0. */
+export interface RuleCreated extends EventBase {
+  type: 'RuleCreated';
+  ruleId: string;
+  split: RuleSplitInput[];
+}
+
+/** Edit the rule's split — versioned (W-19a: creating anew = editing). */
+export interface RuleUpdated extends EventBase {
+  type: 'RuleUpdated';
+  ruleId: string;
+  split: RuleSplitInput[];
+  expectedRuleVersion: number;
+}
+
+/** Pause the rule — generation skips it; the rule keeps its shape for resume. Zero-value. */
+export interface RulePaused extends EventBase {
+  type: 'RulePaused';
+  ruleId: string;
+  expectedRuleVersion: number;
+}
+
+/** Resume a paused rule. Zero-value. */
+export interface RuleResumed extends EventBase {
+  type: 'RuleResumed';
+  ruleId: string;
+  expectedRuleVersion: number;
+}
+
+/** Delete the rule (terminal). History keeps it (R-4). Zero-value. */
+export interface RuleDeleted extends EventBase {
+  type: 'RuleDeleted';
+  ruleId: string;
+  expectedRuleVersion: number;
+}
+
 export type LedgerEvent =
   | PlayMoneyGranted
   | JobsSplitSet
@@ -242,6 +296,11 @@ export type LedgerEvent =
   | GoalAccomplished
   | PositionReassigned
   | GoalTargetChanged
-  | GoalCashReleased;
+  | GoalCashReleased
+  | RuleCreated
+  | RuleUpdated
+  | RulePaused
+  | RuleResumed
+  | RuleDeleted;
 
 export type LedgerEventType = LedgerEvent['type'];

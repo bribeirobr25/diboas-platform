@@ -51,6 +51,17 @@ function display(event: LedgerEvent): { icon: string; amount: string | null; sig
       return { icon: 'pencil', amount: null, sign: null };
     case 'GoalCashReleased':
       return { icon: 'wallet', amount: event.amount, sign: 'pos' };
+    // D-r rule CRUD: all zero-value (a rule holds no money) — no amount shown.
+    case 'RuleCreated':
+      return { icon: 'list', amount: null, sign: null };
+    case 'RuleUpdated':
+      return { icon: 'pencil', amount: null, sign: null };
+    case 'RulePaused':
+      return { icon: 'pause', amount: null, sign: null };
+    case 'RuleResumed':
+      return { icon: 'play', amount: null, sign: null };
+    case 'RuleDeleted':
+      return { icon: 'x', amount: null, sign: null };
   }
 }
 
@@ -67,6 +78,11 @@ export function HistoryScreen() {
 
   const goalName = (goalId: string) =>
     state.goals.find((g) => g.goalId === goalId)?.name ?? goalId.slice(0, 8);
+
+  // A rule's split in plain words: "50% Trip, 30% Car" (W-19c — the split is
+  // always visible in the trail).
+  const splitSummary = (split: { goalId: string; percent: number }[]) =>
+    split.map((s) => `${s.percent}% ${goalName(s.goalId)}`).join(', ');
 
   const strategyNameByPosition = (positionId: string) => {
     const position = state.positions.find((p) => p.positionId === positionId);
@@ -172,6 +188,22 @@ export function HistoryScreen() {
           { id: 'history.goalCashReleased' },
           { amount: money(event.amount), name: goalName(event.goalId) }
         );
+      case 'RuleCreated':
+        return intl.formatMessage(
+          { id: 'history.ruleCreated' },
+          { split: splitSummary(event.split) }
+        );
+      case 'RuleUpdated':
+        return intl.formatMessage(
+          { id: 'history.ruleUpdated' },
+          { split: splitSummary(event.split) }
+        );
+      case 'RulePaused':
+        return intl.formatMessage({ id: 'history.rulePaused' });
+      case 'RuleResumed':
+        return intl.formatMessage({ id: 'history.ruleResumed' });
+      case 'RuleDeleted':
+        return intl.formatMessage({ id: 'history.ruleDeleted' });
     }
   }
 

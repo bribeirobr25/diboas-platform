@@ -304,6 +304,13 @@ describe('C-P0 · play-money invariant durability (CLO Board Session 024 — REQ
       PositionReassigned: true,
       GoalTargetChanged: true,
       GoalCashReleased: true,
+      // D-r rule CRUD — all zero-value (a rule holds no money; it only drafts
+      // proposals the user must approve). None is value egress. C-P0 preserved.
+      RuleCreated: true,
+      RuleUpdated: true,
+      RulePaused: true,
+      RuleResumed: true,
+      RuleDeleted: true,
     };
     const VALUE_EGRESS =
       /withdraw|cash[-_ ]?out|payout|prize|reward|redeem|convert|transfer.*(out|external)/i;
@@ -925,5 +932,154 @@ describe('D-e goal lifecycle (spec: SANDBOX_SPEC_D-E)', () => {
     expect(g1(state).cash).toBe('0.00'); // remaining goal cash returned to Available
     expect(state.positions.find((p) => p.positionId === 'p1')!.open).toBe(true); // untouched
     expect(reconcile(state)).toBe('0.00'); // money conserved regardless
+  });
+});
+
+describe('D-r rules engine (spec: SANDBOX_SPEC_D-R)', () => {
+  const r1 = (s: LedgerState) => s.rules.find((r) => r.ruleId === 'r1')!;
+
+  it('should create a rule: active, version 0, carrying the split (reconcile-indifferent)', () => {
+    const state = project([
+      {
+        ...base(),
+        type: 'RuleCreated',
+        ruleId: 'r1',
+        split: [
+          { goalId: 'g1', percent: 50 },
+          { goalId: 'g2', percent: 30 },
+        ],
+      },
+    ]);
+    expect(state.rules).toHaveLength(1);
+    expect(r1(state)).toEqual({
+      ruleId: 'r1',
+      ruleVersion: 0,
+      status: 'active',
+      split: [
+        { goalId: 'g1', percent: 50 },
+        { goalId: 'g2', percent: 30 },
+      ],
+    });
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should update a rule (new split, version increments) and skip a stale-version update', () => {
+    const evs: LedgerEvent[] = [
+      { ...base(), type: 'RuleCreated', ruleId: 'r1', split: [{ goalId: 'g1', percent: 50 }] },
+      {
+        ...base(),
+        type: 'RuleUpdated',
+        ruleId: 'r1',
+        split: [{ goalId: 'g1', percent: 70 }],
+        expectedRuleVersion: 0,
+      },
+    ];
+    const state = project(evs);
+    expect(r1(state).split).toEqual([{ goalId: 'g1', percent: 70 }]);
+    expect(r1(state).ruleVersion).toBe(1);
+
+    // A second update still quoting v0 is stale → skipped (version-safety).
+    const stale = project([
+      ...evs,
+      {
+        ...base(),
+        type: 'RuleUpdated',
+        ruleId: 'r1',
+        split: [{ goalId: 'g1', percent: 99 }],
+        expectedRuleVersion: 0,
+      },
+    ]);
+    expect(r1(stale).split).toEqual([{ goalId: 'g1', percent: 70 }]);
+    expect(r1(stale).ruleVersion).toBe(1);
+  });
+
+  it('should pause then resume, versioning each transition; deleted is terminal', () => {
+    const pr = project([
+      { ...base(), type: 'RuleCreated', ruleId: 'r1', split: [{ goalId: 'g1', percent: 50 }] },
+      { ...base(), type: 'RulePaused', ruleId: 'r1', expectedRuleVersion: 0 },
+      { ...base(), type: 'RuleResumed', ruleId: 'r1', expectedRuleVersion: 1 },
+    ]);
+    expect(r1(pr).status).toBe('active');
+    expect(r1(pr).ruleVersion).toBe(2);
+
+    const del = project([
+      { ...base(), type: 'RuleCreated', ruleId: 'r1', split: [{ goalId: 'g1', percent: 50 }] },
+      { ...base(), type: 'RuleDeleted', ruleId: 'r1', expectedRuleVersion: 0 },
+      { ...base(), type: 'RulePaused', ruleId: 'r1', expectedRuleVersion: 1 }, // no-op: terminal
+    ]);
+    expect(r1(del).status).toBe('deleted');
+    expect(r1(del).ruleVersion).toBe(1);
+  });
+
+  it('should enforce ONE active rule (overlap-forbid): a 2nd RuleCreated is rejected while one is live', () => {
+    const state = project([
+      { ...base(), type: 'RuleCreated', ruleId: 'r1', split: [{ goalId: 'g1', percent: 50 }] },
+      { ...base(), type: 'RuleCreated', ruleId: 'r2', split: [{ goalId: 'g2', percent: 40 }] },
+    ]);
+    expect(state.rules).toHaveLength(1);
+    expect(state.rules[0].ruleId).toBe('r1');
+  });
+
+  it('should allow a fresh rule only AFTER the previous is deleted (history kept)', () => {
+    const state = project([
+      { ...base(), type: 'RuleCreated', ruleId: 'r1', split: [{ goalId: 'g1', percent: 50 }] },
+      { ...base(), type: 'RuleDeleted', ruleId: 'r1', expectedRuleVersion: 0 },
+      { ...base(), type: 'RuleCreated', ruleId: 'r2', split: [{ goalId: 'g2', percent: 40 }] },
+    ]);
+    expect(state.rules).toHaveLength(2); // r1 (deleted, kept) + r2 (active)
+    expect(state.rules.find((r) => r.ruleId === 'r1')!.status).toBe('deleted');
+    expect(state.rules.find((r) => r.ruleId === 'r2')!.status).toBe('active');
+  });
+
+  it('should honor the version-safety invariant: a stale concurrent transition never applies', () => {
+    // Two tabs read v0: one updates (v0→1), one pauses quoting the now-stale v0.
+    const state = project([
+      { ...base(), type: 'RuleCreated', ruleId: 'r1', split: [{ goalId: 'g1', percent: 50 }] },
+      {
+        ...base(),
+        type: 'RuleUpdated',
+        ruleId: 'r1',
+        split: [{ goalId: 'g1', percent: 60 }],
+        expectedRuleVersion: 0,
+      },
+      { ...base(), type: 'RulePaused', ruleId: 'r1', expectedRuleVersion: 0 }, // stale → skipped
+    ]);
+    expect(r1(state).status).toBe('active'); // the stale pause did NOT apply
+    expect(r1(state).split).toEqual([{ goalId: 'g1', percent: 60 }]);
+    expect(r1(state).ruleVersion).toBe(1);
+  });
+
+  it('should keep rule CRUD reconcile-indifferent and replay-deterministic', () => {
+    const money: LedgerEvent[] = [
+      { ...base(), type: 'PlayMoneyGranted', amount: '10000.00', currency: 'USD', mode: 'b2c' },
+      { ...base(), type: 'JobsSplitSet', floorPercent: 50, cushionPercent: 30, workingPercent: 20 },
+    ];
+    const withRule: LedgerEvent[] = [
+      ...money,
+      { ...base(), type: 'RuleCreated', ruleId: 'r1', split: [{ goalId: 'g1', percent: 50 }] },
+      { ...base(), type: 'RulePaused', ruleId: 'r1', expectedRuleVersion: 0 },
+    ];
+    expect(reconcile(project(money))).toBe('0.00');
+    expect(reconcile(project(withRule))).toBe('0.00'); // rules add no residual
+    expect(project(withRule)).toEqual(project(withRule));
+  });
+
+  it('should skip CRUD on an unknown rule (no throw, no effect)', () => {
+    const state = project([
+      { ...base(), type: 'RulePaused', ruleId: 'ghost', expectedRuleVersion: 0 },
+    ]);
+    expect(state.rules).toHaveLength(0);
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should no-op an illegal resume (rule already active) and a delete on an already-deleted rule', () => {
+    const state = project([
+      { ...base(), type: 'RuleCreated', ruleId: 'r1', split: [{ goalId: 'g1', percent: 50 }] },
+      { ...base(), type: 'RuleResumed', ruleId: 'r1', expectedRuleVersion: 0 }, // active → no-op
+      { ...base(), type: 'RuleDeleted', ruleId: 'r1', expectedRuleVersion: 0 }, // deletes (v0→1)
+      { ...base(), type: 'RuleDeleted', ruleId: 'r1', expectedRuleVersion: 1 }, // already deleted → no-op
+    ]);
+    expect(r1(state).status).toBe('deleted');
+    expect(r1(state).ruleVersion).toBe(1); // only the real delete bumped the version
   });
 });

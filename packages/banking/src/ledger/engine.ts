@@ -58,6 +58,21 @@ export interface RecurringSchedule {
   startSimDay: number;
 }
 
+/** Rule lifecycle status (D-r §1). One active/paused rule per account in R1. */
+export type RuleStatus = 'active' | 'paused' | 'deleted';
+
+/**
+ * A projected rule (D-r). Zero-value — it holds NO money (a proposal-generator
+ * only), so it never enters `reconcile()`'s `held`. `ruleVersion` is the
+ * optimistic-concurrency + version-safety anchor (D-r §3).
+ */
+export interface RuleState {
+  ruleId: string;
+  ruleVersion: number;
+  split: { goalId: string; percent: number }[];
+  status: RuleStatus;
+}
+
 export interface LedgerState {
   initialized: boolean;
   mode: 'b2c' | 'b2b';
@@ -72,6 +87,8 @@ export interface LedgerState {
   buckets: Record<JobBucket, string>;
   goals: GoalState[];
   positions: PositionState[];
+  /** Rules (D-r). Zero-value; one active/paused per account in R1 (W-19a). */
+  rules: RuleState[];
   /** Active recurring-contribution schedules (C3), keyed by position. */
   recurring: RecurringSchedule[];
   /** Total network fees paid (play), shown in the trail. */
@@ -111,6 +128,7 @@ export function emptyState(): LedgerState {
     buckets: { floor: '0', cushion: '0', working: '0' },
     goals: [],
     positions: [],
+    rules: [],
     recurring: [],
     networkFeesPaid: '0',
     exitFeesPaid: '0',
@@ -143,6 +161,7 @@ export function project(events: LedgerEvent[]): LedgerState {
   >();
   const positions = new Map<string, { s: PositionState; principal: Decimal; accrued: Decimal }>();
   const recurring = new Map<string, RecurringSchedule>();
+  const rules = new Map<string, RuleState>();
   let networkFees = ZERO;
   let exitFees = ZERO;
   // Ingress/egress running totals (board §1a). Zero today — the producing
@@ -166,6 +185,21 @@ export function project(events: LedgerEvent[]): LedgerState {
     if (goal.s.version !== expectedVersion) return null;
     if (!allowedFrom.includes(goal.s.status)) return null;
     return goal;
+  };
+
+  // D-r: resolve a rule for a CRUD transition — exists · version matches
+  // (optimistic concurrency + the version-safety invariant) · in an allowed
+  // FROM state. Returns null to SKIP (stale/illegal → the UI re-presents).
+  const ruleFor = (
+    ruleId: string,
+    expectedRuleVersion: number,
+    allowedFrom: RuleStatus[]
+  ): RuleState | null => {
+    const rule = rules.get(ruleId);
+    if (!rule) return null;
+    if (rule.ruleVersion !== expectedRuleVersion) return null;
+    if (!allowedFrom.includes(rule.status)) return null;
+    return rule;
   };
 
   for (const event of events) {
@@ -379,6 +413,52 @@ export function project(events: LedgerEvent[]): LedgerState {
         position.s.goalId = event.toGoalId;
         break;
       }
+      case 'RuleCreated': {
+        // One active rule per account in R1 (W-19a, overlap-forbid): reject a
+        // create while a non-deleted rule exists — the UI edits via RuleUpdated.
+        const hasLiveRule = [...rules.values()].some((r) => r.status !== 'deleted');
+        if (!hasLiveRule) {
+          rules.set(event.ruleId, {
+            ruleId: event.ruleId,
+            ruleVersion: 0,
+            split: event.split.map((s) => ({ goalId: s.goalId, percent: s.percent })),
+            status: 'active',
+          });
+        }
+        break;
+      }
+      case 'RuleUpdated': {
+        const rule = ruleFor(event.ruleId, event.expectedRuleVersion, ['active', 'paused']);
+        if (rule) {
+          rule.split = event.split.map((s) => ({ goalId: s.goalId, percent: s.percent }));
+          rule.ruleVersion += 1;
+        }
+        break;
+      }
+      case 'RulePaused': {
+        const rule = ruleFor(event.ruleId, event.expectedRuleVersion, ['active']);
+        if (rule) {
+          rule.status = 'paused';
+          rule.ruleVersion += 1;
+        }
+        break;
+      }
+      case 'RuleResumed': {
+        const rule = ruleFor(event.ruleId, event.expectedRuleVersion, ['paused']);
+        if (rule) {
+          rule.status = 'active';
+          rule.ruleVersion += 1;
+        }
+        break;
+      }
+      case 'RuleDeleted': {
+        const rule = ruleFor(event.ruleId, event.expectedRuleVersion, ['active', 'paused']);
+        if (rule) {
+          rule.status = 'deleted';
+          rule.ruleVersion += 1;
+        }
+        break;
+      }
       default:
         assertNever(event);
     }
@@ -406,6 +486,9 @@ export function project(events: LedgerEvent[]): LedgerState {
     [...positions.values()].filter((p) => p.s.open).map((p) => p.s.positionId)
   );
   state.recurring = [...recurring.values()].filter((r) => openPositionIds.has(r.positionId));
+  // Rules surface as-is (incl. deleted — history stays visible, R-4); each split
+  // is copied so the projection never shares mutable refs with the map.
+  state.rules = [...rules.values()].map((r) => ({ ...r, split: r.split.map((s) => ({ ...s })) }));
   state.networkFeesPaid = networkFees.toFixed(2);
   state.exitFeesPaid = exitFees.toFixed(2);
   state.credited = credited.toFixed(2);
