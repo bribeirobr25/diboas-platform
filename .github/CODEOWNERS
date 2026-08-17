@@ -13,6 +13,16 @@
 # under this path requires editorial reviewer approval.
 /apps/web/data/market/  @bribeirobr25
 
+# Compliance covenants (P2R-14) — the money-conservation invariant and the
+# GENIUS stablecoin↔yield wall. Any change to the covenant CODE or its
+# tripwire TEST requires the compliance reviewer's approval, so a Phase-2
+# event that alters money-egress or earn/yield-adjacency semantics can't merge
+# unreviewed. (Solo repo today: @bribeirobr25 is the reviewer; reassign when a
+# dedicated compliance owner joins.)
+/packages/banking/src/ledger/engine.ts           @bribeirobr25
+/packages/banking/src/__tests__/ledger.test.ts   @bribeirobr25
+/apps/web/src/lib/i18n/__tests__/genius-stablecoin-wall.test.ts   @bribeirobr25
+
 # Engineering-owned defaults (everything else): standard PR review.
 # (No explicit entry — GitHub falls back to the repository's default
 # reviewer set.)

@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js';
 import { describe, expect, it } from 'vitest';
-import type { LedgerEvent, LedgerEventType } from '../ledger/events';
+import type { LedgerEvent, LedgerEventType, LedgerSource } from '../ledger/events';
 import { project, realDaysToSettle, recurringDepositDays, reconcile } from '../ledger/engine';
 import { InMemoryLedgerStore } from '../ledger/store';
 
@@ -296,6 +296,35 @@ describe('C-P0 · play-money invariant durability (CLO Board Session 024 — REQ
         VALUE_EGRESS.test(type),
         `Event type "${type}" reads like value egress — this needs a CLO ruling (C-P0/R-4) before it ships`
       ).toBe(false);
+    }
+  });
+
+  // Parallel tripwire to KNOWN_EVENT_TYPES (board §7b): the C-P0 covenant pins
+  // event *type names*, but a payload discriminator can drift too. Pin the
+  // `source` union so a new value (e.g. Phase-2 D-s `'system'` legs) is a
+  // deliberate, reviewed change — and force the author to re-check the
+  // `?? 'machine'` default in project() (only `'real'` may settle real days).
+  it('should keep the LedgerSource union closed — a new source is deliberate + re-checked against the machine default', () => {
+    // Exhaustive by type: a new LedgerSource will not compile until listed here.
+    const KNOWN_SOURCES: Record<LedgerSource, true> = {
+      real: true,
+      machine: true,
+      system: true,
+    };
+    // Only 'real' may increment realSettledDays; every other source (and a
+    // missing one) must NOT — else a machine/system leg would fabricate real
+    // elapsed time. Prove it for each known source.
+    for (const source of Object.keys(KNOWN_SOURCES) as LedgerSource[]) {
+      const days = 10;
+      const settle = source === 'real';
+      const events: LedgerEvent[] =
+        source === 'system'
+          ? // 'system' has no event carrying it yet (reserved for D-s); assert the
+            // rule symbolically: a non-'real' source contributes 0 real days.
+            [{ ...base(), type: 'TimeAdvanced', days, source: 'machine' }]
+          : [{ ...base(), type: 'TimeAdvanced', days, source }];
+      const state = project(events);
+      expect(state.realSettledDays, `source "${source}"`).toBe(settle ? days : 0);
     }
   });
 

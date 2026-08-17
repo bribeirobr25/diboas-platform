@@ -108,7 +108,8 @@ export function getReady(): boolean {
  * Sync (CTO §15.4): actions call this and use return values synchronously
  * (`createGoal` → `router.push` + chained `enterStrategy`). The write-behind
  * persist is fire-and-forget; callers needing durability confirmation await
- * `flush()`. Phase-2 write-through awaits `flush()` at commit points.
+ * `flush()`. Write-through awaits `flush()` at commit points (persistence
+ * cutover track — see below).
  */
 function appendAll(events: LedgerEvent[]): void {
   for (const event of events) log.push(event);
@@ -128,14 +129,16 @@ function appendAll(events: LedgerEvent[]): void {
 /**
  * Await all pending write-behind persists — the durability seam for §10.
  *
- * ⚠ INTENTIONAL SEAM, zero call sites by design (CTO §16.8) — do NOT delete
- * when `apps/sandbox` enters knip at Phase-2 slice-0; Phase-2 write-through
- * calls it at commit points (manifest approve).
+ * ⚠ INTENTIONAL SEAM, zero call sites by design (CTO §16.8) — do NOT delete.
+ * `apps/sandbox` is already in knip (`knip.json`); this is not flagged, and the
+ * write-through path (persistence cutover) calls it at commit points (manifest
+ * approve).
  *
  * ⚠ CONTRACT NOTE (CTO §16, precision 2): today the persist `catch` is INSIDE
  * the loop, so `flush()` can NEVER reject — correct for 1b write-behind, but the
- * OPPOSITE of what write-through needs. Phase 2 must CHANGE the semantics (let a
- * persist failure surface here), not merely refine them.
+ * OPPOSITE of what write-through needs. The **persistence/mode cutover track**
+ * (NOT this Phase-2 Grow cut, which stays on the localStorage ledger) must CHANGE
+ * the semantics (let a persist failure surface here), not merely refine them.
  */
 export async function flush(): Promise<void> {
   await pendingPersist;
@@ -386,13 +389,32 @@ export function exitPosition(input: { positionId: string; networkFeeLocal: numbe
   ]);
 }
 
-/** Preview the exit numbers for the manifest (no event appended). */
-export function previewExit(positionId: string): { gross: string; exitFee: string } | null {
+/**
+ * Preview the full exit numbers for the manifest (no event appended). The
+ * shared exit-preview primitive for BOTH the goal-detail exit manifest and
+ * G3's "also stop" / G7's ceremony (Step-0 item 7). `previewExit` has no
+ * market/gas access of its own (board §8.1a), so the caller passes the network
+ * fee it computes via `networkFeeLocal(market.gas, entryChain, usdPriceLocal)`;
+ * this returns the whole itemization incl. `net` (what actually lands back in
+ * the goal after both fees).
+ */
+export function previewExit(
+  positionId: string,
+  networkFeeLocal: number
+): { gross: string; exitFee: string; networkFee: string; net: string } | null {
   const state = getLedgerState();
   const position = state.positions.find((p) => p.positionId === positionId);
   if (!position || !position.open) return null;
   const gross = new Decimal(position.principal).plus(position.accrued);
-  return { gross: gross.toFixed(2), exitFee: computeExitFee(gross, state.currency).toFixed(2) };
+  const exitFee = computeExitFee(gross, state.currency);
+  const networkFee = new Decimal(networkFeeLocal);
+  const net = gross.minus(exitFee).minus(networkFee);
+  return {
+    gross: gross.toFixed(2),
+    exitFee: exitFee.toFixed(2),
+    networkFee: networkFee.toFixed(2),
+    net: net.toFixed(2),
+  };
 }
 
 export function resetSandbox(): void {

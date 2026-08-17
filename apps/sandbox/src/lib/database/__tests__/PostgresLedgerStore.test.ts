@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { project, reconcile, type LedgerEvent, type SqlExecutor } from '@diboas/banking';
 import { PostgresLedgerStore } from '../PostgresLedgerStore';
+import { oneOfEachLog } from '../../../test/ledgerFixture';
 
 /**
  * P1.2 slice 1b — PostgresLedgerStore against a mock `sql` (hermetic; the
@@ -47,65 +48,12 @@ const base = (id: string) => ({
   correlationId: `corr-${id}`,
 });
 
-/** One valid instance of every LedgerEventType (Q3 completeness). */
-const oneOfEach: LedgerEvent[] = [
-  { ...base('e1'), type: 'PlayMoneyGranted', amount: '10000.00', currency: 'USD', mode: 'b2c' },
-  { ...base('e2'), type: 'JobsSplitSet', floorPercent: 30, cushionPercent: 20, workingPercent: 50 },
-  {
-    ...base('e3'),
-    type: 'GoalCreated',
-    goalId: 'g1',
-    name: 'Trip',
-    icon: 'plane',
-    targetAmount: '3000.00',
-    horizonMonths: 24,
-  },
-  { ...base('e4'), type: 'GoalFunded', goalId: 'g1', amount: '1000.00' },
-  {
-    ...base('e5'),
-    type: 'StrategyEntered',
-    goalId: 'g1',
-    positionId: 'p1',
-    strategyId: 'safeHarbor',
-    amount: '990.00',
-    networkFee: '10.00',
-  },
-  {
-    ...base('e6'),
-    type: 'AccrualApplied',
-    positionId: 'p1',
-    fromSimDay: 0,
-    toSimDay: 30,
-    earnings: '5.00',
-    apySource: 'defillama',
-  },
-  {
-    ...base('e7'),
-    type: 'StrategyExited',
-    positionId: 'p1',
-    goalId: 'g1',
-    grossAmount: '995.00',
-    exitFee: '3.88',
-    networkFee: '10.00',
-  },
-  {
-    ...base('e8'),
-    type: 'RecurringSet',
-    goalId: 'g1',
-    positionId: 'p1',
-    monthlyAmount: '100.00',
-    startSimDay: 0,
-  },
-  {
-    ...base('e9'),
-    type: 'RecurringContributionApplied',
-    goalId: 'g1',
-    positionId: 'p1',
-    amount: '100.00',
-    onSimDay: 30,
-  },
-  { ...base('e10'), type: 'TimeAdvanced', days: 365, source: 'machine' },
-];
+/**
+ * One valid instance of every LedgerEventType (Q3 completeness), from the
+ * shared compile-enforced fixture (`test/ledgerFixture.ts`) so this test and
+ * the both-stores equivalence test cover the exact same canonical log.
+ */
+const oneOfEach: LedgerEvent[] = oneOfEachLog();
 
 describe('PostgresLedgerStore (P1.2 slice 1b)', () => {
   it('should round-trip every LedgerEventType losslessly (Q3, JSONB serialization fidelity)', async () => {

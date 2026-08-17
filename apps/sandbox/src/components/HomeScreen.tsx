@@ -5,19 +5,9 @@ import Decimal from 'decimal.js';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import type { LedgerState } from '@diboas/banking';
 import type { SandboxLocale } from '@/i18n/config';
+import { goalCurrentValue } from '@/lib/goalValue';
 import { LucideIcon } from './LucideIcon';
 import styles from './HomeScreen.module.css';
-
-/** Goal progress = cash + open positions' current value, against the target. */
-function goalCurrent(state: LedgerState, goalId: string): Decimal {
-  const goal = state.goals.find((g) => g.goalId === goalId);
-  if (!goal) return new Decimal(0);
-  let total = new Decimal(goal.cash);
-  for (const p of state.positions) {
-    if (p.goalId === goalId && p.open) total = total.plus(p.principal).plus(p.accrued);
-  }
-  return total;
-}
 
 /** Plain 2-decimal number (no currency symbol) — the mockup frames play money as
  *  a labelled "Play balance", not a currency. */
@@ -142,7 +132,7 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
       ) : (
         <ul className={styles.goals}>
           {state.goals.map((goal) => {
-            const current = goalCurrent(state, goal.goalId);
+            const current = goalCurrentValue(state, goal.goalId);
             const target = new Decimal(goal.targetAmount);
             const ratio = target.gt(0)
               ? Decimal.min(current.div(target), 1).mul(100).toNumber()
@@ -169,8 +159,9 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
                       <span className={styles.progressFill} style={{ width: `${ratio}%` }} />
                     </span>
                   </span>
-                  <span className={styles.goalStatus}>
-                    <FormattedMessage id="home.onTrack" />
+                  <span className={styles.goalStatus} aria-hidden="true">
+                    {/* No "on track" claim until pace status is derived from D-e
+                        (goals-list increment) — a static label would be false. */}
                     <LucideIcon name="chevron-right" size={18} />
                   </span>
                 </Link>

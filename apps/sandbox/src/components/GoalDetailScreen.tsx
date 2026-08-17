@@ -11,6 +11,7 @@ import { useLedger } from '@/hooks/useLedger';
 import { useMarket } from '@/hooks/useMarket';
 import { useFormatters } from '@/hooks/useFormatters';
 import { enterStrategy, exitPosition, previewExit, splitEntry } from '@/lib/ledgerClient';
+import { goalCurrentValue } from '@/lib/goalValue';
 import { BottomSheet } from './BottomSheet';
 import { LucideIcon } from './LucideIcon';
 import { Manifest } from './Manifest';
@@ -46,12 +47,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   >(null);
   const [busy, setBusy] = useState(false);
 
-  const current = useMemo(() => {
-    if (!goal) return new Decimal(0);
-    let total = new Decimal(goal.cash);
-    for (const p of openPositions) total = total.plus(p.principal).plus(p.accrued);
-    return total;
-  }, [goal, openPositions]);
+  const current = useMemo(() => goalCurrentValue(state, goalId), [state, goalId]);
 
   if (!goal) {
     return (
@@ -252,11 +248,11 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
 
               {exitManifestFor === position.positionId && !settling
                 ? (() => {
-                    const preview = previewExit(position.positionId);
                     const fee =
                       posStrategy && market
                         ? networkFeeLocal(market.gas, posStrategy.entryChain, market.usdPriceLocal)
                         : 0;
+                    const preview = previewExit(position.positionId, fee);
                     return preview ? (
                       <Manifest
                         titleId="goalDetail.exitTitle"
@@ -269,7 +265,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                             labelId: 'manifest.exitCostLabel',
                             value: `${money(preview.exitFee)} · ${intl.formatMessage(
                               { id: 'pathCard.networkFee' },
-                              { amount: money(fee) }
+                              { amount: money(preview.networkFee) }
                             )}`,
                           },
                         ]}

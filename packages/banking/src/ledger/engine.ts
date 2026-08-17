@@ -70,6 +70,18 @@ export interface LedgerState {
   networkFeesPaid: string;
   /** Total exit fees paid (play). */
   exitFeesPaid: string;
+  /**
+   * Ingress total — money entering the system AFTER genesis (weekly credit,
+   * simulated income). A subtrahend's mirror in the conservation formula.
+   * Zero until §2.3/§2.4 add the producing events (Step-0 scaffold, board §1a).
+   */
+  credited: string;
+  /**
+   * Egress total — money that has permanently LEFT the system (simulated
+   * expense). NOT a held bucket: gone money is gone, so `held`-derived
+   * balances stay honest. Zero until §2.4 (Step-0 scaffold, board §1a).
+   */
+  spent: string;
   events: LedgerEvent[];
 }
 
@@ -94,8 +106,21 @@ export function emptyState(): LedgerState {
     recurring: [],
     networkFeesPaid: '0',
     exitFeesPaid: '0',
+    credited: '0',
+    spent: '0',
     events: [],
   };
+}
+
+/**
+ * Exhaustiveness guard (P2R-13): every `LedgerEventType` must be handled in
+ * `project()`'s switch. A net-new event type narrows `event` here to itself
+ * (not `never`), so this fails to COMPILE until a case is added — closing the
+ * "new event compiles and is silently dropped" gap. At runtime an unhandled
+ * event is a bug (code older than its data), so surface it loudly.
+ */
+function assertNever(event: never): never {
+  throw new Error(`project: unhandled ledger event ${JSON.stringify(event)}`);
 }
 
 /** Project the full event log into current state. Pure and deterministic. */
@@ -112,6 +137,11 @@ export function project(events: LedgerEvent[]): LedgerState {
   const recurring = new Map<string, RecurringSchedule>();
   let networkFees = ZERO;
   let exitFees = ZERO;
+  // Ingress/egress running totals (board §1a). Zero today — the producing
+  // events (WeeklyCreditGranted, simulated income/expense) land in §2.3/§2.4;
+  // wire the `+= ` in the same case that adds the event, per the same-PR rule.
+  let credited = ZERO;
+  let spent = ZERO;
 
   for (const event of events) {
     switch (event.type) {
@@ -247,6 +277,8 @@ export function project(events: LedgerEvent[]): LedgerState {
         if ((event.source ?? 'machine') === 'real') state.realSettledDays += event.days;
         break;
       }
+      default:
+        assertNever(event);
     }
   }
 
@@ -274,14 +306,24 @@ export function project(events: LedgerEvent[]): LedgerState {
   state.recurring = [...recurring.values()].filter((r) => openPositionIds.has(r.positionId));
   state.networkFeesPaid = networkFees.toFixed(2);
   state.exitFeesPaid = exitFees.toFixed(2);
+  state.credited = credited.toFixed(2);
+  state.spent = spent.toFixed(2);
   state.events = events;
   return state;
 }
 
 /**
- * Reconciliation invariant (the P.2 gate): total play money in the system
- * equals granted + earnings − fees, across buckets, goal cash, and open
- * positions. Returns the residual (must be 0.00).
+ * Reconciliation invariant (the P.2 / C-P0 gate): total play money currently
+ * held in the system equals the SYMMETRIC conservation formula (board §1a):
+ *
+ *   expected = granted + credited + earnings − spent − exitFees − networkFees
+ *
+ * `credited` (ingress: weekly credit, simulated income) and `spent` (egress:
+ * simulated expense — money permanently gone) are the mirror of the fee
+ * subtrahends. Both are 0 until §2.3/§2.4, so this is identical to the prior
+ * `granted + earnings − fees` formula today, and the invariant holds unchanged.
+ * `held` never includes `spent` (gone money is gone). Returns the residual
+ * (must be 0.00).
  */
 export function reconcile(state: LedgerState): string {
   let granted = ZERO;
@@ -298,7 +340,9 @@ export function reconcile(state: LedgerState): string {
     ...state.positions.filter((p) => p.open).map((p) => d(p.principal).plus(d(p.accrued))),
   ].reduce((acc, v) => acc.plus(v), ZERO);
   const expected = granted
+    .plus(d(state.credited))
     .plus(earnings)
+    .minus(d(state.spent))
     .minus(d(state.exitFeesPaid))
     .minus(d(state.networkFeesPaid));
   return held.minus(expected).toFixed(2);

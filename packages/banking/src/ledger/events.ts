@@ -122,15 +122,27 @@ export interface RecurringContributionApplied extends EventBase {
 }
 
 /**
+ * The canonical provenance union for any event that carries a `source`
+ * (board §7b). `'real'` = real elapsed calendar time (WS-F); `'machine'` = the
+ * time-machine accelerator; `'system'` = platform-injected money legs (D-s
+ * simulated income/expense — no producer yet; reserved for §2.4). Pinned by a
+ * tripwire in `ledger.test.ts` so adding a value is a deliberate, reviewed
+ * change — and any new value MUST be re-checked against the `?? 'machine'`
+ * default in `engine.ts` (only `'real'` may increment `realSettledDays`).
+ */
+export type LedgerSource = 'real' | 'machine' | 'system';
+
+/**
  * Time advancing. `source` distinguishes the time-machine accelerator
  * (`'machine'`) from real elapsed calendar time settled on load (`'real'`,
  * WS-F). Missing `source` on a pre-WS-F event is treated as `'machine'`
  * (backward-compat: old ledgers do not retro-accrue real time — D-3).
+ * TimeAdvanced is never `'system'` (a `LedgerSource` subset by design).
  */
 export interface TimeAdvanced extends EventBase {
   type: 'TimeAdvanced';
   days: number;
-  source?: 'real' | 'machine';
+  source?: Exclude<LedgerSource, 'system'>;
 }
 
 export type LedgerEvent =
