@@ -92,8 +92,14 @@ function emojiHits(files, { excludeStories }) {
 let failed = false;
 
 // 1. Emoji in components (default-emoji chars = hard fail; text-default glyphs = leads)
+//    Covers BOTH apps — the sandbox is a real growing UI (P2BD-7, founder 2026-08-18);
+//    the GENIUS wall + emoji-in-strings are already guarded in the sandbox's own
+//    messages.test.ts, so this closes the last emoji gap (component TSX files).
 {
-  const files = walk(join(ROOT, 'apps/web/src/components'), ['.tsx']);
+  const files = [
+    ...walk(join(ROOT, 'apps/web/src/components'), ['.tsx']),
+    ...walk(join(ROOT, 'apps/sandbox/src/components'), ['.tsx']),
+  ];
   const { hard, soft } = emojiHits(files, { excludeStories: true });
   if (hard.length) {
     failed = true;

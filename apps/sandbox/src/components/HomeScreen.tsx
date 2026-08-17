@@ -45,7 +45,7 @@ function BalanceAmount({ value }: { value: Decimal }) {
  * Available/Working/Emergency split, the goals list with progress + status, and
  * Create goal. The top bar + tab bar are the AppChrome shell.
  *
- * ⚠ Bucket mapping (DEFERRED_BACKEND_LEDGER): the mockup's money-jobs model
+ * NB — Bucket mapping (DEFERRED_BACKEND_LEDGER): the mockup's money-jobs model
  * (available/working/emergency) is mapped onto the current ledger buckets
  * (floor/cushion/working) — available = undeployed (working+floor), working =
  * money committed to goals (uninvested goal cash + open positions' value),

@@ -7,7 +7,7 @@
  * Kept as a tiny, self-contained IIFE string — it must not depend on React,
  * hydration, or any bundle that loads after paint.
  *
- * ⚠️ STAGE-1 CSP DEPENDENCY: today the sandbox ships no CSP (MVP-0 posture,
+ * NB — STAGE-1 CSP DEPENDENCY: today the sandbox ships no CSP (MVP-0 posture,
  * `next.config.mjs`), so this inline script runs freely. When the nonce-CSP
  * middleware lands at Stage 1 (`'unsafe-inline'` prohibited for scripts), this
  * ONE inline script must carry the per-request nonce or it will be blocked and
