@@ -1,11 +1,11 @@
 {
   "_comment": "Weekly refresh generated 2026-08-10 by apps/web/scripts/market-refresh/run.mjs (P2 fetch + fail-closed quality gate + shared engine) with editorial copy from generate.mjs (P3 template library; overrides in editorial-override.json). Cycle 2026-08-10: score 7 → 6, staying NEUTRAL_MIXED — REL-01 (BTC/Gold) flipped INACTIVE (ratio 14.947 vs 20-week trend 15.297). Structural signals anchor the confirmed July 31 monthly close per doc 02 §5.1 (BTC-02 + BTC-03 active; BTC-01 + BTC-04 inactive); weekly signals anchor the most recent confirmed Friday per source — NASDAQCOM/GC=F at 2026-08-07, DGS10/DTWEXBGS at 2026-07-31 (publication lag at the Monday 07:55 UTC run), M2SL at the June print (July due ~late August). ETF-01 evaluated UNAVAILABLE per doc 02 §10.1 while the Polygon shares-outstanding ledger warms up (4 of 5 weekly snapshots; first scorable evaluation expected ~2026-08-17). data_status carries the same source list as apps/web/data/market/data-status.json (byte-parity audit gate, F-M6). _translation_status sibling block tracks non-EN content review state per market-editorial.md §5.",
-  "score": 6,
+  "score": 8,
   "max_score": 14,
   "regime_code": "NEUTRAL_MIXED",
   "regime_label": "Neutral / Mixed",
   "environment_bias": "MIXED",
-  "last_updated_at": "2026-08-10T07:55:30.136Z",
+  "last_updated_at": "2026-08-17T07:09:24.143Z",
   "summary": {
     "en": {
       "short": "Conditions improved from Defensive to Neutral / Mixed on the July monthly close. Bitcoin's rebound put it back above the long-term 50-month line and turned monthly momentum up, and the dollar eased below its trend — but the intermediate structure is still broken, yields stay firm, and the short-term momentum floor gave way. A genuinely mixed picture.",
@@ -25,7 +25,7 @@
         "Spot-ETF net-flows remain unverifiable while the shares-outstanding ledger warms up (scored unavailable, no points)",
         "Bitcoin slipped back below its 20-week trend against gold — the defensive asset is winning this stretch"
       ],
-      "plain": "The score eased a little this week, from 7 to 6 of 14. It's a mixed month for Bitcoin: the signals are split almost evenly, some helping, some not. What we're watching: whether the dollar loosens its grip, and whether Bitcoin starts winning against gold again."
+      "plain": "The score firmed a little this week, from 6 to 8 of 14. The monthly read is genuinely mixed — half of what we track leans one way, half the other. What we're watching: whether the dollar loosens its grip, and whether the price can reclaim the slow line it has held for years."
     },
     "pt-BR": {
       "short": "As condições melhoraram de Defensivo para Neutro / Misto no fechamento mensal de julho. A recuperação do Bitcoin o recolocou acima da linha de 50 meses e virou o momentum mensal para cima, e o dólar cedeu abaixo da tendência — mas a estrutura intermediária segue rompida, os juros continuam firmes e o piso de momentum de curto prazo cedeu. Um quadro genuinamente misto.",
@@ -45,7 +45,7 @@
         "Os fluxos líquidos de ETF à vista seguem não verificáveis enquanto o registro de cotas completa o aquecimento (pontuados como indisponíveis, sem pontos)",
         "O Bitcoin voltou a cair abaixo da tendência de 20 semanas contra o ouro — o ativo defensivo vence este trecho"
       ],
-      "plain": "A pontuação cedeu um pouco nesta semana, de 7 para 6 de 14. É um mês misto para o Bitcoin: os sinais estão divididos quase por igual, alguns ajudando, outros não. O que estamos observando: se o dólar afrouxa o aperto, e se o Bitcoin volta a ganhar do ouro."
+      "plain": "A pontuação se firmou um pouco nesta semana, de 6 para 8 de 14. A leitura do mês é genuinamente mista — metade do que acompanhamos pende para um lado, metade para o outro. O que estamos observando: se o dólar afrouxa o aperto, e se o preço consegue retomar a linha lenta que segurou por anos."
     },
     "es": {
       "short": "Las condiciones mejoraron de Defensivo a Neutral / Mixto en el cierre mensual de julio. El rebote de Bitcoin lo devolvió por encima de la línea de 50 meses y giró el momentum mensual al alza, y el dólar cedió por debajo de su tendencia — pero la estructura intermedia sigue rota, los rendimientos se mantienen firmes y el suelo de momentum de corto plazo cedió. Un cuadro genuinamente mixto.",
@@ -65,7 +65,7 @@
         "Los flujos netos de ETF al contado siguen sin poder verificarse mientras el registro de participaciones completa su calentamiento (puntuados como no disponibles, sin puntos)",
         "Bitcoin volvió a caer por debajo de su tendencia de 20 semanas frente al oro — el activo defensivo gana este tramo"
       ],
-      "plain": "La puntuación cedió un poco esta semana, de 7 a 6 de 14. Es un mes mixto para Bitcoin: las señales están divididas casi por igual, algunas ayudan y otras no. Lo que observamos: si el dólar afloja su presión, y si Bitcoin vuelve a ganar al oro."
+      "plain": "La puntuación mejoró un poco esta semana, de 6 a 8 de 14. La lectura del mes es realmente mixta: la mitad de lo que seguimos se inclina a un lado y la mitad al otro. Lo que observamos: si el dólar afloja su presión, y si el precio recupera la línea lenta que sostuvo durante años."
     },
     "de": {
       "short": "Die Bedingungen verbesserten sich mit dem Juli-Monatsschluss von Defensiv auf Neutral / Gemischt. Bitcoins Erholung brachte den Kurs zurück über die langfristige 50-Monats-Linie und drehte das Monats-Momentum nach oben, und der Dollar rutschte unter seinen Trend — aber die mittelfristige Struktur bleibt gebrochen, die Renditen bleiben fest, und der kurzfristige Momentum-Boden gab nach. Ein wirklich gemischtes Bild.",
@@ -85,7 +85,7 @@
         "Spot-ETF-Nettoflüsse bleiben nicht überprüfbar, solange das Anteilsregister aufwärmt (als nicht verfügbar gewertet, keine Punkte)",
         "Bitcoin rutschte gegenüber Gold wieder unter den 20-Wochen-Trend — das defensive Anlagegut gewinnt diese Phase"
       ],
-      "plain": "Der Wert gab diese Woche etwas nach, von 7 auf 6 von 14. Es ist ein gemischter Monat für Bitcoin: Die Signale sind fast gleich verteilt, manches hilft, manches nicht. Worauf wir achten: ob der Dollar seinen Griff lockert und ob Bitcoin wieder gegen Gold gewinnt."
+      "plain": "Der Wert festigte sich diese Woche etwas, von 6 auf 8 von 14. Die Lage im Monat ist wirklich gemischt — die Hälfte von dem, was wir verfolgen, neigt sich hierhin, die Hälfte dorthin. Worauf wir achten: ob der Dollar seinen Griff lockert und ob der Preis die langsame Linie zurückerobern kann, die er jahrelang gehalten hat."
     }
   },
   "signal_groups": [
@@ -136,14 +136,14 @@
         "es": "Demanda institucional",
         "de": "Institutionelle Nachfrage"
       },
-      "status": "WEAK",
-      "points_awarded": 0,
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 2,
       "max_points": 2,
       "summary": {
-        "en": "Institutional demand could not be measured this cycle — the ETF flow read is unavailable, not weak (0 of 2 points).",
-        "pt-BR": "A demanda institucional não pôde ser medida neste ciclo — a leitura de fluxos de ETF está indisponível, não fraca (0 de 2 pontos).",
-        "es": "La demanda institucional no pudo medirse en este ciclo: la lectura de flujos de ETF no está disponible, no es débil (0 de 2 puntos).",
-        "de": "Die institutionelle Nachfrage konnte in diesem Zyklus nicht gemessen werden — die ETF-Flussdaten sind nicht verfügbar, nicht schwach (0 von 2 Punkten)."
+        "en": "Institutional demand is flowing: spot-ETF creations outpaced redemptions in most of the recent weeks (2 of 2 points).",
+        "pt-BR": "A demanda institucional está entrando: as emissões dos ETFs à vista superaram os resgates na maioria das semanas recentes (2 de 2 pontos).",
+        "es": "La demanda institucional está entrando: las creaciones de los ETF al contado superaron los reembolsos en la mayoría de las semanas recientes (2 de 2 puntos).",
+        "de": "Die institutionelle Nachfrage fließt: Zuflüsse in die Spot-ETFs überwogen die Abflüsse in den meisten der letzten Wochen (2 von 2 Punkten)."
       }
     },
     {
@@ -167,8 +167,8 @@
     }
   ],
   "data_status": {
-    "overall_confidence": "MODERATE",
-    "last_successful_update_at": "2026-08-10T07:55:30.136Z",
+    "overall_confidence": "HIGH",
+    "last_successful_update_at": "2026-08-17T07:09:24.143Z",
     "sources": [
       {
         "source": "in-repo:monthlyPrices.json (BTC)",
@@ -181,18 +181,18 @@
       {
         "source": "FRED:DGS10",
         "status": "FRESH",
-        "last_updated_at": "2026-07-31T00:00:00Z",
-        "expected_next_update_at": "2026-08-14T20:00:00Z",
-        "stale_after": "2026-08-21T20:00:00Z",
-        "message": "US 10-year constant-maturity yield. Weekly signal anchored at the most recent confirmed Friday close (2026-07-31)."
+        "last_updated_at": "2026-08-07T00:00:00Z",
+        "expected_next_update_at": "2026-08-21T20:00:00Z",
+        "stale_after": "2026-08-28T20:00:00Z",
+        "message": "US 10-year constant-maturity yield. Weekly signal anchored at the most recent confirmed Friday close (2026-08-07)."
       },
       {
         "source": "FRED:DTWEXBGS",
         "status": "FRESH",
-        "last_updated_at": "2026-07-31T00:00:00Z",
-        "expected_next_update_at": "2026-08-14T20:00:00Z",
-        "stale_after": "2026-08-21T20:00:00Z",
-        "message": "Broad dollar index (DXY proxy). Weekly signal anchored at the most recent confirmed Friday close (2026-07-31)."
+        "last_updated_at": "2026-08-07T00:00:00Z",
+        "expected_next_update_at": "2026-08-21T20:00:00Z",
+        "stale_after": "2026-08-28T20:00:00Z",
+        "message": "Broad dollar index (DXY proxy). Weekly signal anchored at the most recent confirmed Friday close (2026-08-07)."
       },
       {
         "source": "FRED:M2SL",
@@ -205,30 +205,30 @@
       {
         "source": "FRED:NASDAQCOM",
         "status": "FRESH",
-        "last_updated_at": "2026-08-07T00:00:00Z",
-        "expected_next_update_at": "2026-08-14T20:00:00Z",
-        "stale_after": "2026-08-21T20:00:00Z",
-        "message": "Nasdaq Composite close. Weekly signal anchored at the most recent confirmed Friday close (2026-08-07)."
+        "last_updated_at": "2026-08-14T00:00:00Z",
+        "expected_next_update_at": "2026-08-21T20:00:00Z",
+        "stale_after": "2026-08-28T20:00:00Z",
+        "message": "Nasdaq Composite close. Weekly signal anchored at the most recent confirmed Friday close (2026-08-14)."
       },
       {
         "source": "Yahoo:GC=F",
         "status": "FRESH",
-        "last_updated_at": "2026-08-07T00:00:00Z",
-        "expected_next_update_at": "2026-08-14T20:00:00Z",
-        "stale_after": "2026-08-21T20:00:00Z",
-        "message": "Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29). Weekly anchor 2026-08-07."
+        "last_updated_at": "2026-08-14T00:00:00Z",
+        "expected_next_update_at": "2026-08-21T20:00:00Z",
+        "stale_after": "2026-08-28T20:00:00Z",
+        "message": "Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29). Weekly anchor 2026-08-14."
       },
       {
         "source": "Polygon:ETF (shares-outstanding)",
-        "status": "UNAVAILABLE",
-        "last_updated_at": "2026-08-07T00:00:00Z",
-        "expected_next_update_at": "2026-08-14T00:00:00Z",
-        "stale_after": "2026-08-28T00:00:00Z",
-        "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). Warming up: 4 of 5 weekly snapshots recorded; 4 weekly flows need 5 snapshots. UNAVAILABLE (not weak) per doc 02 §10.1 — no guessed backfill; first scorable evaluation expected ~2026-08-17."
+        "status": "FRESH",
+        "last_updated_at": "2026-08-14T00:00:00Z",
+        "expected_next_update_at": "2026-08-21T00:00:00Z",
+        "stale_after": "2026-09-04T00:00:00Z",
+        "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). Ledger live: 5 weekly snapshots; ETF-01 scored from the trailing 4 weekly flows per doc 02 §8.3. Weekly anchor 2026-08-14."
       }
     ],
     "delayed_sources": [],
-    "unavailable_sources": ["Polygon:ETF (shares-outstanding)"]
+    "unavailable_sources": []
   },
   "_translation_status": {
     "_comment": "Translation status per market-editorial.md §5. EN is authoritative. The memo-voice fields (summary.short/detailed/key_*) are per-cycle editorial: the 2026-08-10 cycle strings were engineering-drafted in the research-memo voice (doc 03 §5.2, Phase 7 jargon ban) and claude-reviewed in the PR #477 weekly review 2026-08-11 (register rules: de du-register n/a here — memo voice; es peninsular; pt-BR neutral-formal memo). summary.plain and the signal/group summaries are generated from the reviewed template library (F-M9 — translated once at the library level). NOTE (annotation corrected 2026-08-12): the professional-translator gate was COLLAPSED by founder ruling 2026-07-15 (native 4-locale approval sufficient) and MARKET_INDEXABLE has been LIVE since 2026-07-17 (PENDING_ALL 5.38 CLOSED) — earlier versions of this annotation incorrectly carried the pre-flip gate language.",
