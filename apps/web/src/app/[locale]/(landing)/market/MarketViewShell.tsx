@@ -275,16 +275,22 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                       {regime.summary.plain && <CalmSummary data={regime.summary} length="plain" />}
                     </div>
                   </div>
-                  {/* The memo voice drops below the gauge row and spans the full
-                      container width, so a long memo no longer forces the gauge
-                      to float vertically-centered in a tall right column. */}
-                  <div className={styles.scoreDetail}>
+                  {/* View-voice wave (2026-08-14, founder feedback): the plain
+                      grandmother lead above stays the visible voice; the full
+                      analyst memo collapses behind a native <details> (server-
+                      rendered, keyboard/screen-reader native, no JS needed).
+                      The memo text itself is UNCHANGED — progressive disclosure,
+                      not deletion. */}
+                  <details className={styles.scoreDetail}>
+                    <summary className={styles.memoToggle}>
+                      {t('dashboard.memoToggle', 'Read the full weekly memo')}
+                    </summary>
                     <CalmSummary
                       data={regime.summary}
                       length="detailed"
                       className={styles.scoreDetailBody}
                     />
-                  </div>
+                  </details>
                 </section>
               </SectionErrorBoundary>
             )}

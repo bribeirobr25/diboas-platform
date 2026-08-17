@@ -27,6 +27,19 @@ export interface UmbrellaCardModel {
   /** State views: MAC component states in fixed component order
    *  (dollar, rates, liquidity) — true = the supportive reading is ACTIVE. */
   conditions?: { id: string; active: boolean }[];
+  /** View-voice wave (2026-08-14, founder feedback): the card's PLAIN-language
+   *  primary line — scored views take the first sentence of the grandmother
+   *  `summary.plain`; state views take the macro group's generated summary.
+   *  Band words / condition words demote to the secondary meta row. Optional:
+   *  cycles predating the plain layer render the meta row alone (never blank). */
+  plainLine?: string;
+}
+
+/** First sentence of a plain summary — the card-sized cut. The grandmother
+ *  templates end sentences with '. '; fall back to the whole string. */
+function firstSentence(text: string): string {
+  const idx = text.indexOf('. ');
+  return idx > 0 ? text.slice(0, idx + 1) : text;
 }
 
 const BACKDROP_COMPONENT_ORDER = ['MAC-01', 'MAC-02', 'MAC-03'] as const;
@@ -57,7 +70,14 @@ export function umbrellaCardModel(
       const [prev, last] = real.slice(-2);
       direction = last.score > prev.score ? 'up' : last.score < prev.score ? 'down' : 'held';
     }
-    return { ...base, available: true, bandCode: code as RegimeCode, direction };
+    const plain = data.regime?.summary?.plain;
+    return {
+      ...base,
+      available: true,
+      bandCode: code as RegimeCode,
+      direction,
+      plainLine: plain ? firstSentence(plain) : undefined,
+    };
   }
 
   // 'state' grammar: the MAC component reads.
@@ -71,5 +91,10 @@ export function umbrellaCardModel(
   if (conditions.length !== BACKDROP_COMPONENT_ORDER.length) {
     return { ...base, available: false };
   }
-  return { ...base, available: true, conditions };
+  return {
+    ...base,
+    available: true,
+    conditions,
+    plainLine: macro?.summary || undefined,
+  };
 }
