@@ -20,3 +20,18 @@ export function goalCurrentValue(state: LedgerState, goalId: string): Decimal {
   }
   return total;
 }
+
+/**
+ * Whether a goal has reached its target — the DERIVED `target_reached` fact
+ * (D-e §3, board §3.1): `current ≥ target`, recomputed, NEVER stored. It may
+ * honestly un-reach if the market dips, so it is never a sticky flag; the goal
+ * flips to the `accomplished` status only by the user's disposition choice.
+ * A zero/absent target is never "reached".
+ */
+export function goalTargetReached(state: LedgerState, goalId: string): boolean {
+  const goal = state.goals.find((g) => g.goalId === goalId);
+  if (!goal) return false;
+  const target = new Decimal(goal.targetAmount);
+  if (target.lte(0)) return false;
+  return goalCurrentValue(state, goalId).gte(target);
+}

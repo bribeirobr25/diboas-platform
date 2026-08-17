@@ -89,6 +89,50 @@ export const ONE_OF_EACH: OneOfEach = {
     onSimDay: 30,
   },
   TimeAdvanced: { ...base('e10'), type: 'TimeAdvanced', days: 365, source: 'machine' },
+  // ── D-e goal lifecycle ──────────────────────────────────────────────────
+  // Sequenced on g1 by version. Single-instance-per-type means 5 apply and 2
+  // are valid-but-no-op here (PositionReassigned — p1 is already closed;
+  // GoalAccomplished — g1 is already terminal after the drop). Real multi-goal
+  // behaviour is exercised in ledger.test.ts. All conserving (zero-value or a
+  // move within `held`), so the log still reconciles to 0.00 at every prefix.
+  GoalTargetChanged: {
+    ...base('e11'),
+    type: 'GoalTargetChanged',
+    goalId: 'g1',
+    oldTarget: '3000.00',
+    newTarget: '4000.00',
+    expectedVersion: 0,
+  },
+  GoalCashReleased: {
+    ...base('e12'),
+    type: 'GoalCashReleased',
+    goalId: 'g1',
+    amount: '100.00',
+    expectedVersion: 1,
+  },
+  GoalPaused: { ...base('e13'), type: 'GoalPaused', goalId: 'g1', expectedVersion: 2 },
+  GoalResumed: { ...base('e14'), type: 'GoalResumed', goalId: 'g1', expectedVersion: 3 },
+  PositionReassigned: {
+    ...base('e15'),
+    type: 'PositionReassigned',
+    positionId: 'p1',
+    fromGoalId: 'g1',
+    toGoalId: 'g2',
+  },
+  GoalDropped: {
+    ...base('e16'),
+    type: 'GoalDropped',
+    goalId: 'g1',
+    cashReleased: '881.12',
+    expectedVersion: 4,
+  },
+  GoalAccomplished: {
+    ...base('e17'),
+    type: 'GoalAccomplished',
+    goalId: 'g1',
+    disposition: 'held-as-cash',
+    expectedVersion: 5,
+  },
 };
 
 /** The fixture as an ordered, conserving event log (declaration order). */

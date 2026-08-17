@@ -9,6 +9,10 @@
 import Decimal from 'decimal.js';
 import type { JobBucket, LedgerEvent } from './events';
 
+/** Goal lifecycle status (D-e §1). `target_reached` is NOT a status — it is a
+ *  derived fact (`current ≥ target`), recomputable and never stored. */
+export type GoalStatus = 'active' | 'paused' | 'dropped' | 'accomplished';
+
 export interface GoalState {
   goalId: string;
   name: string;
@@ -22,6 +26,10 @@ export interface GoalState {
   /** Lifetime earnings realized + accrued across the goal's positions. */
   earnings: string;
   createdSimDay: number;
+  /** Lifecycle status (D-e). Defaults 'active' at creation. */
+  status: GoalStatus;
+  /** Optimistic-concurrency version; incremented on each applied transition (D-e §5). */
+  version: number;
 }
 
 export interface PositionState {
@@ -143,6 +151,23 @@ export function project(events: LedgerEvent[]): LedgerState {
   let credited = ZERO;
   let spent = ZERO;
 
+  // D-e: resolve a goal for a status transition — exists · version matches
+  // (optimistic concurrency) · in an allowed FROM state. Returns null to SKIP
+  // (stale/illegal → the UI re-presents). The caller bumps `version` on a real
+  // apply, so a rejected move (e.g. insufficient cash) never advances it.
+  type GoalEntry = NonNullable<ReturnType<typeof goals.get>>;
+  const goalFor = (
+    goalId: string,
+    expectedVersion: number,
+    allowedFrom: GoalStatus[]
+  ): GoalEntry | null => {
+    const goal = goals.get(goalId);
+    if (!goal) return null;
+    if (goal.s.version !== expectedVersion) return null;
+    if (!allowedFrom.includes(goal.s.status)) return null;
+    return goal;
+  };
+
   for (const event of events) {
     switch (event.type) {
       case 'PlayMoneyGranted': {
@@ -179,6 +204,8 @@ export function project(events: LedgerEvent[]): LedgerState {
             invested: '0',
             earnings: '0',
             createdSimDay: event.simDay,
+            status: 'active',
+            version: 0,
           },
           cash: ZERO,
           invested: ZERO,
@@ -275,6 +302,81 @@ export function project(events: LedgerEvent[]): LedgerState {
         state.simDay += event.days;
         // Missing source ⇒ 'machine' (backward-compat, D-3): old ledgers don't retro-accrue.
         if ((event.source ?? 'machine') === 'real') state.realSettledDays += event.days;
+        break;
+      }
+      case 'GoalPaused': {
+        const g = goalFor(event.goalId, event.expectedVersion, ['active']);
+        if (g) {
+          g.s.status = 'paused';
+          g.s.version += 1;
+        }
+        break;
+      }
+      case 'GoalResumed': {
+        const g = goalFor(event.goalId, event.expectedVersion, ['paused']);
+        if (g) {
+          g.s.status = 'active';
+          g.s.version += 1;
+        }
+        break;
+      }
+      case 'GoalDropped': {
+        const g = goalFor(event.goalId, event.expectedVersion, ['active', 'paused']);
+        if (g) {
+          // Uninvested cash returns to Available (working) via THIS event — a
+          // MOVE within `held`, so reconcile stays 0.00 (H-3.1: never silent).
+          working.v = working.v.plus(g.cash);
+          g.cash = ZERO;
+          g.s.status = 'dropped';
+          g.s.version += 1;
+        }
+        break;
+      }
+      case 'GoalAccomplished': {
+        const g = goalFor(event.goalId, event.expectedVersion, ['active', 'paused']);
+        if (g) {
+          // Zero-value: any money rides the disposition's own events.
+          g.s.status = 'accomplished';
+          g.s.version += 1;
+        }
+        break;
+      }
+      case 'GoalTargetChanged': {
+        const g = goalFor(event.goalId, event.expectedVersion, ['active', 'paused']);
+        if (g) {
+          g.s.targetAmount = event.newTarget;
+          g.s.version += 1;
+        }
+        break;
+      }
+      case 'GoalCashReleased': {
+        const g = goalFor(event.goalId, event.expectedVersion, ['active', 'paused']);
+        if (g) {
+          const amount = d(event.amount);
+          // Guarded partial release — a MOVE goal cash → Available. Bump only
+          // on a real release, so a rejected (over-budget) one is a clean no-op.
+          if (amount.gt(0) && g.cash.gte(amount)) {
+            g.cash = g.cash.minus(amount);
+            working.v = working.v.plus(amount);
+            g.s.version += 1;
+          }
+        }
+        break;
+      }
+      case 'PositionReassigned': {
+        // Label-only (W-17e): no version, no money. Move the position's goal
+        // association + its display aggregates between goals. reconcile is
+        // indifferent — the position stays held, counted once, just relabeled.
+        const position = positions.get(event.positionId);
+        if (!position || !position.s.open || position.s.goalId !== event.fromGoalId) break;
+        const from = goals.get(event.fromGoalId);
+        const to = goals.get(event.toGoalId);
+        if (!from || !to) break;
+        from.invested = from.invested.minus(position.principal);
+        to.invested = to.invested.plus(position.principal);
+        from.earnings = from.earnings.minus(position.accrued);
+        to.earnings = to.earnings.plus(position.accrued);
+        position.s.goalId = event.toGoalId;
         break;
       }
       default:

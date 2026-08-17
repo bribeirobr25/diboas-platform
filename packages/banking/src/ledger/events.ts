@@ -145,6 +145,86 @@ export interface TimeAdvanced extends EventBase {
   source?: Exclude<LedgerSource, 'system'>;
 }
 
+// ── D-e goal lifecycle (spec: SANDBOX_SPEC_D-E_GOAL_LIFECYCLE) ──────────────
+//
+// The 7 lifecycle events. Goal-status transitions carry `expectedVersion`
+// (optimistic concurrency, D-e §5): the projection increments `goal.version`
+// on each APPLIED transition, so an event whose `expectedVersion` is stale — a
+// concurrent tab already advanced it — is skipped and the UI re-presents
+// current state rather than applying blind. Idempotent per `(goalId, version)`;
+// replay is deterministic. Most are zero-value (D-e §6 — ledger events anyway,
+// because replay needs them for goal projections + the honest trail); the two
+// that move money (`GoalDropped`, `GoalCashReleased`) do so as MOVES within
+// `held` (goal cash → Available), never as a silent side effect (H-3.1).
+
+/** Pause a goal's plan — positions keep working; proposals skip it. Zero-value. */
+export interface GoalPaused extends EventBase {
+  type: 'GoalPaused';
+  goalId: string;
+  expectedVersion: number;
+}
+
+/** Resume a paused goal. Zero-value. */
+export interface GoalResumed extends EventBase {
+  type: 'GoalResumed';
+  goalId: string;
+  expectedVersion: number;
+}
+
+/**
+ * Drop a goal (terminal). Its uninvested cash returns to Available via THIS
+ * event (never silently — H-3.1); dropping is blocked in the UI until open
+ * positions are stopped or reassigned, so `cashReleased` is the goal's whole
+ * cash at drop. History keeps the record (no DELETE, R-4).
+ */
+export interface GoalDropped extends EventBase {
+  type: 'GoalDropped';
+  goalId: string;
+  cashReleased: string;
+  expectedVersion: number;
+}
+
+/** The disposition the user chooses when closing a reached goal (D-e §3). */
+export type GoalDisposition = 'kept-working' | 'held-as-cash' | 'transferred' | 'target-raised';
+
+/**
+ * Close a reached goal (terminal-ish) by the user's disposition choice — the
+ * moment belongs to the user, not to arithmetic. Zero-value itself: any money
+ * move rides the disposition's OWN events (transfer = GoalCashReleased+
+ * GoalFunded; stop = the exit manifest).
+ */
+export interface GoalAccomplished extends EventBase {
+  type: 'GoalAccomplished';
+  goalId: string;
+  disposition: GoalDisposition;
+  expectedVersion: number;
+}
+
+/** Move a position's goal label (W-17e). Zero-value, ALWAYS — no money moves. */
+export interface PositionReassigned extends EventBase {
+  type: 'PositionReassigned';
+  positionId: string;
+  fromGoalId: string;
+  toGoalId: string;
+}
+
+/** Edit a goal's target, any time (D-e §4). Zero-value; old+new both kept for the honest trail. */
+export interface GoalTargetChanged extends EventBase {
+  type: 'GoalTargetChanged';
+  goalId: string;
+  oldTarget: string;
+  newTarget: string;
+  expectedVersion: number;
+}
+
+/** Release goal cash to Available — the partial-release primitive D-s depends on. Move within `held`. */
+export interface GoalCashReleased extends EventBase {
+  type: 'GoalCashReleased';
+  goalId: string;
+  amount: string;
+  expectedVersion: number;
+}
+
 export type LedgerEvent =
   | PlayMoneyGranted
   | JobsSplitSet
@@ -155,6 +235,13 @@ export type LedgerEvent =
   | StrategyExited
   | RecurringSet
   | RecurringContributionApplied
-  | TimeAdvanced;
+  | TimeAdvanced
+  | GoalPaused
+  | GoalResumed
+  | GoalDropped
+  | GoalAccomplished
+  | PositionReassigned
+  | GoalTargetChanged
+  | GoalCashReleased;
 
 export type LedgerEventType = LedgerEvent['type'];

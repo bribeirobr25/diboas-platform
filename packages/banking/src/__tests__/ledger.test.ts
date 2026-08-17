@@ -1,7 +1,13 @@
 import Decimal from 'decimal.js';
 import { describe, expect, it } from 'vitest';
 import type { LedgerEvent, LedgerEventType, LedgerSource } from '../ledger/events';
-import { project, realDaysToSettle, recurringDepositDays, reconcile } from '../ledger/engine';
+import {
+  project,
+  realDaysToSettle,
+  recurringDepositDays,
+  reconcile,
+  type LedgerState,
+} from '../ledger/engine';
 import { InMemoryLedgerStore } from '../ledger/store';
 
 let counter = 0;
@@ -288,6 +294,16 @@ describe('C-P0 · play-money invariant durability (CLO Board Session 024 — REQ
       RecurringSet: true,
       RecurringContributionApplied: true,
       TimeAdvanced: true,
+      // D-e goal lifecycle — none is value egress: cash "released"/"dropped"
+      // moves INTERNALLY to Available (never leaves the system), the rest are
+      // zero-value status/label transitions. C-P0 preserved.
+      GoalPaused: true,
+      GoalResumed: true,
+      GoalDropped: true,
+      GoalAccomplished: true,
+      PositionReassigned: true,
+      GoalTargetChanged: true,
+      GoalCashReleased: true,
     };
     const VALUE_EGRESS =
       /withdraw|cash[-_ ]?out|payout|prize|reward|redeem|convert|transfer.*(out|external)/i;
@@ -536,6 +552,303 @@ describe('recurring contributions (C3 — real play money, reconcile-safe)', () 
     const state = project(events);
     expect(state.buckets.working).toBe('200.00'); // untouched
     expect(state.positions.find((p) => p.positionId === 'p1')!.principal).toBe('800.00');
+    expect(reconcile(state)).toBe('0.00');
+  });
+});
+
+describe('D-e goal lifecycle (spec: SANDBOX_SPEC_D-E)', () => {
+  // A goal `g1` holding `cash` of uninvested money (100%-working split so the
+  // math is clean), version 0, active.
+  function fundedGoal(cash: string): LedgerEvent[] {
+    return [
+      { ...base(), type: 'PlayMoneyGranted', amount: '10000.00', currency: 'USD', mode: 'b2c' },
+      { ...base(), type: 'JobsSplitSet', floorPercent: 0, cushionPercent: 0, workingPercent: 100 },
+      {
+        ...base(),
+        type: 'GoalCreated',
+        goalId: 'g1',
+        name: 'Trip',
+        icon: 'plane',
+        targetAmount: '3000.00',
+        horizonMonths: 24,
+      },
+      { ...base(), type: 'GoalFunded', goalId: 'g1', amount: cash },
+    ];
+  }
+  const g1 = (s: ReturnType<typeof project>) => s.goals.find((g) => g.goalId === 'g1')!;
+
+  it('should pause then resume: active → paused → active, version increments each apply', () => {
+    const paused = project([
+      ...fundedGoal('1000.00'),
+      { ...base(), type: 'GoalPaused', goalId: 'g1', expectedVersion: 0 },
+    ]);
+    expect(g1(paused).status).toBe('paused');
+    expect(g1(paused).version).toBe(1);
+
+    const resumed = project([
+      ...fundedGoal('1000.00'),
+      { ...base(), type: 'GoalPaused', goalId: 'g1', expectedVersion: 0 },
+      { ...base(), type: 'GoalResumed', goalId: 'g1', expectedVersion: 1 },
+    ]);
+    expect(g1(resumed).status).toBe('active');
+    expect(g1(resumed).version).toBe(2);
+  });
+
+  it('should skip an illegal transition (resume an active goal) with no version bump', () => {
+    const state = project([
+      ...fundedGoal('1000.00'),
+      { ...base(), type: 'GoalResumed', goalId: 'g1', expectedVersion: 0 },
+    ]);
+    expect(g1(state).status).toBe('active');
+    expect(g1(state).version).toBe(0);
+  });
+
+  it('should drop a goal: cash returns to Available (working), reconcile stays 0.00', () => {
+    const state = project([
+      ...fundedGoal('1000.00'),
+      { ...base(), type: 'GoalDropped', goalId: 'g1', cashReleased: '1000.00', expectedVersion: 0 },
+    ]);
+    expect(g1(state).status).toBe('dropped');
+    expect(g1(state).cash).toBe('0.00');
+    expect(state.buckets.working).toBe('10000.00'); // 9000 remaining + 1000 returned
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should release partial goal cash to Available, guarded against over-release (no bump on reject)', () => {
+    const evs: LedgerEvent[] = [
+      ...fundedGoal('1000.00'),
+      { ...base(), type: 'GoalCashReleased', goalId: 'g1', amount: '400.00', expectedVersion: 0 },
+    ];
+    const st = project(evs);
+    expect(g1(st).cash).toBe('600.00');
+    expect(st.buckets.working).toBe('9400.00');
+    expect(g1(st).version).toBe(1);
+    expect(reconcile(st)).toBe('0.00');
+
+    // Over-release (2000 > 600 remaining) is a clean no-op — no move, no bump.
+    const st2 = project([
+      ...evs,
+      { ...base(), type: 'GoalCashReleased', goalId: 'g1', amount: '2000.00', expectedVersion: 1 },
+    ]);
+    expect(g1(st2).cash).toBe('600.00');
+    expect(g1(st2).version).toBe(1);
+    expect(reconcile(st2)).toBe('0.00');
+  });
+
+  it('should accomplish a goal by disposition (zero-value status flip, no money moves)', () => {
+    const state = project([
+      ...fundedGoal('1000.00'),
+      {
+        ...base(),
+        type: 'GoalAccomplished',
+        goalId: 'g1',
+        disposition: 'held-as-cash',
+        expectedVersion: 0,
+      },
+    ]);
+    expect(g1(state).status).toBe('accomplished');
+    expect(g1(state).cash).toBe('1000.00');
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should change a target (old + new both retained in the event), staying active', () => {
+    const state = project([
+      ...fundedGoal('1000.00'),
+      {
+        ...base(),
+        type: 'GoalTargetChanged',
+        goalId: 'g1',
+        oldTarget: '3000.00',
+        newTarget: '5000.00',
+        expectedVersion: 0,
+      },
+    ]);
+    expect(g1(state).targetAmount).toBe('5000.00');
+    expect(g1(state).status).toBe('active');
+    expect(g1(state).version).toBe(1);
+  });
+
+  it('should resolve a two-tab conflict by version: first write wins, the stale one re-presents (skipped)', () => {
+    // Both tabs read version 0 then act — pause here, drop there.
+    const state = project([
+      ...fundedGoal('1000.00'),
+      { ...base(), type: 'GoalPaused', goalId: 'g1', expectedVersion: 0 },
+      { ...base(), type: 'GoalDropped', goalId: 'g1', cashReleased: '1000.00', expectedVersion: 0 },
+    ]);
+    expect(g1(state).status).toBe('paused'); // the stale drop did NOT apply
+    expect(g1(state).version).toBe(1);
+    expect(g1(state).cash).toBe('1000.00'); // cash was NOT released
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should keep reconcile indifferent to zero-value events (same residual with or without them)', () => {
+    const bare = fundedGoal('1000.00');
+    const withZeroValue: LedgerEvent[] = [
+      ...bare,
+      { ...base(), type: 'GoalPaused', goalId: 'g1', expectedVersion: 0 },
+      { ...base(), type: 'GoalResumed', goalId: 'g1', expectedVersion: 1 },
+      {
+        ...base(),
+        type: 'GoalTargetChanged',
+        goalId: 'g1',
+        oldTarget: '3000.00',
+        newTarget: '4000.00',
+        expectedVersion: 2,
+      },
+    ];
+    expect(reconcile(project(bare))).toBe('0.00');
+    expect(reconcile(project(withZeroValue))).toBe('0.00');
+  });
+
+  it('should replay deterministically, including zero-value lifecycle events', () => {
+    const evs: LedgerEvent[] = [
+      ...fundedGoal('1000.00'),
+      { ...base(), type: 'GoalPaused', goalId: 'g1', expectedVersion: 0 },
+      { ...base(), type: 'GoalResumed', goalId: 'g1', expectedVersion: 1 },
+    ];
+    expect(project(evs)).toEqual(project(evs));
+  });
+
+  it('should reassign a position label-only: value moves between goals, reconcile indifferent', () => {
+    const state = project([
+      { ...base(), type: 'PlayMoneyGranted', amount: '10000.00', currency: 'USD', mode: 'b2c' },
+      { ...base(), type: 'JobsSplitSet', floorPercent: 0, cushionPercent: 0, workingPercent: 100 },
+      {
+        ...base(),
+        type: 'GoalCreated',
+        goalId: 'g1',
+        name: 'Trip',
+        icon: 'plane',
+        targetAmount: '3000.00',
+        horizonMonths: 24,
+      },
+      {
+        ...base(),
+        type: 'GoalCreated',
+        goalId: 'g2',
+        name: 'Car',
+        icon: 'car',
+        targetAmount: '2000.00',
+        horizonMonths: 24,
+      },
+      { ...base(), type: 'GoalFunded', goalId: 'g1', amount: '1000.00' },
+      {
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p1',
+        strategyId: 'safeHarbor',
+        amount: '990.00',
+        networkFee: '10.00',
+      },
+      { ...base(), type: 'PositionReassigned', positionId: 'p1', fromGoalId: 'g1', toGoalId: 'g2' },
+    ]);
+    expect(state.positions.find((p) => p.positionId === 'p1')!.goalId).toBe('g2');
+    expect(state.goals.find((g) => g.goalId === 'g1')!.invested).toBe('0.00');
+    expect(state.goals.find((g) => g.goalId === 'g2')!.invested).toBe('990.00');
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should skip a transition on an unknown goal (no throw, no effect)', () => {
+    const state = project([
+      ...fundedGoal('1000.00'),
+      { ...base(), type: 'GoalPaused', goalId: 'nope', expectedVersion: 0 },
+    ]);
+    expect(g1(state).status).toBe('active');
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should treat every transition on a TERMINAL (dropped) goal as a no-op — terminal is truly terminal', () => {
+    const state = project([
+      ...fundedGoal('1000.00'),
+      { ...base(), type: 'GoalDropped', goalId: 'g1', cashReleased: '1000.00', expectedVersion: 0 },
+      // All of these target the now-terminal g1 at its current version:
+      { ...base(), type: 'GoalPaused', goalId: 'g1', expectedVersion: 1 },
+      { ...base(), type: 'GoalResumed', goalId: 'g1', expectedVersion: 1 },
+      {
+        ...base(),
+        type: 'GoalAccomplished',
+        goalId: 'g1',
+        disposition: 'held-as-cash',
+        expectedVersion: 1,
+      },
+      {
+        ...base(),
+        type: 'GoalTargetChanged',
+        goalId: 'g1',
+        oldTarget: '3000.00',
+        newTarget: '5000.00',
+        expectedVersion: 1,
+      },
+      { ...base(), type: 'GoalCashReleased', goalId: 'g1', amount: '100.00', expectedVersion: 1 },
+    ]);
+    expect(g1(state).status).toBe('dropped'); // never revived
+    expect(g1(state).version).toBe(1); // no further bumps
+    expect(g1(state).targetAmount).toBe('3000.00'); // unchanged
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should no-op a PositionReassigned that is unknown, foreign, closed, or points to a missing goal', () => {
+    const open: LedgerEvent[] = [
+      ...fundedGoal('1000.00'),
+      {
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p1',
+        strategyId: 'safeHarbor',
+        amount: '990.00',
+        networkFee: '10.00',
+      },
+    ];
+    const goalOf = (s: LedgerState, id: string) =>
+      s.positions.find((p) => p.positionId === id)!.goalId;
+
+    // to-goal missing → break on `!to`
+    const missingTo = project([
+      ...open,
+      { ...base(), type: 'PositionReassigned', positionId: 'p1', fromGoalId: 'g1', toGoalId: 'ghost' },
+    ]);
+    expect(goalOf(missingTo, 'p1')).toBe('g1');
+
+    // wrong from-goal → break on the goalId guard
+    const wrongFrom = project([
+      ...open,
+      { ...base(), type: 'PositionReassigned', positionId: 'p1', fromGoalId: 'x', toGoalId: 'g1' },
+    ]);
+    expect(goalOf(wrongFrom, 'p1')).toBe('g1');
+
+    // unknown position → break on `!position`
+    const unknownPos = project([
+      ...open,
+      { ...base(), type: 'PositionReassigned', positionId: 'ghost', fromGoalId: 'g1', toGoalId: 'g1' },
+    ]);
+    expect(reconcile(unknownPos)).toBe('0.00');
+
+    // closed position → break on `!open`
+    const closed = project([
+      ...open,
+      {
+        ...base(),
+        type: 'StrategyExited',
+        positionId: 'p1',
+        goalId: 'g1',
+        grossAmount: '990.00',
+        exitFee: '3.86',
+        networkFee: '10.00',
+      },
+      { ...base(), type: 'PositionReassigned', positionId: 'p1', fromGoalId: 'g1', toGoalId: 'g1' },
+    ]);
+    expect(reconcile(closed)).toBe('0.00');
+  });
+
+  it('should reject a non-positive cash release (amount ≤ 0) as a clean no-op', () => {
+    const state = project([
+      ...fundedGoal('1000.00'),
+      { ...base(), type: 'GoalCashReleased', goalId: 'g1', amount: '0.00', expectedVersion: 0 },
+    ]);
+    expect(g1(state).cash).toBe('1000.00');
+    expect(g1(state).version).toBe(0);
     expect(reconcile(state)).toBe('0.00');
   });
 });

@@ -35,6 +35,22 @@ function display(event: LedgerEvent): { icon: string; amount: string | null; sig
       return { icon: 'list', amount: null, sign: null };
     case 'TimeAdvanced':
       return { icon: 'clock', amount: null, sign: null };
+    // D-e lifecycle: zero-value transitions show no amount; the two moves
+    // (drop, cash release) surface the money returning to Available.
+    case 'GoalPaused':
+      return { icon: 'pause', amount: null, sign: null };
+    case 'GoalResumed':
+      return { icon: 'play', amount: null, sign: null };
+    case 'GoalDropped':
+      return { icon: 'x', amount: event.cashReleased, sign: 'pos' };
+    case 'GoalAccomplished':
+      return { icon: 'check', amount: null, sign: null };
+    case 'PositionReassigned':
+      return { icon: 'arrow-right-left', amount: null, sign: null };
+    case 'GoalTargetChanged':
+      return { icon: 'pencil', amount: null, sign: null };
+    case 'GoalCashReleased':
+      return { icon: 'wallet', amount: event.amount, sign: 'pos' };
   }
 }
 
@@ -123,6 +139,39 @@ export function HistoryScreen() {
         );
       case 'TimeAdvanced':
         return intl.formatMessage({ id: 'history.timeAdvanced' }, { days: event.days });
+      case 'GoalPaused':
+        return intl.formatMessage({ id: 'history.goalPaused' }, { name: goalName(event.goalId) });
+      case 'GoalResumed':
+        return intl.formatMessage({ id: 'history.goalResumed' }, { name: goalName(event.goalId) });
+      case 'GoalDropped':
+        return intl.formatMessage(
+          { id: 'history.goalDropped' },
+          { name: goalName(event.goalId), amount: money(event.cashReleased) }
+        );
+      case 'GoalAccomplished':
+        return intl.formatMessage(
+          { id: 'history.goalAccomplished' },
+          { name: goalName(event.goalId) }
+        );
+      case 'PositionReassigned':
+        return intl.formatMessage(
+          { id: 'history.positionReassigned' },
+          { from: goalName(event.fromGoalId), to: goalName(event.toGoalId) }
+        );
+      case 'GoalTargetChanged':
+        return intl.formatMessage(
+          { id: 'history.goalTargetChanged' },
+          {
+            name: goalName(event.goalId),
+            old: money(event.oldTarget),
+            new: money(event.newTarget),
+          }
+        );
+      case 'GoalCashReleased':
+        return intl.formatMessage(
+          { id: 'history.goalCashReleased' },
+          { amount: money(event.amount), name: goalName(event.goalId) }
+        );
     }
   }
 
