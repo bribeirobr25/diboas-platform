@@ -749,6 +749,57 @@ describe('D-e goal lifecycle (spec: SANDBOX_SPEC_D-E)', () => {
     expect(reconcile(state)).toBe('0.00');
   });
 
+  it('should carry a reassigned position ACCRUED earnings to the new goal (both aggregates stay honest)', () => {
+    const state = project([
+      { ...base(), type: 'PlayMoneyGranted', amount: '10000.00', currency: 'USD', mode: 'b2c' },
+      { ...base(), type: 'JobsSplitSet', floorPercent: 0, cushionPercent: 0, workingPercent: 100 },
+      {
+        ...base(),
+        type: 'GoalCreated',
+        goalId: 'g1',
+        name: 'Trip',
+        icon: 'plane',
+        targetAmount: '3000.00',
+        horizonMonths: 24,
+      },
+      {
+        ...base(),
+        type: 'GoalCreated',
+        goalId: 'g2',
+        name: 'Car',
+        icon: 'car',
+        targetAmount: '2000.00',
+        horizonMonths: 24,
+      },
+      { ...base(), type: 'GoalFunded', goalId: 'g1', amount: '1000.00' },
+      {
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p1',
+        strategyId: 'safeHarbor',
+        amount: '990.00',
+        networkFee: '10.00',
+      },
+      {
+        ...base(),
+        type: 'AccrualApplied',
+        positionId: 'p1',
+        fromSimDay: 0,
+        toSimDay: 30,
+        earnings: '50.00',
+        apySource: 'defillama',
+      },
+      { ...base(), type: 'PositionReassigned', positionId: 'p1', fromGoalId: 'g1', toGoalId: 'g2' },
+    ]);
+    const g1After = state.goals.find((g) => g.goalId === 'g1')!;
+    const g2After = state.goals.find((g) => g.goalId === 'g2')!;
+    expect(g1After.earnings).toBe('0.00'); // the accrued earnings left with the position
+    expect(g2After.earnings).toBe('50.00'); // and landed on the new goal
+    expect(g2After.invested).toBe('990.00');
+    expect(reconcile(state)).toBe('0.00');
+  });
+
   it('should skip a transition on an unknown goal (no throw, no effect)', () => {
     const state = project([
       ...fundedGoal('1000.00'),
@@ -850,5 +901,29 @@ describe('D-e goal lifecycle (spec: SANDBOX_SPEC_D-E)', () => {
     expect(g1(state).cash).toBe('1000.00');
     expect(g1(state).version).toBe(0);
     expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should keep money conserved even if a drop reaches the engine with an open position (UI blocks this; engine is fail-safe)', () => {
+    // Spec D-e §4 blocks drop-with-open-positions in the UI (Stop/Reassign
+    // first). This proves the engine's fail-safe: if such an event ever reached
+    // projection, cash still only MOVES (goal → Available), the position stays
+    // open + held, and NO money is created or lost.
+    const state = project([
+      ...fundedGoal('1000.00'),
+      {
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p1',
+        strategyId: 'safeHarbor',
+        amount: '500.00',
+        networkFee: '10.00',
+      },
+      { ...base(), type: 'GoalDropped', goalId: 'g1', cashReleased: '490.00', expectedVersion: 0 },
+    ]);
+    expect(g1(state).status).toBe('dropped');
+    expect(g1(state).cash).toBe('0.00'); // remaining goal cash returned to Available
+    expect(state.positions.find((p) => p.positionId === 'p1')!.open).toBe(true); // untouched
+    expect(reconcile(state)).toBe('0.00'); // money conserved regardless
   });
 });
