@@ -328,6 +328,16 @@ describe('C-P0 · play-money invariant durability (CLO Board Session 024 — REQ
     }
   });
 
+  // The runtime half of the P2R-13 guard. The COMPILE-time half is proven by the
+  // switch compiling (assertNever narrows to never); this proves that if an
+  // event whose type escaped the union ever reaches project() at runtime (e.g. a
+  // forward-version event during replay), it surfaces LOUDLY — never silently
+  // dropped, which was the pre-Step-0 failure mode.
+  it('should throw, not silently drop, when project() meets an unknown event type', () => {
+    const bogus = { ...base(), type: 'SomeFutureEventType' } as unknown as LedgerEvent;
+    expect(() => project([bogus])).toThrow(/unhandled ledger event/);
+  });
+
   it('should conserve play money — reconcile holds, money only MOVES inside the system', () => {
     // The positive proof of the invariant: total held == granted + earnings − fees
     // at every prefix; money is never created, destroyed, or removed from the system.
