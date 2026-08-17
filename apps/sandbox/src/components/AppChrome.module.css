@@ -79,8 +79,38 @@
   top: var(--spacing-sm);
 }
 
+/* Home-only coastal hero band (mockup 02): a light teal sky + waterline behind
+   the transparent app bar and the play balance, fading into the ground before
+   the tri-split. Decorative; sits under the chrome + content (z-index 0). */
+.heroBackdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 15rem;
+  z-index: 0;
+  pointer-events: none;
+  background: url('/hero-welcome.png') center 56% / cover no-repeat;
+}
+.heroBackdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 52%, var(--sb-ground) 100%);
+}
+:global(html[data-theme='dark']) .heroBackdrop {
+  background-image: url('/hero-welcome-dark.png');
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme='light'])) .heroBackdrop {
+    background-image: url('/hero-welcome-dark.png');
+  }
+}
+
 /* Minimal top app bar. */
 .appbar {
+  position: relative;
+  z-index: 1;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -89,6 +119,11 @@
   padding: var(--spacing-md) var(--spacing-lg);
   border-bottom: 1px solid var(--sb-hairline);
   background: var(--sb-ground);
+}
+/* Over the Home hero the bar is transparent (the coastal band shows through). */
+.appbar[data-hero='true'] {
+  background: transparent;
+  border-bottom-color: transparent;
 }
 .appbarRight {
   display: flex;
@@ -133,8 +168,11 @@
   color: var(--sb-accent);
 }
 
-/* Scrolling content region (between app bar and tab bar). */
+/* Scrolling content region (between app bar and tab bar). Positioned so the
+   play balance paints above the Home hero backdrop (transparent bg lets it show). */
 .scroll {
+  position: relative;
+  z-index: 1;
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -184,6 +222,16 @@
 
 .tab[data-active='true'] {
   color: var(--sb-accent-strong);
+}
+
+/* Disabled tabs (Goals + Learn) — screens not built yet; muted + inert. */
+.tab[data-disabled='true'] {
+  color: var(--sb-text-muted);
+  opacity: 0.45;
+  cursor: default;
+}
+.tab[data-disabled='true']:hover {
+  color: var(--sb-text-muted);
 }
 
 .tab:hover {

@@ -31,6 +31,13 @@
   letter-spacing: -0.02em;
   color: var(--sb-text-heading);
 }
+/* Decimal + cents: muted and smaller than the integer (mockup 02). */
+.balanceCents {
+  font-size: 0.5em;
+  font-weight: var(--font-weight-semibold);
+  color: var(--sb-text-muted);
+  letter-spacing: 0;
+}
 
 /* --- Available / Working / Emergency split --- */
 .split {
@@ -101,6 +108,11 @@
   font-size: var(--font-size-sm-plus);
   font-weight: var(--font-weight-medium);
   text-decoration: none;
+}
+.viewAll[data-disabled='true'] {
+  color: var(--sb-text-muted);
+  opacity: 0.55;
+  cursor: default;
 }
 
 .goals {

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Decimal from 'decimal.js';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import type { LedgerState } from '@diboas/banking';
 import type { SandboxLocale } from '@/i18n/config';
 import { LucideIcon } from './LucideIcon';
@@ -27,6 +27,29 @@ function Amount({ value }: { value: Decimal }) {
   );
 }
 
+/** The big play-balance hero: integer bold, the decimal+cents muted and smaller
+ *  (mockup 02). Locale-correct — the decimal separator comes from the formatter. */
+function BalanceAmount({ value }: { value: Decimal }) {
+  const intl = useIntl();
+  const parts = intl.formatNumberToParts(value.toNumber(), {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  return (
+    <>
+      {parts.map((p, i) =>
+        p.type === 'fraction' || p.type === 'decimal' ? (
+          <span key={i} className={styles.balanceCents}>
+            {p.value}
+          </span>
+        ) : (
+          <span key={i}>{p.value}</span>
+        )
+      )}
+    </>
+  );
+}
+
 /**
  * Home — "your money's jobs" (B1; mockup 02). Play-balance hero, the
  * Available/Working/Emergency split, the goals list with progress + status, and
@@ -35,14 +58,21 @@ function Amount({ value }: { value: Decimal }) {
  * ⚠ Bucket mapping (DEFERRED_BACKEND_LEDGER): the mockup's money-jobs model
  * (available/working/emergency) is mapped onto the current ledger buckets
  * (floor/cushion/working) — available = undeployed (working+floor), working =
- * open positions' value, emergency = cushion. The exact model + figures land
- * with the D-r allocation events; the goal "paused" status lands with D-e.
+ * money committed to goals (uninvested goal cash + open positions' value),
+ * emergency = cushion. The exact model + figures land with the D-r allocation
+ * events; the goal "paused" status lands with D-e.
+ *
+ * The three tones sum to playBalance: funding a goal moves cash out of the
+ * working bucket into goal.cash (engine GoalFunded), so goal.cash MUST be
+ * counted here or the headline total silently understates the user's money.
  */
 export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: LedgerState }) {
   const available = new Decimal(state.buckets.working).plus(state.buckets.floor);
-  const working = state.positions
+  const positionsValue = state.positions
     .filter((p) => p.open)
     .reduce((sum, p) => sum.plus(p.principal).plus(p.accrued), new Decimal(0));
+  const goalCash = state.goals.reduce((sum, g) => sum.plus(g.cash), new Decimal(0));
+  const working = positionsValue.plus(goalCash);
   const emergency = new Decimal(state.buckets.cushion);
   const playBalance = available.plus(working).plus(emergency);
 
@@ -53,7 +83,7 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
           <FormattedMessage id="home.playBalance" />
         </p>
         <h1 id="home-title" className={styles.balance}>
-          <Amount value={playBalance} />
+          <BalanceAmount value={playBalance} />
         </h1>
       </div>
 
@@ -88,10 +118,12 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
         <h2 className={styles.goalsTitle}>
           <FormattedMessage id="home.goalsTitle" />
         </h2>
+        {/* "View all" -> goals list, which isn't built yet: disabled until it
+            ships (founder 2026-08-16). All goals already render below in R1. */}
         {state.goals.length > 0 ? (
-          <Link href={`/${locale}/goals`} className={styles.viewAll}>
+          <span className={styles.viewAll} data-disabled="true" aria-disabled="true">
             <FormattedMessage id="home.viewAll" />
-          </Link>
+          </span>
         ) : null}
       </div>
 
@@ -129,6 +161,7 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
                     <span
                       className={styles.progressTrack}
                       role="progressbar"
+                      aria-label={goal.name}
                       aria-valuenow={Math.round(ratio)}
                       aria-valuemin={0}
                       aria-valuemax={100}

@@ -95,3 +95,12 @@ export const PLAY_MONEY_GRANT = {
   b2c: 10_000,
   b2b: 250_000,
 } as const;
+
+/**
+ * The marketing site (apps/web, a separate app) hosts the canonical legal pages.
+ * Sandbox legal links point here and open in a new tab. Locale-prefixed to match
+ * the marketing site's [locale] routing.
+ */
+export const MARKETING_ORIGIN = 'https://diboas.com';
+export const legalUrl = (locale: string, page: 'terms' | 'privacy') =>
+  `${MARKETING_ORIGIN}/${locale}/legal/${page}`;

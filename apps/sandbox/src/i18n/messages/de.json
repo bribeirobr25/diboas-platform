@@ -66,10 +66,10 @@
     "moneyWorking": "Geld arbeitet weiter"
   },
   "goalNew": {
-    "title": "A new goal",
-    "subtitle": "Name the want first. Everything else follows from it.",
-    "nameLabel": "What is this for?",
-    "namePlaceholder": "Six months of breathing room",
+    "title": "Create a goal",
+    "subtitle": "Define what you're working toward.",
+    "nameLabel": "Goal name",
+    "namePlaceholder": "e.g., Emergency fund",
     "iconLabel": "Pick its picture",
     "icon": {
       "plane": "Airplane",
@@ -84,7 +84,7 @@
       "sprout": "Sprout"
     },
     "targetLabel": "Target amount",
-    "horizonLabel": "When do you want to get there?",
+    "horizonLabel": "Time horizon",
     "horizonValue": "{months, plural, one {# month} other {# months}}",
     "fundLabel": "Move this much working money into the goal now",
     "fundAvailable": "{amount} available",
@@ -92,7 +92,7 @@
     "errorTarget": "The target needs to be a positive amount.",
     "errorHorizon": "Pick a horizon between 1 month and 40 years.",
     "errorFund": "That is more than your working money right now.",
-    "createCta": "Create the goal",
+    "createCta": "Create goal",
     "strategiesTitle": "Strategies whose horizon matches yours",
     "strategiesNote": "This list is a filter, not advice: every strategy matching the horizon you set is here, in the same order for everyone. Nothing is pre-picked. You read, you choose.",
     "riskStable": "Stable",
@@ -112,7 +112,12 @@
     "recurringHint": "Each month, this moves from your working money into the goal so it stays invested. Play money.",
     "noFundPath": "Add a first amount on the previous step to put this goal to work. Or create it as cash for now.",
     "pathUnavailable": "The live market isn't available right now, so the path can't be shown. Try again in a moment, or create this as cash for now.",
-    "cashDropsRecurring": "Keeping it as cash won't include the monthly amount. Choose the path below to set that up."
+    "cashDropsRecurring": "Keeping it as cash won't include the monthly amount. Choose the path below to set that up.",
+    "monthLabel": "Month",
+    "yearLabel": "Year",
+    "startingLabel": "Starting amount",
+    "optional": "(optional)",
+    "startingFrom": "From Available"
   },
   "pathCard": {
     "title": "The path, the cost, the risk.",
@@ -168,11 +173,11 @@
     "milestoneBody": "In real life, this is where you would decide what is next. Nothing here is real money."
   },
   "history": {
-    "title": "The trail",
+    "title": "History",
     "subtitle": "Jeder Cent erfasst. Alle Salden gleichen sich aus.",
     "empty": "Nothing yet. The trail starts when your money gets its first job.",
     "granted": "Play money arrived: {amount}",
-    "split": "It all arrived as Working money.",
+    "split": "Assigned to jobs: {working}% working, {cushion}% cushion, {floor}% floor.",
     "goalCreated": "Goal created: {name}",
     "funded": "{amount} moved into {name}",
     "entered": "{amount} put to work in {strategy} (network fee {fee})",
@@ -423,5 +428,105 @@
   "notifications": {
     "title": "Benachrichtigungen",
     "empty": "Wenn es nichts Neues gibt, bleibt es hier ruhig."
+  },
+  "profile": {
+    "title": "Profil",
+    "subtitle": "Verwalte, wie du bei diBoaS erscheinst.",
+    "notSet": "Noch nicht festgelegt",
+    "edit": "Bearbeiten",
+    "displayNameLabel": "Dein Anzeigename",
+    "displayNameDesc": "Das ist der Name, der in deinem Konto und in deiner Aktivität erscheint.",
+    "handleLabel": "Dein @handle",
+    "handleDesc": "Das ist deine öffentliche Identität für Zahlungen, Überweisungen und um gefunden zu werden.",
+    "handleChip": "Öffentliche Identität",
+    "nicknameLabel": "Dein Community-Spitzname",
+    "nicknameDesc": "Das ist der Name, den deine Circles sehen. Du kannst ihn jederzeit ändern.",
+    "nicknameChip": "Für Circles",
+    "email": "E-Mail",
+    "memberSince": "Mitglied seit",
+    "security": "Konto und Sicherheit",
+    "securitySub": "Passwort, 2FA und Wiederherstellung",
+    "payment": "Zahlungsdaten",
+    "paymentSub": "Verknüpfte Konten und Methoden",
+    "editAvatar": "Change your profile photo"
+  },
+  "handle": {
+    "subtitle": "Wähle deinen einzigartigen @handle. Er wird Teil deines öffentlichen Links.",
+    "yourHandle": "Dein @handle",
+    "placeholder": "deinhandle",
+    "available": "{handle} ist verfügbar",
+    "preview": "Vorschau",
+    "previewSub": "Deine öffentliche Seite",
+    "ruleFormat": "Nur Buchstaben, Zahlen und Punkte",
+    "rulePermanent": "Dein @handle ist dauerhaft und kann nicht geändert werden.",
+    "rulePrivate": "Deine öffentliche Seite bleibt privat, bis du sie aktivierst.",
+    "claim": "@handle sichern"
+  },
+  "practice": {
+    "title": "Übungsverlauf",
+    "showPublic": "Meilensteine auf deiner öffentlichen Seite zeigen",
+    "empty": "Deine Meilensteine erscheinen hier, während du übst. Nichts wird geteilt, außer du entscheidest dich dafür."
+  },
+  "settings": {
+    "title": "Privatsphäre und Daten",
+    "subtitle": "Steuere deine Daten, Einstellungen und wie wir dein Erlebnis personalisieren.",
+    "dataControls": "Datensteuerung",
+    "analytics": "Analysen und Insights",
+    "analyticsDesc": "Hilf uns, diBoaS mit Nutzungsdaten zu verbessern",
+    "personalization": "Personalisierung",
+    "personalizationDesc": "Erhalte passende Empfehlungen und Inhalte",
+    "marketing": "Marketing-Mitteilungen",
+    "marketingDesc": "Erhalte Neuigkeiten und Angebote",
+    "preferences": "Einstellungen",
+    "language": "Sprache",
+    "currency": "Währung",
+    "notificationsLabel": "Benachrichtigungen",
+    "notifPrefs": "Benachrichtigungseinstellungen",
+    "notifPrefsSub": "In-App- und E-Mail-Einstellungen verwalten",
+    "yourData": "Deine Daten",
+    "export": "Deine Daten exportieren",
+    "exportSub": "Lade eine Kopie deiner Daten herunter",
+    "delete": "Konto löschen",
+    "deleteSub": "Lösche dein Konto und deine Daten dauerhaft",
+    "footer": "Mit der Nutzung von diBoaS stimmst du unseren <terms>Nutzungsbedingungen</terms> und der Datenschutzerklärung zu."
+  },
+  "move": {
+    "balance": "Übungsguthaben",
+    "credits": "Übungsguthaben",
+    "add": "Guthaben hinzufügen",
+    "earn": "Guthaben verdienen",
+    "withdraw": "Auszahlen",
+    "practiceNote": "Du bist im Übungsmodus. Lerne mit echten Marktdaten und echten Tools.",
+    "addTitle": "Guthaben hinzufügen",
+    "addBody": "Das funktioniert in der echten App. Im Übungsmodus kommt dein Guthaben aus deinem wöchentlichen Rhythmus.",
+    "earnTitle": "Guthaben verdienen",
+    "earnBody": "Dein Übungsguthaben kommt jede Woche, bereit für eine Aufgabe.",
+    "withdrawTitle": "Auszahlen",
+    "withdrawBody": "Das funktioniert in der echten App. Im Übungsmodus bleibt das Geld im Sandbox.",
+    "withdrawFee": "Auszahlungsgebühr",
+    "withdrawFeePer": "0,48 € pro 100 €",
+    "okay": "Okay"
+  },
+  "comprehension": {
+    "title": "Comprehension micro-check",
+    "subtitle": "A quick check to make sure the key idea clicked before you move on.",
+    "questionLabel": "Question",
+    "question": "Can practice credits become real money?",
+    "explainer": "Practice credits let you explore and build confidence with no real money at stake. They do not convert to real money.",
+    "yes": "Yes",
+    "no": "No",
+    "correct": "That's right. Practice credits stay play money, always.",
+    "incorrect": "Not quite. Practice credits never convert to real money.",
+    "continue": "Continue",
+    "note": "Sandbox keeps things safe so you can learn without pressure.",
+    "skip": "Skip"
+  },
+  "error": {
+    "title": "Something went sideways",
+    "body": "This screen hit a snag. Your play money and progress are safe. Try again.",
+    "retry": "Try again"
+  },
+  "loading": {
+    "label": "Loading"
   }
 }

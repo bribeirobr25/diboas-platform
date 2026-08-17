@@ -183,6 +183,31 @@ export function grantAndSplit(
   ]);
 }
 
+/**
+ * The R1 claim grant (W-5a). Emits `PlayMoneyGranted` ALONE — the engine already
+ * lands the full amount in `working` (= Available), so no `JobsSplitSet` is
+ * needed; allocation into jobs happens later via the D-r flow, not at the grant.
+ * `grantAndSplit` (which also writes the product-deprecated `JobsSplitSet`) is
+ * used only by the MVP-0 first-run and is removed with it. Same one-grant guard.
+ */
+export function grantPlayMoney(
+  amount: number,
+  currency: 'USD' | 'BRL' | 'EUR',
+  mode: 'b2c' | 'b2b'
+): void {
+  if (getLedgerState().initialized) return;
+  const correlationId = generateId();
+  appendAll([
+    {
+      ...base(correlationId),
+      type: 'PlayMoneyGranted',
+      amount: new Decimal(amount).toFixed(2),
+      currency,
+      mode,
+    },
+  ]);
+}
+
 export function createGoal(input: {
   name: string;
   icon: string;

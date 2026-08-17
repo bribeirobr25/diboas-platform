@@ -7,6 +7,7 @@ import { LucideIcon } from './LucideIcon';
 import { ThemeToggle } from './ThemeToggle';
 import { Wordmark } from './Wordmark';
 import { startOnboarding } from '@/app/[locale]/welcome/actions';
+import { legalUrl } from '@/i18n/config';
 import styles from './AuthWelcome.module.css';
 
 type Method = 'google' | 'email' | 'wallet';
@@ -97,14 +98,24 @@ export function AuthWelcome({ locale }: { locale: string }) {
               /* Legal pages live on the marketing site (external), not in the
                  sandbox app — a plain <a>, not next/link; final URLs wire at end. */
               terms: (chunks) => (
-                // eslint-disable-next-line @next/next/no-html-link-for-pages -- external marketing legal page
-                <a key="terms" href="/legal/terms" className={styles.legalLink}>
+                <a
+                  key="terms"
+                  href={legalUrl(locale, 'terms')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.legalLink}
+                >
                   {chunks}
                 </a>
               ),
               privacy: (chunks) => (
-                // eslint-disable-next-line @next/next/no-html-link-for-pages -- external marketing legal page
-                <a key="privacy" href="/legal/privacy" className={styles.legalLink}>
+                <a
+                  key="privacy"
+                  href={legalUrl(locale, 'privacy')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.legalLink}
+                >
                   {chunks}
                 </a>
               ),

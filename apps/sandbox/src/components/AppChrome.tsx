@@ -22,17 +22,15 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
   const intl = useIntl();
   const pathname = usePathname();
   const home = `/${locale}`;
-  const goals = `/${locale}/goals`;
   const move = `/${locale}/move`;
-  const learn = `/${locale}/learn`;
   const profile = `/${locale}/profile`;
   const notifications = `/${locale}/notifications`;
 
-  // Active tab: home is exact; the others match their route prefix.
+  // Active tab: home is exact; move matches its route prefix. The Goals + Learn
+  // tabs are disabled until their screens ship (founder 2026-08-16) — no active
+  // state, no navigation.
   const isHome = pathname === home || pathname === `${home}/`;
-  const isGoals = pathname.startsWith(goals);
   const isMove = pathname.startsWith(move);
-  const isLearn = pathname.startsWith(learn);
 
   return (
     <div className={styles.surround}>
@@ -45,10 +43,13 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
         </span>
       </p>
       <div className={styles.canvas}>
+        {/* Home only: the coastal hero band sits behind a transparent app bar
+            and the play-balance hero (mockup 02, issue #3). Decorative. */}
+        {isHome ? <div className={styles.heroBackdrop} aria-hidden /> : null}
         <a href="#main" className={styles.skipLink}>
           <FormattedMessage id="common.skipToContent" />
         </a>
-        <header className={styles.appbar}>
+        <header className={styles.appbar} data-hero={isHome ? 'true' : undefined}>
           <Link
             href={profile}
             className={styles.appbarIcon}
@@ -98,17 +99,12 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
               <FormattedMessage id="nav.home" />
             </span>
           </Link>
-          <Link
-            href={goals}
-            className={styles.tab}
-            aria-current={isGoals ? 'page' : undefined}
-            data-active={isGoals}
-          >
+          <span className={styles.tab} data-disabled="true" aria-disabled="true">
             <LucideIcon name="target" size={22} />
             <span className={styles.tabLabel}>
               <FormattedMessage id="nav.goals" />
             </span>
-          </Link>
+          </span>
           <Link
             href={move}
             className={styles.tab}
@@ -120,17 +116,12 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
               <FormattedMessage id="nav.move" />
             </span>
           </Link>
-          <Link
-            href={learn}
-            className={styles.tab}
-            aria-current={isLearn ? 'page' : undefined}
-            data-active={isLearn}
-          >
+          <span className={styles.tab} data-disabled="true" aria-disabled="true">
             <LucideIcon name="book-open" size={22} />
             <span className={styles.tabLabel}>
               <FormattedMessage id="nav.learn" />
             </span>
-          </Link>
+          </span>
         </nav>
       </div>
     </div>

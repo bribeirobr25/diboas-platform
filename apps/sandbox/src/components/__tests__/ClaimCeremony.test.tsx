@@ -3,10 +3,14 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { describe, expect, it, vi } from 'vitest';
 
-// The claim tap is WIRED to the claimGrant server action; mock it.
-const claimGrant = vi.fn();
-vi.mock('@/app/[locale]/claim/actions', () => ({
-  claimGrant: (locale: string) => claimGrant(locale),
+// The claim tap is WIRED to the play ledger grant + a route into the app home.
+const grantPlayMoney = vi.fn();
+const push = vi.fn();
+vi.mock('@/lib/ledgerClient', () => ({
+  grantPlayMoney: (...args: unknown[]) => grantPlayMoney(...args),
+}));
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push }),
 }));
 
 import { ClaimCeremony } from '../ClaimCeremony';
@@ -45,10 +49,14 @@ describe('ClaimCeremony (A3.2 — W-5a claim)', () => {
     expect(screen.getByText(/never convert to real money/i)).toBeTruthy();
   });
 
-  it('should WIRE the claim tap into the flow (claimGrant called with the locale)', () => {
-    claimGrant.mockClear();
+  it('should WIRE the claim tap: grant the play money, then route to the app home', () => {
+    grantPlayMoney.mockClear();
+    push.mockClear();
     renderClaim('pt-BR');
     fireEvent.click(screen.getByRole('button', { name: /Get your first/ }));
-    expect(claimGrant).toHaveBeenCalledWith('pt-BR');
+    // PlayMoneyGranted alone (no JobsSplitSet) lands the grant in Available, in
+    // the locale currency (pt-BR -> BRL).
+    expect(grantPlayMoney).toHaveBeenCalledWith(10000, 'BRL', 'b2c');
+    expect(push).toHaveBeenCalledWith('/pt-BR');
   });
 });

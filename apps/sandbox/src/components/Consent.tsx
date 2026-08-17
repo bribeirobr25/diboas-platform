@@ -9,6 +9,7 @@ import { ModeChip } from './ModeChip';
 import { Toggle } from './Toggle';
 import { Wordmark } from './Wordmark';
 import { submitConsent } from '@/app/[locale]/consent/actions';
+import { legalUrl } from '@/i18n/config';
 import styles from './Consent.module.css';
 
 type OptIn = 'financialProfile' | 'analytics' | 'marketing';
@@ -42,12 +43,24 @@ export function Consent({ locale }: { locale: string }) {
 
   const linkChunks = {
     terms: (chunks: React.ReactNode) => (
-      <a key="terms" href="/legal/terms" className={styles.link}>
+      <a
+        key="terms"
+        href={legalUrl(locale, 'terms')}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.link}
+      >
         {chunks}
       </a>
     ),
     privacy: (chunks: React.ReactNode) => (
-      <a key="privacy" href="/legal/privacy" className={styles.link}>
+      <a
+        key="privacy"
+        href={legalUrl(locale, 'privacy')}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.link}
+      >
         {chunks}
       </a>
     ),

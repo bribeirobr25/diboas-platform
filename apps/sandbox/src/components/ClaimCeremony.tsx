@@ -1,13 +1,14 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Button } from './Button';
 import { Card } from './Card';
 import { LucideIcon } from './LucideIcon';
 import { ModeChip } from './ModeChip';
 import { Wordmark } from './Wordmark';
-import { claimGrant } from '@/app/[locale]/claim/actions';
-import { PLAY_MONEY_GRANT, type SandboxLocale } from '@/i18n/config';
+import { grantPlayMoney } from '@/lib/ledgerClient';
+import { LOCALE_CURRENCY, PLAY_MONEY_GRANT, type SandboxLocale } from '@/i18n/config';
 import styles from './ClaimCeremony.module.css';
 
 /**
@@ -20,12 +21,19 @@ import styles from './ClaimCeremony.module.css';
  * acted). The amount shows as a plain locale-formatted number labelled "practice
  * credits" (the mockup frames it as credits, not a currency).
  *
- * WIRED: the tap calls the claimGrant action -> app home. The real
- * `PlayMoneyGranted` emit is DEFERRED + registered (DEFERRED_BACKEND_LEDGER
- * CL-B1) — the ledger write/one-grant guard is the backend pass, not inlined.
+ * WIRED (client): the tap emits the real `PlayMoneyGranted` via the built play
+ * ledger (`grantAndSplit`, one-grant guarded), then routes to the app home,
+ * which now reads an initialized ledger. Only the persistence/auth backing of
+ * the grant remains deferred (DEFERRED_BACKEND_LEDGER CL-B1).
  */
 export function ClaimCeremony({ locale }: { locale: SandboxLocale }) {
+  const router = useRouter();
   const amount = <FormattedNumber value={PLAY_MONEY_GRANT.b2c} />;
+
+  function claim() {
+    grantPlayMoney(PLAY_MONEY_GRANT.b2c, LOCALE_CURRENCY[locale], 'b2c');
+    router.push(`/${locale}`);
+  }
 
   return (
     <section className={styles.wrap} aria-labelledby="claim-title">
@@ -71,7 +79,7 @@ export function ClaimCeremony({ locale }: { locale: SandboxLocale }) {
           </div>
         </Card>
 
-        <Button variant="primary" fullWidth onClick={() => claimGrant(locale)}>
+        <Button variant="primary" fullWidth onClick={claim}>
           <LucideIcon name="key" size={18} />
           <span className={styles.ctaLabel}>
             <FormattedMessage id="claim.cta" values={{ amount }} />

@@ -1,0 +1,169 @@
+/*
+ * Move / money-out (R5), to mockup 34. Practice-balance card, the money-action
+ * rows (Withdraw present-but-disabled), the practice note, and the W-9c explainer
+ * sheet. Fully tokenized.
+ */
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.balanceCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius);
+  background: var(--sb-card);
+}
+.balanceText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.balanceLabel {
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-md);
+}
+.balance {
+  font-family: var(--sb-sans);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-4xl);
+  line-height: 1.05;
+  color: var(--sb-text-heading);
+}
+.balanceUnit {
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
+}
+.balanceIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--sb-radius);
+  border: 1px solid var(--sb-accent);
+  color: var(--sb-accent);
+}
+
+.actions {
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius);
+  background: var(--sb-card);
+  overflow: hidden;
+}
+.action {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: none;
+  background: transparent;
+  color: var(--sb-text-heading);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  text-align: left;
+  cursor: pointer;
+}
+.action + .action {
+  border-top: 1px solid var(--sb-hairline);
+}
+.action[data-disabled='true'] {
+  color: var(--sb-text-muted);
+}
+.actionIcon {
+  display: inline-flex;
+  flex: none;
+  color: var(--sb-accent);
+}
+.action[data-disabled='true'] .actionIcon {
+  color: var(--sb-text-muted);
+}
+.actionLabel {
+  flex: 1;
+  min-width: 0;
+}
+.actionChevron {
+  color: var(--sb-text-muted);
+  flex: none;
+}
+
+.info {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2xs);
+  margin: 0;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+.info svg {
+  color: var(--sb-accent);
+  flex: none;
+  margin-top: 0.15em;
+}
+
+/* --- Explainer sheet --- */
+.sheetIconWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-sm);
+}
+.sheetIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--sb-accent);
+  color: var(--sb-accent);
+}
+.sheetBody {
+  margin: 0 0 var(--spacing-md);
+  text-align: center;
+  color: var(--sb-text-body);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+}
+.feeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) 0;
+  margin-bottom: var(--spacing-md);
+  border-top: 1px solid var(--sb-hairline);
+  border-bottom: 1px solid var(--sb-hairline);
+}
+.feeLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--sb-text-heading);
+  font-weight: var(--font-weight-semibold);
+}
+.feeLabel svg {
+  color: var(--sb-accent);
+  flex: none;
+}
+.feeValue {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.feePct {
+  color: var(--sb-text-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+}
+.feePer {
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
+}

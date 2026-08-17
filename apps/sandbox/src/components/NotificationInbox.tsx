@@ -14,6 +14,9 @@ export interface SandboxNotification {
   unread: boolean;
 }
 
+/** Hoisted so the default prop is a stable reference across renders. */
+const NO_NOTIFICATIONS: SandboxNotification[] = [];
+
 /**
  * Notification inbox (B4; mockup 33). The typed notification list (icon · title
  * · body · time · unread dot) with the calm empty state. R1 = in-app inbox only
@@ -23,7 +26,7 @@ export interface SandboxNotification {
  * entries), and the row markup is ready for wiring.
  */
 export function NotificationInbox({
-  notifications = [],
+  notifications = NO_NOTIFICATIONS,
 }: {
   notifications?: SandboxNotification[];
 }) {
