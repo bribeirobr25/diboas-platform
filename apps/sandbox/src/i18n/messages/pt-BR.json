@@ -25,20 +25,6 @@
     "error": "Essa senha não abriu a porta. Tenta de novo.",
     "notConfigured": "A porta do sandbox ainda não foi configurada. Defina SANDBOX_ACCESS_PASSWORD e reinicie."
   },
-  "firstRun": {
-    "title": "Seu dinheiro que trabalha chegou.",
-    "body": "A diBoaS é um bolso paralelo: só o seu dinheiro que trabalha vem pra cá. O resto fica onde está.",
-    "workingAmount": "{amount} de dinheiro que trabalha",
-    "workingBody": "Esse é seu pra praticar. Dá um objetivo pra ele, escolhe uma estratégia e vê o que o mercado real faz.",
-    "cta": "Pôr pra trabalhar"
-  },
-  "salary": {
-    "title": "Primeiro: quanto cai na sua conta por mês?",
-    "body": "Seu líquido mensal, depois dos impostos. Fica só neste aparelho e serve pra mostrar seu quadro completo. Mude quando quiser, ou pule.",
-    "inputLabel": "Líquido mensal ({currency})",
-    "continue": "Continuar",
-    "skip": "Pular por enquanto"
-  },
   "home": {
     "title": "As funções do seu dinheiro",
     "subtitle": "Cada valor aqui tem uma função que você deu.",
@@ -253,18 +239,6 @@
       }
     }
   },
-  "mirror": {
-    "caption": "Mais ou menos como um mês como o seu se divide:",
-    "floorLabel": "Essenciais",
-    "floorNote": "Fica no seu banco",
-    "workingLabel": "Dinheiro que trabalha",
-    "workingNote": "Livre pra pôr pra trabalhar",
-    "dignity": "Esse mês, a função do seu dinheiro é te segurar. E tá tudo bem.",
-    "perMonth": "/mês",
-    "adjust": "Ajustar seus custos",
-    "adjustEdit": "Editar seus custos",
-    "captionReal": "Como o seu mês se divide:"
-  },
   "presets": {
     "caption": "Comece por um modelo comum",
     "emergencyFund": {
@@ -305,14 +279,6 @@
     "paceEdge": "Esse ritmo fica perto do seu prazo de {months} meses.",
     "paceBeyond": "Esse ritmo passa do seu prazo de {months} meses.",
     "underYear": "Com {amount} por mês, um retorno estimado de {low} a {high} por cento chegaria a {target} em menos de um ano."
-  },
-  "welcome": {
-    "title": "Seu bolso paralelo pra construir patrimônio.",
-    "body": "O diBoaS é o bolso paralelo do seu dinheiro que trabalha. O resto do seu dinheiro fica exatamente onde está. Aqui você pratica a coisa de verdade com dinheiro de mentira, no mercado real, então não tem nada a perder enquanto aprende os controles. Ambiente de prática: não é um sandbox regulatório nem programa oficial.",
-    "point1": "Só o seu dinheiro que trabalha vem pra cá. O resto fica onde está.",
-    "point2": "Dinheiro de mentira, mercado real. Nunca vira dinheiro de verdade.",
-    "point3": "Veja o caminho, o custo e o risco antes de qualquer movimento.",
-    "cta": "Começar a praticar"
   },
   "geofence": {
     "badge": "Verificação de região",

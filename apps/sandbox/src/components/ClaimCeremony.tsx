@@ -22,7 +22,7 @@ import styles from './ClaimCeremony.module.css';
  * credits" (the mockup frames it as credits, not a currency).
  *
  * WIRED (client): the tap emits the real `PlayMoneyGranted` via the built play
- * ledger (`grantAndSplit`, one-grant guarded), then routes to the app home,
+ * ledger (`grantPlayMoney`, one-grant guarded), then routes to the app home,
  * which now reads an initialized ledger. Only the persistence/auth backing of
  * the grant remains deferred (DEFERRED_BACKEND_LEDGER CL-B1).
  */

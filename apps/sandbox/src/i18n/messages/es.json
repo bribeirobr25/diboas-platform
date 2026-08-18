@@ -25,20 +25,6 @@
     "error": "That password did not open the door. Try again.",
     "notConfigured": "The sandbox gate is not configured yet. Set SANDBOX_ACCESS_PASSWORD and restart."
   },
-  "firstRun": {
-    "title": "Your Working money has arrived.",
-    "body": "diBoaS is a side pocket: only your Working money comes here. The rest of your money stays where it is.",
-    "workingAmount": "{amount} of Working money",
-    "workingBody": "This is yours to practice with. Give it a goal, pick a strategy, and see what the real market does.",
-    "cta": "Put it to work"
-  },
-  "salary": {
-    "title": "First, what lands in your account each month?",
-    "body": "Your monthly take-home, after tax. It stays on this device and only helps the sandbox show your whole picture. Change it any time, or skip it.",
-    "inputLabel": "Monthly take-home ({currency})",
-    "continue": "Continue",
-    "skip": "Skip for now"
-  },
   "home": {
     "title": "Your money's jobs",
     "subtitle": "Every amount here has a job you gave it.",
@@ -253,18 +239,6 @@
       }
     }
   },
-  "mirror": {
-    "caption": "Roughly how a month like yours divides:",
-    "floorLabel": "Essentials",
-    "floorNote": "Stays in your bank",
-    "workingLabel": "Working money",
-    "workingNote": "Free to put to work",
-    "dignity": "This month, your money is holding you up. That is its job right now, and that is okay.",
-    "perMonth": "/mo",
-    "adjust": "Adjust your costs",
-    "adjustEdit": "Edit your costs",
-    "captionReal": "How your month divides:"
-  },
   "presets": {
     "caption": "Start from a common template",
     "emergencyFund": {
@@ -305,14 +279,6 @@
     "paceEdge": "This pace lands around your {months}-month timeframe.",
     "paceBeyond": "This pace runs longer than your {months}-month timeframe.",
     "underYear": "At {amount} a month, an assumed {low} to {high} percent would reach {target} within a year."
-  },
-  "welcome": {
-    "title": "Your side pocket for building wealth.",
-    "body": "diBoaS is the side pocket for your Working money. The rest of your money stays right where it is. Here you practice the real thing on play money, with the real market, so there is nothing to lose while you learn the controls.",
-    "point1": "Only your Working money comes here. The rest stays put.",
-    "point2": "Play money, real market. It never becomes real money.",
-    "point3": "See the path, the cost, and the risk before anything moves.",
-    "cta": "Start practising"
   },
   "geofence": {
     "badge": "Comprobación de región",

@@ -19,7 +19,6 @@ import {
 } from '@diboas/banking';
 import { getStrategy, type ProtocolApyHistory } from '@diboas/defi';
 import { blendSeries, type DailyApySeries } from '@diboas/investing';
-import type { JobsSplit } from '@diboas/investing';
 import { planAdvance } from './advancePlanner';
 import { Logger } from './monitoring/Logger';
 
@@ -155,43 +154,19 @@ function base(correlationId: string) {
 
 // ── Actions ──────────────────────────────────────────────────────────────────
 
-export function grantAndSplit(
-  amount: number,
-  currency: 'USD' | 'BRL' | 'EUR',
-  mode: 'b2c' | 'b2b',
-  split: JobsSplit
-): void {
-  // One-grant guard (plan §7): the play grant is a once-per-ledger first-run
-  // action. The `<LedgerReadyGate>` already keeps `FirstRun` from mounting
-  // before hydrate, but this closes the window structurally — a double-fire
-  // (fast double-tap, a stray remount) can never mint a second grant that
-  // `reconcile()` could not catch. Idempotent no-op once initialized.
-  if (getLedgerState().initialized) return;
-  const correlationId = generateId();
-  appendAll([
-    {
-      ...base(correlationId),
-      type: 'PlayMoneyGranted',
-      amount: new Decimal(amount).toFixed(2),
-      currency,
-      mode,
-    },
-    {
-      ...base(correlationId),
-      type: 'JobsSplitSet',
-      floorPercent: split.floorPercent,
-      cushionPercent: split.cushionPercent,
-      workingPercent: split.workingPercent,
-    },
-  ]);
-}
-
 /**
- * The R1 claim grant (W-5a). Emits `PlayMoneyGranted` ALONE — the engine already
- * lands the full amount in `working` (= Available), so no `JobsSplitSet` is
- * needed; allocation into jobs happens later via the D-r flow, not at the grant.
- * `grantAndSplit` (which also writes the product-deprecated `JobsSplitSet`) is
- * used only by the MVP-0 first-run and is removed with it. Same one-grant guard.
+ * The R1 claim grant (W-5a) — the ONE grant path. Emits `PlayMoneyGranted`
+ * ALONE — the engine lands the full amount in `working` (= Available), so no
+ * `JobsSplitSet` is needed; allocation into jobs happens later via the D-r
+ * flow, not at the grant. (`grantAndSplit`, the MVP-0 first-run emitter of the
+ * product-deprecated `JobsSplitSet`, was deleted with that chain in the R1
+ * audit cleanup 2026-08-18 — the engine keeps its replay case forever, D-r §2.)
+ *
+ * One-grant guard (plan §7): once-per-ledger. `<LedgerReadyGate>` keeps `(app)`
+ * screens from mounting before hydrate, but this closes the window
+ * structurally — a double-fire (fast double-tap, a stray remount) can never
+ * mint a second grant that `reconcile()` could not catch. Idempotent no-op
+ * once initialized.
  */
 export function grantPlayMoney(
   amount: number,

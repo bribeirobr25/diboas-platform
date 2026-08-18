@@ -10,7 +10,7 @@ import { useLedgerReady } from '@/hooks/useLedgerReady';
  * wait (R-4: every screen stays labeled play money), and only the main content
  * area holds. Covers all four `(app)` ledger screens through the one shell, so a
  * deep-link/refresh straight to a sub-route can never render something FALSE
- * about the user's money (HomeGate→FirstRun flash, HistoryScreen→"nothing
+ * about the user's money (HomeGate→claim-redirect flash, HistoryScreen→"nothing
  * happened", etc. — the R-4 dishonest-degradation the gate exists to prevent).
  *
  * Renders nothing while hydrating. In P1.2 (LocalStorage) that window is one
