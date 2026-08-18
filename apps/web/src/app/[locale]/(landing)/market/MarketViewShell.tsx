@@ -315,12 +315,12 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                       {t('dashboard.signalsSectionTitle', 'Signal groups')}
                     </h2>
                   </div>
-                  <SignalCardsGrid
-                    groups={signals.signal_groups}
-                    expandLabel={t('dashboard.signalsExpand', 'Show signals')}
-                    collapseLabel={t('dashboard.signalsCollapse', 'Hide signals')}
-                    pointsLabel={t('dashboard.signalsPoints', 'pts')}
-                  />
+                  {/* Cleanup 2026-08-18: the expand/collapse/points label props
+                      died with the M3.5 native-details conversion — the grid
+                      component still ACCEPTS them (doc-09 SDK API compat) but
+                      renders its own disclosure semantics; passing dead t()
+                      lookups here kept 3 zombie i18n keys alive ×4 locales. */}
+                  <SignalCardsGrid groups={signals.signal_groups} />
                 </section>
               </SectionErrorBoundary>
             )}

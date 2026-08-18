@@ -25,7 +25,6 @@
       "HOSTILE": "Hostil"
     },
     "signalsSectionTitle": "Grupos de señales",
-    "signalsPoints": "pts",
     "historicalTitle": "Score a lo largo del tiempo",
     "historicalLead": "Dónde estuvo el entorno durante el último año.",
     "historicalAriaLabel": "Score del entorno macro en los últimos 12 meses",
