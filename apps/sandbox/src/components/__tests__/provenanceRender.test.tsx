@@ -113,8 +113,10 @@ describe('PathCard provenance stamp (§3-A: the three states, honestly labeled)'
   it('should stamp FIXTURE via the locale date formatter, no hardcoded literal (P-F4b)', () => {
     renderCard(FIXTURE);
     const stamp = screen.getByText(/Documented reference values/);
-    // The formatter renders a localized date, never the raw ISO literal.
+    // The formatter renders a localized date, never the raw ISO literal —
+    // and the NAMED day, in every timezone (date-only strings parse local).
     expect(stamp.textContent).not.toContain('2026-07-18');
+    expect(stamp.textContent).toContain('Jul 18, 2026');
   });
 });
 

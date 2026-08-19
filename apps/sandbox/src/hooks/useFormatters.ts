@@ -39,7 +39,16 @@ export function useFormatters(currency: 'USD' | 'BRL' | 'EUR') {
   );
 
   const date = useCallback(
-    (iso: string) => intl.formatDate(new Date(iso), { dateStyle: 'medium' }),
+    // Date-ONLY strings (e.g. FIXTURE_AS_OF '2026-07-18') parse as UTC
+    // midnight per the ES spec, which renders the PREVIOUS day in any
+    // UTC-negative timezone (the whole Americas — an off-by-one on a
+    // compliance stamp). Appending T00:00:00 makes the parse LOCAL, so the
+    // named day renders everywhere. Full timestamps pass through unchanged
+    // (they are moments, not dates).
+    (iso: string) =>
+      intl.formatDate(new Date(/^\d{4}-\d{2}-\d{2}$/.test(iso) ? `${iso}T00:00:00` : iso), {
+        dateStyle: 'medium',
+      }),
     [intl]
   );
 
