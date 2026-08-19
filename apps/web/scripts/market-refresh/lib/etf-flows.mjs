@@ -25,7 +25,7 @@ import { REPO_ROOT } from '../providers/inrepo.mjs';
 
 export const ETF_SHARES_ARCHIVE = path.join(
   REPO_ROOT,
-  'apps/web/data/market/etf-shares-weekly.jsonl'
+  'apps/web/data/market/shared/etf-shares-weekly.jsonl'
 );
 
 export const STALE_FUND_DAYS = 10;

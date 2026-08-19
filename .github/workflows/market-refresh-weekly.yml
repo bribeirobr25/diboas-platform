@@ -74,7 +74,7 @@ jobs:
       # pushed to the branch (hit 2026-08-11 on the manual data-status edit).
       # Check every file the pipeline writes before opening the PR.
       - name: Format check on pipeline-written files
-        run: pnpm exec prettier --check "apps/web/data/market/**/*.json" "apps/web/src/lib/market-data/data/*.json"
+        run: pnpm exec prettier --check "apps/web/data/market/**/**/*.json" "apps/web/src/lib/market-data/data/*.json"
 
       - name: Open refresh PR
         uses: peter-evans/create-pull-request@v7
@@ -100,7 +100,7 @@ jobs:
 
             **Review the plain-language summary and per-signal copy before merging.**
             If a cycle needs a human override, add it to
-            `apps/web/data/market/editorial-override.json` **with a `_cycle`
+            `apps/web/data/market/shared/editorial-override.json` **with a `_cycle`
             key stamping this cycle's date (computed.json `computed_at`,
             YYYY-MM-DD)** and re-run `generate.mjs` — overrides are
             cycle-scoped and an unstamped or stale file is ignored with a

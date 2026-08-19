@@ -17,7 +17,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
 
-const MARKET_DIR = join(__dirname, '../../../../data/market');
+const MARKET_DIR = join(__dirname, '../../../../data/market/shared');
 
 function stripAnnotations(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(stripAnnotations);

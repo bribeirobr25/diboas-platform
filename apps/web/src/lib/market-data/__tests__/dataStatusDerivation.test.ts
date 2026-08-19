@@ -19,7 +19,7 @@ import {
 } from '../../../../scripts/market-refresh/lib/data-status.mjs';
 import { readSnapshots } from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
 
-const MARKET_DIR = join(__dirname, '../../../../data/market');
+const MARKET_DIR = join(__dirname, '../../../../data/market/shared');
 const readJson = (f: string) => JSON.parse(readFileSync(join(MARKET_DIR, f), 'utf8'));
 
 const stripAnnotations = (obj: Record<string, unknown>) =>
