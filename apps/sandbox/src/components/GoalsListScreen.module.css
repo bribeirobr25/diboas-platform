@@ -1,0 +1,140 @@
+/* Goals-list host (§4 item 1) — derived from the Home goal-row pattern
+   (Stage-D: unmocked → derived). Simple = rows; Detailed = per-goal
+   source-separation. */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+.title {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+}
+.subtitle {
+  margin: 0;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm-plus);
+}
+.toggleRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.goals {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Detailed view: per-goal source-separation card --- */
+.detailCard {
+  border-top: 1px solid var(--sb-hairline);
+  padding: var(--spacing-md) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+.goals li:first-child .detailCard {
+  border-top: none;
+}
+.detailHead {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+}
+.detailIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent);
+  color: var(--color-white);
+}
+.detailName {
+  flex: 1;
+  min-width: 0;
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+}
+.detailHead svg:last-child {
+  color: var(--sb-text-muted);
+}
+.sourceRows {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-2xs) var(--spacing-md);
+  font-size: var(--font-size-sm);
+}
+.sourceRows dt {
+  color: var(--sb-text-muted);
+}
+.sourceRows dd {
+  margin: 0;
+  text-align: right;
+  color: var(--sb-text-heading);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Closed subsection: quiet, history stays visible (R-4) --- */
+.closedTitle {
+  margin: var(--spacing-lg) 0 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-muted);
+}
+
+/* --- Empty state (mirrors Home's) --- */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-2xl) 0;
+  text-align: center;
+}
+.emptyIcon {
+  color: var(--sb-text-muted);
+}
+.emptyTitle {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+}
+.emptyBody {
+  margin: 0;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm-plus);
+  max-width: 28rem;
+}
+
+.createGoal {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  align-self: flex-start;
+  color: var(--text-brand-accessible);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  padding: var(--spacing-xs) 0;
+}
+
+.statusChipInline {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--sb-text-muted);
+  border: 1px solid var(--sb-hairline-strong);
+  border-radius: var(--radius-full);
+  padding: 0 var(--spacing-xs);
+  line-height: 1.5;
+  flex: none;
+}

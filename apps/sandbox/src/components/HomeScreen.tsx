@@ -6,6 +6,7 @@ import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import type { LedgerState } from '@diboas/banking';
 import type { SandboxLocale } from '@/i18n/config';
 import { goalCurrentValue } from '@/lib/goalValue';
+import { GoalRow } from './GoalRow';
 import { LucideIcon } from './LucideIcon';
 import styles from './HomeScreen.module.css';
 
@@ -108,12 +109,10 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
         <h2 className={styles.goalsTitle}>
           <FormattedMessage id="home.goalsTitle" />
         </h2>
-        {/* "View all" -> goals list, which isn't built yet: disabled until it
-            ships (founder 2026-08-16). All goals already render below in R1. */}
         {state.goals.length > 0 ? (
-          <span className={styles.viewAll} data-disabled="true" aria-disabled="true">
+          <Link href={`/${locale}/goals`} className={styles.viewAll}>
             <FormattedMessage id="home.viewAll" />
-          </span>
+          </Link>
         ) : null}
       </div>
 
@@ -131,43 +130,11 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
         </div>
       ) : (
         <ul className={styles.goals}>
-          {state.goals.map((goal) => {
-            const current = goalCurrentValue(state, goal.goalId);
-            const target = new Decimal(goal.targetAmount);
-            const ratio = target.gt(0)
-              ? Decimal.min(current.div(target), 1).mul(100).toNumber()
-              : 0;
-            return (
-              <li key={goal.goalId}>
-                <Link href={`/${locale}/goals/${goal.goalId}`} className={styles.goalCard}>
-                  <span className={styles.goalIcon}>
-                    <LucideIcon name={goal.icon} size={22} />
-                  </span>
-                  <span className={styles.goalBody}>
-                    <span className={styles.goalName}>{goal.name}</span>
-                    <span className={styles.goalAmounts}>
-                      <Amount value={current} /> / <Amount value={target} />
-                    </span>
-                    <span
-                      className={styles.progressTrack}
-                      role="progressbar"
-                      aria-label={goal.name}
-                      aria-valuenow={Math.round(ratio)}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                    >
-                      <span className={styles.progressFill} style={{ width: `${ratio}%` }} />
-                    </span>
-                  </span>
-                  <span className={styles.goalStatus} aria-hidden="true">
-                    {/* No "on track" claim until pace status is derived from D-e
-                        (goals-list increment) — a static label would be false. */}
-                    <LucideIcon name="chevron-right" size={18} />
-                  </span>
-                </Link>
-              </li>
-            );
-          })}
+          {state.goals.map((goal) => (
+            <li key={goal.goalId}>
+              <GoalRow locale={locale} goal={goal} current={goalCurrentValue(state, goal.goalId)} />
+            </li>
+          ))}
         </ul>
       )}
 

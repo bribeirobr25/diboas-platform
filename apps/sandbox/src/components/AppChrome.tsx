@@ -23,6 +23,7 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
   const pathname = usePathname();
   const home = `/${locale}`;
   const move = `/${locale}/move`;
+  const goals = `/${locale}/goals`;
   const profile = `/${locale}/profile`;
   const notifications = `/${locale}/notifications`;
 
@@ -31,6 +32,7 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
   // state, no navigation.
   const isHome = pathname === home || pathname === `${home}/`;
   const isMove = pathname.startsWith(move);
+  const isGoals = pathname.startsWith(goals);
 
   return (
     <div className={styles.surround}>
@@ -99,12 +101,17 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
               <FormattedMessage id="nav.home" />
             </span>
           </Link>
-          <span className={styles.tab} data-disabled="true" aria-disabled="true">
+          <Link
+            href={goals}
+            className={styles.tab}
+            aria-current={isGoals ? 'page' : undefined}
+            data-active={isGoals}
+          >
             <LucideIcon name="target" size={22} />
             <span className={styles.tabLabel}>
               <FormattedMessage id="nav.goals" />
             </span>
-          </span>
+          </Link>
           <Link
             href={move}
             className={styles.tab}

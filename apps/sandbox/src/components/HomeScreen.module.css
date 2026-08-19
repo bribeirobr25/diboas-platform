@@ -122,68 +122,6 @@
   display: flex;
   flex-direction: column;
 }
-.goalCard {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-  padding: var(--spacing-md) 0;
-  text-decoration: none;
-  border-top: 1px solid var(--sb-hairline);
-}
-.goals li:first-child .goalCard {
-  border-top: none;
-}
-.goalIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-  width: 3rem;
-  height: 3rem;
-  border-radius: var(--radius-full);
-  background: var(--sb-accent);
-  color: var(--color-white);
-}
-.goalBody {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2xs);
-}
-.goalName {
-  font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
-}
-.goalAmounts {
-  color: var(--sb-text-muted);
-  font-size: var(--font-size-sm);
-}
-.progressTrack {
-  display: block;
-  height: 6px;
-  border-radius: var(--radius-full);
-  background: var(--sb-hairline-strong);
-  overflow: hidden;
-}
-.progressFill {
-  display: block;
-  height: 100%;
-  border-radius: var(--radius-full);
-  background: var(--sb-accent);
-}
-.goalStatus {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2xs);
-  flex: none;
-  color: var(--text-brand-accessible);
-  font-size: var(--font-size-sm-plus);
-  font-weight: var(--font-weight-medium);
-}
-.goalStatus svg {
-  color: var(--sb-text-muted);
-}
 
 /* --- Create goal --- */
 .createGoal {

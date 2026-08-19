@@ -514,5 +514,21 @@
   },
   "loading": {
     "label": "Loading"
+  },
+  "goalsList": {
+    "title": "Your goals",
+    "subtitle": "Every goal, its money, and where that money stands.",
+    "viewToggle": "How much detail to show",
+    "simple": "Simple",
+    "detailed": "Detailed",
+    "closedTitle": "Closed goals",
+    "inGoal": "In the goal, not yet working",
+    "working": "Working in a strategy",
+    "earned": "Earned so far",
+    "status": {
+      "paused": "Paused",
+      "accomplished": "Accomplished",
+      "dropped": "Closed"
+    }
   }
 }

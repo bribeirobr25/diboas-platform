@@ -514,5 +514,21 @@
   },
   "loading": {
     "label": "Loading"
+  },
+  "goalsList": {
+    "title": "Suas metas",
+    "subtitle": "Cada meta, o dinheiro dela e onde esse dinheiro está.",
+    "viewToggle": "Quanto detalhe mostrar",
+    "simple": "Simples",
+    "detailed": "Detalhado",
+    "closedTitle": "Metas encerradas",
+    "inGoal": "Na meta, ainda parado",
+    "working": "Trabalhando em uma estratégia",
+    "earned": "Rendido até agora",
+    "status": {
+      "paused": "Pausada",
+      "accomplished": "Conquistada",
+      "dropped": "Encerrada"
+    }
   }
 }
