@@ -1,4 +1,5 @@
 .wrap {
+  position: relative; /* anchors the §4.2 hero band */
   max-width: 36rem;
   margin: 0 auto;
   display: flex;
@@ -264,4 +265,170 @@
   font-size: var(--font-size-sm);
   color: var(--sb-text-body);
   line-height: var(--line-height-relaxed);
+}
+
+/* --- §4.2 dual-view host (mockup 14; folded from GoalDetailDual) --- */
+.heroBand {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 11rem;
+  z-index: 0;
+  pointer-events: none;
+  background: url('/hero-welcome.png') center 40% / cover no-repeat;
+}
+/* Everything in flow paints above the absolute band. */
+.wrap > :not(.heroBand) {
+  position: relative;
+  z-index: 1;
+}
+.heroBand::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, var(--sb-ground) 100%);
+}
+:global(html[data-theme='dark']) .heroBand {
+  background-image: url('/hero-welcome-dark.png');
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme='light'])) .heroBand {
+    background-image: url('/hero-welcome-dark.png');
+  }
+}
+
+.goalIconPaused {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-full);
+  background: var(--text-warning-accessible);
+  color: var(--color-white);
+}
+.statusLine {
+  margin: var(--spacing-2xs) 0 0;
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-medium);
+  color: var(--sb-text-muted);
+}
+.statusPaused {
+  color: var(--text-warning-accessible);
+}
+.statusSub {
+  color: var(--sb-text-muted);
+  font-weight: var(--font-weight-regular);
+}
+
+.toggleRow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+  margin: var(--spacing-sm) 0;
+}
+
+.simpleView,
+.detailedView {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+.sectionHead {
+  margin: var(--spacing-lg) 0 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+}
+.savedLine {
+  margin: 0;
+  color: var(--sb-text-muted);
+}
+.percentLine {
+  margin: 0;
+  color: var(--sb-text-muted);
+}
+.percentBig {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+}
+.simpleEmpty {
+  margin: 0;
+  color: var(--sb-text-muted);
+}
+.simplePosition {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-sm) 0;
+  border-top: 1px solid var(--sb-hairline);
+}
+.simplePositionLead {
+  margin: 0;
+  font-weight: var(--font-weight-medium);
+  color: var(--sb-text-heading);
+}
+.simplePositionSub {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+
+.actionTiles {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+.actionTile {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-md) var(--spacing-sm);
+  min-height: var(--sb-tap);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--sb-surface);
+  color: var(--sb-text-heading);
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+.actionTileIcon {
+  color: var(--text-brand-accessible);
+}
+
+.seeDetail {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2xs);
+  min-height: var(--sb-tap);
+  margin-top: var(--spacing-sm);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--sb-surface-raised);
+  color: var(--text-brand-accessible);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+}
+
+.breakRow {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-2xs) 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+.breakVal {
+  color: var(--sb-text-heading);
+  font-variant-numeric: tabular-nums;
 }

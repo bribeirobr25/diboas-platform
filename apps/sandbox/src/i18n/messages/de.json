@@ -154,12 +154,13 @@
     "apySourceTitle": "Where the numbers come from",
     "exitCta": "Take the money out",
     "exitTitle": "Leaving {strategy}",
-    "backToGoal": "Back to your jobs",
+    "backToGoal": "Back to your goals",
     "noPositionTitle": "Holding as cash",
     "noPosition": "This goal's money is sitting as cash. It can stay that way as long as you want.",
     "putToWork": "Put it to work",
     "milestoneTitle": "You reached this goal, in practice.",
-    "milestoneBody": "In real life, this is where you would decide what is next. Nothing here is real money."
+    "milestoneBody": "In real life, this is where you would decide what is next. Nothing here is real money.",
+    "percentWay": "of the way there"
   },
   "history": {
     "title": "History",
@@ -381,9 +382,6 @@
     "inStrategy": "In der Strategie",
     "paused": "Plan pausiert",
     "moneyStillWorking": "Investiertes Geld arbeitet weiter"
-  },
-  "goalExample": {
-    "name": "Reise nach Lissabon"
   },
   "goalPause": {
     "title": "Diesen Plan pausieren?",

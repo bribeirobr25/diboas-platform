@@ -154,12 +154,13 @@
     "apySourceTitle": "De onde vêm os números",
     "exitCta": "Tirar o dinheiro",
     "exitTitle": "Saindo de {strategy}",
-    "backToGoal": "Voltar pras suas funções",
+    "backToGoal": "Voltar às suas metas",
     "noPositionTitle": "Parado como caixa",
     "noPosition": "O dinheiro deste objetivo está parado como caixa. Pode ficar assim o tempo que você quiser.",
     "putToWork": "Colocar pra trabalhar",
     "milestoneTitle": "Você alcançou esse objetivo, na prática.",
-    "milestoneBody": "Na vida real, é aqui que você decidiria o próximo passo. Nada aqui é dinheiro de verdade."
+    "milestoneBody": "Na vida real, é aqui que você decidiria o próximo passo. Nada aqui é dinheiro de verdade.",
+    "percentWay": "do caminho até lá"
   },
   "history": {
     "title": "Histórico",
@@ -381,9 +382,6 @@
     "inStrategy": "Na estratégia",
     "paused": "Plano pausado",
     "moneyStillWorking": "Dinheiro investido ainda trabalhando"
-  },
-  "goalExample": {
-    "name": "Viagem a Lisboa"
   },
   "goalPause": {
     "title": "Pausar este plano?",
