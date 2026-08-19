@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import {
   horizonBandForMonths,
   strategiesForHorizon,
+  strategyProvenance,
   type ProtocolApy,
   type StrategyDef,
 } from '@diboas/defi';
@@ -19,12 +20,6 @@ export function blendedApy(strategy: StrategyDef, apys: ProtocolApy[]): Decimal 
     total = total.plus(new Decimal(apy).mul(leg.weightPercent).div(100));
   }
   return total;
-}
-
-/** True if every leg of the strategy has a live (non-fixture) APY. */
-export function isFullyLive(strategy: StrategyDef, apys: ProtocolApy[]): boolean {
-  const byId = new Map(apys.map((a) => [a.protocolId, a]));
-  return strategy.allocation.every((leg) => byId.get(leg.protocolId)?.stamp.source === 'defillama');
 }
 
 /**
@@ -53,9 +48,21 @@ export function StrategyPicker({
       <p className={styles.note}>
         <FormattedMessage id="goalNew.strategiesNote" />
       </p>
+      <p className={styles.note}>
+        <FormattedMessage id="goalNew.strategiesBands" />
+      </p>
       <ul className={styles.list}>
         {strategies.map((strategy) => {
           const apy = blendedApy(strategy, apys);
+          // The shared three-state predicate (§3-A): the row's rate line says
+          // what the number IS — "real" is reserved for the all-live state.
+          const provenance = strategyProvenance(strategy, apys);
+          const apyMessageId =
+            provenance.state === 'live'
+              ? 'goalNew.apyNow'
+              : provenance.state === 'mixed'
+                ? 'goalNew.apyNowMixed'
+                : 'goalNew.apyNowFixture';
           const checked = selectedId === strategy.id;
           return (
             <li key={strategy.id}>
@@ -92,7 +99,7 @@ export function StrategyPicker({
                   </span>
                   <span className={styles.meta}>
                     <FormattedMessage
-                      id="goalNew.apyNow"
+                      id={apyMessageId}
                       values={{ apy: apy.toDecimalPlaces(2).toNumber() }}
                     />
                     {strategy.riskBand === 'growth' ? (

@@ -16,7 +16,7 @@
 
 import Decimal from 'decimal.js';
 import { recurringDepositDays, type LedgerEvent, type RecurringSchedule } from '@diboas/banking';
-import { replayEarnings, type DailyApySeries } from '@diboas/investing';
+import { ratesForSpan, replayEarnings, type DailyApySeries } from '@diboas/investing';
 
 export interface AdvancePositionInput {
   positionId: string;
@@ -106,6 +106,8 @@ export function planAdvance(input: {
         toSimDay: deposit.day,
         earnings: earnings.toFixed(2),
         apySource: blended.source,
+        // §3 rate-pinning: the SAME mapping replayEarnings used (one shared fn).
+        ratesUsed: ratesForSpan(blended, cursor, deposit.day, toDay),
       });
       value = value.plus(earnings);
       events.push({
@@ -134,6 +136,8 @@ export function planAdvance(input: {
         toSimDay: toDay,
         earnings: earnings.toFixed(2),
         apySource: blended.source,
+        // §3 rate-pinning: the SAME mapping replayEarnings used (one shared fn).
+        ratesUsed: ratesForSpan(blended, cursor, toDay, toDay),
       });
     }
   }

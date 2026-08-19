@@ -327,3 +327,44 @@ describe('planAdvance (C3 annuity replay — pure orchestration)', () => {
     expect(state.positions.find((x) => x.positionId === 'p1')!.principal).toBe('3000.00');
   });
 });
+
+describe('§3 rate-pinning — every emitted AccrualApplied is self-auditing (board §3.7)', () => {
+  it('should pin ratesUsed that recompound to the emitted earnings EXACTLY, across segmented advances', () => {
+    const varied: DailyApySeries = {
+      points: Array.from({ length: 400 }, (_, i) => 3 + (i % 5)),
+      source: 'defillama',
+    };
+    const events = planAdvance({
+      positions: [pos({ principal: '1000.00', accrued: '0.00', accruedThroughSimDay: 0 })],
+      schedules: [
+        { goalId: 'g1', positionId: 'p1', monthlyAmount: '100.00', startSimDay: 0 },
+      ] as RecurringSchedule[],
+      workingStart: '5000.00',
+      blendedByPosition: new Map([['p1', varied]]),
+      toDay: 65, // spans two deposit days → 3 accrual segments
+      days: 65,
+      source: 'machine',
+      stamp,
+    });
+    const accruals = events.filter((e) => e.type === 'AccrualApplied');
+    expect(accruals.length).toBeGreaterThan(1); // segmented, not one span
+    // Rebuild each segment's earnings from ITS OWN pinned rates on the running
+    // value — the "would have" claim audited from the event alone.
+    let value = new Decimal('1000.00');
+    for (const event of events) {
+      if (event.type === 'AccrualApplied') {
+        expect(event.ratesUsed, 'every accrual carries its rates').toBeDefined();
+        expect(event.ratesUsed).toHaveLength(event.toSimDay - event.fromSimDay);
+        let recomputed = value;
+        for (const rate of event.ratesUsed!) {
+          recomputed = recomputed.mul(
+            new Decimal(rate).div(100).plus(1).pow(new Decimal(1).div(365))
+          );
+        }
+        expect(recomputed.minus(value).toDecimalPlaces(2).toFixed(2)).toBe(event.earnings);
+        value = value.plus(event.earnings);
+      }
+      if (event.type === 'RecurringContributionApplied') value = value.plus(event.amount);
+    }
+  });
+});

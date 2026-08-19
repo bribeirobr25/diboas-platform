@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { STRATEGY_CATALOG } from '@diboas/defi';
 import { GOAL_ICONS } from '@diboas/investing';
 import { SANDBOX_LOCALES } from '../config';
 import { flattenMessages, getMessages, getRawMessages } from '../loadMessages';
@@ -147,6 +148,33 @@ describe('B2-5 — GENIUS-Act stablecoin/yield wall (sandbox side)', () => {
           PAIRING.test(msg),
           `${locale}:${id} pairs earn/yield with a stablecoin token: ${msg}`
         ).toBe(false);
+      }
+    }
+  });
+});
+
+describe('E9-c — catalog i18n completeness (a missing key would render a dev token inside a COMPLIANCE stamp)', () => {
+  it('should have protocol + strategy strings for every catalog entry, in every locale', () => {
+    const protocolIds = new Set(
+      STRATEGY_CATALOG.flatMap((s) => s.allocation.map((l) => l.protocolId))
+    );
+    for (const locale of SANDBOX_LOCALES) {
+      const messages = getMessages(locale);
+      for (const id of protocolIds) {
+        expect(
+          messages[`catalog.protocols.${id}`],
+          `${locale}: catalog.protocols.${id}`
+        ).toBeTruthy();
+      }
+      for (const s of STRATEGY_CATALOG) {
+        expect(
+          messages[`catalog.strategies.${s.i18nKey}.name`],
+          `${locale}: ${s.i18nKey}.name`
+        ).toBeTruthy();
+        expect(
+          messages[`catalog.strategies.${s.i18nKey}.tagline`],
+          `${locale}: ${s.i18nKey}.tagline`
+        ).toBeTruthy();
       }
     }
   });

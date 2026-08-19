@@ -62,6 +62,8 @@ export const ONE_OF_EACH: OneOfEach = {
     toSimDay: 30,
     earnings: '5.00',
     apySource: 'defillama',
+    // §3 rate-pinning: present on post-§3 events (backward-compat optional).
+    ratesUsed: Array.from({ length: 30 }, () => 6.5),
   },
   StrategyExited: {
     ...base('e7'),

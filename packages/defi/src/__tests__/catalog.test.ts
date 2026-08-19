@@ -50,17 +50,18 @@ describe('strategiesForHorizon (the objective filter)', () => {
     }
   });
 
-  it('should return at least one stable and one growth option per band (user always has the calm choice)', () => {
+  it('should return EXACTLY two stable and two growth options per band (E11 — the F6 disclosure is a shipped regulatory claim, so the guard is exactly as strong as the claim)', () => {
     for (const band of ['short', 'medium', 'long', 'wealth'] as const) {
       const list = strategiesForHorizon(band);
+      expect(list, band).toHaveLength(4);
       expect(
-        list.some((s) => s.riskBand === 'stable'),
+        list.filter((s) => s.riskBand === 'stable'),
         band
-      ).toBe(true);
+      ).toHaveLength(2);
       expect(
-        list.some((s) => s.riskBand === 'growth'),
+        list.filter((s) => s.riskBand === 'growth'),
         band
-      ).toBe(true);
+      ).toHaveLength(2);
     }
   });
 });

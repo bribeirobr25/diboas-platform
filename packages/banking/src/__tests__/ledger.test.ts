@@ -1445,3 +1445,59 @@ describe('§2.4 D-s simulated events — the spent term goes live (spec: SANDBOX
     expect(state.spent).toBe('1500.00');
   });
 });
+
+describe('§3 rate-pinning (board §3.7) — AccrualApplied.ratesUsed backward-compat guard', () => {
+  it('should project and reconcile IDENTICALLY with and without ratesUsed (audit data, never money math)', () => {
+    const shared = [
+      { ...base(), type: 'PlayMoneyGranted', amount: '10000', currency: 'USD', mode: 'b2c' },
+      {
+        ...base(),
+        type: 'GoalCreated',
+        goalId: 'g1',
+        name: 'Trip',
+        icon: 'plane',
+        targetAmount: '3000',
+        horizonMonths: 12,
+      },
+      { ...base(), type: 'GoalFunded', goalId: 'g1', amount: '2000' },
+      {
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p1',
+        strategyId: 'safeHarbor',
+        amount: '1990',
+        networkFee: '10',
+      },
+    ] satisfies LedgerEvent[];
+    const withoutRates = project([
+      ...shared,
+      {
+        ...base(),
+        type: 'AccrualApplied',
+        positionId: 'p1',
+        fromSimDay: 0,
+        toSimDay: 30,
+        earnings: '9.99',
+        apySource: 'defillama',
+      },
+    ]);
+    const withRates = project([
+      ...shared,
+      {
+        ...base(),
+        type: 'AccrualApplied',
+        positionId: 'p1',
+        fromSimDay: 0,
+        toSimDay: 30,
+        earnings: '9.99',
+        apySource: 'defillama',
+        ratesUsed: Array.from({ length: 30 }, () => 6.1),
+      },
+    ]);
+    expect(withRates.positions[0].accrued).toBe(withoutRates.positions[0].accrued);
+    expect(withRates.goals[0].earnings).toBe(withoutRates.goals[0].earnings);
+    expect(reconcile(withRates)).toBe('0.00');
+    expect(reconcile(withoutRates)).toBe('0.00');
+  });
+});

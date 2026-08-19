@@ -4,6 +4,7 @@ import {
   blendSeries,
   dailyFactorFromApyPercent,
   replayEarnings,
+  ratesForSpan,
   type DailyApySeries,
 } from '../accrual';
 import {
@@ -349,5 +350,29 @@ describe('illustrativeMirror (attested Money Jobs model — MONEY_JOBS_CONSTANTS
 
   it('should return null for invalid income', () => {
     for (const bad of [0, -1, NaN, Infinity]) expect(illustrativeMirror(bad, 'US')).toBeNull();
+  });
+});
+
+describe('ratesForSpan — the §3 rate-pinning slice (same-source with replayEarnings)', () => {
+  const series = { points: [3, 4, 5, 6, 7], source: 'defillama' as const };
+
+  it('should compound to EXACTLY replayEarnings (one shared mapping, board §3.7)', () => {
+    const principal = new Decimal(1000);
+    const earnings = replayEarnings(principal, series, 0, 5);
+    let value = principal;
+    for (const rate of ratesForSpan(series, 0, 5)) {
+      value = value.mul(dailyFactorFromApyPercent(rate));
+    }
+    expect(value.minus(principal).toDecimalPlaces(2).toFixed(2)).toBe(earnings.toFixed(2));
+  });
+
+  it('should keep segment slices contiguous under a shared anchor (the A-1 contract)', () => {
+    const whole = ratesForSpan(series, 0, 5, 5);
+    const segmented = [...ratesForSpan(series, 0, 3, 5), ...ratesForSpan(series, 3, 5, 5)];
+    expect(segmented).toEqual(whole);
+  });
+
+  it('should clamp early days to the oldest point (spans longer than the series)', () => {
+    expect(ratesForSpan({ points: [9], source: 'fixture' }, 0, 3)).toEqual([9, 9, 9]);
   });
 });

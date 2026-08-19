@@ -76,6 +76,30 @@ export function blendSeries(legs: BlendLeg[]): DailyApySeries {
  * contiguous and their union is identical to the single-call slice (proven by
  * the equivalence test).
  */
+/**
+ * The exact daily APY percents a replay of `(fromDay, toDay]` uses, in day
+ * order (§3 rate-pinning, board §3.7). ONE mapping shared by `replayEarnings`
+ * and the event pinning — so the rates stamped into `AccrualApplied.ratesUsed`
+ * are the rates that produced the earnings BY CONSTRUCTION, never a parallel
+ * computation that could drift. Same `anchorDay` contract as `replayEarnings`.
+ */
+export function ratesForSpan(
+  series: DailyApySeries,
+  fromDay: number,
+  toDay: number,
+  anchorDay: number = toDay
+): number[] {
+  const rates: number[] = [];
+  const n = series.points.length;
+  for (let day = fromDay + 1; day <= toDay; day += 1) {
+    // Map sim day → series index so that `anchorDay` lands on the newest point
+    // and each earlier day steps one point back (contiguous across segments).
+    const idx = Math.max(0, Math.min(n - 1, n - 1 - (anchorDay - day)));
+    rates.push(series.points[idx] ?? 0);
+  }
+  return rates;
+}
+
 export function replayEarnings(
   principal: Decimal.Value,
   series: DailyApySeries,
@@ -85,13 +109,8 @@ export function replayEarnings(
 ): Decimal {
   let value = new Decimal(principal);
   const start = new Decimal(principal);
-  const n = series.points.length;
-  for (let day = fromDay + 1; day <= toDay; day += 1) {
-    // Map sim day → series index so that `anchorDay` lands on the newest point
-    // and each earlier day steps one point back (contiguous across segments).
-    const idx = Math.max(0, Math.min(n - 1, n - 1 - (anchorDay - day)));
-    const factor = dailyFactorFromApyPercent(series.points[idx] ?? 0);
-    value = value.mul(factor);
+  for (const rate of ratesForSpan(series, fromDay, toDay, anchorDay)) {
+    value = value.mul(dailyFactorFromApyPercent(rate));
   }
   return value.minus(start).toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
 }

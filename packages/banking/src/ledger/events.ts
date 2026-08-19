@@ -75,6 +75,15 @@ export interface AccrualApplied extends EventBase {
   earnings: string; // may be negative for growth strategies in a down replay
   /** Provenance of the APY series used (Data Vintage honesty). */
   apySource: 'defillama' | 'fixture';
+  /**
+   * The exact daily APY percents this span replayed, in day order (§3
+   * rate-pinning, board §3.7): the "would have" claim becomes self-auditing —
+   * compounding these rates over the span reproduces `earnings` exactly, with
+   * no external archive to keep in sync. OPTIONAL for backward-compat: events
+   * appended before §3 lack it (like the `source ?? 'machine'` precedent);
+   * the projection never reads it (display/audit data, not money math).
+   */
+  ratesUsed?: number[];
 }
 
 /** Position exit: 0.39% fee with $0.25 floor, no cap (FE-1a), principal+earnings return to the goal. */

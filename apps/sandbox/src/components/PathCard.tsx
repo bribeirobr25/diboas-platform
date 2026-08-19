@@ -1,6 +1,7 @@
 'use client';
 
 import { FormattedMessage, useIntl } from 'react-intl';
+import { FIXTURE_AS_OF, strategyProvenance } from '@diboas/defi';
 import type { GasQuote, ProtocolApy, StrategyDef } from '@diboas/defi';
 import { EXIT_FEE_FLOOR } from '@diboas/banking';
 import { useFormatters } from '@/hooks/useFormatters';
@@ -39,15 +40,14 @@ export function PathCard({
   const { money, date } = useFormatters(currency);
   const strategyName = intl.formatMessage({ id: `catalog.strategies.${strategy.i18nKey}.name` });
   const fee = networkFeeLocal(gas, strategy.entryChain, usdPriceLocal);
-  const byId = new Map(apys.map((a) => [a.protocolId, a]));
-  const anyFixture = strategy.allocation.some(
-    (leg) => byId.get(leg.protocolId)?.stamp.source !== 'defillama'
-  );
-  const newestStamp = strategy.allocation
-    .map((leg) => byId.get(leg.protocolId)?.stamp.asOf)
-    .filter(Boolean)
-    .sort()
-    .at(-1);
+  // The shared three-state predicate (§3-A) replaces the deleted inline
+  // `anyFixture` — the mixed stamp NAMES the reference protocols (E5/board
+  // §3.11), and the fixture date flows from FIXTURE_AS_OF through the locale
+  // formatter (P-F4b: no hardcoded date literal).
+  const provenance = strategyProvenance(strategy, apys);
+  const fixtureProtocolNames = provenance.fixtureProtocolIds
+    .map((id) => intl.formatMessage({ id: `catalog.protocols.${id}` }))
+    .join(', ');
 
   return (
     <aside className={styles.wrap} aria-labelledby="pathcard-title">
@@ -113,13 +113,23 @@ export function PathCard({
         <FormattedMessage id="pathCard.noPromise" />
       </p>
       <p className={styles.stamp}>
-        {anyFixture || !newestStamp ? (
-          <FormattedMessage id="common.dataFixture" values={{ date: '2026-07-18' }} />
-        ) : (
+        {provenance.state === 'live' ? (
           <FormattedMessage
             id="common.dataLive"
-            values={{ source: 'DeFiLlama', date: date(newestStamp) }}
+            values={{ source: 'DeFiLlama', date: date(provenance.newestLiveAsOf!) }}
           />
+        ) : provenance.state === 'mixed' ? (
+          <FormattedMessage
+            id="common.dataMixed"
+            values={{
+              source: 'DeFiLlama',
+              date: date(provenance.newestLiveAsOf!),
+              fixtureDate: date(FIXTURE_AS_OF),
+              protocols: fixtureProtocolNames,
+            }}
+          />
+        ) : (
+          <FormattedMessage id="common.dataFixture" values={{ date: date(FIXTURE_AS_OF) }} />
         )}
       </p>
     </aside>
