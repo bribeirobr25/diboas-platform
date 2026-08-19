@@ -20,7 +20,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
 
-const MARKET_DIR = join(__dirname, '../../../../data/market');
+const MARKET_DIR = join(__dirname, '../../../../data/market/shared');
 
 const computed = JSON.parse(readFileSync(join(MARKET_DIR, 'computed.json'), 'utf8')) as {
   score: number;

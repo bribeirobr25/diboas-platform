@@ -20,14 +20,14 @@ import dataStatus from '../fixtures/data-status.json';
 import methodology from '../fixtures/methodology.json';
 import productDisclaimer from '../fixtures/product-disclaimer.json';
 
-// Iteration 3 editorial dataset (apps/web/data/market/). Imported via the
-// same `@/../data/market/...` path the server fetcher uses (mock-client.server.ts).
-import editorialRegime from '@/../data/market/regime.json';
-import editorialHistorical from '@/../data/market/historical.json';
-import editorialSignals from '@/../data/market/signals.json';
-import editorialDataStatus from '@/../data/market/data-status.json';
-import editorialMethodology from '@/../data/market/methodology.json';
-import editorialProductDisclaimer from '@/../data/market/product-disclaimer.json';
+// Iteration 3 editorial dataset (apps/web/data/market/shared/). Imported via the
+// same `@/../data/market/shared/...` path the server fetcher uses (mock-client.server.ts).
+import editorialRegime from '@/../data/market/shared/regime.json';
+import editorialHistorical from '@/../data/market/shared/historical.json';
+import editorialSignals from '@/../data/market/shared/signals.json';
+import editorialDataStatus from '@/../data/market/shared/data-status.json';
+import editorialMethodology from '@/../data/market/shared/methodology.json';
+import editorialProductDisclaimer from '@/../data/market/shared/product-disclaimer.json';
 
 const LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
 const REGIME_CODES = [
@@ -243,7 +243,7 @@ describe('analytics-sdk fixtures — product-disclaimer schema drift guard', () 
 });
 
 // ============================================================================
-// Iteration 3 — editorial dataset drift guard (apps/web/data/market/)
+// Iteration 3 — editorial dataset drift guard (apps/web/data/market/shared/)
 //
 // The editorial dataset is the live data source for `/market`. It starts
 // byte-identical to the iter-2 fixtures (per §3.1 copy-not-move) and diverges

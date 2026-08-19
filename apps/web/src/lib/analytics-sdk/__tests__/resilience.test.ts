@@ -97,8 +97,8 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  vi.doUnmock('@/../data/market/regime.json');
-  vi.doUnmock('@/../data/market/signals.json');
+  vi.doUnmock('@/../data/market/shared/regime.json');
+  vi.doUnmock('@/../data/market/shared/signals.json');
   vi.resetModules();
 });
 
@@ -108,7 +108,7 @@ async function loadFreshModule() {
 
 describe('analytics-sdk — composite resilience (regime + signals transforms)', () => {
   it('returns regime: null when underlying regime.json is malformed; other endpoints populated', async () => {
-    vi.doMock('@/../data/market/regime.json', () => ({ default: MALFORMED_REGIME }));
+    vi.doMock('@/../data/market/shared/regime.json', () => ({ default: MALFORMED_REGIME }));
 
     const mod = await loadFreshModule();
     const result = await mod.fetchInitialAnalyticsData('en');
@@ -122,7 +122,7 @@ describe('analytics-sdk — composite resilience (regime + signals transforms)',
   });
 
   it('returns signals: null when underlying signals.json is malformed; other endpoints populated', async () => {
-    vi.doMock('@/../data/market/signals.json', () => ({ default: MALFORMED_SIGNALS }));
+    vi.doMock('@/../data/market/shared/signals.json', () => ({ default: MALFORMED_SIGNALS }));
 
     const mod = await loadFreshModule();
     const result = await mod.fetchInitialAnalyticsData('en');
@@ -136,8 +136,8 @@ describe('analytics-sdk — composite resilience (regime + signals transforms)',
   });
 
   it('returns regime + signals both null when both upstreams are malformed; pass-through endpoints still populated', async () => {
-    vi.doMock('@/../data/market/regime.json', () => ({ default: MALFORMED_REGIME }));
-    vi.doMock('@/../data/market/signals.json', () => ({ default: MALFORMED_SIGNALS }));
+    vi.doMock('@/../data/market/shared/regime.json', () => ({ default: MALFORMED_REGIME }));
+    vi.doMock('@/../data/market/shared/signals.json', () => ({ default: MALFORMED_SIGNALS }));
 
     const mod = await loadFreshModule();
     const result = await mod.fetchInitialAnalyticsData('en');
@@ -152,7 +152,7 @@ describe('analytics-sdk — composite resilience (regime + signals transforms)',
   });
 
   it('returns the full shape (no missing keys) regardless of which endpoint throws — pages can rely on the contract', async () => {
-    vi.doMock('@/../data/market/regime.json', () => ({ default: MALFORMED_REGIME }));
+    vi.doMock('@/../data/market/shared/regime.json', () => ({ default: MALFORMED_REGIME }));
 
     const mod = await loadFreshModule();
     const result = await mod.fetchInitialAnalyticsData('en');

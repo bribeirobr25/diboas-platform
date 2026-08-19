@@ -70,6 +70,7 @@ import { readSnapshots } from './lib/etf-flows.mjs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '../../../..');
 const MARKET_DIR = path.join(REPO_ROOT, 'apps/web/data/market');
+const SHARED_DIR = path.join(MARKET_DIR, 'shared'); // 5.92: run-shared outputs
 const TPL_DIR = path.join(__dirname, 'templates');
 
 const LOCALES = ['en', 'pt-BR', 'es', 'de'];
@@ -79,7 +80,7 @@ const HISTORICAL_CAP = 52;
 const read = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
 const readIfExists = (p) => (fs.existsSync(p) ? read(p) : null);
 
-const computed = read(path.join(MARKET_DIR, 'computed.json'));
+const computed = read(path.join(SHARED_DIR, 'computed.json'));
 const signalTpl = read(path.join(TPL_DIR, 'signal-sentences.json'));
 const groupTpl = read(path.join(TPL_DIR, 'group-summaries.json'));
 const signalLabels = read(path.join(TPL_DIR, 'signal-labels.json'));
@@ -89,7 +90,7 @@ const phrases = read(path.join(TPL_DIR, 'plain-phrases.json'));
 // Cycle-scoped (B2): a stale or unstamped _cycle ⇒ the whole file is ignored
 // with a warning — an override never outlives the cycle it was written for.
 const overrides = activeOverrides(
-  readIfExists(path.join(MARKET_DIR, 'editorial-override.json')),
+  readIfExists(path.join(SHARED_DIR, 'editorial-override.json')),
   computed.computed_at
 );
 
@@ -242,7 +243,7 @@ function signalSentence(id, locale) {
 /** Most recent snapshot on a DIFFERENT date than today's (the prior refresh), or
  *  null if none — the basis for the week-over-week lead-in. */
 function priorSnapshot() {
-  const hist = read(path.join(MARKET_DIR, 'historical.json'));
+  const hist = read(path.join(SHARED_DIR, 'historical.json'));
   const snaps = hist.snapshots ?? [];
   const today = computed.computed_at.slice(0, 10);
   for (let i = snaps.length - 1; i >= 0; i -= 1) {
@@ -256,7 +257,7 @@ function priorSnapshot() {
  *  stands alone rather than claim a comparison against seed data. Priority:
  *  band change > score move > held. */
 function weeklyOpener(locale) {
-  const hist = read(path.join(MARKET_DIR, 'historical.json'));
+  const hist = read(path.join(SHARED_DIR, 'historical.json'));
   // FORCE_WEEKLY_OPENER=1 previews the opener before the real ledger flips
   // synthetic_seed to false (dev/preview only — never set in CI/prod, so the
   // committed output and the drift gate stay opener-off until the data is real).
@@ -355,7 +356,7 @@ function generate() {
 
 // ── historical append + prune + seed flip ───────────────────────────────────
 function nextHistorical(archiveRealCount) {
-  const hist = read(path.join(MARKET_DIR, 'historical.json'));
+  const hist = read(path.join(SHARED_DIR, 'historical.json'));
   const date = `${computed.computed_at.slice(0, 10)}T00:00:00Z`;
   const snaps = hist.snapshots.filter((s) => s.date !== date);
   snaps.push({ date, score: computed.score, regime_code: computed.regime_code });
@@ -364,7 +365,7 @@ function nextHistorical(archiveRealCount) {
   return { ...hist, synthetic_seed: seed, snapshots: pruned };
 }
 function realSnapshotCount() {
-  const archivePath = path.join(MARKET_DIR, 'run-archive.jsonl');
+  const archivePath = path.join(SHARED_DIR, 'run-archive.jsonl');
   if (!fs.existsSync(archivePath)) return 0;
   return fs.readFileSync(archivePath, 'utf8').split('\n').filter(Boolean).length;
 }
@@ -390,8 +391,8 @@ async function writeJsonFormatted(p, obj) {
 }
 
 async function patchEditorial(gen, write) {
-  const regimePath = path.join(MARKET_DIR, 'regime.json');
-  const signalsPath = path.join(MARKET_DIR, 'signals.json');
+  const regimePath = path.join(SHARED_DIR, 'regime.json');
+  const signalsPath = path.join(SHARED_DIR, 'signals.json');
   const regime = read(regimePath);
   const signals = read(signalsPath);
   const drift = [];
@@ -492,21 +493,21 @@ async function patchEditorial(gen, write) {
     drift.push('regime.data_status');
     regime.data_status = derivedStatus;
   }
-  const dataStatusPath = path.join(MARKET_DIR, 'data-status.json');
+  const dataStatusPath = path.join(SHARED_DIR, 'data-status.json');
   const nextDataStatus = { _comment: DATA_STATUS_COMMENT, ...derivedStatus };
   if (JSON.stringify(read(dataStatusPath)) !== JSON.stringify(nextDataStatus)) {
     drift.push('data-status.json');
   }
 
   const nextHist = nextHistorical(realSnapshotCount());
-  const curHist = read(path.join(MARKET_DIR, 'historical.json'));
+  const curHist = read(path.join(SHARED_DIR, 'historical.json'));
   if (JSON.stringify(curHist) !== JSON.stringify(nextHist)) drift.push('historical.json');
 
   if (write) {
     await writeJsonFormatted(regimePath, regime);
     await writeJsonFormatted(signalsPath, signals);
     await writeJsonFormatted(dataStatusPath, nextDataStatus);
-    await writeJsonFormatted(path.join(MARKET_DIR, 'historical.json'), nextHist);
+    await writeJsonFormatted(path.join(SHARED_DIR, 'historical.json'), nextHist);
   }
   return drift;
 }

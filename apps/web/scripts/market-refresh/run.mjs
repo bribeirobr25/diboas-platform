@@ -53,10 +53,14 @@ import { fetchBtcMonthCloseVerifier } from './providers/coingecko.mjs';
 import { btcMonths, appendBtcMonth, REPO_ROOT } from './providers/inrepo.mjs';
 
 const MARKET_DIR = path.join(REPO_ROOT, 'apps/web/data/market');
-const COMPUTED_PATH = path.join(MARKET_DIR, 'computed.json');
-const REGIME_PATH = path.join(MARKET_DIR, 'regime.json');
-const ARCHIVE_PATH = path.join(MARKET_DIR, 'run-archive.jsonl');
-const ETF_MANUAL_PATH = path.join(MARKET_DIR, 'etf01-manual.json');
+// 5.92 (2026-08-19): the weekly run's outputs are SHARED across views (bitcoin,
+// backdrop, umbrella) — they live in shared/; view-specific data (future gold
+// etc.) gets data/market/<slug>/. Registry dataDir names the subdir.
+const SHARED_DIR = path.join(MARKET_DIR, 'shared');
+const COMPUTED_PATH = path.join(SHARED_DIR, 'computed.json');
+const REGIME_PATH = path.join(SHARED_DIR, 'regime.json');
+const ARCHIVE_PATH = path.join(SHARED_DIR, 'run-archive.jsonl');
+const ETF_MANUAL_PATH = path.join(SHARED_DIR, 'etf01-manual.json');
 
 const TODAY = new Date();
 
