@@ -131,6 +131,9 @@ export function GoalsListScreen({ locale }: { locale: SandboxLocale }) {
                     locale={locale}
                     goal={goal}
                     current={goalCurrentValue(state, goal.goalId)}
+                    hasOpenPositions={state.positions.some(
+                      (p) => p.goalId === goal.goalId && p.open
+                    )}
                   />
                 ) : (
                   <GoalDetailCard locale={locale} goal={goal} state={state} />
