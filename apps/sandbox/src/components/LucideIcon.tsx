@@ -13,7 +13,9 @@ import {
   BookOpen,
   EyeOff,
   Briefcase,
+  Calendar,
   Car,
+  Coins,
   Check,
   ChevronRight,
   Clock,
@@ -50,6 +52,7 @@ import {
   User,
   Wallet,
   X,
+  Zap,
   type LucideIcon as LucideIconType,
 } from 'lucide-react';
 
@@ -59,6 +62,8 @@ const ICONS: Record<string, LucideIconType> = {
   'arrow-right-left': ArrowRightLeft,
   'bar-chart': BarChart3,
   bell: Bell,
+  calendar: Calendar,
+  coins: Coins,
   'book-open': BookOpen,
   'eye-off': EyeOff,
   briefcase: Briefcase,
@@ -99,6 +104,7 @@ const ICONS: Record<string, LucideIconType> = {
   user: User,
   wallet: Wallet,
   x: X,
+  zap: Zap,
 };
 
 export type IconName = keyof typeof ICONS;

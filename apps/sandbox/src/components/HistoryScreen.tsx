@@ -6,14 +6,14 @@ import { getStrategy } from '@diboas/defi';
 import type { LedgerEvent } from '@diboas/banking';
 import { useLedger } from '@/hooks/useLedger';
 import { useFormatters } from '@/hooks/useFormatters';
-import { LucideIcon } from './LucideIcon';
+import { LucideIcon, type IconName } from './LucideIcon';
 import styles from './HistoryScreen.module.css';
 
 type Sign = 'pos' | 'neg' | null;
 
 /** Per-event display: an icon, and the signed amount (money-in green +,
  *  money-out dark -, config/no-value events a dash). */
-function display(event: LedgerEvent): { icon: string; amount: string | null; sign: Sign } {
+function display(event: LedgerEvent): { icon: IconName; amount: string | null; sign: Sign } {
   switch (event.type) {
     case 'PlayMoneyGranted':
       return { icon: 'gift', amount: event.amount, sign: 'pos' };
