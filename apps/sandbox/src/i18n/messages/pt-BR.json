@@ -532,5 +532,29 @@
     },
     "pausedLine1": "Plano pausado",
     "pausedLine2": "O dinheiro segue trabalhando"
+  },
+  "goalComplete": {
+    "saved": "Você guardou",
+    "ofTarget": "de {target}",
+    "wellDone": "Você manteve a consistência e cuidou do seu eu do futuro. Muito bem.",
+    "whatNext": "O que você quer fazer agora?",
+    "keepWorking": "Continuar rendendo",
+    "keepWorkingNote": "O dinheiro segue na estratégia e esta meta é encerrada.",
+    "stopStrategy": "Parar a estratégia",
+    "stopStrategyNote": "Tire o dinheiro primeiro. Você vê o custo completo antes de qualquer movimento.",
+    "holdAsCash": "Manter como dinheiro",
+    "holdAsCashNote": "O dinheiro fica aqui parado e esta meta é encerrada.",
+    "moveToGoal": "Mover para outra meta",
+    "moveToGoalNote": "Mover {amount} para outra meta e encerrar esta.",
+    "raiseTarget": "Aumentar o alvo",
+    "raiseTargetNote": "Manter esta meta aberta e mirar mais longe.",
+    "transferTitle": "Para qual meta deve ir?",
+    "transferPositionsStay": "O dinheiro que está trabalhando numa estratégia permanece onde está. Só o valor parado se move.",
+    "transferEmpty": "Não há outra meta aberta para receber.",
+    "raiseTitle": "Aumentar o alvo",
+    "newTargetLabel": "Novo alvo",
+    "currentTarget": "Agora: {amount}",
+    "raiseCta": "Salvar o novo alvo",
+    "reviewCta": "Revisar e encerrar"
   }
 }

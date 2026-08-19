@@ -436,3 +436,19 @@
 .actionTileIconPause {
   color: var(--text-warning-accessible);
 }
+
+/* G4 entry: the calm "review and close" affordance on a reached goal. */
+.reviewCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  min-height: var(--sb-tap);
+  margin-top: var(--spacing-2xs);
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--text-brand-accessible);
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}

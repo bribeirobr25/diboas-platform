@@ -17,6 +17,7 @@
 
 export { flush, getLedgerState, getReady, resetSandbox, subscribe } from './ledger/core';
 export {
+  accomplishGoal,
   advanceTime,
   createGoal,
   enterStrategy,
@@ -24,9 +25,11 @@ export {
   grantPlayMoney,
   pauseGoal,
   previewExit,
+  raiseGoalTarget,
   resumeGoal,
   setRecurring,
   splitEntry,
+  transferGoalCash,
 } from './ledger/journey';
 export {
   applyRuleProposal,

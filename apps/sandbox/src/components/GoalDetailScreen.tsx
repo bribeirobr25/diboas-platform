@@ -11,6 +11,7 @@ import { useLedger } from '@/hooks/useLedger';
 import { useMarket } from '@/hooks/useMarket';
 import { useFormatters } from '@/hooks/useFormatters';
 import {
+  accomplishGoal,
   enterStrategy,
   exitPosition,
   pauseGoal,
@@ -22,6 +23,7 @@ import { goalCurrentValue } from '@/lib/goalValue';
 import { positionValueSeries } from '@/lib/positionSeries';
 import { BottomSheet } from './BottomSheet';
 import { LucideIcon } from './LucideIcon';
+import { GoalCompletionScreen } from './GoalCompletionScreen';
 import { GoalPauseSheet } from './GoalPauseSheet';
 import { Manifest } from './Manifest';
 import { PathCard, networkFeeLocal } from './PathCard';
@@ -68,6 +70,10 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   >(null);
   const [busy, setBusy] = useState(false);
   const [pauseSheet, setPauseSheet] = useState(false);
+  const [showCompletion, setShowCompletion] = useState(false);
+  // G4: the user chose "Stop strategy" from the completion screen — close the
+  // goal as held-as-cash once the LAST open position has actually exited.
+  const [completeAfterExit, setCompleteAfterExit] = useState(false);
 
   const current = useMemo(() => goalCurrentValue(state, goalId), [state, goalId]);
 
@@ -115,6 +121,12 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
       ? networkFeeLocal(market.gas, posStrategy.entryChain, market.usdPriceLocal)
       : 0;
     exitPosition({ positionId, networkFeeLocal: fee });
+    // Only close the goal when nothing is left working (a partial stop must
+    // never mark a goal "held as cash" while money is still in a strategy).
+    if (completeAfterExit && openPositions.length === 1) {
+      accomplishGoal(goalId, 'held-as-cash');
+    }
+    setCompleteAfterExit(false);
     setBusy(false);
     setSettling(null);
     setExitManifestFor(null);
@@ -149,6 +161,29 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
       <span className={styles.progressFill} style={{ width: `${ratio}%` }} />
     </span>
   );
+
+  if (showCompletion) {
+    return (
+      <GoalCompletionScreen
+        goal={goal}
+        state={state}
+        onClose={() => setShowCompletion(false)}
+        onStopStrategy={
+          openPositions.length > 0
+            ? () => {
+                // The REAL exit path (board §3.1): the manifest itemizes, and
+                // the goal closes as held-as-cash only after the last position
+                // actually exits.
+                setCompleteAfterExit(true);
+                setShowCompletion(false);
+                setView('detailed');
+                setExitManifestFor(openPositions[0].positionId);
+              }
+            : undefined
+        }
+      />
+    );
+  }
 
   return (
     <section className={styles.wrap} aria-labelledby="goaldetail-title">
@@ -185,9 +220,21 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
               <FormattedMessage id="goalsList.status.accomplished" />
             </p>
           ) : targetReached ? (
-            <p className={styles.statusLine} role="status">
-              <FormattedMessage id="goalDetail.milestoneTitle" />
-            </p>
+            <>
+              <p className={styles.statusLine} role="status">
+                <FormattedMessage id="goalDetail.milestoneTitle" />
+              </p>
+              {/* D-e §3: the user opens the completion state themselves — a
+                  calm affordance, never an auto-modal, never a nag. */}
+              <button
+                type="button"
+                className={styles.reviewCta}
+                onClick={() => setShowCompletion(true)}
+              >
+                <FormattedMessage id="goalComplete.reviewCta" />
+                <LucideIcon name="chevron-right" size={16} />
+              </button>
+            </>
           ) : null}
         </div>
       </div>

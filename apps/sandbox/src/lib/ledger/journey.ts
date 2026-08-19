@@ -65,6 +65,97 @@ export function resumeGoal(goalId: string): void {
   ]);
 }
 
+/**
+ * Close a reached goal by the user's disposition (G4 / D-e §3): "reached is a
+ * fact, accomplished is a CHOICE — the moment belongs to the user, not to
+ * arithmetic." Zero-value itself; any money rides its own events (below).
+ * `kept-working` leaves positions working; `held-as-cash` follows an exit.
+ */
+export function accomplishGoal(
+  goalId: string,
+  disposition: 'kept-working' | 'held-as-cash' | 'transferred'
+): void {
+  const goal = getLedgerState().goals.find((g) => g.goalId === goalId);
+  if (!goal || (goal.status !== 'active' && goal.status !== 'paused')) return;
+  appendAll([
+    {
+      ...base(generateId()),
+      type: 'GoalAccomplished',
+      goalId,
+      disposition,
+      expectedVersion: goal.version,
+    },
+  ]);
+}
+
+/**
+ * "Move to another goal" (G4, board §3.1): release this goal's CASH → fund the
+ * destination → close as `transferred`, one correlationId. Invested positions
+ * do NOT move (W-17e reassignment is its own act) — the surface discloses that.
+ * Version sequencing matters: `GoalCashReleased` bumps the goal's version when
+ * it really releases, so the closing event must expect version+1; with no cash
+ * there is no release event and the version is unchanged.
+ */
+export function transferGoalCash(fromGoalId: string, toGoalId: string): void {
+  const state = getLedgerState();
+  const from = state.goals.find((g) => g.goalId === fromGoalId);
+  const to = state.goals.find((g) => g.goalId === toGoalId);
+  if (!from || !to || from.goalId === to.goalId) return;
+  if (from.status !== 'active' && from.status !== 'paused') return;
+  if (to.status !== 'active') return;
+  const cash = new Decimal(from.cash);
+  const correlationId = generateId();
+  const events: LedgerEvent[] = [];
+  if (cash.gt(0)) {
+    events.push({
+      ...base(correlationId),
+      type: 'GoalCashReleased',
+      goalId: fromGoalId,
+      amount: cash.toFixed(2),
+      expectedVersion: from.version,
+    });
+    events.push({
+      ...base(correlationId),
+      type: 'GoalFunded',
+      goalId: toGoalId,
+      amount: cash.toFixed(2),
+    });
+  }
+  events.push({
+    ...base(correlationId),
+    type: 'GoalAccomplished',
+    goalId: fromGoalId,
+    disposition: 'transferred',
+    // A real release bumped the version; no release left it untouched.
+    expectedVersion: cash.gt(0) ? from.version + 1 : from.version,
+  });
+  appendAll(events);
+}
+
+/**
+ * "Raise the target" (G4, board §3.1): `GoalTargetChanged` ONLY — the goal
+ * stays **active** and emits NO `GoalAccomplished` ("growing an ambition is
+ * not completing-then-restarting", D-e §3). Because `target_reached` is
+ * derived (`current >= target`, never stored), raising the target clears the
+ * completion state automatically — no extra event, no stale flag.
+ */
+export function raiseGoalTarget(goalId: string, newTarget: number): void {
+  const goal = getLedgerState().goals.find((g) => g.goalId === goalId);
+  if (!goal || goal.status !== 'active') return;
+  const next = new Decimal(newTarget);
+  if (!next.isFinite() || next.lte(goal.targetAmount)) return; // raise only
+  appendAll([
+    {
+      ...base(generateId()),
+      type: 'GoalTargetChanged',
+      goalId,
+      oldTarget: goal.targetAmount,
+      newTarget: next.toFixed(2),
+      expectedVersion: goal.version,
+    },
+  ]);
+}
+
 export function createGoal(input: {
   name: string;
   icon: string;

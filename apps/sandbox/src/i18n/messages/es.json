@@ -532,5 +532,29 @@
     },
     "pausedLine1": "Plan paused",
     "pausedLine2": "Money still working"
+  },
+  "goalComplete": {
+    "saved": "You saved",
+    "ofTarget": "of {target}",
+    "wellDone": "You stayed consistent and took care of future you. Well done.",
+    "whatNext": "What would you like to do next?",
+    "keepWorking": "Keep working",
+    "keepWorkingNote": "The money stays in its strategy, and this goal closes.",
+    "stopStrategy": "Stop strategy",
+    "stopStrategyNote": "Take the money out first. You'll see the full cost before anything moves.",
+    "holdAsCash": "Hold as cash",
+    "holdAsCashNote": "The money stays here as cash, and this goal closes.",
+    "moveToGoal": "Move to another goal",
+    "moveToGoalNote": "Move {amount} to another goal and close this one.",
+    "raiseTarget": "Raise the target",
+    "raiseTargetNote": "Keep this goal open and aim further.",
+    "transferTitle": "Which goal should it move to?",
+    "transferPositionsStay": "Money working in a strategy stays where it is. Only the cash moves.",
+    "transferEmpty": "There's no other open goal to move it to.",
+    "raiseTitle": "Raise the target",
+    "newTargetLabel": "New target",
+    "currentTarget": "Now: {amount}",
+    "raiseCta": "Save the new target",
+    "reviewCta": "Review and close"
   }
 }
