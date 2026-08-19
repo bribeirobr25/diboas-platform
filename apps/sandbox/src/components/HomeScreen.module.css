@@ -109,11 +109,6 @@
   font-weight: var(--font-weight-medium);
   text-decoration: none;
 }
-.viewAll[data-disabled='true'] {
-  color: var(--sb-text-muted);
-  opacity: 0.55;
-  cursor: default;
-}
 
 .goals {
   list-style: none;
