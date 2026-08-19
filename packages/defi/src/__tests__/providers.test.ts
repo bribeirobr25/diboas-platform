@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { SANDBOX_MARKET_TTL_MS } from '../types';
 import { CoinGeckoPriceProvider } from '../providers/coingecko';
 import { DefiLlamaApyProvider, matchPool } from '../providers/defillama';
 import { FixtureGasProvider } from '../providers/gas';
@@ -112,5 +113,11 @@ describe('FixtureGasProvider', () => {
       expect(quote.stamp.source).toBe('fixture');
       expect(quote.typicalFeeUsd).toBeGreaterThan(0);
     }
+  });
+});
+
+describe('the ruled sandbox market TTL (founder 2026-08-19, P2BD-14 — drift guard)', () => {
+  it('should hold every provider cache to the 6-hour refresh bound', () => {
+    expect(SANDBOX_MARKET_TTL_MS).toBe(6 * 60 * 60 * 1000);
   });
 });

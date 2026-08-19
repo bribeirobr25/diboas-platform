@@ -11,6 +11,7 @@
 
 import { FIXTURE_AS_OF, FIXTURE_FX_FROM_USD, FIXTURE_PRICES_USD } from '../fixtures';
 import type { AssetId, DisplayCurrency, IPriceProvider, PriceQuote } from '../types';
+import { SANDBOX_MARKET_TTL_MS } from '../types';
 
 const API_BASE = 'https://api.coingecko.com/api/v3';
 
@@ -31,8 +32,11 @@ interface CacheEntry {
   value: Record<string, Record<string, number>>;
 }
 
-/** One cached call covers all assets × all three currencies. */
-const PRICE_TTL_MS = 5 * 60 * 1000;
+/** One cached call covers all assets × all three currencies.
+ *  Founder-ruled 6 h (2026-08-19, was 5 min): sandbox market data refreshes at
+ *  most every 6 hours — free-tier protection at visitor scale (see the
+ *  defillama provider's TTL note + P2BD-14). */
+const PRICE_TTL_MS = SANDBOX_MARKET_TTL_MS;
 let priceCache: CacheEntry | null = null;
 
 export class CoinGeckoPriceProvider implements IPriceProvider {

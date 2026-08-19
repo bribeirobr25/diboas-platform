@@ -14,6 +14,7 @@
 
 import { FIXTURE_APYS } from '../fixtures';
 import type { ApyPoint, IApyProvider, ProtocolApy, ProtocolApyHistory, ProtocolId } from '../types';
+import { SANDBOX_MARKET_TTL_MS } from '../types';
 
 const POOLS_URL = 'https://yields.llama.fi/pools';
 const CHART_URL = 'https://yields.llama.fi/chart/';
@@ -75,9 +76,16 @@ interface CacheEntry<T> {
   value: T;
 }
 
-/** Module-level caches (server runtime). TTLs sized to the free-tier budget. */
-const POOLS_TTL_MS = 30 * 60 * 1000; // the pools feed is one big call — 30 min is plenty
-const CHART_TTL_MS = 6 * 60 * 60 * 1000; // daily-granularity history — 6 h
+/**
+ * Module-level caches (server runtime). ONE ruled TTL (founder 2026-08-19):
+ * every externally-fetched market value in the SANDBOX refreshes at most every
+ * 6 hours — free-tier protection at visitor scale (1k/10k/100k visits must
+ * never fan out to the providers). Real-time data is the REAL app's property,
+ * served by paid APIs through the analytics layer (P2BD-14); the stamps stay
+ * honest either way (asOf = the actual fetch moment).
+ */
+const POOLS_TTL_MS = SANDBOX_MARKET_TTL_MS; // founder-ruled 6 h (was 30 min)
+const CHART_TTL_MS = SANDBOX_MARKET_TTL_MS; // daily-granularity history — 6 h
 let poolsCache: CacheEntry<LlamaPool[]> | null = null;
 const chartCache = new Map<string, CacheEntry<ApyPoint[]>>();
 

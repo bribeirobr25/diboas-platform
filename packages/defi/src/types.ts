@@ -111,3 +111,12 @@ export interface IPriceProvider {
 export interface IGasProvider {
   getGas(chain: Chain): Promise<GasQuote>;
 }
+
+/**
+ * THE ruled sandbox market-data refresh bound (founder 2026-08-19, P2BD-14):
+ * every externally-fetched market value (APYs, pools, prices, history)
+ * refreshes at most every 6 hours — free-tier protection at visitor scale.
+ * Real-time is the REAL app's property (paid APIs via the analytics serving
+ * layer). One constant, consumed by every provider cache; pinned by test.
+ */
+export const SANDBOX_MARKET_TTL_MS = 6 * 60 * 60 * 1000;
