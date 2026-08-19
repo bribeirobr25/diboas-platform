@@ -16,12 +16,7 @@ import type { RuleState, RuleStatus } from '../state';
 import type { ProjectionContext } from './context';
 
 export type RuleEvent =
-  | RuleCreated
-  | RuleUpdated
-  | RulePaused
-  | RuleResumed
-  | RuleDeleted
-  | RuleApplied;
+  RuleCreated | RuleUpdated | RulePaused | RuleResumed | RuleDeleted | RuleApplied;
 
 // D-r: resolve a rule for a CRUD transition — exists · version matches
 // (optimistic concurrency + the version-safety invariant) · in an allowed

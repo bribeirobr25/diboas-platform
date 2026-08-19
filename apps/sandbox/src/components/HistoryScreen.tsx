@@ -231,15 +231,9 @@ export function HistoryScreen() {
       case 'RuleApplied':
         return intl.formatMessage({ id: 'history.ruleApplied' }, { weeks: event.weekSet.length });
       case 'SimulatedExpensePaid':
-        return intl.formatMessage(
-          { id: 'history.simExpense' },
-          { amount: money(event.amount) }
-        );
+        return intl.formatMessage({ id: 'history.simExpense' }, { amount: money(event.amount) });
       case 'SimulatedIncomeReceived':
-        return intl.formatMessage(
-          { id: 'history.simIncome' },
-          { amount: money(event.amount) }
-        );
+        return intl.formatMessage({ id: 'history.simIncome' }, { amount: money(event.amount) });
     }
   }
 

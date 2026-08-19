@@ -39,9 +39,7 @@ export function affordableExpenseOptions(state: LedgerState, amount: number): Af
   return {
     coverFromAvailable: working >= amount,
     reserveGoalIds: state.goals
-      .filter(
-        (g) => (g.status === 'active' || g.status === 'paused') && Number(g.cash) >= amount
-      )
+      .filter((g) => (g.status === 'active' || g.status === 'paused') && Number(g.cash) >= amount)
       .map((g) => g.goalId),
   };
 }

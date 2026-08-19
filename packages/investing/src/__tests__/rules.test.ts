@@ -28,9 +28,22 @@ describe('allocateByRule — floor-then-remainder (D-r §4)', () => {
   it('should conserve exactly: sum(lines) + remainder == total, for any input', () => {
     const cases: Array<[number, RuleSplitLine[]]> = [
       [1000, [{ goalId: 'g1', percent: 100 }]],
-      [777, [{ goalId: 'g1', percent: 40 }, { goalId: 'g2', percent: 35 }]],
+      [
+        777,
+        [
+          { goalId: 'g1', percent: 40 },
+          { goalId: 'g2', percent: 35 },
+        ],
+      ],
       [1, [{ goalId: 'g1', percent: 99 }]],
-      [25000, [{ goalId: 'g1', percent: 1 }, { goalId: 'g2', percent: 1 }, { goalId: 'g3', percent: 1 }]],
+      [
+        25000,
+        [
+          { goalId: 'g1', percent: 1 },
+          { goalId: 'g2', percent: 1 },
+          { goalId: 'g3', percent: 1 },
+        ],
+      ],
     ];
     for (const [total, split] of cases) {
       const a = allocateByRule(total, split);
@@ -59,13 +72,23 @@ describe('allocateByRule — floor-then-remainder (D-r §4)', () => {
 
 describe('isValidRuleSplit — the builder validation (D-r §5)', () => {
   it('should accept a valid split summing to <= 100', () => {
-    expect(isValidRuleSplit([{ goalId: 'g1', percent: 50 }, { goalId: 'g2', percent: 30 }])).toBe(true);
+    expect(
+      isValidRuleSplit([
+        { goalId: 'g1', percent: 50 },
+        { goalId: 'g2', percent: 30 },
+      ])
+    ).toBe(true);
     expect(isValidRuleSplit([{ goalId: 'g1', percent: 100 }])).toBe(true); // exactly 100 ok
     expect(isValidRuleSplit([{ goalId: 'g1', percent: 1 }])).toBe(true); // remainder line is fine
   });
 
   it('should reject sum > 100 (no over-allocation)', () => {
-    expect(isValidRuleSplit([{ goalId: 'g1', percent: 60 }, { goalId: 'g2', percent: 50 }])).toBe(false);
+    expect(
+      isValidRuleSplit([
+        { goalId: 'g1', percent: 60 },
+        { goalId: 'g2', percent: 50 },
+      ])
+    ).toBe(false);
   });
 
   it('should reject non-integer, out-of-range, duplicate, or empty splits', () => {
@@ -73,7 +96,12 @@ describe('isValidRuleSplit — the builder validation (D-r §5)', () => {
     expect(isValidRuleSplit([{ goalId: 'g1', percent: 0 }])).toBe(false);
     expect(isValidRuleSplit([{ goalId: 'g1', percent: 101 }])).toBe(false);
     expect(isValidRuleSplit([{ goalId: 'g1', percent: 33.5 }])).toBe(false);
-    expect(isValidRuleSplit([{ goalId: 'g1', percent: 40 }, { goalId: 'g1', percent: 20 }])).toBe(false);
+    expect(
+      isValidRuleSplit([
+        { goalId: 'g1', percent: 40 },
+        { goalId: 'g1', percent: 20 },
+      ])
+    ).toBe(false);
   });
 });
 

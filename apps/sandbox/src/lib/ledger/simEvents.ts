@@ -11,8 +11,7 @@ import { recordResolution } from '../simulatedEventStore';
 import { appendAll, base, getLedgerState } from './core';
 
 export type ResolveExpenseResult =
-  | { ok: true }
-  | { ok: false; reason: 'alreadyResolved' | 'notAffordable' };
+  { ok: true } | { ok: false; reason: 'alreadyResolved' | 'notAffordable' };
 
 /**
  * Resolve the R1 unexpected-expense event with the user's chosen path (after

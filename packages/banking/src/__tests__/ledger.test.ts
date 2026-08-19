@@ -879,7 +879,13 @@ describe('D-e goal lifecycle (spec: SANDBOX_SPEC_D-E)', () => {
     // to-goal missing → break on `!to`
     const missingTo = project([
       ...open,
-      { ...base(), type: 'PositionReassigned', positionId: 'p1', fromGoalId: 'g1', toGoalId: 'ghost' },
+      {
+        ...base(),
+        type: 'PositionReassigned',
+        positionId: 'p1',
+        fromGoalId: 'g1',
+        toGoalId: 'ghost',
+      },
     ]);
     expect(goalOf(missingTo, 'p1')).toBe('g1');
 
@@ -893,7 +899,13 @@ describe('D-e goal lifecycle (spec: SANDBOX_SPEC_D-E)', () => {
     // unknown position → break on `!position`
     const unknownPos = project([
       ...open,
-      { ...base(), type: 'PositionReassigned', positionId: 'ghost', fromGoalId: 'g1', toGoalId: 'g1' },
+      {
+        ...base(),
+        type: 'PositionReassigned',
+        positionId: 'ghost',
+        fromGoalId: 'g1',
+        toGoalId: 'g1',
+      },
     ]);
     expect(reconcile(unknownPos)).toBe('0.00');
 
@@ -1104,10 +1116,23 @@ describe('§2.3 weekly cycle (WG-1 + D-r §3) — the credited term goes live', 
     new Date(Date.parse(genesis) + n * 24 * 60 * 60 * 1000 + hour * 60 * 60 * 1000).toISOString();
 
   function grantAt(iso: string): LedgerEvent {
-    return { ...base(), recordedAt: iso, type: 'PlayMoneyGranted', amount: '10000', currency: 'USD', mode: 'b2c' };
+    return {
+      ...base(),
+      recordedAt: iso,
+      type: 'PlayMoneyGranted',
+      amount: '10000',
+      currency: 'USD',
+      mode: 'b2c',
+    };
   }
   function weekly(week: number, at?: string): LedgerEvent {
-    return { ...base(), ...(at ? { recordedAt: at } : {}), type: 'WeeklyCreditGranted', week, amount: '1000.00' };
+    return {
+      ...base(),
+      ...(at ? { recordedAt: at } : {}),
+      type: 'WeeklyCreditGranted',
+      week,
+      amount: '1000.00',
+    };
   }
 
   it('should land a weekly credit in Available AND the credited term, and reconcile to 0.00', () => {
@@ -1135,9 +1160,25 @@ describe('§2.3 weekly cycle (WG-1 + D-r §3) — the credited term goes live', 
 
     const after: LedgerEvent[] = [
       grantAt(genesis),
-      { ...base(), type: 'GoalCreated', goalId: 'g1', name: 'Trip', icon: 'plane', targetAmount: '3000', horizonMonths: 12 },
+      {
+        ...base(),
+        type: 'GoalCreated',
+        goalId: 'g1',
+        name: 'Trip',
+        icon: 'plane',
+        targetAmount: '3000',
+        horizonMonths: 12,
+      },
       { ...base(), type: 'GoalFunded', goalId: 'g1', amount: '2000' },
-      { ...base(), type: 'StrategyEntered', goalId: 'g1', positionId: 'p1', strategyId: 'safeHarbor', amount: '1990', networkFee: '10' },
+      {
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p1',
+        strategyId: 'safeHarbor',
+        amount: '1990',
+        networkFee: '10',
+      },
       { ...base(), type: 'ComparisonCreditGranted', amount: '1000.00' },
       { ...base(), type: 'ComparisonCreditGranted', amount: '1000.00' }, // second → no-op
     ];
@@ -1150,10 +1191,25 @@ describe('§2.3 weekly cycle (WG-1 + D-r §3) — the credited term goes live', 
   it('should treat RuleApplied as zero-value — reconcile indifferent, money rides its GoalFunded legs', () => {
     const state = project([
       grantAt(genesis),
-      { ...base(), type: 'GoalCreated', goalId: 'g1', name: 'Trip', icon: 'plane', targetAmount: '3000', horizonMonths: 12 },
+      {
+        ...base(),
+        type: 'GoalCreated',
+        goalId: 'g1',
+        name: 'Trip',
+        icon: 'plane',
+        targetAmount: '3000',
+        horizonMonths: 12,
+      },
       { ...base(), type: 'RuleCreated', ruleId: 'r1', split: [{ goalId: 'g1', percent: 50 }] },
       weekly(1),
-      { ...base(), type: 'RuleApplied', ruleId: 'r1', ruleVersion: 0, proposalId: 'pr1', weekSet: [1] },
+      {
+        ...base(),
+        type: 'RuleApplied',
+        ruleId: 'r1',
+        ruleVersion: 0,
+        proposalId: 'pr1',
+        weekSet: [1],
+      },
       { ...base(), type: 'GoalFunded', goalId: 'g1', amount: '500' },
     ]);
     expect(state.goals[0].cash).toBe('500.00');
@@ -1208,11 +1264,35 @@ describe('§2.3 weekly cycle (WG-1 + D-r §3) — the credited term goes live', 
       // grant — the ceiling base must ignore it (earnings excluded, P2BD-9).
       const state = project([
         grantAt(genesis),
-        { ...base(), type: 'GoalCreated', goalId: 'g1', name: 'Trip', icon: 'plane', targetAmount: '3000', horizonMonths: 12 },
+        {
+          ...base(),
+          type: 'GoalCreated',
+          goalId: 'g1',
+          name: 'Trip',
+          icon: 'plane',
+          targetAmount: '3000',
+          horizonMonths: 12,
+        },
         { ...base(), type: 'GoalFunded', goalId: 'g1', amount: '9000' },
-        { ...base(), type: 'StrategyEntered', goalId: 'g1', positionId: 'p1', strategyId: 'safeHarbor', amount: '9000', networkFee: '0.00' },
+        {
+          ...base(),
+          type: 'StrategyEntered',
+          goalId: 'g1',
+          positionId: 'p1',
+          strategyId: 'safeHarbor',
+          amount: '9000',
+          networkFee: '0.00',
+        },
         { ...base(), type: 'TimeAdvanced', days: 365, source: 'machine' },
-        { ...base(), type: 'AccrualApplied', positionId: 'p1', fromSimDay: 0, toSimDay: 365, earnings: '15000.00', apySource: 'fixture' },
+        {
+          ...base(),
+          type: 'AccrualApplied',
+          positionId: 'p1',
+          fromSimDay: 0,
+          toSimDay: 365,
+          earnings: '15000.00',
+          apySource: 'fixture',
+        },
       ]);
       // Held net worth (10,000 + 15,000 earnings) is far past 2× the grant…
       expect(new Decimal(state.buckets.working).plus('9000').plus('15000').gte('20000')).toBe(true);
@@ -1231,15 +1311,19 @@ describe('§2.3 weekly cycle (WG-1 + D-r §3) — the credited term goes live', 
 
 describe('§2.4 D-s simulated events — the spent term goes live (spec: SANDBOX_SPEC_D-S)', () => {
   function opening(): LedgerEvent[] {
-    return [
-      { ...base(), type: 'PlayMoneyGranted', amount: '10000', currency: 'USD', mode: 'b2c' },
-    ];
+    return [{ ...base(), type: 'PlayMoneyGranted', amount: '10000', currency: 'USD', mode: 'b2c' }];
   }
 
   it('should pay a simulated expense from Available into the spent term — gone money is gone, conserved', () => {
     const state = project([
       ...opening(),
-      { ...base(), type: 'SimulatedExpensePaid', eventInstanceId: 'ev1', amount: '1500.00', source: 'system' },
+      {
+        ...base(),
+        type: 'SimulatedExpensePaid',
+        eventInstanceId: 'ev1',
+        amount: '1500.00',
+        source: 'system',
+      },
     ]);
     expect(state.buckets.working).toBe('8500.00');
     expect(state.spent).toBe('1500.00');
@@ -1250,7 +1334,13 @@ describe('§2.4 D-s simulated events — the spent term goes live (spec: SANDBOX
   it('should enforce the affordability floor — a debit larger than Available is a clean no-op', () => {
     const state = project([
       ...opening(),
-      { ...base(), type: 'SimulatedExpensePaid', eventInstanceId: 'ev1', amount: '99999.00', source: 'system' },
+      {
+        ...base(),
+        type: 'SimulatedExpensePaid',
+        eventInstanceId: 'ev1',
+        amount: '99999.00',
+        source: 'system',
+      },
     ]);
     expect(state.buckets.working).toBe('10000.00');
     expect(state.spent).toBe('0.00');
@@ -1261,9 +1351,27 @@ describe('§2.4 D-s simulated events — the spent term goes live (spec: SANDBOX
   it('should be idempotent per event instance, across BOTH leg types (D-s §3)', () => {
     const state = project([
       ...opening(),
-      { ...base(), type: 'SimulatedExpensePaid', eventInstanceId: 'ev1', amount: '1000.00', source: 'system' },
-      { ...base(), type: 'SimulatedExpensePaid', eventInstanceId: 'ev1', amount: '1000.00', source: 'system' },
-      { ...base(), type: 'SimulatedIncomeReceived', eventInstanceId: 'ev1', amount: '500.00', source: 'system' },
+      {
+        ...base(),
+        type: 'SimulatedExpensePaid',
+        eventInstanceId: 'ev1',
+        amount: '1000.00',
+        source: 'system',
+      },
+      {
+        ...base(),
+        type: 'SimulatedExpensePaid',
+        eventInstanceId: 'ev1',
+        amount: '1000.00',
+        source: 'system',
+      },
+      {
+        ...base(),
+        type: 'SimulatedIncomeReceived',
+        eventInstanceId: 'ev1',
+        amount: '500.00',
+        source: 'system',
+      },
     ]);
     expect(state.buckets.working).toBe('9000.00'); // one debit; the duplicate AND the same-id income skipped
     expect(state.spent).toBe('1000.00');
@@ -1274,7 +1382,13 @@ describe('§2.4 D-s simulated events — the spent term goes live (spec: SANDBOX
   it('should credit simulated income to Available and the credited term', () => {
     const state = project([
       ...opening(),
-      { ...base(), type: 'SimulatedIncomeReceived', eventInstanceId: 'ev2', amount: '2000.00', source: 'system' },
+      {
+        ...base(),
+        type: 'SimulatedIncomeReceived',
+        eventInstanceId: 'ev2',
+        amount: '2000.00',
+        source: 'system',
+      },
     ]);
     expect(state.buckets.working).toBe('12000.00');
     expect(state.credited).toBe('2000.00');
@@ -1286,7 +1400,13 @@ describe('§2.4 D-s simulated events — the spent term goes live (spec: SANDBOX
     // full; the refill ceiling then (honestly) pauses future collection.
     const state = project([
       ...opening(),
-      { ...base(), type: 'SimulatedIncomeReceived', eventInstanceId: 'ev3', amount: '15000.00', source: 'system' },
+      {
+        ...base(),
+        type: 'SimulatedIncomeReceived',
+        eventInstanceId: 'ev3',
+        amount: '15000.00',
+        source: 'system',
+      },
     ]);
     expect(state.credited).toBe('15000.00'); // credited in full, never capped
     expect(creditCeilingReached(state, '20000.00')).toBe(true); // future weekly credits pause
@@ -1296,11 +1416,25 @@ describe('§2.4 D-s simulated events — the spent term goes live (spec: SANDBOX
   it('should compose the reserve path: GoalCashReleased + the expense debit, one conserving story', () => {
     const events: LedgerEvent[] = [
       ...opening(),
-      { ...base(), type: 'GoalCreated', goalId: 'gEm', name: 'Emergency fund', icon: 'shield', targetAmount: '5000', horizonMonths: 12 },
+      {
+        ...base(),
+        type: 'GoalCreated',
+        goalId: 'gEm',
+        name: 'Emergency fund',
+        icon: 'shield',
+        targetAmount: '5000',
+        horizonMonths: 12,
+      },
       { ...base(), type: 'GoalFunded', goalId: 'gEm', amount: '3000' },
       // The reserve does its job: release what the expense needs, then pay it.
       { ...base(), type: 'GoalCashReleased', goalId: 'gEm', amount: '1500.00', expectedVersion: 0 },
-      { ...base(), type: 'SimulatedExpensePaid', eventInstanceId: 'ev4', amount: '1500.00', source: 'system' },
+      {
+        ...base(),
+        type: 'SimulatedExpensePaid',
+        eventInstanceId: 'ev4',
+        amount: '1500.00',
+        source: 'system',
+      },
     ];
     for (let i = 1; i <= events.length; i += 1) {
       expect(reconcile(project(events.slice(0, i))), `prefix ${i}`).toBe('0.00');

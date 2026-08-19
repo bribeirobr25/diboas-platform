@@ -7,11 +7,7 @@
  */
 
 import Decimal from 'decimal.js';
-import {
-  collectibleWeeks,
-  creditCeilingReached,
-  type LedgerState,
-} from '@diboas/banking';
+import { collectibleWeeks, creditCeilingReached, type LedgerState } from '@diboas/banking';
 import { generateProposal, type Proposal } from '@diboas/investing';
 import { creditCeilingAmount, MAX_UNCOLLECTED_WEEKS } from './growthConstants';
 

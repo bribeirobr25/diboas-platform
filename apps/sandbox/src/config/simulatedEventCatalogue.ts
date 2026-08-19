@@ -11,10 +11,7 @@
  * P1 library adds the rest (goal-cost increase, extra income, expense
  * reduction, guided emergency-fund usage) under this same shape.
  */
-import {
-  SIM_EVENT_DEFAULT_MULTIPLE,
-  SIM_EVENT_SIZING,
-} from '@/lib/growthConstants';
+import { SIM_EVENT_DEFAULT_MULTIPLE, SIM_EVENT_SIZING } from '@/lib/growthConstants';
 
 export const SIMULATED_EVENT_CATALOGUE_VERSION = 1;
 
