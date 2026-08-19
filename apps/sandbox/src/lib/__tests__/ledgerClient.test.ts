@@ -12,6 +12,8 @@ import {
   resetSandbox,
   resumeGoal,
   setRecurring,
+  accomplishGoal,
+  raiseGoalTarget,
 } from '@/lib/ledgerClient';
 
 /**
@@ -157,5 +159,40 @@ describe('G3 pause/resume (§4.3, W-17d — plan-level, positions keep working)'
     expect(
       getLedgerState().events.filter((e) => e.type === 'RecurringContributionApplied').length
     ).toBeGreaterThan(0);
+  });
+});
+
+describe('G4 emitter guards match the engine (§4.4 audit)', () => {
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+  });
+
+  it('should let a PAUSED goal raise its target — the completion row is never a fake control', () => {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 500,
+      horizonMonths: 12,
+      fundAmount: 500,
+    });
+    pauseGoal(goalId);
+    raiseGoalTarget(goalId, 900);
+    const goal = getLedgerState().goals.find((g) => g.goalId === goalId)!;
+    expect(goal.targetAmount).toBe('900.00');
+    expect(goal.status).toBe('paused'); // raising never resumes or closes it
+  });
+
+  it('should refuse to raise a target on an ACCOMPLISHED goal (terminal stays terminal)', () => {
+    const goalId = createGoal({
+      name: 'Done',
+      icon: 'target',
+      targetAmount: 500,
+      horizonMonths: 6,
+      fundAmount: 500,
+    });
+    accomplishGoal(goalId, 'held-as-cash');
+    raiseGoalTarget(goalId, 900);
+    expect(getLedgerState().goals.find((g) => g.goalId === goalId)!.targetAmount).toBe('500.00');
   });
 });

@@ -205,37 +205,44 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
           {/* The honest status line (mockup 14's slot): a derived STATUS, never
               a pace claim (board §6a) — paused duality (W-17d, second half only
               when true) · accomplished · target-reached; plain active = no line. */}
-          {goal.status === 'paused' ? (
-            <p className={`${styles.statusLine} ${styles.statusPaused}`}>
-              <FormattedMessage id="goalDual.paused" />
-              {openPositions.length > 0 ? (
-                <span className={styles.statusSub}>
-                  {' · '}
-                  <FormattedMessage id="goalDual.moneyStillWorking" />
-                </span>
-              ) : null}
-            </p>
-          ) : goal.status === 'accomplished' ? (
+          {goal.status === 'accomplished' ? (
             <p className={styles.statusLine}>
               <FormattedMessage id="goalsList.status.accomplished" />
             </p>
-          ) : targetReached ? (
+          ) : (
             <>
-              <p className={styles.statusLine} role="status">
-                <FormattedMessage id="goalDetail.milestoneTitle" />
-              </p>
-              {/* D-e §3: the user opens the completion state themselves — a
+              {goal.status === 'paused' ? (
+                <p className={`${styles.statusLine} ${styles.statusPaused}`}>
+                  <FormattedMessage id="goalDual.paused" />
+                  {openPositions.length > 0 ? (
+                    <span className={styles.statusSub}>
+                      {' · '}
+                      <FormattedMessage id="goalDual.moneyStillWorking" />
+                    </span>
+                  ) : null}
+                </p>
+              ) : null}
+              {/* Paused and reached are independent facts: a paused PLAN never
+                  blocks closing a goal that got there anyway. */}
+              {targetReached ? (
+                <>
+                  <p className={styles.statusLine} role="status">
+                    <FormattedMessage id="goalDetail.milestoneTitle" />
+                  </p>
+                  {/* D-e §3: the user opens the completion state themselves — a
                   calm affordance, never an auto-modal, never a nag. */}
-              <button
-                type="button"
-                className={styles.reviewCta}
-                onClick={() => setShowCompletion(true)}
-              >
-                <FormattedMessage id="goalComplete.reviewCta" />
-                <LucideIcon name="chevron-right" size={16} />
-              </button>
+                  <button
+                    type="button"
+                    className={styles.reviewCta}
+                    onClick={() => setShowCompletion(true)}
+                  >
+                    <FormattedMessage id="goalComplete.reviewCta" />
+                    <LucideIcon name="chevron-right" size={16} />
+                  </button>
+                </>
+              ) : null}
             </>
-          ) : null}
+          )}
         </div>
       </div>
 
@@ -521,7 +528,13 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                             onApprove={() =>
                               setSettling({ kind: 'exit', positionId: position.positionId })
                             }
-                            onCancel={() => setExitManifestFor(null)}
+                            onCancel={() => {
+                              // Clearing the intent matters: a cancelled G4
+                              // "stop strategy" must never silently close the
+                              // goal on some LATER, unrelated exit.
+                              setCompleteAfterExit(false);
+                              setExitManifestFor(null);
+                            }}
                             approving={busy}
                           />
                         ) : null;

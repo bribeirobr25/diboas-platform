@@ -138,6 +138,20 @@ describe('GoalCompletionScreen — G4 dispositions (§4.4, mockup 16, board §3.
     expect(getLedgerState().goals.find((g) => g.goalId === goalId)!.targetAmount).toBe('500.00');
   });
 
+  it('should return to the goal after a disposition applies (no visual dead-end)', () => {
+    const goalId = reachedGoal();
+    const state = getLedgerState();
+    const goal = state.goals.find((g) => g.goalId === goalId)!;
+    const onClose = vi.fn();
+    render(
+      <IntlProvider locale="en" messages={M} onError={() => {}}>
+        <GoalCompletionScreen goal={goal} state={state} onClose={onClose} />
+      </IntlProvider>
+    );
+    fireEvent.click(screen.getByText('Keep working'));
+    expect(onClose).toHaveBeenCalledOnce();
+  });
+
   it('should route Stop strategy to the caller (the real exit manifest), never closing on its own', () => {
     const goalId = reachedGoal();
     const onStop = vi.fn();

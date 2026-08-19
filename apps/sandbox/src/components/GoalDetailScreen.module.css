@@ -49,12 +49,6 @@
   color: var(--sb-text-heading);
 }
 
-.progressText {
-  margin: var(--spacing-2xs) 0 0;
-  color: var(--sb-text-body);
-  font-variant-numeric: tabular-nums;
-}
-
 .progressTrack {
   display: block;
   height: 10px;

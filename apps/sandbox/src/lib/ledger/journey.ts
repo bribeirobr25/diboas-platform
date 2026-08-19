@@ -141,7 +141,9 @@ export function transferGoalCash(fromGoalId: string, toGoalId: string): void {
  */
 export function raiseGoalTarget(goalId: string, newTarget: number): void {
   const goal = getLedgerState().goals.find((g) => g.goalId === goalId);
-  if (!goal || goal.status !== 'active') return;
+  // active OR paused — matching the engine's allowed FROM states, so the
+  // completion screen never offers a row that would silently do nothing.
+  if (!goal || (goal.status !== 'active' && goal.status !== 'paused')) return;
   const next = new Decimal(newTarget);
   if (!next.isFinite() || next.lte(goal.targetAmount)) return; // raise only
   appendAll([

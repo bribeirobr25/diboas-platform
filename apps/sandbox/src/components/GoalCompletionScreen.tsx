@@ -115,7 +115,10 @@ export function GoalCompletionScreen({
               <button
                 type="button"
                 className={styles.row}
-                onClick={() => accomplishGoal(goal.goalId, 'kept-working')}
+                onClick={() => {
+                  accomplishGoal(goal.goalId, 'kept-working');
+                  onClose();
+                }}
               >
                 <span className={styles.rowIcon}>
                   <LucideIcon name="trending-up" size={18} />
@@ -155,7 +158,10 @@ export function GoalCompletionScreen({
               <button
                 type="button"
                 className={styles.row}
-                onClick={() => accomplishGoal(goal.goalId, 'held-as-cash')}
+                onClick={() => {
+                  accomplishGoal(goal.goalId, 'held-as-cash');
+                  onClose();
+                }}
               >
                 <span className={styles.rowIcon}>
                   <LucideIcon name="wallet" size={18} />
@@ -231,7 +237,10 @@ export function GoalCompletionScreen({
                   <button
                     type="button"
                     className={styles.row}
-                    onClick={() => transferGoalCash(goal.goalId, destination.goalId)}
+                    onClick={() => {
+                      transferGoalCash(goal.goalId, destination.goalId);
+                      onClose();
+                    }}
                   >
                     <span className={styles.rowIcon}>
                       <LucideIcon name={destination.icon} size={18} />
@@ -276,7 +285,10 @@ export function GoalCompletionScreen({
             type="button"
             className={styles.primary}
             disabled={!canRaise}
-            onClick={() => raiseGoalTarget(goal.goalId, raiseValue)}
+            onClick={() => {
+              raiseGoalTarget(goal.goalId, raiseValue);
+              onClose();
+            }}
           >
             {intl.formatMessage({ id: 'goalComplete.raiseCta' })}
           </button>

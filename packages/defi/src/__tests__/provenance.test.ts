@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { strategyProvenance } from '../provenance';
-import type { ProtocolApy, StrategyDef } from '../types';
+import type { ProtocolApy, ProtocolId, StrategyDef } from '../types';
 
 const STRATEGY: StrategyDef = {
   id: 'test',
@@ -15,7 +15,7 @@ const STRATEGY: StrategyDef = {
   entryChain: 'Arbitrum',
 };
 
-function apy(protocolId: string, source: 'defillama' | 'fixture', asOf: string): ProtocolApy {
+function apy(protocolId: ProtocolId, source: 'defillama' | 'fixture', asOf: string): ProtocolApy {
   return { protocolId, apyPercent: 5, tvlUsd: null, chain: 'Arbitrum', stamp: { source, asOf } };
 }
 

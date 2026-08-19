@@ -41,6 +41,9 @@ export function strategyProvenance(strategy: StrategyDef, apys: ProtocolApy[]): 
   return {
     state,
     fixtureProtocolIds,
-    newestLiveAsOf: liveAsOf.length > 0 ? liveAsOf.sort().at(-1)! : null,
+    // Index access, not `.at(-1)`: the domain packages target ES2020 by
+    // config, and `.at` is ES2022 (the workspace type-check catches it even
+    // though vitest/tsup strip types without checking).
+    newestLiveAsOf: liveAsOf.length > 0 ? liveAsOf.sort()[liveAsOf.length - 1] : null,
   };
 }
