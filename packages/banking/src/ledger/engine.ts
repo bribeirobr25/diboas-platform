@@ -4,155 +4,29 @@
  *
  * Money math is Decimal.js end to end; amounts serialize as strings in events
  * and in projected state (never floats across boundaries).
+ *
+ * P2BD-4 extraction (2026-08-19): the per-domain case bodies live in
+ * `projection/` (core journey · D-e goals · D-r rules · §2.3 credits · §2.4
+ * simulated events) over a shared `ProjectionContext`; this file keeps the
+ * dispatch loop, the finalization, and the two conservation-formula readers
+ * (`reconcile`, `creditCeilingReached`). State types are in `state.ts`,
+ * calendar math in `cadence.ts` — both re-exported here so the public API is
+ * unchanged.
  */
 
-import Decimal from 'decimal.js';
-import type { JobBucket, LedgerEvent } from './events';
+import type Decimal from 'decimal.js';
+import type { LedgerEvent } from './events';
+import { d, ZERO } from './money';
+import { emptyState, type LedgerState, type RecurringSchedule, type RuleState } from './state';
+import type { GoalEntry, PositionEntry, ProjectionContext } from './projection/context';
+import { applyCoreEvent } from './projection/core';
+import { applyGoalLifecycleEvent } from './projection/goals';
+import { applyRuleEvent } from './projection/rules';
+import { applyCreditEvent } from './projection/credits';
+import { applySimulatedEvent } from './projection/simEvents';
 
-/** Goal lifecycle status (D-e §1). `target_reached` is NOT a status — it is a
- *  derived fact (`current ≥ target`), recomputable and never stored. */
-export type GoalStatus = 'active' | 'paused' | 'dropped' | 'accomplished';
-
-export interface GoalState {
-  goalId: string;
-  name: string;
-  icon: string;
-  targetAmount: string;
-  horizonMonths: number;
-  /** Uninvested money sitting in the goal. */
-  cash: string;
-  /** Sum of currently-invested principal. */
-  invested: string;
-  /** Lifetime earnings realized + accrued across the goal's positions. */
-  earnings: string;
-  createdSimDay: number;
-  /** Lifecycle status (D-e). Defaults 'active' at creation. */
-  status: GoalStatus;
-  /** Optimistic-concurrency version; incremented on each applied transition (D-e §5). */
-  version: number;
-}
-
-export interface PositionState {
-  positionId: string;
-  goalId: string;
-  strategyId: string;
-  principal: string;
-  accrued: string;
-  enteredSimDay: number;
-  /** Sim day accrual has been applied through (exclusive of days not yet simulated). */
-  accruedThroughSimDay: number;
-  open: boolean;
-}
-
-/**
- * An active recurring-contribution schedule on an open position (C3). The
- * 30-day cadence is anchored at `startSimDay`; the first deposit lands at
- * `startSimDay + 30`. Derived state — "paused" is not stored: a schedule whose
- * position is closed, or whose deposits can't be funded from Working money, is
- * simply inert (the UI derives the paused message).
- */
-export interface RecurringSchedule {
-  goalId: string;
-  positionId: string;
-  monthlyAmount: string;
-  startSimDay: number;
-}
-
-/** Rule lifecycle status (D-r §1). One active/paused rule per account in R1. */
-export type RuleStatus = 'active' | 'paused' | 'deleted';
-
-/**
- * A projected rule (D-r). Zero-value — it holds NO money (a proposal-generator
- * only), so it never enters `reconcile()`'s `held`. `ruleVersion` is the
- * optimistic-concurrency + version-safety anchor (D-r §3).
- */
-export interface RuleState {
-  ruleId: string;
-  ruleVersion: number;
-  split: { goalId: string; percent: number }[];
-  status: RuleStatus;
-}
-
-export interface LedgerState {
-  initialized: boolean;
-  mode: 'b2c' | 'b2b';
-  currency: 'USD' | 'BRL' | 'EUR';
-  simDay: number;
-  /** Real wall-clock time of genesis (the grant) — the anchor for real-time settle (WS-F). */
-  genesisRecordedAt: string | null;
-  /** Real days already settled via `source:'real'` TimeAdvanced events (WS-F idempotency). */
-  realSettledDays: number;
-  split: { floorPercent: number; cushionPercent: number; workingPercent: number } | null;
-  /** Bucket balances (working excludes money moved into goals). */
-  buckets: Record<JobBucket, string>;
-  goals: GoalState[];
-  positions: PositionState[];
-  /** Rules (D-r). Zero-value; one active/paused per account in R1 (W-19a). */
-  rules: RuleState[];
-  /** Active recurring-contribution schedules (C3), keyed by position. */
-  recurring: RecurringSchedule[];
-  /** Total network fees paid (play), shown in the trail. */
-  networkFeesPaid: string;
-  /** Total exit fees paid (play). */
-  exitFeesPaid: string;
-  /**
-   * Ingress total — money entering the system AFTER genesis (weekly credit,
-   * comparison credit, simulated income). A subtrahend's mirror in the
-   * conservation formula. First producers: §2.3's credit events.
-   */
-  credited: string;
-  /**
-   * Genesis-anchored week indices whose credit has been collected (WG-1) —
-   * ascending, the per-week idempotency record. Weeks skipped while the
-   * collection cap held the meter never appear (they never accrued).
-   */
-  collectedWeeks: number[];
-  /** Whether the one-time W-5c comparison credit has been granted (P2BD-10). */
-  comparisonCredited: boolean;
-  /**
-   * Simulated-event instance ids already resolved (D-s §3 idempotency) — a
-   * duplicate money leg for a resolved instance is skipped at projection.
-   */
-  resolvedEventInstances: string[];
-  /**
-   * Egress total — money that has permanently LEFT the system (simulated
-   * expense). NOT a held bucket: gone money is gone, so `held`-derived
-   * balances stay honest. First producer: §2.4's expense leg.
-   */
-  spent: string;
-  events: LedgerEvent[];
-}
-
-const ZERO = new Decimal(0);
-
-function d(value: string): Decimal {
-  return new Decimal(value);
-}
-
-export function emptyState(): LedgerState {
-  return {
-    initialized: false,
-    mode: 'b2c',
-    currency: 'USD',
-    simDay: 0,
-    genesisRecordedAt: null,
-    realSettledDays: 0,
-    split: null,
-    buckets: { floor: '0', cushion: '0', working: '0' },
-    goals: [],
-    positions: [],
-    rules: [],
-    recurring: [],
-    networkFeesPaid: '0',
-    exitFeesPaid: '0',
-    credited: '0',
-    collectedWeeks: [],
-    comparisonCredited: false,
-    resolvedEventInstances: [],
-    spent: '0',
-    events: [],
-  };
-}
+export * from './state';
+export * from './cadence';
 
 /**
  * Exhaustiveness guard (P2R-13): every `LedgerEventType` must be handled in
@@ -167,381 +41,75 @@ function assertNever(event: never): never {
 
 /** Project the full event log into current state. Pure and deterministic. */
 export function project(events: LedgerEvent[]): LedgerState {
-  const state = emptyState();
-  const floor = { v: ZERO };
-  const cushion = { v: ZERO };
-  const working = { v: ZERO };
-  const goals = new Map<
-    string,
-    { s: GoalState; cash: Decimal; invested: Decimal; earnings: Decimal }
-  >();
-  const positions = new Map<string, { s: PositionState; principal: Decimal; accrued: Decimal }>();
-  const recurring = new Map<string, RecurringSchedule>();
-  const rules = new Map<string, RuleState>();
-  let networkFees = ZERO;
-  let exitFees = ZERO;
-  // Ingress/egress running totals (board §1a). Producers: the §2.3 credit
-  // events (credited) and the §2.4 simulated expense/income legs (spent,
-  // credited) — each wired in its own case, per the same-PR rule.
-  let credited = ZERO;
-  let spent = ZERO;
-
-  // D-e: resolve a goal for a status transition — exists · version matches
-  // (optimistic concurrency) · in an allowed FROM state. Returns null to SKIP
-  // (stale/illegal → the UI re-presents). The caller bumps `version` on a real
-  // apply, so a rejected move (e.g. insufficient cash) never advances it.
-  type GoalEntry = NonNullable<ReturnType<typeof goals.get>>;
-  const goalFor = (
-    goalId: string,
-    expectedVersion: number,
-    allowedFrom: GoalStatus[]
-  ): GoalEntry | null => {
-    const goal = goals.get(goalId);
-    if (!goal) return null;
-    if (goal.s.version !== expectedVersion) return null;
-    if (!allowedFrom.includes(goal.s.status)) return null;
-    return goal;
-  };
-
-  // D-r: resolve a rule for a CRUD transition — exists · version matches
-  // (optimistic concurrency + the version-safety invariant) · in an allowed
-  // FROM state. Returns null to SKIP (stale/illegal → the UI re-presents).
-  const ruleFor = (
-    ruleId: string,
-    expectedRuleVersion: number,
-    allowedFrom: RuleStatus[]
-  ): RuleState | null => {
-    const rule = rules.get(ruleId);
-    if (!rule) return null;
-    if (rule.ruleVersion !== expectedRuleVersion) return null;
-    if (!allowedFrom.includes(rule.status)) return null;
-    return rule;
+  const ctx: ProjectionContext = {
+    state: emptyState(),
+    floor: { v: ZERO },
+    cushion: { v: ZERO },
+    working: { v: ZERO },
+    goals: new Map<string, GoalEntry>(),
+    positions: new Map<string, PositionEntry>(),
+    recurring: new Map<string, RecurringSchedule>(),
+    rules: new Map<string, RuleState>(),
+    totals: { networkFees: ZERO, exitFees: ZERO, credited: ZERO, spent: ZERO },
   };
 
   for (const event of events) {
     switch (event.type) {
-      case 'PlayMoneyGranted': {
-        state.initialized = true;
-        state.mode = event.mode;
-        state.currency = event.currency;
-        // Genesis anchor for real-time settle (WS-F): the real moment the grant landed.
-        if (state.genesisRecordedAt === null) state.genesisRecordedAt = event.recordedAt;
-        // Granted money lands in "working" until the split assigns jobs.
-        working.v = working.v.plus(d(event.amount));
+      case 'PlayMoneyGranted':
+      case 'JobsSplitSet':
+      case 'GoalCreated':
+      case 'GoalFunded':
+      case 'StrategyEntered':
+      case 'AccrualApplied':
+      case 'StrategyExited':
+      case 'RecurringSet':
+      case 'RecurringContributionApplied':
+      case 'TimeAdvanced':
+        applyCoreEvent(ctx, event);
         break;
-      }
-      case 'JobsSplitSet': {
-        const total = floor.v.plus(cushion.v).plus(working.v);
-        state.split = {
-          floorPercent: event.floorPercent,
-          cushionPercent: event.cushionPercent,
-          workingPercent: event.workingPercent,
-        };
-        floor.v = total.mul(event.floorPercent).div(100).toDecimalPlaces(2);
-        cushion.v = total.mul(event.cushionPercent).div(100).toDecimalPlaces(2);
-        working.v = total.minus(floor.v).minus(cushion.v);
+      case 'GoalPaused':
+      case 'GoalResumed':
+      case 'GoalDropped':
+      case 'GoalAccomplished':
+      case 'PositionReassigned':
+      case 'GoalTargetChanged':
+      case 'GoalCashReleased':
+        applyGoalLifecycleEvent(ctx, event);
         break;
-      }
-      case 'GoalCreated': {
-        goals.set(event.goalId, {
-          s: {
-            goalId: event.goalId,
-            name: event.name,
-            icon: event.icon,
-            targetAmount: event.targetAmount,
-            horizonMonths: event.horizonMonths,
-            cash: '0',
-            invested: '0',
-            earnings: '0',
-            createdSimDay: event.simDay,
-            status: 'active',
-            version: 0,
-          },
-          cash: ZERO,
-          invested: ZERO,
-          earnings: ZERO,
-        });
+      case 'RuleCreated':
+      case 'RuleUpdated':
+      case 'RulePaused':
+      case 'RuleResumed':
+      case 'RuleDeleted':
+      case 'RuleApplied':
+        applyRuleEvent(ctx, event);
         break;
-      }
-      case 'GoalFunded': {
-        const goal = goals.get(event.goalId);
-        if (!goal) break;
-        const amount = d(event.amount);
-        if (working.v.lt(amount)) break; // insufficient working money: reject silently at projection level
-        working.v = working.v.minus(amount);
-        goal.cash = goal.cash.plus(amount);
+      case 'WeeklyCreditGranted':
+      case 'ComparisonCreditGranted':
+        applyCreditEvent(ctx, event);
         break;
-      }
-      case 'StrategyEntered': {
-        const goal = goals.get(event.goalId);
-        if (!goal) break;
-        const amount = d(event.amount);
-        const fee = d(event.networkFee);
-        if (goal.cash.lt(amount.plus(fee))) break;
-        goal.cash = goal.cash.minus(amount).minus(fee);
-        goal.invested = goal.invested.plus(amount);
-        networkFees = networkFees.plus(fee);
-        positions.set(event.positionId, {
-          s: {
-            positionId: event.positionId,
-            goalId: event.goalId,
-            strategyId: event.strategyId,
-            principal: event.amount,
-            accrued: '0',
-            enteredSimDay: event.simDay,
-            accruedThroughSimDay: event.simDay,
-            open: true,
-          },
-          principal: amount,
-          accrued: ZERO,
-        });
+      case 'SimulatedExpensePaid':
+      case 'SimulatedIncomeReceived':
+        applySimulatedEvent(ctx, event);
         break;
-      }
-      case 'AccrualApplied': {
-        const position = positions.get(event.positionId);
-        if (!position || !position.s.open) break;
-        position.accrued = position.accrued.plus(d(event.earnings));
-        position.s.accruedThroughSimDay = event.toSimDay;
-        const goal = goals.get(position.s.goalId);
-        if (goal) goal.earnings = goal.earnings.plus(d(event.earnings));
-        break;
-      }
-      case 'StrategyExited': {
-        const position = positions.get(event.positionId);
-        if (!position || !position.s.open) break;
-        position.s.open = false;
-        const goal = goals.get(event.goalId);
-        if (goal) {
-          const net = d(event.grossAmount).minus(d(event.exitFee)).minus(d(event.networkFee));
-          goal.invested = goal.invested.minus(position.principal);
-          goal.cash = goal.cash.plus(net);
-        }
-        exitFees = exitFees.plus(d(event.exitFee));
-        networkFees = networkFees.plus(d(event.networkFee));
-        break;
-      }
-      case 'RecurringSet': {
-        // Latest set per position wins; '0' clears the schedule (C3, A-7).
-        if (d(event.monthlyAmount).lte(0)) {
-          recurring.delete(event.positionId);
-        } else {
-          recurring.set(event.positionId, {
-            goalId: event.goalId,
-            positionId: event.positionId,
-            monthlyAmount: d(event.monthlyAmount).toFixed(2),
-            startSimDay: event.startSimDay,
-          });
-        }
-        break;
-      }
-      case 'RecurringContributionApplied': {
-        // A MOVE: Working → the position's principal (auto-invest). Guarded
-        // against an over-budget deposit the same way GoalFunded is (A-10) —
-        // the client already bounds it, so this is belt-and-suspenders.
-        const position = positions.get(event.positionId);
-        if (!position || !position.s.open) break;
-        const amount = d(event.amount);
-        if (amount.lte(0) || working.v.lt(amount)) break;
-        working.v = working.v.minus(amount);
-        position.principal = position.principal.plus(amount);
-        const goal = goals.get(event.goalId);
-        if (goal) goal.invested = goal.invested.plus(amount);
-        break;
-      }
-      case 'TimeAdvanced': {
-        state.simDay += event.days;
-        // Missing source ⇒ 'machine' (backward-compat, D-3): old ledgers don't retro-accrue.
-        if ((event.source ?? 'machine') === 'real') state.realSettledDays += event.days;
-        break;
-      }
-      case 'GoalPaused': {
-        const g = goalFor(event.goalId, event.expectedVersion, ['active']);
-        if (g) {
-          g.s.status = 'paused';
-          g.s.version += 1;
-        }
-        break;
-      }
-      case 'GoalResumed': {
-        const g = goalFor(event.goalId, event.expectedVersion, ['paused']);
-        if (g) {
-          g.s.status = 'active';
-          g.s.version += 1;
-        }
-        break;
-      }
-      case 'GoalDropped': {
-        const g = goalFor(event.goalId, event.expectedVersion, ['active', 'paused']);
-        if (g) {
-          // Uninvested cash returns to Available (working) via THIS event — a
-          // MOVE within `held`, so reconcile stays 0.00 (H-3.1: never silent).
-          working.v = working.v.plus(g.cash);
-          g.cash = ZERO;
-          g.s.status = 'dropped';
-          g.s.version += 1;
-        }
-        break;
-      }
-      case 'GoalAccomplished': {
-        const g = goalFor(event.goalId, event.expectedVersion, ['active', 'paused']);
-        if (g) {
-          // Zero-value: any money rides the disposition's own events.
-          g.s.status = 'accomplished';
-          g.s.version += 1;
-        }
-        break;
-      }
-      case 'GoalTargetChanged': {
-        const g = goalFor(event.goalId, event.expectedVersion, ['active', 'paused']);
-        if (g) {
-          g.s.targetAmount = event.newTarget;
-          g.s.version += 1;
-        }
-        break;
-      }
-      case 'GoalCashReleased': {
-        const g = goalFor(event.goalId, event.expectedVersion, ['active', 'paused']);
-        if (g) {
-          const amount = d(event.amount);
-          // Guarded partial release — a MOVE goal cash → Available. Bump only
-          // on a real release, so a rejected (over-budget) one is a clean no-op.
-          if (amount.gt(0) && g.cash.gte(amount)) {
-            g.cash = g.cash.minus(amount);
-            working.v = working.v.plus(amount);
-            g.s.version += 1;
-          }
-        }
-        break;
-      }
-      case 'PositionReassigned': {
-        // Label-only (W-17e): no version, no money. Move the position's goal
-        // association + its display aggregates between goals. reconcile is
-        // indifferent — the position stays held, counted once, just relabeled.
-        const position = positions.get(event.positionId);
-        if (!position || !position.s.open || position.s.goalId !== event.fromGoalId) break;
-        const from = goals.get(event.fromGoalId);
-        const to = goals.get(event.toGoalId);
-        if (!from || !to) break;
-        from.invested = from.invested.minus(position.principal);
-        to.invested = to.invested.plus(position.principal);
-        from.earnings = from.earnings.minus(position.accrued);
-        to.earnings = to.earnings.plus(position.accrued);
-        position.s.goalId = event.toGoalId;
-        break;
-      }
-      case 'RuleCreated': {
-        // One active rule per account in R1 (W-19a, overlap-forbid): reject a
-        // create while a non-deleted rule exists — the UI edits via RuleUpdated.
-        const hasLiveRule = [...rules.values()].some((r) => r.status !== 'deleted');
-        if (!hasLiveRule) {
-          rules.set(event.ruleId, {
-            ruleId: event.ruleId,
-            ruleVersion: 0,
-            split: event.split.map((s) => ({ goalId: s.goalId, percent: s.percent })),
-            status: 'active',
-          });
-        }
-        break;
-      }
-      case 'RuleUpdated': {
-        const rule = ruleFor(event.ruleId, event.expectedRuleVersion, ['active', 'paused']);
-        if (rule) {
-          rule.split = event.split.map((s) => ({ goalId: s.goalId, percent: s.percent }));
-          rule.ruleVersion += 1;
-        }
-        break;
-      }
-      case 'RulePaused': {
-        const rule = ruleFor(event.ruleId, event.expectedRuleVersion, ['active']);
-        if (rule) {
-          rule.status = 'paused';
-          rule.ruleVersion += 1;
-        }
-        break;
-      }
-      case 'RuleResumed': {
-        const rule = ruleFor(event.ruleId, event.expectedRuleVersion, ['paused']);
-        if (rule) {
-          rule.status = 'active';
-          rule.ruleVersion += 1;
-        }
-        break;
-      }
-      case 'RuleDeleted': {
-        const rule = ruleFor(event.ruleId, event.expectedRuleVersion, ['active', 'paused']);
-        if (rule) {
-          rule.status = 'deleted';
-          rule.ruleVersion += 1;
-        }
-        break;
-      }
-      case 'WeeklyCreditGranted': {
-        // Idempotent per week (WG-1): a duplicate week is a clean no-op, so a
-        // double-fired Collect tap can never mint a second credit for the same
-        // week. Ingress → `credited`; lands in Available (working).
-        if (state.collectedWeeks.includes(event.week)) break;
-        state.collectedWeeks.push(event.week);
-        credited = credited.plus(d(event.amount));
-        working.v = working.v.plus(d(event.amount));
-        break;
-      }
-      case 'ComparisonCreditGranted': {
-        // Both W-5c guards live HERE, not only on the offer surface (P2BD-10):
-        // once per ledger, and never before the first strategy entry (the
-        // comparison-learning covenant — there is nothing to compare yet).
-        if (state.comparisonCredited || positions.size === 0) break;
-        state.comparisonCredited = true;
-        credited = credited.plus(d(event.amount));
-        working.v = working.v.plus(d(event.amount));
-        break;
-      }
-      case 'RuleApplied': {
-        // Zero-value correlation marker (D-r §2): the money moves via the
-        // GoalFunded legs sharing its correlationId. Trail-visible; reconcile
-        // is indifferent (tested). Nothing to project.
-        break;
-      }
-      case 'SimulatedExpensePaid': {
-        // Idempotent per instance (D-s §3) + the affordability floor: a debit
-        // larger than Available is skipped — no negative balances, ever. Money
-        // leaves the system permanently (egress → `spent`, never in `held`).
-        if (state.resolvedEventInstances.includes(event.eventInstanceId)) break;
-        const amount = d(event.amount);
-        if (amount.lte(0) || working.v.lt(amount)) break;
-        state.resolvedEventInstances.push(event.eventInstanceId);
-        working.v = working.v.minus(amount);
-        spent = spent.plus(amount);
-        break;
-      }
-      case 'SimulatedIncomeReceived': {
-        // Idempotent per instance. Ingress → `credited`, lands in Available.
-        // Never gated by the weekly-credit pauses (RD-9): its ceiling effect is
-        // indirect — a raised base pauses FUTURE weekly credits, honestly.
-        if (state.resolvedEventInstances.includes(event.eventInstanceId)) break;
-        const amount = d(event.amount);
-        if (amount.lte(0)) break;
-        state.resolvedEventInstances.push(event.eventInstanceId);
-        working.v = working.v.plus(amount);
-        credited = credited.plus(amount);
-        break;
-      }
       default:
         assertNever(event);
     }
   }
 
+  const { state } = ctx;
   state.buckets = {
-    floor: floor.v.toFixed(2),
-    cushion: cushion.v.toFixed(2),
-    working: working.v.toFixed(2),
+    floor: ctx.floor.v.toFixed(2),
+    cushion: ctx.cushion.v.toFixed(2),
+    working: ctx.working.v.toFixed(2),
   };
-  state.goals = [...goals.values()].map((g) => ({
+  state.goals = [...ctx.goals.values()].map((g) => ({
     ...g.s,
     cash: g.cash.toFixed(2),
     invested: g.invested.toFixed(2),
     earnings: g.earnings.toFixed(2),
   }));
-  state.positions = [...positions.values()].map((p) => ({
+  state.positions = [...ctx.positions.values()].map((p) => ({
     ...p.s,
     principal: p.principal.toFixed(2),
     accrued: p.accrued.toFixed(2),
@@ -549,19 +117,31 @@ export function project(events: LedgerEvent[]): LedgerState {
   // Only surface schedules whose position is still open (a closed position's
   // schedule is inert → the UI shows nothing rather than a stale control).
   const openPositionIds = new Set(
-    [...positions.values()].filter((p) => p.s.open).map((p) => p.s.positionId)
+    [...ctx.positions.values()].filter((p) => p.s.open).map((p) => p.s.positionId)
   );
-  state.recurring = [...recurring.values()].filter((r) => openPositionIds.has(r.positionId));
+  state.recurring = [...ctx.recurring.values()].filter((r) => openPositionIds.has(r.positionId));
   // Rules surface as-is (incl. deleted — history stays visible, R-4); each split
   // is copied so the projection never shares mutable refs with the map.
-  state.rules = [...rules.values()].map((r) => ({ ...r, split: r.split.map((s) => ({ ...s })) }));
-  state.networkFeesPaid = networkFees.toFixed(2);
-  state.exitFeesPaid = exitFees.toFixed(2);
-  state.credited = credited.toFixed(2);
+  state.rules = [...ctx.rules.values()].map((r) => ({
+    ...r,
+    split: r.split.map((s) => ({ ...s })),
+  }));
+  state.networkFeesPaid = ctx.totals.networkFees.toFixed(2);
+  state.exitFeesPaid = ctx.totals.exitFees.toFixed(2);
+  state.credited = ctx.totals.credited.toFixed(2);
   state.collectedWeeks.sort((a, b) => a - b);
-  state.spent = spent.toFixed(2);
+  state.spent = ctx.totals.spent.toFixed(2);
   state.events = events;
   return state;
+}
+
+/** Sum of `PlayMoneyGranted` amounts — the genesis term both readers below share. */
+function grantedTotal(state: LedgerState): Decimal {
+  let granted = ZERO;
+  for (const e of state.events) {
+    if (e.type === 'PlayMoneyGranted') granted = granted.plus(d(e.amount));
+  }
+  return granted;
 }
 
 /**
@@ -570,18 +150,14 @@ export function project(events: LedgerEvent[]): LedgerState {
  *
  *   expected = granted + credited + earnings − spent − exitFees − networkFees
  *
- * `credited` (ingress: weekly credit, simulated income) and `spent` (egress:
- * simulated expense — money permanently gone) are the mirror of the fee
- * subtrahends. Both are 0 until §2.3/§2.4, so this is identical to the prior
- * `granted + earnings − fees` formula today, and the invariant holds unchanged.
- * `held` never includes `spent` (gone money is gone). Returns the residual
- * (must be 0.00).
+ * `credited` (ingress: weekly credit, comparison credit, simulated income) and
+ * `spent` (egress: simulated expense — money permanently gone) are the mirror
+ * of the fee subtrahends. `held` never includes `spent` (gone money is gone).
+ * Returns the residual (must be 0.00).
  */
 export function reconcile(state: LedgerState): string {
-  let granted = ZERO;
   let earnings = ZERO;
   for (const e of state.events) {
-    if (e.type === 'PlayMoneyGranted') granted = granted.plus(d(e.amount));
     if (e.type === 'AccrualApplied') earnings = earnings.plus(d(e.earnings));
   }
   const held = [
@@ -591,81 +167,13 @@ export function reconcile(state: LedgerState): string {
     ...state.goals.map((g) => d(g.cash)),
     ...state.positions.filter((p) => p.open).map((p) => d(p.principal).plus(d(p.accrued))),
   ].reduce((acc, v) => acc.plus(v), ZERO);
-  const expected = granted
+  const expected = grantedTotal(state)
     .plus(d(state.credited))
     .plus(earnings)
     .minus(d(state.spent))
     .minus(d(state.exitFeesPaid))
     .minus(d(state.networkFeesPaid));
   return held.minus(expected).toFixed(2);
-}
-
-const MS_PER_DAY = 24 * 60 * 60 * 1000;
-
-/**
- * Whole real days to settle to "now" (WS-F): real days elapsed since genesis,
- * minus those already settled via `source:'real'` events. Pure — `nowIso` is
- * passed in. Returns 0 when there is no genesis, less than a full day has
- * passed, or the clock moved backward (D-2 daily granularity; idempotent).
- */
-export function realDaysToSettle(
-  genesisRecordedAt: string | null,
-  realSettledDays: number,
-  nowIso: string
-): number {
-  if (!genesisRecordedAt) return 0;
-  const t0 = Date.parse(genesisRecordedAt);
-  const now = Date.parse(nowIso);
-  if (!Number.isFinite(t0) || !Number.isFinite(now)) return 0;
-  const realElapsed = Math.floor((now - t0) / MS_PER_DAY);
-  return Math.max(0, realElapsed - realSettledDays);
-}
-
-/** Weekly-credit cadence (WG-1): one practice credit per real calendar week. */
-export const WEEKLY_CADENCE_DAYS = 7;
-
-/**
- * The genesis-anchored week indices collectible NOW (WG-1 + the collection
- * cap). Pure — the caller passes `nowIso` and the cap (`maxUncollected`, the
- * app derives it from `COLLECTION_CAP_DAYS / 7`; config-single-source stays in
- * the app layer).
- *
- * Accrual model ("pause, never loss/expiry", W-5b-am): weeks complete at
- * genesis + 7n REAL days regardless of login. At each completed boundary the
- * credit accrues ("banks") ONLY if fewer than `maxUncollected` banked weeks
- * were still uncollected at that moment — otherwise the meter is full and that
- * calendar week never accrues (paused, not banked for later). Banked weeks
- * never expire; collecting empties the meter and accrual resumes at the next
- * boundary. Deterministic given the collect history, so replay + this function
- * always agree.
- *
- * @param collectedAt `recordedAt` of every prior `WeeklyCreditGranted`, in
- *   event order (one entry per collected week — the meter's drain history).
- */
-export function collectibleWeeks(
-  genesisRecordedAt: string | null,
-  collectedAt: string[],
-  nowIso: string,
-  maxUncollected: number
-): number[] {
-  if (!genesisRecordedAt || maxUncollected < 1) return [];
-  const t0 = Date.parse(genesisRecordedAt);
-  const now = Date.parse(nowIso);
-  if (!Number.isFinite(t0) || !Number.isFinite(now)) return [];
-  const collectTimes = collectedAt
-    .map((iso) => Date.parse(iso))
-    .filter((t) => Number.isFinite(t))
-    .sort((a, b) => a - b);
-  const banked: number[] = [];
-  for (let n = 1; t0 + n * WEEKLY_CADENCE_DAYS * MS_PER_DAY <= now; n += 1) {
-    const boundary = t0 + n * WEEKLY_CADENCE_DAYS * MS_PER_DAY;
-    const collectedByBoundary = collectTimes.filter((t) => t <= boundary).length;
-    if (banked.length - collectedByBoundary < maxUncollected) banked.push(n);
-  }
-  // Each collect drains the oldest banked week, so the uncollected tail starts
-  // after the first `collectTimes.length` entries (≤ maxUncollected long by
-  // construction — the meter never banks past the cap).
-  return banked.slice(collectTimes.length);
 }
 
 /**
@@ -680,46 +188,10 @@ export function collectibleWeeks(
  * uncollected. Both resume; neither expires anything.
  */
 export function creditCeilingReached(state: LedgerState, ceilingAmount: string): boolean {
-  let granted = ZERO;
-  for (const e of state.events) {
-    if (e.type === 'PlayMoneyGranted') granted = granted.plus(d(e.amount));
-  }
-  const base = granted
+  const base = grantedTotal(state)
     .plus(d(state.credited))
     .minus(d(state.spent))
     .minus(d(state.exitFeesPaid))
     .minus(d(state.networkFeesPaid));
   return base.gte(d(ceilingAmount));
-}
-
-/** Recurring cadence (C3, decision D-1): a deposit every 30 simulated days. */
-export const RECURRING_CADENCE_DAYS = 30;
-
-/**
- * The monthly deposit sim-days due in the half-open range `(fromDay, toDay]`
- * for a schedule anchored at `startSimDay` (first deposit at
- * `startSimDay + 30`). Pure. Because `fromDay` is the position's
- * `accruedThroughSimDay` (which advances every settle), each due-day fires
- * exactly once across successive advances — idempotent even when a single month
- * is split across two advances (A-8). Ascending.
- */
-export function recurringDepositDays(
-  startSimDay: number,
-  fromDay: number,
-  toDay: number
-): number[] {
-  const days: number[] = [];
-  if (toDay <= fromDay) return days;
-  // First cadence day strictly after fromDay.
-  const elapsed = fromDay - startSimDay;
-  let k = Math.floor(elapsed / RECURRING_CADENCE_DAYS) + 1;
-  if (k < 1) k = 1;
-  for (
-    let day = startSimDay + k * RECURRING_CADENCE_DAYS;
-    day <= toDay;
-    day += RECURRING_CADENCE_DAYS
-  ) {
-    if (day > fromDay) days.push(day);
-  }
-  return days;
 }
