@@ -184,6 +184,8 @@
     "weeklyCredit": "Você coletou seu crédito de treino da semana {week}: {amount} para o Disponível.",
     "comparisonCredit": "Você coletou {amount} em créditos extras de treino para comparar caminhos.",
     "ruleApplied": "Você aprovou o plano da sua regra para {weeks, plural, one {# semana de crédito} other {# semanas de créditos}}.",
+    "simExpense": "Um cenário de treino: você cobriu uma despesa inesperada de {amount}. Nada real aconteceu.",
+    "simIncome": "Um cenário de treino: uma renda extra de {amount} chegou ao Disponível. Nada real aconteceu.",
     "day": "Dia {day}",
     "recurringSet": "Definiu {amount} por mês para {name}",
     "recurringCleared": "Desligou o valor mensal de {name}",

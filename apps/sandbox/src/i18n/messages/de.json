@@ -184,6 +184,8 @@
     "weeklyCredit": "You collected your week {week} practice credit: {amount} to Available.",
     "comparisonCredit": "You collected {amount} in extra practice credits to compare paths.",
     "ruleApplied": "You approved your rule's plan for {weeks, plural, one {# week's credit} other {# weeks of credits}}.",
+    "simExpense": "A practice scenario: you covered an unexpected {amount} expense. Nothing real happened.",
+    "simIncome": "A practice scenario: extra income of {amount} arrived in Available. Nothing real happened.",
     "day": "Day {day}",
     "recurringSet": "Set {amount} a month into {name}",
     "recurringCleared": "Turned off the monthly amount for {name}",

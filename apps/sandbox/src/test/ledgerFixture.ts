@@ -176,6 +176,24 @@ export const ONE_OF_EACH: OneOfEach = {
     proposalId: 'pr1',
     weekSet: [1],
   },
+  // ── §2.4 D-s money legs ─────────────────────────────────────────────────
+  // source='system' (the LedgerSource third value's producers). Expense →
+  // `spent` (egress), income → `credited` (ingress) — both conserving under
+  // the symmetric formula; distinct instance ids so both legs apply.
+  SimulatedExpensePaid: {
+    ...base('e26'),
+    type: 'SimulatedExpensePaid',
+    eventInstanceId: 'ev1',
+    amount: '1500.00',
+    source: 'system',
+  },
+  SimulatedIncomeReceived: {
+    ...base('e27'),
+    type: 'SimulatedIncomeReceived',
+    eventInstanceId: 'ev2',
+    amount: '1000.00',
+    source: 'system',
+  },
 };
 
 /** The fixture as an ordered, conserving event log (declaration order). */

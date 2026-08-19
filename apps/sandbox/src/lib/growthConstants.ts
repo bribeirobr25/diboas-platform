@@ -33,6 +33,13 @@ export const RULE_OVERLAP_POLICY = 'forbid' as const;
 /** Simulated-event money sizing, as a multiple range of the weekly credit (D-s). */
 export const SIM_EVENT_SIZING = { minWeeklyMultiple: 1, maxWeeklyMultiple: 2 } as const;
 
+/**
+ * The R1 unexpected-expense magnitude: the DETERMINISTIC mid-band multiple
+ * (P2BD-12) — no randomness in money paths (replay + the no-Math.random rule);
+ * the band's edges stay the attested guardrails for the P1 library.
+ */
+export const SIM_EVENT_DEFAULT_MULTIPLE = 1.5;
+
 type Mode = keyof typeof PLAY_MONEY_GRANT;
 
 /** Weekly credit amount for a mode = grant × rate (derived, never a literal). */

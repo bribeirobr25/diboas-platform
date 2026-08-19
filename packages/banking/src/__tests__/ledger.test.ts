@@ -320,6 +320,11 @@ describe('C-P0 · play-money invariant durability (CLO Board Session 024 — REQ
       WeeklyCreditGranted: true,
       ComparisonCreditGranted: true,
       RuleApplied: true,
+      // §2.4 D-s money legs — the expense is egress-by-SPENDING (play money
+      // consumed inside the practice narrative, never converted/withdrawn/paid
+      // OUT to anything of value); income is ingress. C-P0 preserved.
+      SimulatedExpensePaid: true,
+      SimulatedIncomeReceived: true,
     };
     const VALUE_EGRESS =
       /withdraw|cash[-_ ]?out|payout|prize|reward|redeem|convert|transfer.*(out|external)/i;
@@ -1221,5 +1226,88 @@ describe('§2.3 weekly cycle (WG-1 + D-r §3) — the credited term goes live', 
       // collectibleWeeks takes no sim-time input AT ALL — machine advances cannot
       // reach it; this pins the API-level independence both directions rely on.
     });
+  });
+});
+
+describe('§2.4 D-s simulated events — the spent term goes live (spec: SANDBOX_SPEC_D-S)', () => {
+  function opening(): LedgerEvent[] {
+    return [
+      { ...base(), type: 'PlayMoneyGranted', amount: '10000', currency: 'USD', mode: 'b2c' },
+    ];
+  }
+
+  it('should pay a simulated expense from Available into the spent term — gone money is gone, conserved', () => {
+    const state = project([
+      ...opening(),
+      { ...base(), type: 'SimulatedExpensePaid', eventInstanceId: 'ev1', amount: '1500.00', source: 'system' },
+    ]);
+    expect(state.buckets.working).toBe('8500.00');
+    expect(state.spent).toBe('1500.00');
+    expect(state.resolvedEventInstances).toEqual(['ev1']);
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should enforce the affordability floor — a debit larger than Available is a clean no-op', () => {
+    const state = project([
+      ...opening(),
+      { ...base(), type: 'SimulatedExpensePaid', eventInstanceId: 'ev1', amount: '99999.00', source: 'system' },
+    ]);
+    expect(state.buckets.working).toBe('10000.00');
+    expect(state.spent).toBe('0.00');
+    expect(state.resolvedEventInstances).toEqual([]);
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should be idempotent per event instance, across BOTH leg types (D-s §3)', () => {
+    const state = project([
+      ...opening(),
+      { ...base(), type: 'SimulatedExpensePaid', eventInstanceId: 'ev1', amount: '1000.00', source: 'system' },
+      { ...base(), type: 'SimulatedExpensePaid', eventInstanceId: 'ev1', amount: '1000.00', source: 'system' },
+      { ...base(), type: 'SimulatedIncomeReceived', eventInstanceId: 'ev1', amount: '500.00', source: 'system' },
+    ]);
+    expect(state.buckets.working).toBe('9000.00'); // one debit; the duplicate AND the same-id income skipped
+    expect(state.spent).toBe('1000.00');
+    expect(state.credited).toBe('0.00');
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should credit simulated income to Available and the credited term', () => {
+    const state = project([
+      ...opening(),
+      { ...base(), type: 'SimulatedIncomeReceived', eventInstanceId: 'ev2', amount: '2000.00', source: 'system' },
+    ]);
+    expect(state.buckets.working).toBe('12000.00');
+    expect(state.credited).toBe('2000.00');
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should never gate income itself — its ceiling effect is indirect: future weekly credits pause (RD-9)', () => {
+    // Income big enough to push the base past 2× the grant is still credited in
+    // full; the refill ceiling then (honestly) pauses future collection.
+    const state = project([
+      ...opening(),
+      { ...base(), type: 'SimulatedIncomeReceived', eventInstanceId: 'ev3', amount: '15000.00', source: 'system' },
+    ]);
+    expect(state.credited).toBe('15000.00'); // credited in full, never capped
+    expect(creditCeilingReached(state, '20000.00')).toBe(true); // future weekly credits pause
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should compose the reserve path: GoalCashReleased + the expense debit, one conserving story', () => {
+    const events: LedgerEvent[] = [
+      ...opening(),
+      { ...base(), type: 'GoalCreated', goalId: 'gEm', name: 'Emergency fund', icon: 'shield', targetAmount: '5000', horizonMonths: 12 },
+      { ...base(), type: 'GoalFunded', goalId: 'gEm', amount: '3000' },
+      // The reserve does its job: release what the expense needs, then pay it.
+      { ...base(), type: 'GoalCashReleased', goalId: 'gEm', amount: '1500.00', expectedVersion: 0 },
+      { ...base(), type: 'SimulatedExpensePaid', eventInstanceId: 'ev4', amount: '1500.00', source: 'system' },
+    ];
+    for (let i = 1; i <= events.length; i += 1) {
+      expect(reconcile(project(events.slice(0, i))), `prefix ${i}`).toBe('0.00');
+    }
+    const state = project(events);
+    expect(state.goals[0].cash).toBe('1500.00'); // 3000 − 1500 released
+    expect(state.buckets.working).toBe('7000.00'); // 10000 − 3000 funded + 1500 released − 1500 spent
+    expect(state.spent).toBe('1500.00');
   });
 });

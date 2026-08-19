@@ -70,6 +70,12 @@ function display(event: LedgerEvent): { icon: string; amount: string | null; sig
       return { icon: 'gift', amount: event.amount, sign: 'pos' };
     case 'RuleApplied':
       return { icon: 'check', amount: null, sign: null };
+    // D-s life events (clearly-fictional framing lives in the copy): expense
+    // out, income in — both tagged source='system' in the ledger.
+    case 'SimulatedExpensePaid':
+      return { icon: 'zap', amount: event.amount, sign: 'neg' };
+    case 'SimulatedIncomeReceived':
+      return { icon: 'coins', amount: event.amount, sign: 'pos' };
   }
 }
 
@@ -224,6 +230,16 @@ export function HistoryScreen() {
         );
       case 'RuleApplied':
         return intl.formatMessage({ id: 'history.ruleApplied' }, { weeks: event.weekSet.length });
+      case 'SimulatedExpensePaid':
+        return intl.formatMessage(
+          { id: 'history.simExpense' },
+          { amount: money(event.amount) }
+        );
+      case 'SimulatedIncomeReceived':
+        return intl.formatMessage(
+          { id: 'history.simIncome' },
+          { amount: money(event.amount) }
+        );
     }
   }
 

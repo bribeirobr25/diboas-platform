@@ -110,9 +110,14 @@ export interface LedgerState {
   /** Whether the one-time W-5c comparison credit has been granted (P2BD-10). */
   comparisonCredited: boolean;
   /**
+   * Simulated-event instance ids already resolved (D-s §3 idempotency) — a
+   * duplicate money leg for a resolved instance is skipped at projection.
+   */
+  resolvedEventInstances: string[];
+  /**
    * Egress total — money that has permanently LEFT the system (simulated
    * expense). NOT a held bucket: gone money is gone, so `held`-derived
-   * balances stay honest. Zero until §2.4 (Step-0 scaffold, board §1a).
+   * balances stay honest. First producer: §2.4's expense leg.
    */
   spent: string;
   events: LedgerEvent[];
@@ -143,6 +148,7 @@ export function emptyState(): LedgerState {
     credited: '0',
     collectedWeeks: [],
     comparisonCredited: false,
+    resolvedEventInstances: [],
     spent: '0',
     events: [],
   };
@@ -174,9 +180,9 @@ export function project(events: LedgerEvent[]): LedgerState {
   const rules = new Map<string, RuleState>();
   let networkFees = ZERO;
   let exitFees = ZERO;
-  // Ingress/egress running totals (board §1a). Zero today — the producing
-  // events (WeeklyCreditGranted, simulated income/expense) land in §2.3/§2.4;
-  // wire the `+= ` in the same case that adds the event, per the same-PR rule.
+  // Ingress/egress running totals (board §1a). Producers: the §2.3 credit
+  // events (credited) and the §2.4 simulated expense/income legs (spent,
+  // credited) — each wired in its own case, per the same-PR rule.
   let credited = ZERO;
   let spent = ZERO;
 
@@ -493,6 +499,30 @@ export function project(events: LedgerEvent[]): LedgerState {
         // Zero-value correlation marker (D-r §2): the money moves via the
         // GoalFunded legs sharing its correlationId. Trail-visible; reconcile
         // is indifferent (tested). Nothing to project.
+        break;
+      }
+      case 'SimulatedExpensePaid': {
+        // Idempotent per instance (D-s §3) + the affordability floor: a debit
+        // larger than Available is skipped — no negative balances, ever. Money
+        // leaves the system permanently (egress → `spent`, never in `held`).
+        if (state.resolvedEventInstances.includes(event.eventInstanceId)) break;
+        const amount = d(event.amount);
+        if (amount.lte(0) || working.v.lt(amount)) break;
+        state.resolvedEventInstances.push(event.eventInstanceId);
+        working.v = working.v.minus(amount);
+        spent = spent.plus(amount);
+        break;
+      }
+      case 'SimulatedIncomeReceived': {
+        // Idempotent per instance. Ingress → `credited`, lands in Available.
+        // Never gated by the weekly-credit pauses (RD-9): its ceiling effect is
+        // indirect — a raised base pauses FUTURE weekly credits, honestly.
+        if (state.resolvedEventInstances.includes(event.eventInstanceId)) break;
+        const amount = d(event.amount);
+        if (amount.lte(0)) break;
+        state.resolvedEventInstances.push(event.eventInstanceId);
+        working.v = working.v.plus(amount);
+        credited = credited.plus(amount);
         break;
       }
       default:

@@ -125,7 +125,7 @@ export interface RecurringContributionApplied extends EventBase {
  * The canonical provenance union for any event that carries a `source`
  * (board §7b). `'real'` = real elapsed calendar time (WS-F); `'machine'` = the
  * time-machine accelerator; `'system'` = platform-injected money legs (D-s
- * simulated income/expense — no producer yet; reserved for §2.4). Pinned by a
+ * simulated income/expense — producers: the §2.4 events below). Pinned by a
  * tripwire in `ledger.test.ts` so adding a value is a deliberate, reviewed
  * change — and any new value MUST be re-checked against the `?? 'machine'`
  * default in `engine.ts` (only `'real'` may increment `realSettledDays`).
@@ -334,6 +334,44 @@ export interface RuleApplied extends EventBase {
   weekSet: number[];
 }
 
+// ── §2.4 D-s simulated events (spec: SANDBOX_SPEC_D-S) ──────────────────────
+//
+// The money legs of a resolved practice-life event — ordinary ledger events
+// tagged `source: 'system'` (the LedgerSource third value's first producers,
+// §2b.3). Life events only, never market events (H-3.4). The choice record
+// (`SimulatedEventResolved`) is PLATFORM-SIDE and moves no money — it never
+// joins this union (CH-1 discipline). Resolution is idempotent per
+// `eventInstanceId` (D-s §3): the projection skips a duplicate instance, so a
+// re-fired resolution can never double-move money.
+
+/**
+ * A simulated expense, paid from Available — money permanently GONE (egress →
+ * the `spent` term; `held` never includes it). The affordability floor is
+ * enforced HERE too: a debit larger than Available is skipped (no negative
+ * balances, ever) — the option filter upstream should make that unreachable.
+ * The reserve path (cash released from the emergency goal first) rides a
+ * `GoalCashReleased` under the same correlationId.
+ */
+export interface SimulatedExpensePaid extends EventBase {
+  type: 'SimulatedExpensePaid';
+  eventInstanceId: string;
+  amount: string;
+  source: 'system';
+}
+
+/**
+ * Simulated extra income, credited to Available (ingress → the `credited`
+ * term). Never blocked or capped by the weekly-credit pauses (RD-9: it is not
+ * accrual — its ceiling effect is indirect and honest: a raised base pauses
+ * FUTURE weekly credits).
+ */
+export interface SimulatedIncomeReceived extends EventBase {
+  type: 'SimulatedIncomeReceived';
+  eventInstanceId: string;
+  amount: string;
+  source: 'system';
+}
+
 export type LedgerEvent =
   | PlayMoneyGranted
   | JobsSplitSet
@@ -359,6 +397,8 @@ export type LedgerEvent =
   | RuleDeleted
   | WeeklyCreditGranted
   | ComparisonCreditGranted
-  | RuleApplied;
+  | RuleApplied
+  | SimulatedExpensePaid
+  | SimulatedIncomeReceived;
 
 export type LedgerEventType = LedgerEvent['type'];

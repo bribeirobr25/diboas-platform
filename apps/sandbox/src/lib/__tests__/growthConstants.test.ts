@@ -10,6 +10,7 @@ import {
   creditCeilingAmount,
   comparisonCreditAmount,
   MAX_UNCOLLECTED_WEEKS,
+  SIM_EVENT_DEFAULT_MULTIPLE,
 } from '../growthConstants';
 
 // Attestation drift guard — docs/sandbox-app/PHASE2_CONSTANTS_ATTESTATION.md.
@@ -22,6 +23,10 @@ describe('Phase-2 growth constants (attestation drift guard)', () => {
     expect(RULE_OVERLAP_POLICY).toBe('forbid');
     expect(SIM_EVENT_SIZING).toEqual({ minWeeklyMultiple: 1, maxWeeklyMultiple: 2 });
     expect(MAX_UNCOLLECTED_WEEKS).toBe(2); // COLLECTION_CAP_DAYS / WEEKLY_CADENCE_DAYS
+    // The R1 expense magnitude sits INSIDE the attested band (mid-band pick).
+    expect(SIM_EVENT_DEFAULT_MULTIPLE).toBe(1.5);
+    expect(SIM_EVENT_DEFAULT_MULTIPLE).toBeGreaterThanOrEqual(SIM_EVENT_SIZING.minWeeklyMultiple);
+    expect(SIM_EVENT_DEFAULT_MULTIPLE).toBeLessThanOrEqual(SIM_EVENT_SIZING.maxWeeklyMultiple);
   });
 
   it('should derive weekly credit + ceiling from the grant (single source, never a literal)', () => {
