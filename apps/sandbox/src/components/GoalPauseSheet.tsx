@@ -21,9 +21,13 @@ import styles from './GoalPauseSheet.module.css';
 export function GoalPauseSheet({
   onConfirm,
   onDismiss,
+  onStopStrategy,
 }: {
   onConfirm?: () => void;
   onDismiss: () => void;
+  /** Wired when the goal has open positions (G3): opens the REAL exit
+   *  manifest — the fee is disclosed in the alsoStop line before the tap. */
+  onStopStrategy?: () => void;
 }) {
   return (
     <BottomSheet titleId="goalPause.title" onClose={onDismiss} tone="light">
@@ -46,6 +50,11 @@ export function GoalPauseSheet({
       <p className={styles.alsoStop}>
         <FormattedMessage id="goalPause.alsoStop" />
       </p>
+      {onStopStrategy ? (
+        <button type="button" className={styles.stopLink} onClick={onStopStrategy}>
+          <FormattedMessage id="goalPause.stopCta" />
+        </button>
+      ) : null}
 
       <div className={styles.actions}>
         <Button variant="primary" fullWidth onClick={() => onConfirm?.()}>

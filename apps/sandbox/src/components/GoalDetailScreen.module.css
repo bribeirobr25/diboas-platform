@@ -432,3 +432,7 @@
   color: var(--sb-text-heading);
   font-variant-numeric: tabular-nums;
 }
+
+.actionTileIconPause {
+  color: var(--text-warning-accessible);
+}

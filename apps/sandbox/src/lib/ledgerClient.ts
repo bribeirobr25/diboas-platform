@@ -22,7 +22,9 @@ export {
   enterStrategy,
   exitPosition,
   grantPlayMoney,
+  pauseGoal,
   previewExit,
+  resumeGoal,
   setRecurring,
   splitEntry,
 } from './ledger/journey';

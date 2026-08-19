@@ -390,7 +390,9 @@
     "stateMoney": "Dinheiro investido ainda trabalhando",
     "alsoStop": "Quer sair da estratégia também? Você pode pará-la (uma pequena taxa de 0,39% se aplica).",
     "pause": "Pausar plano",
-    "keepGoing": "Continuar"
+    "keepGoing": "Continuar",
+    "stopCta": "Parar a estratégia também",
+    "resume": "Retomar o plano"
   },
   "theme": {
     "toggle": "Mudar para o modo {target}",

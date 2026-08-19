@@ -1,13 +1,17 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import Decimal from 'decimal.js';
 import {
+  advanceTime,
   createGoal,
   enterStrategy,
   getLedgerState,
   getReady,
   grantPlayMoney,
+  pauseGoal,
   previewExit,
   resetSandbox,
+  resumeGoal,
+  setRecurring,
 } from '@/lib/ledgerClient';
 
 /**
@@ -100,5 +104,58 @@ describe('previewExit — the widened exit primitive (Step 0 item 7)', () => {
   it('should return null for an unknown or already-closed position', () => {
     openPosition();
     expect(previewExit('no-such-position', 5)).toBeNull();
+  });
+});
+
+describe('G3 pause/resume (§4.3, W-17d — plan-level, positions keep working)', () => {
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+  });
+
+  it('should pause then resume with optimistic versions, reconcile-indifferent', () => {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 3000,
+      horizonMonths: 12,
+      fundAmount: 500,
+    });
+    pauseGoal(goalId);
+    expect(getLedgerState().goals[0].status).toBe('paused');
+    pauseGoal(goalId); // already paused → clean no-op
+    expect(getLedgerState().goals[0].version).toBe(1);
+    resumeGoal(goalId);
+    expect(getLedgerState().goals[0].status).toBe('active');
+    expect(new Decimal(getLedgerState().goals[0].cash).toFixed(2)).toBe('500.00');
+  });
+
+  it("should make a paused goal's recurring schedule INERT during advances — the pause copy stays true", () => {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 3000,
+      horizonMonths: 12,
+      fundAmount: 1000,
+    });
+    const positionId = enterStrategy({
+      goalId,
+      strategyId: 'safeHarbor',
+      totalFromCash: 500,
+      networkFeeLocal: 1,
+    });
+    setRecurring({ goalId, positionId, monthlyAmount: 100 });
+    pauseGoal(goalId);
+    const workingBefore = getLedgerState().buckets.working;
+    advanceTime(35, []); // a month passes; the deposit would fire if active
+    const state = getLedgerState();
+    expect(state.buckets.working).toBe(workingBefore); // no deposit while paused
+    expect(state.events.filter((e) => e.type === 'RecurringContributionApplied')).toHaveLength(0);
+    // Resume → the next month's advance deposits again (inert, not destroyed).
+    resumeGoal(goalId);
+    advanceTime(35, []);
+    expect(
+      getLedgerState().events.filter((e) => e.type === 'RecurringContributionApplied').length
+    ).toBeGreaterThan(0);
   });
 });

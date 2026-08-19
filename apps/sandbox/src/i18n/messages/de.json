@@ -390,7 +390,9 @@
     "stateMoney": "Investiertes Geld arbeitet weiter",
     "alsoStop": "Auch aus der Strategie aussteigen? Du kannst sie ebenfalls stoppen (eine kleine Gebühr von 0,39% fällt an).",
     "pause": "Plan pausieren",
-    "keepGoing": "Weitermachen"
+    "keepGoing": "Weitermachen",
+    "stopCta": "Also stop the strategy",
+    "resume": "Resume plan"
   },
   "theme": {
     "toggle": "In den {target} Modus wechseln",

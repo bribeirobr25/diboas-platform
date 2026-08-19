@@ -10,11 +10,19 @@ import { LOCALE_CURRENCY } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
 import { useMarket } from '@/hooks/useMarket';
 import { useFormatters } from '@/hooks/useFormatters';
-import { enterStrategy, exitPosition, previewExit, splitEntry } from '@/lib/ledgerClient';
+import {
+  enterStrategy,
+  exitPosition,
+  pauseGoal,
+  previewExit,
+  resumeGoal,
+  splitEntry,
+} from '@/lib/ledgerClient';
 import { goalCurrentValue } from '@/lib/goalValue';
 import { positionValueSeries } from '@/lib/positionSeries';
 import { BottomSheet } from './BottomSheet';
 import { LucideIcon } from './LucideIcon';
+import { GoalPauseSheet } from './GoalPauseSheet';
 import { Manifest } from './Manifest';
 import { PathCard, networkFeeLocal } from './PathCard';
 import { Projection } from './Projection';
@@ -59,6 +67,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
     { kind: 'entry' } | { kind: 'exit'; positionId: string } | null
   >(null);
   const [busy, setBusy] = useState(false);
+  const [pauseSheet, setPauseSheet] = useState(false);
 
   const current = useMemo(() => goalCurrentValue(state, goalId), [state, goalId]);
 
@@ -281,6 +290,29 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                   <LucideIcon name="plus" size={18} />
                 </span>
                 <FormattedMessage id="goalDual.add" />
+              </button>
+            ) : null}
+            {goal.status === 'active' ? (
+              <button
+                type="button"
+                className={styles.actionTile}
+                onClick={() => setPauseSheet(true)}
+              >
+                <span className={styles.actionTileIconPause}>
+                  <LucideIcon name="pause" size={18} />
+                </span>
+                <FormattedMessage id="goalDual.pausePlan" />
+              </button>
+            ) : goal.status === 'paused' ? (
+              <button
+                type="button"
+                className={styles.actionTile}
+                onClick={() => resumeGoal(goalId)}
+              >
+                <span className={styles.actionTileIcon}>
+                  <LucideIcon name="play" size={18} />
+                </span>
+                <FormattedMessage id="goalPause.resume" />
               </button>
             ) : null}
             <button type="button" className={styles.actionTile} onClick={() => setView('detailed')}>
@@ -519,6 +551,27 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
           ) : null}
         </div>
       )}
+
+      {pauseSheet ? (
+        <GoalPauseSheet
+          onConfirm={() => {
+            pauseGoal(goalId);
+            setPauseSheet(false);
+          }}
+          onDismiss={() => setPauseSheet(false)}
+          onStopStrategy={
+            openPositions.length > 0
+              ? () => {
+                  // The REAL exit path (Stage-D G3): fee already disclosed in
+                  // the sheet line; the manifest itemizes before anything moves.
+                  setPauseSheet(false);
+                  setView('detailed');
+                  setExitManifestFor(openPositions[0].positionId);
+                }
+              : undefined
+          }
+        />
+      ) : null}
 
       {entryManifest && strategy && !settling ? (
         <Manifest

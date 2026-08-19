@@ -44,6 +44,27 @@ export function grantPlayMoney(
   ]);
 }
 
+/**
+ * Pause a goal's PLAN (G3, W-17d): zero-value D-e transition — the weekly
+ * plan, proposals (D-r skips paused), and recurring deposits stop; invested
+ * money keeps working. Optimistic version from current state; a stale event
+ * is skipped by the projection (fail-safe re-present).
+ */
+export function pauseGoal(goalId: string): void {
+  const goal = getLedgerState().goals.find((g) => g.goalId === goalId);
+  if (!goal || goal.status !== 'active') return;
+  appendAll([{ ...base(generateId()), type: 'GoalPaused', goalId, expectedVersion: goal.version }]);
+}
+
+/** Resume a paused goal's plan — the calm reverse of pause (reversibility). */
+export function resumeGoal(goalId: string): void {
+  const goal = getLedgerState().goals.find((g) => g.goalId === goalId);
+  if (!goal || goal.status !== 'paused') return;
+  appendAll([
+    { ...base(generateId()), type: 'GoalResumed', goalId, expectedVersion: goal.version },
+  ]);
+}
+
 export function createGoal(input: {
   name: string;
   icon: string;
@@ -169,7 +190,13 @@ export function advanceTime(
       accrued: p.accrued,
       accruedThroughSimDay: p.accruedThroughSimDay,
     })),
-    schedules: state.recurring,
+    // G3/W-17d: a paused goal's schedules are INERT while paused (the pause
+    // sheet says "stops your weekly plan" — auto-deposits must honor that or
+    // the copy lies). Derived, not stored: resume re-activates them untouched.
+    schedules: state.recurring.filter((r) => {
+      const goal = state.goals.find((g) => g.goalId === r.goalId);
+      return goal ? goal.status === 'active' : false;
+    }),
     workingStart: state.buckets.working,
     blendedByPosition,
     toDay,

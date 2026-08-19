@@ -390,7 +390,9 @@
     "stateMoney": "Invested money still working",
     "alsoStop": "Want out of the strategy too? You can also stop it (a small 0.39% fee applies).",
     "pause": "Pause plan",
-    "keepGoing": "Keep going"
+    "keepGoing": "Keep going",
+    "stopCta": "Also stop the strategy",
+    "resume": "Resume plan"
   },
   "theme": {
     "toggle": "Switch to {target} mode",
