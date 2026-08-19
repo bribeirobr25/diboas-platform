@@ -152,6 +152,30 @@ export const ONE_OF_EACH: OneOfEach = {
   RulePaused: { ...base('e20'), type: 'RulePaused', ruleId: 'r1', expectedRuleVersion: 1 },
   RuleResumed: { ...base('e21'), type: 'RuleResumed', ruleId: 'r1', expectedRuleVersion: 2 },
   RuleDeleted: { ...base('e22'), type: 'RuleDeleted', ruleId: 'r1', expectedRuleVersion: 3 },
+  // ── §2.3 weekly cycle ───────────────────────────────────────────────────
+  // Both credits are ingress (the `credited` term) landing in Available —
+  // conserving by the symmetric formula. ComparisonCreditGranted is valid here
+  // because a StrategyEntered precedes it (the engine's P2BD-10 guard);
+  // RuleApplied is a zero-value approval marker (its money rode GoalFunded).
+  WeeklyCreditGranted: {
+    ...base('e23'),
+    type: 'WeeklyCreditGranted',
+    week: 1,
+    amount: '1000.00',
+  },
+  ComparisonCreditGranted: {
+    ...base('e24'),
+    type: 'ComparisonCreditGranted',
+    amount: '1000.00',
+  },
+  RuleApplied: {
+    ...base('e25'),
+    type: 'RuleApplied',
+    ruleId: 'r1',
+    ruleVersion: 4,
+    proposalId: 'pr1',
+    weekSet: [1],
+  },
 };
 
 /** The fixture as an ordered, conserving event log (declaration order). */

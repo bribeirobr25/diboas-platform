@@ -12,6 +12,7 @@
  * hardcode. The floor-then-remainder split FUNCTION is a documented contract in
  * the attestation, implemented + property-tested in §2.2 (D-r), not here.
  */
+import { WEEKLY_CADENCE_DAYS } from '@diboas/banking';
 import { PLAY_MONEY_GRANT } from '@/i18n/config';
 
 /** Weekly practice credit as a share of the first-run grant (WG-1). */
@@ -22,6 +23,9 @@ export const CREDIT_CEILING_MULTIPLE = 2;
 
 /** Uncollected weeks stop accruing past this many days — the 2-week collection cap. */
 export const COLLECTION_CAP_DAYS = 14;
+
+/** The collection cap in whole weeks — the engine's `maxUncollected` input (derived, never a literal). */
+export const MAX_UNCOLLECTED_WEEKS = COLLECTION_CAP_DAYS / WEEKLY_CADENCE_DAYS;
 
 /** Rule overlap policy: two rules may not both claim the same incoming money (D-r). */
 export const RULE_OVERLAP_POLICY = 'forbid' as const;
@@ -39,4 +43,13 @@ export function weeklyCreditAmount(mode: Mode): number {
 /** Ceiling amount for a mode = grant × ceiling multiple. */
 export function creditCeilingAmount(mode: Mode): number {
   return PLAY_MONEY_GRANT[mode] * CREDIT_CEILING_MULTIPLE;
+}
+
+/**
+ * The one-time W-5c comparison credit = exactly one weekly amount (3.10's
+ * "1,000 extra practice credits" at b2c IS the weekly credit — derived, so it
+ * stays proportionate per mode and never drifts from the grant).
+ */
+export function comparisonCreditAmount(mode: Mode): number {
+  return weeklyCreditAmount(mode);
 }

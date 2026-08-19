@@ -97,10 +97,18 @@ export interface LedgerState {
   exitFeesPaid: string;
   /**
    * Ingress total — money entering the system AFTER genesis (weekly credit,
-   * simulated income). A subtrahend's mirror in the conservation formula.
-   * Zero until §2.3/§2.4 add the producing events (Step-0 scaffold, board §1a).
+   * comparison credit, simulated income). A subtrahend's mirror in the
+   * conservation formula. First producers: §2.3's credit events.
    */
   credited: string;
+  /**
+   * Genesis-anchored week indices whose credit has been collected (WG-1) —
+   * ascending, the per-week idempotency record. Weeks skipped while the
+   * collection cap held the meter never appear (they never accrued).
+   */
+  collectedWeeks: number[];
+  /** Whether the one-time W-5c comparison credit has been granted (P2BD-10). */
+  comparisonCredited: boolean;
   /**
    * Egress total — money that has permanently LEFT the system (simulated
    * expense). NOT a held bucket: gone money is gone, so `held`-derived
@@ -133,6 +141,8 @@ export function emptyState(): LedgerState {
     networkFeesPaid: '0',
     exitFeesPaid: '0',
     credited: '0',
+    collectedWeeks: [],
+    comparisonCredited: false,
     spent: '0',
     events: [],
   };
@@ -459,6 +469,32 @@ export function project(events: LedgerEvent[]): LedgerState {
         }
         break;
       }
+      case 'WeeklyCreditGranted': {
+        // Idempotent per week (WG-1): a duplicate week is a clean no-op, so a
+        // double-fired Collect tap can never mint a second credit for the same
+        // week. Ingress → `credited`; lands in Available (working).
+        if (state.collectedWeeks.includes(event.week)) break;
+        state.collectedWeeks.push(event.week);
+        credited = credited.plus(d(event.amount));
+        working.v = working.v.plus(d(event.amount));
+        break;
+      }
+      case 'ComparisonCreditGranted': {
+        // Both W-5c guards live HERE, not only on the offer surface (P2BD-10):
+        // once per ledger, and never before the first strategy entry (the
+        // comparison-learning covenant — there is nothing to compare yet).
+        if (state.comparisonCredited || positions.size === 0) break;
+        state.comparisonCredited = true;
+        credited = credited.plus(d(event.amount));
+        working.v = working.v.plus(d(event.amount));
+        break;
+      }
+      case 'RuleApplied': {
+        // Zero-value correlation marker (D-r §2): the money moves via the
+        // GoalFunded legs sharing its correlationId. Trail-visible; reconcile
+        // is indifferent (tested). Nothing to project.
+        break;
+      }
       default:
         assertNever(event);
     }
@@ -492,6 +528,7 @@ export function project(events: LedgerEvent[]): LedgerState {
   state.networkFeesPaid = networkFees.toFixed(2);
   state.exitFeesPaid = exitFees.toFixed(2);
   state.credited = credited.toFixed(2);
+  state.collectedWeeks.sort((a, b) => a - b);
   state.spent = spent.toFixed(2);
   state.events = events;
   return state;
@@ -552,6 +589,77 @@ export function realDaysToSettle(
   if (!Number.isFinite(t0) || !Number.isFinite(now)) return 0;
   const realElapsed = Math.floor((now - t0) / MS_PER_DAY);
   return Math.max(0, realElapsed - realSettledDays);
+}
+
+/** Weekly-credit cadence (WG-1): one practice credit per real calendar week. */
+export const WEEKLY_CADENCE_DAYS = 7;
+
+/**
+ * The genesis-anchored week indices collectible NOW (WG-1 + the collection
+ * cap). Pure — the caller passes `nowIso` and the cap (`maxUncollected`, the
+ * app derives it from `COLLECTION_CAP_DAYS / 7`; config-single-source stays in
+ * the app layer).
+ *
+ * Accrual model ("pause, never loss/expiry", W-5b-am): weeks complete at
+ * genesis + 7n REAL days regardless of login. At each completed boundary the
+ * credit accrues ("banks") ONLY if fewer than `maxUncollected` banked weeks
+ * were still uncollected at that moment — otherwise the meter is full and that
+ * calendar week never accrues (paused, not banked for later). Banked weeks
+ * never expire; collecting empties the meter and accrual resumes at the next
+ * boundary. Deterministic given the collect history, so replay + this function
+ * always agree.
+ *
+ * @param collectedAt `recordedAt` of every prior `WeeklyCreditGranted`, in
+ *   event order (one entry per collected week — the meter's drain history).
+ */
+export function collectibleWeeks(
+  genesisRecordedAt: string | null,
+  collectedAt: string[],
+  nowIso: string,
+  maxUncollected: number
+): number[] {
+  if (!genesisRecordedAt || maxUncollected < 1) return [];
+  const t0 = Date.parse(genesisRecordedAt);
+  const now = Date.parse(nowIso);
+  if (!Number.isFinite(t0) || !Number.isFinite(now)) return [];
+  const collectTimes = collectedAt
+    .map((iso) => Date.parse(iso))
+    .filter((t) => Number.isFinite(t))
+    .sort((a, b) => a - b);
+  const banked: number[] = [];
+  for (let n = 1; t0 + n * WEEKLY_CADENCE_DAYS * MS_PER_DAY <= now; n += 1) {
+    const boundary = t0 + n * WEEKLY_CADENCE_DAYS * MS_PER_DAY;
+    const collectedByBoundary = collectTimes.filter((t) => t <= boundary).length;
+    if (banked.length - collectedByBoundary < maxUncollected) banked.push(n);
+  }
+  // Each collect drains the oldest banked week, so the uncollected tail starts
+  // after the first `collectTimes.length` entries (≤ maxUncollected long by
+  // construction — the meter never banks past the cap).
+  return banked.slice(collectTimes.length);
+}
+
+/**
+ * Whether the WG-1 refill ceiling pauses collection: the ceiling base has
+ * reached `ceilingAmount` (2× the grant). The base is
+ * `granted + credited − spent − exitFees − networkFees` — deliberately WITHOUT
+ * the earnings term (P2BD-9): every term is invariant under
+ * `TimeAdvanced('machine')` and its accruals, so the board-§2b bidirectional
+ * rule (the time machine neither grants nor suppresses weekly credits) holds
+ * by construction rather than by attribution. Distinct from the collection
+ * cap: this pauses while wealth is ample; that pauses while credits sit
+ * uncollected. Both resume; neither expires anything.
+ */
+export function creditCeilingReached(state: LedgerState, ceilingAmount: string): boolean {
+  let granted = ZERO;
+  for (const e of state.events) {
+    if (e.type === 'PlayMoneyGranted') granted = granted.plus(d(e.amount));
+  }
+  const base = granted
+    .plus(d(state.credited))
+    .minus(d(state.spent))
+    .minus(d(state.exitFeesPaid))
+    .minus(d(state.networkFeesPaid));
+  return base.gte(d(ceilingAmount));
 }
 
 /** Recurring cadence (C3, decision D-1): a deposit every 30 simulated days. */

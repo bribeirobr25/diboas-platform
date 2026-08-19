@@ -2,6 +2,8 @@ import Decimal from 'decimal.js';
 import { describe, expect, it } from 'vitest';
 import type { LedgerEvent, LedgerEventType, LedgerSource } from '../ledger/events';
 import {
+  collectibleWeeks,
+  creditCeilingReached,
   project,
   realDaysToSettle,
   recurringDepositDays,
@@ -311,6 +313,13 @@ describe('C-P0 · play-money invariant durability (CLO Board Session 024 — REQ
       RulePaused: true,
       RuleResumed: true,
       RuleDeleted: true,
+      // §2.3 weekly cycle — both credits are INGRESS (play money entering, the
+      // `credited` term), the opposite direction of egress; `RuleApplied` is a
+      // zero-value approval marker (money rides its GoalFunded legs). None is
+      // value egress. C-P0 preserved.
+      WeeklyCreditGranted: true,
+      ComparisonCreditGranted: true,
+      RuleApplied: true,
     };
     const VALUE_EGRESS =
       /withdraw|cash[-_ ]?out|payout|prize|reward|redeem|convert|transfer.*(out|external)/i;
@@ -1081,5 +1090,136 @@ describe('D-r rules engine (spec: SANDBOX_SPEC_D-R)', () => {
     ]);
     expect(r1(state).status).toBe('deleted');
     expect(r1(state).ruleVersion).toBe(1); // only the real delete bumped the version
+  });
+});
+
+describe('§2.3 weekly cycle (WG-1 + D-r §3) — the credited term goes live', () => {
+  const genesis = '2026-08-01T00:00:00.000Z';
+  const day = (n: number, hour = 0) =>
+    new Date(Date.parse(genesis) + n * 24 * 60 * 60 * 1000 + hour * 60 * 60 * 1000).toISOString();
+
+  function grantAt(iso: string): LedgerEvent {
+    return { ...base(), recordedAt: iso, type: 'PlayMoneyGranted', amount: '10000', currency: 'USD', mode: 'b2c' };
+  }
+  function weekly(week: number, at?: string): LedgerEvent {
+    return { ...base(), ...(at ? { recordedAt: at } : {}), type: 'WeeklyCreditGranted', week, amount: '1000.00' };
+  }
+
+  it('should land a weekly credit in Available AND the credited term, and reconcile to 0.00', () => {
+    const state = project([grantAt(genesis), weekly(1)]);
+    expect(state.buckets.working).toBe('11000.00');
+    expect(state.credited).toBe('1000.00');
+    expect(state.collectedWeeks).toEqual([1]);
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should be idempotent per week — a duplicate week event is a clean no-op', () => {
+    const state = project([grantAt(genesis), weekly(3), weekly(3)]);
+    expect(state.credited).toBe('1000.00');
+    expect(state.collectedWeeks).toEqual([3]);
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should grant the comparison credit once, and only after a strategy entry exists (P2BD-10)', () => {
+    const before: LedgerEvent[] = [
+      grantAt(genesis),
+      { ...base(), type: 'ComparisonCreditGranted', amount: '1000.00' }, // no position yet → no-op
+    ];
+    expect(project(before).credited).toBe('0.00');
+    expect(project(before).comparisonCredited).toBe(false);
+
+    const after: LedgerEvent[] = [
+      grantAt(genesis),
+      { ...base(), type: 'GoalCreated', goalId: 'g1', name: 'Trip', icon: 'plane', targetAmount: '3000', horizonMonths: 12 },
+      { ...base(), type: 'GoalFunded', goalId: 'g1', amount: '2000' },
+      { ...base(), type: 'StrategyEntered', goalId: 'g1', positionId: 'p1', strategyId: 'safeHarbor', amount: '1990', networkFee: '10' },
+      { ...base(), type: 'ComparisonCreditGranted', amount: '1000.00' },
+      { ...base(), type: 'ComparisonCreditGranted', amount: '1000.00' }, // second → no-op
+    ];
+    const state = project(after);
+    expect(state.comparisonCredited).toBe(true);
+    expect(state.credited).toBe('1000.00');
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should treat RuleApplied as zero-value — reconcile indifferent, money rides its GoalFunded legs', () => {
+    const state = project([
+      grantAt(genesis),
+      { ...base(), type: 'GoalCreated', goalId: 'g1', name: 'Trip', icon: 'plane', targetAmount: '3000', horizonMonths: 12 },
+      { ...base(), type: 'RuleCreated', ruleId: 'r1', split: [{ goalId: 'g1', percent: 50 }] },
+      weekly(1),
+      { ...base(), type: 'RuleApplied', ruleId: 'r1', ruleVersion: 0, proposalId: 'pr1', weekSet: [1] },
+      { ...base(), type: 'GoalFunded', goalId: 'g1', amount: '500' },
+    ]);
+    expect(state.goals[0].cash).toBe('500.00');
+    expect(state.buckets.working).toBe('10500.00'); // grant + 1000 credit − 500 to the goal
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  describe('collectibleWeeks (real-calendar accrual + the pause-at-cap meter)', () => {
+    it('should return [] with no genesis, an invalid now, or a zero cap', () => {
+      expect(collectibleWeeks(null, [], day(30), 2)).toEqual([]);
+      expect(collectibleWeeks(genesis, [], 'not-a-date', 2)).toEqual([]);
+      expect(collectibleWeeks(genesis, [], day(30), 0)).toEqual([]);
+    });
+
+    it('should bank nothing before the first boundary and week 1 exactly at genesis+7d', () => {
+      expect(collectibleWeeks(genesis, [], day(6, 23), 2)).toEqual([]);
+      expect(collectibleWeeks(genesis, [], day(7), 2)).toEqual([1]);
+    });
+
+    it('should pause accrual at the cap — 10 idle weeks bank only the first 2, never loss of the banked', () => {
+      expect(collectibleWeeks(genesis, [], day(70), 2)).toEqual([1, 2]);
+    });
+
+    it('should resume at the NEXT calendar boundaries after a collect (pause, not backfill)', () => {
+      // Collected weeks 1+2 on day 71; boundaries 11 and 12 re-fill the meter, then pause again.
+      const collected = [day(71), day(71)];
+      expect(collectibleWeeks(genesis, collected, day(71, 1), 2)).toEqual([]);
+      expect(collectibleWeeks(genesis, collected, day(78), 2)).toEqual([11]);
+      expect(collectibleWeeks(genesis, collected, day(120), 2)).toEqual([11, 12]);
+    });
+
+    it('should keep the weekly rhythm for a prompt collector — one new week per boundary', () => {
+      expect(collectibleWeeks(genesis, [day(8)], day(15), 2)).toEqual([2]);
+      expect(collectibleWeeks(genesis, [day(8), day(15)], day(22), 2)).toEqual([3]);
+    });
+  });
+
+  describe('the WG-1 refill ceiling (board §2b — bidirectional dual-clock invariant)', () => {
+    const CEILING = '20000.00'; // 2× the 10,000 grant
+
+    it('should not pause below the ceiling and pause at it', () => {
+      const below = project([grantAt(genesis), weekly(1)]);
+      expect(creditCeilingReached(below, CEILING)).toBe(false);
+      // 10 collected weeks → base 20,000 = the ceiling → paused.
+      const weeks = Array.from({ length: 10 }, (_, i) => weekly(i + 1));
+      const at = project([grantAt(genesis), ...weeks]);
+      expect(creditCeilingReached(at, CEILING)).toBe(true);
+    });
+
+    it('should NOT suppress credits when machine time inflates earnings (the §2b starving direction)', () => {
+      // A machine-era accrual big enough that held net worth crosses 2× the
+      // grant — the ceiling base must ignore it (earnings excluded, P2BD-9).
+      const state = project([
+        grantAt(genesis),
+        { ...base(), type: 'GoalCreated', goalId: 'g1', name: 'Trip', icon: 'plane', targetAmount: '3000', horizonMonths: 12 },
+        { ...base(), type: 'GoalFunded', goalId: 'g1', amount: '9000' },
+        { ...base(), type: 'StrategyEntered', goalId: 'g1', positionId: 'p1', strategyId: 'safeHarbor', amount: '9000', networkFee: '0.00' },
+        { ...base(), type: 'TimeAdvanced', days: 365, source: 'machine' },
+        { ...base(), type: 'AccrualApplied', positionId: 'p1', fromSimDay: 0, toSimDay: 365, earnings: '15000.00', apySource: 'fixture' },
+      ]);
+      // Held net worth (10,000 + 15,000 earnings) is far past 2× the grant…
+      expect(new Decimal(state.buckets.working).plus('9000').plus('15000').gte('20000')).toBe(true);
+      // …but the real-calendar ceiling base is still 10,000 → collection stays open.
+      expect(creditCeilingReached(state, CEILING)).toBe(false);
+    });
+
+    it('should NOT grant credits from machine time either (the farming direction) — weeks come from the real calendar only', () => {
+      // A year of machine time, but only 8 real days since genesis → exactly week 1 is collectible.
+      expect(collectibleWeeks(genesis, [], day(8), 2)).toEqual([1]);
+      // collectibleWeeks takes no sim-time input AT ALL — machine advances cannot
+      // reach it; this pins the API-level independence both directions rely on.
+    });
   });
 });

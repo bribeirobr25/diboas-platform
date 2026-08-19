@@ -62,6 +62,14 @@ function display(event: LedgerEvent): { icon: string; amount: string | null; sig
       return { icon: 'play', amount: null, sign: null };
     case 'RuleDeleted':
       return { icon: 'x', amount: null, sign: null };
+    // §2.3 weekly cycle: both credits are money-in; RuleApplied is the
+    // zero-value approval marker (its money shows on the GoalFunded legs).
+    case 'WeeklyCreditGranted':
+      return { icon: 'calendar', amount: event.amount, sign: 'pos' };
+    case 'ComparisonCreditGranted':
+      return { icon: 'gift', amount: event.amount, sign: 'pos' };
+    case 'RuleApplied':
+      return { icon: 'check', amount: null, sign: null };
   }
 }
 
@@ -204,6 +212,18 @@ export function HistoryScreen() {
         return intl.formatMessage({ id: 'history.ruleResumed' });
       case 'RuleDeleted':
         return intl.formatMessage({ id: 'history.ruleDeleted' });
+      case 'WeeklyCreditGranted':
+        return intl.formatMessage(
+          { id: 'history.weeklyCredit' },
+          { week: event.week, amount: money(event.amount) }
+        );
+      case 'ComparisonCreditGranted':
+        return intl.formatMessage(
+          { id: 'history.comparisonCredit' },
+          { amount: money(event.amount) }
+        );
+      case 'RuleApplied':
+        return intl.formatMessage({ id: 'history.ruleApplied' }, { weeks: event.weekSet.length });
     }
   }
 

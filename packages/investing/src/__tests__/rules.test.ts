@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { allocateByRule, isValidRuleSplit, type RuleSplitLine } from '../rules';
+import { allocateByRule, generateProposal, isValidRuleSplit, type RuleSplitLine } from '../rules';
 
 describe('allocateByRule — floor-then-remainder (D-r §4)', () => {
   it('should allocate whole shares and leave the remainder to Available', () => {
@@ -74,5 +74,79 @@ describe('isValidRuleSplit — the builder validation (D-r §5)', () => {
     expect(isValidRuleSplit([{ goalId: 'g1', percent: 101 }])).toBe(false);
     expect(isValidRuleSplit([{ goalId: 'g1', percent: 33.5 }])).toBe(false);
     expect(isValidRuleSplit([{ goalId: 'g1', percent: 40 }, { goalId: 'g1', percent: 20 }])).toBe(false);
+  });
+});
+
+describe('generateProposal — the ONE proposal per collected total (D-r §3)', () => {
+  const rule = {
+    ruleId: 'r1',
+    ruleVersion: 2,
+    split: [
+      { goalId: 'g1', percent: 50 },
+      { goalId: 'g2', percent: 30 },
+    ],
+  };
+  const allActive = () => 'active' as const;
+
+  it('should carry the rule version it was generated under and the sorted week-set key', () => {
+    const p = generateProposal({
+      proposalId: 'p1',
+      rule,
+      total: 2000,
+      weekSet: [4, 3],
+      statusOf: allActive,
+    });
+    expect(p.ruleVersion).toBe(2);
+    expect(p.weekSet).toEqual([3, 4]);
+    expect(p.status).toBe('proposed');
+    expect(p.repairNeeded).toBe(false);
+  });
+
+  it('should equal allocateByRule exactly — preview == application holds through generation', () => {
+    const p = generateProposal({
+      proposalId: 'p1',
+      rule,
+      total: 1000,
+      weekSet: [1],
+      statusOf: allActive,
+    });
+    const a = allocateByRule(1000, rule.split);
+    expect(p.lines).toEqual(a.lines);
+    expect(p.remainderToAvailable).toBe(a.remainderToAvailable);
+  });
+
+  it('should divert a PAUSED destination to Available, visibly marked, conserving the total (W-17d)', () => {
+    const p = generateProposal({
+      proposalId: 'p1',
+      rule,
+      total: 1000,
+      weekSet: [1],
+      statusOf: (id) => (id === 'g2' ? 'paused' : 'active'),
+    });
+    const paused = p.lines.find((l) => l.goalId === 'g2');
+    expect(paused?.pausedDiversion).toBe(true);
+    expect(paused?.amount).toBe(300); // the share stays STATED on the line
+    expect(p.remainderToAvailable).toBe(200 + 300); // …but the money goes to Available
+    // Conservation: fundable lines + remainder == total (diverted lines are display-only).
+    const fundable = p.lines.filter((l) => !l.pausedDiversion).reduce((s, l) => s + l.amount, 0);
+    expect(fundable + p.remainderToAvailable).toBe(1000);
+    expect(p.repairNeeded).toBe(false); // paused is NOT repair (the rule keeps its shape)
+  });
+
+  it('should flip repairNeeded when a destination is dropped/accomplished — never silent skip', () => {
+    for (const closed of ['dropped', 'accomplished'] as const) {
+      const p = generateProposal({
+        proposalId: 'p1',
+        rule,
+        total: 1000,
+        weekSet: [1],
+        statusOf: (id) => (id === 'g1' ? closed : 'active'),
+      });
+      expect(p.repairNeeded).toBe(true);
+      expect(p.lines.map((l) => l.goalId)).toEqual(['g2']); // the closed share has no line…
+      expect(p.remainderToAvailable).toBe(200 + 500); // …its amount waits in Available for the user's call
+      const fundable = p.lines.reduce((s, l) => s + l.amount, 0);
+      expect(fundable + p.remainderToAvailable).toBe(1000);
+    }
   });
 });

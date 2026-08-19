@@ -279,6 +279,61 @@ export interface RuleDeleted extends EventBase {
   expectedRuleVersion: number;
 }
 
+// ── §2.3 weekly cycle (WG-1 + D-r §3) ───────────────────────────────────────
+//
+// The credit economy's ingress legs — the first producers of the `credited`
+// conservation term (board §1a). Credits accrue on the REAL calendar regardless
+// of login and materialize only at the explicit Collect tap (W-5b): the tap
+// emits one `WeeklyCreditGranted` per collectible week, so replay reproduces
+// every credit and idempotency is per-week. `RuleApplied` is the zero-value
+// correlation marker of an approved proposal — the money moves via its
+// `GoalFunded` legs (D-r §2: no new money event; the remainder simply stays
+// in Available).
+
+/**
+ * One week's practice credit, collected. `week` is the 1-based genesis-anchored
+ * calendar week index that accrued this credit (weeks skipped while the 2-week
+ * collection cap held the meter never accrue and never appear). Ingress →
+ * `credited`; lands in Available (working). Idempotent per week (projection
+ * skips a duplicate week). Amount derives from the grant (WG-1: grant × 10%),
+ * stamped by the emitter — never recomputed at replay.
+ */
+export interface WeeklyCreditGranted extends EventBase {
+  type: 'WeeklyCreditGranted';
+  week: number;
+  amount: string;
+}
+
+/**
+ * The one-time W-5c comparison credit (3.10): extra practice money to try a
+ * second goal or different strategy, offered only AFTER the first strategy
+ * entry (comparison-learning material — never a reward, never pre-announced;
+ * the BR-no-incentive covenant + MiCA inducement rules both forbid the
+ * bonus-for-investing shape). Projection enforces both guards: once per
+ * ledger AND only when a `StrategyEntered` precedes it (P2BD-10). Ingress →
+ * `credited`; lands in Available.
+ */
+export interface ComparisonCreditGranted extends EventBase {
+  type: 'ComparisonCreditGranted';
+  amount: string;
+}
+
+/**
+ * An approved rule proposal (D-r §3) — the W-8 ceremony's record. Zero-value
+ * itself: the allocation moves via the `GoalFunded` events sharing its
+ * `correlationId` (approve → `RuleApplied` + `GoalFunded`×N; the remainder
+ * stays in Available with no event). Carries the rule version the user SAW
+ * (version-safety) and the week-set it settled (the idempotency key — a
+ * week-set can be applied at most once).
+ */
+export interface RuleApplied extends EventBase {
+  type: 'RuleApplied';
+  ruleId: string;
+  ruleVersion: number;
+  proposalId: string;
+  weekSet: number[];
+}
+
 export type LedgerEvent =
   | PlayMoneyGranted
   | JobsSplitSet
@@ -301,6 +356,9 @@ export type LedgerEvent =
   | RuleUpdated
   | RulePaused
   | RuleResumed
-  | RuleDeleted;
+  | RuleDeleted
+  | WeeklyCreditGranted
+  | ComparisonCreditGranted
+  | RuleApplied;
 
 export type LedgerEventType = LedgerEvent['type'];
