@@ -57,7 +57,7 @@
 .progressTrack {
   display: block;
   height: 10px;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   background: var(--sb-hairline-strong);
   overflow: hidden;
 }
@@ -66,7 +66,7 @@
   display: block;
   height: 100%;
   background: linear-gradient(90deg, var(--sb-accent), var(--sb-accent-bright));
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
 }
 
 .stats {
@@ -160,7 +160,7 @@
   min-height: var(--sb-tap);
   padding: 0 var(--spacing-lg);
   border: 1px solid var(--sb-hairline-strong);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   background: var(--sb-card);
   color: var(--sb-text-body);
   cursor: pointer;

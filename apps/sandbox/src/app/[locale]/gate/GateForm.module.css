@@ -26,7 +26,7 @@
   text-transform: uppercase;
   color: var(--sb-accent-bright);
   border: 1px solid color-mix(in srgb, var(--sb-accent-bright) 40%, transparent);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   padding: var(--spacing-2xs) var(--spacing-md);
 }
 

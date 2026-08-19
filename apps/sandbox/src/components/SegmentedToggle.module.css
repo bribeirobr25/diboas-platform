@@ -7,7 +7,7 @@
   display: inline-flex;
   gap: var(--spacing-2xs);
   padding: var(--spacing-2xs);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   background: var(--sb-hairline);
 }
 
@@ -15,7 +15,7 @@
   min-height: 2rem;
   padding: 0 var(--spacing-md);
   border: none;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   background: transparent;
   color: var(--sb-text-muted);
   font-size: var(--font-size-sm-plus);

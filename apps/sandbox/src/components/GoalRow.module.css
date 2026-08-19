@@ -45,14 +45,14 @@ li:first-child .goalCard {
 .progressTrack {
   display: block;
   height: 6px;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   background: var(--sb-hairline-strong);
   overflow: hidden;
 }
 .progressFill {
   display: block;
   height: 100%;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   background: var(--sb-accent);
 }
 .goalStatus {
@@ -68,6 +68,36 @@ li:first-child .goalCard {
   color: var(--sb-text-muted);
 }
 
+.goalIconPaused {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  background: var(--text-warning-accessible);
+  color: var(--color-white);
+}
+/* Mockup 02's right-side paused status — calm amber, never alarm-red. */
+.pausedStatus {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex: none;
+  text-align: right;
+}
+.pausedLine {
+  color: var(--text-warning-accessible);
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-medium);
+}
+.pausedSub {
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-xs);
+}
+
 /* W-17d naming-duality: a calm, no-shame status chip — muted, never alarm. */
 .statusChip {
   align-self: flex-start;
@@ -75,7 +105,7 @@ li:first-child .goalCard {
   font-weight: var(--font-weight-medium);
   color: var(--sb-text-muted);
   border: 1px solid var(--sb-hairline-strong);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   padding: 0 var(--spacing-xs);
   line-height: 1.5;
 }

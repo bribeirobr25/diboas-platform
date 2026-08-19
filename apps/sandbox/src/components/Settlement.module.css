@@ -19,7 +19,7 @@
   text-transform: uppercase;
   color: var(--sb-accent-bright);
   background: color-mix(in srgb, var(--sb-accent) 20%, transparent);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
 }
 
 .steps {

@@ -96,7 +96,7 @@
   align-items: center;
   gap: var(--spacing-2xs);
   padding: var(--spacing-2xs) var(--spacing-sm);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   background: var(--sb-card-tint);
   color: var(--text-brand-accessible);
   font-size: var(--font-size-xs);

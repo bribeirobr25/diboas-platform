@@ -26,14 +26,20 @@ export function GoalRow({
   locale,
   goal,
   current,
+  hasOpenPositions = false,
 }: {
   locale: SandboxLocale;
   goal: GoalState;
   current: Decimal;
+  /** Whether the goal has open positions — gates the honest half of the
+   *  paused duality line ("Money still working" must never render when
+   *  nothing is working). */
+  hasOpenPositions?: boolean;
 }) {
   const target = new Decimal(goal.targetAmount);
   const ratio = target.gt(0) ? Decimal.min(current.div(target), 1).mul(100).toNumber() : 0;
   const closed = goal.status === 'dropped' || goal.status === 'accomplished';
+  const paused = goal.status === 'paused';
 
   return (
     <Link
@@ -41,8 +47,8 @@ export function GoalRow({
       className={styles.goalCard}
       data-closed={closed ? 'true' : undefined}
     >
-      <span className={styles.goalIcon}>
-        <LucideIcon name={goal.icon} size={22} />
+      <span className={paused ? styles.goalIconPaused : styles.goalIcon}>
+        <LucideIcon name={paused ? 'pause' : goal.icon} size={22} />
       </span>
       <span className={styles.goalBody}>
         <span className={styles.goalName}>{goal.name}</span>
@@ -59,12 +65,26 @@ export function GoalRow({
         >
           <span className={styles.progressFill} style={{ width: `${ratio}%` }} />
         </span>
-        {goal.status !== 'active' ? (
+        {closed ? (
           <span className={styles.statusChip}>
             <FormattedMessage id={`goalsList.status.${goal.status}`} />
           </span>
         ) : null}
       </span>
+      {paused ? (
+        // Mockup 02's paused duality, stated honestly: the second line only
+        // when positions are actually still working (W-17d, never a false claim).
+        <span className={styles.pausedStatus}>
+          <span className={styles.pausedLine}>
+            <FormattedMessage id="goalsList.pausedLine1" />
+          </span>
+          {hasOpenPositions ? (
+            <span className={styles.pausedSub}>
+              <FormattedMessage id="goalsList.pausedLine2" />
+            </span>
+          ) : null}
+        </span>
+      ) : null}
       <span className={styles.goalStatus} aria-hidden="true">
         <LucideIcon name="chevron-right" size={18} />
       </span>

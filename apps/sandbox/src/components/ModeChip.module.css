@@ -18,7 +18,7 @@
      (mockup 09-consent-dark) instead of a bright pale pill. */
   background: var(--sb-card-tint);
   border: 1px solid var(--sb-hairline);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   padding: var(--spacing-2xs) var(--spacing-sm);
   white-space: nowrap;
 }

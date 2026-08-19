@@ -86,7 +86,7 @@
   min-height: var(--sb-tap);
   padding: 0 var(--spacing-lg);
   border: none;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   background: var(--sb-accent);
   color: var(--color-white);
   font-weight: var(--font-weight-semibold);
@@ -103,7 +103,7 @@
   min-height: var(--sb-tap);
   padding: 0 var(--spacing-md);
   border: none;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   background: transparent;
   color: var(--sb-text-muted);
   font-weight: var(--font-weight-semibold);
@@ -132,7 +132,7 @@
   min-height: var(--sb-tap);
   padding: var(--spacing-2xs) var(--spacing-md);
   border: 1px solid var(--sb-accent);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   background: transparent;
   color: var(--sb-accent-strong);
   font-size: var(--font-size-sm);

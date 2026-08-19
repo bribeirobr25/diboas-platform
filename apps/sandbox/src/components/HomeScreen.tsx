@@ -132,7 +132,12 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
         <ul className={styles.goals}>
           {state.goals.map((goal) => (
             <li key={goal.goalId}>
-              <GoalRow locale={locale} goal={goal} current={goalCurrentValue(state, goal.goalId)} />
+              <GoalRow
+                locale={locale}
+                goal={goal}
+                current={goalCurrentValue(state, goal.goalId)}
+                hasOpenPositions={state.positions.some((p) => p.goalId === goal.goalId && p.open)}
+              />
             </li>
           ))}
         </ul>

@@ -529,6 +529,8 @@
       "paused": "Pausada",
       "accomplished": "Conquistada",
       "dropped": "Encerrada"
-    }
+    },
+    "pausedLine1": "Plano pausado",
+    "pausedLine2": "O dinheiro segue trabalhando"
   }
 }

@@ -55,7 +55,7 @@
   font-size: var(--font-size-xs);
   color: var(--sb-accent-strong);
   background: var(--sb-accent-tint);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   padding: 3px var(--spacing-sm);
 }
 

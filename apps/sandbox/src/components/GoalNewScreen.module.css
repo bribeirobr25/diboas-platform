@@ -142,7 +142,7 @@
   min-height: 3.25rem;
   margin-top: var(--spacing-sm);
   border: 0;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   background: var(--sb-accent);
   color: var(--color-white);
   font-weight: var(--font-weight-semibold);
