@@ -12,6 +12,7 @@
  * stays money-pure — the D-r carve-out.
  */
 
+import { Logger } from './monitoring/Logger';
 const STORAGE_KEY = 'diboas.sandbox.proposalDeclines.v1';
 
 let memoryFallback: number[] = [];
@@ -45,9 +46,11 @@ function write(weeks: number[]): void {
   }
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(unique));
-  } catch {
+  } catch (error) {
     // Quota/private-mode failure: degrade to memory rather than throwing into
-    // the decline tap (P7 — a decline must never blank the screen).
+    // the decline tap (P7 — a decline must never blank the screen) — but say
+    // so (Principle 12: silent degradation is invisible degradation).
+    Logger.error('proposal-decline store persist failed — memory fallback', {}, error);
     memoryFallback = unique;
   }
 }

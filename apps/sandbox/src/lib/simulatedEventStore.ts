@@ -8,6 +8,7 @@
 
 import { SIMULATED_EVENT_CATALOGUE_VERSION } from '@/config/simulatedEventCatalogue';
 
+import { Logger } from './monitoring/Logger';
 const STORAGE_KEY = 'diboas.sandbox.simulatedEvents.v1';
 
 export interface SimulatedEventResolution {
@@ -49,8 +50,10 @@ function write(records: SimulatedEventResolution[]): void {
   }
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-  } catch {
-    memoryFallback = records; // P7: a failed persist must never blank the flow
+  } catch (error) {
+    // P7: a failed persist must never blank the flow — but log it (Principle 12).
+    Logger.error('simulated-event store persist failed — memory fallback', {}, error);
+    memoryFallback = records;
   }
 }
 

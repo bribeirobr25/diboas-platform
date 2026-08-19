@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { reconcile } from '@diboas/banking';
+import { project, reconcile } from '@diboas/banking';
 import {
   applyRuleProposal,
   collectWeeklyCredits,
@@ -183,5 +183,88 @@ describe('weekly cycle — Collect tap + standing proposal + ceremony guards (§
       const next = standing();
       expect(next?.weekSet).toEqual([3, 4]);
     });
+  });
+});
+
+describe('audit fixes (2026-08-19): affordability at the ceremony + quiet-cancel + never-Expired', () => {
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+  });
+
+  it('should cap the derived proposal at Available when credits were moved elsewhere — preview == appliable', () => {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 3000,
+      horizonMonths: 12,
+      fundAmount: 0,
+    });
+    createRule([{ goalId, percent: 50 }]);
+    collectWeeklyCredits(afterGenesis(15)); // 2,000 collected → working 12,000
+    // Drain Available below the credit sum via a second, manually-funded goal.
+    createGoal({
+      name: 'Drain',
+      icon: 'target',
+      targetAmount: 20000,
+      horizonMonths: 12,
+      fundAmount: 11_500,
+    });
+    expect(getLedgerState().buckets.working).toBe('500.00');
+    const proposal = deriveStandingProposal(getLedgerState(), getDeclinedWeeks(), 'pr-cap');
+    expect(proposal?.lines).toEqual([{ goalId, amount: 250 }]); // 50% of the capped 500
+    expect(proposal?.remainderToAvailable).toBe(250);
+    expect(proposal?.status).toBe('proposed'); // sandbox never enters 'expired' (D-r §2)
+    expect(applyRuleProposal(proposal!)).toEqual({ ok: true });
+    expect(reconcile(getLedgerState())).toBe('0.00');
+  });
+
+  it('should refuse an approval Available cannot cover — never a silent partial apply', () => {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 3000,
+      horizonMonths: 12,
+      fundAmount: 0,
+    });
+    createRule([{ goalId, percent: 50 }]);
+    collectWeeklyCredits(afterGenesis(15));
+    const proposal = deriveStandingProposal(getLedgerState(), getDeclinedWeeks(), 'pr-big')!;
+    // Tampered/stale lines beyond Available: the ceremony must refuse whole,
+    // not let the engine silently drop the leg while marking weeks applied.
+    const stale = { ...proposal, lines: [{ goalId, amount: 50_000 }] };
+    expect(applyRuleProposal(stale)).toEqual({ ok: false, reason: 'insufficientAvailable' });
+    const state = getLedgerState();
+    expect(state.events.filter((e) => e.type === 'RuleApplied')).toHaveLength(0);
+    expect(state.goals.find((g) => g.goalId === goalId)?.cash).toBe('0.00');
+  });
+
+  it('should quiet-cancel by derivation: rule deleted while credits wait → no proposal, credits stay (W-19c)', () => {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 3000,
+      horizonMonths: 12,
+      fundAmount: 0,
+    });
+    createRule([{ goalId, percent: 50 }]);
+    collectWeeklyCredits(afterGenesis(15));
+    // Delete the rule at the engine level (the G9 delete surface is §4).
+    const rule = getLedgerState().rules[0];
+    const deleted = project([
+      ...getLedgerState().events,
+      {
+        eventId: 'test-del',
+        simDay: 0,
+        recordedAt: new Date().toISOString(),
+        correlationId: 'test',
+        type: 'RuleDeleted',
+        ruleId: rule.ruleId,
+        expectedRuleVersion: rule.ruleVersion,
+      },
+    ]);
+    expect(deleted.rules[0].status).toBe('deleted');
+    expect(deriveStandingProposal(deleted, [], 'pr-x')).toBeNull(); // calm: no proposal, no nag
+    expect(deleted.buckets.working).toBe('12000.00'); // the credits simply wait in Available
   });
 });

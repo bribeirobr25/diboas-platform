@@ -476,7 +476,12 @@ export type ApplyProposalResult =
   | { ok: true }
   | {
       ok: false;
-      reason: 'staleRuleVersion' | 'destinationChanged' | 'repairNeeded' | 'alreadyApplied';
+      reason:
+        | 'staleRuleVersion'
+        | 'destinationChanged'
+        | 'repairNeeded'
+        | 'alreadyApplied'
+        | 'insufficientAvailable';
     };
 
 /**
@@ -528,6 +533,14 @@ export function applyRuleProposal(
   const statusById = new Map(state.goals.map((g) => [g.goalId, g.status]));
   if (lines.some((l) => statusById.get(l.goalId) !== 'active'))
     return { ok: false, reason: 'destinationChanged' };
+  // Available re-validation (2026-08-19 audit fix): the engine's GoalFunded
+  // case silently skips an unaffordable leg — an approval must therefore never
+  // emit legs Available can't cover, or "approved" would move nothing while
+  // marking the weeks applied. Fail-safe re-present instead (the derivation
+  // caps at Available, so a regenerated proposal is always applyable).
+  const fundTotal = lines.reduce((s, l) => s + l.amount, 0);
+  if (new Decimal(state.buckets.working).lt(fundTotal))
+    return { ok: false, reason: 'insufficientAvailable' };
 
   const correlationId = generateId();
   const events: LedgerEvent[] = [

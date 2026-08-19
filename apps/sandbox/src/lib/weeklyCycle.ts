@@ -84,6 +84,13 @@ export function deriveStandingProposal(
   for (const e of state.events) {
     if (e.type === 'WeeklyCreditGranted' && weekSet.has(e.week)) total = total.plus(e.amount);
   }
+  // Honest cap (2026-08-19 audit fix): the user may have moved collected
+  // credits elsewhere (a manual goal funding, a recurring deposit) — the
+  // proposal can only allocate what Available actually holds, so the preview
+  // always equals what an approval can really apply. Zero affordable → no
+  // proposal; the weeks stay unresolved and re-propose when Available allows.
+  total = Decimal.min(total, new Decimal(state.buckets.working).floor());
+  if (total.lte(0)) return null;
   const statusById = new Map(state.goals.map((g) => [g.goalId, g.status]));
   return generateProposal({
     proposalId,
