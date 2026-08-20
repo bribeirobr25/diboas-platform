@@ -1,7 +1,9 @@
 .wrap {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  /* The mockup's hierarchy is built from SPACING, not boxes (batch-3 master
+     block). A tighter gap here read as a cramped form rather than a calm one. */
+  gap: var(--spacing-lg);
   min-width: 0;
 }
 .title {
@@ -12,11 +14,11 @@
   letter-spacing: -0.02em;
 }
 .subtitle {
-  margin: 0;
+  margin: calc(var(--spacing-lg) * -1 + var(--spacing-2xs)) 0 0;
   color: var(--sb-text-muted);
 }
 .sectionLabel {
-  margin: var(--spacing-xs) 0 0;
+  margin: 0 0 calc(var(--spacing-lg) - var(--spacing-sm)) 0;
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
   color: var(--sb-text-heading);
@@ -28,7 +30,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-sm);
 }
 .row {
   display: flex;
@@ -62,8 +64,10 @@
 .stepper {
   display: inline-flex;
   align-items: center;
+  justify-content: space-between;
   gap: var(--spacing-2xs);
-  flex: none;
+  flex: 0 0 auto;
+  min-width: 8.5rem;
   padding: 0 var(--spacing-2xs);
   border: 1px solid var(--sb-hairline);
   border-radius: var(--sb-radius);
@@ -97,7 +101,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-sm);
-  padding-top: var(--spacing-sm);
+  padding-top: var(--spacing-md);
   border-top: 1px solid var(--sb-hairline);
 }
 .remainderBody {
@@ -114,7 +118,7 @@
   color: var(--sb-text-muted);
 }
 .remainderValue {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   color: var(--text-brand-accessible);
   font-variant-numeric: tabular-nums;
@@ -123,15 +127,16 @@
 .preview {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2xs);
-  padding: var(--spacing-sm);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
   border: 1px solid var(--sb-hairline);
   border-radius: var(--sb-radius-lg);
 }
 .previewHead {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-2xs);
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-xs);
   margin: 0;
   font-weight: var(--font-weight-medium);
   color: var(--sb-text-heading);
@@ -146,7 +151,11 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2xs);
+}
+.previewRow + .previewRow {
+  padding-top: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+  border-top: 1px solid var(--sb-hairline);
 }
 .previewRow {
   display: flex;

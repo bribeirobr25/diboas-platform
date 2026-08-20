@@ -154,6 +154,25 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
           in the wrong order. `timeMachineNote` says the replay shows "what the
           market actually did" — a claim that only became TRUE with the price
           overlay; before it, the replay was yield-only and could never fall. */}
+      {/* G9 entry (§4.9). The builder had NO entry point when it shipped —
+          reachable by URL only, which makes a surface dead no matter how well
+          it works. G10's weekly ceremony may add its own contextual link to
+          editing the system; creating one has to be reachable before then. */}
+      <Link href={`/${locale}/rules`} className={styles.timeMachine}>
+        <span className={styles.timeMachineIcon}>
+          <LucideIcon name="sliders" size={20} />
+        </span>
+        <span className={styles.timeMachineBody}>
+          <span className={styles.timeMachineTitle}>
+            <FormattedMessage id="home.systemTitle" />
+          </span>
+          <span className={styles.timeMachineNote}>
+            <FormattedMessage id="home.systemNote" />
+          </span>
+        </span>
+        <LucideIcon name="chevron-right" size={18} />
+      </Link>
+
       <Link href={`/${locale}/time-machine`} className={styles.timeMachine}>
         <span className={styles.timeMachineIcon}>
           <LucideIcon name="history" size={20} />

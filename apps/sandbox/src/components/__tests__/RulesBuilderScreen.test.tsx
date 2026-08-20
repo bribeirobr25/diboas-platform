@@ -2,7 +2,13 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createGoal, getLedgerState, grantPlayMoney, resetSandbox } from '@/lib/ledgerClient';
+import {
+  createGoal,
+  createRule,
+  getLedgerState,
+  grantPlayMoney,
+  resetSandbox,
+} from '@/lib/ledgerClient';
 import { RulesBuilderScreen } from '../RulesBuilderScreen';
 
 const push = vi.fn();
@@ -31,6 +37,7 @@ const M = {
   'rules.noWaitingCredits':
     'Nothing is waiting to be collected right now, so the preview shows zero.',
   'rules.create': 'Create system',
+  'rules.update': 'Update system',
   'rules.createHint': 'Choose at least one destination and give it a share above 0%.',
   'rules.noGoalsTitle': 'No goals to send money to yet',
   'rules.noGoalsBody': 'A system decides where incoming money goes.',
@@ -158,5 +165,43 @@ describe('RulesBuilderScreen — G9 (§4.9)', () => {
     expect(screen.getByText('No goals to send money to yet')).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Create a goal' })).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Create system' })).toBeNull();
+  });
+});
+
+describe('RulesBuilderScreen — editing an existing system (regression)', () => {
+  beforeEach(() => resetSandbox());
+
+  it('should EDIT rather than silently no-op when a system already exists', () => {
+    // The bug: `createRule` returns null when a rule exists, but the CTA stayed
+    // enabled, created nothing, and navigated away as though it had worked.
+    seedGoals();
+    const [a, b] = getLedgerState().goals;
+    createRule([{ goalId: a.goalId, percent: 20 }]);
+    renderBuilder();
+    fireEvent.change(screen.getAllByRole('combobox')[1], { target: { value: b.goalId } });
+    const inc = screen.getByRole('button', { name: 'Increase destination 2 share' });
+    for (let i = 0; i < 15; i += 1) fireEvent.click(inc);
+    fireEvent.click(screen.getByRole('button', { name: 'Update system' }));
+
+    const updated = getLedgerState().events.filter((e) => e.type === 'RuleUpdated') as Array<{
+      split: Array<{ goalId: string; percent: number }>;
+    }>;
+    expect(updated).toHaveLength(1);
+    expect(updated[0].split).toEqual([
+      { goalId: a.goalId, percent: 20 },
+      { goalId: b.goalId, percent: 15 },
+    ]);
+  });
+
+  it('should open showing the system the user already saved', () => {
+    seedGoals();
+    const [a] = getLedgerState().goals;
+    createRule([{ goalId: a.goalId, percent: 35 }]);
+    renderBuilder();
+    // Their OWN saved split, not a suggestion — the no-default rule governs
+    // what diBoaS proposes, not what the user already chose.
+    expect((screen.getAllByRole('combobox')[0] as HTMLSelectElement).value).toBe(a.goalId);
+    expect(screen.getByText('35%')).toBeTruthy();
+    expect(screen.getByText('65%')).toBeTruthy(); // remainder reflects it
   });
 });

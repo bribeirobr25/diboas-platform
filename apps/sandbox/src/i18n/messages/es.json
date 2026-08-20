@@ -47,7 +47,9 @@
     "viewAll": "Ver todas",
     "createGoal": "Crear meta",
     "planPaused": "Plan en pausa",
-    "moneyWorking": "El dinero sigue trabajando"
+    "moneyWorking": "El dinero sigue trabajando",
+    "systemTitle": "Tu sistema",
+    "systemNote": "Decide adónde va el dinero antes de que llegue."
   },
   "goalNew": {
     "title": "Create a goal",
@@ -624,6 +626,7 @@
     "createHint": "Elige al menos un destino y dale una parte por encima del 0%.",
     "noGoalsTitle": "Todavía no hay metas a las que enviar dinero",
     "noGoalsBody": "Un sistema decide adónde va el dinero que entra. Crea una meta primero y luego vuelve para fijar las partes.",
-    "createGoal": "Crear una meta"
+    "createGoal": "Crear una meta",
+    "update": "Actualizar sistema"
   }
 }

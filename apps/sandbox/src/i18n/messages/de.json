@@ -47,7 +47,9 @@
     "viewAll": "Alle ansehen",
     "createGoal": "Ziel erstellen",
     "planPaused": "Plan pausiert",
-    "moneyWorking": "Geld arbeitet weiter"
+    "moneyWorking": "Geld arbeitet weiter",
+    "systemTitle": "Dein System",
+    "systemNote": "Entscheide, wohin das Geld geht, bevor es ankommt."
   },
   "goalNew": {
     "title": "Create a goal",
@@ -624,6 +626,7 @@
     "createHint": "Wähle mindestens ein Ziel und gib ihm einen Anteil über 0%.",
     "noGoalsTitle": "Noch keine Ziele, an die Geld gehen kann",
     "noGoalsBody": "Ein System entscheidet, wohin eingehendes Geld geht. Erstelle zuerst ein Ziel und lege dann die Anteile fest.",
-    "createGoal": "Ein Ziel erstellen"
+    "createGoal": "Ein Ziel erstellen",
+    "update": "System aktualisieren"
   }
 }

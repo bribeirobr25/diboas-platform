@@ -58,6 +58,7 @@ import {
   History,
   Minus,
   Eye,
+  SlidersHorizontal,
 } from 'lucide-react';
 
 const ICONS: Record<string, LucideIconType> = {
@@ -76,6 +77,7 @@ const ICONS: Record<string, LucideIconType> = {
   'chevron-right': ChevronRight,
   history: History,
   minus: Minus,
+  sliders: SlidersHorizontal,
   eye: Eye,
   clock: Clock,
   lock: Lock,

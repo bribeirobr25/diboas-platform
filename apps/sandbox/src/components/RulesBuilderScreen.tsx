@@ -9,7 +9,7 @@ import { weeklyCreditAmount } from '@/lib/growthConstants';
 import type { SandboxLocale } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
 import { useFormatters } from '@/hooks/useFormatters';
-import { createRule } from '@/lib/ledgerClient';
+import { createRule, updateRule } from '@/lib/ledgerClient';
 import { getCollectView } from '@/lib/weeklyCycle';
 import { Button } from './Button';
 import { LucideIcon } from './LucideIcon';
@@ -55,8 +55,23 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
   const state = useLedger();
   const { money } = useFormatters(state.currency);
 
-  // Empty by design — see the docblock. Never seeded from goals or an example.
-  const [rows, setRows] = useState<Row[]>(ROWS.map(() => ({ goalId: '', percent: 0 })));
+  /**
+   * One active rule per account (W-19a), so this screen both CREATES and EDITS.
+   * The engine is explicit that "creating anew = editing; the UI goes through
+   * `updateRule`" — `createRule` returns null when a rule already exists. Before
+   * this, the CTA stayed enabled in that case, created nothing, and navigated
+   * away as though it had worked: a fake control on a money surface.
+   *
+   * The ledger is hydrated before this screen mounts (`LedgerReadyGate`), so a
+   * lazy initial read is accurate. Seeding from the user's OWN saved system is
+   * not a pre-filled default (veto row 13) — it is showing them what they
+   * already chose; the no-suggestion rule governs what diBoaS proposes.
+   */
+  const existing = state.rules.find((r) => r.status !== 'deleted') ?? null;
+  const [rows, setRows] = useState<Row[]>(() => {
+    const seeded = (existing?.split ?? []).slice(0, ROWS.length);
+    return ROWS.map((i) => seeded[i] ?? { goalId: '', percent: 0 });
+  });
   const [busy, setBusy] = useState(false);
 
   const openGoals = state.goals.filter((g) => g.status === 'active');
@@ -92,10 +107,11 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
     );
   }
 
-  function create() {
+  function save() {
     if (!canCreate) return;
     setBusy(true);
-    createRule(split);
+    if (existing) updateRule(existing.ruleId, split, existing.ruleVersion);
+    else createRule(split);
     setBusy(false);
     router.push(`/${locale}`);
   }
@@ -245,8 +261,8 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
             )}
           </div>
 
-          <Button variant="primary" fullWidth disabled={!canCreate} onClick={create}>
-            <FormattedMessage id="rules.create" />
+          <Button variant="primary" fullWidth disabled={!canCreate} onClick={save}>
+            <FormattedMessage id={existing ? 'rules.update' : 'rules.create'} />
           </Button>
           {!canCreate && !busy ? (
             /* A disabled control always says why (the §4.6/§4.7 precedent). */
