@@ -38,6 +38,19 @@
   gap: var(--spacing-xs);
   flex-wrap: wrap;
 }
+/* Mockup 20 groups the number WITH the select inside one bordered field, so a
+   row reads as two controls (destination · share) rather than three parts. */
+.destField {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  flex: 1 1 10rem;
+  min-width: 0;
+  padding-left: var(--spacing-2xs);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius);
+  background: var(--sb-card);
+}
 .rowNum {
   display: inline-flex;
   align-items: center;
@@ -51,13 +64,13 @@
   font-size: var(--font-size-sm);
 }
 .select {
-  flex: 1 1 9rem;
+  flex: 1 1 auto;
   min-width: 0;
   min-height: var(--sb-tap);
-  padding: 0 var(--spacing-sm);
-  border: 1px solid var(--sb-hairline);
+  padding: 0 var(--spacing-2xs);
+  border: 0;
   border-radius: var(--sb-radius);
-  background: var(--sb-card);
+  background: transparent;
   color: var(--sb-text-heading);
   font-size: var(--font-size-md);
 }
@@ -110,6 +123,9 @@
   min-width: 0;
 }
 .remainderTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
   font-weight: var(--font-weight-medium);
   color: var(--sb-text-heading);
 }
@@ -118,7 +134,7 @@
   color: var(--sb-text-muted);
 }
 .remainderValue {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   color: var(--text-brand-accessible);
   font-variant-numeric: tabular-nums;
@@ -128,9 +144,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
-  padding: var(--spacing-md);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius-lg);
+  /* Separated by a rule, not boxed — the mockup builds this block's edge from a
+     hairline above it, keeping the page free of nested card outlines. */
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--sb-hairline);
 }
 .previewHead {
   display: flex;

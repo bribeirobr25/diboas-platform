@@ -627,6 +627,7 @@
     "noGoalsTitle": "Todavía no hay metas a las que enviar dinero",
     "noGoalsBody": "Un sistema decide adónde va el dinero que entra. Crea una meta primero y luego vuelve para fijar las partes.",
     "createGoal": "Crear una meta",
-    "update": "Actualizar sistema"
+    "update": "Actualizar sistema",
+    "staysInAvailableAuto": "Se queda en Disponible (automático)"
   }
 }

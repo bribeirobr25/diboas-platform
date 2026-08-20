@@ -616,7 +616,7 @@
     "increase": "Increase destination {n} share",
     "staysInAvailable": "Stays in Available",
     "staysNote": "This is the remainder after your rules.",
-    "livePreview": "Live preview",
+    "livePreview": "Live Preview",
     "previewBasis": "Based on your real waiting credits",
     "waitingCredits": "Your waiting credits",
     "willBeDistributed": "Will be distributed",
@@ -627,6 +627,7 @@
     "noGoalsTitle": "No goals to send money to yet",
     "noGoalsBody": "A system decides where incoming money goes. Create a goal first, then come back and set the shares.",
     "createGoal": "Create a goal",
-    "update": "Update system"
+    "update": "Update system",
+    "staysInAvailableAuto": "Stays in Available (auto)"
   }
 }

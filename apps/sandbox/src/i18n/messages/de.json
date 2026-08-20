@@ -627,6 +627,7 @@
     "noGoalsTitle": "Noch keine Ziele, an die Geld gehen kann",
     "noGoalsBody": "Ein System entscheidet, wohin eingehendes Geld geht. Erstelle zuerst ein Ziel und lege dann die Anteile fest.",
     "createGoal": "Ein Ziel erstellen",
-    "update": "System aktualisieren"
+    "update": "System aktualisieren",
+    "staysInAvailableAuto": "Bleibt in Verfügbar (automatisch)"
   }
 }

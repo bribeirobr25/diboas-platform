@@ -152,31 +152,47 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
               const selectId = `rules-dest-${i}`;
               return (
                 <li key={i} className={styles.row}>
-                  <span className={styles.rowNum} aria-hidden>
-                    {i + 1}
-                  </span>
-                  <label className={styles.srOnly} htmlFor={selectId}>
-                    {intl.formatMessage({ id: 'rules.destinationLabel' }, { n: i + 1 })}
-                  </label>
-                  <select
-                    id={selectId}
-                    className={styles.select}
-                    value={row.goalId}
-                    onChange={(e) => setRow(i, { goalId: e.target.value })}
-                  >
-                    <option value="">
-                      {intl.formatMessage({ id: 'rules.chooseDestination' })}
-                    </option>
-                    {openGoals
-                      .filter(
-                        (g) => g.goalId === row.goalId || !rows.some((r) => r.goalId === g.goalId)
-                      )
-                      .map((g) => (
-                        <option key={g.goalId} value={g.goalId}>
-                          {g.name}
-                        </option>
-                      ))}
-                  </select>
+                  {/* The number belongs INSIDE the destination field (mockup 20):
+                      it labels that field, so grouping them reads as one control
+                      rather than three loose parts.
+
+                      UX-36 DEVIATION, consciously taken (the same shape as the
+                      cadence-Select precedent in implementation-notes §115):
+                      ≤5-option sets should render as a SegmentedControl, and a
+                      user with few goals IS such a set. Kept a Select because
+                      this set is UNBOUNDED (goals have no cap) and SHRINKS as
+                      other rows claim goals — so a segmented control would
+                      change type mid-form as the user fills it in, and again as
+                      they add goals later. A control that changes shape while
+                      you use it is worse than the rule it satisfies. Registered
+                      for the founder rather than decided silently. */}
+                  <div className={styles.destField}>
+                    <span className={styles.rowNum} aria-hidden>
+                      {i + 1}
+                    </span>
+                    <label className={styles.srOnly} htmlFor={selectId}>
+                      {intl.formatMessage({ id: 'rules.destinationLabel' }, { n: i + 1 })}
+                    </label>
+                    <select
+                      id={selectId}
+                      className={styles.select}
+                      value={row.goalId}
+                      onChange={(e) => setRow(i, { goalId: e.target.value })}
+                    >
+                      <option value="">
+                        {intl.formatMessage({ id: 'rules.chooseDestination' })}
+                      </option>
+                      {openGoals
+                        .filter(
+                          (g) => g.goalId === row.goalId || !rows.some((r) => r.goalId === g.goalId)
+                        )
+                        .map((g) => (
+                          <option key={g.goalId} value={g.goalId}>
+                            {g.name}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
                   <div className={styles.stepper}>
                     <button
                       type="button"
@@ -209,7 +225,8 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
           <div className={styles.remainder}>
             <span className={styles.remainderBody}>
               <span className={styles.remainderTitle}>
-                <FormattedMessage id="rules.staysInAvailable" />
+                <FormattedMessage id="rules.staysInAvailableAuto" />
+                <LucideIcon name="info" size={14} />
               </span>
               <span className={styles.remainderNote}>
                 <FormattedMessage id="rules.staysNote" />

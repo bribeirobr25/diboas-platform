@@ -627,6 +627,7 @@
     "noGoalsTitle": "Ainda não há objetivos para receber dinheiro",
     "noGoalsBody": "Um sistema decide para onde vai o dinheiro que entra. Crie um objetivo primeiro e depois volte para definir as partes.",
     "createGoal": "Criar um objetivo",
-    "update": "Atualizar sistema"
+    "update": "Atualizar sistema",
+    "staysInAvailableAuto": "Fica em Disponível (automático)"
   }
 }
