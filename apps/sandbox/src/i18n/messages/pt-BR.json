@@ -603,5 +603,27 @@
     "dayN": "Dia {day}",
     "chartDescription": "Valor de treino de {start} a {end}, {direction} no total, variando entre {low} e {high}.",
     "footnote": "Esta simulação repete dados históricos reais de mercado. Não inclui aportes futuros nem créditos semanais."
+  },
+  "rules": {
+    "title": "Seu sistema",
+    "subtitle": "Decida como cada real caminha para seus objetivos.",
+    "sendTo": "Mandar meu dinheiro para",
+    "destinationLabel": "Destino {n}",
+    "chooseDestination": "Escolher destino",
+    "decrease": "Diminuir a parte do destino {n}",
+    "increase": "Aumentar a parte do destino {n}",
+    "staysInAvailable": "Fica em Disponível",
+    "staysNote": "É o que sobra depois das suas regras.",
+    "livePreview": "Prévia ao vivo",
+    "previewBasis": "Com base nos seus créditos reais em espera",
+    "waitingCredits": "Seus créditos em espera",
+    "willBeDistributed": "Será distribuído",
+    "previewNote": "A prévia se atualiza conforme você ajusta as porcentagens.",
+    "noWaitingCredits": "Nada está esperando para ser coletado agora, então a prévia mostra zero. Seu sistema continua valendo para o que chegar depois.",
+    "create": "Criar sistema",
+    "createHint": "Escolha pelo menos um destino e dê a ele uma parte acima de 0%.",
+    "noGoalsTitle": "Ainda não há objetivos para receber dinheiro",
+    "noGoalsBody": "Um sistema decide para onde vai o dinheiro que entra. Crie um objetivo primeiro e depois volte para definir as partes.",
+    "createGoal": "Criar um objetivo"
   }
 }

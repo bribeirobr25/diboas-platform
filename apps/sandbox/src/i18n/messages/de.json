@@ -603,5 +603,27 @@
     "dayN": "Tag {day}",
     "chartDescription": "Übungswert von {start} bis {end}, insgesamt {direction}, zwischen {low} und {high}.",
     "footnote": "Diese Simulation spielt echte historische Marktdaten nach. Ohne künftige Einzahlungen und wöchentliche Gutschriften."
+  },
+  "rules": {
+    "title": "Dein System",
+    "subtitle": "Entscheide, wie jeder Euro auf deine Ziele zuläuft.",
+    "sendTo": "Mein Geld geht an",
+    "destinationLabel": "Ziel {n}",
+    "chooseDestination": "Ziel auswählen",
+    "decrease": "Anteil von Ziel {n} verringern",
+    "increase": "Anteil von Ziel {n} erhöhen",
+    "staysInAvailable": "Bleibt in Verfügbar",
+    "staysNote": "Das ist der Rest nach deinen Regeln.",
+    "livePreview": "Live-Vorschau",
+    "previewBasis": "Auf Basis deiner echten wartenden Gutschriften",
+    "waitingCredits": "Deine wartenden Gutschriften",
+    "willBeDistributed": "Wird verteilt",
+    "previewNote": "Die Vorschau aktualisiert sich, während du die Prozentsätze anpasst.",
+    "noWaitingCredits": "Gerade wartet nichts auf Abholung, deshalb zeigt die Vorschau null. Dein System gilt trotzdem für das, was als Nächstes ankommt.",
+    "create": "System erstellen",
+    "createHint": "Wähle mindestens ein Ziel und gib ihm einen Anteil über 0%.",
+    "noGoalsTitle": "Noch keine Ziele, an die Geld gehen kann",
+    "noGoalsBody": "Ein System entscheidet, wohin eingehendes Geld geht. Erstelle zuerst ein Ziel und lege dann die Anteile fest.",
+    "createGoal": "Ein Ziel erstellen"
   }
 }

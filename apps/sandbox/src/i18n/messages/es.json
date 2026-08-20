@@ -603,5 +603,27 @@
     "dayN": "Día {day}",
     "chartDescription": "Valor de práctica de {start} a {end}, {direction} en total, entre {low} y {high}.",
     "footnote": "Esta simulación reproduce datos históricos reales del mercado. No incluye aportaciones futuras ni créditos semanales."
+  },
+  "rules": {
+    "title": "Tu sistema",
+    "subtitle": "Decide cómo cada euro avanza hacia tus metas.",
+    "sendTo": "Enviar mi dinero a",
+    "destinationLabel": "Destino {n}",
+    "chooseDestination": "Elegir destino",
+    "decrease": "Reducir la parte del destino {n}",
+    "increase": "Aumentar la parte del destino {n}",
+    "staysInAvailable": "Se queda en Disponible",
+    "staysNote": "Es lo que sobra después de tus reglas.",
+    "livePreview": "Vista previa en vivo",
+    "previewBasis": "Según tus créditos reales en espera",
+    "waitingCredits": "Tus créditos en espera",
+    "willBeDistributed": "Se distribuirá",
+    "previewNote": "La vista previa se actualiza mientras ajustas los porcentajes.",
+    "noWaitingCredits": "Ahora mismo no hay nada esperando a recogerse, así que la vista previa muestra cero. Tu sistema sigue valiendo para lo que llegue después.",
+    "create": "Crear sistema",
+    "createHint": "Elige al menos un destino y dale una parte por encima del 0%.",
+    "noGoalsTitle": "Todavía no hay metas a las que enviar dinero",
+    "noGoalsBody": "Un sistema decide adónde va el dinero que entra. Crea una meta primero y luego vuelve para fijar las partes.",
+    "createGoal": "Crear una meta"
   }
 }

@@ -56,6 +56,8 @@ import {
   type LucideIcon as LucideIconType,
   TrendingDown,
   History,
+  Minus,
+  Eye,
 } from 'lucide-react';
 
 const ICONS: Record<string, LucideIconType> = {
@@ -73,6 +75,8 @@ const ICONS: Record<string, LucideIconType> = {
   check: Check,
   'chevron-right': ChevronRight,
   history: History,
+  minus: Minus,
+  eye: Eye,
   clock: Clock,
   lock: Lock,
   mail: Mail,
