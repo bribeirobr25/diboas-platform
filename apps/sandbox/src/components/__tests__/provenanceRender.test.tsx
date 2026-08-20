@@ -4,14 +4,14 @@ import { IntlProvider } from 'react-intl';
 import { describe, expect, it } from 'vitest';
 import type { ProtocolApy, ProtocolId } from '@diboas/defi';
 import { getStrategy } from '@diboas/defi';
-import { PathCard } from '../PathCard';
 import { StrategyPicker } from '../StrategyPicker';
 
 /**
- * E10 render tests for the §3-A provenance surfaces: the three states render
- * the RIGHT stamp/row strings, the mixed stamp names the protocol, and the
- * F6 band disclosure renders with the picker. Uses real message TEXT (not just
- * ids) so a wrong-state render fails loudly.
+ * E10 render tests for the §3-A provenance surfaces on the PICKER rows: each
+ * state renders the RIGHT row string, and the F6 band disclosure renders with
+ * it. Real message TEXT (not ids) so a wrong-state render fails loudly.
+ * (The PathCard stamp assertions moved to StrategyDetail.test.tsx when board
+ * §3.2 folded that component in — §4.6.)
  */
 
 const M = {
@@ -81,44 +81,6 @@ const FIXTURE = [
   apy('aaveV3', 'fixture', '2026-07-18'),
   apy('compoundV3', 'fixture', '2026-07-18'),
 ];
-
-function renderCard(apys: ProtocolApy[]) {
-  return render(
-    <IntlProvider locale="en" messages={M}>
-      <PathCard
-        goalName="Trip"
-        strategy={safeHarbor}
-        apys={apys}
-        gas={[]}
-        usdPriceLocal={1}
-        currency="USD"
-      />
-    </IntlProvider>
-  );
-}
-
-describe('PathCard provenance stamp (§3-A: the three states, honestly labeled)', () => {
-  it('should stamp LIVE with the source and fetch date when every leg is live', () => {
-    renderCard(LIVE);
-    expect(screen.getByText(/Live from DeFiLlama, fetched/)).toBeTruthy();
-  });
-
-  it('should stamp MIXED naming the reference protocol (E5 condition), never claiming fully live', () => {
-    renderCard(MIXED);
-    const stamp = screen.getByText(/Partly live from DeFiLlama/);
-    expect(stamp.textContent).toContain('Aave v3');
-    expect(screen.queryByText(/^Live from/)).toBeNull();
-  });
-
-  it('should stamp FIXTURE via the locale date formatter, no hardcoded literal (P-F4b)', () => {
-    renderCard(FIXTURE);
-    const stamp = screen.getByText(/Documented reference values/);
-    // The formatter renders a localized date, never the raw ISO literal —
-    // and the NAMED day, in every timezone (date-only strings parse local).
-    expect(stamp.textContent).not.toContain('2026-07-18');
-    expect(stamp.textContent).toContain('Jul 18, 2026');
-  });
-});
 
 describe('StrategyPicker provenance rows + the F6 band disclosure (§3-A)', () => {
   function renderPicker(apys: ProtocolApy[]) {

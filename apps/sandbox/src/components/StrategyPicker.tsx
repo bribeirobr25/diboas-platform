@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useState } from 'react';
+import { useId, useState } from 'react';
 import Decimal from 'decimal.js';
 import { FormattedMessage, useIntl } from 'react-intl';
 import {
@@ -70,16 +70,24 @@ export function StrategyPicker({
   // DRY: the horizon rule (incl. the 'anytime' span) lives in ONE place —
   // the domain's `strategiesForHorizon`, which the E11 guard also pins. The
   // component only adds the risk dimension on top.
-  const byHorizon = horizon === 'any' ? STRATEGY_CATALOG : strategiesForHorizon(horizon);
-  const strategies = byHorizon.filter((s) => risk === 'any' || s.riskBand === risk);
+  const visible = (h: HorizonBand | 'any', r: RiskBand | 'any') =>
+    (h === 'any' ? STRATEGY_CATALOG : strategiesForHorizon(h)).filter(
+      (s) => r === 'any' || s.riskBand === r
+    );
+  const strategies = visible(horizon, risk);
 
-  // E8: a selection that leaves the visible list must clear — approve can
-  // never commit a strategy the user can no longer see (the exact interaction
-  // the F6 disclosure invites). Derived from the filtered list, never guessed.
-  const selectionVisible = selectedId !== null && strategies.some((s) => s.id === selectedId);
-  useEffect(() => {
-    if (selectedId !== null && !selectionVisible) onSelect('');
-  }, [selectedId, selectionVisible, onSelect]);
+  /**
+   * E8: a selection the new filter hides must clear — approve can never commit
+   * a strategy the user can no longer see (the exact interaction the F6
+   * disclosure invites). Done in the EVENT that invalidates it, not an effect:
+   * the filter change IS the user action, and syncing state in an effect would
+   * cascade renders.
+   */
+  const changeFilters = (h: HorizonBand | 'any', r: RiskBand | 'any') => {
+    setHorizon(h);
+    setRisk(r);
+    if (selectedId !== null && !visible(h, r).some((s) => s.id === selectedId)) onSelect('');
+  };
 
   return (
     <fieldset className={styles.wrap}>
@@ -106,7 +114,7 @@ export function StrategyPicker({
               id={`${fieldId}-horizon`}
               className={styles.select}
               value={horizon}
-              onChange={(e) => setHorizon(e.target.value as HorizonBand | 'any')}
+              onChange={(e) => changeFilters(e.target.value as HorizonBand | 'any', risk)}
             >
               <option value="any">{intl.formatMessage({ id: 'catalogFilters.any' })}</option>
               {HORIZON_BANDS.map((band) => (
@@ -130,7 +138,7 @@ export function StrategyPicker({
               id={`${fieldId}-risk`}
               className={styles.select}
               value={risk}
-              onChange={(e) => setRisk(e.target.value as RiskBand | 'any')}
+              onChange={(e) => changeFilters(horizon, e.target.value as RiskBand | 'any')}
             >
               <option value="any">{intl.formatMessage({ id: 'catalogFilters.any' })}</option>
               {RISK_BANDS.map((band) => (

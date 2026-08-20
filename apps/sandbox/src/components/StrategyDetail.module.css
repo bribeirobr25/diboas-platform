@@ -1,15 +1,17 @@
 /*
- * StrategyDetail (Phase B dual-view). Simple = ①②③ human hierarchy; Detailed =
- * factual traditional view. Fully tokenized.
+ * StrategyDetail — the G6 pre-commit read. Simple = ①②③ human hierarchy;
+ * Detailed = the factual traditional view. Fully tokenized.
+ *
+ * §4.6: this is EMBEDDED in the goal-funding flow (board §3.5 killed the
+ * standalone route, and /strategy-preview was deleted), so the wrapper carries
+ * no page chrome — no page padding, no 100dvh, no centering max-width. Those
+ * made it wider than its host container and clipped the right edge.
  */
 .wrap {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-  padding: var(--spacing-lg);
-  max-width: 30rem;
-  margin: 0 auto;
-  min-height: 100dvh;
+  min-width: 0; /* a flex child must be allowed to shrink below its content */
 }
 
 .head {
@@ -20,25 +22,31 @@
 }
 
 .hero {
+  /* Icon beside the name (mockup 4-goal-strategy-2views), not stacked. */
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: var(--spacing-2xs);
-  min-height: 8rem;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-md);
   padding: var(--spacing-md);
   border-radius: var(--sb-radius-lg);
   background: linear-gradient(160deg, var(--sb-accent-tint), var(--color-teal-100));
+}
+/* The title colour IS theme-aware; this gradient was not, so in dark mode a
+   light ink sat on a light teal wash (a contrast failure the §4.6 dark pass
+   caught). Give the band a dark counterpart so the pairing holds both ways. */
+:global(html[data-theme='dark']) .hero {
+  background: linear-gradient(160deg, var(--sb-card-tint), var(--sb-ink-soft));
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme='light'])) .hero {
+    background: linear-gradient(160deg, var(--sb-card-tint), var(--sb-ink-soft));
+  }
 }
 .heroTitle {
   margin: 0;
   font-family: var(--sb-serif);
   font-size: var(--font-size-2xl);
   color: var(--sb-text-heading);
-}
-.heroDesc {
-  margin: 0;
-  color: var(--sb-text-body);
-  font-size: var(--font-size-md);
 }
 
 /* --- Simple view --- */
@@ -76,12 +84,6 @@
   color: var(--sb-text-heading);
   line-height: 1.3;
 }
-.rowBody {
-  margin: var(--spacing-2xs) 0 0;
-  color: var(--sb-text-body);
-  font-size: var(--font-size-sm-plus);
-  line-height: 1.5;
-}
 .behaveCard {
   display: flex;
   flex-direction: column;
@@ -113,6 +115,7 @@
 }
 .apyRow {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   gap: var(--spacing-xs);
 }
@@ -155,6 +158,8 @@
 }
 .exitRow {
   display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
   justify-content: space-between;
   align-items: baseline;
   padding-bottom: var(--spacing-xs);
@@ -208,4 +213,70 @@
   font-size: var(--font-size-sm-plus);
   font-weight: var(--font-weight-semibold);
   cursor: pointer;
+}
+
+/* --- §4.6: live wiring + the folded PathCard itemization (board §3.2) --- */
+.heroIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent-tint);
+  color: var(--text-brand-accessible);
+}
+.apyProvenance {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+.itemCard {
+  display: block;
+}
+.itemization {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+.itemLine {
+  margin: 0;
+  color: var(--sb-text-body);
+}
+.allocation {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2xs) var(--spacing-sm);
+}
+.allocationLeg {
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+.costList {
+  margin: 0;
+  padding-left: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  font-size: var(--font-size-sm-plus);
+  color: var(--sb-text-body);
+}
+.noPromise {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+.stamp {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+}
+.costLead {
+  margin: 0 0 var(--spacing-xs);
+  color: var(--sb-text-body);
+  font-weight: var(--font-weight-medium);
 }

@@ -1,14 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Decimal from 'decimal.js';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { getStrategy } from '@diboas/defi';
+import type { ProtocolApyHistory } from '@diboas/defi';
 import type { SandboxLocale } from '@/i18n/config';
 import { LOCALE_CURRENCY } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
-import { useMarket } from '@/hooks/useMarket';
+import { fetchHistories, useMarket } from '@/hooks/useMarket';
 import { useFormatters } from '@/hooks/useFormatters';
 import {
   accomplishGoal,
@@ -26,12 +27,13 @@ import { LucideIcon } from './LucideIcon';
 import { GoalCompletionScreen } from './GoalCompletionScreen';
 import { GoalPauseSheet } from './GoalPauseSheet';
 import { Manifest } from './Manifest';
-import { PathCard, networkFeeLocal } from './PathCard';
+import { networkFeeLocal } from '@/lib/networkFee';
 import { Projection } from './Projection';
 import { RecurringControl } from './RecurringControl';
 import { SegmentedToggle } from './SegmentedToggle';
 import { Settlement } from './Settlement';
 import { Sparkline } from './Sparkline';
+import { StrategyDetail } from './StrategyDetail';
 import { StrategyPicker } from './StrategyPicker';
 import styles from './GoalDetailScreen.module.css';
 
@@ -71,11 +73,32 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   const [busy, setBusy] = useState(false);
   const [pauseSheet, setPauseSheet] = useState(false);
   const [showCompletion, setShowCompletion] = useState(false);
+  const [histories, setHistories] = useState<ProtocolApyHistory[]>([]);
   // G4: the user chose "Stop strategy" from the completion screen — close the
   // goal as held-as-cash once the LAST open position has actually exited.
   const [completeAfterExit, setCompleteAfterExit] = useState(false);
 
   const current = useMemo(() => goalCurrentValue(state, goalId), [state, goalId]);
+
+  // The G6 chart's history: fetched only once a strategy is actually being
+  // read (never on mount — the goal page must not pay for data it may not
+  // show). Server-cached at the ruled 6h TTL, so re-reads are free. R-rows:
+  // an `active` flag guards the unmount race; failure leaves the chart in its
+  // honest "not enough history" state rather than blanking the screen (P7).
+  useEffect(() => {
+    if (strategyId === null || histories.length > 0) return;
+    let active = true;
+    fetchHistories(365)
+      .then((h) => {
+        if (active) setHistories(h);
+      })
+      .catch(() => {
+        /* honest empty state; never a crash */
+      });
+    return () => {
+      active = false;
+    };
+  }, [strategyId, histories.length]);
 
   if (!goal) {
     return (
@@ -337,6 +360,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                 className={styles.actionTile}
                 onClick={() => {
                   setView('detailed');
+                  setStrategyId(null); // E8: the picker always opens unselected
                   setPickerOpen(true);
                 }}
               >
@@ -551,7 +575,10 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                 <button
                   type="button"
                   className={styles.primary}
-                  onClick={() => setPickerOpen(true)}
+                  onClick={() => {
+                    setStrategyId(null); // E8: the picker always opens unselected
+                    setPickerOpen(true);
+                  }}
                 >
                   <FormattedMessage id="goalDetail.putToWork" />
                 </button>
@@ -586,24 +613,19 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                     />
                   ) : null}
                   {strategy && market ? (
-                    <>
-                      <PathCard
-                        goalName={goal.name}
-                        strategy={strategy}
-                        apys={market.apys}
-                        gas={market.gas}
-                        usdPriceLocal={market.usdPriceLocal}
-                        currency={currency}
-                      />
-                      <button
-                        type="button"
-                        className={styles.primary}
-                        onClick={() => setEntryManifest(true)}
-                        disabled={!canInvest || busy}
-                      >
-                        <FormattedMessage id="goalNew.reviewPath" />
-                      </button>
-                    </>
+                    // G6: StrategyDetail IS the pre-commit read (board §3.2) —
+                    // it carries the folded cost/risk itemization, so there is
+                    // no path to the Manifest that skips the itemized costs.
+                    <StrategyDetail
+                      strategy={strategy}
+                      goalName={goal.name}
+                      apys={market.apys}
+                      histories={histories}
+                      gas={market.gas}
+                      usdPriceLocal={market.usdPriceLocal}
+                      currency={currency}
+                      onPutToWork={canInvest && !busy ? () => setEntryManifest(true) : undefined}
+                    />
                   ) : null}
                 </>
               )}

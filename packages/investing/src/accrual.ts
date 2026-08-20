@@ -59,24 +59,6 @@ export function blendSeries(legs: BlendLeg[]): DailyApySeries {
 }
 
 /**
- * Replay earnings on a principal from simDay `fromDay` (exclusive) to `toDay`
- * (inclusive), using the blended series aligned so that the series' newest
- * point maps to `anchorDay`. Returns the earnings (can only be ≥0 for
- * lending-style APY series; growth-asset drawdowns arrive with the Stage-1
- * price overlay).
- *
- * `anchorDay` (default `toDay`) fixes which sim day lands on the newest series
- * point. When a single advance is replayed in one call, `anchorDay === toDay`
- * (the whole span ends on the newest real day). When the advance is SEGMENTED
- * — the recurring-contribution annuity replay splits `[cursor, toDay]` at each
- * monthly deposit so contributions compound from their own day — every segment
- * must pass the advance's GLOBAL `toDay` as `anchorDay`. Otherwise each segment
- * would re-anchor its own end to the newest point, overlapping slices and
- * double-counting recent returns. With a shared anchor, the segment slices are
- * contiguous and their union is identical to the single-call slice (proven by
- * the equivalence test).
- */
-/**
  * The exact daily APY percents a replay of `(fromDay, toDay]` uses, in day
  * order (§3 rate-pinning, board §3.7). ONE mapping shared by `replayEarnings`
  * and the event pinning — so the rates stamped into `AccrualApplied.ratesUsed`
@@ -100,6 +82,24 @@ export function ratesForSpan(
   return rates;
 }
 
+/**
+ * Replay earnings on a principal from simDay `fromDay` (exclusive) to `toDay`
+ * (inclusive), using the blended series aligned so that the series' newest
+ * point maps to `anchorDay`. Returns the earnings (can only be ≥0 for
+ * lending-style APY series; growth-asset drawdowns arrive with the Stage-1
+ * price overlay).
+ *
+ * `anchorDay` (default `toDay`) fixes which sim day lands on the newest series
+ * point. When a single advance is replayed in one call, `anchorDay === toDay`
+ * (the whole span ends on the newest real day). When the advance is SEGMENTED
+ * — the recurring-contribution annuity replay splits `[cursor, toDay]` at each
+ * monthly deposit so contributions compound from their own day — every segment
+ * must pass the advance's GLOBAL `toDay` as `anchorDay`. Otherwise each segment
+ * would re-anchor its own end to the newest point, overlapping slices and
+ * double-counting recent returns. With a shared anchor, the segment slices are
+ * contiguous and their union is identical to the single-call slice (proven by
+ * the equivalence test).
+ */
 export function replayEarnings(
   principal: Decimal.Value,
   series: DailyApySeries,
@@ -113,4 +113,40 @@ export function replayEarnings(
     value = value.mul(dailyFactorFromApyPercent(rate));
   }
   return value.minus(start).toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
+}
+
+/** One dated APY reading (day precision) — the chart's honest unit. */
+export interface DatedApyPoint {
+  date: string;
+  apyPercent: number;
+}
+
+export interface DatedBlendLeg {
+  weightPercent: number;
+  points: DatedApyPoint[];
+}
+
+/**
+ * Blend dated per-protocol histories into one weighted series, aligned on the
+ * UNION of dates (not index-from-end like `blendSeries`, which serves the
+ * replay engine): each leg carries its last known reading forward across days
+ * it lacks, and days before a leg's first reading use that leg's first value.
+ * Honest for a chart — every plotted day is a real weighted reading of real
+ * history, never interpolated fiction. Ascending by date.
+ */
+export function blendDatedSeries(legs: DatedBlendLeg[]): DatedApyPoint[] {
+  const dates = [...new Set(legs.flatMap((l) => l.points.map((p) => p.date)))].sort();
+  const cursors = legs.map(() => 0);
+  return dates.map((date) => {
+    let blended = 0;
+    legs.forEach((leg, i) => {
+      if (leg.points.length === 0) return;
+      while (cursors[i] + 1 < leg.points.length && leg.points[cursors[i] + 1].date <= date) {
+        cursors[i] += 1;
+      }
+      const value = leg.points[cursors[i]].apyPercent;
+      blended += (value * leg.weightPercent) / 100;
+    });
+    return { date, apyPercent: blended };
+  });
 }

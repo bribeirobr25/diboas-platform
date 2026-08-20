@@ -1,0 +1,81 @@
+/* The axed APY chart (G6, §4.6; mockup 4-goal-strategy-2views-detailed).
+   Real history only — the y-axis always starts at 0% so movement is never
+   exaggerated by a truncated scale. */
+
+.wrap {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.timeframes {
+  display: flex;
+  gap: var(--spacing-2xs);
+  align-self: flex-end;
+}
+.pill {
+  min-height: var(--sb-tap);
+  padding: 0 var(--spacing-sm);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+.pill[data-active='true'] {
+  background: var(--sb-accent-tint);
+  color: var(--text-brand-accessible);
+}
+
+.plot {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: stretch;
+}
+.yAxis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: none;
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.svg {
+  flex: 1;
+  min-width: 0;
+  height: 9rem;
+  overflow: visible;
+}
+.grid {
+  stroke: var(--sb-hairline);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+}
+.area {
+  fill: var(--sb-accent-tint);
+}
+.line {
+  fill: none;
+  stroke: var(--sb-accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.xAxis {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+}
+
+.noData {
+  margin: 0;
+  padding: var(--spacing-md) 0;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm-plus);
+}

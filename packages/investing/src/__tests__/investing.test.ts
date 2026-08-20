@@ -6,6 +6,7 @@ import {
   replayEarnings,
   ratesForSpan,
   type DailyApySeries,
+  blendDatedSeries,
 } from '../accrual';
 import {
   FINANCIAL_FREEDOM_SWR,
@@ -374,5 +375,36 @@ describe('ratesForSpan — the §3 rate-pinning slice (same-source with replayEa
 
   it('should clamp early days to the oldest point (spans longer than the series)', () => {
     expect(ratesForSpan({ points: [9], source: 'fixture' }, 0, 3)).toEqual([9, 9, 9]);
+  });
+});
+
+describe('blendDatedSeries — the G6 chart blend (union-of-dates, carry-forward)', () => {
+  it('should weight each leg and carry its last reading across missing days', () => {
+    const out = blendDatedSeries([
+      {
+        weightPercent: 50,
+        points: [
+          { date: '2026-01-01', apyPercent: 4 },
+          { date: '2026-01-03', apyPercent: 6 },
+        ],
+      },
+      { weightPercent: 50, points: [{ date: '2026-01-02', apyPercent: 2 }] },
+    ]);
+    expect(out.map((p) => p.date)).toEqual(['2026-01-01', '2026-01-02', '2026-01-03']);
+    // day1: 4*.5 + 2*.5 (leg2's first reading carried BACK) = 3
+    expect(out[0].apyPercent).toBeCloseTo(3, 6);
+    // day2: 4 (carried fwd) *.5 + 2*.5 = 3
+    expect(out[1].apyPercent).toBeCloseTo(3, 6);
+    // day3: 6*.5 + 2 (carried fwd) *.5 = 4
+    expect(out[2].apyPercent).toBeCloseTo(4, 6);
+  });
+
+  it('should return an empty series for no legs and ignore an empty leg', () => {
+    expect(blendDatedSeries([])).toEqual([]);
+    const out = blendDatedSeries([
+      { weightPercent: 50, points: [{ date: '2026-01-01', apyPercent: 8 }] },
+      { weightPercent: 50, points: [] },
+    ]);
+    expect(out[0].apyPercent).toBeCloseTo(4, 6); // the present leg's half only
   });
 });

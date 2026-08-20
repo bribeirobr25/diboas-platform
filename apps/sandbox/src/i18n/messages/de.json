@@ -109,8 +109,6 @@
     "startingFrom": "From Available"
   },
   "pathCard": {
-    "title": "The path, the cost, the risk.",
-    "subtitle": "Read this before anything moves.",
     "pathTitle": "Path",
     "pathLine": "{goal} → {strategy} → real protocols on {chain}",
     "costTitle": "Cost",
@@ -339,7 +337,6 @@
     "detailed": "Detailliert",
     "whatItIs": "Was es ist",
     "howItsDoing": "Wie es läuft",
-    "whatItCosts": "Was es kostet",
     "caveat": "Es kann in manchen Wochen sinken. Das ist normal, und Renditen sind nicht garantiert.",
     "costLine": "Kostenlos zu starten. Eine kleine Gebühr von 0,39%, wenn du Geld abhebst. Dein Geld ist nie gebunden, jederzeit stoppen.",
     "seeDetail": "Details ansehen",
@@ -352,15 +349,9 @@
     "riskVariableApy": "Variable Renditen",
     "whatHappensOnExit": "Was beim Ausstieg passiert",
     "exitFee": "Ausstiegsgebühr",
-    "minExit": "mindestens 0,25 $",
+    "minExit": "at least {min}",
     "underlyingProtocols": "Zugrunde liegende Protokolle",
     "protocolsNote": "Läuft über vertrauenswürdige Lending-Protokolle. Renditen sind nicht garantiert."
-  },
-  "strategyExample": {
-    "name": "Stetig wachsen",
-    "description": "Ein stabiler, risikoärmerer Weg, mit der Zeit zu wachsen.",
-    "whatItIs": "Ein ruhiger, risikoärmerer Weg, dein Geld mit der Zeit stetig wachsen zu lassen.",
-    "howItsDoing": "Wächst sanft, mit kleinen Höhen und Tiefen unterwegs."
   },
   "goalDual": {
     "onTrackLabel": "Bin ich auf Kurs?",
@@ -563,5 +554,16 @@
       "long": "Long",
       "wealth": "Wealth"
     }
+  },
+  "apyChart": {
+    "timeframeLabel": "Chart timeframe",
+    "tf": {
+      "7": "7D",
+      "30": "30D",
+      "90": "90D",
+      "365": "1Y"
+    },
+    "noData": "Not enough history to draw a chart yet.",
+    "description": "Pool rate from {from} to {to}, ranging {low}% to {high}%."
   }
 }

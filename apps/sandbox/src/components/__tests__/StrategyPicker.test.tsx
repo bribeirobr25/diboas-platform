@@ -95,14 +95,18 @@ describe('StrategyPicker — the G5 catalog (§4.5, mockup 13, board §3.5 embed
 
   it('should CLEAR a selection that a filter change hides (E8 — approve can never commit an unseen strategy)', () => {
     const onSelect = vi.fn();
-    // patientBuilder is medium-only; the goal band is short → it is not visible.
-    renderPicker({ horizonMonths: 6, selectedId: 'patientBuilder', onSelect });
+    // goalKeeper is STABLE and visible in the short band…
+    renderPicker({ horizonMonths: 6, selectedId: 'goalKeeper', onSelect });
+    expect(onSelect).not.toHaveBeenCalled();
+    // …until the user narrows to growth, which hides it.
+    fireEvent.change(screen.getByLabelText('Risk band'), { target: { value: 'growth' } });
     expect(onSelect).toHaveBeenCalledWith('');
   });
 
-  it('should KEEP a selection that is still visible', () => {
+  it('should KEEP a selection the new filter still shows', () => {
     const onSelect = vi.fn();
-    renderPicker({ horizonMonths: 6, selectedId: 'safeHarbor', onSelect });
+    renderPicker({ horizonMonths: 6, selectedId: 'goalKeeper', onSelect });
+    fireEvent.change(screen.getByLabelText('Risk band'), { target: { value: 'stable' } });
     expect(onSelect).not.toHaveBeenCalled();
   });
 

@@ -109,8 +109,6 @@
     "startingFrom": "From Available"
   },
   "pathCard": {
-    "title": "O caminho, o custo, o risco.",
-    "subtitle": "Leia isto antes de qualquer movimento.",
     "pathTitle": "Caminho",
     "pathLine": "{goal} → {strategy} → protocolos reais em {chain}",
     "costTitle": "Custo",
@@ -339,7 +337,6 @@
     "detailed": "Detalhado",
     "whatItIs": "O que é",
     "howItsDoing": "Como está indo",
-    "whatItCosts": "Quanto custa",
     "caveat": "Pode cair em algumas semanas. Isso é normal, e os retornos não são garantidos.",
     "costLine": "De graça para começar. Uma pequena taxa de 0,39% quando você retira. Seu dinheiro nunca fica preso, pare quando quiser.",
     "seeDetail": "Ver os detalhes",
@@ -352,15 +349,9 @@
     "riskVariableApy": "Retornos variáveis",
     "whatHappensOnExit": "O que acontece ao sair",
     "exitFee": "Taxa de saída",
-    "minExit": "mínimo de US$0,25",
+    "minExit": "no mínimo {min}",
     "underlyingProtocols": "Protocolos subjacentes",
     "protocolsNote": "Funciona em protocolos de empréstimo confiáveis. Retornos não são garantidos."
-  },
-  "strategyExample": {
-    "name": "Cresça com constância",
-    "description": "Um jeito estável e de menor risco de crescer com o tempo.",
-    "whatItIs": "Um jeito calmo e de menor risco de fazer seu dinheiro crescer de forma constante.",
-    "howItsDoing": "Crescendo com suavidade, com pequenas altas e baixas pelo caminho."
   },
   "goalDual": {
     "onTrackLabel": "Estou no caminho para chegar lá?",
@@ -563,5 +554,16 @@
       "long": "Longo",
       "wealth": "Patrimônio"
     }
+  },
+  "apyChart": {
+    "timeframeLabel": "Período do gráfico",
+    "tf": {
+      "7": "7D",
+      "30": "30D",
+      "90": "90D",
+      "365": "1A"
+    },
+    "noData": "Ainda não há histórico suficiente para desenhar um gráfico.",
+    "description": "Taxa do pool de {from} até {to}, variando de {low}% a {high}%."
   }
 }
