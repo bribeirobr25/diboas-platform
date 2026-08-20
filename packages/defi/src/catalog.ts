@@ -17,6 +17,7 @@ export const STRATEGY_CATALOG: StrategyDef[] = [
   {
     id: 'safeHarbor',
     i18nKey: 'safeHarbor',
+    icon: 'shield-check',
     horizonBands: ['anytime', 'short'],
     riskBand: 'stable',
     growthExposurePercent: 0,
@@ -30,6 +31,7 @@ export const STRATEGY_CATALOG: StrategyDef[] = [
   {
     id: 'stableGrowth',
     i18nKey: 'stableGrowth',
+    icon: 'sprout',
     horizonBands: ['anytime', 'medium'],
     riskBand: 'growth',
     growthExposurePercent: 30,
@@ -42,6 +44,7 @@ export const STRATEGY_CATALOG: StrategyDef[] = [
   {
     id: 'goalKeeper',
     i18nKey: 'goalKeeper',
+    icon: 'target',
     horizonBands: ['short'],
     riskBand: 'stable',
     growthExposurePercent: 0,
@@ -55,6 +58,7 @@ export const STRATEGY_CATALOG: StrategyDef[] = [
   {
     id: 'steadyProgress',
     i18nKey: 'steadyProgress',
+    icon: 'trending-up',
     horizonBands: ['short'],
     riskBand: 'growth',
     growthExposurePercent: 35,
@@ -67,6 +71,7 @@ export const STRATEGY_CATALOG: StrategyDef[] = [
   {
     id: 'patientBuilder',
     i18nKey: 'patientBuilder',
+    icon: 'clock',
     horizonBands: ['medium'],
     riskBand: 'stable',
     growthExposurePercent: 0,
@@ -80,6 +85,7 @@ export const STRATEGY_CATALOG: StrategyDef[] = [
   {
     id: 'balancedBuilder',
     i18nKey: 'balancedBuilder',
+    icon: 'bar-chart',
     horizonBands: ['medium'],
     riskBand: 'growth',
     growthExposurePercent: 40,
@@ -93,6 +99,7 @@ export const STRATEGY_CATALOG: StrategyDef[] = [
   {
     id: 'steadyCompounder',
     i18nKey: 'steadyCompounder',
+    icon: 'repeat',
     horizonBands: ['long'],
     riskBand: 'stable',
     growthExposurePercent: 0,
@@ -106,6 +113,7 @@ export const STRATEGY_CATALOG: StrategyDef[] = [
   {
     id: 'wealthAccelerator',
     i18nKey: 'wealthAccelerator',
+    icon: 'fast-forward',
     horizonBands: ['long'],
     riskBand: 'growth',
     growthExposurePercent: 70,
@@ -119,6 +127,7 @@ export const STRATEGY_CATALOG: StrategyDef[] = [
   {
     id: 'fullHarvest',
     i18nKey: 'fullHarvest',
+    icon: 'wallet',
     horizonBands: ['wealth'],
     riskBand: 'stable',
     growthExposurePercent: 0,
@@ -132,6 +141,7 @@ export const STRATEGY_CATALOG: StrategyDef[] = [
   {
     id: 'fullThrottle',
     i18nKey: 'fullThrottle',
+    icon: 'zap',
     horizonBands: ['wealth'],
     riskBand: 'growth',
     growthExposurePercent: 85,

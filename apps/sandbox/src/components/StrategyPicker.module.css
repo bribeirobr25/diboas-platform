@@ -116,3 +116,79 @@
   color: var(--sb-text-muted);
   font-variant-numeric: tabular-nums;
 }
+
+/* --- G5 catalog rebuild (§4.5; mockup 13) --- */
+.filters {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+.filter {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--sb-hairline-strong);
+  border-radius: var(--radius-lg);
+  background: var(--sb-card);
+}
+.filterIcon {
+  flex: none;
+  color: var(--sb-text-muted);
+}
+.filterBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.filterLabel {
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+}
+.select {
+  width: 100%;
+  min-height: var(--sb-tap);
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--sb-text-heading);
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.rowIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent-tint);
+  color: var(--text-brand-accessible);
+}
+.varies {
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+}
+.empty {
+  margin: 0;
+  padding: var(--spacing-md) 0;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm-plus);
+}
+.neverAdvises {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2xs);
+  margin: var(--spacing-md) 0 0;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--sb-hairline);
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-sm);
+}

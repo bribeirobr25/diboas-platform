@@ -314,7 +314,7 @@
 }
 .statusSub {
   color: var(--sb-text-muted);
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--font-weight-normal);
 }
 
 .toggleRow {
@@ -388,7 +388,7 @@
   min-height: var(--sb-tap);
   border: 1px solid var(--sb-hairline);
   border-radius: var(--radius-lg);
-  background: var(--sb-surface);
+  background: var(--sb-card);
   color: var(--sb-text-heading);
   font-size: var(--font-size-sm-plus);
   font-weight: var(--font-weight-medium);
@@ -407,7 +407,7 @@
   margin-top: var(--spacing-sm);
   border: 0;
   border-radius: var(--radius-pill);
-  background: var(--sb-surface-raised);
+  background: var(--sb-card-tint);
   color: var(--text-brand-accessible);
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-md);

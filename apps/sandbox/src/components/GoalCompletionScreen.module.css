@@ -148,7 +148,7 @@
   padding: var(--spacing-md);
   border: 1px solid var(--sb-hairline);
   border-radius: var(--radius-lg);
-  background: var(--sb-surface);
+  background: var(--sb-card);
   color: var(--sb-text-heading);
   text-align: left;
   cursor: pointer;
@@ -200,7 +200,7 @@
   padding: 0 var(--spacing-md);
   border: 1px solid var(--sb-hairline-strong);
   border-radius: var(--radius-lg);
-  background: var(--sb-surface);
+  background: var(--sb-card);
   color: var(--sb-text-heading);
   font-size: var(--font-size-md);
 }

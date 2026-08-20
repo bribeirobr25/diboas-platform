@@ -7,6 +7,7 @@ const STRATEGY: StrategyDef = {
   i18nKey: 'test',
   horizonBands: ['short'],
   riskBand: 'stable',
+  icon: 'shield-check',
   growthExposurePercent: 0,
   allocation: [
     { protocolId: 'skySsr', weightPercent: 50 },

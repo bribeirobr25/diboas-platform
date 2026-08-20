@@ -1703,6 +1703,11 @@
      promoted to real tokens here (canonical source) so the CSS references them
      cleanly. Only the in-use shades are defined (no dead tokens). */
   --color-blue-100: #dbeafe;
+  /* blue-400: the dark-mode lift step for the "Working" money tone. Added
+     2026-08-20 — HomeScreen's dark rule referenced it while it was undefined,
+     so the declaration was invalid at computed-value time and the tone
+     silently inherited body text (its amber sibling lifted correctly). */
+  --color-blue-400: #60a5fa;
   --color-blue-600: #2563eb;
   --color-green-100: #dcfce7;
   --color-green-600: #16a34a;

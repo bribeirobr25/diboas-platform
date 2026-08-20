@@ -90,6 +90,8 @@ export interface StrategyDef {
   i18nKey: string;
   horizonBands: HorizonBand[];
   riskBand: RiskBand;
+  /** Lucide icon token for the catalog row (presentation data, never a claim). */
+  icon: string;
   /** Growth exposure in percent (0 for stable-only). */
   growthExposurePercent: number;
   allocation: AllocationLeg[];

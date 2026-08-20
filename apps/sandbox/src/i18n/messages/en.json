@@ -549,5 +549,19 @@
     "currentTarget": "Now: {amount}",
     "raiseCta": "Save the new target",
     "reviewCta": "Review and close"
+  },
+  "catalogFilters": {
+    "horizon": "Time horizon",
+    "risk": "Risk band",
+    "any": "Any",
+    "varies": "Varies",
+    "empty": "No strategy matches those filters. Widen one to see more.",
+    "neverAdvises": "You choose. diBoaS never advises.",
+    "horizonBand": {
+      "short": "Short",
+      "medium": "Medium",
+      "long": "Long",
+      "wealth": "Wealth"
+    }
   }
 }

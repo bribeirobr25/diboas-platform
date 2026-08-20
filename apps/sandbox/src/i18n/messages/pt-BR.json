@@ -549,5 +549,19 @@
     "currentTarget": "Agora: {amount}",
     "raiseCta": "Salvar o novo alvo",
     "reviewCta": "Revisar e encerrar"
+  },
+  "catalogFilters": {
+    "horizon": "Horizonte",
+    "risk": "Faixa de risco",
+    "any": "Qualquer",
+    "varies": "Varia",
+    "empty": "Nenhuma estratégia combina com esses filtros. Amplie um deles para ver mais.",
+    "neverAdvises": "Você escolhe. A diBoaS nunca aconselha.",
+    "horizonBand": {
+      "short": "Curto",
+      "medium": "Médio",
+      "long": "Longo",
+      "wealth": "Patrimônio"
+    }
   }
 }
