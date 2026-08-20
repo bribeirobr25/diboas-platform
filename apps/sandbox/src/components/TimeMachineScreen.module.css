@@ -22,6 +22,24 @@
   pointer-events: none;
   background: url('/hero-welcome.png') center 40% / cover no-repeat;
 }
+/* The band is a LIGHT image, and in dark mode the heading flips to near-white —
+   which rendered the title invisible on top of it. The goal screens already
+   solve this with a dark plate and a fade into the ground; copying the band
+   without these two rules was the omission. */
+.heroBand::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, var(--sb-ground) 100%);
+}
+:global(html[data-theme='dark']) .heroBand {
+  background-image: url('/hero-welcome-dark.png');
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme='light'])) .heroBand {
+    background-image: url('/hero-welcome-dark.png');
+  }
+}
 
 .head {
   display: flex;
