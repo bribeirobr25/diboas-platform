@@ -6,9 +6,13 @@
 
 import Decimal from 'decimal.js';
 import { computeExitFee, type LedgerEvent } from '@diboas/banking';
-import { getStrategy, type ProtocolApyHistory } from '@diboas/defi';
-import { blendSeries, type DailyApySeries } from '@diboas/investing';
-import { planAdvance } from '../advancePlanner';
+import {
+  PROTOCOL_RETURN_MODEL,
+  getStrategy,
+  type ProtocolApyHistory,
+  type ProtocolPriceHistory,
+} from '@diboas/defi';
+import { planAdvance, type PositionLeg } from '../advancePlanner';
 import { generateId } from '../ids';
 import { appendAll, base, getLedgerState } from './core';
 
@@ -237,11 +241,13 @@ export function enterStrategy(input: {
  * The time machine: advance simulated days, replaying real APY history onto
  * every open position (blended by the strategy's allocation weights).
  *
- * When a position carries a recurring schedule (C3), its accrual is replayed in
- * SEGMENTS split at each monthly deposit day, so each contribution compounds
- * from its own day (an annuity replay). Every segment passes the GLOBAL `toDay`
- * as `anchorDay` to `replayEarnings` (A-1) — segment slices are then contiguous
- * and their union equals the single-call slice. Deposits are bounded by the
+ * Accrual is replayed in SEGMENTS on the merged monthly grid
+ * (`accrualSegmentDays`: the 30-day cadence unioned with this position's
+ * deposit days), so each contribution compounds from its own day (an annuity
+ * replay) AND a plan-less advance still produces a real path rather than one
+ * year-long jump. Every segment passes the GLOBAL `toDay` as `anchorDay`
+ * (A-1) — segment slices are then contiguous and their union equals the
+ * single-call slice. Deposits are bounded by the
  * shared Working pool, granted in strict day order across all positions (a
  * partial last deposit, then paused). A move within the reconciliation `held`
  * set → the invariant holds by construction.
@@ -249,28 +255,54 @@ export function enterStrategy(input: {
 export function advanceTime(
   days: number,
   histories: ProtocolApyHistory[],
-  source: 'real' | 'machine' = 'machine'
+  source: 'real' | 'machine' = 'machine',
+  priceHistories: ProtocolPriceHistory[] = []
 ): void {
   const state = getLedgerState();
   const toDay = state.simDay + days;
   const byProtocol = new Map(histories.map((h) => [h.protocolId, h]));
+  const priceByProtocol = new Map(priceHistories.map((h) => [h.protocolId, h]));
   const correlationId = generateId();
   const open = state.positions.filter((p) => p.open);
 
-  // Blended real-APY series per open position (built once, reused per segment).
-  const blendedByPosition = new Map<string, DailyApySeries>();
+  // Per-position LEGS (§4.8 G8), built once and reused for every segment.
+  //
+  // The leg's kind decides what gets replayed: a `lending` leg replays its APY
+  // series, a `market` leg replays the token's own PRICE series with nothing
+  // added on top. That second case is what finally lets a growth position FALL
+  // — APY series are non-negative, so before this the money could only ever go
+  // up, which is the most dangerous lesson a practice app can teach.
+  const legsByPosition = new Map<string, PositionLeg[]>();
   for (const position of open) {
     const strategy = getStrategy(position.strategyId);
     if (!strategy) continue;
-    const legs = strategy.allocation.map((leg) => {
+    const legs: PositionLeg[] = strategy.allocation.map((leg) => {
+      const model = PROTOCOL_RETURN_MODEL[leg.protocolId];
+      if (model.kind === 'market') {
+        const history = priceByProtocol.get(leg.protocolId);
+        return {
+          kind: 'market',
+          weightPercent: leg.weightPercent,
+          price: {
+            // No price series → a flat 1.0 series: the leg holds its value
+            // rather than inventing a move in either direction.
+            points:
+              history && history.points.length > 0 ? history.points.map((p) => p.priceUsd) : [1],
+            source: history?.stamp.source === 'coingecko' ? 'coingecko' : 'fixture',
+          },
+        };
+      }
       const history = byProtocol.get(leg.protocolId);
-      const series: DailyApySeries = {
-        points: history ? history.points.map((p) => p.apyPercent) : [0],
-        source: history?.stamp.source === 'defillama' ? 'defillama' : 'fixture',
+      return {
+        kind: 'lending',
+        weightPercent: leg.weightPercent,
+        apy: {
+          points: history ? history.points.map((p) => p.apyPercent) : [0],
+          source: history?.stamp.source === 'defillama' ? 'defillama' : 'fixture',
+        },
       };
-      return { weightPercent: leg.weightPercent, series };
     });
-    blendedByPosition.set(position.positionId, blendSeries(legs));
+    legsByPosition.set(position.positionId, legs);
   }
 
   // The money-moving logic lives in the pure planner (unit tested); this layer
@@ -291,7 +323,7 @@ export function advanceTime(
       return goal ? goal.status === 'active' : false;
     }),
     workingStart: state.buckets.working,
-    blendedByPosition,
+    legsByPosition,
     toDay,
     days,
     source,
@@ -368,4 +400,126 @@ export function previewExit(
     networkFee: networkFee.toFixed(2),
     net: net.toFixed(2),
   };
+}
+
+/** One position's line in an exit ceremony (G7 itemization, FC-15). */
+export interface ExitLine {
+  positionId: string;
+  strategyId: string;
+  gross: string;
+  exitFee: string;
+  networkFee: string;
+  net: string;
+}
+
+/** The composed preview for stopping N positions (board §3.3). */
+export interface StopPreview {
+  lines: ExitLine[];
+  gross: string;
+  exitFee: string;
+  networkFee: string;
+  net: string;
+}
+
+/**
+ * Compose an itemized stop preview over the given open positions (G7, board
+ * §3.3). Both the single-position and whole-goal ceremonies run through here,
+ * so the two can never drift into different arithmetic.
+ *
+ * Why per-position matters: `computeExitFee` applies the $0.25 floor PER
+ * position, so stopping three small positions really does cost three floors.
+ * A total computed on the summed gross would understate the true cost, and N
+ * network fees would vanish behind one line. Both are exactly the fee-truth
+ * breakage G7 exists to prevent.
+ */
+function composeStop(
+  positions: { positionId: string; strategyId: string }[],
+  feeFor: (positionId: string) => number
+): StopPreview | null {
+  const lines: ExitLine[] = [];
+  let gross = new Decimal(0);
+  let exitFee = new Decimal(0);
+  let networkFee = new Decimal(0);
+  for (const position of positions) {
+    const preview = previewExit(position.positionId, feeFor(position.positionId));
+    if (!preview) continue;
+    lines.push({
+      positionId: position.positionId,
+      strategyId: position.strategyId,
+      ...preview,
+    });
+    gross = gross.plus(preview.gross);
+    exitFee = exitFee.plus(preview.exitFee);
+    networkFee = networkFee.plus(preview.networkFee);
+  }
+  if (lines.length === 0) return null;
+  return {
+    lines,
+    gross: gross.toFixed(2),
+    exitFee: exitFee.toFixed(2),
+    networkFee: networkFee.toFixed(2),
+    net: gross.minus(exitFee).minus(networkFee).toFixed(2),
+  };
+}
+
+/** Open positions of a goal, in ledger order (the stop set). */
+function openPositionsOf(goalId: string) {
+  return getLedgerState().positions.filter((p) => p.goalId === goalId && p.open);
+}
+
+/**
+ * Preview stopping ONE position — the ceremony's single-position case. Returns
+ * the same shape as the goal-level preview so the surface never branches on
+ * which entry point opened it. Null when the position is closed or unknown.
+ */
+export function previewPositionStop(
+  positionId: string,
+  networkFeeLocal: number
+): StopPreview | null {
+  const position = getLedgerState().positions.find((p) => p.positionId === positionId && p.open);
+  if (!position) return null;
+  return composeStop([position], () => networkFeeLocal);
+}
+
+/**
+ * Preview stopping EVERY open position of a goal (G7, board §3.3): the
+ * goal-level stop is a COMPOSITION of position exits, never a replacement
+ * primitive — and the itemization is the point, not decoration.
+ *
+ * `feeFor` resolves each position's network fee (the caller owns market/gas
+ * access — the same seam `previewExit` uses). Returns null when nothing is
+ * open, so the surface can say so instead of rendering a zeroed ceremony.
+ */
+export function previewGoalStop(
+  goalId: string,
+  feeFor: (positionId: string) => number
+): StopPreview | null {
+  return composeStop(openPositionsOf(goalId), feeFor);
+}
+
+/**
+ * Stop every open position of a goal — N `StrategyExited` events under ONE
+ * correlationId (they are one user decision). The money returns to the GOAL as
+ * cash (the engine's exit leg), never to Available: releasing goal cash is a
+ * separate, explicit act (D-e `GoalCashReleased`/`GoalDropped`).
+ */
+export function stopGoalStrategies(goalId: string, feeFor: (positionId: string) => number): void {
+  const state = getLedgerState();
+  const open = openPositionsOf(goalId);
+  if (open.length === 0) return;
+  const correlationId = generateId();
+  const events: LedgerEvent[] = [];
+  for (const position of open) {
+    const gross = new Decimal(position.principal).plus(position.accrued);
+    events.push({
+      ...base(correlationId),
+      type: 'StrategyExited',
+      positionId: position.positionId,
+      goalId,
+      grossAmount: gross.toFixed(2),
+      exitFee: computeExitFee(gross, state.currency).toFixed(2),
+      networkFee: new Decimal(feeFor(position.positionId)).toFixed(2),
+    });
+  }
+  appendAll(events);
 }

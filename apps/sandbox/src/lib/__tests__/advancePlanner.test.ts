@@ -17,6 +17,10 @@ function stamp() {
 
 const FLAT: DailyApySeries = { points: Array(400).fill(5), source: 'defillama' };
 
+/** The pre-§4.8 shape: one 100% lending leg. Behaviour is identical to the old
+ *  single blended APY series, so every assertion below still tests what it did. */
+const LENDING_100 = { kind: 'lending' as const, weightPercent: 100, apy: FLAT };
+
 function pos(overrides: Partial<AdvancePositionInput> = {}): AdvancePositionInput {
   return {
     positionId: 'p1',
@@ -38,7 +42,7 @@ describe('planAdvance (C3 annuity replay — pure orchestration)', () => {
       positions: [pos()],
       schedules: [],
       workingStart: '8000.00',
-      blendedByPosition: new Map([['p1', FLAT]]),
+      legsByPosition: new Map([['p1', [LENDING_100]]]),
       toDay: 30,
       days: 30,
       source: 'machine',
@@ -56,7 +60,7 @@ describe('planAdvance (C3 annuity replay — pure orchestration)', () => {
       positions: [pos()],
       schedules: [schedule()],
       workingStart: '8000.00',
-      blendedByPosition: new Map([['p1', FLAT]]),
+      legsByPosition: new Map([['p1', [LENDING_100]]]),
       toDay: 90,
       days: 90,
       source: 'machine',
@@ -119,7 +123,7 @@ describe('planAdvance (C3 annuity replay — pure orchestration)', () => {
       ],
       schedules: before.recurring,
       workingStart: before.buckets.working,
-      blendedByPosition: new Map([['p1', FLAT]]),
+      legsByPosition: new Map([['p1', [LENDING_100]]]),
       toDay: 365,
       days: 365,
       source: 'machine',
@@ -141,7 +145,7 @@ describe('planAdvance (C3 annuity replay — pure orchestration)', () => {
       positions: [pos()],
       schedules: [schedule()],
       workingStart: '900.00',
-      blendedByPosition: new Map([['p1', FLAT]]),
+      legsByPosition: new Map([['p1', [LENDING_100]]]),
       toDay: 90,
       days: 90,
       source: 'machine',
@@ -160,9 +164,9 @@ describe('planAdvance (C3 annuity replay — pure orchestration)', () => {
       positions: [pos({ positionId: 'p1' }), pos({ positionId: 'p2' })],
       schedules: [schedule({ positionId: 'p1' }), schedule({ positionId: 'p2' })],
       workingStart: '700.00',
-      blendedByPosition: new Map([
-        ['p1', FLAT],
-        ['p2', FLAT],
+      legsByPosition: new Map([
+        ['p1', [LENDING_100]],
+        ['p2', [LENDING_100]],
       ]),
       toDay: 60,
       days: 60,
@@ -253,9 +257,9 @@ describe('planAdvance (C3 annuity replay — pure orchestration)', () => {
       })),
       schedules: before.recurring,
       workingStart: before.buckets.working,
-      blendedByPosition: new Map([
-        ['p1', FLAT],
-        ['p2', FLAT],
+      legsByPosition: new Map([
+        ['p1', [LENDING_100]],
+        ['p2', [LENDING_100]],
       ]),
       toDay: 120, // deposits at 30/60/90/120 per position = 8 total × 500 = 4000 → exact drain
       days: 120,
@@ -314,7 +318,7 @@ describe('planAdvance (C3 annuity replay — pure orchestration)', () => {
       ],
       schedules: before.recurring,
       workingStart: before.buckets.working,
-      blendedByPosition: new Map([['p1', FLAT]]),
+      legsByPosition: new Map([['p1', [LENDING_100]]]),
       toDay: 60,
       days: 60,
       source: 'machine',
@@ -340,7 +344,9 @@ describe('§3 rate-pinning — every emitted AccrualApplied is self-auditing (bo
         { goalId: 'g1', positionId: 'p1', monthlyAmount: '100.00', startSimDay: 0 },
       ] as RecurringSchedule[],
       workingStart: '5000.00',
-      blendedByPosition: new Map([['p1', varied]]),
+      legsByPosition: new Map([
+        ['p1', [{ kind: 'lending' as const, weightPercent: 100, apy: varied }]],
+      ]),
       toDay: 65, // spans two deposit days → 3 accrual segments
       days: 65,
       source: 'machine',
@@ -366,5 +372,82 @@ describe('§3 rate-pinning — every emitted AccrualApplied is self-auditing (bo
       }
       if (event.type === 'RecurringContributionApplied') value = value.plus(event.amount);
     }
+  });
+});
+
+describe('§4.8 — MULTI-LEG positions pin an auditable record (regression)', () => {
+  const fast: DailyApySeries = {
+    points: Array.from({ length: 400 }, () => 10),
+    source: 'defillama',
+  };
+  const slow: DailyApySeries = { points: Array.from({ length: 400 }, () => 2), source: 'fixture' };
+
+  function multiLeg() {
+    return planAdvance({
+      positions: [pos({ principal: '1000.00', accrued: '0.00', accruedThroughSimDay: 0 })],
+      schedules: [],
+      workingStart: '5000.00',
+      legsByPosition: new Map([
+        [
+          'p1',
+          [
+            { kind: 'lending' as const, weightPercent: 50, apy: fast },
+            { kind: 'lending' as const, weightPercent: 50, apy: slow },
+          ],
+        ],
+      ]),
+      toDay: 30,
+      days: 30,
+      source: 'machine',
+      stamp,
+    });
+  }
+
+  it("should NOT pin one leg's rates as if they were the whole position", () => {
+    // The bug this guards: taking legs[0].apy as "the blend" emitted earnings of
+    // 4.75 while the pinned rates recompounded to 7.86 — an un-auditable claim.
+    // Every stable strategy has three lending legs, so this was not an edge case.
+    const acc = multiLeg().find((e) => e.type === 'AccrualApplied') as {
+      ratesUsed?: number[];
+      legsReplayed?: Array<{ weightPercent: number; source: string; multiple: string }>;
+    };
+    expect(acc.ratesUsed).toBeUndefined();
+    expect(acc.legsReplayed).toHaveLength(2);
+  });
+
+  it('should reproduce the emitted earnings EXACTLY from the pinned per-leg multiples', () => {
+    const acc = multiLeg().find((e) => e.type === 'AccrualApplied') as {
+      earnings: string;
+      legsReplayed: Array<{ weightPercent: number; multiple: string }>;
+    };
+    const start = new Decimal('1000.00');
+    const rebuilt = acc.legsReplayed.reduce(
+      (sum, leg) => sum.plus(start.mul(leg.weightPercent).div(100).mul(leg.multiple)),
+      new Decimal(0)
+    );
+    expect(rebuilt.minus(start).toDecimalPlaces(2).toFixed(2)).toBe(acc.earnings);
+  });
+
+  it('should report provenance as the WEAKEST leg, never the first (no silent blending)', () => {
+    const acc = multiLeg().find((e) => e.type === 'AccrualApplied') as { apySource: string };
+    // Leg 1 is live, leg 2 is fixture → the claim must be 'fixture'.
+    expect(acc.apySource).toBe('fixture');
+  });
+
+  it('should keep the day-level rate trail for a SOLE lending leg at 100%', () => {
+    const events = planAdvance({
+      positions: [pos({ principal: '1000.00', accrued: '0.00', accruedThroughSimDay: 0 })],
+      schedules: [],
+      workingStart: '5000.00',
+      legsByPosition: new Map([
+        ['p1', [{ kind: 'lending' as const, weightPercent: 100, apy: fast }]],
+      ]),
+      toDay: 30,
+      days: 30,
+      source: 'machine',
+      stamp,
+    });
+    const acc = events.find((e) => e.type === 'AccrualApplied') as { ratesUsed?: number[] };
+    expect(acc.ratesUsed).toHaveLength(30); // §3 trail preserved where it is correct
   });
 });

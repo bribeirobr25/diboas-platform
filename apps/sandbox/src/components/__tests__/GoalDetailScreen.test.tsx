@@ -1,9 +1,30 @@
 // @vitest-environment happy-dom
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
-import { beforeEach, describe, expect, it } from 'vitest';
-import { createGoal, grantPlayMoney, resetSandbox } from '@/lib/ledgerClient';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { createGoal, enterStrategy, grantPlayMoney, resetSandbox } from '@/lib/ledgerClient';
 import { GoalDetailScreen } from '../GoalDetailScreen';
+
+/**
+ * The market must be PRESENT for these tests: an exit cannot be priced without
+ * it, so every exit control is gated on it. Before this mock existed the exit
+ * tests ran against a null market and were quietly asserting an unpriceable
+ * ceremony (network fee $0.00) — the exact state the gate now refuses.
+ */
+const h = vi.hoisted(() => ({
+  market: {
+    apys: [],
+    gas: [
+      { chain: 'Arbitrum', typicalFeeUsd: 0.03, stamp: { source: 'fixture', asOf: '2026-07-18' } },
+    ],
+    usdPriceLocal: 1,
+  } as unknown,
+}));
+const MARKET_OK = h.market;
+vi.mock('@/hooks/useMarket', () => ({
+  useMarket: () => ({ market: h.market, marketError: h.market === null, refreshMarket: () => {} }),
+  fetchHistories: () => Promise.resolve([]),
+}));
 
 const M = {
   'common.back': 'Back',
@@ -21,7 +42,6 @@ const M = {
   'goalDetail.earningsTitle': 'Earnings',
   'goalDetail.earningsLine': '{amount} so far',
   'goalDetail.exitCta': 'Stop this strategy',
-  'goalDetail.exitTitle': 'Stop {strategy}',
   'goalDual.simple': 'Simple',
   'goalDual.detailed': 'Detailed',
   'goalDual.onTrackLabel': 'Am I on track to get there?',
@@ -39,6 +59,35 @@ const M = {
   'goalNew.fundAvailable': '{amount} available',
   'goalNew.riskStable': 'Stable',
   'goalNew.growthExposure': '{percent}% growth',
+  'goalDetail.exitPricingUnavailable':
+    "Costs can't be priced right now, so stopping is unavailable. Your money keeps working.",
+  'goalDual.pausePlan': 'Pause plan',
+  'goalPause.title': 'Pause this plan?',
+  'goalPause.body': 'Pausing stops your weekly plan.',
+  'goalPause.statePlan': 'Plan paused',
+  'goalPause.stateMoney': 'Invested money still working',
+  'goalPause.alsoStop': 'Want out of the strategy too?',
+  'goalPause.pause': 'Confirm pause',
+  'goalPause.keepGoing': 'Keep going',
+  'goalPause.stopCta': 'Also stop the strategy',
+  'exitCeremony.title': 'Review before you stop',
+  'exitCeremony.subtitlePosition': 'What comes back, and what it costs.',
+  'exitCeremony.subtitleGoal': 'This stops every strategy in this goal.',
+  'exitCeremony.onePosition': '1 strategy working',
+  'exitCeremony.positionsCount': '{count} strategies working',
+  'exitCeremony.gross': 'Coming back before costs',
+  'exitCeremony.feesLabel': 'Fees and costs',
+  'exitCeremony.diboasFee': 'diBoaS fee ({rate})',
+  'exitCeremony.minimumSub': 'at least {min} per strategy',
+  'exitCeremony.networkCost': 'Network cost',
+  'exitCeremony.estimated': 'Estimated',
+  'exitCeremony.lineBreakdown': '{gross} less {fee} fee and {network} network',
+  'exitCeremony.net': 'What actually comes back',
+  'exitCeremony.whereItLands': 'Where it lands',
+  'exitCeremony.landsBody': '{amount} lands in {goal} as cash.',
+  'exitCeremony.stopPosition': 'Stop this strategy',
+  'exitCeremony.stopGoal': 'Stop this goal',
+  'exitCeremony.cancel': 'Keep it working',
 };
 
 function renderDetail(goalId: string) {
@@ -122,5 +171,102 @@ describe('GoalDetailScreen — the dual-view host (§4.2, mockup 14)', () => {
   it('should render nothing but the back link for an unknown goal (no crash)', () => {
     renderDetail('ghost');
     expect(screen.getByText('Back')).toBeTruthy();
+  });
+});
+
+describe('GoalDetailScreen — exit scope (§4.7 G7, board §3.3)', () => {
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+  });
+
+  /** A goal with TWO open positions — the case that exposed the scope bug. */
+  function goalWithTwoPositions(): string {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 4000,
+      horizonMonths: 12,
+      fundAmount: 1000,
+    });
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 50, networkFeeLocal: 0 });
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 50, networkFeeLocal: 0 });
+    return goalId;
+  }
+
+  it('should stop the WHOLE goal from "Also stop the strategy" (regression: it stopped only the first position)', () => {
+    const goalId = goalWithTwoPositions();
+    renderDetail(goalId);
+    fireEvent.click(screen.getByRole('button', { name: 'Pause plan' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Also stop the strategy' }));
+
+    // Goal scope: the ceremony covers BOTH positions and names the goal-level
+    // action. Before this fix it opened on openPositions[0] alone, leaving the
+    // second position quietly working behind a "stopped" label.
+    expect(screen.getByText('2 strategies working')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Stop this goal' })).toBeTruthy();
+    // Two floors, itemized (the arithmetic that a summed-gross fee would hide).
+    expect(screen.getByText('−$0.50')).toBeTruthy();
+  });
+
+  it("should stop only ONE position from that position's own Stop control", () => {
+    const goalId = goalWithTwoPositions();
+    renderDetail(goalId);
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+    fireEvent.click(screen.getAllByRole('button', { name: 'Stop this strategy' })[0]);
+    expect(screen.getByText('1 strategy working')).toBeTruthy();
+  });
+
+  it('should return to the goal on cancel, moving nothing', () => {
+    const goalId = goalWithTwoPositions();
+    renderDetail(goalId);
+    fireEvent.click(screen.getByRole('button', { name: 'Pause plan' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Also stop the strategy' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Keep it working' }));
+    expect(screen.queryByText('Review before you stop')).toBeNull();
+    expect(screen.getByText(/of the way there/)).toBeTruthy();
+  });
+});
+
+describe('GoalDetailScreen — an exit that cannot be priced is never offered (R-13, FC-15)', () => {
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+  });
+
+  it('should disable the stop control and say why when market data is missing', () => {
+    // `market` is null until the fetch resolves, and STAYS null if it fails.
+    // Without the gate the ceremony renders "Network cost $0.00" and a net that
+    // overstates what comes back — an understated cost on the fee-truth screen —
+    // and the confirm silently no-ops on approveExit's !market guard.
+    h.market = null;
+    try {
+      const goalId = createGoal({
+        name: 'Trip',
+        icon: 'plane',
+        targetAmount: 4000,
+        horizonMonths: 12,
+        fundAmount: 1000,
+      });
+      enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 50, networkFeeLocal: 0 });
+      renderDetail(goalId);
+      fireEvent.click(
+        screen
+          .getAllByRole('button', { name: 'Detailed' })
+          .find((b) => b.hasAttribute('aria-pressed'))!
+      );
+      const stop = screen.getByRole('button', { name: 'Stop this strategy' }) as HTMLButtonElement;
+      expect(stop.disabled).toBe(true);
+      expect(screen.getByText(/Costs can't be priced right now/)).toBeTruthy();
+      // And it cannot be forced open.
+      fireEvent.click(stop);
+      expect(screen.queryByText('Review before you stop')).toBeNull();
+    } finally {
+      h.market = MARKET_OK;
+    }
   });
 });

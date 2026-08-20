@@ -9,11 +9,14 @@ import {
   grantPlayMoney,
   pauseGoal,
   previewExit,
+  previewGoalStop,
+  previewPositionStop,
   resetSandbox,
   resumeGoal,
   setRecurring,
   accomplishGoal,
   raiseGoalTarget,
+  stopGoalStrategies,
 } from '@/lib/ledgerClient';
 
 /**
@@ -194,5 +197,99 @@ describe('G4 emitter guards match the engine (§4.4 audit)', () => {
     accomplishGoal(goalId, 'held-as-cash');
     raiseGoalTarget(goalId, 900);
     expect(getLedgerState().goals.find((g) => g.goalId === goalId)!.targetAmount).toBe('500.00');
+  });
+});
+
+describe('goal-level stop — the G7 composition (§4.7, board §3.3)', () => {
+  beforeEach(() => {
+    resetSandbox();
+  });
+
+  /** A goal holding two SMALL positions, so the $0.25 floor binds on both. */
+  function twoSmallPositions(): { goalId: string; positions: string[] } {
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 3000,
+      horizonMonths: 24,
+      fundAmount: 100,
+    });
+    const a = enterStrategy({
+      goalId,
+      strategyId: 'safeHarbor',
+      totalFromCash: 50,
+      networkFeeLocal: 0,
+    });
+    const b = enterStrategy({
+      goalId,
+      strategyId: 'safeHarbor',
+      totalFromCash: 50,
+      networkFeeLocal: 0,
+    });
+    return { goalId, positions: [a, b] };
+  }
+
+  it('should charge the $0.25 exit floor PER position, never once on the summed gross', () => {
+    const { goalId } = twoSmallPositions();
+    const preview = previewGoalStop(goalId, () => 0)!;
+    expect(preview.lines).toHaveLength(2);
+    // Each 50.00 position is far under the floor's crossover (0.39% of 50 =
+    // $0.195), so both pay the floor: the honest total is 0.50, not 0.25.
+    expect(preview.lines.map((l) => l.exitFee)).toEqual(['0.25', '0.25']);
+    expect(preview.exitFee).toBe('0.50');
+    // The understatement this screen exists to prevent: a floor applied once to
+    // the summed gross would have read 0.25 and hidden half the real cost.
+    expect(preview.exitFee).not.toBe('0.25');
+  });
+
+  it('should sum a network fee PER position (N exits are N on-chain moves)', () => {
+    const { goalId } = twoSmallPositions();
+    const preview = previewGoalStop(goalId, () => 3)!;
+    expect(preview.networkFee).toBe('6.00');
+    expect(preview.net).toBe(
+      new Decimal(preview.gross).minus(preview.exitFee).minus(preview.networkFee).toFixed(2)
+    );
+  });
+
+  it('should give the single-position preview the SAME shape as the goal-level one', () => {
+    const { positions } = twoSmallPositions();
+    const one = previewPositionStop(positions[0], 3)!;
+    expect(one.lines).toHaveLength(1);
+    expect(one.gross).toBe(one.lines[0].gross);
+    expect(one.exitFee).toBe('0.25');
+    expect(one.networkFee).toBe('3.00');
+  });
+
+  it('should emit one StrategyExited PER position under a SINGLE correlationId', () => {
+    const { goalId } = twoSmallPositions();
+    stopGoalStrategies(goalId, () => 3);
+    const exits = getLedgerState().events.filter((e) => e.type === 'StrategyExited');
+    expect(exits).toHaveLength(2);
+    // One user decision, one correlation — but two distinct events.
+    expect(new Set(exits.map((e) => e.correlationId)).size).toBe(1);
+    expect(new Set(exits.map((e) => e.eventId)).size).toBe(2);
+    expect(getLedgerState().positions.filter((p) => p.open)).toHaveLength(0);
+  });
+
+  it('should land the net in the GOAL as cash, never in Available (D-e)', () => {
+    const { goalId } = twoSmallPositions();
+    const before = getLedgerState().buckets.working;
+    const preview = previewGoalStop(goalId, () => 0)!;
+    stopGoalStrategies(goalId, () => 0);
+    const after = getLedgerState();
+    expect(after.buckets.working).toBe(before); // Available untouched
+    expect(after.goals.find((g) => g.goalId === goalId)!.cash).toBe(
+      new Decimal(preview.net).toFixed(2)
+    );
+  });
+
+  it('should return null (not a zeroed ceremony) when the goal has nothing working', () => {
+    const { goalId } = twoSmallPositions();
+    stopGoalStrategies(goalId, () => 0);
+    expect(previewGoalStop(goalId, () => 0)).toBeNull();
+    // And a second stop is a no-op rather than a double exit.
+    stopGoalStrategies(goalId, () => 0);
+    expect(getLedgerState().events.filter((e) => e.type === 'StrategyExited')).toHaveLength(2);
   });
 });

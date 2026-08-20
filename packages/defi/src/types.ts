@@ -122,3 +122,58 @@ export interface IGasProvider {
  * layer). One constant, consumed by every provider cache; pinned by test.
  */
 export const SANDBOX_MARKET_TTL_MS = 6 * 60 * 60 * 1000;
+
+/**
+ * How a protocol leg's return is REPLAYED (§4.8 G8 price overlay).
+ *
+ * Two rules, and the distinction is load-bearing rather than cosmetic:
+ *
+ * - `lending` — USDC lending (Sky/Aave/Compound). The token is a dollar, so it
+ *   has no price dimension: the APY series IS the whole return. Replay APY.
+ *
+ * - `market` — liquid-staking and LP tokens (JitoSOL, Sanctum INF, Jupiter
+ *   JLP). **The token's price already IS the total return**, so the price
+ *   series is replayed and NOTHING is added on top. An LST does not pay
+ *   interest in new tokens; one JitoSOL simply becomes worth more SOL, and
+ *   that drift is exactly what DeFiLlama reports as its "APY". Replaying the
+ *   APY *and* the token price would therefore count the staking yield twice.
+ *   The fix is not to subtract it back out — it is to not add it.
+ *
+ * This is what lets a growth position FALL. Before it existed the sandbox
+ * could only ever replay APY, which is non-negative, so practice money could
+ * only ever go up — the most dangerous lesson a practice app can teach.
+ */
+export type ProtocolReturnModel = { kind: 'lending' } | { kind: 'market'; coingeckoId: string };
+
+/**
+ * Every protocol's return model. A `Record<ProtocolId, …>` on purpose: adding a
+ * protocol without declaring how its return is replayed becomes a COMPILE
+ * error, not a silently-wrong number (the same exhaustiveness discipline the
+ * ledger's `project()` guard uses).
+ *
+ * CoinGecko ids verified live against the free tier 2026-08-20 — each returns
+ * 366 daily points for `days=365&interval=daily`.
+ */
+export const PROTOCOL_RETURN_MODEL: Record<ProtocolId, ProtocolReturnModel> = {
+  skySsr: { kind: 'lending' },
+  aaveV3: { kind: 'lending' },
+  compoundV3: { kind: 'lending' },
+  // NB: Sanctum Infinity's id is the legacy `socean-staked-sol` (symbol INF).
+  sanctumInf: { kind: 'market', coingeckoId: 'socean-staked-sol' },
+  jupiterJlp: { kind: 'market', coingeckoId: 'jupiter-perpetuals-liquidity-provider-token' },
+  jito: { kind: 'market', coingeckoId: 'jito-staked-sol' },
+};
+
+/** One dated closing price (day precision) — the replay's honest unit. */
+export interface DatedPricePoint {
+  /** `YYYY-MM-DD` (UTC). */
+  date: string;
+  priceUsd: number;
+}
+
+/** A protocol leg's daily price history, stamped like every other market read. */
+export interface ProtocolPriceHistory {
+  protocolId: ProtocolId;
+  points: DatedPricePoint[];
+  stamp: DataStamp;
+}

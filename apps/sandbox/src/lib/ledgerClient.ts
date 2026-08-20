@@ -25,11 +25,16 @@ export {
   grantPlayMoney,
   pauseGoal,
   previewExit,
+  previewGoalStop,
+  previewPositionStop,
   raiseGoalTarget,
   resumeGoal,
   setRecurring,
   splitEntry,
+  stopGoalStrategies,
   transferGoalCash,
+  type ExitLine,
+  type StopPreview,
 } from './ledger/journey';
 export {
   applyRuleProposal,

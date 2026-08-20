@@ -147,6 +147,30 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
         <LucideIcon name="plus" size={18} />
         <FormattedMessage id="home.createGoal" />
       </Link>
+
+      {/* G8 entry (§4.8). Always present, never conditional on holding a
+          position: the screen has an honest empty state that explains itself,
+          and hiding the concept until money is at work would teach the lesson
+          in the wrong order. `timeMachineNote` says the replay shows "what the
+          market actually did" — a claim that only became TRUE with the price
+          overlay; before it, the replay was yield-only and could never fall. */}
+      <Link href={`/${locale}/time-machine`} className={styles.timeMachine}>
+        <span className={styles.timeMachineIcon}>
+          <LucideIcon name="history" size={20} />
+        </span>
+        <span className={styles.timeMachineBody}>
+          <span className={styles.timeMachineTitle}>
+            <FormattedMessage id="home.timeMachineTitle" />
+          </span>
+          <span className={styles.timeMachineNote}>
+            <FormattedMessage id="home.timeMachineNote" />
+          </span>
+          <span className={styles.timeMachineDay}>
+            <FormattedMessage id="home.simDay" values={{ day: state.simDay }} />
+          </span>
+        </span>
+        <LucideIcon name="chevron-right" size={18} />
+      </Link>
     </section>
   );
 }

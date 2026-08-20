@@ -103,3 +103,43 @@ export function recurringDepositDays(
   }
   return days;
 }
+
+/**
+ * The accrual segment boundaries for `(fromDay, toDay]` — the monthly grid
+ * MERGED with `depositDays`, deduped and ascending, always ending at `toDay`.
+ *
+ * Why the grid exists (§4.8 G8): a replay emits one `AccrualApplied` per
+ * segment, so an unsegmented year-long advance produced a SINGLE event. That
+ * left the time machine's sparkline with two points — a straight diagonal,
+ * which the spec forbids ("clearly shows the down periods too, never a straight
+ * climb") — and collapsed a whole year of History into one row. Segmenting on
+ * the same 30-day cadence the recurring plan already uses gives both surfaces a
+ * real path without inventing data: every boundary is a genuine replay of a
+ * genuine window.
+ *
+ * Dedupe is load-bearing, not tidiness: a deposit landing exactly on a monthly
+ * boundary would otherwise yield a zero-length segment and an "earned 0.00"
+ * noise row (the L3 problem the final-segment skip already guards). And because
+ * `RECURRING_CADENCE_DAYS` IS the grid step, a position with a monthly plan
+ * produces exactly the boundaries it produced before this existed — the change
+ * is a no-op wherever a plan is running, and only adds segments where none was.
+ *
+ * Pure and deterministic: the same span always yields the same boundaries, so
+ * replays stay reproducible.
+ */
+export function accrualSegmentDays(
+  fromDay: number,
+  toDay: number,
+  depositDays: readonly number[] = []
+): number[] {
+  if (toDay <= fromDay) return [];
+  const set = new Set<number>();
+  for (const day of depositDays) {
+    if (day > fromDay && day <= toDay) set.add(day);
+  }
+  for (let day = fromDay + RECURRING_CADENCE_DAYS; day < toDay; day += RECURRING_CADENCE_DAYS) {
+    set.add(day);
+  }
+  set.add(toDay); // the span always closes on its own end
+  return [...set].sort((a, b) => a - b);
+}

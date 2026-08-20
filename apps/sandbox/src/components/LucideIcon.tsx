@@ -54,6 +54,8 @@ import {
   X,
   Zap,
   type LucideIcon as LucideIconType,
+  TrendingDown,
+  History,
 } from 'lucide-react';
 
 const ICONS: Record<string, LucideIconType> = {
@@ -70,6 +72,7 @@ const ICONS: Record<string, LucideIconType> = {
   car: Car,
   check: Check,
   'chevron-right': ChevronRight,
+  history: History,
   clock: Clock,
   lock: Lock,
   mail: Mail,
@@ -101,6 +104,7 @@ const ICONS: Record<string, LucideIconType> = {
   target: Target,
   palmtree: TreePalm,
   'trending-up': TrendingUp,
+  'trending-down': TrendingDown,
   user: User,
   wallet: Wallet,
   x: X,
@@ -121,3 +125,7 @@ export function LucideIcon({
   const Icon = ICONS[name] ?? Sprout;
   return <Icon size={size} className={className} aria-hidden />;
 }
+
+/** Every registered name — exported so a guard test can prove no call site
+ *  falls through to the `?? Sprout` default with the wrong picture. */
+export const ICON_NAMES: string[] = Object.keys(ICONS);

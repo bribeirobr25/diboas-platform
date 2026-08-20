@@ -84,6 +84,29 @@ export interface AccrualApplied extends EventBase {
    * the projection never reads it (display/audit data, not money math).
    */
   ratesUsed?: number[];
+  /**
+   * Per-leg replay record (§4.8 G8), present once a position holds a
+   * MARKET-priced leg — where the token's own price series IS the return and
+   * no APY is applied on top (see `ProtocolReturnModel`).
+   *
+   * Why per-leg and not one blended day-series like `ratesUsed`: legs of
+   * different kinds cannot be blended into a single rate, and each leg
+   * compounds on its own weighted share of the principal. Why the compact
+   * `multiple` rather than every daily factor: the §3 self-audit property is
+   * "replaying what is pinned reproduces `earnings` exactly", and the product
+   * does that exactly — while storing a factor per leg per day would multiply
+   * this event's localStorage footprint by the leg count on every advance.
+   *
+   * OPTIONAL for backward-compat: events appended before §4.8 lack it, and
+   * the projection never reads it (display/audit data, never money math).
+   */
+  legsReplayed?: Array<{
+    weightPercent: number;
+    kind: 'lending' | 'market';
+    source: 'defillama' | 'coingecko' | 'fixture';
+    /** Product of the span's daily growth factors, as a Decimal string. */
+    multiple: string;
+  }>;
 }
 
 /** Position exit: 0.39% fee with $0.25 floor, no cap (FE-1a), principal+earnings return to the goal. */

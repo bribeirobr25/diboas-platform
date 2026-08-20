@@ -446,3 +446,11 @@
   font-weight: var(--font-weight-medium);
   cursor: pointer;
 }
+
+/* Why the stop control is unavailable. §4.6's rule: a silently-disabled control
+   is barely better than a fake one, so the reason is always stated. */
+.exitUnavailable {
+  margin: var(--spacing-2xs) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}

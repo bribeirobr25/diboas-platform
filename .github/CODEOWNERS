@@ -28,3 +28,10 @@
 # Engineering-owned defaults (everything else): standard PR review.
 # (No explicit entry — GitHub falls back to the repository's default
 # reviewer set.)
+# §4.8 G8: market-movement money math — a wrong factor here silently mis-states
+# every growth position's value, in both directions.
+/packages/investing/src/accrual.ts                @bribeirobr25
+# §4.8: the advance planner emits every AccrualApplied and its amount, and now
+# owns the segment grid + the per-leg audit pinning. A wrong boundary or a
+# mis-pinned leg silently mis-states what the practice money did.
+/apps/sandbox/src/lib/advancePlanner.ts           @bribeirobr25

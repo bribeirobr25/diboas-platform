@@ -228,3 +228,13 @@
   font-weight: var(--font-weight-medium);
   cursor: pointer;
 }
+
+/* The takeover focus target (useTakeoverFocus). Chrome matches :focus-visible on
+   a programmatically-focused tabIndex={-1} element, so the global accent ring
+   would paint around the heading every time the screen mounts — a ring on a
+   heading advertises an interaction that does not exist, and the screen reader
+   announcement (not the ring) is the real affordance here. Suppressed for this
+   NON-INTERACTIVE landing target only; every real control keeps its ring. */
+.title:focus-visible {
+  outline: none;
+}

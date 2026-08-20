@@ -92,6 +92,11 @@
  * query; this is the compatible pattern, no `light-dark()` dependency).
  */
 :root[data-theme='dark'] {
+  /* Dark-mode signal colours. red-700/emerald-700 are tuned for CREAM and drop
+     to ~2.9:1 on the near-black ground — a loss figure must never be the least
+     readable number on the screen. The lighter ramp clears AA on dark. */
+  --sb-danger: var(--color-red-300);
+  --text-success-accessible: var(--color-emerald-200);
   --sb-mk-ground: #0b171f;
   --sb-mk-surround: #06121a;
   --sb-mk-ink: #0b171f;
@@ -119,6 +124,11 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
+    /* Dark-mode signal colours. red-700/emerald-700 are tuned for CREAM and drop
+     to ~2.9:1 on the near-black ground — a loss figure must never be the least
+     readable number on the screen. The lighter ramp clears AA on dark. */
+    --sb-danger: var(--color-red-300);
+    --text-success-accessible: var(--color-emerald-200);
     --sb-mk-ground: #0b171f;
     --sb-mk-surround: #06121a;
     --sb-mk-ink: #0b171f;

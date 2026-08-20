@@ -17,8 +17,18 @@ function display(event: LedgerEvent): { icon: IconName; amount: string | null; s
   switch (event.type) {
     case 'PlayMoneyGranted':
       return { icon: 'gift', amount: event.amount, sign: 'pos' };
-    case 'AccrualApplied':
-      return { icon: 'trending-up', amount: event.earnings, sign: 'pos' };
+    case 'AccrualApplied': {
+      // §4.8: earnings are SIGNED now — a growth strategy replaying a real
+      // price fall produces a negative. Hardcoding 'pos' + a rising arrow
+      // would render a loss dressed as a gain, which is the exact dishonesty
+      // the price overlay exists to remove.
+      const down = Number(event.earnings) < 0;
+      return {
+        icon: down ? 'trending-down' : 'trending-up',
+        amount: event.earnings,
+        sign: down ? 'neg' : 'pos',
+      };
+    }
     case 'StrategyExited':
       return { icon: 'arrow-left', amount: event.grossAmount, sign: 'pos' };
     case 'StrategyEntered':
@@ -283,8 +293,12 @@ export function HistoryScreen() {
                   {d.amount ? (
                     <>
                       {d.sign === 'neg' ? '−' : '+'}
+                      {/* ABS: §4.8 made `earnings` signed, so a negative amount
+                          would otherwise print its own minus after the prefix
+                          ("−-5.00"). The prefix owns the sign; the number owns
+                          the magnitude. */}
                       <FormattedNumber
-                        value={new Decimal(d.amount).toNumber()}
+                        value={new Decimal(d.amount).abs().toNumber()}
                         minimumFractionDigits={2}
                         maximumFractionDigits={2}
                       />

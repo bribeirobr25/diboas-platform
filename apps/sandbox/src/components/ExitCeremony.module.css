@@ -1,0 +1,223 @@
+/* The exit ceremony (G7, §4.7; mockup 19) — full-screen fee-truth surface.
+   The ink card is the same gravity surface the entry manifest uses: money
+   moving always looks the same here. */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  min-width: 0;
+}
+
+.back {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  min-height: var(--sb-tap);
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--text-brand-accessible);
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+}
+.subtitle {
+  margin: 0;
+  color: var(--sb-text-muted);
+}
+
+.goalRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+}
+.goalIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent-tint);
+  color: var(--text-brand-accessible);
+}
+.goalBody {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.goalName {
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+}
+.goalLabel {
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+  border-radius: var(--sb-radius-lg);
+  background: var(--sb-ink);
+  color: var(--sb-text-on-ink);
+}
+.grossRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid color-mix(in srgb, var(--sb-text-on-ink) 14%, transparent);
+}
+.grossValue {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.feesLabel {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-on-ink-muted);
+}
+.feeRow + .feeRow {
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid color-mix(in srgb, var(--sb-text-on-ink) 14%, transparent);
+}
+.feeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  justify-content: space-between;
+  align-items: baseline;
+}
+.feeName {
+  display: flex;
+  flex-direction: column;
+}
+.feeSub {
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-on-ink-muted);
+}
+.feeValue {
+  font-variant-numeric: tabular-nums;
+}
+
+.lines {
+  list-style: none;
+  margin: 0;
+  padding: var(--spacing-sm) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  border-top: 1px solid color-mix(in srgb, var(--sb-text-on-ink) 14%, transparent);
+}
+.line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2xs);
+  justify-content: space-between;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-on-ink-muted);
+}
+.lineName {
+  font-weight: var(--font-weight-medium);
+}
+.lineValue {
+  font-variant-numeric: tabular-nums;
+}
+
+.netRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid color-mix(in srgb, var(--sb-text-on-ink) 14%, transparent);
+  font-weight: var(--font-weight-bold);
+}
+.netValue {
+  font-size: var(--font-size-xl);
+  color: var(--sb-accent-bright);
+  font-variant-numeric: tabular-nums;
+}
+
+.landsRow {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: flex-start;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid color-mix(in srgb, var(--sb-text-on-ink) 14%, transparent);
+}
+.landsIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  border: 1px solid color-mix(in srgb, var(--sb-text-on-ink) 14%, transparent);
+  color: var(--sb-text-on-ink);
+}
+.landsTitle {
+  display: block;
+  font-weight: var(--font-weight-bold);
+}
+.landsBody {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-on-ink-muted);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+}
+
+/* The takeover focus target (useTakeoverFocus). Chrome matches :focus-visible on
+   a programmatically-focused tabIndex={-1} element, so the global accent ring
+   would paint around the heading every time the screen mounts — a ring on a
+   heading advertises an interaction that does not exist, and the screen reader
+   announcement (not the ring) is the real affordance here. Suppressed for this
+   NON-INTERACTIVE landing target only; every real control keeps its ring. */
+.title:focus-visible {
+  outline: none;
+}
+
+/* Dark mode: the ink card's whole identity in light mode is being HEAVIER than
+   the page. That is impossible here, because the dark page is already
+   near-black (#06121a) and the ink fill lands at 1.04:1 against it, so the card
+   stops reading as a surface at all. In dark the gravity has to come from
+   ELEVATION instead of weight: the system's own dark card token, lifted off the
+   page by a hairline edge. Text tokens are unchanged (--sb-text-on-ink clears
+   AA comfortably on either fill), so only the ground moves. */
+:root[data-theme='dark'] .card {
+  background: var(--sb-card);
+  border: 1px solid var(--sb-hairline-strong);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .card {
+    background: var(--sb-card);
+    border: 1px solid var(--sb-hairline-strong);
+  }
+}

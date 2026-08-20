@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { realDaysToSettle } from '@diboas/banking';
 import { advanceTime, getLedgerState } from '@/lib/ledgerClient';
-import { fetchHistories } from './useMarket';
+import { fetchSeries } from './useMarket';
 
 /**
  * Module-level lock: serializes concurrent settles (React StrictMode's
@@ -55,7 +55,9 @@ export function useSettleToNow(): number {
         );
         if (gap < 1) return;
 
-        const histories = await fetchHistories(Math.max(Math.min(gap, MAX_SETTLE_DAYS) + 30, 120));
+        const { histories, priceHistories } = await fetchSeries(
+          Math.max(Math.min(gap, MAX_SETTLE_DAYS) + 30, 120)
+        );
 
         // Recompute against the freshest state after the await — the settle is
         // applied once, idempotently, even if something advanced meanwhile.
@@ -66,7 +68,7 @@ export function useSettleToNow(): number {
         );
         if (toSettle < 1) return;
 
-        advanceTime(toSettle, histories, 'real');
+        advanceTime(toSettle, histories, 'real', priceHistories);
         setSettled(toSettle); // React 18: a no-op if unmounted, no warning
       } catch {
         // Provider failure → leave time unsettled (fail-open); no crash.

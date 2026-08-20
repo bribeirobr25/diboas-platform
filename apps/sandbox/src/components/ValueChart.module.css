@@ -1,0 +1,50 @@
+.wrap {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+.plot {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: stretch;
+}
+.yAxis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: none;
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.svg {
+  flex: 1;
+  min-width: 0;
+  height: 150px;
+}
+.grid {
+  stroke: var(--sb-hairline);
+  stroke-width: 1;
+}
+.area {
+  fill: var(--sb-accent-tint);
+}
+.line {
+  fill: none;
+  stroke: var(--sb-accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+/* The start-value anchor: dashed so it never reads as data. */
+.startRef {
+  stroke: var(--sb-text-muted);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+.xAxis {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+}

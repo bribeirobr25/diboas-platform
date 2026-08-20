@@ -1,7 +1,6 @@
 import Decimal from 'decimal.js';
 import { describe, expect, it } from 'vitest';
 import {
-  blendSeries,
   dailyFactorFromApyPercent,
   replayEarnings,
   ratesForSpan,
@@ -70,30 +69,6 @@ describe('dailyFactorFromApyPercent', () => {
 
   it('should return exactly 1 for 0% APY', () => {
     expect(dailyFactorFromApyPercent(0).eq(1)).toBe(true);
-  });
-});
-
-describe('blendSeries', () => {
-  it('should weight legs by allocation percent', () => {
-    const a: DailyApySeries = { points: [10, 10, 10], source: 'defillama' };
-    const b: DailyApySeries = { points: [2, 2, 2], source: 'defillama' };
-    const blended = blendSeries([
-      { weightPercent: 50, series: a },
-      { weightPercent: 50, series: b },
-    ]);
-    expect(blended.points).toEqual([6, 6, 6]);
-    expect(blended.source).toBe('defillama');
-  });
-
-  it('should stamp the blend as fixture when ANY leg is fixture (no silent blending)', () => {
-    const real: DailyApySeries = { points: [5], source: 'defillama' };
-    const fx: DailyApySeries = { points: [5], source: 'fixture' };
-    expect(
-      blendSeries([
-        { weightPercent: 50, series: real },
-        { weightPercent: 50, series: fx },
-      ]).source
-    ).toBe('fixture');
   });
 });
 

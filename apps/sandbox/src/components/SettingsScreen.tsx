@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { FormattedMessage } from 'react-intl';
-import { LOCALE_CURRENCY, CURRENCY_SYMBOL, legalUrl, type SandboxLocale } from '@/i18n/config';
+import { CURRENCY_SYMBOL, legalUrl, type SandboxLocale } from '@/i18n/config';
+import { useLedger } from '@/hooks/useLedger';
 import { LocaleSwitcher } from './LocaleSwitcher';
 import { LucideIcon } from './LucideIcon';
 import { Toggle } from './Toggle';
@@ -20,7 +21,10 @@ export function SettingsScreen({ locale }: { locale: SandboxLocale }) {
   const [analytics, setAnalytics] = useState(false);
   const [personalization, setPersonalization] = useState(false);
   const [marketing, setMarketing] = useState(false);
-  const currency = LOCALE_CURRENCY[locale];
+  // The currency the ledger is actually denominated in (set by the grant and
+  // never re-denominated). Reading it off the locale made this row STATE a
+  // falsehood about the reader's money as soon as they switched language.
+  const currency = useLedger().currency;
 
   return (
     <section className={styles.wrap} aria-labelledby="settings-title">

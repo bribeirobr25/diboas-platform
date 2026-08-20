@@ -5,6 +5,7 @@ import Decimal from 'decimal.js';
 import { FormattedMessage, useIntl } from 'react-intl';
 import type { GoalState, LedgerState } from '@diboas/banking';
 import { useFormatters } from '@/hooks/useFormatters';
+import { useTakeoverFocus } from '@/hooks/useTakeoverFocus';
 import { accomplishGoal, raiseGoalTarget, transferGoalCash } from '@/lib/ledgerClient';
 import { goalCurrentValue } from '@/lib/goalValue';
 import { LucideIcon } from './LucideIcon';
@@ -42,6 +43,7 @@ export function GoalCompletionScreen({
 }) {
   const intl = useIntl();
   const { money } = useFormatters(state.currency);
+  const titleRef = useTakeoverFocus<HTMLHeadingElement>();
   const [step, setStep] = useState<Step>('menu');
   const [newTarget, setNewTarget] = useState('');
 
@@ -66,7 +68,7 @@ export function GoalCompletionScreen({
           <LucideIcon name={goal.icon} size={26} />
         </span>
         <div>
-          <h1 id="goalcomplete-title" className={styles.title}>
+          <h1 id="goalcomplete-title" ref={titleRef} tabIndex={-1} className={styles.title}>
             {goal.name}
           </h1>
           {/* Text + icon, never colour alone (a11y). */}

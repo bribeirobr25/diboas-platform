@@ -7,7 +7,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { getStrategy } from '@diboas/defi';
 import type { ProtocolApyHistory } from '@diboas/defi';
 import type { SandboxLocale } from '@/i18n/config';
-import { LOCALE_CURRENCY } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
 import { fetchHistories, useMarket } from '@/hooks/useMarket';
 import { useFormatters } from '@/hooks/useFormatters';
@@ -16,14 +15,17 @@ import {
   enterStrategy,
   exitPosition,
   pauseGoal,
-  previewExit,
+  previewGoalStop,
+  previewPositionStop,
   resumeGoal,
   splitEntry,
+  stopGoalStrategies,
 } from '@/lib/ledgerClient';
 import { goalCurrentValue } from '@/lib/goalValue';
 import { positionValueSeries } from '@/lib/positionSeries';
 import { BottomSheet } from './BottomSheet';
 import { LucideIcon } from './LucideIcon';
+import { ExitCeremony } from './ExitCeremony';
 import { GoalCompletionScreen } from './GoalCompletionScreen';
 import { GoalPauseSheet } from './GoalPauseSheet';
 import { Manifest } from './Manifest';
@@ -54,8 +56,14 @@ type View = 'simple' | 'detailed';
 export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; goalId: string }) {
   const intl = useIntl();
   const state = useLedger();
-  const currency = LOCALE_CURRENCY[locale];
-  const { market } = useMarket(currency);
+  // Both the market conversion and the formatter must key off the LEDGER's
+  // currency, not the locale's. The ledger is denominated by the grant and
+  // never re-denominates, so a reader who switches locale (en → pt-BR) still
+  // holds US dollars. Keying the market on the locale converted the gas fee
+  // into the locale's currency while `money()` still labelled it in the
+  // ledger's — the same two positions read "$0.03" on /en and "US$ 0,16" on
+  // /pt-BR. Wrong anywhere; unacceptable on the fee-truth screen.
+  const { market } = useMarket(state.currency);
   const { money } = useFormatters(state.currency);
 
   const goal = state.goals.find((g) => g.goalId === goalId);
@@ -66,10 +74,14 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   const [strategyId, setStrategyId] = useState<string | null>(null);
   const [investAmount, setInvestAmount] = useState('');
   const [entryManifest, setEntryManifest] = useState(false);
-  const [exitManifestFor, setExitManifestFor] = useState<string | null>(null);
-  const [settling, setSettling] = useState<
-    { kind: 'entry' } | { kind: 'exit'; positionId: string } | null
+  // G7: the exit ceremony is SCOPED. A position-scope stop leaves the goal's
+  // other positions working; a goal-scope stop composes every open position
+  // into one decision (board §3.3) — which is what G3's "also stop" and G4's
+  // "stop strategy" mean, and what they must actually do.
+  const [exitIntent, setExitIntent] = useState<
+    { scope: 'position'; positionId: string } | { scope: 'goal' } | null
   >(null);
+  const [settling, setSettling] = useState<{ kind: 'entry' } | { kind: 'exit' } | null>(null);
   const [busy, setBusy] = useState(false);
   const [pauseSheet, setPauseSheet] = useState(false);
   const [showCompletion, setShowCompletion] = useState(false);
@@ -135,24 +147,39 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
     setInvestAmount('');
   }
 
-  function approveExit(positionId: string) {
-    if (busy || !market) return;
-    setBusy(true);
+  /** Each position pays its OWN network fee, on its own strategy's chain. */
+  function exitFeeFor(positionId: string): number {
+    if (!market) return 0;
     const position = openPositions.find((p) => p.positionId === positionId);
     const posStrategy = position ? getStrategy(position.strategyId) : undefined;
-    const fee = posStrategy
+    return posStrategy
       ? networkFeeLocal(market.gas, posStrategy.entryChain, market.usdPriceLocal)
       : 0;
-    exitPosition({ positionId, networkFeeLocal: fee });
-    // Only close the goal when nothing is left working (a partial stop must
-    // never mark a goal "held as cash" while money is still in a strategy).
-    if (completeAfterExit && openPositions.length === 1) {
+  }
+
+  function approveExit() {
+    if (busy || !market || !exitIntent) return;
+    setBusy(true);
+    // How many stay working after this decision — the completion guard below
+    // must never mark a goal "held as cash" while money is still in a strategy.
+    let remaining: number;
+    if (exitIntent.scope === 'goal') {
+      stopGoalStrategies(goalId, exitFeeFor);
+      remaining = 0;
+    } else {
+      exitPosition({
+        positionId: exitIntent.positionId,
+        networkFeeLocal: exitFeeFor(exitIntent.positionId),
+      });
+      remaining = openPositions.length - 1;
+    }
+    if (completeAfterExit && remaining === 0) {
       accomplishGoal(goalId, 'held-as-cash');
     }
     setCompleteAfterExit(false);
     setBusy(false);
     setSettling(null);
-    setExitManifestFor(null);
+    setExitIntent(null);
   }
 
   const targetReached = new Decimal(goal.targetAmount).gt(0) && current.gte(goal.targetAmount);
@@ -185,6 +212,60 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
     </span>
   );
 
+  // The settling animation plays OVER whatever surface approved it (entry
+  // manifest or exit ceremony), so it is shared by both returns below.
+  const settlementSheet = settling ? (
+    <BottomSheet titleId="settlement.title" tone="ink" dismissible={false} onClose={() => {}}>
+      <Settlement
+        onComplete={() => {
+          if (settling.kind === 'entry') approveEntry();
+          else approveExit();
+        }}
+      />
+    </BottomSheet>
+  ) : null;
+
+  // An exit cannot be PRICED without market data: `exitFeeFor` falls back to 0
+  // without it, which on this screen would render "Network cost $0.00" and a
+  // net that overstates what comes back — an understated cost on the one
+  // surface whose entire job is fee truth (FC-15). `market` is null until the
+  // fetch resolves and STAYS null if it fails, so this is reachable, not
+  // theoretical. Every exit entry point is therefore gated on it, the same way
+  // §4.6 gates the entry CTA: no honest price, no operable control.
+  const canPriceExit = market !== null;
+
+  // G7 (§4.7): the exit ceremony takes the WHOLE screen — this is the last
+  // read before money moves, and a bottom sheet cannot carry an itemization
+  // that grows with the number of positions.
+  const exitPreview =
+    exitIntent && canPriceExit
+      ? exitIntent.scope === 'goal'
+        ? previewGoalStop(goalId, exitFeeFor)
+        : previewPositionStop(exitIntent.positionId, exitFeeFor(exitIntent.positionId))
+      : null;
+
+  if (exitIntent && exitPreview) {
+    return (
+      <>
+        <ExitCeremony
+          preview={exitPreview}
+          goalName={goal.name}
+          goalIcon={goal.icon}
+          currency={state.currency}
+          busy={busy}
+          onConfirm={() => setSettling({ kind: 'exit' })}
+          onCancel={() => {
+            // Clearing the intent matters: a cancelled G4 "stop strategy" must
+            // never silently close the goal on some LATER, unrelated exit.
+            setCompleteAfterExit(false);
+            setExitIntent(null);
+          }}
+        />
+        {settlementSheet}
+      </>
+    );
+  }
+
   if (showCompletion) {
     return (
       <GoalCompletionScreen
@@ -192,15 +273,16 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
         state={state}
         onClose={() => setShowCompletion(false)}
         onStopStrategy={
-          openPositions.length > 0
+          openPositions.length > 0 && canPriceExit
             ? () => {
-                // The REAL exit path (board §3.1): the manifest itemizes, and
+                // The REAL exit path (board §3.1): the ceremony itemizes, and
                 // the goal closes as held-as-cash only after the last position
-                // actually exits.
+                // actually exits. Scope is the GOAL — "stop strategy" from a
+                // finished goal means stop all of it, not whichever position
+                // happens to sit first in the ledger.
                 setCompleteAfterExit(true);
                 setShowCompletion(false);
-                setView('detailed');
-                setExitManifestFor(openPositions[0].positionId);
+                setExitIntent({ scope: 'goal' });
               }
             : undefined
         }
@@ -515,55 +597,18 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                   <button
                     type="button"
                     className={styles.exit}
-                    onClick={() => setExitManifestFor(position.positionId)}
+                    disabled={!canPriceExit}
+                    onClick={() =>
+                      setExitIntent({ scope: 'position', positionId: position.positionId })
+                    }
                   >
                     <FormattedMessage id="goalDetail.exitCta" />
                   </button>
-
-                  {exitManifestFor === position.positionId && !settling
-                    ? (() => {
-                        const fee =
-                          posStrategy && market
-                            ? networkFeeLocal(
-                                market.gas,
-                                posStrategy.entryChain,
-                                market.usdPriceLocal
-                              )
-                            : 0;
-                        const preview = previewExit(position.positionId, fee);
-                        return preview ? (
-                          <Manifest
-                            titleId="goalDetail.exitTitle"
-                            titleValues={{ strategy: strategyName }}
-                            rows={[
-                              { labelId: 'manifest.fromLabel', value: strategyName },
-                              { labelId: 'manifest.toLabel', value: goal.name },
-                              { labelId: 'manifest.amountLabel', value: money(preview.gross) },
-                              {
-                                labelId: 'manifest.exitCostLabel',
-                                value: `${money(preview.exitFee)} · ${intl.formatMessage(
-                                  { id: 'pathCard.networkFee' },
-                                  { amount: money(preview.networkFee) }
-                                )}`,
-                              },
-                            ]}
-                            ctaId="manifest.approveExit"
-                            ctaValues={{ amount: money(preview.gross) }}
-                            onApprove={() =>
-                              setSettling({ kind: 'exit', positionId: position.positionId })
-                            }
-                            onCancel={() => {
-                              // Clearing the intent matters: a cancelled G4
-                              // "stop strategy" must never silently close the
-                              // goal on some LATER, unrelated exit.
-                              setCompleteAfterExit(false);
-                              setExitManifestFor(null);
-                            }}
-                            approving={busy}
-                          />
-                        ) : null;
-                      })()
-                    : null}
+                  {!canPriceExit ? (
+                    <p className={styles.exitUnavailable}>
+                      <FormattedMessage id="goalDetail.exitPricingUnavailable" />
+                    </p>
+                  ) : null}
                 </article>
               );
             })
@@ -623,7 +668,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                       histories={histories}
                       gas={market.gas}
                       usdPriceLocal={market.usdPriceLocal}
-                      currency={currency}
+                      currency={state.currency}
                       onPutToWork={canInvest && !busy ? () => setEntryManifest(true) : undefined}
                     />
                   ) : null}
@@ -642,13 +687,15 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
           }}
           onDismiss={() => setPauseSheet(false)}
           onStopStrategy={
-            openPositions.length > 0
+            openPositions.length > 0 && canPriceExit
               ? () => {
                   // The REAL exit path (Stage-D G3): fee already disclosed in
-                  // the sheet line; the manifest itemizes before anything moves.
+                  // the sheet line; the ceremony itemizes before anything moves.
+                  // "Also stop" means the goal's money stops working — all of
+                  // it, or the pause would leave positions running behind a
+                  // label that says they stopped.
                   setPauseSheet(false);
-                  setView('detailed');
-                  setExitManifestFor(openPositions[0].positionId);
+                  setExitIntent({ scope: 'goal' });
                 }
               : undefined
           }
@@ -688,16 +735,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
         />
       ) : null}
 
-      {settling ? (
-        <BottomSheet titleId="settlement.title" tone="ink" dismissible={false} onClose={() => {}}>
-          <Settlement
-            onComplete={() => {
-              if (settling.kind === 'entry') approveEntry();
-              else approveExit(settling.positionId);
-            }}
-          />
-        </BottomSheet>
-      ) : null}
+      {settlementSheet}
     </section>
   );
 }

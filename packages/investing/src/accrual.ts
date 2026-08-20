@@ -21,11 +21,6 @@ export interface DailyApySeries {
   source: 'defillama' | 'fixture';
 }
 
-export interface BlendLeg {
-  weightPercent: number;
-  series: DailyApySeries;
-}
-
 const DAYS_PER_YEAR = 365;
 
 /** Geometric daily growth factor from an annual APY percent. */
@@ -33,29 +28,6 @@ export function dailyFactorFromApyPercent(apyPercent: Decimal.Value): Decimal {
   const annual = new Decimal(apyPercent).div(100).plus(1);
   // (1 + apy)^(1/365)
   return annual.pow(new Decimal(1).div(DAYS_PER_YEAR));
-}
-
-/**
- * Blend leg series into one daily APY series by allocation weight.
- * Shorter series forward-fill their last value (honest approximation for
- * missing days; the stamp downgrade below records if ANY leg was fixture).
- */
-export function blendSeries(legs: BlendLeg[]): DailyApySeries {
-  const length = Math.max(...legs.map((l) => l.series.points.length));
-  const points: number[] = [];
-  for (let i = 0; i < length; i += 1) {
-    let blended = new Decimal(0);
-    for (const leg of legs) {
-      const pts = leg.series.points;
-      const idxFromEnd = length - 1 - i;
-      const legIdx = pts.length - 1 - idxFromEnd;
-      const value = pts[Math.max(0, Math.min(pts.length - 1, legIdx))] ?? 0;
-      blended = blended.plus(new Decimal(value).mul(leg.weightPercent).div(100));
-    }
-    points.push(blended.toNumber());
-  }
-  const source = legs.every((l) => l.series.source === 'defillama') ? 'defillama' : 'fixture';
-  return { points, source };
 }
 
 /**
@@ -107,12 +79,13 @@ export function replayEarnings(
   toDay: number,
   anchorDay: number = toDay
 ): Decimal {
-  let value = new Decimal(principal);
-  const start = new Decimal(principal);
-  for (const rate of ratesForSpan(series, fromDay, toDay, anchorDay)) {
-    value = value.mul(dailyFactorFromApyPercent(rate));
-  }
-  return value.minus(start).toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
+  // Composed over the leg primitives rather than repeating their compounding
+  // loop (§4.8, Principle 4): one lending leg at 100% IS this function. Keeping
+  // a second loop here would let the two paths drift apart silently — the exact
+  // failure the §3 shared-mapping discipline exists to prevent.
+  return replayLegged(principal, [
+    { weightPercent: 100, factors: apyFactorsForSpan(series, fromDay, toDay, anchorDay) },
+  ]);
 }
 
 /** One dated APY reading (day precision) — the chart's honest unit. */
@@ -128,8 +101,8 @@ export interface DatedBlendLeg {
 
 /**
  * Blend dated per-protocol histories into one weighted series, aligned on the
- * UNION of dates (not index-from-end like `blendSeries`, which serves the
- * replay engine): each leg carries its last known reading forward across days
+ * UNION of dates (not index-from-end like the replay's factor mapping): each
+ * leg carries its last known reading forward across days
  * it lacks, and days before a leg's first reading use that leg's first value.
  * Honest for a chart — every plotted day is a real weighted reading of real
  * history, never interpolated fiction. Ascending by date.
@@ -149,4 +122,92 @@ export function blendDatedSeries(legs: DatedBlendLeg[]): DatedApyPoint[] {
     });
     return { date, apyPercent: blended };
   });
+}
+
+/** A daily closing-price series for a `market` leg, oldest → newest. */
+export interface DailyPriceSeries {
+  points: number[];
+  source: 'coingecko' | 'fixture';
+}
+
+/**
+ * The per-day PRICE growth factors a replay of `(fromDay, toDay]` uses.
+ *
+ * Deliberately mirrors `ratesForSpan` day-for-day — same `anchorDay` contract,
+ * same index mapping. That is load-bearing, not stylistic: `advancePlanner`
+ * replays SEGMENTED (one segment per recurring deposit), and if each segment
+ * re-anchored its own end to the newest price, the segments' windows would
+ * overlap and price movement would be counted twice — the identical hazard the
+ * APY path documents at `replayEarnings`. Sharing the mapping makes the
+ * segmented replay equal the single-call replay by construction.
+ *
+ * Each factor is `price[day] / price[day-1]`, so multiplying the span's factors
+ * yields exactly `price[toDay] / price[fromDay]`.
+ */
+export function priceFactorsForSpan(
+  series: DailyPriceSeries,
+  fromDay: number,
+  toDay: number,
+  anchorDay: number = toDay
+): number[] {
+  const n = series.points.length;
+  const at = (day: number) => {
+    const idx = Math.max(0, Math.min(n - 1, n - 1 - (anchorDay - day)));
+    return series.points[idx] ?? 0;
+  };
+  const factors: number[] = [];
+  for (let day = fromDay + 1; day <= toDay; day += 1) {
+    const prev = at(day - 1);
+    const curr = at(day);
+    factors.push(prev > 0 ? curr / prev : 1);
+  }
+  return factors;
+}
+
+/**
+ * One allocation leg's replay input: its weight, and the per-day growth factors
+ * for the span — whatever kind of leg produced them.
+ *
+ * Unifying both kinds as FACTORS is what lets one strategy hold a lending leg
+ * and a market leg at once: a lending day contributes `(1+apy)^(1/365)`, a
+ * market day contributes `price[d]/price[d-1]`, and each leg compounds on its
+ * own share of the principal.
+ */
+export interface LegReplay {
+  weightPercent: number;
+  factors: number[];
+}
+
+/** Daily growth factors from an APY series — the `lending` counterpart. */
+export function apyFactorsForSpan(
+  series: DailyApySeries,
+  fromDay: number,
+  toDay: number,
+  anchorDay: number = toDay
+): number[] {
+  return ratesForSpan(series, fromDay, toDay, anchorDay).map((r) =>
+    dailyFactorFromApyPercent(r).toNumber()
+  );
+}
+
+/**
+ * Replay a position whose legs may be of MIXED kinds, returning the earnings
+ * (signed — this is the function that can finally return a LOSS).
+ *
+ * Each leg compounds independently on its weighted share of the principal:
+ *   earnings = Σ_legs [ principal × weight × (Π factors − 1) ]
+ *
+ * A `market` leg's factors already contain everything the token returned, so
+ * nothing is added on top of them — an LST's price drift IS the yield
+ * DeFiLlama reports as its APY, and replaying both would count it twice.
+ */
+export function replayLegged(principal: Decimal.Value, legs: LegReplay[]): Decimal {
+  const start = new Decimal(principal);
+  let end = new Decimal(0);
+  for (const leg of legs) {
+    const share = start.mul(leg.weightPercent).div(100);
+    const grown = leg.factors.reduce((acc, f) => acc.mul(f), share);
+    end = end.plus(grown);
+  }
+  return end.minus(start).toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
 }

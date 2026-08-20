@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { GasQuote, ProtocolApy, ProtocolApyHistory } from '@diboas/defi';
+import type { GasQuote, ProtocolApy, ProtocolApyHistory, ProtocolPriceHistory } from '@diboas/defi';
 
 export interface MarketData {
   currency: 'USD' | 'BRL' | 'EUR';
@@ -58,10 +58,25 @@ export function useMarket(currency: 'USD' | 'BRL' | 'EUR') {
  * (never a permanently-wedged settle), and the time machine can't hang.
  */
 export async function fetchHistories(days: number): Promise<ProtocolApyHistory[]> {
+  return (await fetchSeries(days)).histories;
+}
+
+/**
+ * Both replay series in one round trip (§4.8): APY for lending legs, price for
+ * market legs. `priceHistories` is optional in the response shape so a stale
+ * cached response from before §4.8 degrades to "no price movement" rather than
+ * throwing — the leg then holds its value instead of inventing a move.
+ */
+export async function fetchSeries(
+  days: number
+): Promise<{ histories: ProtocolApyHistory[]; priceHistories: ProtocolPriceHistory[] }> {
   const res = await fetch(`/api/market/history?days=${days}`, {
     signal: AbortSignal.timeout(15000),
   });
   if (!res.ok) throw new Error(String(res.status));
-  const body = (await res.json()) as { histories: ProtocolApyHistory[] };
-  return body.histories;
+  const body = (await res.json()) as {
+    histories: ProtocolApyHistory[];
+    priceHistories?: ProtocolPriceHistory[];
+  };
+  return { histories: body.histories, priceHistories: body.priceHistories ?? [] };
 }

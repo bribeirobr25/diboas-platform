@@ -1,0 +1,191 @@
+.wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  min-width: 0;
+}
+.wrap > :not(.heroBand) {
+  position: relative;
+  z-index: 1;
+}
+.heroBand {
+  position: absolute;
+  inset: 0 0 auto;
+  /* Shorter than the goal screens' 11rem on purpose: this screen stacks a
+     toggle, a head, AND either a meaning sentence or the start/duration meta
+     immediately after, so a tall band pushed readable text onto the image. The
+     band ends with the head; everything that must be READ sits on plain
+     ground. */
+  height: 7rem;
+  z-index: 0;
+  pointer-events: none;
+  background: url('/hero-welcome.png') center 40% / cover no-repeat;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+}
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent);
+  color: var(--sb-text-on-ink);
+}
+.title {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+}
+.status,
+.honesty {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+
+/* Meaning first — the largest thing after the title, per spec §3.1. */
+.meaning {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-snug);
+  color: var(--sb-text-heading);
+  text-wrap: balance;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+.controlsLabel {
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+.controlsRow {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+.advance {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2xs);
+  min-height: var(--sb-tap);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--sb-accent);
+  border-radius: var(--sb-radius);
+  background: var(--sb-card);
+  color: var(--text-brand-accessible);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+.advance:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.spark {
+  padding: var(--spacing-sm);
+  border-radius: var(--sb-radius-lg);
+  background: var(--sb-card);
+}
+.excludes,
+.footnote {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2xs);
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+
+.metaRow {
+  display: flex;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.metaLabel {
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+.metaValue {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--sb-text-heading);
+}
+
+.summary {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius-lg);
+}
+.summaryCell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 7rem;
+}
+.summaryLabel {
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+.summaryValue {
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+  font-variant-numeric: tabular-nums;
+}
+/* Colour REINFORCES the wording, never replaces it (batch-3 master block). */
+.changeUp,
+.changeDown {
+  display: flex;
+  flex-direction: column;
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+.changeUp {
+  color: var(--text-success-accessible);
+}
+.changeDown {
+  color: var(--sb-danger);
+}
+.changePercent {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

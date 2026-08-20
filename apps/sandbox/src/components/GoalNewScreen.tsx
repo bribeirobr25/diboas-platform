@@ -6,7 +6,7 @@ import Decimal from 'decimal.js';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { GOAL_ICONS, validateGoalDraft } from '@diboas/investing';
 import type { SandboxLocale } from '@/i18n/config';
-import { CURRENCY_SYMBOL, LOCALE_CURRENCY } from '@/i18n/config';
+import { CURRENCY_SYMBOL } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
 import { useFormatters } from '@/hooks/useFormatters';
 import { createGoal } from '@/lib/ledgerClient';
@@ -31,8 +31,10 @@ export function GoalNewScreen({ locale }: { locale: SandboxLocale }) {
   const intl = useIntl();
   const router = useRouter();
   const state = useLedger();
-  const currency = LOCALE_CURRENCY[locale];
-  const symbol = CURRENCY_SYMBOL[currency];
+  // The ledger's currency, never the locale's: a reader who switches locale
+  // still holds the currency they were granted, so a locale-derived symbol
+  // would prefix the input with "R$" directly above a "US$" balance line.
+  const symbol = CURRENCY_SYMBOL[state.currency];
   const { money } = useFormatters(state.currency);
 
   const now = new Date();
