@@ -19,6 +19,7 @@ const M = {
   'strategyDetail.caveat': "It can dip some weeks. Returns aren't guaranteed.",
   'strategyDetail.seeDetail': 'See the detail',
   'strategyDetail.putToWork': 'Put money to work',
+  'strategyDetail.needAmount': 'Enter an amount above to put money to work.',
   'strategyDetail.currentApy': 'Current APY',
   'strategyDetail.varies': 'Varies',
   'strategyDetail.riskFactors': 'Risk factors',
@@ -185,6 +186,13 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
     renderDetail(LIVE, []);
     fireEvent.click(screen.getByText('Detailed'));
     expect(screen.getByText('Not enough history to draw a chart yet.')).toBeTruthy();
+  });
+
+  it('should DISABLE the CTA and say why when there is no handler (never a fake control)', () => {
+    renderDetail(); // no onPutToWork → the parent has nothing valid to commit
+    const cta = screen.getByRole('button', { name: 'Put money to work' }) as HTMLButtonElement;
+    expect(cta.disabled).toBe(true);
+    expect(screen.getByText('Enter an amount above to put money to work.')).toBeTruthy();
   });
 
   it('should fire the entry seam from "Put money to work"', () => {

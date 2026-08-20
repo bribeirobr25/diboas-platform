@@ -91,7 +91,6 @@
     "allocationTitle": "Where it actually goes",
     "chainLine": "Runs on {chain}",
     "skipStrategy": "Keep it as cash in the goal for now",
-    "reviewPath": "See the path before it moves",
     "stepLabel": "Step {current} of {total}",
     "step1Title": "Name the want",
     "step2Title": "Set the plan",
@@ -351,7 +350,8 @@
     "exitFee": "Exit fee",
     "minExit": "at least {min}",
     "underlyingProtocols": "Underlying protocols",
-    "protocolsNote": "Works across trusted lending protocols. Returns aren't guaranteed."
+    "protocolsNote": "Works across trusted lending protocols. Returns aren't guaranteed.",
+    "needAmount": "Enter an amount above to put money to work."
   },
   "goalDual": {
     "onTrackLabel": "Am I on track to get there?",

@@ -357,9 +357,17 @@ export function StrategyDetail({
         </button>
       ) : null}
 
-      <Button variant="primary" fullWidth onClick={() => onPutToWork?.()}>
+      {/* No handler → no operable control. A CTA that looks live but does
+          nothing is the fake-control veto; and a silently-disabled one is
+          barely better, so the reason renders with it. */}
+      <Button variant="primary" fullWidth disabled={!onPutToWork} onClick={() => onPutToWork?.()}>
         <FormattedMessage id="strategyDetail.putToWork" />
       </Button>
+      {!onPutToWork ? (
+        <p className={styles.ctaHint}>
+          <FormattedMessage id="strategyDetail.needAmount" />
+        </p>
+      ) : null}
     </section>
   );
 }

@@ -91,7 +91,6 @@
     "allocationTitle": "Pra onde o dinheiro vai de verdade",
     "chainLine": "Roda em {chain}",
     "skipStrategy": "Deixar como caixa no objetivo por enquanto",
-    "reviewPath": "Ver o caminho antes de mover",
     "stepLabel": "Passo {current} de {total}",
     "step1Title": "Dê um nome ao desejo",
     "step2Title": "Defina o plano",
@@ -351,7 +350,8 @@
     "exitFee": "Taxa de saída",
     "minExit": "no mínimo {min}",
     "underlyingProtocols": "Protocolos subjacentes",
-    "protocolsNote": "Funciona em protocolos de empréstimo confiáveis. Retornos não são garantidos."
+    "protocolsNote": "Funciona em protocolos de empréstimo confiáveis. Retornos não são garantidos.",
+    "needAmount": "Informe um valor acima para colocar o dinheiro para trabalhar."
   },
   "goalDual": {
     "onTrackLabel": "Estou no caminho para chegar lá?",

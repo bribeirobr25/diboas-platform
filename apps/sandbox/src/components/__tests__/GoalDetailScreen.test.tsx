@@ -37,7 +37,6 @@ const M = {
   'goalsList.status.accomplished': 'Accomplished',
   'goalNew.fundLabel': 'Amount',
   'goalNew.fundAvailable': '{amount} available',
-  'goalNew.reviewPath': 'See the path before it moves',
   'goalNew.riskStable': 'Stable',
   'goalNew.growthExposure': '{percent}% growth',
 };

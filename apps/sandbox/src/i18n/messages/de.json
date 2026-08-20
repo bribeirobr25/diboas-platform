@@ -91,7 +91,6 @@
     "allocationTitle": "Where it actually goes",
     "chainLine": "Runs on {chain}",
     "skipStrategy": "Keep it as cash in the goal for now",
-    "reviewPath": "See the path before it moves",
     "stepLabel": "Step {current} of {total}",
     "step1Title": "Name the want",
     "step2Title": "Set the plan",
@@ -351,7 +350,8 @@
     "exitFee": "Ausstiegsgebühr",
     "minExit": "at least {min}",
     "underlyingProtocols": "Zugrunde liegende Protokolle",
-    "protocolsNote": "Läuft über vertrauenswürdige Lending-Protokolle. Renditen sind nicht garantiert."
+    "protocolsNote": "Läuft über vertrauenswürdige Lending-Protokolle. Renditen sind nicht garantiert.",
+    "needAmount": "Enter an amount above to put money to work."
   },
   "goalDual": {
     "onTrackLabel": "Bin ich auf Kurs?",
