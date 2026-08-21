@@ -15,7 +15,7 @@
  * absence of data is never presented as live data).
  */
 
-import type { ProtocolApy, StrategyDef } from './types';
+import type { DataStamp, ProtocolApy, StrategyDef } from './types';
 
 export type ProvenanceState = 'live' | 'mixed' | 'fixture';
 
@@ -27,7 +27,24 @@ export interface StrategyProvenance {
   newestLiveAsOf: string | null;
 }
 
-export function strategyProvenance(strategy: StrategyDef, apys: ProtocolApy[]): StrategyProvenance {
+export function strategyProvenance(
+  strategy: StrategyDef,
+  apys: ProtocolApy[],
+  /**
+   * The gas stamp, on surfaces that also RENDER a network fee.
+   *
+   * Provenance used to be derived from APY stamps alone, so a strategy whose
+   * rates were live stamped itself "Live from DeFiLlama" while the network fee
+   * beside it came from a hardcoded fixture — on the pre-commit cost surface,
+   * which is precisely where FC-15 demands the itemization be true. GAS-1
+   * (founder 2026-08-03) predicted this and required the choice be made:
+   * "either shorten that path's TTL or stamp it honestly."
+   *
+   * Omit it on surfaces that show no fee (the picker shows rates only), where
+   * APY-only provenance is the correct scope.
+   */
+  gasStamp?: DataStamp
+): StrategyProvenance {
   const byId = new Map(apys.map((a) => [a.protocolId, a]));
   const fixtureProtocolIds: string[] = [];
   const liveAsOf: string[] = [];
@@ -36,8 +53,16 @@ export function strategyProvenance(strategy: StrategyDef, apys: ProtocolApy[]): 
     if (apy?.stamp.source === 'defillama') liveAsOf.push(apy.stamp.asOf);
     else fixtureProtocolIds.push(leg.protocolId);
   }
-  const state: ProvenanceState =
-    fixtureProtocolIds.length === 0 ? 'live' : liveAsOf.length === 0 ? 'fixture' : 'mixed';
+  // A fixture fee makes the surface mixed however live the rates are.
+  const gasIsFixture = gasStamp != null && gasStamp.source === 'fixture';
+  const allApysLive = fixtureProtocolIds.length === 0;
+  const state: ProvenanceState = allApysLive
+    ? gasIsFixture
+      ? 'mixed'
+      : 'live'
+    : liveAsOf.length === 0
+      ? 'fixture'
+      : 'mixed';
   return {
     state,
     fixtureProtocolIds,

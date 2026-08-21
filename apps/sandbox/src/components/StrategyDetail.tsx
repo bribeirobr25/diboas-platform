@@ -66,7 +66,10 @@ export function StrategyDetail({
 
   const strategyName = intl.formatMessage({ id: `catalog.strategies.${strategy.i18nKey}.name` });
   const apy = blendedApy(strategy, apys);
-  const provenance = strategyProvenance(strategy, apys);
+  /* This surface renders the NETWORK FEE as well as the rates, so its stamp
+     must cover the gas source too (GAS-1) — a live-rate strategy with a
+     fixture fee is `mixed`, not `live`. */
+  const provenance = strategyProvenance(strategy, apys, gas[0]?.stamp);
   const fee = networkFeeLocal(gas, strategy.entryChain, usdPriceLocal);
 
   // The chart's series: the strategy's own legs, weighted, over real history.

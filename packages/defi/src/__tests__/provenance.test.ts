@@ -57,3 +57,37 @@ describe('strategyProvenance — THE shared three-state predicate (§3-A)', () =
     expect(p.fixtureProtocolIds).toEqual(['aaveV3']);
   });
 });
+
+describe('gas provenance (GAS-1)', () => {
+  const LIVE_APYS: ProtocolApy[] = STRATEGY.allocation.map((leg) => ({
+    protocolId: leg.protocolId,
+    apyPercent: 5,
+    tvlUsd: null,
+    chain: 'Ethereum',
+    stamp: { source: 'defillama' as const, asOf: '2026-08-20' },
+  }));
+
+  it('should stay live when the fee source is live too', () => {
+    const p = strategyProvenance(STRATEGY, LIVE_APYS, {
+      source: 'coingecko',
+      asOf: '2026-08-20',
+    });
+    expect(p.state).toBe('live');
+  });
+
+  it('should NOT call itself live when the network fee comes from a fixture', () => {
+    // The pre-commit cost surface renders the fee beside the rates. Stamping
+    // it "Live from DeFiLlama" while the fee is a hardcoded 2026-07-18 fixture
+    // is the provenance dishonesty GAS-1 required a decision on.
+    const p = strategyProvenance(STRATEGY, LIVE_APYS, {
+      source: 'fixture',
+      asOf: '2026-07-18',
+    });
+    expect(p.state).toBe('mixed');
+  });
+
+  it('should keep APY-only scope where no fee is rendered', () => {
+    // The picker shows rates only; omitting the stamp keeps the old meaning.
+    expect(strategyProvenance(STRATEGY, LIVE_APYS).state).toBe('live');
+  });
+});

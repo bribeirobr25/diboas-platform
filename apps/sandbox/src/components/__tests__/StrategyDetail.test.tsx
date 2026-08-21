@@ -158,8 +158,15 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
   });
 
   it('should stamp provenance honestly in all three states', () => {
+    /* GAS-1 (founder 2026-08-21): this surface renders the NETWORK FEE beside
+       the rates, so its stamp covers the gas source too. The harness supplies
+       a FIXTURE gas quote (dated 2026-07-18, as the app ships today), so even
+       all-live rates stamp `mixed` — it previously claimed "Live from
+       DeFiLlama" directly above a fixture fee, on the pre-commit cost
+       surface. */
     const { unmount } = renderDetail(LIVE);
-    expect(screen.getByText(/Live from DeFiLlama/)).toBeTruthy();
+    expect(screen.queryByText(/^Live from DeFiLlama/)).toBeNull();
+    expect(screen.getByText(/Partly live from DeFiLlama/)).toBeTruthy();
     unmount();
 
     const mixed = renderDetail(MIXED);
