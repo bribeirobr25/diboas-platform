@@ -7,7 +7,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { FrameCaption } from './FrameCaption';
 import { LucideIcon } from './LucideIcon';
 import { LedgerReadyGate } from './LedgerReadyGate';
-import { Wordmark } from './Wordmark';
+import { BrandMark } from './BrandMark';
 import styles from './AppChrome.module.css';
 
 /**
@@ -74,23 +74,15 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
               <LucideIcon name="arrow-left" size={24} />
             </button>
           )}
-          {/* No chip here (founder 2026-08-21): the sandbox framing is carried
-              ONCE, by the frame caption above the canvas — the bar was stating
-              the same thing three ways.
-
-              The founder also asked for the SHORT logo (mockup 02's palm mark)
-              rather than the wordmark. Blocked on an asset, deliberately not
-              faked: the only monogram in the repo
-              (`apps/web/public/assets/logos/logo-icon-monogram.avif`) is the
-              opaque app-icon used solely as a schema.org publisher logo, and
-              every icon PNG is background-baked too (verified: no alpha
-              channel on any of them). Cropping the palm out of the wordmark
-              would be exactly the fabricated asset the compliance gate
-              forbids. The wordmark stands until a transparent mark ships;
-              swapping it is then one line. */}
+          {/* No chip, no wordmark (founder 2026-08-21): the sandbox framing is
+              carried ONCE by the frame caption above the canvas — the bar was
+              stating the same thing three ways — and mockup 02 shows the short
+              mark alone. The asset is the app-icon cut on an opaque tile;
+              founder-approved as the interim ("use the other diBoaS logo for
+              now") rather than fabricating a transparent crop. */}
           <div className={styles.appbarCenter}>
             <Link href={home} aria-label={intl.formatMessage({ id: 'nav.home' })}>
-              <Wordmark size="1.7rem" />
+              <BrandMark />
             </Link>
           </div>
           <Link
