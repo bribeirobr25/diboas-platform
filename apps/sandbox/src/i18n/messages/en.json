@@ -49,7 +49,9 @@
     "planPaused": "Plan paused",
     "moneyWorking": "Money still working",
     "systemTitle": "Your system",
-    "systemNote": "Decide where money goes before it arrives."
+    "systemNote": "Decide where money goes before it arrives.",
+    "weeklyTitle": "This week",
+    "weeklyNote": "Collect what time accrued, and see what your rule would do."
   },
   "goalNew": {
     "title": "Create a goal",
@@ -629,5 +631,24 @@
     "createGoal": "Create a goal",
     "update": "Update system",
     "staysInAvailableAuto": "Stays in Available (auto)"
+  },
+  "weekly": {
+    "title": "This week",
+    "subtitle": "Time passed, so credits accrued. Here is what your rule would do with them.",
+    "readyTitle": "Your weekly credits are ready",
+    "creditsFor": "For {weeks, plural, one {# week} other {# weeks}} of practice.",
+    "collect": "Collect credits",
+    "nothingTitle": "Nothing to collect yet",
+    "nothingBody": "Credits accrue on the calendar, whether or not you are here. The next one arrives on its own.",
+    "pausedTitle": "Credits are paused for now",
+    "pausedBody": "Your practice balance is already well ahead of the starting grant, so weekly credits pause until it comes back down. Nothing is lost.",
+    "proposalTitle": "How your rule would handle this",
+    "remainder": "Remainder stays in Available",
+    "pausedDiversion": "this goal is paused, so its share waits in Available",
+    "repairNeeded": "One destination in your rule is no longer open. Update your system to decide where that share goes.",
+    "approve": "Approve",
+    "adjustOnce": "Adjust once",
+    "decline": "Decline",
+    "adjustLater": "Adjusting a single week is not built yet. Approve, decline, or change your system."
   }
 }

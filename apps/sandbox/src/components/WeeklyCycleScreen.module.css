@@ -1,0 +1,149 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  min-width: 0;
+}
+.title {
+  margin: 0;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+  letter-spacing: -0.02em;
+}
+.subtitle {
+  margin: calc(var(--spacing-lg) * -1 + var(--spacing-2xs)) 0 0;
+  color: var(--sb-text-muted);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius-lg);
+  background: var(--sb-card);
+}
+.cardTitle {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+}
+.cardBody {
+  margin: 0;
+  color: var(--sb-text-muted);
+}
+
+.amountRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin: 0;
+  color: var(--text-brand-accessible);
+}
+.amount {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+.amountNote {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+
+.lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.line,
+.remainderLine {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) 0;
+  border-bottom: 1px solid var(--sb-hairline);
+}
+.remainderLine {
+  border-bottom: 0;
+  padding-top: var(--spacing-sm);
+  font-weight: var(--font-weight-medium);
+}
+.lineIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent-tint);
+  color: var(--text-brand-accessible);
+}
+.lineName {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--sb-text-heading);
+}
+.lineNote {
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+.lineValue {
+  font-weight: var(--font-weight-bold);
+  color: var(--text-brand-accessible);
+  font-variant-numeric: tabular-nums;
+}
+
+/* A closed destination is a question, not an alarm: soft amber, never red. */
+.repair {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2xs);
+  margin: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--sb-radius);
+  background: var(--sb-warn-tint);
+  color: var(--sb-warn-text);
+  font-size: var(--font-size-sm);
+}
+
+/* Three equal controls — none styled to win (row 24 / equal-weight decline). */
+.actions {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+.action {
+  flex: 1 1 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2xs);
+  min-height: 4.25rem;
+  padding: var(--spacing-xs);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius);
+  background: var(--sb-card);
+  color: var(--text-brand-accessible);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+.action:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.hint {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}

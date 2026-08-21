@@ -49,7 +49,9 @@
     "planPaused": "Plan pausiert",
     "moneyWorking": "Geld arbeitet weiter",
     "systemTitle": "Dein System",
-    "systemNote": "Entscheide, wohin das Geld geht, bevor es ankommt."
+    "systemNote": "Entscheide, wohin das Geld geht, bevor es ankommt.",
+    "weeklyTitle": "Diese Woche",
+    "weeklyNote": "Hol ab, was die Zeit angesammelt hat, und sieh, was deine Regel täte."
   },
   "goalNew": {
     "title": "Create a goal",
@@ -629,5 +631,24 @@
     "createGoal": "Ein Ziel erstellen",
     "update": "System aktualisieren",
     "staysInAvailableAuto": "Bleibt in Verfügbar (automatisch)"
+  },
+  "weekly": {
+    "title": "Diese Woche",
+    "subtitle": "Zeit ist vergangen, also sind Gutschriften angefallen. Das würde deine Regel damit machen.",
+    "readyTitle": "Deine Wochengutschriften sind da",
+    "creditsFor": "Aus {weeks, plural, one {# Woche} other {# Wochen}} Übung.",
+    "collect": "Gutschriften abholen",
+    "nothingTitle": "Noch nichts abzuholen",
+    "nothingBody": "Gutschriften fallen nach Kalender an, ob du da bist oder nicht. Die nächste kommt von selbst.",
+    "pausedTitle": "Gutschriften pausieren gerade",
+    "pausedBody": "Dein Übungsguthaben liegt schon deutlich über dem Startbetrag, deshalb pausieren die Wochengutschriften, bis es wieder sinkt. Es geht nichts verloren.",
+    "proposalTitle": "So würde deine Regel damit umgehen",
+    "remainder": "Der Rest bleibt in Verfügbar",
+    "pausedDiversion": "dieses Ziel pausiert, sein Anteil wartet in Verfügbar",
+    "repairNeeded": "Ein Ziel in deiner Regel ist nicht mehr offen. Aktualisiere dein System, um zu entscheiden, wohin dieser Anteil geht.",
+    "approve": "Freigeben",
+    "adjustOnce": "Einmal anpassen",
+    "decline": "Ablehnen",
+    "adjustLater": "Eine einzelne Woche anzupassen gibt es noch nicht. Freigeben, ablehnen oder dein System ändern."
   }
 }

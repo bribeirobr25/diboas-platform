@@ -49,7 +49,9 @@
     "planPaused": "Plan en pausa",
     "moneyWorking": "El dinero sigue trabajando",
     "systemTitle": "Tu sistema",
-    "systemNote": "Decide adónde va el dinero antes de que llegue."
+    "systemNote": "Decide adónde va el dinero antes de que llegue.",
+    "weeklyTitle": "Esta semana",
+    "weeklyNote": "Recoge lo que el tiempo acumuló y mira qué haría tu sistema."
   },
   "goalNew": {
     "title": "Create a goal",
@@ -629,5 +631,24 @@
     "createGoal": "Crear una meta",
     "update": "Actualizar sistema",
     "staysInAvailableAuto": "Se queda en Disponible (automático)"
+  },
+  "weekly": {
+    "title": "Esta semana",
+    "subtitle": "Pasó el tiempo, así que se acumularon créditos. Esto es lo que tu sistema haría con ellos.",
+    "readyTitle": "Tus créditos de la semana están listos",
+    "creditsFor": "De {weeks, plural, one {# semana} other {# semanas}} de práctica.",
+    "collect": "Recoger créditos",
+    "nothingTitle": "Todavía no hay nada que recoger",
+    "nothingBody": "Los créditos se acumulan por calendario, estés aquí o no. El siguiente llega solo.",
+    "pausedTitle": "Los créditos están en pausa por ahora",
+    "pausedBody": "Tu saldo de práctica ya está bastante por encima del importe inicial, así que los créditos semanales se pausan hasta que baje. No se pierde nada.",
+    "proposalTitle": "Cómo lo gestionaría tu sistema",
+    "remainder": "El resto se queda en Disponible",
+    "pausedDiversion": "esta meta está en pausa, así que su parte espera en Disponible",
+    "repairNeeded": "Un destino de tu sistema ya no está abierto. Actualiza tu sistema para decidir adónde va esa parte.",
+    "approve": "Aprobar",
+    "adjustOnce": "Ajustar una vez",
+    "decline": "Rechazar",
+    "adjustLater": "Ajustar una sola semana todavía no existe. Aprueba, rechaza o cambia tu sistema."
   }
 }

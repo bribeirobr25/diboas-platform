@@ -49,7 +49,9 @@
     "planPaused": "Plano pausado",
     "moneyWorking": "Dinheiro ainda trabalhando",
     "systemTitle": "Seu sistema",
-    "systemNote": "Decida para onde o dinheiro vai antes de ele chegar."
+    "systemNote": "Decida para onde o dinheiro vai antes de ele chegar.",
+    "weeklyTitle": "Esta semana",
+    "weeklyNote": "Colete o que o tempo acumulou e veja o que sua regra faria."
   },
   "goalNew": {
     "title": "Create a goal",
@@ -629,5 +631,24 @@
     "createGoal": "Criar um objetivo",
     "update": "Atualizar sistema",
     "staysInAvailableAuto": "Fica em Disponível (automático)"
+  },
+  "weekly": {
+    "title": "Esta semana",
+    "subtitle": "O tempo passou, então os créditos acumularam. Veja o que sua regra faria com eles.",
+    "readyTitle": "Seus créditos da semana estão prontos",
+    "creditsFor": "De {weeks, plural, one {# semana} other {# semanas}} de treino.",
+    "collect": "Coletar créditos",
+    "nothingTitle": "Nada para coletar ainda",
+    "nothingBody": "Os créditos acumulam pelo calendário, estando você aqui ou não. O próximo chega sozinho.",
+    "pausedTitle": "Os créditos estão pausados por enquanto",
+    "pausedBody": "Seu saldo de treino já está bem acima do valor inicial, então os créditos semanais pausam até ele baixar. Nada é perdido.",
+    "proposalTitle": "Como sua regra cuidaria disso",
+    "remainder": "O resto fica em Disponível",
+    "pausedDiversion": "este objetivo está pausado, então a parte dele espera em Disponível",
+    "repairNeeded": "Um destino da sua regra não está mais aberto. Atualize seu sistema para decidir para onde vai essa parte.",
+    "approve": "Aprovar",
+    "adjustOnce": "Ajustar uma vez",
+    "decline": "Recusar",
+    "adjustLater": "Ajustar uma única semana ainda não existe. Aprove, recuse ou mude seu sistema."
   }
 }

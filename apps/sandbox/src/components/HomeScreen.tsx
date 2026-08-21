@@ -154,6 +154,23 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
           in the wrong order. `timeMachineNote` says the replay shows "what the
           market actually did" — a claim that only became TRUE with the price
           overlay; before it, the replay was yield-only and could never fall. */}
+      {/* G10 entry (§4.10). Learned from G9: a route with no entry point is a
+          dead surface, so the tile lands with the screen, not after an audit. */}
+      <Link href={`/${locale}/weekly`} className={styles.timeMachine}>
+        <span className={styles.timeMachineIcon}>
+          <LucideIcon name="coins" size={20} />
+        </span>
+        <span className={styles.timeMachineBody}>
+          <span className={styles.timeMachineTitle}>
+            <FormattedMessage id="home.weeklyTitle" />
+          </span>
+          <span className={styles.timeMachineNote}>
+            <FormattedMessage id="home.weeklyNote" />
+          </span>
+        </span>
+        <LucideIcon name="chevron-right" size={18} />
+      </Link>
+
       {/* G9 entry (§4.9). The builder had NO entry point when it shipped —
           reachable by URL only, which makes a surface dead no matter how well
           it works. G10's weekly ceremony may add its own contextual link to
