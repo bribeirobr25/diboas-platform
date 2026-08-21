@@ -176,3 +176,12 @@
   color: var(--sb-text-muted);
   flex: none;
 }
+
+/* A row that is a real door. `display: contents` keeps the link out of the
+   row's own layout, so a linked row and an informational one are visually
+   identical — the chevron already promised navigation on both. */
+.rowLink {
+  display: contents;
+  color: inherit;
+  text-decoration: none;
+}

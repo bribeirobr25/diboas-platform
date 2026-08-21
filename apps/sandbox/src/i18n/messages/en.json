@@ -374,7 +374,11 @@
     "securitySub": "Password, 2FA, and recovery",
     "payment": "Payment info",
     "paymentSub": "Linked accounts and methods",
-    "editAvatar": "Change your profile photo"
+    "editAvatar": "Change your profile photo",
+    "privacy": "Privacy & data",
+    "privacySub": "Consents, language, and your data",
+    "practiceRecord": "Practice record",
+    "practiceRecordSub": "Your milestones and what you share"
   },
   "handle": {
     "subtitle": "Choose your unique handle. It will be part of your public link.",

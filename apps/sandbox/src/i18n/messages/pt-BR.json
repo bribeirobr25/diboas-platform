@@ -374,7 +374,11 @@
     "securitySub": "Senha, 2FA e recuperação",
     "payment": "Dados de pagamento",
     "paymentSub": "Contas e métodos vinculados",
-    "editAvatar": "Change your profile photo"
+    "editAvatar": "Change your profile photo",
+    "privacy": "Privacidade e dados",
+    "privacySub": "Consentimentos, idioma e seus dados",
+    "practiceRecord": "Registro de treino",
+    "practiceRecordSub": "Seus marcos e o que você compartilha"
   },
   "handle": {
     "subtitle": "Escolha seu @handle único. Ele fará parte do seu link público.",

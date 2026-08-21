@@ -64,6 +64,22 @@ export function ProfileScreen({ locale }: { locale: SandboxLocale }) {
         <Row icon="clock" title="profile.memberSince" sub="profile.notSet" />
         <Row icon="shield-check" title="profile.security" sub="profile.securitySub" />
         <Row icon="wallet" title="profile.payment" sub="profile.paymentSub" />
+        {/* Both of these were BUILT and unreachable — nothing in the app linked
+            to /settings or /practice-record, so they existed only for someone
+            typing the URL. Profile is the account hub, and mockup 30's row list
+            is the natural place for them. */}
+        <Row
+          icon="shield"
+          title="profile.privacy"
+          sub="profile.privacySub"
+          href={`/${locale}/settings`}
+        />
+        <Row
+          icon="list"
+          title="profile.practiceRecord"
+          sub="profile.practiceRecordSub"
+          href={`/${locale}/practice-record`}
+        />
       </ul>
     </section>
   );
@@ -119,9 +135,25 @@ function Field({
   );
 }
 
-function Row({ icon, title, sub }: { icon: string; title: string; sub: string }) {
-  return (
-    <li className={styles.row}>
+/**
+ * A profile row. `href` makes it a real door; without one it is an
+ * informational row that still shows a chevron, matching mockup 30 (Email,
+ * Member since, Account & security and Payment info are all display-only
+ * until their account-model track lands).
+ */
+function Row({
+  icon,
+  title,
+  sub,
+  href,
+}: {
+  icon: string;
+  title: string;
+  sub: string;
+  href?: string;
+}) {
+  const body = (
+    <>
       <span className={styles.rowIcon}>
         <LucideIcon name={icon} size={20} />
       </span>
@@ -134,6 +166,17 @@ function Row({ icon, title, sub }: { icon: string; title: string; sub: string })
         </span>
       </span>
       <LucideIcon name="chevron-right" size={18} className={styles.rowChevron} />
+    </>
+  );
+  return (
+    <li className={styles.row}>
+      {href ? (
+        <Link href={href} className={styles.rowLink}>
+          {body}
+        </Link>
+      ) : (
+        body
+      )}
     </li>
   );
 }
