@@ -244,25 +244,6 @@
       }
     }
   },
-  "presets": {
-    "caption": "Comece por um modelo comum",
-    "emergencyFund": {
-      "name": "Reserva de emergência",
-      "desc": "6 meses de essenciais, cerca de {target}. Um primeiro objetivo tranquilo."
-    },
-    "financialFreedom": {
-      "name": "Liberdade financeira",
-      "desc": "O suficiente pra substituir sua renda, cerca de {target}.",
-      "projection": "Numa regra geral de ~10% da renda (cerca de {monthly}/mês) e uns {rate}% supostos, uns {years} anos. Um jogo longo."
-    }
-  },
-  "costAdjust": {
-    "title": "Seus custos reais",
-    "body": "Usamos uma regra geral pros seus custos fixos. Ponha seu número real pra ver seu quadro de verdade. Se for maior, sobra menos pra pôr pra trabalhar.",
-    "label": "Seus custos fixos mensais",
-    "save": "Salvar",
-    "useDefault": "Usar a regra geral"
-  },
   "recurring": {
     "setupCta": "Adicionar um valor mensal",
     "amountLabel": "Quanto por mês",
@@ -493,9 +474,6 @@
     "title": "Something went sideways",
     "body": "This screen hit a snag. Your play money and progress are safe. Try again.",
     "retry": "Try again"
-  },
-  "loading": {
-    "label": "Loading"
   },
   "goalsList": {
     "title": "Suas metas",

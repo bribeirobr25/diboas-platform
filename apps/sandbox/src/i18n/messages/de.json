@@ -244,25 +244,6 @@
       }
     }
   },
-  "presets": {
-    "caption": "Start from a common template",
-    "emergencyFund": {
-      "name": "Emergency Fund",
-      "desc": "6 months of essentials, about {target}. A calm first goal."
-    },
-    "financialFreedom": {
-      "name": "Financial Freedom",
-      "desc": "Enough to replace your income, about {target}.",
-      "projection": "At a common ~10%-of-income guide (about {monthly}/mo) and an assumed {rate}%, roughly {years} years. A long game."
-    }
-  },
-  "costAdjust": {
-    "title": "Your real costs",
-    "body": "We used a rule of thumb for your fixed costs. Put in your real number to see your actual picture. If it's higher, less is free to put to work.",
-    "label": "Your monthly fixed costs",
-    "save": "Save",
-    "useDefault": "Use the rule-of-thumb instead"
-  },
   "recurring": {
     "setupCta": "Add a monthly amount",
     "amountLabel": "How much each month",
@@ -493,9 +474,6 @@
     "title": "Something went sideways",
     "body": "This screen hit a snag. Your play money and progress are safe. Try again.",
     "retry": "Try again"
-  },
-  "loading": {
-    "label": "Loading"
   },
   "goalsList": {
     "title": "Your goals",
