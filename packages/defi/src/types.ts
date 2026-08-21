@@ -12,6 +12,29 @@ export type Chain = 'Arbitrum' | 'Solana' | 'Ethereum' | 'Bitcoin' | 'Sui';
 /** The six execution protocols behind the strategy catalog (strategies.json canon). */
 export type ProtocolId = 'skySsr' | 'aaveV3' | 'compoundV3' | 'sanctumInf' | 'jupiterJlp' | 'jito';
 
+/**
+ * The catalogue's strategy ids, as a closed union — the same discipline as
+ * `ProtocolId` and `PROTOCOL_RETURN_MODEL`.
+ *
+ * `StrategyDef.id` used to be a bare `string`, so a typo compiled: a caller
+ * could enter a position with a strategy that does not exist, the ledger would
+ * happily record it, and every later `getStrategy(id)` would return undefined
+ * — so the position silently earned nothing forever. It cost a §4.12 test that
+ * asserted nothing at all before it was noticed. A money path must not accept
+ * an id the catalogue cannot resolve.
+ */
+export type StrategyId =
+  | 'safeHarbor'
+  | 'stableGrowth'
+  | 'goalKeeper'
+  | 'steadyProgress'
+  | 'patientBuilder'
+  | 'balancedBuilder'
+  | 'steadyCompounder'
+  | 'wealthAccelerator'
+  | 'fullHarvest'
+  | 'fullThrottle';
+
 /** Assets in scope (CEO asset-scope decision). */
 export type AssetId = 'BTC' | 'ETH' | 'SOL' | 'SUI' | 'USDC' | 'XAUT';
 
@@ -85,7 +108,7 @@ export interface AllocationLeg {
  * a strategy is a catalog + i18n change only.
  */
 export interface StrategyDef {
-  id: string;
+  id: StrategyId;
   /** i18n key under `catalog.strategies.<key>` in the app messages. */
   i18nKey: string;
   horizonBands: HorizonBand[];

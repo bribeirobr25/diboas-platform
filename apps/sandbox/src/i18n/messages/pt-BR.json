@@ -39,7 +39,9 @@
     "weeklyTitle": "Esta semana",
     "weeklyNote": "Colete o que o tempo acumulou e veja o que sua regra faria.",
     "eventTitle": "Um cenário de treino está esperando",
-    "eventNote": "Sem pressa e sem prazo. Ele espera até você querer."
+    "eventNote": "Sem pressa e sem prazo. Ele espera até você querer.",
+    "monthTitle": "Relatório do mês",
+    "monthNote": "Para onde foi seu saldo de treino neste mês, até o último centavo."
   },
   "goalNew": {
     "title": "Create a goal",
@@ -647,5 +649,36 @@
     "manifest.fromAvailable": "Do Disponível",
     "manifest.cta": "Confirmar",
     "manifest.reassurance": "Só dinheiro de mentira. A decisão é real; o dinheiro não é."
+  },
+  "monthReport": {
+    "title": "Relatório do mês",
+    "range": "{from} a {to}",
+    "emptyBody": "Seu treino ainda não começou, então não há o que relatar.",
+    "totalChange": "Variação total",
+    "everyDollar": "Cada centavo está explicado abaixo.",
+    "wordUp": "para cima",
+    "wordDown": "para baixo",
+    "signedUp": "+{amount}",
+    "signedDown": "−{amount}",
+    "sourcesTitle": "De onde veio",
+    "nothingMoved": "Nada se moveu neste mês. Seu saldo veio de antes dele.",
+    "source.grant": "Seu dinheiro inicial",
+    "source.weeklyCredits": "Créditos semanais",
+    "source.marketChange": "Variação do mercado",
+    "source.practiceEvents": "Cenários de treino",
+    "source.fees": "Taxas",
+    "sourceNote.grant": "O dinheiro de mentira com que você começou.",
+    "sourceNote.weeklyCredits": "Eles acumulam pelo calendário, não por algo que você fez.",
+    "sourceNote.marketChange": "O que o mercado real fez com o dinheiro trabalhando.",
+    "sourceNote.practiceEvents": "A vida acontecendo no mundo de treino.",
+    "sourceNote.fees": "O que custou sair de uma estratégia.",
+    "opening": "Saldo de treino em {date}",
+    "closing": "Saldo de treino em {date}",
+    "movedIntoGoals": "Você também moveu {amount} para objetivos. Isso anda entre os seus próprios bolsos, então não muda o total.",
+    "practiceTitle": "Seu mês de treino",
+    "goalsCreated": "{count, plural, one {# objetivo criado} other {# objetivos criados}}.",
+    "cyclesCompleted": "{count, plural, one {# ciclo semanal resolvido} other {# ciclos semanais resolvidos}}.",
+    "viewHistory": "Ver o histórico completo",
+    "practiceOnly": "Isto é dinheiro de mentira. Nada aqui vira dinheiro de verdade."
   }
 }

@@ -4,6 +4,7 @@ import {
   fixturePriceSeries,
   type ProtocolApyHistory,
   type ProtocolPriceHistory,
+  type StrategyId,
 } from '@diboas/defi';
 import { reconcile } from '@diboas/banking';
 import { practiceValueSeries } from '@/lib/practiceSeries';
@@ -45,7 +46,7 @@ const priceHistories = (days: number): ProtocolPriceHistory[] =>
     stamp: { source: 'fixture', asOf: '2026-07-18' },
   }));
 
-function openPosition(strategyId: string): string {
+function openPosition(strategyId: StrategyId): string {
   grantPlayMoney(10_000, 'USD', 'b2c');
   const goalId = createGoal({
     name: 'Trip',

@@ -11,6 +11,7 @@ import {
   getStrategy,
   type ProtocolApyHistory,
   type ProtocolPriceHistory,
+  type StrategyId,
 } from '@diboas/defi';
 import { planAdvance, type PositionLeg } from '../advancePlanner';
 import { generateId } from '../ids';
@@ -217,7 +218,10 @@ export function splitEntry(
  */
 export function enterStrategy(input: {
   goalId: string;
-  strategyId: string;
+  /** A CATALOGUE id, not a free string: an unresolvable id would enter a real
+   *  position that `getStrategy` can never resolve, so it would silently earn
+   *  nothing forever. Typed closed so a typo is a compile error. */
+  strategyId: StrategyId;
   totalFromCash: number;
   networkFeeLocal: number;
 }): string {

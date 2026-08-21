@@ -39,7 +39,9 @@
     "weeklyTitle": "This week",
     "weeklyNote": "Collect what time accrued, and see what your rule would do.",
     "eventTitle": "A practice scenario is waiting",
-    "eventNote": "No rush and no deadline. It waits until you want it."
+    "eventNote": "No rush and no deadline. It waits until you want it.",
+    "monthTitle": "Month report",
+    "monthNote": "Where your play balance went this month, every dollar of it."
   },
   "goalNew": {
     "title": "Create a goal",
@@ -647,5 +649,36 @@
     "manifest.fromAvailable": "From Available",
     "manifest.cta": "Confirm",
     "manifest.reassurance": "Play money only. The decision is real; the money is not."
+  },
+  "monthReport": {
+    "title": "Month report",
+    "range": "{from} to {to}",
+    "emptyBody": "Your practice has not started yet, so there is nothing to report.",
+    "totalChange": "Total change",
+    "everyDollar": "Every dollar is explained below.",
+    "wordUp": "up",
+    "wordDown": "down",
+    "signedUp": "+{amount}",
+    "signedDown": "−{amount}",
+    "sourcesTitle": "Where it came from",
+    "nothingMoved": "Nothing moved this month. Your balance carried over from before it.",
+    "source.grant": "Your starting money",
+    "source.weeklyCredits": "Weekly credits",
+    "source.marketChange": "Market change",
+    "source.practiceEvents": "Practice scenarios",
+    "source.fees": "Fees",
+    "sourceNote.grant": "The play money you began with.",
+    "sourceNote.weeklyCredits": "They accrue by the calendar, not by anything you did.",
+    "sourceNote.marketChange": "What the real market did to money at work.",
+    "sourceNote.practiceEvents": "Life happening in the practice world.",
+    "sourceNote.fees": "What leaving a strategy cost.",
+    "opening": "Play balance on {date}",
+    "closing": "Play balance on {date}",
+    "movedIntoGoals": "You also moved {amount} into goals. That travels between your own pockets, so it does not change the total.",
+    "practiceTitle": "Your month in practice",
+    "goalsCreated": "{count, plural, one {# goal} other {# goals}} created.",
+    "cyclesCompleted": "{count, plural, one {# weekly cycle} other {# weekly cycles}} settled.",
+    "viewHistory": "View the full trail",
+    "practiceOnly": "This is play money. Nothing here becomes real money."
   }
 }

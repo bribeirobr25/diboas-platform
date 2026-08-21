@@ -39,7 +39,9 @@
     "weeklyTitle": "Diese Woche",
     "weeklyNote": "Hol ab, was die Zeit angesammelt hat, und sieh, was deine Regel täte.",
     "eventTitle": "Ein Übungsszenario wartet",
-    "eventNote": "Keine Eile, keine Frist. Es wartet, bis du magst."
+    "eventNote": "Keine Eile, keine Frist. Es wartet, bis du magst.",
+    "monthTitle": "Monatsbericht",
+    "monthNote": "Wohin dein Übungsguthaben diesen Monat gegangen ist, bis auf den Cent."
   },
   "goalNew": {
     "title": "Create a goal",
@@ -647,5 +649,36 @@
     "manifest.fromAvailable": "Aus Verfügbar",
     "manifest.cta": "Bestätigen",
     "manifest.reassurance": "Nur Spielgeld. Die Entscheidung ist echt, das Geld nicht."
+  },
+  "monthReport": {
+    "title": "Monatsbericht",
+    "range": "{from} bis {to}",
+    "emptyBody": "Deine Übung hat noch nicht begonnen, also gibt es nichts zu berichten.",
+    "totalChange": "Gesamtveränderung",
+    "everyDollar": "Jeder Cent ist unten erklärt.",
+    "wordUp": "hoch",
+    "wordDown": "runter",
+    "signedUp": "+{amount}",
+    "signedDown": "−{amount}",
+    "sourcesTitle": "Woher es kam",
+    "nothingMoved": "Diesen Monat hat sich nichts bewegt. Dein Guthaben stammt von davor.",
+    "source.grant": "Dein Startgeld",
+    "source.weeklyCredits": "Wochengutschriften",
+    "source.marketChange": "Marktveränderung",
+    "source.practiceEvents": "Übungsszenarien",
+    "source.fees": "Gebühren",
+    "sourceNote.grant": "Das Spielgeld, mit dem du angefangen hast.",
+    "sourceNote.weeklyCredits": "Sie fallen nach Kalender an, nicht durch etwas, das du getan hast.",
+    "sourceNote.marketChange": "Was der echte Markt mit dem arbeitenden Geld gemacht hat.",
+    "sourceNote.practiceEvents": "Das Leben in der Übungswelt.",
+    "sourceNote.fees": "Was das Verlassen einer Strategie gekostet hat.",
+    "opening": "Übungsguthaben am {date}",
+    "closing": "Übungsguthaben am {date}",
+    "movedIntoGoals": "Du hast außerdem {amount} in Ziele verschoben. Das wandert zwischen deinen eigenen Taschen und ändert die Summe nicht.",
+    "practiceTitle": "Dein Übungsmonat",
+    "goalsCreated": "{count, plural, one {# Ziel} other {# Ziele}} erstellt.",
+    "cyclesCompleted": "{count, plural, one {# Wochenzyklus} other {# Wochenzyklen}} abgeschlossen.",
+    "viewHistory": "Den ganzen Verlauf ansehen",
+    "practiceOnly": "Das ist Spielgeld. Nichts davon wird zu echtem Geld."
   }
 }

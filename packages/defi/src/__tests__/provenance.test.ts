@@ -3,7 +3,7 @@ import { strategyProvenance } from '../provenance';
 import type { ProtocolApy, ProtocolId, StrategyDef } from '../types';
 
 const STRATEGY: StrategyDef = {
-  id: 'test',
+  id: 'safeHarbor',
   i18nKey: 'test',
   horizonBands: ['short'],
   riskBand: 'stable',

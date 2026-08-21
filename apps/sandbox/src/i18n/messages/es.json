@@ -39,7 +39,9 @@
     "weeklyTitle": "Esta semana",
     "weeklyNote": "Recoge lo que el tiempo acumuló y mira qué haría tu sistema.",
     "eventTitle": "Un escenario de práctica te espera",
-    "eventNote": "Sin prisa y sin plazo: espera hasta que quieras."
+    "eventNote": "Sin prisa y sin plazo: espera hasta que quieras.",
+    "monthTitle": "Informe del mes",
+    "monthNote": "Adónde fue tu saldo de práctica este mes, hasta el último céntimo."
   },
   "goalNew": {
     "title": "Create a goal",
@@ -647,5 +649,36 @@
     "manifest.fromAvailable": "De lo Disponible",
     "manifest.cta": "Confirmar",
     "manifest.reassurance": "Solo dinero de práctica. La decisión es real; el dinero no."
+  },
+  "monthReport": {
+    "title": "Informe del mes",
+    "range": "{from} a {to}",
+    "emptyBody": "Tu práctica aún no ha empezado, así que no hay nada que informar.",
+    "totalChange": "Variación total",
+    "everyDollar": "Cada céntimo está explicado abajo.",
+    "wordUp": "arriba",
+    "wordDown": "abajo",
+    "signedUp": "+{amount}",
+    "signedDown": "−{amount}",
+    "sourcesTitle": "De dónde vino",
+    "nothingMoved": "Este mes no se movió nada. Tu saldo viene de antes.",
+    "source.grant": "Tu dinero inicial",
+    "source.weeklyCredits": "Créditos semanales",
+    "source.marketChange": "Variación del mercado",
+    "source.practiceEvents": "Escenarios de práctica",
+    "source.fees": "Comisiones",
+    "sourceNote.grant": "El dinero de práctica con el que empezaste.",
+    "sourceNote.weeklyCredits": "Se acumulan por calendario, no por nada que hicieras.",
+    "sourceNote.marketChange": "Lo que el mercado real hizo con el dinero trabajando.",
+    "sourceNote.practiceEvents": "La vida pasando en el mundo de práctica.",
+    "sourceNote.fees": "Lo que costó salir de una estrategia.",
+    "opening": "Saldo de práctica el {date}",
+    "closing": "Saldo de práctica el {date}",
+    "movedIntoGoals": "También moviste {amount} a metas. Eso va entre tus propios bolsillos, así que no cambia el total.",
+    "practiceTitle": "Tu mes de práctica",
+    "goalsCreated": "{count, plural, one {# meta creada} other {# metas creadas}}.",
+    "cyclesCompleted": "{count, plural, one {# ciclo semanal resuelto} other {# ciclos semanales resueltos}}.",
+    "viewHistory": "Ver el historial completo",
+    "practiceOnly": "Esto es dinero de práctica. Nada de aquí se convierte en dinero real."
   }
 }

@@ -212,6 +212,23 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
         <LucideIcon name="chevron-right" size={18} />
       </Link>
 
+      {/* G12 entry (§4.12). Always present: the report has an honest empty
+          state, and the month is worth seeing while it is still running. */}
+      <Link href={`/${locale}/month`} className={styles.timeMachine}>
+        <span className={styles.timeMachineIcon}>
+          <LucideIcon name="bar-chart" size={20} />
+        </span>
+        <span className={styles.timeMachineBody}>
+          <span className={styles.timeMachineTitle}>
+            <FormattedMessage id="home.monthTitle" />
+          </span>
+          <span className={styles.timeMachineNote}>
+            <FormattedMessage id="home.monthNote" />
+          </span>
+        </span>
+        <LucideIcon name="chevron-right" size={18} />
+      </Link>
+
       {/* G8 entry (§4.8). Always present, never conditional on holding a
           position: the screen has an honest empty state that explains itself,
           and hiding the concept until money is at work would teach the lesson

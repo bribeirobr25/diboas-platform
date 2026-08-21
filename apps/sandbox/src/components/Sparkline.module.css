@@ -17,8 +17,14 @@
   vector-effect: non-scaling-stroke;
 }
 
+/* `--sb-card-tint`, NOT `--sb-accent-tint`: the two are the same teal-50 in
+   light, so the difference is invisible there — but only `card-tint` has a
+   dark-theme override. With `accent-tint` this area fill stayed near-white and
+   rendered as a bright grey blob inside every dark card that hosts a
+   sparkline (the month report, the time machine, goal detail). Found via G12
+   §4.12; the same token confusion as the §4.11 scenario plate. */
 .fill {
-  fill: var(--sb-accent-tint);
+  fill: var(--sb-card-tint);
   opacity: 0.7;
   stroke: none;
 }

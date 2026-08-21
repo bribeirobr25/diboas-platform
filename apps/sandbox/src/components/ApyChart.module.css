@@ -55,8 +55,11 @@
   stroke-width: 1;
   stroke-dasharray: 2 3;
 }
+/* Theme-aware wash, not `--sb-accent-tint` — see Sparkline.module.css: the
+   two are identical in light, but only this one darkens, and a large area
+   fill left light renders as a pale blob on a dark card. */
 .area {
-  fill: var(--sb-accent-tint);
+  fill: var(--sb-card-tint);
 }
 .line {
   fill: none;
