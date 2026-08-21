@@ -622,6 +622,7 @@
     "pausedBody": "Seu saldo de treino já está bem acima do valor inicial, então os créditos semanais pausam até ele baixar. Nada é perdido.",
     "proposalTitle": "Como sua regra cuidaria disso",
     "remainder": "O resto fica em Disponível",
+    "share": "{share} de cada crédito",
     "pausedDiversion": "este objetivo está pausado, então a parte dele espera em Disponível",
     "repairNeeded": "Um destino da sua regra não está mais aberto. Atualize seu sistema para decidir para onde vai essa parte.",
     "approve": "Aprovar",

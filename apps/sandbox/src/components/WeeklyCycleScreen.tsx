@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Decimal from 'decimal.js';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import type { SandboxLocale } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
 import { useFormatters } from '@/hooks/useFormatters';
@@ -35,6 +35,7 @@ import styles from './WeeklyCycleScreen.module.css';
  * decline is silent — no nag, no re-ask, and the weeks simply stay unresolved.
  */
 export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
+  const intl = useIntl();
   const state = useLedger();
   const { money } = useFormatters(state.currency);
   const [busy, setBusy] = useState(false);
@@ -49,6 +50,24 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
   // render, so a stale one is impossible by construction (W-8).
   const proposal = deriveStandingProposal(state, getDeclinedWeeks(), `p-${tick}`);
   const goalOf = (goalId: string) => state.goals.find((g) => g.goalId === goalId);
+
+  /**
+   * The share each destination holds in the rule that drafted this proposal —
+   * read from THAT rule (by id), never "the active rule", so the sub-line can
+   * never describe a different version than the amounts above it.
+   *
+   * Mockup 11 carries this share on every row, and so does every other
+   * goal-bearing row in the app (`GoalRow` puts current/target under the name).
+   * Without it the screen names amounts but not the rule that produced them —
+   * on a surface whose whole title is "how your rule would handle this", the
+   * causal half was the missing half.
+   */
+  const shareOf = new Map(
+    (state.rules.find((r) => r.ruleId === proposal?.ruleId)?.split ?? []).map((s) => [
+      s.goalId,
+      s.percent,
+    ])
+  );
 
   function onCollect() {
     if (busy) return;
@@ -149,15 +168,37 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
                 </span>
                 <span className={styles.lineName}>
                   {goalOf(line.goalId)?.name ?? line.goalId}
+                  {shareOf.has(line.goalId) ? (
+                    <span className={styles.lineNote}>
+                      <FormattedMessage
+                        id="weekly.share"
+                        values={{
+                          share: intl.formatNumber(shareOf.get(line.goalId)! / 100, {
+                            style: 'percent',
+                          }),
+                        }}
+                      />
+                    </span>
+                  ) : null}
                   {line.pausedDiversion ? (
                     <span className={styles.lineNote}>
                       <FormattedMessage id="weekly.pausedDiversion" />
                     </span>
                   ) : null}
                 </span>
-                <span className={styles.lineValue}>{money(line.amount.toFixed(2))}</span>
+                <span
+                  className={line.pausedDiversion ? styles.lineValueDiverted : styles.lineValue}
+                >
+                  {money(line.amount.toFixed(2))}
+                </span>
               </li>
             ))}
+            {/* Deliberately carries NO share sub-line, though mockup 11 shows a
+                figure here. The remainder is not a share anyone chose — it is
+                whatever is left, and it GROWS beyond the arithmetic leftover
+                whenever a paused goal diverts or a destination needs repair. A
+                "40% of every credit" label would be plainly false in exactly
+                those states, so the row states its amount and nothing else. */}
             <li className={styles.remainderLine}>
               <span className={styles.lineIcon}>
                 <LucideIcon name="coins" size={18} />
@@ -172,7 +213,14 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
           </ul>
 
           {/* Equal weight, and a decline is as easy as an approval: three
-              same-sized controls, none of them styled to win. */}
+              same-sized controls, none of them styled to win.
+
+              Mockup 11 lays these out as horizontal pills (icon beside label)
+              outside the card; they stack icon-over-label here because the
+              longest label is DE "Einmal anpassen" — at 430 px each control is
+              ~130 px wide, which wraps a beside-icon label mid-word. Stacking
+              keeps all four locales on one line and keeps the three controls
+              identical in size, which is the property that actually matters. */}
           <div className={styles.actions}>
             <button
               type="button"
@@ -192,10 +240,15 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
               <FormattedMessage id="weekly.decline" />
             </button>
           </div>
-          {/* A disabled control always says why (§4.6/§4.7 precedent). */}
-          <p className={styles.hint}>
-            <FormattedMessage id="weekly.adjustLater" />
-          </p>
+          {/* A disabled control always says why (§4.6/§4.7 precedent) — but not
+              in the repair state, where the amber notice above already states
+              the one thing to do and this line would point at an Approve the
+              user cannot use. */}
+          {proposal.repairNeeded ? null : (
+            <p className={styles.hint}>
+              <FormattedMessage id="weekly.adjustLater" />
+            </p>
+          )}
         </div>
       ) : null}
     </section>

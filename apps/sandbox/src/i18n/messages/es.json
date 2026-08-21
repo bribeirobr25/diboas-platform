@@ -622,6 +622,7 @@
     "pausedBody": "Tu saldo de práctica ya está bastante por encima del importe inicial, así que los créditos semanales se pausan hasta que baje. No se pierde nada.",
     "proposalTitle": "Cómo lo gestionaría tu sistema",
     "remainder": "El resto se queda en Disponible",
+    "share": "{share} de cada crédito",
     "pausedDiversion": "esta meta está en pausa, así que su parte espera en Disponible",
     "repairNeeded": "Un destino de tu sistema ya no está abierto. Actualiza tu sistema para decidir adónde va esa parte.",
     "approve": "Aprobar",

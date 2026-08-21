@@ -622,6 +622,7 @@
     "pausedBody": "Your practice balance is already well ahead of the starting grant, so weekly credits pause until it comes back down. Nothing is lost.",
     "proposalTitle": "How your rule would handle this",
     "remainder": "Remainder stays in Available",
+    "share": "{share} of every credit",
     "pausedDiversion": "this goal is paused, so its share waits in Available",
     "repairNeeded": "One destination in your rule is no longer open. Update your system to decide where that share goes.",
     "approve": "Approve",

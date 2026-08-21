@@ -622,6 +622,7 @@
     "pausedBody": "Dein Übungsguthaben liegt schon deutlich über dem Startbetrag, deshalb pausieren die Wochengutschriften, bis es wieder sinkt. Es geht nichts verloren.",
     "proposalTitle": "So würde deine Regel damit umgehen",
     "remainder": "Der Rest bleibt in Verfügbar",
+    "share": "{share} von jeder Gutschrift",
     "pausedDiversion": "dieses Ziel pausiert, sein Anteil wartet in Verfügbar",
     "repairNeeded": "Ein Ziel in deiner Regel ist nicht mehr offen. Aktualisiere dein System, um zu entscheiden, wohin dieser Anteil geht.",
     "approve": "Freigeben",

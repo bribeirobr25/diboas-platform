@@ -7,6 +7,7 @@ import {
   createRule,
   getLedgerState,
   grantPlayMoney,
+  pauseGoal,
   resetSandbox,
 } from '@/lib/ledgerClient';
 import { WeeklyCycleScreen } from '../WeeklyCycleScreen';
@@ -27,6 +28,7 @@ const M = {
   'weekly.pausedBody': 'Your practice balance is already well ahead of the starting grant.',
   'weekly.proposalTitle': 'How your rule would handle this',
   'weekly.remainder': 'Remainder stays in Available',
+  'weekly.share': '{share} of every credit',
   'weekly.pausedDiversion': 'this goal is paused',
   'weekly.repairNeeded': 'One destination in your rule is no longer open.',
   'weekly.approve': 'Approve',
@@ -109,6 +111,30 @@ describe('WeeklyCycleScreen — G10 (§4.10)', () => {
     expect(screen.getByText('Trip')).toBeTruthy();
     // The un-allocated 40% must be visible, never silently absorbed.
     expect(screen.getByText('Remainder stays in Available')).toBeTruthy();
+  });
+
+  it('should state the share behind each amount, from the rule that drafted it', () => {
+    const goalId = seedWithElapsedWeeks(2);
+    createRule([{ goalId, percent: 60 }]);
+    renderWeekly();
+    fireEvent.click(screen.getByRole('button', { name: 'Collect credits' }));
+    // Naming the amount without naming its cause leaves the user to reverse-
+    // engineer their own rule from arithmetic.
+    expect(screen.getByText('60% of every credit')).toBeTruthy();
+  });
+
+  it('should NOT give a paused goal amount the emphasis of a real allocation', () => {
+    const goalId = seedWithElapsedWeeks(2);
+    createRule([{ goalId, percent: 60 }]);
+    pauseGoal(goalId);
+    renderWeekly();
+    fireEvent.click(screen.getByRole('button', { name: 'Collect credits' }));
+    // The engine diverts a paused share into the remainder, so this figure is
+    // the rule's intent — not money arriving. Styled like a live allocation,
+    // the amounts column appears to sum past the collected total.
+    const diverted = screen.getByText('$1,200.00');
+    const remainder = screen.getByText('$2,000.00');
+    expect(diverted.className).not.toBe(remainder.className);
   });
 
   it('should apply the proposal on Approve', () => {
