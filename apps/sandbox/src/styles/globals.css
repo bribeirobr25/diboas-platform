@@ -96,11 +96,14 @@
      to ~2.9:1 on the near-black ground — a loss figure must never be the least
      readable number on the screen. The lighter ramp clears AA on dark. */
   --sb-danger: var(--color-red-300);
-  /* amber-700 is the same case and was missed: 3.27:1 on the dark card, i.e.
-     the amber twin of the red note above. It carries the loss-no-shame
-     figures (a falling month, a negative source row), so it must not be the
-     least readable number on the screen either. amber-400 clears AA. */
-  --sb-warn-text: var(--color-amber-400);
+  /* Amber text ON a normal surface (a loss figure) needs the DARK-mode ramp,
+     but `--sb-warn-text` is not that role: it is the text on the amber tint
+     PLATE, and that plate deliberately stays light in dark mode so a notice
+     still reads as a notice (§4.10 measured it at 4.51:1). Lightening this
+     token took five surfaces — the weekly repair notice, the comprehension
+     check, goal-new, recurring, the strategy picker — to 1.50:1. The
+     on-surface role has its own token below. */
+  --text-warning-accessible: var(--color-amber-400);
   --text-success-accessible: var(--color-emerald-200);
   --sb-mk-ground: #0b171f;
   --sb-mk-surround: #06121a;
@@ -133,11 +136,14 @@
      to ~2.9:1 on the near-black ground — a loss figure must never be the least
      readable number on the screen. The lighter ramp clears AA on dark. */
     --sb-danger: var(--color-red-300);
-    /* amber-700 is the same case and was missed: 3.27:1 on the dark card, i.e.
-       the amber twin of the red note above. It carries the loss-no-shame
-       figures (a falling month, a negative source row), so it must not be the
-       least readable number on the screen either. amber-400 clears AA. */
-    --sb-warn-text: var(--color-amber-400);
+    /* Amber text ON a normal surface (a loss figure) needs the DARK-mode ramp,
+       but `--sb-warn-text` is not that role: it is the text on the amber tint
+       PLATE, and that plate deliberately stays light in dark mode so a notice
+       still reads as a notice (§4.10 measured it at 4.51:1). Lightening this
+       token took five surfaces — the weekly repair notice, the comprehension
+       check, goal-new, recurring, the strategy picker — to 1.50:1. The
+       on-surface role has its own token below. */
+    --text-warning-accessible: var(--color-amber-400);
     --text-success-accessible: var(--color-emerald-200);
     --sb-mk-ground: #0b171f;
     --sb-mk-surround: #06121a;

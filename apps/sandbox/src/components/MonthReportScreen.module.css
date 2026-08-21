@@ -51,9 +51,12 @@
   color: var(--text-brand-accessible);
 }
 /* A month that fell is amber, never alarm-red — a loss is a fact of the
-   month, not a failure (R-2 loss-no-shame). */
+   month, not a failure (R-2 loss-no-shame). `--text-warning-accessible`, not
+   `--sb-warn-text`: this figure sits on the CARD, and the two roles need
+   different ramps (the warn-text token is the ink on the light amber notice
+   plate, which stays light in dark mode by design). */
 .heroValueDown {
-  color: var(--sb-warn-text);
+  color: var(--text-warning-accessible);
 }
 .heroPercent {
   font-size: var(--font-size-lg);
@@ -130,7 +133,7 @@
   color: var(--text-brand-accessible);
 }
 .rowValueDown {
-  color: var(--sb-warn-text);
+  color: var(--text-warning-accessible);
 }
 
 /* opening + change == closing, stated as a sum the reader can check. */

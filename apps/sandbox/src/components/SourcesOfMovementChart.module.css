@@ -51,9 +51,10 @@
   background: var(--sb-accent);
 }
 /* A fall is amber, never alarm-red: the market going down is a fact of the
-   month, not a failure (R-2 loss-no-shame, carried through every surface). */
+   month, not a failure (R-2 loss-no-shame, carried through every surface).
+   The on-SURFACE amber, not the notice-plate ink — see MonthReportScreen. */
 .barDown {
-  background: var(--sb-warn-text);
+  background: var(--text-warning-accessible);
 }
 
 .value {
