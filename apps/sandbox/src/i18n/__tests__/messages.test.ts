@@ -188,4 +188,14 @@ describe('flattenMessages', () => {
   it('should expose all four raw locales', () => {
     expect(Object.keys(getRawMessages()).sort()).toEqual(['de', 'en', 'es', 'pt-BR']);
   });
+  it('should name the play balance ONE way across every surface (mode-lexicon safety)', () => {
+    // Mockup-audit finding 2 called mode-label drift "the one real safety
+    // risk": Home said "Play balance" while Move said "Practice balance" for
+    // the identical figure. Mode confusion is how someone moves real money by
+    // accident, so the same quantity keeps one name per locale.
+    for (const locale of SANDBOX_LOCALES) {
+      const m = getMessages(locale) as Record<string, string>;
+      expect(m['move.balance'], locale).toBe(m['home.playBalance']);
+    }
+  });
 });

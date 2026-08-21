@@ -273,7 +273,15 @@ export function HistoryScreen() {
           <FormattedMessage
             id="history.feeDrag"
             values={{
-              amount: <span className={styles.feeAmount}>{money(feesPaid.toFixed(2))}</span>,
+              // `key` is required: passing a React ELEMENT as an ICU value
+              // makes react-intl build an array of children, and without it
+              // React logs "Each child in a list should have a unique key" —
+              // a real console error that shipped on every History view.
+              amount: (
+                <span key="amount" className={styles.feeAmount}>
+                  {money(feesPaid.toFixed(2))}
+                </span>
+              ),
             }}
           />
         </p>
