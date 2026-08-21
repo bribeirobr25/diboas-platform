@@ -645,6 +645,12 @@
     "option.useReserve": "{goal} nutzen",
     "optionNote.coverFromAvailable": "Geld, das bereitliegt.",
     "optionNote.useReserve": "Geld, das du genau dafür zurückgelegt hast.",
+    "option.split": "Mit {goal} aufteilen",
+    "optionNote.split": "Ein Teil aus deiner Rücklage, der Rest aus Verfügbar.",
+    "splitLabel": "Wie viel kommt aus {goal}?",
+    "splitRange": "Von {min} bis {max}.",
+    "splitRest": "Die restlichen {rest} kommen aus Verfügbar.",
+    "splitHint": "Gib einen Betrag in dieser Spanne ein, um das zu wählen.",
     "previewImpact": "Ansehen, was beides bewirkt",
     "previewTitle": "Was jede Wahl bewirkt",
     "previewSubtitle": "Dasselbe Geld, je nachdem, wofür du dich entscheidest.",
@@ -665,6 +671,8 @@
     "manifest.event": "Übungsszenario",
     "manifest.amount": "Betrag",
     "manifest.from": "Kommt aus",
+    "manifest.fromReserve": "Aus deiner Rücklage",
+    "manifest.fromAvailable": "Aus Verfügbar",
     "manifest.cta": "Bestätigen",
     "manifest.reassurance": "Nur Spielgeld. Die Entscheidung ist echt, das Geld nicht."
   }

@@ -232,3 +232,53 @@
   font-weight: var(--font-weight-medium);
   cursor: pointer;
 }
+
+/* The user's own split (P2BD-17). A typed field, not a slider: UX-16 puts
+   sliders on casual bounded inputs and precise money on a keypad. It opens
+   EMPTY — any pre-filled share would be diBoaS deciding how much of someone's
+   reserve to spend, which is exactly what "no advice" forbids. */
+.splitField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+.splitLabel {
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-body);
+}
+.amountInput {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  min-height: var(--sb-tap);
+  padding: 0 var(--spacing-md);
+  border: 1px solid var(--sb-hairline-strong);
+  border-radius: var(--sb-radius);
+  background: var(--sb-card);
+}
+.amountInput:focus-within {
+  outline: 2px solid var(--sb-accent);
+  outline-offset: 1px;
+}
+.amountPrefix {
+  flex: none;
+  color: var(--sb-text-muted);
+  font-size: var(--font-size-md);
+}
+.amountField {
+  flex: 1;
+  min-width: 0;
+  padding: var(--spacing-sm) 0;
+  border: 0;
+  background: transparent;
+  color: var(--sb-text-heading);
+  font-size: var(--font-size-md);
+}
+/* The bounds are stated up front, never discovered by being rejected. */
+.splitRange,
+.splitRest,
+.splitHint {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}

@@ -645,6 +645,12 @@
     "option.useReserve": "Usar {goal}",
     "optionNote.coverFromAvailable": "Dinheiro pronto para usar.",
     "optionNote.useReserve": "Dinheiro que você separou justamente para isso.",
+    "option.split": "Dividir com {goal}",
+    "optionNote.split": "Uma parte da sua reserva, o resto do Disponível.",
+    "splitLabel": "Quanto sai de {goal}?",
+    "splitRange": "De {min} até {max}.",
+    "splitRest": "Os {rest} restantes saem do Disponível.",
+    "splitHint": "Digite um valor dentro dessa faixa para escolher esta opção.",
     "previewImpact": "Ver o que cada uma faz",
     "previewTitle": "O que cada escolha faz",
     "previewSubtitle": "O mesmo dinheiro, dependendo do que você escolher.",
@@ -665,6 +671,8 @@
     "manifest.event": "Cenário de treino",
     "manifest.amount": "Valor",
     "manifest.from": "Sai de",
+    "manifest.fromReserve": "Da sua reserva",
+    "manifest.fromAvailable": "Do Disponível",
     "manifest.cta": "Confirmar",
     "manifest.reassurance": "Só dinheiro de mentira. A decisão é real; o dinheiro não é."
   }

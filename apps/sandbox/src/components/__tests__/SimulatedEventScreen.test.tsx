@@ -21,6 +21,14 @@ const M = {
   'simEvent.howHandle': 'How would you like to handle it in your practice plan?',
   'simEvent.option.coverFromAvailable': 'Cover from Available',
   'simEvent.option.useReserve': 'Use {goal}',
+  'simEvent.option.split': 'Split it with {goal}',
+  'simEvent.optionNote.split': 'Some from your reserve, the rest from Available.',
+  'simEvent.splitLabel': 'How much comes from {goal}?',
+  'simEvent.splitRange': 'Anything from {min} to {max}.',
+  'simEvent.splitRest': 'The remaining {rest} comes from Available.',
+  'simEvent.splitHint': 'Enter an amount inside that range to choose this.',
+  'simEvent.manifest.fromReserve': 'From your reserve',
+  'simEvent.manifest.fromAvailable': 'From Available',
   'simEvent.optionNote.coverFromAvailable': 'Money that is ready to spend.',
   'simEvent.optionNote.useReserve': 'Money you set aside for exactly this.',
   'simEvent.previewImpact': 'See what each one does',
@@ -110,7 +118,7 @@ describe('SimulatedEventScreen — G11 (§4.11)', () => {
     // Nothing is choosable on the presented step — seeing comes first.
     expect(screen.queryByRole('button', { name: /Choose/ })).toBeNull();
     fireEvent.click(screen.getByRole('button', { name: 'See what each one does' }));
-    expect(screen.getAllByText('Projection')).toHaveLength(2);
+    expect(screen.getAllByText('Projection')).toHaveLength(3);
     expect(screen.getAllByRole('button', { name: /Choose/ }).length).toBeGreaterThanOrEqual(2);
   });
 
@@ -179,5 +187,101 @@ describe('SimulatedEventScreen — G11 (§4.11)', () => {
     renderScreen();
     expect(screen.getByText('Nothing to handle')).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Back to home' })).toBeTruthy();
+  });
+});
+
+describe('SimulatedEventScreen — the user-set split (P2BD-17)', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+    push.mockClear();
+    resetSandbox();
+  });
+  afterEach(() => vi.useRealTimers());
+
+  /** Reach the preview with a reserve goal present. */
+  function openPreview() {
+    seedAtWeek3({ goalCash: 3000 });
+    renderScreen();
+    fireEvent.click(screen.getByRole('button', { name: 'See what each one does' }));
+  }
+
+  it('should open the split EMPTY — diBoaS never proposes how much of your reserve to spend', () => {
+    openPreview();
+    const field = screen.getByLabelText('How much comes from Safety net?') as HTMLInputElement;
+    expect(field.value).toBe('');
+    // The bounds are stated (arithmetic), but no amount inside them is.
+    expect(screen.getByText(/Anything from/)).toBeTruthy();
+  });
+
+  it('should show NO projected after until a share is entered', () => {
+    openPreview();
+    const card = screen
+      .getAllByRole('listitem')
+      .find((li) => /Split it with/.test(li.textContent ?? ''))!;
+    // before -> before would read as a projection of "nothing changes", when
+    // the truth is that nothing has been chosen yet.
+    expect(card.textContent).not.toMatch(/\$3,000\.00.*\$3,000\.00/);
+    fireEvent.change(screen.getByLabelText('How much comes from Safety net?'), {
+      target: { value: '400' },
+    });
+    const filled = screen
+      .getAllByRole('listitem')
+      .find((li) => /Split it with/.test(li.textContent ?? ''))!;
+    expect(filled.textContent).toMatch(/\$2,600\.00/);
+  });
+
+  it('should not let the split be chosen until the user has entered a share', () => {
+    openPreview();
+    const choose = screen.getByRole('button', {
+      name: 'Choose Split it with Safety net',
+    }) as HTMLButtonElement;
+    expect(choose.disabled).toBe(true);
+    // A disabled control always says why.
+    expect(screen.getByText('Enter an amount inside that range to choose this.')).toBeTruthy();
+    fireEvent.change(screen.getByLabelText('How much comes from Safety net?'), {
+      target: { value: '400' },
+    });
+    expect(
+      (screen.getByRole('button', { name: 'Choose Split it with Safety net' }) as HTMLButtonElement)
+        .disabled
+    ).toBe(false);
+  });
+
+  it('should refuse a share outside the stated range', () => {
+    openPreview();
+    // The goal holds 3,000; asking it for more than that is not a split it can make.
+    fireEvent.change(screen.getByLabelText('How much comes from Safety net?'), {
+      target: { value: '4000' },
+    });
+    expect(
+      (screen.getByRole('button', { name: 'Choose Split it with Safety net' }) as HTMLButtonElement)
+        .disabled
+    ).toBe(true);
+  });
+
+  it('should move exactly what the user divided, from both places', () => {
+    openPreview();
+    const before = getLedgerState();
+    fireEvent.change(screen.getByLabelText('How much comes from Safety net?'), {
+      target: { value: '400' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Choose Split it with Safety net' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Confirm' }));
+    const after = getLedgerState();
+    expect(Number(after.goals[0].cash)).toBe(Number(before.goals[0].cash) - 400);
+    // Available paid the other 1,100 of the 1,500.
+    expect(Number(after.buckets.working)).toBe(Number(before.buckets.working) - (EXPENSE - 400));
+  });
+
+  it('should itemize BOTH sources on the confirm sheet, never a single rounded one', () => {
+    openPreview();
+    fireEvent.change(screen.getByLabelText('How much comes from Safety net?'), {
+      target: { value: '400' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Choose Split it with Safety net' }));
+    expect(screen.getByText('From your reserve')).toBeTruthy();
+    expect(screen.getByText('From Available')).toBeTruthy();
+    expect(screen.getByText('Safety net · $400.00')).toBeTruthy();
+    expect(screen.getByText('$1,100.00')).toBeTruthy();
   });
 });

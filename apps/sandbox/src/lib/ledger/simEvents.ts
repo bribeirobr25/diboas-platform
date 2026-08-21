@@ -28,7 +28,12 @@ export function resolveSimulatedExpense(input: {
   eventInstanceId: string;
   eventType: string;
   amount: number;
-  via: { path: 'available' } | { path: 'reserve'; goalId: string };
+  via:
+    | { path: 'available' }
+    | { path: 'reserve'; goalId: string }
+    /** The user's OWN division (P2BD-17): `fromGoal` comes out of the reserve,
+     *  the rest out of Available. diBoaS never picks the ratio. */
+    | { path: 'split'; goalId: string; fromGoal: number };
 }): ResolveExpenseResult {
   const state = getLedgerState();
   if (!state.initialized || state.resolvedEventInstances.includes(input.eventInstanceId))
@@ -38,21 +43,38 @@ export function resolveSimulatedExpense(input: {
   const correlationId = generateId();
   const events: LedgerEvent[] = [];
 
-  if (input.via.path === 'reserve') {
-    const reserveGoalId = input.via.goalId;
-    const goal = state.goals.find((g) => g.goalId === reserveGoalId);
+  // One shape for all three paths: how much the reserve covers. `available`
+  // is zero-from-goal and `reserve` is all-of-it, so the split is not a third
+  // mechanism — it is the same one with the endpoints opened up.
+  const fromGoal =
+    input.via.path === 'available'
+      ? new Decimal(0)
+      : input.via.path === 'reserve'
+        ? amount
+        : new Decimal(input.via.fromGoal);
+
+  const via = input.via;
+  if (via.path !== 'available') {
+    const goal = state.goals.find((g) => g.goalId === via.goalId);
     const usable = goal && (goal.status === 'active' || goal.status === 'paused');
-    if (!usable || new Decimal(goal.cash).lt(amount)) return { ok: false, reason: 'notAffordable' };
+    // A split must genuinely be one: a share of zero (or the whole thing) is
+    // one of the other two paths and must arrive as that path, so the record
+    // and the trail describe what the user actually chose.
+    if (!usable || fromGoal.lte(0) || fromGoal.gt(amount) || new Decimal(goal.cash).lt(fromGoal))
+      return { ok: false, reason: 'notAffordable' };
+    if (via.path === 'split' && fromGoal.gte(amount)) return { ok: false, reason: 'notAffordable' };
     events.push({
       ...base(correlationId),
       type: 'GoalCashReleased',
       goalId: goal.goalId,
-      amount: amount.toFixed(2),
+      amount: fromGoal.toFixed(2),
       expectedVersion: goal.version,
     });
-  } else if (new Decimal(state.buckets.working).lt(amount)) {
-    return { ok: false, reason: 'notAffordable' };
   }
+  // Available pays whatever the reserve did not — and must hold it BEFORE the
+  // release lands, since the release is what tops it up.
+  if (new Decimal(state.buckets.working).lt(amount.minus(fromGoal)))
+    return { ok: false, reason: 'notAffordable' };
 
   events.push({
     ...base(correlationId),
@@ -65,7 +87,12 @@ export function resolveSimulatedExpense(input: {
   recordResolution({
     eventInstanceId: input.eventInstanceId,
     eventType: input.eventType,
-    choice: input.via.path === 'reserve' ? 'useReserve' : 'coverFromAvailable',
+    choice:
+      input.via.path === 'reserve'
+        ? 'useReserve'
+        : input.via.path === 'split'
+          ? 'split'
+          : 'coverFromAvailable',
     resolvedAt: new Date().toISOString(),
   });
   return { ok: true };

@@ -78,6 +78,14 @@ export interface AffordableOptions {
    * judged). Active or paused; never dropped/accomplished.
    */
   reserveGoalIds: string[];
+  /**
+   * Goals that can cover PART of it, with Available covering the rest
+   * (P2BD-17). A strictly wider set than `reserveGoalIds`: a goal holding less
+   * than the expense was unusable before the split existed, and Available
+   * alone may fall short — so the split can be the only affordable path, not
+   * merely a third flavour of two that already work.
+   */
+  splitGoalIds: string[];
 }
 
 /**
@@ -88,7 +96,15 @@ export interface AffordableOptions {
 /** One option's honest before/after — the impact preview's whole content. */
 export interface ExpenseImpact {
   /** The option key, matching the catalogue's `optionKeys`. */
-  option: 'coverFromAvailable' | 'useReserve';
+  option: 'coverFromAvailable' | 'useReserve' | 'split';
+  /** Split only: the bounds the user's amount must sit inside. */
+  bounds?: SplitBounds;
+  /**
+   * Split only: no valid share entered yet, so there is no "after" to state.
+   * Rendering before → before would read as a projection of "nothing changes"
+   * when the truth is "nothing has been chosen".
+   */
+  pending?: boolean;
   /** Present only on the reserve path — whose reserve. */
   goalId?: string;
   availableBefore: number;
@@ -115,7 +131,13 @@ export interface ExpenseImpact {
 export function expenseImpacts(
   state: LedgerState,
   amount: number,
-  options: AffordableOptions
+  options: AffordableOptions,
+  /**
+   * The split amounts the user has entered so far, by goal. Absent = they have
+   * not chosen yet, and the split's figures stay blank rather than showing a
+   * number nobody picked.
+   */
+  splitFromGoal: Record<string, number> = {}
 ): ExpenseImpact[] {
   const working = Number(state.buckets.working);
   const impacts: ExpenseImpact[] = [];
@@ -140,15 +162,66 @@ export function expenseImpacts(
       goalCashAfter: cash - amount,
     });
   }
+  for (const goalId of options.splitGoalIds) {
+    const goal = state.goals.find((g) => g.goalId === goalId);
+    const bounds = splitBounds(state, amount, goalId);
+    if (!goal || !bounds) continue;
+    const cash = Number(goal.cash);
+    const entered = splitFromGoal[goalId];
+    const valid = entered != null && entered >= bounds.min && entered <= bounds.max;
+    impacts.push({
+      option: 'split',
+      goalId,
+      bounds,
+      pending: !valid,
+      availableBefore: working,
+      // Until they have entered a valid share there is no "after" to state.
+      availableAfter: valid ? working - (amount - entered) : working,
+      goalCashBefore: cash,
+      goalCashAfter: valid ? cash - entered : cash,
+    });
+  }
   return impacts;
 }
 
 export function affordableExpenseOptions(state: LedgerState, amount: number): AffordableOptions {
   const working = Number(state.buckets.working);
+  const usable = state.goals.filter((g) => g.status === 'active' || g.status === 'paused');
   return {
     coverFromAvailable: working >= amount,
-    reserveGoalIds: state.goals
-      .filter((g) => (g.status === 'active' || g.status === 'paused') && Number(g.cash) >= amount)
-      .map((g) => g.goalId),
+    reserveGoalIds: usable.filter((g) => Number(g.cash) >= amount).map((g) => g.goalId),
+    // A split needs BOTH sides to contribute something real — which is
+    // exactly the question `splitBounds` answers, so it is asked here rather
+    // than re-derived. (Deriving it independently first produced a filter
+    // that excluded any goal holding MORE than the expense — i.e. it removed
+    // the most ordinary split of all: a big reserve chipping in a little.)
+    splitGoalIds: usable.filter((g) => splitBounds(state, amount, g.goalId)).map((g) => g.goalId),
   };
+}
+
+/** The bounds the user's own split must fall inside — never a suggestion. */
+export interface SplitBounds {
+  /** Least the reserve can give: whatever Available cannot cover. */
+  min: number;
+  /** Most it can give: all its cash, but never the whole expense. */
+  max: number;
+}
+
+/**
+ * What a split from `goalId` is allowed to be (P2BD-17). diBoaS supplies the
+ * bounds — which are arithmetic, not judgment — and nothing else: no default,
+ * no midpoint, no "suggested" mark. The amount inside them is the user's.
+ */
+export function splitBounds(
+  state: LedgerState,
+  amount: number,
+  goalId: string
+): SplitBounds | null {
+  const goal = state.goals.find((g) => g.goalId === goalId);
+  if (!goal || (goal.status !== 'active' && goal.status !== 'paused')) return null;
+  const working = Number(state.buckets.working);
+  const cash = Number(goal.cash);
+  const min = Math.max(0.01, amount - working);
+  const max = Math.min(cash, amount - 0.01);
+  return max >= min ? { min, max } : null;
 }

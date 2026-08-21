@@ -17,6 +17,7 @@ import {
   dueSimulatedEvent,
   expenseImpacts,
   simulatedEventAmount,
+  splitBounds,
 } from '@/lib/simulatedEvents';
 import { getResolutions } from '@/lib/simulatedEventStore';
 import { SIM_EVENT_DEFAULT_MULTIPLE, SIM_EVENT_SIZING } from '@/lib/growthConstants';
@@ -281,5 +282,144 @@ describe('the trigger (§4.11 — the seam D-s left to the challenge track)', ()
 
     // Board §6a "absent over false": no pace field exists to be wrong.
     expect(Object.keys(cover)).not.toContain('goalPace');
+  });
+});
+
+describe('the user-set split (P2BD-17, founder 2026-08-21)', () => {
+  const GENESIS = '2026-08-01T09:00:00Z';
+  const AT_WEEK_3 = new Date(Date.parse(GENESIS) + 21 * 86_400_000).toISOString();
+
+  beforeEach(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date(GENESIS));
+    resetSandbox();
+  });
+  afterEach(() => vi.useRealTimers());
+
+  /** Grant, then park `goalCash` in a goal so Available is what remains. */
+  function seed(grant: number, goalCash: number) {
+    grantPlayMoney(grant, 'USD', 'b2c');
+    const goalId = createGoal({
+      name: 'Safety net',
+      icon: 'shield',
+      targetAmount: 5000,
+      horizonMonths: 12,
+      fundAmount: goalCash,
+    })!;
+    vi.setSystemTime(new Date(AT_WEEK_3));
+    return goalId;
+  }
+
+  it('should offer a split from a goal too small for the full expense', () => {
+    const goalId = seed(10_000, 500); // expense 1,500; the goal holds 500
+    const options = affordableExpenseOptions(getLedgerState(), 1500);
+    expect(options.reserveGoalIds).not.toContain(goalId);
+    expect(options.splitGoalIds).toContain(goalId);
+  });
+
+  it('should ALSO offer a split from a goal that could cover the whole expense', () => {
+    // The most ordinary split there is: a healthy reserve chipping in a
+    // little. An earlier filter excluded these, which silently removed the
+    // common case while the rare one worked.
+    const goalId = seed(10_000, 3000);
+    const options = affordableExpenseOptions(getLedgerState(), 1500);
+    expect(options.reserveGoalIds).toContain(goalId);
+    expect(options.splitGoalIds).toContain(goalId);
+  });
+
+  it('should be the ONLY affordable path when neither side can cover it alone', () => {
+    // Available 800, goal 900 — 1,500 fits neither, but 800 + 700 does.
+    const goalId = seed(1700, 900);
+    const options = affordableExpenseOptions(getLedgerState(), 1500);
+    expect(options.coverFromAvailable).toBe(false);
+    expect(options.reserveGoalIds).toEqual([]);
+    expect(options.splitGoalIds).toEqual([goalId]);
+  });
+
+  it('should state bounds without ever proposing an amount inside them', () => {
+    const goalId = seed(1700, 900); // Available 800
+    const bounds = splitBounds(getLedgerState(), 1500, goalId)!;
+    // The reserve must cover at least what Available cannot (1500 − 800),
+    // and at most its own cash. No default, midpoint or "suggested" field
+    // exists on the returned shape — that is the whole point of P2BD-17.
+    expect(bounds.min).toBe(700);
+    expect(bounds.max).toBe(900);
+    expect(Object.keys(bounds).sort()).toEqual(['max', 'min']);
+  });
+
+  it('should refuse a share outside the bounds rather than clamp it', () => {
+    const goalId = seed(1700, 900);
+    const tooMuch = resolveSimulatedExpense({
+      eventInstanceId: 'e1',
+      eventType: 'unexpected_expense',
+      amount: 1500,
+      via: { path: 'split', goalId, fromGoal: 950 }, // more than the goal holds
+    });
+    expect(tooMuch).toEqual({ ok: false, reason: 'notAffordable' });
+    const tooLittle = resolveSimulatedExpense({
+      eventInstanceId: 'e1',
+      eventType: 'unexpected_expense',
+      amount: 1500,
+      via: { path: 'split', goalId, fromGoal: 100 }, // Available can't cover 1,400
+    });
+    expect(tooLittle).toEqual({ ok: false, reason: 'notAffordable' });
+    expect(getLedgerState().resolvedEventInstances).toEqual([]);
+  });
+
+  it('should reject an endpoint dressed as a split (that is one of the other two)', () => {
+    const goalId = seed(10_000, 3000);
+    expect(
+      resolveSimulatedExpense({
+        eventInstanceId: 'e1',
+        eventType: 'unexpected_expense',
+        amount: 1500,
+        via: { path: 'split', goalId, fromGoal: 1500 },
+      })
+    ).toEqual({ ok: false, reason: 'notAffordable' });
+  });
+
+  it('should take exactly the user amount from the goal and the rest from Available', () => {
+    const goalId = seed(10_000, 3000); // Available 7,000
+    const result = resolveSimulatedExpense({
+      eventInstanceId: 'e1',
+      eventType: 'unexpected_expense',
+      amount: 1500,
+      via: { path: 'split', goalId, fromGoal: 400 },
+    });
+    expect(result).toEqual({ ok: true });
+    const after = getLedgerState();
+    expect(Number(after.goals[0].cash)).toBe(2600); // 3000 − 400
+    // 7,000 + 400 released − 1,500 paid = 5,900.
+    expect(Number(after.buckets.working)).toBe(5900);
+    expect(reconcile(after)).toBe('0.00');
+  });
+
+  it('should record the split as its own choice, not as one of the endpoints', () => {
+    const goalId = seed(10_000, 3000);
+    resolveSimulatedExpense({
+      eventInstanceId: 'e1',
+      eventType: 'unexpected_expense',
+      amount: 1500,
+      via: { path: 'split', goalId, fromGoal: 400 },
+    });
+    expect(getResolutions()[0]).toMatchObject({
+      choice: 'split',
+      catalogueVersion: SIMULATED_EVENT_CATALOGUE_VERSION,
+    });
+  });
+
+  it('should leave the split figures blank until a valid amount is entered', () => {
+    const goalId = seed(10_000, 3000);
+    const state = getLedgerState();
+    const options = affordableExpenseOptions(state, 1500);
+    const blank = expenseImpacts(state, 1500, options).find((i) => i.option === 'split')!;
+    // No amount typed → no "after" is asserted, because none was chosen.
+    expect(blank.availableAfter).toBe(blank.availableBefore);
+    expect(blank.goalCashAfter).toBe(blank.goalCashBefore);
+    const typed = expenseImpacts(state, 1500, options, { [goalId]: 400 }).find(
+      (i) => i.option === 'split'
+    )!;
+    expect(typed.goalCashAfter).toBe(2600);
+    expect(typed.availableAfter).toBe(7000 - 1100);
   });
 });

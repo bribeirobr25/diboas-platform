@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FormattedMessage, useIntl } from 'react-intl';
-import type { SandboxLocale } from '@/i18n/config';
+import { CURRENCY_SYMBOL, type SandboxLocale } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
 import { useFormatters } from '@/hooks/useFormatters';
 import { resolveSimulatedExpense } from '@/lib/ledgerClient';
@@ -24,6 +24,7 @@ type Stage = 'presented' | 'preview';
 const OPTION_ICON = {
   coverFromAvailable: 'wallet',
   useReserve: 'shield',
+  split: 'git-branch',
 } as const;
 
 /**
@@ -56,14 +57,37 @@ export function SimulatedEventScreen({ locale }: { locale: SandboxLocale }) {
   const intl = useIntl();
   const router = useRouter();
   const state = useLedger();
+  // The LEDGER's currency, never the locale's (the §4.7 defect): a reader
+  // who switches locale still holds the currency they were granted.
+  const currencySymbol = CURRENCY_SYMBOL[state.currency];
   const { money } = useFormatters(state.currency);
   const [stage, setStage] = useState<Stage>('presented');
   const [confirming, setConfirming] = useState<ExpenseImpact | null>(null);
+  /**
+   * The split amount per goal, as TYPED (a string, so a half-entered "1" or an
+   * empty field stays exactly what the user left there). Starts empty for
+   * every goal: a pre-filled share would be diBoaS deciding how much of your
+   * reserve to spend, which is the whole reason the split is user-entered
+   * (P2BD-17) — and the same no-default rule the rules builder follows.
+   */
+  const [splitInput, setSplitInput] = useState<Record<string, string>>({});
 
   const due = dueSimulatedEvent(state, new Date().toISOString());
   const options = due ? affordableExpenseOptions(state, due.amount) : null;
-  const impacts = due && options ? expenseImpacts(state, due.amount, options) : [];
+  const splitAmounts = Object.fromEntries(
+    Object.entries(splitInput)
+      .map(([goalId, raw]) => [goalId, Number(raw)] as const)
+      .filter(([, n]) => Number.isFinite(n) && n > 0)
+  );
+  const impacts = due && options ? expenseImpacts(state, due.amount, options, splitAmounts) : [];
   const goalOf = (goalId?: string) => state.goals.find((g) => g.goalId === goalId);
+
+  /** A split is choosable only once the typed share sits inside its bounds. */
+  function splitReady(impact: ExpenseImpact): boolean {
+    if (impact.option !== 'split' || !impact.bounds || !impact.goalId) return true;
+    const entered = splitAmounts[impact.goalId];
+    return entered != null && entered >= impact.bounds.min && entered <= impact.bounds.max;
+  }
 
   function commit() {
     if (!due || !confirming) return;
@@ -74,7 +98,13 @@ export function SimulatedEventScreen({ locale }: { locale: SandboxLocale }) {
       via:
         confirming.option === 'useReserve' && confirming.goalId
           ? { path: 'reserve', goalId: confirming.goalId }
-          : { path: 'available' },
+          : confirming.option === 'split' && confirming.goalId
+            ? {
+                path: 'split',
+                goalId: confirming.goalId,
+                fromGoal: splitAmounts[confirming.goalId],
+              }
+            : { path: 'available' },
     });
     setConfirming(null);
     // A refusal means the balance moved under the preview (another tab, a
@@ -223,30 +253,100 @@ export function SimulatedEventScreen({ locale }: { locale: SandboxLocale }) {
                         <FormattedMessage id="simEvent.available" />
                       </dt>
                       <dd>
-                        <span className={styles.before}>
+                        <span className={impact.pending ? styles.after : styles.before}>
                           {money(impact.availableBefore.toFixed(2))}
                         </span>
-                        <LucideIcon name="arrow-right" size={14} />
-                        <span className={styles.after}>
-                          {money(impact.availableAfter.toFixed(2))}
-                        </span>
+                        {/* No arrow, no "after", until there IS one. */}
+                        {impact.pending ? null : (
+                          <>
+                            <LucideIcon name="arrow-right" size={14} />
+                            <span className={styles.after}>
+                              {money(impact.availableAfter.toFixed(2))}
+                            </span>
+                          </>
+                        )}
                       </dd>
                     </div>
                     {impact.goalCashBefore != null && impact.goalCashAfter != null ? (
                       <div className={styles.figure}>
                         <dt>{goal?.name}</dt>
                         <dd>
-                          <span className={styles.before}>
+                          <span className={impact.pending ? styles.after : styles.before}>
                             {money(impact.goalCashBefore.toFixed(2))}
                           </span>
-                          <LucideIcon name="arrow-right" size={14} />
-                          <span className={styles.after}>
-                            {money(impact.goalCashAfter.toFixed(2))}
-                          </span>
+                          {impact.pending ? null : (
+                            <>
+                              <LucideIcon name="arrow-right" size={14} />
+                              <span className={styles.after}>
+                                {money(impact.goalCashAfter.toFixed(2))}
+                              </span>
+                            </>
+                          )}
                         </dd>
                       </div>
                     ) : null}
                   </dl>
+                  {impact.option === 'split' && impact.bounds && impact.goalId ? (
+                    /* The user's own division (P2BD-17). A typed field, not a
+                       slider: UX-16 puts sliders on casual bounded inputs and
+                       precise money on a keypad. diBoaS states the BOUNDS —
+                       which are arithmetic — and nothing else: no default, no
+                       midpoint, no "suggested" mark, because any number here
+                       would be advice about someone's reserve. */
+                    <div className={styles.splitField}>
+                      <label className={styles.splitLabel} htmlFor={`split-${impact.goalId}`}>
+                        <FormattedMessage
+                          id="simEvent.splitLabel"
+                          values={{ goal: goal?.name ?? '' }}
+                        />
+                      </label>
+                      <div className={styles.amountInput}>
+                        <span className={styles.amountPrefix} aria-hidden>
+                          {currencySymbol}
+                        </span>
+                        <input
+                          id={`split-${impact.goalId}`}
+                          className={styles.amountField}
+                          type="number"
+                          inputMode="decimal"
+                          min={impact.bounds.min}
+                          max={impact.bounds.max}
+                          step="0.01"
+                          value={splitInput[impact.goalId] ?? ''}
+                          onChange={(e) =>
+                            setSplitInput((prev) => ({
+                              ...prev,
+                              [impact.goalId!]: e.target.value,
+                            }))
+                          }
+                          placeholder="0.00"
+                          aria-describedby={`split-range-${impact.goalId}`}
+                        />
+                      </div>
+                      {/* The range is stated up front, not discovered by being
+                          rejected — and the rest-from-Available is spelled out
+                          so the split is never a number without a meaning. */}
+                      <p id={`split-range-${impact.goalId}`} className={styles.splitRange}>
+                        <FormattedMessage
+                          id="simEvent.splitRange"
+                          values={{
+                            min: money(impact.bounds.min.toFixed(2)),
+                            max: money(impact.bounds.max.toFixed(2)),
+                          }}
+                        />
+                      </p>
+                      {splitReady(impact) ? (
+                        <p className={styles.splitRest}>
+                          <FormattedMessage
+                            id="simEvent.splitRest"
+                            values={{
+                              rest: money((due.amount - splitAmounts[impact.goalId]).toFixed(2)),
+                            }}
+                          />
+                        </p>
+                      ) : null}
+                    </div>
+                  ) : null}
                   {impact.option === 'useReserve' ? (
                     /* Neutral, never consoling and never warning: it is what a
                        reserve is for. No amber, no "are you sure". */
@@ -257,6 +357,7 @@ export function SimulatedEventScreen({ locale }: { locale: SandboxLocale }) {
                   <Button
                     variant="secondary"
                     fullWidth
+                    disabled={!splitReady(impact)}
                     onClick={() => setConfirming(impact)}
                     aria-label={intl.formatMessage(
                       { id: 'simEvent.chooseLabel' },
@@ -270,6 +371,14 @@ export function SimulatedEventScreen({ locale }: { locale: SandboxLocale }) {
                   >
                     <FormattedMessage id="simEvent.choose" />
                   </Button>
+                  {/* A disabled control always says why (the §4.6/§4.7/§4.9
+                      precedent) — here the range line above is the answer, so
+                      this only names the missing step. */}
+                  {!splitReady(impact) ? (
+                    <p className={styles.splitHint}>
+                      <FormattedMessage id="simEvent.splitHint" />
+                    </p>
+                  ) : null}
                 </li>
               );
             })}
@@ -284,16 +393,34 @@ export function SimulatedEventScreen({ locale }: { locale: SandboxLocale }) {
       {confirming ? (
         <Manifest
           titleId="simEvent.confirmTitle"
+          /* A split comes from TWO places, so the manifest itemizes both — the
+             FC-15 discipline: the signing surface states exactly what moves
+             and from where, never a rounded-up single source. */
           rows={[
             { labelId: 'simEvent.manifest.event', value: <FormattedMessage id="simEvent.name" /> },
             { labelId: 'simEvent.manifest.amount', value: amount },
-            {
-              labelId: 'simEvent.manifest.from',
-              value:
-                confirming.option === 'useReserve'
-                  ? (goalOf(confirming.goalId)?.name ?? '')
-                  : intl.formatMessage({ id: 'simEvent.available' }),
-            },
+            ...(confirming.option === 'split' && confirming.goalId
+              ? [
+                  {
+                    labelId: 'simEvent.manifest.fromReserve',
+                    value: `${goalOf(confirming.goalId)?.name ?? ''} · ${money(
+                      splitAmounts[confirming.goalId].toFixed(2)
+                    )}`,
+                  },
+                  {
+                    labelId: 'simEvent.manifest.fromAvailable',
+                    value: money((due.amount - splitAmounts[confirming.goalId]).toFixed(2)),
+                  },
+                ]
+              : [
+                  {
+                    labelId: 'simEvent.manifest.from',
+                    value:
+                      confirming.option === 'useReserve'
+                        ? (goalOf(confirming.goalId)?.name ?? '')
+                        : intl.formatMessage({ id: 'simEvent.available' }),
+                  },
+                ]),
           ]}
           ctaId="simEvent.manifest.cta"
           reassuranceId="simEvent.manifest.reassurance"

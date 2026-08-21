@@ -53,8 +53,10 @@ export const SIMULATED_EVENT_CATALOGUE: {
         maxMultiple: SIM_EVENT_SIZING.maxWeeklyMultiple,
         defaultMultiple: SIM_EVENT_DEFAULT_MULTIPLE,
       },
-      // 14.8: 2–4 options incl. use-the-emergency-goal — never judged.
-      optionKeys: ['coverFromAvailable', 'useReserve'],
+      // 14.8: 2-4 options incl. use-the-emergency-goal. 'split' is the
+      // user's OWN division (P2BD-17, founder 2026-08-21): the amount comes
+      // from them, never from a diBoaS-chosen ratio.
+      optionKeys: ['coverFromAvailable', 'useReserve', 'split'],
     },
   ],
 };

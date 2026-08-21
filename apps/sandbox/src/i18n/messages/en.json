@@ -645,6 +645,12 @@
     "option.useReserve": "Use {goal}",
     "optionNote.coverFromAvailable": "Money that is ready to spend.",
     "optionNote.useReserve": "Money you set aside for exactly this.",
+    "option.split": "Split it with {goal}",
+    "optionNote.split": "Some from your reserve, the rest from Available.",
+    "splitLabel": "How much comes from {goal}?",
+    "splitRange": "Anything from {min} to {max}.",
+    "splitRest": "The remaining {rest} comes from Available.",
+    "splitHint": "Enter an amount inside that range to choose this.",
     "previewImpact": "See what each one does",
     "previewTitle": "What each choice does",
     "previewSubtitle": "The same money, depending on what you pick.",
@@ -665,6 +671,8 @@
     "manifest.event": "Practice scenario",
     "manifest.amount": "Amount",
     "manifest.from": "Comes from",
+    "manifest.fromReserve": "From your reserve",
+    "manifest.fromAvailable": "From Available",
     "manifest.cta": "Confirm",
     "manifest.reassurance": "Play money only. The decision is real; the money is not."
   }

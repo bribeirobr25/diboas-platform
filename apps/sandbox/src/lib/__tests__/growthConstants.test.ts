@@ -11,6 +11,7 @@ import {
   comparisonCreditAmount,
   MAX_UNCOLLECTED_WEEKS,
   SIM_EVENT_DEFAULT_MULTIPLE,
+  SIM_EVENT_DUE_WEEK,
 } from '../growthConstants';
 
 // Attestation drift guard — docs/sandbox-app/PHASE2_CONSTANTS_ATTESTATION.md.
@@ -27,6 +28,9 @@ describe('Phase-2 growth constants (attestation drift guard)', () => {
     expect(SIM_EVENT_DEFAULT_MULTIPLE).toBe(1.5);
     expect(SIM_EVENT_DEFAULT_MULTIPLE).toBeGreaterThanOrEqual(SIM_EVENT_SIZING.minWeeklyMultiple);
     expect(SIM_EVENT_DEFAULT_MULTIPLE).toBeLessThanOrEqual(SIM_EVENT_SIZING.maxWeeklyMultiple);
+    // The event's slot in the arc (attestation §4.11): late enough that a
+    // goal, a system and a first collection are behind the user.
+    expect(SIM_EVENT_DUE_WEEK).toBe(3);
   });
 
   it('should derive weekly credit + ceiling from the grant (single source, never a literal)', () => {
