@@ -8,6 +8,7 @@ import { useLedger } from '@/hooks/useLedger';
 import { useFormatters } from '@/hooks/useFormatters';
 import { applyRuleProposal, collectWeeklyCredits, declineProposal } from '@/lib/ledgerClient';
 import { getCollectView, deriveStandingProposal } from '@/lib/weeklyCycle';
+import { goalAccentIndex } from '@/lib/goalAccent';
 import { getDeclinedWeeks } from '@/lib/proposalStore';
 import { weeklyCreditAmount } from '@/lib/growthConstants';
 import { Button } from './Button';
@@ -163,7 +164,9 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
                 {/* The goal's OWN icon — mockup 11 carries a mark per row, and
                     every other goal-bearing surface renders `goal.icon`, so a
                     generic one here would read as a different goal. */}
-                <span className={styles.lineIcon}>
+                {/* The goal's identity colour, same as every other surface —
+                    that is the point of having one. */}
+                <span className={styles.lineIcon} data-accent={goalAccentIndex(line.goalId)}>
                   <LucideIcon name={goalOf(line.goalId)?.icon ?? 'target'} size={18} />
                 </span>
                 <span className={styles.lineName}>

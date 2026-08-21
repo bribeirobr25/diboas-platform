@@ -1,0 +1,28 @@
+/*
+ * Desktop/tablet only — on a phone there is no gutter to spend on it, and the
+ * screens carry their own framing in accessible copy.
+ */
+.caption {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .caption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    margin: 0 0 var(--spacing-lg);
+    text-align: center;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-md);
+    letter-spacing: -0.01em;
+    color: var(--sb-text-heading);
+  }
+}
+
+.sub {
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}

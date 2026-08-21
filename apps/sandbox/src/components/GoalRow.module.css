@@ -23,6 +23,26 @@ li:first-child .goalCard {
   background: var(--sb-accent);
   color: var(--color-white);
 }
+/* Per-goal identity colour (founder 2026-08-21). The glyph is white on a
+   filled badge; every hue in the palette was measured at >=3:1 against white
+   before it was allowed in (globals.css). */
+.goalIcon[data-accent='0'] {
+  background: var(--goal-accent-0);
+  color: var(--color-white);
+}
+.goalIcon[data-accent='1'] {
+  background: var(--goal-accent-1);
+  color: var(--color-white);
+}
+.goalIcon[data-accent='2'] {
+  background: var(--goal-accent-2);
+  color: var(--color-white);
+}
+.goalIcon[data-accent='3'] {
+  background: var(--goal-accent-3);
+  color: var(--color-white);
+}
+
 .goalCard[data-closed='true'] .goalIcon {
   background: var(--sb-hairline-strong);
   color: var(--sb-text-muted);

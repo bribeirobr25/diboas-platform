@@ -88,6 +88,25 @@
   background: var(--sb-accent-tint);
   color: var(--text-brand-accessible);
 }
+
+/* Per-goal identity colour — the same palette the goal rows use, so a goal is
+   recognisable here too (globals.css documents the contrast measurements). */
+.lineIcon[data-accent='0'] {
+  background: var(--goal-accent-0);
+  color: var(--color-white);
+}
+.lineIcon[data-accent='1'] {
+  background: var(--goal-accent-1);
+  color: var(--color-white);
+}
+.lineIcon[data-accent='2'] {
+  background: var(--goal-accent-2);
+  color: var(--color-white);
+}
+.lineIcon[data-accent='3'] {
+  background: var(--goal-accent-3);
+  color: var(--color-white);
+}
 .lineName {
   display: flex;
   flex-direction: column;

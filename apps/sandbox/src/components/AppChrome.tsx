@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { FrameCaption } from './FrameCaption';
 import { LucideIcon } from './LucideIcon';
 import { LedgerReadyGate } from './LedgerReadyGate';
-import { ModeChip } from './ModeChip';
 import { Wordmark } from './Wordmark';
 import styles from './AppChrome.module.css';
 
@@ -38,12 +38,7 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
     <div className={styles.surround}>
       {/* A quiet brand caption in the desktop gutter so the surround around the
           phone canvas reads as intentional, not stranded (UI-UX-REDESIGN Part B, C1). */}
-      <p className={styles.frameCaption} aria-hidden>
-        <FormattedMessage id="common.appName" />
-        <span className={styles.frameCaptionSub}>
-          <FormattedMessage id="common.frameCaption" />
-        </span>
-      </p>
+      <FrameCaption />
       <div className={styles.canvas}>
         {/* Home only: the coastal hero band sits behind a transparent app bar
             and the play-balance hero (mockup 02, issue #3). Decorative. */}
@@ -59,11 +54,24 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
           >
             <LucideIcon name="user" size={24} />
           </Link>
+          {/* No chip here (founder 2026-08-21): the sandbox framing is carried
+              ONCE, by the frame caption above the canvas — the bar was stating
+              the same thing three ways.
+
+              The founder also asked for the SHORT logo (mockup 02's palm mark)
+              rather than the wordmark. Blocked on an asset, deliberately not
+              faked: the only monogram in the repo
+              (`apps/web/public/assets/logos/logo-icon-monogram.avif`) is the
+              opaque app-icon used solely as a schema.org publisher logo, and
+              every icon PNG is background-baked too (verified: no alpha
+              channel on any of them). Cropping the palm out of the wordmark
+              would be exactly the fabricated asset the compliance gate
+              forbids. The wordmark stands until a transparent mark ships;
+              swapping it is then one line. */}
           <div className={styles.appbarCenter}>
-            <Link href={home}>
+            <Link href={home} aria-label={intl.formatMessage({ id: 'nav.home' })}>
               <Wordmark size="1.7rem" />
             </Link>
-            <ModeChip />
           </div>
           <Link
             href={notifications}

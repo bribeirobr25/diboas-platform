@@ -47,6 +47,18 @@
   --sb-text-on-ink: var(--editorial-paper); /* cream on ink-teal */
   --sb-text-on-ink-muted: var(--color-teal-100);
 
+  /* Per-goal identity colours (founder 2026-08-21, mockup 02 colour-codes its
+     goals). Four hues, each verified at >=3:1 against a WHITE glyph so the
+     filled badge clears WCAG 1.4.11 non-text contrast: teal-600 3.74,
+     blue-600 5.17, amber-600 3.19, purple-500 4.23. coral-500 (2.79) and
+     teal-500 (2.28) were rejected on that measurement, not on taste. The same
+     four carry in dark — the badge is filled, so the card ground behind it
+     does not enter the glyph's contrast. */
+  --goal-accent-0: var(--color-teal-600);
+  --goal-accent-1: var(--color-blue-600);
+  --goal-accent-2: var(--color-amber-600);
+  --goal-accent-3: var(--color-purple-500);
+
   /* Accents */
   --sb-accent: var(--color-teal-600);
   --sb-accent-strong: var(--color-teal-700);

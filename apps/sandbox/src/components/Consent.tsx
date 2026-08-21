@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Button } from './Button';
 import { Card } from './Card';
+import { FrameCaption } from './FrameCaption';
 import { LucideIcon } from './LucideIcon';
 import { ModeChip } from './ModeChip';
 import { Toggle } from './Toggle';
@@ -68,6 +69,7 @@ export function Consent({ locale }: { locale: string }) {
 
   return (
     <section className={styles.wrap} aria-labelledby="consent-title">
+      <FrameCaption />
       <header className={styles.top}>
         <ModeChip />
         <Wordmark className={styles.wordmark} />

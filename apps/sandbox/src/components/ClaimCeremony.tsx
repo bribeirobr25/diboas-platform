@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Button } from './Button';
 import { Card } from './Card';
+import { FrameCaption } from './FrameCaption';
 import { LucideIcon } from './LucideIcon';
 import { ModeChip } from './ModeChip';
 import { Wordmark } from './Wordmark';
@@ -37,6 +38,7 @@ export function ClaimCeremony({ locale }: { locale: SandboxLocale }) {
 
   return (
     <section className={styles.wrap} aria-labelledby="claim-title">
+      <FrameCaption />
       <header className={styles.hero}>
         <div className={styles.heroImg} aria-hidden />
         <div className={styles.heroFade} aria-hidden />
