@@ -99,10 +99,55 @@ function deltaFor(event: LedgerEvent): Decimal {
     case 'StrategyEntered':
       return new Decimal(event.networkFee).neg();
     case 'StrategyExited':
+      // gross is `principal + accrued` at both emitters, so the position
+      // leaving `held` is exactly cancelled by the net landing in goal.cash —
+      // what remains is the fees.
       return new Decimal(event.exitFee).plus(event.networkFee).neg();
-    default:
+
+    // ── Provably net-zero on the play balance ────────────────────────────
+    // Each of these either touches no component of `held`, or moves value
+    // between two of them. Verified against the projection, not assumed:
+    //   JobsSplitSet          re-splits the SAME total across the three
+    //                         buckets (working absorbs the rounding)
+    //   GoalFunded            working → goal.cash
+    //   RecurringContribution working → an OPEN position's principal
+    //                         (guarded: `if (!position || !position.s.open)`)
+    //   GoalDropped           goal.cash → working
+    //   GoalCashReleased      goal.cash → working
+    // the rest mutate no held component at all.
+    case 'JobsSplitSet':
+    case 'GoalCreated':
+    case 'GoalFunded':
+    case 'RecurringSet':
+    case 'RecurringContributionApplied':
+    case 'TimeAdvanced':
+    case 'GoalPaused':
+    case 'GoalResumed':
+    case 'GoalDropped':
+    case 'GoalAccomplished':
+    case 'PositionReassigned':
+    case 'GoalTargetChanged':
+    case 'GoalCashReleased':
+    case 'RuleCreated':
+    case 'RuleUpdated':
+    case 'RulePaused':
+    case 'RuleResumed':
+    case 'RuleDeleted':
+    case 'RuleApplied':
       return new Decimal(0);
   }
+  // No `default`. The engine's own `project()` refuses to swallow an unknown
+  // event for the same reason ("code older than its data — surface it
+  // loudly"), and here the stakes are the screen's whole promise: a NEW
+  // money-moving event silently defaulting to zero would make the rows stop
+  // summing to the change, with nothing failing. Adding an event type is now
+  // a compile error until someone decides what it does to the balance.
+  return assertNeverEvent(event);
+}
+
+/** Exhaustiveness guard — see the note in `deltaFor`. */
+function assertNeverEvent(event: never): never {
+  throw new Error(`monthReport: unhandled ledger event ${JSON.stringify(event)}`);
 }
 
 /** Which summing row an event belongs to, if any. */
