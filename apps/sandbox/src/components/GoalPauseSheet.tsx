@@ -1,6 +1,8 @@
 'use client';
 
 import { FormattedMessage } from 'react-intl';
+import { EXIT_FEE_FLOOR, type FeeCurrency } from '@diboas/banking';
+import { useFormatters } from '@/hooks/useFormatters';
 import { BottomSheet } from './BottomSheet';
 import { Button } from './Button';
 import { LucideIcon } from './LucideIcon';
@@ -19,16 +21,20 @@ import styles from './GoalPauseSheet.module.css';
  * onConfirm fires the GoalPaused seam (D-e); onDismiss closes.
  */
 export function GoalPauseSheet({
+  currency,
   onConfirm,
   onDismiss,
   onStopStrategy,
 }: {
+  /** The LEDGER's currency — the exit floor is per-currency (FEES.md FE-1a). */
+  currency: FeeCurrency;
   onConfirm?: () => void;
   onDismiss: () => void;
   /** Wired when the goal has open positions (G3): opens the REAL exit
    *  manifest — the fee is disclosed in the alsoStop line before the tap. */
   onStopStrategy?: () => void;
 }) {
+  const { money } = useFormatters(currency);
   return (
     <BottomSheet titleId="goalPause.title" onClose={onDismiss} tone="light">
       <p className={styles.body}>
@@ -48,7 +54,13 @@ export function GoalPauseSheet({
       </div>
 
       <p className={styles.alsoStop}>
-        <FormattedMessage id="goalPause.alsoStop" />
+        {/* FEES.md FE-1: the floor is disclosed NEXT TO THE RATE wherever the
+            rate appears. Bare, "0.39%" understates a small exit — on $50 the
+            real cost is the $0.25 floor, not $0.20. */}
+        <FormattedMessage
+          id="goalPause.alsoStop"
+          values={{ min: money(EXIT_FEE_FLOOR[currency].toNumber()) }}
+        />
       </p>
       {onStopStrategy ? (
         <button type="button" className={styles.stopLink} onClick={onStopStrategy}>

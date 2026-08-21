@@ -6,6 +6,7 @@ import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { useLedger } from '@/hooks/useLedger';
 import { BottomSheet } from './BottomSheet';
 import { Button } from './Button';
+import { FEE_RATES } from '@diboas/banking';
 import { LucideIcon } from './LucideIcon';
 import styles from './MoneyOut.module.css';
 
@@ -108,9 +109,12 @@ export function MoneyOut() {
               </span>
               <span className={styles.feeValue}>
                 <span className={styles.feePct}>
-                  {/* 0.48% cash-out fee (FEES.md); localized so de renders 0,48 %. */}
+                  {/* From the fee CONSTANTS, never a literal — fees.ts states
+                      the rule: "a fee value appearing as a string literal in a
+                      component is a bug by definition (R-3)". Localized so de
+                      renders 0,48 %. */}
                   <FormattedNumber
-                    value={0.0048}
+                    value={FEE_RATES.ramp.toNumber()}
                     style="percent"
                     minimumFractionDigits={2}
                     maximumFractionDigits={2}

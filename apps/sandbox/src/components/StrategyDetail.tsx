@@ -260,7 +260,10 @@ export function StrategyDetail({
               detail follows it. */}
           <Card className={styles.itemCard}>
             <p className={styles.costLead}>
-              <FormattedMessage id="strategyDetail.costLine" />
+              <FormattedMessage
+                id="strategyDetail.costLine"
+                values={{ min: money(EXIT_FEE_FLOOR[currency].toNumber()) }}
+              />
             </p>
             {renderItemization('full')}
           </Card>

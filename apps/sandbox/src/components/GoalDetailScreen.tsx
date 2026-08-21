@@ -687,6 +687,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
 
       {pauseSheet ? (
         <GoalPauseSheet
+          currency={state.currency}
           onConfirm={() => {
             pauseGoal(goalId);
             setPauseSheet(false);

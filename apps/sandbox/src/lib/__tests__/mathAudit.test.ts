@@ -85,3 +85,46 @@ describe('rule allocation conserves money exactly', () => {
     expect(out.remainderToAvailable).toBeGreaterThanOrEqual(0);
   });
 });
+
+describe('emitters never append a leg the projection will drop', () => {
+  it('should withhold an unaffordable goal funding rather than log a phantom move', async () => {
+    const { createGoal, getLedgerState, grantPlayMoney, resetSandbox } =
+      await import('@/lib/ledgerClient');
+    resetSandbox();
+    grantPlayMoney(100, 'USD', 'b2c');
+    const goalId = createGoal({
+      name: 'Too big',
+      icon: 'plane',
+      targetAmount: 5000,
+      horizonMonths: 12,
+      fundAmount: 5000,
+    });
+    const state = getLedgerState();
+    // The goal is still created — only the leg that cannot move is withheld.
+    expect(goalId).toBeTruthy();
+    expect(state.goals).toHaveLength(1);
+    // Before the fix: one GoalFunded for $5,000 sat in the trail while
+    // goalCash stayed 0.00 and working stayed 100.00 — History showed money
+    // arriving that never did.
+    expect(state.events.filter((e) => e.type === 'GoalFunded')).toHaveLength(0);
+    expect(Number(state.goals[0].cash)).toBe(0);
+    expect(Number(state.buckets.working)).toBe(100);
+  });
+
+  it('should still fund a goal it CAN afford', async () => {
+    const { createGoal, getLedgerState, grantPlayMoney, resetSandbox } =
+      await import('@/lib/ledgerClient');
+    resetSandbox();
+    grantPlayMoney(1000, 'USD', 'b2c');
+    createGoal({
+      name: 'Fine',
+      icon: 'plane',
+      targetAmount: 5000,
+      horizonMonths: 12,
+      fundAmount: 400,
+    });
+    const state = getLedgerState();
+    expect(Number(state.goals[0].cash)).toBe(400);
+    expect(Number(state.buckets.working)).toBe(600);
+  });
+});

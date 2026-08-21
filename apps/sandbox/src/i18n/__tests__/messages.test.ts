@@ -71,6 +71,31 @@ describe('anti-slop punctuation guard (checklist Part 2, baked in as a test)', (
   });
 });
 
+describe('FE-1: the exit floor travels with the exit rate', () => {
+  /**
+   * FEES.md v3.5 design principle FE-1: "The only non-percentage element is
+   * the small Sell/Exit floor, DISCLOSED NEXT TO THE RATE WHEREVER THE RATE
+   * APPEARS."
+   *
+   * Two strings stated a bare 0.39% — `strategyDetail.costLine` (the Simple
+   * view's lead cost line, the one most readers see) and `goalPause.alsoStop`.
+   * On a $50 exit the real price is the $0.25 floor, i.e. 0.5%, not the 0.39%
+   * quoted. Understating a fee is a Voice Q3 breach, not a copy nit — it is
+   * the same defect class as live web 5.103.
+   */
+  it('should never quote the exit rate without its floor, in any locale', () => {
+    const RATE = /0[.,]39\s*%/;
+    for (const locale of SANDBOX_LOCALES) {
+      for (const [id, msg] of Object.entries(getMessages(locale))) {
+        if (!RATE.test(msg)) continue;
+        expect(msg.includes('{min}'), `${locale}:${id} quotes 0.39% without {min} — "${msg}"`).toBe(
+          true
+        );
+      }
+    }
+  });
+});
+
 describe('F-CLO-B1/B2: strategy copy carries no return-promise, superlative, or suitability framing', () => {
   // The picker taglines + the "rate now" line sit on the advice-adjacent
   // surface (StrategyPicker). The EU Case-4 defence (ESMA35-43-3861) rests on
@@ -108,6 +133,41 @@ describe('F-CLO-B1/B2: strategy copy carries no return-promise, superlative, or 
     [/\brecomend/i, 'suitability-framing'],
   ];
   const isTagline = (id: string) => /^catalog\.strategies\.[^.]+\.tagline$/.test(id);
+
+  /**
+   * The ADVICE patterns are corpus-wide, not tagline-scoped. The narrow scope
+   * let a real breach through: Settings offered "tailored recommendations" and
+   * the CONSENT screen asked permission for "more relevant suggestions" about
+   * the reader's goals and money — in all four locales — on a product whose
+   * own picker says "You choose. diBoaS never advises." A consent surface
+   * asking to do the thing the product says it never does is a Q3 breach, not
+   * a style note.
+   *
+   * Return-promise and superlative patterns stay tagline-scoped on purpose:
+   * "growth" is honest disclosure elsewhere (the Growth risk band, growth
+   * exposure), and banning it corpus-wide would forbid telling the truth.
+   */
+  const ADVICE_WORDS: RegExp[] = [
+    /\brecommend/i,
+    /\brecomend/i,
+    /\bsuggestion/i,
+    /\bsugest/i,
+    /\bsugerencia/i,
+    /\bempfehl/i,
+    /\bvorschl/i,
+    /right for you/i,
+    /suits? you/i,
+  ];
+
+  it('should carry no ADVICE vocabulary anywhere in the corpus, any locale', () => {
+    for (const locale of SANDBOX_LOCALES) {
+      for (const [id, msg] of Object.entries(getMessages(locale))) {
+        for (const pattern of ADVICE_WORDS) {
+          expect(pattern.test(msg), `${locale}:${id} — "${msg}"`).toBe(false);
+        }
+      }
+    }
+  });
 
   it('should have no banned promotional/advice pattern in any strategy tagline, any locale', () => {
     for (const locale of SANDBOX_LOCALES) {

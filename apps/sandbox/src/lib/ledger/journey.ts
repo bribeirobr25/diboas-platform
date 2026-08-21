@@ -183,12 +183,30 @@ export function createGoal(input: {
       horizonMonths: input.horizonMonths,
     },
   ];
-  if (input.fundAmount > 0) {
+  /**
+   * Never emit a leg the PROJECTION will drop. `projection/core.ts` skips a
+   * `GoalFunded` it cannot afford (`if (ctx.working.v.lt(amount)) break`), so
+   * an over-budget funding used to append an event that moved nothing — the
+   * goal appeared with 0 cash while History showed the money arriving. Proven:
+   * fundAmount 5000 against 100 Available produced `fundedEvents=1,
+   * goalCash=0.00, working=100.00`.
+   *
+   * This is the defect the 2026-08-19 audit fixed for `applyRuleProposal`
+   * ("an approval must never emit legs Available can't cover"); the fix was
+   * never propagated to the two older paths. The goal is still created — only
+   * the unaffordable funding leg is withheld.
+   */
+  const fund = new Decimal(input.fundAmount);
+  const affordable =
+    Number.isFinite(input.fundAmount) &&
+    fund.gt(0) &&
+    new Decimal(getLedgerState().buckets.working).gte(fund);
+  if (affordable) {
     events.push({
       ...base(correlationId),
       type: 'GoalFunded',
       goalId,
-      amount: new Decimal(input.fundAmount).toFixed(2),
+      amount: fund.toFixed(2),
     });
   }
   appendAll(events);

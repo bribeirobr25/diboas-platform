@@ -20,7 +20,11 @@ const M = {
 function renderSheet(props?: { onConfirm?: () => void; onDismiss?: () => void }) {
   return render(
     <IntlProvider locale="en" messages={M}>
-      <GoalPauseSheet onConfirm={props?.onConfirm} onDismiss={props?.onDismiss ?? vi.fn()} />
+      <GoalPauseSheet
+        currency="USD"
+        onConfirm={props?.onConfirm}
+        onDismiss={props?.onDismiss ?? vi.fn()}
+      />
     </IntlProvider>
   );
 }
