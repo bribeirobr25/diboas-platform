@@ -20,7 +20,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-md);
   border: 1px solid var(--sb-hairline);
   border-radius: var(--sb-radius-lg);
   background: var(--sb-card);
@@ -43,13 +43,16 @@
   margin: 0;
   color: var(--text-brand-accessible);
 }
+/* The amount is the HERO of this card in mockup 11 — it dominates the block,
+   with the unit as a caption beneath it. At 3xl it read as just another figure. */
 .amount {
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-4xl);
+  line-height: 1.05;
   font-weight: var(--font-weight-bold);
   font-variant-numeric: tabular-nums;
 }
 .amountNote {
-  margin: 0;
+  margin: calc(var(--spacing-sm) * -1) 0 0;
   font-size: var(--font-size-sm);
   color: var(--sb-text-muted);
 }
