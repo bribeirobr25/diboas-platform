@@ -44,7 +44,8 @@ const M = {
   'pathCard.riskTitle': 'Risk',
   'pathCard.riskStable': 'Stable strategies aim to hold their value.',
   'pathCard.riskGrowth': '{percent}% moves with market prices.',
-  'pathCard.noPromise': 'No promises live here.',
+  'pathCard.noPromise':
+    'No promises live here. The numbers are history and current rates, not the future.',
   'common.dataLive': 'Live from {source}, fetched {date}',
   'common.dataMixed':
     'Partly live from {source}, fetched {date}. Reference values ({fixtureDate}) for: {protocols}.',
@@ -130,7 +131,7 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
     expect(screen.getByText('Entering: free')).toBeTruthy();
     expect(screen.getByText(/Network fee: about/)).toBeTruthy();
     expect(screen.getByText(/Leaving later/)).toBeTruthy();
-    expect(screen.getByText('No promises live here.')).toBeTruthy();
+    expect(screen.getByText(/^No promises live here\./)).toBeTruthy();
   });
 
   it('should NOT fold any exit fee into the entry cost (mockup-03 drift: entry is FREE)', () => {

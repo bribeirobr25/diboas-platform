@@ -208,6 +208,51 @@ Examples:
 - Minimum 80% code coverage
 - Test naming: `should [expected behavior] when [condition]`
 
+#### A test asserts a REQUIREMENT, never observed output
+
+_(Standing rule, 2026-08-21 — founder-directed after PENDING_ALL `5.114`.)_
+
+A test written by running the code and recording what came out does the opposite
+of its job: it converts a defect into a regression barrier, and the next person
+to fix the bug is told by CI that they broke something.
+
+**The worked example.** A sandbox test supplied a **fixture** gas quote to a
+screen and then asserted the screen said `Live from DeFiLlama`. It passed for as
+long as it existed. Fixing the provenance predicate made it fail — the test had
+been *protecting* a surface that claimed live data over a month-old figure, on
+the screen where a user decides whether to spend money.
+
+**Three distinct defects hide under this label, and they need different
+detection:**
+
+| | Defect | What it looks like | How it is found |
+| --- | --- | --- | --- |
+| 1 | **Vacuous** | The assertion never really runs — an empty result set, an unreachable branch, a typo'd ID that produced no events | Sabotage / mutation testing |
+| 2 | **Weak** | Runs, but would pass under wrong implementations too (`expect(x).toBeGreaterThanOrEqual(0)`, two hard-coded figures standing in for a relationship) | Sabotage / mutation testing |
+| 3 | **Wrong** | Runs, is strong, is precise — and pins the **wrong behaviour** | **Only by tracing to a stated requirement.** No tool can find this: a mutation score rates how well the suite notices change, not whether the pinned behaviour is correct |
+
+**The rules:**
+
+1. **Every assertion on a money path or an honesty surface cites its
+   requirement** — a ruling ID, a spec section, a documented invariant
+   (`FE-1`, `C-P0`, `D-e §4`, `board §3.3`, `R-4`). Money paths = fees, accrual,
+   reconcile, allocation, exit composition, balances. Honesty surfaces =
+   provenance stamps, disclosures, "would have" framing, the play-money label.
+2. **The comment says WHY the behaviour is required, not WHAT the code does.**
+   A comment that narrates the implementation is the tell for a recorded-output
+   test — it proves the author read the code, not the requirement.
+3. **Prove a load-bearing test by sabotage.** Break the implementation and
+   confirm the test fails *for the right reason*. A test that still passes is
+   vacuous; a test that fails with the wrong message is testing the wrong thing.
+4. **Never write the assertion by running the code first.** Derive the expected
+   value from the requirement, then run. If they disagree, one of them is a bug —
+   and it is not automatically the expectation.
+5. **A test changed to make a failing build green needs its requirement
+   restated in the diff.** This is the moment class 3 is created.
+
+**Honest limitation:** rules 1–2 are review-time, not mechanically enforced —
+recorded in `engineering-gates.md` as such rather than claimed as a live gate.
+
 ### Documentation
 
 - JSDoc for public APIs

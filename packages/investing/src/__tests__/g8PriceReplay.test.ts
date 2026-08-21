@@ -93,9 +93,12 @@ describe('replayLegged — mixed legs, and the no-double-count guard', () => {
     expect(mixed.lt(0)).toBe(true);
   });
 
-  it('should keep a lending-only replay non-negative (USDC has no price dimension)', () => {
+  it('should EARN on a lending-only replay (rule 1: a lending leg replays its APY)', () => {
     const lending = apyFactorsForSpan(apy, 0, 365, 365);
-    expect(replayLegged(1000, [{ weightPercent: 100, factors: lending }]).gte(0)).toBe(true);
+    // Strictly positive, not `gte(0)`: over a full year at a positive APY the
+    // replay must produce a gain. `gte(0)` also passed when `replayLegged`
+    // returned exactly zero — i.e. when lending replay was broken outright.
+    expect(replayLegged(1000, [{ weightPercent: 100, factors: lending }]).gt(0)).toBe(true);
   });
 
   it('should be deterministic — the same span replays to the same cent', () => {

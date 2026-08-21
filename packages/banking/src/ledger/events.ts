@@ -27,7 +27,24 @@ export interface PlayMoneyGranted extends EventBase {
   mode: 'b2c' | 'b2b';
 }
 
-/** The first-run jobs split (Floor / Cushion / Working). */
+/**
+ * The first-run jobs split (Floor / Cushion / Working).
+ *
+ * ⚠️ **PRODUCT-DEPRECATED BUT DELIBERATELY RETAINED — do not delete.** Its only
+ * emitter was the MVP-0 FirstRun chain, removed in the R1 re-audit (`9c91d26d`),
+ * so nothing writes this event any more and it looks like dead code under the
+ * standing delete-what-you-orphan rule.
+ *
+ * It stays because **an event-sourced ledger cannot retract an event type it has
+ * ever written**: any persisted log containing one must still replay, and
+ * `project()` is exhaustive, so removing the type would turn an old log into a
+ * compile error at best and a silently different balance at worst. The
+ * `Record<LedgerEventType, true>` C-P0 pin in `ledger.test.ts` makes the
+ * deletion fail to compile — this note is the reason that pin exists.
+ *
+ * Consequence to keep in mind: the `cushion` bucket's ONLY writer is this event,
+ * so in R1 it is always 0.00 and Home deliberately does not render it.
+ */
 export interface JobsSplitSet extends EventBase {
   type: 'JobsSplitSet';
   floorPercent: number;

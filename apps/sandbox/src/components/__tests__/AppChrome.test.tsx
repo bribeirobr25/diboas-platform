@@ -2,6 +2,7 @@
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { describe, expect, it, vi } from 'vitest';
+import { getMessages } from '@/i18n/loadMessages';
 import { AppChrome } from '../AppChrome';
 
 /**
@@ -14,19 +15,14 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ back: vi.fn() }),
 }));
 
-const M = {
-  'common.appName': 'diBoaS Sandbox',
-  'common.frameCaption': 'Practice mode. Play money, real market data.',
-  'common.skipToContent': 'Skip to content',
-  'common.back': 'Back',
-  'common.playDisclaimer': 'Everything here runs on play money.',
-  'nav.home': 'Home',
-  'nav.goals': 'Goals',
-  'nav.move': 'Move',
-  'nav.learn': 'Learn',
-  'nav.profile': 'Profile',
-  'nav.notifications': 'Notifications',
-};
+/**
+ * The REAL catalog. An abbreviated stub would make the R-4 assertion below
+ * circular — it would prove that the element renders whatever this file put in
+ * it, not that the shipped play-money disclosure appears. Emptying
+ * `common.playDisclaimer` must fail this test.
+ */
+const M = getMessages('en');
+const DISCLAIMER = M['common.playDisclaimer'];
 
 const renderAt = (path: string) => {
   pathname = path;
@@ -50,7 +46,9 @@ describe('AppChrome — the shell duties', () => {
     'should label play money on %s',
     (path) => {
       renderAt(path);
-      expect(screen.getByText('Everything here runs on play money.')).toBeTruthy();
+      expect(screen.getByText(DISCLAIMER)).toBeTruthy();
+      // and it is the real disclosure, not an empty or placeholder string
+      expect(DISCLAIMER).toMatch(/never converts to real money/i);
     }
   );
 
@@ -59,13 +57,13 @@ describe('AppChrome — the shell duties', () => {
     // Back control the bottom tabs could only throw the user to a different
     // section — a dead end in everything but name.
     renderAt('/en/settings');
-    expect(screen.getByLabelText('Back')).toBeTruthy();
-    expect(screen.queryByLabelText('Profile')).toBeNull();
+    expect(screen.getByLabelText(M['common.back'])).toBeTruthy();
+    expect(screen.queryByLabelText(M['nav.profile'])).toBeNull();
   });
 
   it('should keep the profile door on a tab root', () => {
     renderAt('/en');
-    expect(screen.getByLabelText('Profile')).toBeTruthy();
-    expect(screen.queryByLabelText('Back')).toBeNull();
+    expect(screen.getByLabelText(M['nav.profile'])).toBeTruthy();
+    expect(screen.queryByLabelText(M['common.back'])).toBeNull();
   });
 });

@@ -36,7 +36,11 @@ const M = {
   'goalDetail.noPositionTitle': 'Holding as cash',
   'goalDetail.noPosition': "This goal's money is sitting as cash.",
   'goalDetail.putToWork': 'Put it to work',
-  'goalDetail.milestoneTitle': 'Target reached',
+  // Asserted on below, so it must be the shipped string, not a paraphrase
+  // (5.114): the milestone deliberately says "in practice", which is the R-4
+  // honesty framing — a stub reading "Target reached" asserted the opposite
+  // of what the screen must say.
+  'goalDetail.milestoneTitle': 'You reached this goal, in practice.',
   'goalDetail.milestoneBody': 'Your call what happens next.',
   'goalDetail.investedLine': '{strategy}: {amount}',
   'goalDetail.earningsTitle': 'Earnings',
@@ -165,7 +169,7 @@ describe('GoalDetailScreen — the dual-view host (§4.2, mockup 14)', () => {
       fundAmount: 500,
     });
     renderDetail(goalId);
-    expect(screen.getAllByText('Target reached').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('You reached this goal, in practice.').length).toBeGreaterThan(0);
   });
 
   it('should render nothing but the back link for an unknown goal (no crash)', () => {

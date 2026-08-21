@@ -76,13 +76,24 @@ describe('rule allocation conserves money exactly', () => {
     }
   });
 
-  it('should never allocate a negative amount', () => {
+  it('should floor a sub-cent share to zero and send the whole cent to the remainder', () => {
+    // D-r's floor-then-remainder rule at its smallest input: 50% of $0.01 is
+    // half a cent, which cannot be allocated, so BOTH lines floor to 0.00 and
+    // the undivided cent falls to Available.
+    //
+    // The previous assertions here were `>= 0` on each line and on the
+    // remainder. Non-negativity is a real requirement, but that pair is also
+    // satisfied by an implementation that allocates NOTHING for any input and
+    // by one that silently drops the cent — so it could not distinguish the
+    // rule from its absence.
     const out = allocateByRule(0.01, [
       { goalId: 'a', percent: 50 },
       { goalId: 'b', percent: 50 },
     ]);
-    for (const line of out.lines) expect(line.amount).toBeGreaterThanOrEqual(0);
-    expect(out.remainderToAvailable).toBeGreaterThanOrEqual(0);
+    expect(out.lines.map((l) => l.amount)).toEqual([0, 0]);
+    expect(out.remainderToAvailable).toBe(0.01);
+    // Conservation still holds at the boundary: nothing is created or lost.
+    expect(out.lines.reduce((s, l) => s + l.amount, 0) + out.remainderToAvailable).toBe(0.01);
   });
 });
 

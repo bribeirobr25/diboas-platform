@@ -18,9 +18,9 @@ const M = {
   'goalsList.status.paused': 'Paused',
   'goalsList.status.accomplished': 'Accomplished',
   'goalsList.status.dropped': 'Closed',
-  'home.noGoalsTitle': 'No goals yet',
+  'home.noGoalsTitle': 'No goals yet.',
   'home.noGoalsBody': 'Create one to give money a job.',
-  'home.createGoal': 'Create a goal',
+  'home.createGoal': 'Create goal',
 };
 
 function renderScreen() {
@@ -39,8 +39,8 @@ describe('GoalsListScreen — the portfolio host (§4 item 1)', () => {
   it('should show the empty state with the create CTA when no goals exist', () => {
     grantPlayMoney(10_000, 'USD', 'b2c');
     renderScreen();
-    expect(screen.getByText('No goals yet')).toBeTruthy();
-    expect(screen.getByText('Create a goal')).toBeTruthy();
+    expect(screen.getByText('No goals yet.')).toBeTruthy();
+    expect(screen.getByText('Create goal')).toBeTruthy();
     // No view toggle in the empty state — nothing to toggle.
     expect(screen.queryByText('Simple')).toBeNull();
   });
