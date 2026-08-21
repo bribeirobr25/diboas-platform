@@ -24,6 +24,7 @@ import {
 import { goalCurrentValue } from '@/lib/goalValue';
 import { positionValueSeries } from '@/lib/positionSeries';
 import { BottomSheet } from './BottomSheet';
+import { goalAccentIndex } from '@/lib/goalAccent';
 import { LucideIcon } from './LucideIcon';
 import { ExitCeremony } from './ExitCeremony';
 import { GoalCompletionScreen } from './GoalCompletionScreen';
@@ -300,7 +301,12 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
       </Link>
 
       <div className={styles.head}>
-        <span className={goal.status === 'paused' ? styles.goalIconPaused : styles.goalIcon}>
+        {/* The goal's identity colour, same as the rows it was opened from —
+            a goal that changes colour when you tap into it is not an identity. */}
+        <span
+          className={goal.status === 'paused' ? styles.goalIconPaused : styles.goalIcon}
+          data-accent={goal.status === 'paused' ? undefined : goalAccentIndex(goal.goalId)}
+        >
           <LucideIcon name={goal.status === 'paused' ? 'pause' : goal.icon} size={26} />
         </span>
         <div>

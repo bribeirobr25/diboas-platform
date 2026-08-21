@@ -39,6 +39,25 @@
   flex-shrink: 0;
 }
 
+/* Per-goal identity colour — the palette and its contrast measurements live in
+   globals.css; a goal keeps the same colour on every surface. */
+.goalIcon[data-accent='0'] {
+  background: var(--goal-accent-0);
+  color: var(--color-white);
+}
+.goalIcon[data-accent='1'] {
+  background: var(--goal-accent-1);
+  color: var(--color-white);
+}
+.goalIcon[data-accent='2'] {
+  background: var(--goal-accent-2);
+  color: var(--color-white);
+}
+.goalIcon[data-accent='3'] {
+  background: var(--goal-accent-3);
+  color: var(--color-white);
+}
+
 .title {
   margin: 0;
   font-family: var(--sb-heading);
