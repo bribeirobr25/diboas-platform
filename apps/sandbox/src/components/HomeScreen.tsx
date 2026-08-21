@@ -96,14 +96,24 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
             <Amount value={working} />
           </span>
         </div>
-        <div className={styles.splitCol}>
-          <span className={styles.splitLabel}>
-            <FormattedMessage id="home.emergencyReserve" />
-          </span>
-          <span className={`${styles.splitValue} ${styles.toneEmergency}`}>
-            <Amount value={emergency} />
-          </span>
-        </div>
+        {/* ABSENT OVER FALSE (board §6a, the rule this app already applies to
+            pace claims). The emergency bucket's ONLY writer was `JobsSplitSet`,
+            emitted by the MVP-0 first-run chain that was deleted in the R1
+            re-audit — nothing produces it now, so this column could only ever
+            read 0.00. Shown, it actively misleads: a user whose goal is LITERALLY
+            named "Emergency fund" and holds $2,653 was told their emergency
+            reserve was zero, right above it. The column returns by itself the
+            day a producer exists (mockup 02's three-column design intact). */}
+        {emergency.gt(0) ? (
+          <div className={styles.splitCol}>
+            <span className={styles.splitLabel}>
+              <FormattedMessage id="home.emergencyReserve" />
+            </span>
+            <span className={`${styles.splitValue} ${styles.toneEmergency}`}>
+              <Amount value={emergency} />
+            </span>
+          </div>
+        ) : null}
       </div>
 
       <div className={styles.goalsHead}>
