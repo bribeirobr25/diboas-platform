@@ -5,6 +5,7 @@ import {
   horizonBandForMonths,
   strategiesForHorizon,
 } from '../catalog';
+import { PROTOCOL_RETURN_MODEL } from '../types';
 
 describe('STRATEGY_CATALOG (data invariants — D-8 catalog-as-data)', () => {
   it('should carry 10 strategies with unique ids', () => {
@@ -82,5 +83,32 @@ describe('getStrategy', () => {
   it('should resolve known ids and reject unknown ones', () => {
     expect(getStrategy('safeHarbor')?.id).toBe('safeHarbor');
     expect(getStrategy('nope')).toBeUndefined();
+  });
+});
+
+describe('allocation invariants (the replay depends on these)', () => {
+  it('should allocate exactly 100% in every strategy', () => {
+    // `replayLegged` computes earnings as Σ(share × Π factors) − principal, so
+    // it assumes the shares reconstitute the whole principal. Weights summing
+    // to 90 in a FLAT market report a 10% LOSS — silent, and always in the
+    // same direction. Verified: 90% flat on 1,000 returns −100.
+    for (const strategy of STRATEGY_CATALOG) {
+      const sum = strategy.allocation.reduce((total, leg) => total + leg.weightPercent, 0);
+      expect(sum, strategy.id).toBe(100);
+    }
+  });
+
+  it('should give every allocated protocol a declared return model', () => {
+    // A protocol with no model would throw at replay time rather than at
+    // build time; PROTOCOL_RETURN_MODEL is a Record<ProtocolId,…> so this is
+    // belt-and-braces on the catalogue side.
+    for (const strategy of STRATEGY_CATALOG) {
+      for (const leg of strategy.allocation) {
+        expect(
+          PROTOCOL_RETURN_MODEL[leg.protocolId],
+          `${strategy.id}/${leg.protocolId}`
+        ).toBeDefined();
+      }
+    }
   });
 });
