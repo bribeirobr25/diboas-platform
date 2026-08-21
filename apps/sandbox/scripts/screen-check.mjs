@@ -23,9 +23,20 @@ const C = { g: '\x1b[32m', r: '\x1b[31m', y: '\x1b[33m', b: '\x1b[1m', d: '\x1b[
 
 // The deterministic battery, in order. Each runs from the repo root.
 const STEPS = [
-  ['type-check', 'pnpm --filter sandbox type-check'],
+  // WORKSPACE-WIDE, not `--filter sandbox` (widened 2026-08-21 after this gate
+  // missed a real break). Screen increments routinely touch packages/banking |
+  // defi | investing, and a sandbox-only tsc cannot see them: §4.8 landed
+  // `segs.at(-1)` in a banking test — ES2022 against that package's ES2020
+  // target — and the root type-check stayed red for a day while every
+  // screen-check reported PASS. A gate scoped narrower than the work it guards
+  // reports green for the wrong reason.
+  ['type-check (all workspaces)', 'pnpm -w type-check'],
   ['lint (errors block; warnings ok)', 'pnpm --filter sandbox lint'],
-  ['test (incl. i18n parity + em-dash guard)', 'pnpm --filter sandbox test'],
+  ['test (sandbox + the packages it rides on)', 'pnpm --filter sandbox test'],
+  [
+    'test (banking · defi · investing)',
+    'pnpm --filter @diboas/banking --filter @diboas/defi --filter @diboas/investing test',
+  ],
   ['build', 'pnpm --filter sandbox build'],
   ['dead-code (knip)', 'pnpm -w check:dead-code'],
   ['prettier (sandbox src)', 'pnpm exec prettier --check "src/**/*.{ts,tsx,css,json}"'],

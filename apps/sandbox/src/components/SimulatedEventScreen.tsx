@@ -7,13 +7,16 @@ import { CURRENCY_SYMBOL, type SandboxLocale } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
 import { useFormatters } from '@/hooks/useFormatters';
 import { resolveSimulatedExpense } from '@/lib/ledgerClient';
+import { Logger } from '@/lib/monitoring/Logger';
 import {
   affordableExpenseOptions,
   dueSimulatedEvent,
   expenseImpacts,
+  toCents,
   type ExpenseImpact,
 } from '@/lib/simulatedEvents';
 import { Button } from './Button';
+import { ExpenseImpactCard } from './ExpenseImpactCard';
 import { LucideIcon } from './LucideIcon';
 import { Manifest } from './Manifest';
 import styles from './SimulatedEventScreen.module.css';
@@ -74,20 +77,15 @@ export function SimulatedEventScreen({ locale }: { locale: SandboxLocale }) {
 
   const due = dueSimulatedEvent(state, new Date().toISOString());
   const options = due ? affordableExpenseOptions(state, due.amount) : null;
+  // Quantized to cents HERE, once, so the preview, the manifest and the
+  // committed event can never be three different numbers (see `toCents`).
   const splitAmounts = Object.fromEntries(
     Object.entries(splitInput)
-      .map(([goalId, raw]) => [goalId, Number(raw)] as const)
-      .filter(([, n]) => Number.isFinite(n) && n > 0)
+      .map(([goalId, raw]) => [goalId, toCents(Number(raw))] as const)
+      .filter((entry): entry is readonly [string, number] => entry[1] != null)
   );
   const impacts = due && options ? expenseImpacts(state, due.amount, options, splitAmounts) : [];
   const goalOf = (goalId?: string) => state.goals.find((g) => g.goalId === goalId);
-
-  /** A split is choosable only once the typed share sits inside its bounds. */
-  function splitReady(impact: ExpenseImpact): boolean {
-    if (impact.option !== 'split' || !impact.bounds || !impact.goalId) return true;
-    const entered = splitAmounts[impact.goalId];
-    return entered != null && entered >= impact.bounds.min && entered <= impact.bounds.max;
-  }
 
   function commit() {
     if (!due || !confirming) return;
@@ -107,11 +105,31 @@ export function SimulatedEventScreen({ locale }: { locale: SandboxLocale }) {
             : { path: 'available' },
     });
     setConfirming(null);
-    // A refusal means the balance moved under the preview (another tab, a
-    // deposit): the derivation re-runs from the ledger and re-presents the
-    // real options — never a silent no-op on a money surface (P7).
-    if (result.ok) router.push(`/${locale}`);
-    else setStage('presented');
+    if (result.ok) {
+      router.push(`/${locale}`);
+      return;
+    }
+    /* CORRECTED 2026-08-21 (audit). This previously claimed a refusal meant
+       "the balance moved under the preview (another tab, a deposit)" and that
+       re-deriving would re-present the REAL options. Both halves were wrong,
+       and I wrote them: the ledger is memory-authoritative (`ledger/core.ts`
+       hydrates once and reads the in-process log) and NOTHING registers a
+       `storage` listener anywhere in the app — verified — so another tab is
+       invisible here. Nothing else can move money while this sheet is open
+       either, which makes the refusal unreachable from this UI today.
+
+       So no user-facing copy is invented for it: a message for a state that
+       cannot occur is a fake surface, the same trap as a fake control. What
+       it gets instead is a LOG (P12: a refused financial commit must be
+       observable) and a re-derive. This becomes user-visible work the moment
+       either premise changes — a cross-tab listener, or the Phase-2
+       persistence cutover making the store externally mutable. */
+    Logger.warn('simulated-event resolve refused', {
+      reason: result.reason,
+      eventInstanceId: due.eventInstanceId,
+      option: confirming.option,
+    });
+    setStage('presented');
   }
 
   if (!due) {
@@ -228,160 +246,21 @@ export function SimulatedEventScreen({ locale }: { locale: SandboxLocale }) {
             <FormattedMessage id="simEvent.back" />
           </button>
           <ul className={styles.impacts}>
-            {impacts.map((impact) => {
-              const goal = goalOf(impact.goalId);
-              return (
-                <li key={`${impact.option}:${impact.goalId ?? ''}`} className={styles.impact}>
-                  <div className={styles.impactHead}>
-                    <span className={styles.optionIcon}>
-                      <LucideIcon name={OPTION_ICON[impact.option]} size={20} />
-                    </span>
-                    <span className={styles.optionName}>
-                      <FormattedMessage
-                        id={`simEvent.option.${impact.option}`}
-                        values={{ goal: goal?.name ?? '' }}
-                      />
-                    </span>
-                    {/* Labelled as a projection, always (Q3: never a promise). */}
-                    <span className={styles.projectionTag}>
-                      <FormattedMessage id="simEvent.projection" />
-                    </span>
-                  </div>
-                  <dl className={styles.figures}>
-                    <div className={styles.figure}>
-                      <dt>
-                        <FormattedMessage id="simEvent.available" />
-                      </dt>
-                      <dd>
-                        <span className={impact.pending ? styles.after : styles.before}>
-                          {money(impact.availableBefore.toFixed(2))}
-                        </span>
-                        {/* No arrow, no "after", until there IS one. */}
-                        {impact.pending ? null : (
-                          <>
-                            <LucideIcon name="arrow-right" size={14} />
-                            <span className={styles.after}>
-                              {money(impact.availableAfter.toFixed(2))}
-                            </span>
-                          </>
-                        )}
-                      </dd>
-                    </div>
-                    {impact.goalCashBefore != null && impact.goalCashAfter != null ? (
-                      <div className={styles.figure}>
-                        <dt>{goal?.name}</dt>
-                        <dd>
-                          <span className={impact.pending ? styles.after : styles.before}>
-                            {money(impact.goalCashBefore.toFixed(2))}
-                          </span>
-                          {impact.pending ? null : (
-                            <>
-                              <LucideIcon name="arrow-right" size={14} />
-                              <span className={styles.after}>
-                                {money(impact.goalCashAfter.toFixed(2))}
-                              </span>
-                            </>
-                          )}
-                        </dd>
-                      </div>
-                    ) : null}
-                  </dl>
-                  {impact.option === 'split' && impact.bounds && impact.goalId ? (
-                    /* The user's own division (P2BD-17). A typed field, not a
-                       slider: UX-16 puts sliders on casual bounded inputs and
-                       precise money on a keypad. diBoaS states the BOUNDS —
-                       which are arithmetic — and nothing else: no default, no
-                       midpoint, no "suggested" mark, because any number here
-                       would be advice about someone's reserve. */
-                    <div className={styles.splitField}>
-                      <label className={styles.splitLabel} htmlFor={`split-${impact.goalId}`}>
-                        <FormattedMessage
-                          id="simEvent.splitLabel"
-                          values={{ goal: goal?.name ?? '' }}
-                        />
-                      </label>
-                      <div className={styles.amountInput}>
-                        <span className={styles.amountPrefix} aria-hidden>
-                          {currencySymbol}
-                        </span>
-                        <input
-                          id={`split-${impact.goalId}`}
-                          className={styles.amountField}
-                          type="number"
-                          inputMode="decimal"
-                          min={impact.bounds.min}
-                          max={impact.bounds.max}
-                          step="0.01"
-                          value={splitInput[impact.goalId] ?? ''}
-                          onChange={(e) =>
-                            setSplitInput((prev) => ({
-                              ...prev,
-                              [impact.goalId!]: e.target.value,
-                            }))
-                          }
-                          placeholder="0.00"
-                          aria-describedby={`split-range-${impact.goalId}`}
-                        />
-                      </div>
-                      {/* The range is stated up front, not discovered by being
-                          rejected — and the rest-from-Available is spelled out
-                          so the split is never a number without a meaning. */}
-                      <p id={`split-range-${impact.goalId}`} className={styles.splitRange}>
-                        <FormattedMessage
-                          id="simEvent.splitRange"
-                          values={{
-                            min: money(impact.bounds.min.toFixed(2)),
-                            max: money(impact.bounds.max.toFixed(2)),
-                          }}
-                        />
-                      </p>
-                      {splitReady(impact) ? (
-                        <p className={styles.splitRest}>
-                          <FormattedMessage
-                            id="simEvent.splitRest"
-                            values={{
-                              rest: money((due.amount - splitAmounts[impact.goalId]).toFixed(2)),
-                            }}
-                          />
-                        </p>
-                      ) : null}
-                    </div>
-                  ) : null}
-                  {impact.option === 'useReserve' ? (
-                    /* Neutral, never consoling and never warning: it is what a
-                       reserve is for. No amber, no "are you sure". */
-                    <p className={styles.didItsJob}>
-                      <FormattedMessage id="simEvent.reserveDidItsJob" />
-                    </p>
-                  ) : null}
-                  <Button
-                    variant="secondary"
-                    fullWidth
-                    disabled={!splitReady(impact)}
-                    onClick={() => setConfirming(impact)}
-                    aria-label={intl.formatMessage(
-                      { id: 'simEvent.chooseLabel' },
-                      {
-                        option: intl.formatMessage(
-                          { id: `simEvent.option.${impact.option}` },
-                          { goal: goal?.name ?? '' }
-                        ),
-                      }
-                    )}
-                  >
-                    <FormattedMessage id="simEvent.choose" />
-                  </Button>
-                  {/* A disabled control always says why (the §4.6/§4.7/§4.9
-                      precedent) — here the range line above is the answer, so
-                      this only names the missing step. */}
-                  {!splitReady(impact) ? (
-                    <p className={styles.splitHint}>
-                      <FormattedMessage id="simEvent.splitHint" />
-                    </p>
-                  ) : null}
-                </li>
-              );
-            })}
+            {impacts.map((impact) => (
+              <ExpenseImpactCard
+                key={`${impact.option}:${impact.goalId ?? ''}`}
+                impact={impact}
+                goal={goalOf(impact.goalId)}
+                currency={state.currency}
+                currencySymbol={currencySymbol}
+                expenseAmount={due.amount}
+                splitValue={impact.goalId ? (splitInput[impact.goalId] ?? '') : ''}
+                onSplitChange={(goalId, raw) =>
+                  setSplitInput((prev) => ({ ...prev, [goalId]: raw }))
+                }
+                onChoose={setConfirming}
+              />
+            ))}
           </ul>
           <p className={styles.footnote}>
             <LucideIcon name="info" size={14} />

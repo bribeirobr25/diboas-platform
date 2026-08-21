@@ -80,19 +80,15 @@ export interface AffordableOptions {
   reserveGoalIds: string[];
   /**
    * Goals that can cover PART of it, with Available covering the rest
-   * (P2BD-17). A strictly wider set than `reserveGoalIds`: a goal holding less
-   * than the expense was unusable before the split existed, and Available
-   * alone may fall short — so the split can be the only affordable path, not
-   * merely a third flavour of two that already work.
+   * (P2BD-17). Overlaps `reserveGoalIds` but is neither a subset nor a
+   * superset: a goal holding LESS than the expense was unusable before the
+   * split existed (so the split can be the only affordable path), while a goal
+   * that covers the whole thing is excluded here when Available holds nothing
+   * — there would be no second side to split with.
    */
   splitGoalIds: string[];
 }
 
-/**
- * Filter the R1 expense options by affordability (D-s §2). When BOTH come back
- * empty, the surface keeps only postponed-forever — the event waits quietly
- * (no nag, no expiry) until the balance allows a real choice.
- */
 /** One option's honest before/after — the impact preview's whole content. */
 export interface ExpenseImpact {
   /** The option key, matching the catalogue's `optionKeys`. */
@@ -184,6 +180,11 @@ export function expenseImpacts(
   return impacts;
 }
 
+/**
+ * Filter the R1 expense options by affordability (D-s §2). When ALL THREE come
+ * back empty the surface keeps only postponed-forever — the event waits
+ * quietly (no nag, no expiry) until the balance allows a real choice.
+ */
 export function affordableExpenseOptions(state: LedgerState, amount: number): AffordableOptions {
   const working = Number(state.buckets.working);
   const usable = state.goals.filter((g) => g.status === 'active' || g.status === 'paused');
@@ -197,6 +198,27 @@ export function affordableExpenseOptions(state: LedgerState, amount: number): Af
     // the most ordinary split of all: a big reserve chipping in a little.)
     splitGoalIds: usable.filter((g) => splitBounds(state, amount, g.goalId)).map((g) => g.goalId),
   };
+}
+
+/**
+ * Quantize a typed money amount to whole cents — the boundary where a string
+ * the user typed becomes a number the ledger will move.
+ *
+ * Load-bearing, not tidiness: `type="number" step="0.01"` does NOT stop someone
+ * typing `400.005`, and the two rounding paths then disagree —
+ * `(400.005).toFixed(2)` is `"400.00"` (the float is really 400.00499…) while
+ * `new Decimal(400.005).toFixed(2)` is `"400.01"` (exact, half-up). The confirm
+ * sheet would have stated $400.00 while the ledger released $400.01: the
+ * signing surface disagreeing with the money, which is the one thing FC-15
+ * exists to prevent. Quantizing HERE means the preview, the manifest and the
+ * committed event are all the same number by construction.
+ *
+ * Returns null for anything that is not a usable amount, so a NaN can never
+ * reach a Decimal.
+ */
+export function toCents(value: number): number | null {
+  if (!Number.isFinite(value) || value <= 0) return null;
+  return Math.round(value * 100) / 100;
 }
 
 /** The bounds the user's own split must fall inside — never a suggestion. */

@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Decimal from 'decimal.js';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { GOAL_ICONS, validateGoalDraft } from '@diboas/investing';
+import { GOAL_ICONS, GOAL_NAME_MAX_LENGTH, validateGoalDraft } from '@diboas/investing';
 import type { SandboxLocale } from '@/i18n/config';
 import { CURRENCY_SYMBOL } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
@@ -109,7 +109,7 @@ export function GoalNewScreen({ locale }: { locale: SandboxLocale }) {
           id="goal-name"
           className={styles.input}
           value={name}
-          maxLength={40}
+          maxLength={GOAL_NAME_MAX_LENGTH}
           onChange={(e) => setName(e.target.value)}
           placeholder={intl.formatMessage({ id: 'goalNew.namePlaceholder' })}
         />
@@ -231,6 +231,16 @@ export function GoalNewScreen({ locale }: { locale: SandboxLocale }) {
       >
         <FormattedMessage id="goalNew.createCta" />
       </button>
+      {/* A disabled control always says why (the §4.6/§4.7/§4.9/§4.10
+          precedent). The touched-field errors above cover target, horizon and
+          fund; a MISSING NAME had nothing — the CTA simply sat dead with no
+          explanation, and `goalNew.errorName` was written for exactly this and
+          never wired. Stated as a plain hint, not red-on-untouched. */}
+      {!canSubmit && !submitted && !nameValid && errors.length === 0 ? (
+        <p className={styles.hint}>
+          <FormattedMessage id="goalNew.errorName" />
+        </p>
+      ) : null}
     </section>
   );
 }

@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import Decimal from 'decimal.js';
 import { reconcile } from '@diboas/banking';
 import {
   advanceTime,
@@ -18,6 +19,7 @@ import {
   expenseImpacts,
   simulatedEventAmount,
   splitBounds,
+  toCents,
 } from '@/lib/simulatedEvents';
 import { getResolutions } from '@/lib/simulatedEventStore';
 import { SIM_EVENT_DEFAULT_MULTIPLE, SIM_EVENT_SIZING } from '@/lib/growthConstants';
@@ -421,5 +423,62 @@ describe('the user-set split (P2BD-17, founder 2026-08-21)', () => {
     )!;
     expect(typed.goalCashAfter).toBe(2600);
     expect(typed.availableAfter).toBe(7000 - 1100);
+  });
+});
+
+describe('money-boundary hardening (audit 2026-08-21)', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-08-01T09:00:00Z'));
+    resetSandbox();
+  });
+  afterEach(() => vi.useRealTimers());
+
+  it('should quantize a typed amount to cents so the sheet and the ledger agree', () => {
+    // `type=number step=0.01` does not stop someone typing 400.005, and the two
+    // rounding paths then disagree: (400.005).toFixed(2) is "400.00" (the float
+    // is really 400.00499…) while Decimal's is "400.01". The confirm sheet
+    // would state one figure and the ledger move another.
+    expect((400.005).toFixed(2)).toBe('400.00');
+    expect(toCents(400.005)).toBe(400.01);
+    expect(toCents(400.01)!.toFixed(2)).toBe(new Decimal(toCents(400.005)!).toFixed(2));
+  });
+
+  it('should reject non-amounts rather than let a NaN reach the ledger', () => {
+    // Every Decimal comparison in the commit is FALSE for NaN, so an unguarded
+    // NaN passes each affordability check and appends amount:"NaN".
+    expect(toCents(Number.NaN)).toBeNull();
+    expect(toCents(Number.POSITIVE_INFINITY)).toBeNull();
+    expect(toCents(0)).toBeNull();
+    expect(toCents(-5)).toBeNull();
+
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    const goalId = createGoal({
+      name: 'Reserve',
+      icon: 'shield',
+      targetAmount: 5000,
+      horizonMonths: 12,
+      fundAmount: 3000,
+    })!;
+    const before = getLedgerState().events.length;
+    expect(
+      resolveSimulatedExpense({
+        eventInstanceId: 'nan-1',
+        eventType: 'unexpected_expense',
+        amount: 1500,
+        via: { path: 'split', goalId, fromGoal: Number.NaN },
+      })
+    ).toEqual({ ok: false, reason: 'notAffordable' });
+    expect(
+      resolveSimulatedExpense({
+        eventInstanceId: 'nan-2',
+        eventType: 'unexpected_expense',
+        amount: Number.NaN,
+        via: { path: 'available' },
+      })
+    ).toEqual({ ok: false, reason: 'notAffordable' });
+    // Nothing appended, and no "NaN" string anywhere in the log.
+    expect(getLedgerState().events.length).toBe(before);
+    expect(JSON.stringify(getLedgerState().events)).not.toContain('NaN');
   });
 });

@@ -18,7 +18,7 @@ describe('accrualSegmentDays', () => {
     const segs = accrualSegmentDays(0, 360);
     expect(segs).toHaveLength(12);
     expect(segs[0]).toBe(30);
-    expect(segs.at(-1)).toBe(360);
+    expect(segs[segs.length - 1]).toBe(360);
   });
 
   it('should DEDUPE a deposit landing on a grid day (no zero-length segment)', () => {
@@ -36,7 +36,7 @@ describe('accrualSegmentDays', () => {
       [100, 101],
     ]) {
       const segs = accrualSegmentDays(from, to);
-      expect(segs.at(-1), `${from}->${to}`).toBe(to);
+      expect(segs[segs.length - 1], `${from}->${to}`).toBe(to);
       expect(Math.max(...segs), `${from}->${to}`).toBeLessThanOrEqual(to);
       expect(Math.min(...segs), `${from}->${to}`).toBeGreaterThan(from);
     }

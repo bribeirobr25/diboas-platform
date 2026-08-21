@@ -38,6 +38,17 @@ export function resolveSimulatedExpense(input: {
   const state = getLedgerState();
   if (!state.initialized || state.resolvedEventInstances.includes(input.eventInstanceId))
     return { ok: false, reason: 'alreadyResolved' };
+  // Finiteness FIRST, because every comparison below is a Decimal comparison
+  // and NaN passes all of them: `NaN.lte(0)`, `NaN.gt(amount)`, `cash.lt(NaN)`
+  // are each false, so a NaN would sail through every affordability guard and
+  // append `amount: "NaN"` to the ledger. (`new Decimal(undefined)` throws
+  // outright — from inside a click handler.) The UI cannot produce either
+  // today, but this is an exported money API and its own contract promises
+  // commit-time re-validation; `ledger/rules.ts` sets the same precedent for
+  // user-entered amounts.
+  if (!Number.isFinite(input.amount)) return { ok: false, reason: 'notAffordable' };
+  if (input.via.path === 'split' && !Number.isFinite(input.via.fromGoal))
+    return { ok: false, reason: 'notAffordable' };
   const amount = new Decimal(input.amount);
   if (amount.lte(0)) return { ok: false, reason: 'notAffordable' };
   const correlationId = generateId();
