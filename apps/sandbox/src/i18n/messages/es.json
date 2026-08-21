@@ -418,7 +418,7 @@
     "exportSub": "Descarga una copia de tus datos",
     "delete": "Eliminar tu cuenta",
     "deleteSub": "Elimina permanentemente tu cuenta y datos",
-    "footer": "Al usar diBoaS, aceptas nuestros <terms>Términos</terms> y Política de Privacidad."
+    "footer": "Al usar diBoaS, aceptas nuestros <terms>Términos</terms> y la <privacy>Política de Privacidad</privacy>."
   },
   "move": {
     "balance": "Saldo de práctica",

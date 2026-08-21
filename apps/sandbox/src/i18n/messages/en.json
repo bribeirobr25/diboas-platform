@@ -418,7 +418,7 @@
     "exportSub": "Download a copy of your data",
     "delete": "Delete your account",
     "deleteSub": "Permanently delete your account and data",
-    "footer": "By using diBoaS, you agree to our <terms>Terms</terms> and Privacy Policy."
+    "footer": "By using diBoaS, you agree to our <terms>Terms</terms> and <privacy>Privacy Policy</privacy>."
   },
   "move": {
     "balance": "Play balance",

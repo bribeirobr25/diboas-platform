@@ -418,7 +418,7 @@
     "exportSub": "Lade eine Kopie deiner Daten herunter",
     "delete": "Konto löschen",
     "deleteSub": "Lösche dein Konto und deine Daten dauerhaft",
-    "footer": "Mit der Nutzung von diBoaS stimmst du unseren <terms>Nutzungsbedingungen</terms> und der Datenschutzerklärung zu."
+    "footer": "Mit der Nutzung von diBoaS stimmst du unseren <terms>Nutzungsbedingungen</terms> und der <privacy>Datenschutzerklärung</privacy> zu."
   },
   "move": {
     "balance": "Übungsguthaben",

@@ -153,6 +153,20 @@ export function SettingsScreen({ locale }: { locale: SandboxLocale }) {
                 {chunks}
               </a>
             ),
+            /* The sentence names the Privacy Policy as something the user is
+               agreeing to, so it has to be readable from here. It was plain
+               text in all four locales while only Terms linked out. */
+            privacy: (chunks) => (
+              <a
+                key="p"
+                href={legalUrl(locale, 'privacy')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.link}
+              >
+                {chunks}
+              </a>
+            ),
           }}
         />
       </p>
