@@ -28,7 +28,6 @@
     "timeMachineTitle": "Máquina do tempo",
     "timeMachineNote": "Treinar é comprimir o tempo: avance o relógio e reveja o que o mercado realmente fez.",
     "simDay": "Dia {day} do seu treino",
-    "awayBeat": "{days, plural, one {# dia} other {# dias}} de mercado real passou enquanto você esteve fora.",
     "playBalance": "Saldo de prática",
     "available": "Disponível",
     "working": "Trabalhando",

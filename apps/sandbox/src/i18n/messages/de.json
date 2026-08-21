@@ -28,7 +28,6 @@
     "timeMachineTitle": "Time machine",
     "timeMachineNote": "Practice is compressed time: advance the clock and replay what the market actually did.",
     "simDay": "Day {day} of your practice",
-    "awayBeat": "{days, plural, one {# day} other {# days}} of real market passed while you were away.",
     "playBalance": "Übungsguthaben",
     "available": "Verfügbar",
     "working": "Arbeitet",
