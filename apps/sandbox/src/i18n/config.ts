@@ -5,8 +5,6 @@
  * transcreation — the investor-room roomContentLocale precedent).
  */
 
-import type { GoalMarket } from '@diboas/investing';
-
 export const SANDBOX_LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
 export type SandboxLocale = (typeof SANDBOX_LOCALES)[number];
 
@@ -76,18 +74,6 @@ export const CURRENCY_SYMBOL: Record<'USD' | 'BRL' | 'EUR', string> = {
   USD: '$',
   BRL: 'R$',
   EUR: '€',
-};
-
-/**
- * Locale → market, for the domain package's market-keyed constants (SWR,
- * essentials share). The package owns the market type; the app maps here.
- * Note `en = US` at MVP-0 (multi-market English is a promotion-gate item).
- */
-export const LOCALE_MARKET: Record<SandboxLocale, GoalMarket> = {
-  en: 'US',
-  'pt-BR': 'BR',
-  es: 'ES',
-  de: 'DE',
 };
 
 /** Play-money grants per mode, in LOCAL currency units (decision D-4). */

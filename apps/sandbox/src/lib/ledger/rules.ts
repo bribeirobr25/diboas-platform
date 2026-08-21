@@ -8,6 +8,7 @@ import Decimal from 'decimal.js';
 import { type LedgerEvent } from '@diboas/banking';
 import { isValidRuleSplit, type Proposal } from '@diboas/investing';
 import { generateId } from '../ids';
+import { appliedWeeks } from '../weeklyCycle';
 import { recordDecline } from '../proposalStore';
 import { appendAll, base, getLedgerState } from './core';
 
@@ -73,10 +74,11 @@ export function applyRuleProposal(
   const rule = state.rules.find((r) => r.ruleId === proposal.ruleId && r.status === 'active');
   if (!rule || rule.ruleVersion !== proposal.ruleVersion)
     return { ok: false, reason: 'staleRuleVersion' };
-  const applied = new Set<number>();
-  for (const e of state.events) {
-    if (e.type === 'RuleApplied') for (const w of e.weekSet) applied.add(w);
-  }
+  // The shared derivation, not a second copy of it: this is the double-apply
+  // guard, so the definition of "already applied" must be the SAME one the
+  // weekly surface uses to decide what is still unresolved. Two copies of an
+  // idempotency rule is two chances to disagree about whether money moved.
+  const applied = new Set(appliedWeeks(state));
   if (proposal.weekSet.some((w) => applied.has(w))) return { ok: false, reason: 'alreadyApplied' };
 
   const fundable = proposal.lines.filter((l) => !l.pausedDiversion);
