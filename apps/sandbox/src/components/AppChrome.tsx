@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FrameCaption } from './FrameCaption';
@@ -14,13 +14,20 @@ import styles from './AppChrome.module.css';
  * The mobile-app shell (docs/sandbox-app/UI-UX-REDESIGN.md §4): a constrained
  * canvas centered on a calm surround (reads as a phone on desktop, full-width
  * on mobile), a minimal top app bar, a scrolling content area, and a bottom
- * tab bar in the thumb zone (UX-57). The play chip lives in the top bar so
- * every screen is labeled play money (R-4); the full disclaimer scrolls at the
- * end of content.
+ * tab bar in the thumb zone (UX-57). The sandbox framing is carried by the
+ * FRAME CAPTION above the canvas (founder 2026-08-21) rather than by a chip in
+ * the bar; the full disclaimer scrolls at the end of content.
+ *
+ * The bar's LEFT slot is contextual, as mockups 12 and 32 show it: the profile
+ * door on a tab root, a Back control on any deeper screen. Without it, screens
+ * reached from a non-tab parent (Settings and Practice record open from
+ * Profile) had no in-app way back at all — the bottom tabs could only throw
+ * you to a different section.
  */
 export function AppChrome({ locale, children }: { locale: string; children: ReactNode }) {
   const intl = useIntl();
   const pathname = usePathname();
+  const router = useRouter();
   const home = `/${locale}`;
   const move = `/${locale}/move`;
   const goals = `/${locale}/goals`;
@@ -33,6 +40,8 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
   const isHome = pathname === home || pathname === `${home}/`;
   const isMove = pathname.startsWith(move);
   const isGoals = pathname.startsWith(goals);
+  /* A tab ROOT keeps the profile door; anything deeper gets Back instead. */
+  const isRoot = isHome || isMove || pathname === goals || pathname === `${goals}/`;
 
   return (
     <div className={styles.surround}>
@@ -47,13 +56,24 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
           <FormattedMessage id="common.skipToContent" />
         </a>
         <header className={styles.appbar} data-hero={isHome ? 'true' : undefined}>
-          <Link
-            href={profile}
-            className={styles.appbarIcon}
-            aria-label={intl.formatMessage({ id: 'nav.profile' })}
-          >
-            <LucideIcon name="user" size={24} />
-          </Link>
+          {isRoot ? (
+            <Link
+              href={profile}
+              className={styles.appbarIcon}
+              aria-label={intl.formatMessage({ id: 'nav.profile' })}
+            >
+              <LucideIcon name="user" size={24} />
+            </Link>
+          ) : (
+            <button
+              type="button"
+              className={styles.appbarIcon}
+              onClick={() => router.back()}
+              aria-label={intl.formatMessage({ id: 'common.back' })}
+            >
+              <LucideIcon name="arrow-left" size={24} />
+            </button>
+          )}
           {/* No chip here (founder 2026-08-21): the sandbox framing is carried
               ONCE, by the frame caption above the canvas — the bar was stating
               the same thing three ways.

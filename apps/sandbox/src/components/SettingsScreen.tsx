@@ -76,7 +76,9 @@ export function SettingsScreen({ locale }: { locale: SandboxLocale }) {
         </div>
         <div className={styles.row}>
           <span className={styles.rowIcon}>
-            <LucideIcon name="trending-up" size={20} />
+            {/* The currency mark, not a trend arrow (mockup 32) — this row
+                reports which currency the ledger holds, not a direction. */}
+            <LucideIcon name="dollar-sign" size={20} />
           </span>
           <span className={styles.rowTitle}>
             <FormattedMessage id="settings.currency" />
