@@ -15,8 +15,9 @@ import styles from './AppChrome.module.css';
  * canvas centered on a calm surround (reads as a phone on desktop, full-width
  * on mobile), a minimal top app bar, a scrolling content area, and a bottom
  * tab bar in the thumb zone (UX-57). The sandbox framing is carried by the
- * FRAME CAPTION above the canvas (founder 2026-08-21) rather than by a chip in
- * the bar; the full disclaimer scrolls at the end of content.
+ * FRAME CAPTION above the canvas on desktop (founder 2026-08-21) rather than by
+ * a chip in the bar, and by the disclaimer line under every screen's content —
+ * which is what actually satisfies R-4 on a phone, where the caption is hidden.
  *
  * The bar's LEFT slot is contextual, as mockups 12 and 32 show it: the profile
  * door on a tab root, a Back control on any deeper screen. Without it, screens
@@ -97,16 +98,22 @@ export function AppChrome({ locale, children }: { locale: string; children: Reac
         <div className={styles.scroll}>
           <main id="main" className={styles.main}>
             {/* Hold ledger-reading content until hydrate settles — the shell
-                (app bar, tab bar, PLAY MONEY badge) stays up around it (§7). */}
+                (app bar, tab bar, disclaimer) stays up around it (§7). */}
             <LedgerReadyGate>{children}</LedgerReadyGate>
           </main>
-          {/* The full disclaimer rides on home/first-run only; the persistent
-              PLAY MONEY chip (above) is the per-screen label (R-4). */}
-          {isHome ? (
-            <p className={styles.disclaimer}>
-              <FormattedMessage id="common.playDisclaimer" />
-            </p>
-          ) : null}
+          {/* EVERY screen, not just Home. R-4 requires play money to be
+              "labeled as play money on every screen where a balance or result
+              renders — no exceptions, no screens that could screenshot as
+              real". The app-bar chip used to carry that; once the bar was
+              reduced to the mark alone (founder 2026-08-21) the only remaining
+              label was the frame caption, which is desktop-only AND
+              aria-hidden — so on a phone every screen but Home rendered
+              balances with nothing marking them as play. This line is the
+              per-screen label now, and it is real text in the flow rather than
+              chrome, so it holds at every viewport and for a screen reader. */}
+          <p className={styles.disclaimer}>
+            <FormattedMessage id="common.playDisclaimer" />
+          </p>
         </div>
 
         <nav className={styles.tabbar} aria-label={intl.formatMessage({ id: 'common.appName' })}>
