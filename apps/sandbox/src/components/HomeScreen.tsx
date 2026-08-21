@@ -6,6 +6,7 @@ import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import type { LedgerState } from '@diboas/banking';
 import type { SandboxLocale } from '@/i18n/config';
 import { goalCurrentValue } from '@/lib/goalValue';
+import { dueSimulatedEvent } from '@/lib/simulatedEvents';
 import { GoalRow } from './GoalRow';
 import { LucideIcon } from './LucideIcon';
 import styles from './HomeScreen.module.css';
@@ -148,12 +149,33 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
         <FormattedMessage id="home.createGoal" />
       </Link>
 
-      {/* G8 entry (§4.8). Always present, never conditional on holding a
-          position: the screen has an honest empty state that explains itself,
-          and hiding the concept until money is at work would teach the lesson
-          in the wrong order. `timeMachineNote` says the replay shows "what the
-          market actually did" — a claim that only became TRUE with the price
-          overlay; before it, the replay was yield-only and could never fall. */}
+      {/* G11 entry (§4.11) — and the POSTPONED state itself (mockup 45 is not
+          a usable reference: it is a different product, a meditation app, so
+          this is built from the Home grammar instead).
+
+          Conditional, unlike the tiles below it, because it describes
+          something that is actually waiting — and it is the only honest way
+          to render "postponed-forever" (RD-9): a postponement is the ABSENCE
+          of a resolution, so the card simply keeps being here. It must never
+          gain a countdown, a badge, a count, or a second reminder — the moment
+          it nags, it stops being a scenario the user can ignore. */}
+      {dueSimulatedEvent(state, new Date().toISOString()) ? (
+        <Link href={`/${locale}/practice-event`} className={styles.timeMachine}>
+          <span className={styles.timeMachineIcon}>
+            <LucideIcon name="receipt" size={20} />
+          </span>
+          <span className={styles.timeMachineBody}>
+            <span className={styles.timeMachineTitle}>
+              <FormattedMessage id="home.eventTitle" />
+            </span>
+            <span className={styles.timeMachineNote}>
+              <FormattedMessage id="home.eventNote" />
+            </span>
+          </span>
+          <LucideIcon name="chevron-right" size={18} />
+        </Link>
+      ) : null}
+
       {/* G10 entry (§4.10). Learned from G9: a route with no entry point is a
           dead surface, so the tile lands with the screen, not after an audit. */}
       <Link href={`/${locale}/weekly`} className={styles.timeMachine}>
@@ -190,6 +212,12 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
         <LucideIcon name="chevron-right" size={18} />
       </Link>
 
+      {/* G8 entry (§4.8). Always present, never conditional on holding a
+          position: the screen has an honest empty state that explains itself,
+          and hiding the concept until money is at work would teach the lesson
+          in the wrong order. `timeMachineNote` says the replay shows "what the
+          market actually did" — a claim that only became TRUE with the price
+          overlay; before it, the replay was yield-only and could never fall. */}
       <Link href={`/${locale}/time-machine`} className={styles.timeMachine}>
         <span className={styles.timeMachineIcon}>
           <LucideIcon name="history" size={20} />

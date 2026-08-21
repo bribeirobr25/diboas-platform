@@ -1,0 +1,234 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  min-width: 0;
+}
+.title {
+  margin: 0;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+  letter-spacing: -0.02em;
+}
+.subtitle {
+  margin: calc(var(--spacing-lg) * -1 + var(--spacing-2xs)) 0 0;
+  color: var(--sb-text-muted);
+}
+
+/* The fictional frame. A distinct TINTED plate rather than another white card:
+   it has to read as "this is the scenario" at a glance, before any money is
+   read — but it stays calm (a teal wash, never a warning colour: an expense in
+   a practice world is a prompt, not an alarm — veto row 10).
+
+   `--sb-card-tint`, NOT `--sb-accent-tint`. They are the same teal-50 in
+   light, which hides the difference: only `card-tint` has a dark-theme
+   override. `accent-tint` stays light on purpose — it backs small icon badges
+   whose teal glyph reads on a light circle in either theme. Used here it made
+   the plate near-white in dark while the text stayed light-on-dark: headline
+   1.07:1, eyebrow 1.78:1, note 2.61:1. Measured, not guessed. */
+.scenario {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg) var(--spacing-md);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius-lg);
+  background: var(--sb-card-tint);
+}
+.scenarioIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--sb-hairline);
+  background: var(--sb-card);
+  color: var(--text-brand-accessible);
+}
+.scenarioLabel {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-brand-accessible);
+}
+.scenarioHeadline {
+  margin: var(--spacing-2xs) 0 0;
+  font-size: var(--font-size-xl);
+  line-height: 1.25;
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+}
+.scenarioNote {
+  margin: var(--spacing-2xs) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+
+.sectionLabel {
+  margin: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--sb-text-heading);
+}
+
+.options,
+.impacts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+/* Every option carries IDENTICAL weight — same plate, same border, same type.
+   Nothing marks a "right answer", least of all the reserve path (D-s: using
+   the reserve is never judged). */
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius-lg);
+  background: var(--sb-card);
+}
+.optionIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-accent-tint);
+  color: var(--text-brand-accessible);
+}
+.optionBody {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.optionName {
+  color: var(--sb-text-heading);
+  font-weight: var(--font-weight-medium);
+}
+.optionNote {
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+
+.impact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius-lg);
+  background: var(--sb-card);
+}
+.impactHead {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+.impactHead .optionName {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.projectionTag {
+  flex: none;
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+}
+
+.figures {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  margin: 0;
+}
+.figure {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+.figure dt {
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+  min-width: 0;
+}
+.figure dd {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--sb-text-muted);
+}
+/* Before is stated, after is emphasised — the reader is deciding about the
+   AFTER, and the arrow between them carries the direction without colour. */
+.before {
+  color: var(--sb-text-muted);
+}
+.after {
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+}
+
+/* Neutral by design: no amber, no warning plate. */
+.didItsJob {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+
+.waiting {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-lg) var(--spacing-md);
+  border: 1px solid var(--sb-hairline);
+  border-radius: var(--sb-radius-lg);
+  background: var(--sb-card);
+}
+.waitingTitle {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-heading);
+}
+.waitingBody {
+  margin: 0;
+  color: var(--sb-text-muted);
+}
+
+.footnote {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2xs);
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2xs);
+  align-self: flex-start;
+  min-height: 2.75rem;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 0;
+  background: none;
+  color: var(--text-brand-accessible);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}

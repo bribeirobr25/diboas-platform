@@ -178,7 +178,16 @@ export function HistoryScreen() {
           { amount: money(event.amount), name: goalName(event.goalId) }
         );
       case 'TimeAdvanced':
-        return intl.formatMessage({ id: 'history.timeAdvanced' }, { days: event.days });
+        // Two different things wear this event type, and the trail must not
+        // confuse them: `machine` is the user driving the time machine,
+        // `real` is WS-F settling wall-clock days the user was simply away
+        // for. Both said "Time machine: N days forward", which told people
+        // they had done something they never did. (`source` is optional on
+        // legacy events; the emitter's default is `machine`.)
+        return intl.formatMessage(
+          { id: event.source === 'real' ? 'history.timeSettled' : 'history.timeAdvanced' },
+          { days: event.days }
+        );
       case 'GoalPaused':
         return intl.formatMessage({ id: 'history.goalPaused' }, { name: goalName(event.goalId) });
       case 'GoalResumed':

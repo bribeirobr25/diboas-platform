@@ -40,6 +40,17 @@ export const SIM_EVENT_SIZING = { minWeeklyMultiple: 1, maxWeeklyMultiple: 2 } a
  */
 export const SIM_EVENT_DEFAULT_MULTIPLE = 1.5;
 
+/**
+ * The personal week the R1 event becomes due (D-s: "the one guided event,
+ * ~week 3"). Not a magnitude — a position in the arc: late enough that the
+ * user has a goal, a system and a first collection behind them, early enough
+ * that the practice month still has room to absorb the decision.
+ *
+ * The week is REAL-CALENDAR and genesis-anchored (D-s §5 `personal_week`), the
+ * same clock `collectibleWeeks` uses — so the time machine cannot reach it.
+ */
+export const SIM_EVENT_DUE_WEEK = 3;
+
 type Mode = keyof typeof PLAY_MONEY_GRANT;
 
 /** Weekly credit amount for a mode = grant × rate (derived, never a literal). */
