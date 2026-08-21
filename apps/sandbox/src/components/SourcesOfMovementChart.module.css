@@ -11,6 +11,10 @@
   align-items: stretch;
   gap: var(--spacing-xs);
   min-width: 100%;
+  /* Room for a FULL-height bar's label to sit above it. `.wrap` scrolls
+     horizontally, and a scroll container clips both axes — without this the
+     tallest bar (the one whose figure matters most) lost its label entirely. */
+  padding-top: 1.25rem;
 }
 .column {
   display: flex;
@@ -20,27 +24,54 @@
   align-items: center;
 }
 
+/* The two halves are the SAME height whenever both exist, because the bar
+   height is a percentage of its own half: with 6rem up and 3.5rem down, a
+   −$100 fee rendered 42% shorter than the +$100 credit it exactly cancels,
+   and a −$1,000 peak rendered SHORTER than a +$600 bar. That inverts the one
+   property this chart exists for — "a month where fees or a market fall took
+   money out must LOOK like one" — by systematically understating losses. */
 .up {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  gap: var(--spacing-2xs);
   width: 100%;
-  height: 6rem;
+}
+/* The fixed box the bar's percentage resolves against — identical in both
+   halves, which is what makes equal magnitudes equal sizes. */
+.barBox,
+.barBoxDown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  height: 4.5rem;
+  /* The label rides WITH the bar (see the component), so on a full-height bar
+     it overflows the box rather than squeezing it — the bar's size is the
+     data, the label is an annotation, and only one of them may move. */
+  overflow: visible;
+}
+.barBoxDown {
+  justify-content: flex-start;
 }
 .down {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: var(--spacing-2xs);
   width: 100%;
   height: 0;
+  overflow: hidden;
   border-top: 1px solid var(--sb-hairline-strong);
 }
+/* Opens only when the month HAS a negative source, so an all-positive month
+   renders no empty space where a loss would be. content-box keeps the 1px
+   zero-line out of the measured height. */
 .plot[data-signed='true'] .down {
-  height: 3.5rem;
+  box-sizing: content-box;
+  height: auto;
+  overflow: visible;
 }
 
 .bar {
@@ -49,6 +80,10 @@
   min-height: 2px;
   border-radius: var(--radius-sm);
   background: var(--sb-accent);
+  /* Never shrink: as a flex child in a fixed-height box the tallest bar was
+     squeezed by its own label while shorter bars had slack, so proportionality
+     broke again at the top of the scale. */
+  flex: 0 0 auto;
 }
 /* A fall is amber, never alarm-red: the market going down is a fact of the
    month, not a failure (R-2 loss-no-shame, carried through every surface).
@@ -58,6 +93,8 @@
 }
 
 .value {
+  flex: 0 0 auto;
+  min-height: 1rem;
   font-size: var(--font-size-xs);
   font-variant-numeric: tabular-nums;
   color: var(--sb-text-muted);

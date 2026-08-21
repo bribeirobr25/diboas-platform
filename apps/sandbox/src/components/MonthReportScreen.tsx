@@ -19,10 +19,18 @@ type View = 'simple' | 'detailed';
 const SOURCE_ICON: Record<MovementSource['key'], string> = {
   grant: 'gift',
   weeklyCredits: 'coins',
+  // Resolved per row, not fixed: a falling month showed an UP arrow beside
+  // its negative amount, which is the one thing this screen must not do.
   marketChange: 'trending-up',
   practiceEvents: 'receipt',
   fees: 'percent',
 };
+
+/** The row's mark, with the market arrow following the actual direction. */
+function iconFor(source: MovementSource): string {
+  if (source.key === 'marketChange' && source.amount < 0) return 'trending-down';
+  return SOURCE_ICON[source.key];
+}
 
 /**
  * G12 — the month report (§4.12; mockups 27 + 28).
@@ -53,8 +61,10 @@ export function MonthReportScreen({ locale }: { locale: SandboxLocale }) {
   const { money, date } = useFormatters(state.currency);
   const [view, setView] = useState<View>('simple');
 
-  const window = currentMonthWindow(new Date().toISOString());
-  const report = buildMonthReport(state, window.fromIso, window.toIso);
+  // NOT named `window`: this is a client component, and shadowing the global
+  // would silently break any later `window.*` use in this file.
+  const monthWindow = currentMonthWindow(new Date().toISOString());
+  const report = buildMonthReport(state, monthWindow.fromIso, monthWindow.toIso);
 
   if (!report) {
     return (
@@ -89,6 +99,37 @@ export function MonthReportScreen({ locale }: { locale: SandboxLocale }) {
       { amount: value }
     );
   };
+
+  /* Built once and rendered by BOTH views: it was duplicated verbatim, so a
+     copy change or an a11y fix had to land twice — and it is also the Detailed
+     chart's text equivalent, which must not be allowed to drift from it. */
+  const sourceRows =
+    report.sources.length === 0 ? (
+      /* A month where nothing moved is a real answer, not an empty section:
+         the heading above must never stand over nothing. */
+      <p className={styles.quietNote}>
+        <FormattedMessage id="monthReport.nothingMoved" />
+      </p>
+    ) : (
+      <ul className={styles.rows}>
+        {report.sources.map((source) => (
+          <li key={source.key} className={styles.row}>
+            <span className={styles.rowIcon}>
+              <LucideIcon name={iconFor(source)} size={18} />
+            </span>
+            <span className={styles.rowBody}>
+              <span className={styles.rowName}>{sourceLabel(source.key)}</span>
+              <span className={styles.rowNote}>
+                <FormattedMessage id={`monthReport.sourceNote.${source.key}`} />
+              </span>
+            </span>
+            <span className={source.amount < 0 ? styles.rowValueDown : styles.rowValue}>
+              {signed(source.amount)}
+            </span>
+          </li>
+        ))}
+      </ul>
+    );
 
   return (
     <section className={styles.wrap} aria-labelledby="month-title">
@@ -132,9 +173,11 @@ export function MonthReportScreen({ locale }: { locale: SandboxLocale }) {
             </span>
           ) : null}
         </p>
-        <p className={styles.heroNote}>
-          <FormattedMessage id="monthReport.everyDollar" />
-        </p>
+        {report.explained ? (
+          <p className={styles.heroNote}>
+            <FormattedMessage id="monthReport.everyDollar" />
+          </p>
+        ) : null}
       </div>
 
       {view === 'simple' ? (
@@ -148,32 +191,7 @@ export function MonthReportScreen({ locale }: { locale: SandboxLocale }) {
           <h2 className={styles.sectionLabel}>
             <FormattedMessage id="monthReport.sourcesTitle" />
           </h2>
-          {report.sources.length === 0 ? (
-            /* A month where nothing moved is a real answer, not an empty
-               section: the heading above must never stand over nothing. */
-            <p className={styles.quietNote}>
-              <FormattedMessage id="monthReport.nothingMoved" />
-            </p>
-          ) : (
-            <ul className={styles.rows}>
-              {report.sources.map((source) => (
-                <li key={source.key} className={styles.row}>
-                  <span className={styles.rowIcon}>
-                    <LucideIcon name={SOURCE_ICON[source.key]} size={18} />
-                  </span>
-                  <span className={styles.rowBody}>
-                    <span className={styles.rowName}>{sourceLabel(source.key)}</span>
-                    <span className={styles.rowNote}>
-                      <FormattedMessage id={`monthReport.sourceNote.${source.key}`} />
-                    </span>
-                  </span>
-                  <span className={source.amount < 0 ? styles.rowValueDown : styles.rowValue}>
-                    {signed(source.amount)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
+          {sourceRows}
         </>
       ) : (
         <>
@@ -187,32 +205,7 @@ export function MonthReportScreen({ locale }: { locale: SandboxLocale }) {
           />
           {/* The chart is aria-hidden; THIS is its text equivalent, carrying
               the same figures in the same order. */}
-          {report.sources.length === 0 ? (
-            /* A month where nothing moved is a real answer, not an empty
-               section: the heading above must never stand over nothing. */
-            <p className={styles.quietNote}>
-              <FormattedMessage id="monthReport.nothingMoved" />
-            </p>
-          ) : (
-            <ul className={styles.rows}>
-              {report.sources.map((source) => (
-                <li key={source.key} className={styles.row}>
-                  <span className={styles.rowIcon}>
-                    <LucideIcon name={SOURCE_ICON[source.key]} size={18} />
-                  </span>
-                  <span className={styles.rowBody}>
-                    <span className={styles.rowName}>{sourceLabel(source.key)}</span>
-                    <span className={styles.rowNote}>
-                      <FormattedMessage id={`monthReport.sourceNote.${source.key}`} />
-                    </span>
-                  </span>
-                  <span className={source.amount < 0 ? styles.rowValueDown : styles.rowValue}>
-                    {signed(source.amount)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
+          {sourceRows}
 
           {/* Board §2a: opening + change == closing, with the opening derived
               from a point-in-time projection of the log's prefix. */}

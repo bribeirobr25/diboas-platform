@@ -10,6 +10,7 @@ import {
   grantPlayMoney,
   resetSandbox,
   resolveSimulatedExpense,
+  transferGoalCash,
 } from '@/lib/ledgerClient';
 import { buildMonthReport, currentMonthWindow, playBalance } from '@/lib/monthReport';
 
@@ -206,5 +207,59 @@ describe('the month-report aggregator', () => {
     // and the invariant would describe different money.
     expect(reconcile(state)).toBe('0.00');
     expect(playBalance(state).toFixed(2)).toBe('10000.00');
+  });
+
+  it('should report the NET moved into goals, not every funding leg', () => {
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    const g1 = createGoal({
+      name: 'A',
+      icon: 'plane',
+      targetAmount: 5000,
+      horizonMonths: 12,
+      fundAmount: 1000,
+    })!;
+    const g2 = createGoal({
+      name: 'B',
+      icon: 'shield',
+      targetAmount: 5000,
+      horizonMonths: 12,
+      fundAmount: 0,
+    })!;
+    // G4's "move to another goal" emits GoalCashReleased + GoalFunded together.
+    // Counting only the funding leg claimed $2,000 moved into goals when
+    // $1,000 went in and then travelled sideways.
+    transferGoalCash(g1, g2);
+    const report = buildMonthReport(getLedgerState(), WINDOW.fromIso, WINDOW.toIso)!;
+    const inGoals = getLedgerState().goals.reduce((s, g) => s + Number(g.cash), 0);
+    expect(report.movedIntoGoals).toBe(1000);
+    expect(report.movedIntoGoals).toBe(inGoals);
+  });
+
+  it('should NOT claim every dollar is explained when the rows do not sum', () => {
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    const clean = buildMonthReport(getLedgerState(), WINDOW.fromIso, WINDOW.toIso)!;
+    expect(clean.explained).toBe(true);
+
+    // A log the PROJECTION skips but the row-walk counts: a second credit for
+    // the same week (the engine's per-week idempotency guard). Reachable
+    // because the ledger is user-editable localStorage.
+    const state = getLedgerState();
+    const credit = {
+      ...state.events[0],
+      eventId: 'dup-1',
+      type: 'WeeklyCreditGranted' as const,
+      week: 1,
+      amount: '1000.00',
+    };
+    const doubled = {
+      ...state,
+      events: [...state.events, credit, { ...credit, eventId: 'dup-2' }],
+    };
+    const report = buildMonthReport(doubled, WINDOW.fromIso, WINDOW.toIso)!;
+    const summed = report.sources.reduce((s, r) => s + r.amount, 0);
+    // The rows over-count, the balance does not — so the screen must not claim
+    // to explain every dollar. Honest degradation beats a confident lie.
+    expect(summed).not.toBe(report.totalChange);
+    expect(report.explained).toBe(false);
   });
 });

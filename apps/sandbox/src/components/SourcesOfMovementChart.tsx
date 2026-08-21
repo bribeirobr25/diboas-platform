@@ -16,7 +16,7 @@ import styles from './SourcesOfMovementChart.module.css';
  * meaning "twice as much".
  *
  * Colour never carries the meaning alone (a11y + the batch-3 master block):
- * every bar is labelled with its signed amount, and the four rows beneath the
+ * every bar is labelled with its signed amount, and the source rows beneath the
  * chart are its full text equivalent — which is why the chart itself is
  * `aria-hidden` rather than given an invented description.
  */
@@ -44,34 +44,48 @@ export function SourcesOfMovementChart({
           const down = source.amount < 0;
           return (
             <div key={source.key} className={styles.column}>
+              {/* The value label sits OUTSIDE the fixed-height half. Inside it,
+                  the tallest bar (100% of the box) squeezed its own label out
+                  of view entirely — and shorter bars, having slack, kept
+                  theirs. Outside, every bar owns its full half and the label
+                  never competes with it. */}
+              {/* Each half reserves a label line and a FIXED bar box. The bar
+                  scales against the box, never against the half, so the label
+                  can neither squeeze the tallest bar nor drift away from the
+                  shortest — and both halves use the same box height, which is
+                  what keeps ±$1,000 the same size. */}
               <div className={styles.up}>
-                {down ? null : (
-                  <>
-                    <span className={styles.value}>
-                      {intl.formatMessage(
-                        { id: 'monthReport.signedUp' },
-                        { amount: money(source.amount.toFixed(2)) }
-                      )}
-                    </span>
-                    <span className={styles.bar} style={{ height: `${share}%` }} />
-                  </>
-                )}
+                <div className={styles.barBox}>
+                  {down ? null : (
+                    <>
+                      <span className={styles.value}>
+                        {intl.formatMessage(
+                          { id: 'monthReport.signedUp' },
+                          { amount: money(source.amount.toFixed(2)) }
+                        )}
+                      </span>
+                      <span className={styles.bar} style={{ height: `${share}%` }} />
+                    </>
+                  )}
+                </div>
               </div>
               <div className={styles.down}>
-                {down ? (
-                  <>
-                    <span
-                      className={`${styles.bar} ${styles.barDown}`}
-                      style={{ height: `${share}%` }}
-                    />
-                    <span className={styles.value}>
-                      {intl.formatMessage(
-                        { id: 'monthReport.signedDown' },
-                        { amount: money(Math.abs(source.amount).toFixed(2)) }
-                      )}
-                    </span>
-                  </>
-                ) : null}
+                <div className={styles.barBoxDown}>
+                  {down ? (
+                    <>
+                      <span
+                        className={`${styles.bar} ${styles.barDown}`}
+                        style={{ height: `${share}%` }}
+                      />
+                      <span className={styles.value}>
+                        {intl.formatMessage(
+                          { id: 'monthReport.signedDown' },
+                          { amount: money(Math.abs(source.amount).toFixed(2)) }
+                        )}
+                      </span>
+                    </>
+                  ) : null}
+                </div>
               </div>
               <span className={styles.label}>{labelFor(source.key)}</span>
             </div>

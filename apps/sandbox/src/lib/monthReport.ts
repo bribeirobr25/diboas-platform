@@ -1,5 +1,6 @@
 import Decimal from 'decimal.js';
 import { project, type LedgerEvent, type LedgerState } from '@diboas/banking';
+import { Logger } from './monitoring/Logger';
 
 /**
  * G12 month-report aggregator (§4.12). Reads only — appends nothing.
@@ -43,6 +44,12 @@ export interface MovementSource {
 }
 
 export interface MonthReport {
+  /**
+   * Whether the rows actually sum to the change. False means the log contains
+   * events the projection skipped, and the screen must not claim to explain
+   * every dollar — see `buildMonthReport`.
+   */
+  explained: boolean;
   /** Window bounds, ISO — the labelled range. */
   fromIso: string;
   toIso: string;
@@ -223,8 +230,16 @@ export function buildMonthReport(
       running = running.plus(delta);
       series.push(running.toNumber());
     }
+    // NET into goals, not gross in. G4's "move to another goal"
+    // (`transferGoalCash`) emits GoalCashReleased + GoalFunded under one
+    // correlationId, so counting only the funding leg reported $2,000 moved
+    // when $1,000 went in and then travelled sideways. Dropping a goal
+    // returns its cash the same way. Both are subtracted, so the figure is
+    // what actually ended up in goals this month.
     if (event.type === 'GoalFunded' || event.type === 'RecurringContributionApplied')
       movedIntoGoals = movedIntoGoals.plus(event.amount);
+    if (event.type === 'GoalCashReleased') movedIntoGoals = movedIntoGoals.minus(event.amount);
+    if (event.type === 'GoalDropped') movedIntoGoals = movedIntoGoals.minus(event.cashReleased);
     if (event.type === 'GoalCreated') goalsCreated += 1;
     if (event.type === 'RuleApplied') cyclesCompleted += 1;
   }
@@ -232,7 +247,37 @@ export function buildMonthReport(
   const closing = playBalance(state);
   const totalChange = closing.minus(opening);
 
+  const sources = SOURCE_ORDER.flatMap((key) => {
+    const amount = totals.get(key);
+    // A zero row says nothing and adds a line to scan; absent is honest.
+    return amount && !amount.isZero() ? [{ key, amount: amount.toNumber() }] : [];
+  });
+  /**
+   * The rows are derived from event payloads, while the balance comes from the
+   * PROJECTION — and the projection skips events that fail its guards (a
+   * duplicate week credit, an unaffordable debit, an accrual on a closed
+   * position). The ledger is user-editable localStorage, so such a log is
+   * reachable even though no emitter produces one.
+   *
+   * Rather than re-implementing nine guards here — a second copy of the
+   * projection's semantics, which is what made this wrong in the first place —
+   * the report CHECKS its own identity and reports honestly when it does not
+   * hold. `explained` is what the screen keys its "every dollar is explained"
+   * line off: the claim is made only when it is true.
+   */
+  const summed = sources.reduce((acc, r) => acc.plus(r.amount), new Decimal(0));
+  const explained = summed.toFixed(2) === totalChange.toFixed(2);
+  if (!explained) {
+    Logger.warn('month report does not reconcile — rows omitted from the claim', {
+      fromIso,
+      toIso,
+      summed: summed.toFixed(2),
+      totalChange: totalChange.toFixed(2),
+    });
+  }
+
   return {
+    explained,
     fromIso,
     toIso,
     opening: opening.toNumber(),
@@ -241,11 +286,7 @@ export function buildMonthReport(
     // A percentage of nothing is not 0% — it is undefined; the genesis month
     // opens at zero, so the figure is suppressed rather than invented.
     totalChangePercent: opening.gt(0) ? totalChange.div(opening).mul(100).toNumber() : 0,
-    sources: SOURCE_ORDER.flatMap((key) => {
-      const amount = totals.get(key);
-      // A zero row says nothing and adds a line to scan; absent is honest.
-      return amount && !amount.isZero() ? [{ key, amount: amount.toNumber() }] : [];
-    }),
+    sources,
     series,
     movedIntoGoals: movedIntoGoals.toNumber(),
     goalsCreated,
