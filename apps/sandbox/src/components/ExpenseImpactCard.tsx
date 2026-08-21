@@ -55,6 +55,12 @@ export function ExpenseImpactCard({
   onChoose: (impact: ExpenseImpact) => void;
 }) {
   const intl = useIntl();
+  /* Locale-formatted zero — "0,00" in pt-BR, not the hardcoded "0.00" that
+     contradicted every other figure on the card. */
+  const zeroPlaceholder = intl.formatNumber(0, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
   const { money } = useFormatters(currency);
 
   const optionLabel = intl.formatMessage(
@@ -144,7 +150,7 @@ export function ExpenseImpactCard({
               step="0.01"
               value={splitValue}
               onChange={(e) => onSplitChange(impact.goalId!, e.target.value)}
-              placeholder="0.00"
+              placeholder={zeroPlaceholder}
               aria-describedby={`split-range-${impact.goalId}`}
             />
           </div>

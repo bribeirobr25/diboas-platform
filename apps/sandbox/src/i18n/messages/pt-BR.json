@@ -44,10 +44,10 @@
     "monthNote": "Para onde foi seu saldo de treino neste mês, até o último centavo."
   },
   "goalNew": {
-    "title": "Create a goal",
-    "subtitle": "Define what you're working toward.",
-    "nameLabel": "Goal name",
-    "namePlaceholder": "e.g., Emergency fund",
+    "title": "Criar um objetivo",
+    "subtitle": "Defina o que você quer alcançar.",
+    "nameLabel": "Nome do objetivo",
+    "namePlaceholder": "ex.: Reserva de emergência",
     "iconLabel": "Escolha a imagem dele",
     "icon": {
       "plane": "Avião",
@@ -62,14 +62,14 @@
       "sprout": "Broto"
     },
     "targetLabel": "Valor alvo",
-    "horizonLabel": "Time horizon",
+    "horizonLabel": "Prazo",
     "fundLabel": "Mover agora este valor do dinheiro que trabalha pro objetivo",
     "fundAvailable": "{amount} disponível",
     "errorName": "Dê um nome pro objetivo, ele é o motivo do dinheiro se mover.",
     "errorTarget": "O alvo precisa ser um valor positivo.",
     "errorHorizon": "Escolha um prazo entre 1 mês e 40 anos.",
     "errorFund": "Isso é mais do que seu dinheiro que trabalha tem agora.",
-    "createCta": "Create goal",
+    "createCta": "Criar objetivo",
     "strategiesTitle": "Estratégias com prazo parecido com o seu",
     "strategiesNote": "Esta lista é um filtro, não um conselho: toda estratégia que combina com o horizonte que você definiu está aqui, na mesma ordem pra todo mundo. Nada vem pré-escolhido. Você lê e escolhe.",
     "strategiesBands": "Cada horizonte mostra as mesmas quatro estratégias, além da opção de manter como dinheiro.",
@@ -79,11 +79,11 @@
     "apyNow": "Taxa atual do pool: {apy}%/ano (real, variável)",
     "apyNowMixed": "Taxa combinada do pool: {apy}%/ano (variável, inclui valores de referência documentados)",
     "apyNowFixture": "Taxa de referência do pool: {apy}%/ano (valores documentados, não ao vivo)",
-    "monthLabel": "Month",
-    "yearLabel": "Year",
-    "startingLabel": "Starting amount",
-    "optional": "(optional)",
-    "startingFrom": "From Available"
+    "monthLabel": "Mês",
+    "yearLabel": "Ano",
+    "startingLabel": "Valor inicial",
+    "optional": "(opcional)",
+    "startingFrom": "Do Disponível"
   },
   "pathCard": {
     "pathTitle": "Caminho",
@@ -138,7 +138,7 @@
     "subtitle": "Cada centavo contabilizado. Todos os saldos reconciliam.",
     "empty": "Nada ainda. O rastro começa quando seu dinheiro ganha a primeira função.",
     "granted": "Dinheiro de mentira chegou: {amount}",
-    "split": "Assigned to jobs: {working}% working, {cushion}% cushion, {floor}% floor.",
+    "split": "Distribuído entre as funções: {working}% trabalhando, {cushion}% de reserva, {floor}% do essencial.",
     "goalCreated": "Objetivo criado: {name}",
     "funded": "{amount} movido pra {name}",
     "entered": "{amount} colocado pra trabalhar em {strategy} (taxa de rede {fee})",
@@ -374,7 +374,7 @@
     "securitySub": "Senha, 2FA e recuperação",
     "payment": "Dados de pagamento",
     "paymentSub": "Contas e métodos vinculados",
-    "editAvatar": "Change your profile photo",
+    "editAvatar": "Trocar sua foto de perfil",
     "privacy": "Privacidade e dados",
     "privacySub": "Consentimentos, idioma e seus dados",
     "practiceRecord": "Registro de treino",
@@ -438,23 +438,23 @@
     "okay": "Entendi"
   },
   "comprehension": {
-    "title": "Comprehension micro-check",
-    "subtitle": "A quick check to make sure the key idea clicked before you move on.",
-    "questionLabel": "Question",
-    "question": "Can practice credits become real money?",
-    "explainer": "Practice credits let you explore and build confidence with no real money at stake. They do not convert to real money.",
+    "title": "Checagem rápida",
+    "subtitle": "Uma checagem rápida pra garantir que a ideia principal ficou clara antes de seguir.",
+    "questionLabel": "Pergunta",
+    "question": "Créditos de treino podem virar dinheiro de verdade?",
+    "explainer": "Os créditos de treino deixam você explorar e ganhar confiança sem nenhum dinheiro real em jogo. Eles não viram dinheiro de verdade.",
     "yes": "Yes",
     "no": "No",
-    "correct": "That's right. Practice credits stay play money, always.",
-    "incorrect": "Not quite. Practice credits never convert to real money.",
-    "continue": "Continue",
-    "note": "Sandbox keeps things safe so you can learn without pressure.",
-    "skip": "Skip"
+    "correct": "Isso mesmo. Crédito de treino é dinheiro de mentira, sempre.",
+    "incorrect": "Quase. Crédito de treino nunca vira dinheiro de verdade.",
+    "continue": "Continuar",
+    "note": "O Sandbox mantém tudo seguro pra você aprender sem pressão.",
+    "skip": "Pular"
   },
   "error": {
-    "title": "Something went sideways",
-    "body": "This screen hit a snag. Your play money and progress are safe. Try again.",
-    "retry": "Try again"
+    "title": "Algo saiu do rumo",
+    "body": "Esta tela deu um problema. Seu dinheiro de mentira e seu progresso estão seguros. Tente de novo.",
+    "retry": "Tentar de novo"
   },
   "goalsList": {
     "title": "Suas metas",

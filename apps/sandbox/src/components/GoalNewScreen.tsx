@@ -29,6 +29,13 @@ const YEARS_AHEAD = 40; // matches GOAL_HORIZON_MAX_MONTHS (480 = 40y)
  */
 export function GoalNewScreen({ locale }: { locale: SandboxLocale }) {
   const intl = useIntl();
+  /* "0,00" in pt-BR/de/es, "0.00" in en. It was hardcoded as "0.00", so the
+     field sat under a R$ 10.000,00 hint showing a dot decimal — the app
+     contradicting its own number format in the same glance. */
+  const zeroPlaceholder = intl.formatNumber(0, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
   const router = useRouter();
   const state = useLedger();
   // The ledger's currency, never the locale's: a reader who switches locale
@@ -131,7 +138,7 @@ export function GoalNewScreen({ locale }: { locale: SandboxLocale }) {
             min={0}
             value={target}
             onChange={(e) => setTarget(e.target.value)}
-            placeholder="0.00"
+            placeholder={zeroPlaceholder}
           />
         </div>
       </div>
@@ -202,7 +209,7 @@ export function GoalNewScreen({ locale }: { locale: SandboxLocale }) {
             min={0}
             value={fund}
             onChange={(e) => setFund(e.target.value)}
-            placeholder="0.00"
+            placeholder={zeroPlaceholder}
           />
         </div>
         <p className={styles.hint}>
