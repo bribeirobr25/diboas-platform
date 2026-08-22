@@ -16,6 +16,7 @@ import {
   type DisplayCurrency,
   type ProtocolId,
 } from '@diboas/defi';
+import { MARKET_CACHE_CONTROL, MARKET_ERROR_CACHE_CONTROL } from '@/lib/marketCacheHeaders';
 
 const PROTOCOLS: ProtocolId[] = [
   'skySsr',
@@ -52,10 +53,13 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         usdPriceLocal: usdcQuotes[0]?.price ?? 1,
         usdPriceStamp: usdcQuotes[0]?.stamp ?? null,
       },
-      { headers: { 'Cache-Control': 'no-store' } }
+      { headers: { 'Cache-Control': MARKET_CACHE_CONTROL } }
     );
   } catch {
     // Providers already fail open; this is the belt to their suspenders.
-    return NextResponse.json({ error: 'market_unavailable' }, { status: 503 });
+    return NextResponse.json(
+      { error: 'market_unavailable' },
+      { status: 503, headers: { 'Cache-Control': MARKET_ERROR_CACHE_CONTROL } }
+    );
   }
 }

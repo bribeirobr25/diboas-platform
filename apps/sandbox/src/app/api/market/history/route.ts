@@ -11,6 +11,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { CoinGeckoPriceProvider, DefiLlamaApyProvider, type ProtocolId } from '@diboas/defi';
+import { MARKET_CACHE_CONTROL, MARKET_ERROR_CACHE_CONTROL } from '@/lib/marketCacheHeaders';
 
 const PROTOCOLS: ProtocolId[] = [
   'skySsr',
@@ -35,9 +36,12 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     ]);
     return NextResponse.json(
       { days, histories, priceHistories },
-      { headers: { 'Cache-Control': 'no-store' } }
+      { headers: { 'Cache-Control': MARKET_CACHE_CONTROL } }
     );
   } catch {
-    return NextResponse.json({ error: 'history_unavailable' }, { status: 503 });
+    return NextResponse.json(
+      { error: 'history_unavailable' },
+      { status: 503, headers: { 'Cache-Control': MARKET_ERROR_CACHE_CONTROL } }
+    );
   }
 }
