@@ -126,3 +126,40 @@ These forward-looking React performance rules remain in `CLAUDE.md` § React Per
 ## Cinematic hero: software-GL static-frame guard (PSI 2026-07-17 — do not regress)
 
 `useWebGLScene` + `threeLoader.SceneController.softwareRenderer`: when the WebGL context reports a CPU rasterizer (SwiftShader/llvmpipe via `WEBGL_debug_renderer_info`), the hero renders exactly ONE static frame and never starts the rAF loop — same path as `prefers-reduced-motion`. Why: software-GL frames run ~100–200 ms each ON THE MAIN THREAD, which produced TBT 16.5 s on /learn and 22.7 s on /strategies in PageSpeed (headless Chromium has no GPU) and equally punishes real GPU-less devices (the F23 llvmpipe visitor). Removing this guard silently reverts /learn to a 38 performance score. The gradient/poster fallback keeps the visual. Related same-batch locks: hero poster `quality={70}` requires `70` in `next.config.js images.qualities`; `fetchPriority="high"` rides the priority poster; the `vitals.vercel-analytics.com` preconnect is deliberately gone (no Vercel Analytics in the stack); calculator `.range` inputs are 28 px tall with the 6 px track drawn by track pseudo-elements (WCAG 2.5.8 touch target) — don't "simplify" the height back onto the input.
+
+## Domain map + the sandbox's public posture (2026-08-22 — do not regress)
+
+- **`app.diboas.com` is the ONE product host.** `diboas.com` is marketing (including `/business`);
+  `sandbox.diboas.com`, `apps.diboas.com` and `business.diboas.com` are **retired** — the last one
+  does not resolve at all. Sandbox is a **MODE**, not a separate product (one account, two ledgers,
+  a switch), so a `sandbox.` host would encode "separate product" into the URL _and_ force a
+  cookie/localStorage migration at real-money launch — stranding every session and every practice
+  ledger at the exact moment the product asks for real-money trust. **B2B is an account CONTEXT on
+  the same host**, never a second domain: it runs the same money engine, fees and custody and
+  differs only in shell. Three orthogonal axes — Mode (Sandbox ⇄ Real) · Context (Personal ⇄
+  Business) · Role. Founder-ruled; full reasoning in PENDING_ALL `5.119`.
+- **Sub-app URL fallbacks must be LOCAL ROUTES, not sub-domains.** `BUSINESS_URL` and `LEARN_URL`
+  in `apps/web/src/config/env.ts` fall back to `/business` and `/learn`, matching `.env.example`.
+  They previously fell back to `https://business.diboas.com` / `https://learn.diboas.com`, **neither
+  of which resolves**, so any environment missing the env vars pointed the primary nav CTA and a
+  footer link at a dead host. Do not "restore" the sub-domain forms.
+- **`NEXT_PUBLIC_APP_URL` is overloaded — do not add to it.** In `config/env.ts` it means _this
+  site's own origin_ and feeds the CSP/CSRF `baseOrigins`; in `config/hero.ts` it is read as _the
+  product app's URL_. They only agree today because `WaitingListProvider` intercepts the hero CTA.
+  When the waitlist retires, the CTA needs a **separately named** constant (e.g. `PRODUCT_APP_URL`)
+  — overloading `APP_URL` further would corrupt the origin allowlist (PENDING_ALL `5.120`).
+- **`SANDBOX_PUBLIC_ACCESS` is an EXPLICIT opt-in, strict `=== 'true'`.** It opens the sandbox
+  without the shared-password gate. It must never be inferred from a missing password: the gate's
+  fail-closed rule stands, because a misconfiguration that silently opened the app is precisely the
+  accident that rule exists to prevent. `TRUE`, `1`, `' true'` all keep it shut — table-tested in
+  `apps/sandbox/src/lib/auth/__tests__/authProvider.test.ts`. The check lives in
+  `SimulatedAuthProvider.verifySession` so the "who may enter" seam stays single. Opening the app
+  does **not** relax the CN/RU/KP geofence, `noindex`, or the R-4 play-money label.
+- **The public market routes are CDN-cached; failures are not.** `/api/market` and
+  `/api/market/history` send `public, max-age=0, s-maxage=300, stale-while-revalidate=3600` from the
+  shared constant in `apps/sandbox/src/lib/marketCacheHeaders.ts`. They proxy a metered free-tier
+  feed and the provider cache is **in-process**, so on serverless every cold instance starts empty —
+  the CDN is the quota protection. `max-age=0` keeps browsers from pinning a stale rate into an open
+  tab. **Error responses stay `no-store`:** a cached 503 would turn a momentary provider blip into a
+  multi-minute outage for everyone behind that edge. Guarded by `marketCacheHeaders.test.ts`, which
+  reads both route files — do not re-inline the header in either.
