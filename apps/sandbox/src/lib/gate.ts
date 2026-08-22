@@ -24,6 +24,24 @@ function getPassword(): string | null {
   return pw && pw.length > 0 ? pw : null;
 }
 
+/**
+ * Open the app to the public, skipping the shared-password gate.
+ *
+ * EXPLICIT opt-in (`SANDBOX_PUBLIC_ACCESS=true`), never inferred from a missing
+ * password — the fail-closed rule above still holds, because a misconfiguration
+ * that silently opened the app would be exactly the accident that rule exists
+ * to prevent. Founder decision 2026-08-22: ship the practice app publicly at
+ * `app.diboas.com` before real authentication exists, accepting that the ledger
+ * is device-local until Auth.js lands.
+ *
+ * What this does NOT relax: the CN/RU/KP geofence (edge middleware, unchanged),
+ * `noindex`, and the R-4 play-money labelling. Flip the flag off and the gate
+ * returns with no other change.
+ */
+export function isPublicAccess(): boolean {
+  return process.env.SANDBOX_PUBLIC_ACCESS === 'true';
+}
+
 export function isGateConfigured(): boolean {
   return getPassword() !== null;
 }

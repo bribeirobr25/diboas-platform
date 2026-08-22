@@ -3,6 +3,7 @@ import {
   gateCookieOptions,
   gateGrantToken,
   isGateConfigured,
+  isPublicAccess,
   verifyGateCookie,
 } from '@/lib/gate';
 import type { IAuthProvider, Identity, SessionGrant } from './types';
@@ -22,10 +23,17 @@ export class SimulatedAuthProvider implements IAuthProvider {
   readonly sessionCookieName = SANDBOX_GATE_COOKIE;
 
   isConfigured(): boolean {
-    return isGateConfigured();
+    return isPublicAccess() || isGateConfigured();
   }
 
+  /**
+   * In public mode everyone is the same anonymous visitor — which is honest
+   * about what exists today: there are no accounts, and the ledger is
+   * device-local. The check lives HERE rather than at the call sites so the
+   * "who may enter" seam stays single; Auth.js replaces this whole class.
+   */
   verifySession(cookieValue: string | undefined | null): Identity | null {
+    if (isPublicAccess()) return { subject: GATE_SUBJECT };
     return verifyGateCookie(cookieValue) ? { subject: GATE_SUBJECT } : null;
   }
 
