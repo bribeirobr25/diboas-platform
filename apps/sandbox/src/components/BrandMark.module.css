@@ -2,13 +2,13 @@
  * The palm monogram alone. Square, so the app bar's centre stays optically
  * balanced against the two icon buttons flanking it.
  *
- * The asset is the app-icon cut (opaque ink tile), so it is given the rounded
- * corner an app icon expects rather than being stretched into a shape it was
- * not drawn for. One file serves both themes: the tile is ink-teal and the
- * palm sea-green, which hold on either ground.
+ * Transparent: the mark sits directly on the bar, free-standing, the way mockup
+ * 02 draws it. No border-radius — that was only there because the earlier asset
+ * was the app-icon cut on an opaque ink tile, and a tile needs the rounded
+ * corner an app icon expects. One file serves both themes: the palm is
+ * sea-green, which holds on the cream ground and on the near-black one.
  */
 .mark {
   display: block;
-  border-radius: var(--radius-md);
   background: url('/logo-mark.avif') center / contain no-repeat;
 }
