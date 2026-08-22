@@ -52,7 +52,6 @@ const M = {
   'goalDual.howLabel': "What your money's doing",
   'goalDual.nextLabel': 'What you can do next',
   'goalDual.add': 'Add money',
-  'goalDual.seeDetail': 'See the detail',
   'goalDual.paused': 'Plan paused',
   'goalDual.moneyStillWorking': 'Invested money still working',
   'goalDual.contributions': 'Your contributions',

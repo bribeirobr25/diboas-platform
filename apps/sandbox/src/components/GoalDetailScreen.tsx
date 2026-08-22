@@ -481,18 +481,13 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                 <FormattedMessage id="goalPause.resume" />
               </button>
             ) : null}
-            <button type="button" className={styles.actionTile} onClick={() => setView('detailed')}>
-              <span className={styles.actionTileIcon}>
-                <LucideIcon name="list" size={18} />
-              </span>
-              <FormattedMessage id="goalDual.detailed" />
-            </button>
+            {/* No "Detailed" tile and no "see the detail" link here (founder
+                2026-08-22, PENDING_ALL 5.118). The Simple|Detailed toggle above
+                already switches the view and is the persistent control; this
+                row is for ACTIONS. A view switch standing as a visual peer of
+                "Add money" and "Pause plan" overstated itself and understated
+                them — and the screen offered the same destination three ways. */}
           </div>
-
-          <button type="button" className={styles.seeDetail} onClick={() => setView('detailed')}>
-            <FormattedMessage id="goalDual.seeDetail" />
-            <LucideIcon name="chevron-right" size={16} />
-          </button>
         </div>
       ) : (
         <div className={styles.detailedView}>

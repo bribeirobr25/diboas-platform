@@ -417,22 +417,6 @@
   color: var(--text-brand-accessible);
 }
 
-.seeDetail {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-2xs);
-  min-height: var(--sb-tap);
-  margin-top: var(--spacing-sm);
-  border: 0;
-  border-radius: var(--radius-pill);
-  background: var(--sb-card-tint);
-  color: var(--text-brand-accessible);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-md);
-  cursor: pointer;
-}
-
 .breakRow {
   display: flex;
   justify-content: space-between;

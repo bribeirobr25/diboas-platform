@@ -22,9 +22,9 @@
     "notConfigured": "A porta do sandbox ainda não foi configurada. Defina SANDBOX_ACCESS_PASSWORD e reinicie."
   },
   "home": {
-    "goalsTitle": "Objetivos",
-    "noGoalsTitle": "Nenhum objetivo ainda.",
-    "noGoalsBody": "Um objetivo dá um destino pro dinheiro que trabalha. Dá um nome, define um alvo, e veja o caminho antes de qualquer movimento.",
+    "goalsTitle": "Metas",
+    "noGoalsTitle": "Nenhuma meta ainda.",
+    "noGoalsBody": "Uma meta dá um destino pro dinheiro que trabalha. Dá um nome, define um alvo, e veja o caminho antes de qualquer movimento.",
     "timeMachineTitle": "Máquina do tempo",
     "timeMachineNote": "Treinar é comprimir o tempo: avance o relógio e reveja o que o mercado realmente fez.",
     "simDay": "Dia {day} do seu treino",
@@ -44,9 +44,9 @@
     "monthNote": "Para onde foi seu saldo de treino neste mês, até o último centavo."
   },
   "goalNew": {
-    "title": "Criar um objetivo",
+    "title": "Criar uma meta",
     "subtitle": "Defina o que você quer alcançar.",
-    "nameLabel": "Nome do objetivo",
+    "nameLabel": "Nome da meta",
     "namePlaceholder": "ex.: Reserva de emergência",
     "iconLabel": "Escolha a imagem dele",
     "icon": {
@@ -63,13 +63,13 @@
     },
     "targetLabel": "Valor alvo",
     "horizonLabel": "Prazo",
-    "fundLabel": "Mover agora este valor do dinheiro que trabalha pro objetivo",
+    "fundLabel": "Mover agora este valor do dinheiro que trabalha pra meta",
     "fundAvailable": "{amount} disponível",
-    "errorName": "Dê um nome pro objetivo, ele é o motivo do dinheiro se mover.",
+    "errorName": "Dê um nome pra meta, ela é o motivo do dinheiro se mover.",
     "errorTarget": "O alvo precisa ser um valor positivo.",
     "errorHorizon": "Escolha um prazo entre 1 mês e 40 anos.",
     "errorFund": "Isso é mais do que seu dinheiro que trabalha tem agora.",
-    "createCta": "Criar objetivo",
+    "createCta": "Criar meta",
     "strategiesTitle": "Estratégias com prazo parecido com o seu",
     "strategiesNote": "Esta lista é um filtro, não um conselho: toda estratégia que combina com o horizonte que você definiu está aqui, na mesma ordem pra todo mundo. Nada vem pré-escolhido. Você lê e escolhe.",
     "strategiesBands": "Cada horizonte mostra as mesmas quatro estratégias, além da opção de manter como dinheiro.",
@@ -118,7 +118,7 @@
   },
   "goalDetail": {
     "progress": "{current} de {target}",
-    "cashInGoal": "No objetivo, ainda sem trabalhar: {amount}",
+    "cashInGoal": "Na meta, ainda sem trabalhar: {amount}",
     "investedLine": "Trabalhando em {strategy}: {amount}",
     "earningsTitle": "O que esta estratégia teria feito",
     "earningsLine": "{amount} até agora, repetindo a história real do mercado",
@@ -126,9 +126,9 @@
     "exitCta": "Tirar o dinheiro",
     "backToGoal": "Voltar às suas metas",
     "noPositionTitle": "Parado como caixa",
-    "noPosition": "O dinheiro deste objetivo está parado como caixa. Pode ficar assim o tempo que você quiser.",
+    "noPosition": "O dinheiro desta meta está parado como caixa. Pode ficar assim o tempo que você quiser.",
     "putToWork": "Colocar pra trabalhar",
-    "milestoneTitle": "Você alcançou esse objetivo, na prática.",
+    "milestoneTitle": "Você alcançou essa meta, na prática.",
     "milestoneBody": "Na vida real, é aqui que você decidiria o próximo passo. Nada aqui é dinheiro de verdade.",
     "percentWay": "do caminho até lá",
     "exitPricingUnavailable": "Não dá para calcular os custos agora, então parar está indisponível. Seu dinheiro continua trabalhando."
@@ -139,7 +139,7 @@
     "empty": "Nada ainda. O rastro começa quando seu dinheiro ganha a primeira função.",
     "granted": "Dinheiro de mentira chegou: {amount}",
     "split": "Distribuído entre as funções: {working}% trabalhando, {cushion}% de reserva, {floor}% do essencial.",
-    "goalCreated": "Objetivo criado: {name}",
+    "goalCreated": "Meta criada: {name}",
     "funded": "{amount} movido pra {name}",
     "entered": "{amount} colocado pra trabalhar em {strategy} (taxa de rede {fee})",
     "accrued": "{name} variou {amount}",
@@ -149,7 +149,7 @@
     "goalPaused": "Você pausou {name}. O dinheiro investido continua trabalhando.",
     "goalResumed": "Você retomou {name}.",
     "goalDropped": "Você encerrou {name}. {amount} voltou para Disponível.",
-    "goalAccomplished": "Você concluiu {name}. Objetivo alcançado.",
+    "goalAccomplished": "Você concluiu {name}. Meta alcançada.",
     "positionReassigned": "Você moveu uma estratégia de {from} para {to}.",
     "goalTargetChanged": "Você mudou a meta de {name} de {old} para {new}.",
     "goalCashReleased": "Você moveu {amount} de {name} para Disponível.",
@@ -189,11 +189,11 @@
       },
       "goalKeeper": {
         "name": "Goal Keeper",
-        "tagline": "Protegendo seus objetivos de curto prazo"
+        "tagline": "Protegendo suas metas de curto prazo"
       },
       "steadyProgress": {
         "name": "Steady Progress",
-        "tagline": "Objetivos curtos, com um pouco de mercado na jogada"
+        "tagline": "Metas curtas, com um pouco de mercado na jogada"
       },
       "patientBuilder": {
         "name": "Patient Builder",
@@ -225,7 +225,7 @@
     "setupCta": "Adicionar um valor mensal",
     "amountLabel": "Quanto por mês",
     "amountPlaceholder": "ex.: 200",
-    "explainer": "Todo mês, esse valor sai do dinheiro que trabalha e entra nesse objetivo, para continuar investido.",
+    "explainer": "Todo mês, esse valor sai do dinheiro que trabalha e entra nessa meta, para continuar investido.",
     "note": "Dinheiro de brincadeira, e só funciona enquanto durar o dinheiro que trabalha. Sem taxa nisso no sandbox.",
     "confirm": "Ativar",
     "activeLine": "Adicionando {amount} todo mês",
@@ -253,7 +253,7 @@
   "authWelcome": {
     "tagline": "Você não guarda dinheiro. Você guarda futuro.",
     "title": "Uma reserva. Uma proteção. Um plano que sai do papel.",
-    "body": "Explore estratégias, defina objetivos e desenvolva sua intuição financeira.",
+    "body": "Explore estratégias, defina metas e desenvolva sua intuição financeira.",
     "google": "Continuar com Google",
     "email": "Continuar com e-mail",
     "wallet": "Conectar carteira",
@@ -269,7 +269,7 @@
     "optionalAll": "tudo opcional",
     "optionalIntro": "Estas configurações ajudam a personalizar a diBoaS. Você pode mudá-las quando quiser.",
     "financialProfileTitle": "Perfil financeiro",
-    "financialProfileBody": "Conte um pouco sobre seus objetivos e experiência para o conteúdo combinar com eles.",
+    "financialProfileBody": "Conte um pouco sobre suas metas e experiência para o conteúdo combinar com elas.",
     "analyticsTitle": "Análises",
     "analyticsBody": "Ajude a melhorar a diBoaS compartilhando dados de uso anônimos.",
     "marketingTitle": "Comunicações de marketing",
@@ -315,7 +315,6 @@
     "nextLabel": "O que você pode fazer agora",
     "add": "Adicionar dinheiro",
     "pausePlan": "Pausar plano",
-    "seeDetail": "Ver os detalhes",
     "simple": "Simples",
     "detailed": "Detalhado",
     "contributions": "Suas contribuições",
@@ -404,7 +403,7 @@
     "analytics": "Análises e insights",
     "analyticsDesc": "Ajude a melhorar o diBoaS com dados de uso",
     "personalization": "Personalização",
-    "personalizationDesc": "Ajuste o conteúdo que você vê aos objetivos que definiu",
+    "personalizationDesc": "Ajuste o conteúdo que você vê às metas que definiu",
     "marketing": "Comunicações de marketing",
     "marketingDesc": "Receba novidades e ofertas",
     "preferences": "Preferências",
@@ -501,7 +500,7 @@
   "exitCeremony": {
     "title": "Leia antes de parar",
     "subtitlePosition": "Veja exatamente o que volta, e quanto custa.",
-    "subtitleGoal": "Isso para todas as estratégias deste objetivo. Veja exatamente o que volta, e quanto custa.",
+    "subtitleGoal": "Isso para todas as estratégias desta meta. Veja exatamente o que volta, e quanto custa.",
     "onePosition": "1 estratégia trabalhando",
     "positionsCount": "{count} estratégias trabalhando",
     "gross": "Volta antes dos custos",
@@ -515,7 +514,7 @@
     "whereItLands": "Onde o dinheiro cai",
     "landsBody": "{amount} cai em {goal} como dinheiro parado. Para de trabalhar, e continua seu para mover.",
     "stopPosition": "Parar esta estratégia",
-    "stopGoal": "Parar este objetivo",
+    "stopGoal": "Parar esta meta",
     "cancel": "Deixar trabalhando"
   },
   "catalogFilters": {
@@ -569,7 +568,7 @@
   },
   "rules": {
     "title": "Seu sistema",
-    "subtitle": "Decida como cada real caminha para seus objetivos.",
+    "subtitle": "Decida como cada real caminha para suas metas.",
     "sendTo": "Mandar meu dinheiro para",
     "destinationLabel": "Destino {n}",
     "chooseDestination": "Escolher destino",
@@ -585,9 +584,9 @@
     "noWaitingCredits": "Nada está esperando para ser coletado agora, então a prévia mostra zero. Seu sistema continua valendo para o que chegar depois.",
     "create": "Criar sistema",
     "createHint": "Escolha pelo menos um destino e dê a ele uma parte acima de 0%.",
-    "noGoalsTitle": "Ainda não há objetivos para receber dinheiro",
-    "noGoalsBody": "Um sistema decide para onde vai o dinheiro que entra. Crie um objetivo primeiro e depois volte para definir as partes.",
-    "createGoal": "Criar um objetivo",
+    "noGoalsTitle": "Ainda não há metas para receber dinheiro",
+    "noGoalsBody": "Um sistema decide para onde vai o dinheiro que entra. Crie uma meta primeiro e depois volte para definir as partes.",
+    "createGoal": "Criar uma meta",
     "update": "Atualizar sistema",
     "staysInAvailableAuto": "Fica em Disponível (automático)"
   },
@@ -604,7 +603,7 @@
     "proposalTitle": "Como sua regra cuidaria disso",
     "remainder": "O resto fica em Disponível",
     "share": "{share} de cada crédito",
-    "pausedDiversion": "este objetivo está pausado, então a parte dele espera em Disponível",
+    "pausedDiversion": "esta meta está pausada, então a parte dela espera em Disponível",
     "repairNeeded": "Um destino da sua regra não está mais aberto. Atualize seu sistema para decidir para onde vai essa parte.",
     "approve": "Aprovar",
     "adjustOnce": "Ajustar uma vez",
@@ -640,7 +639,7 @@
     "projectionsNote": "São projeções para ajudar você a decidir. Você confirma na próxima etapa.",
     "back": "Voltar às opções",
     "waitingTitle": "Este fica esperando por enquanto",
-    "waitingBody": "Nem o Disponível nem um objetivo têm o suficiente para cobrir, e o dinheiro de treino nunca fica negativo. Ele espera aqui até dar para resolver.",
+    "waitingBody": "Nem o Disponível nem uma meta têm o suficiente para cobrir, e o dinheiro de treino nunca fica negativo. Ele espera aqui até dar para resolver.",
     "noneTitle": "Nada para resolver",
     "noneBody": "Nenhum cenário de treino está esperando por você agora.",
     "backHome": "Voltar para o início",
@@ -678,9 +677,9 @@
     "sourceNote.fees": "O que custou sair de uma estratégia.",
     "opening": "Saldo de treino em {date}",
     "closing": "Saldo de treino em {date}",
-    "movedIntoGoals": "Você também moveu {amount} para objetivos. Isso anda entre os seus próprios bolsos, então não muda o total.",
+    "movedIntoGoals": "Você também moveu {amount} para metas. Isso anda entre os seus próprios bolsos, então não muda o total.",
     "practiceTitle": "Seu mês de treino",
-    "goalsCreated": "{count, plural, one {# objetivo criado} other {# objetivos criados}}.",
+    "goalsCreated": "{count, plural, one {# meta criada} other {# metas criadas}}.",
     "cyclesCompleted": "{count, plural, one {# ciclo semanal resolvido} other {# ciclos semanais resolvidos}}.",
     "viewHistory": "Ver o histórico completo",
     "practiceOnly": "Isto é dinheiro de mentira. Nada aqui vira dinheiro de verdade."
