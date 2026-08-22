@@ -4,9 +4,11 @@ import styles from './SignalCardsGrid.module.css';
 
 interface SignalCardsGridProps {
   groups: SignalGroup[];
-  expandLabel: string;
-  collapseLabel: string;
-  pointsLabel: string;
+  /** Accepted for SDK API compatibility (doc-09); unused since the M3.5
+   *  native-details conversion — the rows render their own disclosure. */
+  expandLabel?: string;
+  collapseLabel?: string;
+  pointsLabel?: string;
   /** Accepted for SDK API compatibility; the editorial layout is always a
    *  single-column table. */
   columns?: 1 | 2 | 4;

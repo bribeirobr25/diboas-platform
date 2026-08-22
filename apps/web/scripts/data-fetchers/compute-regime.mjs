@@ -52,9 +52,9 @@ import { btcMonths } from '../market-refresh/providers/inrepo.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '../../../..');
-const REGIME_PATH = path.join(REPO_ROOT, 'apps/web/data/market/regime.json');
-const ARCHIVE_PATH = path.join(REPO_ROOT, 'apps/web/data/market/run-archive.jsonl');
-const ETF_MANUAL_PATH = path.join(REPO_ROOT, 'apps/web/data/market/etf01-manual.json');
+const REGIME_PATH = path.join(REPO_ROOT, 'apps/web/data/market/shared/regime.json');
+const ARCHIVE_PATH = path.join(REPO_ROOT, 'apps/web/data/market/shared/run-archive.jsonl');
+const ETF_MANUAL_PATH = path.join(REPO_ROOT, 'apps/web/data/market/shared/etf01-manual.json');
 
 const TODAY = new Date();
 

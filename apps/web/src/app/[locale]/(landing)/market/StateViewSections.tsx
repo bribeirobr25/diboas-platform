@@ -1,11 +1,19 @@
 /**
- * State-grammar middle sections (M3 — plan v3 D-M3-2): the Macro Backdrop's
- * composition — three condition cards (state word + the weekly generated
- * sentence + a static educational explainer) under the macro group summary
- * as the calm lead. NO score, NO band words, NO gauge (MM-2: those belong to
- * scored views). Rendered by MarketViewShell's `state` branch in place of
- * the scored sections; hero/outage/data-status/CTA/methodology/footer stay
- * shared shell chrome.
+ * State-grammar middle sections (M3 — plan v3 D-M3-2), restructured by the
+ * view-voice wave (2026-08-14, founder feedback): the cross-view standard is
+ * now "plain lead → diBoaS explanation → expandable depth" —
+ *
+ *   1. the macro group's generated sentence renders as the BIG lead (its
+ *      opening clause bolded when the template carries a colon; graceful
+ *      whole-sentence lead when it doesn't — never string-dependent),
+ *   2. a static diBoaS-voice explainer says why these three conditions
+ *      matter (market.conditions.sectionExplainer ×4 locales),
+ *   3. the three condition rows collapse to "title · state word" and expand
+ *      (native <details>) to the weekly generated sentence + the educational
+ *      explainer — mirroring the scored views' signal-group rows.
+ *
+ * NO score, NO band words, NO gauge (MM-2: those belong to scored views).
+ * Hero/outage/data-status/CTA/methodology/footer stay shared shell chrome.
  *
  * Anti-slop note (plan §7): the sentences also appear inside the Bitcoin
  * view as inputs to its score — justified duplication (macro-as-input vs
@@ -51,6 +59,18 @@ const FALLBACKS: Record<
   },
 };
 
+/** Colon-split for the bold lead: templates in the macro family open with
+ *  "Macro conditions are X: …". When a variant carries no colon the whole
+ *  sentence renders as the lead — the split is a presentation preference,
+ *  never a parsing dependency. */
+function splitLead(sentence: string): { lead: string; rest: string | null } {
+  const idx = sentence.indexOf(': ');
+  if (idx > 0 && idx < 80) {
+    return { lead: sentence.slice(0, idx + 1), rest: sentence.slice(idx + 2) };
+  }
+  return { lead: sentence, rest: null };
+}
+
 interface StateViewSectionsProps {
   viewSlug: string;
   signalGroups: SignalGroup[];
@@ -61,6 +81,8 @@ export function StateViewSections({ viewSlug, signalGroups, t }: StateViewSectio
   const macro = signalGroups.find((g) => g.id === 'macro_environment');
   if (!macro || !macro.signals || macro.signals.length === 0) return null;
 
+  const { lead, rest } = splitLead(macro.summary ?? '');
+
   return (
     <SectionErrorBoundary
       sectionId="market-backdrop-conditions"
@@ -69,15 +91,25 @@ export function StateViewSections({ viewSlug, signalGroups, t }: StateViewSectio
       context={{ page: 'market', section: 'conditions', view: viewSlug }}
     >
       <section className={styles.scoreSec}>
-        {/* The macro group summary as the calm lead (weekly-generated, ×4). */}
-        <p className={styles.standfirst}>{macro.summary}</p>
+        {/* The weekly generated read as the BIG lead (view-voice standard). */}
+        <p className={styles.stateLead}>
+          <strong className={styles.stateLeadStrong}>{lead}</strong>
+          {rest ? <span className={styles.stateLeadRest}> {rest}</span> : null}
+        </p>
+        {/* Why these three matter — static diBoaS voice, the page's context. */}
+        <p className={styles.stateExplainer}>
+          {t(
+            'conditions.sectionExplainer',
+            'Three forces set the weather behind every market: what the dollar is doing, what money costs, and how much of it is moving. No single week decides anything. The direction is what matters.'
+          )}
+        </p>
       </section>
 
       <section className={styles.section}>
         <div className={styles.secHead}>
           <h2 className={styles.h2}>{t('conditions.title', 'The three conditions')}</h2>
         </div>
-        <ul className={styles.srcPills} data-backdrop-conditions>
+        <div className={styles.conditionTable} data-backdrop-conditions>
           {COMPONENTS.map(({ id, key }) => {
             const sig = macro.signals?.find((s) => s.id === id);
             if (!sig) return null;
@@ -87,20 +119,27 @@ export function StateViewSections({ viewSlug, signalGroups, t }: StateViewSectio
                 ? t(`conditions.${key}.active`, fb.active)
                 : t(`conditions.${key}.inactive`, fb.inactive);
             return (
-              <li key={id} className={styles.conditionCard}>
-                <h3 className={styles.conditionTitle}>
-                  {t(`conditions.${key}.title`, fb.title)}
-                  <span className={styles.conditionState}> · {stateWord}</span>
-                </h3>
-                {/* The weekly generated sentence (drift-gated, CLO-lineage). */}
-                <p className={styles.conditionRead}>{sig.summary}</p>
-                {/* The static educational explainer — this page's earned
-                    differentiator (plan §7 anti-slop resolution). */}
-                <p className={styles.conditionExplainer}>{t(`explainers.${key}`, fb.explainer)}</p>
-              </li>
+              <details key={id} className={styles.conditionRow}>
+                <summary className={styles.conditionSummary}>
+                  <span className={styles.conditionTitle}>
+                    {t(`conditions.${key}.title`, fb.title)}
+                  </span>
+                  <span className={styles.conditionState}>{stateWord}</span>
+                  <span className={styles.chevron} aria-hidden="true" />
+                </summary>
+                <div className={styles.conditionBody}>
+                  {/* The weekly generated sentence (drift-gated, CLO-lineage). */}
+                  <p className={styles.conditionRead}>{sig.summary}</p>
+                  {/* The static educational explainer — this page's earned
+                      differentiator (plan §7 anti-slop resolution). */}
+                  <p className={styles.conditionExplainer}>
+                    {t(`explainers.${key}`, fb.explainer)}
+                  </p>
+                </div>
+              </details>
             );
           })}
-        </ul>
+        </div>
       </section>
     </SectionErrorBoundary>
   );

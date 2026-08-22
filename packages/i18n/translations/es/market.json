@@ -1,13 +1,13 @@
 {
   "seo": {
     "title": "Adelaide Market",
-    "description": "Inteligencia macro serena para los mercados financieros, empezando por Bitcoin. Entiende el entorno, no la próxima vela.",
+    "description": "Una lectura serena de los mercados financieros, empezando por Bitcoin. Entiende el entorno, no la próxima vela.",
     "ogTitle": "Adelaide Market",
-    "ogDescription": "Inteligencia macro serena para los mercados financieros, empezando por Bitcoin. Entiende el entorno, no la próxima vela."
+    "ogDescription": "Una lectura serena de los mercados financieros, empezando por Bitcoin. Entiende el entorno, no la próxima vela."
   },
   "hero": {
     "title": "Adelaide Market",
-    "subtitle": "Inteligencia macro serena para los mercados financieros.",
+    "subtitle": "Una lectura serena de los mercados, sin el ruido de siempre.",
     "kicker": "Score del entorno macro de Bitcoin"
   },
   "dashboard": {
@@ -25,7 +25,6 @@
       "HOSTILE": "Hostil"
     },
     "signalsSectionTitle": "Grupos de señales",
-    "signalsPoints": "pts",
     "historicalTitle": "Score a lo largo del tiempo",
     "historicalLead": "Dónde estuvo el entorno durante el último año.",
     "historicalAriaLabel": "Score del entorno macro en los últimos 12 meses",
@@ -55,16 +54,17 @@
       "nasdaq": "Nasdaq Composite",
       "gold": "Precio del oro",
       "btcEtf": "Flujos de ETF de Bitcoin"
-    }
+    },
+    "memoToggle": "Leer el memorando completo de la semana"
   },
   "cta": {
     "cadence": "Actualizado cada semana",
-    "headline": "Inteligencia calmada, cada semana.",
+    "headline": "Una lectura serena, cada semana.",
     "body": "Adelaide Market es gratis y se actualiza cada semana. Únete a la lista de espera para ser de los primeros cuando diBoaS abra.",
     "waitlist": "Unirme a la lista de espera",
     "share": "Compartir",
     "shareCopied": "Enlace copiado",
-    "shareText": "Adelaide Market: inteligencia macro calmada para los mercados financieros."
+    "shareText": "Adelaide Market: una lectura serena de los mercados, sin el ruido de siempre."
   },
   "fallback": {
     "outageTitle": "Datos en vivo temporalmente no disponibles",
@@ -105,5 +105,8 @@
         "inactive": "Liquidez en contracción"
       }
     }
+  },
+  "conditions": {
+    "sectionExplainer": "Tres fuerzas marcan el clima detrás de todos los mercados: qué hace el dólar, cuánto cuesta el dinero y cuánto está circulando. Ninguna semana aislada decide nada. Lo que importa es la dirección."
   }
 }

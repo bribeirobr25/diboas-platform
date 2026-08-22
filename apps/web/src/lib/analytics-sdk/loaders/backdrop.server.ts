@@ -8,12 +8,12 @@
  * away.
  */
 
-import currentRegimeJson from '@/../data/market/regime.json';
-import dataStatusJson from '@/../data/market/data-status.json';
-import historicalJson from '@/../data/market/historical.json';
-import methodologyJson from '@/../data/market/methodology.json';
-import productDisclaimerJson from '@/../data/market/product-disclaimer.json';
-import signalsJson from '@/../data/market/signals.json';
+import currentRegimeJson from '@/../data/market/shared/regime.json';
+import dataStatusJson from '@/../data/market/shared/data-status.json';
+import historicalJson from '@/../data/market/shared/historical.json';
+import methodologyJson from '@/../data/market/shared/methodology.json';
+import productDisclaimerJson from '@/../data/market/shared/product-disclaimer.json';
+import signalsJson from '@/../data/market/shared/signals.json';
 
 export const viewData = {
   regime: currentRegimeJson,

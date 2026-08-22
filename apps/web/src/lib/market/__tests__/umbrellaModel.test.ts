@@ -80,6 +80,23 @@ describe('scored cards', () => {
     expect(seeded.direction).toBeUndefined();
   });
 
+  it('should carry the first sentence of the plain summary as the card line (view-voice)', () => {
+    const m = umbrellaCardModel(
+      bitcoin,
+      scoredData({
+        regime: {
+          regime_code: 'NEUTRAL_MIXED',
+          summary: { plain: 'The score eased a little this week. More detail follows.' },
+        } as unknown as AnalyticsInitialData['regime'],
+      })
+    );
+    expect(m.plainLine).toBe('The score eased a little this week.');
+    // Cycles predating the plain layer: no line, never a crash.
+    const bare = umbrellaCardModel(bitcoin, scoredData({}));
+    expect(bare.available).toBe(true);
+    expect(bare.plainLine).toBeUndefined();
+  });
+
   it('should degrade honestly on a null or unknown regime (R-1′)', () => {
     expect(umbrellaCardModel(bitcoin, NULL_DATA)).toMatchObject({
       available: false,
@@ -122,6 +139,15 @@ describe('state cards (backdrop)', () => {
       { id: 'MAC-02', active: false },
       { id: 'MAC-03', active: true },
     ]);
+  });
+
+  it('should carry the macro group summary as the state card line (view-voice)', () => {
+    const data = macroData(['ACTIVE', 'INACTIVE', 'ACTIVE']);
+    (
+      data.signals as unknown as { signal_groups: { id: string; summary?: string }[] }
+    ).signal_groups[0].summary = 'Macro conditions are mixed: two of three supportive.';
+    const m = umbrellaCardModel(backdrop, data);
+    expect(m.plainLine).toBe('Macro conditions are mixed: two of three supportive.');
   });
 
   it('should degrade honestly when the macro group or a component is missing (R-1′)', () => {

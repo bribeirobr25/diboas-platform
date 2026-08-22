@@ -175,27 +175,39 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
                       className={styles.umbrellaCardLink}
                     >
                       <h2 className={styles.umbrellaCardTitle}>{label}</h2>
+                      {/* View-voice wave (2026-08-14): the PLAIN line is the
+                          card's message; band/condition words demote to a small
+                          meta row (the shared grammar stays, the jargon stops
+                          leading). Cycles without a plain layer render the meta
+                          row alone — never blank. */}
                       {!model.available ? (
                         <p className={styles.umbrellaCardRead}>
                           {t('umbrella.cardUnavailable', 'This read is temporarily unavailable.')}
                         </p>
-                      ) : model.grammar === 'scored' && model.bandCode ? (
-                        <p className={styles.umbrellaCardRead}>
-                          <strong>{regimeLabels[model.bandCode] ?? model.bandCode}</strong>
-                          {model.direction ? <> · {directionLabel(model.direction)}</> : null}
-                        </p>
-                      ) : model.conditions ? (
-                        <p className={styles.umbrellaCardRead}>
-                          {model.conditions
-                            .map((c) => {
-                              const key = CONDITION_LABEL_KEYS[c.id];
-                              return c.active
-                                ? t(`umbrella.conditions.${key}.active`, key)
-                                : t(`umbrella.conditions.${key}.inactive`, key);
-                            })
-                            .join(' · ')}
-                        </p>
-                      ) : null}
+                      ) : (
+                        <>
+                          {model.plainLine ? (
+                            <p className={styles.umbrellaCardPlain}>{model.plainLine}</p>
+                          ) : null}
+                          {model.grammar === 'scored' && model.bandCode ? (
+                            <p className={styles.umbrellaCardMeta} data-band={model.bandCode}>
+                              <strong>{regimeLabels[model.bandCode] ?? model.bandCode}</strong>
+                              {model.direction ? <> · {directionLabel(model.direction)}</> : null}
+                            </p>
+                          ) : model.conditions ? (
+                            <p className={styles.umbrellaCardMeta}>
+                              {model.conditions
+                                .map((c) => {
+                                  const key = CONDITION_LABEL_KEYS[c.id];
+                                  return c.active
+                                    ? t(`umbrella.conditions.${key}.active`, key)
+                                    : t(`umbrella.conditions.${key}.inactive`, key);
+                                })
+                                .join(' · ')}
+                            </p>
+                          ) : null}
+                        </>
+                      )}
                       <span className={styles.umbrellaCardCta}>
                         {t('umbrella.cardCta', 'Read the full view')}
                       </span>

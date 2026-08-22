@@ -4,6 +4,7 @@
 
 > **Audience:** the editorial owner of `/market` (Adelaide Market). The macro analyst, content owner, or designated curator who keeps the regime score, signal states, and commentary fresh.
 > **Goal:** ship a regime-score / signals / commentary update in under 30 minutes, end-to-end, without engineering hand-holding.
+> **Weekly review checklist additions (2026-08-19):** (1) **The analyst memo (`summary.detailed`) and `key_supportive_factors`/`key_headwinds` are the LAST hand-editorial fields — the pipeline never regenerates them.** Every weekly review updates their cycle-dependent clauses, ESPECIALLY for any signal whose STATE changed this cycle (the 2026-08-17 lesson: the first hands-free cycle carried a stale "ETF unavailable" memo clause against a scored 2/2 group; 5.99 tracks template-generating these clauses). (2) **Unreviewed-Monday policy = AUTO-HOLD (founder-ratified 2026-08-19):** if no one reviews/merges the bot PR, it simply waits — the page keeps serving the last cycle with visible dates and an honestly aging freshness panel (14-day staleness gate backstops). No auto-publish. This is the chosen policy, not an accident.
 > **Last updated:** 2026-08-13 (M3 note: the SAME weekly data files now feed THREE surfaces — the /market umbrella, /market/bitcoin, and /market/backdrop; the editorial workflow below is UNCHANGED — one run, one PR, three pages). Prior: 2026-08-11 (B1–B4: cycle-scoped `_cycle` overrides, `mixedBackdropOnly` REL variant, AUTO-GENERATED `data_status` panel, weekly-PR format gate + full CI via PAT). Prior: 2026-07-12 (P2/P3 automation) · 2026-05-14 (iteration 3).
 
 ---
@@ -27,7 +28,7 @@ If the answer to your question isn't in this doc, escalate to engineering.
 All editorially-owned data lives under one path:
 
 ```
-apps/web/data/market/
+apps/web/data/market/shared/
   regime.json                 # Current regime score + label + summary + signal groups
   historical.json             # 52-week time series of past regime scores
   signals.json                # Detailed per-signal data (used by the expandable cards)
@@ -157,7 +158,7 @@ Reference: `CLAUDE.md` §"Digital dollar terminology + jargon ban (Phase 7 Q2a/Q
 > monthly candle is due — it appends only after Yahoo↔CoinGecko dual-source
 > verification, ≤0.5%). The run fails closed on stale/corrupt/missing data
 > (quality gate), prints per-signal anchors (F-M3), and writes
-> `apps/web/data/market/computed.json` — the machine truth your editorial
+> `apps/web/data/market/shared/computed.json` — the machine truth your editorial
 > edits must agree with. The reconciliation vitest
 > (`computedReconciliation.test.ts`) fails CI whenever `regime.json` /
 > `signals.json` scores disagree with `computed.json`, so transcription
@@ -172,7 +173,7 @@ Reference: `CLAUDE.md` §"Digital dollar terminology + jargon ban (Phase 7 Q2a/Q
 > commit its output (`generate.mjs --check` is the CI drift gate,
 > `generatedCopyReconciliation.test.ts`). Only the memo-voice fields
 > (`summary.short`/`detailed`/`key_*`) stay hand-authored. For a
-> cycle-specific override, use `apps/web/data/market/editorial-override.json`
+> cycle-specific override, use `apps/web/data/market/shared/editorial-override.json`
 > — it MUST carry a `_cycle: "YYYY-MM-DD"` key matching the cycle date
 > (computed.json `computed_at`); overrides are cycle-scoped (B2, 2026-08-11)
 > and an unstamped or stale file is IGNORED with a warning, so a forgotten
@@ -189,13 +190,13 @@ git pull
 # 2. Create your editorial branch (date in name for easy tracking)
 git checkout -b editorial/regime-update-2026-05-21
 
-# 3. Edit the JSON files in apps/web/data/market/
+# 3. Edit the JSON files in apps/web/data/market/shared/
 
 # 4. Validate locally BEFORE pushing
 pnpm validate:market-data
 
 # 5. Commit (clear message describing the editorial action)
-git add apps/web/data/market/
+git add apps/web/data/market/shared/
 git commit -m "editorial: regime drop 11→10 — macro slips to mixed after FRED:M2SL print"
 
 # 6. Push and open a PR

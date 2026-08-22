@@ -49,12 +49,13 @@ describe('registry structure (D-M2-2)', () => {
     expect(resolveRootRendering().mode).toBe('umbrella');
   });
 
-  it('should keep the remaining Bitcoin asymmetry (dataDir) until the 5.92 migration', () => {
+  it('should read the run-shared data dir after the 5.92 migration (2026-08-19)', () => {
     const bitcoin = MARKET_VIEWS.bitcoin;
-    // dataDir '.' is the LAST asymmetry — migrating it is pending item 5.92
-    // (post-2026-08-17, after the first hands-free run). namespace +
-    // seoConfigKey flipped WITH the M3c activation.
-    expect(bitcoin.dataDir).toBe('.');
+    // 5.92 ENACTED: the weekly run's outputs live in data/market/shared/ and
+    // BOTH live views read them; view-specific dirs (gold onward) come with
+    // their views. The former root-dir asymmetry is retired.
+    expect(bitcoin.dataDir).toBe('shared');
+    expect(MARKET_VIEWS.backdrop.dataDir).toBe('shared');
     expect(bitcoin.namespace).toBe('market-bitcoin');
     expect(bitcoin.grammar).toBe('scored');
     expect(bitcoin.seoConfigKey).toBe('market-bitcoin');
@@ -62,7 +63,7 @@ describe('registry structure (D-M2-2)', () => {
 
   it('should resolve every view data directory on disk', () => {
     for (const view of viewOrder()) {
-      const dir = join(WEB_ROOT, 'data/market', view.dataDir === '.' ? '' : view.dataDir);
+      const dir = join(WEB_ROOT, 'data/market', view.dataDir);
       expect(existsSync(dir), `data dir missing for view "${view.slug}": ${dir}`).toBe(true);
     }
   });

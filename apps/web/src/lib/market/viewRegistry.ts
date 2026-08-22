@@ -20,9 +20,10 @@
  * MM-2 ruling 2026-08-12) is structural: the switcher and the future umbrella
  * can only ever walk the spine.
  *
- * `dataDir: '.'` is the D-M2-3(ii) documented asymmetry: Bitcoin's data files
- * live at `apps/web/data/market/` root until the post-2026-08-17 migration;
- * every new market uses `apps/web/data/market/<slug>/`.
+ * 5.92 ENACTED (2026-08-19): the run's shared outputs live in data/market/shared/
+ * (bitcoin + backdrop + umbrella all read the same weekly files); view-specific
+ * data (gold onward) gets data/market/<slug>/. The former root-dir asymmetry
+ * (D-M2-3ii) is retired — its ≤2-week commitment was met.
  */
 
 /** MM-2 (2026-08-12): scored views share the five band words; state views use
@@ -44,7 +45,7 @@ export interface MarketViewDef {
    *  the root view; each new view registers its own OG type at its status
    *  flip — plan §9 rider 4a — which is what keeps this OGPageType-typed). */
   seoConfigKey: OGPageType;
-  /** Data directory under apps/web/data/market/ ('.' = the Bitcoin root asymmetry). */
+  /** Data directory under apps/web/data/market/ ('shared' = the weekly run's asymmetry). */
   dataDir: string;
   /** Raw upstream provenance ids → i18n label keys for the data-sources panel. */
   sourceLabelKeys: Record<string, string>;
@@ -66,7 +67,7 @@ export const MARKET_VIEWS: Record<string, MarketViewDef> = {
     status: 'live',
     namespace: 'market-bitcoin',
     seoConfigKey: 'market-bitcoin',
-    dataDir: '.',
+    dataDir: 'shared',
     sourceLabelKeys: {
       'in-repo:monthlyPrices.json (BTC)': 'dashboard.sources.btc',
       'FRED:DGS10': 'dashboard.sources.us10y',
@@ -90,7 +91,7 @@ export const MARKET_VIEWS: Record<string, MarketViewDef> = {
     status: 'live',
     namespace: 'market-backdrop',
     seoConfigKey: 'market-backdrop',
-    dataDir: '.',
+    dataDir: 'shared',
     sourceLabelKeys: {
       'FRED:DGS10': 'dashboard.sources.us10y',
       'FRED:DTWEXBGS': 'dashboard.sources.dxy',

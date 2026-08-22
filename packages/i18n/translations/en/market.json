@@ -25,7 +25,6 @@
       "HOSTILE": "Hostile"
     },
     "signalsSectionTitle": "Signal groups",
-    "signalsPoints": "pts",
     "historicalTitle": "Score over time",
     "historicalLead": "Where the environment has been over the last year.",
     "historicalAriaLabel": "Macro environment score over the last 12 months",
@@ -55,16 +54,17 @@
       "nasdaq": "Nasdaq Composite",
       "gold": "Gold price",
       "btcEtf": "Bitcoin ETF flows"
-    }
+    },
+    "memoToggle": "Read the full weekly memo"
   },
   "cta": {
     "cadence": "Updated weekly",
-    "headline": "Calm intelligence, every week.",
+    "headline": "A calm read, every week.",
     "body": "Adelaide Market is free and refreshed every week. Join the waitlist to be first when diBoaS opens.",
     "waitlist": "Join the waitlist",
     "share": "Share",
     "shareCopied": "Link copied",
-    "shareText": "Adelaide Market: calm macro intelligence for the financial markets."
+    "shareText": "Adelaide Market: a calm read on the financial markets, without the noise."
   },
   "fallback": {
     "outageTitle": "Live data is temporarily unavailable",
@@ -105,5 +105,8 @@
         "inactive": "Liquidity contracting"
       }
     }
+  },
+  "conditions": {
+    "sectionExplainer": "Three forces set the weather behind every market: what the dollar is doing, what money costs, and how much of it is moving. No single week decides anything. The direction is what matters."
   }
 }

@@ -129,12 +129,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The broad dollar index at 120 sits below its 20-week EMA (120) with RSI 49 — a softening dollar supports risk assets.",
-            "pt-BR": "O índice amplo do dólar em 120 está abaixo da EMA de 20 semanas (120), com RSI 49 — um dólar mais fraco favorece ativos de risco.",
-            "es": "El índice amplio del dólar en 120 está por debajo de su EMA de 20 semanas (120), con RSI 49; un dólar más débil favorece a los activos de riesgo.",
-            "de": "Der breite Dollar-Index bei 120 liegt unter seinem 20-Wochen-EMA (120), RSI 49 — ein weicherer Dollar stützt Risikoanlagen."
+            "en": "The broad dollar index at 119 sits below its 20-week EMA (120) with RSI 45 — a softening dollar supports risk assets.",
+            "pt-BR": "O índice amplo do dólar em 119 está abaixo da EMA de 20 semanas (120), com RSI 45 — um dólar mais fraco favorece ativos de risco.",
+            "es": "El índice amplio del dólar en 119 está por debajo de su EMA de 20 semanas (120), con RSI 45; un dólar más débil favorece a los activos de riesgo.",
+            "de": "Der breite Dollar-Index bei 119 liegt unter seinem 20-Wochen-EMA (120), RSI 45 — ein weicherer Dollar stützt Risikoanlagen."
           },
-          "last_updated_at": "2026-08-10T07:55:30.136Z"
+          "last_updated_at": "2026-08-17T07:09:24.143Z"
         },
         {
           "id": "MAC-02",
@@ -148,12 +148,12 @@
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "The US 10-year yield at 4.75% holds above its 20-week trend (4.47%) — yields have not eased yet.",
-            "pt-BR": "O juro americano de 10 anos em 4,75% segue acima da tendência de 20 semanas (4,47%) — os juros ainda não cederam.",
-            "es": "El rendimiento estadounidense a 10 años en 4,75% sigue por encima de su tendencia de 20 semanas (4,47%); los rendimientos aún no ceden.",
-            "de": "Die 10-jährige US-Rendite bei 4,75% hält sich über ihrem 20-Wochen-Trend (4,47%) — die Renditen haben noch nicht nachgegeben."
+            "en": "The US 10-year yield at 4.65% holds above its 20-week trend (4.49%) — yields have not eased yet.",
+            "pt-BR": "O juro americano de 10 anos em 4,65% segue acima da tendência de 20 semanas (4,49%) — os juros ainda não cederam.",
+            "es": "El rendimiento estadounidense a 10 años en 4,65% sigue por encima de su tendencia de 20 semanas (4,49%); los rendimientos aún no ceden.",
+            "de": "Die 10-jährige US-Rendite bei 4,65% hält sich über ihrem 20-Wochen-Trend (4,49%) — die Renditen haben noch nicht nachgegeben."
           },
-          "last_updated_at": "2026-08-10T07:55:30.136Z"
+          "last_updated_at": "2026-08-17T07:09:24.143Z"
         },
         {
           "id": "MAC-03",
@@ -185,14 +185,14 @@
         "es": "Demanda institucional",
         "de": "Institutionelle Nachfrage"
       },
-      "status": "WEAK",
-      "points_awarded": 0,
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 2,
       "max_points": 2,
       "summary": {
-        "en": "Institutional demand could not be measured this cycle — the ETF flow read is unavailable, not weak (0 of 2 points).",
-        "pt-BR": "A demanda institucional não pôde ser medida neste ciclo — a leitura de fluxos de ETF está indisponível, não fraca (0 de 2 pontos).",
-        "es": "La demanda institucional no pudo medirse en este ciclo: la lectura de flujos de ETF no está disponible, no es débil (0 de 2 puntos).",
-        "de": "Die institutionelle Nachfrage konnte in diesem Zyklus nicht gemessen werden — die ETF-Flussdaten sind nicht verfügbar, nicht schwach (0 von 2 Punkten)."
+        "en": "Institutional demand is flowing: spot-ETF creations outpaced redemptions in most of the recent weeks (2 of 2 points).",
+        "pt-BR": "A demanda institucional está entrando: as emissões dos ETFs à vista superaram os resgates na maioria das semanas recentes (2 de 2 pontos).",
+        "es": "La demanda institucional está entrando: las creaciones de los ETF al contado superaron los reembolsos en la mayoría de las semanas recientes (2 de 2 puntos).",
+        "de": "Die institutionelle Nachfrage fließt: Zuflüsse in die Spot-ETFs überwogen die Abflüsse in den meisten der letzten Wochen (2 von 2 Punkten)."
       },
       "signals": [
         {
@@ -203,16 +203,16 @@
             "es": "Flujos positivos hacia ETFs",
             "de": "Positive ETF-Zuflüsse"
           },
-          "state": "UNAVAILABLE",
-          "points_awarded": 0,
+          "state": "ACTIVE",
+          "points_awarded": 2,
           "max_points": 2,
           "summary": {
-            "en": "The ETF flow ledger is warming up (4 of 5 weekly share-count snapshots recorded) — scored unavailable until four full weekly flows exist. No points either way.",
-            "pt-BR": "O registro de fluxos de ETF está em aquecimento (4 de 5 fotografias semanais de cotas registradas) — pontuado como indisponível até existirem quatro fluxos semanais completos. Sem pontos em nenhuma direção.",
-            "es": "El registro de flujos de ETF está en calentamiento (4 de 5 instantáneas semanales de participaciones registradas); se puntúa como no disponible hasta que existan cuatro flujos semanales completos. Sin puntos en ningún sentido.",
-            "de": "Das ETF-Fluss-Register läuft sich warm (4 von 5 wöchentlichen Anteils-Momentaufnahmen erfasst) — bis vier volle Wochenflüsse vorliegen als nicht verfügbar gewertet. Keine Punkte in keine Richtung."
+            "en": "Spot-ETF creations outpaced redemptions in 3 of the last 4 weeks (share-count method) — institutional demand is flowing in.",
+            "pt-BR": "As emissões dos ETFs à vista superaram os resgates em 3 das últimas 4 semanas (método de cotas) — a demanda institucional está entrando.",
+            "es": "Las creaciones de los ETF al contado superaron los reembolsos en 3 de las últimas 4 semanas (método de participaciones); la demanda institucional está entrando.",
+            "de": "Bei den Spot-ETFs überwogen die Anteilsschöpfungen in 3 der letzten 4 Wochen (Anteilszahl-Methode) — institutionelle Nachfrage fließt zu."
           },
-          "last_updated_at": "2026-08-10T07:55:30.136Z"
+          "last_updated_at": "2026-08-17T07:09:24.143Z"
         }
       ]
     },
@@ -247,12 +247,12 @@
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "The BTC/Gold ratio at 14.947 sits below its 20-week trend (15.297) — the defensive asset is winning this stretch.",
-            "pt-BR": "A razão BTC/Ouro em 14,947 está abaixo da tendência de 20 semanas (15,297) — o ativo defensivo vence este trecho.",
-            "es": "La ratio BTC/Oro en 14,947 está por debajo de su tendencia de 20 semanas (15,297); el activo defensivo gana este tramo.",
-            "de": "Das BTC/Gold-Verhältnis bei 14,947 liegt unter seinem 20-Wochen-Trend (15,297) — das defensive Anlagegut gewinnt diese Phase."
+            "en": "The BTC/Gold ratio at 14.377 sits below its 20-week trend (15.190) — the defensive asset is winning this stretch.",
+            "pt-BR": "A razão BTC/Ouro em 14,377 está abaixo da tendência de 20 semanas (15,190) — o ativo defensivo vence este trecho.",
+            "es": "La ratio BTC/Oro en 14,377 está por debajo de su tendencia de 20 semanas (15,190); el activo defensivo gana este tramo.",
+            "de": "Das BTC/Gold-Verhältnis bei 14,377 liegt unter seinem 20-Wochen-Trend (15,190) — das defensive Anlagegut gewinnt diese Phase."
           },
-          "last_updated_at": "2026-08-10T07:55:30.136Z"
+          "last_updated_at": "2026-08-17T07:09:24.143Z"
         },
         {
           "id": "REL-02",
@@ -266,12 +266,12 @@
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "The BTC/Nasdaq ratio at 2.431 sits below its 20-week trend (2.666) — Bitcoin lags the broader risk complex.",
-            "pt-BR": "A razão BTC/Nasdaq em 2,431 está abaixo da tendência de 20 semanas (2,666) — o Bitcoin fica atrás do complexo de risco.",
-            "es": "La ratio BTC/Nasdaq en 2,431 está por debajo de su tendencia de 20 semanas (2,666); Bitcoin va rezagado frente al complejo de riesgo.",
-            "de": "Das BTC/Nasdaq-Verhältnis bei 2,431 liegt unter seinem 20-Wochen-Trend (2,666) — Bitcoin hinkt dem breiteren Risikokomplex hinterher."
+            "en": "The BTC/Nasdaq ratio at 2.356 sits below its 20-week trend (2.630) — Bitcoin lags the broader risk complex.",
+            "pt-BR": "A razão BTC/Nasdaq em 2,356 está abaixo da tendência de 20 semanas (2,630) — o Bitcoin fica atrás do complexo de risco.",
+            "es": "La ratio BTC/Nasdaq en 2,356 está por debajo de su tendencia de 20 semanas (2,630); Bitcoin va rezagado frente al complejo de riesgo.",
+            "de": "Das BTC/Nasdaq-Verhältnis bei 2,356 liegt unter seinem 20-Wochen-Trend (2,630) — Bitcoin hinkt dem breiteren Risikokomplex hinterher."
           },
-          "last_updated_at": "2026-08-10T07:55:30.136Z"
+          "last_updated_at": "2026-08-17T07:09:24.143Z"
         },
         {
           "id": "REL-03",
@@ -285,12 +285,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The Nasdaq at 26,691 holds above its 20-week trend (25,217) — the wider risk market is structurally healthy.",
-            "pt-BR": "O Nasdaq em 26.691 segue acima da tendência de 20 semanas (25.217) — o mercado de risco mais amplo está estruturalmente saudável.",
-            "es": "El Nasdaq en 26.691 se mantiene sobre su tendencia de 20 semanas (25.217); el mercado de riesgo más amplio está estructuralmente sano.",
-            "de": "Der Nasdaq bei 26.691 hält sich über seinem 20-Wochen-Trend (25.217) — der breitere Risikomarkt ist strukturell gesund."
+            "en": "The Nasdaq at 26,729 holds above its 20-week trend (25,361) — the wider risk market is structurally healthy.",
+            "pt-BR": "O Nasdaq em 26.729 segue acima da tendência de 20 semanas (25.361) — o mercado de risco mais amplo está estruturalmente saudável.",
+            "es": "El Nasdaq en 26.729 se mantiene sobre su tendencia de 20 semanas (25.361); el mercado de riesgo más amplio está estructuralmente sano.",
+            "de": "Der Nasdaq bei 26.729 hält sich über seinem 20-Wochen-Trend (25.361) — der breitere Risikomarkt ist strukturell gesund."
           },
-          "last_updated_at": "2026-08-10T07:55:30.136Z"
+          "last_updated_at": "2026-08-17T07:09:24.143Z"
         }
       ]
     }

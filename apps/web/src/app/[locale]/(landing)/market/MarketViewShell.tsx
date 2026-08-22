@@ -275,16 +275,22 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                       {regime.summary.plain && <CalmSummary data={regime.summary} length="plain" />}
                     </div>
                   </div>
-                  {/* The memo voice drops below the gauge row and spans the full
-                      container width, so a long memo no longer forces the gauge
-                      to float vertically-centered in a tall right column. */}
-                  <div className={styles.scoreDetail}>
+                  {/* View-voice wave (2026-08-14, founder feedback): the plain
+                      grandmother lead above stays the visible voice; the full
+                      analyst memo collapses behind a native <details> (server-
+                      rendered, keyboard/screen-reader native, no JS needed).
+                      The memo text itself is UNCHANGED — progressive disclosure,
+                      not deletion. */}
+                  <details className={styles.scoreDetail}>
+                    <summary className={styles.memoToggle}>
+                      {t('dashboard.memoToggle', 'Read the full weekly memo')}
+                    </summary>
                     <CalmSummary
                       data={regime.summary}
                       length="detailed"
                       className={styles.scoreDetailBody}
                     />
-                  </div>
+                  </details>
                 </section>
               </SectionErrorBoundary>
             )}
@@ -309,12 +315,12 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                       {t('dashboard.signalsSectionTitle', 'Signal groups')}
                     </h2>
                   </div>
-                  <SignalCardsGrid
-                    groups={signals.signal_groups}
-                    expandLabel={t('dashboard.signalsExpand', 'Show signals')}
-                    collapseLabel={t('dashboard.signalsCollapse', 'Hide signals')}
-                    pointsLabel={t('dashboard.signalsPoints', 'pts')}
-                  />
+                  {/* Cleanup 2026-08-18: the expand/collapse/points label props
+                      died with the M3.5 native-details conversion — the grid
+                      component still ACCEPTS them (doc-09 SDK API compat) but
+                      renders its own disclosure semantics; passing dead t()
+                      lookups here kept 3 zombie i18n keys alive ×4 locales. */}
+                  <SignalCardsGrid groups={signals.signal_groups} />
                 </section>
               </SectionErrorBoundary>
             )}
