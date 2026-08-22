@@ -179,7 +179,13 @@ These are the **Tailwind utility** breakpoints (the `sm:`/`md:`/… class prefix
 - Typography: Compact scale, data-focused
 - Components: Functional buttons, informative cards
 
-### Business App (business.diboas.com)
+### Business context (`app.diboas.com`, `data-context="business"`)
+
+> **Not a separate app or domain** (founder 2026-08-22 · PENDING_ALL 5.119). B2B
+> runs the same money engine, fees and custody as B2C — it differs in shell, not
+> engine. It is an account CONTEXT on the one product host, rendered as a palette
+> shift exactly the way Sandbox-vs-Real mode is. `business.diboas.com` does not
+> resolve and is retired.
 
 - Emphasis: Professional, enterprise
 - Colors: Muted brand colors, neutral emphasis

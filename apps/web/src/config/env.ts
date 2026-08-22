@@ -92,18 +92,24 @@ export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 /**
- * Business sub-application URL
+ * Business section URL.
+ *
+ * A local route, not a sub-domain: `business.diboas.com` was the fallback and
+ * it does NOT resolve (verified 2026-08-22 — curl returns no response), so an
+ * environment missing `NEXT_PUBLIC_BUSINESS_URL` pointed the primary nav CTA
+ * and a footer link at a dead host. The live site is unaffected because the var
+ * is set to `/business` — which is what `.env.example` documents and what this
+ * fallback now matches. Leftover from a multi-sub-domain architecture that was
+ * never built; the ruled domain map is diboas.com (marketing) + app.diboas.com
+ * (the product).
  */
-export const BUSINESS_URL =
-  process.env.NEXT_PUBLIC_BUSINESS_URL ||
-  (IS_PRODUCTION ? 'https://business.diboas.com' : 'http://localhost:3002');
+export const BUSINESS_URL = process.env.NEXT_PUBLIC_BUSINESS_URL || '/business';
 
 /**
- * Learn sub-application URL
+ * Learn section URL. Same story as BUSINESS_URL — `learn.diboas.com` does not
+ * resolve either; Learn is the `/learn` route on this site.
  */
-export const LEARN_URL =
-  process.env.NEXT_PUBLIC_LEARN_URL ||
-  (IS_PRODUCTION ? 'https://learn.diboas.com' : 'http://localhost:3003');
+export const LEARN_URL = process.env.NEXT_PUBLIC_LEARN_URL || '/learn';
 
 /**
  * Monitoring endpoint URL
