@@ -24,7 +24,7 @@
 
 Single web application (`apps/web`). No backend services, no microservices, no message queues.
 
-> **This doc is the current-state, as-built stack.** For the *forward-looking* rationale — why TypeScript/Node
+> **This doc is the current-state, as-built stack.** For the _forward-looking_ rationale — why TypeScript/Node
 > for the app, Python for quant, bought custody/ramp, and the **triggers that would make us reconsider** (Rust,
 > Go, Elixir, …) — see **`docs/tech/architecture-decisions.md` → ADR-001 (backend & runtime stack)**.
 

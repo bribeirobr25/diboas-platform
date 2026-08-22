@@ -40,6 +40,13 @@ const STEPS = [
   ['build', 'pnpm --filter sandbox build'],
   ['dead-code (knip)', 'pnpm -w check:dead-code'],
   ['prettier (sandbox src)', 'pnpm exec prettier --check "src/**/*.{ts,tsx,css,json}"'],
+  // REPO-WIDE, not just this app. The sandbox-src check above passed for 111
+  // commits while `docs/tech/*.md` and CLAUDE.md sat unformatted, and CI's
+  // `format:check` (which runs `prettier --check .`) went red the moment the
+  // branch merged. A gate that reports PASS while the thing it gates is broken
+  // is the failure this project has now hit twice — the first was `screen-check`
+  // type-checking only `apps/sandbox` while a package break sat red at the root.
+  ['prettier (repo-wide — CI runs this)', 'pnpm -w format:check'],
 ];
 
 console.log(
