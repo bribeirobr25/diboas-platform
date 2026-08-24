@@ -1,233 +1,8 @@
 {
-  "_comment": "52 weekly snapshots back to 2025-05-15 — ILLUSTRATIVE SEED data (pre-canonical-engine). The 'CONSTRUCTIVE 10' tail through 2026-05-14 reflects iter-3 placeholder editorial, NOT the canonical doc-02 engine. Per the D1 enactment 2026-05-29: the regime card now publishes the real engine result (DEFENSIVE 5 against the April 30 confirmed monthly close); appending real points adjacent to the synthetic tail would render a chart 'CONSTRUCTIVE→DEFENSIVE crash' that never happened under the canonical engine — purely a data-source seam. The `synthetic_seed: true` flag below is read by mock-client.server.ts#getHistoricalRegimes() which returns null, suppressing the entire trend-chart <section> on /market via the existing page.tsx conditional `{historical && historical.snapshots.length > 0 && ...}`. Real canonical-engine snapshots will begin once history accumulates OR the chart UI is updated to visually distinguish the synthetic seed. Chart-strategy resolution tracked in docs/audit/PENDING_ALL.md item 5.27. The 52 snapshots below are retained for chart-design work and may be re-styled / pruned at that time. §5.3 (snapshot immutability) is preserved — these were never canonical-engine outputs.",
+  "_comment": "REAL engine output only (audit remediation 2026-08-24, founder-ruled). Every snapshot here corresponds 1:1 to a line in run-archive.jsonl and was produced by the canonical doc-02 engine. The 44 pre-engine ILLUSTRATIVE SEED points that previously padded this series to 52 were pruned: they were never engine output, and a hand-edit (commit 37b23b20) had flipped synthetic_seed to false while they were still present, publishing them as measured history. The series is short by design and refills one point per weekly run. synthetic_seed stays false because it is now TRUE that nothing here is synthetic. Do not backfill; only the pipeline appends here.",
   "synthetic_seed": false,
-  "range": "1y",
+  "range": "since-inception",
   "snapshots": [
-    {
-      "date": "2025-07-10T00:00:00Z",
-      "score": 6,
-      "regime_code": "NEUTRAL_MIXED"
-    },
-    {
-      "date": "2025-07-17T00:00:00Z",
-      "score": 6,
-      "regime_code": "NEUTRAL_MIXED"
-    },
-    {
-      "date": "2025-07-24T00:00:00Z",
-      "score": 7,
-      "regime_code": "NEUTRAL_MIXED"
-    },
-    {
-      "date": "2025-07-31T00:00:00Z",
-      "score": 7,
-      "regime_code": "NEUTRAL_MIXED"
-    },
-    {
-      "date": "2025-08-07T00:00:00Z",
-      "score": 8,
-      "regime_code": "NEUTRAL_MIXED"
-    },
-    {
-      "date": "2025-08-14T00:00:00Z",
-      "score": 8,
-      "regime_code": "NEUTRAL_MIXED"
-    },
-    {
-      "date": "2025-08-21T00:00:00Z",
-      "score": 7,
-      "regime_code": "NEUTRAL_MIXED"
-    },
-    {
-      "date": "2025-08-28T00:00:00Z",
-      "score": 7,
-      "regime_code": "NEUTRAL_MIXED"
-    },
-    {
-      "date": "2025-09-04T00:00:00Z",
-      "score": 8,
-      "regime_code": "NEUTRAL_MIXED"
-    },
-    {
-      "date": "2025-09-11T00:00:00Z",
-      "score": 9,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2025-09-18T00:00:00Z",
-      "score": 9,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2025-09-25T00:00:00Z",
-      "score": 10,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2025-10-02T00:00:00Z",
-      "score": 10,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2025-10-09T00:00:00Z",
-      "score": 11,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2025-10-16T00:00:00Z",
-      "score": 11,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2025-10-23T00:00:00Z",
-      "score": 12,
-      "regime_code": "VERY_FAVORABLE"
-    },
-    {
-      "date": "2025-10-30T00:00:00Z",
-      "score": 12,
-      "regime_code": "VERY_FAVORABLE"
-    },
-    {
-      "date": "2025-11-06T00:00:00Z",
-      "score": 13,
-      "regime_code": "VERY_FAVORABLE"
-    },
-    {
-      "date": "2025-11-13T00:00:00Z",
-      "score": 13,
-      "regime_code": "VERY_FAVORABLE"
-    },
-    {
-      "date": "2025-11-20T00:00:00Z",
-      "score": 12,
-      "regime_code": "VERY_FAVORABLE"
-    },
-    {
-      "date": "2025-11-27T00:00:00Z",
-      "score": 12,
-      "regime_code": "VERY_FAVORABLE"
-    },
-    {
-      "date": "2025-12-04T00:00:00Z",
-      "score": 11,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2025-12-11T00:00:00Z",
-      "score": 11,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2025-12-18T00:00:00Z",
-      "score": 10,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2025-12-25T00:00:00Z",
-      "score": 10,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-01-01T00:00:00Z",
-      "score": 9,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-01-08T00:00:00Z",
-      "score": 9,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-01-15T00:00:00Z",
-      "score": 8,
-      "regime_code": "NEUTRAL_MIXED"
-    },
-    {
-      "date": "2026-01-22T00:00:00Z",
-      "score": 8,
-      "regime_code": "NEUTRAL_MIXED"
-    },
-    {
-      "date": "2026-01-29T00:00:00Z",
-      "score": 9,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-02-05T00:00:00Z",
-      "score": 9,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-02-12T00:00:00Z",
-      "score": 10,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-02-19T00:00:00Z",
-      "score": 10,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-02-26T00:00:00Z",
-      "score": 11,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-03-05T00:00:00Z",
-      "score": 11,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-03-12T00:00:00Z",
-      "score": 10,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-03-19T00:00:00Z",
-      "score": 10,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-03-26T00:00:00Z",
-      "score": 9,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-04-02T00:00:00Z",
-      "score": 9,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-04-09T00:00:00Z",
-      "score": 10,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-04-16T00:00:00Z",
-      "score": 10,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-04-23T00:00:00Z",
-      "score": 11,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-04-30T00:00:00Z",
-      "score": 10,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-05-07T00:00:00Z",
-      "score": 10,
-      "regime_code": "CONSTRUCTIVE"
-    },
-    {
-      "date": "2026-05-14T00:00:00Z",
-      "score": 10,
-      "regime_code": "CONSTRUCTIVE"
-    },
     {
       "date": "2026-07-11T00:00:00Z",
       "score": 3,
@@ -240,7 +15,7 @@
     },
     {
       "date": "2026-07-27T00:00:00Z",
-      "score": 5,
+      "score": 3,
       "regime_code": "DEFENSIVE"
     },
     {
@@ -262,6 +37,11 @@
       "date": "2026-08-17T00:00:00Z",
       "score": 8,
       "regime_code": "NEUTRAL_MIXED"
+    },
+    {
+      "date": "2026-08-24T00:00:00Z",
+      "score": 10,
+      "regime_code": "CONSTRUCTIVE"
     }
   ]
 }

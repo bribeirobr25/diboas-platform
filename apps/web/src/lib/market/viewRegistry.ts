@@ -75,7 +75,7 @@ export const MARKET_VIEWS: Record<string, MarketViewDef> = {
       'FRED:M2SL': 'dashboard.sources.m2',
       'FRED:NASDAQCOM': 'dashboard.sources.nasdaq',
       'Yahoo:GC=F': 'dashboard.sources.gold',
-      'CoinGlass:ETF': 'dashboard.sources.btcEtf',
+      'Polygon:ETF (shares-outstanding)': 'dashboard.sources.btcEtf',
     },
     next: 'backdrop',
   },

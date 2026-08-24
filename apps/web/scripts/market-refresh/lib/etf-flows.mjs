@@ -22,6 +22,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { REPO_ROOT } from '../providers/inrepo.mjs';
+import { evaluateEtfManual, WARMUP_SNAPSHOTS } from './regime-engine.mjs';
 
 export const ETF_SHARES_ARCHIVE = path.join(
   REPO_ROOT,
@@ -30,7 +31,9 @@ export const ETF_SHARES_ARCHIVE = path.join(
 
 export const STALE_FUND_DAYS = 10;
 export const MAX_WEEKLY_SHARE_CHANGE = 0.5; // ±50%/week = corruption, not commerce
-export const WARMUP_SNAPSHOTS = 5;
+// Single definition lives in regime-engine.mjs (the pure module) — re-exported
+// here so existing importers (run.mjs) are unchanged. See its docblock.
+export { WARMUP_SNAPSHOTS };
 
 export function readSnapshots(archivePath = ETF_SHARES_ARCHIVE) {
   if (!fs.existsSync(archivePath)) return [];
@@ -116,6 +119,12 @@ export function evaluateEtf01FromFlows(snapshots, today = new Date()) {
       detail:
         `Polygon shares-outstanding ledger warming up: ${snapshots.length}/${WARMUP_SNAPSHOTS} ` +
         `weekly snapshots recorded — 4 weekly flows need ${WARMUP_SNAPSHOTS}. No guessed backfill.`,
+      // 5.133 (audit 2026-08-24): the UNAVAILABLE sentence templates reference
+      // {snapshots} and {warmupTarget}. Without these the generator's empty-slot
+      // guard THROWS and the weekly automation stops — fail-closed, but broken.
+      // Latent today (ledger > warm-up) and guaranteed to bite any future view
+      // that starts its own ledger from zero.
+      values: { snapshots: snapshots.length, warmupTarget: WARMUP_SNAPSHOTS },
       anchor: snapshots.length ? snapshots[snapshots.length - 1].anchor : null,
       anchorKind: 'weekly',
     };
@@ -138,4 +147,29 @@ export function evaluateEtf01FromFlows(snapshots, today = new Date()) {
     anchor: snapshots[snapshots.length - 1].anchor,
     anchorKind: 'weekly',
   };
+}
+
+/**
+ * THE single ETF-01 route decision — Polygon ledger first, manual file as the
+ * auto-expiring fallback (doc 02 §10.1).
+ *
+ * Extracted 2026-08-24 (audit) because this choice previously existed ONLY
+ * inside `run.mjs`, while `compute-regime.mjs` — the CLI that CLAUDE.md
+ * documents as the "manual score check" — still called `evaluateEtfManual`
+ * directly against a file that expired 2026-07-18. The verification tool
+ * therefore scored ETF-01 UNAVAILABLE and reported 8/14 against a published
+ * 10/14: an operator checking the site would have concluded the SITE was
+ * wrong. Principle 4 (DRY) is the whole reason the engine was extracted, so
+ * the route decision lives here, once, and both entry points call it.
+ *
+ * @param {object} io
+ * @param {Array} io.snapshots — the Polygon weekly shares ledger
+ * @param {object|null} io.manual — parsed etf01-manual.json, or null
+ * @param {Date} today
+ * @returns {Array} ETF signal array (always length 1)
+ */
+export function resolveEtfSignals({ snapshots, manual }, today) {
+  return snapshots.length > 0
+    ? [evaluateEtf01FromFlows(snapshots, today)]
+    : evaluateEtfManual(manual, today);
 }

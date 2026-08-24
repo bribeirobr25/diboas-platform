@@ -6,6 +6,9 @@
  * when fixtures are removed.
  */
 
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 import { describe, expect, it } from 'vitest';
 
 import constructive from '../fixtures/regime-constructive.json';
@@ -296,9 +299,46 @@ describe('editorial dataset — historical schema drift guard', () => {
     expect(Array.isArray((editorialHistorical as AnyRecord).snapshots)).toBe(true);
   });
 
-  it('should provide >= 50 weekly snapshots', () => {
-    const snaps = (editorialHistorical as AnyRecord).snapshots as unknown[];
-    expect(snaps.length).toBeGreaterThanOrEqual(50);
+  /**
+   * PROVENANCE, not volume (audit remediation 2026-08-24, PENDING_ALL 5.127).
+   *
+   * This assertion used to demand >= 50 snapshots, which is why 44 SEEDED weeks
+   * sat in the published chart with `synthetic_seed: false` on top of them: the
+   * only way to satisfy a length floor on a framework that went live in July was
+   * to invent history. The chart is a published claim about the past, so the
+   * honest guard is that every point is one the pipeline actually produced —
+   * a floor on COUNT would re-authorize exactly the defect that was removed.
+   */
+  it('should publish only snapshots backed by a real archived run', () => {
+    const snaps = (editorialHistorical as AnyRecord).snapshots as AnyRecord[];
+    const archive = readFileSync(
+      join(__dirname, '../../../../data/market/shared/run-archive.jsonl'),
+      'utf8'
+    );
+    const runDays = new Set(
+      archive
+        .split('\n')
+        .filter(Boolean)
+        .map((line) => (JSON.parse(line) as { run_at?: string }).run_at?.slice(0, 10))
+        .filter(Boolean)
+    );
+
+    const unbacked = snaps
+      .map((s) => (s.date as string).slice(0, 10))
+      .filter((d) => !runDays.has(d));
+
+    expect(unbacked, `chart points with no run behind them: ${unbacked.join(', ')}`).toEqual([]);
+
+    // Never MORE points than runs. Deliberately not `toBe(runDays.size)`:
+    // the archive is append-only and never pruned, while `generate.mjs` caps
+    // the published series at HISTORICAL_CAP (52), so strict equality would
+    // have gone permanently red around 2027-07 when the 53rd weekly run drops
+    // the oldest point (5.139) — and red on any `compute-regime.mjs --archive`
+    // verification run, which mints a run day without publishing a point.
+    // "Every point is backed by a run" is the honesty invariant; the counts
+    // matching is not, and asserting it would fail the automation for being
+    // correct.
+    expect(snaps.length).toBeLessThanOrEqual(runDays.size);
   });
 
   it('should expose date/score/regime_code on every snapshot', () => {

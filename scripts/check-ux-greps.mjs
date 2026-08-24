@@ -153,6 +153,27 @@ let failed = false;
         .map(([l, n]) => `${l}:${n}`)
         .join(' · ')
   );
+
+  // 3b. The /market template library (5.132e, audit 2026-08-24).
+  //     These templates are the SOURCE of published weekly editorial in all
+  //     four locales, so their em-dashes reappear every Monday by construction
+  //     — but they live outside packages/i18n and so were invisible to the
+  //     count above. Report-only, like [3]: the density is a copy decision,
+  //     not a build failure.
+  const tplDir = join(ROOT, 'apps/web/scripts/market-refresh/templates');
+  const perTemplate = {};
+  for (const f of walk(tplDir, ['.json'])) {
+    const n = (readFileSync(f, 'utf8').match(/—/g) || []).length;
+    if (n) perTemplate[f.slice(tplDir.length + 1)] = n;
+  }
+  const tplTotal = Object.values(perTemplate).reduce((a, b) => a + b, 0);
+  console.log(
+    `ℹ [3b] Em-dash density, /market templates (regenerates weekly): total ${tplTotal} — ` +
+      Object.entries(perTemplate)
+        .sort((a, b) => b[1] - a[1])
+        .map(([f, n]) => `${f}:${n}`)
+        .join(' · ')
+  );
 }
 
 // 4. Hardcoded English heuristic (report-only)

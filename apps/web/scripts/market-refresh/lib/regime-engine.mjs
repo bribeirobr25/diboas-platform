@@ -144,6 +144,74 @@ export function anchorOf(series) {
 }
 
 // ===========================================================================
+// Series-depth guard (5.132d, audit 2026-08-24) — FAIL CLOSED
+// ===========================================================================
+
+/**
+ * Assert a series is long enough for the metric about to be computed on it.
+ *
+ * WHY THIS IS A THROW AND NOT A FALLBACK — every short-series path in this
+ * engine degrades SILENTLY, and two of them degrade to a WRONG SCORE rather
+ * than to "unknown":
+ *   - `rsi()` returns `null` below period+1, and `null < 50` is **true** in JS,
+ *     so MAC-01 would award its point on a series too short to have an RSI.
+ *   - `ema()` has no minimum at all: on 3 points it returns a number and calls
+ *     it "EMA20", so a comparison against trend is made against a trend that
+ *     was never computed.
+ *   - `m2Vals[len - 13]` is `undefined` below 13 months, making the 12M ROC
+ *     NaN — and `NaN > 0` is false, so MAC-03 reads as a clean INACTIVE.
+ * Each of those publishes a number the data does not support. The pipeline's
+ * standing convention is to stop rather than publish (F-M2 above, the quality
+ * gate, the generator's empty-slot guard), so this does the same.
+ *
+ * @param {string} label — series name as it should appear to a human operator
+ * @param {number} length — observations available
+ * @param {number} required — observations the metric needs
+ * @param {string} metric — what is being computed, for the operator message
+ */
+export function assertSeriesDepth(label, length, required, metric) {
+  if (length < required) {
+    throw new Error(
+      `INSUFFICIENT SERIES (5.132d): ${label} has ${length} observation(s) but ` +
+        `${metric} requires ${required}. Refusing to publish a value the data ` +
+        `does not support. Check the upstream fetch before recomputing.`
+    );
+  }
+}
+
+/**
+ * Weekly snapshots needed before ETF-01 can compute 4 weekly flows.
+ *
+ * Defined HERE (the pure engine) rather than in `etf-flows.mjs` so there is one
+ * definition: `etf-flows.mjs` imports from this module, so it can re-export
+ * this, whereas this module importing from it would create a cycle. A second
+ * hardcoded `5` in the manual path is exactly the drift Principle 4 forbids.
+ */
+export const WARMUP_SNAPSHOTS = 5;
+const WARMUP_TARGET_FOR_MANUAL = WARMUP_SNAPSHOTS;
+
+/**
+ * A manual ETF-01 verdict of ACTIVE/INACTIVE is a claim about how many of the
+ * trailing 4 weekly aggregates were positive — doc 02 §8.3 scores on exactly
+ * that count. The manual file has no such field, so if an operator states a
+ * verdict without it we refuse the run rather than render "in n/a of the last
+ * 4 weeks". UNAVAILABLE needs no count (its templates use {snapshots}).
+ */
+export function assertManualPositives(state, manual) {
+  if (state !== 'ACTIVE' && state !== 'INACTIVE') return 0;
+  const p = manual?.positives;
+  if (!Number.isInteger(p) || p < 0 || p > 4) {
+    throw new Error(
+      `ETF-01 manual entry declares state ${state} but no valid \`positives\` ` +
+        `(got ${JSON.stringify(p)}). doc 02 §8.3 scores on how many of the trailing 4 ` +
+        `weekly aggregates were positive, so an ACTIVE/INACTIVE verdict must state it as ` +
+        `an integer 0-4 in etf01-manual.json. Refusing to publish an unsupported count.`
+    );
+  }
+  return p;
+}
+
+// ===========================================================================
 // Signal evaluations (pure — series injected)
 // ===========================================================================
 
@@ -164,6 +232,9 @@ export function evaluateBtcStructure(btcMonths, today) {
   // Month-over-month price move of the confirmed close — the honest number for
   // the plain-layer "gave back about a quarter in June" line (Stage 4).
   const monthMovePct = prevClose ? ((lastClose - prevClose) / prevClose) * 100 : 0;
+  // 50 is the deepest requirement on this array, so it subsumes the RSI(14)
+  // minimum of 16 — a second assert here could never fire (self-audit).
+  assertSeriesDepth('BTC monthly closes', closes.length, 50, '50M SMA + EMA20 + RSI(14)');
   const ema20 = ema(closes, 20);
   const sma50 = sma(closes, 50);
   const rsiCurrent = rsi(closes, 14);
@@ -220,12 +291,16 @@ export function evaluateMacro({ dxyDaily, us10yDaily, m2Monthly }, today) {
   const us10yWeekly = strictFridayCloses(us10yDaily, today);
   const dxyCloses = dxyWeekly.map(([, v]) => v);
   const us10yCloses = us10yWeekly.map(([, v]) => v);
+  // 20 subsumes the RSI(14) minimum of 15 on the same array.
+  assertSeriesDepth('DXY weekly closes', dxyCloses.length, 20, 'EMA20W + RSI(14)');
+  assertSeriesDepth('US10Y weekly closes', us10yCloses.length, 20, 'EMA20W');
   const dxyClose = dxyCloses[dxyCloses.length - 1];
   const dxyEma20 = ema(dxyCloses, 20);
   const dxyRsi = rsi(dxyCloses, 14);
   const us10yClose = us10yCloses[us10yCloses.length - 1];
   const us10yEma20 = ema(us10yCloses, 20);
   const m2Vals = m2Monthly.map(([, v]) => v);
+  assertSeriesDepth('M2 (M2SL) monthly', m2Vals.length, 13, '12-month ROC');
   const m2Current = m2Vals[m2Vals.length - 1];
   const m2_12mAgo = m2Vals[m2Vals.length - 13];
   const m2Prev = m2Vals[m2Vals.length - 2];
@@ -277,15 +352,18 @@ export function evaluateRelativeStrength({ btcDaily, goldDaily, nasdaqDaily }, t
 
   const bgFridays = [...btcMap.keys()].filter((d) => goldMap.has(d)).sort();
   const bgRatios = bgFridays.map((d) => btcMap.get(d) / goldMap.get(d));
+  assertSeriesDepth('BTC/Gold weekly ratio', bgRatios.length, 20, 'EMA20W');
   const bgLatest = bgRatios[bgRatios.length - 1];
   const bgEma = ema(bgRatios, 20);
 
   const bnFridays = [...btcMap.keys()].filter((d) => nasdaqMap.has(d)).sort();
   const bnRatios = bnFridays.map((d) => btcMap.get(d) / nasdaqMap.get(d));
+  assertSeriesDepth('BTC/Nasdaq weekly ratio', bnRatios.length, 20, 'EMA20W');
   const bnLatest = bnRatios[bnRatios.length - 1];
   const bnEma = ema(bnRatios, 20);
 
   const nasdaqCloses = nasdaqWeekly.map(([, v]) => v);
+  assertSeriesDepth('Nasdaq weekly closes', nasdaqCloses.length, 20, 'EMA20W');
   const nasdaqLatest = nasdaqCloses[nasdaqCloses.length - 1];
   const nasdaqEma = ema(nasdaqCloses, 20);
 
@@ -332,8 +410,15 @@ export function evaluateRelativeStrength({ btcDaily, goldDaily, nasdaqDaily }, t
  * @param {Date} today
  */
 export function evaluateEtfManual(manual, today) {
-  let state = 'INACTIVE';
-  let detail = 'Manual feed per spec §8.3 — no etf01-manual.json provided.';
+  // No ledger AND no manual file = nothing was measured. INACTIVE would be a
+  // CLAIM ("flows were positive in only N of 4 weeks"), and its template says
+  // exactly that; UNAVAILABLE is what doc 02 §10.1 defines for "cannot
+  // confirm". Score-neutral either way — `scoreSignals` only awards points for
+  // ACTIVE — so this changes the published SENTENCE, not the number
+  // (self-audit 2026-08-24, same honesty rule as 5.127).
+  let state = 'UNAVAILABLE';
+  let detail =
+    'No ETF flow ledger and no manual entry — scored unavailable per doc 02 §10.1 rather than reported as a measured miss.';
   if (manual) {
     const expired = new Date(manual.expires_at) < today;
     state = expired ? 'UNAVAILABLE' : manual.state;
@@ -347,6 +432,27 @@ export function evaluateEtfManual(manual, today) {
       state,
       weight: 2,
       detail,
+      // 5.133 (audit 2026-08-24): the ETF-01 sentence templates reference
+      // {positives} (ACTIVE/INACTIVE) and {snapshots}/{warmupTarget}
+      // (UNAVAILABLE). This legacy manual path emitted none, so if it were ever
+      // taken the generator's empty-slot guard would throw and stop the weekly
+      // automation.
+      //
+      // CORRECTED same day (self-audit): the first fix filled {positives} with
+      // `manual?.positives ?? 'n/a'`. The manual schema has NO `positives`
+      // field, so an unexpired ACTIVE/INACTIVE entry would have rendered
+      // "creations outpaced redemptions in n/a of the last 4 weeks" in four
+      // languages — the empty-slot guard only catches '', not 'n/a'. That
+      // swapped a fail-closed stop for a published sentence the data does not
+      // support, which is the opposite of what 5.133 asked for. A manual
+      // ACTIVE/INACTIVE verdict is a claim about the trailing-4 count, so it
+      // must SHOW that count: `assertManualPositives` refuses the run with an
+      // actionable message instead.
+      values: {
+        positives: assertManualPositives(state, manual),
+        snapshots: 0,
+        warmupTarget: WARMUP_TARGET_FOR_MANUAL,
+      },
       anchor: manual ? manual.entered_at?.slice(0, 10) : null,
       anchorKind: 'manual',
     },

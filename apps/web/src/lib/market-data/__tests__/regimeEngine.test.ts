@@ -124,6 +124,11 @@ describe('evaluateEtfManual — expiry degradation', () => {
   const base = {
     state: 'ACTIVE',
     detail: '4-week net inflows positive per manual read',
+    // doc 02 §8.3 scores ETF-01 on how many of the trailing 4 weekly aggregates
+    // were positive, and the ACTIVE/INACTIVE sentence templates render it. A
+    // manual verdict without it is now refused rather than rendered as "n/a"
+    // (self-audit 2026-08-24).
+    positives: 4,
     entered_at: '2026-07-01T00:00:00Z',
     expires_at: '2026-07-08T23:59:59Z',
   };
@@ -139,9 +144,17 @@ describe('evaluateEtfManual — expiry degradation', () => {
     expect(etf.detail).toContain('expired');
   });
 
-  it('should default to INACTIVE with no manual file', () => {
+  it('should default to UNAVAILABLE with no manual file (never a measured miss)', () => {
+    // Was INACTIVE. That state's published sentence is "flows were positive in
+    // only N of the last 4 weeks" — a measurement claim, from no measurement.
+    // Both states award 0 points, so the score is unchanged.
     const [etf] = evaluateEtfManual(null, D('2026-07-11'));
-    expect(etf.state).toBe('INACTIVE');
+    expect(etf.state).toBe('UNAVAILABLE');
+  });
+
+  it('should refuse a manual ACTIVE/INACTIVE verdict that omits its 4-week count', () => {
+    const noCount = { ...base, positives: undefined };
+    expect(() => evaluateEtfManual(noCount, D('2026-07-05'))).toThrow(/positives/);
   });
 });
 

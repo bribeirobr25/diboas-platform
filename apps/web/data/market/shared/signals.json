@@ -1,5 +1,5 @@
 {
-  "_comment": "Per-card sub-signal detail rendered by SignalCardsGrid when expanded. Generated 2026-06-26 against docs/mvp/engine/02_regime_engine_specification.md v2.1 §8 (Signal Registry — 4 groups × 11 signals total: BTC Structure 4 / Macro Environment 3 / Institutional Demand 1 / Relative Strength 3), via apps/web/scripts/data-fetchers/compute-regime.mjs. Monthly signals (BTC-01..04) anchored at the 2026-05-31 confirmed monthly close per §5.1; weekly signals (MAC/REL) at the 2026-06-19 confirmed Friday close; M2 (MAC-03) at the latest May 2026 monthly release. This-cycle change vs 2026-05-29: BTC-04 flipped INACTIVE→ACTIVE (monthly Stoch-RSI %K recovered above the 10 threshold), lifting BTC Structure 3→4 and the overall regime DEFENSIVE→NEUTRAL_MIXED. ETF-01 is UNAVAILABLE per §10.1 (CoinGlass routes 404, Farside Cloudflare-blocked). _translation_status tracks non-EN content review state (claude-reviewed 2026-07-07 per MSG-11; professional pass pending).",
+  "_comment": "Per-card sub-signal detail rendered by SignalCardsGrid when expanded. Structure follows docs/mvp/engine/02_regime_engine_specification.md v2.1 §8 (Signal Registry — 4 groups x 11 signals: BTC Structure 4 / Macro Environment 3 / Institutional Demand 1 / Relative Strength 3). Values, states, points and copy are GENERATED every cycle by apps/web/scripts/market-refresh/run.mjs + generate.mjs and reconciled by the --check drift gate. NOTE (2026-08-24): this comment is deliberately CYCLE-AGNOSTIC. It previously restated one cycle's anchors and verdicts — including 'ETF-01 is UNAVAILABLE per §10.1 (CoinGlass routes 404, Farside Cloudflare-blocked)' — which stayed here for two months after ETF-01 moved to the Polygon shares-outstanding ledger and went ACTIVE. Per-cycle facts live in the data below and in run-archive.jsonl; do not restate them here. _translation_status tracks non-EN content review state.",
   "groups": [
     {
       "id": "btc_structure",
@@ -129,12 +129,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The broad dollar index at 119 sits below its 20-week EMA (120) with RSI 45 — a softening dollar supports risk assets.",
-            "pt-BR": "O índice amplo do dólar em 119 está abaixo da EMA de 20 semanas (120), com RSI 45 — um dólar mais fraco favorece ativos de risco.",
-            "es": "El índice amplio del dólar en 119 está por debajo de su EMA de 20 semanas (120), con RSI 45; un dólar más débil favorece a los activos de riesgo.",
-            "de": "Der breite Dollar-Index bei 119 liegt unter seinem 20-Wochen-EMA (120), RSI 45 — ein weicherer Dollar stützt Risikoanlagen."
+            "en": "The broad dollar index at 119 sits below its 20-week EMA (120) with RSI 44 — a softening dollar supports risk assets.",
+            "pt-BR": "O índice amplo do dólar em 119 está abaixo da EMA de 20 semanas (120), com RSI 44 — um dólar mais fraco favorece ativos de risco.",
+            "es": "El índice amplio del dólar en 119 está por debajo de su EMA de 20 semanas (120), con RSI 44; un dólar más débil favorece a los activos de riesgo.",
+            "de": "Der breite Dollar-Index bei 119 liegt unter seinem 20-Wochen-EMA (120), RSI 44 — ein weicherer Dollar stützt Risikoanlagen."
           },
-          "last_updated_at": "2026-08-17T07:09:24.143Z"
+          "last_updated_at": "2026-08-24T07:12:18.181Z"
         },
         {
           "id": "MAC-02",
@@ -148,12 +148,12 @@
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "The US 10-year yield at 4.65% holds above its 20-week trend (4.49%) — yields have not eased yet.",
-            "pt-BR": "O juro americano de 10 anos em 4,65% segue acima da tendência de 20 semanas (4,49%) — os juros ainda não cederam.",
-            "es": "El rendimiento estadounidense a 10 años en 4,65% sigue por encima de su tendencia de 20 semanas (4,49%); los rendimientos aún no ceden.",
-            "de": "Die 10-jährige US-Rendite bei 4,65% hält sich über ihrem 20-Wochen-Trend (4,49%) — die Renditen haben noch nicht nachgegeben."
+            "en": "The US 10-year yield at 4.68% holds above its 20-week trend (4.51%) — yields have not eased yet.",
+            "pt-BR": "O juro americano de 10 anos em 4,68% segue acima da tendência de 20 semanas (4,51%) — os juros ainda não cederam.",
+            "es": "El rendimiento estadounidense a 10 años en 4,68% sigue por encima de su tendencia de 20 semanas (4,51%); los rendimientos aún no ceden.",
+            "de": "Die 10-jährige US-Rendite bei 4,68% hält sich über ihrem 20-Wochen-Trend (4,51%) — die Renditen haben noch nicht nachgegeben."
           },
-          "last_updated_at": "2026-08-17T07:09:24.143Z"
+          "last_updated_at": "2026-08-24T07:12:18.181Z"
         },
         {
           "id": "MAC-03",
@@ -212,7 +212,7 @@
             "es": "Las creaciones de los ETF al contado superaron los reembolsos en 3 de las últimas 4 semanas (método de participaciones); la demanda institucional está entrando.",
             "de": "Bei den Spot-ETFs überwogen die Anteilsschöpfungen in 3 der letzten 4 Wochen (Anteilszahl-Methode) — institutionelle Nachfrage fließt zu."
           },
-          "last_updated_at": "2026-08-17T07:09:24.143Z"
+          "last_updated_at": "2026-08-24T07:12:18.181Z"
         }
       ]
     },
@@ -225,14 +225,14 @@
         "es": "Fortaleza relativa",
         "de": "Relative Stärke"
       },
-      "status": "MIXED",
-      "points_awarded": 1,
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 3,
       "max_points": 3,
       "summary": {
-        "en": "Relative strength is split: Bitcoin trails both gold and the Nasdaq, but the wider risk market itself stays structurally healthy (1 of 3 points).",
-        "pt-BR": "A força relativa está dividida: o Bitcoin perde para o ouro e para a Nasdaq, mas o mercado de risco mais amplo segue estruturalmente saudável (1 de 3 pontos).",
-        "es": "La fuerza relativa está dividida: Bitcoin pierde contra el oro y el Nasdaq, pero el mercado de riesgo más amplio sigue estructuralmente sano (1 de 3 puntos).",
-        "de": "Die relative Stärke ist geteilt: Bitcoin liegt hinter Gold und dem Nasdaq zurück, doch der breitere Risikomarkt bleibt strukturell gesund (1 von 3 Punkten)."
+        "en": "Bitcoin leads its benchmarks: it outpaces gold and the Nasdaq on the weekly trend (3 of 3 points).",
+        "pt-BR": "O Bitcoin lidera seus referenciais: supera o ouro e a Nasdaq na tendência semanal (3 de 3 pontos).",
+        "es": "Bitcoin lidera sus referencias: supera al oro y al Nasdaq en la tendencia semanal (3 de 3 puntos).",
+        "de": "Bitcoin führt seine Vergleichsmaßstäbe an: Im Wochentrend läuft es Gold und dem Nasdaq voraus (3 von 3 Punkten)."
       },
       "signals": [
         {
@@ -243,16 +243,16 @@
             "es": "BTC superando al oro",
             "de": "BTC stärker als Gold"
           },
-          "state": "INACTIVE",
-          "points_awarded": 0,
+          "state": "ACTIVE",
+          "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The BTC/Gold ratio at 14.377 sits below its 20-week trend (15.190) — the defensive asset is winning this stretch.",
-            "pt-BR": "A razão BTC/Ouro em 14,377 está abaixo da tendência de 20 semanas (15,190) — o ativo defensivo vence este trecho.",
-            "es": "La ratio BTC/Oro en 14,377 está por debajo de su tendencia de 20 semanas (15,190); el activo defensivo gana este tramo.",
-            "de": "Das BTC/Gold-Verhältnis bei 14,377 liegt unter seinem 20-Wochen-Trend (15,190) — das defensive Anlagegut gewinnt diese Phase."
+            "en": "The BTC/Gold ratio at 16.941 holds above its 20-week trend (15.294) — Bitcoin is outpacing the defensive asset.",
+            "pt-BR": "A razão BTC/Ouro em 16,941 segue acima da tendência de 20 semanas (15,294) — o Bitcoin supera o ativo defensivo.",
+            "es": "La ratio BTC/Oro en 16,941 se mantiene sobre su tendencia de 20 semanas (15,294); Bitcoin supera al activo defensivo.",
+            "de": "Das BTC/Gold-Verhältnis bei 16,941 hält sich über seinem 20-Wochen-Trend (15,294) — Bitcoin läuft dem defensiven Anlagegut voraus."
           },
-          "last_updated_at": "2026-08-17T07:09:24.143Z"
+          "last_updated_at": "2026-08-24T07:12:18.181Z"
         },
         {
           "id": "REL-02",
@@ -262,16 +262,16 @@
             "es": "BTC superando al Nasdaq",
             "de": "BTC stärker als Nasdaq"
           },
-          "state": "INACTIVE",
-          "points_awarded": 0,
+          "state": "ACTIVE",
+          "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The BTC/Nasdaq ratio at 2.356 sits below its 20-week trend (2.630) — Bitcoin lags the broader risk complex.",
-            "pt-BR": "A razão BTC/Nasdaq em 2,356 está abaixo da tendência de 20 semanas (2,630) — o Bitcoin fica atrás do complexo de risco.",
-            "es": "La ratio BTC/Nasdaq en 2,356 está por debajo de su tendencia de 20 semanas (2,630); Bitcoin va rezagado frente al complejo de riesgo.",
-            "de": "Das BTC/Nasdaq-Verhältnis bei 2,356 liegt unter seinem 20-Wochen-Trend (2,630) — Bitcoin hinkt dem breiteren Risikokomplex hinterher."
+            "en": "The BTC/Nasdaq ratio at 2.992 holds above its 20-week trend (2.660) — Bitcoin leads risk assets.",
+            "pt-BR": "A razão BTC/Nasdaq em 2,992 segue acima da tendência de 20 semanas (2,660) — o Bitcoin lidera os ativos de risco.",
+            "es": "La ratio BTC/Nasdaq en 2,992 se mantiene sobre su tendencia de 20 semanas (2,660); Bitcoin lidera los activos de riesgo.",
+            "de": "Das BTC/Nasdaq-Verhältnis bei 2,992 hält sich über seinem 20-Wochen-Trend (2,660) — Bitcoin führt die Risikoanlagen an."
           },
-          "last_updated_at": "2026-08-17T07:09:24.143Z"
+          "last_updated_at": "2026-08-24T07:12:18.181Z"
         },
         {
           "id": "REL-03",
@@ -285,12 +285,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The Nasdaq at 26,729 holds above its 20-week trend (25,361) — the wider risk market is structurally healthy.",
-            "pt-BR": "O Nasdaq em 26.729 segue acima da tendência de 20 semanas (25.361) — o mercado de risco mais amplo está estruturalmente saudável.",
-            "es": "El Nasdaq en 26.729 se mantiene sobre su tendencia de 20 semanas (25.361); el mercado de riesgo más amplio está estructuralmente sano.",
-            "de": "Der Nasdaq bei 26.729 hält sich über seinem 20-Wochen-Trend (25.361) — der breitere Risikomarkt ist strukturell gesund."
+            "en": "The Nasdaq at 26,180 holds above its 20-week trend (25,439) — the wider risk market is structurally healthy.",
+            "pt-BR": "O Nasdaq em 26.180 segue acima da tendência de 20 semanas (25.439) — o mercado de risco mais amplo está estruturalmente saudável.",
+            "es": "El Nasdaq en 26.180 se mantiene sobre su tendencia de 20 semanas (25.439); el mercado de riesgo más amplio está estructuralmente sano.",
+            "de": "Der Nasdaq bei 26.180 hält sich über seinem 20-Wochen-Trend (25.439) — der breitere Risikomarkt ist strukturell gesund."
           },
-          "last_updated_at": "2026-08-17T07:09:24.143Z"
+          "last_updated_at": "2026-08-24T07:12:18.181Z"
         }
       ]
     }
