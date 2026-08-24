@@ -4,11 +4,6 @@
   "range": "1y",
   "snapshots": [
     {
-      "date": "2025-07-10T00:00:00Z",
-      "score": 6,
-      "regime_code": "NEUTRAL_MIXED"
-    },
-    {
       "date": "2025-07-17T00:00:00Z",
       "score": 6,
       "regime_code": "NEUTRAL_MIXED"
@@ -262,6 +257,11 @@
       "date": "2026-08-17T00:00:00Z",
       "score": 8,
       "regime_code": "NEUTRAL_MIXED"
+    },
+    {
+      "date": "2026-08-24T00:00:00Z",
+      "score": 10,
+      "regime_code": "CONSTRUCTIVE"
     }
   ]
 }
