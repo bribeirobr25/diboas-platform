@@ -22,7 +22,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { REPO_ROOT } from '../providers/inrepo.mjs';
-import { evaluateEtfManual } from './regime-engine.mjs';
+import { evaluateEtfManual, WARMUP_SNAPSHOTS } from './regime-engine.mjs';
 
 export const ETF_SHARES_ARCHIVE = path.join(
   REPO_ROOT,
@@ -31,7 +31,9 @@ export const ETF_SHARES_ARCHIVE = path.join(
 
 export const STALE_FUND_DAYS = 10;
 export const MAX_WEEKLY_SHARE_CHANGE = 0.5; // ±50%/week = corruption, not commerce
-export const WARMUP_SNAPSHOTS = 5;
+// Single definition lives in regime-engine.mjs (the pure module) — re-exported
+// here so existing importers (run.mjs) are unchanged. See its docblock.
+export { WARMUP_SNAPSHOTS };
 
 export function readSnapshots(archivePath = ETF_SHARES_ARCHIVE) {
   if (!fs.existsSync(archivePath)) return [];

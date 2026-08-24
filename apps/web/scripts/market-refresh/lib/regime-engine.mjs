@@ -179,6 +179,38 @@ export function assertSeriesDepth(label, length, required, metric) {
   }
 }
 
+/**
+ * Weekly snapshots needed before ETF-01 can compute 4 weekly flows.
+ *
+ * Defined HERE (the pure engine) rather than in `etf-flows.mjs` so there is one
+ * definition: `etf-flows.mjs` imports from this module, so it can re-export
+ * this, whereas this module importing from it would create a cycle. A second
+ * hardcoded `5` in the manual path is exactly the drift Principle 4 forbids.
+ */
+export const WARMUP_SNAPSHOTS = 5;
+const WARMUP_TARGET_FOR_MANUAL = WARMUP_SNAPSHOTS;
+
+/**
+ * A manual ETF-01 verdict of ACTIVE/INACTIVE is a claim about how many of the
+ * trailing 4 weekly aggregates were positive — doc 02 §8.3 scores on exactly
+ * that count. The manual file has no such field, so if an operator states a
+ * verdict without it we refuse the run rather than render "in n/a of the last
+ * 4 weeks". UNAVAILABLE needs no count (its templates use {snapshots}).
+ */
+export function assertManualPositives(state, manual) {
+  if (state !== 'ACTIVE' && state !== 'INACTIVE') return 0;
+  const p = manual?.positives;
+  if (!Number.isInteger(p) || p < 0 || p > 4) {
+    throw new Error(
+      `ETF-01 manual entry declares state ${state} but no valid \`positives\` ` +
+        `(got ${JSON.stringify(p)}). doc 02 §8.3 scores on how many of the trailing 4 ` +
+        `weekly aggregates were positive, so an ACTIVE/INACTIVE verdict must state it as ` +
+        `an integer 0-4 in etf01-manual.json. Refusing to publish an unsupported count.`
+    );
+  }
+  return p;
+}
+
 // ===========================================================================
 // Signal evaluations (pure — series injected)
 // ===========================================================================
@@ -200,8 +232,9 @@ export function evaluateBtcStructure(btcMonths, today) {
   // Month-over-month price move of the confirmed close — the honest number for
   // the plain-layer "gave back about a quarter in June" line (Stage 4).
   const monthMovePct = prevClose ? ((lastClose - prevClose) / prevClose) * 100 : 0;
-  assertSeriesDepth('BTC monthly closes', closes.length, 50, '50M SMA');
-  assertSeriesDepth('BTC monthly closes', closes.length, 16, 'RSI(14) current + prior');
+  // 50 is the deepest requirement on this array, so it subsumes the RSI(14)
+  // minimum of 16 — a second assert here could never fire (self-audit).
+  assertSeriesDepth('BTC monthly closes', closes.length, 50, '50M SMA + EMA20 + RSI(14)');
   const ema20 = ema(closes, 20);
   const sma50 = sma(closes, 50);
   const rsiCurrent = rsi(closes, 14);
@@ -258,8 +291,8 @@ export function evaluateMacro({ dxyDaily, us10yDaily, m2Monthly }, today) {
   const us10yWeekly = strictFridayCloses(us10yDaily, today);
   const dxyCloses = dxyWeekly.map(([, v]) => v);
   const us10yCloses = us10yWeekly.map(([, v]) => v);
-  assertSeriesDepth('DXY weekly closes', dxyCloses.length, 20, 'EMA20W');
-  assertSeriesDepth('DXY weekly closes', dxyCloses.length, 15, 'RSI(14)');
+  // 20 subsumes the RSI(14) minimum of 15 on the same array.
+  assertSeriesDepth('DXY weekly closes', dxyCloses.length, 20, 'EMA20W + RSI(14)');
   assertSeriesDepth('US10Y weekly closes', us10yCloses.length, 20, 'EMA20W');
   const dxyClose = dxyCloses[dxyCloses.length - 1];
   const dxyEma20 = ema(dxyCloses, 20);
@@ -377,8 +410,15 @@ export function evaluateRelativeStrength({ btcDaily, goldDaily, nasdaqDaily }, t
  * @param {Date} today
  */
 export function evaluateEtfManual(manual, today) {
-  let state = 'INACTIVE';
-  let detail = 'Manual feed per spec §8.3 — no etf01-manual.json provided.';
+  // No ledger AND no manual file = nothing was measured. INACTIVE would be a
+  // CLAIM ("flows were positive in only N of 4 weeks"), and its template says
+  // exactly that; UNAVAILABLE is what doc 02 §10.1 defines for "cannot
+  // confirm". Score-neutral either way — `scoreSignals` only awards points for
+  // ACTIVE — so this changes the published SENTENCE, not the number
+  // (self-audit 2026-08-24, same honesty rule as 5.127).
+  let state = 'UNAVAILABLE';
+  let detail =
+    'No ETF flow ledger and no manual entry — scored unavailable per doc 02 §10.1 rather than reported as a measured miss.';
   if (manual) {
     const expired = new Date(manual.expires_at) < today;
     state = expired ? 'UNAVAILABLE' : manual.state;
@@ -396,12 +436,22 @@ export function evaluateEtfManual(manual, today) {
       // {positives} (ACTIVE/INACTIVE) and {snapshots}/{warmupTarget}
       // (UNAVAILABLE). This legacy manual path emitted none, so if it were ever
       // taken the generator's empty-slot guard would throw and stop the weekly
-      // automation. Manual entries carry no flow ledger, so the counts are
-      // reported as unknown-but-present rather than invented.
+      // automation.
+      //
+      // CORRECTED same day (self-audit): the first fix filled {positives} with
+      // `manual?.positives ?? 'n/a'`. The manual schema has NO `positives`
+      // field, so an unexpired ACTIVE/INACTIVE entry would have rendered
+      // "creations outpaced redemptions in n/a of the last 4 weeks" in four
+      // languages — the empty-slot guard only catches '', not 'n/a'. That
+      // swapped a fail-closed stop for a published sentence the data does not
+      // support, which is the opposite of what 5.133 asked for. A manual
+      // ACTIVE/INACTIVE verdict is a claim about the trailing-4 count, so it
+      // must SHOW that count: `assertManualPositives` refuses the run with an
+      // actionable message instead.
       values: {
-        positives: manual?.positives ?? 'n/a',
+        positives: assertManualPositives(state, manual),
         snapshots: 0,
-        warmupTarget: 5,
+        warmupTarget: WARMUP_TARGET_FOR_MANUAL,
       },
       anchor: manual ? manual.entered_at?.slice(0, 10) : null,
       anchorKind: 'manual',

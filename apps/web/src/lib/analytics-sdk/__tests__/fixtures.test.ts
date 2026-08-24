@@ -328,7 +328,17 @@ describe('editorial dataset — historical schema drift guard', () => {
       .filter((d) => !runDays.has(d));
 
     expect(unbacked, `chart points with no run behind them: ${unbacked.join(', ')}`).toEqual([]);
-    expect(snaps.length).toBe(runDays.size);
+
+    // Never MORE points than runs. Deliberately not `toBe(runDays.size)`:
+    // the archive is append-only and never pruned, while `generate.mjs` caps
+    // the published series at HISTORICAL_CAP (52), so strict equality would
+    // have gone permanently red around 2027-07 when the 53rd weekly run drops
+    // the oldest point (5.139) — and red on any `compute-regime.mjs --archive`
+    // verification run, which mints a run day without publishing a point.
+    // "Every point is backed by a run" is the honesty invariant; the counts
+    // matching is not, and asserting it would fail the automation for being
+    // correct.
+    expect(snaps.length).toBeLessThanOrEqual(runDays.size);
   });
 
   it('should expose date/score/regime_code on every snapshot', () => {

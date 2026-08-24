@@ -34,8 +34,14 @@
  *     Per-signal last_updated_at: monthly-anchored → end of the anchor month;
  *     weekly-anchored → computed_at (preserves the committed semantics).
  *
+ *   - regime.summary.<locale>.confidence_level  (:= data_status.overall_confidence,
+ *     added 2026-08-24 / 5.131 — the hero badge and the data panel are ONE
+ *     concept in doc-07 §21.1, and while this was editorial the page shipped
+ *     "Moderate confidence" above a panel deriving HIGH. It is now --check-
+ *     guarded like any other generated field: a hand-edit cannot merge.)
+ *
  * PRESERVED (editorial-owned, never touched here): the research-memo voice
- * (regime.summary.<locale>.{short,detailed,confidence_level,mixed_signals,
+ * (regime.summary.<locale>.{short,detailed,mixed_signals,
  * key_*}) and data_status (P2's output). An `editorial-override.json` may
  * replace any single generated string for a cycle (judgment preserved).
  *
@@ -50,7 +56,10 @@
  * delta driving month-framed copy).
  *
  * synthetic_seed flip (founder ruling 2026-07-11): flips to false once the
- * archive holds >= REAL_SNAPSHOTS_FOR_FLIP consecutive real snapshots.
+ * archive holds >= REAL_SNAPSHOTS_FOR_FLIP distinct real run DAYS. Days, not
+ * archive lines and not "consecutive" — counting lines overstated the real
+ * history (a same-day re-run counted twice) and was one half of why 44 seed
+ * points shipped as measured history in 5.127.
  */
 
 import fs from 'node:fs';

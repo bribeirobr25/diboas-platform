@@ -1,8 +1,8 @@
 {
-  "_comment": "ETF-01 manual input (P2 Stage 1 — plan §B: 'ETF-01 stays a manual input file; the pipeline consumes it and marks it UNAVAILABLE automatically when expired'). state is one of ACTIVE | INACTIVE | UNAVAILABLE per doc 02 §10.1. Refresh this file each cycle until the P4 founder decision lands a durable source (Polygon shares-outstanding route tested 2026-07-11). The expiry is deliberately short: a stale institutional-demand read must degrade to UNAVAILABLE, never silently persist.",
+  "_comment": "ETF-01 MANUAL FALLBACK — no longer the primary route. Since the P4 Polygon shares-outstanding ledger landed (2026-07-11), resolveEtfSignals() in apps/web/scripts/market-refresh/lib/etf-flows.mjs reads this file ONLY when the ledger is empty (fresh clone, or the ledger being rebuilt). state is one of ACTIVE | INACTIVE | UNAVAILABLE per doc 02 §10.1. The expiry is deliberately short: a stale institutional-demand read must degrade to UNAVAILABLE, never silently persist. Refreshed 2026-08-24 (audit): the detail below is PUBLISHED verbatim inside the expiry wrapper, so it must not name a superseded cause.",
   "state": "UNAVAILABLE",
-  "detail": "ETF flows source unavailable this cycle: CoinGlass spot-ETF routes 404 (page structure changed) and the free-tier API excludes etf/bitcoin/flow-history (401); Farside remains Cloudflare-blocked (not evaded, per sourcing policy). Scored UNAVAILABLE per doc 02 §10.1 — effective ceiling 12/14 until the P4 route lands.",
-  "entered_by": "claude (per data-status.json v3 state, founder-reviewed refresh 2026-07-11)",
+  "detail": "ETF-01 has no manual reading for this cycle. The durable source is the Polygon shares-outstanding ledger (doc 02 §8.3); this manual file is only the empty-ledger fallback and carries no current flow measurement. Scored UNAVAILABLE per doc 02 §10.1 rather than guessed.",
+  "entered_by": "claude (audit remediation 2026-08-24 — prose refresh only; state/expiry unchanged)",
   "entered_at": "2026-07-11T16:00:00Z",
   "expires_at": "2026-07-18T23:59:59Z"
 }

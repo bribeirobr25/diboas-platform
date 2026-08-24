@@ -343,7 +343,7 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                       <h2 className={styles.h2}>
                         {t(
                           'dashboard.historicalLead',
-                          'Where the environment has been over the last year.'
+                          'Where the environment has been, week by week since the framework went live.'
                         )}
                       </h2>
                     </div>
@@ -352,7 +352,7 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                       range="1Y"
                       ariaLabel={t(
                         'dashboard.historicalAriaLabel',
-                        'Macro environment score over the last 12 months'
+                        'Macro environment score for each week since the framework went live'
                       )}
                       tableLabels={{
                         date: t('dashboard.historicalTableDate', 'Date'),
