@@ -316,6 +316,14 @@
   font-weight: 400;
   color: var(--editorial-ink-soft);
 }
+/* /market/backdrop only: the depth <details> sits BETWEEN the lead and the
+   evergreen explainer, so it needs a bottom edge the scored view never does
+   (there the memo is the last thing in its section). Without this the depth
+   body and the explainer run together as one block, which is the exact
+   weekly-vs-evergreen blur this section was restructured to remove. */
+.stateDepth {
+  margin-bottom: clamp(28px, 5vh, 44px);
+}
 .stateExplainer {
   color: var(--editorial-ink-soft);
   max-width: 62ch;

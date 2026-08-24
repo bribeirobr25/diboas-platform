@@ -81,7 +81,12 @@ export function StateViewSections({ viewSlug, signalGroups, t }: StateViewSectio
   const macro = signalGroups.find((g) => g.id === 'macro_environment');
   if (!macro || !macro.signals || macro.signals.length === 0) return null;
 
-  const { lead, rest } = splitLead(macro.summary ?? '');
+  // 5.140 + 5.141: prefer the state-grammar lead, which carries a beat per
+  // condition and, unlike `summary`, no "(2 of 3 points)" — a score fragment
+  // does not belong on a view whose grammar carries no score. Falls back to
+  // `summary` so a dataset generated before this field existed still renders.
+  const { lead, rest } = splitLead(macro.state_view?.lead ?? macro.summary ?? '');
+  const depth = macro.state_view?.depth;
 
   return (
     <SectionErrorBoundary
@@ -96,6 +101,18 @@ export function StateViewSections({ viewSlug, signalGroups, t }: StateViewSectio
           <strong className={styles.stateLeadStrong}>{lead}</strong>
           {rest ? <span className={styles.stateLeadRest}> {rest}</span> : null}
         </p>
+        {/* The numbers behind the three beats, one expandable step down. Native
+            <details>, no JS, matching the scored view's memo affordance. */}
+        {depth ? (
+          <details className={`${styles.scoreDetail} ${styles.stateDepth}`}>
+            {/* Same classes as the scored view's memo toggle rather than a
+                parallel set: identical affordance, one place to restyle. */}
+            <summary className={styles.memoToggle}>
+              {t('conditions.depthToggle', 'What is behind the three conditions')}
+            </summary>
+            <p className={styles.scoreDetailBody}>{depth}</p>
+          </details>
+        ) : null}
         {/* Why these three matter — static diBoaS voice, the page's context. */}
         <p className={styles.stateExplainer}>
           {t(

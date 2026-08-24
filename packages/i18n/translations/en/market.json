@@ -107,6 +107,7 @@
     }
   },
   "conditions": {
-    "sectionExplainer": "Three forces set the weather behind every market: what the dollar is doing, what money costs, and how much of it is moving. No single week decides anything. The direction is what matters."
+    "sectionExplainer": "Three forces set the weather behind every market: what the dollar is doing, what money costs, and how much of it is moving. No single week decides anything. The direction is what matters.",
+    "depthToggle": "What is behind the three conditions"
   }
 }

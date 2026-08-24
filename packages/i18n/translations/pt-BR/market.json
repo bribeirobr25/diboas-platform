@@ -107,6 +107,7 @@
     }
   },
   "conditions": {
-    "sectionExplainer": "Três forças definem o clima por trás de todos os mercados: o que o dólar está fazendo, quanto custa o dinheiro e quanto dele está circulando. Nenhuma semana isolada decide nada. O que importa é a direção."
+    "sectionExplainer": "Três forças definem o clima por trás de todos os mercados: o que o dólar está fazendo, quanto custa o dinheiro e quanto dele está circulando. Nenhuma semana isolada decide nada. O que importa é a direção.",
+    "depthToggle": "O que está por trás das três condições"
   }
 }

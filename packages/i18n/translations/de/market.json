@@ -107,6 +107,7 @@
     }
   },
   "conditions": {
-    "sectionExplainer": "Drei Kräfte bestimmen das Wetter hinter allen Märkten: was der Dollar macht, was Geld kostet und wie viel davon in Bewegung ist. Keine einzelne Woche entscheidet etwas. Die Richtung zählt."
+    "sectionExplainer": "Drei Kräfte bestimmen das Wetter hinter allen Märkten: was der Dollar macht, was Geld kostet und wie viel davon in Bewegung ist. Keine einzelne Woche entscheidet etwas. Die Richtung zählt.",
+    "depthToggle": "Was hinter den drei Bedingungen steht"
   }
 }
