@@ -144,6 +144,42 @@ export function anchorOf(series) {
 }
 
 // ===========================================================================
+// Series-depth guard (5.132d, audit 2026-08-24) — FAIL CLOSED
+// ===========================================================================
+
+/**
+ * Assert a series is long enough for the metric about to be computed on it.
+ *
+ * WHY THIS IS A THROW AND NOT A FALLBACK — every short-series path in this
+ * engine degrades SILENTLY, and two of them degrade to a WRONG SCORE rather
+ * than to "unknown":
+ *   - `rsi()` returns `null` below period+1, and `null < 50` is **true** in JS,
+ *     so MAC-01 would award its point on a series too short to have an RSI.
+ *   - `ema()` has no minimum at all: on 3 points it returns a number and calls
+ *     it "EMA20", so a comparison against trend is made against a trend that
+ *     was never computed.
+ *   - `m2Vals[len - 13]` is `undefined` below 13 months, making the 12M ROC
+ *     NaN — and `NaN > 0` is false, so MAC-03 reads as a clean INACTIVE.
+ * Each of those publishes a number the data does not support. The pipeline's
+ * standing convention is to stop rather than publish (F-M2 above, the quality
+ * gate, the generator's empty-slot guard), so this does the same.
+ *
+ * @param {string} label — series name as it should appear to a human operator
+ * @param {number} length — observations available
+ * @param {number} required — observations the metric needs
+ * @param {string} metric — what is being computed, for the operator message
+ */
+export function assertSeriesDepth(label, length, required, metric) {
+  if (length < required) {
+    throw new Error(
+      `INSUFFICIENT SERIES (5.132d): ${label} has ${length} observation(s) but ` +
+        `${metric} requires ${required}. Refusing to publish a value the data ` +
+        `does not support. Check the upstream fetch before recomputing.`
+    );
+  }
+}
+
+// ===========================================================================
 // Signal evaluations (pure — series injected)
 // ===========================================================================
 
@@ -164,6 +200,8 @@ export function evaluateBtcStructure(btcMonths, today) {
   // Month-over-month price move of the confirmed close — the honest number for
   // the plain-layer "gave back about a quarter in June" line (Stage 4).
   const monthMovePct = prevClose ? ((lastClose - prevClose) / prevClose) * 100 : 0;
+  assertSeriesDepth('BTC monthly closes', closes.length, 50, '50M SMA');
+  assertSeriesDepth('BTC monthly closes', closes.length, 16, 'RSI(14) current + prior');
   const ema20 = ema(closes, 20);
   const sma50 = sma(closes, 50);
   const rsiCurrent = rsi(closes, 14);
@@ -220,12 +258,16 @@ export function evaluateMacro({ dxyDaily, us10yDaily, m2Monthly }, today) {
   const us10yWeekly = strictFridayCloses(us10yDaily, today);
   const dxyCloses = dxyWeekly.map(([, v]) => v);
   const us10yCloses = us10yWeekly.map(([, v]) => v);
+  assertSeriesDepth('DXY weekly closes', dxyCloses.length, 20, 'EMA20W');
+  assertSeriesDepth('DXY weekly closes', dxyCloses.length, 15, 'RSI(14)');
+  assertSeriesDepth('US10Y weekly closes', us10yCloses.length, 20, 'EMA20W');
   const dxyClose = dxyCloses[dxyCloses.length - 1];
   const dxyEma20 = ema(dxyCloses, 20);
   const dxyRsi = rsi(dxyCloses, 14);
   const us10yClose = us10yCloses[us10yCloses.length - 1];
   const us10yEma20 = ema(us10yCloses, 20);
   const m2Vals = m2Monthly.map(([, v]) => v);
+  assertSeriesDepth('M2 (M2SL) monthly', m2Vals.length, 13, '12-month ROC');
   const m2Current = m2Vals[m2Vals.length - 1];
   const m2_12mAgo = m2Vals[m2Vals.length - 13];
   const m2Prev = m2Vals[m2Vals.length - 2];
@@ -277,15 +319,18 @@ export function evaluateRelativeStrength({ btcDaily, goldDaily, nasdaqDaily }, t
 
   const bgFridays = [...btcMap.keys()].filter((d) => goldMap.has(d)).sort();
   const bgRatios = bgFridays.map((d) => btcMap.get(d) / goldMap.get(d));
+  assertSeriesDepth('BTC/Gold weekly ratio', bgRatios.length, 20, 'EMA20W');
   const bgLatest = bgRatios[bgRatios.length - 1];
   const bgEma = ema(bgRatios, 20);
 
   const bnFridays = [...btcMap.keys()].filter((d) => nasdaqMap.has(d)).sort();
   const bnRatios = bnFridays.map((d) => btcMap.get(d) / nasdaqMap.get(d));
+  assertSeriesDepth('BTC/Nasdaq weekly ratio', bnRatios.length, 20, 'EMA20W');
   const bnLatest = bnRatios[bnRatios.length - 1];
   const bnEma = ema(bnRatios, 20);
 
   const nasdaqCloses = nasdaqWeekly.map(([, v]) => v);
+  assertSeriesDepth('Nasdaq weekly closes', nasdaqCloses.length, 20, 'EMA20W');
   const nasdaqLatest = nasdaqCloses[nasdaqCloses.length - 1];
   const nasdaqEma = ema(nasdaqCloses, 20);
 
@@ -347,6 +392,17 @@ export function evaluateEtfManual(manual, today) {
       state,
       weight: 2,
       detail,
+      // 5.133 (audit 2026-08-24): the ETF-01 sentence templates reference
+      // {positives} (ACTIVE/INACTIVE) and {snapshots}/{warmupTarget}
+      // (UNAVAILABLE). This legacy manual path emitted none, so if it were ever
+      // taken the generator's empty-slot guard would throw and stop the weekly
+      // automation. Manual entries carry no flow ledger, so the counts are
+      // reported as unknown-but-present rather than invented.
+      values: {
+        positives: manual?.positives ?? 'n/a',
+        snapshots: 0,
+        warmupTarget: 5,
+      },
       anchor: manual ? manual.entered_at?.slice(0, 10) : null,
       anchorKind: 'manual',
     },

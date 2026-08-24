@@ -27,14 +27,22 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    # Map the secret to env at the JOB level so `env.POLYGON_API_KEY` is
-    # reliably visible to every step's `if:` guard (step-level env is NOT
-    # dependable in that same step's own `if` condition — the ETF leg would
-    # otherwise skip even when the secret is set).
+    # 5.135: the SECRET itself is now STEP-scoped (only the ETF-01 leg runs the
+    # script that reads it), so it is not exposed to the third-party actions in
+    # this job. Only a non-secret BOOLEAN stays job-level, because step-level
+    # env is NOT dependable in that same step's own `if` condition — the ETF leg
+    # would otherwise skip even when the secret is set — and `secrets` is not an
+    # available context in a step-level `if:` at all. Guard semantics unchanged.
     env:
-      POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
+      HAS_POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY != '' }}
     steps:
       - uses: actions/checkout@v6
+        with:
+          # 5.135: keep the workflow token out of .git/config for later steps.
+          # create-pull-request configures its own auth from its `token:` input
+          # (it unsets the persisted extraheader and hides checkout's credential
+          # files first), so nothing here relies on checkout-persisted creds.
+          persist-credentials: false
 
       - uses: pnpm/action-setup@v6
 
@@ -50,7 +58,9 @@ jobs:
         run: pnpm --filter @diboas/i18n build
 
       - name: ETF-01 weekly snapshot (optional leg)
-        if: ${{ env.POLYGON_API_KEY != '' }}
+        if: ${{ env.HAS_POLYGON_API_KEY == 'true' }}
+        env:
+          POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
         run: node apps/web/scripts/market-refresh/run.mjs --etf-snapshot --no-archive || true
 
       - name: Refresh pipeline (fetch → gate → compute → archive)
@@ -77,7 +87,7 @@ jobs:
         run: pnpm exec prettier --check "apps/web/data/market/**/*.json" "apps/web/src/lib/market-data/data/*.json"
 
       - name: Open refresh PR
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7.0.11
         with:
           # B4(a) 2026-08-11: a PR created with the default GITHUB_TOKEN never
           # triggers `pull_request` workflows, so the weekly PR got no main CI.

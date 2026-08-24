@@ -15,19 +15,20 @@
  * stale-input gate, F-M3 anchors + coherence) travel with it.
  *
  * Usage:
- *   node apps/web/scripts/data-fetchers/compute-regime.mjs [--no-archive]
+ *   node apps/web/scripts/data-fetchers/compute-regime.mjs [--archive]
  *
  * Outputs to stdout: per-signal evaluation, group totals, score → band,
- * anchors (F-M3), reconciliation vs the published regime.json; appends an
- * append-only line to apps/web/data/market/run-archive.jsonl.
+ * anchors (F-M3), reconciliation vs the published regime.json. Read-only by
+ * default; pass --archive to also append a line to the run archive (that
+ * ledger governs the published history chart — see 5.137 below).
  *
  * Data sources (all free, no API key required):
  *   - BTC monthly closes: in-repo monthlyPrices.json (authoritative, §5.1)
  *   - DXY/US10Y/M2/Nasdaq: FRED public CSV
  *   - Gold: Yahoo GC=F (SUBSTITUTE — FRED LBMA retired; D-gold-2026-05-29)
  *   - BTC weekly: Yahoo BTC-USD
- *   - ETF-01: manual input file apps/web/data/market/etf01-manual.json
- *     (auto-degrades to UNAVAILABLE on expiry; P4 owns the durable source)
+ *   - ETF-01: the shared `resolveEtfSignals` route — Polygon shares ledger
+ *     first, manual file as the auto-expiring fallback (doc 02 §10.1)
  *
  * Note: this script computes signal states but does NOT write editorial
  * files. The full pipeline (fetch → quality gate → computed.json) is
@@ -42,10 +43,10 @@ import {
   evaluateBtcStructure,
   evaluateMacro,
   evaluateRelativeStrength,
-  evaluateEtfManual,
   scoreSignals,
   anchorCoherence,
 } from '../market-refresh/lib/regime-engine.mjs';
+import { readSnapshots, resolveEtfSignals } from '../market-refresh/lib/etf-flows.mjs';
 import { fetchFredSeries } from '../market-refresh/providers/fred.mjs';
 import { fetchYahooDaily } from '../market-refresh/providers/yahoo.mjs';
 import { btcMonths } from '../market-refresh/providers/inrepo.mjs';
@@ -80,7 +81,12 @@ async function main() {
   const etfManual = fs.existsSync(ETF_MANUAL_PATH)
     ? JSON.parse(fs.readFileSync(ETF_MANUAL_PATH, 'utf8'))
     : null;
-  const etf = evaluateEtfManual(etfManual, TODAY);
+  // 5.136 (audit 2026-08-24): route ETF-01 through the SAME resolver the
+  // pipeline uses. This CLI previously called evaluateEtfManual directly
+  // against a file that expired 2026-07-18, so it scored ETF-01 UNAVAILABLE
+  // and printed 8/14 against a published 10/14 — the verification tool
+  // contradicting the thing it verifies.
+  const etf = resolveEtfSignals({ snapshots: readSnapshots(), manual: etfManual }, TODAY);
 
   const all = [...btc, ...macro, ...etf, ...rel];
   console.log('\n=== Signal evaluation ===');
@@ -131,7 +137,12 @@ async function main() {
   }
 
   // === P1: append-only run archive =========================================
-  if (!process.argv.includes('--no-archive')) {
+  // 5.137 (audit 2026-08-24): archiving is OPT-IN here. `run-archive.jsonl` is
+  // the provenance ledger that authorises which points the published history
+  // chart may show (fixtures.test.ts reconciles chart points against its run
+  // days). A verification run on a non-run day used to mint a phantom run day
+  // in that ledger — a read-only check must not write history.
+  if (process.argv.includes('--archive')) {
     const line = {
       run_at: new Date().toISOString(),
       pipeline: 'data-fetchers/compute-regime.mjs',

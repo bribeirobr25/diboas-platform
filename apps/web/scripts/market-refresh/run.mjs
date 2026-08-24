@@ -27,7 +27,6 @@ import {
   evaluateBtcStructure,
   evaluateMacro,
   evaluateRelativeStrength,
-  evaluateEtfManual,
   scoreSignals,
   anchorCoherence,
   expectedConfirmedMonthYM,
@@ -45,7 +44,7 @@ import { fetchEtfSharesOutstanding, SPOT_BTC_ETFS } from './providers/polygon.mj
 import {
   readSnapshots,
   appendSnapshot,
-  evaluateEtf01FromFlows,
+  resolveEtfSignals,
   WARMUP_SNAPSHOTS,
 } from './lib/etf-flows.mjs';
 import { fetchYahooDaily, fetchYahooMonthlyBars } from './providers/yahoo.mjs';
@@ -177,10 +176,7 @@ async function main() {
   // (>= WARMUP_SNAPSHOTS weekly snapshots); the manual file remains the
   // fallback during warm-up / outage (auto-expiring, doc 02 §10.1).
   const etfSnapshots = readSnapshots();
-  const etfSignals =
-    etfSnapshots.length > 0
-      ? [evaluateEtf01FromFlows(etfSnapshots, TODAY)] // warming-up UNAVAILABLE until ≥5 snapshots
-      : evaluateEtfManual(etfManual, TODAY);
+  const etfSignals = resolveEtfSignals({ snapshots: etfSnapshots, manual: etfManual }, TODAY);
 
   const all = [...btcSignals, ...macroSignals, ...etfSignals, ...relSignals];
   const { groupTotals, score, band } = scoreSignals({

@@ -365,9 +365,28 @@ function nextHistorical(archiveRealCount) {
   return { ...hist, synthetic_seed: seed, snapshots: pruned };
 }
 function realSnapshotCount() {
+  // 5.127 (audit remediation 2026-08-24): count DISTINCT run DAYS, not archive
+  // lines. The archive legitimately contains same-day doubles (a manual re-run
+  // after a correction) and off-cadence pairs; counting lines overstated how
+  // much real history existed and was one half of why 44 seed points shipped
+  // as measured history. The other half was a hand-flip of synthetic_seed.
   const archivePath = path.join(SHARED_DIR, 'run-archive.jsonl');
   if (!fs.existsSync(archivePath)) return 0;
-  return fs.readFileSync(archivePath, 'utf8').split('\n').filter(Boolean).length;
+  const days = new Set(
+    fs
+      .readFileSync(archivePath, 'utf8')
+      .split('\n')
+      .filter(Boolean)
+      .map((line) => {
+        try {
+          return JSON.parse(line).run_at?.slice(0, 10) ?? null;
+        } catch {
+          return null;
+        }
+      })
+      .filter(Boolean)
+  );
+  return days.size;
 }
 
 // ── write / check ───────────────────────────────────────────────────────────
@@ -493,6 +512,21 @@ async function patchEditorial(gen, write) {
     drift.push('regime.data_status');
     regime.data_status = derivedStatus;
   }
+  // ── confidence_level: the SAME derivation as the panel (5.131, audit
+  //    2026-08-24). The hero badge reads `summary.confidence_level`; the panel
+  //    below it reads `data_status.overall_confidence`. doc-07 §21.1 defines
+  //    ONE concept, but the summary field was hand-editorial and nothing
+  //    reconciled the two — so the page shipped "Moderate confidence" in the
+  //    badge above a panel deriving HIGH from seven FRESH sources. Deriving it
+  //    here (rather than deleting the field) keeps the published SDK schema
+  //    and the analytics-swap contract intact. ─────────────────────────────
+  for (const loc of LOCALES) {
+    if (regime.summary[loc].confidence_level !== derivedStatus.overall_confidence) {
+      drift.push(`regime.summary.${loc}.confidence_level`);
+      regime.summary[loc].confidence_level = derivedStatus.overall_confidence;
+    }
+  }
+
   const dataStatusPath = path.join(SHARED_DIR, 'data-status.json');
   const nextDataStatus = { _comment: DATA_STATUS_COMMENT, ...derivedStatus };
   if (JSON.stringify(read(dataStatusPath)) !== JSON.stringify(nextDataStatus)) {
