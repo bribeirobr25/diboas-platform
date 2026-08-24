@@ -72,15 +72,23 @@ export function priorRunSignals(archiveText, currentRunAt) {
  * yields, expanding liquidity).
  */
 export function beatKey(signal, priorSignal) {
-  const supportive = signal?.state === 'ACTIVE';
-  const moved = Boolean(priorSignal) && priorSignal.state !== signal?.state;
+  // A state that is neither ACTIVE nor INACTIVE (UNAVAILABLE, or anything a
+  // future signal introduces) is NOT measured, and every beat sentence asserts
+  // a measurement. Returning null drops the beat instead of defaulting it to
+  // "restrictive" — the same defect shape as ETF-01 scoring INACTIVE from an
+  // absent ledger (fixed 2026-08-24). Unreachable from evaluateMacro today,
+  // which is exactly when a guard is cheap.
+  if (signal?.state !== 'ACTIVE' && signal?.state !== 'INACTIVE') return null;
+  const supportive = signal.state === 'ACTIVE';
+  const moved = Boolean(priorSignal) && priorSignal.state !== signal.state;
   return `${moved ? 'moved' : 'hold'}${supportive ? 'Supportive' : 'Restrictive'}`;
 }
 
 /** Depth variant: the condition that moved gets the 'fresh' framing. */
 export function depthKey(signal, priorSignal) {
-  const supportive = signal?.state === 'ACTIVE';
-  const moved = Boolean(priorSignal) && priorSignal.state !== signal?.state;
+  if (signal?.state !== 'ACTIVE' && signal?.state !== 'INACTIVE') return null;
+  const supportive = signal.state === 'ACTIVE';
+  const moved = Boolean(priorSignal) && priorSignal.state !== signal.state;
   if (!moved) return supportive ? 'supportive' : 'restrictive';
   return supportive ? 'freshSupportive' : 'freshRestrictive';
 }
@@ -114,7 +122,8 @@ export function composeStateLead(ctx, stateTpl, locale, priorById) {
   const beats = STATE_BEAT_ORDER.map((id) => {
     const sig = ctx.byId[id];
     if (!sig) return null;
-    return stateTpl.beat[id]?.[beatKey(sig, priorById?.[id])]?.[locale] ?? null;
+    const key = beatKey(sig, priorById?.[id]);
+    return key ? (stateTpl.beat[id]?.[key]?.[locale] ?? null) : null;
   }).filter(Boolean);
   return [stateOpening(ctx, stateTpl, locale), ...beats].join(' ');
 }
@@ -132,7 +141,7 @@ export function composeStateDepth(ctx, stateTpl, locale, priorById, renderDepthS
     const sig = ctx.byId[id];
     if (!sig) return null;
     const key = depthKey(sig, priorById?.[id]);
-    const template = stateTpl.depth[id]?.[key]?.[locale];
+    const template = key ? stateTpl.depth[id]?.[key]?.[locale] : null;
     if (!template) return null;
     return renderDepthSentence(id, locale, template, priorById?.[id]);
   })

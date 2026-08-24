@@ -237,8 +237,16 @@ function signalSlots(sig, locale, prior) {
     // Previous run's distance to trend, for the "after sitting X% above it a
     // week earlier" clause on the condition that moved (5.141).
     priorGapAbs: gapAbsOf(prior?.values) != null ? num(gapAbsOf(prior.values), locale) : '',
-    // M2's month-over-month change, quoted in billions.
+    // M2's month-over-month change in billions. TWO slots on purpose:
+    // `mom` is ABSOLUTE and may only be used where the template itself supplies
+    // the direction ("added roughly ${mom}bn", which fires only when the signal
+    // is supportive and the change is therefore non-negative). `momSigned`
+    // keeps the sign and must be used everywhere else — MAC-03 turns
+    // restrictive precisely WHEN the monthly change goes negative, so an
+    // absolute value there would publish a fall as a rise (self-audit
+    // 2026-08-24, before it ever shipped).
     mom: v.mom != null ? num(Math.abs(v.mom), locale, 0) : '',
+    momSigned: v.mom != null ? num(v.mom, locale, 0) : '',
     // PRECISE variants for the /market/backdrop depth sentences. `scaleDigits`
     // rounds >=100 to whole numbers, which is right for a BTC price but makes
     // the dollar index read "119 against a 120 trend, 1% below" when the real

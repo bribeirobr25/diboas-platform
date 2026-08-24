@@ -73,6 +73,15 @@ describe('beatKey — reports CHANGE, and fails safe to hold', () => {
     expect(beatKey(inactive, null)).toBe('holdRestrictive');
   });
 
+  it('should DROP the beat for a state that is not a measurement', () => {
+    // UNAVAILABLE is not "restrictive" — every beat sentence asserts a measured
+    // condition, and defaulting an absent reading to one is the ETF-01 defect
+    // shape. Unreachable from evaluateMacro today; guarded anyway.
+    expect(beatKey({ state: 'UNAVAILABLE' }, undefined)).toBeNull();
+    expect(depthKey({ state: 'UNAVAILABLE' }, undefined)).toBeNull();
+    expect(beatKey(undefined, undefined)).toBeNull();
+  });
+
   it('should give the moved condition the fresh depth framing, others the plain one', () => {
     expect(depthKey(active, inactive)).toBe('freshSupportive');
     expect(depthKey(active, active)).toBe('supportive');

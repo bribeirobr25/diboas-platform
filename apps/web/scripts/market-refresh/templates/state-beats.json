@@ -167,10 +167,10 @@
         "de": "Die Geldmenge M2 legte im Jahr um {roc12m}% zu und kam im Monat um rund {mom} Mrd. US-Dollar hinzu."
       },
       "restrictive": {
-        "en": "M2 is {roc12m}% over the year, with a monthly change of ${mom}bn.",
-        "pt-BR": "O M2 está em {roc12m}% no ano, com variação mensal de US$ {mom} bi.",
-        "es": "El M2 está en {roc12m}% en el año, con una variación mensual de {mom} mil millones de dólares.",
-        "de": "Die Geldmenge M2 liegt im Jahr bei {roc12m}%, bei einer Monatsveränderung von {mom} Mrd. US-Dollar."
+        "en": "M2 is running at {roc12m}% over the year, with a monthly change of {momSigned} billion dollars.",
+        "pt-BR": "O M2 está em {roc12m}% no ano, com variação mensal de {momSigned} bilhões de dólares.",
+        "es": "El M2 está en {roc12m}% en el año, con una variación mensual de {momSigned} mil millones de dólares.",
+        "de": "Die Geldmenge M2 liegt im Jahr bei {roc12m}%, bei einer Monatsveränderung von {momSigned} Mrd. US-Dollar."
       },
       "freshSupportive": {
         "en": "M2 turned back to expanding, up {roc12m}% over the year with a monthly change of ${mom}bn.",
@@ -179,10 +179,10 @@
         "de": "Die Geldmenge M2 wächst wieder, im Jahr um {roc12m}% bei einer Monatsveränderung von {mom} Mrd. US-Dollar."
       },
       "freshRestrictive": {
-        "en": "M2 stopped expanding, at {roc12m}% over the year with a monthly change of ${mom}bn.",
-        "pt-BR": "O M2 parou de expandir, em {roc12m}% no ano com variação mensal de US$ {mom} bi.",
-        "es": "El M2 dejó de expandirse, en {roc12m}% en el año con una variación mensual de {mom} mil millones de dólares.",
-        "de": "Die Geldmenge M2 wächst nicht mehr, im Jahr bei {roc12m}% mit einer Monatsveränderung von {mom} Mrd. US-Dollar."
+        "en": "M2 stopped expanding, running at {roc12m}% over the year with a monthly change of {momSigned} billion dollars.",
+        "pt-BR": "O M2 parou de expandir, em {roc12m}% no ano com variação mensal de {momSigned} bilhões de dólares.",
+        "es": "El M2 dejó de expandirse, en {roc12m}% en el año con una variación mensual de {momSigned} mil millones de dólares.",
+        "de": "Die Geldmenge M2 wächst nicht mehr, im Jahr bei {roc12m}% mit einer Monatsveränderung von {momSigned} Mrd. US-Dollar."
       }
     }
   }
