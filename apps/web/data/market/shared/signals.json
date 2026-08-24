@@ -174,7 +174,21 @@
           },
           "last_updated_at": "2026-06-30T00:00:00Z"
         }
-      ]
+      ],
+      "state_view": {
+        "lead": {
+          "en": "Macro conditions are mixed: the dollar and liquidity on the supportive side, yields on the restrictive side. The dollar is still below its 20 week trend. Money has not got cheaper. Liquidity keeps expanding.",
+          "pt-BR": "As condições macro estão mistas: o dólar e a liquidez do lado favorável, os juros do lado restritivo. O dólar segue abaixo da sua tendência de 20 semanas. O dinheiro não ficou mais barato. A liquidez segue expandindo.",
+          "es": "Las condiciones macro están mixtas: el dólar y la liquidez del lado favorable, los rendimientos del lado restrictivo. El dólar sigue por debajo de su tendencia de 20 semanas. El dinero no se ha abaratado. La liquidez sigue expandiéndose.",
+          "de": "Die Makro-Bedingungen sind gemischt: der Dollar und die Liquidität auf der unterstützenden Seite, die Renditen auf der restriktiven Seite. Der Dollar liegt weiter unter seinem 20-Wochen-Trend. Geld ist nicht günstiger geworden. Die Liquidität wächst weiter."
+        },
+        "depth": {
+          "en": "The dollar closed at 118.90 against a 119.72 trend, 0.69% below, with a momentum reading of 44. The US 10 year at 4.68% holds above its own 4.51% trend. M2 is up 5.5% over the year and added roughly $100bn on the month.",
+          "pt-BR": "O dólar fechou em 118,90 contra uma tendência de 119,72, 0,69% abaixo, com uma leitura de momentum de 44. O Treasury de 10 anos, a 4,68%, se mantém acima da sua própria tendência de 4,51%. O M2 subiu 5,5% no ano e somou cerca de US$ 100 bi no mês.",
+          "es": "El dólar cerró en 118,90 frente a una tendencia de 119,72, 0,69% por debajo, con una lectura de momentum de 44. El bono estadounidense a 10 años, en 4,68%, se mantiene por encima de su propia tendencia de 4,51%. El M2 subió 5,5% en el año y sumó cerca de 100 mil millones de dólares en el mes.",
+          "de": "Der Dollar schloss bei 118,90 gegenüber einem Trend von 119,72, 0,69% darunter, bei einem Momentum-Wert von 44. Die zehnjährige US-Rendite hält sich mit 4,68% über ihrem eigenen Trend von 4,51%. Die Geldmenge M2 legte im Jahr um 5,5% zu und kam im Monat um rund 100 Mrd. US-Dollar hinzu."
+        }
+      }
     },
     {
       "id": "institutional_demand",

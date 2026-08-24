@@ -80,9 +80,10 @@ type RawSignal = Omit<Signal, 'summary' | 'title'> & {
   title: LocalizedText | string;
   summary: LocalizedText;
 };
-type RawSignalGroup = Omit<SignalGroup, 'signals' | 'title' | 'summary'> & {
+type RawSignalGroup = Omit<SignalGroup, 'signals' | 'title' | 'summary' | 'state_view'> & {
   title: LocalizedText;
   summary: LocalizedText;
+  state_view?: { lead: LocalizedText; depth: LocalizedText };
   signals?: RawSignal[];
 };
 
@@ -107,11 +108,21 @@ function localizeSignal(raw: RawSignal, locale: SupportedLocale): Signal {
 }
 
 function localizeSignalGroup(raw: RawSignalGroup, locale: SupportedLocale): SignalGroup {
-  const { title, summary, signals, ...rest } = raw;
+  const { title, summary, state_view, signals, ...rest } = raw;
   return {
     ...rest,
     title: pickLocale(title, locale),
     summary: pickLocale(summary, locale),
+    // MUST be picked explicitly: the `...rest` spread would pass the raw
+    // locale MAP through and the view would render "[object Object]".
+    ...(state_view
+      ? {
+          state_view: {
+            lead: pickLocale(state_view.lead, locale),
+            depth: pickLocale(state_view.depth, locale),
+          },
+        }
+      : {}),
     signals: signals?.map((s) => localizeSignal(s, locale)),
   };
 }

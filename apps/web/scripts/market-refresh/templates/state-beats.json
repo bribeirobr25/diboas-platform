@@ -1,0 +1,189 @@
+{
+  "_comment": "State-grammar lead + depth for /market/backdrop (founder-designed 2026-08-24; PENDING_ALL 5.140 + 5.141). THREE BEATS IN FIXED ORDER (dollar, rates, liquidity), each independently reporting a MOVE or a HOLD, then a depth paragraph carrying the numbers. WHY A SEPARATE FILE FROM group-summaries.json: that file's macro variants end with '({points} of {max} points)' and are rendered on the SCORED Bitcoin view via SignalCardsGrid, where the points belong. Editing them to satisfy 5.140 would strip the points from Bitcoin too. So the state view gets its own points-free openings here and group-summaries.json is left untouched , zero blast radius on the scored view. SELECTOR: opening = the same groupLevel() variant the scored summary uses; beat = moved|hold x supportive|restrictive, where moved means the signal's state differs from the PREVIOUS RUN DAY in run-archive.jsonl (never inferred from levels , a level-based lead implies a recency the data does not have, which is exactly what the 2026-08-24 review caught); depth = the same axis plus a 'fresh' variant used only for the condition that moved. ACTIVE maps to supportive for all three macro signals. HONESTY RULES BAKED IN: (1) no duration claims ('for six weeks') , the archive starts 2026-07-11 so any duration is a floor, not a measurement; 'still' and 'keeps' carry persistence without asserting a length. (2) MAC-02 copy stays CHANGE-relative ('money has not got cheaper') rather than absolute ('money is expensive') because the signal measures the 10 year against its own 20 week trend, not the absolute cost of money. (3) No em dash characters anywhere in this file (founder ruling 2026-08-24; see also 5.132e). (4) No mention of 'the framework' , the subject is the market. [NATIVE PASS REQUIRED] on pt-BR, es and de: drafted for shape, length and locale number format (decimal commas), not natively confirmed.",
+  "opening": {
+    "weak": {
+      "en": "The macro backdrop is restrictive: the dollar and yields are not helping, and liquidity gives no offset.",
+      "pt-BR": "O cenário macro é restritivo: dólar e juros não ajudam, e a liquidez não compensa.",
+      "es": "El entorno macro es restrictivo: el dólar y los rendimientos no ayudan, y la liquidez no lo compensa.",
+      "de": "Das Makro-Umfeld ist restriktiv: Dollar und Renditen helfen nicht, und die Liquidität gleicht nichts aus."
+    },
+    "mixed": {
+      "en": "Macro conditions are mixed: part of the backdrop leans supportive while the rest stays restrictive.",
+      "pt-BR": "As condições macro estão mistas: parte do cenário pende para o lado favorável enquanto o resto segue restritivo.",
+      "es": "Las condiciones macro están mixtas: parte del entorno se inclina al lado favorable mientras el resto sigue restrictivo.",
+      "de": "Die Makro-Bedingungen sind gemischt: Ein Teil des Umfelds neigt zur unterstützenden Seite, der Rest bleibt restriktiv."
+    },
+    "mixedComposed": {
+      "en": "Macro conditions are mixed: {supportive} on the supportive side, {against} on the restrictive side.",
+      "pt-BR": "As condições macro estão mistas: {supportive} do lado favorável, {against} do lado restritivo.",
+      "es": "Las condiciones macro están mixtas: {supportive} del lado favorable, {against} del lado restrictivo.",
+      "de": "Die Makro-Bedingungen sind gemischt: {supportive} auf der unterstützenden Seite, {against} auf der restriktiven Seite."
+    },
+    "strong": {
+      "en": "The macro backdrop is supportive: a softer dollar, easing yields and expanding liquidity are aligned.",
+      "pt-BR": "O cenário macro é favorável: dólar mais fraco, juros cedendo e liquidez em expansão estão alinhados.",
+      "es": "El entorno macro es favorable: un dólar más débil, rendimientos que ceden y liquidez en expansión están alineados.",
+      "de": "Das Makro-Umfeld ist unterstützend: ein schwächerer Dollar, nachgebende Renditen und wachsende Liquidität sind im Einklang."
+    }
+  },
+  "beat": {
+    "MAC-01": {
+      "movedSupportive": {
+        "en": "The dollar crossed below its 20 week trend this week.",
+        "pt-BR": "O dólar cruzou abaixo da sua tendência de 20 semanas nesta semana.",
+        "es": "El dólar cruzó por debajo de su tendencia de 20 semanas esta semana.",
+        "de": "Der Dollar ist diese Woche unter seinen 20-Wochen-Trend gefallen."
+      },
+      "movedRestrictive": {
+        "en": "The dollar climbed back above its 20 week trend this week.",
+        "pt-BR": "O dólar voltou a subir acima da sua tendência de 20 semanas nesta semana.",
+        "es": "El dólar volvió a subir por encima de su tendencia de 20 semanas esta semana.",
+        "de": "Der Dollar ist diese Woche wieder über seinen 20-Wochen-Trend gestiegen."
+      },
+      "holdSupportive": {
+        "en": "The dollar is still below its 20 week trend.",
+        "pt-BR": "O dólar segue abaixo da sua tendência de 20 semanas.",
+        "es": "El dólar sigue por debajo de su tendencia de 20 semanas.",
+        "de": "Der Dollar liegt weiter unter seinem 20-Wochen-Trend."
+      },
+      "holdRestrictive": {
+        "en": "The dollar is still above its 20 week trend.",
+        "pt-BR": "O dólar segue acima da sua tendência de 20 semanas.",
+        "es": "El dólar sigue por encima de su tendencia de 20 semanas.",
+        "de": "Der Dollar liegt weiter über seinem 20-Wochen-Trend."
+      }
+    },
+    "MAC-02": {
+      "movedSupportive": {
+        "en": "Yields eased below their 20 week trend this week.",
+        "pt-BR": "Os juros cederam abaixo da sua tendência de 20 semanas nesta semana.",
+        "es": "Los rendimientos cedieron por debajo de su tendencia de 20 semanas esta semana.",
+        "de": "Die Renditen sind diese Woche unter ihren 20-Wochen-Trend gefallen."
+      },
+      "movedRestrictive": {
+        "en": "Yields pushed back above their 20 week trend this week.",
+        "pt-BR": "Os juros voltaram a subir acima da sua tendência de 20 semanas nesta semana.",
+        "es": "Los rendimientos volvieron a subir por encima de su tendencia de 20 semanas esta semana.",
+        "de": "Die Renditen sind diese Woche wieder über ihren 20-Wochen-Trend gestiegen."
+      },
+      "holdSupportive": {
+        "en": "Money has been getting cheaper.",
+        "pt-BR": "O dinheiro vem ficando mais barato.",
+        "es": "El dinero viene abaratándose.",
+        "de": "Geld wird weiter günstiger."
+      },
+      "holdRestrictive": {
+        "en": "Money has not got cheaper.",
+        "pt-BR": "O dinheiro não ficou mais barato.",
+        "es": "El dinero no se ha abaratado.",
+        "de": "Geld ist nicht günstiger geworden."
+      }
+    },
+    "MAC-03": {
+      "movedSupportive": {
+        "en": "Liquidity turned back to expanding this week.",
+        "pt-BR": "A liquidez voltou a expandir nesta semana.",
+        "es": "La liquidez volvió a expandirse esta semana.",
+        "de": "Die Liquidität wächst diese Woche wieder."
+      },
+      "movedRestrictive": {
+        "en": "Liquidity stopped expanding this week.",
+        "pt-BR": "A liquidez parou de expandir nesta semana.",
+        "es": "La liquidez dejó de expandirse esta semana.",
+        "de": "Die Liquidität wächst diese Woche nicht mehr."
+      },
+      "holdSupportive": {
+        "en": "Liquidity keeps expanding.",
+        "pt-BR": "A liquidez segue expandindo.",
+        "es": "La liquidez sigue expandiéndose.",
+        "de": "Die Liquidität wächst weiter."
+      },
+      "holdRestrictive": {
+        "en": "Liquidity is still not expanding.",
+        "pt-BR": "A liquidez segue sem expandir.",
+        "es": "La liquidez sigue sin expandirse.",
+        "de": "Die Liquidität wächst weiterhin nicht."
+      }
+    }
+  },
+  "depth": {
+    "MAC-01": {
+      "supportive": {
+        "en": "The dollar closed at {closePrecise} against a {ema20Precise} trend, {gapAbsPrecise}% below, with a momentum reading of {rsi}.",
+        "pt-BR": "O dólar fechou em {closePrecise} contra uma tendência de {ema20Precise}, {gapAbsPrecise}% abaixo, com uma leitura de momentum de {rsi}.",
+        "es": "El dólar cerró en {closePrecise} frente a una tendencia de {ema20Precise}, {gapAbsPrecise}% por debajo, con una lectura de momentum de {rsi}.",
+        "de": "Der Dollar schloss bei {closePrecise} gegenüber einem Trend von {ema20Precise}, {gapAbsPrecise}% darunter, bei einem Momentum-Wert von {rsi}."
+      },
+      "restrictive": {
+        "en": "The dollar closed at {closePrecise} against a {ema20Precise} trend, {gapAbsPrecise}% above, with a momentum reading of {rsi}.",
+        "pt-BR": "O dólar fechou em {closePrecise} contra uma tendência de {ema20Precise}, {gapAbsPrecise}% acima, com uma leitura de momentum de {rsi}.",
+        "es": "El dólar cerró en {closePrecise} frente a una tendencia de {ema20Precise}, {gapAbsPrecise}% por encima, con una lectura de momentum de {rsi}.",
+        "de": "Der Dollar schloss bei {closePrecise} gegenüber einem Trend von {ema20Precise}, {gapAbsPrecise}% darüber, bei einem Momentum-Wert von {rsi}."
+      },
+      "freshSupportive": {
+        "en": "The dollar closed at {closePrecise} against a {ema20Precise} trend, {gapAbsPrecise}% below, after sitting {priorGapAbsPrecise}% above it a week earlier. That is a fresh crossing.",
+        "pt-BR": "O dólar fechou em {closePrecise} contra uma tendência de {ema20Precise}, {gapAbsPrecise}% abaixo, depois de estar {priorGapAbsPrecise}% acima uma semana antes. É um cruzamento recente.",
+        "es": "El dólar cerró en {closePrecise} frente a una tendencia de {ema20Precise}, {gapAbsPrecise}% por debajo, tras estar {priorGapAbsPrecise}% por encima una semana antes. Es un cruce reciente.",
+        "de": "Der Dollar schloss bei {closePrecise} gegenüber einem Trend von {ema20Precise}, {gapAbsPrecise}% darunter, nachdem er eine Woche zuvor {priorGapAbsPrecise}% darüber lag. Das ist eine frische Überkreuzung."
+      },
+      "freshRestrictive": {
+        "en": "The dollar closed at {closePrecise} against a {ema20Precise} trend, {gapAbsPrecise}% above, after sitting {priorGapAbsPrecise}% below it a week earlier. That is a fresh crossing.",
+        "pt-BR": "O dólar fechou em {closePrecise} contra uma tendência de {ema20Precise}, {gapAbsPrecise}% acima, depois de estar {priorGapAbsPrecise}% abaixo uma semana antes. É um cruzamento recente.",
+        "es": "El dólar cerró en {closePrecise} frente a una tendencia de {ema20Precise}, {gapAbsPrecise}% por encima, tras estar {priorGapAbsPrecise}% por debajo una semana antes. Es un cruce reciente.",
+        "de": "Der Dollar schloss bei {closePrecise} gegenüber einem Trend von {ema20Precise}, {gapAbsPrecise}% darüber, nachdem er eine Woche zuvor {priorGapAbsPrecise}% darunter lag. Das ist eine frische Überkreuzung."
+      }
+    },
+    "MAC-02": {
+      "supportive": {
+        "en": "The US 10 year at {closePrecise}% sits below its own {ema20Precise}% trend.",
+        "pt-BR": "O Treasury de 10 anos, a {closePrecise}%, está abaixo da sua própria tendência de {ema20Precise}%.",
+        "es": "El bono estadounidense a 10 años, en {closePrecise}%, está por debajo de su propia tendencia de {ema20Precise}%.",
+        "de": "Die zehnjährige US-Rendite liegt mit {closePrecise}% unter ihrem eigenen Trend von {ema20Precise}%."
+      },
+      "restrictive": {
+        "en": "The US 10 year at {closePrecise}% holds above its own {ema20Precise}% trend.",
+        "pt-BR": "O Treasury de 10 anos, a {closePrecise}%, se mantém acima da sua própria tendência de {ema20Precise}%.",
+        "es": "El bono estadounidense a 10 años, en {closePrecise}%, se mantiene por encima de su propia tendencia de {ema20Precise}%.",
+        "de": "Die zehnjährige US-Rendite hält sich mit {closePrecise}% über ihrem eigenen Trend von {ema20Precise}%."
+      },
+      "freshSupportive": {
+        "en": "The US 10 year at {closePrecise}% dropped below its own {ema20Precise}% trend, after sitting {priorGapAbsPrecise}% above it a week earlier.",
+        "pt-BR": "O Treasury de 10 anos, a {closePrecise}%, caiu abaixo da sua própria tendência de {ema20Precise}%, depois de estar {priorGapAbsPrecise}% acima uma semana antes.",
+        "es": "El bono estadounidense a 10 años, en {closePrecise}%, cayó por debajo de su propia tendencia de {ema20Precise}%, tras estar {priorGapAbsPrecise}% por encima una semana antes.",
+        "de": "Die zehnjährige US-Rendite fiel mit {closePrecise}% unter ihren eigenen Trend von {ema20Precise}%, nachdem sie eine Woche zuvor {priorGapAbsPrecise}% darüber lag."
+      },
+      "freshRestrictive": {
+        "en": "The US 10 year at {closePrecise}% rose back above its own {ema20Precise}% trend, after sitting {priorGapAbsPrecise}% below it a week earlier.",
+        "pt-BR": "O Treasury de 10 anos, a {closePrecise}%, voltou a subir acima da sua própria tendência de {ema20Precise}%, depois de estar {priorGapAbsPrecise}% abaixo uma semana antes.",
+        "es": "El bono estadounidense a 10 años, en {closePrecise}%, volvió a subir por encima de su propia tendencia de {ema20Precise}%, tras estar {priorGapAbsPrecise}% por debajo una semana antes.",
+        "de": "Die zehnjährige US-Rendite stieg mit {closePrecise}% wieder über ihren eigenen Trend von {ema20Precise}%, nachdem sie eine Woche zuvor {priorGapAbsPrecise}% darunter lag."
+      }
+    },
+    "MAC-03": {
+      "supportive": {
+        "en": "M2 is up {roc12m}% over the year and added roughly ${mom}bn on the month.",
+        "pt-BR": "O M2 subiu {roc12m}% no ano e somou cerca de US$ {mom} bi no mês.",
+        "es": "El M2 subió {roc12m}% en el año y sumó cerca de {mom} mil millones de dólares en el mes.",
+        "de": "Die Geldmenge M2 legte im Jahr um {roc12m}% zu und kam im Monat um rund {mom} Mrd. US-Dollar hinzu."
+      },
+      "restrictive": {
+        "en": "M2 is {roc12m}% over the year, with a monthly change of ${mom}bn.",
+        "pt-BR": "O M2 está em {roc12m}% no ano, com variação mensal de US$ {mom} bi.",
+        "es": "El M2 está en {roc12m}% en el año, con una variación mensual de {mom} mil millones de dólares.",
+        "de": "Die Geldmenge M2 liegt im Jahr bei {roc12m}%, bei einer Monatsveränderung von {mom} Mrd. US-Dollar."
+      },
+      "freshSupportive": {
+        "en": "M2 turned back to expanding, up {roc12m}% over the year with a monthly change of ${mom}bn.",
+        "pt-BR": "O M2 voltou a expandir, com alta de {roc12m}% no ano e variação mensal de US$ {mom} bi.",
+        "es": "El M2 volvió a expandirse, con un alza de {roc12m}% en el año y una variación mensual de {mom} mil millones de dólares.",
+        "de": "Die Geldmenge M2 wächst wieder, im Jahr um {roc12m}% bei einer Monatsveränderung von {mom} Mrd. US-Dollar."
+      },
+      "freshRestrictive": {
+        "en": "M2 stopped expanding, at {roc12m}% over the year with a monthly change of ${mom}bn.",
+        "pt-BR": "O M2 parou de expandir, em {roc12m}% no ano com variação mensal de US$ {mom} bi.",
+        "es": "El M2 dejó de expandirse, en {roc12m}% en el año con una variación mensual de {mom} mil millones de dólares.",
+        "de": "Die Geldmenge M2 wächst nicht mehr, im Jahr bei {roc12m}% mit einer Monatsveränderung von {mom} Mrd. US-Dollar."
+      }
+    }
+  }
+}

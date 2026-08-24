@@ -75,6 +75,7 @@ import {
 import { activeOverrides } from './lib/editorial-overrides.mjs';
 import { deriveDataStatus, DATA_STATUS_COMMENT } from './lib/data-status.mjs';
 import { readSnapshots } from './lib/etf-flows.mjs';
+import { priorRunSignals, composeStateLead, composeStateDepth } from './lib/state-lead.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '../../../..');
@@ -85,6 +86,8 @@ const TPL_DIR = path.join(__dirname, 'templates');
 const LOCALES = ['en', 'pt-BR', 'es', 'de'];
 const REAL_SNAPSHOTS_FOR_FLIP = 8; // founder ruling 2026-07-11
 const HISTORICAL_CAP = 52;
+/** The group whose presentation IS /market/backdrop (state grammar). */
+const STATE_VIEW_GROUP = 'macro_environment';
 
 const read = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
 const readIfExists = (p) => (fs.existsSync(p) ? read(p) : null);
@@ -96,6 +99,10 @@ const signalLabels = read(path.join(TPL_DIR, 'signal-labels.json'));
 const weeklyTpl = read(path.join(TPL_DIR, 'weekly-openers.json'));
 const plainTpl = read(path.join(TPL_DIR, 'plain-summaries.json'));
 const phrases = read(path.join(TPL_DIR, 'plain-phrases.json'));
+// State-grammar copy for /market/backdrop (5.140 + 5.141). Kept OUT of
+// group-summaries.json so the scored Bitcoin view's points parenthetical is
+// untouched — see that file's _comment.
+const stateTpl = read(path.join(TPL_DIR, 'state-beats.json'));
 // Cycle-scoped (B2): a stale or unstamped _cycle ⇒ the whole file is ignored
 // with a warning — an override never outlives the cycle it was written for.
 const overrides = activeOverrides(
@@ -206,10 +213,15 @@ function signalUpdatedAt(sig) {
   return sig.anchorKind === 'monthly' ? monthEnd(sig.anchor) : computed.computed_at;
 }
 
-function signalSentence(id, locale) {
-  const sig = byId[id];
-  const set = signalTpl[id]?.[sig.state];
-  if (!set) return null;
+/**
+ * Locale-formatted template slots for a signal.
+ *
+ * Extracted 2026-08-24 so the /market/backdrop depth sentences render through
+ * the SAME formatter and the SAME empty-slot guard as the scored view's signal
+ * sentences (Principle 4). `prior` supplies the previous run's reading for the
+ * "after sitting {priorGapAbs}% above it a week earlier" clause.
+ */
+function signalSlots(sig, locale, prior) {
   const v = sig.values ?? {};
   // Precision follows the magnitude: sub-100 values are rates (yields, indices)
   // that need 2 decimals; large index/price values read cleaner whole. This
@@ -221,7 +233,22 @@ function signalSentence(id, locale) {
     close: v.close != null ? num(v.close, locale, scaleDigits(v.close)) : '',
     ema20: v.ema20 != null ? num(v.ema20, locale, scaleDigits(v.ema20)) : '',
     sma50: v.sma50 != null ? num(v.sma50, locale, scaleDigits(v.sma50)) : '',
-    gapAbs: v.gapPct != null ? num(Math.abs(v.gapPct), locale) : '',
+    gapAbs: gapAbsOf(v) != null ? num(gapAbsOf(v), locale) : '',
+    // Previous run's distance to trend, for the "after sitting X% above it a
+    // week earlier" clause on the condition that moved (5.141).
+    priorGapAbs: gapAbsOf(prior?.values) != null ? num(gapAbsOf(prior.values), locale) : '',
+    // M2's month-over-month change, quoted in billions.
+    mom: v.mom != null ? num(Math.abs(v.mom), locale, 0) : '',
+    // PRECISE variants for the /market/backdrop depth sentences. `scaleDigits`
+    // rounds >=100 to whole numbers, which is right for a BTC price but makes
+    // the dollar index read "119 against a 120 trend, 1% below" when the real
+    // distance is 0.69%. Separate slots rather than a changed rule: the scored
+    // view's published sentences must not move (5.141).
+    closePrecise: v.close != null ? num(v.close, locale, 2) : '',
+    ema20Precise: v.ema20 != null ? num(v.ema20, locale, 2) : '',
+    gapAbsPrecise: gapAbsOf(v) != null ? num(gapAbsOf(v), locale, 2) : '',
+    priorGapAbsPrecise:
+      gapAbsOf(prior?.values) != null ? num(gapAbsOf(prior.values), locale, 2) : '',
     rsiCur: v.rsiCurrent != null ? num(v.rsiCurrent, locale) : '',
     rsiPrev: v.rsiPrev != null ? num(v.rsiPrev, locale) : '',
     stochK: v.stochK != null ? num(v.stochK, locale) : '',
@@ -237,15 +264,45 @@ function signalSentence(id, locale) {
   // engine didn't emit the value the sentence needs (the REL-03 empty-slot
   // bug — engine `values` missing, --check blind to it because both sides
   // were equally empty). Fail loudly instead of shipping "the Nasdaq at ".
-  const referenced = [...set[locale].matchAll(/\{(\w+)\}/g)].map((m) => m[1]);
-  const empty = referenced.filter((k) => slots[k] === '');
+  return slots;
+}
+
+/** Gap to trend as a positive percentage. MAC-02 publishes close/ema20 but no
+ *  gapPct, so it is derived rather than required — the sentence needs it either
+ *  way and a missing slot would (correctly) throw. */
+function gapAbsOf(v) {
+  if (v?.gapPct != null) return Math.abs(v.gapPct);
+  if (v?.close != null && v?.ema20) return Math.abs(((v.close - v.ema20) / v.ema20) * 100);
+  return null;
+}
+
+/**
+ * Fill a template and REFUSE to ship a hole. A slot resolving to '' means the
+ * engine did not emit the value the sentence claims (the REL-03 empty-slot bug
+ * — 2026-07-11 audit — where --check was blind because both sides were equally
+ * empty). Fail loudly instead of publishing "the dollar closed at ".
+ */
+function renderTemplate(template, slots, context) {
+  const referenced = [...template.matchAll(/\{(\w+)\}/g)].map((m) => m[1]);
+  const empty = referenced.filter((k) => slots[k] === '' || slots[k] == null);
   if (empty.length) {
     throw new Error(
-      `signal ${id} (${sig.state}, ${locale}): template references [${empty.join(', ')}] ` +
-        `but computed.json has no value for them — check the engine emits these in \`values\`.`
+      `${context}: template references [${empty.join(', ')}] but computed.json has ` +
+        `no value for them — check the engine emits these in \`values\`.`
     );
   }
-  return fill(set[locale], slots);
+  return fill(template, slots);
+}
+
+function signalSentence(id, locale) {
+  const sig = byId[id];
+  const set = signalTpl[id]?.[sig.state];
+  if (!set) return null;
+  return renderTemplate(
+    set[locale],
+    signalSlots(sig, locale),
+    `signal ${id} (${sig.state}, ${locale})`
+  );
 }
 
 // ── plain (grandmother) summary ─────────────────────────────────────────────
@@ -341,8 +398,22 @@ function applyOverride(pathKey, value) {
   return pathKey in overrides ? overrides[pathKey] : value;
 }
 
+/** Previous run day's signals, for the moved-vs-held beat selector (5.141). */
+function priorSignalsForBeats() {
+  const archivePath = path.join(SHARED_DIR, 'run-archive.jsonl');
+  const text = fs.existsSync(archivePath) ? fs.readFileSync(archivePath, 'utf8') : '';
+  return priorRunSignals(text, computed.computed_at);
+}
+
 function generate() {
-  const out = { plain: {}, signalSummaries: {}, groupSummaries: {} };
+  const out = { plain: {}, signalSummaries: {}, groupSummaries: {}, stateView: {} };
+  const priorById = priorSignalsForBeats();
+  const renderDepth = (id, locale, template, prior) =>
+    renderTemplate(
+      template,
+      signalSlots(byId[id], locale, prior),
+      `state depth ${id} (${byId[id].state}, ${locale})`
+    );
   for (const loc of LOCALES) {
     out.plain[loc] = applyOverride(`summary.plain.${loc}`, plainSummary(loc));
     for (const s of computed.signals) {
@@ -359,6 +430,19 @@ function generate() {
         groupSummary(copyCtx, g, loc)
       );
     }
+    // State-grammar copy for /market/backdrop. Generated like everything else
+    // here, so it regenerates weekly and the --check gate makes a hand-edit
+    // un-mergeable; the scored view never reads it.
+    out.stateView[loc] = {
+      lead: applyOverride(
+        `stateView.lead.${loc}`,
+        composeStateLead(copyCtx, stateTpl, loc, priorById)
+      ),
+      depth: applyOverride(
+        `stateView.depth.${loc}`,
+        composeStateDepth(copyCtx, stateTpl, loc, priorById, renderDepth)
+      ),
+    };
   }
   return out;
 }
@@ -500,6 +584,21 @@ async function patchEditorial(gen, write) {
       if (gw && g.summary[loc] !== gw) {
         drift.push(`signals.${g.id}.summary.${loc}`);
         g.summary[loc] = gw;
+      }
+    }
+    // /market/backdrop's lead + depth ride on the macro group, the group the
+    // state view IS. Additive: the scored view's mapper spreads unknown keys
+    // through untouched, so Bitcoin is unaffected.
+    if (g.id === STATE_VIEW_GROUP) {
+      g.state_view = g.state_view ?? { lead: {}, depth: {} };
+      for (const loc of LOCALES) {
+        for (const field of ['lead', 'depth']) {
+          const want = gen.stateView[loc]?.[field];
+          if (want && g.state_view[field][loc] !== want) {
+            drift.push(`signals.${g.id}.state_view.${field}.${loc}`);
+            g.state_view[field][loc] = want;
+          }
+        }
       }
     }
     for (const s of g.signals) {

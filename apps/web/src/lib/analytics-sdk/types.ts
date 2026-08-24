@@ -79,6 +79,12 @@ export interface SignalGroup {
   points_awarded: number;
   max_points: number;
   summary: string;
+  /**
+   * State-grammar presentation copy (MM-2). Present only on the macro group,
+   * which is what /market/backdrop renders; the scored views ignore it.
+   * Generated weekly and guarded by `generate.mjs --check` (5.140 + 5.141).
+   */
+  state_view?: { lead: string; depth: string };
   signals?: Signal[];
 }
 
