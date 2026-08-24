@@ -257,6 +257,13 @@ function signalSlots(sig, locale, prior) {
     gapAbsPrecise: gapAbsOf(v) != null ? num(gapAbsOf(v), locale, 2) : '',
     priorGapAbsPrecise:
       gapAbsOf(prior?.values) != null ? num(gapAbsOf(prior.values), locale, 2) : '',
+    // The prior LEVEL, for rates. A relative gap is the natural framing for an
+    // index (the dollar sat 0.67% above its trend) but ambiguous for a yield:
+    // "after sitting 3.83% above it" lands beside "4.42%" and "4.51%" and reads
+    // as a third level. The level itself is unambiguous and directly
+    // comparable. Found by simulating a MAC-02 flip, which today's all-holding
+    // data never exercises (self-audit 2026-08-24).
+    priorClosePrecise: prior?.values?.close != null ? num(prior.values.close, locale, 2) : '',
     rsiCur: v.rsiCurrent != null ? num(v.rsiCurrent, locale) : '',
     rsiPrev: v.rsiPrev != null ? num(v.rsiPrev, locale) : '',
     stochK: v.stochK != null ? num(v.stochK, locale) : '',
