@@ -76,7 +76,13 @@ jobs:
         run: |
           node apps/web/scripts/market-refresh/generate.mjs --check
           node scripts/check-market-data-jargon.mjs
-          pnpm --filter web exec vitest run src/lib/market-data
+          # analytics-sdk is included deliberately: the CHART PROVENANCE gate
+          # (5.127 — every published history point must reconcile to a real run
+          # day) lives in analytics-sdk/__tests__/fixtures.test.ts, not
+          # market-data. Without it the bot's pre-flight cannot see the one
+          # assertion that stops invented history, and a violation would only
+          # surface as red CI on the PR it had already opened. 53 tests, ~0.2s.
+          pnpm --filter web exec vitest run src/lib/market-data src/lib/analytics-sdk
 
       # B4(b) 2026-08-11: bot-created PRs (GITHUB_TOKEN) never trigger the main
       # CI, so its format:check does not run on the weekly PR — a formatting

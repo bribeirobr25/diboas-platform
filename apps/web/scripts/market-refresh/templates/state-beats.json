@@ -147,16 +147,16 @@
         "de": "Die 10-jährige US-Rendite hält sich mit {closePrecise}% über ihrem 20-Wochen-Trend ({ema20Precise}%)."
       },
       "freshSupportive": {
-        "en": "The US 10 year at {closePrecise}% dropped below its own {ema20Precise}% trend, after sitting {priorGapAbsPrecise}% above it a week earlier.",
-        "pt-BR": "O juro americano de 10 anos, a {closePrecise}%, caiu abaixo da tendência de 20 semanas ({ema20Precise}%), depois de estar {priorGapAbsPrecise}% acima uma semana antes.",
-        "es": "El rendimiento estadounidense a 10 años, en {closePrecise}%, cayó por debajo de su tendencia de 20 semanas ({ema20Precise}%), tras estar un {priorGapAbsPrecise}% por encima una semana antes.",
-        "de": "Die 10-jährige US-Rendite fiel mit {closePrecise}% unter ihren 20-Wochen-Trend ({ema20Precise}%), nachdem sie eine Woche zuvor {priorGapAbsPrecise}% darüber lag."
+        "en": "The US 10 year at {closePrecise}% dropped below its own {ema20Precise}% trend, after sitting at {priorClosePrecise}% a week earlier.",
+        "pt-BR": "O juro americano de 10 anos, a {closePrecise}%, caiu abaixo da tendência de 20 semanas ({ema20Precise}%), depois de estar em {priorClosePrecise}% uma semana antes.",
+        "es": "El rendimiento estadounidense a 10 años, en {closePrecise}%, cayó por debajo de su tendencia de 20 semanas ({ema20Precise}%), tras estar en {priorClosePrecise}% una semana antes.",
+        "de": "Die 10-jährige US-Rendite fiel mit {closePrecise}% unter ihren 20-Wochen-Trend ({ema20Precise}%), nachdem sie eine Woche zuvor bei {priorClosePrecise}% lag."
       },
       "freshRestrictive": {
-        "en": "The US 10 year at {closePrecise}% rose back above its own {ema20Precise}% trend, after sitting {priorGapAbsPrecise}% below it a week earlier.",
-        "pt-BR": "O juro americano de 10 anos, a {closePrecise}%, voltou a superar a tendência de 20 semanas ({ema20Precise}%), depois de estar {priorGapAbsPrecise}% abaixo uma semana antes.",
-        "es": "El rendimiento estadounidense a 10 años, en {closePrecise}%, volvió a superar su tendencia de 20 semanas ({ema20Precise}%), tras estar un {priorGapAbsPrecise}% por debajo una semana antes.",
-        "de": "Die 10-jährige US-Rendite stieg mit {closePrecise}% wieder über ihren 20-Wochen-Trend ({ema20Precise}%), nachdem sie eine Woche zuvor {priorGapAbsPrecise}% darunter lag."
+        "en": "The US 10 year at {closePrecise}% rose back above its own {ema20Precise}% trend, after sitting at {priorClosePrecise}% a week earlier.",
+        "pt-BR": "O juro americano de 10 anos, a {closePrecise}%, voltou a superar a tendência de 20 semanas ({ema20Precise}%), depois de estar em {priorClosePrecise}% uma semana antes.",
+        "es": "El rendimiento estadounidense a 10 años, en {closePrecise}%, volvió a superar su tendencia de 20 semanas ({ema20Precise}%), tras estar en {priorClosePrecise}% una semana antes.",
+        "de": "Die 10-jährige US-Rendite stieg mit {closePrecise}% wieder über ihren 20-Wochen-Trend ({ema20Precise}%), nachdem sie eine Woche zuvor bei {priorClosePrecise}% lag."
       }
     },
     "MAC-03": {
