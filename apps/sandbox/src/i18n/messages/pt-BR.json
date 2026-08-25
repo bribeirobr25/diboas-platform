@@ -266,17 +266,14 @@
     "requiredBody": "Toque em Aceitar e continuar para concordar com nossos <terms>Termos</terms>, <privacy>Política de Privacidade</privacy> e confirmar que você tem 18 anos ou mais.",
     "accept": "Aceitar e continuar",
     "optionalTitle": "Personalize sua experiência",
-    "optionalAll": "tudo opcional",
-    "optionalIntro": "Estas configurações ajudam a personalizar a diBoaS. Você pode mudá-las quando quiser.",
+    "optionalIntro": "Estas configurações personalizam a diBoaS. Tudo opcional, e você pode mudar quando quiser.",
     "financialProfileTitle": "Perfil financeiro",
     "financialProfileBody": "Conte um pouco sobre suas metas e experiência para o conteúdo combinar com elas.",
     "analyticsTitle": "Análises",
     "analyticsBody": "Ajude a melhorar a diBoaS compartilhando dados de uso anônimos.",
     "marketingTitle": "Comunicações de marketing",
     "marketingBody": "Receba novidades, dicas e ofertas que você realmente pode usar.",
-    "optionalHint": "Opcional. Tudo funciona de qualquer forma.",
-    "footer": "Nunca vendemos seus dados. Você está no controle, sempre. Saiba mais na nossa <privacy>Política de Privacidade</privacy>.",
-    "acceptNote": "Ao continuar, você concorda com nossos <terms>Termos</terms> e nossa <privacy>Política de Privacidade</privacy> e confirma que tem 18 anos ou mais."
+    "footer": "Nunca vendemos seus dados. Você está no controle, sempre."
   },
   "claim": {
     "eyebrow": "Cerimônia de resgate",

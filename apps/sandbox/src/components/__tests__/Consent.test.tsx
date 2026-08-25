@@ -21,10 +21,7 @@ const M = {
   'consent.requiredBody':
     'Tap Accept to agree to our <terms>Terms</terms>, <privacy>Privacy Policy</privacy>, and confirm 18+.',
   'consent.accept': 'Accept & continue',
-  'consent.acceptNote':
-    'By continuing, you agree to our <terms>Terms</terms> and <privacy>Privacy Policy</privacy>.',
   'consent.optionalTitle': 'Make it your experience',
-  'consent.optionalAll': 'all optional',
   'consent.optionalIntro': 'settings',
   'consent.financialProfileTitle': 'Financial profile',
   'consent.financialProfileBody': 'a',
@@ -32,7 +29,6 @@ const M = {
   'consent.analyticsBody': 'b',
   'consent.marketingTitle': 'Marketing communications',
   'consent.marketingBody': 'c',
-  'consent.optionalHint': 'Optional. Everything works either way.',
   'consent.footer': 'We never sell your data. <privacy>Privacy Policy</privacy>.',
 };
 

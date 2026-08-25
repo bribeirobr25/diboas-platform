@@ -24,9 +24,11 @@ const OPTIONS: { id: OptIn; icon: string }[] = [
 /**
  * Consent — the W-3 surface (A3; mockup 09). ONE blocking "Accept & continue"
  * (Terms + Privacy + 18+, contract basis) in its own card, ABOVE three optional
- * opt-in toggles, all OFF by default, each "Optional. Everything works either
- * way." (CLO R-5 / Planet49 — separate granular consent; bundled consent
- * declined). The explicit consent act (unlike the Welcome's reviewable notice).
+ * opt-in toggles, all OFF by default, optionality stated ONCE in the section
+ * intro (founder 2026-08-25, 5.143: "just say things once" — it was rendered
+ * five times: a chip, the intro, and a per-row hint ×3). CLO R-5 / Planet49 —
+ * separate granular consent; bundled consent declined — is unchanged: the
+ * toggles stay separate, unticked, non-blocking. The explicit consent act (unlike the Welcome's reviewable notice).
  * Internal page, so it keeps the "Sandbox · play money" chip.
  *
  * WIRED (not a preview): Accept calls the submitConsent server action, which
@@ -102,18 +104,12 @@ export function Consent({ locale }: { locale: string }) {
             <FormattedMessage id="consent.accept" />
           </span>
         </Button>
-        <p className={styles.acceptNote}>
-          <FormattedMessage id="consent.acceptNote" values={linkChunks} />
-        </p>
       </Card>
 
       {/* The optional, non-blocking opt-ins. */}
       <div className={styles.optional}>
         <h2 className={styles.optionalTitle}>
-          <FormattedMessage id="consent.optionalTitle" />{' '}
-          <span className={styles.optionalAll}>
-            (<FormattedMessage id="consent.optionalAll" />)
-          </span>
+          <FormattedMessage id="consent.optionalTitle" />
         </h2>
         <p className={styles.optionalIntro}>
           <FormattedMessage id="consent.optionalIntro" />
@@ -132,9 +128,6 @@ export function Consent({ locale }: { locale: string }) {
                 <p className={styles.optBody}>
                   <FormattedMessage id={`consent.${o.id}Body`} />
                 </p>
-                <p className={styles.optHint}>
-                  <FormattedMessage id="consent.optionalHint" />
-                </p>
               </div>
               <Toggle checked={optIns[o.id]} onChange={set(o.id)} labelledBy={`opt-${o.id}`} />
             </li>
@@ -145,7 +138,7 @@ export function Consent({ locale }: { locale: string }) {
       <p className={styles.footer}>
         <LucideIcon name="lock" size={16} />
         <span>
-          <FormattedMessage id="consent.footer" values={linkChunks} />
+          <FormattedMessage id="consent.footer" />
         </span>
       </p>
     </section>

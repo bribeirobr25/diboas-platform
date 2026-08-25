@@ -313,6 +313,45 @@ _Added 2026-07-30 (founder-ratified) from the 12-app shell study (benchmark doc 
 
 ---
 
+# Part 11 — Founder product principles (`PP`, affirmed 2026-08-25)
+
+> **Provenance:** stated by the founder in the 2026-08-24 product review and affirmed verbatim
+> 2026-08-25 (PENDING_ALL `5.145`). These are PRODUCT principles, not teardown-derived UX rules, so
+> they carry their own `PP-` register (REGISTER_INDEX rule 3) rather than extending the `UX-`
+> sequence. One line each, in the founder's words; the annotation names where each will actually be
+> breached, because a principle nobody can operationalise is not enforceable.
+
+**PP-1 · Do not let the final product's breadth become the first-session breadth. — ADOPT**
+The first session is: _what is this money for? · what do you want to do about it? · see what
+happens._ Everything else waits. Where it will be breached: ACCRETION — Circles, challenges, the
+practice record, milestones and the @handle all queue to land on the same early screens, each
+individually justified. The defence must be structural (a cap on what Home may show before a
+second session), not good intentions.
+
+**PP-2 · diBoaS makes consequences understandable enough that people can make better decisions themselves. — ADOPT**
+Stronger than the negative rule already enforced (_never recommend_; the catalog filters, never
+ranks): this is an AFFIRMATIVE duty to make consequences legible before commitment. The exit
+ceremony and the falling time machine discharge it today; most screens satisfy the negative rule
+and skip this one. New money-touching surfaces cite PP-2 in their self-check.
+
+**PP-3 · Love is an outcome of trust, usefulness and feeling more capable — never a target optimised through behaviour. — ADOPT**
+Engagement is not the product objective. Where it will be breached: the ratified D30 ≥5.7%
+tripwire — a retention target is precisely what invites engagement mechanics when it is missed.
+Interventions on a missed retention number must pass this principle BEFORE the number is
+uncomfortable, not after.
+
+**PP-4 · People enter through ONE trusted job and progressively choose diBoaS for more of their money life. — ADOPT**
+The PMF principle. Where it is under-served today: no clearly separable first job exists in the
+app; Money Jobs on the marketing site is the closest thing and is not wired into the app
+(USER_JOURNEYS §10, leak #1). Funnel work cites PP-4.
+
+**The protected line (binding on all four):** _diBoaS can become technically complex, financially
+broad and globally capable without ever making the customer experience feel technically complex,
+financially overwhelming or globally fragmented._ The live threat is fragmentation, not
+complexity — es/de are ~41% English today.
+
+---
+
 # Appendix A — Unverified claims register
 
 | Claim as asserted in source                                                                   | Where used               | Status                                                                                                                                                                     |

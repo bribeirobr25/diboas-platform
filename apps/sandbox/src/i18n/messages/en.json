@@ -266,17 +266,14 @@
     "requiredBody": "Tap Accept & continue to agree to our <terms>Terms</terms>, <privacy>Privacy Policy</privacy>, and confirm you're 18 or older.",
     "accept": "Accept & continue",
     "optionalTitle": "Make it your experience",
-    "optionalAll": "all optional",
-    "optionalIntro": "These settings help us personalize diBoaS. You can change them anytime.",
+    "optionalIntro": "These settings personalize diBoaS. All optional, and you can change them anytime.",
     "financialProfileTitle": "Financial profile",
     "financialProfileBody": "Share a bit about your goals and experience so the content you see fits them.",
     "analyticsTitle": "Analytics",
     "analyticsBody": "Help us improve diBoaS by sharing anonymous usage data.",
     "marketingTitle": "Marketing communications",
     "marketingBody": "Get product updates, tips, and offers you can actually use.",
-    "optionalHint": "Optional. Everything works either way.",
-    "footer": "We never sell your data. You're in control, always. Learn more in our <privacy>Privacy Policy</privacy>.",
-    "acceptNote": "By continuing, you agree to our <terms>Terms</terms> and <privacy>Privacy Policy</privacy> and confirm you're 18 or older."
+    "footer": "We never sell your data. You're in control, always."
   },
   "claim": {
     "eyebrow": "Claim ceremony",

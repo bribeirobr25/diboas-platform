@@ -266,17 +266,14 @@
     "requiredBody": "Tippe auf Annehmen und fortfahren, um unseren <terms>Nutzungsbedingungen</terms> und der <privacy>Datenschutzerklärung</privacy> zuzustimmen und zu bestätigen, dass du 18 oder älter bist.",
     "accept": "Annehmen und fortfahren",
     "optionalTitle": "Gestalte dein Erlebnis",
-    "optionalAll": "alles optional",
-    "optionalIntro": "Diese Einstellungen helfen, diBoaS zu personalisieren. Du kannst sie jederzeit ändern.",
+    "optionalIntro": "Diese Einstellungen personalisieren diBoaS. Alles optional, und du kannst sie jederzeit ändern.",
     "financialProfileTitle": "Finanzprofil",
     "financialProfileBody": "Teile etwas über deine Ziele und Erfahrung, damit die Inhalte dazu passen.",
     "analyticsTitle": "Analyse",
     "analyticsBody": "Hilf, diBoaS zu verbessern, indem du anonyme Nutzungsdaten teilst.",
     "marketingTitle": "Marketing-Mitteilungen",
     "marketingBody": "Erhalte Produktneuigkeiten, Tipps und Angebote, die du wirklich nutzen kannst.",
-    "optionalHint": "Optional. Alles funktioniert so oder so.",
-    "footer": "Wir verkaufen deine Daten nie. Du behältst immer die Kontrolle. Mehr dazu in unserer <privacy>Datenschutzerklärung</privacy>.",
-    "acceptNote": "Wenn du fortfährst, stimmst du unseren <terms>Nutzungsbedingungen</terms> und unserer <privacy>Datenschutzerklärung</privacy> zu und bestätigst, dass du 18 Jahre oder älter bist."
+    "footer": "Wir verkaufen deine Daten nie. Du behältst immer die Kontrolle."
   },
   "claim": {
     "eyebrow": "Einlöse-Zeremonie",
