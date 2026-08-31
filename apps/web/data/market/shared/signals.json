@@ -129,12 +129,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The broad dollar index at 119 sits below its 20-week EMA (120) with RSI 44 — a softening dollar supports risk assets.",
-            "pt-BR": "O índice amplo do dólar em 119 está abaixo da EMA de 20 semanas (120), com RSI 44 — um dólar mais fraco favorece ativos de risco.",
-            "es": "El índice amplio del dólar en 119 está por debajo de su EMA de 20 semanas (120), con RSI 44; un dólar más débil favorece a los activos de riesgo.",
-            "de": "Der breite Dollar-Index bei 119 liegt unter seinem 20-Wochen-EMA (120), RSI 44 — ein weicherer Dollar stützt Risikoanlagen."
+            "en": "The broad dollar index at 118 sits below its 20-week EMA (120) with RSI 39 — a softening dollar supports risk assets.",
+            "pt-BR": "O índice amplo do dólar em 118 está abaixo da EMA de 20 semanas (120), com RSI 39 — um dólar mais fraco favorece ativos de risco.",
+            "es": "El índice amplio del dólar en 118 está por debajo de su EMA de 20 semanas (120), con RSI 39; un dólar más débil favorece a los activos de riesgo.",
+            "de": "Der breite Dollar-Index bei 118 liegt unter seinem 20-Wochen-EMA (120), RSI 39 — ein weicherer Dollar stützt Risikoanlagen."
           },
-          "last_updated_at": "2026-08-24T07:12:18.181Z"
+          "last_updated_at": "2026-08-31T16:30:21.061Z"
         },
         {
           "id": "MAC-02",
@@ -148,12 +148,12 @@
           "points_awarded": 0,
           "max_points": 1,
           "summary": {
-            "en": "The US 10-year yield at 4.68% holds above its 20-week trend (4.51%) — yields have not eased yet.",
-            "pt-BR": "O juro americano de 10 anos em 4,68% segue acima da tendência de 20 semanas (4,51%) — os juros ainda não cederam.",
-            "es": "El rendimiento estadounidense a 10 años en 4,68% sigue por encima de su tendencia de 20 semanas (4,51%); los rendimientos aún no ceden.",
-            "de": "Die 10-jährige US-Rendite bei 4,68% hält sich über ihrem 20-Wochen-Trend (4,51%) — die Renditen haben noch nicht nachgegeben."
+            "en": "The US 10-year yield at 4.74% holds above its 20-week trend (4.53%) — yields have not eased yet.",
+            "pt-BR": "O juro americano de 10 anos em 4,74% segue acima da tendência de 20 semanas (4,53%) — os juros ainda não cederam.",
+            "es": "El rendimiento estadounidense a 10 años en 4,74% sigue por encima de su tendencia de 20 semanas (4,53%); los rendimientos aún no ceden.",
+            "de": "Die 10-jährige US-Rendite bei 4,74% hält sich über ihrem 20-Wochen-Trend (4,53%) — die Renditen haben noch nicht nachgegeben."
           },
-          "last_updated_at": "2026-08-24T07:12:18.181Z"
+          "last_updated_at": "2026-08-31T16:30:21.061Z"
         },
         {
           "id": "MAC-03",
@@ -167,12 +167,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "US M2 money supply is growing 5.5% year-over-year and rose month-over-month — the liquidity backdrop is expanding.",
-            "pt-BR": "A oferta monetária M2 dos EUA cresce 5,5% em 12 meses e subiu no mês — o pano de fundo de liquidez está em expansão.",
-            "es": "La masa monetaria M2 de EE. UU. crece un 5,5% interanual y subió en el mes; el trasfondo de liquidez se expande.",
-            "de": "Die US-Geldmenge M2 wächst 5,5% im Jahresvergleich und legte im Monat zu — das Liquiditätsumfeld expandiert."
+            "en": "US M2 money supply is growing 5.4% year-over-year and rose month-over-month — the liquidity backdrop is expanding.",
+            "pt-BR": "A oferta monetária M2 dos EUA cresce 5,4% em 12 meses e subiu no mês — o pano de fundo de liquidez está em expansão.",
+            "es": "La masa monetaria M2 de EE. UU. crece un 5,4% interanual y subió en el mes; el trasfondo de liquidez se expande.",
+            "de": "Die US-Geldmenge M2 wächst 5,4% im Jahresvergleich und legte im Monat zu — das Liquiditätsumfeld expandiert."
           },
-          "last_updated_at": "2026-06-30T00:00:00Z"
+          "last_updated_at": "2026-07-31T00:00:00Z"
         }
       ],
       "state_view": {
@@ -183,10 +183,10 @@
           "de": "Die Makro-Bedingungen sind gemischt: der Dollar und die Liquidität auf der unterstützenden Seite, die Renditen auf der restriktiven Seite. Der Dollar liegt weiter unter seinem 20-Wochen-Trend. Geld ist nicht günstiger geworden. Die Liquidität wächst weiter."
         },
         "depth": {
-          "en": "The dollar closed at 118.90 against a 119.72 trend, 0.69% below, with a momentum reading of 44. The US 10 year at 4.68% holds above its own 4.51% trend. M2 is up 5.5% over the year and added roughly $100bn on the month.",
-          "pt-BR": "O índice amplo do dólar fechou em 118,90 contra uma tendência de 119,72, 0,69% abaixo, com uma leitura de momentum de 44. O juro americano de 10 anos, a 4,68%, segue acima da tendência de 20 semanas (4,51%). A oferta monetária M2 dos EUA cresce 5,5% em 12 meses e somou cerca de 100 bilhões de dólares no mês.",
-          "es": "El índice amplio del dólar cerró en 118,90 frente a una tendencia de 119,72, un 0,69% por debajo, con una lectura de momentum de 44. El rendimiento estadounidense a 10 años, en 4,68%, sigue por encima de su tendencia de 20 semanas (4,51%). La masa monetaria M2 de EE. UU. crece un 5,5% interanual y sumó cerca de 100 mil millones de dólares en el mes.",
-          "de": "Der breite Dollar-Index schloss bei 118,90 gegenüber einem Trend von 119,72, 0,69% darunter, bei einem Momentum-Wert von 44. Die 10-jährige US-Rendite hält sich mit 4,68% über ihrem 20-Wochen-Trend (4,51%). Die US-Geldmenge M2 wächst 5,5% im Jahresvergleich und kam im Monat um rund 100 Mrd. US-Dollar hinzu."
+          "en": "The dollar closed at 118.06 against a 119.57 trend, 1.26% below, with a momentum reading of 39. The US 10 year at 4.74% holds above its own 4.53% trend. M2 is up 5.4% over the year and added roughly $103bn on the month.",
+          "pt-BR": "O índice amplo do dólar fechou em 118,06 contra uma tendência de 119,57, 1,26% abaixo, com uma leitura de momentum de 39. O juro americano de 10 anos, a 4,74%, segue acima da tendência de 20 semanas (4,53%). A oferta monetária M2 dos EUA cresce 5,4% em 12 meses e somou cerca de 103 bilhões de dólares no mês.",
+          "es": "El índice amplio del dólar cerró en 118,06 frente a una tendencia de 119,57, un 1,26% por debajo, con una lectura de momentum de 39. El rendimiento estadounidense a 10 años, en 4,74%, sigue por encima de su tendencia de 20 semanas (4,53%). La masa monetaria M2 de EE. UU. crece un 5,4% interanual y sumó cerca de 103 mil millones de dólares en el mes.",
+          "de": "Der breite Dollar-Index schloss bei 118,06 gegenüber einem Trend von 119,57, 1,26% darunter, bei einem Momentum-Wert von 39. Die 10-jährige US-Rendite hält sich mit 4,74% über ihrem 20-Wochen-Trend (4,53%). Die US-Geldmenge M2 wächst 5,4% im Jahresvergleich und kam im Monat um rund 103 Mrd. US-Dollar hinzu."
         }
       }
     },
@@ -221,12 +221,12 @@
           "points_awarded": 2,
           "max_points": 2,
           "summary": {
-            "en": "Spot-ETF creations outpaced redemptions in 3 of the last 4 weeks (share-count method) — institutional demand is flowing in.",
-            "pt-BR": "As emissões dos ETFs à vista superaram os resgates em 3 das últimas 4 semanas (método de cotas) — a demanda institucional está entrando.",
-            "es": "Las creaciones de los ETF al contado superaron los reembolsos en 3 de las últimas 4 semanas (método de participaciones); la demanda institucional está entrando.",
-            "de": "Bei den Spot-ETFs überwogen die Anteilsschöpfungen in 3 der letzten 4 Wochen (Anteilszahl-Methode) — institutionelle Nachfrage fließt zu."
+            "en": "Spot-ETF creations outpaced redemptions in 4 of the last 4 weeks (share-count method) — institutional demand is flowing in.",
+            "pt-BR": "As emissões dos ETFs à vista superaram os resgates em 4 das últimas 4 semanas (método de cotas) — a demanda institucional está entrando.",
+            "es": "Las creaciones de los ETF al contado superaron los reembolsos en 4 de las últimas 4 semanas (método de participaciones); la demanda institucional está entrando.",
+            "de": "Bei den Spot-ETFs überwogen die Anteilsschöpfungen in 4 der letzten 4 Wochen (Anteilszahl-Methode) — institutionelle Nachfrage fließt zu."
           },
-          "last_updated_at": "2026-08-24T07:12:18.181Z"
+          "last_updated_at": "2026-08-31T16:30:21.061Z"
         }
       ]
     },
@@ -261,12 +261,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The BTC/Gold ratio at 16.941 holds above its 20-week trend (15.294) — Bitcoin is outpacing the defensive asset.",
-            "pt-BR": "A razão BTC/Ouro em 16,941 segue acima da tendência de 20 semanas (15,294) — o Bitcoin supera o ativo defensivo.",
-            "es": "La ratio BTC/Oro en 16,941 se mantiene sobre su tendencia de 20 semanas (15,294); Bitcoin supera al activo defensivo.",
-            "de": "Das BTC/Gold-Verhältnis bei 16,941 hält sich über seinem 20-Wochen-Trend (15,294) — Bitcoin läuft dem defensiven Anlagegut voraus."
+            "en": "The BTC/Gold ratio at 17.380 holds above its 20-week trend (15.540) — Bitcoin is outpacing the defensive asset.",
+            "pt-BR": "A razão BTC/Ouro em 17,380 segue acima da tendência de 20 semanas (15,540) — o Bitcoin supera o ativo defensivo.",
+            "es": "La ratio BTC/Oro en 17,380 se mantiene sobre su tendencia de 20 semanas (15,540); Bitcoin supera al activo defensivo.",
+            "de": "Das BTC/Gold-Verhältnis bei 17,380 hält sich über seinem 20-Wochen-Trend (15,540) — Bitcoin läuft dem defensiven Anlagegut voraus."
           },
-          "last_updated_at": "2026-08-24T07:12:18.181Z"
+          "last_updated_at": "2026-08-31T16:30:21.061Z"
         },
         {
           "id": "REL-02",
@@ -280,12 +280,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The BTC/Nasdaq ratio at 2.992 holds above its 20-week trend (2.660) — Bitcoin leads risk assets.",
-            "pt-BR": "A razão BTC/Nasdaq em 2,992 segue acima da tendência de 20 semanas (2,660) — o Bitcoin lidera os ativos de risco.",
-            "es": "La ratio BTC/Nasdaq en 2,992 se mantiene sobre su tendencia de 20 semanas (2,660); Bitcoin lidera los activos de riesgo.",
-            "de": "Das BTC/Nasdaq-Verhältnis bei 2,992 hält sich über seinem 20-Wochen-Trend (2,660) — Bitcoin führt die Risikoanlagen an."
+            "en": "The BTC/Nasdaq ratio at 2.948 holds above its 20-week trend (2.697) — Bitcoin leads risk assets.",
+            "pt-BR": "A razão BTC/Nasdaq em 2,948 segue acima da tendência de 20 semanas (2,697) — o Bitcoin lidera os ativos de risco.",
+            "es": "La ratio BTC/Nasdaq en 2,948 se mantiene sobre su tendencia de 20 semanas (2,697); Bitcoin lidera los activos de riesgo.",
+            "de": "Das BTC/Nasdaq-Verhältnis bei 2,948 hält sich über seinem 20-Wochen-Trend (2,697) — Bitcoin führt die Risikoanlagen an."
           },
-          "last_updated_at": "2026-08-24T07:12:18.181Z"
+          "last_updated_at": "2026-08-31T16:30:21.061Z"
         },
         {
           "id": "REL-03",
@@ -299,12 +299,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The Nasdaq at 26,180 holds above its 20-week trend (25,439) — the wider risk market is structurally healthy.",
-            "pt-BR": "O Nasdaq em 26.180 segue acima da tendência de 20 semanas (25.439) — o mercado de risco mais amplo está estruturalmente saudável.",
-            "es": "El Nasdaq en 26.180 se mantiene sobre su tendencia de 20 semanas (25.439); el mercado de riesgo más amplio está estructuralmente sano.",
-            "de": "Der Nasdaq bei 26.180 hält sich über seinem 20-Wochen-Trend (25.439) — der breitere Risikomarkt ist strukturell gesund."
+            "en": "The Nasdaq at 26,402 holds above its 20-week trend (25,531) — the wider risk market is structurally healthy.",
+            "pt-BR": "O Nasdaq em 26.402 segue acima da tendência de 20 semanas (25.531) — o mercado de risco mais amplo está estruturalmente saudável.",
+            "es": "El Nasdaq en 26.402 se mantiene sobre su tendencia de 20 semanas (25.531); el mercado de riesgo más amplio está estructuralmente sano.",
+            "de": "Der Nasdaq bei 26.402 hält sich über seinem 20-Wochen-Trend (25.531) — der breitere Risikomarkt ist strukturell gesund."
           },
-          "last_updated_at": "2026-08-24T07:12:18.181Z"
+          "last_updated_at": "2026-08-31T16:30:21.061Z"
         }
       ]
     }
