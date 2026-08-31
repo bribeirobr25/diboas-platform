@@ -42,6 +42,11 @@
       "date": "2026-08-24T00:00:00Z",
       "score": 10,
       "regime_code": "CONSTRUCTIVE"
+    },
+    {
+      "date": "2026-08-31T00:00:00Z",
+      "score": 10,
+      "regime_code": "CONSTRUCTIVE"
     }
   ]
 }
