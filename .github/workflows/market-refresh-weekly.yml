@@ -8,6 +8,20 @@
 # Flow: fetch (dual-source verified) → quality gate (fail-closed) → engine →
 # computed.json → generate editorial JSONs from templates → reconcile → PR.
 #
+# GATE CLASSES (2026-08-31, PENDING_ALL 5.151 — do not re-merge these two):
+#   * BOT-WRITTEN output (generate.mjs --check, jargon, market/analytics-sdk
+#     tests, prettier) gates BEFORE the PR. The bot can always satisfy these by
+#     regenerating, so blocking is correct and keeps bad data out of a PR.
+#   * HUMAN-OWNED fields (the research-memo voice: summary.{short,detailed},
+#     key_supportive_factors, key_headwinds — generate.mjs never writes them)
+#     are REPORTED here and gate on the PR's own CI instead. A bot pre-flight
+#     can never satisfy a human-owned invariant: on 2026-08-31 the memo gate
+#     sat in the pre-flight, so a drifted figure killed the job and NO PR was
+#     opened — which also broke the ratified AUTO-HOLD policy (it assumes a PR
+#     exists to hold) and made the miss invisible except a failure email.
+#     The honesty guarantee is unchanged: a stale memo still cannot MERGE,
+#     because memoFigureReconciliation runs in the PR's full CI battery.
+#
 # Requires repo secret POLYGON_API_KEY (founder-owned) for the ETF-01 leg.
 # Without it the ETF snapshot step is skipped and ETF-01 stays UNAVAILABLE —
 # the run still succeeds (fail-open on the optional leg, fail-closed on core).
@@ -16,7 +30,10 @@ name: Market Refresh (weekly)
 
 on:
   schedule:
-    - cron: '0 6 * * 1' # Mondays 06:00 UTC
+    # 5.151: :17 past, not :00. GitHub drops scheduled runs under load at popular
+    # cron minutes; every past run was already 1-2h late and 2026-08-31 never
+    # fired at all. The watchdog (market-refresh-watchdog.yml) catches a miss.
+    - cron: '17 6 * * 1' # Mondays 06:17 UTC
   workflow_dispatch: {}
 
 permissions:
@@ -72,7 +89,7 @@ jobs:
       - name: Generate editorial copy from templates
         run: node apps/web/scripts/market-refresh/generate.mjs
 
-      - name: Reconcile + jargon gate + market tests
+      - name: Reconcile + jargon gate + market tests (BOT-WRITTEN — blocking)
         run: |
           node apps/web/scripts/market-refresh/generate.mjs --check
           node scripts/check-market-data-jargon.mjs
@@ -82,7 +99,42 @@ jobs:
           # market-data. Without it the bot's pre-flight cannot see the one
           # assertion that stops invented history, and a violation would only
           # surface as red CI on the PR it had already opened. 53 tests, ~0.2s.
-          pnpm --filter web exec vitest run src/lib/market-data src/lib/analytics-sdk
+          # memoFigureReconciliation is EXCLUDED here by gate class (see header)
+          # and runs in the next step + in the PR's own CI.
+          pnpm --filter web exec vitest run src/lib/market-data src/lib/analytics-sdk \
+            --exclude '**/memoFigureReconciliation.test.ts'
+
+      # HUMAN-OWNED gate: report, never block PR creation (see header).
+      - name: Memo figure reconciliation (HUMAN-owned — reported)
+        id: memo
+        continue-on-error: true
+        run: |
+          set +e
+          out=$(pnpm --filter web exec vitest run \
+            src/lib/market-data/__tests__/memoFigureReconciliation.test.ts 2>&1)
+          code=$?
+          printf '%s\n' "$out"
+
+          if [ "$code" -eq 0 ]; then
+            echo 'status=ok' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo 'status=stale' >> "$GITHUB_OUTPUT"
+          # The gate asserts once per locale, so a drifted figure yields one
+          # assertion line per affected locale carrying the same orphan list.
+          # Collect them ALL and de-duplicate: `head -1` would have shown the
+          # founder one locale's worth and hidden the rest.
+          printf '%s\n' "$out" \
+            | grep -oE 'figures with no engine value behind them[^:]*: [^:]*' \
+            | sed 's/^figures with no engine value behind them[^—]*— //' \
+            | sort -u > "$RUNNER_TEMP/memo-orphans.txt"
+
+          # Exit with the real code so the step renders as FAILED-but-continued.
+          # `continue-on-error` is what keeps the job going to open the PR; if
+          # this exited 0 the step would look green while the memo was stale,
+          # and continue-on-error would be dead configuration that never fires.
+          exit "$code"
 
       # B4(b) 2026-08-11: bot-created PRs (GITHUB_TOKEN) never trigger the main
       # CI, so its format:check does not run on the weekly PR — a formatting
@@ -91,6 +143,60 @@ jobs:
       # Check every file the pipeline writes before opening the PR.
       - name: Format check on pipeline-written files
         run: pnpm exec prettier --check "apps/web/data/market/**/*.json" "apps/web/src/lib/market-data/data/*.json"
+
+      # Written to RUNNER_TEMP, never the workspace: create-pull-request commits
+      # every change in the working tree, so a body file inside the repo would
+      # be committed into the refresh PR.
+      - name: Compose PR body
+        run: |
+          BODY="$RUNNER_TEMP/pr-body.md"
+          {
+            echo 'Automated weekly /market refresh (P3 pipeline).'
+            echo
+            echo '- Fetch → fail-closed quality gate → engine → `computed.json`'
+            echo '- Editorial copy generated from the reviewed template library'
+            echo '- Bot-written gates green: `generate.mjs --check`, jargon, market + analytics-sdk tests, prettier'
+          } > "$BODY"
+          if [ '${{ steps.memo.outputs.status }}' = 'stale' ]; then
+            {
+              echo
+              echo '## ⚠️ The analyst memo needs a rewrite before this merges'
+              echo
+              echo 'The memo voice (`summary.short` / `summary.detailed` /'
+              echo '`key_supportive_factors` / `key_headwinds`) is **editorial-owned** — the'
+              echo 'pipeline never rewrites it. This cycle moved the engine past figures the'
+              echo 'memo still quotes, in one or more locales:'
+              echo
+              echo '```'
+              # -s, not just existence: the gate can fail for a reason that
+              # produces no orphan lines (e.g. vitest itself erroring), and a
+              # bare `cat` on an empty file renders an empty code block with no
+              # fallback — a silent blank where the founder needs a pointer.
+              if [ -s "$RUNNER_TEMP/memo-orphans.txt" ]; then
+                cat "$RUNNER_TEMP/memo-orphans.txt"
+              else
+                echo '(no orphan list parsed — read the "Memo figure reconciliation" step log)'
+              fi
+              echo '```'
+              echo
+              echo 'Update the cycle-dependent clauses **in all four locales** on this branch'
+              echo '(runbook: `docs/integrations/market-editorial.md` §7). **CI on this PR is'
+              echo 'red until then — that is the 5.128 honesty gate working, not a flake.**'
+            } >> "$BODY"
+          else
+            {
+              echo '- Memo figure reconciliation: green (memo agrees with this cycle'"'"'s engine values)'
+            } >> "$BODY"
+          fi
+          {
+            echo
+            echo '**Review the plain-language summary and per-signal copy before merging.**'
+            echo 'If a cycle needs a human override, add it to'
+            echo '`apps/web/data/market/shared/editorial-override.json` **with a `_cycle` key'
+            echo 'stamping this cycle'"'"'s date (computed.json `computed_at`, YYYY-MM-DD)** and'
+            echo 're-run `generate.mjs` — overrides are cycle-scoped and an unstamped or stale'
+            echo 'file is ignored with a warning. The 14-day staleness gate is the backstop.'
+          } >> "$BODY"
 
       - name: Open refresh PR
         uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7.0.11
@@ -106,21 +212,12 @@ jobs:
           token: ${{ secrets.MARKET_REFRESH_PR_TOKEN || github.token }}
           branch: editorial/market-refresh-auto
           commit-message: 'data(market): weekly refresh (automated)'
-          title: 'data(market): weekly refresh — review before merge'
-          body: |
-            Automated weekly /market refresh (P3 pipeline).
-
-            - Fetch → fail-closed quality gate → engine → `computed.json`
-            - Editorial copy generated from the reviewed template library
-            - `generate.mjs --check` + jargon gate + market vitest all green
-
-            **Review the plain-language summary and per-signal copy before merging.**
-            If a cycle needs a human override, add it to
-            `apps/web/data/market/shared/editorial-override.json` **with a `_cycle`
-            key stamping this cycle's date (computed.json `computed_at`,
-            YYYY-MM-DD)** and re-run `generate.mjs` — overrides are
-            cycle-scoped and an unstamped or stale file is ignored with a
-            warning. The 14-day staleness gate is the backstop.
-          labels: |
-            market-refresh
-            needs-editorial-review
+          title: >-
+            ${{ steps.memo.outputs.status == 'stale'
+            && 'data(market): weekly refresh — MEMO REWRITE REQUIRED before merge'
+            || 'data(market): weekly refresh — review before merge' }}
+          body-path: ${{ runner.temp }}/pr-body.md
+          labels: >-
+            ${{ steps.memo.outputs.status == 'stale'
+            && 'market-refresh,needs-editorial-review,memo-rewrite-required'
+            || 'market-refresh,needs-editorial-review' }}

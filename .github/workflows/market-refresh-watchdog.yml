@@ -1,0 +1,78 @@
+# Market Refresh watchdog (PENDING_ALL 5.151, 2026-08-31).
+#
+# WHY THIS EXISTS: on 2026-08-31 the weekly refresh schedule did not fire at
+# all. The workflow was `active`, the cron was intact, and another scheduled
+# workflow in this same repo DID fire that morning — GitHub simply dropped the
+# run, as it may under load. Nothing noticed. The /market data would have aged
+# to its 14-day staleness gate with no signal.
+#
+# This job is the missing alarm and nothing else: it asserts that a Market
+# Refresh run STARTED recently. It never touches data, never opens a PR, and
+# has read-only permissions. It fails CLOSED (principle 7 / robustness R-14:
+# background jobs fail loudly, not silently) — a failure sends the standard
+# workflow-failure notification.
+#
+# It deliberately checks "a run started", not "a run succeeded": a refresh that
+# runs and legitimately fails a data gate is the fail-closed pipeline working,
+# and that already notifies. The blind spot this covers is the run that never
+# happened.
+#
+# Known limits, stated rather than implied:
+#   * A manual `workflow_dispatch` also satisfies it — correct by intent, since
+#     the question is "did a refresh run", not "did the cron fire".
+#   * This watchdog is itself a scheduled workflow, so GitHub could drop IT too.
+#     It narrows the blind spot; it does not eliminate it. A belt-and-braces
+#     external monitor would, and is deliberately not built for one weekly job.
+
+name: Market Refresh Watchdog
+
+on:
+  schedule:
+    # Mondays 09:23 UTC — ~3h after the 06:17 refresh window. Historical runs
+    # landed 07:06-07:52 (up to ~1.6h late), so this leaves margin for an
+    # ordinary delay while still alarming the same morning.
+    - cron: '23 9 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  assert-refresh-ran:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Assert a Market Refresh run started in the last 24h
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MAX_AGE_HOURS: '24'
+        run: |
+          set -euo pipefail
+
+          latest=$(gh run list \
+            --repo "$GITHUB_REPOSITORY" \
+            --workflow market-refresh-weekly.yml \
+            --limit 1 --json createdAt --jq '.[0].createdAt // empty')
+
+          if [ -z "$latest" ]; then
+            echo "::error::No Market Refresh run has EVER been recorded. The weekly pipeline is not running."
+            exit 1
+          fi
+
+          latest_epoch=$(date -u -d "$latest" +%s)
+          now_epoch=$(date -u +%s)
+          age_hours=$(( (now_epoch - latest_epoch) / 3600 ))
+
+          echo "Most recent Market Refresh run started: $latest (${age_hours}h ago)"
+
+          if [ "$age_hours" -gt "$MAX_AGE_HOURS" ]; then
+            echo "::error::Market Refresh has not run for ${age_hours}h (limit ${MAX_AGE_HOURS}h)."
+            echo "::error::GitHub most likely DROPPED the scheduled run (PENDING_ALL 5.151)."
+            echo "::error::Remedy: dispatch it manually —"
+            echo "::error::  gh workflow run market-refresh-weekly.yml --ref main"
+            echo "::error::/market data ages toward its 14-day staleness gate until a refresh merges."
+            exit 1
+          fi
+
+          echo "OK — the weekly refresh fired within the last ${MAX_AGE_HOURS}h."

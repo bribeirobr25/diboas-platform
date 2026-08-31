@@ -4,7 +4,7 @@
 
 > **Audience:** the editorial owner of `/market` (Adelaide Market). The macro analyst, content owner, or designated curator who keeps the regime score, signal states, and commentary fresh.
 > **Goal:** ship a regime-score / signals / commentary update in under 30 minutes, end-to-end, without engineering hand-holding.
-> **Weekly review checklist additions (2026-08-19):** (1) **The analyst memo (`summary.detailed`) and `key_supportive_factors`/`key_headwinds` are the LAST hand-editorial fields — the pipeline never regenerates them.** Every weekly review updates their cycle-dependent clauses, ESPECIALLY for any signal whose STATE changed this cycle (the 2026-08-17 lesson: the first hands-free cycle carried a stale "ETF unavailable" memo clause against a scored 2/2 group; 5.99 tracks template-generating these clauses). (2) **Unreviewed-Monday policy = AUTO-HOLD (founder-ratified 2026-08-19):** if no one reviews/merges the bot PR, it simply waits — the page keeps serving the last cycle with visible dates and an honestly aging freshness panel (14-day staleness gate backstops). No auto-publish. This is the chosen policy, not an accident.
+> **Weekly review checklist additions (2026-08-19):** (1) **The analyst memo (`summary.detailed`) and `key_supportive_factors`/`key_headwinds` are the LAST hand-editorial fields — the pipeline never regenerates them.** Every weekly review updates their cycle-dependent clauses, ESPECIALLY for any signal whose STATE changed this cycle (the 2026-08-17 lesson: the first hands-free cycle carried a stale "ETF unavailable" memo clause against a scored 2/2 group; 5.99 tracks template-generating these clauses). (1b) **A drifted memo no longer blocks the PR (2026-08-31, 5.151).** The memo gate used to sit in the bot's pre-flight, so a cycle whose figures had moved killed the job and opened **nothing**. Now the PR always opens when the DATA is sound; if the memo is stale it arrives titled **"MEMO REWRITE REQUIRED"**, labelled `memo-rewrite-required`, with the orphaned figures quoted in the body — and its CI is red until a human updates the four editorial fields ×4 locales on the branch. Red CI on that PR is the gate working, not a flake. (2) **Unreviewed-Monday policy = AUTO-HOLD (founder-ratified 2026-08-19):** if no one reviews/merges the bot PR, it simply waits — the page keeps serving the last cycle with visible dates and an honestly aging freshness panel (14-day staleness gate backstops). No auto-publish. This is the chosen policy, not an accident.
 > **Last updated:** 2026-08-13 (M3 note: the SAME weekly data files now feed THREE surfaces — the /market umbrella, /market/bitcoin, and /market/backdrop; the editorial workflow below is UNCHANGED — one run, one PR, three pages). Prior: 2026-08-11 (B1–B4: cycle-scoped `_cycle` overrides, `mixedBackdropOnly` REL variant, AUTO-GENERATED `data_status` panel, weekly-PR format gate + full CI via PAT). Prior: 2026-07-12 (P2/P3 automation) · 2026-05-14 (iteration 3).
 
 ---
@@ -182,7 +182,7 @@ Reference: `CLAUDE.md` §"Digital dollar terminology + jargon ban (Phase 7 Q2a/Q
 > and an unstamped or stale file is IGNORED with a warning, so a forgotten
 > override can never pin old copy onto a new cycle. Re-run the generator
 > after writing it. The whole flow is automated weekly by
-> `.github/workflows/market-refresh-weekly.yml` (Mondays 06:00 UTC → PR,
+> `.github/workflows/market-refresh-weekly.yml` (Mondays 06:17 UTC → PR,
 > never a direct push).
 
 ```bash
