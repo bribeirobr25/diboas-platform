@@ -104,7 +104,9 @@ The app is available at http://localhost:3000. Locale routes: `/en`, `/pt-BR`, `
 ```
 diboas-platform/
   apps/web/              # Next.js web application (the live site)
-  apps/sandbox/          # Play-money practice app (gated + noindex; pre-launch work-front)
+  apps/sandbox/          # Play-money PRACTICE app — LIVE + PUBLIC at app.diboas.com since
+                         #   2026-08-22 (still noindex; play money only). Public/user-facing
+                         #   name = "Practice" (F-R4, 2026-08-29); "sandbox" is internal naming.
     src/
       app/               # App Router (pages, API routes, layouts)
       components/        # UI components (Factory pattern with variants)
