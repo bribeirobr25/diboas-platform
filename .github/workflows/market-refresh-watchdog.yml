@@ -16,6 +16,13 @@
 # runs and legitimately fails a data gate is the fail-closed pipeline working,
 # and that already notifies. The blind spot this covers is the run that never
 # happened.
+#
+# Known limits, stated rather than implied:
+#   * A manual `workflow_dispatch` also satisfies it — correct by intent, since
+#     the question is "did a refresh run", not "did the cron fire".
+#   * This watchdog is itself a scheduled workflow, so GitHub could drop IT too.
+#     It narrows the blind spot; it does not eliminate it. A belt-and-braces
+#     external monitor would, and is deliberately not built for one weekly job.
 
 name: Market Refresh Watchdog
 
