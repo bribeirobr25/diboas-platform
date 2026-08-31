@@ -114,15 +114,27 @@ jobs:
             src/lib/market-data/__tests__/memoFigureReconciliation.test.ts 2>&1)
           code=$?
           printf '%s\n' "$out"
+
           if [ "$code" -eq 0 ]; then
             echo 'status=ok' >> "$GITHUB_OUTPUT"
-          else
-            echo 'status=stale' >> "$GITHUB_OUTPUT"
-            # One line per orphaned figure, deduped, for the PR body.
-            printf '%s\n' "$out" \
-              | grep -oE 'figures with no engine value behind them[^:]*: [^:]*' \
-              | head -1 > "$RUNNER_TEMP/memo-orphans.txt" || true
+            exit 0
           fi
+
+          echo 'status=stale' >> "$GITHUB_OUTPUT"
+          # The gate asserts once per locale, so a drifted figure yields one
+          # assertion line per affected locale carrying the same orphan list.
+          # Collect them ALL and de-duplicate: `head -1` would have shown the
+          # founder one locale's worth and hidden the rest.
+          printf '%s\n' "$out" \
+            | grep -oE 'figures with no engine value behind them[^:]*: [^:]*' \
+            | sed 's/^figures with no engine value behind them[^—]*— //' \
+            | sort -u > "$RUNNER_TEMP/memo-orphans.txt"
+
+          # Exit with the real code so the step renders as FAILED-but-continued.
+          # `continue-on-error` is what keeps the job going to open the PR; if
+          # this exited 0 the step would look green while the memo was stale,
+          # and continue-on-error would be dead configuration that never fires.
+          exit "$code"
 
       # B4(b) 2026-08-11: bot-created PRs (GITHUB_TOKEN) never trigger the main
       # CI, so its format:check does not run on the weekly PR — a formatting
