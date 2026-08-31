@@ -168,7 +168,15 @@ jobs:
               echo 'memo still quotes, in one or more locales:'
               echo
               echo '```'
-              cat "$RUNNER_TEMP/memo-orphans.txt" 2>/dev/null || echo '(see the "Memo figure reconciliation" step log)'
+              # -s, not just existence: the gate can fail for a reason that
+              # produces no orphan lines (e.g. vitest itself erroring), and a
+              # bare `cat` on an empty file renders an empty code block with no
+              # fallback — a silent blank where the founder needs a pointer.
+              if [ -s "$RUNNER_TEMP/memo-orphans.txt" ]; then
+                cat "$RUNNER_TEMP/memo-orphans.txt"
+              else
+                echo '(no orphan list parsed — read the "Memo figure reconciliation" step log)'
+              fi
               echo '```'
               echo
               echo 'Update the cycle-dependent clauses **in all four locales** on this branch'

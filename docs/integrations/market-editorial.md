@@ -182,7 +182,7 @@ Reference: `CLAUDE.md` §"Digital dollar terminology + jargon ban (Phase 7 Q2a/Q
 > and an unstamped or stale file is IGNORED with a warning, so a forgotten
 > override can never pin old copy onto a new cycle. Re-run the generator
 > after writing it. The whole flow is automated weekly by
-> `.github/workflows/market-refresh-weekly.yml` (Mondays 06:00 UTC → PR,
+> `.github/workflows/market-refresh-weekly.yml` (Mondays 06:17 UTC → PR,
 > never a direct push).
 
 ```bash
