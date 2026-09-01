@@ -18,7 +18,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "resend": "^6.18.1"
+    "resend": "^6.25.0"
   },
   "devDependencies": {
     "tsup": "^8.0.0",
