@@ -429,7 +429,7 @@ Every quality domain (SEO, accessibility, performance, security, robustness) map
   The example **understates the price** ("Sell $10,000: diBoaS fee is $25"; it is **$39**), in four
   languages, to B2B customers — a Voice-Rubric **Q3** breach. Fix + re-grep the corpus for sibling cap
   literals (PR #399 was meant to land this and missed the row). Founder nod needed on wording.
-- **🔴 `5.104` — the do-not-regress register is stale on the same point.** `docs/tech/implementation-notes.md:99`
+- **✅ `5.104` — CLOSED 2026-08-31.** The register entry that recorded the per-market `$25/€25/R$25` exit caps as current was corrected (FE-1 removed all caps; verified against `FEES.md` v3.5 **and** `config/investor-figures.json`, where `fees.cap.{exit,rampB2C,rampB2B}` already read "no cap"). Historical context: `docs/tech/implementation-notes.md`
   still records the per-market `$25/€25/R$25` exit **caps** as current. Since that file is what this
   document tells you to read _before touching fee surfaces_, the caps can be re-added _from the register_.
   Pair with 5.103 in one pass. **Until both land, `docs/full-view/FEES.md` v3.5 is the ONLY fee authority.**

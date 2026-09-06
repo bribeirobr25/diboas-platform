@@ -1,10 +1,11 @@
 # Market Refresh watchdog (PENDING_ALL 5.151, 2026-08-31).
 #
-# WHY THIS EXISTS: on 2026-08-31 the weekly refresh schedule did not fire at
-# all. The workflow was `active`, the cron was intact, and another scheduled
-# workflow in this same repo DID fire that morning — GitHub simply dropped the
-# run, as it may under load. Nothing noticed. The /market data would have aged
-# to its 14-day staleness gate with no signal.
+# WHY THIS EXISTS: on 2026-08-31 the weekly refresh did not run at its
+# scheduled time. The workflow was `active` and the cron intact, yet nothing
+# happened at 06:00; the run eventually started at 13:19 UTC — 7h19m late —
+# and nobody would have known either way. GitHub delays, and sometimes drops,
+# scheduled runs under load. Unwatched, /market ages to its 14-day staleness
+# gate with no signal at all.
 #
 # This job is the missing alarm and nothing else: it asserts that a Market
 # Refresh run STARTED recently. It never touches data, never opens a PR, and
@@ -28,10 +29,16 @@ name: Market Refresh Watchdog
 
 on:
   schedule:
-    # Mondays 09:23 UTC — ~3h after the 06:17 refresh window. Historical runs
-    # landed 07:06-07:52 (up to ~1.6h late), so this leaves margin for an
-    # ordinary delay while still alarming the same morning.
-    - cron: '23 9 * * 1'
+    # Mondays 22:00 UTC — deliberately LATE in the day, not shortly after the
+    # 06:17 window. The first version sat at 09:23 on the assumption that a
+    # delayed run arrives 1-2h late (07:06-07:52 historically). That assumption
+    # was wrong: the 2026-08-31 schedule fired at 13:19 UTC, 7h19m late. A
+    # 09:23 check would have alarmed while the run was still coming — a false
+    # alarm, which is worse than a late one because it teaches people to ignore
+    # the alarm. At 22:00 a 06:17 run is 15h43m old and a 13:19 run 8h41m old
+    # (both inside MAX_AGE_HOURS), while a genuinely missed Monday is ~7 days
+    # old and still alarms the same day. PENDING_ALL 5.151.
+    - cron: '0 22 * * 1'
   workflow_dispatch: {}
 
 permissions:
