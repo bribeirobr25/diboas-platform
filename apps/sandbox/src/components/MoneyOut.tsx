@@ -10,9 +10,18 @@ import { FEE_RATES } from '@diboas/banking';
 import { LucideIcon } from './LucideIcon';
 import styles from './MoneyOut.module.css';
 
-type Action = 'add' | 'earn' | 'withdraw';
+/**
+ * The money doors on /move. Exported so the composed-id gate (CID-1,
+ * `i18n/__tests__/composedIds.test.ts`) resolves `move.${id}` / `move.${id}Title` /
+ * `move.${id}Body` against the catalogs: an id added here without its three keys
+ * in all four locales fails the suite instead of rendering raw ids (the
+ * 2026-08-25 `earn` defect, PENDING_ALL 5.155 — the earn door is /weekly).
+ */
+export const MONEY_OUT_ACTIONS = ['add', 'withdraw'] as const;
+type Action = (typeof MONEY_OUT_ACTIONS)[number];
 
-const ICON: Record<Action, string> = { add: 'plus', earn: 'gift', withdraw: 'upload' };
+const ICON: Record<Action, string> = { add: 'plus', withdraw: 'upload' };
+const DISABLED: ReadonlySet<Action> = new Set<Action>(['withdraw']);
 
 /**
  * Move / money-out (R5; mockup 34; W-9c). The money families are present but
@@ -20,6 +29,8 @@ const ICON: Record<Action, string> = { add: 'plus', earn: 'gift', withdraw: 'upl
  * in the real app + why it's unavailable here), never a dead control (W-2). The
  * Withdraw explainer discloses the real 0.48% cash-out fee (W-9 / FEES.md). No
  * upsell nag; the reworded practice note drops the kill-listed "risk-free".
+ * I-0a (2026-09-07): the `earn` tile is gone — its keys were deleted as orphans on
+ * 2026-08-25 while the composed id kept rendering them raw.
  */
 export function MoneyOut() {
   const state = useLedger();
@@ -37,11 +48,7 @@ export function MoneyOut() {
     )
     .plus(state.goals.reduce((s, g) => s.plus(g.cash), new Decimal(0)));
 
-  const actions: { id: Action; disabled?: boolean }[] = [
-    { id: 'add' },
-    { id: 'earn' },
-    { id: 'withdraw', disabled: true },
-  ];
+  const actions = MONEY_OUT_ACTIONS.map((id) => ({ id, disabled: DISABLED.has(id) }));
 
   return (
     <section className={styles.wrap} aria-labelledby="move-title">

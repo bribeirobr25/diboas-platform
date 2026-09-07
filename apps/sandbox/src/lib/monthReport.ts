@@ -179,7 +179,8 @@ function sourceOf(event: LedgerEvent): MovementSource['key'] | null {
 }
 
 /** Row order — the story: what arrived, what the market did, what life did, what it cost. */
-const SOURCE_ORDER: MovementSource['key'][] = [
+/** Display order; exported for the composed-id gate (CID-1): `monthReport.source.${key}`. */
+export const SOURCE_ORDER: MovementSource['key'][] = [
   'grant',
   'weeklyCredits',
   'marketChange',

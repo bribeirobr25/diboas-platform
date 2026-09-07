@@ -39,6 +39,13 @@ type View = 'simple' | 'detailed';
  * Manifest is correct), and mockup 19-detailed lists "Curve" (the real
  * allocation is Sky/Aave/Compound). Neither is reproduced.
  */
+/** Exported for the composed-id gate (CID-1): `strategyDetail.${r}` resolves from here. */
+export const RISK_FACTOR_KEYS = [
+  'riskSmartContract',
+  'riskMarketVolatility',
+  'riskVariableApy',
+] as const;
+
 export function StrategyDetail({
   strategy,
   goalName,
@@ -304,7 +311,7 @@ export function StrategyDetail({
             <FormattedMessage id="strategyDetail.riskFactors" />
           </h2>
           <ul className={styles.riskList}>
-            {['riskSmartContract', 'riskMarketVolatility', 'riskVariableApy'].map((r) => (
+            {RISK_FACTOR_KEYS.map((r) => (
               <li key={r} className={styles.riskRow}>
                 <LucideIcon name="shield" size={16} />
                 <FormattedMessage id={`strategyDetail.${r}`} />

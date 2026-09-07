@@ -28,6 +28,7 @@ const MESSAGES = {
   'authWelcome.google': 'Continue with Google',
   'authWelcome.email': 'Continue with email',
   'authWelcome.wallet': 'Connect wallet',
+  'authWelcome.walletNote': 'Connecting a wallet only signs you in. No funds move.',
   'authWelcome.legal':
     'Review our <terms>Terms</terms> and <privacy>Privacy Policy</privacy> anytime.',
   'theme.toggle': 'Switch to {target} mode',
@@ -78,6 +79,18 @@ describe('AuthWelcome (A2 front door — wired)', () => {
     renderWelcome('de');
     fireEvent.click(screen.getByText('Continue with email'));
     expect(startOnboarding).toHaveBeenCalledWith('email', 'de');
+  });
+
+  it('should state the wallet-authentication boundary in an approved locale (EN-02 · LC-PUI-02 §3)', () => {
+    renderWelcome('en');
+    expect(screen.getByText('Connecting a wallet only signs you in. No funds move.')).toBeTruthy();
+  });
+
+  it('should NOT render the wallet boundary line in a locale without approved wording (correction 2)', () => {
+    // Sabotage: add 'de' to WALLET_NOTE_LOCALES and this fails — the English
+    // sentence must never surface in a locale whose wording is not approved.
+    renderWelcome('de');
+    expect(screen.queryByText('Connecting a wallet only signs you in. No funds move.')).toBeNull();
   });
 
   it('should present Terms/Privacy as reviewable links, not agreement-by-continuing', () => {

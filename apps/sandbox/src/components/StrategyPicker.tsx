@@ -27,7 +27,8 @@ export function blendedApy(strategy: StrategyDef, apys: ProtocolApy[]): Decimal 
   return total;
 }
 
-const HORIZON_BANDS: HorizonBand[] = ['short', 'medium', 'long', 'wealth'];
+/** Exported for the composed-id gate (CID-1): `catalogFilters.horizonBand.${band}`. */
+export const HORIZON_BANDS: HorizonBand[] = ['short', 'medium', 'long', 'wealth'];
 const RISK_BANDS: RiskBand[] = ['stable', 'growth'];
 
 /**
