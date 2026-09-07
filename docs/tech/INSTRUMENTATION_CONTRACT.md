@@ -13,18 +13,18 @@
 
 ## 2. Event envelope (every event)
 
-| Field | Values / rule |
-| --- | --- |
-| `event_name` | stable, documented in code next to the emitter (the existing KPI-taxonomy rule) |
-| `mode` | `PRACTICE` \| `REAL_MONEY` \| `NEUTRAL` (pre-mode surfaces: Welcome, Account Access, readiness) — never omitted, never inferred |
-| `ledger_scope` | `sandbox` \| `real` (the scope column of the ledger, when the scope layer exists) |
-| `reward_qualifying` | **always `false` when `mode = PRACTICE`** (Token & Rewards guardrails §4); the field exists even though no Rewards system exists, so the invariant is testable |
-| `pmf_entry_scenario_id` | preserved verbatim from the Money Jobs → Practice bridge hand-off when present; `UNKNOWN` otherwise (never guessed) |
-| `pricing_version` | required on any Real Money cohort event exposed to a pricing schedule (`FE-1` today); absent in Practice |
-| `session_class` | `USER` \| `INTERNAL` \| `BOT` \| `SYNTHETIC` — internal, bot and synthetic traffic is excluded from every product metric (GEX-QA-004) |
-| `data_quality` | `OK` \| `UNKNOWN` \| `INCONCLUSIVE` — **fail closed**: broken or missing critical data marks the event `UNKNOWN`; it is never silently coerced |
-| `locale`, `document_version` | locale of the surface; version of any legal document or notice the event references |
-| `correlation_id` | rides on tags (never `extra`), matching the website's Sentry rule |
+| Field                        | Values / rule                                                                                                                                                  |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `event_name`                 | stable, documented in code next to the emitter (the existing KPI-taxonomy rule)                                                                                |
+| `mode`                       | `PRACTICE` \| `REAL_MONEY` \| `NEUTRAL` (pre-mode surfaces: Welcome, Account Access, readiness) — never omitted, never inferred                                |
+| `ledger_scope`               | `sandbox` \| `real` (the scope column of the ledger, when the scope layer exists)                                                                              |
+| `reward_qualifying`          | **always `false` when `mode = PRACTICE`** (Token & Rewards guardrails §4); the field exists even though no Rewards system exists, so the invariant is testable |
+| `pmf_entry_scenario_id`      | preserved verbatim from the Money Jobs → Practice bridge hand-off when present; `UNKNOWN` otherwise (never guessed)                                            |
+| `pricing_version`            | required on any Real Money cohort event exposed to a pricing schedule (`FE-1` today); absent in Practice                                                       |
+| `session_class`              | `USER` \| `INTERNAL` \| `BOT` \| `SYNTHETIC` — internal, bot and synthetic traffic is excluded from every product metric (GEX-QA-004)                          |
+| `data_quality`               | `OK` \| `UNKNOWN` \| `INCONCLUSIVE` — **fail closed**: broken or missing critical data marks the event `UNKNOWN`; it is never silently coerced                 |
+| `locale`, `document_version` | locale of the surface; version of any legal document or notice the event references                                                                            |
+| `correlation_id`             | rides on tags (never `extra`), matching the website's Sentry rule                                                                                              |
 
 Dedupe: R1 primary activation is counted **once per user**, never per device or session.
 
