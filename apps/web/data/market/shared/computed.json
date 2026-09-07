@@ -1,32 +1,36 @@
 {
   "_comment": "Machine-readable regime computation (P2 Stage 3 output). Written ONLY by scripts/market-refresh/run.mjs after the quality gate passes. The reconciliation vitest asserts regime.json agrees with this file — hand-edit regime.json scores and CI goes red (F-M4). Regenerate by running the pipeline, never by hand.",
-  "computed_at": "2026-08-31T16:30:21.061Z",
-  "score": 10,
+  "computed_at": "2026-09-07T12:35:02.613Z",
+  "score": 13,
   "max_score": 14,
-  "regime_code": "CONSTRUCTIVE",
+  "regime_code": "VERY_FAVORABLE",
   "group_totals": {
-    "btc_structure": 3,
+    "btc_structure": 6,
     "macro_environment": 2,
     "institutional_demand": 2,
     "relative_strength": 3
   },
   "anchor_spread_days": 7,
   "anchor_warning": null,
-  "btc_append": null,
+  "btc_append": {
+    "ym": "2026-08-01",
+    "close": 78548.6328,
+    "divergence_pct": 0.005
+  },
   "signals": [
     {
       "id": "BTC-01",
-      "state": "INACTIVE",
+      "state": "ACTIVE",
       "weight": 2,
-      "points": 0,
-      "detail": "close $62,814 vs 20M EMA $78,490",
+      "points": 2,
+      "detail": "close $78,549 vs 20M EMA $78,496",
       "values": {
-        "close": 62813.7461,
-        "ema20": 78490.27815305283,
-        "gapPct": -19.97257803378431,
-        "monthMovePct": 7.265999959008757
+        "close": 78548.6328,
+        "ema20": 78495.83573847638,
+        "gapPct": 0.06726097126926536,
+        "monthMovePct": 25.050068937060278
       },
-      "anchor": "2026-07-01",
+      "anchor": "2026-08-01",
       "anchorKind": "monthly"
     },
     {
@@ -34,13 +38,13 @@
       "state": "ACTIVE",
       "weight": 2,
       "points": 2,
-      "detail": "close $62,814 vs 50M SMA $59,963",
+      "detail": "close $78,549 vs 50M SMA $61,138",
       "values": {
-        "close": 62813.7461,
-        "sma50": 59962.774730000005,
-        "gapPct": 4.754568785112643
+        "close": 78548.6328,
+        "sma50": 61138.052853999994,
+        "gapPct": 28.47748518844253
       },
-      "anchor": "2026-07-01",
+      "anchor": "2026-08-01",
       "anchorKind": "monthly"
     },
     {
@@ -48,25 +52,25 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "RSI current 43.17 vs prev 40.83",
+      "detail": "RSI current 50.92 vs prev 43.17",
       "values": {
-        "rsiCurrent": 43.171226952068544,
-        "rsiPrev": 40.82668707621637
+        "rsiCurrent": 50.916358795992316,
+        "rsiPrev": 43.171226952068544
       },
-      "anchor": "2026-07-01",
+      "anchor": "2026-08-01",
       "anchorKind": "monthly"
     },
     {
       "id": "BTC-04",
-      "state": "INACTIVE",
+      "state": "ACTIVE",
       "weight": 1,
-      "points": 0,
-      "detail": "Stoch-RSI %K 8.91 vs threshold 10",
+      "points": 1,
+      "detail": "Stoch-RSI %K 13.10 vs threshold 10",
       "values": {
-        "stochK": 8.910664866233775,
+        "stochK": 13.097847990058371,
         "threshold": 10
       },
-      "anchor": "2026-07-01",
+      "anchor": "2026-08-01",
       "anchorKind": "monthly"
     },
     {
@@ -74,14 +78,14 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "DXY 118.0628 vs EMA20W 119.5659 (Δ -1.257%); RSI 39.12",
+      "detail": "DXY 118.7479 vs EMA20W 119.4880 (Δ -0.619%); RSI 44.41",
       "values": {
-        "close": 118.0628,
-        "ema20": 119.56591083749592,
-        "gapPct": -1.2571399548311293,
-        "rsi": 39.12293015232985
+        "close": 118.7479,
+        "ema20": 119.48800504344868,
+        "gapPct": -0.6193969371064144,
+        "rsi": 44.41082472768939
       },
-      "anchor": "2026-08-21",
+      "anchor": "2026-08-28",
       "anchorKind": "weekly"
     },
     {
@@ -89,12 +93,12 @@
       "state": "INACTIVE",
       "weight": 1,
       "points": 0,
-      "detail": "US10Y 4.74% vs EMA20W 4.53%",
+      "detail": "US10Y 4.73% vs EMA20W 4.55%",
       "values": {
-        "close": 4.74,
-        "ema20": 4.529372578121866
+        "close": 4.73,
+        "ema20": 4.54847995163407
       },
-      "anchor": "2026-08-21",
+      "anchor": "2026-08-28",
       "anchorKind": "weekly"
     },
     {
@@ -115,13 +119,13 @@
       "state": "ACTIVE",
       "weight": 2,
       "points": 2,
-      "detail": "Spot-ETF net flows via Δshares×NAV (Polygon primary): last 4 weekly aggregates [+$540M, +$107M, +$483M, +$1,482M] → 4/4 positive (threshold ≥3)",
+      "detail": "Spot-ETF net flows via Δshares×NAV (Polygon primary): last 4 weekly aggregates [+$107M, +$483M, +$1,482M, +$362M] → 4/4 positive (threshold ≥3)",
       "values": {
         "positives": 4,
         "weeks": 4,
-        "lastFlowUsd": 1482457539
+        "lastFlowUsd": 361839996
       },
-      "anchor": "2026-08-28",
+      "anchor": "2026-09-04",
       "anchorKind": "weekly"
     },
     {
@@ -129,13 +133,13 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "BTC/Gold ratio 17.380 vs EMA20W 15.540 (Yahoo GC=F substitute)",
+      "detail": "BTC/Gold ratio 17.985 vs EMA20W 15.833 (Yahoo GC=F substitute)",
       "values": {
-        "ratio": 17.380203069430014,
-        "ema20": 15.540168357700763,
-        "gapPct": 11.840506932587004
+        "ratio": 17.985455836106446,
+        "ema20": 15.832769469493211,
+        "gapPct": 13.596398095488343
       },
-      "anchor": "2026-08-28",
+      "anchor": "2026-09-04",
       "anchorKind": "weekly"
     },
     {
@@ -143,13 +147,13 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "BTC/Nasdaq ratio 2.948 vs EMA20W 2.697",
+      "detail": "BTC/Nasdaq ratio 3.006 vs EMA20W 2.739",
       "values": {
-        "ratio": 2.947846790654039,
-        "ema20": 2.697223189269387,
-        "gapPct": 9.291911858897366
+        "ratio": 3.005696563434777,
+        "ema20": 2.7389764430230628,
+        "gapPct": 9.737948681198949
       },
-      "anchor": "2026-08-28",
+      "anchor": "2026-09-04",
       "anchorKind": "weekly"
     },
     {
@@ -157,13 +161,13 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "Nasdaq 26402.42 vs EMA20W 25531.11",
+      "detail": "Nasdaq 26506.99 vs EMA20W 25624.05",
       "values": {
-        "close": 26402.42,
-        "ema20": 25531.112897499228,
-        "gapPct": 3.4127266837087813
+        "close": 26506.99,
+        "ema20": 25624.05357392787,
+        "gapPct": 3.4457328288234077
       },
-      "anchor": "2026-08-28",
+      "anchor": "2026-09-04",
       "anchorKind": "weekly"
     }
   ],
@@ -171,37 +175,37 @@
     {
       "source": "FRED:DTWEXBGS",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS&cosd=2023-01-01",
-      "fetchedAt": "2026-08-31T16:30:20.625Z",
+      "fetchedAt": "2026-09-07T12:35:02.549Z",
       "licence": "public-domain"
     },
     {
       "source": "FRED:DGS10",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2023-01-01",
-      "fetchedAt": "2026-08-31T16:30:20.627Z",
+      "fetchedAt": "2026-09-07T12:35:02.546Z",
       "licence": "public-domain"
     },
     {
       "source": "FRED:M2SL",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=M2SL&cosd=2023-01-01",
-      "fetchedAt": "2026-08-31T16:30:20.629Z",
+      "fetchedAt": "2026-09-07T12:35:02.554Z",
       "licence": "public-domain"
     },
     {
       "source": "FRED:NASDAQCOM",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQCOM&cosd=2023-01-01",
-      "fetchedAt": "2026-08-31T16:30:20.628Z",
+      "fetchedAt": "2026-09-07T12:35:02.551Z",
       "licence": "public-domain"
     },
     {
       "source": "Yahoo:BTC-USD",
       "url": "chart/BTC-USD?interval=1d",
-      "fetchedAt": "2026-08-31T16:30:20.812Z",
+      "fetchedAt": "2026-09-07T12:35:02.564Z",
       "licence": "quote-display"
     },
     {
       "source": "Yahoo:GC=F",
       "url": "chart/GC=F?interval=1d",
-      "fetchedAt": "2026-08-31T16:30:21.009Z",
+      "fetchedAt": "2026-09-07T12:35:02.585Z",
       "licence": "quote-display"
     }
   ]
