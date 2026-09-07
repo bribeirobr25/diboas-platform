@@ -48,6 +48,35 @@ Legal's LC-RR-01-10 list names five deterministic invariants that no CI job asse
 
 **Boundary these rows honor:** CI asserts hard invariants only. No gate above claims licensing, classification, suitability, or eligibility judgment (Q-LEG-5) — those stay human. Related rows already LIVE and not restated here: the `VALUE_EGRESS` regex over the closed event union, the WG-1 calendar-anchored credit suite, the GENIUS stablecoin wall (web + sandbox), and the CN/RU/KP geofence middleware.
 
+## Canon intake 2026-09-07 — Legal + Product gates registered (PLANNED / UNENFORCED until the implementation phase)
+
+**Authority registration (Legal P1-01 satisfied here):** `LC-RR-01` v1.0.2, `LC-PUI-02` (incl. its §10 gate list and acceptance tests `LC-PUI-AT-01..18`) and `LC-TD-02` (targeted disposition, 2026-09-07) are the Legal enforcement contract for `apps/sandbox`. The Product/UIUX Development Handoff v1.0 + targeted decisions P-Q1..P-Q3 are the Product contract. Local-only sources: `docs/full-view/canon/`. The rows below are registered per this file's own rule (an unbuilt gate is listed as PLANNED, never left invisible); **none is built yet — building them is implementation-phase work, each gate sabotage-proven before it counts, and no gate claims a licensing, suitability or eligibility judgment (Q-LEG-5).**
+
+| Gate | What it would make impossible | Source |
+| --- | --- | --- |
+| **G-01** | A Practice surface implying conversion, withdrawal, transfer, payout or a token expectation (extends the LIVE `VALUE_EGRESS` regex to i18n + copy) | LC-PUI-02 §10 (1) |
+| **G-02** | A behavioural Practice Reward — any Practice event carrying `reward_qualifying = true` | LC-PUI-02 §10 (2); T&R guardrails §4 |
+| **G-03** | A funding / deposit / wallet / KYC incentive in code or copy (supersedes the narrower CI-N2) | LC-PUI-02 §10 (3) |
+| **G-04** | An automatic Practice → Real / KYC / funding transition (= CI-N1) | LC-PUI-02 §10 (4) |
+| **G-05** | Modelled value entering an actual balance or goal progress (= CI-N3) | LC-PUI-02 §10 (5) |
+| **G-06** | Community public enablement without its gate (content, profiles, interaction, data, Growth mechanisms) | LC-PUI-02 §10 (6); F-04 |
+| **G-07** | Raw Goal text / images / exact amounts / Decision Memory in analytics payloads, URLs, query strings or referrers | LC-PUI-02 §10 (7); `INSTRUMENTATION_CONTRACT.md` |
+| **G-08** | A consent-dependent analytics tag firing before the affirmative `LEGAL-ANALYTICS` choice | LC-PUI-02 §10 (8); LC-TD-02 §4.3 |
+| **G-09** | A Real execution state or call reachable from the pre-authorization journey; any Real route reachable in production while the internal flag is off | LC-PUI-02 §10 (9); F-18 |
+| **G-10** | A blocked material claim shipping in any locale (= CI-N4) | LC-PUI-02 §10 (10) |
+| **LB-01** | Any import, route, fixture or build step serving the archived 2026-07-22 legal drafts | LC-TD-02 §10.8 |
+| **LB-02** | Public-release build with an unfilled `[BRACKETED_LEGAL_VARIABLE]` in rendered legal copy (`docs/sandbox-app/legal-current/PRACTICE_LEGAL_VARIABLES.yaml` is the variable register) | LC-TD-02 §8, §10.8 |
+| **LB-03** | Public-release build exposing a locale whose Terms / Privacy documents are missing or marked `PENDING LEGAL-CONTROLLED TRANSLATION` | LC-TD-02 §7, §10.8 |
+| **LB-04** | `LEGAL-TERMS` or `LEGAL-AGE` rendered preselected, or bundled into one control | LC-TD-02 §4.1, §10.8 |
+| **LB-05** | Consent-dependent analytics before affirmative choice (same invariant as G-08, asserted at the release gate) | LC-TD-02 §10.8 |
+| **LB-06** | A Terms / age / analytics record without document id, version, locale, timestamp and resulting state | LC-TD-02 §4.3, §10.8 |
+| **GF-1** | The configured blocked-country set drifting from exactly `CN / RU / KP` (a targeted exact-set test on `apps/sandbox/src/config/geofence.ts`; do not rename symbols for it) | LC-TD-02 §2.3 |
+| **AT-set** | `LC-PUI-AT-01..18` — Legal's acceptance tests for the Practice build; mapped to executable checks in the implementation plan | LC-PUI-02 |
+| **CID-1** | A template-composed i18n id (`` `move.${a.id}` ``-style) whose key is missing from any locale (the 2026-08-25 `/move` defect class) | PENDING_ALL 5.156 |
+| **CUR-1** | A currency literal keyed by locale instead of the ledger currency (`move.withdrawFeePer` class) | PENDING_ALL 5.160 |
+
+**Composition rule:** the LIVE rows named above (`VALUE_EGRESS`, GENIUS wall, geofence middleware, WG-1 credit suite) are not restated; G-rows extend them. Before the implementation phase authorises building any row here, it stays `PLANNED / UNENFORCED` and this file says so.
+
 ## Change discipline
 
 Adding a quality claim to CLAUDE.md or the standards? Add its enforcement row here in the same PR — or an UNENFORCED row with a disposition. CI composition changes (workflows, validators, lint promotions) update this file in the same PR. The registry is audited (all rows re-verified at source) whenever a domain's tooling changes.

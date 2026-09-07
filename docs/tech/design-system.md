@@ -204,7 +204,7 @@ These are the **Tailwind utility** breakpoints (the `sm:`/`md:`/… class prefix
 ### Interaction
 
 - Focus indicators on all interactive elements
-- Minimum 44px touch targets
+- Touch targets ≥ 24×24 CSS px **with spacing** (WCAG 2.5.8; the `CLAUDE.md` rule, incl. range sliders and adjacent controls); 44px stays the comfortable default for primary actions. Not caught by pa11y — review-time check
 - Keyboard navigation support
 - Screen reader labels
 
