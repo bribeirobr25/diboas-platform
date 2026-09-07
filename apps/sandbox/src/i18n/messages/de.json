@@ -260,6 +260,21 @@
     "walletNote": "Connecting a wallet only signs you in. No funds move.",
     "legal": "Lies jederzeit unsere <terms>Nutzungsbedingungen</terms> und <privacy>Datenschutzerklärung</privacy>."
   },
+  "legalReadiness": {
+    "step": "Entry · 1 of 2",
+    "title": "Bevor du startest",
+    "subtitle": "Review the essentials. Optional choices stay optional.",
+    "requiredBadge": "Required",
+    "termsHeading": "Terms of Use",
+    "terms": "Ich akzeptiere die Nutzungsbedingungen für diBoaS Practice.",
+    "informationBadge": "Information",
+    "privacy": "Datenschutzhinweise — Erfahre, wie diBoaS deine Daten verarbeitet und schützt.",
+    "age": "Ich bestätige, dass ich mindestens 18 Jahre alt bin.",
+    "optionalBadge": "Optional",
+    "analytics": "Optionale Produktanalyse zulassen, um diBoaS zu verbessern. Du kannst diese Auswahl jederzeit ändern.",
+    "optionalNote": "Optional · Not required to continue",
+    "continue": "Continue"
+  },
   "consent": {
     "title": "Bevor du startest",
     "intro": "Wir bitten um deine Einwilligung, damit diBoaS so funktioniert, wie du es erwartest.",

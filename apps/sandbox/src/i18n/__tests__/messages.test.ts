@@ -52,10 +52,22 @@ describe('message key parity (the app-local validate:translations, G-1)', () => 
   });
 });
 
+/** Keys whose value is byte-for-byte Legal-owned copy (docs/sandbox-app/legal-current/). */
+const EXACT_LEGAL_COPY = new Set([
+  'legalReadiness.terms',
+  'legalReadiness.privacy',
+  'legalReadiness.age',
+  'legalReadiness.analytics',
+]);
+
 describe('anti-slop punctuation guard (checklist Part 2, baked in as a test)', () => {
   it('should contain no em-dashes in any user-facing string', () => {
     for (const locale of SANDBOX_LOCALES) {
       for (const [id, msg] of Object.entries(getMessages(locale))) {
+        // Legal-approved EXACT copy is not subject to the house style guard:
+        // LC-TD-02 §4.2 fixes the LEGAL-PRIVACY string with an em-dash in all
+        // four locales, and the lane may not alter Legal copy (I-0b).
+        if (EXACT_LEGAL_COPY.has(id)) continue;
         expect(msg.includes('—'), `${locale}:${id} contains an em-dash`).toBe(false);
       }
     }

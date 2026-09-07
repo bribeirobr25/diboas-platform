@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { SANDBOX_LOCALES, WALLET_NOTE_LOCALES } from '../config';
+import { LEGAL_READINESS_LOCALES, SANDBOX_LOCALES, WALLET_NOTE_LOCALES } from '../config';
 import { getMessages } from '../loadMessages';
 
 /**
@@ -39,6 +39,18 @@ const SHARED_BY_DESIGN = (key: string) =>
  */
 const GATED_PENDING_AUTHORITY: { key: string; renderedIn: readonly string[] }[] = [
   { key: 'authWelcome.walletNote', renderedIn: WALLET_NOTE_LOCALES },
+  // I-0b Legal readiness chrome (Product EN-03A copy, English only so far). The
+  // four Legal control strings are NOT listed: LC-TD-02 approved them ×4.
+  ...[
+    'step',
+    'subtitle',
+    'requiredBadge',
+    'informationBadge',
+    'optionalBadge',
+    'termsHeading',
+    'optionalNote',
+    'continue',
+  ].map((k) => ({ key: `legalReadiness.${k}`, renderedIn: LEGAL_READINESS_LOCALES })),
 ];
 const isGated = (key: string) => GATED_PENDING_AUTHORITY.some((g) => g.key === key);
 
