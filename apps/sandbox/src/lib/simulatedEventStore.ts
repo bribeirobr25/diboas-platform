@@ -9,7 +9,12 @@
 import { SIMULATED_EVENT_CATALOGUE_VERSION } from '@/config/simulatedEventCatalogue';
 
 import { Logger } from './monitoring/Logger';
-const STORAGE_KEY = 'diboas.sandbox.simulatedEvents.v1';
+import { ACTIVE_LEDGER_SCOPE, scopedStorageKey } from './scope';
+
+// Scope-bound (I-1): a resolution record belongs to one ledger. Losing one
+// would let an answered event fire again and move money twice — see `scope.ts`
+// for why the sandbox scope keeps the unsuffixed key.
+const STORAGE_KEY = scopedStorageKey('diboas.sandbox.simulatedEvents.v1', ACTIVE_LEDGER_SCOPE);
 
 export interface SimulatedEventResolution {
   eventInstanceId: string;

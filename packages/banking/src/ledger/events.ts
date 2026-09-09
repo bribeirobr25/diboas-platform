@@ -10,6 +10,23 @@
 
 export type JobBucket = 'floor' | 'cushion' | 'working';
 
+/**
+ * The ledger SCOPE — which of an account's two independent ledgers an event
+ * belongs to (I-1, plan r2 §2; decision D-03).
+ *
+ * Deliberately named `scope`, NOT `mode`: `LedgerState.mode` already exists and
+ * means `'b2c' | 'b2b'`, and `TimeAdvanced.source` already burns the word
+ * `'real'` for elapsed-calendar-time settlement. A second `mode` with different
+ * semantics in the same domain is the naming hazard P5 forbids (map §③.2 CTO
+ * F1; PENDING_ALL 5.167 item 4).
+ *
+ * `'sandbox'` is Practice (play money, ledger-is-truth). `'real'` is Real Money
+ * (chain-is-truth; the ledger is a record/read-model, never the balance of
+ * record). Nothing in I-1 produces a `'real'` event — the scope exists so the
+ * two can never be conflated once Real parity is built behind its flag.
+ */
+export type LedgerScope = 'sandbox' | 'real';
+
 export interface EventBase {
   eventId: string;
   /** Simulated day index (0 = genesis day). */
@@ -17,6 +34,24 @@ export interface EventBase {
   /** Wall-clock ISO timestamp when the event was recorded (telemetry only). */
   recordedAt: string;
   correlationId: string;
+  /**
+   * Which ledger this event belongs to. **OPTIONAL on purpose** (decision
+   * D-04): every event written before I-1 lacks it, and an event-sourced log
+   * may never be rewritten — so absence is read as `'sandbox'` via `scopeOf()`
+   * and no historical event is migrated on disk. New events always carry it.
+   */
+  ledgerScope?: LedgerScope;
+}
+
+/**
+ * The read-time scope of an event: legacy events (written before I-1) have no
+ * `ledgerScope` and are Practice by definition, because Real never existed when
+ * they were written. Read through this accessor, never off the raw field — a
+ * bare `e.ledgerScope === 'sandbox'` check silently excludes every legacy event
+ * and would under-report a returning user's own money (an R-4 violation).
+ */
+export function scopeOf(event: EventBase): LedgerScope {
+  return event.ledgerScope ?? 'sandbox';
 }
 
 /** Play money granted at first run (D-4: 10K B2C / 250K B2B, local currency). */

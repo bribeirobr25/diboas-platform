@@ -9,36 +9,56 @@ import { oneOfEachLog } from '../../../test/ledgerFixture';
  * global `event_id` UNIQUE (dedup), `owner_key` scoping, `seq` ordering, and
  * the JSONB round-trip (payload is stringified on write, parsed on read — so
  * serialization fidelity is genuinely exercised, incl. the `source?` case).
+ *
+ * I-1 adds `ledger_scope` (migrations `003`/`004`). The mock models it as a
+ * real column with its `DEFAULT 'sandbox'` semantics, so the tests below prove
+ * the (owner_key, ledger_scope) pair actually reaches every statement — a mock
+ * that ignored the parameter would let a cross-scope DELETE pass silently,
+ * which is precisely the D-m failure this increment exists to prevent.
  */
-function makeMockSql(): { sql: SqlExecutor; rowCount: () => number } {
-  const rows: { seq: number; eventId: string; ownerKey: string; payload: string }[] = [];
+interface MockRow {
+  seq: number;
+  eventId: string;
+  ownerKey: string;
+  payload: string;
+  ledgerScope: string;
+}
+
+function makeMockSql(): { sql: SqlExecutor; rows: () => MockRow[] } {
+  const rows: MockRow[] = [];
   let seq = 1;
   const sql: SqlExecutor = async (strings, ...values) => {
     const q = strings.join(' ? ');
     if (q.includes('INSERT INTO ledger_events')) {
-      const [eventId, ownerKey, , payload] = values as [string, string, string, string];
+      const [eventId, ownerKey, , payload, ledgerScope] = values as [
+        string,
+        string,
+        string,
+        string,
+        string,
+      ];
       // ON CONFLICT (event_id) DO NOTHING — event_id is globally UNIQUE.
       if (!rows.some((r) => r.eventId === eventId)) {
-        rows.push({ seq: seq++, eventId, ownerKey, payload });
+        rows.push({ seq: seq++, eventId, ownerKey, payload, ledgerScope });
       }
       return [];
     }
     if (q.includes('SELECT payload FROM ledger_events')) {
-      const [ownerKey] = values as [string];
+      const [ownerKey, ledgerScope] = values as [string, string];
       return rows
-        .filter((r) => r.ownerKey === ownerKey)
+        .filter((r) => r.ownerKey === ownerKey && r.ledgerScope === ledgerScope)
         .sort((a, b) => a.seq - b.seq)
         .map((r) => ({ payload: JSON.parse(r.payload) })); // simulate jsonb parse on read
     }
     if (q.includes('DELETE FROM ledger_events')) {
-      const [ownerKey] = values as [string];
+      const [ownerKey, ledgerScope] = values as [string, string];
       for (let i = rows.length - 1; i >= 0; i--)
-        if (rows[i].ownerKey === ownerKey) rows.splice(i, 1);
+        if (rows[i].ownerKey === ownerKey && rows[i].ledgerScope === ledgerScope) rows.splice(i, 1);
       return [];
     }
     throw new Error(`mock sql: unrecognized query: ${q}`);
   };
-  return { sql, rowCount: () => rows.length };
+  return { sql, rows: () => [...rows] };
 }
 
 const base = (id: string) => ({
@@ -93,9 +113,50 @@ describe('PostgresLedgerStore (P1.2 slice 1b)', () => {
     expect(await a.getAll()).toHaveLength(1);
     expect((await a.getAll())[0].eventId).toBe('e1');
     expect((await b.getAll())[0].eventId).toBe('b-e1');
-    await a.clear();
+    await a.clearScope();
     expect(await a.getAll()).toHaveLength(0);
-    expect(await b.getAll()).toHaveLength(1); // clear is owner-scoped
+    expect(await b.getAll()).toHaveLength(1); // clearScope is owner-scoped
+  });
+
+  it('should default to the sandbox scope and write it as a column (D-04)', async () => {
+    const { sql, rows } = makeMockSql();
+    const store = new PostgresLedgerStore('owner-a', sql);
+    expect(store.scope).toBe('sandbox');
+    await store.append(oneOfEach[0]);
+    expect(rows()[0].ledgerScope).toBe('sandbox');
+  });
+
+  it('should scope reads to ledger_scope as well as owner_key', async () => {
+    const { sql } = makeMockSql();
+    const practice = new PostgresLedgerStore('owner-a', sql, 'sandbox');
+    const real = new PostgresLedgerStore('owner-a', sql, 'real');
+    await practice.append(oneOfEach[0]);
+    await real.append({ ...oneOfEach[0], eventId: 'r-e1', ledgerScope: 'real' });
+
+    expect((await practice.getAll()).map((e) => e.eventId)).toEqual(['e1']);
+    expect((await real.getAll()).map((e) => e.eventId)).toEqual(['r-e1']);
+  });
+
+  it("D-m: clearScope on the practice ledger leaves the same owner's real ledger intact", async () => {
+    const { sql } = makeMockSql();
+    const practice = new PostgresLedgerStore('owner-a', sql, 'sandbox');
+    const real = new PostgresLedgerStore('owner-a', sql, 'real');
+    await practice.append(oneOfEach[0]);
+    await real.append({ ...oneOfEach[0], eventId: 'r-e1', ledgerScope: 'real' });
+
+    await practice.clearScope();
+
+    expect(await practice.getAll()).toHaveLength(0);
+    expect((await real.getAll()).map((e) => e.eventId)).toEqual(['r-e1']);
+  });
+
+  it('should reject an event belonging to another scope before it reaches SQL', async () => {
+    const { sql, rows } = makeMockSql();
+    const practice = new PostgresLedgerStore('owner-a', sql, 'sandbox');
+    await expect(
+      practice.append({ ...oneOfEach[0], eventId: 'leak', ledgerScope: 'real' })
+    ).rejects.toThrow(/ledger scope violation/);
+    expect(rows()).toHaveLength(0); // nothing was written
   });
 
   it('C-P0 store guard: getAll returns the log complete, in seq order, deduplicated, and reconcile() holds', async () => {

@@ -13,7 +13,11 @@
  */
 
 import { Logger } from './monitoring/Logger';
-const STORAGE_KEY = 'diboas.sandbox.proposalDeclines.v1';
+import { ACTIVE_LEDGER_SCOPE, scopedStorageKey } from './scope';
+
+// Scope-bound (I-1): a decline belongs to one ledger. See `scope.ts` for why
+// the sandbox scope keeps the unsuffixed key.
+const STORAGE_KEY = scopedStorageKey('diboas.sandbox.proposalDeclines.v1', ACTIVE_LEDGER_SCOPE);
 
 let memoryFallback: number[] = [];
 
