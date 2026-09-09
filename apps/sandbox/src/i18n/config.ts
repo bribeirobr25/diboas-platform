@@ -94,6 +94,15 @@ export const PLAY_MONEY_GRANT = {
 export const WALLET_NOTE_LOCALES: readonly SandboxLocale[] = ['en'];
 
 /**
+ * Legal readiness screen (I-0b) — locales whose CHROME wording (step label,
+ * subtitle, badges, headings) is authority-approved. The four Legal control
+ * strings are approved in all four locales (LC-TD-02 §4.2); the Product chrome
+ * exists in English only, so the route serves only these locales until the
+ * localized chrome arrives (F-6 locale completeness). Internal build only.
+ */
+export const LEGAL_READINESS_LOCALES: readonly SandboxLocale[] = ['en'];
+
+/**
  * The marketing site (apps/web, a separate app) hosts the canonical legal pages.
  * Sandbox legal links point here and open in a new tab. Locale-prefixed to match
  * the marketing site's [locale] routing.
