@@ -9,6 +9,7 @@
 - `CLAUDE.md` § Monitoring — one-page operating constraints
 - `docs/monitoring/INFRASTRUCTURE_GUIDE.md` — local-only, contains actual project IDs / dashboard links / rotation runbooks
 - `apps/web/.env.example` — env-var inline comments
+- `docs/tech/INSTRUMENTATION_CONTRACT.md` — the app (`apps/sandbox`, app.diboas.com) event contract; documentation only until the instrumentation runtime is authorized (2026-09-07)
 
 > **No sensitive data in this file.** DSN URLs, project IDs, key names, and dashboard bookmarks live in `INFRASTRUCTURE_GUIDE.md` (local-only). This playbook describes the _shape_ of the configuration, not the values.
 
