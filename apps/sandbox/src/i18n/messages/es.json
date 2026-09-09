@@ -257,6 +257,7 @@
     "google": "Continuar con Google",
     "email": "Continuar con correo",
     "wallet": "Conectar billetera",
+    "walletNote": "Connecting a wallet only signs you in. No funds move.",
     "legal": "Consulta nuestros <terms>Términos</terms> y <privacy>Política de Privacidad</privacy> cuando quieras."
   },
   "consent": {

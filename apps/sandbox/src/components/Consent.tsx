@@ -13,7 +13,9 @@ import { submitConsent } from '@/app/[locale]/consent/actions';
 import { legalUrl } from '@/i18n/config';
 import styles from './Consent.module.css';
 
-type OptIn = 'financialProfile' | 'analytics' | 'marketing';
+/** Exported for the composed-id gate (CID-1): `consent.${id}Title|Body` resolve from here. */
+export const CONSENT_OPT_IN_IDS = ['financialProfile', 'analytics', 'marketing'] as const;
+type OptIn = (typeof CONSENT_OPT_IN_IDS)[number];
 
 const OPTIONS: { id: OptIn; icon: string }[] = [
   { id: 'financialProfile', icon: 'user' },

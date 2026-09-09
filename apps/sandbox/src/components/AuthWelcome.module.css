@@ -157,6 +157,16 @@
   flex: none;
 }
 
+.walletNote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2xs);
+  margin: var(--spacing-xs) 0 0;
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
 .legal {
   margin: var(--spacing-2xs) 0 0;
   text-align: center;

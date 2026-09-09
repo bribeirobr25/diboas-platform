@@ -7,7 +7,7 @@ import { LucideIcon } from './LucideIcon';
 import { ThemeToggle } from './ThemeToggle';
 import { Wordmark } from './Wordmark';
 import { startOnboarding } from '@/app/[locale]/welcome/actions';
-import { legalUrl } from '@/i18n/config';
+import { legalUrl, WALLET_NOTE_LOCALES } from '@/i18n/config';
 import styles from './AuthWelcome.module.css';
 
 type Method = 'google' | 'email' | 'wallet';
@@ -90,6 +90,16 @@ export function AuthWelcome({ locale }: { locale: string }) {
             </button>
           ))}
         </div>
+
+        {/* EN-02 wallet-authentication boundary (Product handoff §3 · LC-PUI-02 §3):
+            signing in with a wallet moves nothing. Rendered only in locales whose
+            wording is authority-approved (WALLET_NOTE_LOCALES — correction 2). */}
+        {(WALLET_NOTE_LOCALES as readonly string[]).includes(locale) ? (
+          <p className={styles.walletNote}>
+            <LucideIcon name="wallet" size={14} />
+            <FormattedMessage id="authWelcome.walletNote" />
+          </p>
+        ) : null}
 
         <p className={styles.legal}>
           <FormattedMessage

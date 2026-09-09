@@ -89,10 +89,15 @@ export interface AffordableOptions {
   splitGoalIds: string[];
 }
 
+/** The catalogue's option keys; exported for the composed-id gate (CID-1):
+ *  `simEvent.option.${option}` / `simEvent.optionNote.${option}` resolve from here. */
+export const SIM_EVENT_OPTION_KEYS = ['coverFromAvailable', 'useReserve', 'split'] as const;
+export type SimEventOptionKey = (typeof SIM_EVENT_OPTION_KEYS)[number];
+
 /** One option's honest before/after — the impact preview's whole content. */
 export interface ExpenseImpact {
   /** The option key, matching the catalogue's `optionKeys`. */
-  option: 'coverFromAvailable' | 'useReserve' | 'split';
+  option: SimEventOptionKey;
   /** Split only: the bounds the user's amount must sit inside. */
   bounds?: SplitBounds;
   /**

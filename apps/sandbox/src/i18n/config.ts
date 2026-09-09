@@ -83,6 +83,17 @@ export const PLAY_MONEY_GRANT = {
 } as const;
 
 /**
+ * EN-02 wallet-authentication disclosure — locales in which the line may be
+ * publicly rendered. Strategy Canon correction 2 (2026-09-07): the disclosure is
+ * exposed in a locale ONLY when a materially equivalent localized wording has
+ * been supplied or approved under Product / Brand / Legal copy authority; the
+ * lane never invents de / es / pt-BR wording to complete the increment. The
+ * catalogs carry the English line for key parity, and `untranslated.test.ts`
+ * asserts the gate matches (a locale added here must have approved wording).
+ */
+export const WALLET_NOTE_LOCALES: readonly SandboxLocale[] = ['en'];
+
+/**
  * The marketing site (apps/web, a separate app) hosts the canonical legal pages.
  * Sandbox legal links point here and open in a new tab. Locale-prefixed to match
  * the marketing site's [locale] routing.
