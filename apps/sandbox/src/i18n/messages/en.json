@@ -652,7 +652,6 @@
     "waitingBody": "Neither Available nor a goal holds enough to cover it, and practice money never goes below zero. It stays here until it can be handled.",
     "noneTitle": "Nothing to handle",
     "noneBody": "No practice scenario is waiting for you right now.",
-    "backHome": "Back to home",
     "name": "An unexpected expense",
     "confirmTitle": "Confirm how you handle it",
     "manifest.event": "Practice scenario",
@@ -693,5 +692,9 @@
     "cyclesCompleted": "{count, plural, one {# weekly cycle} other {# weekly cycles}} settled.",
     "viewHistory": "View the full trail",
     "practiceOnly": "This is play money. Nothing here becomes real money."
+  },
+  "notFound": {
+    "title": "This page isn't here.",
+    "backHome": "Back to home"
   }
 }

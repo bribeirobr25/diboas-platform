@@ -144,7 +144,7 @@ export function SimulatedEventScreen({ locale }: { locale: SandboxLocale }) {
           <FormattedMessage id="simEvent.noneBody" />
         </p>
         <Button variant="secondary" fullWidth onClick={() => router.push(`/${locale}`)}>
-          <FormattedMessage id="simEvent.backHome" />
+          <FormattedMessage id="notFound.backHome" />
         </Button>
       </section>
     );

@@ -1,0 +1,44 @@
+/**
+ * The not-found surface. Deliberately the APP's ordinary calm, not the
+ * geofence page's full-bleed ink treatment: a mistyped URL is not a legal
+ * refusal, and dressing it like one would overstate what happened.
+ *
+ * Tokens only, and only tokens that exist — the first draft of this file
+ * invented five names (`--sb-space-6`, `--sb-text`, …) that are nowhere in the
+ * token files, which the 2026-09-11 pass caught before it shipped.
+ */
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: var(--spacing-lg);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  align-items: flex-start;
+  text-align: left;
+  max-width: 27rem;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+  color: var(--sb-text-heading);
+}
+
+.link {
+  min-height: var(--sb-tap); /* WCAG 2.5.8 touch target */
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--sb-accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}

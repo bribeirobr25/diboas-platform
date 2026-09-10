@@ -1,6 +1,8 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { NextRequest } from 'next/server';
 import { middleware } from '../middleware';
+
+const GATED = ['handle-claim', 'practice-record'];
 
 /**
  * The edge middleware's two duties and — the part worth a test — their ORDER.
@@ -141,5 +143,59 @@ describe('the geofence decides FIRST — the covenant this reordering could have
     for (const country of ['BR', 'DE', 'US', 'PT', 'ES', 'GB', 'CH', 'HK', 'TW', 'BY', 'IR']) {
       expect(middleware(request('/en/welcome', { country })).status).toBe(200);
     }
+  });
+});
+
+describe('a capability that is off is refused BEFORE anything renders (5.270)', () => {
+  afterEach(() => {
+    delete process.env.PRACTICE_ACCOUNTS_ENABLED;
+  });
+
+  it.each(GATED)('should rewrite /%s to the localized 404 with a REAL 404 status', (segment) => {
+    /**
+     * The defect this closes: the page-level `notFound()` fires and the screen
+     * never renders, but `(app)/layout.tsx` is async (`await cookies()`), so the
+     * document has already begun streaming — headers are sent and the status
+     * stays 200. A soft 404 tells crawlers and monitors the page exists.
+     * Middleware is the only layer structurally earlier than a layout.
+     */
+    const res = middleware(request(`/de/${segment}`));
+    expect(res.status).toBe(404);
+    expect(target(res)).toBe('/de/missing');
+    // A rewrite, never a redirect: the visitor keeps the URL they asked for.
+    expect(res.headers.get('location')).toBeNull();
+  });
+
+  it('should refuse in the language that was asked for', () => {
+    for (const locale of ['en', 'de', 'es', 'pt-BR']) {
+      expect(target(middleware(request(`/${locale}/handle-claim`)))).toBe(`/${locale}/missing`);
+    }
+  });
+
+  it('should let the routes THROUGH once the capability is explicitly enabled (P-Q2)', () => {
+    // Preserve capability, not placement: the flag opens the door again, and
+    // the screens render as built. A permanent block here would delete a
+    // capability the register requires to survive.
+    process.env.PRACTICE_ACCOUNTS_ENABLED = 'true';
+    for (const segment of GATED) {
+      const res = middleware(request(`/en/${segment}`));
+      expect(res.status).toBe(200); // NextResponse.next()
+      expect(res.headers.get('x-middleware-rewrite')).toBeNull();
+    }
+  });
+
+  it('should not refuse a route that merely CONTAINS a gated name', () => {
+    // Segment equality, not substring: `/en/handle-claim-history` is not the
+    // gated route and must not be swallowed by it.
+    const res = middleware(request('/en/handle-claim-history'));
+    expect(res.status).toBe(200);
+  });
+
+  it('should still let the GEOFENCE decide first, even on a gated route', () => {
+    // Ordering again: a refused country asking for a gated path must get the
+    // 451, not the 404 — the covenant outranks the capability.
+    const res = middleware(request('/de/handle-claim', { country: 'CN' }));
+    expect(res.status).toBe(451);
+    expect(target(res)).toBe('/de/unavailable');
   });
 });

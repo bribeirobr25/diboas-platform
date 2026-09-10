@@ -652,7 +652,6 @@
     "waitingBody": "Ni lo Disponible ni una meta tienen suficiente para cubrirlo, y el dinero de práctica nunca baja de cero. Se queda aquí hasta que se pueda resolver.",
     "noneTitle": "Nada que resolver",
     "noneBody": "Ahora mismo no hay ningún escenario de práctica esperándote.",
-    "backHome": "Volver al inicio",
     "name": "Un gasto inesperado",
     "confirmTitle": "Confirma cómo lo resuelves",
     "manifest.event": "Escenario de práctica",
@@ -693,5 +692,9 @@
     "cyclesCompleted": "{count, plural, one {# ciclo semanal resuelto} other {# ciclos semanales resueltos}}.",
     "viewHistory": "Ver el historial completo",
     "practiceOnly": "Esto es dinero de práctica. Nada de aquí se convierte en dinero real."
+  },
+  "notFound": {
+    "title": "Esta página no existe.",
+    "backHome": "Volver al inicio"
   }
 }

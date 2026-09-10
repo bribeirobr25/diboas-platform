@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { can, type Capability } from '@/lib/capabilities';
 import { shouldBlock, localeFromPathname } from '@/config/geofence';
 import { detectSandboxLocale, LOCALE_COOKIE } from '@/i18n/config';
 
@@ -9,6 +10,8 @@ import { detectSandboxLocale, LOCALE_COOKIE } from '@/i18n/config';
  *    (CN/RU/KP) never reaches the gate page, the interior, or the API.
  * 2. **Bare-path locale entry (`1c`, `5.203`)** — `/` picks a language and
  *    redirects into it.
+ * 3. **Capability refusal (`5.270`)** — a route whose capability is off is
+ *    refused HERE, before anything renders.
  *
  * The order is load-bearing: the geofence must decide first, or a blocked
  * visitor would be handed a redirect into the app before being refused.
@@ -46,6 +49,34 @@ function localeEntryRedirect(req: NextRequest): NextResponse {
   return NextResponse.redirect(url);
 }
 
+/**
+ * Routes whose capability refusal must be decided BEFORE the response starts.
+ *
+ * `5.270`: the page-level `if (!isPracticeAccountsEnabled()) notFound()` works —
+ * the screen never renders — but `(app)/layout.tsx` is `async` and `await
+ * cookies()`, so the document has already begun streaming by the time the page
+ * throws. Headers are sent; the status stays **200**. A soft 404 tells crawlers
+ * and uptime monitors the page exists.
+ *
+ * Middleware is the only layer that is structurally earlier than a layout, so
+ * the refusal lands here as a real 404 — rewritten to the localized surface, the
+ * same shape the geofence already uses for its 451.
+ *
+ * The page-level check STAYS. Two enforcement points at different altitudes is
+ * defence in depth, not duplication: both ask the ONE registry, and the page
+ * check is what the existing tests exercise directly.
+ */
+const CAPABILITY_GATED: ReadonlyArray<{ segment: string; capability: Capability }> = [
+  { segment: 'handle-claim', capability: 'practiceAccounts' },
+  { segment: 'practice-record', capability: 'practiceAccounts' },
+];
+
+/** The last path segment, so `/de/handle-claim` and `/handle-claim` both match. */
+function lastSegment(pathname: string): string {
+  const parts = pathname.split('/').filter(Boolean);
+  return parts[parts.length - 1] ?? '';
+}
+
 export function middleware(req: NextRequest): NextResponse {
   const enabled = process.env.SANDBOX_GEO_ENABLED !== 'false'; // D8 kill-switch (default on)
   if (shouldBlock(detectedCountry(req), enabled)) {
@@ -60,6 +91,16 @@ export function middleware(req: NextRequest): NextResponse {
 
   // Refused visitors never get here, so the redirect cannot precede the block.
   if (req.nextUrl.pathname === '/') return localeEntryRedirect(req);
+
+  const gated = CAPABILITY_GATED.find(
+    ({ segment }) => lastSegment(req.nextUrl.pathname) === segment
+  );
+  if (gated && !can(gated.capability)) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/${localeFromPathname(req.nextUrl.pathname)}/missing`;
+    // A rewrite keeps the URL the visitor asked for; the status is the truth.
+    return NextResponse.rewrite(url, { status: 404 });
+  }
 
   return NextResponse.next();
 }
