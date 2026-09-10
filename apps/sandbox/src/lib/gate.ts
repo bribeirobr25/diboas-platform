@@ -12,6 +12,7 @@
  * methods) replace it at Stage 1 behind the same "who may enter" seam.
  */
 
+import { can } from '@/lib/capabilities';
 import crypto from 'crypto';
 
 export const SANDBOX_GATE_COOKIE = 'diboas-sandbox-gate';
@@ -39,7 +40,7 @@ function getPassword(): string | null {
  * returns with no other change.
  */
 export function isPublicAccess(): boolean {
-  return process.env.SANDBOX_PUBLIC_ACCESS === 'true';
+  return can('publicAccess');
 }
 
 export function isGateConfigured(): boolean {
@@ -81,7 +82,11 @@ export function verifyGateCookie(cookieValue: string | undefined | null): boolea
  * relaxes it for that testing case only. NEVER set it in a deployed env.
  */
 export function gateCookieOptions() {
-  const allowInsecure = process.env.SANDBOX_GATE_ALLOW_INSECURE === 'true';
+  /* `5.228` — through the registry, which REFUSES this flag on every Vercel
+     deployment, preview included. The docstring above always said "NEVER set it
+     in a deployed env"; until 1b nothing enforced it, so the promise rested on
+     configuration discipline. */
+  const allowInsecure = can('insecureGateCookie');
   return {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production' && !allowInsecure,
