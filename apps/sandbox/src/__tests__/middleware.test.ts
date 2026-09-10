@@ -66,6 +66,42 @@ describe('the bare path picks a language (1c, 5.203)', () => {
     expect(target(middleware(request('/', { cookie: '../evil' })))).toBe('/en');
   });
 
+  it('should carry the query string into the localized path', () => {
+    /**
+     * A BEHAVIOUR CHANGE found by the 2026-09-10 audit, pinned so it is a
+     * decision rather than an accident. The deleted `app/page.tsx` called
+     * `redirect(`/${locale}`)`, which DROPPED the query — so a shared link
+     * carrying `?utm_source=…` lost its attribution at the front door.
+     * `req.nextUrl.clone()` preserves it. Same origin either way: the URL is
+     * cloned from the request and only its pathname is replaced.
+     */
+    const res = middleware(request('/?utm_source=x&ref=y'));
+    const to = new URL(res.headers.get('location') ?? '');
+    expect(to.pathname).toBe('/en');
+    expect(to.search).toBe('?utm_source=x&ref=y');
+  });
+
+  it('should resolve every hostile locale input to a same-origin path from the closed set', () => {
+    // Principle 8: the cookie and `Accept-Language` are untrusted input feeding
+    // a redirect. `detectSandboxLocale` returns only one of four literals, so
+    // there is no open-redirect or header-injection surface — asserted rather
+    // than assumed, because the redirect target is attacker-adjacent.
+    for (const value of ['//evil.com', '../../etc/passwd', 'https://evil.com', '%2F%2Fevil.com']) {
+      const res = middleware(request('/', { cookie: value }));
+      const to = new URL(res.headers.get('location') ?? '');
+      expect(to.origin).toBe(BASE);
+      expect(['/en', '/de', '/es', '/pt-BR']).toContain(to.pathname);
+    }
+  });
+
+  it('should be unable to receive a CRLF-injected cookie in the first place', () => {
+    // The header-injection case cannot even be CONSTRUCTED: the platform's
+    // `Headers` refuses a value containing CRLF, so the defence sits below this
+    // code rather than in it. Asserted so the reasoning is on record — an
+    // untested claim of "not possible" is just a claim.
+    expect(() => request('/', { cookie: 'en\r\nX-Injected: 1' })).toThrow();
+  });
+
   it('should leave every already-localized path alone', () => {
     // The redirect is for `/` only; anything else must fall through to routing.
     for (const path of ['/en', '/de/welcome', '/pt-BR/goals', '/api/health']) {

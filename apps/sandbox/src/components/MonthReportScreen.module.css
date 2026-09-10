@@ -217,18 +217,6 @@
   color: var(--sb-text-muted);
 }
 
-.srOnly {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 /* "Nothing moved" and similar quiet facts — stated, never dressed up. */
 .quietNote {
   margin: 0;

@@ -64,12 +64,31 @@ export function MoneyOut() {
 
   return (
     <section className={styles.wrap} aria-labelledby="move-title">
+      {/*
+        The screen's heading, and the region's accessible name.
+
+        Both were missing. `/move` was the ONE screen of fourteen with no
+        heading element at all, so heading navigation landed on nothing — and
+        `aria-labelledby="move-title"` pointed at the balance NUMBER, which made
+        the region's accessible name literally "0.00". A value is not a label,
+        and an amount announced with no noun is the very thing the labelled-
+        amount rule exists to prevent.
+
+        Visually hidden rather than shown: every other screen carries a visible
+        title, but this one's approved design leads with the balance card, and
+        changing that is a design decision this fix has no mandate for. The copy
+        is the destination's own existing name (`nav.move`, present in all four
+        locales) — no new string is authored here.
+      */}
+      <h1 id="move-title" className="srOnly">
+        <FormattedMessage id="nav.move" />
+      </h1>
       <div className={styles.balanceCard}>
         <div className={styles.balanceText}>
           <span className={styles.balanceLabel}>
             <FormattedMessage id="move.balance" />
           </span>
-          <span id="move-title" className={styles.balance}>
+          <span className={styles.balance}>
             <FormattedNumber
               value={balance.toNumber()}
               minimumFractionDigits={2}

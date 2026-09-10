@@ -225,3 +225,25 @@ button {
   outline: 2px solid var(--sb-accent);
   outline-offset: 2px;
 }
+
+/**
+ * Visually hidden, still announced — the accessible-name utility.
+ *
+ * Defined ONCE here. It previously existed as four byte-identical copies in
+ * BottomSheet / MonthReport / RulesBuilder / TimeMachine module files (principle
+ * 4), and a fifth was about to be added for `/move`. `clip` is kept alongside
+ * the 1px box because it is the pattern with the widest assistive-tech support;
+ * `display:none` and `visibility:hidden` would remove the text from the
+ * accessibility tree entirely, which is the opposite of the intent.
+ */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
