@@ -261,7 +261,7 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
                     className={market < 0 ? styles.changeDown : styles.changeUp}
                     data-direction={market < 0 ? 'down' : 'up'}
                   >
-                    <span className={styles.srOnly}>
+                    <span className="srOnly">
                       <FormattedMessage
                         id={market < 0 ? 'timeMachine.down' : 'timeMachine.up'}
                       />{' '}

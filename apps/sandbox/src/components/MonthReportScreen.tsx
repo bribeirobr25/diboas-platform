@@ -158,7 +158,7 @@ export function MonthReportScreen({ locale }: { locale: SandboxLocale }) {
         </p>
         <p className={down ? styles.heroValueDown : styles.heroValue}>
           {flat ? null : (
-            <span className={styles.srOnly}>
+            <span className="srOnly">
               <FormattedMessage id={down ? 'monthReport.wordDown' : 'monthReport.wordUp'} />{' '}
             </span>
           )}

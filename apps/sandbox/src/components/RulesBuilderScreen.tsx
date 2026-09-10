@@ -170,7 +170,7 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
                     <span className={styles.rowNum} aria-hidden>
                       {i + 1}
                     </span>
-                    <label className={styles.srOnly} htmlFor={selectId}>
+                    <label className="srOnly" htmlFor={selectId}>
                       {intl.formatMessage({ id: 'rules.destinationLabel' }, { n: i + 1 })}
                     </label>
                     <select

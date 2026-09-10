@@ -108,7 +108,7 @@ export function BottomSheet({
           {dismissible ? (
             <button ref={closeRef} type="button" className={styles.close} onClick={onClose}>
               <LucideIcon name="x" size={18} />
-              <span className={styles.srOnly}>
+              <span className="srOnly">
                 <FormattedMessage id="common.cancel" />
               </span>
             </button>
