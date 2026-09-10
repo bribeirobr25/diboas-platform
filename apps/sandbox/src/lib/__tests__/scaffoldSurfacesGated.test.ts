@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { isPracticeAccountsEnabled } from '@/lib/capabilities';
+import HandleClaimPage from '@/app/[locale]/(app)/handle-claim/page';
+import PracticeRecordPage from '@/app/[locale]/(app)/practice-record/page';
 
 /**
  * `5.201` + `5.202` — the two scaffold surfaces that made operational claims,
@@ -43,14 +45,47 @@ describe('the scaffold surfaces stay gated (5.201, 5.202)', () => {
     expect(isPracticeAccountsEnabled({ PRACTICE_ACCOUNTS_ENABLED: 'true' })).toBe(true);
   });
 
-  it.each(GATED_ROUTES)('should 404 %s unless the capability is enabled', (route) => {
-    const source = read(route);
-    // The route must consult the capability AND refuse when it is off. Both
-    // halves matter: importing the check without calling `notFound()` would
-    // read as gated while still rendering.
-    expect(source).toContain('isPracticeAccountsEnabled');
-    expect(source).toMatch(/if \(!isPracticeAccountsEnabled\(\)\) notFound\(\);/);
+  /**
+   * BEHAVIOURAL, not textual: invoke the route component with the flag off and
+   * require it to refuse. Next's `notFound()` throws a digest-tagged error, so
+   * a route that merely imported the check without calling it would resolve
+   * instead of throwing — and that is the exact half-fix this asserts against.
+   */
+  it('should REFUSE to render /handle-claim while the capability is off', async () => {
+    delete process.env.PRACTICE_ACCOUNTS_ENABLED;
+    await expect(
+      HandleClaimPage({ params: Promise.resolve({ locale: 'en' }) })
+    ).rejects.toThrowError(/NEXT_HTTP_ERROR_FALLBACK|NEXT_NOT_FOUND/);
   });
+
+  it('should REFUSE to render /practice-record while the capability is off', () => {
+    delete process.env.PRACTICE_ACCOUNTS_ENABLED;
+    expect(() => PracticeRecordPage()).toThrowError(/NEXT_HTTP_ERROR_FALLBACK|NEXT_NOT_FOUND/);
+  });
+
+  it('should RENDER both once the capability is explicitly enabled (the gate opens, P-Q2)', async () => {
+    process.env.PRACTICE_ACCOUNTS_ENABLED = 'true';
+    try {
+      // Preserve capability, not placement: with the flag on, both resolve to
+      // their real elements rather than refusing.
+      await expect(
+        HandleClaimPage({ params: Promise.resolve({ locale: 'en' }) })
+      ).resolves.toBeTruthy();
+      expect(PracticeRecordPage()).toBeTruthy();
+    } finally {
+      delete process.env.PRACTICE_ACCOUNTS_ENABLED;
+    }
+  });
+
+  it.each(GATED_ROUTES)(
+    'should keep the refusal explicit in %s (review-time readability)',
+    (route) => {
+      // The behavioural tests above are the guard; this one keeps the intent
+      // legible at the call site so a future reader sees the gate, not just a
+      // passing test.
+      expect(read(route)).toMatch(/if \(!isPracticeAccountsEnabled\(\)\) notFound\(\);/);
+    }
+  );
 
   it('should not link either surface from Profile while it cannot honour its claims', () => {
     const profile = read('components/ProfileScreen.tsx');
@@ -63,8 +98,10 @@ describe('the scaffold surfaces stay gated (5.201, 5.202)', () => {
   it('should keep the capability itself intact rather than deleting the screens (P-Q2)', () => {
     // Preserve capability, not placement: the components and routes still
     // exist and render as built once the flag is on.
-    expect(read('components/HandleClaim.tsx').length).toBeGreaterThan(0);
-    expect(read('components/PracticeRecord.tsx').length).toBeGreaterThan(0);
+    // The components still export their surfaces, and the routes still return
+    // them — a later cleanup cannot quietly delete the capability.
+    expect(read('components/HandleClaim.tsx')).toMatch(/export function HandleClaim/);
+    expect(read('components/PracticeRecord.tsx')).toMatch(/export function PracticeRecord/);
     for (const route of GATED_ROUTES) expect(read(route)).toMatch(/return <\w+/);
   });
 });

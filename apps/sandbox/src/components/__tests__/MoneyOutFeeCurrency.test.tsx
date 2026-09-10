@@ -2,9 +2,22 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { FEE_RATES } from '@diboas/banking';
 import { getMessages } from '@/i18n/loadMessages';
 import { grantPlayMoney, resetSandbox } from '@/lib/ledgerClient';
 import { MoneyOut } from '../MoneyOut';
+
+/**
+ * The expected figures are DERIVED from the fee constants and the worked base,
+ * not read off the rendered output (coding-standards rule 4). FE-1's cash-out
+ * rate is `FEE_RATES.ramp`; the example is worked against 100.
+ */
+const BASE = 100;
+const FEE = FEE_RATES.ramp.times(BASE).toNumber(); // 0.48 at FE-1's 0.48%
+
+/** What `useFormatters(currency)` must produce for a given ledger currency. */
+const expectMoney = (locale: string, currency: string, amount: number) =>
+  new Intl.NumberFormat(locale, { style: 'currency', currency }).format(amount);
 
 /**
  * `5.200` — the P0 CUR-1 defect, and the regression guard.
@@ -47,27 +60,32 @@ describe('the withdrawal-fee example follows the LEDGER currency (5.200)', () =>
     grantPlayMoney(10_000, 'EUR', 'b2c');
     openWithdrawSheet('en');
 
-    // The euro amounts must be present…
-    expect(screen.getByText(/€/)).toBeTruthy();
-    // …and no dollar figure may appear anywhere in the fee panel.
-    expect(screen.queryByText(/\$\s?0[.,]48/)).toBeNull();
-    expect(screen.queryByText(/\$\s?100/)).toBeNull();
+    // The EXACT derived figures, in the ledger's currency with the interface
+    // locale's number format — 0.48% of 100 = 0.48, and the base itself.
+    const rendered = document.body.textContent ?? '';
+    expect(rendered).toContain(expectMoney('en', 'EUR', FEE));
+    expect(rendered).toContain(expectMoney('en', 'EUR', BASE));
+    // …and no dollar figure may appear anywhere on the surface.
+    expect(rendered).not.toContain('$');
   });
 
   it('should state the fee in BRL when the ledger is BRL, even while the interface is German', () => {
     grantPlayMoney(10_000, 'BRL', 'b2c');
     openWithdrawSheet('de');
 
-    expect(screen.getByText(/R\$/)).toBeTruthy();
-    expect(screen.queryByText(/€\s?0,48/)).toBeNull();
+    const rendered = document.body.textContent ?? '';
+    expect(rendered).toContain(expectMoney('de', 'BRL', FEE));
+    expect(rendered).toContain(expectMoney('de', 'BRL', BASE));
+    expect(rendered).not.toContain('€');
   });
 
   it('should state the fee in USD when the ledger is USD, even while the interface is Portuguese', () => {
     grantPlayMoney(10_000, 'USD', 'b2c');
     openWithdrawSheet('pt-BR');
 
-    expect(screen.getByText(/\$/)).toBeTruthy();
-    expect(screen.queryByText(/R\$\s?0,48/)).toBeNull();
+    const rendered = document.body.textContent ?? '';
+    expect(rendered).toContain(expectMoney('pt-BR', 'USD', FEE));
+    expect(rendered).toContain(expectMoney('pt-BR', 'USD', BASE));
   });
 
   it('should carry NO currency symbol in the catalog string itself, in any locale', () => {

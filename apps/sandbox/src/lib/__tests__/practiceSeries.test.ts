@@ -77,14 +77,35 @@ describe('the practice value decomposition (5.199)', () => {
 
     const d = decomposePracticeValue(getLedgerState());
 
-    // The regression: the total change is NOT the market's contribution.
-    const totalChange = d.end - d.start;
-    expect(d.contributed).toBeGreaterThan(0);
-    expect(totalChange).toBeGreaterThan(d.market);
+    /**
+     * DERIVED from the cadence spec, not from running the code (rule 4).
+     * `recurringDepositDays` anchors the first deposit at `startSimDay + 30`
+     * and steps by `RECURRING_CADENCE_DAYS = 30`, so a 365-day advance from
+     * day 0 fires on days 30, 60 … 360 — **12 deposits**. At 200 each the
+     * user's own money is exactly 2,400.00. This is the same figure the audit
+     * row states independently ("user deposits are 2,400").
+     */
+    expect(d.contributed).toBeCloseTo(12 * 200, 2);
 
-    // What the screen must now be able to say: the market term alone, and the
-    // user's deposits alone — never one figure standing for both.
-    expect(d.market).not.toBeCloseTo(totalChange, 2);
+    /**
+     * And the defect the row quantifies: the deposits were **95% of the
+     * headline**. Asserting the SHARE is what pins the defect rather than its
+     * symptom — a market-only headline can never be dominated by deposits,
+     * because deposits are no longer in it.
+     */
+    const totalChange = d.end - d.start;
+    expect(d.contributed / totalChange).toBeGreaterThan(0.9);
+    expect(d.market / totalChange).toBeLessThan(0.1);
+
+    /**
+     * The market term must be exactly the accrual total the log carries —
+     * nothing else may reach it. Derived from the event log, independently of
+     * the decomposition under test.
+     */
+    const accrualSum = getLedgerState()
+      .events.filter((e) => e.type === 'AccrualApplied')
+      .reduce((sum, e) => sum + Number((e as { earnings: string }).earnings), 0);
+    expect(d.market).toBeCloseTo(accrualSum, 2);
   });
 
   it('should sum its terms to EXACTLY the change in the value line', () => {
@@ -112,7 +133,27 @@ describe('the practice value decomposition (5.199)', () => {
     exitPosition({ positionId, networkFeeLocal: 0 });
 
     const d = decomposePracticeValue(getLedgerState());
-    expect(d.exited).toBeGreaterThan(0);
+    /**
+     * DERIVED from the event log, independently of the decomposition under
+     * test: an exit removes exactly what the position held, which is its
+     * entry principal plus every accrual credited to it. `> 0` would pass
+     * under any wrong amount.
+     *
+     * (Note: this cannot be derived from `points` — the value line collapses
+     * a same-day accrual and exit into one point by design, so the pre-exit
+     * peak never appears there. Deriving it from the events instead is both
+     * independent and immune to that.)
+     */
+    const events = getLedgerState().events;
+    const principal = events
+      .filter((e) => e.type === 'StrategyEntered')
+      .reduce((sum, e) => sum + Number((e as { amount: string }).amount), 0);
+    const accruals = events
+      .filter((e) => e.type === 'AccrualApplied')
+      .reduce((sum, e) => sum + Number((e as { earnings: string }).earnings), 0);
+    expect(d.exited).toBeCloseTo(principal + accruals, 2);
+    // …and the whole position left, so the line ends at zero.
+    expect(d.end).toBeCloseTo(0, 2);
     expect(d.market + d.contributed + d.entered - d.exited).toBeCloseTo(d.end - d.start, 2);
     expect(d.identityHolds).toBe(true);
   });

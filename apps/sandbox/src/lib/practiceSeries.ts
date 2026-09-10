@@ -31,6 +31,8 @@ export interface ValuePoint {
  * never presented as growth.
  */
 export interface PracticeDecomposition {
+  /** The value line itself, stepped at every event that moved money. */
+  points: ValuePoint[];
   /** First point of the line, or 0 when there is no history. */
   start: number;
   /** Last point of the line, or 0 when there is no history. */
@@ -77,9 +79,7 @@ export function practiceValueSeries(state: LedgerState): ValuePoint[] {
  * describes. `practiceValueSeries` is kept as the thin line-only accessor its
  * existing callers use.
  */
-export function decomposePracticeValue(state: LedgerState): PracticeDecomposition & {
-  points: ValuePoint[];
-} {
+export function decomposePracticeValue(state: LedgerState): PracticeDecomposition {
   const perPosition = new Map<string, Decimal>();
   const points: ValuePoint[] = [];
   let simDay = 0;

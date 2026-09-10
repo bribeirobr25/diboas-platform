@@ -67,7 +67,7 @@ Enforces `BRAND_POSITIONING.md` §Voice & Tone → The Writing System, Lens 4 an
 2. **Never zero.** No progress indicator shows 0% where a step has already been completed. Momentum is real, not celebrated with emoji or hype. [UX-07]
 3. **Give first.** Real value is delivered before the first ask. (The hostage variant — a computed result hidden behind a signup — is veto row 15; score it there, not here.) [UX-08]
 4. **Number, not range.** Any figure that can be resolved to a single number is shown as one. A resolvable range is doubt, not transparency. [UX-47]
-5. **Specificity.** Round or vague figures ("low fees", "200+", "fast") are replaced with real measurements ("0.48%, capped at $250", "221", "two taps"). [UX-34, UX-46]
+5. **Specificity.** Round or vague figures ("low fees", "200+", "fast") are replaced with real measurements ("0.48%, no cap", "221", "two taps"). [UX-34, UX-46]
 6. **True thing sooner.** The fee appears before the button; the risk sits beside the choice it qualifies; the button carries the all-in total; the top objection is answered in one line where it arises, not in an FAQ. [UX-37, UX-39, UX-44, UX-52, UX-53]
 7. **Visible options.** Dropdowns are replaced by swatches, chips, or segmented controls wherever there are ≤5 choices. [UX-36]
 8. **Input method.** Sliders/wheels only for casual, one-time, bounded inputs; text fields, steppers or numeric keypads for precise or repeated entry. [UX-16]
