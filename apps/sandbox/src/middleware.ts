@@ -77,6 +77,32 @@ function lastSegment(pathname: string): string {
   return parts[parts.length - 1] ?? '';
 }
 
+/**
+ * The localized not-found surface. It has to be a real route to get a document
+ * shell and a correct `<html lang>` (see `missing/page.tsx` for why
+ * `not-found.tsx` cannot), which leaves it directly addressable — and a URL
+ * that returns `200` while saying *"this page isn't here"* denies its own
+ * existence. So a direct request is answered with the same page and a real
+ * `404`: the content is right either way, and the status stops lying.
+ *
+ * Self-rewriting is safe for the same reason the geofence's is: a rewrite does
+ * not re-invoke middleware, so this cannot loop.
+ */
+const MISSING_SEGMENT = 'missing';
+
+/** `/api/*` must never resolve to an HTML page. */
+function isApiPath(pathname: string): boolean {
+  return pathname === '/api' || pathname.startsWith('/api/');
+}
+
+/** The localized not-found surface with a truthful 404, in the asked-for language. */
+function missingResponse(req: NextRequest): NextResponse {
+  const url = req.nextUrl.clone();
+  url.pathname = `/${localeFromPathname(req.nextUrl.pathname)}/${MISSING_SEGMENT}`;
+  // A rewrite keeps the URL the visitor asked for; the status carries the truth.
+  return NextResponse.rewrite(url, { status: 404 });
+}
+
 export function middleware(req: NextRequest): NextResponse {
   const enabled = process.env.SANDBOX_GEO_ENABLED !== 'false'; // D8 kill-switch (default on)
   if (shouldBlock(detectedCountry(req), enabled)) {
@@ -92,15 +118,16 @@ export function middleware(req: NextRequest): NextResponse {
   // Refused visitors never get here, so the redirect cannot precede the block.
   if (req.nextUrl.pathname === '/') return localeEntryRedirect(req);
 
-  const gated = CAPABILITY_GATED.find(
-    ({ segment }) => lastSegment(req.nextUrl.pathname) === segment
-  );
-  if (gated && !can(gated.capability)) {
-    const url = req.nextUrl.clone();
-    url.pathname = `/${localeFromPathname(req.nextUrl.pathname)}/missing`;
-    // A rewrite keeps the URL the visitor asked for; the status is the truth.
-    return NextResponse.rewrite(url, { status: 404 });
-  }
+  // An API path is a data contract: refuse it as data, never as a rendered page.
+  if (isApiPath(req.nextUrl.pathname)) return NextResponse.next();
+
+  const segment = lastSegment(req.nextUrl.pathname);
+
+  const gated = CAPABILITY_GATED.find((entry) => entry.segment === segment);
+  if (gated && !can(gated.capability)) return missingResponse(req);
+
+  // Asked for directly: same page, honest status.
+  if (segment === MISSING_SEGMENT) return missingResponse(req);
 
   return NextResponse.next();
 }

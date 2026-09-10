@@ -199,3 +199,48 @@ describe('a capability that is off is refused BEFORE anything renders (5.270)', 
     expect(target(res)).toBe('/de/unavailable');
   });
 });
+
+describe('the not-found surface never lies about its own status (audit, 2026-09-11)', () => {
+  it.each(['en', 'de', 'es', 'pt-BR'])(
+    'should answer a direct /%s/missing with a real 404, not a 200',
+    (locale) => {
+      /**
+       * The page has to be a REAL route to get a document shell and a correct
+       * `<html lang>` (`not-found.tsx` cannot — see `missing/page.tsx`), which
+       * leaves it directly addressable. A URL that returns `200` while saying
+       * *"this page isn't here"* denies its own existence — the same class of
+       * untruth as `5.201`/`5.202`, one layer down: there the affordance lied,
+       * here the status line would.
+       */
+      const res = middleware(request(`/${locale}/missing`));
+      expect(res.status).toBe(404);
+      expect(target(res)).toBe(`/${locale}/missing`);
+      // Self-rewriting cannot loop: a rewrite does not re-invoke middleware —
+      // the same property the geofence relies on for `/unavailable`.
+      expect(res.headers.get('location')).toBeNull();
+    }
+  );
+
+  it('should never resolve an /api path to a rendered page', () => {
+    // An API path is a data contract. Rewriting `/api/handle-claim` to an HTML
+    // document would answer a data request with a page — wrong content type,
+    // and a shape no client could parse.
+    for (const path of ['/api/handle-claim', '/api/practice-record', '/api/missing']) {
+      const res = middleware(request(path));
+      expect(res.status).toBe(200); // NextResponse.next() — Next itself 404s it
+      expect(res.headers.get('x-middleware-rewrite')).toBeNull();
+    }
+  });
+
+  it('should keep /api reachable for the routes that DO exist', () => {
+    for (const path of ['/api/health', '/api/market']) {
+      expect(middleware(request(path)).headers.get('x-middleware-rewrite')).toBeNull();
+    }
+  });
+
+  it('should still refuse a blocked country on an /api path (the geofence outranks it)', () => {
+    // The `/api` skip is placed AFTER the geofence on purpose: data paths are
+    // exactly what a denylisted region must not reach.
+    expect(middleware(request('/api/health', { country: 'CN' })).status).toBe(451);
+  });
+});
