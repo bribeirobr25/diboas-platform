@@ -443,7 +443,7 @@
     "withdrawTitle": "Sacar",
     "withdrawBody": "Isso funciona no app real. No modo prática, o dinheiro fica no sandbox.",
     "withdrawFee": "Taxa de saque",
-    "withdrawFeePer": "R$0,48 por R$100",
+    "withdrawFeePer": "{fee} por {base}",
     "okay": "Entendi"
   },
   "comprehension": {

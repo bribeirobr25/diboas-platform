@@ -49,7 +49,11 @@ export function ProfileScreen({ locale }: { locale: SandboxLocale }) {
           value={notSet}
           desc="profile.handleDesc"
           chip={{ icon: 'globe', text: 'profile.handleChip' }}
-          editHref={`/${locale}/handle-claim`}
+          /* `5.201` — no edit affordance while the handle namespace does not
+             exist. The claim screen asserted availability, permanence and a
+             public link that nothing behind it could keep, so the row states
+             the field and offers nothing (P01 `P01-IA-03`: a visible
+             affordance is a claim). The link returns with the account model. */
         />
         <Field
           label="profile.nicknameLabel"
@@ -74,12 +78,9 @@ export function ProfileScreen({ locale }: { locale: SandboxLocale }) {
           sub="profile.privacySub"
           href={`/${locale}/settings`}
         />
-        <Row
-          icon="list"
-          title="profile.practiceRecord"
-          sub="profile.practiceRecordSub"
-          href={`/${locale}/practice-record`}
-        />
+        {/* `5.202` — unlinked while the practice record's public-visibility
+            toggle cannot persist. It read as a privacy control and was inert. */}
+        <Row icon="list" title="profile.practiceRecord" sub="profile.practiceRecordSub" />
       </ul>
     </section>
   );

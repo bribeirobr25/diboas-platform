@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Decimal from 'decimal.js';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { useLedger } from '@/hooks/useLedger';
+import { useFormatters } from '@/hooks/useFormatters';
 import { BottomSheet } from './BottomSheet';
 import { Button } from './Button';
 import { FEE_RATES } from '@diboas/banking';
@@ -22,6 +23,9 @@ type Action = (typeof MONEY_OUT_ACTIONS)[number];
 
 const ICON: Record<Action, string> = { add: 'plus', withdraw: 'upload' };
 const DISABLED: ReadonlySet<Action> = new Set<Action>(['withdraw']);
+/** The round number the fee example is worked against (`5.200`). A constant,
+ *  not a literal in the copy — the copy must never carry a currency amount. */
+const WORKED_EXAMPLE_BASE = new Decimal(100);
 
 /**
  * Move / money-out (R5; mockup 34; W-9c). The money families are present but
@@ -34,6 +38,14 @@ const DISABLED: ReadonlySet<Action> = new Set<Action>(['withdraw']);
  */
 export function MoneyOut() {
   const state = useLedger();
+  /* `5.200` — the withdrawal-fee example must be in the LEDGER's currency, not
+     the interface locale's. The currency is frozen at claim time and never
+     follows the interface language, which the LocaleSwitcher and Settings both
+     let the user change: claiming at /de then reading /en/move rendered
+     "$0.48 per $100" against a EUR ledger. Every other amount in this app
+     already goes through `useFormatters(state.currency)`; this one string was
+     the exception (the registered CUR-1 gate class). */
+  const { money } = useFormatters(state.currency);
   const [sheet, setSheet] = useState<Action | null>(null);
 
   // Total play money = all buckets + open positions + uninvested goal cash.
@@ -128,7 +140,16 @@ export function MoneyOut() {
                   />
                 </span>
                 <span className={styles.feePer}>
-                  <FormattedMessage id="move.withdrawFeePer" />
+                  {/* Worked example, derived: the rate from the constants, both
+                      amounts from the LEDGER currency. The catalogs supply only
+                      each locale's connector word, never a currency symbol. */}
+                  <FormattedMessage
+                    id="move.withdrawFeePer"
+                    values={{
+                      fee: money(FEE_RATES.ramp.times(WORKED_EXAMPLE_BASE).toFixed(2)),
+                      base: money(WORKED_EXAMPLE_BASE.toFixed(2)),
+                    }}
+                  />
                 </span>
               </span>
             </div>

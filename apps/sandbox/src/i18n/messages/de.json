@@ -443,7 +443,7 @@
     "withdrawTitle": "Auszahlen",
     "withdrawBody": "Das funktioniert in der echten App. Im Übungsmodus bleibt das Geld im Sandbox.",
     "withdrawFee": "Auszahlungsgebühr",
-    "withdrawFeePer": "0,48 € pro 100 €",
+    "withdrawFeePer": "{fee} pro {base}",
     "okay": "Okay"
   },
   "comprehension": {

@@ -28,7 +28,14 @@
   stroke-width: 1;
 }
 .area {
-  fill: var(--sb-accent-tint);
+  /* `--sb-card-tint`, NOT `--sb-accent-tint` — the same standing rule the
+     Sparkline and ApyChart modules already carry, and the third surface it had
+     to be applied to. The two tokens are the same teal-50 in light, so the
+     difference is invisible there, but only `card-tint` has a dark-theme
+     override: with `accent-tint` this area fill stayed near-white and painted a
+     pale blob across the dark card. `accent-tint` stays light on purpose — it
+     backs small icon badges, never a large surface. */
+  fill: var(--sb-card-tint);
 }
 .line {
   fill: none;

@@ -1,6 +1,7 @@
 // @vitest-environment happy-dom
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
+import { getMessages } from '@/i18n/loadMessages';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fixturePriceSeries } from '@diboas/defi';
 import {
@@ -35,35 +36,16 @@ vi.mock('@/hooks/useMarket', () => ({
   fetchHistories: async () => apy(400),
 }));
 
-const M = {
-  'goalsList.viewToggle': 'How much detail to show',
-  'goalDual.simple': 'Simple',
-  'goalDual.detailed': 'Detailed',
-  'timeMachine.title': 'Time machine',
-  'timeMachine.status': 'Historical simulation',
-  'timeMachine.simulationLabel': 'historical market-data simulation',
-  'timeMachine.advanceTime': 'Advance time',
-  'timeMachine.advanceMonth': '+1 month',
-  'timeMachine.advanceYear': '+1 year',
-  'timeMachine.meaningGrew': 'Over this stretch it grew, with some ups and downs along the way.',
-  'timeMachine.meaningFell':
-    'Over this stretch it fell. That happens, and it is what the market actually did.',
-  'timeMachine.meaningFlat': 'Over this stretch it stayed about where it started.',
-  'timeMachine.meaningNone': 'Put money to work first, then advance the clock.',
-  'timeMachine.excludes': 'Excludes your future contributions and weekly credits.',
-  'timeMachine.startDate': 'Start date',
-  'timeMachine.duration': 'Duration',
-  'timeMachine.durationDays': '{days} days',
-  'timeMachine.startValue': 'Start value',
-  'timeMachine.endValue': 'End value',
-  'timeMachine.change': 'Change',
-  'timeMachine.up': 'up',
-  'timeMachine.down': 'down',
-  'timeMachine.dayN': 'Day {day}',
-  'timeMachine.chartDescription':
-    'Practice value from {start} to {end}, {direction} overall, ranging {low} to {high}.',
-  'timeMachine.footnote': 'This simulation replays actual historical market data.',
-};
+/**
+ * The REAL catalog, not a stub (`5.199`).
+ *
+ * This file used to hand-build an abbreviated `M`, which made its copy
+ * assertions circular — they proved the element rendered whatever this file put
+ * in it, not that the shipped string appears. The same reasoning is written out
+ * in `AppChrome.test.tsx` for the R-4 disclosure. Emptying a key in the real
+ * catalog must fail these tests.
+ */
+const M = getMessages('en');
 
 const renderTM = () =>
   render(
@@ -113,7 +95,12 @@ describe('TimeMachineScreen — G8 (§4.8, mockup 17)', () => {
     // the summary cell and the chart's own description — so neither the red
     // figure nor the line's shape is load-bearing on its own.
     expect(screen.getAllByText(/\bdown\b/).length).toBeGreaterThanOrEqual(2);
-    expect(screen.getByText('Change')).toBeTruthy();
+    // `5.199`: the headline is the MARKET term, so the label names it. It used
+    // to read "Change", which stood for `end − start` — a figure that folded
+    // the user's own deposits in, directly above the words "excludes your
+    // future contributions".
+    expect(screen.getByText('Market change')).toBeTruthy();
+    expect(screen.queryByText('Change')).toBeNull();
     expect(screen.queryByText(/\bup\b/)).toBeNull(); // never both directions at once
   });
 
