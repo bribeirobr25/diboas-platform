@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import {
   can,
   CAPABILITIES,
+  isDeployment,
   isPracticeAccountsEnabled,
   isProductionDeployment,
   isRealParityInternal,
@@ -79,13 +80,45 @@ describe('the capability registry', () => {
     }
   });
 
-  it('should REFUSE the insecure gate cookie in production (5.228 — the genuinely unguarded hatch)', () => {
-    // It drops the `secure` flag so the Docker MCP browser can reach the app
-    // over plain http on a LAN IP. There is no lawful production use.
+  it('should REFUSE the insecure gate cookie in EVERY deployment, preview included (5.228)', () => {
+    /**
+     * The self-audit of `1b` found this: the first cut registered the hatch as
+     * `REFUSED_IN_PRODUCTION`, so a Vercel PREVIEW deployment still honoured
+     * it. Both `gate.ts`'s docstring and `.env.example` promise "NEVER set it
+     * in a deployed env" — and a preview IS a deployed env, on HTTPS, holding
+     * a real session cookie. The expectation here is derived from that written
+     * promise, not from what the code did.
+     */
+    for (const env of ['production', 'preview']) {
+      expect(
+        can('insecureGateCookie', { SANDBOX_GATE_ALLOW_INSECURE: 'true', VERCEL_ENV: env })
+      ).toBe(false);
+    }
+    // …and still ALLOWED locally, which is the whole reason the flag exists:
+    // the Docker MCP browser cannot reach localhost, only a plain-http LAN IP.
     expect(can('insecureGateCookie', { SANDBOX_GATE_ALLOW_INSECURE: 'true' })).toBe(true);
     expect(
-      can('insecureGateCookie', { SANDBOX_GATE_ALLOW_INSECURE: 'true', VERCEL_ENV: 'production' })
-    ).toBe(false);
+      can('insecureGateCookie', { SANDBOX_GATE_ALLOW_INSECURE: 'true', NODE_ENV: 'production' })
+    ).toBe(true); // a local `next start` is not a deployment
+  });
+
+  it('should count production and preview as deployments, and nothing else', () => {
+    expect(isDeployment({ VERCEL_ENV: 'production' })).toBe(true);
+    expect(isDeployment({ VERCEL_ENV: 'preview' })).toBe(true);
+    expect(isDeployment({ VERCEL_ENV: 'development' })).toBe(false); // `vercel dev`
+    expect(isDeployment({ NODE_ENV: 'production' })).toBe(false); // local `next start`
+    expect(isDeployment({})).toBe(false);
+  });
+
+  it('should let a PREVIEW deployment still carry real parity, which is what preview is for', () => {
+    // The two REFUSED policies are not the same rule: parity is refused in
+    // production only, the cookie hatch in every deployment. Asserting the
+    // difference keeps a future "simplification" from collapsing them.
+    expect(CAPABILITIES.realParityInternal.deployment).toBe('REFUSED_IN_PRODUCTION');
+    expect(CAPABILITIES.insecureGateCookie.deployment).toBe('REFUSED_IN_ANY_DEPLOYMENT');
+    expect(can('realParityInternal', { REAL_PARITY_INTERNAL: 'true', VERCEL_ENV: 'preview' })).toBe(
+      true
+    );
   });
 
   it('should REFUSE real parity in production (Legal: Real public availability = WAIT)', () => {
@@ -98,7 +131,7 @@ describe('the capability registry', () => {
   it('should still ALLOW practice accounts in production, because F-4 says OFF until clearance not never', () => {
     // The half of `5.228` that was WRONG. A permanent refusal here would
     // foreclose an activation that LC-TD-02 §9.3 explicitly contemplates.
-    expect(CAPABILITIES.practiceAccounts.production).toBe('REQUIRES_CLEARANCE');
+    expect(CAPABILITIES.practiceAccounts.deployment).toBe('REQUIRES_CLEARANCE');
     expect(
       can('practiceAccounts', { PRACTICE_ACCOUNTS_ENABLED: 'true', VERCEL_ENV: 'production' })
     ).toBe(true);
@@ -111,6 +144,21 @@ describe('the capability registry', () => {
       expect(spec.env).toMatch(/^[A-Z][A-Z0-9_]+$/);
       expect(spec.because.length).toBeGreaterThan(40);
     }
+  });
+
+  it('should document every registered capability in .env.example', () => {
+    /**
+     * The registry's claim is that it is the ONE place naming every capability
+     * — but the file an operator actually reads before setting anything is
+     * `.env.example`, and the `1b` self-audit found it named only two of the
+     * four. An undocumented flag is a capability nobody can find, which is the
+     * same failure the registry exists to prevent, one layer out.
+     */
+    const example = readFileSync(join(process.cwd(), '.env.example'), 'utf8');
+    const undocumented = (Object.keys(CAPABILITIES) as Capability[])
+      .map((c) => CAPABILITIES[c].env)
+      .filter((name) => !new RegExp(`^${name}=`, 'm').test(example));
+    expect(undocumented).toEqual([]);
   });
 
   it('should keep every registered flag out of raw process.env reads in app code', () => {

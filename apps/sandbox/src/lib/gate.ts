@@ -82,9 +82,10 @@ export function verifyGateCookie(cookieValue: string | undefined | null): boolea
  * relaxes it for that testing case only. NEVER set it in a deployed env.
  */
 export function gateCookieOptions() {
-  /* `5.228` — through the registry, which REFUSES this flag in production. The
-     docstring above always said "NEVER set it in a deployed env"; until 1b
-     nothing enforced it, so the promise rested on configuration discipline. */
+  /* `5.228` — through the registry, which REFUSES this flag on every Vercel
+     deployment, preview included. The docstring above always said "NEVER set it
+     in a deployed env"; until 1b nothing enforced it, so the promise rested on
+     configuration discipline. */
   const allowInsecure = can('insecureGateCookie');
   return {
     httpOnly: true,
