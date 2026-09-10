@@ -64,6 +64,8 @@ describe('scopedStorageKey (device-local derived stores)', () => {
       expect(scopedStorageKey(base, 'sandbox')).not.toBe(scopedStorageKey(base, 'real'));
   });
 
+  // D-r §3: a decline is remembered forever and never re-proposed ("no nag, ever"),
+  // so losing the decline record would re-present a proposal the user already refused.
   it('should keep an existing device reading its own proposal declines after the split', async () => {
     const { getDeclinedWeeks, recordDecline } = await import('../proposalStore');
     recordDecline([3]);
@@ -71,6 +73,8 @@ describe('scopedStorageKey (device-local derived stores)', () => {
     expect(getDeclinedWeeks()).toEqual([3]);
   });
 
+  // D-s §3 per-instance idempotency: the resolution record is what stops an already
+  // answered life event from firing again and moving money a second time.
   it('should keep an existing device reading its own simulated-event resolutions', async () => {
     const { getResolutions, recordResolution } = await import('../simulatedEventStore');
     recordResolution({
