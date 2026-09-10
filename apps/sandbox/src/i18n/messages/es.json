@@ -443,7 +443,7 @@
     "withdrawTitle": "Retirar",
     "withdrawBody": "Esto funciona en la app real. En modo práctica, el dinero se queda en el sandbox.",
     "withdrawFee": "Comisión de retiro",
-    "withdrawFeePer": "0,48 € por 100 €",
+    "withdrawFeePer": "{fee} por {base}",
     "okay": "De acuerdo"
   },
   "comprehension": {

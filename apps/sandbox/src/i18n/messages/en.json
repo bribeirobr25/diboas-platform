@@ -443,7 +443,7 @@
     "withdrawTitle": "Withdraw",
     "withdrawBody": "This works in the real app. In practice mode, money stays in the sandbox.",
     "withdrawFee": "Withdrawal fee",
-    "withdrawFeePer": "$0.48 per $100",
+    "withdrawFeePer": "{fee} per {base}",
     "okay": "Okay"
   },
   "comprehension": {
