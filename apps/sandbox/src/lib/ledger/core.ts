@@ -15,6 +15,7 @@
 
 import {
   LocalStorageLedgerStore,
+  migrateLegacyLedgerKey,
   project,
   type ILedgerStore,
   type LedgerEvent,
@@ -23,6 +24,7 @@ import {
 import { generateId } from '../ids';
 import { Logger } from '../monitoring/Logger';
 import { clearProposalDecisions } from '../proposalStore';
+import { ACTIVE_LEDGER_SCOPE } from '../scope';
 import { clearSimulatedEvents } from '../simulatedEventStore';
 
 type Listener = () => void;
@@ -41,8 +43,39 @@ let ready = false;
 let pendingPersist: Promise<void> = Promise.resolve();
 const listeners = new Set<Listener>();
 
+/**
+ * Move the pre-scope log onto the scoped key, ONCE, before any store is built.
+ *
+ * Ordering is load-bearing: `LocalStorageLedgerStore` reads its key in its
+ * constructor, so the migration has to finish first or the first boot after the
+ * scope split would hydrate an empty ledger and tell a returning user their
+ * practice history is gone (R-4). It is synchronous and self-verifying — it
+ * only deletes the old key after `project()` and `reconcile()` agree — so a
+ * failure leaves v1 in place and simply runs again next load.
+ */
+function migrateOnce(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const result = migrateLegacyLedgerKey(window.localStorage);
+    if (result.status !== 'noop') {
+      Logger.info('ledger key migration', {
+        status: result.status,
+        eventCount: result.eventCount,
+        detail: result.detail,
+      });
+    }
+  } catch (error) {
+    // The migration already handles its own failures; this catch exists so a
+    // storage exception can never stop the app from booting (P7 fail-open).
+    Logger.error('ledger key migration threw — continuing unmigrated', {}, error);
+  }
+}
+
 function getStore(): ILedgerStore {
-  if (!store) store = new LocalStorageLedgerStore();
+  if (!store) {
+    migrateOnce();
+    store = new LocalStorageLedgerStore(ACTIVE_LEDGER_SCOPE);
+  }
   return store;
 }
 
@@ -151,12 +184,21 @@ export function base(correlationId: string) {
   };
 }
 
+/**
+ * Reset THIS scope's practice ledger and nothing else.
+ *
+ * `clearScope()` is the D-m data-loss guard made structural: the store is bound
+ * to one scope at construction and the unscoped `clear()` no longer exists, so
+ * "reset Practice" has no expressible way to reach a Real ledger. The two
+ * derived stores cleared alongside it are scope-bound by the same rule
+ * (`lib/scope.ts`).
+ */
 export function resetSandbox(): void {
   clearProposalDecisions();
   clearSimulatedEvents();
   log = [];
   pendingPersist = pendingPersist
-    .then(() => getStore().clear())
+    .then(() => getStore().clearScope())
     .catch((error) => Logger.error('ledger clear failed', {}, error));
   emit();
 }
