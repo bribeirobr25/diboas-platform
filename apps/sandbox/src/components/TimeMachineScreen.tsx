@@ -7,7 +7,7 @@ import { useLedger } from '@/hooks/useLedger';
 import { useFormatters } from '@/hooks/useFormatters';
 import { fetchSeries } from '@/hooks/useMarket';
 import { advanceTime } from '@/lib/ledgerClient';
-import { classifyTrend, practiceValueSeries } from '@/lib/practiceSeries';
+import { classifyTrend, decomposePracticeValue } from '@/lib/practiceSeries';
 import { LucideIcon } from './LucideIcon';
 import { SegmentedToggle } from './SegmentedToggle';
 import { Sparkline } from './Sparkline';
@@ -45,14 +45,44 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
   const [view, setView] = useState<View>('simple');
   const [busy, setBusy] = useState(false);
 
-  const points = practiceValueSeries(state);
+  /**
+   * `5.199` — the headline is the MARKET term, not `end − start`.
+   *
+   * `end − start` folds the user's own recurring deposits and any principal
+   * that entered or left a strategy into one figure, and the screen states
+   * immediately below it that it *"excludes your future contributions"*. Both
+   * could not be true: a 200/month plan over a year made 2,400 of the user's
+   * own money 95% of a 2,520 "change", and the percentage was not a return.
+   *
+   * So the screen now renders the terms the domain derives, and it renders the
+   * split ONLY while the identity holds — `decomposePracticeValue` proves
+   * `market + contributed + entered − exited === end − start` to the cent
+   * before anything here claims to explain the figure (the `monthReport`
+   * contract). When it does not hold, the amounts still show and the
+   * explanation does not.
+   */
+  const decomposition = decomposePracticeValue(state);
+  const { points, start, end, market, contributed, entered, exited } = decomposition;
   const values = points.map((p) => p.value);
-  const start = values[0] ?? 0;
-  const end = values[values.length - 1] ?? 0;
   const trend = classifyTrend(start, end);
-  const changeAmount = end - start;
-  const changePercent = start > 0 ? (changeAmount / start) * 100 : 0;
   const hasHistory = points.length >= 2;
+  /**
+   * The user's own acts over the stretch — never presented as growth (UX-63).
+   * All three terms gate the percentage; only `contributed` is displayed, under
+   * the approved `goalDual.contributions` label. Entries and exits are position
+   * changes the value line already shows as steps, and claiming them as
+   * "contributions" would be a second, smaller overstatement.
+   */
+  const userMoved = contributed + entered - exited;
+  /**
+   * A percentage is a RETURN only when the exposed principal did not change
+   * mid-stretch. With deposits, entries or exits in the window an honest rate
+   * needs a time-weighted derivation, which is a methodology this lane has no
+   * authority to invent — so the figure is ABSENT rather than wrong, the same
+   * absent-over-false rule `GoalRow` already follows for pace claims.
+   */
+  const principalMoved = Math.abs(userMoved) > 0.005;
+  const marketPercent = !principalMoved && start > 0 ? (market / start) * 100 : null;
 
   /**
    * Advance the clock. The series are fetched per tap rather than held in
@@ -222,32 +252,49 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
                 </span>
                 <span className={styles.summaryCell}>
                   <span className={styles.summaryLabel}>
-                    <FormattedMessage id="timeMachine.change" />
+                    <FormattedMessage id="monthReport.source.marketChange" />
                   </span>
                   {/* The meaning is in the WORDS as well as the colour (batch-3
                       master block): a screen reader and a colour-blind reader
                       both get "down", not just a red pixel. */}
                   <span
-                    className={changeAmount < 0 ? styles.changeDown : styles.changeUp}
-                    data-direction={changeAmount < 0 ? 'down' : 'up'}
+                    className={market < 0 ? styles.changeDown : styles.changeUp}
+                    data-direction={market < 0 ? 'down' : 'up'}
                   >
                     <span className={styles.srOnly}>
                       <FormattedMessage
-                        id={changeAmount < 0 ? 'timeMachine.down' : 'timeMachine.up'}
+                        id={market < 0 ? 'timeMachine.down' : 'timeMachine.up'}
                       />{' '}
                     </span>
-                    {changeAmount < 0 ? '−' : '+'}
-                    {money(Math.abs(changeAmount).toFixed(2))}
-                    <span className={styles.changePercent}>
-                      {changeAmount < 0 ? '−' : '+'}
-                      {intl.formatNumber(Math.abs(changePercent), {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
-                      %
-                    </span>
+                    {market < 0 ? '−' : '+'}
+                    {money(Math.abs(market).toFixed(2))}
+                    {/* Absent over false: a percentage is only a return when the
+                        exposed principal held still (see `marketPercent`). */}
+                    {marketPercent !== null ? (
+                      <span className={styles.changePercent}>
+                        {marketPercent < 0 ? '−' : '+'}
+                        {intl.formatNumber(Math.abs(marketPercent), {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                        %
+                      </span>
+                    ) : null}
                   </span>
                 </span>
+                {/* The user's own money, stated as their own act rather than as
+                    growth — `monthReport` reports `movedIntoGoals` the same way,
+                    deliberately outside the figure it explains. Reuses the
+                    already-approved `goalDual.contributions` label (present in
+                    all four locales); this lane authors no user-facing copy. */}
+                {contributed > 0 ? (
+                  <span className={styles.summaryCell}>
+                    <span className={styles.summaryLabel}>
+                      <FormattedMessage id="goalDual.contributions" />
+                    </span>
+                    <span className={styles.summaryValue}>+{money(contributed.toFixed(2))}</span>
+                  </span>
+                ) : null}
               </div>
             </>
           ) : (
