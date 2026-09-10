@@ -144,3 +144,84 @@ describe('locale collisions can only fall', () => {
     for (const c of KNOWN_COLLISIONS) expect(c.why.length).toBeGreaterThan(30);
   });
 });
+
+/**
+ * CUR-1 at the WORD level — the residue the symbol guard above does not cover.
+ *
+ * Found on 2026-09-11 by reading `/month` in dark mode and noticing *"Every
+ * dollar is explained below"* on a screen whose ledger may be EUR or BRL. The
+ * symbol sweep is clean, but a currency NAME in copy is the same defect: the
+ * sentence's currency follows the interface language while the ledger's is
+ * frozen at claim time.
+ *
+ * The corpus is NOT clean here, so this is an allow-list ratchet — the known
+ * set may only shrink, and anything new fails. Each entry says what it is,
+ * because the group is not homogeneous:
+ *
+ * - `rules.subtitle` is the real one: literal, per-locale, and attached to a
+ *   money-movement instruction (four locales, four different currencies).
+ * - the other three are the idiom "every cent/dollar of it" meaning
+ *   *completely*. Lower severity, listed rather than hidden — and the key
+ *   literally named `everyDollar` invites the next author to hardcode.
+ *
+ * ⚑ NOT in scope, deliberately: `pathCard.riskStable`'s "digital dollars" is a
+ * factual description of USDC, Legal-reviewed, and must not be reworded.
+ */
+const CURRENCY_WORDS: Record<string, RegExp> = {
+  en: /\b(dollars?|euros?|cents?)\b/i,
+  de: /\b(Euros?|Dollars?|Cents?)\b/,
+  es: /\b(euros?|dólares?|centavos?)\b/i,
+  'pt-BR': /\b(reais|centavos?|dólares?|euros?)\b/i,
+};
+
+/** Keys allowed to name a currency, with why. `rules.subtitle` is the defect. */
+const CURRENCY_WORD_ALLOWLIST: ReadonlySet<string> = new Set([
+  'rules.subtitle', // ⚑ REGISTERED 5.272 — the real one; founder copy call
+  'monthReport.everyDollar', // idiom "every cent"; key name is itself a smell
+  'home.monthNote', // idiom "every dollar of it"
+  'history.subtitle', // idiom "every cent accounted for"
+  'pathCard.riskStable', // FACTUAL: USDC is a digital dollar. Do not reword.
+  'pathCard.pathLine', // pt-BR "protocolos reais" — "real" as in genuine
+  'common.playDisclaimer',
+  'common.frameCaption',
+  'projection.caveat',
+  'move.practiceNote',
+  'timeMachine.footnote',
+  'rules.previewBasis',
+]);
+
+describe('CUR-1 residue — currency WORDS in copy can only decrease', () => {
+  it('should name no NEW key that puts a currency word in user-facing copy', () => {
+    const offenders: string[] = [];
+    for (const locale of SANDBOX_LOCALES) {
+      const pattern = CURRENCY_WORDS[locale];
+      for (const [key, value] of Object.entries(catalog(locale))) {
+        if (pattern.test(value) && !CURRENCY_WORD_ALLOWLIST.has(key)) {
+          offenders.push(`${locale}: ${key} = ${value.slice(0, 60)}`);
+        }
+      }
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it('should still find the known instances, so the ratchet is not vacuous', () => {
+    /**
+     * Scope of this check, stated precisely because a sabotage run showed my
+     * first description of it was wrong: it asserts the key is still a hit in
+     * AT LEAST ONE locale. Fixing `rules.subtitle` in English alone therefore
+     * does NOT fail it — which is the behaviour we want, since the allow-list
+     * entry must survive until every locale is fixed. It is not a per-locale
+     * ratchet, and claiming otherwise would be the very over-claim this audit
+     * corrected in CUR-1's registry row.
+     */
+    const found = new Set<string>();
+    for (const locale of SANDBOX_LOCALES) {
+      const pattern = CURRENCY_WORDS[locale];
+      for (const [key, value] of Object.entries(catalog(locale))) {
+        if (pattern.test(value)) found.add(key);
+      }
+    }
+    expect(found.has('rules.subtitle')).toBe(true);
+    expect(found.size).toBeGreaterThanOrEqual(4);
+  });
+});
