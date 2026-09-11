@@ -73,13 +73,25 @@
 
 /*
  * An unavailable destination stays VISIBLE and legible — Spec §23 prefers a
- * controlled unavailable surface over "an unexplained dead icon", and where an
- * item must stay inert its reason rides in the accessible name. So this is
- * muted, never hidden, and never so faint that it reads as broken chrome.
+ * controlled unavailable surface over "an unexplained dead icon". Muted, never
+ * hidden, and never so faint that it reads as broken chrome.
+ *
+ * **There is deliberately no `opacity` here, and it must not come back.** It
+ * carried `opacity: 0.55`, which composited the label to **2.13:1** on the
+ * light tabbar and **2.78:1** on the dark one — measured in the browser, both
+ * failing AA. `--sb-text-muted` is 4.76:1 in light and 6.03:1 in dark, i.e.
+ * light sits almost exactly on the AA floor, so NO opacity below 1 keeps this
+ * legible in both themes (0.9 → 3.91 light). axe never reported it because axe
+ * skips `aria-disabled` items by design.
+ *
+ * The consequence is honest and deliberate: an inert destination cannot be made
+ * to read "unavailable" by contrast at all here. It is inert via `cursor`, no
+ * hover response and `aria-disabled`; how it should LOOK unavailable is a
+ * Product decision (rider on `5.288`) — and approving Learn's explainer copy
+ * dissolves the question, because Learn then navigates like Community.
  */
 .tab[data-disabled='true'] {
   color: var(--sb-text-muted);
-  opacity: 0.55;
   cursor: default;
 }
 

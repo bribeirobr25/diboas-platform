@@ -32,8 +32,11 @@ import styles from './BottomNavigation.module.css';
  * surface itself explains. `Learn` stays inert for now: F-04 wants it tappable
  * to an explainer, but no authority-approved explainer copy exists in the four
  * locales, and writing it here would be authoring Product copy. It renders as a
- * disabled item with an accessible explanation of WHY, which is the honest
- * interim (an affordance is a claim — `5.201`/`5.202`).
+ * disabled item — visible, labelled and inert — which is the honest interim (an
+ * affordance is a claim — `5.201`/`5.202`). It carries NO accessible
+ * explanation today: the reason would be authored copy, so `unavailableLabel`
+ * is left unset by `destinationsFor` and the accessible name is just the label.
+ * Supplying that reason in four locales is the registered gap `5.288`.
  */
 export interface Destination {
   readonly surface: ShellSurface;

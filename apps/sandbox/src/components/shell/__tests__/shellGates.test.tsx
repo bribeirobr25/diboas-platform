@@ -134,6 +134,45 @@ describe('SHELL-2 — a selected destination is never distinguishable by colour 
     expect(label, 'no rule thickens the selected label').toBeTruthy();
     expect(label).toMatch(/font-weight/);
   });
+
+  it('should not dim an inert destination below AA — no opacity on the tab bar or its items', () => {
+    /**
+     * A MEASURED defect, found by reading the live browser rather than the
+     * suite. The inert item carried `opacity: 0.55`, which composited its
+     * label to **2.13:1** on the light tab bar and **2.78:1** on the dark one.
+     * `--sb-text-muted` is 4.76:1 light / 6.03:1 dark by itself, so light sits
+     * almost exactly on the AA floor and NO opacity below 1 survives there
+     * (0.9 composites to 3.91).
+     *
+     * axe reported neither, because it skips `aria-disabled` items by design —
+     * which is why this is asserted here, against the stylesheet, instead of
+     * being left to the sweep. The general lesson from this increment applies:
+     * assert the thing that renders, and name the property being protected.
+     */
+    const css = readFileSync(join(SRC, 'components/shell/BottomNavigation.module.css'), 'utf8');
+    const stripped = css.replace(/\/\*[\s\S]*?\*\//g, '');
+
+    const blocks = [...stripped.matchAll(/([^{}]+)\{([^}]*)\}/g)].map((m) => ({
+      selector: m[1].trim(),
+      body: m[2],
+    }));
+
+    const dimmed = blocks.filter(({ body }) => {
+      const declared = /(?:^|[;\s])opacity:\s*([\d.]+)/.exec(body)?.[1];
+      return declared !== undefined && Number(declared) < 1;
+    });
+
+    expect(
+      dimmed.map((d) => d.selector),
+      'an opacity below 1 anywhere in the tab bar re-dims the inert label below AA'
+    ).toEqual([]);
+
+    // And the inert item still declares the muted role, so it stays legible
+    // rather than being "fixed" by dropping to the default ink.
+    const inert = blocks.find((b) => /\.tab\[data-disabled='true'\]$/.test(b.selector));
+    expect(inert, 'no rule styles the inert destination').toBeTruthy();
+    expect(inert?.body).toMatch(/color:\s*var\(--sb-text-muted\)/);
+  });
 });
 
 describe('SHELL-3 — no mode-mutating path, and the marker is never a control', () => {
