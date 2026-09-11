@@ -49,6 +49,20 @@
       "project": ["src/**/*.{ts,tsx}"]
     },
     "apps/sandbox": {
+      "entry": [
+        "src/app/**/page.tsx",
+        "src/app/**/layout.tsx",
+        "src/app/**/route.ts",
+        "src/app/**/loading.tsx",
+        "src/app/**/error.tsx",
+        "src/test/**",
+        "src/styles/**",
+        "src/**/*.stories.tsx",
+        ".storybook/*.{ts,tsx}",
+        "next.config.*",
+        "scripts/**"
+      ],
+      "project": ["src/**/*.{ts,tsx}", ".storybook/*.{ts,tsx}", "next.config.*", "scripts/**"],
       "ignore": ["src/lib/database/client.ts"]
     }
   }
