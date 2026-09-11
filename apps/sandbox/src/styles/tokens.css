@@ -286,6 +286,10 @@
 
   /* State — T0 only, never the mode ramp (§18) */
   --sb-state-success-subtle: var(--palette-teal-50);
+  /* A success STATE shown as text ("goal reached", "handle available"):
+     teal today, but from the palette, so a mode switch cannot make the
+     practice accent mean "good" (§18). */
+  --sb-state-success: var(--palette-teal-700);
   --sb-state-success-on-subtle: var(--palette-teal-700);
   --sb-state-warning: var(--palette-amber-800);
   --sb-state-warning-subtle: var(--palette-amber-100);
@@ -412,7 +416,7 @@
   /* Signal colours tuned for the dark ground: a loss figure must never be the
      least readable number on the screen. The warning PLATE stays light in dark
      so a notice still reads as a notice (its text token does not change). */
-  --sb-state-success-on-subtle: var(--palette-teal-700);
+  --sb-state-success: var(--palette-teal-400);
   --sb-state-warning: var(--palette-amber-400);
   --sb-state-warning-fill: var(--palette-amber-400);
   --sb-state-warning-on-fill: var(--palette-night-canvas);
@@ -460,7 +464,7 @@
     --sb-action-secondary-text: var(--sb-mode-400);
     --sb-action-inverse: var(--sb-mode-400);
 
-    --sb-state-success-on-subtle: var(--palette-teal-700);
+    --sb-state-success: var(--palette-teal-400);
     --sb-state-warning: var(--palette-amber-400);
     --sb-state-warning-fill: var(--palette-amber-400);
     --sb-state-warning-on-fill: var(--palette-night-canvas);

@@ -81,7 +81,7 @@
   align-items: center;
   gap: var(--spacing-2xs);
   margin: var(--spacing-2xs) 0 0;
-  color: var(--sb-text-accent);
+  color: var(--sb-state-success);
   font-size: var(--font-size-sm-plus);
   font-weight: var(--font-weight-medium);
 }

@@ -21,9 +21,9 @@
    read — but it stays calm (a teal wash, never a warning colour: an expense in
    a practice world is a prompt, not an alarm — veto row 10).
 
-   `--sb-card-tint`, NOT `--sb-accent-tint`. They are the same teal-50 in
-   light, which hides the difference: only `card-tint` has a dark-theme
-   override. `accent-tint` stays light on purpose — it backs small icon badges
+   `--sb-surface-accent`, NOT `--sb-mode-accent-subtle`. They are the same teal-50 in
+   light, which hides the difference: only `surface-accent` has a dark-theme
+   override. `mode-accent-subtle` stays light on purpose — it backs small icon badges
    whose teal glyph reads on a light circle in either theme. Used here it made
    the plate near-white in dark while the text stayed light-on-dark: headline
    1.07:1, eyebrow 1.78:1, note 2.61:1. Measured, not guessed. */

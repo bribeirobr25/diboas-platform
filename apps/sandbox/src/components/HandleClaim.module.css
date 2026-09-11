@@ -69,7 +69,7 @@
 }
 .available {
   margin: 0;
-  color: var(--sb-text-accent);
+  color: var(--sb-state-success);
   font-size: var(--font-size-sm-plus);
   font-weight: var(--font-weight-medium);
 }

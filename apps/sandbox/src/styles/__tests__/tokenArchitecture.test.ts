@@ -240,6 +240,7 @@ const TEXT_PAIRS: [string, string][] = [
   ['--sb-identity-available', '--sb-surface-primary'],
   ['--sb-identity-working', '--sb-surface-primary'],
   ['--sb-identity-emergency', '--sb-surface-primary'],
+  ['--sb-state-success', '--sb-surface-primary'],
 ];
 const GRAPHIC_PAIRS: [string, string][] = [
   ['--sb-mode-accent', '--sb-surface-primary'],
@@ -395,6 +396,30 @@ describe('components consume roles, and only roles', () => {
         .map((v) => `${file}: ${v}`)
     );
     expect(undefinedRefs).toEqual([]);
+  });
+
+  it('should not name, even in a comment, a token that no longer exists', () => {
+    // I-1d renamed the layer, and eight comments went on explaining their rule
+    // in terms of names that were gone. A comment that points at nothing is
+    // legacy documentation: it misleads the next reader exactly where they look.
+    const known = new Set([...BLOCKS.flatMap((b) => b.decls.map(([p]) => p)), ...RUNTIME_VARS]);
+    /** Comments that name a non-existent token ON PURPOSE, as recorded history. */
+    const HISTORY: Record<string, string[]> = {
+      'app/[locale]/missing/Missing.module.css': ['--sb-space-6', '--sb-text'],
+    };
+    const stale = CONSUMERS.flatMap(({ file, css }) =>
+      [...css.matchAll(/\/\*[\s\S]*?\*\//g)].flatMap((comment) =>
+        [
+          ...comment[0].matchAll(
+            /(?<![\w-])(--(?:sb|palette|color|text|editorial|accent|shadow|goal)-[\w-]+)/g
+          ),
+        ]
+          .map((m) => m[1])
+          .filter((name) => !known.has(name) && !(HISTORY[file] ?? []).includes(name))
+          .map((name) => `${file}: ${name}`)
+      )
+    );
+    expect(stale).toEqual([]);
   });
 
   it('should never reach past the roles into the palette or the mode ramp', () => {

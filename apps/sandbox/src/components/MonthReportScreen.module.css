@@ -51,9 +51,9 @@
   color: var(--sb-financial-positive);
 }
 /* A month that fell is amber, never alarm-red — a loss is a fact of the
-   month, not a failure (R-2 loss-no-shame). `--text-warning-accessible`, not
-   `--sb-warn-text`: this figure sits on the CARD, and the two roles need
-   different ramps (the warn-text token is the ink on the light amber notice
+   month, not a failure (R-2 loss-no-shame). `--sb-financial-negative`, not
+   `--sb-state-warning-on-subtle`: this figure sits on the CARD, and the two roles
+   need different ramps (the on-subtle token is the ink on the light amber notice
    plate, which stays light in dark mode by design). */
 .heroValueDown {
   color: var(--sb-financial-negative);
