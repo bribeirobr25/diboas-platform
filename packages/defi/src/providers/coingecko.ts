@@ -24,7 +24,7 @@ import type {
   ProtocolId,
   ProtocolPriceHistory,
 } from '../types';
-import { PROTOCOL_RETURN_MODEL, SANDBOX_MARKET_TTL_MS } from '../types';
+import { PROTOCOL_RETURN_MODEL, PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 
 const API_BASE = 'https://api.coingecko.com/api/v3';
 
@@ -62,15 +62,17 @@ const historyCache = new Map<string, { at: number; value: DatedPricePoint[] }>()
 export class CoinGeckoPriceProvider implements IPriceProvider {
   constructor(
     private readonly fetchImpl: typeof fetch = fetch,
-    private readonly apiKey: string | undefined = process.env.COINGECKO_API_KEY
+    private readonly apiKey: string | undefined = process.env.COINGECKO_API_KEY,
+    private readonly timeoutMs: number = PROVIDER_FETCH_TIMEOUT_MS
   ) {}
 
   async getPrices(assetIds: AssetId[], currency: DisplayCurrency): Promise<PriceQuote[]> {
     try {
-      const data = await this.fetchAll();
-      const asOf = new Date().toISOString();
+      const entry = await this.fetchAll();
+      // When fetched, not when served (Data Vintage P-4) — see defillama.ts.
+      const asOf = new Date(entry.at).toISOString();
       return assetIds.map((assetId) => {
-        const row = data[COINGECKO_IDS[assetId]];
+        const row = entry.value[COINGECKO_IDS[assetId]];
         const price = row?.[VS[currency]];
         if (typeof price !== 'number') throw new Error(`missing price ${assetId}/${currency}`);
         return { assetId, currency, price, stamp: { source: 'coingecko', asOf } };
@@ -85,19 +87,20 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
     }
   }
 
-  private async fetchAll(): Promise<Record<string, Record<string, number>>> {
-    if (priceCache && Date.now() - priceCache.at < PRICE_TTL_MS) return priceCache.value;
+  private async fetchAll(): Promise<CacheEntry> {
+    if (priceCache && Date.now() - priceCache.at < PRICE_TTL_MS) return priceCache;
     const ids = Object.values(COINGECKO_IDS).join(',');
     const vs = Object.values(VS).join(',');
     const headers: Record<string, string> = {};
     if (this.apiKey) headers['x-cg-demo-api-key'] = this.apiKey;
     const res = await this.fetchImpl(`${API_BASE}/simple/price?ids=${ids}&vs_currencies=${vs}`, {
       headers,
+      signal: AbortSignal.timeout(this.timeoutMs),
     });
     if (!res.ok) throw new Error(`coingecko ${res.status}`);
     const body = (await res.json()) as Record<string, Record<string, number>>;
     priceCache = { at: Date.now(), value: body };
-    return body;
+    return priceCache;
   }
 
   /**
@@ -117,32 +120,30 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
     const model = PROTOCOL_RETURN_MODEL[protocolId];
     try {
       if (model.kind !== 'market') throw new Error('not a market-priced leg');
-      const cached = historyCache.get(model.coingeckoId);
-      let points: DatedPricePoint[];
-      if (cached && Date.now() - cached.at < PRICE_TTL_MS) {
-        points = cached.value;
-      } else {
+      let entry = historyCache.get(model.coingeckoId);
+      if (!entry || Date.now() - entry.at >= PRICE_TTL_MS) {
         const headers: Record<string, string> = {};
         if (this.apiKey) headers['x-cg-demo-api-key'] = this.apiKey;
         const res = await this.fetchImpl(
           `${API_BASE}/coins/${model.coingeckoId}/market_chart?vs_currency=usd&days=365&interval=daily`,
-          { headers }
+          { headers, signal: AbortSignal.timeout(this.timeoutMs) }
         );
         if (!res.ok) throw new Error(`coingecko market_chart ${res.status}`);
         const body = (await res.json()) as { prices?: Array<[number, number]> };
         if (!Array.isArray(body.prices) || body.prices.length === 0) {
           throw new Error('coingecko market_chart: unexpected shape');
         }
-        points = body.prices.map(([ms, priceUsd]) => ({
+        const points: DatedPricePoint[] = body.prices.map(([ms, priceUsd]) => ({
           date: new Date(ms).toISOString().slice(0, 10),
           priceUsd,
         }));
-        historyCache.set(model.coingeckoId, { at: Date.now(), value: points });
+        entry = { at: Date.now(), value: points };
+        historyCache.set(model.coingeckoId, entry);
       }
       return {
         protocolId,
-        points: points.slice(-days),
-        stamp: { source: 'coingecko', asOf: new Date().toISOString() },
+        points: entry.value.slice(-days),
+        stamp: { source: 'coingecko', asOf: new Date(entry.at).toISOString() },
       };
     } catch {
       return {

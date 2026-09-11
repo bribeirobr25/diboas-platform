@@ -23,9 +23,33 @@ export interface DailyApySeries {
 
 const DAYS_PER_YEAR = 365;
 
+/**
+ * An APY reading the replay can use, or 0 when it cannot (`5.209`).
+ *
+ * `(1 + apy)^(1/365)` is defined only for apy > −100%: at −100 the factor is 0
+ * (the position is wiped out for good) and below it `Decimal.pow` returns NaN.
+ * DeFiLlama `/chart` history is not filtered for sign, so that input is
+ * reachable — and NaN does not stay local: it reaches `AccrualApplied.earnings`,
+ * is appended to the append-only log, and turns every balance and `reconcile()`
+ * into NaN on every future load, with no way to self-heal.
+ *
+ * An out-of-domain reading is treated as NO reading — 0% that day, the position
+ * holds its value — rather than an invented move in either direction: the same
+ * rule the flat fallback series already follows. Applied HERE, in the mapping,
+ * so the `ratesUsed` pinned onto the event still reproduces the earnings.
+ */
+function replayableApy(apyPercent: number | undefined): number {
+  return typeof apyPercent === 'number' && Number.isFinite(apyPercent) && apyPercent > -100
+    ? apyPercent
+    : 0;
+}
+
 /** Geometric daily growth factor from an annual APY percent. */
 export function dailyFactorFromApyPercent(apyPercent: Decimal.Value): Decimal {
-  const annual = new Decimal(apyPercent).div(100).plus(1);
+  const apy = new Decimal(apyPercent);
+  // Defence in depth for direct callers: outside the domain, no movement.
+  if (!apy.isFinite() || apy.lte(-100)) return new Decimal(1);
+  const annual = apy.div(100).plus(1);
   // (1 + apy)^(1/365)
   return annual.pow(new Decimal(1).div(DAYS_PER_YEAR));
 }
@@ -49,7 +73,7 @@ export function ratesForSpan(
     // Map sim day → series index so that `anchorDay` lands on the newest point
     // and each earlier day steps one point back (contiguous across segments).
     const idx = Math.max(0, Math.min(n - 1, n - 1 - (anchorDay - day)));
-    rates.push(series.points[idx] ?? 0);
+    rates.push(replayableApy(series.points[idx]));
   }
   return rates;
 }
@@ -150,10 +174,16 @@ export function priceFactorsForSpan(
   toDay: number,
   anchorDay: number = toDay
 ): number[] {
-  const n = series.points.length;
+  // A zero, negative or non-finite price is not a price. Left in place it would
+  // produce a 0 factor, and every later factor multiplies that 0 — one bad
+  // point would zero the position permanently (`5.209`'s sibling). The last
+  // valid price is carried forward instead, so the span still multiplies to
+  // exactly end/start of the prices that ARE real.
+  const points = carryForwardValidPrices(series.points);
+  const n = points.length;
   const at = (day: number) => {
     const idx = Math.max(0, Math.min(n - 1, n - 1 - (anchorDay - day)));
-    return series.points[idx] ?? 0;
+    return points[idx] ?? 0;
   };
   const factors: number[] = [];
   for (let day = fromDay + 1; day <= toDay; day += 1) {
@@ -162,6 +192,15 @@ export function priceFactorsForSpan(
     factors.push(prev > 0 ? curr / prev : 1);
   }
   return factors;
+}
+
+/** Replace every unusable price with the last usable one (leading gaps take the first). */
+function carryForwardValidPrices(points: number[]): number[] {
+  const valid = (p: number) => Number.isFinite(p) && p > 0;
+  const first = points.find(valid);
+  if (first === undefined) return [];
+  let last = first;
+  return points.map((p) => (valid(p) ? (last = p) : last));
 }
 
 /**
@@ -206,7 +245,13 @@ export function replayLegged(principal: Decimal.Value, legs: LegReplay[]): Decim
   let end = new Decimal(0);
   for (const leg of legs) {
     const share = start.mul(leg.weightPercent).div(100);
-    const grown = leg.factors.reduce((acc, f) => acc.mul(f), share);
+    // The last choke point before a money event: whatever produced a factor,
+    // one that is not a finite non-negative number moves nothing, so this
+    // function cannot return NaN into `AccrualApplied.earnings` (`5.209`).
+    const grown = leg.factors.reduce(
+      (acc, f) => acc.mul(Number.isFinite(f) && f >= 0 ? f : 1),
+      share
+    );
     end = end.plus(grown);
   }
   return end.minus(start).toDecimalPlaces(2, Decimal.ROUND_HALF_UP);

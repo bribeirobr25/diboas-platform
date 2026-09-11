@@ -14,7 +14,7 @@
 
 import { FIXTURE_APYS } from '../fixtures';
 import type { ApyPoint, IApyProvider, ProtocolApy, ProtocolApyHistory, ProtocolId } from '../types';
-import { SANDBOX_MARKET_TTL_MS } from '../types';
+import { PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 
 const POOLS_URL = 'https://yields.llama.fi/pools';
 const CHART_URL = 'https://yields.llama.fi/chart/';
@@ -81,22 +81,30 @@ interface CacheEntry<T> {
  * every externally-fetched market value in the SANDBOX refreshes at most every
  * 6 hours — free-tier protection at visitor scale (1k/10k/100k visits must
  * never fan out to the providers). Real-time data is the REAL app's property,
- * served by paid APIs through the analytics layer (P2BD-14); the stamps stay
- * honest either way (asOf = the actual fetch moment).
+ * served by paid APIs through the analytics layer (P2BD-14).
+ *
+ * The stamp is the FETCH moment, carried on the cache entry. It used to be
+ * minted as `new Date()` at serve time, so a value up to six hours old was
+ * stamped as "now" — verified live: three requests seconds apart returned three
+ * different `asOf` values for the same cached pools. Data Vintage P-4: freshness
+ * is never simulated by re-stamping.
  */
 const POOLS_TTL_MS = SANDBOX_MARKET_TTL_MS; // founder-ruled 6 h (was 30 min)
 const CHART_TTL_MS = SANDBOX_MARKET_TTL_MS; // daily-granularity history — 6 h
 let poolsCache: CacheEntry<LlamaPool[]> | null = null;
 const chartCache = new Map<string, CacheEntry<ApyPoint[]>>();
 
-async function fetchPools(fetchImpl: typeof fetch): Promise<LlamaPool[]> {
-  if (poolsCache && Date.now() - poolsCache.at < POOLS_TTL_MS) return poolsCache.value;
-  const res = await fetchImpl(POOLS_URL);
+async function fetchPools(
+  fetchImpl: typeof fetch,
+  timeoutMs: number
+): Promise<CacheEntry<LlamaPool[]>> {
+  if (poolsCache && Date.now() - poolsCache.at < POOLS_TTL_MS) return poolsCache;
+  const res = await fetchImpl(POOLS_URL, { signal: AbortSignal.timeout(timeoutMs) });
   if (!res.ok) throw new Error(`defillama /pools ${res.status}`);
   const body = (await res.json()) as { data?: LlamaPool[] };
   if (!Array.isArray(body.data)) throw new Error('defillama /pools: unexpected shape');
   poolsCache = { at: Date.now(), value: body.data };
-  return body.data;
+  return poolsCache;
 }
 
 /**
@@ -130,18 +138,21 @@ function fixtureFor(protocolId: ProtocolId): ProtocolApy {
 }
 
 export class DefiLlamaApyProvider implements IApyProvider {
-  constructor(private readonly fetchImpl: typeof fetch = fetch) {}
+  constructor(
+    private readonly fetchImpl: typeof fetch = fetch,
+    private readonly timeoutMs: number = PROVIDER_FETCH_TIMEOUT_MS
+  ) {}
 
   async getCurrentApys(protocolIds: ProtocolId[]): Promise<ProtocolApy[]> {
-    let pools: LlamaPool[];
+    let pools: CacheEntry<LlamaPool[]>;
     try {
-      pools = await fetchPools(this.fetchImpl);
+      pools = await fetchPools(this.fetchImpl, this.timeoutMs);
     } catch {
       return protocolIds.map(fixtureFor);
     }
-    const asOf = new Date().toISOString();
+    const asOf = new Date(pools.at).toISOString(); // when fetched, not when served
     return protocolIds.map((protocolId) => {
-      const match = matchPool(pools, POOL_MATCHERS[protocolId]);
+      const match = matchPool(pools.value, POOL_MATCHERS[protocolId]);
       if (!match) return fixtureFor(protocolId);
       return {
         protocolId,
@@ -155,30 +166,30 @@ export class DefiLlamaApyProvider implements IApyProvider {
 
   async getApyHistory(protocolId: ProtocolId, days: number): Promise<ProtocolApyHistory> {
     try {
-      const pools = await fetchPools(this.fetchImpl);
-      const match = matchPool(pools, POOL_MATCHERS[protocolId]);
+      const pools = await fetchPools(this.fetchImpl, this.timeoutMs);
+      const match = matchPool(pools.value, POOL_MATCHERS[protocolId]);
       if (!match) throw new Error('no pool match');
 
-      const cached = chartCache.get(match.pool);
-      let points: ApyPoint[];
-      if (cached && Date.now() - cached.at < CHART_TTL_MS) {
-        points = cached.value;
-      } else {
-        const res = await this.fetchImpl(`${CHART_URL}${match.pool}`);
+      let entry = chartCache.get(match.pool);
+      if (!entry || Date.now() - entry.at >= CHART_TTL_MS) {
+        const res = await this.fetchImpl(`${CHART_URL}${match.pool}`, {
+          signal: AbortSignal.timeout(this.timeoutMs),
+        });
         if (!res.ok) throw new Error(`defillama /chart ${res.status}`);
         const body = (await res.json()) as {
           data?: Array<{ timestamp: string; apy: number | null }>;
         };
         if (!Array.isArray(body.data)) throw new Error('defillama /chart: unexpected shape');
-        points = body.data
+        const points = body.data
           .filter((d) => typeof d.apy === 'number')
           .map((d) => ({ date: d.timestamp.slice(0, 10), apyPercent: d.apy as number }));
-        chartCache.set(match.pool, { at: Date.now(), value: points });
+        entry = { at: Date.now(), value: points };
+        chartCache.set(match.pool, entry);
       }
       return {
         protocolId,
-        points: points.slice(-days),
-        stamp: { source: 'defillama', asOf: new Date().toISOString() },
+        points: entry.value.slice(-days),
+        stamp: { source: 'defillama', asOf: new Date(entry.at).toISOString() },
       };
     } catch {
       // Honest degraded mode: a flat series at the fixture APY, stamped fixture.

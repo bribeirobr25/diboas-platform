@@ -47,7 +47,9 @@ export function LegalReadiness({ locale }: { locale: string }) {
 
   const onContinue = () => {
     if (!ready) return;
-    saveLegalChoices(buildRecords(choices, locale));
+    // No evidence record, no account step — the behaviour an unguarded throw
+    // used to produce by accident, now stated on purpose (see saveLegalChoices).
+    if (!saveLegalChoices(buildRecords(choices, locale))) return;
     router.push(`/${locale}/claim`);
   };
 

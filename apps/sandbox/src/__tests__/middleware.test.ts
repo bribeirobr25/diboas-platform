@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { NextRequest } from 'next/server';
 import { middleware } from '../middleware';
 
@@ -242,5 +242,36 @@ describe('the not-found surface never lies about its own status (audit, 2026-09-
     // The `/api` skip is placed AFTER the geofence on purpose: data paths are
     // exactly what a denylisted region must not reach.
     expect(middleware(request('/api/health', { country: 'CN' })).status).toBe(451);
+  });
+});
+
+/**
+ * The geofence's local test-override — the one branch no test reached.
+ *
+ * `SANDBOX_GEO_OVERRIDE` lets a developer see the block page locally, and the
+ * code promises it is "NEVER trusted in production; the Vercel edge sets
+ * `x-vercel-ip-country` and strips any client-supplied copy." That promise is a
+ * covenant control (CN/RU/KP) and the middleware is a security utility, whose
+ * standard is 100% coverage — the override branch sat uncovered at 97%/90%.
+ */
+describe('the geofence test-override is never trusted in production (covenant)', () => {
+  afterEach(() => vi.unstubAllEnvs());
+
+  it('should honour the override outside production, so the block page can be tested', () => {
+    vi.stubEnv('NODE_ENV', 'development');
+    vi.stubEnv('SANDBOX_GEO_OVERRIDE', 'CN');
+    const res = middleware(request('/de/goals'));
+    expect(res.status).toBe(451);
+    expect(target(res)).toBe('/de/unavailable');
+  });
+
+  it('should IGNORE the override in production — only the edge header decides', () => {
+    vi.stubEnv('NODE_ENV', 'production');
+    vi.stubEnv('SANDBOX_GEO_OVERRIDE', 'CN');
+    // An override claiming a blocked country cannot block a production visitor…
+    expect(middleware(request('/en/welcome')).status).toBe(200);
+    // …and cannot unblock one either: a real blocked edge header still refuses.
+    vi.stubEnv('SANDBOX_GEO_OVERRIDE', 'BR');
+    expect(middleware(request('/en/welcome', { country: 'RU' })).status).toBe(451);
   });
 });

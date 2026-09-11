@@ -6,6 +6,7 @@
  * (`resolveSimulatedExpense`) lives in `ledgerClient`.
  */
 
+import Decimal from 'decimal.js';
 import { WEEKLY_CADENCE_DAYS, type LedgerState } from '@diboas/banking';
 import {
   SIMULATED_EVENT_CATALOGUE,
@@ -141,12 +142,21 @@ export function expenseImpacts(
   splitFromGoal: Record<string, number> = {}
 ): ExpenseImpact[] {
   const working = Number(state.buckets.working);
+  /**
+   * Every "after" is exact decimal arithmetic. Found by the 2026-09-11 visual
+   * pass the moment `5.210` made the exact minimum enterable: in float,
+   * `128.39 − (1500 − 1371.61)` is −1.4e-14, and the split row rendered
+   * "Available $128.39 → -$0.00" — a signed zero on a money surface. The
+   * "before" figures are the ledger's own two-decimal strings, so subtracting
+   * from them in Decimal lands on whole cents by construction.
+   */
+  const minus = (from: string, by: Decimal.Value) => new Decimal(from).minus(by).toNumber();
   const impacts: ExpenseImpact[] = [];
   if (options.coverFromAvailable) {
     impacts.push({
       option: 'coverFromAvailable',
       availableBefore: working,
-      availableAfter: working - amount,
+      availableAfter: minus(state.buckets.working, amount),
     });
   }
   for (const goalId of options.reserveGoalIds) {
@@ -160,7 +170,7 @@ export function expenseImpacts(
       availableBefore: working,
       availableAfter: working,
       goalCashBefore: cash,
-      goalCashAfter: cash - amount,
+      goalCashAfter: minus(goal.cash, amount),
     });
   }
   for (const goalId of options.splitGoalIds) {
@@ -177,9 +187,11 @@ export function expenseImpacts(
       pending: !valid,
       availableBefore: working,
       // Until they have entered a valid share there is no "after" to state.
-      availableAfter: valid ? working - (amount - entered) : working,
+      availableAfter: valid
+        ? minus(state.buckets.working, new Decimal(amount).minus(entered))
+        : working,
       goalCashBefore: cash,
-      goalCashAfter: valid ? cash - entered : cash,
+      goalCashAfter: valid ? minus(goal.cash, entered) : cash,
     });
   }
   return impacts;
@@ -246,9 +258,19 @@ export function splitBounds(
 ): SplitBounds | null {
   const goal = state.goals.find((g) => g.goalId === goalId);
   if (!goal || (goal.status !== 'active' && goal.status !== 'paused')) return null;
-  const working = Number(state.buckets.working);
-  const cash = Number(goal.cash);
-  const min = Math.max(0.01, amount - working);
-  const max = Math.min(cash, amount - 0.01);
-  return max >= min ? { min, max } : null;
+  // Whole cents, in exact arithmetic (`5.210`). In float, `1500 − 128.39` is
+  // 1371.6100000000001 — so the field stated a minimum of 1,371.61 and then
+  // REFUSED 1,371.61 when typed (`entered >= min` is false), leaving the CTA
+  // dead beside the very number it asked for. Measured: 97,549 of 557,144
+  // realistic balances (17.5%) produced a minimum the user could not enter. A
+  // minimum rounds UP to the next cent and a maximum DOWN, so neither bound can
+  // ever admit a value the ledger would refuse; `x / 100` on an integer then
+  // yields the same double that `toCents(x)` produces for the typed value.
+  const amountCents = new Decimal(amount).mul(100);
+  const workingCents = new Decimal(state.buckets.working).mul(100);
+  const cashCents = new Decimal(goal.cash).mul(100);
+  const minCents = Decimal.max(1, amountCents.minus(workingCents)).ceil();
+  const maxCents = Decimal.min(cashCents, amountCents.minus(1)).floor();
+  if (maxCents.lt(minCents)) return null;
+  return { min: minCents.div(100).toNumber(), max: maxCents.div(100).toNumber() };
 }

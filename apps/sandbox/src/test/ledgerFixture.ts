@@ -20,7 +20,7 @@ const base = (id: string) => ({
   correlationId: `corr-${id}`,
 });
 
-export const ONE_OF_EACH: OneOfEach = {
+const ONE_OF_EACH: OneOfEach = {
   PlayMoneyGranted: {
     ...base('e1'),
     type: 'PlayMoneyGranted',
