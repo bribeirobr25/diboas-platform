@@ -6,7 +6,7 @@ import { isSandboxLocale, SANDBOX_LOCALES } from '@/i18n/config';
 import { IntlProviderClient } from '@/components/IntlProviderClient';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { ThemeScript } from '@/components/ThemeScript';
-import '@/styles/design-tokens.css';
+import '@/styles/tokens.css';
 import '@/styles/globals.css';
 
 /**

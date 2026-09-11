@@ -30,7 +30,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 40%, var(--sb-ground) 100%);
+  background: linear-gradient(to bottom, transparent 40%, var(--sb-canvas-base) 100%);
 }
 :global(html[data-theme='dark']) .heroBand {
   background-image: url('/hero-welcome-dark.png');
@@ -55,14 +55,14 @@
   width: 3rem;
   height: 3rem;
   border-radius: var(--radius-full);
-  background: var(--sb-accent);
-  color: var(--sb-text-on-ink);
+  background: var(--sb-mode-accent-fill);
+  color: var(--sb-text-on-fill);
 }
 .title {
   margin: 0;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .status,
 .honesty {
@@ -79,7 +79,7 @@
   margin: 0;
   font-size: var(--font-size-lg);
   line-height: var(--line-height-snug);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   text-wrap: balance;
 }
 
@@ -104,10 +104,10 @@
   gap: var(--spacing-2xs);
   min-height: var(--sb-tap);
   padding: var(--spacing-xs) var(--spacing-sm);
-  border: 1px solid var(--sb-accent);
-  border-radius: var(--sb-radius);
-  background: var(--sb-card);
-  color: var(--text-brand-accessible);
+  border: 1px solid var(--sb-mode-accent);
+  border-radius: var(--sb-radius-card);
+  background: var(--sb-surface-primary);
+  color: var(--sb-text-accent);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
@@ -119,8 +119,8 @@
 
 .spark {
   padding: var(--spacing-sm);
-  border-radius: var(--sb-radius-lg);
-  background: var(--sb-card);
+  border-radius: var(--sb-radius-hero);
+  background: var(--sb-surface-primary);
 }
 .excludes,
 .footnote {
@@ -151,7 +151,7 @@
   align-items: center;
   gap: var(--spacing-2xs);
   font-weight: var(--font-weight-medium);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .summary {
@@ -159,8 +159,8 @@
   gap: var(--spacing-sm);
   flex-wrap: wrap;
   padding: var(--spacing-sm);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius-lg);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-hero);
 }
 .summaryCell {
   display: flex;
@@ -175,7 +175,7 @@
 }
 .summaryValue {
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-variant-numeric: tabular-nums;
 }
 /* Colour REINFORCES the wording, never replaces it (batch-3 master block). */
@@ -187,10 +187,10 @@
   font-variant-numeric: tabular-nums;
 }
 .changeUp {
-  color: var(--text-success-accessible);
+  color: var(--sb-financial-positive);
 }
 .changeDown {
-  color: var(--sb-danger);
+  color: var(--sb-financial-negative);
 }
 .changePercent {
   font-size: var(--font-size-sm);

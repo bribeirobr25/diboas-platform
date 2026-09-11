@@ -9,10 +9,10 @@
   justify-content: center;
   width: var(--sb-tap);
   height: var(--sb-tap);
-  border: 1px solid var(--sb-hairline-strong);
+  border: 1px solid var(--sb-border-strong);
   border-radius: var(--radius-full);
-  background: color-mix(in srgb, var(--sb-ground) 55%, transparent);
-  color: var(--sb-text-heading);
+  background: color-mix(in srgb, var(--sb-canvas-base) 55%, transparent);
+  color: var(--sb-text-primary);
   cursor: pointer;
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
@@ -21,7 +21,7 @@
     transform 0.1s ease;
 }
 .toggle:hover {
-  background: color-mix(in srgb, var(--sb-ground) 75%, transparent);
+  background: color-mix(in srgb, var(--sb-canvas-base) 75%, transparent);
 }
 .toggle:active {
   transform: scale(0.94);

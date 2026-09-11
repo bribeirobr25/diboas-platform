@@ -4,16 +4,16 @@
  * tint = faint teal wash for an emphasized surface. Fully tokenized.
  */
 .card {
-  border-radius: var(--sb-radius);
+  border-radius: var(--sb-radius-card);
   padding: var(--spacing-md);
 }
 
 .default {
-  background: var(--sb-card);
-  border: 1px solid var(--sb-hairline);
+  background: var(--sb-surface-primary);
+  border: 1px solid var(--sb-border-default);
 }
 
 .tint {
-  background: var(--sb-card-tint);
+  background: var(--sb-surface-accent);
   border: 1px solid transparent;
 }

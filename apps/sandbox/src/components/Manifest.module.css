@@ -10,20 +10,20 @@
   display: flex;
   justify-content: space-between;
   gap: var(--spacing-md);
-  border-bottom: 1px solid color-mix(in srgb, var(--sb-text-on-ink) 14%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--sb-text-inverse) 14%, transparent);
   padding-bottom: var(--spacing-sm);
 }
 
 .label {
   font-size: var(--font-size-sm);
-  color: var(--sb-accent-bright);
+  color: var(--sb-mode-accent-bright);
   flex-shrink: 0;
 }
 
 .value {
   margin: 0;
   font-size: var(--font-size-sm);
-  color: var(--sb-text-on-ink);
+  color: var(--sb-text-inverse);
   text-align: right;
   overflow-wrap: anywhere;
   font-weight: var(--font-weight-medium);
@@ -36,14 +36,14 @@
   gap: var(--spacing-2xs);
   margin: var(--spacing-md) 0 0;
   font-size: var(--font-size-sm);
-  color: var(--sb-accent-bright);
+  color: var(--sb-mode-accent-bright);
   font-weight: var(--font-weight-medium);
 }
 
 .footer {
   margin: var(--spacing-sm) 0 var(--spacing-md);
   font-size: var(--font-size-xs);
-  color: var(--sb-text-on-ink-muted);
+  color: var(--sb-text-inverse-muted);
   line-height: var(--line-height-relaxed);
 }
 
@@ -52,8 +52,8 @@
   min-height: 52px;
   border: none;
   border-radius: var(--radius-lg);
-  background: var(--sb-accent);
-  color: var(--sb-ink);
+  background: var(--sb-action-inverse);
+  color: var(--sb-action-inverse-text);
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-md);
   cursor: pointer;
@@ -61,7 +61,7 @@
 }
 
 .approve:hover:not(:disabled) {
-  background: var(--sb-accent-bright);
+  background: var(--sb-action-inverse-hover);
 }
 
 .approve:disabled {

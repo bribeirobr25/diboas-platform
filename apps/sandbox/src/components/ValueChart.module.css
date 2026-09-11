@@ -24,7 +24,7 @@
   height: 150px;
 }
 .grid {
-  stroke: var(--sb-hairline);
+  stroke: var(--sb-border-default);
   stroke-width: 1;
 }
 .area {
@@ -35,11 +35,11 @@
      override: with `accent-tint` this area fill stayed near-white and painted a
      pale blob across the dark card. `accent-tint` stays light on purpose — it
      backs small icon badges, never a large surface. */
-  fill: var(--sb-card-tint);
+  fill: var(--sb-surface-accent);
 }
 .line {
   fill: none;
-  stroke: var(--sb-accent);
+  stroke: var(--sb-mode-accent);
   stroke-width: 2;
   stroke-linejoin: round;
 }

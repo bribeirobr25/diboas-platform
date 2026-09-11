@@ -12,7 +12,7 @@
   max-width: 30rem;
   margin: 0 auto;
   min-height: 100dvh;
-  background: var(--sb-ground);
+  background: var(--sb-canvas-base);
 }
 
 .top {
@@ -28,7 +28,7 @@
 .step {
   margin: var(--spacing-md) 0 0;
   font-size: var(--font-size-sm-plus);
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
 }
 .title {
   margin: 0;
@@ -36,11 +36,11 @@
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-2xl);
   line-height: 1.2;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .intro {
   margin: 0;
-  color: var(--sb-text-body);
+  color: var(--sb-text-secondary);
   font-size: var(--font-size-md);
   line-height: 1.5;
 }
@@ -57,8 +57,8 @@
   align-self: flex-start;
   padding: var(--spacing-2xs) var(--spacing-xs);
   border-radius: var(--radius-sm);
-  background: var(--sb-card-tint);
-  color: var(--text-brand-accessible);
+  background: var(--sb-surface-accent);
+  color: var(--sb-text-accent);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.08em;
@@ -72,7 +72,7 @@
   margin: 0;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   text-decoration: none;
 }
 .heading:hover,
@@ -84,7 +84,7 @@
   display: flex;
   align-items: flex-start;
   gap: var(--spacing-sm);
-  color: var(--sb-text-body);
+  color: var(--sb-text-secondary);
   font-size: var(--font-size-sm-plus);
   line-height: 1.5;
   cursor: pointer;
@@ -94,7 +94,7 @@
   width: 1.5rem;
   height: 1.5rem;
   margin: 0;
-  accent-color: var(--text-brand-accessible);
+  accent-color: var(--sb-mode-accent);
   cursor: pointer;
 }
 
@@ -103,7 +103,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-sm);
-  color: var(--sb-text-body);
+  color: var(--sb-text-secondary);
   font-size: var(--font-size-sm-plus);
   line-height: 1.5;
   text-decoration: none;
@@ -117,14 +117,14 @@
 }
 .switchLabel {
   margin: 0;
-  color: var(--sb-text-body);
+  color: var(--sb-text-secondary);
   font-size: var(--font-size-sm-plus);
   line-height: 1.5;
 }
 .optionalNote {
   margin: 0;
   padding-top: var(--spacing-xs);
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
   color: var(--sb-text-muted);
   font-size: var(--font-size-sm);
 }

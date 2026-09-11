@@ -11,14 +11,14 @@
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-2xs);
-  color: var(--sb-accent-strong);
+  color: var(--sb-text-link);
   text-decoration: none;
   font-size: var(--font-size-sm);
   min-height: var(--sb-tap);
 }
 
 .backLink:hover {
-  color: var(--sb-accent);
+  color: var(--sb-mode-accent);
 }
 
 .head {
@@ -34,28 +34,28 @@
   width: 60px;
   height: 60px;
   border-radius: var(--radius-full);
-  background: var(--sb-accent-tint);
-  color: var(--sb-accent-strong);
+  background: var(--sb-mode-accent-subtle);
+  color: var(--sb-text-on-accent-subtle);
   flex-shrink: 0;
 }
 
 /* Per-goal identity colour — the palette and its contrast measurements live in
    globals.css; a goal keeps the same colour on every surface. */
 .goalIcon[data-accent='0'] {
-  background: var(--goal-accent-0);
-  color: var(--color-white);
+  background: var(--sb-identity-goal-0);
+  color: var(--sb-text-on-fill);
 }
 .goalIcon[data-accent='1'] {
-  background: var(--goal-accent-1);
-  color: var(--color-white);
+  background: var(--sb-identity-goal-1);
+  color: var(--sb-text-on-fill);
 }
 .goalIcon[data-accent='2'] {
-  background: var(--goal-accent-2);
-  color: var(--color-white);
+  background: var(--sb-identity-goal-2);
+  color: var(--sb-text-on-fill);
 }
 .goalIcon[data-accent='3'] {
-  background: var(--goal-accent-3);
-  color: var(--color-white);
+  background: var(--sb-identity-goal-3);
+  color: var(--sb-text-on-fill);
 }
 
 .title {
@@ -65,21 +65,21 @@
   font-size: var(--font-size-3xl);
   line-height: 1.05;
   letter-spacing: -0.02em;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .progressTrack {
   display: block;
   height: 10px;
   border-radius: var(--radius-pill);
-  background: var(--sb-hairline-strong);
+  background: var(--sb-surface-track);
   overflow: hidden;
 }
 
 .progressFill {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--sb-accent), var(--sb-accent-bright));
+  background: linear-gradient(90deg, var(--sb-mode-accent), var(--sb-mode-accent-bright));
   border-radius: var(--radius-pill);
 }
 
@@ -92,7 +92,7 @@
 .stat {
   margin: 0;
   font-size: var(--font-size-sm);
-  color: var(--sb-text-body);
+  color: var(--sb-text-secondary);
 }
 
 /* Designed empty state — a goal holding cash, not a dead end (UX-58). The
@@ -103,9 +103,9 @@
   align-items: center;
   text-align: center;
   gap: var(--spacing-2xs);
-  background: var(--sb-card);
-  border: 1px dashed var(--sb-hairline-strong);
-  border-radius: var(--sb-radius);
+  background: var(--sb-surface-primary);
+  border: 1px dashed var(--sb-border-strong);
+  border-radius: var(--sb-radius-card);
   padding: var(--spacing-lg);
 }
 
@@ -116,33 +116,33 @@
   width: 48px;
   height: 48px;
   border-radius: var(--radius-full);
-  background: var(--sb-accent-tint);
-  color: var(--sb-accent-strong);
+  background: var(--sb-mode-accent-subtle);
+  color: var(--sb-text-on-accent-subtle);
   margin-bottom: var(--spacing-2xs);
 }
 
 .noPositionTitle {
   margin: 0;
   font-weight: var(--font-weight-semibold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .noPositionBody {
   margin: 0;
-  color: var(--sb-text-body);
+  color: var(--sb-text-secondary);
   font-size: var(--font-size-sm);
   line-height: var(--line-height-relaxed);
 }
 
 .position {
-  background: var(--sb-card);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius);
+  background: var(--sb-surface-primary);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-card);
   padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
-  box-shadow: var(--sb-shadow-soft);
+  box-shadow: var(--sb-elevation-low);
 }
 
 .positionTitle {
@@ -150,7 +150,7 @@
   font-family: var(--sb-heading);
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-lg);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .earningsTitle {
@@ -165,7 +165,7 @@
 .earningsLine {
   margin: 0;
   font-size: var(--font-size-md);
-  color: var(--sb-accent-strong);
+  color: var(--sb-text-accent-strong);
   font-weight: var(--font-weight-medium);
 }
 
@@ -173,16 +173,16 @@
   align-self: flex-start;
   min-height: var(--sb-tap);
   padding: 0 var(--spacing-lg);
-  border: 1px solid var(--sb-hairline-strong);
+  border: 1px solid var(--sb-border-strong);
   border-radius: var(--radius-pill);
-  background: var(--sb-card);
-  color: var(--sb-text-body);
+  background: var(--sb-surface-primary);
+  color: var(--sb-text-secondary);
   cursor: pointer;
 }
 
 .exit:hover {
-  border-color: var(--sb-accent);
-  color: var(--sb-accent-strong);
+  border-color: var(--sb-mode-accent);
+  color: var(--sb-text-accent-strong);
 }
 
 .investBlock {
@@ -200,17 +200,17 @@
 .label {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .input {
   min-height: var(--sb-tap);
   padding: var(--spacing-sm) var(--spacing-md);
-  border: 1px solid var(--sb-hairline-strong);
+  border: 1px solid var(--sb-border-strong);
   border-radius: var(--radius-lg);
   font-size: var(--font-size-md);
-  background: var(--sb-card);
-  color: var(--sb-text-heading);
+  background: var(--sb-surface-primary);
+  color: var(--sb-text-primary);
 }
 
 .hint {
@@ -224,8 +224,8 @@
   padding: 0 var(--spacing-xl);
   border: none;
   border-radius: var(--radius-lg);
-  background: var(--sb-ink);
-  color: var(--sb-text-on-ink);
+  background: var(--sb-surface-inverse);
+  color: var(--sb-text-inverse);
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-md);
   cursor: pointer;
@@ -236,7 +236,7 @@
 }
 
 .primary:hover:not(:disabled) {
-  background: var(--sb-ink-soft);
+  background: var(--sb-surface-inverse-raised);
   transform: translateY(-1px);
 }
 
@@ -251,8 +251,8 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-md);
-  background: var(--sb-accent-tint);
-  border-radius: var(--sb-radius);
+  background: var(--sb-surface-accent);
+  border-radius: var(--sb-radius-card);
 }
 
 .milestoneIcon {
@@ -263,20 +263,20 @@
   height: 32px;
   flex-shrink: 0;
   border-radius: var(--radius-full);
-  background: var(--sb-accent);
-  color: var(--color-white);
+  background: var(--sb-mode-accent-fill);
+  color: var(--sb-text-on-fill);
 }
 
 .milestoneTitle {
   margin: 0;
   font-weight: var(--font-weight-semibold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .milestoneBody {
   margin: 0;
   font-size: var(--font-size-sm);
-  color: var(--sb-text-body);
+  color: var(--sb-text-secondary);
   line-height: var(--line-height-relaxed);
 }
 
@@ -300,7 +300,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 40%, var(--sb-ground) 100%);
+  background: linear-gradient(to bottom, transparent 40%, var(--sb-canvas-base) 100%);
 }
 :global(html[data-theme='dark']) .heroBand {
   background-image: url('/hero-welcome-dark.png');
@@ -319,8 +319,8 @@
   width: 60px;
   height: 60px;
   border-radius: var(--radius-full);
-  background: var(--text-warning-accessible);
-  color: var(--color-white);
+  background: var(--sb-state-warning-fill);
+  color: var(--sb-state-warning-on-fill);
 }
 .statusLine {
   margin: var(--spacing-2xs) 0 0;
@@ -329,7 +329,7 @@
   color: var(--sb-text-muted);
 }
 .statusPaused {
-  color: var(--text-warning-accessible);
+  color: var(--sb-state-warning);
 }
 .statusSub {
   color: var(--sb-text-muted);
@@ -356,7 +356,7 @@
   margin: var(--spacing-lg) 0 0;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .savedLine {
   margin: 0;
@@ -369,7 +369,7 @@
 .percentBig {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .simpleEmpty {
   margin: 0;
@@ -380,12 +380,12 @@
   flex-direction: column;
   gap: var(--spacing-2xs);
   padding: var(--spacing-sm) 0;
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
 }
 .simplePositionLead {
   margin: 0;
   font-weight: var(--font-weight-medium);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .simplePositionSub {
   margin: 0;
@@ -405,16 +405,16 @@
   gap: var(--spacing-2xs);
   padding: var(--spacing-md) var(--spacing-sm);
   min-height: var(--sb-tap);
-  border: 1px solid var(--sb-hairline);
+  border: 1px solid var(--sb-border-default);
   border-radius: var(--radius-lg);
-  background: var(--sb-card);
-  color: var(--sb-text-heading);
+  background: var(--sb-surface-primary);
+  color: var(--sb-text-primary);
   font-size: var(--font-size-sm-plus);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
 }
 .actionTileIcon {
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
 }
 
 .breakRow {
@@ -426,12 +426,12 @@
   color: var(--sb-text-muted);
 }
 .breakVal {
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-variant-numeric: tabular-nums;
 }
 
 .actionTileIconPause {
-  color: var(--text-warning-accessible);
+  color: var(--sb-state-warning);
 }
 
 /* G4 entry: the calm "review and close" affordance on a reached goal. */
@@ -444,7 +444,7 @@
   border: 0;
   background: none;
   padding: 0;
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
   font-size: var(--font-size-sm-plus);
   font-weight: var(--font-weight-medium);
   cursor: pointer;

@@ -1,186 +1,11 @@
 /*
- * diBoaS Sandbox — global baseline + the "diBoaS mobile-app" design language.
+ * diBoaS Practice — global baseline: element defaults and shared utilities.
  *
- * DESIGN LANGUAGE (2026-07-18 mobile-app redesign, docs/sandbox-app/UI-UX-REDESIGN.md):
- * a modern, minimalist, WARM light mobile app — grounded in the campaign's own
- * app mockups (light card-list + bottom tab bar). Soft warm-white ground, clean
- * white cards, one teal accent, sans headings for scannability, ink-teal reserved
- * for the high-gravity path/manifest sheet. Brand-warmth guardrail: warm neutrals
- * (never pure #FFF/#000), the palm-B, human copy, generous space.
- *
- * The `--sb-*` layer below is the single semantic surface: every component
- * references it, so a palette/type change is a one-file edit. Every value is
- * sourced from an existing design token (R-3: no magic literals) — this layer
- * only names them for the app's intent.
+ * Every value here is a ROLE from tokens.css (the L1 semantic token
+ * architecture, I-1d). This file applies roles to bare elements; it declares
+ * none. The design language itself — warm off-white ground, clean cards, one
+ * accent, ink reserved for high-gravity surfaces — is described there.
  */
-
-:root {
-  /* MOCKUP PALETTE — sampled directly from the approved mockup PNGs
-     (docs/sandbox-app/screens/*, 2026-08-14). These are the visual source of
-     truth; the sandbox surface tokens below point at them (NOT the MVP-0 warm
-     'editorial-paper' beige #f4f0e8/#ebe5d8, which the mockups are not). */
-  --sb-mk-ground: #fbf8f6; /* app canvas — light off-white, RE-SAMPLED from the
-     mockup phone screens (home #fbf6f2 · profile #fbf8f6 · history #f8f5f2); the
-     old #faf6f1 was too warm and read as beige next to the white cards */
-  --sb-mk-surround: #fbf8f6; /* desktop surround = the same off-white (no beige gutter) */
-  --sb-mk-ink: #0f1a21; /* ceremony/high-gravity ink (mockup confirm sheet) */
-  --sb-mk-sky: #e9f3f4; /* the light teal sky band atop Home */
-  --sb-mk-hairline: #ece6de; /* hairline on the warm ground */
-
-  /* Grounds + surfaces (from the mockup palette) */
-  --sb-ground: var(--sb-mk-ground); /* soft warm-white app canvas backdrop */
-  --sb-surround: var(--sb-mk-surround); /* behind the app canvas on desktop */
-  --sb-card: var(--color-white); /* clean white card */
-  --sb-card-tint: var(--color-teal-50); /* faint teal wash for the emphasized job */
-  --sb-ink: var(--sb-mk-ink); /* ink-teal — the path/manifest gravity surface */
-  --sb-ink-soft: var(--accent-ink-soft); /* #112a30 */
-
-  /* Type: sans is the app voice; serif is a sparing accent (first-run welcome). */
-  --sb-sans: var(--font-family-primary);
-  --sb-serif: var(--font-sandbox-serif), 'Iowan Old Style', Georgia, serif;
-  --sb-heading: var(--sb-sans); /* headings use sans by default (modern app feel) */
-
-  /* Text */
-  --sb-text-heading: var(--editorial-ink); /* warm near-black */
-  --sb-text-body: var(--color-slate-700);
-  --sb-text-muted: var(--color-slate-500);
-  --sb-text-on-ink: var(--editorial-paper); /* cream on ink-teal */
-  --sb-text-on-ink-muted: var(--color-teal-100);
-
-  /* Per-goal identity colours (founder 2026-08-21, mockup 02 colour-codes its
-     goals). Four hues, each verified at >=3:1 against a WHITE glyph so the
-     filled badge clears WCAG 1.4.11 non-text contrast: teal-600 3.74,
-     blue-600 5.17, amber-600 3.19, purple-500 4.23. coral-500 (2.79) and
-     teal-500 (2.28) were rejected on that measurement, not on taste. The same
-     four carry in dark — the badge is filled, so the card ground behind it
-     does not enter the glyph's contrast. */
-  --goal-accent-0: var(--color-teal-600);
-  --goal-accent-1: var(--color-blue-600);
-  --goal-accent-2: var(--color-amber-600);
-  --goal-accent-3: var(--color-purple-500);
-
-  /* Accents */
-  --sb-accent: var(--color-teal-600);
-  --sb-accent-strong: var(--color-teal-700);
-  --sb-accent-tint: var(--color-teal-50);
-  --sb-accent-bright: var(--color-teal-400);
-  --sb-warn-tint: var(--color-amber-100);
-  --sb-warn-text: var(--color-amber-700);
-  --sb-danger: var(--color-red-700);
-
-  /* Lines + elevation (soft, warm) */
-  --sb-hairline: var(--sb-mk-hairline);
-  --sb-hairline-strong: var(--color-gray-300);
-  --sb-shadow-tint-a: color-mix(in srgb, var(--editorial-ink) 4%, transparent);
-  --sb-shadow-tint-b: color-mix(in srgb, var(--editorial-ink) 9%, transparent);
-  --sb-shadow-tint-c: color-mix(in srgb, var(--editorial-ink) 16%, transparent);
-  --sb-shadow-soft: 0 1px 2px var(--sb-shadow-tint-a), 0 6px 20px -12px var(--sb-shadow-tint-b);
-  --sb-shadow-lift: 0 2px 4px var(--sb-shadow-tint-a), 0 20px 44px -20px var(--sb-shadow-tint-c);
-  --sb-shadow-sheet: 0 -8px 40px -12px var(--sb-shadow-tint-c);
-
-  /* Rhythm */
-  --sb-radius: var(--radius-xl); /* 16px cards */
-  --sb-radius-lg: var(--radius-2xl); /* 24px hero */
-  --sb-tap: 44px;
-
-  /* The mobile-app canvas width (constrained; centered on desktop). */
-  --sb-canvas: 30rem; /* ~480px */
-  --sb-tabbar-h: 4.25rem;
-
-  color-scheme: light;
-}
-
-/*
- * DARK VIEW — the second approved design language (mockups 00/01-*-dark.png,
- * founder 2026-08-14: "allow users to choose between this design and the dark
- * mode design"). Deep ink-teal ground, near-white text, brighter teal accent.
- * Values sampled from the dark mockup PNGs.
- *
- * Selection: the user's OS preference is the default; an explicit in-app choice
- * (data-theme on <html>, persisted, set pre-paint by ThemeScript) overrides it.
- * The dark declarations live in two matching selectors — explicit `data-theme`
- * and the system media query — so both paths resolve identically. KEEP THEM IN
- * SYNC (CSS cannot share one block across an attribute selector and a media
- * query; this is the compatible pattern, no `light-dark()` dependency).
- */
-:root[data-theme='dark'] {
-  /* Dark-mode signal colours. red-700/emerald-700 are tuned for CREAM and drop
-     to ~2.9:1 on the near-black ground — a loss figure must never be the least
-     readable number on the screen. The lighter ramp clears AA on dark. */
-  --sb-danger: var(--color-red-300);
-  /* Amber text ON a normal surface (a loss figure) needs the DARK-mode ramp,
-     but `--sb-warn-text` is not that role: it is the text on the amber tint
-     PLATE, and that plate deliberately stays light in dark mode so a notice
-     still reads as a notice (§4.10 measured it at 4.51:1). Lightening this
-     token took five surfaces — the weekly repair notice, the comprehension
-     check, goal-new, recurring, the strategy picker — to 1.50:1. The
-     on-surface role has its own token below. */
-  --text-warning-accessible: var(--color-amber-400);
-  --text-success-accessible: var(--color-emerald-200);
-  --sb-mk-ground: #0b171f;
-  --sb-mk-surround: #06121a;
-  --sb-mk-ink: #0b171f;
-  --sb-mk-sky: #0e1e28;
-  --sb-mk-hairline: rgba(255, 255, 255, 0.09);
-
-  --sb-card: #13212b;
-  --sb-card-tint: rgba(45, 212, 191, 0.12);
-  --sb-ink-soft: #0e2129;
-
-  --sb-text-heading: #eef4f4;
-  --sb-text-body: #c2ced2;
-  --sb-text-muted: #8ea0a5;
-  --sb-text-on-ink: #eef4f4;
-  --sb-text-on-ink-muted: var(--color-teal-100);
-
-  --sb-accent: var(--color-teal-400);
-  --sb-accent-strong: var(--color-teal-300);
-  --sb-hairline-strong: rgba(255, 255, 255, 0.16);
-  /* teal-400 clears AA as text/icon on the dark ground (light teal-700 would not). */
-  --text-brand-accessible: var(--color-teal-400);
-
-  color-scheme: dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    /* Dark-mode signal colours. red-700/emerald-700 are tuned for CREAM and drop
-     to ~2.9:1 on the near-black ground — a loss figure must never be the least
-     readable number on the screen. The lighter ramp clears AA on dark. */
-    --sb-danger: var(--color-red-300);
-    /* Amber text ON a normal surface (a loss figure) needs the DARK-mode ramp,
-       but `--sb-warn-text` is not that role: it is the text on the amber tint
-       PLATE, and that plate deliberately stays light in dark mode so a notice
-       still reads as a notice (§4.10 measured it at 4.51:1). Lightening this
-       token took five surfaces — the weekly repair notice, the comprehension
-       check, goal-new, recurring, the strategy picker — to 1.50:1. The
-       on-surface role has its own token below. */
-    --text-warning-accessible: var(--color-amber-400);
-    --text-success-accessible: var(--color-emerald-200);
-    --sb-mk-ground: #0b171f;
-    --sb-mk-surround: #06121a;
-    --sb-mk-ink: #0b171f;
-    --sb-mk-sky: #0e1e28;
-    --sb-mk-hairline: rgba(255, 255, 255, 0.09);
-
-    --sb-card: #13212b;
-    --sb-card-tint: rgba(45, 212, 191, 0.12);
-    --sb-ink-soft: #0e2129;
-
-    --sb-text-heading: #eef4f4;
-    --sb-text-body: #c2ced2;
-    --sb-text-muted: #8ea0a5;
-    --sb-text-on-ink: #eef4f4;
-    --sb-text-on-ink-muted: var(--color-teal-100);
-
-    --sb-accent: var(--color-teal-400);
-    --sb-accent-strong: var(--color-teal-300);
-    --sb-hairline-strong: rgba(255, 255, 255, 0.16);
-    --text-brand-accessible: var(--color-teal-400);
-
-    color-scheme: dark;
-  }
-}
 
 *,
 *::before,
@@ -196,8 +21,8 @@ body {
 
 body {
   font-family: var(--sb-sans);
-  background: var(--sb-surround); /* the desktop surround; the canvas sits on top */
-  color: var(--sb-text-body);
+  background: var(--sb-canvas-surround); /* the desktop surround; the canvas sits on top */
+  color: var(--sb-text-secondary);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   min-height: 100dvh;
@@ -222,7 +47,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--sb-accent);
+  outline: 2px solid var(--sb-focus-ring);
   outline-offset: 2px;
 }
 

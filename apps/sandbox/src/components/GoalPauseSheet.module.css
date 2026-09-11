@@ -4,7 +4,7 @@
  */
 .body {
   margin: 0 0 var(--spacing-md);
-  color: var(--sb-text-body);
+  color: var(--sb-text-secondary);
   font-size: var(--font-size-sm-plus);
   line-height: 1.5;
 }
@@ -14,8 +14,8 @@
   flex-direction: column;
   gap: var(--spacing-xs);
   padding: var(--spacing-md);
-  border-radius: var(--sb-radius);
-  background: var(--sb-accent-tint);
+  border-radius: var(--sb-radius-card);
+  background: var(--sb-surface-accent);
 }
 .statePlan,
 .stateMoney {
@@ -25,17 +25,17 @@
   font-size: var(--font-size-sm-plus);
 }
 .statePlan {
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-weight: var(--font-weight-semibold);
 }
 .statePlan svg {
   color: var(--sb-text-muted);
 }
 .stateMoney {
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
 }
 .stateMoney svg {
-  color: var(--sb-accent-strong);
+  color: var(--sb-text-accent-strong);
 }
 
 .alsoStop {
@@ -57,7 +57,7 @@
   background: none;
   padding: var(--spacing-2xs) 0;
   min-height: var(--sb-tap);
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-link);
   font-size: var(--font-size-sm-plus);
   font-weight: var(--font-weight-medium);
   text-decoration: underline;

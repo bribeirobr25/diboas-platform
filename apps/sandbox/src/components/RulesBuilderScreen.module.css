@@ -10,7 +10,7 @@
   margin: 0;
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   letter-spacing: -0.02em;
 }
 .subtitle {
@@ -21,7 +21,7 @@
   margin: 0 0 calc(var(--spacing-lg) - var(--spacing-sm)) 0;
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .rows {
@@ -47,9 +47,9 @@
   flex: 1 1 10rem;
   min-width: 0;
   padding-left: var(--spacing-2xs);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius);
-  background: var(--sb-card);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-card);
+  background: var(--sb-surface-primary);
 }
 .rowNum {
   display: inline-flex;
@@ -59,8 +59,8 @@
   width: 1.75rem;
   height: 1.75rem;
   border-radius: var(--radius-full);
-  border: 1px solid var(--sb-accent);
-  color: var(--text-brand-accessible);
+  border: 1px solid var(--sb-mode-accent);
+  color: var(--sb-text-accent);
   font-size: var(--font-size-sm);
 }
 .select {
@@ -69,9 +69,9 @@
   min-height: var(--sb-tap);
   padding: 0 var(--spacing-2xs);
   border: 0;
-  border-radius: var(--sb-radius);
+  border-radius: var(--sb-radius-card);
   background: transparent;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-size: var(--font-size-md);
 }
 .stepper {
@@ -82,9 +82,9 @@
   flex: 0 0 auto;
   min-width: 8.5rem;
   padding: 0 var(--spacing-2xs);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius);
-  background: var(--sb-card);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-card);
+  background: var(--sb-surface-primary);
 }
 .stepBtn {
   display: inline-flex;
@@ -94,7 +94,7 @@
   height: var(--sb-tap);
   border: 0;
   background: none;
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
   cursor: pointer;
 }
 .stepBtn:disabled {
@@ -106,7 +106,7 @@
   text-align: center;
   font-weight: var(--font-weight-bold);
   font-variant-numeric: tabular-nums;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .remainder {
@@ -115,7 +115,7 @@
   justify-content: space-between;
   gap: var(--spacing-sm);
   padding-top: var(--spacing-md);
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
 }
 .remainderBody {
   display: flex;
@@ -127,7 +127,7 @@
   align-items: center;
   gap: var(--spacing-2xs);
   font-weight: var(--font-weight-medium);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .remainderNote {
   font-size: var(--font-size-sm);
@@ -136,7 +136,7 @@
 .remainderValue {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
   font-variant-numeric: tabular-nums;
 }
 
@@ -147,7 +147,7 @@
   /* Separated by a rule, not boxed — the mockup builds this block's edge from a
      hairline above it, keeping the page free of nested card outlines. */
   padding-top: var(--spacing-md);
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
 }
 .previewHead {
   display: flex;
@@ -156,7 +156,7 @@
   gap: var(--spacing-xs);
   margin: 0;
   font-weight: var(--font-weight-medium);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   flex-wrap: wrap;
 }
 .previewBasis {
@@ -172,7 +172,7 @@
 .previewRow + .previewRow {
   padding-top: var(--spacing-xs);
   margin-top: var(--spacing-xs);
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
 }
 .previewRow {
   display: flex;
@@ -181,15 +181,15 @@
   font-variant-numeric: tabular-nums;
 }
 .previewRow dt {
-  color: var(--sb-text-body);
+  color: var(--sb-text-secondary);
 }
 .previewRow dd {
   margin: 0;
   font-weight: var(--font-weight-medium);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .previewRemainder {
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
 }
 .previewNote,
 .hint {
@@ -203,14 +203,14 @@
   flex-direction: column;
   gap: var(--spacing-sm);
   padding: var(--spacing-lg);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius-lg);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-hero);
   text-align: center;
 }
 .emptyTitle {
   margin: 0;
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .emptyBody {
   margin: 0;

@@ -63,7 +63,7 @@
   width: 100%;
   height: 0;
   overflow: hidden;
-  border-top: 1px solid var(--sb-hairline-strong);
+  border-top: 1px solid var(--sb-border-strong);
 }
 /* Opens only when the month HAS a negative source, so an all-positive month
    renders no empty space where a loss would be. content-box keeps the 1px
@@ -79,7 +79,7 @@
   width: 60%;
   min-height: 2px;
   border-radius: var(--radius-sm);
-  background: var(--sb-accent);
+  background: var(--sb-mode-accent);
   /* Never shrink: as a flex child in a fixed-height box the tallest bar was
      squeezed by its own label while shorter bars had slack, so proportionality
      broke again at the top of the scale. */
@@ -89,7 +89,7 @@
    month, not a failure (R-2 loss-no-shame, carried through every surface).
    The on-SURFACE amber, not the notice-plate ink — see MonthReportScreen. */
 .barDown {
-  background: var(--text-warning-accessible);
+  background: var(--sb-financial-negative);
 }
 
 .value {

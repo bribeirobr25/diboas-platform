@@ -29,7 +29,7 @@
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   line-height: 1.25;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .link {
@@ -38,7 +38,7 @@
   align-items: center;
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
-  color: var(--sb-accent-strong);
+  color: var(--sb-text-link);
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }

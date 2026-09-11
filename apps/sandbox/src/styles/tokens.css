@@ -1,0 +1,512 @@
+/*
+ * diBoaS Practice — L1 FOUNDATIONS: the semantic token architecture (I-1d).
+ *
+ * This file replaces the 2,850-line copy of apps/web's token file (register
+ * 5.215: 86% unused, already drifted from its source). The sandbox now owns
+ * exactly the foundations it renders, and nothing else.
+ *
+ * ── AUTHORITY ────────────────────────────────────────────────────────────────
+ * Role NAMES follow the Minimum UI System v0.1 §4.1 families (surface.* /
+ * text.* / border.* / state.* / financial.*), plus the roles only Mode ×
+ * Appearance v1.0 §5 names (canvas.atmospheric, surface.focused, mode.accent,
+ * focus.ring). The SIX THEMES are §4.2's required set:
+ *
+ *                 light            dark
+ *   neutral   neutral-light    neutral-dark      ← today's live look
+ *   practice  practice-light   practice-dark     ← violet / periwinkle
+ *   real      real-light       real-dark         ← controlled aqua / teal
+ *
+ * Practice = violet/periwinkle and Real = teal/aqua are Product SEMANTIC MODE
+ * colours (Strategy Canon §4.1; register 5.248 CLOSED). They are not brand
+ * colours, and they are not outcome colours.
+ *
+ * ── THE THREE TIERS ──────────────────────────────────────────────────────────
+ * T0 PALETTE  `--palette-*`  every literal colour in the app, declared ONCE.
+ * T1 MODE     `--sb-mode-{50…800}`  the active mode's hue ramp. `data-mode` on
+ *             <html> re-points it; nothing else in the app knows which mode is on.
+ * T2 ROLES    `--sb-<family>-<role>`  what components reference — and the ONLY
+ *             colour tokens they may reference (guarded by tokenArchitecture.test).
+ *
+ * Appearance picks which STEP of the ramp a role uses (text accent = 700 on
+ * light, 400 on dark); mode picks which RAMP. So the six themes are three
+ * ramps × two step-mappings, not six hand-kept copies.
+ *
+ * ── RULES THIS FILE ENFORCES STRUCTURALLY ────────────────────────────────────
+ * 1. Mode ≠ outcome (Mode × Appearance §18: "brand color ≠ financial outcome ≠
+ *    recommendation ≠ Product success"). `financial.*`, `state.*` and
+ *    `identity.*` resolve from T0 only — never from the mode ramp — so switching
+ *    mode can never recolour a gain, a loss, a warning or a goal.
+ * 2. Colours come in PAIRS. Anything painted ON a fill has its own role
+ *    (`action-primary` + `action-primary-text`, `mode-accent-subtle` +
+ *    `text-on-accent-subtle` …) and the pair is contrast-checked in all six
+ *    themes. The pre-I-1d layer had one on-colour (white) under a fill that
+ *    turned light in dark: 1.86:1 on four CTAs.
+ * 3. Mode is resolved at the ROOT. Roles are computed on <html>, so
+ *    `data-mode` must be stamped there (1e's shell resolver does it). A
+ *    `data-mode` on a descendant would re-point the ramp without recomputing
+ *    the roles that read it.
+ *
+ * ── WHAT IS CALIBRATION, NOT AUTHORITY ───────────────────────────────────────
+ * neutral-light / neutral-dark are the approved live values, unchanged.
+ * The practice and real ramps are PROVISIONAL (register 5.282): sampled from
+ * the canon calibration images (Product/UIUX Visual Assets 2026-09-08,
+ * 00_BRAND_AND_MODE_REFERENCES/*_mode_*_reference.png), adjusted only where a
+ * sample fails its role's contrast pair — each adjustment says so. Mode ×
+ * Appearance §10: "directional characters, not HEX specifications". Nothing
+ * renders them until 1e stamps `data-mode`; the day it stamps `practice`, every
+ * Practice screen turns periwinkle, which is why that stamp waits for the
+ * calibration review.
+ *
+ * ── CANON ROLES DELIBERATELY NOT DECLARED YET ────────────────────────────────
+ * A token with no consumer is dead code. These arrive with their first consumer:
+ *   accent.{brand,practice,real,neutral} · mode.chrome   → 1e ModeMarker
+ *   state.{pending,modelled,restricted,authoritative}   → the §19 value-truth chip
+ *   state.{error,info,unknown} · financial.neutral · text.disabled ·
+ *   border.disabled                                    → first surface that needs one
+ */
+
+/* ════════════════════════════════════════════════════════════════════════════
+   T0 · PALETTE — literal values, declared once. Never referenced by components.
+   ════════════════════════════════════════════════════════════════════════════ */
+:root {
+  --palette-white: #ffffff;
+  --palette-teal-50: #f0fdfa;
+  --palette-teal-100: #ccfbf1;
+  --palette-teal-300: #5eead4;
+  --palette-teal-400: #2dd4bf;
+  --palette-teal-600: #0d9488;
+  --palette-teal-700: #0f766e;
+  --palette-teal-800: #115e59;
+  --palette-amber-100: #fef3c7;
+  --palette-amber-400: #fbbf24;
+  --palette-amber-600: #d97706;
+  --palette-amber-700: #b45309;
+  --palette-amber-800: #92400e;
+  --palette-blue-400: #60a5fa;
+  --palette-blue-600: #2563eb;
+  --palette-purple-500: #a855f7;
+  --palette-slate-500: #64748b;
+  --palette-slate-700: #334155;
+  --palette-gray-300: #d1d5db;
+  --palette-editorial-ink: #14110f; /* warm near-black (never pure #000) */
+  --palette-editorial-paper: #f4f0e8; /* cream text on the ink surface */
+  --palette-ink-soft: #112a30;
+  --palette-shadow-hairline: rgba(0, 0, 0, 0.06);
+
+  /* Sampled from the approved mockup PNGs (2026-08-14; re-sampled for the
+     ground — home #fbf6f2 · profile #fbf8f6 · history #f8f5f2). */
+  --palette-mockup-ground: #fbf8f6;
+  --palette-mockup-ink: #0f1a21;
+  --palette-mockup-hairline: #ece6de;
+
+  /* The dark view (mockups 00/01-*-dark, founder 2026-08-14). */
+  --palette-night-surround: #06121a;
+  --palette-night-canvas: #0b171f;
+  --palette-night-card: #13212b;
+  --palette-night-ink-soft: #0e2129;
+  --palette-night-text-primary: #eef4f4;
+  --palette-night-text-secondary: #c2ced2;
+  --palette-night-text-muted: #8ea0a5;
+  --palette-night-hairline: rgba(255, 255, 255, 0.09);
+  --palette-night-hairline-strong: rgba(255, 255, 255, 0.16);
+
+  /* PROVISIONAL · Practice = periwinkle (register 5.282). Samples are from
+     practice_mode_{light,dark}_reference.png; "derived" steps interpolate
+     between samples; "adjusted" ones moved along the hue to pass a pair. */
+  --palette-periwinkle-50: #e2e1f4; /* sampled · icon plate, light */
+  --palette-periwinkle-100: #d4d6f6; /* derived */
+  --palette-periwinkle-300: #b3bcff; /* sampled · eyebrow label, dark */
+  --palette-periwinkle-400: #aaaffd; /* sampled · link, dark */
+  --palette-periwinkle-600: #8089e0; /* adjusted from the sampled CTA #747ed4 (4.06:1 under practice ink) */
+  --palette-periwinkle-700: #2835a8; /* sampled · eyebrow label, light */
+  --palette-periwinkle-800: #1f2a8a; /* derived · hover */
+  --palette-periwinkle-canvas: #fafaff; /* adjusted from the sampled #f5f5f9: muted text needs 4.5:1 on it (4.38 → 4.57) */
+  --palette-periwinkle-ink: #1d2546; /* sampled · the decision card */
+  --palette-periwinkle-ink-raised: #29335f; /* derived */
+  --palette-periwinkle-night-canvas: #0b0f25; /* sampled */
+  --palette-periwinkle-night-card: #141732; /* sampled */
+  --palette-periwinkle-night-ink: #151835; /* sampled */
+  --palette-periwinkle-night-ink-raised: #1e2244; /* derived */
+
+  /* PROVISIONAL · Real Money = controlled aqua / teal (register 5.282).
+     Samples from real_mode_{light,dark}_reference.png. Real Money is never
+     public (OUT boundary); these exist so the structure is exercised. */
+  --palette-aqua-50: #d9f0f3; /* sampled · icon plate, light */
+  --palette-aqua-100: #c4e9ef; /* derived */
+  --palette-aqua-300: #26ecd9; /* sampled · eyebrow label, dark */
+  --palette-aqua-400: #18d8d2; /* sampled · link, dark */
+  --palette-aqua-600: #398ca1; /* sampled · Path/icon stroke (the CTA fill #64cdd2 is 1.9:1 on white) */
+  --palette-aqua-700: #014c68; /* sampled · eyebrow label, light */
+  --palette-aqua-800: #013a50; /* derived · hover */
+  --palette-aqua-canvas: #f7fbfd; /* the sampled CARD tone: the sampled page #f2f8fb gives muted text 4.44:1 */
+  --palette-aqua-ink: #104356; /* sampled · the decision card */
+  --palette-aqua-ink-raised: #15546b; /* derived */
+  --palette-aqua-night-canvas: #000e1e; /* sampled */
+  --palette-aqua-night-card: #001223; /* sampled */
+  --palette-aqua-night-ink: #001223; /* sampled */
+  --palette-aqua-night-ink-raised: #01192e; /* derived */
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   L1 SCALE — spacing, type, radius. Mode- and appearance-independent.
+   (Names kept from the design system this app grew out of; `--spacing-xl` is
+   20px and sits BELOW `--spacing-lg` 24px — inherited, and load-bearing on ten
+   declarations, so it is recorded rather than silently re-ordered.)
+   ════════════════════════════════════════════════════════════════════════════ */
+:root {
+  --spacing-2xs: 2px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  --spacing-3xl: 32px;
+  --spacing-6xl: 64px;
+
+  --font-family-primary:
+    'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-sm-plus: 15px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+  --font-size-5xl: 48px;
+  --font-size-6xl: 60px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-snug: 1.3;
+  --line-height-relaxed: 1.5;
+
+  --radius-sm: 2px;
+  --radius-lg: 8px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-pill: 9999px;
+  --radius-full: 50%;
+
+  --cta-min-height-mobile: 48px;
+  --cta-min-height-tablet: 56px;
+
+  /* Type families: sans is the app voice; serif is a sparing accent. */
+  --sb-sans: var(--font-family-primary);
+  --sb-serif: var(--font-sandbox-serif), 'Iowan Old Style', Georgia, serif;
+  --sb-heading: var(--sb-sans);
+
+  /* Layout */
+  --sb-radius-card: var(--radius-xl); /* 16px */
+  --sb-radius-hero: var(--radius-2xl); /* 24px */
+  --sb-tap: 44px;
+  --sb-canvas-width: 30rem; /* the mobile-app canvas, centred on desktop */
+  --sb-tabbar-h: 4.25rem;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   NEUTRAL · LIGHT — the mode ramp, the mode-scoped surfaces, and every role's
+   light step-mapping. Also the fallback when no `data-mode` is stamped.
+   ════════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* T1 · the neutral ramp = canonical brand teal, used with restraint (§4.2). */
+  --sb-mode-50: var(--palette-teal-50);
+  --sb-mode-100: var(--palette-teal-100);
+  --sb-mode-300: var(--palette-teal-300);
+  --sb-mode-400: var(--palette-teal-400);
+  --sb-mode-600: var(--palette-teal-600);
+  --sb-mode-700: var(--palette-teal-700);
+  --sb-mode-800: var(--palette-teal-800);
+
+  /* Mode-scoped surfaces (a mode block restates these). */
+  --sb-canvas-base: var(--palette-mockup-ground);
+  --sb-canvas-surround: var(--palette-mockup-ground);
+  --sb-surface-primary: var(--palette-white);
+  --sb-surface-inverse: var(--palette-mockup-ink);
+  --sb-surface-inverse-raised: var(--palette-ink-soft);
+
+  /* Canvas + surfaces */
+  --sb-canvas-atmospheric: linear-gradient(160deg, var(--sb-mode-50), var(--sb-mode-100));
+  --sb-surface-secondary: var(--palette-mockup-hairline); /* segmented groups, skeletons */
+  --sb-surface-accent: var(--sb-mode-50); /* large accent washes + chart area fills */
+  --sb-surface-track: var(--palette-gray-300); /* progress / toggle tracks, sheet handle */
+  --sb-surface-overlay: color-mix(in srgb, var(--sb-surface-inverse) 45%, transparent);
+  /* The focused / decision surface (Mode × Appearance §5 surface.focused): the
+     ink gravity card in light. See the dark block for why it changes. */
+  --sb-surface-focused: var(--sb-surface-inverse);
+  --sb-border-focused: transparent;
+
+  /* Text */
+  --sb-text-primary: var(--palette-editorial-ink);
+  --sb-text-secondary: var(--palette-slate-700);
+  --sb-text-muted: var(--palette-slate-500);
+  --sb-text-inverse: var(--palette-editorial-paper);
+  --sb-text-inverse-muted: var(--sb-mode-100);
+  --sb-text-accent: var(--sb-mode-700);
+  --sb-text-accent-strong: var(--sb-mode-700);
+  --sb-text-link: var(--sb-mode-700);
+  --sb-text-on-fill: var(--palette-white); /* glyphs/text on a saturated fill */
+  /* The accent plate stays LIGHT in both appearances by design (small icon
+     badges), so what sits on it is the dark step in both — never the dark
+     view's light teal, which read at 1.42–1.78:1 on it. */
+  --sb-text-on-accent-subtle: var(--sb-mode-700);
+  /* Body text on a plate that stays light in both appearances (the
+     comprehension result): the page's dark-view text colour would vanish on it. */
+  --sb-text-on-plate: var(--palette-editorial-ink);
+
+  /* Borders + focus */
+  --sb-border-default: var(--palette-mockup-hairline);
+  --sb-border-strong: var(--palette-gray-300);
+  --sb-focus-ring: var(--sb-mode-600);
+
+  /* Mode accent — graphics: icons, strokes, progress, selected rings */
+  --sb-mode-accent: var(--sb-mode-600);
+  --sb-mode-accent-subtle: var(--sb-mode-50);
+  --sb-mode-accent-bright: var(
+    --sb-mode-400
+  ); /* the luminous step: accent on the ink surface, highlights */
+  /* A glyph badge filled with the accent keeps the SAME fill in both
+     appearances (the goal-identity rule), so white stays legible on it. */
+  --sb-mode-accent-fill: var(--sb-mode-600);
+
+  /* Actions */
+  --sb-action-primary: var(--sb-mode-700); /* white text 5.47:1 (the Button primitive) */
+  --sb-action-primary-hover: var(--sb-mode-800);
+  --sb-action-primary-text: var(--palette-white);
+  --sb-action-secondary-border: var(--sb-mode-700);
+  --sb-action-secondary-text: var(--sb-mode-700);
+  --sb-action-secondary-hover: var(--sb-surface-accent);
+  --sb-action-inverse: var(--sb-mode-600); /* the CTA that sits ON the ink surface */
+  --sb-action-inverse-hover: var(--sb-mode-400);
+  --sb-action-inverse-text: var(--sb-surface-inverse);
+
+  /* State — T0 only, never the mode ramp (§18) */
+  --sb-state-success-subtle: var(--palette-teal-50);
+  --sb-state-success-on-subtle: var(--palette-teal-700);
+  --sb-state-warning: var(--palette-amber-800);
+  --sb-state-warning-subtle: var(--palette-amber-100);
+  --sb-state-warning-on-subtle: var(--palette-amber-700); /* 4.51:1 on the plate (§4.10) */
+  --sb-state-warning-fill: var(--palette-amber-800);
+  --sb-state-warning-on-fill: var(--palette-white);
+
+  /* Financial outcome — T0 only (§18). One colour per meaning app-wide. */
+  --sb-financial-positive: var(--palette-teal-700);
+  --sb-financial-negative: var(--palette-amber-800);
+
+  /* Identity — categorical, carries no state, outcome or mode meaning.
+     Goal hues are each >=3:1 under a WHITE glyph (WCAG 1.4.11): teal-600 3.74,
+     blue-600 5.17, amber-600 3.19, purple-500 3.96. The badge is filled, so the
+     same four carry in dark (founder 2026-08-21; mockup 02). */
+  --sb-identity-goal-0: var(--palette-teal-600);
+  --sb-identity-goal-1: var(--palette-blue-600);
+  --sb-identity-goal-2: var(--palette-amber-600);
+  --sb-identity-goal-3: var(--palette-purple-500);
+  --sb-identity-available: var(--palette-teal-700);
+  --sb-identity-working: var(--palette-blue-600);
+  /* The bucket tones are TEXT (18px amounts), so they need 4.5:1 — which the
+     goal badge hue amber-600 (3.19:1) does not give. The emergency row renders
+     only when a producer exists (HomeScreen: absent over false). */
+  --sb-identity-emergency: var(--palette-amber-700);
+
+  /* Elevation (Minimum UI §7): soft, warm, ink-tinted — never a black drop. */
+  --sb-elevation-tint-a: color-mix(in srgb, var(--palette-editorial-ink) 4%, transparent);
+  --sb-elevation-tint-b: color-mix(in srgb, var(--palette-editorial-ink) 9%, transparent);
+  --sb-elevation-tint-c: color-mix(in srgb, var(--palette-editorial-ink) 16%, transparent);
+  --sb-elevation-hairline: 0 1px 2px var(--palette-shadow-hairline);
+  --sb-elevation-low:
+    0 1px 2px var(--sb-elevation-tint-a), 0 6px 20px -12px var(--sb-elevation-tint-b);
+  --sb-elevation-medium:
+    0 2px 4px var(--sb-elevation-tint-a), 0 20px 44px -20px var(--sb-elevation-tint-c);
+  --sb-elevation-float: 0 6px 16px -6px var(--sb-elevation-tint-c);
+  --sb-elevation-overlay: 0 -8px 40px -12px var(--sb-elevation-tint-c);
+
+  color-scheme: light;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   PRACTICE · LIGHT and REAL · LIGHT — a mode restates its ramp and its
+   mode-scoped surfaces; every role follows.
+   ════════════════════════════════════════════════════════════════════════════ */
+:root[data-mode='practice'] {
+  --sb-mode-50: var(--palette-periwinkle-50);
+  --sb-mode-100: var(--palette-periwinkle-100);
+  --sb-mode-300: var(--palette-periwinkle-300);
+  --sb-mode-400: var(--palette-periwinkle-400);
+  --sb-mode-600: var(--palette-periwinkle-600);
+  --sb-mode-700: var(--palette-periwinkle-700);
+  --sb-mode-800: var(--palette-periwinkle-800);
+  --sb-canvas-base: var(--palette-periwinkle-canvas);
+  --sb-canvas-surround: var(--palette-periwinkle-canvas);
+  --sb-surface-inverse: var(--palette-periwinkle-ink);
+  --sb-surface-inverse-raised: var(--palette-periwinkle-ink-raised);
+}
+
+:root[data-mode='real'] {
+  --sb-mode-50: var(--palette-aqua-50);
+  --sb-mode-100: var(--palette-aqua-100);
+  --sb-mode-300: var(--palette-aqua-300);
+  --sb-mode-400: var(--palette-aqua-400);
+  --sb-mode-600: var(--palette-aqua-600);
+  --sb-mode-700: var(--palette-aqua-700);
+  --sb-mode-800: var(--palette-aqua-800);
+  --sb-canvas-base: var(--palette-aqua-canvas);
+  --sb-canvas-surround: var(--palette-aqua-canvas);
+  --sb-surface-inverse: var(--palette-aqua-ink);
+  --sb-surface-inverse-raised: var(--palette-aqua-ink-raised);
+  /* The Real ink is lighter than neutral's, so the CTA that sits on it needs
+     the lighter step to keep its ink label at AA. */
+  --sb-action-inverse: var(--sb-mode-400);
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   DARK — the step-mapping for dark, then each mode's dark surfaces.
+
+   Selection: the OS preference is the default; an explicit in-app choice
+   (`data-theme` on <html>, persisted, set pre-paint by ThemeScript) overrides
+   it. CSS cannot share one block between an attribute selector and a media
+   query, so each dark block exists twice — explicit and system — and
+   tokenArchitecture.test fails if the two copies ever differ.
+   ════════════════════════════════════════════════════════════════════════════ */
+:root[data-theme='dark'] {
+  --sb-canvas-base: var(--palette-night-canvas);
+  --sb-canvas-surround: var(--palette-night-surround);
+  --sb-surface-primary: var(--palette-night-card);
+  --sb-surface-inverse: var(--palette-night-canvas);
+  --sb-surface-inverse-raised: var(--palette-night-ink-soft);
+
+  --sb-canvas-atmospheric: linear-gradient(
+    160deg,
+    var(--sb-surface-accent),
+    var(--sb-surface-inverse-raised)
+  );
+  --sb-surface-secondary: var(--palette-night-hairline);
+  --sb-surface-accent: color-mix(in srgb, var(--sb-mode-400) 12%, transparent);
+  --sb-surface-track: var(--palette-night-hairline-strong);
+  /* In light the ink card reads as gravity by being HEAVIER than the page. The
+     dark page is already near-black and the ink fill lands at 1.04:1 on it, so
+     in dark the gravity comes from ELEVATION: the card surface lifted by an
+     edge. */
+  --sb-surface-focused: var(--sb-surface-primary);
+  --sb-border-focused: var(--sb-border-strong);
+
+  --sb-text-primary: var(--palette-night-text-primary);
+  --sb-text-secondary: var(--palette-night-text-secondary);
+  --sb-text-muted: var(--palette-night-text-muted);
+  --sb-text-inverse: var(--palette-night-text-primary);
+  --sb-text-accent: var(--sb-mode-400); /* the light step clears AA on the dark ground */
+  --sb-text-accent-strong: var(--sb-mode-300);
+  --sb-text-link: var(--sb-mode-400);
+
+  --sb-border-default: var(--palette-night-hairline);
+  --sb-border-strong: var(--palette-night-hairline-strong);
+  --sb-focus-ring: var(--sb-mode-400);
+
+  --sb-mode-accent: var(--sb-mode-400);
+  --sb-action-secondary-text: var(--sb-mode-400);
+  --sb-action-inverse: var(--sb-mode-400);
+
+  /* Signal colours tuned for the dark ground: a loss figure must never be the
+     least readable number on the screen. The warning PLATE stays light in dark
+     so a notice still reads as a notice (its text token does not change). */
+  --sb-state-success-on-subtle: var(--palette-teal-700);
+  --sb-state-warning: var(--palette-amber-400);
+  --sb-state-warning-fill: var(--palette-amber-400);
+  --sb-state-warning-on-fill: var(--palette-night-canvas);
+  --sb-financial-positive: var(--palette-teal-400);
+  --sb-financial-negative: var(--palette-amber-400);
+  --sb-identity-available: var(--palette-teal-400);
+  --sb-identity-working: var(--palette-blue-400);
+  --sb-identity-emergency: var(--palette-amber-400);
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --sb-canvas-base: var(--palette-night-canvas);
+    --sb-canvas-surround: var(--palette-night-surround);
+    --sb-surface-primary: var(--palette-night-card);
+    --sb-surface-inverse: var(--palette-night-canvas);
+    --sb-surface-inverse-raised: var(--palette-night-ink-soft);
+
+    --sb-canvas-atmospheric: linear-gradient(
+      160deg,
+      var(--sb-surface-accent),
+      var(--sb-surface-inverse-raised)
+    );
+    --sb-surface-secondary: var(--palette-night-hairline);
+    --sb-surface-accent: color-mix(in srgb, var(--sb-mode-400) 12%, transparent);
+    --sb-surface-track: var(--palette-night-hairline-strong);
+    --sb-surface-focused: var(--sb-surface-primary);
+    --sb-border-focused: var(--sb-border-strong);
+
+    --sb-text-primary: var(--palette-night-text-primary);
+    --sb-text-secondary: var(--palette-night-text-secondary);
+    --sb-text-muted: var(--palette-night-text-muted);
+    --sb-text-inverse: var(--palette-night-text-primary);
+    --sb-text-accent: var(--sb-mode-400);
+    --sb-text-accent-strong: var(--sb-mode-300);
+    --sb-text-link: var(--sb-mode-400);
+
+    --sb-border-default: var(--palette-night-hairline);
+    --sb-border-strong: var(--palette-night-hairline-strong);
+    --sb-focus-ring: var(--sb-mode-400);
+
+    --sb-mode-accent: var(--sb-mode-400);
+    --sb-action-secondary-text: var(--sb-mode-400);
+    --sb-action-inverse: var(--sb-mode-400);
+
+    --sb-state-success-on-subtle: var(--palette-teal-700);
+    --sb-state-warning: var(--palette-amber-400);
+    --sb-state-warning-fill: var(--palette-amber-400);
+    --sb-state-warning-on-fill: var(--palette-night-canvas);
+    --sb-financial-positive: var(--palette-teal-400);
+    --sb-financial-negative: var(--palette-amber-400);
+    --sb-identity-available: var(--palette-teal-400);
+    --sb-identity-working: var(--palette-blue-400);
+    --sb-identity-emergency: var(--palette-amber-400);
+
+    color-scheme: dark;
+  }
+}
+
+/* PRACTICE · DARK and REAL · DARK — each mode's dark surfaces. Higher
+   specificity (0,3,0) than both the mode block and the dark block, so the pair
+   wins regardless of source order. */
+:root[data-theme='dark'][data-mode='practice'] {
+  --sb-canvas-base: var(--palette-periwinkle-night-canvas);
+  --sb-canvas-surround: var(--palette-periwinkle-night-canvas);
+  --sb-surface-primary: var(--palette-periwinkle-night-card);
+  --sb-surface-inverse: var(--palette-periwinkle-night-ink);
+  --sb-surface-inverse-raised: var(--palette-periwinkle-night-ink-raised);
+}
+
+:root[data-theme='dark'][data-mode='real'] {
+  --sb-canvas-base: var(--palette-aqua-night-canvas);
+  --sb-canvas-surround: var(--palette-aqua-night-canvas);
+  --sb-surface-primary: var(--palette-aqua-night-card);
+  --sb-surface-inverse: var(--palette-aqua-night-ink);
+  --sb-surface-inverse-raised: var(--palette-aqua-night-ink-raised);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light'])[data-mode='practice'] {
+    --sb-canvas-base: var(--palette-periwinkle-night-canvas);
+    --sb-canvas-surround: var(--palette-periwinkle-night-canvas);
+    --sb-surface-primary: var(--palette-periwinkle-night-card);
+    --sb-surface-inverse: var(--palette-periwinkle-night-ink);
+    --sb-surface-inverse-raised: var(--palette-periwinkle-night-ink-raised);
+  }
+
+  :root:not([data-theme='light'])[data-mode='real'] {
+    --sb-canvas-base: var(--palette-aqua-night-canvas);
+    --sb-canvas-surround: var(--palette-aqua-night-canvas);
+    --sb-surface-primary: var(--palette-aqua-night-card);
+    --sb-surface-inverse: var(--palette-aqua-night-ink);
+    --sb-surface-inverse-raised: var(--palette-aqua-night-ink-raised);
+  }
+}

@@ -1,14 +1,16 @@
 /*
  * SegmentedToggle (Phase B). A pill-track with the active segment raised on a
  * white chip (the approved mockup's Simple|Detailed control). Active label uses
- * accessible teal-700; inactive muted. Tokenized.
+ * the accent; the inactive label is SECONDARY text, not muted: muted measured
+ * 3.83:1 on the track fill (axe, four screens, 2026-09-11) and the inactive
+ * label is still an operable control's name.
  */
 .group {
   display: inline-flex;
   gap: var(--spacing-2xs);
   padding: var(--spacing-2xs);
   border-radius: var(--radius-pill);
-  background: var(--sb-hairline);
+  background: var(--sb-surface-secondary);
 }
 
 .segment {
@@ -17,7 +19,7 @@
   border: none;
   border-radius: var(--radius-pill);
   background: transparent;
-  color: var(--sb-text-muted);
+  color: var(--sb-text-secondary);
   font-size: var(--font-size-sm-plus);
   font-weight: var(--font-weight-semibold);
   cursor: pointer;
@@ -27,7 +29,7 @@
 }
 
 .active {
-  background: var(--sb-card);
-  color: var(--text-brand-accessible);
-  box-shadow: 0 1px 2px var(--shadow-black-light);
+  background: var(--sb-surface-primary);
+  color: var(--sb-text-accent);
+  box-shadow: var(--sb-elevation-hairline);
 }

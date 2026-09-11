@@ -11,7 +11,7 @@
   margin: 0;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .subtitle {
   margin: 0;
@@ -33,7 +33,7 @@
 
 /* --- Detailed view: per-goal source-separation card --- */
 .detailCard {
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
   padding: var(--spacing-md) 0;
   display: flex;
   flex-direction: column;
@@ -56,14 +56,14 @@
   width: 2.25rem;
   height: 2.25rem;
   border-radius: var(--radius-full);
-  background: var(--sb-accent);
-  color: var(--color-white);
+  background: var(--sb-mode-accent-fill);
+  color: var(--sb-text-on-fill);
 }
 .detailName {
   flex: 1;
   min-width: 0;
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .detailHead svg:last-child {
   color: var(--sb-text-muted);
@@ -81,7 +81,7 @@
 .sourceRows dd {
   margin: 0;
   text-align: right;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-variant-numeric: tabular-nums;
 }
 
@@ -108,7 +108,7 @@
 .emptyTitle {
   margin: 0;
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .emptyBody {
   margin: 0;
@@ -122,7 +122,7 @@
   align-items: center;
   gap: var(--spacing-xs);
   align-self: flex-start;
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
   font-weight: var(--font-weight-medium);
   text-decoration: none;
   padding: var(--spacing-xs) 0;
@@ -132,7 +132,7 @@
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   color: var(--sb-text-muted);
-  border: 1px solid var(--sb-hairline-strong);
+  border: 1px solid var(--sb-border-strong);
   border-radius: var(--radius-pill);
   padding: 0 var(--spacing-xs);
   line-height: 1.5;

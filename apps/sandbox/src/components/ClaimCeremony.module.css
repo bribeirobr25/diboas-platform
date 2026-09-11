@@ -10,7 +10,7 @@
   max-width: 30rem;
   margin: 0 auto;
   min-height: 100dvh;
-  background: var(--sb-ground);
+  background: var(--sb-canvas-base);
 }
 
 /* --- Hero band: chip + wordmark over the coastal image, fading to the body --- */
@@ -42,7 +42,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(to bottom, transparent 68%, var(--sb-ground) 100%);
+  background: linear-gradient(to bottom, transparent 68%, var(--sb-canvas-base) 100%);
 }
 .heroTop {
   position: relative;
@@ -78,15 +78,15 @@
   width: 4rem;
   height: 4rem;
   border-radius: var(--radius-full);
-  background: var(--sb-card);
-  color: var(--sb-accent);
-  border: 1px solid var(--sb-hairline);
-  box-shadow: var(--sb-shadow-soft);
+  background: var(--sb-surface-primary);
+  color: var(--sb-mode-accent);
+  border: 1px solid var(--sb-border-default);
+  box-shadow: var(--sb-elevation-low);
   margin-bottom: var(--spacing-xs);
 }
 .eyebrow {
   margin: 0;
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-md);
 }
@@ -95,7 +95,7 @@
   font-family: var(--sb-sans);
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-xl);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .amount {
   margin: var(--spacing-xs) 0 0;
@@ -104,7 +104,7 @@
   font-size: var(--font-size-6xl);
   line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--sb-accent);
+  color: var(--sb-mode-accent);
 }
 .amountLabel {
   margin: var(--spacing-xs) 0 0;
@@ -128,17 +128,17 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: var(--radius-full);
-  background: var(--sb-card-tint);
-  color: var(--text-brand-accessible);
+  background: var(--sb-surface-accent);
+  color: var(--sb-text-accent);
 }
 .infoTitle {
   margin: 0;
   font-weight: var(--font-weight-semibold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .infoBody {
   margin: var(--spacing-2xs) 0 0;
-  color: var(--sb-text-body);
+  color: var(--sb-text-secondary);
   font-size: var(--font-size-sm);
   line-height: 1.5;
 }
@@ -158,6 +158,6 @@
   font-size: var(--font-size-sm);
 }
 .footer svg {
-  color: var(--sb-accent);
+  color: var(--sb-mode-accent);
   flex: none;
 }

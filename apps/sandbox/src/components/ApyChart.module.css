@@ -26,8 +26,8 @@
   cursor: pointer;
 }
 .pill[data-active='true'] {
-  background: var(--sb-accent-tint);
-  color: var(--text-brand-accessible);
+  background: var(--sb-mode-accent-subtle);
+  color: var(--sb-text-on-accent-subtle);
 }
 
 .plot {
@@ -51,7 +51,7 @@
   overflow: visible;
 }
 .grid {
-  stroke: var(--sb-hairline);
+  stroke: var(--sb-border-default);
   stroke-width: 1;
   stroke-dasharray: 2 3;
 }
@@ -59,11 +59,11 @@
    two are identical in light, but only this one darkens, and a large area
    fill left light renders as a pale blob on a dark card. */
 .area {
-  fill: var(--sb-card-tint);
+  fill: var(--sb-surface-accent);
 }
 .line {
   fill: none;
-  stroke: var(--sb-accent);
+  stroke: var(--sb-mode-accent);
   stroke-width: 2;
   stroke-linejoin: round;
   stroke-linecap: round;

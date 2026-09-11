@@ -1,8 +1,8 @@
-/** How many identity hues the palette carries (see `--goal-accent-N`). */
+/** How many identity hues the palette carries (see `--sb-identity-goal-N` in tokens.css). */
 const GOAL_ACCENTS = 4;
 
 /**
- * A goal's identity colour, as a stable index into the `--goal-accent-N`
+ * A goal's identity colour, as a stable index into the `--sb-identity-goal-N`
  * palette (founder 2026-08-21; mockup 02 colour-codes its goals).
  *
  * Derived from the goalId rather than stored, deliberately: the colour is

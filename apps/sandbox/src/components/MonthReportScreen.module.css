@@ -13,7 +13,7 @@
   margin: 0;
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   letter-spacing: -0.02em;
 }
 .range,
@@ -29,9 +29,9 @@
   flex-direction: column;
   gap: var(--spacing-2xs);
   padding: var(--spacing-lg) var(--spacing-md);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius-lg);
-  background: var(--sb-card);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-hero);
+  background: var(--sb-surface-primary);
 }
 .heroLabel {
   margin: 0;
@@ -48,7 +48,7 @@
   line-height: 1.05;
   font-weight: var(--font-weight-bold);
   font-variant-numeric: tabular-nums;
-  color: var(--text-brand-accessible);
+  color: var(--sb-financial-positive);
 }
 /* A month that fell is amber, never alarm-red — a loss is a fact of the
    month, not a failure (R-2 loss-no-shame). `--text-warning-accessible`, not
@@ -56,7 +56,7 @@
    different ramps (the warn-text token is the ink on the light amber notice
    plate, which stays light in dark mode by design). */
 .heroValueDown {
-  color: var(--text-warning-accessible);
+  color: var(--sb-financial-negative);
 }
 .heroPercent {
   font-size: var(--font-size-lg);
@@ -73,15 +73,15 @@
    card rather than a stroke bleeding to the screen edge. */
 .spark {
   padding: var(--spacing-sm);
-  border-radius: var(--sb-radius-lg);
-  background: var(--sb-card);
+  border-radius: var(--sb-radius-hero);
+  background: var(--sb-surface-primary);
 }
 
 .sectionLabel {
   margin: 0;
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .rows {
@@ -96,7 +96,7 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) 0;
-  border-bottom: 1px solid var(--sb-hairline);
+  border-bottom: 1px solid var(--sb-border-default);
 }
 .row:last-child {
   border-bottom: 0;
@@ -109,8 +109,8 @@
   width: 2.25rem;
   height: 2.25rem;
   border-radius: var(--radius-full);
-  background: var(--sb-accent-tint);
-  color: var(--text-brand-accessible);
+  background: var(--sb-mode-accent-subtle);
+  color: var(--sb-text-on-accent-subtle);
 }
 .rowBody {
   display: flex;
@@ -119,7 +119,7 @@
   min-width: 0;
 }
 .rowName {
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .rowNote {
   font-size: var(--font-size-sm);
@@ -130,10 +130,10 @@
   flex: none;
   font-weight: var(--font-weight-bold);
   font-variant-numeric: tabular-nums;
-  color: var(--text-brand-accessible);
+  color: var(--sb-financial-positive);
 }
 .rowValueDown {
-  color: var(--text-warning-accessible);
+  color: var(--sb-financial-negative);
 }
 
 /* opening + change == closing, stated as a sum the reader can check. */
@@ -143,9 +143,9 @@
   gap: var(--spacing-2xs);
   margin: 0;
   padding: var(--spacing-md);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius);
-  background: var(--sb-card);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-card);
+  background: var(--sb-surface-primary);
 }
 .reconRow,
 .reconTotal {
@@ -164,10 +164,10 @@
 .reconTotal {
   margin-top: var(--spacing-2xs);
   padding-top: var(--spacing-xs);
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .movedNote {
@@ -181,14 +181,14 @@
   flex-direction: column;
   gap: var(--spacing-2xs);
   padding: var(--spacing-md);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius-lg);
-  background: var(--sb-card);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-hero);
+  background: var(--sb-surface-primary);
 }
 .practiceTitle {
   margin: 0;
   font-weight: var(--font-weight-medium);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .practiceLine {
   margin: 0;
@@ -203,9 +203,9 @@
   gap: var(--spacing-2xs);
   min-height: var(--sb-tap);
   padding: var(--spacing-sm) var(--spacing-md);
-  border: 1px solid var(--sb-hairline-strong);
-  border-radius: var(--sb-radius);
-  color: var(--text-brand-accessible);
+  border: 1px solid var(--sb-border-strong);
+  border-radius: var(--sb-radius-card);
+  color: var(--sb-text-link);
   font-weight: var(--font-weight-medium);
   text-decoration: none;
 }

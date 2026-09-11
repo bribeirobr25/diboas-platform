@@ -15,9 +15,9 @@
   justify-content: space-between;
   gap: var(--spacing-md);
   padding: var(--spacing-lg);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius);
-  background: var(--sb-card);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-card);
+  background: var(--sb-surface-primary);
 }
 .balanceText {
   display: flex;
@@ -33,7 +33,7 @@
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-4xl);
   line-height: 1.05;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .balanceUnit {
   color: var(--sb-text-muted);
@@ -46,15 +46,15 @@
   flex: none;
   width: 3rem;
   height: 3rem;
-  border-radius: var(--sb-radius);
-  border: 1px solid var(--sb-accent);
-  color: var(--sb-accent);
+  border-radius: var(--sb-radius-card);
+  border: 1px solid var(--sb-mode-accent);
+  color: var(--sb-mode-accent);
 }
 
 .actions {
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius);
-  background: var(--sb-card);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-card);
+  background: var(--sb-surface-primary);
   overflow: hidden;
 }
 .action {
@@ -65,14 +65,14 @@
   padding: var(--spacing-md) var(--spacing-lg);
   border: none;
   background: transparent;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
   text-align: left;
   cursor: pointer;
 }
 .action + .action {
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
 }
 .action[data-disabled='true'] {
   color: var(--sb-text-muted);
@@ -80,7 +80,7 @@
 .actionIcon {
   display: inline-flex;
   flex: none;
-  color: var(--sb-accent);
+  color: var(--sb-mode-accent);
 }
 .action[data-disabled='true'] .actionIcon {
   color: var(--sb-text-muted);
@@ -104,7 +104,7 @@
   line-height: 1.5;
 }
 .info svg {
-  color: var(--sb-accent);
+  color: var(--sb-mode-accent);
   flex: none;
   margin-top: 0.15em;
 }
@@ -122,13 +122,13 @@
   width: 3.5rem;
   height: 3.5rem;
   border-radius: var(--radius-full);
-  border: 1px solid var(--sb-accent);
-  color: var(--sb-accent);
+  border: 1px solid var(--sb-mode-accent);
+  color: var(--sb-mode-accent);
 }
 .sheetBody {
   margin: 0 0 var(--spacing-md);
   text-align: center;
-  color: var(--sb-text-body);
+  color: var(--sb-text-secondary);
   font-size: var(--font-size-md);
   line-height: 1.5;
 }
@@ -139,18 +139,18 @@
   gap: var(--spacing-md);
   padding: var(--spacing-md) 0;
   margin-bottom: var(--spacing-md);
-  border-top: 1px solid var(--sb-hairline);
-  border-bottom: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
+  border-bottom: 1px solid var(--sb-border-default);
 }
 .feeLabel {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-xs);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-weight: var(--font-weight-semibold);
 }
 .feeLabel svg {
-  color: var(--sb-accent);
+  color: var(--sb-mode-accent);
   flex: none;
 }
 .feeValue {
@@ -159,7 +159,7 @@
   align-items: flex-end;
 }
 .feePct {
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-lg);
 }
