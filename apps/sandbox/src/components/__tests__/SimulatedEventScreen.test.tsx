@@ -45,7 +45,7 @@ const M = {
   'simEvent.waitingBody': 'Practice money never goes below zero.',
   'simEvent.noneTitle': 'Nothing to handle',
   'simEvent.noneBody': 'No practice scenario is waiting for you right now.',
-  'simEvent.backHome': 'Back to home',
+  'notFound.backHome': 'Back to home',
   'simEvent.name': 'An unexpected expense',
   'simEvent.confirmTitle': 'Confirm how you handle it',
   'simEvent.manifest.event': 'Practice scenario',

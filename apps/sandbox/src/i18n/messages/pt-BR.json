@@ -652,7 +652,6 @@
     "waitingBody": "Nem o Disponível nem uma meta têm o suficiente para cobrir, e o dinheiro de treino nunca fica negativo. Ele espera aqui até dar para resolver.",
     "noneTitle": "Nada para resolver",
     "noneBody": "Nenhum cenário de treino está esperando por você agora.",
-    "backHome": "Voltar para o início",
     "name": "Uma despesa inesperada",
     "confirmTitle": "Confirme como você vai resolver",
     "manifest.event": "Cenário de treino",
@@ -693,5 +692,9 @@
     "cyclesCompleted": "{count, plural, one {# ciclo semanal resolvido} other {# ciclos semanais resolvidos}}.",
     "viewHistory": "Ver o histórico completo",
     "practiceOnly": "Isto é dinheiro de mentira. Nada aqui vira dinheiro de verdade."
+  },
+  "notFound": {
+    "title": "Esta página não existe.",
+    "backHome": "Voltar para o início"
   }
 }

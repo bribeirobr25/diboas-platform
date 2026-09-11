@@ -1,6 +1,8 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { NextRequest } from 'next/server';
 import { middleware } from '../middleware';
+
+const GATED = ['handle-claim', 'practice-record'];
 
 /**
  * The edge middleware's two duties and — the part worth a test — their ORDER.
@@ -141,5 +143,104 @@ describe('the geofence decides FIRST — the covenant this reordering could have
     for (const country of ['BR', 'DE', 'US', 'PT', 'ES', 'GB', 'CH', 'HK', 'TW', 'BY', 'IR']) {
       expect(middleware(request('/en/welcome', { country })).status).toBe(200);
     }
+  });
+});
+
+describe('a capability that is off is refused BEFORE anything renders (5.270)', () => {
+  afterEach(() => {
+    delete process.env.PRACTICE_ACCOUNTS_ENABLED;
+  });
+
+  it.each(GATED)('should rewrite /%s to the localized 404 with a REAL 404 status', (segment) => {
+    /**
+     * The defect this closes: the page-level `notFound()` fires and the screen
+     * never renders, but `(app)/layout.tsx` is async (`await cookies()`), so the
+     * document has already begun streaming — headers are sent and the status
+     * stays 200. A soft 404 tells crawlers and monitors the page exists.
+     * Middleware is the only layer structurally earlier than a layout.
+     */
+    const res = middleware(request(`/de/${segment}`));
+    expect(res.status).toBe(404);
+    expect(target(res)).toBe('/de/missing');
+    // A rewrite, never a redirect: the visitor keeps the URL they asked for.
+    expect(res.headers.get('location')).toBeNull();
+  });
+
+  it('should refuse in the language that was asked for', () => {
+    for (const locale of ['en', 'de', 'es', 'pt-BR']) {
+      expect(target(middleware(request(`/${locale}/handle-claim`)))).toBe(`/${locale}/missing`);
+    }
+  });
+
+  it('should let the routes THROUGH once the capability is explicitly enabled (P-Q2)', () => {
+    // Preserve capability, not placement: the flag opens the door again, and
+    // the screens render as built. A permanent block here would delete a
+    // capability the register requires to survive.
+    process.env.PRACTICE_ACCOUNTS_ENABLED = 'true';
+    for (const segment of GATED) {
+      const res = middleware(request(`/en/${segment}`));
+      expect(res.status).toBe(200); // NextResponse.next()
+      expect(res.headers.get('x-middleware-rewrite')).toBeNull();
+    }
+  });
+
+  it('should not refuse a route that merely CONTAINS a gated name', () => {
+    // Segment equality, not substring: `/en/handle-claim-history` is not the
+    // gated route and must not be swallowed by it.
+    const res = middleware(request('/en/handle-claim-history'));
+    expect(res.status).toBe(200);
+  });
+
+  it('should still let the GEOFENCE decide first, even on a gated route', () => {
+    // Ordering again: a refused country asking for a gated path must get the
+    // 451, not the 404 — the covenant outranks the capability.
+    const res = middleware(request('/de/handle-claim', { country: 'CN' }));
+    expect(res.status).toBe(451);
+    expect(target(res)).toBe('/de/unavailable');
+  });
+});
+
+describe('the not-found surface never lies about its own status (audit, 2026-09-11)', () => {
+  it.each(['en', 'de', 'es', 'pt-BR'])(
+    'should answer a direct /%s/missing with a real 404, not a 200',
+    (locale) => {
+      /**
+       * The page has to be a REAL route to get a document shell and a correct
+       * `<html lang>` (`not-found.tsx` cannot — see `missing/page.tsx`), which
+       * leaves it directly addressable. A URL that returns `200` while saying
+       * *"this page isn't here"* denies its own existence — the same class of
+       * untruth as `5.201`/`5.202`, one layer down: there the affordance lied,
+       * here the status line would.
+       */
+      const res = middleware(request(`/${locale}/missing`));
+      expect(res.status).toBe(404);
+      expect(target(res)).toBe(`/${locale}/missing`);
+      // Self-rewriting cannot loop: a rewrite does not re-invoke middleware —
+      // the same property the geofence relies on for `/unavailable`.
+      expect(res.headers.get('location')).toBeNull();
+    }
+  );
+
+  it('should never resolve an /api path to a rendered page', () => {
+    // An API path is a data contract. Rewriting `/api/handle-claim` to an HTML
+    // document would answer a data request with a page — wrong content type,
+    // and a shape no client could parse.
+    for (const path of ['/api/handle-claim', '/api/practice-record', '/api/missing']) {
+      const res = middleware(request(path));
+      expect(res.status).toBe(200); // NextResponse.next() — Next itself 404s it
+      expect(res.headers.get('x-middleware-rewrite')).toBeNull();
+    }
+  });
+
+  it('should keep /api reachable for the routes that DO exist', () => {
+    for (const path of ['/api/health', '/api/market']) {
+      expect(middleware(request(path)).headers.get('x-middleware-rewrite')).toBeNull();
+    }
+  });
+
+  it('should still refuse a blocked country on an /api path (the geofence outranks it)', () => {
+    // The `/api` skip is placed AFTER the geofence on purpose: data paths are
+    // exactly what a denylisted region must not reach.
+    expect(middleware(request('/api/health', { country: 'CN' })).status).toBe(451);
   });
 });

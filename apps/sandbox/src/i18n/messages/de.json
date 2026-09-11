@@ -652,7 +652,6 @@
     "waitingBody": "Weder Verfügbar noch ein Ziel deckt den Betrag, und Übungsgeld geht nie unter null. Es wartet hier, bis es geht.",
     "noneTitle": "Nichts zu lösen",
     "noneBody": "Gerade wartet kein Übungsszenario auf dich.",
-    "backHome": "Zurück zur Startseite",
     "name": "Eine unerwartete Ausgabe",
     "confirmTitle": "Bestätige, wie du es löst",
     "manifest.event": "Übungsszenario",
@@ -693,5 +692,9 @@
     "cyclesCompleted": "{count, plural, one {# Wochenzyklus} other {# Wochenzyklen}} abgeschlossen.",
     "viewHistory": "Den ganzen Verlauf ansehen",
     "practiceOnly": "Das ist Spielgeld. Nichts davon wird zu echtem Geld."
+  },
+  "notFound": {
+    "title": "Diese Seite gibt es nicht.",
+    "backHome": "Zurück zur Startseite"
   }
 }
