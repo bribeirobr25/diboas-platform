@@ -16,10 +16,17 @@ import '../src/styles/globals.css';
  * roles are computed at `:root`, so stamping a wrapper div would re-point the
  * ramp without recomputing the roles that read it (`tokens.css` says so).
  *
- * `data-palette` carries the mode PALETTE and `data-mode` the mode TRUTH. They
- * are separate because the practice/real values are provisional calibration
- * (register `5.282`): the truth can ship while the re-tint waits for Product.
- * Here both follow the toolbar, which is the point of a calibration surface.
+ * `data-palette` carries the mode PALETTE and `data-mode` the mode TRUTH. Only
+ * `data-palette` re-points the ramp — `tokens.css` keys its mode blocks off
+ * that attribute and nothing else, so stating a mode paints nothing. The
+ * separation exists because the practice/real values are provisional
+ * calibration (register `5.282`): the truth ships, the re-tint waits for
+ * Product. Here both follow the toolbar, which is the point of a calibration
+ * surface: this is where the provisional values are meant to be seen.
+ *
+ * (For one commit the token file keyed the ramp off `data-mode` instead, so the
+ * live app re-tinted the moment the shell stated its mode. A screenshot caught
+ * it; the suite had asserted the attribute rather than the resolved colour.)
  */
 const THEMES = ['light', 'dark'] as const;
 const MODES = ['neutral', 'practice', 'real'] as const;

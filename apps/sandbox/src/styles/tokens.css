@@ -42,9 +42,9 @@
  *    themes. The pre-I-1d layer had one on-colour (white) under a fill that
  *    turned light in dark: 1.86:1 on four CTAs.
  * 3. Mode is resolved at the ROOT. Roles are computed on <html>, so
- *    `data-mode` must be stamped there (1e's shell resolver does it). A
- *    `data-mode` on a descendant would re-point the ramp without recomputing
- *    the roles that read it.
+ *    `data-palette` must be stamped there (1e's shell resolver does it, behind
+ *    the capability). A `data-palette` on a descendant would re-point the ramp
+ *    without recomputing the roles that read it.
  *
  * ── WHAT IS CALIBRATION, NOT AUTHORITY ───────────────────────────────────────
  * neutral-light / neutral-dark are the approved live values, unchanged.
@@ -53,9 +53,9 @@
  * 00_BRAND_AND_MODE_REFERENCES/*_mode_*_reference.png), adjusted only where a
  * sample fails its role's contrast pair — each adjustment says so. Mode ×
  * Appearance §10: "directional characters, not HEX specifications". Nothing
- * renders them until 1e stamps `data-mode`; the day it stamps `practice`, every
- * Practice screen turns periwinkle, which is why that stamp waits for the
- * calibration review.
+ * renders them until `data-palette` is stamped; the day it is, every Practice
+ * screen turns periwinkle, which is why the palette sits behind a capability
+ * while the mode TRUTH (`data-mode`) ships freely.
  *
  * ── CANON ROLES DELIBERATELY NOT DECLARED YET ────────────────────────────────
  * A token with no consumer is dead code. These arrive with their first consumer:
@@ -214,7 +214,7 @@
 
 /* ════════════════════════════════════════════════════════════════════════════
    NEUTRAL · LIGHT — the mode ramp, the mode-scoped surfaces, and every role's
-   light step-mapping. Also the fallback when no `data-mode` is stamped.
+   light step-mapping. Also the fallback when no `data-palette` is stamped.
    ════════════════════════════════════════════════════════════════════════════ */
 :root {
   /* T1 · the neutral ramp = canonical brand teal, used with restraint (§4.2). */
@@ -344,7 +344,7 @@
    PRACTICE · LIGHT and REAL · LIGHT — a mode restates its ramp and its
    mode-scoped surfaces; every role follows.
    ════════════════════════════════════════════════════════════════════════════ */
-:root[data-mode='practice'] {
+:root[data-palette='practice'] {
   --sb-mode-50: var(--palette-periwinkle-50);
   --sb-mode-100: var(--palette-periwinkle-100);
   --sb-mode-300: var(--palette-periwinkle-300);
@@ -358,7 +358,7 @@
   --sb-surface-inverse-raised: var(--palette-periwinkle-ink-raised);
 }
 
-:root[data-mode='real'] {
+:root[data-palette='real'] {
   --sb-mode-50: var(--palette-aqua-50);
   --sb-mode-100: var(--palette-aqua-100);
   --sb-mode-300: var(--palette-aqua-300);
@@ -492,7 +492,7 @@
 /* PRACTICE · DARK and REAL · DARK — each mode's dark surfaces. Higher
    specificity (0,3,0) than both the mode block and the dark block, so the pair
    wins regardless of source order. */
-:root[data-theme='dark'][data-mode='practice'] {
+:root[data-theme='dark'][data-palette='practice'] {
   --sb-canvas-base: var(--palette-periwinkle-night-canvas);
   --sb-canvas-surround: var(--palette-periwinkle-night-canvas);
   --sb-surface-primary: var(--palette-periwinkle-night-card);
@@ -500,7 +500,7 @@
   --sb-surface-inverse-raised: var(--palette-periwinkle-night-ink-raised);
 }
 
-:root[data-theme='dark'][data-mode='real'] {
+:root[data-theme='dark'][data-palette='real'] {
   --sb-canvas-base: var(--palette-aqua-night-canvas);
   --sb-canvas-surround: var(--palette-aqua-night-canvas);
   --sb-surface-primary: var(--palette-aqua-night-card);
@@ -509,7 +509,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light'])[data-mode='practice'] {
+  :root:not([data-theme='light'])[data-palette='practice'] {
     --sb-canvas-base: var(--palette-periwinkle-night-canvas);
     --sb-canvas-surround: var(--palette-periwinkle-night-canvas);
     --sb-surface-primary: var(--palette-periwinkle-night-card);
@@ -517,7 +517,7 @@
     --sb-surface-inverse-raised: var(--palette-periwinkle-night-ink-raised);
   }
 
-  :root:not([data-theme='light'])[data-mode='real'] {
+  :root:not([data-theme='light'])[data-palette='real'] {
     --sb-canvas-base: var(--palette-aqua-night-canvas);
     --sb-canvas-surround: var(--palette-aqua-night-canvas);
     --sb-surface-primary: var(--palette-aqua-night-card);
