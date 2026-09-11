@@ -8,12 +8,26 @@ import { useIntl } from 'react-intl';
  * position, and separators come from Intl per locale — never concatenated.
  * Decimal strings cross this boundary as display-only numbers.
  */
+/**
+ * Zero is unsigned. Any value that DISPLAYS as zero at the given precision is
+ * formatted as zero, never "-$0.00".
+ *
+ * A signed zero reached a money surface on 2026-09-11 (the split preview, from
+ * a −1.4e-14 float residue). The domain fix removed that residue, but the rule
+ * belongs here too, because every figure in the app passes through this seam
+ * and a sign on nothing is always wrong. A REAL negative — a loss, a debit —
+ * keeps its minus: only magnitudes below half the last displayed digit fold.
+ */
+function unsignedZero(value: number, fractionDigits: number): number {
+  return Math.abs(value) < 0.5 * 10 ** -fractionDigits ? 0 : value;
+}
+
 export function useFormatters(currency: 'USD' | 'BRL' | 'EUR') {
   const intl = useIntl();
 
   const money = useCallback(
     (value: string | number) =>
-      intl.formatNumber(typeof value === 'string' ? Number(value) : value, {
+      intl.formatNumber(unsignedZero(typeof value === 'string' ? Number(value) : value, 2), {
         style: 'currency',
         currency,
         maximumFractionDigits: 2,
@@ -24,7 +38,7 @@ export function useFormatters(currency: 'USD' | 'BRL' | 'EUR') {
   /** Whole-currency (no cents) for compact summary surfaces like the jobs strip. */
   const moneyWhole = useCallback(
     (value: string | number) =>
-      intl.formatNumber(typeof value === 'string' ? Number(value) : value, {
+      intl.formatNumber(unsignedZero(typeof value === 'string' ? Number(value) : value, 0), {
         style: 'currency',
         currency,
         maximumFractionDigits: 0,

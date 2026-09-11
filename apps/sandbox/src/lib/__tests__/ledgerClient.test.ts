@@ -17,6 +17,7 @@ import {
   accomplishGoal,
   raiseGoalTarget,
   stopGoalStrategies,
+  exitPosition,
 } from '@/lib/ledgerClient';
 
 /**
@@ -109,6 +110,66 @@ describe('previewExit — the widened exit primitive (Step 0 item 7)', () => {
   it('should return null for an unknown or already-closed position', () => {
     openPosition();
     expect(previewExit('no-such-position', 5)).toBeNull();
+  });
+});
+
+/**
+ * FC-15 — "what you read is exactly what happens": the confirmation surface IS
+ * the transaction, to the last cent.
+ *
+ * `previewExit` subtracted the UNROUNDED network fee and rounded the net, while
+ * `StrategyExited` rounds the fee first. At a sub-cent fee the two diverged: the
+ * manifest said one net, the ledger booked another. Measured over the fee table ×
+ * plausible USD→local quotes × four gross sizes: 4,257 of 1,080,080 cases. The
+ * counter-example below is the first one that probe found.
+ */
+describe('the exit manifest books exactly what it shows (FC-15)', () => {
+  beforeEach(() => resetSandbox());
+
+  /** A position worth exactly `gross`, with the goal's cash fully invested. */
+  function positionWorth(gross: number): string {
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 3000,
+      horizonMonths: 24,
+      fundAmount: gross,
+    });
+    return enterStrategy({
+      goalId,
+      strategyId: 'safeHarbor',
+      totalFromCash: gross,
+      networkFeeLocal: 0,
+    });
+  }
+
+  it('should land in the goal exactly the net the preview stated, at a sub-cent fee', () => {
+    // Gross 25.00 with a fee quoted at 0.005 (Solana 0.001 × a local rate of 5).
+    const positionId = positionWorth(25);
+    const preview = previewExit(positionId, 0.005)!;
+    exitPosition({ positionId, networkFeeLocal: 0.005 });
+    // The goal held no cash before, so its cash now IS what the exit landed.
+    expect(getLedgerState().goals[0].cash).toBe(preview.net);
+    // And the manifest's own lines add up: gross − the two fees it lists.
+    expect(preview.net).toBe(
+      new Decimal(preview.gross).minus(preview.exitFee).minus(preview.networkFee).toFixed(2)
+    );
+  });
+
+  it('should agree with the ledger across every fee the gas table can produce', () => {
+    // The fixture gas table (sub-cent Solana/Sui, cents Arbitrum) × the fixture
+    // and live-shaped USD→local rates the market route actually serves.
+    for (const gas of [0.001, 0.002, 0.03]) {
+      for (const rate of [1, 0.92, 5, 5.5, 5.4523, 0.861341]) {
+        resetSandbox();
+        const positionId = positionWorth(25);
+        const fee = gas * rate;
+        const preview = previewExit(positionId, fee)!;
+        exitPosition({ positionId, networkFeeLocal: fee });
+        expect(getLedgerState().goals[0].cash, `gas ${gas} × rate ${rate}`).toBe(preview.net);
+      }
+    }
   });
 });
 

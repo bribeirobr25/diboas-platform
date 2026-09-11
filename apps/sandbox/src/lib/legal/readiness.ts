@@ -21,6 +21,7 @@
  */
 
 import { isPracticeAccountsEnabled, type Env } from '@/lib/capabilities';
+import { Logger } from '@/lib/monitoring/Logger';
 import { LEGAL_READINESS_LOCALES, legalUrl } from '@/i18n/config';
 
 export const LEGAL_CONTROLS = [
@@ -108,10 +109,27 @@ export function buildRecords(
   ];
 }
 
-/** Device-local persistence (D-01). Browser-only; a missing storage is a no-op. */
-export function saveLegalChoices(records: LegalChoiceRecord[]): void {
-  if (typeof localStorage === 'undefined') return;
-  localStorage.setItem(LEGAL_CHOICES_STORAGE_KEY, JSON.stringify({ version: 1, records }));
+/**
+ * Device-local persistence (D-01). Returns whether the evidence record was
+ * actually written.
+ *
+ * `setItem` throws in private mode and on a full quota (R-9). Unguarded, that
+ * exception escaped the Continue handler: nothing was logged, and the user was
+ * left on a button that did nothing with no reason given. The boolean keeps the
+ * caller's behaviour exactly as it effectively was — no evidence record, no
+ * account step — while making the failure observable (Principle 12). Whether an
+ * unsavable record should instead proceed, or say something to the user, is a
+ * Legal/Product question, not a storage one, and is left to them.
+ */
+export function saveLegalChoices(records: LegalChoiceRecord[]): boolean {
+  if (typeof localStorage === 'undefined') return false;
+  try {
+    localStorage.setItem(LEGAL_CHOICES_STORAGE_KEY, JSON.stringify({ version: 1, records }));
+    return true;
+  } catch (error) {
+    Logger.error('legal choice record could not be persisted', {}, error);
+    return false;
+  }
 }
 
 export function readLegalChoices(): LegalChoiceRecord[] {

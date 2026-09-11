@@ -225,3 +225,23 @@ describe('CUR-1 residue — currency WORDS in copy can only decrease', () => {
     expect(found.size).toBeGreaterThanOrEqual(4);
   });
 });
+
+/**
+ * `5.231` — the pre-commit risk paragraph told the user "practice mode previews
+ * the returns these systems pay, NOT the price swings". True before §4.8; false
+ * since the G8 price overlay made `market` legs replay the token's own price —
+ * practice positions CAN fall (pinned by `g8NegativeSurfaces.test.ts`). The
+ * sentence was removed (plan §13.2: "5.231 (remove clause)"); this keeps it gone
+ * in every locale while leaving the real-money risk sentence in place.
+ */
+describe('the risk copy matches the shipped return model (5.231)', () => {
+  it.each(SANDBOX_LOCALES)(
+    'should not tell a %s reader that practice omits price swings',
+    (locale) => {
+      const riskGrowth = catalog(locale)['pathCard.riskGrowth'];
+      expect(riskGrowth).not.toMatch(/not the price swings|não as oscilações de preço/i);
+      // The half that stays true: real money can fall as well as rise.
+      expect(riskGrowth).toContain('{percent}');
+    }
+  );
+});

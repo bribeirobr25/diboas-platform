@@ -107,6 +107,6 @@ export const LEGAL_READINESS_LOCALES: readonly SandboxLocale[] = ['en'];
  * Sandbox legal links point here and open in a new tab. Locale-prefixed to match
  * the marketing site's [locale] routing.
  */
-export const MARKETING_ORIGIN = 'https://diboas.com';
+const MARKETING_ORIGIN = 'https://diboas.com';
 export const legalUrl = (locale: string, page: 'terms' | 'privacy') =>
   `${MARKETING_ORIGIN}/${locale}/legal/${page}`;

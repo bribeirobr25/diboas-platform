@@ -147,6 +147,17 @@ export interface IGasProvider {
 export const SANDBOX_MARKET_TTL_MS = 6 * 60 * 60 * 1000;
 
 /**
+ * How long a provider waits on an upstream before failing open to its
+ * documented fixture (Principle 7).
+ *
+ * Without a bound, a hung upstream holds the function open to the platform
+ * limit — and the browser gives up first (`fetchSeries` aborts at 15 s), so the
+ * honest fixture fallback that exists for exactly this case is never served;
+ * the user gets an error instead. Deliberately below the client's 15 s.
+ */
+export const PROVIDER_FETCH_TIMEOUT_MS = 8_000;
+
+/**
  * How a protocol leg's return is REPLAYED (§4.8 G8 price overlay).
  *
  * Two rules, and the distinction is load-bearing rather than cosmetic:

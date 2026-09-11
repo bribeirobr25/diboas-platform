@@ -111,6 +111,15 @@
   justify-content: center;
   width: var(--sb-tap);
   height: var(--sb-tap);
+  /* `5.207`: this class styles the back <button> as well as the two links, and
+     a button with no declared background/border renders the user agent's
+     chrome — a grey plate with a PURE BLACK 2px outset border in light (pure
+     WHITE in dark), an anti-slop Part 1 violation on every non-root screen.
+     Links ignore all three declarations, so they are safe to share. */
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
   color: var(--sb-text-heading);
   text-decoration: none;
   border-radius: var(--radius-full);

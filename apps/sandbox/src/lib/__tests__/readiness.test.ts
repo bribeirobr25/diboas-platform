@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   buildRecords,
   canContinue,
@@ -121,5 +121,45 @@ describe('legal readiness — route availability (internal build only)', () => {
     // English chrome and untranslated.test.ts fails; this row documents the gate.
     expect(isReadinessAvailable('de', { PRACTICE_ACCOUNTS_ENABLED: 'true' })).toBe(false);
     expect(isReadinessAvailable('en', { PRACTICE_ACCOUNTS_ENABLED: 'true' })).toBe(true);
+  });
+});
+
+/**
+ * R-9 — "every browser API that can throw is guarded, with a QUIET fallback
+ * state the UI actually renders." `setItem` throws in private mode and on a
+ * full quota; the Legal evidence write had no guard, so the exception escaped
+ * the Continue handler with nothing logged.
+ */
+describe('the evidence write survives a storage failure (R-9)', () => {
+  const records = () => buildRecords({ terms: true, age: true, analytics: false }, 'en');
+
+  it('should report failure instead of throwing when storage refuses the write', () => {
+    // The GLOBAL is replaced, not `Storage.prototype`: happy-dom's localStorage
+    // does not route through the prototype, so a prototype spy never fires and
+    // the real write quietly succeeds (the first version of this test did
+    // exactly that and failed for the wrong reason).
+    const refusing = {
+      getItem: () => null,
+      removeItem: () => {},
+      setItem: () => {
+        throw new DOMException('quota', 'QuotaExceededError');
+      },
+    };
+    vi.stubGlobal('localStorage', refusing);
+    const quiet = vi.spyOn(console, 'error').mockImplementation(() => {});
+    try {
+      expect(saveLegalChoices(records())).toBe(false);
+      // …and the failure is observable, not silent (Principle 12).
+      expect(quiet).toHaveBeenCalled();
+    } finally {
+      vi.unstubAllGlobals();
+      quiet.mockRestore();
+    }
+  });
+
+  it('should report success, and read back what it wrote, when storage works', () => {
+    localStorage.clear();
+    expect(saveLegalChoices(records())).toBe(true);
+    expect(readLegalChoices()).toHaveLength(records().length);
   });
 });

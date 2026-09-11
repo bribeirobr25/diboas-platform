@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import Decimal from 'decimal.js';
-import { reconcile } from '@diboas/banking';
+import { reconcile, type LedgerState } from '@diboas/banking';
 import {
   advanceTime,
   createGoal,
@@ -480,5 +480,71 @@ describe('money-boundary hardening (audit 2026-08-21)', () => {
     // Nothing appended, and no "NaN" string anywhere in the log.
     expect(getLedgerState().events.length).toBe(before);
     expect(JSON.stringify(getLedgerState().events)).not.toContain('NaN');
+  });
+});
+
+/**
+ * `5.210` — the field stated a minimum and then refused it.
+ *
+ * `splitBounds` computed in float: `1500 − 128.39` is 1371.6100000000001, so the
+ * range line read "1,371.61" while `entered >= min` was false for 1371.61 typed.
+ * The CTA sat dead beside the number it asked for. A synthetic state is enough
+ * here — `splitBounds` reads only Available and the goal's cash.
+ */
+describe('split bounds are whole cents, so the stated minimum can be entered (5.210)', () => {
+  const stateWith = (working: string, cash: string) =>
+    ({
+      buckets: { floor: '0.00', cushion: '0.00', working },
+      goals: [{ goalId: 'g', status: 'active', cash }],
+    }) as unknown as LedgerState;
+  const onlySplit = { coverFromAvailable: false, reserveGoalIds: [], splitGoalIds: ['g'] };
+
+  it('should accept the exact minimum it displays — the measured counter-example', () => {
+    const state = stateWith('128.39', '9871.61');
+    const bounds = splitBounds(state, 1500, 'g')!;
+    expect(bounds.min).toBe(1371.61);
+    const typed = toCents(Number('1371.61'))!;
+    const [impact] = expenseImpacts(state, 1500, onlySplit, { g: typed });
+    expect(impact.pending).toBe(false);
+  });
+
+  it('should accept both displayed bounds, typed back, for every Available balance', () => {
+    // A user can only type what the range line shows (two decimals). Every
+    // bound, rendered then re-entered, must pass — across the b2c and b2b R1
+    // expense sizes and a dense sweep of balances.
+    const refused: string[] = [];
+    for (const amount of [1500, 37500]) {
+      for (let cents = 1; cents < amount * 100; cents += 97) {
+        const working = (cents / 100).toFixed(2);
+        const state = stateWith(working, (amount * 2).toFixed(2));
+        const bounds = splitBounds(state, amount, 'g');
+        if (!bounds) continue;
+        for (const shown of [bounds.min.toFixed(2), bounds.max.toFixed(2)]) {
+          const typed = toCents(Number(shown))!;
+          const [impact] = expenseImpacts(state, amount, onlySplit, { g: typed });
+          if (impact.pending) refused.push(`${amount} / working ${working} / typed ${shown}`);
+        }
+      }
+    }
+    expect(refused).toEqual([]);
+  });
+
+  it('should state an unsigned zero when the split empties Available exactly', () => {
+    // The visual pass found "Available $128.39 → -$0.00" on this exact entry:
+    // float left −1.4e-14 behind. Taking the stated minimum spends Available to
+    // exactly nothing, and the goal keeps exactly 9,871.61 − 1,371.61.
+    const state = stateWith('128.39', '9871.61');
+    const [impact] = expenseImpacts(state, 1500, onlySplit, { g: 1371.61 });
+    expect(Object.is(impact.availableAfter, 0)).toBe(true);
+    expect(impact.goalCashAfter).toBe(8500);
+  });
+
+  it('should round the minimum UP and the maximum DOWN, so neither admits what the ledger refuses', () => {
+    // 100.005 due with 50.00 Available: the reserve must give at least 50.005,
+    // which is 50.01 in cents (50.00 would leave Available 0.005 short — and the
+    // commit re-validates in Decimal, so it would refuse). The most it may give
+    // is 100.005 − 0.01 = 99.995, which is 99.99 in cents.
+    const bounds = splitBounds(stateWith('50.00', '200.00'), 100.005, 'g')!;
+    expect(bounds).toEqual({ min: 50.01, max: 99.99 });
   });
 });

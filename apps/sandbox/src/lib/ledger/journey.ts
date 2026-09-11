@@ -214,6 +214,22 @@ export function createGoal(input: {
 }
 
 /**
+ * A network fee as the LEDGER books it: whole cents, quantized ONCE.
+ *
+ * Every path that shows or books a network fee goes through here, because two
+ * quantizations in two places is how the exit preview and the ledger came to
+ * disagree. `previewExit` used to subtract the UNROUNDED fee and round the net,
+ * while `StrategyExited` rounds the fee first — so at a sub-cent fee the manifest
+ * stated one net and the ledger booked another, a cent apart (measured: 4,257 of
+ * 1,080,080 fee × gross combinations; e.g. gross 25.00 with a 0.005 fee showed
+ * net 24.75 over a 0.01 fee line, and booked 24.74). FC-15's whole promise is
+ * that the confirmation surface IS the transaction; that includes its last cent.
+ */
+function feeInCents(networkFeeLocal: number): Decimal {
+  return new Decimal(networkFeeLocal).toDecimalPlaces(2);
+}
+
+/**
  * The exact Decimal split of a committed total into (fee, invested), so that
  * fee + invested == total to the cent. The manifest display and the ledger
  * event both use this — what you read is exactly what happens (no independent
@@ -225,7 +241,7 @@ export function splitEntry(
   networkFeeLocal: number
 ): { total: Decimal; fee: Decimal; invested: Decimal } {
   const total = new Decimal(totalFromCash).toDecimalPlaces(2);
-  const fee = Decimal.min(new Decimal(networkFeeLocal).toDecimalPlaces(2), total);
+  const fee = Decimal.min(feeInCents(networkFeeLocal), total);
   return { total, fee, invested: total.minus(fee) };
 }
 
@@ -391,7 +407,7 @@ export function exitPosition(input: { positionId: string; networkFeeLocal: numbe
       goalId: position.goalId,
       grossAmount: gross.toFixed(2),
       exitFee: exitFee.toFixed(2),
-      networkFee: new Decimal(input.networkFeeLocal).toFixed(2),
+      networkFee: feeInCents(input.networkFeeLocal).toFixed(2),
     },
   ]);
 }
@@ -414,7 +430,7 @@ export function previewExit(
   if (!position || !position.open) return null;
   const gross = new Decimal(position.principal).plus(position.accrued);
   const exitFee = computeExitFee(gross, state.currency);
-  const networkFee = new Decimal(networkFeeLocal);
+  const networkFee = feeInCents(networkFeeLocal);
   const net = gross.minus(exitFee).minus(networkFee);
   return {
     gross: gross.toFixed(2),
@@ -540,7 +556,7 @@ export function stopGoalStrategies(goalId: string, feeFor: (positionId: string) 
       goalId,
       grossAmount: gross.toFixed(2),
       exitFee: computeExitFee(gross, state.currency).toFixed(2),
-      networkFee: new Decimal(feeFor(position.positionId)).toFixed(2),
+      networkFee: feeInCents(feeFor(position.positionId)).toFixed(2),
     });
   }
   appendAll(events);
