@@ -40,7 +40,7 @@
   background: var(--sb-surface-primary);
 }
 .inputWrap[data-valid='true'] {
-  border-color: var(--sb-mode-accent);
+  border-color: var(--sb-state-success);
 }
 .at {
   color: var(--sb-text-muted);

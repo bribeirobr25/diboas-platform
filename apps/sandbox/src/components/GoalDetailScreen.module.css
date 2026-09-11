@@ -165,8 +165,19 @@
 .earningsLine {
   margin: 0;
   font-size: var(--font-size-md);
-  color: var(--sb-text-accent-strong);
   font-weight: var(--font-weight-medium);
+}
+/* Earnings are a financial OUTCOME with a sign, so they take the outcome
+   roles the rest of the app uses (History, the month report) — never the mode
+   accent (§18), and never the gain colour for a fall. */
+.earningsLine[data-sign='pos'] {
+  color: var(--sb-financial-positive);
+}
+.earningsLine[data-sign='neg'] {
+  color: var(--sb-financial-negative);
+}
+.earningsLine[data-sign='none'] {
+  color: var(--sb-text-muted);
 }
 
 .exit {
