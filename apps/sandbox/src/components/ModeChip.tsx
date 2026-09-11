@@ -11,7 +11,7 @@ import styles from './ModeChip.module.css';
  * inlining its own badge.
  *
  * Consumers are the two PRE-APP screens — Consent and the Claim ceremony.
- * Inside the app the same duty is carried by the disclaimer line AppChrome
+ * Inside the app the same duty is carried by the disclaimer line AppShell
  * renders under every screen (R-4); the bar itself is the mark alone (founder
  * 2026-08-21). Sea-green pill, sentence case, matching the approved mockups;
  * text uses the accessible teal-600 for contrast on the pale tint.

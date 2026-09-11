@@ -18,7 +18,7 @@ const VALID = /^[a-z0-9.]+$/;
  * availability is optimistic on a valid format and Claim advances to Profile.
  *
  * Lives inside the (app) auth group (founder 2026-08-16): gated like every other
- * in-app screen, with the shared AppChrome top bar + tab bar (which carries the
+ * in-app screen, with the shared AppShell header + navigation (which carries the
  * R-4 play-money chip) — so this screen renders no header of its own.
  */
 export function HandleClaim({ locale }: { locale: string }) {

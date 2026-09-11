@@ -17,7 +17,7 @@ import { HomeScreen } from './HomeScreen';
  * Claim (D-8 — first-run's fn = the Home empty state, which is the redirect).
  *
  * Gates on ledger-`ready`, not React-hydrated (plan §7): the shared
- * `<LedgerReadyGate>` in `AppChrome` (P1.2 slice 1c) already holds every `(app)`
+ * `<LedgerReadyGate>` in `AppShell` (P1.2 slice 1c) already holds every `(app)`
  * screen until `hydrate()` settles, so `HomeGate` only ever mounts against a
  * hydrated log — no redirect flash on a returning user.
  */

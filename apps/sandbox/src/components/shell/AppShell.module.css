@@ -1,0 +1,123 @@
+/*
+ * The shell's frame, lifted from `AppChrome.module.css` when the shell split
+ * into its L2 components (I-1e). The geometry is unchanged: the same surround,
+ * the same constrained canvas that reads as a device on desktop and full-width
+ * on a phone, the same scroll region between header and navigation.
+ *
+ * Shell Spec §19/§20 describe a tablet rail and a desktop sidebar, and §29
+ * leaves *"final desktop visual styling"* unresolved — so this file keeps the
+ * approved mobile-canvas presentation and does NOT invent a rail. The
+ * destination model is now a declared value (`destinationsFor`), which is what
+ * a future rail will read; that is the "safe responsive foundation" I-1 is
+ * scoped to, and nothing more.
+ */
+.surround {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  background: var(--sb-canvas-surround);
+}
+
+.canvas {
+  position: relative;
+  width: 100%;
+  max-width: var(--sb-canvas-width);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--sb-canvas-base);
+  overflow: hidden;
+}
+
+@media (min-width: 32rem) {
+  .canvas {
+    box-shadow: var(--sb-elevation-medium);
+  }
+}
+
+/* Tablet and up: an intentional device held in the space (Part B, C1). */
+@media (min-width: 48rem) {
+  .canvas {
+    height: calc(100dvh - 5rem);
+    max-height: 56rem;
+    border-radius: var(--sb-radius-hero);
+  }
+}
+
+.skipLink {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--sb-surface-inverse);
+  color: var(--sb-text-inverse);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-lg);
+  z-index: 20;
+}
+
+.skipLink:focus {
+  left: var(--spacing-sm);
+  top: var(--spacing-sm);
+}
+
+/* Home's coastal hero band (mockup 02): a light band behind the transparent
+   bar and the play balance, fading into the ground. Decorative. */
+.heroBackdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 15rem;
+  z-index: 0;
+  pointer-events: none;
+  background: url('/hero-welcome.png') center 56% / cover no-repeat;
+}
+
+.heroBackdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 52%, var(--sb-canvas-base) 100%);
+}
+
+/* The asset swap per appearance — an IMAGE, not a colour value, which is why it
+   stays in a component stylesheet (tokens carry no artwork). */
+:global(html[data-theme='dark']) .heroBackdrop {
+  background-image: url('/hero-welcome-dark.png');
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme='light'])) .heroBackdrop {
+    background-image: url('/hero-welcome-dark.png');
+  }
+}
+
+.scroll {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.main {
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
+}
+
+/*
+ * R-4's play-money line, under every screen's content inside the app. Legal
+ * `L-QA1`: a header mode marker does not by itself discharge R-4 — both labels
+ * ride. Real text in the flow, so it holds at every viewport and for a screen
+ * reader (the frame caption is desktop-only and aria-hidden).
+ */
+.disclaimer {
+  margin: 0;
+  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
+  font-size: var(--font-size-xs);
+  color: var(--sb-text-muted);
+  line-height: var(--line-height-relaxed);
+}

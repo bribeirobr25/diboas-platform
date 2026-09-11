@@ -253,6 +253,8 @@ const GRAPHIC_PAIRS: [string, string][] = [
   ['--sb-text-on-fill', '--sb-identity-goal-2'],
   ['--sb-text-on-fill', '--sb-identity-goal-3'],
   ['--sb-state-warning-on-fill', '--sb-state-warning-fill'],
+  // The unread dot is a meaningful graphic on the navigation bar's surface.
+  ['--sb-state-unread', '--sb-surface-primary'],
 ];
 
 function pairRatio(fg: string, bg: string, st: State) {

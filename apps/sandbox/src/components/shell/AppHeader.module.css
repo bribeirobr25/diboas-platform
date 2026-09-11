@@ -1,0 +1,55 @@
+/*
+ * The top app bar, lifted from `AppChrome.module.css` when the shell split into
+ * its L2 components (Minimum UI §10.1).
+ *
+ * The three-slot grid is the spec's own anatomy — `[ left utility ] [ identity ]
+ * [ right utility ]` (Shell Spec §4.1) — and it is a GRID rather than
+ * space-between so the identity stays optically centred even when one slot is
+ * empty: on a focused surface the right slot has nothing in it, and with
+ * space-between the mark would drift right.
+ */
+.appbar {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: var(--sb-tap) 1fr var(--sb-tap);
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--sb-border-default);
+  background: var(--sb-canvas-base);
+}
+
+/* Over Home's coastal band the bar is transparent (mockup 02). */
+.appbar[data-hero='true'] {
+  background: transparent;
+  border-bottom-color: transparent;
+}
+
+/*
+ * S0 (neutral) and S3 (system) carry identity only — no Profile, no Alerts
+ * (Spec §3.2, §6). The hairline goes too: on an entry or refusal surface the
+ * bar is not a chrome edge, it is just the mark.
+ */
+.appbar[data-variant='neutral'],
+.appbar[data-variant='system'] {
+  border-bottom-color: transparent;
+}
+
+.slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.slot[data-align='end'] {
+  justify-content: flex-end;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2xs);
+}

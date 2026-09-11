@@ -42,7 +42,7 @@ vi.mock('@/hooks/useMarket', () => ({
  * This file used to hand-build an abbreviated `M`, which made its copy
  * assertions circular — they proved the element rendered whatever this file put
  * in it, not that the shipped string appears. The same reasoning is written out
- * in `AppChrome.test.tsx` for the R-4 disclosure. Emptying a key in the real
+ * in `shell/__tests__/AppShell.test.tsx` for the R-4 disclosure. Emptying a key in the real
  * catalog must fail these tests.
  */
 const M = getMessages('en');

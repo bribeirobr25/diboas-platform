@@ -5,7 +5,7 @@ import { isPracticeAccountsEnabled } from '@/lib/capabilities';
 
 /**
  * @handle claim (R2; W-20). An in-app screen reached from Profile, inside the
- * (app) auth group (gated + AppChrome, founder 2026-08-16).
+ * (app) auth group (gated + the AppShell chrome, founder 2026-08-16).
  *
  * `5.201` — 404 unless `PRACTICE_ACCOUNTS_ENABLED`. The screen made four
  * statements that nothing behind it could keep: it told the user their handle

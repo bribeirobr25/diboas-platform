@@ -1,0 +1,53 @@
+/*
+ * The header's utility controls — Profile (left) and Alerts (right).
+ *
+ * Lifted from `AppChrome.module.css`'s `.appbarIcon` when the shell split into
+ * its L2 components, INCLUDING the `5.207` reset: this class styles a <button>
+ * (Back) as well as two links, and a button with no declared background/border
+ * renders the user agent's chrome — a grey plate with a pure black 2px outset
+ * border in light, pure white in dark. That was live on every non-root screen
+ * until the seven-front audit found it. Links ignore all three declarations, so
+ * the three controls can share one class safely.
+ */
+.control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sb-tap);
+  height: var(--sb-tap);
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--sb-text-primary);
+  text-decoration: none;
+  border-radius: var(--radius-full);
+}
+
+.control:hover {
+  color: var(--sb-text-accent-strong);
+}
+
+/*
+ * The unread indicator (Minimum UI §10.3, Shell Spec §14.2): a CONVENTIONAL red
+ * dot — "do not invent a novel notification language". §14.2 allows a dot OR a
+ * small badge count; this is the dot, and the COUNT rides in the control's
+ * accessible name instead. A counted pill would need legible text on red in
+ * both appearances, which is a calibration question nobody has answered — and
+ * the number adds nothing the name does not already say.
+ *
+ * It is not a reward: §10.3 says the badge is "informational, not gamification",
+ * which is why there is no animation and no pulse — it appears, and that is all.
+ */
+.unread {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  min-width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-pill);
+  background: var(--sb-state-unread);
+  /* A ring in the bar's own colour keeps the dot legible against a dark glyph. */
+  box-shadow: 0 0 0 2px var(--sb-canvas-base);
+}

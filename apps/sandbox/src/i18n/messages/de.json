@@ -361,7 +361,8 @@
     "move": "Bewegen",
     "learn": "Lernen",
     "profile": "Profil",
-    "notifications": "Benachrichtigungen"
+    "notifications": "Benachrichtigungen",
+    "community": "Community"
   },
   "notifications": {
     "title": "Benachrichtigungen",
@@ -696,5 +697,11 @@
   "notFound": {
     "title": "Diese Seite gibt es nicht.",
     "backHome": "Zurück zur Startseite"
+  },
+  "community": {
+    "title": "Community ist noch nicht verfügbar",
+    "explanation": "Ein Raum für das, was Menschen in ihrem Leben aufbauen: relevanter Kontext, Geschichten über Fortschritte und Unterstützung. Deine Ziele, Entscheidungen und dein Geld bleiben bei dir.",
+    "availability": "Der öffentliche Zugang ist noch nicht geöffnet.",
+    "action": "Zurück zur Startseite"
   }
 }

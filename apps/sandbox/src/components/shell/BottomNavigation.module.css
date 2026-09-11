@@ -1,0 +1,96 @@
+/*
+ * The bottom navigation — five destinations in the thumb zone (Minimum UI
+ * §10.5, Shell Spec §8).
+ *
+ * Lifted from `AppChrome.module.css`'s tab bar, with two changes the canon
+ * requires:
+ *
+ * 1. **Five columns, not four.** Home · Goals · Move · Learn · Community
+ *    (Spec §8/§10). The old bar carried four and a raised centre action.
+ * 2. **The selected state survives without colour** — `SHELL-2`, Spec §26
+ *    ("selected state survives without color"), P01 `A11Y-01`. Three signals,
+ *    none of them sufficient alone and none of them only colour: an indicator
+ *    BAR above the item, a heavier label, and the accent colour as the third
+ *    reinforcement. `aria-current="page"` carries it for assistive tech.
+ */
+.tabbar {
+  flex-shrink: 0;
+  height: var(--sb-tabbar-h);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: stretch;
+  justify-items: center;
+  padding: 0 var(--spacing-sm) env(safe-area-inset-bottom, 0);
+  border-top: 1px solid var(--sb-border-default);
+  background: var(--sb-surface-primary);
+}
+
+.tab {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  min-height: var(--sb-tap);
+  padding: var(--spacing-2xs) var(--spacing-2xs);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--sb-text-muted);
+  transition: color 0.12s ease;
+}
+
+.tab:hover {
+  color: var(--sb-text-accent-strong);
+}
+
+/* Signal 1 — the indicator bar. Present only on the selected destination, so a
+   greyscale screenshot still says which one it is. */
+.indicator {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.5rem;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+}
+
+.tab[data-selected='true'] .indicator {
+  background: currentColor;
+}
+
+/* Signals 2 and 3 — a heavier label, and the accent as reinforcement. */
+.tab[data-selected='true'] {
+  color: var(--sb-text-accent-strong);
+}
+
+.tab[data-selected='true'] .tabLabel {
+  font-weight: var(--font-weight-bold);
+}
+
+/*
+ * An unavailable destination stays VISIBLE and legible — Spec §23 prefers a
+ * controlled unavailable surface over "an unexplained dead icon", and where an
+ * item must stay inert its reason rides in the accessible name. So this is
+ * muted, never hidden, and never so faint that it reads as broken chrome.
+ */
+.tab[data-disabled='true'] {
+  color: var(--sb-text-muted);
+  opacity: 0.55;
+  cursor: default;
+}
+
+.tab[data-disabled='true']:hover {
+  color: var(--sb-text-muted);
+}
+
+/* Labels are ALWAYS visible (§26: "icon alone is insufficient"). */
+.tabLabel {
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  line-height: 1.15;
+}

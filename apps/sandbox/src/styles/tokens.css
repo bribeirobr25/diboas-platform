@@ -85,6 +85,10 @@
   --palette-blue-400: #60a5fa;
   --palette-blue-600: #2563eb;
   --palette-purple-500: #a855f7;
+  /* Red returns for ONE role: the unread indicator. I-1d removed it when the
+     loss colour became amber, and an unread notification is not a loss. */
+  --palette-red-400: #f87171;
+  --palette-red-700: #b91c1c;
   --palette-slate-500: #64748b;
   --palette-slate-700: #334155;
   --palette-gray-300: #d1d5db;
@@ -291,6 +295,12 @@
      practice accent mean "good" (§18). */
   --sb-state-success: var(--palette-teal-700);
   --sb-state-success-on-subtle: var(--palette-teal-700);
+  /* The unread indicator (Shell Spec §14.2 — a "conventional red unread
+     indicator"). Its OWN role, never `state.error`: §10.3 says an unread
+     marker "must never imply urgency unless the message itself is actually
+     urgent", and an unread note is not an error. Palette-only, so a mode
+     switch cannot recolour it (§18). */
+  --sb-state-unread: var(--palette-red-700);
   --sb-state-warning: var(--palette-amber-800);
   --sb-state-warning-subtle: var(--palette-amber-100);
   --sb-state-warning-on-subtle: var(--palette-amber-700); /* 4.51:1 on the plate (§4.10) */
@@ -325,7 +335,6 @@
     0 1px 2px var(--sb-elevation-tint-a), 0 6px 20px -12px var(--sb-elevation-tint-b);
   --sb-elevation-medium:
     0 2px 4px var(--sb-elevation-tint-a), 0 20px 44px -20px var(--sb-elevation-tint-c);
-  --sb-elevation-float: 0 6px 16px -6px var(--sb-elevation-tint-c);
   --sb-elevation-overlay: 0 -8px 40px -12px var(--sb-elevation-tint-c);
 
   color-scheme: light;
@@ -417,6 +426,7 @@
      least readable number on the screen. The warning PLATE stays light in dark
      so a notice still reads as a notice (its text token does not change). */
   --sb-state-success: var(--palette-teal-400);
+  --sb-state-unread: var(--palette-red-400);
   --sb-state-warning: var(--palette-amber-400);
   --sb-state-warning-fill: var(--palette-amber-400);
   --sb-state-warning-on-fill: var(--palette-night-canvas);
@@ -465,6 +475,7 @@
     --sb-action-inverse: var(--sb-mode-400);
 
     --sb-state-success: var(--palette-teal-400);
+    --sb-state-unread: var(--palette-red-400);
     --sb-state-warning: var(--palette-amber-400);
     --sb-state-warning-fill: var(--palette-amber-400);
     --sb-state-warning-on-fill: var(--palette-night-canvas);
