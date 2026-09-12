@@ -141,13 +141,57 @@ describe('state cards (backdrop)', () => {
     ]);
   });
 
-  it('should carry the macro group summary as the state card line (view-voice)', () => {
+  /**
+   * 5.305: the version of this test that shipped before 2026-09-12 asserted the
+   * 5.174 DEFECT and hid it. It set `summary` to
+   * "Macro conditions are mixed: two of three supportive." — points spelled in
+   * WORDS — and asserted `plainLine` equalled it. The real `summary` ends
+   * "(2 of 3 points)", so the assertion was strong, precise, and pinned the
+   * wrong behaviour (coding-standards §Testing class 3, "Wrong"). The fixtures
+   * below now carry the REAL shape of both fields.
+   */
+  const REAL_SUMMARY =
+    'Macro conditions are mixed: the dollar and liquidity on the supportive side, ' +
+    'yields on the restrictive side (2 of 3 points).';
+  const REAL_LEAD =
+    'Macro conditions are mixed: the dollar and liquidity on the supportive side, ' +
+    'yields on the restrictive side. The dollar is still below its 20 week trend. ' +
+    'Money has not got cheaper. Liquidity keeps expanding.';
+
+  const withCopy = (summary?: string, lead?: string) => {
     const data = macroData(['ACTIVE', 'INACTIVE', 'ACTIVE']);
-    (
-      data.signals as unknown as { signal_groups: { id: string; summary?: string }[] }
-    ).signal_groups[0].summary = 'Macro conditions are mixed: two of three supportive.';
-    const m = umbrellaCardModel(backdrop, data);
-    expect(m.plainLine).toBe('Macro conditions are mixed: two of three supportive.');
+    const group = (
+      data.signals as unknown as {
+        signal_groups: { id: string; summary?: string; state_view?: { lead: string } }[];
+      }
+    ).signal_groups[0];
+    if (summary !== undefined) group.summary = summary;
+    if (lead !== undefined) group.state_view = { lead };
+    return data;
+  };
+
+  it('should take the state-view lead, first sentence only (view-voice)', () => {
+    const m = umbrellaCardModel(backdrop, withCopy(REAL_SUMMARY, REAL_LEAD));
+    expect(m.plainLine).toBe(
+      'Macro conditions are mixed: the dollar and liquidity on the supportive side, ' +
+        'yields on the restrictive side.'
+    );
+  });
+
+  it('should carry NO score fragment on a state card (MM-2, 5.174)', () => {
+    // The binding rule: state views carry no score (viewRegistry.ts). The
+    // scored `summary` ends with the points parenthetical by design, so reading
+    // it here is the defect. Same regex the state-lead guard uses, so the two
+    // cannot drift apart.
+    const m = umbrellaCardModel(backdrop, withCopy(REAL_SUMMARY, REAL_LEAD));
+    expect(m.plainLine).not.toMatch(/\d\s*(of|de|von)\s*\d\s*(points|pontos|puntos|Punkten)/i);
+  });
+
+  it('should fall back to summary only when no lead exists (pre-state_view payload)', () => {
+    // A stale fragment still beats a blank card — but only when there is no
+    // alternative. Any current cycle has the lead.
+    const m = umbrellaCardModel(backdrop, withCopy(REAL_SUMMARY, undefined));
+    expect(m.plainLine).toBe(REAL_SUMMARY);
   });
 
   it('should degrade honestly when the macro group or a component is missing (R-1′)', () => {

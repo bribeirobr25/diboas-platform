@@ -39,6 +39,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { isDirectInvocation } from '../market-refresh/lib/invocation.mjs';
 import {
   evaluateBtcStructure,
   evaluateMacro,
@@ -47,6 +48,7 @@ import {
   anchorCoherence,
 } from '../market-refresh/lib/regime-engine.mjs';
 import { readSnapshots, resolveEtfSignals } from '../market-refresh/lib/etf-flows.mjs';
+import { archiveSignals, archiveLine } from '../market-refresh/lib/archive.mjs';
 import { fetchFredSeries } from '../market-refresh/providers/fred.mjs';
 import { fetchYahooDaily } from '../market-refresh/providers/yahoo.mjs';
 import { btcMonths } from '../market-refresh/providers/inrepo.mjs';
@@ -143,31 +145,31 @@ async function main() {
   // days). A verification run on a non-run day used to mint a phantom run day
   // in that ledger — a read-only check must not write history.
   if (process.argv.includes('--archive')) {
-    const line = {
-      run_at: new Date().toISOString(),
+    // 5.187a: this used to drop `points` and `values`, which could stop the
+    // weekly generator the following Monday (state-lead reads prior.values).
+    // Same producer as run.mjs now — there is one archive shape, not two.
+    const line = archiveLine({
+      runAt: new Date().toISOString(),
       pipeline: 'data-fetchers/compute-regime.mjs',
-      computed: { score, regime_code: band.code, group_totals: groupTotals },
-      published: published ? { score: published.score, regime_code: published.regime_code } : null,
-      anchor_spread_days: Number(spreadDays.toFixed(2)),
-      anchor_warning: warning,
-      signals: all.map(({ id, state, weight, detail, anchor = null, anchorKind = null }) => ({
-        id,
-        state,
-        weight,
-        detail,
-        anchor,
-        anchorKind,
-      })),
-    };
+      score,
+      regimeCode: band.code,
+      groupTotals,
+      published,
+      anchorSpreadDays: Number(spreadDays.toFixed(2)),
+      anchorWarning: warning,
+      signals: archiveSignals(all, { etfSnapshotCount: readSnapshots().length }),
+    });
     fs.appendFileSync(ARCHIVE_PATH, JSON.stringify(line) + '\n');
     console.log(`  Archived run → ${path.relative(REPO_ROOT, ARCHIVE_PATH)}`);
   }
   console.log('');
 }
 
-// Only run if invoked directly (allows import for tests)
-const isDirectInvocation = import.meta.url === `file://${process.argv[1]}`;
-if (isDirectInvocation) {
+// Run ONLY when invoked directly: importing a writing script must be a no-op.
+// Why, and the two footguns in the obvious implementation: lib/invocation.mjs.
+// (The original note here said "allows import for tests" — no test imports
+// this, and none should: --archive appends to the run ledger.)
+if (isDirectInvocation(import.meta.url)) {
   main().catch((e) => {
     console.error(e);
     process.exit(1);

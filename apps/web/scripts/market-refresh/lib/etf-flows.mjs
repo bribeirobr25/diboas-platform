@@ -19,6 +19,7 @@
  *  - a week-over-week share change beyond MAX_WEEKLY_SHARE_CHANGE is treated
  *    as corrupt (excluded + warned), not as a real flow.
  */
+import { readJsonlTolerant } from './jsonl.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { REPO_ROOT } from '../providers/inrepo.mjs';
@@ -37,11 +38,10 @@ export { WARMUP_SNAPSHOTS };
 
 export function readSnapshots(archivePath = ETF_SHARES_ARCHIVE) {
   if (!fs.existsSync(archivePath)) return [];
-  return fs
-    .readFileSync(archivePath, 'utf8')
-    .split('\n')
-    .filter(Boolean)
-    .map((line) => JSON.parse(line));
+  // 5.302: a torn tail used to throw a bare SyntaxError out of the middle of
+  // the weekly run. The run archive had always tolerated it; this ledger — the
+  // one ETF-01's two points are scored from — had not. Same rule for both now.
+  return readJsonlTolerant(fs.readFileSync(archivePath, 'utf8'));
 }
 
 /**

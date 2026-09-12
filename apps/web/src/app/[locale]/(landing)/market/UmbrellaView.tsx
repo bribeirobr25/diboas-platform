@@ -11,6 +11,7 @@
  * → the umbrella-level outage banner (the shell's honesty pattern).
  */
 
+import { headers } from 'next/headers';
 import type { SupportedLocale } from '@diboas/i18n/server';
 import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
@@ -50,10 +51,12 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
   const t = (key: string, fallback: string) => pageMessages[`market.${key}`] ?? fallback;
 
   const destinations = switcherDestinations();
+  // 5.299: see MarketViewShell — one read of the request id for all cards.
+  const correlationId = (await headers()).get('x-request-id') ?? undefined;
   const perDestination = await Promise.all(
     destinations.map(async (view) => ({
       view,
-      data: await fetchInitialAnalyticsData(locale, view.slug),
+      data: await fetchInitialAnalyticsData(locale, view.slug, { correlationId }),
     }))
   );
   const cards: { model: UmbrellaCardModel; label: string }[] = perDestination.map(

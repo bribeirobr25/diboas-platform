@@ -65,6 +65,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { isDirectInvocation } from './lib/invocation.mjs';
+import { writeFileAtomic } from './lib/atomic.mjs';
+import { readArchiveRows, runDayIndex } from './lib/archive.mjs';
 import {
   MAX_BY_GROUP,
   GROUP_STATUS,
@@ -478,23 +481,11 @@ function realSnapshotCount() {
   // after a correction) and off-cadence pairs; counting lines overstated how
   // much real history existed and was one half of why 44 seed points shipped
   // as measured history. The other half was a hand-flip of synthetic_seed.
+  // 5.302: the day-grouping rule itself now lives in archive.mjs, shared with
+  // priorRunSignals, so the two cannot answer "which days are real" differently.
   const archivePath = path.join(SHARED_DIR, 'run-archive.jsonl');
   if (!fs.existsSync(archivePath)) return 0;
-  const days = new Set(
-    fs
-      .readFileSync(archivePath, 'utf8')
-      .split('\n')
-      .filter(Boolean)
-      .map((line) => {
-        try {
-          return JSON.parse(line).run_at?.slice(0, 10) ?? null;
-        } catch {
-          return null;
-        }
-      })
-      .filter(Boolean)
-  );
-  return days.size;
+  return runDayIndex(readArchiveRows(fs.readFileSync(archivePath, 'utf8'))).size;
 }
 
 // ── write / check ───────────────────────────────────────────────────────────
@@ -514,7 +505,9 @@ async function writeJsonFormatted(p, obj) {
   } catch {
     /* prettier unavailable — raw JSON.stringify remains valid */
   }
-  fs.writeFileSync(p, text);
+  // 5.302: temp + rename. These four files are read by the site build; a
+  // truncated regime.json is a broken page, not a missing one.
+  writeFileAtomic(p, text);
 }
 
 async function patchEditorial(gen, write) {
@@ -669,25 +662,31 @@ async function patchEditorial(gen, write) {
   return drift;
 }
 
-const checkMode = process.argv.includes('--check');
-const gen = generate();
-const drift = await patchEditorial(gen, !checkMode);
+// Run ONLY when invoked directly: importing a writing script must be a no-op.
+// Why, and the two footguns in the obvious implementation: lib/invocation.mjs.
+// (generatedCopyReconciliation.test.ts shells out to `--check` rather than
+// importing, so nothing legitimate needs the imported path to do work.)
+if (isDirectInvocation(import.meta.url)) {
+  const checkMode = process.argv.includes('--check');
+  const gen = generate();
+  const drift = await patchEditorial(gen, !checkMode);
 
-console.log(`\n=== market generate (Stage 4) — ${checkMode ? 'CHECK' : 'WRITE'} ===`);
-console.log(
-  `  variant: week ${isoWeek(computed.computed_at.slice(0, 10)) % 3} · weekly-opener: ${weeklyOpener('en') ? 'on' : 'off (seed/no prior)'}`
-);
-console.log(`  plain (en): ${gen.plain.en.slice(0, 120)}…`);
-if (checkMode) {
-  if (drift.length) {
-    console.error(`\n✖ ${drift.length} editorial field(s) drift from the generator:`);
-    for (const d of drift) console.error(`    - ${d}`);
-    console.error('\n  Regenerate: node apps/web/scripts/market-refresh/generate.mjs\n');
-    process.exit(1);
-  }
-  console.log('  ✓ editorial JSONs match the generator (no drift)\n');
-} else {
+  console.log(`\n=== market generate (Stage 4) — ${checkMode ? 'CHECK' : 'WRITE'} ===`);
   console.log(
-    `  wrote ${drift.length} changed field(s) across regime.json / signals.json / historical.json\n`
+    `  variant: week ${isoWeek(computed.computed_at.slice(0, 10)) % 3} · weekly-opener: ${weeklyOpener('en') ? 'on' : 'off (seed/no prior)'}`
   );
+  console.log(`  plain (en): ${gen.plain.en.slice(0, 120)}…`);
+  if (checkMode) {
+    if (drift.length) {
+      console.error(`\n✖ ${drift.length} editorial field(s) drift from the generator:`);
+      for (const d of drift) console.error(`    - ${d}`);
+      console.error('\n  Regenerate: node apps/web/scripts/market-refresh/generate.mjs\n');
+      process.exit(1);
+    }
+    console.log('  ✓ editorial JSONs match the generator (no drift)\n');
+  } else {
+    console.log(
+      `  wrote ${drift.length} changed field(s) across regime.json / signals.json / historical.json\n`
+    );
+  }
 }

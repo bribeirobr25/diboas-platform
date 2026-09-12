@@ -33,6 +33,7 @@
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { Logger } from '@/lib/monitoring/Logger';
 
 // Malformed payloads: keep top-level shape valid enough that the import-time
 // shape match doesn't blow up, but break the field the transform walks.
@@ -163,5 +164,75 @@ describe('analytics-sdk — composite resilience (regime + signals transforms)',
     expect(result).toHaveProperty('dataStatus');
     expect(result).toHaveProperty('methodology');
     expect(result).toHaveProperty('productDisclaimer');
+  });
+});
+
+/**
+ * 5.299 — a degraded read must be REPORTED, not merely survived.
+ *
+ * Before this, the six fetchers were bare `.catch(() => null)`: the page
+ * degraded honestly and told nobody. These assertions pin the reporting, and
+ * they are written to FAIL if it is removed — deleting the `reportFetchFailure`
+ * call from any catch drops that endpoint's `Logger.error`, and the first two
+ * cases below go red. (Sentry is deliberately not asserted: it is a dynamic
+ * import that is a no-op in the test runtime, so asserting it would be a
+ * vacuous test of a mock rather than of behaviour. `Logger.error` is the call
+ * that always happens, in every runtime.)
+ */
+describe('analytics-sdk — a degraded endpoint is reported (5.299)', () => {
+  it('should report the failing endpoint by name, once, and still degrade to null', async () => {
+    const spy = vi.spyOn(Logger, 'error').mockImplementation(() => {});
+    vi.doMock('@/../data/market/shared/regime.json', () => ({ default: MALFORMED_REGIME }));
+
+    const mod = await loadFreshModule();
+    const result = await mod.fetchInitialAnalyticsData('en');
+
+    expect(result.regime).toBeNull(); // degradation unchanged
+    const calls = spy.mock.calls.filter((c) => c[0] === 'market analytics fetch failed');
+    expect(calls, 'exactly one report for the one failed endpoint').toHaveLength(1);
+    expect(calls[0][1]).toMatchObject({ surface: 'market', endpoint: 'current-regime' });
+    expect(calls[0][2]).toBeInstanceOf(Error);
+    spy.mockRestore();
+  });
+
+  it('should report EACH failing endpoint separately when two fail', async () => {
+    const spy = vi.spyOn(Logger, 'error').mockImplementation(() => {});
+    vi.doMock('@/../data/market/shared/regime.json', () => ({ default: MALFORMED_REGIME }));
+    vi.doMock('@/../data/market/shared/signals.json', () => ({ default: MALFORMED_SIGNALS }));
+
+    const mod = await loadFreshModule();
+    await mod.fetchInitialAnalyticsData('en');
+
+    const endpoints = spy.mock.calls
+      .filter((c) => c[0] === 'market analytics fetch failed')
+      .map((c) => (c[1] as { endpoint: string }).endpoint)
+      .sort();
+    expect(endpoints).toEqual(['current-regime', 'signals']);
+    spy.mockRestore();
+  });
+
+  it('should carry the correlationId onto the report when the caller supplies one', async () => {
+    const spy = vi.spyOn(Logger, 'error').mockImplementation(() => {});
+    vi.doMock('@/../data/market/shared/regime.json', () => ({ default: MALFORMED_REGIME }));
+
+    const mod = await loadFreshModule();
+    await mod.fetchInitialAnalyticsData('en', 'bitcoin', { correlationId: 'req-abc-123' });
+
+    const call = spy.mock.calls.find((c) => c[0] === 'market analytics fetch failed');
+    expect(call?.[1]).toMatchObject({ correlationId: 'req-abc-123', view: 'bitcoin' });
+    spy.mockRestore();
+  });
+
+  it('should NOT report when every endpoint is healthy', async () => {
+    const spy = vi.spyOn(Logger, 'error').mockImplementation(() => {});
+    const mod = await loadFreshModule();
+    const result = await mod.fetchInitialAnalyticsData('en');
+
+    expect(result.regime).not.toBeNull();
+    expect(
+      spy.mock.calls.filter((c) => c[0] === 'market analytics fetch failed'),
+      'a healthy read must be silent — otherwise the signal is noise'
+    ).toHaveLength(0);
+    spy.mockRestore();
   });
 });

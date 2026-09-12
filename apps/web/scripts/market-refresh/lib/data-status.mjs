@@ -32,7 +32,7 @@
  * notes live in git history (delete-after-execution).
  */
 
-import { expectedConfirmedMonthYM } from './regime-engine.mjs';
+import { expectedConfirmedMonthYM, MONTH_APPEND_GRACE_DAYS } from './regime-engine.mjs';
 import { WARMUP_SNAPSHOTS } from './etf-flows.mjs';
 
 const DAY_MS = 86400000;
@@ -101,6 +101,10 @@ function weeklyEntry(source, anchorStr, run) {
     last_updated_at: iso(anchor),
     expected_next_update_at: iso(expectedNext),
     stale_after: iso(addDays(expectedNext, 7)),
+    // 5.173: the instant THIS rule flips FRESH -> DELAYED. Shipped so the page
+    // can re-evaluate freshness at READ time without re-implementing the
+    // cadence policy, which stays here. Weekly: anchor + the lag allowance.
+    delayed_after: iso(addDays(anchor, WEEKLY_LAG_ALLOWANCE_DAYS)),
     message,
   };
 }
@@ -127,6 +131,14 @@ function btcMonthlyEntry(source, anchorStr, run) {
     last_updated_at: iso(confirmedEnd),
     expected_next_update_at: iso(at(nextEnd, 23, 59, 59)),
     stale_after: iso(addDays(monthEnd(anchor, 2), 1)),
+    // 5.173: this source is FRESH while `anchor === expectedConfirmedMonthYM(now)`.
+    // That equality breaks the first moment the grace window closes two months
+    // on: day 4 of (anchor month + 2). Derived from the same rule, not guessed.
+    delayed_after: iso(
+      new Date(
+        Date.UTC(anchor.getUTCFullYear(), anchor.getUTCMonth() + 2, MONTH_APPEND_GRACE_DAYS + 1)
+      )
+    ),
     message,
   };
 }
@@ -149,6 +161,8 @@ function m2Entry(source, anchorStr, run) {
     last_updated_at: iso(anchor),
     expected_next_update_at: iso(due),
     stale_after: iso(monthEnd(anchor, 3)),
+    // 5.173: FRESH until the next print is overdue — `due` IS that instant.
+    delayed_after: iso(due),
     message,
   };
 }
@@ -188,6 +202,10 @@ function etfLedgerEntry(source, signal, snapshots, run) {
     last_updated_at: iso(anchor),
     expected_next_update_at: iso(expectedNext),
     stale_after: iso(staleAfter),
+    // 5.173: while warming up the state is COUNT-based, so time cannot make it
+    // worse — null means "no time-based downgrade applies". Once scorable, the
+    // ledger going stale is the only time-based transition.
+    delayed_after: count < WARMUP_SNAPSHOTS ? null : iso(staleAfter),
     message,
   };
 }
