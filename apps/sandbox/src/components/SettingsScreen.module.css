@@ -19,7 +19,7 @@
   margin: 0;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .subtitle {
   margin: 0;
@@ -39,9 +39,9 @@
   font-size: var(--font-size-sm);
 }
 .card {
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius);
-  background: var(--sb-card);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-card);
+  background: var(--sb-surface-primary);
   overflow: hidden;
 }
 
@@ -63,12 +63,12 @@
   cursor: not-allowed;
 }
 .card > * + * {
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
 }
 .rowIcon {
   display: inline-flex;
   flex: none;
-  color: var(--sb-accent);
+  color: var(--sb-mode-accent);
 }
 .rowBody {
   flex: 1;
@@ -80,7 +80,7 @@
 .rowTitle {
   flex: 1;
   min-width: 0;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-weight: var(--font-weight-semibold);
 }
 .rowSub {
@@ -90,7 +90,7 @@
 }
 .rowValue {
   flex: none;
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
   font-weight: var(--font-weight-medium);
 }
 .chevron {
@@ -106,6 +106,6 @@
   line-height: 1.5;
 }
 .link {
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-link);
   text-decoration: underline;
 }

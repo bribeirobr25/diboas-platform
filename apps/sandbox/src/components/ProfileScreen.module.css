@@ -17,7 +17,7 @@
   margin: 0;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .subtitle {
   margin: 0;
@@ -37,8 +37,8 @@
   width: 7rem;
   height: 7rem;
   border-radius: var(--radius-full);
-  background: var(--sb-card-tint);
-  color: var(--sb-accent);
+  background: var(--sb-surface-accent);
+  color: var(--sb-mode-accent);
 }
 .avatarEdit {
   position: absolute;
@@ -50,9 +50,9 @@
   width: 2rem;
   height: 2rem;
   border-radius: var(--radius-full);
-  border: 1px solid var(--sb-hairline);
-  background: var(--sb-card);
-  color: var(--sb-text-heading);
+  border: 1px solid var(--sb-border-default);
+  background: var(--sb-surface-primary);
+  color: var(--sb-text-primary);
   cursor: pointer;
 }
 
@@ -66,7 +66,7 @@
   justify-content: space-between;
   gap: var(--spacing-md);
   padding: var(--spacing-md) 0;
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
 }
 .field:first-child {
   border-top: none;
@@ -81,13 +81,13 @@
 }
 .fieldLabel {
   margin: 0;
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
 }
 .fieldValue {
   margin: 0;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
 }
@@ -97,8 +97,8 @@
   gap: var(--spacing-2xs);
   padding: var(--spacing-2xs) var(--spacing-sm);
   border-radius: var(--radius-pill);
-  background: var(--sb-card-tint);
-  color: var(--text-brand-accessible);
+  background: var(--sb-surface-accent);
+  color: var(--sb-text-accent);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
 }
@@ -115,17 +115,17 @@
   gap: 2px;
   flex: none;
   padding: var(--spacing-sm) var(--spacing-md);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-card);
   background: transparent;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-size: var(--font-size-xs);
   text-decoration: none;
   cursor: pointer;
 }
 .edit:hover:not(:disabled) {
-  border-color: var(--sb-accent);
-  color: var(--sb-accent-strong);
+  border-color: var(--sb-mode-accent);
+  color: var(--sb-text-accent-strong);
 }
 .edit:disabled,
 .avatarEdit:disabled {
@@ -145,7 +145,7 @@
   align-items: center;
   gap: var(--spacing-md);
   padding: var(--spacing-md) 0;
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
 }
 .rowIcon {
   display: inline-flex;
@@ -155,8 +155,8 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: var(--radius-full);
-  background: var(--sb-card-tint);
-  color: var(--text-brand-accessible);
+  background: var(--sb-surface-accent);
+  color: var(--sb-text-accent);
 }
 .rowBody {
   flex: 1;
@@ -165,7 +165,7 @@
   flex-direction: column;
 }
 .rowTitle {
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-weight: var(--font-weight-semibold);
 }
 .rowSub {

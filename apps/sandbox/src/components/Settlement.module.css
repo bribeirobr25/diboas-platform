@@ -17,8 +17,8 @@
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--sb-accent-bright);
-  background: color-mix(in srgb, var(--sb-accent) 20%, transparent);
+  color: var(--sb-mode-accent-bright);
+  background: color-mix(in srgb, var(--sb-mode-accent) 20%, transparent);
   border-radius: var(--radius-pill);
 }
 
@@ -37,13 +37,13 @@
   gap: var(--spacing-sm);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
-  color: var(--sb-text-on-ink-muted);
+  color: var(--sb-text-inverse-muted);
   transition: color 0.2s ease;
 }
 
 .step[data-state='done'],
 .step[data-state='active'] {
-  color: var(--sb-text-on-ink);
+  color: var(--sb-text-inverse);
 }
 
 .marker {
@@ -54,26 +54,26 @@
   height: 26px;
   flex-shrink: 0;
   border-radius: var(--radius-full);
-  border: 2px solid color-mix(in srgb, var(--sb-text-on-ink) 22%, transparent);
-  color: var(--sb-ink);
+  border: 2px solid color-mix(in srgb, var(--sb-text-inverse) 22%, transparent);
+  color: var(--sb-surface-inverse);
   transition:
     background 0.2s ease,
     border-color 0.2s ease;
 }
 
 .step[data-state='active'] .marker {
-  border-color: var(--sb-accent-bright);
+  border-color: var(--sb-mode-accent-bright);
   animation: pulse 1s ease-in-out infinite;
 }
 
 .step[data-state='done'] .marker {
-  background: var(--sb-accent);
-  border-color: var(--sb-accent);
+  background: var(--sb-mode-accent);
+  border-color: var(--sb-mode-accent);
 }
 
 @keyframes pulse {
   50% {
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--sb-accent) 22%, transparent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--sb-mode-accent) 22%, transparent);
   }
 }
 
@@ -81,5 +81,5 @@
   margin: 0;
   font-size: var(--font-size-xs);
   line-height: var(--line-height-relaxed);
-  color: var(--sb-text-on-ink-muted);
+  color: var(--sb-text-inverse-muted);
 }

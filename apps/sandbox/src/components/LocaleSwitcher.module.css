@@ -14,10 +14,10 @@
   justify-content: center;
   width: var(--sb-tap);
   height: var(--sb-tap);
-  border: 1px solid var(--sb-hairline-strong);
+  border: 1px solid var(--sb-border-strong);
   border-radius: var(--radius-full);
-  background: color-mix(in srgb, var(--sb-ground) 55%, transparent);
-  color: var(--sb-text-heading);
+  background: color-mix(in srgb, var(--sb-canvas-base) 55%, transparent);
+  color: var(--sb-text-primary);
   cursor: pointer;
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
@@ -26,7 +26,7 @@
     transform 0.1s ease;
 }
 .trigger:hover {
-  background: color-mix(in srgb, var(--sb-ground) 75%, transparent);
+  background: color-mix(in srgb, var(--sb-canvas-base) 75%, transparent);
 }
 .trigger:active {
   transform: scale(0.94);
@@ -41,8 +41,8 @@
   backdrop-filter: none;
 }
 .triggerBare:hover {
-  background: var(--sb-card-tint);
-  color: var(--sb-text-heading);
+  background: var(--sb-surface-accent);
+  color: var(--sb-text-primary);
 }
 
 .menu {
@@ -54,10 +54,10 @@
   margin: 0;
   padding: var(--spacing-2xs);
   list-style: none;
-  background: var(--sb-card);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius);
-  box-shadow: var(--sb-shadow-lift);
+  background: var(--sb-surface-primary);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-card);
+  box-shadow: var(--sb-elevation-medium);
 }
 
 .option {
@@ -71,20 +71,20 @@
   border: none;
   border-radius: var(--radius-lg);
   background: transparent;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
   text-align: left;
   cursor: pointer;
 }
 .option:hover {
-  background: var(--sb-card-tint);
+  background: var(--sb-surface-accent);
 }
 .option[aria-current='true'] {
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
   font-weight: var(--font-weight-semibold);
 }
 .option > svg {
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
   flex: none;
 }

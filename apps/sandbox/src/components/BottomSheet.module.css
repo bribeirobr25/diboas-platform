@@ -1,7 +1,7 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: color-mix(in srgb, var(--sb-ink) 45%, transparent);
+  background: var(--sb-surface-overlay);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -11,11 +11,11 @@
 
 .sheet {
   width: 100%;
-  max-width: var(--sb-canvas);
+  max-width: var(--sb-canvas-width);
   max-height: 88%;
-  background: var(--sb-card);
-  border-radius: var(--sb-radius-lg) var(--sb-radius-lg) 0 0;
-  box-shadow: var(--sb-shadow-sheet);
+  background: var(--sb-surface-primary);
+  border-radius: var(--sb-radius-hero) var(--sb-radius-hero) 0 0;
+  box-shadow: var(--sb-elevation-overlay);
   display: flex;
   flex-direction: column;
   padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-lg);
@@ -24,8 +24,8 @@
 
 /* The high-gravity variant — ink-teal, cream text (path/manifest). */
 .ink {
-  background: var(--sb-ink);
-  color: var(--sb-text-on-ink);
+  background: var(--sb-surface-inverse);
+  color: var(--sb-text-inverse);
 }
 
 @keyframes fade {
@@ -44,13 +44,13 @@
   width: 2.25rem;
   height: 4px;
   border-radius: var(--radius-pill);
-  background: var(--sb-hairline-strong);
+  background: var(--sb-surface-track);
   align-self: center;
   margin-bottom: var(--spacing-sm);
 }
 
 .ink .handle {
-  background: color-mix(in srgb, var(--sb-text-on-ink) 30%, transparent);
+  background: color-mix(in srgb, var(--sb-text-inverse) 30%, transparent);
 }
 
 .head {
@@ -67,11 +67,11 @@
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-xl);
   letter-spacing: -0.01em;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .ink .title {
-  color: var(--sb-text-on-ink);
+  color: var(--sb-text-inverse);
 }
 
 .close {
@@ -89,17 +89,17 @@
 }
 
 .close:hover {
-  background: var(--sb-ground-deep, var(--sb-accent-tint));
-  color: var(--sb-text-heading);
+  background: var(--sb-surface-accent);
+  color: var(--sb-text-primary);
 }
 
 .ink .close {
-  color: var(--sb-text-on-ink-muted);
+  color: var(--sb-text-inverse-muted);
 }
 
 .ink .close:hover {
-  background: var(--sb-ink-soft);
-  color: var(--sb-text-on-ink);
+  background: var(--sb-surface-inverse-raised);
+  color: var(--sb-text-inverse);
 }
 
 .body {

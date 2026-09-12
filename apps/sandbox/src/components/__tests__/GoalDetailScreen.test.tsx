@@ -2,7 +2,18 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createGoal, enterStrategy, grantPlayMoney, resetSandbox } from '@/lib/ledgerClient';
+import {
+  fixturePriceSeries,
+  type ProtocolApyHistory,
+  type ProtocolPriceHistory,
+} from '@diboas/defi';
+import {
+  advanceTime,
+  createGoal,
+  enterStrategy,
+  grantPlayMoney,
+  resetSandbox,
+} from '@/lib/ledgerClient';
 import { GoalDetailScreen } from '../GoalDetailScreen';
 
 /**
@@ -271,5 +282,72 @@ describe('GoalDetailScreen — an exit that cannot be priced is never offered (R
     } finally {
       h.market = MARKET_OK;
     }
+  });
+});
+
+/**
+ * `5.283` — the earnings line took the GAIN colour whatever its sign.
+ *
+ * Since the §4.8 replay a growth position can fall, so `position.accrued` can
+ * be negative; the line still painted it in the teal this app uses for a gain
+ * (History, the month report). The requirement, derived from that colour
+ * grammar and Mode × Appearance §18: a rise reads as a gain, a fall as a loss,
+ * and zero as neither. The fall is produced by the app's own replay against
+ * the real-shaped fixture series — the same path `g8FallingPosition` proves.
+ */
+describe('GoalDetailScreen — the earnings line takes its colour from its sign (5.283)', () => {
+  const PROTOCOLS = ['skySsr', 'aaveV3', 'compoundV3', 'sanctumInf', 'jupiterJlp', 'jito'] as const;
+  const apy = (days: number): ProtocolApyHistory[] =>
+    PROTOCOLS.map((protocolId) => ({
+      protocolId,
+      points: Array.from({ length: days }, (_, i) => ({
+        date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
+        apyPercent: 5,
+      })),
+      stamp: { source: 'defillama', asOf: '2026-08-20T00:00:00Z' },
+    }));
+  const prices = (days: number): ProtocolPriceHistory[] =>
+    PROTOCOLS.map((protocolId) => ({
+      protocolId,
+      points: fixturePriceSeries(protocolId, days),
+      stamp: { source: 'fixture', asOf: '2026-07-18' },
+    }));
+
+  const earningsSign = (strategyId: 'fullThrottle' | 'safeHarbor', advance: boolean) => {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 5000,
+      horizonMonths: 24,
+      fundAmount: 1000,
+    });
+    enterStrategy({ goalId, strategyId, totalFromCash: 1000, networkFeeLocal: 0 });
+    if (advance) advanceTime(180, apy(400), 'machine', prices(400));
+    const { container } = renderDetail(goalId);
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+    return container.querySelector('p[data-sign]')?.getAttribute('data-sign');
+  };
+
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+  });
+
+  it('should mark a FALLEN position as a loss, never in the gain colour', () => {
+    // 85% growth exposure across a falling market: accrued < 0 (g8's headline).
+    expect(earningsSign('fullThrottle', true)).toBe('neg');
+  });
+
+  it('should mark a position that earned as a gain', () => {
+    // All-lending at a flat 5%: accrual can only be positive.
+    expect(earningsSign('safeHarbor', true)).toBe('pos');
+  });
+
+  it('should claim neither before anything has accrued', () => {
+    expect(earningsSign('safeHarbor', false)).toBe('none');
   });
 });

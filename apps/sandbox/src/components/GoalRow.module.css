@@ -7,7 +7,7 @@
   gap: var(--spacing-md);
   padding: var(--spacing-md) 0;
   text-decoration: none;
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
 }
 li:first-child .goalCard {
   border-top: none;
@@ -20,31 +20,31 @@ li:first-child .goalCard {
   width: 3rem;
   height: 3rem;
   border-radius: var(--radius-full);
-  background: var(--sb-accent);
-  color: var(--color-white);
+  background: var(--sb-mode-accent-fill);
+  color: var(--sb-text-on-fill);
 }
 /* Per-goal identity colour (founder 2026-08-21). The glyph is white on a
    filled badge; every hue in the palette was measured at >=3:1 against white
    before it was allowed in (globals.css). */
 .goalIcon[data-accent='0'] {
-  background: var(--goal-accent-0);
-  color: var(--color-white);
+  background: var(--sb-identity-goal-0);
+  color: var(--sb-text-on-fill);
 }
 .goalIcon[data-accent='1'] {
-  background: var(--goal-accent-1);
-  color: var(--color-white);
+  background: var(--sb-identity-goal-1);
+  color: var(--sb-text-on-fill);
 }
 .goalIcon[data-accent='2'] {
-  background: var(--goal-accent-2);
-  color: var(--color-white);
+  background: var(--sb-identity-goal-2);
+  color: var(--sb-text-on-fill);
 }
 .goalIcon[data-accent='3'] {
-  background: var(--goal-accent-3);
-  color: var(--color-white);
+  background: var(--sb-identity-goal-3);
+  color: var(--sb-text-on-fill);
 }
 
 .goalCard[data-closed='true'] .goalIcon {
-  background: var(--sb-hairline-strong);
+  background: var(--sb-surface-track);
   color: var(--sb-text-muted);
 }
 .goalBody {
@@ -56,7 +56,7 @@ li:first-child .goalCard {
 }
 .goalName {
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .goalAmounts {
   color: var(--sb-text-muted);
@@ -66,21 +66,21 @@ li:first-child .goalCard {
   display: block;
   height: 6px;
   border-radius: var(--radius-pill);
-  background: var(--sb-hairline-strong);
+  background: var(--sb-surface-track);
   overflow: hidden;
 }
 .progressFill {
   display: block;
   height: 100%;
   border-radius: var(--radius-pill);
-  background: var(--sb-accent);
+  background: var(--sb-mode-accent);
 }
 .goalStatus {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-2xs);
   flex: none;
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
   font-size: var(--font-size-sm-plus);
   font-weight: var(--font-weight-medium);
 }
@@ -96,8 +96,8 @@ li:first-child .goalCard {
   width: 3rem;
   height: 3rem;
   border-radius: var(--radius-full);
-  background: var(--text-warning-accessible);
-  color: var(--color-white);
+  background: var(--sb-state-warning-fill);
+  color: var(--sb-state-warning-on-fill);
 }
 /* Mockup 02's right-side paused status — calm amber, never alarm-red. */
 .pausedStatus {
@@ -109,7 +109,7 @@ li:first-child .goalCard {
   text-align: right;
 }
 .pausedLine {
-  color: var(--text-warning-accessible);
+  color: var(--sb-state-warning);
   font-size: var(--font-size-sm-plus);
   font-weight: var(--font-weight-medium);
 }
@@ -124,7 +124,7 @@ li:first-child .goalCard {
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   color: var(--sb-text-muted);
-  border: 1px solid var(--sb-hairline-strong);
+  border: 1px solid var(--sb-border-strong);
   border-radius: var(--radius-pill);
   padding: 0 var(--spacing-xs);
   line-height: 1.5;

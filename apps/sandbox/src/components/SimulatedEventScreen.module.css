@@ -8,7 +8,7 @@
   margin: 0;
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   letter-spacing: -0.02em;
 }
 .subtitle {
@@ -21,9 +21,9 @@
    read — but it stays calm (a teal wash, never a warning colour: an expense in
    a practice world is a prompt, not an alarm — veto row 10).
 
-   `--sb-card-tint`, NOT `--sb-accent-tint`. They are the same teal-50 in
-   light, which hides the difference: only `card-tint` has a dark-theme
-   override. `accent-tint` stays light on purpose — it backs small icon badges
+   `--sb-surface-accent`, NOT `--sb-mode-accent-subtle`. They are the same teal-50 in
+   light, which hides the difference: only `surface-accent` has a dark-theme
+   override. `mode-accent-subtle` stays light on purpose — it backs small icon badges
    whose teal glyph reads on a light circle in either theme. Used here it made
    the plate near-white in dark while the text stayed light-on-dark: headline
    1.07:1, eyebrow 1.78:1, note 2.61:1. Measured, not guessed. */
@@ -32,9 +32,9 @@
   align-items: flex-start;
   gap: var(--spacing-sm);
   padding: var(--spacing-lg) var(--spacing-md);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius-lg);
-  background: var(--sb-card-tint);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-hero);
+  background: var(--sb-surface-accent);
 }
 .scenarioIcon {
   display: inline-flex;
@@ -44,9 +44,9 @@
   width: 3rem;
   height: 3rem;
   border-radius: var(--radius-full);
-  border: 1px solid var(--sb-hairline);
-  background: var(--sb-card);
-  color: var(--text-brand-accessible);
+  border: 1px solid var(--sb-border-default);
+  background: var(--sb-surface-primary);
+  color: var(--sb-text-accent);
 }
 .scenarioLabel {
   margin: 0;
@@ -54,14 +54,14 @@
   font-weight: var(--font-weight-bold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
 }
 .scenarioHeadline {
   margin: var(--spacing-2xs) 0 0;
   font-size: var(--font-size-xl);
   line-height: 1.25;
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .scenarioNote {
   margin: var(--spacing-2xs) 0 0;
@@ -73,7 +73,7 @@
   margin: 0;
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .options,
@@ -93,9 +93,9 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-md);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius-lg);
-  background: var(--sb-card);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-hero);
+  background: var(--sb-surface-primary);
 }
 .optionIcon {
   display: inline-flex;
@@ -105,8 +105,8 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: var(--radius-full);
-  background: var(--sb-accent-tint);
-  color: var(--text-brand-accessible);
+  background: var(--sb-mode-accent-subtle);
+  color: var(--sb-text-on-accent-subtle);
 }
 .optionBody {
   display: flex;
@@ -114,7 +114,7 @@
   min-width: 0;
 }
 .optionName {
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-weight: var(--font-weight-medium);
 }
 .optionNote {
@@ -127,9 +127,9 @@
   flex-direction: column;
   gap: var(--spacing-sm);
   padding: var(--spacing-md);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius-lg);
-  background: var(--sb-card);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-hero);
+  background: var(--sb-surface-primary);
 }
 .impactHead {
   display: flex;
@@ -178,7 +178,7 @@
 }
 .after {
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 /* Neutral by design: no amber, no warning plate. */
@@ -193,15 +193,15 @@
   flex-direction: column;
   gap: var(--spacing-2xs);
   padding: var(--spacing-lg) var(--spacing-md);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius-lg);
-  background: var(--sb-card);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-hero);
+  background: var(--sb-surface-primary);
 }
 .waitingTitle {
   margin: 0;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .waitingBody {
   margin: 0;
@@ -227,7 +227,7 @@
   padding: var(--spacing-xs) var(--spacing-sm);
   border: 0;
   background: none;
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-link);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
@@ -244,7 +244,7 @@
 }
 .splitLabel {
   font-size: var(--font-size-sm);
-  color: var(--sb-text-body);
+  color: var(--sb-text-secondary);
 }
 .amountInput {
   display: flex;
@@ -252,12 +252,12 @@
   gap: var(--spacing-2xs);
   min-height: var(--sb-tap);
   padding: 0 var(--spacing-md);
-  border: 1px solid var(--sb-hairline-strong);
-  border-radius: var(--sb-radius);
-  background: var(--sb-card);
+  border: 1px solid var(--sb-border-strong);
+  border-radius: var(--sb-radius-card);
+  background: var(--sb-surface-primary);
 }
 .amountInput:focus-within {
-  outline: 2px solid var(--sb-accent);
+  outline: 2px solid var(--sb-focus-ring);
   outline-offset: 1px;
 }
 .amountPrefix {
@@ -271,7 +271,7 @@
   padding: var(--spacing-sm) 0;
   border: 0;
   background: transparent;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-size: var(--font-size-md);
 }
 /* The bounds are stated up front, never discovered by being rejected. */

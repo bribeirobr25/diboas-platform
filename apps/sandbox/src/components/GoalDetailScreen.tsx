@@ -54,6 +54,18 @@ type View = 'simple' | 'detailed';
  * stats, source-separation, positions, recurring, exit, and the put-to-work
  * flow — every movement through the manifest, every figure stamped.
  */
+/**
+ * The sign of a money figure, for colour. Earnings can be NEGATIVE since the
+ * §4.8 replay (market legs replay the token's own price), and this app's
+ * colour grammar gives a gain `financial-positive` and a fall
+ * `financial-negative` — so a fallen position must never read in the gain
+ * colour. Zero claims neither.
+ */
+function amountSign(amount: string): 'pos' | 'neg' | 'none' {
+  const value = new Decimal(amount);
+  return value.gt(0) ? 'pos' : value.lt(0) ? 'neg' : 'none';
+}
+
 export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; goalId: string }) {
   const intl = useIntl();
   const state = useLedger();
@@ -581,7 +593,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                   <p className={styles.earningsTitle}>
                     <FormattedMessage id="goalDetail.earningsTitle" />
                   </p>
-                  <p className={styles.earningsLine}>
+                  <p className={styles.earningsLine} data-sign={amountSign(position.accrued)}>
                     <FormattedMessage
                       id="goalDetail.earningsLine"
                       values={{ amount: money(position.accrued) }}

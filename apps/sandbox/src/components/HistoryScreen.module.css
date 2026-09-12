@@ -12,29 +12,29 @@
   margin: 0;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .reconcile {
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
   margin: 0;
-  color: var(--sb-text-body);
+  color: var(--sb-text-secondary);
   font-size: var(--font-size-sm-plus);
 }
 .reconcile svg {
-  color: var(--sb-accent);
+  color: var(--sb-mode-accent);
   flex: none;
 }
 .feeDrag {
   margin: var(--spacing-xs) 0 0;
   padding-top: var(--spacing-sm);
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
   color: var(--sb-text-muted);
   font-size: var(--font-size-sm-plus);
 }
 .feeAmount {
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
   font-weight: var(--font-weight-semibold);
 }
 
@@ -50,7 +50,7 @@
   align-items: flex-start;
   gap: var(--spacing-md);
   padding: var(--spacing-md) 0;
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
 }
 .item:first-child {
   border-top: none;
@@ -63,8 +63,8 @@
   width: 2.75rem;
   height: 2.75rem;
   border-radius: var(--radius-full);
-  border: 1px solid var(--sb-accent);
-  color: var(--sb-accent);
+  border: 1px solid var(--sb-mode-accent);
+  color: var(--sb-mode-accent);
 }
 .body {
   flex: 1;
@@ -78,7 +78,7 @@
   font-size: var(--font-size-xs);
 }
 .text {
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-size: var(--font-size-sm-plus);
   line-height: 1.4;
 }
@@ -90,10 +90,10 @@
   padding-top: 0.9rem;
 }
 .amount[data-sign='pos'] {
-  color: var(--text-brand-accessible);
+  color: var(--sb-financial-positive);
 }
 .amount[data-sign='neg'] {
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .amount[data-sign='none'] {
   color: var(--sb-text-muted);

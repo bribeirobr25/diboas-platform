@@ -6,24 +6,24 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-lg);
-  background: var(--sb-surround);
+  background: var(--sb-canvas-surround);
 }
 
 /* The app canvas: a phone-like frame on desktop, full-width on mobile. */
 .canvas {
   position: relative;
   width: 100%;
-  max-width: var(--sb-canvas);
+  max-width: var(--sb-canvas-width);
   height: 100dvh;
   display: flex;
   flex-direction: column;
-  background: var(--sb-ground);
+  background: var(--sb-canvas-base);
   overflow: hidden;
 }
 
 @media (min-width: 32rem) {
   .canvas {
-    box-shadow: var(--sb-shadow-lift);
+    box-shadow: var(--sb-elevation-medium);
   }
 }
 
@@ -33,7 +33,7 @@
   .canvas {
     height: calc(100dvh - 5rem);
     max-height: 56rem;
-    border-radius: var(--sb-radius-lg);
+    border-radius: var(--sb-radius-hero);
   }
 }
 
@@ -41,8 +41,8 @@
   position: absolute;
   left: -9999px;
   top: 0;
-  background: var(--sb-ink);
-  color: var(--sb-text-on-ink);
+  background: var(--sb-surface-inverse);
+  color: var(--sb-text-inverse);
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--radius-lg);
   z-index: 20;
@@ -70,7 +70,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 52%, var(--sb-ground) 100%);
+  background: linear-gradient(to bottom, transparent 52%, var(--sb-canvas-base) 100%);
 }
 :global(html[data-theme='dark']) .heroBackdrop {
   background-image: url('/hero-welcome-dark.png');
@@ -91,8 +91,8 @@
   justify-content: space-between;
   gap: var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-lg);
-  border-bottom: 1px solid var(--sb-hairline);
-  background: var(--sb-ground);
+  border-bottom: 1px solid var(--sb-border-default);
+  background: var(--sb-canvas-base);
 }
 /* Over the Home hero the bar is transparent (the coastal band shows through). */
 .appbar[data-hero='true'] {
@@ -120,12 +120,12 @@
   background: none;
   border: 0;
   cursor: pointer;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   text-decoration: none;
   border-radius: var(--radius-full);
 }
 .appbarIcon:hover {
-  color: var(--sb-accent-strong);
+  color: var(--sb-text-accent-strong);
 }
 /* Centered brand: wordmark over the play chip. */
 .appbarCenter {
@@ -141,14 +141,14 @@
   gap: var(--spacing-2xs);
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-lg);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   text-decoration: none;
   letter-spacing: -0.01em;
   white-space: nowrap;
 }
 
 .brand svg {
-  color: var(--sb-accent);
+  color: var(--sb-mode-accent);
 }
 
 /* Scrolling content region (between app bar and tab bar). Positioned so the
@@ -184,8 +184,8 @@
   justify-items: center;
   gap: var(--spacing-2xs);
   padding: 0 var(--spacing-lg) env(safe-area-inset-bottom, 0);
-  border-top: 1px solid var(--sb-hairline);
-  background: var(--sb-card);
+  border-top: 1px solid var(--sb-border-default);
+  background: var(--sb-surface-primary);
 }
 
 .tab {
@@ -204,7 +204,7 @@
 }
 
 .tab[data-active='true'] {
-  color: var(--sb-accent-strong);
+  color: var(--sb-text-accent-strong);
 }
 
 /* Disabled tabs (Goals + Learn) — screens not built yet; muted + inert. */
@@ -218,7 +218,7 @@
 }
 
 .tab:hover {
-  color: var(--sb-accent-strong);
+  color: var(--sb-text-accent-strong);
 }
 
 .tabLabel {
@@ -234,16 +234,16 @@
   width: 52px;
   height: 52px;
   border-radius: var(--radius-full);
-  background: var(--sb-accent);
-  color: var(--color-white);
+  background: var(--sb-action-primary);
+  color: var(--sb-action-primary-text);
   text-decoration: none;
-  box-shadow: 0 6px 16px -6px var(--sb-shadow-tint-c);
+  box-shadow: var(--sb-elevation-float);
   transition:
     transform 0.12s ease,
     background 0.12s ease;
 }
 
 .tabPrimary:hover {
-  background: var(--sb-accent-strong);
+  background: var(--sb-action-primary-hover);
   transform: translateY(-1px);
 }

@@ -8,7 +8,7 @@
   margin: 0;
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   letter-spacing: -0.02em;
 }
 .subtitle {
@@ -21,15 +21,15 @@
   flex-direction: column;
   gap: var(--spacing-sm);
   padding: var(--spacing-lg) var(--spacing-md);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius-lg);
-  background: var(--sb-card);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-hero);
+  background: var(--sb-surface-primary);
 }
 .cardTitle {
   margin: 0;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .cardBody {
   margin: 0;
@@ -41,7 +41,7 @@
   align-items: center;
   gap: var(--spacing-xs);
   margin: 0;
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
 }
 /* The amount is the HERO of this card in mockup 11 — it dominates the block,
    with the unit as a caption beneath it. At 3xl it read as just another figure. */
@@ -70,7 +70,7 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-xs) 0;
-  border-bottom: 1px solid var(--sb-hairline);
+  border-bottom: 1px solid var(--sb-border-default);
 }
 .remainderLine {
   border-bottom: 0;
@@ -85,34 +85,34 @@
   width: 2.25rem;
   height: 2.25rem;
   border-radius: var(--radius-full);
-  background: var(--sb-accent-tint);
-  color: var(--text-brand-accessible);
+  background: var(--sb-mode-accent-subtle);
+  color: var(--sb-text-on-accent-subtle);
 }
 
 /* Per-goal identity colour — the same palette the goal rows use, so a goal is
    recognisable here too (globals.css documents the contrast measurements). */
 .lineIcon[data-accent='0'] {
-  background: var(--goal-accent-0);
-  color: var(--color-white);
+  background: var(--sb-identity-goal-0);
+  color: var(--sb-text-on-fill);
 }
 .lineIcon[data-accent='1'] {
-  background: var(--goal-accent-1);
-  color: var(--color-white);
+  background: var(--sb-identity-goal-1);
+  color: var(--sb-text-on-fill);
 }
 .lineIcon[data-accent='2'] {
-  background: var(--goal-accent-2);
-  color: var(--color-white);
+  background: var(--sb-identity-goal-2);
+  color: var(--sb-text-on-fill);
 }
 .lineIcon[data-accent='3'] {
-  background: var(--goal-accent-3);
-  color: var(--color-white);
+  background: var(--sb-identity-goal-3);
+  color: var(--sb-text-on-fill);
 }
 .lineName {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
   min-width: 0;
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 .lineNote {
   font-size: var(--font-size-sm);
@@ -120,7 +120,7 @@
 }
 .lineValue {
   font-weight: var(--font-weight-bold);
-  color: var(--text-brand-accessible);
+  color: var(--sb-text-accent);
   font-variant-numeric: tabular-nums;
 }
 /* A paused goal's share is NOT going there — the engine diverts it into the
@@ -141,9 +141,9 @@
   gap: var(--spacing-2xs);
   margin: 0;
   padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--sb-radius);
-  background: var(--sb-warn-tint);
-  color: var(--sb-warn-text);
+  border-radius: var(--sb-radius-card);
+  background: var(--sb-state-warning-subtle);
+  color: var(--sb-state-warning-on-subtle);
   font-size: var(--font-size-sm);
 }
 
@@ -161,10 +161,10 @@
   gap: var(--spacing-2xs);
   min-height: 4.25rem;
   padding: var(--spacing-xs);
-  border: 1px solid var(--sb-hairline);
-  border-radius: var(--sb-radius);
-  background: var(--sb-card);
-  color: var(--text-brand-accessible);
+  border: 1px solid var(--sb-border-default);
+  border-radius: var(--sb-radius-card);
+  background: var(--sb-surface-primary);
+  color: var(--sb-text-accent);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   cursor: pointer;

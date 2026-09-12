@@ -11,7 +11,7 @@
   margin: 0;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
 }
 
 .toggleRow {
@@ -20,11 +20,11 @@
   justify-content: space-between;
   gap: var(--spacing-md);
   padding: var(--spacing-md) 0;
-  border-top: 1px solid var(--sb-hairline);
-  border-bottom: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
+  border-bottom: 1px solid var(--sb-border-default);
 }
 .toggleLabel {
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-size: var(--font-size-md);
 }
 
@@ -50,13 +50,13 @@
   top: 2.75rem;
   bottom: calc(-1 * var(--spacing-md));
   width: 1px;
-  background: var(--sb-hairline-strong);
+  background: var(--sb-border-strong);
 }
 .item[data-last='true']::before {
   display: none;
 }
 .item + .item {
-  border-top: 1px solid var(--sb-hairline);
+  border-top: 1px solid var(--sb-border-default);
 }
 .icon {
   display: inline-flex;
@@ -66,9 +66,9 @@
   width: 2.75rem;
   height: 2.75rem;
   border-radius: var(--radius-full);
-  border: 1px solid var(--sb-accent);
-  color: var(--sb-text-heading);
-  background: var(--sb-ground);
+  border: 1px solid var(--sb-mode-accent);
+  color: var(--sb-text-primary);
+  background: var(--sb-canvas-base);
   z-index: 1;
 }
 .body {
@@ -80,7 +80,7 @@
   padding-top: var(--spacing-2xs);
 }
 .mTitle {
-  color: var(--sb-text-heading);
+  color: var(--sb-text-primary);
   font-weight: var(--font-weight-semibold);
 }
 .mDate {

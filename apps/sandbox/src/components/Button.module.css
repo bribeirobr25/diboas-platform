@@ -38,19 +38,19 @@
 /* Primary — accessible sea-green fill (teal-700, white text 5.47:1). */
 .primary {
   border: none;
-  background: var(--color-teal-700);
-  color: var(--color-white);
+  background: var(--sb-action-primary);
+  color: var(--sb-action-primary-text);
 }
 .primary:hover {
-  background: var(--color-teal-800);
+  background: var(--sb-action-primary-hover);
 }
 
 /* Secondary — outlined action (Cancel etc.): teal-700 border + accessible text. */
 .secondary {
-  border: 1px solid var(--color-teal-700);
+  border: 1px solid var(--sb-action-secondary-border);
   background: transparent;
-  color: var(--text-brand-accessible);
+  color: var(--sb-action-secondary-text);
 }
 .secondary:hover {
-  background: var(--sb-accent-tint);
+  background: var(--sb-action-secondary-hover);
 }

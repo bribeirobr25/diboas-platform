@@ -9,13 +9,13 @@
   height: 1.6rem;
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--sb-hairline-strong);
+  background: var(--sb-surface-track);
   cursor: pointer;
   transition: background 0.14s ease;
 }
 
 .on {
-  background: var(--color-teal-700);
+  background: var(--sb-action-primary);
 }
 
 .thumb {
@@ -25,7 +25,7 @@
   width: 1.2rem;
   height: 1.2rem;
   border-radius: var(--radius-full);
-  background: var(--color-white);
+  background: var(--sb-text-on-fill);
   transition: transform 0.14s ease;
 }
 
