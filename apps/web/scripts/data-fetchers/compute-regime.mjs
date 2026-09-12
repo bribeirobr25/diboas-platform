@@ -165,7 +165,10 @@ async function main() {
   console.log('');
 }
 
-// Only run if invoked directly (allows import for tests)
+// Run ONLY when invoked directly: importing a writing script must be a no-op.
+// Why, and the two footguns in the obvious implementation: lib/invocation.mjs.
+// (The original note here said "allows import for tests" — no test imports
+// this, and none should: --archive appends to the run ledger.)
 if (isDirectInvocation(import.meta.url)) {
   main().catch((e) => {
     console.error(e);
