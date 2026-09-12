@@ -24,7 +24,7 @@
   "home": {
     "goalsTitle": "Metas",
     "noGoalsTitle": "Aún no hay metas.",
-    "noGoalsBody": "Una meta le da a tu dinero en trabajo un sitio al que ir. Ponle nombre, dale un objetivo y mira el camino antes de que se mueva nada.",
+    "noGoalsBody": "Una meta le da a tu dinero trabajando un sitio al que ir. Ponle nombre, dale un objetivo y mira el camino antes de que se mueva nada.",
     "timeMachineTitle": "Máquina del tiempo",
     "timeMachineNote": "La práctica es tiempo comprimido: adelanta el reloj y reproduce lo que el mercado hizo de verdad.",
     "simDay": "Día {day} de tu práctica",
@@ -63,12 +63,12 @@
     },
     "targetLabel": "Importe objetivo",
     "horizonLabel": "Horizonte temporal",
-    "fundLabel": "Mueve esta cantidad de dinero en trabajo a la meta ahora",
+    "fundLabel": "Mueve esta cantidad de dinero trabajando a la meta ahora",
     "fundAvailable": "{amount} disponible",
     "errorName": "Dale un nombre a la meta. Es la razón por la que se mueve el dinero.",
     "errorTarget": "El objetivo tiene que ser un importe positivo.",
     "errorHorizon": "Elige un horizonte entre 1 mes y 40 años.",
-    "errorFund": "Eso es más de lo que tienes disponible para trabajar.",
+    "errorFund": "Eso es más que tu dinero trabajando ahora mismo.",
     "createCta": "Crear meta",
     "strategiesTitle": "Estrategias cuyo horizonte encaja con el tuyo",
     "strategiesNote": "Esta lista es un filtro, no asesoramiento: aquí está toda estrategia que encaja con el horizonte que fijaste, en el mismo orden para todos. Nada viene preseleccionado. Tú lees, tú eliges.",
@@ -225,23 +225,23 @@
     "setupCta": "Añadir un importe mensual",
     "amountLabel": "Cuánto cada mes",
     "amountPlaceholder": "p. ej. 200",
-    "explainer": "Cada mes, esto pasa de tu dinero en trabajo a esta meta, para que siga invertido.",
-    "note": "Dinero de práctica, y funciona solo mientras te dure el dinero en trabajo. Sin comisión por esto en el sandbox.",
+    "explainer": "Cada mes, esto pasa de tu dinero trabajando a esta meta, para que siga invertido.",
+    "note": "Dinero de práctica, y funciona solo mientras te dure el dinero trabajando. Sin comisión por esto en el sandbox.",
     "confirm": "Activarlo",
     "activeLine": "Añadiendo {amount} cada mes",
-    "pausedBody": "Pausado por ahora. Se te ha acabado el dinero en trabajo, así que no entra nada nuevo. Añade más o baja el importe.",
+    "pausedBody": "Pausado por ahora. Se te ha acabado el dinero trabajando, así que no entra nada nuevo. Añade más o baja el importe.",
     "edit": "Cambiar importe",
     "turnOff": "Desactivar"
   },
   "projection": {
     "heading": "El camino desde aquí",
-    "rangeLine": "Con {amount} al mes, un {low} a {high} por ciento supuesto llegaría a {target} en unos {minYears} a {maxYears} años.",
-    "singleLine": "Con {amount} al mes, un {low} a {high} por ciento supuesto llegaría a {target} en unos {years, plural, one {# año} other {# años}}.",
+    "rangeLine": "Con {amount} al mes, un supuesto {low} a {high} por ciento llegaría a {target} en unos {minYears} a {maxYears} años.",
+    "singleLine": "Con {amount} al mes, un supuesto {low} a {high} por ciento llegaría a {target} en unos {years, plural, one {# año} other {# años}}.",
     "caveat": "Una hipótesis que puedes comprobar, no una promesa. Los rendimientos reales se mueven y pueden ser negativos.",
     "paceWithin": "Este ritmo cabe dentro de tu plazo de {months} meses.",
     "paceEdge": "Este ritmo aterriza en torno a tu plazo de {months} meses.",
     "paceBeyond": "Este ritmo se alarga más allá de tu plazo de {months} meses.",
-    "underYear": "Con {amount} al mes, un {low} a {high} por ciento supuesto llegaría a {target} en menos de un año."
+    "underYear": "Con {amount} al mes, un supuesto {low} a {high} por ciento llegaría a {target} en menos de un año."
   },
   "geofence": {
     "badge": "Comprobación de región",
@@ -448,7 +448,7 @@
     "okay": "De acuerdo"
   },
   "comprehension": {
-    "title": "Microcomprobación de comprensión",
+    "title": "Comprobación de comprensión",
     "subtitle": "Una comprobación rápida para asegurarte de que la idea clave ha quedado clara antes de seguir.",
     "questionLabel": "Pregunta",
     "question": "¿Pueden los créditos de práctica convertirse en dinero real?",

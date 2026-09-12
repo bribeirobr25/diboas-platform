@@ -68,7 +68,7 @@
     "errorName": "Gib dem Ziel einen Namen. Er ist der Grund, warum das Geld sich bewegt.",
     "errorTarget": "Der Zielbetrag muss ein positiver Betrag sein.",
     "errorHorizon": "Wähle einen Horizont zwischen 1 Monat und 40 Jahren.",
-    "errorFund": "Das ist mehr, als du zum Arbeiten verfügbar hast.",
+    "errorFund": "Das ist mehr als dein arbeitendes Geld im Moment.",
     "createCta": "Ziel erstellen",
     "strategiesTitle": "Strategien, deren Horizont zu deinem passt",
     "strategiesNote": "Diese Liste ist ein Filter, keine Beratung: hier steht jede Strategie, die zu deinem Horizont passt, in derselben Reihenfolge für alle. Nichts ist vorausgewählt. Du liest, du entscheidest.",
@@ -462,7 +462,7 @@
     "skip": "Überspringen"
   },
   "error": {
-    "title": "Da ist was schiefgegangen",
+    "title": "Etwas lief nicht wie geplant",
     "body": "Bei dieser Ansicht ist etwas schiefgelaufen. Dein Spielgeld und dein Fortschritt sind sicher. Versuche es erneut.",
     "retry": "Erneut versuchen"
   },
