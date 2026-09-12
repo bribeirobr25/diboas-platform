@@ -24,9 +24,12 @@
 >
 > Practical form: for each claim of movement, open the last two `run_at` entries in
 > `run-archive.jsonl`, compare the signal's `values`, and let the sign of the change choose the verb.
-> `node apps/web/scripts/market-refresh/run.mjs` prints the current side; the archive holds the prior.
+> The current side is already on disk in `computed.json` — the bot's run wrote it. **Do not run
+> `run.mjs` to "check the current numbers":** it fetches, rewrites `computed.json` and appends a run
+> day to the ledger, which is a publication act, not a read (5.313). If you want a live recomputation,
+> `node apps/web/scripts/data-fetchers/compute-regime.mjs` WITHOUT `--archive` is the read-only one.
 
-> **Last updated:** 2026-08-13 (M3 note: the SAME weekly data files now feed THREE surfaces — the /market umbrella, /market/bitcoin, and /market/backdrop; the editorial workflow below is UNCHANGED — one run, one PR, three pages). Prior: 2026-08-11 (B1–B4: cycle-scoped `_cycle` overrides, `mixedBackdropOnly` REL variant, AUTO-GENERATED `data_status` panel, weekly-PR format gate + full CI via PAT). Prior: 2026-07-12 (P2/P3 automation) · 2026-05-14 (iteration 3).
+> **Last updated:** 2026-09-12 (the memo derivation rule above — added after I broke it; see also 5.313 on why a "quick check" must not be `run.mjs`). Prior: 2026-08-13 (M3 note: the SAME weekly data files now feed THREE surfaces — the /market umbrella, /market/bitcoin, and /market/backdrop; the editorial workflow below is UNCHANGED — one run, one PR, three pages). Prior: 2026-08-11 (B1–B4: cycle-scoped `_cycle` overrides, `mixedBackdropOnly` REL variant, AUTO-GENERATED `data_status` panel, weekly-PR format gate + full CI via PAT). Prior: 2026-07-12 (P2/P3 automation) · 2026-05-14 (iteration 3).
 
 ---
 
