@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import type { LedgerState } from '@diboas/banking';
 import type { SandboxLocale } from '@/i18n/config';
-import { goalCurrentValue } from '@/lib/goalValue';
 import { selectHomeTriad } from '@/view/home';
 import { dueSimulatedEvent } from '@/lib/simulatedEvents';
 import { GoalRow } from './GoalRow';
@@ -149,7 +148,7 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
               <GoalRow
                 locale={locale}
                 goal={goal}
-                current={goalCurrentValue(state, goal.goalId)}
+                state={state}
                 hasOpenPositions={state.positions.some((p) => p.goalId === goal.goalId && p.open)}
               />
             </li>

@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Decimal from 'decimal.js';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { useLedger } from '@/hooks/useLedger';
+import { selectMoveBalance, selectWithdrawFeeExample } from '@/view/home';
 import { useFormatters } from '@/hooks/useFormatters';
 import { BottomSheet } from './BottomSheet';
 import { Button } from './Button';
@@ -23,9 +23,6 @@ type Action = (typeof MONEY_OUT_ACTIONS)[number];
 
 const ICON: Record<Action, string> = { add: 'plus', withdraw: 'upload' };
 const DISABLED: ReadonlySet<Action> = new Set<Action>(['withdraw']);
-/** The round number the fee example is worked against (`5.200`). A constant,
- *  not a literal in the copy — the copy must never carry a currency amount. */
-const WORKED_EXAMPLE_BASE = new Decimal(100);
 
 /**
  * Move / money-out (R5; mockup 34; W-9c). The money families are present but
@@ -50,15 +47,13 @@ export function MoneyOut() {
 
   // Total play money = all buckets + open positions + uninvested goal cash.
   // goal.cash must be included or funded-goal money vanishes from the total.
-  const balance = new Decimal(state.buckets.floor)
-    .plus(state.buckets.cushion)
-    .plus(state.buckets.working)
-    .plus(
-      state.positions
-        .filter((p) => p.open)
-        .reduce((s, p) => s.plus(p.principal).plus(p.accrued), new Decimal(0))
-    )
-    .plus(state.goals.reduce((s, g) => s.plus(g.cash), new Decimal(0)));
+  // VIEW-2: the total is derived in `view/`. This component re-derived the same
+  // number `HomeScreen` did, in its own five-term sum — two components
+  // computing one figure two ways, each carrying its own copy of the warning
+  // that goal cash must be included. `selectMoveBalance` owns it, and its test
+  // asserts it agrees with Home's hero so the two cannot drift.
+  const balance = selectMoveBalance(state);
+  const feeExample = selectWithdrawFeeExample(FEE_RATES.ramp);
 
   const actions = MONEY_OUT_ACTIONS.map((id) => ({ id, disabled: DISABLED.has(id) }));
 
@@ -90,7 +85,7 @@ export function MoneyOut() {
           </span>
           <span className={styles.balance}>
             <FormattedNumber
-              value={balance.toNumber()}
+              value={Number(balance)}
               minimumFractionDigits={2}
               maximumFractionDigits={2}
             />
@@ -165,8 +160,8 @@ export function MoneyOut() {
                   <FormattedMessage
                     id="move.withdrawFeePer"
                     values={{
-                      fee: money(FEE_RATES.ramp.times(WORKED_EXAMPLE_BASE).toFixed(2)),
-                      base: money(WORKED_EXAMPLE_BASE.toFixed(2)),
+                      fee: money(feeExample.fee),
+                      base: money(feeExample.base),
                     }}
                   />
                 </span>

@@ -1,10 +1,10 @@
 'use client';
 
-import Decimal from 'decimal.js';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { getStrategy } from '@diboas/defi';
 import type { LedgerEvent } from '@diboas/banking';
 import { useLedger } from '@/hooks/useLedger';
+import { selectEventMagnitude, selectHistorySummary } from '@/view/home';
 import { useFormatters } from '@/hooks/useFormatters';
 import { LucideIcon, type IconName } from './LucideIcon';
 import styles from './HistoryScreen.module.css';
@@ -257,7 +257,10 @@ export function HistoryScreen() {
   }
 
   const events = [...state.events].reverse();
-  const feesPaid = new Decimal(state.networkFeesPaid).plus(state.exitFeesPaid);
+  // VIEW-2: the fee total and its render rule are derived in `view/`. The
+  // ledger tracks network and exit fees separately; the screen states them as
+  // one honest drag figure, and shows the line only when something was paid.
+  const { feesPaid, showFeeDrag } = selectHistorySummary(state);
 
   return (
     <section className={styles.wrap} aria-labelledby="history-title">
@@ -268,7 +271,7 @@ export function HistoryScreen() {
         <LucideIcon name="shield-check" size={20} />
         <FormattedMessage id="history.subtitle" />
       </p>
-      {feesPaid.gt(0) ? (
+      {showFeeDrag ? (
         <p className={styles.feeDrag}>
           <FormattedMessage
             id="history.feeDrag"
@@ -279,7 +282,7 @@ export function HistoryScreen() {
               // a real console error that shipped on every History view.
               amount: (
                 <span key="amount" className={styles.feeAmount}>
-                  {money(feesPaid.toFixed(2))}
+                  {money(feesPaid)}
                 </span>
               ),
             }}
@@ -315,7 +318,7 @@ export function HistoryScreen() {
                           ("−-5.00"). The prefix owns the sign; the number owns
                           the magnitude. */}
                       <FormattedNumber
-                        value={new Decimal(d.amount).abs().toNumber()}
+                        value={selectEventMagnitude(d.amount)}
                         minimumFractionDigits={2}
                         maximumFractionDigits={2}
                       />

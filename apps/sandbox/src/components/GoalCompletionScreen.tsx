@@ -1,13 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import Decimal from 'decimal.js';
 import { FormattedMessage, useIntl } from 'react-intl';
 import type { GoalState, LedgerState } from '@diboas/banking';
 import { useFormatters } from '@/hooks/useFormatters';
 import { useTakeoverFocus } from '@/hooks/useTakeoverFocus';
 import { accomplishGoal, raiseGoalTarget, transferGoalCash } from '@/lib/ledgerClient';
-import { goalCurrentValue } from '@/lib/goalValue';
+import { selectGoalCompletionView } from '@/view/home';
 import { LucideIcon } from './LucideIcon';
 import styles from './GoalCompletionScreen.module.css';
 
@@ -47,12 +46,17 @@ export function GoalCompletionScreen({
   const [step, setStep] = useState<Step>('menu');
   const [newTarget, setNewTarget] = useState('');
 
-  const current = goalCurrentValue(state, goal.goalId);
-  const cash = new Decimal(goal.cash);
-  const hasPositions = state.positions.some((p) => p.goalId === goal.goalId && p.open);
+  // VIEW-2: derived in `view/`, including `canRaise` — which was a FLOAT
+  // comparison on money here (`Number(newTarget) > Number(goal.targetAmount)`).
+  // In Decimal it is exact, and the rule is explicit: an EQUAL target is not a
+  // raise.
+  const { cash, current, hasPositions, canRaise } = selectGoalCompletionView(
+    state,
+    goal.goalId,
+    newTarget
+  );
   const destinations = state.goals.filter((g) => g.goalId !== goal.goalId && g.status === 'active');
   const raiseValue = Number(newTarget) || 0;
-  const canRaise = raiseValue > Number(goal.targetAmount);
 
   return (
     <section className={styles.wrap} aria-labelledby="goalcomplete-title">
@@ -83,7 +87,7 @@ export function GoalCompletionScreen({
         <FormattedMessage id="goalComplete.saved" />
       </p>
       <p className={styles.savedAmount}>
-        <span className={styles.savedBig}>{money(current.toFixed(2))}</span>{' '}
+        <span className={styles.savedBig}>{money(current)}</span>{' '}
         <span className={styles.savedTarget}>
           <FormattedMessage
             id="goalComplete.ofTarget"
@@ -192,7 +196,7 @@ export function GoalCompletionScreen({
                   <span className={styles.rowNote}>
                     <FormattedMessage
                       id="goalComplete.moveToGoalNote"
-                      values={{ amount: money(cash.toFixed(2)) }}
+                      values={{ amount: money(cash) }}
                     />
                   </span>
                 </span>
