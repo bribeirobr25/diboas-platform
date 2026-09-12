@@ -114,6 +114,15 @@ export interface DataStatus {
     last_updated_at: string | null;
     expected_next_update_at: string | null;
     stale_after: string | null;
+    /**
+     * The instant this source's own cadence rule flips FRESH → DELAYED
+     * (5.173). Emitted by the pipeline so the page can re-evaluate freshness
+     * at READ time without re-implementing the doc-02 cadence policy. `null`
+     * means no time-based downgrade applies (the warm-up ledger is
+     * count-based). Optional: payloads generated before 2026-09-12 lack it,
+     * and `applyReadTimeFreshness` treats absence as "no downgrade".
+     */
+    delayed_after?: string | null;
     message: string | null;
   }>;
   delayed_sources: string[];

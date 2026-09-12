@@ -30,6 +30,7 @@
 
 import type { SupportedLocale } from '@diboas/i18n/server';
 import { Logger } from '@/lib/monitoring/Logger';
+import { applyReadTimeFreshness } from './freshness';
 import type {
   AnalyticsInitialData,
   DataStatus,
@@ -166,9 +167,20 @@ export async function fetchSignals(
   return { signal_groups: raw.groups.map((g) => localizeSignalGroup(g, locale)) };
 }
 
-export async function fetchDataStatus(view: string = DEFAULT_VIEW): Promise<DataStatus> {
+/**
+ * 5.173: the ONLY fetcher that is not a pass-through, and deliberately so.
+ * The generated panel is a snapshot of freshness at `computed_at`; this
+ * endpoint's job is to answer "how fresh is this **now**". The real `/data-status`
+ * computes exactly that per request (doc-07 §23.1 gives it a 15-minute TTL),
+ * so evaluating the clock here makes the mock MORE faithful to the contract,
+ * not less. Downgrade-only — see `applyReadTimeFreshness`.
+ */
+export async function fetchDataStatus(
+  view: string = DEFAULT_VIEW,
+  now: Date = new Date()
+): Promise<DataStatus> {
   const data = await loadViewData(view);
-  return data.dataStatus as unknown as DataStatus;
+  return applyReadTimeFreshness(data.dataStatus as unknown as DataStatus, now);
 }
 
 export async function fetchMethodology(view: string = DEFAULT_VIEW): Promise<MethodologyData> {
@@ -243,6 +255,8 @@ async function reportFetchFailure(
 export interface AnalyticsFetchOptions {
   /** Middleware's `x-request-id`, for server↔client correlation (E-2). */
   correlationId?: string;
+  /** Evaluation instant for read-time freshness (5.173). Injected for tests. */
+  now?: Date;
 }
 
 /**
@@ -259,7 +273,7 @@ export async function fetchInitialAnalyticsData(
   view: string = DEFAULT_VIEW,
   options: AnalyticsFetchOptions = {}
 ): Promise<AnalyticsInitialData> {
-  const { correlationId } = options;
+  const { correlationId, now = new Date() } = options;
   const onFail = (endpoint: AnalyticsEndpoint) => (e: unknown) =>
     reportFetchFailure(endpoint, view, e, correlationId);
 
@@ -268,7 +282,7 @@ export async function fetchInitialAnalyticsData(
       fetchRegime(locale, view).catch(onFail('current-regime')),
       fetchHistoricalRegimes(view).catch(onFail('historical-regimes')),
       fetchSignals(locale, view).catch(onFail('signals')),
-      fetchDataStatus(view).catch(onFail('data-status')),
+      fetchDataStatus(view, now).catch(onFail('data-status')),
       fetchMethodology(view).catch(onFail('methodology')),
       fetchProductDisclaimer(view).catch(onFail('product-disclaimer')),
     ]);
