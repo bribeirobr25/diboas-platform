@@ -55,7 +55,7 @@
       "shield": "Escudo",
       "graduation-cap": "Birrete",
       "heart": "Corazón",
-      "car": "Car",
+      "car": "Coche",
       "palmtree": "Palmera",
       "briefcase": "Maletín",
       "gift": "Regalo",
@@ -100,7 +100,7 @@
   "manifest": {
     "title": "Lee antes de aprobar",
     "fromLabel": "Desde",
-    "toLabel": "To",
+    "toLabel": "Para",
     "amountLabel": "Importe",
     "riskLabel": "Riesgo",
     "approve": "Aprobar este movimiento",
@@ -453,7 +453,7 @@
     "questionLabel": "Pregunta",
     "question": "¿Pueden los créditos de práctica convertirse en dinero real?",
     "explainer": "Los créditos de práctica te dejan explorar y ganar confianza sin dinero real en juego. No se convierten en dinero real.",
-    "yes": "Yes",
+    "yes": "Sí",
     "no": "No",
     "correct": "Correcto. Los créditos de práctica siguen siendo dinero de práctica, siempre.",
     "incorrect": "No exactamente. Los créditos de práctica nunca se convierten en dinero real.",
@@ -531,7 +531,7 @@
   "catalogFilters": {
     "horizon": "Horizonte temporal",
     "risk": "Banda de riesgo",
-    "any": "Any",
+    "any": "Cualquiera",
     "varies": "Variable",
     "empty": "Ninguna estrategia encaja con esos filtros. Amplía uno para ver más.",
     "neverAdvises": "Tú eliges. diBoaS nunca asesora.",
@@ -548,7 +548,7 @@
       "7": "7D",
       "30": "30D",
       "90": "90D",
-      "365": "1Y"
+      "365": "1A"
     },
     "noData": "Aún no hay suficiente historial para dibujar un gráfico.",
     "description": "Tasa del pool de {from} a {to}, entre {low}% y {high}%."

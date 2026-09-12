@@ -55,7 +55,7 @@
       "shield": "Schild",
       "graduation-cap": "Doktorhut",
       "heart": "Herz",
-      "car": "Car",
+      "car": "Auto",
       "palmtree": "Palme",
       "briefcase": "Aktentasche",
       "gift": "Geschenk",
@@ -100,7 +100,7 @@
   "manifest": {
     "title": "Lies, bevor du genehmigst",
     "fromLabel": "Von",
-    "toLabel": "To",
+    "toLabel": "An",
     "amountLabel": "Betrag",
     "riskLabel": "Risiko",
     "approve": "Diese Bewegung genehmigen",
@@ -453,8 +453,8 @@
     "questionLabel": "Frage",
     "question": "Kann Übungsguthaben zu echtem Geld werden?",
     "explainer": "Mit Übungsguthaben kannst du ausprobieren und Sicherheit gewinnen, ohne echtes Geld zu riskieren. Es wird nicht zu echtem Geld.",
-    "yes": "Yes",
-    "no": "No",
+    "yes": "Ja",
+    "no": "Nein",
     "correct": "Richtig. Übungsguthaben bleibt immer Spielgeld.",
     "incorrect": "Nicht ganz. Übungsguthaben wird nie zu echtem Geld.",
     "continue": "Weiter",
@@ -531,7 +531,7 @@
   "catalogFilters": {
     "horizon": "Zeithorizont",
     "risk": "Risikoband",
-    "any": "Any",
+    "any": "Alle",
     "varies": "Variabel",
     "empty": "Keine Strategie passt zu diesen Filtern. Erweitere einen, um mehr zu sehen.",
     "neverAdvises": "Du entscheidest. diBoaS berät nie.",
@@ -548,7 +548,7 @@
       "7": "7D",
       "30": "30D",
       "90": "90D",
-      "365": "1Y"
+      "365": "1J"
     },
     "noData": "Noch nicht genug Verlauf für ein Diagramm.",
     "description": "Pool-Rate von {from} bis {to}, zwischen {low}% und {high}%."

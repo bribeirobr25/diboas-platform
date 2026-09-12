@@ -14,6 +14,16 @@ import { getMessages } from '../loadMessages';
  * names, diBoaS strategy product names (deliberately untranslated in ALL four
  * locales) and pure format strings. Everything else must differ.
  *
+ * ⚠️ THE LENGTH THRESHOLD WAS A STRUCTURAL HOLE (fixed 2026-09-12). It read
+ * `en[k].length > 3`, which made EVERY short string invisible to the ratchet by
+ * construction. The 2026-09-12 visual pass found "Any" rendering untranslated in
+ * the German strategy picker, and a sweep then found five more: `comprehension
+ * .yes`/`.no`, `manifest.toLabel`, `goalNew.icon.car`, `apyChart.tf.365` — all
+ * user-visible English in es/de, and pt-BR already translated four of them, so
+ * the omission was never deliberate. The threshold is now `> 1` (a single
+ * character carries no language), and the chart-axis abbreviations are
+ * allow-listed above with their reason rather than silently skipped.
+ *
  * es/de carry real translation debt — the native pass (P-7) is out of Phase 2
  * scope — so they get a RATCHET rather than zero: the count may fall, never
  * rise. That keeps the debt visible and stops it growing, without pretending it
@@ -31,6 +41,13 @@ const SHARED_BY_DESIGN = (key: string) =>
   key === 'nav.community' ||
   key.startsWith('catalog.protocols.') || // Sky SSR, Aave V3 — third-party names
   key.startsWith('catalog.strategies.') || // diBoaS product names, English in all 4
+  // Chart-axis abbreviations. pt-BR leaves 7D/30D/90D English too, so the
+  // convention is already 'D for day' across locales; only the year unit was
+  // localised (1A / 1J). Listed rather than translated because an axis tick is
+  // a typographic unit, not prose — founder/native call if they should change.
+  key === 'apyChart.tf.7' ||
+  key === 'apyChart.tf.30' ||
+  key === 'apyChart.tf.90' ||
   key === 'monthReport.signedUp' || // "+{amount}" — pure format
   key === 'monthReport.signedDown';
 
@@ -78,11 +95,29 @@ const isGated = (key: string) => GATED_PENDING_AUTHORITY.some((g) => g.key === k
  */
 const DEBT_CEILING: Record<string, number> = { 'pt-BR': 0, es: 1, de: 1 };
 
+/**
+ * Keys whose value legitimately matches English in ONE specific locale, because
+ * the word IS the same in that language. Locale-aware on purpose: `No` is
+ * correct Spanish and cannot differ, but the same key in pt-BR (`Não`) and de
+ * (`Nein`) must stay visible to the guard — a blanket SHARED_BY_DESIGN entry
+ * would have hidden the pt-BR leak this pass just found.
+ */
+const SAME_WORD_IN: Record<string, readonly string[]> = {
+  'comprehension.no': ['es'],
+};
+const sameWordInLocale = (key: string, locale: string) =>
+  (SAME_WORD_IN[key] ?? []).includes(locale);
+
 function untranslated(locale: string): string[] {
   const en = getMessages('en');
   const loc = getMessages(locale as (typeof SANDBOX_LOCALES)[number]);
   return Object.keys(en).filter(
-    (k) => !SHARED_BY_DESIGN(k) && !isGated(k) && en[k].length > 3 && loc[k] === en[k]
+    (k) =>
+      !SHARED_BY_DESIGN(k) &&
+      !isGated(k) &&
+      !sameWordInLocale(k, locale) &&
+      en[k].length > 1 &&
+      loc[k] === en[k]
   );
 }
 
