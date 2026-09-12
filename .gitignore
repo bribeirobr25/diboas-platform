@@ -155,6 +155,13 @@ playwright/.cache/
 
 # Database and backup files
 *.sql
+# ...EXCEPT canonical schema migrations, which are version-controlled source.
+# A blanket `*.sql` ignore hid 18 migration files from git entirely (register
+# `5.196`; Consolidated Handoff §3.5 / Q-12: "a blanket *.sql ignore must not
+# suppress canonical migration history"). These are pure DDL, app-owned, and
+# hold no PII or credentials. `apps/web`'s 14 migrations belong to the
+# website/market lane and are deliberately NOT added here.
+!apps/sandbox/src/lib/database/migrations/*.sql
 *.sqlite
 *.sqlite3
 *.db

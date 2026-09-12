@@ -37,7 +37,12 @@ const STEPS = [
     'test (banking · defi · investing)',
     'pnpm --filter @diboas/banking --filter @diboas/defi --filter @diboas/investing test',
   ],
-  ['build', 'pnpm --filter sandbox build'],
+  // WORKSPACE-WIDE for the same reason as type-check above (register `5.293`,
+  // Consolidated Handoff §3.4 / Q-15): this step built the SANDBOX ONLY, so an
+  // `apps/web` build break passed it — the third instance of one defect in this
+  // very file, whose two comments above already state the lesson. A gate scoped
+  // narrower than the work it guards reports green for the wrong reason.
+  ['build (all workspaces)', 'pnpm -w build'],
   ['dead-code (knip)', 'pnpm -w check:dead-code'],
   ['prettier (sandbox src)', 'pnpm exec prettier --check "src/**/*.{ts,tsx,css,json}"'],
   // REPO-WIDE, not just this app. The sandbox-src check above passed for 111
