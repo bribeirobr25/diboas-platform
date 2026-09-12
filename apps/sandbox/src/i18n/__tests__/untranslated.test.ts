@@ -59,10 +59,24 @@ const GATED_PENDING_AUTHORITY: { key: string; renderedIn: readonly string[] }[] 
 const isGated = (key: string) => GATED_PENDING_AUTHORITY.some((g) => g.key === key);
 
 /**
- * Known debt, 2026-08-21. LOWER these as the native pass lands; a rise fails
- * the test, which is the point.
+ * Known debt. LOWER these as the native pass lands; a rise fails the test,
+ * which is the point.
+ *
+ * 2026-09-12: the es/de native pass landed — 208 es and 207 de strings
+ * transcreated in register (German `du`, peninsular Spanish), reusing the
+ * vocabulary the already-translated corpus had established rather than
+ * translating word-for-word. The ceilings fell 239 -> 1 and 238 -> 1.
+ *
+ * The ONE remaining string in each is `common.playDisclaimer`, deliberately
+ * untouched: it is the R-4 play-money disclosure that `L-QA1` requires under
+ * every surface showing money, so it is Legal-owned copy, not a translation
+ * task (register `5.292` — it is LIVE in English to de/es users today).
+ * `docs/sandbox-app/legal-current/` holds no approved wording to copy, and
+ * this lane does not draft Legal text. When Legal approves the de/es wording,
+ * these two ceilings go to 0 and the key should join
+ * `GATED_PENDING_AUTHORITY` so English can never silently render again.
  */
-const DEBT_CEILING: Record<string, number> = { 'pt-BR': 0, es: 239, de: 238 };
+const DEBT_CEILING: Record<string, number> = { 'pt-BR': 0, es: 1, de: 1 };
 
 function untranslated(locale: string): string[] {
   const en = getMessages('en');
