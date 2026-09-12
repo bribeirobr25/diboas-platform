@@ -95,6 +95,30 @@ export function umbrellaCardModel(
     ...base,
     available: true,
     conditions,
-    plainLine: macro?.summary || undefined,
+    plainLine: stateCardLine(macro),
   };
+}
+
+/**
+ * The state card's primary line (5.174).
+ *
+ * MUST prefer `state_view.lead` over `summary`. `summary` is the SCORED view's
+ * group sentence and ends with the points parenthetical BY DESIGN — all sixteen
+ * macro variants (4 levels × 4 locales) do — so reading it here published
+ * "(2 of 3 points)" on a card whose grammar forbids a score (MM-2,
+ * `viewRegistry.ts`: state views "carry no score"), in four locales, for three
+ * cycles. The points-free twin has existed and regenerated weekly since
+ * 2026-08-24; the umbrella simply never read it.
+ *
+ * First sentence only, matching the scored branch's `firstSentence()` treatment:
+ * the lead carries one beat per condition and is card-sized only at its head.
+ *
+ * `summary` remains the fallback for a payload generated before `state_view`
+ * existed — a card with a stale fragment still beats a blank card — but any
+ * current cycle takes the lead.
+ */
+function stateCardLine(macro?: { state_view?: { lead: string }; summary?: string }) {
+  const lead = macro?.state_view?.lead;
+  if (lead) return firstSentence(lead);
+  return macro?.summary || undefined;
 }
