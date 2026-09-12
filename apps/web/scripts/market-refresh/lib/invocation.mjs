@@ -1,5 +1,5 @@
 /**
- * invocation.mjs — "am I the process entry point?" (PENDING_ALL 5.308).
+ * invocation.mjs — "am I the process entry point?" (PENDING_ALL 5.313).
  *
  * Every pipeline script that WRITES must run only when invoked directly.
  * Importing one for a test — or by accident — otherwise executes it and writes

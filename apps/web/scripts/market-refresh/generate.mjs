@@ -670,7 +670,7 @@ async function patchEditorial(gen, write) {
   return drift;
 }
 
-// 5.308: run ONLY when invoked directly. Without this, `import()`-ing this
+// 5.313: run ONLY when invoked directly. Without this, `import()`-ing this
 // module for a test - or by accident - executes the whole thing and WRITES to
 // committed data. That is not theoretical: it happened on 2026-09-12, minting a
 // phantom run day in `run-archive.jsonl`, which is the provenance authority the

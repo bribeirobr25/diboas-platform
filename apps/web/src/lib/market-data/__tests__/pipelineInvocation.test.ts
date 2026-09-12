@@ -1,5 +1,5 @@
 /**
- * Pipeline scripts must not run when imported (PENDING_ALL 5.308).
+ * Pipeline scripts must not run when imported (PENDING_ALL 5.313).
  *
  * On 2026-09-12 an `import()` of `run.mjs` — intended as a "does it still
  * parse" check — executed the entire weekly pipeline: it fetched live data,
@@ -77,7 +77,7 @@ describe('every writing pipeline script is guarded', () => {
   });
 
   it('should keep the guard next to every write site', () => {
-    // A script that writes but never calls the guard is the exact 5.308 shape.
+    // A script that writes but never calls the guard is the exact 5.313 shape.
     for (const rel of WRITERS) {
       const src = readFileSync(join(SCRIPTS, rel), 'utf8');
       const writes = (src.match(/writeFileSync|appendFileSync/g) ?? []).length;
