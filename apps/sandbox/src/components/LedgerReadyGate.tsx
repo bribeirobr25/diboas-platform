@@ -5,7 +5,7 @@ import { useLedgerReady } from '@/hooks/useLedgerReady';
 
 /**
  * Holds the ledger-reading content until the ledger has hydrated (P1.2 slice
- * 1c, plan §7). Rendered inside `AppChrome` AROUND `{children}` — so the app
+ * 1c, plan §7). Rendered inside `AppShell` AROUND `{children}` — so the app
  * bar, tab bar, and the persistent PLAY MONEY badge stay visible during the
  * wait (R-4: every screen stays labeled play money), and only the main content
  * area holds. Covers all four `(app)` ledger screens through the one shell, so a

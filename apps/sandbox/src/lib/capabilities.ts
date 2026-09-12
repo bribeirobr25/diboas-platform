@@ -34,6 +34,9 @@
  *   there is no authorized production use. `realParityInternal` is this (Real
  *   public availability = WAIT), and a PREVIEW deployment may still carry it:
  *   an internal parity build is what preview is for.
+ * - `REQUIRES_CLEARANCE` also holds `modePalette` (1e): the mode truth is
+ *   always stamped, while the provisional practice/real PALETTE waits for the
+ *   Mode × Appearance calibration review (5.282).
  * - `REFUSED_IN_ANY_DEPLOYMENT` — refused on production AND preview, because
  *   the promise attached to the flag is about *deployments*, not about
  *   production alone. `insecureGateCookie` is this: its own docstring says
@@ -116,7 +119,7 @@ export type DeploymentPolicy =
 
 /** Every capability the app has. Adding one to the union forces a table entry. */
 export type Capability =
-  'publicAccess' | 'practiceAccounts' | 'realParityInternal' | 'insecureGateCookie';
+  'publicAccess' | 'practiceAccounts' | 'realParityInternal' | 'insecureGateCookie' | 'modePalette';
 
 interface CapabilitySpec {
   /** The environment variable. Read with a strict `=== 'true'`, never inferred. */
@@ -149,6 +152,12 @@ export const CAPABILITIES: Record<Capability, CapabilitySpec> = {
     deployment: 'REFUSED_IN_PRODUCTION',
     because:
       'Legal: Real public availability = WAIT. There is no authorized production use, so the deployment refuses the flag rather than trusting configuration.',
+  },
+  modePalette: {
+    env: 'SANDBOX_MODE_PALETTE',
+    deployment: 'REQUIRES_CLEARANCE',
+    because:
+      "I-1e stamps the mode TRUTH (`data-mode`) on every surface, because the shell's family model knows it and the ModeMarker must state it. The PALETTE is a separate attribute (`data-palette`) behind this flag, because the practice/real token values are provisional calibration (5.282) and stamping them would re-tint every live Practice screen from teal to periwinkle — a visible change to a live product that Product/UIUX has not reviewed. Truth ships; the re-tint waits. REQUIRES_CLEARANCE, not a permanent refusal: the calibration review is expected to turn it on.",
   },
   insecureGateCookie: {
     env: 'SANDBOX_GATE_ALLOW_INSECURE',

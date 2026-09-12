@@ -91,6 +91,16 @@ const KNOWN_COLLISIONS: ReadonlyArray<{ locale: string; value: string; why: stri
     why: 'BENIGN: the same `Your @handle` / `Your handle` synonym pair as German and Spanish.',
   },
   {
+    locale: 'es',
+    value: 'Volver al inicio',
+    why: 'BENIGN, and English-side: `notFound.backHome` is "Back to home" while `community.action` is "Back to Home" — the pair differs only in the casing of one word, so a single Spanish string is correct. The Community half is Brand copy Legal-approved with no edits (P-QA5 / L-QA3) and must not be reworded to break a tie that only exists in English.',
+  },
+  {
+    locale: 'de',
+    value: 'Zurück zur Startseite',
+    why: 'BENIGN, and English-side: the same "Back to home" / "Back to Home" casing pair as Spanish, with the same reading. The Community half is Legal-approved copy.',
+  },
+  {
     locale: 'pt-BR',
     value: 'Continuar',
     why: 'REGISTERED 5.271 — "Keep going" (the pause sheet\'s stay-the-course choice) flattened into a generic "Continue"; the nudge is the button\'s purpose.',

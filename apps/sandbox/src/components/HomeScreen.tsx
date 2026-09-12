@@ -45,7 +45,7 @@ function BalanceAmount({ value }: { value: Decimal }) {
 /**
  * Home — "your money's jobs" (B1; mockup 02). Play-balance hero, the
  * Available/Working/Emergency split, the goals list with progress + status, and
- * Create goal. The top bar + tab bar are the AppChrome shell.
+ * Create goal. The header + bottom navigation are the AppShell chrome.
  *
  * NB — Bucket mapping (DEFERRED_BACKEND_LEDGER): the mockup's money-jobs model
  * (available/working/emergency) is mapped onto the current ledger buckets

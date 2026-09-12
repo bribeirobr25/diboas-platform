@@ -25,6 +25,10 @@ const SHARED_BY_DESIGN = (key: string) =>
   key === 'common.appName' ||
   key === 'common.wordmarkAlt' ||
   key === 'gate.title' ||
+  // Brand's approved German navigation label for Community IS "Community"
+  // (Strategy Canon disposition §11.2, Legal-approved with no edits). It is
+  // identical to English on purpose, like the protocol and strategy names.
+  key === 'nav.community' ||
   key.startsWith('catalog.protocols.') || // Sky SSR, Aave V3 — third-party names
   key.startsWith('catalog.strategies.') || // diBoaS product names, English in all 4
   key === 'monthReport.signedUp' || // "+{amount}" — pure format

@@ -97,18 +97,21 @@ function matchRoot(compound: string, st: State): number | null {
   rest = rest.slice(':root'.length);
   let specificity = 1;
   const attr = (name: string, value?: string) => {
+    // `data-palette` is what re-points the ramp; `data-mode` states the truth
+    // and paints nothing. A matcher that conflated them is how a live re-tint
+    // passed this suite for one commit.
     const current = name === 'data-theme' ? st.theme : st.mode === 'neutral' ? null : st.mode;
     return value === undefined ? current !== null : current === value;
   };
   while (rest.length) {
-    const not = rest.match(/^:not\(\[(data-theme|data-mode)(?:='([^']*)')?\]\)/);
+    const not = rest.match(/^:not\(\[(data-theme|data-palette)(?:='([^']*)')?\]\)/);
     if (not) {
       if (attr(not[1], not[2])) return null;
       specificity++;
       rest = rest.slice(not[0].length);
       continue;
     }
-    const has = rest.match(/^\[(data-theme|data-mode)(?:='([^']*)')?\]/);
+    const has = rest.match(/^\[(data-theme|data-palette)(?:='([^']*)')?\]/);
     if (has) {
       if (!attr(has[1], has[2])) return null;
       specificity++;
@@ -253,6 +256,8 @@ const GRAPHIC_PAIRS: [string, string][] = [
   ['--sb-text-on-fill', '--sb-identity-goal-2'],
   ['--sb-text-on-fill', '--sb-identity-goal-3'],
   ['--sb-state-warning-on-fill', '--sb-state-warning-fill'],
+  // The unread dot is a meaningful graphic on the navigation bar's surface.
+  ['--sb-state-unread', '--sb-surface-primary'],
 ];
 
 function pairRatio(fg: string, bg: string, st: State) {
@@ -322,6 +327,49 @@ describe('the six themes resolve completely', () => {
         expect(new Set(values).size, `${role} across modes`).toBe(3);
       }
     }
+  });
+});
+
+describe('the mode TRUTH never paints — only the palette does (5.282)', () => {
+  /**
+   * The guard that was missing, and the reason a live re-tint shipped for one
+   * commit: every test asserted the ATTRIBUTE (`data-palette` absent) while the
+   * token file still keyed its ramp off `data-mode`, which the shell stamps on
+   * every surface. The attribute was right and the pixels were wrong.
+   *
+   * So this asserts the RESOLVED value: with a mode stated and no palette
+   * requested, the accent family must still be the approved neutral teal.
+   */
+  const modeStatedNoPalette = (mode: Mode) => {
+    const props = computedProps({ mode: 'neutral', theme: null, system: 'light' });
+    // `data-mode` is not part of the state matcher at all now — it cannot
+    // select anything — so stating it cannot change a value. Prove that by
+    // resolving the neutral state and comparing against each mode's ramp.
+    const neutralAccent = resolve('var(--sb-mode-accent)', props);
+    const paletted = resolve(
+      'var(--sb-mode-accent)',
+      computedProps({ mode, theme: null, system: 'light' })
+    );
+    return { neutralAccent, paletted };
+  };
+
+  it.each(['practice', 'real'] as const)(
+    'should keep the neutral accent when %s is only the mode truth',
+    (mode) => {
+      const { neutralAccent, paletted } = modeStatedNoPalette(mode);
+      // The palette DOES re-point when asked…
+      expect(paletted).not.toBe(neutralAccent);
+      // …and the neutral resolution is the approved live teal, unchanged.
+      expect(neutralAccent).toBe('#0d9488');
+    }
+  );
+
+  it('should key every mode block off data-palette, never data-mode', () => {
+    // Read as text, because this is exactly the line that was wrong: a mode
+    // block selecting on `data-mode` re-tints the app the moment the shell
+    // states its mode.
+    const offenders = BLOCKS.map((b) => b.selector).filter((sel) => /data-mode/.test(sel));
+    expect(offenders).toEqual([]);
   });
 });
 

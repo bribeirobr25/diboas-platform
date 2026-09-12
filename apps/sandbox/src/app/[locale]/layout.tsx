@@ -32,19 +32,20 @@ import '@/styles/globals.css';
  * `app/page.tsx` moves into `middleware.ts`, which runs before routing and
  * already exists for the geofence.
  *
- * ## Why `data-mode` is NOT stamped here yet
+ * ## Why this file does not stamp the mode
  *
  * `<html>` is also where the Mode × Appearance contract's mode value belongs
- * (six themes = Appearance × Mode), and moving the shell here is what makes
- * that possible. It is deliberately not stamped in this increment, because the
- * value is **family-determined, not scope-determined**: the Shell Spec puts
- * `welcome` · `consent` · `gate` · `readiness` in S0, which carries *"no
- * financial mode marker"*, and names `claim` as *"the transition seam… the
- * first explicit Practice surface"*. The `S0 | S1 | S2 | S3` family model is
- * `1e`'s first-class value and must *"never be inferred from the route string"*
- * — so stamping a value now would either be wrong for four S0 surfaces or
- * pre-empt that resolver with a route-string guess. `1e` stamps it; this
- * increment gives it somewhere true to live.
+ * (six themes = Appearance × Mode), and owning the document shell here is what
+ * made that possible. It is not stamped HERE because the value is
+ * **family-determined, not scope-determined**: the Shell Spec puts `welcome` ·
+ * `consent` · `gate` · `readiness` in S0, which carries *"no financial mode
+ * marker"*, and names `claim` as *"the transition seam… the first explicit
+ * Practice surface"*. This layout cannot know which child surface is rendering,
+ * and reading `headers()` to find out would make every page dynamic. So I-1e's
+ * `AppShell` stamps it from the declared `S0 | S1 | S2 | S3` family registry
+ * via `ModeStamp` — which is also the ONLY writer of those attributes
+ * (`SHELL-3`), and never infers them from the route string. This increment gave
+ * the value somewhere true to live.
  */
 const fraunces = Fraunces({
   subsets: ['latin'],

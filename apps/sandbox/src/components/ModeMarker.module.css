@@ -1,0 +1,39 @@
+/*
+ * `ModeMarker` — mode truth, stated in words.
+ *
+ * The distinction between practice and real is carried by the LABEL, so this
+ * file deliberately gives both modes the SAME chrome: a hairline box and
+ * letter-spaced caps. That is Shell Spec §7.5 ("explicit text required;
+ * structural/border treatment") and it is what makes the marker survive
+ * greyscale, a screenshot and colour-vision deficiency — the `SHELL-2` /
+ * `A11Y-01` requirement. When a mode palette is active the border picks up the
+ * mode accent as REINFORCEMENT; the text still says which mode it is.
+ */
+.marker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  border: 1px solid var(--sb-border-strong);
+  border-radius: var(--radius-pill);
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  color: var(--sb-text-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  /* Reinforcement only: with no palette stamped this resolves to the neutral
+     accent, so the marker looks the SAME in both modes — which is the point
+     (§7.5: colour reinforces, the words carry the distinction). It sits in the
+     base rule because a per-mode rule here would be a mode decision taken in a
+     component, and the token layer owns those. */
+  border-color: var(--sb-mode-accent);
+}
+
+/* §10.2's two sizes. `compact` is for a dense header; it drops the padding,
+   never the words. */
+.marker[data-size='compact'] {
+  padding: 0 var(--spacing-2xs);
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+}
