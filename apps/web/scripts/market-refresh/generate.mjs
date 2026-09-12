@@ -66,6 +66,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isDirectInvocation } from './lib/invocation.mjs';
+import { writeFileAtomic } from './lib/atomic.mjs';
+import { readArchiveRows, runDayIndex } from './lib/archive.mjs';
 import {
   MAX_BY_GROUP,
   GROUP_STATUS,
@@ -479,23 +481,11 @@ function realSnapshotCount() {
   // after a correction) and off-cadence pairs; counting lines overstated how
   // much real history existed and was one half of why 44 seed points shipped
   // as measured history. The other half was a hand-flip of synthetic_seed.
+  // 5.302: the day-grouping rule itself now lives in archive.mjs, shared with
+  // priorRunSignals, so the two cannot answer "which days are real" differently.
   const archivePath = path.join(SHARED_DIR, 'run-archive.jsonl');
   if (!fs.existsSync(archivePath)) return 0;
-  const days = new Set(
-    fs
-      .readFileSync(archivePath, 'utf8')
-      .split('\n')
-      .filter(Boolean)
-      .map((line) => {
-        try {
-          return JSON.parse(line).run_at?.slice(0, 10) ?? null;
-        } catch {
-          return null;
-        }
-      })
-      .filter(Boolean)
-  );
-  return days.size;
+  return runDayIndex(readArchiveRows(fs.readFileSync(archivePath, 'utf8'))).size;
 }
 
 // ── write / check ───────────────────────────────────────────────────────────
@@ -515,7 +505,9 @@ async function writeJsonFormatted(p, obj) {
   } catch {
     /* prettier unavailable — raw JSON.stringify remains valid */
   }
-  fs.writeFileSync(p, text);
+  // 5.302: temp + rename. These four files are read by the site build; a
+  // truncated regime.json is a broken page, not a missing one.
+  writeFileAtomic(p, text);
 }
 
 async function patchEditorial(gen, write) {

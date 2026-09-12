@@ -24,6 +24,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { isDirectInvocation } from './lib/invocation.mjs';
+import { writeFileAtomic } from './lib/atomic.mjs';
 import {
   evaluateBtcStructure,
   evaluateMacro,
@@ -245,24 +246,39 @@ async function main() {
     signals: archiveSignals(all, { etfSnapshotCount: etfSnapshots.length }),
     sources: [dxy, us10y, m2, nasdaq, btc, gold].map((s) => s.provenance),
   };
-  fs.writeFileSync(COMPUTED_PATH, JSON.stringify(computed, null, 2) + '\n');
+  // ── publish ──────────────────────────────────────────────────────────────
+  // 5.302: DERIVE EVERYTHING BEFORE PUBLISHING ANYTHING. `archiveLine()` can
+  // throw on unexpected engine output, and building it after `computed.json`
+  // was already on disk is exactly how you get published data with no
+  // provenance row — a state `realSnapshotCount` reads as "that week never
+  // ran". Both payloads now exist before either lands.
+  const archiving = !process.argv.includes('--no-archive');
+  const archiveText = archiving
+    ? JSON.stringify(
+        archiveLine({
+          runAt: computed.computed_at,
+          pipeline: 'market-refresh/run.mjs',
+          score,
+          regimeCode: band.code,
+          groupTotals,
+          published,
+          anchorSpreadDays: computed.anchor_spread_days,
+          anchorWarning: warning,
+          btcAppend: computed.btc_append,
+          signals: computed.signals,
+        })
+      ) + '\n'
+    : null;
+
+  writeFileAtomic(COMPUTED_PATH, JSON.stringify(computed, null, 2) + '\n');
   console.log(`  Wrote ${path.relative(REPO_ROOT, COMPUTED_PATH)}`);
 
-  // ── Run archive (append-only) ────────────────────────────────────────────
-  if (!process.argv.includes('--no-archive')) {
-    const line = archiveLine({
-      runAt: computed.computed_at,
-      pipeline: 'market-refresh/run.mjs',
-      score,
-      regimeCode: band.code,
-      groupTotals,
-      published,
-      anchorSpreadDays: computed.anchor_spread_days,
-      anchorWarning: warning,
-      btcAppend: computed.btc_append,
-      signals: computed.signals,
-    });
-    fs.appendFileSync(ARCHIVE_PATH, JSON.stringify(line) + '\n');
+  // The archive stays APPEND-ONLY and is deliberately not made "idempotent" by
+  // rewriting same-day lines: a correction re-run is a real event, and a ledger
+  // you edit is not a provenance authority. Duplicate DAYS are collapsed on
+  // READ instead, by the one shared rule in archive.mjs#runDayIndex.
+  if (archiveText) {
+    fs.appendFileSync(ARCHIVE_PATH, archiveText);
     console.log(`  Archived run → ${path.relative(REPO_ROOT, ARCHIVE_PATH)}\n`);
   }
 }

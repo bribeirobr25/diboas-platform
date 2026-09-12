@@ -26,6 +26,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { isDirectInvocation } from './lib/invocation.mjs';
+import { writeJsonAtomic } from './lib/atomic.mjs';
 import { expectedConfirmedMonthYM } from './lib/regime-engine.mjs';
 import { fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { assertOhlcBar } from './lib/quality-gate.mjs';
@@ -90,7 +91,8 @@ async function appendPriceMonths(expectedYm, check) {
     if (!check) months.push(row);
   }
   if (!check && planned.length)
-    fs.writeFileSync(PRICES_PATH, JSON.stringify(prices, null, 2) + '\n');
+    // 5.302: temp + rename — this file also backs the Money Tools calculators.
+    writeJsonAtomic(PRICES_PATH, prices);
   return planned;
 }
 

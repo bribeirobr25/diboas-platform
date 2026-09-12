@@ -55,6 +55,91 @@ export function archiveSignals(signals, { etfSnapshotCount = 0 } = {}) {
   );
 }
 
+/**
+ * One line of `run-archive.jsonl`, as `archiveLine()` below produces it.
+ * Declared once here so every reader is typed against the writer's own shape
+ * rather than each consumer asserting locally what it hopes is in the file.
+ *
+ * @typedef {object} ArchiveSignal
+ * @property {string} id
+ * @property {string} state
+ * @property {number} weight
+ * @property {number} points
+ * @property {string} detail
+ * @property {Record<string, number>|null} values
+ * @property {string|null} anchor
+ * @property {string|null} anchorKind
+ *
+ * @typedef {object} ArchiveRow
+ * @property {string} run_at
+ * @property {string} [pipeline]
+ * @property {{score: number, regime_code: string, group_totals: Record<string, number>}} computed
+ * @property {{score: number, regime_code: string}|null} published
+ * @property {number} anchor_spread_days
+ * @property {string|null} anchor_warning
+ * @property {object|null} [btc_append]
+ * @property {ArchiveSignal[]} signals
+ */
+
+/**
+ * Parse the run ledger. ONE definition of "what a readable archive row is"
+ * (PENDING_ALL 5.302).
+ *
+ * Three call sites used to re-implement this loop: `priorRunSignals` (which
+ * beat the /market/backdrop lead gets), `realSnapshotCount` (whether enough
+ * real history exists to flip `synthetic_seed`), and the historical append.
+ * All three had their own copy of "split, skip blanks, JSON.parse in a
+ * try/catch, read `run_at.slice(0,10)`" — the same rule written three times,
+ * which is three chances for it to drift and three places to fix when the
+ * ledger format moves.
+ *
+ * A truncated final line is SKIPPED, not thrown on. The archive is appended to
+ * by a job that can be killed mid-write, and a half-written tail must never
+ * take the next run down — the same reasoning as the atomic-write helper next
+ * door, from the other end.
+ *
+ * @param {string} text — raw `run-archive.jsonl` contents ('' if absent)
+ * @returns {Array<{day: string, row: ArchiveRow}>} in file order
+ */
+export function readArchiveRows(text) {
+  if (!text) return [];
+  const rows = [];
+  for (const line of text.split('\n')) {
+    if (!line) continue;
+    let row;
+    try {
+      row = JSON.parse(line);
+    } catch {
+      continue; // truncated tail, or a line a future writer mangled
+    }
+    const day = row.run_at?.slice(0, 10);
+    if (!day) continue; // 2026-07-11 line 1 predates several fields; be tolerant
+    rows.push({ day, row });
+  }
+  return rows;
+}
+
+/**
+ * Run DAYS, not archive lines — the distinction 5.127 was about.
+ *
+ * The ledger legitimately holds same-day doubles: a correction re-run, or a
+ * manual verification, is a real event and append-only means we keep it. The
+ * committed file currently holds 12 lines across 10 days. Counting lines
+ * overstates how much measured history exists, which was one half of why 44
+ * seed points once shipped as if they had been observed.
+ *
+ * LATER LINE WINS for a given day: a same-day re-run is a correction, so the
+ * most recent one is the one that stands.
+ *
+ * @param {Array<{day: string, row: ArchiveRow}>} rows — from `readArchiveRows`
+ * @returns {Map<string, ArchiveRow>} day -> the run that stands for that day
+ */
+export function runDayIndex(rows) {
+  const byDay = new Map();
+  for (const { day, row } of rows) byDay.set(day, row);
+  return byDay;
+}
+
 /** The canonical archive line. `btc_append` is null for entry points that never append. */
 export function archiveLine({
   runAt,
