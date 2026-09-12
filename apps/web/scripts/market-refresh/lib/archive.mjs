@@ -24,6 +24,7 @@
  */
 
 import { WARMUP_SNAPSHOTS } from './regime-engine.mjs';
+import { readJsonlTolerant } from './jsonl.mjs';
 
 /**
  * Canonical per-signal archive shape. Also the shape `computed.json#signals`
@@ -102,16 +103,8 @@ export function archiveSignals(signals, { etfSnapshotCount = 0 } = {}) {
  * @returns {Array<{day: string, row: ArchiveRow}>} in file order
  */
 export function readArchiveRows(text) {
-  if (!text) return [];
   const rows = [];
-  for (const line of text.split('\n')) {
-    if (!line) continue;
-    let row;
-    try {
-      row = JSON.parse(line);
-    } catch {
-      continue; // truncated tail, or a line a future writer mangled
-    }
+  for (const row of readJsonlTolerant(text)) {
     const day = row.run_at?.slice(0, 10);
     if (!day) continue; // 2026-07-11 line 1 predates several fields; be tolerant
     rows.push({ day, row });

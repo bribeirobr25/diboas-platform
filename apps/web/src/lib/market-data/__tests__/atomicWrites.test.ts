@@ -19,6 +19,7 @@ import {
   writeJsonAtomic,
 } from '../../../../scripts/market-refresh/lib/atomic.mjs';
 import { readArchiveRows, runDayIndex } from '../../../../scripts/market-refresh/lib/archive.mjs';
+import { readSnapshots } from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
 
 let dir: string;
 beforeEach(() => {
@@ -187,5 +188,26 @@ describe('no writer may go back to a bare writeFileSync (structural)', () => {
     const src = fs.readFileSync(path.join(SCRIPTS, rel), 'utf8');
     expect(src, `${rel} still calls fs.writeFileSync directly`).not.toMatch(/fs\.writeFileSync\(/);
     expect(src, `${rel} does not use the atomic helper`).toMatch(/write(File|Json)Atomic\(/);
+  });
+});
+
+describe('both append-only ledgers survive a torn tail, not just one', () => {
+  // The pipeline appends to run-archive.jsonl AND etf-shares-weekly.jsonl, and
+  // only the first one tolerated a half-written last line. The second is the
+  // ledger ETF-01's two points are scored from, so a torn tail there threw a
+  // bare SyntaxError out of the middle of the weekly run.
+  it('should skip a torn final line in the ETF shares ledger', () => {
+    const real = path.join(__dirname, '../../../../data/market/shared/etf-shares-weekly.jsonl');
+    const intact = fs.readFileSync(real, 'utf8');
+    const torn = path.join(dir, 'etf-shares-weekly.jsonl');
+    fs.writeFileSync(torn, `${intact}{"anchor":"2026-09-1`);
+
+    const rows = readSnapshots(torn);
+    expect(rows).toHaveLength(readSnapshots(real).length);
+    expect(rows.every((r: { anchor?: string }) => typeof r.anchor === 'string')).toBe(true);
+  });
+
+  it('should return [] for an absent ledger rather than throwing', () => {
+    expect(readSnapshots(path.join(dir, 'does-not-exist.jsonl'))).toEqual([]);
   });
 });
