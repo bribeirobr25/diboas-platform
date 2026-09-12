@@ -1,0 +1,63 @@
+/*
+ * Community's controlled unavailable state (Shell Spec §23).
+ *
+ * Calm and plain on purpose: this surface exists to tell the truth about a
+ * destination that is not open yet, so it carries no scenic hero, no
+ * promotional module and nothing that could read as an operational product
+ * (the Legal condition on the approved copy). The four beats stack in reading
+ * order — what it is, why it is quiet, the way back.
+ */
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-2xl) 0;
+  max-width: 34rem;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  background: var(--sb-mode-accent-subtle);
+  color: var(--sb-text-on-accent-subtle);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--sb-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--sb-text-primary);
+}
+
+.explanation {
+  margin: 0;
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-relaxed);
+  color: var(--sb-text-secondary);
+}
+
+/* The availability line is the one that must always accompany the explanation,
+   so it is styled as part of the same block — quieter, never hidden. */
+.availability {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-muted);
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  min-height: var(--sb-tap);
+  margin-top: var(--spacing-sm);
+  color: var(--sb-text-link);
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}

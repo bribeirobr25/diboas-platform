@@ -361,7 +361,8 @@
     "move": "Move",
     "learn": "Learn",
     "profile": "Profile",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "community": "Community"
   },
   "notifications": {
     "title": "Notifications",
@@ -696,5 +697,11 @@
   "notFound": {
     "title": "This page isn't here.",
     "backHome": "Back to home"
+  },
+  "community": {
+    "title": "Community isn't available yet",
+    "explanation": "A space for what people are building in life: relevant context, progress stories and support. Your goals, decisions and money stay yours.",
+    "availability": "Public access is not open yet.",
+    "action": "Back to Home"
   }
 }

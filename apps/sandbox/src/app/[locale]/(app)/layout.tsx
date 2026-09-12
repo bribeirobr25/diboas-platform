@@ -2,7 +2,8 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { getAuthProvider } from '@/lib/auth/factory';
-import { AppChrome } from '@/components/AppChrome';
+import { can } from '@/lib/capabilities';
+import { AppShellRoute } from '@/components/shell/AppShellRoute';
 
 /**
  * The protected group: every screen behind the gate. Per-request cookie check
@@ -26,5 +27,12 @@ export default async function ProtectedLayout({
   if (!auth.verifySession(cookieValue)) {
     redirect(`/${locale}/gate`);
   }
-  return <AppChrome locale={locale}>{children}</AppChrome>;
+  // The mode PALETTE is a capability, resolved here (server) and passed down:
+  // the mode truth always ships, the provisional practice/real re-tint waits
+  // for the Mode × Appearance calibration review (register 5.282).
+  return (
+    <AppShellRoute locale={locale} paletteEnabled={can('modePalette')}>
+      {children}
+    </AppShellRoute>
+  );
 }
