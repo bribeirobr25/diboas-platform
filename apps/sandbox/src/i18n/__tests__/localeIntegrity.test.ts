@@ -192,6 +192,14 @@ const CURRENCY_WORD_ALLOWLIST: ReadonlySet<string> = new Set([
   'history.subtitle', // idiom "every cent accounted for"
   'pathCard.riskStable', // FACTUAL: USDC is a digital dollar. Do not reword.
   'pathCard.pathLine', // pt-BR "protocolos reais" — "real" as in genuine
+  // ⚑ HOMONYM FALSE POSITIVE, not an idiom and not a defect (reason corrected
+  // 2026-09-12 while auditing the Legal disclosure change). The pt-BR value
+  // contains `reais` in "os dados de mercado são reais" — *genuine*, not the
+  // Brazilian currency. Same shape as `pathCard.pathLine` below. The de/es
+  // values are now the Legal-approved wording and contain no currency word at
+  // all, so this entry exists PURELY for the pt-BR homonym. Kept rather than
+  // removed because the pattern still matches; named precisely because an
+  // entry whose stated reason is wrong is the next reader's blind spot.
   'common.playDisclaimer',
   'common.frameCaption',
   'projection.caveat',
