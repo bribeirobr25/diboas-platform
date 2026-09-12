@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import Decimal from 'decimal.js';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import type { LedgerState } from '@diboas/banking';
 import type { SandboxLocale } from '@/i18n/config';
 import { goalCurrentValue } from '@/lib/goalValue';
+import { selectHomeTriad } from '@/view/home';
 import { dueSimulatedEvent } from '@/lib/simulatedEvents';
 import { GoalRow } from './GoalRow';
 import { LucideIcon } from './LucideIcon';
@@ -13,17 +13,17 @@ import styles from './HomeScreen.module.css';
 
 /** Plain 2-decimal number (no currency symbol) — the mockup frames play money as
  *  a labelled "Play balance", not a currency. */
-function Amount({ value }: { value: Decimal }) {
+function Amount({ value }: { value: string }) {
   return (
-    <FormattedNumber value={value.toNumber()} minimumFractionDigits={2} maximumFractionDigits={2} />
+    <FormattedNumber value={Number(value)} minimumFractionDigits={2} maximumFractionDigits={2} />
   );
 }
 
 /** The big play-balance hero: integer bold, the decimal+cents muted and smaller
  *  (mockup 02). Locale-correct — the decimal separator comes from the formatter. */
-function BalanceAmount({ value }: { value: Decimal }) {
+function BalanceAmount({ value }: { value: string }) {
   const intl = useIntl();
-  const parts = intl.formatNumberToParts(value.toNumber(), {
+  const parts = intl.formatNumberToParts(Number(value), {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
@@ -56,17 +56,20 @@ function BalanceAmount({ value }: { value: Decimal }) {
  *
  * The three tones sum to playBalance: funding a goal moves cash out of the
  * working bucket into goal.cash (engine GoalFunded), so goal.cash MUST be
- * counted here or the headline total silently understates the user's money.
+ * counted or the headline total silently understates the user's money.
+ *
+ * ⚑ That derivation no longer lives HERE. I-1f moved it to
+ * `view/home.selectHomeTriad`, which asserts the identity in its own test
+ * rather than relying on a component author reading this paragraph. The note
+ * stays because the RULE still matters; only its home changed.
  */
 export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: LedgerState }) {
-  const available = new Decimal(state.buckets.working).plus(state.buckets.floor);
-  const positionsValue = state.positions
-    .filter((p) => p.open)
-    .reduce((sum, p) => sum.plus(p.principal).plus(p.accrued), new Decimal(0));
-  const goalCash = state.goals.reduce((sum, g) => sum.plus(g.cash), new Decimal(0));
-  const working = positionsValue.plus(goalCash);
-  const emergency = new Decimal(state.buckets.cushion);
-  const playBalance = available.plus(working).plus(emergency);
+  // I-1f: the triad is DERIVED, not computed here. This component composed it
+  // from `LedgerState` in six lines of Decimal arithmetic, which is the shape
+  // every P0 honesty defect on a money surface took. `selectHomeTriad` is a
+  // pure function of the state, tested with no DOM, and it asserts its own
+  // identity (the three tones sum to the hero) rather than trusting it.
+  const { available, working, emergency, playBalance, showEmergency } = selectHomeTriad(state);
 
   return (
     <section className={styles.wrap} aria-labelledby="home-title">
@@ -104,7 +107,7 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
             named "Emergency fund" and holds $2,653 was told their emergency
             reserve was zero, right above it. The column returns by itself the
             day a producer exists (mockup 02's three-column design intact). */}
-        {emergency.gt(0) ? (
+        {showEmergency ? (
           <div className={styles.splitCol}>
             <span className={styles.splitLabel}>
               <FormattedMessage id="home.emergencyReserve" />
