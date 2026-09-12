@@ -47,6 +47,7 @@ import {
   resolveEtfSignals,
   WARMUP_SNAPSHOTS,
 } from './lib/etf-flows.mjs';
+import { archiveSignals, archiveLine } from './lib/archive.mjs';
 import { fetchYahooDaily, fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { fetchBtcMonthCloseVerifier } from './providers/coingecko.mjs';
 import { btcMonths, appendBtcMonth, REPO_ROOT } from './providers/inrepo.mjs';
@@ -238,23 +239,9 @@ async function main() {
           divergence_pct: Number(appendResult.divergencePct.toFixed(3)),
         }
       : null,
-    signals: all.map(
-      ({ id, state, weight, detail, values = null, anchor = null, anchorKind = null }) => ({
-        id,
-        state,
-        weight,
-        points: state === 'ACTIVE' ? weight : 0,
-        detail,
-        // Structured values feed the Stage-4 template generator (never re-parsed
-        // from `detail`). warmup fields injected for the ETF UNAVAILABLE case.
-        values:
-          id === 'ETF-01' && state === 'UNAVAILABLE'
-            ? { snapshots: etfSnapshots.length, warmupTarget: WARMUP_SNAPSHOTS }
-            : values,
-        anchor,
-        anchorKind,
-      })
-    ),
+    // 5.187a: one producer for the signal record, shared with the manual CLI so
+    // the two archive writers cannot drift apart again.
+    signals: archiveSignals(all, { etfSnapshotCount: etfSnapshots.length }),
     sources: [dxy, us10y, m2, nasdaq, btc, gold].map((s) => s.provenance),
   };
   fs.writeFileSync(COMPUTED_PATH, JSON.stringify(computed, null, 2) + '\n');
@@ -262,16 +249,18 @@ async function main() {
 
   // ── Run archive (append-only) ────────────────────────────────────────────
   if (!process.argv.includes('--no-archive')) {
-    const line = {
-      run_at: computed.computed_at,
+    const line = archiveLine({
+      runAt: computed.computed_at,
       pipeline: 'market-refresh/run.mjs',
-      computed: { score, regime_code: band.code, group_totals: groupTotals },
-      published: published ? { score: published.score, regime_code: published.regime_code } : null,
-      anchor_spread_days: computed.anchor_spread_days,
-      anchor_warning: warning,
-      btc_append: computed.btc_append,
+      score,
+      regimeCode: band.code,
+      groupTotals,
+      published,
+      anchorSpreadDays: computed.anchor_spread_days,
+      anchorWarning: warning,
+      btcAppend: computed.btc_append,
       signals: computed.signals,
-    };
+    });
     fs.appendFileSync(ARCHIVE_PATH, JSON.stringify(line) + '\n');
     console.log(`  Archived run → ${path.relative(REPO_ROOT, ARCHIVE_PATH)}\n`);
   }

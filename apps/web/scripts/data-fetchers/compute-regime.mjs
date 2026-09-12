@@ -47,6 +47,7 @@ import {
   anchorCoherence,
 } from '../market-refresh/lib/regime-engine.mjs';
 import { readSnapshots, resolveEtfSignals } from '../market-refresh/lib/etf-flows.mjs';
+import { archiveSignals, archiveLine } from '../market-refresh/lib/archive.mjs';
 import { fetchFredSeries } from '../market-refresh/providers/fred.mjs';
 import { fetchYahooDaily } from '../market-refresh/providers/yahoo.mjs';
 import { btcMonths } from '../market-refresh/providers/inrepo.mjs';
@@ -143,22 +144,20 @@ async function main() {
   // days). A verification run on a non-run day used to mint a phantom run day
   // in that ledger — a read-only check must not write history.
   if (process.argv.includes('--archive')) {
-    const line = {
-      run_at: new Date().toISOString(),
+    // 5.187a: this used to drop `points` and `values`, which could stop the
+    // weekly generator the following Monday (state-lead reads prior.values).
+    // Same producer as run.mjs now — there is one archive shape, not two.
+    const line = archiveLine({
+      runAt: new Date().toISOString(),
       pipeline: 'data-fetchers/compute-regime.mjs',
-      computed: { score, regime_code: band.code, group_totals: groupTotals },
-      published: published ? { score: published.score, regime_code: published.regime_code } : null,
-      anchor_spread_days: Number(spreadDays.toFixed(2)),
-      anchor_warning: warning,
-      signals: all.map(({ id, state, weight, detail, anchor = null, anchorKind = null }) => ({
-        id,
-        state,
-        weight,
-        detail,
-        anchor,
-        anchorKind,
-      })),
-    };
+      score,
+      regimeCode: band.code,
+      groupTotals,
+      published,
+      anchorSpreadDays: Number(spreadDays.toFixed(2)),
+      anchorWarning: warning,
+      signals: archiveSignals(all, { etfSnapshotCount: readSnapshots().length }),
+    });
     fs.appendFileSync(ARCHIVE_PATH, JSON.stringify(line) + '\n');
     console.log(`  Archived run → ${path.relative(REPO_ROOT, ARCHIVE_PATH)}`);
   }
