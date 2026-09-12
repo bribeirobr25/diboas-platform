@@ -2,7 +2,7 @@
   "common": {
     "appName": "diBoaS Sandbox",
     "playBadge": "Sandbox · Spielgeld",
-    "playDisclaimer": "Everything here runs on play money. It never converts to real money, prizes, or anything of value. Market data is real; results show what would have happened.",
+    "playDisclaimer": "Practice ist eine Simulation. Es wird kein echtes Geld bewegt. Practice bietet keine Finanz- oder Anlageberatung. Practice Credits sind simulierte Übungseinheiten ohne Geldwert, keine Fiatwährung und keine Rewards (Belohnungen). Sie können weder in echtes Geld umgewandelt noch ausgezahlt, eingelöst oder übertragen werden.",
     "back": "Zurück",
     "cancel": "Abbrechen",
     "loading": "Lädt",
@@ -481,7 +481,7 @@
       "accomplished": "Erreicht",
       "dropped": "Geschlossen"
     },
-    "pausedLine1": "Plan angehalten",
+    "pausedLine1": "Plan pausiert",
     "pausedLine2": "Geld arbeitet weiter"
   },
   "goalComplete": {

@@ -84,16 +84,29 @@ const isGated = (key: string) => GATED_PENDING_AUTHORITY.some((g) => g.key === k
  * vocabulary the already-translated corpus had established rather than
  * translating word-for-word. The ceilings fell 239 -> 1 and 238 -> 1.
  *
- * The ONE remaining string in each is `common.playDisclaimer`, deliberately
- * untouched: it is the R-4 play-money disclosure that `L-QA1` requires under
- * every surface showing money, so it is Legal-owned copy, not a translation
- * task (register `5.292` — it is LIVE in English to de/es users today).
- * `docs/sandbox-app/legal-current/` holds no approved wording to copy, and
- * this lane does not draft Legal text. When Legal approves the de/es wording,
- * these two ceilings go to 0 and the key should join
- * `GATED_PENDING_AUTHORITY` so English can never silently render again.
+ * 2026-09-12, later the same day: **Legal approved the de/es wording for
+ * `common.playDisclaimer`** (Consolidated Handoff §2.1) and it is applied, so
+ * BOTH ceilings are now 0 and every locale is at zero identical-to-English
+ * debt. `5.292` is closed.
+ *
+ * ⚑ A deviation from what the previous revision of this comment instructed,
+ * stated because the instruction was mine and is now wrong: it said the key
+ * "should join `GATED_PENDING_AUTHORITY`". That set is for keys whose value is
+ * INTENTIONALLY still English and whose rendering is gated per locale. With
+ * approved German and Spanish text the key is translated in all four locales,
+ * so it belongs in no exception set at all — listing it would claim a gate that
+ * protects nothing, and would hide a future regression behind an allow-list.
+ * The zero ceiling is the stronger guard: any locale drifting back to the
+ * English source now FAILS, with no exception to hide behind.
+ *
+ * Note for whoever reads this next: en and pt-BR still carry the EARLIER,
+ * shorter disclosure text. Legal supplied de/es only, so the four locales now
+ * say materially different things in a compliance control. That asymmetry is
+ * registered (`5.292` rider) and is Legal's to resolve — it is deliberately NOT
+ * something this guard can express, because "identical to English" is exactly
+ * the wrong test for it.
  */
-const DEBT_CEILING: Record<string, number> = { 'pt-BR': 0, es: 1, de: 1 };
+const DEBT_CEILING: Record<string, number> = { 'pt-BR': 0, es: 0, de: 0 };
 
 /**
  * Keys whose value legitimately matches English in ONE specific locale, because
