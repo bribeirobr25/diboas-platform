@@ -15,6 +15,7 @@
  * wrong UI.
  */
 
+import { headers } from 'next/headers';
 import type { SupportedLocale } from '@diboas/i18n/server';
 import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
@@ -79,7 +80,10 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
   const namespaces = Array.from(new Set(['market', view.namespace, 'landing-b2c']));
   const pageMessages = await loadPageNamespaces(locale, namespaces);
 
-  const initialData = await fetchInitialAnalyticsData(locale, view.slug);
+  // 5.299: pass middleware's x-request-id so a failed endpoint read is
+  // correlatable with the client door. Absent id simply omits the tag.
+  const correlationId = (await headers()).get('x-request-id') ?? undefined;
+  const initialData = await fetchInitialAnalyticsData(locale, view.slug, { correlationId });
 
   const path = viewPath(view);
 

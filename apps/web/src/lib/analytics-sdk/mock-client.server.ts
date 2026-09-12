@@ -29,6 +29,7 @@
  */
 
 import type { SupportedLocale } from '@diboas/i18n/server';
+import { Logger } from '@/lib/monitoring/Logger';
 import type {
   AnalyticsInitialData,
   DataStatus,
@@ -182,23 +183,94 @@ export async function fetchProductDisclaimer(
   return data.productDisclaimer as unknown as ProductDisclaimerData;
 }
 
+/** The six doc-07 endpoints this seam maps to — used as the report tag. */
+type AnalyticsEndpoint =
+  | 'current-regime'
+  | 'historical-regimes'
+  | 'signals'
+  | 'data-status'
+  | 'methodology'
+  | 'product-disclaimer';
+
+/**
+ * Report a fetcher failure, then degrade exactly as before (PENDING_ALL 5.299).
+ *
+ * WHY THIS EXISTS: the six catches below used to be bare `.catch(() => null)`.
+ * The degradation was right — one source going dark must not blank the page —
+ * but it was SILENT: a malformed `regime.json` in production rendered the
+ * outage banner and told nobody. There was no `Logger`, no `Sentry` and no
+ * `captureException` anywhere in `analytics-sdk/` or `lib/market/`, and the
+ * shell's `SectionErrorBoundary`s cannot help because this catch runs BEFORE
+ * any boundary. Principle 7 ("log all errors with correlation IDs") and
+ * Principle 12 ("error tracking (Sentry)") both ask for exactly this.
+ *
+ * INVARIANT: this function ALWAYS resolves to `null`. Reporting must never
+ * turn a degraded read into a crash, so Sentry failures are swallowed too.
+ *
+ * `correlationId` rides on `tags`, never `extra` — `beforeSend` scrubs
+ * `user`/`extra`/`breadcrumbs` but not `tags`, so it is the only place the id
+ * survives to correlate with the client door (do-not-regress E-2,
+ * MONITORING_OPS § E). No PII is ever put on tags.
+ *
+ * Runtime note: both market routes are `ƒ` (dynamic, server-rendered on
+ * demand), so this never runs during `next build` and needs no build-phase
+ * guard. If 5.67 ever makes locale rendering static, revisit that — a build
+ * would then emit one event per prerendered path.
+ */
+async function reportFetchFailure(
+  endpoint: AnalyticsEndpoint,
+  view: string,
+  error: unknown,
+  correlationId?: string
+): Promise<null> {
+  const err = error instanceof Error ? error : new Error(String(error));
+  Logger.error(
+    'market analytics fetch failed',
+    { surface: 'market', endpoint, view, correlationId },
+    err
+  );
+  try {
+    const Sentry = await import('@sentry/nextjs');
+    Sentry.captureException(err, {
+      tags: { surface: 'market', endpoint, view, ...(correlationId ? { correlationId } : {}) },
+    });
+  } catch {
+    /* Sentry absent or uninitialised in this runtime — degradation still holds. */
+  }
+  return null;
+}
+
+export interface AnalyticsFetchOptions {
+  /** Middleware's `x-request-id`, for server↔client correlation (E-2). */
+  correlationId?: string;
+}
+
 /**
  * One-shot composite — invoked by the /market view shell RSC. Falls through
  * individual fetcher failures so a single source going dark does not blank
- * the page.
+ * the page, and REPORTS each one (5.299).
+ *
+ * The options bag is deliberate: doc-09's real SDK takes `{apiBaseUrl, apiKey,
+ * locale}`, so an options parameter moves this signature toward the swap
+ * rather than away from it.
  */
 export async function fetchInitialAnalyticsData(
   locale: SupportedLocale,
-  view: string = DEFAULT_VIEW
+  view: string = DEFAULT_VIEW,
+  options: AnalyticsFetchOptions = {}
 ): Promise<AnalyticsInitialData> {
+  const { correlationId } = options;
+  const onFail = (endpoint: AnalyticsEndpoint) => (e: unknown) =>
+    reportFetchFailure(endpoint, view, e, correlationId);
+
   const [regime, historical, signals, dataStatus, methodology, productDisclaimer] =
     await Promise.all([
-      fetchRegime(locale, view).catch(() => null),
-      fetchHistoricalRegimes(view).catch(() => null),
-      fetchSignals(locale, view).catch(() => null),
-      fetchDataStatus(view).catch(() => null),
-      fetchMethodology(view).catch(() => null),
-      fetchProductDisclaimer(view).catch(() => null),
+      fetchRegime(locale, view).catch(onFail('current-regime')),
+      fetchHistoricalRegimes(view).catch(onFail('historical-regimes')),
+      fetchSignals(locale, view).catch(onFail('signals')),
+      fetchDataStatus(view).catch(onFail('data-status')),
+      fetchMethodology(view).catch(onFail('methodology')),
+      fetchProductDisclaimer(view).catch(onFail('product-disclaimer')),
     ]);
 
   return { regime, historical, signals, dataStatus, methodology, productDisclaimer };
