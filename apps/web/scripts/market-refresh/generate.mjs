@@ -65,6 +65,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { isDirectInvocation } from './lib/invocation.mjs';
 import {
   MAX_BY_GROUP,
   GROUP_STATUS,
@@ -669,25 +670,38 @@ async function patchEditorial(gen, write) {
   return drift;
 }
 
-const checkMode = process.argv.includes('--check');
-const gen = generate();
-const drift = await patchEditorial(gen, !checkMode);
+// 5.308: run ONLY when invoked directly. Without this, `import()`-ing this
+// module for a test - or by accident - executes the whole thing and WRITES to
+// committed data. That is not theoretical: it happened on 2026-09-12, minting a
+// phantom run day in `run-archive.jsonl`, which is the provenance authority the
+// published history chart is reconciled against (the 5.137 defect class,
+// arriving through a different door). `compute-regime.mjs` has guarded its
+// main() since 5.137 "(allows import for tests)"; these three had not.
+// `pathToFileURL` rather than string-concatenating `file://` + argv[1]: the
+// naive form breaks on any path needing percent-encoding.
+// (generatedCopyReconciliation.test.ts shells out to `--check` rather than
+// importing, so nothing legitimate needs the imported path to do work.)
+if (isDirectInvocation(import.meta.url)) {
+  const checkMode = process.argv.includes('--check');
+  const gen = generate();
+  const drift = await patchEditorial(gen, !checkMode);
 
-console.log(`\n=== market generate (Stage 4) — ${checkMode ? 'CHECK' : 'WRITE'} ===`);
-console.log(
-  `  variant: week ${isoWeek(computed.computed_at.slice(0, 10)) % 3} · weekly-opener: ${weeklyOpener('en') ? 'on' : 'off (seed/no prior)'}`
-);
-console.log(`  plain (en): ${gen.plain.en.slice(0, 120)}…`);
-if (checkMode) {
-  if (drift.length) {
-    console.error(`\n✖ ${drift.length} editorial field(s) drift from the generator:`);
-    for (const d of drift) console.error(`    - ${d}`);
-    console.error('\n  Regenerate: node apps/web/scripts/market-refresh/generate.mjs\n');
-    process.exit(1);
-  }
-  console.log('  ✓ editorial JSONs match the generator (no drift)\n');
-} else {
+  console.log(`\n=== market generate (Stage 4) — ${checkMode ? 'CHECK' : 'WRITE'} ===`);
   console.log(
-    `  wrote ${drift.length} changed field(s) across regime.json / signals.json / historical.json\n`
+    `  variant: week ${isoWeek(computed.computed_at.slice(0, 10)) % 3} · weekly-opener: ${weeklyOpener('en') ? 'on' : 'off (seed/no prior)'}`
   );
+  console.log(`  plain (en): ${gen.plain.en.slice(0, 120)}…`);
+  if (checkMode) {
+    if (drift.length) {
+      console.error(`\n✖ ${drift.length} editorial field(s) drift from the generator:`);
+      for (const d of drift) console.error(`    - ${d}`);
+      console.error('\n  Regenerate: node apps/web/scripts/market-refresh/generate.mjs\n');
+      process.exit(1);
+    }
+    console.log('  ✓ editorial JSONs match the generator (no drift)\n');
+  } else {
+    console.log(
+      `  wrote ${drift.length} changed field(s) across regime.json / signals.json / historical.json\n`
+    );
+  }
 }

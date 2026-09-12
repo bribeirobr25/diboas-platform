@@ -25,6 +25,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { isDirectInvocation } from './lib/invocation.mjs';
 import { expectedConfirmedMonthYM } from './lib/regime-engine.mjs';
 import { fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { assertOhlcBar } from './lib/quality-gate.mjs';
@@ -93,29 +94,40 @@ async function appendPriceMonths(expectedYm, check) {
   return planned;
 }
 
-const checkMode = process.argv.includes('--check');
-const expectedYm = expectedConfirmedMonthYM(TODAY);
+// 5.308: run ONLY when invoked directly. Without this, `import()`-ing this
+// module for a test - or by accident - executes the whole thing and WRITES to
+// committed data. That is not theoretical: it happened on 2026-09-12, minting a
+// phantom run day in `run-archive.jsonl`, which is the provenance authority the
+// published history chart is reconciled against (the 5.137 defect class,
+// arriving through a different door). `compute-regime.mjs` has guarded its
+// main() since 5.137 "(allows import for tests)"; these three had not.
+// `pathToFileURL` rather than string-concatenating `file://` + argv[1]: the
+// naive form breaks on any path needing percent-encoding.
+if (isDirectInvocation(import.meta.url)) {
+  const checkMode = process.argv.includes('--check');
+  const expectedYm = expectedConfirmedMonthYM(TODAY);
 
-console.log(
-  `\n=== tools-monthlies (F-M8) — ${checkMode ? 'CHECK' : 'APPEND'} · expected month ${expectedYm} ===`
-);
-const planned = await appendPriceMonths(expectedYm, checkMode);
-if (!planned.length) {
-  console.log(`  all price series already carry ${expectedYm} — nothing to do.\n`);
-} else {
-  for (const p of planned)
-    console.log(
-      `  ${checkMode ? 'MISSING' : 'appended'} ${p.code} ${expectedYm} close ${p.row.close}`
-    );
   console.log(
-    `\n  NOTE: FX (ECB EUR+crosses, BCB PTAX BRL) + the Alpha-Vantage cross-check are the` +
-      `\n  runbook's manual step this cycle — automate in a follow-up; equity/ETF appends are gated above.\n`
+    `\n=== tools-monthlies (F-M8) — ${checkMode ? 'CHECK' : 'APPEND'} · expected month ${expectedYm} ===`
   );
-}
+  const planned = await appendPriceMonths(expectedYm, checkMode);
+  if (!planned.length) {
+    console.log(`  all price series already carry ${expectedYm} — nothing to do.\n`);
+  } else {
+    for (const p of planned)
+      console.log(
+        `  ${checkMode ? 'MISSING' : 'appended'} ${p.code} ${expectedYm} close ${p.row.close}`
+      );
+    console.log(
+      `\n  NOTE: FX (ECB EUR+crosses, BCB PTAX BRL) + the Alpha-Vantage cross-check are the` +
+        `\n  runbook's manual step this cycle — automate in a follow-up; equity/ETF appends are gated above.\n`
+    );
+  }
 
-if (checkMode && planned.length) {
-  console.error(
-    `✖ ${planned.length} price series missing ${expectedYm} — run tools-monthlies.mjs\n`
-  );
-  process.exit(1);
+  if (checkMode && planned.length) {
+    console.error(
+      `✖ ${planned.length} price series missing ${expectedYm} — run tools-monthlies.mjs\n`
+    );
+    process.exit(1);
+  }
 }

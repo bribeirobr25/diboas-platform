@@ -39,6 +39,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { isDirectInvocation } from '../market-refresh/lib/invocation.mjs';
 import {
   evaluateBtcStructure,
   evaluateMacro,
@@ -165,8 +166,7 @@ async function main() {
 }
 
 // Only run if invoked directly (allows import for tests)
-const isDirectInvocation = import.meta.url === `file://${process.argv[1]}`;
-if (isDirectInvocation) {
+if (isDirectInvocation(import.meta.url)) {
   main().catch((e) => {
     console.error(e);
     process.exit(1);
