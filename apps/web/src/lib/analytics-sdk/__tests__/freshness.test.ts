@@ -140,3 +140,24 @@ describe('the seam actually applies it (a correct overlay that is never called i
     expect(data.dataStatus!.overall_confidence).toBe('MODERATE');
   });
 });
+
+describe('the hero badge and the panel must not diverge (5.131 rider on 5.173)', () => {
+  it('should move overall_confidence off the frozen build value once a source ages', () => {
+    // The page renders `dataStatus.overall_confidence` for the badge, falling
+    // back to `regime.summary.confidence_level` only when the panel failed to
+    // load. These two are ONE concept in doc-07 §21.1 and 5.131 exists because
+    // they disagreed once. This pins the live value moving; the shell reads it.
+    const panel = committed();
+    const frozen = JSON.parse(readFileSync(join(MARKET_DIR, 'regime.json'), 'utf8')).summary.en
+      .confidence_level;
+
+    // at build they agree, by construction (generate.mjs derives one from the other)
+    expect(applyReadTimeFreshness(panel, computedAt()).overall_confidence).toBe(frozen);
+
+    // once a source ages out they must NOT, and the page must follow the panel
+    const threshold = bySource(panel, 'DGS10')!.delayed_after!;
+    const later = applyReadTimeFreshness(panel, new Date(Date.parse(threshold) + 1000));
+    expect(later.overall_confidence).not.toBe(frozen);
+    expect(later.overall_confidence).toBe('MODERATE');
+  });
+});
