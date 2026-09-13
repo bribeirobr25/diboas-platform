@@ -31,6 +31,13 @@ export const ETF_SHARES_ARCHIVE = path.join(
 );
 
 export const STALE_FUND_DAYS = 10;
+// A "weekly aggregate" must actually span a week (PENDING_ALL 5.301). Anchors
+// are confirmed Friday closes, so a clean cadence is exactly 7 days; ±1 admits
+// a holiday-shifted Friday without admitting a missed run. The committed ledger
+// already contains 2026-07-10 -> 2026-07-24 — a FORTNIGHT that was published as
+// one of "the last 4 weekly aggregates", because the 07-17 snapshot was missed.
+export const WEEK_SPAN_DAYS = 7;
+export const WEEK_SPAN_TOLERANCE_DAYS = 1;
 export const MAX_WEEKLY_SHARE_CHANGE = 0.5; // ±50%/week = corruption, not commerce
 // Single definition lives in regime-engine.mjs (the pure module) — re-exported
 // here so existing importers (run.mjs) are unchanged. See its docblock.
@@ -66,11 +73,19 @@ export function appendSnapshot(snap, archivePath = ETF_SHARES_ARCHIVE) {
 
 /**
  * Compute weekly net flows (USD) between consecutive snapshots.
- * Returns { flows: [{from, to, netFlowUsd, excluded: string[]}], warnings }.
+ * Returns { flows: [{from, to, spanDays, weekly, netFlowUsd, excluded}], warnings,
+ * spacingWarnings } — `warnings` is fund-quality only; see below.
  */
 export function computeWeeklyFlows(snapshots, today = new Date()) {
   const flows = [];
+  // `warnings` means FUND-QUALITY exclusions and nothing else — the detail
+  // string counts it as "N fund-week(s) excluded by quality guards". Cadence
+  // problems are a different kind of fact about a different subject (the
+  // interval, not a fund), so they get their own list. Mixing them made the
+  // published record claim a fund exclusion that had not happened (caught in
+  // this increment's own audit, 5.301).
   const warnings = [];
+  const spacingWarnings = [];
   for (let i = 1; i < snapshots.length; i += 1) {
     const prev = snapshots[i - 1];
     const cur = snapshots[i];
@@ -101,9 +116,24 @@ export function computeWeeklyFlows(snapshots, today = new Date()) {
       }
       net += (f.shares - p.shares) * f.price;
     }
-    flows.push({ from: prev.anchor, to: cur.anchor, netFlowUsd: Math.round(net), excluded });
+    const spanDays = Math.round((new Date(cur.anchor) - new Date(prev.anchor)) / 86400000);
+    const weekly = Math.abs(spanDays - WEEK_SPAN_DAYS) <= WEEK_SPAN_TOLERANCE_DAYS;
+    if (!weekly) {
+      spacingWarnings.push(
+        `${prev.anchor} → ${cur.anchor}: ${spanDays}-day interval is not a week — ` +
+          `a snapshot is missing, so this is not a weekly aggregate`
+      );
+    }
+    flows.push({
+      from: prev.anchor,
+      to: cur.anchor,
+      spanDays,
+      weekly,
+      netFlowUsd: Math.round(net),
+      excluded,
+    });
   }
-  return { flows, warnings };
+  return { flows, warnings, spacingWarnings };
 }
 
 /**
@@ -131,6 +161,48 @@ export function evaluateEtf01FromFlows(snapshots, today = new Date()) {
   }
   const { flows, warnings } = computeWeeklyFlows(snapshots, today);
   const last4 = flows.slice(-4);
+
+  // 5.301: the doc 02 §8.3 rule is "≥3 of the trailing 4 WEEKLY aggregates".
+  // A fortnight is not a weekly aggregate, so when one lands in the window the
+  // rule cannot be evaluated — and the published sentence would say "the last
+  // 4 weeks" about a span of five.
+  //
+  // Two alternatives were rejected. Reaching further back for 4 clean weeks
+  // makes the score describe a window ending before the ledger's own latest
+  // anchor, while the freshness panel reports that anchor — the exact class of
+  // dishonesty 5.173/5.176 are about. Failing the whole run closed would block
+  // every other signal too, and a missed Polygon snapshot cannot be
+  // back-filled (the endpoint reports shares outstanding NOW), so the pipeline
+  // would stay blocked for four weeks until the gap left the window.
+  //
+  // UNAVAILABLE is the state that already means "this cannot be measured", and
+  // it costs the 2 points rather than inventing them. Warm-up uses it for the
+  // same reason.
+  const gap = last4.find((f) => !f.weekly);
+  if (gap) {
+    return {
+      id: 'ETF-01',
+      state: 'UNAVAILABLE',
+      weight: 2,
+      detail:
+        `ETF flow ledger has a ${gap.spanDays}-day gap (${gap.from} → ${gap.to}) inside the ` +
+        `trailing-4 window — a missing weekly snapshot. Scored unavailable rather than ` +
+        `counting it as one week. Spans: [${last4.map((f) => `${f.spanDays}d`).join(', ')}]`,
+      // `snapshots`/`warmupTarget` stay populated: the warm-up sentence is the
+      // FALLBACK if the gapped variant is ever missing for a locale, and 5.133
+      // is the standing reminder that an unslotted UNAVAILABLE stops the
+      // generator dead. `variant` selects the gapped wording.
+      values: {
+        snapshots: snapshots.length,
+        warmupTarget: WARMUP_SNAPSHOTS,
+        variant: 'gapped',
+        gapDays: gap.spanDays,
+      },
+      anchor: snapshots[snapshots.length - 1].anchor,
+      anchorKind: 'weekly',
+    };
+  }
+
   const positives = last4.filter((f) => f.netFlowUsd > 0).length;
   const state = positives >= 3 ? 'ACTIVE' : 'INACTIVE';
   const fmt = (n) =>
@@ -141,6 +213,7 @@ export function evaluateEtf01FromFlows(snapshots, today = new Date()) {
     weight: 2,
     detail:
       `Spot-ETF net flows via Δshares×NAV (Polygon primary): last 4 weekly aggregates ` +
+      `(spans [${last4.map((f) => `${f.spanDays}d`).join(', ')}], all verified 7±1d) ` +
       `[${last4.map((f) => fmt(f.netFlowUsd)).join(', ')}] → ${positives}/4 positive ` +
       `(threshold ≥3)${warnings.length ? `; ${warnings.length} fund-week(s) excluded by quality guards` : ''}`,
     values: { positives, weeks: 4, lastFlowUsd: last4[last4.length - 1]?.netFlowUsd ?? null },

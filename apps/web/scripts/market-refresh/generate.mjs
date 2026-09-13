@@ -277,6 +277,8 @@ function signalSlots(sig, locale, prior) {
     positives: v.positives != null ? String(v.positives) : '',
     snapshots: v.snapshots != null ? String(v.snapshots) : '',
     warmupTarget: v.warmupTarget != null ? String(v.warmupTarget) : '',
+    // 5.301: the length of a non-weekly interval, for the gapped ETF sentence.
+    gapDays: v.gapDays != null ? String(v.gapDays) : '',
   };
   // Guard (2026-07-11 audit): a template slot that resolves to '' means the
   // engine didn't emit the value the sentence needs (the REL-03 empty-slot
@@ -316,10 +318,18 @@ function signalSentence(id, locale) {
   const sig = byId[id];
   const set = signalTpl[id]?.[sig.state];
   if (!set) return null;
+  // 5.301: one STATE can have more than one reason. ETF-01 is UNAVAILABLE both
+  // while warming up and when a weekly snapshot is missing, and the warm-up
+  // sentence ("{snapshots} of {warmupTarget} recorded") would publish "9 of 5"
+  // for the second. A variant named in `values.variant` selects its own
+  // wording; anything without one, or without that locale, falls back to the
+  // state's default sentence rather than rendering nothing.
+  const variant = sig.values?.variant;
+  const template = (variant && set.variants?.[variant]?.[locale]) || set[locale];
   return renderTemplate(
-    set[locale],
+    template,
     signalSlots(sig, locale),
-    `signal ${id} (${sig.state}, ${locale})`
+    `signal ${id} (${sig.state}${variant ? `/${variant}` : ''}, ${locale})`
   );
 }
 
