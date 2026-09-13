@@ -49,7 +49,7 @@ function isPast(instant: string | null | undefined, now: Date): boolean {
  */
 function overallConfidence(sources: DataStatus['sources'], now: Date): ConfidenceLevel {
   const unavailable = sources.filter((s) => s.status === 'UNAVAILABLE').length;
-  const delayed = sources.filter((s) => s.status === 'DELAYED').length;
+  const delayed = sources.filter((s) => s.status === 'DELAYED' || s.status === 'STALE').length;
   const pastStale = sources.some((s) => isPast(s.stale_after, now));
   if (unavailable >= 2 || pastStale) return 'LOW';
   if (delayed || unavailable) return 'MODERATE';
@@ -65,14 +65,31 @@ function overallConfidence(sources: DataStatus['sources'], now: Date): Confidenc
  */
 export function applyReadTimeFreshness(status: DataStatus, now: Date): DataStatus {
   const sources = status.sources.map((src) => {
-    const downgrade = src.status === 'FRESH' && isPast(src.delayed_after, now);
-    return downgrade ? { ...src, status: 'DELAYED' as FreshnessStatus } : src;
+    // Two thresholds, in order of severity. STALE was in the type and rendered
+    // by `DataFreshnessBadge` (icon + a correct label in all four locales) but
+    // NOTHING ever emitted it: the panel could only ever say "Delayed" while
+    // the headline dropped to LOW because something was past its stale_after,
+    // leaving a reader told the confidence is low and no row saying which
+    // source is the reason. The architecture review listed "also make STALE
+    // reachable" as part of this item; this is that half.
+    if (src.status === 'FRESH' || src.status === 'DELAYED') {
+      if (isPast(src.stale_after, now)) return { ...src, status: 'STALE' as FreshnessStatus };
+    }
+    if (src.status === 'FRESH' && isPast(src.delayed_after, now)) {
+      return { ...src, status: 'DELAYED' as FreshnessStatus };
+    }
+    return src;
   });
 
   return {
     ...status,
     sources,
-    delayed_sources: sources.filter((s) => s.status === 'DELAYED').map((s) => s.source),
+    // STALE is a worse DELAYED, not a different axis: the panel summary's
+    // "not fresh" list must still name it, or the worst case disappears from
+    // the summary while the headline blames it.
+    delayed_sources: sources
+      .filter((s) => s.status === 'DELAYED' || s.status === 'STALE')
+      .map((s) => s.source),
     unavailable_sources: sources.filter((s) => s.status === 'UNAVAILABLE').map((s) => s.source),
     overall_confidence: overallConfidence(sources, now),
   };

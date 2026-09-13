@@ -256,7 +256,13 @@ export function deriveDataStatus(computed, etfSnapshots) {
   });
   const delayed = sources.filter((s) => s.status === 'DELAYED').map((s) => s.source);
   const unavailable = sources.filter((s) => s.status === 'UNAVAILABLE').map((s) => s.source);
-  const pastStale = sources.some((s) => run > new Date(s.stale_after));
+  // Null-safe on purpose. `new Date(null)` is the epoch, so a source with no
+  // stale_after would read as "past stale" and force LOW. No branch emits null
+  // today, but the TYPE allows it, and the read-time twin
+  // (`analytics-sdk/freshness.ts`) returns FALSE for null — so the unguarded
+  // form was a real divergence between two rules documented as mirroring each
+  // other, waiting on the first cadence class that has no stale threshold.
+  const pastStale = sources.some((s) => s.stale_after != null && run > new Date(s.stale_after));
   const overall =
     unavailable.length >= 2 || pastStale
       ? 'LOW'

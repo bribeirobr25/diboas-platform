@@ -118,10 +118,10 @@
       "de": "Das ETF-Fluss-Register läuft sich warm ({snapshots} von {warmupTarget} wöchentlichen Anteils-Momentaufnahmen erfasst) — bis vier volle Wochenflüsse vorliegen als nicht verfügbar gewertet. Keine Punkte in keine Richtung.",
       "variants": {
         "gapped": {
-          "en": "The ETF flow ledger is missing a weekly snapshot ({gapDays} days between two consecutive readings) — four full weeks cannot be measured, so it is scored unavailable rather than counting a longer gap as one week. No points either way.",
-          "pt-BR": "Falta uma fotografia semanal no registro de fluxos de ETF ({gapDays} dias entre duas leituras consecutivas) — não é possível medir quatro semanas completas, então é pontuado como indisponível em vez de contar um intervalo maior como uma semana. Sem pontos em nenhuma direção.",
-          "es": "Al registro de flujos de ETF le falta una instantánea semanal ({gapDays} días entre dos lecturas consecutivas); no se pueden medir cuatro semanas completas, así que se puntúa como no disponible en lugar de contar un intervalo mayor como una semana. Sin puntos en ningún sentido.",
-          "de": "Im ETF-Fluss-Register fehlt eine wöchentliche Momentaufnahme ({gapDays} Tage zwischen zwei Erfassungen in Folge) — vier volle Wochen lassen sich nicht messen, daher als nicht verfügbar gewertet, statt einen größeren Abstand als eine Woche zu zählen. So oder so keine Punkte."
+          "en": "The ETF flow ledger is missing a weekly snapshot: {gapDays} days separate two consecutive readings. Four full weeks cannot be measured, so this is scored unavailable rather than counted as a week. It returns once four clean weekly intervals are on record. No points either way.",
+          "pt-BR": "Falta uma fotografia semanal no registro de fluxos de ETF: {gapDays} dias separam duas leituras consecutivas. Não é possível medir quatro semanas completas, então é pontuado como indisponível em vez de contar como uma semana. Volta a pontuar quando houver quatro intervalos semanais limpos registrados. Sem pontos em nenhuma direção.",
+          "es": "Al registro de flujos de ETF le falta una instantánea semanal: {gapDays} días separan dos lecturas consecutivas. No se pueden medir cuatro semanas completas, así que se puntúa como no disponible en vez de contarlo como una semana. Vuelve a puntuar cuando haya cuatro intervalos semanales limpios registrados. Sin puntos en ningún sentido.",
+          "de": "Im ETF-Fluss-Register fehlt eine wöchentliche Momentaufnahme: {gapDays} Tage liegen zwischen zwei Erfassungen in Folge. Vier volle Wochen lassen sich nicht messen, daher als nicht verfügbar gewertet, statt als eine Woche zu zählen. Es zählt wieder, sobald vier saubere Wochenabstände erfasst sind. So oder so keine Punkte."
         }
       }
     }

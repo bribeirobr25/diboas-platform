@@ -267,6 +267,28 @@ describe('the gapped sentence can actually be published (the 5.133 trap)', () =>
     }
   });
 
+  it('should carry no em-dash (anti-slop Part 2) or emoji', () => {
+    // "The single most common AI tell, so the default is none." The corpus has
+    // 97 template dashes awaiting a founder copy call; new copy must not grow
+    // that number.
+    for (const l of LOCALES) {
+      expect(String(gapped[l]), `${l} em-dash`).not.toMatch(/—/);
+      expect(String(gapped[l]), `${l} emoji`).not.toMatch(/\p{Extended_Pictographic}/u);
+    }
+  });
+
+  it('should say how the state RESOLVES, not only why it failed (Part 3 row 19)', () => {
+    // An unavailable state that dead-ends is the empty-state defect. Each
+    // locale names the condition that brings the signal back.
+    const resolves = {
+      en: /returns once/i,
+      'pt-BR': /volta a pontuar/i,
+      es: /vuelve a puntuar/i,
+      de: /zählt wieder/i,
+    };
+    for (const [l, re] of Object.entries(resolves)) expect(String(gapped[l]), l).toMatch(re);
+  });
+
   it('should not say "warming up" when the ledger is not warming up', () => {
     // The whole reason a variant exists: the default would publish "9 of 5
     // snapshots recorded", which is both nonsense and the wrong reason.

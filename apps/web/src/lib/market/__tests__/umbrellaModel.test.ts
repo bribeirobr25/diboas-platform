@@ -5,6 +5,7 @@
  * never dropped.
  */
 
+import { MM2_SCORE_FRAGMENT } from '@/lib/market/viewRegistry';
 import { describe, it, expect } from 'vitest';
 import { umbrellaCardModel } from '../umbrellaModel';
 import { MARKET_VIEWS } from '../viewRegistry';
@@ -184,14 +185,32 @@ describe('state cards (backdrop)', () => {
     // it here is the defect. Same regex the state-lead guard uses, so the two
     // cannot drift apart.
     const m = umbrellaCardModel(backdrop, withCopy(REAL_SUMMARY, REAL_LEAD));
-    expect(m.plainLine).not.toMatch(/\d\s*(of|de|von)\s*\d\s*(points|pontos|puntos|Punkten)/i);
+    expect(m.plainLine).not.toMatch(MM2_SCORE_FRAGMENT);
   });
 
-  it('should fall back to summary only when no lead exists (pre-state_view payload)', () => {
-    // A stale fragment still beats a blank card — but only when there is no
-    // alternative. Any current cycle has the lead.
+  it('should REFUSE a score-carrying summary in the fallback, not publish it', () => {
+    // The first version of this test asserted plainLine === REAL_SUMMARY, a
+    // string ending "(2 of 3 points)". That made the fallback path publish the
+    // exact defect the fix exists for, and pinned it as acceptable — the 5.114
+    // class. MM-2 is structural: there is no payload old enough to justify a
+    // score on a state card.
     const m = umbrellaCardModel(backdrop, withCopy(REAL_SUMMARY, undefined));
-    expect(m.plainLine).toBe(REAL_SUMMARY);
+    expect(m.plainLine).toBeUndefined();
+  });
+
+  it('should still fall back to a summary that carries no score', () => {
+    // Refusing is about the score, not about the fallback. A pre-state_view
+    // payload whose summary is clean is still better than a bare card.
+    const clean = 'Macro conditions are mixed: the dollar supportive, yields restrictive.';
+    const m = umbrellaCardModel(backdrop, withCopy(clean, undefined));
+    expect(m.plainLine).toBe(clean);
+  });
+
+  it('should leave the card usable without a plain line (it still has conditions)', () => {
+    // Why refusing is cheap: the card is not blank without plainLine.
+    const m = umbrellaCardModel(backdrop, withCopy(REAL_SUMMARY, undefined));
+    expect(m.available).toBe(true);
+    expect(m.conditions?.length).toBeGreaterThan(0);
   });
 
   it('should degrade honestly when the macro group or a component is missing (R-1′)', () => {

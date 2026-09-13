@@ -9,6 +9,7 @@
  * with no prior run we say HOLD, never MOVED.
  */
 
+import { MM2_SCORE_FRAGMENT } from '@/lib/market/viewRegistry';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
@@ -139,7 +140,7 @@ describe('composeStateLead — opening plus one beat per condition, fixed order'
       'en',
       null
     );
-    expect(out).not.toMatch(/\d\s*(of|de|von)\s*\d\s*(points|pontos|puntos|Punkten)/i);
+    expect(out).not.toMatch(MM2_SCORE_FRAGMENT);
   });
 
   it('should mark only the condition that actually moved', () => {
@@ -182,12 +183,12 @@ describe('the SHIPPED state templates carry no score fragment (MM-2, 5.305)', ()
     )
   );
   const LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
-  // Matches the fragment in BOTH forms: rendered ("2 of 3 points") and, because
-  // these are TEMPLATES, unrendered ("{points} of {max} points"). The first
-  // version of this test used the rendered-only regex and the control case below
-  // failed immediately — a template score fragment would have sailed through.
-  const SCORE_FRAGMENT =
-    /(\d+|\{points\})\s*(of|de|von)\s*(\d+|\{max\})\s*(points|pontos|puntos|Punkten)/i;
+  // One definition, in viewRegistry. It matches BOTH forms — rendered
+  // ("2 of 3 points") and, because these are TEMPLATES, unrendered
+  // ("{points} of {max} points"). An earlier copy here was rendered-only and
+  // the control case below failed immediately: a template score fragment would
+  // have sailed through.
+  const SCORE_FRAGMENT = MM2_SCORE_FRAGMENT;
 
   it('should have no points parenthetical in ANY opening variant x locale', () => {
     const offenders: string[] = [];

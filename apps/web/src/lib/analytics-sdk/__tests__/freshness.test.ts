@@ -112,8 +112,56 @@ describe('applyReadTimeFreshness — safety properties', () => {
         return s;
       }),
     };
-    const after = applyReadTimeFreshness(legacy, new Date('2099-01-01T00:00:00Z'));
+    // Evaluated PAST the earliest delayed_after but BEFORE any stale_after, so
+    // the only rule that could fire is the one the legacy payload lacks.
+    // (Evaluating at 2099 would prove nothing: every source really is stale by
+    // then, and `stale_after` has always been part of the contract.)
+    const after = applyReadTimeFreshness(legacy, new Date('2026-09-15T00:00:00Z'));
     expect(after.sources.map((s) => s.status)).toEqual(panel.sources.map((s) => s.status));
+  });
+});
+
+describe('STALE is reachable — the panel must name the source the headline blames', () => {
+  // STALE sat in the type, had an icon in DataFreshnessBadge and a correct
+  // label in all four locales, and NOTHING ever emitted it. A source past its
+  // stale_after dropped overall confidence to LOW while its own row still read
+  // "Delayed" — the reader was told the confidence was low and no row said
+  // which source was the reason.
+  const farFuture = new Date('2099-01-01T00:00:00Z');
+
+  it('should mark a source past its stale_after as STALE, not merely DELAYED', () => {
+    const after = applyReadTimeFreshness(committed(), farFuture);
+    expect(after.sources.every((s) => s.status === 'STALE')).toBe(true);
+  });
+
+  it('should escalate DELAYED to STALE, never the reverse', () => {
+    const panel = committed();
+    const delayed: DataStatus = {
+      ...panel,
+      sources: panel.sources.map((s) => ({ ...s, status: 'DELAYED' as const })),
+    };
+    expect(applyReadTimeFreshness(delayed, farFuture).sources[0].status).toBe('STALE');
+  });
+
+  it('should never promote UNAVAILABLE to STALE (downgrade-only stays downgrade-only)', () => {
+    const panel = committed();
+    const unavailable: DataStatus = {
+      ...panel,
+      sources: panel.sources.map((s) => ({ ...s, status: 'UNAVAILABLE' as const })),
+    };
+    const after = applyReadTimeFreshness(unavailable, farFuture);
+    expect(after.sources.every((s) => s.status === 'UNAVAILABLE')).toBe(true);
+  });
+
+  it('should still report LOW confidence when sources are STALE', () => {
+    expect(applyReadTimeFreshness(committed(), farFuture).overall_confidence).toBe('LOW');
+  });
+
+  it('should list a STALE source among delayed_sources so the panel summary is complete', () => {
+    // `delayed_sources` is the panel's "what is not fresh" list; a STALE source
+    // dropping out of it would hide the worst case from the summary.
+    const after = applyReadTimeFreshness(committed(), farFuture);
+    expect(after.delayed_sources.length).toBe(after.sources.length);
   });
 });
 
@@ -159,5 +207,57 @@ describe('the hero badge and the panel must not diverge (5.131 rider on 5.173)',
     const later = applyReadTimeFreshness(panel, new Date(Date.parse(threshold) + 1000));
     expect(later.overall_confidence).not.toBe(frozen);
     expect(later.overall_confidence).toBe('MODERATE');
+  });
+});
+
+describe('the two confidence rules agree on a source with NO stale threshold', () => {
+  /**
+   * The pipeline (`data-status.mjs#deriveDataStatus`) and this overlay are
+   * documented as mirroring each other, and the equivalence test above pins
+   * them at the build instant — but only over the COMMITTED panel, where every
+   * source has a stale_after. The type allows `null`, and the two rules
+   * disagreed there: `run > new Date(null)` is `run > epoch` (true, forcing
+   * LOW) while `isPast(null)` is false. Unreachable today, and exactly the kind
+   * of divergence the plan warned a second derivation would create.
+   */
+  const pipelineRule = (sources: DataStatus['sources'], run: Date) => {
+    const unavailable = sources.filter((s) => s.status === 'UNAVAILABLE').length;
+    const delayed = sources.filter((s) => s.status === 'DELAYED').length;
+    const pastStale = sources.some((s) => s.stale_after != null && run > new Date(s.stale_after));
+    return unavailable >= 2 || pastStale ? 'LOW' : delayed || unavailable ? 'MODERATE' : 'HIGH';
+  };
+
+  it('should not treat a null stale_after as "already stale"', () => {
+    const panel = committed();
+    const noThreshold: DataStatus = {
+      ...panel,
+      sources: panel.sources.map((s) => ({ ...s, stale_after: null, delayed_after: null })),
+    };
+    const now = new Date('2026-09-15T00:00:00Z');
+    const after = applyReadTimeFreshness(noThreshold, now);
+    expect(after.overall_confidence).toBe('HIGH');
+    expect(after.overall_confidence).toBe(pipelineRule(noThreshold.sources, now));
+  });
+
+  it('should agree with the pipeline rule across every status mix', () => {
+    const panel = committed();
+    const mixes: DataStatus['sources'][0]['status'][][] = [
+      ['FRESH', 'FRESH'],
+      ['DELAYED', 'FRESH'],
+      ['UNAVAILABLE', 'FRESH'],
+      ['UNAVAILABLE', 'UNAVAILABLE'],
+      ['DELAYED', 'UNAVAILABLE'],
+    ];
+    const now = new Date('2026-09-15T00:00:00Z');
+    for (const mix of mixes) {
+      const sources = mix.map((status, i) => ({
+        ...panel.sources[i],
+        status,
+        stale_after: null,
+        delayed_after: null,
+      }));
+      const mine = applyReadTimeFreshness({ ...panel, sources }, now).overall_confidence;
+      expect(mine, `mix ${mix.join('+')}`).toBe(pipelineRule(sources, now));
+    }
   });
 });

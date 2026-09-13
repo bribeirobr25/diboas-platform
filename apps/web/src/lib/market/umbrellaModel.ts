@@ -9,7 +9,7 @@
  */
 
 import type { AnalyticsInitialData, RegimeCode } from '@/lib/analytics-sdk/types';
-import { viewPath, type MarketViewDef } from './viewRegistry';
+import { viewPath, MM2_SCORE_FRAGMENT, type MarketViewDef } from './viewRegistry';
 
 export type UmbrellaDirection = 'up' | 'down' | 'held';
 
@@ -114,11 +114,17 @@ export function umbrellaCardModel(
  * the lead carries one beat per condition and is card-sized only at its head.
  *
  * `summary` remains the fallback for a payload generated before `state_view`
- * existed — a card with a stale fragment still beats a blank card — but any
- * current cycle takes the lead.
+ * existed — but ONLY when it carries no score. The first version of this
+ * fallback returned `summary` unconditionally and its test asserted a string
+ * ending "(2 of 3 points)", which made the fallback path publish the exact
+ * defect the function was written to fix (the 5.114 class: a test pinning a
+ * defect as acceptable). A state card without a plain line is not blank — it
+ * still renders its three conditions — so refusing is cheap and correct.
  */
 function stateCardLine(macro?: { state_view?: { lead: string }; summary?: string }) {
   const lead = macro?.state_view?.lead;
   if (lead) return firstSentence(lead);
-  return macro?.summary || undefined;
+  const summary = macro?.summary;
+  if (!summary || MM2_SCORE_FRAGMENT.test(summary)) return undefined;
+  return summary;
 }
