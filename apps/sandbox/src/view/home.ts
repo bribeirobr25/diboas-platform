@@ -122,7 +122,19 @@ export function selectGoalProgress(state: LedgerState, goalId: string): GoalProg
   return {
     current: current.toFixed(2),
     target: target.toFixed(2),
-    ratioPercent: hasTarget ? Decimal.min(current.div(target), 1).mul(100).toNumber() : 0,
+    // Clamped at BOTH ends. The upper bound is a product rule (a goal never
+    // reads past 100%). The lower bound is INSURANCE, not a bug fix: today a
+    // goal's value cannot go negative, because a `market` leg replays the
+    // token's own price (never below zero) and a `lending` leg replays a
+    // non-negative APY series. That bound is an emergent property of
+    // `PROTOCOL_RETURN_MODEL`, though, not a defended one — a future protocol
+    // carrying a negative-rate series would otherwise put a negative number
+    // into `aria-valuenow`, which ARIA forbids.
+    ratioPercent: hasTarget
+      ? Decimal.max(Decimal.min(current.div(target), 1), 0)
+          .mul(100)
+          .toNumber()
+      : 0,
     hasTarget,
     // A zero or absent target is never "reached" — asserted in the test, because
     // `0 >= 0` would otherwise make every target-less goal complete.
@@ -186,9 +198,13 @@ export function selectGoalRowView(state: LedgerState, goalId: string): GoalRowVi
  *
  * `canRaise` was `Number(newTarget) > Number(goal.targetAmount)` in the
  * component — a FLOAT comparison on money, which is exactly the class of
- * arithmetic this seam exists to remove. In Decimal it is exact, and the rule
- * is explicit: raising means strictly greater, so entering the SAME target is
- * not a raise.
+ * arithmetic this seam exists to remove. The rule is explicit: raising means
+ * strictly greater, so entering the SAME target is not a raise.
+ *
+ * ⚑ Corrected 2026-09-13 (audit): moving the comparison here removed the float
+ * COMPARISON but not the float PARSE — it still read `new Decimal(Number(x) || 0)`,
+ * while this very docstring claimed the result was "exact in Decimal". The parse
+ * now goes through `decimalFromInput`, so the claim and the code agree.
  */
 export interface GoalCompletionView {
   /** The goal's uninvested cash, as a display string. */
@@ -206,7 +222,7 @@ export function selectGoalCompletionView(
   newTarget: string
 ): GoalCompletionView {
   const goal = state.goals.find((g) => g.goalId === goalId);
-  const raise = new Decimal(Number(newTarget) || 0);
+  const raise = decimalFromInput(newTarget);
   return {
     cash: new Decimal(goal?.cash ?? 0).toFixed(2),
     current: goalCurrentValue(state, goalId).toFixed(2),
@@ -332,9 +348,16 @@ export function selectRulesPreview(input: {
 }): RulesPreview {
   const waiting = new Decimal(input.weeklyCreditAmount).mul(input.waitingWeeks);
   const allocation = input.allocate(waiting.toNumber(), input.split);
+  // Summed from the LINES, not derived as `waiting − remainder`. The subtraction
+  // form is self-consistent by construction: it would render a coherent preview
+  // even if the allocation's own lines did not add up — which is precisely the
+  // failure a preview exists to reveal. Summing the lines means the screen shows
+  // what the rule actually distributes, and this module's test asserts the
+  // identity `Σ lines + remainder === waiting` (D-r: preview == application).
+  const distributed = allocation.lines.reduce((acc, l) => acc.plus(l.amount), new Decimal(0));
   return {
     waiting: waiting.toFixed(2),
-    distributed: waiting.minus(allocation.remainderToAvailable).toFixed(2),
+    distributed: distributed.toFixed(2),
     remainderToAvailable: new Decimal(allocation.remainderToAvailable).toFixed(2),
     lines: allocation.lines.map((l) => ({
       goalId: l.goalId,
@@ -385,6 +408,26 @@ export interface WithdrawFeeExample {
   fee: string;
   /** The base the example is worked against. */
   base: string;
+}
+
+/**
+ * A `Decimal` from untrusted text (a form field), with no float in the middle.
+ *
+ * `Number(value) || 0` was the previous parse, and the docstring beside it
+ * claimed the comparison was "exact in Decimal". It was not: every value
+ * round-tripped through a float first, so the exactness the comment promised
+ * stopped one line above it. `Decimal` throws on garbage rather than yielding
+ * `NaN`, so the guard is a try/catch plus an `isFinite` check: valid input keeps
+ * full precision, and anything else becomes zero — which `canRaise` then
+ * correctly refuses.
+ */
+function decimalFromInput(value: string): Decimal {
+  try {
+    const parsed = new Decimal(value);
+    return parsed.isFinite() ? parsed : new Decimal(0);
+  } catch {
+    return new Decimal(0);
+  }
 }
 
 /** The round number the fee example is worked against (`5.200`). */
@@ -451,9 +494,18 @@ export function selectGoalDetailView(state: LedgerState, goalId: string): GoalDe
     .reduce((acc, r) => acc.plus(r.monthlyAmount), new Decimal(0))
     .toNumber();
 
+  // `LedgerEvent` IS a discriminated union on `type`, but `Array.prototype.filter`
+  // does not narrow it — which is why this money sum previously went through two
+  // unchecked `as` casts (`e as { amount: string }`). Narrowing inside the reduce
+  // body gives the real `GoalFunded` shape (`goalId: string; amount: string`), so
+  // a future event type whose `amount` means something else becomes a compile
+  // error instead of a silently wrong total. Same pattern `lib/monthReport.ts`
+  // already uses (`case 'GoalFunded'`).
   const contributionsTotal = state.events
-    .filter((e) => e.type === 'GoalFunded' && (e as { goalId?: string }).goalId === goalId)
-    .reduce((acc, e) => acc.plus((e as { amount: string }).amount), new Decimal(0))
+    .reduce(
+      (acc, e) => (e.type === 'GoalFunded' && e.goalId === goalId ? acc.plus(e.amount) : acc),
+      new Decimal(0)
+    )
     .toFixed(2);
 
   return {

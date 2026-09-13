@@ -125,6 +125,25 @@ describe('selectGoalProgress', () => {
     expect(selectGoalProgress(withGoal('1000.00', '5000.00'), 'g1').ratioPercent).toBe(100);
   });
 
+  it('should clamp the ratio at 0, so a fallen goal can never reach aria-valuenow negative', () => {
+    /**
+     * REQUIREMENT: ARIA requires `aria-valuenow` within min..max, and this app's
+     * colour grammar never shows a loss as progress. Today a goal's value cannot
+     * go negative — a `market` leg replays the token's own price (never below
+     * zero) and a `lending` leg replays a non-negative APY series — so this is a
+     * FORWARD guard on an emergent property of `PROTOCOL_RETURN_MODEL`, not a
+     * live defect. A protocol carrying a negative-rate series would otherwise put
+     * a negative number straight into the progress bar.
+     */
+    const fallen = base({
+      goals: [{ goalId: 'g1', targetAmount: '1000.00', cash: '0.00' }],
+      positions: [{ goalId: 'g1', open: true, principal: '100.00', accrued: '-250.00' }],
+    } as Partial<LedgerState>);
+    expect(selectGoalProgress(fallen, 'g1').ratioPercent).toBe(0);
+    // and the underlying value is still reported honestly, not clamped
+    expect(selectGoalProgress(fallen, 'g1').current).toBe('-150.00');
+  });
+
   it('should never call a target-less goal reached — 0 >= 0 would make every one complete', () => {
     const p = selectGoalProgress(withGoal('0.00', '500.00'), 'g1');
     expect(p.hasTarget).toBe(false);
@@ -591,5 +610,107 @@ describe('selectExitPreview', () => {
         previewPosition,
       })
     ).toBeNull();
+  });
+});
+
+describe('the display-rounding contract (audit 2026-09-13)', () => {
+  /**
+   * REQUIREMENT: FC-15 — "the confirmation surface IS the transaction, including
+   * its last cent." `packages/banking` pins its rounding explicitly at every fee
+   * site (`toDecimalPlaces(2, Decimal.ROUND_HALF_UP)`), but this seam displays
+   * through `Decimal#toFixed(2)`, which reads the LIBRARY-GLOBAL `Decimal.rounding`.
+   * Nothing in this repository calls `Decimal.set`, so the two agree today by
+   * default rather than by construction — and a single global config change
+   * anywhere would silently make every displayed cent disagree with the ledger.
+   * That is the exact shape of the FC-15 defect (a `toFixed`/Decimal split that
+   * once made the confirm sheet disagree with the ledger), so it is pinned here.
+   */
+  it('should round half-up, because the seam displays via toFixed and banking books half-up', () => {
+    expect(Decimal.rounding).toBe(Decimal.ROUND_HALF_UP);
+  });
+
+  it('should round a half-cent up, the same direction the ledger books it', () => {
+    // 0.005 is the boundary case: HALF_UP gives 0.01, HALF_EVEN would give 0.00.
+    expect(new Decimal('0.005').toFixed(2)).toBe('0.01');
+    expect(new Decimal('1.005').toFixed(2)).toBe('1.01');
+  });
+});
+
+describe('selectGoalDetailView contributions (audit 2026-09-13)', () => {
+  /**
+   * REQUIREMENT: `contributionsTotal` is "what you put in" — the sum of
+   * `GoalFunded` amounts for THIS goal (D-e). It previously summed through two
+   * unchecked casts (`e as { amount: string }`), which type-checked against any
+   * event that happens to carry an `amount`. This asserts the narrowing: a
+   * different event type carrying the same field shape, and a GoalFunded for a
+   * DIFFERENT goal, must both be excluded.
+   */
+  it('should sum only GoalFunded for this goal, ignoring same-shaped amounts on other events', () => {
+    const state = base({
+      goals: [{ goalId: 'g1', targetAmount: '1000.00', cash: '300.00' }],
+      events: [
+        { type: 'GoalFunded', goalId: 'g1', amount: '200.00' },
+        { type: 'GoalFunded', goalId: 'g1', amount: '100.00' },
+        { type: 'GoalFunded', goalId: 'g2', amount: '999.00' },
+        // same field shape, different meaning: a weekly credit is not a contribution
+        { type: 'WeeklyCreditGranted', amount: '1000.00' },
+        { type: 'SimulatedIncomeReceived', amount: '500.00' },
+      ],
+    } as Partial<LedgerState>);
+    expect(selectGoalDetailView(state, 'g1').contributionsTotal).toBe('300.00');
+  });
+});
+
+describe('selectRulesPreview reconciliation (audit 2026-09-13)', () => {
+  /**
+   * REQUIREMENT: D-r — "preview == application", and the screen's own three rows
+   * must reconcile: the credits waiting, what the rule distributes, and what is
+   * left in Available. `distributed` is therefore summed FROM THE LINES. Derived
+   * as `waiting − remainder` it was self-consistent by construction: it would
+   * render a coherent preview even when the allocation's lines did not add up,
+   * hiding exactly the defect a preview exists to reveal.
+   */
+  const honest = (total: number, split: ReadonlyArray<{ goalId: string; percent: number }>) => {
+    const lines = split.map((r) => ({ goalId: r.goalId, amount: (total * r.percent) / 100 }));
+    const allocated = lines.reduce((s, l) => s + l.amount, 0);
+    return { lines, remainderToAvailable: Number((total - allocated).toFixed(2)) };
+  };
+
+  it('should reconcile: the lines plus the remainder equal the waiting credits', () => {
+    const p = selectRulesPreview({
+      weeklyCreditAmount: 1000,
+      waitingWeeks: 3,
+      allocate: honest,
+      split: [
+        { goalId: 'g1', percent: 60 },
+        { goalId: 'g2', percent: 25 },
+      ],
+    });
+    expect(p.waiting).toBe('3000.00');
+    expect(p.distributed).toBe('2550.00');
+    expect(p.remainderToAvailable).toBe('450.00');
+    const lines = p.lines.reduce((acc, l) => acc.plus(l.amount), new Decimal(0));
+    expect(lines.plus(p.remainderToAvailable).toFixed(2)).toBe(p.waiting);
+  });
+
+  it('should report what the lines actually total, so a broken allocation is visible', () => {
+    // An allocation that under-distributes while still claiming a remainder:
+    // subtraction would have shown a tidy 2550.00 and hidden the shortfall.
+    const broken = (total: number, split: ReadonlyArray<{ goalId: string; percent: number }>) => ({
+      lines: split.map((r) => ({ goalId: r.goalId, amount: (total * r.percent) / 100 - 50 })),
+      remainderToAvailable: Number((total * 0.15).toFixed(2)),
+    });
+    const p = selectRulesPreview({
+      weeklyCreditAmount: 1000,
+      waitingWeeks: 3,
+      allocate: broken,
+      split: [
+        { goalId: 'g1', percent: 60 },
+        { goalId: 'g2', percent: 25 },
+      ],
+    });
+    expect(p.distributed).toBe('2450.00'); // the lines' real total, not 2550.00
+    const lines = p.lines.reduce((acc, l) => acc.plus(l.amount), new Decimal(0));
+    expect(lines.plus(p.remainderToAvailable).toFixed(2)).not.toBe(p.waiting);
   });
 });
