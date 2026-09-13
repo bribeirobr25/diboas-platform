@@ -109,6 +109,33 @@ response carried a `404`.
 
 **Composition rule:** the LIVE rows named above (`VALUE_EGRESS`, GENIUS wall, geofence middleware, WG-1 credit suite) are not restated; G-rows extend them. A row here stays `PLANNED / UNENFORCED` until the implementation phase authorises building it, and this file says so per row — the four `✅ LIVE 2026-09-12` rows are the ones that phase has now delivered and sabotage-proven, not an exception to that rule.
 
+## Review gates — the two mandatory checklists (2026-09-14)
+
+**Authority:** founder instruction, 2026-09-13/14. **Why there are two, and why they replaced what was there:** this repository carried
+TWO definitions of "review/audit" — a 2026-07-10 seven-step protocol and a seven-front instruction. An audit that ran **three of the
+seven fronts** therefore looked complete to its author, and the document it produced claimed the 12-principle step in a single sentence
+about DRY. Two lists meant the reviewer could pick the flattering one. These two gates are now the **only** definition; the 2026-07-10
+protocol is superseded and must not be revived.
+
+| Gate                           | Trigger                                                                                                                                                                   | What it makes impossible                                                                                                                                                                                                                                                                                                                | Enforcement class                                                                                                                                 |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`increment-review-gate.md`** | One increment: a feature slice, a bug fix, a refactor — before it is called done and before its commit is offered for merge                                               | Declaring an increment complete without: naming the source plan and verdicting its stated conditions **verbatim**; proving the do-not-regress register untouched rather than asserting it; sabotage-proving each load-bearing test; **re-measuring every number about to be republished**; and a visual A/B when a rendered value moved | **MANDATORY REVIEW CHECKLIST.** Part A is the existing mechanical battery (CI + the domain `screen-check`); Parts B–F are review-time             |
+| **`system-review-gate.md`**    | A BATCH: before a merge train to `main` · at a plan-phase close · when two increments touched one surface · after five increments without a system pass · founder-ordered | Shipping a coherent-looking batch of individually-green increments: one fact derived twice and free to drift · two names for one concept · a file whose name outgrew its contents · a number republished unmeasured · a data-lifecycle **seam** where the screen claims more than the derivation supports                               | **MANDATORY REVIEW CHECKLIST.** Composes the increment records by reference; adds the 7 fronts, the data lifecycle, and cross-increment coherence |
+
+**Honest enforcement status — per this file's own rule.** Part A of the increment gate is genuinely enforced (CI, `validate:all`, and the
+per-app battery). **Everything else in both documents is review-time and mechanically UNENFORCED**, and is recorded that way rather than
+claimed as live. The rows marked **⚙** in the two documents are the queue for making them real: a republished-number drift sweep, a
+per-export consumer check, a duplicate-derivation search, an orphaned-consumer check, and a register id-claim verifier (the marker is a
+claim, not evidence — an id collision proved it). Until those exist, those rows are checklist discipline, not enforcement.
+
+**The two disciplines these encode that no previous gate did:**
+
+1. **A PASS must paste its instrument.** A verdict with no measurement beside it is the exact failure mode that let a one-sentence row
+   read as a completed audit step.
+2. **`N/A` requires proof.** Several fronts are legitimately inapplicable (SEO on a `noindex` surface; an analytics contract that is
+   documentation-only by ruling; the R-rows when a diff touches no effect, timer or listener). An unproven N/A is indistinguishable from
+   a skip, so it counts as a FAIL.
+
 ## Change discipline
 
 Adding a quality claim to CLAUDE.md or the standards? Add its enforcement row here in the same PR — or an UNENFORCED row with a disposition. CI composition changes (workflows, validators, lint promotions) update this file in the same PR. The registry is audited (all rows re-verified at source) whenever a domain's tooling changes.

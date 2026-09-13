@@ -371,6 +371,8 @@ Condensed reference from `docs/tech/coding-standards.md`:
 
 Every quality domain (SEO, accessibility, performance, security, robustness) maps to LIVE enforcement — CI job, lint rule, drift-guard test, or mandatory review checklist — in **`docs/tech/engineering-gates.md`** (the registry; UNENFORCED gaps are listed there honestly with dispositions). `pnpm validate:seo` runs in CI and `validate:all`. **Any PR touching effects, timers, listeners, async flows, or error paths cites the applicable R-rows from `docs/tech/robustness-checklist.md` (PASS/N-A per row) in its self-check** — same discipline as the anti-slop Part-3 rows for UX.
 
+**"Review/audit" has exactly two definitions, both git-tracked, and they replaced the earlier seven-step protocol (2026-09-14):** `docs/tech/increment-review-gate.md` for ONE change (done per its plan · no regression or side-effect · numbers re-measured rather than carried · a Docker MCP visual A/B when a rendered value moved), and `docs/tech/system-review-gate.md` for a BATCH (the seven fronts · the data lifecycle checked at its seams — collection → validation → storage → transformation → presentation · cross-increment coherence). Both require that **every PASS pastes its instrument** and that **`N/A` is proven, not asserted**; both end in a stated NOT-CHECKED list and a fix-versus-register disposition with owners. Registered with an honest enforcement class in `engineering-gates.md`: the mechanical battery is enforced, the rest is review-time.
+
 ## Race Condition & Async Patterns
 
 - Every `useEffect` with timers → store IDs, clear in cleanup
