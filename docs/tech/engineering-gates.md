@@ -128,6 +128,30 @@ claimed as live. The rows marked **⚙** in the two documents are the queue for 
 per-export consumer check, a duplicate-derivation search, an orphaned-consumer check, and a register id-claim verifier (the marker is a
 claim, not evidence — an id collision proved it). Until those exist, those rows are checklist discipline, not enforcement.
 
+**Mechanisation status (2026-09-14) — `scripts/review-gate.mjs`, wired as `pnpm review:increment | review:system | review:register | review:port`.**
+Six ⚙ rows are now **mechanically enforced**, each because its defect already shipped here, and each **sabotage-proven** (plant the
+defect, watch the right check fail with the right message, revert, verify the revert byte-for-byte):
+
+| Check         | The defect it catches                                                                                                                        | Proof                                                                                                   |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `register`    | a register id double-claimed while the marker claimed it was free — **the marker is a claim, the measured maximum is the evidence**          | duplicate id ⇒ `DUPLICATE ids: 5.316`; stale marker ⇒ `marker 5.300 is NOT free — max is 5.322`         |
+| `counts`      | a test count carried forward, never re-measured, and wrong in five documents at once                                                         | two disagreeing current claims ⇒ `3 distinct CURRENT claim(s)`                                          |
+| `authorities` | a review referencing 8 of 27 authorities and reading as complete                                                                             | an unrouted new file ⇒ `NOT ROUTED: …`                                                                  |
+| `staged`      | `git add` with an unquoted variable staging NOTHING while the commit reported success; and a legal/canon path reaching a public tracked file | a canon path in a staged added line ⇒ `MUST NOT COMMIT: canon / legal-source path`                      |
+| `exports`     | an exported function with no consumer; two built screens once shipped linked from nowhere                                                    | a planted orphan ⇒ `NO CONSUMER: selectSabotageOrphan`                                                  |
+| `port`        | killing by process group off a port's pid list — **a port's pids include its CLIENTS** — which once took down Docker Desktop                 | refuses on an ambiguous pid list or an unexpected command; `--kill` stops exactly one verified listener |
+
+**One named exception, printed every run.** `staged` excludes `scripts/review-gate.mjs` from its PATTERN sweep, because that file DEFINES the patterns — a detector cannot tell its own pattern table from a violation, and it blocked its own first commit exactly that way. The file is still counted and listed; only the pattern scan skips it; the exclusion is printed on every run; and secrets in that file remain covered by `secrets:scan-staged`, which has no such exception. Narrow and named, per this registry's own rule about guard filters.
+
+**Still review-time and NOT mechanised, named so the ⚙ marks do not overstate:** duplicate-derivation search (X1, too heuristic to
+avoid noise) · guard-filter sabotage (X6) · the link-graph sweep (C7) · grep-before-delete for orphaned consumers (C3) · locale parity
+(C8 — it already has real tests in `apps/sandbox/src/i18n/__tests__`; a worse reimplementation here would be a liability) · and every
+row in Parts B, D, E, F and G that requires judgement. The runner prints these as the manual half on every run rather than leaving
+their absence to be inferred.
+
+**Deliberately not in `validate:all`.** `staged` needs a staging context and `register` reads a local-only document, so the runner is
+opt-in at the moment of review rather than a CI step that would report SKIP for the two rows that matter most.
+
 **The two disciplines these encode that no previous gate did:**
 
 1. **A PASS must paste its instrument.** A verdict with no measurement beside it is the exact failure mode that let a one-sentence row

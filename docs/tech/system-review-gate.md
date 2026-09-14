@@ -23,6 +23,8 @@
 > **v2, 2026-09-14** — v1 referenced 8 of 27 authorities and omitted i18n parity, accessibility,
 > ADR triggers and the FAIL path.
 
+**Runner:** `pnpm review:system` executes the ⚙ rows this gate shares with the increment gate (authority coverage, republished counts, register integrity, dead exports) and prints the manual fronts. **X1 (duplicate derivations) and X6 (guard filters) are deliberately NOT mechanised** — the first is too heuristic to avoid noise, and no script here claims either. Source: `scripts/review-gate.mjs`.
+
 ## Trigger
 
 Before a merge train to `main` · at the close of a plan phase (before the next numbered increment may

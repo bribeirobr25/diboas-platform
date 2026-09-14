@@ -24,6 +24,8 @@
 > authorities and omitted i18n, accessibility and the FAIL path; the gaps were found by auditing the
 > gate against the authority inventory and against defects this project has actually shipped.
 
+**Runner:** `pnpm review:increment` executes the ⚙ rows mechanically and prints the manual half every run — the same shape as `screen-check`. Standalone helpers: `pnpm review:register` (run it BEFORE claiming a register id) and `pnpm review:port <port> [--kill]` (stops a server by its LISTENER pid, refusing when the pid list is ambiguous). Source: `scripts/review-gate.mjs`. Each mechanical check is sabotage-proven: the defect is planted, the check fails, the plant is reverted and the revert verified byte-for-byte.
+
 ## Trigger
 
 Any one of: an increment declared complete · a bug fix before commit · a refactor before commit · a
