@@ -9,7 +9,7 @@
  */
 
 import type { AnalyticsInitialData, RegimeCode } from '@/lib/analytics-sdk/types';
-import { viewPath, type MarketViewDef } from './viewRegistry';
+import { viewPath, MM2_SCORE_FRAGMENT, type MarketViewDef } from './viewRegistry';
 
 export type UmbrellaDirection = 'up' | 'down' | 'held';
 
@@ -95,6 +95,36 @@ export function umbrellaCardModel(
     ...base,
     available: true,
     conditions,
-    plainLine: macro?.summary || undefined,
+    plainLine: stateCardLine(macro),
   };
+}
+
+/**
+ * The state card's primary line (5.174).
+ *
+ * MUST prefer `state_view.lead` over `summary`. `summary` is the SCORED view's
+ * group sentence and ends with the points parenthetical BY DESIGN — all sixteen
+ * macro variants (4 levels × 4 locales) do — so reading it here published
+ * "(2 of 3 points)" on a card whose grammar forbids a score (MM-2,
+ * `viewRegistry.ts`: state views "carry no score"), in four locales, for three
+ * cycles. The points-free twin has existed and regenerated weekly since
+ * 2026-08-24; the umbrella simply never read it.
+ *
+ * First sentence only, matching the scored branch's `firstSentence()` treatment:
+ * the lead carries one beat per condition and is card-sized only at its head.
+ *
+ * `summary` remains the fallback for a payload generated before `state_view`
+ * existed — but ONLY when it carries no score. The first version of this
+ * fallback returned `summary` unconditionally and its test asserted a string
+ * ending "(2 of 3 points)", which made the fallback path publish the exact
+ * defect the function was written to fix (the 5.114 class: a test pinning a
+ * defect as acceptable). A state card without a plain line is not blank — it
+ * still renders its three conditions — so refusing is cheap and correct.
+ */
+function stateCardLine(macro?: { state_view?: { lead: string }; summary?: string }) {
+  const lead = macro?.state_view?.lead;
+  if (lead) return firstSentence(lead);
+  const summary = macro?.summary;
+  if (!summary || MM2_SCORE_FRAGMENT.test(summary)) return undefined;
+  return summary;
 }

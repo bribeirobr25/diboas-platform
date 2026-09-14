@@ -5,6 +5,7 @@
  * never dropped.
  */
 
+import { MM2_SCORE_FRAGMENT } from '@/lib/market/viewRegistry';
 import { describe, it, expect } from 'vitest';
 import { umbrellaCardModel } from '../umbrellaModel';
 import { MARKET_VIEWS } from '../viewRegistry';
@@ -141,13 +142,75 @@ describe('state cards (backdrop)', () => {
     ]);
   });
 
-  it('should carry the macro group summary as the state card line (view-voice)', () => {
+  /**
+   * 5.305: the version of this test that shipped before 2026-09-12 asserted the
+   * 5.174 DEFECT and hid it. It set `summary` to
+   * "Macro conditions are mixed: two of three supportive." — points spelled in
+   * WORDS — and asserted `plainLine` equalled it. The real `summary` ends
+   * "(2 of 3 points)", so the assertion was strong, precise, and pinned the
+   * wrong behaviour (coding-standards §Testing class 3, "Wrong"). The fixtures
+   * below now carry the REAL shape of both fields.
+   */
+  const REAL_SUMMARY =
+    'Macro conditions are mixed: the dollar and liquidity on the supportive side, ' +
+    'yields on the restrictive side (2 of 3 points).';
+  const REAL_LEAD =
+    'Macro conditions are mixed: the dollar and liquidity on the supportive side, ' +
+    'yields on the restrictive side. The dollar is still below its 20 week trend. ' +
+    'Money has not got cheaper. Liquidity keeps expanding.';
+
+  const withCopy = (summary?: string, lead?: string) => {
     const data = macroData(['ACTIVE', 'INACTIVE', 'ACTIVE']);
-    (
-      data.signals as unknown as { signal_groups: { id: string; summary?: string }[] }
-    ).signal_groups[0].summary = 'Macro conditions are mixed: two of three supportive.';
-    const m = umbrellaCardModel(backdrop, data);
-    expect(m.plainLine).toBe('Macro conditions are mixed: two of three supportive.');
+    const group = (
+      data.signals as unknown as {
+        signal_groups: { id: string; summary?: string; state_view?: { lead: string } }[];
+      }
+    ).signal_groups[0];
+    if (summary !== undefined) group.summary = summary;
+    if (lead !== undefined) group.state_view = { lead };
+    return data;
+  };
+
+  it('should take the state-view lead, first sentence only (view-voice)', () => {
+    const m = umbrellaCardModel(backdrop, withCopy(REAL_SUMMARY, REAL_LEAD));
+    expect(m.plainLine).toBe(
+      'Macro conditions are mixed: the dollar and liquidity on the supportive side, ' +
+        'yields on the restrictive side.'
+    );
+  });
+
+  it('should carry NO score fragment on a state card (MM-2, 5.174)', () => {
+    // The binding rule: state views carry no score (viewRegistry.ts). The
+    // scored `summary` ends with the points parenthetical by design, so reading
+    // it here is the defect. Same regex the state-lead guard uses, so the two
+    // cannot drift apart.
+    const m = umbrellaCardModel(backdrop, withCopy(REAL_SUMMARY, REAL_LEAD));
+    expect(m.plainLine).not.toMatch(MM2_SCORE_FRAGMENT);
+  });
+
+  it('should REFUSE a score-carrying summary in the fallback, not publish it', () => {
+    // The first version of this test asserted plainLine === REAL_SUMMARY, a
+    // string ending "(2 of 3 points)". That made the fallback path publish the
+    // exact defect the fix exists for, and pinned it as acceptable — the 5.114
+    // class. MM-2 is structural: there is no payload old enough to justify a
+    // score on a state card.
+    const m = umbrellaCardModel(backdrop, withCopy(REAL_SUMMARY, undefined));
+    expect(m.plainLine).toBeUndefined();
+  });
+
+  it('should still fall back to a summary that carries no score', () => {
+    // Refusing is about the score, not about the fallback. A pre-state_view
+    // payload whose summary is clean is still better than a bare card.
+    const clean = 'Macro conditions are mixed: the dollar supportive, yields restrictive.';
+    const m = umbrellaCardModel(backdrop, withCopy(clean, undefined));
+    expect(m.plainLine).toBe(clean);
+  });
+
+  it('should leave the card usable without a plain line (it still has conditions)', () => {
+    // Why refusing is cheap: the card is not blank without plainLine.
+    const m = umbrellaCardModel(backdrop, withCopy(REAL_SUMMARY, undefined));
+    expect(m.available).toBe(true);
+    expect(m.conditions?.length).toBeGreaterThan(0);
   });
 
   it('should degrade honestly when the macro group or a component is missing (R-1′)', () => {

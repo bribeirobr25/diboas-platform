@@ -9,6 +9,9 @@
  * with no prior run we say HOLD, never MOVED.
  */
 
+import { MM2_SCORE_FRAGMENT } from '@/lib/market/viewRegistry';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
 import {
   priorRunSignals,
@@ -137,7 +140,7 @@ describe('composeStateLead — opening plus one beat per condition, fixed order'
       'en',
       null
     );
-    expect(out).not.toMatch(/\d\s*(of|de|von)\s*\d\s*(points|pontos|puntos|Punkten)/i);
+    expect(out).not.toMatch(MM2_SCORE_FRAGMENT);
   });
 
   it('should mark only the condition that actually moved', () => {
@@ -161,5 +164,71 @@ describe('composeStateLead — opening plus one beat per condition, fixed order'
       null
     );
     expect(out).not.toContain('MOVED');
+  });
+});
+
+/**
+ * 5.305 — the guard above asserts that `composeStateLead` does not ADD a score
+ * fragment, but it runs against an INJECTED synthetic template (`'OPEN-MIXED.'`)
+ * that could never contain one. It would pass unchanged if the SHIPPED
+ * `state-beats.json` carried a points parenthetical. That is the hole 5.174 fell
+ * through on the sibling path: the composer was clean, the data it composes was
+ * never checked. These assertions read the real template library.
+ */
+describe('the SHIPPED state templates carry no score fragment (MM-2, 5.305)', () => {
+  const TPL = JSON.parse(
+    readFileSync(
+      join(__dirname, '../../../../scripts/market-refresh/templates/state-beats.json'),
+      'utf8'
+    )
+  );
+  const LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
+  // One definition, in viewRegistry. It matches BOTH forms — rendered
+  // ("2 of 3 points") and, because these are TEMPLATES, unrendered
+  // ("{points} of {max} points"). An earlier copy here was rendered-only and
+  // the control case below failed immediately: a template score fragment would
+  // have sailed through.
+  const SCORE_FRAGMENT = MM2_SCORE_FRAGMENT;
+
+  it('should have no points parenthetical in ANY opening variant x locale', () => {
+    const offenders: string[] = [];
+    for (const [level, byLocale] of Object.entries(TPL.opening as Record<string, unknown>)) {
+      if (level.startsWith('_')) continue;
+      for (const loc of LOCALES) {
+        const s = (byLocale as Record<string, string>)[loc];
+        if (s && SCORE_FRAGMENT.test(s)) offenders.push(`opening.${level}.${loc}`);
+      }
+    }
+    expect(offenders, `state-view openings must carry no score: ${offenders.join(', ')}`).toEqual(
+      []
+    );
+  });
+
+  it('should have no points parenthetical in ANY beat x locale', () => {
+    const offenders: string[] = [];
+    for (const [id, byKey] of Object.entries(TPL.beat as Record<string, unknown>)) {
+      if (id.startsWith('_')) continue;
+      for (const [key, byLocale] of Object.entries(byKey as Record<string, unknown>)) {
+        if (key.startsWith('_')) continue;
+        for (const loc of LOCALES) {
+          const s = (byLocale as Record<string, string>)[loc];
+          if (s && SCORE_FRAGMENT.test(s)) offenders.push(`beat.${id}.${key}.${loc}`);
+        }
+      }
+    }
+    expect(offenders, `state-view beats must carry no score: ${offenders.join(', ')}`).toEqual([]);
+  });
+
+  it('should confirm the SCORED templates DO carry it — proving the regex works', () => {
+    // Without this control, "all clean" could just mean "the regex never matches
+    // anything". It earned its place on the first run: it failed, and the reason
+    // was that my regex only understood the rendered form.
+    const grp = JSON.parse(
+      readFileSync(
+        join(__dirname, '../../../../scripts/market-refresh/templates/group-summaries.json'),
+        'utf8'
+      )
+    );
+    expect(SCORE_FRAGMENT.test(grp.macro_environment.mixed.en)).toBe(true);
   });
 });

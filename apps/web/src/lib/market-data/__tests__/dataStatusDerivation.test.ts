@@ -205,3 +205,46 @@ describe('overall_confidence derivation', () => {
     expect(ds.overall_confidence).toBe('LOW');
   });
 });
+
+describe('the ETF panel row and the ETF signal must never contradict (5.301)', () => {
+  // Read the label off the registry rather than retyping it — a guessed source
+  // name silently returns undefined and every assertion below passes vacuously.
+  const ETF_SOURCE = SOURCE_REGISTRY.find((r: { source: string }) =>
+    r.source.startsWith('Polygon:ETF')
+  )!.source;
+
+  // Before this, a cadence gap left the ledger row on the FRESH branch — deep
+  // ledger, recent anchor — saying "Ledger live … ETF-01 scored from the
+  // trailing 4 weekly flows" beside a signal that had just said it could NOT
+  // be scored. That is 5.131's defect shape: two contradicting statements on
+  // one page.
+  const gappedComputed = () => {
+    const c = readJson('computed.json');
+    const etf = c.signals.find((x: { id: string }) => x.id === 'ETF-01');
+    etf.state = 'UNAVAILABLE';
+    etf.values = { snapshots: 9, warmupTarget: 5, variant: 'gapped', gapDays: 14 };
+    return c;
+  };
+
+  it('should mark the ledger UNAVAILABLE when the signal reports a gap', () => {
+    const row = bySource(deriveDataStatus(gappedComputed(), readSnapshots()), ETF_SOURCE);
+    expect(row?.status).toBe('UNAVAILABLE');
+    expect(row?.message).toContain('14-day gap');
+    expect(row?.message).not.toContain('Ledger live');
+  });
+
+  it('should degrade overall_confidence rather than reporting HIGH over a hole', () => {
+    expect(deriveDataStatus(gappedComputed(), readSnapshots()).overall_confidence).not.toBe('HIGH');
+  });
+
+  it('should carry no time-based downgrade for a gap (count-based, like warm-up)', () => {
+    // Time cannot make a missing snapshot worse; only recording clean weeks fixes it.
+    const row = bySource(deriveDataStatus(gappedComputed(), readSnapshots()), ETF_SOURCE);
+    expect(row?.delayed_after).toBeNull();
+  });
+
+  it('should still read FRESH for the real, ungapped committed data', () => {
+    const row = bySource(deriveDataStatus(readJson('computed.json'), readSnapshots()), ETF_SOURCE);
+    expect(row?.status).toBe('FRESH');
+  });
+});

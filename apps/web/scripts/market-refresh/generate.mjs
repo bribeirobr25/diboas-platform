@@ -65,6 +65,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { isDirectInvocation } from './lib/invocation.mjs';
+import { writeFileAtomic } from './lib/atomic.mjs';
+import { readArchiveRows, runDayIndex } from './lib/archive.mjs';
 import {
   MAX_BY_GROUP,
   GROUP_STATUS,
@@ -274,6 +277,8 @@ function signalSlots(sig, locale, prior) {
     positives: v.positives != null ? String(v.positives) : '',
     snapshots: v.snapshots != null ? String(v.snapshots) : '',
     warmupTarget: v.warmupTarget != null ? String(v.warmupTarget) : '',
+    // 5.301: the length of a non-weekly interval, for the gapped ETF sentence.
+    gapDays: v.gapDays != null ? String(v.gapDays) : '',
   };
   // Guard (2026-07-11 audit): a template slot that resolves to '' means the
   // engine didn't emit the value the sentence needs (the REL-03 empty-slot
@@ -313,10 +318,18 @@ function signalSentence(id, locale) {
   const sig = byId[id];
   const set = signalTpl[id]?.[sig.state];
   if (!set) return null;
+  // 5.301: one STATE can have more than one reason. ETF-01 is UNAVAILABLE both
+  // while warming up and when a weekly snapshot is missing, and the warm-up
+  // sentence ("{snapshots} of {warmupTarget} recorded") would publish "9 of 5"
+  // for the second. A variant named in `values.variant` selects its own
+  // wording; anything without one, or without that locale, falls back to the
+  // state's default sentence rather than rendering nothing.
+  const variant = sig.values?.variant;
+  const template = (variant && set.variants?.[variant]?.[locale]) || set[locale];
   return renderTemplate(
-    set[locale],
+    template,
     signalSlots(sig, locale),
-    `signal ${id} (${sig.state}, ${locale})`
+    `signal ${id} (${sig.state}${variant ? `/${variant}` : ''}, ${locale})`
   );
 }
 
@@ -478,23 +491,11 @@ function realSnapshotCount() {
   // after a correction) and off-cadence pairs; counting lines overstated how
   // much real history existed and was one half of why 44 seed points shipped
   // as measured history. The other half was a hand-flip of synthetic_seed.
+  // 5.302: the day-grouping rule itself now lives in archive.mjs, shared with
+  // priorRunSignals, so the two cannot answer "which days are real" differently.
   const archivePath = path.join(SHARED_DIR, 'run-archive.jsonl');
   if (!fs.existsSync(archivePath)) return 0;
-  const days = new Set(
-    fs
-      .readFileSync(archivePath, 'utf8')
-      .split('\n')
-      .filter(Boolean)
-      .map((line) => {
-        try {
-          return JSON.parse(line).run_at?.slice(0, 10) ?? null;
-        } catch {
-          return null;
-        }
-      })
-      .filter(Boolean)
-  );
-  return days.size;
+  return runDayIndex(readArchiveRows(fs.readFileSync(archivePath, 'utf8'))).size;
 }
 
 // ── write / check ───────────────────────────────────────────────────────────
@@ -514,7 +515,9 @@ async function writeJsonFormatted(p, obj) {
   } catch {
     /* prettier unavailable — raw JSON.stringify remains valid */
   }
-  fs.writeFileSync(p, text);
+  // 5.302: temp + rename. These four files are read by the site build; a
+  // truncated regime.json is a broken page, not a missing one.
+  writeFileAtomic(p, text);
 }
 
 async function patchEditorial(gen, write) {
@@ -669,25 +672,31 @@ async function patchEditorial(gen, write) {
   return drift;
 }
 
-const checkMode = process.argv.includes('--check');
-const gen = generate();
-const drift = await patchEditorial(gen, !checkMode);
+// Run ONLY when invoked directly: importing a writing script must be a no-op.
+// Why, and the two footguns in the obvious implementation: lib/invocation.mjs.
+// (generatedCopyReconciliation.test.ts shells out to `--check` rather than
+// importing, so nothing legitimate needs the imported path to do work.)
+if (isDirectInvocation(import.meta.url)) {
+  const checkMode = process.argv.includes('--check');
+  const gen = generate();
+  const drift = await patchEditorial(gen, !checkMode);
 
-console.log(`\n=== market generate (Stage 4) — ${checkMode ? 'CHECK' : 'WRITE'} ===`);
-console.log(
-  `  variant: week ${isoWeek(computed.computed_at.slice(0, 10)) % 3} · weekly-opener: ${weeklyOpener('en') ? 'on' : 'off (seed/no prior)'}`
-);
-console.log(`  plain (en): ${gen.plain.en.slice(0, 120)}…`);
-if (checkMode) {
-  if (drift.length) {
-    console.error(`\n✖ ${drift.length} editorial field(s) drift from the generator:`);
-    for (const d of drift) console.error(`    - ${d}`);
-    console.error('\n  Regenerate: node apps/web/scripts/market-refresh/generate.mjs\n');
-    process.exit(1);
-  }
-  console.log('  ✓ editorial JSONs match the generator (no drift)\n');
-} else {
+  console.log(`\n=== market generate (Stage 4) — ${checkMode ? 'CHECK' : 'WRITE'} ===`);
   console.log(
-    `  wrote ${drift.length} changed field(s) across regime.json / signals.json / historical.json\n`
+    `  variant: week ${isoWeek(computed.computed_at.slice(0, 10)) % 3} · weekly-opener: ${weeklyOpener('en') ? 'on' : 'off (seed/no prior)'}`
   );
+  console.log(`  plain (en): ${gen.plain.en.slice(0, 120)}…`);
+  if (checkMode) {
+    if (drift.length) {
+      console.error(`\n✖ ${drift.length} editorial field(s) drift from the generator:`);
+      for (const d of drift) console.error(`    - ${d}`);
+      console.error('\n  Regenerate: node apps/web/scripts/market-refresh/generate.mjs\n');
+      process.exit(1);
+    }
+    console.log('  ✓ editorial JSONs match the generator (no drift)\n');
+  } else {
+    console.log(
+      `  wrote ${drift.length} changed field(s) across regime.json / signals.json / historical.json\n`
+    );
+  }
 }

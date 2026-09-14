@@ -26,6 +26,22 @@
  * (D-M2-3ii) is retired — its ≤2-week commitment was met.
  */
 
+/**
+ * The score parenthetical a state surface must never carry — ONE definition.
+ *
+ * MM-2 says state views carry no score, and that is structural, not cosmetic.
+ * The rule was being enforced by three separate regexes living in two test
+ * files and nowhere in shipped code, so `umbrellaModel`'s own comment claiming
+ * the guards "cannot drift apart" was false — they were copies. A rule worth
+ * three tests is worth one definition.
+ *
+ * Matches both forms: RENDERED ("2 of 3 points") and, because the pipeline's
+ * inputs are templates, UNRENDERED ("{points} of {max} points"). The four
+ * locale nouns are the four the corpus ships.
+ */
+export const MM2_SCORE_FRAGMENT =
+  /(\d+|\{points\})\s*(of|de|von)\s*(\d+|\{max\})\s*(points|pontos|puntos|Punkten)/i;
+
 /** MM-2 (2026-08-12): scored views share the five band words; state views use
  *  qualitative vocabularies (e.g. Steady/Watch/Stressed) and carry no score. */
 export type MarketViewGrammar = 'scored' | 'state';
