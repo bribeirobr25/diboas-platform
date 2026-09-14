@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import Decimal from 'decimal.js';
 import { FormattedMessage, useIntl } from 'react-intl';
 import type { RecurringSchedule } from '@diboas/banking';
 import { useFormatters } from '@/hooks/useFormatters';
 import { setRecurring } from '@/lib/ledgerClient';
+import { selectRecurringView } from '@/view/home';
 import { LucideIcon } from './LucideIcon';
 import styles from './RecurringControl.module.css';
 
@@ -36,11 +36,12 @@ export function RecurringControl({
   const [editing, setEditing] = useState(false);
   const [amount, setAmount] = useState(schedule ? schedule.monthlyAmount : '');
 
-  const working = new Decimal(workingBalance);
   const amountValue = Number(amount) || 0;
   const canConfirm = amountValue > 0;
   // Derived paused: an active schedule that Working money can no longer fund.
-  const paused = schedule != null && working.lte(0);
+  // VIEW-2: the rule lives in `view/`, so this component needs the boolean, not
+  // the balance — it imported `Decimal` solely to produce this one flag.
+  const { paused } = selectRecurringView({ workingBalance, hasSchedule: schedule != null });
 
   function confirm() {
     if (!canConfirm) return;

@@ -7,7 +7,6 @@ import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import type { GoalState, LedgerState } from '@diboas/banking';
 import type { SandboxLocale } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
-import { goalCurrentValue } from '@/lib/goalValue';
 import { GoalRow } from './GoalRow';
 import { LucideIcon } from './LucideIcon';
 import { SegmentedToggle } from './SegmentedToggle';
@@ -130,7 +129,7 @@ export function GoalsListScreen({ locale }: { locale: SandboxLocale }) {
                   <GoalRow
                     locale={locale}
                     goal={goal}
-                    current={goalCurrentValue(state, goal.goalId)}
+                    state={state}
                     hasOpenPositions={state.positions.some(
                       (p) => p.goalId === goal.goalId && p.open
                     )}
@@ -150,11 +149,7 @@ export function GoalsListScreen({ locale }: { locale: SandboxLocale }) {
               <ul className={styles.goals}>
                 {closed.map((goal) => (
                   <li key={goal.goalId}>
-                    <GoalRow
-                      locale={locale}
-                      goal={goal}
-                      current={goalCurrentValue(state, goal.goalId)}
-                    />
+                    <GoalRow locale={locale} goal={goal} state={state} />
                   </li>
                 ))}
               </ul>

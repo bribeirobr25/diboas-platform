@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import Decimal from 'decimal.js';
 import { FormattedMessage, useIntl } from 'react-intl';
 import type { SandboxLocale } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
+import { selectWeeklyCycleView } from '@/view/home';
 import { useFormatters } from '@/hooks/useFormatters';
 import { applyRuleProposal, collectWeeklyCredits, declineProposal } from '@/lib/ledgerClient';
 import { getCollectView, deriveStandingProposal } from '@/lib/weeklyCycle';
@@ -44,12 +44,19 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
   const [tick, setTick] = useState(0);
 
   const collect = getCollectView(state, new Date().toISOString());
-  const weeklyAmount = new Decimal(weeklyCreditAmount(state.mode));
-  const collectable = weeklyAmount.mul(collect.weeks.length);
 
   // Derived, never stored: the proposal re-computes from the ledger on every
   // render, so a stale one is impossible by construction (W-8).
   const proposal = deriveStandingProposal(state, getDeclinedWeeks(), `p-${tick}`);
+
+  // VIEW-2: the weekly figures are derived in `view/`. `weeklyAmount` existed
+  // here only to multiply into `collectable`, and both were `Decimal` purely to
+  // be rendered — the component never compared them.
+  const { collectable, remainderToAvailable } = selectWeeklyCycleView({
+    weeklyCreditAmount: weeklyCreditAmount(state.mode),
+    uncollectedWeeks: collect.weeks.length,
+    remainderToAvailable: proposal?.remainderToAvailable ?? 0,
+  });
   const goalOf = (goalId: string) => state.goals.find((g) => g.goalId === goalId);
 
   /**
@@ -122,7 +129,7 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
           </p>
           <p className={styles.amountRow}>
             <LucideIcon name="coins" size={22} />
-            <span className={styles.amount}>{money(collectable.toFixed(2))}</span>
+            <span className={styles.amount}>{money(collectable)}</span>
           </p>
           <p className={styles.amountNote}>
             <FormattedMessage id="weekly.creditsFor" values={{ weeks: collect.weeks.length }} />
@@ -209,9 +216,7 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
               <span className={styles.lineName}>
                 <FormattedMessage id="weekly.remainder" />
               </span>
-              <span className={styles.lineValue}>
-                {money(new Decimal(proposal.remainderToAvailable).toFixed(2))}
-              </span>
+              <span className={styles.lineValue}>{money(remainderToAvailable)}</span>
             </li>
           </ul>
 

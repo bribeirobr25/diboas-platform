@@ -1,17 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import Decimal from 'decimal.js';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import type { GoalState } from '@diboas/banking';
+import type { GoalState, LedgerState } from '@diboas/banking';
 import type { SandboxLocale } from '@/i18n/config';
 import { goalAccentIndex } from '@/lib/goalAccent';
+import { selectGoalRowView } from '@/view/home';
 import { LucideIcon } from './LucideIcon';
 import styles from './GoalRow.module.css';
 
-function Amount({ value }: { value: Decimal }) {
+function Amount({ value }: { value: string }) {
   return (
-    <FormattedNumber value={value.toNumber()} minimumFractionDigits={2} maximumFractionDigits={2} />
+    <FormattedNumber value={Number(value)} minimumFractionDigits={2} maximumFractionDigits={2} />
   );
 }
 
@@ -26,21 +26,30 @@ function Amount({ value }: { value: Decimal }) {
 export function GoalRow({
   locale,
   goal,
-  current,
+  state,
   hasOpenPositions = false,
 }: {
   locale: SandboxLocale;
   goal: GoalState;
-  current: Decimal;
+  /**
+   * VIEW-2: the row receives the ledger STATE and derives nothing itself. It
+   * previously took `current: Decimal` as a prop, so a Decimal crossed the
+   * component boundary from two different call sites and the ratio rule was
+   * re-implemented here — the same clamp `selectGoalProgress` already owns.
+   */
+  state: LedgerState;
   /** Whether the goal has open positions — gates the honest half of the
    *  paused duality line ("Money still working" must never render when
    *  nothing is working). */
   hasOpenPositions?: boolean;
 }) {
-  const target = new Decimal(goal.targetAmount);
-  const ratio = target.gt(0) ? Decimal.min(current.div(target), 1).mul(100).toNumber() : 0;
-  const closed = goal.status === 'dropped' || goal.status === 'accomplished';
-  const paused = goal.status === 'paused';
+  const {
+    current,
+    target,
+    ratioPercent: ratio,
+    closed,
+    paused,
+  } = selectGoalRowView(state, goal.goalId);
 
   return (
     <Link

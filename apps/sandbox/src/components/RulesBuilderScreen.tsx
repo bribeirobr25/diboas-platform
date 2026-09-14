@@ -2,12 +2,13 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Decimal from 'decimal.js';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { allocateByRule, isValidRuleSplit } from '@diboas/investing';
+import { isValidRuleSplit } from '@diboas/investing';
 import { weeklyCreditAmount } from '@/lib/growthConstants';
 import type { SandboxLocale } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
+import { selectRulesPreview } from '@/view/home';
+import { allocateByRule } from '@diboas/investing';
 import { useFormatters } from '@/hooks/useFormatters';
 import { createRule, updateRule } from '@/lib/ledgerClient';
 import { getCollectView } from '@/lib/weeklyCycle';
@@ -87,9 +88,15 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
    * credits" and must not quietly become a demo.
    */
   const waitingWeeks = getCollectView(state, new Date().toISOString()).weeks.length;
-  const waiting = new Decimal(weeklyCreditAmount(state.mode)).mul(waitingWeeks);
-  const allocation = allocateByRule(waiting.toNumber(), split);
-  const distributed = waiting.minus(allocation.remainderToAvailable);
+  // VIEW-2: the preview is derived in `view/`. `allocateByRule` remains the
+  // authoritative domain function — it is passed IN rather than called here, so
+  // the arithmetic leaves the component while the rule keeps one owner.
+  const preview = selectRulesPreview({
+    weeklyCreditAmount: weeklyCreditAmount(state.mode),
+    waitingWeeks,
+    allocate: allocateByRule,
+    split,
+  });
 
   function setRow(index: number, patch: Partial<Row>) {
     setRows((prev) => prev.map((r, i) => (i === index ? { ...r, ...patch } : r)));
@@ -250,21 +257,19 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
                 <dt>
                   <FormattedMessage id="rules.waitingCredits" />
                 </dt>
-                <dd>{money(waiting.toFixed(2))}</dd>
+                <dd>{money(preview.waiting)}</dd>
               </div>
               <div className={styles.previewRow}>
                 <dt>
                   <FormattedMessage id="rules.willBeDistributed" />
                 </dt>
-                <dd>{money(distributed.toFixed(2))}</dd>
+                <dd>{money(preview.distributed)}</dd>
               </div>
               <div className={styles.previewRow}>
                 <dt>
                   <FormattedMessage id="rules.staysInAvailable" />
                 </dt>
-                <dd className={styles.previewRemainder}>
-                  {money(new Decimal(allocation.remainderToAvailable).toFixed(2))}
-                </dd>
+                <dd className={styles.previewRemainder}>{money(preview.remainderToAvailable)}</dd>
               </div>
             </dl>
             {waitingWeeks === 0 ? (

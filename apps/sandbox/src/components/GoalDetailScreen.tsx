@@ -1,8 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
-import Decimal from 'decimal.js';
+import { useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { getStrategy } from '@diboas/defi';
 import type { ProtocolApyHistory } from '@diboas/defi';
@@ -15,13 +14,18 @@ import {
   enterStrategy,
   exitPosition,
   pauseGoal,
-  previewGoalStop,
-  previewPositionStop,
   resumeGoal,
-  splitEntry,
   stopGoalStrategies,
 } from '@/lib/ledgerClient';
-import { goalCurrentValue } from '@/lib/goalValue';
+import {
+  selectAmountSign,
+  selectCanInvest,
+  selectEntrySplit,
+  selectExitPreview,
+  selectGoalDetailView,
+  selectPositionValue,
+} from '@/view/home';
+import { previewGoalStop, previewPositionStop, splitEntry } from '@/lib/ledgerClient';
 import { positionValueSeries } from '@/lib/positionSeries';
 import { BottomSheet } from './BottomSheet';
 import { goalAccentIndex } from '@/lib/goalAccent';
@@ -54,18 +58,6 @@ type View = 'simple' | 'detailed';
  * stats, source-separation, positions, recurring, exit, and the put-to-work
  * flow — every movement through the manifest, every figure stamped.
  */
-/**
- * The sign of a money figure, for colour. Earnings can be NEGATIVE since the
- * §4.8 replay (market legs replay the token's own price), and this app's
- * colour grammar gives a gain `financial-positive` and a fall
- * `financial-negative` — so a fallen position must never read in the gain
- * colour. Zero claims neither.
- */
-function amountSign(amount: string): 'pos' | 'neg' | 'none' {
-  const value = new Decimal(amount);
-  return value.gt(0) ? 'pos' : value.lt(0) ? 'neg' : 'none';
-}
-
 export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; goalId: string }) {
   const intl = useIntl();
   const state = useLedger();
@@ -103,8 +95,6 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   // goal as held-as-cash once the LAST open position has actually exited.
   const [completeAfterExit, setCompleteAfterExit] = useState(false);
 
-  const current = useMemo(() => goalCurrentValue(state, goalId), [state, goalId]);
-
   // The G6 chart's history: fetched only once a strategy is actually being
   // read (never on mount — the goal page must not pay for data it may not
   // show). Server-cached at the ruled 6h TTL, so re-reads are free. R-rows:
@@ -138,10 +128,11 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
 
   const strategy = strategyId ? getStrategy(strategyId) : undefined;
   const investValue = Number(investAmount) || 0;
-  const cash = new Decimal(goal.cash);
   const feeLocal =
     strategy && market ? networkFeeLocal(market.gas, strategy.entryChain, market.usdPriceLocal) : 0;
-  const canInvest = investValue > 0 && cash.gte(new Decimal(investValue));
+  // VIEW-2: the affordability guard gates a real money movement, so it is
+  // derived and unit-tested rather than computed in the render body.
+  const canInvest = selectCanInvest(state, goalId, investValue);
 
   function approveEntry() {
     if (!strategy || !canInvest || busy) return;
@@ -195,22 +186,14 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
     setExitIntent(null);
   }
 
-  const targetReached = new Decimal(goal.targetAmount).gt(0) && current.gte(goal.targetAmount);
-  const ratio = new Decimal(goal.targetAmount).gt(0)
-    ? Decimal.min(current.div(goal.targetAmount), 1).mul(100).toNumber()
-    : 0;
-
-  // The goal's total recurring monthly (across its positions) drives the honest
-  // path projection (C2) — the far-off-goal display deferred from 2c.
-  const goalMonthly = state.recurring
-    .filter((r) => r.goalId === goalId)
-    .reduce((acc, r) => acc.plus(r.monthlyAmount), new Decimal(0))
-    .toNumber();
-
-  const contributionsTotal = state.events
-    .filter((e) => e.type === 'GoalFunded' && e.goalId === goalId)
-    .reduce((acc, e) => acc.plus((e as { amount: string }).amount), new Decimal(0))
-    .toFixed(2);
+  // VIEW-2: every figure below is DERIVED. This block re-implemented
+  // `targetReached` and the clamped ratio that `selectGoalProgress` already
+  // owned (`5.224`), summed recurring schedules and walked the event log — all
+  // in the render body of a two-view component, so each figure fed several
+  // render sites. The selector returns both shapes its consumers need: display
+  // strings for money, plain numbers for the numeric `Projection` props.
+  const detail = selectGoalDetailView(state, goalId);
+  const { targetReached, ratioPercent: ratio, goalMonthly, contributionsTotal } = detail;
 
   const progressBar = (
     <span
@@ -250,12 +233,20 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   // G7 (§4.7): the exit ceremony takes the WHOLE screen — this is the last
   // read before money moves, and a bottom sheet cannot carry an itemization
   // that grows with the number of positions.
-  const exitPreview =
-    exitIntent && canPriceExit
-      ? exitIntent.scope === 'goal'
-        ? previewGoalStop(goalId, exitFeeFor)
-        : previewPositionStop(exitIntent.positionId, exitFeeFor(exitIntent.positionId))
-      : null;
+  // VIEW-2 at `error` caught this one: the exit preview is a money derivation
+  // (it itemizes principal, accrued, exit fee and network fee per position),
+  // and it was composed here in the render body. The domain functions are
+  // passed in, so they keep one owner; the `null` contract is unchanged, so a
+  // goal with nothing open still says so instead of rendering a zeroed
+  // ceremony.
+  const exitPreview = selectExitPreview({
+    intent: exitIntent,
+    canPrice: canPriceExit,
+    goalId,
+    feeFor: exitFeeFor,
+    previewGoal: previewGoalStop,
+    previewPosition: previewPositionStop,
+  });
 
   if (exitIntent && exitPreview) {
     return (
@@ -390,7 +381,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
           <p className={styles.savedLine}>
             <FormattedMessage
               id="goalDetail.progress"
-              values={{ current: money(current.toFixed(2)), target: money(goal.targetAmount) }}
+              values={{ current: money(detail.current), target: money(goal.targetAmount) }}
             />
           </p>
           <p className={styles.percentLine}>
@@ -402,7 +393,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             <Projection
               target={Number(goal.targetAmount)}
               monthlyContribution={goalMonthly}
-              currentValue={current.toNumber()}
+              currentValue={detail.currentValue}
               horizonMonths={goal.horizonMonths}
               currency={state.currency}
             />
@@ -430,9 +421,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                       id="goalDetail.investedLine"
                       values={{
                         strategy: strategyName,
-                        amount: money(
-                          new Decimal(position.principal).plus(position.accrued).toFixed(2)
-                        ),
+                        amount: money(selectPositionValue(position)),
                       }}
                     />
                   </p>
@@ -454,7 +443,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             3. <FormattedMessage id="goalDual.nextLabel" />
           </h2>
           <div className={styles.actionTiles}>
-            {cash.gt(0) ? (
+            {detail.hasCash ? (
               <button
                 type="button"
                 className={styles.actionTile}
@@ -553,7 +542,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             <Projection
               target={Number(goal.targetAmount)}
               monthlyContribution={goalMonthly}
-              currentValue={current.toNumber()}
+              currentValue={detail.currentValue}
               horizonMonths={goal.horizonMonths}
               currency={state.currency}
             />
@@ -584,16 +573,14 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                       id="goalDetail.investedLine"
                       values={{
                         strategy: strategyName,
-                        amount: money(
-                          new Decimal(position.principal).plus(position.accrued).toFixed(2)
-                        ),
+                        amount: money(selectPositionValue(position)),
                       }}
                     />
                   </h2>
                   <p className={styles.earningsTitle}>
                     <FormattedMessage id="goalDetail.earningsTitle" />
                   </p>
-                  <p className={styles.earningsLine} data-sign={amountSign(position.accrued)}>
+                  <p className={styles.earningsLine} data-sign={selectAmountSign(position.accrued)}>
                     <FormattedMessage
                       id="goalDetail.earningsLine"
                       values={{ amount: money(position.accrued) }}
@@ -627,7 +614,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             })
           )}
 
-          {cash.gt(0) ? (
+          {detail.hasCash ? (
             <div className={styles.investBlock}>
               {!pickerOpen ? (
                 <button
@@ -727,7 +714,13 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             },
             {
               labelId: 'manifest.amountLabel',
-              value: money(splitEntry(investValue, feeLocal).invested.toFixed(2)),
+              value: money(
+                selectEntrySplit({
+                  totalFromCash: investValue,
+                  networkFeeLocal: feeLocal,
+                  split: splitEntry,
+                }).invested
+              ),
             },
             {
               labelId: 'manifest.riskLabel',
