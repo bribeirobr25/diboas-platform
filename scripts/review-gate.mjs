@@ -220,8 +220,38 @@ function checkStaged() {
    * filename sweep uses the FULL list (not the self-excluded one): a path rule
    * has no legitimate exception, and this file's own path is not a canon path.
    */
-  const pathsAndLines = [...added, ...files];
-  for (const [label, re] of NEVER) if (pathsAndLines.some((l) => re.test(l))) hard.push(label);
+  /**
+   * ⚑ NARROWED 2026-09-14, the same day the filename sweep was added — because
+   * the sweep then refused this very batch over two lines that merely NAME
+   * `docs/sandbox-app/legal-current/` while explaining why approved strings are
+   * embedded rather than read at runtime. A path RULE is about where a file
+   * lives; a path MENTION inside prose is a reference, not a leak. So:
+   *
+   *   - protected path as a staged FILENAME  -> always a refusal (this is the
+   *     half that caught the independent audit's canon probe, and it does not
+   *     move);
+   *   - protected path inside an added LINE  -> only when it is NOT being
+   *     discussed, i.e. not wrapped in backticks or quotes.
+   *
+   * Same shape as the `counts` narrowing above, and the same lesson for the
+   * third time in one day: a detector that cannot tell a mention from an
+   * assertion will eventually refuse its own documentation.
+   */
+  const mentioned = (line, re) => {
+    const m = line.match(re);
+    if (!m) return false;
+    const quoted = new RegExp(
+      '["\'\u201c\u201d`][^"\'\u201c\u201d`]*' + m[0].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    );
+    return !quoted.test(line);
+  };
+  for (const [label, re] of NEVER) {
+    if (files.some((f) => re.test(f))) {
+      hard.push(`${label} (staged FILE)`);
+      continue;
+    }
+    if (added.some((l) => mentioned(l, re))) hard.push(`${label} (unquoted in an added line)`);
+  }
   // WARN stays line-only: a filename containing % or $ is not a disclosure risk.
   for (const [label, re] of WARN) if (added.some((l) => re.test(l))) soft.push(label);
 
