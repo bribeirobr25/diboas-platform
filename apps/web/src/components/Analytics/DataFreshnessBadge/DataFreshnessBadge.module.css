@@ -13,6 +13,15 @@
   background-color: var(--editorial-paper);
 }
 
+/* The status icon is a fixed 12px mark, never a flex item that gives up width.
+   Default `flex-shrink: 1` squashed it to 9.2 x 12 — a distorted triangle — on
+   the ONE row whose label wraps: "Rendite 10-jähriger US-Staatsanleihen" in
+   German at 375px. Measured in the 2026-09-14 visual pass; the wrap depends on
+   label LENGTH, not status, so this was reachable on /de before STALE existed. */
+.badge svg {
+  flex-shrink: 0;
+}
+
 .badge[data-status='fresh'] svg {
   color: var(--editorial-teal);
 }

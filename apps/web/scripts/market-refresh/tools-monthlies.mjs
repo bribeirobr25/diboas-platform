@@ -25,6 +25,8 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { isDirectInvocation } from './lib/invocation.mjs';
+import { writeJsonAtomic } from './lib/atomic.mjs';
 import { expectedConfirmedMonthYM } from './lib/regime-engine.mjs';
 import { fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { assertOhlcBar } from './lib/quality-gate.mjs';
@@ -89,33 +91,38 @@ async function appendPriceMonths(expectedYm, check) {
     if (!check) months.push(row);
   }
   if (!check && planned.length)
-    fs.writeFileSync(PRICES_PATH, JSON.stringify(prices, null, 2) + '\n');
+    // 5.302: temp + rename — this file also backs the Money Tools calculators.
+    writeJsonAtomic(PRICES_PATH, prices);
   return planned;
 }
 
-const checkMode = process.argv.includes('--check');
-const expectedYm = expectedConfirmedMonthYM(TODAY);
+// Run ONLY when invoked directly: importing a writing script must be a no-op.
+// Why, and the two footguns in the obvious implementation: lib/invocation.mjs.
+if (isDirectInvocation(import.meta.url)) {
+  const checkMode = process.argv.includes('--check');
+  const expectedYm = expectedConfirmedMonthYM(TODAY);
 
-console.log(
-  `\n=== tools-monthlies (F-M8) — ${checkMode ? 'CHECK' : 'APPEND'} · expected month ${expectedYm} ===`
-);
-const planned = await appendPriceMonths(expectedYm, checkMode);
-if (!planned.length) {
-  console.log(`  all price series already carry ${expectedYm} — nothing to do.\n`);
-} else {
-  for (const p of planned)
-    console.log(
-      `  ${checkMode ? 'MISSING' : 'appended'} ${p.code} ${expectedYm} close ${p.row.close}`
-    );
   console.log(
-    `\n  NOTE: FX (ECB EUR+crosses, BCB PTAX BRL) + the Alpha-Vantage cross-check are the` +
-      `\n  runbook's manual step this cycle — automate in a follow-up; equity/ETF appends are gated above.\n`
+    `\n=== tools-monthlies (F-M8) — ${checkMode ? 'CHECK' : 'APPEND'} · expected month ${expectedYm} ===`
   );
-}
+  const planned = await appendPriceMonths(expectedYm, checkMode);
+  if (!planned.length) {
+    console.log(`  all price series already carry ${expectedYm} — nothing to do.\n`);
+  } else {
+    for (const p of planned)
+      console.log(
+        `  ${checkMode ? 'MISSING' : 'appended'} ${p.code} ${expectedYm} close ${p.row.close}`
+      );
+    console.log(
+      `\n  NOTE: FX (ECB EUR+crosses, BCB PTAX BRL) + the Alpha-Vantage cross-check are the` +
+        `\n  runbook's manual step this cycle — automate in a follow-up; equity/ETF appends are gated above.\n`
+    );
+  }
 
-if (checkMode && planned.length) {
-  console.error(
-    `✖ ${planned.length} price series missing ${expectedYm} — run tools-monthlies.mjs\n`
-  );
-  process.exit(1);
+  if (checkMode && planned.length) {
+    console.error(
+      `✖ ${planned.length} price series missing ${expectedYm} — run tools-monthlies.mjs\n`
+    );
+    process.exit(1);
+  }
 }

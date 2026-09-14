@@ -23,6 +23,7 @@
  * template library, matching `regime-engine.mjs`'s convention.
  */
 
+import { readArchiveRows, runDayIndex } from './archive.mjs';
 import { fill, groupLevel, MAX_BY_GROUP, composeMixed } from './group-summaries.mjs';
 
 /** The three macro conditions, in the order the page always reads them. */
@@ -44,24 +45,14 @@ const STATE_GROUP_ID = 'macro_environment';
  * @returns {Record<string, {state: string, values: object}>|null}
  */
 export function priorRunSignals(archiveText, currentRunAt) {
-  if (!archiveText) return null;
   const today = String(currentRunAt).slice(0, 10);
-  const byDay = new Map();
-  for (const line of archiveText.split('\n')) {
-    if (!line) continue;
-    let row;
-    try {
-      row = JSON.parse(line);
-    } catch {
-      continue; // a truncated tail must not take the pipeline down
-    }
-    const day = row.run_at?.slice(0, 10);
-    if (!day || day >= today) continue;
-    byDay.set(day, row); // later line for the same day wins
-  }
-  if (!byDay.size) return null;
-  const lastDay = [...byDay.keys()].sort().pop();
-  const signals = byDay.get(lastDay)?.signals;
+  // 5.302: parsing and the later-line-wins rule live in archive.mjs now — this
+  // loop used to be written out here, again in realSnapshotCount, and a third
+  // time for the historical append.
+  const byDay = runDayIndex(readArchiveRows(archiveText));
+  const priorDays = [...byDay.keys()].filter((d) => d < today).sort();
+  if (!priorDays.length) return null;
+  const signals = byDay.get(priorDays[priorDays.length - 1])?.signals;
   if (!Array.isArray(signals)) return null;
   return Object.fromEntries(signals.map((s) => [s.id, s]));
 }

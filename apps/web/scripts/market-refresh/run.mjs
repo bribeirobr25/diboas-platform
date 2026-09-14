@@ -23,6 +23,8 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { isDirectInvocation } from './lib/invocation.mjs';
+import { writeFileAtomic } from './lib/atomic.mjs';
 import {
   evaluateBtcStructure,
   evaluateMacro,
@@ -47,6 +49,7 @@ import {
   resolveEtfSignals,
   WARMUP_SNAPSHOTS,
 } from './lib/etf-flows.mjs';
+import { archiveSignals, archiveLine } from './lib/archive.mjs';
 import { fetchYahooDaily, fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { fetchBtcMonthCloseVerifier } from './providers/coingecko.mjs';
 import { btcMonths, appendBtcMonth, REPO_ROOT } from './providers/inrepo.mjs';
@@ -238,48 +241,55 @@ async function main() {
           divergence_pct: Number(appendResult.divergencePct.toFixed(3)),
         }
       : null,
-    signals: all.map(
-      ({ id, state, weight, detail, values = null, anchor = null, anchorKind = null }) => ({
-        id,
-        state,
-        weight,
-        points: state === 'ACTIVE' ? weight : 0,
-        detail,
-        // Structured values feed the Stage-4 template generator (never re-parsed
-        // from `detail`). warmup fields injected for the ETF UNAVAILABLE case.
-        values:
-          id === 'ETF-01' && state === 'UNAVAILABLE'
-            ? { snapshots: etfSnapshots.length, warmupTarget: WARMUP_SNAPSHOTS }
-            : values,
-        anchor,
-        anchorKind,
-      })
-    ),
+    // 5.187a: one producer for the signal record, shared with the manual CLI so
+    // the two archive writers cannot drift apart again.
+    signals: archiveSignals(all, { etfSnapshotCount: etfSnapshots.length }),
     sources: [dxy, us10y, m2, nasdaq, btc, gold].map((s) => s.provenance),
   };
-  fs.writeFileSync(COMPUTED_PATH, JSON.stringify(computed, null, 2) + '\n');
+  // ── publish ──────────────────────────────────────────────────────────────
+  // 5.302: DERIVE EVERYTHING BEFORE PUBLISHING ANYTHING. `archiveLine()` can
+  // throw on unexpected engine output, and building it after `computed.json`
+  // was already on disk is exactly how you get published data with no
+  // provenance row — a state `realSnapshotCount` reads as "that week never
+  // ran". Both payloads now exist before either lands.
+  const archiving = !process.argv.includes('--no-archive');
+  const archiveText = archiving
+    ? JSON.stringify(
+        archiveLine({
+          runAt: computed.computed_at,
+          pipeline: 'market-refresh/run.mjs',
+          score,
+          regimeCode: band.code,
+          groupTotals,
+          published,
+          anchorSpreadDays: computed.anchor_spread_days,
+          anchorWarning: warning,
+          btcAppend: computed.btc_append,
+          signals: computed.signals,
+        })
+      ) + '\n'
+    : null;
+
+  writeFileAtomic(COMPUTED_PATH, JSON.stringify(computed, null, 2) + '\n');
   console.log(`  Wrote ${path.relative(REPO_ROOT, COMPUTED_PATH)}`);
 
-  // ── Run archive (append-only) ────────────────────────────────────────────
-  if (!process.argv.includes('--no-archive')) {
-    const line = {
-      run_at: computed.computed_at,
-      pipeline: 'market-refresh/run.mjs',
-      computed: { score, regime_code: band.code, group_totals: groupTotals },
-      published: published ? { score: published.score, regime_code: published.regime_code } : null,
-      anchor_spread_days: computed.anchor_spread_days,
-      anchor_warning: warning,
-      btc_append: computed.btc_append,
-      signals: computed.signals,
-    };
-    fs.appendFileSync(ARCHIVE_PATH, JSON.stringify(line) + '\n');
+  // The archive stays APPEND-ONLY and is deliberately not made "idempotent" by
+  // rewriting same-day lines: a correction re-run is a real event, and a ledger
+  // you edit is not a provenance authority. Duplicate DAYS are collapsed on
+  // READ instead, by the one shared rule in archive.mjs#runDayIndex.
+  if (archiveText) {
+    fs.appendFileSync(ARCHIVE_PATH, archiveText);
     console.log(`  Archived run → ${path.relative(REPO_ROOT, ARCHIVE_PATH)}\n`);
   }
 }
 
-main().catch((e) => {
-  console.error(
-    `\n✖ market-refresh failed closed — nothing written beyond the log:\n  ${e.message}`
-  );
-  process.exit(1);
-});
+// Run ONLY when invoked directly: importing a writing script must be a no-op.
+// Why, and the two footguns in the obvious implementation: lib/invocation.mjs.
+if (isDirectInvocation(import.meta.url)) {
+  main().catch((e) => {
+    console.error(
+      `\n✖ market-refresh failed closed — nothing written beyond the log:\n  ${e.message}`
+    );
+    process.exit(1);
+  });
+}

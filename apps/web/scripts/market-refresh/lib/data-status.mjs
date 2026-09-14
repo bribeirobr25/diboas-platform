@@ -32,7 +32,7 @@
  * notes live in git history (delete-after-execution).
  */
 
-import { expectedConfirmedMonthYM } from './regime-engine.mjs';
+import { expectedConfirmedMonthYM, MONTH_APPEND_GRACE_DAYS } from './regime-engine.mjs';
 import { WARMUP_SNAPSHOTS } from './etf-flows.mjs';
 
 const DAY_MS = 86400000;
@@ -101,6 +101,10 @@ function weeklyEntry(source, anchorStr, run) {
     last_updated_at: iso(anchor),
     expected_next_update_at: iso(expectedNext),
     stale_after: iso(addDays(expectedNext, 7)),
+    // 5.173: the instant THIS rule flips FRESH -> DELAYED. Shipped so the page
+    // can re-evaluate freshness at READ time without re-implementing the
+    // cadence policy, which stays here. Weekly: anchor + the lag allowance.
+    delayed_after: iso(addDays(anchor, WEEKLY_LAG_ALLOWANCE_DAYS)),
     message,
   };
 }
@@ -127,6 +131,14 @@ function btcMonthlyEntry(source, anchorStr, run) {
     last_updated_at: iso(confirmedEnd),
     expected_next_update_at: iso(at(nextEnd, 23, 59, 59)),
     stale_after: iso(addDays(monthEnd(anchor, 2), 1)),
+    // 5.173: this source is FRESH while `anchor === expectedConfirmedMonthYM(now)`.
+    // That equality breaks the first moment the grace window closes two months
+    // on: day 4 of (anchor month + 2). Derived from the same rule, not guessed.
+    delayed_after: iso(
+      new Date(
+        Date.UTC(anchor.getUTCFullYear(), anchor.getUTCMonth() + 2, MONTH_APPEND_GRACE_DAYS + 1)
+      )
+    ),
     message,
   };
 }
@@ -149,10 +161,13 @@ function m2Entry(source, anchorStr, run) {
     last_updated_at: iso(anchor),
     expected_next_update_at: iso(due),
     stale_after: iso(monthEnd(anchor, 3)),
+    // 5.173: FRESH until the next print is overdue — `due` IS that instant.
+    delayed_after: iso(due),
     message,
   };
 }
 
+/** @param signal the ETF-01 signal RECORD (not its id) — see deriveDataStatus. */
 function etfLedgerEntry(source, signal, snapshots, run) {
   const count = snapshots.length;
   const anchorStr = count ? snapshots[count - 1].anchor : ymd(run);
@@ -164,6 +179,31 @@ function etfLedgerEntry(source, signal, snapshots, run) {
     '(P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds).';
   let status;
   let message;
+  // 5.301: a cadence GAP is neither warm-up nor staleness — the ledger is deep
+  // and its last anchor is recent, so both of those branches read FRESH. Left
+  // alone, the panel would say "Ledger live … ETF-01 scored from the trailing 4
+  // weekly flows" beside a signal that says it could not be scored: two
+  // contradicting statements on one page, which is 5.131 all over again.
+  //
+  // The gap is read off the SIGNAL rather than recomputed here, so the two
+  // surfaces cannot disagree by construction — the panel reports the same fact
+  // the engine acted on.
+  if (signal?.values?.variant === 'gapped') {
+    return {
+      source,
+      status: 'UNAVAILABLE',
+      last_updated_at: iso(anchor),
+      expected_next_update_at: iso(expectedNext),
+      stale_after: iso(staleAfter),
+      // Count-based, like warm-up: time cannot make a missing snapshot worse.
+      delayed_after: null,
+      message:
+        `${base} Ledger has a ${signal.values.gapDays}-day gap inside the trailing-4 window — ` +
+        `a weekly snapshot is missing, so four weekly flows cannot be measured. UNAVAILABLE ` +
+        `(not weak) rather than counting the gap as one week; resolves once four clean weekly ` +
+        `intervals are recorded.`,
+    };
+  }
   if (count < WARMUP_SNAPSHOTS) {
     status = 'UNAVAILABLE';
     // The run that records the snapshot making the ledger scorable: the
@@ -188,6 +228,10 @@ function etfLedgerEntry(source, signal, snapshots, run) {
     last_updated_at: iso(anchor),
     expected_next_update_at: iso(expectedNext),
     stale_after: iso(staleAfter),
+    // 5.173: while warming up the state is COUNT-based, so time cannot make it
+    // worse — null means "no time-based downgrade applies". Once scorable, the
+    // ledger going stale is the only time-based transition.
+    delayed_after: count < WARMUP_SNAPSHOTS ? null : iso(staleAfter),
     message,
   };
 }
@@ -200,15 +244,25 @@ function etfLedgerEntry(source, signal, snapshots, run) {
 export function deriveDataStatus(computed, etfSnapshots) {
   const run = new Date(computed.computed_at);
   const anchorOf = Object.fromEntries(computed.signals.map((s) => [s.id, s.anchor]));
+  // The registry's `signal` is an ID, not a record. The ETF row needs the
+  // record itself (5.301 reads the gap off it), so resolve it here rather than
+  // letting `signal?.values` quietly be undefined on a string.
+  const signalOf = Object.fromEntries(computed.signals.map((s) => [s.id, s]));
   const sources = SOURCE_REGISTRY.map((r) => {
     if (r.kind === 'weekly-friday') return weeklyEntry(r.source, anchorOf[r.signal], run);
     if (r.kind === 'monthly-close') return btcMonthlyEntry(r.source, anchorOf[r.signal], run);
     if (r.kind === 'monthly-print') return m2Entry(r.source, anchorOf[r.signal], run);
-    return etfLedgerEntry(r.source, r.signal, etfSnapshots, run);
+    return etfLedgerEntry(r.source, signalOf[r.signal], etfSnapshots, run);
   });
   const delayed = sources.filter((s) => s.status === 'DELAYED').map((s) => s.source);
   const unavailable = sources.filter((s) => s.status === 'UNAVAILABLE').map((s) => s.source);
-  const pastStale = sources.some((s) => run > new Date(s.stale_after));
+  // Null-safe on purpose. `new Date(null)` is the epoch, so a source with no
+  // stale_after would read as "past stale" and force LOW. No branch emits null
+  // today, but the TYPE allows it, and the read-time twin
+  // (`analytics-sdk/freshness.ts`) returns FALSE for null — so the unguarded
+  // form was a real divergence between two rules documented as mirroring each
+  // other, waiting on the first cadence class that has no stale threshold.
+  const pastStale = sources.some((s) => s.stale_after != null && run > new Date(s.stale_after));
   const overall =
     unavailable.length >= 2 || pastStale
       ? 'LOW'

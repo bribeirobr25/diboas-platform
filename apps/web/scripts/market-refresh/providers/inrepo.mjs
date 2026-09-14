@@ -6,6 +6,7 @@
  * after the quality gate passes the dual-source verification (Yahoo primary,
  * CoinGecko verifier, ≤0.5% tolerance).
  */
+import { writeJsonAtomic } from '../lib/atomic.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -43,6 +44,8 @@ export function appendBtcMonth({ ym, open, high, low, close }) {
   }
   const r4 = (x) => Math.round(x * 10000) / 10000;
   months.push({ ym, open: r4(open), high: r4(high), low: r4(low), close: r4(close) });
-  fs.writeFileSync(MONTHLY_PRICES_PATH, JSON.stringify(raw, null, 2) + '\n');
+  // 5.302: temp + rename. A truncated monthlyPrices.json loses the BTC candle
+  // history every structural signal is computed from.
+  writeJsonAtomic(MONTHLY_PRICES_PATH, raw);
   return months[months.length - 1];
 }
