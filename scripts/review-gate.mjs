@@ -107,9 +107,34 @@ function checkCounts() {
     /\bwas\b|withdrawn|prior|baseline|historical|superseded|corrected|never re-measured|earlier/i;
   const claims = new Map();
   let excluded = 0;
+  /**
+   * ⚑ FIXED 2026-09-14 (AUD-G02). `HISTORICAL` was tested against the WHOLE
+   * line, so `Compared with baseline, current suite: 998 / 99 files` was
+   * excluded wholesale and a conflicting CURRENT claim vanished. A line that
+   * carries a historical marker AND the word "current" is now a FAILURE:
+   * ambiguity in a published count is the defect, not something to filter.
+   */
+  const ambiguous = [];
   for (const d of docs) {
     for (const line of rd(d).split('\n')) {
       for (const m of line.matchAll(/(\d{3,4})\s*\/\s*(\d{2,3})\s*files/g)) {
+        /**
+         * ⚑ NARROWED 2026-09-14, same day it was added. The first version fired
+         * on any line carrying a historical marker AND "current" — which caught
+         * the independent audit's own report QUOTING `"Compared with baseline,
+         * current suite: 998 / 99 files"` as a probe description, and a register
+         * row DESCRIBING a stale-count finding. A tool cannot tell a quotation
+         * from an assertion unless it looks at the quoting, so it looks: a count
+         * wrapped in quotes or backticks is someone else's sentence being
+         * discussed, not this repository claiming it.
+         */
+        const quoted = new RegExp(
+          `["'\u201c\u201d\`][^"'\u201c\u201d\`]*${m[1]}\\s*/\\s*${m[2]}`
+        ).test(line);
+        if (!quoted && HISTORICAL.test(line) && /\bcurrent\b/i.test(line)) {
+          ambiguous.push(`${d}: ${line.trim().slice(0, 90)}`);
+          continue;
+        }
         if (HISTORICAL.test(line)) {
           excluded += 1;
           continue;
@@ -125,7 +150,8 @@ function checkCounts() {
   ];
   for (const [k, where] of claims)
     detail.push(`  ${k} — ${[...where].map((w) => w.split('/').pop()).join(', ')}`);
-  return { ok: claims.size <= 1, detail: detail.join('\n      ') };
+  for (const a of ambiguous) detail.push(`  AMBIGUOUS (historical marker + "current"): ${a}`);
+  return { ok: claims.size <= 1 && ambiguous.length === 0, detail: detail.join('\n      ') };
 }
 
 /* ------------------------------------------------------------- authorities */
@@ -186,7 +212,17 @@ function checkStaged() {
   ];
   const hard = [];
   const soft = [];
-  for (const [label, re] of NEVER) if (added.some((l) => re.test(l))) hard.push(label);
+  /**
+   * ⚑ FIXED 2026-09-14 (AUD-G02). The patterns were tested against ADDED LINES
+   * only, so staging `docs/full-view/canon/probe.txt` with neutral contents
+   * PASSED — while this check printed that very path in its own output. A
+   * protected-path rule is about WHERE a file lives, not what it says. The
+   * filename sweep uses the FULL list (not the self-excluded one): a path rule
+   * has no legitimate exception, and this file's own path is not a canon path.
+   */
+  const pathsAndLines = [...added, ...files];
+  for (const [label, re] of NEVER) if (pathsAndLines.some((l) => re.test(l))) hard.push(label);
+  // WARN stays line-only: a filename containing % or $ is not a disclosure risk.
   for (const [label, re] of WARN) if (added.some((l) => re.test(l))) soft.push(label);
 
   const detail = [`${files.length} file(s) staged: ${files.join(', ')}`];
@@ -200,6 +236,8 @@ function checkStaged() {
 
 /* ----------------------------------------------------------------- exports */
 /** An exported function with no consumer is dead, or a screen nobody links. */
+const stripComments = (t) => t.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+
 function checkExports(target = 'apps/sandbox/src/view', scope = 'apps/sandbox/src') {
   if (!existsSync(join(ROOT, target)))
     return { ok: true, skip: true, detail: `${target} absent — skipped` };
@@ -207,10 +245,20 @@ function checkExports(target = 'apps/sandbox/src/view', scope = 'apps/sandbox/sr
     (f) => f.endsWith('.ts') || f.endsWith('.tsx')
   );
   const dead = [];
+  const internalOnly = [];
   let checked = 0;
   for (const m of mods) {
     const src = rd(`${target}/${m}`);
-    for (const mt of src.matchAll(/^export (?:async )?function (\w+)/gm)) {
+    /**
+     * ⚑ FIXED 2026-09-14 (AUD-G02). Only `export function` was matched, so a
+     * selector written `export const x = …` was invisible and `checked` stayed
+     * 0 — which then printed "all consumed" and PASSED.
+     */
+    const decls = [
+      ...src.matchAll(/^export (?:async )?function (\w+)/gm),
+      ...src.matchAll(/^export const (\w+)\s*[:=]/gm),
+    ];
+    for (const mt of decls) {
       const name = mt[1];
       checked += 1;
       let hits = '';
@@ -219,18 +267,69 @@ function checkExports(target = 'apps/sandbox/src/view', scope = 'apps/sandbox/sr
       } catch {
         /* grep found nothing */
       }
+      /**
+       * ⚑ FIXED 2026-09-14 (AUD-G02): a name appearing only in a COMMENT counted
+       * as a consumer — the same "a grep cannot tell a mention from a use"
+       * class this runner exists to catch. Comments are stripped before the
+       * name is credited.
+       */
+      /**
+       * ⚑ SCOPED 2026-09-14. Excluding `__tests__` is right for the defect this
+       * check was born from — two SCREENS shipped linked from nowhere, where a
+       * test proves nothing about reachability. It is wrong for a PURE
+       * FUNCTION: a selector's direct unit test is its legitimate consumer, and
+       * treating it as none reported `selectGoalProgress` (used by two sibling
+       * selectors and covered by 62 tests) as unnecessary. `testsCount` is
+       * therefore true for pure-function targets and false for reachable
+       * surfaces, and the detail line states which applied.
+       */
+      const testsCount = target.includes('/view');
       const consumers = hits
         .split('\n')
         .filter(Boolean)
-        .filter((f) => !f.includes('__tests__') && !f.endsWith(`${target}/${m}`));
-      if (consumers.length === 0) dead.push(name);
+        .filter((f) => (testsCount ? true : !f.includes('__tests__')))
+        .filter((f) => !f.endsWith(`${target}/${m}`))
+        .filter((f) =>
+          new RegExp(`\\b${name}\\b`).test(stripComments(readFileSync(join(ROOT, f), 'utf8')))
+        );
+      /**
+       * TWO different findings, and collapsing them was hiding one (AUD-C03).
+       * A symbol with no use ANYWHERE is dead. A symbol used only inside its own
+       * module is not dead — it is EXPORTED UNNECESSARILY, which is a weaker but
+       * real finding: the export widens the seam's public surface and invites a
+       * second caller to bypass the intended entry point. Both are reported,
+       * separately, so neither is filed as the other.
+       */
+      if (consumers.length === 0) {
+        const selfBody = stripComments(src);
+        const usedInternally = (selfBody.match(new RegExp(`\\b${name}\\b`, 'g')) ?? []).length > 1;
+        if (usedInternally) internalOnly.push(name);
+        else dead.push(name);
+      }
     }
   }
+  // ⚑ FIXED 2026-09-14 (AUD-G02): `checked === 0` printed "all consumed" and
+  // PASSED. A count floor of zero is never a pass — it means the scan found
+  // nothing to scan, which is the instrument failing, not the code being clean.
+  if (checked === 0)
+    return {
+      ok: false,
+      detail: `${target} exists but the scan matched NO exported symbol — instrument failure, not a clean result`,
+    };
+  const notes = [];
+  if (dead.length) notes.push(`NO CONSUMER ANYWHERE: ${dead.join(', ')}`);
+  if (internalOnly.length)
+    notes.push(
+      `EXPORTED UNNECESSARILY (used only within its own module, plus its test): ${internalOnly.join(', ')}`
+    );
   return {
-    ok: dead.length === 0,
+    ok: dead.length === 0 && internalOnly.length === 0,
     detail:
-      `${checked} exported function(s) checked in ${target}` +
-      (dead.length ? ` · NO CONSUMER: ${dead.join(', ')}` : ' · all consumed'),
+      `${checked} exported symbol(s) checked in ${target}` +
+      (target.includes('/view')
+        ? ' (pure-function target: a direct unit test counts as a consumer)'
+        : ' (reachable-surface target: tests do NOT count as consumers)') +
+      (notes.length ? ` · ${notes.join(' · ')}` : ' · all consumed'),
   };
 }
 
@@ -326,6 +425,12 @@ console.log(
   `${C.d}Mechanical (⚙ rows). Each exists because its defect already shipped here.${C.x}`
 );
 let failed = 0;
+/**
+ * ⚑ ADDED 2026-09-14 (AUD-G02). A skipped row was summarised as "Mechanical
+ * rows green" with exit 0 — an absent PENDING_ALL, or an empty stage, read as
+ * a pass. A row that could not run is INCOMPLETE, and the exit code says so.
+ */
+let skipped = 0;
 for (const key of plan) {
   const [label, fn] = CHECKS[key];
   process.stdout.write(`  ${label} … `);
@@ -335,8 +440,10 @@ for (const key of plan) {
   } catch (e) {
     r = { ok: false, detail: `check threw: ${e.message}` };
   }
-  if (r.skip) console.log(`${C.y}SKIP${C.x}\n      ${C.d}${r.detail}${C.x}`);
-  else {
+  if (r.skip) {
+    console.log(`${C.y}SKIP${C.x}\n      ${C.d}${r.detail}${C.x}`);
+    skipped += 1;
+  } else {
     console.log(r.ok ? `${C.g}PASS${C.x}` : `${C.r}FAIL${C.x}`);
     console.log(`      ${C.d}${r.detail}${C.x}`);
     if (!r.ok) failed += 1;
@@ -355,6 +462,8 @@ if (list.length) {
 console.log(
   failed
     ? `\n${C.r}${C.b}${failed} mechanical check(s) FAILED.${C.x}\n`
-    : `\n${C.g}${C.b}Mechanical rows green.${C.x} ${C.d}The manual half is still yours.${C.x}\n`
+    : skipped
+      ? `\n${C.y}${C.b}INCOMPLETE — ${skipped} row(s) could not run.${C.x} ${C.d}A skipped row is not a pass. The manual half is still yours.${C.x}\n`
+      : `\n${C.g}${C.b}Mechanical rows green.${C.x} ${C.d}The manual half is still yours.${C.x}\n`
 );
-process.exit(failed ? 1 : 0);
+process.exit(failed ? 1 : skipped ? 2 : 0);

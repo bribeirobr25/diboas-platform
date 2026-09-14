@@ -9,6 +9,8 @@
     "dataLive": "Live von {source}, abgerufen {date}",
     "dataFixture": "Dokumentierte Referenzwerte ({date}), keine Live-Marktdaten.",
     "dataMixed": "Teilweise live von {source}, abgerufen {date}. Referenzwerte ({fixtureDate}) für: {protocols}.",
+    "dataPartlyLive": "Teilweise live von {source}, abgerufen {date}.",
+    "dataGasReference": "Die in dieser Simulation verwendete Netzwerkgebühr (Gas) basiert auf Referenzwerten, nicht auf einer Live-Abfrage der Netzwerkgebühr. Tatsächliche Netzwerkgebühren können abweichen.",
     "frameCaption": "Übungsmodus. Spielgeld, echte Marktdaten.",
     "skipToContent": "Zum Inhalt springen",
     "wordmarkAlt": "diBoaS"
@@ -181,43 +183,43 @@
     "strategies": {
       "safeHarbor": {
         "name": "Safe Harbor",
-        "tagline": "A steady home for money you can't risk"
+        "tagline": "Ein stabiler Ort für Geld, das du nicht riskieren kannst."
       },
       "stableGrowth": {
         "name": "Stable Growth",
-        "tagline": "A step past stable, with guardrails on"
+        "tagline": "Ein Schritt über reine Stabilität hinaus – mit klaren Leitplanken."
       },
       "goalKeeper": {
         "name": "Goal Keeper",
-        "tagline": "Protecting your near-term goals"
+        "tagline": "Für kurzfristige Ziele, bei denen Schutz im Vordergrund steht."
       },
       "steadyProgress": {
         "name": "Steady Progress",
-        "tagline": "Short-term goals, a little market in the mix"
+        "tagline": "Kurzfristige Ziele – mit einer kleinen Marktkomponente."
       },
       "patientBuilder": {
         "name": "Patient Builder",
-        "tagline": "Built for a long, patient horizon"
+        "tagline": "Für einen langen Zeithorizont mit Geduld gedacht."
       },
       "balancedBuilder": {
         "name": "Balanced Builder",
-        "tagline": "Stable ground and market exposure, together"
+        "tagline": "Stabile Basis und Marktexposure – zusammen gedacht."
       },
       "steadyCompounder": {
         "name": "Steady Compounder",
-        "tagline": "Let time do the heavy lifting"
+        "tagline": "Lass die Zeit einen Großteil der Arbeit übernehmen."
       },
       "wealthAccelerator": {
         "name": "Wealth Accelerator",
-        "tagline": "For those at ease with real ups and downs"
+        "tagline": "Für Menschen, die mit deutlichen Aufs und Abs gut umgehen können."
       },
       "fullHarvest": {
         "name": "Full Harvest",
-        "tagline": "Low price swings, patient by design"
+        "tagline": "Auf geringe Preisschwankungen und Geduld ausgelegt."
       },
       "fullThrottle": {
         "name": "Full Throttle",
-        "tagline": "Maximum risk, maximum exposure"
+        "tagline": "Maximales Risiko, maximale Exposition."
       }
     }
   },

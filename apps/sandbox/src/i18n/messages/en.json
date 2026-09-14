@@ -2,13 +2,15 @@
   "common": {
     "appName": "diBoaS Sandbox",
     "playBadge": "Sandbox · play money",
-    "playDisclaimer": "Everything here runs on play money. It never converts to real money, prizes, or anything of value. Market data is real; results show what would have happened.",
+    "playDisclaimer": "Practice is a simulation. No real money moves. Practice does not provide financial or investment advice. Practice Credits are simulated practice units with no monetary value; they are not fiat currency or Rewards. They cannot be converted into real money, withdrawn, redeemed or transferred.",
     "back": "Back",
     "cancel": "Cancel",
     "loading": "Loading",
     "dataLive": "Live from {source}, fetched {date}",
     "dataFixture": "Documented reference values ({date}), not live market data.",
     "dataMixed": "Partly live from {source}, fetched {date}. Reference values ({fixtureDate}) for: {protocols}.",
+    "dataPartlyLive": "Partly live from {source}, fetched {date}.",
+    "dataGasReference": "The network fee (gas) used in this simulation is based on reference values, not a live network quote. Actual network fees may differ.",
     "frameCaption": "Practice mode. Play money, real market data.",
     "skipToContent": "Skip to content",
     "wordmarkAlt": "diBoaS"

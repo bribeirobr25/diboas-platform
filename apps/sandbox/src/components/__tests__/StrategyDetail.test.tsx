@@ -50,6 +50,14 @@ const M = {
   'common.dataMixed':
     'Partly live from {source}, fetched {date}. Reference values ({fixtureDate}) for: {protocols}.',
   'common.dataFixture': 'Documented reference values ({date}), not live market data.',
+  // ⚑ Added 2026-09-14 with `5.316`. This harness is a HAND-ROLLED subset, so a
+  // new catalogue key is invisible here and `IntlProvider`'s swallowed onError
+  // renders it as nothing — which is exactly how the first run of the 5.316
+  // assertion failed while the app rendered correctly. Values copied from
+  // `i18n/messages/en.json`, not retyped.
+  'common.dataPartlyLive': 'Partly live from {source}, fetched {date}.',
+  'common.dataGasReference':
+    'The network fee (gas) used in this simulation is based on reference values, not a live network quote. Actual network fees may differ.',
   'catalog.strategies.safeHarbor.name': 'Safe Harbor',
   'catalog.strategies.safeHarbor.tagline': "A steady home for money you can't risk",
   'catalog.protocols.skySsr': 'Sky SSR',
@@ -166,8 +174,26 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
        DeFiLlama" directly above a fixture fee, on the pre-commit cost
        surface. */
     const { unmount } = renderDetail(LIVE);
+    /**
+     * `5.316`: this branch used to assert only that the mixed sentence was
+     * PRESENT, and it rendered "Reference values (18.07.2026) for: ." — a
+     * provenance stamp naming nothing. A mixed state must NAME what is on
+     * reference values, so the assertions below are on CONTENT.
+     */
     expect(screen.queryByText(/^Live from DeFiLlama/)).toBeNull();
-    expect(screen.getByText(/Partly live from DeFiLlama/)).toBeTruthy();
+    /**
+     * Read the stamp's `textContent`, not `getByText`. The sentence is composed
+     * from TWO `FormattedMessage` elements in one <p>, so React emits separate
+     * text nodes and a text matcher cannot span them — the first version of
+     * this assertion failed for exactly that reason while the copy rendered
+     * correctly. The MIXED assertion below already used `textContent`; this
+     * follows it.
+     */
+    const stamp = screen.getByText(/Partly live from DeFiLlama/);
+    // the reference-backed input is IDENTIFIED as the network fee (Legal wording)
+    expect(stamp.textContent).toContain('network fee (gas) used in this simulation');
+    // and never an empty `for:` clause, in any locale
+    expect(stamp.textContent).not.toMatch(/for: \.|für: \.|para: \./);
     unmount();
 
     const mixed = renderDetail(MIXED);

@@ -2,13 +2,15 @@
   "common": {
     "appName": "diBoaS Sandbox",
     "playBadge": "Sandbox · dinheiro de mentira",
-    "playDisclaimer": "Aqui tudo roda com dinheiro de mentira. Ele nunca vira dinheiro de verdade, prêmio, nem nada de valor. Os dados de mercado são reais; os resultados mostram o que teria acontecido.",
+    "playDisclaimer": "Practice é uma simulação. Nenhum dinheiro real é movimentado. Practice não oferece aconselhamento financeiro ou de investimento. Practice Credits são unidades simuladas de prática sem valor monetário; não são moeda fiduciária nem Rewards (recompensas). Não podem ser convertidos em dinheiro real, sacados, resgatados ou transferidos.",
     "back": "Voltar",
     "cancel": "Cancelar",
     "loading": "Carregando",
     "dataLive": "Ao vivo de {source}, buscado em {date}",
     "dataFixture": "Valores de referência documentados ({date}), não são dados de mercado ao vivo.",
     "dataMixed": "Parcialmente ao vivo de {source}, buscado em {date}. Valores de referência ({fixtureDate}) para: {protocols}.",
+    "dataPartlyLive": "Parcialmente ao vivo de {source}, buscado em {date}.",
+    "dataGasReference": "A taxa de rede (gas) usada nesta simulação se baseia em valores de referência, não em uma consulta em tempo real da taxa de rede. As taxas de rede reais podem ser diferentes.",
     "frameCaption": "Modo treino. Dinheiro de mentira, dados reais de mercado.",
     "skipToContent": "Pular para o conteúdo",
     "wordmarkAlt": "diBoaS"

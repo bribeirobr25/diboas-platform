@@ -40,7 +40,13 @@ const SHARED_BY_DESIGN = (key: string) =>
   // identical to English on purpose, like the protocol and strategy names.
   key === 'nav.community' ||
   key.startsWith('catalog.protocols.') || // Sky SSR, Aave V3 — third-party names
-  key.startsWith('catalog.strategies.') || // diBoaS product names, English in all 4
+  // NARROWED 2026-09-14 (`5.315`). The prefix covered `.name` AND `.tagline`
+  // alike, and the stated reason — diBoaS product names — is true only of
+  // `.name`. Ten taglines therefore rode out to de/es readers in English on a
+  // LIVE surface, invisible to this ratchet by construction. Brand supplied
+  // approved DE/ES wording (Brand ruling B-01); the exemption now admits the
+  // product NAME only, so a future untranslated tagline FAILS here.
+  /^catalog\.strategies\.[^.]+\.name$/.test(key) ||
   // Chart-axis abbreviations. pt-BR leaves 7D/30D/90D English too, so the
   // convention is already 'D for day' across locales; only the year unit was
   // localised (1A / 1J). Listed rather than translated because an axis tick is

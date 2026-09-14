@@ -115,15 +115,49 @@ export function StrategyDetail({
         values={{ source: 'DeFiLlama', date: date(provenance.newestLiveAsOf!) }}
       />
     ) : provenance.state === 'mixed' ? (
-      <FormattedMessage
-        id="common.dataMixed"
-        values={{
-          source: 'DeFiLlama',
-          date: date(provenance.newestLiveAsOf!),
-          fixtureDate: date(FIXTURE_AS_OF),
-          protocols: fixtureProtocolNames,
-        }}
-      />
+      /**
+       * TWO mixed shapes, and they must not share one sentence (`5.316`; Legal
+       * ruling 2026-09-14).
+       *
+       * When at least one APY leg carries a reference value, `common.dataMixed`
+       * names those protocols — unchanged.
+       *
+       * When every APY is live and only the NETWORK FEE sits on reference
+       * values, `fixtureProtocolIds` is empty BY CONSTRUCTION (it accumulates
+       * APY legs only), so joining it rendered *"Reference values (18.07.2026)
+       * for: ."* — a sentence claiming reference values and naming none, on the
+       * pre-commit money surface, in all four locales, while the test asserted
+       * only that it was PRESENT. Legal's disposition: identify the
+       * reference-backed INPUT, keep APY provenance accurate and SEPARATE,
+       * never render an empty `for:`, and never invent protocol names. So the
+       * live stamp states what IS live and the approved gas sentence states what
+       * is not. The `mixed` CLASSIFICATION is untouched — only the sentence is.
+       */
+      provenance.fixtureProtocolIds.length > 0 ? (
+        <FormattedMessage
+          id="common.dataMixed"
+          values={{
+            source: 'DeFiLlama',
+            date: date(provenance.newestLiveAsOf!),
+            fixtureDate: date(FIXTURE_AS_OF),
+            protocols: fixtureProtocolNames,
+          }}
+        />
+      ) : (
+        <>
+          {/* `dataPartlyLive`, NOT `dataLive`. GAS-1 (founder 2026-08-21) is
+              encoded in this surface's own test: it may not open with "Live
+              from DeFiLlama" above a fixture fee — that claim is exactly what
+              GAS-1 was raised to stop. "Partly live" is what `mixed` means
+              here (rates live, network fee on reference values), and the
+              approved sentence beside it names which input that is. */}
+          <FormattedMessage
+            id="common.dataPartlyLive"
+            values={{ source: 'DeFiLlama', date: date(provenance.newestLiveAsOf!) }}
+          />{' '}
+          <FormattedMessage id="common.dataGasReference" />
+        </>
+      )
     ) : (
       <FormattedMessage id="common.dataFixture" values={{ date: date(FIXTURE_AS_OF) }} />
     );

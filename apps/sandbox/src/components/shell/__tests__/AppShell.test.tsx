@@ -56,7 +56,18 @@ describe('AppShell — the duties that regressed before', () => {
       renderAt(path);
       expect(screen.getByText(DISCLAIMER)).toBeTruthy();
       // …and it is the shipped disclosure, not an empty or placeholder string.
-      expect(DISCLAIMER).toMatch(/never converts to real money/i);
+      /**
+       * ⚑ UPDATED 2026-09-14 (`5.308`). This asserted /never converts to real
+       * money/ — a phrase from the SUPERSEDED en wording. Legal's approved
+       * replacement says the Credits "cannot be converted into real money,
+       * withdrawn, redeemed or transferred", so the old assertion pinned copy
+       * Legal has replaced and failed on all 14 surfaces when it landed. The
+       * assertion is kept (this surface must state non-convertibility) but
+       * points at the approved semantics. Byte-level pinning lives in
+       * `DISCLOSE-1` (`i18n/__tests__/legalDisclosure.test.ts`); this one only
+       * needs the CONCEPT present wherever money renders.
+       */
+      expect(DISCLAIMER).toMatch(/cannot be converted into real money/i);
     }
   );
 
