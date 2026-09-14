@@ -15,6 +15,22 @@ vi.mock('next/font/google', () => ({
 }));
 
 /**
+ * `next/headers` needs a real request scope — calling this layout as a plain
+ * function (which is the whole point of this file: the returned element IS the
+ * document) throws *"`headers` was called outside a request scope"*.
+ *
+ * Stubbed for the same reason `next/font/google` is above: the CSP nonce is not
+ * what this file tests, `lang` is. The stub deliberately returns a nonce so the
+ * layout takes its normal path — it does NOT weaken either guarantee here, since
+ * both assertions are about `lang` (the returned element's prop, and the absence
+ * of a literal `lang="…"` in source). The nonce has its own coverage in
+ * `cspNonce.test.tsx`, kept separate so a failure names which thing broke.
+ */
+vi.mock('next/headers', () => ({
+  headers: () => Promise.resolve(new Map([['x-nonce', 'test-nonce']])),
+}));
+
+/**
  * `5.203` — every locale used to serve `<html lang="en">`.
  *
  * **WCAG 2.1 SC 3.1.1 (Level A).** Verified in production before this fix:

@@ -254,7 +254,7 @@ ComponentName/
 - All user input sanitized with DOMPurify
 - API routes require rate limiting (Upstash Redis)
 - PII encrypted with AES-256-GCM
-- CSP: Nonce-based CSP generated per-request in `middleware.ts` (`'unsafe-inline'` prohibited for scripts)
+- CSP: Nonce-based CSP generated per-request in `middleware.ts` (`'unsafe-inline'` prohibited for scripts) — live in **both** apps: `apps/web` since the F4 security batch, `apps/sandbox` since 2026-09-14 (register `5.212`; the sandbox shipped no CSP at all until then, which is what `5.212` recorded). The sandbox policy is deliberately TIGHTER (`connect-src`/`font-src` are `'self'`, no analytics hosts) and deliberately omits `upgrade-insecure-requests`, which breaks any HTTP origin; `docs/tech/engineering-gates.md` → `CSP-1`
 - No hardcoded secrets - use environment variables
 - CSRF protection on mutation endpoints
 - Analytics libraries: lazy-loaded behind consent check via dynamic `import()` (never static import)

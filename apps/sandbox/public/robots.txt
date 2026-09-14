@@ -1,0 +1,20 @@
+# app.diboas.com — the diBoaS Practice app.
+#
+# Blanket disallow, deliberately. This host is PUBLIC but must never be
+# indexed: it serves play money, and a search result for a practice balance or
+# a practice strategy would misrepresent the product. `next.config.mjs` already
+# sets `X-Robots-Tag: noindex, nofollow` on every path; this file is the second
+# half of the same control, for crawlers that read robots.txt before fetching.
+#
+# NOT a copy of `apps/web/public/robots.txt`. That file SHAPES crawling of the
+# marketing site (it allows the site and disallows /api/); this one refuses the
+# whole host. It also names NO sitemap, because the sandbox publishes none —
+# advertising one that does not exist is the kind of untruth the audit gates
+# exist to catch.
+#
+# Register `5.212` (second half): `/robots.txt` used to fall through to the
+# `[locale]` route and render a 7.7 KB HTML error page under a 404, in both
+# local preview and production (`x-matched-path: /[locale]`). The middleware
+# matcher already excludes `.txt`, so this static file is served directly.
+User-agent: *
+Disallow: /

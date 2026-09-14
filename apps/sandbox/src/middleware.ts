@@ -96,14 +96,132 @@ function isApiPath(pathname: string): boolean {
 }
 
 /** The localized not-found surface with a truthful 404, in the asked-for language. */
-function missingResponse(req: NextRequest): NextResponse {
+function missingResponse(req: NextRequest, requestHeaders: Headers): NextResponse {
   const url = req.nextUrl.clone();
   url.pathname = `/${localeFromPathname(req.nextUrl.pathname)}/${MISSING_SEGMENT}`;
   // A rewrite keeps the URL the visitor asked for; the status carries the truth.
-  return NextResponse.rewrite(url, { status: 404 });
+  // The request headers ride along so the rewritten DOCUMENT can read `x-nonce`
+  // — this surface renders a real page, theme script and all.
+  return NextResponse.rewrite(url, { status: 404, request: { headers: requestHeaders } });
+}
+
+/**
+ * The Content-Security-Policy (register `5.212`).
+ *
+ * Until now the sandbox shipped NO CSP — an MVP-0 posture recorded in
+ * `next.config.mjs` and in `ThemeScript.tsx`, which predicted this exact change
+ * ("STAGE-1 CSP DEPENDENCY… this ONE inline script must carry the per-request
+ * nonce or the pre-paint theme will silently regress"). Production confirmed the
+ * gap: `app.diboas.com` served HSTS, `X-Frame-Options`, `nosniff`,
+ * Referrer-Policy and Permissions-Policy, but zero `content-security-policy`,
+ * while `diboas.com` served a full nonce-based one.
+ *
+ * ## Why this policy is TIGHTER than the marketing site's
+ *
+ * It is deliberately not a copy of `apps/web`'s. Measured, not assumed:
+ *
+ * - **`connect-src 'self'`** — the market providers (`DefiLlamaApyProvider`,
+ *   `CoinGeckoPriceProvider`) are instantiated ONLY in `app/api/market/route.ts`
+ *   and `app/api/market/history/route.ts`. Every external call is server-side, so
+ *   the browser never contacts `yields.llama.fi` or `api.coingecko.com`. Granting
+ *   them would widen the policy for traffic that does not exist.
+ * - **`font-src 'self'`** — `next/font/google` self-hosts `Fraunces` at build
+ *   time; the served document contains no `fonts.googleapis.com` or
+ *   `fonts.gstatic.com` reference. Verified against production HTML.
+ * - **no analytics hosts** — the app ships none (`INSTRUMENTATION_CONTRACT.md`
+ *   is documentation-only; nothing fires).
+ * - **`frame-src 'none'` + `frame-ancestors 'none'`** — the sandbox embeds
+ *   nothing and may not be embedded.
+ *
+ * ## Why a nonce, and why it reaches Next's own bootstrap
+ *
+ * `'unsafe-inline'` is prohibited for scripts (CLAUDE.md § Security). The
+ * document carries three inline scripts: `ThemeScript`, and two of Next's own
+ * RSC bootstrap (`self.__next_f`). Next nonces the latter automatically when
+ * middleware sets `x-nonce` on the REQUEST — proven on live `diboas.com`, where
+ * 32 script tags share one per-request nonce and no inline script lacks it. So
+ * the nonce rides on the request for every path that renders a document,
+ * including the two rewrites (the 451 and the 404 surfaces render real pages).
+ *
+ * `'unsafe-eval'` is dev-only (React refresh), never production.
+ */
+function buildCsp(nonce: string, isDev: boolean): string {
+  return [
+    `default-src 'self'`,
+    `script-src 'self' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ''}`,
+    `style-src 'self' 'unsafe-inline'`,
+    `img-src 'self' data: blob:`,
+    `font-src 'self'`,
+    `connect-src 'self'${isDev ? ' ws: wss:' : ''}`,
+    `object-src 'none'`,
+    `base-uri 'self'`,
+    `form-action 'self'`,
+    `frame-src 'none'`,
+    `frame-ancestors 'none'`,
+    // ⚑ NO `upgrade-insecure-requests`, and that omission is deliberate.
+    //
+    // I added it, and the visual pass caught it: it rewrites every subresource
+    // URL to `https://`, so on a plain-HTTP origin EVERY subresource fails with
+    // `ERR_SSL_PROTOCOL_ERROR` (20 on the Home document; 24 across the four
+    // screens walked) and the app loads with no CSS, no fonts and no JS chunks. Those same assets return 200 over HTTP — nothing was blocked
+    // by policy; the directive broke the origin. It made local preview
+    // (`next start -H 0.0.0.0`) and any HTTP origin unusable while buying
+    // nothing in production, where HSTS (`strict-transport-security`) already
+    // forces HTTPS before a request is made.
+    //
+    // The live `diboas.com` policy omits it too — 13 directives, none of them
+    // this one — so the proven precedent agrees.
+  ].join('; ');
 }
 
 export function middleware(req: NextRequest): NextResponse {
+  // The CSP nonce, minted per request. 16 random bytes, base64 — the CSP Level 3
+  // charset (same shape as `apps/web`, F4). Built BEFORE any branch so every
+  // response below carries the same policy.
+  let nonce = '';
+  let csp = '';
+  try {
+    const bytes = new Uint8Array(16);
+    crypto.getRandomValues(bytes);
+    nonce = btoa(String.fromCharCode(...bytes));
+    csp = buildCsp(nonce, process.env.NODE_ENV !== 'production');
+  } catch {
+    // FAIL OPEN ON THE HEADER, NEVER ON THE CONTROLS — and note there is
+    // deliberately NO early `return` here.
+    //
+    // An earlier revision of this block returned `NextResponse.next()` from
+    // this catch, and that return sat ABOVE the geofence: a thrown
+    // `getRandomValues` would have served a refused country and skipped every
+    // capability refusal too — a defence-in-depth HEADER taking a compliance
+    // COVENANT down with it. Found by reading the diff, not by a test, which is
+    // why the test now exists.
+    //
+    // Leaving both strings empty degrades ONLY the header: `secured()` then
+    // attaches nothing, and the geofence → locale → capability decisions below
+    // all still run. The CSP is best-effort; they are not.
+    nonce = '';
+    csp = '';
+  }
+
+  // Rides on the REQUEST so the rendered document can read it (`headers()` in
+  // the `[locale]` layout) and so Next nonces its own RSC bootstrap.
+  const requestHeaders = new Headers(req.headers);
+  // An empty nonce is worse than none — `<script nonce="">` matches no policy.
+  if (nonce) requestHeaders.set('x-nonce', nonce);
+
+  /** Every response leaves through here: one policy, no path forgotten. */
+  const secured = (res: NextResponse): NextResponse => {
+    // No policy at all, rather than a broken one: `script-src 'nonce-'` with an
+    // empty value matches nothing and would block EVERY inline script —
+    // including Next's own RSC bootstrap, i.e. a blank page.
+    if (!csp) return res;
+    res.headers.set('Content-Security-Policy', csp);
+    res.headers.set('x-nonce', nonce);
+    return res;
+  };
+
+  // ⚠️ The ORDER BELOW IS UNCHANGED and load-bearing: geofence → locale entry →
+  // capability refusal. Adding headers must not reorder security decisions.
   const enabled = process.env.SANDBOX_GEO_ENABLED !== 'false'; // D8 kill-switch (default on)
   if (shouldBlock(detectedCountry(req), enabled)) {
     const locale = localeFromPathname(req.nextUrl.pathname);
@@ -112,24 +230,27 @@ export function middleware(req: NextRequest): NextResponse {
     // 451 = Unavailable For Legal Reasons. A rewrite does not re-invoke
     // middleware, so rewriting the /unavailable path to itself is idempotent
     // (no loop).
-    return NextResponse.rewrite(url, { status: 451 });
+    return secured(
+      NextResponse.rewrite(url, { status: 451, request: { headers: requestHeaders } })
+    );
   }
 
   // Refused visitors never get here, so the redirect cannot precede the block.
-  if (req.nextUrl.pathname === '/') return localeEntryRedirect(req);
+  if (req.nextUrl.pathname === '/') return secured(localeEntryRedirect(req));
 
   // An API path is a data contract: refuse it as data, never as a rendered page.
-  if (isApiPath(req.nextUrl.pathname)) return NextResponse.next();
+  if (isApiPath(req.nextUrl.pathname))
+    return secured(NextResponse.next({ request: { headers: requestHeaders } }));
 
   const segment = lastSegment(req.nextUrl.pathname);
 
   const gated = CAPABILITY_GATED.find((entry) => entry.segment === segment);
-  if (gated && !can(gated.capability)) return missingResponse(req);
+  if (gated && !can(gated.capability)) return secured(missingResponse(req, requestHeaders));
 
   // Asked for directly: same page, honest status.
-  if (segment === MISSING_SEGMENT) return missingResponse(req);
+  if (segment === MISSING_SEGMENT) return secured(missingResponse(req, requestHeaders));
 
-  return NextResponse.next();
+  return secured(NextResponse.next({ request: { headers: requestHeaders } }));
 }
 
 export const config = {
