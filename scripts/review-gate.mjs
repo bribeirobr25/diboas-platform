@@ -303,7 +303,7 @@ const CHECKS = {
 };
 const PLAN = {
   increment: ['register', 'counts', 'authorities', 'staged', 'exports'],
-  system: ['authorities', 'counts', 'register', 'exports'],
+  system: ['authorities', 'counts', 'register', 'exports', 'staged'],
 };
 
 console.log(`\n${C.b}Review Gate — ${mode}${C.x}`);

@@ -44,6 +44,10 @@
     "review:system": "node scripts/review-gate.mjs system",
     "review:register": "node scripts/review-gate.mjs register",
     "review:port": "node scripts/review-gate.mjs port",
+    "review:counts": "node scripts/review-gate.mjs counts",
+    "review:authorities": "node scripts/review-gate.mjs authorities",
+    "review:staged": "node scripts/review-gate.mjs staged",
+    "review:exports": "node scripts/review-gate.mjs exports",
     "dev:sandbox": "turbo run build --filter=@diboas/banking --filter=@diboas/defi --filter=@diboas/investing && pnpm --filter sandbox dev",
     "start:sandbox": "pnpm --filter sandbox start"
   },
