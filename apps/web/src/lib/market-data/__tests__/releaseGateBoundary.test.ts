@@ -86,6 +86,10 @@ const ALLOWED: Record<string, { cls: Cls; why: string }> = {
     cls: 'UNIT-READS-LIVE',
     why: 'derives the expectation from the data — for each ACTIVE signal its INACTIVE phrase must be absent',
   },
+  'methodologyAttestation.test.ts': {
+    cls: 'UNIT-READS-LIVE',
+    why: 'reads methodology.json, which the weekly pipeline never writes — verified: zero references to it under scripts/market-refresh, one commit in its whole history (a path migration), and the refresh touches seven files, none of them this one',
+  },
   'resilience.test.ts': {
     cls: 'UNIT-READS-LIVE',
     why: 'mocks the data modules to force failure paths; asserts none of their values',
@@ -136,11 +140,12 @@ describe('every weekly release gate is declared, not inherited from a directory 
 
   it('should keep the count of weekly-blocking live-data files visible and small', () => {
     // Not a floor, a LEDGER: this number going up is the thing to notice. Nine
-    // of twenty-six files carried the weekly publish when this was written.
+    // of twenty-six files carried the weekly publish when this was written;
+    // methodologyAttestation took it to ten on 2026-09-16.
     const gates = Object.values(ALLOWED).filter((e) => e.cls === 'WEEKLY-GATE').length;
     const units = Object.values(ALLOWED).filter((e) => e.cls === 'UNIT-READS-LIVE').length;
     expect(gates + units).toBe(Object.keys(ALLOWED).length);
     expect(gates).toBe(4);
-    expect(units).toBe(6);
+    expect(units).toBe(7);
   });
 });
