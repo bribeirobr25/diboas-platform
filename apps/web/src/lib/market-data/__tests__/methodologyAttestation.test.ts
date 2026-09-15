@@ -137,3 +137,55 @@ describe('band thresholds are ratified methodology', () => {
     expect(top).toBe(RATIFIED_TOTAL);
   });
 });
+
+/**
+ * `methodology.json` is the METHODOLOGY THE PAGE PUBLISHES. The engine is the
+ * methodology it EXECUTES. Nothing asserted they were the same (5.376 analysis,
+ * 2026-09-16).
+ *
+ * They agree today — verified before writing this — but the document is
+ * hand-maintained and the engine is code, so the only thing holding them
+ * together was that nobody had changed either in a way that mattered. That is
+ * the `5.361` shape one level up: a rule with no guard, where the two copies of
+ * it are free to drift and the drift is invisible because each is internally
+ * consistent.
+ *
+ * It matters now because `5.376` proposes stamping `methodology.json#version`
+ * onto every archive line. A version stamp is only worth anything if the
+ * version describes the engine that actually computed the row; otherwise it is
+ * false provenance, which is worse than none.
+ */
+describe('the published methodology document matches the engine that executes it', () => {
+  const DOC = JSON.parse(
+    readFileSync(join(__dirname, '../../../../data/market/shared/methodology.json'), 'utf8')
+  );
+
+  it('should agree with the engine on the maximum score', () => {
+    expect(DOC.max_score).toBe(RATIFIED_TOTAL);
+  });
+
+  it('should publish exactly the ratified bands, with the same boundaries', () => {
+    const fromDoc = DOC.score_bands.map(
+      (b: { code: string; min_score: number; max_score: number }) => ({
+        code: b.code,
+        min: b.min_score,
+        max: b.max_score,
+      })
+    );
+    expect(fromDoc).toEqual(RATIFIED_BANDS);
+  });
+
+  it('should publish the same group ceilings the engine enforces', () => {
+    const fromDoc = Object.fromEntries(
+      DOC.groups.map((g: { id: string; max_points: number }) => [g.id, g.max_points])
+    );
+    expect(fromDoc).toEqual(RATIFIED_GROUP_MAX);
+  });
+
+  it('should carry a version and a publication date at all', () => {
+    // Not an assertion about WHICH version — that is a methodology call. Only
+    // that the document identifies itself, so a stamp has something to name.
+    expect(DOC.version, 'methodology.json has no version to stamp').toMatch(/^\d+\.\d+\.\d+$/);
+    expect(Date.parse(DOC.published_at)).not.toBeNaN();
+  });
+});
