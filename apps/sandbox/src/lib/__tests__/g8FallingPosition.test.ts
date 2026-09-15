@@ -121,28 +121,44 @@ describe('§4.8 — a growth position can FALL', () => {
   });
 
   /**
-   * ⚠️ THIS TEST PINS AN INTERIM BEHAVIOUR THAT IS SCHEDULED TO CHANGE.
+   * `5.105` I-G1d — LANDED 2026-09-15. This test previously pinned the INTERIM
+   * behaviour and said so: with no price series, `advanceTime` substituted
+   * `points: [1]` and the market leg silently held its value, which its own
+   * docstring called "invented data wearing a fixture stamp" and predicted
+   * would have to become an honest unavailable state.
    *
-   * With no price history, `advanceTime` substitutes `points: [1]` for a market
-   * leg — the leg silently holds value. PENDING_ALL **5.105** (founder-raised,
-   * scheduled 2026-08-27) rules that this is *invented data wearing a fixture
-   * stamp* and must become an honest unavailable state instead.
+   * It now asserts that state. A position whose price feed is missing is NOT
+   * replayable for the span: no accrual is emitted, and the position's value is
+   * untouched. Time still advances — the jump is real and the trail records it —
+   * but nothing claims earnings that no series can evidence.
    *
-   * So do NOT read a green here as "the fallback is correct". When 5.105 lands,
-   * this test is EXPECTED to fail and should be rewritten to assert the
-   * unavailable state — it is not a regression. Recorded explicitly because a
-   * test that quietly defends a behaviour under review is precisely the
-   * `5.114` failure mode.
+   * Why all-or-nothing per position: replaying only the lending legs of an 85%
+   * growth strategy would report 15% of the position as the whole of it, which
+   * understates a fall precisely when a fall is the honest answer.
    */
-  it('should hold market legs flat when no price series is supplied [INTERIM — see 5.105]', () => {
+  it('should refuse to accrue a position whose price series is missing (5.105)', () => {
     openPosition('fullThrottle');
-    advanceTime(180, apyHistories(400), 'machine'); // no prices — e.g. a stale cached response
-    const accrued = new Decimal(getLedgerState().positions[0].accrued);
-    // Assert the actual mechanic, not merely non-negativity: with the market
-    // legs held flat, the whole move must be the lending legs' earnings — so it
-    // is strictly positive AND strictly smaller than the same position's move
-    // when its 85% growth exposure is also earning.
-    expect(accrued.gt(0)).toBe(true);
+    const before = new Decimal(getLedgerState().positions[0].accrued);
+    const dayBefore = getLedgerState().simDay;
+
+    advanceTime(180, apyHistories(400), 'machine'); // no prices — a stale cached response
+
+    const state = getLedgerState();
+    // No fabricated movement: the position did not "hold flat", it was not replayed.
+    expect(new Decimal(state.positions[0].accrued).eq(before)).toBe(true);
+    expect(state.events.filter((e) => e.type === 'AccrualApplied')).toHaveLength(0);
+    // Time itself is real and still passes — this is a refusal to CLAIM, not a freeze.
+    expect(state.simDay).toBe(dayBefore + 180);
+    expect(state.events.filter((e) => e.type === 'TimeAdvanced')).toHaveLength(1);
+  });
+
+  it('should still accrue normally when BOTH series are supplied', () => {
+    // The contrast that makes the refusal meaningful rather than a dead branch.
+    openPosition('fullThrottle');
+    advanceTime(180, apyHistories(400), 'machine', priceHistories(400));
+    expect(
+      getLedgerState().events.filter((e) => e.type === 'AccrualApplied').length
+    ).toBeGreaterThan(0);
   });
 });
 

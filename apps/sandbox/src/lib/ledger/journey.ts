@@ -325,44 +325,77 @@ export function advanceTime(
   // — APY series are non-negative, so before this the money could only ever go
   // up, which is the most dangerous lesson a practice app can teach.
   const legsByPosition = new Map<string, PositionLeg[]>();
+  /** Catalog-resolved positions, replayable or not (batch D — see the planner). */
+  const catalogPositions = new Set<string>();
   for (const position of open) {
     const strategy = getStrategy(position.strategyId);
     if (!strategy) continue;
-    const legs: PositionLeg[] = strategy.allocation.map((leg) => {
+    /**
+     * ⚑ I-G1d (`5.105`). A leg with NO history is UNAVAILABLE, not flat.
+     *
+     * This used to substitute `[1]` for a missing price series and `[0]` for a
+     * missing APY series, so the leg silently held its value — "invented data
+     * wearing a fixture stamp", as the interim test that pinned it said. The
+     * consequence was worst exactly where it mattered: a growth position whose
+     * price feed was missing could not fall, which is the one lesson a practice
+     * app must never teach.
+     *
+     * `null` here means "this position cannot be replayed for this span". Time
+     * still advances, its DEPOSITS still fire and the trail is still written —
+     * what does NOT happen is an accrual claiming earnings nobody can evidence.
+     * MISSING is not zero, and it is not flat either.
+     *
+     * ⚑ The deposits only survive because of batch D: this position is omitted
+     * from `legsByPosition` but recorded in `catalogPositions`, and the planner
+     * gates its Working reservation on the latter. An earlier revision of this
+     * comment claimed "deposits still fire" while the planner still gated them
+     * on `legsByPosition` — it did not, and `ledgerClient`'s paused-goal test
+     * caught it. The two maps must both be passed for this to stay true.
+     */
+    const legs: (PositionLeg | null)[] = strategy.allocation.map((leg) => {
       const model = PROTOCOL_RETURN_MODEL[leg.protocolId];
       if (model.kind === 'market') {
         const history = priceByProtocol.get(leg.protocolId);
+        if (!history || history.points.length === 0) return null;
         return {
           kind: 'market',
           weightPercent: leg.weightPercent,
           price: {
-            // No price series → a flat 1.0 series: the leg holds its value
-            // rather than inventing a move in either direction.
-            points:
-              history && history.points.length > 0 ? history.points.map((p) => p.priceUsd) : [1],
-            /* I-G1a: the dates ride along instead of being discarded here.
-               `ProtocolPriceHistory.points` is dated (`DatedPricePoint`), and
+            points: history.points.map((p) => p.priceUsd),
+            /* I-G1a: the dates ride along instead of being discarded here —
                dropping them is what left the replay unable to anchor to a
-               calendar window (5.105). Behaviour is unchanged in this step. */
-            dates:
-              history && history.points.length > 0 ? history.points.map((p) => p.date) : undefined,
-            source: history?.stamp.source === 'coingecko' ? 'coingecko' : 'fixture',
+               calendar window (5.105). */
+            dates: history.points.map((p) => p.date),
+            source: history.stamp.source === 'coingecko' ? 'coingecko' : 'fixture',
           },
         };
       }
       const history = byProtocol.get(leg.protocolId);
+      if (!history || history.points.length === 0) return null;
       return {
         kind: 'lending',
         weightPercent: leg.weightPercent,
         apy: {
-          points: history ? history.points.map((p) => p.apyPercent) : [0],
+          points: history.points.map((p) => p.apyPercent),
           /* I-G1a — see the market leg above. `ApyPoint` carries `date`. */
-          dates: history ? history.points.map((p) => p.date) : undefined,
-          source: history?.stamp.source === 'defillama' ? 'defillama' : 'fixture',
+          dates: history.points.map((p) => p.date),
+          source: history.stamp.source === 'defillama' ? 'defillama' : 'fixture',
         },
       };
     });
-    legsByPosition.set(position.positionId, legs);
+    /* The STRATEGY resolved, so this position is catalog-valid and still owes
+       its recurring deposits even when it cannot be replayed (batch D). Recorded
+       BEFORE the all-or-nothing check below, which is about replayability only. */
+    catalogPositions.add(position.positionId);
+    /* All-or-nothing per POSITION (Strategy/M&E §7: PARTIALLY-EVIDENCED POSITION
+       = WHOLE-POSITION REPLAY UNAVAILABLE). A partially-replayable position would
+       report some legs' movement as the whole position's, understating or
+       overstating by the missing legs' weight — and "do not present evidenced
+       minority legs as the whole-position result" is explicit. Omitting it from
+       this map is the "cannot replay" path; the planner still emits its
+       deposits because `catalogPositions` holds it. */
+    if (legs.some((l) => l === null)) continue;
+    legsByPosition.set(position.positionId, legs as PositionLeg[]);
   }
 
   /**
@@ -412,6 +445,7 @@ export function advanceTime(
     }),
     workingStart: state.buckets.working,
     legsByPosition,
+    catalogPositions,
     toDay,
     days,
     source,
