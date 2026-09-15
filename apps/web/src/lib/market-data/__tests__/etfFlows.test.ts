@@ -194,27 +194,43 @@ describe('week spacing is asserted, not assumed (5.301)', () => {
   it('should NOT report a cadence gap as a fund-quality exclusion', () => {
     // The detail string counts `warnings` as "N fund-week(s) excluded by
     // quality guards". Putting spacing warnings in the same list made the
-    // machine record claim a fund exclusion that never happened — caught in
-    // this increment's own audit, not by a gate.
+    // machine record claim a fund exclusion that never happened.
+    //
+    // Evaluated at the ledger's OWN last anchor, and counts derived from the
+    // data: the ETF ledger grows weekly, so a literal date or a literal warning
+    // count is a dated claim (the sibling that pinned `toBe(10)` stopped the
+    // 2026-09-14 cycle from publishing).
     const real = readSnapshots();
-    const { warnings, spacingWarnings } = computeWeeklyFlows(real, new Date('2026-09-13'));
-    expect(spacingWarnings).toHaveLength(1);
-    expect(warnings).toHaveLength(0);
-    expect(evaluateEtf01FromFlows(real, new Date('2026-09-13')).detail).not.toContain(
-      'fund-week(s) excluded'
-    );
+    const at = new Date(`${real[real.length - 1].anchor}T00:00:00Z`);
+    const { warnings, spacingWarnings } = computeWeeklyFlows(real, at);
+    const misSpaced = spacingWarnings.length;
+    const gapsInLedger = computeWeeklyFlows(real, at).flows.filter((f) => !f.weekly).length;
+    expect(misSpaced).toBe(gapsInLedger); // one warning per non-weekly interval, no more
+    expect(warnings, 'cadence must never be counted as a fund exclusion').toHaveLength(0);
+    expect(evaluateEtf01FromFlows(real, at).detail).not.toContain('fund-week(s) excluded');
   });
 
-  it('should score the COMMITTED ledger unchanged — this fix moves nothing today', () => {
-    // The live guarantee: today's trailing 4 are all genuine 7-day flows, so
-    // the published score is untouched. If this ever fails, the page changed.
+  it('should keep the committed ledger scorable — the trailing 4 are real weeks', () => {
+    // The live guarantee, stated as a RULE rather than as today's values: the
+    // trailing-4 window must contain four genuine weekly intervals, and the
+    // signal must therefore be scorable rather than gapped.
+    //
+    // The earlier version pinned the exact gap list and `ACTIVE` at a literal
+    // date. Both are dated claims: the ETF ledger gains a snapshot every Monday,
+    // the 2026-07-10→07-24 fortnight ages further from the window each week, and
+    // ACTIVE/INACTIVE depends on flows that genuinely move.
     const real = readSnapshots();
-    const { flows } = computeWeeklyFlows(real, new Date('2026-09-13'));
-    expect(flows.filter((f) => !f.weekly).map((f) => `${f.from}→${f.to}`)).toEqual([
-      '2026-07-10→2026-07-24',
-    ]);
-    expect(flows.slice(-4).every((f) => f.spanDays === WEEK_SPAN_DAYS)).toBe(true);
-    expect(evaluateEtf01FromFlows(real, new Date('2026-09-13')).state).toBe('ACTIVE');
+    const at = new Date(`${real[real.length - 1].anchor}T00:00:00Z`);
+    const { flows } = computeWeeklyFlows(real, at);
+    const trailing4 = flows.slice(-4);
+    expect(trailing4).toHaveLength(4);
+    expect(trailing4.every((f) => f.weekly)).toBe(true);
+    expect(
+      trailing4.every((f) => Math.abs(f.spanDays - WEEK_SPAN_DAYS) <= WEEK_SPAN_TOLERANCE_DAYS)
+    ).toBe(true);
+    // Scorable, not a specific score: UNAVAILABLE here would mean a gap reached
+    // the window, which is the condition this signal must announce rather than fudge.
+    expect(evaluateEtf01FromFlows(real, at).state).not.toBe('UNAVAILABLE');
   });
 });
 

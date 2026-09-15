@@ -166,14 +166,31 @@ describe('readArchiveRows / runDayIndex — one rule, three former copies', () =
     expect(runDayIndex([]).size).toBe(0);
   });
 
-  it('should agree with the committed ledger: 12 lines, 10 run days', () => {
+  it('should collapse the committed ledger by DAY, whatever size it has grown to', () => {
+    // NO LITERAL COUNT. The first version asserted `toBe(10)` and the weekly
+    // refresh appended day 11 on 2026-09-14, failing the blocking gate and
+    // stopping that cycle from publishing. The ledger is append-only: any test
+    // pinning its size is a dated claim about a growing file.
+    //
+    // The requirement is the collapse RULE, so the expectation is derived the
+    // other way — from the same text, independently of `runDayIndex` — and the
+    // two derivations must agree at any ledger size.
     const text = fs.readFileSync(
       path.join(__dirname, '../../../../data/market/shared/run-archive.jsonl'),
       'utf8'
     );
     const rows = readArchiveRows(text);
-    expect(rows.length).toBeGreaterThan(runDayIndex(rows).size); // same-day doubles exist
-    expect(runDayIndex(rows).size).toBe(10);
+    const daysIndependently = new Set(
+      text
+        .split('\n')
+        .filter(Boolean)
+        .map((l) => JSON.parse(l).run_at?.slice(0, 10))
+        .filter(Boolean)
+    );
+    expect(runDayIndex(rows).size).toBe(daysIndependently.size);
+    // The 2026-07-11 same-day double is baked into an append-only file, so
+    // lines strictly exceed days forever — a relationship, not a count.
+    expect(rows.length).toBeGreaterThan(runDayIndex(rows).size);
   });
 });
 

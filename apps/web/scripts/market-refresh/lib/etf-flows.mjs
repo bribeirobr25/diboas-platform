@@ -43,12 +43,31 @@ export const MAX_WEEKLY_SHARE_CHANGE = 0.5; // ±50%/week = corruption, not comm
 // here so existing importers (run.mjs) are unchanged. See its docblock.
 export { WARMUP_SNAPSHOTS };
 
+/**
+ * One line of `etf-shares-weekly.jsonl`. Declared once here so readers are
+ * typed against the writer's own shape — `readJsonlTolerant` returns plain
+ * objects, and every consumer was otherwise re-asserting `.anchor` locally.
+ *
+ * @typedef {object} EtfFund
+ * @property {number|null} shares
+ * @property {number|null} price
+ * @property {string|null} lastUpdated
+ *
+ * @typedef {object} EtfSnapshot
+ * @property {string} anchor — the confirmed Friday this snapshot is anchored to
+ * @property {Record<string, EtfFund>} funds
+ */
+
+/**
+ * @param {string} [archivePath]
+ * @returns {EtfSnapshot[]}
+ */
 export function readSnapshots(archivePath = ETF_SHARES_ARCHIVE) {
   if (!fs.existsSync(archivePath)) return [];
   // 5.302: a torn tail used to throw a bare SyntaxError out of the middle of
   // the weekly run. The run archive had always tolerated it; this ledger — the
   // one ETF-01's two points are scored from — had not. Same rule for both now.
-  return readJsonlTolerant(fs.readFileSync(archivePath, 'utf8'));
+  return /** @type {EtfSnapshot[]} */ (readJsonlTolerant(fs.readFileSync(archivePath, 'utf8')));
 }
 
 /**
