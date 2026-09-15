@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "diBoaS Sandbox",
+    "appName": "diBoaS Practice",
     "playBadge": "Sandbox · dinero de práctica",
     "playDisclaimer": "Practice es una simulación. No se mueve dinero real. Practice no ofrece asesoramiento financiero ni de inversión. Los Practice Credits son unidades de práctica simuladas sin valor monetario; no son moneda fiduciaria ni Rewards (recompensas). No pueden convertirse en dinero real, retirarse, canjearse ni transferirse.",
     "back": "Volver",
@@ -16,7 +16,7 @@
     "wordmarkAlt": "diBoaS"
   },
   "gate": {
-    "title": "diBoaS Sandbox",
+    "title": "diBoaS Practice",
     "subtitle": "El producto, en modo práctica. Dinero de práctica, mercado real. Nada que perder mientras aprendes los mandos.",
     "passwordLabel": "Contraseña de acceso",
     "enter": "Entrar en el sandbox",
@@ -108,7 +108,8 @@
     "approve": "Aprobar este movimiento",
     "approveEntry": "Aprobar · mover {amount}",
     "withdrawReassurance": "Puedes sacarlo cuando quieras.",
-    "footer": "Nada se mueve hasta que apruebes. Esto es dinero de práctica."
+    "footer": "Nada se mueve hasta que apruebes. Esto es dinero de práctica.",
+    "feeLabel": "Coste de red"
   },
   "settlement": {
     "title": "Confirmando",
@@ -705,5 +706,12 @@
     "explanation": "Un espacio para lo que las personas están construyendo en su vida: contexto relevante, historias de progreso y apoyo. Tus metas, decisiones y dinero siguen siendo tuyos.",
     "availability": "El acceso público aún no está abierto.",
     "action": "Volver al inicio"
+  },
+  "modeMarker": {
+    "practice": "PRACTICE · SIMULADO",
+    "real": "DINERO REAL"
+  },
+  "learn": {
+    "explainer": "Entiende, con un lenguaje claro, las ideas que hay detrás de una decisión sobre dinero. Aprender te ayuda a explorar el contexto, las alternativas y lo que algo podría significar, sin decirte qué elegir."
   }
 }

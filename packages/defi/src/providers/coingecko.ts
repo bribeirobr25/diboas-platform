@@ -14,6 +14,7 @@ import {
   FIXTURE_FX_FROM_USD,
   FIXTURE_PRICES_USD,
   fixturePriceSeries,
+  FIXTURE_STAMP,
 } from '../fixtures';
 import type {
   AssetId,
@@ -24,6 +25,7 @@ import type {
   ProtocolId,
   ProtocolPriceHistory,
 } from '../types';
+import { observedStamp } from '../types';
 import { PROTOCOL_RETURN_MODEL, PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 
 const API_BASE = 'https://api.coingecko.com/api/v3';
@@ -75,14 +77,14 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
         const row = entry.value[COINGECKO_IDS[assetId]];
         const price = row?.[VS[currency]];
         if (typeof price !== 'number') throw new Error(`missing price ${assetId}/${currency}`);
-        return { assetId, currency, price, stamp: { source: 'coingecko', asOf } };
+        return { assetId, currency, price, stamp: observedStamp('coingecko', asOf) };
       });
     } catch {
       return assetIds.map((assetId) => ({
         assetId,
         currency,
         price: FIXTURE_PRICES_USD[assetId] * FIXTURE_FX_FROM_USD[currency],
-        stamp: { source: 'fixture', asOf: FIXTURE_AS_OF },
+        stamp: FIXTURE_STAMP,
       }));
     }
   }
@@ -143,13 +145,13 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
       return {
         protocolId,
         points: entry.value.slice(-days),
-        stamp: { source: 'coingecko', asOf: new Date(entry.at).toISOString() },
+        stamp: observedStamp('coingecko', new Date(entry.at).toISOString()),
       };
     } catch {
       return {
         protocolId,
         points: fixturePriceSeries(protocolId, days),
-        stamp: { source: 'fixture', asOf: FIXTURE_AS_OF },
+        stamp: FIXTURE_STAMP,
       };
     }
   }

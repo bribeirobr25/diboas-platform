@@ -54,10 +54,30 @@ describe('VIEW-2 pass-in exception — the four permitted helpers are passed, ne
     const offenders: string[] = [];
     for (const file of files) {
       const src = code(readFileSync(file, 'utf8'));
-      // a direct call: `name(` not preceded by `.` (so `x.splitEntry(` is not
-      // this rule's business) and not part of a longer identifier
-      const call = new RegExp(String.raw`(?<![.\w])${name}\s*\(`);
-      if (call.test(src)) offenders.push(file.replace(/.*\/components\//, 'components/'));
+      /**
+       * ⚑ ALIAS RESOLUTION ADDED 2026-09-14 (AUD-D02). The guard searched only
+       * for the DECLARED name, so `import { splitEntry as calc }` followed by
+       * `calc(100, 1)` left it 6/6 green — the auditor falsified its central
+       * claim by execution, and I reproduced that before fixing it. Any local
+       * binding the name is imported under is now a call site too.
+       */
+      /* Widened deliberately: `name` is the narrow four-name union, so an
+         inferred Set would reject every alias `.add()` below. */
+      const localNames = new Set<string>([name]);
+      const importRe = new RegExp(String.raw`import\s*\{([^}]*)\}\s*from\s*['"][^'"]+['"]`, 'g');
+      for (const m of src.matchAll(importRe)) {
+        for (const spec of m[1].split(',')) {
+          const parts = spec.trim().split(/\s+as\s+/);
+          if (parts[0].trim() === name && parts[1]) localNames.add(parts[1].trim());
+        }
+      }
+      const called = [...localNames].filter((n) =>
+        new RegExp(String.raw`(?<![.\w])${n}\s*\(`).test(src)
+      );
+      if (called.length > 0)
+        offenders.push(
+          `${file.replace(/.*\/components\//, 'components/')} (as ${called.join(', ')})`
+        );
     }
     expect(offenders).toEqual([]);
   });

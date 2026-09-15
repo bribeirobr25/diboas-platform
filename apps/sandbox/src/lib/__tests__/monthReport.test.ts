@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { FIXTURE_STAMP } from '@diboas/defi';
 import { reconcile } from '@diboas/banking';
 import {
   advanceTime,
@@ -113,7 +114,7 @@ describe('the month-report aggregator', () => {
         date: `2026-08-${String(i + 1).padStart(2, '0')}`,
         priceUsd: 200 - i * 3,
       })),
-      stamp: { source: 'fixture' as const, asOf: '2026-08-01' },
+      stamp: FIXTURE_STAMP,
     });
     advanceTime(30, [], 'machine', [
       falling('skySsr'),

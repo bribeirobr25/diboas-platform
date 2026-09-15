@@ -7,7 +7,8 @@ import { useLedger } from '@/hooks/useLedger';
 import { useFormatters } from '@/hooks/useFormatters';
 import { fetchSeries } from '@/hooks/useMarket';
 import { advanceTime } from '@/lib/ledgerClient';
-import { classifyTrend, decomposePracticeValue } from '@/lib/practiceSeries';
+import { decomposePracticeValue } from '@/lib/practiceSeries';
+import { selectTimeMachineView } from '@/view/timeMachine';
 import { LucideIcon } from './LucideIcon';
 import { SegmentedToggle } from './SegmentedToggle';
 import { Sparkline } from './Sparkline';
@@ -62,27 +63,11 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
    * explanation does not.
    */
   const decomposition = decomposePracticeValue(state);
-  const { points, start, end, market, contributed, entered, exited } = decomposition;
-  const values = points.map((p) => p.value);
-  const trend = classifyTrend(start, end);
-  const hasHistory = points.length >= 2;
-  /**
-   * The user's own acts over the stretch — never presented as growth (UX-63).
-   * All three terms gate the percentage; only `contributed` is displayed, under
-   * the approved `goalDual.contributions` label. Entries and exits are position
-   * changes the value line already shows as steps, and claiming them as
-   * "contributions" would be a second, smaller overstatement.
-   */
-  const userMoved = contributed + entered - exited;
-  /**
-   * A percentage is a RETURN only when the exposed principal did not change
-   * mid-stretch. With deposits, entries or exits in the window an honest rate
-   * needs a time-weighted derivation, which is a methodology this lane has no
-   * authority to invent — so the figure is ABSENT rather than wrong, the same
-   * absent-over-false rule `GoalRow` already follows for pace claims.
-   */
-  const principalMoved = Math.abs(userMoved) > 0.005;
-  const marketPercent = !principalMoved && start > 0 ? (market / start) * 100 : null;
+  const { points, start, end, market, contributed } = decomposition;
+  /* Every truth about the stretch is derived in `view/timeMachine.ts` (AUD-C02,
+     F01, F02, F03). The component renders facts and an explanation it is
+     explicitly permitted to make. */
+  const tm = selectTimeMachineView(decomposition);
 
   /**
    * Advance the clock. The series are fetched per tap rather than held in
@@ -177,26 +162,34 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
         <>
           {/* Meaning first, per spec — the sentence carries the story, the
               sparkline only illustrates it. */}
-          <p className={styles.meaning}>
-            <FormattedMessage
-              id={
-                !hasHistory
-                  ? 'timeMachine.meaningNone'
-                  : trend === 'grew'
+          {/* The sentence describes the MARKET ("it is what the market actually
+              did"), so it is gated on the identity closing — absent over false.
+              No approved string exists for "this stretch cannot be explained",
+              so nothing is rendered rather than copy being invented here. */}
+          {!tm.hasHistory ? (
+            <p className={styles.meaning}>
+              <FormattedMessage id="timeMachine.meaningNone" />
+            </p>
+          ) : tm.explainable ? (
+            <p className={styles.meaning}>
+              <FormattedMessage
+                id={
+                  tm.trend === 'grew'
                     ? 'timeMachine.meaningGrew'
-                    : trend === 'fell'
+                    : tm.trend === 'fell'
                       ? 'timeMachine.meaningFell'
                       : 'timeMachine.meaningFlat'
-              }
-            />
-          </p>
+                }
+              />
+            </p>
+          ) : null}
 
           {controls}
           {honestyLabel}
 
-          {hasHistory ? (
+          {tm.hasHistory ? (
             <div className={styles.spark}>
-              <Sparkline series={values} />
+              <Sparkline series={tm.values} />
             </div>
           ) : null}
 
@@ -228,7 +221,7 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
 
           {controls}
 
-          {hasHistory ? (
+          {tm.hasHistory ? (
             <>
               <ValueChart
                 points={points}
@@ -250,38 +243,44 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
                   </span>
                   <span className={styles.summaryValue}>{money(end.toFixed(2))}</span>
                 </span>
-                <span className={styles.summaryCell}>
-                  <span className={styles.summaryLabel}>
-                    <FormattedMessage id="monthReport.source.marketChange" />
-                  </span>
-                  {/* The meaning is in the WORDS as well as the colour (batch-3
-                      master block): a screen reader and a colour-blind reader
-                      both get "down", not just a red pixel. */}
-                  <span
-                    className={market < 0 ? styles.changeDown : styles.changeUp}
-                    data-direction={market < 0 ? 'down' : 'up'}
-                  >
-                    <span className="srOnly">
-                      <FormattedMessage
-                        id={market < 0 ? 'timeMachine.down' : 'timeMachine.up'}
-                      />{' '}
+                {/* AUD-F03: this cell EXPLAINS the line by decomposing it, so it is
+                    gated on the identity closing — the same rule the screen's
+                    own docstring already promised and nothing enforced. Start
+                    and End above are FACTS about the line and always show. */}
+                {tm.explainable ? (
+                  <span className={styles.summaryCell}>
+                    <span className={styles.summaryLabel}>
+                      <FormattedMessage id="monthReport.source.marketChange" />
                     </span>
-                    {market < 0 ? '−' : '+'}
-                    {money(Math.abs(market).toFixed(2))}
-                    {/* Absent over false: a percentage is only a return when the
-                        exposed principal held still (see `marketPercent`). */}
-                    {marketPercent !== null ? (
-                      <span className={styles.changePercent}>
-                        {marketPercent < 0 ? '−' : '+'}
-                        {intl.formatNumber(Math.abs(marketPercent), {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                        %
+                    {/* The meaning is in the WORDS as well as the colour (batch-3
+                        master block): a screen reader and a colour-blind reader
+                        both get "down", not just a red pixel. */}
+                    <span
+                      className={market < 0 ? styles.changeDown : styles.changeUp}
+                      data-direction={market < 0 ? 'down' : 'up'}
+                    >
+                      <span className="srOnly">
+                        <FormattedMessage
+                          id={market < 0 ? 'timeMachine.down' : 'timeMachine.up'}
+                        />{' '}
                       </span>
-                    ) : null}
+                      {market < 0 ? '−' : '+'}
+                      {money(Math.abs(market).toFixed(2))}
+                      {/* Absent over false: a percentage is only a return when the
+                          exposed principal held still (see `marketPercent`). */}
+                      {tm.marketPercent !== null ? (
+                        <span className={styles.changePercent}>
+                          {tm.marketPercent < 0 ? '−' : '+'}
+                          {intl.formatNumber(Math.abs(tm.marketPercent), {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
+                          %
+                        </span>
+                      ) : null}
+                    </span>
                   </span>
-                </span>
+                ) : null}
                 {/* The user's own money, stated as their own act rather than as
                     growth — `monthReport` reports `movedIntoGoals` the same way,
                     deliberately outside the figure it explains. Reuses the

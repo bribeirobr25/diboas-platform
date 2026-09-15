@@ -60,15 +60,45 @@ const EXACT_LEGAL_COPY = new Set([
   'legalReadiness.analytics',
 ]);
 
+/**
+ * Brand-approved EXACT copy, exempt from the house dash style the same way
+ * `EXACT_LEGAL_COPY` is (`5.311`). Keep this set as small as the authority
+ * documents require, and name the document for each entry.
+ */
+const EXACT_BRAND_COPY = new Set([
+  'learn.explainer', // Consolidated Handoff 2026-09-12 §7.1
+  // Brand/Localization §3, verified verbatim at Brand-Legal-Monetization.txt
+  // lines 198/200/202 — each ships an EN-dash in its approved German wording.
+  'catalog.strategies.stableGrowth.tagline',
+  'catalog.strategies.steadyProgress.tagline',
+  'catalog.strategies.balancedBuilder.tagline',
+]);
+
 describe('anti-slop punctuation guard (checklist Part 2, baked in as a test)', () => {
-  it('should contain no em-dashes in any user-facing string', () => {
+  /**
+   * ⚑ `5.311` CLOSED 2026-09-14. This checked the EM-dash only, so an author
+   * could ship an EN-dash freely — and the German corpus proved the gap was
+   * real, not theoretical. Both are now banned. Every EN-dash currently in the
+   * corpus is APPROVED authority copy and is named in `EXACT_BRAND_COPY`
+   * above, so the exemption list is the complete statement of what this rule
+   * does not see.
+   */
+  it('should contain no em-dashes or en-dashes in any user-facing string', () => {
     for (const locale of SANDBOX_LOCALES) {
       for (const [id, msg] of Object.entries(getMessages(locale))) {
         // Legal-approved EXACT copy is not subject to the house style guard:
         // LC-TD-02 §4.2 fixes the LEGAL-PRIVACY string with an em-dash in all
         // four locales, and the lane may not alter Legal copy (I-0b).
         if (EXACT_LEGAL_COPY.has(id)) continue;
+        // Same principle, different authority (`5.311`, AUD-B06): the handoff
+        // §7.1 Learn explainer is Brand-approved EXACT copy carrying an em-dash
+        // in en/pt-BR. The rule exists to stop AUTHORED em-dashes, and this lane
+        // may not edit approved copy — so the exception is named, not widened.
+        // ⚑ What this drops: the two ids below are no longer dash-checked in ANY
+        // locale. Nothing else is exempt.
+        if (EXACT_BRAND_COPY.has(id)) continue;
         expect(msg.includes('—'), `${locale}:${id} contains an em-dash`).toBe(false);
+        expect(msg.includes('–'), `${locale}:${id} contains an en-dash`).toBe(false);
       }
     }
   });

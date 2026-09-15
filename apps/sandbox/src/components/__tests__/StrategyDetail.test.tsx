@@ -2,7 +2,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { describe, expect, it, vi } from 'vitest';
-import { getStrategy } from '@diboas/defi';
+import { getStrategy, FIXTURE_STAMP, observedStamp } from '@diboas/defi';
 import type { ProtocolApy, ProtocolApyHistory, ProtocolId } from '@diboas/defi';
 import { StrategyDetail } from '../StrategyDetail';
 
@@ -80,7 +80,8 @@ function apy(protocolId: ProtocolId, source: 'defillama' | 'fixture' = 'defillam
     apyPercent: 4,
     tvlUsd: null,
     chain: 'Arbitrum',
-    stamp: { source, asOf: source === 'defillama' ? '2026-08-19T00:00:00Z' : '2026-07-18' },
+    stamp:
+      source === 'fixture' ? FIXTURE_STAMP : observedStamp('defillama', '2026-08-19T00:00:00Z'),
   };
 }
 const LIVE = [apy('skySsr'), apy('aaveV3'), apy('compoundV3')];
@@ -94,7 +95,7 @@ function history(protocolId: ProtocolId, days: number): ProtocolApyHistory {
       date: new Date(Date.UTC(2026, 4, 1 + i)).toISOString().slice(0, 10),
       apyPercent: 3 + (i % 4),
     })),
-    stamp: { source: 'defillama', asOf: '2026-08-19T00:00:00Z' },
+    stamp: observedStamp('defillama', '2026-08-19T00:00:00Z'),
   };
 }
 
@@ -118,7 +119,7 @@ function renderDetail(
           {
             chain: 'Arbitrum',
             typicalFeeUsd: 0.03,
-            stamp: { source: 'fixture', asOf: '2026-07-18' },
+            stamp: FIXTURE_STAMP,
           },
         ]}
         usdPriceLocal={1}

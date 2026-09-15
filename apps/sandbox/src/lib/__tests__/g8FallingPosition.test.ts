@@ -5,6 +5,8 @@ import {
   type ProtocolApyHistory,
   type ProtocolPriceHistory,
   type StrategyId,
+  FIXTURE_STAMP,
+  observedStamp,
 } from '@diboas/defi';
 import { reconcile } from '@diboas/banking';
 import { practiceValueSeries } from '@/lib/practiceSeries';
@@ -35,7 +37,7 @@ const apyHistories = (days: number): ProtocolApyHistory[] =>
       date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
       apyPercent: 5,
     })),
-    stamp: { source: 'defillama', asOf: '2026-08-20T00:00:00Z' },
+    stamp: observedStamp('defillama', '2026-08-20T00:00:00Z'),
   }));
 
 /** Real-shaped falling series for the market legs (fixture = start→trough→end). */
@@ -43,7 +45,7 @@ const priceHistories = (days: number): ProtocolPriceHistory[] =>
   PROTOCOLS.map((protocolId) => ({
     protocolId,
     points: fixturePriceSeries(protocolId, days),
-    stamp: { source: 'fixture', asOf: '2026-07-18' },
+    stamp: FIXTURE_STAMP,
   }));
 
 function openPosition(strategyId: StrategyId): string {

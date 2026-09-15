@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
+import { observedStamp } from '../types';
 import { CoinGeckoPriceProvider } from '../providers/coingecko';
 import { DefiLlamaApyProvider, matchPool } from '../providers/defillama';
 import { FixtureGasProvider } from '../providers/gas';
@@ -204,7 +205,7 @@ describe('provenance stamps carry the FETCH time, never the serve time (Data Vin
     at('2026-09-11T11:30:00.000Z');
     const history = await provider.getApyHistory('aaveV3', 30);
     expect(n).toBe(2); // one /pools + one /chart, then both served from cache
-    expect(history.stamp).toEqual({ source: 'defillama', asOf: T0 });
+    expect(history.stamp).toEqual(observedStamp('defillama', T0));
   });
 
   it('should stamp cached prices with their fetch time', async () => {
@@ -215,7 +216,7 @@ describe('provenance stamps carry the FETCH time, never the serve time (Data Vin
     at('2026-09-11T13:00:00.000Z');
     const [usdc] = await provider.getPrices(['USDC'], 'EUR');
     expect(calls.n).toBe(1);
-    expect(usdc.stamp).toEqual({ source: 'coingecko', asOf: T0 });
+    expect(usdc.stamp).toEqual(observedStamp('coingecko', T0));
   });
 
   it('should stamp price history with its fetch time', async () => {
@@ -227,7 +228,7 @@ describe('provenance stamps carry the FETCH time, never the serve time (Data Vin
     at('2026-09-11T09:45:00.000Z');
     const history = await provider.getPriceHistory('jito', 30);
     expect(calls.n).toBe(1);
-    expect(history.stamp).toEqual({ source: 'coingecko', asOf: T0 });
+    expect(history.stamp).toEqual(observedStamp('coingecko', T0));
   });
 });
 

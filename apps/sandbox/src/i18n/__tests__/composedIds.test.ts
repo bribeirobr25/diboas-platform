@@ -3,7 +3,7 @@ import { join, relative } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { STRATEGY_CATALOG } from '@diboas/defi';
 import type { GoalStatus } from '@diboas/banking';
-import { CHART_TIMEFRAMES } from '../../components/ApyChart';
+import { CHART_TIMEFRAMES } from '../../view/strategy';
 import { CONSENT_OPT_IN_IDS } from '../../components/Consent';
 import { MONEY_OUT_ACTIONS } from '../../components/MoneyOut';
 import { RISK_FACTOR_KEYS } from '../../components/StrategyDetail';

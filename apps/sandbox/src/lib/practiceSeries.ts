@@ -102,7 +102,17 @@ export function decomposePracticeValue(state: LedgerState): PracticeDecompositio
   for (const e of state.events) {
     switch (e.type) {
       case 'StrategyEntered':
-        if (points.length > 0) entered = entered.plus(e.amount);
+        /**
+         * ⚑ AUD-F03. The rule is that the OPENING position is the start value,
+         * not a change to it — but this tested `points.length > 0`, which is
+         * per-EVENT, not per-opening-DAY. Two entries on day zero therefore
+         * counted the second in `entered` while `push()` overwrote the same-day
+         * point with the combined total, so `start` already contained it. The
+         * identity could not close (start=200, entered=100, identityHolds=false)
+         * and the screen went on explaining anyway. Everything at the line's
+         * first simDay is the opening value; a later entry is a real change.
+         */
+        if (points.length > 0 && e.simDay > points[0].simDay) entered = entered.plus(e.amount);
         perPosition.set(e.positionId, new Decimal(e.amount));
         simDay = e.simDay;
         push();

@@ -16,6 +16,8 @@
  *   exports     two built screens shipped linked from nowhere
  *   port        killing by process group off a port's pid list took down
  *               Docker Desktop — a port's pids include its CLIENTS
+ *   battery     the gate printed "Mechanical rows green" and exited 0 without
+ *               ever running type-check, lint, format:check or the suites
  *
  *   pnpm review:increment     mechanical rows + the increment manual checklist
  *   pnpm review:system        mechanical rows + the system manual checklist
@@ -423,7 +425,50 @@ const MANUAL = {
 
 const mode = process.argv[2] ?? 'increment';
 const args = process.argv.slice(3);
+/* ----------------------------------------------------------------- battery */
+/**
+ * ⚑ ADDED 2026-09-14 (AUD-G01). Every check above is a TEXT or REGISTRY check.
+ * None of them ran type-check, lint, format:check or the suites — and yet a
+ * clean run printed "Mechanical rows green" and exited 0, which any reader
+ * takes as "the gate passed". An increment that does not COMPILE cannot have
+ * passed a review gate, so the claim was broader than the evidence.
+ *
+ * This row runs the battery for real. `--fast` skips it, and the run then
+ * reports INCOMPLETE (exit 2) rather than green — a skipped row is not a pass.
+ * It is deliberately the WHOLE workspace, not just the sandbox: scoping a gate
+ * to one package is the exact defect that let a `packages/banking` break sit red
+ * at the root for a day while `screen-check` reported PASS every time.
+ */
+function checkBattery() {
+  if (process.argv.includes('--fast'))
+    return {
+      skip: true,
+      detail: '--fast given: battery NOT run. The exit code reports INCOMPLETE, not green.',
+    };
+  const steps = [
+    ['type-check', 'pnpm type-check'],
+    ['lint', 'pnpm lint'],
+    ['format:check', 'pnpm format:check'],
+    ['test', 'pnpm test'],
+  ];
+  const failures = [];
+  for (const [name, cmd] of steps) {
+    try {
+      sh(cmd);
+    } catch {
+      failures.push(name);
+    }
+  }
+  return failures.length
+    ? { ok: false, detail: `FAILED: ${failures.join(', ')} — run each directly for its output` }
+    : {
+        ok: true,
+        detail: `${steps.map((s) => s[0]).join(' \u00b7 ')} all green (whole workspace)`,
+      };
+}
+
 const CHECKS = {
+  battery: ['the mechanical battery actually ran', checkBattery],
   register: ['register id integrity', checkRegister],
   counts: ['republished test counts agree', checkCounts],
   authorities: ['authority coverage of the gates', checkAuthorities],
@@ -431,8 +476,10 @@ const CHECKS = {
   exports: ['exported functions have consumers', checkExports],
 };
 const PLAN = {
-  increment: ['register', 'counts', 'authorities', 'staged', 'exports'],
-  system: ['authorities', 'counts', 'register', 'exports', 'staged'],
+  /* `battery` runs FIRST in both: if it does not compile, nothing downstream is
+     worth reading. */
+  increment: ['battery', 'register', 'counts', 'authorities', 'staged', 'exports'],
+  system: ['battery', 'authorities', 'counts', 'register', 'exports', 'staged'],
 };
 
 console.log(`\n${C.b}Review Gate — ${mode}${C.x}`);

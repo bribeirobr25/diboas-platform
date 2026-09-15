@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "diBoaS Sandbox",
+    "appName": "diBoaS Practice",
     "playBadge": "Sandbox · Spielgeld",
     "playDisclaimer": "Practice ist eine Simulation. Es wird kein echtes Geld bewegt. Practice bietet keine Finanz- oder Anlageberatung. Practice Credits sind simulierte Übungseinheiten ohne Geldwert, keine Fiatwährung und keine Rewards (Belohnungen). Sie können weder in echtes Geld umgewandelt noch ausgezahlt, eingelöst oder übertragen werden.",
     "back": "Zurück",
@@ -16,7 +16,7 @@
     "wordmarkAlt": "diBoaS"
   },
   "gate": {
-    "title": "diBoaS Sandbox",
+    "title": "diBoaS Practice",
     "subtitle": "Das Produkt im Übungsmodus. Spielgeld, echter Markt. Nichts zu verlieren, während du die Bedienung lernst.",
     "passwordLabel": "Zugangspasswort",
     "enter": "Sandbox betreten",
@@ -108,7 +108,8 @@
     "approve": "Diese Bewegung genehmigen",
     "approveEntry": "Genehmigen · {amount} bewegen",
     "withdrawReassurance": "Du kannst das jederzeit herausnehmen.",
-    "footer": "Nichts bewegt sich, bis du genehmigst. Das ist Spielgeld."
+    "footer": "Nichts bewegt sich, bis du genehmigst. Das ist Spielgeld.",
+    "feeLabel": "Netzwerkkosten"
   },
   "settlement": {
     "title": "Wird bestätigt",
@@ -705,5 +706,12 @@
     "explanation": "Ein Raum für das, was Menschen in ihrem Leben aufbauen: relevanter Kontext, Geschichten über Fortschritte und Unterstützung. Deine Ziele, Entscheidungen und dein Geld bleiben bei dir.",
     "availability": "Der öffentliche Zugang ist noch nicht geöffnet.",
     "action": "Zurück zur Startseite"
+  },
+  "modeMarker": {
+    "practice": "PRACTICE · SIMULIERT",
+    "real": "ECHTES GELD"
+  },
+  "learn": {
+    "explainer": "Verstehe in klarer Sprache, was hinter einer Entscheidung rund ums Geld steckt. Hier kannst du Zusammenhänge, Abwägungen und mögliche Bedeutungen erkunden – ohne dass dir gesagt wird, wofür du dich entscheiden sollst."
   }
 }

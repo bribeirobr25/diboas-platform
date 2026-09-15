@@ -18,7 +18,30 @@ import type { AssetId, Chain, DataStamp, ProtocolApy, ProtocolId } from './types
 
 export const FIXTURE_AS_OF = '2026-07-18';
 
-const stamp: DataStamp = { source: 'fixture', asOf: FIXTURE_AS_OF };
+/**
+ * The fixture SET's version (§8.8: "snapshot/version identifier sufficient for
+ * deterministic replay"). Bump it whenever any value in this file changes —
+ * `FIXTURE_AS_OF` alone is not enough, because a corrected value on the same
+ * documentation date would be indistinguishable from the original.
+ */
+export const FIXTURE_VERSION = '2026-07-18.1';
+
+/**
+ * Every fixture value is MODELLED, not observed: the APYs are midpoints of the
+ * shipped per-strategy ranges, the gas figures are researched typicals, and the
+ * prices are documented placeholders. `observedAt` IS knowable here (unlike a
+ * provider) — it is the date the set was documented.
+ */
+export const FIXTURE_STAMP: DataStamp = {
+  source: 'fixture',
+  origin: 'MODELLED',
+  asOf: FIXTURE_AS_OF,
+  observedAt: FIXTURE_AS_OF,
+  fallbackUsed: true,
+  fixtureVersion: FIXTURE_VERSION,
+};
+
+const stamp: DataStamp = FIXTURE_STAMP;
 
 export const FIXTURE_APYS: Record<ProtocolId, Omit<ProtocolApy, 'protocolId'>> = {
   skySsr: { apyPercent: 6.5, tvlUsd: null, chain: 'Arbitrum', stamp },

@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { getMessages } from '@/i18n/loadMessages';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { fixturePriceSeries } from '@diboas/defi';
+import { fixturePriceSeries, FIXTURE_STAMP, observedStamp } from '@diboas/defi';
 import {
   advanceTime,
   createGoal,
@@ -21,13 +21,13 @@ const apy = (days: number) =>
       date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
       apyPercent: 5,
     })),
-    stamp: { source: 'defillama' as const, asOf: '2026-08-20T00:00:00Z' },
+    stamp: observedStamp('defillama', '2026-08-20T00:00:00Z'),
   }));
 const prices = (days: number) =>
   PROTOCOLS.map((protocolId) => ({
     protocolId,
     points: fixturePriceSeries(protocolId, days),
-    stamp: { source: 'fixture' as const, asOf: '2026-07-18' },
+    stamp: FIXTURE_STAMP,
   }));
 
 vi.mock('@/hooks/useMarket', () => ({

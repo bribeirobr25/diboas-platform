@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "diBoaS Sandbox",
+    "appName": "diBoaS Practice",
     "playBadge": "Sandbox · play money",
     "playDisclaimer": "Practice is a simulation. No real money moves. Practice does not provide financial or investment advice. Practice Credits are simulated practice units with no monetary value; they are not fiat currency or Rewards. They cannot be converted into real money, withdrawn, redeemed or transferred.",
     "back": "Back",
@@ -16,7 +16,7 @@
     "wordmarkAlt": "diBoaS"
   },
   "gate": {
-    "title": "diBoaS Sandbox",
+    "title": "diBoaS Practice",
     "subtitle": "The product, in practice mode. Play money, real market. Nothing to lose while you learn the controls.",
     "passwordLabel": "Access password",
     "enter": "Enter the sandbox",
@@ -108,7 +108,8 @@
     "approve": "Approve this move",
     "approveEntry": "Approve · move {amount}",
     "withdrawReassurance": "You can take this out any time.",
-    "footer": "Nothing moves until you approve. This is play money."
+    "footer": "Nothing moves until you approve. This is play money.",
+    "feeLabel": "Network cost"
   },
   "settlement": {
     "title": "Confirming",
@@ -705,5 +706,12 @@
     "explanation": "A space for what people are building in life: relevant context, progress stories and support. Your goals, decisions and money stay yours.",
     "availability": "Public access is not open yet.",
     "action": "Back to Home"
+  },
+  "modeMarker": {
+    "practice": "PRACTICE · SIMULATED",
+    "real": "REAL MONEY"
+  },
+  "learn": {
+    "explainer": "Understand the ideas behind a money decision, in plain language. Learn helps you explore context, trade-offs and what something could mean — without telling you what to choose."
   }
 }

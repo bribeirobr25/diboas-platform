@@ -219,6 +219,25 @@ describe('selectGoalCompletionView', () => {
     expect(selectGoalCompletionView(st('1000.00', '1000.00'), 'g1', '1000.01').canRaise).toBe(true);
   });
 
+  /**
+   * AUD-E02. The exactness claim was asserted only at cent scale, where a float
+   * round-trip is indistinguishable — so restoring `new Decimal(Number(v) || 0)`
+   * kept every kept test green and the "sabotage-proven" claim was unsupported.
+   * This is the boundary that separates the two implementations: `Number` cannot
+   * represent 9007199254740993, so it collapses onto the existing target and the
+   * raise disappears. Decimal parses the string and keeps it.
+   */
+  it('should accept a raise that a float round-trip would erase', () => {
+    const target = '9007199254740992';
+    const raise = '9007199254740993';
+
+    // The float path cannot tell these apart — that IS the defect being guarded.
+    expect(Number(raise)).toBe(Number(target));
+
+    expect(selectGoalCompletionView(st(target, '0.00'), 'g1', raise).canRaise).toBe(true);
+    expect(selectGoalCompletionView(st(target, '0.00'), 'g1', target).canRaise).toBe(false);
+  });
+
   it('should not call an empty or junk entry a raise', () => {
     expect(selectGoalCompletionView(st('1000.00', '0.00'), 'g1', '').canRaise).toBe(false);
     expect(selectGoalCompletionView(st('1000.00', '0.00'), 'g1', 'abc').canRaise).toBe(false);
@@ -526,8 +545,19 @@ describe('selectExitPreview', () => {
   type Preview =
     | { kind: 'goal'; goalId: string; positionId?: undefined; fee?: undefined }
     | { kind: 'position'; positionId: string; fee: number; goalId?: undefined };
-  const previewGoal = (goalId: string): Preview | null => ({ kind: 'goal', goalId });
-  const previewPosition = (positionId: string, fee: number): Preview | null => ({
+  /* The snapshot is explicit now (AUD-C01); these fakes ignore it, which is
+     the point — the SELECTOR must pass it on, and the real callbacks read it
+     instead of the global. */
+  const SNAP = base({} as Partial<LedgerState>);
+  const previewGoal = (_state: LedgerState, goalId: string): Preview | null => ({
+    kind: 'goal',
+    goalId,
+  });
+  const previewPosition = (
+    _state: LedgerState,
+    positionId: string,
+    fee: number
+  ): Preview | null => ({
     kind: 'position',
     positionId,
     fee,
@@ -543,6 +573,7 @@ describe('selectExitPreview', () => {
         feeFor,
         previewGoal,
         previewPosition,
+        snapshot: SNAP,
       })
     ).toBeNull();
   });
@@ -556,6 +587,7 @@ describe('selectExitPreview', () => {
         feeFor,
         previewGoal,
         previewPosition,
+        snapshot: SNAP,
       })
     ).toBeNull();
   });
@@ -569,6 +601,7 @@ describe('selectExitPreview', () => {
         feeFor,
         previewGoal,
         previewPosition,
+        snapshot: SNAP,
       })
     ).toEqual({ kind: 'goal', goalId: 'g1' });
   });
@@ -582,6 +615,7 @@ describe('selectExitPreview', () => {
         feeFor,
         previewGoal,
         previewPosition,
+        snapshot: SNAP,
       })
     ).toEqual({ kind: 'position', positionId: 'p1', fee: 0.42 });
   });
@@ -595,6 +629,7 @@ describe('selectExitPreview', () => {
         feeFor,
         previewGoal,
         previewPosition,
+        snapshot: SNAP,
       })
     ).toBeNull();
   });
@@ -608,6 +643,7 @@ describe('selectExitPreview', () => {
         feeFor,
         previewGoal: (): Preview | null => null,
         previewPosition,
+        snapshot: SNAP,
       })
     ).toBeNull();
   });

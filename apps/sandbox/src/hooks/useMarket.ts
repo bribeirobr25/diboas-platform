@@ -7,7 +7,8 @@ export interface MarketData {
   currency: 'USD' | 'BRL' | 'EUR';
   apys: ProtocolApy[];
   gas: GasQuote[];
-  usdPriceLocal: number;
+  /** `null` when no USDC quote resolved — the conversion is UNKNOWN (§8.7). */
+  usdPriceLocal: number | null;
 }
 
 /**

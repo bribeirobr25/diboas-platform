@@ -57,7 +57,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: 'diBoaS Sandbox',
+  title: 'diBoaS Practice',
   robots: { index: false, follow: false },
 };
 

@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { observedStamp } from '@diboas/defi';
 import {
   advanceTime,
   createGoal,
@@ -42,7 +43,7 @@ const apyHistories = (days: number): ProtocolApyHistory[] =>
       date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
       apyPercent: 5,
     })),
-    stamp: { source: 'defillama' as const, asOf: '2026-08-20T00:00:00Z' },
+    stamp: observedStamp('defillama', '2026-08-20T00:00:00Z'),
   }));
 
 /** A goal with money at work, so the value line has something to track. */
@@ -154,6 +155,30 @@ describe('the practice value decomposition (5.199)', () => {
     expect(d.exited).toBeCloseTo(principal + accruals, 2);
     // …and the whole position left, so the line ends at zero.
     expect(d.end).toBeCloseTo(0, 2);
+    expect(d.market + d.contributed + d.entered - d.exited).toBeCloseTo(d.end - d.start, 2);
+    expect(d.identityHolds).toBe(true);
+  });
+
+  it('should treat TWO entries on the opening day as the start value, not as a change', () => {
+    /**
+     * AUD-F03. Both entries land on simDay 0, so both are the opening value —
+     * `push()` overwrites the same-day point with the combined total, which
+     * means `start` already contains them. Counting the second in `entered`
+     * double-counted it and the identity could not close, yet the screen kept
+     * explaining. Reproduced from the auditor's figures.
+     */
+    const goalId = positionAtWork(1000);
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 100, networkFeeLocal: 0 });
+
+    const before = decomposePracticeValue(getLedgerState());
+    expect(before.points).toHaveLength(1);
+    expect(before.start).toBeCloseTo(1100, 2);
+    expect(before.entered).toBe(0);
+
+    advanceTime(30, apyHistories(400), 'machine');
+
+    const d = decomposePracticeValue(getLedgerState());
+    expect(d.entered).toBe(0);
     expect(d.market + d.contributed + d.entered - d.exited).toBeCloseTo(d.end - d.start, 2);
     expect(d.identityHolds).toBe(true);
   });

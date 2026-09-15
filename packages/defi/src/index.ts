@@ -11,6 +11,7 @@ export const DEFI_PACKAGE_VERSION = '0.2.0';
 export * from './types';
 export * from './catalog';
 export * from './provenance';
+export * from './freshness';
 export * from './fixtures';
 export { DefiLlamaApyProvider, POOL_MATCHERS, matchPool } from './providers/defillama';
 export { CoinGeckoPriceProvider, COINGECKO_IDS } from './providers/coingecko';

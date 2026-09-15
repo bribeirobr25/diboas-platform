@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import Decimal from 'decimal.js';
-import { fixturePriceSeries } from '@diboas/defi';
+import { fixturePriceSeries, FIXTURE_STAMP, observedStamp } from '@diboas/defi';
 import {
   advanceTime,
   createGoal,
@@ -28,13 +28,13 @@ const apy = (days: number) =>
       date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
       apyPercent: 5,
     })),
-    stamp: { source: 'defillama' as const, asOf: '2026-08-20T00:00:00Z' },
+    stamp: observedStamp('defillama', '2026-08-20T00:00:00Z'),
   }));
 const prices = (days: number) =>
   PROTOCOLS.map((protocolId) => ({
     protocolId,
     points: fixturePriceSeries(protocolId, days),
-    stamp: { source: 'fixture' as const, asOf: '2026-07-18' },
+    stamp: FIXTURE_STAMP,
   }));
 
 function fallen(): string {
@@ -98,7 +98,7 @@ describe('§4.8 step 9 — a loss stays honest across every surface', () => {
 
   it('should still price an EXIT on a fallen position (the floor binds, nothing breaks)', () => {
     const goalId = fallen();
-    const preview = previewGoalStop(goalId, () => 0.03)!;
+    const preview = previewGoalStop(getLedgerState(), goalId, () => 0.03)!;
     expect(preview).not.toBeNull();
     // Gross is what is really there — smaller than what went in.
     expect(new Decimal(preview.gross).lt(1000)).toBe(true);

@@ -42,14 +42,68 @@ export type AssetId = 'BTC' | 'ETH' | 'SOL' | 'SUI' | 'USDC' | 'XAUT';
 export type DisplayCurrency = 'USD' | 'BRL' | 'EUR';
 
 /**
- * Honesty stamp carried by every piece of displayed data (Data Vintage Policy):
- * where a number came from and when it was fetched. `fixture` marks the
- * documented fallback values — never silently blended with live data.
+ * Where a datum came FROM, independent of how old it is (handoff §8.2).
+ *
+ * ORIGIN and FRESHNESS are orthogonal and must never be collapsed: a freshly
+ * retrieved modelled value is CURRENT and MODELLED at the same time, and a
+ * three-week-old observation is OBSERVED and STALE at the same time. Reading
+ * one off the other is how "Live from DeFiLlama" ended up above a fixture fee.
+ */
+export type EvidenceOrigin = 'OBSERVED' | 'MODELLED' | 'PROXY';
+
+/**
+ * The TIME state (§8.2/§8.5). DERIVED from a stamp and a clock by
+ * `dataFreshness` — never stored, because a stored freshness silently stops
+ * being true the moment it is written. `HISTORICAL` is the one value that is
+ * ASSERTED by a replay caller (§8.3: correctly frozen history does not become
+ * STALE merely because time passed) and is never computed from age.
+ */
+export type TimeState = 'CURRENT' | 'DELAYED' | 'STALE' | 'HISTORICAL' | 'MISSING';
+
+/**
+ * Honesty stamp carried by every piece of displayed data (Data Vintage Policy).
+ *
+ * ⚑ WIDENED 2026-09-14 (AUD-F05, handoff §8.8). It carried two fields —
+ * `source` and `asOf` — and `asOf` was doing two incompatible jobs: for a
+ * provider it is the RETRIEVAL time (`new Date(entry.at)`), while for a fixture
+ * it is the OBSERVATION date the values were documented on. One field cannot be
+ * both, and §8.8 requires them separately. Every field below is REQUIRED on
+ * purpose: an optional one lets a construction site stay silent about
+ * provenance, which is the state this replaces.
  */
 export interface DataStamp {
+  /** Source identity. */
   source: 'defillama' | 'coingecko' | 'fixture';
-  /** ISO timestamp of the fetch (or the fixture's documentation date). */
+  /** OBSERVED / MODELLED / PROXY — see `EvidenceOrigin`. */
+  origin: EvidenceOrigin;
+  /** RETRIEVAL / refresh timestamp: when we fetched, never when we served. */
   asOf: string;
+  /**
+   * When the datum was observed AT ITS SOURCE. `null` where only the retrieval
+   * time is knowable — which is the honest answer for every provider today,
+   * since neither API returns an observation timestamp per value.
+   */
+  observedAt: string | null;
+  /** Did this value come from the documented fallback instead of the source? */
+  fallbackUsed: boolean;
+  /** Which fixture set produced it, for deterministic replay. `null` when live. */
+  fixtureVersion: string | null;
+}
+
+/** A live, source-observed stamp. `observedAt` stays null unless the API gives one. */
+export function observedStamp(
+  source: 'defillama' | 'coingecko',
+  asOf: string,
+  observedAt: string | null = null
+): DataStamp {
+  return {
+    source,
+    origin: 'OBSERVED',
+    asOf,
+    observedAt,
+    fallbackUsed: false,
+    fixtureVersion: null,
+  };
 }
 
 export interface ProtocolApy {

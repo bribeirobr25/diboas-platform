@@ -5,10 +5,10 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { EXIT_FEE_FLOOR, FEE_RATES } from '@diboas/banking';
 import { FIXTURE_AS_OF, strategyProvenance } from '@diboas/defi';
 import type { GasQuote, ProtocolApy, ProtocolApyHistory, StrategyDef } from '@diboas/defi';
-import { blendDatedSeries } from '@diboas/investing';
 import { useFormatters } from '@/hooks/useFormatters';
 import { networkFeeLocal } from '@/lib/networkFee';
-import { ApyChart, CHART_TIMEFRAMES, type ChartTimeframe } from './ApyChart';
+import { selectStrategyChartSeries, type ChartTimeframe } from '@/view/strategy';
+import { ApyChart } from './ApyChart';
 import { Button } from './Button';
 import { Card } from './Card';
 import { LucideIcon } from './LucideIcon';
@@ -62,7 +62,7 @@ export function StrategyDetail({
   /** Real per-protocol history for the axed chart; empty until it loads. */
   histories: ProtocolApyHistory[];
   gas: GasQuote[];
-  usdPriceLocal: number;
+  usdPriceLocal: number | null;
   currency: 'USD' | 'BRL' | 'EUR';
   onPutToWork?: () => void;
 }) {
@@ -79,15 +79,14 @@ export function StrategyDetail({
   const provenance = strategyProvenance(strategy, apys, gas[0]?.stamp);
   const fee = networkFeeLocal(gas, strategy.entryChain, usdPriceLocal);
 
-  // The chart's series: the strategy's own legs, weighted, over real history.
-  const byProtocol = new Map(histories.map((h) => [h.protocolId, h]));
-  const chartSeries = blendDatedSeries(
-    strategy.allocation.map((leg) => ({
-      weightPercent: leg.weightPercent,
-      points: byProtocol.get(leg.protocolId)?.points ?? [],
-    }))
-  );
-  const sparkSeries = chartSeries.slice(-30).map((p) => p.apyPercent);
+  /* The chart's series — derived in `view/strategy.ts` (AUD-C02). The selector
+     also REFUSES when a leg has no history, rather than blending the rest and
+     publishing a silently low curve as the strategy's own past. */
+  const chart = selectStrategyChartSeries({
+    allocation: strategy.allocation,
+    histories,
+    requestedTimeframe,
+  });
 
   const apyMessageId =
     provenance.state === 'live'
@@ -99,14 +98,6 @@ export function StrategyDetail({
   const fixtureProtocolNames = provenance.fixtureProtocolIds
     .map((id) => intl.formatMessage({ id: `catalog.protocols.${id}` }))
     .join(', ');
-
-  // Keep the shown timeframe honest: never mark a window active that the data
-  // cannot fill. DERIVED during render (never synced via an effect, which would
-  // cascade renders) — the request is what the user asked for, the effective
-  // value is what history can actually answer.
-  const fitting = CHART_TIMEFRAMES.filter((d) => d <= chartSeries.length);
-  const widestFit = fitting.length > 0 ? fitting[fitting.length - 1] : CHART_TIMEFRAMES[0];
-  const timeframe = requestedTimeframe <= widestFit ? requestedTimeframe : widestFit;
 
   const provenanceStamp =
     provenance.state === 'live' ? (
@@ -196,9 +187,14 @@ export function StrategyDetail({
         <li>
           <FormattedMessage id="pathCard.entryFee" />
         </li>
-        <li>
-          <FormattedMessage id="pathCard.networkFee" values={{ amount: money(fee) }} />
-        </li>
+        {/* ⚑ AUD-F05. `about $0.00` would understate the one cost this list
+            exists to state, so an unknown fee is ABSENT rather than wrong. The
+            explanation it deserves needs an approved string (registered). */}
+        {fee !== null ? (
+          <li>
+            <FormattedMessage id="pathCard.networkFee" values={{ amount: money(fee) }} />
+          </li>
+        ) : null}
         {variant === 'full' ? (
           <li>
             <FormattedMessage
@@ -291,7 +287,7 @@ export function StrategyDetail({
                 values={{ apy: apy.toDecimalPlaces(2).toNumber() }}
               />
             </p>
-            {sparkSeries.length >= 2 ? <Sparkline series={sparkSeries} /> : null}
+            {chart.sparkSeries.length >= 2 ? <Sparkline series={chart.sparkSeries} /> : null}
             <p className={styles.caveat}>
               <LucideIcon name="shield" size={14} />
               <FormattedMessage id="strategyDetail.caveat" />
@@ -336,8 +332,8 @@ export function StrategyDetail({
           </p>
 
           <ApyChart
-            series={chartSeries}
-            timeframe={timeframe}
+            series={chart.series}
+            timeframe={chart.timeframe}
             onTimeframe={setRequestedTimeframe}
           />
 

@@ -61,10 +61,13 @@ describe('AuthWelcome (A2 front door — wired)', () => {
     expect(screen.getByRole('button', { name: 'Change language, current: English' })).toBeTruthy();
   });
 
-  it('should show the diBoaS wordmark (not "diBoaS Sandbox")', () => {
+  it('should show the diBoaS wordmark (not the full product name)', () => {
     renderWelcome();
     expect(screen.getByRole('img', { name: 'diBoaS' })).toBeTruthy();
-    // No "diBoaS Sandbox" text title (internal-page rule).
+    /* No product-name text title (internal-page rule). Both spellings are
+       asserted: the current one, and the pre-B01 one, so the rename cannot
+       quietly turn this assertion vacuous. */
+    expect(screen.queryByText('diBoaS Practice')).toBeNull();
     expect(screen.queryByText('diBoaS Sandbox')).toBeNull();
   });
 

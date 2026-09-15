@@ -9,8 +9,20 @@ import type { GasQuote, StrategyDef } from '@diboas/defi';
 export function networkFeeLocal(
   gas: GasQuote[],
   chain: StrategyDef['entryChain'],
-  usdPriceLocal: number
-): number {
+  usdPriceLocal: number | null
+): number | null {
+  /**
+   * ⚑ AUD-F05 · handoff §8.7 `MISSING ≠ 0`. This read
+   * `(quote?.typicalFeeUsd ?? 0) * usdPriceLocal`, so a chain with no gas quote
+   * produced a confident **0.00** — and the entry path committed that zero into
+   * the event log as the transaction's real cost.
+   *
+   * TWO independent inputs, each with its own source and vintage (§3): the
+   * network-fee OBSERVATION and the FX CONVERSION. Either one missing makes the
+   * result unknown, and unknown is `null` — never zero, and never carried
+   * forward from something else.
+   */
   const quote = gas.find((g) => g.chain === chain);
-  return (quote?.typicalFeeUsd ?? 0) * usdPriceLocal;
+  if (!quote || usdPriceLocal === null) return null;
+  return quote.typicalFeeUsd * usdPriceLocal;
 }

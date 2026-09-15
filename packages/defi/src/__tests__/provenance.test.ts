@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { FIXTURE_STAMP } from '../fixtures';
+import { observedStamp } from '../types';
 import { strategyProvenance } from '../provenance';
 import type { ProtocolApy, ProtocolId, StrategyDef } from '../types';
 
@@ -17,7 +19,12 @@ const STRATEGY: StrategyDef = {
 };
 
 function apy(protocolId: ProtocolId, source: 'defillama' | 'fixture', asOf: string): ProtocolApy {
-  return { protocolId, apyPercent: 5, tvlUsd: null, chain: 'Arbitrum', stamp: { source, asOf } };
+  /* The stamp is built, not literal (AUD-F05): §8.8 made every provenance field
+     required precisely so a construction site cannot stay silent — including
+     this one. A fixture leg carries the fixture set's version and
+     `fallbackUsed`; a live leg carries neither. */
+  const stamp = source === 'fixture' ? FIXTURE_STAMP : observedStamp('defillama', asOf);
+  return { protocolId, apyPercent: 5, tvlUsd: null, chain: 'Arbitrum', stamp };
 }
 
 describe('strategyProvenance — THE shared three-state predicate (§3-A)', () => {
@@ -64,14 +71,11 @@ describe('gas provenance (GAS-1)', () => {
     apyPercent: 5,
     tvlUsd: null,
     chain: 'Ethereum',
-    stamp: { source: 'defillama' as const, asOf: '2026-08-20' },
+    stamp: observedStamp('defillama', '2026-08-20'),
   }));
 
   it('should stay live when the fee source is live too', () => {
-    const p = strategyProvenance(STRATEGY, LIVE_APYS, {
-      source: 'coingecko',
-      asOf: '2026-08-20',
-    });
+    const p = strategyProvenance(STRATEGY, LIVE_APYS, observedStamp('coingecko', '2026-08-20'));
     expect(p.state).toBe('live');
   });
 
@@ -79,10 +83,7 @@ describe('gas provenance (GAS-1)', () => {
     // The pre-commit cost surface renders the fee beside the rates. Stamping
     // it "Live from DeFiLlama" while the fee is a hardcoded 2026-07-18 fixture
     // is the provenance dishonesty GAS-1 required a decision on.
-    const p = strategyProvenance(STRATEGY, LIVE_APYS, {
-      source: 'fixture',
-      asOf: '2026-07-18',
-    });
+    const p = strategyProvenance(STRATEGY, LIVE_APYS, FIXTURE_STAMP);
     expect(p.state).toBe('mixed');
   });
 

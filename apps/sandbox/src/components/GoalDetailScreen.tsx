@@ -128,14 +128,24 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
 
   const strategy = strategyId ? getStrategy(strategyId) : undefined;
   const investValue = Number(investAmount) || 0;
+  /**
+   * ⚑ AUD-F05. This fell back to `0`, and `approveEntry` never checked
+   * `market` — so a failed market fetch or a missing chain quote COMMITTED a
+   * 0.00 network fee into the event log as the move's real cost. `null` is
+   * UNKNOWN, and every path that would price an entry now refuses.
+   */
   const feeLocal =
-    strategy && market ? networkFeeLocal(market.gas, strategy.entryChain, market.usdPriceLocal) : 0;
+    strategy && market
+      ? networkFeeLocal(market.gas, strategy.entryChain, market.usdPriceLocal)
+      : null;
+  /** FC-15 "no honest price, no operable control" — now for the ENTRY as well. */
+  const canPriceEntry = feeLocal !== null;
   // VIEW-2: the affordability guard gates a real money movement, so it is
   // derived and unit-tested rather than computed in the render body.
   const canInvest = selectCanInvest(state, goalId, investValue);
 
   function approveEntry() {
-    if (!strategy || !canInvest || busy) return;
+    if (!strategy || !canInvest || busy || feeLocal === null) return;
     setBusy(true);
     enterStrategy({
       goalId,
@@ -152,13 +162,22 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   }
 
   /** Each position pays its OWN network fee, on its own strategy's chain. */
-  function exitFeeFor(positionId: string): number {
-    if (!market) return 0;
+  function exitFeeOrNull(positionId: string): number | null {
+    if (!market) return null;
     const position = openPositions.find((p) => p.positionId === positionId);
     const posStrategy = position ? getStrategy(position.strategyId) : undefined;
-    return posStrategy
-      ? networkFeeLocal(market.gas, posStrategy.entryChain, market.usdPriceLocal)
-      : 0;
+    if (!posStrategy) return null;
+    return networkFeeLocal(market.gas, posStrategy.entryChain, market.usdPriceLocal);
+  }
+
+  /**
+   * The numeric adapter the domain callbacks require. Reached ONLY behind
+   * `canPriceExit`, which proves every open position prices — so the `?? 0` is
+   * unreachable rather than a fallback, and a test holds that true (if it ever
+   * became reachable, this would be the 5.199 class all over again).
+   */
+  function exitFeeFor(positionId: string): number {
+    return exitFeeOrNull(positionId) ?? 0;
   }
 
   function approveExit() {
@@ -228,7 +247,8 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   // fetch resolves and STAYS null if it fails, so this is reachable, not
   // theoretical. Every exit entry point is therefore gated on it, the same way
   // §4.6 gates the entry CTA: no honest price, no operable control.
-  const canPriceExit = market !== null;
+  const canPriceExit =
+    market !== null && openPositions.every((p) => exitFeeOrNull(p.positionId) !== null);
 
   // G7 (§4.7): the exit ceremony takes the WHOLE screen — this is the last
   // read before money moves, and a bottom sheet cannot carry an itemization
@@ -243,6 +263,8 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
     intent: exitIntent,
     canPrice: canPriceExit,
     goalId,
+    /* The same state this render read — AUD-C01. */
+    snapshot: state,
     feeFor: exitFeeFor,
     previewGoal: previewGoalStop,
     previewPosition: previewPositionStop,
@@ -669,7 +691,11 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                       gas={market.gas}
                       usdPriceLocal={market.usdPriceLocal}
                       currency={state.currency}
-                      onPutToWork={canInvest && !busy ? () => setEntryManifest(true) : undefined}
+                      onPutToWork={
+                        canInvest && canPriceEntry && !busy
+                          ? () => setEntryManifest(true)
+                          : undefined
+                      }
                     />
                   ) : null}
                 </>
@@ -703,7 +729,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
         />
       ) : null}
 
-      {entryManifest && strategy && !settling ? (
+      {entryManifest && strategy && feeLocal !== null && !settling ? (
         <Manifest
           titleId="manifest.title"
           rows={[
@@ -712,14 +738,23 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
               labelId: 'manifest.toLabel',
               value: intl.formatMessage({ id: `catalog.strategies.${strategy.i18nKey}.name` }),
             },
+            /**
+             * ⚑ AUD-B04. The amount row showed the NET (599.97) while the CTA
+             * beside it said 600.00, and no row explained the 0.03 between
+             * them — the selector computed `fee` and this call threw it away.
+             * The row now states the GROSS the CTA commits to, and the cost is
+             * itemized on its own row, so the two reconcile on screen (FC-15:
+             * the itemization is the point, not decoration).
+             */
+            { labelId: 'manifest.amountLabel', value: money(investValue.toFixed(2)) },
             {
-              labelId: 'manifest.amountLabel',
+              labelId: 'manifest.feeLabel',
               value: money(
                 selectEntrySplit({
                   totalFromCash: investValue,
                   networkFeeLocal: feeLocal,
                   split: splitEntry,
-                }).invested
+                }).fee
               ),
             },
             {

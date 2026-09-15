@@ -36,21 +36,24 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** S1 — a top-level destination: both utilities present. */
-export const TopLevel: Story = { args: { variant: 'top-level' } };
+export const TopLevel: Story = { args: { variant: 'top-level', mode: 'practice' } };
 
 /** S1 over Home's coastal band: the bar goes transparent (mockup 02). */
-export const TopLevelOverHero: Story = { args: { variant: 'top-level', transparent: true } };
+export const TopLevelOverHero: Story = {
+  args: { variant: 'top-level', mode: 'practice', transparent: true },
+};
 
 /** S2 — a focused task: Back replaces Profile, and no Alerts competes with it. */
-export const Focused: Story = { args: { variant: 'focused' } };
+export const Focused: Story = { args: { variant: 'focused', mode: 'practice' } };
 
 /**
  * S0 — neutral entry (Welcome / Consent / Entry Readiness / Gate). Identity
  * only: *"No Profile or Alerts until the user is meaningfully inside the
  * authenticated app context"* (Spec §3.2), and no financial mode marker at all
- * (§7.3, Product `P-QA4`, Legal `L-QA2`).
+ * (§7.3, Product `P-QA4`, Legal `L-QA2`) — which is why `mode` is `neutral`
+ * here and the ModeMarker renders NOTHING, not a greyed one.
  */
-export const Neutral: Story = { args: { variant: 'neutral' } };
+export const Neutral: Story = { args: { variant: 'neutral', mode: 'neutral' } };
 
 /** S3 — system / recovery: minimal, navigation may be restricted (Spec §6). */
-export const System: Story = { args: { variant: 'system' } };
+export const System: Story = { args: { variant: 'system', mode: 'neutral' } };

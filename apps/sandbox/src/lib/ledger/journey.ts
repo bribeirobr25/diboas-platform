@@ -5,7 +5,7 @@
  */
 
 import Decimal from 'decimal.js';
-import { computeExitFee, type LedgerEvent } from '@diboas/banking';
+import { computeExitFee, type LedgerEvent, type LedgerState } from '@diboas/banking';
 import {
   PROTOCOL_RETURN_MODEL,
   getStrategy,
@@ -144,12 +144,26 @@ export function transferGoalCash(fromGoalId: string, toGoalId: string): void {
  * derived (`current >= target`, never stored), raising the target clears the
  * completion state automatically — no extra event, no stale flag.
  */
-export function raiseGoalTarget(goalId: string, newTarget: number): void {
+/**
+ * ⚑ AUD-E01. This took a `number`, and the screen handed it
+ * `Number(newTarget) || 0` — so the value the selector accepted EXACTLY (via
+ * Decimal, full precision) was not the value committed. At the float boundary
+ * the two diverge: a raise to 9007199254740993 arrived as 9007199254740992,
+ * equal to the existing target, and the command silently did nothing while the
+ * CTA had been enabled. It now takes the raw input string and parses it once,
+ * here, with the same exactness the acceptance test used.
+ */
+export function raiseGoalTarget(goalId: string, newTarget: string): void {
   const goal = getLedgerState().goals.find((g) => g.goalId === goalId);
   // active OR paused — matching the engine's allowed FROM states, so the
   // completion screen never offers a row that would silently do nothing.
   if (!goal || (goal.status !== 'active' && goal.status !== 'paused')) return;
-  const next = new Decimal(newTarget);
+  let next: Decimal;
+  try {
+    next = new Decimal(newTarget);
+  } catch {
+    return; // unparseable input is not a raise
+  }
   if (!next.isFinite() || next.lte(goal.targetAmount)) return; // raise only
   appendAll([
     {
@@ -422,10 +436,18 @@ export function exitPosition(input: { positionId: string; networkFeeLocal: numbe
  * the goal after both fees).
  */
 export function previewExit(
+  /**
+   * ⚑ AUD-C01. This read `getLedgerState()` itself, which made every preview
+   * built on it a function of the CLOCK rather than of its arguments: the same
+   * `input` object handed to `selectExitPreview` twice, with an entry in
+   * between, returned 100.00 then 200.00. A PREVIEW must describe the state the
+   * render saw. Commands (`exitPosition`, `stopGoalStrategies`) still read
+   * current state on purpose — they act on now, not on a snapshot.
+   */
+  state: LedgerState,
   positionId: string,
   networkFeeLocal: number
 ): { gross: string; exitFee: string; networkFee: string; net: string } | null {
-  const state = getLedgerState();
   const position = state.positions.find((p) => p.positionId === positionId);
   if (!position || !position.open) return null;
   const gross = new Decimal(position.principal).plus(position.accrued);
@@ -471,6 +493,7 @@ export interface StopPreview {
  * breakage G7 exists to prevent.
  */
 function composeStop(
+  state: LedgerState,
   positions: { positionId: string; strategyId: string }[],
   feeFor: (positionId: string) => number
 ): StopPreview | null {
@@ -479,7 +502,7 @@ function composeStop(
   let exitFee = new Decimal(0);
   let networkFee = new Decimal(0);
   for (const position of positions) {
-    const preview = previewExit(position.positionId, feeFor(position.positionId));
+    const preview = previewExit(state, position.positionId, feeFor(position.positionId));
     if (!preview) continue;
     lines.push({
       positionId: position.positionId,
@@ -501,8 +524,8 @@ function composeStop(
 }
 
 /** Open positions of a goal, in ledger order (the stop set). */
-function openPositionsOf(goalId: string) {
-  return getLedgerState().positions.filter((p) => p.goalId === goalId && p.open);
+function openPositionsOf(state: LedgerState, goalId: string) {
+  return state.positions.filter((p) => p.goalId === goalId && p.open);
 }
 
 /**
@@ -511,12 +534,13 @@ function openPositionsOf(goalId: string) {
  * which entry point opened it. Null when the position is closed or unknown.
  */
 export function previewPositionStop(
+  state: LedgerState,
   positionId: string,
   networkFeeLocal: number
 ): StopPreview | null {
-  const position = getLedgerState().positions.find((p) => p.positionId === positionId && p.open);
+  const position = state.positions.find((p) => p.positionId === positionId && p.open);
   if (!position) return null;
-  return composeStop([position], () => networkFeeLocal);
+  return composeStop(state, [position], () => networkFeeLocal);
 }
 
 /**
@@ -529,10 +553,11 @@ export function previewPositionStop(
  * open, so the surface can say so instead of rendering a zeroed ceremony.
  */
 export function previewGoalStop(
+  state: LedgerState,
   goalId: string,
   feeFor: (positionId: string) => number
 ): StopPreview | null {
-  return composeStop(openPositionsOf(goalId), feeFor);
+  return composeStop(state, openPositionsOf(state, goalId), feeFor);
 }
 
 /**
@@ -543,7 +568,7 @@ export function previewGoalStop(
  */
 export function stopGoalStrategies(goalId: string, feeFor: (positionId: string) => number): void {
   const state = getLedgerState();
-  const open = openPositionsOf(goalId);
+  const open = openPositionsOf(state, goalId);
   if (open.length === 0) return;
   const correlationId = generateId();
   const events: LedgerEvent[] = [];

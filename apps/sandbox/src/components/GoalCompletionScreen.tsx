@@ -56,7 +56,6 @@ export function GoalCompletionScreen({
     newTarget
   );
   const destinations = state.goals.filter((g) => g.goalId !== goal.goalId && g.status === 'active');
-  const raiseValue = Number(newTarget) || 0;
 
   return (
     <section className={styles.wrap} aria-labelledby="goalcomplete-title">
@@ -292,7 +291,9 @@ export function GoalCompletionScreen({
             className={styles.primary}
             disabled={!canRaise}
             onClick={() => {
-              raiseGoalTarget(goal.goalId, raiseValue);
+              /* The raw input, not a float of it (AUD-E01): `canRaise` was
+                 decided on the exact value, so the exact value is committed. */
+              raiseGoalTarget(goal.goalId, newTarget);
               onClose();
             }}
           >
