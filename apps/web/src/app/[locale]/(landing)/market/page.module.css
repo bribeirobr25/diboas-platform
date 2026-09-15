@@ -120,8 +120,24 @@
   padding-top: clamp(28px, 5vh, 44px);
   border-top: 1px solid var(--editorial-line);
 }
-.scoreDetail .scoreDetailBody {
-  max-width: none;
+/* 5.373: the memo's measure has ONE owner — `CalmSummary`'s own `max-width:
+   52ch`. A `.scoreDetail .scoreDetailBody { max-width: none }` override used to
+   live here, set 2026-07-28 to stop a long memo stretching the gauge row and
+   floating the gauge centered. That is fixed STRUCTURALLY — the memo sits in
+   its own row below the gauge, measured identical at 461x298 either way — and
+   what the override left behind was ~100 characters per line on the longest
+   prose on the site.
+   ⚠️ An EMPTY rule was tried first, and is why this comment is emphatic: CSS
+   Modules drops a class with NO declarations from its exports, so
+   `styles.scoreDetailBody` became `undefined` and both consumers silently
+   rendered `class=""`. Delete a dead rule AND its references; never leave it
+   hollow. */
+.stateDepthBody {
+  /* The backdrop depth paragraph is prose with its own measure. It never
+     carried CalmSummary's typography — only the dead override above — so it sat
+     at 103 characters per line. 62ch matches its sibling `.stateExplainer`. */
+  max-width: 62ch;
+  margin: 0;
 }
 .pills {
   display: flex;

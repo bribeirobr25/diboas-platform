@@ -115,7 +115,7 @@
       "en": "The ETF flow ledger is warming up ({snapshots} of {warmupTarget} weekly share-count snapshots recorded) — scored unavailable until four full weekly flows exist. No points either way.",
       "pt-BR": "O registro de fluxos de ETF está em aquecimento ({snapshots} de {warmupTarget} fotografias semanais de cotas registradas) — pontuado como indisponível até existirem quatro fluxos semanais completos. Sem pontos em nenhuma direção.",
       "es": "El registro de flujos de ETF está en calentamiento ({snapshots} de {warmupTarget} instantáneas semanales de participaciones registradas); se puntúa como no disponible hasta que existan cuatro flujos semanales completos. Sin puntos en ningún sentido.",
-      "de": "Das ETF-Fluss-Register läuft sich warm ({snapshots} von {warmupTarget} wöchentlichen Anteils-Momentaufnahmen erfasst) — bis vier volle Wochenflüsse vorliegen als nicht verfügbar gewertet. Keine Punkte in keine Richtung.",
+      "de": "Das ETF-Fluss-Register läuft sich warm ({snapshots} von {warmupTarget} wöchentlichen Anteils-Momentaufnahmen erfasst) — bis vier volle Wochenflüsse vorliegen als nicht verfügbar gewertet. So oder so keine Punkte.",
       "variants": {
         "gapped": {
           "en": "The ETF flow ledger is missing a weekly snapshot: {gapDays} days separate two consecutive readings. Four full weeks cannot be measured, so this is scored unavailable rather than counted as a week. It returns once four unbroken weekly intervals are on record. No points either way.",
