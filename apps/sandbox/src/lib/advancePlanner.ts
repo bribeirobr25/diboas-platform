@@ -25,8 +25,11 @@ import {
 } from '@diboas/banking';
 import {
   apyFactorsForSpan,
+  apyFactorsForSpanWindowed,
   priceFactorsForSpan,
+  priceFactorsForSpanWindowed,
   ratesForSpan,
+  ratesForSpanWindowed,
   replayLegged,
   type DailyApySeries,
   type DailyPriceSeries,
@@ -68,9 +71,30 @@ export function planAdvance(input: {
   toDay: number;
   days: number;
   source: 'real' | 'machine';
+  /**
+   * The calendar date this span's FIRST replayed day maps to (`5.105`, I-G1c).
+   *
+   * Supplied for `machine` advances so consecutive jumps consume history
+   * SEQUENTIALLY instead of re-anchoring a fresh recent tail. Absent for
+   * `real` advances on purpose: real elapsed days genuinely correspond to the
+   * newest real days, so the historic anchoring is the correct one there.
+   *
+   * When the series cannot honestly cover the window the windowed functions
+   * return `null`, and this planner emits NO accrual for that span rather than
+   * padding with a repeated reading.
+   */
+  windowStartDate?: string;
   stamp: EventStamp;
 }): LedgerEvent[] {
   const { positions, schedules, workingStart, legsByPosition, toDay, days, source, stamp } = input;
+  const { windowStartDate } = input;
+  /** Calendar date for a segment's first replayed day, when a window is pinned. */
+  const windowFor = (fromDay: number): string | undefined => {
+    if (windowStartDate === undefined) return undefined;
+    const d = new Date(`${windowStartDate}T00:00:00Z`);
+    d.setUTCDate(d.getUTCDate() + (fromDay - (input.toDay - input.days)));
+    return d.toISOString().slice(0, 10);
+  };
 
   /**
    * The span's per-leg replay inputs. Every leg — whatever its kind — resolves
@@ -80,14 +104,65 @@ export function planAdvance(input: {
    * a segment re-anchor to its own end would overlap windows and double-count
    * recent movement (proven divergent by test).
    */
-  const legReplaysFor = (positionId: string, fromDay: number, segEnd: number): LegReplay[] =>
-    (legsByPosition.get(positionId) ?? []).map((leg) => ({
+
+  /** Historic anchoring: each leg replays the last N days of its OWN series. */
+  const historicFactors = (leg: PositionLeg, fromDay: number, segEnd: number): number[] =>
+    leg.kind === 'market'
+      ? priceFactorsForSpan(leg.price, fromDay, segEnd, toDay)
+      : apyFactorsForSpan(leg.apy, fromDay, segEnd, toDay);
+
+  /** Calendar anchoring for one leg, or `null` when its series cannot cover it. */
+  const windowedFactors = (
+    leg: PositionLeg,
+    fromDay: number,
+    segEnd: number,
+    win: string
+  ): number[] | null =>
+    leg.kind === 'market'
+      ? priceFactorsForSpanWindowed(leg.price, fromDay, segEnd, win)
+      : apyFactorsForSpanWindowed(leg.apy, fromDay, segEnd, win);
+
+  /**
+   * The window for this segment, but ONLY if EVERY leg can honestly cover it.
+   *
+   * ⚑ Why all-or-nothing (found by breaking it, 2026-09-15). The legs of one
+   * position must move together in TIME: replaying leg A over January while leg
+   * B replays May would report a blend of two different markets as one
+   * position's history. The ranges really do diverge — a fixture fallback
+   * manufactures today-ending dates while a live series carries the provider's
+   * own, so any PARTIAL provider failure gives one position two calendars.
+   *
+   * When the window is unusable the segment falls back to the HISTORIC
+   * anchoring — never to an empty factor list, which reads as "no movement" and
+   * silently flattens a falling position. That was the defect this replaced:
+   * three tests about a position losing money went green while the market legs
+   * had quietly stopped moving.
+   */
+  const usableWindow = (
+    positionId: string,
+    fromDay: number,
+    segEnd: number
+  ): string | undefined => {
+    const win = windowFor(fromDay);
+    if (win === undefined) return undefined;
+    const legs = legsByPosition.get(positionId) ?? [];
+    if (legs.length === 0) return undefined;
+    return legs.every((leg) => windowedFactors(leg, fromDay, segEnd, win) !== null)
+      ? win
+      : undefined;
+  };
+
+  const legReplaysFor = (positionId: string, fromDay: number, segEnd: number): LegReplay[] => {
+    const win = usableWindow(positionId, fromDay, segEnd);
+    return (legsByPosition.get(positionId) ?? []).map((leg) => ({
       weightPercent: leg.weightPercent,
       factors:
-        leg.kind === 'market'
-          ? priceFactorsForSpan(leg.price, fromDay, segEnd, toDay)
-          : apyFactorsForSpan(leg.apy, fromDay, segEnd, toDay),
+        win === undefined
+          ? historicFactors(leg, fromDay, segEnd)
+          : // `usableWindow` already proved every leg covers it.
+            (windowedFactors(leg, fromDay, segEnd, win) as number[]),
     }));
+  };
 
   /** The audit record pinned onto the event (§4.8 step 5). */
   const legsReplayedFor = (positionId: string, fromDay: number, segEnd: number) =>
@@ -199,7 +274,18 @@ export function planAdvance(input: {
         // over-claims — 'defillama' is reserved for an all-live lending replay.
         apySource: allLive ? 'defillama' : 'fixture',
         ...(blended
-          ? { ratesUsed: ratesForSpan(blended, cursor, segEnd, toDay) }
+          ? {
+              /* §3 same-source: the pinned rates must be the ones that produced
+                 the earnings, so this follows the money path's anchoring mode
+                 rather than always using the historic one. */
+              ratesUsed: (() => {
+                const win = usableWindow(position.positionId, cursor, segEnd);
+                return win === undefined
+                  ? ratesForSpan(blended, cursor, segEnd, toDay)
+                  : (ratesForSpanWindowed(blended, cursor, segEnd, win) ??
+                      ratesForSpan(blended, cursor, segEnd, toDay));
+              })(),
+            }
           : { legsReplayed: legsReplayedFor(position.positionId, cursor, segEnd) }),
       });
       value = value.plus(earnings);

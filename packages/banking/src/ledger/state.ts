@@ -79,6 +79,13 @@ export interface LedgerState {
   genesisRecordedAt: string | null;
   /** Real days already settled via `source:'real'` TimeAdvanced events (WS-F idempotency). */
   realSettledDays: number;
+  /**
+   * The replay's pinned epoch — the calendar date machine-day 0 replays
+   * (`5.105`, I-G1c). `null` until the first `machine` advance pins it, and on
+   * every ledger written before I-G1c; the replay then uses the historic
+   * anchoring rather than inventing a window.
+   */
+  replayEpoch: string | null;
   split: { floorPercent: number; cushionPercent: number; workingPercent: number } | null;
   /** Bucket balances (working excludes money moved into goals). */
   buckets: Record<JobBucket, string>;
@@ -128,6 +135,7 @@ export function emptyState(): LedgerState {
     simDay: 0,
     genesisRecordedAt: null,
     realSettledDays: 0,
+    replayEpoch: null,
     split: null,
     buckets: { floor: '0', cushion: '0', working: '0' },
     goals: [],

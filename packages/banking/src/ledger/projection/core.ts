@@ -166,6 +166,12 @@ export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
       ctx.state.simDay += event.days;
       // Missing source ⇒ 'machine' (backward-compat, D-3): old ledgers don't retro-accrue.
       if ((event.source ?? 'machine') === 'real') ctx.state.realSettledDays += event.days;
+      /* I-G1c: FIRST pin wins and is never rewritten — a later advance cannot
+         slide the window the earlier ones were replayed against, which is what
+         makes the context stable under a provider refresh (§7). */
+      if (ctx.state.replayEpoch === null && event.replayEpoch !== undefined) {
+        ctx.state.replayEpoch = event.replayEpoch;
+      }
       break;
     }
   }

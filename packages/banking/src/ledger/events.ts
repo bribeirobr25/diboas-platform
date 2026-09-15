@@ -227,6 +227,26 @@ export interface TimeAdvanced extends EventBase {
   type: 'TimeAdvanced';
   days: number;
   source?: Exclude<LedgerSource, 'system'>;
+  /**
+   * The calendar date that machine-day 0 replays, pinned on the FIRST
+   * `source:'machine'` advance and never rewritten (`5.105`, I-G1c).
+   *
+   * Why the ledger has to remember this: the provider's history always ends
+   * TODAY, so anchoring a replay by index re-anchors it on every refetch — and
+   * repeated +1mo advances then replay the same recent month forever while the
+   * screen claims to show what the market actually did. An index cannot be
+   * stable across refreshes; a pinned DATE can, which is also what §6 requires
+   * of a historical state (the observation belongs to that state, not to now).
+   *
+   * Only the epoch is stored. How far the replay has consumed is DERIVED —
+   * `simDay − realSettledDays` is the machine days already advanced — so there
+   * is no second cursor that could disagree with the log.
+   *
+   * OPTIONAL for backward-compat: ledgers written before I-G1c lack it and
+   * fall back to the historic anchoring, exactly as `source` does (D-3). The
+   * projection never reads it for money math.
+   */
+  replayEpoch?: string;
 }
 
 // ── D-e goal lifecycle (spec: SANDBOX_SPEC_D-E_GOAL_LIFECYCLE) ──────────────

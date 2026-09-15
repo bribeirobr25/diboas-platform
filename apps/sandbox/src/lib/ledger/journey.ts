@@ -340,6 +340,12 @@ export function advanceTime(
             // rather than inventing a move in either direction.
             points:
               history && history.points.length > 0 ? history.points.map((p) => p.priceUsd) : [1],
+            /* I-G1a: the dates ride along instead of being discarded here.
+               `ProtocolPriceHistory.points` is dated (`DatedPricePoint`), and
+               dropping them is what left the replay unable to anchor to a
+               calendar window (5.105). Behaviour is unchanged in this step. */
+            dates:
+              history && history.points.length > 0 ? history.points.map((p) => p.date) : undefined,
             source: history?.stamp.source === 'coingecko' ? 'coingecko' : 'fixture',
           },
         };
@@ -350,12 +356,42 @@ export function advanceTime(
         weightPercent: leg.weightPercent,
         apy: {
           points: history ? history.points.map((p) => p.apyPercent) : [0],
+          /* I-G1a — see the market leg above. `ApyPoint` carries `date`. */
+          dates: history ? history.points.map((p) => p.date) : undefined,
           source: history?.stamp.source === 'defillama' ? 'defillama' : 'fixture',
         },
       };
     });
     legsByPosition.set(position.positionId, legs);
   }
+
+  /**
+   * The replay's calendar window (`5.105`, I-G1c).
+   *
+   * A `machine` advance replays HISTORY, so it must continue where the previous
+   * machine advance stopped. The epoch is pinned once — the oldest date the
+   * first advance's series actually carried — and how far we have consumed is
+   * derived (`simDay − realSettledDays` = machine days already advanced), so no
+   * stored cursor can drift from the log.
+   *
+   * A `real` advance gets NO window: real elapsed days correspond to the newest
+   * real days, which is exactly what the historic anchoring gives.
+   */
+  const oldestDate = (() => {
+    const all = [
+      ...histories.flatMap((h) => h.points.map((p) => p.date)),
+      ...priceHistories.flatMap((h) => h.points.map((p) => p.date)),
+    ].filter((d): d is string => typeof d === 'string' && d.length > 0);
+    return all.length > 0 ? all.sort()[0] : undefined;
+  })();
+  const epoch = source === 'machine' ? (state.replayEpoch ?? oldestDate) : undefined;
+  const machineDaysBefore = state.simDay - state.realSettledDays;
+  const windowStartDate = (() => {
+    if (epoch === undefined) return undefined;
+    const d = new Date(`${epoch}T00:00:00Z`);
+    d.setUTCDate(d.getUTCDate() + machineDaysBefore);
+    return d.toISOString().slice(0, 10);
+  })();
 
   // The money-moving logic lives in the pure planner (unit tested); this layer
   // only supplies the store-derived inputs and the event stamps.
@@ -379,9 +415,16 @@ export function advanceTime(
     toDay,
     days,
     source,
+    windowStartDate,
     stamp: () => base(correlationId),
   });
-  appendAll(events);
+  /* Pin the epoch on the first machine advance so every later one continues the
+     same window. `state.replayEpoch` already set ⇒ nothing to pin. */
+  const pin =
+    source === 'machine' && state.replayEpoch === null && epoch !== undefined
+      ? { replayEpoch: epoch }
+      : {};
+  appendAll(events.map((e) => (e.type === 'TimeAdvanced' ? { ...e, ...pin } : e)));
 }
 
 /**

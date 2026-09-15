@@ -18,6 +18,24 @@ import Decimal from 'decimal.js';
 export interface DailyApySeries {
   /** APY percent per day, oldest → newest (one entry per day). */
   points: number[];
+  /**
+   * The calendar date of each point, `YYYY-MM-DD`, index-aligned with `points`.
+   *
+   * ⚑ ADDED 2026-09-15 (I-G1a, toward `5.105`). OPTIONAL and additive on
+   * purpose: 10+ literal `{ points, source }` constructions exist across four
+   * test files, and this step changes NO behaviour — it stops the dates being
+   * thrown away so a later step can anchor a replay to a calendar WINDOW
+   * instead of to "the newest point".
+   *
+   * Why the dates matter: the provider's series always ends TODAY, so an
+   * index-from-end anchor re-anchors on every fetch — which is exactly the
+   * 5.105 defect (repeated advances replay the same recent tail). An index
+   * cannot be stable across refreshes; a date can.
+   *
+   * Absence is honest, never padded: a series without dates simply cannot be
+   * date-anchored, and the caller must fall back rather than invent them.
+   */
+  dates?: string[];
   source: 'defillama' | 'fixture';
 }
 
@@ -52,6 +70,28 @@ export function dailyFactorFromApyPercent(apyPercent: Decimal.Value): Decimal {
   const annual = apy.div(100).plus(1);
   // (1 + apy)^(1/365)
   return annual.pow(new Decimal(1).div(DAYS_PER_YEAR));
+}
+
+/**
+ * Calendar mapping: `fromDay + 1` maps to `windowStartDate`, one day per step.
+ *
+ * `null` when the series cannot honestly cover the window — it carries no
+ * dates, lacks that start date, or ends before the span does. A clamped index
+ * would substitute the oldest or newest reading, which is the class `5.105`
+ * exists to remove.
+ */
+function indexFromDate(
+  day: number,
+  fromDay: number,
+  n: number,
+  dates: readonly string[] | undefined,
+  windowStartDate: string
+): number | null {
+  if (!dates || dates.length !== n) return null;
+  const start = dates.indexOf(windowStartDate);
+  if (start < 0) return null;
+  const idx = start + (day - (fromDay + 1));
+  return idx >= 0 && idx < n ? idx : null;
 }
 
 /**
@@ -151,6 +191,8 @@ export function blendDatedSeries(legs: DatedBlendLeg[]): DatedApyPoint[] {
 /** A daily closing-price series for a `market` leg, oldest → newest. */
 export interface DailyPriceSeries {
   points: number[];
+  /** Index-aligned `YYYY-MM-DD` per point — see `DailyApySeries.dates` (I-G1a). */
+  dates?: string[];
   source: 'coingecko' | 'fixture';
 }
 
@@ -227,6 +269,84 @@ export function apyFactorsForSpan(
   return ratesForSpan(series, fromDay, toDay, anchorDay).map((r) =>
     dailyFactorFromApyPercent(r).toNumber()
   );
+}
+
+/**
+ * `ratesForSpan` anchored to a CALENDAR WINDOW instead of to the newest point.
+ *
+ * ⚑ I-G1b (toward `5.105`). A separate function rather than an optional
+ * parameter, for two reasons measured rather than assumed: `ratesForSpan` is
+ * spread directly in ~18 assertions across the two most heavily pinned money
+ * test files, so widening it to `| null` rewrote all of them for no behavioural
+ * gain in the historic mode; and the two anchoring modes are different
+ * contracts, which a reader should see at the call site.
+ *
+ * The historic mode stays the default everywhere, which is CORRECT for
+ * `source:'real'` advances — three real days elapsed should consume the last
+ * three real days. Only the `machine` time machine needs sequential calendar
+ * consumption, and it opts in.
+ */
+export function ratesForSpanWindowed(
+  series: DailyApySeries,
+  fromDay: number,
+  toDay: number,
+  windowStartDate: string
+): number[] | null {
+  const rates: number[] = [];
+  const n = series.points.length;
+  for (let day = fromDay + 1; day <= toDay; day += 1) {
+    const idx = indexFromDate(day, fromDay, n, series.dates, windowStartDate);
+    if (idx === null) return null;
+    rates.push(replayableApy(series.points[idx]));
+  }
+  return rates;
+}
+
+/** `apyFactorsForSpan` over a calendar window — see `ratesForSpanWindowed`. */
+export function apyFactorsForSpanWindowed(
+  series: DailyApySeries,
+  fromDay: number,
+  toDay: number,
+  windowStartDate: string
+): number[] | null {
+  const rates = ratesForSpanWindowed(series, fromDay, toDay, windowStartDate);
+  return rates === null ? null : rates.map((r) => dailyFactorFromApyPercent(r).toNumber());
+}
+
+/**
+ * `priceFactorsForSpan` over a calendar window — see `ratesForSpanWindowed`.
+ *
+ * A price factor is `price[d] / price[d-1]`, so the window must also cover the
+ * day BEFORE it opens. If it cannot, the span is unavailable rather than opening
+ * on a repeated first price — which would report a flat first day that never
+ * happened.
+ */
+export function priceFactorsForSpanWindowed(
+  series: DailyPriceSeries,
+  fromDay: number,
+  toDay: number,
+  windowStartDate: string
+): number[] | null {
+  const points = carryForwardValidPrices(series.points);
+  const n = points.length;
+  const at = (day: number): number | null => {
+    const idx = indexFromDate(
+      day,
+      fromDay,
+      n,
+      points.length === n ? series.dates : undefined,
+      windowStartDate
+    );
+    return idx === null ? null : (points[idx] ?? null);
+  };
+  const factors: number[] = [];
+  for (let day = fromDay + 1; day <= toDay; day += 1) {
+    const prev = at(day - 1);
+    const curr = at(day);
+    if (prev === null || curr === null) return null;
+    factors.push(prev > 0 ? curr / prev : 1);
+  }
+  return factors;
 }
 
 /**
