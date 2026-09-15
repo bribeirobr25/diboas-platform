@@ -47,7 +47,16 @@ function checkRegister() {
   if (!existsSync(join(ROOT, REGISTER)))
     return { ok: true, skip: true, detail: `${REGISTER} absent (local-only doc) — skipped` };
   const s = rd(REGISTER);
-  const ids = [...s.matchAll(/^(?:\||>) \*\*(\d+\.\d+)\*\*/gm)].map((m) => m[1]);
+  /**
+   * ⚑ WIDENED 2026-09-15. The pattern required the id to CLOSE its bold span
+   * (`**5.347**`), so every row written as `> **5.347 — title**` — id and title
+   * inside ONE span — was invisible to this check. Measured: 302 ids seen, 321
+   * present, so NINETEEN were unguarded (5.77-5.86 historical, 5.347-5.355 from
+   * the Pre-I2 pass). The marker's own instructions already say a claim-scan
+   * "must cover both formats, file-wide"; this check did not. Verified safe
+   * before widening: zero duplicate definitions under the wide pattern.
+   */
+  const ids = [...s.matchAll(/^(?:\||>) \*\*(\d+\.\d+)(?:\*\*|\s|—)/gm)].map((m) => m[1]);
   if (ids.length === 0)
     return { ok: false, detail: 'no ids matched — the instrument, not the file' };
   const counts = new Map();
