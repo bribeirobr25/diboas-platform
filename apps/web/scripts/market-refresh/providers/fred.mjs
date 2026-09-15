@@ -2,13 +2,14 @@
  * FRED provider (P2 Stage 1) — public CSV endpoint, no key, https pinned.
  * Implements the SourceProvider contract: fetch() → { series, provenance }.
  */
+import { fetchWithTimeout } from '../lib/fetch-timeout.mjs';
 import { withRetry } from '../lib/retry.mjs';
 
 export async function fetchFredSeries(seriesId, startDate = '2023-01-01') {
   const url = `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${seriesId}&cosd=${startDate}`;
   const series = await withRetry(
     async () => {
-      const res = await fetch(url);
+      const res = await fetchWithTimeout(url, { label: `FRED:${seriesId}` });
       if (!res.ok) throw new Error(`FRED ${seriesId} returned ${res.status}`);
       const csv = await res.text();
       if (!csv.startsWith('observation_date')) {

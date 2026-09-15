@@ -2,13 +2,17 @@
  * Yahoo Finance provider (P2 Stage 1) — chart API with the required UA.
  * Daily series for weekly signals; monthly bars for the BTC candle append.
  */
+import { fetchWithTimeout } from '../lib/fetch-timeout.mjs';
 import { withRetry } from '../lib/retry.mjs';
 
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36';
 
 async function chart(symbol, range, interval) {
   const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=${interval}`;
-  const res = await fetch(url, { headers: { 'User-Agent': UA } });
+  const res = await fetchWithTimeout(url, {
+    headers: { 'User-Agent': UA },
+    label: `Yahoo:${symbol}`,
+  });
   if (!res.ok) throw new Error(`Yahoo ${symbol} returned ${res.status}`);
   const json = await res.json();
   const r = json.chart?.result?.[0];
