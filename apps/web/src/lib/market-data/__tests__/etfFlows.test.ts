@@ -305,6 +305,19 @@ describe('the gapped sentence can actually be published (the 5.133 trap)', () =>
     for (const [l, re] of Object.entries(resolves)) expect(String(gapped[l]), l).toMatch(re);
   });
 
+  it('should not stack negation in German (5.317)', () => {
+    // "Keine Punkte in keine Richtung" was live for months: German does not take
+    // negative concord, so `keine … keine` reads as broken rather than emphatic.
+    // Portuguese and Spanish DO take it, which is why their equivalents are
+    // correct and only this locale was wrong — a defect a parity check cannot
+    // see, because all four strings were present and all four were translated.
+    const de = [TPL['ETF-01'].UNAVAILABLE.de, gapped.de].join(' ');
+    expect(de, 'double negative: keine … keine').not.toMatch(/\bkeine\b[^.]*\bkeine\b/i);
+    expect(de, 'nor the nicht … keine form').not.toMatch(
+      /\bnicht\b[^.]*\bkeine\b(?![^.]*verfügbar)/i
+    );
+  });
+
   it('should not say "warming up" when the ledger is not warming up', () => {
     // The whole reason a variant exists: the default would publish "9 of 5
     // snapshots recorded", which is both nonsense and the wrong reason.

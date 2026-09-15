@@ -298,11 +298,10 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                     <summary className={styles.memoToggle}>
                       {t('dashboard.memoToggle', 'Read the full weekly memo')}
                     </summary>
-                    <CalmSummary
-                      data={regime.summary}
-                      length="detailed"
-                      className={styles.scoreDetailBody}
-                    />
+                    {/* No className: the measure belongs to CalmSummary (52ch).
+                        A page-level override here is what produced ~100
+                        characters per line (5.373). */}
+                    <CalmSummary data={regime.summary} length="detailed" />
                   </details>
                 </section>
               </SectionErrorBoundary>
