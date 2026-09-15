@@ -7,6 +7,16 @@
   font-weight: 400;
 }
 
+/* Multi-paragraph memos (5.304): the wrapper carries the typography, the
+   children carry the rhythm. Typography inherits, so a paragraph inside reads
+   identically to the single-<p> case. */
+.summary > p {
+  margin: 0;
+}
+.summary > p + p {
+  margin-top: 0.9em;
+}
+
 .short {
   font-size: clamp(1.1rem, 1.6vw, 1.3rem);
   line-height: 1.55;
