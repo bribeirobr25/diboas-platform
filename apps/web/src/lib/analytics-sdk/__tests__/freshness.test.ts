@@ -26,6 +26,103 @@ const committed = (): DataStatus => {
 const computedAt = (): Date => new Date(readJson('computed.json').computed_at);
 const bySource = (s: DataStatus, name: string) => s.sources.find((x) => x.source.includes(name));
 
+/**
+ * An instant strictly after the EARLIEST `delayed_after` and strictly before the
+ * EARLIEST `stale_after`, derived from the panel under test. Any test that wants
+ * "the delayed rule has fired, the stale rule has not" must compute this rather
+ * than hardcode a date — the pipeline moves every threshold weekly.
+ */
+const betweenThresholds = (s: DataStatus): Date => {
+  const t = (v: string | null | undefined) => (v ? Date.parse(v) : NaN);
+  const delayed = s.sources.map((x) => t(x.delayed_after)).filter(Number.isFinite);
+  const stale = s.sources.map((x) => t(x.stale_after)).filter(Number.isFinite);
+  const lo = Math.min(...delayed);
+  const hi = Math.min(...stale);
+  if (!(lo < hi))
+    throw new Error('no instant exists between the earliest delayed_after and stale_after');
+  return new Date(Math.floor((lo + hi) / 2));
+};
+
+/**
+ * The published panel of cycle 2026-09-07, frozen. Both FRED weekly anchors sit
+ * at 2026-08-28 — 15 days old at 09-12 against a 14-day allowance — and the page
+ * rendered 7/7 FRESH / HIGH. The in-repo BTC source is legitimately FRESH here
+ * (its August anchor IS the expected confirmed month), which is why the
+ * assertion names two sources, not the three 5.173 measured on 09-09 against the
+ * older July-anchored cycle.
+ */
+const PANEL_2026_09_07: DataStatus = {
+  overall_confidence: 'HIGH',
+  last_successful_update_at: '2026-09-07T12:35:02.613Z',
+  delayed_sources: [],
+  unavailable_sources: [],
+  sources: [
+    {
+      source: 'in-repo:monthlyPrices.json (BTC)',
+      status: 'FRESH',
+      last_updated_at: '2026-08-31T00:00:00Z',
+      expected_next_update_at: '2026-10-04T00:00:00Z',
+      stale_after: '2026-11-01T00:00:00Z',
+      delayed_after: '2026-10-04T00:00:00Z',
+      message: null,
+    },
+    {
+      source: 'FRED:DGS10',
+      status: 'FRESH',
+      last_updated_at: '2026-08-28T00:00:00Z',
+      expected_next_update_at: '2026-09-04T00:00:00Z',
+      stale_after: '2026-09-18T20:00:00Z',
+      delayed_after: '2026-09-11T00:00:00Z',
+      message: null,
+    },
+    {
+      source: 'FRED:DTWEXBGS',
+      status: 'FRESH',
+      last_updated_at: '2026-08-28T00:00:00Z',
+      expected_next_update_at: '2026-09-04T00:00:00Z',
+      stale_after: '2026-09-18T20:00:00Z',
+      delayed_after: '2026-09-11T00:00:00Z',
+      message: null,
+    },
+    {
+      source: 'FRED:M2SL',
+      status: 'FRESH',
+      last_updated_at: '2026-07-01T00:00:00Z',
+      expected_next_update_at: '2026-09-25T20:00:00Z',
+      stale_after: '2026-10-31T00:00:00Z',
+      delayed_after: '2026-09-25T20:00:00Z',
+      message: null,
+    },
+    {
+      source: 'FRED:NASDAQCOM',
+      status: 'FRESH',
+      last_updated_at: '2026-09-04T00:00:00Z',
+      expected_next_update_at: '2026-09-11T00:00:00Z',
+      stale_after: '2026-09-18T20:00:00Z',
+      delayed_after: '2026-09-18T00:00:00Z',
+      message: null,
+    },
+    {
+      source: 'Yahoo:GC=F',
+      status: 'FRESH',
+      last_updated_at: '2026-09-04T00:00:00Z',
+      expected_next_update_at: '2026-09-11T00:00:00Z',
+      stale_after: '2026-09-18T20:00:00Z',
+      delayed_after: '2026-09-18T00:00:00Z',
+      message: null,
+    },
+    {
+      source: 'Polygon:ETF (shares-outstanding)',
+      status: 'FRESH',
+      last_updated_at: '2026-09-04T00:00:00Z',
+      expected_next_update_at: '2026-09-11T00:00:00Z',
+      stale_after: '2026-09-25T00:00:00Z',
+      delayed_after: '2026-09-25T00:00:00Z',
+      message: null,
+    },
+  ],
+};
+
 describe('applyReadTimeFreshness — equivalence at the build instant (the anti-drift guard)', () => {
   it('should be a NO-OP when evaluated at computed_at, byte-for-byte', () => {
     // This is the guarantee that the fix did not trade one defect (a frozen
@@ -67,13 +164,13 @@ describe('applyReadTimeFreshness — the defect it fixes', () => {
   });
 
   it('should reproduce the 2026-09-12 production state that proved the defect', () => {
-    // On this date the published cycle is 09-07: both FRED weekly anchors sit at
-    // 2026-08-28, i.e. 15 days old against a 14-day allowance. The page rendered
-    // 7/7 FRESH / HIGH. It must not any more. (The in-repo BTC source is
-    // legitimately FRESH here — its August anchor IS the expected confirmed
-    // month — which is why this asserts two, not the three 5.173 measured on
-    // 09-09 against the older July-anchored cycle.)
-    const after = applyReadTimeFreshness(committed(), new Date('2026-09-12T12:00:00Z'));
+    // FROZEN FIXTURE, not `committed()`. This asserts a HISTORICAL state, so it
+    // has to own its input: reading the live panel made the test depend on data
+    // the pipeline rewrites every Monday, and on 2026-09-14 it duly failed in
+    // the refresh workflow — the fresh anchors were no longer past their
+    // thresholds, so the downgrade list was empty and the run could not publish.
+    // A regression test about a past cycle must carry that cycle with it.
+    const after = applyReadTimeFreshness(PANEL_2026_09_07, new Date('2026-09-12T12:00:00Z'));
     expect(after.delayed_sources.sort()).toEqual(['FRED:DGS10', 'FRED:DTWEXBGS']);
     expect(after.overall_confidence).toBe('MODERATE');
   });
@@ -113,10 +210,11 @@ describe('applyReadTimeFreshness — safety properties', () => {
       }),
     };
     // Evaluated PAST the earliest delayed_after but BEFORE any stale_after, so
-    // the only rule that could fire is the one the legacy payload lacks.
-    // (Evaluating at 2099 would prove nothing: every source really is stale by
-    // then, and `stale_after` has always been part of the contract.)
-    const after = applyReadTimeFreshness(legacy, new Date('2026-09-15T00:00:00Z'));
+    // the only rule that could fire is the one the legacy payload lacks. The
+    // instant is DERIVED from the panel rather than written as a literal: a
+    // hardcoded date drifts out of that window the moment the pipeline moves
+    // the anchors, which is how two sibling tests broke the 2026-09-14 run.
+    const after = applyReadTimeFreshness(legacy, betweenThresholds(panel));
     expect(after.sources.map((s) => s.status)).toEqual(panel.sources.map((s) => s.status));
   });
 });
