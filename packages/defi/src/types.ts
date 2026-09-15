@@ -88,6 +88,18 @@ export interface DataStamp {
   fallbackUsed: boolean;
   /** Which fixture set produced it, for deterministic replay. `null` when live. */
   fixtureVersion: string | null;
+  /**
+   * `methodologyId@version` when the value is MODELLED from an observation
+   * (handoff §8.8: "methodology/version where modelled"). A raw observation
+   * carries none — the distinction is the point.
+   */
+  methodology?: string;
+  /**
+   * What this value stands in FOR, and why, when `origin` is `PROXY`
+   * (§8.8: "proxy identity/reason where proxy"). A proxy without a named
+   * subject is an unattributable substitution.
+   */
+  proxyOf?: string;
 }
 
 /** A live, source-observed stamp. `observedAt` stays null unless the API gives one. */
