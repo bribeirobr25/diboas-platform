@@ -31,6 +31,25 @@ Before a merge train to `main` · at the close of a plan phase (before the next 
 start) · when two or more increments touched the same surface · after five increments without a
 system pass · founder-ordered.
 
+**Plus: when a FRONT'S OWN SUBJECT changed** (founder-ruled 2026-09-15). A front is worth re-running
+precisely when the thing it inspects has moved, and that is knowable without judgement:
+
+| The batch touched…                         | Re-run                                          |
+| ------------------------------------------ | ----------------------------------------------- |
+| a provider, a cadence, a freshness rule    | Front 7, and the Collection → Validation seam   |
+| any user-facing string or rendered surface | Front 2 (all five verdicts) and the increment E |
+| a formula, a weight, a threshold, a band   | Front 6                                         |
+| a stored record's shape                    | Front 8, Storage and the two seams either side  |
+
+This is not extra ceremony: Front 7 FAILED on 2026-09-15 (`no fetch in the pipeline has a timeout`)
+and passed a day later only because the provider layer had changed and the front was re-run against
+it. A front nobody re-runs after its subject moves is a front that records history, not state.
+
+**X9 is the row most likely to catch YOU.** Three separate status claims went stale within hours of
+being written during the 2026-09-15 session, each in a document the author had written that same
+day. A status sentence decays from the moment it is written; re-reading never catches it, only
+re-deriving does. Run X9 against your own register rows, not just the project's prose.
+
 ## How to answer
 
 **PASS · FAIL · N/A-with-proof**, every PASS naming its instrument and pasting its measurement, and

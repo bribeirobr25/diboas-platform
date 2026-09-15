@@ -31,6 +31,22 @@
 Any one of: an increment declared complete · a bug fix before commit · a refactor before commit · a
 branch offered for merge. One increment, one record.
 
+**This gate runs on EVERY increment. It is not a judgement call** (founder-ruled 2026-09-15, after
+the same "which gate should I run?" question was asked three times in one session and answered the
+same way each time — the absence of a rule was costing a decision per increment). Most of it is
+Part A plus four greps; the expensive rows are the ones that keep finding real defects.
+
+Two riders that are also not judgement calls:
+
+- **Part E runs whenever a rendered surface changed, and A/Bs against PRODUCTION**, not only against
+  a local build. The 2026-09-15 memo fix was verifiable rather than merely plausible because the
+  before-reading came from `diboas.com`: same cycle, every typographic property identical, only the
+  structure changed. A local-only pass cannot make that claim.
+- **Anything touching the market pipeline runs `pnpm market:simulate-next-week` before merge.** It is
+  the only check that looks FORWARD, and it is the one that converts a Monday outage into a Tuesday
+  fix. A suite green today says nothing about the data the next refresh writes — four of ten weekly
+  cycles failed on exactly that gap (`5.363`).
+
 ## How to answer
 
 - Verdict per row: **PASS · FAIL · N/A**.
