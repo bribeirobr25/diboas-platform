@@ -18,7 +18,11 @@ import {
   writeFileAtomic,
   writeJsonAtomic,
 } from '../../../../scripts/market-refresh/lib/atomic.mjs';
-import { readArchiveRows, runDayIndex } from '../../../../scripts/market-refresh/lib/archive.mjs';
+import {
+  readArchiveRows,
+  runDayIndex,
+  publishRun,
+} from '../../../../scripts/market-refresh/lib/archive.mjs';
 import { readSnapshots } from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
 
 let dir: string;
@@ -204,7 +208,13 @@ describe('no writer may go back to a bare writeFileSync (structural)', () => {
   ])('%s should publish through the atomic helper', (rel) => {
     const src = fs.readFileSync(path.join(SCRIPTS, rel), 'utf8');
     expect(src, `${rel} still calls fs.writeFileSync directly`).not.toMatch(/fs\.writeFileSync\(/);
-    expect(src, `${rel} does not use the atomic helper`).toMatch(/write(File|Json)Atomic\(/);
+    // Called directly OR injected — `run.mjs` passes `writeFile: writeFileAtomic`
+    // into `publishRun` (5.328a), which is the same guarantee expressed
+    // differently. The requirement is "the atomic helper does the writing", not
+    // "the call appears at this exact syntax".
+    expect(src, `${rel} does not use the atomic helper`).toMatch(
+      /write(File|Json)Atomic\s*[(,]|:\s*write(File|Json)Atomic\b/
+    );
   });
 });
 
@@ -226,5 +236,76 @@ describe('both append-only ledgers survive a torn tail, not just one', () => {
 
   it('should return [] for an absent ledger rather than throwing', () => {
     expect(readSnapshots(path.join(dir, 'does-not-exist.jsonl'))).toEqual([]);
+  });
+});
+
+describe('publishRun — the window BETWEEN the two writes (5.302 proof, 5.328a)', () => {
+  /**
+   * Wave 2.3 asked for "a crash-injection test between writes leaving no
+   * inconsistent set". What shipped tested each write ALONE; the window between
+   * them was argued about in a comment and never exercised. This exercises it.
+   *
+   * The asymmetry is the point. Losing the archive row for a run that DID
+   * publish is recoverable — the next run appends and the reconciliation gate
+   * reports the mismatch. Gaining a row for a run that did NOT publish is a
+   * phantom run day (5.137), which `realSnapshotCount` and the chart's
+   * provenance gate both read as real history.
+   */
+  const io = () => {
+    const calls: string[] = [];
+    return {
+      calls,
+      writeFile: (p: string) => void calls.push(`write:${p}`),
+      appendFile: (p: string) => void calls.push(`append:${p}`),
+    };
+  };
+  const args = (o: ReturnType<typeof io>) => ({
+    computedPath: 'computed.json',
+    computedText: '{}\n',
+    archivePath: 'archive.jsonl',
+    archiveText: '{"run_at":"x"}\n',
+    writeFile: o.writeFile,
+    appendFile: o.appendFile,
+  });
+
+  it('should write computed.json BEFORE appending the archive', () => {
+    const o = io();
+    publishRun(args(o));
+    expect(o.calls).toEqual(['write:computed.json', 'append:archive.jsonl']);
+  });
+
+  it('should NOT append a provenance row when the computed write fails', () => {
+    // The crash injected exactly in the window. A row here would be a run day
+    // the chart treats as measured history for data that never landed.
+    const o = io();
+    const boom = {
+      ...args(o),
+      writeFile: () => {
+        throw new Error('ENOSPC');
+      },
+    };
+    expect(() => publishRun(boom)).toThrow(/ENOSPC/);
+    expect(o.calls, 'the archive gained a row for data that was never published').toEqual([]);
+  });
+
+  it('should surface an archive failure rather than swallowing it', () => {
+    // The tolerable direction: computed.json is published, the row is missing,
+    // and the caller learns about it. Silence here is how a run day goes absent
+    // without anyone noticing.
+    const o = io();
+    const boom = {
+      ...args(o),
+      appendFile: () => {
+        throw new Error('EROFS');
+      },
+    };
+    expect(() => publishRun(boom)).toThrow(/EROFS/);
+    expect(o.calls).toEqual(['write:computed.json']);
+  });
+
+  it('should publish without touching the archive under --no-archive', () => {
+    const o = io();
+    publishRun({ ...args(o), archiveText: null });
+    expect(o.calls).toEqual(['write:computed.json']);
   });
 });
