@@ -7,6 +7,7 @@
  * Uses the public endpoint; sends the demo key header when COINGECKO_API_KEY
  * is present (higher rate allowance, same data).
  */
+import { fetchWithTimeout } from '../lib/fetch-timeout.mjs';
 import { withRetry } from '../lib/retry.mjs';
 
 /**
@@ -23,7 +24,7 @@ export async function fetchBtcMonthCloseVerifier(ym) {
   if (process.env.COINGECKO_API_KEY) headers['x-cg-demo-api-key'] = process.env.COINGECKO_API_KEY;
   const prices = await withRetry(
     async () => {
-      const res = await fetch(url, { headers });
+      const res = await fetchWithTimeout(url, { headers, label: 'CoinGecko' });
       if (!res.ok) throw new Error(`CoinGecko returned ${res.status}`);
       const json = await res.json();
       if (!json.prices?.length) throw new Error('CoinGecko returned empty price range');

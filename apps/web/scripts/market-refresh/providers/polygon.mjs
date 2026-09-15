@@ -9,6 +9,7 @@
  * (~2.4 min total), trivially fine for a weekly job. Requires POLYGON_API_KEY
  * (local: apps/web/.env.local; CI: repository secret — founder-owned key).
  */
+import { fetchWithTimeout } from '../lib/fetch-timeout.mjs';
 import { withRetry } from '../lib/retry.mjs';
 
 /** The 11 US spot-BTC ETFs (plan Part C; 'BTC' = Grayscale Mini). */
@@ -42,7 +43,7 @@ export async function fetchEtfSharesOutstanding(tickers = SPOT_BTC_ETFS) {
     const url = `https://api.polygon.io/v3/reference/tickers/${t}?apiKey=${apiKey}`;
     const res = await withRetry(
       async () => {
-        const r = await fetch(url);
+        const r = await fetchWithTimeout(url, { label: `Polygon:${t}` });
         if (r.status === 429) throw new Error(`Polygon ${t} rate-limited`);
         if (!r.ok) throw new Error(`Polygon ${t} returned ${r.status}`);
         return r.json();
