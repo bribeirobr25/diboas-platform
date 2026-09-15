@@ -451,3 +451,79 @@ describe('§4.8 — MULTI-LEG positions pin an auditable record (regression)', (
     expect(acc.ratesUsed).toHaveLength(30); // §3 trail preserved where it is correct
   });
 });
+
+/**
+ * Batch D (`5.105`) — REPLAYABILITY AND DEPOSITS ARE DIFFERENT THINGS.
+ *
+ * A recurring deposit is the user's OWN money moving on a calendar: it depends
+ * on no market series at all. I-G1d's honest refusal (a position with no
+ * evidenced history is not replayed — Strategy/M&E §7) must therefore NOT
+ * swallow the contribution, which is what happened while Phase 1 and Phase 2
+ * both gated on `legsByPosition`.
+ *
+ * Catalog DRIFT is the separate case that still skips everything, and it must
+ * stay that way (L1): a position with no strategy contributes nothing, so it
+ * must not reserve Working and starve a real position's deposit.
+ */
+describe('batch D — a refused replay must not refuse the deposit', () => {
+  it('should still fire the recurring deposit when the position cannot be replayed', () => {
+    const events = planAdvance({
+      positions: [pos()],
+      schedules: [schedule()],
+      workingStart: '8000.00',
+      legsByPosition: new Map(), // no evidenced history → not replayable
+      catalogPositions: new Set(['p1']), // but the strategy DID resolve
+      toDay: 30,
+      days: 30,
+      source: 'machine',
+      stamp,
+    });
+    const contribs = events.filter((e) => e.type === 'RecurringContributionApplied');
+    const accruals = events.filter((e) => e.type === 'AccrualApplied');
+    // The user's own money still moves...
+    expect(contribs.length).toBeGreaterThan(0);
+    // ...and nothing claims earnings no series can evidence. MISSING is not 0.
+    expect(accruals).toHaveLength(0);
+    // Time itself is still real: this is a refusal to CLAIM, not a freeze.
+    expect(events.at(-1)!.type).toBe('TimeAdvanced');
+  });
+
+  it('should NOT let a catalog-drift position reserve Working and starve a real one (L1)', () => {
+    // p1 has no strategy at all (absent from BOTH maps); p2 is real. Working
+    // covers exactly ONE deposit, so if p1 wrongly reserved it, p2 gets nothing.
+    const events = planAdvance({
+      positions: [pos(), pos({ positionId: 'p2', goalId: 'g2' })],
+      schedules: [schedule(), schedule({ positionId: 'p2', goalId: 'g2' })],
+      workingStart: '500.00',
+      legsByPosition: new Map([['p2', [LENDING_100]]]),
+      catalogPositions: new Set(['p2']),
+      toDay: 30,
+      days: 30,
+      source: 'machine',
+      stamp,
+    });
+    const contribs = events.filter((e) => e.type === 'RecurringContributionApplied') as Array<
+      LedgerEvent & { positionId: string; amount: string }
+    >;
+    expect(contribs).toHaveLength(1);
+    expect(contribs[0].positionId).toBe('p2');
+    expect(contribs[0].amount).toBe('500.00');
+  });
+
+  it('should behave exactly as before when catalogPositions is omitted', () => {
+    // The default (= the replayable set) is what every pre-batch-D caller gets,
+    // so an unreplayable position stays fully skipped and emits nothing.
+    const events = planAdvance({
+      positions: [pos()],
+      schedules: [schedule()],
+      workingStart: '8000.00',
+      legsByPosition: new Map(),
+      toDay: 30,
+      days: 30,
+      source: 'machine',
+      stamp,
+    });
+    expect(events.filter((e) => e.type === 'RecurringContributionApplied')).toHaveLength(0);
+    expect(events.filter((e) => e.type === 'AccrualApplied')).toHaveLength(0);
+  });
+});

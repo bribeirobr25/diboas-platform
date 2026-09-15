@@ -68,6 +68,20 @@ export function planAdvance(input: {
   workingStart: string;
   /** Per-position legs. Mixed kinds are expected: a growth strategy holds both. */
   legsByPosition: Map<string, PositionLeg[]>;
+  /**
+   * Positions whose STRATEGY resolved in the catalog, whether or not their
+   * history can be replayed (`5.105` I-G1d, batch D).
+   *
+   * Deliberately SEPARATE from `legsByPosition`: that map answers *"can this
+   * position's market history be replayed"*, and a RECURRING DEPOSIT must not
+   * depend on the answer — it is the user's own money moving on a calendar,
+   * which needs no market series at all. Gating both on one map is what made an
+   * honest replay refusal also swallow a monthly contribution.
+   *
+   * Omit it and it defaults to the replayable set, which is exactly the
+   * behaviour before batch D.
+   */
+  catalogPositions?: Set<string>;
   toDay: number;
   days: number;
   source: 'real' | 'machine';
@@ -88,6 +102,8 @@ export function planAdvance(input: {
 }): LedgerEvent[] {
   const { positions, schedules, workingStart, legsByPosition, toDay, days, source, stamp } = input;
   const { windowStartDate } = input;
+  /** Catalog-resolved positions (see `catalogPositions`); defaults to replayable. */
+  const catalogResolved = input.catalogPositions ?? new Set(legsByPosition.keys());
   /** Calendar date for a segment's first replayed day, when a window is pinned. */
   const windowFor = (fromDay: number): string | undefined => {
     if (windowStartDate === undefined) return undefined;
@@ -184,10 +200,15 @@ export function planAdvance(input: {
   for (const position of positions) {
     const schedule = scheduleByPosition.get(position.positionId);
     if (!schedule) continue;
-    // A position with no blended series (catalog drift → strategy missing) is
-    // skipped entirely in Phase 2, so it must NOT reserve Working here — else it
-    // would starve other positions' deposits while contributing nothing (L1).
-    if (!legsByPosition.has(position.positionId)) continue;
+    // CATALOG DRIFT only (strategy missing entirely): such a position emits
+    // nothing in Phase 2, so it must NOT reserve Working here — else it would
+    // starve other positions' deposits while contributing nothing (L1).
+    //
+    // ⚑ Batch D: this gate asks about the CATALOG, never about replayability. A
+    // position whose history is missing still owes its deposits, so it still
+    // reserves Working. (Before this it gated on `legsByPosition`, which
+    // conflated the two and refused the deposit with the accrual.)
+    if (!catalogResolved.has(position.positionId)) continue;
     for (const day of recurringDepositDays(
       schedule.startSimDay,
       position.accruedThroughSimDay,
@@ -217,8 +238,19 @@ export function planAdvance(input: {
 
   // ── Phase 2 — per position, segmented accrual interleaved with its deposits. ─
   for (const position of positions) {
-    const legs = legsByPosition.get(position.positionId);
-    if (!legs || legs.length === 0) continue;
+    const found = legsByPosition.get(position.positionId);
+    /**
+     * ⚑ `5.105` I-G1d + batch D — REPLAYABILITY AND DEPOSITS ARE DIFFERENT THINGS.
+     *
+     * `replayLegs === null` means this position cannot be replayed for this span
+     * (no evidenced history). Time still advances, the trail is still written,
+     * and its DEPOSITS still fire — what does not happen is an accrual claiming
+     * earnings nobody can evidence. Ruled by Strategy/M&E §7: a partially
+     * evidenced position is UNAVAILABLE as a whole, never held flat and never
+     * reported from its evidenced minority legs.
+     */
+    const replayLegs = found !== undefined && found.length > 0 ? found : null;
+    if (replayLegs === null && !catalogResolved.has(position.positionId)) continue;
     // The §3 day-level APY trail (`ratesUsed`) is only CORRECT for a position
     // whose entire value follows ONE series — i.e. a single lending leg at
     // 100%. With several legs each compounds on its own share, so no single
@@ -228,16 +260,19 @@ export function planAdvance(input: {
     // provenance as the whole position's. Those positions pin per-leg
     // multiples instead, which reproduce the earnings exactly.
     const soleLendingLeg =
-      legs.length === 1 && legs[0].kind === 'lending' && legs[0].weightPercent === 100
-        ? legs[0].apy
+      replayLegs !== null &&
+      replayLegs.length === 1 &&
+      replayLegs[0].kind === 'lending' &&
+      replayLegs[0].weightPercent === 100
+        ? replayLegs[0].apy
         : null;
     const blended = soleLendingLeg;
     // Provenance is the WEAKEST leg's, never the first leg's: 'defillama' is
     // reserved for a replay where every leg was live (Data Vintage Policy —
     // fixtures are never silently blended into a live claim).
-    const allLive = legs.every(
-      (l) => (l.kind === 'market' ? l.price.source : l.apy.source) !== 'fixture'
-    );
+    const allLive =
+      replayLegs !== null &&
+      replayLegs.every((l) => (l.kind === 'market' ? l.price.source : l.apy.source) !== 'fixture');
     const goalId = scheduleByPosition.get(position.positionId)?.goalId ?? position.goalId;
     const deposits = depositsByPosition.get(position.positionId) ?? [];
 
@@ -260,35 +295,37 @@ export function planAdvance(input: {
     for (const segEnd of boundaries) {
       // Zero-length spans are impossible here (the grid is deduped + strictly
       // ascending), so no segment can emit an "earned 0.00" noise row (L3).
-      const earnings = replayLegged(value, legReplaysFor(position.positionId, cursor, segEnd));
-      events.push({
-        ...stamp(),
-        type: 'AccrualApplied',
-        positionId: position.positionId,
-        fromSimDay: cursor,
-        toSimDay: segEnd,
-        earnings: earnings.toFixed(2),
-        // Lending-only keeps the §3 day-level APY trail unchanged; any market
-        // leg pins per-leg multiples instead (§4.8 step 5). `apySource` stays
-        // 'fixture' when a series is not fully live, so provenance never
-        // over-claims — 'defillama' is reserved for an all-live lending replay.
-        apySource: allLive ? 'defillama' : 'fixture',
-        ...(blended
-          ? {
-              /* §3 same-source: the pinned rates must be the ones that produced
+      if (replayLegs !== null) {
+        const earnings = replayLegged(value, legReplaysFor(position.positionId, cursor, segEnd));
+        events.push({
+          ...stamp(),
+          type: 'AccrualApplied',
+          positionId: position.positionId,
+          fromSimDay: cursor,
+          toSimDay: segEnd,
+          earnings: earnings.toFixed(2),
+          // Lending-only keeps the §3 day-level APY trail unchanged; any market
+          // leg pins per-leg multiples instead (§4.8 step 5). `apySource` stays
+          // 'fixture' when a series is not fully live, so provenance never
+          // over-claims — 'defillama' is reserved for an all-live lending replay.
+          apySource: allLive ? 'defillama' : 'fixture',
+          ...(blended
+            ? {
+                /* §3 same-source: the pinned rates must be the ones that produced
                  the earnings, so this follows the money path's anchoring mode
                  rather than always using the historic one. */
-              ratesUsed: (() => {
-                const win = usableWindow(position.positionId, cursor, segEnd);
-                return win === undefined
-                  ? ratesForSpan(blended, cursor, segEnd, toDay)
-                  : (ratesForSpanWindowed(blended, cursor, segEnd, win) ??
-                      ratesForSpan(blended, cursor, segEnd, toDay));
-              })(),
-            }
-          : { legsReplayed: legsReplayedFor(position.positionId, cursor, segEnd) }),
-      });
-      value = value.plus(earnings);
+                ratesUsed: (() => {
+                  const win = usableWindow(position.positionId, cursor, segEnd);
+                  return win === undefined
+                    ? ratesForSpan(blended, cursor, segEnd, toDay)
+                    : (ratesForSpanWindowed(blended, cursor, segEnd, win) ??
+                        ratesForSpan(blended, cursor, segEnd, toDay));
+                })(),
+              }
+            : { legsReplayed: legsReplayedFor(position.positionId, cursor, segEnd) }),
+        });
+        value = value.plus(earnings);
+      }
 
       const deposit = depositByDay.get(segEnd);
       if (deposit) {
