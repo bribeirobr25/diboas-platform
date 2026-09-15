@@ -49,7 +49,8 @@
     "review:staged": "node scripts/review-gate.mjs staged",
     "review:exports": "node scripts/review-gate.mjs exports",
     "dev:sandbox": "turbo run build --filter=@diboas/banking --filter=@diboas/defi --filter=@diboas/investing && pnpm --filter sandbox dev",
-    "start:sandbox": "pnpm --filter sandbox start"
+    "start:sandbox": "pnpm --filter sandbox start",
+    "market:simulate-next-week": "node apps/web/scripts/market-refresh/simulate-next-week.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",
