@@ -82,6 +82,10 @@ const ALLOWED: Record<string, { cls: Cls; why: string }> = {
     cls: 'UNIT-READS-LIVE',
     why: 'build-instant equivalence + a FROZEN 2026-09-07 panel for the historical regression',
   },
+  'watchingPhrases.test.ts': {
+    cls: 'UNIT-READS-LIVE',
+    why: 'derives the expectation from the data — for each ACTIVE signal its INACTIVE phrase must be absent',
+  },
   'resilience.test.ts': {
     cls: 'UNIT-READS-LIVE',
     why: 'mocks the data modules to force failure paths; asserts none of their values',
@@ -137,5 +141,6 @@ describe('every weekly release gate is declared, not inherited from a directory 
     const units = Object.values(ALLOWED).filter((e) => e.cls === 'UNIT-READS-LIVE').length;
     expect(gates + units).toBe(Object.keys(ALLOWED).length);
     expect(gates).toBe(4);
+    expect(units).toBe(6);
   });
 });
