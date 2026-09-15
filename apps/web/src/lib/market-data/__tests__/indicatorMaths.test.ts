@@ -93,6 +93,26 @@ describe('rsi — Wilder relative strength index', () => {
     expect(rsi(up, 14)).toBeGreaterThan(50);
   });
 
+  it('should return the NEUTRAL midpoint for a flat window, not maximum strength', () => {
+    // 5.364, founder-ruled 2026-09-15. Nothing moved, so there is no relative
+    // strength to report; 100 would be a claim from no information, and the
+    // same defect class as scoring a signal from an absent ledger. Matches
+    // `stochRsiK`'s own degenerate answer so the two agree.
+    expect(rsi(new Array(20).fill(10), 14)).toBe(50);
+    expect(rsi(new Array(20).fill(0), 14)).toBe(50);
+  });
+
+  it('should still return 100 when every period genuinely gained', () => {
+    // The distinction the fix turns on: all-gains is maximum strength and must
+    // stay 100; only the no-movement case changes.
+    expect(
+      rsi(
+        Array.from({ length: 15 }, (_, i) => i + 1),
+        14
+      )
+    ).toBe(100);
+  });
+
   it('should refuse to compute without period+1 observations', () => {
     expect(rsi([1, 2, 3], 14)).toBeNull();
     expect(
