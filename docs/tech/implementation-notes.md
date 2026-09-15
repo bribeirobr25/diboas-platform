@@ -198,3 +198,57 @@ Each entry names its **current code state** and its **ruled target** separately,
 - **Persistent accounts (F-16).** May be built behind a server flag (`BUILD PERMISSION ≠ PUBLIC RELEASE PERMISSION`); public persistent release stays blocked pending the evidence in `docs/sandbox-app/legal-current/PRACTICE_LEGAL_RELEASE_CHECKLIST.md`.
 - **Readiness controls (LC-TD-02 §4).** Four separate concepts — `LEGAL-TERMS` (required, unchecked) · `LEGAL-PRIVACY` (information, not consent) · `LEGAL-AGE` (required, unchecked, its own control) · `LEGAL-ANALYTICS` (optional, off) — with the exact approved four-locale strings in `docs/sandbox-app/legal-current/PRACTICE_UI_LEGAL_STRINGS.md`. Never bundle Terms with age or privacy; never require analytics to continue. _Current code:_ `components/Consent.tsx` bundles all three in one accept (PENDING_ALL 5.143 / r3 I-02) — an authorized-next-phase fix.
 - **Instrumentation** follows `docs/tech/INSTRUMENTATION_CONTRACT.md` (documentation only until the runtime is authorized). _Current code:_ the app has no analytics.
+
+## G8 time-machine replay: the anchoring and evidence contract (2026-09-15 — do not regress)
+
+Added because the increment gate found this subsystem had **no** do-not-regress entry while batches D
+and E changed its load-bearing behaviour. Every rule below describes code that exists today; none of
+it creates Product authority. Register: `5.105` (open), `5.360`, `5.359`.
+
+- **Within ONE advance every segment shares the advance's global `toDay` anchor.** _Current code:_
+  `apps/sandbox/src/lib/advancePlanner.ts` passes `toDay` to `ratesForSpan` / `priceFactorsForSpan`
+  for every boundary of the merged grid. _Why:_ letting a segment re-anchor to its own end overlaps
+  windows and double-counts recent movement. `g8PriceReplay.test.ts` is a guard-rail test that PROVES
+  per-segment re-anchoring diverges — do not "simplify" the anchor to `segEnd`.
+- **ACROSS advances a `machine` replay consumes history sequentially.** _Current code:_ `TimeAdvanced`
+  carries an optional `replayEpoch`, pinned on the FIRST machine advance and never rewritten
+  (projection: first non-null wins, `packages/banking/src/ledger/projection/core.ts`); how far the
+  replay has consumed is DERIVED as `simDay − realSettledDays`, never stored. _Why:_ a stored cursor
+  can disagree with the log. `real` advances pin nothing on purpose — real elapsed days genuinely
+  correspond to the newest real days, so the historic newest-tail anchoring is correct for them, and
+  `TimeAdvanced.source` is what discriminates the two modes. A uniform sequential context would make
+  three real days replay days 91-93 of a historical window.
+- **A leg with no history is UNAVAILABLE, never flat and never zero.** _Current code:_
+  `apps/sandbox/src/lib/ledger/journey.ts` returns `null` for a leg whose price or APY series is
+  absent, and the position is then omitted from `legsByPosition`. It previously substituted
+  `points: [1]` (price) or `[0]` (APY), which silently held a leg's value — invented data wearing a
+  `fixture` stamp, and worst exactly where it mattered, because a growth position whose price feed was
+  missing could not FALL. Do not reintroduce a default series.
+- **Replayability is ALL-OR-NOTHING per position.** Ruled by Strategy/M&E §7 (2026-09-15):
+  `PARTIALLY-EVIDENCED POSITION = WHOLE-POSITION REPLAY UNAVAILABLE`; do not hold missing legs flat,
+  and do not present evidenced minority legs as the whole-position result. `fullThrottle` is why: one
+  15% lending leg plus 85% market, so replaying only the evidenced leg would report 15% of the
+  position as the whole of it.
+- **Deposits are NOT gated on replayability — the two questions are different.** _Current code:_
+  `planAdvance` takes `catalogPositions` (the strategy resolved) beside `legsByPosition` (the history
+  can be replayed). Phase 1's Working reservation gates on the CATALOG; the accrual gates on
+  replayability; the recurring deposit fires on its own boundary inside neither gate. _Why:_ a monthly
+  contribution is the user's own money moving on a calendar and depends on no market series. Gating
+  both on one map made an honest replay refusal also swallow the deposit. The L1 rule still holds
+  separately: a catalog-drift position reserves nothing, so it cannot starve a real position.
+- **A refused accrual is safe for the conservation identity, by construction.** `reconcile()`
+  (`packages/banking/src/ledger/engine.ts`) sums `earnings` from the EMITTED `AccrualApplied` events,
+  and the projection applies those same events, so a refusal removes the term from both sides
+  together. Do not re-derive earnings from positions independently of the event log.
+- **Provenance never over-claims.** `apySource: 'defillama'` is reserved for a replay where EVERY leg
+  was live; any fixture leg makes the whole emission `'fixture'`. `ratesUsed` is pinned only for a
+  sole lending leg at 100% — no catalog strategy is shaped that way, so `legsReplayed` (per-leg
+  multiples) is the live audit record.
+- **Still OPEN, do not mistake for done:** §7's `CROSS-LEG CALENDAR AGREEMENT` /
+  `MIXED-CALENDAR POSITION = UNAVAILABLE` is NOT implemented. `usableWindow` returns `undefined` for
+  several different causes — no window at all (correct for `real`), the position not replayable, a
+  series with no dates, a window past the series end, dates/points length skew, and a genuine
+  cross-leg calendar mismatch — and all of them currently fall back to the historic anchoring. A
+  correct fix needs the windowed functions to report WHY they refused; note that
+  `replayContext.test.ts` deliberately asserts an undated series still replays real movement, so a
+  blanket refusal would break an intentional behaviour.
