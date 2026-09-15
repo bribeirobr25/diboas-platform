@@ -21,7 +21,7 @@
     "passwordLabel": "Access password",
     "enter": "Enter the sandbox",
     "error": "That password did not open the door. Try again.",
-    "notConfigured": "The sandbox gate is not configured yet. Set SANDBOX_ACCESS_PASSWORD and restart."
+    "notConfigured": "Practice access isn't available."
   },
   "home": {
     "goalsTitle": "Goals",
@@ -117,7 +117,7 @@
     "step1": "Submitted",
     "step2": "Confirming",
     "step3": "Confirmed",
-    "note": "This is how a real move would settle. In the sandbox it always confirms, and no real transaction happens."
+    "note": "This illustrates simulated settlement in Practice; no real transaction takes place."
   },
   "goalDetail": {
     "progress": "{current} of {target}",

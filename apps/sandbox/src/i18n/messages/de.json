@@ -21,7 +21,7 @@
     "passwordLabel": "Zugangspasswort",
     "enter": "Sandbox betreten",
     "error": "Dieses Passwort hat die Tür nicht geöffnet. Probiere es noch einmal.",
-    "notConfigured": "Das Tor zur Sandbox ist noch nicht konfiguriert. Setze SANDBOX_ACCESS_PASSWORD und starte neu."
+    "notConfigured": "Der Zugang zu Practice ist nicht verfügbar."
   },
   "home": {
     "goalsTitle": "Ziele",
@@ -117,7 +117,7 @@
     "step1": "Eingereicht",
     "step2": "Wird bestätigt",
     "step3": "Bestätigt",
-    "note": "So würde eine echte Bewegung abgewickelt. In der Sandbox wird immer bestätigt, und es findet keine echte Transaktion statt."
+    "note": "Dies veranschaulicht eine simulierte Abwicklung in Practice; es findet keine echte Transaktion statt."
   },
   "goalDetail": {
     "progress": "{current} von {target}",
@@ -362,7 +362,7 @@
     "home": "Start",
     "goals": "Ziele",
     "move": "Bewegen",
-    "learn": "Lernen",
+    "learn": "Verstehen",
     "profile": "Profil",
     "notifications": "Benachrichtigungen",
     "community": "Community"

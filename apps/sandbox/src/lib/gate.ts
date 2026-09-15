@@ -13,6 +13,7 @@
  */
 
 import { can } from '@/lib/capabilities';
+import { Logger } from '@/lib/monitoring/Logger';
 import crypto from 'crypto';
 
 export const SANDBOX_GATE_COOKIE = 'diboas-sandbox-gate';
@@ -22,7 +23,28 @@ const GATE_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;
 
 function getPassword(): string | null {
   const pw = process.env.SANDBOX_ACCESS_PASSWORD;
-  return pw && pw.length > 0 ? pw : null;
+  if (!pw || pw.length === 0) {
+    /**
+     * ⚑ The operator's ONLY signal, restored (`5.350` copy pass, 2026-09-15).
+     *
+     * `gate.notConfigured` used to name the variable to the USER — it read "Set
+     * SANDBOX_ACCESS_PASSWORD and restart", which leaked an internal to whoever
+     * hit the door. Legal's final wording is correctly silent about internals,
+     * and that silence would otherwise have deleted the only place this
+     * misconfiguration was ever reported: there is no other logging on this
+     * path, and the contract above is fail-closed, so a deploy with the
+     * variable unset serves a bare refusal with nothing explaining why.
+     *
+     * Routed through the house `Logger` seam rather than a bare `console`:
+     * seven runtime modules already use it, and the only bare `console` in
+     * the app is the React error boundary. Server-side only, so nothing
+     * reaches the browser. This restores a pre-existing signal; it adds no
+     * new behaviour.
+     */
+    Logger.warn('sandbox gate: SANDBOX_ACCESS_PASSWORD is not set, so the gate is fail-closed');
+    return null;
+  }
+  return pw;
 }
 
 /**

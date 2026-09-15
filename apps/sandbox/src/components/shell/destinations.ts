@@ -34,9 +34,16 @@ import type { Destination } from './BottomNavigation';
  *   locales. It is NOT pushed into `unavailableLabel` either: that is a
  *   resolved string this function has no intl to produce, and a two-sentence
  *   paragraph as a tab's `aria-label` would be an invented screen-reader
- *   anti-pattern. Registered, not invented — and the German title question
- *   ("Verstehen" vs the shipping "Lernen") is Product's, since renaming a live
- *   navigation destination is not this lane's call.
+ *   anti-pattern. Registered, not invented.
+ *
+ *   ⚑ The German title question is RULED (Product, 2026-09-15, `5.351`): the
+ *   canonical ontology stays **Learn**, the DE DISPLAY LABEL is **Verstehen**
+ *   ("Lernen" superseded for the label only), and the ROUTE / DESTINATION ID is
+ *   UNCHANGED with no Product IA change. So `labelId` below still resolves
+ *   `nav.learn` and this `surface: 'learn'` is untouched — only the German
+ *   VALUE of that key moved. This comment previously said the question was
+ *   "Product's call"; it has been made, and leaving that sentence standing
+ *   would be the `5.358` defect class (prose denying a ruled state).
  */
 export function destinationsFor(locale: string): readonly Destination[] {
   const at = (path: string) => `/${locale}${path}`;

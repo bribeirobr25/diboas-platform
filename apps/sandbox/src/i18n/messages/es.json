@@ -21,7 +21,7 @@
     "passwordLabel": "Contraseña de acceso",
     "enter": "Entrar en el sandbox",
     "error": "Esa contraseña no ha abierto la puerta. Prueba otra vez.",
-    "notConfigured": "La puerta del sandbox aún no está configurada. Define SANDBOX_ACCESS_PASSWORD y reinicia."
+    "notConfigured": "El acceso a Practice no está disponible."
   },
   "home": {
     "goalsTitle": "Metas",
@@ -117,7 +117,7 @@
     "step1": "Enviado",
     "step2": "Confirmando",
     "step3": "Confirmado",
-    "note": "Así se liquidaría un movimiento real. En el sandbox siempre se confirma y no ocurre ninguna transacción real."
+    "note": "Esto ilustra una liquidación simulada en Practice; no se realiza ninguna transacción real."
   },
   "goalDetail": {
     "progress": "{current} de {target}",
