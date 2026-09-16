@@ -580,6 +580,7 @@
     "down": "para baixo",
     "dayN": "Dia {day}",
     "chartDescription": "Valor de treino de {start} a {end}, {direction} no total, variando entre {low} e {high}.",
+    "chartDescriptionUnavailable": "Valor de treino de {start} a {end}, variando entre {low} e {high}.",
     "footnote": "Esta simulação repete dados históricos reais de mercado. Não inclui aportes futuros nem créditos semanais."
   },
   "rules": {

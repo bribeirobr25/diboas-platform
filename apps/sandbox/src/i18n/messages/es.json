@@ -580,6 +580,7 @@
     "down": "hacia abajo",
     "dayN": "Día {day}",
     "chartDescription": "Valor de práctica de {start} a {end}, {direction} en total, entre {low} y {high}.",
+    "chartDescriptionUnavailable": "Valor de práctica de {start} a {end}, entre {low} y {high}.",
     "footnote": "Esta simulación reproduce datos históricos reales del mercado. No incluye aportaciones futuras ni créditos semanales."
   },
   "rules": {

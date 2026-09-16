@@ -43,11 +43,23 @@ export function ValueChart({
   startValue,
   currency,
   labelledBy,
+  replayUnavailable = false,
 }: {
   points: ValuePoint[];
   startValue: number;
   currency: 'USD' | 'BRL' | 'EUR';
   labelledBy?: string;
+  /**
+   * `5.398` — a span in this line was CONSUMED with its replay REFUSED.
+   *
+   * The chart then describes its span and range and says NOTHING about
+   * direction. Execution Rulings §4 forbids adjacent presentation implying
+   * `gain` / `loss` / `flat` beside a refusal, and this SVG's accessible name
+   * is adjacent presentation — it is the only thing a screen-reader user gets
+   * from the chart, so "up overall" was a direction claim about a stretch
+   * nobody could replay. Found by the Docker MCP pass, not by a test.
+   */
+  replayUnavailable?: boolean;
 }) {
   const intl = useIntl();
   const { money } = useFormatters(currency);
@@ -86,18 +98,33 @@ export function ValueChart({
           aria-labelledby={titleId}
         >
           <title id={titleId}>
-            {intl.formatMessage(
-              { id: 'timeMachine.chartDescription' },
-              {
-                start: money(startValue.toFixed(2)),
-                end: money(end.toFixed(2)),
-                low: money(Math.min(...values).toFixed(2)),
-                high: money(Math.max(...values).toFixed(2)),
-                direction: intl.formatMessage({
-                  id: down ? 'timeMachine.down' : 'timeMachine.up',
-                }),
-              }
-            )}
+            {/* `5.398`. The VALUES are facts about the line and §4 permits them;
+                the direction is a CLAIM, so it is absent when a span was
+                refused. The unavailable variant is each locale's own approved
+                sentence with the `{direction}` clause removed — the shape that
+                locale's `apyChart.description` already ships. */}
+            {replayUnavailable
+              ? intl.formatMessage(
+                  { id: 'timeMachine.chartDescriptionUnavailable' },
+                  {
+                    start: money(startValue.toFixed(2)),
+                    end: money(end.toFixed(2)),
+                    low: money(Math.min(...values).toFixed(2)),
+                    high: money(Math.max(...values).toFixed(2)),
+                  }
+                )
+              : intl.formatMessage(
+                  { id: 'timeMachine.chartDescription' },
+                  {
+                    start: money(startValue.toFixed(2)),
+                    end: money(end.toFixed(2)),
+                    low: money(Math.min(...values).toFixed(2)),
+                    high: money(Math.max(...values).toFixed(2)),
+                    direction: intl.formatMessage({
+                      id: down ? 'timeMachine.down' : 'timeMachine.up',
+                    }),
+                  }
+                )}
           </title>
           {grid.map((v) => (
             <line

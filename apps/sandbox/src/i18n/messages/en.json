@@ -580,6 +580,7 @@
     "down": "down",
     "dayN": "Day {day}",
     "chartDescription": "Practice value from {start} to {end}, {direction} overall, ranging {low} to {high}.",
+    "chartDescriptionUnavailable": "Practice value from {start} to {end}, ranging {low} to {high}.",
     "footnote": "This simulation replays actual historical market data. It excludes future contributions and weekly credits."
   },
   "rules": {

@@ -245,6 +245,7 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
                 startValue={start}
                 currency={state.currency}
                 labelledBy="timemachine-title"
+                replayUnavailable={tm.replayUnavailable}
               />
 
               <div className={styles.summary}>
