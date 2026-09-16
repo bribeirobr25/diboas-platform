@@ -53,3 +53,23 @@
   align-items: center;
   gap: var(--spacing-2xs);
 }
+
+/*
+ * The brand/home ANCHOR carries the governed 44x44 hit area; the MARK stays
+ * 1.9rem (30.4px). Round-3 ruling §8 splits exactly this way — "visual logo /
+ * glyph may be <44x44 … interactive anchor / button hit area must be >=44x44"
+ * — and adds "Do not enlarge the visible brand artwork merely to satisfy
+ * target geometry". So the box grows around the artwork, not the artwork.
+ *
+ * Measured in-browser BEFORE this rule (`5.234`, build h31CwXZC6GxkpKNo27uXm):
+ * the anchor was 30.4 x 30.4 while Profile and Alerts were already 44 x 44 —
+ * because `grid-template-columns: var(--sb-tap) 1fr var(--sb-tap)` sizes the
+ * two UTILITY slots and identity is the middle `1fr`, which nothing floored.
+ */
+.identity a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--sb-tap);
+  min-height: var(--sb-tap);
+}

@@ -14,7 +14,20 @@
 }
 
 .segment {
-  min-height: 2rem;
+  /*
+   * 44px, not 32. `5.234` recorded this control at 77x32 / 86x32 — the ONE
+   * hard-coded interactive height in the sandbox below the governed floor,
+   * bypassing `--sb-tap` while 24 other files honoured it (measured at HEAD; 25 with this one). Round-3 ruling §8
+   * made `44 x 44` controlling and superseded the legacy `>=24`, and the
+   * resolution's line 405 authorized the fix inside Pre-I2.
+   *
+   * This is the MINIMUM adjustment the ruling asks for: only the height token
+   * changes. Labels, typography (`--font-size-sm-plus`), the pill radius, the
+   * flex layout and the interaction model are untouched, so it is compliance
+   * remediation and not the PRODUCT REDESIGN §8 draws the line at. The outer
+   * control becomes 48px (44 + the group's 2px padding either side).
+   */
+  min-height: var(--sb-tap);
   padding: 0 var(--spacing-md);
   border: none;
   border-radius: var(--radius-pill);
