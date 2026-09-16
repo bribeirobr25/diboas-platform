@@ -110,7 +110,7 @@ export function StateViewSections({ viewSlug, signalGroups, t }: StateViewSectio
             <summary className={styles.memoToggle}>
               {t('conditions.depthToggle', 'What is behind the three conditions')}
             </summary>
-            <p className={styles.scoreDetailBody}>{depth}</p>
+            <p className={styles.stateDepthBody}>{depth}</p>
           </details>
         ) : null}
         {/* Why these three matter — static diBoaS voice, the page's context. */}

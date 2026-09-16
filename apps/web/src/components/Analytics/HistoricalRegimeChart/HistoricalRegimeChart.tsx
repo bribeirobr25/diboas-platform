@@ -122,25 +122,36 @@ export function HistoricalRegimeChart({
           />
         ))}
       </svg>
-      <table id={tableId} className={styles.srOnly}>
-        <caption>{ariaLabel}</caption>
-        <thead>
-          <tr>
-            <th scope="col">{tableLabels.date}</th>
-            <th scope="col">{tableLabels.score}</th>
-            <th scope="col">{tableLabels.regime}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {snapshots.map((s) => (
-            <tr key={s.date}>
-              <th scope="row">{s.date.slice(0, 10)}</th>
-              <td>{s.score}</td>
-              <td>{s.regime_code}</td>
+      {/* 5.303: the CLIP lives on a wrapper, never on the <table>.
+          `.srOnly` sets width:1px, but auto table layout treats width as a
+          MINIMUM and never goes below min-content, so the table computed
+          644.797px and pushed 167-176px of horizontal scroll onto every mobile
+          market page. A <div> honours width:1px and clips its children, so the
+          scroll goes away. Do NOT "fix" this by putting display:block on the
+          table instead: that strips its table semantics for assistive tech,
+          and this table is the only screen-reader path to the chart
+          (`aria-describedby` on the svg points at its id). */}
+      <div className={styles.srOnly}>
+        <table id={tableId}>
+          <caption>{ariaLabel}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{tableLabels.date}</th>
+              <th scope="col">{tableLabels.score}</th>
+              <th scope="col">{tableLabels.regime}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {snapshots.map((s) => (
+              <tr key={s.date}>
+                <th scope="row">{s.date.slice(0, 10)}</th>
+                <td>{s.score}</td>
+                <td>{s.regime_code}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </figure>
   );
 }

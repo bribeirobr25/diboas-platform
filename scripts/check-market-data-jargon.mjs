@@ -19,7 +19,7 @@
  * Plan reference: docs/audit/MARKET_INTEGRATION_ITERATION_3_PLAN_2026-05-14.md §3.4.
  */
 
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { basename, resolve, join } from 'node:path';
 
 const BANNED = [
@@ -36,7 +36,16 @@ const BANNED_REGEX = new RegExp(`\\b(${BANNED.join('|')})\\b`, 'i');
 const CARVEOUT_KEY_REGEX = /disclosure|disclaimer|regulatoryFootnote/i;
 const CARVEOUT_FILENAME_REGEX = /disclosure|disclaimer/i;
 
-const TARGET_DIR = resolve('apps/web/data/market');
+// 5.327: BOTH the generated output AND the templates it is generated FROM.
+// Scanning only the output means a banned term in a sentence that has not yet
+// rendered is invisible until the cycle that renders it — the ETF-01 gapped
+// sentence added 2026-09-13 would have had its first jargon check on the
+// Monday a weekly snapshot went missing, in production. The templates are the
+// INPUT; checking them is checking before the fact rather than after.
+const TARGET_DIRS = [
+  resolve('apps/web/data/market'),
+  resolve('apps/web/scripts/market-refresh/templates'),
+];
 
 /**
  * Recursively walk an object/array, calling fn(value, keyPath) for each
@@ -71,7 +80,7 @@ function* listJsonFiles(dir) {
 
 const violations = [];
 
-for (const file of listJsonFiles(TARGET_DIR)) {
+for (const file of TARGET_DIRS.filter((d) => existsSync(d)).flatMap((d) => [...listJsonFiles(d)])) {
   let parsed;
   try {
     parsed = JSON.parse(readFileSync(file, 'utf8'));
@@ -113,4 +122,6 @@ if (violations.length > 0) {
   process.exit(1);
 }
 
-console.log(`✓ Phase 7 jargon gate: 0 violations in ${TARGET_DIR}`);
+console.log(
+  `✓ Phase 7 jargon gate: 0 violations across ${TARGET_DIRS.length} target(s) — generated output AND the templates it comes from`
+);

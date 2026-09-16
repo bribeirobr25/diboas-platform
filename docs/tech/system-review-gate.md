@@ -10,6 +10,31 @@
 > This gate **references** those records and never restates them; duplication between the two is how
 > a project ends up with competing definitions of "review".
 >
+> **Work that predates this gate — the one exception, and it is single-use per lane** (founder-ruled
+> 2026-09-16, register `5.385`). These gates landed mid-stream. Increments merged before a lane
+> adopted them were never going to carry records, and the precondition above would otherwise bar the
+> `/market` wave — the work most in need of a system pass — from ever receiving one. It happened
+> twice: `5.325` for PR #595, then again for #614–#621.
+>
+> So, for increments merged **before** the lane's adoption date only:
+>
+> 1. **One BATCH-LEVEL increment record** may stand in for the missing per-increment records. It
+>    covers the batch diff as a single change and is **labelled `BATCH-LEVEL (LEGACY)`** in its own
+>    return block and wherever it is cited. It is not equivalent to per-increment records and must
+>    never be described as though it were.
+> 2. **Retrospective per-increment records must NOT be written.** Reconstructing a review that did
+>    not happen produces exactly the failure this gate names — a one-sentence row reading as a
+>    completed step. An absent record is recorded as absent.
+> 3. **The system gate's return block states the precondition as `MET (legacy batch record)`**, names
+>    the increments with no individual record, and carries the consequence: cross-increment findings
+>    are still valid, but "this increment was reviewed" cannot be claimed for any of them.
+> 4. **The exception expires at the lane's adoption date.** After it, a missing increment record is a
+>    FAIL with no waiver — `#620` and `#621` merged one day after the cadence rule with no record, and
+>    that is a gap, not a legacy case.
+>
+> **Adoption dates.** market lane: **2026-09-15** (the cadence rule, PR #619). Any other lane records
+> its own here when it adopts.
+>
 > **Enforcement class:** MANDATORY REVIEW CHECKLIST (registered in `engineering-gates.md`). Rows
 > marked **⚙** are mechanisable and should be scripted rather than judged.
 >
@@ -23,13 +48,32 @@
 > **v2, 2026-09-14** — v1 referenced 8 of 27 authorities and omitted i18n parity, accessibility,
 > ADR triggers and the FAIL path.
 
-**Runner:** `pnpm review:system` executes the ⚙ rows this gate shares with the increment gate (authority coverage, republished counts, register integrity, dead exports) and prints the manual fronts. **X1 (duplicate derivations) and X6 (guard filters) are deliberately NOT mechanised** — the first is too heuristic to avoid noise, and no script here claims either. Source: `scripts/review-gate.mjs`.
+**Runner:** `pnpm review:system` executes the ⚙ rows this gate shares with the increment gate (authority coverage, republished counts, register integrity, dead exports) and prints the manual fronts. **X1 (duplicate derivations) and X6 (guard filters) are deliberately NOT mechanised** — the first is too heuristic to avoid noise, and no script here claims either. Source: `scripts/review-gate.mjs`. **Register path (5.382):** the id-collision check resolves `docs/audit/PENDING_ALL.md` repo-relative first, then `REVIEW_REGISTER_PATH`, and **FAILS rather than skips** when neither resolves — a SKIP reads as a pass in a green run. The ledger is local-only and lives in the `diboas-platform` checkout, so a session working from a git WORKTREE must export `REVIEW_REGISTER_PATH=/path/to/diboas-platform/docs/audit/PENDING_ALL.md` or the gate is red by design.
 
 ## Trigger
 
 Before a merge train to `main` · at the close of a plan phase (before the next numbered increment may
 start) · when two or more increments touched the same surface · after five increments without a
 system pass · founder-ordered.
+
+**Plus: when a FRONT'S OWN SUBJECT changed** (founder-ruled 2026-09-15). A front is worth re-running
+precisely when the thing it inspects has moved, and that is knowable without judgement:
+
+| The batch touched…                         | Re-run                                          |
+| ------------------------------------------ | ----------------------------------------------- |
+| a provider, a cadence, a freshness rule    | Front 7, and the Collection → Validation seam   |
+| any user-facing string or rendered surface | Front 2 (all five verdicts) and the increment E |
+| a formula, a weight, a threshold, a band   | Front 6                                         |
+| a stored record's shape                    | Front 8, Storage and the two seams either side  |
+
+This is not extra ceremony: Front 7 FAILED on 2026-09-15 (`no fetch in the pipeline has a timeout`)
+and passed a day later only because the provider layer had changed and the front was re-run against
+it. A front nobody re-runs after its subject moves is a front that records history, not state.
+
+**X9 is the row most likely to catch YOU.** Three separate status claims went stale within hours of
+being written during the 2026-09-15 session, each in a document the author had written that same
+day. A status sentence decays from the moment it is written; re-reading never catches it, only
+re-deriving does. Run X9 against your own register rows, not just the project's prose.
 
 ## How to answer
 
@@ -192,7 +236,9 @@ stages, never inside one — so the seams are where the checks go.
 
 ```text
 BATCH                  = <increments covered>
-INCREMENT_RECORDS      = <one per increment, all passing>
+INCREMENT_RECORDS      = <one per increment, all passing — OR `BATCH-LEVEL (LEGACY)` plus the
+                         list of increments with no individual record, for work predating the
+                         lane's adoption date. See the Precondition. Never both silently.>
 ROUTING / COVERAGE     = <authorities opened; N/A ones with proof>
 FRONT_1_PRINCIPLES     = <per-principle verdicts; ADR triggers checked>
 FRONT_2_AUTHORITIES    = CLO=… BRAND=… UX=… VOICE=… STORY=… ASSETS=…   (never averaged)

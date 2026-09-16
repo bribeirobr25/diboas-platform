@@ -133,6 +133,46 @@ export function runDayIndex(rows) {
   return byDay;
 }
 
+/**
+ * Publish a run: the machine-truth file, then its provenance row
+ * (PENDING_ALL 5.302 / 5.328a).
+ *
+ * The ordering is the invariant, and it is deliberate in one direction:
+ *
+ *   computed.json FIRST, archive line SECOND.
+ *
+ * If the computed write fails, the archive must NOT gain a row — a provenance
+ * entry for data that was never published is a phantom run day, which is the
+ * 5.137 defect class and the thing `realSnapshotCount` and the chart's
+ * provenance gate both read as real history. Losing the row for a run that DID
+ * publish is recoverable (the next run appends, and the reconciliation gate
+ * reports the mismatch); inventing one is not.
+ *
+ * So the failure modes are asymmetric on purpose, and this function exists
+ * mainly so that asymmetry can be TESTED. Wave 2.3 asked for "a crash-injection
+ * test between writes leaving no inconsistent set" and what shipped tested each
+ * write alone; the window between them was argued about, not exercised.
+ *
+ * @param {object} io
+ * @param {string} io.computedPath
+ * @param {string} io.computedText    — complete contents, already serialised
+ * @param {string} io.archivePath
+ * @param {string|null} io.archiveText — one JSONL line, or null to skip (--no-archive)
+ * @param {(p: string, t: string) => void} io.writeFile   — atomic whole-file write
+ * @param {(p: string, t: string) => void} io.appendFile  — append one line
+ */
+export function publishRun({
+  computedPath,
+  computedText,
+  archivePath,
+  archiveText,
+  writeFile,
+  appendFile,
+}) {
+  writeFile(computedPath, computedText);
+  if (archiveText) appendFile(archivePath, archiveText);
+}
+
 /** The canonical archive line. `btc_append` is null for entry points that never append. */
 export function archiveLine({
   runAt,

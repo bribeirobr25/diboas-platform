@@ -49,7 +49,7 @@ import {
   resolveEtfSignals,
   WARMUP_SNAPSHOTS,
 } from './lib/etf-flows.mjs';
-import { archiveSignals, archiveLine } from './lib/archive.mjs';
+import { archiveSignals, archiveLine, publishRun } from './lib/archive.mjs';
 import { fetchYahooDaily, fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { fetchBtcMonthCloseVerifier } from './providers/coingecko.mjs';
 import { btcMonths, appendBtcMonth, REPO_ROOT } from './providers/inrepo.mjs';
@@ -270,17 +270,26 @@ async function main() {
       ) + '\n'
     : null;
 
-  writeFileAtomic(COMPUTED_PATH, JSON.stringify(computed, null, 2) + '\n');
-  console.log(`  Wrote ${path.relative(REPO_ROOT, COMPUTED_PATH)}`);
-
   // The archive stays APPEND-ONLY and is deliberately not made "idempotent" by
   // rewriting same-day lines: a correction re-run is a real event, and a ledger
   // you edit is not a provenance authority. Duplicate DAYS are collapsed on
   // READ instead, by the one shared rule in archive.mjs#runDayIndex.
-  if (archiveText) {
-    fs.appendFileSync(ARCHIVE_PATH, archiveText);
-    console.log(`  Archived run → ${path.relative(REPO_ROOT, ARCHIVE_PATH)}\n`);
-  }
+  //
+  // 5.328a: the two writes and their ORDER live in `publishRun` so the window
+  // between them is testable. computed.json first, archive second — never the
+  // reverse, because a provenance row for data that was not published is a
+  // phantom run day (5.137), and that is worse than losing a row for a run that
+  // did publish.
+  publishRun({
+    computedPath: COMPUTED_PATH,
+    computedText: JSON.stringify(computed, null, 2) + '\n',
+    archivePath: ARCHIVE_PATH,
+    archiveText,
+    writeFile: writeFileAtomic,
+    appendFile: (p, t) => fs.appendFileSync(p, t),
+  });
+  console.log(`  Wrote ${path.relative(REPO_ROOT, COMPUTED_PATH)}`);
+  if (archiveText) console.log(`  Archived run → ${path.relative(REPO_ROOT, ARCHIVE_PATH)}\n`);
 }
 
 // Run ONLY when invoked directly: importing a writing script must be a no-op.

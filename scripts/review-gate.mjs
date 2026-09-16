@@ -42,11 +42,52 @@ const REGISTER = 'docs/audit/PENDING_ALL.md';
 const GATES = ['docs/tech/increment-review-gate.md', 'docs/tech/system-review-gate.md'];
 
 /* ---------------------------------------------------------------- register */
+/**
+ * Where the ledger actually is (register 5.382).
+ *
+ * Repo-relative FIRST and unchanged — that is how the platform checkout
+ * resolves it, and nothing about that lane changes. The market session works
+ * from a git WORKTREE where `docs/` is gitignored and the ledger only exists in
+ * the platform checkout, so the path did not resolve and this check printed
+ * SKIP. In a green run a SKIP reads as a pass, which is how a silent hole hides.
+ *
+ * That matters because the ledger is a concurrent-write zone and the collision
+ * it guards has happened twice: 5.308 was consumed by the other lane mid-flight,
+ * and 5.332-5.335 collided and had to be renumbered. The guard was inert in the
+ * one lane that writes from a worktree.
+ *
+ * So: env var as the second resolution, then FAIL rather than skip. Failing is
+ * safe — this runner is invoked only from package.json scripts and by no CI
+ * workflow (verified 2026-09-16), so a fresh clone without the local-only
+ * ledger gets a loud, actionable message instead of a broken pipeline.
+ */
+function resolveRegister() {
+  const repoRelative = join(ROOT, REGISTER);
+  if (existsSync(repoRelative)) return { path: repoRelative, via: 'repo-relative' };
+  const fromEnv = process.env.REVIEW_REGISTER_PATH;
+  if (fromEnv) {
+    if (existsSync(fromEnv)) return { path: fromEnv, via: 'REVIEW_REGISTER_PATH' };
+    return { path: null, via: 'REVIEW_REGISTER_PATH', bad: fromEnv };
+  }
+  return { path: null, via: null };
+}
+
 /** The marker is a CLAIM. The maximum existing id is the EVIDENCE. */
 function checkRegister() {
-  if (!existsSync(join(ROOT, REGISTER)))
-    return { ok: true, skip: true, detail: `${REGISTER} absent (local-only doc) — skipped` };
-  const s = rd(REGISTER);
+  const found = resolveRegister();
+  if (!found.path) {
+    const why = found.bad
+      ? `REVIEW_REGISTER_PATH points at ${found.bad}, which does not exist`
+      : `${REGISTER} not found here, and REVIEW_REGISTER_PATH is unset`;
+    return {
+      ok: false,
+      detail:
+        `${why}. The id-collision guard CANNOT RUN — do not claim a register id ` +
+        `on trust. Set REVIEW_REGISTER_PATH to the ledger (it is local-only and ` +
+        `lives in the platform checkout, not in a worktree). Register 5.382.`,
+    };
+  }
+  const s = readFileSync(found.path, 'utf8');
   /**
    * ⚑ WIDENED 2026-09-15. The pattern required the id to CLOSE its bold span
    * (`**5.347**`), so every row written as `> **5.347 — title**` — id and title
@@ -55,6 +96,14 @@ function checkRegister() {
    * the Pre-I2 pass). The marker's own instructions already say a claim-scan
    * "must cover both formats, file-wide"; this check did not. Verified safe
    * before widening: zero duplicate definitions under the wide pattern.
+   *
+   * ⚑ KEPT THROUGH THE 2026-09-16 MERGE of `origin/main`, whose own resolution of
+   * this function narrowed the pattern back to a closed bold span. Dropping the
+   * alternation silently un-guards those same nineteen ids, so the merge took
+   * origin/main's `resolveRegister` + FAIL-never-SKIP prelude AND this pattern.
+   * `checkRegister` is the MARKET lane's function per their implementation-notes
+   * entry, so this edit is announced in `docs/cc-sync/market-sandbox.md` rather
+   * than made silently.
    */
   const ids = [...s.matchAll(/^(?:\||>) \*\*(\d+\.\d+)(?:\*\*|\s|—)/gm)].map((m) => m[1]);
   if (ids.length === 0)
@@ -279,9 +328,49 @@ function checkStaged() {
 /** An exported function with no consumer is dead, or a screen nobody links. */
 const stripComments = (t) => t.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
 
+/**
+ * Files this change actually touches — worktree, index, and branch commits
+ * (register 5.383). Best-effort: if git cannot answer, return null and let the
+ * caller scan rather than claim an N/A it cannot prove.
+ */
+function changedFiles() {
+  const out = new Set();
+  let answered = false;
+  for (const cmd of ['git diff --name-only HEAD', 'git diff --name-only origin/main...HEAD']) {
+    try {
+      for (const f of sh(cmd).split('\n').filter(Boolean)) out.add(f);
+      answered = true;
+    } catch {
+      /* no upstream, detached head, or not a repo — fall through */
+    }
+  }
+  return answered ? out : null;
+}
+
+/**
+ * An exported function with no consumer is dead, or a screen nobody links.
+ *
+ * The target is NAMED in the result and checked against the diff (5.383). It
+ * used to default silently to the sandbox view directory, so reviewing a change
+ * under `apps/web/src/lib/market-data/` produced the line "17 exported
+ * function(s) checked in apps/sandbox/src/view · all consumed" — true, and
+ * about code the increment never touched. A green row for an unexamined change
+ * is false comfort, and it is the 5.305 shape: a guard cited as covering
+ * something it cannot see. It now says N/A instead of PASS when the path it
+ * would scan has nothing to do with the change.
+ */
 function checkExports(target = 'apps/sandbox/src/view', scope = 'apps/sandbox/src') {
   if (!existsSync(join(ROOT, target)))
     return { ok: true, skip: true, detail: `${target} absent — skipped` };
+  const changed = changedFiles();
+  if (changed && ![...changed].some((f) => f.startsWith(target)))
+    return {
+      ok: true,
+      skip: true,
+      detail:
+        `N/A — this change touches no file under ${target} ` +
+        `(${changed.size} changed file(s)); nothing scanned, so this row asserts nothing`,
+    };
   const mods = readdirSync(join(ROOT, target)).filter(
     (f) => f.endsWith('.ts') || f.endsWith('.tsx')
   );

@@ -1,71 +1,160 @@
 {
   "_comment": "P3 plain-phrase library. watching keyed by signal id — used for the two nearest-to-flip signals that fill the {watching} slot of the monthly standing read. Jargon-free per C3 (no EMA/RSI/SMA). (The old change-driver phrases were retired when the plain layer moved to weekly-opener + transition-agnostic standing, 2026-07-28.)",
   "watching": {
+    "_comment": "PENDING_ALL 5.192, founder-ruled option (a), authorised 2026-09-15. Keyed by (signal x STATE), like signal-sentences.json. It was keyed by id ALONE, while generate.mjs#watchingIds() picks the two signals nearest a flip REGARDLESS of state — so a phrase written for one state was emitted in the other. Ten of the eleven presupposed a state; on 2026-09-15 production read 'nearly all of what we track is aligned toward the price. What we're watching: whether the price can climb back above its long middle line' with BTC-01 ACTIVE and already above that line. ACTIVE phrases watch a supportive condition PERSISTING; INACTIVE phrases watch it TURNING. Both states are required for every signal.",
     "BTC-01": {
-      "en": "whether the price can climb back above its long middle line",
-      "pt-BR": "se o preço consegue voltar acima da sua linha média longa",
-      "es": "si el precio logra volver por encima de su línea media larga",
-      "de": "ob der Preis wieder über seine lange Mittellinie klettern kann"
+      "ACTIVE": {
+        "en": "whether the price can hold above its long middle line",
+        "pt-BR": "se o preço consegue se manter acima da sua linha média longa",
+        "es": "si el precio logra mantenerse por encima de su línea media larga",
+        "de": "ob der Preis sich über seiner langen Mittellinie halten kann"
+      },
+      "INACTIVE": {
+        "en": "whether the price can climb back above its long middle line",
+        "pt-BR": "se o preço consegue voltar acima da sua linha média longa",
+        "es": "si el precio logra volver por encima de su línea media larga",
+        "de": "ob der Preis wieder über seine lange Mittellinie klettern kann"
+      }
     },
     "BTC-02": {
-      "en": "whether the price can reclaim the slow line it has held for years",
-      "pt-BR": "se o preço consegue retomar a linha lenta que segurou por anos",
-      "es": "si el precio recupera la línea lenta que sostuvo durante años",
-      "de": "ob der Preis die langsame Linie zurückerobern kann, die er jahrelang gehalten hat"
+      "ACTIVE": {
+        "en": "whether the price keeps the slow line it has held for years",
+        "pt-BR": "se o preço mantém a linha lenta que segurou por anos",
+        "es": "si el precio conserva la línea lenta que sostuvo durante años",
+        "de": "ob der Preis die langsame Linie hält, die er jahrelang gehalten hat"
+      },
+      "INACTIVE": {
+        "en": "whether the price can reclaim the slow line it has held for years",
+        "pt-BR": "se o preço consegue retomar a linha lenta que segurou por anos",
+        "es": "si el precio recupera la línea lenta que sostuvo durante años",
+        "de": "ob der Preis die langsame Linie zurückerobern kann, die er jahrelang gehalten hat"
+      }
     },
     "BTC-03": {
-      "en": "whether the monthly mood stops cooling",
-      "pt-BR": "se o humor mensal para de esfriar",
-      "es": "si el ánimo mensual deja de enfriarse",
-      "de": "ob sich die Monatsstimmung nicht weiter abkühlt"
+      "ACTIVE": {
+        "en": "whether the monthly mood keeps warming",
+        "pt-BR": "se o humor mensal continua esquentando",
+        "es": "si el ánimo mensual sigue templándose",
+        "de": "ob sich die Monatsstimmung weiter aufhellt"
+      },
+      "INACTIVE": {
+        "en": "whether the monthly mood stops cooling",
+        "pt-BR": "se o humor mensal para de esfriar",
+        "es": "si el ánimo mensual deja de enfriarse",
+        "de": "ob sich die Monatsstimmung nicht weiter abkühlt"
+      }
     },
     "BTC-04": {
-      "en": "whether the short-term pulse keeps its footing",
-      "pt-BR": "se o pulso de curto prazo mantém o pé firme",
-      "es": "si el pulso a corto plazo mantiene el pie firme",
-      "de": "ob der kurzfristige Puls seinen Halt behält"
+      "ACTIVE": {
+        "en": "whether the short-term pulse keeps its footing",
+        "pt-BR": "se o pulso de curto prazo mantém o pé firme",
+        "es": "si el pulso a corto plazo mantiene el pie firme",
+        "de": "ob der kurzfristige Puls seinen Halt behält"
+      },
+      "INACTIVE": {
+        "en": "whether the short-term pulse finds its footing",
+        "pt-BR": "se o pulso de curto prazo firma o pé",
+        "es": "si el pulso a corto plazo afirma el pie",
+        "de": "ob der kurzfristige Puls Halt findet"
+      }
     },
     "MAC-01": {
-      "en": "whether the dollar loosens its grip",
-      "pt-BR": "se o dólar afrouxa o aperto",
-      "es": "si el dólar afloja su presión",
-      "de": "ob der Dollar seinen Griff lockert"
+      "ACTIVE": {
+        "en": "whether the dollar keeps its grip loose",
+        "pt-BR": "se o dólar mantém o aperto frouxo",
+        "es": "si el dólar mantiene floja su presión",
+        "de": "ob der Dollar seinen Griff locker lässt"
+      },
+      "INACTIVE": {
+        "en": "whether the dollar loosens its grip",
+        "pt-BR": "se o dólar afrouxa o aperto",
+        "es": "si el dólar afloja su presión",
+        "de": "ob der Dollar seinen Griff lockert"
+      }
     },
     "MAC-02": {
-      "en": "whether borrowing costs finally ease",
-      "pt-BR": "se o custo do dinheiro finalmente cede",
-      "es": "si el coste del dinero por fin cede",
-      "de": "ob die Zinsen endlich nachgeben"
+      "ACTIVE": {
+        "en": "whether borrowing costs keep easing",
+        "pt-BR": "se o custo do dinheiro continua cedendo",
+        "es": "si el coste del dinero sigue cediendo",
+        "de": "ob die Zinsen weiter nachgeben"
+      },
+      "INACTIVE": {
+        "en": "whether borrowing costs finally ease",
+        "pt-BR": "se o custo do dinheiro finalmente cede",
+        "es": "si el coste del dinero por fin cede",
+        "de": "ob die Zinsen endlich nachgeben"
+      }
     },
     "MAC-03": {
-      "en": "whether more money keeps flowing into the system",
-      "pt-BR": "se mais dinheiro continua entrando no sistema",
-      "es": "si sigue entrando más dinero en el sistema",
-      "de": "ob weiter mehr Geld ins System fließt"
+      "ACTIVE": {
+        "en": "whether more money keeps flowing into the system",
+        "pt-BR": "se mais dinheiro continua entrando no sistema",
+        "es": "si sigue entrando más dinero en el sistema",
+        "de": "ob weiter mehr Geld ins System fließt"
+      },
+      "INACTIVE": {
+        "en": "whether money starts flowing into the system again",
+        "pt-BR": "se o dinheiro volta a entrar no sistema",
+        "es": "si el dinero vuelve a entrar en el sistema",
+        "de": "ob wieder Geld ins System fließt"
+      }
     },
     "ETF-01": {
-      "en": "whether the big funds start buying again",
-      "pt-BR": "se os grandes fundos voltam a comprar",
-      "es": "si los grandes fondos vuelven a comprar",
-      "de": "ob die großen Fonds wieder kaufen"
+      "ACTIVE": {
+        "en": "whether the big funds keep buying",
+        "pt-BR": "se os grandes fundos continuam comprando",
+        "es": "si los grandes fondos siguen comprando",
+        "de": "ob die großen Fonds weiter kaufen"
+      },
+      "INACTIVE": {
+        "en": "whether the big funds start buying again",
+        "pt-BR": "se os grandes fundos voltam a comprar",
+        "es": "si los grandes fondos vuelven a comprar",
+        "de": "ob die großen Fonds wieder kaufen"
+      }
     },
     "REL-01": {
-      "en": "whether Bitcoin starts winning against gold again",
-      "pt-BR": "se o Bitcoin volta a ganhar do ouro",
-      "es": "si Bitcoin vuelve a ganar al oro",
-      "de": "ob Bitcoin wieder gegen Gold gewinnt"
+      "ACTIVE": {
+        "en": "whether Bitcoin keeps winning against gold",
+        "pt-BR": "se o Bitcoin continua ganhando do ouro",
+        "es": "si Bitcoin sigue ganando al oro",
+        "de": "ob Bitcoin weiter gegen Gold gewinnt"
+      },
+      "INACTIVE": {
+        "en": "whether Bitcoin starts winning against gold again",
+        "pt-BR": "se o Bitcoin volta a ganhar do ouro",
+        "es": "si Bitcoin vuelve a ganar al oro",
+        "de": "ob Bitcoin wieder gegen Gold gewinnt"
+      }
     },
     "REL-02": {
-      "en": "whether Bitcoin regains its lead over the stock market",
-      "pt-BR": "se o Bitcoin retoma a dianteira sobre a bolsa",
-      "es": "si Bitcoin recupera la delantera sobre la bolsa",
-      "de": "ob Bitcoin seinen Vorsprung vor dem Aktienmarkt zurückgewinnt"
+      "ACTIVE": {
+        "en": "whether Bitcoin keeps its lead over the stock market",
+        "pt-BR": "se o Bitcoin mantém a dianteira sobre a bolsa",
+        "es": "si Bitcoin mantiene la delantera sobre la bolsa",
+        "de": "ob Bitcoin seinen Vorsprung vor dem Aktienmarkt hält"
+      },
+      "INACTIVE": {
+        "en": "whether Bitcoin regains its lead over the stock market",
+        "pt-BR": "se o Bitcoin retoma a dianteira sobre a bolsa",
+        "es": "si Bitcoin recupera la delantera sobre la bolsa",
+        "de": "ob Bitcoin seinen Vorsprung vor dem Aktienmarkt zurückgewinnt"
+      }
     },
     "REL-03": {
-      "en": "whether the stock market itself stays steady",
-      "pt-BR": "se a própria bolsa segue firme",
-      "es": "si la propia bolsa se mantiene firme",
-      "de": "ob der Aktienmarkt selbst stabil bleibt"
+      "ACTIVE": {
+        "en": "whether the stock market itself stays steady",
+        "pt-BR": "se a própria bolsa segue firme",
+        "es": "si la propia bolsa se mantiene firme",
+        "de": "ob der Aktienmarkt selbst stabil bleibt"
+      },
+      "INACTIVE": {
+        "en": "whether the stock market itself steadies",
+        "pt-BR": "se a própria bolsa se firma",
+        "es": "si la propia bolsa se afirma",
+        "de": "ob der Aktienmarkt selbst zur Ruhe kommt"
+      }
     }
   }
 }

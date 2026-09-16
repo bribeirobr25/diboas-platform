@@ -24,12 +24,28 @@
 > authorities and omitted i18n, accessibility and the FAIL path; the gaps were found by auditing the
 > gate against the authority inventory and against defects this project has actually shipped.
 
-**Runner:** `pnpm review:increment` executes the ⚙ rows mechanically and prints the manual half every run — the same shape as `screen-check`. Standalone helpers: `pnpm review:register` (run it BEFORE claiming a register id) and `pnpm review:port <port> [--kill]` (stops a server by its LISTENER pid, refusing when the pid list is ambiguous). Source: `scripts/review-gate.mjs`. Each mechanical check is sabotage-proven: the defect is planted, the check fails, the plant is reverted and the revert verified byte-for-byte.
+**Runner:** `pnpm review:increment` executes the ⚙ rows mechanically and prints the manual half every run — the same shape as `screen-check`. Standalone helpers: `pnpm review:register` (run it BEFORE claiming a register id) and `pnpm review:port <port> [--kill]` (stops a server by its LISTENER pid, refusing when the pid list is ambiguous). Source: `scripts/review-gate.mjs`. **Register path (5.382):** the id-collision check resolves `docs/audit/PENDING_ALL.md` repo-relative first, then `REVIEW_REGISTER_PATH`, and **FAILS rather than skips** when neither resolves — a SKIP reads as a pass in a green run. The ledger is local-only and lives in the `diboas-platform` checkout, so a session working from a git WORKTREE must export `REVIEW_REGISTER_PATH=/path/to/diboas-platform/docs/audit/PENDING_ALL.md` or the gate is red by design. Each mechanical check is sabotage-proven: the defect is planted, the check fails, the plant is reverted and the revert verified byte-for-byte.
 
 ## Trigger
 
 Any one of: an increment declared complete · a bug fix before commit · a refactor before commit · a
 branch offered for merge. One increment, one record.
+
+**This gate runs on EVERY increment. It is not a judgement call** (founder-ruled 2026-09-15, after
+the same "which gate should I run?" question was asked three times in one session and answered the
+same way each time — the absence of a rule was costing a decision per increment). Most of it is
+Part A plus four greps; the expensive rows are the ones that keep finding real defects.
+
+Two riders that are also not judgement calls:
+
+- **Part E runs whenever a rendered surface changed, and A/Bs against PRODUCTION**, not only against
+  a local build. The 2026-09-15 memo fix was verifiable rather than merely plausible because the
+  before-reading came from `diboas.com`: same cycle, every typographic property identical, only the
+  structure changed. A local-only pass cannot make that claim.
+- **Anything touching the market pipeline runs `pnpm market:simulate-next-week` before merge.** It is
+  the only check that looks FORWARD, and it is the one that converts a Monday outage into a Tuesday
+  fix. A suite green today says nothing about the data the next refresh writes — four of ten weekly
+  cycles failed on exactly that gap (`5.363`).
 
 ## How to answer
 

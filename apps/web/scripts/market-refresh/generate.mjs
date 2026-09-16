@@ -390,13 +390,18 @@ function isoWeek(dateStr) {
 function watchingIds() {
   const flippable = computed.signals
     .filter((s) => (s.state === 'INACTIVE' || s.state === 'ACTIVE') && s.values?.gapPct != null)
-    .map((s) => ({ id: s.id, dist: Math.abs(s.values.gapPct) }))
+    .map((s) => ({ id: s.id, state: s.state, dist: Math.abs(s.values.gapPct) }))
     .sort((a, b) => a.dist - b.dist);
-  const two = flippable.slice(0, 2).map((s) => s.id);
-  // Deterministic fallback so the slot is never empty.
+  const two = flippable.slice(0, 2);
+  // Deterministic fallback so the slot is never empty. 5.192: it must also be
+  // STATE-AWARE — `phrases.watching[id]` is now keyed by state, so a signal in
+  // any other state (ETF-01 while the ledger warms up, anything UNAVAILABLE)
+  // has no phrase to emit and must not be chosen.
   if (two.length < 2) {
-    for (const s of computed.signals)
-      if (!two.includes(s.id) && phrases.watching[s.id]) two.push(s.id);
+    for (const s of computed.signals) {
+      if (two.some((x) => x.id === s.id)) continue;
+      if (phrases.watching[s.id]?.[s.state]) two.push({ id: s.id, state: s.state });
+    }
     return two.slice(0, 2);
   }
   return two;
@@ -407,8 +412,13 @@ function plainSummary(locale) {
   const variants = plainTpl[computed.regime_code].standing;
   const week = isoWeek(computed.computed_at.slice(0, 10));
   const standing = variants[week % variants.length][locale];
-  const ids = watchingIds();
-  const watchParts = ids.map((id) => phrases.watching[id]?.[locale]).filter(Boolean);
+  // 5.192: the phrase must match the state the signal is ACTUALLY in. Keying by
+  // id alone emitted a phrase written for the opposite state — production read
+  // "nearly all of what we track is aligned toward the price. What we're
+  // watching: whether the price can climb back above its long middle line"
+  // while BTC-01 was ACTIVE and already above that line.
+  const picks = watchingIds();
+  const watchParts = picks.map((p) => phrases.watching[p.id]?.[p.state]?.[locale]).filter(Boolean);
   // Localize the joining conjunction (F-2, 2026-07-12). German joins two
   // "ob"-clauses without a comma ("ob A und ob B"); es/pt keep the comma.
   const AND = { en: 'and', 'pt-BR': 'e', es: 'y', de: 'und' };

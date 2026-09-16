@@ -97,6 +97,18 @@ export function rsi(closes, period = 14) {
     avgG = (avgG * (period - 1) + gains[i]) / period;
     avgL = (avgL * (period - 1) + losses[i]) / period;
   }
+  // Degenerate windows, kept distinct (PENDING_ALL 5.364, founder-ruled
+  // 2026-09-15). `avgL === 0` used to return 100 for BOTH of these:
+  //
+  //   * every period gained            -> 100 is right, that IS maximum strength
+  //   * nothing moved at all           -> 100 is a claim from no information
+  //
+  // A flat window has no relative strength to report, and reporting maximum
+  // strength for it is the same defect class as scoring a signal from an absent
+  // ledger. `stochRsiK` below already answers its own degenerate window with the
+  // neutral midpoint (`rmax === rmin ? 50`); the two functions now agree about
+  // what "no information" means instead of disagreeing.
+  if (avgG === 0 && avgL === 0) return 50;
   if (avgL === 0) return 100;
   return 100 - 100 / (1 + avgG / avgL);
 }
