@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
+import { reconcile } from '@diboas/banking';
 import { observedStamp, type ProtocolApyHistory, type ProtocolId } from '@diboas/defi';
 import {
   advanceTime,
@@ -222,5 +223,43 @@ describe('an unusable window is DISCLOSED as a gap, never replayed from another 
     advanceTime(30, datedApy(400), 'machine');
     expect(refusals().length).toBe(0);
     expect(totalEarnings()).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * `5.105` §3 · CONSERVATION THROUGH A REFUSAL — the identity, not the reasoning.
+ *
+ * ⚑ Added by the system gate (Front 6). The increment record and a commit
+ * message both asserted "conservation is untouched by construction", reasoning
+ * that `reconcile()` sums `earnings` from the EMITTED accruals while the
+ * projection applies those same events, so a refusal removes the term from both
+ * sides together. That reasoning is correct — measured 0.00 after entry, after
+ * an evidenced advance, and after a refusal. But it was measured with a
+ * throwaway probe, which means the identity was proven once and guarded never.
+ * Front 6 requires identities proven by sabotage from an INDEPENDENT term;
+ * `reconcile` is that independent term, and this keeps it.
+ */
+describe('the conservation identity survives a refused span (Front 6)', () => {
+  beforeEach(() => resetSandbox());
+
+  it('should reconcile to 0.00 before, through and after a refusal', () => {
+    positionAtWork();
+    expect(reconcile(getLedgerState())).toBe('0.00');
+
+    advanceTime(30, datedApy(400), 'machine');
+    expect(reconcile(getLedgerState())).toBe('0.00');
+
+    const undated: ProtocolApyHistory[] = LENDING.map((protocolId) => ({
+      protocolId,
+      points: Array.from({ length: 400 }, () => ({ date: '', apyPercent: 6 })),
+      stamp: observedStamp('defillama', '2026-09-15T00:00:00Z'),
+    }));
+    advanceTime(30, undated, 'machine');
+
+    // The refusal actually happened...
+    expect(getLedgerState().events.some((e) => e.type === 'ReplaySpanRefused')).toBe(true);
+    // ...and the identity still closes. `reconcile` reads the EVENT LOG, never
+    // the projection, so this cannot be self-consistent by construction.
+    expect(reconcile(getLedgerState())).toBe('0.00');
   });
 });
