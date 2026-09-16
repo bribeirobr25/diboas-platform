@@ -32,8 +32,13 @@
 >    FAIL with no waiver — `#620` and `#621` merged one day after the cadence rule with no record, and
 >    that is a gap, not a legacy case.
 >
-> **Adoption dates.** market lane: **2026-09-15** (the cadence rule, PR #619). Any other lane records
-> its own here when it adopts.
+> **Adoption dates.** market lane: **2026-09-15** (the cadence rule, PR #619). webapp/sandbox lane:
+> **2026-09-16** — this lane's first per-increment records (the Error semantic family and `5.234`)
+> were both written and run BEFORE their commits, so from this date a missing increment record in
+> this lane is a FAIL with no waiver. Everything this lane merged to `main` before it (P0, I-0a/b,
+> I-1a..I-1f) is legacy: one labelled `BATCH-LEVEL (LEGACY)` record may stand in, and
+> retrospective per-increment records must NOT be written. Any other lane records its own here
+> when it adopts.
 >
 > **Enforcement class:** MANDATORY REVIEW CHECKLIST (registered in `engineering-gates.md`). Rows
 > marked **⚙** are mechanisable and should be scripted rather than judged.

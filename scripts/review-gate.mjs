@@ -151,6 +151,44 @@ function checkRegister() {
  * disagree. Historical mentions are excluded — and the filter names what it
  * drops, because whatever a filter excludes can never be found (X6).
  */
+/**
+ * Do the counts this repository PUBLISHES agree with each other?
+ *
+ * ⚑ REBUILT 2026-09-16, taking `5.323` (market lane's finding) and `5.387`
+ * (mine). Four separate defects, each of which made the row report something
+ * other than what the corpus says:
+ *
+ * 1. **`README.md` was not in scope at all** (`5.323`). The walk was
+ *    `docs/**` + `CLAUDE.md`, so the most public place a stale number can sit
+ *    was the one place the check could not reach — it read "~1,388 automated
+ *    tests" while the workspace had 2,441, and the row said PASS. Now every
+ *    ROOT `*.md` is walked, README included.
+ * 2. **No thousands separator, and no `tests` between the two numbers.**
+ *    `(\d{3,4})\s*\/\s*(\d{2,3})\s*files` cannot match `2,611 tests / 224
+ *    files` at all, and on `2,610 / 224 files` it captured `610` — a figure
+ *    published nowhere, then reported as a distinct claim. So the row was
+ *    blind to the corpus's most common phrasing while inventing numbers from
+ *    its second. Measured both ways before and after.
+ * 3. **`HISTORICAL` was tested against the WHOLE LINE** (`5.323`), so a live
+ *    claim sharing a line with the word *prior* or *baseline* was dropped with
+ *    it. It is now tested against the SENTENCE the match sits in.
+ * 4. **The `quoted` test was not same-span** (`5.387`). It was
+ *    `new RegExp('["’`][^"’`]*<digits>')`, which can open its quote
+ *    region anywhere earlier on a backtick-dense line — which is why a replica
+ *    of this function reported 1 claim where the gate reported 3 on an
+ *    identical tree. It now asks a positional question: is THIS match's offset
+ *    inside an open quote? Single quotes are deliberately NOT delimiters —
+ *    prose is full of apostrophes, and counting them made "lane's" open a
+ *    string. A quoted count is now EXCLUDED rather than counted: it is someone
+ *    else's sentence being discussed, and the old code let a backticked,
+ *    non-historical count through as this repository's own claim.
+ *
+ * What this filter DROPS, stated as `guard-filters-are-part-of-the-threat-model`
+ * requires: counts inside quotes or backticks; counts in a sentence carrying a
+ * historical marker. A sentence carrying a historical marker AND the word
+ * "current" is neither dropped nor counted — it FAILS as ambiguous, because
+ * ambiguity in a published figure is the defect.
+ */
 function checkCounts() {
   const docs = [];
   const walk = (dir) => {
@@ -162,51 +200,70 @@ function checkCounts() {
     }
   };
   walk('docs');
-  if (existsSync(join(ROOT, 'CLAUDE.md'))) docs.push('CLAUDE.md');
+  // 5.323: every ROOT markdown file, not just CLAUDE.md.
+  for (const e of readdirSync(ROOT, { withFileTypes: true }))
+    if (e.isFile() && e.name.endsWith('.md')) docs.push(e.name);
+
   const HISTORICAL =
     /\bwas\b|withdrawn|prior|baseline|historical|superseded|corrected|never re-measured|earlier/i;
+  // `2,724 tests / 230 files`, `872 / 83 files`, `998/99 files`.
+  const COUNT = /(\d{1,3}(?:,\d{3})+|\d{3,4})\s*(?:tests?)?\s*\/\s*(\d{2,3})\s*files/g;
+
+  /** Is offset `i` inside an open `…` or "…" region on this line? */
+  const insideQuotes = (line, i) => {
+    let bt = 0,
+      dq = 0;
+    for (let k = 0; k < i; k++) {
+      const c = line[k];
+      if (c === '`') bt += 1;
+      else if (c === '"' || c === '“' || c === '”') dq += 1;
+    }
+    return bt % 2 === 1 || dq % 2 === 1;
+  };
+
+  /** The sentence containing offset `i` — not the whole line (5.323). */
+  const sentenceAt = (line, i) => {
+    const starts = [0];
+    for (const m of line.matchAll(/[.!?]\s+/g)) starts.push(m.index + m[0].length);
+    let a = 0;
+    let b = line.length;
+    for (const st of starts) if (st <= i) a = st;
+    for (const st of starts)
+      if (st > i) {
+        b = st;
+        break;
+      }
+    return line.slice(a, b);
+  };
+
   const claims = new Map();
-  let excluded = 0;
-  /**
-   * ⚑ FIXED 2026-09-14 (AUD-G02). `HISTORICAL` was tested against the WHOLE
-   * line, so `Compared with baseline, current suite: 998 / 99 files` was
-   * excluded wholesale and a conflicting CURRENT claim vanished. A line that
-   * carries a historical marker AND the word "current" is now a FAILURE:
-   * ambiguity in a published count is the defect, not something to filter.
-   */
   const ambiguous = [];
+  let excluded = 0;
   for (const d of docs) {
     for (const line of rd(d).split('\n')) {
-      for (const m of line.matchAll(/(\d{3,4})\s*\/\s*(\d{2,3})\s*files/g)) {
-        /**
-         * ⚑ NARROWED 2026-09-14, same day it was added. The first version fired
-         * on any line carrying a historical marker AND "current" — which caught
-         * the independent audit's own report QUOTING `"Compared with baseline,
-         * current suite: 998 / 99 files"` as a probe description, and a register
-         * row DESCRIBING a stale-count finding. A tool cannot tell a quotation
-         * from an assertion unless it looks at the quoting, so it looks: a count
-         * wrapped in quotes or backticks is someone else's sentence being
-         * discussed, not this repository claiming it.
-         */
-        const quoted = new RegExp(
-          `["'\u201c\u201d\`][^"'\u201c\u201d\`]*${m[1]}\\s*/\\s*${m[2]}`
-        ).test(line);
-        if (!quoted && HISTORICAL.test(line) && /\bcurrent\b/i.test(line)) {
-          ambiguous.push(`${d}: ${line.trim().slice(0, 90)}`);
-          continue;
-        }
-        if (HISTORICAL.test(line)) {
+      for (const m of line.matchAll(COUNT)) {
+        if (insideQuotes(line, m.index)) {
           excluded += 1;
           continue;
         }
-        const key = `${m[1]}/${m[2]}`;
+        const scope = sentenceAt(line, m.index);
+        if (HISTORICAL.test(scope) && /\bcurrent\b/i.test(scope)) {
+          ambiguous.push(`${d}: ${scope.trim().slice(0, 90)}`);
+          continue;
+        }
+        if (HISTORICAL.test(scope)) {
+          excluded += 1;
+          continue;
+        }
+        const key = `${m[1].replace(/,/g, '')}/${m[2]}`;
         if (!claims.has(key)) claims.set(key, new Set());
         claims.get(key).add(d);
       }
     }
   }
   const detail = [
-    `${claims.size} distinct CURRENT claim(s); ${excluded} historical mention(s) excluded`,
+    `${docs.length} doc(s) walked; ${claims.size} distinct CURRENT claim(s); ` +
+      `${excluded} quoted-or-historical mention(s) excluded`,
   ];
   for (const [k, where] of claims)
     detail.push(`  ${k} — ${[...where].map((w) => w.split('/').pop()).join(', ')}`);
