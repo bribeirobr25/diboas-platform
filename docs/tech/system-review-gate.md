@@ -236,7 +236,9 @@ stages, never inside one — so the seams are where the checks go.
 
 ```text
 BATCH                  = <increments covered>
-INCREMENT_RECORDS      = <one per increment, all passing>
+INCREMENT_RECORDS      = <one per increment, all passing — OR `BATCH-LEVEL (LEGACY)` plus the
+                         list of increments with no individual record, for work predating the
+                         lane's adoption date. See the Precondition. Never both silently.>
 ROUTING / COVERAGE     = <authorities opened; N/A ones with proof>
 FRONT_1_PRINCIPLES     = <per-principle verdicts; ADR triggers checked>
 FRONT_2_AUTHORITIES    = CLO=… BRAND=… UX=… VOICE=… STORY=… ASSETS=…   (never averaged)
