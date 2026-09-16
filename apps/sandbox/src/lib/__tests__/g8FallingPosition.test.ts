@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import Decimal from 'decimal.js';
 import {
+  fixtureDateSeries,
   fixturePriceSeries,
   type ProtocolApyHistory,
   type ProtocolPriceHistory,
@@ -28,13 +29,33 @@ import {
  * ever rise — for every user, on every strategy, forever. A practice app that
  * cannot lose money teaches the most dangerous lesson in personal finance.
  */
+/**
+ * The shared fixture calendar, built ONCE per length.
+ *
+ * `fixtureDateSeries` walks `days` dates, so calling it inside a per-point
+ * callback is O(days²) — measured consequence: `g8FallingPosition`'s
+ * higher-exposure test TIMED OUT at 5000ms in the full suite (roughly a million
+ * date operations per builder call, six protocols deep, twice per test) while
+ * passing in isolation. Hoisted, not inlined.
+ */
+const datesFor = (() => {
+  const cache = new Map<number, string[]>();
+  return (days: number): string[] => {
+    const hit = cache.get(days);
+    if (hit) return hit;
+    const built = fixtureDateSeries(days);
+    cache.set(days, built);
+    return built;
+  };
+})();
+
 const PROTOCOLS = ['skySsr', 'aaveV3', 'compoundV3', 'sanctumInf', 'jupiterJlp', 'jito'] as const;
 
 const apyHistories = (days: number): ProtocolApyHistory[] =>
   PROTOCOLS.map((protocolId) => ({
     protocolId,
     points: Array.from({ length: days }, (_, i) => ({
-      date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
+      date: datesFor(days)[i],
       apyPercent: 5,
     })),
     stamp: observedStamp('defillama', '2026-08-20T00:00:00Z'),

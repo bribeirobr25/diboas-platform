@@ -116,7 +116,7 @@ export function fixturePriceSeries(
 ): Array<{ date: string; priceUsd: number }> {
   const shape = FIXTURE_PRICE_SHAPE[protocolId] ?? { start: 100, peak: 115, end: 45 };
   const peakAt = Math.max(1, Math.floor(days * 0.25));
-  const today = new Date();
+  const dates = fixtureDateSeries(days);
   return Array.from({ length: days }, (_, i) => {
     const base =
       i <= peakAt
@@ -125,8 +125,32 @@ export function fixturePriceSeries(
     // Small deterministic texture so the line reads as a market, not a ramp —
     // never enough to reverse the trend.
     const wobble = 1 + 0.02 * Math.sin(i / 9);
-    return { date: dayString(today, days - 1 - i), priceUsd: Number((base * wobble).toFixed(4)) };
+    return { date: dates[i], priceUsd: Number((base * wobble).toFixed(4)) };
   });
+}
+
+/**
+ * THE fixture calendar: `days` consecutive dates ending today.
+ *
+ * Exported because a fixture corpus must have ONE calendar. `fixturePriceSeries`
+ * anchors here, and any APY/price series meant to describe the same stretch must
+ * anchor here too — otherwise one position carries two calendars, which
+ * `5.105` §2 rules `MIXED-CALENDAR POSITION = WHOLE-POSITION REPLAY UNAVAILABLE`.
+ *
+ * ⚑ This exists because that had already happened, invisibly. Several test
+ * corpora hand-built APY dates from a FIXED start (2026-01-01) while prices
+ * anchored to today, so one position's legs described different months. Nothing
+ * detected it: the planner silently fell back to historic anchoring and replayed
+ * a recent tail in place of the requested stretch. Measured once the refusal
+ * landed — of twelve monthly spans in one 360-day advance, one refused as
+ * `window-outside-series` and four as `mixed-calendar`.
+ *
+ * Deliberately NOT a fixed date: the price fixture's own contract is "history
+ * ending now", and pinning it would make every replay window expire.
+ */
+export function fixtureDateSeries(days: number): string[] {
+  const today = new Date();
+  return Array.from({ length: days }, (_, i) => dayString(today, days - 1 - i));
 }
 
 /** `YYYY-MM-DD` for `back` days before `from` (UTC). */

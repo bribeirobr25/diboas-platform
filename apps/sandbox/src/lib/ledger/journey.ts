@@ -411,11 +411,40 @@ export function advanceTime(
    * real days, which is exactly what the historic anchoring gives.
    */
   const oldestDate = (() => {
-    const all = [
-      ...histories.flatMap((h) => h.points.map((p) => p.date)),
-      ...priceHistories.flatMap((h) => h.points.map((p) => p.date)),
-    ].filter((d): d is string => typeof d === 'string' && d.length > 0);
-    return all.length > 0 ? all.sort()[0] : undefined;
+    /**
+     * The epoch must be a day the corpus can actually replay FROM — not merely
+     * the oldest date it mentions.
+     *
+     * ⚑ CORRECTED 2026-09-16, and this is why it matters. A PRICE factor is
+     * `price[d] / price[d-1]`, so a price series' oldest REPLAYABLE day is its
+     * SECOND date; there is no day before its first. Anchoring the epoch to the
+     * oldest date therefore made the first segment of every market replay
+     * uncoverable. That went unnoticed for as long as an uncoverable window fell
+     * back to historic anchoring — the segment replayed a recent tail instead,
+     * and nothing said so. Once the refusal landed (`5.105` §2/§3) it surfaced
+     * immediately as a refused first span.
+     *
+     * And it is the LATEST of the per-series oldest-replayable days, never the
+     * earliest: §2 requires the window to be coverable by EVERY economically
+     * material leg, so an epoch one series cannot reach is an epoch that refuses
+     * the whole position.
+     */
+    const oldestReplayable: string[] = [];
+    const dated = (points: Array<{ date?: string }>) =>
+      points
+        .map((p) => p.date)
+        .filter((d): d is string => typeof d === 'string' && d.length > 0)
+        .sort();
+    for (const h of histories) {
+      const ds = dated(h.points);
+      if (ds.length > 0) oldestReplayable.push(ds[0]);
+    }
+    for (const h of priceHistories) {
+      const ds = dated(h.points);
+      // A single dated price point can never yield a factor.
+      if (ds.length > 1) oldestReplayable.push(ds[1]);
+    }
+    return oldestReplayable.length > 0 ? oldestReplayable.sort().at(-1) : undefined;
   })();
   const epoch = source === 'machine' ? (state.replayEpoch ?? oldestDate) : undefined;
   const machineDaysBefore = state.simDay - state.realSettledDays;
@@ -450,6 +479,12 @@ export function advanceTime(
     days,
     source,
     windowStartDate,
+    /* `5.105` §2/§3: an undated corpus produces no epoch (empty dates are
+       filtered out of `oldestDate` above), and for a MACHINE advance that is an
+       evidence statement, not a configuration choice — so the planner refuses
+       the span and discloses it instead of replaying a recent month. A `real`
+       settle needs no window at all and never refuses. */
+    calendarEvidence: source === 'machine' && epoch === undefined ? 'none' : 'present',
     stamp: () => base(correlationId),
   });
   /* Pin the epoch on the first machine advance so every later one continues the

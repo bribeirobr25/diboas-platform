@@ -145,25 +145,82 @@ describe('the Replay Context makes consecutive advances consume ADJACENT history
   });
 });
 
-describe('an unusable window falls back to the historic anchoring, never to flatness', () => {
+/** Every refusal the ledger disclosed, in emission order. */
+function refusals(): Array<{ reason: string; fromSimDay: number; toSimDay: number }> {
+  return getLedgerState()
+    .events.filter((e) => e.type === 'ReplaySpanRefused')
+    .map((e) => e as unknown as { reason: string; fromSimDay: number; toSimDay: number });
+}
+
+function accrualCount(): number {
+  return getLedgerState().events.filter((e) => e.type === 'AccrualApplied').length;
+}
+
+/**
+ * `5.105` §2/§3 — AN UNUSABLE WINDOW IS A DISCLOSED GAP, NOT ANOTHER MONTH.
+ *
+ * ⚑ REWRITTEN 2026-09-16. This describe read *"an unusable window falls back to
+ * the historic anchoring, never to flatness"*, and its test asserted that an
+ * undated series still produced earnings. That was true of the code and is now
+ * FORBIDDEN by Strategy: §3 rules a refused span
+ * `CONSUMED AS A DISCLOSED EVIDENCE GAP`, and §2 forbids substituting another
+ * historical period for missing evidence. The old test was therefore a `5.114`
+ * case — it encoded the behaviour as a requirement and would have told the next
+ * person that fixing it was a regression.
+ *
+ * The HALF of its concern that was always right is kept as the second test: an
+ * empty factor list reading as "no movement" would silently flatten a falling
+ * position. The answer to that is refusal plus disclosure, never a replay of a
+ * month the user never lived through.
+ */
+describe('an unusable window is DISCLOSED as a gap, never replayed from another month', () => {
   beforeEach(() => resetSandbox());
 
-  it('should still replay real movement when a series carries NO dates', () => {
-    positionAtWork();
+  it('should refuse the span and say WHY when a series carries no dates', () => {
     const undated: ProtocolApyHistory[] = LENDING.map((protocolId) => ({
       protocolId,
       points: Array.from({ length: 400 }, () => ({ date: '', apyPercent: 6 })),
       stamp: observedStamp('defillama', '2026-09-15T00:00:00Z'),
     }));
+    positionAtWork();
     advanceTime(30, undated, 'machine');
-    // The fallback REPLAYS: real movement, not an empty factor list — which
-    // would read as "no movement" and silently flatten the position.
-    expect(multiplesByAdvance().flat().length).toBeGreaterThan(0);
+
+    // Disclosed, with the cause classified — not silence, and not a number.
+    expect(refusals().length).toBeGreaterThan(0);
+    expect(refusals().every((r) => r.reason === 'missing-calendar-evidence')).toBe(true);
+
+    // And NOTHING was claimed: no accrual, no earnings from a substituted month.
+    expect(accrualCount()).toBe(0);
+    expect(totalEarnings()).toBe(0);
+    expect(multiplesByAdvance().flat().length).toBe(0);
+  });
+
+  it('should still replay a REAL settle from the newest days, refusing nothing', () => {
+    // `source` discriminates the two meanings, and this is the half of the old
+    // test that remains correct: three real days elapsed SHOULD consume the last
+    // three real days, so the historic anchoring is right and no window is
+    // needed. A real settle can never refuse.
+    const undated: ProtocolApyHistory[] = LENDING.map((protocolId) => ({
+      protocolId,
+      points: Array.from({ length: 400 }, () => ({ date: '', apyPercent: 6 })),
+      stamp: observedStamp('defillama', '2026-09-15T00:00:00Z'),
+    }));
+    positionAtWork();
+    advanceTime(3, undated, 'real');
+
+    expect(refusals().length).toBe(0);
+    expect(totalEarnings()).toBeGreaterThan(0);
     expect(
       multiplesByAdvance()
         .flat()
         .every((m) => Number(m) > 1)
     ).toBe(true);
+  });
+
+  it('should keep a DATED series replaying normally (the refusal is not a blanket)', () => {
+    positionAtWork();
+    advanceTime(30, datedApy(400), 'machine');
+    expect(refusals().length).toBe(0);
     expect(totalEarnings()).toBeGreaterThan(0);
   });
 });

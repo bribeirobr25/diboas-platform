@@ -215,3 +215,54 @@ describe('the practice value decomposition (5.199)', () => {
     expect(classifyTrend(1000, 900)).toBe('fell');
   });
 });
+
+/**
+ * `5.105` §3 / `5.356` — a DISCLOSED replay gap reaches the decomposition.
+ *
+ * The point of these two tests together: a refusal is money-free, so every
+ * existing term and the identity itself are untouched — which is exactly why
+ * `identityHolds` cannot be the signal. Without a separate flag the screen keeps
+ * resolving to `timeMachine.meaningFlat` over a stretch nobody could replay.
+ */
+describe('decomposePracticeValue · a refused span', () => {
+  beforeEach(() => resetSandbox());
+
+  it('should report no gap for an ordinary ledger', () => {
+    positionAtWork(2000);
+    advanceTime(30, apyHistories(400), 'machine');
+    expect(decomposePracticeValue(getLedgerState()).replayUnavailable).toBe(false);
+  });
+
+  it('should disclose the gap while leaving every term and the identity untouched', () => {
+    positionAtWork(2000);
+    advanceTime(30, apyHistories(400), 'machine');
+    const before = decomposePracticeValue(getLedgerState());
+
+    const state = getLedgerState();
+    const refusal = {
+      eventId: 'refusal-1',
+      simDay: state.simDay,
+      recordedAt: '2026-09-16T00:00:00.000Z',
+      correlationId: 'corr-refusal',
+      type: 'ReplaySpanRefused' as const,
+      positionId: state.positions[0].positionId,
+      fromSimDay: 0,
+      toSimDay: 30,
+      reason: 'missing-calendar-evidence' as const,
+    };
+    const after = decomposePracticeValue({ ...state, events: [...state.events, refusal] });
+
+    expect(after.replayUnavailable).toBe(true);
+    // Money-free: the line and all four terms are bit-for-bit what they were.
+    expect(after.points).toEqual(before.points);
+    expect(after.start).toBe(before.start);
+    expect(after.end).toBe(before.end);
+    expect(after.market).toBe(before.market);
+    expect(after.contributed).toBe(before.contributed);
+    expect(after.entered).toBe(before.entered);
+    expect(after.exited).toBe(before.exited);
+    // And the identity still closes — which is precisely why it cannot be the
+    // signal for "this stretch could not be replayed".
+    expect(after.identityHolds).toBe(true);
+  });
+});

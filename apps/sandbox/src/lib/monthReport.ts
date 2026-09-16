@@ -141,6 +141,10 @@ function deltaFor(event: LedgerEvent): Decimal {
     case 'RuleResumed':
     case 'RuleDeleted':
     case 'RuleApplied':
+    /* `5.105` I-G1d: a CONSUMED-but-refused replay span moves no held
+       component. It is the absence of an accrual, not a zero one — the rows
+       still sum to the change because there is no term to include. */
+    case 'ReplaySpanRefused':
       return new Decimal(0);
   }
   // No `default`. The engine's own `project()` refuses to swallow an unknown

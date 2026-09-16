@@ -15,6 +15,7 @@ function decomposition(over: Partial<PracticeDecomposition> = {}): PracticeDecom
     entered: 0,
     exited: 0,
     identityHolds: true,
+    replayUnavailable: false,
     ...over,
   };
 }
@@ -95,5 +96,32 @@ describe('selectTimeMachineView', () => {
 
   it('should pass the value line through untouched for the sparkline', () => {
     expect(selectTimeMachineView(decomposition()).values).toEqual([1000, 1000]);
+  });
+});
+
+/**
+ * `5.356` — the disclosed gap reaches the screen through the selector, and the
+ * trend is deliberately still computed beside it.
+ */
+describe('selectTimeMachineView · a refused replay', () => {
+  it('should expose the disclosed gap', () => {
+    expect(
+      selectTimeMachineView(decomposition({ replayUnavailable: true })).replayUnavailable
+    ).toBe(true);
+  });
+
+  it('should still compute a trend, which is exactly why the SCREEN must branch first', () => {
+    // A refusal is money-free, so start === end and `classifyTrend` answers
+    // `flat` — a pure function of two numbers cannot know about evidence. If the
+    // screen rendered the trend sentence it would state "it stayed about where
+    // it started" over a stretch nobody could replay, which is the 5.356 defect.
+    const v = selectTimeMachineView(decomposition({ replayUnavailable: true }));
+    expect(v.trend).toBe('flat');
+    expect(v.explainable).toBe(true);
+    expect(v.replayUnavailable).toBe(true);
+  });
+
+  it('should report no gap for an ordinary stretch', () => {
+    expect(selectTimeMachineView(decomposition()).replayUnavailable).toBe(false);
   });
 });

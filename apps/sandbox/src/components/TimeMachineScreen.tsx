@@ -166,7 +166,18 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
               did"), so it is gated on the identity closing — absent over false.
               No approved string exists for "this stretch cannot be explained",
               so nothing is rendered rather than copy being invented here. */}
-          {!tm.hasHistory ? (
+          {/* `5.356` / §4. This branch comes FIRST because a refusal is
+              money-free: the identity still closes, `explainable` stays true,
+              and the trend of two equal numbers is `flat` — so without this the
+              screen says "it stayed about where it started" over a stretch
+              nobody could replay. The wording is §4's Brand+Legal-approved
+              sentence; §4 also forbids adjacent presentation from implying
+              flatness, gain, loss, an outage or a retry time. */}
+          {tm.replayUnavailable ? (
+            <p className={styles.meaning}>
+              <FormattedMessage id="timeMachine.meaningUnavailable" />
+            </p>
+          ) : !tm.hasHistory ? (
             <p className={styles.meaning}>
               <FormattedMessage id="timeMachine.meaningNone" />
             </p>
@@ -221,6 +232,12 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
 
           {controls}
 
+          {tm.replayUnavailable ? (
+            <p className={styles.meaning}>
+              <FormattedMessage id="timeMachine.meaningUnavailable" />
+            </p>
+          ) : null}
+
           {tm.hasHistory ? (
             <>
               <ValueChart
@@ -247,7 +264,12 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
                     gated on the identity closing — the same rule the screen's
                     own docstring already promised and nothing enforced. Start
                     and End above are FACTS about the line and always show. */}
-                {tm.explainable ? (
+                {/* `5.356`: also gated on the disclosed gap. `market` is 0.00
+                    over a refused span, so this cell would render "+0.00" —
+                    a flatness claim in the detailed view, which §4 forbids just
+                    as it forbids the sentence. Start and End are FACTS about the
+                    line and still show. */}
+                {tm.explainable && !tm.replayUnavailable ? (
                   <span className={styles.summaryCell}>
                     <span className={styles.summaryLabel}>
                       <FormattedMessage id="monthReport.source.marketChange" />

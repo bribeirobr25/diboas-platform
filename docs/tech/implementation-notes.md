@@ -244,14 +244,37 @@ it creates Product authority. Register: `5.105` (open), `5.360`, `5.359`.
   was live; any fixture leg makes the whole emission `'fixture'`. `ratesUsed` is pinned only for a
   sole lending leg at 100% — no catalog strategy is shaped that way, so `legsReplayed` (per-leg
   multiples) is the live audit record.
-- **Still OPEN, do not mistake for done:** §7's `CROSS-LEG CALENDAR AGREEMENT` /
-  `MIXED-CALENDAR POSITION = UNAVAILABLE` is NOT implemented. `usableWindow` returns `undefined` for
-  several different causes — no window at all (correct for `real`), the position not replayable, a
-  series with no dates, a window past the series end, dates/points length skew, and a genuine
-  cross-leg calendar mismatch — and all of them currently fall back to the historic anchoring. A
-  correct fix needs the windowed functions to report WHY they refused; note that
-  `replayContext.test.ts` deliberately asserts an undated series still replays real movement, so a
-  blanket refusal would break an intentional behaviour.
+- **An unusable calendar window is REFUSED and DISCLOSED — never replaced with another month.**
+  _Current code:_ `advancePlanner.refusalFor` decides, and emits `ReplaySpanRefused` instead of an
+  accrual; `accrual.windowCoverage` names the cause. Ruled by `5.105` §2/§3 and `5.360`:
+  `MIXED-CALENDAR POSITION = WHOLE-POSITION REPLAY UNAVAILABLE`, a refused span is
+  `CONSUMED AS A DISCLOSED EVIDENCE GAP`, and there is **no catch-up, no retroactive auto-replay and
+  no backfill** when new provider data appears. _Why:_ `usableWindow` returning `undefined` used to
+  fall through to `historicFactors`, which replayed a recent tail and presented it as the requested
+  stretch. Do not restore that fallback for `machine`; it remains correct for `real`, where elapsed
+  days genuinely are the newest days.
+- **`windowCoverage` EXPLAINS a refusal; the windowed functions DECIDE one.** A test asserts
+  `covered` ⟺ the real function returns non-null. Do not let the classifier become a second source
+  of truth about the same fact — that is the `5.381`/`5.384` shape.
+- **An evidence claim is an INPUT to the planner, never an inference.** `planAdvance` takes
+  `calendarEvidence: 'none' | 'present'`; only `journey.ts` knows whether every date was filtered out
+  of `oldestDate`. Inferring it from an absent `windowStartDate` refused six unit tests' spans,
+  because a direct caller omitting the window is a harness choice, not an evidence statement.
+- **The replay EPOCH is the oldest day the corpus can replay FROM, not the oldest date it mentions.**
+  _Current code:_ `journey.ts#oldestDate` takes each APY series' first dated day and each PRICE
+  series' **second**, then the LATEST of those. _Why:_ a price factor is `price[d] / price[d-1]`, so a
+  price series cannot be replayed from its own first date; and §2 needs a window every economically
+  material leg can cover, so the latest — never the earliest — is the only safe anchor. Anchoring to
+  the oldest date made the first segment of every market replay uncoverable, which went unseen for as
+  long as the fallback existed.
+- **A fixture corpus has ONE calendar: `fixtureDateSeries` in `@diboas/defi`.** Any APY or price
+  series describing the same stretch anchors there. _Why:_ several test corpora hand-built APY dates
+  from a fixed `2026-01-01` while prices anchored to today, so one position's legs described
+  different months. Measured once the refusal landed: of twelve monthly spans in one 360-day advance,
+  **one refused as `window-outside-series` and four as `mixed-calendar`**. Do not re-introduce a
+  hand-built date ladder beside `fixturePriceSeries`.
+- **`5.105` is CLOSED by this increment; `5.360` is implemented.** What remains is only what the
+  register says remains — read the row, not this line.
 
 ## `/market` methodology + review-gate decisions (wave #614-#624, 2026-09-16)
 

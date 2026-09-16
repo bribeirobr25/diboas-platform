@@ -6,6 +6,7 @@ import {
   priceFactorsForSpanWindowed,
   ratesForSpan,
   ratesForSpanWindowed,
+  windowCoverage,
   type DailyApySeries,
   type DailyPriceSeries,
 } from '../accrual';
@@ -133,5 +134,56 @@ describe('the factor variants inherit the contract', () => {
     // Regression guard: the default path is untouched by I-G1b.
     const product = priceFactorsForSpan(price, 0, 4, 4).reduce((a, b) => a * b, 1);
     expect(product).toBeCloseTo(146.41 / 100, 10);
+  });
+});
+
+/**
+ * `windowCoverage` EXPLAINS a refusal; the windowed functions DECIDE one. If the
+ * two ever disagree, the ledger would disclose a reason for a span it replayed,
+ * or replay a span it disclosed as refused — the `5.381`/`5.384` shape (two
+ * derivations of one fact with nothing asserting they agree).
+ */
+describe('windowCoverage agrees with the function that actually refuses', () => {
+  const skewed: DailyApySeries = { points: [1, 2, 3], dates: ['2026-01-01'], source: 'defillama' };
+  const undated: DailyApySeries = { points: [1, 2, 3], source: 'defillama' };
+
+  const CASES: Array<[string, DailyApySeries, number, number, string]> = [
+    ['covered, window at the head', apy, 0, 3, '2026-01-01'],
+    ['covered, window mid-series', apy, 0, 3, '2026-01-03'],
+    ['no dates at all', undated, 0, 2, '2026-01-01'],
+    ['start date absent', apy, 0, 3, '2025-12-31'],
+    ['window runs past the end', apy, 0, 3, '2026-01-09'],
+    ['dates/points length skew', skewed, 0, 2, '2026-01-01'],
+  ];
+
+  it.each(CASES)('should match ratesForSpanWindowed for: %s', (_name, series, from, to, win) => {
+    const refused = ratesForSpanWindowed(series, from, to, win) === null;
+    const classified = windowCoverage(series, from, to, win);
+    expect(classified === 'covered').toBe(!refused);
+  });
+
+  it('should name a missing calendar separately from an out-of-range window', () => {
+    // §12/§13: the undated and length-skew cases read as MISSING CALENDAR
+    // EVIDENCE; a series that HAS a calendar but not this window does not.
+    expect(windowCoverage(undated, 0, 2, '2026-01-01')).toBe('missing-calendar-evidence');
+    expect(windowCoverage(skewed, 0, 2, '2026-01-01')).toBe('missing-calendar-evidence');
+    expect(windowCoverage(apy, 0, 3, '2025-12-31')).toBe('window-outside-series');
+    expect(windowCoverage(apy, 0, 3, '2026-01-09')).toBe('window-outside-series');
+  });
+
+  it('should require the day BEFORE the window for a price leg, and only then', () => {
+    const price: DailyPriceSeries = {
+      points: [10, 11, 12, 13],
+      dates: DATES.slice(0, 4),
+      source: 'coingecko',
+    };
+    // Opening exactly at the first point: a price factor needs index -1.
+    expect(windowCoverage(price, 0, 2, '2026-01-01', true)).toBe('window-outside-series');
+    expect(priceFactorsForSpanWindowed(price, 0, 2, '2026-01-01')).toBeNull();
+    // One day in, the day before exists.
+    expect(windowCoverage(price, 0, 2, '2026-01-02', true)).toBe('covered');
+    expect(priceFactorsForSpanWindowed(price, 0, 2, '2026-01-02')).not.toBeNull();
+    // An APY leg needs no preceding day, so the same window is covered.
+    expect(windowCoverage(apy, 0, 2, '2026-01-01')).toBe('covered');
   });
 });

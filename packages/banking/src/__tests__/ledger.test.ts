@@ -325,6 +325,11 @@ describe('C-P0 · play-money invariant durability (CLO Board Session 024 — REQ
       // OUT to anything of value); income is ingress. C-P0 preserved.
       SimulatedExpensePaid: true,
       SimulatedIncomeReceived: true,
+      // `5.105` I-G1d / §9-§10: a machine replay span CONSUMED with the economic
+      // replay refused. Money-free by contract — no earnings, no movement, no
+      // backfill — so it is not value egress in any direction; it records that a
+      // span will not be replayed again and WHY. C-P0 preserved.
+      ReplaySpanRefused: true,
     };
     const VALUE_EGRESS =
       /withdraw|cash[-_ ]?out|payout|prize|reward|redeem|convert|transfer.*(out|external)/i;

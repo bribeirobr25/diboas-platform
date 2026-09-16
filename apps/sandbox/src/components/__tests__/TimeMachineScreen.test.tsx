@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { getMessages } from '@/i18n/loadMessages';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { fixturePriceSeries, FIXTURE_STAMP, observedStamp } from '@diboas/defi';
+import { fixtureDateSeries, fixturePriceSeries, FIXTURE_STAMP, observedStamp } from '@diboas/defi';
 import {
   advanceTime,
   createGoal,
@@ -13,12 +13,32 @@ import {
 } from '@/lib/ledgerClient';
 import { TimeMachineScreen } from '../TimeMachineScreen';
 
+/**
+ * The shared fixture calendar, built ONCE per length.
+ *
+ * `fixtureDateSeries` walks `days` dates, so calling it inside a per-point
+ * callback is O(days²) — measured consequence: `g8FallingPosition`'s
+ * higher-exposure test TIMED OUT at 5000ms in the full suite (roughly a million
+ * date operations per builder call, six protocols deep, twice per test) while
+ * passing in isolation. Hoisted, not inlined.
+ */
+const datesFor = (() => {
+  const cache = new Map<number, string[]>();
+  return (days: number): string[] => {
+    const hit = cache.get(days);
+    if (hit) return hit;
+    const built = fixtureDateSeries(days);
+    cache.set(days, built);
+    return built;
+  };
+})();
+
 const PROTOCOLS = ['skySsr', 'aaveV3', 'compoundV3', 'sanctumInf', 'jupiterJlp', 'jito'] as const;
 const apy = (days: number) =>
   PROTOCOLS.map((protocolId) => ({
     protocolId,
     points: Array.from({ length: days }, (_, i) => ({
-      date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
+      date: datesFor(days)[i],
       apyPercent: 5,
     })),
     stamp: observedStamp('defillama', '2026-08-20T00:00:00Z'),
@@ -123,5 +143,56 @@ describe('TimeMachineScreen — G8 (§4.8, mockup 17)', () => {
     fallenPosition();
     renderTM();
     expect(screen.getByText(/Excludes your future contributions/)).toBeTruthy();
+  });
+});
+
+/**
+ * `5.356` / §4 — the approved unavailable sentence REPLACES the trend sentence.
+ *
+ * The scenario is a genuine mixed-calendar refusal, not a stubbed flag: the APY
+ * legs carry no dates while the price legs do, so §2's
+ * `MIXED-CALENDAR POSITION = WHOLE-POSITION REPLAY UNAVAILABLE` fires through the
+ * real ledger path.
+ */
+describe('TimeMachineScreen — a refused replay (5.356)', () => {
+  beforeEach(() => {
+    resetSandbox();
+  });
+
+  const undatedApy = (days: number) =>
+    PROTOCOLS.map((protocolId) => ({
+      protocolId,
+      points: Array.from({ length: days }, () => ({ date: '', apyPercent: 5 })),
+      stamp: observedStamp('defillama', '2026-08-20T00:00:00Z'),
+    }));
+
+  function refusedPosition() {
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 5000,
+      horizonMonths: 24,
+      fundAmount: 1000,
+    });
+    enterStrategy({ goalId, strategyId: 'fullThrottle', totalFromCash: 1000, networkFeeLocal: 0 });
+    advanceTime(180, undatedApy(400), 'machine', prices(400));
+  }
+
+  it('should render the approved unavailable sentence, not a trend sentence', () => {
+    refusedPosition();
+    renderTM();
+    expect(screen.getAllByText(M['timeMachine.meaningUnavailable']).length).toBeGreaterThan(0);
+    // The three trend sentences must be ABSENT — a refusal is money-free, so
+    // without the branch this screen would say "it stayed about where it started".
+    expect(screen.queryByText(M['timeMachine.meaningFlat'])).toBeNull();
+    expect(screen.queryByText(M['timeMachine.meaningGrew'])).toBeNull();
+    expect(screen.queryByText(M['timeMachine.meaningFell'])).toBeNull();
+  });
+
+  it('should render a trend sentence again once the replay is evidenced', () => {
+    fallenPosition();
+    renderTM();
+    expect(screen.queryByText(M['timeMachine.meaningUnavailable'])).toBeNull();
   });
 });

@@ -42,6 +42,15 @@ export interface TimeMachineView {
   marketPercent: number | null;
   /** The value line, for the sparkline. */
   values: number[];
+  /**
+   * A span was consumed with its replay REFUSED (`5.105` §3, `5.356`).
+   *
+   * The screen must render the approved unavailable sentence INSTEAD of any
+   * trend sentence when this is true — `trend` is still computed (it is a pure
+   * function of two numbers and cannot know about evidence), and rendering it
+   * here would state `meaningFlat` over a stretch nobody could replay.
+   */
+  replayUnavailable: boolean;
 }
 
 /** Cent tolerance: the terms are Decimal, the line is stored as numbers. */
@@ -60,5 +69,6 @@ export function selectTimeMachineView(d: PracticeDecomposition): TimeMachineView
     marketPercent:
       explainable && !principalChanged && d.start > 0 ? (d.market / d.start) * 100 : null,
     values: d.points.map((p) => p.value),
+    replayUnavailable: d.replayUnavailable,
   };
 }

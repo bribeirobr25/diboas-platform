@@ -302,6 +302,59 @@ export function ratesForSpanWindowed(
   return rates;
 }
 
+/**
+ * WHY one series could not cover a calendar window (`5.105` §2/§3).
+ *
+ * The windowed functions above collapse every cause into a single `null`, which
+ * is correct for them — a caller deciding whether to replay needs one answer.
+ * But §3 requires a refusal to be DISCLOSED with its reason, and §2 separates
+ * "this series carries no usable calendar" from "the legs disagree about which
+ * calendar", because those are different failures with different owners.
+ *
+ * ## This function EXPLAINS a refusal; it never decides one
+ *
+ * The decision stays with `ratesForSpanWindowed` / `priceFactorsForSpanWindowed`
+ * returning `null`. This only names the cause, and a test asserts the two agree
+ * (`covered` ⟺ the real function returns non-null) — otherwise a classifier
+ * drifts into a second source of truth about the same fact, which is the
+ * `5.381`/`5.384` shape (a document and an engine disagreeing with nothing
+ * asserting they must not).
+ *
+ * `mixed-calendar` is deliberately NOT a member: it is a verdict about a SET of
+ * legs, never about one series, and only the caller holding all the legs can
+ * reach it.
+ */
+export type WindowCoverage = 'covered' | 'missing-calendar-evidence' | 'window-outside-series';
+
+/**
+ * Classify one series against the window a span needs.
+ *
+ * `needsDayBefore` is for PRICE legs: a price factor is `price[d] / price[d-1]`,
+ * so the window must also cover the day before it opens — the same rule
+ * `priceFactorsForSpanWindowed` enforces, stated once here so the two cannot
+ * diverge.
+ */
+export function windowCoverage(
+  series: { readonly points: readonly unknown[]; readonly dates?: readonly string[] },
+  fromDay: number,
+  toDay: number,
+  windowStartDate: string,
+  needsDayBefore = false
+): WindowCoverage {
+  const n = series.points.length;
+  // No dates at all, or a dates/points length skew: there is no calendar to
+  // read, whatever the window asks for. §12/§13 require both to read as
+  // MISSING CALENDAR EVIDENCE rather than as a window problem.
+  if (!series.dates || series.dates.length !== n) return 'missing-calendar-evidence';
+  const start = series.dates.indexOf(windowStartDate);
+  // The series has a calendar; it just does not reach this window.
+  if (start < 0) return 'window-outside-series';
+  if (needsDayBefore && start - 1 < 0) return 'window-outside-series';
+  const lastIdx = start + (toDay - (fromDay + 1));
+  if (lastIdx >= n) return 'window-outside-series';
+  return 'covered';
+}
+
 /** `apyFactorsForSpan` over a calendar window — see `ratesForSpanWindowed`. */
 export function apyFactorsForSpanWindowed(
   series: DailyApySeries,

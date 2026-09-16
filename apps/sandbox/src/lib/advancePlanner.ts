@@ -18,6 +18,7 @@
 
 import Decimal from 'decimal.js';
 import {
+  type ReplayRefusalReason,
   accrualSegmentDays,
   recurringDepositDays,
   type LedgerEvent,
@@ -30,6 +31,7 @@ import {
   priceFactorsForSpanWindowed,
   ratesForSpan,
   ratesForSpanWindowed,
+  windowCoverage,
   replayLegged,
   type DailyApySeries,
   type DailyPriceSeries,
@@ -98,10 +100,21 @@ export function planAdvance(input: {
    * padding with a repeated reading.
    */
   windowStartDate?: string;
+  /**
+   * `'none'` when the caller established that NO dated history exists for this
+   * advance at all (`journey.ts` filters empty dates out of `oldestDate`, so an
+   * undated corpus yields no epoch and therefore no window).
+   *
+   * Explicit rather than inferred from an absent `windowStartDate`: the two mean
+   * different things. An absent window can be a caller that does not use
+   * calendar anchoring; `'none'` is an evidence statement, and only an evidence
+   * statement may refuse a span (`5.105` §2/§3).
+   */
+  calendarEvidence?: 'none' | 'present';
   stamp: EventStamp;
 }): LedgerEvent[] {
   const { positions, schedules, workingStart, legsByPosition, toDay, days, source, stamp } = input;
-  const { windowStartDate } = input;
+  const { windowStartDate, calendarEvidence } = input;
   /** Catalog-resolved positions (see `catalogPositions`); defaults to replayable. */
   const catalogResolved = input.catalogPositions ?? new Set(legsByPosition.keys());
   /** Calendar date for a segment's first replayed day, when a window is pinned. */
@@ -168,13 +181,89 @@ export function planAdvance(input: {
       : undefined;
   };
 
+  /**
+   * Must this span be REFUSED rather than replayed? (`5.105` §2/§3, `5.360`.)
+   *
+   * `null` means replay normally. A returned reason means: emit
+   * `ReplaySpanRefused`, emit NO accrual, and let the disclosed gap reach the
+   * screen. `5.360` is ruled — a refused span is CONSUMED as a disclosed
+   * evidence gap, so there is no catch-up, no retroactive auto-replay and no
+   * backfill when new provider data appears.
+   *
+   * ## Why this had to exist, and why it is not in `usableWindow`
+   *
+   * `usableWindow` returns `undefined` for several different causes and
+   * `legReplaysFor` then fell back to `historicFactors` — i.e. it replayed a
+   * DIFFERENT, recent month and presented it as this stretch. That fallback IS
+   * the superseded `5.114` behaviour: the position moved, the numbers looked
+   * plausible, and nothing anywhere said the required history was missing.
+   *
+   * ## `real` advances are untouched, deliberately
+   *
+   * `source: 'real'` gets no window on purpose — three real days elapsed SHOULD
+   * consume the last three real days, and the historic anchoring is correct
+   * there. So a real settle can never refuse, and `windowStartDate === undefined`
+   * on a MACHINE advance is not "no window needed", it is *no dated evidence
+   * exists at all* (`journey.ts` filters empty dates out of `oldestDate`), which
+   * is a refusal.
+   *
+   * ## The no-legs case belongs to batch E, not here
+   *
+   * A position absent from `legsByPosition` is already UNAVAILABLE as a whole
+   * (I-G1d) and emits no accrual by a different path. This returns `null` for
+   * it so one span cannot be refused twice by two owners.
+   */
+  const refusalFor = (
+    positionId: string,
+    fromDay: number,
+    segEnd: number
+  ): { reason: ReplayRefusalReason; windowStartDate?: string } | null => {
+    if (source !== 'machine') return null;
+    const legs = legsByPosition.get(positionId) ?? [];
+    if (legs.length === 0) return null;
+    /* The caller states whether ANY dated evidence exists — this function must
+       not infer it from a missing window. `advancePlanner.test.ts` drives the
+       planner directly with `source: 'machine'` and no window at all, which is
+       a harness omission, not an evidence claim; only `journey.ts` knows that
+       every date was filtered out of `oldestDate`. Inferring it here refused six
+       unit tests' spans and would have refused any future caller that omits the
+       window for its own reasons. */
+    if (calendarEvidence === 'none') return { reason: 'missing-calendar-evidence' };
+    const win = windowFor(fromDay);
+    if (win === undefined) return null;
+    const coverage = legs.map((leg) =>
+      leg.kind === 'market'
+        ? // A price factor needs the day BEFORE the window opens.
+          windowCoverage(leg.price, fromDay, segEnd, win, true)
+        : windowCoverage(leg.apy, fromDay, segEnd, win)
+    );
+    if (coverage.every((c) => c === 'covered')) return null;
+    // §2: the legs of one position must move together in TIME. Some covering and
+    // some not IS the mixed-calendar case, and it is classified separately from
+    // "no calendar at all" because the two have different owners.
+    if (coverage.some((c) => c === 'covered'))
+      return { reason: 'mixed-calendar', windowStartDate: win };
+    // No leg covers. A missing calendar is the more fundamental failure, so it
+    // wins over "the window is outside the series" when both appear.
+    return {
+      reason: coverage.includes('missing-calendar-evidence')
+        ? 'missing-calendar-evidence'
+        : 'window-outside-series',
+      windowStartDate: win,
+    };
+  };
+
   const legReplaysFor = (positionId: string, fromDay: number, segEnd: number): LegReplay[] => {
     const win = usableWindow(positionId, fromDay, segEnd);
     return (legsByPosition.get(positionId) ?? []).map((leg) => ({
       weightPercent: leg.weightPercent,
       factors:
         win === undefined
-          ? historicFactors(leg, fromDay, segEnd)
+          ? /* REAL advances only, now. A `machine` span whose window is unusable
+               is REFUSED by `refusalFor` before this is reached, so this branch
+               can no longer present a recent month as a historical stretch
+               (`5.105` §2/§3). */
+            historicFactors(leg, fromDay, segEnd)
           : // `usableWindow` already proved every leg covers it.
             (windowedFactors(leg, fromDay, segEnd, win) as number[]),
     }));
@@ -295,7 +384,24 @@ export function planAdvance(input: {
     for (const segEnd of boundaries) {
       // Zero-length spans are impossible here (the grid is deduped + strictly
       // ascending), so no segment can emit an "earned 0.00" noise row (L3).
-      if (replayLegs !== null) {
+      const refusal = replayLegs !== null ? refusalFor(position.positionId, cursor, segEnd) : null;
+      if (refusal !== null) {
+        /* §3: the span is CONSUMED as a disclosed evidence gap. No accrual, so
+           `reconcile()` — which sums `earnings` from emitted accruals — loses
+           the term from both sides together and conservation is untouched. */
+        events.push({
+          ...stamp(),
+          type: 'ReplaySpanRefused',
+          positionId: position.positionId,
+          fromSimDay: cursor,
+          toSimDay: segEnd,
+          reason: refusal.reason,
+          ...(refusal.windowStartDate !== undefined
+            ? { windowStartDate: refusal.windowStartDate }
+            : {}),
+          apySource: allLive ? 'defillama' : 'fixture',
+        });
+      } else if (replayLegs !== null) {
         const earnings = replayLegged(value, legReplaysFor(position.positionId, cursor, segEnd));
         events.push({
           ...stamp(),

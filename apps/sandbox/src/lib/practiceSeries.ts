@@ -52,6 +52,25 @@ export interface PracticeDecomposition {
    * fail-closed contract `monthReport.identityHolds` carries.
    */
   identityHolds: boolean;
+  /**
+   * TRUE when any span in this ledger was CONSUMED with its economic replay
+   * REFUSED (`ReplaySpanRefused`, `5.105` §3).
+   *
+   * Separate from `identityHolds` on purpose, and this is the whole point of
+   * the field: a refusal is MONEY-FREE, so the conservation identity still
+   * closes and `identityHolds` stays true — which means every existing gate
+   * passes while the screen resolves to `timeMachine.meaningFlat`, *"it stayed
+   * about where it started"*. That sentence is FALSE when the truth is that
+   * history was missing, and it is exactly what `5.356` records. Absent-over-
+   * false does not help here either: the honest answer is not silence, it is
+   * the approved unavailable sentence.
+   *
+   * Deliberately NOT a `ValueTrend` member — the Feedback Rulings §4 accept
+   * that `replay-unavailable ≠ ValueTruth ≠ ValueTrend`, and folding it into
+   * `classifyTrend(start, end)` would let a comparison of two numbers answer an
+   * EVIDENCE question (the `5.199` conflation class).
+   */
+  replayUnavailable: boolean;
 }
 
 /**
@@ -91,6 +110,7 @@ export function decomposePracticeValue(state: LedgerState): PracticeDecompositio
   let contributed = new Decimal(0);
   let entered = new Decimal(0);
   let exited = new Decimal(0);
+  let replayUnavailable = false;
 
   const push = () => {
     const total = [...perPosition.values()].reduce((acc, v) => acc.plus(v), new Decimal(0));
@@ -143,6 +163,12 @@ export function decomposePracticeValue(state: LedgerState): PracticeDecompositio
         push();
         break;
       }
+      case 'ReplaySpanRefused':
+        /* Money-free by construction: no point is pushed and `simDay` is not
+           moved, so the line and every term are untouched. What changes is what
+           the screen is ALLOWED to say about the stretch. */
+        replayUnavailable = true;
+        break;
       default:
         break;
     }
@@ -163,6 +189,7 @@ export function decomposePracticeValue(state: LedgerState): PracticeDecompositio
     entered: entered.toNumber(),
     exited: exited.toNumber(),
     identityHolds,
+    replayUnavailable,
   };
 }
 

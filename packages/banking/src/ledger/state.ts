@@ -38,6 +38,30 @@ export interface PositionState {
   enteredSimDay: number;
   /** Sim day accrual has been applied through (exclusive of days not yet simulated). */
   accruedThroughSimDay: number;
+  /**
+   * Sim day the machine REPLAY has been consumed through — advanced by both
+   * `AccrualApplied` and `ReplaySpanRefused` (`5.105` I-G1d, Resolution §9).
+   *
+   * Distinct from `accruedThroughSimDay` on purpose. That field is an ACCRUAL
+   * CLAIM: advancing it for a span where no accrual occurred would make it lie.
+   * But the planner also needs to know how far the replay has been consumed, or
+   * a refused span is re-walked on the next advance — the automatic catch-up §3
+   * prohibits.
+   *
+   * ⚑ Why STORED rather than derived. `TimeAdvanced` stores only the replay
+   * epoch and derives consumption as `simDay − realSettledDays`, "so there is
+   * no second cursor that could disagree with the log". That holds only while
+   * every machine day is replayed: `project()` advances `simDay` on every
+   * advance but `realSettledDays` only for `source: 'real'`, so the difference
+   * counts machine days ADVANCED. After a refusal, advanced ≠ replayed, and the
+   * derived figure would assert that refused days were replayed. §9 approves a
+   * separate cursor for exactly this reason — do not "simplify" it back.
+   *
+   * OPTIONAL for backward-compat: positions projected from ledgers written
+   * before I-G1d lack it, and `?? accruedThroughSimDay` is the honest fallback
+   * (before refusals existed, the two were always equal).
+   */
+  replayConsumedThroughSimDay?: number;
   open: boolean;
 }
 

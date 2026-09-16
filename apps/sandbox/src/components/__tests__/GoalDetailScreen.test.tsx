@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
+  fixtureDateSeries,
   fixturePriceSeries,
   type ProtocolApyHistory,
   type ProtocolPriceHistory,
@@ -346,12 +347,32 @@ describe('GoalDetailScreen — an exit that cannot be priced is never offered (R
  * the real-shaped fixture series — the same path `g8FallingPosition` proves.
  */
 describe('GoalDetailScreen — the earnings line takes its colour from its sign (5.283)', () => {
+  /**
+   * The shared fixture calendar, built ONCE per length.
+   *
+   * `fixtureDateSeries` walks `days` dates, so calling it inside a per-point
+   * callback is O(days²) — measured consequence: `g8FallingPosition`'s
+   * higher-exposure test TIMED OUT at 5000ms in the full suite (roughly a million
+   * date operations per builder call, six protocols deep, twice per test) while
+   * passing in isolation. Hoisted, not inlined.
+   */
+  const datesFor = (() => {
+    const cache = new Map<number, string[]>();
+    return (days: number): string[] => {
+      const hit = cache.get(days);
+      if (hit) return hit;
+      const built = fixtureDateSeries(days);
+      cache.set(days, built);
+      return built;
+    };
+  })();
+
   const PROTOCOLS = ['skySsr', 'aaveV3', 'compoundV3', 'sanctumInf', 'jupiterJlp', 'jito'] as const;
   const apy = (days: number): ProtocolApyHistory[] =>
     PROTOCOLS.map((protocolId) => ({
       protocolId,
       points: Array.from({ length: days }, (_, i) => ({
-        date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
+        date: datesFor(days)[i],
         apyPercent: 5,
       })),
       stamp: observedStamp('defillama', '2026-08-20T00:00:00Z'),
