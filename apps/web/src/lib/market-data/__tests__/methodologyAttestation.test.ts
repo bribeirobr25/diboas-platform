@@ -189,3 +189,49 @@ describe('the published methodology document matches the engine that executes it
     expect(Date.parse(DOC.published_at)).not.toBeNaN();
   });
 });
+
+/**
+ * The methodology document exists TWICE (found 2026-09-16, while bumping to
+ * v1.1.0 — register 5.384).
+ *
+ * `data/market/shared/methodology.json` is the artefact the two view loaders
+ * import and publish. `lib/analytics-sdk/fixtures/methodology.json` is the SDK
+ * fixture standing in for what the external diboas-analytics service will one
+ * day return over the swap seam. They are byte-identical today apart from their
+ * comments, and the v1.0.1 note records that they were bumped together the last
+ * time too.
+ *
+ * Nothing asserted that. `fixtures.test.ts` has one describe for each file and
+ * checks each one's SHAPE — both pass happily while the two disagree on what
+ * the methodology actually says. Bumping one and forgetting the other is a
+ * one-line mistake with no detector, and it would publish a version number that
+ * disagrees with the contract the swap seam promises.
+ *
+ * This is the third instance of one shape in this subsystem: 5.361 (weights and
+ * bands with no guard), 5.381 (doc vs engine), and now doc vs its own mirror.
+ */
+describe('the two copies of the methodology document agree', () => {
+  const PUBLISHED = JSON.parse(
+    readFileSync(join(__dirname, '../../../../data/market/shared/methodology.json'), 'utf8')
+  );
+  const FIXTURE = JSON.parse(
+    readFileSync(join(__dirname, '../../analytics-sdk/fixtures/methodology.json'), 'utf8')
+  );
+
+  it('should agree on every field except the explanatory comment', () => {
+    const strip = (o: Record<string, unknown>) => {
+      const { _comment, ...rest } = o;
+      return rest;
+    };
+    // Compared as a whole rather than field by field: a field ADDED to one and
+    // not the other is the drift this guard exists to catch, and a per-field
+    // list would not see it.
+    expect(strip(FIXTURE)).toEqual(strip(PUBLISHED));
+  });
+
+  it('should carry the same version in both places', () => {
+    // Stated separately from the deep-equality row above so a version drift
+    // names itself in the failure output instead of arriving as a diff.
+    expect(FIXTURE.version).toBe(PUBLISHED.version);
+  });
+});
