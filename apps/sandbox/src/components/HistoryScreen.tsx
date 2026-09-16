@@ -86,6 +86,13 @@ function display(event: LedgerEvent): { icon: IconName; amount: string | null; s
       return { icon: 'zap', amount: event.amount, sign: 'neg' };
     case 'SimulatedIncomeReceived':
       return { icon: 'coins', amount: event.amount, sign: 'pos' };
+    /* `5.105` I-G1d: the span was consumed, nothing was earned. NO amount and
+       NO sign — the same convention every no-value event follows here — so the
+       row cannot read as money having moved. `eye-off` says "not visible"
+       without implying a fault: the governed icon door ships no error glyph,
+       and `clock` already means "time moved". */
+    case 'ReplaySpanRefused':
+      return { icon: 'eye-off', amount: null, sign: null };
   }
 }
 
@@ -120,6 +127,15 @@ export function HistoryScreen() {
     switch (event.type) {
       case 'PlayMoneyGranted':
         return intl.formatMessage({ id: 'history.granted' }, { amount: money(event.amount) });
+      /* `5.105` §3 / `5.356`. The row states the DISCLOSED GAP, using the §4
+         Brand+Legal-approved sentence byte-for-byte — this lane authors no
+         user-facing copy. §4 scopes that wording to the economic meaning line;
+         its reuse on this adjacent row is a scope decision recorded in the
+         increment record, not a drafting one. No strategy name and no reason
+         code: `reason` discriminates OWNERS in the ledger, and surfacing
+         'mixed-calendar' to a practice user explains nothing they can act on. */
+      case 'ReplaySpanRefused':
+        return intl.formatMessage({ id: 'history.replayRefused' });
       case 'JobsSplitSet':
         return intl.formatMessage(
           { id: 'history.split' },

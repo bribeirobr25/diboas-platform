@@ -4,8 +4,9 @@
  * MVP-0 posture (docs/sandbox-app/BUILD_ORDER.md Stage P):
  * - Private prototype: noindex everywhere via headers (the password gate is
  *   the access control; robots is defense in depth).
- * - Security headers baseline now; the full nonce-CSP middleware is a
- *   promotion-gate item (Stage 1) — tracked, not forgotten.
+ * - Static security-header baseline here. The nonce-based CSP LANDED
+ *   2026-09-14 (register `5.212`) and lives in `src/middleware.ts`, NOT in this
+ *   file — a statically-configured header cannot carry a per-request nonce.
  * - Domain packages are consumed from their built dist (turbo orders builds).
  */
 

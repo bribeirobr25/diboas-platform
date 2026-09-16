@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import Decimal from 'decimal.js';
-import { fixturePriceSeries } from '@diboas/defi';
+import { fixtureDateSeries, fixturePriceSeries, FIXTURE_STAMP, observedStamp } from '@diboas/defi';
 import {
   advanceTime,
   createGoal,
@@ -20,21 +20,41 @@ import { classifyTrend, practiceValueSeries } from '@/lib/practiceSeries';
  * pin the DERIVATIONS behind them, so a loss stays honest all the way out to
  * the screens rather than turning into a crash, a clamp, or a fake gain.
  */
+/**
+ * The shared fixture calendar, built ONCE per length.
+ *
+ * `fixtureDateSeries` walks `days` dates, so calling it inside a per-point
+ * callback is O(days²) — measured consequence: `g8FallingPosition`'s
+ * higher-exposure test TIMED OUT at 5000ms in the full suite (roughly a million
+ * date operations per builder call, six protocols deep, twice per test) while
+ * passing in isolation. Hoisted, not inlined.
+ */
+const datesFor = (() => {
+  const cache = new Map<number, string[]>();
+  return (days: number): string[] => {
+    const hit = cache.get(days);
+    if (hit) return hit;
+    const built = fixtureDateSeries(days);
+    cache.set(days, built);
+    return built;
+  };
+})();
+
 const PROTOCOLS = ['skySsr', 'aaveV3', 'compoundV3', 'sanctumInf', 'jupiterJlp', 'jito'] as const;
 const apy = (days: number) =>
   PROTOCOLS.map((protocolId) => ({
     protocolId,
     points: Array.from({ length: days }, (_, i) => ({
-      date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
+      date: datesFor(days)[i],
       apyPercent: 5,
     })),
-    stamp: { source: 'defillama' as const, asOf: '2026-08-20T00:00:00Z' },
+    stamp: observedStamp('defillama', '2026-08-20T00:00:00Z'),
   }));
 const prices = (days: number) =>
   PROTOCOLS.map((protocolId) => ({
     protocolId,
     points: fixturePriceSeries(protocolId, days),
-    stamp: { source: 'fixture' as const, asOf: '2026-07-18' },
+    stamp: FIXTURE_STAMP,
   }));
 
 function fallen(): string {
@@ -92,13 +112,22 @@ describe('§4.8 step 9 — a loss stays honest across every surface', () => {
     enterStrategy({ goalId, strategyId: 'fullThrottle', totalFromCash: 1000, networkFeeLocal: 0 });
     const before = goalCurrentValue(getLedgerState(), goalId);
     expect(before.gte(900)).toBe(true); // reached
-    advanceTime(180, apy(400), 'machine', prices(400));
+    /* 360 days, not 180 — and the reason is the point. MEASURED on the shared
+       fixture calendar, with ZERO spans refused in all three: 180 days ends at
+       965.36, which is ABOVE the 900 target; 270 ends at 740.96; 360 at 542.34.
+       The old 180-day margin existed only because segment 0's window was
+       uncoverable and the planner silently fell back to historic anchoring,
+       replaying the fixture's steep recent tail in place of the stretch actually
+       requested (`5.105` §2/§3). The REQUIREMENT is unchanged — a derived
+       `target_reached` must un-reach when the money falls — so the fix is a fall
+       deep enough to test it, never a weaker assertion. */
+    advanceTime(360, apy(400), 'machine', prices(400));
     expect(goalCurrentValue(getLedgerState(), goalId).lt(900)).toBe(true); // un-reached
   });
 
   it('should still price an EXIT on a fallen position (the floor binds, nothing breaks)', () => {
     const goalId = fallen();
-    const preview = previewGoalStop(goalId, () => 0.03)!;
+    const preview = previewGoalStop(getLedgerState(), goalId, () => 0.03)!;
     expect(preview).not.toBeNull();
     // Gross is what is really there — smaller than what went in.
     expect(new Decimal(preview.gross).lt(1000)).toBe(true);

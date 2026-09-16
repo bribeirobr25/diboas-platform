@@ -1,8 +1,24 @@
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { join, relative } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { STRATEGY_CATALOG } from '@diboas/defi';
 import { GOAL_ICONS } from '@diboas/investing';
 import { SANDBOX_LOCALES } from '../config';
 import { flattenMessages, getMessages, getRawMessages } from '../loadMessages';
+import { findRenderedText } from '../renderedText';
+
+/** The component/app source tree, walked as CID-1 walks it. */
+const SRC = join(__dirname, '..', '..');
+function sourceFiles(dir: string = SRC, out: string[] = []): string[] {
+  for (const name of readdirSync(dir)) {
+    if (name === '__tests__' || name === 'test' || name === 'node_modules') continue;
+    if (name.endsWith('.stories.tsx')) continue;
+    const full = join(dir, name);
+    if (statSync(full).isDirectory()) sourceFiles(full, out);
+    else if (/\.tsx$/.test(name)) out.push(full);
+  }
+  return out;
+}
 
 describe('goal-icon accessible labels (F-1: no raw Lucide tokens as aria-labels)', () => {
   // The real tripwire: aria-labels for the goal-icon radios come from
@@ -60,15 +76,45 @@ const EXACT_LEGAL_COPY = new Set([
   'legalReadiness.analytics',
 ]);
 
+/**
+ * Brand-approved EXACT copy, exempt from the house dash style the same way
+ * `EXACT_LEGAL_COPY` is (`5.311`). Keep this set as small as the authority
+ * documents require, and name the document for each entry.
+ */
+const EXACT_BRAND_COPY = new Set([
+  'learn.explainer', // Consolidated Handoff 2026-09-12 §7.1
+  // Brand/Localization §3, verified verbatim at Brand-Legal-Monetization.txt
+  // lines 198/200/202 — each ships an EN-dash in its approved German wording.
+  'catalog.strategies.stableGrowth.tagline',
+  'catalog.strategies.steadyProgress.tagline',
+  'catalog.strategies.balancedBuilder.tagline',
+]);
+
 describe('anti-slop punctuation guard (checklist Part 2, baked in as a test)', () => {
-  it('should contain no em-dashes in any user-facing string', () => {
+  /**
+   * ⚑ `5.311` CLOSED 2026-09-14. This checked the EM-dash only, so an author
+   * could ship an EN-dash freely — and the German corpus proved the gap was
+   * real, not theoretical. Both are now banned. Every EN-dash currently in the
+   * corpus is APPROVED authority copy and is named in `EXACT_BRAND_COPY`
+   * above, so the exemption list is the complete statement of what this rule
+   * does not see.
+   */
+  it('should contain no em-dashes or en-dashes in any user-facing string', () => {
     for (const locale of SANDBOX_LOCALES) {
       for (const [id, msg] of Object.entries(getMessages(locale))) {
         // Legal-approved EXACT copy is not subject to the house style guard:
         // LC-TD-02 §4.2 fixes the LEGAL-PRIVACY string with an em-dash in all
         // four locales, and the lane may not alter Legal copy (I-0b).
         if (EXACT_LEGAL_COPY.has(id)) continue;
+        // Same principle, different authority (`5.311`, AUD-B06): the handoff
+        // §7.1 Learn explainer is Brand-approved EXACT copy carrying an em-dash
+        // in en/pt-BR. The rule exists to stop AUTHORED em-dashes, and this lane
+        // may not edit approved copy — so the exception is named, not widened.
+        // ⚑ What this drops: the two ids below are no longer dash-checked in ANY
+        // locale. Nothing else is exempt.
+        if (EXACT_BRAND_COPY.has(id)) continue;
         expect(msg.includes('—'), `${locale}:${id} contains an em-dash`).toBe(false);
+        expect(msg.includes('–'), `${locale}:${id} contains an en-dash`).toBe(false);
       }
     }
   });
@@ -269,5 +315,71 @@ describe('flattenMessages', () => {
       const m = getMessages(locale) as Record<string, string>;
       expect(m['move.balance'], locale).toBe(m['home.playBalance']);
     }
+  });
+});
+
+/**
+ * F-R4 — THE PUBLIC NAME IS "PRACTICE"; "sandbox" IS INTERNAL VOCABULARY ONLY.
+ *
+ * ⚑ Added 2026-09-16 with the §19 copy application, because its absence is the
+ * whole reason that application was needed. F-R4 ruled the public name on
+ * 2026-08-29. On 2026-09-16 a system-gate sweep found **24 user-facing strings
+ * across four locales, on 7 keys**, still saying "Sandbox" — including
+ * `common.playBadge` ("Sandbox · play money") and `gate.enter` ("Enter the
+ * sandbox"), i.e. the FIRST SCREEN of a live public app. The full suite was
+ * green throughout: parity, ICU args, dashes, emoji, the exit floor, advice
+ * vocabulary and the GENIUS wall are all guarded, and none of them is about the
+ * product's NAME.
+ *
+ * Applying approved copy without this guard would leave the hole exactly as it
+ * was for the next string anyone adds. Paths, package names and internal docs
+ * are unaffected — this asserts the CATALOGUE only, which is what a user reads.
+ */
+describe('F-R4: the public name is Practice, never Sandbox', () => {
+  it.each(SANDBOX_LOCALES)('should carry no user-facing "sandbox" in %s', (locale) => {
+    const offenders = Object.entries(getMessages(locale))
+      .filter(([, v]) => typeof v === 'string' && /sandbox/i.test(v))
+      .map(([k, v]) => `${k} = ${v}`);
+    expect(offenders, `F-R4 violated in ${locale}:\n${offenders.join('\n')}`).toEqual([]);
+  });
+
+  /**
+   * `5.371` blind spot 3, closed 2026-09-16 (founder-approved). COPY-3 asserted
+   * the catalogue only, so a user-facing "Sandbox" hardcoded into a component
+   * was caught by NOTHING — proven by planting one and watching this file and
+   * `check:ux-greps` both stay green.
+   *
+   * Measured before shipping: a naive /sandbox/i sweep of components flags 13
+   * lines, every one legitimate non-copy (a font CSS variable, the health
+   * route's `app: 'sandbox'`, `SandboxNotification` types, storage keys, a log
+   * tag, a scope literal, comments). Scoping to RENDERED text flags 0 — which is
+   * why the finder quotes context instead of carrying an exception list.
+   */
+  it('should carry no user-facing "sandbox" in any component RENDERED text', () => {
+    const offenders = sourceFiles().flatMap((file) =>
+      findRenderedText(readFileSync(file, 'utf8'), /sandbox/i).map(
+        (m) => `${relative(SRC, file)}:${m.line} (${m.context}) ${m.text}`
+      )
+    );
+    expect(offenders, `F-R4 violated in component rendered text:\n${offenders.join('\n')}`).toEqual(
+      []
+    );
+  });
+
+  it('should be scanning a real source tree (the finder must not go vacuous)', () => {
+    const files = sourceFiles();
+    expect(files.length).toBeGreaterThan(50);
+    // A positive control: the finder DOES see the class it exists to catch.
+    expect(findRenderedText('<p>Welcome to the Sandbox</p>', /sandbox/i)).toHaveLength(1);
+    expect(
+      findRenderedText('const s: ReadonlySet<Action> = new Set<Action>(["x"]);', /sandbox/i)
+    ).toHaveLength(0);
+  });
+
+  it('should still allow the internal package name (this guard is about COPY, not code)', () => {
+    // Stated so the rule's scope is explicit rather than inferred: F-R4 keeps
+    // "sandbox" as internal/dev vocabulary. If someone later renames the
+    // package, that is a separate decision this test must not pre-empt.
+    expect(/sandbox/i.test('apps/sandbox')).toBe(true);
   });
 });

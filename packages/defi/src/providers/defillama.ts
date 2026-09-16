@@ -14,6 +14,7 @@
 
 import { FIXTURE_APYS } from '../fixtures';
 import type { ApyPoint, IApyProvider, ProtocolApy, ProtocolApyHistory, ProtocolId } from '../types';
+import { observedStamp } from '../types';
 import { PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 
 const POOLS_URL = 'https://yields.llama.fi/pools';
@@ -159,7 +160,7 @@ export class DefiLlamaApyProvider implements IApyProvider {
         apyPercent: match.apy as number,
         tvlUsd: match.tvlUsd,
         chain: (match.chain as ProtocolApy['chain']) ?? 'Solana',
-        stamp: { source: 'defillama', asOf },
+        stamp: observedStamp('defillama', asOf),
       };
     });
   }
@@ -189,7 +190,7 @@ export class DefiLlamaApyProvider implements IApyProvider {
       return {
         protocolId,
         points: entry.value.slice(-days),
-        stamp: { source: 'defillama', asOf: new Date(entry.at).toISOString() },
+        stamp: observedStamp('defillama', new Date(entry.at).toISOString()),
       };
     } catch {
       // Honest degraded mode: a flat series at the fixture APY, stamped fixture.

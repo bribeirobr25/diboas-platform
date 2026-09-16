@@ -16,7 +16,7 @@ vi.mock('next/navigation', () => ({
 import { ClaimCeremony } from '../ClaimCeremony';
 
 const M = {
-  'common.playBadge': 'Sandbox · play money',
+  'common.playBadge': 'Practice · no real money',
   'common.wordmarkAlt': 'diBoaS',
   'claim.eyebrow': 'Claim ceremony',
   'claim.heading': "You're about to receive",

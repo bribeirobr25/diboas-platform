@@ -25,8 +25,8 @@ function MethodIcon({ id }: { id: Method }) {
 
 /**
  * AuthWelcome — the public front door (A2; mockup 01; W-17c). Matches the
- * mockup: a FULL-BLEED coastal hero fills the top half with the "Sandbox · play
- * money" chip, the "diBoaS" brand wordmark, and the tagline OVERLAID on it,
+ * mockup: a FULL-BLEED coastal hero fills the top half with the
+ * "Practice · no real money" chip, the "diBoaS" brand wordmark, and the tagline OVERLAID on it,
  * fading into the light content panel below (headline, subtext, the three
  * white method cards, the legal notice).
  *
@@ -53,8 +53,8 @@ export function AuthWelcome({ locale }: { locale: string }) {
           <ThemeToggle />
         </div>
         {/* No mode chip / play-money reference here: the Welcome is the clean
-            front door; the "Sandbox · play money" framing lives on the internal
-            pages only (founder 2026-08-14). */}
+            front door; the "Practice · no real money" framing lives on the
+            internal pages only (founder 2026-08-14). */}
         <div className={styles.brand}>
           <Wordmark className={styles.wordmark} size="3.25rem" />
           <p className={styles.tagline}>

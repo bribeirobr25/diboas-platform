@@ -3,11 +3,13 @@
 import { useId } from 'react';
 import { useIntl } from 'react-intl';
 import type { DatedApyPoint } from '@diboas/investing';
+import { CHART_TIMEFRAMES, type ChartTimeframe } from '@/view/strategy';
 import styles from './ApyChart.module.css';
 
-/** The timeframes the G6 detailed view offers (mockup 4-goal-strategy-2views-detailed). */
-export const CHART_TIMEFRAMES = [7, 30, 90, 365] as const;
-export type ChartTimeframe = (typeof CHART_TIMEFRAMES)[number];
+/* The timeframes and their type live in `view/strategy.ts`: the selector must
+   clamp to them, and a selector may not import a component (`VIEW-1`). They are
+   NOT re-exported from here — a re-export would leave them looking resident in
+   a component, which is the thing being corrected. */
 
 const VIEW_W = 320;
 const VIEW_H = 120;

@@ -15,6 +15,7 @@ import type {
   RecurringSet,
   StrategyEntered,
   StrategyExited,
+  ReplaySpanRefused,
   TimeAdvanced,
 } from '../events';
 import { d, ZERO } from '../money';
@@ -30,7 +31,8 @@ export type CoreEvent =
   | StrategyExited
   | RecurringSet
   | RecurringContributionApplied
-  | TimeAdvanced;
+  | TimeAdvanced
+  | ReplaySpanRefused;
 
 export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
   switch (event.type) {
@@ -104,6 +106,7 @@ export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
           accrued: '0',
           enteredSimDay: event.simDay,
           accruedThroughSimDay: event.simDay,
+          replayConsumedThroughSimDay: event.simDay,
           open: true,
         },
         principal: amount,
@@ -116,8 +119,26 @@ export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
       if (!position || !position.s.open) break;
       position.accrued = position.accrued.plus(d(event.earnings));
       position.s.accruedThroughSimDay = event.toSimDay;
+      /* An accrual both replays and accrues, so it advances both cursors. Only
+         `ReplaySpanRefused` moves consumption without accrual (§9). */
+      position.s.replayConsumedThroughSimDay = event.toSimDay;
       const goal = ctx.goals.get(position.s.goalId);
       if (goal) goal.earnings = goal.earnings.plus(d(event.earnings));
+      break;
+    }
+    /**
+     * `5.105` I-G1d / §9: the span is CONSUMED, nothing is earned.
+     *
+     * Only the replay cursor moves. `accrued`, `principal` and the goal's
+     * earnings are untouched, and `accruedThroughSimDay` stays where it was —
+     * which is the whole point: the accrual claim must not advance over days
+     * whose economics nobody can evidence. `reconcile()` sums `earnings` from
+     * `AccrualApplied` alone, so conservation never sees this event.
+     */
+    case 'ReplaySpanRefused': {
+      const position = ctx.positions.get(event.positionId);
+      if (!position || !position.s.open) break;
+      position.s.replayConsumedThroughSimDay = event.toSimDay;
       break;
     }
     case 'StrategyExited': {
@@ -166,6 +187,12 @@ export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
       ctx.state.simDay += event.days;
       // Missing source ⇒ 'machine' (backward-compat, D-3): old ledgers don't retro-accrue.
       if ((event.source ?? 'machine') === 'real') ctx.state.realSettledDays += event.days;
+      /* I-G1c: FIRST pin wins and is never rewritten — a later advance cannot
+         slide the window the earlier ones were replayed against, which is what
+         makes the context stable under a provider refresh (§7). */
+      if (ctx.state.replayEpoch === null && event.replayEpoch !== undefined) {
+        ctx.state.replayEpoch = event.replayEpoch;
+      }
       break;
     }
   }

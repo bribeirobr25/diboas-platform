@@ -205,3 +205,12 @@ docker-compose.prod.yml
 *.tsbuildinfo
 next-env.d.ts
 .env*.local
+
+# Agent-rules files written automatically by `next dev`
+# (node_modules/next/dist/server/lib/generate-agent-files.js re-adds them on every
+# run). Ignored rather than committed: the root CLAUDE.md is authored project
+# truth, whereas `apps/*/CLAUDE.md` is a one-line `@AGENTS.md` import that would
+# make a generated block into directory-scoped project instructions nobody wrote.
+# Founder decision 2026-09-16, register 5.197. The root CLAUDE.md stays TRACKED.
+apps/*/AGENTS.md
+apps/*/CLAUDE.md

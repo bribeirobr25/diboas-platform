@@ -50,7 +50,9 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         apys,
         gas,
         /** Local units per 1 USD-pegged dollar (via the USDC quote). */
-        usdPriceLocal: usdcQuotes[0]?.price ?? 1,
+        /* ⚑ AUD-F05. `?? 1` asserted 1:1 parity with the ledger currency —
+           a fabricated FX rate for BRL/EUR, not a neutral default. */
+        usdPriceLocal: usdcQuotes[0]?.price ?? null,
         usdPriceStamp: usdcQuotes[0]?.stamp ?? null,
       },
       { headers: { 'Cache-Control': MARKET_CACHE_CONTROL } }

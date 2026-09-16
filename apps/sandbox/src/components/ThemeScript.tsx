@@ -7,16 +7,22 @@
  * Kept as a tiny, self-contained IIFE string — it must not depend on React,
  * hydration, or any bundle that loads after paint.
  *
- * NB — STAGE-1 CSP DEPENDENCY: today the sandbox ships no CSP (MVP-0 posture,
- * `next.config.mjs`), so this inline script runs freely. When the nonce-CSP
- * middleware lands at Stage 1 (`'unsafe-inline'` prohibited for scripts), this
- * ONE inline script must carry the per-request nonce or it will be blocked and
- * the pre-paint theme (no-flash) will silently regress. Wire it then by adding
- * a `nonce` prop here (read from `next/headers` in the layout) and setting it
- * on the <script>. Tracked in docs/sandbox-app/screens/BUILD_AUDIT_LEARNINGS.md.
+ * NB — CSP DEPENDENCY, LIVE since 2026-09-14 (register `5.212`). The sandbox
+ * now ships a nonce-based CSP from `src/middleware.ts`: `script-src 'self'
+ * 'nonce-…'` with NO `'unsafe-inline'`. This ONE inline script is therefore
+ * BLOCKED unless it carries the per-request nonce, and the pre-paint theme
+ * (no-flash) regresses silently when it does not — nothing throws, the design
+ * just flashes. So `nonce` is load-bearing, not decoration, and it is a
+ * REQUIRED prop: a caller that forgets it is a compile error rather than a
+ * silent regression. The layout reads the value from the `x-nonce` request
+ * header the middleware sets. Guarded by
+ * `app/[locale]/__tests__/cspNonce.test.tsx`.
  */
 const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('sb-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`;
 
-export function ThemeScript() {
-  return <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />;
+export function ThemeScript({ nonce }: { nonce: string | undefined }) {
+  // Required KEY, nullable VALUE: callers must pass it explicitly, but a request
+  // with no `x-nonce` still renders (the middleware fails open, so the page must
+  // too) — see the NB above.
+  return <script nonce={nonce} dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />;
 }

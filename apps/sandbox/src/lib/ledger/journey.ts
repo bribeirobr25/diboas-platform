@@ -5,7 +5,7 @@
  */
 
 import Decimal from 'decimal.js';
-import { computeExitFee, type LedgerEvent } from '@diboas/banking';
+import { computeExitFee, type LedgerEvent, type LedgerState } from '@diboas/banking';
 import {
   PROTOCOL_RETURN_MODEL,
   getStrategy,
@@ -144,12 +144,26 @@ export function transferGoalCash(fromGoalId: string, toGoalId: string): void {
  * derived (`current >= target`, never stored), raising the target clears the
  * completion state automatically — no extra event, no stale flag.
  */
-export function raiseGoalTarget(goalId: string, newTarget: number): void {
+/**
+ * ⚑ AUD-E01. This took a `number`, and the screen handed it
+ * `Number(newTarget) || 0` — so the value the selector accepted EXACTLY (via
+ * Decimal, full precision) was not the value committed. At the float boundary
+ * the two diverge: a raise to 9007199254740993 arrived as 9007199254740992,
+ * equal to the existing target, and the command silently did nothing while the
+ * CTA had been enabled. It now takes the raw input string and parses it once,
+ * here, with the same exactness the acceptance test used.
+ */
+export function raiseGoalTarget(goalId: string, newTarget: string): void {
   const goal = getLedgerState().goals.find((g) => g.goalId === goalId);
   // active OR paused — matching the engine's allowed FROM states, so the
   // completion screen never offers a row that would silently do nothing.
   if (!goal || (goal.status !== 'active' && goal.status !== 'paused')) return;
-  const next = new Decimal(newTarget);
+  let next: Decimal;
+  try {
+    next = new Decimal(newTarget);
+  } catch {
+    return; // unparseable input is not a raise
+  }
   if (!next.isFinite() || next.lte(goal.targetAmount)) return; // raise only
   appendAll([
     {
@@ -311,37 +325,135 @@ export function advanceTime(
   // — APY series are non-negative, so before this the money could only ever go
   // up, which is the most dangerous lesson a practice app can teach.
   const legsByPosition = new Map<string, PositionLeg[]>();
+  /** Catalog-resolved positions, replayable or not (batch D — see the planner). */
+  const catalogPositions = new Set<string>();
   for (const position of open) {
     const strategy = getStrategy(position.strategyId);
     if (!strategy) continue;
-    const legs: PositionLeg[] = strategy.allocation.map((leg) => {
+    /**
+     * ⚑ I-G1d (`5.105`). A leg with NO history is UNAVAILABLE, not flat.
+     *
+     * This used to substitute `[1]` for a missing price series and `[0]` for a
+     * missing APY series, so the leg silently held its value — "invented data
+     * wearing a fixture stamp", as the interim test that pinned it said. The
+     * consequence was worst exactly where it mattered: a growth position whose
+     * price feed was missing could not fall, which is the one lesson a practice
+     * app must never teach.
+     *
+     * `null` here means "this position cannot be replayed for this span". Time
+     * still advances, its DEPOSITS still fire and the trail is still written —
+     * what does NOT happen is an accrual claiming earnings nobody can evidence.
+     * MISSING is not zero, and it is not flat either.
+     *
+     * ⚑ The deposits only survive because of batch D: this position is omitted
+     * from `legsByPosition` but recorded in `catalogPositions`, and the planner
+     * gates its Working reservation on the latter. An earlier revision of this
+     * comment claimed "deposits still fire" while the planner still gated them
+     * on `legsByPosition` — it did not, and `ledgerClient`'s paused-goal test
+     * caught it. The two maps must both be passed for this to stay true.
+     */
+    const legs: (PositionLeg | null)[] = strategy.allocation.map((leg) => {
       const model = PROTOCOL_RETURN_MODEL[leg.protocolId];
       if (model.kind === 'market') {
         const history = priceByProtocol.get(leg.protocolId);
+        if (!history || history.points.length === 0) return null;
         return {
           kind: 'market',
           weightPercent: leg.weightPercent,
           price: {
-            // No price series → a flat 1.0 series: the leg holds its value
-            // rather than inventing a move in either direction.
-            points:
-              history && history.points.length > 0 ? history.points.map((p) => p.priceUsd) : [1],
-            source: history?.stamp.source === 'coingecko' ? 'coingecko' : 'fixture',
+            points: history.points.map((p) => p.priceUsd),
+            /* I-G1a: the dates ride along instead of being discarded here —
+               dropping them is what left the replay unable to anchor to a
+               calendar window (5.105). */
+            dates: history.points.map((p) => p.date),
+            source: history.stamp.source === 'coingecko' ? 'coingecko' : 'fixture',
           },
         };
       }
       const history = byProtocol.get(leg.protocolId);
+      if (!history || history.points.length === 0) return null;
       return {
         kind: 'lending',
         weightPercent: leg.weightPercent,
         apy: {
-          points: history ? history.points.map((p) => p.apyPercent) : [0],
-          source: history?.stamp.source === 'defillama' ? 'defillama' : 'fixture',
+          points: history.points.map((p) => p.apyPercent),
+          /* I-G1a — see the market leg above. `ApyPoint` carries `date`. */
+          dates: history.points.map((p) => p.date),
+          source: history.stamp.source === 'defillama' ? 'defillama' : 'fixture',
         },
       };
     });
-    legsByPosition.set(position.positionId, legs);
+    /* The STRATEGY resolved, so this position is catalog-valid and still owes
+       its recurring deposits even when it cannot be replayed (batch D). Recorded
+       BEFORE the all-or-nothing check below, which is about replayability only. */
+    catalogPositions.add(position.positionId);
+    /* All-or-nothing per POSITION (Strategy/M&E §7: PARTIALLY-EVIDENCED POSITION
+       = WHOLE-POSITION REPLAY UNAVAILABLE). A partially-replayable position would
+       report some legs' movement as the whole position's, understating or
+       overstating by the missing legs' weight — and "do not present evidenced
+       minority legs as the whole-position result" is explicit. Omitting it from
+       this map is the "cannot replay" path; the planner still emits its
+       deposits because `catalogPositions` holds it. */
+    if (legs.some((l) => l === null)) continue;
+    legsByPosition.set(position.positionId, legs as PositionLeg[]);
   }
+
+  /**
+   * The replay's calendar window (`5.105`, I-G1c).
+   *
+   * A `machine` advance replays HISTORY, so it must continue where the previous
+   * machine advance stopped. The epoch is pinned once — the oldest date the
+   * first advance's series actually carried — and how far we have consumed is
+   * derived (`simDay − realSettledDays` = machine days already advanced), so no
+   * stored cursor can drift from the log.
+   *
+   * A `real` advance gets NO window: real elapsed days correspond to the newest
+   * real days, which is exactly what the historic anchoring gives.
+   */
+  const oldestDate = (() => {
+    /**
+     * The epoch must be a day the corpus can actually replay FROM — not merely
+     * the oldest date it mentions.
+     *
+     * ⚑ CORRECTED 2026-09-16, and this is why it matters. A PRICE factor is
+     * `price[d] / price[d-1]`, so a price series' oldest REPLAYABLE day is its
+     * SECOND date; there is no day before its first. Anchoring the epoch to the
+     * oldest date therefore made the first segment of every market replay
+     * uncoverable. That went unnoticed for as long as an uncoverable window fell
+     * back to historic anchoring — the segment replayed a recent tail instead,
+     * and nothing said so. Once the refusal landed (`5.105` §2/§3) it surfaced
+     * immediately as a refused first span.
+     *
+     * And it is the LATEST of the per-series oldest-replayable days, never the
+     * earliest: §2 requires the window to be coverable by EVERY economically
+     * material leg, so an epoch one series cannot reach is an epoch that refuses
+     * the whole position.
+     */
+    const oldestReplayable: string[] = [];
+    const dated = (points: Array<{ date?: string }>) =>
+      points
+        .map((p) => p.date)
+        .filter((d): d is string => typeof d === 'string' && d.length > 0)
+        .sort();
+    for (const h of histories) {
+      const ds = dated(h.points);
+      if (ds.length > 0) oldestReplayable.push(ds[0]);
+    }
+    for (const h of priceHistories) {
+      const ds = dated(h.points);
+      // A single dated price point can never yield a factor.
+      if (ds.length > 1) oldestReplayable.push(ds[1]);
+    }
+    return oldestReplayable.length > 0 ? oldestReplayable.sort().at(-1) : undefined;
+  })();
+  const epoch = source === 'machine' ? (state.replayEpoch ?? oldestDate) : undefined;
+  const machineDaysBefore = state.simDay - state.realSettledDays;
+  const windowStartDate = (() => {
+    if (epoch === undefined) return undefined;
+    const d = new Date(`${epoch}T00:00:00Z`);
+    d.setUTCDate(d.getUTCDate() + machineDaysBefore);
+    return d.toISOString().slice(0, 10);
+  })();
 
   // The money-moving logic lives in the pure planner (unit tested); this layer
   // only supplies the store-derived inputs and the event stamps.
@@ -362,12 +474,26 @@ export function advanceTime(
     }),
     workingStart: state.buckets.working,
     legsByPosition,
+    catalogPositions,
     toDay,
     days,
     source,
+    windowStartDate,
+    /* `5.105` §2/§3: an undated corpus produces no epoch (empty dates are
+       filtered out of `oldestDate` above), and for a MACHINE advance that is an
+       evidence statement, not a configuration choice — so the planner refuses
+       the span and discloses it instead of replaying a recent month. A `real`
+       settle needs no window at all and never refuses. */
+    calendarEvidence: source === 'machine' && epoch === undefined ? 'none' : 'present',
     stamp: () => base(correlationId),
   });
-  appendAll(events);
+  /* Pin the epoch on the first machine advance so every later one continues the
+     same window. `state.replayEpoch` already set ⇒ nothing to pin. */
+  const pin =
+    source === 'machine' && state.replayEpoch === null && epoch !== undefined
+      ? { replayEpoch: epoch }
+      : {};
+  appendAll(events.map((e) => (e.type === 'TimeAdvanced' ? { ...e, ...pin } : e)));
 }
 
 /**
@@ -422,10 +548,18 @@ export function exitPosition(input: { positionId: string; networkFeeLocal: numbe
  * the goal after both fees).
  */
 export function previewExit(
+  /**
+   * ⚑ AUD-C01. This read `getLedgerState()` itself, which made every preview
+   * built on it a function of the CLOCK rather than of its arguments: the same
+   * `input` object handed to `selectExitPreview` twice, with an entry in
+   * between, returned 100.00 then 200.00. A PREVIEW must describe the state the
+   * render saw. Commands (`exitPosition`, `stopGoalStrategies`) still read
+   * current state on purpose — they act on now, not on a snapshot.
+   */
+  state: LedgerState,
   positionId: string,
   networkFeeLocal: number
 ): { gross: string; exitFee: string; networkFee: string; net: string } | null {
-  const state = getLedgerState();
   const position = state.positions.find((p) => p.positionId === positionId);
   if (!position || !position.open) return null;
   const gross = new Decimal(position.principal).plus(position.accrued);
@@ -471,6 +605,7 @@ export interface StopPreview {
  * breakage G7 exists to prevent.
  */
 function composeStop(
+  state: LedgerState,
   positions: { positionId: string; strategyId: string }[],
   feeFor: (positionId: string) => number
 ): StopPreview | null {
@@ -479,7 +614,7 @@ function composeStop(
   let exitFee = new Decimal(0);
   let networkFee = new Decimal(0);
   for (const position of positions) {
-    const preview = previewExit(position.positionId, feeFor(position.positionId));
+    const preview = previewExit(state, position.positionId, feeFor(position.positionId));
     if (!preview) continue;
     lines.push({
       positionId: position.positionId,
@@ -501,8 +636,8 @@ function composeStop(
 }
 
 /** Open positions of a goal, in ledger order (the stop set). */
-function openPositionsOf(goalId: string) {
-  return getLedgerState().positions.filter((p) => p.goalId === goalId && p.open);
+function openPositionsOf(state: LedgerState, goalId: string) {
+  return state.positions.filter((p) => p.goalId === goalId && p.open);
 }
 
 /**
@@ -511,12 +646,13 @@ function openPositionsOf(goalId: string) {
  * which entry point opened it. Null when the position is closed or unknown.
  */
 export function previewPositionStop(
+  state: LedgerState,
   positionId: string,
   networkFeeLocal: number
 ): StopPreview | null {
-  const position = getLedgerState().positions.find((p) => p.positionId === positionId && p.open);
+  const position = state.positions.find((p) => p.positionId === positionId && p.open);
   if (!position) return null;
-  return composeStop([position], () => networkFeeLocal);
+  return composeStop(state, [position], () => networkFeeLocal);
 }
 
 /**
@@ -529,10 +665,11 @@ export function previewPositionStop(
  * open, so the surface can say so instead of rendering a zeroed ceremony.
  */
 export function previewGoalStop(
+  state: LedgerState,
   goalId: string,
   feeFor: (positionId: string) => number
 ): StopPreview | null {
-  return composeStop(openPositionsOf(goalId), feeFor);
+  return composeStop(state, openPositionsOf(state, goalId), feeFor);
 }
 
 /**
@@ -543,7 +680,7 @@ export function previewGoalStop(
  */
 export function stopGoalStrategies(goalId: string, feeFor: (positionId: string) => number): void {
   const state = getLedgerState();
-  const open = openPositionsOf(goalId);
+  const open = openPositionsOf(state, goalId);
   if (open.length === 0) return;
   const correlationId = generateId();
   const events: LedgerEvent[] = [];

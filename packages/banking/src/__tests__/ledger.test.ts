@@ -325,6 +325,11 @@ describe('C-P0 · play-money invariant durability (CLO Board Session 024 — REQ
       // OUT to anything of value); income is ingress. C-P0 preserved.
       SimulatedExpensePaid: true,
       SimulatedIncomeReceived: true,
+      // `5.105` I-G1d / §9-§10: a machine replay span CONSUMED with the economic
+      // replay refused. Money-free by contract — no earnings, no movement, no
+      // backfill — so it is not value egress in any direction; it records that a
+      // span will not be replayed again and WHY. C-P0 preserved.
+      ReplaySpanRefused: true,
     };
     const VALUE_EGRESS =
       /withdraw|cash[-_ ]?out|payout|prize|reward|redeem|convert|transfer.*(out|external)/i;
@@ -1499,5 +1504,65 @@ describe('§3 rate-pinning (board §3.7) — AccrualApplied.ratesUsed backward-c
     expect(withRates.goals[0].earnings).toBe(withoutRates.goals[0].earnings);
     expect(reconcile(withRates)).toBe('0.00');
     expect(reconcile(withoutRates)).toBe('0.00');
+  });
+});
+
+/**
+ * `5.105` / I-G1c — the replay epoch is pinned ONCE, at the projection.
+ *
+ * ⚑ Why this lives here and not in the sandbox's ledger test. `advanceTime`
+ * attaches `replayEpoch` only while `state.replayEpoch === null`, so a second
+ * advance emits NO pin and the projection's first-non-null condition is never
+ * exercised from that path. Sabotaging the guard to "last pin wins" left the
+ * ledger-level suite 5/5 green — it proves the CALLER does not re-pin, which is
+ * a different guarantee from the PROJECTION refusing one. Only a hand-built log
+ * carrying two different epochs reaches the guard.
+ *
+ * The property matters because it is what makes the replay window stable under a
+ * provider refresh (§7): a later advance must not be able to slide the window
+ * the earlier ones were already replayed against.
+ */
+describe('5.105 — the replay epoch is pinned once and never rewritten', () => {
+  it('should keep the FIRST epoch when a later advance carries a different one', () => {
+    const state = project([
+      { ...base(), type: 'PlayMoneyGranted', amount: '1000', currency: 'USD', mode: 'b2c' },
+      { ...base(), type: 'TimeAdvanced', days: 30, source: 'machine', replayEpoch: '2026-01-01' },
+      { ...base(), type: 'TimeAdvanced', days: 30, source: 'machine', replayEpoch: '2026-06-01' },
+    ] as LedgerEvent[]);
+    expect(state.replayEpoch).toBe('2026-01-01');
+    expect(state.simDay).toBe(60);
+  });
+
+  it('should stay null when no advance carries an epoch (pre-I-G1c ledgers)', () => {
+    const state = project([
+      { ...base(), type: 'PlayMoneyGranted', amount: '1000', currency: 'USD', mode: 'b2c' },
+      { ...base(), type: 'TimeAdvanced', days: 30, source: 'machine' },
+    ] as LedgerEvent[]);
+    expect(state.replayEpoch).toBeNull();
+    // Backward-compat: an old ledger still advances, it just uses the historic
+    // anchoring rather than inventing a window.
+    expect(state.simDay).toBe(30);
+  });
+
+  it('should accept an epoch pinned by a LATER advance when the first carried none', () => {
+    // A ledger that predates I-G1c and then advances again: the first pin it
+    // ever sees becomes the epoch.
+    const state = project([
+      { ...base(), type: 'PlayMoneyGranted', amount: '1000', currency: 'USD', mode: 'b2c' },
+      { ...base(), type: 'TimeAdvanced', days: 10, source: 'machine' },
+      { ...base(), type: 'TimeAdvanced', days: 10, source: 'machine', replayEpoch: '2026-03-15' },
+    ] as LedgerEvent[]);
+    expect(state.replayEpoch).toBe('2026-03-15');
+  });
+
+  it('should not let a real-time settle pin an epoch it did not mean to', () => {
+    // `real` advances never carry one; if one ever did, the projection stores it
+    // verbatim — so this pins the CALLER's contract as documented, not a guess.
+    const state = project([
+      { ...base(), type: 'PlayMoneyGranted', amount: '1000', currency: 'USD', mode: 'b2c' },
+      { ...base(), type: 'TimeAdvanced', days: 3, source: 'real' },
+    ] as LedgerEvent[]);
+    expect(state.replayEpoch).toBeNull();
+    expect(state.realSettledDays).toBe(3);
   });
 });

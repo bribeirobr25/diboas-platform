@@ -3,7 +3,6 @@
 import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Button } from '@/components/Button';
-import { LucideIcon } from '@/components/LucideIcon';
 import styles from './boundary.module.css';
 
 /**
@@ -25,9 +24,6 @@ export default function AppError({
 
   return (
     <section className={styles.wrap} role="alert" aria-labelledby="app-error-title">
-      <span className={styles.icon}>
-        <LucideIcon name="info" size={26} />
-      </span>
       <h1 id="app-error-title" className={styles.title}>
         <FormattedMessage id="error.title" />
       </h1>

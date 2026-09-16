@@ -1,7 +1,7 @@
 {
   "common": {
-    "appName": "diBoaS Sandbox",
-    "playBadge": "Sandbox · dinero de práctica",
+    "appName": "diBoaS Practice",
+    "playBadge": "Practice · sin dinero real",
     "playDisclaimer": "Practice es una simulación. No se mueve dinero real. Practice no ofrece asesoramiento financiero ni de inversión. Los Practice Credits son unidades de práctica simuladas sin valor monetario; no son moneda fiduciaria ni Rewards (recompensas). No pueden convertirse en dinero real, retirarse, canjearse ni transferirse.",
     "back": "Volver",
     "cancel": "Cancelar",
@@ -9,17 +9,19 @@
     "dataLive": "En vivo de {source}, obtenido {date}",
     "dataFixture": "Valores de referencia documentados ({date}), no datos de mercado en vivo.",
     "dataMixed": "Parcialmente en vivo de {source}, obtenido {date}. Valores de referencia ({fixtureDate}) para: {protocols}.",
+    "dataPartlyLive": "Parcialmente en vivo de {source}, obtenido {date}.",
+    "dataGasReference": "La comisión de red (gas) utilizada en esta simulación se basa en valores de referencia, no en una consulta en tiempo real de la comisión de red. Las comisiones de red reales pueden ser diferentes.",
     "frameCaption": "Modo práctica. Dinero de práctica, datos reales de mercado.",
     "skipToContent": "Saltar al contenido",
     "wordmarkAlt": "diBoaS"
   },
   "gate": {
-    "title": "diBoaS Sandbox",
-    "subtitle": "El producto, en modo práctica. Dinero de práctica, mercado real. Nada que perder mientras aprendes los mandos.",
+    "title": "diBoaS Practice",
+    "subtitle": "Practice es una simulación. No se mueve dinero real. Puedes explorar decisiones sin poner dinero real en juego.",
     "passwordLabel": "Contraseña de acceso",
-    "enter": "Entrar en el sandbox",
+    "enter": "Entrar en Practice",
     "error": "Esa contraseña no ha abierto la puerta. Prueba otra vez.",
-    "notConfigured": "La puerta del sandbox aún no está configurada. Define SANDBOX_ACCESS_PASSWORD y reinicia."
+    "notConfigured": "El acceso a Practice no está disponible."
   },
   "home": {
     "goalsTitle": "Metas",
@@ -106,7 +108,8 @@
     "approve": "Aprobar este movimiento",
     "approveEntry": "Aprobar · mover {amount}",
     "withdrawReassurance": "Puedes sacarlo cuando quieras.",
-    "footer": "Nada se mueve hasta que apruebes. Esto es dinero de práctica."
+    "footer": "Nada se mueve hasta que apruebes. Esto es dinero de práctica.",
+    "feeLabel": "Coste de red"
   },
   "settlement": {
     "title": "Confirmando",
@@ -114,7 +117,7 @@
     "step1": "Enviado",
     "step2": "Confirmando",
     "step3": "Confirmado",
-    "note": "Así se liquidaría un movimiento real. En el sandbox siempre se confirma y no ocurre ninguna transacción real."
+    "note": "Esto ilustra una liquidación simulada en Practice; no se realiza ninguna transacción real."
   },
   "goalDetail": {
     "progress": "{current} de {target}",
@@ -145,6 +148,7 @@
     "accrued": "{name} varió {amount}",
     "exited": "Salida de {strategy}: {gross} de vuelta, comisión de salida {fee}",
     "timeAdvanced": "Máquina del tiempo: {days, plural, one {# día} other {# días}} hacia delante",
+    "replayRefused": "Este periodo no se puede reproducir porque los datos históricos necesarios no están disponibles.",
     "timeSettled": "Mientras no estabas: {days, plural, one {# día} other {# días}} de tiempo real",
     "goalPaused": "Has pausado {name}. El dinero invertido sigue trabajando.",
     "goalResumed": "Has reanudado {name}.",
@@ -181,43 +185,43 @@
     "strategies": {
       "safeHarbor": {
         "name": "Safe Harbor",
-        "tagline": "A steady home for money you can't risk"
+        "tagline": "Un lugar estable para el dinero que no puedes arriesgar."
       },
       "stableGrowth": {
         "name": "Stable Growth",
-        "tagline": "A step past stable, with guardrails on"
+        "tagline": "Un paso más allá de la estabilidad, con límites definidos."
       },
       "goalKeeper": {
         "name": "Goal Keeper",
-        "tagline": "Protecting your near-term goals"
+        "tagline": "Para metas a corto plazo, con la protección en primer plano."
       },
       "steadyProgress": {
         "name": "Steady Progress",
-        "tagline": "Short-term goals, a little market in the mix"
+        "tagline": "Metas a corto plazo, con una pequeña exposición al mercado."
       },
       "patientBuilder": {
         "name": "Patient Builder",
-        "tagline": "Built for a long, patient horizon"
+        "tagline": "Pensado para un horizonte largo y paciente."
       },
       "balancedBuilder": {
         "name": "Balanced Builder",
-        "tagline": "Stable ground and market exposure, together"
+        "tagline": "Base estable y exposición al mercado, juntas."
       },
       "steadyCompounder": {
         "name": "Steady Compounder",
-        "tagline": "Let time do the heavy lifting"
+        "tagline": "Deja que el tiempo haga gran parte del trabajo."
       },
       "wealthAccelerator": {
         "name": "Wealth Accelerator",
-        "tagline": "For those at ease with real ups and downs"
+        "tagline": "Para quienes se sienten cómodos con altibajos marcados."
       },
       "fullHarvest": {
         "name": "Full Harvest",
-        "tagline": "Low price swings, patient by design"
+        "tagline": "Pensado para una menor oscilación de precios y un enfoque paciente."
       },
       "fullThrottle": {
         "name": "Full Throttle",
-        "tagline": "Maximum risk, maximum exposure"
+        "tagline": "Riesgo máximo, exposición máxima."
       }
     }
   },
@@ -226,7 +230,7 @@
     "amountLabel": "Cuánto cada mes",
     "amountPlaceholder": "p. ej. 200",
     "explainer": "Cada mes, esto pasa de tu dinero trabajando a esta meta, para que siga invertido.",
-    "note": "Dinero de práctica, y funciona solo mientras te dure el dinero trabajando. Sin comisión por esto en el sandbox.",
+    "note": "Esto utiliza únicamente dinero simulado y continúa mientras haya saldo de Practice disponible. Estas aportaciones no tienen comisión en Practice.",
     "confirm": "Activarlo",
     "activeLine": "Añadiendo {amount} cada mes",
     "pausedBody": "Pausado por ahora. Se te ha acabado el dinero trabajando, así que no entra nada nuevo. Añade más o baja el importe.",
@@ -246,7 +250,7 @@
   "geofence": {
     "badge": "Comprobación de región",
     "title": "No disponible en tu región",
-    "body": "El sandbox de práctica de diBoaS no está disponible donde estás ahora. No es nada de tu parte.",
+    "body": "diBoaS Practice no está disponible actualmente en tu región. No hay ningún problema por tu parte.",
     "legal": "El acceso desde tu región está restringido por motivos de cumplimiento normativo.",
     "link": "Ir a diboas.com"
   },
@@ -442,7 +446,7 @@
     "addTitle": "Añadir créditos",
     "addBody": "Esto funciona en la app real. En modo práctica, tus créditos vienen de tu ritmo semanal.",
     "withdrawTitle": "Retirar",
-    "withdrawBody": "Esto funciona en la app real. En modo práctica, el dinero se queda en el sandbox.",
+    "withdrawBody": "Practice no mueve dinero real. Todo el dinero simulado permanece dentro de Practice.",
     "withdrawFee": "Comisión de retiro",
     "withdrawFeePer": "{fee} por {base}",
     "okay": "De acuerdo"
@@ -458,7 +462,7 @@
     "correct": "Correcto. Los créditos de práctica siguen siendo dinero de práctica, siempre.",
     "incorrect": "No exactamente. Los créditos de práctica nunca se convierten en dinero real.",
     "continue": "Continuar",
-    "note": "El sandbox lo mantiene todo a salvo para que aprendas sin presión.",
+    "note": "Practice te permite explorar sin poner dinero real en juego.",
     "skip": "Omitir"
   },
   "error": {
@@ -563,6 +567,7 @@
     "meaningGrew": "En este tramo creció, con algunas subidas y bajadas por el camino.",
     "meaningFell": "En este tramo cayó. Pasa, y es lo que el mercado hizo de verdad.",
     "meaningFlat": "En este tramo se quedó cerca de donde empezó.",
+    "meaningUnavailable": "Este periodo no se puede reproducir porque los datos históricos necesarios no están disponibles.",
     "meaningNone": "Pon dinero a trabajar y luego avanza el reloj para ver cómo habría ido.",
     "excludes": "No incluye tus aportaciones futuras ni los créditos semanales.",
     "startDate": "Fecha de inicio",
@@ -575,6 +580,7 @@
     "down": "hacia abajo",
     "dayN": "Día {day}",
     "chartDescription": "Valor de práctica de {start} a {end}, {direction} en total, entre {low} y {high}.",
+    "chartDescriptionUnavailable": "Valor de práctica de {start} a {end}, entre {low} y {high}.",
     "footnote": "Esta simulación reproduce datos históricos reales del mercado. No incluye aportaciones futuras ni créditos semanales."
   },
   "rules": {
@@ -703,5 +709,12 @@
     "explanation": "Un espacio para lo que las personas están construyendo en su vida: contexto relevante, historias de progreso y apoyo. Tus metas, decisiones y dinero siguen siendo tuyos.",
     "availability": "El acceso público aún no está abierto.",
     "action": "Volver al inicio"
+  },
+  "modeMarker": {
+    "practice": "PRACTICE · SIMULADO",
+    "real": "DINERO REAL"
+  },
+  "learn": {
+    "explainer": "Entiende, con un lenguaje claro, las ideas que hay detrás de una decisión sobre dinero. Aprender te ayuda a explorar el contexto, las alternativas y lo que algo podría significar, sin decirte qué elegir."
   }
 }

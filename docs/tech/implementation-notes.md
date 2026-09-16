@@ -190,7 +190,7 @@ Each entry names its **current code state** and its **ruled target** separately,
 - **`SCENARIO_RATES` (7 / 10 / 14) is superseded as canonical Product truth (P-Q2 §2.9).** _Current code:_ `packages/investing/src/goals.ts:172`, consumed by `Projection.tsx` / `ExpenseImpactCard.tsx`. _Ruled:_ may remain test/fixture data; static values must never become production Product truth or an implied recommendation; the two components are `RETAIN EXPERIMENTAL / QUARANTINED` — never reinserted into Goal creation; Pay Myself First stays contribution-only. Any future projection must be modeled/illustrative, assumption-qualified, methodology-accessible, horizon- and uncertainty-aware, non-forecast, non-recommendatory, and excluded from actual Goal balance/progress.
 - **Practice-depth capabilities keep the P-Q2 dispositions** (register: `docs/sandbox-app/R1_BUILD_INVENTORY_2026-08-21.md` §6). Preserve; do not delete, re-home or redesign; Weekly cycle preserved under Growth authority; `/comprehension` stays doorless and is never a proof-of-reading gate; a Payment Handle is never exposed as Community identity.
 - **Mode labels and colours (F-01 / F-05).** Label `PRACTICE • SIMULATED` (Practice = mode, Simulated = state qualifier) and `REAL MONEY`; Practice = violet/periwinkle family, Real = teal/aqua family per the Product handoff §34 (brand colour ≠ semantic colour; the approved visuals are **not** re-tinted into the masterbrand palette). Mode distinction never relies on colour alone — the label is the primary signal (R-4 stays under every screen); semantic tokens must pass accessibility validation. Public name **Practice**; "Sandbox" is internal only.
-- **Sandbox token architecture (I-1d/I-1e, 2026-09-12 — do not regress).** _Current code:_ `apps/sandbox/src/styles/tokens.css` in three tiers — T0 `--palette-*` (every literal colour, once) → T1 `--sb-mode-{50…800}` (the active mode's ramp) → T2 `--sb-<family>-<role>` (what components use). Six themes = neutral / practice / real × light / dark. **TWO attributes, and the distinction is load-bearing:** `[data-palette]` on `<html>` is what re-points the ramp, and it is stamped only when the `modePalette` capability is on (`SANDBOX_MODE_PALETTE`, REQUIRES_CLEARANCE, default OFF); `data-mode` states the mode TRUTH on every in-app surface (I-1e's shell-family registry) and **paints nothing**. So the live app renders `neutral` because `data-palette` is absent, not because the mode is unknown. _Rules, enforced by `apps/sandbox/src/styles/__tests__/tokenArchitecture.test.ts`:_ component CSS references declared roles only — no palette values, ramp steps, literal colours or per-theme recolouring (image swaps and the Consent structural layout excepted); `financial.*` / `state.*` / `identity.*` never read the mode ramp, so a mode switch cannot recolour an outcome (Mode × Appearance §18); every foreground role sits in a contrast pair checked in all six themes (4.5:1 text, 3:1 graphics); the explicit-dark and system-dark copies stay identical; nothing declared is unused; comments name only tokens that exist; and **no mode block may select on `data-mode`**. The practice and real values are **provisional calibration**, not authority — enabling the palette re-tints every Practice screen teal → periwinkle, which is a Product/UIUX decision (register `5.282`). **Why the explicit guard:** for one commit in I-1e the ramp keyed off `data-mode` while the new shell stamped it everywhere, so the provisional palette went live and **720 tests passed over it** — each one asserting the ATTRIBUTE rather than the resolved colour. The guard now asserts the RESOLVED accent, which is the general rule for anything whose point is a rendered value.
+- **Sandbox token architecture (I-1d/I-1e, 2026-09-12 — do not regress).** _Current code:_ `apps/sandbox/src/styles/tokens.css` in three tiers — T0 `--palette-*` (every literal colour, once) → T1 `--sb-mode-{50…800}` (the active mode's ramp) → T2 `--sb-<family>-<role>` (what components use). Six themes = neutral / practice / real × light / dark. **TWO attributes, and the distinction is load-bearing:** `[data-palette]` on `<html>` is what re-points the ramp, and it is stamped only when the `modePalette` capability is on (`SANDBOX_MODE_PALETTE`, REQUIRES_CLEARANCE, default OFF); `data-mode` states the mode TRUTH on every in-app surface (I-1e's shell-family registry) and **paints nothing**. So the live app renders `neutral` because `data-palette` is absent, not because the mode is unknown. _Rules, enforced by `apps/sandbox/src/styles/__tests__/tokenArchitecture.test.ts`:_ component CSS references declared roles only — no palette values, ramp steps, literal colours or per-theme recolouring (image swaps and the Consent structural layout excepted); `financial.*` / `state.*` / `identity.*` never read the mode ramp, so a mode switch cannot recolour an outcome (Mode × Appearance §18); every foreground role sits in a contrast pair checked in all six themes (4.5:1 text, 3:1 graphics); the explicit-dark and system-dark copies stay identical; nothing declared is unused; comments name only tokens that exist; and **no mode block may select on `data-mode`**. The practice and real values are **provisional calibration**, not authority — enabling the palette re-tints every Practice screen teal → periwinkle, which is a Product/UIUX decision (register `5.282`). **Why the explicit guard:** for one commit in I-1e the ramp keyed off `data-mode` while the new shell stamped it everywhere, so the provisional palette went live and **720 tests passed over it** — each one asserting the ATTRIBUTE rather than the resolved colour. The guard now asserts the RESOLVED accent, which is the general rule for anything whose point is a rendered value. **⭐ Extended 2026-09-16 by the Error family (`5.365` · `5.377` · `5.378` · `5.379`) — two decisions that look like accidents and are not:** **(1) There is deliberately NO `--sb-state-error-icon`.** The ratified calibration gives the icon and the foreground _identical_ values in both appearances, so an Error icon consumes `--sb-state-error-foreground`; a fourth declared role would be a token with no consumer, which the dead-token rule correctly fails (`5.310`). Do not "complete the set". **(2) The gate renders the Error SURFACE in BOTH appearances, and the reason is the guard's shape, not taste.** `TEXT_PAIRS`/`GRAPHIC_PAIRS` are flat lists asserted across all six themes, so a combination rendered in only ONE appearance cannot be expressed — adding it fails the other. Measured: only `error-fg ↔ error-surface` (4.87–5.80) and `error-border ↔ error-surface` (3.51–3.66) hold in all six cells; `error-border ↔ inverse plate` (1.91–5.86) and `error-surface ↔ inverse plate` (1.46–14.14) swing across their floor by cell and are therefore **deliberately absent** from the matrices. Dark did not need the surface (bare foreground is 8.89:1 on the plate); it renders anyway so the asserted pair is uniform. **The boundary is the opposite case:** it sits on `--sb-canvas-base` where the foreground clears the floor directly (5.75 light / 8.89 dark), so it renders NO surface and NO border — and its `info` glyph was _removed_ rather than replaced, because the governed icon door ships no Error/failure glyph among its 57 keys. **Per-surface, the containing surface decides the treatment** — that is the whole lesson of `5.377`: contrast is a property of the local surface, never of the appearance.
 - **Brand assets (F-02).** The logo / palm / glow inside the Product visuals is placeholder; implementation uses a Brand-controlled asset slot and migrates when Brand supplies the final wordmark / redrawn palm / token spec. Never a blocker for architecture.
 - **Shell (F-04).** Five tabs — Home · Goals · Move · Learn · Community. An unavailable Learn or Community tab stays tappable and opens a truthful calm explainer / unavailable-state surface (W-9c) — never a dead or fake control, never a release date. Nothing of Community activates (content, profiles, interaction, data, Growth mechanisms).
 - **Auth (F-06 / F-07).** Methods = Google · email · wallet (W-1; Apple deferred). Proof appropriate to the method: email → email verification; Google → provider-authenticated identity; wallet → proof of wallet control. W-14a (universal verified email) is **not** canonized. Wallet sign-in is authentication only: no funding, custody, KYC completion, Real readiness, execution readiness or Real activation is implied, and **no wallet is provisioned in Practice** (W-2 stands: provisioning belongs to the Real journey / Real-intent boundary). The EN-02 disclosure line ("connecting a wallet only signs you in; no funds move") ships with the screen.
@@ -198,6 +198,83 @@ Each entry names its **current code state** and its **ruled target** separately,
 - **Persistent accounts (F-16).** May be built behind a server flag (`BUILD PERMISSION ≠ PUBLIC RELEASE PERMISSION`); public persistent release stays blocked pending the evidence in `docs/sandbox-app/legal-current/PRACTICE_LEGAL_RELEASE_CHECKLIST.md`.
 - **Readiness controls (LC-TD-02 §4).** Four separate concepts — `LEGAL-TERMS` (required, unchecked) · `LEGAL-PRIVACY` (information, not consent) · `LEGAL-AGE` (required, unchecked, its own control) · `LEGAL-ANALYTICS` (optional, off) — with the exact approved four-locale strings in `docs/sandbox-app/legal-current/PRACTICE_UI_LEGAL_STRINGS.md`. Never bundle Terms with age or privacy; never require analytics to continue. _Current code:_ `components/Consent.tsx` bundles all three in one accept (PENDING_ALL 5.143 / r3 I-02) — an authorized-next-phase fix.
 - **Instrumentation** follows `docs/tech/INSTRUMENTATION_CONTRACT.md` (documentation only until the runtime is authorized). _Current code:_ the app has no analytics.
+
+## G8 time-machine replay: the anchoring and evidence contract (2026-09-15 — do not regress)
+
+Added because the increment gate found this subsystem had **no** do-not-regress entry while batches D
+and E changed its load-bearing behaviour. Every rule below describes code that exists today; none of
+it creates Product authority. Register: `5.105` (open), `5.360`, `5.359`.
+
+- **Within ONE advance every segment shares the advance's global `toDay` anchor.** _Current code:_
+  `apps/sandbox/src/lib/advancePlanner.ts` passes `toDay` to `ratesForSpan` / `priceFactorsForSpan`
+  for every boundary of the merged grid. _Why:_ letting a segment re-anchor to its own end overlaps
+  windows and double-counts recent movement. `g8PriceReplay.test.ts` is a guard-rail test that PROVES
+  per-segment re-anchoring diverges — do not "simplify" the anchor to `segEnd`.
+- **ACROSS advances a `machine` replay consumes history sequentially.** _Current code:_ `TimeAdvanced`
+  carries an optional `replayEpoch`, pinned on the FIRST machine advance and never rewritten
+  (projection: first non-null wins, `packages/banking/src/ledger/projection/core.ts`); how far the
+  replay has consumed is DERIVED as `simDay − realSettledDays`, never stored. _Why:_ a stored cursor
+  can disagree with the log. `real` advances pin nothing on purpose — real elapsed days genuinely
+  correspond to the newest real days, so the historic newest-tail anchoring is correct for them, and
+  `TimeAdvanced.source` is what discriminates the two modes. A uniform sequential context would make
+  three real days replay days 91-93 of a historical window.
+- **A leg with no history is UNAVAILABLE, never flat and never zero.** _Current code:_
+  `apps/sandbox/src/lib/ledger/journey.ts` returns `null` for a leg whose price or APY series is
+  absent, and the position is then omitted from `legsByPosition`. It previously substituted
+  `points: [1]` (price) or `[0]` (APY), which silently held a leg's value — invented data wearing a
+  `fixture` stamp, and worst exactly where it mattered, because a growth position whose price feed was
+  missing could not FALL. Do not reintroduce a default series.
+- **Replayability is ALL-OR-NOTHING per position.** Ruled by Strategy/M&E §7 (2026-09-15):
+  `PARTIALLY-EVIDENCED POSITION = WHOLE-POSITION REPLAY UNAVAILABLE`; do not hold missing legs flat,
+  and do not present evidenced minority legs as the whole-position result. `fullThrottle` is why: one
+  15% lending leg plus 85% market, so replaying only the evidenced leg would report 15% of the
+  position as the whole of it.
+- **Deposits are NOT gated on replayability — the two questions are different.** _Current code:_
+  `planAdvance` takes `catalogPositions` (the strategy resolved) beside `legsByPosition` (the history
+  can be replayed). Phase 1's Working reservation gates on the CATALOG; the accrual gates on
+  replayability; the recurring deposit fires on its own boundary inside neither gate. _Why:_ a monthly
+  contribution is the user's own money moving on a calendar and depends on no market series. Gating
+  both on one map made an honest replay refusal also swallow the deposit. The L1 rule still holds
+  separately: a catalog-drift position reserves nothing, so it cannot starve a real position.
+- **A refused accrual is safe for the conservation identity, by construction.** `reconcile()`
+  (`packages/banking/src/ledger/engine.ts`) sums `earnings` from the EMITTED `AccrualApplied` events,
+  and the projection applies those same events, so a refusal removes the term from both sides
+  together. Do not re-derive earnings from positions independently of the event log.
+- **Provenance never over-claims.** `apySource: 'defillama'` is reserved for a replay where EVERY leg
+  was live; any fixture leg makes the whole emission `'fixture'`. `ratesUsed` is pinned only for a
+  sole lending leg at 100% — no catalog strategy is shaped that way, so `legsReplayed` (per-leg
+  multiples) is the live audit record.
+- **An unusable calendar window is REFUSED and DISCLOSED — never replaced with another month.**
+  _Current code:_ `advancePlanner.refusalFor` decides, and emits `ReplaySpanRefused` instead of an
+  accrual; `accrual.windowCoverage` names the cause. Ruled by `5.105` §2/§3 and `5.360`:
+  `MIXED-CALENDAR POSITION = WHOLE-POSITION REPLAY UNAVAILABLE`, a refused span is
+  `CONSUMED AS A DISCLOSED EVIDENCE GAP`, and there is **no catch-up, no retroactive auto-replay and
+  no backfill** when new provider data appears. _Why:_ `usableWindow` returning `undefined` used to
+  fall through to `historicFactors`, which replayed a recent tail and presented it as the requested
+  stretch. Do not restore that fallback for `machine`; it remains correct for `real`, where elapsed
+  days genuinely are the newest days.
+- **`windowCoverage` EXPLAINS a refusal; the windowed functions DECIDE one.** A test asserts
+  `covered` ⟺ the real function returns non-null. Do not let the classifier become a second source
+  of truth about the same fact — that is the `5.381`/`5.384` shape.
+- **An evidence claim is an INPUT to the planner, never an inference.** `planAdvance` takes
+  `calendarEvidence: 'none' | 'present'`; only `journey.ts` knows whether every date was filtered out
+  of `oldestDate`. Inferring it from an absent `windowStartDate` refused six unit tests' spans,
+  because a direct caller omitting the window is a harness choice, not an evidence statement.
+- **The replay EPOCH is the oldest day the corpus can replay FROM, not the oldest date it mentions.**
+  _Current code:_ `journey.ts#oldestDate` takes each APY series' first dated day and each PRICE
+  series' **second**, then the LATEST of those. _Why:_ a price factor is `price[d] / price[d-1]`, so a
+  price series cannot be replayed from its own first date; and §2 needs a window every economically
+  material leg can cover, so the latest — never the earliest — is the only safe anchor. Anchoring to
+  the oldest date made the first segment of every market replay uncoverable, which went unseen for as
+  long as the fallback existed.
+- **A fixture corpus has ONE calendar: `fixtureDateSeries` in `@diboas/defi`.** Any APY or price
+  series describing the same stretch anchors there. _Why:_ several test corpora hand-built APY dates
+  from a fixed `2026-01-01` while prices anchored to today, so one position's legs described
+  different months. Measured once the refusal landed: of twelve monthly spans in one 360-day advance,
+  **one refused as `window-outside-series` and four as `mixed-calendar`**. Do not re-introduce a
+  hand-built date ladder beside `fixturePriceSeries`.
+- **`5.105` is CLOSED by this increment; `5.360` is implemented.** What remains is only what the
+  register says remains — read the row, not this line.
 
 ## `/market` methodology + review-gate decisions (wave #614-#624, 2026-09-16)
 

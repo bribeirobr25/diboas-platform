@@ -133,8 +133,20 @@
   flex-direction: column;
   gap: var(--spacing-2xs);
   border-radius: var(--sb-radius-card);
-  background: var(--sb-state-warning-subtle);
-  color: var(--sb-state-warning-on-subtle);
+  /* A validation failure is an ERROR, not a warning — §5 keeps the two
+     semantics separate, and this plate painted the warning family until
+     2026-09-16 (5.378).
+
+     The border is §2's boundary cue, and on THIS surface it is required in
+     BOTH appearances: the Error surface separates from the canvas behind it by
+     only 1.18:1 in light and 1.53:1 in dark, so the plate cannot delimit its
+     own region either way. §2's "Error surface = primary boundary cue" branch
+     describes the INVERSE plate, where separation is 12-14:1 — that is the
+     gate, not this screen. The border clears its 3:1 floor on the canvas in
+     both: 4.14:1 light, 5.62:1 dark. */
+  border: 1px solid var(--sb-state-error-border);
+  background: var(--sb-state-error-surface);
+  color: var(--sb-state-error-foreground);
   font-size: var(--font-size-sm);
 }
 

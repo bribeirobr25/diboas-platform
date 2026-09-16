@@ -1,25 +1,27 @@
 {
   "common": {
-    "appName": "diBoaS Sandbox",
-    "playBadge": "Sandbox · dinheiro de mentira",
-    "playDisclaimer": "Aqui tudo roda com dinheiro de mentira. Ele nunca vira dinheiro de verdade, prêmio, nem nada de valor. Os dados de mercado são reais; os resultados mostram o que teria acontecido.",
+    "appName": "diBoaS Practice",
+    "playBadge": "Practice · sem dinheiro real",
+    "playDisclaimer": "Practice é uma simulação. Nenhum dinheiro real é movimentado. Practice não oferece aconselhamento financeiro ou de investimento. Practice Credits são unidades simuladas de prática sem valor monetário; não são moeda fiduciária nem Rewards (recompensas). Não podem ser convertidos em dinheiro real, sacados, resgatados ou transferidos.",
     "back": "Voltar",
     "cancel": "Cancelar",
     "loading": "Carregando",
     "dataLive": "Ao vivo de {source}, buscado em {date}",
     "dataFixture": "Valores de referência documentados ({date}), não são dados de mercado ao vivo.",
     "dataMixed": "Parcialmente ao vivo de {source}, buscado em {date}. Valores de referência ({fixtureDate}) para: {protocols}.",
+    "dataPartlyLive": "Parcialmente ao vivo de {source}, buscado em {date}.",
+    "dataGasReference": "A taxa de rede (gas) usada nesta simulação se baseia em valores de referência, não em uma consulta em tempo real da taxa de rede. As taxas de rede reais podem ser diferentes.",
     "frameCaption": "Modo treino. Dinheiro de mentira, dados reais de mercado.",
     "skipToContent": "Pular para o conteúdo",
     "wordmarkAlt": "diBoaS"
   },
   "gate": {
-    "title": "diBoaS Sandbox",
-    "subtitle": "O produto, em modo treino. Dinheiro de mentira, mercado de verdade. Nada a perder enquanto você aprende os controles. Ambiente de prática: não é um sandbox regulatório nem programa oficial.",
+    "title": "diBoaS Practice",
+    "subtitle": "Practice é uma simulação. Nenhum dinheiro real é movimentado. Você pode explorar decisões sem colocar dinheiro real em jogo.",
     "passwordLabel": "Senha de acesso",
-    "enter": "Entrar no sandbox",
+    "enter": "Entrar no Practice",
     "error": "Essa senha não abriu a porta. Tenta de novo.",
-    "notConfigured": "A porta do sandbox ainda não foi configurada. Defina SANDBOX_ACCESS_PASSWORD e reinicie."
+    "notConfigured": "O acesso ao Practice não está disponível."
   },
   "home": {
     "goalsTitle": "Metas",
@@ -106,7 +108,8 @@
     "approve": "Aprovar este movimento",
     "approveEntry": "Aprovar · mover {amount}",
     "withdrawReassurance": "Você pode tirar isso quando quiser.",
-    "footer": "Nada se move até você aprovar. É dinheiro de mentira."
+    "footer": "Nada se move até você aprovar. É dinheiro de mentira.",
+    "feeLabel": "Custo de rede"
   },
   "settlement": {
     "title": "Confirmando",
@@ -114,7 +117,7 @@
     "step1": "Enviado",
     "step2": "Confirmando",
     "step3": "Confirmado",
-    "note": "É assim que um movimento real seria concluído. No sandbox ele sempre confirma, e nenhuma transação real acontece."
+    "note": "Isto ilustra uma liquidação simulada no Practice; nenhuma transação real acontece."
   },
   "goalDetail": {
     "progress": "{current} de {target}",
@@ -145,6 +148,7 @@
     "accrued": "{name} variou {amount}",
     "exited": "Saiu de {strategy}: {gross} de volta, taxa de saída {fee}",
     "timeAdvanced": "Máquina do tempo: {days, plural, one {# dia} other {# dias}} pra frente",
+    "replayRefused": "Este período não pode ser reproduzido porque os dados históricos necessários não estão disponíveis.",
     "timeSettled": "Enquanto você esteve fora: {days, plural, one {# dia} other {# dias}} de tempo real",
     "goalPaused": "Você pausou {name}. O dinheiro investido continua trabalhando.",
     "goalResumed": "Você retomou {name}.",
@@ -226,7 +230,7 @@
     "amountLabel": "Quanto por mês",
     "amountPlaceholder": "ex.: 200",
     "explainer": "Todo mês, esse valor sai do dinheiro que trabalha e entra nessa meta, para continuar investido.",
-    "note": "Dinheiro de brincadeira, e só funciona enquanto durar o dinheiro que trabalha. Sem taxa nisso no sandbox.",
+    "note": "Isto usa apenas dinheiro simulado e continua enquanto houver saldo de Practice disponível para trabalhar. Não há taxa para essas contribuições no Practice.",
     "confirm": "Ativar",
     "activeLine": "Adicionando {amount} todo mês",
     "pausedBody": "Pausado por enquanto. O dinheiro que trabalha acabou, então nada novo está entrando. Adicione mais ou reduza o valor.",
@@ -246,7 +250,7 @@
   "geofence": {
     "badge": "Verificação de região",
     "title": "Indisponível na sua região",
-    "body": "O sandbox de prática da diBoaS não está disponível onde você está agora. Não é nada do seu lado.",
+    "body": "O diBoaS Practice não está disponível na sua região no momento. Não há nada de errado do seu lado.",
     "legal": "O acesso a partir da sua região está restrito por motivos de conformidade regulatória.",
     "link": "Ir para diboas.com"
   },
@@ -442,7 +446,7 @@
     "addTitle": "Adicionar créditos",
     "addBody": "Isso funciona no app real. No modo prática, seus créditos vêm do seu ritmo semanal.",
     "withdrawTitle": "Sacar",
-    "withdrawBody": "Isso funciona no app real. No modo prática, o dinheiro fica no sandbox.",
+    "withdrawBody": "O Practice não movimenta dinheiro real. Todo dinheiro simulado permanece dentro do Practice.",
     "withdrawFee": "Taxa de saque",
     "withdrawFeePer": "{fee} por {base}",
     "okay": "Entendi"
@@ -458,7 +462,7 @@
     "correct": "Isso mesmo. Crédito de treino é dinheiro de mentira, sempre.",
     "incorrect": "Quase. Crédito de treino nunca vira dinheiro de verdade.",
     "continue": "Continuar",
-    "note": "O Sandbox mantém tudo seguro pra você aprender sem pressão.",
+    "note": "Practice permite explorar sem colocar dinheiro real em jogo.",
     "skip": "Pular"
   },
   "error": {
@@ -563,6 +567,7 @@
     "meaningGrew": "Nesse período ele cresceu, com altos e baixos pelo caminho.",
     "meaningFell": "Nesse período ele caiu. Isso acontece, e foi o que o mercado realmente fez.",
     "meaningFlat": "Nesse período ele ficou perto de onde começou.",
+    "meaningUnavailable": "Este período não pode ser reproduzido porque os dados históricos necessários não estão disponíveis.",
     "meaningNone": "Coloque dinheiro para trabalhar e depois avance o relógio para ver como teria sido.",
     "excludes": "Não inclui seus aportes futuros nem os créditos semanais.",
     "startDate": "Data inicial",
@@ -575,6 +580,7 @@
     "down": "para baixo",
     "dayN": "Dia {day}",
     "chartDescription": "Valor de treino de {start} a {end}, {direction} no total, variando entre {low} e {high}.",
+    "chartDescriptionUnavailable": "Valor de treino de {start} a {end}, variando entre {low} e {high}.",
     "footnote": "Esta simulação repete dados históricos reais de mercado. Não inclui aportes futuros nem créditos semanais."
   },
   "rules": {
@@ -703,5 +709,12 @@
     "explanation": "Um espaço para o que as pessoas estão construindo na vida: contexto relevante, histórias de progresso e apoio. Suas metas, decisões e dinheiro continuam sendo seus.",
     "availability": "O acesso público ainda não está aberto.",
     "action": "Voltar ao início"
+  },
+  "modeMarker": {
+    "practice": "PRACTICE · SIMULADO",
+    "real": "DINHEIRO REAL"
+  },
+  "learn": {
+    "explainer": "Entenda, em linguagem clara, as ideias por trás de uma decisão sobre dinheiro. Aprender ajuda você a explorar contexto, escolhas e o que algo pode significar — sem dizer o que você deve escolher."
   }
 }

@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import styles from './FrameCaption.module.css';
 
 /**
- * "diBoaS Sandbox / Practice mode. Play money, real market data." — the quiet
+ * "diBoaS Practice / Practice mode. Play money, real market data." — the quiet
  * two-line caption above the app.
  *
  * It carries the sandbox framing for the WHOLE product (founder 2026-08-21):

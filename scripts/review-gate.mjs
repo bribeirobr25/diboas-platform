@@ -16,6 +16,8 @@
  *   exports     two built screens shipped linked from nowhere
  *   port        killing by process group off a port's pid list took down
  *               Docker Desktop — a port's pids include its CLIENTS
+ *   battery     the gate printed "Mechanical rows green" and exited 0 without
+ *               ever running type-check, lint, format:check or the suites
  *
  *   pnpm review:increment     mechanical rows + the increment manual checklist
  *   pnpm review:system        mechanical rows + the system manual checklist
@@ -86,7 +88,24 @@ function checkRegister() {
     };
   }
   const s = readFileSync(found.path, 'utf8');
-  const ids = [...s.matchAll(/^(?:\||>) \*\*(\d+\.\d+)\*\*/gm)].map((m) => m[1]);
+  /**
+   * ⚑ WIDENED 2026-09-15. The pattern required the id to CLOSE its bold span
+   * (`**5.347**`), so every row written as `> **5.347 — title**` — id and title
+   * inside ONE span — was invisible to this check. Measured: 302 ids seen, 321
+   * present, so NINETEEN were unguarded (5.77-5.86 historical, 5.347-5.355 from
+   * the Pre-I2 pass). The marker's own instructions already say a claim-scan
+   * "must cover both formats, file-wide"; this check did not. Verified safe
+   * before widening: zero duplicate definitions under the wide pattern.
+   *
+   * ⚑ KEPT THROUGH THE 2026-09-16 MERGE of `origin/main`, whose own resolution of
+   * this function narrowed the pattern back to a closed bold span. Dropping the
+   * alternation silently un-guards those same nineteen ids, so the merge took
+   * origin/main's `resolveRegister` + FAIL-never-SKIP prelude AND this pattern.
+   * `checkRegister` is the MARKET lane's function per their implementation-notes
+   * entry, so this edit is announced in `docs/cc-sync/market-sandbox.md` rather
+   * than made silently.
+   */
+  const ids = [...s.matchAll(/^(?:\||>) \*\*(\d+\.\d+)(?:\*\*|\s|—)/gm)].map((m) => m[1]);
   if (ids.length === 0)
     return { ok: false, detail: 'no ids matched — the instrument, not the file' };
   const counts = new Map();
@@ -132,6 +151,44 @@ function checkRegister() {
  * disagree. Historical mentions are excluded — and the filter names what it
  * drops, because whatever a filter excludes can never be found (X6).
  */
+/**
+ * Do the counts this repository PUBLISHES agree with each other?
+ *
+ * ⚑ REBUILT 2026-09-16, taking `5.323` (market lane's finding) and `5.387`
+ * (mine). Four separate defects, each of which made the row report something
+ * other than what the corpus says:
+ *
+ * 1. **`README.md` was not in scope at all** (`5.323`). The walk was
+ *    `docs/**` + `CLAUDE.md`, so the most public place a stale number can sit
+ *    was the one place the check could not reach — it read "~1,388 automated
+ *    tests" while the workspace had 2,441, and the row said PASS. Now every
+ *    ROOT `*.md` is walked, README included.
+ * 2. **No thousands separator, and no `tests` between the two numbers.**
+ *    `(\d{3,4})\s*\/\s*(\d{2,3})\s*files` cannot match `2,611 tests / 224
+ *    files` at all, and on `2,610 / 224 files` it captured `610` — a figure
+ *    published nowhere, then reported as a distinct claim. So the row was
+ *    blind to the corpus's most common phrasing while inventing numbers from
+ *    its second. Measured both ways before and after.
+ * 3. **`HISTORICAL` was tested against the WHOLE LINE** (`5.323`), so a live
+ *    claim sharing a line with the word *prior* or *baseline* was dropped with
+ *    it. It is now tested against the SENTENCE the match sits in.
+ * 4. **The `quoted` test was not same-span** (`5.387`). It was
+ *    `new RegExp('["’`][^"’`]*<digits>')`, which can open its quote
+ *    region anywhere earlier on a backtick-dense line — which is why a replica
+ *    of this function reported 1 claim where the gate reported 3 on an
+ *    identical tree. It now asks a positional question: is THIS match's offset
+ *    inside an open quote? Single quotes are deliberately NOT delimiters —
+ *    prose is full of apostrophes, and counting them made "lane's" open a
+ *    string. A quoted count is now EXCLUDED rather than counted: it is someone
+ *    else's sentence being discussed, and the old code let a backticked,
+ *    non-historical count through as this repository's own claim.
+ *
+ * What this filter DROPS, stated as `guard-filters-are-part-of-the-threat-model`
+ * requires: counts inside quotes or backticks; counts in a sentence carrying a
+ * historical marker. A sentence carrying a historical marker AND the word
+ * "current" is neither dropped nor counted — it FAILS as ambiguous, because
+ * ambiguity in a published figure is the defect.
+ */
 function checkCounts() {
   const docs = [];
   const walk = (dir) => {
@@ -143,30 +200,75 @@ function checkCounts() {
     }
   };
   walk('docs');
-  if (existsSync(join(ROOT, 'CLAUDE.md'))) docs.push('CLAUDE.md');
+  // 5.323: every ROOT markdown file, not just CLAUDE.md.
+  for (const e of readdirSync(ROOT, { withFileTypes: true }))
+    if (e.isFile() && e.name.endsWith('.md')) docs.push(e.name);
+
   const HISTORICAL =
     /\bwas\b|withdrawn|prior|baseline|historical|superseded|corrected|never re-measured|earlier/i;
+  // `2,724 tests / 230 files`, `872 / 83 files`, `998/99 files`.
+  const COUNT = /(\d{1,3}(?:,\d{3})+|\d{3,4})\s*(?:tests?)?\s*\/\s*(\d{2,3})\s*files/g;
+
+  /** Is offset `i` inside an open `…` or "…" region on this line? */
+  const insideQuotes = (line, i) => {
+    let bt = 0,
+      dq = 0;
+    for (let k = 0; k < i; k++) {
+      const c = line[k];
+      if (c === '`') bt += 1;
+      else if (c === '"' || c === '“' || c === '”') dq += 1;
+    }
+    return bt % 2 === 1 || dq % 2 === 1;
+  };
+
+  /** The sentence containing offset `i` — not the whole line (5.323). */
+  const sentenceAt = (line, i) => {
+    const starts = [0];
+    for (const m of line.matchAll(/[.!?]\s+/g)) starts.push(m.index + m[0].length);
+    let a = 0;
+    let b = line.length;
+    for (const st of starts) if (st <= i) a = st;
+    for (const st of starts)
+      if (st > i) {
+        b = st;
+        break;
+      }
+    return line.slice(a, b);
+  };
+
   const claims = new Map();
+  const ambiguous = [];
   let excluded = 0;
   for (const d of docs) {
     for (const line of rd(d).split('\n')) {
-      for (const m of line.matchAll(/(\d{3,4})\s*\/\s*(\d{2,3})\s*files/g)) {
-        if (HISTORICAL.test(line)) {
+      for (const m of line.matchAll(COUNT)) {
+        if (insideQuotes(line, m.index)) {
           excluded += 1;
           continue;
         }
-        const key = `${m[1]}/${m[2]}`;
+        const scope = sentenceAt(line, m.index);
+        if (HISTORICAL.test(scope) && /\bcurrent\b/i.test(scope)) {
+          ambiguous.push(`${d}: ${scope.trim().slice(0, 90)}`);
+          continue;
+        }
+        if (HISTORICAL.test(scope)) {
+          excluded += 1;
+          continue;
+        }
+        const key = `${m[1].replace(/,/g, '')}/${m[2]}`;
         if (!claims.has(key)) claims.set(key, new Set());
         claims.get(key).add(d);
       }
     }
   }
   const detail = [
-    `${claims.size} distinct CURRENT claim(s); ${excluded} historical mention(s) excluded`,
+    `${docs.length} doc(s) walked; ${claims.size} distinct CURRENT claim(s); ` +
+      `${excluded} quoted-or-historical mention(s) excluded`,
   ];
   for (const [k, where] of claims)
     detail.push(`  ${k} — ${[...where].map((w) => w.split('/').pop()).join(', ')}`);
-  return { ok: claims.size <= 1, detail: detail.join('\n      ') };
+  for (const a of ambiguous) detail.push(`  AMBIGUOUS (historical marker + "current"): ${a}`);
+  return { ok: claims.size <= 1 && ambiguous.length === 0, detail: detail.join('\n      ') };
 }
 
 /* ------------------------------------------------------------- authorities */
@@ -227,7 +329,47 @@ function checkStaged() {
   ];
   const hard = [];
   const soft = [];
-  for (const [label, re] of NEVER) if (added.some((l) => re.test(l))) hard.push(label);
+  /**
+   * ⚑ FIXED 2026-09-14 (AUD-G02). The patterns were tested against ADDED LINES
+   * only, so staging `docs/full-view/canon/probe.txt` with neutral contents
+   * PASSED — while this check printed that very path in its own output. A
+   * protected-path rule is about WHERE a file lives, not what it says. The
+   * filename sweep uses the FULL list (not the self-excluded one): a path rule
+   * has no legitimate exception, and this file's own path is not a canon path.
+   */
+  /**
+   * ⚑ NARROWED 2026-09-14, the same day the filename sweep was added — because
+   * the sweep then refused this very batch over two lines that merely NAME
+   * `docs/sandbox-app/legal-current/` while explaining why approved strings are
+   * embedded rather than read at runtime. A path RULE is about where a file
+   * lives; a path MENTION inside prose is a reference, not a leak. So:
+   *
+   *   - protected path as a staged FILENAME  -> always a refusal (this is the
+   *     half that caught the independent audit's canon probe, and it does not
+   *     move);
+   *   - protected path inside an added LINE  -> only when it is NOT being
+   *     discussed, i.e. not wrapped in backticks or quotes.
+   *
+   * Same shape as the `counts` narrowing above, and the same lesson for the
+   * third time in one day: a detector that cannot tell a mention from an
+   * assertion will eventually refuse its own documentation.
+   */
+  const mentioned = (line, re) => {
+    const m = line.match(re);
+    if (!m) return false;
+    const quoted = new RegExp(
+      '["\'\u201c\u201d`][^"\'\u201c\u201d`]*' + m[0].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    );
+    return !quoted.test(line);
+  };
+  for (const [label, re] of NEVER) {
+    if (files.some((f) => re.test(f))) {
+      hard.push(`${label} (staged FILE)`);
+      continue;
+    }
+    if (added.some((l) => mentioned(l, re))) hard.push(`${label} (unquoted in an added line)`);
+  }
+  // WARN stays line-only: a filename containing % or $ is not a disclosure risk.
   for (const [label, re] of WARN) if (added.some((l) => re.test(l))) soft.push(label);
 
   const detail = [`${files.length} file(s) staged: ${files.join(', ')}`];
@@ -241,6 +383,8 @@ function checkStaged() {
 
 /* ----------------------------------------------------------------- exports */
 /** An exported function with no consumer is dead, or a screen nobody links. */
+const stripComments = (t) => t.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+
 /**
  * Files this change actually touches — worktree, index, and branch commits
  * (register 5.383). Best-effort: if git cannot answer, return null and let the
@@ -288,10 +432,20 @@ function checkExports(target = 'apps/sandbox/src/view', scope = 'apps/sandbox/sr
     (f) => f.endsWith('.ts') || f.endsWith('.tsx')
   );
   const dead = [];
+  const internalOnly = [];
   let checked = 0;
   for (const m of mods) {
     const src = rd(`${target}/${m}`);
-    for (const mt of src.matchAll(/^export (?:async )?function (\w+)/gm)) {
+    /**
+     * ⚑ FIXED 2026-09-14 (AUD-G02). Only `export function` was matched, so a
+     * selector written `export const x = …` was invisible and `checked` stayed
+     * 0 — which then printed "all consumed" and PASSED.
+     */
+    const decls = [
+      ...src.matchAll(/^export (?:async )?function (\w+)/gm),
+      ...src.matchAll(/^export const (\w+)\s*[:=]/gm),
+    ];
+    for (const mt of decls) {
       const name = mt[1];
       checked += 1;
       let hits = '';
@@ -300,18 +454,69 @@ function checkExports(target = 'apps/sandbox/src/view', scope = 'apps/sandbox/sr
       } catch {
         /* grep found nothing */
       }
+      /**
+       * ⚑ FIXED 2026-09-14 (AUD-G02): a name appearing only in a COMMENT counted
+       * as a consumer — the same "a grep cannot tell a mention from a use"
+       * class this runner exists to catch. Comments are stripped before the
+       * name is credited.
+       */
+      /**
+       * ⚑ SCOPED 2026-09-14. Excluding `__tests__` is right for the defect this
+       * check was born from — two SCREENS shipped linked from nowhere, where a
+       * test proves nothing about reachability. It is wrong for a PURE
+       * FUNCTION: a selector's direct unit test is its legitimate consumer, and
+       * treating it as none reported `selectGoalProgress` (used by two sibling
+       * selectors and covered by 62 tests) as unnecessary. `testsCount` is
+       * therefore true for pure-function targets and false for reachable
+       * surfaces, and the detail line states which applied.
+       */
+      const testsCount = target.includes('/view');
       const consumers = hits
         .split('\n')
         .filter(Boolean)
-        .filter((f) => !f.includes('__tests__') && !f.endsWith(`${target}/${m}`));
-      if (consumers.length === 0) dead.push(name);
+        .filter((f) => (testsCount ? true : !f.includes('__tests__')))
+        .filter((f) => !f.endsWith(`${target}/${m}`))
+        .filter((f) =>
+          new RegExp(`\\b${name}\\b`).test(stripComments(readFileSync(join(ROOT, f), 'utf8')))
+        );
+      /**
+       * TWO different findings, and collapsing them was hiding one (AUD-C03).
+       * A symbol with no use ANYWHERE is dead. A symbol used only inside its own
+       * module is not dead — it is EXPORTED UNNECESSARILY, which is a weaker but
+       * real finding: the export widens the seam's public surface and invites a
+       * second caller to bypass the intended entry point. Both are reported,
+       * separately, so neither is filed as the other.
+       */
+      if (consumers.length === 0) {
+        const selfBody = stripComments(src);
+        const usedInternally = (selfBody.match(new RegExp(`\\b${name}\\b`, 'g')) ?? []).length > 1;
+        if (usedInternally) internalOnly.push(name);
+        else dead.push(name);
+      }
     }
   }
+  // ⚑ FIXED 2026-09-14 (AUD-G02): `checked === 0` printed "all consumed" and
+  // PASSED. A count floor of zero is never a pass — it means the scan found
+  // nothing to scan, which is the instrument failing, not the code being clean.
+  if (checked === 0)
+    return {
+      ok: false,
+      detail: `${target} exists but the scan matched NO exported symbol — instrument failure, not a clean result`,
+    };
+  const notes = [];
+  if (dead.length) notes.push(`NO CONSUMER ANYWHERE: ${dead.join(', ')}`);
+  if (internalOnly.length)
+    notes.push(
+      `EXPORTED UNNECESSARILY (used only within its own module, plus its test): ${internalOnly.join(', ')}`
+    );
   return {
-    ok: dead.length === 0,
+    ok: dead.length === 0 && internalOnly.length === 0,
     detail:
-      `${checked} exported function(s) checked in ${target}` +
-      (dead.length ? ` · NO CONSUMER: ${dead.join(', ')}` : ' · all consumed'),
+      `${checked} exported symbol(s) checked in ${target}` +
+      (target.includes('/view')
+        ? ' (pure-function target: a direct unit test counts as a consumer)'
+        : ' (reachable-surface target: tests do NOT count as consumers)') +
+      (notes.length ? ` · ${notes.join(' · ')}` : ' · all consumed'),
   };
 }
 
@@ -375,7 +580,50 @@ const MANUAL = {
 
 const mode = process.argv[2] ?? 'increment';
 const args = process.argv.slice(3);
+/* ----------------------------------------------------------------- battery */
+/**
+ * ⚑ ADDED 2026-09-14 (AUD-G01). Every check above is a TEXT or REGISTRY check.
+ * None of them ran type-check, lint, format:check or the suites — and yet a
+ * clean run printed "Mechanical rows green" and exited 0, which any reader
+ * takes as "the gate passed". An increment that does not COMPILE cannot have
+ * passed a review gate, so the claim was broader than the evidence.
+ *
+ * This row runs the battery for real. `--fast` skips it, and the run then
+ * reports INCOMPLETE (exit 2) rather than green — a skipped row is not a pass.
+ * It is deliberately the WHOLE workspace, not just the sandbox: scoping a gate
+ * to one package is the exact defect that let a `packages/banking` break sit red
+ * at the root for a day while `screen-check` reported PASS every time.
+ */
+function checkBattery() {
+  if (process.argv.includes('--fast'))
+    return {
+      skip: true,
+      detail: '--fast given: battery NOT run. The exit code reports INCOMPLETE, not green.',
+    };
+  const steps = [
+    ['type-check', 'pnpm type-check'],
+    ['lint', 'pnpm lint'],
+    ['format:check', 'pnpm format:check'],
+    ['test', 'pnpm test'],
+  ];
+  const failures = [];
+  for (const [name, cmd] of steps) {
+    try {
+      sh(cmd);
+    } catch {
+      failures.push(name);
+    }
+  }
+  return failures.length
+    ? { ok: false, detail: `FAILED: ${failures.join(', ')} — run each directly for its output` }
+    : {
+        ok: true,
+        detail: `${steps.map((s) => s[0]).join(' \u00b7 ')} all green (whole workspace)`,
+      };
+}
+
 const CHECKS = {
+  battery: ['the mechanical battery actually ran', checkBattery],
   register: ['register id integrity', checkRegister],
   counts: ['republished test counts agree', checkCounts],
   authorities: ['authority coverage of the gates', checkAuthorities],
@@ -383,8 +631,10 @@ const CHECKS = {
   exports: ['exported functions have consumers', checkExports],
 };
 const PLAN = {
-  increment: ['register', 'counts', 'authorities', 'staged', 'exports'],
-  system: ['authorities', 'counts', 'register', 'exports', 'staged'],
+  /* `battery` runs FIRST in both: if it does not compile, nothing downstream is
+     worth reading. */
+  increment: ['battery', 'register', 'counts', 'authorities', 'staged', 'exports'],
+  system: ['battery', 'authorities', 'counts', 'register', 'exports', 'staged'],
 };
 
 console.log(`\n${C.b}Review Gate — ${mode}${C.x}`);
@@ -407,6 +657,12 @@ console.log(
   `${C.d}Mechanical (⚙ rows). Each exists because its defect already shipped here.${C.x}`
 );
 let failed = 0;
+/**
+ * ⚑ ADDED 2026-09-14 (AUD-G02). A skipped row was summarised as "Mechanical
+ * rows green" with exit 0 — an absent PENDING_ALL, or an empty stage, read as
+ * a pass. A row that could not run is INCOMPLETE, and the exit code says so.
+ */
+let skipped = 0;
 for (const key of plan) {
   const [label, fn] = CHECKS[key];
   process.stdout.write(`  ${label} … `);
@@ -416,8 +672,10 @@ for (const key of plan) {
   } catch (e) {
     r = { ok: false, detail: `check threw: ${e.message}` };
   }
-  if (r.skip) console.log(`${C.y}SKIP${C.x}\n      ${C.d}${r.detail}${C.x}`);
-  else {
+  if (r.skip) {
+    console.log(`${C.y}SKIP${C.x}\n      ${C.d}${r.detail}${C.x}`);
+    skipped += 1;
+  } else {
     console.log(r.ok ? `${C.g}PASS${C.x}` : `${C.r}FAIL${C.x}`);
     console.log(`      ${C.d}${r.detail}${C.x}`);
     if (!r.ok) failed += 1;
@@ -436,6 +694,8 @@ if (list.length) {
 console.log(
   failed
     ? `\n${C.r}${C.b}${failed} mechanical check(s) FAILED.${C.x}\n`
-    : `\n${C.g}${C.b}Mechanical rows green.${C.x} ${C.d}The manual half is still yours.${C.x}\n`
+    : skipped
+      ? `\n${C.y}${C.b}INCOMPLETE — ${skipped} row(s) could not run.${C.x} ${C.d}A skipped row is not a pass. The manual half is still yours.${C.x}\n`
+      : `\n${C.g}${C.b}Mechanical rows green.${C.x} ${C.d}The manual half is still yours.${C.x}\n`
 );
-process.exit(failed ? 1 : 0);
+process.exit(failed ? 1 : skipped ? 2 : 0);

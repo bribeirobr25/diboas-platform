@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
+import { observedStamp } from '@diboas/defi';
 import { reconcile } from '@diboas/banking';
 import {
   advanceTime,
@@ -26,7 +27,7 @@ const poisoned = (days: number) =>
       // Every tenth day is out of the domain the compounding formula has.
       apyPercent: i % 10 === 0 ? -150 : 5,
     })),
-    stamp: { source: 'defillama' as const, asOf: '2026-09-11T00:00:00Z' },
+    stamp: observedStamp('defillama', '2026-09-11T00:00:00Z'),
   }));
 
 describe('an out-of-domain APY reaches the ledger as nothing, never as NaN (5.209)', () => {

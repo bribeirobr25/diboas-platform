@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { FIXTURE_STAMP } from '@diboas/defi';
 import { reconcile } from '@diboas/banking';
 import {
   advanceTime,
@@ -113,14 +114,28 @@ describe('the month-report aggregator', () => {
         date: `2026-08-${String(i + 1).padStart(2, '0')}`,
         priceUsd: 200 - i * 3,
       })),
-      stamp: { source: 'fixture' as const, asOf: '2026-08-01' },
+      stamp: FIXTURE_STAMP,
     });
-    advanceTime(30, [], 'machine', [
-      falling('skySsr'),
-      falling('sanctumInf'),
-      falling('jupiterJlp'),
-      falling('jito'),
-    ]);
+    /* `fullThrottle` is 15% skySsr LENDING + 85% market. Strategy/M&E §7 makes a
+       PARTIALLY-evidenced position unavailable as a whole, so the APY series must
+       be supplied too — otherwise the lending leg is unevidenced, the position
+       refuses, and the market row would be absent for the RIGHT reason while this
+       test looked like it caught the wrong one. Evidencing both is the honest fix:
+       the fall below is then real movement, not a gap. */
+    const flatApy = (protocolId: 'skySsr' | 'sanctumInf' | 'jupiterJlp' | 'jito') => ({
+      protocolId,
+      points: Array.from({ length: 40 }, (_, i) => ({
+        date: `2026-08-${String(i + 1).padStart(2, '0')}`,
+        apyPercent: 5,
+      })),
+      stamp: FIXTURE_STAMP,
+    });
+    advanceTime(
+      30,
+      [flatApy('skySsr'), flatApy('sanctumInf'), flatApy('jupiterJlp'), flatApy('jito')],
+      'machine',
+      [falling('skySsr'), falling('sanctumInf'), falling('jupiterJlp'), falling('jito')]
+    );
     const report = buildMonthReport(getLedgerState(), WINDOW.fromIso, WINDOW.toIso)!;
     const market = report.sources.find((s) => s.key === 'marketChange');
     // The row must EXIST and be negative — an absent row would mean the loss

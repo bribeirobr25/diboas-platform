@@ -38,6 +38,30 @@ export interface PositionState {
   enteredSimDay: number;
   /** Sim day accrual has been applied through (exclusive of days not yet simulated). */
   accruedThroughSimDay: number;
+  /**
+   * Sim day the machine REPLAY has been consumed through — advanced by both
+   * `AccrualApplied` and `ReplaySpanRefused` (`5.105` I-G1d, Resolution §9).
+   *
+   * Distinct from `accruedThroughSimDay` on purpose. That field is an ACCRUAL
+   * CLAIM: advancing it for a span where no accrual occurred would make it lie.
+   * But the planner also needs to know how far the replay has been consumed, or
+   * a refused span is re-walked on the next advance — the automatic catch-up §3
+   * prohibits.
+   *
+   * ⚑ Why STORED rather than derived. `TimeAdvanced` stores only the replay
+   * epoch and derives consumption as `simDay − realSettledDays`, "so there is
+   * no second cursor that could disagree with the log". That holds only while
+   * every machine day is replayed: `project()` advances `simDay` on every
+   * advance but `realSettledDays` only for `source: 'real'`, so the difference
+   * counts machine days ADVANCED. After a refusal, advanced ≠ replayed, and the
+   * derived figure would assert that refused days were replayed. §9 approves a
+   * separate cursor for exactly this reason — do not "simplify" it back.
+   *
+   * OPTIONAL for backward-compat: positions projected from ledgers written
+   * before I-G1d lack it, and `?? accruedThroughSimDay` is the honest fallback
+   * (before refusals existed, the two were always equal).
+   */
+  replayConsumedThroughSimDay?: number;
   open: boolean;
 }
 
@@ -79,6 +103,13 @@ export interface LedgerState {
   genesisRecordedAt: string | null;
   /** Real days already settled via `source:'real'` TimeAdvanced events (WS-F idempotency). */
   realSettledDays: number;
+  /**
+   * The replay's pinned epoch — the calendar date machine-day 0 replays
+   * (`5.105`, I-G1c). `null` until the first `machine` advance pins it, and on
+   * every ledger written before I-G1c; the replay then uses the historic
+   * anchoring rather than inventing a window.
+   */
+  replayEpoch: string | null;
   split: { floorPercent: number; cushionPercent: number; workingPercent: number } | null;
   /** Bucket balances (working excludes money moved into goals). */
   buckets: Record<JobBucket, string>;
@@ -128,6 +159,7 @@ export function emptyState(): LedgerState {
     simDay: 0,
     genesisRecordedAt: null,
     realSettledDays: 0,
+    replayEpoch: null,
     split: null,
     buckets: { floor: '0', cushion: '0', working: '0' },
     goals: [],

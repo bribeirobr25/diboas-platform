@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { observedStamp } from '@diboas/defi';
 import {
   advanceTime,
   createGoal,
@@ -42,7 +43,7 @@ const apyHistories = (days: number): ProtocolApyHistory[] =>
       date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
       apyPercent: 5,
     })),
-    stamp: { source: 'defillama' as const, asOf: '2026-08-20T00:00:00Z' },
+    stamp: observedStamp('defillama', '2026-08-20T00:00:00Z'),
   }));
 
 /** A goal with money at work, so the value line has something to track. */
@@ -158,6 +159,30 @@ describe('the practice value decomposition (5.199)', () => {
     expect(d.identityHolds).toBe(true);
   });
 
+  it('should treat TWO entries on the opening day as the start value, not as a change', () => {
+    /**
+     * AUD-F03. Both entries land on simDay 0, so both are the opening value —
+     * `push()` overwrites the same-day point with the combined total, which
+     * means `start` already contains them. Counting the second in `entered`
+     * double-counted it and the identity could not close, yet the screen kept
+     * explaining. Reproduced from the auditor's figures.
+     */
+    const goalId = positionAtWork(1000);
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 100, networkFeeLocal: 0 });
+
+    const before = decomposePracticeValue(getLedgerState());
+    expect(before.points).toHaveLength(1);
+    expect(before.start).toBeCloseTo(1100, 2);
+    expect(before.entered).toBe(0);
+
+    advanceTime(30, apyHistories(400), 'machine');
+
+    const d = decomposePracticeValue(getLedgerState());
+    expect(d.entered).toBe(0);
+    expect(d.market + d.contributed + d.entered - d.exited).toBeCloseTo(d.end - d.start, 2);
+    expect(d.identityHolds).toBe(true);
+  });
+
   it('should report zero deposits when no recurring plan exists, so a percentage stays honest', () => {
     // With nothing but market movement, `end − start` IS the market term and a
     // percentage is a genuine return — the one case the screen may show one.
@@ -188,5 +213,56 @@ describe('the practice value decomposition (5.199)', () => {
     expect(classifyTrend(1000, 1000.5)).toBe('flat');
     expect(classifyTrend(1000, 1100)).toBe('grew');
     expect(classifyTrend(1000, 900)).toBe('fell');
+  });
+});
+
+/**
+ * `5.105` §3 / `5.356` — a DISCLOSED replay gap reaches the decomposition.
+ *
+ * The point of these two tests together: a refusal is money-free, so every
+ * existing term and the identity itself are untouched — which is exactly why
+ * `identityHolds` cannot be the signal. Without a separate flag the screen keeps
+ * resolving to `timeMachine.meaningFlat` over a stretch nobody could replay.
+ */
+describe('decomposePracticeValue · a refused span', () => {
+  beforeEach(() => resetSandbox());
+
+  it('should report no gap for an ordinary ledger', () => {
+    positionAtWork(2000);
+    advanceTime(30, apyHistories(400), 'machine');
+    expect(decomposePracticeValue(getLedgerState()).replayUnavailable).toBe(false);
+  });
+
+  it('should disclose the gap while leaving every term and the identity untouched', () => {
+    positionAtWork(2000);
+    advanceTime(30, apyHistories(400), 'machine');
+    const before = decomposePracticeValue(getLedgerState());
+
+    const state = getLedgerState();
+    const refusal = {
+      eventId: 'refusal-1',
+      simDay: state.simDay,
+      recordedAt: '2026-09-16T00:00:00.000Z',
+      correlationId: 'corr-refusal',
+      type: 'ReplaySpanRefused' as const,
+      positionId: state.positions[0].positionId,
+      fromSimDay: 0,
+      toSimDay: 30,
+      reason: 'missing-calendar-evidence' as const,
+    };
+    const after = decomposePracticeValue({ ...state, events: [...state.events, refusal] });
+
+    expect(after.replayUnavailable).toBe(true);
+    // Money-free: the line and all four terms are bit-for-bit what they were.
+    expect(after.points).toEqual(before.points);
+    expect(after.start).toBe(before.start);
+    expect(after.end).toBe(before.end);
+    expect(after.market).toBe(before.market);
+    expect(after.contributed).toBe(before.contributed);
+    expect(after.entered).toBe(before.entered);
+    expect(after.exited).toBe(before.exited);
+    // And the identity still closes — which is precisely why it cannot be the
+    // signal for "this stretch could not be replayed".
+    expect(after.identityHolds).toBe(true);
   });
 });

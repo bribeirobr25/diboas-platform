@@ -13,7 +13,7 @@ vi.mock('@/app/[locale]/consent/actions', () => ({
 import { Consent } from '../Consent';
 
 const M = {
-  'common.playBadge': 'Sandbox · play money',
+  'common.playBadge': 'Practice · no real money',
   'common.wordmarkAlt': 'diBoaS',
   'consent.title': 'Before you start',
   'consent.intro': 'intro',

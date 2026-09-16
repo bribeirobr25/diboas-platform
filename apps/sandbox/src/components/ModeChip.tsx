@@ -5,7 +5,7 @@ import { LucideIcon } from './LucideIcon';
 import styles from './ModeChip.module.css';
 
 /**
- * The "Sandbox · play money" mode chip (design-system primitive, slice A1).
+ * The "Practice · no real money" mode chip (design-system primitive, slice A1).
  * Mode-confusion is the one real safety risk (moving real money by accident),
  * so the label is ONE lexicon wherever it appears rather than each surface
  * inlining its own badge.

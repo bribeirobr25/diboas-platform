@@ -95,7 +95,7 @@ describe('previewExit — the widened exit primitive (Step 0 item 7)', () => {
 
   it('should itemize gross, exit fee, the passed-in network fee, and a net that is exactly gross − both fees', () => {
     const positionId = openPosition();
-    const preview = previewExit(positionId, 5);
+    const preview = previewExit(getLedgerState(), positionId, 5);
     expect(preview).not.toBeNull();
     expect(preview!.gross).toBe('990.00'); // 990 principal + 0 accrued
     expect(preview!.networkFee).toBe('5.00'); // echoes the caller-computed gas fee (board §8.1a)
@@ -109,7 +109,7 @@ describe('previewExit — the widened exit primitive (Step 0 item 7)', () => {
 
   it('should return null for an unknown or already-closed position', () => {
     openPosition();
-    expect(previewExit('no-such-position', 5)).toBeNull();
+    expect(previewExit(getLedgerState(), 'no-such-position', 5)).toBeNull();
   });
 });
 
@@ -147,7 +147,7 @@ describe('the exit manifest books exactly what it shows (FC-15)', () => {
   it('should land in the goal exactly the net the preview stated, at a sub-cent fee', () => {
     // Gross 25.00 with a fee quoted at 0.005 (Solana 0.001 × a local rate of 5).
     const positionId = positionWorth(25);
-    const preview = previewExit(positionId, 0.005)!;
+    const preview = previewExit(getLedgerState(), positionId, 0.005)!;
     exitPosition({ positionId, networkFeeLocal: 0.005 });
     // The goal held no cash before, so its cash now IS what the exit landed.
     expect(getLedgerState().goals[0].cash).toBe(preview.net);
@@ -165,7 +165,7 @@ describe('the exit manifest books exactly what it shows (FC-15)', () => {
         resetSandbox();
         const positionId = positionWorth(25);
         const fee = gas * rate;
-        const preview = previewExit(positionId, fee)!;
+        const preview = previewExit(getLedgerState(), positionId, fee)!;
         exitPosition({ positionId, networkFeeLocal: fee });
         expect(getLedgerState().goals[0].cash, `gas ${gas} × rate ${rate}`).toBe(preview.net);
       }
@@ -241,7 +241,7 @@ describe('G4 emitter guards match the engine (§4.4 audit)', () => {
       fundAmount: 500,
     });
     pauseGoal(goalId);
-    raiseGoalTarget(goalId, 900);
+    raiseGoalTarget(goalId, '900');
     const goal = getLedgerState().goals.find((g) => g.goalId === goalId)!;
     expect(goal.targetAmount).toBe('900.00');
     expect(goal.status).toBe('paused'); // raising never resumes or closes it
@@ -256,7 +256,7 @@ describe('G4 emitter guards match the engine (§4.4 audit)', () => {
       fundAmount: 500,
     });
     accomplishGoal(goalId, 'held-as-cash');
-    raiseGoalTarget(goalId, 900);
+    raiseGoalTarget(goalId, '900');
     expect(getLedgerState().goals.find((g) => g.goalId === goalId)!.targetAmount).toBe('500.00');
   });
 });
@@ -293,7 +293,7 @@ describe('goal-level stop — the G7 composition (§4.7, board §3.3)', () => {
 
   it('should charge the $0.25 exit floor PER position, never once on the summed gross', () => {
     const { goalId } = twoSmallPositions();
-    const preview = previewGoalStop(goalId, () => 0)!;
+    const preview = previewGoalStop(getLedgerState(), goalId, () => 0)!;
     expect(preview.lines).toHaveLength(2);
     // Each 50.00 position is far under the floor's crossover (0.39% of 50 =
     // $0.195), so both pay the floor: the honest total is 0.50, not 0.25.
@@ -306,7 +306,7 @@ describe('goal-level stop — the G7 composition (§4.7, board §3.3)', () => {
 
   it('should sum a network fee PER position (N exits are N on-chain moves)', () => {
     const { goalId } = twoSmallPositions();
-    const preview = previewGoalStop(goalId, () => 3)!;
+    const preview = previewGoalStop(getLedgerState(), goalId, () => 3)!;
     expect(preview.networkFee).toBe('6.00');
     expect(preview.net).toBe(
       new Decimal(preview.gross).minus(preview.exitFee).minus(preview.networkFee).toFixed(2)
@@ -315,7 +315,7 @@ describe('goal-level stop — the G7 composition (§4.7, board §3.3)', () => {
 
   it('should give the single-position preview the SAME shape as the goal-level one', () => {
     const { positions } = twoSmallPositions();
-    const one = previewPositionStop(positions[0], 3)!;
+    const one = previewPositionStop(getLedgerState(), positions[0], 3)!;
     expect(one.lines).toHaveLength(1);
     expect(one.gross).toBe(one.lines[0].gross);
     expect(one.exitFee).toBe('0.25');
@@ -336,7 +336,7 @@ describe('goal-level stop — the G7 composition (§4.7, board §3.3)', () => {
   it('should land the net in the GOAL as cash, never in Available (D-e)', () => {
     const { goalId } = twoSmallPositions();
     const before = getLedgerState().buckets.working;
-    const preview = previewGoalStop(goalId, () => 0)!;
+    const preview = previewGoalStop(getLedgerState(), goalId, () => 0)!;
     stopGoalStrategies(goalId, () => 0);
     const after = getLedgerState();
     expect(after.buckets.working).toBe(before); // Available untouched
@@ -348,7 +348,7 @@ describe('goal-level stop — the G7 composition (§4.7, board §3.3)', () => {
   it('should return null (not a zeroed ceremony) when the goal has nothing working', () => {
     const { goalId } = twoSmallPositions();
     stopGoalStrategies(goalId, () => 0);
-    expect(previewGoalStop(goalId, () => 0)).toBeNull();
+    expect(previewGoalStop(getLedgerState(), goalId, () => 0)).toBeNull();
     // And a second stop is a no-op rather than a double exit.
     stopGoalStrategies(goalId, () => 0);
     expect(getLedgerState().events.filter((e) => e.type === 'StrategyExited')).toHaveLength(2);

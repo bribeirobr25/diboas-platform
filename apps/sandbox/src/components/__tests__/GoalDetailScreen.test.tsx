@@ -3,9 +3,12 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
+  fixtureDateSeries,
   fixturePriceSeries,
   type ProtocolApyHistory,
   type ProtocolPriceHistory,
+  FIXTURE_STAMP,
+  observedStamp,
 } from '@diboas/defi';
 import {
   advanceTime,
@@ -22,20 +25,31 @@ import { GoalDetailScreen } from '../GoalDetailScreen';
  * tests ran against a null market and were quietly asserting an unpriceable
  * ceremony (network fee $0.00) — the exact state the gate now refuses.
  */
-const h = vi.hoisted(() => ({
-  market: {
-    apys: [],
-    gas: [
-      { chain: 'Arbitrum', typicalFeeUsd: 0.03, stamp: { source: 'fixture', asOf: '2026-07-18' } },
-    ],
-    usdPriceLocal: 1,
-  } as unknown,
-}));
-const MARKET_OK = h.market;
+/**
+ * ⚑ `vi.hoisted` is lifted ABOVE the imports, so its factory must not touch an
+ * imported binding — referencing `FIXTURE_STAMP` here threw
+ * `Cannot access '__vi_import_2__' before initialization` and the whole suite
+ * failed to LOAD (13 tests silently not run). The holder therefore starts
+ * empty; the snapshot is built at module scope, after the imports, and the mock
+ * factory reads `h.market` lazily so it sees the assignment.
+ *
+ * The market must be PRESENT for these tests: an exit cannot be priced without
+ * it, so every exit control is gated on it. Before this mock existed the exit
+ * tests ran against a null market and were quietly asserting an unpriceable
+ * ceremony (network fee $0.00) — the exact state the gate now refuses.
+ */
+const h = vi.hoisted(() => ({ market: null as unknown }));
 vi.mock('@/hooks/useMarket', () => ({
   useMarket: () => ({ market: h.market, marketError: h.market === null, refreshMarket: () => {} }),
   fetchHistories: () => Promise.resolve([]),
 }));
+
+const MARKET_OK = {
+  apys: [],
+  gas: [{ chain: 'Arbitrum', typicalFeeUsd: 0.03, stamp: FIXTURE_STAMP }],
+  usdPriceLocal: 1,
+} as unknown;
+h.market = MARKET_OK;
 
 const M = {
   'common.back': 'Back',
@@ -283,6 +297,43 @@ describe('GoalDetailScreen — an exit that cannot be priced is never offered (R
       h.market = MARKET_OK;
     }
   });
+
+  it('should disable the stop control when the position CHAIN has no gas quote', () => {
+    /**
+     * ⚑ AUD-F05. `exitFeeFor` keeps a numeric signature because the domain
+     * callbacks require one, so it ends in `?? 0`. That zero must be
+     * UNREACHABLE rather than a fallback — `canPriceExit` now requires EVERY
+     * open position to price. This test is what holds that true: the market
+     * resolves fine, but its gas list carries no Arbitrum quote, so the
+     * Arbitrum position cannot be priced and the ceremony is refused instead of
+     * itemizing a free exit. Without the `every(...)` gate this renders a
+     * 0.00 network cost, which is the 5.199 class on the fee-truth surface.
+     */
+    h.market = { ...(MARKET_OK as Record<string, unknown>), gas: [] } as unknown;
+    try {
+      const goalId = createGoal({
+        name: 'Trip',
+        icon: 'plane',
+        targetAmount: 4000,
+        horizonMonths: 12,
+        fundAmount: 1000,
+      });
+      enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 50, networkFeeLocal: 0 });
+      renderDetail(goalId);
+      fireEvent.click(
+        screen
+          .getAllByRole('button', { name: 'Detailed' })
+          .find((b) => b.hasAttribute('aria-pressed'))!
+      );
+      const stop = screen.getByRole('button', { name: 'Stop this strategy' }) as HTMLButtonElement;
+      expect(stop.disabled).toBe(true);
+      expect(screen.getByText(/Costs can't be priced right now/)).toBeTruthy();
+      fireEvent.click(stop);
+      expect(screen.queryByText('Review before you stop')).toBeNull();
+    } finally {
+      h.market = MARKET_OK;
+    }
+  });
 });
 
 /**
@@ -296,21 +347,41 @@ describe('GoalDetailScreen — an exit that cannot be priced is never offered (R
  * the real-shaped fixture series — the same path `g8FallingPosition` proves.
  */
 describe('GoalDetailScreen — the earnings line takes its colour from its sign (5.283)', () => {
+  /**
+   * The shared fixture calendar, built ONCE per length.
+   *
+   * `fixtureDateSeries` walks `days` dates, so calling it inside a per-point
+   * callback is O(days²) — measured consequence: `g8FallingPosition`'s
+   * higher-exposure test TIMED OUT at 5000ms in the full suite (roughly a million
+   * date operations per builder call, six protocols deep, twice per test) while
+   * passing in isolation. Hoisted, not inlined.
+   */
+  const datesFor = (() => {
+    const cache = new Map<number, string[]>();
+    return (days: number): string[] => {
+      const hit = cache.get(days);
+      if (hit) return hit;
+      const built = fixtureDateSeries(days);
+      cache.set(days, built);
+      return built;
+    };
+  })();
+
   const PROTOCOLS = ['skySsr', 'aaveV3', 'compoundV3', 'sanctumInf', 'jupiterJlp', 'jito'] as const;
   const apy = (days: number): ProtocolApyHistory[] =>
     PROTOCOLS.map((protocolId) => ({
       protocolId,
       points: Array.from({ length: days }, (_, i) => ({
-        date: new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
+        date: datesFor(days)[i],
         apyPercent: 5,
       })),
-      stamp: { source: 'defillama', asOf: '2026-08-20T00:00:00Z' },
+      stamp: observedStamp('defillama', '2026-08-20T00:00:00Z'),
     }));
   const prices = (days: number): ProtocolPriceHistory[] =>
     PROTOCOLS.map((protocolId) => ({
       protocolId,
       points: fixturePriceSeries(protocolId, days),
-      stamp: { source: 'fixture', asOf: '2026-07-18' },
+      stamp: FIXTURE_STAMP,
     }));
 
   const earningsSign = (strategyId: 'fullThrottle' | 'safeHarbor', advance: boolean) => {

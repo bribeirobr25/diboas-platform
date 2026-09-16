@@ -5,10 +5,10 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { EXIT_FEE_FLOOR, FEE_RATES } from '@diboas/banking';
 import { FIXTURE_AS_OF, strategyProvenance } from '@diboas/defi';
 import type { GasQuote, ProtocolApy, ProtocolApyHistory, StrategyDef } from '@diboas/defi';
-import { blendDatedSeries } from '@diboas/investing';
 import { useFormatters } from '@/hooks/useFormatters';
 import { networkFeeLocal } from '@/lib/networkFee';
-import { ApyChart, CHART_TIMEFRAMES, type ChartTimeframe } from './ApyChart';
+import { selectStrategyChartSeries, type ChartTimeframe } from '@/view/strategy';
+import { ApyChart } from './ApyChart';
 import { Button } from './Button';
 import { Card } from './Card';
 import { LucideIcon } from './LucideIcon';
@@ -62,7 +62,7 @@ export function StrategyDetail({
   /** Real per-protocol history for the axed chart; empty until it loads. */
   histories: ProtocolApyHistory[];
   gas: GasQuote[];
-  usdPriceLocal: number;
+  usdPriceLocal: number | null;
   currency: 'USD' | 'BRL' | 'EUR';
   onPutToWork?: () => void;
 }) {
@@ -79,15 +79,14 @@ export function StrategyDetail({
   const provenance = strategyProvenance(strategy, apys, gas[0]?.stamp);
   const fee = networkFeeLocal(gas, strategy.entryChain, usdPriceLocal);
 
-  // The chart's series: the strategy's own legs, weighted, over real history.
-  const byProtocol = new Map(histories.map((h) => [h.protocolId, h]));
-  const chartSeries = blendDatedSeries(
-    strategy.allocation.map((leg) => ({
-      weightPercent: leg.weightPercent,
-      points: byProtocol.get(leg.protocolId)?.points ?? [],
-    }))
-  );
-  const sparkSeries = chartSeries.slice(-30).map((p) => p.apyPercent);
+  /* The chart's series — derived in `view/strategy.ts` (AUD-C02). The selector
+     also REFUSES when a leg has no history, rather than blending the rest and
+     publishing a silently low curve as the strategy's own past. */
+  const chart = selectStrategyChartSeries({
+    allocation: strategy.allocation,
+    histories,
+    requestedTimeframe,
+  });
 
   const apyMessageId =
     provenance.state === 'live'
@@ -100,14 +99,6 @@ export function StrategyDetail({
     .map((id) => intl.formatMessage({ id: `catalog.protocols.${id}` }))
     .join(', ');
 
-  // Keep the shown timeframe honest: never mark a window active that the data
-  // cannot fill. DERIVED during render (never synced via an effect, which would
-  // cascade renders) — the request is what the user asked for, the effective
-  // value is what history can actually answer.
-  const fitting = CHART_TIMEFRAMES.filter((d) => d <= chartSeries.length);
-  const widestFit = fitting.length > 0 ? fitting[fitting.length - 1] : CHART_TIMEFRAMES[0];
-  const timeframe = requestedTimeframe <= widestFit ? requestedTimeframe : widestFit;
-
   const provenanceStamp =
     provenance.state === 'live' ? (
       <FormattedMessage
@@ -115,15 +106,49 @@ export function StrategyDetail({
         values={{ source: 'DeFiLlama', date: date(provenance.newestLiveAsOf!) }}
       />
     ) : provenance.state === 'mixed' ? (
-      <FormattedMessage
-        id="common.dataMixed"
-        values={{
-          source: 'DeFiLlama',
-          date: date(provenance.newestLiveAsOf!),
-          fixtureDate: date(FIXTURE_AS_OF),
-          protocols: fixtureProtocolNames,
-        }}
-      />
+      /**
+       * TWO mixed shapes, and they must not share one sentence (`5.316`; Legal
+       * ruling 2026-09-14).
+       *
+       * When at least one APY leg carries a reference value, `common.dataMixed`
+       * names those protocols — unchanged.
+       *
+       * When every APY is live and only the NETWORK FEE sits on reference
+       * values, `fixtureProtocolIds` is empty BY CONSTRUCTION (it accumulates
+       * APY legs only), so joining it rendered *"Reference values (18.07.2026)
+       * for: ."* — a sentence claiming reference values and naming none, on the
+       * pre-commit money surface, in all four locales, while the test asserted
+       * only that it was PRESENT. Legal's disposition: identify the
+       * reference-backed INPUT, keep APY provenance accurate and SEPARATE,
+       * never render an empty `for:`, and never invent protocol names. So the
+       * live stamp states what IS live and the approved gas sentence states what
+       * is not. The `mixed` CLASSIFICATION is untouched — only the sentence is.
+       */
+      provenance.fixtureProtocolIds.length > 0 ? (
+        <FormattedMessage
+          id="common.dataMixed"
+          values={{
+            source: 'DeFiLlama',
+            date: date(provenance.newestLiveAsOf!),
+            fixtureDate: date(FIXTURE_AS_OF),
+            protocols: fixtureProtocolNames,
+          }}
+        />
+      ) : (
+        <>
+          {/* `dataPartlyLive`, NOT `dataLive`. GAS-1 (founder 2026-08-21) is
+              encoded in this surface's own test: it may not open with "Live
+              from DeFiLlama" above a fixture fee — that claim is exactly what
+              GAS-1 was raised to stop. "Partly live" is what `mixed` means
+              here (rates live, network fee on reference values), and the
+              approved sentence beside it names which input that is. */}
+          <FormattedMessage
+            id="common.dataPartlyLive"
+            values={{ source: 'DeFiLlama', date: date(provenance.newestLiveAsOf!) }}
+          />{' '}
+          <FormattedMessage id="common.dataGasReference" />
+        </>
+      )
     ) : (
       <FormattedMessage id="common.dataFixture" values={{ date: date(FIXTURE_AS_OF) }} />
     );
@@ -162,9 +187,14 @@ export function StrategyDetail({
         <li>
           <FormattedMessage id="pathCard.entryFee" />
         </li>
-        <li>
-          <FormattedMessage id="pathCard.networkFee" values={{ amount: money(fee) }} />
-        </li>
+        {/* ⚑ AUD-F05. `about $0.00` would understate the one cost this list
+            exists to state, so an unknown fee is ABSENT rather than wrong. The
+            explanation it deserves needs an approved string (registered). */}
+        {fee !== null ? (
+          <li>
+            <FormattedMessage id="pathCard.networkFee" values={{ amount: money(fee) }} />
+          </li>
+        ) : null}
         {variant === 'full' ? (
           <li>
             <FormattedMessage
@@ -257,7 +287,7 @@ export function StrategyDetail({
                 values={{ apy: apy.toDecimalPlaces(2).toNumber() }}
               />
             </p>
-            {sparkSeries.length >= 2 ? <Sparkline series={sparkSeries} /> : null}
+            {chart.sparkSeries.length >= 2 ? <Sparkline series={chart.sparkSeries} /> : null}
             <p className={styles.caveat}>
               <LucideIcon name="shield" size={14} />
               <FormattedMessage id="strategyDetail.caveat" />
@@ -302,8 +332,8 @@ export function StrategyDetail({
           </p>
 
           <ApyChart
-            series={chartSeries}
-            timeframe={timeframe}
+            series={chart.series}
+            timeframe={chart.timeframe}
             onTimeframe={setRequestedTimeframe}
           />
 

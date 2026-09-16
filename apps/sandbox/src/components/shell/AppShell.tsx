@@ -84,6 +84,7 @@ export function AppShell({
 
         <AppHeader
           variant={variant}
+          mode={spec.mode}
           homeHref={home}
           profileHref={`${home}/profile`}
           alertsHref={`${home}/notifications`}

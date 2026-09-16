@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { Fraunces } from 'next/font/google';
 import { notFound } from 'next/navigation';
+import { headers } from 'next/headers';
 import { isSandboxLocale, SANDBOX_LOCALES } from '@/i18n/config';
 import { IntlProviderClient } from '@/components/IntlProviderClient';
 import { ThemeProvider } from '@/components/ThemeProvider';
@@ -56,7 +57,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: 'diBoaS Sandbox',
+  title: 'diBoaS Practice',
   robots: { index: false, follow: false },
 };
 
@@ -74,6 +75,19 @@ export default async function LocaleRootLayout({
 }) {
   const { locale } = await params;
   if (!isSandboxLocale(locale)) notFound();
+
+  // The CSP nonce, minted per request by `middleware.ts` and forwarded on the
+  // request headers. `ThemeScript` is inline and `script-src` carries no
+  // `'unsafe-inline'`, so without this the pre-paint theme is blocked and every
+  // visit flashes the wrong design (register `5.212`).
+  //
+  // ⚑ This is NOT the `headers()` call the comment above warns about. That
+  // warning is about inferring the SHELL FAMILY here to stamp the mode, which
+  // would couple the document shell to whichever child is rendering — `ModeStamp`
+  // owns that instead (`SHELL-3`). Reading a per-request nonce costs nothing
+  // extra: this layout is already dynamic, because it awaits `params` one line
+  // above. Same pattern as `apps/web/src/app/layout.tsx`, in production today.
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
   return (
     // suppressHydrationWarning: ThemeScript stamps <html data-theme> before
     // hydration (the no-flash pre-paint), so the client <html> carries an
@@ -82,7 +96,7 @@ export default async function LocaleRootLayout({
     // child mismatch. Standard theme-script pattern.
     <html lang={locale} className={fraunces.variable} suppressHydrationWarning>
       <body>
-        <ThemeScript />
+        <ThemeScript nonce={nonce} />
         <ThemeProvider>
           <IntlProviderClient locale={locale}>{children}</IntlProviderClient>
         </ThemeProvider>

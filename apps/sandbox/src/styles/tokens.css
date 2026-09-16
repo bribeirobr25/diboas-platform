@@ -61,8 +61,13 @@
  * A token with no consumer is dead code. These arrive with their first consumer:
  *   accent.{brand,practice,real,neutral} · mode.chrome   → 1e ModeMarker
  *   state.{pending,modelled,restricted,authoritative}   → the §19 value-truth chip
- *   state.{error,info,unknown} · financial.neutral · text.disabled ·
+ *   state.{info,unknown} · financial.neutral · text.disabled ·
  *   border.disabled                                    → first surface that needs one
+ *
+ * `state.error` is NO LONGER on that list: it landed 2026-09-16 with its first
+ * consumers (5.365 · 5.377 · 5.378 · 5.379). A list of what is undeclared that
+ * names a declared token is the 5.358 defect in miniature, so it is corrected
+ * here in the same change that declares the family.
  */
 
 /* ════════════════════════════════════════════════════════════════════════════
@@ -89,6 +94,19 @@
      loss colour became amber, and an unread notification is not a loss. */
   --palette-red-400: #f87171;
   --palette-red-700: #b91c1c;
+
+  /* ERROR · Product/UIUX's ratified Error calibration, applied byte-for-byte
+     (Round-3 ruling §6; values from §2). The 400 step IS Brand Life Clay, the
+     anchor Product named, which is why §3 rules `NEW COLOR FAMILY = NO` even
+     though these six literals are new to the repository: a new PALETTE family
+     instantiating an approved semantic, not a new semantic. Error varies by
+     APPEARANCE only, never by mode (§2) — the OUTCOME guard proves it. */
+  --palette-clay-100: #f3e3dc; /* light · error surface */
+  --palette-clay-300: #e9a596; /* dark  · error foreground (and icon) */
+  --palette-clay-400: #df6e57; /* Brand Life Clay · dark · error border */
+  --palette-clay-600: #b7604d; /* light · error border */
+  --palette-clay-800: #8f5243; /* light · error foreground (and icon) */
+  --palette-clay-900: #3e3630; /* dark  · error surface */
   --palette-slate-500: #64748b;
   --palette-slate-700: #334155;
   --palette-gray-300: #d1d5db;
@@ -307,6 +325,21 @@
   --sb-state-warning-fill: var(--palette-amber-800);
   --sb-state-warning-on-fill: var(--palette-white);
 
+  /* ERROR — a failure of an action or an input. It is NOT loss, risk, a
+     negative modelled outcome, unavailability, unknown, warning, or a
+     destructive action: §5 keeps every one of those a separate semantic, and
+     `financial-negative` above is amber precisely so a loss is never an error.
+     T0 only (§18), so no mode can recolour a failure and the primary-action
+     accent can never mean "this went wrong" again (5.365).
+
+     There is deliberately NO `-icon` role. §2 gives the icon the same value as
+     the foreground in both appearances, so an Error icon consumes
+     `--sb-state-error-foreground`; a fourth declared token would have no
+     consumer, which TOK-1 correctly fails (5.310). */
+  --sb-state-error-foreground: var(--palette-clay-800);
+  --sb-state-error-border: var(--palette-clay-600);
+  --sb-state-error-surface: var(--palette-clay-100);
+
   /* Financial outcome — T0 only (§18). One colour per meaning app-wide. */
   --sb-financial-positive: var(--palette-teal-700);
   --sb-financial-negative: var(--palette-amber-800);
@@ -430,6 +463,9 @@
   --sb-state-warning: var(--palette-amber-400);
   --sb-state-warning-fill: var(--palette-amber-400);
   --sb-state-warning-on-fill: var(--palette-night-canvas);
+  --sb-state-error-foreground: var(--palette-clay-300);
+  --sb-state-error-border: var(--palette-clay-400);
+  --sb-state-error-surface: var(--palette-clay-900);
   --sb-financial-positive: var(--palette-teal-400);
   --sb-financial-negative: var(--palette-amber-400);
   --sb-identity-available: var(--palette-teal-400);
@@ -479,6 +515,9 @@
     --sb-state-warning: var(--palette-amber-400);
     --sb-state-warning-fill: var(--palette-amber-400);
     --sb-state-warning-on-fill: var(--palette-night-canvas);
+    --sb-state-error-foreground: var(--palette-clay-300);
+    --sb-state-error-border: var(--palette-clay-400);
+    --sb-state-error-surface: var(--palette-clay-900);
     --sb-financial-positive: var(--palette-teal-400);
     --sb-financial-negative: var(--palette-amber-400);
     --sb-identity-available: var(--palette-teal-400);

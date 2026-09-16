@@ -192,15 +192,20 @@ const CURRENCY_WORD_ALLOWLIST: ReadonlySet<string> = new Set([
   'history.subtitle', // idiom "every cent accounted for"
   'pathCard.riskStable', // FACTUAL: USDC is a digital dollar. Do not reword.
   'pathCard.pathLine', // pt-BR "protocolos reais" — "real" as in genuine
-  // ⚑ HOMONYM FALSE POSITIVE, not an idiom and not a defect (reason corrected
-  // 2026-09-12 while auditing the Legal disclosure change). The pt-BR value
-  // contains `reais` in "os dados de mercado são reais" — *genuine*, not the
-  // Brazilian currency. Same shape as `pathCard.pathLine` below. The de/es
-  // values are now the Legal-approved wording and contain no currency word at
-  // all, so this entry exists PURELY for the pt-BR homonym. Kept rather than
-  // removed because the pattern still matches; named precisely because an
-  // entry whose stated reason is wrong is the next reader's blind spot.
-  'common.playDisclaimer',
+  // ⚑ ENTRY REMOVED 2026-09-14 (`5.308`). It existed PURELY for the pt-BR
+  // homonym `reais` in "os dados de mercado são reais" — and the Legal-approved
+  // pt-BR replacement does not contain that phrase, so no locale's value carries
+  // a currency word any more. A live allow-list entry whose reason has
+  // evaporated is the shape that hides the next defect, so it goes rather than
+  // sitting here inert. (`common.playDisclaimer` was here.)
+  // ⚑ ADDED 2026-09-14 (`5.316`). The pt-BR value of Legal's approved gas
+  // sentence ends "As taxas de rede REAIS podem ser diferentes" — `reais` as in
+  // *actual*, the adjective, not the Brazilian currency. Exactly the homonym
+  // this list used to carry for `common.playDisclaimer`, whose instance the
+  // 5.308 replacement removed: the entry did not come back for the old key, it
+  // is needed for the new one. Legal-approved EXACT wording (LC-TD-02 scope) —
+  // it may not be reworded to satisfy a house-style guard.
+  'common.dataGasReference',
   'common.frameCaption',
   'projection.caveat',
   'move.practiceNote',

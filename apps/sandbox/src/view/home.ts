@@ -617,13 +617,25 @@ export function selectExitPreview<T>(input: {
   intent: ExitIntent | null;
   canPrice: boolean;
   goalId: string;
+  /**
+   * ⚑ AUD-C01. The snapshot the render saw, passed EXPLICITLY. Without it the
+   * callbacks read global ledger state, so this selector was not a function of
+   * its arguments — the same `input` object returned a different preview after
+   * an entry. An explicit snapshot also makes the property TESTABLE, which a
+   * closure bound at the call site would not.
+   */
+  snapshot: LedgerState;
   feeFor: (positionId: string) => number;
-  previewGoal: (goalId: string, feeFor: (positionId: string) => number) => T | null;
-  previewPosition: (positionId: string, networkFeeLocal: number) => T | null;
+  previewGoal: (
+    state: LedgerState,
+    goalId: string,
+    feeFor: (positionId: string) => number
+  ) => T | null;
+  previewPosition: (state: LedgerState, positionId: string, networkFeeLocal: number) => T | null;
 }): T | null {
-  const { intent, canPrice } = input;
+  const { intent, canPrice, snapshot } = input;
   if (!intent || !canPrice) return null;
-  if (intent.scope === 'goal') return input.previewGoal(input.goalId, input.feeFor);
+  if (intent.scope === 'goal') return input.previewGoal(snapshot, input.goalId, input.feeFor);
   if (!intent.positionId) return null;
-  return input.previewPosition(intent.positionId, input.feeFor(intent.positionId));
+  return input.previewPosition(snapshot, intent.positionId, input.feeFor(intent.positionId));
 }

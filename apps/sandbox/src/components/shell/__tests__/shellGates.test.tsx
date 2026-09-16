@@ -210,3 +210,39 @@ describe('SHELL-3 — no mode-mutating path, and the marker is never a control',
     expect(document.documentElement.hasAttribute('data-palette')).toBe(false);
   });
 });
+
+describe('the governed hit-target floor in the app header (5.234 · Round-3 ruling §8)', () => {
+  /**
+   * Measured in a browser on build `h31CwXZC6GxkpKNo27uXm`: Profile and Alerts
+   * were 44 x 44, but the brand/home ANCHOR was **30.4 x 30.4** — because
+   * `grid-template-columns: var(--sb-tap) 1fr var(--sb-tap)` floors the two
+   * UTILITY slots and identity is the middle `1fr`, which nothing floored. The
+   * glyph filling its anchor exactly (both 30.4) is why it read as "the mark is
+   * small" rather than "the target is small".
+   *
+   * §8 splits them: the glyph may be under 44, the interactive anchor may not,
+   * and it forbids enlarging the artwork to fix the target. So this asserts the
+   * ANCHOR is floored from the token and that `BrandMark`'s own size is NOT
+   * what carries it.
+   *
+   * Asserted against the stylesheet source: happy-dom does not apply CSS-module
+   * stylesheets, so a computed-style assertion here would pass whatever the
+   * file said — the same trap `5.234`'s SegmentedToggle guard documents.
+   */
+  const header = readFileSync(
+    join(process.cwd(), 'src/components/shell/AppHeader.module.css'),
+    'utf8'
+  );
+
+  it('should floor the brand/home anchor at the tap token, not the artwork', () => {
+    const rule = header.slice(header.indexOf('.identity a'));
+    const block = rule.slice(0, rule.indexOf('}'));
+    expect(block).toMatch(/min-width:\s*var\(--sb-tap\)/);
+    expect(block).toMatch(/min-height:\s*var\(--sb-tap\)/);
+  });
+
+  it('should keep the brand artwork at its own size, unenlarged (§8)', () => {
+    const mark = readFileSync(join(process.cwd(), 'src/components/BrandMark.tsx'), 'utf8');
+    expect(mark).toMatch(/size = '1\.9rem'/);
+  });
+});

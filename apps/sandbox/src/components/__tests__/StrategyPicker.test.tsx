@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { describe, expect, it, vi } from 'vitest';
 import type { ProtocolApy, ProtocolId } from '@diboas/defi';
-import { STRATEGY_CATALOG } from '@diboas/defi';
+import { STRATEGY_CATALOG, FIXTURE_STAMP } from '@diboas/defi';
 import { StrategyPicker } from '../StrategyPicker';
 
 const M = {
@@ -43,7 +43,7 @@ function apy(protocolId: ProtocolId): ProtocolApy {
     apyPercent: 4,
     tvlUsd: null,
     chain: 'Arbitrum',
-    stamp: { source: 'fixture', asOf: '2026-07-18' },
+    stamp: FIXTURE_STAMP,
   };
 }
 const APYS = (

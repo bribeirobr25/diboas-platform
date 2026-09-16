@@ -236,6 +236,15 @@ const TEXT_PAIRS: [string, string][] = [
   ['--sb-text-inverse', '--sb-surface-focused'],
   ['--sb-mode-accent-bright', '--sb-surface-inverse'],
   ['--sb-state-warning', '--sb-surface-primary'],
+  // ERROR renders in exactly two text combinations, and these are them (§7:
+  // "matrix entries must represent the actual surfaces the corresponding
+  // consumer renders on"). GateForm and GoalNewScreen put the foreground on the
+  // Error SURFACE; the app error boundary puts it straight on the canvas, which
+  // ruling §1 permits because it clears the floor there. The combinations we do
+  // NOT render are deliberately absent: foreground on the inverse plate is the
+  // 5.377 failure (2.90:1 down to 1.38:1) and is why the Error surface exists.
+  ['--sb-state-error-foreground', '--sb-state-error-surface'],
+  ['--sb-state-error-foreground', '--sb-canvas-base'],
   ['--sb-state-warning-on-subtle', '--sb-state-warning-subtle'],
   ['--sb-state-success-on-subtle', '--sb-state-success-subtle'],
   ['--sb-financial-positive', '--sb-surface-primary'],
@@ -256,6 +265,11 @@ const GRAPHIC_PAIRS: [string, string][] = [
   ['--sb-text-on-fill', '--sb-identity-goal-2'],
   ['--sb-text-on-fill', '--sb-identity-goal-3'],
   ['--sb-state-warning-on-fill', '--sb-state-warning-fill'],
+  // The Error border is a meaningful graphic: it is the region-boundary cue on
+  // every cell where the Error surface cannot separate itself from what it sits
+  // on (in dark that gap is 1.46-1.60:1). Measured against the surface it
+  // outlines, which is the adjacency that exists in all six cells.
+  ['--sb-state-error-border', '--sb-state-error-surface'],
   // The unread dot is a meaningful graphic on the navigation bar's surface.
   ['--sb-state-unread', '--sb-surface-primary'],
 ];
@@ -395,6 +409,60 @@ describe('mode never recolours an outcome (Mode × Appearance §18)', () => {
       }
     }
   );
+});
+
+describe('the ratified Error calibration is what resolves (5.365 · 5.377)', () => {
+  /**
+   * Product/UIUX supplied these six values; the pair matrices below prove only
+   * that SOMETHING with enough contrast resolves. A mistyped hex that happened
+   * to clear 4.5:1 would pass every pair and still ship the wrong ratified
+   * colour — so the values themselves are asserted here, per appearance.
+   */
+  const RATIFIED = {
+    light: {
+      '--sb-state-error-foreground': '#8f5243',
+      '--sb-state-error-border': '#b7604d',
+      '--sb-state-error-surface': '#f3e3dc',
+    },
+    dark: {
+      '--sb-state-error-foreground': '#e9a596',
+      '--sb-state-error-border': '#df6e57',
+      '--sb-state-error-surface': '#3e3630',
+    },
+  } as const;
+
+  it.each(THEMES)('should resolve the ratified Error values in $name', ({ name, state }) => {
+    const appearance = name.endsWith('-dark') ? 'dark' : 'light';
+    for (const [role, hex] of Object.entries(RATIFIED[appearance])) {
+      expect(valueIn(role, state).toLowerCase(), `${role} in ${name}`).toBe(hex);
+    }
+  });
+
+  it('should keep Error appearance-dependent and mode-independent (ruling §2)', () => {
+    // ERROR(mode, appearance) = ERROR(appearance). The OUTCOME guard above
+    // already forbids mode drift for every state role; this states the Error
+    // half outright, AND that light and dark genuinely differ — a family that
+    // resolved the same in both would mean a missing dark override, which the
+    // contrast pairs would happily pass.
+    for (const role of Object.keys(RATIFIED.light)) {
+      expect(new Set(MODES.map((m) => valueIn(role, light(m)))).size, role).toBe(1);
+      expect(new Set(MODES.map((m) => valueIn(role, darkExplicit(m)))).size, role).toBe(1);
+      expect(valueIn(role, light('neutral')), role).not.toBe(
+        valueIn(role, darkExplicit('neutral'))
+      );
+    }
+  });
+
+  it('should declare no separate Error icon role — the alias IS the foreground', () => {
+    // Ruling §6 asks for an "icon alias"; §2 gives icon and foreground
+    // identical values in both appearances, so an Error icon consumes the
+    // foreground. A fourth declared role would be a token with no consumer,
+    // which the dead-token rule correctly fails (5.310). Asserted so the next
+    // author can see this was decided, not overlooked.
+    expect(COLOUR_ROLES.filter((r) => /error/.test(r)).sort()).toEqual(
+      ['--sb-state-error-border', '--sb-state-error-foreground', '--sb-state-error-surface'].sort()
+    );
+  });
 });
 
 describe('every foreground clears its background in every theme', () => {

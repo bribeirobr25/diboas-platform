@@ -92,6 +92,14 @@ export function project(events: LedgerEvent[]): LedgerState {
       case 'SimulatedIncomeReceived':
         applySimulatedEvent(ctx, event);
         break;
+      /* `5.105` I-G1d: consumption only — it advances the replay cursor and
+         touches no money. Routed to `applyCoreEvent` because that is where the
+         other position-state transitions live (`StrategyEntered`,
+         `AccrualApplied`, `StrategyExited`), and this mirrors AccrualApplied's
+         guard-then-mutate shape without the money. */
+      case 'ReplaySpanRefused':
+        applyCoreEvent(ctx, event);
+        break;
       default:
         assertNever(event);
     }

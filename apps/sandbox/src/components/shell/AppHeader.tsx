@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useIntl } from 'react-intl';
 import { BrandMark } from '../BrandMark';
 import { LucideIcon } from '../LucideIcon';
+import type { ShellMode } from '@/lib/shell/family';
+import { ModeMarker } from '../ModeMarker';
 import { AlertButton } from './AlertButton';
 import { ProfileButton } from './ProfileButton';
 import controls from './ShellControls.module.css';
@@ -27,12 +29,21 @@ import styles from './AppHeader.module.css';
  *
  * ## What is NOT here
  *
- * The `ModeMarker` slot (§10.1 puts it under the identity) stays empty until
- * its label is approved in all four locales — the component exists and is
- * proven in Storybook, but a header that renders an English-only Legal-adjacent
- * label to a German user is not an improvement. The `scrolled` and
- * `offline/system-context` states from §10.1 are a declared spec gap (plan
- * §7.7) and are not invented here.
+ * The `scrolled` and `offline/system-context` states from §10.1 are a declared
+ * spec gap (plan §7.7) and are not invented here.
+ *
+ * ## The ModeMarker (§10.1 puts it under the identity)
+ *
+ * MOUNTED since 2026-09-14 (AUD-B05). It stood empty because no
+ * authority-approved label existed in four locales, and rendering English
+ * Legal-adjacent copy to a German reader is not an improvement. Handoff §6.1
+ * supplies all four, so the reason is spent and the slot is filled. `data-mode`
+ * on `<html>` does NOT discharge this: an attribute is not visible state, and
+ * the in-flow disclosure does not substitute for the marker (nor the reverse).
+ *
+ * The MODE is passed in from the surface's registry entry — never inferred —
+ * and `neutral` renders nothing at all, so an S0 surface cannot carry a
+ * Practice marker (`P-QA4` / `L-QA2`).
  *
  * R-4's play-money disclosure is NOT in the header: it rides under every
  * screen's content, where `L-QA1` requires it (*"the header marker does not, by
@@ -42,6 +53,7 @@ export type AppHeaderVariant = 'top-level' | 'focused' | 'neutral' | 'system';
 
 export function AppHeader({
   variant,
+  mode,
   homeHref,
   profileHref,
   alertsHref,
@@ -49,6 +61,8 @@ export function AppHeader({
   transparent = false,
 }: {
   variant: AppHeaderVariant;
+  /** The surface's declared mode — `neutral` renders no marker at all. */
+  mode: ShellMode;
   homeHref: string;
   profileHref: string;
   alertsHref: string;
@@ -83,7 +97,13 @@ export function AppHeader({
         <Link href={homeHref} aria-label={intl.formatMessage({ id: 'nav.home' })}>
           <BrandMark />
         </Link>
-        {/* ModeMarker slot — see the note above. */}
+        <ModeMarker
+          mode={mode}
+          size="compact"
+          label={intl.formatMessage({
+            id: mode === 'real' ? 'modeMarker.real' : 'modeMarker.practice',
+          })}
+        />
       </span>
 
       <span className={styles.slot} data-align="end">

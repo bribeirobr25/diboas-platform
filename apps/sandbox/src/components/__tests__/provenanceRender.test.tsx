@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { describe, expect, it } from 'vitest';
 import type { ProtocolApy, ProtocolId } from '@diboas/defi';
-import { getStrategy } from '@diboas/defi';
+import { FIXTURE_STAMP, getStrategy, observedStamp } from '@diboas/defi';
 import { StrategyPicker } from '../StrategyPicker';
 
 /**
@@ -63,7 +63,16 @@ function apy(
   asOf: string,
   chain: 'Arbitrum' | 'Solana' = 'Arbitrum'
 ): ProtocolApy {
-  return { protocolId, apyPercent: 4, tvlUsd: null, chain, stamp: { source, asOf } };
+  /* Branch on the parameter: a fixture leg must carry `fallbackUsed` and the
+     fixture VERSION, a live leg must carry neither (§8.8). A literal `{ source,
+     asOf }` could state neither, which is why those fields are required. */
+  return {
+    protocolId,
+    apyPercent: 4,
+    tvlUsd: null,
+    chain,
+    stamp: source === 'fixture' ? FIXTURE_STAMP : observedStamp('defillama', asOf),
+  };
 }
 
 const LIVE = [

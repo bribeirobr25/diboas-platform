@@ -227,7 +227,94 @@ export interface TimeAdvanced extends EventBase {
   type: 'TimeAdvanced';
   days: number;
   source?: Exclude<LedgerSource, 'system'>;
+  /**
+   * The calendar date that machine-day 0 replays, pinned on the FIRST
+   * `source:'machine'` advance and never rewritten (`5.105`, I-G1c).
+   *
+   * Why the ledger has to remember this: the provider's history always ends
+   * TODAY, so anchoring a replay by index re-anchors it on every refetch — and
+   * repeated +1mo advances then replay the same recent month forever while the
+   * screen claims to show what the market actually did. An index cannot be
+   * stable across refreshes; a pinned DATE can, which is also what §6 requires
+   * of a historical state (the observation belongs to that state, not to now).
+   *
+   * Only the epoch is stored. How far the replay has consumed is DERIVED —
+   * `simDay − realSettledDays` is the machine days already advanced — so there
+   * is no second cursor that could disagree with the log.
+   *
+   * OPTIONAL for backward-compat: ledgers written before I-G1c lack it and
+   * fall back to the historic anchoring, exactly as `source` does (D-3). The
+   * projection never reads it for money math.
+   */
+  replayEpoch?: string;
 }
+
+/**
+ * A machine replay span that was CONSUMED without an economic replay (`5.105`
+ * I-G1d, Resolution §9/§10). Money-free by contract.
+ *
+ * ## Why this event has to exist
+ *
+ * `accruedThroughSimDay` means "accrual has been applied through" — it is an
+ * ACCRUAL CLAIM, and the projection only advances it inside `AccrualApplied`.
+ * But the planner also used it as the replay cursor (`recurringDepositDays`'
+ * `fromDay`, and the boundary-walk seed), so a span with no evidenced history
+ * left nothing to advance: the next advance re-walked the same days, which is
+ * the automatic catch-up §3 prohibits. Advancing the accrual field instead
+ * would make it claim an accrual that never happened.
+ *
+ * So the span is consumed HERE, and `replayConsumedThroughSimDay` moves while
+ * `accruedThroughSimDay` stays honest.
+ *
+ * ## Why consumption is stored rather than derived
+ *
+ * `TimeAdvanced` above stores only the epoch and says consumption is derived
+ * (`simDay − realSettledDays`) so that "no second cursor could disagree with
+ * the log". That holds only while EVERY machine day is replayed: `project()`
+ * advances `simDay` on every advance but `realSettledDays` only for
+ * `source: 'real'`, so the difference counts machine days ADVANCED. After a
+ * refusal, advanced ≠ replayed, and using the derived figure would assert that
+ * refused days were replayed. §9 therefore approves a separate cursor.
+ *
+ * ## What it must never do
+ *
+ * No `earnings`, no fabricated movement, no automatic future backfill (§9's
+ * invariant). `reconcile()` sums `earnings` from emitted accruals, so a refusal
+ * removes the term from both sides together and conservation is untouched.
+ *
+ * The NAME describes the refusal, never money: `ledger.test.ts`'s C-P0 check
+ * rejects any type name reading as value egress, and rightly.
+ */
+export interface ReplaySpanRefused extends EventBase {
+  type: 'ReplaySpanRefused';
+  positionId: string;
+  /** Span consumed, half-open `(fromSimDay, toSimDay]` — the same merged grid accruals use. */
+  fromSimDay: number;
+  toSimDay: number;
+  /**
+   * WHY the economic replay was refused. `indexFromDate` collapses four causes
+   * into one `null`; §12/§13 require the undated and length-skew cases to read
+   * as MISSING CALENDAR EVIDENCE, and a genuine per-leg divergence as MIXED
+   * CALENDAR — classified separately, never merged.
+   */
+  reason: ReplayRefusalReason;
+  /**
+   * Evidence identity for reconstruction (§10): which window this span would
+   * have replayed, and whose series were consulted. The replay EPOCH itself
+   * stays pinned once on `TimeAdvanced` — this is context, not a second writer.
+   */
+  windowStartDate?: string;
+  apySource?: 'defillama' | 'fixture';
+}
+
+/**
+ * Why a span could not be replayed. Distinct members on purpose: "we have no
+ * calendar for this series" and "the legs disagree about which calendar" are
+ * different failures with different owners, and collapsing them is what made
+ * the old fallback silently replay the wrong month.
+ */
+export type ReplayRefusalReason =
+  'missing-calendar-evidence' | 'mixed-calendar' | 'window-outside-series';
 
 // ── D-e goal lifecycle (spec: SANDBOX_SPEC_D-E_GOAL_LIFECYCLE) ──────────────
 //
@@ -483,6 +570,7 @@ export type LedgerEvent =
   | ComparisonCreditGranted
   | RuleApplied
   | SimulatedExpensePaid
-  | SimulatedIncomeReceived;
+  | SimulatedIncomeReceived
+  | ReplaySpanRefused;
 
 export type LedgerEventType = LedgerEvent['type'];

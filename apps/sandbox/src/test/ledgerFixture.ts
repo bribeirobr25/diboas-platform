@@ -91,6 +91,28 @@ const ONE_OF_EACH: OneOfEach = {
     onSimDay: 30,
   },
   TimeAdvanced: { ...base('e10'), type: 'TimeAdvanced', days: 365, source: 'machine' },
+  /**
+   * `5.105` I-G1d: a machine span CONSUMED with the economic replay refused.
+   * Money-free, so it is conserving at every prefix by construction —
+   * `reconcile()` sums `earnings` from `AccrualApplied` alone and never sees
+   * this event. Placed AFTER `TimeAdvanced` because that is where a refused
+   * span actually occurs: time moved, evidence did not.
+   */
+  ReplaySpanRefused: {
+    // `e10b`, not `e11`: `GoalTargetChanged` below already claims `e11`, and a
+    // fixture called ONE OF EACH must not ship two events with one eventId.
+    // Suffixed rather than renumbered so declaration order — which IS journey
+    // order via `oneOfEachLog()` — stays exactly as the refusal requires:
+    // after `TimeAdvanced` (e10), before the goal-lifecycle block (e11+).
+    ...base('e10b'),
+    type: 'ReplaySpanRefused',
+    positionId: 'p1',
+    fromSimDay: 0,
+    toSimDay: 30,
+    reason: 'missing-calendar-evidence',
+    windowStartDate: '2026-07-18',
+    apySource: 'fixture',
+  },
   // ── D-e goal lifecycle ──────────────────────────────────────────────────
   // Sequenced on g1 by version. Single-instance-per-type means 5 apply and 2
   // are valid-but-no-op here (PositionReassigned — p1 is already closed;
