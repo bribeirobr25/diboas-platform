@@ -24,7 +24,7 @@
 > authorities and omitted i18n, accessibility and the FAIL path; the gaps were found by auditing the
 > gate against the authority inventory and against defects this project has actually shipped.
 
-**Runner:** `pnpm review:increment` executes the ⚙ rows mechanically and prints the manual half every run — the same shape as `screen-check`. Standalone helpers: `pnpm review:register` (run it BEFORE claiming a register id) and `pnpm review:port <port> [--kill]` (stops a server by its LISTENER pid, refusing when the pid list is ambiguous). Source: `scripts/review-gate.mjs`. Each mechanical check is sabotage-proven: the defect is planted, the check fails, the plant is reverted and the revert verified byte-for-byte.
+**Runner:** `pnpm review:increment` executes the ⚙ rows mechanically and prints the manual half every run — the same shape as `screen-check`. Standalone helpers: `pnpm review:register` (run it BEFORE claiming a register id) and `pnpm review:port <port> [--kill]` (stops a server by its LISTENER pid, refusing when the pid list is ambiguous). Source: `scripts/review-gate.mjs`. **Register path (5.382):** the id-collision check resolves `docs/audit/PENDING_ALL.md` repo-relative first, then `REVIEW_REGISTER_PATH`, and **FAILS rather than skips** when neither resolves — a SKIP reads as a pass in a green run. The ledger is local-only and lives in the `diboas-platform` checkout, so a session working from a git WORKTREE must export `REVIEW_REGISTER_PATH=/path/to/diboas-platform/docs/audit/PENDING_ALL.md` or the gate is red by design. Each mechanical check is sabotage-proven: the defect is planted, the check fails, the plant is reverted and the revert verified byte-for-byte.
 
 ## Trigger
 
