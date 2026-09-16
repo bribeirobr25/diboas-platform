@@ -1,7 +1,7 @@
 {
   "common": {
     "appName": "diBoaS Practice",
-    "playBadge": "Sandbox · play money",
+    "playBadge": "Practice · no real money",
     "playDisclaimer": "Practice is a simulation. No real money moves. Practice does not provide financial or investment advice. Practice Credits are simulated practice units with no monetary value; they are not fiat currency or Rewards. They cannot be converted into real money, withdrawn, redeemed or transferred.",
     "back": "Back",
     "cancel": "Cancel",
@@ -17,9 +17,9 @@
   },
   "gate": {
     "title": "diBoaS Practice",
-    "subtitle": "The product, in practice mode. Play money, real market. Nothing to lose while you learn the controls.",
+    "subtitle": "Practice is simulated. No real money moves. You can explore decisions without putting real money at stake.",
     "passwordLabel": "Access password",
-    "enter": "Enter the sandbox",
+    "enter": "Enter Practice",
     "error": "That password did not open the door. Try again.",
     "notConfigured": "Practice access isn't available."
   },
@@ -230,7 +230,7 @@
     "amountLabel": "How much each month",
     "amountPlaceholder": "e.g. 200",
     "explainer": "Each month, this moves from your working money into this goal, so it stays invested.",
-    "note": "Play money, and it runs only while your working money lasts. No fee on these in the sandbox.",
+    "note": "This uses simulated money only and continues while your Practice working balance is available. No fee is charged for these contributions in Practice.",
     "confirm": "Turn it on",
     "activeLine": "Adding {amount} every month",
     "pausedBody": "Paused for now. Your working money ran out, so nothing new is going in. Add more or lower the amount.",
@@ -250,7 +250,7 @@
   "geofence": {
     "badge": "Region check",
     "title": "Not available in your region",
-    "body": "The diBoaS practice sandbox isn't available where you are right now. Nothing's wrong on your end.",
+    "body": "diBoaS Practice isn't available where you are right now. Nothing is wrong on your end.",
     "legal": "Access from your region is restricted for regulatory-compliance reasons.",
     "link": "Visit diboas.com"
   },
@@ -446,7 +446,7 @@
     "addTitle": "Add credits",
     "addBody": "This works in the real app. In practice mode, your credits come from your weekly rhythm.",
     "withdrawTitle": "Withdraw",
-    "withdrawBody": "This works in the real app. In practice mode, money stays in the sandbox.",
+    "withdrawBody": "Practice doesn't move real money. Any simulated money stays within Practice.",
     "withdrawFee": "Withdrawal fee",
     "withdrawFeePer": "{fee} per {base}",
     "okay": "Okay"
@@ -462,7 +462,7 @@
     "correct": "That's right. Practice credits stay play money, always.",
     "incorrect": "Not quite. Practice credits never convert to real money.",
     "continue": "Continue",
-    "note": "Sandbox keeps things safe so you can learn without pressure.",
+    "note": "Practice lets you explore without putting real money at stake.",
     "skip": "Skip"
   },
   "error": {

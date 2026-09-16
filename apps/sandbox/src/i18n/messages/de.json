@@ -1,7 +1,7 @@
 {
   "common": {
     "appName": "diBoaS Practice",
-    "playBadge": "Sandbox · Spielgeld",
+    "playBadge": "Practice · kein echtes Geld",
     "playDisclaimer": "Practice ist eine Simulation. Es wird kein echtes Geld bewegt. Practice bietet keine Finanz- oder Anlageberatung. Practice Credits sind simulierte Übungseinheiten ohne Geldwert, keine Fiatwährung und keine Rewards (Belohnungen). Sie können weder in echtes Geld umgewandelt noch ausgezahlt, eingelöst oder übertragen werden.",
     "back": "Zurück",
     "cancel": "Abbrechen",
@@ -17,9 +17,9 @@
   },
   "gate": {
     "title": "diBoaS Practice",
-    "subtitle": "Das Produkt im Übungsmodus. Spielgeld, echter Markt. Nichts zu verlieren, während du die Bedienung lernst.",
+    "subtitle": "Practice ist eine Simulation. Es wird kein echtes Geld bewegt. Du kannst Entscheidungen erkunden, ohne echtes Geld einzusetzen.",
     "passwordLabel": "Zugangspasswort",
-    "enter": "Sandbox betreten",
+    "enter": "Practice öffnen",
     "error": "Dieses Passwort hat die Tür nicht geöffnet. Probiere es noch einmal.",
     "notConfigured": "Der Zugang zu Practice ist nicht verfügbar."
   },
@@ -230,7 +230,7 @@
     "amountLabel": "Wie viel pro Monat",
     "amountPlaceholder": "z. B. 200",
     "explainer": "Jeden Monat wandert das von deinem arbeitenden Geld in dieses Ziel, damit es investiert bleibt.",
-    "note": "Spielgeld, und es läuft nur, solange dein arbeitendes Geld reicht. Dafür fällt in der Sandbox keine Gebühr an.",
+    "note": "Hier wird ausschließlich simuliertes Geld verwendet. Es läuft weiter, solange dein verfügbares Practice-Guthaben ausreicht. Für diese Beiträge fällt in Practice keine Gebühr an.",
     "confirm": "Einschalten",
     "activeLine": "Fügt jeden Monat {amount} hinzu",
     "pausedBody": "Vorerst pausiert. Dein arbeitendes Geld ist aufgebraucht, also kommt nichts Neues hinein. Leg mehr nach oder senke den Betrag.",
@@ -250,7 +250,7 @@
   "geofence": {
     "badge": "Regionsprüfung",
     "title": "In deiner Region nicht verfügbar",
-    "body": "Die diBoaS-Übungsumgebung ist dort, wo du gerade bist, nicht verfügbar. Es liegt nicht an dir.",
+    "body": "diBoaS Practice ist in deiner Region derzeit nicht verfügbar. Bei dir liegt kein Fehler vor.",
     "legal": "Der Zugriff aus deiner Region ist aus Gründen der regulatorischen Compliance eingeschränkt.",
     "link": "Zu diboas.com"
   },
@@ -446,7 +446,7 @@
     "addTitle": "Guthaben hinzufügen",
     "addBody": "Das funktioniert in der echten App. Im Übungsmodus kommt dein Guthaben aus deinem wöchentlichen Rhythmus.",
     "withdrawTitle": "Auszahlen",
-    "withdrawBody": "Das funktioniert in der echten App. Im Übungsmodus bleibt das Geld im Sandbox.",
+    "withdrawBody": "Practice bewegt kein echtes Geld. Simuliertes Geld bleibt innerhalb von Practice.",
     "withdrawFee": "Auszahlungsgebühr",
     "withdrawFeePer": "{fee} pro {base}",
     "okay": "Alles klar"
@@ -462,7 +462,7 @@
     "correct": "Richtig. Übungsguthaben bleibt immer Spielgeld.",
     "incorrect": "Nicht ganz. Übungsguthaben wird nie zu echtem Geld.",
     "continue": "Weiter",
-    "note": "Die Sandbox hält alles sicher, damit du ohne Druck lernen kannst.",
+    "note": "Mit Practice kannst du Entscheidungen erkunden, ohne echtes Geld einzusetzen.",
     "skip": "Überspringen"
   },
   "error": {

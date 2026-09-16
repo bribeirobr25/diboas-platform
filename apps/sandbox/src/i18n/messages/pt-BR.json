@@ -1,7 +1,7 @@
 {
   "common": {
     "appName": "diBoaS Practice",
-    "playBadge": "Sandbox · dinheiro de mentira",
+    "playBadge": "Practice · sem dinheiro real",
     "playDisclaimer": "Practice é uma simulação. Nenhum dinheiro real é movimentado. Practice não oferece aconselhamento financeiro ou de investimento. Practice Credits são unidades simuladas de prática sem valor monetário; não são moeda fiduciária nem Rewards (recompensas). Não podem ser convertidos em dinheiro real, sacados, resgatados ou transferidos.",
     "back": "Voltar",
     "cancel": "Cancelar",
@@ -17,9 +17,9 @@
   },
   "gate": {
     "title": "diBoaS Practice",
-    "subtitle": "O produto, em modo treino. Dinheiro de mentira, mercado de verdade. Nada a perder enquanto você aprende os controles. Ambiente de prática: não é um sandbox regulatório nem programa oficial.",
+    "subtitle": "Practice é uma simulação. Nenhum dinheiro real é movimentado. Você pode explorar decisões sem colocar dinheiro real em jogo.",
     "passwordLabel": "Senha de acesso",
-    "enter": "Entrar no sandbox",
+    "enter": "Entrar no Practice",
     "error": "Essa senha não abriu a porta. Tenta de novo.",
     "notConfigured": "O acesso ao Practice não está disponível."
   },
@@ -230,7 +230,7 @@
     "amountLabel": "Quanto por mês",
     "amountPlaceholder": "ex.: 200",
     "explainer": "Todo mês, esse valor sai do dinheiro que trabalha e entra nessa meta, para continuar investido.",
-    "note": "Dinheiro de brincadeira, e só funciona enquanto durar o dinheiro que trabalha. Sem taxa nisso no sandbox.",
+    "note": "Isto usa apenas dinheiro simulado e continua enquanto houver saldo de Practice disponível para trabalhar. Não há taxa para essas contribuições no Practice.",
     "confirm": "Ativar",
     "activeLine": "Adicionando {amount} todo mês",
     "pausedBody": "Pausado por enquanto. O dinheiro que trabalha acabou, então nada novo está entrando. Adicione mais ou reduza o valor.",
@@ -250,7 +250,7 @@
   "geofence": {
     "badge": "Verificação de região",
     "title": "Indisponível na sua região",
-    "body": "O sandbox de prática da diBoaS não está disponível onde você está agora. Não é nada do seu lado.",
+    "body": "O diBoaS Practice não está disponível na sua região no momento. Não há nada de errado do seu lado.",
     "legal": "O acesso a partir da sua região está restrito por motivos de conformidade regulatória.",
     "link": "Ir para diboas.com"
   },
@@ -446,7 +446,7 @@
     "addTitle": "Adicionar créditos",
     "addBody": "Isso funciona no app real. No modo prática, seus créditos vêm do seu ritmo semanal.",
     "withdrawTitle": "Sacar",
-    "withdrawBody": "Isso funciona no app real. No modo prática, o dinheiro fica no sandbox.",
+    "withdrawBody": "O Practice não movimenta dinheiro real. Todo dinheiro simulado permanece dentro do Practice.",
     "withdrawFee": "Taxa de saque",
     "withdrawFeePer": "{fee} por {base}",
     "okay": "Entendi"
@@ -462,7 +462,7 @@
     "correct": "Isso mesmo. Crédito de treino é dinheiro de mentira, sempre.",
     "incorrect": "Quase. Crédito de treino nunca vira dinheiro de verdade.",
     "continue": "Continuar",
-    "note": "O Sandbox mantém tudo seguro pra você aprender sem pressão.",
+    "note": "Practice permite explorar sem colocar dinheiro real em jogo.",
     "skip": "Pular"
   },
   "error": {

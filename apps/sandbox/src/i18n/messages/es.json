@@ -1,7 +1,7 @@
 {
   "common": {
     "appName": "diBoaS Practice",
-    "playBadge": "Sandbox · dinero de práctica",
+    "playBadge": "Practice · sin dinero real",
     "playDisclaimer": "Practice es una simulación. No se mueve dinero real. Practice no ofrece asesoramiento financiero ni de inversión. Los Practice Credits son unidades de práctica simuladas sin valor monetario; no son moneda fiduciaria ni Rewards (recompensas). No pueden convertirse en dinero real, retirarse, canjearse ni transferirse.",
     "back": "Volver",
     "cancel": "Cancelar",
@@ -17,9 +17,9 @@
   },
   "gate": {
     "title": "diBoaS Practice",
-    "subtitle": "El producto, en modo práctica. Dinero de práctica, mercado real. Nada que perder mientras aprendes los mandos.",
+    "subtitle": "Practice es una simulación. No se mueve dinero real. Puedes explorar decisiones sin poner dinero real en juego.",
     "passwordLabel": "Contraseña de acceso",
-    "enter": "Entrar en el sandbox",
+    "enter": "Entrar en Practice",
     "error": "Esa contraseña no ha abierto la puerta. Prueba otra vez.",
     "notConfigured": "El acceso a Practice no está disponible."
   },
@@ -230,7 +230,7 @@
     "amountLabel": "Cuánto cada mes",
     "amountPlaceholder": "p. ej. 200",
     "explainer": "Cada mes, esto pasa de tu dinero trabajando a esta meta, para que siga invertido.",
-    "note": "Dinero de práctica, y funciona solo mientras te dure el dinero trabajando. Sin comisión por esto en el sandbox.",
+    "note": "Esto utiliza únicamente dinero simulado y continúa mientras haya saldo de Practice disponible. Estas aportaciones no tienen comisión en Practice.",
     "confirm": "Activarlo",
     "activeLine": "Añadiendo {amount} cada mes",
     "pausedBody": "Pausado por ahora. Se te ha acabado el dinero trabajando, así que no entra nada nuevo. Añade más o baja el importe.",
@@ -250,7 +250,7 @@
   "geofence": {
     "badge": "Comprobación de región",
     "title": "No disponible en tu región",
-    "body": "El sandbox de práctica de diBoaS no está disponible donde estás ahora. No es nada de tu parte.",
+    "body": "diBoaS Practice no está disponible actualmente en tu región. No hay ningún problema por tu parte.",
     "legal": "El acceso desde tu región está restringido por motivos de cumplimiento normativo.",
     "link": "Ir a diboas.com"
   },
@@ -446,7 +446,7 @@
     "addTitle": "Añadir créditos",
     "addBody": "Esto funciona en la app real. En modo práctica, tus créditos vienen de tu ritmo semanal.",
     "withdrawTitle": "Retirar",
-    "withdrawBody": "Esto funciona en la app real. En modo práctica, el dinero se queda en el sandbox.",
+    "withdrawBody": "Practice no mueve dinero real. Todo el dinero simulado permanece dentro de Practice.",
     "withdrawFee": "Comisión de retiro",
     "withdrawFeePer": "{fee} por {base}",
     "okay": "De acuerdo"
@@ -462,7 +462,7 @@
     "correct": "Correcto. Los créditos de práctica siguen siendo dinero de práctica, siempre.",
     "incorrect": "No exactamente. Los créditos de práctica nunca se convierten en dinero real.",
     "continue": "Continuar",
-    "note": "El sandbox lo mantiene todo a salvo para que aprendas sin presión.",
+    "note": "Practice te permite explorar sin poner dinero real en juego.",
     "skip": "Omitir"
   },
   "error": {

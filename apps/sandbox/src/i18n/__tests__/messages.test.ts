@@ -301,3 +301,36 @@ describe('flattenMessages', () => {
     }
   });
 });
+
+/**
+ * F-R4 — THE PUBLIC NAME IS "PRACTICE"; "sandbox" IS INTERNAL VOCABULARY ONLY.
+ *
+ * ⚑ Added 2026-09-16 with the §19 copy application, because its absence is the
+ * whole reason that application was needed. F-R4 ruled the public name on
+ * 2026-08-29. On 2026-09-16 a system-gate sweep found **24 user-facing strings
+ * across four locales, on 7 keys**, still saying "Sandbox" — including
+ * `common.playBadge` ("Sandbox · play money") and `gate.enter` ("Enter the
+ * sandbox"), i.e. the FIRST SCREEN of a live public app. The full suite was
+ * green throughout: parity, ICU args, dashes, emoji, the exit floor, advice
+ * vocabulary and the GENIUS wall are all guarded, and none of them is about the
+ * product's NAME.
+ *
+ * Applying approved copy without this guard would leave the hole exactly as it
+ * was for the next string anyone adds. Paths, package names and internal docs
+ * are unaffected — this asserts the CATALOGUE only, which is what a user reads.
+ */
+describe('F-R4: the public name is Practice, never Sandbox', () => {
+  it.each(SANDBOX_LOCALES)('should carry no user-facing "sandbox" in %s', (locale) => {
+    const offenders = Object.entries(getMessages(locale))
+      .filter(([, v]) => typeof v === 'string' && /sandbox/i.test(v))
+      .map(([k, v]) => `${k} = ${v}`);
+    expect(offenders, `F-R4 violated in ${locale}:\n${offenders.join('\n')}`).toEqual([]);
+  });
+
+  it('should still allow the internal package name (this guard is about COPY, not code)', () => {
+    // Stated so the rule's scope is explicit rather than inferred: F-R4 keeps
+    // "sandbox" as internal/dev vocabulary. If someone later renames the
+    // package, that is a separate decision this test must not pre-empt.
+    expect(/sandbox/i.test('apps/sandbox')).toBe(true);
+  });
+});

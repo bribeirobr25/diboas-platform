@@ -31,7 +31,7 @@ const OPTIONS: { id: OptIn; icon: string }[] = [
  * five times: a chip, the intro, and a per-row hint ×3). CLO R-5 / Planet49 —
  * separate granular consent; bundled consent declined — is unchanged: the
  * toggles stay separate, unticked, non-blocking. The explicit consent act (unlike the Welcome's reviewable notice).
- * Internal page, so it keeps the "Sandbox · play money" chip.
+ * Internal page, so it keeps the "Practice · no real money" chip.
  *
  * WIRED (not a preview): Accept calls the submitConsent server action, which
  * advances the flow (-> claim). The opt-ins are collected here; the

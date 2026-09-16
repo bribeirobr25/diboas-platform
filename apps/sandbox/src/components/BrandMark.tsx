@@ -7,7 +7,7 @@ import styles from './BrandMark.module.css';
  * The short brand mark — the palm monogram alone, no wordmark, no label.
  *
  * What the app bar carries on every internal screen (founder 2026-08-21,
- * matching mockup 02): the full wordmark plus the "Sandbox · play money" chip
+ * matching mockup 02): the full wordmark plus the "Practice · no real money" chip
  * made the bar say three things at once, while the sandbox framing already
  * lives in the frame caption above the canvas.
  *
