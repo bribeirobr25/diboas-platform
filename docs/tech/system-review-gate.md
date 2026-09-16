@@ -10,6 +10,31 @@
 > This gate **references** those records and never restates them; duplication between the two is how
 > a project ends up with competing definitions of "review".
 >
+> **Work that predates this gate — the one exception, and it is single-use per lane** (founder-ruled
+> 2026-09-16, register `5.385`). These gates landed mid-stream. Increments merged before a lane
+> adopted them were never going to carry records, and the precondition above would otherwise bar the
+> `/market` wave — the work most in need of a system pass — from ever receiving one. It happened
+> twice: `5.325` for PR #595, then again for #614–#621.
+>
+> So, for increments merged **before** the lane's adoption date only:
+>
+> 1. **One BATCH-LEVEL increment record** may stand in for the missing per-increment records. It
+>    covers the batch diff as a single change and is **labelled `BATCH-LEVEL (LEGACY)`** in its own
+>    return block and wherever it is cited. It is not equivalent to per-increment records and must
+>    never be described as though it were.
+> 2. **Retrospective per-increment records must NOT be written.** Reconstructing a review that did
+>    not happen produces exactly the failure this gate names — a one-sentence row reading as a
+>    completed step. An absent record is recorded as absent.
+> 3. **The system gate's return block states the precondition as `MET (legacy batch record)`**, names
+>    the increments with no individual record, and carries the consequence: cross-increment findings
+>    are still valid, but "this increment was reviewed" cannot be claimed for any of them.
+> 4. **The exception expires at the lane's adoption date.** After it, a missing increment record is a
+>    FAIL with no waiver — `#620` and `#621` merged one day after the cadence rule with no record, and
+>    that is a gap, not a legacy case.
+>
+> **Adoption dates.** market lane: **2026-09-15** (the cadence rule, PR #619). Any other lane records
+> its own here when it adopts.
+>
 > **Enforcement class:** MANDATORY REVIEW CHECKLIST (registered in `engineering-gates.md`). Rows
 > marked **⚙** are mechanisable and should be scripted rather than judged.
 >
