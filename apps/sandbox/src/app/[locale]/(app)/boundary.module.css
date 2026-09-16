@@ -9,22 +9,30 @@
   gap: var(--spacing-md);
   padding: var(--spacing-2xl) var(--spacing-lg);
 }
-.icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--sb-mode-accent);
-  color: var(--sb-mode-accent);
-}
+/*
+ * `.title` and `.body` belong to the ERROR boundary only — the loading
+ * boundary below uses `.loading` / `.pulse` / `.pulseWide` and nothing here.
+ *
+ * The title carries the Error foreground. This surface sits on
+ * `--sb-canvas-base`, where the ratified foreground measures 5.75-5.84:1 in
+ * light and 8.89-9.51:1 in dark, so Round-3 ruling §1 PERMITS direct
+ * foreground and no Error surface is inserted — the lighter treatment, chosen
+ * because the rule allows it, not to save work.
+ *
+ * The circular `--sb-mode-accent` medallion that used to sit above the title
+ * is GONE, with its `info` glyph: §5 ruled an info icon on an Error boundary
+ * semantically invalid, and the governed icon door ships no Error/failure
+ * glyph to reuse (57 keys, none of them alert/x-circle/octagon/triangle), so
+ * §5's own fallback is to remove rather than invent one. Error meaning still
+ * rides on `role="alert"`, the labelled heading, the copy and the retry
+ * action, so colour is not the sole indicator.
+ */
 .title {
   margin: 0;
   font-family: var(--sb-heading);
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-2xl);
-  color: var(--sb-text-primary);
+  color: var(--sb-state-error-foreground);
 }
 .body {
   margin: 0 auto;

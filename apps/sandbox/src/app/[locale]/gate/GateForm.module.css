@@ -77,9 +77,26 @@
   color: color-mix(in srgb, var(--sb-text-inverse-muted) 70%, transparent);
 }
 
+/*
+ * ERROR. The gate paints the ink plate (`--sb-surface-inverse` over
+ * `-inverse-raised`), and on that plate the ratified Error FOREGROUND alone
+ * measures 2.90:1 / 2.47:1 against the governed 4.5:1 floor — the conflict
+ * 5.377 recorded. Round-3 ruling §1 resolves it with the approved Error
+ * SURFACE: foreground on that surface is 4.87:1 light and 5.80:1 dark. The
+ * border is §2's region-boundary cue (3.51:1 / 3.66:1 against the surface it
+ * outlines), because in dark the surface sits only 1.40-1.53:1 off the plate.
+ *
+ * This is also what discharges §6's removal order: the error used to paint
+ * `--sb-mode-accent-bright` — the PRIMARY-ACTION colour — so a failure and the
+ * button you press to recover from it were the same colour (5.365).
+ */
 .error {
   margin: 0;
-  color: var(--sb-mode-accent-bright);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--sb-state-error-border);
+  border-radius: var(--sb-radius-card);
+  background: var(--sb-state-error-surface);
+  color: var(--sb-state-error-foreground);
   font-size: var(--font-size-sm);
 }
 
