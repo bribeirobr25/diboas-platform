@@ -198,3 +198,48 @@ Each entry names its **current code state** and its **ruled target** separately,
 - **Persistent accounts (F-16).** May be built behind a server flag (`BUILD PERMISSION ≠ PUBLIC RELEASE PERMISSION`); public persistent release stays blocked pending the evidence in `docs/sandbox-app/legal-current/PRACTICE_LEGAL_RELEASE_CHECKLIST.md`.
 - **Readiness controls (LC-TD-02 §4).** Four separate concepts — `LEGAL-TERMS` (required, unchecked) · `LEGAL-PRIVACY` (information, not consent) · `LEGAL-AGE` (required, unchecked, its own control) · `LEGAL-ANALYTICS` (optional, off) — with the exact approved four-locale strings in `docs/sandbox-app/legal-current/PRACTICE_UI_LEGAL_STRINGS.md`. Never bundle Terms with age or privacy; never require analytics to continue. _Current code:_ `components/Consent.tsx` bundles all three in one accept (PENDING_ALL 5.143 / r3 I-02) — an authorized-next-phase fix.
 - **Instrumentation** follows `docs/tech/INSTRUMENTATION_CONTRACT.md` (documentation only until the runtime is authorized). _Current code:_ the app has no analytics.
+
+## `/market` methodology + review-gate decisions (wave #614-#624, 2026-09-16)
+
+- **`methodology.json` is v1.1.0 and the bump has a specific meaning — do not "tidy" it.** ETF-01's
+  data route, universe, aggregation basis and window changed on 2026-07-11 (`6aadb3ca`): Polygon
+  shares-outstanding × Yahoo price as NAV proxy, Friday-to-Friday, across **11** tickers, computed as
+  `Σ (shares_t − shares_t−1) × price_t`. The 7±1 day week-span rule followed on 2026-09-14 (`5.301`).
+  **MINOR, not MAJOR:** the 14-point scale, the eleven signals, the five bands and the four group
+  ceilings are unchanged, so scores stay comparable across the boundary. **Not two retroactive
+  bumps** — neither change was versioned at the time, and minting a `1.0.2` would invent a version
+  history that never governed anything. Founder-ratified 2026-09-16.
+- **Every run day in `run-archive.jsonl` predating that bump is PRE-VERSIONING and must never be
+  retro-stamped** (`5.376`). We cannot know which method produced them, and stamping a version onto
+  them would manufacture provenance. The forward stamp (`5.376` step 3) is still **blocked** on the
+  diboas-analytics lane correcting doc 02 §9/§8.3.
+- **The methodology document exists TWICE** — `data/market/shared/methodology.json` (published by the
+  two view loaders) and `analytics-sdk/fixtures/methodology.json` (the swap-seam fixture). **Bump
+  both or neither.** `fixtures.test.ts` checks each file's shape in its own `describe`, so both pass
+  while the two disagree; `METH-3` in `methodologyAttestation.test.ts` is what actually holds them
+  together (`5.384`).
+- **`methodologyAttestation.test.ts` deliberately does NOT assert which version is correct.** It
+  asserts a semver `version` and a parseable `published_at` EXIST, and that the doc agrees with the
+  engine on the numbers. Which version is right is a methodology decision (`5.132(a)`); a test
+  pinning it would assert authority it does not have. **Do not "strengthen" it by hardcoding a
+  version.**
+- **The published methodology comment attributes what it cannot verify.** Its description of doc 02's
+  _prior_ text is marked as coming from `5.132(a)` and explicitly not re-verified, because doc 02 is
+  not readable from this repository. Keep that attribution if you edit the comment — an unattributed
+  claim inside a provenance artefact is the failure the artefact exists to prevent.
+- **`scripts/review-gate.mjs` resolves the register repo-relative FIRST, then `REVIEW_REGISTER_PATH`,
+  then FAILS — never SKIPs** (`5.382`, founder-ruled). Repo-relative is unchanged so the main
+  checkout is unaffected; a worktree (where `docs/` is gitignored) must export the env var. The
+  earlier SKIP made the id-collision guard inert in the one lane that writes from a worktree, and a
+  SKIP reads as a pass in a green run. Safe to fail loudly because the runner is invoked by **no CI
+  workflow** — verified, not assumed. Do not restore the SKIP.
+- **`scripts/review-gate.mjs` is a TWO-LANE file.** The market lane owns `checkRegister` and
+  `checkExports`; `checkCounts` is the webapp lane's (`5.323` + their `5.387`, same function).
+  Announce in `docs/cc-sync/market-sandbox.md` before editing it.
+- **Anything added under `apps/web/src/lib/market-data/__tests__` or `analytics-sdk/__tests__`
+  becomes a WEEKLY RELEASE GATE**, because `market-refresh-weekly.yml` step 11 runs those directories
+  whole. Declare it in `releaseGateBoundary.test.ts` with a class and a reason, and never assert a
+  value that changes weekly. Four of the last five weekly failures came from exactly that
+  (`5.363`/`GATE-BOUND-1`).
+- **Run `pnpm market:simulate-next-week` AFTER committing**, not before: its dirty-tree guard refuses
+  an ambiguous rollback while `data/market/` is modified.
