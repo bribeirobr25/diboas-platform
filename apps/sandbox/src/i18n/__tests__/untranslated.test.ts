@@ -20,9 +20,17 @@ import { getMessages } from '../loadMessages';
  * the German strategy picker, and a sweep then found five more: `comprehension
  * .yes`/`.no`, `manifest.toLabel`, `goalNew.icon.car`, `apyChart.tf.365` — all
  * user-visible English in es/de, and pt-BR already translated four of them, so
- * the omission was never deliberate. The threshold is now `> 1` (a single
- * character carries no language), and the chart-axis abbreviations are
- * allow-listed above with their reason rather than silently skipped.
+ * the omission was never deliberate. The threshold was then `> 1` ("a single character carries no language"), which
+ * `5.371` blind-spot (1) proved was still a hole: planting `de nav.learn = "L"`
+ * left this guard 5/5 GREEN, so a one-character label — a chart axis, an
+ * initial, a unit — could still ship untranslated and invisible.
+ *
+ * ⚑ **NOW `> 0` (founder-approved 2026-09-16).** Measured before changing it:
+ * the catalogue holds **zero** strings of length <= 1, so this costs **0 false
+ * positives** today. The earlier claim that `> 0` "would flag every legitimately
+ * identical one-character string" was withdrawn as measurably false. If a
+ * legitimate single-character string is ever added, it belongs in
+ * `SHARED_BY_DESIGN` with its reason — named, not hidden by a threshold.
  *
  * es/de carry real translation debt — the native pass (P-7) is out of Phase 2
  * scope — so they get a RATCHET rather than zero: the count may fall, never
@@ -135,7 +143,7 @@ function untranslated(locale: string): string[] {
       !SHARED_BY_DESIGN(k) &&
       !isGated(k) &&
       !sameWordInLocale(k, locale) &&
-      en[k].length > 1 &&
+      en[k].length > 0 &&
       loc[k] === en[k]
   );
 }

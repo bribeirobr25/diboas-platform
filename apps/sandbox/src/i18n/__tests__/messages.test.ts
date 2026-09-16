@@ -1,8 +1,24 @@
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { join, relative } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { STRATEGY_CATALOG } from '@diboas/defi';
 import { GOAL_ICONS } from '@diboas/investing';
 import { SANDBOX_LOCALES } from '../config';
 import { flattenMessages, getMessages, getRawMessages } from '../loadMessages';
+import { findRenderedText } from '../renderedText';
+
+/** The component/app source tree, walked as CID-1 walks it. */
+const SRC = join(__dirname, '..', '..');
+function sourceFiles(dir: string = SRC, out: string[] = []): string[] {
+  for (const name of readdirSync(dir)) {
+    if (name === '__tests__' || name === 'test' || name === 'node_modules') continue;
+    if (name.endsWith('.stories.tsx')) continue;
+    const full = join(dir, name);
+    if (statSync(full).isDirectory()) sourceFiles(full, out);
+    else if (/\.tsx$/.test(name)) out.push(full);
+  }
+  return out;
+}
 
 describe('goal-icon accessible labels (F-1: no raw Lucide tokens as aria-labels)', () => {
   // The real tripwire: aria-labels for the goal-icon radios come from
@@ -325,6 +341,39 @@ describe('F-R4: the public name is Practice, never Sandbox', () => {
       .filter(([, v]) => typeof v === 'string' && /sandbox/i.test(v))
       .map(([k, v]) => `${k} = ${v}`);
     expect(offenders, `F-R4 violated in ${locale}:\n${offenders.join('\n')}`).toEqual([]);
+  });
+
+  /**
+   * `5.371` blind spot 3, closed 2026-09-16 (founder-approved). COPY-3 asserted
+   * the catalogue only, so a user-facing "Sandbox" hardcoded into a component
+   * was caught by NOTHING — proven by planting one and watching this file and
+   * `check:ux-greps` both stay green.
+   *
+   * Measured before shipping: a naive /sandbox/i sweep of components flags 13
+   * lines, every one legitimate non-copy (a font CSS variable, the health
+   * route's `app: 'sandbox'`, `SandboxNotification` types, storage keys, a log
+   * tag, a scope literal, comments). Scoping to RENDERED text flags 0 — which is
+   * why the finder quotes context instead of carrying an exception list.
+   */
+  it('should carry no user-facing "sandbox" in any component RENDERED text', () => {
+    const offenders = sourceFiles().flatMap((file) =>
+      findRenderedText(readFileSync(file, 'utf8'), /sandbox/i).map(
+        (m) => `${relative(SRC, file)}:${m.line} (${m.context}) ${m.text}`
+      )
+    );
+    expect(offenders, `F-R4 violated in component rendered text:\n${offenders.join('\n')}`).toEqual(
+      []
+    );
+  });
+
+  it('should be scanning a real source tree (the finder must not go vacuous)', () => {
+    const files = sourceFiles();
+    expect(files.length).toBeGreaterThan(50);
+    // A positive control: the finder DOES see the class it exists to catch.
+    expect(findRenderedText('<p>Welcome to the Sandbox</p>', /sandbox/i)).toHaveLength(1);
+    expect(
+      findRenderedText('const s: ReadonlySet<Action> = new Set<Action>(["x"]);', /sandbox/i)
+    ).toHaveLength(0);
   });
 
   it('should still allow the internal package name (this guard is about COPY, not code)', () => {
