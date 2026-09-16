@@ -23,7 +23,7 @@
 > **v2, 2026-09-14** — v1 referenced 8 of 27 authorities and omitted i18n parity, accessibility,
 > ADR triggers and the FAIL path.
 
-**Runner:** `pnpm review:system` executes the ⚙ rows this gate shares with the increment gate (authority coverage, republished counts, register integrity, dead exports) and prints the manual fronts. **X1 (duplicate derivations) and X6 (guard filters) are deliberately NOT mechanised** — the first is too heuristic to avoid noise, and no script here claims either. Source: `scripts/review-gate.mjs`.
+**Runner:** `pnpm review:system` executes the ⚙ rows this gate shares with the increment gate (authority coverage, republished counts, register integrity, dead exports) and prints the manual fronts. **X1 (duplicate derivations) and X6 (guard filters) are deliberately NOT mechanised** — the first is too heuristic to avoid noise, and no script here claims either. Source: `scripts/review-gate.mjs`. **Register path (5.382):** the id-collision check resolves `docs/audit/PENDING_ALL.md` repo-relative first, then `REVIEW_REGISTER_PATH`, and **FAILS rather than skips** when neither resolves — a SKIP reads as a pass in a green run. The ledger is local-only and lives in the `diboas-platform` checkout, so a session working from a git WORKTREE must export `REVIEW_REGISTER_PATH=/path/to/diboas-platform/docs/audit/PENDING_ALL.md` or the gate is red by design.
 
 ## Trigger
 
