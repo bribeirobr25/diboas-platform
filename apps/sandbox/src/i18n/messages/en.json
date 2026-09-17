@@ -97,7 +97,8 @@
     "riskTitle": "Risk",
     "riskStable": "Stable strategies aim to hold their value. Risks remain: the systems can have flaws, and the digital dollars used can lose their peg.",
     "riskGrowth": "{percent}% of this strategy moves with market prices, so with real money it can fall as well as rise.",
-    "noPromise": "No promises live here. The numbers are history and current rates, not the future."
+    "noPromise": "No promises live here. The numbers are history and current rates, not the future.",
+    "networkFeeUnavailable": "Network fee: amount unavailable"
   },
   "manifest": {
     "title": "Read before you approve",
@@ -134,7 +135,8 @@
     "milestoneTitle": "You reached this goal, in practice.",
     "milestoneBody": "In real life, this is where you would decide what is next. Nothing here is real money.",
     "percentWay": "of the way there",
-    "exitPricingUnavailable": "Costs can't be priced right now, so stopping is unavailable. Your money keeps working."
+    "exitPricingUnavailable": "Costs can't be priced right now, so stopping is unavailable. Your money keeps working.",
+    "entryPricingUnavailable": "The required cost information isn't available, so this move can't proceed; nothing moved."
   },
   "history": {
     "title": "History",
@@ -715,6 +717,7 @@
     "real": "REAL MONEY"
   },
   "learn": {
-    "explainer": "Understand the ideas behind a money decision, in plain language. Learn helps you explore context, trade-offs and what something could mean — without telling you what to choose."
+    "explainer": "Understand the ideas behind a money decision, in plain language. Learn helps you explore context, trade-offs and what something could mean — without telling you what to choose.",
+    "availability": "This area isn't available yet."
   }
 }

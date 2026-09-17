@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { FormattedMessage } from 'react-intl';
 import { LucideIcon } from './LucideIcon';
-import styles from './CommunityUnavailable.module.css';
+import styles from './UnavailableSurface.module.css';
 
 /**
  * Community — the controlled unavailable destination (Shell Spec §9.5 / §23,

@@ -41,6 +41,13 @@ const M = {
   'pathCard.entryFee': 'Entering: free',
   'pathCard.networkFee': 'Network fee: about {amount}',
   'pathCard.exitFee': 'Leaving later: 0.39% (at least {min}, no cap)',
+  // ⚑ Added with Increment 2. Absent, these rendered as EMPTY TEXT via the
+  // swallowed onError — which is why the `5.347`/`5.348` sabotages initially
+  // passed: the reverts changed nothing the assertions could see. Copied from
+  // `i18n/messages/en.json`, not retyped.
+  'pathCard.networkFeeUnavailable': 'Network fee: amount unavailable',
+  'goalDetail.entryPricingUnavailable':
+    "The required cost information isn't available, so this move can't proceed; nothing moved.",
   'pathCard.riskTitle': 'Risk',
   'pathCard.riskStable': 'Stable strategies aim to hold their value.',
   'pathCard.riskGrowth': '{percent}% moves with market prices.',
@@ -278,5 +285,38 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
     expect(screen.queryByText(/network fee \(gas\) used in this simulation/)).toBeNull();
     // and it still must not claim to be fully live
     expect(screen.queryByText(/^Live from DeFiLlama/)).toBeNull();
+
+    /* `5.348` (Execution Rulings §17): the row is NOT omitted — the approved
+       string REPLACES the figure, because `amount unavailable != zero !=
+       waived != free network`. Asserting only the absence above could not tell
+       a replaced row from a missing one, which is exactly why reverting this
+       change passed its first sabotage. */
+    expect(screen.getByText('Network fee: amount unavailable')).toBeTruthy();
+
+    /* `5.347` (§16): the refusal explanation must be ADJACENT to the blocked
+       action, and must be the RIGHT reason — an unpriceable entry previously
+       rendered "Enter an amount above", naming a cause that was not the cause. */
+    expect(
+      screen.getByText(
+        "The required cost information isn't available, so this move can't proceed; nothing moved."
+      )
+    ).toBeTruthy();
+    expect(screen.queryByText('Enter an amount above to put money to work.')).toBeNull();
+  });
+
+  it('should keep the amount hint when the fee IS priceable and only the amount is missing', () => {
+    // The other side of the same selection: with a priceable fee, the reason
+    // stays the amount hint. Without this, a branch that always showed the
+    // refusal string would pass the test above.
+    renderDetail(); // fixture Arbitrum gas + FX 1 → fee is priceable, no handler
+    expect(screen.getByText('Enter an amount above to put money to work.')).toBeTruthy();
+    expect(
+      screen.queryByText(
+        "The required cost information isn't available, so this move can't proceed; nothing moved."
+      )
+    ).toBeNull();
+    // and the fee row shows the figure, not the unavailable label
+    expect(screen.getByText(/Network fee: about/)).toBeTruthy();
+    expect(screen.queryByText('Network fee: amount unavailable')).toBeNull();
   });
 });

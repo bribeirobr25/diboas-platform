@@ -97,7 +97,8 @@
     "riskTitle": "Riesgo",
     "riskStable": "Las estrategias estables buscan mantener su valor. Los riesgos siguen ahí: los sistemas pueden tener fallos y los dólares digitales que se usan pueden perder su paridad.",
     "riskGrowth": "El {percent}% de esta estrategia se mueve con los precios del mercado, así que con dinero real puede bajar además de subir.",
-    "noPromise": "Aquí no viven las promesas. Los números son historial y tasas actuales, no el futuro."
+    "noPromise": "Aquí no viven las promesas. Los números son historial y tasas actuales, no el futuro.",
+    "networkFeeUnavailable": "Comisión de red: importe no disponible"
   },
   "manifest": {
     "title": "Lee antes de aprobar",
@@ -134,7 +135,8 @@
     "milestoneTitle": "Has alcanzado esta meta, en práctica.",
     "milestoneBody": "En la vida real, aquí decidirías qué viene después. Nada de aquí es dinero real.",
     "percentWay": "del camino",
-    "exitPricingUnavailable": "Ahora mismo no se pueden calcular los costes, así que parar no está disponible. Tu dinero sigue trabajando."
+    "exitPricingUnavailable": "Ahora mismo no se pueden calcular los costes, así que parar no está disponible. Tu dinero sigue trabajando.",
+    "entryPricingUnavailable": "La información de costes necesaria no está disponible, así que este movimiento no puede continuar; no se ha movido nada."
   },
   "history": {
     "title": "Historial",
@@ -715,6 +717,7 @@
     "real": "DINERO REAL"
   },
   "learn": {
-    "explainer": "Entiende, con un lenguaje claro, las ideas que hay detrás de una decisión sobre dinero. Aprender te ayuda a explorar el contexto, las alternativas y lo que algo podría significar, sin decirte qué elegir."
+    "explainer": "Entiende, con un lenguaje claro, las ideas que hay detrás de una decisión sobre dinero. Aprender te ayuda a explorar el contexto, las alternativas y lo que algo podría significar, sin decirte qué elegir.",
+    "availability": "Esta sección aún no está disponible."
   }
 }

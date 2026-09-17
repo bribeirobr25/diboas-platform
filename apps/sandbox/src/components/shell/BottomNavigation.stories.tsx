@@ -47,25 +47,14 @@ export const GoalsSelected: Story = { args: { current: 'goals' } };
  */
 export const NoneSelected: Story = { args: { current: 'goals/[id]' } };
 
-/**
- * The two unavailable destinations, which are unavailable differently.
- *
- * `Community` navigates to its controlled unavailable surface (approved copy,
- * `P-QA5`/`L-QA3`). `Learn` is inert, with the accessible reason supplied here
- * in English only: no approved wording exists in the four locales, so the live
- * shell passes none and Learn renders visible, labelled and inert — exactly as
- * it ships today. This story is where that state is proven.
- */
-export const LearnInertWithReason: Story = {
-  args: {
-    current: '',
-    destinations: destinationsFor('en').map((destination) =>
-      destination.surface === 'learn'
-        ? { ...destination, unavailableLabel: 'Learn — not available yet' }
-        : destination
-    ),
-  },
-};
+/* ⚑ `LearnInertWithReason` was deleted with `5.349`. It existed to prove the
+   inert-Learn state and supplied an INVENTED English `unavailableLabel`
+   ("Learn — not available yet") that no locale catalogue ever held. Execution
+   Rulings §18 supplied the real availability line in four locales, Learn now
+   navigates to a controlled unavailable surface like Community, and
+   `unavailableLabel` was removed as dead with its only consumer. A story
+   demonstrating a state that no longer exists, using copy that was never
+   approved, is worse than no story. */
 
 /** §26 / `SHELL-2`: the selected state must survive with every colour removed. */
 export const SelectedSurvivesGreyscale: Story = {

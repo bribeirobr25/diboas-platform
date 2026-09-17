@@ -199,14 +199,18 @@ export function StrategyDetail({
         <li>
           <FormattedMessage id="pathCard.entryFee" />
         </li>
-        {/* ⚑ AUD-F05. `about $0.00` would understate the one cost this list
-            exists to state, so an unknown fee is ABSENT rather than wrong. The
-            explanation it deserves needs an approved string (registered). */}
-        {fee !== null ? (
-          <li>
+        {/* `5.348` (Execution Rulings §17). The row is no longer OMITTED when the
+            amount is unknown: the approved string replaces the figure, because
+            `amount unavailable != zero != waived != free network`. Omitting it
+            left the reader a shorter list with no note; `about $0.00` would have
+            understated the one cost this list exists to state (AUD-F05). */}
+        <li>
+          {fee !== null ? (
             <FormattedMessage id="pathCard.networkFee" values={{ amount: money(fee) }} />
-          </li>
-        ) : null}
+          ) : (
+            <FormattedMessage id="pathCard.networkFeeUnavailable" />
+          )}
+        </li>
         {variant === 'full' ? (
           <li>
             <FormattedMessage
@@ -420,7 +424,19 @@ export function StrategyDetail({
       </Button>
       {!onPutToWork ? (
         <p className={styles.ctaHint}>
-          <FormattedMessage id="strategyDetail.needAmount" />
+          {/* `5.347` (Execution Rulings §16): the refusal explanation must stay
+              ADJACENT to the blocked action — and it must be the RIGHT reason.
+              `fee === null` here is exactly `GoalDetailScreen`'s
+              `canPriceEntry === false`: both call `networkFeeLocal` with this
+              strategy's `entryChain` and the same FX, so an unpriceable entry is
+              knowable locally. Before this, an unpriceable entry rendered
+              "Enter an amount above", which named a cause that was not the
+              cause. One reason renders, never both. */}
+          {fee === null ? (
+            <FormattedMessage id="goalDetail.entryPricingUnavailable" />
+          ) : (
+            <FormattedMessage id="strategyDetail.needAmount" />
+          )}
         </p>
       ) : null}
     </section>

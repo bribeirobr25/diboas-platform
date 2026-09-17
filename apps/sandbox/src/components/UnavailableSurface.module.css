@@ -1,5 +1,11 @@
 /*
- * Community's controlled unavailable state (Shell Spec §23).
+ * The controlled unavailable state, shared by Community and Learn (Shell Spec §23).
+ *
+ * Extracted from `CommunityUnavailable.module.css` when Learn became a
+ * controlled-unavailable destination too (`5.349`). The declarations are
+ * UNCHANGED — Community renders exactly as before — and the file was renamed
+ * rather than copied so one stylesheet does not end up describing two surfaces
+ * under the name of one of them.
  *
  * Calm and plain on purpose: this surface exists to tell the truth about a
  * destination that is not open yet, so it carries no scenic hero, no
