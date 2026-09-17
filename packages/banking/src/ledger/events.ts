@@ -54,6 +54,32 @@ export function scopeOf(event: EventBase): LedgerScope {
   return event.ledgerScope ?? 'sandbox';
 }
 
+/**
+ * How an event's fees relate to money (`5.403`).
+ *
+ * - `'modeled'` — recorded, shown where relevant, and **not** deducted. The
+ *   Practice rule (`FEES.md` F-12; the Product handoff's Practice fee class is
+ *   *"Shown separately, not deducted from the Goal split"*).
+ * - `'deducted'` — the fee really reduced holdings. Every event written before
+ *   `5.403`, and the semantics Real Money keeps under FC-15.
+ *
+ * **OPTIONAL on the event, on purpose** — the same decision as `ledgerScope`
+ * (D-04): a log is never rewritten, so absence must carry the legacy meaning.
+ */
+export type FeeAccounting = 'modeled' | 'deducted';
+
+/**
+ * The read-time fee semantics of an event. Read through this accessor, NEVER off
+ * the raw field: a bare `e.feeAccounting === 'modeled'` check is fine, but its
+ * negation silently classes every legacy event as modelled, which would stop
+ * `reconcile()` subtracting fees that genuinely left `held` — every existing
+ * device ledger would then reconcile to `−fee` instead of `0.00`. That is the
+ * exact hazard `scopeOf`'s comment warns about, in the money path.
+ */
+export function feeAccountingOf(event: { feeAccounting?: FeeAccounting }): FeeAccounting {
+  return event.feeAccounting ?? 'deducted';
+}
+
 /** Play money granted at first run (D-4: 10K B2C / 250K B2B, local currency). */
 export interface PlayMoneyGranted extends EventBase {
   type: 'PlayMoneyGranted';
@@ -105,9 +131,20 @@ export interface GoalFunded extends EventBase {
 
 /**
  * A goal's money entering a strategy. Entry is FREE (FEES.md); the network
- * fee is a pass-through cost, expressed in LEDGER currency (the app converts
- * the chain's USD gas quote via the USDC price quote) and genuinely deducted —
- * production honesty, not decoration.
+ * fee is a pass-through cost expressed in LEDGER currency (the app converts the
+ * chain's USD gas quote via the USDC price quote).
+ *
+ * ## `amount` means different things in the two fee generations (`5.403`)
+ *
+ * `feeAccounting: 'modeled'` (new events) — `amount` is the WHOLE total the user
+ * committed, and `networkFee` is recorded beside it as information that moved no
+ * money. F-12: in Practice fees are *modeled and informational — shown where
+ * relevant, never silently deducted*.
+ *
+ * Absent `feeAccounting` (every event written before `5.403`) — `amount` is the
+ * total MINUS the fee, and the fee really did reduce the goal's cash. Those
+ * events keep that meaning forever; an event-sourced log is never rewritten and
+ * history is never reinterpreted.
  */
 export interface StrategyEntered extends EventBase {
   type: 'StrategyEntered';
@@ -116,6 +153,7 @@ export interface StrategyEntered extends EventBase {
   strategyId: string;
   amount: string;
   networkFee: string;
+  feeAccounting?: FeeAccounting;
 }
 
 /** Accrual applied to a position for a span of simulated days (real APY replay). */
@@ -161,15 +199,26 @@ export interface AccrualApplied extends EventBase {
   }>;
 }
 
-/** Position exit: 0.39% fee with $0.25 floor, no cap (FE-1a), principal+earnings return to the goal. */
+/**
+ * Position exit: 0.39% fee with $0.25 floor, no cap (FE-1a), principal+earnings
+ * return to the goal.
+ *
+ * `feeAccounting: 'modeled'` (new events) — the FULL `grossAmount` returns to the
+ * goal; `exitFee` and `networkFee` are recorded as information only (`5.403`).
+ * Absent the marker, the fees genuinely reduced what landed, and that stays true
+ * for those events. The fee ARITHMETIC is unchanged either way: the floor is
+ * still applied per position, never once on a summed gross (Legal-accepted
+ * disposition, `FEES.md` note 3).
+ */
 export interface StrategyExited extends EventBase {
   type: 'StrategyExited';
   positionId: string;
   goalId: string;
   grossAmount: string;
   exitFee: string;
-  /** Pass-through network fee in ledger currency (deducted, like production). */
+  /** Pass-through network fee in ledger currency. */
   networkFee: string;
+  feeAccounting?: FeeAccounting;
 }
 
 /**

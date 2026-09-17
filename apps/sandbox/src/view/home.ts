@@ -246,7 +246,14 @@ export interface HistorySummary {
 }
 
 export function selectHistorySummary(state: LedgerState): HistorySummary {
-  const feesPaid = new Decimal(state.networkFeesPaid).plus(state.exitFeesPaid);
+  /**
+   * `5.403` — the MODELLED totals, deliberately, across both fee generations.
+   * `history.feeDrag` communicates modelled cost information ("Practice costs so
+   * far"), which F-12 keeps visible; it is not a claim that money left. Reading
+   * the deducted aggregates instead would silently drop every new Practice fee
+   * from the trail and make a returning user's costs appear to stop accruing.
+   */
+  const feesPaid = new Decimal(state.modeledNetworkFees).plus(state.modeledExitFees);
   return {
     feesPaid: feesPaid.toFixed(2),
     showFeeDrag: feesPaid.gt(0),
@@ -547,7 +554,8 @@ export function selectPositionValue(position: { principal: string; accrued: stri
 }
 
 /**
- * The entry split: what actually lands in the strategy after the network fee.
+ * The entry breakdown: the committed total, and the modelled network fee shown
+ * beside it (`5.403` — the fee is not subtracted from what lands).
  *
  * `splitEntry` was called INSIDE a JSX prop (`value: money(splitEntry(...).invested.toFixed(2))`)
  * — deriving a net figure mid-render, directly beside a gross CTA. That is the
@@ -555,9 +563,9 @@ export function selectPositionValue(position: { principal: string; accrued: stri
  * The domain function is passed in, so it keeps one owner.
  */
 export interface EntrySplit {
-  /** What reaches the strategy. */
+  /** What reaches the strategy — the whole committed total in Practice. */
   invested: string;
-  /** The network fee taken from the entry. */
+  /** The modelled network fee, shown separately and deducted from nothing. */
   fee: string;
 }
 

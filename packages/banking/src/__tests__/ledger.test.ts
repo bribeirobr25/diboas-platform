@@ -110,6 +110,264 @@ describe('project (event-sourced state)', () => {
   });
 });
 
+/**
+ * `5.403` — MODEL THE CONSEQUENCE ≠ APPLY THE CONSEQUENCE TO PRACTICE MONEY.
+ *
+ * F-12: in Practice, fees are *modeled and informational — shown where relevant,
+ * never silently deducted*. The Product handoff states the Practice fee class as
+ * *"Shown separately, not deducted from the Goal split."*
+ *
+ * The two generations are told apart by `feeAccounting`, which is OPTIONAL on the
+ * event for the same reason `ledgerScope` is (D-04): a log is never rewritten, so
+ * absence must keep carrying the legacy meaning.
+ */
+describe('5.403 — Practice fees are recorded, not spent', () => {
+  /** Grant → split → goal → fund, the shared prefix for both generations. */
+  function funded(): LedgerEvent[] {
+    return [
+      { ...base(), type: 'PlayMoneyGranted', amount: '10000', currency: 'USD', mode: 'b2c' },
+      { ...base(), type: 'JobsSplitSet', floorPercent: 50, cushionPercent: 30, workingPercent: 20 },
+      {
+        ...base(),
+        type: 'GoalCreated',
+        goalId: 'g1',
+        name: 'Trip',
+        icon: 'plane',
+        targetAmount: '5000',
+        horizonMonths: 24,
+      },
+      { ...base(), type: 'GoalFunded', goalId: 'g1', amount: '1500' },
+    ];
+  }
+
+  it('should allocate the WHOLE total on entry and record the fee beside it', () => {
+    const events = funded();
+    events.push({
+      ...base(),
+      type: 'StrategyEntered',
+      goalId: 'g1',
+      positionId: 'p1',
+      strategyId: 'safeHarbor',
+      amount: '1000',
+      networkFee: '0.16',
+      feeAccounting: 'modeled',
+    });
+    const state = project(events);
+    // The goal parts with exactly what the user approved…
+    expect(state.goals[0].cash).toBe('500.00');
+    // …and ALL of it reaches the strategy: entry must allocate X, not X − fee.
+    expect(state.goals[0].invested).toBe('1000.00');
+    // ECONOMIC DEBIT = 0 …
+    expect(state.networkFeesPaid).toBe('0.00');
+    // … MODELED FEE INFORMATION = the actual modelled amount.
+    expect(state.modeledNetworkFees).toBe('0.16');
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should return the FULL gross on exit and record both modelled fees', () => {
+    const events = funded();
+    events.push(
+      {
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p1',
+        strategyId: 'safeHarbor',
+        amount: '1000',
+        networkFee: '0.16',
+        feeAccounting: 'modeled',
+      },
+      {
+        ...base(),
+        type: 'StrategyExited',
+        positionId: 'p1',
+        goalId: 'g1',
+        grossAmount: '1000.00',
+        exitFee: '3.90',
+        networkFee: '0.16',
+        feeAccounting: 'modeled',
+      }
+    );
+    const state = project(events);
+    // MONEY RETURNED = gross Practice value: 500 + the whole 1000.
+    expect(state.goals[0].cash).toBe('1500.00');
+    expect(state.exitFeesPaid).toBe('0.00');
+    expect(state.networkFeesPaid).toBe('0.00');
+    expect(state.modeledExitFees).toBe('3.90');
+    expect(state.modeledNetworkFees).toBe('0.32');
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should keep a LEGACY entry deducting, so history is never reinterpreted', () => {
+    const events = funded();
+    // No `feeAccounting` — every event written before `5.403`.
+    events.push({
+      ...base(),
+      type: 'StrategyEntered',
+      goalId: 'g1',
+      positionId: 'p1',
+      strategyId: 'safeHarbor',
+      amount: '1000',
+      networkFee: '0.16',
+    });
+    const state = project(events);
+    // The legacy cash leg is amount + fee, exactly as it always was.
+    expect(state.goals[0].cash).toBe('499.84');
+    expect(state.networkFeesPaid).toBe('0.16');
+    // The modelled total carries it too — it was modelled AND paid.
+    expect(state.modeledNetworkFees).toBe('0.16');
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should let BOTH generations coexist in one ledger and still reconcile', () => {
+    const events = funded();
+    events.push(
+      // legacy: amount already net
+      {
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p1',
+        strategyId: 'safeHarbor',
+        amount: '400',
+        networkFee: '0.10',
+      },
+      // modelled: amount is the whole total
+      {
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p2',
+        strategyId: 'safeHarbor',
+        amount: '500',
+        networkFee: '0.20',
+        feeAccounting: 'modeled',
+      }
+    );
+    const state = project(events);
+    // 1500 − (400 + 0.10) − 500
+    expect(state.goals[0].cash).toBe('599.90');
+    expect(state.goals[0].invested).toBe('900.00');
+    // Only the legacy fee is deductible; both are modelled.
+    expect(state.networkFeesPaid).toBe('0.10');
+    expect(state.modeledNetworkFees).toBe('0.30');
+    expect(reconcile(state)).toBe('0.00');
+  });
+
+  it('should reconcile at every PREFIX of a mixed log (no intermediate leak)', () => {
+    const events = funded();
+    events.push(
+      {
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p1',
+        strategyId: 'safeHarbor',
+        amount: '400',
+        networkFee: '0.10',
+      },
+      {
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p2',
+        strategyId: 'safeHarbor',
+        amount: '500',
+        networkFee: '0.20',
+        feeAccounting: 'modeled',
+      },
+      {
+        ...base(),
+        type: 'StrategyExited',
+        positionId: 'p2',
+        goalId: 'g1',
+        grossAmount: '500.00',
+        exitFee: '1.95',
+        networkFee: '0.20',
+        feeAccounting: 'modeled',
+      }
+    );
+    for (let i = 1; i <= events.length; i += 1) {
+      expect(reconcile(project(events.slice(0, i))), `prefix ${i}`).toBe('0.00');
+    }
+  });
+
+  it('should hold the AFFORDABILITY threshold equal across both generations', () => {
+    // The guard is `cash >= cashLeg`. Legacy: amount(net) + fee. Modelled:
+    // amount(total). Both equal the committed total, so the same cash affords
+    // the same move — nothing becomes newly affordable or unaffordable.
+    const committed = new Decimal('1500');
+    const fee = new Decimal('0.16');
+    const legacyLeg = committed.minus(fee).plus(fee);
+    const modeledLeg = committed;
+    expect(legacyLeg.toFixed(2)).toBe(modeledLeg.toFixed(2));
+
+    // And proven through the projection: exactly-affordable is accepted in both.
+    for (const modeled of [false, true] as const) {
+      const events = funded();
+      events.push({
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p1',
+        strategyId: 'safeHarbor',
+        amount: modeled ? '1500' : '1499.84',
+        networkFee: '0.16',
+        ...(modeled ? { feeAccounting: 'modeled' as const } : {}),
+      });
+      const state = project(events);
+      expect(
+        state.positions.filter((p) => p.open),
+        `modeled=${modeled}`
+      ).toHaveLength(1);
+      expect(state.goals[0].cash, `modeled=${modeled}`).toBe('0.00');
+      expect(reconcile(state), `modeled=${modeled}`).toBe('0.00');
+    }
+  });
+
+  it('should keep the CREDIT CEILING timing identical to the legacy basis', () => {
+    /**
+     * Founder ruling: `CREDIT CEILING TIMING = PRESERVE`. The basis subtracts
+     * every MODELLED fee of both generations, which is numerically the total the
+     * old expression subtracted — so the pause point cannot drift. This is a
+     * legacy compatibility quantity, NOT the user's Practice holdings.
+     */
+    const legacy = funded();
+    legacy.push({
+      ...base(),
+      type: 'StrategyEntered',
+      goalId: 'g1',
+      positionId: 'p1',
+      strategyId: 'safeHarbor',
+      amount: '1000',
+      networkFee: '0.16',
+    });
+    const modeled = funded();
+    modeled.push({
+      ...base(),
+      type: 'StrategyEntered',
+      goalId: 'g1',
+      positionId: 'p1',
+      strategyId: 'safeHarbor',
+      amount: '1000',
+      networkFee: '0.16',
+      feeAccounting: 'modeled',
+    });
+    const a = project(legacy);
+    const b = project(modeled);
+    // Same grant, same modelled fee → the same ceiling answer at every probe.
+    for (const ceiling of ['9999.00', '9999.84', '10000.00', '20000.00']) {
+      expect(creditCeilingReached(a, ceiling), `legacy @${ceiling}`).toBe(
+        creditCeilingReached(b, ceiling)
+      );
+    }
+    // And the basis really is the modelled total, not the deducted one: the
+    // modelled ledger reports 0.00 deducted yet answers the same.
+    expect(b.networkFeesPaid).toBe('0.00');
+    expect(b.modeledNetworkFees).toBe('0.16');
+  });
+});
+
 describe('reconcile (the invariant gate: money never leaks)', () => {
   it('should reconcile to zero across the full journey', () => {
     expect(reconcile(project(journey()))).toBe('0.00');

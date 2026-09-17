@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js';
-import { project, type LedgerEvent, type LedgerState } from '@diboas/banking';
+import { feeAccountingOf, project, type LedgerEvent, type LedgerState } from '@diboas/banking';
 import { Logger } from './monitoring/Logger';
 
 /**
@@ -103,13 +103,28 @@ function deltaFor(event: LedgerEvent): Decimal {
       return new Decimal(event.earnings);
     case 'SimulatedExpensePaid':
       return new Decimal(event.amount).neg();
+    /**
+     * `5.403` — this row is ECONOMIC IMPACT, not modelled-fee information: the
+     * rows are terms of the conservation identity and must sum to the change in
+     * play balance, which `explained` checks. So a MODELLED fee contributes 0 —
+     * it moved no money — while a legacy DEDUCTED fee keeps the delta it really
+     * had, so an older month still explains itself to the cent.
+     *
+     * Modelled amounts are not lost: they remain on the fee trail
+     * (`history.feeDrag`, via the modelled aggregates).
+     */
     case 'StrategyEntered':
-      return new Decimal(event.networkFee).neg();
+      return feeAccountingOf(event) === 'deducted'
+        ? new Decimal(event.networkFee).neg()
+        : new Decimal(0);
     case 'StrategyExited':
-      // gross is `principal + accrued` at both emitters, so the position
-      // leaving `held` is exactly cancelled by the net landing in goal.cash —
-      // what remains is the fees.
-      return new Decimal(event.exitFee).plus(event.networkFee).neg();
+      // gross is `principal + accrued` at both emitters. Under legacy semantics
+      // the position leaving `held` is cancelled by the NET landing in goal.cash,
+      // so the fees remain as the delta. Under modelled semantics the FULL gross
+      // lands, so the cancellation is exact and nothing remains.
+      return feeAccountingOf(event) === 'deducted'
+        ? new Decimal(event.exitFee).plus(event.networkFee).neg()
+        : new Decimal(0);
 
     // ── Provably net-zero on the play balance ────────────────────────────
     // Each of these either touches no component of `held`, or moves value

@@ -47,6 +47,8 @@ const base = (over: Partial<LedgerState> = {}): LedgerState =>
     recurring: [],
     networkFeesPaid: '0.00',
     exitFeesPaid: '0.00',
+    modeledNetworkFees: '0.00',
+    modeledExitFees: '0.00',
     credited: '0.00',
     events: [],
     ...over,
@@ -266,21 +268,56 @@ describe('selectHistorySummary', () => {
   it('should hide the fee line at exactly zero and show it at the first cent', () => {
     expect(
       selectHistorySummary(
-        base({ networkFeesPaid: '0.00', exitFeesPaid: '0.00' } as Partial<LedgerState>)
+        base({ modeledNetworkFees: '0.00', modeledExitFees: '0.00' } as Partial<LedgerState>)
       ).showFeeDrag
     ).toBe(false);
     expect(
       selectHistorySummary(
-        base({ networkFeesPaid: '0.00', exitFeesPaid: '0.01' } as Partial<LedgerState>)
+        base({ modeledNetworkFees: '0.00', modeledExitFees: '0.01' } as Partial<LedgerState>)
       ).showFeeDrag
     ).toBe(true);
   });
 
   it('should sum BOTH fee totals — the ledger tracks network and exit separately', () => {
     const v = selectHistorySummary(
-      base({ networkFeesPaid: '1.25', exitFeesPaid: '0.50' } as Partial<LedgerState>)
+      base({ modeledNetworkFees: '1.25', modeledExitFees: '0.50' } as Partial<LedgerState>)
     );
     expect(v.feesPaid).toBe('1.75');
+  });
+
+  /**
+   * `5.403` — the fee trail reports MODELLED cost, not money that left.
+   *
+   * The requirement is unchanged (`history.feeDrag` shows what practice has cost
+   * so far); what moved is which aggregate carries it. This pins the direction so
+   * a future edit cannot quietly point the trail back at the deducted totals,
+   * which would make a new Practice user's costs read as 0.00 forever.
+   */
+  it('should read the MODELLED totals, never the deducted ones (5.403)', () => {
+    const v = selectHistorySummary(
+      base({
+        networkFeesPaid: '0.00',
+        exitFeesPaid: '0.00',
+        modeledNetworkFees: '2.00',
+        modeledExitFees: '1.00',
+      } as Partial<LedgerState>)
+    );
+    expect(v.feesPaid).toBe('3.00');
+    expect(v.showFeeDrag).toBe(true);
+  });
+
+  it('should NOT report a legacy deducted fee twice (it is already in the modelled total)', () => {
+    // A legacy ledger accumulates BOTH pairs; the trail must show the modelled
+    // total once, not the sum of the two pairs.
+    const v = selectHistorySummary(
+      base({
+        networkFeesPaid: '0.16',
+        exitFeesPaid: '3.92',
+        modeledNetworkFees: '0.16',
+        modeledExitFees: '3.92',
+      } as Partial<LedgerState>)
+    );
+    expect(v.feesPaid).toBe('4.08');
   });
 });
 

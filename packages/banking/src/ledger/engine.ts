@@ -50,7 +50,14 @@ export function project(events: LedgerEvent[]): LedgerState {
     positions: new Map<string, PositionEntry>(),
     recurring: new Map<string, RecurringSchedule>(),
     rules: new Map<string, RuleState>(),
-    totals: { networkFees: ZERO, exitFees: ZERO, credited: ZERO, spent: ZERO },
+    totals: {
+      networkFees: ZERO,
+      exitFees: ZERO,
+      modeledNetworkFees: ZERO,
+      modeledExitFees: ZERO,
+      credited: ZERO,
+      spent: ZERO,
+    },
   };
 
   for (const event of events) {
@@ -136,6 +143,8 @@ export function project(events: LedgerEvent[]): LedgerState {
   }));
   state.networkFeesPaid = ctx.totals.networkFees.toFixed(2);
   state.exitFeesPaid = ctx.totals.exitFees.toFixed(2);
+  state.modeledNetworkFees = ctx.totals.modeledNetworkFees.toFixed(2);
+  state.modeledExitFees = ctx.totals.modeledExitFees.toFixed(2);
   state.credited = ctx.totals.credited.toFixed(2);
   state.collectedWeeks.sort((a, b) => a - b);
   state.spent = ctx.totals.spent.toFixed(2);
@@ -196,10 +205,24 @@ export function reconcile(state: LedgerState): string {
  * uncollected. Both resume; neither expires anything.
  */
 export function creditCeilingReached(state: LedgerState, ceilingAmount: string): boolean {
+  /**
+   * ⚑ `5.403` — this basis is a LEGACY COMPATIBILITY QUANTITY, not Practice net
+   * worth, and the distinction is load-bearing.
+   *
+   * Founder ruling: `CREDIT CEILING TIMING = PRESERVE`. The basis therefore
+   * subtracts EVERY modelled fee of both generations, which is numerically the
+   * same total this expression subtracted before modelled fees stopped moving
+   * money — so the pause point cannot drift for anyone, new or returning.
+   *
+   * It is deliberately NOT `reconcile()`'s expression: that one may subtract only
+   * fees that actually left `held`. Here the fees are subtracted for timing
+   * compatibility alone. Do not describe this number as the user's holdings, and
+   * do not let this compatibility rule reach Real Money accounting.
+   */
   const base = grantedTotal(state)
     .plus(d(state.credited))
     .minus(d(state.spent))
-    .minus(d(state.exitFeesPaid))
-    .minus(d(state.networkFeesPaid));
+    .minus(d(state.modeledExitFees))
+    .minus(d(state.modeledNetworkFees));
   return base.gte(d(ceilingAmount));
 }
