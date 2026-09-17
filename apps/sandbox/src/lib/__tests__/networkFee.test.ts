@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { FIXTURE_STAMP } from '@diboas/defi';
+import { FIXTURE_STAMP, observedStamp } from '@diboas/defi';
 import type { GasQuote } from '@diboas/defi';
-import { networkFeeLocal } from '@/lib/networkFee';
+import { gasStampFor, networkFeeLocal } from '@/lib/networkFee';
 
 const ARBITRUM: GasQuote = {
   chain: 'Arbitrum',
@@ -33,5 +33,27 @@ describe('networkFeeLocal — MISSING is not zero (handoff §8.7, AUD-F05)', () 
 
   it('should report null when it has neither input', () => {
     expect(networkFeeLocal([], 'Ethereum', null)).toBeNull();
+  });
+});
+
+describe('gasStampFor — the stamp must describe the chain whose fee is shown', () => {
+  const SOLANA = {
+    chain: 'Solana' as const,
+    typicalFeeUsd: 0.001,
+    stamp: observedStamp('defillama', '2026-09-17'),
+  };
+
+  it('should resolve BY CHAIN, not by array position', () => {
+    // The defect: `gas[0]?.stamp` with the route's old ['Solana', ...] order
+    // stamped every Arbitrum strategy from Solana's quote.
+    expect(gasStampFor([SOLANA, ARBITRUM], 'Arbitrum')).toBe(FIXTURE_STAMP);
+    expect(gasStampFor([SOLANA, ARBITRUM], 'Solana')).toBe(SOLANA.stamp);
+  });
+
+  it('should report an absent quote as MISSING, never as undefined', () => {
+    // `undefined` means "no fee on this surface" and must keep meaning that.
+    expect(gasStampFor([ARBITRUM], 'Solana')).toBe('missing');
+    expect(gasStampFor([], 'Arbitrum')).toBe('missing');
+    expect(gasStampFor([ARBITRUM], 'Solana')).not.toBeUndefined();
   });
 });

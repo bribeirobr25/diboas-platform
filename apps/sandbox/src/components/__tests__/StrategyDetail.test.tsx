@@ -240,4 +240,43 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
     fireEvent.click(screen.getByText('Put money to work'));
     expect(onPutToWork).toHaveBeenCalledOnce();
   });
+
+  /**
+   * `5.402`. The harness supplies three LIVE rates and a FIXTURE Arbitrum gas
+   * quote — exactly what the app ships today — and the APY label used to read
+   * "includes documented reference values" about rates that were all live.
+   * No test covered this label in the mixed-gas state, which is why the false
+   * claim shipped.
+   */
+  it('should state the APY label from the APY legs ONLY, never from the gas quote', () => {
+    renderDetail(LIVE);
+    expect(screen.getByText(/\(real, variable\)/)).toBeTruthy();
+    expect(screen.queryByText(/includes documented reference values/)).toBeNull();
+    // The fee's provenance is still stated — by the gas sentence, not the label.
+    expect(screen.getByText(/Partly live from DeFiLlama/).textContent).toContain(
+      'network fee (gas) used in this simulation'
+    );
+  });
+
+  it('should not describe a reference fee it never rendered', () => {
+    // No quote for safeHarbor's Arbitrum entry → no fee row, so the
+    // reference-fee sentence must be absent rather than describing nothing.
+    render(
+      <IntlProvider locale="en" messages={M} onError={() => {}}>
+        <StrategyDetail
+          strategy={safeHarbor}
+          goalName="Future cushion"
+          apys={LIVE}
+          histories={[history('skySsr', 120), history('aaveV3', 120), history('compoundV3', 120)]}
+          gas={[]}
+          usdPriceLocal={1}
+          currency="USD"
+        />
+      </IntlProvider>
+    );
+    expect(screen.queryByText(/Network fee: about/)).toBeNull();
+    expect(screen.queryByText(/network fee \(gas\) used in this simulation/)).toBeNull();
+    // and it still must not claim to be fully live
+    expect(screen.queryByText(/^Live from DeFiLlama/)).toBeNull();
+  });
 });

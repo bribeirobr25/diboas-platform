@@ -26,7 +26,15 @@ const PROTOCOLS: ProtocolId[] = [
   'jupiterJlp',
   'jito',
 ];
-const CHAINS: Chain[] = ['Solana', 'Arbitrum', 'Ethereum', 'Bitcoin', 'Sui'];
+/**
+ * The chains the product actually enters on (`5.352`).
+ *
+ * Every strategy in the catalogue is Arbitrum or Solana, so quotes for
+ * Ethereum/Bitcoin/Sui were fetched, serialised and shipped on every market
+ * read while no surface could ever resolve them: `networkFeeLocal` and
+ * `gasStampFor` both look a quote up by `strategy.entryChain`.
+ */
+const CHAINS: Chain[] = ['Arbitrum', 'Solana'];
 
 const apyProvider = new DefiLlamaApyProvider();
 const priceProvider = new CoinGeckoPriceProvider();

@@ -6,7 +6,7 @@ import { EXIT_FEE_FLOOR, FEE_RATES } from '@diboas/banking';
 import { FIXTURE_AS_OF, strategyProvenance } from '@diboas/defi';
 import type { GasQuote, ProtocolApy, ProtocolApyHistory, StrategyDef } from '@diboas/defi';
 import { useFormatters } from '@/hooks/useFormatters';
-import { networkFeeLocal } from '@/lib/networkFee';
+import { gasStampFor, networkFeeLocal } from '@/lib/networkFee';
 import { selectStrategyChartSeries, type ChartTimeframe } from '@/view/strategy';
 import { ApyChart } from './ApyChart';
 import { Button } from './Button';
@@ -76,7 +76,7 @@ export function StrategyDetail({
   /* This surface renders the NETWORK FEE as well as the rates, so its stamp
      must cover the gas source too (GAS-1) — a live-rate strategy with a
      fixture fee is `mixed`, not `live`. */
-  const provenance = strategyProvenance(strategy, apys, gas[0]?.stamp);
+  const provenance = strategyProvenance(strategy, apys, gasStampFor(gas, strategy.entryChain));
   const fee = networkFeeLocal(gas, strategy.entryChain, usdPriceLocal);
 
   /* The chart's series — derived in `view/strategy.ts` (AUD-C02). The selector
@@ -88,10 +88,15 @@ export function StrategyDetail({
     requestedTimeframe,
   });
 
+  /* `5.402`: the APY label derives from the APY axis ONLY. Reading
+     `provenance.state` let a reference-backed GAS quote select
+     `apyNowMixed` — "includes documented reference values" — over three
+     live rates, a false statement about the rates in all four locales. The
+     fee's own provenance is stated by the gas sentence below, not here. */
   const apyMessageId =
-    provenance.state === 'live'
+    provenance.apyProvenance === 'live'
       ? 'goalNew.apyNow'
-      : provenance.state === 'mixed'
+      : provenance.apyProvenance === 'mixed'
         ? 'goalNew.apyNowMixed'
         : 'goalNew.apyNowFixture';
 
@@ -146,7 +151,14 @@ export function StrategyDetail({
             id="common.dataPartlyLive"
             values={{ source: 'DeFiLlama', date: date(provenance.newestLiveAsOf!) }}
           />{' '}
-          <FormattedMessage id="common.dataGasReference" />
+          {/* Stated only when a reference-backed fee is actually ON SCREEN.
+              `fee` is null when the chain has no quote OR when FX failed
+              (`networkFeeLocal` returns null for either), and the cost row is
+              then absent — so this sentence would describe a value the reader
+              was never shown. Finding 1: `unavailable` is not `reference`. */}
+          {fee !== null && provenance.feeProvenance === 'reference' ? (
+            <FormattedMessage id="common.dataGasReference" />
+          ) : null}
         </>
       )
     ) : (
