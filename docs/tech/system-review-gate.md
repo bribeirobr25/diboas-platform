@@ -144,6 +144,26 @@ spacing · no heading-level skips · focus-visible · reduced motion · dark mod
 overrides. **pa11y does not catch touch targets, heading skips, or an `aria-disabled` item's
 contrast** — say so when citing it.
 
+### AUTH-1 · Canon-First authority resolution ⚙
+
+Run `pnpm review:auth` and report the batch's authority arithmetic. A batch that escalated anything
+without a completed Canon-First search is **INCOMPLETE**, not green:
+
+```text
+AUTHORITY QUESTIONS RAISED      = N
+AUTH-1 RUNS                     = N
+AUTHORITY FOUND / IMPL. GAP     = N
+GENUINE AUTHORITY CONFLICTS     = N
+GENUINE AUTHORITY GAPS          = N
+EXTERNAL ESCALATIONS            = N
+ESCALATIONS WITHOUT AUTH-1      = 0 REQUIRED
+```
+
+**The corpus boundary is part of this row.** Authority packages are SEARCHED as authority and never
+scanned as repository claims — extracting them once took the counts walk from 334 documents to 1,062
+(69 % canon) and it passed only because canon happens to contain no `N tests / N files` strings. Luck
+of vocabulary is not a boundary.
+
 ## Front 4 · Completeness against the source
 
 Name every source document and its ref. Enumerate stated requirements **verbatim**, verdict each.

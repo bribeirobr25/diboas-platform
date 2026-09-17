@@ -48,6 +48,10 @@
     "review:authorities": "node scripts/review-gate.mjs authorities",
     "review:staged": "node scripts/review-gate.mjs staged",
     "review:exports": "node scripts/review-gate.mjs exports",
+    "review:auth": "node scripts/review-gate.mjs auth",
+    "review:canon-index": "node scripts/review-gate.mjs canon-index",
+    "review:citations": "node scripts/review-gate.mjs citations",
+    "review:escalations": "node scripts/review-gate.mjs escalations",
     "dev:sandbox": "turbo run build --filter=@diboas/banking --filter=@diboas/defi --filter=@diboas/investing && pnpm --filter sandbox dev",
     "start:sandbox": "pnpm --filter sandbox start",
     "market:simulate-next-week": "node apps/web/scripts/market-refresh/simulate-next-week.mjs"

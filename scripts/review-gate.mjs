@@ -41,6 +41,93 @@ const rd = (p) => readFileSync(join(ROOT, p), 'utf8');
 const REGISTER = 'docs/audit/PENDING_ALL.md';
 const GATES = ['docs/tech/increment-review-gate.md', 'docs/tech/system-review-gate.md'];
 
+/**
+ * THE CORPUS BOUNDARY (AUTH-1, 2026-09-17) — stated because it was implicit and
+ * that caused a regression the same day.
+ *
+ * `CANON` holds the current authority packages. They are **searched as
+ * authority** and must NEVER be scanned as repository claims: a figure inside a
+ * Brand or M&E document is that workstream's statement, not ours.
+ *
+ * Why this is not theoretical: the packages shipped as `.zip`, so no text search
+ * reached them and `checkCounts` walked 334 docs. Extracting them (727 markdown
+ * files) took that walk to 1,062 — 69 % canon — and it still passed only because
+ * canon happens to contain no `N tests / N files` strings. Luck of vocabulary is
+ * not a boundary, so `walk()` now takes an exclusion and every doc-walking row
+ * states which corpus it read.
+ */
+const CANON = 'docs/full-view/canon';
+const CANON_INDEX = `${CANON}/extracted`;
+/** Authorities cited by tracked docs. Absence is CITED · NOT REACHABLE, never "no authority". */
+const CITED_AUTHORITIES = [
+  'CONFLICT_REGISTER.md',
+  'PRACTICE_UI_LEGAL_STRINGS.md',
+  'PRACTICE_LEGAL_RELEASE_CHECKLIST.md',
+  'SANDBOX_ARCHITECTURE_AND_FLOWS.md',
+  'INSTRUMENTATION_CONTRACT.md',
+  'DATA_VINTAGE_POLICY.md',
+];
+
+/**
+ * basename → [repo paths], built ONCE per run.
+ *
+ * ⚑ A first version of `checkCitations` shelled out to `find .` for EVERY
+ * citation — 130+ full-tree walks per run, which blew a 120 s timeout. A gate
+ * that slow gets `--fast`-skipped or deleted, so the walk happens once and the
+ * lookups are in memory. Canon is excluded: authority filenames are not ours to
+ * resolve citations against.
+ */
+let FILE_INDEX = null;
+function fileIndex() {
+  if (FILE_INDEX) return FILE_INDEX;
+  FILE_INDEX = new Map();
+  const SKIP = new Set([
+    'node_modules',
+    '.git',
+    '.next',
+    '.turbo',
+    'dist',
+    'coverage',
+    'extracted',
+  ]);
+  const walk = (d) => {
+    let entries;
+    try {
+      entries = readdirSync(join(ROOT, d === '' ? '.' : d), { withFileTypes: true });
+    } catch {
+      return;
+    }
+    for (const e of entries) {
+      if (SKIP.has(e.name)) continue;
+      const q = d === '' ? e.name : `${d}/${e.name}`;
+      if (e.isDirectory()) walk(q);
+      else {
+        const arr = FILE_INDEX.get(e.name);
+        if (arr) arr.push(q);
+        else FILE_INDEX.set(e.name, [q]);
+      }
+    }
+  };
+  walk('');
+  return FILE_INDEX;
+}
+
+/** Markdown under `dir`, excluding any path segment in `skip`. */
+function mdUnder(dir, skip = []) {
+  const out = [];
+  const walk = (d) => {
+    if (!existsSync(join(ROOT, d))) return;
+    if (skip.some((x) => d === x || d.startsWith(`${x}/`))) return;
+    for (const e of readdirSync(join(ROOT, d), { withFileTypes: true })) {
+      const q = `${d}/${e.name}`;
+      if (e.isDirectory()) walk(q);
+      else if (e.name.endsWith('.md')) out.push(q);
+    }
+  };
+  walk(dir);
+  return out;
+}
+
 /* ---------------------------------------------------------------- register */
 /**
  * Where the ledger actually is (register 5.382).
@@ -190,16 +277,11 @@ function checkRegister() {
  * ambiguity in a published figure is the defect.
  */
 function checkCounts() {
-  const docs = [];
-  const walk = (dir) => {
-    if (!existsSync(join(ROOT, dir))) return;
-    for (const e of readdirSync(join(ROOT, dir), { withFileTypes: true })) {
-      const p = `${dir}/${e.name}`;
-      if (e.isDirectory()) walk(p);
-      else if (e.name.endsWith('.md')) docs.push(p);
-    }
-  };
-  walk('docs');
+  /* AUTH-1: canon is EXCLUDED. These are OUR published figures; an authority
+     package's numbers are its workstream's, not a repository claim. Before this
+     exclusion the walk was 69 % canon and passed only because canon contains no
+     `N tests / N files` strings. */
+  const docs = mdUnder('docs', [CANON]);
   // 5.323: every ROOT markdown file, not just CLAUDE.md.
   for (const e of readdirSync(ROOT, { withFileTypes: true }))
     if (e.isFile() && e.name.endsWith('.md')) docs.push(e.name);
@@ -290,6 +372,211 @@ function checkAuthorities() {
     detail:
       `${files.length - missing.length}/${files.length} routed or dispositioned` +
       (missing.length ? ` · NOT ROUTED: ${missing.join(', ')}` : ''),
+  };
+}
+
+/* ------------------------------------------------------------------ AUTH-1 */
+/**
+ * AUTH-1 row 1 — the authority corpus is SEARCHABLE, and what is cited but
+ * absent is named as such.
+ *
+ * Why: for weeks every Canon-First search ran over derived records (`FEES.md`,
+ * `implementation-notes.md`, the plan, the register) while the primary authority
+ * sat on disk as `.zip`. `5.410` is the measured consequence — canon specified
+ * the fee mechanism in detail and the implementation invented its own, because
+ * "canon is silent" was concluded from a corpus that had never been read.
+ *
+ * A gate cannot judge authority. It CAN prove the corpus is reachable, which is
+ * the precondition for every other AUTH-1 claim, and distinguish NOT FOUND from
+ * NOT REACHABLE so a missing file never reads as "no authority exists".
+ */
+function checkCanonIndex() {
+  if (!existsSync(join(ROOT, CANON)))
+    return {
+      ok: true,
+      skip: true,
+      detail: `${CANON} absent (fresh clone / local-only) — authority search cannot run here`,
+    };
+  const indexed = mdUnder(CANON_INDEX);
+  const archives = existsSync(join(ROOT, CANON))
+    ? readdirSync(join(ROOT, CANON)).filter((f) => f.endsWith('.zip'))
+    : [];
+  /* Residual archives are REPORTED, not chased. The packages contain their own
+     prior releases (`95_ORIGINAL_ARCHIVES` recursing into archived Growth
+     releases), so extracting to zero is unbounded and would index historical
+     material nothing cites. Indexing the current-authority tier is the goal;
+     this number is visibility, not a failure condition. */
+  const nested = indexed.length ? sh(`find ${CANON_INDEX} -name '*.zip' | wc -l`).trim() : '0';
+  const unreachable = CITED_AUTHORITIES.filter(
+    (f) => !mdUnder('docs', [CANON]).some((p) => p.endsWith(`/${f}`))
+  ).filter((f) => !indexed.some((p) => p.endsWith(`/${f}`)));
+  const detail = [
+    `${indexed.length} authority markdown file(s) searchable from ${archives.length} package(s)` +
+      `; ${nested} nested archive(s) NOT indexed`,
+    unreachable.length
+      ? `CITED · NOT REACHABLE (never read as "no authority"): ${unreachable.join(', ')}`
+      : 'every cited authority resolves',
+  ];
+  /* Indexed == 0 with archives present is the failure this row exists for: the
+     authority is on disk and unsearchable, which is how `5.410` happened. */
+  return { ok: indexed.length > 0 || archives.length === 0, detail: detail.join('\n      ') };
+}
+
+/**
+ * AUTH-1 row 2 — a `file:line` citation must still resolve.
+ *
+ * 347 distinct ones exist across the register and the records. A citation is how
+ * an engineering claim is checkable, and it decays silently: the file is renamed,
+ * the line moves, the row keeps asserting. Measured cost in this batch: a `5.229`
+ * closure claim written from a row read only in truncation, withdrawn the same
+ * day; and `5.230` citing `GoalDetailScreen.tsx:707-737`, lines that no longer
+ * describe what the row says.
+ *
+ * Only the FILE half is mechanised. Whether line N still says what the row
+ * claims is semantic, and this row does not pretend otherwise.
+ */
+function checkCitations() {
+  const corpus = [REGISTER, ...mdUnder('docs/tech', []), ...mdUnder('docs/audit', [])].filter((p) =>
+    existsSync(join(ROOT, p))
+  );
+  if (!corpus.length) return { ok: false, detail: 'no engineering records found to check' };
+  const CITE = /`([A-Za-z0-9_./-]+\.(?:md|ts|tsx|css|json|mjs)):(\d+)(?:-\d+)?`/g;
+  const seen = new Map();
+  for (const doc of corpus) {
+    for (const m of rd(doc).matchAll(CITE)) {
+      const [, file, line] = m;
+      if (!seen.has(`${file}:${line}`)) seen.set(`${file}:${line}`, doc);
+    }
+  }
+  /**
+   * THREE-TIER resolution, and the middle tier is the whole reason this row is
+   * usable. A first version treated "has a slash" as "is repo-rooted" and
+   * reported 68 of 133 citations DEAD — a 51 % false-alarm rate. 65 of those
+   * were PROSE SHORTHAND (`projection/core.ts:106`, `hooks/useMarket.ts:6`),
+   * which resolve perfectly by basename. A guard that cries wolf at that rate is
+   * ignored within a week, which is worse than no guard.
+   *
+   *   1. root-relative path exists            → resolves
+   *   2. basename exists EXACTLY ONCE in repo → resolves (shorthand)
+   *   3. otherwise                            → DEAD
+   *
+   * Tier 2 requires UNIQUENESS: one shorthand resolved by basename to a
+   * different file entirely (`app/api/market/route.ts` → a waitlist route), so a
+   * non-unique basename proves nothing and is not treated as resolution.
+   */
+  /**
+   * THREE OUTCOMES, and the middle one is why this row is usable.
+   *
+   *   RESOLVES  — root-relative path exists, or the basename is unique in-repo
+   *   AMBIGUOUS — basename exists but matches N>1 files (prose shorthand)
+   *   DEAD      — the basename exists nowhere
+   *
+   * Only DEAD fails. Two earlier versions of this row were wrong in opposite
+   * directions and both would have made the gate ignorable: treating "has a
+   * slash" as repo-rooted reported 68 of 133 dead (65 were shorthand like
+   * `projection/core.ts:106`); then requiring a UNIQUE basename turned ambiguity
+   * into death and still reported 26. Measured truth: 107 resolve, 23 are
+   * ambiguous (`unavailable/page.tsx` matches 61 files, `app/api/market/route.ts`
+   * matches 16), and 3 are genuinely dead. A 23-to-3 noise ratio is how a guard
+   * gets ignored, so ambiguity is REPORTED, never failed.
+   *
+   * Line-content agreement stays semantic and is not claimed here.
+   */
+  /**
+   * A citation the record itself marks HISTORICAL is not a live claim.
+   *
+   * Same precedent as `checkCounts`, which excludes a superseded figure when its
+   * own line marks it as such: docs legitimately cite material that the
+   * delete-after-execution policy has since removed, and the honest fix is to
+   * annotate the citation, not to resurrect the file. Without this the row could
+   * never reach green while any spent citation existed — a permanently-red gate
+   * is an ignored gate.
+   *
+   * The marker must sit on the SAME line as the citation, because that is the
+   * only placement a reader and this check agree on (the counts row learned the
+   * same lesson the hard way).
+   */
+  const HISTORICAL_MARK =
+    /historical citation|no longer present|deleted local-only|spent citation/i;
+  const marked = new Set();
+  for (const doc of corpus) {
+    for (const line of rd(doc).split('\n')) {
+      if (!HISTORICAL_MARK.test(line)) continue;
+      for (const m of line.matchAll(CITE)) marked.add(`${m[1]}:${m[2]}`);
+    }
+  }
+
+  const index = fileIndex();
+  const classify = (file) => {
+    if (existsSync(join(ROOT, file))) return 'resolves';
+    const hits = index.get(file.split('/').pop()) ?? [];
+    if (hits.length === 1) return 'resolves';
+    return hits.length > 1 ? 'ambiguous' : 'dead';
+  };
+  const dead = [];
+  let resolves = 0,
+    ambiguous = 0,
+    historical = 0;
+  for (const [cite, doc] of seen) {
+    const file = cite.split(':')[0];
+    if (!file.includes('/')) continue; // a bare filename in prose is not a resolvable citation
+    const verdict = classify(file);
+    if (verdict === 'resolves') resolves += 1;
+    else if (verdict === 'ambiguous') ambiguous += 1;
+    else if (marked.has(cite)) historical += 1;
+    else dead.push(`${cite} (in ${doc.replace('docs/', '')})`);
+  }
+  return {
+    ok: dead.length === 0,
+    detail:
+      `${seen.size} citation(s): ${resolves} resolve, ${ambiguous} ambiguous (shorthand), ` +
+      `${historical} marked historical on their own line` +
+      (dead.length ? ` · ${dead.length} DEAD: ${dead.join('; ')}` : ' · 0 dead') +
+      `\n      line-content agreement is SEMANTIC and not claimed by this row`,
+  };
+}
+
+/**
+ * AUTH-1 row 3 — no escalation without a completed Canon-First search.
+ *
+ * The gate document's §18/§25: *"any external escalation without a completed
+ * AUTH-1 block → SYSTEM REVIEW = INCOMPLETE"*. Measured today: escalation
+ * vocabulary appears in 16+ documents while `CANON-FIRST` appears in 3, and the
+ * register admits six times over to reporting a blocker the authority set had
+ * already resolved.
+ */
+function checkEscalations() {
+  /**
+   * QUOTE THE CONTEXT — a mention is not an assertion.
+   *
+   * A first version matched the escalation vocabulary anywhere in the document
+   * and flagged an increment record whose only hit was inside a `CORRECTIONS`
+   * field: *"I carried 5.356 as blocked on Brand/Legal; §4 had already supplied
+   * the four strings"* — an honest retrospective about a past mistake. Flagging
+   * self-correction is precisely backwards, so the escalation must be the
+   * record's OWN status claim: a `KEY = VALUE` status line or a heading, never
+   * narrative prose.
+   */
+  const STATUS_LINE =
+    /^\s*(?:[A-Z0-9_ ]{3,40}\s*=\s*|#{1,6}\s*|[-*]\s+\*\*)?[^\n]*?(EXTERNAL AUTHORITY BLOCKER|BLOCKED ON (?:PRODUCT|LEGAL|M&E|BRAND|TOKEN|STRATEGY|FOUNDER))/i;
+  const NARRATIVE = /CORRECTION|WITHDRAWN|I carried|earlier|previously|was wrong|retrospect/i;
+  const SEARCHED = /CANON-FIRST SEARCH\s*(?:=|:)?\s*COMPLETED/i;
+  const corpus = mdUnder('docs/audit', []).filter((p) => /PRE_I2|REVIEW|GATE|RETURN/i.test(p));
+  const offenders = [];
+  for (const doc of corpus) {
+    const text = rd(doc);
+    if (SEARCHED.test(text)) continue;
+    const claims = text.split('\n').filter((l) => STATUS_LINE.test(l) && !NARRATIVE.test(l));
+    if (claims.length)
+      offenders.push(`${doc.replace('docs/audit/', '')} (${claims.length} claim line[s])`);
+  }
+  return {
+    ok: offenders.length === 0,
+    detail:
+      `${corpus.length} engineering record(s) scanned` +
+      (offenders.length
+        ? ` · ${offenders.length} escalate WITHOUT a completed Canon-First block: ${offenders.join(', ')}`
+        : ' · every escalation carries a completed Canon-First block'),
   };
 }
 
@@ -629,12 +916,39 @@ const CHECKS = {
   authorities: ['authority coverage of the gates', checkAuthorities],
   staged: ['staged files + public-repo sweep', checkStaged],
   exports: ['exported functions have consumers', checkExports],
+  'canon-index': ['AUTH-1 · authority corpus is searchable', checkCanonIndex],
+  citations: ['AUTH-1 · file:line citations still resolve', checkCitations],
+  escalations: ['AUTH-1 · no escalation without a canon search', checkEscalations],
 };
 const PLAN = {
   /* `battery` runs FIRST in both: if it does not compile, nothing downstream is
-     worth reading. */
-  increment: ['battery', 'register', 'counts', 'authorities', 'staged', 'exports'],
-  system: ['battery', 'authorities', 'counts', 'register', 'exports', 'staged'],
+     worth reading. AUTH-1's three rows run BEFORE the register rows, because an
+     unsearchable corpus or a dead citation makes every register claim downstream
+     of it unverifiable. */
+  increment: [
+    'battery',
+    'canon-index',
+    'citations',
+    'escalations',
+    'register',
+    'counts',
+    'authorities',
+    'staged',
+    'exports',
+  ],
+  system: [
+    'battery',
+    'canon-index',
+    'citations',
+    'escalations',
+    'authorities',
+    'counts',
+    'register',
+    'exports',
+    'staged',
+  ],
+  /* AUTH-1 standalone, for the §21 invocation "before external escalation". */
+  auth: ['canon-index', 'citations', 'escalations'],
 };
 
 console.log(`\n${C.b}Review Gate — ${mode}${C.x}`);
