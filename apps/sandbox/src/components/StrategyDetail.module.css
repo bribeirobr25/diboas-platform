@@ -190,11 +190,29 @@
 }
 
 /* Toggle-to-detail link (Simple view only) */
+/*
+ * `5.404` (Founder/Strategy disposition 2026-09-17: CONFIRMED · ENGINEERING ·
+ * PRE-I2 FIX REQUIRED). This control measured **109.6 x 19** CSS px — below the
+ * ruled 44x44 floor (`5.234`) and below even the superseded >=24 lower bound —
+ * in every cell of the Increment 3 visual pass: light 390, dark 390, dark 1440,
+ * and DE 390 at 124.6 x 19. This stylesheet has no media queries, so the failure
+ * was viewport-independent, not a mobile artefact.
+ *
+ * The remediation is the MINIMUM geometry change, exactly as `5.375` did it for
+ * `SegmentedToggle`: only the height floor is added. `--sb-tap` is the
+ * established idiom (32 `min-height` consumers across the app), so this control
+ * stops being the exception. Label, typography (`--font-size-sm-plus`), the
+ * link colour, the chevron, `align-self` and the interaction model are all
+ * untouched — compliance remediation, not the redesign the ruling draws a line
+ * at. `padding: 0` is kept deliberately: the height token does the work, so the
+ * text keeps its optical position rather than being pushed by padding.
+ */
 .seeDetail {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-2xs);
   align-self: flex-start;
+  min-height: var(--sb-tap);
   padding: 0;
   border: none;
   background: none;
