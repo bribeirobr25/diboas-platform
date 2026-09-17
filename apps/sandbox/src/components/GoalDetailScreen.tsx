@@ -135,9 +135,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
    * UNKNOWN, and every path that would price an entry now refuses.
    */
   const feeLocal =
-    strategy && market
-      ? networkFeeLocal(market.gas, strategy.entryChain, market.usdPriceLocal)
-      : null;
+    strategy && market ? networkFeeLocal(market.gas, strategy, market.usdPriceLocal) : null;
   /** FC-15 "no honest price, no operable control" — now for the ENTRY as well. */
   const canPriceEntry = feeLocal !== null;
   // VIEW-2: the affordability guard gates a real money movement, so it is
@@ -167,7 +165,19 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
     const position = openPositions.find((p) => p.positionId === positionId);
     const posStrategy = position ? getStrategy(position.strategyId) : undefined;
     if (!posStrategy) return null;
-    return networkFeeLocal(market.gas, posStrategy.entryChain, market.usdPriceLocal);
+    /**
+     * `5.406` §4 · exit is the SAME untruthful single-chain fee as entry: this
+     * number is what `journey.ts` commits into `StrategyExited`. So a
+     * multi-network position cannot be priced, `canPriceExit` goes false, and
+     * the already-approved `goalDetail.exitPricingUnavailable` renders beside a
+     * disabled control — FC-15, *"no honest price, no operable control"*, which
+     * `5.347`'s closure records as having covered the EXIT first.
+     *
+     * Consequence, stated not buried: a multi-network Practice position cannot
+     * be stopped until F/G land. The alternative is committing a fee wrong by up
+     * to 70% of allocation into the event log.
+     */
+    return networkFeeLocal(market.gas, posStrategy, market.usdPriceLocal);
   }
 
   /**

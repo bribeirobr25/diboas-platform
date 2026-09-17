@@ -422,3 +422,88 @@ describe('GoalDetailScreen — the earnings line takes its colour from its sign 
     expect(earningsSign('safeHarbor', false)).toBe('none');
   });
 });
+
+/**
+ * `5.406` §4 · a multi-network Candidate cannot be PRICED, so it cannot be
+ * STOPPED — FC-15, *"no honest price, no operable control."*
+ *
+ * `5.347`'s closure records FC-15 as having covered the EXIT first ("now for
+ * the ENTRY as well"), and `goalDetail.exitPricingUnavailable` is already
+ * shipped, approved copy for this state. So no new control flow and no new copy
+ * is introduced here; only the predicate changed.
+ *
+ * ⚑ THE MARKET QUOTES BOTH CHAINS ON PURPOSE. This file's `MARKET_OK` carries
+ * an Arbitrum quote only, so a Solana-entry position could not price BEFORE
+ * this change either — a test using it would pass for the wrong reason and
+ * prove nothing about the containment. With both chains quoted the legacy path
+ * priced `fullThrottle` confidently at `0.001 x FX` ("about $0.00") for a
+ * composition 15% on Arbitrum, where that leg's own quote is `0.03`. That is
+ * the state this refuses.
+ */
+describe('5.406 — the exit refuses a multi-network Candidate, and only that class', () => {
+  const MARKET_BOTH_CHAINS = {
+    apys: [],
+    gas: [
+      { chain: 'Arbitrum', typicalFeeUsd: 0.03, stamp: FIXTURE_STAMP },
+      { chain: 'Solana', typicalFeeUsd: 0.001, stamp: FIXTURE_STAMP },
+    ],
+    usdPriceLocal: 1,
+  } as unknown;
+
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+  });
+
+  /** Open a position and switch to the Detailed view, where the exit lives. */
+  function openPositionIn(strategyId: 'fullThrottle' | 'safeHarbor') {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 4000,
+      horizonMonths: 12,
+      fundAmount: 1000,
+    });
+    enterStrategy({ goalId, strategyId, totalFromCash: 500, networkFeeLocal: 0 });
+    renderDetail(goalId);
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+  }
+
+  it('should refuse to stop a multi-network position EVEN THOUGH both chains are quoted', () => {
+    h.market = MARKET_BOTH_CHAINS;
+    try {
+      openPositionIn('fullThrottle');
+      const stop = screen.getByRole('button', {
+        name: 'Stop this strategy',
+      }) as HTMLButtonElement;
+      expect(stop.disabled).toBe(true);
+      // The approved treatment, adjacent to the blocked control.
+      expect(screen.getByText(/Costs can't be priced right now/)).toBeTruthy();
+      // And it cannot be forced open into a ceremony with an untruthful fee.
+      fireEvent.click(stop);
+      expect(screen.queryByText('Review before you stop')).toBeNull();
+    } finally {
+      h.market = MARKET_OK;
+    }
+  });
+
+  it('should still stop a single-network position under the SAME market (§7 boundary)', () => {
+    /* The containment must affect only the class that requires it. Same market,
+       same flow, a genuinely single-network Arbitrum blend — operable. */
+    h.market = MARKET_BOTH_CHAINS;
+    try {
+      openPositionIn('safeHarbor');
+      const stop = screen.getByRole('button', {
+        name: 'Stop this strategy',
+      }) as HTMLButtonElement;
+      expect(stop.disabled).toBe(false);
+      expect(screen.queryByText(/Costs can't be priced right now/)).toBeNull();
+    } finally {
+      h.market = MARKET_OK;
+    }
+  });
+});

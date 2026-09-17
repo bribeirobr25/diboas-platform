@@ -1,3 +1,4 @@
+import { isMultiNetworkCandidate } from '@diboas/defi';
 import type { DataStamp, GasQuote, StrategyDef } from '@diboas/defi';
 
 /**
@@ -8,9 +9,31 @@ import type { DataStamp, GasQuote, StrategyDef } from '@diboas/defi';
  */
 export function networkFeeLocal(
   gas: GasQuote[],
-  chain: StrategyDef['entryChain'],
+  strategy: StrategyDef,
   usdPriceLocal: number | null
 ): number | null {
+  /**
+   * `5.406` containment · A MULTI-NETWORK CANDIDATE HAS NO TRUTHFUL
+   * WHOLE-CANDIDATE NETWORK COST.
+   *
+   * Five of the ten catalogue strategies hold `skySsr` — an **Arbitrum**
+   * lending leg — at 70/65/60/30/15% of allocation while declaring
+   * `entryChain: 'Solana'`. The legacy single `entryChain` quote therefore
+   * priced one network's fee as though it covered the whole composition:
+   * `0.001 x FX` renders as *about $0.00* for a position up to 70% Arbitrum,
+   * where that leg's own quote is `0.03`.
+   *
+   * Founder/Strategy 2026-09-17 §4: whole-Candidate network cost =
+   * **UNAVAILABLE**. Per §4 this must NOT sum per-leg gas and must NOT model
+   * bridge/swap/routing cost — so the refusal returns before any arithmetic
+   * that could do either exists.
+   *
+   * This takes the STRATEGY, not a bare chain, deliberately: the predicate then
+   * holds at every call site by construction, and a future caller cannot bypass
+   * containment by passing `entryChain` directly. The full per-leg cost model is
+   * I-3 and is NOT pulled forward.
+   */
+  if (isMultiNetworkCandidate(strategy)) return null;
   /**
    * ⚑ AUD-F05 · handoff §8.7 `MISSING ≠ 0`. This read
    * `(quote?.typicalFeeUsd ?? 0) * usdPriceLocal`, so a chain with no gas quote
@@ -22,7 +45,7 @@ export function networkFeeLocal(
    * result unknown, and unknown is `null` — never zero, and never carried
    * forward from something else.
    */
-  const quote = gas.find((g) => g.chain === chain);
+  const quote = gas.find((g) => g.chain === strategy.entryChain);
   if (!quote || usdPriceLocal === null) return null;
   return quote.typicalFeeUsd * usdPriceLocal;
 }

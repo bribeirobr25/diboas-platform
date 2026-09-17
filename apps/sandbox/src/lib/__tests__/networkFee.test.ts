@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { FIXTURE_STAMP, observedStamp } from '@diboas/defi';
+import { FIXTURE_STAMP, getStrategy, observedStamp } from '@diboas/defi';
 import type { GasQuote } from '@diboas/defi';
 import { gasStampFor, networkFeeLocal } from '@/lib/networkFee';
 
@@ -9,10 +9,26 @@ const ARBITRUM: GasQuote = {
   stamp: FIXTURE_STAMP,
 };
 
+const SOLANA_QUOTE: GasQuote = {
+  chain: 'Solana',
+  typicalFeeUsd: 0.001,
+  stamp: FIXTURE_STAMP,
+};
+
+/**
+ * `5.406` · `networkFeeLocal` now takes the STRATEGY, because the multi-network
+ * refusal is a property of the Candidate and not of a chain string. These two
+ * are the real catalogue entries, resolved through `getStrategy` rather than
+ * hand-built, so a catalogue change cannot leave this file asserting a topology
+ * the product no longer has.
+ */
+const SINGLE = getStrategy('safeHarbor')!; // Arbitrum x3 legs
+const MULTI = getStrategy('stableGrowth')!; // skySsr 70% Arbitrum + sanctumInf 30% Solana
+
 describe('networkFeeLocal — MISSING is not zero (handoff §8.7, AUD-F05)', () => {
   it('should convert a present quote into the ledger currency', () => {
-    expect(networkFeeLocal([ARBITRUM], 'Arbitrum', 1)).toBeCloseTo(0.03, 10);
-    expect(networkFeeLocal([ARBITRUM], 'Arbitrum', 5.4)).toBeCloseTo(0.162, 10);
+    expect(networkFeeLocal([ARBITRUM], SINGLE, 1)).toBeCloseTo(0.03, 10);
+    expect(networkFeeLocal([ARBITRUM], SINGLE, 5.4)).toBeCloseTo(0.162, 10);
   });
 
   /**
@@ -22,17 +38,18 @@ describe('networkFeeLocal — MISSING is not zero (handoff §8.7, AUD-F05)', () 
    * zero to the ledger as the move's real cost.
    */
   it('should report an UNKNOWN fee as null, never as a free transaction', () => {
-    const fee = networkFeeLocal([ARBITRUM], 'Solana', 1);
+    // The entry chain (Arbitrum) has no quote in this list.
+    const fee = networkFeeLocal([SOLANA_QUOTE], SINGLE, 1);
     expect(fee).toBeNull();
     expect(fee).not.toBe(0);
   });
 
   it('should report an unknown FX conversion as null, not as 1:1 parity', () => {
-    expect(networkFeeLocal([ARBITRUM], 'Arbitrum', null)).toBeNull();
+    expect(networkFeeLocal([ARBITRUM], SINGLE, null)).toBeNull();
   });
 
   it('should report null when it has neither input', () => {
-    expect(networkFeeLocal([], 'Ethereum', null)).toBeNull();
+    expect(networkFeeLocal([], SINGLE, null)).toBeNull();
   });
 });
 
@@ -59,10 +76,10 @@ describe('networkFeeLocal — MISSING is not zero (handoff §8.7, AUD-F05)', () 
 describe('X1 — the two entry-fee derivations agree, so the refusal reason is never wrong', () => {
   /** GoalDetailScreen:139 + :142, as written. */
   const canPriceEntry = (gas: GasQuote[], fx: number | null) =>
-    networkFeeLocal(gas, 'Arbitrum', fx) !== null;
+    networkFeeLocal(gas, SINGLE, fx) !== null;
   /** StrategyDetail:80 + the 5.347 branch, as written. */
   const showsRefusalReason = (gas: GasQuote[], fx: number | null) =>
-    networkFeeLocal(gas, 'Arbitrum', fx) === null;
+    networkFeeLocal(gas, SINGLE, fx) === null;
 
   /* Typed explicitly rather than with `as const`: that made the fixtures
      `readonly [GasQuote] | readonly []`, and the readonly->mutable cast it then
@@ -117,5 +134,58 @@ describe('gasStampFor — the stamp must describe the chain whose fee is shown',
     expect(gasStampFor([ARBITRUM], 'Solana')).toBe('missing');
     expect(gasStampFor([], 'Arbitrum')).toBe('missing');
     expect(gasStampFor([ARBITRUM], 'Solana')).not.toBeUndefined();
+  });
+});
+
+/**
+ * `5.406` containment — the materially governing predicate.
+ *
+ * Founder/Strategy 2026-09-17 §4: a Candidate spanning two networks has no
+ * truthful whole-Candidate network cost, so it is UNAVAILABLE — never one
+ * network's gas presented as the whole, never `sum(per-leg gas)`.
+ */
+describe('5.406 — a multi-network Candidate has no whole-Candidate network cost', () => {
+  it('should refuse a multi-network Candidate EVEN WHEN its entryChain has a quote', () => {
+    /* This is the whole finding: `stableGrowth` declares `entryChain: 'Solana'`
+       and Solana's quote is present, so the legacy path answered a confident
+       0.001 x FX — "about $0.00" — for a composition that is 70% Arbitrum,
+       where that leg's own quote is 0.03. A present quote is exactly the case
+       that used to LOOK fine. */
+    const fee = networkFeeLocal([SOLANA_QUOTE, ARBITRUM], MULTI, 1);
+    expect(fee).toBeNull();
+    expect(fee).not.toBe(0);
+    // And not the per-leg sum either (§4 forbids summing): 0.031 must not appear.
+    expect(fee).not.toBeCloseTo(0.031, 10);
+  });
+
+  it('should keep pricing a genuinely single-network Candidate (§7 regression boundary)', () => {
+    expect(networkFeeLocal([SOLANA_QUOTE, ARBITRUM], SINGLE, 1)).toBeCloseTo(0.03, 10);
+  });
+
+  it('should refuse for every multi-network strategy and price every single-network one', () => {
+    /* The classification is proven across all ten in `catalog.test.ts`; this
+       asserts the CONSEQUENCE at the money boundary, which is where an
+       untruthful figure would actually reach a reader. */
+    const gas = [SOLANA_QUOTE, ARBITRUM];
+    const multi = [
+      'stableGrowth',
+      'steadyProgress',
+      'balancedBuilder',
+      'wealthAccelerator',
+      'fullThrottle',
+    ];
+    const single = [
+      'safeHarbor',
+      'goalKeeper',
+      'patientBuilder',
+      'steadyCompounder',
+      'fullHarvest',
+    ];
+    for (const id of multi) {
+      expect(networkFeeLocal(gas, getStrategy(id)!, 1), id).toBeNull();
+    }
+    for (const id of single) {
+      expect(networkFeeLocal(gas, getStrategy(id)!, 1), id).not.toBeNull();
+    }
   });
 });

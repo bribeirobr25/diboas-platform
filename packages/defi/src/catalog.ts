@@ -11,7 +11,7 @@
  * Sandbox use. Change it HERE (+ app i18n), never in components.
  */
 
-import type { HorizonBand, StrategyDef } from './types';
+import type { Chain, HorizonBand, ProtocolId, StrategyDef } from './types';
 
 export const STRATEGY_CATALOG: StrategyDef[] = [
   {
@@ -174,6 +174,68 @@ export function horizonBandForMonths(months: number): HorizonBand {
   if (months < 60) return 'medium';
   if (months < 120) return 'long';
   return 'wealth';
+}
+
+/**
+ * `5.406` containment · **Product-owned network identity per execution leg.**
+ *
+ * The network a leg runs on is a PRODUCT fact. Before this it existed only as
+ * provider search config (`POOL_MATCHERS[*].preferredChains`) and fixture data
+ * (`FIXTURE_APYS[*].chain`) — so provider behaviour could define, or silently
+ * mutate, Product identity. Founder/Strategy 2026-09-17 §2: *"explicit current
+ * catalog / Product intent determines intended legacy leg network; provider data
+ * must not define or mutate Product identity."*
+ *
+ * ⚑ SCOPE — NORMATIVE (Founder/Strategy 2026-09-17 §1). Current legacy-catalog
+ * deployment identity used for Pre-I2 containment only. I-3 moves network identity
+ * to each MoneyJobCandidate technical leg. This mapping must not be treated as a
+ * protocol-global Product invariant.
+ *
+ * So this is NOT `ProtocolId -> exactly one canonical network forever`. Product
+ * authority places network on the Candidate's technical leg
+ * (`MoneyJobCandidate -> technicalLegs[] -> protocol, network`); the same protocol
+ * may appear on different networks on different legs once I-3 lands. The name says
+ * CURRENT_CATALOG for that reason.
+ *
+ * NOTHING IS INVENTED HERE. This file's own header already states it — *"stable
+ * legs on Arbitrum, growth legs on Solana — the multi-chain canon"* — and both
+ * pre-existing declarations agree with this map for all six protocols, which a
+ * test asserts in both directions. Keyed on the closed `ProtocolId` union, so a
+ * new protocol without a declared network is a COMPILE error, never a default.
+ */
+export const CURRENT_CATALOG_PROTOCOL_NETWORK: Record<ProtocolId, Chain> = {
+  skySsr: 'Arbitrum',
+  aaveV3: 'Arbitrum',
+  compoundV3: 'Arbitrum',
+  sanctumInf: 'Solana',
+  jupiterJlp: 'Solana',
+  jito: 'Solana',
+};
+
+/** Every distinct network a strategy's legs actually run on, in catalog order. */
+export function candidateNetworks(strategy: StrategyDef): Chain[] {
+  const seen: Chain[] = [];
+  for (const leg of strategy.allocation) {
+    const network = CURRENT_CATALOG_PROTOCOL_NETWORK[leg.protocolId];
+    if (!seen.includes(network)) seen.push(network);
+  }
+  return seen;
+}
+
+/**
+ * Does this Candidate span more than one network?
+ *
+ * The single materially governing predicate of the `5.406` containment: when it
+ * is true, `StrategyDef.entryChain` cannot represent the Candidate, so the
+ * whole-Candidate network cost is UNAVAILABLE and the single-network Path claim
+ * is suppressed. Measured today: 5 of 10 strategies are true here, each holding
+ * `skySsr` (Arbitrum) while declaring `entryChain: 'Solana'`.
+ *
+ * This is legacy CONTAINMENT, not the `MoneyJobCandidate` model — no per-leg
+ * fee, route or bridge cost is derived from it (§1, §4).
+ */
+export function isMultiNetworkCandidate(strategy: StrategyDef): boolean {
+  return candidateNetworks(strategy).length > 1;
 }
 
 export function getStrategy(id: string): StrategyDef | undefined {

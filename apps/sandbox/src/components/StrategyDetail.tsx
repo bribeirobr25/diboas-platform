@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { EXIT_FEE_FLOOR, FEE_RATES } from '@diboas/banking';
-import { FIXTURE_AS_OF, strategyProvenance } from '@diboas/defi';
+import { FIXTURE_AS_OF, isMultiNetworkCandidate, strategyProvenance } from '@diboas/defi';
 import type { GasQuote, ProtocolApy, ProtocolApyHistory, StrategyDef } from '@diboas/defi';
 import { useFormatters } from '@/hooks/useFormatters';
 import { gasStampFor, networkFeeLocal } from '@/lib/networkFee';
@@ -77,7 +77,7 @@ export function StrategyDetail({
      must cover the gas source too (GAS-1) — a live-rate strategy with a
      fixture fee is `mixed`, not `live`. */
   const provenance = strategyProvenance(strategy, apys, gasStampFor(gas, strategy.entryChain));
-  const fee = networkFeeLocal(gas, strategy.entryChain, usdPriceLocal);
+  const fee = networkFeeLocal(gas, strategy, usdPriceLocal);
 
   /* The chart's series — derived in `view/strategy.ts` (AUD-C02). The selector
      also REFUSES when a leg has no history, rather than blending the rest and
@@ -177,12 +177,23 @@ export function StrategyDetail({
       <h2 className={styles.detailHead}>
         <FormattedMessage id="pathCard.pathTitle" />
       </h2>
-      <p className={styles.itemLine}>
-        <FormattedMessage
-          id="pathCard.pathLine"
-          values={{ goal: goalName, strategy: strategyName, chain: strategy.entryChain }}
-        />
-      </p>
+      {/* `5.406` §6 · A multi-network Candidate has no truthful single-chain
+          Path claim. `pathCard.pathLine` is "{goal} -> {strategy} -> real
+          protocols on {chain}" in all four locales, and NO approved chain-less
+          variant exists — so for a Candidate spanning two networks the false
+          whole-Candidate claim is SUPPRESSED rather than reworded. §6: *"Do not
+          invent replacement copy."* The `Path` heading and the weighted leg list
+          below still render, so composition stays visible; what disappears is
+          only the sentence that named 1 of 2 networks as if it were all of
+          them. Single-network Candidates are untouched (§7). */}
+      {!isMultiNetworkCandidate(strategy) ? (
+        <p className={styles.itemLine}>
+          <FormattedMessage
+            id="pathCard.pathLine"
+            values={{ goal: goalName, strategy: strategyName, chain: strategy.entryChain }}
+          />
+        </p>
+      ) : null}
       <ul className={styles.allocation}>
         {strategy.allocation.map((leg) => (
           <li key={leg.protocolId} className={styles.allocationLeg}>
