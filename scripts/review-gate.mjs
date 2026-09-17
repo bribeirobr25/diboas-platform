@@ -57,6 +57,25 @@ const GATES = ['docs/tech/increment-review-gate.md', 'docs/tech/system-review-ga
  * states which corpus it read.
  */
 const CANON = 'docs/full-view/canon';
+/**
+ * HIDDEN ADJUDICATION CONTROLS — excluded permanently (founder disposition §5,
+ * 2026-09-17).
+ *
+ * These paths must not participate in authority search, citation resolution,
+ * implementation-claim scans or count scans. The extracted working copies were
+ * deleted; this exclusion is what stops a future re-extraction quietly
+ * reintroducing them. The ORIGINAL archives are preserved byte-for-byte and are
+ * never modified — only working copies are excluded, never the source.
+ *
+ * Contents are NOT read. The filename declares intent and that is sufficient.
+ */
+const HIDDEN_CONTROL_DIR = 'hidden_controls_DO_NOT_UPLOAD';
+const HIDDEN_CONTROL_FILE = /_hidden_adjudication_control\.md$/;
+const isHiddenControl = (p) =>
+  p.includes(`/${HIDDEN_CONTROL_DIR}/`) ||
+  p.endsWith(`/${HIDDEN_CONTROL_DIR}`) ||
+  p.includes(HIDDEN_CONTROL_DIR) ||
+  HIDDEN_CONTROL_FILE.test(p);
 const CANON_INDEX = `${CANON}/extracted`;
 /** Authorities cited by tracked docs. Absence is CITED · NOT REACHABLE, never "no authority". */
 const CITED_AUTHORITIES = [
@@ -98,8 +117,9 @@ function fileIndex() {
       return;
     }
     for (const e of entries) {
-      if (SKIP.has(e.name)) continue;
+      if (SKIP.has(e.name) || e.name === HIDDEN_CONTROL_DIR) continue;
       const q = d === '' ? e.name : `${d}/${e.name}`;
+      if (HIDDEN_CONTROL_FILE.test(e.name)) continue; // §5: not citation-resolvable
       if (e.isDirectory()) walk(q);
       else {
         const arr = FILE_INDEX.get(e.name);
@@ -120,6 +140,7 @@ function mdUnder(dir, skip = []) {
     if (skip.some((x) => d === x || d.startsWith(`${x}/`))) return;
     for (const e of readdirSync(join(ROOT, d), { withFileTypes: true })) {
       const q = `${d}/${e.name}`;
+      if (isHiddenControl(q)) continue; // §5: never in any corpus
       if (e.isDirectory()) walk(q);
       else if (e.name.endsWith('.md')) out.push(q);
     }
@@ -397,7 +418,10 @@ function checkCanonIndex() {
       skip: true,
       detail: `${CANON} absent (fresh clone / local-only) — authority search cannot run here`,
     };
-  const indexed = mdUnder(CANON_INDEX);
+  const indexed = mdUnder(CANON_INDEX); // already excludes §5 hidden-control paths
+  const hidden = sh(
+    `find ${CANON_INDEX} -name '${HIDDEN_CONTROL_DIR}' -o -name '*_hidden_adjudication_control.md' 2>/dev/null | wc -l`
+  ).trim();
   const archives = existsSync(join(ROOT, CANON))
     ? readdirSync(join(ROOT, CANON)).filter((f) => f.endsWith('.zip'))
     : [];
@@ -416,6 +440,7 @@ function checkCanonIndex() {
     unreachable.length
       ? `CITED · NOT REACHABLE (never read as "no authority"): ${unreachable.join(', ')}`
       : 'every cited authority resolves',
+    `hidden adjudication controls excluded from every corpus (§5); ${hidden} residual path(s) present`,
   ];
   /* Indexed == 0 with archives present is the failure this row exists for: the
      authority is on disk and unsearchable, which is how `5.410` happened. */
@@ -561,7 +586,44 @@ function checkEscalations() {
     /^\s*(?:[A-Z0-9_ ]{3,40}\s*=\s*|#{1,6}\s*|[-*]\s+\*\*)?[^\n]*?(EXTERNAL AUTHORITY BLOCKER|BLOCKED ON (?:PRODUCT|LEGAL|M&E|BRAND|TOKEN|STRATEGY|FOUNDER))/i;
   const NARRATIVE = /CORRECTION|WITHDRAWN|I carried|earlier|previously|was wrong|retrospect/i;
   const SEARCHED = /CANON-FIRST SEARCH\s*(?:=|:)?\s*COMPLETED/i;
-  const corpus = mdUnder('docs/audit', []).filter((p) => /PRE_I2|REVIEW|GATE|RETURN/i.test(p));
+  /**
+   * TWO CORPORA, and the exclusion is STATED — because the first version's was
+   * silent and wrong.
+   *
+   * It filtered by `/PRE_I2|REVIEW|GATE|RETURN/` and scanned **40 of 76** files.
+   * The 36 it skipped included **`PENDING_ALL.md`, the register itself** — so the
+   * row printed "40 engineering record(s) scanned · every escalation carries a
+   * completed Canon-First block" while never reading the most important document
+   * in the corpus. Both hand-run sabotage proofs had passed only because that
+   * fixture's filename happened to contain "GATE". The automated spec caught it
+   * on its first run, which is the argument for automating a standing gate.
+   *
+   * ⚑ AND THE FIX HAD ITS OWN FICTION, corrected here. I first "widened" the
+   * name pattern to `…|ANALYSIS|EVIDENCE|AUDIT|HANDOFF|…` and wrote a comment
+   * claiming it deliberately excluded usability reports and copy packages.
+   * Measured: `AUDIT` matches **all 76** files, because the pattern tests the
+   * full PATH and every path contains the directory `docs/audit`. The exclusion
+   * was zero files and the comment was false — a prose-versus-behaviour gap of
+   * exactly the kind this gate exists to catch, in the gate itself.
+   *
+   * So the filter is GONE rather than tuned until the number looks right. The
+   * corpus is EVERY record under `docs/audit`, which is also the stronger design:
+   * the row fires only on a status-CLAIM line, so an inert document stays inert,
+   * and no filter can hide a record from the gate (the `5.134`-class lesson that
+   * whatever a filter drops can never be found).
+   *
+   * The REGISTER is scanned under its OWN rule. It legitimately narrates blocked
+   * states inside closures and founder dispositions — measured: 3 hits, two
+   * `✅ CLOSED` rows and one disposition block, none a live escalation. Judging it
+   * by the record rule would flag all three on day one, and a gate that flags the
+   * register immediately is a gate that gets switched off.
+   */
+  const REGISTER_CONTEXT = /✅|CLOSED|FIXED|WITHDRAWN|DISPOSITION|SUPERSEDED|historical/i;
+  const auditDocs = mdUnder('docs/audit', []);
+  const isRegister = (q) => q.endsWith('PENDING_ALL.md');
+  /* EVERY engineering record, with NO name filter. The register is separated
+     because it needs a different rule, not because it is excluded. */
+  const corpus = auditDocs.filter((q) => !isRegister(q));
   const offenders = [];
   for (const doc of corpus) {
     const text = rd(doc);
@@ -570,13 +632,24 @@ function checkEscalations() {
     if (claims.length)
       offenders.push(`${doc.replace('docs/audit/', '')} (${claims.length} claim line[s])`);
   }
+  /* The register, under its own rule: a closure or disposition narrating a
+     blocked state is a record of history, not a live Engineering escalation. */
+  const regPath = auditDocs.find(isRegister);
+  if (regPath) {
+    const live = rd(regPath)
+      .split('\n')
+      .filter((l) => STATUS_LINE.test(l) && !NARRATIVE.test(l) && !REGISTER_CONTEXT.test(l));
+    if (live.length) offenders.push(`PENDING_ALL.md (${live.length} live escalation line[s])`);
+  }
   return {
     ok: offenders.length === 0,
     detail:
-      `${corpus.length} engineering record(s) scanned` +
+      `${corpus.length} engineering record(s)${regPath ? ' + the register' : ''} scanned` +
       (offenders.length
         ? ` · ${offenders.length} escalate WITHOUT a completed Canon-First block: ${offenders.join(', ')}`
-        : ' · every escalation carries a completed Canon-First block'),
+        : ' · every escalation carries a completed Canon-First block') +
+      `\n      corpus: EVERY record under docs/audit, no name filter (a filter can hide a record ` +
+      `from its own gate); the register is judged by its own rule (closure / disposition ≠ live escalation)`,
   };
 }
 
