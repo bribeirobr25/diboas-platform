@@ -19,6 +19,7 @@ import {
   stopGoalStrategies,
   exitPosition,
 } from '@/lib/ledgerClient';
+import { exitFeesOf } from '@diboas/banking';
 
 /**
  * P1.2 slice 1c — the hydration gate + one-grant guard (node env; the store is
@@ -164,9 +165,12 @@ describe('the exit manifest books exactly what it shows (FC-15)', () => {
      */
     expect(getLedgerState().goals[0].cash).toBe(preview.net);
     expect(preview.net).toBe(preview.gross);
-    // The modelled cost is still recorded on the event, not silently dropped.
+    /* The modelled cost is still recorded on the event, not silently dropped.
+       Read through `exitFeesOf` because canon's v2 shape names the field
+       `modeledNetworkFee` (`5.410`); reaching for the raw `networkFee` was this
+       assertion's own bug, and the union turned it into a compile-visible one. */
     const exit = getLedgerState().events.find((e) => e.type === 'StrategyExited');
-    expect(exit && 'networkFee' in exit ? exit.networkFee : null).toBe('0.01');
+    expect(exit ? exitFeesOf(exit).networkFee : null).toBe('0.01');
   });
 
   it('should agree with the ledger across every fee the gas table can produce', () => {

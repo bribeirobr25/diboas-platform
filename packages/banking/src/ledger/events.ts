@@ -41,6 +41,24 @@ export interface EventBase {
    * and no historical event is migrated on disk. New events always carry it.
    */
   ledgerScope?: LedgerScope;
+  /**
+   * Event schema version (decision **D-06**: *"`schemaVersion` on the base;
+   * projection branches by version, never by date"*).
+   *
+   * **OPTIONAL on purpose**, the same reason as `ledgerScope` (D-04): every
+   * event written before this existed lacks it, a log is never rewritten, so
+   * absence must carry the v1 meaning. Read through `schemaVersionOf()`.
+   *
+   * Canon scopes v2 to `GoalCreated`, `StrategyEntered` and `StrategyExited`.
+   * Only the latter two carry it today; `GoalCreated` v2 is I-2/I-5 work.
+   *
+   * Declared as `1 | 2` rather than `2`: the per-event shapes narrow it (a v1
+   * interface pins `?: 1`, a v2 interface pins `2`), and a base that admitted
+   * only `2` would make every v1 event unassignable to `EventBase` — which
+   * breaks `scopeOf`/`feesAreDeductible` at every call site. The compiler caught
+   * exactly that when this was first written as `?: 2`.
+   */
+  schemaVersion?: 1 | 2;
 }
 
 /**
@@ -55,29 +73,32 @@ export function scopeOf(event: EventBase): LedgerScope {
 }
 
 /**
- * How an event's fees relate to money (`5.403`).
- *
- * - `'modeled'` — recorded, shown where relevant, and **not** deducted. The
- *   Practice rule (`FEES.md` F-12; the Product handoff's Practice fee class is
- *   *"Shown separately, not deducted from the Goal split"*).
- * - `'deducted'` — the fee really reduced holdings. Every event written before
- *   `5.403`, and the semantics Real Money keeps under FC-15.
- *
- * **OPTIONAL on the event, on purpose** — the same decision as `ledgerScope`
- * (D-04): a log is never rewritten, so absence must carry the legacy meaning.
+ * The read-time schema version of an event (D-06). Absence means v1 — the shape
+ * written before versioning existed. Read through this accessor, never off the
+ * raw field, for the same reason `scopeOf` exists: a bare truthiness check on an
+ * optional field silently misclassifies every legacy event.
  */
-export type FeeAccounting = 'modeled' | 'deducted';
+export function schemaVersionOf(event: EventBase): 1 | 2 {
+  return event.schemaVersion ?? 1;
+}
 
 /**
- * The read-time fee semantics of an event. Read through this accessor, NEVER off
- * the raw field: a bare `e.feeAccounting === 'modeled'` check is fine, but its
- * negation silently classes every legacy event as modelled, which would stop
- * `reconcile()` subtracting fees that genuinely left `held` — every existing
- * device ledger would then reconcile to `−fee` instead of `0.00`. That is the
- * exact hazard `scopeOf`'s comment warns about, in the money path.
+ * Whether an event's fees actually REDUCED holdings — the only fees
+ * `reconcile()` may subtract (`5.403` / `5.410`).
+ *
+ * Canon (`I-3`): *"`StrategyEntered`/`StrategyExited` schema v2 carry
+ * `modeledNetworkFee` / `modeledExitFee` **in `sandbox` scope**, recorded and
+ * displayed but **not** subtracted … `real` scope keeps FC-15 full deduction"*,
+ * and D-08: fees are version-gated **per scope**.
+ *
+ * So the rule needs BOTH axes, and the negative case is the important one:
+ * anything that is not a sandbox-v2 event still deducts. A version-only test
+ * would stop `real` deducting, which is an FC-15 breach — measured on the first
+ * implementation of this change, and exactly what canon's *"a `real` entry that
+ * does not deduct → fails"* sabotage exists to catch.
  */
-export function feeAccountingOf(event: { feeAccounting?: FeeAccounting }): FeeAccounting {
-  return event.feeAccounting ?? 'deducted';
+export function feesAreDeductible(event: EventBase): boolean {
+  return !(scopeOf(event) === 'sandbox' && schemaVersionOf(event) === 2);
 }
 
 /** Play money granted at first run (D-4: 10K B2C / 250K B2B, local currency). */
@@ -134,26 +155,54 @@ export interface GoalFunded extends EventBase {
  * fee is a pass-through cost expressed in LEDGER currency (the app converts the
  * chain's USD gas quote via the USDC price quote).
  *
- * ## `amount` means different things in the two fee generations (`5.403`)
+ * ## `amount` means different things in the two schema versions (`5.403`)
  *
- * `feeAccounting: 'modeled'` (new events) — `amount` is the WHOLE total the user
- * committed, and `networkFee` is recorded beside it as information that moved no
- * money. F-12: in Practice fees are *modeled and informational — shown where
- * relevant, never silently deducted*.
+ * **v2** — `amount` is the WHOLE total the user committed, and
+ * `modeledNetworkFee` is recorded beside it as information that moved no money
+ * in `sandbox` scope. F-12: in Practice fees are *modeled and informational —
+ * shown where relevant, never silently deducted*.
  *
- * Absent `feeAccounting` (every event written before `5.403`) — `amount` is the
- * total MINUS the fee, and the fee really did reduce the goal's cash. Those
- * events keep that meaning forever; an event-sourced log is never rewritten and
- * history is never reinterpreted.
+ * **v1** (absent `schemaVersion`) — `amount` is the total MINUS the fee, and
+ * `networkFee` really did reduce the goal's cash. Those events keep that meaning
+ * forever; an event-sourced log is never rewritten and history is never
+ * reinterpreted (D-04 / D-06).
  */
-export interface StrategyEntered extends EventBase {
+interface StrategyEnteredCommon extends EventBase {
   type: 'StrategyEntered';
   goalId: string;
   positionId: string;
   strategyId: string;
+  /**
+   * v1: the total MINUS the fee — the fee had already been taken out.
+   * v2: the WHOLE total the user committed; all of it reaches the strategy.
+   */
   amount: string;
+}
+
+/** The pre-`5.403` shape: the fee genuinely reduced the goal's cash. */
+export interface StrategyEnteredV1 extends StrategyEnteredCommon {
+  schemaVersion?: 1;
   networkFee: string;
-  feeAccounting?: FeeAccounting;
+}
+
+/**
+ * Schema v2 (canon `I-3`): the modelled fee is recorded and displayed, and
+ * subtracted from nothing in `sandbox` scope. The FIELD NAME carries the
+ * semantics, which is why canon names it this way — there is no raw field a
+ * reader could mistake for money that moved.
+ */
+export interface StrategyEnteredV2 extends StrategyEnteredCommon {
+  schemaVersion: 2;
+  modeledNetworkFee: string;
+}
+
+export type StrategyEntered = StrategyEnteredV1 | StrategyEnteredV2;
+
+/** The modelled fee an entry records, whichever version wrote it. */
+export function entryNetworkFeeOf(event: StrategyEntered): string {
+  return schemaVersionOf(event) === 2
+    ? (event as StrategyEnteredV2).modeledNetworkFee
+    : (event as StrategyEnteredV1).networkFee;
 }
 
 /** Accrual applied to a position for a span of simulated days (real APY replay). */
@@ -203,22 +252,54 @@ export interface AccrualApplied extends EventBase {
  * Position exit: 0.39% fee with $0.25 floor, no cap (FE-1a), principal+earnings
  * return to the goal.
  *
- * `feeAccounting: 'modeled'` (new events) — the FULL `grossAmount` returns to the
- * goal; `exitFee` and `networkFee` are recorded as information only (`5.403`).
- * Absent the marker, the fees genuinely reduced what landed, and that stays true
- * for those events. The fee ARITHMETIC is unchanged either way: the floor is
- * still applied per position, never once on a summed gross (Legal-accepted
- * disposition, `FEES.md` note 3).
+ * **v2** — the FULL `grossAmount` returns to the goal in `sandbox` scope;
+ * `modeledExitFee` and `modeledNetworkFee` are recorded as information only
+ * (`5.403`). **v1** — the fees genuinely reduced what landed, and that stays
+ * true for those events. `real` scope deducts at any version (FC-15).
+ *
+ * The fee ARITHMETIC is unchanged throughout: the floor is still applied per
+ * position, never once on a summed gross (Legal-accepted disposition,
+ * `FEES.md` note 3).
  */
-export interface StrategyExited extends EventBase {
+interface StrategyExitedCommon extends EventBase {
   type: 'StrategyExited';
   positionId: string;
   goalId: string;
   grossAmount: string;
+}
+
+/** The pre-`5.403` shape: both fees genuinely reduced what landed in the goal. */
+export interface StrategyExitedV1 extends StrategyExitedCommon {
+  schemaVersion?: 1;
   exitFee: string;
-  /** Pass-through network fee in ledger currency. */
   networkFee: string;
-  feeAccounting?: FeeAccounting;
+}
+
+/**
+ * Schema v2 (canon `I-3`): the FULL `grossAmount` returns to the goal in
+ * `sandbox` scope; both modelled fees are recorded and displayed, deducted from
+ * nothing. The fee ARITHMETIC is unchanged — the $0.25 floor still applies per
+ * position, never once on a summed gross (Legal-accepted, `FEES.md` note 3).
+ */
+export interface StrategyExitedV2 extends StrategyExitedCommon {
+  schemaVersion: 2;
+  modeledExitFee: string;
+  modeledNetworkFee: string;
+}
+
+export type StrategyExited = StrategyExitedV1 | StrategyExitedV2;
+
+/** The modelled fees an exit records, whichever version wrote it. */
+export function exitFeesOf(event: StrategyExited): { exitFee: string; networkFee: string } {
+  return schemaVersionOf(event) === 2
+    ? {
+        exitFee: (event as StrategyExitedV2).modeledExitFee,
+        networkFee: (event as StrategyExitedV2).modeledNetworkFee,
+      }
+    : {
+        exitFee: (event as StrategyExitedV1).exitFee,
+        networkFee: (event as StrategyExitedV1).networkFee,
+      };
 }
 
 /**

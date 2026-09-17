@@ -8,6 +8,7 @@ import { selectEventMagnitude, selectHistorySummary } from '@/view/home';
 import { useFormatters } from '@/hooks/useFormatters';
 import { LucideIcon, type IconName } from './LucideIcon';
 import styles from './HistoryScreen.module.css';
+import { entryNetworkFeeOf, exitFeesOf } from '@diboas/banking';
 
 type Sign = 'pos' | 'neg' | null;
 
@@ -159,7 +160,11 @@ export function HistoryScreen() {
           : event.strategyId;
         return intl.formatMessage(
           { id: 'history.entered' },
-          { amount: money(event.amount), strategy: name, fee: money(event.networkFee) }
+          {
+            amount: money(event.amount),
+            strategy: name,
+            fee: money(entryNetworkFeeOf(event)),
+          }
         );
       }
       case 'AccrualApplied': {
@@ -178,7 +183,7 @@ export function HistoryScreen() {
           {
             strategy: strategyNameByPosition(event.positionId),
             gross: money(event.grossAmount),
-            fee: money(event.exitFee),
+            fee: money(exitFeesOf(event).exitFee),
           }
         );
       case 'RecurringSet':

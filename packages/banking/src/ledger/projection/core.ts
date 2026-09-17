@@ -5,7 +5,7 @@
  * case, verbatim, over the shared context.
  */
 
-import { feeAccountingOf } from '../events';
+import { entryNetworkFeeOf, exitFeesOf, feesAreDeductible } from '../events';
 import type {
   AccrualApplied,
   GoalCreated,
@@ -93,21 +93,30 @@ export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
       const goal = ctx.goals.get(event.goalId);
       if (!goal) break;
       const amount = d(event.amount);
-      const fee = d(event.networkFee);
+      const fee = d(entryNetworkFeeOf(event));
       /**
        * `5.403` — MODEL THE CONSEQUENCE ≠ APPLY IT TO PRACTICE MONEY.
        *
-       * `'modeled'`: `amount` IS the whole committed total, so the goal parts
-       * with exactly that and all of it reaches the strategy. The fee is
-       * recorded beside it and moves nothing.
+       * **Sandbox v2** (`modeledNetworkFee`): `amount` IS the whole committed
+       * total, so the goal parts with exactly that and all of it reaches the
+       * strategy. The modelled fee is recorded beside it and moves nothing.
        *
-       * `'deducted'` (legacy, and Real under FC-15): `amount` is already net, so
-       * the cash leg is `amount + fee` exactly as it always was. The affordability
-       * threshold is the same number in both branches — `amount + fee` then,
-       * `amount` now, both equal the committed total — which is why no goal
-       * becomes newly affordable or unaffordable.
+       * **Everything else deducts** — legacy v1, and `real` at any version under
+       * FC-15. `amount` is already net there, so the cash leg is `amount + fee`
+       * exactly as it always was.
+       *
+       * `feesAreDeductible` tests BOTH scope and version deliberately. A
+       * version-only test stops `real` deducting, which is an FC-15 breach: it
+       * was measured on the first implementation of this change (a `real` event
+       * with a modelled fee left cash at 500.00 instead of 499.84), and it is
+       * what canon's *"a `real` entry that does not deduct → fails"* sabotage
+       * exists to catch.
+       *
+       * The affordability threshold is the same number in both branches —
+       * `amount + fee` then, `amount` now, both equal the committed total — which
+       * is why no goal becomes newly affordable or unaffordable.
        */
-      const deducted = feeAccountingOf(event) === 'deducted';
+      const deducted = feesAreDeductible(event);
       const cashLeg = deducted ? amount.plus(fee) : amount;
       if (goal.cash.lt(cashLeg)) break;
       goal.cash = goal.cash.minus(cashLeg);
@@ -163,9 +172,10 @@ export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
       if (!position || !position.s.open) break;
       position.s.open = false;
       const goal = ctx.goals.get(event.goalId);
-      const exitFee = d(event.exitFee);
-      const networkFee = d(event.networkFee);
-      const deductedExit = feeAccountingOf(event) === 'deducted';
+      const fees = exitFeesOf(event);
+      const exitFee = d(fees.exitFee);
+      const networkFee = d(fees.networkFee);
+      const deductedExit = feesAreDeductible(event);
       if (goal) {
         /* `5.403`: modelled fees return the FULL gross — "MONEY RETURNED = gross
            Practice value". Legacy events keep booking `gross − both fees`, so a

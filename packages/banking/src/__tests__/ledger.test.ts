@@ -117,7 +117,7 @@ describe('project (event-sourced state)', () => {
  * never silently deducted*. The Product handoff states the Practice fee class as
  * *"Shown separately, not deducted from the Goal split."*
  *
- * The two generations are told apart by `feeAccounting`, which is OPTIONAL on the
+ * The two generations are told apart by `schemaVersion` (D-06), which is OPTIONAL on the
  * event for the same reason `ledgerScope` is (D-04): a log is never rewritten, so
  * absence must keep carrying the legacy meaning.
  */
@@ -145,12 +145,12 @@ describe('5.403 — Practice fees are recorded, not spent', () => {
     events.push({
       ...base(),
       type: 'StrategyEntered',
+      schemaVersion: 2,
       goalId: 'g1',
       positionId: 'p1',
       strategyId: 'safeHarbor',
       amount: '1000',
-      networkFee: '0.16',
-      feeAccounting: 'modeled',
+      modeledNetworkFee: '0.16',
     });
     const state = project(events);
     // The goal parts with exactly what the user approved…
@@ -170,22 +170,22 @@ describe('5.403 — Practice fees are recorded, not spent', () => {
       {
         ...base(),
         type: 'StrategyEntered',
+        schemaVersion: 2,
         goalId: 'g1',
         positionId: 'p1',
         strategyId: 'safeHarbor',
         amount: '1000',
-        networkFee: '0.16',
-        feeAccounting: 'modeled',
+        modeledNetworkFee: '0.16',
       },
       {
         ...base(),
         type: 'StrategyExited',
+        schemaVersion: 2,
         positionId: 'p1',
         goalId: 'g1',
         grossAmount: '1000.00',
-        exitFee: '3.90',
-        networkFee: '0.16',
-        feeAccounting: 'modeled',
+        modeledExitFee: '3.90',
+        modeledNetworkFee: '0.16',
       }
     );
     const state = project(events);
@@ -200,7 +200,7 @@ describe('5.403 — Practice fees are recorded, not spent', () => {
 
   it('should keep a LEGACY entry deducting, so history is never reinterpreted', () => {
     const events = funded();
-    // No `feeAccounting` — every event written before `5.403`.
+    // No `schemaVersion` — every event written before `5.403` reads as v1.
     events.push({
       ...base(),
       type: 'StrategyEntered',
@@ -236,12 +236,12 @@ describe('5.403 — Practice fees are recorded, not spent', () => {
       {
         ...base(),
         type: 'StrategyEntered',
+        schemaVersion: 2,
         goalId: 'g1',
         positionId: 'p2',
         strategyId: 'safeHarbor',
         amount: '500',
-        networkFee: '0.20',
-        feeAccounting: 'modeled',
+        modeledNetworkFee: '0.20',
       }
     );
     const state = project(events);
@@ -269,22 +269,22 @@ describe('5.403 — Practice fees are recorded, not spent', () => {
       {
         ...base(),
         type: 'StrategyEntered',
+        schemaVersion: 2,
         goalId: 'g1',
         positionId: 'p2',
         strategyId: 'safeHarbor',
         amount: '500',
-        networkFee: '0.20',
-        feeAccounting: 'modeled',
+        modeledNetworkFee: '0.20',
       },
       {
         ...base(),
         type: 'StrategyExited',
+        schemaVersion: 2,
         positionId: 'p2',
         goalId: 'g1',
         grossAmount: '500.00',
-        exitFee: '1.95',
-        networkFee: '0.20',
-        feeAccounting: 'modeled',
+        modeledExitFee: '1.95',
+        modeledNetworkFee: '0.20',
       }
     );
     for (let i = 1; i <= events.length; i += 1) {
@@ -305,16 +305,32 @@ describe('5.403 — Practice fees are recorded, not spent', () => {
     // And proven through the projection: exactly-affordable is accepted in both.
     for (const modeled of [false, true] as const) {
       const events = funded();
-      events.push({
-        ...base(),
-        type: 'StrategyEntered',
-        goalId: 'g1',
-        positionId: 'p1',
-        strategyId: 'safeHarbor',
-        amount: modeled ? '1500' : '1499.84',
-        networkFee: '0.16',
-        ...(modeled ? { feeAccounting: 'modeled' as const } : {}),
-      });
+      /* Two DISTINCT shapes, not one with a conditional field: v2 carries the
+         whole total plus `modeledNetworkFee`, v1 carries the net plus the
+         deducted `networkFee`. The union makes the difference a type error if
+         mixed, which is the point of versioning on the base (D-06). */
+      events.push(
+        modeled
+          ? {
+              ...base(),
+              type: 'StrategyEntered',
+              goalId: 'g1',
+              positionId: 'p1',
+              strategyId: 'safeHarbor',
+              amount: '1500',
+              schemaVersion: 2,
+              modeledNetworkFee: '0.16',
+            }
+          : {
+              ...base(),
+              type: 'StrategyEntered',
+              goalId: 'g1',
+              positionId: 'p1',
+              strategyId: 'safeHarbor',
+              amount: '1499.84',
+              networkFee: '0.16',
+            }
+      );
       const state = project(events);
       expect(
         state.positions.filter((p) => p.open),
@@ -346,12 +362,12 @@ describe('5.403 — Practice fees are recorded, not spent', () => {
     modeled.push({
       ...base(),
       type: 'StrategyEntered',
+      schemaVersion: 2,
       goalId: 'g1',
       positionId: 'p1',
       strategyId: 'safeHarbor',
       amount: '1000',
-      networkFee: '0.16',
-      feeAccounting: 'modeled',
+      modeledNetworkFee: '0.16',
     });
     const a = project(legacy);
     const b = project(modeled);

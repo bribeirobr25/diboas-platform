@@ -274,9 +274,12 @@ export function splitEntry(
  * modelled network fee.
  *
  * `5.403`: `amount` is the WHOLE total — the goal parts with exactly what the
- * user approved and all of it reaches the strategy — and `networkFee` is recorded
- * beside it as information. `feeAccounting: 'modeled'` marks the event so replay
- * can never confuse it with a legacy event, whose `amount` is already net.
+ * user approved and all of it reaches the strategy — and the modelled fee is
+ * recorded beside it as information. The event is written at **schema v2**
+ * (D-06), so replay can never confuse it with a legacy v1 event whose `amount`
+ * is already net. Canon names the field `modeledNetworkFee`: the name carries
+ * the semantics, so there is no raw field a reader could mistake for money that
+ * moved.
  */
 export function enterStrategy(input: {
   goalId: string;
@@ -297,8 +300,8 @@ export function enterStrategy(input: {
       positionId,
       strategyId: input.strategyId,
       amount: invested.toFixed(2),
-      networkFee: fee.toFixed(2),
-      feeAccounting: 'modeled',
+      schemaVersion: 2,
+      modeledNetworkFee: fee.toFixed(2),
     },
   ]);
   return positionId;
@@ -547,9 +550,9 @@ export function exitPosition(input: { positionId: string; networkFeeLocal: numbe
       positionId: position.positionId,
       goalId: position.goalId,
       grossAmount: gross.toFixed(2),
-      exitFee: exitFee.toFixed(2),
-      networkFee: feeInCents(input.networkFeeLocal).toFixed(2),
-      feeAccounting: 'modeled',
+      schemaVersion: 2,
+      modeledExitFee: exitFee.toFixed(2),
+      modeledNetworkFee: feeInCents(input.networkFeeLocal).toFixed(2),
     },
   ]);
 }
@@ -718,9 +721,9 @@ export function stopGoalStrategies(goalId: string, feeFor: (positionId: string) 
       positionId: position.positionId,
       goalId,
       grossAmount: gross.toFixed(2),
-      exitFee: computeExitFee(gross, state.currency).toFixed(2),
-      networkFee: feeInCents(feeFor(position.positionId)).toFixed(2),
-      feeAccounting: 'modeled',
+      schemaVersion: 2,
+      modeledExitFee: computeExitFee(gross, state.currency).toFixed(2),
+      modeledNetworkFee: feeInCents(feeFor(position.positionId)).toFixed(2),
     });
   }
   appendAll(events);
