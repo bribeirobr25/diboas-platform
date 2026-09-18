@@ -25,7 +25,7 @@ import type {
   ProtocolId,
   ProtocolPriceHistory,
 } from '../types';
-import { observedStamp } from '../types';
+import { evidenceStamp } from '../types';
 import { PROTOCOL_RETURN_MODEL, PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 
 const API_BASE = 'https://api.coingecko.com/api/v3';
@@ -77,7 +77,12 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
         const row = entry.value[COINGECKO_IDS[assetId]];
         const price = row?.[VS[currency]];
         if (typeof price !== 'number') throw new Error(`missing price ${assetId}/${currency}`);
-        return { assetId, currency, price, stamp: observedStamp('coingecko', asOf) };
+        return {
+          assetId,
+          currency,
+          price,
+          stamp: evidenceStamp({ source: 'coingecko', origin: 'OBSERVED', asOf }),
+        };
       });
     } catch {
       return assetIds.map((assetId) => ({
@@ -145,7 +150,11 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
       return {
         protocolId,
         points: entry.value.slice(-days),
-        stamp: observedStamp('coingecko', new Date(entry.at).toISOString()),
+        stamp: evidenceStamp({
+          source: 'coingecko',
+          origin: 'OBSERVED',
+          asOf: new Date(entry.at).toISOString(),
+        }),
       };
     } catch {
       return {

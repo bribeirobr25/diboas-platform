@@ -10,6 +10,9 @@ export const DEFI_PACKAGE_VERSION = '0.2.0';
 
 export * from './types';
 export * from './catalog';
+export * from './evidence';
+/* Test/fixture helpers — production must not import these (see testing.ts). */
+export * from './testing';
 export * from './provenance';
 export * from './freshness';
 export * from './methodology';

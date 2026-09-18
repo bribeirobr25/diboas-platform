@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
-import { observedStamp } from '../types';
+import { observedStamp } from '../testing';
 import { CoinGeckoPriceProvider } from '../providers/coingecko';
 import { FIXTURE_APYS } from '../fixtures';
 import { DefiLlamaApyProvider, matchPool } from '../providers/defillama';

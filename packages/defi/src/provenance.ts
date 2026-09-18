@@ -15,7 +15,8 @@
  * absence of data is never presented as live data).
  */
 
-import type { DataStamp, ProtocolApy, StrategyDef } from './types';
+import type { Actionability, Availability, CostCoverage, UnavailableReason } from './evidence';
+import type { DataStamp, EvidenceOrigin, ProtocolApy, StrategyDef } from './types';
 
 export type ProvenanceState = 'live' | 'mixed' | 'fixture';
 
@@ -34,7 +35,43 @@ export type ProvenanceState = 'live' | 'mixed' | 'fixture';
  *                 reference value is in a calculation that was refused); the
  *                 approved `5.348` unavailable treatment renders instead.
  */
-export type FeeProvenance = 'none' | 'live' | 'reference' | 'unavailable';
+/**
+ * The fee axis, DECOMPOSED (Founder/Strategy 2026-09-18 §4).
+ *
+ * It used to be `'none' | 'live' | 'reference' | 'unavailable'` — four values
+ * mixing three independent things: whether a fee is rendered at all, what the
+ * evidence's ORIGIN is, and whether it is AVAILABLE. Canon §5 forbids that
+ * collapse, so each is now its own field and none can be read off another.
+ *
+ * The mapping is exact, not approximate, and was measured at HEAD before the
+ * change: `FIXTURE_STAMP.origin` is `'MODELLED'` and `evidenceStamp` records
+ * `'OBSERVED'`, so the old `'reference'` is precisely origin MODELLED and the
+ * old `'live'` is precisely origin OBSERVED. Rendering is therefore unchanged.
+ *
+ * `actionability` is `'REFERENCE'` for every fee this build can produce: a
+ * Practice network cost informs, it never authorizes. It is stated explicitly
+ * rather than assumed, because the thing canon forbids is inferring it — and
+ * an EXECUTABLE fee would come from a Real route quote, which does not exist.
+ */
+export type FeeEvidence =
+  /** This surface renders no fee at all — the picker shows rates only. */
+  | { rendered: false }
+  | {
+      rendered: true;
+      availability: Extract<Availability, 'UNAVAILABLE'>;
+      reason: UnavailableReason;
+      coverage: CostCoverage;
+    }
+  | {
+      rendered: true;
+      availability: Extract<Availability, 'AVAILABLE'>;
+      actionability: Actionability;
+      origin: EvidenceOrigin;
+      coverage: CostCoverage;
+    };
+
+/** The fee figure's economic coverage: network cost, and nothing bundled in. */
+const NETWORK_COST: CostCoverage = { kind: 'single', category: 'network' };
 
 export interface StrategyProvenance {
   /**
@@ -51,8 +88,8 @@ export interface StrategyProvenance {
    * "includes documented reference values". Never read `state` to pick APY copy.
    */
   apyProvenance: ProvenanceState;
-  /** The fee axis, derived from the gas stamp alone. */
-  feeProvenance: FeeProvenance;
+  /** The fee axis, derived from the gas stamp alone — decomposed per canon §5. */
+  feeEvidence: FeeEvidence;
   /** Allocation legs WITHOUT live data (named in the mixed stamp). Empty when live. */
   fixtureProtocolIds: string[];
   /**
@@ -103,15 +140,32 @@ export function strategyProvenance(
       ? 'fixture'
       : 'mixed';
 
-  /** THE FEE AXIS — the gas stamp only (Finding 1). */
-  const feeProvenance: FeeProvenance =
+  /**
+   * THE FEE AXIS — the gas stamp only (Finding 1), now on independent axes.
+   *
+   * ORIGIN comes from the stamp itself, never from the source id: canon's
+   * `EXTERNAL SOURCE ≠ OBSERVED` means a provider-sourced value can be MODELLED
+   * and a fixture is MODELLED by construction. Reading `stamp.origin` is what
+   * makes that true here rather than merely intended.
+   */
+  const feeEvidence: FeeEvidence =
     gasStamp === undefined
-      ? 'none'
+      ? { rendered: false }
       : gasStamp === 'missing'
-        ? 'unavailable'
-        : gasStamp.source === 'fixture'
-          ? 'reference'
-          : 'live';
+        ? {
+            rendered: true,
+            availability: 'UNAVAILABLE',
+            reason: 'NO_OBSERVATION',
+            coverage: NETWORK_COST,
+          }
+        : {
+            rendered: true,
+            availability: 'AVAILABLE',
+            /* Practice network cost informs; it never authorizes. Stated, not inferred. */
+            actionability: 'REFERENCE',
+            origin: gasStamp.origin,
+            coverage: NETWORK_COST,
+          };
 
   /**
    * THE OVERALL STATE — degrade-only.
@@ -123,12 +177,17 @@ export function strategyProvenance(
    * leg stays a fixture leg. `state` is therefore never fresher than
    * `apyProvenance`.
    */
-  const feeWeakens = feeProvenance === 'reference' || feeProvenance === 'unavailable';
+  /* Identical condition to the pre-decomposition `'reference' || 'unavailable'`,
+     now expressed on the axes: a modelled fee or an absent one weakens the
+     overall claim; an observed one does not. */
+  const feeWeakens =
+    feeEvidence.rendered &&
+    (feeEvidence.availability === 'UNAVAILABLE' || feeEvidence.origin !== 'OBSERVED');
   const state: ProvenanceState = apyProvenance === 'live' && feeWeakens ? 'mixed' : apyProvenance;
   return {
     state,
     apyProvenance,
-    feeProvenance,
+    feeEvidence,
     fixtureProtocolIds,
     // Index access, not `.at(-1)`: the domain packages target ES2020 by
     // config, and `.at` is ES2022 (the workspace type-check catches it even

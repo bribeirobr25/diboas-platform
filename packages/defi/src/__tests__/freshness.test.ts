@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { FRESHNESS_DELAYED_MAX_DAYS, FRESHNESS_STALE_MAX_DAYS, dataFreshness } from '../freshness';
 import { FIXTURE_AS_OF, FIXTURE_STAMP, FIXTURE_VERSION } from '../fixtures';
-import { observedStamp } from '../types';
+import { observedStamp } from '../testing';
 
 /** A stamp retrieved `days` before the reference moment. */
 function agedBy(days: number) {

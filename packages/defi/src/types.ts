@@ -61,6 +61,40 @@ export type EvidenceOrigin = 'OBSERVED' | 'MODELLED' | 'PROXY';
 export type TimeState = 'CURRENT' | 'DELAYED' | 'STALE' | 'HISTORICAL' | 'MISSING';
 
 /**
+ * How a source is CLASSIFIED — a source-identity property, and nothing else.
+ *
+ * ⚑ `SOURCE KIND ≠ EVIDENCE ORIGIN ≠ ACTIONABILITY ≠ AVAILABILITY` (canon §2).
+ * `kind: 'provider'` does NOT imply OBSERVED, REFERENCE, EXECUTABLE or
+ * AVAILABLE. A provider can return a modelled value; a collector can hold an
+ * observed one. The classification exists so a future source can be described,
+ * never so an axis can be inferred from it.
+ */
+export type EvidenceSourceKind =
+  'provider' | 'collector' | 'rpc' | 'routeProvider' | 'executionProvider' | 'fixture';
+
+/**
+ * The registry of sources this build actually has.
+ *
+ * ⚑ NO SPECULATIVE ENTRIES (canon §2). Exactly the three that exist today; a
+ * collector or route provider is added here when one is actually authorized,
+ * which is what makes the identity generalizable without pre-authorizing
+ * anything.
+ */
+export const EVIDENCE_SOURCES = {
+  defillama: { kind: 'provider' },
+  coingecko: { kind: 'provider' },
+  fixture: { kind: 'fixture' },
+} as const satisfies Record<string, { kind: EvidenceSourceKind }>;
+
+/** The authoritative source id — derived from the registry, never hand-listed. */
+export type EvidenceSourceId = keyof typeof EVIDENCE_SOURCES;
+
+/** A source's classification. Never a shortcut to origin/actionability/availability. */
+export function sourceKindOf(source: EvidenceSourceId): EvidenceSourceKind {
+  return EVIDENCE_SOURCES[source].kind;
+}
+
+/**
  * Honesty stamp carried by every piece of displayed data (Data Vintage Policy).
  *
  * ⚑ WIDENED 2026-09-14 (AUD-F05, handoff §8.8). It carried two fields —
@@ -72,8 +106,20 @@ export type TimeState = 'CURRENT' | 'DELAYED' | 'STALE' | 'HISTORICAL' | 'MISSIN
  * provenance, which is the state this replaces.
  */
 export interface DataStamp {
-  /** Source identity. */
-  source: 'defillama' | 'coingecko' | 'fixture';
+  /**
+   * THE single authoritative source identity (Strategy Canon 2026-09-18 §2).
+   *
+   * Generalized from a frozen three-value union to a REGISTRY-derived id so a
+   * future collector / RPC / route or execution provider is representable by
+   * adding one data entry — not by surgery on a type every stamp depends on.
+   * The members are unchanged in this batch (no new source is authorized), so
+   * every existing `stamp.source === 'defillama'` comparison behaves exactly as
+   * before.
+   *
+   * There is deliberately NO second `source` on the evidence envelope: canon
+   * forbids two competing source identities.
+   */
+  source: EvidenceSourceId;
   /** OBSERVED / MODELLED / PROXY — see `EvidenceOrigin`. */
   origin: EvidenceOrigin;
   /** RETRIEVAL / refresh timestamp: when we fetched, never when we served. */
@@ -103,19 +149,39 @@ export interface DataStamp {
 }
 
 /** A live, source-observed stamp. `observedAt` stays null unless the API gives one. */
-export function observedStamp(
-  source: 'defillama' | 'coingecko',
-  asOf: string,
-  observedAt: string | null = null
-): DataStamp {
-  return {
-    source,
-    origin: 'OBSERVED',
-    asOf,
-    observedAt,
-    fallbackUsed: false,
-    fixtureVersion: null,
+export function evidenceStamp(input: {
+  source: EvidenceSourceId;
+  /**
+   * REQUIRED, and deliberately not defaulted (Founder/Strategy 2026-09-18 §1).
+   *
+   * `EXTERNAL SOURCE ≠ OBSERVED` is the controlling invariant: an externally
+   * sourced value may be OBSERVED, MODELLED or PROXY depending on what the
+   * source actually provides. A default here would let a construction site stay
+   * silent and have silence mean "observed" — which is the exact failure this
+   * argument exists to prevent. Omitting it is a COMPILE error, which is a
+   * stronger protection than a runtime assertion after a silent default.
+   */
+  origin: EvidenceOrigin;
+  /** RETRIEVAL time. */
+  asOf: string;
+  /** Source-observation time where knowable; `null` is honest, not a default origin. */
+  observedAt?: string | null;
+  fallbackUsed?: boolean;
+  fixtureVersion?: string | null;
+  methodology?: string;
+  proxyOf?: string;
+}): DataStamp {
+  const stamp: DataStamp = {
+    source: input.source,
+    origin: input.origin,
+    asOf: input.asOf,
+    observedAt: input.observedAt ?? null,
+    fallbackUsed: input.fallbackUsed ?? false,
+    fixtureVersion: input.fixtureVersion ?? null,
   };
+  if (input.methodology !== undefined) stamp.methodology = input.methodology;
+  if (input.proxyOf !== undefined) stamp.proxyOf = input.proxyOf;
+  return stamp;
 }
 
 export interface ProtocolApy {
@@ -197,6 +263,25 @@ export interface IApyProvider {
 
 export interface IPriceProvider {
   getPrices(assetIds: AssetId[], currency: DisplayCurrency): Promise<PriceQuote[]>;
+  /**
+   * ⚑ ADDITIVE CONTRACT COMPLETION (2026-09-18, authorized).
+   *
+   * The port was UNDER-DECLARED: `/api/market/history` has always called this,
+   * and `CoinGeckoPriceProvider` has always implemented it — but the interface
+   * omitted it, so the capability existed only on the concrete class. That went
+   * unnoticed while routes constructed providers directly; resolving them
+   * through the `5.243` seam surfaced it immediately, because the seam returns
+   * the PORT and the port could not express what the route needs.
+   *
+   * Completing it is additive and changes no behaviour: every implementation
+   * already satisfies it. The alternative — having the factory return the
+   * concrete class — was rejected, because it would defeat provider
+   * substitution, which is the entire purpose of the seam.
+   *
+   * Nothing speculative is added here: exactly the capability the route depends
+   * on today, and nothing else.
+   */
+  getPriceHistory(protocolId: ProtocolId, days: number): Promise<ProtocolPriceHistory>;
 }
 
 export interface IGasProvider {

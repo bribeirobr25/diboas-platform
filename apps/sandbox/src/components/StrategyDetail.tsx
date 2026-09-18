@@ -156,7 +156,10 @@ export function StrategyDetail({
               (`networkFeeLocal` returns null for either), and the cost row is
               then absent — so this sentence would describe a value the reader
               was never shown. Finding 1: `unavailable` is not `reference`. */}
-          {fee !== null && provenance.feeProvenance === 'reference' ? (
+          {fee !== null &&
+          provenance.feeEvidence.rendered &&
+          provenance.feeEvidence.availability === 'AVAILABLE' &&
+          provenance.feeEvidence.origin !== 'OBSERVED' ? (
             <FormattedMessage id="common.dataGasReference" />
           ) : null}
         </>

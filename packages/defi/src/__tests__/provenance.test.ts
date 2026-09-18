@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { FIXTURE_STAMP } from '../fixtures';
-import { observedStamp } from '../types';
+import { observedStamp } from '../testing';
 import { strategyProvenance } from '../provenance';
 import type { DataStamp, ProtocolApy, ProtocolId, StrategyDef } from '../types';
 
@@ -133,10 +133,45 @@ describe('provenance axes — ruled 2026-09-17', () => {
   });
 
   it('should distinguish an unavailable fee from a reference fee (Finding 1)', () => {
-    expect(strategyProvenance(STRATEGY, LIVE_APYS, undefined).feeProvenance).toBe('none');
-    expect(strategyProvenance(STRATEGY, LIVE_APYS, GAS_LIVE).feeProvenance).toBe('live');
-    expect(strategyProvenance(STRATEGY, LIVE_APYS, GAS_FIXTURE).feeProvenance).toBe('reference');
-    expect(strategyProvenance(STRATEGY, LIVE_APYS, 'missing').feeProvenance).toBe('unavailable');
+    /**
+     * ⚑ STRUCTURAL UPDATE 2026-09-18 — the four-value `feeProvenance` was
+     * decomposed into independent axes (canon §5). The ASSERTED TRUTHS are
+     * unchanged and are restated here on the new shape; only the representation
+     * generalized. This is a type/structure test, not an approved-output one:
+     * `StrategyDetail.test.tsx` and `provenanceRender.test.tsx` assert the
+     * rendered strings and were NOT touched.
+     */
+    expect(strategyProvenance(STRATEGY, LIVE_APYS, undefined).feeEvidence).toEqual({
+      rendered: false,
+    });
+
+    const live = strategyProvenance(STRATEGY, LIVE_APYS, GAS_LIVE).feeEvidence;
+    expect(live).toMatchObject({ rendered: true, availability: 'AVAILABLE', origin: 'OBSERVED' });
+
+    const reference = strategyProvenance(STRATEGY, LIVE_APYS, GAS_FIXTURE).feeEvidence;
+    expect(reference).toMatchObject({
+      rendered: true,
+      availability: 'AVAILABLE',
+      origin: 'MODELLED',
+    });
+
+    const missing = strategyProvenance(STRATEGY, LIVE_APYS, 'missing').feeEvidence;
+    expect(missing).toMatchObject({ rendered: true, availability: 'UNAVAILABLE' });
+  });
+
+  it('should state actionability EXPLICITLY on every available fee, never inferring it', () => {
+    /* Canon §5: `Practice ≠ automatically REFERENCE`. Every fee this build can
+       produce IS reference evidence — but it says so, and the value is read
+       from the evidence rather than from mode. */
+    for (const stamp of [GAS_LIVE, GAS_FIXTURE]) {
+      const fee = strategyProvenance(STRATEGY, LIVE_APYS, stamp).feeEvidence;
+      expect(fee).toMatchObject({ availability: 'AVAILABLE', actionability: 'REFERENCE' });
+    }
+  });
+
+  it('should carry the fee cost category as NETWORK, never bundling another category in', () => {
+    const fee = strategyProvenance(STRATEGY, LIVE_APYS, GAS_FIXTURE).feeEvidence;
+    expect(fee).toMatchObject({ coverage: { kind: 'single', category: 'network' } });
   });
 
   it('should DEGRADE live -> mixed when the expected fee is missing (Finding 2, permitted)', () => {
