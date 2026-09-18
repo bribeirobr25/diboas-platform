@@ -75,6 +75,43 @@ describe('the month-report aggregator', () => {
     expect(reconcile(state)).toBe('0.00');
   });
 
+  /**
+   * `5.403` §9 — the fee row is ECONOMIC IMPACT, not modelled-fee information.
+   *
+   * These rows are terms of the conservation identity and must sum to the change
+   * in play balance (`explained` checks exactly that). A modelled fee moved no
+   * money, so its economic impact is 0 and the row does not appear — only
+   * non-zero rows render, because an empty row states nothing. The modelled
+   * amount is not lost: it stays on the fee trail via the modelled aggregates.
+   */
+  it('should report ZERO economic fee impact for modelled fees, and still sum (5.403)', () => {
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    const goalId = createGoal({
+      name: 'Safety net',
+      icon: 'shield',
+      targetAmount: 5000,
+      horizonMonths: 12,
+      fundAmount: 3000,
+    })!;
+    // A real modelled entry: a non-zero network fee that must move nothing.
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 1000, networkFeeLocal: 2.5 });
+
+    const state = getLedgerState();
+    const report = buildMonthReport(state, WINDOW.fromIso, WINDOW.toIso)!;
+
+    // No economic fee row, because no money moved for a fee.
+    expect(report.sources.find((r) => r.key === 'fees')).toBeUndefined();
+    // The identity still holds by construction.
+    const summed = report.sources.reduce((acc, r) => acc + r.amount, 0);
+    expect(summed.toFixed(2)).toBe(report.totalChange.toFixed(2));
+    expect(report.explained).toBe(true);
+    expect(reconcile(state)).toBe('0.00');
+
+    // And the modelled cost IS recorded — it simply is not a balance movement.
+    expect(state.modeledNetworkFees).toBe('2.50');
+    expect(state.networkFeesPaid).toBe('0.00');
+  });
+
   it('should NOT count funding a goal as a source — it moves nothing', () => {
     grantPlayMoney(10_000, 'USD', 'b2c');
     const before = buildMonthReport(getLedgerState(), WINDOW.fromIso, WINDOW.toIso)!;

@@ -221,6 +221,70 @@ const ONE_OF_EACH: OneOfEach = {
 };
 
 /** The fixture as an ordered, conserving event log (declaration order). */
+/**
+ * The SAME conserving journey written at **schema v2** (`5.403` / `5.410`), so
+ * the storage seam is exercised against both fee generations.
+ *
+ * `ONE_OF_EACH` is a mapped `Record` over `LedgerEventType` — exactly one
+ * instance per type — so v2 cannot replace the v1 entries without losing legacy
+ * coverage. It rides alongside instead, which is what canon's *"conservation
+ * identity per scope with mixed v1/v2 events"* requires.
+ *
+ * The v2 difference is the whole point: `amount` is the FULL total (not the net)
+ * and the fee fields are `modeledNetworkFee` / `modeledExitFee`, recorded and
+ * displayed but subtracted from nothing in `sandbox` scope.
+ */
+export function v2FeeEvents(): LedgerEvent[] {
+  return [
+    {
+      ...base('v2-e1'),
+      type: 'PlayMoneyGranted',
+      amount: '10000.00',
+      currency: 'USD',
+      mode: 'b2c',
+    },
+    {
+      ...base('v2-e2'),
+      type: 'JobsSplitSet',
+      floorPercent: 30,
+      cushionPercent: 20,
+      workingPercent: 50,
+    },
+    {
+      ...base('v2-e3'),
+      type: 'GoalCreated',
+      goalId: 'gv2',
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: '3000.00',
+      horizonMonths: 24,
+    },
+    { ...base('v2-e4'), type: 'GoalFunded', goalId: 'gv2', amount: '1000.00' },
+    {
+      ...base('v2-e5'),
+      type: 'StrategyEntered',
+      goalId: 'gv2',
+      positionId: 'pv2',
+      strategyId: 'safeHarbor',
+      // v2: the WHOLE committed total reaches the strategy.
+      amount: '1000.00',
+      schemaVersion: 2,
+      modeledNetworkFee: '10.00',
+    },
+    {
+      ...base('v2-e6'),
+      type: 'StrategyExited',
+      positionId: 'pv2',
+      goalId: 'gv2',
+      // v2: the FULL gross returns; both modelled fees move nothing.
+      grossAmount: '1000.00',
+      schemaVersion: 2,
+      modeledExitFee: '3.90',
+      modeledNetworkFee: '10.00',
+    },
+  ];
+}
+
 export function oneOfEachLog(): LedgerEvent[] {
   return Object.values(ONE_OF_EACH);
 }

@@ -77,10 +77,10 @@
     "strategiesBands": "Jeder Zeitraum zeigt die gleichen vier Strategien, plus die Option, es als Bargeld zu halten.",
     "riskStable": "Stabil",
     "riskGrowth": "Wachstum",
-    "growthExposure": "{percent}% Wachstumsanteil",
-    "apyNow": "Aktuelle Pool-Rate: {apy}%/Jahr (echt, variabel)",
-    "apyNowMixed": "Gemischte Pool-Rate: {apy}%/Jahr (variabel, enthält dokumentierte Referenzwerte)",
-    "apyNowFixture": "Referenz-Pool-Rate: {apy}%/Jahr (dokumentierte Werte, nicht live)",
+    "growthExposure": "{percent, number}% Wachstumsanteil",
+    "apyNow": "Aktuelle Pool-Rate: {apy, number}%/Jahr (echt, variabel)",
+    "apyNowMixed": "Gemischte Pool-Rate: {apy, number}%/Jahr (variabel, enthält dokumentierte Referenzwerte)",
+    "apyNowFixture": "Referenz-Pool-Rate: {apy, number}%/Jahr (dokumentierte Werte, nicht live)",
     "monthLabel": "Monat",
     "yearLabel": "Jahr",
     "startingLabel": "Startbetrag",
@@ -96,8 +96,9 @@
     "exitFee": "Später aussteigen: 0,39% (mindestens {min}, ohne Obergrenze)",
     "riskTitle": "Risiko",
     "riskStable": "Stabile Strategien wollen ihren Wert halten. Risiken bleiben: die Systeme können Fehler haben, und die verwendeten digitalen Dollar können ihre Bindung verlieren.",
-    "riskGrowth": "{percent}% dieser Strategie bewegt sich mit den Marktpreisen, mit echtem Geld kann sie also fallen und nicht nur steigen.",
-    "noPromise": "Hier wohnen keine Versprechen. Die Zahlen sind Verlauf und aktuelle Raten, nicht die Zukunft."
+    "riskGrowth": "{percent, number}% dieser Strategie bewegt sich mit den Marktpreisen, mit echtem Geld kann sie also fallen und nicht nur steigen.",
+    "noPromise": "Hier wohnen keine Versprechen. Die Zahlen sind Verlauf und aktuelle Raten, nicht die Zukunft.",
+    "networkFeeUnavailable": "Netzwerkgebühr: Betrag nicht verfügbar"
   },
   "manifest": {
     "title": "Lies, bevor du genehmigst",
@@ -134,7 +135,8 @@
     "milestoneTitle": "Du hast dieses Ziel erreicht, in der Übung.",
     "milestoneBody": "Im echten Leben würdest du hier entscheiden, was als Nächstes kommt. Nichts davon ist echtes Geld.",
     "percentWay": "des Weges",
-    "exitPricingUnavailable": "Die Kosten lassen sich gerade nicht berechnen, deshalb ist Stoppen nicht möglich. Dein Geld arbeitet weiter."
+    "exitPricingUnavailable": "Die Kosten lassen sich gerade nicht berechnen, deshalb ist Stoppen nicht möglich. Dein Geld arbeitet weiter.",
+    "entryPricingUnavailable": "Die erforderlichen Kosteninformationen sind nicht verfügbar, daher kann dieser Vorgang nicht fortgesetzt werden; es wurde nichts bewegt."
   },
   "history": {
     "title": "Verlauf",
@@ -715,6 +717,7 @@
     "real": "ECHTES GELD"
   },
   "learn": {
-    "explainer": "Verstehe in klarer Sprache, was hinter einer Entscheidung rund ums Geld steckt. Hier kannst du Zusammenhänge, Abwägungen und mögliche Bedeutungen erkunden – ohne dass dir gesagt wird, wofür du dich entscheiden sollst."
+    "explainer": "Verstehe in klarer Sprache, was hinter einer Entscheidung rund ums Geld steckt. Hier kannst du Zusammenhänge, Abwägungen und mögliche Bedeutungen erkunden – ohne dass dir gesagt wird, wofür du dich entscheiden sollst.",
+    "availability": "Dieser Bereich ist noch nicht verfügbar."
   }
 }

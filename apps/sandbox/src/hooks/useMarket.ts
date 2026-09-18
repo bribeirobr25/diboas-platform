@@ -1,7 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { GasQuote, ProtocolApy, ProtocolApyHistory, ProtocolPriceHistory } from '@diboas/defi';
+import type {
+  DataStamp,
+  GasQuote,
+  ProtocolApy,
+  ProtocolApyHistory,
+  ProtocolPriceHistory,
+} from '@diboas/defi';
 
 export interface MarketData {
   currency: 'USD' | 'BRL' | 'EUR';
@@ -9,6 +15,13 @@ export interface MarketData {
   gas: GasQuote[];
   /** `null` when no USDC quote resolved — the conversion is UNKNOWN (§8.7). */
   usdPriceLocal: number | null;
+  /**
+   * The FX quote's own stamp (`5.225`). The route has serialised this since
+   * AUD-F05; the client discarded it, so the conversion's vintage could not be
+   * reasoned about downstream. CARRIED, not displayed — no approved string
+   * states FX provenance, and inventing one is not this increment's call.
+   */
+  usdPriceStamp: DataStamp | null;
 }
 
 /**

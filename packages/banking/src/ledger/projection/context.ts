@@ -29,10 +29,22 @@ export interface ProjectionContext {
   positions: Map<string, PositionEntry>;
   recurring: Map<string, RecurringSchedule>;
   rules: Map<string, RuleState>;
-  /** Running conservation-term accumulators (board §1a). */
+  /**
+   * Running conservation-term accumulators (board §1a).
+   *
+   * `networkFees`/`exitFees` are **deducted** fees only — the legacy generation,
+   * and the sole fee terms `reconcile()` may subtract, because they are the only
+   * ones that actually left `held` (`5.403`).
+   *
+   * `modeledNetworkFees`/`modeledExitFees` are EVERY modelled fee, of both
+   * generations. They move no money; they feed the fee trail, reporting and the
+   * credit-ceiling compatibility basis.
+   */
   totals: {
     networkFees: Decimal;
     exitFees: Decimal;
+    modeledNetworkFees: Decimal;
+    modeledExitFees: Decimal;
     credited: Decimal;
     spent: Decimal;
   };

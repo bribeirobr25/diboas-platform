@@ -8,14 +8,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  CoinGeckoPriceProvider,
-  DefiLlamaApyProvider,
-  FixtureGasProvider,
-  type Chain,
-  type DisplayCurrency,
-  type ProtocolId,
-} from '@diboas/defi';
+import { type Chain, type DisplayCurrency, type ProtocolId } from '@diboas/defi';
+import { getApyProvider, getGasProvider, getPriceProvider } from '@/lib/market/factory';
 import { MARKET_CACHE_CONTROL, MARKET_ERROR_CACHE_CONTROL } from '@/lib/marketCacheHeaders';
 
 const PROTOCOLS: ProtocolId[] = [
@@ -26,11 +20,17 @@ const PROTOCOLS: ProtocolId[] = [
   'jupiterJlp',
   'jito',
 ];
-const CHAINS: Chain[] = ['Solana', 'Arbitrum', 'Ethereum', 'Bitcoin', 'Sui'];
+/**
+ * The chains the product actually enters on (`5.352`).
+ *
+ * Every strategy in the catalogue is Arbitrum or Solana, so quotes for
+ * Ethereum/Bitcoin/Sui were fetched, serialised and shipped on every market
+ * read while no surface could ever resolve them: `networkFeeLocal` and
+ * `gasStampFor` both look a quote up by `strategy.entryChain`.
+ */
+const CHAINS: Chain[] = ['Arbitrum', 'Solana'];
 
-const apyProvider = new DefiLlamaApyProvider();
-const priceProvider = new CoinGeckoPriceProvider();
-const gasProvider = new FixtureGasProvider();
+/* Providers resolve through the `5.243` seam — never constructed here. */
 
 function parseCurrency(value: string | null): DisplayCurrency {
   return value === 'BRL' || value === 'EUR' ? value : 'USD';
@@ -40,9 +40,9 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const currency = parseCurrency(request.nextUrl.searchParams.get('currency'));
   try {
     const [apys, usdcQuotes, gas] = await Promise.all([
-      apyProvider.getCurrentApys(PROTOCOLS),
-      priceProvider.getPrices(['USDC'], currency),
-      Promise.all(CHAINS.map((chain) => gasProvider.getGas(chain))),
+      getApyProvider().getCurrentApys(PROTOCOLS),
+      getPriceProvider().getPrices(['USDC'], currency),
+      Promise.all(CHAINS.map((chain) => getGasProvider().getGas(chain))),
     ]);
     return NextResponse.json(
       {

@@ -264,7 +264,13 @@ describe('the risk copy matches the shipped return model (5.231)', () => {
       const riskGrowth = catalog(locale)['pathCard.riskGrowth'];
       expect(riskGrowth).not.toMatch(/not the price swings|não as oscilações de preço/i);
       // The half that stays true: real money can fall as well as rise.
-      expect(riskGrowth).toContain('{percent}');
+      // Quote the ARGUMENT, not its formatting: `5.405` added the ICU number
+      // skeleton (`{percent, number}`) so the three comma-locales stop rendering
+      // an English decimal separator. The requirement here was never the raw
+      // literal — it is that the sentence still carries the concrete exposure
+      // figure rather than a vague claim — so it is asserted as the argument in
+      // either form. A sentence that drops the argument entirely still fails.
+      expect(riskGrowth).toMatch(/\{percent(,\s*number)?\}/);
     }
   );
 });

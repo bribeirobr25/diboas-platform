@@ -24,7 +24,7 @@
 > authorities and omitted i18n, accessibility and the FAIL path; the gaps were found by auditing the
 > gate against the authority inventory and against defects this project has actually shipped.
 
-**Runner:** `pnpm review:increment` executes the ⚙ rows mechanically and prints the manual half every run — the same shape as `screen-check`. Standalone helpers: `pnpm review:register` (run it BEFORE claiming a register id) and `pnpm review:port <port> [--kill]` (stops a server by its LISTENER pid, refusing when the pid list is ambiguous). Source: `scripts/review-gate.mjs`. **Register path (5.382):** the id-collision check resolves `docs/audit/PENDING_ALL.md` repo-relative first, then `REVIEW_REGISTER_PATH`, and **FAILS rather than skips** when neither resolves — a SKIP reads as a pass in a green run. The ledger is local-only and lives in the `diboas-platform` checkout, so a session working from a git WORKTREE must export `REVIEW_REGISTER_PATH=/path/to/diboas-platform/docs/audit/PENDING_ALL.md` or the gate is red by design. Each mechanical check is sabotage-proven: the defect is planted, the check fails, the plant is reverted and the revert verified byte-for-byte.
+**Runner:** `pnpm review:increment` executes the ⚙ rows mechanically and prints the manual half every run — the same shape as `screen-check`. Standalone helpers: `pnpm review:register` (run it BEFORE claiming a register id) and `pnpm review:port <port> [--kill]` (stops a server by its LISTENER pid, refusing when the pid list is ambiguous). Source: `scripts/review-gate.mjs`. **Register path (5.382):** the id-collision check resolves `docs/audit/PENDING_ALL.md` repo-relative first, then `REVIEW_REGISTER_PATH`, and **FAILS rather than skips** when neither resolves — a SKIP reads as a pass in a green run. The ledger is local-only and lives in the `diboas-platform` checkout, so a session working from a git WORKTREE must export `REVIEW_REGISTER_PATH=/path/to/diboas-platform/docs/audit/PENDING_ALL.md` or the gate is red by design. Each mechanical check is sabotage-proven: the defect is planted, the check fails, the plant is reverted and the revert verified byte-for-byte. Canon-First runs as **AUTH-1** (`pnpm review:auth`, or its rows `review:canon-index` / `review:citations` / `review:escalations`).
 
 ## Trigger
 
@@ -104,6 +104,16 @@ documents against every typo fix.
 **Never verify behind a command that cannot fail.** No `&& echo PASS`; no pipe through `tail` on the
 evidence you are about to quote. A truncating pipe has hidden a real failure here, and a `0 bytes
 scanned` line has hidden a commit that staged nothing. Judge by exit code and by full text.
+
+**AUTH-1 · Canon-First authority resolution ⚙** — before this increment raised ANY authority question,
+was the current authority corpus searched? `pnpm review:auth` proves three things mechanically: the
+canon packages are searchable (and names what is `CITED · NOT REACHABLE`, so a missing file never
+reads as "no authority exists"); every `file:line` citation still resolves; and no record escalates
+without a completed `CANON-FIRST SEARCH = COMPLETED` block. **State the classification** —
+`AUTHORITY_FOUND` / `AUTHORITY_CONFLICT` / `AUTHORITY_GAP` / `TECHNICAL_ONLY_GAP` — and if authority
+was found while the repository differs, that is an **implementation gap**, not an external blocker.
+`5.410` is why this row exists: canon specified the Practice-fee mechanism in detail and the
+implementation invented its own, because "canon is silent" was concluded from a corpus never read.
 
 ## Part B · Against the plan — completeness
 

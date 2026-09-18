@@ -12,9 +12,10 @@
  * never silent staleness (the stamp travels to the UI).
  */
 
+import { CURRENT_CATALOG_PROTOCOL_NETWORK } from '../catalog';
 import { FIXTURE_APYS } from '../fixtures';
 import type { ApyPoint, IApyProvider, ProtocolApy, ProtocolApyHistory, ProtocolId } from '../types';
-import { observedStamp } from '../types';
+import { evidenceStamp } from '../types';
 import { PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 
 const POOLS_URL = 'https://yields.llama.fi/pools';
@@ -131,7 +132,21 @@ export function matchPool(pools: LlamaPool[], matcher: PoolMatcher): LlamaPool |
       .sort((a, b) => (b.tvlUsd ?? 0) - (a.tvlUsd ?? 0));
     if (onChain.length > 0) return onChain[0];
   }
-  return [...candidates].sort((a, b) => (b.tvlUsd ?? 0) - (a.tvlUsd ?? 0))[0];
+  /**
+   * `5.407` · NO CROSS-NETWORK FALLBACK.
+   *
+   * This read `return [...candidates].sort(byTvl)[0]` — so when the preferred
+   * network had no pool, the highest-TVL deployment on ANY network was accepted
+   * because the project name matched. Founder/Strategy 2026-09-17 §3 names that
+   * exactly: *"Do not silently substitute another deployment."* The caller
+   * degrades to this protocol's OWN fixture (right network, `fallbackUsed`
+   * stamped), which is the existing ruled treatment for an absent observation.
+   *
+   * ⚑ A test asserted the deleted behaviour (*"should fall back to highest TVL
+   * on any chain"*) — a `5.114`-class test protecting a defect. It is inverted,
+   * not removed, so the reason survives.
+   */
+  return null;
 }
 
 function fixtureFor(protocolId: ProtocolId): ProtocolApy {
@@ -155,12 +170,29 @@ export class DefiLlamaApyProvider implements IApyProvider {
     return protocolIds.map((protocolId) => {
       const match = matchPool(pools.value, POOL_MATCHERS[protocolId]);
       if (!match) return fixtureFor(protocolId);
+      /**
+       * `5.406`/`5.407` §3 · THE OBSERVATION MUST AGREE WITH PRODUCT IDENTITY.
+       *
+       * `chain` previously read `(match.chain as …) ?? 'Solana'`, so an absent
+       * chain became a real, named network — and `ProtocolApy.chain` was never
+       * compared to the leg's intended network anywhere in app code, so the
+       * invariant held by luck. §3's rule: expected network + matching
+       * observation may be used; a MISMATCHED or UNKNOWN network is UNAVAILABLE.
+       *
+       * Unavailable here means the LIVE OBSERVATION is refused and the leg falls
+       * back to its own documented fixture — never another network's data.
+       * Making the rate itself null is §8.5 consumer enforcement, i.e. H, which
+       * sits behind F/G (`5.355`); this containment must not pull it forward.
+       */
+      const observed = match.chain as ProtocolApy['chain'] | undefined;
+      if (!observed || observed !== CURRENT_CATALOG_PROTOCOL_NETWORK[protocolId])
+        return fixtureFor(protocolId);
       return {
         protocolId,
         apyPercent: match.apy as number,
         tvlUsd: match.tvlUsd,
-        chain: (match.chain as ProtocolApy['chain']) ?? 'Solana',
-        stamp: observedStamp('defillama', asOf),
+        chain: observed,
+        stamp: evidenceStamp({ source: 'defillama', origin: 'OBSERVED', asOf }),
       };
     });
   }
@@ -190,7 +222,11 @@ export class DefiLlamaApyProvider implements IApyProvider {
       return {
         protocolId,
         points: entry.value.slice(-days),
-        stamp: observedStamp('defillama', new Date(entry.at).toISOString()),
+        stamp: evidenceStamp({
+          source: 'defillama',
+          origin: 'OBSERVED',
+          asOf: new Date(entry.at).toISOString(),
+        }),
       };
     } catch {
       // Honest degraded mode: a flat series at the fixture APY, stamped fixture.

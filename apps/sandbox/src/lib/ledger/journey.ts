@@ -244,11 +244,21 @@ function feeInCents(networkFeeLocal: number): Decimal {
 }
 
 /**
- * The exact Decimal split of a committed total into (fee, invested), so that
- * fee + invested == total to the cent. The manifest display and the ledger
- * event both use this — what you read is exactly what happens (no independent
- * float rounding that could drift and trip the engine's cash guard). Fee is
- * clamped so it never exceeds the total.
+ * The committed total and its MODELLED network fee, both to the cent.
+ *
+ * ⚑ `5.403` — this used to subtract: it returned `invested = total − fee`, and
+ * the entry event was written from it, which is how a modelled Practice fee came
+ * to reduce Practice money. Under F-12 the fee is *"shown separately, not
+ * deducted from the Goal split"*, so **`invested === total`**: all of the
+ * committed amount reaches the strategy and the fee rides alongside as
+ * information.
+ *
+ * It still earns its keep. The reason it exists is FC-15 — the manifest and the
+ * ledger must agree to the last cent, and `feeInCents` is the single rounding of
+ * the fee that both the displayed figure and the recorded one come from. (The
+ * measured divergence that created this function was 4,257 of 1,080,080 fee ×
+ * gross combinations.) The fee is still clamped to the total so a modelled cost
+ * can never be reported as larger than the move it describes.
  */
 export function splitEntry(
   totalFromCash: number,
@@ -256,13 +266,20 @@ export function splitEntry(
 ): { total: Decimal; fee: Decimal; invested: Decimal } {
   const total = new Decimal(totalFromCash).toDecimalPlaces(2);
   const fee = Decimal.min(feeInCents(networkFeeLocal), total);
-  return { total, fee, invested: total.minus(fee) };
+  return { total, fee, invested: total };
 }
 
 /**
- * Enter a strategy. The caller passes the TOTAL committed from goal cash and
- * the network fee; the invested amount is derived in Decimal (see splitEntry),
- * so `amount + networkFee` equals the total EXACTLY.
+ * Enter a strategy. The caller passes the TOTAL committed from goal cash and the
+ * modelled network fee.
+ *
+ * `5.403`: `amount` is the WHOLE total — the goal parts with exactly what the
+ * user approved and all of it reaches the strategy — and the modelled fee is
+ * recorded beside it as information. The event is written at **schema v2**
+ * (D-06), so replay can never confuse it with a legacy v1 event whose `amount`
+ * is already net. Canon names the field `modeledNetworkFee`: the name carries
+ * the semantics, so there is no raw field a reader could mistake for money that
+ * moved.
  */
 export function enterStrategy(input: {
   goalId: string;
@@ -283,7 +300,8 @@ export function enterStrategy(input: {
       positionId,
       strategyId: input.strategyId,
       amount: invested.toFixed(2),
-      networkFee: fee.toFixed(2),
+      schemaVersion: 2,
+      modeledNetworkFee: fee.toFixed(2),
     },
   ]);
   return positionId;
@@ -532,8 +550,9 @@ export function exitPosition(input: { positionId: string; networkFeeLocal: numbe
       positionId: position.positionId,
       goalId: position.goalId,
       grossAmount: gross.toFixed(2),
-      exitFee: exitFee.toFixed(2),
-      networkFee: feeInCents(input.networkFeeLocal).toFixed(2),
+      schemaVersion: 2,
+      modeledExitFee: exitFee.toFixed(2),
+      modeledNetworkFee: feeInCents(input.networkFeeLocal).toFixed(2),
     },
   ]);
 }
@@ -565,12 +584,20 @@ export function previewExit(
   const gross = new Decimal(position.principal).plus(position.accrued);
   const exitFee = computeExitFee(gross, state.currency);
   const networkFee = feeInCents(networkFeeLocal);
-  const net = gross.minus(exitFee).minus(networkFee);
+  /**
+   * `5.403` — `net` is what ACTUALLY comes back, and in Practice that is the
+   * whole gross: the exit and network fees are modelled cost, shown on their own
+   * rows, deducted from nothing. The ceremony's approved label for this figure is
+   * *"What actually comes back"*, so it must carry the amount the ledger really
+   * credits or the confirmation surface would state a number the transaction
+   * contradicts — the FC-15 breakage this file's own rounding comment exists to
+   * prevent. The fee figures are unchanged, including the per-position floor.
+   */
   return {
     gross: gross.toFixed(2),
     exitFee: exitFee.toFixed(2),
     networkFee: networkFee.toFixed(2),
-    net: net.toFixed(2),
+    net: gross.toFixed(2),
   };
 }
 
@@ -631,7 +658,9 @@ function composeStop(
     gross: gross.toFixed(2),
     exitFee: exitFee.toFixed(2),
     networkFee: networkFee.toFixed(2),
-    net: gross.minus(exitFee).minus(networkFee).toFixed(2),
+    /* `5.403`: the composed total mirrors `previewExit` — the money that comes
+       back is the summed gross; the fee totals stay itemized information. */
+    net: gross.toFixed(2),
   };
 }
 
@@ -692,8 +721,9 @@ export function stopGoalStrategies(goalId: string, feeFor: (positionId: string) 
       positionId: position.positionId,
       goalId,
       grossAmount: gross.toFixed(2),
-      exitFee: computeExitFee(gross, state.currency).toFixed(2),
-      networkFee: feeInCents(feeFor(position.positionId)).toFixed(2),
+      schemaVersion: 2,
+      modeledExitFee: computeExitFee(gross, state.currency).toFixed(2),
+      modeledNetworkFee: feeInCents(feeFor(position.positionId)).toFixed(2),
     });
   }
   appendAll(events);

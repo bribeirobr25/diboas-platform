@@ -133,20 +133,26 @@ describe('AppShell — the chrome follows the DECLARED family, not the URL', () 
     expect(current[0].textContent).toContain(M['nav.move']);
   });
 
-  it('should send Community to its own surface and leave Learn inert (§9.5, §23, F-04)', () => {
+  it('should send BOTH unavailable destinations to their own surfaces (§9.5, §23, F-04)', () => {
+    /* ⚑ SUPERSEDED BEHAVIOUR, rewritten deliberately (`5.349`, Execution
+       Rulings §18). This test previously asserted Learn was a disabled `SPAN`
+       with `aria-disabled` — which was correct while no availability string
+       existed in four locales, because a destination navigating to nothing
+       would be the affordance-as-false-claim of `5.201`/`5.202`. §18 supplied
+       the line, so Learn now navigates to a controlled unavailable surface
+       exactly as Community does, and the inert branch has no destination left.
+       The old assertion is not weakened here, it is replaced: what F-04 always
+       wanted was a tappable destination, and that is now what ships. */
     renderAt('/en');
     const nav = screen.getByRole('navigation');
-    const community = [...nav.querySelectorAll('a')].find((a) =>
-      a.textContent?.includes(M['nav.community'])
-    );
-    expect(community?.getAttribute('href')).toBe('/en/community');
-    // Learn has no approved explainer copy yet, so it stays visible, labelled
-    // and inert rather than navigating to nothing (5.201/5.202).
-    const learn = [...nav.querySelectorAll('[aria-disabled="true"]')].find((el) =>
-      el.textContent?.includes(M['nav.learn'])
-    );
-    expect(learn).toBeTruthy();
-    expect(learn?.tagName).toBe('SPAN');
+    const hrefFor = (label: string) =>
+      [...nav.querySelectorAll('a')]
+        .find((a) => a.textContent?.includes(label))
+        ?.getAttribute('href');
+    expect(hrefFor(M['nav.community'])).toBe('/en/community');
+    expect(hrefFor(M['nav.learn'])).toBe('/en/learn');
+    // And nothing in the navigation is inert any more.
+    expect(nav.querySelectorAll('[aria-disabled="true"]').length).toBe(0);
   });
 });
 

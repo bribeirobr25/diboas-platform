@@ -5,6 +5,7 @@
  * case, verbatim, over the shared context.
  */
 
+import { entryNetworkFeeOf, exitFeesOf, feesAreDeductible } from '../events';
 import type {
   AccrualApplied,
   GoalCreated,
@@ -92,11 +93,36 @@ export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
       const goal = ctx.goals.get(event.goalId);
       if (!goal) break;
       const amount = d(event.amount);
-      const fee = d(event.networkFee);
-      if (goal.cash.lt(amount.plus(fee))) break;
-      goal.cash = goal.cash.minus(amount).minus(fee);
+      const fee = d(entryNetworkFeeOf(event));
+      /**
+       * `5.403` — MODEL THE CONSEQUENCE ≠ APPLY IT TO PRACTICE MONEY.
+       *
+       * **Sandbox v2** (`modeledNetworkFee`): `amount` IS the whole committed
+       * total, so the goal parts with exactly that and all of it reaches the
+       * strategy. The modelled fee is recorded beside it and moves nothing.
+       *
+       * **Everything else deducts** — legacy v1, and `real` at any version under
+       * FC-15. `amount` is already net there, so the cash leg is `amount + fee`
+       * exactly as it always was.
+       *
+       * `feesAreDeductible` tests BOTH scope and version deliberately. A
+       * version-only test stops `real` deducting, which is an FC-15 breach: it
+       * was measured on the first implementation of this change (a `real` event
+       * with a modelled fee left cash at 500.00 instead of 499.84), and it is
+       * what canon's *"a `real` entry that does not deduct → fails"* sabotage
+       * exists to catch.
+       *
+       * The affordability threshold is the same number in both branches —
+       * `amount + fee` then, `amount` now, both equal the committed total — which
+       * is why no goal becomes newly affordable or unaffordable.
+       */
+      const deducted = feesAreDeductible(event);
+      const cashLeg = deducted ? amount.plus(fee) : amount;
+      if (goal.cash.lt(cashLeg)) break;
+      goal.cash = goal.cash.minus(cashLeg);
       goal.invested = goal.invested.plus(amount);
-      ctx.totals.networkFees = ctx.totals.networkFees.plus(fee);
+      if (deducted) ctx.totals.networkFees = ctx.totals.networkFees.plus(fee);
+      ctx.totals.modeledNetworkFees = ctx.totals.modeledNetworkFees.plus(fee);
       ctx.positions.set(event.positionId, {
         s: {
           positionId: event.positionId,
@@ -146,13 +172,26 @@ export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
       if (!position || !position.s.open) break;
       position.s.open = false;
       const goal = ctx.goals.get(event.goalId);
+      const fees = exitFeesOf(event);
+      const exitFee = d(fees.exitFee);
+      const networkFee = d(fees.networkFee);
+      const deductedExit = feesAreDeductible(event);
       if (goal) {
-        const net = d(event.grossAmount).minus(d(event.exitFee)).minus(d(event.networkFee));
+        /* `5.403`: modelled fees return the FULL gross — "MONEY RETURNED = gross
+           Practice value". Legacy events keep booking `gross − both fees`, so a
+           returning user's history still replays to the cent it always did. */
+        const returned = deductedExit
+          ? d(event.grossAmount).minus(exitFee).minus(networkFee)
+          : d(event.grossAmount);
         goal.invested = goal.invested.minus(position.principal);
-        goal.cash = goal.cash.plus(net);
+        goal.cash = goal.cash.plus(returned);
       }
-      ctx.totals.exitFees = ctx.totals.exitFees.plus(d(event.exitFee));
-      ctx.totals.networkFees = ctx.totals.networkFees.plus(d(event.networkFee));
+      if (deductedExit) {
+        ctx.totals.exitFees = ctx.totals.exitFees.plus(exitFee);
+        ctx.totals.networkFees = ctx.totals.networkFees.plus(networkFee);
+      }
+      ctx.totals.modeledExitFees = ctx.totals.modeledExitFees.plus(exitFee);
+      ctx.totals.modeledNetworkFees = ctx.totals.modeledNetworkFees.plus(networkFee);
       break;
     }
     case 'RecurringSet': {

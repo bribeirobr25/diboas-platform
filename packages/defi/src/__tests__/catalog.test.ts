@@ -1,10 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import {
+  CURRENT_CATALOG_PROTOCOL_NETWORK,
   STRATEGY_CATALOG,
+  candidateNetworks,
   getStrategy,
   horizonBandForMonths,
+  isMultiNetworkCandidate,
   strategiesForHorizon,
 } from '../catalog';
+import { POOL_MATCHERS } from '../providers/defillama';
+import { FIXTURE_APYS } from '../fixtures';
 import { PROTOCOL_RETURN_MODEL } from '../types';
 
 describe('STRATEGY_CATALOG (data invariants — D-8 catalog-as-data)', () => {
@@ -109,6 +114,87 @@ describe('allocation invariants (the replay depends on these)', () => {
           `${strategy.id}/${leg.protocolId}`
         ).toBeDefined();
       }
+    }
+  });
+});
+
+/**
+ * `5.406` · network identity, and the classification the containment turns on.
+ *
+ * Founder/Strategy 2026-09-17 §7: *"Prove the classification across all ten
+ * current strategies: 5 single-network, 5 multi-network, and prove the
+ * containment affects only the class that requires it."*
+ */
+describe('5.406 — Product-owned network identity per leg', () => {
+  it('should declare a network for every protocol the catalogue actually uses', () => {
+    for (const strategy of STRATEGY_CATALOG) {
+      for (const leg of strategy.allocation) {
+        expect(
+          CURRENT_CATALOG_PROTOCOL_NETWORK[leg.protocolId],
+          `${strategy.id}/${leg.protocolId}`
+        ).toBeDefined();
+      }
+    }
+  });
+
+  /**
+   * This is what makes `CURRENT_CATALOG_PROTOCOL_NETWORK` a TRANSCRIPTION and not an invention:
+   * the same fact was already declared twice — as provider search config and as
+   * fixture data — and all three must agree. Asserted in BOTH directions so
+   * neither side can drift silently; if Product ever moves a leg's network, all
+   * three change together or this fails.
+   */
+  it('should agree with both pre-existing declarations, in both directions', () => {
+    for (const [protocolId, network] of Object.entries(CURRENT_CATALOG_PROTOCOL_NETWORK)) {
+      const id = protocolId as keyof typeof CURRENT_CATALOG_PROTOCOL_NETWORK;
+      expect(POOL_MATCHERS[id].preferredChains[0], `${id} preferredChains[0]`).toBe(network);
+      expect(FIXTURE_APYS[id].chain, `${id} fixture chain`).toBe(network);
+    }
+    // …and nothing is declared in the matchers that identity does not know.
+    for (const id of Object.keys(POOL_MATCHERS)) {
+      expect(
+        CURRENT_CATALOG_PROTOCOL_NETWORK[id as keyof typeof CURRENT_CATALOG_PROTOCOL_NETWORK],
+        id
+      ).toBeDefined();
+    }
+  });
+
+  it('should classify EXACTLY five single-network and five multi-network strategies', () => {
+    const multi = STRATEGY_CATALOG.filter(isMultiNetworkCandidate).map((s) => s.id);
+    const single = STRATEGY_CATALOG.filter((s) => !isMultiNetworkCandidate(s)).map((s) => s.id);
+    expect(multi.sort()).toEqual(
+      [
+        'balancedBuilder',
+        'fullThrottle',
+        'stableGrowth',
+        'steadyProgress',
+        'wealthAccelerator',
+      ].sort()
+    );
+    expect(single.sort()).toEqual(
+      ['fullHarvest', 'goalKeeper', 'patientBuilder', 'safeHarbor', 'steadyCompounder'].sort()
+    );
+    expect(multi).toHaveLength(5);
+    expect(single).toHaveLength(5);
+  });
+
+  it('should show every multi-network strategy declares an entryChain it does not fully run on', () => {
+    /* The mechanism, not just the count: each of the five declares
+       `entryChain: 'Solana'` while holding `skySsr`, an ARBITRUM lending leg, at
+       a material share of allocation. That share is what the single-chain fee
+       was silently omitting. */
+    for (const strategy of STRATEGY_CATALOG.filter(isMultiNetworkCandidate)) {
+      const offEntry = strategy.allocation
+        .filter((leg) => CURRENT_CATALOG_PROTOCOL_NETWORK[leg.protocolId] !== strategy.entryChain)
+        .reduce((sum, leg) => sum + leg.weightPercent, 0);
+      expect(offEntry, `${strategy.id} weight off entryChain`).toBeGreaterThan(0);
+      expect(candidateNetworks(strategy).length, strategy.id).toBe(2);
+    }
+  });
+
+  it('should leave every single-network strategy fully on its declared entryChain (§7)', () => {
+    for (const strategy of STRATEGY_CATALOG.filter((s) => !isMultiNetworkCandidate(s))) {
+      expect(candidateNetworks(strategy), strategy.id).toEqual([strategy.entryChain]);
     }
   });
 });

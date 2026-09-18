@@ -44,16 +44,19 @@ function routeSurfaces(): string[] {
 }
 
 /**
- * Declared, but with no route of its own YET. Each entry is a destination the
- * Shell Spec requires in the navigation before its surface exists:
+ * Declared, but with no route of its own YET — a destination the Shell Spec
+ * requires in the navigation before its surface exists.
  *
- * - `learn` — Spec §9.4: the destination exists, the full IA is not closed, and
- *   no authority-approved explainer copy exists yet (F-04 wants it tappable).
- * `community` was here until its controlled-unavailable surface landed in this
- * increment with the Legal-approved copy (P-QA5 / L-QA3) — it now has a real
- * route, so it is no longer an exception.
+ * **The list is now EMPTY, and that is the point.** `community` graduated when
+ * its controlled-unavailable surface landed with Legal-approved copy
+ * (P-QA5 / L-QA3); `learn` graduated the same way in `5.349`, once Execution
+ * Rulings §18 supplied the availability line in four locales. An exception left
+ * standing after its surface exists would pass this test while asserting
+ * something untrue — the assertion only flags surfaces WITHOUT routes, so a
+ * stale entry hides nothing today and would mask a real orphan later. Removing
+ * it is what keeps the guard meaningful.
  */
-const DECLARED_WITHOUT_ROUTE: ShellSurface[] = ['learn'];
+const DECLARED_WITHOUT_ROUTE: ShellSurface[] = [];
 
 /** Spec §8 + §10: the bottom navigation is exactly these five destinations. */
 const TOP_LEVEL: ShellSurface[] = ['', 'goals', 'move', 'learn', 'community'];

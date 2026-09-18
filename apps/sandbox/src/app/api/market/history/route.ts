@@ -10,7 +10,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { CoinGeckoPriceProvider, DefiLlamaApyProvider, type ProtocolId } from '@diboas/defi';
+import { type ProtocolId } from '@diboas/defi';
+import { getApyProvider, getPriceProvider } from '@/lib/market/factory';
 import { MARKET_CACHE_CONTROL, MARKET_ERROR_CACHE_CONTROL } from '@/lib/marketCacheHeaders';
 
 const PROTOCOLS: ProtocolId[] = [
@@ -22,8 +23,7 @@ const PROTOCOLS: ProtocolId[] = [
   'jito',
 ];
 
-const apyProvider = new DefiLlamaApyProvider();
-const priceProvider = new CoinGeckoPriceProvider();
+/* Providers resolve through the `5.243` seam — never constructed here. */
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const daysRaw = Number(request.nextUrl.searchParams.get('days') ?? '365');
@@ -31,8 +31,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     // Independent fetches — never chained (React perf guidance + P9).
     const [histories, priceHistories] = await Promise.all([
-      Promise.all(PROTOCOLS.map((protocolId) => apyProvider.getApyHistory(protocolId, days))),
-      Promise.all(PROTOCOLS.map((protocolId) => priceProvider.getPriceHistory(protocolId, days))),
+      Promise.all(PROTOCOLS.map((protocolId) => getApyProvider().getApyHistory(protocolId, days))),
+      Promise.all(
+        PROTOCOLS.map((protocolId) => getPriceProvider().getPriceHistory(protocolId, days))
+      ),
     ]);
     return NextResponse.json(
       { days, histories, priceHistories },

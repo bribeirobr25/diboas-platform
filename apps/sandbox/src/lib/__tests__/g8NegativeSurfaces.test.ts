@@ -131,10 +131,15 @@ describe('§4.8 step 9 — a loss stays honest across every surface', () => {
     expect(preview).not.toBeNull();
     // Gross is what is really there — smaller than what went in.
     expect(new Decimal(preview.gross).lt(1000)).toBe(true);
-    // The fee is still charged honestly, and the floor is what binds when the
+    // The fee is still computed honestly, and the floor is what binds when the
     // position has shrunk: 0.39% of a small gross is under $0.25.
     expect(new Decimal(preview.exitFee).gte(0.25)).toBe(true);
-    expect(new Decimal(preview.net).lt(preview.gross)).toBe(true);
+    /* `5.403`: the surface still SHOWS the modelled cost on a fallen position —
+       which is this test's concern, that a loss stays honest all the way out —
+       but Practice money is not reduced by it, so what comes back is the gross.
+       The old `net < gross` line asserted the deduction, not the honesty. */
+    expect(new Decimal(preview.exitFee).plus(preview.networkFee).gt(0)).toBe(true);
+    expect(preview.net).toBe(preview.gross);
   });
 
   it('should keep every displayed figure finite and non-NaN through the loss', () => {

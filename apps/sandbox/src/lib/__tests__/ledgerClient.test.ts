@@ -19,6 +19,7 @@ import {
   stopGoalStrategies,
   exitPosition,
 } from '@/lib/ledgerClient';
+import { exitFeesOf } from '@diboas/banking';
 
 /**
  * P1.2 slice 1c — the hydration gate + one-grant guard (node env; the store is
@@ -93,18 +94,24 @@ describe('previewExit — the widened exit primitive (Step 0 item 7)', () => {
     });
   }
 
-  it('should itemize gross, exit fee, the passed-in network fee, and a net that is exactly gross − both fees', () => {
+  it('should itemize gross, exit fee, the passed-in network fee, and a net that is what actually comes back', () => {
     const positionId = openPosition();
     const preview = previewExit(getLedgerState(), positionId, 5);
     expect(preview).not.toBeNull();
-    expect(preview!.gross).toBe('990.00'); // 990 principal + 0 accrued
+    // 1000 committed, ALL of it invested (5.403: the modelled fee took nothing).
+    expect(preview!.gross).toBe('1000.00');
     expect(preview!.networkFee).toBe('5.00'); // echoes the caller-computed gas fee (board §8.1a)
-    // The bottom line the user sees is exact to the cent — never drifts from its parts.
-    expect(preview!.net).toBe(
-      new Decimal(preview!.gross).minus(preview!.exitFee).minus(preview!.networkFee).toFixed(2)
-    );
-    // And it matches the engine's own StrategyExited net formula (same math, two call sites).
-    expect(new Decimal(preview!.net).lt(preview!.gross)).toBe(true);
+    // Both modelled costs are still itemized — F-12 keeps them visible.
+    expect(new Decimal(preview!.exitFee).gt(0)).toBe(true);
+    /**
+     * ⚑ `5.403` restated this assertion, and the REQUIREMENT is unchanged: the
+     * bottom line must be exact to the cent and must never drift from what the
+     * ledger books. What changed is the figure it names. The ceremony labels this
+     * row *"What actually comes back"*, and in Practice that is the whole gross —
+     * the fees are shown separately and deducted from nothing. Asserting
+     * `gross − both fees` here would now pin the defect instead of the rule.
+     */
+    expect(preview!.net).toBe(preview!.gross);
   });
 
   it('should return null for an unknown or already-closed position', () => {
@@ -149,12 +156,21 @@ describe('the exit manifest books exactly what it shows (FC-15)', () => {
     const positionId = positionWorth(25);
     const preview = previewExit(getLedgerState(), positionId, 0.005)!;
     exitPosition({ positionId, networkFeeLocal: 0.005 });
-    // The goal held no cash before, so its cash now IS what the exit landed.
+    /**
+     * The FC-15 requirement is UNCHANGED and this is still the sub-cent case
+     * that found the original divergence: what the surface states is what the
+     * ledger books, to the last cent. `5.403` changed only which figure is
+     * stated — the modelled fees no longer reduce it — so the equality is now
+     * against the full gross, and it still has to hold exactly.
+     */
     expect(getLedgerState().goals[0].cash).toBe(preview.net);
-    // And the manifest's own lines add up: gross − the two fees it lists.
-    expect(preview.net).toBe(
-      new Decimal(preview.gross).minus(preview.exitFee).minus(preview.networkFee).toFixed(2)
-    );
+    expect(preview.net).toBe(preview.gross);
+    /* The modelled cost is still recorded on the event, not silently dropped.
+       Read through `exitFeesOf` because canon's v2 shape names the field
+       `modeledNetworkFee` (`5.410`); reaching for the raw `networkFee` was this
+       assertion's own bug, and the union turned it into a compile-visible one. */
+    const exit = getLedgerState().events.find((e) => e.type === 'StrategyExited');
+    expect(exit ? exitFeesOf(exit).networkFee : null).toBe('0.01');
   });
 
   it('should agree with the ledger across every fee the gas table can produce', () => {
@@ -167,7 +183,11 @@ describe('the exit manifest books exactly what it shows (FC-15)', () => {
         const fee = gas * rate;
         const preview = previewExit(getLedgerState(), positionId, fee)!;
         exitPosition({ positionId, networkFeeLocal: fee });
+        // Still the same promise across the whole gas × rate table: the figure
+        // the surface stated is the figure the ledger booked (`5.403` moved the
+        // figure to the full gross; it did not weaken the agreement).
         expect(getLedgerState().goals[0].cash, `gas ${gas} × rate ${rate}`).toBe(preview.net);
+        expect(preview.net, `gas ${gas} × rate ${rate}`).toBe(preview.gross);
       }
     }
   });
@@ -307,10 +327,11 @@ describe('goal-level stop — the G7 composition (§4.7, board §3.3)', () => {
   it('should sum a network fee PER position (N exits are N on-chain moves)', () => {
     const { goalId } = twoSmallPositions();
     const preview = previewGoalStop(getLedgerState(), goalId, () => 3)!;
+    // The point of this test: two positions, two network fees. Unchanged.
     expect(preview.networkFee).toBe('6.00');
-    expect(preview.net).toBe(
-      new Decimal(preview.gross).minus(preview.exitFee).minus(preview.networkFee).toFixed(2)
-    );
+    // `5.403`: the composed figure that comes back is the summed gross; the two
+    // modelled fee totals stay itemized beside it rather than subtracted from it.
+    expect(preview.net).toBe(preview.gross);
   });
 
   it('should give the single-position preview the SAME shape as the goal-level one', () => {

@@ -22,7 +22,7 @@ const M = {
   'pathCard.costTitle': 'The cost',
   'pathCard.entryFee': 'Entry: free',
   'pathCard.networkFee': 'Network fee: {amount}',
-  'pathCard.exitFee': 'Exit: 0.39% (min {min})',
+  'pathCard.exitFee': 'Leaving later: 0.39% (at least {min}, no cap)',
   'pathCard.riskTitle': 'The risk',
   'pathCard.riskStable': 'Stable strategies',
   'pathCard.riskGrowth': '{percent}% growth exposure',

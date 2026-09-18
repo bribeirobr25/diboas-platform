@@ -7,7 +7,7 @@ import {
   type SqlExecutor,
 } from '@diboas/banking';
 import { PostgresLedgerStore } from '../PostgresLedgerStore';
-import { oneOfEachLog } from '../../../test/ledgerFixture';
+import { oneOfEachLog, v2FeeEvents } from '../../../test/ledgerFixture';
 
 /**
  * The cutover-safety invariant (founder 2026-08-16, plan §5 / Lane-8 §4):
@@ -76,6 +76,50 @@ describe('both-stores reconcile-equivalence (cutover-safety invariant)', () => {
     expect(localState).toEqual(postgresState);
 
     // The invariant itself: both balance, identically.
+    expect(reconcile(localState)).toBe('0.00');
+    expect(reconcile(postgresState)).toBe('0.00');
+    expect(reconcile(localState)).toBe(reconcile(postgresState));
+  });
+
+  /**
+   * `5.403` / `5.410` — the SAME invariant over a **schema v2** log.
+   *
+   * This test's own promise is that the deferred cutover is *"a REPLAY, not a
+   * migration: the one invariant a migration cannot retro-fit."* `schemaVersion`
+   * and `modeledNetworkFee` / `modeledExitFee` are NEW fields on the JSONB
+   * payload, so a v2 event that has never round-tripped Postgres is precisely
+   * the thing a future cutover could not retro-fit. `oneOfEachLog()` is pinned
+   * to one instance per event type and therefore carries only v1 fee shapes —
+   * which is why this runs beside it rather than replacing it (canon:
+   * *"conservation identity per scope with mixed v1/v2 events"*).
+   */
+  it('should round-trip and reconcile a schema-v2 fee log identically through both stores', async () => {
+    const log = v2FeeEvents();
+
+    const local = new LocalStorageLedgerStore();
+    const postgres = new PostgresLedgerStore('owner-v2', makeMockSql());
+
+    const localEvents = await loadAll(local, log);
+    const postgresEvents = await loadAll(postgres, log);
+
+    // The new fields survive the JSONB round-trip on both sides.
+    expect(localEvents).toEqual(postgresEvents);
+    const entered = postgresEvents.find((e) => e.type === 'StrategyEntered');
+    expect(entered && 'schemaVersion' in entered ? entered.schemaVersion : null).toBe(2);
+    expect(entered && 'modeledNetworkFee' in entered ? entered.modeledNetworkFee : null).toBe(
+      '10.00'
+    );
+
+    const localState = project(localEvents);
+    const postgresState = project(postgresEvents);
+    expect(localState).toEqual(postgresState);
+
+    // The modelled fees are recorded and moved nothing, through either store.
+    expect(localState.networkFeesPaid).toBe('0.00');
+    expect(localState.exitFeesPaid).toBe('0.00');
+    expect(localState.modeledNetworkFees).toBe('20.00');
+    expect(localState.modeledExitFees).toBe('3.90');
+
     expect(reconcile(localState)).toBe('0.00');
     expect(reconcile(postgresState)).toBe('0.00');
     expect(reconcile(localState)).toBe(reconcile(postgresState));

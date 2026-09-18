@@ -18,23 +18,21 @@ import type { Destination } from './BottomNavigation';
  * - **Community** navigates (`yes`) to its controlled unavailable surface,
  *   carrying the Legal-approved explanation (§9.5/§23, `P-QA5`/`L-QA3`). §23
  *   prefers exactly this over *"an unexplained dead icon"*.
- * - **Learn** is inert (`no`) — still, but for a NARROWER reason than before
- *   (AUD-B06, 2026-09-14). The explainer copy now EXISTS: handoff §7.1 approved
- *   it in all four locales and it is in the catalogue as `learn.explainer`.
- *   What is still missing is the availability beat. Community's surface needs
- *   four approved strings — title ("Community isn't available yet"),
- *   explanation, availability ("Public access is not open yet.") and an action
- *   — and Legal's `L-QA3` condition is explicit that the explanation must never
- *   render alone "in a way that could be read as a description of an
- *   operational service". Learn's approved title is just "Learn", and its
- *   explainer describes what Learn DOES, so a surface carrying only those two
- *   is precisely that prohibited reading.
+ * - **Learn** now navigates (`yes`) to its own controlled unavailable surface
+ *   too, resolving `5.349` and `5.288`. It was inert for one reason only: the
+ *   availability beat did not exist. handoff §7.1 had approved the explainer
+ *   (`learn.explainer`, four locales) but Legal's `L-QA3` forbids rendering the
+ *   explanation alone "in a way that could be read as a description of an
+ *   operational service" — and title + explainer alone IS that reading.
+ *   Execution Rulings §18 supplies the missing line ("This area isn't available
+ *   yet.") in all four locales, so `LearnUnavailable` composes the three beats
+ *   §18 requires — Learn title + approved explainer + availability line — and
+ *   the inert tab is gone.
  *
- *   So this stays `no` until one availability string is approved in four
- *   locales. It is NOT pushed into `unavailableLabel` either: that is a
- *   resolved string this function has no intl to produce, and a two-sentence
- *   paragraph as a tab's `aria-label` would be an invented screen-reader
- *   anti-pattern. Registered, not invented.
+ *   ⚑ That also dissolves the `5.288` rider rather than working around it: an
+ *   inert label could not be signalled by reduced contrast in both appearances
+ *   (measured 2.13:1 light / 2.78:1 dark at `opacity: 0.55`), and a destination
+ *   that navigates needs no "unavailable" styling at all.
  *
  *   ⚑ The German title question is RULED (Product, 2026-09-15, `5.351`): the
  *   canonical ontology stays **Learn**, the DE DISPLAY LABEL is **Verstehen**
@@ -68,7 +66,7 @@ export function destinationsFor(locale: string): readonly Destination[] {
       href: at('/learn'),
       icon: 'book-open',
       labelId: 'nav.learn',
-      available: 'no',
+      available: 'yes',
     },
     {
       surface: 'community',

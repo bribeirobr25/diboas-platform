@@ -14,7 +14,8 @@ const M = {
   'goalNew.riskStable': 'Stable',
   'goalNew.riskGrowth': 'Growth',
   'goalNew.apyNow': 'Current pool rate: {apy}%/yr (real, variable)',
-  'goalNew.apyNowMixed': 'Blended pool rate: {apy}%/yr (variable)',
+  'goalNew.apyNowMixed':
+    'Blended pool rate: {apy}%/yr (variable, includes documented reference values)',
   'goalNew.apyNowFixture': 'Reference pool rate: {apy}%/yr (documented values, not live)',
   'goalNew.growthExposure': '{percent}% growth',
   'catalogFilters.horizon': 'Time horizon',

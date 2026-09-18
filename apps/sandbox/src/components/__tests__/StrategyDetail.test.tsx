@@ -2,9 +2,15 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { describe, expect, it, vi } from 'vitest';
-import { getStrategy, FIXTURE_STAMP, observedStamp } from '@diboas/defi';
+import {
+  FIXTURE_STAMP,
+  CURRENT_CATALOG_PROTOCOL_NETWORK,
+  getStrategy,
+  observedStamp,
+} from '@diboas/defi';
 import type { ProtocolApy, ProtocolApyHistory, ProtocolId } from '@diboas/defi';
 import { StrategyDetail } from '../StrategyDetail';
+import { getMessages } from '@/i18n/loadMessages';
 
 /**
  * G6 pre-commit read (§4.6). Absorbs the provenance-stamp assertions that
@@ -41,6 +47,13 @@ const M = {
   'pathCard.entryFee': 'Entering: free',
   'pathCard.networkFee': 'Network fee: about {amount}',
   'pathCard.exitFee': 'Leaving later: 0.39% (at least {min}, no cap)',
+  // ⚑ Added with Increment 2. Absent, these rendered as EMPTY TEXT via the
+  // swallowed onError — which is why the `5.347`/`5.348` sabotages initially
+  // passed: the reverts changed nothing the assertions could see. Copied from
+  // `i18n/messages/en.json`, not retyped.
+  'pathCard.networkFeeUnavailable': 'Network fee: amount unavailable',
+  'goalDetail.entryPricingUnavailable':
+    "The required cost information isn't available, so this move can't proceed; nothing moved.",
   'pathCard.riskTitle': 'Risk',
   'pathCard.riskStable': 'Stable strategies aim to hold their value.',
   'pathCard.riskGrowth': '{percent}% moves with market prices.',
@@ -239,5 +252,171 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
     );
     fireEvent.click(screen.getByText('Put money to work'));
     expect(onPutToWork).toHaveBeenCalledOnce();
+  });
+
+  /**
+   * `5.402`. The harness supplies three LIVE rates and a FIXTURE Arbitrum gas
+   * quote — exactly what the app ships today — and the APY label used to read
+   * "includes documented reference values" about rates that were all live.
+   * No test covered this label in the mixed-gas state, which is why the false
+   * claim shipped.
+   */
+  it('should state the APY label from the APY legs ONLY, never from the gas quote', () => {
+    renderDetail(LIVE);
+    expect(screen.getByText(/\(real, variable\)/)).toBeTruthy();
+    expect(screen.queryByText(/includes documented reference values/)).toBeNull();
+    // The fee's provenance is still stated — by the gas sentence, not the label.
+    expect(screen.getByText(/Partly live from DeFiLlama/).textContent).toContain(
+      'network fee (gas) used in this simulation'
+    );
+  });
+
+  it('should not describe a reference fee it never rendered', () => {
+    // No quote for safeHarbor's Arbitrum entry → no fee row, so the
+    // reference-fee sentence must be absent rather than describing nothing.
+    render(
+      <IntlProvider locale="en" messages={M} onError={() => {}}>
+        <StrategyDetail
+          strategy={safeHarbor}
+          goalName="Future cushion"
+          apys={LIVE}
+          histories={[history('skySsr', 120), history('aaveV3', 120), history('compoundV3', 120)]}
+          gas={[]}
+          usdPriceLocal={1}
+          currency="USD"
+        />
+      </IntlProvider>
+    );
+    expect(screen.queryByText(/Network fee: about/)).toBeNull();
+    expect(screen.queryByText(/network fee \(gas\) used in this simulation/)).toBeNull();
+    // and it still must not claim to be fully live
+    expect(screen.queryByText(/^Live from DeFiLlama/)).toBeNull();
+
+    /* `5.348` (Execution Rulings §17): the row is NOT omitted — the approved
+       string REPLACES the figure, because `amount unavailable != zero !=
+       waived != free network`. Asserting only the absence above could not tell
+       a replaced row from a missing one, which is exactly why reverting this
+       change passed its first sabotage. */
+    expect(screen.getByText('Network fee: amount unavailable')).toBeTruthy();
+
+    /* `5.347` (§16): the refusal explanation must be ADJACENT to the blocked
+       action, and must be the RIGHT reason — an unpriceable entry previously
+       rendered "Enter an amount above", naming a cause that was not the cause. */
+    expect(
+      screen.getByText(
+        "The required cost information isn't available, so this move can't proceed; nothing moved."
+      )
+    ).toBeTruthy();
+    expect(screen.queryByText('Enter an amount above to put money to work.')).toBeNull();
+  });
+
+  it('should keep the amount hint when the fee IS priceable and only the amount is missing', () => {
+    // The other side of the same selection: with a priceable fee, the reason
+    // stays the amount hint. Without this, a branch that always showed the
+    // refusal string would pass the test above.
+    renderDetail(); // fixture Arbitrum gas + FX 1 → fee is priceable, no handler
+    expect(screen.getByText('Enter an amount above to put money to work.')).toBeTruthy();
+    expect(
+      screen.queryByText(
+        "The required cost information isn't available, so this move can't proceed; nothing moved."
+      )
+    ).toBeNull();
+    // and the fee row shows the figure, not the unavailable label
+    expect(screen.getByText(/Network fee: about/)).toBeTruthy();
+    expect(screen.queryByText('Network fee: amount unavailable')).toBeNull();
+  });
+});
+
+/**
+ * `5.406` §4/§5/§6 · what a multi-network Candidate renders on the pre-commit
+ * money surface.
+ *
+ * Five of ten catalogue strategies hold `skySsr` — an ARBITRUM lending leg —
+ * while declaring `entryChain: 'Solana'`. The legacy path showed Solana's gas
+ * as the whole-Candidate cost: `0.001 x FX` renders "about $0.00" for a
+ * composition up to 70% Arbitrum, where that leg's own quote is `0.03`.
+ *
+ * ⚑ GAS QUOTES BOTH CHAINS ON PURPOSE. The file's own `renderDetail` supplies
+ * an Arbitrum quote only, so a Solana-entry strategy could not price before
+ * this change either — a test built on it would pass for the wrong reason.
+ * Quoting both means the legacy code priced this confidently, and only the
+ * containment refuses it.
+ *
+ * ⚑ REAL CATALOGUE + REAL MESSAGES. `getMessages('en')` rather than this file's
+ * hand-rolled map, per `5.408`: a missing key in a stub renders as EMPTY TEXT,
+ * so assertions on it pass while asserting nothing — measured in this very
+ * file's `M` map earlier today.
+ */
+describe('5.406 — the multi-network Candidate on the pre-commit surface', () => {
+  const messages = getMessages('en');
+  const fullThrottle = getStrategy('fullThrottle')!; // 15% Arbitrum + 85% Solana
+  const singleNetwork = getStrategy('safeHarbor')!; // 100% Arbitrum
+
+  const GAS_BOTH = [
+    { chain: 'Arbitrum' as const, typicalFeeUsd: 0.03, stamp: FIXTURE_STAMP },
+    { chain: 'Solana' as const, typicalFeeUsd: 0.001, stamp: FIXTURE_STAMP },
+  ];
+
+  const apysFor = (strategy: typeof fullThrottle): ProtocolApy[] =>
+    strategy.allocation.map((leg) => ({
+      protocolId: leg.protocolId,
+      apyPercent: 5,
+      tvlUsd: null,
+      chain: CURRENT_CATALOG_PROTOCOL_NETWORK[leg.protocolId],
+      stamp: observedStamp('defillama', '2026-09-17T00:00:00Z'),
+    }));
+
+  function renderFor(strategy: typeof fullThrottle, onPutToWork?: () => void) {
+    return render(
+      <IntlProvider locale="en" messages={messages} onError={() => {}}>
+        <StrategyDetail
+          strategy={strategy}
+          goalName="Future cushion"
+          apys={apysFor(strategy)}
+          histories={strategy.allocation.map((leg) => history(leg.protocolId, 120))}
+          gas={GAS_BOTH}
+          usdPriceLocal={1}
+          currency="USD"
+          onPutToWork={onPutToWork}
+        />
+      </IntlProvider>
+    );
+  }
+
+  it('should render the approved UNAVAILABLE network-fee row, never an amount (5.348, §5)', () => {
+    renderFor(fullThrottle);
+    expect(screen.getByText('Network fee: amount unavailable')).toBeTruthy();
+    // The row is REPLACED, not omitted, and never shows a figure.
+    expect(screen.queryByText(/passed through at cost/)).toBeNull();
+    expect(screen.queryByText(/about \$0\.00/)).toBeNull();
+    // §4: no per-leg summing — 0.03 + 0.001 must not appear anywhere.
+    expect(screen.queryByText(/0\.031/)).toBeNull();
+  });
+
+  it('should SUPPRESS the false single-network Path claim (§6)', () => {
+    renderFor(fullThrottle);
+    // "…real protocols on Solana" named 1 of 2 networks as if it were all.
+    expect(screen.queryByText(/real protocols on/)).toBeNull();
+    // Composition stays visible: the heading and the weighted legs remain.
+    expect(screen.getByText('Path')).toBeTruthy();
+    expect(screen.getAllByText(/%/).length).toBeGreaterThan(0);
+  });
+
+  it('should fail closed on entry with the approved reason (5.347, §5)', () => {
+    renderFor(fullThrottle); // no onPutToWork → CTA disabled, reason rendered
+    const cta = screen.getByRole('button', { name: 'Put money to work' }) as HTMLButtonElement;
+    expect(cta.disabled).toBe(true);
+    expect(screen.getByText(/The required cost information isn't available/)).toBeTruthy();
+    // The RIGHT reason: not the amount hint, which would name a false cause.
+    expect(screen.queryByText(/Enter an amount above/)).toBeNull();
+  });
+
+  it('should leave a single-network Candidate fully operable under the SAME gas (§7)', () => {
+    renderFor(singleNetwork, () => {});
+    expect(screen.getByText(/passed through at cost/)).toBeTruthy();
+    expect(screen.queryByText('Network fee: amount unavailable')).toBeNull();
+    expect(screen.getByText(/real protocols on/)).toBeTruthy();
+    const cta = screen.getByRole('button', { name: 'Put money to work' }) as HTMLButtonElement;
+    expect(cta.disabled).toBe(false);
   });
 });

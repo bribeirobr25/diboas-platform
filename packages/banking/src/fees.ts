@@ -38,6 +38,23 @@ export const MIN_ADD_MONEY: Record<FeeCurrency, Decimal> = {
   BRL: new Decimal('20'),
 };
 
+/**
+ * What these fees ARE, in the shared normalization taxonomy (canon §9).
+ *
+ * `FEE_RATES.ramp` and `FEE_RATES.exit` are diBoaS's own revenue under FE-1 —
+ * money that goes to diBoaS — so their category is `diboas`. The classification
+ * follows the ECONOMIC OWNER, never the label: if a third-party ramp or
+ * provider cost is ever charged through, it is `provider`, NOT `diboas`, even
+ * though today's schedule happens to call its own fee "ramp".
+ *
+ * Declared as a plain string literal rather than importing `CostCategory` from
+ * `@diboas/defi`: `packages/banking` does not depend on `packages/defi`, and
+ * inverting that for a type would be a worse trade than restating one word.
+ * The shared taxonomy's authoritative list lives in `defi/src/evidence.ts`; a
+ * test pins these two in agreement so they cannot drift apart.
+ */
+export const DIBOAS_FEE_CATEGORY = 'diboas' as const;
+
 export type AccountMode = 'b2c' | 'b2b';
 
 /** Add Money fee: 0.48%, no cap — B2C and B2B alike (FE-1/FC-13, 2026-08-03).

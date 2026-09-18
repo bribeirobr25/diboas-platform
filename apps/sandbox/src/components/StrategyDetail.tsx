@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { EXIT_FEE_FLOOR, FEE_RATES } from '@diboas/banking';
-import { FIXTURE_AS_OF, strategyProvenance } from '@diboas/defi';
+import { FIXTURE_AS_OF, isMultiNetworkCandidate, strategyProvenance } from '@diboas/defi';
 import type { GasQuote, ProtocolApy, ProtocolApyHistory, StrategyDef } from '@diboas/defi';
 import { useFormatters } from '@/hooks/useFormatters';
-import { networkFeeLocal } from '@/lib/networkFee';
+import { gasStampFor, networkFeeLocal } from '@/lib/networkFee';
 import { selectStrategyChartSeries, type ChartTimeframe } from '@/view/strategy';
 import { ApyChart } from './ApyChart';
 import { Button } from './Button';
@@ -76,8 +76,8 @@ export function StrategyDetail({
   /* This surface renders the NETWORK FEE as well as the rates, so its stamp
      must cover the gas source too (GAS-1) — a live-rate strategy with a
      fixture fee is `mixed`, not `live`. */
-  const provenance = strategyProvenance(strategy, apys, gas[0]?.stamp);
-  const fee = networkFeeLocal(gas, strategy.entryChain, usdPriceLocal);
+  const provenance = strategyProvenance(strategy, apys, gasStampFor(gas, strategy.entryChain));
+  const fee = networkFeeLocal(gas, strategy, usdPriceLocal);
 
   /* The chart's series — derived in `view/strategy.ts` (AUD-C02). The selector
      also REFUSES when a leg has no history, rather than blending the rest and
@@ -88,10 +88,15 @@ export function StrategyDetail({
     requestedTimeframe,
   });
 
+  /* `5.402`: the APY label derives from the APY axis ONLY. Reading
+     `provenance.state` let a reference-backed GAS quote select
+     `apyNowMixed` — "includes documented reference values" — over three
+     live rates, a false statement about the rates in all four locales. The
+     fee's own provenance is stated by the gas sentence below, not here. */
   const apyMessageId =
-    provenance.state === 'live'
+    provenance.apyProvenance === 'live'
       ? 'goalNew.apyNow'
-      : provenance.state === 'mixed'
+      : provenance.apyProvenance === 'mixed'
         ? 'goalNew.apyNowMixed'
         : 'goalNew.apyNowFixture';
 
@@ -146,7 +151,17 @@ export function StrategyDetail({
             id="common.dataPartlyLive"
             values={{ source: 'DeFiLlama', date: date(provenance.newestLiveAsOf!) }}
           />{' '}
-          <FormattedMessage id="common.dataGasReference" />
+          {/* Stated only when a reference-backed fee is actually ON SCREEN.
+              `fee` is null when the chain has no quote OR when FX failed
+              (`networkFeeLocal` returns null for either), and the cost row is
+              then absent — so this sentence would describe a value the reader
+              was never shown. Finding 1: `unavailable` is not `reference`. */}
+          {fee !== null &&
+          provenance.feeEvidence.rendered &&
+          provenance.feeEvidence.availability === 'AVAILABLE' &&
+          provenance.feeEvidence.origin !== 'OBSERVED' ? (
+            <FormattedMessage id="common.dataGasReference" />
+          ) : null}
         </>
       )
     ) : (
@@ -165,12 +180,23 @@ export function StrategyDetail({
       <h2 className={styles.detailHead}>
         <FormattedMessage id="pathCard.pathTitle" />
       </h2>
-      <p className={styles.itemLine}>
-        <FormattedMessage
-          id="pathCard.pathLine"
-          values={{ goal: goalName, strategy: strategyName, chain: strategy.entryChain }}
-        />
-      </p>
+      {/* `5.406` §6 · A multi-network Candidate has no truthful single-chain
+          Path claim. `pathCard.pathLine` is "{goal} -> {strategy} -> real
+          protocols on {chain}" in all four locales, and NO approved chain-less
+          variant exists — so for a Candidate spanning two networks the false
+          whole-Candidate claim is SUPPRESSED rather than reworded. §6: *"Do not
+          invent replacement copy."* The `Path` heading and the weighted leg list
+          below still render, so composition stays visible; what disappears is
+          only the sentence that named 1 of 2 networks as if it were all of
+          them. Single-network Candidates are untouched (§7). */}
+      {!isMultiNetworkCandidate(strategy) ? (
+        <p className={styles.itemLine}>
+          <FormattedMessage
+            id="pathCard.pathLine"
+            values={{ goal: goalName, strategy: strategyName, chain: strategy.entryChain }}
+          />
+        </p>
+      ) : null}
       <ul className={styles.allocation}>
         {strategy.allocation.map((leg) => (
           <li key={leg.protocolId} className={styles.allocationLeg}>
@@ -187,14 +213,18 @@ export function StrategyDetail({
         <li>
           <FormattedMessage id="pathCard.entryFee" />
         </li>
-        {/* ⚑ AUD-F05. `about $0.00` would understate the one cost this list
-            exists to state, so an unknown fee is ABSENT rather than wrong. The
-            explanation it deserves needs an approved string (registered). */}
-        {fee !== null ? (
-          <li>
+        {/* `5.348` (Execution Rulings §17). The row is no longer OMITTED when the
+            amount is unknown: the approved string replaces the figure, because
+            `amount unavailable != zero != waived != free network`. Omitting it
+            left the reader a shorter list with no note; `about $0.00` would have
+            understated the one cost this list exists to state (AUD-F05). */}
+        <li>
+          {fee !== null ? (
             <FormattedMessage id="pathCard.networkFee" values={{ amount: money(fee) }} />
-          </li>
-        ) : null}
+          ) : (
+            <FormattedMessage id="pathCard.networkFeeUnavailable" />
+          )}
+        </li>
         {variant === 'full' ? (
           <li>
             <FormattedMessage
@@ -408,7 +438,19 @@ export function StrategyDetail({
       </Button>
       {!onPutToWork ? (
         <p className={styles.ctaHint}>
-          <FormattedMessage id="strategyDetail.needAmount" />
+          {/* `5.347` (Execution Rulings §16): the refusal explanation must stay
+              ADJACENT to the blocked action — and it must be the RIGHT reason.
+              `fee === null` here is exactly `GoalDetailScreen`'s
+              `canPriceEntry === false`: both call `networkFeeLocal` with this
+              strategy's `entryChain` and the same FX, so an unpriceable entry is
+              knowable locally. Before this, an unpriceable entry rendered
+              "Enter an amount above", which named a cause that was not the
+              cause. One reason renders, never both. */}
+          {fee === null ? (
+            <FormattedMessage id="goalDetail.entryPricingUnavailable" />
+          ) : (
+            <FormattedMessage id="strategyDetail.needAmount" />
+          )}
         </p>
       ) : null}
     </section>

@@ -119,10 +119,25 @@ export interface LedgerState {
   rules: RuleState[];
   /** Active recurring-contribution schedules (C3), keyed by position. */
   recurring: RecurringSchedule[];
-  /** Total network fees paid (play), shown in the trail. */
+  /**
+   * Total network fees that genuinely REDUCED holdings — legacy events only
+   * (`5.403`). The name keeps its original meaning on purpose: these really were
+   * paid, and `reconcile()` subtracts exactly this. New Practice events add
+   * nothing here.
+   */
   networkFeesPaid: string;
-  /** Total exit fees paid (play). */
+  /** Total exit fees that genuinely reduced holdings — legacy events only. */
   exitFeesPaid: string;
+  /**
+   * Total MODELLED network fees across both generations — recorded, shown, and
+   * non-economic. Never a `reconcile()` term. Feeds the fee trail, the month
+   * report's modelled-cost information and the credit-ceiling compatibility
+   * basis, which is how the ceiling's timing is preserved by construction rather
+   * than by a special case.
+   */
+  modeledNetworkFees: string;
+  /** Total modelled exit fees across both generations — non-economic. */
+  modeledExitFees: string;
   /**
    * Ingress total — money entering the system AFTER genesis (weekly credit,
    * comparison credit, simulated income). A subtrahend's mirror in the
@@ -168,6 +183,8 @@ export function emptyState(): LedgerState {
     recurring: [],
     networkFeesPaid: '0',
     exitFeesPaid: '0',
+    modeledNetworkFees: '0',
+    modeledExitFees: '0',
     credited: '0',
     collectedWeeks: [],
     comparisonCredited: false,

@@ -1,7 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
-import { observedStamp } from '../types';
+import { observedStamp } from '../testing';
 import { CoinGeckoPriceProvider } from '../providers/coingecko';
+import { FIXTURE_APYS } from '../fixtures';
 import { DefiLlamaApyProvider, matchPool } from '../providers/defillama';
 import { FixtureGasProvider } from '../providers/gas';
 
@@ -78,13 +79,31 @@ describe('matchPool (preference rules)', () => {
     expect(match?.pool).toBe('c');
   });
 
-  it('should fall back to highest TVL on any chain when the preferred chain has no pool', () => {
+  /**
+   * ⚑ INVERTED 2026-09-17 (`5.406`/`5.407` containment) — and the old assertion
+   * is quoted rather than deleted, because it is the finding.
+   *
+   * This test used to read *"should fall back to highest TVL on any chain when
+   * the preferred chain has no pool"* and asserted `match?.pool === 'a'` — pool
+   * `a` being an **Ethereum** deployment accepted for a leg that wanted Solana,
+   * purely because the project name matched and its TVL was higher. So the
+   * suite positively asserted the behaviour Founder/Strategy §3 names as
+   * forbidden: *"Do not silently substitute another deployment."*
+   *
+   * That makes it a `5.114`-class test — one encoding a DEFECT as a
+   * requirement. Inverting it (rather than removing it) keeps the reason in the
+   * file: the caller now degrades to the protocol's own documented fixture,
+   * which is the right network with an honest `fallbackUsed` stamp.
+   */
+  it('should return null rather than substitute another network when the preferred chain has no pool', () => {
     const match = matchPool(pools, {
       projects: ['aave-v3'],
       symbols: ['USDC'],
       preferredChains: ['Solana'],
     });
-    expect(match?.pool).toBe('a');
+    expect(match).toBeNull();
+    // Specifically NOT the Ethereum pool it used to hand back.
+    expect(match?.pool).not.toBe('a');
   });
 
   it('should return null when nothing matches (caller degrades to fixture)', () => {
@@ -280,5 +299,125 @@ describe('a hung upstream fails open within the bound (Principle 7)', () => {
     // server bound at or above it would let the browser give up before the
     // fixture arrived — the failure this constant exists to prevent.
     expect(PROVIDER_FETCH_TIMEOUT_MS).toBeLessThan(15_000);
+  });
+});
+
+/**
+ * `5.406`/`5.407` §3 · the live observation must AGREE with Product identity.
+ *
+ * `CURRENT_CATALOG_PROTOCOL_NETWORK` is the Product-owned intended network. Before this,
+ * `ProtocolApy.chain` was captured and never compared to it anywhere in app
+ * code, so the invariant held by LUCK — a shift in DeFiLlama's pool set was all
+ * it took. An absent chain was additionally defaulted to `'Solana'`, inventing
+ * a real, named network for an unknown one.
+ *
+ * ⚑ ISOLATION IS LOAD-BEARING HERE, and the first version of this describe had
+ * none. `poolsCache` is a module-level `let` with no exported reset, so without
+ * `vi.resetModules()` + a dynamic import every test in this file re-serves the
+ * FIRST feed any test fetched. Two of these three then failed against a cached
+ * `apy: 5.4`, and — worse — the missing-chain case PASSED VACUOUSLY: the cached
+ * list held no sanctum pool at all, so it degraded to fixture with or without
+ * the fix. Cache isolation is what makes these assertions mean anything.
+ */
+describe('5.406/5.407 — a provider observation may not define or mutate network identity', () => {
+  beforeEach(() => vi.resetModules());
+
+  /** Fresh module state per test, or `poolsCache` answers for the last one. */
+  const freshProvider = async (body: unknown) => {
+    const { DefiLlamaApyProvider } = await import('../providers/defillama');
+    return new DefiLlamaApyProvider(jsonFetch(body));
+  };
+
+  it('should refuse a WRONG-network observation and degrade to that protocol own fixture', async () => {
+    /* aaveV3 is Arbitrum by Product identity. This feed offers ONLY a Solana
+       pool under the right project+symbol with a huge TVL — exactly the
+       substitution §3 forbids: *"Do not silently substitute another
+       deployment."*
+
+       Mechanism, stated precisely: aaveV3's `preferredChains` is ['Arbitrum']
+       alone, so `matchPool` refuses this outright and the identity guard is
+       never consulted. Both layers forbid it; this test pins the FIRST. */
+    const provider = await freshProvider({
+      data: [
+        { pool: 'x', project: 'aave-v3', chain: 'Solana', symbol: 'USDC', apy: 99, tvlUsd: 1e9 },
+      ],
+    });
+    const [aave] = await provider.getCurrentApys(['aaveV3']);
+    expect(aave.apyPercent).toBe(FIXTURE_APYS.aaveV3.apyPercent);
+    expect(aave.apyPercent).not.toBe(99);
+    expect(aave.chain).toBe('Arbitrum'); // the fixture's network, never the feed's
+    expect(aave.stamp.source).toBe('fixture');
+  });
+
+  it('should refuse an observation with NO chain instead of defaulting it to Solana', async () => {
+    /**
+     * ⛑ MY EARLIER COMMENT HERE CLAIMED THIS WAS "NON-VACUOUS BY
+     * CONSTRUCTION". That was FALSE, and the P5 sabotage proved it: disabling
+     * the identity guard left this test green.
+     *
+     * The real mechanism: `matchPool` filters `p.chain === chain` against
+     * `preferredChains`, so a pool carrying NO chain matches nothing and
+     * `matchPool` returns null — the caller then degrades to fixture. So this
+     * asserts the OUTCOME (`?? 'Solana'` can no longer invent a network) via
+     * `matchPool`'s refusal, NOT via the identity guard.
+     *
+     * The `!observed` half of that guard is therefore defensive and currently
+     * unreachable — `LlamaPool.chain` is typed `string` and equality matching
+     * cannot return a chainless pool. Stated rather than covered: the guard's
+     * reachable case is the Ethereum one below.
+     */
+    const provider = await freshProvider({
+      data: [{ pool: 'y', project: 'sanctum-infinity', symbol: 'INF', apy: 77, tvlUsd: 1e9 }],
+    });
+    const [sanctum] = await provider.getCurrentApys(['sanctumInf']);
+    expect(sanctum.apyPercent).toBe(FIXTURE_APYS.sanctumInf.apyPercent);
+    expect(sanctum.apyPercent).not.toBe(77);
+    expect(sanctum.stamp.source).toBe('fixture');
+  });
+
+  it('should refuse a SECOND-PREFERENCE network that disagrees with Product identity', async () => {
+    /**
+     * THE CASE THAT MAKES THE IDENTITY GUARD LOAD-BEARING — found by the P5
+     * sabotage, which passed until this existed.
+     *
+     * `skySsr`'s matcher lists `preferredChains: ['Arbitrum', 'Ethereum']`, so
+     * `matchPool` legitimately accepts an ETHEREUM sky pool as second
+     * preference. But `CURRENT_CATALOG_PROTOCOL_NETWORK.skySsr` is **Arbitrum** — Product
+     * identity names one network, and Ethereum is not it. Only the agreement
+     * check in `getCurrentApys` can refuse this; `matchPool` cannot, because
+     * from its point of view the pool matched a declared preference.
+     *
+     * This is not hypothetical: that second preference is real shipped config,
+     * and `skySsr` is a leg of ALL TEN catalogue strategies.
+     */
+    const provider = await freshProvider({
+      data: [
+        {
+          pool: 'eth-sky',
+          project: 'sky-lending',
+          chain: 'Ethereum',
+          symbol: 'USDS',
+          apy: 42,
+          tvlUsd: 1e9,
+        },
+      ],
+    });
+    const [sky] = await provider.getCurrentApys(['skySsr']);
+    expect(sky.apyPercent).toBe(FIXTURE_APYS.skySsr.apyPercent);
+    expect(sky.apyPercent).not.toBe(42);
+    expect(sky.chain).toBe('Arbitrum'); // identity, never the observation's network
+    expect(sky.stamp.source).toBe('fixture');
+  });
+
+  it('should accept an observation whose network AGREES (evidence may be used)', async () => {
+    const provider = await freshProvider({
+      data: [
+        { pool: 'z', project: 'aave-v3', chain: 'Arbitrum', symbol: 'USDC', apy: 5.9, tvlUsd: 1e9 },
+      ],
+    });
+    const [aave] = await provider.getCurrentApys(['aaveV3']);
+    expect(aave.chain).toBe('Arbitrum');
+    expect(aave.apyPercent).toBe(5.9);
+    expect(aave.stamp.source).toBe('defillama');
   });
 });

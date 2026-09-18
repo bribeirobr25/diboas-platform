@@ -30,6 +30,24 @@ function base() {
   };
 }
 
+/** Grant → split → goal → funded: the shared prefix both fee tests build on. */
+function conservingPrefix(): LedgerEvent[] {
+  return [
+    { ...base(), type: 'PlayMoneyGranted', amount: '10000', currency: 'USD', mode: 'b2c' },
+    { ...base(), type: 'JobsSplitSet', floorPercent: 50, cushionPercent: 30, workingPercent: 20 },
+    {
+      ...base(),
+      type: 'GoalCreated',
+      goalId: 'g1',
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: '5000',
+      horizonMonths: 24,
+    },
+    { ...base(), type: 'GoalFunded', goalId: 'g1', amount: '1500' },
+  ];
+}
+
 /** A minimal conserving log: a grant plus a split moves no money out. */
 function conservingLog(): LedgerEvent[] {
   return [
@@ -173,6 +191,80 @@ describe('two independent ledgers on one device', () => {
     const loaded = await sandbox.getAll();
     expect(loaded).toHaveLength(1);
     expect(loaded[0].eventId).toBe(grant.eventId);
+  });
+
+  /**
+   * `5.403` / `5.410` — the modelled-fee rule is scoped to `sandbox`, and canon
+   * says so explicitly: *"schema v2 carry `modeledNetworkFee` / `modeledExitFee`
+   * **in `sandbox` scope** … `real` scope keeps FC-15 full deduction"* (I-3),
+   * with D-08 wording it *"version-gated per scope"* — BOTH axes.
+   *
+   * This is canon's third sabotage, *"a `real` entry that does not deduct →
+   * fails"*, and it is the guard whose absence let a real breach through: the
+   * first implementation of `5.403` branched on version alone, so a `real` v2
+   * entry left the goal's cash at 500.00 instead of 499.84 — FC-15 silently
+   * violated. Nothing produces `real` events yet, which is exactly why a
+   * projection-level test is the only thing that can hold the line.
+   */
+  it('should DEDUCT a real-scope v2 fee (FC-15), never treat it as modelled', () => {
+    const entry: LedgerEvent = {
+      ...base(),
+      type: 'StrategyEntered',
+      ledgerScope: 'real',
+      goalId: 'g1',
+      positionId: 'p1',
+      strategyId: 'safeHarbor',
+      amount: '1000',
+      schemaVersion: 2,
+      modeledNetworkFee: '0.16',
+    };
+    const real = project([...conservingPrefix(), entry]);
+    // Real deducts at ANY version: cash is the total MINUS the fee.
+    expect(real.goals[0].cash).toBe('499.84');
+    expect(real.networkFeesPaid).toBe('0.16');
+    expect(reconcile(real)).toBe('0.00');
+
+    // The SAME event in sandbox scope does not deduct — the contrast is the rule.
+    const sandbox = project([...conservingPrefix(), { ...entry, ledgerScope: 'sandbox' as const }]);
+    expect(sandbox.goals[0].cash).toBe('500.00');
+    expect(sandbox.networkFeesPaid).toBe('0.00');
+    expect(sandbox.modeledNetworkFees).toBe('0.16');
+    expect(reconcile(sandbox)).toBe('0.00');
+  });
+
+  it('should hold the conservation identity over a MIXED v1/v2 log', () => {
+    /* Canon: "conservation identity per scope with mixed v1/v2 events". A ledger
+       that predates `5.403` and then keeps being used carries both generations,
+       and `reconcile()` must reach 0.00 without pretending the modelled fee
+       moved money or forgetting that the legacy one did. */
+    const mixed = project([
+      ...conservingPrefix(),
+      {
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p-v1',
+        strategyId: 'safeHarbor',
+        amount: '400',
+        networkFee: '0.10',
+      },
+      {
+        ...base(),
+        type: 'StrategyEntered',
+        goalId: 'g1',
+        positionId: 'p-v2',
+        strategyId: 'safeHarbor',
+        amount: '500',
+        schemaVersion: 2,
+        modeledNetworkFee: '0.20',
+      },
+    ]);
+    // 1500 − (400 + 0.10) − 500
+    expect(mixed.goals[0].cash).toBe('599.90');
+    expect(mixed.goals[0].invested).toBe('900.00');
+    expect(mixed.networkFeesPaid).toBe('0.10'); // only the v1 fee is deductible
+    expect(mixed.modeledNetworkFees).toBe('0.30'); // both are modelled
+    expect(reconcile(mixed)).toBe('0.00');
   });
 
   it('C-P0: conservation holds independently in each scope', async () => {

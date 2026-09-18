@@ -27,16 +27,17 @@ import styles from './BottomNavigation.module.css';
  *
  * ## Unavailable destinations are truthful, not dead
  *
- * `Community` is *"visible from the start"* with a controlled unavailable
- * surface (§9.5/§23, `P-QA5`), so it navigates like any other destination — the
- * surface itself explains. `Learn` stays inert for now: F-04 wants it tappable
- * to an explainer, but no authority-approved explainer copy exists in the four
- * locales, and writing it here would be authoring Product copy. It renders as a
- * disabled item — visible, labelled and inert — which is the honest interim (an
- * affordance is a claim — `5.201`/`5.202`). It carries NO accessible
- * explanation today: the reason would be authored copy, so `unavailableLabel`
- * is left unset by `destinationsFor` and the accessible name is just the label.
- * Supplying that reason in four locales is the registered gap `5.288`.
+ * `Community` and, since `5.349`, `Learn` are both *"visible from the start"*
+ * with controlled unavailable surfaces (§9.5/§23, `P-QA5`), so they navigate
+ * like any other destination and the surface itself explains. F-04 wanted
+ * exactly that for Learn; what was missing was approved copy, which Execution
+ * Rulings §18 supplied in four locales.
+ *
+ * The `no` branch below is KEPT even though no destination currently uses it:
+ * `available` is a declared contract, and a future destination may legitimately
+ * be inert before its copy exists. What was removed with `5.349` is
+ * `unavailableLabel` — its only consumer was the inert Learn tab, and its only
+ * value anywhere was an invented English string in Storybook.
  */
 export interface Destination {
   readonly surface: ShellSurface;
@@ -53,18 +54,12 @@ export interface Destination {
    *   and its surface carries the Legal-approved unavailable explanation
    *   (§9.5/§23, `P-QA5`), which §23 calls *"usually more informative than a
    *   dead icon"*.
-   * - `no` — inert. `Learn` is `no` today: F-04 wants it tappable to an
-   *   explainer, but no authority-approved explainer copy exists in the four
-   *   locales, and a destination that navigates to nothing would be the
-   *   affordance-as-false-claim of `5.201`/`5.202`. It renders as it does now —
-   *   visible, labelled, inert — and the copy is a registered gap.
+   * - `no` — inert: visible, labelled and unenterable. No destination uses
+   *   this today (`5.349` moved Learn to `yes`), but it stays declarable
+   *   because a destination whose copy does not yet exist must not navigate to
+   *   nothing — that is the affordance-as-false-claim of `5.201`/`5.202`.
    */
   readonly available: 'yes' | 'no';
-  /**
-   * The accessible name for an inert destination, supplied by the caller.
-   * Absent while no approved wording exists; Storybook carries the state.
-   */
-  readonly unavailableLabel?: string;
 }
 
 export function BottomNavigation({
@@ -89,8 +84,6 @@ export function BottomNavigation({
               className={styles.tab}
               data-disabled="true"
               aria-disabled="true"
-              /* The reason is the accessible name when the caller has one. */
-              aria-label={destination.unavailableLabel || undefined}
             >
               <LucideIcon name={destination.icon} size={22} />
               <span className={styles.tabLabel}>
