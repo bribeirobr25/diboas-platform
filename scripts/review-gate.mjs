@@ -364,6 +364,66 @@ function checkCounts() {
       }
     }
   }
+  /**
+   * `5.415` — A HEADLINE MUST AGREE WITH ITS OWN BREAKDOWN.
+   *
+   * Everything above compares one published headline to ANOTHER published
+   * headline. It never looked inside a single sentence, so a per-package
+   * breakdown could contradict the total printed beside it and stay invisible:
+   * `README.md` published `2,860 tests / 237 files (web 1,606 · sandbox 943 ·
+   * banking 118 · investing 86 · defi 65 …)` — components summing to 2,818, a
+   * gap of 42 — in a sentence whose own closing clause claimed they sum. It
+   * survived every green run because no summation existed anywhere in this file.
+   *
+   * ⚑ NARROW BY SHAPE, NOT BY PROSE. The governed form is a parenthesised chain
+   * of at least TWO `name TESTS/FILES` entries joined by `·`. A bare numeric
+   * regex is the failure class this repo has already paid for (`5.323` invented
+   * `610` from `2,610 / 224 files`; a `5.[0-9]{2,3}` pattern produced a false
+   * maximum of `5.878` from prose). Dates, ratios, ranges, version strings and
+   * the older slash-free breakdown cannot match this, because each entry must
+   * carry a NAME and BOTH counts.
+   *
+   * The pairs deliberately omit the word `files` so `COUNT` above cannot read
+   * them as headline claims — otherwise publishing a breakdown would invent five
+   * competing totals and fail the very check it is meant to support.
+   */
+  const BREAKDOWN =
+    /\(\s*([a-z][a-z0-9-]*\s+\d[\d,]*\/\d+(?:\s*·\s*[a-z][a-z0-9-]*\s+\d[\d,]*\/\d+)+)/gi;
+  const PAIR = /([a-z][a-z0-9-]*)\s+(\d[\d,]*)\/(\d+)/gi;
+  const num = (t) => Number(String(t).replace(/,/g, ''));
+
+  const mismatches = [];
+  const verified = [];
+  for (const d of docs) {
+    for (const line of rd(d).split('\n')) {
+      /* The headline(s) on this line, under the same exclusions as above. */
+      const heads = [];
+      for (const m of line.matchAll(COUNT)) {
+        if (insideQuotes(line, m.index)) continue;
+        const scope = sentenceAt(line, m.index);
+        if (HISTORICAL.test(scope)) continue;
+        heads.push({ tests: num(m[1]), files: num(m[2]), at: m.index });
+      }
+      if (heads.length === 0) continue;
+      for (const b of line.matchAll(BREAKDOWN)) {
+        const pairs = [...b[1].matchAll(PAIR)];
+        if (pairs.length < 2) continue;
+        /* A breakdown belongs to the nearest headline BEFORE it; one line can
+           carry several governed sentences. */
+        const head = [...heads].reverse().find((h) => h.at < b.index) ?? heads[0];
+        const sumTests = pairs.reduce((a, x) => a + num(x[2]), 0);
+        const sumFiles = pairs.reduce((a, x) => a + num(x[3]), 0);
+        const where = d.split('/').pop();
+        if (sumTests !== head.tests || sumFiles !== head.files)
+          mismatches.push(
+            `${where}: headline ${head.tests}/${head.files} vs ` +
+              `components ${sumTests}/${sumFiles} across ${pairs.length} package(s)`
+          );
+        else verified.push(`${where}: ${pairs.length} components sum to ${sumTests}/${sumFiles}`);
+      }
+    }
+  }
+
   const detail = [
     `${docs.length} doc(s) walked; ${claims.size} distinct CURRENT claim(s); ` +
       `${excluded} quoted-or-historical mention(s) excluded`,
@@ -371,7 +431,15 @@ function checkCounts() {
   for (const [k, where] of claims)
     detail.push(`  ${k} — ${[...where].map((w) => w.split('/').pop()).join(', ')}`);
   for (const a of ambiguous) detail.push(`  AMBIGUOUS (historical marker + "current"): ${a}`);
-  return { ok: claims.size <= 1 && ambiguous.length === 0, detail: detail.join('\n      ') };
+  /* Stated every run, PASS or FAIL: a breakdown check that silently verifies
+     nothing is indistinguishable from one that works (system gate X6). */
+  detail.push(`  breakdowns verified: ${verified.length}`);
+  for (const v of verified) detail.push(`    ${v}`);
+  for (const mm of mismatches) detail.push(`  COMPONENTS DO NOT SUM — ${mm}`);
+  return {
+    ok: claims.size <= 1 && ambiguous.length === 0 && mismatches.length === 0,
+    detail: detail.join('\n      '),
+  };
 }
 
 /* ------------------------------------------------------------- authorities */
