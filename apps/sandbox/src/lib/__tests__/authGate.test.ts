@@ -107,7 +107,25 @@ afterEach(() => {
 beforeAll(() => {
   // A spec that spawned against the wrong root would pass for the wrong reason.
   expect(existsSync(join(ROOT, 'scripts/review-gate.mjs')), `runner not at ${ROOT}`).toBe(true);
-  expect(existsSync(join(ROOT, 'docs/audit/PENDING_ALL.md')), `register not at ${ROOT}`).toBe(true);
+  /**
+   * ⚑ THE REGISTER IS NOT ASSERTED HERE, and that is the point.
+   *
+   * This line used to read:
+   *   expect(existsSync(join(ROOT, 'docs/audit/PENDING_ALL.md'))).toBe(true);
+   *
+   * `docs/audit/PENDING_ALL.md` is LOCAL-ONLY and gitignored by policy — it
+   * holds legal-position and pricing-adjacent material that must never be
+   * tracked in a public repository. So it exists on a maintainer's machine and
+   * CANNOT exist on CI or in any fresh clone. The assertion therefore passed
+   * locally for a reason that does not generalise, and failed the first time
+   * this branch met CI: the whole suite aborted in `beforeAll`, skipping all 15
+   * tests below before one of them ran.
+   *
+   * The tracked runner asserted above already proves the root, which was this
+   * guard's only stated purpose. Reproduced and verified against a tracked-only
+   * tree (`git archive HEAD`) — the same technique the CI workflow's own
+   * comments cite: 15/15 pass with the register absent.
+   */
 });
 
 describe('AUTH-1 · the gate runs at all', () => {
