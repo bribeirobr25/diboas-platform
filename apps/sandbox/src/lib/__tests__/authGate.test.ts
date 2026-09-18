@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { existsSync, mkdirSync, rmdirSync, rmSync, writeFileSync } from 'node:fs';
+import { join, resolve, sep } from 'node:path';
 import { afterEach, beforeAll, describe, expect, it } from 'vitest';
 
 /**
@@ -89,9 +89,44 @@ function gate(mode: string, ...flags: string[]): GateRun {
 /** Fixtures created by the current test, removed even if it throws. */
 const planted: string[] = [];
 
+/**
+ * Directories this test had to CREATE, deepest first — never pre-existing ones.
+ *
+ * ⚑ WHY THIS EXISTS: leaving them behind broke a LATER STEP OF THE SAME CI JOB.
+ *
+ * `plant()` creates parents with `mkdirSync(recursive)`, and `afterEach` used to
+ * remove only the FILES. So a run left `docs/full-view/canon/extracted/
+ * 00_PACKAGE_GUIDE/` and `docs/audit/` behind as empty directories. That is not
+ * cosmetic: `scripts/validate-ux-canon.mjs` reports a broken reference only when
+ * the referenced file is missing **and its parent directory is present** —
+ * "missing file in a PRESENT directory = real break; missing directory =
+ * local-only area". Manufacturing the directory therefore turned every
+ * governance reference into `docs/full-view/*` into a "real break": CI step 16
+ * failed with 11 defects on a tree where step 15 had passed, because step 9 (the
+ * suite) had created the directories in between. Measured end to end in a
+ * tracked-only tree: validator exit 0 → run this suite → validator exit 1 with
+ * exactly those 11 defects.
+ *
+ * ⚑ WHY `rmdirSync` AND NOT `rmSync(recursive)`: on a maintainer's machine those
+ * same paths hold **1,512 local-only files** under `docs/full-view` (1,485 of
+ * them the canon corpus) and 92 under `docs/audit` — founder-owned, gitignored,
+ * unrecoverable. `rmdirSync` REFUSES a non-empty directory, and that refusal is
+ * the safety property: only a directory this test created and left empty can go.
+ * A recursive delete here would be catastrophic and is never used.
+ */
+const plantedDirs: string[] = [];
+
 function plant(relPath: string, body: string): string {
   const abs = join(ROOT, relPath);
-  mkdirSync(join(abs, '..'), { recursive: true });
+  const parent = join(abs, '..');
+
+  /* Record the ancestors that do not exist YET, so only those are removed.
+     Insertion order is deliberately IRRELEVANT here — `afterEach` sorts by
+     depth before removing. See the note on `plantedDirs`. */
+  for (let dir = parent; !existsSync(dir); dir = join(dir, '..'))
+    if (!plantedDirs.includes(dir)) plantedDirs.push(dir);
+
+  mkdirSync(parent, { recursive: true });
   writeFileSync(abs, body, 'utf8');
   planted.push(abs);
   return relPath;
@@ -101,6 +136,35 @@ afterEach(() => {
   while (planted.length) {
     const p = planted.pop();
     if (p) rmSync(p, { force: true });
+  }
+  /**
+   * Then the directories — DEEPEST FIRST, enforced by sorting rather than by
+   * insertion order.
+   *
+   * ⚑ THE FIRST VERSION OF THIS CLEANUP SHIPPED THE WRONG ORDER AND FIXED
+   * NOTHING. It `unshift`ed each missing ancestor while walking child→parent,
+   * which reverses the chain into parent-first. `rmdirSync` then refused every
+   * parent (still holding its child) and removed only the innermost directory,
+   * so `docs/full-view` survived and CI failed again, identically. Measured in
+   * isolation: parent-first leaves 4 directories behind; depth-sorted leaves 0.
+   *
+   * Sorting makes this order-INDEPENDENT, so a future `plant()` call pattern
+   * cannot silently reintroduce that bug.
+   *
+   * `rmdirSync` refuses a non-empty directory and that refusal is the SAFETY
+   * PROPERTY, not an inconvenience: on a maintainer's machine these paths hold
+   * ~1,500 local-only files. A pre-existing directory is never recorded, and a
+   * recorded one that somehow holds other content is left alone.
+   */
+  plantedDirs.sort((a, b) => b.split(sep).length - a.split(sep).length);
+  while (plantedDirs.length) {
+    const d = plantedDirs.shift();
+    if (!d) continue;
+    try {
+      rmdirSync(d);
+    } catch {
+      /* non-empty or already gone — leave it alone */
+    }
   }
 });
 
