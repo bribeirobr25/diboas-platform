@@ -154,6 +154,41 @@ describe('FE-1: the exit floor travels with the exit rate', () => {
   });
 });
 
+describe('5.421 — the exit floor is stated PER EXITED POSITION wherever the rate appears', () => {
+  /**
+   * FE-1 next door proves the floor TRAVELS with the rate (`{min}` is present).
+   * It cannot see whether the floor is scoped correctly: `{min}` alone reads as a
+   * single minimum for the whole exit, while the Legal-accepted mechanic is one
+   * economic disposition PER POSITION — 2 small positions cost 2 x the floor, not
+   * one. `5.420` fixed the exit path's wording; this pins the same scope on the
+   * entry path, and it is locale-complete because a missing scope in one locale
+   * understates the price for exactly those readers.
+   *
+   * ⚑ Deliberately NARROW: it fires only on strings that quote the rate. A row
+   * that names the floor without the rate (`strategyDetail.minExit`) is covered
+   * by its own render assertion, and prose that mentions neither is untouched.
+   */
+  const RATE = /0[.,]39\s*%/;
+  const PER_POSITION: Record<string, RegExp> = {
+    en: /per exited position/i,
+    'pt-BR': /por posição encerrada/i,
+    es: /por posición cerrada/i,
+    de: /pro beendeter Position/i,
+  };
+
+  it('should scope the floor per exited position in every rate-quoting string, per locale', () => {
+    for (const locale of SANDBOX_LOCALES) {
+      for (const [id, msg] of Object.entries(getMessages(locale))) {
+        if (!RATE.test(msg)) continue;
+        expect(
+          PER_POSITION[locale].test(msg),
+          `${locale}:${id} quotes the exit rate without per-position scope — "${msg}"`
+        ).toBe(true);
+      }
+    }
+  });
+});
+
 describe('F-CLO-B1/B2: strategy copy carries no return-promise, superlative, or suitability framing', () => {
   // The picker taglines + the "rate now" line sit on the advice-adjacent
   // surface (StrategyPicker). The EU Case-4 defence (ESMA35-43-3861) rests on
@@ -244,6 +279,61 @@ describe('F-CLO-B1/B2: strategy copy carries no return-promise, superlative, or 
   // is a variable-rate statement, not a "you are earning" claim; the tagline
   // guard above (taglines only) does not cover it. The broader GENIUS earn/yield-
   // near-stablecoin guard (B2-5) is pending CLO scoping of the full inventory.
+});
+
+describe('5.420 — a Practice reference cost is never described as charged or deducted', () => {
+  /**
+   * Brand + Legal + Strategy reconciliation. `5.409` removed the arithmetic; this
+   * removes the LANGUAGE. The surface may show a reference cost and must say, in
+   * the reader's own language, that it is not charged and does not reduce the
+   * Practice outcome — so the guard is catalogue-wide and locale-complete rather
+   * than one English assertion at one call site.
+   */
+  /* `5.421` adds the ENTRY-side qualifier. Same architecture deliberately: one
+     catalogue-wide, locale-complete guard over the keys that MUST carry the
+     non-deduction statement — not a second mechanism beside it. */
+  const QUALIFIED = [
+    'exitCeremony.referenceCostQualifier',
+    'goalPause.alsoStop',
+    'strategyDetail.referenceCostQualifier',
+  ];
+
+  it('should ship a non-deduction statement on both qualifying keys, in every locale', () => {
+    // Per-locale, because a guard that only reads English is how the de/es
+    // disclosure gap shipped twice before (`5.292`, `5.115`).
+    const NON_DEDUCTION: Record<string, RegExp> = {
+      en: /not charged or deducted/i,
+      'pt-BR': /não (são|é) cobrad[ao]s? nem descontad[ao]s?/i,
+      es: /no se cobra(n)? ni se descuenta(n)?/i,
+      de: /weder erhoben noch abgezogen/i,
+    };
+    for (const locale of SANDBOX_LOCALES) {
+      for (const key of QUALIFIED) {
+        const msg = getMessages(locale)[key];
+        expect(msg, `${locale}:${key}`).toBeTruthy();
+        expect(NON_DEDUCTION[locale].test(msg), `${locale}:${key} states no non-deduction`).toBe(
+          true
+        );
+      }
+    }
+  });
+
+  it('should no longer say the exit fee APPLIES in any locale', () => {
+    // The pre-`5.420` wording asserted the fee was levied ("applies" / "se
+    // aplica"). In Practice nothing is charged, so that claim may not return.
+    const APPLIES: Record<string, RegExp> = {
+      en: /fee applies/i,
+      'pt-BR': /se aplica/i,
+      es: /se aplica/i,
+      de: /f\u00e4llt an/i,
+    };
+    for (const locale of SANDBOX_LOCALES) {
+      const msg = getMessages(locale)['goalPause.alsoStop'];
+      expect(APPLIES[locale].test(msg), `${locale}: alsoStop still says the fee applies`).toBe(
+        false
+      );
+    }
+  });
 });
 
 describe('B2-5 — GENIUS-Act stablecoin/yield wall (sandbox side)', () => {

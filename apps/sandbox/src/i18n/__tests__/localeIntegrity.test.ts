@@ -110,6 +110,11 @@ const KNOWN_COLLISIONS: ReadonlyArray<{ locale: string; value: string; why: stri
     value: 'Valor inicial',
     why: "REGISTERED 5.271 — a replay's start value and a goal's starting deposit are different quantities.",
   },
+  {
+    locale: 'de',
+    value: 'Mindestbetrag {min} pro beendeter Position',
+    why: 'BENIGN, and English-side casing ONLY: `strategyDetail.minExit` is a standalone LABEL ("Minimum {min} per exited position") while `exitCeremony.minimumSub` is a sub-line FRAGMENT ("minimum {min} per exited position"). German capitalises the noun "Mindestbetrag" in both positions, so ONE German string is linguistically correct for both contexts and nothing is lost. Both values are separately ratified copy — the exit path by 5.420, the entry path by 5.421 — and neither may be reworded to break a tie that exists only in English.',
+  },
 ];
 
 describe('locale collisions can only fall', () => {

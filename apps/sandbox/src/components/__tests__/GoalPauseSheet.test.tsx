@@ -41,7 +41,13 @@ describe('GoalPauseSheet (Phase B — W-17d naming duality)', () => {
     // ("disclosed next to the rate wherever the rate appears"). Asserting the
     // rate alone is what let the stale wording sit here unnoticed.
     expect(screen.getByText(/0\.39\s*%/)).toBeTruthy();
-    expect(screen.getByText(/at least \$0\.25/)).toBeTruthy();
+    // `5.420` — the ratified wording states the floor as a MINIMUM PER EXITED
+    // POSITION. The requirement being protected is unchanged and is NOT weakened:
+    // FE-1 says the floor travels with the rate wherever the rate appears, so the
+    // assertion still demands a floor, in the words the product now ships.
+    expect(screen.getByText(/minimum of \$0\.25 per exited position/)).toBeTruthy();
+    // And it must no longer claim the fee is levied in Practice (`5.420`).
+    expect(screen.getByText(/not charged or deducted in Practice/)).toBeTruthy();
   });
 
   it('should fire onConfirm on Pause and onDismiss on Keep going', () => {

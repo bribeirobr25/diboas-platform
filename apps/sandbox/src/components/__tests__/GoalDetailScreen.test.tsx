@@ -18,6 +18,7 @@ import {
   resetSandbox,
 } from '@/lib/ledgerClient';
 import { GoalDetailScreen } from '../GoalDetailScreen';
+import { getMessages } from '@/i18n/loadMessages';
 
 /**
  * The market must be PRESENT for these tests: an exit cannot be priced without
@@ -51,76 +52,9 @@ const MARKET_OK = {
 } as unknown;
 h.market = MARKET_OK;
 
-const M = {
-  'common.back': 'Back',
-  'goalDetail.backToGoal': 'Back to your goals',
-  'goalDetail.progress': '{current} of {target}',
-  'goalDetail.percentWay': 'of the way there',
-  'goalDetail.cashInGoal': 'In the goal, not yet working: {amount}',
-  'goalDetail.contributions': 'You moved in: {amount}',
-  'goalDetail.noPositionTitle': 'Holding as cash',
-  'goalDetail.noPosition': "This goal's money is sitting as cash.",
-  'goalDetail.putToWork': 'Put it to work',
-  // Asserted on below, so it must be the shipped string, not a paraphrase
-  // (5.114): the milestone deliberately says "in practice", which is the R-4
-  // honesty framing — a stub reading "Target reached" asserted the opposite
-  // of what the screen must say.
-  'goalDetail.milestoneTitle': 'You reached this goal, in practice.',
-  'goalDetail.milestoneBody': 'Your call what happens next.',
-  'goalDetail.investedLine': '{strategy}: {amount}',
-  'goalDetail.earningsTitle': 'Earnings',
-  'goalDetail.earningsLine': '{amount} so far',
-  'goalDetail.exitCta': 'Stop this strategy',
-  'goalDual.simple': 'Simple',
-  'goalDual.detailed': 'Detailed',
-  'goalDual.onTrackLabel': 'Am I on track to get there?',
-  'goalDual.howLabel': "What your money's doing",
-  'goalDual.nextLabel': 'What you can do next',
-  'goalDual.add': 'Add money',
-  'goalDual.paused': 'Plan paused',
-  'goalDual.moneyStillWorking': 'Invested money still working',
-  'goalDual.contributions': 'Your contributions',
-  'goalDual.marketChange': 'Market change',
-  'goalsList.viewToggle': 'How much detail to show',
-  'goalsList.status.accomplished': 'Accomplished',
-  'goalNew.fundLabel': 'Amount',
-  'goalNew.fundAvailable': '{amount} available',
-  'goalNew.riskStable': 'Stable',
-  'goalNew.growthExposure': '{percent}% growth',
-  'goalDetail.exitPricingUnavailable':
-    "Costs can't be priced right now, so stopping is unavailable. Your money keeps working.",
-  'goalDual.pausePlan': 'Pause plan',
-  'goalPause.title': 'Pause this plan?',
-  'goalPause.body': 'Pausing stops your weekly plan.',
-  'goalPause.statePlan': 'Plan paused',
-  'goalPause.stateMoney': 'Invested money still working',
-  'goalPause.alsoStop': 'Want out of the strategy too?',
-  'goalPause.pause': 'Confirm pause',
-  'goalPause.keepGoing': 'Keep going',
-  'goalPause.stopCta': 'Also stop the strategy',
-  'exitCeremony.title': 'Review before you stop',
-  'exitCeremony.subtitlePosition': 'What comes back, and what it costs.',
-  'exitCeremony.subtitleGoal': 'This stops every strategy in this goal.',
-  'exitCeremony.onePosition': '1 strategy working',
-  'exitCeremony.positionsCount': '{count} strategies working',
-  'exitCeremony.gross': 'Coming back before costs',
-  'exitCeremony.feesLabel': 'Fees and costs',
-  'exitCeremony.diboasFee': 'diBoaS fee ({rate})',
-  'exitCeremony.minimumSub': 'at least {min} per strategy',
-  'exitCeremony.networkCost': 'Network cost',
-  'exitCeremony.estimated': 'Estimated',
-  'exitCeremony.lineBreakdown': '{gross} less {fee} fee and {network} network',
-  'exitCeremony.net': 'What actually comes back',
-  'exitCeremony.whereItLands': 'Where it lands',
-  'exitCeremony.landsBody': '{amount} lands in {goal} as cash.',
-  'exitCeremony.stopPosition': 'Stop this strategy',
-  'exitCeremony.stopGoal': 'Stop this goal',
-  'exitCeremony.cancel': 'Keep it working',
-};
-
 function renderDetail(goalId: string) {
   return render(
-    <IntlProvider locale="en" messages={M} onError={() => {}}>
+    <IntlProvider locale="en" messages={getMessages('en')}>
       <GoalDetailScreen locale="en" goalId={goalId} />
     </IntlProvider>
   );
@@ -181,7 +115,7 @@ describe('GoalDetailScreen — the dual-view host (§4.2, mockup 14)', () => {
     });
     renderDetail(goalId);
     fireEvent.click(screen.getByText('Add money'));
-    expect(screen.getByLabelText('Amount')).toBeTruthy(); // the invest field is live
+    expect(screen.getByLabelText('Move this much working money into the goal now')).toBeTruthy(); // the invest field is live
   });
 
   it('should show the target-reached status line when current ≥ target', () => {
@@ -234,7 +168,7 @@ describe('GoalDetailScreen — exit scope (§4.7 G7, board §3.3)', () => {
     expect(screen.getByText('2 strategies working')).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Stop this goal' })).toBeTruthy();
     // Two floors, itemized (the arithmetic that a summed-gross fee would hide).
-    expect(screen.getByText('−$0.50')).toBeTruthy();
+    expect(screen.getByText('$0.50')).toBeTruthy();
   });
 
   it("should stop only ONE position from that position's own Stop control", () => {
@@ -245,7 +179,7 @@ describe('GoalDetailScreen — exit scope (§4.7 G7, board §3.3)', () => {
         .getAllByRole('button', { name: 'Detailed' })
         .find((b) => b.hasAttribute('aria-pressed'))!
     );
-    fireEvent.click(screen.getAllByRole('button', { name: 'Stop this strategy' })[0]);
+    fireEvent.click(screen.getAllByRole('button', { name: 'Take the money out' })[0]);
     expect(screen.getByText('1 strategy working')).toBeTruthy();
   });
 
@@ -287,7 +221,7 @@ describe('GoalDetailScreen — an exit that cannot be priced is never offered (R
           .getAllByRole('button', { name: 'Detailed' })
           .find((b) => b.hasAttribute('aria-pressed'))!
       );
-      const stop = screen.getByRole('button', { name: 'Stop this strategy' }) as HTMLButtonElement;
+      const stop = screen.getByRole('button', { name: 'Take the money out' }) as HTMLButtonElement;
       expect(stop.disabled).toBe(true);
       expect(screen.getByText(/Costs can't be priced right now/)).toBeTruthy();
       // And it cannot be forced open.
@@ -325,7 +259,7 @@ describe('GoalDetailScreen — an exit that cannot be priced is never offered (R
           .getAllByRole('button', { name: 'Detailed' })
           .find((b) => b.hasAttribute('aria-pressed'))!
       );
-      const stop = screen.getByRole('button', { name: 'Stop this strategy' }) as HTMLButtonElement;
+      const stop = screen.getByRole('button', { name: 'Take the money out' }) as HTMLButtonElement;
       expect(stop.disabled).toBe(true);
       expect(screen.getByText(/Costs can't be priced right now/)).toBeTruthy();
       fireEvent.click(stop);
@@ -478,7 +412,7 @@ describe('5.406 — the exit refuses a multi-network Candidate, and only that cl
     try {
       openPositionIn('fullThrottle');
       const stop = screen.getByRole('button', {
-        name: 'Stop this strategy',
+        name: 'Take the money out',
       }) as HTMLButtonElement;
       expect(stop.disabled).toBe(true);
       // The approved treatment, adjacent to the blocked control.
@@ -498,7 +432,7 @@ describe('5.406 — the exit refuses a multi-network Candidate, and only that cl
     try {
       openPositionIn('safeHarbor');
       const stop = screen.getByRole('button', {
-        name: 'Stop this strategy',
+        name: 'Take the money out',
       }) as HTMLButtonElement;
       expect(stop.disabled).toBe(false);
       expect(screen.queryByText(/Costs can't be priced right now/)).toBeNull();

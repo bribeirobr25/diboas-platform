@@ -76,6 +76,66 @@ const isHiddenControl = (p) =>
   p.endsWith(`/${HIDDEN_CONTROL_DIR}`) ||
   p.includes(HIDDEN_CONTROL_DIR) ||
   HIDDEN_CONTROL_FILE.test(p);
+
+/**
+ * DATED RECORD vs LIVING DOCUMENT — the document-context rule (`5.419`).
+ *
+ * A record is a document in a RECOGNISED RECORD LOCATION whose filename carries
+ * a full ISO date. Its figures are evidence of a past measurement and are never
+ * live claims. **BOTH halves are required**, and the reason is a measured one.
+ *
+ * ⚑ THE FIRST IMPLEMENTATION USED THE DATE ALONE, AND THAT WAS TOO BROAD.
+ * `HISTORICAL MEASUREMENT != CURRENT CLAIM` is the requirement, but so is
+ * `DATED DOCUMENT != AUTOMATICALLY HISTORICAL`. With the date alone, a dated
+ * file anywhere in the walked corpus could publish a competing LIVE total and be
+ * silently excluded — including under `docs/tech`, the tracked current-authority
+ * reference. Proven by CASE F, which planted a dated document in `docs/tech`
+ * publishing a different workspace count: the row stayed GREEN at 0 claims
+ * added. That is the failure this gate exists to prevent, so the location is
+ * part of the predicate, not commentary.
+ *
+ * MEASURED CONVENTION (2026-09-21) — a filename heuristic with no convention
+ * proof is exactly the class of guess this runner exists to catch:
+ *
+ *   docs/audit    92 files — 87 dated   (the record location)
+ *   docs/tech     30 files —  0 dated   (the current authority reference)
+ *   ROOT           3 files —  0 dated   (CLAUDE.md, README.md, SECURITY.md)
+ *   tracked  md   34 files —  0 dated   (git archive HEAD)
+ *   elsewhere    226 files — 11 dated   (none carrying a governed count)
+ *
+ * WHY THE NAME CANNOT CARRY THIS ALONE. Date-at-end-of-basename is 99 % inside
+ * `docs/audit` (86 of 87) and 100 % outside it (11 of 11) — the two groups share
+ * the shape, so no naming convention can separate a record from a living
+ * document. Only the location distinguishes them.
+ *
+ * WHY AN ALLOW-LIST, NOT AN EXCLUSION LIST. Listing record locations FAILS SAFE:
+ * a dated document in an unrecognised location has its counts read as live
+ * claims, so the gate fails LOUDLY and a human decides. Excluding `docs/tech`
+ * and ROOT instead would fail OPEN for every location added later — the same
+ * defect in a new costume (`guard-filters-are-part-of-the-threat-model`).
+ *
+ * WHY NOT A BLANKET DIRECTORY RULE. `5.419` floated treating everything under
+ * `docs/audit/` as historical. The date is still required: a count planted in an
+ * UNDATED `docs/audit` fixture must keep FAILING, and it does (the gate's own
+ * spec asserts it). Location alone would be a hole; date alone was too broad.
+ *
+ * REGRESSION-FREE, MEASURED: adding the location requirement changed the class
+ * of **0** of 60 occurrences in the corpus — `marker 43 · quoted 14 · dated 1 ·
+ * claim 2`, identical before and after, still one claim key.
+ *
+ * STATED SCOPE LIMITS — the date must be in the FILENAME, so `USABILITY_REPORT.md`
+ * (dated only in its body, `Report date: 2026-06-23`) is NOT recognised; it
+ * carries no count today. A month-only stamp is deliberately not a date:
+ * `SECURITY_FINDINGS_2026-05.md` is a living ledger and keeps being judged as
+ * one. And a genuine dated record OUTSIDE `docs/audit/` is not recognised either
+ * — it must use the sentence marker (the 43-instance convention) or earn an
+ * evidenced entry in `RECORD_LOCATIONS`, never a silent widening.
+ */
+const DATED_RECORD = /\d{4}-\d{2}-\d{2}/;
+/* Allow-list, deliberately minimal: only what the corpus proves. */
+const RECORD_LOCATIONS = ['docs/audit/'];
+const isDatedRecord = (p) =>
+  RECORD_LOCATIONS.some((dir) => p.startsWith(dir)) && DATED_RECORD.test(p.split('/').pop());
 const CANON_INDEX = `${CANON}/extracted`;
 /** Authorities cited by tracked docs. Absence is CITED · NOT REACHABLE, never "no authority". */
 const CITED_AUTHORITIES = [
@@ -291,11 +351,34 @@ function checkRegister() {
  *    else's sentence being discussed, and the old code let a backticked,
  *    non-historical count through as this repository's own claim.
  *
+ * 5. **The classifier had no notion of the DOCUMENT it was reading** (`5.419`).
+ * Every rule above decides from ONE LINE, so a dated increment-gate record
+ * stating what it measured at the time was indistinguishable from `CLAUDE.md`
+ * publishing the live total. It passed only while the two happened to agree:
+ * adding one test in `5.409` moved the workspace total 2,866 → 2,867, and the
+ * row failed with 2 distinct current claims — the second a record whose figure
+ * was RIGHT for the increment it records. `isDatedRecord` supplies the missing
+ * context — a dated filename IN A RECOGNISED RECORD LOCATION; a date outside one
+ * is not context and is not excluded (CASE F) — and it is ordered LAST, after the
+ * ambiguity and marker tests, so the change is strictly ADDITIVE: it can only
+ * intercept an occurrence that would otherwise have become a live CLAIM, and can
+ * never turn a FAIL into a pass.
+ *
+ * It intercepted **0** occurrences of the PRE-EXISTING corpus, because every dated
+ * record carrying a count already carried a marker word. A rule that excludes
+ * nothing cannot be proven by the corpus, so it is proven by planted fixtures
+ * (cases A–E in `apps/sandbox/src/lib/__tests__/authGate.test.ts`). Its first
+ * real interception is this change's own increment record,
+ * `PRE_I2_5419_COUNT_DOCUMENT_CONTEXT_INCREMENT_GATE_2026-09-21.md`, which states
+ * the workspace total in plain prose and is excluded by document context alone.
+ * The bucket is PRINTED every run — at 0 when idle — rather than assumed.
+ *
  * What this filter DROPS, stated as `guard-filters-are-part-of-the-threat-model`
  * requires: counts inside quotes or backticks; counts in a sentence carrying a
- * historical marker. A sentence carrying a historical marker AND the word
- * "current" is neither dropped nor counted — it FAILS as ambiguous, because
- * ambiguity in a published figure is the defect.
+ * historical marker; counts in a DATED RECORD, meaning a dated filename under a
+ * recognised record location. A sentence carrying a historical
+ * marker AND the word "current" is neither dropped nor counted — it FAILS as
+ * ambiguous, because ambiguity in a published figure is the defect.
  */
 function checkCounts() {
   /* AUTH-1: canon is EXCLUDED. These are OUR published figures; an authority
@@ -341,12 +424,17 @@ function checkCounts() {
 
   const claims = new Map();
   const ambiguous = [];
-  let excluded = 0;
+  /* Counted SEPARATELY so the printed instrument names the rule that did the
+     work. One `excluded` total cannot distinguish a live document-context rule
+     from an inert one, and this rule is currently idle by design. */
+  let exQuoted = 0;
+  let exMarker = 0;
+  let exDated = 0;
   for (const d of docs) {
     for (const line of rd(d).split('\n')) {
       for (const m of line.matchAll(COUNT)) {
         if (insideQuotes(line, m.index)) {
-          excluded += 1;
+          exQuoted += 1;
           continue;
         }
         const scope = sentenceAt(line, m.index);
@@ -355,7 +443,14 @@ function checkCounts() {
           continue;
         }
         if (HISTORICAL.test(scope)) {
-          excluded += 1;
+          exMarker += 1;
+          continue;
+        }
+        /* `5.419` — DOCUMENT CONTEXT, deliberately LAST. Every sentence rule
+           above is untouched; this can only catch what would otherwise have
+           been published as a live claim. */
+        if (isDatedRecord(d)) {
+          exDated += 1;
           continue;
         }
         const key = `${m[1].replace(/,/g, '')}/${m[2]}`;
@@ -402,6 +497,12 @@ function checkCounts() {
         if (insideQuotes(line, m.index)) continue;
         const scope = sentenceAt(line, m.index);
         if (HISTORICAL.test(scope)) continue;
+        /* The SAME exclusions as the classifier, so a headline and its own
+           breakdown are never judged by two different rules. Measured
+           2026-09-21: governed breakdowns 2 before and 2 after — the one dated
+           document carrying a breakdown already had a marker-excluded
+           headline, so this costs no coverage. */
+        if (isDatedRecord(d)) continue;
         heads.push({ tests: num(m[1]), files: num(m[2]), at: m.index });
       }
       if (heads.length === 0) continue;
@@ -424,9 +525,12 @@ function checkCounts() {
     }
   }
 
+  const excluded = exQuoted + exMarker + exDated;
+  const livingDocs = new Set([...claims.values()].flatMap((s) => [...s]));
   const detail = [
-    `${docs.length} doc(s) walked; ${claims.size} distinct CURRENT claim(s); ` +
-      `${excluded} quoted-or-historical mention(s) excluded`,
+    `${docs.length} doc(s) walked; ${claims.size} distinct CURRENT claim(s) ` +
+      `from ${livingDocs.size} living doc(s); ${excluded} mention(s) excluded ` +
+      `(${exDated} dated record \u00b7 ${exMarker} sentence marker \u00b7 ${exQuoted} quoted)`,
   ];
   for (const [k, where] of claims)
     detail.push(`  ${k} — ${[...where].map((w) => w.split('/').pop()).join(', ')}`);
@@ -436,8 +540,27 @@ function checkCounts() {
   detail.push(`  breakdowns verified: ${verified.length}`);
   for (const v of verified) detail.push(`    ${v}`);
   for (const mm of mismatches) detail.push(`  COMPONENTS DO NOT SUM — ${mm}`);
+  /**
+   * NON-VACUITY FLOOR (`5.419`), added WITH the rule that makes it necessary.
+   *
+   * The verdict was `claims.size <= 1`, which passes on ZERO — so a classifier
+   * that excluded everything would report green, and a document-context rule is
+   * exactly the change that could do that silently. At least one LIVING document
+   * must still publish a current count. The two that do, `CLAUDE.md` and
+   * `README.md`, are TRACKED: measured against `git archive HEAD`, 34 markdown
+   * files survive a fresh clone and both are among them, so the floor holds on
+   * CI and in a clean checkout rather than only on a maintainer's machine.
+   *
+   * Reaching 0 means the published figure became unverifiable — removed, or its
+   * phrasing drifted out of `COUNT`'s reach, which is the `5.323` class.
+   */
+  if (claims.size === 0)
+    detail.push(
+      '  NO LIVING DOCUMENT PUBLISHES A CURRENT COUNT — the figure is unverifiable, ' +
+        'not agreed. It was removed, or its phrasing drifted out of the COUNT pattern.'
+    );
   return {
-    ok: claims.size <= 1 && ambiguous.length === 0 && mismatches.length === 0,
+    ok: claims.size === 1 && ambiguous.length === 0 && mismatches.length === 0,
     detail: detail.join('\n      '),
   };
 }
