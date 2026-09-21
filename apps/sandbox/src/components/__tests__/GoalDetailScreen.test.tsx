@@ -1,4 +1,6 @@
 // @vitest-environment happy-dom
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -515,5 +517,36 @@ describe('5.309 · an over-age quote blocks the exit with the approved sentence'
   it('should keep the money working rather than forcing an unpriceable exit', () => {
     openSafeHarbor();
     expect(screen.getByText(/Your money keeps working/)).toBeTruthy();
+  });
+
+  it('should style the blocked stop control as disabled, not merely mark it so', () => {
+    /**
+     * ⛑ FOUND IN THE STAGE H VISUAL GATE, 2026-09-22. `.exit` carried no
+     * `:disabled` rule at all, so the blocked control rendered at full opacity
+     * with `cursor: pointer` and still lit up on hover — it looked available.
+     * Only the sentence beside it said otherwise, which fails "the disabled
+     * state must be visually understandable".
+     *
+     * ⚑ ASSERTED AGAINST THE STYLESHEET, NOT `getComputedStyle`. This harness
+     * loads no CSS — class names are hashed CSS-module identifiers and no rule
+     * is ever applied — so a computed-style assertion here resolves to jsdom
+     * defaults and would pass whether or not the rule exists. A first draft did
+     * exactly that and failed for the wrong reason. The rendered effect was
+     * verified in the browser during the visual gate; what this guard protects
+     * is that the RULE cannot be deleted again.
+     */
+    /* `import.meta.url` is an http URL under happy-dom, not a file URL, so the
+       path is resolved from the package root instead. */
+    const css = readFileSync(
+      join(process.cwd(), 'src/components/GoalDetailScreen.module.css'),
+      'utf8'
+    );
+    /* The disabled treatment exists, and matches the already-ratified sibling
+       control rather than inventing a second look for the same meaning. */
+    expect(css).toMatch(/\.exit:disabled\s*\{[^}]*opacity:\s*0\.5/);
+    expect(css).toMatch(/\.exit:disabled\s*\{[^}]*cursor:\s*default/);
+    /* And hover must not light up a control that cannot be pressed. */
+    expect(css).toContain('.exit:hover:not(:disabled)');
+    expect(css).not.toMatch(/\.exit:hover\s*\{/);
   });
 });

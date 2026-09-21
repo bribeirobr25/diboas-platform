@@ -191,9 +191,30 @@
   cursor: pointer;
 }
 
-.exit:hover {
+.exit:hover:not(:disabled) {
   border-color: var(--sb-mode-accent);
   color: var(--sb-text-accent-strong);
+}
+
+/**
+ * ⛑ STAGE H VISUAL GATE 2026-09-22. `.exit` had NO disabled rule, so a disabled
+ * stop control rendered at full opacity with `cursor: pointer` — and its hover
+ * rule still fired, highlighting it as though it were actionable. Only the
+ * adjacent sentence said otherwise.
+ *
+ * Pre-existing, but Stage H is what made it matter: before, `canPriceExit`
+ * went false only for a multi-network Candidate (`5.406`), a rare state. Under
+ * the current-facing age contract it is the DEFAULT state of every position
+ * until the fixture refreshes (`5.110`), so the weakness moved from an edge
+ * case to every goal card.
+ *
+ * The values are NOT a new design decision: they are `.primary:disabled`'s,
+ * already ratified in this same stylesheet, applied to its sibling control so
+ * the two blocked actions read the same way.
+ */
+.exit:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 .investBlock {
