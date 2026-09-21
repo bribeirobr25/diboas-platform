@@ -738,11 +738,23 @@ describe('5.431 · system review emits every authoritative front', () => {
 
   it('should keep a mechanical N/A distinct from a PASS', () => {
     const r = gate('system', '--fast');
-    /* A skipped row must not be summarised as green, and the exit code says so
-       (2 = INCOMPLETE). This is the row that made `5.431` findable at all. */
-    expect(r.out).toMatch(/INCOMPLETE — \d+ row\(s\) could not run/);
-    expect(r.out).toContain('A skipped row is not a pass');
-    expect(r.code, 'INCOMPLETE must not exit 0').toBe(2);
+    /**
+     * ⚑ The ASSERTION here is deliberately environment-independent, and an
+     * earlier version was not — it demanded `INCOMPLETE` and exit 2, which is
+     * only the LOCAL shape. On CI the ledger `docs/audit/PENDING_ALL.md` is
+     * local-only and absent, so the register row FAILS (by its own design,
+     * `5.382`) and the run exits 1 with a FAILED summary instead. CI caught it;
+     * the same class as `5.416`.
+     *
+     * What the row actually protects is the RULE, which holds in both: a run
+     * containing a skipped mechanical row is never summarised as green, and it
+     * never exits 0.
+     */
+    expect(r.out, 'precondition: at least one row must have skipped').toMatch(/… SKIP/);
+    expect(r.out, 'a skipped row must never be summarised as green').not.toContain(
+      'Mechanical rows green'
+    );
+    expect(r.code, 'a run with a skipped row must not exit 0').not.toBe(0);
   }, 120_000);
 
   it('should leave the increment gate on its own manual list, not the fronts', () => {
