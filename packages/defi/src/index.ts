@@ -24,3 +24,8 @@ export * from './fixtures';
 export { DefiLlamaApyProvider, POOL_MATCHERS, matchPool } from './providers/defillama';
 export { CoinGeckoPriceProvider, COINGECKO_IDS } from './providers/coingecko';
 export { FixtureGasProvider } from './providers/gas';
+export {
+  NETWORK_COST_NATIVE_UNIT,
+  networkCostEvidence,
+  networkCostEvidenceFor,
+} from './providers/normalize';
