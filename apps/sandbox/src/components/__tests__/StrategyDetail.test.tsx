@@ -16,74 +16,6 @@ import { getMessages } from '@/i18n/loadMessages';
  * G6 pre-commit read (§4.6). Absorbs the provenance-stamp assertions that
  * lived against PathCard before board §3.2 folded it in here.
  */
-const M = {
-  'goalsList.viewToggle': 'How much detail to show',
-  'strategyDetail.simple': 'Simple',
-  'strategyDetail.detailed': 'Detailed',
-  'strategyDetail.whatItIs': 'What it is',
-  'strategyDetail.howItsDoing': "How it's doing",
-  'strategyDetail.caveat': "It can dip some weeks. Returns aren't guaranteed.",
-  'strategyDetail.seeDetail': 'See the detail',
-  'strategyDetail.putToWork': 'Put money to work',
-  'strategyDetail.needAmount': 'Enter an amount above to put money to work.',
-  'strategyDetail.currentApy': 'Current APY',
-  'strategyDetail.varies': 'Varies',
-  'strategyDetail.riskFactors': 'Risk factors',
-  'strategyDetail.riskSmartContract': 'Smart contract risk',
-  'strategyDetail.riskMarketVolatility': 'Market volatility',
-  'strategyDetail.riskVariableApy': 'Variable returns',
-  'strategyDetail.whatHappensOnExit': 'What happens on exit',
-  'strategyDetail.exitFee': 'Exit fee',
-  'strategyDetail.minExit': 'at least {min}',
-  'strategyDetail.underlyingProtocols': 'Underlying protocols',
-  'strategyDetail.protocolsNote': 'Trusted protocols. Not guaranteed.',
-  'goalNew.apyNow': 'Current pool rate: {apy}%/yr (real, variable)',
-  'goalNew.apyNowMixed':
-    'Blended pool rate: {apy}%/yr (variable, includes documented reference values)',
-  'goalNew.apyNowFixture': 'Reference pool rate: {apy}%/yr (documented values, not live)',
-  'pathCard.pathTitle': 'Path',
-  'pathCard.pathLine': '{goal} to {strategy} on {chain}',
-  'pathCard.costTitle': 'Cost',
-  'pathCard.entryFee': 'Entering: free',
-  'pathCard.networkFee': 'Network fee: about {amount}',
-  'pathCard.exitFee': 'Leaving later: 0.39% (at least {min}, no cap)',
-  // ⚑ Added with Increment 2. Absent, these rendered as EMPTY TEXT via the
-  // swallowed onError — which is why the `5.347`/`5.348` sabotages initially
-  // passed: the reverts changed nothing the assertions could see. Copied from
-  // `i18n/messages/en.json`, not retyped.
-  'pathCard.networkFeeUnavailable': 'Network fee: amount unavailable',
-  'goalDetail.entryPricingUnavailable':
-    "The required cost information isn't available, so this move can't proceed; nothing moved.",
-  'pathCard.riskTitle': 'Risk',
-  'pathCard.riskStable': 'Stable strategies aim to hold their value.',
-  'pathCard.riskGrowth': '{percent}% moves with market prices.',
-  'pathCard.noPromise':
-    'No promises live here. The numbers are history and current rates, not the future.',
-  'common.dataLive': 'Live from {source}, fetched {date}',
-  'common.dataMixed':
-    'Partly live from {source}, fetched {date}. Reference values ({fixtureDate}) for: {protocols}.',
-  'common.dataFixture': 'Documented reference values ({date}), not live market data.',
-  // ⚑ Added 2026-09-14 with `5.316`. This harness is a HAND-ROLLED subset, so a
-  // new catalogue key is invisible here and `IntlProvider`'s swallowed onError
-  // renders it as nothing — which is exactly how the first run of the 5.316
-  // assertion failed while the app rendered correctly. Values copied from
-  // `i18n/messages/en.json`, not retyped.
-  'common.dataPartlyLive': 'Partly live from {source}, fetched {date}.',
-  'common.dataGasReference':
-    'The network fee (gas) used in this simulation is based on reference values, not a live network quote. Actual network fees may differ.',
-  'catalog.strategies.safeHarbor.name': 'Safe Harbor',
-  'catalog.strategies.safeHarbor.tagline': "A steady home for money you can't risk",
-  'catalog.protocols.skySsr': 'Sky SSR',
-  'catalog.protocols.aaveV3': 'Aave V3',
-  'catalog.protocols.compoundV3': 'Compound V3',
-  'apyChart.timeframeLabel': 'Chart timeframe',
-  'apyChart.tf.7': '7D',
-  'apyChart.tf.30': '30D',
-  'apyChart.tf.90': '90D',
-  'apyChart.tf.365': '1Y',
-  'apyChart.noData': 'Not enough history to draw a chart yet.',
-  'apyChart.description': 'Pool rate from {from} to {to}, ranging {low}% to {high}%.',
-};
 
 const safeHarbor = getStrategy('safeHarbor')!;
 
@@ -122,7 +54,7 @@ function renderDetail(
   onPutToWork?: () => void
 ) {
   return render(
-    <IntlProvider locale="en" messages={M} onError={() => {}}>
+    <IntlProvider locale="en" messages={getMessages('en')}>
       <StrategyDetail
         strategy={safeHarbor}
         goalName="Future cushion"
@@ -151,8 +83,8 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
     // PathCard's cost/risk itemization is a section here now — never a
     // pre-commit read without the itemized costs (board §3.2).
     expect(screen.getByText('Entering: free')).toBeTruthy();
-    expect(screen.getByText(/Network fee: about/)).toBeTruthy();
-    expect(screen.getByText(/Leaving later/)).toBeTruthy();
+    expect(screen.getByText(/Reference network cost: about/)).toBeTruthy();
+    expect(screen.getByText(/Reference diBoaS exit fee: 0\.39% or/)).toBeTruthy();
     expect(screen.getByText(/^No promises live here\./)).toBeTruthy();
   });
 
@@ -175,9 +107,10 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
   it('should take the exit terms from the fee CONSTANTS (no literal in the component)', () => {
     renderDetail();
     fireEvent.click(screen.getByText('Detailed'));
-    expect(screen.getByText('Exit fee')).toBeTruthy();
+    expect(screen.getByText('Reference diBoaS exit fee')).toBeTruthy();
     expect(screen.getByText(/0\.39%/)).toBeTruthy(); // formatted from FEE_RATES.exit
-    expect(screen.getByText(/at least \$0\.25/)).toBeTruthy(); // from EXIT_FEE_FLOOR
+    // FE-1: the floor travels with the rate, and it is PER EXITED POSITION.
+    expect(screen.getByText('Minimum $0.25 per exited position')).toBeTruthy();
   });
 
   it('should stamp provenance honestly in all three states', () => {
@@ -275,7 +208,7 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
     // No quote for safeHarbor's Arbitrum entry → no fee row, so the
     // reference-fee sentence must be absent rather than describing nothing.
     render(
-      <IntlProvider locale="en" messages={M} onError={() => {}}>
+      <IntlProvider locale="en" messages={getMessages('en')}>
         <StrategyDetail
           strategy={safeHarbor}
           goalName="Future cushion"
@@ -287,7 +220,7 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
         />
       </IntlProvider>
     );
-    expect(screen.queryByText(/Network fee: about/)).toBeNull();
+    expect(screen.queryByText(/Reference network cost: about/)).toBeNull();
     expect(screen.queryByText(/network fee \(gas\) used in this simulation/)).toBeNull();
     // and it still must not claim to be fully live
     expect(screen.queryByText(/^Live from DeFiLlama/)).toBeNull();
@@ -322,7 +255,7 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
       )
     ).toBeNull();
     // and the fee row shows the figure, not the unavailable label
-    expect(screen.getByText(/Network fee: about/)).toBeTruthy();
+    expect(screen.getByText(/Reference network cost: about/)).toBeTruthy();
     expect(screen.queryByText('Network fee: amount unavailable')).toBeNull();
   });
 });
@@ -387,7 +320,7 @@ describe('5.406 — the multi-network Candidate on the pre-commit surface', () =
     renderFor(fullThrottle);
     expect(screen.getByText('Network fee: amount unavailable')).toBeTruthy();
     // The row is REPLACED, not omitted, and never shows a figure.
-    expect(screen.queryByText(/passed through at cost/)).toBeNull();
+    expect(screen.queryByText(/Reference network cost/)).toBeNull();
     expect(screen.queryByText(/about \$0\.00/)).toBeNull();
     // §4: no per-leg summing — 0.03 + 0.001 must not appear anywhere.
     expect(screen.queryByText(/0\.031/)).toBeNull();
@@ -413,10 +346,107 @@ describe('5.406 — the multi-network Candidate on the pre-commit surface', () =
 
   it('should leave a single-network Candidate fully operable under the SAME gas (§7)', () => {
     renderFor(singleNetwork, () => {});
-    expect(screen.getByText(/passed through at cost/)).toBeTruthy();
+    expect(screen.getByText(/Reference network cost: about/)).toBeTruthy();
     expect(screen.queryByText('Network fee: amount unavailable')).toBeNull();
     expect(screen.getByText(/real protocols on/)).toBeTruthy();
     const cta = screen.getByRole('button', { name: 'Put money to work' }) as HTMLButtonElement;
     expect(cta.disabled).toBe(false);
+  });
+});
+
+describe('5.421 — the entry-side reference cost is qualified, never presented as a charge', () => {
+  /**
+   * Brand + Legal + Product/UIUX resolved. `5.420` closed this on the EXIT path;
+   * this is the ENTRY path — the G6 pre-commit read, which a user meets BEFORE
+   * committing. The settled boundary: a Practice reference cost may be shown as
+   * clearly qualified information, and may never be described or presented as a
+   * charge or deduction reducing the Practice outcome.
+   *
+   * ⚑ The `costLine` assertion below is a SINGLE-QUOTED LITERAL on purpose. It is
+   * the `5.418` render-coverage addition, and `testCopyDrift` only sees literals
+   * in `getByText`-family calls — a regex would leave the string as uncovered as
+   * it was, which is precisely what `5.418` records.
+   */
+  const QUALIFIER =
+    'For information only. These reference costs are not charged or deducted in Practice and do not reduce the Practice outcome.';
+
+  it('5.418 · should RENDER the ratified costLine in the Simple view (literal, drift-guarded)', () => {
+    renderDetail();
+    expect(
+      screen.getByText(
+        'Practice has no diBoaS entry fee. For reference, the diBoaS exit fee is 0.39% or $0.25 per exited position, whichever is greater. It is not charged or deducted in Practice.'
+      )
+    ).toBeTruthy();
+  });
+
+  it('should head the Simple group "Reference costs" and qualify it before the first row', () => {
+    renderDetail();
+    const heading = screen.getByText('Reference costs');
+    const qualifier = screen.getByText(QUALIFIER);
+    expect(heading).toBeTruthy();
+    expect(qualifier).toBeTruthy();
+    // Reading order: heading BEFORE qualifier BEFORE the first governed row.
+    const firstRow = screen.getByText('Entering: free');
+    expect(
+      heading.compareDocumentPosition(qualifier) & Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBeTruthy();
+    expect(
+      qualifier.compareDocumentPosition(firstRow) & Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBeTruthy();
+  });
+
+  it('should associate the qualifier with the group it governs (aria, reinforcing DOM order)', () => {
+    renderDetail();
+    const group = screen.getByText('Reference costs').closest('section');
+    expect(group).toBeTruthy();
+    expect(group?.getAttribute('aria-labelledby')).toBe('cost-group-title');
+    expect(group?.getAttribute('aria-describedby')).toBe('cost-group-qualifier');
+    // The qualifier is the element the association points at, and it is visible.
+    const described = group?.querySelector('#cost-group-qualifier');
+    expect(described?.textContent).toBe(QUALIFIER);
+    expect(described?.className).not.toMatch(/srOnly/);
+  });
+
+  it('should render the ratified exit and network rows as REFERENCE costs', () => {
+    renderDetail();
+    expect(
+      screen.getByText(
+        'Reference diBoaS exit fee: 0.39% or $0.25 per exited position, whichever is greater.'
+      )
+    ).toBeTruthy();
+    expect(screen.getByText('Reference network cost: about $0.03')).toBeTruthy();
+  });
+
+  it('should keep the Detailed view independently complete, with its own qualifier', () => {
+    renderDetail();
+    fireEvent.click(screen.getByText('Detailed'));
+    expect(screen.getByText('Reference diBoaS exit fee')).toBeTruthy();
+    expect(screen.getByText('Minimum $0.25 per exited position')).toBeTruthy();
+    expect(screen.getByText(/0\.39%/)).toBeTruthy();
+    /* TWO reference-cost groups render in Detailed — the exit-fee group and the
+       compact itemization — so the qualifier appears twice. One KEY, two governed
+       groups; neither may be left unqualified. */
+    expect(screen.getAllByText(QUALIFIER).length).toBe(2);
+  });
+
+  it('should associate the Detailed exit group with the same reusable qualifier', () => {
+    renderDetail();
+    fireEvent.click(screen.getByText('Detailed'));
+    const group = screen.getByText('Reference diBoaS exit fee').closest('section');
+    expect(group?.getAttribute('aria-labelledby')).toBe('exit-fee-label');
+    expect(group?.getAttribute('aria-describedby')).toBe('exit-fee-qualifier');
+    expect(group?.querySelector('#exit-fee-qualifier')?.textContent).toBe(QUALIFIER);
+  });
+
+  it('should no longer render ANY retired charge framing on this surface', () => {
+    renderDetail();
+    // The pre-5.421 constructions, in both views.
+    expect(screen.queryByText(/passed through at cost/)).toBeNull();
+    expect(screen.queryByText(/Leaving later/)).toBeNull();
+    expect(screen.queryByText(/A small 0\.39%/)).toBeNull();
+    expect(screen.queryByText(/no cap/)).toBeNull();
+    fireEvent.click(screen.getByText('Detailed'));
+    expect(screen.queryByText(/passed through at cost/)).toBeNull();
+    expect(screen.queryByText(/at least \$0\.25/)).toBeNull();
   });
 });

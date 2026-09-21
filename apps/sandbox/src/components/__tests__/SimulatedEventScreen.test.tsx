@@ -5,64 +5,20 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createGoal, getLedgerState, grantPlayMoney, resetSandbox } from '@/lib/ledgerClient';
 import { SIM_EVENT_DEFAULT_MULTIPLE } from '@/lib/growthConstants';
 import { SimulatedEventScreen } from '../SimulatedEventScreen';
+import { getMessages } from '@/i18n/loadMessages';
 
 /**
  * G11 simulated event (§4.11, mockups 25/26). The governing constraints are
  * D-s's: a LIFE event never a market one, clearly fictional, impact preview
  * before any choice, and the reserve path never judged.
  */
-const M = {
-  'simEvent.title': 'Simulated event',
-  'simEvent.subtitle': 'Something came up in your practice world.',
-  'simEvent.practiceScenario': 'PRACTICE SCENARIO',
-  'simEvent.headline': 'A surprise {amount} expense showed up today.',
-  'simEvent.nothingReal': 'Nothing real happened.',
-  'simEvent.purpose': 'A practice scenario. The decision is real; the money is not.',
-  'simEvent.howHandle': 'How would you like to handle it in your practice plan?',
-  'simEvent.option.coverFromAvailable': 'Cover from Available',
-  'simEvent.option.useReserve': 'Use {goal}',
-  'simEvent.option.split': 'Split it with {goal}',
-  'simEvent.optionNote.split': 'Some from your reserve, the rest from Available.',
-  'simEvent.splitLabel': 'How much comes from {goal}?',
-  'simEvent.splitRange': 'Anything from {min} to {max}.',
-  'simEvent.splitRest': 'The remaining {rest} comes from Available.',
-  'simEvent.splitHint': 'Enter an amount inside that range to choose this.',
-  'simEvent.manifest.fromReserve': 'From your reserve',
-  'simEvent.manifest.fromAvailable': 'From Available',
-  'simEvent.optionNote.coverFromAvailable': 'Money that is ready to spend.',
-  'simEvent.optionNote.useReserve': 'Money you set aside for exactly this.',
-  'simEvent.previewImpact': 'See what each one does',
-  'simEvent.previewTitle': 'What each choice does',
-  'simEvent.previewSubtitle': 'The same money, depending on what you pick.',
-  'simEvent.projection': 'Projection',
-  'simEvent.available': 'Available',
-  'simEvent.reserveDidItsJob': 'The reserve did its job.',
-  'simEvent.choose': 'Choose this',
-  'simEvent.chooseLabel': 'Choose {option}',
-  'simEvent.projectionsNote': 'These are projections to help you decide.',
-  'simEvent.back': 'Back to the options',
-  'simEvent.waitingTitle': 'This one waits for now',
-  'simEvent.waitingBody': 'Practice money never goes below zero.',
-  'simEvent.noneTitle': 'Nothing to handle',
-  'simEvent.noneBody': 'No practice scenario is waiting for you right now.',
-  'notFound.backHome': 'Back to home',
-  'simEvent.name': 'An unexpected expense',
-  'simEvent.confirmTitle': 'Confirm how you handle it',
-  'simEvent.manifest.event': 'Practice scenario',
-  'simEvent.manifest.amount': 'Amount',
-  'simEvent.manifest.from': 'Comes from',
-  'simEvent.manifest.cta': 'Confirm',
-  'simEvent.manifest.reassurance': 'Play money only. The decision is real; the money is not.',
-  'manifest.footer': 'You can cancel.',
-  'manifest.cancel': 'Cancel',
-};
 
 const push = vi.fn();
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push }) }));
 
 const renderScreen = () =>
   render(
-    <IntlProvider locale="en" messages={M} onError={() => {}}>
+    <IntlProvider locale="en" messages={getMessages('en')}>
       <SimulatedEventScreen locale="en" />
     </IntlProvider>
   );

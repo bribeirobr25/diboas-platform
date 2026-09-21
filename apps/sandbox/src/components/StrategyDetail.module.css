@@ -263,6 +263,37 @@
   font-size: var(--font-size-sm);
   color: var(--sb-text-muted);
 }
+/**
+ * `5.421` · the reference-cost qualifier and its groups.
+ *
+ * §6 requirements are structural, not cosmetic: the qualifier must WRAP freely
+ * at 375 px in every locale (DE compounds and the ES "greater-of" phrase are the
+ * long cases), so there is deliberately NO `white-space`, NO `text-overflow`,
+ * NO `line-clamp` and NO fixed height here — and the font size is the existing
+ * small step, never reduced to force a fit. Both groups stack in one column, so
+ * the qualifier is never composed side-by-side with a value.
+ */
+.costGroup,
+.exitGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.qualifier {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  color: var(--sb-text-muted);
+}
+
+.exitLabel {
+  margin: 0;
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-medium);
+  color: var(--sb-text-secondary);
+}
+
 .costList {
   margin: 0;
   padding-left: var(--spacing-md);

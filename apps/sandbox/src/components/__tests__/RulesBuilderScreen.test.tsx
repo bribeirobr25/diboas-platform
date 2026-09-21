@@ -10,6 +10,7 @@ import {
   resetSandbox,
 } from '@/lib/ledgerClient';
 import { RulesBuilderScreen } from '../RulesBuilderScreen';
+import { getMessages } from '@/i18n/loadMessages';
 
 const push = vi.fn();
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push }) }));
@@ -19,34 +20,10 @@ vi.mock('next/navigation', () => ({ useRouter: () => ({ push }) }));
  * decides where someone's money goes by default, so its whole job is to NOT
  * decide for them.
  */
-const M = {
-  'rules.title': 'Your system',
-  'rules.subtitle': 'Decide how each dollar moves toward your goals.',
-  'rules.sendTo': 'Send my money to',
-  'rules.destinationLabel': 'Destination {n}',
-  'rules.chooseDestination': 'Choose destination',
-  'rules.decrease': 'Decrease destination {n} share',
-  'rules.increase': 'Increase destination {n} share',
-  'rules.staysInAvailable': 'Stays in Available',
-  'rules.staysNote': 'This is the remainder after your rules.',
-  'rules.livePreview': 'Live preview',
-  'rules.previewBasis': 'Based on your real waiting credits',
-  'rules.waitingCredits': 'Your waiting credits',
-  'rules.willBeDistributed': 'Will be distributed',
-  'rules.previewNote': 'The preview updates as you adjust the percentages.',
-  'rules.noWaitingCredits':
-    'Nothing is waiting to be collected right now, so the preview shows zero.',
-  'rules.create': 'Create system',
-  'rules.update': 'Update system',
-  'rules.createHint': 'Choose at least one destination and give it a share above 0%.',
-  'rules.noGoalsTitle': 'No goals to send money to yet',
-  'rules.noGoalsBody': 'A system decides where incoming money goes.',
-  'rules.createGoal': 'Create a goal',
-};
 
 function renderBuilder() {
   return render(
-    <IntlProvider locale="en" messages={M} onError={() => {}}>
+    <IntlProvider locale="en" messages={getMessages('en')}>
       <RulesBuilderScreen locale="en" />
     </IntlProvider>
   );

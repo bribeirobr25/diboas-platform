@@ -12,18 +12,10 @@ import { HistoryScreen } from '../HistoryScreen';
  * The trail's job is to say what actually happened. This covers the one place
  * where two different events wore the same sentence.
  */
-const M = {
-  'history.title': 'History',
-  'history.reconciles': 'Every cent accounted for.',
-  'history.playMoney': 'Play money arrived: {amount}',
-  'history.timeAdvanced': 'Time machine: {days, plural, one {# day} other {# days}} forward',
-  'history.timeSettled':
-    'While you were away: {days, plural, one {# day} other {# days}} of real time passed',
-};
 
 const renderHistory = () =>
   render(
-    <IntlProvider locale="en" messages={M} onError={() => {}}>
+    <IntlProvider locale="en" messages={getMessages('en')}>
       <HistoryScreen />
     </IntlProvider>
   );

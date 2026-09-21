@@ -4,7 +4,13 @@ import { join, resolve, sep } from 'node:path';
 import { afterEach, beforeAll, describe, expect, it } from 'vitest';
 
 /**
- * AUTH-1 · Canon-First Authority Resolution — the gate's own regression net.
+ * `scripts/review-gate.mjs` — the gate runner's own regression net.
+ *
+ * Covers the AUTH-1 rows (Canon-First Authority Resolution) and, since
+ * `5.419`, the counts row's DOCUMENT-CONTEXT rule. The filename still says
+ * `authGate`, which is now narrower than the contents; renaming it to
+ * `reviewGate.test.ts` is a separate change and was deliberately NOT folded
+ * into `5.419`.
  *
  * ## Why this file exists
  *
@@ -424,4 +430,240 @@ describe('AUTH-1 · the gate is wired into the process, not just present', () =>
       expect(r.out, `${mode} must report INCOMPLETE under --fast`).toContain('INCOMPLETE');
     }
   }, 30_000);
+});
+/**
+ * `5.419` — THE COUNTS ROW MUST KNOW WHAT KIND OF DOCUMENT IT IS READING.
+ *
+ * ## The defect
+ *
+ * `checkCounts` decided CURRENT-vs-HISTORICAL from the SENTENCE around each
+ * figure and had no notion of the document, so a dated increment-gate record
+ * stating what it measured at the time was indistinguishable from `CLAUDE.md`
+ * publishing the live total. It passed only while the two happened to agree:
+ * adding one test in `5.409` moved the workspace total 2,866 -> 2,867 and the
+ * row failed with 2 distinct current claims, the second a record whose figure
+ * was RIGHT for the increment it records.
+ *
+ * ## Why these cases exist instead of a corpus measurement
+ *
+ * Measured 2026-09-21: the document-context rule intercepts **0** occurrences
+ * on the real corpus, because every dated record carrying a count already
+ * carries a marker word. A rule that excludes nothing cannot be proven by the
+ * corpus — it is indistinguishable from an inert one — so it is proven here by
+ * planted fixtures, and by the sabotage leg recorded with this change.
+ *
+ * ## Why every assertion is a DELTA, and why no figure is hardcoded
+ *
+ * Absolute totals encode today's register instead of the requirement (`5.114`).
+ * Worse, this change itself moves the published total, so a fixture carrying a
+ * literal `2,872` would rot immediately. Each case reads the CURRENT published
+ * key out of the row's own output and builds its fixture from that, then
+ * compares the buckets the row prints with and without the fixture.
+ *
+ * ## Why it lives in THIS file
+ *
+ * Test FILES run in parallel (no `fileParallelism` is configured), and the
+ * AUTH-1 cases above plant count fixtures into the real `docs/audit/` tree and
+ * invoke this same row. A separate spec file could observe the other file's
+ * `9,999 tests / 999 files` fixture mid-run, which would make the agreement
+ * case flaky and let the conflict case pass for the wrong reason. Tests within
+ * one file are sequential, so hosting them here removes the race rather than
+ * papering over it.
+ *
+ * ## Stated limit
+ *
+ * The non-vacuity floor added with this rule (at least one LIVING document must
+ * still publish a current count) is NOT covered here and cannot be: `plant()`
+ * can only ADD documents, and reaching zero claims requires neutralising the
+ * figure in tracked root files. It is sabotage-proven instead.
+ */
+
+interface Buckets {
+  claims: number;
+  living: number;
+  dated: number;
+  marker: number;
+  quoted: number;
+}
+
+/** The row's own instrument line, parsed. Never a hardcoded total. */
+function buckets(out: string): Buckets {
+  const m =
+    /(\d+) distinct CURRENT claim\(s\) from (\d+) living doc\(s\); \d+ mention\(s\) excluded \((\d+) dated record · (\d+) sentence marker · (\d+) quoted\)/.exec(
+      out
+    );
+  expect(m, `the counts row printed no instrument line:\n${out}`).not.toBeNull();
+  const [, claims, living, dated, marker, quoted] = m as RegExpExecArray;
+  return {
+    claims: Number(claims),
+    living: Number(living),
+    dated: Number(dated),
+    marker: Number(marker),
+    quoted: Number(quoted),
+  };
+}
+
+/** The figure the repository publishes RIGHT NOW, read from the gate. */
+function publishedKey(out: string): { tests: number; files: number } {
+  const m = /(\d+)\/(\d+) — /.exec(out);
+  expect(m, `no current claim was printed:\n${out}`).not.toBeNull();
+  const [, tests, files] = m as RegExpExecArray;
+  return { tests: Number(tests), files: Number(files) };
+}
+
+const withCommas = (n: number) => n.toLocaleString('en-US');
+
+describe('5.419 · counts — the classifier reads DOCUMENT CONTEXT, not only the sentence', () => {
+  it('A · should PASS when another LIVING document states the same published count', () => {
+    const base = gate('counts');
+    const before = buckets(base.out);
+    const { tests, files } = publishedKey(base.out);
+
+    plant(
+      'docs/audit/COUNTS_SPEC_LIVING_AGREES.md',
+      `# spec fixture\n\nThis lane publishes ${withCommas(tests)} tests / ${files} files workspace-wide.\n`
+    );
+    const r = gate('counts');
+    const after = buckets(r.out);
+
+    expect(r.code, 'agreement between living documents must not fail').toBe(0);
+    expect(after.claims, 'still ONE distinct figure').toBe(before.claims);
+    expect(after.living, 'and one more living document stating it').toBe(before.living + 1);
+    expect(r.out).toContain('COUNTS_SPEC_LIVING_AGREES.md');
+  }, 20_000);
+
+  it('B · should FAIL when two LIVING documents publish different counts', () => {
+    /* This fixture is UNDATED and sits in `docs/audit`, so it also proves the
+       new rule is not a blanket directory exclusion — the same property the
+       AUTH-1 corpus-boundary case above relies on. */
+    const base = gate('counts');
+    const before = buckets(base.out);
+    const { tests, files } = publishedKey(base.out);
+    const other = { tests: tests + 7, files: files + 1 };
+
+    plant(
+      'docs/audit/COUNTS_SPEC_LIVING_CONFLICTS.md',
+      `# spec fixture\n\nThis lane publishes ${withCommas(other.tests)} tests / ${other.files} files workspace-wide.\n`
+    );
+    const r = gate('counts');
+    const after = buckets(r.out);
+
+    expect(r.code, 'two different live totals is the defect this row exists for').toBe(1);
+    expect(after.claims, 'a second distinct figure must be visible').toBe(before.claims + 1);
+    expect(r.out).toContain(`${other.tests}/${other.files}`);
+  }, 20_000);
+
+  it('C · should EXCLUDE a DATED record carrying an older count, with no marker word', () => {
+    /**
+     * The `5.419` case itself, modelled on the real prose that exposed it. The
+     * `5.416` record published its figure as a table row and was unblocked by
+     * ADDING the word "historical":
+     *
+     *   | measured total | 2,866 tests / 238 files — historical measurement, … |
+     *
+     * This fixture is that row WITHOUT the marker — a correct record that
+     * cooperates with no prose convention. Only document context can classify
+     * it, which is why the dated bucket is asserted to move and the other two
+     * are asserted NOT to.
+     */
+    const base = gate('counts');
+    const before = buckets(base.out);
+    const { tests, files } = publishedKey(base.out);
+    const older = tests - 6;
+
+    plant(
+      'docs/audit/COUNTS_SPEC_RECORD_2026-09-18.md',
+      '# spec fixture · Increment Review Gate record\n\n' +
+        '| field | value |\n| --- | --- |\n' +
+        `| measured total | ${withCommas(older)} tests / ${files} files — unchanged as expected for a comment-only edit |\n`
+    );
+    const r = gate('counts');
+    const after = buckets(r.out);
+
+    expect(r.code, 'a dated record is not a competing live claim').toBe(0);
+    expect(after.dated, 'DOCUMENT CONTEXT did the work').toBe(before.dated + 1);
+    expect(after.marker, 'not the sentence marker rule').toBe(before.marker);
+    expect(after.quoted, 'not the quoting rule').toBe(before.quoted);
+    expect(after.claims).toBe(before.claims);
+    expect(r.out, 'the record figure must not be published as a claim').not.toContain(
+      `${older}/${files}`
+    );
+  }, 20_000);
+
+  it('D · should still exclude by SENTENCE MARKER in an undated document', () => {
+    // Undated, so only the pre-existing marker rule can exclude it.
+    const base = gate('counts');
+    const before = buckets(base.out);
+    const { tests, files } = publishedKey(base.out);
+    const older = tests - 11;
+
+    plant(
+      'docs/audit/COUNTS_SPEC_MARKER.md',
+      `# spec fixture\n\nThe suite was ${withCommas(older)} tests / ${files} files at an earlier baseline.\n`
+    );
+    const r = gate('counts');
+    const after = buckets(r.out);
+
+    expect(r.code).toBe(0);
+    expect(after.marker, 'the sentence marker rule is untouched').toBe(before.marker + 1);
+    expect(after.dated, 'document context must not claim this exclusion').toBe(before.dated);
+    expect(r.out).not.toContain(`${older}/${files}`);
+  }, 20_000);
+
+  it('E · should still exclude a BACKTICKED count in an undated document', () => {
+    const base = gate('counts');
+    const before = buckets(base.out);
+    const { tests, files } = publishedKey(base.out);
+    const older = tests - 13;
+
+    plant(
+      'docs/audit/COUNTS_SPEC_QUOTED.md',
+      `# spec fixture\n\nThe other lane published \`${withCommas(older)} tests / ${files} files\` last cycle.\n`
+    );
+    const r = gate('counts');
+    const after = buckets(r.out);
+
+    expect(r.code).toBe(0);
+    expect(after.quoted, 'the quoting rule is untouched').toBe(before.quoted + 1);
+    expect(after.dated, 'document context must not claim this exclusion').toBe(before.dated);
+    expect(r.out).not.toContain(`${older}/${files}`);
+  }, 20_000);
+
+  it('F · should FAIL on a DATED filename that is NOT a record and publishes a conflicting count', () => {
+    /**
+     * THE BOUNDARY CHALLENGE. The controlling requirement has two halves:
+     *
+     *   HISTORICAL MEASUREMENT  != CURRENT REPOSITORY CLAIM
+     *   DATED DOCUMENT          != AUTOMATICALLY HISTORICAL
+     *
+     * `docs/tech` is the tracked CURRENT-AUTHORITY reference — measured 0 of 30
+     * files dated. A dated document THERE is, by the repository's own
+     * convention, a living document that happens to carry a date, not an audit
+     * or increment-gate record. If an ISO date in the filename were sufficient
+     * on its own to exclude a figure, such a document could publish a competing
+     * LIVE total invisibly, which is precisely what the counts row exists to
+     * prevent.
+     *
+     * This case therefore establishes:
+     *   ISO DATE IN FILENAME != SUFFICIENT BY ITSELF TO EXCLUDE A CLAIM
+     */
+    const base = gate('counts');
+    const before = buckets(base.out);
+    const { tests, files } = publishedKey(base.out);
+    const other = { tests: tests + 23, files: files + 2 };
+
+    plant(
+      'docs/tech/COUNTS_SPEC_LIVING_AUTHORITY_2026-09-21.md',
+      `# spec fixture · living authority note\n\nThis workspace publishes ${withCommas(other.tests)} tests / ${other.files} files.\n`
+    );
+    const r = gate('counts');
+    const after = buckets(r.out);
+
+    expect(r.code, 'a conflicting CURRENT claim must stay visible despite a dated filename').toBe(
+      1
+    );
+    expect(after.claims, 'the competing figure must be counted as a claim').toBe(before.claims + 1);
+    expect(r.out).toContain(`${other.tests}/${other.files}`);
+    expect(after.dated, 'a living-authority document is not a dated RECORD').toBe(before.dated);
+  }, 20_000);
 });

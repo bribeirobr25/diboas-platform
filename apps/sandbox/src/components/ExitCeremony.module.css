@@ -78,14 +78,23 @@
   background: var(--sb-surface-focused);
   color: var(--sb-text-inverse);
 }
+/* `5.420` — the outcome pair is ONE block. No divider runs BETWEEN the
+   before-stopping amount and the outcome: a rule between two figures is itself a
+   subtotal cue. The divider belongs below the group, separating the outcome from
+   the reference costs. */
+.outcomeGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid color-mix(in srgb, var(--sb-text-inverse) 14%, transparent);
+}
 .grossRow {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-xs);
   justify-content: space-between;
   align-items: baseline;
-  padding-bottom: var(--spacing-sm);
-  border-bottom: 1px solid color-mix(in srgb, var(--sb-text-inverse) 14%, transparent);
 }
 .grossValue {
   font-size: var(--font-size-xl);
@@ -151,9 +160,20 @@
   gap: var(--spacing-xs);
   justify-content: space-between;
   align-items: baseline;
-  padding-top: var(--spacing-sm);
-  border-top: 1px solid color-mix(in srgb, var(--sb-text-inverse) 14%, transparent);
   font-weight: var(--font-weight-bold);
+}
+
+/* The reference-cost group, and the qualifier that governs it. */
+.refGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
+}
+.refQualifier {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--sb-text-inverse-muted);
 }
 .netValue {
   font-size: var(--font-size-xl);

@@ -87,81 +87,109 @@ export function ExitCeremony({
       {/* The ink card: the manifest gravity surface (the same visual weight the
           entry manifest uses — money moving always looks the same here). */}
       <div className={styles.card}>
-        <div className={styles.grossRow}>
-          <span>
-            <FormattedMessage id="exitCeremony.gross" />
-          </span>
-          <span className={styles.grossValue}>{money(preview.gross)}</span>
+        {/* `5.420` — THREE SEPARATE SEMANTIC GROUPS (Brand + Legal + Strategy
+            reconciliation): PRACTICE OUTCOME, then REFERENCE COSTS, then WHERE
+            IT LANDS. The structural invariant: no reference cost may sit BETWEEN
+            an opening and a closing amount, because that composition reads as
+            `amount - costs = outcome` even with no minus glyph — which is what
+            `5.409` left standing once the glyphs were gone. The outcome pair is
+            therefore ONE block with no divider running between its two figures
+            (a rule between two amounts is itself a subtotal cue), and the costs
+            follow it under a heading whose qualifier states, in the reader's own
+            language, that they are neither charged nor deducted. */}
+        <div className={styles.outcomeGroup}>
+          <div className={styles.grossRow}>
+            <span>
+              <FormattedMessage id="exitCeremony.gross" />
+            </span>
+            <span className={styles.grossValue}>{money(preview.gross)}</span>
+          </div>
+
+          <div className={styles.netRow}>
+            <span>
+              <FormattedMessage id="exitCeremony.net" />
+            </span>
+            <span className={styles.netValue}>{money(preview.net)}</span>
+          </div>
         </div>
 
-        <p className={styles.feesLabel}>
-          <FormattedMessage id="exitCeremony.feesLabel" />
-        </p>
+        {/* The qualifier GOVERNS this group: bound by `aria-describedby` and
+            placed directly under the heading, so it precedes the figures both
+            visually and in reading order. Never a tooltip, never a detached
+            footer (ruling §8). */}
+        <section
+          className={styles.refGroup}
+          aria-labelledby="exit-ref-title"
+          aria-describedby="exit-ref-note"
+        >
+          <p id="exit-ref-title" className={styles.feesLabel}>
+            <FormattedMessage id="exitCeremony.feesLabel" />
+          </p>
+          <p id="exit-ref-note" className={styles.refQualifier}>
+            <FormattedMessage id="exitCeremony.referenceCostQualifier" />
+          </p>
 
-        <div className={styles.feeRow}>
-          <span className={styles.feeName}>
-            <FormattedMessage
-              id="exitCeremony.diboasFee"
-              values={{
-                rate: intl.formatNumber(FEE_RATES.exit.toNumber(), {
-                  style: 'percent',
-                  maximumFractionDigits: 2,
-                }),
-              }}
-            />
-            <span className={styles.feeSub}>
+          <div className={styles.feeRow}>
+            <span className={styles.feeName}>
               <FormattedMessage
-                id="exitCeremony.minimumSub"
-                values={{ min: money(EXIT_FEE_FLOOR[currency].toNumber()) }}
+                id="exitCeremony.diboasFee"
+                values={{
+                  rate: intl.formatNumber(FEE_RATES.exit.toNumber(), {
+                    style: 'percent',
+                    maximumFractionDigits: 2,
+                  }),
+                }}
               />
+              {/* FE-1: the floor travels with the rate, per EXITED POSITION —
+                  never a bundle-level single minimum. */}
+              <span className={styles.feeSub}>
+                <FormattedMessage
+                  id="exitCeremony.minimumSub"
+                  values={{ min: money(EXIT_FEE_FLOOR[currency].toNumber()) }}
+                />
+              </span>
             </span>
-          </span>
-          <span className={styles.feeValue}>−{money(preview.exitFee)}</span>
-        </div>
+            <span className={styles.feeValue}>{money(preview.exitFee)}</span>
+          </div>
 
-        <div className={styles.feeRow}>
-          <span className={styles.feeName}>
-            <FormattedMessage id="exitCeremony.networkCost" />
-            {/* Gas is a fixture in the sandbox — the label says so rather than
-                implying a quoted on-chain price. */}
-            <span className={styles.feeSub}>
-              <FormattedMessage id="exitCeremony.estimated" />
+          <div className={styles.feeRow}>
+            <span className={styles.feeName}>
+              <FormattedMessage id="exitCeremony.networkCost" />
+              {/* Gas is a fixture in Practice, so this value IS estimated and the
+                  qualifier stays subordinate to the network row only. */}
+              <span className={styles.feeSub}>
+                <FormattedMessage id="exitCeremony.estimated" />
+              </span>
             </span>
-          </span>
-          <span className={styles.feeValue}>−{money(preview.networkFee)}</span>
-        </div>
+            <span className={styles.feeValue}>{money(preview.networkFee)}</span>
+          </div>
 
-        {/* Board §3.3: with more than one position the composition is shown,
-            because N floors and N network fees are real costs the summed rows
-            would hide. */}
-        {multi ? (
-          <ul className={styles.lines}>
-            {preview.lines.map((line) => (
-              <li key={line.positionId} className={styles.line}>
-                <span className={styles.lineName}>
-                  <FormattedMessage id={`catalog.strategies.${line.strategyId}.name`} />
-                </span>
-                <span className={styles.lineValue}>
-                  <FormattedMessage
-                    id="exitCeremony.lineBreakdown"
-                    values={{
-                      gross: money(line.gross),
-                      fee: money(line.exitFee),
-                      network: money(line.networkFee),
-                    }}
-                  />
-                </span>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-
-        <div className={styles.netRow}>
-          <span>
-            <FormattedMessage id="exitCeremony.net" />
-          </span>
-          <span className={styles.netValue}>{money(preview.net)}</span>
-        </div>
+          {/* Board §3.3: with more than one position the per-position reference
+              amounts stay inspectable, because N floors and N network costs are
+              information the summed rows would hide. `5.420`: the line is now a
+              STATEMENT, not a formula — no subtraction syntax. */}
+          {multi ? (
+            <ul className={styles.lines}>
+              {preview.lines.map((line) => (
+                <li key={line.positionId} className={styles.line}>
+                  <span className={styles.lineName}>
+                    <FormattedMessage id={`catalog.strategies.${line.strategyId}.name`} />
+                  </span>
+                  <span className={styles.lineValue}>
+                    <FormattedMessage
+                      id="exitCeremony.lineBreakdown"
+                      values={{
+                        gross: money(line.gross),
+                        fee: money(line.exitFee),
+                        network: money(line.networkFee),
+                      }}
+                    />
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
 
         <div className={styles.landsRow}>
           <span className={styles.landsIcon}>

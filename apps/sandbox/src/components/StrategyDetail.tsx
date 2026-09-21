@@ -206,34 +206,54 @@ export function StrategyDetail({
         ))}
       </ul>
 
-      <h2 className={styles.detailHead}>
-        <FormattedMessage id="pathCard.costTitle" />
-      </h2>
-      <ul className={styles.costList}>
-        <li>
-          <FormattedMessage id="pathCard.entryFee" />
-        </li>
-        {/* `5.348` (Execution Rulings §17). The row is no longer OMITTED when the
-            amount is unknown: the approved string replaces the figure, because
-            `amount unavailable != zero != waived != free network`. Omitting it
-            left the reader a shorter list with no note; `about $0.00` would have
-            understated the one cost this list exists to state (AUD-F05). */}
-        <li>
-          {fee !== null ? (
-            <FormattedMessage id="pathCard.networkFee" values={{ amount: money(fee) }} />
-          ) : (
-            <FormattedMessage id="pathCard.networkFeeUnavailable" />
-          )}
-        </li>
-        {variant === 'full' ? (
+      {/* `5.421` · THE REFERENCE-COST GROUP IS ONE SEMANTIC UNIT.
+          Product/UIUX requires the order heading -> qualifier -> governed rows,
+          with the qualifier INSIDE the group, immediately below the heading and
+          immediately above the first row. It is a visible <p> in normal DOM
+          reading order — never sr-only, never a tooltip, never a footer — and
+          the ARIA association only REINFORCES an order that already reads
+          correctly without it (§5: ARIA may not compensate for detached
+          content). The qualifier renders in BOTH variants, because the compact
+          itemization the Detailed view renders carries this same heading and a
+          governed network-cost row; leaving that instance unqualified would
+          reopen exactly the gap `5.421` closes. */}
+      <section
+        className={styles.costGroup}
+        aria-labelledby="cost-group-title"
+        aria-describedby="cost-group-qualifier"
+      >
+        <h2 id="cost-group-title" className={styles.detailHead}>
+          <FormattedMessage id="pathCard.costTitle" />
+        </h2>
+        <p id="cost-group-qualifier" className={styles.qualifier}>
+          <FormattedMessage id="strategyDetail.referenceCostQualifier" />
+        </p>
+        <ul className={styles.costList}>
           <li>
-            <FormattedMessage
-              id="pathCard.exitFee"
-              values={{ min: money(EXIT_FEE_FLOOR[currency].toNumber()) }}
-            />
+            <FormattedMessage id="pathCard.entryFee" />
           </li>
-        ) : null}
-      </ul>
+          {/* `5.348` (Execution Rulings §17). The row is no longer OMITTED when the
+              amount is unknown: the approved string replaces the figure, because
+              `amount unavailable != zero != waived != free network`. Omitting it
+              left the reader a shorter list with no note; `about $0.00` would have
+              understated the one cost this list exists to state (AUD-F05). */}
+          <li>
+            {fee !== null ? (
+              <FormattedMessage id="pathCard.networkFee" values={{ amount: money(fee) }} />
+            ) : (
+              <FormattedMessage id="pathCard.networkFeeUnavailable" />
+            )}
+          </li>
+          {variant === 'full' ? (
+            <li>
+              <FormattedMessage
+                id="pathCard.exitFee"
+                values={{ min: money(EXIT_FEE_FLOOR[currency].toNumber()) }}
+              />
+            </li>
+          ) : null}
+        </ul>
+      </section>
 
       {variant === 'full' ? (
         <>
@@ -382,25 +402,39 @@ export function StrategyDetail({
           <h2 className={styles.detailHead}>
             <FormattedMessage id="strategyDetail.whatHappensOnExit" />
           </h2>
-          <div className={styles.exitRow}>
-            <span>
+          {/* `5.421` · THE DETAILED VIEW IS INDEPENDENTLY COMPLETE. A reader can
+              land here via the toggle without ever seeing Simple, so this group
+              carries its OWN qualifier — the same reusable key, never a second
+              copy of the wording — in the order label -> qualifier -> rate ->
+              floor. The rate still comes from the fee CONSTANTS (R-3), and the
+              floor travels with it (FE-1). */}
+          <section
+            className={styles.exitGroup}
+            aria-labelledby="exit-fee-label"
+            aria-describedby="exit-fee-qualifier"
+          >
+            <h3 id="exit-fee-label" className={styles.exitLabel}>
               <FormattedMessage id="strategyDetail.exitFee" />
-            </span>
-            <span className={styles.exitVal}>
-              {/* From the fee CONSTANTS — never a literal in a component (R-3). */}
-              {intl.formatNumber(FEE_RATES.exit.toNumber(), {
-                style: 'percent',
-                maximumFractionDigits: 2,
-              })}
+            </h3>
+            <p id="exit-fee-qualifier" className={styles.qualifier}>
+              <FormattedMessage id="strategyDetail.referenceCostQualifier" />
+            </p>
+            <div className={styles.exitRow}>
+              <span className={styles.exitVal}>
+                {/* From the fee CONSTANTS — never a literal in a component (R-3). */}
+                {intl.formatNumber(FEE_RATES.exit.toNumber(), {
+                  style: 'percent',
+                  maximumFractionDigits: 2,
+                })}
+              </span>
               <span className={styles.exitMin}>
-                {' '}
                 <FormattedMessage
                   id="strategyDetail.minExit"
                   values={{ min: money(EXIT_FEE_FLOOR[currency].toNumber()) }}
                 />
               </span>
-            </span>
-          </div>
+            </div>
+          </section>
 
           {/* The real allocation, with weights — not the mockup's "Curve". */}
           <h2 className={styles.detailHead}>
