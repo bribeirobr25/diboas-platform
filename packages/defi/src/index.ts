@@ -19,6 +19,8 @@ export * from './evidenceStore';
 export * from './testing';
 export * from './provenance';
 export * from './freshness';
+export * from './freshnessPolicy';
+export * from './currentFacing';
 export * from './methodology';
 export * from './fixtures';
 export { DefiLlamaApyProvider, POOL_MATCHERS, matchPool } from './providers/defillama';

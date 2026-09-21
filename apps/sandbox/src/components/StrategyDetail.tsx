@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { EXIT_FEE_FLOOR, FEE_RATES } from '@diboas/banking';
 import { FIXTURE_AS_OF, isMultiNetworkCandidate, strategyProvenance } from '@diboas/defi';
@@ -77,7 +77,12 @@ export function StrategyDetail({
      must cover the gas source too (GAS-1) — a live-rate strategy with a
      fixture fee is `mixed`, not `live`. */
   const provenance = strategyProvenance(strategy, apys, gasStampFor(gas, strategy.entryChain));
-  const fee = networkFeeLocal(gas, strategy, usdPriceLocal);
+  /* ⛑ STAGE H · the CURRENT-FACING reference moment for the age contract
+     (`5.309`). Memoised per mount so a re-render cannot move a rendered cost
+     across a policy boundary mid-session; the same pattern the weekly-cycle and
+     month-report screens use for their own clocks. */
+  const nowIso = useMemo(() => new Date().toISOString(), []);
+  const fee = networkFeeLocal(gas, strategy, usdPriceLocal, nowIso);
 
   /* The chart's series — derived in `view/strategy.ts` (AUD-C02). The selector
      also REFUSES when a leg has no history, rather than blending the rest and

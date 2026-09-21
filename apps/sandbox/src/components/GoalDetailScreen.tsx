@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { getStrategy } from '@diboas/defi';
 import type { ProtocolApyHistory } from '@diboas/defi';
@@ -115,6 +115,16 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
     };
   }, [strategyId, histories.length]);
 
+  /**
+   * ⛑ STAGE H · the CURRENT-FACING reference moment for the age contract
+   * (`5.309`), memoised per mount so entry and exit judge the same instant.
+   *
+   * Declared HERE, above the `!goal` early return, because a hook after a
+   * conditional return is a rules-of-hooks violation — caught by lint, not by
+   * the tests, which never exercised both branches in one mount.
+   */
+  const nowIso = useMemo(() => new Date().toISOString(), []);
+
   if (!goal) {
     return (
       <section className={styles.wrap}>
@@ -135,7 +145,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
    * UNKNOWN, and every path that would price an entry now refuses.
    */
   const feeLocal =
-    strategy && market ? networkFeeLocal(market.gas, strategy, market.usdPriceLocal) : null;
+    strategy && market ? networkFeeLocal(market.gas, strategy, market.usdPriceLocal, nowIso) : null;
   /** FC-15 "no honest price, no operable control" — now for the ENTRY as well. */
   const canPriceEntry = feeLocal !== null;
   // VIEW-2: the affordability guard gates a real money movement, so it is
@@ -177,7 +187,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
      * be stopped until F/G land. The alternative is committing a fee wrong by up
      * to 70% of allocation into the event log.
      */
-    return networkFeeLocal(market.gas, posStrategy, market.usdPriceLocal);
+    return networkFeeLocal(market.gas, posStrategy, market.usdPriceLocal, nowIso);
   }
 
   /**

@@ -16,6 +16,16 @@ const SOLANA_QUOTE: GasQuote = {
 };
 
 /**
+ * ⛑ STAGE H (`5.309`, 2026-09-22). `networkFeeLocal` / `networkFeeEvidence` now
+ * take an explicit CURRENT-FACING moment and refuse evidence outside the
+ * acceptable vintage. These fixtures carry `FIXTURE_STAMP` (2026-07-18), so the
+ * reference moment here sits two days after it: every assertion below keeps
+ * testing exactly what it tested before — the age contract is exercised in its
+ * own tests, not smuggled into these.
+ */
+const NOW = '2026-07-20T00:00:00.000Z';
+
+/**
  * `5.406` · `networkFeeLocal` now takes the STRATEGY, because the multi-network
  * refusal is a property of the Candidate and not of a chain string. These two
  * are the real catalogue entries, resolved through `getStrategy` rather than
@@ -27,8 +37,8 @@ const MULTI = getStrategy('stableGrowth')!; // skySsr 70% Arbitrum + sanctumInf 
 
 describe('networkFeeLocal — MISSING is not zero (handoff §8.7, AUD-F05)', () => {
   it('should convert a present quote into the ledger currency', () => {
-    expect(networkFeeLocal([ARBITRUM], SINGLE, 1)).toBeCloseTo(0.03, 10);
-    expect(networkFeeLocal([ARBITRUM], SINGLE, 5.4)).toBeCloseTo(0.162, 10);
+    expect(networkFeeLocal([ARBITRUM], SINGLE, 1, NOW)).toBeCloseTo(0.03, 10);
+    expect(networkFeeLocal([ARBITRUM], SINGLE, 5.4, NOW)).toBeCloseTo(0.162, 10);
   });
 
   /**
@@ -39,17 +49,17 @@ describe('networkFeeLocal — MISSING is not zero (handoff §8.7, AUD-F05)', () 
    */
   it('should report an UNKNOWN fee as null, never as a free transaction', () => {
     // The entry chain (Arbitrum) has no quote in this list.
-    const fee = networkFeeLocal([SOLANA_QUOTE], SINGLE, 1);
+    const fee = networkFeeLocal([SOLANA_QUOTE], SINGLE, 1, NOW);
     expect(fee).toBeNull();
     expect(fee).not.toBe(0);
   });
 
   it('should report an unknown FX conversion as null, not as 1:1 parity', () => {
-    expect(networkFeeLocal([ARBITRUM], SINGLE, null)).toBeNull();
+    expect(networkFeeLocal([ARBITRUM], SINGLE, null, NOW)).toBeNull();
   });
 
   it('should report null when it has neither input', () => {
-    expect(networkFeeLocal([], SINGLE, null)).toBeNull();
+    expect(networkFeeLocal([], SINGLE, null, NOW)).toBeNull();
   });
 });
 
@@ -76,10 +86,10 @@ describe('networkFeeLocal — MISSING is not zero (handoff §8.7, AUD-F05)', () 
 describe('X1 — the two entry-fee derivations agree, so the refusal reason is never wrong', () => {
   /** GoalDetailScreen:139 + :142, as written. */
   const canPriceEntry = (gas: GasQuote[], fx: number | null) =>
-    networkFeeLocal(gas, SINGLE, fx) !== null;
+    networkFeeLocal(gas, SINGLE, fx, NOW) !== null;
   /** StrategyDetail:80 + the 5.347 branch, as written. */
   const showsRefusalReason = (gas: GasQuote[], fx: number | null) =>
-    networkFeeLocal(gas, SINGLE, fx) === null;
+    networkFeeLocal(gas, SINGLE, fx, NOW) === null;
 
   /* Typed explicitly rather than with `as const`: that made the fixtures
      `readonly [GasQuote] | readonly []`, and the readonly->mutable cast it then
@@ -151,7 +161,7 @@ describe('5.406 — a multi-network Candidate has no whole-Candidate network cos
        0.001 x FX — "about $0.00" — for a composition that is 70% Arbitrum,
        where that leg's own quote is 0.03. A present quote is exactly the case
        that used to LOOK fine. */
-    const fee = networkFeeLocal([SOLANA_QUOTE, ARBITRUM], MULTI, 1);
+    const fee = networkFeeLocal([SOLANA_QUOTE, ARBITRUM], MULTI, 1, NOW);
     expect(fee).toBeNull();
     expect(fee).not.toBe(0);
     // And not the per-leg sum either (§4 forbids summing): 0.031 must not appear.
@@ -159,7 +169,7 @@ describe('5.406 — a multi-network Candidate has no whole-Candidate network cos
   });
 
   it('should keep pricing a genuinely single-network Candidate (§7 regression boundary)', () => {
-    expect(networkFeeLocal([SOLANA_QUOTE, ARBITRUM], SINGLE, 1)).toBeCloseTo(0.03, 10);
+    expect(networkFeeLocal([SOLANA_QUOTE, ARBITRUM], SINGLE, 1, NOW)).toBeCloseTo(0.03, 10);
   });
 
   it('should refuse for every multi-network strategy and price every single-network one', () => {
@@ -182,10 +192,10 @@ describe('5.406 — a multi-network Candidate has no whole-Candidate network cos
       'fullHarvest',
     ];
     for (const id of multi) {
-      expect(networkFeeLocal(gas, getStrategy(id)!, 1), id).toBeNull();
+      expect(networkFeeLocal(gas, getStrategy(id)!, 1, NOW), id).toBeNull();
     }
     for (const id of single) {
-      expect(networkFeeLocal(gas, getStrategy(id)!, 1), id).not.toBeNull();
+      expect(networkFeeLocal(gas, getStrategy(id)!, 1, NOW), id).not.toBeNull();
     }
   });
 });

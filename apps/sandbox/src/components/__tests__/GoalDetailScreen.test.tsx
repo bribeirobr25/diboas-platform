@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   fixtureDateSeries,
   fixturePriceSeries,
@@ -19,6 +19,30 @@ import {
 } from '@/lib/ledgerClient';
 import { GoalDetailScreen } from '../GoalDetailScreen';
 import { getMessages } from '@/i18n/loadMessages';
+
+/**
+ * ⛑ STAGE H (`5.309`, resolved 2026-09-22) · THE CLOCK IS NOW LOAD-BEARING.
+ *
+ * The gas quotes this harness supplies carry `FIXTURE_STAMP` (2026-07-18), and
+ * the surface now refuses evidence outside the acceptable current-facing
+ * vintage. Every test below is about exit scope, CTA honesty, provenance or
+ * cost presentation — none of them is about the age contract — so the clock is
+ * pinned INSIDE the fixture's window and each keeps asserting exactly what it
+ * always asserted. The age contract has its own tests, which supply their own
+ * over-age clock rather than borrowing this one.
+ *
+ * Pinning also removes a latent landmine: before this, these tests read the
+ * real wall clock and would have changed behaviour on a date nobody chose.
+ */
+const WITHIN_FIXTURE_WINDOW = new Date('2026-07-25T09:00:00Z');
+
+beforeEach(() => {
+  vi.useFakeTimers();
+  vi.setSystemTime(WITHIN_FIXTURE_WINDOW);
+});
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 /**
  * The market must be PRESENT for these tests: an exit cannot be priced without
@@ -439,5 +463,57 @@ describe('5.406 — the exit refuses a multi-network Candidate, and only that cl
     } finally {
       h.market = MARKET_OK;
     }
+  });
+});
+
+/**
+ * ⛑ STAGE H · THE AGE CONTRACT ON THE EXIT SURFACE (`5.309`, option A3).
+ *
+ * The exit is the half `5.347`'s closure records as having been covered first,
+ * so it is the half most likely to be assumed rather than checked. Evidence
+ * past the acceptable current-facing vintage must block the stop with the
+ * ALREADY-APPROVED sentence — the ruling §11 requirement that controlled
+ * unavailable uses existing Product authority rather than invented copy.
+ *
+ * Note what does NOT happen: the position is not force-closed, no zero fee is
+ * committed to the event log, and the money keeps working. "Costs can't be
+ * priced right now, so stopping is unavailable" is the whole behaviour.
+ */
+describe('5.309 · an over-age quote blocks the exit with the approved sentence', () => {
+  beforeEach(() => {
+    vi.setSystemTime(new Date('2026-09-22T00:00:00Z'));
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    h.market = MARKET_OK;
+  });
+
+  /** Self-contained: the 5.406 block's helper is scoped to that block. */
+  function openSafeHarbor() {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 4000,
+      horizonMonths: 12,
+      fundAmount: 1000,
+    });
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 500, networkFeeLocal: 0 });
+    renderDetail(goalId);
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+  }
+
+  it('should disable the stop control and say why', () => {
+    openSafeHarbor();
+    const stop = screen.getByRole('button', { name: 'Take the money out' }) as HTMLButtonElement;
+    expect(stop.disabled).toBe(true);
+    expect(screen.getByText(/Costs can't be priced right now/)).toBeTruthy();
+  });
+
+  it('should keep the money working rather than forcing an unpriceable exit', () => {
+    openSafeHarbor();
+    expect(screen.getByText(/Your money keeps working/)).toBeTruthy();
   });
 });

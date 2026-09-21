@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   FIXTURE_STAMP,
   CURRENT_CATALOG_PROTOCOL_NETWORK,
@@ -11,6 +11,30 @@ import {
 import type { ProtocolApy, ProtocolApyHistory, ProtocolId } from '@diboas/defi';
 import { StrategyDetail } from '../StrategyDetail';
 import { getMessages } from '@/i18n/loadMessages';
+
+/**
+ * ⛑ STAGE H (`5.309`, resolved 2026-09-22) · THE CLOCK IS NOW LOAD-BEARING.
+ *
+ * The gas quotes this harness supplies carry `FIXTURE_STAMP` (2026-07-18), and
+ * the surface now refuses evidence outside the acceptable current-facing
+ * vintage. Every test below is about exit scope, CTA honesty, provenance or
+ * cost presentation — none of them is about the age contract — so the clock is
+ * pinned INSIDE the fixture's window and each keeps asserting exactly what it
+ * always asserted. The age contract has its own tests, which supply their own
+ * over-age clock rather than borrowing this one.
+ *
+ * Pinning also removes a latent landmine: before this, these tests read the
+ * real wall clock and would have changed behaviour on a date nobody chose.
+ */
+const WITHIN_FIXTURE_WINDOW = new Date('2026-07-25T09:00:00Z');
+
+beforeEach(() => {
+  vi.useFakeTimers();
+  vi.setSystemTime(WITHIN_FIXTURE_WINDOW);
+});
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 /**
  * G6 pre-commit read (§4.6). Absorbs the provenance-stamp assertions that
@@ -448,5 +472,72 @@ describe('5.421 — the entry-side reference cost is qualified, never presented 
     fireEvent.click(screen.getByText('Detailed'));
     expect(screen.queryByText(/passed through at cost/)).toBeNull();
     expect(screen.queryByText(/at least \$0\.25/)).toBeNull();
+  });
+});
+
+/**
+ * ⛑ STAGE H · THE AGE CONTRACT ON THE PRODUCT SURFACE (`5.309`, option A3).
+ *
+ * The sibling suites above pin the clock INSIDE the fixture window so their own
+ * subjects stay testable. This block does the opposite on purpose: it supplies
+ * an over-age clock and proves the refusal actually reaches the screen. Without
+ * it, pinning the clock everywhere else would have hidden the enforcement
+ * rather than isolated it.
+ *
+ * M&E / Data ruling §4 and §6: evidence past the acceptable current-facing
+ * vintage makes the current-facing answer UNAVAILABLE — never 0, never FREE,
+ * never a silently carried-forward figure. The shipped fixture is 66 days old,
+ * so this is the state the live Practice app is in until `5.110` refreshes it.
+ */
+describe('5.309 · evidence outside the current-facing vintage cannot price a move', () => {
+  beforeEach(() => {
+    /* 2026-09-22 — the ruling date. FIXTURE_STAMP is 2026-07-18, i.e. 66 days:
+       past the default 14-day bound, and past it by enough that a boundary
+       rounding argument cannot explain the result. */
+    vi.setSystemTime(new Date('2026-09-22T00:00:00Z'));
+  });
+
+  it('should NOT render a network cost row it can no longer stand behind', () => {
+    renderDetail();
+    expect(screen.queryByText(/Reference network cost: about/)).toBeNull();
+  });
+
+  it('should refuse the move with the approved unavailable sentence, not the amount hint', () => {
+    /* The RIGHT reason beside the blocked action (`5.347`, Execution Rulings
+       §16). "Enter an amount above" would name a cause that is not the cause —
+       the same defect that ruling was raised to close. */
+    renderDetail();
+    expect(
+      screen.getByText(
+        "The required cost information isn't available, so this move can't proceed; nothing moved."
+      )
+    ).toBeTruthy();
+    expect(screen.queryByText('Enter an amount above to put money to work.')).toBeNull();
+  });
+
+  it('should keep the CTA disabled rather than offer a control it cannot honour', () => {
+    renderDetail();
+    const cta = screen.getByRole('button', { name: 'Put money to work' }) as HTMLButtonElement;
+    expect(cta.disabled).toBe(true);
+  });
+
+  it('should state the NETWORK row as unavailable, never as zero or free', () => {
+    /**
+     * `MISSING != 0` / `UNAVAILABLE != FREE`, asserted on the RENDERED text so
+     * it covers presentation and not only the helper's return value.
+     *
+     * ⚑ Scoped to the NETWORK row on purpose. The same panel truthfully reads
+     * "Entering: free" — that is the diBoaS ENTRY fee, a different cost
+     * category, and Practice genuinely has none. An assertion sweeping the
+     * whole panel for "free" would conflate two categories, which is the very
+     * confusion `presentedCategory` exists to prevent; a first draft of this
+     * test did exactly that and was wrong, not the surface.
+     */
+    renderDetail();
+    expect(screen.getByText('Network fee: amount unavailable')).toBeTruthy();
+    const body = document.body.textContent ?? '';
+    for (const forbidden of ['Network fee: $0.00', 'Network fee: free', 'about $0.00']) {
+      expect(body, `${forbidden} would be a fabricated network cost`).not.toContain(forbidden);
+    }
   });
 });
