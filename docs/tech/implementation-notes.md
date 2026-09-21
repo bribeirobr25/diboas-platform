@@ -313,6 +313,26 @@ it creates Product authority. Register: `5.105` (open), `5.360`, `5.359`.
 - **`scripts/review-gate.mjs` is a TWO-LANE file.** The market lane owns `checkRegister` and
   `checkExports`; `checkCounts` is the webapp lane's (`5.323` + their `5.387`, same function).
   Announce in `docs/cc-sync/market-sandbox.md` before editing it.
+- **Evidence persistence: identity, idempotency and activation are three different
+  things, and each has a rule that must not be "simplified"** (`5.426`, F-A, 2026-09-21).
+  **Identity** is `kind:subject:unit` with all three segments mandatory — the unit is
+  identity because a value in EUR is not the same persisted fact as the same measure in
+  USD; conversion is provenance. `source` is deliberately NOT identity: canon §19 means a
+  provider swap must not sever the history of one real-world fact. Build keys only through
+  `evidenceKey()`; an ad-hoc template literal is the second derivation of one fact (X1).
+  **Idempotency** is `sha256` over identity + base observation identity + _conversion
+  observation identity_, and **never the value** — dropping the conversion half lets a
+  re-fetched FX rate collide with its own base, and adding the value makes every correction
+  a new record instead of a reportable contradiction. **Activation** is one guarded
+  statement; do NOT remove `WHERE evidence_active.record_seq < EXCLUDED.record_seq`, and do
+  NOT re-add a second pointer field — an earlier draft carried `record_id` AND `record_seq`
+  with only the id FK-bound, so the seq driving the CAS could disagree with the row it
+  pointed at. ⚑ **The CAS orders INGESTION, not freshness**: a record observed earlier but
+  ingested later becomes active, and that is correct for F — freshness is H's. Do not
+  "fix" it here. **The LC-LIC-01 lane** (`evidence/eligibility.ts`) is an allow-list that
+  fails safe: adding a source to `EVIDENCE_SOURCES` must never make it persistable.
+  Migrations `005`/`006` are additive and one-statement; **rollback is stop-ingestion +
+  delete the pointer row, never `DROP TABLE`** once real records exist. Guards: `EVID-1`..`EVID-6`.
 - **`checkCounts` classifies by DOCUMENT CONTEXT as well as by sentence, and the ORDER is load-bearing**
   (`5.419`, 2026-09-21). `isDatedRecord` treats a dated filename **in a recognised record location**
   (`RECORD_LOCATIONS`, today `docs/audit/` alone) as a RECORD of what

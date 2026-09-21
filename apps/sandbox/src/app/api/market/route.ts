@@ -7,9 +7,10 @@
  * the USDC local price (the honest USD→local conversion for gas display).
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import { after, NextRequest, NextResponse } from 'next/server';
 import { type Chain, type DisplayCurrency, type ProtocolId } from '@diboas/defi';
 import { getApyProvider, getGasProvider, getPriceProvider } from '@/lib/market/factory';
+import { ingestNetworkCosts } from '@/lib/evidence/ingest';
 import { MARKET_CACHE_CONTROL, MARKET_ERROR_CACHE_CONTROL } from '@/lib/marketCacheHeaders';
 
 const PROTOCOLS: ProtocolId[] = [
@@ -44,6 +45,22 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       getPriceProvider().getPrices(['USDC'], currency),
       Promise.all(CHAINS.map((chain) => getGasProvider().getGas(chain))),
     ]);
+    /**
+     * F-A · the evidence persistence path runs AFTER the response.
+     *
+     * `after()` is what keeps this increment honest: the response bytes and the
+     * request latency are unchanged because the response is already composed and
+     * returned before ingestion starts. Nothing rendered reads persisted
+     * evidence — F-B is the first Product consumer — and a persistence failure
+     * cannot reach this route's result, because the promise is not awaited here.
+     *
+     * Only fixture/MODELLED, unconverted, USD network cost is eligible
+     * (LC-LIC-01 scope guard in `evidence/eligibility.ts`); everything else is
+     * refused and logged, never persisted.
+     */
+    after(async () => {
+      await ingestNetworkCosts(gas);
+    });
     return NextResponse.json(
       {
         currency,
