@@ -63,7 +63,7 @@ flowchart TD
 
 ### Engineering posture (built — verifiable in this repo)
 
-- **Testing & CI:** strict TypeScript, **2,886 tests / 238 files (Vitest), measured 2026-09-21 after the `5.421` entry-side reference-cost wording + presentation** across the workspace (web 1,606/132 · sandbox 981/89 · banking 118/4 · investing 86/5 · defi 95/8 — tests/files per package, five per-package runs, none carried; both columns sum to the totals, checked by `review:counts`), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
+- **Testing & CI:** strict TypeScript, **2,972 tests / 248 files (Vitest), measured 2026-09-21 after `5.426` (F-A shared evidence durable persistence path)** across the workspace (web 1,606/132 · sandbox 1,019/95 · banking 118/4 · investing 86/5 · defi 143/12 — tests/files per package, five per-package runs, none carried; both columns sum to the totals, checked by `review:counts`), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
 - **Security:** per-request **nonce-based CSP** (`'unsafe-inline'` prohibited for scripts), **AES-256-GCM** encryption for PII at rest, **HMAC blind indexing**, Upstash rate limiting, DOMPurify sanitization, and CSRF protection on mutation endpoints.
 - **i18n:** 40 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
 - **Monitoring:** Sentry, PostHog, and GA4 — all consent-gated and lazy-loaded behind a cookie-consent check.
