@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { FIXTURE_STAMP, type GasQuote } from '@diboas/defi';
+import { FIXTURE_STAMP, networkCostEvidence, type GasQuote } from '@diboas/defi';
 import { __resetEvidencePersistence } from '../factory';
-import { ingestNetworkCost, networkCostEnvelopeFrom, networkCostKey } from '../ingest';
+import { ingestNetworkCost, networkCostKey } from '../ingest';
 
 const ORIGINAL = { ...process.env };
 
@@ -101,8 +101,8 @@ describe('F-A runtime producer', () => {
     expect(await store.current.readActive('network-cost:Arbitrum:USD')).toBeNull();
   });
 
-  it('should build an UNCONVERTED envelope — the F-A lane persists no external conversion', () => {
-    const envelope = networkCostEnvelopeFrom(fixtureQuote());
+  it('should build an UNCONVERTED envelope through the ADAPTER layer (Stage G)', () => {
+    const envelope = networkCostEvidence(fixtureQuote());
     if (envelope.availability !== 'AVAILABLE') throw new Error('unreachable');
     expect(envelope.normalization).toEqual({ converted: false });
     expect(envelope.actionability).toBe('REFERENCE');

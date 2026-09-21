@@ -25,20 +25,17 @@
 
 import { createHash, randomUUID } from 'node:crypto';
 import {
+  NETWORK_COST_NATIVE_UNIT,
   buildEvidenceCandidate,
   evidenceKey,
   fromPayloadV1,
-  referenceEvidence,
+  networkCostEvidence,
   type Chain,
-  type EvidenceEnvelope,
   type GasQuote,
 } from '@diboas/defi';
 import { Logger } from '../monitoring/Logger';
 import { evaluateIngestionEligibility } from './eligibility';
 import { getEvidencePersistence } from './factory';
-
-/** The unit the fixture network cost is natively expressed in. Unconverted. */
-const NETWORK_COST_NATIVE_UNIT = 'USD';
 
 const sha256 = (input: string): string => createHash('sha256').update(input, 'utf8').digest('hex');
 
@@ -49,22 +46,6 @@ export type IngestOutcome =
   | { status: 'DUPLICATE'; evidenceKey: string; seq: number }
   | { status: 'CONTRADICTION'; evidenceKey: string; seq: number }
   | { status: 'FAILED'; error: unknown };
-
-/**
- * The base, unconverted network-cost envelope for one chain.
- *
- * Exported so the test suite builds exactly what the runtime builds. The unit
- * is the NATIVE one and no conversion is applied here: a converted value would
- * carry external rate provenance and leave the F-A lane.
- */
-export function networkCostEnvelopeFrom(quote: GasQuote): EvidenceEnvelope<number> {
-  return referenceEvidence({
-    value: quote.typicalFeeUsd,
-    stamp: quote.stamp,
-    normalization: { converted: false },
-    coverage: { kind: 'single', category: 'network' },
-  });
-}
 
 /** `network-cost:<chain>:USD`, built through the one validated key builder. */
 export function networkCostKey(chain: Chain): string {
@@ -85,7 +66,7 @@ export async function ingestNetworkCost(quote: GasQuote): Promise<IngestOutcome>
     return { status: 'PERSISTENCE_DISABLED', reason: persistence.reason };
   }
   const key = networkCostKey(quote.chain);
-  const eligibility = evaluateIngestionEligibility(networkCostEnvelopeFrom(quote));
+  const eligibility = evaluateIngestionEligibility(networkCostEvidence(quote));
   if (!eligibility.eligible) {
     /* Refused, not persisted, not activated. Explicit and internal — there is
        no user-facing copy for this, and F-A introduces none. */
