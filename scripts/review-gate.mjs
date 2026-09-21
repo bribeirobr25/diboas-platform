@@ -1119,15 +1119,85 @@ const MANUAL = {
     'Part E — Docker MCP: A/B against the pre-change reading · light AND dark × 375 AND 1440 × EN AND the longest locale · a11y as measured ratios · console 0 errors · state provenance.',
     'Part F/G — fix-vs-register with owners; what you did NOT check; no waiver without a founder-recorded decision.',
   ],
-  system: [
-    'Front 1 — all 12 principles from the document, one verdict each; ADR triggers-to-reconsider.',
-    'Front 2 — five separate verdicts (CLO · Brand · UX · Voice · Storytelling), never averaged; veto rows 10–17 and Q3 block.',
-    'Front 6 — every formula line by line; identities proven by sabotage FROM AN INDEPENDENT TERM.',
-    'Front 7 — per source: live path · TTL · stamp · fallback; then today / swap-ready / real-time.',
-    'Front 8 — the data lifecycle at its SEAMS, not per stage.',
-    'Front 9 — X1 duplicate derivations and X6 guard filters are MANUAL: no script here claims them.',
-  ],
 };
+
+/**
+ * THE TEN AUTHORITATIVE FRONTS of `docs/tech/system-review-gate.md`.
+ *
+ * ⚑ ADDED 2026-09-21 (`5.431`). This list used to hold SIX entries — the fronts
+ * nobody had mechanised — and printed them under "MANUAL". Fronts 3, 4 and 10
+ * were therefore never surfaced in any state, and Front 5 was surfaced only by
+ * its mechanical row, which SKIPs for any change that touches nothing under
+ * `apps/sandbox/src/view`. A reviewer who worked from this output believed they
+ * had enumerated the gate; they had enumerated a subset of it. That is the
+ * `5.305` shape — a guard credited with coverage it does not have.
+ *
+ * `mechanisedBy` names the row that can DISCHARGE a front. It is not a promise
+ * that the row is sufficient: the row supplies evidence, the reviewer still
+ * dispositions the front. When that row does not PASS — SKIP, N/A or FAIL —
+ * the front falls back to MANUAL ADJUDICATION, because a front adjudicated by
+ * nobody is exactly what this change exists to make impossible.
+ *
+ * ⚑ DO NOT shorten this list to "the ones that need work". Its completeness IS
+ * the guard, and `reviewGateFronts` in the regression net fails if the numbers
+ * here stop matching the `## Front N` headings in the gate document.
+ */
+const SYSTEM_FRONTS = [
+  {
+    n: 1,
+    mechanisedBy: null,
+    what: 'Architecture principles and code standards — all 12 principles, one verdict each; ADR triggers-to-reconsider.',
+  },
+  {
+    n: 2,
+    mechanisedBy: null,
+    what: 'CLO · Brand · UX · Voice · Storytelling — five separate verdicts, never averaged; veto rows 10–17 and Q3 block.',
+  },
+  {
+    n: 3,
+    mechanisedBy: null,
+    what: 'Other gates and playbooks — every LIVE gate run and pasted, each with its stated scope limit.',
+  },
+  {
+    n: 4,
+    mechanisedBy: null,
+    what: "Completeness against the source — the plan's conditions verdicted VERBATIM, not paraphrased.",
+  },
+  {
+    n: 5,
+    mechanisedBy: 'exports',
+    what: 'Dead and legacy code — orphaned exports, unreachable surfaces, legacy left behind.',
+  },
+  {
+    n: 6,
+    mechanisedBy: null,
+    what: 'Mathematics and formulas, line by line; identities proven FROM AN INDEPENDENT TERM.',
+  },
+  {
+    n: 7,
+    mechanisedBy: null,
+    what: 'Real-time data readiness — per source: live path · TTL · stamp · fallback; then today / swap-ready / real-time.',
+  },
+  { n: 8, mechanisedBy: null, what: 'The data lifecycle at its SEAMS, not per stage.' },
+  {
+    n: 9,
+    mechanisedBy: null,
+    what: 'Cross-increment coherence — X1 duplicate derivations and X6 guard filters are MANUAL: no script here claims them.',
+  },
+  {
+    n: 10,
+    mechanisedBy: null,
+    what: 'FAIL, waiver and escalation — no waiver without a founder-recorded decision.',
+  },
+];
+
+/** The only four dispositions a front may close with. Printed so it is not remembered. */
+const FRONT_DISPOSITIONS = [
+  'PASS',
+  'N/A · WITH MEASURED PROOF',
+  'NON-BLOCKING FINDING · REGISTERED',
+  'BLOCKING FINDING · STOP',
+];
 
 const mode = process.argv[2] ?? 'increment';
 const args = process.argv.slice(3);
@@ -1241,6 +1311,8 @@ let failed = 0;
  * a pass. A row that could not run is INCOMPLETE, and the exit code says so.
  */
 let skipped = 0;
+/** Row key -> PASS | FAIL | SKIP. Front 5's fallback reads this, nothing else does. */
+const outcomes = {};
 for (const key of plan) {
   const [label, fn] = CHECKS[key];
   process.stdout.write(`  ${label} … `);
@@ -1252,21 +1324,60 @@ for (const key of plan) {
   }
   if (r.skip) {
     console.log(`${C.y}SKIP${C.x}\n      ${C.d}${r.detail}${C.x}`);
+    outcomes[key] = 'SKIP';
     skipped += 1;
   } else {
     console.log(r.ok ? `${C.g}PASS${C.x}` : `${C.r}FAIL${C.x}`);
     console.log(`      ${C.d}${r.detail}${C.x}`);
+    outcomes[key] = r.ok ? 'PASS' : 'FAIL';
     if (!r.ok) failed += 1;
   }
 }
 
-const list = MANUAL[mode] ?? [];
-if (list.length) {
-  console.log(`\n${C.y}${C.b}MANUAL — not mechanisable; complete and cite in the record:${C.x}`);
-  for (const l of list) console.log(`  ${C.d}·${C.x} ${l}`);
+if (mode === 'system') {
+  /**
+   * EVERY authoritative front, every run (`5.431`).
+   *
+   * The mechanical/manual distinction is preserved rather than blurred: a front
+   * whose row PASSED is shown as MECHANICAL EVIDENCE and still needs the
+   * reviewer's disposition; every other front is shown as MANUAL ADJUDICATION
+   * REQUIRED. No front is ever omitted, so "the gate printed six" can no longer
+   * be mistaken for "the gate has six".
+   */
   console.log(
-    `\n${C.d}Gate: docs/tech/${mode}-review-gate.md — a PASS names its instrument; N/A needs proof.${C.x}`
+    `\n${C.y}${C.b}SYSTEM REVIEW · MANUAL FRONTS — all ${SYSTEM_FRONTS.length} require an explicit disposition:${C.x}`
   );
+  for (const f of SYSTEM_FRONTS) {
+    const row = f.mechanisedBy ? outcomes[f.mechanisedBy] : undefined;
+    const discharged = row === 'PASS';
+    const tag = discharged
+      ? `${C.g}MECHANICAL EVIDENCE${C.x} ${C.d}(${f.mechanisedBy} PASS — record it, then disposition)${C.x}`
+      : `${C.y}MANUAL ADJUDICATION REQUIRED${C.x}${
+          f.mechanisedBy
+            ? ` ${C.d}(${f.mechanisedBy} ${row ?? 'did not run'} — the row cannot discharge it)${C.x}`
+            : ''
+        }`;
+    console.log(`  ${C.b}FRONT ${String(f.n).padStart(2)}${C.x} ${tag}`);
+    console.log(`          ${C.d}${f.what}${C.x}`);
+  }
+  console.log(
+    `\n${C.d}Close each front with exactly one of: ${FRONT_DISPOSITIONS.join(' | ')}${C.x}`
+  );
+  console.log(
+    `${C.d}Mechanical rows alone are NOT a system review. The block is RECONCILED only when every${C.x}`
+  );
+  console.log(
+    `${C.d}runnable row AND all ${SYSTEM_FRONTS.length} fronts carry a disposition. Gate: docs/tech/system-review-gate.md${C.x}`
+  );
+} else {
+  const list = MANUAL[mode] ?? [];
+  if (list.length) {
+    console.log(`\n${C.y}${C.b}MANUAL — not mechanisable; complete and cite in the record:${C.x}`);
+    for (const l of list) console.log(`  ${C.d}·${C.x} ${l}`);
+    console.log(
+      `\n${C.d}Gate: docs/tech/${mode}-review-gate.md — a PASS names its instrument; N/A needs proof.${C.x}`
+    );
+  }
 }
 
 console.log(

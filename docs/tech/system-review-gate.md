@@ -55,6 +55,46 @@
 
 **Runner:** `pnpm review:system` executes the ⚙ rows this gate shares with the increment gate (authority coverage, republished counts, register integrity, dead exports) and prints the manual fronts. **X1 (duplicate derivations) and X6 (guard filters) are deliberately NOT mechanised** — the first is too heuristic to avoid noise, and no script here claims either. Source: `scripts/review-gate.mjs`. **Register path (5.382):** the id-collision check resolves `docs/audit/PENDING_ALL.md` repo-relative first, then `REVIEW_REGISTER_PATH`, and **FAILS rather than skips** when neither resolves — a SKIP reads as a pass in a green run. The ledger is local-only and lives in the `diboas-platform` checkout, so a session working from a git WORKTREE must export `REVIEW_REGISTER_PATH=/path/to/diboas-platform/docs/audit/PENDING_ALL.md` or the gate is red by design.
 
+## Block closure — mechanical execution is NOT a system review
+
+⛑ **ADDED 2026-09-21 (`5.431`), because the runner's output read like a complete checklist when it
+was a partial one.** It printed six fronts — the ones nobody had mechanised — so Fronts 3, 4 and 10
+were never surfaced in any state, and Front 5 appeared only through its mechanical `exports` row.
+That row SKIPs whenever a change touches nothing under `apps/sandbox/src/view`, and when it skipped,
+Front 5 was adjudicated by nobody.
+
+```text
+mechanical gate execution alone   !=  complete system review
+all TEN authoritative fronts      =   must each receive an EXPLICIT disposition
+```
+
+**The four dispositions, and no others:**
+
+| Disposition                         | When                                                                                   |
+| ----------------------------------- | -------------------------------------------------------------------------------------- |
+| `PASS`                              | the front applies and was satisfied; name the instrument                               |
+| `N/A · WITH MEASURED PROOF`         | the front cannot apply to this batch, and the proof is a measurement — never a silence |
+| `NON-BLOCKING FINDING · REGISTERED` | a real gap, registered with an id and an owner, that does not block the block          |
+| `BLOCKING FINDING · STOP`           | the block does not close                                                               |
+
+A **zero-change or structurally inapplicable** row is reported as `N/A`, never promoted to `PASS`.
+
+**A mechanised front still needs manual fallback adjudication when its mechanical row cannot run.**
+Front 5 is the live case: `exports` supplies evidence when it PASSES, but SKIP, N/A or FAIL means the
+row discharged nothing and the reviewer must adjudicate the front by hand. The runner now prints
+every front on every run, marking each either `MECHANICAL EVIDENCE` (its row PASSED — record it, then
+disposition it) or `MANUAL ADJUDICATION REQUIRED`, naming the row that failed to discharge it.
+
+A block may be declared **RECONCILED** only when every runnable mechanical row **and** all ten fronts
+carry a disposition. The dated record must contain a `SYSTEM REVIEW · MANUAL FRONTS` subsection
+listing every front and its disposition.
+
+⚑ **This adds no eleventh front and changes no front's subject.** The ten-front architecture is
+unchanged; what changed is that none of them can now go unmentioned. Guard:
+`apps/sandbox/src/lib/__tests__/authGate.test.ts` compares the runner's emitted front numbers against
+the `## Front N` headings in THIS document — so adding a front here without teaching the runner fails
+the test, which is the drift one door further along.
+
 ## Trigger
 
 Before a merge train to `main` · at the close of a plan phase (before the next numbered increment may

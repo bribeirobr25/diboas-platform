@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, rmdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, rmSync, rmdirSync, writeFileSync } from 'node:fs';
 import { join, resolve, sep } from 'node:path';
 import { afterEach, beforeAll, describe, expect, it } from 'vitest';
 
@@ -666,4 +666,102 @@ describe('5.419 · counts — the classifier reads DOCUMENT CONTEXT, not only th
     expect(r.out).toContain(`${other.tests}/${other.files}`);
     expect(after.dated, 'a living-authority document is not a dated RECORD').toBe(before.dated);
   }, 20_000);
+});
+
+/**
+ * `5.431` — every authoritative front is emitted, and none can silently vanish.
+ *
+ * ## The defect this exists to close
+ *
+ * `docs/tech/system-review-gate.md` defines TEN fronts. The runner printed SIX
+ * — the ones nobody had mechanised — so Fronts 3, 4 and 10 were never surfaced
+ * in any state, and Front 5 was surfaced only through its mechanical `exports`
+ * row. That row SKIPs for any change touching nothing under
+ * `apps/sandbox/src/view`, which is most changes; when it skipped, Front 5 was
+ * adjudicated by NOBODY — not the runner, not the reviewer reading its output.
+ *
+ * ## Why the document is the source of truth here
+ *
+ * The first assertion compares the runner against the GATE DOCUMENT rather than
+ * against a hard-coded ten. A test that said "expect 10" would keep passing if
+ * someone added Front 11 to the document and forgot the runner — which is the
+ * same class of drift, one door further along.
+ */
+describe('5.431 · system review emits every authoritative front', () => {
+  /** The fronts the governing document actually defines, read at run time. */
+  function documentFronts(): number[] {
+    const md = readFileSync(join(ROOT, 'docs/tech/system-review-gate.md'), 'utf8');
+    return [...md.matchAll(/^## Front (\d+)/gm)].map((m) => Number(m[1])).sort((a, b) => a - b);
+  }
+
+  function emittedFronts(out: string): number[] {
+    return [...out.matchAll(/^ *FRONT +(\d+)/gm)].map((m) => Number(m[1])).sort((a, b) => a - b);
+  }
+
+  it('should emit exactly the fronts the gate document defines', () => {
+    const r = gate('system', '--fast');
+    const doc = documentFronts();
+    expect(doc.length, 'the gate document must still define its fronts').toBeGreaterThan(0);
+    expect(emittedFronts(r.out)).toEqual(doc);
+  }, 120_000);
+
+  it('should keep FRONT 5 visible, as MANUAL, when its mechanical row cannot run', () => {
+    const r = gate('system', '--fast');
+    /* The precondition this test depends on — stated, not assumed: the exports
+       row skips here because nothing under apps/sandbox/src/view changed. */
+    expect(r.out, 'precondition: the exports row must be the skipped one').toMatch(
+      /exported functions have consumers … SKIP/
+    );
+    const front5 = r.out.split('\n').find((l) => /^ *FRONT +5\b/.test(l)) ?? '';
+    expect(front5, 'FRONT 5 must still be printed').not.toBe('');
+    expect(front5).toContain('MANUAL ADJUDICATION REQUIRED');
+    expect(front5, 'it must say WHICH row failed to discharge it').toContain('exports');
+  }, 120_000);
+
+  it('should print the four closure dispositions rather than leave them remembered', () => {
+    const r = gate('system', '--fast');
+    for (const d of [
+      'PASS',
+      'N/A · WITH MEASURED PROOF',
+      'NON-BLOCKING FINDING · REGISTERED',
+      'BLOCKING FINDING · STOP',
+    ]) {
+      expect(r.out).toContain(d);
+    }
+  }, 120_000);
+
+  it('should state that mechanical rows alone are NOT a system review', () => {
+    const r = gate('system', '--fast');
+    expect(r.out).toMatch(/Mechanical rows alone are NOT a system review/);
+    expect(r.out).toMatch(/RECONCILED only when/);
+  }, 120_000);
+
+  it('should keep a mechanical N/A distinct from a PASS', () => {
+    const r = gate('system', '--fast');
+    /**
+     * ⚑ The ASSERTION here is deliberately environment-independent, and an
+     * earlier version was not — it demanded `INCOMPLETE` and exit 2, which is
+     * only the LOCAL shape. On CI the ledger `docs/audit/PENDING_ALL.md` is
+     * local-only and absent, so the register row FAILS (by its own design,
+     * `5.382`) and the run exits 1 with a FAILED summary instead. CI caught it;
+     * the same class as `5.416`.
+     *
+     * What the row actually protects is the RULE, which holds in both: a run
+     * containing a skipped mechanical row is never summarised as green, and it
+     * never exits 0.
+     */
+    expect(r.out, 'precondition: at least one row must have skipped').toMatch(/… SKIP/);
+    expect(r.out, 'a skipped row must never be summarised as green').not.toContain(
+      'Mechanical rows green'
+    );
+    expect(r.code, 'a run with a skipped row must not exit 0').not.toBe(0);
+  }, 120_000);
+
+  it('should leave the increment gate on its own manual list, not the fronts', () => {
+    /* Scope limit, asserted: this change is system-mode only. The increment
+       gate still prints Parts B–G and must not grow FRONT lines. */
+    const r = gate('increment', '--fast');
+    expect(emittedFronts(r.out)).toEqual([]);
+    expect(r.out).toContain('MANUAL — not mechanisable');
+  }, 120_000);
 });
