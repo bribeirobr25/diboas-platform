@@ -37,6 +37,7 @@ import {
   type DailyPriceSeries,
   type LegReplay,
 } from '@diboas/investing';
+import { FIXTURE_VERSION } from '@diboas/defi';
 
 /**
  * One allocation leg's replay source (§4.8 G8). A `lending` leg replays its APY
@@ -400,6 +401,9 @@ export function planAdvance(input: {
             ? { windowStartDate: refusal.windowStartDate }
             : {}),
           apySource: allLive ? 'defillama' : 'fixture',
+          /* `I-G5`: pin the VERSION of the versioned evidence, and only when
+             versioned evidence took part. An all-live span has none. */
+          ...(allLive ? {} : { fixtureVersion: FIXTURE_VERSION }),
         });
       } else if (replayLegs !== null) {
         const earnings = replayLegged(value, legReplaysFor(position.positionId, cursor, segEnd));
@@ -415,6 +419,9 @@ export function planAdvance(input: {
           // 'fixture' when a series is not fully live, so provenance never
           // over-claims — 'defillama' is reserved for an all-live lending replay.
           apySource: allLive ? 'defillama' : 'fixture',
+          /* `I-G5`: same rule on the accrual — the evidence version travels
+             with the evidence, never as a placeholder when there is none. */
+          ...(allLive ? {} : { fixtureVersion: FIXTURE_VERSION }),
           ...(blended
             ? {
                 /* §3 same-source: the pinned rates must be the ones that produced

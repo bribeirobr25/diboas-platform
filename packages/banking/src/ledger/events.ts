@@ -224,6 +224,22 @@ export interface AccrualApplied extends EventBase {
    */
   ratesUsed?: number[];
   /**
+   * The VERSION of the versioned evidence this span replayed (`I-G5`).
+   *
+   * Present only when versioned evidence actually participated — i.e. when
+   * `apySource` is `'fixture'`, whose set carries a version. An all-live replay
+   * has no versioned evidence, so the field is ABSENT rather than filled with a
+   * placeholder: canon requires the evidence/methodology version *where
+   * applicable*, and inventing a version for a live observation would be the
+   * over-claim the `apySource` comment already guards against.
+   *
+   * OPTIONAL for backward-compat, like `ratesUsed` and `legsReplayed`: events
+   * appended before `I-G5` lack it, the projection never reads it, and it is
+   * pinned once and never rewritten (the `replayEpoch` precedent). Historical
+   * truth is preserved by ADDING what was used, never by restating it later.
+   */
+  fixtureVersion?: string;
+  /**
    * Per-leg replay record (§4.8 G8), present once a position holds a
    * MARKET-priced leg — where the token's own price series IS the return and
    * no APY is applied on top (see `ProtocolReturnModel`).
@@ -435,6 +451,22 @@ export interface ReplaySpanRefused extends EventBase {
    */
   windowStartDate?: string;
   apySource?: 'defillama' | 'fixture';
+  /**
+   * The VERSION of the versioned evidence this span replayed (`I-G5`).
+   *
+   * Present only when versioned evidence actually participated — i.e. when
+   * `apySource` is `'fixture'`, whose set carries a version. An all-live replay
+   * has no versioned evidence, so the field is ABSENT rather than filled with a
+   * placeholder: canon requires the evidence/methodology version *where
+   * applicable*, and inventing a version for a live observation would be the
+   * over-claim the `apySource` comment already guards against.
+   *
+   * OPTIONAL for backward-compat, like `ratesUsed` and `legsReplayed`: events
+   * appended before `I-G5` lack it, the projection never reads it, and it is
+   * pinned once and never rewritten (the `replayEpoch` precedent). Historical
+   * truth is preserved by ADDING what was used, never by restating it later.
+   */
+  fixtureVersion?: string;
 }
 
 /**

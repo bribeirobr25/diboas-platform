@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js';
 import { describe, expect, it } from 'vitest';
 import { project, reconcile, type LedgerEvent, type RecurringSchedule } from '@diboas/banking';
+import { FIXTURE_VERSION } from '@diboas/defi';
 import type { DailyApySeries } from '@diboas/investing';
 import { planAdvance, type AdvancePositionInput } from '../advancePlanner';
 
@@ -525,5 +526,76 @@ describe('batch D — a refused replay must not refuse the deposit', () => {
     });
     expect(events.filter((e) => e.type === 'RecurringContributionApplied')).toHaveLength(0);
     expect(events.filter((e) => e.type === 'AccrualApplied')).toHaveLength(0);
+  });
+});
+
+/**
+ * `I-G5` (Stage G) — the evidence VERSION travels with the evidence.
+ *
+ * Canon §21 puts *methodology/evidence version where applicable* in G, and §13
+ * requires a historical decision to preserve the version actually used. The
+ * replay already pinned WHAT it used (`apySource`, `ratesUsed`, `legsReplayed`);
+ * what it could not say is WHICH VERSION of that evidence.
+ *
+ * The load-bearing half is the word *applicable*: an all-live span has no
+ * versioned evidence, so the field must be ABSENT rather than filled with a
+ * placeholder. A version invented for a live observation would be precisely the
+ * over-claim `apySource` already refuses to make.
+ */
+describe('I-G5 · historical evidence versioning', () => {
+  const FIXTURE_SERIES: DailyApySeries = { points: Array(400).fill(5), source: 'fixture' };
+  const FIXTURE_LEG = { kind: 'lending' as const, weightPercent: 100, apy: FIXTURE_SERIES };
+
+  function advance(legs: typeof LENDING_100 | typeof FIXTURE_LEG): LedgerEvent[] {
+    return planAdvance({
+      positions: [pos()],
+      schedules: [],
+      workingStart: '8000.00',
+      legsByPosition: new Map([['p1', [legs]]]),
+      toDay: 30,
+      days: 30,
+      source: 'machine',
+      stamp,
+    });
+  }
+
+  it('should pin the fixture version when versioned evidence took part', () => {
+    const accrual = advance(FIXTURE_LEG).find((e) => e.type === 'AccrualApplied');
+    expect(accrual).toBeDefined();
+    if (accrual?.type !== 'AccrualApplied') throw new Error('unreachable');
+    expect(accrual.apySource).toBe('fixture');
+    /* The value is the fixture set's OWN version — a fact, read from the same
+       constant the stamps use, never a string minted here. */
+    expect(accrual.fixtureVersion).toBe(FIXTURE_VERSION);
+  });
+
+  it('should OMIT the version entirely for an all-live replay', () => {
+    const accrual = advance(LENDING_100).find((e) => e.type === 'AccrualApplied');
+    if (accrual?.type !== 'AccrualApplied') throw new Error('unreachable');
+    expect(accrual.apySource).toBe('defillama');
+    /* Absent, not null and not '' — "no versioned evidence" has one spelling. */
+    expect('fixtureVersion' in accrual).toBe(false);
+  });
+
+  it('should leave the money math untouched by the version', () => {
+    const withVersion = advance(FIXTURE_LEG).find((e) => e.type === 'AccrualApplied');
+    const without = advance(LENDING_100).find((e) => e.type === 'AccrualApplied');
+    if (withVersion?.type !== 'AccrualApplied' || without?.type !== 'AccrualApplied') {
+      throw new Error('unreachable');
+    }
+    /* Same rates, same span, same principal: the only difference between these
+       two replays is which SOURCE the series declared. Earnings must not move. */
+    expect(withVersion.earnings).toBe(without.earnings);
+  });
+
+  it('should keep replaying events that predate the field', () => {
+    /* Backward compatibility, the `ratesUsed` precedent: an event appended
+       before I-G5 has no version, and projection must not care. */
+    const events = advance(FIXTURE_LEG).map((e) =>
+      e.type === 'AccrualApplied' ? { ...e, fixtureVersion: undefined } : e
+    ) as LedgerEvent[];
+    expect(() => project(events)).not.toThrow();
+    const state = project(events);
+    expect(state).toBeTruthy();
   });
 });
