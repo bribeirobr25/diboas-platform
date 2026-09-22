@@ -192,6 +192,44 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
     expect(screen.queryByText(/\(real, variable\)/)).toBeNull(); // never "real" on fixtures
   });
 
+  it('should name the LIVE source from the registry, never an empty attribution', () => {
+    /**
+     * `5.440` · THE BRANCH NOTHING POSITIVELY ASSERTED.
+     *
+     * Every other test here asserts `Live from DeFiLlama` is ABSENT (it must
+     * be, while the network fee sits on reference values — GAS-1). So when the
+     * four hardcoded `'DeFiLlama'` message values became registry lookups, the
+     * `state === 'live'` branch had NO positive coverage at all: had
+     * `newestLiveSource` been null there, the surface would have rendered
+     * "Live from , ..." — an empty source name — and nothing would have caught
+     * it. Reaching the branch needs a LIVE gas stamp, which the shared harness
+     * deliberately does not supply.
+     */
+    render(
+      <IntlProvider locale="en" messages={getMessages('en')}>
+        <StrategyDetail
+          strategy={safeHarbor}
+          goalName="Future cushion"
+          apys={LIVE}
+          histories={[history('skySsr', 30), history('aaveV3', 30), history('compoundV3', 30)]}
+          gas={[
+            {
+              chain: 'Arbitrum',
+              typicalFeeUsd: 0.03,
+              stamp: observedStamp('defillama', OBSERVED_AT),
+            },
+          ]}
+          usdPriceLocal={1}
+          currency="USD"
+        />
+      </IntlProvider>
+    );
+    const live = screen.getByText(/^Live from/);
+    expect(live.textContent).toContain('DeFiLlama');
+    // The precise failure the registry lookup could introduce: an empty name.
+    expect(live.textContent).not.toMatch(/Live from\s*,/);
+  });
+
   it('should draw the axed chart over real history with switchable timeframes', () => {
     renderDetail();
     fireEvent.click(screen.getByText('Detailed'));

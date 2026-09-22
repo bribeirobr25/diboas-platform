@@ -384,7 +384,12 @@ export function advanceTime(
                dropping them is what left the replay unable to anchor to a
                calendar window (5.105). */
             dates: history.points.map((p) => p.date),
-            source: history.stamp.source === 'coingecko' ? 'coingecko' : 'fixture',
+            /* `5.440` · record the source, do not re-derive it from its name.
+               This read `stamp.source === 'coingecko' ? 'coingecko' : 'fixture'`
+               — a coercion that would have written 'fixture' for any SUBSTITUTED
+               provider's genuinely live series, i.e. a false provenance record
+               in an append-only event. The stamp already says what it is. */
+            source: history.stamp.source,
           },
         };
       }
@@ -397,7 +402,8 @@ export function advanceTime(
           points: history.points.map((p) => p.apyPercent),
           /* I-G1a — see the market leg above. `ApyPoint` carries `date`. */
           dates: history.points.map((p) => p.date),
-          source: history.stamp.source === 'defillama' ? 'defillama' : 'fixture',
+          /* `5.440` — see the market leg above. */
+          source: history.stamp.source,
         },
       };
     });

@@ -18,6 +18,8 @@ import type { ApyPoint, IApyProvider, ProtocolApy, ProtocolApyHistory, ProtocolI
 import { evidenceStamp } from '../types';
 import { PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 import { createRevalidatingCache, type RevalidatedEntry } from './revalidatingCache';
+import { permitsUse } from '../providerDisposition';
+import { fallbackFor } from '../fallbackEligibility';
 
 const POOLS_URL = 'https://yields.llama.fi/pools';
 const CHART_URL = 'https://yields.llama.fi/chart/';
@@ -155,23 +157,64 @@ function fixtureFor(protocolId: ProtocolId): ProtocolApy {
   return { protocolId, ...FIXTURE_APYS[protocolId] };
 }
 
+/** This adapter's source identity. Declared once; never spelled at a call site. */
+const SOURCE = 'defillama' as const;
+
 export class DefiLlamaApyProvider implements IApyProvider {
   constructor(
     private readonly fetchImpl: typeof fetch = fetch,
-    private readonly timeoutMs: number = PROVIDER_FETCH_TIMEOUT_MS
+    private readonly timeoutMs: number = PROVIDER_FETCH_TIMEOUT_MS,
+    /**
+     * The deployment's operational kill switch — sources disabled by
+     * configuration rather than by declaration. Injected rather than read from
+     * `process.env`, because this package must stay environment-free and
+     * because an injected restriction is testable without mutating globals.
+     */
+    private readonly alsoDisabled?: ReadonlySet<string>
   ) {}
 
+  /**
+   * The eligible fallback for a subject, or `null` when nothing may stand in.
+   *
+   * ⚑ THE CATCH BLOCKS NO LONGER DECIDE THIS. Each one used to return the
+   * fixture on its own authority; now each one ASKS. `technically eligible` is
+   * the second half of the test: a declaration naming a source this adapter
+   * cannot actually produce is refused rather than trusted.
+   */
+  private mayServeFixture(subject: Parameters<typeof fallbackFor>[0]): boolean {
+    const decision = fallbackFor(subject, this.alsoDisabled);
+    return decision.eligible && decision.source === 'fixture';
+  }
+
   async getCurrentApys(protocolIds: ProtocolId[]): Promise<ProtocolApy[]> {
-    let pools: RevalidatedEntry<LlamaPool[]>;
-    try {
-      pools = await fetchPools(this.fetchImpl, this.timeoutMs);
-    } catch {
-      return protocolIds.map(fixtureFor);
+    /**
+     * ⚑ THE KILL SWITCH, AT THE POINT OF COLLECTION. A source without
+     * `NEW_COLLECTION` never reaches `fetchPools`, so no request is issued —
+     * the refusal is not "the response is ignored", it is "the call is not
+     * made". The sabotage case asserts the fetch COUNT at this seam, because a
+     * downstream controlled-unavailable would look identical either way.
+     */
+    let pools: RevalidatedEntry<LlamaPool[]> | null = null;
+    if (permitsUse(SOURCE, 'NEW_COLLECTION', this.alsoDisabled)) {
+      try {
+        pools = await fetchPools(this.fetchImpl, this.timeoutMs);
+      } catch {
+        pools = null;
+      }
+    }
+    /* Decided ONCE per call, not per leg: eligibility is a property of the
+       subject and the sources, never of how many protocols were asked for. */
+    const fixtureMayServe = this.mayServeFixture('APY_CURRENT');
+    const degrade = (protocolId: ProtocolId): ProtocolApy | null =>
+      fixtureMayServe ? fixtureFor(protocolId) : null;
+
+    if (!pools) {
+      return protocolIds.map(degrade).filter((a): a is ProtocolApy => a !== null);
     }
     const asOf = new Date(pools.at).toISOString(); // when fetched, not when served
-    return protocolIds.map((protocolId) => {
+    const resolved = protocolIds.map((protocolId) => {
       const match = matchPool(pools.value, POOL_MATCHERS[protocolId]);
-      if (!match) return fixtureFor(protocolId);
+      if (!match) return degrade(protocolId);
       /**
        * `5.406`/`5.407` §3 · THE OBSERVATION MUST AGREE WITH PRODUCT IDENTITY.
        *
@@ -188,19 +231,26 @@ export class DefiLlamaApyProvider implements IApyProvider {
        */
       const observed = match.chain as ProtocolApy['chain'] | undefined;
       if (!observed || observed !== CURRENT_CATALOG_PROTOCOL_NETWORK[protocolId])
-        return fixtureFor(protocolId);
+        return degrade(protocolId);
       return {
         protocolId,
         apyPercent: match.apy as number,
         tvlUsd: match.tvlUsd,
         chain: observed,
-        stamp: evidenceStamp({ source: 'defillama', origin: 'OBSERVED', asOf }),
+        stamp: evidenceStamp({ source: SOURCE, origin: 'OBSERVED', asOf }),
       };
     });
+    /* A refused leg is OMITTED, never zero-filled: an absent observation is
+       what `strategyRateAvailability` already turns into NO_OBSERVATION, i.e.
+       the existing controlled-unavailable path. No new Product semantics. */
+    return resolved.filter((a): a is ProtocolApy => a !== null);
   }
 
-  async getApyHistory(protocolId: ProtocolId, days: number): Promise<ProtocolApyHistory> {
+  async getApyHistory(protocolId: ProtocolId, days: number): Promise<ProtocolApyHistory | null> {
     try {
+      if (!permitsUse(SOURCE, 'NEW_COLLECTION', this.alsoDisabled)) {
+        throw new Error('source may not collect');
+      }
       const pools = await fetchPools(this.fetchImpl, this.timeoutMs);
       const match = matchPool(pools.value, POOL_MATCHERS[protocolId]);
       if (!match) throw new Error('no pool match');
@@ -228,7 +278,15 @@ export class DefiLlamaApyProvider implements IApyProvider {
         }),
       };
     } catch {
-      // Honest degraded mode: a flat series at the fixture APY, stamped fixture.
+      /**
+       * Honest degraded mode — but only if a fallback is ELIGIBLE.
+       *
+       * This block used to be unconditional: any failure produced a flat series
+       * at the fixture APY. The series is still exactly that when the fixture
+       * may serve; when it may not, the answer is `null` — refused — rather
+       * than a synthetic series nobody cleared.
+       */
+      if (!this.mayServeFixture('APY_HISTORY')) return null;
       const fx = fixtureFor(protocolId);
       const today = new Date();
       const points: ApyPoint[] = Array.from({ length: days }, (_, i) => {

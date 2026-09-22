@@ -37,7 +37,7 @@ import {
   type DailyPriceSeries,
   type LegReplay,
 } from '@diboas/investing';
-import { FIXTURE_VERSION } from '@diboas/defi';
+import { FIXTURE_VERSION, type EvidenceSourceId } from '@diboas/defi';
 
 /**
  * One allocation leg's replay source (§4.8 G8). A `lending` leg replays its APY
@@ -363,6 +363,36 @@ export function planAdvance(input: {
     const allLive =
       replayLegs !== null &&
       replayLegs.every((l) => (l.kind === 'market' ? l.price.source : l.apy.source) !== 'fixture');
+    /**
+     * `5.440` · THE RECORDED SOURCE IS THE SOURCE, not a hardcoded name.
+     *
+     * This was written as `allLive ? 'defillama' : 'fixture'`. The literal is
+     * the defect: substituting the provider would have kept writing a RETIRED
+     * VENDOR'S NAME into append-only events — permanently, and untruthfully,
+     * with no reader to notice.
+     *
+     * ⚑ The derivation is over the LENDING legs alone, because that is what
+     * this field says it is: *"provenance of the APY series used"*. A market
+     * leg has no APY series — it replays the token's own price — so letting one
+     * decide the APY field would describe the wrong evidence. `allLive` still
+     * gates it, so a span with ANY fixture leg records `'fixture'` and
+     * provenance keeps degrading to the weakest leg exactly as before.
+     *
+     * ⚑ MEASURED: this changes no value the current catalogue can produce.
+     * Every strategy holds `skySsr`, so every span has a lending leg, and every
+     * lending leg is DeFiLlama-sourced today — an all-live span still records
+     * `'defillama'`, byte-for-byte. The change is what happens on SUBSTITUTION.
+     * (An earlier draft of this comment claimed an all-market strategy was
+     * mis-attributed; there is no all-market strategy, so that finding is
+     * WITHDRAWN rather than registered.)
+     */
+    const lendingSources = new Set(
+      (replayLegs ?? []).filter((l) => l.kind === 'lending').map((l) => l.apy.source)
+    );
+    const recordedApySource: EvidenceSourceId =
+      allLive && lendingSources.size === 1
+        ? ([...lendingSources][0] as EvidenceSourceId)
+        : 'fixture';
     const goalId = scheduleByPosition.get(position.positionId)?.goalId ?? position.goalId;
     const deposits = depositsByPosition.get(position.positionId) ?? [];
 
@@ -400,7 +430,7 @@ export function planAdvance(input: {
           ...(refusal.windowStartDate !== undefined
             ? { windowStartDate: refusal.windowStartDate }
             : {}),
-          apySource: allLive ? 'defillama' : 'fixture',
+          apySource: recordedApySource,
           /* `I-G5`: pin the VERSION of the versioned evidence, and only when
              versioned evidence took part. An all-live span has none. */
           ...(allLive ? {} : { fixtureVersion: FIXTURE_VERSION }),
@@ -418,7 +448,7 @@ export function planAdvance(input: {
           // leg pins per-leg multiples instead (§4.8 step 5). `apySource` stays
           // 'fixture' when a series is not fully live, so provenance never
           // over-claims — 'defillama' is reserved for an all-live lending replay.
-          apySource: allLive ? 'defillama' : 'fixture',
+          apySource: recordedApySource,
           /* `I-G5`: same rule on the accrual — the evidence version travels
              with the evidence, never as a placeholder when there is none. */
           ...(allLive ? {} : { fixtureVersion: FIXTURE_VERSION }),

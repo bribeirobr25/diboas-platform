@@ -30,12 +30,24 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const days = Number.isFinite(daysRaw) ? Math.min(Math.max(Math.trunc(daysRaw), 1), 730) : 365;
   try {
     // Independent fetches — never chained (React perf guidance + P9).
-    const [histories, priceHistories] = await Promise.all([
+    const [apyResults, priceResults] = await Promise.all([
       Promise.all(PROTOCOLS.map((protocolId) => getApyProvider().getApyHistory(protocolId, days))),
       Promise.all(
         PROTOCOLS.map((protocolId) => getPriceProvider().getPriceHistory(protocolId, days))
       ),
     ]);
+    /**
+     * A REFUSED series is OMITTED, never sent as an empty one.
+     *
+     * `null` from the port means "no primary, and no eligible fallback". The
+     * replay already treats an ABSENT history as an unreplayable leg (I-G1d,
+     * all-or-nothing per position) — which is the existing controlled-
+     * unavailable behaviour and needs no new Product handling. Sending an empty
+     * series instead would have required inventing a stamp for a value that
+     * does not exist.
+     */
+    const histories = apyResults.filter((h) => h !== null);
+    const priceHistories = priceResults.filter((h) => h !== null);
     return NextResponse.json(
       { days, histories, priceHistories },
       { headers: { 'Cache-Control': MARKET_CACHE_CONTROL } }

@@ -27,6 +27,24 @@ export * from './methodology';
 export * from './fixtures';
 export { DefiLlamaApyProvider, POOL_MATCHERS, matchPool } from './providers/defillama';
 export { CoinGeckoPriceProvider, COINGECKO_IDS } from './providers/coingecko';
+/**
+ * ⚑ EXACTLY WHAT CROSSES THE PACKAGE BOUNDARY, AND NOTHING ELSE.
+ *
+ * The provider-safety modules are consumed INSIDE this package by relative
+ * import (the two adapters and the fallback-only ports). Only these three
+ * symbols have a consumer outside it — `apps/sandbox/src/lib/market/factory.ts`
+ * — so only these three are re-exported.
+ *
+ * A first draft of this block also exported `SOURCE_DISPOSITIONS`,
+ * `permitsUse`, `fallbackFor` and four of their types. Measured: zero consumers
+ * outside the barrel line itself. They are deleted rather than kept, under the
+ * standing ruling that unused production exports are not kept for future
+ * possibility, and the repository's own rule that an unconsumed barrel entry is
+ * dead code. The modules still export them; the PACKAGE does not advertise
+ * them.
+ */
+export { FallbackOnlyApyProvider, FallbackOnlyPriceProvider } from './providers/fallbackOnly';
+export { isSourceUsable } from './providerDisposition';
 export { FixtureGasProvider } from './providers/gas';
 export {
   NETWORK_COST_NATIVE_UNIT,
