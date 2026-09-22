@@ -117,8 +117,8 @@ export class PostgresEvidenceStore implements EvidenceStore {
       /* ⛑ RETENTION (Legal 2026-09-22): an expired record is never eligible for
          activation. Checked BEFORE the CAS upsert so a newer-but-expired record
          cannot win on `seq` alone — ordering protects ingestion order, not
-         lawfulness. The clock is derived from the record's own stored
-         `stamp.asOf`, so there is no second column to fall out of step. */
+         lawfulness. The clock is the record's own `ingested_at` — its custody
+         moment — read here rather than recomputed anywhere else. */
       const candidate = await this.sql`
         SELECT ingested_at FROM evidence_records WHERE seq = ${seq}
       `;
@@ -182,11 +182,11 @@ export class PostgresEvidenceStore implements EvidenceStore {
    * operation, and SCHEDULING it is an infrastructure responsibility recorded
    * as such (see the Stage record) — this class cannot guarantee a cadence.
    *
-   * ⚑ Expiry is computed in the APPLICATION, not in SQL. The clock lives in
-   * `payload->'stamp'->>'asOf'` and the rule is `+90 days`; expressing that as
-   * a SQL interval would create a SECOND implementation of the retention rule
-   * that could drift from the first. One rule, one derivation — the same
-   * discipline the `>14`-day freshness gate follows.
+   * ⚑ Expiry is computed in the APPLICATION, not in SQL. The clock is the
+   * record's `ingested_at` — the custody moment — and the rule is `+90 days`;
+   * expressing that as a SQL interval would create a SECOND implementation of
+   * the retention rule that could drift from the first. One rule, one
+   * derivation — the same discipline the `>14`-day freshness gate follows.
    *
    * ⚑ NO FALLBACK ACTIVATION. Removing an identity's active pointer leaves it
    * with none. Promoting an older record would resurrect data Legal ordered

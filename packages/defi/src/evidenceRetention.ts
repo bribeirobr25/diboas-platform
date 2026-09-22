@@ -11,18 +11,18 @@
  * INDEFINITE RETENTION        = NO
  * ```
  *
- * ⚑ THE CLOCK IS DERIVED, NEVER STORED — and that is the whole design.
+ * ⚑ THE EXPIRY IS DERIVED FROM CUSTODY, AND NEVER SEPARATELY STORED.
  *
- * A stored `expires_at` column would be a SECOND clock, and a second clock is a
- * thing that can be written again: a copy, a re-activation, a supersession or a
+ * A stored `expires_at` would be a SECOND clock, and a second clock is a thing
+ * that can be written again: a copy, a re-activation, a supersession or a
  * pointer reassignment would each be an opportunity to reset it, and the bug
- * would be silent. Deriving expiry from the record's own `stamp.asOf` — the
- * retrieval moment already persisted inside the payload — means there is
- * nothing to reset. Immutability is structural rather than enforced.
+ * would be silent. The anchor is instead the record's own custody moment —
+ * `retrievedAt`, written once at insert and never updated — and expiry is
+ * computed from it on every read. There is no derived column to drift.
  *
  * This is also what makes RESTORE protection free (Legal §8): a record restored
- * from a backup carries its original `asOf` in its payload, so it evaluates as
- * expired the instant it is read. No separate expiry state can be stale or
+ * from a backup carries its original custody moment, so it evaluates as expired
+ * the instant it is read. No separate expiry state can come back stale or
  * missing, because none exists.
  *
  * ⚑ RETENTION IS NOT FRESHNESS. Stage H decides whether evidence may answer a
@@ -36,6 +36,25 @@
  * payload shape. It reads one timestamp. Swapping the source cannot change the
  * lifecycle, which is the Practice Market Data canon's §7 / §11 / §20
  * requirement expressed as code.
+ *
+ * ⛑ DELIBERATELY SMALL (founder ruling 2026-09-22: unused production exports
+ * are not kept for future possibility). Four symbols this module first shipped
+ * were deleted in review because nothing in production called them:
+ *
+ * ```text
+ * evidenceExpiresAt                   no production consumer
+ * mayPersistReducedStatistic          no evidence class qualifies; the two-part
+ *                                     rule lives in the slice audit record
+ * EVIDENCE_BACKUP_MAX_ADDITIONAL_DAYS Legal's 30-day backup ceiling is an
+ *                                     OPS requirement — a constant here would
+ *                                     imply an application enforcement that
+ *                                     does not exist
+ * EvidenceRetentionError              orphaned once the above went
+ * ```
+ *
+ * `EVIDENCE_RETENTION_DAYS` is module-private for the same reason: it has
+ * internal consumers and no external one, and an export kept only for tests is
+ * still an export kept for nothing. The window is tested through behaviour.
  */
 
 /**
@@ -45,14 +64,9 @@
  * would make the window depend on the reader's timezone, and a retention
  * boundary that moves with the observer is not a boundary.
  */
-export const EVIDENCE_RETENTION_DAYS = 90;
-
-/** The ruled maximum additional life of backup/PITR copies, after operational deletion. */
-export const EVIDENCE_BACKUP_MAX_ADDITIONAL_DAYS = 30;
+const EVIDENCE_RETENTION_DAYS = 90;
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-
-export class EvidenceRetentionError extends Error {}
 
 /**
  * ⛑ WHY THE RETENTION ANCHOR IS NOT `stamp.asOf` — verified 2026-09-22.
@@ -84,21 +98,6 @@ export class EvidenceRetentionError extends Error {}
  */
 
 /**
- * When a record retrieved at `retrievedAt` leaves its operational window.
- *
- * Pure and total: the same input always yields the same instant, so a copy, a
- * re-activation, a supersession and a pointer reassignment all compute the
- * identical expiry. There is no path that produces a later one.
- */
-export function evidenceExpiresAt(retrievedAt: string): string {
-  const at = Date.parse(retrievedAt);
-  if (!Number.isFinite(at)) {
-    throw new EvidenceRetentionError(`retrievedAt is not a parseable instant: ${retrievedAt}`);
-  }
-  return new Date(at + EVIDENCE_RETENTION_DAYS * DAY_MS).toISOString();
-}
-
-/**
  * Has this record passed its operational window?
  *
  * The boundary is EXCLUSIVE at the low side and INCLUSIVE at expiry: at exactly
@@ -120,32 +119,4 @@ export function isEvidenceExpired(retrievedAt: string, now: Date | string): bool
 /** The same question asked of a stored record, which carries its own anchor. */
 export function isRecordExpired(record: { retrievedAt: string }, now: Date | string): boolean {
   return isEvidenceExpired(record.retrievedAt, now);
-}
-
-// ── Reduced source statistic (Legal §6) ──────────────────────────────────────
-
-/**
- * May a reduced source statistic be persisted for this evidence class?
- *
- * Legal was explicit that this must NOT become a universal mandatory field.
- * Both conditions must hold, independently:
- *
- * ```text
- * 1. the statistic is genuinely needed to audit THAT evidence class
- * 2. the SOURCE'S OWN RIGHTS separately permit retaining it
- * ```
- *
- * Neither condition is satisfied by any evidence class today, so nothing
- * persists one — which is why no field for it exists in the payload, and why a
- * guard test asserts that absence rather than trusting this comment.
- *
- * When one is ever retained, its expiry is bounded BY the record's: a statistic
- * that outlived the evidence it describes would be a second retention clock,
- * and there is only ever one.
- */
-export function mayPersistReducedStatistic(policy: {
-  neededForAuditOfThisClass: boolean;
-  sourceRightsPermitRetention: boolean;
-}): boolean {
-  return policy.neededForAuditOfThisClass && policy.sourceRightsPermitRetention;
 }

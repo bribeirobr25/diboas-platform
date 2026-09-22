@@ -1,12 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  EVIDENCE_BACKUP_MAX_ADDITIONAL_DAYS,
-  EVIDENCE_RETENTION_DAYS,
-  evidenceExpiresAt,
-  isEvidenceExpired,
-  isRecordExpired,
-  mayPersistReducedStatistic,
-} from '../evidenceRetention';
+import { isEvidenceExpired, isRecordExpired } from '../evidenceRetention';
 import { buildEvidenceCandidate } from '../evidenceStore';
 import { referenceEvidence, unavailableEvidence, type CostCoverage } from '../evidence';
 import { InMemoryEvidenceStore } from '../testing';
@@ -54,9 +47,15 @@ function candidate(retrievedAt = RETRIEVED, value = 0.03, recordId = '1', stampA
 }
 
 describe('the 90-day window, at its exact boundary', () => {
-  it('should state the ruled constants', () => {
-    expect(EVIDENCE_RETENTION_DAYS).toBe(90);
-    expect(EVIDENCE_BACKUP_MAX_ADDITIONAL_DAYS).toBe(30);
+  it('should place the window at exactly 90 days, asserted as BEHAVIOUR', () => {
+    /* ⛑ The constant is module-private (founder ruling: no export kept for
+       tests alone), so the window is pinned through what the rule DOES —
+       which is the stronger assertion anyway. */
+    expect(isEvidenceExpired(RETRIEVED, at(89 * DAY))).toBe(false);
+    expect(isEvidenceExpired(RETRIEVED, at(90 * DAY))).toBe(true);
+    /* Legal's 30-day backup ceiling is deliberately NOT a runtime constant:
+       nothing in this repository enforces it, and a constant would imply
+       otherwise. It lives in the slice audit record as an OPS requirement. */
   });
 
   it('should RETAIN at 89d 23h 59m', () => {
@@ -69,9 +68,11 @@ describe('the 90-day window, at its exact boundary', () => {
     expect(isEvidenceExpired(RETRIEVED, at(90 * DAY))).toBe(true);
   });
 
-  it('should derive the same expiry instant every time it is asked', () => {
-    expect(evidenceExpiresAt(RETRIEVED)).toBe(at(90 * DAY));
-    expect(evidenceExpiresAt(RETRIEVED)).toBe(evidenceExpiresAt(RETRIEVED));
+  it('should give the same answer however many times it is asked', () => {
+    /* Determinism through the production seam: no stored expiry to drift. */
+    for (const probe of [at(89 * DAY), at(90 * DAY), at(89 * DAY)]) {
+      expect(isEvidenceExpired(RETRIEVED, probe)).toBe(probe !== at(89 * DAY));
+    }
   });
 
   it('should treat an unparseable clock or stamp as EXPIRED, never as retained', () => {
@@ -289,26 +290,14 @@ describe('legal hold — the minimum seam, not a case-management system', () => 
   });
 });
 
-describe('reduced source statistic — capability, never a mandate', () => {
-  it('should permit persistence ONLY when audit need AND source rights both hold', () => {
-    expect(
-      mayPersistReducedStatistic({
-        neededForAuditOfThisClass: true,
-        sourceRightsPermitRetention: true,
-      })
-    ).toBe(true);
-    for (const policy of [
-      { neededForAuditOfThisClass: true, sourceRightsPermitRetention: false },
-      { neededForAuditOfThisClass: false, sourceRightsPermitRetention: true },
-      { neededForAuditOfThisClass: false, sourceRightsPermitRetention: false },
-    ]) {
-      expect(mayPersistReducedStatistic(policy)).toBe(false);
-    }
-  });
-
-  it('should persist NO reduced statistic today, because no class qualifies', () => {
-    /* Asserted on the payload shape, not on a comment: there is no field for
-       one, so nothing can quietly start retaining it. */
+describe('provider-agnostic lifecycle', () => {
+  it('should persist NO reduced source statistic, because no class qualifies', () => {
+    /**
+     * Legal §6 permits one only when audit need AND source rights both hold;
+     * neither does today. The RULE lives in the slice audit record — keeping an
+     * unused predicate in runtime code was dead API, and was deleted. What
+     * remains is this: proof that nothing is being retained.
+     */
     const payload = toPayloadV1(
       referenceEvidence({
         value: 0.03,
@@ -318,14 +307,12 @@ describe('reduced source statistic — capability, never a mandate', () => {
       }),
       'USD'
     );
-    const serialized = JSON.stringify(payload);
+    const serialized = JSON.stringify(payload).toLowerCase();
     for (const forbidden of ['sample', 'median', 'p25', 'p75', 'statistic']) {
-      expect(serialized.toLowerCase()).not.toContain(forbidden);
+      expect(serialized).not.toContain(forbidden);
     }
   });
-});
 
-describe('provider-agnostic lifecycle', () => {
   it('should name no provider, chain or payload vendor shape', () => {
     const src = require('node:fs')
       .readFileSync(new URL('../evidenceRetention.ts', import.meta.url), 'utf8')
