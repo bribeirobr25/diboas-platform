@@ -1,7 +1,13 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { CoinGeckoPriceProvider, DefiLlamaApyProvider, FixtureGasProvider } from '@diboas/defi';
+import {
+  CoinGeckoPriceProvider,
+  DefiLlamaApyProvider,
+  FallbackOnlyApyProvider,
+  FallbackOnlyPriceProvider,
+  FixtureGasProvider,
+} from '@diboas/defi';
 import {
   __resetMarketProviders,
   getApyProvider,
@@ -121,5 +127,87 @@ describe('PROVIDER SELECTION ≠ MODE SELECTION (canon 2026-09-18 §5)', () => {
     for (const token of ['LedgerScope', 'practice', 'mode']) {
       expect(new RegExp(`\\b${token}\\b`, 'i').test(body), token).toBe(false);
     }
+  });
+});
+
+/**
+ * THE KILL SWITCH, AT THE CONSTRUCTION SEAM.
+ *
+ * ⚑ THESE ASSERT THE CONSTRUCTED TYPE, not the returned data. A disabled source
+ * and a failing network produce the same Product result, so asserting the
+ * result would pass either way — the `5.438` failure mode. `instanceof` is the
+ * only instrument that distinguishes "the adapter was never built" from "the
+ * adapter was built and declined to call".
+ */
+describe('provider kill switch', () => {
+  const ENV = 'MARKET_SOURCES_DISABLED';
+  const original = process.env[ENV];
+
+  beforeEach(() => {
+    delete process.env[ENV];
+    __resetMarketProviders();
+  });
+
+  afterEach(() => {
+    if (original === undefined) delete process.env[ENV];
+    else process.env[ENV] = original;
+    __resetMarketProviders();
+  });
+
+  it('should build the real adapters when nothing is disabled', () => {
+    expect(getApyProvider()).toBeInstanceOf(DefiLlamaApyProvider);
+    expect(getPriceProvider()).toBeInstanceOf(CoinGeckoPriceProvider);
+  });
+
+  it('should NOT construct a disabled source adapter', () => {
+    // Sabotage A. The object holding the endpoint, fetch impl and timeout is
+    // never created — a structural guarantee, not a behavioural promise.
+    process.env[ENV] = 'defillama';
+    __resetMarketProviders();
+    expect(getApyProvider()).not.toBeInstanceOf(DefiLlamaApyProvider);
+    expect(getApyProvider()).toBeInstanceOf(FallbackOnlyApyProvider);
+  });
+
+  it('should disable each source INDEPENDENTLY', () => {
+    process.env[ENV] = 'coingecko';
+    __resetMarketProviders();
+    expect(getApyProvider()).toBeInstanceOf(DefiLlamaApyProvider);
+    expect(getPriceProvider()).toBeInstanceOf(FallbackOnlyPriceProvider);
+  });
+
+  it('should disable both when both are named', () => {
+    process.env[ENV] = 'defillama,coingecko';
+    __resetMarketProviders();
+    expect(getApyProvider()).toBeInstanceOf(FallbackOnlyApyProvider);
+    expect(getPriceProvider()).toBeInstanceOf(FallbackOnlyPriceProvider);
+  });
+
+  it('should tolerate whitespace and empty entries', () => {
+    process.env[ENV] = ' defillama , , ';
+    __resetMarketProviders();
+    expect(getApyProvider()).toBeInstanceOf(FallbackOnlyApyProvider);
+    expect(getPriceProvider()).toBeInstanceOf(CoinGeckoPriceProvider);
+  });
+
+  it('should make a typo INERT rather than disabling something by accident', () => {
+    process.env[ENV] = 'defilama';
+    __resetMarketProviders();
+    expect(getApyProvider()).toBeInstanceOf(DefiLlamaApyProvider);
+  });
+
+  it('should never let configuration ENABLE a source', () => {
+    /* The override is monotone-restrictive: there is no env value that grants
+       a use. This asserts the only syntax that exists is subtraction — an
+       "enable" spelling is simply an unmatched id, i.e. inert. */
+    process.env[ENV] = '!defillama';
+    __resetMarketProviders();
+    expect(getApyProvider()).toBeInstanceOf(DefiLlamaApyProvider);
+    expect(getApyProvider()).not.toBeInstanceOf(FallbackOnlyApyProvider);
+  });
+
+  it('should leave the fixture-backed gas port alone (stated scope limit)', () => {
+    process.env[ENV] = 'defillama,coingecko';
+    __resetMarketProviders();
+    expect(getGasProvider()).toBeInstanceOf(FixtureGasProvider);
   });
 });

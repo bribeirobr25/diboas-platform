@@ -27,6 +27,8 @@ import type {
 } from '../types';
 import { evidenceStamp } from '../types';
 import { createRevalidatingCache, type RevalidatedEntry } from './revalidatingCache';
+import { permitsUse } from '../providerDisposition';
+import { fallbackFor } from '../fallbackEligibility';
 import { PROTOCOL_RETURN_MODEL, PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 
 const API_BASE = 'https://api.coingecko.com/api/v3';
@@ -61,15 +63,36 @@ const PRICE_KEY = 'prices';
  *  strategy. Daily granularity makes a 6 h TTL lossless anyway. */
 const historyCache = createRevalidatingCache<DatedPricePoint[]>(PRICE_TTL_MS);
 
+/** This adapter's source identity. Declared once; never spelled at a call site. */
+const SOURCE = 'coingecko' as const;
+
 export class CoinGeckoPriceProvider implements IPriceProvider {
   constructor(
     private readonly fetchImpl: typeof fetch = fetch,
+    /**
+     * ⚑ AN ENTITLEMENT HEADER, NOT AN AUTHORIZATION. A present key upgrades the
+     * free Demo tier's limits; it clears nothing and authorizes no expenditure.
+     * `fallbackEligibility` states the rule this guards against: clearance is
+     * never inferred from credentials being present.
+     */
     private readonly apiKey: string | undefined = process.env.COINGECKO_API_KEY,
-    private readonly timeoutMs: number = PROVIDER_FETCH_TIMEOUT_MS
+    private readonly timeoutMs: number = PROVIDER_FETCH_TIMEOUT_MS,
+    /** The deployment's operational kill switch. See `DefiLlamaApyProvider`. */
+    private readonly alsoDisabled?: ReadonlySet<string>
   ) {}
+
+  /** The eligible fallback, or none. See `DefiLlamaApyProvider.mayServeFixture`. */
+  private mayServeFixture(subject: Parameters<typeof fallbackFor>[0]): boolean {
+    const decision = fallbackFor(subject, this.alsoDisabled);
+    return decision.eligible && decision.source === 'fixture';
+  }
 
   async getPrices(assetIds: AssetId[], currency: DisplayCurrency): Promise<PriceQuote[]> {
     try {
+      /* The kill switch, before any request is issued. */
+      if (!permitsUse(SOURCE, 'NEW_COLLECTION', this.alsoDisabled)) {
+        throw new Error('source may not collect');
+      }
       const entry = await this.fetchAll();
       // When fetched, not when served (Data Vintage P-4) — see defillama.ts.
       const asOf = new Date(entry.at).toISOString();
@@ -81,10 +104,15 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
           assetId,
           currency,
           price,
-          stamp: evidenceStamp({ source: 'coingecko', origin: 'OBSERVED', asOf }),
+          stamp: evidenceStamp({ source: SOURCE, origin: 'OBSERVED', asOf }),
         };
       });
     } catch {
+      /* Refused legs are OMITTED, never zero-filled. `usdPriceLocal` then
+         resolves to null, which `networkFeeLocal` already treats as "no rate" —
+         the cost row is WITHHELD rather than computed against a fabricated 1:1
+         (AUD-F05). Existing, authorized Product behaviour; nothing new. */
+      if (!this.mayServeFixture('PRICE_CURRENT')) return [];
       return assetIds.map((assetId) => ({
         assetId,
         currency,
@@ -122,10 +150,16 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
    * rate limit, unexpected shape — returns the documented fixture series
    * stamped `fixture`, never a crash and never a silent live/fixture blend.
    */
-  async getPriceHistory(protocolId: ProtocolId, days: number): Promise<ProtocolPriceHistory> {
+  async getPriceHistory(
+    protocolId: ProtocolId,
+    days: number
+  ): Promise<ProtocolPriceHistory | null> {
     const model = PROTOCOL_RETURN_MODEL[protocolId];
     try {
       if (model.kind !== 'market') throw new Error('not a market-priced leg');
+      if (!permitsUse(SOURCE, 'NEW_COLLECTION', this.alsoDisabled)) {
+        throw new Error('source may not collect');
+      }
       const entry = await historyCache.revalidate(model.coingeckoId, async () => {
         const headers: Record<string, string> = {};
         if (this.apiKey) headers['x-cg-demo-api-key'] = this.apiKey;
@@ -148,12 +182,14 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
         protocolId,
         points: entry.value.slice(-days),
         stamp: evidenceStamp({
-          source: 'coingecko',
+          source: SOURCE,
           origin: 'OBSERVED',
           asOf: new Date(entry.at).toISOString(),
         }),
       };
     } catch {
+      /* Eligibility first; a refused fallback is `null`, not a synthetic series. */
+      if (!this.mayServeFixture('PRICE_HISTORY')) return null;
       return {
         protocolId,
         points: fixturePriceSeries(protocolId, days),

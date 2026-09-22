@@ -81,10 +81,10 @@ export type EvidenceSourceKind =
  * anything.
  */
 export const EVIDENCE_SOURCES = {
-  defillama: { kind: 'provider' },
-  coingecko: { kind: 'provider' },
-  fixture: { kind: 'fixture' },
-} as const satisfies Record<string, { kind: EvidenceSourceKind }>;
+  defillama: { kind: 'provider', label: 'DeFiLlama' },
+  coingecko: { kind: 'provider', label: 'CoinGecko' },
+  fixture: { kind: 'fixture', label: 'diBoaS reference values' },
+} as const satisfies Record<string, { kind: EvidenceSourceKind; label: string }>;
 
 /** The authoritative source id — derived from the registry, never hand-listed. */
 export type EvidenceSourceId = keyof typeof EVIDENCE_SOURCES;
@@ -92,6 +92,57 @@ export type EvidenceSourceId = keyof typeof EVIDENCE_SOURCES;
 /** A source's classification. Never a shortcut to origin/actionability/availability. */
 export function sourceKindOf(source: EvidenceSourceId): EvidenceSourceKind {
   return EVIDENCE_SOURCES[source].kind;
+}
+
+/**
+ * The name a source is ATTRIBUTED BY on a rendered surface.
+ *
+ * ⚑ WHY THIS EXISTS (`5.440`). `StrategyDetail` passed the string `'DeFiLlama'`
+ * as the `{source}` value of a localized message at four call sites. The
+ * message catalogue was already provider-agnostic; the CALL SITE was not — so
+ * substituting the provider would have kept a retired vendor's name on a live
+ * money surface in four locales. Product must carry no provider-name logic
+ * (Founder 2026-09-22 §5), and a lookup is not logic.
+ *
+ * This is a DISPLAY name, never an identity: comparisons use the id.
+ */
+export function sourceLabelOf(source: EvidenceSourceId): string {
+  return EVIDENCE_SOURCES[source].label;
+}
+
+/**
+ * Is this stamp a LIVE OBSERVATION — i.e. did the source actually give us this
+ * value, now, rather than something standing in for it?
+ *
+ * ⚑ `5.440` · THE DEFECT THIS REPLACES, and why it mattered.
+ *
+ * Liveness was `stamp.source === 'defillama'` — a PROVIDER-NAME EQUALITY TEST
+ * standing in for a property. It had three consequences, and the third is the
+ * serious one:
+ *
+ * ```text
+ * 1. substituting the provider silently reported every strategy as `fixture`
+ * 2. Product had to know a provider's name to ask an evidence question
+ * 3. it failed OPEN into a FALSE HONESTY CLAIM: a cleared new provider's live
+ *    rates would have rendered as "reference values", which is a truthfulness
+ *    defect on a pre-commit money surface, not a cosmetic one
+ * ```
+ *
+ * The honest definition uses the two axes the stamp already carries:
+ *
+ * ```text
+ * origin === 'OBSERVED'   the source reported it, rather than us modelling it
+ * !fallbackUsed           it is not a substitute for something we could not get
+ * ```
+ *
+ * Both are required. `OBSERVED` alone would admit a stand-in that happened to
+ * be observed elsewhere; `!fallbackUsed` alone would admit a MODELLED value
+ * served as a primary. Neither names a provider, so a newly cleared source
+ * reporting observations is live on the day it is added — no edit here, which
+ * is the §9 substitution property expressed as code.
+ */
+export function isLiveObservation(stamp: DataStamp): boolean {
+  return stamp.origin === 'OBSERVED' && !stamp.fallbackUsed;
 }
 
 /**
@@ -258,7 +309,23 @@ export interface StrategyDef {
 
 export interface IApyProvider {
   getCurrentApys(protocolIds: ProtocolId[]): Promise<ProtocolApy[]>;
-  getApyHistory(protocolId: ProtocolId, days: number): Promise<ProtocolApyHistory>;
+  /**
+   * ⚑ `| null` IS A REFUSAL, NOT AN ERROR (provider-safety block 2026-09-22 §4).
+   *
+   * `null` means: the primary could not serve AND no cleared fallback is
+   * eligible. It is the CONTROLLED UNAVAILABLE case reaching the port honestly.
+   *
+   * The alternative — an empty series carrying a stamp — was rejected: every
+   * `DataStamp` asserts a source, an origin and a retrieval time for a value
+   * that exists, so stamping "nothing" would have required claiming either that
+   * a provider observed an empty series or that the fixture served when it was
+   * refused. Both are false statements on the evidence record, and the second
+   * is precisely the uncleared-fallback claim this block prohibits.
+   *
+   * Downstream needs no new handling: the replay already treats an absent
+   * history as an unreplayable leg (I-G1d, all-or-nothing per position).
+   */
+  getApyHistory(protocolId: ProtocolId, days: number): Promise<ProtocolApyHistory | null>;
 }
 
 export interface IPriceProvider {
@@ -281,7 +348,8 @@ export interface IPriceProvider {
    * Nothing speculative is added here: exactly the capability the route depends
    * on today, and nothing else.
    */
-  getPriceHistory(protocolId: ProtocolId, days: number): Promise<ProtocolPriceHistory>;
+  /** `null` = refused, with no eligible fallback. See `getApyHistory`. */
+  getPriceHistory(protocolId: ProtocolId, days: number): Promise<ProtocolPriceHistory | null>;
 }
 
 export interface IGasProvider {

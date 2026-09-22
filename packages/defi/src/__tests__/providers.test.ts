@@ -55,10 +55,14 @@ describe('DefiLlamaApyProvider (fail-open contract, Principle 7)', () => {
   it('should produce a flat fixture-stamped history series when the chart endpoint fails', async () => {
     const provider = new DefiLlamaApyProvider(failingFetch);
     const history = await provider.getApyHistory('compoundV3', 30);
-    expect(history.points).toHaveLength(30);
-    expect(history.stamp.source).toBe('fixture');
+    /* Not null: the fixture fallback IS eligible for APY_HISTORY today, so a
+       failed chart endpoint degrades rather than refuses. The `!== null` is the
+       assertion, not a convenience — a refusal here would be a real change. */
+    expect(history).not.toBeNull();
+    expect(history!.points).toHaveLength(30);
+    expect(history!.stamp.source).toBe('fixture');
     // Flat series: every point equals the fixture APY.
-    const distinct = new Set(history.points.map((p) => p.apyPercent));
+    const distinct = new Set(history!.points.map((p) => p.apyPercent));
     expect(distinct.size).toBe(1);
   });
 });
@@ -224,7 +228,8 @@ describe('provenance stamps carry the FETCH time, never the serve time (Data Vin
     at('2026-09-11T11:30:00.000Z');
     const history = await provider.getApyHistory('aaveV3', 30);
     expect(n).toBe(2); // one /pools + one /chart, then both served from cache
-    expect(history.stamp).toEqual(observedStamp('defillama', T0));
+    expect(history).not.toBeNull();
+    expect(history!.stamp).toEqual(observedStamp('defillama', T0));
   });
 
   it('should stamp cached prices with their fetch time', async () => {
@@ -247,7 +252,8 @@ describe('provenance stamps carry the FETCH time, never the serve time (Data Vin
     at('2026-09-11T09:45:00.000Z');
     const history = await provider.getPriceHistory('jito', 30);
     expect(calls.n).toBe(1);
-    expect(history.stamp).toEqual(observedStamp('coingecko', T0));
+    expect(history).not.toBeNull();
+    expect(history!.stamp).toEqual(observedStamp('coingecko', T0));
   });
 });
 
@@ -278,8 +284,9 @@ describe('a hung upstream fails open within the bound (Principle 7)', () => {
   it('should serve a fixture APY history instead of hanging', async () => {
     const { DefiLlamaApyProvider: Provider } = await import('../providers/defillama');
     const history = await new Provider(hanging, BOUND_MS).getApyHistory('skySsr', 10);
-    expect(history.stamp.source).toBe('fixture');
-    expect(history.points).toHaveLength(10);
+    expect(history).not.toBeNull();
+    expect(history!.stamp.source).toBe('fixture');
+    expect(history!.points).toHaveLength(10);
   });
 
   it('should serve fixture prices instead of hanging', async () => {
@@ -291,7 +298,8 @@ describe('a hung upstream fails open within the bound (Principle 7)', () => {
   it('should serve a fixture price history instead of hanging', async () => {
     const { CoinGeckoPriceProvider: Provider } = await import('../providers/coingecko');
     const h = await new Provider(hanging, undefined, BOUND_MS).getPriceHistory('jito', 10);
-    expect(h.stamp.source).toBe('fixture');
+    expect(h).not.toBeNull();
+    expect(h!.stamp.source).toBe('fixture');
   });
 
   it('should keep the server bound below the client abort, or the fallback is never seen', () => {

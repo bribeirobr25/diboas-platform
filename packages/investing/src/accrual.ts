@@ -36,7 +36,15 @@ export interface DailyApySeries {
    * date-anchored, and the caller must fall back rather than invent them.
    */
   dates?: string[];
-  source: 'defillama' | 'fixture';
+  /**
+   * Which source produced this series. Widened from a provider-name union
+   * 2026-09-22 (`5.440`): a replay must not stop recognising a series because
+   * its provider was substituted. `string` for the same boundary reason as the
+   * ledger's `apySource` — `@diboas/investing` has no `@diboas/*` dependency,
+   * and the writer types the value as `EvidenceSourceId` where it is produced.
+   * MEASURED: this package never reads the field; it travels with the series.
+   */
+  source: string;
 }
 
 const DAYS_PER_YEAR = 365;
@@ -193,7 +201,15 @@ export interface DailyPriceSeries {
   points: number[];
   /** Index-aligned `YYYY-MM-DD` per point — see `DailyApySeries.dates` (I-G1a). */
   dates?: string[];
-  source: 'coingecko' | 'fixture';
+  /**
+   * Which source produced this series. Widened from a provider-name union
+   * 2026-09-22 (`5.440`): a replay must not stop recognising a series because
+   * its provider was substituted. `string` for the same boundary reason as the
+   * ledger's `apySource` — `@diboas/investing` has no `@diboas/*` dependency,
+   * and the writer types the value as `EvidenceSourceId` where it is produced.
+   * MEASURED: this package never reads the field; it travels with the series.
+   */
+  source: string;
 }
 
 /**

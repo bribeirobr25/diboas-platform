@@ -17,6 +17,7 @@
 
 import type { Actionability, Availability, CostCoverage, UnavailableReason } from './evidence';
 import type { DataStamp, EvidenceOrigin, ProtocolApy, StrategyDef } from './types';
+import { isLiveObservation } from './types';
 
 export type ProvenanceState = 'live' | 'mixed' | 'fixture';
 
@@ -101,6 +102,16 @@ export interface StrategyProvenance {
    * control-flow shape is NOT the proof.
    */
   newestLiveAsOf: string | null;
+  /**
+   * WHICH source the newest live observation came from (`5.440`).
+   *
+   * The rendered attribution used to be the literal `'DeFiLlama'`, written at
+   * the call site. It is now looked up from this id via `sourceLabelOf`, so a
+   * substituted provider attributes itself and Product carries no provider
+   * name. `null` exactly when `newestLiveAsOf` is null — the two are set
+   * together, from the same leg, and a test pins that they cannot disagree.
+   */
+  newestLiveSource: import('./types').EvidenceSourceId | null;
 }
 
 export function strategyProvenance(
@@ -123,10 +134,20 @@ export function strategyProvenance(
 ): StrategyProvenance {
   const byId = new Map(apys.map((a) => [a.protocolId, a]));
   const fixtureProtocolIds: string[] = [];
-  const liveAsOf: string[] = [];
+  const liveObservations: DataStamp[] = [];
   for (const leg of strategy.allocation) {
     const apy = byId.get(leg.protocolId);
-    if (apy?.stamp.source === 'defillama') liveAsOf.push(apy.stamp.asOf);
+    /**
+     * `5.440` · LIVENESS IS A PROPERTY OF THE STAMP, NEVER THE PROVIDER'S NAME.
+     *
+     * This read `apy?.stamp.source === 'defillama'`. Substituting the provider
+     * would have pushed every leg into `fixtureProtocolIds` and rendered a
+     * cleared source's live rates as "reference values" — failing OPEN into a
+     * false honesty claim on a pre-commit money surface. `isLiveObservation`
+     * asks what the stamp actually says (OBSERVED, not a stand-in), so a newly
+     * cleared source is live the day it arrives with no edit here.
+     */
+    if (apy && isLiveObservation(apy.stamp)) liveObservations.push(apy.stamp);
     else fixtureProtocolIds.push(leg.protocolId);
   }
   /**
@@ -136,7 +157,7 @@ export function strategyProvenance(
   const allApysLive = fixtureProtocolIds.length === 0;
   const apyProvenance: ProvenanceState = allApysLive
     ? 'live'
-    : liveAsOf.length === 0
+    : liveObservations.length === 0
       ? 'fixture'
       : 'mixed';
 
@@ -148,6 +169,12 @@ export function strategyProvenance(
    * and a fixture is MODELLED by construction. Reading `stamp.origin` is what
    * makes that true here rather than merely intended.
    */
+  /* ONE leg wins both fields, so they can never disagree. */
+  const newestLive = liveObservations.reduce<DataStamp | null>(
+    (best, stamp) => (best === null || stamp.asOf > best.asOf ? stamp : best),
+    null
+  );
+
   const feeEvidence: FeeEvidence =
     gasStamp === undefined
       ? { rendered: false }
@@ -192,6 +219,10 @@ export function strategyProvenance(
     // Index access, not `.at(-1)`: the domain packages target ES2020 by
     // config, and `.at` is ES2022 (the workspace type-check catches it even
     // though vitest/tsup strip types without checking).
-    newestLiveAsOf: liveAsOf.length > 0 ? liveAsOf.sort()[liveAsOf.length - 1] : null,
+    /* Newest by RETRIEVAL time, and the source id travels WITH it: picking the
+       timestamp from one leg and the name from another is exactly the kind of
+       split that let "Live from DeFiLlama" sit above a fixture fee (GAS-1). */
+    newestLiveAsOf: newestLive?.asOf ?? null,
+    newestLiveSource: newestLive?.source ?? null,
   };
 }

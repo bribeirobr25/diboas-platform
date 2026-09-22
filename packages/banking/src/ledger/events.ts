@@ -241,8 +241,41 @@ export interface AccrualApplied extends EventBase {
   fromSimDay: number;
   toSimDay: number;
   earnings: string; // may be negative for growth strategies in a down replay
-  /** Provenance of the APY series used (Data Vintage honesty). */
-  apySource: 'defillama' | 'fixture';
+  /**
+   * Provenance of the APY series used (Data Vintage honesty).
+   *
+   * ⚑ WIDENED 2026-09-22 from `'defillama' | 'fixture'`, and why that is safe
+   * on an APPEND-ONLY event:
+   *
+   * ```text
+   * OLD EVENTS     every previously written value is still admissible ->
+   *                remain valid, and are NEVER rewritten
+   * READERS        MEASURED ZERO. No projection, replay handler or money path
+   *                reads this field; it is display/audit data. A widened type
+   *                cannot corrupt a replay that never consults it.
+   * MEANING        unchanged. A wider set of admissible values is not a new
+   *                meaning for any existing value.
+   * schemaVersion  NOT bumped. V1->V2 discriminated a RENAME; this changes no
+   *                existing field's meaning — the same test applied to I-G3's
+   *                optional additions.
+   * ```
+   *
+   * Without this, introducing a cleared provider would have required editing a
+   * persisted schema, which is the "material redesign" the provider-replacement
+   * rule exists to prevent.   *
+   * ⚑ TYPED `string`, NOT AN IMPORTED UNION, AND THAT IS THE BOUNDARY DECISION.
+   * `@diboas/banking` depends on `decimal.js` and nothing else — the rule is
+   * recorded three times in this package already ("the shape is inlined so
+   * `@diboas/banking` stays dependency-free", `events.ts`; "`packages/banking`
+   * does not depend on `packages/defi`", `fees.ts`). Importing
+   * `EvidenceSourceId` to widen this field would have made the LEDGER depend on
+   * the MARKET-DATA package to describe a value it only stores — inverting a
+   * boundary that `strategyId: string` on this same event already observes.
+   * Type safety is not lost, it MOVES: the writers type their value as
+   * `EvidenceSourceId` at the point of production, which is where a wrong
+   * source id can actually be introduced.
+   */
+  apySource: string;
   /**
    * The exact daily APY percents this span replayed, in day order (§3
    * rate-pinning, board §3.7): the "would have" claim becomes self-auditing —
@@ -287,7 +320,8 @@ export interface AccrualApplied extends EventBase {
   legsReplayed?: Array<{
     weightPercent: number;
     kind: 'lending' | 'market';
-    source: 'defillama' | 'coingecko' | 'fixture';
+    /** Widened with `apySource` above; historical values remain valid. */
+    source: string;
     /** Product of the span's daily growth factors, as a Decimal string. */
     multiple: string;
   }>;
@@ -508,7 +542,7 @@ export interface ReplaySpanRefused extends EventBase {
    * stays pinned once on `TimeAdvanced` — this is context, not a second writer.
    */
   windowStartDate?: string;
-  apySource?: 'defillama' | 'fixture';
+  apySource?: string;
   /**
    * The VERSION of the versioned evidence this span replayed (`I-G5`).
    *

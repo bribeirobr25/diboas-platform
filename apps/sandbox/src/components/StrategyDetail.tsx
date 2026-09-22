@@ -8,6 +8,7 @@ import {
   isMultiNetworkCandidate,
   strategyProvenance,
   strategyRateAvailability,
+  sourceLabelOf,
 } from '@diboas/defi';
 import type { GasQuote, ProtocolApy, ProtocolApyHistory, StrategyDef } from '@diboas/defi';
 import { useFormatters } from '@/hooks/useFormatters';
@@ -94,6 +95,23 @@ export function StrategyDetail({
    * loses is the number and the ability to be committed.
    */
   const rate = strategyRateAvailability(strategy, apys, nowIso);
+  /**
+   * `5.440` · THE ATTRIBUTION NAMES THE SOURCE THAT ACTUALLY SERVED.
+   *
+   * These four message values were the literal `'DeFiLlama'`, written here. The
+   * message CATALOGUE was already provider-agnostic — it takes `{source}` — so
+   * the coupling was entirely in this component, and substituting the provider
+   * would have kept a retired vendor's name on a live money surface in four
+   * locales. It is now looked up from the stamp of the leg that produced
+   * `newestLiveAsOf`, so the name and the date come from the SAME observation.
+   *
+   * Non-null on every branch that renders it: those branches require
+   * `provenance.state !== 'fixture'`, and the domain invariant is that
+   * `newestLiveSource` and `newestLiveAsOf` are set together or not at all.
+   */
+  const liveSourceLabel = provenance.newestLiveSource
+    ? sourceLabelOf(provenance.newestLiveSource)
+    : '';
 
   /* The chart's series — derived in `view/strategy.ts` (AUD-C02). The selector
      also REFUSES when a leg has no history, rather than blending the rest and
@@ -124,7 +142,7 @@ export function StrategyDetail({
     provenance.state === 'live' ? (
       <FormattedMessage
         id="common.dataLive"
-        values={{ source: 'DeFiLlama', date: date(provenance.newestLiveAsOf!) }}
+        values={{ source: liveSourceLabel, date: date(provenance.newestLiveAsOf!) }}
       />
     ) : provenance.state === 'mixed' ? (
       /**
@@ -149,7 +167,7 @@ export function StrategyDetail({
         <FormattedMessage
           id="common.dataMixed"
           values={{
-            source: 'DeFiLlama',
+            source: liveSourceLabel,
             date: date(provenance.newestLiveAsOf!),
             fixtureDate: date(FIXTURE_AS_OF),
             protocols: fixtureProtocolNames,
@@ -165,7 +183,7 @@ export function StrategyDetail({
               approved sentence beside it names which input that is. */}
           <FormattedMessage
             id="common.dataPartlyLive"
-            values={{ source: 'DeFiLlama', date: date(provenance.newestLiveAsOf!) }}
+            values={{ source: liveSourceLabel, date: date(provenance.newestLiveAsOf!) }}
           />{' '}
           {/* Stated only when a reference-backed fee is actually ON SCREEN.
               `fee` is null when the chain has no quote OR when FX failed
