@@ -35,7 +35,9 @@ import type {
   EvidencePutResult,
   EvidenceRecordCandidate,
   EvidenceStore,
+  EvidencePurgeResult,
 } from '@diboas/defi';
+import { isPayloadExpired, retrievedAtOf } from '@diboas/defi';
 import { Logger } from '../monitoring/Logger';
 
 export class PostgresEvidenceStore implements EvidenceStore {
@@ -104,8 +106,24 @@ export class PostgresEvidenceStore implements EvidenceStore {
    * Freshness evaluation is H-owned; the payload preserves `asOf`/`observedAt`
    * so H can make that judgement later.
    */
-  async activate(evidenceKey: string, seq: number): Promise<EvidenceActivationResult> {
+  async activate(
+    evidenceKey: string,
+    seq: number,
+    now: Date | string
+  ): Promise<EvidenceActivationResult> {
     try {
+      /* ⛑ RETENTION (Legal 2026-09-22): an expired record is never eligible for
+         activation. Checked BEFORE the CAS upsert so a newer-but-expired record
+         cannot win on `seq` alone — ordering protects ingestion order, not
+         lawfulness. The clock is derived from the record's own stored
+         `stamp.asOf`, so there is no second column to fall out of step. */
+      const candidate = await this.sql`
+        SELECT payload FROM evidence_records WHERE seq = ${seq}
+      `;
+      const payload = candidate[0]?.payload as EvidencePayloadV1 | undefined;
+      if (payload && isPayloadExpired(payload, now)) {
+        return { status: 'EXPIRED', retrievedAt: retrievedAtOf(payload) };
+      }
       const rows = await this.sql`
         INSERT INTO evidence_active (evidence_key, record_seq)
         VALUES (${evidenceKey}, ${seq})
@@ -127,7 +145,7 @@ export class PostgresEvidenceStore implements EvidenceStore {
   }
 
   /** The active record for an identity. The join is what resolves the pointer. */
-  async readActive(evidenceKey: string): Promise<EvidenceActiveRecord | null> {
+  async readActive(evidenceKey: string, now: Date | string): Promise<EvidenceActiveRecord | null> {
     try {
       const rows = await this.sql`
         SELECT r.seq, r.evidence_key, r.payload
@@ -137,13 +155,77 @@ export class PostgresEvidenceStore implements EvidenceStore {
          WHERE a.evidence_key = ${evidenceKey}
       `;
       if (rows.length !== 1) return null;
+      const payload = rows[0].payload as EvidencePayloadV1;
+      /* ⛑ Excluded from operational AND ordinary audit reads at expiry, not at
+         purge time — the two are up to 24 h apart, and a record Legal has
+         retired must not be served during that gap. A row restored from a
+         backup fails here too: its clock travels inside its own payload. */
+      if (isPayloadExpired(payload, now)) return null;
       return {
         seq: Number(rows[0].seq),
         evidenceKey: String(rows[0].evidence_key),
-        payload: rows[0].payload as EvidencePayloadV1,
+        payload,
       };
     } catch (error) {
       Logger.error('PostgresEvidenceStore readActive failed', { evidenceKey }, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Permanently delete every record past its 90-day operational window.
+   *
+   * Legal requires live-storage purge within 24 h of expiry; this is the
+   * operation, and SCHEDULING it is an infrastructure responsibility recorded
+   * as such (see the Stage record) — this class cannot guarantee a cadence.
+   *
+   * ⚑ Expiry is computed in the APPLICATION, not in SQL. The clock lives in
+   * `payload->'stamp'->>'asOf'` and the rule is `+90 days`; expressing that as
+   * a SQL interval would create a SECOND implementation of the retention rule
+   * that could drift from the first. One rule, one derivation — the same
+   * discipline the `>14`-day freshness gate follows.
+   *
+   * ⚑ NO FALLBACK ACTIVATION. Removing an identity's active pointer leaves it
+   * with none. Promoting an older record would resurrect data Legal ordered
+   * deleted — an older record was retrieved earlier and is therefore also
+   * expired.
+   */
+  async purgeExpired(input: {
+    now: Date | string;
+    hold?: ReadonlySet<string>;
+  }): Promise<EvidencePurgeResult> {
+    const hold = input.hold ?? new Set<string>();
+    try {
+      const rows = await this.sql`
+        SELECT seq, evidence_key, payload FROM evidence_records
+      `;
+      let purgedRecords = 0;
+      let purgedPointers = 0;
+      let heldRecords = 0;
+      for (const row of rows) {
+        const payload = row.payload as EvidencePayloadV1;
+        if (!isPayloadExpired(payload, input.now)) continue;
+        const key = String(row.evidence_key);
+        if (hold.has(key)) {
+          heldRecords += 1;
+          continue;
+        }
+        const seq = Number(row.seq);
+        /* Pointer first: the composite FK refuses a pointer naming a deleted
+           record, so the reverse order would fail rather than leave a dangle.
+           Doing it explicitly keeps the intent readable at the seam. */
+        const cleared = await this.sql`
+          DELETE FROM evidence_active
+           WHERE evidence_key = ${key} AND record_seq = ${seq}
+          RETURNING evidence_key
+        `;
+        purgedPointers += cleared.length;
+        await this.sql`DELETE FROM evidence_records WHERE seq = ${seq}`;
+        purgedRecords += 1;
+      }
+      return { purgedRecords, purgedPointers, heldRecords };
+    } catch (error) {
+      Logger.error('PostgresEvidenceStore purgeExpired failed', {}, error);
       throw error;
     }
   }

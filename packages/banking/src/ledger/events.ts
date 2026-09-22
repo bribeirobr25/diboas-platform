@@ -194,6 +194,35 @@ export interface StrategyEnteredV1 extends StrategyEnteredCommon {
 export interface StrategyEnteredV2 extends StrategyEnteredCommon {
   schemaVersion: 2;
   modeledNetworkFee: string;
+  /**
+   * ⛑ EVIDENCE PROVENANCE (Founder architecture determination 2026-09-22).
+   *
+   * WHICH methodology and WHICH evidence snapshot produced the modelled fee
+   * committed beside them. Execution Rulings §12 requires historical state to
+   * preserve `methodology_id`, `methodology_version` and
+   * `evidence_snapshot_version` SEPARATELY — the stamp's combined
+   * `methodologyId@version` string cannot express the snapshot dimension.
+   *
+   * ⚑ WHY ON THE EVENT AND NOT ONLY IN THE EVIDENCE STORE. Legal ruled derived
+   * evidence to a 90-day operational life. Carrying the versions here means a
+   * committed decision stays reconstructable after its evidence row is lawfully
+   * purged — the Practice Market Data canon §14 makes this explicit: *"where
+   * event-level provenance preserves historical decision truth, evidence-store
+   * retention may be shorter"*. Without it, retention would have to outlive
+   * every position that ever referenced a quote.
+   *
+   * ⚑ OPTIONAL, AND ABSENCE MEANS UNRECORDED — never zero, never a default,
+   * never synthesised later. Events appended before this change lack them and
+   * are NOT reinterpreted; the projection never reads them, so replay is
+   * unaffected. Pinned once, never rewritten (the `replayEpoch` / `I-G5`
+   * precedent, and the same optional-additive licence `D-04`/`D-06` grants).
+   *
+   * No `schemaVersion` bump: `V1 -> V2` discriminated a RENAME, which changed
+   * an existing field's meaning. Adding optional fields changes none.
+   */
+  methodologyId?: string;
+  methodologyVersion?: string;
+  evidenceSnapshotVersion?: string;
 }
 
 export type StrategyEntered = StrategyEnteredV1 | StrategyEnteredV2;
@@ -301,6 +330,35 @@ export interface StrategyExitedV2 extends StrategyExitedCommon {
   schemaVersion: 2;
   modeledExitFee: string;
   modeledNetworkFee: string;
+  /**
+   * ⛑ EVIDENCE PROVENANCE (Founder architecture determination 2026-09-22).
+   *
+   * WHICH methodology and WHICH evidence snapshot produced the modelled fee
+   * committed beside them. Execution Rulings §12 requires historical state to
+   * preserve `methodology_id`, `methodology_version` and
+   * `evidence_snapshot_version` SEPARATELY — the stamp's combined
+   * `methodologyId@version` string cannot express the snapshot dimension.
+   *
+   * ⚑ WHY ON THE EVENT AND NOT ONLY IN THE EVIDENCE STORE. Legal ruled derived
+   * evidence to a 90-day operational life. Carrying the versions here means a
+   * committed decision stays reconstructable after its evidence row is lawfully
+   * purged — the Practice Market Data canon §14 makes this explicit: *"where
+   * event-level provenance preserves historical decision truth, evidence-store
+   * retention may be shorter"*. Without it, retention would have to outlive
+   * every position that ever referenced a quote.
+   *
+   * ⚑ OPTIONAL, AND ABSENCE MEANS UNRECORDED — never zero, never a default,
+   * never synthesised later. Events appended before this change lack them and
+   * are NOT reinterpreted; the projection never reads them, so replay is
+   * unaffected. Pinned once, never rewritten (the `replayEpoch` / `I-G5`
+   * precedent, and the same optional-additive licence `D-04`/`D-06` grants).
+   *
+   * No `schemaVersion` bump: `V1 -> V2` discriminated a RENAME, which changed
+   * an existing field's meaning. Adding optional fields changes none.
+   */
+  methodologyId?: string;
+  methodologyVersion?: string;
+  evidenceSnapshotVersion?: string;
 }
 
 export type StrategyExited = StrategyExitedV1 | StrategyExitedV2;

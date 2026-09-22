@@ -8,6 +8,16 @@ import { InMemoryEvidenceStore } from '../testing';
 import { evidenceStamp } from '../types';
 import type { EvidenceEnvelope } from '../evidence';
 
+/**
+ * ⛑ RETENTION (Legal 2026-09-22). `activate` and `readActive` now take the
+ * CURRENT-FACING moment so the store can apply the 90-day operational window.
+ * These fixtures carry `FIXTURE_STAMP` (retrieved 2026-07-18), so the moment
+ * below sits two days later — every assertion keeps testing exactly what it
+ * tested before. The retention window has its own tests, which supply their own
+ * expired clock.
+ */
+const WITHIN_RETENTION = '2026-07-20T00:00:00.000Z';
+
 const sha256 = (input: string) => createHash('sha256').update(input, 'utf8').digest('hex');
 const NETWORK: { kind: 'single'; category: 'network' } = { kind: 'single', category: 'network' };
 
@@ -120,9 +130,9 @@ describe('evidence store — contradiction is reported, never resolved', () => {
     const original = candidate({ value: 0.03 });
     const put = await store.put(original);
     if (put.status !== 'INSERTED') throw new Error('unreachable');
-    await store.activate(original.evidenceKey, put.seq);
+    await store.activate(original.evidenceKey, put.seq, WITHIN_RETENTION);
     await store.put(candidate({ value: 0.05 }));
-    const active = await store.readActive(original.evidenceKey);
+    const active = await store.readActive(original.evidenceKey, WITHIN_RETENTION);
     expect(active?.payload).toMatchObject({ value: '0.03' });
   });
 });
@@ -133,11 +143,11 @@ describe('evidence store — activation', () => {
     const c = candidate({});
     const put = await store.put(c);
     if (put.status !== 'INSERTED') throw new Error('unreachable');
-    expect(await store.activate(c.evidenceKey, put.seq)).toEqual({
+    expect(await store.activate(c.evidenceKey, put.seq, WITHIN_RETENTION)).toEqual({
       status: 'ACTIVATED',
       seq: put.seq,
     });
-    const active = await store.readActive(c.evidenceKey);
+    const active = await store.readActive(c.evidenceKey, WITHIN_RETENTION);
     expect(active?.seq).toBe(put.seq);
     expect(active?.evidenceKey).toBe(c.evidenceKey);
   });
@@ -148,7 +158,9 @@ describe('evidence store — activation', () => {
     const put = await store.put(usd);
     if (put.status !== 'INSERTED') throw new Error('unreachable');
     const otherKey = evidenceKey({ kind: 'network-cost', subject: 'Solana', unit: 'USD' });
-    await expect(store.activate(otherKey, put.seq)).rejects.toThrow(/identity mismatch/);
+    await expect(store.activate(otherKey, put.seq, WITHIN_RETENTION)).rejects.toThrow(
+      /identity mismatch/
+    );
   });
 
   it('should NOT let a lower ingestion seq overwrite a higher one', async () => {
@@ -156,10 +168,10 @@ describe('evidence store — activation', () => {
     const first = await store.put(candidate({ stampAsOf: '2026-09-21T00:00:00.000Z' }));
     const second = await store.put(candidate({ stampAsOf: '2026-09-22T00:00:00.000Z' }));
     const key = candidate({}).evidenceKey;
-    await store.activate(key, second.seq);
-    const stale = await store.activate(key, first.seq);
+    await store.activate(key, second.seq, WITHIN_RETENTION);
+    const stale = await store.activate(key, first.seq, WITHIN_RETENTION);
     expect(stale).toEqual({ status: 'NOT_NEWER', activeSeq: second.seq });
-    expect((await store.readActive(key))?.seq).toBe(second.seq);
+    expect((await store.readActive(key, WITHIN_RETENTION))?.seq).toBe(second.seq);
   });
 
   it('should be idempotent when the SAME record is activated twice', async () => {
@@ -167,8 +179,8 @@ describe('evidence store — activation', () => {
     const c = candidate({});
     const put = await store.put(c);
     if (put.status !== 'INSERTED') throw new Error('unreachable');
-    await store.activate(c.evidenceKey, put.seq);
-    expect(await store.activate(c.evidenceKey, put.seq)).toEqual({
+    await store.activate(c.evidenceKey, put.seq, WITHIN_RETENTION);
+    expect(await store.activate(c.evidenceKey, put.seq, WITHIN_RETENTION)).toEqual({
       status: 'NOT_NEWER',
       activeSeq: put.seq,
     });
@@ -178,12 +190,12 @@ describe('evidence store — activation', () => {
     const store = new InMemoryEvidenceStore();
     const first = await store.put(candidate({ stampAsOf: '2026-09-21T00:00:00.000Z' }));
     const key = candidate({}).evidenceKey;
-    await store.activate(key, first.seq);
+    await store.activate(key, first.seq, WITHIN_RETENTION);
     const second = await store.put(candidate({ stampAsOf: '2026-09-22T00:00:00.000Z' }));
-    await store.activate(key, second.seq);
+    await store.activate(key, second.seq, WITHIN_RETENTION);
     /* The superseded record is still addressable: activation moves a pointer,
        it never deletes history. */
-    expect(await store.readActive(key)).toMatchObject({ seq: second.seq });
+    expect(await store.readActive(key, WITHIN_RETENTION)).toMatchObject({ seq: second.seq });
     expect(first.seq).toBeLessThan(second.seq);
   });
 
@@ -191,6 +203,6 @@ describe('evidence store — activation', () => {
     const store = new InMemoryEvidenceStore();
     const c = candidate({});
     await store.put(c);
-    expect(await store.readActive(c.evidenceKey)).toBeNull();
+    expect(await store.readActive(c.evidenceKey, WITHIN_RETENTION)).toBeNull();
   });
 });

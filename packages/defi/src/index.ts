@@ -15,6 +15,7 @@ export * from './evidenceIdentity';
 export * from './evidenceCodec';
 export * from './evidencePayload';
 export * from './evidenceStore';
+export * from './evidenceRetention';
 /* Test/fixture helpers — production must not import these (see testing.ts). */
 export * from './testing';
 export * from './provenance';

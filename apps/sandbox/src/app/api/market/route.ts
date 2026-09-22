@@ -59,7 +59,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
      * refused and logged, never persisted.
      */
     after(async () => {
-      await ingestNetworkCosts(gas);
+      /* The CURRENT-FACING moment for the 90-day retention window, captured at
+         the request that produced this evidence — not inside the store, so the
+         boundary stays explicit and testable. */
+      await ingestNetworkCosts(gas, new Date().toISOString());
     });
     return NextResponse.json(
       {
