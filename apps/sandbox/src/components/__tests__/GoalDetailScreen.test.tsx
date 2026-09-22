@@ -1,7 +1,9 @@
 // @vitest-environment happy-dom
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   fixtureDateSeries,
   fixturePriceSeries,
@@ -19,6 +21,30 @@ import {
 } from '@/lib/ledgerClient';
 import { GoalDetailScreen } from '../GoalDetailScreen';
 import { getMessages } from '@/i18n/loadMessages';
+
+/**
+ * ⛑ STAGE H (`5.309`, resolved 2026-09-22) · THE CLOCK IS NOW LOAD-BEARING.
+ *
+ * The gas quotes this harness supplies carry `FIXTURE_STAMP` (2026-07-18), and
+ * the surface now refuses evidence outside the acceptable current-facing
+ * vintage. Every test below is about exit scope, CTA honesty, provenance or
+ * cost presentation — none of them is about the age contract — so the clock is
+ * pinned INSIDE the fixture's window and each keeps asserting exactly what it
+ * always asserted. The age contract has its own tests, which supply their own
+ * over-age clock rather than borrowing this one.
+ *
+ * Pinning also removes a latent landmine: before this, these tests read the
+ * real wall clock and would have changed behaviour on a date nobody chose.
+ */
+const WITHIN_FIXTURE_WINDOW = new Date('2026-07-25T09:00:00Z');
+
+beforeEach(() => {
+  vi.useFakeTimers();
+  vi.setSystemTime(WITHIN_FIXTURE_WINDOW);
+});
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 /**
  * The market must be PRESENT for these tests: an exit cannot be priced without
@@ -439,5 +465,130 @@ describe('5.406 — the exit refuses a multi-network Candidate, and only that cl
     } finally {
       h.market = MARKET_OK;
     }
+  });
+});
+
+/**
+ * ⛑ STAGE H · THE AGE CONTRACT ON THE EXIT SURFACE (`5.309`, option A3).
+ *
+ * The exit is the half `5.347`'s closure records as having been covered first,
+ * so it is the half most likely to be assumed rather than checked. Evidence
+ * past the acceptable current-facing vintage must block the stop with the
+ * ALREADY-APPROVED sentence — the ruling §11 requirement that controlled
+ * unavailable uses existing Product authority rather than invented copy.
+ *
+ * Note what does NOT happen: the position is not force-closed, no zero fee is
+ * committed to the event log, and the money keeps working. "Costs can't be
+ * priced right now, so stopping is unavailable" is the whole behaviour.
+ */
+describe('5.309 · an over-age quote blocks the exit with the approved sentence', () => {
+  beforeEach(() => {
+    vi.setSystemTime(new Date('2026-09-22T00:00:00Z'));
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    h.market = MARKET_OK;
+  });
+
+  /** Self-contained: the 5.406 block's helper is scoped to that block. */
+  function openSafeHarbor() {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 4000,
+      horizonMonths: 12,
+      fundAmount: 1000,
+    });
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 500, networkFeeLocal: 0 });
+    renderDetail(goalId);
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+  }
+
+  it('should disable the stop control and say why', () => {
+    openSafeHarbor();
+    const stop = screen.getByRole('button', { name: 'Take the money out' }) as HTMLButtonElement;
+    expect(stop.disabled).toBe(true);
+    expect(screen.getByText(/Costs can't be priced right now/)).toBeTruthy();
+  });
+
+  it('should keep the money working rather than forcing an unpriceable exit', () => {
+    openSafeHarbor();
+    expect(screen.getByText(/Your money keeps working/)).toBeTruthy();
+  });
+
+  it('should style the blocked stop control as disabled, not merely mark it so', () => {
+    /**
+     * ⛑ FOUND IN THE STAGE H VISUAL GATE, 2026-09-22. `.exit` carried no
+     * `:disabled` rule at all, so the blocked control rendered at full opacity
+     * with `cursor: pointer` and still lit up on hover — it looked available.
+     * Only the sentence beside it said otherwise, which fails "the disabled
+     * state must be visually understandable".
+     *
+     * ⚑ ASSERTED AGAINST THE STYLESHEET, NOT `getComputedStyle`. This harness
+     * loads no CSS — class names are hashed CSS-module identifiers and no rule
+     * is ever applied — so a computed-style assertion here resolves to jsdom
+     * defaults and would pass whether or not the rule exists. A first draft did
+     * exactly that and failed for the wrong reason. The rendered effect was
+     * verified in the browser during the visual gate; what this guard protects
+     * is that the RULE cannot be deleted again.
+     */
+    /* `import.meta.url` is an http URL under happy-dom, not a file URL, so the
+       path is resolved from the package root instead. */
+    const css = readFileSync(
+      join(process.cwd(), 'src/components/GoalDetailScreen.module.css'),
+      'utf8'
+    );
+    /* The disabled treatment exists, and matches the already-ratified sibling
+       control rather than inventing a second look for the same meaning. */
+    expect(css).toMatch(/\.exit:disabled\s*\{[^}]*opacity:\s*0\.5/);
+    expect(css).toMatch(/\.exit:disabled\s*\{[^}]*cursor:\s*default/);
+    /* And hover must not light up a control that cannot be pressed. */
+    expect(css).toContain('.exit:hover:not(:disabled)');
+    expect(css).not.toMatch(/\.exit:hover\s*\{/);
+  });
+});
+
+/**
+ * `5.436` · AN ALREADY-SELECTED CANDIDATE KEEPS ITS CONTEXT.
+ *
+ * Product ruling §6: if a candidate was selected or configured BEFORE its rate
+ * became unavailable, the selection and the user's inputs are preserved —
+ * continuation is what becomes unavailable, not the work already done. Clearing
+ * someone's amount because a provider went quiet would be the product punishing
+ * the user for the data's failure.
+ */
+describe('5.436 · an unavailable rate does not clear work already done', () => {
+  beforeEach(() => {
+    vi.setSystemTime(new Date('2026-09-22T00:00:00Z'));
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    h.market = MARKET_OK;
+  });
+
+  it('should keep an existing position visible and its money working', () => {
+    /* The active Money Job is settled state: today's evidence loss must not
+       reach it. Measured on the rendered surface, not only in the ledger. */
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 4000,
+      horizonMonths: 12,
+      fundAmount: 1000,
+    });
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 500, networkFeeLocal: 0 });
+    renderDetail(goalId);
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+    /* The position card names the strategy AND its amount — the job survived
+       the evidence loss intact. Plural matcher: $500.00 legitimately appears
+       more than once (the position and the goal's own cash line). */
+    expect(screen.getByText(/Working in Safe Harbor/)).toBeTruthy();
+    expect(screen.getAllByText(/\$500\.00/).length).toBeGreaterThan(0);
   });
 });

@@ -1,4 +1,4 @@
-import { isMultiNetworkCandidate } from '@diboas/defi';
+import { isMultiNetworkCandidate, isRefusedForCurrentFacingUse } from '@diboas/defi';
 import type { DataStamp, GasQuote, StrategyDef } from '@diboas/defi';
 
 /**
@@ -10,7 +10,15 @@ import type { DataStamp, GasQuote, StrategyDef } from '@diboas/defi';
 export function networkFeeLocal(
   gas: GasQuote[],
   strategy: StrategyDef,
-  usdPriceLocal: number | null
+  usdPriceLocal: number | null,
+  /**
+   * The CURRENT-FACING reference moment. Required, never defaulted: a silent
+   * `new Date()` here would make "no age enforcement" the meaning of silence,
+   * which is the semantic-default failure the explicit-origin contract exists
+   * to prevent. Entry and exit pricing are current-facing at every call site,
+   * so every caller genuinely has this to give.
+   */
+  now: Date | string
 ): number | null {
   /**
    * `5.406` containment · A MULTI-NETWORK CANDIDATE HAS NO TRUTHFUL
@@ -47,6 +55,28 @@ export function networkFeeLocal(
    */
   const quote = gas.find((g) => g.chain === strategy.entryChain);
   if (!quote || usdPriceLocal === null) return null;
+  /**
+   * ⛑ STAGE H · `5.309` RESOLVED 2026-09-22 (M&E / Data, option A3).
+   *
+   * Evidence outside the acceptable CURRENT-FACING vintage may not price a
+   * current-facing move. Under the default Practice periodic reference policy
+   * that is `> 14 days`; a stricter source contract would refuse sooner, and
+   * `isRefusedForCurrentFacingUse` is the ONE place that decision is derived —
+   * `networkFeeEvidence` resolves through the same function, so the number path
+   * and the evidence path cannot drift (system gate X1).
+   *
+   * This returns `null`, the same refusal the missing-quote and failed-FX paths
+   * above already return, so it lands on the EXISTING Product behaviour rather
+   * than inventing one: the cost row is absent, `canPriceEntry`/`canPriceExit`
+   * go false, and the already-approved `goalDetail.entryPricingUnavailable` /
+   * `goalDetail.exitPricingUnavailable` sentences render beside the blocked
+   * action in all four locales (`5.347`, Execution Rulings §16).
+   *
+   * `UNAVAILABLE != 0 / FREE`: refusing is the only honest answer, and the
+   * ruling forbids the alternatives explicitly — no zero, no silent
+   * carry-forward, no refreshed `asOf` on old evidence.
+   */
+  if (isRefusedForCurrentFacingUse(quote.stamp, now)) return null;
   return quote.typicalFeeUsd * usdPriceLocal;
 }
 

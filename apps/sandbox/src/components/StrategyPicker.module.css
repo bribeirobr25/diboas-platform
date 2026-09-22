@@ -46,9 +46,36 @@
     border-color 0.12s ease;
 }
 
-.card:hover {
+.card:hover:not(.cardUnavailable) {
   transform: translateY(-1px);
   border-color: var(--sb-mode-accent-bright);
+}
+
+/**
+ * ⛑ `5.436` · CANDIDATE_UNAVAILABLE (P06 / ST-01-U).
+ *
+ * The candidate stays VISIBLE and FULLY READABLE. The state is carried by
+ * WORDS ("This option is not available right now") and by the disabled
+ * control — never by dimming, and never by colour alone.
+ *
+ * ⚑ THIS RULE USED TO DIM, AND THAT WAS A DEFECT I SHIPPED. It set
+ * `background: var(--sb-surface-secondary)` plus `opacity: 0.75` on the rate
+ * line. Measured in the browser on 2026-09-22, the sentence that carries the
+ * entire unavailable state rendered at **2.59:1 (light)** and **3.62:1
+ * (dark)** at 14px — under the 4.5:1 floor, on the one element a reader must
+ * be able to read. Removing the opacity alone was not enough (3.84 light);
+ * removing the tint as well restores **4.76 light / 6.03 dark**.
+ *
+ * So the affordance is withdrawn — no pointer, no hover lift — and nothing
+ * else. Dimming an unavailable option is a habit, not a requirement, and here
+ * it actively fought the Product ruling: the words ARE the state.
+ *
+ * Found by running `review:increment`, whose Part E demands light AND dark
+ * with contrast as measured ratios. The earlier visual pass checked light only
+ * and missed it.
+ */
+.cardUnavailable {
+  cursor: default;
 }
 
 .cardSelected {

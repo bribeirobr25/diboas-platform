@@ -7,6 +7,33 @@ import { FIXTURE_STAMP, getStrategy, observedStamp } from '@diboas/defi';
 import { StrategyPicker } from '../StrategyPicker';
 
 /**
+ * ⛑ `5.436` (2026-09-22). `StrategyPicker` now takes an explicit CURRENT-FACING
+ * moment and renders a candidate whose rate evidence is over-age in the
+ * approved unavailable state. These fixtures carry `FIXTURE_STAMP`
+ * (2026-07-18), so the reference moment sits inside its window: every
+ * assertion below keeps testing exactly what it tested before. The rate gate is
+ * exercised in its own tests, which supply their own over-age clock.
+ */
+const WITHIN_FIXTURE_WINDOW = '2026-07-25T09:00:00Z';
+/**
+ * ⛑ `5.436` (2026-09-22) · THE OBSERVED DATE MOVED, AND HERE IS WHY.
+ *
+ * These stamps read `2026-08-19` while the pinned clock sits at `2026-07-25`
+ * (inside the fixture gas window) — so the "live" APYs were 25 days in the
+ * FUTURE relative to the moment the surface was judged at. Nothing read them
+ * against a clock before, so the incoherence was invisible; the rate gate reads
+ * them, and a future stamp is refused (a clock skew must not manufacture
+ * currency).
+ *
+ * The date is arbitrary test data whose only job is "an observed live reading",
+ * and no assertion depends on the literal. Moving it to three days before the
+ * clock makes the fixture internally coherent — gas 07-18, rates 07-22, judged
+ * at 07-25 — and preserves every subject: live, mixed and fixture provenance
+ * all still render exactly as before.
+ */
+const OBSERVED_AT = '2026-07-22T00:00:00Z';
+
+/**
  * E10 render tests for the §3-A provenance surfaces on the PICKER rows: each
  * state renders the RIGHT row string, and the F6 band disclosure renders with
  * it. Real message TEXT (not ids) so a wrong-state render fails loudly.
@@ -76,14 +103,14 @@ function apy(
 }
 
 const LIVE = [
-  apy('skySsr', 'defillama', '2026-08-19T00:00:00Z'),
-  apy('aaveV3', 'defillama', '2026-08-19T00:00:00Z'),
-  apy('compoundV3', 'defillama', '2026-08-19T00:00:00Z'),
+  apy('skySsr', 'defillama', OBSERVED_AT),
+  apy('aaveV3', 'defillama', OBSERVED_AT),
+  apy('compoundV3', 'defillama', OBSERVED_AT),
 ];
 const MIXED = [
-  apy('skySsr', 'defillama', '2026-08-19T00:00:00Z'),
+  apy('skySsr', 'defillama', OBSERVED_AT),
   apy('aaveV3', 'fixture', '2026-07-18'),
-  apy('compoundV3', 'defillama', '2026-08-19T00:00:00Z'),
+  apy('compoundV3', 'defillama', OBSERVED_AT),
 ];
 const FIXTURE = [
   apy('skySsr', 'fixture', '2026-07-18'),
@@ -95,7 +122,13 @@ describe('StrategyPicker provenance rows + the F6 band disclosure (§3-A)', () =
   function renderPicker(apys: ProtocolApy[]) {
     return render(
       <IntlProvider locale="en" messages={M}>
-        <StrategyPicker horizonMonths={6} apys={apys} selectedId={null} onSelect={() => {}} />
+        <StrategyPicker
+          horizonMonths={6}
+          apys={apys}
+          selectedId={null}
+          onSelect={() => {}}
+          now={WITHIN_FIXTURE_WINDOW}
+        />
       </IntlProvider>
     );
   }

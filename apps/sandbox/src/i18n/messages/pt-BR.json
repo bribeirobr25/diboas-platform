@@ -6,6 +6,7 @@
     "back": "Voltar",
     "cancel": "Cancelar",
     "loading": "Carregando",
+    "optionUnavailable": "Esta opção não está disponível no momento",
     "dataLive": "Ao vivo de {source}, buscado em {date}",
     "dataFixture": "Valores de referência documentados ({date}), não são dados de mercado ao vivo.",
     "dataMixed": "Parcialmente ao vivo de {source}, buscado em {date}. Valores de referência ({fixtureDate}) para: {protocols}.",

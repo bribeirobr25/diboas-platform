@@ -3,6 +3,9 @@ import { FIXTURE_STAMP, evidenceStamp, getStrategy, type GasQuote } from '@diboa
 import { networkFeeLocal } from '../networkFee';
 import { networkFeeEvidence } from '../networkFeeEvidence';
 
+/** ⛑ Stage H: the explicit current-facing moment, two days after FIXTURE_STAMP. */
+const NOW = '2026-07-20T00:00:00.000Z';
+
 const RATE_STAMP = evidenceStamp({
   source: 'coingecko',
   origin: 'OBSERVED',
@@ -42,6 +45,7 @@ describe('networkFeeEvidence — conversion provenance is attached to the conver
       usdPriceLocal: 0.92,
       usdPriceStamp: RATE_STAMP,
       toCurrency: 'EUR',
+      now: NOW,
     });
     if (evidence.availability !== 'AVAILABLE') throw new Error('expected AVAILABLE');
     expect(evidence.normalization).toEqual({
@@ -61,6 +65,7 @@ describe('networkFeeEvidence — conversion provenance is attached to the conver
       usdPriceLocal: 1,
       usdPriceStamp: RATE_STAMP,
       toCurrency: 'USD',
+      now: NOW,
     });
     if (evidence.availability !== 'AVAILABLE') throw new Error('expected AVAILABLE');
     expect(evidence.normalization).toEqual({ converted: false });
@@ -75,11 +80,12 @@ describe('networkFeeEvidence — conversion provenance is attached to the conver
       usdPriceLocal: 0.92,
       usdPriceStamp: RATE_STAMP,
       toCurrency: 'EUR',
+      now: NOW,
     });
     if (evidence.availability !== 'AVAILABLE') throw new Error('expected AVAILABLE');
     /* One fact, one arithmetic: the evidence path must not become a second
        derivation that is free to drift from what Product renders (X1). */
-    expect(evidence.value).toBe(networkFeeLocal(quotes, singleNetwork, 0.92));
+    expect(evidence.value).toBe(networkFeeLocal(quotes, singleNetwork, 0.92, NOW));
   });
 });
 
@@ -91,6 +97,7 @@ describe('networkFeeEvidence — the three refusals the number path collapses in
       usdPriceLocal: 1,
       usdPriceStamp: RATE_STAMP,
       toCurrency: 'USD',
+      now: NOW,
     });
     expect(evidence).toEqual({
       availability: 'UNAVAILABLE',
@@ -98,7 +105,7 @@ describe('networkFeeEvidence — the three refusals the number path collapses in
       coverage: { kind: 'single', category: 'network' },
     });
     /* And the number path still refuses too — behaviour is unchanged. */
-    expect(networkFeeLocal([gas('Arbitrum', 0.03)], multiNetwork, 1)).toBeNull();
+    expect(networkFeeLocal([gas('Arbitrum', 0.03)], multiNetwork, 1, NOW)).toBeNull();
   });
 
   it('should refuse a missing gas quote as NO_OBSERVATION', () => {
@@ -108,6 +115,7 @@ describe('networkFeeEvidence — the three refusals the number path collapses in
       usdPriceLocal: 1,
       usdPriceStamp: RATE_STAMP,
       toCurrency: 'USD',
+      now: NOW,
     });
     expect(evidence).toMatchObject({ availability: 'UNAVAILABLE', reason: 'NO_OBSERVATION' });
   });
@@ -121,6 +129,7 @@ describe('networkFeeEvidence — the three refusals the number path collapses in
         gas: [gas(singleNetwork.entryChain as 'Arbitrum' | 'Solana', 0.03)],
         strategy: singleNetwork,
         toCurrency: 'EUR',
+        now: NOW,
         ...missing,
       });
       expect(evidence).toMatchObject({ availability: 'UNAVAILABLE', reason: 'NO_CONVERSION' });

@@ -63,16 +63,20 @@ describe('the stamp builders state provenance that a literal could omit', () => 
 describe('the shipped fixture against the age rule (registers 5.309 / 5.355)', () => {
   /**
    * ⚑ This pins a REAL conflict rather than describing it. `FIXTURE_AS_OF` is
-   * 2026-07-18 — 58 days before the audit date — so under §8.5 every
-   * fixture-backed rate is MISSING for current-facing use TODAY. That is why
-   * §8.5 cannot be enforced at the consumer before the weekly refresh cadence
-   * (`5.110`) lands: switching it on first would take every fallback rate
-   * offline.
+   * 2026-07-18, so under the default policy every fixture-backed rate is
+   * MISSING for current-facing use TODAY.
+   *
+   * ⛑ UPDATED 2026-09-22 — the second half of this comment was superseded by
+   * the `5.309` ruling and is corrected rather than left standing. It read that
+   * *"§8.5 cannot be enforced at the consumer before the weekly refresh cadence
+   * (`5.110`) lands"*. M&E ruled the opposite sequencing — `B2 · ENFORCE
+   * CURRENT FIXTURE STATE NOW` — so Stage H enforced it first and the shipped
+   * fixture is now controlled-unavailable for current-facing use. `5.110`
+   * remains required operational work; it no longer gates enforcement.
    *
    * When the cadence lands and the fixture refreshes, this test FAILS — which
-   * is the intent. It is a tripwire on a known conflict, not an expiry
-   * landmine: its failure means the conflict is resolved and §8.5 can be
-   * enforced at the consumer.
+   * is still the intent. It is a tripwire on a known state, not an expiry
+   * landmine: its failure means a valid evidence supply has been restored.
    */
   it('should report the shipped fixture as MISSING for current-facing use', () => {
     expect(dataFreshness(FIXTURE_STAMP, NOW)).toBe('MISSING');
