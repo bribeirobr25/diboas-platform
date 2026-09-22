@@ -1,5 +1,7 @@
 'use client';
 
+import { anyOutcomeUsesCoinGeckoPrices } from '@/view/marketDataAttribution';
+import { CoinGeckoAttribution } from './CoinGeckoAttribution';
 import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import type { SandboxLocale } from '@/i18n/config';
@@ -68,6 +70,8 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
      F01, F02, F03). The component renders facts and an explanation it is
      explicitly permitted to make. */
   const tm = selectTimeMachineView(decomposition);
+  /* Provenance, not the screen's name: which legs the replay actually consumed. */
+  const replayUsesCoinGeckoPrices = anyOutcomeUsesCoinGeckoPrices(state.events);
 
   /**
    * Advance the clock. The series are fetched per tap rather than held in
@@ -303,6 +307,20 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
                       ) : null}
                     </span>
                   </span>
+                ) : null}
+                {/**
+                 * REPLAY-OUTCOME ATTRIBUTION, against the MARKET CHANGE cell.
+                 *
+                 * `tm` is the aggregate of every position's replay, so the
+                 * trigger is whole-ledger by construction here — the figure
+                 * beside it genuinely contains every accrual. It renders only
+                 * when a provider price series actually fed one of them; an
+                 * all-lending portfolio replays DeFiLlama rates and is not
+                 * attributed, even though this exact cell still shows a
+                 * market change.
+                 */}
+                {tm.explainable && !tm.replayUnavailable && replayUsesCoinGeckoPrices ? (
+                  <CoinGeckoAttribution />
                 ) : null}
                 {/* The user's own money, stated as their own act rather than as
                     growth — `monthReport` reports `movedIntoGoals` the same way,

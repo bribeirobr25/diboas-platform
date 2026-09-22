@@ -219,6 +219,29 @@ export const SOURCE_ORDER: MovementSource['key'][] = [
  * Build the report for the window `[fromIso, toIso)`. Pure; derived from the
  * event log on every call, so it can never drift from the ledger it describes.
  */
+/**
+ * The events this report's window covers.
+ *
+ * Exported so a caller that must ask a question ABOUT the reported month —
+ * "did this month's outcome incorporate a provider price series?" — uses the
+ * SAME window as the report itself. A second copy of `t >= from && t < to` in a
+ * component would be a second derivation of the month boundary, and the two
+ * would drift the first time either changed (X1).
+ */
+export function eventsInReportWindow(
+  state: LedgerState,
+  fromIso: string,
+  toIso: string
+): LedgerEvent[] {
+  const from = Date.parse(fromIso);
+  const to = Date.parse(toIso);
+  if (!Number.isFinite(from) || !Number.isFinite(to)) return [];
+  return state.events.filter((e) => {
+    const t = Date.parse(e.recordedAt);
+    return Number.isFinite(t) && t >= from && t < to;
+  });
+}
+
 export function buildMonthReport(
   state: LedgerState,
   fromIso: string,

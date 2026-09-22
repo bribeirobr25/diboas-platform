@@ -6,7 +6,14 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import type { SandboxLocale } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
 import { useFormatters } from '@/hooks/useFormatters';
-import { buildMonthReport, currentMonthWindow, type MovementSource } from '@/lib/monthReport';
+import {
+  buildMonthReport,
+  currentMonthWindow,
+  eventsInReportWindow,
+  type MovementSource,
+} from '@/lib/monthReport';
+import { anyOutcomeUsesCoinGeckoPrices } from '@/view/marketDataAttribution';
+import { CoinGeckoAttribution } from './CoinGeckoAttribution';
 import { LucideIcon } from './LucideIcon';
 import { SegmentedToggle } from './SegmentedToggle';
 import { Sparkline } from './Sparkline';
@@ -65,6 +72,12 @@ export function MonthReportScreen({ locale }: { locale: SandboxLocale }) {
   // would silently break any later `window.*` use in this file.
   const monthWindow = currentMonthWindow(new Date().toISOString());
   const report = buildMonthReport(state, monthWindow.fromIso, monthWindow.toIso);
+  /* The trigger follows the REPORTED MONTH, not the whole ledger: attributing a
+     month that contained no provider-sourced market leg would be exactly the
+     indiscriminate branding the ruling forbids. */
+  const monthUsesCoinGeckoPrices = anyOutcomeUsesCoinGeckoPrices(
+    eventsInReportWindow(state, monthWindow.fromIso, monthWindow.toIso)
+  );
 
   if (!report) {
     return (
@@ -126,6 +139,19 @@ export function MonthReportScreen({ locale }: { locale: SandboxLocale }) {
             <span className={source.amount < 0 ? styles.rowValueDown : styles.rowValue}>
               {signed(source.amount)}
             </span>
+            {/**
+             * REPLAY-OUTCOME ATTRIBUTION, on the MARKET CHANGE row only.
+             *
+             * Scoped to THIS month's events through the report's own window
+             * helper: a month whose earnings came entirely from lending legs
+             * renders no attribution even though the row itself is present.
+             * Row-level placement is what keeps a mixed list honest — the
+             * deposit and life-event rows beside it owe nothing to any
+             * provider and are not attributed.
+             */}
+            {source.key === 'marketChange' && monthUsesCoinGeckoPrices ? (
+              <CoinGeckoAttribution />
+            ) : null}
           </li>
         ))}
       </ul>

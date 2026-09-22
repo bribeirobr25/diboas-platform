@@ -705,17 +705,38 @@ describe('5.431 · system review emits every authoritative front', () => {
     expect(emittedFronts(r.out)).toEqual(doc);
   }, 120_000);
 
-  it('should keep FRONT 5 visible, as MANUAL, when its mechanical row cannot run', () => {
+  it('should keep FRONT 5 visible and tied to its exports row, in EITHER row state', () => {
+    /**
+     * ⚑ THIS TEST USED TO PIN THE WORKING TREE, and that made it a landmine.
+     *
+     * It asserted a PRECONDITION — *"the exports row skips here because nothing
+     * under apps/sandbox/src/view changed"* — so the moment any branch touched
+     * `view/`, the row ran, the precondition failed, and this test went red for
+     * a reason having nothing to do with what it protects. It was caught by a
+     * `view/` file added for the CoinGecko attribution trigger, and it failed
+     * ONLY under the whole-workspace run, because that is when the staged tree
+     * the gate reads includes the new file.
+     *
+     * The invariant it actually protects does not depend on the tree at all:
+     * FRONT 5 is always PRINTED, and it always names the state of the `exports`
+     * row that speaks to it — MANUAL when the row could not run, MECHANICAL
+     * EVIDENCE when it did. Both arms are asserted, so the test now covers MORE
+     * than it did and is no longer sensitive to what happens to be changed.
+     */
     const r = gate('system', '--fast');
-    /* The precondition this test depends on — stated, not assumed: the exports
-       row skips here because nothing under apps/sandbox/src/view changed. */
-    expect(r.out, 'precondition: the exports row must be the skipped one').toMatch(
-      /exported functions have consumers … SKIP/
-    );
     const front5 = r.out.split('\n').find((l) => /^ *FRONT +5\b/.test(l)) ?? '';
     expect(front5, 'FRONT 5 must still be printed').not.toBe('');
-    expect(front5).toContain('MANUAL ADJUDICATION REQUIRED');
-    expect(front5, 'it must say WHICH row failed to discharge it').toContain('exports');
+    expect(front5, 'it must name the row that speaks to it').toContain('exports');
+
+    const skipped = /exported functions have consumers … SKIP/.test(r.out);
+    if (skipped) {
+      // A skipped row discharges nothing, so the front stays the reviewer's.
+      expect(front5).toContain('MANUAL ADJUDICATION REQUIRED');
+    } else {
+      // A row that ran is EVIDENCE, never a disposition — the front is still owed.
+      expect(front5).toContain('MECHANICAL EVIDENCE');
+      expect(front5).toMatch(/record it, then disposition/);
+    }
   }, 120_000);
 
   it('should print the four closure dispositions rather than leave them remembered', () => {

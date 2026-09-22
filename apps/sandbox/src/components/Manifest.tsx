@@ -2,6 +2,7 @@
 
 import type { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { CoinGeckoAttribution } from './CoinGeckoAttribution';
 import { BottomSheet } from './BottomSheet';
 import styles from './Manifest.module.css';
 
@@ -26,6 +27,7 @@ export function Manifest({
   ctaId = 'manifest.approve',
   ctaValues,
   reassuranceId,
+  attributeCoinGecko = false,
 }: {
   titleId: string;
   titleValues?: Record<string, ReactNode>;
@@ -38,6 +40,16 @@ export function Manifest({
   ctaValues?: Record<string, ReactNode>;
   /** One-line reassurance answering the top fear, inside the box (UX-53). */
   reassuranceId?: string;
+  /**
+   * OPT-IN, never inferred (Product/Brand ruling 2026-09-22).
+   *
+   * This component is generic: one caller passes a network-fee row derived from
+   * CoinGecko FX, the other (`SimulatedEventScreen`) passes a life event with no
+   * market data in it at all. Branding both would be exactly the
+   * *"indiscriminately branded"* failure the ruling warns against, so the CALLER
+   * — which knows what its rows contain — decides.
+   */
+  attributeCoinGecko?: boolean;
 }) {
   return (
     <BottomSheet titleId={titleId} titleValues={titleValues} onClose={onCancel} tone="ink">
@@ -51,6 +63,9 @@ export function Manifest({
           </div>
         ))}
       </dl>
+      {/* Immediately below the row group it attributes — inside the sheet, so
+          it is present on mobile and desktop alike, and never footer-only. */}
+      {attributeCoinGecko ? <CoinGeckoAttribution /> : null}
       {reassuranceId ? (
         <p className={styles.reassurance}>
           <FormattedMessage id={reassuranceId} />

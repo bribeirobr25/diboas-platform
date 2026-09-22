@@ -1,0 +1,46 @@
+/**
+ * Sized and coloured like the provenance stamp it sits beside — the same
+ * `--font-size-xs` / `--sb-text-muted` pair used by `.stamp` in
+ * `StrategyDetail.module.css`. Matching an existing pattern rather than
+ * inventing one is the ruling's `REDESIGN = NO`.
+ *
+ * Tokens only: no colour, size, spacing or radius literal appears here.
+ */
+.attribution {
+  margin: var(--spacing-xs) 0 0;
+  font-size: var(--font-size-xs);
+  /**
+   * ⚑ `--sb-text-secondary`, NOT `--sb-text-muted`, and the reason is measured.
+   *
+   * `--sb-text-muted` was the first choice, matching the provenance stamp it
+   * sits near. It passes on a CARD (4.76:1) and lands at **4.5004:1** on the
+   * AppShell CANVAS, where the goal breakdown actually renders — passing by
+   * four ten-thousandths. That is not a margin, it is a coincidence, and this
+   * element is a COMPLIANCE CONTROL: if it becomes illegible the attribution
+   * requirement is not met.
+   *
+   * `--sb-text-secondary` measures 9.79:1 on the canvas and 10.35:1 on a card,
+   * so the control stays legible on every plate it is placed on today and has
+   * room for the ones it is not.
+   *
+   * This is the `5.377` lesson applied to my own choice: contrast belongs to
+   * the LOCAL SURFACE, not to how the token is usually used.
+   */
+  color: var(--sb-text-secondary);
+}
+
+/**
+ * The link must be legible against the same muted plate, so it inherits the
+ * paragraph's colour and is distinguished by an underline rather than by a
+ * second colour — one fewer contrast pair to keep above 4.5:1, and it reads as
+ * a source note rather than a call to action.
+ */
+.link {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--sb-text-primary);
+}
