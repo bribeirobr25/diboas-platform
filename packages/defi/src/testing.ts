@@ -24,10 +24,12 @@
 import type {
   EvidenceActivationResult,
   EvidenceActiveRecord,
+  EvidencePurgeResult,
   EvidencePutResult,
   EvidenceRecordCandidate,
   EvidenceStore,
 } from './evidenceStore';
+import { isRecordExpired } from './evidenceRetention';
 import { evidenceStamp, type DataStamp } from './types';
 
 /**
@@ -86,7 +88,11 @@ export class InMemoryEvidenceStore implements EvidenceStore {
     return { status: 'INSERTED', seq: this.seq };
   }
 
-  async activate(evidenceKey: string, seq: number): Promise<EvidenceActivationResult> {
+  async activate(
+    evidenceKey: string,
+    seq: number,
+    now: Date | string
+  ): Promise<EvidenceActivationResult> {
     const record = this.records.get(seq);
     /* The in-memory mirror of the composite FK: a pointer may only ever name a
        record of the SAME evidence identity. Postgres refuses this structurally;
@@ -97,6 +103,12 @@ export class InMemoryEvidenceStore implements EvidenceStore {
         `activation identity mismatch: pointer ${evidenceKey} cannot target a ${record.evidenceKey} record`
       );
     }
+    /* ⛑ RETENTION before ordering: an expired record is never activatable, and
+       the check comes BEFORE the CAS comparison so a newer-but-expired record
+       cannot win on seq alone. */
+    if (isRecordExpired(record, now)) {
+      return { status: 'EXPIRED', retrievedAt: record.retrievedAt };
+    }
     const current = this.active.get(evidenceKey);
     if (current !== undefined && current >= seq) {
       return { status: 'NOT_NEWER', activeSeq: current };
@@ -105,11 +117,60 @@ export class InMemoryEvidenceStore implements EvidenceStore {
     return { status: 'ACTIVATED', seq };
   }
 
-  async readActive(evidenceKey: string): Promise<EvidenceActiveRecord | null> {
+  async readActive(evidenceKey: string, now: Date | string): Promise<EvidenceActiveRecord | null> {
     const seq = this.active.get(evidenceKey);
     if (seq === undefined) return null;
     const record = this.records.get(seq);
     if (!record) return null;
+    /* ⛑ Excluded from operational AND ordinary audit reads the moment it
+       expires — not merely once a purge job has run. A restored backup copy
+       fails here too, because the clock lives in its own payload. */
+    if (isRecordExpired(record, now)) return null;
     return { seq, evidenceKey: record.evidenceKey, payload: record.payload };
+  }
+
+  /**
+   * Pointer count, for tests that must inspect POINTER STATE directly.
+   *
+   * ⚑ It exists because a sabotage proved a test vacuous: "purge must not
+   * activate an older record" passed even when purge DID activate one, because
+   * `readActive` gates on expiry and masked the dangling pointer. Asserting
+   * through the read path proved the read gate, not the purge. Postgres refuses
+   * a dangling pointer with its composite FK; in memory, this is how the same
+   * invariant is observed.
+   */
+  activePointerCount(): number {
+    return this.active.size;
+  }
+
+  async purgeExpired(input: {
+    now: Date | string;
+    hold?: ReadonlySet<string>;
+  }): Promise<EvidencePurgeResult> {
+    const hold = input.hold ?? new Set<string>();
+    let purgedRecords = 0;
+    let purgedPointers = 0;
+    let heldRecords = 0;
+    for (const [seq, record] of [...this.records]) {
+      if (!isRecordExpired(record, input.now)) continue;
+      if (hold.has(record.evidenceKey)) {
+        heldRecords += 1;
+        continue;
+      }
+      /* Pointer first, then the record: never leave a pointer naming a row that
+         no longer exists. Postgres enforces this with a composite FK; here the
+         order is the enforcement. */
+      if (this.active.get(record.evidenceKey) === seq) {
+        this.active.delete(record.evidenceKey);
+        purgedPointers += 1;
+      }
+      this.records.delete(seq);
+      this.byIngestionKey.delete(record.ingestionKey);
+      purgedRecords += 1;
+      /* ⚑ Deliberately NO fallback activation. An older record is necessarily
+         also expired, so promoting one would resurrect data Legal ordered
+         deleted. The identity is left with no active pointer. */
+    }
+    return { purgedRecords, purgedPointers, heldRecords };
   }
 }

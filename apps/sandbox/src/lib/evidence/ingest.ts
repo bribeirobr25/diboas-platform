@@ -60,7 +60,15 @@ export function networkCostKey(chain: Chain): string {
  * unexpected failure is logged as an error, and even then nothing rendered
  * changes.
  */
-export async function ingestNetworkCost(quote: GasQuote): Promise<IngestOutcome> {
+export async function ingestNetworkCost(
+  quote: GasQuote,
+  /**
+   * ⛑ RETENTION (Legal 2026-09-22). The store applies the 90-day operational
+   * window on activation and read, so the caller must supply the moment.
+   * Required, never defaulted — silence must not mean "unenforced".
+   */
+  now: Date | string
+): Promise<IngestOutcome> {
   const persistence = getEvidencePersistence();
   if (!persistence.enabled) {
     return { status: 'PERSISTENCE_DISABLED', reason: persistence.reason };
@@ -80,6 +88,10 @@ export async function ingestNetworkCost(quote: GasQuote): Promise<IngestOutcome>
       unit: NETWORK_COST_NATIVE_UNIT,
       recordId: randomUUID(),
       hash: sha256,
+      /* Custody begins now. For the fixture class there is no earlier retrieval
+         to point at — the value is a compile-time constant, and `stamp.asOf`
+         is its DOCUMENTATION date, not a moment we fetched anything. */
+      retrievedAt: typeof now === 'string' ? now : now.toISOString(),
     });
     const put = await persistence.store.put(candidate);
     if (put.status === 'DUPLICATE') {
@@ -97,11 +109,11 @@ export async function ingestNetworkCost(quote: GasQuote): Promise<IngestOutcome>
       }
       return { status: 'DUPLICATE', evidenceKey: key, seq: put.seq };
     }
-    const activation = await persistence.store.activate(key, put.seq);
+    const activation = await persistence.store.activate(key, put.seq, now);
     /* Round-trip proof: read what was stored and decode it. A payload that
        cannot be decoded is a defect in what we just wrote, and it must surface
        here rather than at the first Product read. */
-    const active = await persistence.store.readActive(key);
+    const active = await persistence.store.readActive(key, now);
     if (active) fromPayloadV1(active.payload);
     return {
       status: 'INGESTED',
@@ -122,8 +134,11 @@ export async function ingestNetworkCost(quote: GasQuote): Promise<IngestOutcome>
  * serverless database, and a burst adds nothing to a path whose whole point is
  * that no one is waiting for it.
  */
-export async function ingestNetworkCosts(quotes: GasQuote[]): Promise<IngestOutcome[]> {
+export async function ingestNetworkCosts(
+  quotes: GasQuote[],
+  now: Date | string
+): Promise<IngestOutcome[]> {
   const outcomes: IngestOutcome[] = [];
-  for (const quote of quotes) outcomes.push(await ingestNetworkCost(quote));
+  for (const quote of quotes) outcomes.push(await ingestNetworkCost(quote, now));
   return outcomes;
 }

@@ -10,6 +10,15 @@ import {
 } from '@diboas/defi';
 import { PostgresEvidenceStore } from '../PostgresEvidenceStore';
 
+/**
+ * ⛑ RETENTION (Legal 2026-09-22). Activation and reads now take the
+ * current-facing moment so the store can apply the 90-day window. These
+ * fixtures carry `FIXTURE_STAMP` (retrieved 2026-07-18), so the moment below
+ * sits inside the window and every assertion keeps testing what it tested
+ * before. Expiry has its own tests, with their own expired clock.
+ */
+const WITHIN_RETENTION = '2026-07-20T00:00:00.000Z';
+
 const sha256 = (input: string) => createHash('sha256').update(input, 'utf8').digest('hex');
 const NETWORK: { kind: 'single'; category: 'network' } = { kind: 'single', category: 'network' };
 
@@ -31,6 +40,8 @@ interface Row {
   ingestionKey: string;
   payloadDigest: string;
   payload: unknown;
+  /** The retention anchor — custody moment, supplied explicitly by the caller. */
+  ingestedAt: string;
 }
 
 function makeMockSql(): { sql: SqlExecutor; activeRows: () => Map<string, number> } {
@@ -40,10 +51,11 @@ function makeMockSql(): { sql: SqlExecutor; activeRows: () => Map<string, number
   const sql: SqlExecutor = async (strings, ...values) => {
     const q = strings.join(' ? ');
     if (q.includes('INSERT INTO evidence_records')) {
-      const [recordId, key, , ingestionKey, payloadDigest, payload] = values as [
+      const [recordId, key, , ingestionKey, payloadDigest, payload, ingestedAt] = values as [
         string,
         string,
         number,
+        string,
         string,
         string,
         string,
@@ -57,6 +69,7 @@ function makeMockSql(): { sql: SqlExecutor; activeRows: () => Map<string, number
         ingestionKey,
         payloadDigest,
         payload: JSON.parse(payload),
+        ingestedAt,
       };
       records.push(row);
       return [{ seq: row.seq }];
@@ -66,6 +79,42 @@ function makeMockSql(): { sql: SqlExecutor; activeRows: () => Map<string, number
       return records
         .filter((r) => r.ingestionKey === ingestionKey)
         .map((r) => ({ seq: r.seq, payload_digest: r.payloadDigest }));
+    }
+    /* ⛑ RETENTION: the activation pre-check reads the candidate's payload so
+       the adapter can apply the 90-day window before the CAS upsert. */
+    if (q.includes('SELECT ingested_at FROM evidence_records WHERE seq')) {
+      const [recordSeq] = values as [number];
+      const row = records.find((r) => r.seq === recordSeq);
+      return row ? [{ ingested_at: row.ingestedAt }] : [];
+    }
+    /* The purge scan: every record, so the app can apply the derived clock. */
+    if (q.includes('SELECT seq, evidence_key, ingested_at FROM evidence_records')) {
+      return records.map((r) => ({
+        seq: r.seq,
+        evidence_key: r.evidenceKey,
+        ingested_at: r.ingestedAt,
+      }));
+    }
+    if (q.includes('DELETE FROM evidence_active')) {
+      const [key, recordSeq] = values as [string, number];
+      if (active.get(key) !== recordSeq) return [];
+      active.delete(key);
+      return [{ evidence_key: key }];
+    }
+    if (q.includes('DELETE FROM evidence_records')) {
+      const [recordSeq] = values as [number];
+      const i = records.findIndex((r) => r.seq === recordSeq);
+      if (i === -1) return [];
+      /* The composite FK would REFUSE deleting a record a pointer still names.
+         Modelling it keeps the mock honest about ordering. */
+      const row = records[i];
+      if (active.get(row.evidenceKey) === row.seq) {
+        throw new Error(
+          'update or delete on table "evidence_records" violates foreign key constraint'
+        );
+      }
+      records.splice(i, 1);
+      return [];
     }
     if (q.includes('INSERT INTO evidence_active')) {
       const [key, recordSeq] = values as [string, number];
@@ -93,7 +142,16 @@ function makeMockSql(): { sql: SqlExecutor; activeRows: () => Map<string, number
       const current = active.get(key);
       if (current === undefined) return [];
       const row = records.find((r) => r.seq === current && r.evidenceKey === key);
-      return row ? [{ seq: row.seq, evidence_key: row.evidenceKey, payload: row.payload }] : [];
+      return row
+        ? [
+            {
+              seq: row.seq,
+              evidence_key: row.evidenceKey,
+              payload: row.payload,
+              ingested_at: row.ingestedAt,
+            },
+          ]
+        : [];
     }
     throw new Error(`mock sql: unrecognized query: ${q}`);
   };
@@ -114,6 +172,8 @@ function candidate(value = 0.03, asOf?: string, unit = 'USD'): EvidenceRecordCan
     unit,
     recordId: `00000000-0000-4000-8000-${String(value).padStart(12, '0').slice(0, 12)}`,
     hash: sha256,
+    /* Custody moment — deliberately independent of the stamp's asOf. */
+    retrievedAt: WITHIN_RETENTION,
   });
 }
 
@@ -154,8 +214,11 @@ describe('PostgresEvidenceStore — activation', () => {
     const c = candidate();
     const put = await store.put(c);
     if (put.status !== 'INSERTED') throw new Error('unreachable');
-    expect(await store.activate(c.evidenceKey, put.seq)).toEqual({ status: 'ACTIVATED', seq: 1 });
-    const active = await store.readActive(c.evidenceKey);
+    expect(await store.activate(c.evidenceKey, put.seq, WITHIN_RETENTION)).toEqual({
+      status: 'ACTIVATED',
+      seq: 1,
+    });
+    const active = await store.readActive(c.evidenceKey, WITHIN_RETENTION);
     expect(active).toMatchObject({ seq: 1, evidenceKey: c.evidenceKey });
     expect(active?.payload).toMatchObject({ value: '0.03', unit: 'USD' });
   });
@@ -166,7 +229,9 @@ describe('PostgresEvidenceStore — activation', () => {
     const put = await store.put(candidate());
     if (put.status !== 'INSERTED') throw new Error('unreachable');
     const otherKey = evidenceKey({ kind: 'network-cost', subject: 'Solana', unit: 'USD' });
-    await expect(store.activate(otherKey, put.seq)).rejects.toThrow(/foreign key constraint/);
+    await expect(store.activate(otherKey, put.seq, WITHIN_RETENTION)).rejects.toThrow(
+      /foreign key constraint/
+    );
   });
 
   it('should not let a LOWER ingestion seq overwrite a HIGHER one', async () => {
@@ -175,8 +240,8 @@ describe('PostgresEvidenceStore — activation', () => {
     const older = await store.put(candidate(0.03, '2026-09-21T00:00:00.000Z'));
     const newer = await store.put(candidate(0.04, '2026-09-22T00:00:00.000Z'));
     const key = candidate().evidenceKey;
-    await store.activate(key, newer.seq);
-    expect(await store.activate(key, older.seq)).toEqual({
+    await store.activate(key, newer.seq, WITHIN_RETENTION);
+    expect(await store.activate(key, older.seq, WITHIN_RETENTION)).toEqual({
       status: 'NOT_NEWER',
       activeSeq: newer.seq,
     });
@@ -189,8 +254,8 @@ describe('PostgresEvidenceStore — activation', () => {
     const c = candidate();
     const put = await store.put(c);
     if (put.status !== 'INSERTED') throw new Error('unreachable');
-    await store.activate(c.evidenceKey, put.seq);
-    expect(await store.activate(c.evidenceKey, put.seq)).toEqual({
+    await store.activate(c.evidenceKey, put.seq, WITHIN_RETENTION);
+    expect(await store.activate(c.evidenceKey, put.seq, WITHIN_RETENTION)).toEqual({
       status: 'NOT_NEWER',
       activeSeq: put.seq,
     });
@@ -201,7 +266,7 @@ describe('PostgresEvidenceStore — activation', () => {
     const store = new PostgresEvidenceStore(sql);
     const c = candidate();
     await store.put(c);
-    expect(await store.readActive(c.evidenceKey)).toBeNull();
+    expect(await store.readActive(c.evidenceKey, WITHIN_RETENTION)).toBeNull();
   });
 });
 
@@ -218,7 +283,7 @@ describe('PostgresEvidenceStore — the SQL it actually issues', () => {
     const store = new PostgresEvidenceStore(sql);
     const c = candidate();
     await store.put(c);
-    await store.activate(c.evidenceKey, 1);
+    await store.activate(c.evidenceKey, 1, WITHIN_RETENTION);
     const insert = issued.find((q) => q.includes('INSERT INTO evidence_records')) ?? '';
     const activate = issued.find((q) => q.includes('INSERT INTO evidence_active')) ?? '';
     /* History is append-only: the record insert must never learn to update. */
