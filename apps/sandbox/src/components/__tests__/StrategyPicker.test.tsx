@@ -1,4 +1,6 @@
 // @vitest-environment happy-dom
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { describe, expect, it, vi } from 'vitest';
@@ -273,6 +275,38 @@ describe('5.436 — an unavailable rate hides the number, never the candidate', 
         el.textContent?.includes('This option is not available right now')
       )
     ).toBe(true);
+  });
+
+  it('should not dim the sentence that carries the state', () => {
+    /**
+     * ⛑ REGRESSION GUARD, 2026-09-22. The first version of this feature set
+     * `background: var(--sb-surface-secondary)` and `opacity: 0.75` on the
+     * unavailable card's rate line. Measured in a browser, that rendered the
+     * state-carrying sentence at 2.59:1 (light) and 3.62:1 (dark) at 14px —
+     * under the 4.5:1 floor, on the one element a reader MUST be able to read.
+     *
+     * ⚑ Asserted against the STYLESHEET, not `getComputedStyle`: this harness
+     * loads no CSS, so a computed-style assertion resolves to jsdom defaults
+     * and would pass either way. The ratios themselves are measured in the
+     * browser during the visual gate; this guard stops the rules coming back.
+     */
+    const css = readFileSync(
+      join(process.cwd(), 'src/components/StrategyPicker.module.css'),
+      'utf8'
+    );
+    /* The RULE DEFINITION, not the `:not(.cardUnavailable)` inside the hover
+       selector — a first draft matched that and failed for the wrong reason. */
+    const rule = css.slice(css.indexOf('.cardUnavailable {'));
+    const block = rule.slice(0, rule.indexOf('}') + 1);
+    expect(block, 'dimming the unavailable card broke the contrast floor once').not.toContain(
+      'opacity'
+    );
+    expect(block, 'tinting the card background broke the contrast floor once').not.toContain(
+      'background'
+    );
+    /* The affordance may still be withdrawn — that is not a contrast concern. */
+    expect(block).toContain('cursor: default');
+    expect(css).toContain('.card:hover:not(.cardUnavailable)');
   });
 
   it('should keep catalog ORDER — unavailability is stated, never reordered', () => {
