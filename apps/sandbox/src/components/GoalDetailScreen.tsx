@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { getStrategy } from '@diboas/defi';
+import { getStrategy, strategyRateAvailability } from '@diboas/defi';
 import type { ProtocolApyHistory } from '@diboas/defi';
 import type { SandboxLocale } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
@@ -148,12 +148,23 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
     strategy && market ? networkFeeLocal(market.gas, strategy, market.usdPriceLocal, nowIso) : null;
   /** FC-15 "no honest price, no operable control" — now for the ENTRY as well. */
   const canPriceEntry = feeLocal !== null;
+  /**
+   * ⛑ `5.436` · the candidate's own current-rate availability, through the
+   * shared Stage H gate. A candidate whose rate is unknowable cannot be chosen
+   * for a NEW rate-dependent decision, so it gates the entry handler and the
+   * consequence sheet exactly as an unpriceable cost already does.
+   */
+  const rateAvailable = strategy
+    ? strategyRateAvailability(strategy, market?.apys ?? [], nowIso).available
+    : false;
   // VIEW-2: the affordability guard gates a real money movement, so it is
   // derived and unit-tested rather than computed in the render body.
   const canInvest = selectCanInvest(state, goalId, investValue);
 
   function approveEntry() {
-    if (!strategy || !canInvest || busy || feeLocal === null) return;
+    /* `5.436`: the commit path refuses too, not only the control that opens
+       it — a disabled button is a UI fact, this is the money fact. */
+    if (!strategy || !canInvest || busy || feeLocal === null || !rateAvailable) return;
     setBusy(true);
     enterStrategy({
       goalId,
@@ -697,6 +708,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                       apys={market.apys}
                       selectedId={strategyId}
                       onSelect={setStrategyId}
+                      now={nowIso}
                     />
                   ) : null}
                   {strategy && market ? (
@@ -712,7 +724,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                       usdPriceLocal={market.usdPriceLocal}
                       currency={state.currency}
                       onPutToWork={
-                        canInvest && canPriceEntry && !busy
+                        canInvest && canPriceEntry && rateAvailable && !busy
                           ? () => setEntryManifest(true)
                           : undefined
                       }
@@ -749,7 +761,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
         />
       ) : null}
 
-      {entryManifest && strategy && feeLocal !== null && !settling ? (
+      {entryManifest && strategy && feeLocal !== null && rateAvailable && !settling ? (
         <Manifest
           titleId="manifest.title"
           rows={[

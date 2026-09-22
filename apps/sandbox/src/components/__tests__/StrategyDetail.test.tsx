@@ -27,6 +27,23 @@ import { getMessages } from '@/i18n/loadMessages';
  * real wall clock and would have changed behaviour on a date nobody chose.
  */
 const WITHIN_FIXTURE_WINDOW = new Date('2026-07-25T09:00:00Z');
+/**
+ * ⛑ `5.436` (2026-09-22) · THE OBSERVED DATE MOVED, AND HERE IS WHY.
+ *
+ * These stamps read `2026-08-19` while the pinned clock sits at `2026-07-25`
+ * (inside the fixture gas window) — so the "live" APYs were 25 days in the
+ * FUTURE relative to the moment the surface was judged at. Nothing read them
+ * against a clock before, so the incoherence was invisible; the rate gate reads
+ * them, and a future stamp is refused (a clock skew must not manufacture
+ * currency).
+ *
+ * The date is arbitrary test data whose only job is "an observed live reading",
+ * and no assertion depends on the literal. Moving it to three days before the
+ * clock makes the fixture internally coherent — gas 07-18, rates 07-22, judged
+ * at 07-25 — and preserves every subject: live, mixed and fixture provenance
+ * all still render exactly as before.
+ */
+const OBSERVED_AT = '2026-07-22T00:00:00Z';
 
 beforeEach(() => {
   vi.useFakeTimers();
@@ -49,8 +66,7 @@ function apy(protocolId: ProtocolId, source: 'defillama' | 'fixture' = 'defillam
     apyPercent: 4,
     tvlUsd: null,
     chain: 'Arbitrum',
-    stamp:
-      source === 'fixture' ? FIXTURE_STAMP : observedStamp('defillama', '2026-08-19T00:00:00Z'),
+    stamp: source === 'fixture' ? FIXTURE_STAMP : observedStamp('defillama', OBSERVED_AT),
   };
 }
 const LIVE = [apy('skySsr'), apy('aaveV3'), apy('compoundV3')];
@@ -64,7 +80,7 @@ function history(protocolId: ProtocolId, days: number): ProtocolApyHistory {
       date: new Date(Date.UTC(2026, 4, 1 + i)).toISOString().slice(0, 10),
       apyPercent: 3 + (i % 4),
     })),
-    stamp: observedStamp('defillama', '2026-08-19T00:00:00Z'),
+    stamp: observedStamp('defillama', OBSERVED_AT),
   };
 }
 
@@ -320,7 +336,9 @@ describe('5.406 — the multi-network Candidate on the pre-commit surface', () =
       apyPercent: 5,
       tvlUsd: null,
       chain: CURRENT_CATALOG_PROTOCOL_NETWORK[leg.protocolId],
-      stamp: observedStamp('defillama', '2026-09-17T00:00:00Z'),
+      /* Same coherence fix as OBSERVED_AT above: this read 2026-09-17, which
+         is also in the future relative to this file's pinned clock. */
+      stamp: observedStamp('defillama', OBSERVED_AT),
     }));
 
   function renderFor(strategy: typeof fullThrottle, onPutToWork?: () => void) {
@@ -497,8 +515,24 @@ describe('5.309 · evidence outside the current-facing vintage cannot price a mo
     vi.setSystemTime(new Date('2026-09-22T00:00:00Z'));
   });
 
+  /**
+   * ⚑ FRESH RATES, STALE GAS — deliberately, and it is the LIVE PRODUCTION
+   * SHAPE. `/api/market` returns DeFiLlama APYs stamped today alongside gas
+   * still stamped `FIXTURE_AS_OF`, so this block isolates the COST refusal from
+   * the rate refusal (`5.436`) instead of letting one mask the other. Without
+   * it, both would be unavailable at this clock and these tests would pass for
+   * the wrong reason.
+   */
+  const FRESH = ['skySsr', 'aaveV3', 'compoundV3'].map((id) => ({
+    protocolId: id as ProtocolId,
+    apyPercent: 4,
+    tvlUsd: null,
+    chain: 'Arbitrum' as const,
+    stamp: observedStamp('defillama', '2026-09-20T00:00:00Z'),
+  }));
+
   it('should NOT render a network cost row it can no longer stand behind', () => {
-    renderDetail();
+    renderDetail(FRESH);
     expect(screen.queryByText(/Reference network cost: about/)).toBeNull();
   });
 
@@ -506,7 +540,7 @@ describe('5.309 · evidence outside the current-facing vintage cannot price a mo
     /* The RIGHT reason beside the blocked action (`5.347`, Execution Rulings
        §16). "Enter an amount above" would name a cause that is not the cause —
        the same defect that ruling was raised to close. */
-    renderDetail();
+    renderDetail(FRESH);
     expect(
       screen.getByText(
         "The required cost information isn't available, so this move can't proceed; nothing moved."
@@ -516,7 +550,7 @@ describe('5.309 · evidence outside the current-facing vintage cannot price a mo
   });
 
   it('should keep the CTA disabled rather than offer a control it cannot honour', () => {
-    renderDetail();
+    renderDetail(FRESH);
     const cta = screen.getByRole('button', { name: 'Put money to work' }) as HTMLButtonElement;
     expect(cta.disabled).toBe(true);
   });
@@ -533,11 +567,74 @@ describe('5.309 · evidence outside the current-facing vintage cannot price a mo
      * confusion `presentedCategory` exists to prevent; a first draft of this
      * test did exactly that and was wrong, not the surface.
      */
-    renderDetail();
+    renderDetail(FRESH);
     expect(screen.getByText('Network fee: amount unavailable')).toBeTruthy();
     const body = document.body.textContent ?? '';
     for (const forbidden of ['Network fee: $0.00', 'Network fee: free', 'about $0.00']) {
       expect(body, `${forbidden} would be a fabricated network cost`).not.toContain(forbidden);
     }
+  });
+});
+
+/**
+ * `5.436` · CANDIDATE_UNAVAILABLE on the pre-commit read — Product ruling
+ * 2026-09-22.
+ *
+ * The clock sits past the rate window. What must survive is everything the
+ * strategy independently IS; what must go is the number and the ability to
+ * commit. `CANDIDATE_UNAVAILABLE != deleted != invalid != error != loss`.
+ */
+describe('5.436 — an unavailable rate blocks the commit, not the reading', () => {
+  beforeEach(() => {
+    vi.setSystemTime(new Date('2026-09-22T00:00:00Z'));
+  });
+
+  it('should replace the numeric rate with the approved generic copy', () => {
+    /**
+     * ⚑ It renders TWICE, deliberately: once as the rate's state near the top
+     * of a long surface, and once beside the blocked CTA at the bottom, where
+     * `5.347` requires the refusal to stay adjacent to the action it refuses.
+     * They are far apart and answer different questions, so this is not the
+     * repeated-data anti-pattern — but it IS why the matcher is plural.
+     */
+    renderDetail();
+    expect(screen.getAllByText('This option is not available right now').length).toBe(2);
+    expect(screen.queryByText(/Current pool rate/)).toBeNull();
+    expect(screen.queryByText(/Reference pool rate/)).toBeNull();
+  });
+
+  it('should show no 0%, no stale figure, no fabricated estimate', () => {
+    renderDetail();
+    const body = document.body.textContent ?? '';
+    expect(body).not.toMatch(/\b0(\.00)?%\/yr/);
+    expect(body).not.toMatch(/4(\.00)?%\/yr/);
+  });
+
+  it('should keep the candidate INSPECTABLE — identity, path and risk survive', () => {
+    /* Ruling §5: preserve still-true candidate information. */
+    renderDetail();
+    expect(screen.getByText('What it is')).toBeTruthy();
+    expect(screen.getByText(/real protocols on/)).toBeTruthy();
+    expect(screen.getByText(/Sky SSR/)).toBeTruthy();
+    expect(screen.getByText(/Stable strategies aim to hold their value/)).toBeTruthy();
+  });
+
+  it('should block continuation even when a handler IS supplied', () => {
+    /**
+     * The gate is applied in the component as well as the parent: blocking in
+     * one place only is how "cannot commit" becomes "committed anyway" two
+     * refactors later.
+     */
+    renderDetail(LIVE, undefined, () => {});
+    const cta = screen.getByRole('button', { name: 'Put money to work' }) as HTMLButtonElement;
+    expect(cta.disabled).toBe(true);
+  });
+
+  it('should give the CANDIDATE reason, not the cost reason', () => {
+    /* An unavailable rate is a broader statement than "this cost cannot be
+       priced", and must not be described as a cost problem. One reason. */
+    renderDetail();
+    expect(screen.getAllByText('This option is not available right now').length).toBeGreaterThan(0);
+    expect(screen.queryByText(/Enter an amount above/)).toBeNull();
   });
 });

@@ -8,6 +8,7 @@ import {
   STRATEGY_CATALOG,
   strategiesForHorizon,
   strategyProvenance,
+  strategyRateAvailability,
   type HorizonBand,
   type ProtocolApy,
   type RiskBand,
@@ -56,11 +57,18 @@ export function StrategyPicker({
   apys,
   selectedId,
   onSelect,
+  now,
 }: {
   horizonMonths: number;
   apys: ProtocolApy[];
   selectedId: string | null;
   onSelect: (id: string) => void;
+  /**
+   * ⛑ `5.436` · the CURRENT-FACING reference moment. Required, never defaulted:
+   * a silent `new Date()` would make "no age enforcement" the meaning of
+   * silence, and this list is where a candidate becomes selectable.
+   */
+  now: Date | string;
 }) {
   const intl = useIntl();
   const fieldId = useId();
@@ -164,6 +172,22 @@ export function StrategyPicker({
       ) : (
         <ul className={styles.list}>
           {strategies.map((strategy) => {
+            /**
+             * ⛑ `5.436` · Product ruling 2026-09-22. A candidate whose current
+             * rate evidence is unavailable stays VISIBLE and INSPECTABLE — it
+             * is not deleted, not invalid, not an error — but it may not carry
+             * a number and may not be chosen for a new rate-dependent decision.
+             *
+             * ⚑ IT KEEPS ITS PLACE IN THE LIST. The ruling speaks of placing
+             * unavailable candidates after the rankable set; this catalogue has
+             * no ranking to be after. §R-3 above is explicit — "the FULL
+             * matching list renders in stable catalog order — no scoring, no
+             * 'recommended' badge, no default selection, no reordering" — so
+             * moving these rows WOULD BE the reordering that rule forbids, and
+             * would also leak a judgement ("these are worse") that the data
+             * does not support. Unavailability is stated on the row instead.
+             */
+            const rate = strategyRateAvailability(strategy, apys, now);
             const apy = blendedApy(strategy, apys);
             // The shared three-state predicate (§3-A): the row's rate line says
             // what the number IS — "real" is reserved for the all-live state.
@@ -177,13 +201,18 @@ export function StrategyPicker({
             const checked = selectedId === strategy.id;
             return (
               <li key={strategy.id}>
-                <label className={`${styles.card} ${checked ? styles.cardSelected : ''}`}>
+                <label
+                  className={`${styles.card} ${checked ? styles.cardSelected : ''} ${
+                    rate.available ? '' : styles.cardUnavailable
+                  }`}
+                >
                   <input
                     className={styles.radio}
                     type="radio"
                     name="strategy"
                     value={strategy.id}
                     checked={checked}
+                    disabled={!rate.available}
                     onChange={() => onSelect(strategy.id)}
                   />
                   <span className={styles.rowIcon}>
@@ -212,10 +241,19 @@ export function StrategyPicker({
                       <FormattedMessage id={`catalog.strategies.${strategy.i18nKey}.tagline`} />
                     </span>
                     <span className={styles.meta}>
-                      <FormattedMessage
-                        id={apyMessageId}
-                        values={{ apy: apy.toDecimalPlaces(2).toNumber() }}
-                      />
+                      {rate.available ? (
+                        <FormattedMessage
+                          id={apyMessageId}
+                          values={{ apy: apy.toDecimalPlaces(2).toNumber() }}
+                        />
+                      ) : (
+                        /* The Brand/localization-approved GENERIC state (P06
+                           §48.1), reused verbatim — never APY-specific copy,
+                           and never a bare dash, which says nothing. */
+                        <FormattedMessage id="common.optionUnavailable" />
+                      )}
+                      {/* Growth exposure is a property of the STRATEGY, not of
+                          today's rate, so it stays true and stays rendered. */}
                       {strategy.riskBand === 'growth' ? (
                         <>
                           {' · '}
@@ -227,10 +265,14 @@ export function StrategyPicker({
                       ) : null}
                     </span>
                     {/* "Varies" as its own line (mockup 13): the rate is a
-                        current reading, never a promise of what comes next. */}
-                    <span className={styles.varies}>
-                      <FormattedMessage id="catalogFilters.varies" />
-                    </span>
+                        current reading, never a promise of what comes next. It
+                        describes a rate, so it is withheld when there is no
+                        rate to describe. */}
+                    {rate.available ? (
+                      <span className={styles.varies}>
+                        <FormattedMessage id="catalogFilters.varies" />
+                      </span>
+                    ) : null}
                   </span>
                 </label>
               </li>

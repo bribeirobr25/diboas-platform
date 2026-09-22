@@ -550,3 +550,45 @@ describe('5.309 · an over-age quote blocks the exit with the approved sentence'
     expect(css).not.toMatch(/\.exit:hover\s*\{/);
   });
 });
+
+/**
+ * `5.436` · AN ALREADY-SELECTED CANDIDATE KEEPS ITS CONTEXT.
+ *
+ * Product ruling §6: if a candidate was selected or configured BEFORE its rate
+ * became unavailable, the selection and the user's inputs are preserved —
+ * continuation is what becomes unavailable, not the work already done. Clearing
+ * someone's amount because a provider went quiet would be the product punishing
+ * the user for the data's failure.
+ */
+describe('5.436 · an unavailable rate does not clear work already done', () => {
+  beforeEach(() => {
+    vi.setSystemTime(new Date('2026-09-22T00:00:00Z'));
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    h.market = MARKET_OK;
+  });
+
+  it('should keep an existing position visible and its money working', () => {
+    /* The active Money Job is settled state: today's evidence loss must not
+       reach it. Measured on the rendered surface, not only in the ledger. */
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 4000,
+      horizonMonths: 12,
+      fundAmount: 1000,
+    });
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 500, networkFeeLocal: 0 });
+    renderDetail(goalId);
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+    /* The position card names the strategy AND its amount — the job survived
+       the evidence loss intact. Plural matcher: $500.00 legitimately appears
+       more than once (the position and the goal's own cash line). */
+    expect(screen.getByText(/Working in Safe Harbor/)).toBeTruthy();
+    expect(screen.getAllByText(/\$500\.00/).length).toBeGreaterThan(0);
+  });
+});

@@ -3,7 +3,12 @@
 import { useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { EXIT_FEE_FLOOR, FEE_RATES } from '@diboas/banking';
-import { FIXTURE_AS_OF, isMultiNetworkCandidate, strategyProvenance } from '@diboas/defi';
+import {
+  FIXTURE_AS_OF,
+  isMultiNetworkCandidate,
+  strategyProvenance,
+  strategyRateAvailability,
+} from '@diboas/defi';
 import type { GasQuote, ProtocolApy, ProtocolApyHistory, StrategyDef } from '@diboas/defi';
 import { useFormatters } from '@/hooks/useFormatters';
 import { gasStampFor, networkFeeLocal } from '@/lib/networkFee';
@@ -83,6 +88,12 @@ export function StrategyDetail({
      month-report screens use for their own clocks. */
   const nowIso = useMemo(() => new Date().toISOString(), []);
   const fee = networkFeeLocal(gas, strategy, usdPriceLocal, nowIso);
+  /**
+   * ⛑ `5.436` · the RATE half of the same age contract, through the SAME
+   * generic gate the fee above uses. The candidate stays readable; what it
+   * loses is the number and the ability to be committed.
+   */
+  const rate = strategyRateAvailability(strategy, apys, nowIso);
 
   /* The chart's series — derived in `view/strategy.ts` (AUD-C02). The selector
      also REFUSES when a leg has no history, rather than blending the rest and
@@ -337,10 +348,16 @@ export function StrategyDetail({
               <FormattedMessage id="strategyDetail.howItsDoing" />
             </p>
             <p className={styles.behaveLead}>
-              <FormattedMessage
-                id={apyMessageId}
-                values={{ apy: apy.toDecimalPlaces(2).toNumber() }}
-              />
+              {rate.available ? (
+                <FormattedMessage
+                  id={apyMessageId}
+                  values={{ apy: apy.toDecimalPlaces(2).toNumber() }}
+                />
+              ) : (
+                /* `5.436`: the approved GENERIC state, never a stale number,
+                   never 0%, never a bare dash. */
+                <FormattedMessage id="common.optionUnavailable" />
+              )}
             </p>
             {chart.sparkSeries.length >= 2 ? <Sparkline series={chart.sparkSeries} /> : null}
             <p className={styles.caveat}>
@@ -369,22 +386,35 @@ export function StrategyDetail({
             <span className={styles.apyLabel}>
               <FormattedMessage id="strategyDetail.currentApy" />
             </span>
-            <span className={styles.apyValue}>
-              {intl.formatNumber(apy.toDecimalPlaces(2).toNumber(), {
-                maximumFractionDigits: 2,
-              })}
-              %
-            </span>
-            <span className={styles.apyVaries}>
-              <FormattedMessage id="strategyDetail.varies" />
-            </span>
+            {rate.available ? (
+              <>
+                <span className={styles.apyValue}>
+                  {intl.formatNumber(apy.toDecimalPlaces(2).toNumber(), {
+                    maximumFractionDigits: 2,
+                  })}
+                  %
+                </span>
+                <span className={styles.apyVaries}>
+                  <FormattedMessage id="strategyDetail.varies" />
+                </span>
+              </>
+            ) : (
+              /* The label stays — "Current rate" is still the right question;
+                 only the answer is unavailable. `varies` describes a rate, so
+                 it goes with the rate. */
+              <span className={styles.apyValue}>
+                <FormattedMessage id="common.optionUnavailable" />
+              </span>
+            )}
           </div>
-          <p className={styles.apyProvenance}>
-            <FormattedMessage
-              id={apyMessageId}
-              values={{ apy: apy.toDecimalPlaces(2).toNumber() }}
-            />
-          </p>
+          {rate.available ? (
+            <p className={styles.apyProvenance}>
+              <FormattedMessage
+                id={apyMessageId}
+                values={{ apy: apy.toDecimalPlaces(2).toNumber() }}
+              />
+            </p>
+          ) : null}
 
           <ApyChart
             series={chart.series}
@@ -472,10 +502,19 @@ export function StrategyDetail({
       {/* No handler → no operable control. A CTA that looks live but does
           nothing is the fake-control veto; and a silently-disabled one is
           barely better, so the reason renders with it. */}
-      <Button variant="primary" fullWidth disabled={!onPutToWork} onClick={() => onPutToWork?.()}>
+      {/* ⛑ `5.436`: the rate gate is applied HERE as well as in the parent, so
+          the refusal holds even if a future caller passes a handler. Blocking
+          in one place only is how a "cannot commit" becomes "committed anyway"
+          two refactors later. */}
+      <Button
+        variant="primary"
+        fullWidth
+        disabled={!onPutToWork || !rate.available}
+        onClick={() => onPutToWork?.()}
+      >
         <FormattedMessage id="strategyDetail.putToWork" />
       </Button>
-      {!onPutToWork ? (
+      {!onPutToWork || !rate.available ? (
         <p className={styles.ctaHint}>
           {/* `5.347` (Execution Rulings §16): the refusal explanation must stay
               ADJACENT to the blocked action — and it must be the RIGHT reason.
@@ -485,7 +524,13 @@ export function StrategyDetail({
               knowable locally. Before this, an unpriceable entry rendered
               "Enter an amount above", which named a cause that was not the
               cause. One reason renders, never both. */}
-          {fee === null ? (
+          {/* ⛑ `5.436` takes precedence: when the RATE is unavailable the
+              candidate itself cannot be chosen, which is a broader statement
+              than "this cost cannot be priced" and must not be described as a
+              cost problem. Still exactly one reason, never two. */}
+          {!rate.available ? (
+            <FormattedMessage id="common.optionUnavailable" />
+          ) : fee === null ? (
             <FormattedMessage id="goalDetail.entryPricingUnavailable" />
           ) : (
             <FormattedMessage id="strategyDetail.needAmount" />

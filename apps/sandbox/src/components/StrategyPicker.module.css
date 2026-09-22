@@ -46,9 +46,31 @@
     border-color 0.12s ease;
 }
 
-.card:hover {
+.card:hover:not(.cardUnavailable) {
   transform: translateY(-1px);
   border-color: var(--sb-mode-accent-bright);
+}
+
+/**
+ * ⛑ `5.436` · CANDIDATE_UNAVAILABLE (P06 / ST-01-U).
+ *
+ * The candidate stays VISIBLE and READABLE on purpose — it is not deleted, not
+ * invalid, not an error — so this dims the affordance, never the identity: the
+ * name, risk band, tagline and exposure stay at full contrast, and only the
+ * lift-on-hover and the pointer go away. The state itself is carried by WORDS
+ * ("This option is not available right now"), so a reader who perceives no
+ * colour still gets it; these rules are the visual echo, never the message.
+ *
+ * Values follow `.primary:disabled` / `.exit:disabled` in the sibling
+ * stylesheets rather than inventing a third look for one meaning.
+ */
+.cardUnavailable {
+  cursor: default;
+  background: var(--sb-surface-secondary);
+}
+
+.cardUnavailable .meta {
+  opacity: 0.75;
 }
 
 .cardSelected {
