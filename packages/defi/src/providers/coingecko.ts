@@ -26,6 +26,7 @@ import type {
   ProtocolPriceHistory,
 } from '../types';
 import { evidenceStamp } from '../types';
+import { createRevalidatingCache, type RevalidatedEntry } from './revalidatingCache';
 import { PROTOCOL_RETURN_MODEL, PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 
 const API_BASE = 'https://api.coingecko.com/api/v3';
@@ -42,24 +43,23 @@ export const COINGECKO_IDS: Record<AssetId, string> = {
 
 const VS: Record<DisplayCurrency, string> = { USD: 'usd', BRL: 'brl', EUR: 'eur' };
 
-interface CacheEntry {
-  at: number;
-  value: Record<string, Record<string, number>>;
-}
-
 /** One cached call covers all assets × all three currencies.
  *  Founder-ruled 6 h (2026-08-19, was 5 min): sandbox market data refreshes at
  *  most every 6 hours — free-tier protection at visitor scale (see the
  *  defillama provider's TTL note + P2BD-14). */
 const PRICE_TTL_MS = SANDBOX_MARKET_TTL_MS;
-let priceCache: CacheEntry | null = null;
+/* ⛑ Shared revalidation primitive — same TTL, same lazy request-driven timing,
+   same single-call-covers-everything shape. Only the duplicated staleness
+   check moved. */
+const priceCache = createRevalidatingCache<Record<string, Record<string, number>>>(PRICE_TTL_MS);
+const PRICE_KEY = 'prices';
 
 /** Daily-history cache, keyed by coin id. Same 6 h bound as every other market
  *  read — and it is load-bearing here, not a nicety: three uncached
  *  `market_chart` calls in quick succession returned HTTP 429 on the free tier
  *  (verified 2026-08-20), so at visitor scale the cache IS the rate-limit
  *  strategy. Daily granularity makes a 6 h TTL lossless anyway. */
-const historyCache = new Map<string, { at: number; value: DatedPricePoint[] }>();
+const historyCache = createRevalidatingCache<DatedPricePoint[]>(PRICE_TTL_MS);
 
 export class CoinGeckoPriceProvider implements IPriceProvider {
   constructor(
@@ -94,20 +94,19 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
     }
   }
 
-  private async fetchAll(): Promise<CacheEntry> {
-    if (priceCache && Date.now() - priceCache.at < PRICE_TTL_MS) return priceCache;
-    const ids = Object.values(COINGECKO_IDS).join(',');
-    const vs = Object.values(VS).join(',');
-    const headers: Record<string, string> = {};
-    if (this.apiKey) headers['x-cg-demo-api-key'] = this.apiKey;
-    const res = await this.fetchImpl(`${API_BASE}/simple/price?ids=${ids}&vs_currencies=${vs}`, {
-      headers,
-      signal: AbortSignal.timeout(this.timeoutMs),
+  private async fetchAll(): Promise<RevalidatedEntry<Record<string, Record<string, number>>>> {
+    return priceCache.revalidate(PRICE_KEY, async () => {
+      const ids = Object.values(COINGECKO_IDS).join(',');
+      const vs = Object.values(VS).join(',');
+      const headers: Record<string, string> = {};
+      if (this.apiKey) headers['x-cg-demo-api-key'] = this.apiKey;
+      const res = await this.fetchImpl(`${API_BASE}/simple/price?ids=${ids}&vs_currencies=${vs}`, {
+        headers,
+        signal: AbortSignal.timeout(this.timeoutMs),
+      });
+      if (!res.ok) throw new Error(`coingecko ${res.status}`);
+      return (await res.json()) as Record<string, Record<string, number>>;
     });
-    if (!res.ok) throw new Error(`coingecko ${res.status}`);
-    const body = (await res.json()) as Record<string, Record<string, number>>;
-    priceCache = { at: Date.now(), value: body };
-    return priceCache;
   }
 
   /**
@@ -127,8 +126,7 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
     const model = PROTOCOL_RETURN_MODEL[protocolId];
     try {
       if (model.kind !== 'market') throw new Error('not a market-priced leg');
-      let entry = historyCache.get(model.coingeckoId);
-      if (!entry || Date.now() - entry.at >= PRICE_TTL_MS) {
+      const entry = await historyCache.revalidate(model.coingeckoId, async () => {
         const headers: Record<string, string> = {};
         if (this.apiKey) headers['x-cg-demo-api-key'] = this.apiKey;
         const res = await this.fetchImpl(
@@ -144,9 +142,8 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
           date: new Date(ms).toISOString().slice(0, 10),
           priceUsd,
         }));
-        entry = { at: Date.now(), value: points };
-        historyCache.set(model.coingeckoId, entry);
-      }
+        return points;
+      });
       return {
         protocolId,
         points: entry.value.slice(-days),

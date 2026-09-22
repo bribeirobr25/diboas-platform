@@ -17,6 +17,7 @@ import { FIXTURE_APYS } from '../fixtures';
 import type { ApyPoint, IApyProvider, ProtocolApy, ProtocolApyHistory, ProtocolId } from '../types';
 import { evidenceStamp } from '../types';
 import { PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
+import { createRevalidatingCache, type RevalidatedEntry } from './revalidatingCache';
 
 const POOLS_URL = 'https://yields.llama.fi/pools';
 const CHART_URL = 'https://yields.llama.fi/chart/';
@@ -73,11 +74,6 @@ interface LlamaPool {
   tvlUsd: number | null;
 }
 
-interface CacheEntry<T> {
-  at: number;
-  value: T;
-}
-
 /**
  * Module-level caches (server runtime). ONE ruled TTL (founder 2026-08-19):
  * every externally-fetched market value in the SANDBOX refreshes at most every
@@ -93,20 +89,26 @@ interface CacheEntry<T> {
  */
 const POOLS_TTL_MS = SANDBOX_MARKET_TTL_MS; // founder-ruled 6 h (was 30 min)
 const CHART_TTL_MS = SANDBOX_MARKET_TTL_MS; // daily-granularity history — 6 h
-let poolsCache: CacheEntry<LlamaPool[]> | null = null;
-const chartCache = new Map<string, CacheEntry<ApyPoint[]>>();
+/* ⛑ One shared revalidation primitive, not four hand-rolled TTL checks. The
+   TTL constants, the call timing and the lazy request-driven pattern are all
+   unchanged — this is a refactor of WHERE the rule lives, not of WHEN we
+   fetch. */
+const poolsCache = createRevalidatingCache<LlamaPool[]>(POOLS_TTL_MS);
+const chartCache = createRevalidatingCache<ApyPoint[]>(CHART_TTL_MS);
+/** Single-entry caches key on a constant; the primitive is keyed for both shapes. */
+const POOLS_KEY = 'pools';
 
 async function fetchPools(
   fetchImpl: typeof fetch,
   timeoutMs: number
-): Promise<CacheEntry<LlamaPool[]>> {
-  if (poolsCache && Date.now() - poolsCache.at < POOLS_TTL_MS) return poolsCache;
-  const res = await fetchImpl(POOLS_URL, { signal: AbortSignal.timeout(timeoutMs) });
-  if (!res.ok) throw new Error(`defillama /pools ${res.status}`);
-  const body = (await res.json()) as { data?: LlamaPool[] };
-  if (!Array.isArray(body.data)) throw new Error('defillama /pools: unexpected shape');
-  poolsCache = { at: Date.now(), value: body.data };
-  return poolsCache;
+): Promise<RevalidatedEntry<LlamaPool[]>> {
+  return poolsCache.revalidate(POOLS_KEY, async () => {
+    const res = await fetchImpl(POOLS_URL, { signal: AbortSignal.timeout(timeoutMs) });
+    if (!res.ok) throw new Error(`defillama /pools ${res.status}`);
+    const body = (await res.json()) as { data?: LlamaPool[] };
+    if (!Array.isArray(body.data)) throw new Error('defillama /pools: unexpected shape');
+    return body.data;
+  });
 }
 
 /**
@@ -160,7 +162,7 @@ export class DefiLlamaApyProvider implements IApyProvider {
   ) {}
 
   async getCurrentApys(protocolIds: ProtocolId[]): Promise<ProtocolApy[]> {
-    let pools: CacheEntry<LlamaPool[]>;
+    let pools: RevalidatedEntry<LlamaPool[]>;
     try {
       pools = await fetchPools(this.fetchImpl, this.timeoutMs);
     } catch {
@@ -203,8 +205,7 @@ export class DefiLlamaApyProvider implements IApyProvider {
       const match = matchPool(pools.value, POOL_MATCHERS[protocolId]);
       if (!match) throw new Error('no pool match');
 
-      let entry = chartCache.get(match.pool);
-      if (!entry || Date.now() - entry.at >= CHART_TTL_MS) {
+      const entry = await chartCache.revalidate(match.pool, async () => {
         const res = await this.fetchImpl(`${CHART_URL}${match.pool}`, {
           signal: AbortSignal.timeout(this.timeoutMs),
         });
@@ -213,12 +214,10 @@ export class DefiLlamaApyProvider implements IApyProvider {
           data?: Array<{ timestamp: string; apy: number | null }>;
         };
         if (!Array.isArray(body.data)) throw new Error('defillama /chart: unexpected shape');
-        const points = body.data
+        return body.data
           .filter((d) => typeof d.apy === 'number')
           .map((d) => ({ date: d.timestamp.slice(0, 10), apyPercent: d.apy as number }));
-        entry = { at: Date.now(), value: points };
-        chartCache.set(match.pool, entry);
-      }
+      });
       return {
         protocolId,
         points: entry.value.slice(-days),
