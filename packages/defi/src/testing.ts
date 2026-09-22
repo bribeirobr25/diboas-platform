@@ -29,7 +29,7 @@ import type {
   EvidenceRecordCandidate,
   EvidenceStore,
 } from './evidenceStore';
-import { isPayloadExpired, retrievedAtOf } from './evidenceRetention';
+import { isRecordExpired } from './evidenceRetention';
 import { evidenceStamp, type DataStamp } from './types';
 
 /**
@@ -106,8 +106,8 @@ export class InMemoryEvidenceStore implements EvidenceStore {
     /* ⛑ RETENTION before ordering: an expired record is never activatable, and
        the check comes BEFORE the CAS comparison so a newer-but-expired record
        cannot win on seq alone. */
-    if (isPayloadExpired(record.payload, now)) {
-      return { status: 'EXPIRED', retrievedAt: retrievedAtOf(record.payload) };
+    if (isRecordExpired(record, now)) {
+      return { status: 'EXPIRED', retrievedAt: record.retrievedAt };
     }
     const current = this.active.get(evidenceKey);
     if (current !== undefined && current >= seq) {
@@ -125,7 +125,7 @@ export class InMemoryEvidenceStore implements EvidenceStore {
     /* ⛑ Excluded from operational AND ordinary audit reads the moment it
        expires — not merely once a purge job has run. A restored backup copy
        fails here too, because the clock lives in its own payload. */
-    if (isPayloadExpired(record.payload, now)) return null;
+    if (isRecordExpired(record, now)) return null;
     return { seq, evidenceKey: record.evidenceKey, payload: record.payload };
   }
 
@@ -152,7 +152,7 @@ export class InMemoryEvidenceStore implements EvidenceStore {
     let purgedPointers = 0;
     let heldRecords = 0;
     for (const [seq, record] of [...this.records]) {
-      if (!isPayloadExpired(record.payload, input.now)) continue;
+      if (!isRecordExpired(record, input.now)) continue;
       if (hold.has(record.evidenceKey)) {
         heldRecords += 1;
         continue;

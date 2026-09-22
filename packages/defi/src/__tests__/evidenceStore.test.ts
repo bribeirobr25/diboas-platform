@@ -63,6 +63,8 @@ function candidate(options: {
     recordId:
       options.recordId ?? `00000000-0000-4000-8000-${Math.random().toString(16).slice(2, 14)}`,
     hash: sha256,
+    /* Custody moment — deliberately independent of the stamp's asOf. */
+    retrievedAt: WITHIN_RETENTION,
   });
 }
 

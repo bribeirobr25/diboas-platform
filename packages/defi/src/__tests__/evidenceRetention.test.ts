@@ -4,9 +4,8 @@ import {
   EVIDENCE_RETENTION_DAYS,
   evidenceExpiresAt,
   isEvidenceExpired,
-  isPayloadExpired,
+  isRecordExpired,
   mayPersistReducedStatistic,
-  retrievedAtOf,
 } from '../evidenceRetention';
 import { buildEvidenceCandidate } from '../evidenceStore';
 import { referenceEvidence, unavailableEvidence, type CostCoverage } from '../evidence';
@@ -30,10 +29,16 @@ const at = (ms: number) => new Date(Date.parse(RETRIEVED) + ms).toISOString();
 const sha256 = (i: string) => createHash('sha256').update(i, 'utf8').digest('hex');
 const NETWORK: CostCoverage = { kind: 'single', category: 'network' };
 
-function candidate(retrievedAt = RETRIEVED, value = 0.03, recordId = '1') {
+function candidate(retrievedAt = RETRIEVED, value = 0.03, recordId = '1', stampAsOf?: string) {
   const envelope = referenceEvidence({
     value,
-    stamp: evidenceStamp({ source: 'fixture', origin: 'MODELLED', asOf: retrievedAt }),
+    /* The stamp's asOf is DELIBERATELY independent of the retention anchor —
+       that separation is the whole point of the 2026-09-22 verification. */
+    stamp: evidenceStamp({
+      source: 'fixture',
+      origin: 'MODELLED',
+      asOf: stampAsOf ?? retrievedAt,
+    }),
     normalization: { converted: false },
     coverage: NETWORK,
   });
@@ -44,6 +49,7 @@ function candidate(retrievedAt = RETRIEVED, value = 0.03, recordId = '1') {
     unit: 'USD',
     recordId: `00000000-0000-4000-8000-00000000000${recordId}`,
     hash: sha256,
+    retrievedAt,
   });
 }
 
@@ -75,29 +81,41 @@ describe('the 90-day window, at its exact boundary', () => {
     expect(isEvidenceExpired(RETRIEVED, 'not-a-date')).toBe(true);
   });
 
-  it('should anchor on RETRIEVAL, never on observation', () => {
-    /* observedAt can predate retrieval by an unbounded amount; anchoring there
-       would expire evidence before we had held it 90 days. */
-    const envelope = referenceEvidence({
-      value: 0.03,
-      stamp: evidenceStamp({
-        source: 'fixture',
-        origin: 'MODELLED',
-        asOf: RETRIEVED,
-        observedAt: '2020-01-01T00:00:00.000Z',
-      }),
-      normalization: { converted: false },
-      coverage: NETWORK,
-    });
-    const payload = toPayloadV1(envelope, 'USD');
-    expect(retrievedAtOf(payload)).toBe(RETRIEVED);
-    expect(isPayloadExpired(payload, at(89 * DAY))).toBe(false);
+  it('should anchor on the RECORD retrievedAt, never on the payload stamp', () => {
+    /**
+     * ⛑ THE 2026-09-22 VERIFICATION, pinned.
+     *
+     * A fixture's `stamp.asOf` is `FIXTURE_AS_OF` — a hardcoded documentation
+     * date identical to `observedAt`, not a moment anything was fetched. The
+     * fixture class is also the ONLY class eligible for persistence today, so
+     * anchoring retention on the stamp was wrong for 100% of persistable
+     * evidence: a record ingested 66 days after the fixture date received 24
+     * days of life instead of 90, and would soon have been BORN EXPIRED.
+     *
+     * Here the stamp is deliberately 200 days older than the record. The record
+     * must still be retained, because custody began at `retrievedAt`.
+     */
+    const ancient = new Date(Date.parse(RETRIEVED) - 200 * DAY).toISOString();
+    const record = { retrievedAt: RETRIEVED };
+    expect(isRecordExpired(record, at(89 * DAY))).toBe(false);
+    expect(isRecordExpired(record, at(90 * DAY))).toBe(true);
+    /* And the stamp it carries has no effect on that answer at all. */
+    expect(isEvidenceExpired(ancient, at(0))).toBe(true);
+    expect(isEvidenceExpired(RETRIEVED, at(0))).toBe(false);
   });
 
-  it('should refuse a retention clock for evidence that was never available', () => {
-    const payload = toPayloadV1(unavailableEvidence<number>('NO_OBSERVATION', NETWORK), 'USD');
-    expect(() => retrievedAtOf(payload)).toThrow(/no retrieval time/);
-    expect(isPayloadExpired(payload, at(0))).toBe(true);
+  it('should retain a FIXTURE-class record whose stamp predates the window', async () => {
+    /* End-to-end through the store, with the real shape: an old documentation
+       stamp and a fresh custody moment. */
+    const store = new InMemoryEvidenceStore();
+    const stale = new Date(Date.parse(RETRIEVED) - 200 * DAY).toISOString();
+    const put = await store.put(candidate(RETRIEVED, 0.03, '1', stale));
+    if (put.status !== 'INSERTED') throw new Error('setup');
+    expect((await store.activate('network-cost:Arbitrum:USD', put.seq, at(1 * DAY))).status).toBe(
+      'ACTIVATED'
+    );
+    expect(await store.readActive('network-cost:Arbitrum:USD', at(89 * DAY))).not.toBeNull();
+    expect(await store.readActive('network-cost:Arbitrum:USD', at(90 * DAY))).toBeNull();
   });
 });
 
@@ -338,6 +356,7 @@ describe('provider-agnostic lifecycle', () => {
           unit: 'USD',
           recordId: '00000000-0000-4000-8000-000000000009',
           hash: sha256,
+          retrievedAt: RETRIEVED,
         })
       );
       if (put.status !== 'INSERTED') throw new Error('setup');

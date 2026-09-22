@@ -39,6 +39,28 @@ export interface EvidenceRecordCandidate {
   ingestionKey: string;
   payloadDigest: string;
   payload: EvidencePayloadV1;
+  /**
+   * ⛑ THE RETENTION ANCHOR — when this record entered our custody.
+   *
+   * RECORD metadata, not evidence semantics: it says when we began HOLDING the
+   * datum, never anything about the datum. It is therefore a column, not a
+   * payload field, and it is supplied explicitly by the ingesting caller rather
+   * than defaulted by the database, so the moment is stated rather than
+   * inferred.
+   *
+   * ⚑ IT IS NOT `stamp.asOf`, AND A VERIFICATION PROVED WHY. `asOf` is
+   * retrieval time for the live providers (both stamp it from the cache
+   * entry's fetch moment), but for the FIXTURE class — the only class eligible
+   * for persistence today — `asOf` is `FIXTURE_AS_OF`, a hardcoded
+   * documentation date identical to `observedAt`. Anchoring retention there
+   * gave a record ingested on 2026-09-22 only 24 days of life instead of 90,
+   * and from 2026-10-16 every new fixture record would have been BORN EXPIRED:
+   * writable, never activatable, never readable, purged within 24 h.
+   *
+   * Legal's rule is "90 elapsed days from original retrievedAt". Custody is
+   * what retention measures, and custody begins here.
+   */
+  retrievedAt: string;
 }
 
 /** What the store returns for a write. `DUPLICATE` is a normal outcome. */
@@ -149,6 +171,8 @@ export function buildEvidenceCandidate(input: {
   unit: string;
   recordId: string;
   hash: EvidenceHasher;
+  /** When this record enters our custody — the retention anchor. Required. */
+  retrievedAt: string;
   scale?: number;
 }): EvidenceRecordCandidate {
   const payload = toPayloadV1(input.envelope, input.unit, input.scale);
@@ -165,5 +189,6 @@ export function buildEvidenceCandidate(input: {
     ),
     payloadDigest: input.hash(payloadDigestInput(payload)),
     payload,
+    retrievedAt: input.retrievedAt,
   };
 }

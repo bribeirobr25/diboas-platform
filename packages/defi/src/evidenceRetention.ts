@@ -38,8 +38,6 @@
  * requirement expressed as code.
  */
 
-import type { EvidencePayloadV1 } from './evidencePayload';
-
 /**
  * The ruled operational window, in elapsed days from the original retrieval.
  *
@@ -57,26 +55,33 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 export class EvidenceRetentionError extends Error {}
 
 /**
- * The retrieval moment a record's retention clock runs from.
+ * ⛑ WHY THE RETENTION ANCHOR IS NOT `stamp.asOf` — verified 2026-09-22.
  *
- * `stamp.asOf` is the RETRIEVAL timestamp by contract — *"when we fetched,
- * never when we served"* (`types.ts`). `observedAt` is deliberately NOT used:
- * an observation can predate its retrieval by an unbounded amount, and anchoring
- * on it would expire evidence before we had held it 90 days — or, for a future
- * observation, after.
+ * A first version of this module derived expiry from `payload.stamp.asOf`, on
+ * the strength of that field's contract: *"RETRIEVAL / refresh timestamp: when
+ * we fetched, never when we served"*. The naming was right for the live
+ * providers and wrong for the class that actually persists.
  *
- * An UNAVAILABLE payload carries no stamp and therefore no retrieval moment.
- * That is not an error state to paper over: a refusal is not persisted by F-A
- * in the first place, so reaching here with one is a caller bug and throws.
+ * ```text
+ * defillama / coingecko   asOf = new Date(cacheEntry.at)   = fetch moment  ✓
+ * fixture                 asOf = FIXTURE_AS_OF             = a hardcoded
+ *                                                            documentation
+ *                                                            date, identical
+ *                                                            to observedAt    ✗
+ * ```
+ *
+ * And the fixture class is the ONLY one eligible for persistence today
+ * (`FIXTURE_LANE_SOURCES = {'fixture'}` plus an origin check), so the anchor
+ * was wrong for 100% of persistable evidence, not for an edge case. Measured
+ * consequence: a record ingested 2026-09-22 received 24 days of life instead
+ * of 90, and from 2026-10-16 every new fixture record would have been born
+ * expired — writable, never activatable, never readable, purged within 24 h.
+ *
+ * The anchor is therefore `EvidenceRecordCandidate.retrievedAt`: explicit,
+ * caller-supplied, RECORD metadata. `asOf` keeps its meaning untouched — the
+ * canon rule `observedAt != retrievedAt` is preserved rather than papered over
+ * by redefining a field to make retention work.
  */
-export function retrievedAtOf(payload: EvidencePayloadV1): string {
-  if (payload.availability !== 'AVAILABLE') {
-    throw new EvidenceRetentionError(
-      'an UNAVAILABLE payload carries no retrieval time and cannot have a retention clock'
-    );
-  }
-  return payload.stamp.asOf;
-}
 
 /**
  * When a record retrieved at `retrievedAt` leaves its operational window.
@@ -112,10 +117,9 @@ export function isEvidenceExpired(retrievedAt: string, now: Date | string): bool
   return ref >= at + EVIDENCE_RETENTION_DAYS * DAY_MS;
 }
 
-/** The same question asked of a persisted payload. */
-export function isPayloadExpired(payload: EvidencePayloadV1, now: Date | string): boolean {
-  if (payload.availability !== 'AVAILABLE') return true;
-  return isEvidenceExpired(payload.stamp.asOf, now);
+/** The same question asked of a stored record, which carries its own anchor. */
+export function isRecordExpired(record: { retrievedAt: string }, now: Date | string): boolean {
+  return isEvidenceExpired(record.retrievedAt, now);
 }
 
 // ── Reduced source statistic (Legal §6) ──────────────────────────────────────

@@ -37,7 +37,7 @@ import type {
   EvidenceStore,
   EvidencePurgeResult,
 } from '@diboas/defi';
-import { isPayloadExpired, retrievedAtOf } from '@diboas/defi';
+import { isEvidenceExpired } from '@diboas/defi';
 import { Logger } from '../monitoring/Logger';
 
 export class PostgresEvidenceStore implements EvidenceStore {
@@ -55,14 +55,16 @@ export class PostgresEvidenceStore implements EvidenceStore {
     try {
       const inserted = await this.sql`
         INSERT INTO evidence_records
-          (record_id, evidence_key, schema_version, ingestion_key, payload_digest, payload)
+          (record_id, evidence_key, schema_version, ingestion_key, payload_digest, payload,
+           ingested_at)
         VALUES (
           ${candidate.recordId},
           ${candidate.evidenceKey},
           ${candidate.schemaVersion},
           ${candidate.ingestionKey},
           ${candidate.payloadDigest},
-          ${JSON.stringify(candidate.payload)}
+          ${JSON.stringify(candidate.payload)},
+          ${candidate.retrievedAt}
         )
         ON CONFLICT (ingestion_key) DO NOTHING
         RETURNING seq
@@ -118,11 +120,11 @@ export class PostgresEvidenceStore implements EvidenceStore {
          lawfulness. The clock is derived from the record's own stored
          `stamp.asOf`, so there is no second column to fall out of step. */
       const candidate = await this.sql`
-        SELECT payload FROM evidence_records WHERE seq = ${seq}
+        SELECT ingested_at FROM evidence_records WHERE seq = ${seq}
       `;
-      const payload = candidate[0]?.payload as EvidencePayloadV1 | undefined;
-      if (payload && isPayloadExpired(payload, now)) {
-        return { status: 'EXPIRED', retrievedAt: retrievedAtOf(payload) };
+      const retrievedAt = candidate[0]?.ingested_at as string | undefined;
+      if (retrievedAt && isEvidenceExpired(retrievedAt, now)) {
+        return { status: 'EXPIRED', retrievedAt };
       }
       const rows = await this.sql`
         INSERT INTO evidence_active (evidence_key, record_seq)
@@ -148,7 +150,7 @@ export class PostgresEvidenceStore implements EvidenceStore {
   async readActive(evidenceKey: string, now: Date | string): Promise<EvidenceActiveRecord | null> {
     try {
       const rows = await this.sql`
-        SELECT r.seq, r.evidence_key, r.payload
+        SELECT r.seq, r.evidence_key, r.payload, r.ingested_at
           FROM evidence_active a
           JOIN evidence_records r
             ON r.evidence_key = a.evidence_key AND r.seq = a.record_seq
@@ -156,11 +158,12 @@ export class PostgresEvidenceStore implements EvidenceStore {
       `;
       if (rows.length !== 1) return null;
       const payload = rows[0].payload as EvidencePayloadV1;
+      const retrievedAt = String(rows[0].ingested_at);
       /* ⛑ Excluded from operational AND ordinary audit reads at expiry, not at
          purge time — the two are up to 24 h apart, and a record Legal has
          retired must not be served during that gap. A row restored from a
          backup fails here too: its clock travels inside its own payload. */
-      if (isPayloadExpired(payload, now)) return null;
+      if (isEvidenceExpired(retrievedAt, now)) return null;
       return {
         seq: Number(rows[0].seq),
         evidenceKey: String(rows[0].evidence_key),
@@ -197,14 +200,13 @@ export class PostgresEvidenceStore implements EvidenceStore {
     const hold = input.hold ?? new Set<string>();
     try {
       const rows = await this.sql`
-        SELECT seq, evidence_key, payload FROM evidence_records
+        SELECT seq, evidence_key, ingested_at FROM evidence_records
       `;
       let purgedRecords = 0;
       let purgedPointers = 0;
       let heldRecords = 0;
       for (const row of rows) {
-        const payload = row.payload as EvidencePayloadV1;
-        if (!isPayloadExpired(payload, input.now)) continue;
+        if (!isEvidenceExpired(String(row.ingested_at), input.now)) continue;
         const key = String(row.evidence_key);
         if (hold.has(key)) {
           heldRecords += 1;

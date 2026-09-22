@@ -88,6 +88,10 @@ export async function ingestNetworkCost(
       unit: NETWORK_COST_NATIVE_UNIT,
       recordId: randomUUID(),
       hash: sha256,
+      /* Custody begins now. For the fixture class there is no earlier retrieval
+         to point at — the value is a compile-time constant, and `stamp.asOf`
+         is its DOCUMENTATION date, not a moment we fetched anything. */
+      retrievedAt: typeof now === 'string' ? now : now.toISOString(),
     });
     const put = await persistence.store.put(candidate);
     if (put.status === 'DUPLICATE') {

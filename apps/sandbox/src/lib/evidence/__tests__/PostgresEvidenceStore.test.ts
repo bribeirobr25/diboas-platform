@@ -40,6 +40,8 @@ interface Row {
   ingestionKey: string;
   payloadDigest: string;
   payload: unknown;
+  /** The retention anchor — custody moment, supplied explicitly by the caller. */
+  ingestedAt: string;
 }
 
 function makeMockSql(): { sql: SqlExecutor; activeRows: () => Map<string, number> } {
@@ -49,10 +51,11 @@ function makeMockSql(): { sql: SqlExecutor; activeRows: () => Map<string, number
   const sql: SqlExecutor = async (strings, ...values) => {
     const q = strings.join(' ? ');
     if (q.includes('INSERT INTO evidence_records')) {
-      const [recordId, key, , ingestionKey, payloadDigest, payload] = values as [
+      const [recordId, key, , ingestionKey, payloadDigest, payload, ingestedAt] = values as [
         string,
         string,
         number,
+        string,
         string,
         string,
         string,
@@ -66,6 +69,7 @@ function makeMockSql(): { sql: SqlExecutor; activeRows: () => Map<string, number
         ingestionKey,
         payloadDigest,
         payload: JSON.parse(payload),
+        ingestedAt,
       };
       records.push(row);
       return [{ seq: row.seq }];
@@ -78,14 +82,18 @@ function makeMockSql(): { sql: SqlExecutor; activeRows: () => Map<string, number
     }
     /* ⛑ RETENTION: the activation pre-check reads the candidate's payload so
        the adapter can apply the 90-day window before the CAS upsert. */
-    if (q.includes('SELECT payload FROM evidence_records WHERE seq')) {
+    if (q.includes('SELECT ingested_at FROM evidence_records WHERE seq')) {
       const [recordSeq] = values as [number];
       const row = records.find((r) => r.seq === recordSeq);
-      return row ? [{ payload: row.payload }] : [];
+      return row ? [{ ingested_at: row.ingestedAt }] : [];
     }
     /* The purge scan: every record, so the app can apply the derived clock. */
-    if (q.includes('SELECT seq, evidence_key, payload FROM evidence_records')) {
-      return records.map((r) => ({ seq: r.seq, evidence_key: r.evidenceKey, payload: r.payload }));
+    if (q.includes('SELECT seq, evidence_key, ingested_at FROM evidence_records')) {
+      return records.map((r) => ({
+        seq: r.seq,
+        evidence_key: r.evidenceKey,
+        ingested_at: r.ingestedAt,
+      }));
     }
     if (q.includes('DELETE FROM evidence_active')) {
       const [key, recordSeq] = values as [string, number];
@@ -134,7 +142,16 @@ function makeMockSql(): { sql: SqlExecutor; activeRows: () => Map<string, number
       const current = active.get(key);
       if (current === undefined) return [];
       const row = records.find((r) => r.seq === current && r.evidenceKey === key);
-      return row ? [{ seq: row.seq, evidence_key: row.evidenceKey, payload: row.payload }] : [];
+      return row
+        ? [
+            {
+              seq: row.seq,
+              evidence_key: row.evidenceKey,
+              payload: row.payload,
+              ingested_at: row.ingestedAt,
+            },
+          ]
+        : [];
     }
     throw new Error(`mock sql: unrecognized query: ${q}`);
   };
@@ -155,6 +172,8 @@ function candidate(value = 0.03, asOf?: string, unit = 'USD'): EvidenceRecordCan
     unit,
     recordId: `00000000-0000-4000-8000-${String(value).padStart(12, '0').slice(0, 12)}`,
     hash: sha256,
+    /* Custody moment — deliberately independent of the stamp's asOf. */
+    retrievedAt: WITHIN_RETENTION,
   });
 }
 

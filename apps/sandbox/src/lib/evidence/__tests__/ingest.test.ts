@@ -126,3 +126,53 @@ describe('F-A runtime producer', () => {
     expect(networkCostKey('Arbitrum')).toBe('network-cost:Arbitrum:USD');
   });
 });
+
+/**
+ * ⛑ THE RETENTION ANCHOR AT THE INGEST SEAM (verified 2026-09-22).
+ *
+ * The store anchors retention on the record's own `retrievedAt`, but the CALLER
+ * chooses what that is — and passing `stamp.asOf` would silently restore the
+ * exact defect the verification found. A sabotage proved this seam unguarded:
+ * back-dating custody to the fixture's documentation date failed nothing.
+ *
+ * A fixture's `stamp.asOf` is `FIXTURE_AS_OF` (2026-07-18), a compile-time
+ * constant. Custody begins when we ingest, not when the file was written.
+ */
+describe('ingestion anchors retention on CUSTODY, never on the fixture date', () => {
+  const INGESTED_AT = '2026-09-22T00:00:00.000Z';
+  /* 40 days after ingestion — but 106 days after FIXTURE_AS_OF. Under the old
+     stamp anchor this record would already be purged; under custody it is not
+     even half-way through its window. */
+  const LATER = '2026-11-01T00:00:00.000Z';
+
+  it('should keep a fixture record readable well past FIXTURE_AS_OF + 90 days', async () => {
+    const outcome = await ingestNetworkCost(fixtureQuote(), INGESTED_AT);
+    expect(outcome.status).toBe('INGESTED');
+    const active = await store.current.readActive(networkCostKey('Arbitrum'), LATER);
+    expect(
+      active,
+      'anchoring on stamp.asOf would have expired this record on 2026-10-16'
+    ).not.toBeNull();
+  });
+
+  it('should expire it 90 days after INGESTION, not 90 days after the fixture date', async () => {
+    await ingestNetworkCost(fixtureQuote(), INGESTED_AT);
+    /* 89 days after custody began: retained. */
+    expect(
+      await store.current.readActive(networkCostKey('Arbitrum'), '2026-12-20T00:00:00.000Z')
+    ).not.toBeNull();
+    /* 90 days after custody began: gone. */
+    expect(
+      await store.current.readActive(networkCostKey('Arbitrum'), '2026-12-21T00:00:00.000Z')
+    ).toBeNull();
+  });
+
+  it('should never let the fixture stamp reach the retention clock', async () => {
+    /* Asserted on the stored record, not on behaviour alone: the anchor must
+       differ from the stamp whenever the two genuinely differ. */
+    await ingestNetworkCost(fixtureQuote(), INGESTED_AT);
+    const active = await store.current.readActive(networkCostKey('Arbitrum'), INGESTED_AT);
+    expect(active?.payload).toMatchObject({ stamp: { asOf: FIXTURE_STAMP.asOf } });
+    expect(FIXTURE_STAMP.asOf).not.toBe(INGESTED_AT);
+  });
+});
