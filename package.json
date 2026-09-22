@@ -57,15 +57,15 @@
     "market:simulate-next-week": "node apps/web/scripts/market-refresh/simulate-next-week.mjs"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.12.1",
-    "@playwright/test": "^1.59.1",
-    "@types/node": "^25.4.0",
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.2",
     "ajv": "^8.18.0",
-    "eslint": "^9.39.4",
+    "eslint": "^10.11.0",
     "knip": "^5.86.0",
-    "prettier": "^3.8.1",
-    "simple-git-hooks": "^2.13.1",
-    "turbo": "^2.8.15",
+    "prettier": "^3.9.8",
+    "simple-git-hooks": "^2.14.0",
+    "turbo": "^2.11.2",
     "typescript": "~5.9.3"
   },
   "simple-git-hooks": {
