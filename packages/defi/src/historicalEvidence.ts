@@ -69,7 +69,13 @@ export type HistoricalResult =
   | { readonly available: true; readonly series: HistoricalSeries }
   | { readonly available: false; readonly reason: UnavailableReason };
 
-export function historicalSeries(series: HistoricalSeries): HistoricalResult {
+/**
+ * ⛑ MODULE-PRIVATE. Exported in the first draft and consumed by nothing outside
+ * this file — the system gate's dead-code front caught it. An unconsumed export
+ * is dead code by the repository's standing rule, and the rule is to remove it
+ * in the increment that created it, not to leave it for a later sweep.
+ */
+function historicalSeries(series: HistoricalSeries): HistoricalResult {
   return { available: true, series };
 }
 
