@@ -25,10 +25,22 @@
  * accident — it stays ineligible until someone changes THIS file deliberately.
  */
 
-import type { EvidenceEnvelope } from '@diboas/defi';
+import { mayPersistNormalized, type EvidenceEnvelope } from '@diboas/defi';
 
 /** The only sources F-A may persist. Internally owned, no third-party rights. */
-const FIXTURE_LANE_SOURCES: ReadonlySet<string> = new Set(['fixture']);
+/**
+ * ⛑ THE LANE IS NOW A DECLARED RIGHT, NOT A HARD-CODED SET (Block D).
+ *
+ * This was `new Set(['fixture'])`, so widening the persistable lane meant
+ * editing a predicate here. Whether a source's normalized evidence may be
+ * stored at rest is a LC-LIC-01 question with a named owner, so it is declared
+ * per source in `@diboas/defi`'s `sourcePersistenceRights` with its basis —
+ * and widening it is a data change made by whoever holds the authority.
+ *
+ * ⚑ NO SOURCE'S EFFECTIVE STATE CHANGES. `fixture` persists as before; the two
+ * providers do not. Fetch authority does not carry storage authority, and a
+ * material expansion of retention is an explicit review trigger.
+ */
 
 export type IngestionIneligibility =
   /** The envelope carries no value to persist (F-A does not persist refusals). */
@@ -60,7 +72,7 @@ export function evaluateIngestionEligibility(
   if (envelope.normalization.converted) {
     return { eligible: false, reason: 'EXTERNAL_NORMALIZATION' };
   }
-  if (!FIXTURE_LANE_SOURCES.has(envelope.stamp.source)) {
+  if (!mayPersistNormalized(envelope.stamp.source)) {
     return { eligible: false, reason: 'EXTERNAL_SOURCE' };
   }
   if (envelope.stamp.origin !== 'MODELLED') {
