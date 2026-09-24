@@ -7,8 +7,9 @@ import {
   drainEvidenceEvents,
   evidenceEvents,
   evidenceOutcomeCounts,
+  recordEvidenceEvent,
 } from '../evidenceObservability';
-import { __resetRateAvailabilityReporting, strategyRateAvailability } from '../rateAvailability';
+import { strategyRateAvailability } from '../rateAvailability';
 import { observedStamp } from '../testing';
 import type { ProtocolApy, ProtocolId, StrategyDef } from '../types';
 
@@ -57,8 +58,8 @@ function accrualOnly(s: StrategyDef): ProtocolApy[] {
 }
 
 beforeEach(() => {
+  /* ONE reset, because one module owns both the ring and the reporting window. */
   __resetEvidenceEvents();
-  __resetRateAvailabilityReporting();
 });
 
 describe('§16 · the fixtures this suite depends on are real', () => {
@@ -185,18 +186,46 @@ describe('§16 · the instrumentation must not evict the events it joins', () =>
     expect(evidenceEvents()).toHaveLength(market.length);
   });
 
-  it('should report again after a DRAIN — "once" means once per drain window', () => {
+  it('should report again after a DRAIN — with NO manual reset, because the drain IS the reset', () => {
+    /**
+     * ⛑ THE COUPLING IS THE POINT, and the first revision of this lane did not
+     * have it. The de-duplication set lived in `rateAvailability` while the ring
+     * lived in `evidenceObservability`, so `drainEvidenceEvents()` emptied the
+     * ring and left the set intact — a host that drained would have received
+     * catalogue events exactly once and then silence for the life of the
+     * process. Two pieces of state that must agree cannot live in two modules
+     * with no link between them.
+     *
+     * This test calls NOTHING but the drain. If they ever drift apart again, it
+     * fails.
+     */
     const s = HETERO[0]!;
     const rates = accrualOnly(s);
     strategyRateAvailability(s, rates, NOW);
     const first = drainEvidenceEvents();
     expect(first.length).toBeGreaterThan(0);
 
-    /* A host that drains also clears the reporting window. */
-    __resetRateAvailabilityReporting();
     strategyRateAvailability(s, rates, NOW);
     expect(evidenceEvents().length, 'a decision that recurred after a drain went unreported').toBe(
       first.length
     );
+  });
+
+  it('should NOT collapse repeated PROVIDER events — only the repeating decision is deduped', () => {
+    /**
+     * The other direction, so the fix cannot degrade into "dedupe everything".
+     * A source failing five times is five pieces of information; collapsing
+     * them would hide a provider degrading in real time — the exact thing the
+     * ring exists to show.
+     */
+    for (let i = 0; i < 5; i += 1) {
+      recordEvidenceEvent({
+        subject: 'APY_CURRENT',
+        source: 'defillama',
+        outcome: 'SERVED_FALLBACK',
+        reason: 'FETCH_FAILED',
+      });
+    }
+    expect(evidenceEvents().filter((e) => e.source === 'defillama')).toHaveLength(5);
   });
 });

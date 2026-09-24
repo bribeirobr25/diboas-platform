@@ -35,47 +35,31 @@
 
 import { isRefusedForCurrentFacingUse } from './currentFacing';
 import { legRequiresCurrentRate } from './catalogueEvidence';
-import { recordEvidenceEvent } from './evidenceObservability';
+import { recordEvidenceEventOnce } from './evidenceObservability';
 import type { EvidenceReason } from './evidenceObservability';
 import type { UnavailableReason } from './evidence';
 import type { ProtocolApy, ProtocolId, StrategyDef } from './types';
 
 /**
- * ⛑ `5.444` §16 · OBSERVABILITY THAT DOES NOT EVICT THE OBSERVABILITY IT JOINS.
+ * ⛑ `5.444` §16 · THE TWO DECISIONS THE PLAN REQUIRES TO BE OBSERVABLE.
  *
- * The two decisions §16 requires are reached HERE, and this function runs in a
- * render path: `StrategyPicker`, `StrategyDetail` and `GoalDetailScreen` all
- * call it. Measured on the real catalogue, ONE picker render at `horizon=any`
- * evaluates **29 legs, 9 of them market legs**. Emitting per call would put
- * 9–29 events into a 500-event ring on every render and every filter change,
- * evicting the DeFiLlama degradation events within roughly twenty renders —
- * restoring precisely the silence Block G exists to end ("one bad week away
- * from serving fixtures to everyone while every dashboard stays green").
+ * Both are reached here, and this function runs in a render path —
+ * `StrategyPicker`, `StrategyDetail` and `GoalDetailScreen` all call it — so
+ * they go through `recordEvidenceEventOnce`, where the reasoning about not
+ * evicting the ring lives.
  *
- * So the CALL SITE reports each distinct decision once, rather than the shared
- * recorder growing a dedupe it would then apply to provider events too:
- * `recordEvidenceEvent` still records everything it is told — it is simply not
- * told the same thing repeatedly. The 2nd..Nth emission of an identical
- * (leg, outcome, reason) carries no information a drain could use.
- *
- * ⚑ BOUNDED BY CONSTRUCTION, not by hope. The key space is
- * `ProtocolId × outcome × reason` — six protocols, two outcomes reachable here,
- * a closed reason vocabulary. It cannot grow with traffic, users or time.
- *
- * ⚑ CLEARED ON DRAIN, so "distinct" means "distinct since you last looked". A
- * refusal that happens, resolves, and happens again is reported again.
+ * ⚑ THIS MODULE KEEPS NO STATE OF ITS OWN, and that is a correction. The first
+ * revision held the de-duplication set here, which left it unreachable by the
+ * drain that clears the ring: a host that drained would have received catalogue
+ * events exactly once and then silence for the life of the process. Two pieces
+ * of state that must agree now live in one module.
  */
-const reported = new Set<string>();
-
 function reportOnce(
   leg: ProtocolId,
   outcome: 'NOT_REQUIRED' | 'REFUSED',
   reason: EvidenceReason | null
 ): void {
-  const key = `${leg}|${outcome}|${reason ?? ''}`;
-  if (reported.has(key)) return;
-  reported.add(key);
-  recordEvidenceEvent({
+  recordEvidenceEventOnce({
     subject: 'APY_CURRENT',
     /* No source was consulted: this is a catalogue decision, not a fetch. */
     source: null,
@@ -83,17 +67,6 @@ function reportOnce(
     outcome,
     reason,
   });
-}
-
-/**
- * Forget what has already been reported.
- *
- * Called by the host when it drains, and by tests. Keeping this in step with
- * the ring is what makes "reported once" mean "once per drain window" instead
- * of "once per process, then never again".
- */
-export function __resetRateAvailabilityReporting(): void {
-  reported.clear();
 }
 
 /**

@@ -118,6 +118,14 @@ const MAX_EVENTS = 500;
 let events: EvidenceEvent[] = [];
 
 /**
+ * The "already reported this drain window" set for `recordEvidenceEventOnce`.
+ *
+ * It sits beside the ring, and is cleared with it, because the two must agree:
+ * see that function's note.
+ */
+let reportedOnce = new Set<string>();
+
+/**
  * Record what the evidence path did.
  *
  * Never throws: an observability failure must not become an evidence failure.
@@ -145,6 +153,50 @@ export function recordEvidenceEvent(input: {
   }
 }
 
+/**
+ * Record a decision that REPEATS, at most once per drain window.
+ *
+ * ⛑ `5.444` §16 · THE RING MUST SURVIVE THE THING THAT JOINS IT.
+ *
+ * Some decisions are reached on every render rather than on every fetch.
+ * `strategyRateAvailability` is one: measured on the real catalogue, ONE picker
+ * render at `horizon=any` evaluates **29 legs, 9 of them market legs**, and it
+ * runs in three render paths. Recording each call would fill a 500-event ring
+ * in roughly twenty renders and evict the provider-degradation events —
+ * restoring exactly the silence this module exists to end.
+ *
+ * The 2nd..Nth emission of an identical (subject, leg, outcome, reason) carries
+ * nothing a drain could use, so it is not recorded. The FIRST one always is.
+ *
+ * ⚑ THE WINDOW IS OWNED BY THE SAME MODULE AS THE RING, deliberately. An
+ * earlier revision of this kept the de-duplication at the call site, in
+ * `rateAvailability`. That left `drainEvidenceEvents()` clearing the ring while
+ * the "already reported" set lived elsewhere and survived — so a host that
+ * drained would have quietly received no further catalogue events, forever.
+ * Two pieces of state that must agree cannot live in two modules with no link
+ * between them.
+ *
+ * ⚑ BOUNDED BY CONSTRUCTION: the key space is subject × leg × outcome × reason,
+ * every one of them a closed union. It cannot grow with traffic, users or time.
+ *
+ * ⚑ `recordEvidenceEvent` is deliberately NOT routed through this. Provider
+ * outcomes are rare and each occurrence is information — collapsing them would
+ * hide a source failing repeatedly.
+ */
+export function recordEvidenceEventOnce(input: {
+  subject: EvidenceSubject;
+  source: EvidenceSourceId | null;
+  leg?: ProtocolId | null;
+  outcome: EvidenceOutcome;
+  reason?: EvidenceReason | null;
+  now?: Date;
+}): void {
+  const key = `${input.subject}|${input.leg ?? ''}|${input.outcome}|${input.reason ?? ''}`;
+  if (reportedOnce.has(key)) return;
+  reportedOnce.add(key);
+  recordEvidenceEvent(input);
+}
+
 /** Read the recorded events without consuming them. */
 export function evidenceEvents(): readonly EvidenceEvent[] {
   return events;
@@ -154,6 +206,9 @@ export function evidenceEvents(): readonly EvidenceEvent[] {
 export function drainEvidenceEvents(): EvidenceEvent[] {
   const taken = events;
   events = [];
+  /* The reporting window ends with the drain — otherwise a repeating decision
+     would be reported once per PROCESS rather than once per look. */
+  reportedOnce = new Set();
   return taken;
 }
 
@@ -175,4 +230,5 @@ export function evidenceOutcomeCounts(): Record<EvidenceOutcome, number> {
 /** Test-only: drop the process-local buffer (mirrors the cache and health resets). */
 export function __resetEvidenceEvents(): void {
   events = [];
+  reportedOnce = new Set();
 }
