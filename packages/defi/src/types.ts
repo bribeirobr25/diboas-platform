@@ -183,6 +183,23 @@ export interface DataStamp {
    * since neither API returns an observation timestamp per value.
    */
   observedAt: string | null;
+  /**
+   * When diBoaS TRANSFORMED or RECONSTRUCTED the value, where it did.
+   *
+   * ⚑ THE THIRD TIMESTAMP, and canon names all three (reset §9):
+   *
+   * ```text
+   * observedAt  when the source/economic observation was true
+   * retrievedAt when diBoaS obtained it            (`asOf` here)
+   * derivedAt   when diBoaS transformed / reconstructed it
+   * ```
+   *
+   * `null` where nothing was derived, which is the honest answer for a value
+   * passed through unchanged. It must never be back-filled from a clock to
+   * make a derivation look recent, and — the rule that cost this its own line
+   * in canon — **scheduler time must not silently become `observedAt`**.
+   */
+  derivedAt?: string | null;
   /** Did this value come from the documented fallback instead of the source? */
   fallbackUsed: boolean;
   /** Which fixture set produced it, for deterministic replay. `null` when live. */
@@ -219,6 +236,8 @@ export function evidenceStamp(input: {
   asOf: string;
   /** Source-observation time where knowable; `null` is honest, not a default origin. */
   observedAt?: string | null;
+  /** Transformation time, where diBoaS transformed or reconstructed the value. */
+  derivedAt?: string | null;
   fallbackUsed?: boolean;
   fixtureVersion?: string | null;
   methodology?: string;
@@ -228,6 +247,7 @@ export function evidenceStamp(input: {
     source: input.source,
     origin: input.origin,
     asOf: input.asOf,
+    derivedAt: input.derivedAt ?? null,
     observedAt: input.observedAt ?? null,
     fallbackUsed: input.fallbackUsed ?? false,
     fixtureVersion: input.fixtureVersion ?? null,
@@ -355,7 +375,16 @@ export interface IPriceProvider {
 }
 
 export interface IGasProvider {
-  getGas(chain: Chain): Promise<GasQuote>;
+  /**
+   * ⛑ REFUSABLE (Block C). `null` = no truthful quote for this chain.
+   *
+   * The fixture provider cannot fail, so this changed nothing today — which is
+   * exactly when a contract should be widened. A collector-backed provider CAN
+   * fail, and the alternative to a refusal is a number nobody observed. The
+   * consumer path for absence already exists: a missing chain reaches
+   * `unavailableEvidence('NO_OBSERVATION')` in `normalize.ts`.
+   */
+  getGas(chain: Chain): Promise<GasQuote | null>;
 }
 
 /**

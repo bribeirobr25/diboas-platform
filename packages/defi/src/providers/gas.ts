@@ -9,7 +9,7 @@ import { FIXTURE_GAS_USD, FIXTURE_STAMP } from '../fixtures';
 import type { Chain, GasQuote, IGasProvider } from '../types';
 
 export class FixtureGasProvider implements IGasProvider {
-  async getGas(chain: Chain): Promise<GasQuote> {
+  async getGas(chain: Chain): Promise<GasQuote | null> {
     return {
       chain,
       typicalFeeUsd: FIXTURE_GAS_USD[chain],

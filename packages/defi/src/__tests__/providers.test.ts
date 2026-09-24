@@ -163,8 +163,12 @@ describe('FixtureGasProvider', () => {
     const provider = new FixtureGasProvider();
     for (const chain of ['Solana', 'Arbitrum', 'Ethereum', 'Bitcoin', 'Sui'] as const) {
       const quote = await provider.getGas(chain);
-      expect(quote.stamp.source).toBe('fixture');
-      expect(quote.typicalFeeUsd).toBeGreaterThan(0);
+      /* ⛑ The port is refusable (Block C). The FIXTURE provider still cannot
+         refuse — it reads constants and issues no request — so asserting a
+         quote here is the real contract, not a null-check ritual. */
+      expect(quote, chain).not.toBeNull();
+      expect(quote!.stamp.source).toBe('fixture');
+      expect(quote!.typicalFeeUsd).toBeGreaterThan(0);
     }
   });
 });

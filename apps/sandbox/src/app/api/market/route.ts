@@ -40,11 +40,20 @@ function parseCurrency(value: string | null): DisplayCurrency {
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const currency = parseCurrency(request.nextUrl.searchParams.get('currency'));
   try {
-    const [apys, usdcQuotes, gas] = await Promise.all([
+    const [apys, usdcQuotes, gasQuotes] = await Promise.all([
       getApyProvider().getCurrentApys(PROTOCOLS),
       getPriceProvider().getPrices(['USDC'], currency),
       Promise.all(CHAINS.map((chain) => getGasProvider().getGas(chain))),
     ]);
+    /**
+     * ⛑ A REFUSED CHAIN IS OMITTED, NEVER ZERO-FILLED (Block C).
+     *
+     * `getGas` is refusable now that the port admits a source which can fail.
+     * A missing chain already reaches `unavailableEvidence('NO_OBSERVATION')`
+     * in `normalize.ts`, so absence is handled — while a placeholder row would
+     * be a fabricated cost, which `MISSING != 0` forbids.
+     */
+    const gas = gasQuotes.filter((q): q is NonNullable<typeof q> => q !== null);
     /**
      * F-A · the evidence persistence path runs AFTER the response.
      *

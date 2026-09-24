@@ -24,6 +24,7 @@ import { originOf } from '../evidenceOrigin';
 import { boundsRefusal } from '../evidenceBounds';
 import { recordSourceOutcome } from '../sourceHealth';
 import { domainIdentityOf, rateComposition, symbolSatisfies } from '../domainIdentity';
+import { buildHistoricalSeries } from '../historicalEvidence';
 
 const POOLS_URL = 'https://yields.llama.fi/pools';
 const CHART_URL = 'https://yields.llama.fi/chart/';
@@ -327,14 +328,31 @@ export class DefiLlamaApyProvider implements IApyProvider {
         }
         return points;
       });
-      return {
+      /**
+       * ⛑ BUILT THROUGH THE NEUTRAL CONTRACT (Block C).
+       *
+       * The series is validated once, in one place — non-empty, strictly
+       * ascending, never interpolated — and records HOW it was obtained. The
+       * typed `ProtocolApyHistory` is then a projection of it, so a stored
+       * snapshot or a future high-fidelity reconstruction can arrive through
+       * the same door without a Product-facing change.
+       */
+      const built = buildHistoricalSeries({
+        kind: 'RATE',
         protocolId,
-        points: entry.value.slice(-days),
+        points: entry.value.slice(-days).map((pt) => ({ date: pt.date, value: pt.apyPercent })),
         stamp: evidenceStamp({
           source: SOURCE,
           origin: originOf(SOURCE, 'APY_HISTORY'),
           asOf: new Date(entry.at).toISOString(),
         }),
+        via: 'AGGREGATOR',
+      });
+      if (!built.available) throw new Error(`history refused: ${built.reason}`);
+      return {
+        protocolId,
+        points: built.series.points.map((pt) => ({ date: pt.date, apyPercent: pt.value })),
+        stamp: built.series.stamp,
       };
     } catch {
       recordSourceOutcome(SOURCE, 'FAILURE');

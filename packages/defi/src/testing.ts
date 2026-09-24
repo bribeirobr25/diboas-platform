@@ -30,7 +30,7 @@ import type {
   EvidenceStore,
 } from './evidenceStore';
 import { isRecordExpired } from './evidenceRetention';
-import { evidenceStamp, type DataStamp } from './types';
+import { evidenceStamp, type DataStamp, type EvidenceSourceId } from './types';
 
 /**
  * A fixture stamp for an OBSERVED provider reading.
@@ -40,7 +40,11 @@ import { evidenceStamp, type DataStamp } from './types';
  * files is where a real behavioural change hides.
  */
 export function observedStamp(
-  source: 'defillama' | 'coingecko',
+  /* ⛑ Generalized from a frozen two-value union to the REGISTRY id (Block C).
+     A future collector or route provider is representable by adding a registry
+     entry, not by editing this signature — the same reason `DataStamp.source`
+     was generalized. */
+  source: EvidenceSourceId,
   asOf: string,
   observedAt: string | null = null
 ): DataStamp {

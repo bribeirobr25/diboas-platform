@@ -33,6 +33,7 @@ import { originOf } from '../evidenceOrigin';
 import { boundsRefusal } from '../evidenceBounds';
 import { recordSourceOutcome } from '../sourceHealth';
 import { sourceAssetId } from '../domainIdentity';
+import { buildHistoricalSeries } from '../historicalEvidence';
 import { PROTOCOL_RETURN_MODEL, PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 
 const API_BASE = 'https://api.coingecko.com/api/v3';
@@ -213,14 +214,23 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
         return points;
       });
       recordSourceOutcome(SOURCE, 'SUCCESS');
-      return {
+      /* ⛑ Through the neutral contract — see the note in `defillama.ts`. */
+      const built = buildHistoricalSeries({
+        kind: 'PRICE',
         protocolId,
-        points: entry.value.slice(-days),
+        points: entry.value.slice(-days).map((pt) => ({ date: pt.date, value: pt.priceUsd })),
         stamp: evidenceStamp({
           source: SOURCE,
           origin: originOf(SOURCE, 'PRICE_HISTORY'),
           asOf: new Date(entry.at).toISOString(),
         }),
+        via: 'PROVIDER',
+      });
+      if (!built.available) throw new Error(`history refused: ${built.reason}`);
+      return {
+        protocolId,
+        points: built.series.points.map((pt) => ({ date: pt.date, priceUsd: pt.value })),
+        stamp: built.series.stamp,
       };
     } catch {
       recordSourceOutcome(SOURCE, 'FAILURE');
