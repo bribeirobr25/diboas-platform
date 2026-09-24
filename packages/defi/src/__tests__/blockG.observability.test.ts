@@ -122,7 +122,19 @@ describe('Block G · reporting, never control', () => {
       reason: 'ABOVE_MAXIMUM',
     });
     const [e] = evidenceEvents();
-    expect(Object.keys(e).sort()).toEqual(['at', 'outcome', 'reason', 'source', 'subject']);
+    /**
+     * ⛑ `leg` ADDED BY `5.444` §16 — WIDENED BY EXACTLY ONE KEY, NOT RELAXED.
+     *
+     * This is an exact-set assertion on purpose: it is the guard that stops a
+     * price, a URL or a response body being bolted onto an event. It admits
+     * `leg` and nothing else, and the checks below pin what `leg` may hold — a
+     * diBoaS catalogue `ProtocolId`, which is domain vocabulary already public
+     * in `STRATEGY_CATALOG`, never a provider slug, pool id or vendor SKU
+     * (`PROVIDER ID ≠ DOMAIN IDENTITY`).
+     */
+    expect(Object.keys(e).sort()).toEqual(['at', 'leg', 'outcome', 'reason', 'source', 'subject']);
+    /* An event about no particular leg says so, rather than inventing one. */
+    expect(e.leg).toBeNull();
     /* Structural: the module has no way to accept a value or a response. */
     const code = readFileSync(join(__dirname, '..', 'evidenceObservability.ts'), 'utf8')
       .replace(/\/\*[\s\S]*?\*\//g, '')
@@ -156,6 +168,9 @@ describe('Block G · reporting, never control', () => {
       SERVED_PRIMARY: 0,
       SERVED_FALLBACK: 0,
       REFUSED: 0,
+      /* `5.444` §16 · the fourth outcome counts like the rest — a decision a
+         reader cannot count is not observable. */
+      NOT_REQUIRED: 0,
     });
   });
 
