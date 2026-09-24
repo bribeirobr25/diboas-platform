@@ -6,6 +6,8 @@
  * so swapping fixture → live → paid-tier is a provider change, never a rewrite.
  */
 
+import type { MarketAssetId } from './domainIdentity';
+
 /** Chains the Phase-2 architecture executes on (per the platform handover). */
 export type Chain = 'Arbitrum' | 'Solana' | 'Ethereum' | 'Bitcoin' | 'Sui';
 
@@ -181,6 +183,23 @@ export interface DataStamp {
    * since neither API returns an observation timestamp per value.
    */
   observedAt: string | null;
+  /**
+   * When diBoaS TRANSFORMED or RECONSTRUCTED the value, where it did.
+   *
+   * ⚑ THE THIRD TIMESTAMP, and canon names all three (reset §9):
+   *
+   * ```text
+   * observedAt  when the source/economic observation was true
+   * retrievedAt when diBoaS obtained it            (`asOf` here)
+   * derivedAt   when diBoaS transformed / reconstructed it
+   * ```
+   *
+   * `null` where nothing was derived, which is the honest answer for a value
+   * passed through unchanged. It must never be back-filled from a clock to
+   * make a derivation look recent, and — the rule that cost this its own line
+   * in canon — **scheduler time must not silently become `observedAt`**.
+   */
+  derivedAt?: string | null;
   /** Did this value come from the documented fallback instead of the source? */
   fallbackUsed: boolean;
   /** Which fixture set produced it, for deterministic replay. `null` when live. */
@@ -217,6 +236,8 @@ export function evidenceStamp(input: {
   asOf: string;
   /** Source-observation time where knowable; `null` is honest, not a default origin. */
   observedAt?: string | null;
+  /** Transformation time, where diBoaS transformed or reconstructed the value. */
+  derivedAt?: string | null;
   fallbackUsed?: boolean;
   fixtureVersion?: string | null;
   methodology?: string;
@@ -226,6 +247,7 @@ export function evidenceStamp(input: {
     source: input.source,
     origin: input.origin,
     asOf: input.asOf,
+    derivedAt: input.derivedAt ?? null,
     observedAt: input.observedAt ?? null,
     fallbackUsed: input.fallbackUsed ?? false,
     fixtureVersion: input.fixtureVersion ?? null,
@@ -353,7 +375,16 @@ export interface IPriceProvider {
 }
 
 export interface IGasProvider {
-  getGas(chain: Chain): Promise<GasQuote>;
+  /**
+   * ⛑ REFUSABLE (Block C). `null` = no truthful quote for this chain.
+   *
+   * The fixture provider cannot fail, so this changed nothing today — which is
+   * exactly when a contract should be widened. A collector-backed provider CAN
+   * fail, and the alternative to a refusal is a number nobody observed. The
+   * consumer path for absence already exists: a missing chain reaches
+   * `unavailableEvidence('NO_OBSERVATION')` in `normalize.ts`.
+   */
+  getGas(chain: Chain): Promise<GasQuote | null>;
 }
 
 /**
@@ -396,7 +427,17 @@ export const PROVIDER_FETCH_TIMEOUT_MS = 8_000;
  * could only ever replay APY, which is non-negative, so practice money could
  * only ever go up — the most dangerous lesson a practice app can teach.
  */
-export type ProtocolReturnModel = { kind: 'lending' } | { kind: 'market'; coingeckoId: string };
+export type ProtocolReturnModel =
+  | { kind: 'lending' }
+  /**
+   * ⛑ `asset` REPLACED `coingeckoId` (Block B · `PROVIDER ID ≠ DOMAIN IDENTITY`).
+   *
+   * A vendor slug was the ONLY identity these three legs had, so replacing the
+   * price source would have changed a DOMAIN type — the coupling that made the
+   * migration test unpassable. The domain now names its own asset and each
+   * source's spelling lives in `domainIdentity.ts`'s per-source map.
+   */
+  | { kind: 'market'; asset: MarketAssetId };
 
 /**
  * Every protocol's return model. A `Record<ProtocolId, …>` on purpose: adding a
@@ -404,17 +445,17 @@ export type ProtocolReturnModel = { kind: 'lending' } | { kind: 'market'; coinge
  * error, not a silently-wrong number (the same exhaustiveness discipline the
  * ledger's `project()` guard uses).
  *
- * CoinGecko ids verified live against the free tier 2026-08-20 — each returns
- * 366 daily points for `days=365&interval=daily`.
+ * ⛑ The vendor ids that used to sit here now live in the per-source map in
+ * `domainIdentity.ts`. This table declares HOW a leg returns; it no longer
+ * declares who happens to be able to price it.
  */
 export const PROTOCOL_RETURN_MODEL: Record<ProtocolId, ProtocolReturnModel> = {
   skySsr: { kind: 'lending' },
   aaveV3: { kind: 'lending' },
   compoundV3: { kind: 'lending' },
-  // NB: Sanctum Infinity's id is the legacy `socean-staked-sol` (symbol INF).
-  sanctumInf: { kind: 'market', coingeckoId: 'socean-staked-sol' },
-  jupiterJlp: { kind: 'market', coingeckoId: 'jupiter-perpetuals-liquidity-provider-token' },
-  jito: { kind: 'market', coingeckoId: 'jito-staked-sol' },
+  sanctumInf: { kind: 'market', asset: 'sanctumInfLp' },
+  jupiterJlp: { kind: 'market', asset: 'jupiterJlpLp' },
+  jito: { kind: 'market', asset: 'jitoStakedSol' },
 };
 
 /** One dated closing price (day precision) — the replay's honest unit. */

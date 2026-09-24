@@ -7,6 +7,7 @@
     "cancel": "Cancelar",
     "loading": "Cargando",
     "optionUnavailable": "Esta opción no está disponible en este momento",
+    "coingeckoAttribution": "Data provided by CoinGecko",
     "dataLive": "En vivo de {source}, obtenido {date}",
     "dataFixture": "Valores de referencia documentados ({date}), no datos de mercado en vivo.",
     "dataMixed": "Parcialmente en vivo de {source}, obtenido {date}. Valores de referencia ({fixtureDate}) para: {protocols}.",

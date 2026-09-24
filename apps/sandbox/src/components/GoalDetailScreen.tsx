@@ -34,6 +34,8 @@ import { ExitCeremony } from './ExitCeremony';
 import { GoalCompletionScreen } from './GoalCompletionScreen';
 import { GoalPauseSheet } from './GoalPauseSheet';
 import { Manifest } from './Manifest';
+import { goalUsesCoinGeckoPrices } from '@/view/marketDataAttribution';
+import { CoinGeckoAttribution } from './CoinGeckoAttribution';
 import { networkFeeLocal } from '@/lib/networkFee';
 import { Projection } from './Projection';
 import { RecurringControl } from './RecurringControl';
@@ -573,6 +575,24 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             <span className={styles.breakVal}>{money(goal.earnings)}</span>
           </div>
 
+          {/**
+           * REPLAY-OUTCOME ATTRIBUTION (Legal 2026-09-22).
+           *
+           * It sits against the MARKET CHANGE row directly above, which IS the
+           * replayed outcome — not against the goal total, and not against the
+           * screen. That placement is what keeps the association truthful in a
+           * MIXED group: the row above it ("Your contributions") is the user's
+           * own money and owes nothing to any provider, so attributing the
+           * decomposition at the point of the market figure says CoinGecko is
+           * an underlying source of THAT calculation, and claims nothing about
+           * the rest.
+           *
+           * The condition reads RECORDED PROVENANCE — which legs this goal's
+           * accruals actually replayed — never the strategy's name, the
+           * screen, or "growth means CoinGecko".
+           */}
+          {goalUsesCoinGeckoPrices(state.events, goal.goalId) ? <CoinGeckoAttribution /> : null}
+
           {/* Goal-reached milestone (WS-E). R-2 allows "goals reached" as
               product-true progression; honest + non-triumphalist, no gamification. */}
           {targetReached ? (
@@ -763,6 +783,12 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
 
       {entryManifest && strategy && feeLocal !== null && rateAvailable && !settling ? (
         <Manifest
+          /* The fee row below is `typicalFeeUsd x usdPriceLocal` — a
+             local-currency amount derived from CoinGecko FX, so this sheet
+             carries the attribution. `feeLocal !== null` is guaranteed here:
+             the manifest only opens when the entry prices (`canPriceEntry`),
+             and the commit path refuses a null fee independently (`5.436`). */
+          attributeCoinGecko
           titleId="manifest.title"
           rows={[
             { labelId: 'manifest.fromLabel', value: goal.name },

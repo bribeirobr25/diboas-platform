@@ -16,7 +16,10 @@ describe('PROTOCOL_RETURN_MODEL — the lending/market split (§4.8 step 1)', ()
       const m = PROTOCOL_RETURN_MODEL[id];
       expect(m.kind, id).toBe('market');
       // A market leg without an id would silently fall back to fixtures forever.
-      expect(m.kind === 'market' && m.coingeckoId.length, id).toBeGreaterThan(0);
+      /* ⛑ Restated for Block B: the market arm now carries a DOMAIN asset id,
+         not a vendor slug. The rule is unchanged — every market leg must be
+         identifiable — but identity is no longer a provider's spelling. */
+      expect(m.kind === 'market' && m.asset.length, id).toBeGreaterThan(0);
     }
   });
 

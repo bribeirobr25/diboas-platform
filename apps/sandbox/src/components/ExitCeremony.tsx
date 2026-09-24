@@ -1,5 +1,6 @@
 'use client';
 
+import { CoinGeckoAttribution } from './CoinGeckoAttribution';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { EXIT_FEE_FLOOR, FEE_RATES } from '@diboas/banking';
 import type { StopPreview } from '@/lib/ledgerClient';
@@ -189,6 +190,13 @@ export function ExitCeremony({
               ))}
             </ul>
           ) : null}
+          {/* The network-cost row above is `typicalFeeUsd x usdPriceLocal` — a
+              local-currency amount derived from CoinGecko FX — and the
+              per-position lines repeat it. One attribution closes the whole
+              reference-cost group, which is what the ruling asks for: a single
+              clearly associated attribution per coherent data group, inside the
+              sheet rather than in any footer. */}
+          <CoinGeckoAttribution />
         </section>
 
         <div className={styles.landsRow}>

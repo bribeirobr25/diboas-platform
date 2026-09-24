@@ -13,6 +13,7 @@ import {
 import type { GasQuote, ProtocolApy, ProtocolApyHistory, StrategyDef } from '@diboas/defi';
 import { useFormatters } from '@/hooks/useFormatters';
 import { gasStampFor, networkFeeLocal } from '@/lib/networkFee';
+import { CoinGeckoAttribution } from './CoinGeckoAttribution';
 import { selectStrategyChartSeries, type ChartTimeframe } from '@/view/strategy';
 import { ApyChart } from './ApyChart';
 import { Button } from './Button';
@@ -287,6 +288,19 @@ export function StrategyDetail({
             </li>
           ) : null}
         </ul>
+        {/**
+         * ATTRIBUTION PROXIMITY. The network fee is a LOCAL-CURRENCY AMOUNT
+         * DERIVED FROM COINGECKO FX (`typicalFeeUsd x usdPriceLocal`), so the
+         * attribution sits immediately below the cost list it belongs to — not
+         * in a footer, tooltip, modal or overflow menu, and identically on
+         * mobile and desktop because nothing here is viewport-gated.
+         *
+         * Guarded on `fee !== null` on purpose: when the amount is refused the
+         * row reads "amount unavailable" and NOTHING CoinGecko-derived
+         * renders, so attributing it would brand a surface showing none of
+         * their data — the failure the ruling names in its own words.
+         */}
+        {fee !== null ? <CoinGeckoAttribution /> : null}
       </section>
 
       {variant === 'full' ? (

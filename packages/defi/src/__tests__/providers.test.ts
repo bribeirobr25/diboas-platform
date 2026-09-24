@@ -41,6 +41,8 @@ describe('DefiLlamaApyProvider (fail-open contract, Principle 7)', () => {
             chain: 'Arbitrum',
             symbol: 'USDC',
             apy: 5.4,
+            apyBase: 5.4,
+            apyReward: null,
             tvlUsd: 100_000_000,
           },
         ],
@@ -69,9 +71,36 @@ describe('DefiLlamaApyProvider (fail-open contract, Principle 7)', () => {
 
 describe('matchPool (preference rules)', () => {
   const pools = [
-    { pool: 'a', project: 'aave-v3', chain: 'Ethereum', symbol: 'USDC', apy: 4, tvlUsd: 900 },
-    { pool: 'b', project: 'aave-v3', chain: 'Arbitrum', symbol: 'USDC', apy: 5, tvlUsd: 100 },
-    { pool: 'c', project: 'aave-v3', chain: 'Arbitrum', symbol: 'USDC', apy: 6, tvlUsd: 500 },
+    {
+      pool: 'a',
+      project: 'aave-v3',
+      chain: 'Ethereum',
+      symbol: 'USDC',
+      apy: 4,
+      apyBase: 4,
+      apyReward: null,
+      tvlUsd: 900,
+    },
+    {
+      pool: 'b',
+      project: 'aave-v3',
+      chain: 'Arbitrum',
+      symbol: 'USDC',
+      apy: 5,
+      apyBase: 5,
+      apyReward: null,
+      tvlUsd: 100,
+    },
+    {
+      pool: 'c',
+      project: 'aave-v3',
+      chain: 'Arbitrum',
+      symbol: 'USDC',
+      apy: 6,
+      apyBase: 6,
+      apyReward: null,
+      tvlUsd: 500,
+    },
   ];
 
   it('should prefer the preferred chain and the highest TVL within it', () => {
@@ -134,8 +163,12 @@ describe('FixtureGasProvider', () => {
     const provider = new FixtureGasProvider();
     for (const chain of ['Solana', 'Arbitrum', 'Ethereum', 'Bitcoin', 'Sui'] as const) {
       const quote = await provider.getGas(chain);
-      expect(quote.stamp.source).toBe('fixture');
-      expect(quote.typicalFeeUsd).toBeGreaterThan(0);
+      /* ⛑ The port is refusable (Block C). The FIXTURE provider still cannot
+         refuse — it reads constants and issues no request — so asserting a
+         quote here is the real contract, not a null-check ritual. */
+      expect(quote, chain).not.toBeNull();
+      expect(quote!.stamp.source).toBe('fixture');
+      expect(quote!.typicalFeeUsd).toBeGreaterThan(0);
     }
   });
 });
@@ -186,6 +219,8 @@ describe('provenance stamps carry the FETCH time, never the serve time (Data Vin
     chain: 'Arbitrum',
     symbol: 'USDC',
     apy: 5.4,
+    apyBase: 5.4,
+    apyReward: null,
     tvlUsd: 100_000_000,
   };
 
@@ -347,7 +382,16 @@ describe('5.406/5.407 — a provider observation may not define or mutate networ
        never consulted. Both layers forbid it; this test pins the FIRST. */
     const provider = await freshProvider({
       data: [
-        { pool: 'x', project: 'aave-v3', chain: 'Solana', symbol: 'USDC', apy: 99, tvlUsd: 1e9 },
+        {
+          pool: 'x',
+          project: 'aave-v3',
+          chain: 'Solana',
+          symbol: 'USDC',
+          apy: 99,
+          apyBase: 99,
+          apyReward: null,
+          tvlUsd: 1e9,
+        },
       ],
     });
     const [aave] = await provider.getCurrentApys(['aaveV3']);
@@ -420,7 +464,16 @@ describe('5.406/5.407 — a provider observation may not define or mutate networ
   it('should accept an observation whose network AGREES (evidence may be used)', async () => {
     const provider = await freshProvider({
       data: [
-        { pool: 'z', project: 'aave-v3', chain: 'Arbitrum', symbol: 'USDC', apy: 5.9, tvlUsd: 1e9 },
+        {
+          pool: 'z',
+          project: 'aave-v3',
+          chain: 'Arbitrum',
+          symbol: 'USDC',
+          apy: 5.9,
+          apyBase: 5.9,
+          apyReward: null,
+          tvlUsd: 1e9,
+        },
       ],
     });
     const [aave] = await provider.getCurrentApys(['aaveV3']);

@@ -45,6 +45,13 @@ export { CoinGeckoPriceProvider, COINGECKO_IDS } from './providers/coingecko';
  */
 export { FallbackOnlyApyProvider, FallbackOnlyPriceProvider } from './providers/fallbackOnly';
 export { isSourceUsable } from './providerDisposition';
+/**
+ * Block D · the persistable lane is a DECLARED RIGHT, and `apps/sandbox`'s
+ * ingestion eligibility is its one consumer outside this package. Only the
+ * predicate crosses — the rights table and its rationale stay internal, the
+ * same discipline the provider-safety modules follow.
+ */
+export { mayPersistNormalized } from './sourcePersistenceRights';
 export { FixtureGasProvider } from './providers/gas';
 export {
   NETWORK_COST_NATIVE_UNIT,

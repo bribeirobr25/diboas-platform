@@ -48,6 +48,18 @@ const SHARED_BY_DESIGN = (key: string) =>
   // identical to English on purpose, like the protocol and strategy names.
   key === 'nav.community' ||
   key.startsWith('catalog.protocols.') || // Sky SSR, Aave V3 — third-party names
+  /**
+   * Provider attribution, ratified by Product/Brand 2026-09-22 with
+   * `COPY LOCALIZATION = NO`: the exact English string is required in EVERY
+   * locale. Same class as the third-party protocol names above — a vendor's own
+   * attribution wording, not diBoaS prose — and canon §18 is explicit that
+   * Engineering must not invent or vary provider attribution copy.
+   *
+   * Listed as ONE key, never a prefix. A future attribution string that SHOULD
+   * be translated must still fail this ratchet — the `5.315` lesson, where a
+   * prefix exemption quietly shipped ten English taglines to de/es readers.
+   */
+  key === 'common.coingeckoAttribution' ||
   // NARROWED 2026-09-14 (`5.315`). The prefix covered `.name` AND `.tagline`
   // alike, and the stated reason — diBoaS product names — is true only of
   // `.name`. Ten taglines therefore rode out to de/es readers in English on a

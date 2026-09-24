@@ -355,3 +355,81 @@ it creates Product authority. Register: `5.105` (open), `5.360`, `5.359`.
   (`5.363`/`GATE-BOUND-1`).
 - **Run `pnpm market:simulate-next-week` AFTER committing**, not before: its dirty-tree guard refuses
   an ambiguous rollback while `data/market/` is modified.
+- **An evidence ORIGIN is looked up, never typed** (Block A, 2026-09-24). `originOf(SOURCE, subject)`
+  reads an exhaustive `Record<EvidenceSourceId, Record<EvidenceSubject, …>>` where every entry states
+  its BASIS. **Do not reintroduce an origin literal in an adapter** and do not add a default — a
+  default would restore the silence the table exists to remove, and canon states
+  `EXTERNAL SOURCE ≠ AUTOMATICALLY OBSERVED` in five documents. ⚑ **Origin is not semantics:** the
+  DeFiLlama APY entries carry `pendingSemantics` because what the rate COMPOSES is a separate
+  question; do not read a truthful origin as evidence that the semantics were settled. Guards:
+  `EVID-8`.
+- **An out-of-bounds value is REFUSED, never clamped** (Block A). The bounds API returns a reason or
+  a boolean and **structurally cannot hand back a repaired number** — keep it that way. A clamped
+  value is a fabricated value. The ceilings are CORRUPTION thresholds set far above any catalogue
+  protocol on purpose: tightening one turns it into an unratified economic opinion about what a rate
+  is allowed to be. `VALIDATION ≠ ECONOMIC TRUTH GUARANTEE`. Guards: `EVID-9`.
+- **Health is not eligibility, and it never reaches Product** (Blocks A/F). `sourceHealth` exists so
+  nothing can CLAIM a failing source is fine; `fallbackFor` is untouched by it, and that is asserted.
+  Do not let a health reading gate collection, select a fallback or refuse a value — that would make
+  a reporting path into a control path. Same relationship freshness has to eligibility
+  (`5.110`: _freshness grants nothing_). The module is deliberately **not** exported from the
+  package barrel. Guards: `EVID-10`, `PROV-4`.
+- **`PROVIDER ID ≠ DOMAIN IDENTITY`** (Block B). `ProtocolReturnModel`'s market arm carries `asset`
+  (a `MarketAssetId` diBoaS owns); each source's spelling lives in the per-source map in
+  `domainIdentity.ts`. **Do not put a vendor slug back on a domain type** — replacing a provider must
+  add a row, never edit a type. `POOL_MATCHERS` LOCATES candidates broadly; the declared identity is
+  what ACCEPTS. `USDC.E` must not satisfy `USDC` (different pool, different rate), and an
+  `UNDETERMINED` composition is refused, not shown with a caveat. Guards: `EVID-11`.
+- **A replay series is validated once, in the contract** (Block C). Both adapters build through
+  `buildHistoricalSeries` and project outward. **Never add a fill/pad/interpolate path**: a gap makes
+  the SERIES unavailable (`5.105`). `via` records how the series was obtained; `STORED_SNAPSHOT` and
+  `HIGH_FIDELITY` are declared with no producer so the plan's later paths need no Product-facing
+  change. `derivedAt` is the THIRD timestamp and is **not defaulted** — never back-fill it from a
+  clock, and never let scheduler time become `observedAt`. Guards: `EVID-12`.
+- **FX is its own evidence class, and no eligible current source supplies a RATE** (Block C).
+  `fxObservedRate` returns controlled-unavailable by design. **Do not manufacture a rate by dividing
+  two denominated prices** — that is a fabricated FX observation, prohibited by name in the ratified
+  plan §14.1. Guards: `EVID-12`.
+- **Retention is per class, and required coverage vs permitted rights is a CONJUNCTION** (Block D).
+  `REPLAY_HISTORY` is COVERAGE (365 + boundary), not a TTL, and a COVERAGE class is **never** expired
+  by the elapsed-clock path — ageing it out makes a reachable replay silently unreachable. **Do not
+  turn `reconcileRetention` into a `min()`**: a shorter-than-required window that calls itself
+  compliant is the failure it exists to prevent; the refused verdict carries no usable window.
+  Persistence is a DECLARED right per source — widening one is a Legal/Founder data change, because a
+  material expansion of retention is an explicit review trigger (`03 §8`). Guards: `EVID-13`.
+- **The Practice policy DECLARES; the seams ENFORCE** (Block E). `PRACTICE_REFERENCE_POLICY` asserts
+  the ≤6h ceiling by **identity** with the constant the cache uses, never by copying it. **Do not add
+  enforcement to it** (a second path to keep in agreement) and **do not key it on mode** — a policy
+  branching on Practice/Real is exactly the collapse the four truth axes forbid. Real's policy differs
+  in its values, not its shape. Guards: `EVID-14`.
+- **A degradation must be visible, and observability must stay reporting-only** (Block G). Events
+  carry subject, source, outcome and a CLOSED reason code — **never a value, payload, url, key or
+  body** — the buffer is bounded (an unbounded buffer in a long-lived process is a leak with a helpful
+  name), recording never throws, and the module performs no I/O. **Do not let it change a decision.**
+  Guards: `OBS-2`.
+- **`apps/sandbox/src/lib/__tests__/authGate.test.ts` exercises the REAL gate against the REAL
+  repository.** A wording change in `CLAUDE.md` can turn 7 sandbox tests red: words like _historical_,
+  _prior_, _baseline_ and _was_ are RESERVED in the sentence around a published test count, because
+  `checkCounts` reads them as historical markers (`review-gate.mjs:393`). Prose in a living document
+  is INPUT to a mechanical gate.
+- **Two states that documentation must never be allowed to collapse** (Strategy release
+  closure, 2026-09-24). Both are the intended current seam, not defects:
+  - `BLOCK G = MINIMUM USEFUL OBSERVABILITY INCREMENT` **≠** a complete market-evidence
+    observability system. Instrumented: the DeFiLlama current-APY degrade paths. **Not**
+    instrumented: the CoinGecko price path, both history paths. No drain, no persistence;
+    the buffer is process-local and restart-volatile. **Do not later describe this as full
+    end-to-end observability** (`5.446`).
+  - `PERSISTENCE ARCHITECTURE READY` **≠** `ALL HISTORICAL EVIDENCE IS CURRENTLY PERSISTED`.
+    Per-class retention, the persistence rights model and the provider-neutral replay
+    contract are implemented; real provider history is **not** persisted and **F-B**, the
+    first real replay consumer, is **not built** (`5.447`).
+- **`ECONOMIC IDENTITY ≠ SYMBOL SIMILARITY`** (`5.442`, closed 2026-09-24). `jupiterJlp` has
+  **no valid current-rate source** in the DeFiLlama feed: every JLP-bearing pool is either
+  JLP used as lending collateral (0 %), a two-sided JLP DEX pair (0.7–24 %), or the unnamed
+  `project-0` pool. **Do not substitute any of them.** The leg is CONTROLLED UNAVAILABLE and
+  the refusal is already enforced by Stage H — a 68-day-old fixture is `MISSING`, so every
+  strategy containing the leg is `REFUSED_BY_CONTRACT` and renders as unavailable.
+  ⚑ **Do not pull the refusal into the provider:** `5.355` rules that consumer enforcement
+  belongs to H, which sits behind F/G. ⚑ **Open and NOT Engineering's to answer** (`5.444`):
+  whether a market/price-return leg needs a current APY at all. Until Strategy + M&E +
+  Product rule, **preserve the controlled-unavailable behaviour**.

@@ -64,7 +64,19 @@
  * would make the window depend on the reader's timezone, and a retention
  * boundary that moves with the observer is not a boundary.
  */
-const EVIDENCE_RETENTION_DAYS = 90;
+/**
+ * ⛑ NOW READ FROM THE PER-CLASS POLICY (Block D), not held as a local literal.
+ *
+ * The number is unchanged for the class it governs — derived market evidence
+ * is still 90 elapsed days — but it is no longer a universal constant that a
+ * second evidence class would silently inherit. `REPLAY_HISTORY` is a COVERAGE
+ * requirement and has no elapsed-days answer at all, which is exactly why a
+ * single module-private `90` could not be right for both.
+ */
+import { retentionFor, type RetentionClass } from './retentionPolicy';
+
+const derivedRule = retentionFor('DERIVED_MARKET_EVIDENCE');
+const EVIDENCE_RETENTION_DAYS = derivedRule.kind === 'ELAPSED_DAYS' ? derivedRule.days : 90;
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -109,14 +121,32 @@ const DAY_MS = 24 * 60 * 60 * 1000;
  * retained — the fail-closed direction. Retention protects people; a broken
  * timestamp must not extend how long their data is held.
  */
-export function isEvidenceExpired(retrievedAt: string, now: Date | string): boolean {
+export function isEvidenceExpired(
+  retrievedAt: string,
+  now: Date | string,
+  /**
+   * The class being aged. Defaults to the class this window was written for, so
+   * every existing caller is unchanged.
+   *
+   * ⚑ A COVERAGE class is NEVER expired by an elapsed clock: replay evidence is
+   * retained because the WINDOW needs it, and discarding it on a timer would
+   * make a reachable replay silently unreachable.
+   */
+  cls: RetentionClass = 'DERIVED_MARKET_EVIDENCE'
+): boolean {
+  const rule = retentionFor(cls);
+  if (rule.kind !== 'ELAPSED_DAYS') return false;
   const ref = typeof now === 'string' ? Date.parse(now) : now.getTime();
   const at = Date.parse(retrievedAt);
   if (!Number.isFinite(ref) || !Number.isFinite(at)) return true;
-  return ref >= at + EVIDENCE_RETENTION_DAYS * DAY_MS;
+  return ref >= at + rule.days * DAY_MS;
 }
 
 /** The same question asked of a stored record, which carries its own anchor. */
-export function isRecordExpired(record: { retrievedAt: string }, now: Date | string): boolean {
-  return isEvidenceExpired(record.retrievedAt, now);
+export function isRecordExpired(
+  record: { retrievedAt: string },
+  now: Date | string,
+  cls: RetentionClass = 'DERIVED_MARKET_EVIDENCE'
+): boolean {
+  return isEvidenceExpired(record.retrievedAt, now, cls);
 }

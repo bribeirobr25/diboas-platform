@@ -1,5 +1,7 @@
 'use client';
 
+import { goalUsesCoinGeckoPrices } from '@/view/marketDataAttribution';
+import { CoinGeckoAttribution } from './CoinGeckoAttribution';
 import { useState } from 'react';
 import Link from 'next/link';
 import Decimal from 'decimal.js';
@@ -67,6 +69,16 @@ function GoalDetailCard({
           <Amount value={new Decimal(goal.earnings)} />
         </dd>
       </dl>
+      {/**
+       * REPLAY-OUTCOME ATTRIBUTION, per goal (Legal 2026-09-22).
+       *
+       * Attached to the goal whose OWN earned figure incorporates a provider
+       * price series, so a stable/lending-only goal in the same list stays
+       * unattributed — the LIST is mixed, the CARD is not. Goals without the
+       * contribution render none, which is the ruling's "surface presence
+       * alone is not a trigger" expressed as code.
+       */}
+      {goalUsesCoinGeckoPrices(state.events, goal.goalId) ? <CoinGeckoAttribution /> : null}
     </div>
   );
 }

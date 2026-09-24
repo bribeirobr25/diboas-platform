@@ -20,6 +20,13 @@ import { PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 import { createRevalidatingCache, type RevalidatedEntry } from './revalidatingCache';
 import { permitsUse } from '../providerDisposition';
 import { fallbackFor } from '../fallbackEligibility';
+import { originOf } from '../evidenceOrigin';
+import { boundsRefusal } from '../evidenceBounds';
+import { recordSourceOutcome } from '../sourceHealth';
+import type { EvidenceReason } from '../evidenceObservability';
+import { domainIdentityOf, rateComposition, symbolSatisfies } from '../domainIdentity';
+import { buildHistoricalSeries } from '../historicalEvidence';
+import { recordEvidenceEvent } from '../evidenceObservability';
 
 const POOLS_URL = 'https://yields.llama.fi/pools';
 const CHART_URL = 'https://yields.llama.fi/chart/';
@@ -73,6 +80,16 @@ interface LlamaPool {
   chain: string;
   symbol: string;
   apy: number | null;
+  /**
+   * ⛑ READ SO THE COMPOSITE CAN BE KNOWN (Block B).
+   *
+   * The adapter previously read `apy` alone, so nothing in the repository could
+   * say whether the number was a base rate or a base-plus-incentive composite.
+   * M&E accepts a composite whose composition is KNOWN and refuses one that is
+   * ambiguous — which is answerable only if these are read.
+   */
+  apyBase?: number | null;
+  apyReward?: number | null;
   tvlUsd: number | null;
 }
 
@@ -198,23 +215,43 @@ export class DefiLlamaApyProvider implements IApyProvider {
     if (permitsUse(SOURCE, 'NEW_COLLECTION', this.alsoDisabled)) {
       try {
         pools = await fetchPools(this.fetchImpl, this.timeoutMs);
+        recordSourceOutcome(SOURCE, 'SUCCESS');
       } catch {
+        recordSourceOutcome(SOURCE, 'FAILURE');
         pools = null;
       }
     }
     /* Decided ONCE per call, not per leg: eligibility is a property of the
        subject and the sources, never of how many protocols were asked for. */
     const fixtureMayServe = this.mayServeFixture('APY_CURRENT');
-    const degrade = (protocolId: ProtocolId): ProtocolApy | null =>
-      fixtureMayServe ? fixtureFor(protocolId) : null;
+    /**
+     * ⛑ A DEGRADATION IS NOW VISIBLE (Block G).
+     *
+     * Every path into `degrade` is an honest one — a chain mismatch, a symbol
+     * the declared identity does not accept, an undeterminable composition, a
+     * failed fetch. Each was also SILENT: the leg simply came back on its
+     * fixture and nothing said so. Reporting changes no decision; it removes
+     * the silence.
+     */
+    const degrade = (protocolId: ProtocolId, reason: EvidenceReason): ProtocolApy | null => {
+      recordEvidenceEvent({
+        subject: 'APY_CURRENT',
+        source: SOURCE,
+        outcome: fixtureMayServe ? 'SERVED_FALLBACK' : 'REFUSED',
+        reason,
+      });
+      return fixtureMayServe ? fixtureFor(protocolId) : null;
+    };
 
     if (!pools) {
-      return protocolIds.map(degrade).filter((a): a is ProtocolApy => a !== null);
+      return protocolIds
+        .map((id) => degrade(id, 'FETCH_FAILED'))
+        .filter((a): a is ProtocolApy => a !== null);
     }
     const asOf = new Date(pools.at).toISOString(); // when fetched, not when served
     const resolved = protocolIds.map((protocolId) => {
       const match = matchPool(pools.value, POOL_MATCHERS[protocolId]);
-      if (!match) return degrade(protocolId);
+      if (!match) return degrade(protocolId, 'NO_OBSERVATION');
       /**
        * `5.406`/`5.407` §3 · THE OBSERVATION MUST AGREE WITH PRODUCT IDENTITY.
        *
@@ -231,13 +268,51 @@ export class DefiLlamaApyProvider implements IApyProvider {
        */
       const observed = match.chain as ProtocolApy['chain'] | undefined;
       if (!observed || observed !== CURRENT_CATALOG_PROTOCOL_NETWORK[protocolId])
-        return degrade(protocolId);
+        return degrade(protocolId, 'IDENTITY_MISMATCH');
+      /**
+       * ⛑ THE OBSERVATION MUST SATISFY THE LEG'S DECLARED IDENTITY (Block B).
+       *
+       * `POOL_MATCHERS` LOCATES candidates broadly — several project slugs, a
+       * family of symbols. That breadth is useful for finding a pool and
+       * dangerous for accepting one: it is why `USDC` and `USDC.E` were
+       * interchangeable here, and a bridged asset's rate is not the native
+       * asset's rate. Locate broadly, accept narrowly.
+       */
+      const identity = domainIdentityOf(protocolId);
+      const observedSymbol = typeof match.symbol === 'string' ? match.symbol : '';
+      const satisfies =
+        identity.kind === 'lending'
+          ? symbolSatisfies(identity, observedSymbol)
+          : observedSymbol.trim().toUpperCase() === identity.symbol.toUpperCase();
+      if (!satisfies) return degrade(protocolId, 'IDENTITY_NOT_SATISFIED');
+      /**
+       * ⛑ AN AMBIGUOUS RATE IS NOT ACCEPTABLE EVIDENCE (M&E).
+       *
+       * Not "acceptable with a caveat" — a rate whose composition cannot be
+       * determined is UNAVAILABLE, and unavailable here means the LIVE
+       * observation is refused and the leg takes its documented fixture, the
+       * same path a chain or symbol mismatch already takes.
+       */
+      const composition = rateComposition(match);
+      if (composition === 'UNDETERMINED') return degrade(protocolId, 'COMPOSITION_UNDETERMINED');
+      /* §10 validation · plausible domain bounds. A rate outside them is a
+         payload defect, so the LIVE observation is refused and the leg takes
+         the same documented-fixture path a chain mismatch already takes. It is
+         never clamped into range: a clamped rate is a fabricated rate. */
+      const apyPercent = match.apy as number;
+      const refusal = boundsRefusal('APY_CURRENT', apyPercent);
+      if (refusal !== null) return degrade(protocolId, refusal);
+      recordEvidenceEvent({ subject: 'APY_CURRENT', source: SOURCE, outcome: 'SERVED_PRIMARY' });
       return {
         protocolId,
-        apyPercent: match.apy as number,
+        apyPercent,
         tvlUsd: match.tvlUsd,
         chain: observed,
-        stamp: evidenceStamp({ source: SOURCE, origin: 'OBSERVED', asOf }),
+        /* Determined, not typed — see `evidenceOrigin.ts`. That entry also
+           records that this subject's SEMANTICS (supply/borrow, base/incentive,
+           native/bridged) remain undetermined until Block B; origin and
+           semantics are separate questions and only the first is answered. */
+        stamp: evidenceStamp({ source: SOURCE, origin: originOf(SOURCE, 'APY_CURRENT'), asOf }),
       };
     });
     /* A refused leg is OMITTED, never zero-filled: an absent observation is
@@ -252,6 +327,7 @@ export class DefiLlamaApyProvider implements IApyProvider {
         throw new Error('source may not collect');
       }
       const pools = await fetchPools(this.fetchImpl, this.timeoutMs);
+      recordSourceOutcome(SOURCE, 'SUCCESS');
       const match = matchPool(pools.value, POOL_MATCHERS[protocolId]);
       if (!match) throw new Error('no pool match');
 
@@ -264,20 +340,44 @@ export class DefiLlamaApyProvider implements IApyProvider {
           data?: Array<{ timestamp: string; apy: number | null }>;
         };
         if (!Array.isArray(body.data)) throw new Error('defillama /chart: unexpected shape');
-        return body.data
+        const points = body.data
           .filter((d) => typeof d.apy === 'number')
           .map((d) => ({ date: d.timestamp.slice(0, 10), apyPercent: d.apy as number }));
+        /* §10 bounds, ALL-OR-NOTHING for a series (`5.105`): one corrupt point
+           makes the series unavailable rather than a silent hole. */
+        if (points.some((pt) => boundsRefusal('APY_HISTORY', pt.apyPercent) !== null)) {
+          throw new Error('defillama /chart: point outside plausible bounds');
+        }
+        return points;
       });
-      return {
+      /**
+       * ⛑ BUILT THROUGH THE NEUTRAL CONTRACT (Block C).
+       *
+       * The series is validated once, in one place — non-empty, strictly
+       * ascending, never interpolated — and records HOW it was obtained. The
+       * typed `ProtocolApyHistory` is then a projection of it, so a stored
+       * snapshot or a future high-fidelity reconstruction can arrive through
+       * the same door without a Product-facing change.
+       */
+      const built = buildHistoricalSeries({
+        kind: 'RATE',
         protocolId,
-        points: entry.value.slice(-days),
+        points: entry.value.slice(-days).map((pt) => ({ date: pt.date, value: pt.apyPercent })),
         stamp: evidenceStamp({
-          source: 'defillama',
-          origin: 'OBSERVED',
+          source: SOURCE,
+          origin: originOf(SOURCE, 'APY_HISTORY'),
           asOf: new Date(entry.at).toISOString(),
         }),
+        via: 'AGGREGATOR',
+      });
+      if (!built.available) throw new Error(`history refused: ${built.reason}`);
+      return {
+        protocolId,
+        points: built.series.points.map((pt) => ({ date: pt.date, apyPercent: pt.value })),
+        stamp: built.series.stamp,
       };
     } catch {
+      recordSourceOutcome(SOURCE, 'FAILURE');
       /**
        * Honest degraded mode — but only if a fallback is ELIGIBLE.
        *
