@@ -44,15 +44,30 @@ vi.mock('@/hooks/useMarket', () => ({
 const COPY = 'Data provided by CoinGecko';
 const PROTOCOLS = ['skySsr', 'aaveV3', 'compoundV3', 'sanctumInf', 'jupiterJlp', 'jito'] as const;
 
-const apyHistories = (days: number): ProtocolApyHistory[] =>
-  PROTOCOLS.map((protocolId) => ({
+const apyHistories = (days: number): ProtocolApyHistory[] => {
+  /**
+   * ⛑ CI RELIABILITY, NOT A SEMANTIC CHANGE.
+   *
+   * `fixtureDateSeries(days)` was called INSIDE the per-point map, so it was
+   * rebuilt once per point: 6 protocols × 400 points = 2,400 calls, each
+   * allocating a 400-element array — ~960,000 date constructions where 2,400
+   * are needed, and the two-goal test pays it twice. That is the whole reason
+   * that test sat at ~2.3 s against a 5,000 ms default while its single-goal
+   * siblings sat at ~1.1 s, and why it was the first to time out on a loaded
+   * runner.
+   *
+   * The series is a pure function of `days` (and the clock, which these tests
+   * freeze in `beforeEach`), so hoisting produces BYTE-IDENTICAL fixtures —
+   * same dates, same order, same length, same stamp. Nothing about what is
+   * asserted changes.
+   */
+  const dates = fixtureDateSeries(days);
+  return PROTOCOLS.map((protocolId) => ({
     protocolId,
-    points: Array.from({ length: days }, (_, i) => ({
-      date: fixtureDateSeries(days)[i],
-      apyPercent: 5,
-    })),
+    points: dates.map((date) => ({ date, apyPercent: 5 })),
     stamp: FIXTURE_STAMP,
   }));
+};
 
 /** Price series stamped by the PROVIDER — this is what makes the leg a trigger. */
 const providerPrices = (days: number): ProtocolPriceHistory[] =>
