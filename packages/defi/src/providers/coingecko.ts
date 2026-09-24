@@ -32,6 +32,7 @@ import { fallbackFor } from '../fallbackEligibility';
 import { originOf } from '../evidenceOrigin';
 import { boundsRefusal } from '../evidenceBounds';
 import { recordSourceOutcome } from '../sourceHealth';
+import { sourceAssetId } from '../domainIdentity';
 import { PROTOCOL_RETURN_MODEL, PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 
 const API_BASE = 'https://api.coingecko.com/api/v3';
@@ -177,11 +178,21 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
       if (!permitsUse(SOURCE, 'NEW_COLLECTION', this.alsoDisabled)) {
         throw new Error('source may not collect');
       }
-      const entry = await historyCache.revalidate(model.coingeckoId, async () => {
+      /**
+       * ⛑ TRANSPORT IDENTITY, RESOLVED AT THE ADAPTER (Block B).
+       *
+       * The domain names its own asset; how THIS source spells it is a lookup
+       * in the per-source map. A source that cannot name the asset returns
+       * `null` and the leg is refused — never guessed, and never resolved by a
+       * vendor slug stored on a domain type.
+       */
+      const vendorId = sourceAssetId(SOURCE, model.asset);
+      if (vendorId === null) throw new Error(`source does not name ${model.asset}`);
+      const entry = await historyCache.revalidate(vendorId, async () => {
         const headers: Record<string, string> = {};
         if (this.apiKey) headers['x-cg-demo-api-key'] = this.apiKey;
         const res = await this.fetchImpl(
-          `${API_BASE}/coins/${model.coingeckoId}/market_chart?vs_currency=usd&days=365&interval=daily`,
+          `${API_BASE}/coins/${vendorId}/market_chart?vs_currency=usd&days=365&interval=daily`,
           { headers, signal: AbortSignal.timeout(this.timeoutMs) }
         );
         if (!res.ok) throw new Error(`coingecko market_chart ${res.status}`);

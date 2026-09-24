@@ -23,6 +23,7 @@ import { fallbackFor } from '../fallbackEligibility';
 import { originOf } from '../evidenceOrigin';
 import { boundsRefusal } from '../evidenceBounds';
 import { recordSourceOutcome } from '../sourceHealth';
+import { domainIdentityOf, rateComposition, symbolSatisfies } from '../domainIdentity';
 
 const POOLS_URL = 'https://yields.llama.fi/pools';
 const CHART_URL = 'https://yields.llama.fi/chart/';
@@ -76,6 +77,16 @@ interface LlamaPool {
   chain: string;
   symbol: string;
   apy: number | null;
+  /**
+   * ⛑ READ SO THE COMPOSITE CAN BE KNOWN (Block B).
+   *
+   * The adapter previously read `apy` alone, so nothing in the repository could
+   * say whether the number was a base rate or a base-plus-incentive composite.
+   * M&E accepts a composite whose composition is KNOWN and refuses one that is
+   * ambiguous — which is answerable only if these are read.
+   */
+  apyBase?: number | null;
+  apyReward?: number | null;
   tvlUsd: number | null;
 }
 
@@ -237,6 +248,32 @@ export class DefiLlamaApyProvider implements IApyProvider {
       const observed = match.chain as ProtocolApy['chain'] | undefined;
       if (!observed || observed !== CURRENT_CATALOG_PROTOCOL_NETWORK[protocolId])
         return degrade(protocolId);
+      /**
+       * ⛑ THE OBSERVATION MUST SATISFY THE LEG'S DECLARED IDENTITY (Block B).
+       *
+       * `POOL_MATCHERS` LOCATES candidates broadly — several project slugs, a
+       * family of symbols. That breadth is useful for finding a pool and
+       * dangerous for accepting one: it is why `USDC` and `USDC.E` were
+       * interchangeable here, and a bridged asset's rate is not the native
+       * asset's rate. Locate broadly, accept narrowly.
+       */
+      const identity = domainIdentityOf(protocolId);
+      const observedSymbol = typeof match.symbol === 'string' ? match.symbol : '';
+      const satisfies =
+        identity.kind === 'lending'
+          ? symbolSatisfies(identity, observedSymbol)
+          : observedSymbol.trim().toUpperCase() === identity.symbol.toUpperCase();
+      if (!satisfies) return degrade(protocolId);
+      /**
+       * ⛑ AN AMBIGUOUS RATE IS NOT ACCEPTABLE EVIDENCE (M&E).
+       *
+       * Not "acceptable with a caveat" — a rate whose composition cannot be
+       * determined is UNAVAILABLE, and unavailable here means the LIVE
+       * observation is refused and the leg takes its documented fixture, the
+       * same path a chain or symbol mismatch already takes.
+       */
+      const composition = rateComposition(match);
+      if (composition === 'UNDETERMINED') return degrade(protocolId);
       /* §10 validation · plausible domain bounds. A rate outside them is a
          payload defect, so the LIVE observation is refused and the leg takes
          the same documented-fixture path a chain mismatch already takes. It is
