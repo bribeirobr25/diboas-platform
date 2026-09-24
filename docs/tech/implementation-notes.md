@@ -412,3 +412,24 @@ it creates Product authority. Register: `5.105` (open), `5.360`, `5.359`.
   _prior_, _baseline_ and _was_ are RESERVED in the sentence around a published test count, because
   `checkCounts` reads them as historical markers (`review-gate.mjs:393`). Prose in a living document
   is INPUT to a mechanical gate.
+- **Two states that documentation must never be allowed to collapse** (Strategy release
+  closure, 2026-09-24). Both are the intended current seam, not defects:
+  - `BLOCK G = MINIMUM USEFUL OBSERVABILITY INCREMENT` **≠** a complete market-evidence
+    observability system. Instrumented: the DeFiLlama current-APY degrade paths. **Not**
+    instrumented: the CoinGecko price path, both history paths. No drain, no persistence;
+    the buffer is process-local and restart-volatile. **Do not later describe this as full
+    end-to-end observability** (`5.446`).
+  - `PERSISTENCE ARCHITECTURE READY` **≠** `ALL HISTORICAL EVIDENCE IS CURRENTLY PERSISTED`.
+    Per-class retention, the persistence rights model and the provider-neutral replay
+    contract are implemented; real provider history is **not** persisted and **F-B**, the
+    first real replay consumer, is **not built** (`5.447`).
+- **`ECONOMIC IDENTITY ≠ SYMBOL SIMILARITY`** (`5.442`, closed 2026-09-24). `jupiterJlp` has
+  **no valid current-rate source** in the DeFiLlama feed: every JLP-bearing pool is either
+  JLP used as lending collateral (0 %), a two-sided JLP DEX pair (0.7–24 %), or the unnamed
+  `project-0` pool. **Do not substitute any of them.** The leg is CONTROLLED UNAVAILABLE and
+  the refusal is already enforced by Stage H — a 68-day-old fixture is `MISSING`, so every
+  strategy containing the leg is `REFUSED_BY_CONTRACT` and renders as unavailable.
+  ⚑ **Do not pull the refusal into the provider:** `5.355` rules that consumer enforcement
+  belongs to H, which sits behind F/G. ⚑ **Open and NOT Engineering's to answer** (`5.444`):
+  whether a market/price-return leg needs a current APY at all. Until Strategy + M&E +
+  Product rule, **preserve the controlled-unavailable behaviour**.
