@@ -430,6 +430,58 @@ it creates Product authority. Register: `5.105` (open), `5.360`, `5.359`.
   the refusal is already enforced by Stage H — a 68-day-old fixture is `MISSING`, so every
   strategy containing the leg is `REFUSED_BY_CONTRACT` and renders as unavailable.
   ⚑ **Do not pull the refusal into the provider:** `5.355` rules that consumer enforcement
-  belongs to H, which sits behind F/G. ⚑ **Open and NOT Engineering's to answer** (`5.444`):
-  whether a market/price-return leg needs a current APY at all. Until Strategy + M&E +
-  Product rule, **preserve the controlled-unavailable behaviour**.
+  belongs to H, which sits behind F/G. ⚑ **The JLP-substitution prohibition above is
+  UNCHANGED and still binding.**
+  ⛑ **SUPERSEDED FOR MARKET LEGS, 2026-09-24 (`5.444` RULED).** This paragraph used to end
+  _"Open and NOT Engineering's to answer (`5.444`): whether a market/price-return leg needs a
+  current APY at all. Until Strategy + M&E + Product rule, preserve the controlled-unavailable
+  behaviour."_ That is now **false as an instruction** and is quoted rather than deleted so
+  the change of state is legible. The ruling is
+  **`LEG → ECONOMIC RETURN MECHANISM → REQUIRED EVIDENCE`, never `EVERY LEG → APY`** — see
+  the `TYPED CATALOGUE EVIDENCE REQUIREMENT` entry below.
+
+- **`TYPED CATALOGUE EVIDENCE REQUIREMENT`** (`5.444`, ruled + implemented 2026-09-24;
+  `MERGED TO MAIN = NO`). A leg is asked only for what its **return mechanism** produces. An
+  accrual (`lending`) leg owes a current rate, because the rate IS its return. A `market`
+  leg owes nothing, because its return is its **price** — so a missing APY for it is not
+  missing evidence, and it must never make a strategy unavailable.
+  - **The single derivation is `legRequiresCurrentRate`** (`packages/defi/src/catalogueEvidence.ts`),
+    resolved from `domainIdentityOf(...).kind`. Three production consumers read it:
+    `rateAvailability.ts`, `provenance.ts`, `StrategyPicker.tsx`. ⚑ **Do not re-derive this
+    question anywhere else, and never branch on a protocol id** — `jupiterJlp`, `sanctumInf`
+    and `jito` behave identically because they are TYPED identically, not because any of them
+    is named. `rateAvailability.ts` contains no protocol id at all, deliberately.
+  - **AVAILABILITY and DISPLAYABILITY are two questions.** `strategyRateAvailability` decides
+    whether a strategy may be offered; `strategyRateDisplay` decides whether a
+    `Current pool rate` may be STATED. Collapsing them is what let a secondary representation
+    gate a whole strategy. A heterogeneous strategy is **available with no rate**.
+  - **Never renormalise a partial blend.** `strategyRateDisplay` returns on the FIRST
+    non-accrual leg, before any arithmetic, so it structurally cannot emit a sum over weights
+    that do not total 100. Measured: production blended `0.70 × skySsr + 0.30 × sanctumInf`
+    and published it as one _"Current pool rate … (real, variable)"_ — a lending APY averaged
+    with an LST leg's reported APY under a single label.
+  - **`MISSING ≠ 0` at the blend.** The replaced `blendedApy` read `apyPercent ?? 0`; a guard
+    (`rateUnavailableInvariants.test.ts`) now fails if that name returns.
+  - **The separator needs a left operand.** The meta line is
+    `<rate clause> · <growth exposure>`; when the rate clause is withheld the middot goes with
+    it. Shipping it unconditionally rendered a leading orphan mark in all four locales, found
+    only by a rendered-string check at 375 px.
+  - ⚑ **Growth exposure is a property of the STRATEGY, not of today's rate** — it stays true
+    and stays rendered on every card that loses a rate.
+
+- **`CATALOGUE DECISIONS ARE OBSERVABLE, AND BOUNDED`** (`5.444` §16, 2026-09-24).
+  Two decisions are recorded through the existing bounded ring: a leg resolving to
+  `NOT_REQUIRED` (naming the leg, `source: null` — no source was consulted), and a refusal
+  naming **which** leg's required evidence was missing.
+  - ⚑ **`leg` carries a diBoaS catalogue `ProtocolId` — a DOMAIN identity, never a provider
+    id, pool id or vendor SKU** (`PROVIDER ID ≠ DOMAIN IDENTITY`).
+  - ⚑ **Use `recordEvidenceEventOnce` for decisions reached in a RENDER path, and
+    `recordEvidenceEvent` for provider outcomes.** Measured: one picker render at
+    `horizon=any` evaluates 29 legs, 9 of them market legs, and the ring holds 500 — recording
+    per call fills it in ~20 renders and evicts the provider-degradation events. **Provider
+    events must never be de-duplicated:** a source failing five times is five pieces of
+    information.
+  - ⚑ **The de-duplication window and the ring live in ONE module and are cleared together.**
+    An earlier revision split them, so `drainEvidenceEvents()` emptied the ring while the
+    window survived — a host wiring the drain would have been silently starved. Do not move
+    the window out of `evidenceObservability.ts`.
