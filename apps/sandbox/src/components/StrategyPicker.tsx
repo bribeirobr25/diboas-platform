@@ -257,6 +257,18 @@ export function StrategyPicker({
                 : provenance.state === 'mixed'
                   ? 'goalNew.apyNowMixed'
                   : 'goalNew.apyNowFixture';
+            /**
+             * ⛑ `5.444` · THE SEPARATOR NEEDS SOMETHING ON ITS LEFT.
+             *
+             * The meta line is `<rate clause> · <growth exposure>`, and the
+             * middot is punctuation BETWEEN two clauses. S2 made the rate
+             * clause conditional without making its separator conditional too,
+             * so every heterogeneous growth row rendered a leading orphan mark
+             * — `· 30% growth exposure` — in all four locales. Found by the
+             * Part E pass at 375px/DE, not by any test, which is why the
+             * render is now asserted in `StrategyPicker.test.tsx`.
+             */
+            const metaHasLeadingClause = rateDisplay.displayable || !rate.available;
             const checked = selectedId === strategy.id;
             return (
               <li key={strategy.id}>
@@ -322,7 +334,7 @@ export function StrategyPicker({
                           today's rate, so it stays true and stays rendered. */}
                       {strategy.riskBand === 'growth' ? (
                         <>
-                          {' · '}
+                          {metaHasLeadingClause ? ' · ' : null}
                           <FormattedMessage
                             id="goalNew.growthExposure"
                             values={{ percent: strategy.growthExposurePercent }}

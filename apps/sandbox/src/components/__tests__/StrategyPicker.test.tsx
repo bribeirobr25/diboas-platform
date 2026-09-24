@@ -353,3 +353,79 @@ describe('5.436 — an unavailable rate hides the number, never the candidate', 
     expect(rendered).toEqual(expected);
   });
 });
+
+describe('`5.444` · the meta line reads as a sentence, not as punctuation', () => {
+  /**
+   * S2 made the rate clause conditional and left its separator unconditional,
+   * so every heterogeneous growth row rendered a leading orphan middot in all
+   * four locales. The Part E pass at 375px/DE found it; no test did. These
+   * assert the RENDERED string, because the defect lives entirely in what the
+   * row reads like — a class name or a flag could not have caught it.
+   */
+  const PAST_WINDOW = '2026-09-22T00:00:00Z';
+  const WITH_UNAVAILABLE = {
+    ...M,
+    ...NAMES,
+    ...TAGLINES,
+    'common.optionUnavailable': 'This option is not available right now',
+  };
+
+  function renderAt(now: string) {
+    render(
+      <IntlProvider locale="en" messages={WITH_UNAVAILABLE} onError={() => {}}>
+        <StrategyPicker
+          horizonMonths={6}
+          apys={APYS}
+          selectedId={null}
+          onSelect={vi.fn()}
+          now={now}
+        />
+      </IntlProvider>
+    );
+  }
+
+  function metaOf(strategyId: string): string {
+    const radio = screen.getByDisplayValue(strategyId);
+    const row = radio.closest('label') as HTMLElement;
+    return row.textContent ?? '';
+  }
+
+  it('should NOT lead the growth-exposure clause with an orphan separator when the rate is withheld', () => {
+    /* stableGrowth is heterogeneous: available, and with no rate to state. */
+    const strategy = STRATEGY_CATALOG.find((s) => s.id === 'stableGrowth');
+    expect(
+      strategy?.allocation.some((l) => !legRequiresCurrentRate(l.protocolId)),
+      'the fixture strategy must actually be heterogeneous, or this asserts nothing'
+    ).toBe(true);
+
+    renderAt(WITHIN_FIXTURE_WINDOW);
+    const meta = metaOf('stableGrowth');
+    expect(meta, 'the rate is withheld, so no rate clause may appear').not.toContain('pool rate');
+    expect(meta, 'the growth exposure still states a true property').toContain('30% growth');
+    /* The separator may only appear BETWEEN two clauses. */
+    expect(meta).not.toMatch(/(^|\s)·\s*\d+% growth/);
+  });
+
+  it('should KEEP the separator when a clause precedes the growth exposure', () => {
+    /**
+     * The other direction, so the fix cannot degrade into "never separate".
+     *
+     * MEASURED, not assumed: this catalogue has no growth strategy whose legs
+     * all owe a rate — every growth row carries at least one market leg — so
+     * the paired case is proven on the UNAVAILABLE row, which does render a
+     * left clause (`common.optionUnavailable`).
+     */
+    const allAccrualGrowth = STRATEGY_CATALOG.filter(
+      (s) =>
+        s.riskBand === 'growth' && s.allocation.every((l) => legRequiresCurrentRate(l.protocolId))
+    );
+    expect(allAccrualGrowth, 'if this stops being empty, assert the rate branch here too').toEqual(
+      []
+    );
+
+    renderAt(PAST_WINDOW);
+    const meta = metaOf('stableGrowth');
+    expect(meta).toContain('This option is not available right now');
+    expect(meta).toMatch(/·\s*\d+% growth/);
+  });
+});

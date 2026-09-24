@@ -34,6 +34,7 @@
  */
 
 import { isRefusedForCurrentFacingUse } from './currentFacing';
+import { legRequiresCurrentRate } from './catalogueEvidence';
 import type { UnavailableReason } from './evidence';
 import type { ProtocolApy, StrategyDef } from './types';
 
@@ -66,6 +67,25 @@ export function strategyRateAvailability(
 ): RateAvailability {
   const byId = new Map(apys.map((a) => [a.protocolId, a]));
   for (const leg of strategy.allocation) {
+    /**
+     * ⛑ `5.444` · A LEG IS ASKED FOR WHAT ITS RETURN MECHANISM PRODUCES.
+     *
+     * This loop demanded a current rate from EVERY leg. A market / price-return
+     * leg's return IS its price movement — an APY is not its return at all —
+     * so a rate it never owed could make the whole strategy unavailable. That
+     * was truthful under the previous contract and is an implementation gap
+     * under this one.
+     *
+     * The question comes from the leg's declared economics, never from its id:
+     * `jupiterJlp`, `sanctumInf` and `jito` are treated identically because
+     * they are typed identically, not because any of them is named.
+     *
+     * ⚑ THIS DECIDES AVAILABILITY ONLY. Whether a `Current pool rate` may be
+     * STATED is a different question with a different answer — see
+     * `strategyRateDisplay`. Collapsing the two is what let a secondary
+     * representation gate a whole strategy.
+     */
+    if (!legRequiresCurrentRate(leg.protocolId)) continue;
     const observation = byId.get(leg.protocolId);
     if (!observation) return { available: false, reason: 'NO_OBSERVATION' };
     if (isRefusedForCurrentFacingUse(observation.stamp, now)) {
