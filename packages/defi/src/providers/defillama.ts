@@ -23,8 +23,10 @@ import { fallbackFor } from '../fallbackEligibility';
 import { originOf } from '../evidenceOrigin';
 import { boundsRefusal } from '../evidenceBounds';
 import { recordSourceOutcome } from '../sourceHealth';
+import type { EvidenceReason } from '../evidenceObservability';
 import { domainIdentityOf, rateComposition, symbolSatisfies } from '../domainIdentity';
 import { buildHistoricalSeries } from '../historicalEvidence';
+import { recordEvidenceEvent } from '../evidenceObservability';
 
 const POOLS_URL = 'https://yields.llama.fi/pools';
 const CHART_URL = 'https://yields.llama.fi/chart/';
@@ -222,16 +224,34 @@ export class DefiLlamaApyProvider implements IApyProvider {
     /* Decided ONCE per call, not per leg: eligibility is a property of the
        subject and the sources, never of how many protocols were asked for. */
     const fixtureMayServe = this.mayServeFixture('APY_CURRENT');
-    const degrade = (protocolId: ProtocolId): ProtocolApy | null =>
-      fixtureMayServe ? fixtureFor(protocolId) : null;
+    /**
+     * ⛑ A DEGRADATION IS NOW VISIBLE (Block G).
+     *
+     * Every path into `degrade` is an honest one — a chain mismatch, a symbol
+     * the declared identity does not accept, an undeterminable composition, a
+     * failed fetch. Each was also SILENT: the leg simply came back on its
+     * fixture and nothing said so. Reporting changes no decision; it removes
+     * the silence.
+     */
+    const degrade = (protocolId: ProtocolId, reason: EvidenceReason): ProtocolApy | null => {
+      recordEvidenceEvent({
+        subject: 'APY_CURRENT',
+        source: SOURCE,
+        outcome: fixtureMayServe ? 'SERVED_FALLBACK' : 'REFUSED',
+        reason,
+      });
+      return fixtureMayServe ? fixtureFor(protocolId) : null;
+    };
 
     if (!pools) {
-      return protocolIds.map(degrade).filter((a): a is ProtocolApy => a !== null);
+      return protocolIds
+        .map((id) => degrade(id, 'FETCH_FAILED'))
+        .filter((a): a is ProtocolApy => a !== null);
     }
     const asOf = new Date(pools.at).toISOString(); // when fetched, not when served
     const resolved = protocolIds.map((protocolId) => {
       const match = matchPool(pools.value, POOL_MATCHERS[protocolId]);
-      if (!match) return degrade(protocolId);
+      if (!match) return degrade(protocolId, 'NO_OBSERVATION');
       /**
        * `5.406`/`5.407` §3 · THE OBSERVATION MUST AGREE WITH PRODUCT IDENTITY.
        *
@@ -248,7 +268,7 @@ export class DefiLlamaApyProvider implements IApyProvider {
        */
       const observed = match.chain as ProtocolApy['chain'] | undefined;
       if (!observed || observed !== CURRENT_CATALOG_PROTOCOL_NETWORK[protocolId])
-        return degrade(protocolId);
+        return degrade(protocolId, 'IDENTITY_MISMATCH');
       /**
        * ⛑ THE OBSERVATION MUST SATISFY THE LEG'S DECLARED IDENTITY (Block B).
        *
@@ -264,7 +284,7 @@ export class DefiLlamaApyProvider implements IApyProvider {
         identity.kind === 'lending'
           ? symbolSatisfies(identity, observedSymbol)
           : observedSymbol.trim().toUpperCase() === identity.symbol.toUpperCase();
-      if (!satisfies) return degrade(protocolId);
+      if (!satisfies) return degrade(protocolId, 'IDENTITY_NOT_SATISFIED');
       /**
        * ⛑ AN AMBIGUOUS RATE IS NOT ACCEPTABLE EVIDENCE (M&E).
        *
@@ -274,13 +294,15 @@ export class DefiLlamaApyProvider implements IApyProvider {
        * same path a chain or symbol mismatch already takes.
        */
       const composition = rateComposition(match);
-      if (composition === 'UNDETERMINED') return degrade(protocolId);
+      if (composition === 'UNDETERMINED') return degrade(protocolId, 'COMPOSITION_UNDETERMINED');
       /* §10 validation · plausible domain bounds. A rate outside them is a
          payload defect, so the LIVE observation is refused and the leg takes
          the same documented-fixture path a chain mismatch already takes. It is
          never clamped into range: a clamped rate is a fabricated rate. */
       const apyPercent = match.apy as number;
-      if (boundsRefusal('APY_CURRENT', apyPercent) !== null) return degrade(protocolId);
+      const refusal = boundsRefusal('APY_CURRENT', apyPercent);
+      if (refusal !== null) return degrade(protocolId, refusal);
+      recordEvidenceEvent({ subject: 'APY_CURRENT', source: SOURCE, outcome: 'SERVED_PRIMARY' });
       return {
         protocolId,
         apyPercent,
