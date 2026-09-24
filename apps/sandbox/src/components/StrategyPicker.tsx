@@ -14,18 +14,77 @@ import {
   type RiskBand,
   type StrategyDef,
 } from '@diboas/defi';
+import { isRefusedForCurrentFacingUse, legRequiresCurrentRate } from '@diboas/defi';
 import { LucideIcon } from './LucideIcon';
 import styles from './StrategyPicker.module.css';
 
-/** Blended current APY for a strategy from live per-protocol APYs. */
-export function blendedApy(strategy: StrategyDef, apys: ProtocolApy[]): Decimal {
+/**
+ * Whether a strategy has a displayable `Current pool rate`, and what it is.
+ *
+ * ⛑ `5.444` · REPLACES `blendedApy`, WHICH COULD NOT REFUSE.
+ *
+ * The old function returned a bare `Decimal` and read
+ * `byId.get(leg.protocolId)?.apyPercent ?? 0` — so a leg with no APY silently
+ * contributed **zero** to a rate a user reads. That was invisible only because
+ * the availability gate happened to stop the number rendering; S3 removes that
+ * accident, and a `MISSING -> 0` understatement would have shipped with it.
+ *
+ * ⚑ A DISCRIMINATED RESULT, so the wrong answer is not representable. There is
+ * no code path that yields a number for a strategy that must show none.
+ *
+ * Strategy's ruling: `"Current pool rate"` is an APY-SPECIFIC SECONDARY
+ * representation, never a universal whole-strategy return metric.
+ *
+ * ```text
+ * PURE ACCRUAL + every required rate valid  -> displayable, unchanged to the cent
+ *   where VALID means present, finite AND inside the current-facing vintage
+ * HETEROGENEOUS (any market leg)            -> OMITTED — a market leg's return is
+ *                                              its price, and no blend of rates
+ *                                              can describe it
+ * MISSING a REQUIRED accrual rate           -> WITHHELD, never zero-filled
+ * ```
+ *
+ * Renormalising over the accrual legs is explicitly refused: it would silently
+ * change what the number MEANS while leaving its label identical.
+ */
+export type StrategyRateDisplay =
+  | { readonly displayable: true; readonly apy: Decimal }
+  | { readonly displayable: false; readonly reason: 'HETEROGENEOUS' | 'MISSING_REQUIRED_RATE' };
+
+export function strategyRateDisplay(
+  strategy: StrategyDef,
+  apys: ProtocolApy[],
+  /**
+   * The current-facing reference moment. REQUIRED, and not defaulted.
+   *
+   * ⛑ Added after the `5.436` guard caught this function rendering a STALE
+   * number: presence and finiteness are not validity. A rate refused for
+   * current-facing use is exactly the "stale number" that ruling forbids, and a
+   * displayable-rate check that cannot see a clock cannot refuse one. Silence
+   * must not mean "unenforced".
+   */
+  now: Date | string
+): StrategyRateDisplay {
   const byId = new Map(apys.map((a) => [a.protocolId, a]));
   let total = new Decimal(0);
   for (const leg of strategy.allocation) {
-    const apy = byId.get(leg.protocolId)?.apyPercent ?? 0;
-    total = total.plus(new Decimal(apy).mul(leg.weightPercent).div(100));
+    /* Asked of the leg's own economics, never of its id. */
+    if (!legRequiresCurrentRate(leg.protocolId)) {
+      return { displayable: false, reason: 'HETEROGENEOUS' };
+    }
+    const observation = byId.get(leg.protocolId);
+    const observed = observation?.apyPercent;
+    if (
+      !observation ||
+      typeof observed !== 'number' ||
+      !Number.isFinite(observed) ||
+      isRefusedForCurrentFacingUse(observation.stamp, now)
+    ) {
+      return { displayable: false, reason: 'MISSING_REQUIRED_RATE' };
+    }
+    total = total.plus(new Decimal(observed).mul(leg.weightPercent).div(100));
   }
-  return total;
+  return { displayable: true, apy: total };
 }
 
 /** Exported for the composed-id gate (CID-1): `catalogFilters.horizonBand.${band}`. */
@@ -188,7 +247,7 @@ export function StrategyPicker({
              * does not support. Unavailability is stated on the row instead.
              */
             const rate = strategyRateAvailability(strategy, apys, now);
-            const apy = blendedApy(strategy, apys);
+            const rateDisplay = strategyRateDisplay(strategy, apys, now);
             // The shared three-state predicate (§3-A): the row's rate line says
             // what the number IS — "real" is reserved for the all-live state.
             const provenance = strategyProvenance(strategy, apys);
@@ -198,6 +257,18 @@ export function StrategyPicker({
                 : provenance.state === 'mixed'
                   ? 'goalNew.apyNowMixed'
                   : 'goalNew.apyNowFixture';
+            /**
+             * ⛑ `5.444` · THE SEPARATOR NEEDS SOMETHING ON ITS LEFT.
+             *
+             * The meta line is `<rate clause> · <growth exposure>`, and the
+             * middot is punctuation BETWEEN two clauses. S2 made the rate
+             * clause conditional without making its separator conditional too,
+             * so every heterogeneous growth row rendered a leading orphan mark
+             * — `· 30% growth exposure` — in all four locales. Found by the
+             * Part E pass at 375px/DE, not by any test, which is why the
+             * render is now asserted in `StrategyPicker.test.tsx`.
+             */
+            const metaHasLeadingClause = rateDisplay.displayable || !rate.available;
             const checked = selectedId === strategy.id;
             return (
               <li key={strategy.id}>
@@ -241,22 +312,29 @@ export function StrategyPicker({
                       <FormattedMessage id={`catalog.strategies.${strategy.i18nKey}.tagline`} />
                     </span>
                     <span className={styles.meta}>
-                      {rate.available ? (
+                      {/* ⛑ `5.444` · RATE-DISPLAYABLE, not AVAILABILITY. These are two
+                          different questions after the typed contract: a strategy may be
+                          perfectly available while having no rate to state, because its
+                          market leg's return is a price. Asking `rate.available` here
+                          would render a blended number for exactly those strategies. */}
+                      {rateDisplay.displayable ? (
                         <FormattedMessage
                           id={apyMessageId}
-                          values={{ apy: apy.toDecimalPlaces(2).toNumber() }}
+                          values={{ apy: rateDisplay.apy.toDecimalPlaces(2).toNumber() }}
                         />
-                      ) : (
+                      ) : rate.available ? null : (
                         /* The Brand/localization-approved GENERIC state (P06
                            §48.1), reused verbatim — never APY-specific copy,
-                           and never a bare dash, which says nothing. */
+                           and never a bare dash, which says nothing. Reserved for a
+                           genuinely UNAVAILABLE strategy; an available strategy with no
+                           rate simply states no rate. */
                         <FormattedMessage id="common.optionUnavailable" />
                       )}
                       {/* Growth exposure is a property of the STRATEGY, not of
                           today's rate, so it stays true and stays rendered. */}
                       {strategy.riskBand === 'growth' ? (
                         <>
-                          {' · '}
+                          {metaHasLeadingClause ? ' · ' : null}
                           <FormattedMessage
                             id="goalNew.growthExposure"
                             values={{ percent: strategy.growthExposurePercent }}
@@ -268,7 +346,7 @@ export function StrategyPicker({
                         current reading, never a promise of what comes next. It
                         describes a rate, so it is withheld when there is no
                         rate to describe. */}
-                    {rate.available ? (
+                    {rateDisplay.displayable ? (
                       <span className={styles.varies}>
                         <FormattedMessage id="catalogFilters.varies" />
                       </span>

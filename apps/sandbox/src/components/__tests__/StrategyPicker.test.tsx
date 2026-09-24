@@ -5,7 +5,13 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { describe, expect, it, vi } from 'vitest';
 import type { ProtocolApy, ProtocolId } from '@diboas/defi';
-import { STRATEGY_CATALOG, FIXTURE_STAMP } from '@diboas/defi';
+import {
+  STRATEGY_CATALOG,
+  FIXTURE_STAMP,
+  horizonBandForMonths,
+  legRequiresCurrentRate,
+  strategiesForHorizon,
+} from '@diboas/defi';
 import { StrategyPicker } from '../StrategyPicker';
 
 /**
@@ -124,10 +130,33 @@ describe('StrategyPicker — the G5 catalog (§4.5, mockup 13, board §3.5 embed
     expect(onSelect).not.toHaveBeenCalled();
   });
 
-  it('should render the never-advises footer and the "Varies" line on every row', () => {
+  it('should render the never-advises footer, and "Varies" on exactly the rows that HAVE a rate', () => {
+    /**
+     * ⛑ RESTATED FOR `5.444`, NOT WEAKENED.
+     *
+     * This asserted `Varies` on EVERY row, which was true only while every
+     * listed strategy had a rate to vary. A market / price-return leg's return
+     * is its PRICE, so a heterogeneous strategy states no `Current pool rate` —
+     * and `Varies` describes a rate, so it goes where the rate goes. The
+     * component's own comment already said so: *"It describes a rate, so it is
+     * withheld when there is no rate to describe."*
+     *
+     * The expectation is DERIVED from the catalogue rather than hard-coded, so
+     * adding a strategy or changing a leg's return model moves it automatically
+     * instead of silently disagreeing.
+     */
     renderPicker({ horizonMonths: 6 });
     expect(screen.getByText('You choose. diBoaS never advises.')).toBeTruthy();
-    expect(screen.getAllByText('Varies')).toHaveLength(4);
+
+    const listed = strategiesForHorizon(horizonBandForMonths(6));
+    const withARate = listed.filter((st) =>
+      st.allocation.every((leg) => legRequiresCurrentRate(leg.protocolId))
+    );
+    /* Non-vacuity: the horizon must list BOTH kinds, or this proves nothing. */
+    expect(listed.length).toBeGreaterThan(withARate.length);
+    expect(withARate.length).toBeGreaterThan(0);
+
+    expect(screen.getAllByText('Varies')).toHaveLength(withARate.length);
   });
 
   it('should compose both filters (horizon AND risk), never either alone', () => {
@@ -322,5 +351,81 @@ describe('5.436 — an unavailable rate hides the number, never the candidate', 
     const rendered = (screen.getAllByRole('radio') as HTMLInputElement[]).map((r) => r.value);
     const expected = STRATEGY_CATALOG.filter((s) => rendered.includes(s.id)).map((s) => s.id);
     expect(rendered).toEqual(expected);
+  });
+});
+
+describe('`5.444` · the meta line reads as a sentence, not as punctuation', () => {
+  /**
+   * S2 made the rate clause conditional and left its separator unconditional,
+   * so every heterogeneous growth row rendered a leading orphan middot in all
+   * four locales. The Part E pass at 375px/DE found it; no test did. These
+   * assert the RENDERED string, because the defect lives entirely in what the
+   * row reads like — a class name or a flag could not have caught it.
+   */
+  const PAST_WINDOW = '2026-09-22T00:00:00Z';
+  const WITH_UNAVAILABLE = {
+    ...M,
+    ...NAMES,
+    ...TAGLINES,
+    'common.optionUnavailable': 'This option is not available right now',
+  };
+
+  function renderAt(now: string) {
+    render(
+      <IntlProvider locale="en" messages={WITH_UNAVAILABLE} onError={() => {}}>
+        <StrategyPicker
+          horizonMonths={6}
+          apys={APYS}
+          selectedId={null}
+          onSelect={vi.fn()}
+          now={now}
+        />
+      </IntlProvider>
+    );
+  }
+
+  function metaOf(strategyId: string): string {
+    const radio = screen.getByDisplayValue(strategyId);
+    const row = radio.closest('label') as HTMLElement;
+    return row.textContent ?? '';
+  }
+
+  it('should NOT lead the growth-exposure clause with an orphan separator when the rate is withheld', () => {
+    /* stableGrowth is heterogeneous: available, and with no rate to state. */
+    const strategy = STRATEGY_CATALOG.find((s) => s.id === 'stableGrowth');
+    expect(
+      strategy?.allocation.some((l) => !legRequiresCurrentRate(l.protocolId)),
+      'the fixture strategy must actually be heterogeneous, or this asserts nothing'
+    ).toBe(true);
+
+    renderAt(WITHIN_FIXTURE_WINDOW);
+    const meta = metaOf('stableGrowth');
+    expect(meta, 'the rate is withheld, so no rate clause may appear').not.toContain('pool rate');
+    expect(meta, 'the growth exposure still states a true property').toContain('30% growth');
+    /* The separator may only appear BETWEEN two clauses. */
+    expect(meta).not.toMatch(/(^|\s)·\s*\d+% growth/);
+  });
+
+  it('should KEEP the separator when a clause precedes the growth exposure', () => {
+    /**
+     * The other direction, so the fix cannot degrade into "never separate".
+     *
+     * MEASURED, not assumed: this catalogue has no growth strategy whose legs
+     * all owe a rate — every growth row carries at least one market leg — so
+     * the paired case is proven on the UNAVAILABLE row, which does render a
+     * left clause (`common.optionUnavailable`).
+     */
+    const allAccrualGrowth = STRATEGY_CATALOG.filter(
+      (s) =>
+        s.riskBand === 'growth' && s.allocation.every((l) => legRequiresCurrentRate(l.protocolId))
+    );
+    expect(allAccrualGrowth, 'if this stops being empty, assert the rate branch here too').toEqual(
+      []
+    );
+
+    renderAt(PAST_WINDOW);
+    const meta = metaOf('stableGrowth');
+    expect(meta).toContain('This option is not available right now');
+    expect(meta).toMatch(/·\s*\d+% growth/);
   });
 });

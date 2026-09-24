@@ -641,6 +641,33 @@ describe('5.436 — an unavailable rate blocks the commit, not the reading', () 
     expect(screen.queryByText(/Reference pool rate/)).toBeNull();
   });
 
+  it('should withhold the PROVENANCE QUALIFIER wherever it withholds the number', () => {
+    /**
+     * ⛑ ADDED IN S2 AFTER A SABOTAGE FAILED TO FAIL (`5.444`).
+     *
+     * Mutating the qualifier's condition to render unconditionally broke
+     * nothing — nothing asserted that the sentence goes with the number it
+     * explains. A provenance line rendered beside an absent rate is prose
+     * describing something that is not on screen: it would say "Current pool
+     * rate: …%/yr (real, variable)" about a rate the surface refuses to state.
+     *
+     * Sabotage: make the qualifier unconditional and this fails.
+     */
+    renderDetail();
+    /**
+     * ⚑ THE QUALIFIER LIVES IN THE *DETAILED* VIEW. A first version of this
+     * test asserted against the default `simple` view, where that element never
+     * renders at all — so the sabotage (making the qualifier unconditional)
+     * passed, and the guard asserted nothing. Switch views first, then look.
+     */
+    fireEvent.click(screen.getByText('Detailed'));
+    /* Non-vacuity: the detailed view must actually be showing. */
+    expect(screen.getByText('Current APY')).toBeTruthy();
+    for (const qualifier of [/Current pool rate:/, /Blended pool rate:/, /Reference pool rate:/]) {
+      expect(screen.queryByText(qualifier), String(qualifier)).toBeNull();
+    }
+  });
+
   it('should show no 0%, no stale figure, no fabricated estimate', () => {
     renderDetail();
     const body = document.body.textContent ?? '';

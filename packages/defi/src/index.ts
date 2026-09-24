@@ -52,6 +52,12 @@ export { isSourceUsable } from './providerDisposition';
  * same discipline the provider-safety modules follow.
  */
 export { mayPersistNormalized } from './sourcePersistenceRights';
+/**
+ * `5.444` · the catalogue's evidence question. `apps/sandbox`'s rate blend is its
+ * consumer outside this package; the requirement TYPE and the resolver stay internal,
+ * so Product asks the predicate and never re-derives the mapping.
+ */
+export { legRequiresCurrentRate } from './catalogueEvidence';
 export { FixtureGasProvider } from './providers/gas';
 export {
   NETWORK_COST_NATIVE_UNIT,
