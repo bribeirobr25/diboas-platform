@@ -5,7 +5,13 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { describe, expect, it, vi } from 'vitest';
 import type { ProtocolApy, ProtocolId } from '@diboas/defi';
-import { STRATEGY_CATALOG, FIXTURE_STAMP } from '@diboas/defi';
+import {
+  STRATEGY_CATALOG,
+  FIXTURE_STAMP,
+  horizonBandForMonths,
+  legRequiresCurrentRate,
+  strategiesForHorizon,
+} from '@diboas/defi';
 import { StrategyPicker } from '../StrategyPicker';
 
 /**
@@ -124,10 +130,33 @@ describe('StrategyPicker — the G5 catalog (§4.5, mockup 13, board §3.5 embed
     expect(onSelect).not.toHaveBeenCalled();
   });
 
-  it('should render the never-advises footer and the "Varies" line on every row', () => {
+  it('should render the never-advises footer, and "Varies" on exactly the rows that HAVE a rate', () => {
+    /**
+     * ⛑ RESTATED FOR `5.444`, NOT WEAKENED.
+     *
+     * This asserted `Varies` on EVERY row, which was true only while every
+     * listed strategy had a rate to vary. A market / price-return leg's return
+     * is its PRICE, so a heterogeneous strategy states no `Current pool rate` —
+     * and `Varies` describes a rate, so it goes where the rate goes. The
+     * component's own comment already said so: *"It describes a rate, so it is
+     * withheld when there is no rate to describe."*
+     *
+     * The expectation is DERIVED from the catalogue rather than hard-coded, so
+     * adding a strategy or changing a leg's return model moves it automatically
+     * instead of silently disagreeing.
+     */
     renderPicker({ horizonMonths: 6 });
     expect(screen.getByText('You choose. diBoaS never advises.')).toBeTruthy();
-    expect(screen.getAllByText('Varies')).toHaveLength(4);
+
+    const listed = strategiesForHorizon(horizonBandForMonths(6));
+    const withARate = listed.filter((st) =>
+      st.allocation.every((leg) => legRequiresCurrentRate(leg.protocolId))
+    );
+    /* Non-vacuity: the horizon must list BOTH kinds, or this proves nothing. */
+    expect(listed.length).toBeGreaterThan(withARate.length);
+    expect(withARate.length).toBeGreaterThan(0);
+
+    expect(screen.getAllByText('Varies')).toHaveLength(withARate.length);
   });
 
   it('should compose both filters (horizon AND risk), never either alone', () => {

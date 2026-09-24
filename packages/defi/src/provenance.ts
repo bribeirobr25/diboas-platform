@@ -18,6 +18,7 @@
 import type { Actionability, Availability, CostCoverage, UnavailableReason } from './evidence';
 import type { DataStamp, EvidenceOrigin, ProtocolApy, StrategyDef } from './types';
 import { isLiveObservation } from './types';
+import { legRequiresCurrentRate } from './catalogueEvidence';
 
 export type ProvenanceState = 'live' | 'mixed' | 'fixture';
 
@@ -136,6 +137,18 @@ export function strategyProvenance(
   const fixtureProtocolIds: string[] = [];
   const liveObservations: DataStamp[] = [];
   for (const leg of strategy.allocation) {
+    /**
+     * ⛑ `5.444` · THE APY AXIS DESCRIBES ONLY LEGS THAT OWE A RATE.
+     *
+     * A market / price-return leg's return is its PRICE; no current rate is
+     * required of it and none participates in the displayed figure. Counting it
+     * here would make the qualifier describe evidence the number does not
+     * contain — and the `mixed` copy NAMES these legs ("reference values for:
+     * …"), so it would state, in four locales, that a rate was built from
+     * something it was not built from. The axis is scoped to the legs the
+     * catalogue actually asks for a rate.
+     */
+    if (!legRequiresCurrentRate(leg.protocolId)) continue;
     const apy = byId.get(leg.protocolId);
     /**
      * `5.440` · LIVENESS IS A PROPERTY OF THE STAMP, NEVER THE PROVIDER'S NAME.

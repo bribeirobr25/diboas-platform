@@ -21,7 +21,7 @@ import { Card } from './Card';
 import { LucideIcon } from './LucideIcon';
 import { SegmentedToggle } from './SegmentedToggle';
 import { Sparkline } from './Sparkline';
-import { blendedApy } from './StrategyPicker';
+import { strategyRateDisplay } from './StrategyPicker';
 import styles from './StrategyDetail.module.css';
 
 type View = 'simple' | 'detailed';
@@ -79,7 +79,6 @@ export function StrategyDetail({
   const [requestedTimeframe, setRequestedTimeframe] = useState<ChartTimeframe>(90);
 
   const strategyName = intl.formatMessage({ id: `catalog.strategies.${strategy.i18nKey}.name` });
-  const apy = blendedApy(strategy, apys);
   /* This surface renders the NETWORK FEE as well as the rates, so its stamp
      must cover the gas source too (GAS-1) — a live-rate strategy with a
      fixture fee is `mixed`, not `live`. */
@@ -89,6 +88,7 @@ export function StrategyDetail({
      across a policy boundary mid-session; the same pattern the weekly-cycle and
      month-report screens use for their own clocks. */
   const nowIso = useMemo(() => new Date().toISOString(), []);
+  const rateDisplay = strategyRateDisplay(strategy, apys, nowIso);
   const fee = networkFeeLocal(gas, strategy, usdPriceLocal, nowIso);
   /**
    * ⛑ `5.436` · the RATE half of the same age contract, through the SAME
@@ -380,14 +380,16 @@ export function StrategyDetail({
               <FormattedMessage id="strategyDetail.howItsDoing" />
             </p>
             <p className={styles.behaveLead}>
-              {rate.available ? (
+              {/* ⛑ `5.444` · RATE-DISPLAYABLE, not AVAILABILITY. */}
+              {rateDisplay.displayable ? (
                 <FormattedMessage
                   id={apyMessageId}
-                  values={{ apy: apy.toDecimalPlaces(2).toNumber() }}
+                  values={{ apy: rateDisplay.apy.toDecimalPlaces(2).toNumber() }}
                 />
-              ) : (
+              ) : rate.available ? null : (
                 /* `5.436`: the approved GENERIC state, never a stale number,
-                   never 0%, never a bare dash. */
+                   never 0%, never a bare dash. Reserved for a genuinely
+                   unavailable strategy. */
                 <FormattedMessage id="common.optionUnavailable" />
               )}
             </p>
@@ -418,10 +420,10 @@ export function StrategyDetail({
             <span className={styles.apyLabel}>
               <FormattedMessage id="strategyDetail.currentApy" />
             </span>
-            {rate.available ? (
+            {rateDisplay.displayable ? (
               <>
                 <span className={styles.apyValue}>
-                  {intl.formatNumber(apy.toDecimalPlaces(2).toNumber(), {
+                  {intl.formatNumber(rateDisplay.apy.toDecimalPlaces(2).toNumber(), {
                     maximumFractionDigits: 2,
                   })}
                   %
@@ -439,11 +441,14 @@ export function StrategyDetail({
               </span>
             )}
           </div>
-          {rate.available ? (
+          {/* ⛑ `5.444` · THE QUALIFIER GOES WITH THE NUMBER. This sentence explains
+              where a rate came from; rendering it without the rate would leave prose
+              describing something that is not on screen. */}
+          {rateDisplay.displayable ? (
             <p className={styles.apyProvenance}>
               <FormattedMessage
                 id={apyMessageId}
-                values={{ apy: apy.toDecimalPlaces(2).toNumber() }}
+                values={{ apy: rateDisplay.apy.toDecimalPlaces(2).toNumber() }}
               />
             </p>
           ) : null}
