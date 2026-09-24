@@ -52,14 +52,43 @@ describe('EXTERNAL SOURCE ≠ OBSERVED — production may not use the fixture he
     expect(offenders.map((f) => f.replace(SRC, ''))).toEqual([]);
   });
 
-  it('should stamp every production provider reading with an EXPLICIT origin', () => {
-    /* The positive half: the four production stamping sites each name their
-       origin at the call site rather than inheriting one. */
+  it('should stamp every production provider reading with a DETERMINED origin', () => {
+    /**
+     * ⛑ THE RULE WAS RESTATED, NOT RELAXED (Block A · D2).
+     *
+     * This assertion used to require an origin LITERAL at the call site, which
+     * encoded the old implementation rather than the rule. Canon requires that
+     * an origin be DETERMINED from what the source supplies — `EXTERNAL SOURCE
+     * ≠ AUTOMATICALLY OBSERVED` — and a literal cannot carry a determination's
+     * basis. Production now reads `originOf(SOURCE, subject)` from an
+     * exhaustive table whose entries state their reasoning.
+     *
+     * The rule enforced here is unchanged in strength: every stamping site must
+     * NAME its origin, and silence must never mean observed. What changed is
+     * that a lookup now counts as naming it, and a bare literal no longer does.
+     */
     for (const provider of ['providers/defillama.ts', 'providers/coingecko.ts']) {
       const src = readFileSync(join(SRC, provider), 'utf8');
       const stamps = src.match(/evidenceStamp\(\{[\s\S]*?\}\)/g) ?? [];
       expect(stamps.length, provider).toBeGreaterThan(0);
-      for (const call of stamps) expect(call, provider).toMatch(/origin:\s*'/);
+      for (const call of stamps) expect(call, provider).toMatch(/origin:\s*originOf\(/);
+    }
+  });
+
+  it('should have NO hard-coded origin literal left in a production provider', () => {
+    /**
+     * The negative half of D2, and the one that would catch a regression.
+     *
+     * A future adapter edit that types `origin: 'OBSERVED'` back into place
+     * would restore precisely the defect Block A removed: a constant standing
+     * in for a determination, with no basis recorded anywhere.
+     *
+     * Sabotage: put `origin: 'OBSERVED'` back into either provider and this
+     * fails, naming the file.
+     */
+    for (const provider of ['providers/defillama.ts', 'providers/coingecko.ts']) {
+      const src = readFileSync(join(SRC, provider), 'utf8');
+      expect(src.match(/origin:\s*'[A-Z_]+'/g) ?? [], provider).toEqual([]);
     }
   });
 });

@@ -20,6 +20,9 @@ import { PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 import { createRevalidatingCache, type RevalidatedEntry } from './revalidatingCache';
 import { permitsUse } from '../providerDisposition';
 import { fallbackFor } from '../fallbackEligibility';
+import { originOf } from '../evidenceOrigin';
+import { boundsRefusal } from '../evidenceBounds';
+import { recordSourceOutcome } from '../sourceHealth';
 
 const POOLS_URL = 'https://yields.llama.fi/pools';
 const CHART_URL = 'https://yields.llama.fi/chart/';
@@ -198,7 +201,9 @@ export class DefiLlamaApyProvider implements IApyProvider {
     if (permitsUse(SOURCE, 'NEW_COLLECTION', this.alsoDisabled)) {
       try {
         pools = await fetchPools(this.fetchImpl, this.timeoutMs);
+        recordSourceOutcome(SOURCE, 'SUCCESS');
       } catch {
+        recordSourceOutcome(SOURCE, 'FAILURE');
         pools = null;
       }
     }
@@ -232,12 +237,22 @@ export class DefiLlamaApyProvider implements IApyProvider {
       const observed = match.chain as ProtocolApy['chain'] | undefined;
       if (!observed || observed !== CURRENT_CATALOG_PROTOCOL_NETWORK[protocolId])
         return degrade(protocolId);
+      /* §10 validation · plausible domain bounds. A rate outside them is a
+         payload defect, so the LIVE observation is refused and the leg takes
+         the same documented-fixture path a chain mismatch already takes. It is
+         never clamped into range: a clamped rate is a fabricated rate. */
+      const apyPercent = match.apy as number;
+      if (boundsRefusal('APY_CURRENT', apyPercent) !== null) return degrade(protocolId);
       return {
         protocolId,
-        apyPercent: match.apy as number,
+        apyPercent,
         tvlUsd: match.tvlUsd,
         chain: observed,
-        stamp: evidenceStamp({ source: SOURCE, origin: 'OBSERVED', asOf }),
+        /* Determined, not typed — see `evidenceOrigin.ts`. That entry also
+           records that this subject's SEMANTICS (supply/borrow, base/incentive,
+           native/bridged) remain undetermined until Block B; origin and
+           semantics are separate questions and only the first is answered. */
+        stamp: evidenceStamp({ source: SOURCE, origin: originOf(SOURCE, 'APY_CURRENT'), asOf }),
       };
     });
     /* A refused leg is OMITTED, never zero-filled: an absent observation is
@@ -252,6 +267,7 @@ export class DefiLlamaApyProvider implements IApyProvider {
         throw new Error('source may not collect');
       }
       const pools = await fetchPools(this.fetchImpl, this.timeoutMs);
+      recordSourceOutcome(SOURCE, 'SUCCESS');
       const match = matchPool(pools.value, POOL_MATCHERS[protocolId]);
       if (!match) throw new Error('no pool match');
 
@@ -264,20 +280,27 @@ export class DefiLlamaApyProvider implements IApyProvider {
           data?: Array<{ timestamp: string; apy: number | null }>;
         };
         if (!Array.isArray(body.data)) throw new Error('defillama /chart: unexpected shape');
-        return body.data
+        const points = body.data
           .filter((d) => typeof d.apy === 'number')
           .map((d) => ({ date: d.timestamp.slice(0, 10), apyPercent: d.apy as number }));
+        /* §10 bounds, ALL-OR-NOTHING for a series (`5.105`): one corrupt point
+           makes the series unavailable rather than a silent hole. */
+        if (points.some((pt) => boundsRefusal('APY_HISTORY', pt.apyPercent) !== null)) {
+          throw new Error('defillama /chart: point outside plausible bounds');
+        }
+        return points;
       });
       return {
         protocolId,
         points: entry.value.slice(-days),
         stamp: evidenceStamp({
-          source: 'defillama',
-          origin: 'OBSERVED',
+          source: SOURCE,
+          origin: originOf(SOURCE, 'APY_HISTORY'),
           asOf: new Date(entry.at).toISOString(),
         }),
       };
     } catch {
+      recordSourceOutcome(SOURCE, 'FAILURE');
       /**
        * Honest degraded mode — but only if a fallback is ELIGIBLE.
        *

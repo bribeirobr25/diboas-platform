@@ -29,6 +29,9 @@ import { evidenceStamp } from '../types';
 import { createRevalidatingCache, type RevalidatedEntry } from './revalidatingCache';
 import { permitsUse } from '../providerDisposition';
 import { fallbackFor } from '../fallbackEligibility';
+import { originOf } from '../evidenceOrigin';
+import { boundsRefusal } from '../evidenceBounds';
+import { recordSourceOutcome } from '../sourceHealth';
 import { PROTOCOL_RETURN_MODEL, PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
 
 const API_BASE = 'https://api.coingecko.com/api/v3';
@@ -94,20 +97,34 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
         throw new Error('source may not collect');
       }
       const entry = await this.fetchAll();
+      recordSourceOutcome(SOURCE, 'SUCCESS');
       // When fetched, not when served (Data Vintage P-4) — see defillama.ts.
       const asOf = new Date(entry.at).toISOString();
-      return assetIds.map((assetId) => {
+      const quotes = assetIds.map((assetId): PriceQuote | null => {
         const row = entry.value[COINGECKO_IDS[assetId]];
         const price = row?.[VS[currency]];
         if (typeof price !== 'number') throw new Error(`missing price ${assetId}/${currency}`);
+        /* §10 validation · plausible domain bounds. A corrupt price is REFUSED,
+           never clamped into range — a clamped value is a fabricated one. The
+           refusal reuses the existing per-leg omission below, so one bad asset
+           cannot take the whole currency offline. */
+        if (boundsRefusal('PRICE_CURRENT', price) !== null) return null;
         return {
           assetId,
           currency,
           price,
-          stamp: evidenceStamp({ source: SOURCE, origin: 'OBSERVED', asOf }),
+          /* The origin is LOOKED UP, not typed. `EXTERNAL SOURCE ≠ OBSERVED`
+             (Strategy §5 · M&E Patch C · Product Patch B · Legal §3B ·
+             Refresh §9): what this source supplies is a determination recorded
+             in `evidenceOrigin.ts` with its basis, not a literal here. */
+          stamp: evidenceStamp({ source: SOURCE, origin: originOf(SOURCE, 'PRICE_CURRENT'), asOf }),
         };
       });
+      /* Refused legs are OMITTED, never zero-filled — the same rule the catch
+         block below already applies, now reached by a bounds refusal too. */
+      return quotes.filter((q): q is PriceQuote => q !== null);
     } catch {
+      recordSourceOutcome(SOURCE, 'FAILURE');
       /* Refused legs are OMITTED, never zero-filled. `usdPriceLocal` then
          resolves to null, which `networkFeeLocal` already treats as "no rate" —
          the cost row is WITHHELD rather than computed against a fabricated 1:1
@@ -176,18 +193,26 @@ export class CoinGeckoPriceProvider implements IPriceProvider {
           date: new Date(ms).toISOString().slice(0, 10),
           priceUsd,
         }));
+        /* §10 bounds, ALL-OR-NOTHING for a series. One corrupt sample makes the
+           SERIES unavailable rather than a hole silently interpolated — the
+           `5.105` discipline, which the replay already depends on. */
+        if (points.some((pt) => boundsRefusal('PRICE_HISTORY', pt.priceUsd) !== null)) {
+          throw new Error('coingecko market_chart: point outside plausible bounds');
+        }
         return points;
       });
+      recordSourceOutcome(SOURCE, 'SUCCESS');
       return {
         protocolId,
         points: entry.value.slice(-days),
         stamp: evidenceStamp({
           source: SOURCE,
-          origin: 'OBSERVED',
+          origin: originOf(SOURCE, 'PRICE_HISTORY'),
           asOf: new Date(entry.at).toISOString(),
         }),
       };
     } catch {
+      recordSourceOutcome(SOURCE, 'FAILURE');
       /* Eligibility first; a refused fallback is `null`, not a synthetic series. */
       if (!this.mayServeFixture('PRICE_HISTORY')) return null;
       return {
