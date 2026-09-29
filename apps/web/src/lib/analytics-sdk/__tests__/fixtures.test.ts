@@ -10,6 +10,11 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
+import {
+  STALENESS_LIMIT_DAYS,
+  ageInDays,
+  stalenessVerdict,
+} from '../../../../scripts/market-refresh/lib/staleness.mjs';
 
 import constructive from '../fixtures/regime-constructive.json';
 import veryFavorable from '../fixtures/regime-very-favorable.json';
@@ -277,10 +282,46 @@ describe('editorial dataset — regime schema drift guard', () => {
   });
 
   it('should expose last_updated_at within 14 days of CI run (staleness gate)', () => {
-    const updatedAt = new Date((editorialRegime as AnyRecord).last_updated_at as string).getTime();
-    expect(Number.isFinite(updatedAt)).toBe(true);
-    const ageDays = (Date.now() - updatedAt) / (1000 * 60 * 60 * 24);
-    expect(ageDays).toBeLessThan(14);
+    // SCOPED BACKSTOP (5.468, founder-ruled 2026-09-29). This assertion is a
+    // wall-clock check, so it used to fail EVERY lane's CI the day /market data
+    // turned 14 days old — a market editorial delay froze unrelated work (it
+    // would have tripped at 2026-09-29 13:20 UTC). It now BLOCKS only where
+    // MARKET_STALENESS_ENFORCE=1: the weekly refresh workflow and the CI step
+    // that runs when a change touches market data or code. Everywhere else it
+    // WARNS, loudly, and passes. The backstop itself is unchanged.
+    const stamp = (editorialRegime as AnyRecord).last_updated_at as string;
+    expect(Number.isFinite(Date.parse(stamp))).toBe(true);
+    const ageDays = ageInDays(stamp);
+    const verdict = stalenessVerdict(ageDays, process.env.MARKET_STALENESS_ENFORCE === '1');
+    if (verdict === 'warn') {
+      const msg =
+        `/market data is ${ageDays.toFixed(1)} days old (limit ${STALENESS_LIMIT_DAYS}). ` +
+        `Not blocking this change (it does not touch market data or code); ` +
+        `merge the open weekly refresh PR.`;
+      // Local runs only: the vitest reporter hides a PASSING test's console
+      // output, so CI surfaces this via `lib/staleness.mjs` as its own step.
+      console.warn(`⚠ ${msg}`);
+    }
+    expect(verdict, `/market data is ${ageDays.toFixed(1)} days old`).not.toBe('fail');
+  });
+
+  describe('stalenessVerdict — the scoped backstop rule (5.468)', () => {
+    it('should FAIL stale data when enforcement is on', () => {
+      expect(stalenessVerdict(14, true)).toBe('fail');
+      expect(stalenessVerdict(30, true)).toBe('fail');
+    });
+    it('should WARN, not fail, on stale data when enforcement is off', () => {
+      expect(stalenessVerdict(14, false)).toBe('warn');
+      expect(stalenessVerdict(30, false)).toBe('warn');
+    });
+    it('should pass fresh data in both modes', () => {
+      expect(stalenessVerdict(13.99, true)).toBe('ok');
+      expect(stalenessVerdict(0, false)).toBe('ok');
+    });
+    it('should never pass a non-finite age', () => {
+      expect(stalenessVerdict(Number.NaN, true)).toBe('fail');
+      expect(stalenessVerdict(Number.NaN, false)).toBe('warn');
+    });
   });
 
   it('should expose last_updated_at in ISO-8601 format (JSON-LD datePublished coupling, iter-4 §3.4)', () => {

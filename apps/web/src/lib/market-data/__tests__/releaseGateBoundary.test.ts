@@ -76,11 +76,11 @@ const ALLOWED: Record<string, { cls: Cls; why: string }> = {
   },
   'etfFlows.test.ts': {
     cls: 'UNIT-READS-LIVE',
-    why: "evaluates at the ledger's own last anchor; asserts the trailing 4 are weeks, not a score",
+    why: "evaluates at the ledger's own last anchor and asserts CONSISTENCY — a gap in the window must publish UNAVAILABLE/gapped, four real weeks must be scored (5.463: never that the ledger has no gap)",
   },
   'freshness.test.ts': {
     cls: 'UNIT-READS-LIVE',
-    why: 'build-instant equivalence + a FROZEN 2026-09-07 panel for the historical regression',
+    why: 'reads the committed panel ONLY for identities (build-instant no-op, seam, badge agreement); every rule test runs on the FROZEN 2026-09-07 fixture (5.462: never that the live panel is HIGH)',
   },
   'watchingPhrases.test.ts': {
     cls: 'UNIT-READS-LIVE',

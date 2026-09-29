@@ -40,6 +40,13 @@ permissions:
   contents: write
   pull-requests: write
 
+# 5.465 (2026-09-29): one refresh at a time. A manual dispatch overlapping the
+# cron would otherwise race on the same PR branch and the append-only ledgers.
+# Queue, never cancel: a cancelled run mid-publish is worse than a late one.
+concurrency:
+  group: market-refresh
+  cancel-in-progress: false
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -52,7 +59,35 @@ jobs:
     # available context in a step-level `if:` at all. Guard semantics unchanged.
     env:
       HAS_POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY != '' }}
+      # 5.468: the 14-day staleness backstop BLOCKS here (the refresh is the
+      # market's own run); in other lanes' CI it only warns.
+      MARKET_STALENESS_ENFORCE: '1'
     steps:
+      # 5.464 (2026-09-29): NEVER overwrite an unmerged refresh. The PR step
+      # below force-rebuilds `editorial/market-refresh-auto` from main, so a run
+      # while the previous refresh PR is still open would destroy that week's
+      # ETF snapshot (Polygon/Massive reports shares outstanding NOW — a missed
+      # week cannot be back-filled), its archive line, and any memo edits pushed
+      # to the branch. On 2026-09-28 only an unrelated test failure prevented
+      # exactly that. Founder ruling: stop, name the PR, give the remedy. Runs
+      # before checkout, so nothing is fetched or written. Fail-closed: if the
+      # PR lookup itself errors, the step fails rather than assuming "none".
+      - name: Refuse to overwrite an open refresh PR (5.464)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          open=$(gh pr list --repo "$GITHUB_REPOSITORY" --head editorial/market-refresh-auto \
+            --state open --json number,url --jq '.[0].url // empty')
+          if [ -n "$open" ]; then
+            echo "::error::The previous weekly refresh PR is still open: $open"
+            echo "::error::Running now would overwrite it and lose that week's non-backfillable ETF snapshot."
+            echo "::error::Remedy: rewrite its memo if required, merge it, then re-run:"
+            echo "::error::  gh workflow run market-refresh-weekly.yml --ref main"
+            exit 1
+          fi
+          echo "No open refresh PR — safe to run."
+
       - uses: actions/checkout@v6
         with:
           # 5.135: keep the workflow token out of .git/config for later steps.
@@ -74,11 +109,21 @@ jobs:
       - name: Build i18n (validators need it)
         run: pnpm --filter @diboas/i18n build
 
+      # Fail-OPEN for the score (the optional leg must not block the core run),
+      # but never SILENT (5.465): a missed snapshot becomes next week's ledger
+      # gap, so the failure is annotated here and repeated in the PR body.
       - name: ETF-01 weekly snapshot (optional leg)
+        id: etf
         if: ${{ env.HAS_POLYGON_API_KEY == 'true' }}
         env:
           POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
-        run: node apps/web/scripts/market-refresh/run.mjs --etf-snapshot --no-archive || true
+        run: |
+          if node apps/web/scripts/market-refresh/run.mjs --etf-snapshot --no-archive; then
+            echo 'status=ok' >> "$GITHUB_OUTPUT"
+          else
+            echo 'status=failed' >> "$GITHUB_OUTPUT"
+            echo "::warning::ETF-01 snapshot FAILED this week. The core refresh continues, but next week's ETF-01 will be gapped (UNAVAILABLE) unless this is re-run before Friday. Check POLYGON_API_KEY and the provider."
+          fi
 
       - name: Refresh pipeline (fetch → gate → compute → archive)
         run: node apps/web/scripts/market-refresh/run.mjs --append-btc
@@ -125,10 +170,11 @@ jobs:
           # assertion line per affected locale carrying the same orphan list.
           # Collect them ALL and de-duplicate: `head -1` would have shown the
           # founder one locale's worth and hidden the rest.
+          # 5.467: the list is extracted by a tested module. The old colon-limited
+          # grep stopped inside the first orphan (`detailed: 17.5 | detailed`),
+          # showing one figure of ~40 on #629 and #674.
           printf '%s\n' "$out" \
-            | grep -oE 'figures with no engine value behind them[^:]*: [^:]*' \
-            | sed 's/^figures with no engine value behind them[^—]*— //' \
-            | sort -u > "$RUNNER_TEMP/memo-orphans.txt"
+            | node apps/web/scripts/market-refresh/lib/memo-orphans.mjs > "$RUNNER_TEMP/memo-orphans.txt"
 
           # Exit with the real code so the step renders as FAILED-but-continued.
           # `continue-on-error` is what keeps the job going to open the PR; if
@@ -186,6 +232,16 @@ jobs:
           else
             {
               echo '- Memo figure reconciliation: green (memo agrees with this cycle'"'"'s engine values)'
+            } >> "$BODY"
+          fi
+          if [ '${{ steps.etf.outputs.status }}' = 'failed' ]; then
+            {
+              echo
+              echo '## ⚠️ ETF-01 snapshot failed this week'
+              echo
+              echo 'The optional ETF leg errored, so no new shares-outstanding snapshot was recorded.'
+              echo 'The provider reports shares outstanding **now** — a missed week cannot be back-filled.'
+              echo 'Re-run the workflow **before Friday** or next week'"'"'s ETF-01 publishes UNAVAILABLE (gapped).'
             } >> "$BODY"
           fi
           {
