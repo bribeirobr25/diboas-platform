@@ -1,16 +1,16 @@
 {
   "_comment": "Machine-readable regime computation (P2 Stage 3 output). Written ONLY by scripts/market-refresh/run.mjs after the quality gate passes. The reconciliation vitest asserts regime.json agrees with this file — hand-edit regime.json scores and CI goes red (F-M4). Regenerate by running the pipeline, never by hand.",
-  "computed_at": "2026-09-21T12:50:38.349Z",
-  "score": 13,
+  "computed_at": "2026-09-29T11:18:02.244Z",
+  "score": 12,
   "max_score": 14,
   "regime_code": "VERY_FAVORABLE",
   "group_totals": {
     "btc_structure": 6,
-    "macro_environment": 2,
+    "macro_environment": 1,
     "institutional_demand": 2,
     "relative_strength": 3
   },
-  "anchor_spread_days": 7,
+  "anchor_spread_days": 0,
   "anchor_warning": null,
   "btc_append": null,
   "signals": [
@@ -71,17 +71,17 @@
     },
     {
       "id": "MAC-01",
-      "state": "ACTIVE",
+      "state": "INACTIVE",
       "weight": 1,
-      "points": 1,
-      "detail": "DXY 118.2126 vs EMA20W 119.2446 (Δ -0.865%); RSI 41.76",
+      "points": 0,
+      "detail": "DXY 120.3300 vs EMA20W 119.3711 (Δ 0.803%); RSI 55.55",
       "values": {
-        "close": 118.2126,
-        "ema20": 119.24462725778906,
-        "gapPct": -0.8654706560136911,
-        "rsi": 41.75778789616279
+        "close": 120.33,
+        "ema20": 119.37114702961871,
+        "gapPct": 0.803253545132957,
+        "rsi": 55.55049753044931
       },
-      "anchor": "2026-09-11",
+      "anchor": "2026-09-25",
       "anchorKind": "weekly"
     },
     {
@@ -89,12 +89,12 @@
       "state": "INACTIVE",
       "weight": 1,
       "points": 0,
-      "detail": "US10Y 4.96% vs EMA20W 4.61%",
+      "detail": "US10Y 5.17% vs EMA20W 4.70%",
       "values": {
-        "close": 4.96,
-        "ema20": 4.6076219105213125
+        "close": 5.17,
+        "ema20": 4.695853763487968
       },
-      "anchor": "2026-09-11",
+      "anchor": "2026-09-25",
       "anchorKind": "weekly"
     },
     {
@@ -102,12 +102,12 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "M2 12M ROC 5.41%, MoM +102.8B",
+      "detail": "M2 12M ROC 5.66%, MoM +124.9B",
       "values": {
-        "roc12m": 5.414179019772547,
-        "mom": 102.79999999999927
+        "roc12m": 5.6589084127717015,
+        "mom": 124.89999999999782
       },
-      "anchor": "2026-07-01",
+      "anchor": "2026-08-01",
       "anchorKind": "monthly"
     },
     {
@@ -115,13 +115,13 @@
       "state": "ACTIVE",
       "weight": 2,
       "points": 2,
-      "detail": "Spot-ETF net flows via Δshares×NAV (Polygon primary): last 4 weekly aggregates (spans [7d, 7d, 7d, 7d], all verified 7±1d) [+$1,482M, +$362M, +$548M, -$236M] → 3/4 positive (threshold ≥3)",
+      "detail": "Spot-ETF net flows via Δshares×NAV (Polygon primary): last 4 weekly aggregates (spans [7d, 7d, 7d, 7d], all verified 7±1d) [+$362M, +$548M, -$236M, +$1,182M] → 3/4 positive (threshold ≥3)",
       "values": {
         "positives": 3,
         "weeks": 4,
-        "lastFlowUsd": -235622402
+        "lastFlowUsd": 1182138377
       },
-      "anchor": "2026-09-18",
+      "anchor": "2026-09-25",
       "anchorKind": "weekly"
     },
     {
@@ -129,13 +129,13 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "BTC/Gold ratio 18.283 vs EMA20W 16.162 (Yahoo GC=F substitute)",
+      "detail": "BTC/Gold ratio 19.447 vs EMA20W 16.440 (Yahoo GC=F substitute)",
       "values": {
-        "ratio": 18.283229614900144,
-        "ema20": 16.16166631197587,
-        "gapPct": 13.127132202650316
+        "ratio": 19.44712535331235,
+        "ema20": 16.44017609923877,
+        "gapPct": 18.29024966595591
       },
-      "anchor": "2026-09-18",
+      "anchor": "2026-09-25",
       "anchorKind": "weekly"
     },
     {
@@ -143,13 +143,13 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "BTC/Nasdaq ratio 3.050 vs EMA20W 2.782",
+      "detail": "BTC/Nasdaq ratio 3.105 vs EMA20W 2.804",
       "values": {
-        "ratio": 3.0502896945240936,
-        "ema20": 2.78157187338477,
-        "gapPct": 9.660646331325356
+        "ratio": 3.1045029788996303,
+        "ema20": 2.804350145721744,
+        "gapPct": 10.703115430710145
       },
-      "anchor": "2026-09-18",
+      "anchor": "2026-09-25",
       "anchorKind": "weekly"
     },
     {
@@ -157,13 +157,13 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "Nasdaq 26522.55 vs EMA20W 25770.72",
+      "detail": "Nasdaq 27068.72 vs EMA20W 25894.34",
       "values": {
-        "close": 26522.55,
-        "ema20": 25770.716463011253,
-        "gapPct": 2.9173947804976788
+        "close": 27068.72,
+        "ema20": 25894.33584748637,
+        "gapPct": 4.5352935847846085
       },
-      "anchor": "2026-09-18",
+      "anchor": "2026-09-25",
       "anchorKind": "weekly"
     }
   ],
@@ -171,37 +171,37 @@
     {
       "source": "FRED:DTWEXBGS",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS&cosd=2023-01-01",
-      "fetchedAt": "2026-09-21T12:50:38.271Z",
+      "fetchedAt": "2026-09-29T11:18:02.111Z",
       "licence": "unverified"
     },
     {
       "source": "FRED:DGS10",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2023-01-01",
-      "fetchedAt": "2026-09-21T12:50:38.262Z",
+      "fetchedAt": "2026-09-29T11:18:02.103Z",
       "licence": "unverified"
     },
     {
       "source": "FRED:M2SL",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=M2SL&cosd=2023-01-01",
-      "fetchedAt": "2026-09-21T12:50:38.272Z",
+      "fetchedAt": "2026-09-29T11:18:02.105Z",
       "licence": "unverified"
     },
     {
       "source": "FRED:NASDAQCOM",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQCOM&cosd=2023-01-01",
-      "fetchedAt": "2026-09-21T12:50:38.291Z",
+      "fetchedAt": "2026-09-29T11:18:02.109Z",
       "licence": "unverified"
     },
     {
       "source": "Yahoo:BTC-USD",
       "url": "chart/BTC-USD?interval=1d",
-      "fetchedAt": "2026-09-21T12:50:38.316Z",
+      "fetchedAt": "2026-09-29T11:18:02.203Z",
       "licence": "quote-display"
     },
     {
       "source": "Yahoo:GC=F",
       "url": "chart/GC=F?interval=1d",
-      "fetchedAt": "2026-09-21T12:50:38.305Z",
+      "fetchedAt": "2026-09-29T11:18:02.215Z",
       "licence": "quote-display"
     }
   ]

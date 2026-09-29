@@ -1,11 +1,11 @@
 {
   "_comment": "Weekly refresh generated 2026-08-10 by apps/web/scripts/market-refresh/run.mjs (P2 fetch + fail-closed quality gate + shared engine) with editorial copy from generate.mjs (P3 template library; overrides in editorial-override.json). Cycle 2026-08-10: score 7 → 6, staying NEUTRAL_MIXED — REL-01 (BTC/Gold) flipped INACTIVE (ratio 14.947 vs 20-week trend 15.297). Structural signals anchor the confirmed July 31 monthly close per doc 02 §5.1 (BTC-02 + BTC-03 active; BTC-01 + BTC-04 inactive); weekly signals anchor the most recent confirmed Friday per source — NASDAQCOM/GC=F at 2026-08-07, DGS10/DTWEXBGS at 2026-07-31 (publication lag at the Monday 07:55 UTC run), M2SL at the June print (July due ~late August). ETF-01 evaluated UNAVAILABLE per doc 02 §10.1 while the Polygon shares-outstanding ledger warms up (4 of 5 weekly snapshots; first scorable evaluation expected ~2026-08-17). data_status carries the same source list as apps/web/data/market/data-status.json (byte-parity audit gate, F-M6). _translation_status sibling block tracks non-EN content review state per market-editorial.md §5.",
-  "score": 13,
+  "score": 12,
   "max_score": 14,
   "regime_code": "VERY_FAVORABLE",
   "regime_label": "Very Favorable",
   "environment_bias": "STRONG_ALIGNMENT",
-  "last_updated_at": "2026-09-21T12:50:38.349Z",
+  "last_updated_at": "2026-09-29T11:18:02.244Z",
   "summary": {
     "en": {
       "short": "No monthly close entered the engine this cycle, so the structural block is unchanged and the composite holds at 13 of 14. The dollar and the US 10-year carry the same September 11 readings as a week ago and liquidity still reads the July print, so the macro block did not move either. What moved was relative strength and fund flows. All three relative-strength margins widened, while the most recent spot-ETF week was a redemption of about $236M, leaving three of the last four weeks positive, exactly the threshold the signal needs. Structural signals still anchor the August 31 close; the next monthly re-evaluation is the September 30 close.",
@@ -28,7 +28,7 @@
         "The monthly Stoch-RSI %K still reads 13.1 against a floor of 10, a narrow margin rather than a restored cushion",
         "Liquidity still reads the July print, the oldest input in the composite"
       ],
-      "plain": "A steady week — still 13 of 14. It's a very favorable month for Bitcoin: almost everything we track is lined up in the price's favor. What we're watching: whether the price can hold above its long middle line, and whether the dollar keeps its grip loose."
+      "plain": "The score eased a little this week, from 13 to 12 of 14. The monthly read is very favorable — nearly all of what we track is aligned toward the price. What we're watching: whether the price can hold above its long middle line, and whether the dollar loosens its grip."
     },
     "pt-BR": {
       "short": "Nenhum fechamento mensal entrou no motor neste ciclo, então o bloco estrutural está inalterado e o composto segue em 13 de 14. O dólar e a taxa de 10 anos dos EUA trazem as mesmas leituras de 11 de setembro de uma semana atrás, e a liquidez ainda lê o dado de julho, então o bloco macro também não se mexeu. O que se mexeu foi a força relativa e o fluxo dos fundos. As três margens de força relativa alargaram, enquanto a semana mais recente de ETFs à vista foi de resgate de cerca de US$ 236 milhões, deixando três das últimas quatro semanas positivas, exatamente o mínimo que o sinal exige. Os sinais estruturais ainda se ancoram no fechamento de 31 de agosto; a próxima reavaliação mensal é o fechamento de 30 de setembro.",
@@ -51,7 +51,7 @@
         "O Stoch-RSI %K mensal segue em 13,1 contra um piso de 10, uma margem estreita em vez de uma folga recomposta",
         "A liquidez ainda lê o dado de julho, a entrada mais antiga do composto"
       ],
-      "plain": "Uma semana estável — ainda 13 de 14. É um mês muito favorável para o Bitcoin: quase tudo o que acompanhamos está alinhado a favor do preço. O que estamos observando: se o preço consegue se manter acima da sua linha média longa, e se o dólar mantém o aperto frouxo."
+      "plain": "A pontuação cedeu um pouco nesta semana, de 13 para 12 de 14. A leitura do mês é muito favorável — quase todo o quadro está alinhado a favor do preço. O que estamos observando: se o preço consegue se manter acima da sua linha média longa, e se o dólar afrouxa o aperto."
     },
     "es": {
       "short": "Ningún cierre mensual entró en el motor este ciclo, así que el bloque estructural está intacto y el compuesto se mantiene en 13 de 14. El dólar y el bono estadounidense a 10 años conservan las mismas lecturas del 11 de septiembre que hace una semana y la liquidez aún lee el dato de julio, así que el bloque macro tampoco se movió. Lo que se movió fue la fuerza relativa y el flujo de los fondos. Los tres márgenes de fuerza relativa se ampliaron, mientras que la semana más reciente de ETF al contado fue de reembolso por unos 236 M$, dejando tres de las últimas cuatro semanas en positivo, justo el umbral que necesita la señal. Las señales estructurales siguen ancladas al cierre del 31 de agosto; la próxima reevaluación mensual es el cierre del 30 de septiembre.",
@@ -74,7 +74,7 @@
         "El Stoch-RSI %K mensual sigue en 13,1 frente a un suelo de 10, un margen estrecho en lugar de un colchón recuperado",
         "La liquidez aún lee el dato de julio, la entrada más antigua del compuesto"
       ],
-      "plain": "Una semana estable — todavía 13 de 14. Es un mes muy favorable para Bitcoin: casi todo lo que seguimos está alineado a favor del precio. Lo que observamos: si el precio logra mantenerse por encima de su línea media larga, y si el dólar mantiene floja su presión."
+      "plain": "La puntuación cedió un poco esta semana, de 13 a 12 de 14. La lectura del mes es muy favorable: casi todo el conjunto está alineado a favor del precio. Lo que observamos: si el precio logra mantenerse por encima de su línea media larga, y si el dólar afloja su presión."
     },
     "de": {
       "short": "In diesem Zyklus kam kein Monatsschluss ins System, der strukturelle Block bleibt also unverändert und der Gesamtwert hält bei 13 von 14. Der Dollar und die US-Rendite auf zehn Jahre tragen dieselben Werte vom 11. September wie vor einer Woche, und die Liquidität liest weiterhin den Juli-Wert, also hat sich auch der Makro-Block nicht bewegt. Bewegt haben sich die relative Stärke und die Fondsflüsse. Alle drei Abstände der relativen Stärke wurden größer, während die jüngste Spot-ETF-Woche eine Rücknahme von rund 236 Mio. $ war, womit drei der letzten vier Wochen positiv sind, genau die Schwelle, die das Signal braucht. Die strukturellen Signale sind weiterhin am Schluss vom 31. August verankert; die nächste monatliche Neubewertung ist der Schluss vom 30. September.",
@@ -97,7 +97,7 @@
         "Der monatliche Stoch-RSI %K steht weiterhin bei 13,1 gegenüber einer Schwelle von 10, ein schmaler Abstand statt eines wiederhergestellten Polsters",
         "Die Liquidität liest weiterhin den Juli-Wert, die älteste Eingabe im Gesamtwert"
       ],
-      "plain": "Eine ruhige Woche — weiterhin 13 von 14. Es ist ein sehr günstiger Monat für Bitcoin: Fast alles, was wir verfolgen, ist zugunsten des Preises ausgerichtet. Worauf wir achten: ob der Preis sich über seiner langen Mittellinie halten kann und ob der Dollar seinen Griff locker lässt."
+      "plain": "Der Wert gab diese Woche etwas nach, von 13 auf 12 von 14. Die Lage im Monat ist sehr günstig — fast das ganze Feld ist zugunsten des Preises ausgerichtet. Worauf wir achten: ob der Preis sich über seiner langen Mittellinie halten kann und ob der Dollar seinen Griff lockert."
     }
   },
   "signal_groups": [
@@ -130,13 +130,13 @@
         "de": "Makro-Umfeld"
       },
       "status": "MIXED",
-      "points_awarded": 2,
+      "points_awarded": 1,
       "max_points": 3,
       "summary": {
-        "en": "Macro conditions are mixed: the dollar and liquidity on the supportive side, yields on the restrictive side (2 of 3 points).",
-        "pt-BR": "As condições macro estão mistas: o dólar e a liquidez do lado favorável, os juros do lado restritivo (2 de 3 pontos).",
-        "es": "Las condiciones macro son mixtas: el dólar y la liquidez del lado favorable, los rendimientos del lado restrictivo (2 de 3 puntos).",
-        "de": "Die Makro-Bedingungen sind gemischt: der Dollar und die Liquidität auf der unterstützenden Seite, die Renditen auf der restriktiven Seite (2 von 3 Punkten)."
+        "en": "Macro conditions are mixed: liquidity on the supportive side, the dollar and yields on the restrictive side (1 of 3 points).",
+        "pt-BR": "As condições macro estão mistas: a liquidez do lado favorável, o dólar e os juros do lado restritivo (1 de 3 pontos).",
+        "es": "Las condiciones macro son mixtas: la liquidez del lado favorable, el dólar y los rendimientos del lado restrictivo (1 de 3 puntos).",
+        "de": "Die Makro-Bedingungen sind gemischt: die Liquidität auf der unterstützenden Seite, der Dollar und die Renditen auf der restriktiven Seite (1 von 3 Punkten)."
       }
     },
     {
@@ -180,7 +180,7 @@
   ],
   "data_status": {
     "overall_confidence": "HIGH",
-    "last_successful_update_at": "2026-09-21T12:50:38.349Z",
+    "last_successful_update_at": "2026-09-29T11:18:02.244Z",
     "sources": [
       {
         "source": "in-repo:monthlyPrices.json (BTC)",
@@ -194,56 +194,56 @@
       {
         "source": "FRED:DGS10",
         "status": "FRESH",
-        "last_updated_at": "2026-09-11T00:00:00Z",
-        "expected_next_update_at": "2026-09-25T20:00:00Z",
-        "stale_after": "2026-10-02T20:00:00Z",
-        "delayed_after": "2026-09-25T00:00:00Z",
-        "message": "US 10-year constant-maturity yield. Weekly signal anchored at the most recent confirmed Friday close (2026-09-11)."
+        "last_updated_at": "2026-09-25T00:00:00Z",
+        "expected_next_update_at": "2026-10-02T20:00:00Z",
+        "stale_after": "2026-10-09T20:00:00Z",
+        "delayed_after": "2026-10-09T00:00:00Z",
+        "message": "US 10-year constant-maturity yield. Weekly signal anchored at the most recent confirmed Friday close (2026-09-25)."
       },
       {
         "source": "FRED:DTWEXBGS",
         "status": "FRESH",
-        "last_updated_at": "2026-09-11T00:00:00Z",
-        "expected_next_update_at": "2026-09-25T20:00:00Z",
-        "stale_after": "2026-10-02T20:00:00Z",
-        "delayed_after": "2026-09-25T00:00:00Z",
-        "message": "Broad dollar index (DXY proxy). Weekly signal anchored at the most recent confirmed Friday close (2026-09-11)."
+        "last_updated_at": "2026-09-25T00:00:00Z",
+        "expected_next_update_at": "2026-10-02T20:00:00Z",
+        "stale_after": "2026-10-09T20:00:00Z",
+        "delayed_after": "2026-10-09T00:00:00Z",
+        "message": "Broad dollar index (DXY proxy). Weekly signal anchored at the most recent confirmed Friday close (2026-09-25)."
       },
       {
         "source": "FRED:M2SL",
         "status": "FRESH",
-        "last_updated_at": "2026-07-01T00:00:00Z",
-        "expected_next_update_at": "2026-09-25T20:00:00Z",
-        "stale_after": "2026-10-31T00:00:00Z",
-        "delayed_after": "2026-09-25T20:00:00Z",
-        "message": "US M2 money stock, monthly. July 2026 print landed (anchor 2026-07-01); the August print is due ~late September."
+        "last_updated_at": "2026-08-01T00:00:00Z",
+        "expected_next_update_at": "2026-10-25T20:00:00Z",
+        "stale_after": "2026-11-30T00:00:00Z",
+        "delayed_after": "2026-10-25T20:00:00Z",
+        "message": "US M2 money stock, monthly. August 2026 print landed (anchor 2026-08-01); the September print is due ~late October."
       },
       {
         "source": "FRED:NASDAQCOM",
         "status": "FRESH",
-        "last_updated_at": "2026-09-18T00:00:00Z",
-        "expected_next_update_at": "2026-09-25T20:00:00Z",
-        "stale_after": "2026-10-02T20:00:00Z",
-        "delayed_after": "2026-10-02T00:00:00Z",
-        "message": "Nasdaq Composite close. Weekly signal anchored at the most recent confirmed Friday close (2026-09-18)."
+        "last_updated_at": "2026-09-25T00:00:00Z",
+        "expected_next_update_at": "2026-10-02T20:00:00Z",
+        "stale_after": "2026-10-09T20:00:00Z",
+        "delayed_after": "2026-10-09T00:00:00Z",
+        "message": "Nasdaq Composite close. Weekly signal anchored at the most recent confirmed Friday close (2026-09-25)."
       },
       {
         "source": "Yahoo:GC=F",
         "status": "FRESH",
-        "last_updated_at": "2026-09-18T00:00:00Z",
-        "expected_next_update_at": "2026-09-25T20:00:00Z",
-        "stale_after": "2026-10-02T20:00:00Z",
-        "delayed_after": "2026-10-02T00:00:00Z",
-        "message": "Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29). Weekly anchor 2026-09-18."
+        "last_updated_at": "2026-09-25T00:00:00Z",
+        "expected_next_update_at": "2026-10-02T20:00:00Z",
+        "stale_after": "2026-10-09T20:00:00Z",
+        "delayed_after": "2026-10-09T00:00:00Z",
+        "message": "Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29). Weekly anchor 2026-09-25."
       },
       {
         "source": "Polygon:ETF (shares-outstanding)",
         "status": "FRESH",
-        "last_updated_at": "2026-09-18T00:00:00Z",
-        "expected_next_update_at": "2026-09-25T00:00:00Z",
-        "stale_after": "2026-10-09T00:00:00Z",
-        "delayed_after": "2026-10-09T00:00:00Z",
-        "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). Ledger live: 10 weekly snapshots; ETF-01 scored from the trailing 4 weekly flows per doc 02 §8.3. Weekly anchor 2026-09-18."
+        "last_updated_at": "2026-09-25T00:00:00Z",
+        "expected_next_update_at": "2026-10-02T00:00:00Z",
+        "stale_after": "2026-10-16T00:00:00Z",
+        "delayed_after": "2026-10-16T00:00:00Z",
+        "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). Ledger live: 11 weekly snapshots; ETF-01 scored from the trailing 4 weekly flows per doc 02 §8.3. Weekly anchor 2026-09-25."
       }
     ],
     "delayed_sources": [],
