@@ -179,3 +179,96 @@ describe('memo figures reconcile with the engine (5.128)', () => {
     });
   }
 });
+
+/**
+ * INTERIM DIRECTIONAL CHECK — the latest spot-ETF week (PENDING_ALL 5.469).
+ *
+ * The numeral gate above proves each figure was published by the engine, not
+ * that it sits in the right sentence. On #629 the memo said the most recent
+ * spot-ETF week was "+$548M … all four positive" while the engine's latest week
+ * was −$236M (3 of 4): +$548M passed because it was still IN the engine output,
+ * as an older week of the trailing window. The rule here is narrow and
+ * language-agnostic: a memo that quotes any trailing-window week must also quote
+ * the LATEST one. A memo that quotes no ETF amount is not judged. The durable fix
+ * is generated memo slots (5.99); this closes the one hole that already shipped.
+ */
+export function etfWeeksFromDetail(detail: string): number[] | null {
+  const m = detail.match(/\[([^\]]*\$[^\]]*)\]\s*→/);
+  if (!m) return null;
+  // Entries are separated by ", "; a thousands comma is never followed by a space.
+  const weeks = m[1].split(', ').map((x) => {
+    const n = x.trim().match(/^([+-])\$([\d,]+)M$/);
+    return n ? (n[1] === '-' ? -1 : 1) * Number(n[2].replace(/,/g, '')) : Number.NaN;
+  });
+  return weeks.every(Number.isFinite) ? weeks : null;
+}
+
+/** Does `figure` (as quoted in prose) express `millions`, as $M or as $bn at the quoted precision? */
+function expresses(figure: { value: number; decimals: number }, millions: number): boolean {
+  const a = Math.abs(millions);
+  if (figure.decimals === 0 && figure.value === a) return true;
+  return (
+    a >= 1000 && figure.decimals > 0 && Number((a / 1000).toFixed(figure.decimals)) === figure.value
+  );
+}
+
+export function latestEtfWeekProblem(memoText: string, weeks: number[]): string | null {
+  const latest = weeks[weeks.length - 1];
+  const older = weeks.slice(0, -1).filter((w) => Math.abs(w) !== Math.abs(latest));
+  const figs = figuresIn(memoText);
+  const quotesLatest = figs.some((f) => expresses(f, latest));
+  const quotedOlder = older.filter((w) => figs.some((f) => expresses(f, w)));
+  if (quotedOlder.length && !quotesLatest) {
+    const fmt = (n: number) => `${n < 0 ? '-' : '+'}$${Math.abs(n).toLocaleString('en-US')}M`;
+    return `quotes ${quotedOlder.map(fmt).join(', ')} but not the latest week (${fmt(latest)})`;
+  }
+  return null;
+}
+
+describe('the memo names the LATEST spot-ETF week (5.469, interim)', () => {
+  const computed = JSON.parse(readFileSync(join(MARKET_DIR, 'computed.json'), 'utf8'));
+  const regime = JSON.parse(readFileSync(join(MARKET_DIR, 'regime.json'), 'utf8'));
+  const etf = (computed.signals as { id: string; detail?: string }[]).find(
+    (x) => x.id === 'ETF-01'
+  );
+  const weeks = etf?.detail ? etfWeeksFromDetail(etf.detail) : null;
+
+  it('should parse the trailing-window weeks from the engine detail string', () => {
+    expect(
+      etfWeeksFromDetail(
+        'Spot-ETF net flows … [+$1,482M, +$362M, +$548M, -$236M] → 3/4 positive (threshold ≥3)'
+      )
+    ).toEqual([1482, 362, 548, -236]);
+    expect(etfWeeksFromDetail('ETF flow ledger has a 14-day gap (…) inside the window')).toBeNull();
+  });
+
+  it('should catch the #629 defect: an older week quoted as current, the latest omitted', () => {
+    const f28 =
+      'the most recent spot-ETF week was a creation of about $548M, larger than the week ' +
+      'before it, keeping all four trailing weeks positive';
+    expect(latestEtfWeekProblem(f28, [1482, 362, 548, -236])).toMatch(
+      /not the latest week \(-\$236M\)/
+    );
+  });
+
+  it('should accept a memo that quotes the latest week, in $M or in billions', () => {
+    const w = [362, 548, -236, 1182];
+    expect(latestEtfWeekProblem('a creation of about $1,182M after -$236M', w)).toBeNull();
+    expect(
+      latestEtfWeekProblem('criação de cerca de US$ 1,18 bilhão; antes -US$ 236 milhões', w)
+    ).toBeNull();
+    expect(latestEtfWeekProblem('no fund-flow amount in this memo', w)).toBeNull();
+  });
+
+  for (const locale of LOCALES) {
+    it(`should name the latest spot-ETF week whenever it quotes one, in ${locale}`, () => {
+      if (!weeks) return; // gapped / warm-up / manual route: no weekly aggregates to check
+      const s = regime.summary[locale];
+      const text = [s.short, s.detailed, ...s.key_supportive_factors, ...s.key_headwinds].join(
+        '\n'
+      );
+      const problem = latestEtfWeekProblem(text, weeks);
+      expect(problem, `latest spot-ETF week missing — ${locale}: ${problem}`).toBeNull();
+    });
+  }
+});

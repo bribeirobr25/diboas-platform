@@ -243,8 +243,17 @@ describe('the ETF panel row and the ETF signal must never contradict (5.301)', (
     expect(row?.delayed_after).toBeNull();
   });
 
-  it('should still read FRESH for the real, ungapped committed data', () => {
-    const row = bySource(deriveDataStatus(readJson('computed.json'), readSnapshots()), ETF_SOURCE);
-    expect(row?.status).toBe('FRESH');
+  it('should read the committed ETF row consistently with the committed signal', () => {
+    // A CONSISTENCY rule, not a state (5.462/5.463, 2026-09-29). This test used
+    // to assert the committed row reads FRESH — true only while the committed
+    // ledger happens to be ungapped. The simulator's skip-week scenario (the
+    // exact 2026-09-28 state) showed it would block the weekly publish in any
+    // week with a missing Friday, when the honest panel row IS UNAVAILABLE.
+    // What must hold every week: a scored signal reads FRESH, an unscored one
+    // reads UNAVAILABLE — never a panel that disagrees with its own signal.
+    const computed = readJson('computed.json');
+    const signal = computed.signals.find((x: { id: string }) => x.id === 'ETF-01');
+    const row = bySource(deriveDataStatus(computed, readSnapshots()), ETF_SOURCE);
+    expect(row?.status).toBe(signal.state === 'UNAVAILABLE' ? 'UNAVAILABLE' : 'FRESH');
   });
 });

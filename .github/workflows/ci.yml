@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          # 5.468: depth 2 so the /market staleness step can diff HEAD^1..HEAD
+          # (a PR's merge commit against its base, or a push against its parent).
+          fetch-depth: 2
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v6
         with:
@@ -27,6 +31,26 @@ jobs:
       - run: pnpm type-check
       - run: pnpm lint
       - run: pnpm test
+      # 5.468 (founder-ruled 2026-09-29): the /market 14-day staleness backstop
+      # BLOCKS only a change that touches market data or code; every other
+      # lane gets a visible ::warning:: and passes. Before this, a stale /market
+      # turned EVERY lane's CI red (it would have tripped 2026-09-29 13:20 UTC).
+      # `pnpm test` above runs the same rule warn-only; this step is where the
+      # scope decision is made. Fail-closed: if the changed-file list cannot be
+      # computed, the backstop enforces.
+      - name: /market staleness backstop (blocks market changes only)
+        env:
+          MARKET_PATHS: '^(apps/web/data/market/|apps/web/scripts/market-refresh/|apps/web/scripts/data-fetchers/|apps/web/src/lib/(market-data|analytics-sdk|market)/|apps/web/src/app/\[locale\]/\(landing\)/market/|apps/web/src/components/(Analytics|Market)/|\.github/workflows/market-refresh)'
+        run: |
+          set -uo pipefail
+          if changed=$(git diff --name-only HEAD^1 HEAD); then
+            if printf '%s\n' "$changed" | grep -Eq "$MARKET_PATHS"; then enforce=1; else enforce=0; fi
+          else
+            echo "::warning::could not compute the changed files — enforcing the /market backstop"
+            enforce=1
+          fi
+          echo "market change: $([ "$enforce" = 1 ] && echo yes || echo no)"
+          MARKET_STALENESS_ENFORCE=$enforce node apps/web/scripts/market-refresh/lib/staleness.mjs
       # C-3: static gates that previously ran only locally (via validate:all).
       # The Phase-7 jargon ban + the "no direct market-data constant imports"
       # SDK invariant — both server-free. (Not `validate:market-data`, whose

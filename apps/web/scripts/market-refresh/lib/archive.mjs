@@ -43,12 +43,20 @@ export function archiveSignals(signals, { etfSnapshotCount = 0 } = {}) {
       points: state === 'ACTIVE' ? weight : 0,
       detail,
       // Structured values feed the Stage-4 template generator (never re-parsed
-      // from `detail`). The ETF UNAVAILABLE branch carries no engine values, so
+      // from `detail`). An ETF UNAVAILABLE record may carry no engine values, so
       // the warm-up slots its sentence templates reference are injected here —
       // without them `renderTemplate` throws (5.133).
+      //
+      // 5.476 (2026-09-29): the slots are a FLOOR, merged UNDER the engine's own
+      // values, never a replacement. The earlier version REPLACED them, which
+      // dropped `variant: 'gapped'` and `gapDays` from the missing-week branch —
+      // so a gap week would have published the WARM-UP sentence ("10 of 5 weekly
+      // snapshots recorded") in four locales. It never shipped only because a
+      // test blocked the 2026-09-28 run first; unblocking that run (5.463) would
+      // have exposed it.
       values:
         id === 'ETF-01' && state === 'UNAVAILABLE'
-          ? { snapshots: etfSnapshotCount, warmupTarget: WARMUP_SNAPSHOTS }
+          ? { snapshots: etfSnapshotCount, warmupTarget: WARMUP_SNAPSHOTS, ...(values ?? {}) }
           : values,
       anchor,
       anchorKind,

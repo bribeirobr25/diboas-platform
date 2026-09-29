@@ -16,6 +16,7 @@ import {
   WEEK_SPAN_DAYS,
   WEEK_SPAN_TOLERANCE_DAYS,
 } from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
+import { archiveSignals } from '../../../../scripts/market-refresh/lib/archive.mjs';
 
 const D = new Date('2026-07-11T00:00:00Z');
 
@@ -210,27 +211,33 @@ describe('week spacing is asserted, not assumed (5.301)', () => {
     expect(evaluateEtf01FromFlows(real, at).detail).not.toContain('fund-week(s) excluded');
   });
 
-  it('should keep the committed ledger scorable — the trailing 4 are real weeks', () => {
-    // The live guarantee, stated as a RULE rather than as today's values: the
-    // trailing-4 window must contain four genuine weekly intervals, and the
-    // signal must therefore be scorable rather than gapped.
-    //
-    // The earlier version pinned the exact gap list and `ACTIVE` at a literal
-    // date. Both are dated claims: the ETF ledger gains a snapshot every Monday,
-    // the 2026-07-10→07-24 fortnight ages further from the window each week, and
-    // ACTIVE/INACTIVE depends on flows that genuinely move.
+  it('should publish the committed ledger honestly — a gap in the window is UNAVAILABLE, never a score', () => {
+    // The live guarantee as a CONSISTENCY RULE (5.463, 2026-09-29). Its earlier
+    // form asserted that the trailing 4 intervals ARE weekly and that ETF-01 is
+    // scorable — a claim about the DATA, not the code. On 2026-09-28 the
+    // previous refresh PR sat unmerged, main's ledger lacked one Friday, the run
+    // appended the next one, and this test killed the weekly publish while the
+    // engine was doing exactly what `etf-flows.mjs` documents it must: score a
+    // gapped window UNAVAILABLE rather than invent four weeks. A gap is a
+    // legitimate state of the world; misreporting it is the defect.
     const real = readSnapshots();
     const at = new Date(`${real[real.length - 1].anchor}T00:00:00Z`);
     const { flows } = computeWeeklyFlows(real, at);
     const trailing4 = flows.slice(-4);
-    expect(trailing4).toHaveLength(4);
-    expect(trailing4.every((f) => f.weekly)).toBe(true);
-    expect(
-      trailing4.every((f) => Math.abs(f.spanDays - WEEK_SPAN_DAYS) <= WEEK_SPAN_TOLERANCE_DAYS)
-    ).toBe(true);
-    // Scorable, not a specific score: UNAVAILABLE here would mean a gap reached
-    // the window, which is the condition this signal must announce rather than fudge.
-    expect(evaluateEtf01FromFlows(real, at).state).not.toBe('UNAVAILABLE');
+    const gapped = trailing4.some(
+      (f) => !f.weekly || Math.abs(f.spanDays - WEEK_SPAN_DAYS) > WEEK_SPAN_TOLERANCE_DAYS
+    );
+    const result = evaluateEtf01FromFlows(real, at);
+    if (gapped) {
+      // Say so, in the words the gapped template needs (5.133: an unslotted
+      // UNAVAILABLE stops the generator dead).
+      expect(result.state).toBe('UNAVAILABLE');
+      expect(result.values).toMatchObject({ variant: 'gapped' });
+    } else {
+      // Four real weeks: the signal must be scored, not withheld.
+      expect(trailing4).toHaveLength(4);
+      expect(['ACTIVE', 'INACTIVE']).toContain(result.state);
+    }
   });
 });
 
@@ -264,6 +271,25 @@ describe('the gapped sentence can actually be published (the 5.133 trap)', () =>
         expect(values[slot], `${l} references {${slot}} but values has no such key`).toBeDefined();
       }
     }
+  });
+
+  it('should survive the archive seam — the stored record still selects the gapped wording (5.476)', () => {
+    // The generator reads the record AFTER `archiveSignals` (run.mjs → computed.json),
+    // not the engine's return value. That seam used to REPLACE an UNAVAILABLE
+    // record's values with warm-up slots, dropping `variant`/`gapDays`, so a gap
+    // week would have published "10 of 5 weekly snapshots recorded". The two
+    // tests above checked the engine and the templates; nothing checked the seam.
+    const gappedLedger = ledgerAt(
+      ['2026-06-19', '2026-06-26', '2026-07-03', '2026-07-10', '2026-07-24'],
+      [0, 5, 5, 5, 5]
+    );
+    const engine = evaluateEtf01FromFlows(gappedLedger, ON);
+    const [stored] = archiveSignals([engine], { etfSnapshotCount: gappedLedger.length });
+    expect(stored.state).toBe('UNAVAILABLE');
+    expect(stored.values).toMatchObject({ variant: 'gapped', gapDays: engine.values.gapDays });
+    // …and the warm-up floor is still there for a record that brings no values.
+    const [bare] = archiveSignals([{ ...engine, values: null }], { etfSnapshotCount: 3 });
+    expect(bare.values).toEqual({ snapshots: 3, warmupTarget: WARMUP_SNAPSHOTS });
   });
 
   it('should keep the warm-up slots populated so the default stays renderable', () => {
