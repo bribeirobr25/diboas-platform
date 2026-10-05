@@ -32,12 +32,12 @@
           "points_awarded": 2,
           "max_points": 2,
           "summary": {
-            "en": "August close $78,549 holds about 0% above the 20-month EMA ($78,496) — the intermediate-term structure remains intact.",
-            "pt-BR": "O fechamento de agosto em $78.549 segue cerca de 0% acima da EMA de 20 meses ($78.496) — a estrutura de médio prazo permanece intacta.",
-            "es": "El cierre de agosto en $78.549 se mantiene alrededor de un 0% por encima de la EMA de 20 meses ($78.496); la estructura de medio plazo sigue intacta.",
-            "de": "Der August-Schluss bei $78.549 hält sich rund 0% über dem 20-Monats-EMA ($78.496) — die mittelfristige Struktur bleibt intakt."
+            "en": "September close $83,554 holds about 6% above the 20-month EMA ($78,978) — the intermediate-term structure remains intact.",
+            "pt-BR": "O fechamento de setembro em $83.554 segue cerca de 6% acima da EMA de 20 meses ($78.978) — a estrutura de médio prazo permanece intacta.",
+            "es": "El cierre de septiembre en $83.554 se mantiene alrededor de un 6% por encima de la EMA de 20 meses ($78.978); la estructura de medio plazo sigue intacta.",
+            "de": "Der September-Schluss bei $83.554 hält sich rund 6% über dem 20-Monats-EMA ($78.978) — die mittelfristige Struktur bleibt intakt."
           },
-          "last_updated_at": "2026-08-31T00:00:00Z"
+          "last_updated_at": "2026-09-30T00:00:00Z"
         },
         {
           "id": "BTC-02",
@@ -51,12 +51,12 @@
           "points_awarded": 2,
           "max_points": 2,
           "summary": {
-            "en": "August close $78,549 holds about 28% above the 50-month SMA ($61,138) — the long-term structural trend is intact.",
-            "pt-BR": "O fechamento de agosto em $78.549 segue cerca de 28% acima da SMA de 50 meses ($61.138) — a tendência estrutural de longo prazo está intacta.",
-            "es": "El cierre de agosto en $78.549 se mantiene alrededor de un 28% por encima de la SMA de 50 meses ($61.138); la tendencia estructural de largo plazo sigue intacta.",
-            "de": "Der August-Schluss bei $78.549 hält sich rund 28% über dem 50-Monats-SMA ($61.138) — der langfristige Strukturtrend ist intakt."
+            "en": "September close $83,554 holds about 34% above the 50-month SMA ($62,342) — the long-term structural trend is intact.",
+            "pt-BR": "O fechamento de setembro em $83.554 segue cerca de 34% acima da SMA de 50 meses ($62.342) — a tendência estrutural de longo prazo está intacta.",
+            "es": "El cierre de septiembre en $83.554 se mantiene alrededor de un 34% por encima de la SMA de 50 meses ($62.342); la tendencia estructural de largo plazo sigue intacta.",
+            "de": "Der September-Schluss bei $83.554 hält sich rund 34% über dem 50-Monats-SMA ($62.342) — der langfristige Strukturtrend ist intakt."
           },
-          "last_updated_at": "2026-08-31T00:00:00Z"
+          "last_updated_at": "2026-09-30T00:00:00Z"
         },
         {
           "id": "BTC-03",
@@ -70,12 +70,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "Monthly RSI improved to 51 from 43 — momentum is turning up.",
-            "pt-BR": "O RSI mensal melhorou para 51, vindo de 43 — o momentum está virando para cima.",
-            "es": "El RSI mensual mejoró a 51 desde 43; el impulso está girando al alza.",
-            "de": "Der Monats-RSI verbesserte sich auf 51 von 43 — das Momentum dreht nach oben."
+            "en": "Monthly RSI improved to 53 from 51 — momentum is turning up.",
+            "pt-BR": "O RSI mensal melhorou para 53, vindo de 51 — o momentum está virando para cima.",
+            "es": "El RSI mensual mejoró a 53 desde 51; el impulso está girando al alza.",
+            "de": "Der Monats-RSI verbesserte sich auf 53 von 51 — das Momentum dreht nach oben."
           },
-          "last_updated_at": "2026-08-31T00:00:00Z"
+          "last_updated_at": "2026-09-30T00:00:00Z"
         },
         {
           "id": "BTC-04",
@@ -89,12 +89,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "Monthly Stoch-RSI %K at 13 holds above the 10 floor — short-term momentum has not capitulated.",
-            "pt-BR": "O Stoch-RSI mensal (%K) em 13 segue acima do piso de 10 — o momentum de curto prazo não capitulou.",
-            "es": "El Stoch-RSI mensual (%K) en 13 se mantiene sobre el suelo de 10; el impulso de corto plazo no ha capitulado.",
-            "de": "Der monatliche Stoch-RSI (%K) bei 13 hält sich über der 10er-Marke — das kurzfristige Momentum hat nicht kapituliert."
+            "en": "Monthly Stoch-RSI %K at 28 holds above the 10 floor — short-term momentum has not capitulated.",
+            "pt-BR": "O Stoch-RSI mensal (%K) em 28 segue acima do piso de 10 — o momentum de curto prazo não capitulou.",
+            "es": "El Stoch-RSI mensual (%K) en 28 se mantiene sobre el suelo de 10; el impulso de corto plazo no ha capitulado.",
+            "de": "Der monatliche Stoch-RSI (%K) bei 28 hält sich über der 10er-Marke — das kurzfristige Momentum hat nicht kapituliert."
           },
-          "last_updated_at": "2026-08-31T00:00:00Z"
+          "last_updated_at": "2026-09-30T00:00:00Z"
         }
       ]
     },
@@ -134,7 +134,7 @@
             "es": "El índice amplio del dólar en 120 sigue por encima de su EMA de 20 semanas (119), con RSI 56; un dólar firme mantiene restrictivo el entorno macro.",
             "de": "Der breite Dollar-Index bei 120 hält sich über seinem 20-Wochen-EMA (119), RSI 56 — ein fester Dollar hält das Makro-Umfeld restriktiv."
           },
-          "last_updated_at": "2026-09-29T11:18:02.244Z"
+          "last_updated_at": "2026-10-05T14:40:13.128Z"
         },
         {
           "id": "MAC-02",
@@ -153,7 +153,7 @@
             "es": "El rendimiento estadounidense a 10 años en 5,17% sigue por encima de su tendencia de 20 semanas (4,70%); los rendimientos aún no ceden.",
             "de": "Die 10-jährige US-Rendite bei 5,17% hält sich über ihrem 20-Wochen-Trend (4,70%) — die Renditen haben noch nicht nachgegeben."
           },
-          "last_updated_at": "2026-09-29T11:18:02.244Z"
+          "last_updated_at": "2026-10-05T14:40:13.128Z"
         },
         {
           "id": "MAC-03",
@@ -177,16 +177,16 @@
       ],
       "state_view": {
         "lead": {
-          "en": "Macro conditions are mixed: liquidity on the supportive side, the dollar and yields on the restrictive side. The dollar climbed back above its 20 week trend this week. Money has not got cheaper. Liquidity keeps expanding.",
-          "pt-BR": "As condições macro estão mistas: a liquidez do lado favorável, o dólar e os juros do lado restritivo. O dólar voltou a superar a tendência de 20 semanas nesta semana. O dinheiro não ficou mais barato. A liquidez segue em expansão.",
-          "es": "Las condiciones macro son mixtas: la liquidez del lado favorable, el dólar y los rendimientos del lado restrictivo. El dólar volvió a superar su tendencia de 20 semanas esta semana. El dinero no se ha abaratado. La liquidez sigue en expansión.",
-          "de": "Die Makro-Bedingungen sind gemischt: die Liquidität auf der unterstützenden Seite, der Dollar und die Renditen auf der restriktiven Seite. Der Dollar ist diese Woche wieder über seinen 20-Wochen-Trend gestiegen. Geld ist nicht günstiger geworden. Die Liquidität wächst weiter."
+          "en": "Macro conditions are mixed: liquidity on the supportive side, the dollar and yields on the restrictive side. The dollar is still above its 20 week trend. Money has not got cheaper. Liquidity keeps expanding.",
+          "pt-BR": "As condições macro estão mistas: a liquidez do lado favorável, o dólar e os juros do lado restritivo. O dólar segue acima da tendência de 20 semanas. O dinheiro não ficou mais barato. A liquidez segue em expansão.",
+          "es": "Las condiciones macro son mixtas: la liquidez del lado favorable, el dólar y los rendimientos del lado restrictivo. El dólar sigue por encima de su tendencia de 20 semanas. El dinero no se ha abaratado. La liquidez sigue en expansión.",
+          "de": "Die Makro-Bedingungen sind gemischt: die Liquidität auf der unterstützenden Seite, der Dollar und die Renditen auf der restriktiven Seite. Der Dollar hält sich weiter über seinem 20-Wochen-Trend. Geld ist nicht günstiger geworden. Die Liquidität wächst weiter."
         },
         "depth": {
-          "en": "The dollar closed at 120.33 against a 119.37 trend, 0.80% above, after sitting 0.87% below it a week earlier. That is a fresh crossing. The US 10 year at 5.17% holds above its own 4.70% trend. M2 is up 5.7% over the year and added roughly $125bn on the month.",
-          "pt-BR": "O índice amplo do dólar fechou em 120,33 contra uma tendência de 119,37, 0,80% acima, depois de estar 0,87% abaixo uma semana antes. O rompimento é recente. O juro americano de 10 anos, a 5,17%, segue acima da tendência de 20 semanas (4,70%). A oferta monetária M2 dos EUA cresce 5,7% em 12 meses e somou cerca de 125 bilhões de dólares no mês.",
-          "es": "El índice amplio del dólar cerró en 120,33 frente a una tendencia de 119,37, un 0,80% por encima, tras estar un 0,87% por debajo una semana antes. El cruce es reciente. El rendimiento estadounidense a 10 años, en 5,17%, sigue por encima de su tendencia de 20 semanas (4,70%). La masa monetaria M2 de EE. UU. crece un 5,7% interanual y sumó cerca de 125 mil millones de dólares en el mes.",
-          "de": "Der breite Dollar-Index schloss bei 120,33 gegenüber einem Trend von 119,37, 0,80% darüber, nachdem er eine Woche zuvor 0,87% darunter lag. Der Trendbruch ist frisch. Die 10-jährige US-Rendite hält sich mit 5,17% über ihrem 20-Wochen-Trend (4,70%). Die US-Geldmenge M2 wächst 5,7% im Jahresvergleich und kam im Monat um rund 125 Mrd. US-Dollar hinzu."
+          "en": "The dollar closed at 120.33 against a 119.37 trend, 0.80% above, with a momentum reading of 56. The US 10 year at 5.17% holds above its own 4.70% trend. M2 is up 5.7% over the year and added roughly $125bn on the month.",
+          "pt-BR": "O índice amplo do dólar fechou em 120,33 contra uma tendência de 119,37, 0,80% acima, com uma leitura de momentum de 56. O juro americano de 10 anos, a 5,17%, segue acima da tendência de 20 semanas (4,70%). A oferta monetária M2 dos EUA cresce 5,7% em 12 meses e somou cerca de 125 bilhões de dólares no mês.",
+          "es": "El índice amplio del dólar cerró en 120,33 frente a una tendencia de 119,37, un 0,80% por encima, con una lectura de momentum de 56. El rendimiento estadounidense a 10 años, en 5,17%, sigue por encima de su tendencia de 20 semanas (4,70%). La masa monetaria M2 de EE. UU. crece un 5,7% interanual y sumó cerca de 125 mil millones de dólares en el mes.",
+          "de": "Der breite Dollar-Index schloss bei 120,33 gegenüber einem Trend von 119,37, 0,80% darüber, bei einem Momentum-Wert von 56. Die 10-jährige US-Rendite hält sich mit 5,17% über ihrem 20-Wochen-Trend (4,70%). Die US-Geldmenge M2 wächst 5,7% im Jahresvergleich und kam im Monat um rund 125 Mrd. US-Dollar hinzu."
         }
       }
     },
@@ -226,7 +226,7 @@
             "es": "Las creaciones de los ETF al contado superaron los reembolsos en 3 de las últimas 4 semanas (método de participaciones); la demanda institucional está entrando.",
             "de": "Bei den Spot-ETFs überwogen die Anteilsschöpfungen in 3 der letzten 4 Wochen (Anteilszahl-Methode) — institutionelle Nachfrage fließt zu."
           },
-          "last_updated_at": "2026-09-29T11:18:02.244Z"
+          "last_updated_at": "2026-10-05T14:40:13.128Z"
         }
       ]
     },
@@ -261,12 +261,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The BTC/Gold ratio at 19.447 holds above its 20-week trend (16.440) — Bitcoin is outpacing the defensive asset.",
-            "pt-BR": "A razão BTC/Ouro em 19,447 segue acima da tendência de 20 semanas (16,440) — o Bitcoin supera o ativo defensivo.",
-            "es": "La ratio BTC/Oro en 19,447 se mantiene sobre su tendencia de 20 semanas (16,440); Bitcoin supera al activo defensivo.",
-            "de": "Das BTC/Gold-Verhältnis bei 19,447 hält sich über seinem 20-Wochen-Trend (16,440) — Bitcoin läuft dem defensiven Anlagegut voraus."
+            "en": "The BTC/Gold ratio at 20.301 holds above its 20-week trend (16.878) — Bitcoin is outpacing the defensive asset.",
+            "pt-BR": "A razão BTC/Ouro em 20,301 segue acima da tendência de 20 semanas (16,878) — o Bitcoin supera o ativo defensivo.",
+            "es": "La ratio BTC/Oro en 20,301 se mantiene sobre su tendencia de 20 semanas (16,878); Bitcoin supera al activo defensivo.",
+            "de": "Das BTC/Gold-Verhältnis bei 20,301 hält sich über seinem 20-Wochen-Trend (16,878) — Bitcoin läuft dem defensiven Anlagegut voraus."
           },
-          "last_updated_at": "2026-09-29T11:18:02.244Z"
+          "last_updated_at": "2026-10-05T14:40:13.128Z"
         },
         {
           "id": "REL-02",
@@ -280,12 +280,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The BTC/Nasdaq ratio at 3.105 holds above its 20-week trend (2.804) — Bitcoin leads risk assets.",
-            "pt-BR": "A razão BTC/Nasdaq em 3,105 segue acima da tendência de 20 semanas (2,804) — o Bitcoin lidera os ativos de risco.",
-            "es": "La ratio BTC/Nasdaq en 3,105 se mantiene sobre su tendencia de 20 semanas (2,804); Bitcoin lidera los activos de riesgo.",
-            "de": "Das BTC/Nasdaq-Verhältnis bei 3,105 hält sich über seinem 20-Wochen-Trend (2,804) — Bitcoin führt die Risikoanlagen an."
+            "en": "The BTC/Nasdaq ratio at 3.108 holds above its 20-week trend (2.843) — Bitcoin leads risk assets.",
+            "pt-BR": "A razão BTC/Nasdaq em 3,108 segue acima da tendência de 20 semanas (2,843) — o Bitcoin lidera os ativos de risco.",
+            "es": "La ratio BTC/Nasdaq en 3,108 se mantiene sobre su tendencia de 20 semanas (2,843); Bitcoin lidera los activos de riesgo.",
+            "de": "Das BTC/Nasdaq-Verhältnis bei 3,108 hält sich über seinem 20-Wochen-Trend (2,843) — Bitcoin führt die Risikoanlagen an."
           },
-          "last_updated_at": "2026-09-29T11:18:02.244Z"
+          "last_updated_at": "2026-10-05T14:40:13.128Z"
         },
         {
           "id": "REL-03",
@@ -299,12 +299,12 @@
           "points_awarded": 1,
           "max_points": 1,
           "summary": {
-            "en": "The Nasdaq at 27,069 holds above its 20-week trend (25,894) — the wider risk market is structurally healthy.",
-            "pt-BR": "O Nasdaq em 27.069 segue acima da tendência de 20 semanas (25.894) — o mercado de risco mais amplo está estruturalmente saudável.",
-            "es": "El Nasdaq en 27.069 se mantiene sobre su tendencia de 20 semanas (25.894); el mercado de riesgo más amplio está estructuralmente sano.",
-            "de": "Der Nasdaq bei 27.069 hält sich über seinem 20-Wochen-Trend (25.894) — der breitere Risikomarkt ist strukturell gesund."
+            "en": "The Nasdaq at 27,191 holds above its 20-week trend (26,018) — the wider risk market is structurally healthy.",
+            "pt-BR": "O Nasdaq em 27.191 segue acima da tendência de 20 semanas (26.018) — o mercado de risco mais amplo está estruturalmente saudável.",
+            "es": "El Nasdaq en 27.191 se mantiene sobre su tendencia de 20 semanas (26.018); el mercado de riesgo más amplio está estructuralmente sano.",
+            "de": "Der Nasdaq bei 27.191 hält sich über seinem 20-Wochen-Trend (26.018) — der breitere Risikomarkt ist strukturell gesund."
           },
-          "last_updated_at": "2026-09-29T11:18:02.244Z"
+          "last_updated_at": "2026-10-05T14:40:13.128Z"
         }
       ]
     }
