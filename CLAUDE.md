@@ -348,7 +348,7 @@ Stack: Sentry (errors + session replay), PostHog (product analytics, feature fla
 - `apps/web` depends on `@diboas/i18n`, `@diboas/ui`, and `@diboas/email`
 - `@diboas/i18n` must be built before `apps/web` dev/build (`pnpm dev:fresh` handles this)
 - Turborepo handles build ordering via `turbo.json` task dependencies
-- **Dependency pinning strategy:** `next` is pinned exact (16.2.12 as of 2026-08-04; both `apps/web/package.json`, `apps/sandbox/package.json`, and root `package.json#pnpm.overrides.next` must stay aligned — AND the `postcss` devDep must match next's internal exact pin, see `docs/tech/implementation-notes.md` § postcss/storybook footgun). Other deps use caret ranges — `pnpm-lock.yaml` (committed) ensures reproducible builds. Do not delete or gitignore the lockfile.
+- **Dependency pinning strategy:** `next` is pinned exact (16.3.8 as of 2026-10-06 — bumped from 16.3.4 for the critical `next/og` RCE GHSA-vcvr-r3jv-pc5j, PENDING_ALL 5.477; both `apps/web/package.json`, `apps/sandbox/package.json`, and root `package.json#pnpm.overrides.next` must stay aligned — AND the `postcss` devDep must match next's internal exact pin, see `docs/tech/implementation-notes.md` § postcss/storybook footgun). Other deps use caret ranges — `pnpm-lock.yaml` (committed) ensures reproducible builds. Do not delete or gitignore the lockfile.
 
 ## 12 Principles of Excellence
 
