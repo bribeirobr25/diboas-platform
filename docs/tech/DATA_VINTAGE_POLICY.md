@@ -25,6 +25,8 @@
 
 ## 3. Enforcement
 
+> **⚠ STATUS 2026-10-06 (PENDING_ALL 5.479, 5.181): item 2(c) below is NOT enforced.** The weekly pipeline appends the monthly PRICE series automatically (`--append-btc`, `tools-monthlies.mjs`), but the FX append (`monthlyFx.json`, ECB/PTAX) is still a manual runbook step. Measured: prices end 2026-09 on the 2026-10-05 refresh while FX ends 2026-07, and no gate failed. The Asset History calculator forward-fills a missing FX month from the latest available one, with no upper bound, so cross-currency results silently use July's rate. Treat 2(c) as a policy target, not a live control, until 5.479 lands.
+
 1. **Monthly append step:** month-boundary task in the weekly runbook — append the just-completed month to both series files, re-run `pnpm validate:market-data` + the tools stress harness, re-validate anchors. Owner: Data Ops (5.54).
 2. **Vintage gate in `validate:market-data`:** (a) each series' last `ym` = last complete month or a logged exception; (b) no series contains the current month; (c) `monthlyPrices.json` and `monthlyFx.json` end on the same month across all series/currencies; (d) every TR-series month row carries `closePriceOnly`. Build fails on violation.
 3. **Provenance completion:** `lastVerified` + methodology fields on `protocols.json` TVL entries.

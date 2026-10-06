@@ -439,6 +439,8 @@ Confidence:
 
 ## 6.5 Test scenarios
 
+> **These tables are DATED snapshots (measured 2026-05-23), not live expectations (2026-10-06, PENDING_ALL 5.478).** The window runs to the latest confirmed month, and the weekly pipeline appends a month at every month-roll, so every terminal value and month count here moves monthly (BTC 2016 DCA was $281,945.62 over 129 months on the 2026-10-05 data). The automated guard is `asset-history/__tests__/calculator.test.ts`, which asserts the calculator against an **independent replay of the committed series** rather than against these figures; `pnpm market:simulate-next-week` scenario D proves it survives month-rolls. Re-measure before quoting any number below.
+
 ### Default × 4 locales (BTC 2016 DCA)
 
 All 4 locales render the same numbers because BTC is USD-priced and the math is locale-invariant (the only difference is the default `amount`).

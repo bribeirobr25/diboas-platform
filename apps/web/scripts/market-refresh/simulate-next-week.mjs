@@ -53,12 +53,31 @@ import { archiveSignals } from './lib/archive.mjs';
 import { scoreSignals, anchorCoherence } from './lib/regime-engine.mjs';
 
 const SHARED = path.join(REPO_ROOT, 'apps/web/data/market/shared');
+// Scenario D (5.478) also writes the monthly series the pipeline appends to, so
+// it is covered by the same dirty-tree refusal, snapshot and restore.
+const MONTHLY = path.join(REPO_ROOT, 'apps/web/src/lib/market-data/data/monthlyPrices.json');
+const WATCHED = [SHARED, MONTHLY];
+const MONTHLY_KEY = '\u0000monthlyPrices.json';
+/**
+ * Test directories OUTSIDE the weekly blocking step whose tests read the monthly
+ * series the pipeline writes (they gate the refresh PR's own CI). Exported so
+ * `releaseGateBoundary.test.ts` can assert every declared reader lives in one of
+ * them — one list, not two that drift.
+ */
+export const PIPELINE_READER_DIRS = [
+  'src/lib/asset-history',
+  'src/lib/time-to-target',
+  'src/lib/emergency-fund',
+  'src/lib/idle-cash',
+  'src/lib/inflation-impact',
+  'src/lib/currency-depreciation',
+];
 const DAY_MS = 86400000;
 const shiftIso = (iso, d) => new Date(Date.parse(iso) + d * DAY_MS).toISOString();
 const shiftDay = (day, d) => shiftIso(`${day}T00:00:00Z`, d).slice(0, 10);
 
 function assertClean() {
-  const out = execFileSync('git', ['status', '--porcelain', SHARED], {
+  const out = execFileSync('git', ['status', '--porcelain', ...WATCHED], {
     cwd: REPO_ROOT,
     encoding: 'utf8',
   }).trim();
@@ -69,12 +88,49 @@ function assertClean() {
   }
 }
 
-const snapshot = () =>
-  Object.fromEntries(fs.readdirSync(SHARED).map((f) => [f, fs.readFileSync(path.join(SHARED, f))]));
+const snapshot = () => ({
+  ...Object.fromEntries(
+    fs.readdirSync(SHARED).map((f) => [f, fs.readFileSync(path.join(SHARED, f))])
+  ),
+  [MONTHLY_KEY]: fs.readFileSync(MONTHLY),
+});
 
 const restore = (snap) => {
-  for (const [f, buf] of Object.entries(snap)) fs.writeFileSync(path.join(SHARED, f), buf);
+  for (const [f, buf] of Object.entries(snap))
+    fs.writeFileSync(f === MONTHLY_KEY ? MONTHLY : path.join(SHARED, f), buf);
 };
+
+/**
+ * Append `n` synthetic month-rolls to EVERY price series, each a large move
+ * (`factor` per month) with a consistent OHLC bar and the price-only close scaled
+ * with it. The values are deliberately extreme: a test that only passes for this
+ * month's prices — a band on a moving number, a bounded month count — fails here
+ * before a real month-roll fails it on a Monday (5.478).
+ */
+function rollMonths(n, factor) {
+  const data = JSON.parse(fs.readFileSync(MONTHLY, 'utf8'));
+  const nextYm = (ym) => {
+    const [y, m] = ym.split('-').map(Number);
+    return new Date(Date.UTC(y, m, 1)).toISOString().slice(0, 10);
+  };
+  for (const series of Object.values(data)) {
+    for (let i = 0; i < n; i++) {
+      const last = series.months[series.months.length - 1];
+      const close = last.close * factor;
+      const bar = {
+        ym: nextYm(last.ym),
+        open: last.close,
+        high: Math.max(last.close, close) * 1.02,
+        low: Math.min(last.close, close) * 0.98,
+        close,
+      };
+      if (last.closePriceOnly != null) bar.closePriceOnly = last.closePriceOnly * factor;
+      series.months.push(bar);
+    }
+  }
+  fs.writeFileSync(MONTHLY, `${JSON.stringify(data, null, 2)}\n`);
+  return data;
+}
 
 /**
  * Move the world on by one cycle, the way a real run leaves it.
@@ -165,6 +221,12 @@ const SCENARIOS = [
     expectEtfSentence: { contains: '{gapDays}', never: 'warming up' },
   },
   { key: 'C', name: 'ETF leg failed — no new snapshot', days: 7, etfDays: null },
+  {
+    key: 'D',
+    name: 'three month-rolls at +25%/month — tests reading pipeline-written monthly data',
+    monthRolls: 3,
+    factor: 1.25,
+  },
 ];
 
 /**
@@ -221,6 +283,23 @@ function main() {
     for (const sc of SCENARIOS.filter((x) => !only || x.key === only)) {
       restore(snap);
       try {
+        if (sc.monthRolls) {
+          // Scenario D gates the refresh PR's own CI, not the bot pre-flight: these
+          // tests stay out of the blocking step on purpose (a failure there would
+          // kill the run and lose that week's ETF snapshot). See 5.478.
+          rollMonths(sc.monthRolls, sc.factor);
+          console.log(
+            `\n=== scenario ${sc.key}: ${sc.name} ===\n` +
+              `  ${sc.monthRolls} synthetic bars appended to every monthly price series`
+          );
+          execFileSync(
+            'pnpm',
+            ['--filter', 'web', 'exec', 'vitest', 'run', ...PIPELINE_READER_DIRS],
+            { cwd: REPO_ROOT, encoding: 'utf8', stdio: 'pipe' }
+          );
+          console.log(`  ✓ the tests reading pipeline-written monthly data pass (scenario D)`);
+          continue;
+        }
         const moved = advance(sc);
         console.log(
           `\n=== scenario ${sc.key}: ${sc.name} ===\n` +
@@ -267,7 +346,11 @@ function main() {
         console.log(`  ✓ the weekly blocking gate passes (scenario ${sc.key})`);
       } catch (err) {
         failures.push(sc.key);
-        console.error(`\n  ✖ scenario ${sc.key} would FAIL the weekly run:\n`);
+        console.error(
+          sc.monthRolls
+            ? `\n  ✖ scenario ${sc.key} would turn the refresh PR's CI red after a month-roll:\n`
+            : `\n  ✖ scenario ${sc.key} would FAIL the weekly run:\n`
+        );
         console.error(
           String(err.stdout || err.message)
             .split('\n')
@@ -287,7 +370,7 @@ function main() {
     }
   } finally {
     restore(snap);
-    const dirty = execFileSync('git', ['status', '--porcelain', SHARED], {
+    const dirty = execFileSync('git', ['status', '--porcelain', ...WATCHED], {
       cwd: REPO_ROOT,
       encoding: 'utf8',
     }).trim();
