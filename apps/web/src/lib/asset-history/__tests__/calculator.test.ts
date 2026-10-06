@@ -10,9 +10,30 @@
  * eliminated the v1 anchor-table fallback (C19 close).
  */
 
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, it, expect, beforeAll } from 'vitest';
 import { calculateAssetHistoryDcaReplay, AssetHistoryDataError } from '../calculator';
 import { marketDataService } from '@/lib/market-data';
+
+/**
+ * An INDEPENDENT replay of a close-based DCA from the committed monthly series
+ * (read straight from the JSON, not through the calculator or the service):
+ * one contribution per month from the first bar of `startYear`, units bought at
+ * that month's close, valued at the final close. Valid for assets whose close
+ * needs no price-only adjustment (BTC, DAX — native, no `closePriceOnly`).
+ */
+function independentCloseReplay(asset: 'BTC' | 'DAX', startYear: number, amount: number) {
+  const raw = JSON.parse(
+    readFileSync(join(__dirname, '../../market-data/data/monthlyPrices.json'), 'utf8')
+  ) as Record<string, { months: { ym: string; close: number; closePriceOnly?: number }[] }>;
+  const window = raw[asset].months.filter((m) => Number(m.ym.slice(0, 4)) >= startYear);
+  if (window.some((m) => m.closePriceOnly != null))
+    throw new Error(`${asset}: independent replay assumes no price-only adjustment`);
+  const units = window.reduce((u, m) => u + amount / m.close, 0);
+  const last = window[window.length - 1];
+  return { months: window.length, endYm: last.ym, terminal: units * last.close };
+}
 
 describe('calculateAssetHistoryDcaReplay — Phase E v2 monthly OHLC replay', () => {
   beforeAll(async () => {
@@ -20,28 +41,27 @@ describe('calculateAssetHistoryDcaReplay — Phase E v2 monthly OHLC replay', ()
     await marketDataService.get();
   });
 
-  it('reproduces Phase A BTC 2016 DCA reconciliation within ±5%', () => {
-    // Phase A authoritative number: $217,047 (close-based).
-    // Phase A range: [$198,903, $255,694].
-    // Band note: the terminal value is data-driven — the window extends to the
-    // latest confirmed month, so each monthly append moves it. Floor lowered
-    // 200k→180k on the 2026-06 append (a ~-24% BTC month; computed $197,364).
-    // Per the TLT register precedent: a result that "looks wrong" after an
-    // append is verified against the path data, not assumed to be a calc bug.
-    const result = calculateAssetHistoryDcaReplay({
-      asset: 'BTC',
-      startYear: 2016,
-      amount: 100,
-    });
-    expect(result.terminalValue).toBeGreaterThan(180_000);
-    expect(result.terminalValue).toBeLessThan(280_000);
+  it('should match an independent close-based replay of the committed BTC series (2016 DCA)', () => {
+    // A DERIVED expectation, not a band (PENDING_ALL 5.478, 2026-10-06). This test
+    // used to bound the terminal value to 180k–280k. The weekly pipeline appends a
+    // month to monthlyPrices.json at every month-roll, so the value moves every
+    // month: the band was hand-widened once (2026-07-11) and broke again on the
+    // 2026-10-05 refresh when the September close put it at $281,945.62 — which
+    // an independent replay confirmed CORRECT. A test of a moving value must
+    // compute what the value should be from the same committed series. (Phase A's
+    // authoritative $217,047 is the historical anchor for a shorter window; the
+    // window now extends to the latest confirmed month by design.)
+    const expected = independentCloseReplay('BTC', 2016, 100);
+    const result = calculateAssetHistoryDcaReplay({ asset: 'BTC', startYear: 2016, amount: 100 });
+    expect(result.months).toBe(expected.months);
+    expect(result.startYm).toBe('2016-01-01');
+    expect(result.endYm).toBe(expected.endYm);
+    expect(result.totalContributed).toBe(100 * expected.months);
+    expect(result.terminalValue).toBeCloseTo(expected.terminal, 6);
     expect(result.confidence).toBe('MEDIUM'); // M1 preserved
-    expect(result.months).toBeGreaterThanOrEqual(120);
     expect(result.rangeLow).toBeLessThan(result.terminalValue);
     expect(result.rangeHigh).toBeGreaterThan(result.terminalValue);
-    expect(result.startYm).toBe('2016-01-01');
   });
-
   it('returns LOW confidence for BTC 2010-2012 start (audit M6 calm-framing)', () => {
     // BTC Yahoo data starts Sep 2014 — earliest valid start year is 2014.
     // For start years 2010-2012 that have no BTC data, the function throws.
@@ -197,9 +217,11 @@ describe('calculateAssetHistoryDcaReplay — cross-currency FX-path (2026-05-23)
     // Better test: explicit EUR should match a hypothetical "no FX" calculation.
     expect(eur.terminalValue).toBeGreaterThan(0);
     expect(eur.returnsBasis).toBe('total_return');
-    // Sanity: terminalValue × months count is reasonable for a 10-year DAX DCA
+    // The window runs from the first 2016 bar to the latest confirmed month, so
+    // the count is DERIVED from the committed series (5.478): the previous
+    // `<= 130` bound would have failed on the 2026-12-07 refresh (131 months).
+    expect(eur.months).toBe(independentCloseReplay('DAX', 2016, 100).months);
     expect(eur.months).toBeGreaterThanOrEqual(120);
-    expect(eur.months).toBeLessThanOrEqual(130);
   });
 
   it('pt-BR user investing R$ in EUR-priced DAX: cross-rate via USD (BRL→USD→EUR for inflows, EUR→USD→BRL for terminal)', () => {

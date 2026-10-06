@@ -25,9 +25,10 @@
  * classification to exist and to be reviewed.
  */
 
-import { readdirSync, readFileSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { PIPELINE_READER_DIRS } from '../../../../scripts/market-refresh/simulate-next-week.mjs';
 
 const DIRS = [join(__dirname, '.'), join(__dirname, '../../analytics-sdk/__tests__')];
 
@@ -147,5 +148,97 @@ describe('every weekly release gate is declared, not inherited from a directory 
     expect(gates + units).toBe(Object.keys(ALLOWED).length);
     expect(gates).toBe(4);
     expect(units).toBe(7);
+  });
+});
+
+/**
+ * THE SAME DISCIPLINE, ONE DOOR FURTHER OUT (PENDING_ALL 5.478, 2026-10-06).
+ *
+ * The block above guards the two directories the weekly workflow's blocking step
+ * runs. But the pipeline also WRITES `src/lib/market-data/data/monthlyPrices.json`
+ * (the BTC candle via `--append-btc`, the tool series via `tools-monthlies.mjs`),
+ * and tests elsewhere read it through `marketDataService`. On 2026-10-05 one of
+ * them — `asset-history/__tests__/calculator.test.ts`, bounding a value every
+ * month-roll moves — failed on the refresh PR, which therefore opened with red CI
+ * that no memo rewrite could fix, and nothing had flagged it.
+ *
+ * These files deliberately stay OUT of the blocking step: a failure there kills
+ * the run before the PR step and loses that week's non-backfillable ETF snapshot.
+ * They gate on the PR's own CI instead (`PR-GATE-READS-PIPELINE-DATA`), so every
+ * one must assert RULES or DERIVED values — never a band on a moving number. This
+ * forces the declaration to exist; `market:simulate-next-week` scenario D
+ * (a synthetic month-roll) is the executable check that they hold.
+ */
+const SRC = join(__dirname, '../../..'); // apps/web/src
+const GUARDED = [join(__dirname, '.'), join(__dirname, '../../analytics-sdk/__tests__')];
+const READS_PIPELINE_DATA =
+  /marketDataService\.(get|getSync|getMonthlySeries)\(|data\/monthly(Prices|Fx|Inflation)\.json/;
+const MOCKS_THE_SERVICE = /vi\.mock\(\s*['"]@\/lib\/market-data/;
+
+const PIPELINE_DATA_READERS: Record<string, string> = {
+  'lib/asset-history/__tests__/calculator.test.ts':
+    'DCA replay over the live monthly series; values asserted against an INDEPENDENT replay of the committed JSON (5.478), never a band',
+  'lib/asset-history/__tests__/unexpectedError.test.ts':
+    'loads the live series only to exercise the error path; asserts error handling, not values',
+  'lib/time-to-target/__tests__/calculator.test.ts':
+    'uses the live snapshot as an input; asserts arithmetic rules and constants (TIMELINE_MAX_MONTHS), not market values',
+  'lib/emergency-fund/__tests__/calculator.test.ts':
+    'uses the live snapshot only for locale context; the asserted target is pure arithmetic of the inputs',
+  'lib/idle-cash/__tests__/calculator.test.ts':
+    'bands come from fixed SCENARIO_RATES on the en path (no FX); the live snapshot does not move them',
+  'lib/idle-cash/__tests__/contract.test.ts':
+    'contract/shape test over the live snapshot; asserts structure, not values',
+  'lib/inflation-impact/__tests__/calculator.test.ts':
+    'asserts directional rules (real value below nominal, loss below 100%) that hold for any inflation series',
+  'lib/currency-depreciation/__tests__/calculator.test.ts':
+    'asserts identities (USD stays 10000 against itself) and direction, not a dated rate',
+};
+
+function walkTests(dir: string, out: string[] = []): string[] {
+  for (const name of readdirSync(dir)) {
+    const full = join(dir, name);
+    if (statSync(full).isDirectory()) {
+      if (name === 'node_modules' || GUARDED.includes(full)) continue;
+      walkTests(full, out);
+    } else if (/\.test\.tsx?$/.test(name)) out.push(full);
+  }
+  return out;
+}
+const pipelineReaders = () =>
+  walkTests(SRC)
+    .filter((f) => {
+      const src = readFileSync(f, 'utf8');
+      return READS_PIPELINE_DATA.test(src) && !MOCKS_THE_SERVICE.test(src);
+    })
+    .map((f) => f.slice(SRC.length + 1));
+
+describe('tests OUTSIDE the weekly step that read pipeline-written data are declared (5.478)', () => {
+  it('should have no undeclared test reading the monthly series the pipeline writes', () => {
+    const undeclared = pipelineReaders().filter((f) => !(f in PIPELINE_DATA_READERS));
+    expect(
+      undeclared,
+      `these read pipeline-written monthly data (they gate the refresh PR's CI) but declare no reason:\n` +
+        `  ${undeclared.join('\n  ')}\n` +
+        `Assert a rule or a value derived from the same series, then declare it here.`
+    ).toEqual([]);
+  });
+
+  it('should not list a file that no longer reads pipeline data (the list must stay honest)', () => {
+    const actual = new Set(pipelineReaders());
+    expect(Object.keys(PIPELINE_DATA_READERS).filter((f) => !actual.has(f))).toEqual([]);
+  });
+
+  it('should run every declared reader in simulate-next-week scenario D (one list, not two)', () => {
+    // Scenario D is the executable check that these tests hold across month-rolls;
+    // a declared reader outside its directories would be silently untested there.
+    const outside = Object.keys(PIPELINE_DATA_READERS).filter(
+      (f) => !PIPELINE_READER_DIRS.some((d: string) => `src/${f}`.startsWith(`${d}/`))
+    );
+    expect(outside, 'declared here but not run by scenario D').toEqual([]);
+  });
+
+  it('should not count a test that MOCKS the data service (it reads no live data)', () => {
+    expect(pipelineReaders()).not.toContain('hooks/__tests__/useMarketData.test.tsx');
+    expect(pipelineReaders()).not.toContain('lib/pre-demo/__tests__/feeRateDisplay.test.ts');
   });
 });

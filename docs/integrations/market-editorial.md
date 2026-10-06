@@ -14,7 +14,11 @@
 > guard** — that throws away a week of non-backfillable data. The PR body now lists **every** stale memo
 > figure plus any "latest spot-ETF week" finding (`5.467`/`5.469`); fix them all in four locales, not only the
 > first. If the body warns _"ETF-01 snapshot failed this week"_, re-run before Friday or next week's ETF-01
-> publishes as gapped.
+> publishes as gapped. **If the PR's `quality` check fails on anything OTHER than `memoFigureReconciliation`**
+> (2026-10-06, `5.478`): a test that reads the monthly series the pipeline writes is pinning a moving value.
+> It is declared in `releaseGateBoundary.test.ts#PIPELINE_DATA_READERS`; fix the test to assert a rule or a
+> value derived from the same series (never widen a band), and confirm with
+> `pnpm market:simulate-next-week` scenario D.
 >
 > **⭐ THE MEMO DERIVATION RULE (2026-09-12 — added after it was broken, by me).** When you rewrite the
 > four editorial fields, **derive every claim from `computed.json` and `run-archive.jsonl` — never from
