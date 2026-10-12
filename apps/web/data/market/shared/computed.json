@@ -1,6 +1,6 @@
 {
   "_comment": "Machine-readable regime computation (P2 Stage 3 output). Written ONLY by scripts/market-refresh/run.mjs after the quality gate passes. The reconciliation vitest asserts regime.json agrees with this file — hand-edit regime.json scores and CI goes red (F-M4). Regenerate by running the pipeline, never by hand.",
-  "computed_at": "2026-10-05T14:40:13.128Z",
+  "computed_at": "2026-10-12T15:27:01.805Z",
   "score": 12,
   "max_score": 14,
   "regime_code": "VERY_FAVORABLE",
@@ -12,11 +12,7 @@
   },
   "anchor_spread_days": 7,
   "anchor_warning": null,
-  "btc_append": {
-    "ym": "2026-09-01",
-    "close": 83553.8516,
-    "divergence_pct": 0.027
-  },
+  "btc_append": null,
   "signals": [
     {
       "id": "BTC-01",
@@ -78,14 +74,14 @@
       "state": "INACTIVE",
       "weight": 1,
       "points": 0,
-      "detail": "DXY 120.3300 vs EMA20W 119.3711 (Δ 0.803%); RSI 55.55",
+      "detail": "DXY 121.3848 vs EMA20W 119.5629 (Δ 1.524%); RSI 60.76",
       "values": {
-        "close": 120.33,
-        "ema20": 119.37114702961871,
-        "gapPct": 0.803253545132957,
-        "rsi": 55.55049753044931
+        "close": 121.3848,
+        "ema20": 119.56292350298837,
+        "gapPct": 1.5237804861522088,
+        "rsi": 60.76405753746556
       },
-      "anchor": "2026-09-25",
+      "anchor": "2026-10-02",
       "anchorKind": "weekly"
     },
     {
@@ -93,12 +89,12 @@
       "state": "INACTIVE",
       "weight": 1,
       "points": 0,
-      "detail": "US10Y 5.17% vs EMA20W 4.70%",
+      "detail": "US10Y 5.28% vs EMA20W 4.75%",
       "values": {
-        "close": 5.17,
-        "ema20": 4.695853763487968
+        "close": 5.28,
+        "ema20": 4.751486738393876
       },
-      "anchor": "2026-09-25",
+      "anchor": "2026-10-02",
       "anchorKind": "weekly"
     },
     {
@@ -119,13 +115,13 @@
       "state": "ACTIVE",
       "weight": 2,
       "points": 2,
-      "detail": "Spot-ETF net flows via Δshares×NAV (Polygon primary): last 4 weekly aggregates (spans [7d, 7d, 7d, 7d], all verified 7±1d) [+$548M, -$236M, +$1,182M, +$362M] → 3/4 positive (threshold ≥3)",
+      "detail": "Spot-ETF net flows via Δshares×NAV (Polygon primary): last 4 weekly aggregates (spans [7d, 7d, 7d, 7d], all verified 7±1d) [-$236M, +$1,182M, +$362M, +$326M] → 3/4 positive (threshold ≥3)",
       "values": {
         "positives": 3,
         "weeks": 4,
-        "lastFlowUsd": 362480793
+        "lastFlowUsd": 325623599
       },
-      "anchor": "2026-10-02",
+      "anchor": "2026-10-09",
       "anchorKind": "weekly"
     },
     {
@@ -133,13 +129,13 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "BTC/Gold ratio 20.301 vs EMA20W 16.878 (Yahoo GC=F substitute)",
+      "detail": "BTC/Gold ratio 19.578 vs EMA20W 17.176 (Yahoo GC=F substitute)",
       "values": {
-        "ratio": 20.300606612320646,
-        "ema20": 16.877616868341878,
-        "gapPct": 20.281238581730264
+        "ratio": 19.577905779074005,
+        "ema20": 17.176438431269663,
+        "gapPct": 13.981171692919045
       },
-      "anchor": "2026-10-02",
+      "anchor": "2026-10-09",
       "anchorKind": "weekly"
     },
     {
@@ -147,13 +143,13 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "BTC/Nasdaq ratio 3.108 vs EMA20W 2.843",
+      "detail": "BTC/Nasdaq ratio 3.016 vs EMA20W 2.857",
       "values": {
-        "ratio": 3.1075593393331435,
-        "ema20": 2.842664179441887,
-        "gapPct": 9.318552708651797
+        "ratio": 3.016363645789674,
+        "ema20": 2.8566601191662735,
+        "gapPct": 5.590568004639293
       },
-      "anchor": "2026-10-02",
+      "anchor": "2026-10-09",
       "anchorKind": "weekly"
     },
     {
@@ -161,13 +157,13 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "Nasdaq 27190.86 vs EMA20W 26017.81",
+      "detail": "Nasdaq 27366.17 vs EMA20W 26146.23",
       "values": {
-        "close": 27190.86,
-        "ema20": 26017.814338201955,
-        "gapPct": 4.508624923484301
+        "close": 27366.17,
+        "ema20": 26146.229163135104,
+        "gapPct": 4.665838539290979
       },
-      "anchor": "2026-10-02",
+      "anchor": "2026-10-09",
       "anchorKind": "weekly"
     }
   ],
@@ -175,37 +171,37 @@
     {
       "source": "FRED:DTWEXBGS",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS&cosd=2023-01-01",
-      "fetchedAt": "2026-10-05T14:40:13.031Z",
+      "fetchedAt": "2026-10-12T15:27:01.690Z",
       "licence": "unverified"
     },
     {
       "source": "FRED:DGS10",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2023-01-01",
-      "fetchedAt": "2026-10-05T14:40:13.036Z",
+      "fetchedAt": "2026-10-12T15:27:01.682Z",
       "licence": "unverified"
     },
     {
       "source": "FRED:M2SL",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=M2SL&cosd=2023-01-01",
-      "fetchedAt": "2026-10-05T14:40:13.060Z",
+      "fetchedAt": "2026-10-12T15:27:01.685Z",
       "licence": "unverified"
     },
     {
       "source": "FRED:NASDAQCOM",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQCOM&cosd=2023-01-01",
-      "fetchedAt": "2026-10-05T14:40:13.085Z",
+      "fetchedAt": "2026-10-12T15:27:01.687Z",
       "licence": "unverified"
     },
     {
       "source": "Yahoo:BTC-USD",
       "url": "chart/BTC-USD?interval=1d",
-      "fetchedAt": "2026-10-05T14:40:13.008Z",
+      "fetchedAt": "2026-10-12T15:27:01.723Z",
       "licence": "quote-display"
     },
     {
       "source": "Yahoo:GC=F",
       "url": "chart/GC=F?interval=1d",
-      "fetchedAt": "2026-10-05T14:40:13.098Z",
+      "fetchedAt": "2026-10-12T15:27:01.776Z",
       "licence": "quote-display"
     }
   ]
