@@ -74,7 +74,7 @@
     "eslint-config-next": "^16.1.6",
     "eslint-plugin-storybook": "^10.5.5",
     "happy-dom": "^20.11.1",
-    "jsdom": "^30.0.1",
+    "jsdom": "^30.1.2",
     "pa11y": "^9.1.0",
     "postcss": "8.5.23",
     "storybook": "^10.3.5",
