@@ -5,91 +5,91 @@
   "regime_code": "VERY_FAVORABLE",
   "regime_label": "Very Favorable",
   "environment_bias": "STRONG_ALIGNMENT",
-  "last_updated_at": "2026-10-05T14:40:13.128Z",
+  "last_updated_at": "2026-10-12T15:27:01.805Z",
   "summary": {
     "en": {
-      "short": "The September close entered the engine this cycle, and the structural block was re-evaluated from a stronger footing: still six of six, with every margin wider. The composite holds at 12 of 14, Very Favorable. Bitcoin closed September at $83,554, about 6.4% up on the month, which put it about 5.8% above its 20-month line after a month of sitting barely above it. The dollar and the US 10-year carry the same September 25 readings as a week ago, so two macro reads still work against the price. The latest spot-ETF week was a creation of about $362M, keeping three of the last four weeks positive. Structural signals now anchor the September 30 close; the next monthly re-evaluation is the October 31 close.",
-      "detailed": "The month turned, so the structural block was re-evaluated on the September 30 close, and all four monthly reads held with more room than a month ago. Price closed at $83,554, about 6.4% up on the month: about 5.8% above the 20-month line ($78,978), where a month ago it was only just above it, and about 34% above the 50-month line ($62,342). Monthly RSI rose to 53.1 from 50.9, and the monthly Stoch-RSI %K reads 27.6 against a floor of 10. Six of six points, the same four reads, now with clear margins rather than thin ones.\n\nThe macro block did not move. The dollar and the US 10-year both still read their September 25 values: the dollar at 120.33 against a 119.37 trend (0.80% above, momentum 56), and the 10-year at 5.17% against a 4.70% trend. Both work against the price. Liquidity still reads the August print, about 5.7% annual expansion with $124.9bn added on the month. One of three points, unchanged.\n\nThe last two groups kept their points, with a mixed picture underneath. The most recent spot-ETF week was a creation of about $362M, so the four trailing weeks read +$548M, -$236M, +$1,182M and +$362M: three of four positive, still exactly the signal's threshold of three, with the redemption week still inside the window. Bitcoin's lead over gold widened to 20.3% (20.30 against a 16.88 trend), while its lead over the Nasdaq narrowed to 9.3% (3.11 against 2.84); the Nasdaq itself held 4.5% above its own trend (27,191 against 26,018). Twelve of fourteen, Very Favorable, with the macro backdrop still the softer side of the picture.",
+      "short": "A quiet week: the composite holds at 12 of 14, Very Favorable, and no signal changed state. The structural block still reads the September 30 close, six of six; the next monthly re-evaluation is the October 31 close. The dollar and the US 10-year now read their October 2 values, and both leaned further against the price: the dollar 1.52% above its 20-week trend, the 10-year at 5.28% against a 4.75% trend. The latest spot-ETF week was a creation of about $326M, keeping three of the last four weeks positive. Bitcoin kept its lead over both gold and the Nasdaq, but both leads narrowed.",
+      "detailed": "No month turned this cycle, so the structural block still reads the September 30 close: price at $83,554, about 5.8% above the 20-month line ($78,978) and about 34% above the 50-month line ($62,342), monthly RSI at 53.1 and the monthly Stoch-RSI %K at 27.6 against a floor of 10. Six of six points, unchanged; the next re-evaluation is the October 31 close.\n\nThe macro block kept one of three points, with both restrictive reads now further from their lines. The dollar and the US 10-year moved on to their October 2 readings: the dollar at 121.38 against a 119.56 trend (1.52% above, momentum 61), wider above its trend than a week ago, and the 10-year at 5.28% against a 4.75% trend, higher than a week ago. Both still work against the price. Liquidity still reads the August print, about 5.7% annual expansion with $124.9bn added on the month.\n\nThe last two groups kept their points while their margins thinned. The latest spot-ETF week was a creation of about $326M, so the four trailing weeks read -$236M, +$1,182M, +$362M and +$326M: three of four positive, still exactly the signal's threshold of three, with the redemption week now the oldest in the window. Bitcoin's lead over gold narrowed to 14.0% (19.58 against a 17.18 trend), and its lead over the Nasdaq narrowed to 5.6% (3.02 against 2.86); the Nasdaq itself held 4.7% above its own trend (27,366 against 26,146). Twelve of fourteen, Very Favorable, with the macro backdrop still the softer side of the picture.",
       "confidence_level": "HIGH",
       "mixed_signals": false,
       "key_supportive_factors": [
-        "The structural block held on the September 30 close: all four monthly reads active, six of six points",
+        "The structural block holds on the September 30 close: all four monthly reads active, six of six points",
         "Price closed September at $83,554, about 5.8% above the 20-month line ($78,978) and about 34% above the 50-month line ($62,342)",
-        "Monthly momentum strengthened: RSI rose to 53.1, and the monthly Stoch-RSI %K reads 27.6 against a floor of 10",
+        "Monthly momentum is firmer than a month ago: RSI at 53.1 from 50.9, and the monthly Stoch-RSI %K reads 27.6 against a floor of 10",
         "M2 still reads expansion, about 5.7% over the year with $124.9bn added on the month",
-        "The most recent spot-ETF week was a creation of about $362M, keeping three of the last four weeks positive",
-        "Bitcoin's lead over gold widened to 20.3% (20.30 against a 16.88 trend), and the Nasdaq holds 4.5% above its own trend (27,191 against 26,018)"
+        "The latest spot-ETF week was a creation of about $326M, keeping three of the last four weeks positive",
+        "Bitcoin still leads gold by 14.0% (19.58 against a 17.18 trend), and the Nasdaq holds 4.7% above its own trend (27,366 against 26,146)"
       ],
       "key_headwinds": [
-        "The dollar sits above its 20-week trend (120.33 against 119.37, 0.80% above, momentum 56), and that signal remains off",
-        "The US 10-year reads 5.17% against a 4.70% trend, the second macro read working against the price",
+        "The dollar sits further above its 20-week trend (121.38 against 119.56, 1.52% above, momentum 61), and that signal remains off",
+        "The US 10-year rose to 5.28% against a 4.75% trend, the second macro read working against the price",
         "The spot-ETF window still holds one redemption week (-$236M), so three of four positive is exactly the threshold, with no week to spare",
-        "Bitcoin's lead over the Nasdaq narrowed to 9.3% (3.11 against 2.84)"
+        "Both relative-strength leads narrowed this week: over gold to 14.0% and over the Nasdaq to 5.6% (3.02 against 2.86)"
       ],
-      "plain": "A steady week — still 12 of 14. Over the month, the read is very favorable: almost all of what we track supports the price. What we're watching: whether the dollar loosens its grip, and whether the stock market itself stays steady."
+      "plain": "A steady week — still 12 of 14. It's a very favorable month for Bitcoin: almost everything we track is lined up in the price's favor. What we're watching: whether the dollar loosens its grip, and whether the stock market itself stays steady."
     },
     "pt-BR": {
-      "short": "O fechamento de setembro entrou no motor neste ciclo, e o bloco estrutural foi reavaliado em base mais firme: segue seis de seis, com todas as margens mais largas. O composto segue em 12 de 14, Muito favorável. O Bitcoin fechou setembro em US$ 83.554, alta de cerca de 6,4% no mês, o que o colocou cerca de 5,8% acima da sua linha de 20 meses, depois de um mês praticamente colado nela. O dólar e a taxa de 10 anos dos EUA trazem as mesmas leituras de 25 de setembro de uma semana atrás, então duas leituras macro seguem trabalhando contra o preço. A semana mais recente de ETFs à vista foi de criação de cerca de US$ 362 milhões, mantendo três das últimas quatro semanas positivas. Os sinais estruturais agora se ancoram no fechamento de 30 de setembro; a próxima reavaliação mensal é o fechamento de 31 de outubro.",
-      "detailed": "O mês virou, então o bloco estrutural foi reavaliado no fechamento de 30 de setembro, e as quatro leituras mensais se mantiveram com mais folga que há um mês. O preço fechou em US$ 83.554, alta de cerca de 6,4% no mês: cerca de 5,8% acima da linha de 20 meses (US$ 78.978), onde há um mês estava apenas um pouco acima, e cerca de 34% acima da linha de 50 meses (US$ 62.342). O RSI mensal subiu para 53,1, ante 50,9, e o Stoch-RSI %K mensal marca 27,6 contra um piso de 10. Seis de seis pontos, as mesmas quatro leituras, agora com margens claras em vez de finas.\n\nO bloco macro não se mexeu. O dólar e a taxa de 10 anos dos EUA ainda leem os valores de 25 de setembro: o dólar em 120,33 contra uma tendência de 119,37 (0,80% acima, momento em 56), e a taxa de 10 anos em 5,17% contra uma tendência de 4,70%. As duas trabalham contra o preço. A liquidez ainda lê o dado de agosto, com expansão anual de cerca de 5,7% e US$ 124,9 bi adicionados no mês. Um de três pontos, sem mudança.\n\nOs dois últimos grupos mantiveram seus pontos, com um quadro misto por baixo. A semana mais recente de ETFs à vista foi de criação de cerca de US$ 362 milhões, então as quatro semanas do período marcam +US$ 548 milhões, -US$ 236 milhões, +US$ 1,18 bilhão e +US$ 362 milhões: três de quatro positivas, ainda exatamente o mínimo de três do sinal, com a semana de resgate ainda dentro do período. A dianteira do Bitcoin contra o ouro alargou para 20,3% (20,30 ante uma tendência de 16,88), enquanto a dianteira contra a Nasdaq estreitou para 9,3% (3,11 ante 2,84); a própria Nasdaq se manteve 4,5% acima da sua tendência (27.191 contra 26.018). Doze de quatorze, Muito favorável, com o pano de fundo macro ainda como o lado mais fraco do quadro.",
+      "short": "Semana tranquila: o composto segue em 12 de 14, Muito favorável, e nenhum sinal mudou de estado. O bloco estrutural ainda lê o fechamento de 30 de setembro, seis de seis; a próxima reavaliação mensal é o fechamento de 31 de outubro. O dólar e a taxa de 10 anos dos EUA agora leem os valores de 2 de outubro, e os dois pesaram ainda mais contra o preço: o dólar 1,52% acima da sua tendência de 20 semanas, a taxa de 10 anos em 5,28% contra uma tendência de 4,75%. A semana mais recente de ETFs à vista foi de criação de cerca de US$ 326 milhões, mantendo três das últimas quatro semanas positivas. O Bitcoin manteve a dianteira contra o ouro e contra a Nasdaq, mas as duas dianteiras estreitaram.",
+      "detailed": "Nenhum mês virou neste ciclo, então o bloco estrutural ainda lê o fechamento de 30 de setembro: preço em US$ 83.554, cerca de 5,8% acima da linha de 20 meses (US$ 78.978) e cerca de 34% acima da linha de 50 meses (US$ 62.342), RSI mensal em 53,1 e Stoch-RSI %K mensal em 27,6 contra um piso de 10. Seis de seis pontos, sem mudança; a próxima reavaliação é o fechamento de 31 de outubro.\n\nO bloco macro manteve um de três pontos, com as duas leituras restritivas agora mais distantes das suas linhas. O dólar e a taxa de 10 anos dos EUA passaram às leituras de 2 de outubro: o dólar em 121,38 contra uma tendência de 119,56 (1,52% acima, momento em 61), mais acima da tendência do que há uma semana, e a taxa de 10 anos em 5,28% contra uma tendência de 4,75%, mais alta do que há uma semana. As duas seguem trabalhando contra o preço. A liquidez ainda lê o dado de agosto, com expansão anual de cerca de 5,7% e US$ 124,9 bi adicionados no mês.\n\nOs dois últimos grupos mantiveram seus pontos, mas com margens mais finas. A semana mais recente de ETFs à vista foi de criação de cerca de US$ 326 milhões, então as quatro semanas do período marcam -US$ 236 milhões, +US$ 1,18 bilhão, +US$ 362 milhões e +US$ 326 milhões: três de quatro positivas, ainda exatamente o mínimo de três do sinal, com a semana de resgate agora a mais antiga do período. A dianteira do Bitcoin contra o ouro estreitou para 14,0% (19,58 ante uma tendência de 17,18), e a dianteira contra a Nasdaq estreitou para 5,6% (3,02 ante 2,86); a própria Nasdaq se manteve 4,7% acima da sua tendência (27.366 contra 26.146). Doze de quatorze, Muito favorável, com o pano de fundo macro ainda como o lado mais fraco do quadro.",
       "confidence_level": "HIGH",
       "mixed_signals": false,
       "key_supportive_factors": [
-        "O bloco estrutural se manteve no fechamento de 30 de setembro: as quatro leituras mensais ativas, seis de seis pontos",
+        "O bloco estrutural se mantém no fechamento de 30 de setembro: as quatro leituras mensais ativas, seis de seis pontos",
         "O preço fechou setembro em US$ 83.554, cerca de 5,8% acima da linha de 20 meses (US$ 78.978) e cerca de 34% acima da linha de 50 meses (US$ 62.342)",
-        "O momento mensal ganhou força: o RSI subiu para 53,1, e o Stoch-RSI %K mensal marca 27,6 contra um piso de 10",
+        "O momento mensal está mais firme que há um mês: o RSI em 53,1, ante 50,9, e o Stoch-RSI %K mensal marca 27,6 contra um piso de 10",
         "O M2 ainda lê expansão, cerca de 5,7% no ano com US$ 124,9 bi adicionados no mês",
-        "A semana mais recente de ETFs à vista foi de criação de cerca de US$ 362 milhões, mantendo três das últimas quatro semanas positivas",
-        "A dianteira do Bitcoin contra o ouro alargou para 20,3% (20,30 ante tendência de 16,88), e a Nasdaq segue 4,5% acima da sua própria tendência (27.191 contra 26.018)"
+        "A semana mais recente de ETFs à vista foi de criação de cerca de US$ 326 milhões, mantendo três das últimas quatro semanas positivas",
+        "O Bitcoin segue 14,0% à frente do ouro (19,58 ante tendência de 17,18), e a Nasdaq segue 4,7% acima da sua própria tendência (27.366 contra 26.146)"
       ],
       "key_headwinds": [
-        "O dólar está acima da sua tendência de 20 semanas (120,33 contra 119,37, 0,80% acima, momento em 56), e esse sinal segue desligado",
-        "A taxa de 10 anos dos EUA marca 5,17% contra uma tendência de 4,70%, a segunda leitura macro que trabalha contra o preço",
+        "O dólar está ainda mais acima da sua tendência de 20 semanas (121,38 contra 119,56, 1,52% acima, momento em 61), e esse sinal segue desligado",
+        "A taxa de 10 anos dos EUA subiu para 5,28% contra uma tendência de 4,75%, a segunda leitura macro que trabalha contra o preço",
         "O período de ETFs à vista ainda inclui uma semana de resgate (-US$ 236 milhões), então três de quatro positivas é exatamente o mínimo, sem nenhuma semana de folga",
-        "A dianteira do Bitcoin contra a Nasdaq estreitou para 9,3% (3,11 ante 2,84)"
+        "As duas dianteiras de força relativa estreitaram nesta semana: contra o ouro para 14,0% e contra a Nasdaq para 5,6% (3,02 ante 2,86)"
       ],
-      "plain": "Uma semana estável — ainda 12 de 14. No mês, a leitura é muito favorável: quase tudo o que acompanhamos sustenta o preço. O que estamos observando: se o dólar afrouxa o aperto, e se a própria bolsa segue firme."
+      "plain": "Uma semana estável — ainda 12 de 14. É um mês muito favorável para o Bitcoin: quase tudo o que acompanhamos está alinhado a favor do preço. O que estamos observando: se o dólar afrouxa o aperto, e se a própria bolsa segue firme."
     },
     "es": {
-      "short": "El cierre de septiembre entró en el motor este ciclo, y el bloque estructural se reevaluó desde una base más firme: sigue en seis de seis, con todos los márgenes más amplios. El compuesto se mantiene en 12 de 14, Muy favorable. Bitcoin cerró septiembre en 83.554 $, alrededor de un 6,4% más en el mes, lo que lo situó alrededor de un 5,8% por encima de su línea de 20 meses tras un mes prácticamente pegado a ella. El dólar y el bono estadounidense a 10 años conservan las mismas lecturas del 25 de septiembre que hace una semana, así que dos lecturas macro siguen trabajando en contra del precio. La semana más reciente de ETF al contado fue de creación por unos 362 M$, manteniendo en positivo tres de las últimas cuatro semanas. Las señales estructurales se anclan ahora al cierre del 30 de septiembre; la próxima reevaluación mensual es el cierre del 31 de octubre.",
-      "detailed": "El mes cambió, así que el bloque estructural se reevaluó con el cierre del 30 de septiembre, y las cuatro lecturas mensuales se mantuvieron con más margen que hace un mes. El precio cerró en 83.554 $, alrededor de un 6,4% más en el mes: alrededor de un 5,8% por encima de la línea de 20 meses (78.978 $), donde hace un mes apenas estaba por encima, y alrededor de un 34% por encima de la línea de 50 meses (62.342 $). El RSI mensual subió a 53,1 desde 50,9, y el Stoch-RSI %K mensual marca 27,6 frente a un suelo de 10. Seis de seis puntos, las mismas cuatro lecturas, ahora con márgenes claros en lugar de finos.\n\nEl bloque macro no se movió. El dólar y el bono estadounidense a 10 años siguen leyendo sus valores del 25 de septiembre: el dólar en 120,33 frente a una tendencia de 119,37 (un 0,80% por encima, momento en 56), y el bono a 10 años en el 5,17% frente a una tendencia del 4,70%. Ambos trabajan en contra del precio. La liquidez aún lee el dato de agosto, con una expansión anual cercana al 5,7% y 124,9 mm$ añadidos en el mes. Uno de tres puntos, sin cambios.\n\nLos dos últimos grupos conservaron sus puntos, con un cuadro mixto por debajo. La semana más reciente de ETF al contado fue de creación por unos 362 M$, así que las cuatro semanas del periodo marcan +548 M$, -236 M$, +1.182 M$ y +362 M$: tres de cuatro en positivo, todavía justo el umbral de tres de la señal, con la semana de reembolso aún dentro del periodo. La ventaja de Bitcoin frente al oro se amplió hasta el 20,3% (20,30 contra una tendencia de 16,88), mientras que su ventaja frente al Nasdaq se estrechó hasta el 9,3% (3,11 contra 2,84); el propio Nasdaq se mantuvo un 4,5% por encima de su tendencia (27.191 frente a 26.018). Doce de catorce, Muy favorable, con el fondo macro todavía como el lado más débil del cuadro.",
+      "short": "Semana tranquila: el compuesto se mantiene en 12 de 14, Muy favorable, y ninguna señal cambió de estado. El bloque estructural sigue leyendo el cierre del 30 de septiembre, seis de seis; la próxima reevaluación mensual es el cierre del 31 de octubre. El dólar y el bono estadounidense a 10 años leen ahora sus valores del 2 de octubre, y ambos pesaron todavía más en contra del precio: el dólar un 1,52% por encima de su tendencia de 20 semanas, el bono a 10 años en el 5,28% frente a una tendencia del 4,75%. La semana más reciente de ETF al contado fue de creación por unos 326 M$, manteniendo en positivo tres de las últimas cuatro semanas. Bitcoin conservó su ventaja frente al oro y frente al Nasdaq, pero ambas ventajas se estrecharon.",
+      "detailed": "Este ciclo no cambió de mes, así que el bloque estructural sigue leyendo el cierre del 30 de septiembre: el precio en 83.554 $, alrededor de un 5,8% por encima de la línea de 20 meses (78.978 $) y alrededor de un 34% por encima de la línea de 50 meses (62.342 $), el RSI mensual en 53,1 y el Stoch-RSI %K mensual en 27,6 frente a un suelo de 10. Seis de seis puntos, sin cambios; la próxima reevaluación es el cierre del 31 de octubre.\n\nEl bloque macro conservó uno de tres puntos, con las dos lecturas restrictivas ahora más alejadas de sus líneas. El dólar y el bono estadounidense a 10 años pasaron a sus lecturas del 2 de octubre: el dólar en 121,38 frente a una tendencia de 119,56 (un 1,52% por encima, momento en 61), más por encima de su tendencia que hace una semana, y el bono a 10 años en el 5,28% frente a una tendencia del 4,75%, más alto que hace una semana. Ambos siguen trabajando en contra del precio. La liquidez aún lee el dato de agosto, con una expansión anual cercana al 5,7% y 124,9 mm$ añadidos en el mes.\n\nLos dos últimos grupos conservaron sus puntos, aunque con márgenes más finos. La semana más reciente de ETF al contado fue de creación por unos 326 M$, así que las cuatro semanas del periodo marcan -236 M$, +1.182 M$, +362 M$ y +326 M$: tres de cuatro en positivo, todavía justo el umbral de tres de la señal, con la semana de reembolso ahora como la más antigua del periodo. La ventaja de Bitcoin frente al oro se estrechó hasta el 14,0% (19,58 contra una tendencia de 17,18), y su ventaja frente al Nasdaq se estrechó hasta el 5,6% (3,02 contra 2,86); el propio Nasdaq se mantuvo un 4,7% por encima de su tendencia (27.366 frente a 26.146). Doce de catorce, Muy favorable, con el fondo macro todavía como el lado más débil del cuadro.",
       "confidence_level": "HIGH",
       "mixed_signals": false,
       "key_supportive_factors": [
-        "El bloque estructural se mantuvo con el cierre del 30 de septiembre: las cuatro lecturas mensuales activas, seis de seis puntos",
+        "El bloque estructural se mantiene con el cierre del 30 de septiembre: las cuatro lecturas mensuales activas, seis de seis puntos",
         "El precio cerró septiembre en 83.554 $, alrededor de un 5,8% por encima de la línea de 20 meses (78.978 $) y alrededor de un 34% por encima de la de 50 meses (62.342 $)",
-        "El momento mensual se fortaleció: el RSI subió a 53,1, y el Stoch-RSI %K mensual marca 27,6 frente a un suelo de 10",
+        "El momento mensual es más firme que hace un mes: el RSI en 53,1 desde 50,9, y el Stoch-RSI %K mensual marca 27,6 frente a un suelo de 10",
         "El M2 aún lee expansión, cerca de un 5,7% en el año con 124,9 mm$ añadidos en el mes",
-        "La semana más reciente de ETF al contado fue de creación por unos 362 M$, manteniendo en positivo tres de las últimas cuatro semanas",
-        "La ventaja de Bitcoin frente al oro se amplió hasta el 20,3% (20,30 contra una tendencia de 16,88), y el Nasdaq se mantiene un 4,5% por encima de su propia tendencia (27.191 frente a 26.018)"
+        "La semana más reciente de ETF al contado fue de creación por unos 326 M$, manteniendo en positivo tres de las últimas cuatro semanas",
+        "Bitcoin sigue un 14,0% por delante del oro (19,58 contra una tendencia de 17,18), y el Nasdaq se mantiene un 4,7% por encima de su propia tendencia (27.366 frente a 26.146)"
       ],
       "key_headwinds": [
-        "El dólar está por encima de su tendencia de 20 semanas (120,33 frente a 119,37, un 0,80% por encima, momento en 56), y esa señal sigue apagada",
-        "El bono estadounidense a 10 años marca el 5,17% frente a una tendencia del 4,70%, la segunda lectura macro que trabaja en contra del precio",
+        "El dólar está todavía más por encima de su tendencia de 20 semanas (121,38 frente a 119,56, un 1,52% por encima, momento en 61), y esa señal sigue apagada",
+        "El bono estadounidense a 10 años subió al 5,28% frente a una tendencia del 4,75%, la segunda lectura macro que trabaja en contra del precio",
         "El periodo de ETF al contado aún incluye una semana de reembolso (-236 M$), así que tres de cuatro en positivo es justo el umbral, sin ninguna semana de margen",
-        "La ventaja de Bitcoin frente al Nasdaq se estrechó hasta el 9,3% (3,11 contra 2,84)"
+        "Las dos ventajas de fuerza relativa se estrecharon esta semana: frente al oro hasta el 14,0% y frente al Nasdaq hasta el 5,6% (3,02 contra 2,86)"
       ],
-      "plain": "Una semana estable — todavía 12 de 14. En el mes, la lectura es muy favorable: casi todo lo que seguimos sostiene el precio. Lo que observamos: si el dólar afloja su presión, y si la propia bolsa se mantiene firme."
+      "plain": "Una semana estable — todavía 12 de 14. Es un mes muy favorable para Bitcoin: casi todo lo que seguimos está alineado a favor del precio. Lo que observamos: si el dólar afloja su presión, y si la propia bolsa se mantiene firme."
     },
     "de": {
-      "short": "In diesem Zyklus kam der September-Schluss ins System, und der strukturelle Block wurde von einer festeren Basis aus neu bewertet: weiterhin sechs von sechs, mit durchweg größeren Abständen. Der Gesamtwert hält bei 12 von 14, Sehr günstig. Bitcoin schloss den September bei 83.554 $, rund 6,4% im Monatsplus, und liegt damit rund 5,8% über seiner 20-Monats-Linie, nachdem er einen Monat lang nur knapp darüber lag. Der Dollar und die US-Rendite auf zehn Jahre tragen dieselben Werte vom 25. September wie vor einer Woche, damit arbeiten weiterhin zwei Makrowerte gegen den Preis. Die jüngste Spot-ETF-Woche war eine Schöpfung von rund 362 Mio. $, womit drei der letzten vier Wochen positiv bleiben. Die strukturellen Signale sind jetzt am Schluss vom 30. September verankert; die nächste monatliche Neubewertung ist der Schluss vom 31. Oktober.",
-      "detailed": "Der Monat hat gewechselt, also wurde der strukturelle Block auf dem Schluss vom 30. September neu bewertet, und alle vier Monatswerte hielten mit mehr Spielraum als vor einem Monat. Der Preis schloss bei 83.554 $, rund 6,4% im Monatsplus: rund 5,8% über der 20-Monats-Linie (78.978 $), wo er vor einem Monat nur knapp darüber lag, und rund 34% über der 50-Monats-Linie (62.342 $). Der Monats-RSI stieg auf 53,1 von 50,9, der monatliche Stoch-RSI %K steht bei 27,6 gegenüber einer Schwelle von 10. Sechs von sechs Punkten, dieselben vier Werte, jetzt mit klaren statt dünnen Abständen.\n\nDer Makro-Block hat sich nicht bewegt. Der Dollar und die US-Rendite auf zehn Jahre lesen beide weiterhin ihre Werte vom 25. September: der Dollar bei 120,33 gegenüber einem Trend von 119,37 (0,80% darüber, Momentum 56) und die Rendite bei 5,17% gegenüber einem Trend von 4,70%. Beide arbeiten gegen den Preis. Die Liquidität liest weiterhin den August-Wert, rund 5,7% Jahresausweitung mit 124,9 Mrd. $ im Monat. Einer von drei Punkten, unverändert.\n\nDie letzten beiden Gruppen hielten ihre Punkte, darunter mit gemischtem Bild. Die jüngste Spot-ETF-Woche war eine Schöpfung von rund 362 Mio. $, damit lauten die vier Wochen des Zeitraums +548 Mio. $, -236 Mio. $, +1.182 Mio. $ und +362 Mio. $: drei von vier positiv, weiterhin genau die Schwelle des Signals von drei, und die Rücknahmewoche liegt noch im Zeitraum. Der Vorsprung von Bitcoin gegen Gold wuchs auf 20,3% (20,30 gegenüber einem Trend von 16,88), während der Vorsprung gegen den Nasdaq auf 9,3% schrumpfte (3,11 gegenüber 2,84); der Nasdaq selbst hielt sich 4,5% über seinem eigenen Trend (27.191 gegenüber 26.018). Zwölf von vierzehn, Sehr günstig, mit dem Makro-Umfeld weiterhin als der schwächeren Seite des Bildes.",
+      "short": "Eine ruhige Woche: Der Gesamtwert hält bei 12 von 14, Sehr günstig, und kein Signal hat seinen Zustand gewechselt. Der strukturelle Block liest weiterhin den Schluss vom 30. September, sechs von sechs; die nächste monatliche Neubewertung ist der Schluss vom 31. Oktober. Der Dollar und die US-Rendite auf zehn Jahre lesen jetzt ihre Werte vom 2. Oktober, und beide arbeiten noch deutlicher gegen den Preis: der Dollar 1,52% über seinem 20-Wochen-Trend, die Rendite bei 5,28% gegenüber einem Trend von 4,75%. Die jüngste Spot-ETF-Woche war eine Schöpfung von rund 326 Mio. $, womit drei der letzten vier Wochen positiv bleiben. Bitcoin behielt seinen Vorsprung gegen Gold und gegen den Nasdaq, doch beide Vorsprünge schrumpften.",
+      "detailed": "In diesem Zyklus hat kein Monat gewechselt, also liest der strukturelle Block weiterhin den Schluss vom 30. September: der Preis bei 83.554 $, rund 5,8% über der 20-Monats-Linie (78.978 $) und rund 34% über der 50-Monats-Linie (62.342 $), der Monats-RSI bei 53,1 und der monatliche Stoch-RSI %K bei 27,6 gegenüber einer Schwelle von 10. Sechs von sechs Punkten, unverändert; die nächste Neubewertung ist der Schluss vom 31. Oktober.\n\nDer Makro-Block hielt einen von drei Punkten, und beide restriktiven Werte liegen jetzt weiter von ihren Linien entfernt. Der Dollar und die US-Rendite auf zehn Jahre sind auf ihre Werte vom 2. Oktober weitergerückt: der Dollar bei 121,38 gegenüber einem Trend von 119,56 (1,52% darüber, Momentum 61), weiter über seinem Trend als vor einer Woche, und die Rendite bei 5,28% gegenüber einem Trend von 4,75%, höher als vor einer Woche. Beide arbeiten weiterhin gegen den Preis. Die Liquidität liest weiterhin den August-Wert, rund 5,7% Jahresausweitung mit 124,9 Mrd. $ im Monat.\n\nDie letzten beiden Gruppen hielten ihre Punkte, allerdings mit dünneren Abständen. Die jüngste Spot-ETF-Woche war eine Schöpfung von rund 326 Mio. $, damit lauten die vier Wochen des Zeitraums -236 Mio. $, +1.182 Mio. $, +362 Mio. $ und +326 Mio. $: drei von vier positiv, weiterhin genau die Schwelle des Signals von drei, und die Rücknahmewoche ist jetzt die älteste im Zeitraum. Der Vorsprung von Bitcoin gegen Gold schrumpfte auf 14,0% (19,58 gegenüber einem Trend von 17,18), und der Vorsprung gegen den Nasdaq schrumpfte auf 5,6% (3,02 gegenüber 2,86); der Nasdaq selbst hielt sich 4,7% über seinem eigenen Trend (27.366 gegenüber 26.146). Zwölf von vierzehn, Sehr günstig, mit dem Makro-Umfeld weiterhin als der schwächeren Seite des Bildes.",
       "confidence_level": "HIGH",
       "mixed_signals": false,
       "key_supportive_factors": [
-        "Der strukturelle Block hielt auf dem Schluss vom 30. September: alle vier Monatswerte aktiv, sechs von sechs Punkten",
+        "Der strukturelle Block hält auf dem Schluss vom 30. September: alle vier Monatswerte aktiv, sechs von sechs Punkten",
         "Der Preis schloss den September bei 83.554 $, rund 5,8% über der 20-Monats-Linie (78.978 $) und rund 34% über der 50-Monats-Linie (62.342 $)",
-        "Das monatliche Momentum wurde fester: der RSI stieg auf 53,1, der monatliche Stoch-RSI %K steht bei 27,6 gegenüber einer Schwelle von 10",
+        "Das monatliche Momentum ist fester als vor einem Monat: der RSI bei 53,1 nach 50,9, der monatliche Stoch-RSI %K steht bei 27,6 gegenüber einer Schwelle von 10",
         "M2 liest weiterhin Ausweitung, rund 5,7% im Jahr mit 124,9 Mrd. $ im Monat",
-        "Die jüngste Spot-ETF-Woche war eine Schöpfung von rund 362 Mio. $, womit drei der letzten vier Wochen positiv bleiben",
-        "Der Vorsprung von Bitcoin gegen Gold wuchs auf 20,3% (20,30 gegenüber einem Trend von 16,88), und der Nasdaq liegt 4,5% über seinem eigenen Trend (27.191 gegenüber 26.018)"
+        "Die jüngste Spot-ETF-Woche war eine Schöpfung von rund 326 Mio. $, womit drei der letzten vier Wochen positiv bleiben",
+        "Bitcoin liegt weiterhin 14,0% vor Gold (19,58 gegenüber einem Trend von 17,18), und der Nasdaq liegt 4,7% über seinem eigenen Trend (27.366 gegenüber 26.146)"
       ],
       "key_headwinds": [
-        "Der Dollar liegt über seinem 20-Wochen-Trend (120,33 gegenüber 119,37, 0,80% darüber, Momentum 56), und dieses Signal bleibt aus",
-        "Die US-Rendite auf zehn Jahre steht bei 5,17% gegenüber einem Trend von 4,70%, der zweite Makrowert, der gegen den Preis arbeitet",
+        "Der Dollar liegt noch weiter über seinem 20-Wochen-Trend (121,38 gegenüber 119,56, 1,52% darüber, Momentum 61), und dieses Signal bleibt aus",
+        "Die US-Rendite auf zehn Jahre stieg auf 5,28% gegenüber einem Trend von 4,75%, der zweite Makrowert, der gegen den Preis arbeitet",
         "Der Spot-ETF-Zeitraum enthält weiterhin eine Rücknahmewoche (-236 Mio. $), drei von vier positiv ist also genau die Schwelle, ohne eine Woche Spielraum",
-        "Der Vorsprung von Bitcoin gegen den Nasdaq schrumpfte auf 9,3% (3,11 gegenüber 2,84)"
+        "Beide Vorsprünge bei der relativen Stärke schrumpften diese Woche: gegen Gold auf 14,0% und gegen den Nasdaq auf 5,6% (3,02 gegenüber 2,86)"
       ],
-      "plain": "Eine ruhige Woche — weiterhin 12 von 14. Im Monat ist die Lage sehr günstig: Fast alles, was wir verfolgen, stützt den Preis. Worauf wir achten: ob der Dollar seinen Griff lockert und ob der Aktienmarkt selbst stabil bleibt."
+      "plain": "Eine ruhige Woche — weiterhin 12 von 14. Es ist ein sehr günstiger Monat für Bitcoin: Fast alles, was wir verfolgen, ist zugunsten des Preises ausgerichtet. Worauf wir achten: ob der Dollar seinen Griff lockert und ob der Aktienmarkt selbst stabil bleibt."
     }
   },
   "signal_groups": [
@@ -172,7 +172,7 @@
   ],
   "data_status": {
     "overall_confidence": "HIGH",
-    "last_successful_update_at": "2026-10-05T14:40:13.128Z",
+    "last_successful_update_at": "2026-10-12T15:27:01.805Z",
     "sources": [
       {
         "source": "in-repo:monthlyPrices.json (BTC)",
@@ -186,20 +186,20 @@
       {
         "source": "FRED:DGS10",
         "status": "FRESH",
-        "last_updated_at": "2026-09-25T00:00:00Z",
-        "expected_next_update_at": "2026-10-09T20:00:00Z",
-        "stale_after": "2026-10-16T20:00:00Z",
-        "delayed_after": "2026-10-09T00:00:00Z",
-        "message": "US 10-year constant-maturity yield. Weekly signal anchored at the most recent confirmed Friday close (2026-09-25)."
+        "last_updated_at": "2026-10-02T00:00:00Z",
+        "expected_next_update_at": "2026-10-16T20:00:00Z",
+        "stale_after": "2026-10-23T20:00:00Z",
+        "delayed_after": "2026-10-16T00:00:00Z",
+        "message": "US 10-year constant-maturity yield. Weekly signal anchored at the most recent confirmed Friday close (2026-10-02)."
       },
       {
         "source": "FRED:DTWEXBGS",
         "status": "FRESH",
-        "last_updated_at": "2026-09-25T00:00:00Z",
-        "expected_next_update_at": "2026-10-09T20:00:00Z",
-        "stale_after": "2026-10-16T20:00:00Z",
-        "delayed_after": "2026-10-09T00:00:00Z",
-        "message": "Broad dollar index (DXY proxy). Weekly signal anchored at the most recent confirmed Friday close (2026-09-25)."
+        "last_updated_at": "2026-10-02T00:00:00Z",
+        "expected_next_update_at": "2026-10-16T20:00:00Z",
+        "stale_after": "2026-10-23T20:00:00Z",
+        "delayed_after": "2026-10-16T00:00:00Z",
+        "message": "Broad dollar index (DXY proxy). Weekly signal anchored at the most recent confirmed Friday close (2026-10-02)."
       },
       {
         "source": "FRED:M2SL",
@@ -213,29 +213,29 @@
       {
         "source": "FRED:NASDAQCOM",
         "status": "FRESH",
-        "last_updated_at": "2026-10-02T00:00:00Z",
-        "expected_next_update_at": "2026-10-09T20:00:00Z",
-        "stale_after": "2026-10-16T20:00:00Z",
-        "delayed_after": "2026-10-16T00:00:00Z",
-        "message": "Nasdaq Composite close. Weekly signal anchored at the most recent confirmed Friday close (2026-10-02)."
+        "last_updated_at": "2026-10-09T00:00:00Z",
+        "expected_next_update_at": "2026-10-16T20:00:00Z",
+        "stale_after": "2026-10-23T20:00:00Z",
+        "delayed_after": "2026-10-23T00:00:00Z",
+        "message": "Nasdaq Composite close. Weekly signal anchored at the most recent confirmed Friday close (2026-10-09)."
       },
       {
         "source": "Yahoo:GC=F",
         "status": "FRESH",
-        "last_updated_at": "2026-10-02T00:00:00Z",
-        "expected_next_update_at": "2026-10-09T20:00:00Z",
-        "stale_after": "2026-10-16T20:00:00Z",
-        "delayed_after": "2026-10-16T00:00:00Z",
-        "message": "Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29). Weekly anchor 2026-10-02."
+        "last_updated_at": "2026-10-09T00:00:00Z",
+        "expected_next_update_at": "2026-10-16T20:00:00Z",
+        "stale_after": "2026-10-23T20:00:00Z",
+        "delayed_after": "2026-10-23T00:00:00Z",
+        "message": "Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29). Weekly anchor 2026-10-09."
       },
       {
         "source": "Polygon:ETF (shares-outstanding)",
         "status": "FRESH",
-        "last_updated_at": "2026-10-02T00:00:00Z",
-        "expected_next_update_at": "2026-10-09T00:00:00Z",
-        "stale_after": "2026-10-23T00:00:00Z",
-        "delayed_after": "2026-10-23T00:00:00Z",
-        "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). Ledger live: 12 weekly snapshots; ETF-01 scored from the trailing 4 weekly flows per doc 02 §8.3. Weekly anchor 2026-10-02."
+        "last_updated_at": "2026-10-09T00:00:00Z",
+        "expected_next_update_at": "2026-10-16T00:00:00Z",
+        "stale_after": "2026-10-30T00:00:00Z",
+        "delayed_after": "2026-10-30T00:00:00Z",
+        "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). Ledger live: 13 weekly snapshots; ETF-01 scored from the trailing 4 weekly flows per doc 02 §8.3. Weekly anchor 2026-10-09."
       }
     ],
     "delayed_sources": [],

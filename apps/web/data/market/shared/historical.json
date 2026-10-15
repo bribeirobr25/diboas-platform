@@ -72,6 +72,11 @@
       "date": "2026-10-05T00:00:00Z",
       "score": 12,
       "regime_code": "VERY_FAVORABLE"
+    },
+    {
+      "date": "2026-10-12T00:00:00Z",
+      "score": 12,
+      "regime_code": "VERY_FAVORABLE"
     }
   ]
 }
