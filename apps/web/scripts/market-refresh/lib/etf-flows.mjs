@@ -24,6 +24,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { REPO_ROOT } from '../providers/inrepo.mjs';
 import { evaluateEtfManual, WARMUP_SNAPSHOTS } from './regime-engine.mjs';
+import { ETF01_SUSPENSION, suspendedEtfSignal } from './etf-suspension.mjs';
 
 export const ETF_SHARES_ARCHIVE = path.join(
   REPO_ROOT,
@@ -261,6 +262,10 @@ export function evaluateEtf01FromFlows(snapshots, today = new Date()) {
  * @returns {Array} ETF signal array (always length 1)
  */
 export function resolveEtfSignals({ snapshots, manual }, today) {
+  // The 2026-10-18 suspension (lib/etf-suspension.mjs) wins over every route,
+  // the manual fallback included: while it is active, no ledger state and no
+  // successful collection can produce an ACTIVE or INACTIVE ETF-01.
+  if (ETF01_SUSPENSION.active) return [suspendedEtfSignal(snapshots)];
   return snapshots.length > 0
     ? [evaluateEtf01FromFlows(snapshots, today)]
     : evaluateEtfManual(manual, today);

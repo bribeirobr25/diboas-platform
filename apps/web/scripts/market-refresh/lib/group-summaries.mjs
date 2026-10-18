@@ -14,6 +14,7 @@
  *      that week as an editorial override, made durable here.
  *   3. generic 'mixed' template.
  */
+import { isSuspendedEtf } from './etf-suspension.mjs';
 
 // Shared group max points.
 export const MAX_BY_GROUP = {
@@ -112,6 +113,15 @@ export function groupSummary(ctx, groupId, locale) {
     ctx.groupTpl[groupId].unavailable
   ) {
     level = 'unavailable';
+    // 2026-10-18: a suspension is not a one-cycle gap. "Could not be measured
+    // this cycle" would read as temporary; the suspended wording says why and
+    // that it lasts until an explicit decision. Fail-closed on a missing locale,
+    // like the signal sentence (lib/template-select.mjs).
+    if (isSuspendedEtf(ctx.byId['ETF-01'])) {
+      const t = ctx.groupTpl[groupId].suspended?.[locale];
+      if (!t) throw new Error(`group ${groupId} 'suspended' has no ${locale} template`);
+      return fill(t, { points: String(points), max: String(max) });
+    }
   }
   if (level === 'mixed') {
     const composed = composeMixed(ctx, groupId, locale, points, max);

@@ -48,7 +48,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { REPO_ROOT } from './providers/inrepo.mjs';
 import { isDirectInvocation } from './lib/invocation.mjs';
-import { evaluateEtf01FromFlows, readSnapshots } from './lib/etf-flows.mjs';
+import { resolveEtfSignals, readSnapshots } from './lib/etf-flows.mjs';
+import { ETF01_SUSPENSION } from './lib/etf-suspension.mjs';
 import { archiveSignals } from './lib/archive.mjs';
 import { scoreSignals, anchorCoherence } from './lib/regime-engine.mjs';
 
@@ -168,9 +169,15 @@ function advance({ days, etfDays }) {
   // then carry the score and band through the real scorer.
   const ledger = readSnapshots(etfPath);
   const at = new Date(computed.computed_at);
-  const [etfRecord] = archiveSignals([evaluateEtf01FromFlows(ledger, at)], {
-    etfSnapshotCount: ledger.length,
-  });
+  // The PRODUCTION route (2026-10-18): `resolveEtfSignals` is what run.mjs and
+  // compute-regime.mjs call, so the suspension applies here exactly as it will
+  // on Monday. Calling `evaluateEtf01FromFlows` directly used to bypass it.
+  const [etfRecord] = archiveSignals(
+    [...resolveEtfSignals({ snapshots: ledger, manual: null }, at)],
+    {
+      etfSnapshotCount: ledger.length,
+    }
+  );
   computed.signals = computed.signals.map((s) => (s.id === 'ETF-01' ? etfRecord : s));
   const group = (prefix) => computed.signals.filter((s) => s.id.startsWith(prefix));
   const { groupTotals, score, band } = scoreSignals({
@@ -208,19 +215,43 @@ function advance({ days, etfDays }) {
   };
 }
 
+// 2026-10-18: while the ETF-01 suspension is active, every scenario publishes the
+// suspended variant (the gap and warm-up wordings are unreachable in production
+// and stay covered by etfFlows.test.ts). Scenario A starts from the committed
+// archive, whose last run predates the suspension, so it is also the cycle on
+// which the suspension STARTS: the opener must separate the data effect from
+// what the other signals did.
+const SUSPENDED = ETF01_SUSPENSION.active;
+const etfExpectation = (fallback) =>
+  SUSPENDED ? { state: 'UNAVAILABLE', variant: 'suspended' } : fallback;
+
 const SCENARIOS = [
-  { key: 'A', name: 'normal week (monthly sources not rolled)', days: 7, etfDays: 7 },
+  {
+    key: 'A',
+    name: 'normal week (monthly sources not rolled)',
+    days: 7,
+    etfDays: 7,
+    expectEtf: etfExpectation(undefined),
+    expectEtfSentence: SUSPENDED || undefined,
+  },
   {
     key: 'B',
     name: 'skip week — previous refresh PR never merged',
     days: 14,
     etfDays: 14,
-    expectEtf: { state: 'UNAVAILABLE', variant: 'gapped' },
-    // What the READER sees (5.476): the gapped sentence in every locale, never the
+    expectEtf: etfExpectation({ state: 'UNAVAILABLE', variant: 'gapped' }),
+    // What the READER sees (5.476): the variant sentence in every locale, never the
     // warm-up one ("…of 5 weekly share-count snapshots recorded").
-    expectEtfSentence: { contains: '{gapDays}', never: 'warming up' },
+    expectEtfSentence: true,
   },
-  { key: 'C', name: 'ETF leg failed — no new snapshot', days: 7, etfDays: null },
+  {
+    key: 'C',
+    name: 'ETF leg failed — no new snapshot',
+    days: 7,
+    etfDays: null,
+    expectEtf: etfExpectation(undefined),
+    expectEtfSentence: SUSPENDED || undefined,
+  },
   {
     key: 'D',
     name: 'three month-rolls at +25%/month — tests reading pipeline-written monthly data',
@@ -230,45 +261,86 @@ const SCENARIOS = [
 ];
 
 /**
- * The published ETF-01 sentence must be the gapped variant in all four locales:
- * rendered from the real template with the real gap length, and never the
- * warm-up wording. Reads what generate.mjs just wrote, so it checks the seam
- * the 5.476 defect lived in, not the engine's return value.
+ * The published ETF-01 sentence must be the record's own variant in all four
+ * locales, rendered from the real template, and never the warm-up wording. Reads
+ * what generate.mjs just wrote, so it checks the seam the 5.476 defect lived in,
+ * not the engine's return value. For the suspended variant (2026-10-18) it also
+ * checks the other places the suspension must be explained: the panel row, the
+ * group summary and the plain read.
  */
 function assertEtfSentence() {
-  const tpl = JSON.parse(
+  const tplAll = JSON.parse(
     fs.readFileSync(
       path.join(REPO_ROOT, 'apps/web/scripts/market-refresh/templates/signal-sentences.json'),
       'utf8'
     )
-  )['ETF-01'].UNAVAILABLE;
+  );
+  const tpl = tplAll['ETF-01'].UNAVAILABLE;
   const signals = JSON.parse(fs.readFileSync(path.join(SHARED, 'signals.json'), 'utf8'));
   const etf = signals.groups.flatMap((g) => g.signals).find((x) => x.id === 'ETF-01');
-  const gapDays = JSON.parse(
+  const record = JSON.parse(
     fs.readFileSync(path.join(SHARED, 'computed.json'), 'utf8')
-  ).signals.find((x) => x.id === 'ETF-01').values.gapDays;
+  ).signals.find((x) => x.id === 'ETF-01');
+  const variant = record.values?.variant;
+  const fail = (msg) => {
+    throw Object.assign(new Error(msg), { stdout: '' });
+  };
   for (const locale of ['en', 'pt-BR', 'es', 'de']) {
-    const expected = tpl.variants.gapped[locale].replace('{gapDays}', String(gapDays));
+    const expected = tpl.variants[variant][locale].replace(
+      '{gapDays}',
+      String(record.values.gapDays)
+    );
     if (etf.summary[locale] !== expected)
-      throw Object.assign(
-        new Error(
-          `ETF-01 ${locale} sentence is not the gapped variant:\n  got: ${etf.summary[locale]}`
-        ),
-        { stdout: '' }
+      fail(
+        `ETF-01 ${locale} sentence is not the ${variant} variant:\n  got: ${etf.summary[locale]}`
       );
   }
   // The panel is the seam's SECOND consumer (data-status.mjs branches on the same
-  // `variant`): the ETF row must be UNAVAILABLE and name the gap, not "warming up".
+  // `variant`): the ETF row must be UNAVAILABLE and say why, not "warming up".
   const panel = JSON.parse(fs.readFileSync(path.join(SHARED, 'data-status.json'), 'utf8'));
   const row = panel.sources.find((x) => x.source.startsWith('Polygon:ETF'));
-  if (row?.status !== 'UNAVAILABLE' || !String(row?.message).includes(`${gapDays}-day gap`))
-    throw Object.assign(
-      new Error(`ETF panel row does not name the gap: ${row?.status} · ${row?.message}`),
-      { stdout: '' }
+  const reason = variant === 'gapped' ? `${record.values.gapDays}-day gap` : 'is suspended';
+  if (row?.status !== 'UNAVAILABLE' || !String(row?.message).includes(reason))
+    fail(`ETF panel row does not say why: ${row?.status} · ${row?.message}`);
+  if (/scored from the trailing/.test(String(row?.message)))
+    fail(`ETF panel row claims ETF-01 is scored while it is ${variant}`);
+  if (variant === 'suspended') {
+    const groupsTpl = JSON.parse(
+      fs.readFileSync(
+        path.join(REPO_ROOT, 'apps/web/scripts/market-refresh/templates/group-summaries.json'),
+        'utf8'
+      )
+    ).institutional_demand.suspended;
+    const coverageTpl = JSON.parse(
+      fs.readFileSync(
+        path.join(REPO_ROOT, 'apps/web/scripts/market-refresh/templates/coverage-notes.json'),
+        'utf8'
+      )
+    ).plainSuspended;
+    const openers = JSON.parse(
+      fs.readFileSync(
+        path.join(REPO_ROOT, 'apps/web/scripts/market-refresh/templates/weekly-openers.json'),
+        'utf8'
+      )
     );
-  console.log(
-    `  ✓ ETF-01 publishes the gapped sentence ×4 locales and the panel names the ${gapDays}-day gap`
-  );
+    const regime = JSON.parse(fs.readFileSync(path.join(SHARED, 'regime.json'), 'utf8'));
+    const group = regime.signal_groups.find((g) => g.id === 'institutional_demand');
+    for (const locale of ['en', 'pt-BR', 'es', 'de']) {
+      const head = groupsTpl[locale].split('{')[0];
+      if (!String(group.summary[locale]).startsWith(head))
+        fail(`group summary ${locale} is not the suspended variant: ${group.summary[locale]}`);
+      const plain = String(regime.summary[locale].plain);
+      const announced =
+        plain.startsWith(openers.suspensionStart[locale].split('{')[0]) ||
+        plain.startsWith(openers.suspensionStartNoPoints[locale].split('{')[0]);
+      const covered = plain.includes(coverageTpl[locale].split('{')[0]);
+      if (!announced && !covered)
+        fail(`plain read ${locale} neither announces the suspension nor states reduced coverage`);
+    }
+    if (!regime.coverage?.suspended?.some((x) => x.signal_id === 'ETF-01'))
+      fail('regime.coverage does not name the suspended ETF-01');
+  }
+  console.log(`  ✓ ETF-01 publishes the ${variant} wording ×4 locales and the panel says why`);
 }
 
 const sh = (cmd, args) =>
@@ -308,7 +380,7 @@ function main() {
             `ETF-01 ${moved.etfState}${moved.etfVariant ? `/${moved.etfVariant}` : ''} · ${moved.score}/14 ${moved.band}`
         );
         if (sc.expectEtf) {
-          const got = { state: moved.etfState, variant: moved.etfVariant };
+          const got = { state: moved.etfState, variant: moved.etfVariant ?? undefined };
           if (got.state !== sc.expectEtf.state || got.variant !== sc.expectEtf.variant)
             throw Object.assign(
               new Error(

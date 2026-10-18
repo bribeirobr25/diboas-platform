@@ -136,10 +136,19 @@ describe('state cards (backdrop)', () => {
     const m = umbrellaCardModel(backdrop, macroData(['ACTIVE', 'INACTIVE', 'ACTIVE']));
     expect(m.available).toBe(true);
     expect(m.conditions).toEqual([
-      { id: 'MAC-01', active: true },
-      { id: 'MAC-02', active: false },
-      { id: 'MAC-03', active: true },
+      { id: 'MAC-01', active: true, available: true },
+      { id: 'MAC-02', active: false, available: true },
+      { id: 'MAC-03', active: true, available: true },
     ]);
+  });
+
+  // 2026-10-18: UNAVAILABLE used to collapse into `active: false`, which the
+  // card renders as the restrictive word ("Dollar firm"). Missing data must
+  // never read as an adverse condition.
+  it('should mark an UNAVAILABLE condition as not available, never as inactive', () => {
+    const m = umbrellaCardModel(backdrop, macroData(['UNAVAILABLE', 'INACTIVE', 'ACTIVE']));
+    expect(m.conditions?.[0]).toEqual({ id: 'MAC-01', active: false, available: false });
+    expect(m.conditions?.[1]).toEqual({ id: 'MAC-02', active: false, available: true });
   });
 
   /**

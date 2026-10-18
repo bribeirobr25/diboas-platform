@@ -25,7 +25,8 @@
       "title": "La liquidez",
       "active": "En expansión",
       "inactive": "En contracción"
-    }
+    },
+    "unavailable": "No disponible"
   },
   "explainers": {
     "dollar": "El índice amplio del dólar sigue al dólar estadounidense frente a las principales monedas. Un dólar más débil tiende a relajar las condiciones financieras globales; uno firme las mantiene tensas.",

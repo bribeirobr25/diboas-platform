@@ -1,0 +1,9 @@
+{
+  "_comment": "Reduced-coverage sentence appended to summary.plain while a signal is suspended (lib/etf-suspension.mjs, founder decision 2026-10-18). Slots: {points} (the suspended signal's weight) {max} (the full scale). The scale is NOT reduced: the score is still read on all 14 points. generate.mjs throws if a locale is missing.",
+  "plainSuspended": {
+    "en": "The ETF flow indicator is suspended while its data cannot be verified, so its {points} points do not count. The score is still read on the full {max}-point scale.",
+    "pt-BR": "O indicador de fluxos de ETF está suspenso enquanto seus dados não puderem ser verificados, então seus {points} pontos não contam. A pontuação continua sendo lida na escala completa de {max} pontos.",
+    "es": "El indicador de flujos de ETF está suspendido mientras sus datos no puedan verificarse, así que sus {points} puntos no cuentan. La puntuación se sigue leyendo en la escala completa de {max} puntos.",
+    "de": "Der ETF-Fluss-Indikator ist ausgesetzt, solange sich seine Daten nicht prüfen lassen, deshalb zählen seine {points} Punkte nicht. Der Wert wird weiter auf der vollen Skala von {max} Punkten gelesen."
+  }
+}

@@ -79,6 +79,10 @@ import { activeOverrides } from './lib/editorial-overrides.mjs';
 import { deriveDataStatus, DATA_STATUS_COMMENT } from './lib/data-status.mjs';
 import { readSnapshots } from './lib/etf-flows.mjs';
 import { priorRunSignals, composeStateLead, composeStateDepth } from './lib/state-lead.mjs';
+import { selectSignalTemplate } from './lib/template-select.mjs';
+import { planWeeklyOpener } from './lib/weekly-opener.mjs';
+import { cycleCoverage } from './lib/coverage.mjs';
+import { isSuspendedEtf } from './lib/etf-suspension.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '../../../..');
@@ -102,6 +106,9 @@ const signalLabels = read(path.join(TPL_DIR, 'signal-labels.json'));
 const weeklyTpl = read(path.join(TPL_DIR, 'weekly-openers.json'));
 const plainTpl = read(path.join(TPL_DIR, 'plain-summaries.json'));
 const phrases = read(path.join(TPL_DIR, 'plain-phrases.json'));
+// 2026-10-18: the reduced-coverage sentence for the plain read while a signal
+// is suspended (lib/etf-suspension.mjs).
+const coverageTpl = read(path.join(TPL_DIR, 'coverage-notes.json'));
 // State-grammar copy for /market/backdrop (5.140 + 5.141). Kept OUT of
 // group-summaries.json so the scored Bitcoin view's points parenthetical is
 // untouched — see that file's _comment.
@@ -318,14 +325,13 @@ function signalSentence(id, locale) {
   const sig = byId[id];
   const set = signalTpl[id]?.[sig.state];
   if (!set) return null;
-  // 5.301: one STATE can have more than one reason. ETF-01 is UNAVAILABLE both
-  // while warming up and when a weekly snapshot is missing, and the warm-up
-  // sentence ("{snapshots} of {warmupTarget} recorded") would publish "9 of 5"
-  // for the second. A variant named in `values.variant` selects its own
-  // wording; anything without one, or without that locale, falls back to the
-  // state's default sentence rather than rendering nothing.
+  // 5.301: one STATE can have more than one reason (warm-up, a gapped ledger,
+  // the 2026-10-18 suspension). A variant named in `values.variant` selects its
+  // own wording, and a variant missing a locale now THROWS instead of falling
+  // back to the warm-up sentence (lib/template-select.mjs).
   const variant = sig.values?.variant;
-  const template = (variant && set.variants?.[variant]?.[locale]) || set[locale];
+  const context = `signal ${id} (${sig.state}${variant ? `/${variant}` : ''}, ${locale})`;
+  const template = selectSignalTemplate(set, variant, locale, context);
   return renderTemplate(
     template,
     signalSlots(sig, locale),
@@ -350,30 +356,40 @@ function priorSnapshot() {
  *  (synthetic_seed) or there is no genuine prior — so the monthly "standing" read
  *  stands alone rather than claim a comparison against seed data. Priority:
  *  band change > score move > held. */
+/** @returns {{text: string, keys: string[]}} the opener and the template keys it used */
 function weeklyOpener(locale) {
   const hist = read(path.join(SHARED_DIR, 'historical.json'));
   // FORCE_WEEKLY_OPENER=1 previews the opener before the real ledger flips
   // synthetic_seed to false (dev/preview only — never set in CI/prod, so the
   // committed output and the drift gate stay opener-off until the data is real).
-  if (hist.synthetic_seed && !process.env.FORCE_WEEKLY_OPENER) return '';
-  const prior = priorSnapshot();
-  if (!prior || prior.score == null) return '';
-  const score = computed.score;
-  const slots = {
-    score: String(score),
-    max: String(computed.max_score),
-    prior: String(prior.score),
-  };
-  if (prior.regime_code && prior.regime_code !== computed.regime_code) {
-    const key = score > prior.score ? 'bandUp' : 'bandDown';
-    return fill(weeklyTpl[key][locale], {
-      ...slots,
-      band: PLAIN_BAND[locale][computed.regime_code],
-    });
-  }
-  if (score > prior.score) return fill(weeklyTpl.moveUp[locale], slots);
-  if (score < prior.score) return fill(weeklyTpl.moveDown[locale], slots);
-  return fill(weeklyTpl.held[locale], slots);
+  if (hist.synthetic_seed && !process.env.FORCE_WEEKLY_OPENER) return { text: '', keys: [] };
+  // 2026-10-18: the cycle where the ETF-01 suspension starts separates the data
+  // effect (points removed) from what the other signals did, so a suspension is
+  // never narrated as a market move (lib/weekly-opener.mjs).
+  const priorRun = priorSignalsForBeats();
+  const parts = planWeeklyOpener({
+    prior: priorSnapshot(),
+    score: computed.score,
+    regimeCode: computed.regime_code,
+    currentEtf: byId['ETF-01'],
+    priorEtf: priorRun?.['ETF-01'],
+  });
+  const text = parts
+    .map(({ key, slots }) => {
+      const template = weeklyTpl[key]?.[locale];
+      if (!template) throw new Error(`weekly opener '${key}' has no ${locale} template`);
+      return renderTemplate(
+        template,
+        {
+          ...Object.fromEntries(Object.entries(slots).map(([k, v]) => [k, String(v)])),
+          max: String(computed.max_score),
+          band: PLAIN_BAND[locale][computed.regime_code],
+        },
+        `weekly opener ${key} (${locale})`
+      );
+    })
+    .join(' ');
+  return { text, keys: parts.map((p) => p.key) };
 }
 /** ISO week number for deterministic variant rotation (no Date.now — passed in). */
 function isoWeek(dateStr) {
@@ -428,7 +444,21 @@ function plainSummary(locale) {
   const body = fill(standing, { watching });
   // Prepend the week-over-week lead-in (empty while the ledger is seed-only).
   const opener = weeklyOpener(locale);
-  return opener ? `${opener} ${body}` : body;
+  // 2026-10-18: while ETF-01 is suspended, every plain read says coverage is
+  // reduced, except the week the opener itself announces the suspension.
+  const suspended = isSuspendedEtf(byId['ETF-01']);
+  const announced = opener.keys.some((k) => k.startsWith('suspensionStart'));
+  let coverage = '';
+  if (suspended && !announced) {
+    const template = coverageTpl.plainSuspended?.[locale];
+    if (!template) throw new Error(`coverage note has no ${locale} template`);
+    coverage = renderTemplate(
+      template,
+      { points: String(byId['ETF-01'].weight), max: String(computed.max_score) },
+      `coverage note (${locale})`
+    );
+  }
+  return [opener.text, body, coverage].filter(Boolean).join(' ');
 }
 
 // ── assemble the generated object per locale ────────────────────────────────
@@ -436,11 +466,16 @@ function applyOverride(pathKey, value) {
   return pathKey in overrides ? overrides[pathKey] : value;
 }
 
-/** Previous run day's signals, for the moved-vs-held beat selector (5.141). */
-function priorSignalsForBeats() {
+/** Raw run-archive.jsonl ('' if absent). */
+function readArchiveText() {
   const archivePath = path.join(SHARED_DIR, 'run-archive.jsonl');
-  const text = fs.existsSync(archivePath) ? fs.readFileSync(archivePath, 'utf8') : '';
-  return priorRunSignals(text, computed.computed_at);
+  return fs.existsSync(archivePath) ? fs.readFileSync(archivePath, 'utf8') : '';
+}
+
+/** Previous run day's signals, for the moved-vs-held beat selector (5.141)
+ *  and the suspension-aware weekly opener. */
+function priorSignalsForBeats() {
+  return priorRunSignals(readArchiveText(), computed.computed_at);
 }
 
 function generate() {
@@ -559,6 +594,14 @@ async function patchEditorial(gen, write) {
     'regime.environment_bias'
   );
   setField(regime, 'last_updated_at', computed.computed_at, 'regime.last_updated_at');
+  // 2026-10-18: which signals this cycle could not assess, and since which run
+  // day (lib/coverage.mjs). Always written, empty when nothing is suspended, so
+  // the page never has to guess and the drift gate covers it like the rest.
+  const coverage = cycleCoverage(computed.signals, readArchiveText(), computed.computed_at);
+  if (JSON.stringify(regime.coverage) !== JSON.stringify(coverage)) {
+    drift.push('regime.coverage');
+    regime.coverage = coverage;
+  }
   for (const g of regime.signal_groups) {
     setField(
       g,
@@ -693,7 +736,7 @@ if (isDirectInvocation(import.meta.url)) {
 
   console.log(`\n=== market generate (Stage 4) — ${checkMode ? 'CHECK' : 'WRITE'} ===`);
   console.log(
-    `  variant: week ${isoWeek(computed.computed_at.slice(0, 10)) % 3} · weekly-opener: ${weeklyOpener('en') ? 'on' : 'off (seed/no prior)'}`
+    `  variant: week ${isoWeek(computed.computed_at.slice(0, 10)) % 3} · weekly-opener: ${weeklyOpener('en').text ? 'on' : 'off (seed/no prior)'}`
   );
   console.log(`  plain (en): ${gen.plain.en.slice(0, 120)}…`);
   if (checkMode) {

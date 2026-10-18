@@ -133,6 +133,16 @@ export interface DataStatus {
 // Endpoint payloads (per doc 07 §12-18)
 // ---------------------------------------------------------------------------
 
+/**
+ * Which signals this cycle could not assess (2026-10-18, the ETF-01
+ * suspension). Written by the generator from computed.json and the run
+ * archive; `since` is the first run day computed under the suspension. Empty
+ * when nothing is suspended; absent on cycles that predate the field.
+ */
+export interface RegimeCoverage {
+  suspended: { signal_id: string; points: number; since: string }[];
+}
+
 export interface RegimeData {
   score: number;
   max_score: 14;
@@ -143,6 +153,7 @@ export interface RegimeData {
   signal_groups: SignalGroup[];
   data_status: DataStatus;
   last_updated_at: string;
+  coverage?: RegimeCoverage;
 }
 
 /**

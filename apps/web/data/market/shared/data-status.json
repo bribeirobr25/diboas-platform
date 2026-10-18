@@ -10,7 +10,7 @@
       "expected_next_update_at": "2026-10-31T23:59:59Z",
       "stale_after": "2026-12-01T00:00:00Z",
       "delayed_after": "2026-11-04T00:00:00Z",
-      "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04). Last confirmed monthly close September 30, 2026 per doc 02 §5.1. Next update due at the October 31 monthly close."
+      "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04). Last confirmed monthly close September 30, 2026. Next update due at the October 31 monthly close."
     },
     {
       "source": "FRED:DGS10",
@@ -28,7 +28,7 @@
       "expected_next_update_at": "2026-10-16T20:00:00Z",
       "stale_after": "2026-10-23T20:00:00Z",
       "delayed_after": "2026-10-16T00:00:00Z",
-      "message": "Broad dollar index (DXY proxy). Weekly signal anchored at the most recent confirmed Friday close (2026-10-02)."
+      "message": "Broad trade-weighted U.S. dollar index (FRED DTWEXBGS), a different index from the ICE DXY. Weekly signal anchored at the most recent confirmed Friday close (2026-10-02)."
     },
     {
       "source": "FRED:M2SL",
@@ -64,7 +64,7 @@
       "expected_next_update_at": "2026-10-16T00:00:00Z",
       "stale_after": "2026-10-30T00:00:00Z",
       "delayed_after": "2026-10-30T00:00:00Z",
-      "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). Ledger live: 13 weekly snapshots; ETF-01 scored from the trailing 4 weekly flows per doc 02 §8.3. Weekly anchor 2026-10-09."
+      "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). Ledger live: 13 weekly snapshots; ETF-01 scored from the trailing 4 weekly flows. Weekly anchor 2026-10-09."
     }
   ],
   "delayed_sources": [],

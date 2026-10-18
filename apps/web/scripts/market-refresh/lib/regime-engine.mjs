@@ -304,7 +304,12 @@ export function evaluateMacro({ dxyDaily, us10yDaily, m2Monthly }, today) {
   const dxyCloses = dxyWeekly.map(([, v]) => v);
   const us10yCloses = us10yWeekly.map(([, v]) => v);
   // 20 subsumes the RSI(14) minimum of 15 on the same array.
-  assertSeriesDepth('DXY weekly closes', dxyCloses.length, 20, 'EMA20W + RSI(14)');
+  assertSeriesDepth(
+    'Broad dollar (DTWEXBGS) weekly closes',
+    dxyCloses.length,
+    20,
+    'EMA20W + RSI(14)'
+  );
   assertSeriesDepth('US10Y weekly closes', us10yCloses.length, 20, 'EMA20W');
   const dxyClose = dxyCloses[dxyCloses.length - 1];
   const dxyEma20 = ema(dxyCloses, 20);
@@ -323,7 +328,7 @@ export function evaluateMacro({ dxyDaily, us10yDaily, m2Monthly }, today) {
       id: 'MAC-01',
       state: dxyClose < dxyEma20 && dxyRsi < 50 ? 'ACTIVE' : 'INACTIVE',
       weight: 1,
-      detail: `DXY ${dxyClose.toFixed(4)} vs EMA20W ${dxyEma20.toFixed(4)} (Δ ${(((dxyClose - dxyEma20) / dxyEma20) * 100).toFixed(3)}%); RSI ${dxyRsi.toFixed(2)}`,
+      detail: `Broad dollar (DTWEXBGS) ${dxyClose.toFixed(4)} vs EMA20W ${dxyEma20.toFixed(4)} (Δ ${(((dxyClose - dxyEma20) / dxyEma20) * 100).toFixed(3)}%); RSI ${dxyRsi.toFixed(2)}`,
       values: {
         close: dxyClose,
         ema20: dxyEma20,

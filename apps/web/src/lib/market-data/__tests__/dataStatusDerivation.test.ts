@@ -156,7 +156,9 @@ describe('Polygon warm-up ledger source (doc 02 §10.1 honesty)', () => {
     );
     const etf = bySource(ds, 'Polygon')!;
     expect(etf.status).toBe('FRESH');
-    expect(etf.message).toContain('doc 02 §8.3');
+    expect(etf.message).toContain('scored from the trailing 4 weekly flows');
+    // 2026-10-18: no public reference to a document a reader cannot open.
+    expect(etf.message).not.toContain('doc 02');
     expect(ds.unavailable_sources).toEqual([]);
   });
 

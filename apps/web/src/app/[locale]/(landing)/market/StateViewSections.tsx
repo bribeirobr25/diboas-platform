@@ -131,10 +131,15 @@ export function StateViewSections({ viewSlug, signalGroups, t }: StateViewSectio
             const sig = macro.signals?.find((s) => s.id === id);
             if (!sig) return null;
             const fb = FALLBACKS[key];
+            // 2026-10-18: an UNAVAILABLE condition is not a firm/contracting
+            // one. Before this, anything not ACTIVE took the restrictive word,
+            // so missing data would have read as an adverse market condition.
             const stateWord =
               sig.state === 'ACTIVE'
                 ? t(`conditions.${key}.active`, fb.active)
-                : t(`conditions.${key}.inactive`, fb.inactive);
+                : sig.state === 'UNAVAILABLE'
+                  ? t('conditions.unavailable', 'Not available')
+                  : t(`conditions.${key}.inactive`, fb.inactive);
             return (
               <details key={id} className={styles.conditionRow}>
                 <summary className={styles.conditionSummary}>

@@ -153,5 +153,8 @@
     ],
     "delayed_sources": ["FRED:M2SL"],
     "unavailable_sources": []
+  },
+  "coverage": {
+    "suspended": []
   }
 }

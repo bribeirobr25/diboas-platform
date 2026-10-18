@@ -40,7 +40,7 @@
       "UNAVAILABLE": "Nicht verfügbar"
     },
     "methodologyTitle": "Wie das berechnet wird",
-    "methodologyLead": "Jedes Signal, jeder Schwellenwert und jede Gewichtung ist auf diBoaS Analytics dokumentiert. Die Plattform ist noch in der Beta-Phase und wird mit der vollständigen Methodik öffentlich zugänglich.",
+    "methodologyLead": "Ein vollständiges Methodik-Dokument ist noch nicht veröffentlicht. Bis dahin beschreibt diese Seite jedes Signal und wie viele Punkte es beitragen kann.",
     "methodologyLinkLabel": "Methodik lesen",
     "poweredByLabel": "Bereitgestellt von",
     "poweredByProduct": "diBoaS Analytics",
@@ -49,13 +49,15 @@
     "sources": {
       "btc": "Bitcoin-Preis",
       "us10y": "Rendite 10-jähriger US-Staatsanleihen",
-      "dxy": "US-Dollar-Index",
-      "m2": "Geldmenge (M2)",
+      "dxy": "Breiter US-Dollar-Index",
+      "m2": "US-Geldmenge (M2)",
       "nasdaq": "Nasdaq Composite",
       "gold": "Goldpreis",
       "btcEtf": "Bitcoin-ETF-Zuflüsse"
     },
-    "memoToggle": "Das vollständige Wochen-Memo lesen"
+    "memoToggle": "Das vollständige Wochen-Memo lesen",
+    "coverageNote": "Eingeschränkte Abdeckung: Der ETF-Fluss-Indikator ist ausgesetzt, weil sich seine Daten nicht Woche für Woche prüfen lassen. Seine {points} Punkte zählen nicht, der Wert wird weiter auf der {max}-Punkte-Skala gelesen. Eine dadurch verursachte Änderung des Werts ist eine Änderung in unseren Daten, keine Marktbewegung.",
+    "chartCoverageNote": "Ab dem {date} enthalten die Werte den ausgesetzten ETF-Fluss-Indikator nicht. Eine Änderung an dieser Stelle spiegelt unsere Daten wider, nicht den Markt."
   },
   "cta": {
     "cadence": "Wöchentlich aktualisiert",
@@ -68,7 +70,7 @@
   },
   "fallback": {
     "outageTitle": "Live-Daten vorübergehend nicht verfügbar",
-    "outageBody": "Wir stellen die Verbindung zu unseren Datenquellen wieder her. Methodik und historisches Archiv bleiben verfügbar.",
+    "outageBody": "Wir stellen die Verbindung zu unseren Datenquellen wieder her. Das historische Archiv bleibt verfügbar.",
     "partialOutageTitle": "Einige Datenquellen sind verzögert",
     "partialOutageBody": "Die meisten Signale sind aktuell. Ein oder mehrere Upstream-Feeds holen auf; die Konfidenz kann niedriger sein als gewohnt."
   },
@@ -94,15 +96,18 @@
     "conditions": {
       "dollar": {
         "active": "Dollar nachgebend",
-        "inactive": "Dollar fest"
+        "inactive": "Dollar fest",
+        "unavailable": "Dollar nicht verfügbar"
       },
       "rates": {
         "active": "Renditen nachgebend",
-        "inactive": "Renditen fest"
+        "inactive": "Renditen fest",
+        "unavailable": "Renditen nicht verfügbar"
       },
       "liquidity": {
         "active": "Liquidität wachsend",
-        "inactive": "Liquidität schrumpfend"
+        "inactive": "Liquidität schrumpfend",
+        "unavailable": "Liquidität nicht verfügbar"
       }
     }
   },

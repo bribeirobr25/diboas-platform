@@ -40,7 +40,7 @@
       "UNAVAILABLE": "Unavailable"
     },
     "methodologyTitle": "How this is calculated",
-    "methodologyLead": "Every signal, threshold, and weight is documented on diBoaS Analytics, which is still in beta and opens to the public with the full methodology.",
+    "methodologyLead": "A full methodology document is not published yet. Until it is, this page describes each signal and how many points it can add.",
     "methodologyLinkLabel": "Read the methodology",
     "poweredByLabel": "Powered by",
     "poweredByProduct": "diBoaS Analytics",
@@ -49,13 +49,15 @@
     "sources": {
       "btc": "Bitcoin price",
       "us10y": "10-year Treasury yield",
-      "dxy": "U.S. dollar index",
-      "m2": "Money supply (M2)",
+      "dxy": "Broad U.S. dollar index",
+      "m2": "U.S. money supply (M2)",
       "nasdaq": "Nasdaq Composite",
       "gold": "Gold price",
       "btcEtf": "Bitcoin ETF flows"
     },
-    "memoToggle": "Read the full weekly memo"
+    "memoToggle": "Read the full weekly memo",
+    "coverageNote": "Reduced coverage: the ETF flow indicator is suspended because its data cannot be verified week by week. Its {points} points do not count, and the score is still read on the {max}-point scale. A score change caused by this is a change in our data, not a market move.",
+    "chartCoverageNote": "From {date}, scores do not include the suspended ETF flow indicator. A change at that point reflects our data, not the market."
   },
   "cta": {
     "cadence": "Updated weekly",
@@ -68,7 +70,7 @@
   },
   "fallback": {
     "outageTitle": "Live data is temporarily unavailable",
-    "outageBody": "We are restoring the connection to our data sources. The methodology and historical archive remain available.",
+    "outageBody": "We are restoring the connection to our data sources. The historical archive remains available.",
     "partialOutageTitle": "Some data sources are delayed",
     "partialOutageBody": "Most signals are current. One or more upstream feeds are catching up; confidence may be lower than usual."
   },
@@ -94,15 +96,18 @@
     "conditions": {
       "dollar": {
         "active": "Dollar softening",
-        "inactive": "Dollar firm"
+        "inactive": "Dollar firm",
+        "unavailable": "Dollar not available"
       },
       "rates": {
         "active": "Rates easing",
-        "inactive": "Rates firm"
+        "inactive": "Rates firm",
+        "unavailable": "Rates not available"
       },
       "liquidity": {
         "active": "Liquidity expanding",
-        "inactive": "Liquidity contracting"
+        "inactive": "Liquidity contracting",
+        "unavailable": "Liquidity not available"
       }
     }
   },
