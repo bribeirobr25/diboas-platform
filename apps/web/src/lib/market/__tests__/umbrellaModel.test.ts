@@ -62,6 +62,33 @@ describe('scored cards', () => {
     expect(held.direction).toBe('held');
   });
 
+  // 2026-10-18: the cycle a suspension starts compares a point that counted the
+  // suspended signal with one that does not; "eased this week" would narrate a
+  // data change as a market move. Later cycles compare like with like.
+  it('should omit direction on the cycle a suspension starts, and keep it afterwards', () => {
+    const regime = (since: string) =>
+      ({
+        regime_code: 'NEUTRAL_MIXED',
+        coverage: { suspended: [{ signal_id: 'ETF-01', points: 2, since }] },
+      }) as unknown as AnalyticsInitialData['regime'];
+    const starts = umbrellaCardModel(
+      bitcoin,
+      scoredData({
+        regime: regime('2026-08-02'),
+        historical: snaps(12, 10) as AnalyticsInitialData['historical'],
+      })
+    );
+    expect(starts.direction).toBeUndefined();
+    const later = umbrellaCardModel(
+      bitcoin,
+      scoredData({
+        regime: regime('2026-08-02'),
+        historical: snaps(12, 10, 9) as AnalyticsInitialData['historical'],
+      })
+    );
+    expect(later.direction).toBe('down');
+  });
+
   it('should omit direction with fewer than two real snapshots or a synthetic seed', () => {
     const one = umbrellaCardModel(
       bitcoin,

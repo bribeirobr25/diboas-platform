@@ -70,7 +70,16 @@ export function umbrellaCardModel(
     let direction: UmbrellaDirection | undefined;
     if (real.length >= 2) {
       const [prev, last] = real.slice(-2);
-      direction = last.score > prev.score ? 'up' : last.score < prev.score ? 'down' : 'held';
+      // 2026-10-18: on the cycle a suspension STARTS, the two points are not
+      // comparable (one counts the suspended signal, one does not), so a drop
+      // would read as "eased this week" when nothing in the market moved. Show
+      // no direction that week; the scored view explains the change.
+      const startsHere = (data.regime?.coverage?.suspended ?? []).some(
+        (s) => s.since === last.date.slice(0, 10)
+      );
+      if (!startsHere) {
+        direction = last.score > prev.score ? 'up' : last.score < prev.score ? 'down' : 'held';
+      }
     }
     const plain = data.regime?.summary?.plain;
     return {
