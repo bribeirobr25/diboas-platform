@@ -33,7 +33,8 @@ import { fetchInitialAnalyticsData } from '@/lib/analytics-sdk/mock-client.serve
 import { marketCollectionSchema } from '@/lib/market/structuredData';
 import { umbrellaCardModel, type UmbrellaCardModel } from '@/lib/market/umbrellaModel';
 import { switcherDestinations, viewPath } from '@/lib/market/viewRegistry';
-import { ANALYTICS_SITE_LIVE } from '@/lib/market/constants';
+import { ANALYTICS_SITE_LIVE, ANALYTICS_SITE_URL } from '@/lib/market/constants';
+import { regimeLabelMap } from '@/lib/market/presentationState';
 import styles from './page.module.css';
 
 const CONDITION_LABEL_KEYS: Record<string, string> = {
@@ -100,13 +101,7 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
     itemPaths: destinations.map((v) => viewPath(v)),
   });
 
-  const regimeLabels: Record<string, string> = {
-    VERY_FAVORABLE: t('dashboard.regimeLabels.VERY_FAVORABLE', 'Very Favorable'),
-    CONSTRUCTIVE: t('dashboard.regimeLabels.CONSTRUCTIVE', 'Constructive'),
-    NEUTRAL_MIXED: t('dashboard.regimeLabels.NEUTRAL_MIXED', 'Neutral / Mixed'),
-    DEFENSIVE: t('dashboard.regimeLabels.DEFENSIVE', 'Defensive'),
-    HOSTILE: t('dashboard.regimeLabels.HOSTILE', 'Hostile'),
-  };
+  const regimeLabels: Record<string, string> = regimeLabelMap(t);
   const directionLabel = (d: 'up' | 'down' | 'held') =>
     d === 'up'
       ? t('umbrella.direction.up', 'improved this week')
@@ -156,7 +151,12 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
           <Container size="md">
             <div className={styles.outageBanner} role="status">
               <strong>{t('fallback.outageTitle', 'Live data is temporarily unavailable')}</strong>
-              <span>{t('fallback.outageBody', 'We are restoring the connection.')}</span>
+              <span>
+                {t(
+                  'fallback.outageBody',
+                  'We are restoring the connection to our data sources. The historical archive remains available.'
+                )}
+              </span>
             </div>
           </Container>
         ) : null}
@@ -202,14 +202,7 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
                               {model.conditions
                                 .map((c) => {
                                   const key = CONDITION_LABEL_KEYS[c.id];
-                                  // 2026-10-18: UNAVAILABLE gets its own word,
-                                  // never the restrictive one.
-                                  const suffix = !c.available
-                                    ? 'unavailable'
-                                    : c.active
-                                      ? 'active'
-                                      : 'inactive';
-                                  return t(`umbrella.conditions.${key}.${suffix}`, key);
+                                  return t(`umbrella.conditions.${key}.${c.word}`, key);
                                 })
                                 .join(' · ')}
                             </p>
@@ -230,7 +223,7 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
         <MarketCtaBand
           locale={locale}
           cadence={t('cta.cadence', 'Updated weekly')}
-          headline={t('cta.headline', 'Calm intelligence, every week.')}
+          headline={t('cta.headline', 'A calm read, every week.')}
           body={t(
             'cta.body',
             'Adelaide Market is free and refreshed every week. Join the waitlist to be first when diBoaS opens.'
@@ -241,7 +234,7 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
           shareUrl={`${siteUrl}/${locale}/market`}
           shareText={t(
             'cta.shareText',
-            'Adelaide Market: calm macro intelligence for the financial markets.'
+            'Adelaide Market: a calm read on the financial markets, without the noise.'
           )}
           shareTitle={heroTitle}
         />
@@ -256,7 +249,7 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
                 <h2 className={styles.h2Dark}>
                   {t(
                     'dashboard.methodologyLead',
-                    'Every signal, threshold, and weight is documented on diBoaS Analytics.'
+                    'A full methodology document is not published yet. Until it is, this page describes each signal and how many points it can add.'
                   )}
                 </h2>
                 <MethodologyLink
@@ -279,12 +272,12 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
             <HostRegulatoryDisclaimer
               text={t(
                 'disclaimer.host.regulatory',
-                'diBoaS does not provide investment advice. This page is educational only.'
+                'diBoaS does not provide investment advice. The framework on this page summarizes the macro and structural environment of the markets it covers for educational purposes only. Crypto-asset values are highly volatile and your capital is at risk. Information is intended for residents of the EU, US, UK, and Brazil where local distribution is permitted; nothing here constitutes a solicitation in any other jurisdiction.'
               )}
             />
 
             <PoweredByAttribution
-              href="https://diboas-analytics.com"
+              href={ANALYTICS_SITE_URL}
               label={t('dashboard.poweredByLabel', 'Powered by')}
               productName={t('dashboard.poweredByProduct', 'diBoaS Analytics')}
               comingSoon={!ANALYTICS_SITE_LIVE}

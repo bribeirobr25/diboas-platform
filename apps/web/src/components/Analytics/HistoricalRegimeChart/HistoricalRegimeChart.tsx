@@ -10,6 +10,14 @@ interface HistoricalRegimeChartProps {
   ariaLabel: string;
   reducedMotion?: boolean;
   tableLabels: { date: string; score: string; regime: string };
+  /** Translated band labels for the table (a screen reader heard the raw code). */
+  regimeLabels: Record<RegimeCode, string>;
+  /**
+   * The table's dates as display text, keyed by ISO day, formatted on the
+   * server (`historicalDateLabels`) so the browser never re-formats them.
+   * The ISO day stays in `<time dateTime>`.
+   */
+  dateLabels: Record<string, string>;
   className?: string;
 }
 
@@ -48,6 +56,8 @@ export function HistoricalRegimeChart({
   ariaLabel,
   reducedMotion = false,
   tableLabels,
+  regimeLabels,
+  dateLabels,
   className,
 }: HistoricalRegimeChartProps) {
   const tableId = useId();
@@ -144,9 +154,13 @@ export function HistoricalRegimeChart({
           <tbody>
             {snapshots.map((s) => (
               <tr key={s.date}>
-                <th scope="row">{s.date.slice(0, 10)}</th>
+                <th scope="row">
+                  <time dateTime={s.date.slice(0, 10)}>
+                    {dateLabels[s.date.slice(0, 10)] ?? s.date.slice(0, 10)}
+                  </time>
+                </th>
                 <td>{s.score}</td>
-                <td>{s.regime_code}</td>
+                <td>{regimeLabels[s.regime_code] ?? s.regime_code}</td>
               </tr>
             ))}
           </tbody>

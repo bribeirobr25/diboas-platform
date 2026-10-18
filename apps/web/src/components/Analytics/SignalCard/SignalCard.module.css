@@ -136,7 +136,7 @@
      right-shoving the title into the edge. */
   .rowHead {
     grid-template-columns: auto 1fr auto;
-    gap: 12px;
+    gap: var(--spacing-md-minus);
   }
   .value {
     justify-self: start;

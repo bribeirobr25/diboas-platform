@@ -7,7 +7,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { conditionWordSuffix, coverageNotes } from '../presentationState';
+import { conditionWordSuffix, coverageNotes, regimeLabelMap } from '../presentationState';
 
 const I18N = join(__dirname, '../../../../../../packages/i18n/translations');
 const LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
@@ -25,6 +25,13 @@ describe('conditionWordSuffix', () => {
   it('should treat a missing state as unavailable, never as the restrictive word', () => {
     expect(conditionWordSuffix(undefined)).toBe('unavailable');
   });
+
+  it.each(['STALE', 'ERROR', 'SOMETHING_NEW'])(
+    'should read %s as unavailable, because only ACTIVE and INACTIVE are assessed',
+    (state) => {
+      expect(conditionWordSuffix(state)).toBe('unavailable');
+    }
+  );
 
   it.each(LOCALES)('should have an unavailable word for every condition in %s', (l) => {
     expect(backdrop(l).conditions.unavailable).toBeTruthy();
@@ -64,5 +71,39 @@ describe('coverageNotes', () => {
     const t = { score: '', chart: '{date}' };
     expect(coverageNotes(coverage, 14, 'en', t).chart).toBe('October 19, 2026');
     expect(coverageNotes(coverage, 14, 'de', t).chart).toBe('19. Oktober 2026');
+  });
+});
+
+describe('coverageNotes — scoped to the ETF flow indicator (2026-10-18)', () => {
+  it('should not lend the ETF sentences to another suspended signal', () => {
+    const t = { score: 'x {points}', chart: 'y {date}' };
+    const other = { suspended: [{ signal_id: 'MAC-03', points: 1, since: '2026-11-02' }] };
+    expect(coverageNotes(other, 14, 'en', t)).toEqual({ score: null, chart: null });
+  });
+
+  it('should find the ETF-01 entry wherever it sits in the list', () => {
+    const t = { score: 'x {points}', chart: 'y {date}' };
+    const both = {
+      suspended: [
+        { signal_id: 'MAC-03', points: 1, since: '2026-11-02' },
+        { signal_id: 'ETF-01', points: 2, since: '2026-10-19' },
+      ],
+    };
+    expect(coverageNotes(both, 14, 'en', t).score).toBe('x 2');
+  });
+});
+
+describe('regimeLabelMap', () => {
+  it.each(LOCALES)('should translate every band in %s, never echoing the code', (l) => {
+    const labels = market(l).dashboard.regimeLabels as Record<string, string>;
+    const map = regimeLabelMap((key, fallback) => {
+      const leaf = key.replace('dashboard.regimeLabels.', '');
+      return labels[leaf] ?? fallback;
+    });
+    for (const [code, label] of Object.entries(map)) {
+      expect(label, `${l} ${code}`).toBeTruthy();
+      expect(label).not.toBe(code);
+      expect(label).toBe(labels[code]);
+    }
   });
 });
