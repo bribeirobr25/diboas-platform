@@ -1,5 +1,5 @@
 {
-  "_comment": "Weekly lead-in for summary.plain (the grandmother layer). generate.mjs weeklyOpener() compares this week's score/band to the most recent prior snapshot in historical.json and prepends one of these, ahead of the transition-agnostic monthly 'standing' read. Slots: {score} {max} {prior} {band}. {band} = plain-language regime word (PLAIN_BAND in generate.mjs). Shown only when a genuine prior snapshot exists; the monthly read stands alone otherwise. Keep it a couple of words — the week is the 'what's new', the month is the substance.",
+  "_comment": "Weekly lead-in for summary.plain (the grandmother layer). generate.mjs weeklyOpener() compares this week's score to the most recent prior snapshot in historical.json and prepends one of these, ahead of the transition-agnostic monthly 'standing' read, which already names the band. Slots: {score} {max} {prior}, plus {points} for the suspension keys. Suspension keys (2026-10-18, lib/weekly-opener.mjs): on the cycle where the ETF-01 suspension starts, 'suspensionStart' (or 'suspensionStartNoPoints') states the data effect, then 'othersHeld'/'othersUp'/'othersDown' report the other signals against the prior score minus the removed points ({prior} is that comparable figure). Shown only when a genuine prior snapshot exists. Every key must exist in all four locales: generate.mjs throws on a missing one.",
   "held": {
     "en": "A steady week — still {score} of {max}.",
     "pt-BR": "Uma semana estável — ainda {score} de {max}.",
@@ -59,11 +59,5 @@
     "pt-BR": "Nos demais sinais, a pontuação caiu de um equivalente a {prior} para {score} de {max}.",
     "es": "En las demás señales, la puntuación bajó de un equivalente a {prior} a {score} de {max}.",
     "de": "Bei den übrigen Signalen sank der Wert von vergleichbaren {prior} auf {score} von {max}."
-  },
-  "bandNow": {
-    "en": "That makes the overall read {band}.",
-    "pt-BR": "Com isso, o quadro passa a ser {band}.",
-    "es": "Con ello, el panorama pasa a ser {band}.",
-    "de": "Damit gilt die Gesamtlage jetzt als {band}."
   }
 }

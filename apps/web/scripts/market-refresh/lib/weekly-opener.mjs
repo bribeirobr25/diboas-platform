@@ -9,8 +9,10 @@
  *
  *   1. the suspension, and how many points it removed (the data effect);
  *   2. what the OTHER signals did, measured against the previous score minus
- *      those points (the observed effect);
- *   3. the band, only if it changed.
+ *      those points (the observed effect).
+ *
+ * The band is NOT restated here: the monthly read that follows the opener
+ * already names it, so a band sentence would say it twice in a row.
  *
  * Every later suspended cycle compares like with like (ETF-01 is 0 on both
  * sides), so the ordinary opener applies again. Nothing here assumes the size
@@ -40,15 +42,13 @@ export function planWeeklyOpener({ prior, score, regimeCode, currentEtf, priorEt
     const comparablePrior = prior.score - removed;
     const othersKey =
       score > comparablePrior ? 'othersUp' : score < comparablePrior ? 'othersDown' : 'othersHeld';
-    const parts = [
+    return [
       {
         key: removed > 0 ? 'suspensionStart' : 'suspensionStartNoPoints',
         slots: { points: removed },
       },
       { key: othersKey, slots: { score, prior: comparablePrior } },
     ];
-    if (bandChanged) parts.push({ key: 'bandNow', slots: {} });
-    return parts;
   }
 
   if (bandChanged)

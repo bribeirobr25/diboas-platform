@@ -178,38 +178,6 @@ const ENVIRONMENT_BIAS = {
   DEFENSIVE: 'DEFENSIVE',
   HOSTILE: 'HOSTILE',
 };
-// Plain-language regime word per locale — the {band} slot in the weekly opener's
-// band-change case (kept plain; distinct from the UI's title-case regime labels).
-const PLAIN_BAND = {
-  en: {
-    HOSTILE: 'hostile',
-    DEFENSIVE: 'defensive',
-    NEUTRAL_MIXED: 'mixed',
-    CONSTRUCTIVE: 'constructive',
-    VERY_FAVORABLE: 'very favorable',
-  },
-  'pt-BR': {
-    HOSTILE: 'hostil',
-    DEFENSIVE: 'defensivo',
-    NEUTRAL_MIXED: 'misto',
-    CONSTRUCTIVE: 'construtivo',
-    VERY_FAVORABLE: 'muito favorável',
-  },
-  es: {
-    HOSTILE: 'hostil',
-    DEFENSIVE: 'defensivo',
-    NEUTRAL_MIXED: 'mixto',
-    CONSTRUCTIVE: 'constructivo',
-    VERY_FAVORABLE: 'muy favorable',
-  },
-  de: {
-    HOSTILE: 'ungünstig',
-    DEFENSIVE: 'defensiv',
-    NEUTRAL_MIXED: 'gemischt',
-    CONSTRUCTIVE: 'konstruktiv',
-    VERY_FAVORABLE: 'sehr günstig',
-  },
-};
 /** '2026-06-01' (anchor month) → '2026-06-30T00:00:00Z' (end of that month). */
 function monthEnd(anchor) {
   const y = Number(anchor.slice(0, 4));
@@ -383,7 +351,6 @@ function weeklyOpener(locale) {
         {
           ...Object.fromEntries(Object.entries(slots).map(([k, v]) => [k, String(v)])),
           max: String(computed.max_score),
-          band: PLAIN_BAND[locale][computed.regime_code],
         },
         `weekly opener ${key} (${locale})`
       );

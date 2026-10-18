@@ -114,7 +114,12 @@ describe('ETF-01 suspension — the engine route', () => {
 describe('ETF-01 suspension — the scale is unchanged', () => {
   const sig = (id: string, state: string, weight: number) => ({ id, state, weight });
   const others = (state: string) => ({
-    btc: [sig('BTC-01', state, 2), sig('BTC-02', state, 2), sig('BTC-03', state, 1), sig('BTC-04', state, 1)],
+    btc: [
+      sig('BTC-01', state, 2),
+      sig('BTC-02', state, 2),
+      sig('BTC-03', state, 1),
+      sig('BTC-04', state, 1),
+    ],
     macro: [sig('MAC-01', state, 1), sig('MAC-02', state, 1), sig('MAC-03', state, 1)],
     rel: [sig('REL-01', state, 1), sig('REL-02', state, 1), sig('REL-03', state, 1)],
   });
@@ -131,7 +136,10 @@ describe('ETF-01 suspension — the scale is unchanged', () => {
 
   it('should not renormalise: the same 10 points read Constructive, as on the 14-point scale', () => {
     const base = others('ACTIVE');
-    base.rel = base.rel.map((s) => ({ ...s, state: 'INACTIVE' })).slice(0, 2).concat(base.rel[2]);
+    base.rel = base.rel
+      .map((s) => ({ ...s, state: 'INACTIVE' }))
+      .slice(0, 2)
+      .concat(base.rel[2]);
     const { score, band } = scoreSignals({ ...base, etf: [suspendedEtfSignal(healthyLedger())] });
     expect(score).toBe(10);
     expect(band?.code).toBe('CONSTRUCTIVE');
@@ -214,19 +222,21 @@ describe('ETF-01 suspension — every locale exists and none falls back to warm-
       'othersHeld',
       'othersUp',
       'othersDown',
-      'bandNow',
     ]) {
       expect(openers[key]?.[locale], `${key} ${locale}`).toBeTruthy();
     }
     expect(coverage.plainSuspended[locale]).toBeTruthy();
   });
 
-  it.each(LOCALES)('should select the suspended sentence in %s, never the warm-up one', (locale) => {
-    const set = signals['ETF-01'].UNAVAILABLE;
-    const chosen = selectSignalTemplate(set, 'suspended', locale, 'test');
-    expect(chosen).toBe(set.variants.suspended[locale]);
-    expect(chosen).not.toBe(set[locale]);
-  });
+  it.each(LOCALES)(
+    'should select the suspended sentence in %s, never the warm-up one',
+    (locale) => {
+      const set = signals['ETF-01'].UNAVAILABLE;
+      const chosen = selectSignalTemplate(set, 'suspended', locale, 'test');
+      expect(chosen).toBe(set.variants.suspended[locale]);
+      expect(chosen).not.toBe(set[locale]);
+    }
+  );
 
   it('should THROW when a declared variant is missing a locale (deliberate absence)', () => {
     const set = structuredClone(signals['ETF-01'].UNAVAILABLE);
@@ -275,7 +285,8 @@ describe('ETF-01 suspension — the weekly opener separates data from market', (
       currentEtf: susp,
       priorEtf: activeEtf,
     });
-    expect(parts.map((p) => p.key)).toEqual(['suspensionStart', 'othersHeld', 'bandNow']);
+    // No band sentence: the monthly read that follows already names the band.
+    expect(parts.map((p) => p.key)).toEqual(['suspensionStart', 'othersHeld']);
     expect(parts[0].slots).toEqual({ points: 2 });
   });
 
@@ -287,7 +298,7 @@ describe('ETF-01 suspension — the weekly opener separates data from market', (
       currentEtf: susp,
       priorEtf: activeEtf,
     });
-    expect(up.map((p) => p.key)).toEqual(['suspensionStart', 'othersUp', 'bandNow']);
+    expect(up.map((p) => p.key)).toEqual(['suspensionStart', 'othersUp']);
     expect(up[1].slots).toEqual({ score: 11, prior: 10 });
     const down = planWeeklyOpener({
       prior: { score: 12, regime_code: 'VERY_FAVORABLE' },
