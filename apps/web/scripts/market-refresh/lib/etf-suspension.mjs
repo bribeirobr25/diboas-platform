@@ -28,7 +28,7 @@
  *   * It does not touch history. Earlier archive lines and published cycles keep
  *     the state they were computed with.
  */
-import { WARMUP_SNAPSHOTS } from './regime-engine.mjs';
+import { WARMUP_SNAPSHOTS, ETF01_WEIGHT, ETF_VARIANT } from './regime-engine.mjs';
 
 export const ETF01_SUSPENSION = Object.freeze({
   active: true,
@@ -61,7 +61,7 @@ export function suspendedEtfSignal(snapshots) {
   return {
     id: 'ETF-01',
     state: 'UNAVAILABLE',
-    weight: 2,
+    weight: ETF01_WEIGHT,
     detail:
       `ETF-01 suspended since the ${ETF01_SUSPENSION.firstCycle} cycle (decision ` +
       `${ETF01_SUSPENSION.decidedOn}): the share-count route cannot support a weekly ` +
@@ -70,7 +70,7 @@ export function suspendedEtfSignal(snapshots) {
     values: {
       snapshots: count,
       warmupTarget: WARMUP_SNAPSHOTS,
-      variant: 'suspended',
+      variant: ETF_VARIANT.SUSPENDED,
       suspendedSince: ETF01_SUSPENSION.firstCycle,
     },
     anchor: count ? snapshots[count - 1].anchor : null,
@@ -80,5 +80,5 @@ export function suspendedEtfSignal(snapshots) {
 
 /** True when a computed/archived ETF-01 record is the suspension record. */
 export function isSuspendedEtf(signal) {
-  return signal?.id === 'ETF-01' && signal?.values?.variant === 'suspended';
+  return signal?.id === 'ETF-01' && signal?.values?.variant === ETF_VARIANT.SUSPENDED;
 }

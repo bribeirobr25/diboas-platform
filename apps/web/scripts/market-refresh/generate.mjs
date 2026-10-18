@@ -71,6 +71,7 @@ import { readArchiveRows, runDayIndex } from './lib/archive.mjs';
 import {
   MAX_BY_GROUP,
   GROUP_STATUS,
+  LOCALE_AND,
   fill,
   groupLevel,
   groupSummary,
@@ -82,11 +83,10 @@ import { priorRunSignals, composeStateLead, composeStateDepth } from './lib/stat
 import { selectSignalTemplate } from './lib/template-select.mjs';
 import { planWeeklyOpener } from './lib/weekly-opener.mjs';
 import { cycleCoverage } from './lib/coverage.mjs';
+import { BANDS } from './lib/regime-engine.mjs';
+import { SHARED_DIR } from './providers/inrepo.mjs'; // 5.92: run-shared outputs
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = path.resolve(__dirname, '../../../..');
-const MARKET_DIR = path.join(REPO_ROOT, 'apps/web/data/market');
-const SHARED_DIR = path.join(MARKET_DIR, 'shared'); // 5.92: run-shared outputs
 const TPL_DIR = path.join(__dirname, 'templates');
 
 const LOCALES = ['en', 'pt-BR', 'es', 'de'];
@@ -160,13 +160,9 @@ const copyCtx = {
 // ── numeric engine-mirror maps (root-cause-B fix, 2026-07-27) ───────────────
 // regime_code → display label / bias (fixture-confirmed pure maps,
 // apps/web/src/lib/analytics-sdk/types.ts RegimeLabel/EnvironmentBias).
-const REGIME_LABELS = {
-  VERY_FAVORABLE: 'Very Favorable',
-  CONSTRUCTIVE: 'Constructive',
-  NEUTRAL_MIXED: 'Neutral / Mixed',
-  DEFENSIVE: 'Defensive',
-  HOSTILE: 'Hostile',
-};
+// The display label comes from the engine's ratified band table (one source;
+// 2026-10-18 compliance pass — this was a hand-copied twin of BANDS[].label).
+const REGIME_LABELS = Object.fromEntries(BANDS.map((b) => [b.code, b.label]));
 const ENVIRONMENT_BIAS = {
   VERY_FAVORABLE: 'STRONG_ALIGNMENT',
   CONSTRUCTIVE: 'CONSTRUCTIVE',
@@ -251,10 +247,9 @@ function signalSlots(sig, locale, prior) {
     // 5.301: the length of a non-weekly interval, for the gapped ETF sentence.
     gapDays: v.gapDays != null ? String(v.gapDays) : '',
   };
-  // Guard (2026-07-11 audit): a template slot that resolves to '' means the
-  // engine didn't emit the value the sentence needs (the REL-03 empty-slot
-  // bug — engine `values` missing, --check blind to it because both sides
-  // were equally empty). Fail loudly instead of shipping "the Nasdaq at ".
+  // A slot left '' here is NOT checked in this function: `renderTemplate` is
+  // the guard (2026-07-11 audit, the REL-03 empty-slot bug) and throws when a
+  // template references a slot that resolved to ''.
   return slots;
 }
 
@@ -296,11 +291,7 @@ function signalSentence(id, locale) {
   const variant = sig.values?.variant;
   const context = `signal ${id} (${sig.state}${variant ? `/${variant}` : ''}, ${locale})`;
   const template = selectSignalTemplate(set, variant, locale, context);
-  return renderTemplate(
-    template,
-    signalSlots(sig, locale),
-    `signal ${id} (${sig.state}${variant ? `/${variant}` : ''}, ${locale})`
-  );
+  return renderTemplate(template, signalSlots(sig, locale), context);
 }
 
 // ── plain (grandmother) summary ─────────────────────────────────────────────
@@ -398,8 +389,8 @@ function plainSummary(locale) {
   const watchParts = picks.map((p) => phrases.watching[p.id]?.[p.state]?.[locale]).filter(Boolean);
   // Localize the joining conjunction (F-2, 2026-07-12). German joins two
   // "ob"-clauses without a comma ("ob A und ob B"); es/pt keep the comma.
-  const AND = { en: 'and', 'pt-BR': 'e', es: 'y', de: 'und' };
-  const sep = locale === 'de' ? ` ${AND[locale]} ` : `, ${AND[locale] ?? 'and'} `;
+  const sep =
+    locale === 'de' ? ` ${LOCALE_AND[locale]} ` : `, ${LOCALE_AND[locale] ?? LOCALE_AND.en} `;
   const watching =
     watchParts.length === 2 ? `${watchParts[0]}${sep}${watchParts[1]}` : (watchParts[0] ?? '');
   const body = fill(standing, { watching });

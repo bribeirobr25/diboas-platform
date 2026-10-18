@@ -38,76 +38,53 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { isDirectInvocation } from '../market-refresh/lib/invocation.mjs';
-import {
-  evaluateBtcStructure,
-  evaluateMacro,
-  evaluateRelativeStrength,
-  scoreSignals,
-  anchorCoherence,
-} from '../market-refresh/lib/regime-engine.mjs';
-import { readSnapshots, resolveEtfSignals } from '../market-refresh/lib/etf-flows.mjs';
+import { MAX_SCORE } from '../market-refresh/lib/regime-engine.mjs';
+import { readSnapshots } from '../market-refresh/lib/etf-flows.mjs';
 import { archiveSignals, archiveLine } from '../market-refresh/lib/archive.mjs';
-import { fetchFredSeries } from '../market-refresh/providers/fred.mjs';
-import { fetchYahooDaily } from '../market-refresh/providers/yahoo.mjs';
-import { btcMonths } from '../market-refresh/providers/inrepo.mjs';
+import {
+  fetchMarketSources,
+  assertMarketSourcesQuality,
+  evaluateMarketSignals,
+} from '../market-refresh/lib/market-sources.mjs';
+import { MAX_BY_GROUP } from '../market-refresh/lib/group-summaries.mjs';
+import { btcMonths, REPO_ROOT, SHARED_DIR } from '../market-refresh/providers/inrepo.mjs';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = path.resolve(__dirname, '../../../..');
-const REGIME_PATH = path.join(REPO_ROOT, 'apps/web/data/market/shared/regime.json');
-const ARCHIVE_PATH = path.join(REPO_ROOT, 'apps/web/data/market/shared/run-archive.jsonl');
-const ETF_MANUAL_PATH = path.join(REPO_ROOT, 'apps/web/data/market/shared/etf01-manual.json');
+const REGIME_PATH = path.join(SHARED_DIR, 'regime.json');
+const ARCHIVE_PATH = path.join(SHARED_DIR, 'run-archive.jsonl');
+const ETF_MANUAL_PATH = path.join(SHARED_DIR, 'etf01-manual.json');
 
 const TODAY = new Date();
 
 async function main() {
-  const [dxy, us10y, m2, nasdaq, btcD, gold] = await Promise.all([
-    fetchFredSeries('DTWEXBGS'),
-    fetchFredSeries('DGS10'),
-    fetchFredSeries('M2SL'),
-    fetchFredSeries('NASDAQCOM'),
-    fetchYahooDaily('BTC-USD', '6mo'),
-    fetchYahooDaily('GC=F', '1y'),
-  ]);
-
-  const btc = evaluateBtcStructure(btcMonths(), TODAY);
-  const macro = evaluateMacro(
-    { dxyDaily: dxy.series, us10yDaily: us10y.series, m2Monthly: m2.series },
-    TODAY
-  );
-  const rel = evaluateRelativeStrength(
-    { btcDaily: btcD.series, goldDaily: gold.series, nasdaqDaily: nasdaq.series },
-    TODAY
-  );
+  // 2026-10-18 compliance pass: the SAME fetch list, quality gate and engine as
+  // the weekly pipeline (lib/market-sources.mjs). This script used to repeat
+  // the six fetches and skip the gate, so with --archive it could record, in
+  // the provenance ledger, data the pipeline would have refused.
+  const sources = await fetchMarketSources();
+  assertMarketSourcesQuality(sources, TODAY);
   const etfManual = fs.existsSync(ETF_MANUAL_PATH)
     ? JSON.parse(fs.readFileSync(ETF_MANUAL_PATH, 'utf8'))
     : null;
-  // 5.136 (audit 2026-08-24): route ETF-01 through the SAME resolver the
-  // pipeline uses. This CLI previously called evaluateEtfManual directly
-  // against a file that expired 2026-07-18, so it scored ETF-01 UNAVAILABLE
-  // and printed 8/14 against a published 10/14 — the verification tool
-  // contradicting the thing it verifies.
-  const etf = resolveEtfSignals({ snapshots: readSnapshots(), manual: etfManual }, TODAY);
-
-  const all = [...btc, ...macro, ...etf, ...rel];
-  console.log('\n=== Signal evaluation ===');
-  for (const s of all) {
-    const pts = s.state === 'ACTIVE' ? s.weight : 0;
-    console.log(
-      `  ${s.id.padEnd(8)} [${String(s.state).padEnd(11)}] ${pts}/${s.weight}  — ${s.detail}`
-    );
-  }
-
-  const { groupTotals, score, band } = scoreSignals({ btc, macro, etf, rel });
+  // 5.136 (audit 2026-08-24): ETF-01 goes through the SAME resolver the
+  // pipeline uses (now inside evaluateMarketSignals). This CLI once called
+  // evaluateEtfManual directly against an expired file and printed 8/14
+  // against a published 10/14 — the verification tool contradicting the
+  // thing it verifies.
+  const { all, groupTotals, score, band, spreadDays, warning } = evaluateMarketSignals({
+    sources,
+    btcMonths: btcMonths(),
+    etfSnapshots: readSnapshots(),
+    etfManual,
+    today: TODAY,
+  });
 
   console.log('\n=== Group totals ===');
-  console.log(`  BTC Structure (max 6):        ${groupTotals.btc_structure}`);
-  console.log(`  Macro Environment (max 3):    ${groupTotals.macro_environment}`);
-  console.log(`  Institutional Demand (max 2): ${groupTotals.institutional_demand}`);
-  console.log(`  Relative Strength (max 3):    ${groupTotals.relative_strength}`);
+  for (const [group, max] of Object.entries(MAX_BY_GROUP)) {
+    console.log(`  ${group.padEnd(22)} (max ${max}): ${groupTotals[group]}`);
+  }
 
-  console.log(`\n=== Total: ${score} / 14 → ${band.code} (${band.label}) ===`);
+  console.log(`\n=== Total: ${score} / ${MAX_SCORE} → ${band.code} (${band.label}) ===`);
 
   // === P1 guard (F-M3): per-signal anchor printout + coherence check ======
   const anchored = all.filter((x) => x.anchor);
@@ -115,7 +92,6 @@ async function main() {
   for (const x of anchored) {
     console.log(`  ${x.id.padEnd(8)} ${x.anchorKind.padEnd(8)} ${x.anchor}`);
   }
-  const { spreadDays, warning } = anchorCoherence(all);
   if (warning) console.log(`\n  ⚠ ANCHOR COHERENCE (F-M3): ${warning}`);
   else console.log(`  Weekly anchor spread: ${spreadDays.toFixed(0)}d (coherent)`);
 

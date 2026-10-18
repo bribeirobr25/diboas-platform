@@ -165,7 +165,7 @@ PR, never a direct push (weekly workflow: `.github/workflows/market-refresh-week
 # full pipeline: fetch -> fail-closed quality gate -> engine -> computed.json (+ run archive)
 node apps/web/scripts/market-refresh/run.mjs
 node apps/web/scripts/market-refresh/run.mjs --append-btc    # also append the due monthly BTC candle (dual-source verified)
-node apps/web/scripts/market-refresh/run.mjs --etf-snapshot  # weekly ETF-01 shares-outstanding snapshot (needs POLYGON_API_KEY)
+node apps/web/scripts/market-refresh/run.mjs --etf-snapshot  # ONLY the weekly ETF-01 shares-outstanding snapshot (needs POLYGON_API_KEY); no core run; refused with --append-btc
 node apps/web/scripts/market-refresh/generate.mjs            # render editorial JSONs from the template library + auto-write the data_status panel (B3 2026-08-11; overrides need a _cycle stamp)
 node apps/web/scripts/market-refresh/generate.mjs --check    # reconcile committed JSONs vs the generator (CI drift gate)
 node apps/web/scripts/market-refresh/tools-monthlies.mjs     # F-M8 leg: append the due month for the 7 non-BTC tools series

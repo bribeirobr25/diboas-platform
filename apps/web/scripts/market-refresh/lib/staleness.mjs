@@ -23,7 +23,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { isDirectInvocation } from './invocation.mjs';
-import { REPO_ROOT } from '../providers/inrepo.mjs';
+import { SHARED_DIR } from '../providers/inrepo.mjs';
 
 export const STALENESS_LIMIT_DAYS = 14;
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -47,7 +47,7 @@ export function ageInDays(isoStamp, now = new Date()) {
 }
 
 function main() {
-  const regimePath = path.join(REPO_ROOT, 'apps/web/data/market/shared/regime.json');
+  const regimePath = path.join(SHARED_DIR, 'regime.json');
   const stamp = JSON.parse(fs.readFileSync(regimePath, 'utf8')).last_updated_at;
   const age = ageInDays(stamp);
   const enforce = process.env.MARKET_STALENESS_ENFORCE === '1';

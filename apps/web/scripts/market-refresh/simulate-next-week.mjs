@@ -46,17 +46,17 @@
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import { REPO_ROOT } from './providers/inrepo.mjs';
+import { REPO_ROOT, SHARED_DIR, MONTHLY_PRICES_PATH } from './providers/inrepo.mjs';
 import { isDirectInvocation } from './lib/invocation.mjs';
 import { resolveEtfSignals, readSnapshots } from './lib/etf-flows.mjs';
-import { ETF01_SUSPENSION } from './lib/etf-suspension.mjs';
+import { ETF01_SUSPENSION, isSuspendedEtf } from './lib/etf-suspension.mjs';
 import { archiveSignals } from './lib/archive.mjs';
-import { scoreSignals, anchorCoherence } from './lib/regime-engine.mjs';
+import { scoreSignals, anchorCoherence, ETF_VARIANT, MAX_SCORE } from './lib/regime-engine.mjs';
 
-const SHARED = path.join(REPO_ROOT, 'apps/web/data/market/shared');
+const SHARED = SHARED_DIR;
 // Scenario D (5.478) also writes the monthly series the pipeline appends to, so
 // it is covered by the same dirty-tree refusal, snapshot and restore.
-const MONTHLY = path.join(REPO_ROOT, 'apps/web/src/lib/market-data/data/monthlyPrices.json');
+const MONTHLY = MONTHLY_PRICES_PATH;
 const WATCHED = [SHARED, MONTHLY];
 const MONTHLY_KEY = '\u0000monthlyPrices.json';
 /**
@@ -65,6 +65,24 @@ const MONTHLY_KEY = '\u0000monthlyPrices.json';
  * `releaseGateBoundary.test.ts` can assert every declared reader lives in one of
  * them — one list, not two that drift.
  */
+/**
+ * The weekly workflow's BLOCKING test step, as pnpm arguments. Run verbatim by
+ * every scenario; `workflowGuards.test.ts` pins it to the workflow file, so the
+ * simulator cannot quietly drift from the gate it claims to rehearse
+ * (2026-10-18 compliance pass).
+ */
+export const WEEKLY_BLOCKING_VITEST_ARGS = Object.freeze([
+  '--filter',
+  'web',
+  'exec',
+  'vitest',
+  'run',
+  'src/lib/market-data',
+  'src/lib/analytics-sdk',
+  '--exclude',
+  '**/memoFigureReconciliation.test.ts',
+]);
+
 export const PIPELINE_READER_DIRS = [
   'src/lib/asset-history',
   'src/lib/time-to-target',
@@ -223,7 +241,7 @@ function advance({ days, etfDays }) {
 // what the other signals did.
 const SUSPENDED = ETF01_SUSPENSION.active;
 const etfExpectation = (fallback) =>
-  SUSPENDED ? { state: 'UNAVAILABLE', variant: 'suspended' } : fallback;
+  SUSPENDED ? { state: 'UNAVAILABLE', variant: ETF_VARIANT.SUSPENDED } : fallback;
 
 const SCENARIOS = [
   {
@@ -239,7 +257,7 @@ const SCENARIOS = [
     name: 'skip week — previous refresh PR never merged',
     days: 14,
     etfDays: 14,
-    expectEtf: etfExpectation({ state: 'UNAVAILABLE', variant: 'gapped' }),
+    expectEtf: etfExpectation({ state: 'UNAVAILABLE', variant: ETF_VARIANT.GAPPED }),
     // What the READER sees (5.476): the variant sentence in every locale, never the
     // warm-up one ("…of 5 weekly share-count snapshots recorded").
     expectEtfSentence: true,
@@ -299,12 +317,13 @@ function assertEtfSentence() {
   // `variant`): the ETF row must be UNAVAILABLE and say why, not "warming up".
   const panel = JSON.parse(fs.readFileSync(path.join(SHARED, 'data-status.json'), 'utf8'));
   const row = panel.sources.find((x) => x.source.startsWith('Polygon:ETF'));
-  const reason = variant === 'gapped' ? `${record.values.gapDays}-day gap` : 'is suspended';
+  const reason =
+    variant === ETF_VARIANT.GAPPED ? `${record.values.gapDays}-day gap` : 'is suspended';
   if (row?.status !== 'UNAVAILABLE' || !String(row?.message).includes(reason))
     fail(`ETF panel row does not say why: ${row?.status} · ${row?.message}`);
   if (/scored from the trailing/.test(String(row?.message)))
     fail(`ETF panel row claims ETF-01 is scored while it is ${variant}`);
-  if (variant === 'suspended') {
+  if (variant === ETF_VARIANT.SUSPENDED) {
     const groupsTpl = JSON.parse(
       fs.readFileSync(
         path.join(REPO_ROOT, 'apps/web/scripts/market-refresh/templates/group-summaries.json'),
@@ -323,7 +342,7 @@ function assertEtfSentence() {
     const runs = fs.readFileSync(path.join(SHARED, 'run-archive.jsonl'), 'utf8').trim().split('\n');
     const previous = JSON.parse(runs[runs.length - 2] ?? '{}');
     const prevEtf = (previous.signals ?? []).find((x) => x.id === 'ETF-01');
-    const startsThisCycle = prevEtf?.values?.variant !== 'suspended';
+    const startsThisCycle = !isSuspendedEtf(prevEtf);
     const group = regime.signal_groups.find((g) => g.id === 'institutional_demand');
     for (const locale of ['en', 'pt-BR', 'es', 'de']) {
       const head = groupsTpl[locale].split('{')[0];
@@ -379,7 +398,7 @@ function main() {
           `\n=== scenario ${sc.key}: ${sc.name} ===\n` +
             `  computed_at +${sc.days}d · ${moved.weekly} weekly anchors moved · ` +
             `archive ${moved.archive} lines · ETF ${moved.etf} snapshots · ` +
-            `ETF-01 ${moved.etfState}${moved.etfVariant ? `/${moved.etfVariant}` : ''} · ${moved.score}/14 ${moved.band}`
+            `ETF-01 ${moved.etfState}${moved.etfVariant ? `/${moved.etfVariant}` : ''} · ${moved.score}/${MAX_SCORE} ${moved.band}`
         );
         if (sc.expectEtf) {
           const got = { state: moved.etfState, variant: moved.etfVariant ?? undefined };
@@ -397,26 +416,12 @@ function main() {
         sh('node', ['apps/web/scripts/market-refresh/generate.mjs']);
         if (sc.expectEtfSentence) assertEtfSentence(moved);
         // The workflow's own blocking command, verbatim, with its enforcement env.
-        execFileSync(
-          'pnpm',
-          [
-            '--filter',
-            'web',
-            'exec',
-            'vitest',
-            'run',
-            'src/lib/market-data',
-            'src/lib/analytics-sdk',
-            '--exclude',
-            '**/memoFigureReconciliation.test.ts',
-          ],
-          {
-            cwd: REPO_ROOT,
-            encoding: 'utf8',
-            stdio: 'pipe',
-            env: { ...process.env, MARKET_STALENESS_ENFORCE: '1' },
-          }
-        );
+        execFileSync('pnpm', [...WEEKLY_BLOCKING_VITEST_ARGS], {
+          cwd: REPO_ROOT,
+          encoding: 'utf8',
+          stdio: 'pipe',
+          env: { ...process.env, MARKET_STALENESS_ENFORCE: '1' },
+        });
         console.log(`  ✓ the weekly blocking gate passes (scenario ${sc.key})`);
       } catch (err) {
         failures.push(sc.key);

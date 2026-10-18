@@ -24,15 +24,14 @@
  */
 
 import fs from 'node:fs';
-import path from 'node:path';
 import { isDirectInvocation } from './lib/invocation.mjs';
 import { writeJsonAtomic } from './lib/atomic.mjs';
 import { expectedConfirmedMonthYM } from './lib/regime-engine.mjs';
 import { fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { assertOhlcBar } from './lib/quality-gate.mjs';
-import { REPO_ROOT } from './providers/inrepo.mjs';
+import { MONTHLY_PRICES_PATH } from './providers/inrepo.mjs';
 
-const PRICES_PATH = path.join(REPO_ROOT, 'apps/web/src/lib/market-data/data/monthlyPrices.json');
+const PRICES_PATH = MONTHLY_PRICES_PATH;
 // FX (monthlyFx.json) append via ECB/PTAX stays the runbook's manual step this
 // cycle — see the closing NOTE. Equity/ETF price appends are automated below.
 const TODAY = new Date();

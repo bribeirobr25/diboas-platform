@@ -22,14 +22,16 @@
 import { readJsonlTolerant } from './jsonl.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
-import { REPO_ROOT } from '../providers/inrepo.mjs';
-import { evaluateEtfManual, WARMUP_SNAPSHOTS } from './regime-engine.mjs';
+import { SHARED_DIR } from '../providers/inrepo.mjs';
+import {
+  evaluateEtfManual,
+  WARMUP_SNAPSHOTS,
+  ETF01_WEIGHT,
+  ETF_VARIANT,
+} from './regime-engine.mjs';
 import { ETF01_SUSPENSION, suspendedEtfSignal } from './etf-suspension.mjs';
 
-export const ETF_SHARES_ARCHIVE = path.join(
-  REPO_ROOT,
-  'apps/web/data/market/shared/etf-shares-weekly.jsonl'
-);
+export const ETF_SHARES_ARCHIVE = path.join(SHARED_DIR, 'etf-shares-weekly.jsonl');
 
 export const STALE_FUND_DAYS = 10;
 // A "weekly aggregate" must actually span a week (PENDING_ALL 5.301). Anchors
@@ -165,7 +167,7 @@ export function evaluateEtf01FromFlows(snapshots, today = new Date()) {
     return {
       id: 'ETF-01',
       state: 'UNAVAILABLE',
-      weight: 2,
+      weight: ETF01_WEIGHT,
       detail:
         `Polygon shares-outstanding ledger warming up: ${snapshots.length}/${WARMUP_SNAPSHOTS} ` +
         `weekly snapshots recorded — 4 weekly flows need ${WARMUP_SNAPSHOTS}. No guessed backfill.`,
@@ -203,7 +205,7 @@ export function evaluateEtf01FromFlows(snapshots, today = new Date()) {
     return {
       id: 'ETF-01',
       state: 'UNAVAILABLE',
-      weight: 2,
+      weight: ETF01_WEIGHT,
       detail:
         `ETF flow ledger has a ${gap.spanDays}-day gap (${gap.from} → ${gap.to}) inside the ` +
         `trailing-4 window — a missing weekly snapshot. Scored unavailable rather than ` +
@@ -215,7 +217,7 @@ export function evaluateEtf01FromFlows(snapshots, today = new Date()) {
       values: {
         snapshots: snapshots.length,
         warmupTarget: WARMUP_SNAPSHOTS,
-        variant: 'gapped',
+        variant: ETF_VARIANT.GAPPED,
         gapDays: gap.spanDays,
       },
       anchor: snapshots[snapshots.length - 1].anchor,
@@ -230,7 +232,7 @@ export function evaluateEtf01FromFlows(snapshots, today = new Date()) {
   return {
     id: 'ETF-01',
     state,
-    weight: 2,
+    weight: ETF01_WEIGHT,
     detail:
       `Spot-ETF net flows via Δshares×NAV (Polygon primary): last 4 weekly aggregates ` +
       `(spans [${last4.map((f) => `${f.spanDays}d`).join(', ')}], all verified 7±1d) ` +

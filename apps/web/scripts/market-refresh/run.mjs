@@ -14,6 +14,9 @@
  *   node apps/web/scripts/market-refresh/run.mjs --append-btc   # also append the due BTC candle
  *                                                               # (dual-source verified, gated)
  *   node apps/web/scripts/market-refresh/run.mjs --no-archive   # skip the run-archive line
+ *   node apps/web/scripts/market-refresh/run.mjs --etf-snapshot # ONLY append this week's ETF-01
+ *                                                               # snapshot (POLYGON_API_KEY); no core run;
+ *                                                               # refused together with --append-btc
  *
  * Fail-closed: any QualityGateError or STALE INPUT exits non-zero and writes
  * NOTHING — the last-good committed data keeps serving.
@@ -25,40 +28,26 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { isDirectInvocation } from './lib/invocation.mjs';
 import { writeFileAtomic } from './lib/atomic.mjs';
+import { expectedConfirmedMonthYM, MAX_SCORE } from './lib/regime-engine.mjs';
 import {
-  evaluateBtcStructure,
-  evaluateMacro,
-  evaluateRelativeStrength,
-  scoreSignals,
-  anchorCoherence,
-  expectedConfirmedMonthYM,
-} from './lib/regime-engine.mjs';
-import {
-  assertDailySeries,
-  assertRateSeries,
-  assertRecency,
   assertOhlcBar,
   assertBtcCloseVerified,
-  OUTLIER_BOUNDS_PCT,
+  BTC_CLOSE_TOLERANCE_PCT,
 } from './lib/quality-gate.mjs';
-import { fetchFredSeries } from './providers/fred.mjs';
-import { fetchEtfSharesOutstanding, SPOT_BTC_ETFS } from './providers/polygon.mjs';
 import {
-  readSnapshots,
-  appendSnapshot,
-  resolveEtfSignals,
-  WARMUP_SNAPSHOTS,
-} from './lib/etf-flows.mjs';
+  fetchMarketSources,
+  assertMarketSourcesQuality,
+  evaluateMarketSignals,
+} from './lib/market-sources.mjs';
+import { fetchEtfSharesOutstanding, SPOT_BTC_ETFS } from './providers/polygon.mjs';
+import { readSnapshots, appendSnapshot, WARMUP_SNAPSHOTS } from './lib/etf-flows.mjs';
 import { archiveSignals, archiveLine, publishRun } from './lib/archive.mjs';
 import { fetchYahooDaily, fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { fetchBtcMonthCloseVerifier } from './providers/coingecko.mjs';
-import { btcMonths, appendBtcMonth, REPO_ROOT } from './providers/inrepo.mjs';
+import { btcMonths, appendBtcMonth, REPO_ROOT, SHARED_DIR } from './providers/inrepo.mjs';
 
-const MARKET_DIR = path.join(REPO_ROOT, 'apps/web/data/market');
 // 5.92 (2026-08-19): the weekly run's outputs are SHARED across views (bitcoin,
-// backdrop, umbrella) — they live in shared/; view-specific data (future gold
-// etc.) gets data/market/<slug>/. Registry dataDir names the subdir.
-const SHARED_DIR = path.join(MARKET_DIR, 'shared');
+// backdrop, umbrella) — `SHARED_DIR` (providers/inrepo.mjs, one definition).
 const COMPUTED_PATH = path.join(SHARED_DIR, 'computed.json');
 const REGIME_PATH = path.join(SHARED_DIR, 'regime.json');
 const ARCHIVE_PATH = path.join(SHARED_DIR, 'run-archive.jsonl');
@@ -82,7 +71,7 @@ async function maybeAppendBtc() {
   const row = appendBtcMonth(bar);
   console.log(
     `[append-btc] appended ${expectedYm} close ${row.close} ` +
-      `(Yahoo vs CoinGecko ${verifier.price.toFixed(2)} — divergence ${divergencePct.toFixed(3)}% ≤ 0.5%)`
+      `(Yahoo vs CoinGecko ${verifier.price.toFixed(2)} — divergence ${divergencePct.toFixed(3)}% ≤ ${BTC_CLOSE_TOLERANCE_PCT}%)`
   );
   return { ym: expectedYm, row, verifier: verifier.price, divergencePct };
 }
@@ -124,71 +113,58 @@ async function maybeSnapshotEtfShares() {
   );
 }
 
+/**
+ * `--etf-snapshot` is snapshot-only, so combining it with `--append-btc` would
+ * append the BTC candle and then stop without computing anything. Refused
+ * before any request or write. `--no-archive` stays allowed: the weekly
+ * workflow passes it with `--etf-snapshot`, where it has no effect.
+ */
+function assertCompatibleArgs(argv) {
+  if (argv.includes('--etf-snapshot') && argv.includes('--append-btc')) {
+    throw new Error(
+      '--etf-snapshot runs ONLY the ETF-01 snapshot and cannot be combined with --append-btc. ' +
+        'Run them as two invocations, as the weekly workflow does.'
+    );
+  }
+}
+
 async function main() {
+  assertCompatibleArgs(process.argv);
   const appendRequested = process.argv.includes('--append-btc');
   const appendResult = appendRequested ? await maybeAppendBtc() : null;
-  if (process.argv.includes('--etf-snapshot')) await maybeSnapshotEtfShares();
+  // `--etf-snapshot` is SNAPSHOT-ONLY (2026-10-18 compliance pass). The weekly
+  // workflow runs it as its own fail-open step WITHOUT `--append-btc`; carrying
+  // on into the full pipeline made that step fetch every source a second time
+  // and, on a month-roll Monday past the grace period, throw STALE INPUT AFTER
+  // the snapshot had been appended — so the step reported "snapshot FAILED"
+  // for a snapshot that was saved. The core run is the next workflow step.
+  if (process.argv.includes('--etf-snapshot')) {
+    await maybeSnapshotEtfShares();
+    return;
+  }
 
-  // ── Stage 1: FETCH ───────────────────────────────────────────────────────
+  // ── Stages 1-3: FETCH → QUALITY GATE (fail-closed) → ANALYZE ────────────
+  // One definition shared with the manual CLI (lib/market-sources.mjs): the
+  // same fetch list and windows, the same gate, the same engine.
   console.log('[fetch] pulling sources…');
-  const [dxy, us10y, m2, nasdaq, btc, gold] = await Promise.all([
-    fetchFredSeries('DTWEXBGS'),
-    fetchFredSeries('DGS10'),
-    fetchFredSeries('M2SL'),
-    fetchFredSeries('NASDAQCOM'),
-    fetchYahooDaily('BTC-USD', '6mo'),
-    fetchYahooDaily('GC=F', '1y'),
-  ]);
+  const sources = await fetchMarketSources();
+  const { dxy, us10y, m2, nasdaq, btc, gold } = sources;
   const etfManual = fs.existsSync(ETF_MANUAL_PATH)
     ? JSON.parse(fs.readFileSync(ETF_MANUAL_PATH, 'utf8'))
     : null;
-
-  // ── Stage 2: QUALITY GATE (fail-closed) ──────────────────────────────────
   console.log('[gate] running quality checks…');
-  assertDailySeries('FRED:DTWEXBGS', dxy.series, {
-    maxMovePct: OUTLIER_BOUNDS_PCT.dollarIndexDaily,
-  });
-  assertRateSeries('FRED:DGS10', us10y.series);
-  assertDailySeries('FRED:NASDAQCOM', nasdaq.series, {
-    maxMovePct: OUTLIER_BOUNDS_PCT.equityIndexDaily,
-  });
-  assertDailySeries('Yahoo:BTC-USD', btc.series, { maxMovePct: OUTLIER_BOUNDS_PCT.yahooDaily });
-  assertDailySeries('Yahoo:GC=F', gold.series, { maxMovePct: OUTLIER_BOUNDS_PCT.yahooDaily });
-  // Recency SLAs: FRED weekly-published series carry up to ~1w publication
-  // lag (+ holiday); Yahoo quotes are near-live; M2 is monthly with ~4-week
-  // release lag (obs date = first of the data month → worst-case ~88d).
-  assertRecency('FRED:DTWEXBGS', dxy.series, TODAY, { maxAgeDays: 14 });
-  assertRecency('FRED:DGS10', us10y.series, TODAY, { maxAgeDays: 7 });
-  assertRecency('FRED:NASDAQCOM', nasdaq.series, TODAY, { maxAgeDays: 7 });
-  assertRecency('Yahoo:BTC-USD', btc.series, TODAY, { maxAgeDays: 3 });
-  assertRecency('Yahoo:GC=F', gold.series, TODAY, { maxAgeDays: 5 });
-  assertRecency('FRED:M2SL', m2.series, TODAY, { maxAgeDays: 92 });
+  assertMarketSourcesQuality(sources, TODAY);
   console.log('[gate] all schema/outlier/recency checks passed.');
-
-  // ── Stage 3: ANALYZE (same engine as the manual CLI — DRY) ──────────────
-  const btcSignals = evaluateBtcStructure(btcMonths(), TODAY); // throws STALE INPUT (F-M2) if due candle missing
-  const macroSignals = evaluateMacro(
-    { dxyDaily: dxy.series, us10yDaily: us10y.series, m2Monthly: m2.series },
-    TODAY
-  );
-  const relSignals = evaluateRelativeStrength(
-    { btcDaily: btc.series, goldDaily: gold.series, nasdaqDaily: nasdaq.series },
-    TODAY
-  );
-  // ETF-01: the Polygon flow ledger takes precedence once warmed up
-  // (>= WARMUP_SNAPSHOTS weekly snapshots); the manual file remains the
-  // fallback during warm-up / outage (auto-expiring, doc 02 §10.1).
+  // ETF-01 goes through the single route decision (`resolveEtfSignals`): the
+  // 2026-10-18 suspension, then the Polygon ledger, then the manual fallback.
   const etfSnapshots = readSnapshots();
-  const etfSignals = resolveEtfSignals({ snapshots: etfSnapshots, manual: etfManual }, TODAY);
-
-  const all = [...btcSignals, ...macroSignals, ...etfSignals, ...relSignals];
-  const { groupTotals, score, band } = scoreSignals({
-    btc: btcSignals,
-    macro: macroSignals,
-    etf: etfSignals,
-    rel: relSignals,
+  const { all, groupTotals, score, band, spreadDays, warning } = evaluateMarketSignals({
+    sources,
+    btcMonths: btcMonths(),
+    etfSnapshots,
+    etfManual,
+    today: TODAY,
   });
-  const { spreadDays, warning } = anchorCoherence(all);
 
   console.log('\n=== Signals ===');
   for (const s of all) {
@@ -197,7 +173,7 @@ async function main() {
       `  ${s.id.padEnd(8)} [${String(s.state).padEnd(11)}] ${pts}/${s.weight}  — ${s.detail}`
     );
   }
-  console.log(`\n=== Total: ${score} / 14 → ${band.code} ===`);
+  console.log(`\n=== Total: ${score} / ${MAX_SCORE} → ${band.code} ===`);
   if (warning) console.log(`\n  ⚠ ANCHOR COHERENCE (F-M3): ${warning}`);
   else console.log(`  Weekly anchor spread: ${spreadDays.toFixed(0)}d (coherent)`);
 
@@ -229,7 +205,7 @@ async function main() {
       'and CI goes red (F-M4). Regenerate by running the pipeline, never by hand.',
     computed_at: new Date().toISOString(),
     score,
-    max_score: 14,
+    max_score: MAX_SCORE,
     regime_code: band.code,
     group_totals: groupTotals,
     anchor_spread_days: Number(spreadDays.toFixed(2)),
