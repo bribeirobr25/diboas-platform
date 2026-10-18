@@ -36,6 +36,7 @@ import { planWeeklyOpener } from '../../../../scripts/market-refresh/lib/weekly-
 import { cycleCoverage } from '../../../../scripts/market-refresh/lib/coverage.mjs';
 import { groupSummary } from '../../../../scripts/market-refresh/lib/group-summaries.mjs';
 import { applyReadTimeFreshness } from '../../analytics-sdk/freshness';
+import { coverageNotes } from '../../market/presentationState';
 import type { DataStatus } from '../../analytics-sdk/types';
 
 const TPL_DIR = join(__dirname, '../../../../scripts/market-refresh/templates');
@@ -367,5 +368,154 @@ describe('ETF-01 suspension — coverage record', () => {
     const archive = line('2026-10-12T15:00:00Z', active);
     const cov = cycleCoverage([{ ...susp, weight: 2 }], archive, '2026-10-20T09:00:00Z');
     expect(cov.suspended[0].since).toBe('2026-10-20');
+  });
+});
+
+/**
+ * The two cases the #712 audit raised (2026-10-18). The suspension can coincide
+ * with real moves in the other signals, so neither the start-cycle opener nor the
+ * persistent chart note may attribute the whole change to the suspension, and an
+ * unchanged TOTAL of the other signals must never be described as every signal
+ * holding. Scores come from the real scorer; texts are the real templates.
+ */
+describe('ETF-01 suspension — reader text in the two audited scenarios', () => {
+  const openers = tpl('weekly-openers.json');
+  const I18N = join(__dirname, '../../../../../../packages/i18n/translations');
+  const market = (l: string) =>
+    JSON.parse(readFileSync(join(I18N, l, 'market.json'), 'utf8')).dashboard;
+  const render = (parts: { key: string; slots: Record<string, number> }[], locale: string) =>
+    parts
+      .map(({ key, slots }) =>
+        Object.entries({ ...slots, max: 14 }).reduce(
+          (t: string, [k, v]) => t.replaceAll(`{${k}}`, String(v)),
+          openers[key][locale] as string
+        )
+      )
+      .join(' ');
+
+  /** Old claims, per locale. Their return is the regression these tests exist for. */
+  const ALL_ATTRIBUTED_TO_DATA: Record<string, RegExp> = {
+    en: /reflects our data, not the market/,
+    'pt-BR': /reflete nossos dados, não o mercado/,
+    es: /refleja nuestros datos, no el mercado/,
+    de: /spiegelt unsere Daten wider, nicht den Markt/,
+  };
+  const EVERY_SIGNAL_HELD: Record<string, RegExp> = {
+    en: /other signals held/i,
+    'pt-BR': /demais sinais se mantiveram/i,
+    es: /demás señales se mantuvieron/i,
+    de: /übrigen Signale blieben unverändert/i,
+  };
+  const COMBINED: Record<string, RegExp> = {
+    en: /combined score of the other signals is unchanged/i,
+    'pt-BR': /pontuação conjunta dos demais sinais ficou igual/i,
+    es: /puntuación conjunta de las demás señales no cambió/i,
+    de: /Gesamtwert der übrigen Signale ist unverändert/i,
+  };
+
+  type Sig = { id: string; state: string; weight: number; values?: object };
+  const W: Record<string, number> = {
+    'BTC-01': 2,
+    'BTC-02': 2,
+    'BTC-03': 1,
+    'BTC-04': 1,
+    'MAC-01': 1,
+    'MAC-02': 1,
+    'MAC-03': 1,
+    'REL-01': 1,
+    'REL-02': 1,
+    'REL-03': 1,
+  };
+  const board = (states: Record<string, string>, etf: Sig) => {
+    const s = (id: string): Sig => ({ id, state: states[id], weight: W[id] });
+    const pick = (p: string) =>
+      Object.keys(W)
+        .filter((id) => id.startsWith(p))
+        .map(s);
+    return scoreSignals({ btc: pick('BTC-'), macro: pick('MAC-'), rel: pick('REL-'), etf: [etf] });
+  };
+  const activeEtf: Sig = { id: 'ETF-01', state: 'ACTIVE', weight: 2, values: {} };
+  const suspended = suspendedEtfSignal(healthyLedger());
+  // 12/14 before: everything ACTIVE except MAC-01 and MAC-02, ETF-01 ACTIVE.
+  const before: Record<string, string> = {
+    'BTC-01': 'ACTIVE',
+    'BTC-02': 'ACTIVE',
+    'BTC-03': 'ACTIVE',
+    'BTC-04': 'ACTIVE',
+    'MAC-01': 'INACTIVE',
+    'MAC-02': 'INACTIVE',
+    'MAC-03': 'ACTIVE',
+    'REL-01': 'ACTIVE',
+    'REL-02': 'ACTIVE',
+    'REL-03': 'ACTIVE',
+  };
+  const prior = board(before, activeEtf);
+  const coverage = { suspended: [{ signal_id: 'ETF-01', points: 2, since: '2026-10-19' }] };
+
+  it('should start both scenarios from 12/14 with ETF-01 contributing 2', () => {
+    expect(prior.score).toBe(12);
+    expect(prior.groupTotals.institutional_demand).toBe(2);
+  });
+
+  describe('scenario 1 — the suspension removes 2 and another signal loses 2 (12 → 8)', () => {
+    const now = board({ ...before, 'BTC-01': 'INACTIVE' }, suspended);
+    const parts = planWeeklyOpener({
+      prior: { score: prior.score, regime_code: prior.band?.code },
+      score: now.score,
+      regimeCode: now.band?.code ?? '',
+      currentEtf: suspended,
+      priorEtf: { ...activeEtf, points: 2 },
+    });
+
+    it('should score 8/14 and split the change into 2 (data) + 2 (the other signals)', () => {
+      expect(now.score).toBe(8);
+      expect(parts).toEqual([
+        { key: 'suspensionStart', slots: { points: 2 } },
+        { key: 'othersDown', slots: { score: 8, prior: 10 } },
+      ]);
+    });
+
+    it.each(LOCALES)(
+      'should, in %s, name both effects and never attribute the whole drop to the data',
+      (locale) => {
+        const opener = render(parts, locale);
+        expect(opener).toContain('2'); // the points the suspension removed
+        expect(opener).toContain('10'); // the comparable prior without them
+        expect(opener).toContain('8'); // where the other signals took the score
+        expect(opener).not.toMatch(EVERY_SIGNAL_HELD[locale]);
+        const d = market(locale);
+        const { chart } = coverageNotes(coverage, 14, locale, {
+          score: d.coverageNote,
+          chart: d.chartCoverageNote,
+        });
+        expect(chart).not.toMatch(ALL_ATTRIBUTED_TO_DATA[locale]);
+        expect(chart).not.toMatch(/\{\w+\}/);
+      }
+    );
+  });
+
+  describe('scenario 2 — MAC-01 gains 1 and REL-01 loses 1 with ETF-01 suspended (total 10)', () => {
+    const now = board({ ...before, 'MAC-01': 'ACTIVE', 'REL-01': 'INACTIVE' }, suspended);
+    const parts = planWeeklyOpener({
+      prior: { score: prior.score, regime_code: prior.band?.code },
+      score: now.score,
+      regimeCode: now.band?.code ?? '',
+      currentEtf: suspended,
+      priorEtf: { ...activeEtf, points: 2 },
+    });
+
+    it('should score 10/14 with the other signals’ combined score unchanged', () => {
+      expect(now.score).toBe(10);
+      expect(parts.map((p) => p.key)).toEqual(['suspensionStart', 'othersHeld']);
+    });
+
+    it.each(LOCALES)(
+      'should, in %s, say the COMBINED score is unchanged, never that the signals held',
+      (locale) => {
+        const opener = render(parts, locale);
+        expect(opener).toMatch(COMBINED[locale]);
+        expect(opener).not.toMatch(EVERY_SIGNAL_HELD[locale]);
+      }
+    );
   });
 });

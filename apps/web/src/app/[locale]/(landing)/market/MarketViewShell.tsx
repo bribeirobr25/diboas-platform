@@ -191,7 +191,7 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
       ),
       chart: t(
         'dashboard.chartCoverageNote',
-        'From {date}, scores do not include the suspended ETF flow indicator. A change at that point reflects our data, not the market.'
+        'From {date}, scores no longer count the suspended ETF flow indicator. A change at that point can combine the removal of its points with moves in the other signals.'
       ),
     }
   );

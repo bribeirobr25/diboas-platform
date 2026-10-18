@@ -57,7 +57,7 @@
     },
     "memoToggle": "Leer el memorando completo de la semana",
     "coverageNote": "Cobertura reducida: el indicador de flujos de ETF está suspendido porque sus datos no pueden verificarse semana a semana. Sus {points} puntos no cuentan, y la puntuación se sigue leyendo en la escala de {max} puntos. Un cambio de puntuación causado por esto es un cambio en nuestros datos, no un movimiento del mercado.",
-    "chartCoverageNote": "Desde el {date}, las puntuaciones no incluyen el indicador de flujos de ETF, que está suspendido. Un cambio en ese punto refleja nuestros datos, no el mercado."
+    "chartCoverageNote": "Desde el {date}, las puntuaciones dejan de contar el indicador de flujos de ETF, que está suspendido. Un cambio en ese punto puede combinar la retirada de sus puntos con movimientos en las demás señales."
   },
   "cta": {
     "cadence": "Actualizado cada semana",

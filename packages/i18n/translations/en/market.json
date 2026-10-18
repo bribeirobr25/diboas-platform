@@ -57,7 +57,7 @@
     },
     "memoToggle": "Read the full weekly memo",
     "coverageNote": "Reduced coverage: the ETF flow indicator is suspended because its data cannot be verified week by week. Its {points} points do not count, and the score is still read on the {max}-point scale. A score change caused by this is a change in our data, not a market move.",
-    "chartCoverageNote": "From {date}, scores do not include the suspended ETF flow indicator. A change at that point reflects our data, not the market."
+    "chartCoverageNote": "From {date}, scores no longer count the suspended ETF flow indicator. A change at that point can combine the removal of its points with moves in the other signals."
   },
   "cta": {
     "cadence": "Updated weekly",

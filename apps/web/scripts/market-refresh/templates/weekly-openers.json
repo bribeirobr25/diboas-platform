@@ -43,10 +43,10 @@
     "de": "Ab diesem Update ist der ETF-Fluss-Indikator ausgesetzt, weil sich seine Daten nicht Woche für Woche prüfen lassen. Er brachte keine Punkte, daher ändert das den Wert nicht."
   },
   "othersHeld": {
-    "en": "The other signals held, so the score is {score} of {max}.",
-    "pt-BR": "Os demais sinais se mantiveram, então a pontuação fica em {score} de {max}.",
-    "es": "Las demás señales se mantuvieron, así que la puntuación queda en {score} de {max}.",
-    "de": "Die übrigen Signale blieben unverändert, der Wert liegt damit bei {score} von {max}."
+    "en": "The combined score of the other signals is unchanged, at {score} of {max}.",
+    "pt-BR": "A pontuação conjunta dos demais sinais ficou igual, em {score} de {max}.",
+    "es": "La puntuación conjunta de las demás señales no cambió: {score} de {max}.",
+    "de": "Der Gesamtwert der übrigen Signale ist unverändert, bei {score} von {max}."
   },
   "othersUp": {
     "en": "Across the other signals, the score firmed from a comparable {prior} to {score} of {max}.",
