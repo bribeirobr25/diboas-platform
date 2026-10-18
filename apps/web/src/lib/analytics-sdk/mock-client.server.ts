@@ -91,8 +91,9 @@ type RawSignalGroup = Omit<SignalGroup, 'signals' | 'title' | 'summary' | 'state
 
 function pickLocale<T>(map: Record<SupportedLocale, T> | T, locale: SupportedLocale): T {
   // Defensive: if a fixture still has a flat string instead of a locale map,
-  // return it unchanged so the page never renders `undefined`. Logged so the
-  // fixture-drift guard catches the regression on next test run.
+  // return it unchanged so the page never renders `undefined`. Nothing is
+  // logged here; the drift is caught by the locale-map assertions in
+  // `analytics-sdk/__tests__/fixtures.test.ts`, not by this function.
   if (typeof map === 'string' || typeof map === 'number' || map === null || map === undefined) {
     return map as T;
   }

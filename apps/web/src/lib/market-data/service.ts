@@ -19,6 +19,14 @@ import type {
 } from './types';
 import { FALLBACK_MARKET_DATA } from './constants';
 import { CircuitBreaker } from '@/lib/utils/CircuitBreaker';
+import { Logger } from '@/lib/monitoring/Logger';
+
+/** Cache lifetime when a snapshot does not declare its own `metadata.ttl`. */
+export const MARKET_DATA_DEFAULT_TTL_MS = 300_000;
+/** Consecutive provider failures before the circuit opens. */
+const MARKET_DATA_CIRCUIT_FAILURE_THRESHOLD = 3;
+/** How long the circuit stays open before a trial request. */
+const MARKET_DATA_CIRCUIT_RESET_MS = 60_000;
 
 /**
  * Lazy-loaded monthly series — Phase B (TOOLS_IMPROVEMENT.md).
@@ -67,8 +75,8 @@ class MarketDataServiceImpl {
     this.provider = provider ?? new FallbackProvider();
     this.fallback = FALLBACK_MARKET_DATA;
     this.circuitBreaker = new CircuitBreaker({
-      failureThreshold: 3,
-      resetTimeout: 60_000,
+      failureThreshold: MARKET_DATA_CIRCUIT_FAILURE_THRESHOLD,
+      resetTimeout: MARKET_DATA_CIRCUIT_RESET_MS,
     });
   }
 
@@ -84,9 +92,14 @@ class MarketDataServiceImpl {
     try {
       const data = await this.circuitBreaker.execute(() => this.provider.fetch());
       this.cache = data;
-      this.cacheExpiry = Date.now() + (data.metadata.ttl || 300_000);
+      this.cacheExpiry = Date.now() + (data.metadata.ttl || MARKET_DATA_DEFAULT_TTL_MS);
       return data;
-    } catch {
+    } catch (error) {
+      // P12 (2026-10-18 compliance pass): this path was silent, while the file
+      // header promised "Logger warnings on fallback".
+      Logger.warn('[MarketData] provider fetch failed; serving the stale snapshot', {
+        error: error instanceof Error ? error.message : String(error),
+      });
       return this.getStaleSnapshot();
     }
   }
@@ -118,7 +131,7 @@ class MarketDataServiceImpl {
    */
   primeCache(snapshot: MarketDataSnapshot): void {
     this.cache = snapshot;
-    this.cacheExpiry = Date.now() + (snapshot.metadata?.ttl || 300_000);
+    this.cacheExpiry = Date.now() + (snapshot.metadata?.ttl || MARKET_DATA_DEFAULT_TTL_MS);
   }
 
   /**
@@ -149,9 +162,18 @@ class MarketDataServiceImpl {
     return this.getSync().monthlySeries;
   }
 
+  /**
+   * The static fallback, flagged stale. Series already loaded by an earlier
+   * successful fetch are kept (2026-10-18 compliance pass): the fallback
+   * constants carry no `monthlySeries`, so a single failed refresh used to
+   * drop the series the asset-history tool and the hedge maths read, even
+   * though they were already in memory.
+   */
   private getStaleSnapshot(): MarketDataSnapshot {
     return {
       ...this.fallback,
+      ...(this.cache?.monthlySeries ? { monthlySeries: this.cache.monthlySeries } : {}),
+      ...(this.cache?.historicalAnchors ? { historicalAnchors: this.cache.historicalAnchors } : {}),
       metadata: {
         ...this.fallback.metadata,
         stale: true,
