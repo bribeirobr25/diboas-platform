@@ -82,7 +82,6 @@ import { priorRunSignals, composeStateLead, composeStateDepth } from './lib/stat
 import { selectSignalTemplate } from './lib/template-select.mjs';
 import { planWeeklyOpener } from './lib/weekly-opener.mjs';
 import { cycleCoverage } from './lib/coverage.mjs';
-import { isSuspendedEtf } from './lib/etf-suspension.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '../../../..');
@@ -106,9 +105,6 @@ const signalLabels = read(path.join(TPL_DIR, 'signal-labels.json'));
 const weeklyTpl = read(path.join(TPL_DIR, 'weekly-openers.json'));
 const plainTpl = read(path.join(TPL_DIR, 'plain-summaries.json'));
 const phrases = read(path.join(TPL_DIR, 'plain-phrases.json'));
-// 2026-10-18: the reduced-coverage sentence for the plain read while a signal
-// is suspended (lib/etf-suspension.mjs).
-const coverageTpl = read(path.join(TPL_DIR, 'coverage-notes.json'));
 // State-grammar copy for /market/backdrop (5.140 + 5.141). Kept OUT of
 // group-summaries.json so the scored Bitcoin view's points parenthetical is
 // untouched — see that file's _comment.
@@ -324,13 +320,12 @@ function priorSnapshot() {
  *  (synthetic_seed) or there is no genuine prior — so the monthly "standing" read
  *  stands alone rather than claim a comparison against seed data. Priority:
  *  band change > score move > held. */
-/** @returns {{text: string, keys: string[]}} the opener and the template keys it used */
 function weeklyOpener(locale) {
   const hist = read(path.join(SHARED_DIR, 'historical.json'));
   // FORCE_WEEKLY_OPENER=1 previews the opener before the real ledger flips
   // synthetic_seed to false (dev/preview only — never set in CI/prod, so the
   // committed output and the drift gate stay opener-off until the data is real).
-  if (hist.synthetic_seed && !process.env.FORCE_WEEKLY_OPENER) return { text: '', keys: [] };
+  if (hist.synthetic_seed && !process.env.FORCE_WEEKLY_OPENER) return '';
   // 2026-10-18: the cycle where the ETF-01 suspension starts separates the data
   // effect (points removed) from what the other signals did, so a suspension is
   // never narrated as a market move (lib/weekly-opener.mjs).
@@ -342,7 +337,7 @@ function weeklyOpener(locale) {
     currentEtf: byId['ETF-01'],
     priorEtf: priorRun?.['ETF-01'],
   });
-  const text = parts
+  return parts
     .map(({ key, slots }) => {
       const template = weeklyTpl[key]?.[locale];
       if (!template) throw new Error(`weekly opener '${key}' has no ${locale} template`);
@@ -356,7 +351,6 @@ function weeklyOpener(locale) {
       );
     })
     .join(' ');
-  return { text, keys: parts.map((p) => p.key) };
 }
 /** ISO week number for deterministic variant rotation (no Date.now — passed in). */
 function isoWeek(dateStr) {
@@ -411,21 +405,7 @@ function plainSummary(locale) {
   const body = fill(standing, { watching });
   // Prepend the week-over-week lead-in (empty while the ledger is seed-only).
   const opener = weeklyOpener(locale);
-  // 2026-10-18: while ETF-01 is suspended, every plain read says coverage is
-  // reduced, except the week the opener itself announces the suspension.
-  const suspended = isSuspendedEtf(byId['ETF-01']);
-  const announced = opener.keys.some((k) => k.startsWith('suspensionStart'));
-  let coverage = '';
-  if (suspended && !announced) {
-    const template = coverageTpl.plainSuspended?.[locale];
-    if (!template) throw new Error(`coverage note has no ${locale} template`);
-    coverage = renderTemplate(
-      template,
-      { points: String(byId['ETF-01'].weight), max: String(computed.max_score) },
-      `coverage note (${locale})`
-    );
-  }
-  return [opener.text, body, coverage].filter(Boolean).join(' ');
+  return opener ? `${opener} ${body}` : body;
 }
 
 // ── assemble the generated object per locale ────────────────────────────────
@@ -703,7 +683,7 @@ if (isDirectInvocation(import.meta.url)) {
 
   console.log(`\n=== market generate (Stage 4) — ${checkMode ? 'CHECK' : 'WRITE'} ===`);
   console.log(
-    `  variant: week ${isoWeek(computed.computed_at.slice(0, 10)) % 3} · weekly-opener: ${weeklyOpener('en').text ? 'on' : 'off (seed/no prior)'}`
+    `  variant: week ${isoWeek(computed.computed_at.slice(0, 10)) % 3} · weekly-opener: ${weeklyOpener('en') ? 'on' : 'off (seed/no prior)'}`
   );
   console.log(`  plain (en): ${gen.plain.en.slice(0, 120)}…`);
   if (checkMode) {

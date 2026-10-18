@@ -311,12 +311,6 @@ function assertEtfSentence() {
         'utf8'
       )
     ).institutional_demand.suspended;
-    const coverageTpl = JSON.parse(
-      fs.readFileSync(
-        path.join(REPO_ROOT, 'apps/web/scripts/market-refresh/templates/coverage-notes.json'),
-        'utf8'
-      )
-    ).plainSuspended;
     const openers = JSON.parse(
       fs.readFileSync(
         path.join(REPO_ROOT, 'apps/web/scripts/market-refresh/templates/weekly-openers.json'),
@@ -324,18 +318,26 @@ function assertEtfSentence() {
       )
     );
     const regime = JSON.parse(fs.readFileSync(path.join(SHARED, 'regime.json'), 'utf8'));
+    // The previous run is the archive's second-to-last line (this cycle's line
+    // was just appended); the suspension starts here if that run was not suspended.
+    const runs = fs.readFileSync(path.join(SHARED, 'run-archive.jsonl'), 'utf8').trim().split('\n');
+    const previous = JSON.parse(runs[runs.length - 2] ?? '{}');
+    const prevEtf = (previous.signals ?? []).find((x) => x.id === 'ETF-01');
+    const startsThisCycle = prevEtf?.values?.variant !== 'suspended';
     const group = regime.signal_groups.find((g) => g.id === 'institutional_demand');
     for (const locale of ['en', 'pt-BR', 'es', 'de']) {
       const head = groupsTpl[locale].split('{')[0];
       if (!String(group.summary[locale]).startsWith(head))
         fail(`group summary ${locale} is not the suspended variant: ${group.summary[locale]}`);
+      // On the cycle the suspension STARTS, the plain read must open by saying so
+      // (the data effect, before what the other signals did). Later cycles carry
+      // the reduced-coverage note on the page instead (regime.coverage, below).
       const plain = String(regime.summary[locale].plain);
       const announced =
         plain.startsWith(openers.suspensionStart[locale].split('{')[0]) ||
         plain.startsWith(openers.suspensionStartNoPoints[locale].split('{')[0]);
-      const covered = plain.includes(coverageTpl[locale].split('{')[0]);
-      if (!announced && !covered)
-        fail(`plain read ${locale} neither announces the suspension nor states reduced coverage`);
+      if (startsThisCycle && !announced)
+        fail(`plain read ${locale} does not announce the suspension on the cycle it starts`);
     }
     if (!regime.coverage?.suspended?.some((x) => x.signal_id === 'ETF-01'))
       fail('regime.coverage does not name the suspended ETF-01');

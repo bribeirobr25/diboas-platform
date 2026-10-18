@@ -211,7 +211,6 @@ describe('ETF-01 suspension — every locale exists and none falls back to warm-
   const signals = tpl('signal-sentences.json');
   const groups = tpl('group-summaries.json');
   const openers = tpl('weekly-openers.json');
-  const coverage = tpl('coverage-notes.json');
 
   it.each(LOCALES)('should carry the suspended wording in %s for every surface', (locale) => {
     expect(signals['ETF-01'].UNAVAILABLE.variants.suspended[locale]).toBeTruthy();
@@ -225,7 +224,6 @@ describe('ETF-01 suspension — every locale exists and none falls back to warm-
     ]) {
       expect(openers[key]?.[locale], `${key} ${locale}`).toBeTruthy();
     }
-    expect(coverage.plainSuspended[locale]).toBeTruthy();
   });
 
   it.each(LOCALES)(
