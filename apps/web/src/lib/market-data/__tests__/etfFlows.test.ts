@@ -17,6 +17,7 @@ import {
   WEEK_SPAN_TOLERANCE_DAYS,
 } from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
 import { archiveSignals } from '../../../../scripts/market-refresh/lib/archive.mjs';
+import { isCompleteSnapshot } from '../../../../scripts/market-refresh/lib/etf-coverage.mjs';
 
 const D = new Date('2026-07-11T00:00:00Z');
 
@@ -222,7 +223,11 @@ describe('week spacing is asserted, not assumed (5.301)', () => {
     // legitimate state of the world; misreporting it is the defect.
     const real = readSnapshots();
     const at = new Date(`${real[real.length - 1].anchor}T00:00:00Z`);
-    const { flows } = computeWeeklyFlows(real, at);
+    // Same input as the engine (2026-10-19): flows come from COMPLETE records
+    // only, so an incomplete record (the 2026-10-16 one has no share counts) is
+    // a gap here too. Judged on all records, this oracle would expect a score
+    // the engine rightly withholds, and the weekly gate would stop the run.
+    const { flows } = computeWeeklyFlows(real.filter(isCompleteSnapshot), at);
     const trailing4 = flows.slice(-4);
     const gapped = trailing4.some(
       (f) => !f.weekly || Math.abs(f.spanDays - WEEK_SPAN_DAYS) > WEEK_SPAN_TOLERANCE_DAYS
