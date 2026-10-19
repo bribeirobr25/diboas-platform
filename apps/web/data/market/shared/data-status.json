@@ -60,11 +60,11 @@
     {
       "source": "Polygon:ETF (shares-outstanding)",
       "status": "UNAVAILABLE",
-      "last_updated_at": "2026-10-16T00:00:00Z",
-      "expected_next_update_at": "2026-10-23T00:00:00Z",
-      "stale_after": "2026-11-06T00:00:00Z",
+      "last_updated_at": "2026-10-09T00:00:00Z",
+      "expected_next_update_at": "2026-10-16T00:00:00Z",
+      "stale_after": "2026-10-30T00:00:00Z",
       "delayed_after": null,
-      "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). ETF-01 is suspended from the 2026-10-19 cycle: the share-count route cannot support a weekly evaluation, so the signal is scored UNAVAILABLE (0 points), not weak. Weekly snapshots are still collected (14 on record, latest anchor 2026-10-16); a successful collection does not reactivate the signal."
+      "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). ETF-01 is suspended from the 2026-10-19 cycle: the share-count route cannot support a weekly evaluation, so the signal is scored UNAVAILABLE (0 points), not weak. Collection is still attempted weekly. Ledger: 14 records, 13 complete (a share count and a price for every fund); completeness does not show that the share counts are current, and their observation dates are not provided. The latest record (anchor 2026-10-16) is incomplete. The latest complete record is anchored 2026-10-09. A successful collection does not reactivate the signal."
     }
   ],
   "delayed_sources": [],

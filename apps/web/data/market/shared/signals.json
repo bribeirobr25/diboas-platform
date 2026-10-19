@@ -199,7 +199,7 @@
         "es": "Demanda institucional",
         "de": "Institutionelle Nachfrage"
       },
-      "status": "WEAK",
+      "status": "UNAVAILABLE",
       "points_awarded": 0,
       "max_points": 2,
       "summary": {
