@@ -36,9 +36,34 @@ export const GROUP_SIGNALS = {
 // Localized list conjunction ("A, B and C").
 export const LOCALE_AND = { en: 'and', 'pt-BR': 'e', es: 'y', de: 'und' };
 
-// Group status chip ← the SAME band that selects the group summary copy
-// (groupLevel below), so the chip and the sentence can never disagree.
-export const GROUP_STATUS = { weak: 'WEAK', mixed: 'MIXED', strong: 'CONSTRUCTIVE' };
+// Group status chip ← the SAME decision that selects the group summary copy
+// (groupStatus / groupSummary below), so the chip and the sentence can never
+// disagree. UNAVAILABLE (2026-10-19): a group none of whose signals could be
+// evaluated was published as WEAK beside a sentence saying "unavailable, not
+// weak" from the 2026-07-11 honesty override until this pass.
+export const GROUP_STATUS = {
+  weak: 'WEAK',
+  mixed: 'MIXED',
+  strong: 'CONSTRUCTIVE',
+  unavailable: 'UNAVAILABLE',
+};
+
+/**
+ * True when NOTHING in the group was evaluated: every one of its signals is
+ * UNAVAILABLE (warm-up, a missing week, an expired manual entry or the ETF-01
+ * suspension). A group with some signals evaluated keeps its scored status: its
+ * points are a real read of those signals.
+ */
+export function isGroupUnavailable(byId, groupId) {
+  const ids = GROUP_SIGNALS[groupId] ?? [];
+  return ids.length > 0 && ids.every((id) => byId[id]?.state === 'UNAVAILABLE');
+}
+
+/** The group's status chip. Same decision as `groupSummary`'s level. */
+export function groupStatus(byId, groupId, points) {
+  if (isGroupUnavailable(byId, groupId)) return GROUP_STATUS.unavailable;
+  return GROUP_STATUS[groupLevel(points, MAX_BY_GROUP[groupId])];
+}
 
 export function groupLevel(points, max) {
   const r = points / max;
@@ -107,11 +132,13 @@ export function groupSummary(ctx, groupId, locale) {
   // Honesty override (2026-07-11 audit): a group scored 0 only because its
   // signal is UNAVAILABLE must not read as observed-weak. The /market page's
   // whole identity is honest unavailability — say "unavailable, not weak".
-  if (
-    groupId === 'institutional_demand' &&
-    ctx.byId['ETF-01']?.state === 'UNAVAILABLE' &&
-    ctx.groupTpl[groupId].unavailable
-  ) {
+  // 2026-10-19: keyed on the same predicate as the status chip, and
+  // fail-closed: a group with nothing evaluated and no 'unavailable' wording
+  // stops the generator rather than falling through to the WEAK sentence.
+  if (isGroupUnavailable(ctx.byId, groupId)) {
+    if (!ctx.groupTpl[groupId].unavailable) {
+      throw new Error(`group ${groupId} has no evaluated signal and no 'unavailable' template`);
+    }
     level = 'unavailable';
     // 2026-10-18: a suspension is not a one-cycle gap. "Could not be measured
     // this cycle" would read as temporary; the suspended wording says why and

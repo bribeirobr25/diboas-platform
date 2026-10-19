@@ -10,8 +10,22 @@
  *   - `coverageNotes`: the reduced-coverage sentences beside the score and the
  *     chart, filled from `regime.coverage`, which the generator writes. Nothing
  *     here infers a suspension; no coverage entry means no note.
+ *   - `isSignalGroupUnavailable` (2026-10-19): whether a signal group shows as
+ *     unavailable rather than as a scored band.
  */
-import type { RegimeCoverage } from '@/lib/analytics-sdk/types';
+import type { RegimeCoverage, SignalGroup } from '@/lib/analytics-sdk/types';
+
+/**
+ * A group shows as unavailable when nothing in it was evaluated. The generator
+ * writes `status: 'UNAVAILABLE'` for that case; the signal check also covers a
+ * payload generated before that status existed (the 2026-10-19 refresh was
+ * computed with `WEAK`), so such data can never render as a weak read.
+ */
+export function isSignalGroupUnavailable(group: Pick<SignalGroup, 'status' | 'signals'>): boolean {
+  if (group.status === 'UNAVAILABLE') return true;
+  const signals = group.signals ?? [];
+  return signals.length > 0 && signals.every((s) => s.state === 'UNAVAILABLE');
+}
 
 export type ConditionWordSuffix = 'active' | 'inactive' | 'unavailable';
 

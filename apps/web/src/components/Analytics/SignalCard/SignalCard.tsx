@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import type { SignalGroup } from '@/lib/analytics-sdk/types';
+import { isSignalGroupUnavailable } from '@/lib/market/presentationState';
 import styles from './SignalCard.module.css';
 
 interface SignalCardProps {
@@ -12,6 +13,9 @@ interface SignalCardProps {
   expandLabel?: string;
   collapseLabel?: string;
   pointsLabel?: string;
+  /** The approved "Unavailable" word in the page locale (catalogue
+   *  `dashboard.freshness.UNAVAILABLE`), shown on a group with nothing evaluated. */
+  unavailableLabel: string;
   className?: string;
 }
 
@@ -21,8 +25,15 @@ interface SignalCardProps {
  *  group summary AND the per-signal breakdown (previously rendered nowhere).
  *  Native disclosure: server-renderable, keyboard + screen-reader semantics
  *  for free, no JS required to toggle. The copper bar's scroll-in animation
- *  stays and respects prefers-reduced-motion. */
-export function SignalCard({ data, className }: SignalCardProps) {
+ *  stays and respects prefers-reduced-motion.
+ *
+ *  Unavailable group (2026-10-19): when nothing in the group was evaluated the
+ *  row keeps its "0/2" but shows the "Unavailable" word where the bar was, in a
+ *  neutral colour, so it never reads as a weak score. Its accessible name
+ *  carries the group sentence, which the generator words per cause (suspension,
+ *  warm-up, missing week), so a closed row already says why. */
+export function SignalCard({ data, unavailableLabel, className }: SignalCardProps) {
+  const unavailable = isSignalGroupUnavailable(data);
   const pct = data.max_points > 0 ? Math.round((data.points_awarded / data.max_points) * 100) : 0;
   const [width, setWidth] = useState(pct);
   const ref = useRef<HTMLSpanElement>(null);
@@ -34,7 +45,8 @@ export function SignalCard({ data, className }: SignalCardProps) {
     const reduce =
       typeof window.matchMedia === 'function' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;
+    // An unavailable row has no bar to animate.
+    if (reduce || unavailable) return;
     let outerRaf = 0;
     let innerRaf = 0;
     const io = new IntersectionObserver(
@@ -57,24 +69,37 @@ export function SignalCard({ data, className }: SignalCardProps) {
       if (outerRaf) cancelAnimationFrame(outerRaf);
       if (innerRaf) cancelAnimationFrame(innerRaf);
     };
-  }, [pct]);
+  }, [pct, unavailable]);
 
   return (
-    <details className={`${styles.row} ${className ?? ''}`} data-status={data.status}>
+    <details
+      className={`${styles.row} ${className ?? ''}`}
+      data-status={unavailable ? 'UNAVAILABLE' : data.status}
+    >
       {/* Spec note: <summary> permits phrasing content only — every child is
           a <span> (display set in CSS), never a <div>, so AT sees conforming
           markup. */}
       <summary className={styles.rowSummary}>
         <span ref={ref} className={styles.rowHead}>
-          <span className={styles.value}>
+          {/* Unavailable: the visible "0/2" is hidden from assistive tech,
+              because the group sentence below says "0 of 2 points" with its
+              reason; read alone, "0/2" would sound like a measured zero. */}
+          <span className={styles.value} aria-hidden={unavailable ? true : undefined}>
             {data.points_awarded}
             <span className={styles.valueMax}>/{data.max_points}</span>
           </span>
           <span className={styles.body}>
             <span className={styles.name}>{data.title}</span>
-            <span className={styles.bar}>
-              <span className={styles.barFill} style={{ width: `${width}%` }} />
-            </span>
+            {unavailable ? (
+              <>
+                <span className={styles.unavailable}>{unavailableLabel}</span>
+                <span className="sr-only">{data.summary}</span>
+              </>
+            ) : (
+              <span className={styles.bar}>
+                <span className={styles.barFill} style={{ width: `${width}%` }} />
+              </span>
+            )}
           </span>
           <span className={styles.chevron} aria-hidden="true" />
         </span>

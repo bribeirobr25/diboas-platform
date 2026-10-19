@@ -10,6 +10,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
+import { SIGNAL_GROUP_STATUSES } from '../types';
 import {
   STALENESS_LIMIT_DAYS,
   ageInDays,
@@ -89,7 +90,7 @@ function isValidSignalGroup(g: unknown): boolean {
     typeof g.id === 'string' &&
     SIGNAL_CATEGORIES.includes(g.category as (typeof SIGNAL_CATEGORIES)[number]) &&
     hasLocalizedText(g.title) &&
-    typeof g.status === 'string' &&
+    SIGNAL_GROUP_STATUSES.includes(g.status as (typeof SIGNAL_GROUP_STATUSES)[number]) &&
     typeof g.points_awarded === 'number' &&
     typeof g.max_points === 'number' &&
     g.points_awarded <= g.max_points &&
@@ -411,6 +412,21 @@ describe('editorial dataset — signals schema drift guard', () => {
       const max = g.max_points as number;
       expect(awarded).toBeGreaterThanOrEqual(0);
       expect(awarded).toBeLessThanOrEqual(max);
+    });
+  });
+
+  // 2026-10-19: a RULE over the published groups, not a data state. The status
+  // is one of the contract's four values, and it is UNAVAILABLE exactly when
+  // every signal in the group is UNAVAILABLE (nothing evaluated); an evaluated
+  // group, however low, carries a scored band. A payload that says WEAK beside
+  // an all-UNAVAILABLE group fails here (it shipped from 2026-07-11).
+  it('should give every group a contract status, UNAVAILABLE exactly when nothing was evaluated', () => {
+    const groups = (editorialSignals as AnyRecord).groups as AnyRecord[];
+    groups.forEach((g) => {
+      expect(SIGNAL_GROUP_STATUSES).toContain(g.status);
+      const inner = g.signals as AnyRecord[];
+      const nothingEvaluated = inner.length > 0 && inner.every((s) => s.state === 'UNAVAILABLE');
+      expect(g.status === 'UNAVAILABLE', `${g.id}: status ${g.status}`).toBe(nothingEvaluated);
     });
   });
 

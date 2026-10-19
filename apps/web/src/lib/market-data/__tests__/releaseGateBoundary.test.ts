@@ -65,7 +65,9 @@ const ALLOWED: Record<string, { cls: Cls; why: string }> = {
   },
   'fixtures.test.ts': {
     cls: 'WEEKLY-GATE',
-    why: 'chart provenance (5.127): every published history point reconciles to a real run day',
+    why:
+      'chart provenance (5.127): every published history point reconciles to a real run day; ' +
+      'every group status is a contract value, UNAVAILABLE exactly when nothing was evaluated (2026-10-19)',
   },
   'archiveShape.test.ts': {
     cls: 'UNIT-READS-LIVE',
