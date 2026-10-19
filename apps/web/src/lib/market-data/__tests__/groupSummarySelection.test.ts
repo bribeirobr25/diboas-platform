@@ -15,7 +15,10 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
-import { groupSummary } from '../../../../scripts/market-refresh/lib/group-summaries.mjs';
+import {
+  groupStatus,
+  groupSummary,
+} from '../../../../scripts/market-refresh/lib/group-summaries.mjs';
 
 const TPL_DIR = join(__dirname, '../../../../scripts/market-refresh/templates');
 const groupTpl = JSON.parse(readFileSync(join(TPL_DIR, 'group-summaries.json'), 'utf8'));
@@ -109,5 +112,89 @@ describe('other groups keep their existing selection behavior', () => {
       signalLabels,
     };
     expect(groupSummary(ctx, 'institutional_demand', 'en')).toContain('unavailable, not weak');
+  });
+});
+
+/**
+ * Status chip and sentence from ONE decision (2026-10-19). From 2026-07-11 an
+ * unavailable ETF-01 gave the group the sentence "unavailable, not weak" while
+ * its status stayed WEAK; the status is now UNAVAILABLE exactly when nothing in
+ * the group was evaluated, and an evaluated zero stays WEAK.
+ */
+describe('group status (2026-10-19)', () => {
+  const byId = (states: Record<string, SignalState>, extra: Record<string, unknown> = {}) =>
+    Object.fromEntries(Object.entries(states).map(([id, state]) => [id, { id, state, ...extra }]));
+
+  it('should be UNAVAILABLE for a suspended ETF-01, beside the suspended sentence', () => {
+    const ids = byId({ 'ETF-01': 'UNAVAILABLE' }, { values: { variant: 'suspended' } });
+    expect(groupStatus(ids, 'institutional_demand', 0)).toBe('UNAVAILABLE');
+    const ctx = { byId: ids, groupTotals: { institutional_demand: 0 }, groupTpl, signalLabels };
+    expect(groupSummary(ctx, 'institutional_demand', 'en')).toContain('suspended');
+  });
+
+  it('should be UNAVAILABLE for a warm-up or gapped ETF-01 too, with the non-suspended sentence', () => {
+    const ids = byId({ 'ETF-01': 'UNAVAILABLE' }, { values: { variant: 'gapped' } });
+    expect(groupStatus(ids, 'institutional_demand', 0)).toBe('UNAVAILABLE');
+    const ctx = { byId: ids, groupTotals: { institutional_demand: 0 }, groupTpl, signalLabels };
+    for (const loc of LOCALES) {
+      expect(groupSummary(ctx, 'institutional_demand', loc)).toBe(
+        groupTpl.institutional_demand.unavailable[loc]
+          .replace('{points}', '0')
+          .replace('{max}', '2')
+      );
+    }
+  });
+
+  it('control: an EVALUATED ETF-01 at 0 points is WEAK with the weak sentence', () => {
+    const ids = byId({ 'ETF-01': 'INACTIVE' });
+    expect(groupStatus(ids, 'institutional_demand', 0)).toBe('WEAK');
+    const ctx = { byId: ids, groupTotals: { institutional_demand: 0 }, groupTpl, signalLabels };
+    expect(groupSummary(ctx, 'institutional_demand', 'en')).toBe(
+      groupTpl.institutional_demand.weak.en.replace('{points}', '0').replace('{max}', '2')
+    );
+  });
+
+  it('should keep the scored band when only SOME signals are unavailable', () => {
+    const ids = byId({ 'MAC-01': 'INACTIVE', 'MAC-02': 'INACTIVE', 'MAC-03': 'UNAVAILABLE' });
+    expect(groupStatus(ids, 'macro_environment', 0)).toBe('WEAK');
+    const one = byId({ 'MAC-01': 'ACTIVE', 'MAC-02': 'INACTIVE', 'MAC-03': 'UNAVAILABLE' });
+    expect(groupStatus(one, 'macro_environment', 1)).toBe('MIXED');
+  });
+
+  it('should keep the suspension wording to the group that holds ETF-01', () => {
+    // Another group with nothing evaluated, given an 'unavailable' wording,
+    // while ETF-01 is suspended: it takes ITS OWN wording, never a 'suspended'
+    // lookup it does not have.
+    const ids = byId(
+      { 'REL-01': 'UNAVAILABLE', 'REL-02': 'UNAVAILABLE', 'REL-03': 'UNAVAILABLE' },
+      { values: { variant: 'suspended' } }
+    );
+    const withEtf = {
+      ...ids,
+      'ETF-01': { id: 'ETF-01', state: 'UNAVAILABLE', values: { variant: 'suspended' } },
+    };
+    const tpl = {
+      ...groupTpl,
+      relative_strength: {
+        ...groupTpl.relative_strength,
+        unavailable: { en: 'Relative strength could not be measured ({points} of {max} points).' },
+      },
+    };
+    const ctx = {
+      byId: withEtf,
+      groupTotals: { relative_strength: 0 },
+      groupTpl: tpl,
+      signalLabels,
+    };
+    expect(groupSummary(ctx, 'relative_strength', 'en')).toBe(
+      'Relative strength could not be measured (0 of 3 points).'
+    );
+  });
+
+  it('should stop the generator for a group with nothing evaluated and no unavailable wording', () => {
+    const ids = byId({ 'REL-01': 'UNAVAILABLE', 'REL-02': 'UNAVAILABLE', 'REL-03': 'UNAVAILABLE' });
+    expect(groupStatus(ids, 'relative_strength', 0)).toBe('UNAVAILABLE');
+    const ctx = { byId: ids, groupTotals: { relative_strength: 0 }, groupTpl, signalLabels };
+    expect(() => groupSummary(ctx, 'relative_strength', 'en')).toThrow(/no 'unavailable' template/);
   });
 });

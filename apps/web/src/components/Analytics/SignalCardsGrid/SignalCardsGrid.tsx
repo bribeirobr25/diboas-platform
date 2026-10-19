@@ -4,6 +4,8 @@ import styles from './SignalCardsGrid.module.css';
 
 interface SignalCardsGridProps {
   groups: SignalGroup[];
+  /** The approved "Unavailable" word, passed to every row (see SignalCard). */
+  unavailableLabel: string;
   /** Accepted for SDK API compatibility (doc-09); unused since the M3.5
    *  native-details conversion — the rows render their own disclosure. */
   expandLabel?: string;
@@ -16,11 +18,11 @@ interface SignalCardsGridProps {
   className?: string;
 }
 
-export function SignalCardsGrid({ groups, className }: SignalCardsGridProps) {
+export function SignalCardsGrid({ groups, unavailableLabel, className }: SignalCardsGridProps) {
   return (
     <div className={`${styles.table} ${className ?? ''}`}>
       {groups.map((g) => (
-        <SignalCard key={g.id} data={g} />
+        <SignalCard key={g.id} data={g} unavailableLabel={unavailableLabel} />
       ))}
     </div>
   );
