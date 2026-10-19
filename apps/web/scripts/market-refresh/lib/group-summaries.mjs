@@ -41,7 +41,7 @@ export const LOCALE_AND = { en: 'and', 'pt-BR': 'e', es: 'y', de: 'und' };
 // disagree. UNAVAILABLE (2026-10-19): a group none of whose signals could be
 // evaluated was published as WEAK beside a sentence saying "unavailable, not
 // weak" from the 2026-07-11 honesty override until this pass.
-export const GROUP_STATUS = {
+const GROUP_STATUS = {
   weak: 'WEAK',
   mixed: 'MIXED',
   strong: 'CONSTRUCTIVE',
@@ -54,7 +54,7 @@ export const GROUP_STATUS = {
  * suspension). A group with some signals evaluated keeps its scored status: its
  * points are a real read of those signals.
  */
-export function isGroupUnavailable(byId, groupId) {
+function isGroupUnavailable(byId, groupId) {
   const ids = GROUP_SIGNALS[groupId] ?? [];
   return ids.length > 0 && ids.every((id) => byId[id]?.state === 'UNAVAILABLE');
 }
@@ -144,7 +144,7 @@ export function groupSummary(ctx, groupId, locale) {
     // this cycle" would read as temporary; the suspended wording says why and
     // that it lasts until an explicit decision. Fail-closed on a missing locale,
     // like the signal sentence (lib/template-select.mjs).
-    if (isSuspendedEtf(ctx.byId['ETF-01'])) {
+    if (GROUP_SIGNALS[groupId].includes('ETF-01') && isSuspendedEtf(ctx.byId['ETF-01'])) {
       const t = ctx.groupTpl[groupId].suspended?.[locale];
       if (!t) throw new Error(`group ${groupId} 'suspended' has no ${locale} template`);
       return fill(t, { points: String(points), max: String(max) });

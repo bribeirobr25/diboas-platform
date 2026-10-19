@@ -161,6 +161,36 @@ describe('group status (2026-10-19)', () => {
     expect(groupStatus(one, 'macro_environment', 1)).toBe('MIXED');
   });
 
+  it('should keep the suspension wording to the group that holds ETF-01', () => {
+    // Another group with nothing evaluated, given an 'unavailable' wording,
+    // while ETF-01 is suspended: it takes ITS OWN wording, never a 'suspended'
+    // lookup it does not have.
+    const ids = byId(
+      { 'REL-01': 'UNAVAILABLE', 'REL-02': 'UNAVAILABLE', 'REL-03': 'UNAVAILABLE' },
+      { values: { variant: 'suspended' } }
+    );
+    const withEtf = {
+      ...ids,
+      'ETF-01': { id: 'ETF-01', state: 'UNAVAILABLE', values: { variant: 'suspended' } },
+    };
+    const tpl = {
+      ...groupTpl,
+      relative_strength: {
+        ...groupTpl.relative_strength,
+        unavailable: { en: 'Relative strength could not be measured ({points} of {max} points).' },
+      },
+    };
+    const ctx = {
+      byId: withEtf,
+      groupTotals: { relative_strength: 0 },
+      groupTpl: tpl,
+      signalLabels,
+    };
+    expect(groupSummary(ctx, 'relative_strength', 'en')).toBe(
+      'Relative strength could not be measured (0 of 3 points).'
+    );
+  });
+
   it('should stop the generator for a group with nothing evaluated and no unavailable wording', () => {
     const ids = byId({ 'REL-01': 'UNAVAILABLE', 'REL-02': 'UNAVAILABLE', 'REL-03': 'UNAVAILABLE' });
     expect(groupStatus(ids, 'relative_strength', 0)).toBe('UNAVAILABLE');

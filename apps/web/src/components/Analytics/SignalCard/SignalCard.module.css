@@ -118,7 +118,7 @@
    in the neutral secondary ink. No fill, no copper, no teal score colour. */
 .unavailable {
   display: block;
-  margin-top: 4px;
+  margin-top: var(--spacing-xs);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: var(--font-size-sm);
   color: var(--editorial-ink-soft);

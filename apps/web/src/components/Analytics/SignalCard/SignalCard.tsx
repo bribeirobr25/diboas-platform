@@ -81,10 +81,10 @@ export function SignalCard({ data, unavailableLabel, className }: SignalCardProp
           markup. */}
       <summary className={styles.rowSummary}>
         <span ref={ref} className={styles.rowHead}>
-          {/* Unavailable: the visible "0/2" is hidden from assistive tech,
-              because the group sentence below says "0 of 2 points" with its
-              reason; read alone, "0/2" would sound like a measured zero. */}
-          <span className={styles.value} aria-hidden={unavailable ? true : undefined}>
+          {/* Unavailable: "0/2" stays in the accessible name (WCAG 2.5.3, the
+              name contains the visible label) and is never alone in it: the
+              Unavailable word and the cause sentence follow it. */}
+          <span className={styles.value}>
             {data.points_awarded}
             <span className={styles.valueMax}>/{data.max_points}</span>
           </span>
@@ -105,7 +105,12 @@ export function SignalCard({ data, unavailableLabel, className }: SignalCardProp
         </span>
       </summary>
       <div className={styles.detailBody}>
-        <p className={styles.desc}>{data.summary}</p>
+        {/* On an unavailable row the summary above already carries this exact
+            sentence for assistive tech; hiding the visible copy keeps an open
+            row from reading it twice. */}
+        <p className={styles.desc} aria-hidden={unavailable ? true : undefined}>
+          {data.summary}
+        </p>
         {data.signals && data.signals.length > 0 ? (
           <ul className={styles.signalList}>
             {data.signals.map((sig) => (

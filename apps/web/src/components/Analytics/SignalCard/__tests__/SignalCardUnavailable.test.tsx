@@ -74,14 +74,22 @@ function group(
   } as SignalGroup;
 }
 
-/** What assistive tech reads from the closed row: its text minus aria-hidden subtrees. */
-function accessibleRowText(container: HTMLElement): string {
-  const summary = container.querySelector('summary');
-  if (!summary) throw new Error('no <summary>');
-  const clone = summary.cloneNode(true) as HTMLElement;
+/** Text assistive tech gets from an element: its text minus aria-hidden subtrees. */
+function accessibleText(el: Element | null): string {
+  if (!el) throw new Error('element not found');
+  const clone = el.cloneNode(true) as HTMLElement;
   clone.querySelectorAll('[aria-hidden="true"]').forEach((n) => n.remove());
   return (clone.textContent ?? '').replace(/\s+/g, ' ').trim();
 }
+/** The closed row's accessible name: the <summary>'s text. */
+const accessibleRowText = (c: HTMLElement) => accessibleText(c.querySelector('summary'));
+/** The progress bar track (CSS-module class `bar`, never `barFill`). */
+const bar = (c: HTMLElement) => c.querySelector('[class*="_bar_"]');
+const occurrences = (text: string, part: string) => text.split(part).length - 1;
+/** textContent joins block-level spans with no space (a browser's accessible
+ *  name separates them), so names are compared with whitespace removed: the
+ *  content and its ORDER are still pinned. */
+const squash = (t: string) => t.replace(/\s+/g, '');
 
 const SUSPENDED_WORD: Record<Locale, RegExp> = {
   en: /suspend/i,
@@ -108,26 +116,31 @@ describe.each(LOCALES)('SignalCard — unavailable group (%s)', (locale) => {
     const summary = container.querySelector('summary');
     expect(summary?.textContent).toContain('0/2');
     expect(summary?.textContent).toContain(word);
-    // The bar is the only element with an inline width.
-    expect(container.querySelector('[style*="width"]')).toBeNull();
+    expect(bar(container)).toBeNull();
   });
 
-  it('should give the closed row an accessible text that says why, never a bare 0/2', () => {
+  it('should name the closed row with its visible label, then Unavailable and the reason, never a bare 0/2', () => {
+    // WCAG 2.5.3: the accessible name contains the visible label ("0/2" and
+    // the title), and the 0/2 is immediately qualified, so it can never be
+    // heard as a measured zero.
     const { container } = render(<SignalCard data={suspended()} unavailableLabel={word} />);
-    const text = accessibleRowText(container);
-    expect(text).toContain('Institutional Demand');
-    expect(text).toContain(word);
-    expect(text).toContain(fill(groupTpl.suspended[locale]));
-    expect(text).not.toContain('0/2');
+    expect(squash(accessibleRowText(container))).toBe(
+      squash(`0/2 Institutional Demand ${word} ${fill(groupTpl.suspended[locale])}`)
+    );
   });
 
-  it('should show the group and signal sentences when the row is opened', () => {
+  it('should show both sentences in the open body, and give assistive tech the reason once', () => {
+    // happy-dom does not apply the closed <details> hiding, so this asserts the
+    // CONTENT of the open state; the open/closed rendering itself is checked in
+    // a real browser (the PR's visual pass).
     const { container } = render(<SignalCard data={suspended()} unavailableLabel={word} />);
     const details = container.querySelector('details') as HTMLDetailsElement;
     details.open = true;
+    const reason = fill(groupTpl.suspended[locale]);
     const body = details.querySelector('summary + div');
-    expect(body?.textContent).toContain(fill(groupTpl.suspended[locale]));
+    expect(body?.textContent).toContain(reason);
     expect(body?.textContent).toContain(fill(signalTpl.UNAVAILABLE.variants.suspended[locale]));
+    expect(occurrences(accessibleText(details), reason)).toBe(1);
   });
 
   it('should not call a warm-up "suspended": the accessible text follows the cause', () => {
@@ -150,7 +163,7 @@ describe.each(LOCALES)('SignalCard — unavailable group (%s)', (locale) => {
     const { container } = render(<SignalCard data={legacy} unavailableLabel={word} />);
     expect(container.querySelector('details')?.getAttribute('data-status')).toBe('UNAVAILABLE');
     expect(container.querySelector('summary')?.textContent).toContain(word);
-    expect(container.querySelector('[style*="width"]')).toBeNull();
+    expect(bar(container)).toBeNull();
   });
 
   it('control: an EVALUATED 0/2 stays WEAK, with its bar and an audible 0/2', () => {
@@ -158,7 +171,11 @@ describe.each(LOCALES)('SignalCard — unavailable group (%s)', (locale) => {
     const { container } = render(<SignalCard data={weak} unavailableLabel={word} />);
     expect(container.querySelector('details')?.getAttribute('data-status')).toBe('WEAK');
     expect(container.querySelector('summary')?.textContent).not.toContain(word);
-    expect(container.querySelector('[style*="width"]')).not.toBeNull();
-    expect(accessibleRowText(container)).toContain('0/2');
+    expect(bar(container)).not.toBeNull();
+    expect(squash(accessibleRowText(container))).toBe(squash('0/2 Institutional Demand'));
+    // An evaluated group's sentence is read in its open body, as before.
+    expect(
+      occurrences(accessibleText(container.querySelector('details')), fill(groupTpl.weak[locale]))
+    ).toBe(1);
   });
 });
