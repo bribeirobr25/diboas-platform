@@ -53,6 +53,19 @@ describe('weekly refresh — no silent failure, no racing runs (5.465)', () => {
     expect(etf).toContain('::warning::');
     expect(weekly).toContain("steps.etf.outputs.status }}' = 'failed'"); // repeated in the PR body
   });
+
+  // 2026-10-19: while ETF-01 is suspended a failed or refused collection must
+  // not be reported as "next week's ETF-01 will be gapped" (it is unavailable
+  // either way), and no message may assert that a missed week cannot be
+  // back-filled: that is not established.
+  it('should word the ETF failure by the suspension state, never claiming a week cannot be back-filled', () => {
+    const etf = stepText(weekly, 'ETF-01 weekly snapshot (optional leg)');
+    expect(etf).toContain('ETF01_SUSPENSION');
+    expect(etf).toContain('suspended=$suspended');
+    expect(etf).toMatch(/ETF-01 is suspended, so the score and the other signals are unaffected/);
+    expect(weekly).toContain("steps.etf.outputs.suspended }}' = 'true'");
+    expect(weekly).not.toMatch(/cannot be back-?filled|non-backfillable/i);
+  });
 });
 
 describe('weekly refresh — the PR lists every stale memo figure (5.467)', () => {

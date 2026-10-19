@@ -45,7 +45,7 @@ import { fetchFredSeries } from './providers/fred.mjs';
 import { fetchEtfSharesOutstanding, SPOT_BTC_ETFS } from './providers/polygon.mjs';
 import {
   readSnapshots,
-  appendSnapshot,
+  recordEtfSnapshot,
   resolveEtfSignals,
   WARMUP_SNAPSHOTS,
 } from './lib/etf-flows.mjs';
@@ -116,11 +116,27 @@ async function maybeSnapshotEtfShares() {
     }
     snap.funds[t] = { shares: funds[t].shares, price, lastUpdated: funds[t].lastUpdated };
   }
-  const res = appendSnapshot(snap);
+  // 2026-10-19: only a COMPLETE snapshot enters the ledger. An incomplete one
+  // is refused as ledger data and kept, with what came back, in
+  // etf-snapshot-attempts.jsonl; the ledger is untouched, so this week can be
+  // collected again. The step then fails, which the weekly workflow reports
+  // without stopping the core refresh (the ETF step is fail-open).
+  const res = recordEtfSnapshot(snap, {
+    attemptedAt: new Date().toISOString(),
+    source: 'Polygon:/v3/reference/tickers + Yahoo daily close',
+  });
+  if (res.outcome === 'refused') {
+    throw new Error(
+      `[etf-snapshot] ${anchor} NOT added to the ledger: incomplete data (no usable share count ` +
+        `for ${res.missing.shares.length} fund(s), no usable price for ${res.missing.price.length}). ` +
+        `The attempt is kept in etf-snapshot-attempts.jsonl; a later complete collection for ` +
+        `this week is still accepted.`
+    );
+  }
   console.log(
-    res.appended
+    res.outcome === 'recorded'
       ? `[etf-snapshot] recorded ${anchor} (${readSnapshots().length}/${WARMUP_SNAPSHOTS} toward ETF-01 warm-up)`
-      : `[etf-snapshot] ${res.reason}`
+      : `[etf-snapshot] ${anchor} already recorded`
   );
 }
 

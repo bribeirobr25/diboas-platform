@@ -66,8 +66,8 @@ jobs:
       # 5.464 (2026-09-29): NEVER overwrite an unmerged refresh. The PR step
       # below force-rebuilds `editorial/market-refresh-auto` from main, so a run
       # while the previous refresh PR is still open would destroy that week's
-      # ETF snapshot (Polygon/Massive reports shares outstanding NOW — a missed
-      # week cannot be back-filled), its archive line, and any memo edits pushed
+      # ETF snapshot (a missed week is not known to be reconstructible: the route
+      # gives no observation date), its archive line, and any memo edits pushed
       # to the branch. On 2026-09-28 only an unrelated test failure prevented
       # exactly that. Founder ruling: stop, name the PR, give the remedy. Runs
       # before checkout, so nothing is fetched or written. Fail-closed: if the
@@ -81,7 +81,7 @@ jobs:
             --state open --json number,url --jq '.[0].url // empty')
           if [ -n "$open" ]; then
             echo "::error::The previous weekly refresh PR is still open: $open"
-            echo "::error::Running now would overwrite it and lose that week's non-backfillable ETF snapshot."
+            echo "::error::Running now would overwrite it and lose that week's ETF collection, which is not known to be reconstructible."
             echo "::error::Remedy: rewrite its memo if required, merge it, then re-run:"
             echo "::error::  gh workflow run market-refresh-weekly.yml --ref main"
             exit 1
@@ -112,17 +112,26 @@ jobs:
       # Fail-OPEN for the score (the optional leg must not block the core run),
       # but never SILENT (5.465): a missed snapshot becomes next week's ledger
       # gap, so the failure is annotated here and repeated in the PR body.
+      # 2026-10-19: an INCOMPLETE pull is refused as ledger data (kept as evidence
+      # in etf-snapshot-attempts.jsonl) and also fails this step. While ETF-01 is
+      # suspended the message says so: the score is unaffected either way.
       - name: ETF-01 weekly snapshot (optional leg)
         id: etf
         if: ${{ env.HAS_POLYGON_API_KEY == 'true' }}
         env:
           POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
         run: |
+          suspended=$(node --input-type=module -e "import { ETF01_SUSPENSION as s } from './apps/web/scripts/market-refresh/lib/etf-suspension.mjs'; console.log(s.active)")
+          echo "suspended=$suspended" >> "$GITHUB_OUTPUT"
           if node apps/web/scripts/market-refresh/run.mjs --etf-snapshot --no-archive; then
             echo 'status=ok' >> "$GITHUB_OUTPUT"
           else
             echo 'status=failed' >> "$GITHUB_OUTPUT"
-            echo "::warning::ETF-01 snapshot FAILED this week. The core refresh continues, but next week's ETF-01 will be gapped (UNAVAILABLE) unless this is re-run before Friday. Check POLYGON_API_KEY and the provider."
+            if [ "$suspended" = 'true' ]; then
+              echo "::warning::ETF-01 collection did not record a complete snapshot this week (incomplete data is kept in etf-snapshot-attempts.jsonl; an error leaves no record). ETF-01 is suspended, so the score and the other signals are unaffected. Check POLYGON_API_KEY and the provider."
+            else
+              echo "::warning::ETF-01 snapshot FAILED this week. The core refresh continues, but next week's ETF-01 will be gapped (UNAVAILABLE) unless a complete snapshot is recorded before Friday. Check POLYGON_API_KEY and the provider."
+            fi
           fi
 
       - name: Refresh pipeline (fetch → gate → compute → archive)
@@ -234,13 +243,23 @@ jobs:
               echo '- Memo figure reconciliation: green (memo agrees with this cycle'"'"'s engine values)'
             } >> "$BODY"
           fi
-          if [ '${{ steps.etf.outputs.status }}' = 'failed' ]; then
+          if [ '${{ steps.etf.outputs.status }}' = 'failed' ] && [ '${{ steps.etf.outputs.suspended }}' = 'true' ]; then
+            {
+              echo
+              echo '## ETF-01 collection did not record a complete snapshot this week'
+              echo
+              echo 'ETF-01 is suspended, so the score and the other signals are unaffected.'
+              echo 'If the provider returned incomplete data, the attempt is kept in'
+              echo '`etf-snapshot-attempts.jsonl` and the ledger is unchanged; an error leaves no record.'
+              echo 'A later complete collection for the same week is still accepted.'
+            } >> "$BODY"
+          elif [ '${{ steps.etf.outputs.status }}' = 'failed' ]; then
             {
               echo
               echo '## ⚠️ ETF-01 snapshot failed this week'
               echo
-              echo 'The optional ETF leg errored, so no new shares-outstanding snapshot was recorded.'
-              echo 'The provider reports shares outstanding **now** — a missed week cannot be back-filled.'
+              echo 'No complete shares-outstanding snapshot was recorded. A missed week is not known'
+              echo 'to be reconstructible (the route gives no observation date).'
               echo 'Re-run the workflow **before Friday** or next week'"'"'s ETF-01 publishes UNAVAILABLE (gapped).'
             } >> "$BODY"
           fi

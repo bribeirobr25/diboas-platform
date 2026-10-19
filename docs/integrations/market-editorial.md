@@ -11,7 +11,7 @@
 > outstanding _now_). If a Monday run fails with _"The previous weekly refresh PR is still open"_, that is the
 > guard working: rewrite that PR's memo if required, **merge it**, then re-run
 > `gh workflow run market-refresh-weekly.yml --ref main`. **Never close the open PR unmerged to get past the
-> guard** — that throws away a week of non-backfillable data. The PR body now lists **every** stale memo
+> guard** — that throws away a week of ETF collection that is not known to be reconstructible. The PR body now lists **every** stale memo
 > figure plus any "latest spot-ETF week" finding (`5.467`/`5.469`); fix them all in four locales, not only the
 > first. If the body warns _"ETF-01 snapshot failed this week"_, re-run before Friday or next week's ETF-01
 > publishes as gapped. **If the PR's `quality` check fails on anything OTHER than `memoFigureReconciliation`**
@@ -342,8 +342,18 @@ Default to the more conservative §10.1 path when in doubt — overclaiming "con
   PR and backed by a data route that supports a weekly evaluation. A successful collection, a clean ledger or
   a healthy flow window **never** reactivates it, and the tests assert exactly that.
 - **What does NOT change.** Methodology stays **v1.1.0**; weights, thresholds, bands and the 14-point scale are
-  unchanged and nothing is renormalised. Collection continues: the weekly snapshot is still appended to the
-  ledger. Earlier archive lines and published cycles keep the state they were computed with.
+  unchanged and nothing is renormalised. Collection is still attempted weekly. Earlier archive lines and
+  published cycles keep the state they were computed with.
+- **Complete records only (2026-10-19).** A collection enters `etf-shares-weekly.jsonl` only when every fund
+  has a share count and a price. An incomplete pull (the 2026-10-19 run returned prices and no share counts)
+  is refused as ledger data and kept, with what came back, in `etf-snapshot-attempts.jsonl`; the ledger is
+  untouched and the same week can still be collected. The record anchored 2026-10-16, written before this
+  rule, stays as it is: it is never filled in, deleted or treated as a week or a zero flow. The panel row
+  counts records and complete records apart, and its dates (`last_updated_at`, `expected_next_update_at`,
+  `stale_after`) follow the latest COMPLETE record's conventional Friday anchor; they are not observation
+  dates (the route provides none) and not collection times. A failing collection therefore lets the row age,
+  and the confidence rule applies unchanged: LOW once it passes `stale_after`. Completeness is not
+  currentness: a complete record is never described as a usable week.
 
 **What readers see** (all generated, all four locales, no hand edit):
 

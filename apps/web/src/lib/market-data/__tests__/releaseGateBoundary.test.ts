@@ -163,7 +163,8 @@ describe('every weekly release gate is declared, not inherited from a directory 
  * that no memo rewrite could fix, and nothing had flagged it.
  *
  * These files deliberately stay OUT of the blocking step: a failure there kills
- * the run before the PR step and loses that week's non-backfillable ETF snapshot.
+ * the run before the PR step and loses that week's ETF collection, which is not
+ * known to be reconstructible.
  * They gate on the PR's own CI instead (`PR-GATE-READS-PIPELINE-DATA`), so every
  * one must assert RULES or DERIVED values — never a band on a moving number. This
  * forces the declaration to exist; `market:simulate-next-week` scenario D
