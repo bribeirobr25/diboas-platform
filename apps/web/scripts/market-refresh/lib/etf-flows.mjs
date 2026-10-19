@@ -126,11 +126,12 @@ export function recordEtfSnapshot(
 
 /**
  * Append this week's snapshot. Refuses a second snapshot for the same anchor
- * (idempotent weekly runs).
+ * (idempotent weekly runs). NOT exported (2026-10-19): it does not check
+ * completeness, so the only way in is `recordEtfSnapshot`.
  *
  * @param {{anchor: string, funds: Record<string,{shares:number|null, price:number|null, lastUpdated:string|null}>}} snap
  */
-export function appendSnapshot(snap, archivePath = ETF_SHARES_ARCHIVE) {
+function appendSnapshot(snap, archivePath = ETF_SHARES_ARCHIVE) {
   const existing = readSnapshots(archivePath);
   if (existing.some((s) => s.anchor === snap.anchor)) {
     return { appended: false, reason: `snapshot for ${snap.anchor} already recorded` };

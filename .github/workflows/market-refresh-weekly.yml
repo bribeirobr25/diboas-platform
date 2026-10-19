@@ -121,7 +121,9 @@ jobs:
         env:
           POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
         run: |
-          suspended=$(node --input-type=module -e "import { ETF01_SUSPENSION as s } from './apps/web/scripts/market-refresh/lib/etf-suspension.mjs'; console.log(s.active)")
+          # Never let this lookup abort the step (bash -e): an unreadable state
+          # falls back to the neutral wording below, and the step stays fail-open.
+          suspended=$(node --input-type=module -e "import { ETF01_SUSPENSION as s } from './apps/web/scripts/market-refresh/lib/etf-suspension.mjs'; console.log(s.active)") || suspended=unknown
           echo "suspended=$suspended" >> "$GITHUB_OUTPUT"
           if node apps/web/scripts/market-refresh/run.mjs --etf-snapshot --no-archive; then
             echo 'status=ok' >> "$GITHUB_OUTPUT"
@@ -129,6 +131,8 @@ jobs:
             echo 'status=failed' >> "$GITHUB_OUTPUT"
             if [ "$suspended" = 'true' ]; then
               echo "::warning::ETF-01 collection did not record a complete snapshot this week (incomplete data is kept in etf-snapshot-attempts.jsonl; an error leaves no record). ETF-01 is suspended, so the score and the other signals are unaffected. Check POLYGON_API_KEY and the provider."
+            elif [ "$suspended" != 'false' ]; then
+              echo "::warning::ETF-01 collection did not record a complete snapshot this week, and the suspension state could not be read. The core refresh continues. Check POLYGON_API_KEY and the provider."
             else
               echo "::warning::ETF-01 snapshot FAILED this week. The core refresh continues, but next week's ETF-01 will be gapped (UNAVAILABLE) unless a complete snapshot is recorded before Friday. Check POLYGON_API_KEY and the provider."
             fi

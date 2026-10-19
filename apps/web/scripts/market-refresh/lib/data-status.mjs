@@ -184,7 +184,10 @@ function m2Entry(source, anchorStr, run) {
 function etfLedgerEntry(source, signal, snapshots, run, attempts = []) {
   const cov = ledgerCoverage(snapshots);
   const count = cov.complete;
-  const anchorStr = cov.latestCompleteAnchor ?? ymd(run);
+  // No complete record at all: date the row by the ledger's FIRST record, so
+  // it ages like any failing collection. Today's date is only for an empty
+  // ledger (nothing collected yet), as before.
+  const anchorStr = cov.latestCompleteAnchor ?? snapshots[0]?.anchor ?? ymd(run);
   const anchor = d(anchorStr);
   const expectedNext = addDays(anchor, 7);
   const staleAfter = addDays(anchor, 21);
@@ -293,9 +296,10 @@ function ledgerSentence(cov, attempts) {
       ? `The latest complete record is anchored ${cov.latestCompleteAnchor}.`
       : 'No complete record yet.'
   );
-  const refused = attempts.filter(
-    (a) => a.outcome === 'refused-incomplete' && !(a.anchor <= (cov.latestRecordAnchor ?? ''))
-  );
+  const refused = attempts
+    .filter((a) => a.outcome === 'refused-incomplete' && typeof a.anchor === 'string')
+    .filter((a) => a.anchor > (cov.latestRecordAnchor ?? ''))
+    .sort((a, b) => (a.anchor < b.anchor ? -1 : a.anchor > b.anchor ? 1 : 0));
   const last = refused[refused.length - 1];
   if (last) {
     parts.push(

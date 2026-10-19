@@ -36,7 +36,8 @@ const DIRS = [join(__dirname, '.'), join(__dirname, '../../analytics-sdk/__tests
 const NOT_IN_THE_BLOCKING_STEP = ['memoFigureReconciliation.test.ts'];
 
 /** Anything that reaches for a committed artefact rather than a fixture. */
-const LIVE_DATA = /data\/market\/shared|readSnapshots\(\)|MARKET_DIR|btcMonths\(\)/;
+const LIVE_DATA =
+  /data\/market\/shared|readSnapshots\(\)|readAttempts\(\)|MARKET_DIR|btcMonths\(\)/;
 
 type Cls = 'WEEKLY-GATE' | 'UNIT-READS-LIVE';
 
@@ -89,7 +90,7 @@ const ALLOWED: Record<string, { cls: Cls; why: string }> = {
   },
   'methodologyAttestation.test.ts': {
     cls: 'UNIT-READS-LIVE',
-    why: 'reads methodology.json, which the weekly pipeline never writes — verified: zero references to it under scripts/market-refresh, one commit in its whole history (a path migration), and the refresh touches seven files, none of them this one',
+    why: 'reads methodology.json, which the weekly pipeline never writes — verified: zero references to it under scripts/market-refresh, one commit in its whole history (a path migration), and the refresh touches at most eight files (2026-10-19: + etf-snapshot-attempts.jsonl when a pull is refused), none of them this one',
   },
   'resilience.test.ts': {
     cls: 'UNIT-READS-LIVE',

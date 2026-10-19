@@ -36,6 +36,7 @@ import {
 } from '../../../../scripts/market-refresh/lib/etf-coverage.mjs';
 import { suspendedEtfSignal } from '../../../../scripts/market-refresh/lib/etf-suspension.mjs';
 import { deriveDataStatus } from '../../../../scripts/market-refresh/lib/data-status.mjs';
+import * as etfFlows from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
 import { applyReadTimeFreshness } from '../../analytics-sdk/freshness';
 import type { DataStatus } from '../../analytics-sdk/types';
 
@@ -247,5 +248,59 @@ describe('the panel row while suspended', () => {
     const sig = suspendedEtfSignal(ledger);
     expect(sig.detail).toContain('4 records, 3 complete');
     expect(sig.values).toMatchObject({ snapshots: 4, completeRecords: 3, variant: 'suspended' });
+  });
+});
+
+describe('no way around the completeness rule (review 2026-10-19)', () => {
+  const SCRIPTS = path.join(__dirname, '../../../../scripts');
+  it('should expose no unchecked append, and the weekly run should record through the checked one', () => {
+    expect((etfFlows as Record<string, unknown>).appendSnapshot).toBeUndefined();
+    const run = fs.readFileSync(path.join(SCRIPTS, 'market-refresh/run.mjs'), 'utf8');
+    expect(run).toMatch(/recordEtfSnapshot\(snap,/);
+    expect(run).not.toMatch(/appendSnapshot/);
+  });
+
+  it('should report a re-run over an INCOMPLETE record as not recorded, never as success', () => {
+    const run = fs.readFileSync(path.join(SCRIPTS, 'market-refresh/run.mjs'), 'utf8');
+    expect(run).toMatch(/already has an INCOMPLETE ledger record, kept as written/);
+    expect(run).toMatch(/only the attempt evidence was written/);
+  });
+});
+
+describe('the panel row at the edges (review 2026-10-19)', () => {
+  const computed = (computedAt: string, ledger: object[]) => ({
+    computed_at: computedAt,
+    signals: [
+      { id: 'BTC-01', anchor: '2026-09-01' },
+      { id: 'MAC-01', anchor: '2026-10-16' },
+      { id: 'MAC-02', anchor: '2026-10-16' },
+      { id: 'MAC-03', anchor: '2026-09-01' },
+      { id: 'REL-01', anchor: '2026-10-16' },
+      { id: 'REL-03', anchor: '2026-10-16' },
+      suspendedEtfSignal(ledger as never),
+    ],
+  });
+  const row = (ds: { sources: Array<{ source: string }> }) =>
+    ds.sources.find((s) => s.source.startsWith('Polygon')) as Record<string, string>;
+
+  it('should date a ledger with NO complete record by its first record, so it ages', () => {
+    const ledger = [noCounts('2026-10-16'), noCounts('2026-10-23')];
+    const r = row(deriveDataStatus(computed('2026-12-28T06:00:00Z', ledger), ledger));
+    expect(r.last_updated_at).toBe('2026-10-16T00:00:00Z');
+    expect(r.message).toContain('No complete record yet.');
+  });
+
+  it('should name the newest refused attempt by anchor and ignore rows without one', () => {
+    const ledger = [complete('2026-10-09', 1000e6)];
+    const attempts = [
+      { anchor: '2026-10-30', attempted_at: '2026-11-02T06:20:00Z', outcome: 'refused-incomplete' },
+      { anchor: '2026-10-23', attempted_at: '2026-10-26T06:20:00Z', outcome: 'refused-incomplete' },
+      { attempted_at: '2026-11-03T06:20:00Z', outcome: 'refused-incomplete' },
+    ];
+    const msg = row(
+      deriveDataStatus(computed('2026-11-02T06:30:00Z', ledger), ledger, attempts)
+    ).message;
+    expect(msg).toContain('(anchor 2026-10-30, 2026-11-02)');
+    expect(msg).not.toContain('undefined');
   });
 });

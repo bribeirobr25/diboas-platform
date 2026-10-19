@@ -57,7 +57,7 @@ import path from 'node:path';
 import { REPO_ROOT } from './providers/inrepo.mjs';
 import { isDirectInvocation } from './lib/invocation.mjs';
 import { resolveEtfSignals, readSnapshots, recordEtfSnapshot } from './lib/etf-flows.mjs';
-import { isCompleteSnapshot } from './lib/etf-coverage.mjs';
+import { isCompleteSnapshot, ledgerCoverage } from './lib/etf-coverage.mjs';
 import { ETF01_SUSPENSION } from './lib/etf-suspension.mjs';
 import { archiveSignals } from './lib/archive.mjs';
 import { scoreSignals, anchorCoherence } from './lib/regime-engine.mjs';
@@ -210,7 +210,7 @@ function advance({ days, etfDays, etfIncomplete = false }) {
   const [etfRecord] = archiveSignals(
     [...resolveEtfSignals({ snapshots: ledger, manual: null }, at)],
     {
-      etfSnapshotCount: ledger.length,
+      etfSnapshotCount: ledgerCoverage(ledger).complete,
     }
   );
   computed.signals = computed.signals.map((s) => (s.id === 'ETF-01' ? etfRecord : s));

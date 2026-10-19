@@ -6,7 +6,7 @@
  * Text assertions, deliberately: the web app has no YAML parser dependency and
  * adding one would touch the shared lockfile for a test.
  */
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
@@ -65,6 +65,33 @@ describe('weekly refresh — no silent failure, no racing runs (5.465)', () => {
     expect(etf).toMatch(/ETF-01 is suspended, so the score and the other signals are unaffected/);
     expect(weekly).toContain("steps.etf.outputs.suspended }}' = 'true'");
     expect(weekly).not.toMatch(/cannot be back-?filled|non-backfillable/i);
+  });
+
+  it('should never let the suspension lookup abort the fail-open ETF step (bash -e)', () => {
+    const etf = stepText(weekly, 'ETF-01 weekly snapshot (optional leg)');
+    expect(etf).toMatch(/suspended=\$\(node [^\n]*\) \|\| suspended=unknown/);
+    expect(etf).toContain('elif [ "$suspended" != \'false\' ]');
+  });
+
+  // The workflow guard above scans only the YAML; the same unproven claim also
+  // lived in the docs that explain the guard (review 2026-10-19).
+  it('should keep every tracked doc free of the claim that a missed week is unrecoverable', () => {
+    const root = join(__dirname, '../../../../../..');
+    const files = [
+      'CLAUDE.md',
+      ...['docs/tech', 'docs/integrations'].flatMap((d) =>
+        readdirSync(join(root, d), { recursive: true })
+          .map(String)
+          .filter((f) => f.endsWith('.md'))
+          .map((f) => join(d, f))
+      ),
+    ];
+    const hits = files.filter((f) =>
+      /cannot be back-?filled|non-backfillable|can never be re-?fetched/i.test(
+        readFileSync(join(root, f), 'utf8')
+      )
+    );
+    expect(hits).toEqual([]);
   });
 });
 
