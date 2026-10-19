@@ -16,8 +16,9 @@
 > first. If the body has the section _"ETF-01 collection did not record a complete snapshot this week"_, read
 > its note (the same text as the run's log annotation): it says which case happened (an incomplete pull refused
 > and kept as evidence, which that week can still replace; a week already recorded as incomplete, preserved and
-> not collected again; or an error) and what the run established, and it promises nothing about later
-> scoring. **If the PR's `quality` check fails on anything OTHER than `memoFigureReconciliation`**
+> not collected again; or an error, about which it claims nothing recorded or not) and what the run
+> established, and it promises nothing about later scoring. A week recorded before a later failure in the same
+> step gets no section, only a log notice. **If the PR's `quality` check fails on anything OTHER than `memoFigureReconciliation`**
 > (2026-10-06, `5.478`): a test that reads the monthly series the pipeline writes is pinning a moving value.
 > It is declared in `releaseGateBoundary.test.ts#PIPELINE_DATA_READERS`; fix the test to assert a rule or a
 > value derived from the same series (never widen a band), and confirm with

@@ -103,6 +103,9 @@ class EtfSnapshotNotRecorded extends Error {
   }
 }
 
+/** Set once this week's COMPLETE snapshot is in the ledger (recorded now or earlier). */
+let etfWeekRecorded = false;
+
 async function maybeSnapshotEtfShares() {
   // Anchor = the most recent past Friday (strict-Friday spirit; the snapshot
   // describes the week that closed on that Friday).
@@ -112,6 +115,7 @@ async function maybeSnapshotEtfShares() {
   const existing = readSnapshots().find((snap) => snap.anchor === anchor);
   if (existing && isCompleteSnapshot(existing)) {
     console.log(`[etf-snapshot] ${anchor} already recorded — nothing to do.`);
+    etfWeekRecorded = true;
     return;
   }
   if (existing) {
@@ -155,6 +159,7 @@ async function maybeSnapshotEtfShares() {
       { kind: 'refused' }
     );
   }
+  etfWeekRecorded = true; // recorded now, or already recorded (both complete)
   console.log(
     res.outcome === 'recorded'
       ? `[etf-snapshot] recorded ${anchor} (${ledgerCoverage(readSnapshots()).complete}/${WARMUP_SNAPSHOTS} complete toward ETF-01 warm-up)`
@@ -337,12 +342,19 @@ if (isDirectInvocation(import.meta.url)) {
     // A week not added to the ledger exits with its own code, so the weekly
     // workflow can word the two cases differently (ETF_SNAPSHOT_EXIT).
     const notRecorded = e instanceof EtfSnapshotNotRecorded;
-    const head = !notRecorded
-      ? 'market-refresh failed closed — nothing written beyond the log'
-      : e.kind === 'refused'
+    const head = notRecorded
+      ? e.kind === 'refused'
         ? 'ETF snapshot NOT added to the ledger — only the attempt evidence was written'
-        : 'ETF snapshot NOT added to the ledger — nothing written beyond the log';
+        : 'ETF snapshot NOT added to the ledger — nothing written beyond the log'
+      : etfWeekRecorded
+        ? 'market-refresh failed closed AFTER this week’s ETF snapshot was recorded — the ledger line stands'
+        : 'market-refresh failed closed — nothing written beyond the log';
     console.error(`\n✖ ${head}:\n  ${e.message}`);
-    process.exit(notRecorded ? ETF_SNAPSHOT_EXIT[e.kind] : 1);
+    const code = notRecorded
+      ? (ETF_SNAPSHOT_EXIT[e.kind] ?? 1)
+      : etfWeekRecorded
+        ? ETF_SNAPSHOT_EXIT.recordedThenFailed
+        : 1;
+    process.exit(code);
   });
 }

@@ -84,7 +84,7 @@ function expand(script: string, outputs: Record<string, string>): string {
   return script.replace(/\$\{\{\s*([^}]+?)\s*\}\}/g, (_, expr: string) => {
     const m = /^steps\.etf\.outputs\.(\w+)$/.exec(expr);
     if (m) return outputs[m[1]] ?? '';
-    if (expr === 'steps.memo.outputs.status') return 'green';
+    if (expr === 'steps.memo.outputs.status') return 'ok';
     return '';
   });
 }
@@ -126,12 +126,32 @@ const record = (anchor: string, shares: number | null) => ({
   funds: Object.fromEntries(FUNDS.map((t, i) => [t, fund(shares === null ? null : shares + i)])),
 });
 
+/** The step's `env:` mapping, resolved from the ETF outputs (as GitHub does). */
+function stepEnv(name: string, outputs: Record<string, string>): Record<string, string> {
+  const start = WORKFLOW.indexOf(`- name: ${name}`);
+  const step = WORKFLOW.slice(start, WORKFLOW.indexOf('run: |', start));
+  const env: Record<string, string> = {};
+  const block = /\n {8}env:\n((?: {10}[^\n]*\n)+)/.exec(step);
+  for (const line of block?.[1].split('\n') ?? []) {
+    const m = /^ {10}([A-Z_]+): (.+)$/.exec(line);
+    if (m) env[m[1]] = expand(m[2], outputs);
+  }
+  return env;
+}
+
 /** A throw-away repo root: the scripts, and a ledger whose latest record is incomplete. */
-function sandbox() {
+function sandbox(suspended: boolean) {
   // realpath: macOS reaches the temp dir through the /var -> /private/var symlink.
   const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'etf-workflow-')));
   dirs.push(root);
   fs.cpSync(SCRIPTS, path.join(root, 'apps/web/scripts/market-refresh'), { recursive: true });
+  // The suspension switch is SET per case in the copy, never read from the
+  // committed one: both states are exercised, and a future decision to
+  // reactivate ETF-01 does not turn these tests red.
+  const switchFile = path.join(root, 'apps/web/scripts/market-refresh/lib/etf-suspension.mjs');
+  const src = fs.readFileSync(switchFile, 'utf8');
+  expect(src.match(/ {2}active: (true|false),/g)).toHaveLength(1);
+  fs.writeFileSync(switchFile, src.replace(/ {2}active: (true|false),/, `  active: ${suspended},`));
   // The sandbox mirrors where the pipeline itself writes (its own constants),
   // so this test never names, reads or writes the committed artefacts.
   const ledger = path.join(root, path.relative(REPO_ROOT, ETF_SHARES_ARCHIVE));
@@ -151,13 +171,15 @@ function sandbox() {
 
 type Case = {
   now: string;
-  snapshotExit?: number; // replace the snapshot command (success case only)
+  suspended?: boolean; // default true
+  completePull?: boolean; // the stub returns share counts for every fund
+  snapshotExit?: number; // replace the snapshot command with this exit (synthetic cases only)
   breakSuspensionLookup?: boolean;
 };
 
 /** Run the ETF step, then the PR-body step with its outputs. */
 function runWorkflow(c: Case) {
-  const box = sandbox();
+  const box = sandbox(c.suspended ?? true);
   const outputsFile = path.join(box.root, 'github-output');
   const runnerTemp = path.join(box.root, 'runner-temp');
   fs.mkdirSync(runnerTemp);
@@ -179,14 +201,15 @@ function runWorkflow(c: Case) {
     SNAPSHOT_STUB_LOG: netLog,
     SNAPSHOT_STUB_NOW: c.now,
     SNAPSHOT_STUB_FIXTURE: JSON.stringify({
-      funds: Object.fromEntries(FUNDS.map((t) => [t, { shares: null, price: 40 }])),
+      funds: Object.fromEntries(
+        FUNDS.map((t, i) => [t, { shares: c.completePull ? 2_000_000 + i : null, price: 40 }])
+      ),
     }),
   });
   const outputs = parseOutputs(outputsFile);
   const body = bash(expand(runScript('Compose PR body'), outputs), box.root, {
     RUNNER_TEMP: runnerTemp,
-    ETF_STATUS: outputs.status ?? '',
-    ETF_NOTE: outputs.note ?? '',
+    ...stepEnv('Compose PR body', outputs),
   });
   expect(body.status, body.stderr).toBe(0);
   return {
@@ -195,6 +218,11 @@ function runWorkflow(c: Case) {
     log: step.stdout,
     body: fs.readFileSync(path.join(runnerTemp, 'pr-body.md'), 'utf8'),
     ledgerUnchanged: sha(box.ledger) === ledgerBefore,
+    ledgerAnchors: fs
+      .readFileSync(box.ledger, 'utf8')
+      .trim()
+      .split('\n')
+      .map((l) => JSON.parse(l).anchor as string),
     attempts: fs.existsSync(box.attempts)
       ? fs.readFileSync(box.attempts, 'utf8').trim().split('\n')
       : [],
@@ -291,5 +319,41 @@ describe('the weekly workflow ETF wording, executed', () => {
     expect(r.body).not.toContain(ETF_HEADING);
     expect(r.body).not.toMatch(/ETF-01/);
     expect(r.ledgerUnchanged).toBe(true);
+  });
+
+  it('not suspended + an incomplete pull: no scoring consequence promised', () => {
+    const r = runWorkflow({ now: '2026-10-26T06:20:00Z', suspended: false });
+    expect(r.step.status).toBe(0);
+    expect(r.outputs).toMatchObject({ suspended: 'false', outcome: 'refused', status: 'failed' });
+    expect(r.outputs.note).toContain(
+      'The core refresh and the other signals continue. ETF-01 is scored from complete records only.'
+    );
+    expect(etfSection(r.body)).toContain(r.outputs.note);
+    expect(etfSection(r.body)).not.toMatch(UNPROVEN);
+    expect(etfSection(r.body)).not.toMatch(/gapped|UNAVAILABLE/i);
+    expect(r.ledgerUnchanged).toBe(true);
+  });
+
+  it('a complete snapshot recorded, then the rest of the run failed: no ETF warning, the week stands', () => {
+    // The real run.mjs: it records the week, then the full pipeline it continues
+    // into is refused by the stub network (exit 22). Nothing may say the week
+    // was not recorded.
+    const r = runWorkflow({ now: '2026-10-26T06:20:00Z', completePull: true });
+    expect(r.step.status).toBe(0);
+    expect(r.outputs).toMatchObject({ outcome: 'recorded', status: 'ok' });
+    expect(r.ledgerAnchors).toEqual(['2026-10-09', '2026-10-16', '2026-10-23']);
+    expect(r.log).toContain('::notice::ETF-01 snapshot recorded for this week.');
+    expect(r.log).not.toContain('::warning::');
+    expect(r.body).not.toContain(ETF_HEADING);
+    expect(r.attempts).toEqual([]);
+  });
+
+  it('an error before the outcome is known: neutral, no claim about what was recorded, no retry promised', () => {
+    const r = runWorkflow({ now: '2026-10-26T06:20:00Z', snapshotExit: 1 });
+    expect(r.step.status).toBe(0);
+    expect(r.outputs).toMatchObject({ outcome: 'error', status: 'failed' });
+    expect(r.outputs.note).toContain('what it recorded, if anything, is not established here');
+    expect(etfSection(r.body)).not.toMatch(/before anything was recorded|can still be accepted/i);
+    expect(etfSection(r.body)).not.toMatch(UNPROVEN);
   });
 });

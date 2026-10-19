@@ -125,21 +125,27 @@ jobs:
           # falls back to the neutral wording below, and the step stays fail-open.
           suspended=$(node --input-type=module -e "import { ETF01_SUSPENSION as s } from './apps/web/scripts/market-refresh/lib/etf-suspension.mjs'; console.log(s.active)") || suspended=unknown
           echo "suspended=$suspended" >> "$GITHUB_OUTPUT"
-          # 2026-10-19: the exit code says WHY nothing was recorded
+          # 2026-10-19: the exit code says what happened to this week's snapshot
           # (lib/etf-flows.mjs ETF_SNAPSHOT_EXIT): 20 = an incomplete pull was
           # refused (that week can still be collected); 21 = the week already has
-          # an incomplete ledger record (preserved, not collected again).
+          # an incomplete ledger record (preserved, not collected again); 22 = the
+          # complete snapshot IS recorded and the rest of this run failed after it
+          # (the core refresh step below runs that part again).
           rc=0
           node apps/web/scripts/market-refresh/run.mjs --etf-snapshot --no-archive || rc=$?
           case "$rc" in
             0) outcome=ok ;;
             20) outcome=refused ;;
             21) outcome=incomplete-record ;;
+            22) outcome=recorded ;;
             *) outcome=error ;;
           esac
           echo "outcome=$outcome" >> "$GITHUB_OUTPUT"
-          if [ "$outcome" = 'ok' ]; then
+          if [ "$outcome" = 'ok' ] || [ "$outcome" = 'recorded' ]; then
             echo 'status=ok' >> "$GITHUB_OUTPUT"
+            if [ "$outcome" = 'recorded' ]; then
+              echo "::notice::ETF-01 snapshot recorded for this week. The rest of this step's run failed afterwards; the core refresh step runs that part again."
+            fi
             exit 0
           fi
           echo 'status=failed' >> "$GITHUB_OUTPUT"
@@ -148,11 +154,11 @@ jobs:
           case "$outcome" in
             refused) what="The provider returned incomplete data: the attempt is kept in etf-snapshot-attempts.jsonl and was not added to the ledger. A later complete collection for this week can still be accepted." ;;
             incomplete-record) what="This week already has an incomplete record in the ledger, written before the completeness rule. It is preserved as written, and the current behaviour does not collect this week again." ;;
-            *) what="The collection stopped before anything was recorded (see this step's log). A later complete collection for this week can still be accepted." ;;
+            *) what="The step stopped with an error (see this step's log); what it recorded, if anything, is not established here." ;;
           esac
           case "$suspended" in
             true) effect="ETF-01 is suspended, so the score and the other signals are unaffected." ;;
-            false) effect="The core refresh and the other signals continue. Without a complete snapshot for this week, the engine scores ETF-01 UNAVAILABLE (gapped) while that gap is inside its trailing window." ;;
+            false) effect="The core refresh and the other signals continue. ETF-01 is scored from complete records only." ;;
             *) effect="The suspension state could not be read in this run. The core refresh and the other signals continue." ;;
           esac
           note="ETF-01 collection did not record a complete snapshot this week. $what $effect"

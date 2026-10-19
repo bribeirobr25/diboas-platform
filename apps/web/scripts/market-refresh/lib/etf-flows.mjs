@@ -47,10 +47,17 @@ export const ETF_SNAPSHOT_ATTEMPTS = path.join(
  * ledger (2026-10-19). The weekly workflow maps them to the wording of its log
  * annotation and PR body, which differs by case: a REFUSED pull can still be
  * collected again that week; a week that already has an INCOMPLETE record is
- * preserved and not collected again. Outside Node's reserved codes; any other
- * non-zero exit is an error before anything was recorded.
+ * preserved and not collected again. `recordedThenFailed`: this week's complete
+ * snapshot IS in the ledger, and the rest of the same run failed afterwards (on
+ * this branch `--etf-snapshot` continues into the full pipeline). Outside
+ * Node's reserved codes; any other non-zero exit is an error whose effect on
+ * the ledger this run does not establish.
  */
-export const ETF_SNAPSHOT_EXIT = Object.freeze({ refused: 20, incompleteRecord: 21 });
+export const ETF_SNAPSHOT_EXIT = Object.freeze({
+  refused: 20,
+  incompleteRecord: 21,
+  recordedThenFailed: 22,
+});
 
 export const STALE_FUND_DAYS = 10;
 // A "weekly aggregate" must actually span a week (PENDING_ALL 5.301). Anchors
