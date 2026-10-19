@@ -18,6 +18,7 @@ const meta = {
     expandLabel: 'Show signals',
     collapseLabel: 'Hide signals',
     pointsLabel: 'pts',
+    unavailableLabel: 'Unavailable',
   },
 } satisfies Meta<typeof SignalCardsGrid>;
 export default meta;

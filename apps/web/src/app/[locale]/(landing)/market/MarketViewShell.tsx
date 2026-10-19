@@ -356,7 +356,10 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                       component still ACCEPTS them (doc-09 SDK API compat) but
                       renders its own disclosure semantics; passing dead t()
                       lookups here kept 3 zombie i18n keys alive ×4 locales. */}
-                  <SignalCardsGrid groups={signals.signal_groups} />
+                  <SignalCardsGrid
+                    groups={signals.signal_groups}
+                    unavailableLabel={freshnessLabels.UNAVAILABLE}
+                  />
                 </section>
               </SectionErrorBoundary>
             )}
