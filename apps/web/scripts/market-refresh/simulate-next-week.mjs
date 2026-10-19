@@ -35,6 +35,14 @@
  *   B  skip week          — +14d, one ETF Friday missing (2026-09-28, 5.463);
  *                           ETF-01 must publish UNAVAILABLE with the gapped wording
  *   C  ETF leg failed     — +7d, no new ETF snapshot (5.465)
+ *   E  ETF collection incomplete (2026-10-19) — +7d, the pull returns prices but
+ *                           no share counts: refused as ledger data, kept in
+ *                           etf-snapshot-attempts.jsonl, ledger byte-identical;
+ *                           then a complete pull for the SAME week is accepted
+ *                           and the evidence is preserved
+ * A successful collection (A, B) copies the latest COMPLETE record's funds onto
+ * the next anchor (synthetic, test-only): copying the latest record would copy
+ * an incomplete one once the ledger holds it (the 2026-10-16 record does).
  * ETF-01 is re-scored with the REAL engine and archive functions after the
  * ledger moves, and the score / band follow through `scoreSignals` — so the
  * generated copy is what a real run would produce, not a stale ACTIVE record
@@ -48,7 +56,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { REPO_ROOT } from './providers/inrepo.mjs';
 import { isDirectInvocation } from './lib/invocation.mjs';
-import { resolveEtfSignals, readSnapshots } from './lib/etf-flows.mjs';
+import { resolveEtfSignals, readSnapshots, recordEtfSnapshot } from './lib/etf-flows.mjs';
+import { isCompleteSnapshot, ledgerCoverage } from './lib/etf-coverage.mjs';
 import { ETF01_SUSPENSION } from './lib/etf-suspension.mjs';
 import { archiveSignals } from './lib/archive.mjs';
 import { scoreSignals, anchorCoherence } from './lib/regime-engine.mjs';
@@ -97,6 +106,9 @@ const snapshot = () => ({
 });
 
 const restore = (snap) => {
+  // A scenario may CREATE a file (E writes the attempts ledger): remove what
+  // was not there, or it leaks into the next scenario and dirties the tree.
+  for (const f of fs.readdirSync(SHARED)) if (!(f in snap)) fs.rmSync(path.join(SHARED, f));
   for (const [f, buf] of Object.entries(snap))
     fs.writeFileSync(f === MONTHLY_KEY ? MONTHLY : path.join(SHARED, f), buf);
 };
@@ -135,10 +147,12 @@ function rollMonths(n, factor) {
 
 /**
  * Move the world on by one cycle, the way a real run leaves it.
- * @param {{ days: number, etfDays: number | null }} opts  etfDays = how far the new
- *   ETF snapshot's anchor moves (null = the ETF leg failed: no snapshot appended)
+ * @param {{ days: number, etfDays: number | null, etfIncomplete?: boolean }} opts
+ *   etfDays = how far the new ETF anchor moves past the latest record (null =
+ *   the ETF leg failed: nothing collected); etfIncomplete = the pull came back
+ *   without share counts and goes through the real refusal (scenario E)
  */
-function advance({ days, etfDays }) {
+function advance({ days, etfDays, etfIncomplete = false }) {
   const p = (f) => path.join(SHARED, f);
   const computed = JSON.parse(fs.readFileSync(p('computed.json'), 'utf8'));
   computed.computed_at = shiftIso(computed.computed_at, days);
@@ -152,17 +166,38 @@ function advance({ days, etfDays }) {
     }
   }
 
-  // The ETF ledger (append-only) gains a row unless the leg failed.
+  // The ETF ledger (append-only) gains a row unless the leg failed or the pull
+  // was incomplete (then the REAL refusal runs and the ledger must not change).
   const etfPath = p('etf-shares-weekly.jsonl');
   let etf = 0;
+  let refusal = null;
   if (fs.existsSync(etfPath)) {
-    const snaps = fs.readFileSync(etfPath, 'utf8').trim().split('\n');
+    const rows = readSnapshots(etfPath);
     if (etfDays !== null) {
-      const last = JSON.parse(snaps[snaps.length - 1]);
-      last.anchor = shiftDay(last.anchor, etfDays);
-      fs.appendFileSync(etfPath, `${JSON.stringify(last)}\n`);
+      const nextAnchor = shiftDay(rows[rows.length - 1].anchor, etfDays);
+      const base = [...rows].reverse().find(isCompleteSnapshot);
+      if (etfIncomplete) {
+        const before = fs.readFileSync(etfPath);
+        const funds = Object.fromEntries(
+          Object.entries(base.funds).map(([t, f]) => [t, { ...f, shares: null }])
+        );
+        const res = recordEtfSnapshot(
+          { anchor: nextAnchor, funds },
+          {
+            attemptedAt: computed.computed_at,
+            source: 'simulator',
+            ledgerPath: etfPath,
+            attemptsPath: p('etf-snapshot-attempts.jsonl'),
+          }
+        );
+        if (res.outcome !== 'refused' || !fs.readFileSync(etfPath).equals(before))
+          throw new Error(`an incomplete collection was not refused cleanly: ${res.outcome}`);
+        refusal = { anchor: nextAnchor, complete: { anchor: nextAnchor, funds: base.funds } };
+      } else {
+        fs.appendFileSync(etfPath, `${JSON.stringify({ ...base, anchor: nextAnchor })}\n`);
+      }
     }
-    etf = snaps.length + (etfDays !== null ? 1 : 0);
+    etf = readSnapshots(etfPath).length;
   }
 
   // Re-score ETF-01 from the moved ledger with the real engine + archive seam,
@@ -175,7 +210,7 @@ function advance({ days, etfDays }) {
   const [etfRecord] = archiveSignals(
     [...resolveEtfSignals({ snapshots: ledger, manual: null }, at)],
     {
-      etfSnapshotCount: ledger.length,
+      etfSnapshotCount: ledgerCoverage(ledger).complete,
     }
   );
   computed.signals = computed.signals.map((s) => (s.id === 'ETF-01' ? etfRecord : s));
@@ -205,6 +240,7 @@ function advance({ days, etfDays }) {
   fs.appendFileSync(p('run-archive.jsonl'), `${JSON.stringify(lastRun)}\n`);
 
   return {
+    refusal,
     weekly,
     archive: archive.length + 1,
     etf,
@@ -249,6 +285,15 @@ const SCENARIOS = [
     name: 'ETF leg failed — no new snapshot',
     days: 7,
     etfDays: null,
+    expectEtf: etfExpectation(undefined),
+    expectEtfSentence: SUSPENDED || undefined,
+  },
+  {
+    key: 'E',
+    name: 'ETF collection incomplete — refused, kept as evidence, then retried',
+    days: 7,
+    etfDays: 7,
+    etfIncomplete: true,
     expectEtf: etfExpectation(undefined),
     expectEtfSentence: SUSPENDED || undefined,
   },
@@ -345,6 +390,38 @@ function assertEtfSentence() {
   console.log(`  ✓ ETF-01 publishes the ${variant} wording ×4 locales and the panel says why`);
 }
 
+/**
+ * Scenario E: the panel names the refused attempt without being dated by it,
+ * and a complete pull for the same week is then accepted with the evidence
+ * file left byte-identical.
+ */
+function assertRefusalAndRetry({ anchor, complete }) {
+  const fail = (msg) => {
+    throw Object.assign(new Error(msg), { stdout: '' });
+  };
+  const ledgerPath = path.join(SHARED, 'etf-shares-weekly.jsonl');
+  const attemptsPath = path.join(SHARED, 'etf-snapshot-attempts.jsonl');
+  const panel = JSON.parse(fs.readFileSync(path.join(SHARED, 'data-status.json'), 'utf8'));
+  const row = panel.sources.find((x) => x.source.startsWith('Polygon:ETF'));
+  if (!String(row?.message).includes(`latest collection attempt (anchor ${anchor}`))
+    fail(`ETF panel row does not name the refused attempt: ${row?.message}`);
+  if (String(row?.last_updated_at).startsWith(anchor))
+    fail(`ETF panel row is dated by the refused attempt: ${row?.last_updated_at}`);
+  const evidence = fs.readFileSync(attemptsPath);
+  const res = recordEtfSnapshot(complete, {
+    attemptedAt: new Date().toISOString(),
+    source: 'simulator',
+    ledgerPath,
+    attemptsPath,
+  });
+  if (res.outcome !== 'recorded')
+    fail(`a complete retry for ${anchor} was not accepted: ${res.outcome}`);
+  if (!fs.readFileSync(attemptsPath).equals(evidence)) fail('the retry rewrote the evidence file');
+  console.log(
+    `  ✓ incomplete pull refused and kept as evidence; a complete retry for ${anchor} is accepted`
+  );
+}
+
 const sh = (cmd, args) =>
   execFileSync(cmd, args, { cwd: REPO_ROOT, encoding: 'utf8', stdio: 'pipe' });
 
@@ -418,6 +495,8 @@ function main() {
           }
         );
         console.log(`  ✓ the weekly blocking gate passes (scenario ${sc.key})`);
+        // After the gate: a retry is a LATER run, which regenerates first.
+        if (moved.refusal) assertRefusalAndRetry(moved.refusal);
       } catch (err) {
         failures.push(sc.key);
         console.error(

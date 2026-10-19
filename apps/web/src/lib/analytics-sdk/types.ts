@@ -71,11 +71,20 @@ export interface Signal {
  * `signals` is optional because /regime returns SignalGroup summaries only;
  * /signals returns the same shape with `signals[]` populated.
  */
+/** Group status values, in one place for the type and the data guards. */
+export const SIGNAL_GROUP_STATUSES = ['CONSTRUCTIVE', 'MIXED', 'WEAK', 'UNAVAILABLE'] as const;
+export type SignalGroupStatus = (typeof SIGNAL_GROUP_STATUSES)[number];
+
 export interface SignalGroup {
   id: string;
   category: SignalCategory;
   title: string;
-  status: 'CONSTRUCTIVE' | 'MIXED' | 'WEAK';
+  /**
+   * UNAVAILABLE (2026-10-19): nothing in the group was evaluated (every signal
+   * UNAVAILABLE). Its points are 0 because there was no read, not because the
+   * read was weak; `generate.mjs` writes it from the same decision as `summary`.
+   */
+  status: SignalGroupStatus;
   points_awarded: number;
   max_points: number;
   summary: string;

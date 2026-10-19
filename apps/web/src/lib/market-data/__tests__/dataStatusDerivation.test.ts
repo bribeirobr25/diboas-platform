@@ -17,7 +17,7 @@ import {
   deriveDataStatus,
   SOURCE_REGISTRY,
 } from '../../../../scripts/market-refresh/lib/data-status.mjs';
-import { readSnapshots } from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
+import { readAttempts, readSnapshots } from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
 
 const MARKET_DIR = join(__dirname, '../../../../data/market/shared');
 const readJson = (f: string) => JSON.parse(readFileSync(join(MARKET_DIR, f), 'utf8'));
@@ -41,19 +41,29 @@ function mkComputed(computedAt: string, anchors: Partial<Record<string, string>>
     signals: Object.entries(merged).map(([id, anchor]) => ({ id, anchor })),
   };
 }
-const mkLedger = (anchorDates: string[]) => anchorDates.map((anchor) => ({ anchor, funds: {} }));
+// Complete records (2026-10-19): the panel counts and dates COMPLETE records
+// only, so a fixture record needs a share count and a price to count at all.
+const mkLedger = (anchorDates: string[]) =>
+  anchorDates.map((anchor) => ({
+    anchor,
+    funds: { IBIT: { shares: 1_000_000, price: 40, lastUpdated: null } },
+  }));
 const FIVE_SNAPSHOTS = ['2026-07-10', '2026-07-17', '2026-07-24', '2026-07-31', '2026-08-07'];
 const bySource = (ds: ReturnType<typeof deriveDataStatus>, name: string) =>
   ds.sources.find((s: { source: string }) => s.source.includes(name));
 
 describe('data_status golden reconstruction (Follow-up L closed)', () => {
   it('should reproduce the committed data-status.json exactly from computed.json + the ETF ledger', () => {
-    const derived = deriveDataStatus(readJson('computed.json'), readSnapshots());
+    // The generator's exact inputs, refused collection attempts included
+    // (2026-10-19): without them a week with a refused pull fails here.
+    const derived = deriveDataStatus(readJson('computed.json'), readSnapshots(), readAttempts());
     expect(derived).toEqual(stripAnnotations(readJson('data-status.json')));
   });
 
   it('should reproduce the committed regime.json#data_status identically (F-M6 by construction)', () => {
-    const derived = deriveDataStatus(readJson('computed.json'), readSnapshots());
+    // The generator's exact inputs, refused collection attempts included
+    // (2026-10-19): without them a week with a refused pull fails here.
+    const derived = deriveDataStatus(readJson('computed.json'), readSnapshots(), readAttempts());
     expect(derived).toEqual(stripAnnotations(readJson('regime.json').data_status));
   });
 
