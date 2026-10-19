@@ -24,6 +24,7 @@
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import type { SignalGroup } from '@/lib/analytics-sdk/types';
 import styles from './page.module.css';
+import { conditionWordSuffix } from '@/lib/market/presentationState';
 
 const COMPONENTS = [
   { id: 'MAC-01', key: 'dollar' },
@@ -131,10 +132,13 @@ export function StateViewSections({ viewSlug, signalGroups, t }: StateViewSectio
             const sig = macro.signals?.find((s) => s.id === id);
             if (!sig) return null;
             const fb = FALLBACKS[key];
+            // 2026-10-18: UNAVAILABLE has its own word, never the restrictive
+            // one (lib/market/presentationState.ts).
+            const suffix = conditionWordSuffix(sig.state);
             const stateWord =
-              sig.state === 'ACTIVE'
-                ? t(`conditions.${key}.active`, fb.active)
-                : t(`conditions.${key}.inactive`, fb.inactive);
+              suffix === 'unavailable'
+                ? t('conditions.unavailable', 'Not available')
+                : t(`conditions.${key}.${suffix}`, fb[suffix]);
             return (
               <details key={id} className={styles.conditionRow}>
                 <summary className={styles.conditionSummary}>

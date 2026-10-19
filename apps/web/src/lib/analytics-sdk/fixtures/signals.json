@@ -120,10 +120,10 @@
         {
           "id": "MAC-01",
           "title": {
-            "en": "DXY Weakness",
-            "pt-BR": "Fraqueza do DXY",
-            "es": "Debilidad del DXY",
-            "de": "Dollar-Schwäche (DXY)"
+            "en": "Broad Dollar Weakness",
+            "pt-BR": "Fraqueza do dólar (índice amplo)",
+            "es": "Debilidad del dólar (índice amplio)",
+            "de": "Dollar-Schwäche (breiter Index)"
           },
           "state": "INACTIVE",
           "points_awarded": 0,
@@ -158,10 +158,10 @@
         {
           "id": "MAC-03",
           "title": {
-            "en": "Global M2 Improving",
-            "pt-BR": "M2 global melhorando",
-            "es": "M2 global mejorando",
-            "de": "Globales M2 verbessert sich"
+            "en": "US M2 Improving",
+            "pt-BR": "M2 dos EUA melhorando",
+            "es": "M2 de EE. UU. mejorando",
+            "de": "US-Geldmenge M2 verbessert sich"
           },
           "state": "ACTIVE",
           "points_awarded": 1,

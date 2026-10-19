@@ -78,7 +78,7 @@ apps/web/data/market/shared/
 
 **State-grammar copy (`/market/backdrop`, 2026-08-24).** The backdrop lead is NOT `groups[].summary` (that one keeps its "(N of M points)" for the scored Bitcoin view). It is generated separately into `groups[macro_environment].state_view` from `apps/web/scripts/market-refresh/templates/state-beats.json`. **The beats report CHANGE, not level:** each condition selects a `moved*` or `hold*` variant by comparing its state to the PREVIOUS RUN DAY in `run-archive.jsonl`, and falls back to `hold` when there is no prior run. Never rewrite a beat to describe a level ("the dollar has slipped below its trend") — it would imply a recency the data does not have, every week. Never add a duration ("for six weeks"): the archive starts 2026-07-11, so any duration is a floor. Editorial overrides work here too, keyed `stateView.lead.<locale>` / `stateView.depth.<locale>`.
 
-**Reproducible compute helper:** `apps/web/scripts/data-fetchers/compute-regime.mjs` is the engineering-owned, doc-02-conformant compute path for the 11-signal registry. It pulls the underlying data (FRED, Yahoo, in-repo BTC monthlies), applies the strict-Friday weekly resampling convention (locked — never use intra-week values as "the latest weekly close"), enforces the §5.1 confirmed-candle rule on BTC monthly signals, and prints per-signal state + group totals + score. Run it before every refresh and copy the resulting state/points into `regime.json` + `signals.json`. ETF-01 is now auto-derived by the P4 pipeline from the Polygon shares-outstanding ledger (`apps/web/scripts/market-refresh/lib/etf-flows.mjs`), NOT a manual feed — it warms up over 5 weekly snapshots and stays UNAVAILABLE (not weak) until then. **Preferred path: run the full pipeline `apps/web/scripts/market-refresh/run.mjs` + `generate.mjs`, not this CLI-copy step** — the CLI remains for a quick manual score check only.
+**Reproducible compute helper:** `apps/web/scripts/data-fetchers/compute-regime.mjs` is the engineering-owned, doc-02-conformant compute path for the 11-signal registry. It pulls the underlying data (FRED, Yahoo, in-repo BTC monthlies), applies the strict-Friday weekly resampling convention (locked — never use intra-week values as "the latest weekly close"), enforces the §5.1 confirmed-candle rule on BTC monthly signals, and prints per-signal state + group totals + score. Run it before every refresh and copy the resulting state/points into `regime.json` + `signals.json`. ETF-01 is now auto-derived by the P4 pipeline from the Polygon shares-outstanding ledger (`apps/web/scripts/market-refresh/lib/etf-flows.mjs`), NOT a manual feed — it warms up over 5 weekly snapshots and stays UNAVAILABLE (not weak) until then. **Since 2026-10-19 ETF-01 is suspended** (UNAVAILABLE, 0 points) until an explicit founder decision; see §8 "ETF-01 suspension". **Preferred path: run the full pipeline `apps/web/scripts/market-refresh/run.mjs` + `generate.mjs`, not this CLI-copy step** — the CLI remains for a quick manual score check only.
 
 ### What each file drives on the rendered page
 
@@ -130,6 +130,7 @@ The iter-2 fixtures at `apps/web/src/lib/analytics-sdk/fixtures/` (including `re
 | `signal_groups`    | Array of 4 objects: BTC Structure (6 max pts), Macro Environment (3 max pts), Institutional Demand (2 max pts), Relative Strength (3 max pts) = 14 total. Each group has localized `title` + localized `summary`.                                                                                                                                                                                                                                                                                                                       |
 | `data_status`      | Per-source freshness — MUST mirror `data-status.json` exactly (same source set, same per-source entries, same `overall_confidence` / `last_successful_update_at` / `delayed_sources` / `unavailable_sources`). This is an audit gate: the embedded inline copy and the standalone file are the same contract surface served two ways. The only legal divergence is the `_comment` metadata key in `data-status.json` (no runtime presence). After editing, sanity-check with a JSON diff that the per-source arrays are byte-identical. |
 | `last_updated_at`  | ISO-8601 UTC timestamp. Must be within 14 days (staleness backstop — blocks market changes + the weekly run; warns elsewhere, see §3).                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `coverage`         | **Generator-owned — never hand-edit** (2026-10-18). `{ suspended: [{ signal_id, points, since }] }`, empty when nothing is suspended. Drives the reduced-coverage notes beside the score and the chart; `since` is the first archived run day computed under the suspension. See §8 "ETF-01 suspension".                                                                                                                                                                                                                                |
 
 ### `historical.json`
 
@@ -322,6 +323,49 @@ Default to the more conservative §10.1 path when in doubt — overclaiming "con
 ~~The deeper fix is the canonical Farside manual feed~~ — SUPERSEDED 2026-07-11 by the Polygon shares-outstanding route (P4); Farside is no longer needed.
 
 ---
+
+### ETF-01 suspension (2026-10-18) — what it is and what editors do
+
+**The rule.** ETF-01 (Institutional Demand, 2 points) is **suspended**: it is scored `UNAVAILABLE` with
+`values.variant: 'suspended'` and contributes **0 points**, through the engine's existing treatment of
+`UNAVAILABLE`. The constant and its record live in `apps/web/scripts/market-refresh/lib/etf-suspension.mjs`;
+`resolveEtfSignals()` applies it on every route, the manual fallback included.
+
+- **Reason.** The data route cannot support a weekly evaluation. For 10 of the 11 funds the Polygon/Massive
+  ticker-overview endpoint returns share counts that stay constant or move once a quarter (they match the
+  SEC report cover pages), and its documented contract carries no observation date for the count. In
+  practice ETF-01 was measuring one fund (IBIT), and the per-fund age guard could never fire.
+- **Decision and start.** Founder decision 2026-10-18; first cycle computed under it: **2026-10-19**.
+  Introduced on branch `fix/market-etf01-suspension-2026-10-19`, commit `5f90f386` (the squash-merge commit
+  on `main` supersedes this reference once the PR merges).
+- **End condition.** Only an **explicit founder decision**, made by changing `ETF01_SUSPENSION` in a reviewed
+  PR and backed by a data route that supports a weekly evaluation. A successful collection, a clean ledger or
+  a healthy flow window **never** reactivates it, and the tests assert exactly that.
+- **What does NOT change.** Methodology stays **v1.1.0**; weights, thresholds, bands and the 14-point scale are
+  unchanged and nothing is renormalised. Collection continues: the weekly snapshot is still appended to the
+  ledger. Earlier archive lines and published cycles keep the state they were computed with.
+
+**What readers see** (all generated, all four locales, no hand edit):
+
+| Surface                            | While suspended                                                                                                                                                                                                        |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ETF-01 signal sentence             | "ETF flows are not scored for now… a gap in our data, not a sign of outflows or weaker demand."                                                                                                                        |
+| Institutional Demand group         | "…not assessed while the ETF flow indicator is suspended… unavailable, not weak (0 of 2 points)."                                                                                                                      |
+| Plain read, on the cycle it STARTS | Opens by stating the suspension and the points it removed, then what the OTHER signals did against the previous score minus those points. It never calls the drop a market move. Later cycles use the ordinary opener. |
+| Beside the score and the chart     | A reduced-coverage note from `regime.coverage`; the chart note dates it from the first suspended run.                                                                                                                  |
+| Data sources panel                 | "Bitcoin ETF flows · Unavailable"; the row message says why and that collection does not reactivate it.                                                                                                                |
+| Confidence                         | At most **MODERATE** (one unavailable source, the existing rule). Every route to **LOW** is unchanged.                                                                                                                 |
+| Umbrella card                      | No week-over-week direction on the cycle the suspension starts.                                                                                                                                                        |
+
+**Memo rule while suspended.** The hand-written memo (`summary.<locale>.{detailed,short,key_*}`) must:
+
+- on the start cycle, separate the **data effect** (ETF-01's points removed) from what the other signals
+  actually did; never write that the score "fell" or the environment "weakened" because of the suspension;
+- never quote ETF flows as current institutional demand, and never list ETF-01 as a supportive factor or a
+  headwind (it is neither: it is unavailable);
+- keep every figure reconcilable with `computed.json` (`memoFigureReconciliation` still applies).
+
+**Never** hand-edit ETF-01's state, points or `regime.coverage`; regenerate through the pipeline.
 
 ## 9. What this doc deliberately does NOT cover
 

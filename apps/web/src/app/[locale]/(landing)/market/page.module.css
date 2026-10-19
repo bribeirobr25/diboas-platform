@@ -345,6 +345,15 @@
   max-width: 62ch;
   margin: 0;
 }
+/* 2026-10-18: reduced-coverage note (a suspended signal). Same voice as the
+   explainer; the hairline marks it as a note about the data, not the market. */
+.coverageNote {
+  color: var(--editorial-ink-soft);
+  max-width: 62ch;
+  margin: 0;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--editorial-line);
+}
 /* Shared chevron for details summaries (pure CSS, rotates on open). */
 .chevron {
   margin-left: auto;

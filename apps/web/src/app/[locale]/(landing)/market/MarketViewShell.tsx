@@ -59,6 +59,7 @@ import { StateViewSections } from './StateViewSections';
 import styles from './page.module.css';
 
 import { ANALYTICS_SITE_LIVE } from '@/lib/market/constants';
+import { coverageNotes } from '@/lib/market/presentationState';
 
 const ANALYTICS_API_URL = process.env.NEXT_PUBLIC_ANALYTICS_API_URL ?? '/_mock';
 
@@ -176,6 +177,24 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
   const signals = initialData.signals;
   const dataStatus = initialData.dataStatus;
   const methodology = initialData.methodology;
+  // 2026-10-18: reduced coverage while a signal is suspended (regime.coverage,
+  // generator-written). Read from the data, never inferred here, so the notes
+  // appear exactly on the cycles computed under the suspension.
+  const { score: coverageNote, chart: chartCoverageNote } = coverageNotes(
+    regime?.coverage,
+    regime?.max_score ?? 14,
+    locale,
+    {
+      score: t(
+        'dashboard.coverageNote',
+        'Reduced coverage: the ETF flow indicator is suspended because its data cannot be verified week by week. Its {points} points do not count, and the score is still read on the {max}-point scale. A score change caused by this is a change in our data, not a market move.'
+      ),
+      chart: t(
+        'dashboard.chartCoverageNote',
+        'From {date}, scores no longer count the suspended ETF flow indicator. A change at that point can combine the removal of its points with moves in the other signals.'
+      ),
+    }
+  );
   const productDisclaimer = initialData.productDisclaimer;
 
   return (
@@ -286,6 +305,11 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                     </div>
                     <div className={styles.scoreCopy}>
                       {regime.summary.plain && <CalmSummary data={regime.summary} length="plain" />}
+                      {coverageNote ? (
+                        <p className={styles.coverageNote} data-market-coverage-note>
+                          {coverageNote}
+                        </p>
+                      ) : null}
                     </div>
                   </div>
                   {/* View-voice wave (2026-08-14, founder feedback): the plain
@@ -372,6 +396,11 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                         regime: t('dashboard.historicalTableRegime', 'Regime'),
                       }}
                     />
+                    {chartCoverageNote ? (
+                      <p className={styles.coverageNote} data-market-chart-coverage-note>
+                        {chartCoverageNote}
+                      </p>
+                    ) : null}
                   </section>
                 </SectionErrorBoundary>
               )}

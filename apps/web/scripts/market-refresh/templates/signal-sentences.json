@@ -2,16 +2,16 @@
   "_comment": "P3 Stage-4 signal sentence templates — one per (signal × state) ×4 locales. Slots: {close} {ema20} {sma50} {gapAbs} (absolute % gap, no sign) {rsiCur} {rsiPrev} {stochK} {rsi} {roc12m} {momAbs} {ratio} {ratioEma} {monthName} (anchor month, localized) {positives} {snapshots} {warmupTarget}. Filled from computed.json values by generate.mjs; numbers arrive pre-formatted per locale. Voice: technical-but-calm memo register matching the existing signals.json corpus. CLO-reviewed as a finite set (founder GO 2026-07-11).",
   "BTC-01": {
     "ACTIVE": {
-      "en": "{monthName} close ${close} holds about {gapAbs}% above the 20-month EMA (${ema20}) — the intermediate-term structure remains intact.",
-      "pt-BR": "O fechamento de {monthName} em ${close} segue cerca de {gapAbs}% acima da EMA de 20 meses (${ema20}) — a estrutura de médio prazo permanece intacta.",
-      "es": "El cierre de {monthName} en ${close} se mantiene alrededor de un {gapAbs}% por encima de la EMA de 20 meses (${ema20}); la estructura de medio plazo sigue intacta.",
-      "de": "Der {monthName}-Schluss bei ${close} hält sich rund {gapAbs}% über dem 20-Monats-EMA (${ema20}) — die mittelfristige Struktur bleibt intakt."
+      "en": "{monthName} close ${close} is about {gapAbs}% above the 20-month EMA (${ema20}), so the close is above the intermediate-term average.",
+      "pt-BR": "O fechamento de {monthName} em ${close} está cerca de {gapAbs}% acima da EMA de 20 meses (${ema20}), então o fechamento está acima da média de médio prazo.",
+      "es": "El cierre de {monthName} en ${close} está alrededor de un {gapAbs}% por encima de la EMA de 20 meses (${ema20}), así que el cierre está por encima de la media de medio plazo.",
+      "de": "Der {monthName}-Schluss bei ${close} liegt rund {gapAbs}% über dem 20-Monats-EMA (${ema20}), der Schluss liegt also über dem mittelfristigen Durchschnitt."
     },
     "INACTIVE": {
-      "en": "{monthName} close ${close} sits about {gapAbs}% below the 20-month EMA (${ema20}) — the intermediate-term structure is broken.",
-      "pt-BR": "O fechamento de {monthName} em ${close} está cerca de {gapAbs}% abaixo da EMA de 20 meses (${ema20}) — a estrutura de médio prazo está rompida.",
-      "es": "El cierre de {monthName} en ${close} está alrededor de un {gapAbs}% por debajo de la EMA de 20 meses (${ema20}); la estructura de medio plazo está rota.",
-      "de": "Der {monthName}-Schluss bei ${close} liegt rund {gapAbs}% unter dem 20-Monats-EMA (${ema20}) — die mittelfristige Struktur ist gebrochen."
+      "en": "{monthName} close ${close} is about {gapAbs}% below the 20-month EMA (${ema20}), so the close is below the intermediate-term average.",
+      "pt-BR": "O fechamento de {monthName} em ${close} está cerca de {gapAbs}% abaixo da EMA de 20 meses (${ema20}), então o fechamento está abaixo da média de médio prazo.",
+      "es": "El cierre de {monthName} en ${close} está alrededor de un {gapAbs}% por debajo de la EMA de 20 meses (${ema20}), así que el cierre está por debajo de la media de medio plazo.",
+      "de": "Der {monthName}-Schluss bei ${close} liegt rund {gapAbs}% unter dem 20-Monats-EMA (${ema20}), der Schluss liegt also unter dem mittelfristigen Durchschnitt."
     }
   },
   "BTC-02": {
@@ -122,6 +122,12 @@
           "pt-BR": "Falta uma fotografia semanal no registro de fluxos de ETF: {gapDays} dias separam duas leituras consecutivas. Não é possível medir quatro semanas completas, então é pontuado como indisponível em vez de contar como uma semana. Volta a pontuar quando houver quatro intervalos semanais sem falhas registrados. Sem pontos em nenhuma direção.",
           "es": "Al registro de flujos de ETF le falta una instantánea semanal: {gapDays} días separan dos lecturas consecutivas. No se pueden medir cuatro semanas completas, así que se puntúa como no disponible en vez de contarlo como una semana. Vuelve a puntuar cuando haya cuatro intervalos semanales sin huecos registrados. Sin puntos en ningún sentido.",
           "de": "Im ETF-Fluss-Register fehlt eine wöchentliche Momentaufnahme: {gapDays} Tage liegen zwischen zwei Erfassungen in Folge. Vier volle Wochen lassen sich nicht messen, daher als nicht verfügbar gewertet, statt als eine Woche zu zählen. Es zählt wieder, sobald vier lückenlose Wochenabstände erfasst sind. So oder so keine Punkte."
+        },
+        "suspended": {
+          "en": "ETF flows are not scored for now: the share-count data available to us cannot be verified week by week, so this indicator adds no points. That is a gap in our data, not a sign of outflows or weaker demand.",
+          "pt-BR": "Os fluxos de ETF não estão sendo pontuados por enquanto: os dados de cotas disponíveis não podem ser verificados semana a semana, então este indicador não soma pontos. É uma lacuna nos nossos dados, não um sinal de saídas ou de demanda mais fraca.",
+          "es": "Por ahora, los flujos de ETF no se puntúan: los datos de participaciones disponibles no pueden verificarse semana a semana, así que este indicador no suma puntos. Es una carencia de nuestros datos, no una señal de salidas ni de menor demanda.",
+          "de": "ETF-Flüsse werden vorerst nicht bewertet: Die verfügbaren Anteilsdaten lassen sich nicht Woche für Woche prüfen, deshalb bringt dieser Indikator keine Punkte. Das ist eine Lücke in unseren Daten, kein Zeichen für Abflüsse oder schwächere Nachfrage."
         }
       }
     }

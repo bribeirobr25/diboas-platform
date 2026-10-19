@@ -25,8 +25,10 @@ export interface UmbrellaCardModel {
    *  omitted when fewer than two real snapshots exist. */
   direction?: UmbrellaDirection;
   /** State views: MAC component states in fixed component order
-   *  (dollar, rates, liquidity) — true = the supportive reading is ACTIVE. */
-  conditions?: { id: string; active: boolean }[];
+   *  (dollar, rates, liquidity) — true = the supportive reading is ACTIVE.
+   *  `available: false` = the condition could not be assessed (UNAVAILABLE),
+   *  which must never render as the restrictive word (2026-10-18). */
+  conditions?: { id: string; active: boolean; available: boolean }[];
   /** View-voice wave (2026-08-14, founder feedback): the card's PLAIN-language
    *  primary line — scored views take the first sentence of the grandmother
    *  `summary.plain`; state views take the macro group's generated summary.
@@ -68,7 +70,16 @@ export function umbrellaCardModel(
     let direction: UmbrellaDirection | undefined;
     if (real.length >= 2) {
       const [prev, last] = real.slice(-2);
-      direction = last.score > prev.score ? 'up' : last.score < prev.score ? 'down' : 'held';
+      // 2026-10-18: on the cycle a suspension STARTS, the two points are not
+      // comparable (one counts the suspended signal, one does not), so a drop
+      // would read as "eased this week" when nothing in the market moved. Show
+      // no direction that week; the scored view explains the change.
+      const startsHere = (data.regime?.coverage?.suspended ?? []).some(
+        (s) => s.since === last.date.slice(0, 10)
+      );
+      if (!startsHere) {
+        direction = last.score > prev.score ? 'up' : last.score < prev.score ? 'down' : 'held';
+      }
     }
     const plain = data.regime?.summary?.plain;
     return {
@@ -86,7 +97,9 @@ export function umbrellaCardModel(
   const signals = macro?.signals ?? [];
   const conditions = BACKDROP_COMPONENT_ORDER.flatMap((id) => {
     const sig = signals.find((s) => s.id === id);
-    return sig ? [{ id, active: sig.state === 'ACTIVE' }] : [];
+    return sig
+      ? [{ id, active: sig.state === 'ACTIVE', available: sig.state !== 'UNAVAILABLE' }]
+      : [];
   });
   if (conditions.length !== BACKDROP_COMPONENT_ORDER.length) {
     return { ...base, available: false };

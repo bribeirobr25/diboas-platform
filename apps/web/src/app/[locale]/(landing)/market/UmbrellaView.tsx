@@ -202,9 +202,14 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
                               {model.conditions
                                 .map((c) => {
                                   const key = CONDITION_LABEL_KEYS[c.id];
-                                  return c.active
-                                    ? t(`umbrella.conditions.${key}.active`, key)
-                                    : t(`umbrella.conditions.${key}.inactive`, key);
+                                  // 2026-10-18: UNAVAILABLE gets its own word,
+                                  // never the restrictive one.
+                                  const suffix = !c.available
+                                    ? 'unavailable'
+                                    : c.active
+                                      ? 'active'
+                                      : 'inactive';
+                                  return t(`umbrella.conditions.${key}.${suffix}`, key);
                                 })
                                 .join(' · ')}
                             </p>

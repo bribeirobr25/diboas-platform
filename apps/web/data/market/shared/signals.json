@@ -32,10 +32,10 @@
           "points_awarded": 2,
           "max_points": 2,
           "summary": {
-            "en": "September close $83,554 holds about 6% above the 20-month EMA ($78,978) — the intermediate-term structure remains intact.",
-            "pt-BR": "O fechamento de setembro em $83.554 segue cerca de 6% acima da EMA de 20 meses ($78.978) — a estrutura de médio prazo permanece intacta.",
-            "es": "El cierre de septiembre en $83.554 se mantiene alrededor de un 6% por encima de la EMA de 20 meses ($78.978); la estructura de medio plazo sigue intacta.",
-            "de": "Der September-Schluss bei $83.554 hält sich rund 6% über dem 20-Monats-EMA ($78.978) — die mittelfristige Struktur bleibt intakt."
+            "en": "September close $83,554 is about 6% above the 20-month EMA ($78,978), so the close is above the intermediate-term average.",
+            "pt-BR": "O fechamento de setembro em $83.554 está cerca de 6% acima da EMA de 20 meses ($78.978), então o fechamento está acima da média de médio prazo.",
+            "es": "El cierre de septiembre en $83.554 está alrededor de un 6% por encima de la EMA de 20 meses ($78.978), así que el cierre está por encima de la media de medio plazo.",
+            "de": "Der September-Schluss bei $83.554 liegt rund 6% über dem 20-Monats-EMA ($78.978), der Schluss liegt also über dem mittelfristigen Durchschnitt."
           },
           "last_updated_at": "2026-09-30T00:00:00Z"
         },
@@ -120,10 +120,10 @@
         {
           "id": "MAC-01",
           "title": {
-            "en": "DXY Weakness",
-            "pt-BR": "Fraqueza do DXY",
-            "es": "Debilidad del DXY",
-            "de": "Dollar-Schwäche (DXY)"
+            "en": "Broad Dollar Weakness",
+            "pt-BR": "Fraqueza do dólar (índice amplo)",
+            "es": "Debilidad del dólar (índice amplio)",
+            "de": "Dollar-Schwäche (breiter Index)"
           },
           "state": "INACTIVE",
           "points_awarded": 0,
@@ -158,10 +158,10 @@
         {
           "id": "MAC-03",
           "title": {
-            "en": "Global M2 Improving",
-            "pt-BR": "M2 global melhorando",
-            "es": "M2 global mejorando",
-            "de": "Globales M2 verbessert sich"
+            "en": "US M2 Improving",
+            "pt-BR": "M2 dos EUA melhorando",
+            "es": "M2 de EE. UU. mejorando",
+            "de": "US-Geldmenge M2 verbessert sich"
           },
           "state": "ACTIVE",
           "points_awarded": 1,

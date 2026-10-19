@@ -1,5 +1,5 @@
 {
-  "_comment": "Weekly lead-in for summary.plain (the grandmother layer). generate.mjs weeklyOpener() compares this week's score/band to the most recent prior snapshot in historical.json and prepends one of these, ahead of the transition-agnostic monthly 'standing' read. Slots: {score} {max} {prior} {band}. {band} = plain-language regime word (PLAIN_BAND in generate.mjs). Shown only when a genuine prior snapshot exists; the monthly read stands alone otherwise. Keep it a couple of words — the week is the 'what's new', the month is the substance.",
+  "_comment": "Weekly lead-in for summary.plain (the grandmother layer). generate.mjs weeklyOpener() compares this week's score to the most recent prior snapshot in historical.json and prepends one of these, ahead of the transition-agnostic monthly 'standing' read, which already names the band. Slots: {score} {max} {prior}, plus {points} for the suspension keys. Suspension keys (2026-10-18, lib/weekly-opener.mjs): on the cycle where the ETF-01 suspension starts, 'suspensionStart' (or 'suspensionStartNoPoints') states the data effect, then 'othersHeld'/'othersUp'/'othersDown' report the other signals against the prior score minus the removed points ({prior} is that comparable figure). Shown only when a genuine prior snapshot exists. Every key must exist in all four locales: generate.mjs throws on a missing one.",
   "held": {
     "en": "A steady week — still {score} of {max}.",
     "pt-BR": "Uma semana estável — ainda {score} de {max}.",
@@ -29,5 +29,35 @@
     "pt-BR": "Nesta semana a leitura desceu um nível, de {prior} para {score} de {max}.",
     "es": "Esta semana la lectura bajó un nivel, de {prior} a {score} de {max}.",
     "de": "Diese Woche rückte die Bewertung eine Stufe tiefer, von {prior} auf {score} von {max}."
+  },
+  "suspensionStart": {
+    "en": "From this update, the ETF flow indicator is suspended because its data cannot be verified week by week. Its {points} points no longer count, which is a change in our data, not in the market.",
+    "pt-BR": "A partir desta atualização, o indicador de fluxos de ETF está suspenso porque seus dados não podem ser verificados semana a semana. Os {points} pontos dele deixam de contar, o que é uma mudança nos nossos dados, não no mercado.",
+    "es": "Desde esta actualización, el indicador de flujos de ETF queda suspendido porque sus datos no pueden verificarse semana a semana. Sus {points} puntos dejan de contar, lo que es un cambio en nuestros datos, no en el mercado.",
+    "de": "Ab diesem Update ist der ETF-Fluss-Indikator ausgesetzt, weil sich seine Daten nicht Woche für Woche prüfen lassen. Seine {points} Punkte zählen nicht mehr. Das ist eine Änderung in unseren Daten, nicht im Markt."
+  },
+  "suspensionStartNoPoints": {
+    "en": "From this update, the ETF flow indicator is suspended because its data cannot be verified week by week. It was adding no points, so this does not move the score.",
+    "pt-BR": "A partir desta atualização, o indicador de fluxos de ETF está suspenso porque seus dados não podem ser verificados semana a semana. Ele não somava pontos, então isso não muda a pontuação.",
+    "es": "Desde esta actualización, el indicador de flujos de ETF queda suspendido porque sus datos no pueden verificarse semana a semana. No sumaba puntos, así que esto no cambia la puntuación.",
+    "de": "Ab diesem Update ist der ETF-Fluss-Indikator ausgesetzt, weil sich seine Daten nicht Woche für Woche prüfen lassen. Er brachte keine Punkte, daher ändert das den Wert nicht."
+  },
+  "othersHeld": {
+    "en": "The combined score of the other signals is unchanged, at {score} of {max}.",
+    "pt-BR": "A pontuação conjunta dos demais sinais ficou igual, em {score} de {max}.",
+    "es": "La puntuación conjunta de las demás señales no cambió: {score} de {max}.",
+    "de": "Der Gesamtwert der übrigen Signale ist unverändert, bei {score} von {max}."
+  },
+  "othersUp": {
+    "en": "Across the other signals, the score firmed from a comparable {prior} to {score} of {max}.",
+    "pt-BR": "Nos demais sinais, a pontuação subiu de um equivalente a {prior} para {score} de {max}.",
+    "es": "En las demás señales, la puntuación subió de un equivalente a {prior} a {score} de {max}.",
+    "de": "Bei den übrigen Signalen stieg der Wert von vergleichbaren {prior} auf {score} von {max}."
+  },
+  "othersDown": {
+    "en": "Across the other signals, the score eased from a comparable {prior} to {score} of {max}.",
+    "pt-BR": "Nos demais sinais, a pontuação caiu de um equivalente a {prior} para {score} de {max}.",
+    "es": "En las demás señales, la puntuación bajó de un equivalente a {prior} a {score} de {max}.",
+    "de": "Bei den übrigen Signalen sank der Wert von vergleichbaren {prior} auf {score} von {max}."
   }
 }

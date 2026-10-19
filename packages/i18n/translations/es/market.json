@@ -40,7 +40,7 @@
       "UNAVAILABLE": "No disponible"
     },
     "methodologyTitle": "Cómo se calcula esto",
-    "methodologyLead": "Cada señal, umbral y peso está documentado en diBoaS Analytics, que todavía está en beta y se abrirá al público con la metodología completa.",
+    "methodologyLead": "Todavía no se ha publicado un documento completo de metodología. Hasta entonces, esta página describe cada señal y cuántos puntos puede sumar.",
     "methodologyLinkLabel": "Leer la metodología",
     "poweredByLabel": "Con la tecnología de",
     "poweredByProduct": "diBoaS Analytics",
@@ -49,13 +49,15 @@
     "sources": {
       "btc": "Precio de Bitcoin",
       "us10y": "Rendimiento del Tesoro de EE. UU. a 10 años",
-      "dxy": "Índice del dólar estadounidense",
-      "m2": "Oferta monetaria (M2)",
+      "dxy": "Índice amplio del dólar estadounidense",
+      "m2": "Oferta monetaria de EE. UU. (M2)",
       "nasdaq": "Nasdaq Composite",
       "gold": "Precio del oro",
       "btcEtf": "Flujos de ETF de Bitcoin"
     },
-    "memoToggle": "Leer el memorando completo de la semana"
+    "memoToggle": "Leer el memorando completo de la semana",
+    "coverageNote": "Cobertura reducida: el indicador de flujos de ETF está suspendido porque sus datos no pueden verificarse semana a semana. Sus {points} puntos no cuentan, y la puntuación se sigue leyendo en la escala de {max} puntos. Un cambio de puntuación causado por esto es un cambio en nuestros datos, no un movimiento del mercado.",
+    "chartCoverageNote": "Desde el {date}, las puntuaciones dejan de contar el indicador de flujos de ETF, que está suspendido. Un cambio en ese punto puede combinar la retirada de sus puntos con movimientos en las demás señales."
   },
   "cta": {
     "cadence": "Actualizado cada semana",
@@ -68,7 +70,7 @@
   },
   "fallback": {
     "outageTitle": "Datos en vivo temporalmente no disponibles",
-    "outageBody": "Estamos restableciendo la conexión con nuestras fuentes de datos. La metodología y el histórico permanecen disponibles.",
+    "outageBody": "Estamos restableciendo la conexión con nuestras fuentes de datos. El histórico sigue disponible.",
     "partialOutageTitle": "Algunas fuentes de datos están retrasadas",
     "partialOutageBody": "La mayoría de las señales están actualizadas. Una o más fuentes upstream se están poniendo al día; la confianza puede ser menor de lo habitual."
   },
@@ -94,15 +96,18 @@
     "conditions": {
       "dollar": {
         "active": "Dólar cediendo",
-        "inactive": "Dólar firme"
+        "inactive": "Dólar firme",
+        "unavailable": "Dólar no disponible"
       },
       "rates": {
         "active": "Rendimientos a la baja",
-        "inactive": "Rendimientos firmes"
+        "inactive": "Rendimientos firmes",
+        "unavailable": "Rendimientos no disponibles"
       },
       "liquidity": {
         "active": "Liquidez en expansión",
-        "inactive": "Liquidez en contracción"
+        "inactive": "Liquidez en contracción",
+        "unavailable": "Liquidez no disponible"
       }
     }
   },

@@ -76,6 +76,12 @@
       "pt-BR": "A demanda institucional não pôde ser medida neste ciclo — a leitura de fluxos de ETF está indisponível, não fraca ({points} de {max} pontos).",
       "es": "La demanda institucional no pudo medirse en este ciclo: la lectura de flujos de ETF no está disponible, no es débil ({points} de {max} puntos).",
       "de": "Die institutionelle Nachfrage konnte in diesem Zyklus nicht gemessen werden — die ETF-Flussdaten sind nicht verfügbar, nicht schwach ({points} von {max} Punkten)."
+    },
+    "suspended": {
+      "en": "Institutional demand is not assessed while the ETF flow indicator is suspended, because its data cannot be verified week by week. The read is unavailable, not weak ({points} of {max} points).",
+      "pt-BR": "A demanda institucional não é avaliada enquanto o indicador de fluxos de ETF estiver suspenso, porque seus dados não podem ser verificados semana a semana. A leitura está indisponível, não fraca ({points} de {max} pontos).",
+      "es": "La demanda institucional no se evalúa mientras el indicador de flujos de ETF esté suspendido, porque sus datos no pueden verificarse semana a semana. La lectura no está disponible, no es débil ({points} de {max} puntos).",
+      "de": "Die institutionelle Nachfrage wird nicht bewertet, solange der ETF-Fluss-Indikator ausgesetzt ist, weil sich seine Daten nicht Woche für Woche prüfen lassen. Die Werte sind nicht verfügbar, nicht schwach ({points} von {max} Punkten)."
     }
   },
   "relative_strength": {

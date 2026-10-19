@@ -80,7 +80,8 @@ export const SOURCE_REGISTRY = [
 
 const WEEKLY_DESC = {
   'FRED:DGS10': 'US 10-year constant-maturity yield.',
-  'FRED:DTWEXBGS': 'Broad dollar index (DXY proxy).',
+  'FRED:DTWEXBGS':
+    'Broad trade-weighted U.S. dollar index (FRED DTWEXBGS), a different index from the ICE DXY.',
   'FRED:NASDAQCOM': 'Nasdaq Composite close.',
   'Yahoo:GC=F':
     'Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29).',
@@ -121,10 +122,10 @@ function btcMonthlyEntry(source, anchorStr, run) {
   const message =
     status === 'FRESH'
       ? `${base} Last confirmed monthly close ${monthName(confirmedEnd)} ${confirmedEnd.getUTCDate()}, ` +
-        `${confirmedEnd.getUTCFullYear()} per doc 02 §5.1. Next update due at the ` +
+        `${confirmedEnd.getUTCFullYear()}. Next update due at the ` +
         `${monthName(nextEnd)} ${nextEnd.getUTCDate()} monthly close.`
       : `${base} The ${monthName(d(expectedYM))} close is confirmable but not yet appended ` +
-        `(--append-btc due); signals still anchor ${monthName(confirmedEnd)} per doc 02 §5.1.`;
+        `(--append-btc due); signals still anchor ${monthName(confirmedEnd)}.`;
   return {
     source,
     status,
@@ -188,6 +189,30 @@ function etfLedgerEntry(source, signal, snapshots, run) {
   // The gap is read off the SIGNAL rather than recomputed here, so the two
   // surfaces cannot disagree by construction — the panel reports the same fact
   // the engine acted on.
+  // 2026-10-18 suspension (lib/etf-suspension.mjs). Read off the SIGNAL, like
+  // the gap below, so the panel and the signal cannot disagree. UNAVAILABLE on
+  // purpose: it is the existing precedent (5.301) for an ETF-01 that cannot be
+  // scored, and it caps the headline confidence at MODERATE through the shared
+  // rule (one unavailable source) while leaving every route to LOW intact (a
+  // second unavailable source, or any source past its stale_after). The
+  // stale_after below still applies, so a ledger that stops being collected
+  // degrades exactly as it would without the suspension.
+  if (signal?.values?.variant === 'suspended') {
+    return {
+      source,
+      status: 'UNAVAILABLE',
+      last_updated_at: iso(anchor),
+      expected_next_update_at: iso(expectedNext),
+      stale_after: iso(staleAfter),
+      delayed_after: null,
+      message:
+        `${base} ETF-01 is suspended from the ${signal.values.suspendedSince} cycle: the ` +
+        `share-count route cannot support a weekly evaluation, so the signal is scored ` +
+        `UNAVAILABLE (0 points), not weak. Weekly snapshots are still collected ` +
+        `(${count} on record, latest anchor ${anchorStr}); a successful collection does not ` +
+        `reactivate the signal.`,
+    };
+  }
   if (signal?.values?.variant === 'gapped') {
     return {
       source,
@@ -211,7 +236,7 @@ function etfLedgerEntry(source, signal, snapshots, run) {
     const scorable = addDays(anchor, 7 * (WARMUP_SNAPSHOTS - count) + 3);
     message =
       `${base} Warming up: ${count} of ${WARMUP_SNAPSHOTS} weekly snapshots recorded; ` +
-      `4 weekly flows need ${WARMUP_SNAPSHOTS} snapshots. UNAVAILABLE (not weak) per doc 02 §10.1 — ` +
+      `4 weekly flows need ${WARMUP_SNAPSHOTS} snapshots. UNAVAILABLE (not weak), ` +
       `no guessed backfill; first scorable evaluation expected ~${ymd(scorable)}.`;
   } else if (run > staleAfter) {
     status = 'DELAYED';
@@ -220,7 +245,7 @@ function etfLedgerEntry(source, signal, snapshots, run) {
     status = 'FRESH';
     message =
       `${base} Ledger live: ${count} weekly snapshots; ETF-01 scored from the trailing ` +
-      `4 weekly flows per doc 02 §8.3. Weekly anchor ${anchorStr}.`;
+      `4 weekly flows. Weekly anchor ${anchorStr}.`;
   }
   return {
     source,

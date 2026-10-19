@@ -25,7 +25,8 @@
       "title": "Liquidity",
       "active": "Expanding",
       "inactive": "Contracting"
-    }
+    },
+    "unavailable": "Not available"
   },
   "explainers": {
     "dollar": "The broad dollar index tracks the US dollar against major currencies. A softer dollar tends to loosen global financial conditions; a firm one keeps them tight.",

@@ -25,7 +25,8 @@
       "title": "A liquidez",
       "active": "Em expansão",
       "inactive": "Em contração"
-    }
+    },
+    "unavailable": "Indisponível"
   },
   "explainers": {
     "dollar": "O índice amplo do dólar acompanha o dólar americano frente às principais moedas. Um dólar mais fraco tende a afrouxar as condições financeiras globais; um dólar firme as mantém apertadas.",
