@@ -159,7 +159,19 @@ async function maybeSnapshotEtfShares() {
       { kind: 'refused' }
     );
   }
-  etfWeekRecorded = true; // recorded now, or already recorded (both complete)
+  // `already-recorded` only says a record with this anchor exists (another
+  // writer appended it during the fetch): trust it only if it is COMPLETE.
+  if (res.outcome !== 'recorded') {
+    const now = readSnapshots().find((snap) => snap.anchor === anchor);
+    if (!now || !isCompleteSnapshot(now)) {
+      throw new EtfSnapshotNotRecorded(
+        `[etf-snapshot] ${anchor} was written by another run while this one collected, and that ` +
+          `record is not complete; it is kept as written and not collected again.`,
+        { kind: 'incompleteRecord' }
+      );
+    }
+  }
+  etfWeekRecorded = true; // this week's record is in the ledger and complete
   console.log(
     res.outcome === 'recorded'
       ? `[etf-snapshot] recorded ${anchor} (${ledgerCoverage(readSnapshots()).complete}/${WARMUP_SNAPSHOTS} complete toward ETF-01 warm-up)`

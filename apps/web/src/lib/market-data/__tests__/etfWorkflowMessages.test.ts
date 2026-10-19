@@ -61,6 +61,15 @@ const FUNDS = [
   'BTCW',
 ];
 
+/** A named step's whole YAML block, from its `- name:` to the next step. */
+function stepBlock(name: string): string {
+  const start = WORKFLOW.indexOf(`- name: ${name}`);
+  expect(start, `step "${name}" not found`).toBeGreaterThan(-1);
+  const rest = WORKFLOW.slice(start);
+  const next = rest.slice(1).search(/\n {6}- (name|uses):/);
+  return next === -1 ? rest : rest.slice(0, next + 1);
+}
+
 /** The `run: |` block of a named step, dedented. */
 function runScript(name: string): string {
   const start = WORKFLOW.indexOf(`- name: ${name}`);
@@ -261,9 +270,9 @@ describe('the weekly workflow ETF wording, executed', () => {
   });
 
   it('keeps the core refresh unconditional on the ETF step (the other signals are processed)', () => {
-    const core = WORKFLOW.slice(WORKFLOW.indexOf('- name: Refresh pipeline'));
-    const head = core.slice(0, core.indexOf('run:'));
-    expect(head).not.toMatch(/\bif:/);
+    // The WHOLE step block: YAML key order is free, so an `if:` written after
+    // `run:` must be seen too.
+    expect(stepBlock('Refresh pipeline (fetch → gate → compute → archive)')).not.toMatch(/\bif:/);
   });
 
   it('suspended + an incomplete pull: refused, kept as evidence, retry stated, no consequence promised', () => {
@@ -379,9 +388,14 @@ describe('the weekly workflow ETF wording, executed', () => {
   it('keeps a failure of the core refresh step blocking the workflow', () => {
     // The ETF step is fail-open; the core step must not be. Executed: its own
     // script with the pipeline command failing, under GitHub's shell flags.
-    const core = WORKFLOW.slice(WORKFLOW.indexOf('- name: Refresh pipeline'));
-    const head = core.slice(0, core.indexOf('run:'));
-    expect(head).not.toMatch(/continue-on-error/);
+    // Neither the step (whole block, any key order) nor the job may turn its
+    // failure into a pass.
+    expect(stepBlock('Refresh pipeline (fetch → gate → compute → archive)')).not.toMatch(
+      /continue-on-error/
+    );
+    const job = WORKFLOW.slice(WORKFLOW.indexOf('\njobs:'), WORKFLOW.indexOf('\n    steps:'));
+    expect(job).toContain('  refresh:');
+    expect(job).not.toMatch(/continue-on-error/);
     const script = runScript('Refresh pipeline (fetch → gate → compute → archive)');
     expect(script).toContain('node apps/web/scripts/market-refresh/run.mjs --append-btc');
     expect(script).not.toMatch(/\|\| *true|\|\| *:|set \+e/);
