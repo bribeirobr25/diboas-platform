@@ -42,6 +42,16 @@ export const ETF_SNAPSHOT_ATTEMPTS = path.join(
   'apps/web/data/market/shared/etf-snapshot-attempts.jsonl'
 );
 
+/**
+ * Exit codes of `run.mjs --etf-snapshot` when the week is not added to the
+ * ledger (2026-10-19). The weekly workflow maps them to the wording of its log
+ * annotation and PR body, which differs by case: a REFUSED pull can still be
+ * collected again that week; a week that already has an INCOMPLETE record is
+ * preserved and not collected again. Outside Node's reserved codes; any other
+ * non-zero exit is an error before anything was recorded.
+ */
+export const ETF_SNAPSHOT_EXIT = Object.freeze({ refused: 20, incompleteRecord: 21 });
+
 export const STALE_FUND_DAYS = 10;
 // A "weekly aggregate" must actually span a week (PENDING_ALL 5.301). Anchors
 // are confirmed Friday closes, so a clean cadence is exactly 7 days; ±1 admits

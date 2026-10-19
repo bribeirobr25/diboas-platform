@@ -48,6 +48,7 @@ import {
   recordEtfSnapshot,
   resolveEtfSignals,
   WARMUP_SNAPSHOTS,
+  ETF_SNAPSHOT_EXIT,
 } from './lib/etf-flows.mjs';
 import { archiveSignals, archiveLine, publishRun } from './lib/archive.mjs';
 import { isCompleteSnapshot, ledgerCoverage } from './lib/etf-coverage.mjs';
@@ -95,10 +96,10 @@ async function maybeAppendBtc() {
  */
 /** The week's ETF snapshot was not added to the ledger (2026-10-19). */
 class EtfSnapshotNotRecorded extends Error {
-  /** @param {string} message @param {{evidenceWritten: boolean}} opts */
-  constructor(message, { evidenceWritten }) {
+  /** @param {string} message @param {{kind: 'refused' | 'incompleteRecord'}} opts */
+  constructor(message, { kind }) {
     super(message);
-    this.evidenceWritten = evidenceWritten;
+    this.kind = kind;
   }
 }
 
@@ -120,7 +121,7 @@ async function maybeSnapshotEtfShares() {
     throw new EtfSnapshotNotRecorded(
       `[etf-snapshot] ${anchor} already has an INCOMPLETE ledger record, kept as written and ` +
         `not collected again; this week has no complete record.`,
-      { evidenceWritten: false }
+      { kind: 'incompleteRecord' }
     );
   }
   console.log(`[etf-snapshot] fetching ${SPOT_BTC_ETFS.length} funds (paced, ~2.4 min)…`);
@@ -151,7 +152,7 @@ async function maybeSnapshotEtfShares() {
         `for ${res.missing.shares.length} fund(s), no usable price for ${res.missing.price.length}). ` +
         `The attempt is kept in etf-snapshot-attempts.jsonl; a later complete collection for ` +
         `this week is still accepted.`,
-      { evidenceWritten: true }
+      { kind: 'refused' }
     );
   }
   console.log(
@@ -333,13 +334,15 @@ async function main() {
 // Why, and the two footguns in the obvious implementation: lib/invocation.mjs.
 if (isDirectInvocation(import.meta.url)) {
   main().catch((e) => {
-    const head =
-      e instanceof EtfSnapshotNotRecorded
-        ? e.evidenceWritten
-          ? 'ETF snapshot NOT added to the ledger — only the attempt evidence was written'
-          : 'ETF snapshot NOT added to the ledger — nothing written beyond the log'
-        : 'market-refresh failed closed — nothing written beyond the log';
+    // A week not added to the ledger exits with its own code, so the weekly
+    // workflow can word the two cases differently (ETF_SNAPSHOT_EXIT).
+    const notRecorded = e instanceof EtfSnapshotNotRecorded;
+    const head = !notRecorded
+      ? 'market-refresh failed closed — nothing written beyond the log'
+      : e.kind === 'refused'
+        ? 'ETF snapshot NOT added to the ledger — only the attempt evidence was written'
+        : 'ETF snapshot NOT added to the ledger — nothing written beyond the log';
     console.error(`\n✖ ${head}:\n  ${e.message}`);
-    process.exit(1);
+    process.exit(notRecorded ? ETF_SNAPSHOT_EXIT[e.kind] : 1);
   });
 }

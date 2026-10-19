@@ -125,18 +125,39 @@ jobs:
           # falls back to the neutral wording below, and the step stays fail-open.
           suspended=$(node --input-type=module -e "import { ETF01_SUSPENSION as s } from './apps/web/scripts/market-refresh/lib/etf-suspension.mjs'; console.log(s.active)") || suspended=unknown
           echo "suspended=$suspended" >> "$GITHUB_OUTPUT"
-          if node apps/web/scripts/market-refresh/run.mjs --etf-snapshot --no-archive; then
+          # 2026-10-19: the exit code says WHY nothing was recorded
+          # (lib/etf-flows.mjs ETF_SNAPSHOT_EXIT): 20 = an incomplete pull was
+          # refused (that week can still be collected); 21 = the week already has
+          # an incomplete ledger record (preserved, not collected again).
+          rc=0
+          node apps/web/scripts/market-refresh/run.mjs --etf-snapshot --no-archive || rc=$?
+          case "$rc" in
+            0) outcome=ok ;;
+            20) outcome=refused ;;
+            21) outcome=incomplete-record ;;
+            *) outcome=error ;;
+          esac
+          echo "outcome=$outcome" >> "$GITHUB_OUTPUT"
+          if [ "$outcome" = 'ok' ]; then
             echo 'status=ok' >> "$GITHUB_OUTPUT"
-          else
-            echo 'status=failed' >> "$GITHUB_OUTPUT"
-            if [ "$suspended" = 'true' ]; then
-              echo "::warning::ETF-01 collection did not record a complete snapshot this week (incomplete data is kept in etf-snapshot-attempts.jsonl; an error leaves no record). ETF-01 is suspended, so the score and the other signals are unaffected. Check POLYGON_API_KEY and the provider."
-            elif [ "$suspended" != 'false' ]; then
-              echo "::warning::ETF-01 collection did not record a complete snapshot this week, and the suspension state could not be read. The core refresh continues. Check POLYGON_API_KEY and the provider."
-            else
-              echo "::warning::ETF-01 snapshot FAILED this week. The core refresh continues, but next week's ETF-01 will be gapped (UNAVAILABLE) unless a complete snapshot is recorded before Friday. Check POLYGON_API_KEY and the provider."
-            fi
+            exit 0
           fi
+          echo 'status=failed' >> "$GITHUB_OUTPUT"
+          # One note, used verbatim by the annotation and the PR body, so the two
+          # cannot disagree. It states only what this run established.
+          case "$outcome" in
+            refused) what="The provider returned incomplete data: the attempt is kept in etf-snapshot-attempts.jsonl and was not added to the ledger. A later complete collection for this week can still be accepted." ;;
+            incomplete-record) what="This week already has an incomplete record in the ledger, written before the completeness rule. It is preserved as written, and the current behaviour does not collect this week again." ;;
+            *) what="The collection stopped before anything was recorded (see this step's log). A later complete collection for this week can still be accepted." ;;
+          esac
+          case "$suspended" in
+            true) effect="ETF-01 is suspended, so the score and the other signals are unaffected." ;;
+            false) effect="The core refresh and the other signals continue. Without a complete snapshot for this week, the engine scores ETF-01 UNAVAILABLE (gapped) while that gap is inside its trailing window." ;;
+            *) effect="The suspension state could not be read in this run. The core refresh and the other signals continue." ;;
+          esac
+          note="ETF-01 collection did not record a complete snapshot this week. $what $effect"
+          echo "note=$note" >> "$GITHUB_OUTPUT"
+          echo "::warning::$note"
 
       - name: Refresh pipeline (fetch → gate → compute → archive)
         run: node apps/web/scripts/market-refresh/run.mjs --append-btc
@@ -207,6 +228,11 @@ jobs:
       # every change in the working tree, so a body file inside the repo would
       # be committed into the refresh PR.
       - name: Compose PR body
+        env:
+          # The ETF step's own note (2026-10-19), passed as data, never spliced
+          # into the script: the PR body repeats exactly what the log says.
+          ETF_STATUS: ${{ steps.etf.outputs.status }}
+          ETF_NOTE: ${{ steps.etf.outputs.note }}
         run: |
           BODY="$RUNNER_TEMP/pr-body.md"
           {
@@ -247,24 +273,12 @@ jobs:
               echo '- Memo figure reconciliation: green (memo agrees with this cycle'"'"'s engine values)'
             } >> "$BODY"
           fi
-          if [ '${{ steps.etf.outputs.status }}' = 'failed' ] && [ '${{ steps.etf.outputs.suspended }}' = 'true' ]; then
+          if [ "$ETF_STATUS" = 'failed' ]; then
             {
               echo
               echo '## ETF-01 collection did not record a complete snapshot this week'
               echo
-              echo 'ETF-01 is suspended, so the score and the other signals are unaffected.'
-              echo 'If the provider returned incomplete data, the attempt is kept in'
-              echo '`etf-snapshot-attempts.jsonl` and the ledger is unchanged; an error leaves no record.'
-              echo 'A later complete collection for the same week is still accepted.'
-            } >> "$BODY"
-          elif [ '${{ steps.etf.outputs.status }}' = 'failed' ]; then
-            {
-              echo
-              echo '## ⚠️ ETF-01 snapshot failed this week'
-              echo
-              echo 'No complete shares-outstanding snapshot was recorded. A missed week is not known'
-              echo 'to be reconstructible (the route gives no observation date).'
-              echo 'Re-run the workflow **before Friday** or next week'"'"'s ETF-01 publishes UNAVAILABLE (gapped).'
+              echo "$ETF_NOTE"
             } >> "$BODY"
           fi
           {

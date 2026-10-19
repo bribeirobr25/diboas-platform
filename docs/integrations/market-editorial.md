@@ -13,8 +13,11 @@
 > `gh workflow run market-refresh-weekly.yml --ref main`. **Never close the open PR unmerged to get past the
 > guard** — that throws away a week of ETF collection that is not known to be reconstructible. The PR body now lists **every** stale memo
 > figure plus any "latest spot-ETF week" finding (`5.467`/`5.469`); fix them all in four locales, not only the
-> first. If the body warns _"ETF-01 snapshot failed this week"_, re-run before Friday or next week's ETF-01
-> publishes as gapped. **If the PR's `quality` check fails on anything OTHER than `memoFigureReconciliation`**
+> first. If the body has the section _"ETF-01 collection did not record a complete snapshot this week"_, read
+> its note (the same text as the run's log annotation): it says which case happened (an incomplete pull refused
+> and kept as evidence, which that week can still replace; a week already recorded as incomplete, preserved and
+> not collected again; or an error) and what the run established, and it promises nothing about later
+> scoring. **If the PR's `quality` check fails on anything OTHER than `memoFigureReconciliation`**
 > (2026-10-06, `5.478`): a test that reads the monthly series the pipeline writes is pinning a moving value.
 > It is declared in `releaseGateBoundary.test.ts#PIPELINE_DATA_READERS`; fix the test to assert a rule or a
 > value derived from the same series (never widen a band), and confirm with

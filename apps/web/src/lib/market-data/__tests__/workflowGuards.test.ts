@@ -51,7 +51,9 @@ describe('weekly refresh — no silent failure, no racing runs (5.465)', () => {
     expect(etf).not.toContain('|| true');
     expect(etf).toContain('status=failed');
     expect(etf).toContain('::warning::');
-    expect(weekly).toContain("steps.etf.outputs.status }}' = 'failed'"); // repeated in the PR body
+    // Repeated in the PR body, from the step's own outputs (passed as env).
+    expect(weekly).toContain('ETF_STATUS: ${{ steps.etf.outputs.status }}');
+    expect(weekly).toContain(`if [ "$ETF_STATUS" = 'failed' ]; then`);
   });
 
   // 2026-10-19: while ETF-01 is suspended a failed or refused collection must
@@ -63,14 +65,14 @@ describe('weekly refresh — no silent failure, no racing runs (5.465)', () => {
     expect(etf).toContain('ETF01_SUSPENSION');
     expect(etf).toContain('suspended=$suspended');
     expect(etf).toMatch(/ETF-01 is suspended, so the score and the other signals are unaffected/);
-    expect(weekly).toContain("steps.etf.outputs.suspended }}' = 'true'");
+    expect(weekly).toContain('ETF_NOTE: ${{ steps.etf.outputs.note }}');
     expect(weekly).not.toMatch(/cannot be back-?filled|non-backfillable/i);
   });
 
   it('should never let the suspension lookup abort the fail-open ETF step (bash -e)', () => {
     const etf = stepText(weekly, 'ETF-01 weekly snapshot (optional leg)');
     expect(etf).toMatch(/suspended=\$\(node [^\n]*\) \|\| suspended=unknown/);
-    expect(etf).toContain('elif [ "$suspended" != \'false\' ]');
+    expect(etf).toMatch(/\*\) effect="The suspension state could not be read in this run\./);
   });
 
   // The workflow guard above scans only the YAML; the same unproven claim also
