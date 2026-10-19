@@ -69,6 +69,9 @@ function runScript(name: string): string {
   const next = rest.slice(1).search(/\n {6}- (name|uses):/);
   const step = next === -1 ? rest : rest.slice(0, next + 1);
   const lines = step.split('\n');
+  // A one-line `run: <command>` (the core step) as well as a `run: |` block.
+  const inline = lines.map((l) => /^\s*run: (?!\|)(.+)$/.exec(l)).find(Boolean);
+  if (inline) return inline[1];
   const at = lines.findIndex((l) => /^\s*run: \|\s*$/.test(l));
   expect(at, `step "${name}" has no run block`).toBeGreaterThan(-1);
   const indent = lines[at].search(/\S/) + 2;
@@ -234,7 +237,14 @@ function runWorkflow(c: Case) {
 const UNPROVEN =
   /before Friday|re-run|publishes UNAVAILABLE|will be gapped|cannot be back-?filled/i;
 const RETRY = 'A later complete collection for this week can still be accepted.';
-const ETF_HEADING = '## ETF-01 collection did not record a complete snapshot this week';
+/** The title for outcomes that ESTABLISH that no complete snapshot was recorded (20, 21). */
+const NOT_RECORDED_TITLE = 'ETF-01 collection did not record a complete snapshot this week';
+const ERROR_TITLE = 'ETF-01 collection step ended with an error';
+/** Any ETF section heading the PR body can carry. */
+const ETF_HEADING = '## ETF-01 collection';
+/** A claim that nothing was recorded: never allowed when the outcome is unknown. */
+const CLAIMS_NOTHING_RECORDED =
+  /did not record|no (complete )?snapshot (was )?recorded|nothing (was )?recorded|before anything was recorded|not added to the ledger/i;
 /** The PR body's ETF section only: the rest (memo, override instructions) is not this rule's. */
 function etfSection(body: string): string {
   const at = body.indexOf(ETF_HEADING);
@@ -281,7 +291,8 @@ describe('the weekly workflow ETF wording, executed', () => {
     const r = runWorkflow({ now: '2026-10-26T06:20:00Z', breakSuspensionLookup: true });
     expect(r.step.status).toBe(0);
     expect(r.outputs).toMatchObject({ suspended: 'unknown', outcome: 'refused', status: 'failed' });
-    expect(r.outputs.note).toContain('did not record a complete snapshot this week');
+    expect(r.outputs.title).toBe(NOT_RECORDED_TITLE);
+    expect(etfSection(r.body)).toMatch(new RegExp(`^## ${NOT_RECORDED_TITLE}\n`));
     expect(r.outputs.note).toContain(
       'The suspension state could not be read in this run. The core refresh and the other signals continue.'
     );
@@ -348,12 +359,37 @@ describe('the weekly workflow ETF wording, executed', () => {
     expect(r.attempts).toEqual([]);
   });
 
-  it('an error before the outcome is known: neutral, no claim about what was recorded, no retry promised', () => {
+  it('a generic error: title and note neutral in the log AND the PR body, never "nothing recorded"', () => {
     const r = runWorkflow({ now: '2026-10-26T06:20:00Z', snapshotExit: 1 });
     expect(r.step.status).toBe(0);
-    expect(r.outputs).toMatchObject({ outcome: 'error', status: 'failed' });
-    expect(r.outputs.note).toContain('what it recorded, if anything, is not established here');
-    expect(etfSection(r.body)).not.toMatch(/before anything was recorded|can still be accepted/i);
+    expect(r.outputs).toMatchObject({ outcome: 'error', status: 'failed', title: ERROR_TITLE });
+    const note =
+      `${ERROR_TITLE}. Whether this week's snapshot was recorded is not established by this run ` +
+      `(see this step's log). ETF-01 is suspended, so the score and the other signals are unaffected.`;
+    expect(r.outputs.note).toBe(note);
+    // The full message, in the log and in the PR body, title included.
+    expect(r.log).toContain(`::warning::${note}`);
+    expect(etfSection(r.body)).toBe(`## ${ERROR_TITLE}\n\n${note}\n\n`);
+    expect(r.log).not.toMatch(CLAIMS_NOTHING_RECORDED);
+    expect(etfSection(r.body)).not.toMatch(CLAIMS_NOTHING_RECORDED);
+    expect(etfSection(r.body)).not.toMatch(/can still be accepted/i);
     expect(etfSection(r.body)).not.toMatch(UNPROVEN);
+  });
+
+  it('keeps a failure of the core refresh step blocking the workflow', () => {
+    // The ETF step is fail-open; the core step must not be. Executed: its own
+    // script with the pipeline command failing, under GitHub's shell flags.
+    const core = WORKFLOW.slice(WORKFLOW.indexOf('- name: Refresh pipeline'));
+    const head = core.slice(0, core.indexOf('run:'));
+    expect(head).not.toMatch(/continue-on-error/);
+    const script = runScript('Refresh pipeline (fetch → gate → compute → archive)');
+    expect(script).toContain('node apps/web/scripts/market-refresh/run.mjs --append-btc');
+    expect(script).not.toMatch(/\|\| *true|\|\| *:|set \+e/);
+    const r = bash(
+      script.replace('node apps/web/scripts/market-refresh/run.mjs --append-btc', '(exit 1)'),
+      os.tmpdir(),
+      {}
+    );
+    expect(r.status).not.toBe(0);
   });
 });

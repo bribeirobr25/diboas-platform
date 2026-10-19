@@ -151,17 +151,27 @@ jobs:
           echo 'status=failed' >> "$GITHUB_OUTPUT"
           # One note, used verbatim by the annotation and the PR body, so the two
           # cannot disagree. It states only what this run established.
+          # The title states only what the outcome establishes: "no complete
+          # snapshot recorded" is true for 20 and 21, and NOT established for a
+          # generic error (2026-10-19).
           case "$outcome" in
-            refused) what="The provider returned incomplete data: the attempt is kept in etf-snapshot-attempts.jsonl and was not added to the ledger. A later complete collection for this week can still be accepted." ;;
-            incomplete-record) what="This week already has an incomplete record in the ledger, written before the completeness rule. It is preserved as written, and the current behaviour does not collect this week again." ;;
-            *) what="The step stopped with an error (see this step's log); what it recorded, if anything, is not established here." ;;
+            refused)
+              title="ETF-01 collection did not record a complete snapshot this week"
+              what="The provider returned incomplete data: the attempt is kept in etf-snapshot-attempts.jsonl and was not added to the ledger. A later complete collection for this week can still be accepted." ;;
+            incomplete-record)
+              title="ETF-01 collection did not record a complete snapshot this week"
+              what="This week already has an incomplete record in the ledger, written before the completeness rule. It is preserved as written, and the current behaviour does not collect this week again." ;;
+            *)
+              title="ETF-01 collection step ended with an error"
+              what="Whether this week's snapshot was recorded is not established by this run (see this step's log)." ;;
           esac
           case "$suspended" in
             true) effect="ETF-01 is suspended, so the score and the other signals are unaffected." ;;
             false) effect="The core refresh and the other signals continue. ETF-01 is scored from complete records only." ;;
             *) effect="The suspension state could not be read in this run. The core refresh and the other signals continue." ;;
           esac
-          note="ETF-01 collection did not record a complete snapshot this week. $what $effect"
+          note="$title. $what $effect"
+          echo "title=$title" >> "$GITHUB_OUTPUT"
           echo "note=$note" >> "$GITHUB_OUTPUT"
           echo "::warning::$note"
 
@@ -238,6 +248,7 @@ jobs:
           # The ETF step's own note (2026-10-19), passed as data, never spliced
           # into the script: the PR body repeats exactly what the log says.
           ETF_STATUS: ${{ steps.etf.outputs.status }}
+          ETF_TITLE: ${{ steps.etf.outputs.title }}
           ETF_NOTE: ${{ steps.etf.outputs.note }}
         run: |
           BODY="$RUNNER_TEMP/pr-body.md"
@@ -282,7 +293,7 @@ jobs:
           if [ "$ETF_STATUS" = 'failed' ]; then
             {
               echo
-              echo '## ETF-01 collection did not record a complete snapshot this week'
+              echo "## $ETF_TITLE"
               echo
               echo "$ETF_NOTE"
             } >> "$BODY"
