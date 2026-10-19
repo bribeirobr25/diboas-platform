@@ -72,7 +72,7 @@ import { readArchiveRows, runDayIndex } from './lib/archive.mjs';
 import { fill, groupStatus, groupSummary } from './lib/group-summaries.mjs';
 import { activeOverrides } from './lib/editorial-overrides.mjs';
 import { deriveDataStatus, DATA_STATUS_COMMENT } from './lib/data-status.mjs';
-import { readSnapshots } from './lib/etf-flows.mjs';
+import { readAttempts, readSnapshots } from './lib/etf-flows.mjs';
 import { priorRunSignals, composeStateLead, composeStateDepth } from './lib/state-lead.mjs';
 import { selectSignalTemplate } from './lib/template-select.mjs';
 import { planWeeklyOpener } from './lib/weekly-opener.mjs';
@@ -628,7 +628,7 @@ async function patchEditorial(gen, write) {
   // ── data_status (B3, 2026-08-11 — closes Follow-up L): ONE derivation
   //    written to BOTH panels, so the F-M6 mirror holds by construction and
   //    the --check gate makes a hand-edited panel un-mergeable. ─────────────
-  const derivedStatus = deriveDataStatus(computed, readSnapshots());
+  const derivedStatus = deriveDataStatus(computed, readSnapshots(), readAttempts());
   if (JSON.stringify(regime.data_status) !== JSON.stringify(derivedStatus)) {
     drift.push('regime.data_status');
     regime.data_status = derivedStatus;

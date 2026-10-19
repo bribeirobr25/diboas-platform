@@ -19,8 +19,10 @@
  * renormalisation happens anywhere.
  *
  * WHAT IT DOES NOT DO.
- *   * It does not stop collection. The weekly snapshot keeps being appended to
- *     the ledger, so the evidence keeps accumulating for a later decision.
+ *   * It does not stop collection. A collection is still attempted every week;
+ *     a COMPLETE pull is appended to the ledger, and since 2026-10-19 an
+ *     incomplete one is refused as ledger data and kept as evidence in
+ *     `etf-snapshot-attempts.jsonl` (`etf-flows.mjs#recordEtfSnapshot`).
  *   * It does not end by itself. A successful collection, a clean ledger or a
  *     healthy flow window never reactivates the signal. Reactivation is an
  *     explicit founder decision, made by changing this file in a reviewed PR,
@@ -29,6 +31,7 @@
  *     the state they were computed with.
  */
 import { WARMUP_SNAPSHOTS } from './regime-engine.mjs';
+import { ledgerCoverage } from './etf-coverage.mjs';
 
 export const ETF01_SUSPENSION = Object.freeze({
   active: true,
@@ -58,6 +61,10 @@ export const ETF01_SUSPENSION = Object.freeze({
  */
 export function suspendedEtfSignal(snapshots) {
   const count = snapshots.length;
+  // 2026-10-19: records and complete records are counted apart. A complete
+  // record is not a "usable week": completeness does not show that a share
+  // count is current, which is the reason for the suspension.
+  const cov = ledgerCoverage(snapshots);
   return {
     id: 'ETF-01',
     state: 'UNAVAILABLE',
@@ -65,10 +72,12 @@ export function suspendedEtfSignal(snapshots) {
     detail:
       `ETF-01 suspended since the ${ETF01_SUSPENSION.firstCycle} cycle (decision ` +
       `${ETF01_SUSPENSION.decidedOn}): the share-count route cannot support a weekly ` +
-      `evaluation. Scored unavailable (0 points), not weak. Collection continues ` +
-      `(${count} weekly snapshots on record); only an explicit decision reactivates it.`,
+      `evaluation. Scored unavailable (0 points), not weak. Collection is still attempted ` +
+      `weekly (${cov.records} records, ${cov.complete} complete); only an explicit decision ` +
+      `reactivates it.`,
     values: {
       snapshots: count,
+      completeRecords: cov.complete,
       warmupTarget: WARMUP_SNAPSHOTS,
       variant: 'suspended',
       suspendedSince: ETF01_SUSPENSION.firstCycle,

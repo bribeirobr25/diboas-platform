@@ -34,6 +34,7 @@
 
 import { expectedConfirmedMonthYM, MONTH_APPEND_GRACE_DAYS } from './regime-engine.mjs';
 import { WARMUP_SNAPSHOTS } from './etf-flows.mjs';
+import { ledgerCoverage } from './etf-coverage.mjs';
 
 const DAY_MS = 86400000;
 const MONTHS_EN =
@@ -168,10 +169,25 @@ function m2Entry(source, anchorStr, run) {
   };
 }
 
-/** @param signal the ETF-01 signal RECORD (not its id) — see deriveDataStatus. */
-function etfLedgerEntry(source, signal, snapshots, run) {
-  const count = snapshots.length;
-  const anchorStr = count ? snapshots[count - 1].anchor : ymd(run);
+/**
+ * The ETF row's dates (2026-10-19) describe the latest COMPLETE ledger record,
+ * by its conventional Friday anchor: `last_updated_at` is that anchor,
+ * `expected_next_update_at` the next Friday after it, `stale_after` three weeks
+ * after it. They are not observation dates (the route provides none for the
+ * share counts) and not collection times. An incomplete record or a refused
+ * attempt does not move them, so a failing collection cannot make the source
+ * look updated: the row ages, and the confidence rule acts on it unchanged.
+ *
+ * @param signal the ETF-01 signal RECORD (not its id) — see deriveDataStatus.
+ * @param attempts refused collection attempts (etf-snapshot-attempts.jsonl)
+ */
+function etfLedgerEntry(source, signal, snapshots, run, attempts = []) {
+  const cov = ledgerCoverage(snapshots);
+  const count = cov.complete;
+  // No complete record at all: date the row by the ledger's FIRST record, so
+  // it ages like any failing collection. Today's date is only for an empty
+  // ledger (nothing collected yet), as before.
+  const anchorStr = cov.latestCompleteAnchor ?? snapshots[0]?.anchor ?? ymd(run);
   const anchor = d(anchorStr);
   const expectedNext = addDays(anchor, 7);
   const staleAfter = addDays(anchor, 21);
@@ -208,9 +224,8 @@ function etfLedgerEntry(source, signal, snapshots, run) {
       message:
         `${base} ETF-01 is suspended from the ${signal.values.suspendedSince} cycle: the ` +
         `share-count route cannot support a weekly evaluation, so the signal is scored ` +
-        `UNAVAILABLE (0 points), not weak. Weekly snapshots are still collected ` +
-        `(${count} on record, latest anchor ${anchorStr}); a successful collection does not ` +
-        `reactivate the signal.`,
+        `UNAVAILABLE (0 points), not weak. ${ledgerSentence(cov, attempts)} A successful ` +
+        `collection does not reactivate the signal.`,
     };
   }
   if (signal?.values?.variant === 'gapped') {
@@ -262,11 +277,46 @@ function etfLedgerEntry(source, signal, snapshots, run) {
 }
 
 /**
+ * What the ETF ledger holds, said plainly (2026-10-19). Records, complete
+ * records and the latest refused attempt are separate facts; a complete record
+ * is never described as a usable week, because completeness does not show
+ * that a share count is current.
+ */
+function ledgerSentence(cov, attempts) {
+  const parts = [
+    `Collection is still attempted weekly. Ledger: ${cov.records} records, ${cov.complete} ` +
+      `complete (a share count and a price for every fund); completeness does not show ` +
+      `that the share counts are current, and their observation dates are not provided.`,
+  ];
+  if (cov.latestRecordAnchor && !cov.latestRecordComplete) {
+    parts.push(`The latest record (anchor ${cov.latestRecordAnchor}) is incomplete.`);
+  }
+  parts.push(
+    cov.latestCompleteAnchor
+      ? `The latest complete record is anchored ${cov.latestCompleteAnchor}.`
+      : 'No complete record yet.'
+  );
+  const refused = attempts
+    .filter((a) => a.outcome === 'refused-incomplete' && typeof a.anchor === 'string')
+    .filter((a) => a.anchor > (cov.latestRecordAnchor ?? ''))
+    .sort((a, b) => (a.anchor < b.anchor ? -1 : a.anchor > b.anchor ? 1 : 0));
+  const last = refused[refused.length - 1];
+  if (last) {
+    parts.push(
+      `The latest collection attempt (anchor ${last.anchor}, ${String(last.attempted_at).slice(0, 10)}) ` +
+        `returned incomplete data and was not added to the ledger; it is kept as evidence.`
+    );
+  }
+  return parts.join(' ');
+}
+
+/**
  * @param computed  parsed computed.json (anchors + computed_at)
  * @param etfSnapshots  parsed etf-shares-weekly.jsonl rows
+ * @param etfAttempts  parsed etf-snapshot-attempts.jsonl rows (refused collections)
  * @returns the canonical data_status object (no `_`-annotations)
  */
-export function deriveDataStatus(computed, etfSnapshots) {
+export function deriveDataStatus(computed, etfSnapshots, etfAttempts = []) {
   const run = new Date(computed.computed_at);
   const anchorOf = Object.fromEntries(computed.signals.map((s) => [s.id, s.anchor]));
   // The registry's `signal` is an ID, not a record. The ETF row needs the
@@ -277,7 +327,7 @@ export function deriveDataStatus(computed, etfSnapshots) {
     if (r.kind === 'weekly-friday') return weeklyEntry(r.source, anchorOf[r.signal], run);
     if (r.kind === 'monthly-close') return btcMonthlyEntry(r.source, anchorOf[r.signal], run);
     if (r.kind === 'monthly-print') return m2Entry(r.source, anchorOf[r.signal], run);
-    return etfLedgerEntry(r.source, signalOf[r.signal], etfSnapshots, run);
+    return etfLedgerEntry(r.source, signalOf[r.signal], etfSnapshots, run, etfAttempts);
   });
   const delayed = sources.filter((s) => s.status === 'DELAYED').map((s) => s.source);
   const unavailable = sources.filter((s) => s.status === 'UNAVAILABLE').map((s) => s.source);

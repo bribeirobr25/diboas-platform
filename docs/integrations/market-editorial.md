@@ -7,14 +7,19 @@
 > **Weekly review checklist additions (2026-08-19):** (1) **The analyst memo (`summary.detailed`) and `key_supportive_factors`/`key_headwinds` are the LAST hand-editorial fields — the pipeline never regenerates them.** Every weekly review updates their cycle-dependent clauses, ESPECIALLY for any signal whose STATE changed this cycle (the 2026-08-17 lesson: the first hands-free cycle carried a stale "ETF unavailable" memo clause against a scored 2/2 group; 5.99 tracks template-generating these clauses). (1b) **A drifted memo no longer blocks the PR (2026-08-31, 5.151).** The memo gate used to sit in the bot's pre-flight, so a cycle whose figures had moved killed the job and opened **nothing**. Now the PR always opens when the DATA is sound; if the memo is stale it arrives titled **"MEMO REWRITE REQUIRED"**, labelled `memo-rewrite-required`, with the orphaned figures quoted in the body — and its CI is red until a human updates the four editorial fields ×4 locales on the branch. Red CI on that PR is the gate working, not a flake. (2) **Unreviewed-Monday policy = AUTO-HOLD (founder-ratified 2026-08-19):** if no one reviews/merges the bot PR, it simply waits — the page keeps serving the last cycle with visible dates and an honestly aging freshness panel (14-day staleness gate backstops). No auto-publish. This is the chosen policy, not an accident.
 > **⭐ MERGE THE WEEKLY PR BEFORE THE NEXT MONDAY (2026-09-29, `5.464`).** The workflow now **refuses to run
 > while a refresh PR is still open** (its first step): the PR action rebuilds `editorial/market-refresh-auto`
-> from `main`, and an unmerged week's ETF snapshot can never be re-fetched (the provider reports shares
-> outstanding _now_). If a Monday run fails with _"The previous weekly refresh PR is still open"_, that is the
+> from `main`, and an unmerged week's ETF collection is not known to be reconstructible (the route gives no
+> observation date). If a Monday run fails with _"The previous weekly refresh PR is still open"_, that is the
 > guard working: rewrite that PR's memo if required, **merge it**, then re-run
 > `gh workflow run market-refresh-weekly.yml --ref main`. **Never close the open PR unmerged to get past the
-> guard** — that throws away a week of non-backfillable data. The PR body now lists **every** stale memo
+> guard** — that throws away a week of ETF collection that is not known to be reconstructible. The PR body now lists **every** stale memo
 > figure plus any "latest spot-ETF week" finding (`5.467`/`5.469`); fix them all in four locales, not only the
-> first. If the body warns _"ETF-01 snapshot failed this week"_, re-run before Friday or next week's ETF-01
-> publishes as gapped. **If the PR's `quality` check fails on anything OTHER than `memoFigureReconciliation`**
+> first. If the body has an ETF-01 collection section, read its title and note (the same text as the run's log
+> annotation). _"ETF-01 collection did not record a complete snapshot this week"_ is used only when that is
+> established: an incomplete pull refused and kept as evidence (that week can still be collected), or a week
+> already recorded as incomplete (preserved, not collected again). _"ETF-01 collection step ended with an
+> error"_ means the run did not establish whether the week was recorded. No note promises anything about later
+> scoring. A week recorded before a later failure in the same
+> step gets no section, only a log notice. **If the PR's `quality` check fails on anything OTHER than `memoFigureReconciliation`**
 > (2026-10-06, `5.478`): a test that reads the monthly series the pipeline writes is pinning a moving value.
 > It is declared in `releaseGateBoundary.test.ts#PIPELINE_DATA_READERS`; fix the test to assert a rule or a
 > value derived from the same series (never widen a band), and confirm with
@@ -342,8 +347,18 @@ Default to the more conservative §10.1 path when in doubt — overclaiming "con
   PR and backed by a data route that supports a weekly evaluation. A successful collection, a clean ledger or
   a healthy flow window **never** reactivates it, and the tests assert exactly that.
 - **What does NOT change.** Methodology stays **v1.1.0**; weights, thresholds, bands and the 14-point scale are
-  unchanged and nothing is renormalised. Collection continues: the weekly snapshot is still appended to the
-  ledger. Earlier archive lines and published cycles keep the state they were computed with.
+  unchanged and nothing is renormalised. Collection is still attempted weekly. Earlier archive lines and
+  published cycles keep the state they were computed with.
+- **Complete records only (2026-10-19).** A collection enters `etf-shares-weekly.jsonl` only when every fund
+  has a share count and a price. An incomplete pull (the 2026-10-19 run returned prices and no share counts)
+  is refused as ledger data and kept, with what came back, in `etf-snapshot-attempts.jsonl`; the ledger is
+  untouched and the same week can still be collected. The record anchored 2026-10-16, written before this
+  rule, stays as it is: it is never filled in, deleted or treated as a week or a zero flow. The panel row
+  counts records and complete records apart, and its dates (`last_updated_at`, `expected_next_update_at`,
+  `stale_after`) follow the latest COMPLETE record's conventional Friday anchor; they are not observation
+  dates (the route provides none) and not collection times. A failing collection therefore lets the row age,
+  and the confidence rule applies unchanged: LOW once it passes `stale_after`. Completeness is not
+  currentness: a complete record is never described as a usable week.
 
 **What readers see** (all generated, all four locales, no hand edit):
 
