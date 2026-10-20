@@ -76,6 +76,7 @@ async function maybeAppendBtc() {
   const verifier = await fetchBtcMonthCloseVerifier(expectedYm);
   const divergencePct = assertBtcCloseVerified(expectedYm, bar.close, verifier.price);
   const row = appendBtcMonth(bar);
+  written.push(`monthlyPrices.json (BTC ${expectedYm} candle)`);
   console.log(
     `[append-btc] appended ${expectedYm} close ${row.close} ` +
       `(Yahoo vs CoinGecko ${verifier.price.toFixed(2)} — divergence ${divergencePct.toFixed(3)}% ≤ ${BTC_CLOSE_TOLERANCE_PCT}%)`
@@ -99,6 +100,9 @@ class EtfSnapshotNotRecorded extends Error {
 
 /** Set once this week's COMPLETE snapshot is in the ledger (recorded now or earlier). */
 let etfWeekRecorded = false;
+
+/** Files this run has already written, so a later failure never claims "nothing written". */
+const written = [];
 
 async function maybeSnapshotEtfShares() {
   // Anchor = the most recent past Friday (strict-Friday spirit; the snapshot
@@ -321,11 +325,42 @@ async function main() {
     computedText: JSON.stringify(computed, null, 2) + '\n',
     archivePath: ARCHIVE_PATH,
     archiveText,
-    writeFile: writeFileAtomic,
-    appendFile: appendJsonlLine,
+    writeFile: (p, t) => {
+      writeFileAtomic(p, t);
+      written.push(path.relative(REPO_ROOT, p));
+    },
+    appendFile: (p, t) => {
+      appendJsonlLine(p, t);
+      written.push(path.relative(REPO_ROOT, p));
+    },
   });
   console.log(`  Wrote ${path.relative(REPO_ROOT, COMPUTED_PATH)}`);
   if (archiveText) console.log(`  Archived run → ${path.relative(REPO_ROOT, ARCHIVE_PATH)}\n`);
+}
+
+/**
+ * The first line of a failed run's report. It states only what this run
+ * established: refusal evidence, a recorded ETF week, or the files already
+ * written before the failure (2026-10-20: a failure after the BTC append or
+ * after `computed.json` used to say "nothing written beyond the log").
+ *
+ * @param {{notRecorded: boolean, kind?: string, etfWeekRecorded: boolean, written: string[]}} state
+ */
+export function failureHeadline({ notRecorded, kind, etfWeekRecorded, written }) {
+  if (notRecorded) {
+    return kind === 'refused'
+      ? 'ETF snapshot NOT added to the ledger — only the attempt evidence was written'
+      : 'ETF snapshot NOT added to the ledger — nothing written beyond the log';
+  }
+  const files = written.length
+    ? ` Already written by this run: ${written.join(', ')}. Review them before committing anything.`
+    : '';
+  if (etfWeekRecorded) {
+    return `market-refresh failed closed AFTER this week’s ETF snapshot was recorded — the ledger line stands.${files}`;
+  }
+  return files
+    ? `market-refresh failed closed AFTER writing files.${files}`
+    : 'market-refresh failed closed — nothing written beyond the log';
 }
 
 // Run ONLY when invoked directly: importing a writing script must be a no-op.
@@ -335,13 +370,7 @@ if (isDirectInvocation(import.meta.url)) {
     // A week not added to the ledger exits with its own code, so the weekly
     // workflow can word the two cases differently (ETF_SNAPSHOT_EXIT).
     const notRecorded = e instanceof EtfSnapshotNotRecorded;
-    const head = notRecorded
-      ? e.kind === 'refused'
-        ? 'ETF snapshot NOT added to the ledger — only the attempt evidence was written'
-        : 'ETF snapshot NOT added to the ledger — nothing written beyond the log'
-      : etfWeekRecorded
-        ? 'market-refresh failed closed AFTER this week’s ETF snapshot was recorded — the ledger line stands'
-        : 'market-refresh failed closed — nothing written beyond the log';
+    const head = failureHeadline({ notRecorded, kind: e.kind, etfWeekRecorded, written });
     console.error(`\n✖ ${head}:\n  ${e.message}`);
     const code = notRecorded
       ? (ETF_SNAPSHOT_EXIT[e.kind] ?? 1)

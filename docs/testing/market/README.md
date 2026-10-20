@@ -26,7 +26,7 @@ no novo `main`: 73 casos, dos quais 66 satisfazem os contratos e sete continuam
 reproduzindo defeitos. O modo padrão mostra 73 aprovações do runner porque usa
 `it.fails` nesses sete; o modo estrito mostra 66 aprovados e sete falhas, saída 1.
 
-> **Atualização 2026-10-20 (LEDGER-APPEND-1):** K01 e N01 foram corrigidos por `appendJsonlLine` e convertidos em testes normais; restam cinco `it.fails` (N02, N03, K03, K04, K05). Os números acima descrevem a rodada de auditoria original e não foram reescritos.
+> **Atualização 2026-10-20 (LEDGER-APPEND-1):** K01 e N01 foram corrigidos por `appendJsonlLine`; sua regressão canônica fica em `src/lib/market-data/__tests__/jsonlAppend.test.ts` (incluído em `pnpm market:audit`), sem cópia equivalente no arquivo experimental; restam cinco `it.fails` (N02, N03, K03, K04, K05). Os números acima descrevem a rodada de auditoria original e não foram reescritos.
 > Não há casos ignorados. K02/K06/K07/K08 são cobertos pelos testes normais do #713,
 > sem manter cópias equivalentes. Consulte a atualização da matriz para o mapa.
 

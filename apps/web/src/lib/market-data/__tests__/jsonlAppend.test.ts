@@ -25,6 +25,7 @@ import {
   recordEtfSnapshot,
 } from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
 import { publishRun } from '../../../../scripts/market-refresh/lib/archive.mjs';
+import { failureHeadline } from '../../../../scripts/market-refresh/run.mjs';
 
 const dirs: string[] = [];
 afterEach(() => {
@@ -198,14 +199,10 @@ describe('the run archive uses it through publishRun', () => {
 });
 
 describe('every pipeline append goes through appendJsonlLine', () => {
-  // The simulator is exempt: it appends into data files it saved and restores
-  // byte-for-byte after each scenario (its own restore checks), so a torn tail
-  // there cannot outlive the run. Any other raw append is a regression.
+  // No exemption: the simulator appends to the real data files during a
+  // rehearsal, so a torn tail there must not swallow its rows either.
   const SCRIPTS = path.join(__dirname, '../../../../scripts');
-  const ALLOWED = new Set([
-    'market-refresh/lib/jsonl.mjs',
-    'market-refresh/simulate-next-week.mjs',
-  ]);
+  const ALLOWED = new Set(['market-refresh/lib/jsonl.mjs']);
   const files = (dir: string): string[] =>
     fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
       const p = path.join(dir, e.name);
@@ -222,10 +219,63 @@ describe('every pipeline append goes through appendJsonlLine', () => {
     expect(offenders).toEqual([]);
   });
 
-  it('should wire the run archive and the manual --archive to the helper', () => {
-    const run = fs.readFileSync(path.join(SCRIPTS, 'market-refresh/run.mjs'), 'utf8');
-    const manual = fs.readFileSync(path.join(SCRIPTS, 'data-fetchers/compute-regime.mjs'), 'utf8');
-    expect(run).toMatch(/appendFile:\s*appendJsonlLine\b/);
-    expect(manual).toMatch(/appendJsonlLine\(ARCHIVE_PATH,/);
+  it('should wire the run archive, the manual --archive and the simulator to the helper', () => {
+    const read = (rel: string) => fs.readFileSync(path.join(SCRIPTS, rel), 'utf8');
+    expect(read('market-refresh/run.mjs')).toMatch(
+      /appendFile: \(p, t\) => \{\s*appendJsonlLine\(p, t\);/
+    );
+    expect(read('data-fetchers/compute-regime.mjs')).toMatch(/appendJsonlLine\(ARCHIVE_PATH,/);
+    const sim = read('market-refresh/simulate-next-week.mjs');
+    expect(sim).toMatch(/appendJsonlLine\(p\('run-archive\.jsonl'\),/);
+    // and it reads the archive tolerantly (a torn line must not crash the rehearsal)
+    expect(sim).not.toMatch(/run-archive\.jsonl'\), 'utf8'\)\.trim\(\)\.split/);
+    expect(sim).toMatch(
+      /readJsonlTolerant\(fs\.readFileSync\(path\.join\(SHARED, 'run-archive\.jsonl'\)/
+    );
+  });
+});
+
+describe('a failed run reports what it already wrote (honest failure headline)', () => {
+  const base = { notRecorded: false, etfWeekRecorded: false };
+
+  it('should say nothing was written only when nothing was', () => {
+    expect(failureHeadline({ ...base, written: [] })).toBe(
+      'market-refresh failed closed — nothing written beyond the log'
+    );
+  });
+
+  it('should name the BTC candle and computed.json when they were written before the failure', () => {
+    const head = failureHeadline({
+      ...base,
+      written: ['monthlyPrices.json (BTC 2026-10 candle)', 'computed.json'],
+    });
+    expect(head).not.toContain('nothing written');
+    expect(head).toContain('monthlyPrices.json (BTC 2026-10 candle)');
+    expect(head).toContain('computed.json');
+  });
+
+  it('should keep the recorded-week statement and add the written files', () => {
+    const head = failureHeadline({ ...base, etfWeekRecorded: true, written: ['x.json'] });
+    expect(head).toContain('ETF snapshot was recorded');
+    expect(head).toContain('x.json');
+  });
+
+  it('should keep the ETF refusal wording unchanged', () => {
+    expect(failureHeadline({ ...base, notRecorded: true, kind: 'refused', written: [] })).toBe(
+      'ETF snapshot NOT added to the ledger — only the attempt evidence was written'
+    );
+    expect(
+      failureHeadline({ ...base, notRecorded: true, kind: 'incompleteRecord', written: [] })
+    ).toBe('ETF snapshot NOT added to the ledger — nothing written beyond the log');
+  });
+
+  it('should record every write run.mjs makes (BTC append, computed.json, archive)', () => {
+    const run = fs.readFileSync(
+      path.join(__dirname, '../../../../scripts/market-refresh/run.mjs'),
+      'utf8'
+    );
+    expect(run).toMatch(/appendBtcMonth\(bar\);\s*\n\s*written\.push\(/);
+    expect(run).toMatch(/writeFileAtomic\(p, t\);\s*\n\s*written\.push\(/);
+    expect(run).toMatch(/appendJsonlLine\(p, t\);\s*\n\s*written\.push\(/);
   });
 });
