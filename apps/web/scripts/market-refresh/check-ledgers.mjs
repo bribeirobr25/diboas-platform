@@ -17,6 +17,10 @@
  *   * the added text ends with a newline (a fragment never does);
  *   * the first added row did not fuse with an old torn tail.
  *
+ * A ledger listed in HEAD whose committed text cannot be read is an ERROR
+ * (unverified), never a new file: only a ledger absent from the HEAD inventory
+ * is compared with an empty baseline.
+ *
  * WHAT IT DOES. It never edits a ledger. It writes `ok|damaged|error` to the
  * `--status` file and a plain note to the `--note` file; the workflow puts that
  * status in the PR title and the note in its body, and the owner decides. It
@@ -86,17 +90,19 @@ function preview(text) {
   return JSON.stringify(text.length > 60 ? `${text.slice(0, 60)}…` : text);
 }
 
+/**
+ * The committed text of a ledger the HEAD inventory LISTS. A failed read
+ * throws: only a file proven absent from HEAD may be compared with an empty
+ * baseline (2026-10-21, Codex audit: a catch-all here turned an unreadable
+ * baseline into "a new ledger", and every existing row into a valid append).
+ */
 function headText(relPath) {
-  try {
-    return execFileSync('git', ['show', `HEAD:${relPath}`], {
-      cwd: REPO_ROOT,
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'ignore'],
-      maxBuffer: 64 * 1024 * 1024,
-    });
-  } catch {
-    return ''; // not tracked at HEAD: a new ledger, compared with empty
-  }
+  return execFileSync('git', ['show', `HEAD:${relPath}`], {
+    cwd: REPO_ROOT,
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+    maxBuffer: 64 * 1024 * 1024,
+  });
 }
 
 function ledgersAtHead() {
@@ -123,14 +129,16 @@ function ledgersNow() {
 
 /** Check every ledger; returns the report the CLI prints and records. */
 export function checkAllLedgers() {
-  const files = [...new Set([...ledgersAtHead(), ...ledgersNow()])].sort();
+  const atHead = new Set(ledgersAtHead()); // throws when HEAD cannot be listed
+  const files = [...new Set([...atHead, ...ledgersNow()])].sort();
   return files.map((rel) => {
     const abs = path.join(REPO_ROOT, rel);
     const now = fs.existsSync(abs) ? fs.readFileSync(abs, 'utf8') : null;
     if (now === null) {
       return { file: rel, ok: false, rowsAdded: 0, problems: ['the ledger was deleted'] };
     }
-    return { file: rel, ...checkLedgerAppend(headText(rel), now) };
+    const before = atHead.has(rel) ? headText(rel) : ''; // empty ONLY when absent from HEAD
+    return { file: rel, ...checkLedgerAppend(before, now) };
   });
 }
 
@@ -154,18 +162,25 @@ function main() {
     );
   } catch (err) {
     status = 'error';
-    lines = [`- the check itself failed, so the ledgers are UNVERIFIED: ${err.message}`];
+    lines = [`- the check itself failed: ${String(err.message).split('\n')[0]}`];
   }
-  const note =
-    status === 'ok'
-      ? lines.join('\n')
-      : [
-          'This run did not only append complete rows to the append-only ledgers.',
-          'Nothing was removed or repaired automatically. Do not merge as is: decide',
-          'what to do with the affected ledger first.',
-          '',
-          ...lines,
-        ].join('\n');
+  const lead = {
+    ok: [],
+    damaged: [
+      'This run did not only append complete rows to the append-only ledgers.',
+      'Nothing was removed or repaired automatically. Do not merge as is: decide',
+      'what to do with the affected ledger first.',
+      '',
+    ],
+    // A failed check proves nothing either way: say so, never "damaged".
+    error: [
+      'The ledger check could not be completed, so the integrity of the append-only',
+      'ledgers is UNVERIFIED: no damage was found, and none was ruled out. Do not',
+      'merge as is: have the ledgers checked first.',
+      '',
+    ],
+  }[status];
+  const note = [...lead, ...lines].join('\n');
   console.log(`[ledgers] status=${status}\n${note}`);
   if (statusPath) fs.writeFileSync(statusPath, `${status}\n`);
   if (notePath) fs.writeFileSync(notePath, `${note}\n`);
