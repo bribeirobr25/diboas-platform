@@ -46,7 +46,7 @@
     "@types/react": "^18.2.21",
     "eslint": "^9.39.4",
     "react": "^18.2.0",
-    "tsup": "^8.5.0",
+    "tsup": "^9.0.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.56.1"
   },
