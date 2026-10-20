@@ -10,16 +10,27 @@
  *
  * This test runs the workflow's own `run:` scripts with bash, under GitHub's
  * shell flags (`bash --noprofile --norc -eo pipefail`): the ETF step, then the
- * PR-body step fed with the ETF step's outputs. For the refused, unknown and
- * incomplete-record cases the ETF step runs the REAL `run.mjs` against a
- * throw-away copy of the scripts, a synthetic ledger, a fixed clock and a stub
- * network (`fixtures/etfSnapshotNetworkStub.mjs`), so the exit code, the
- * ledger bytes and the evidence file are measured, not assumed. A complete
- * collection also runs the REAL `run.mjs`: `--etf-snapshot` is snapshot-only, so
- * a recorded week ends the step with exit 0 and nothing else is fetched. Only
- * a clean success, exit 22 (recorded, then the step failed) and a generic error
- * replace the snapshot command with a fixed exit, since none of the three can
- * be produced honestly offline.
+ * PR-body step fed with the ETF step's outputs. The cases are of two kinds.
+ *
+ * 1. The REAL `run.mjs`, isolated: a throw-away copy of the scripts, a
+ *    synthetic ledger, a fixed clock and a stub network
+ *    (`fixtures/etfSnapshotNetworkStub.mjs`), so the exit code, the ledger
+ *    bytes and the evidence file are measured, not assumed. Cases: an
+ *    incomplete pull refused (suspended, not suspended, and with the
+ *    suspension state unreadable); a week already recorded as incomplete
+ *    (exit 21); and a complete collection, which records the week and ends
+ *    the step with exit 0 (`--etf-snapshot` is snapshot-only, so nothing else
+ *    is fetched).
+ * 2. The snapshot command REPLACED by a fixed exit code, which tests only how
+ *    the workflow reacts to that code: exit 0 (the success wording on its own),
+ *    exit 1 (a generic error) and exit 22.
+ *
+ * The exit-22 case is of the second kind. It checks the workflow's reaction to
+ * that return code (a notice, no warning, never "not recorded"); it does not
+ * reproduce a real recording followed by a failure of the step.
+ *
+ * Separately, the core refresh step's own script is executed with a failing
+ * command to show that its failure still fails the job.
  *
  * Rules only; nothing under apps/web/data is read or written.
  */
