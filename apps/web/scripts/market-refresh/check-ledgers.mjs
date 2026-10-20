@@ -9,10 +9,14 @@
  * permanent line of a public append-only ledger. Removing it afterwards would
  * mean editing that ledger, which the 5.302 rules forbid.
  *
- * WHAT IT CHECKS, for every `*.jsonl` under `apps/web/data/market` against
- * `HEAD` (a file absent at `HEAD` counts as empty):
- *   * the file at `HEAD` is a byte prefix of the file now: nothing was
- *     rewritten, truncated or deleted;
+ * WHAT IT CHECKS, for every `*.jsonl` in the pipeline's shared data folder
+ * against `HEAD` of the checked-out ref (`main` for the scheduled run; a file
+ * absent at `HEAD` counts as empty):
+ *   * the run archive and the ETF ledger are present at `HEAD` (otherwise the
+ *     check is looking in the wrong place and reports `error`);
+ *   * the file at `HEAD` is a BYTE prefix of the file now (compared before any
+ *     decoding): nothing was rewritten, truncated or deleted;
+ *   * the added bytes are valid UTF-8;
  *   * every line the run added parses as a JSON object;
  *   * the added text ends with a newline (a fragment never does);
  *   * the first added row did not fuse with an old torn tail.
@@ -37,10 +41,20 @@
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import { REPO_ROOT } from './providers/inrepo.mjs';
+import { REPO_ROOT, RUN_ARCHIVE_PATH, SHARED_DIR } from './providers/inrepo.mjs';
+import { ETF_SHARES_ARCHIVE } from './lib/etf-flows.mjs';
 import { isDirectInvocation } from './lib/invocation.mjs';
 
-const LEDGER_DIR = 'apps/web/data/market';
+/**
+ * Where the ledgers live, and which must exist, come from the pipeline's own
+ * constants (2026-10-21 review gate): a hand-typed folder that drifted from
+ * the pipeline would make the check find nothing and report "ok".
+ */
+const LEDGER_DIR = path.relative(REPO_ROOT, SHARED_DIR);
+const REQUIRED_LEDGERS = [ETF_SHARES_ARCHIVE, RUN_ARCHIVE_PATH].map((p) =>
+  path.relative(REPO_ROOT, p)
+);
+const utf8 = new TextDecoder('utf-8', { fatal: true });
 
 /**
  * Compare a ledger's committed text with its text now.
@@ -96,21 +110,21 @@ function preview(text) {
  * baseline (2026-10-21, Codex audit: a catch-all here turned an unreadable
  * baseline into "a new ledger", and every existing row into a valid append).
  */
-function headText(relPath) {
+function headBytes(relPath) {
   return execFileSync('git', ['show', `HEAD:${relPath}`], {
     cwd: REPO_ROOT,
-    encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'pipe'],
     maxBuffer: 64 * 1024 * 1024,
   });
 }
 
+/** The ledgers in HEAD; `-z` keeps non-ASCII names unquoted and unescaped. */
 function ledgersAtHead() {
-  const out = execFileSync('git', ['ls-tree', '-r', '--name-only', 'HEAD', LEDGER_DIR], {
+  const out = execFileSync('git', ['ls-tree', '-r', '-z', '--name-only', 'HEAD', LEDGER_DIR], {
     cwd: REPO_ROOT,
     encoding: 'utf8',
   });
-  return out.split('\n').filter((p) => p.endsWith('.jsonl'));
+  return out.split('\0').filter((p) => p.endsWith('.jsonl'));
 }
 
 function ledgersNow() {
@@ -130,15 +144,42 @@ function ledgersNow() {
 /** Check every ledger; returns the report the CLI prints and records. */
 export function checkAllLedgers() {
   const atHead = new Set(ledgersAtHead()); // throws when HEAD cannot be listed
+  // A required ledger missing from HEAD means the check is not looking where
+  // the pipeline writes: that is unverified, never "nothing to check".
+  const absent = REQUIRED_LEDGERS.filter((rel) => !atHead.has(rel));
+  if (absent.length) throw new Error(`required ledger(s) not found at HEAD: ${absent.join(', ')}`);
   const files = [...new Set([...atHead, ...ledgersNow()])].sort();
   return files.map((rel) => {
     const abs = path.join(REPO_ROOT, rel);
-    const now = fs.existsSync(abs) ? fs.readFileSync(abs, 'utf8') : null;
-    if (now === null) {
+    if (!fs.existsSync(abs)) {
       return { file: rel, ok: false, rowsAdded: 0, problems: ['the ledger was deleted'] };
     }
-    const before = atHead.has(rel) ? headText(rel) : ''; // empty ONLY when absent from HEAD
-    return { file: rel, ...checkLedgerAppend(before, now) };
+    // Bytes first: decoding before comparing would turn every invalid byte
+    // into the same replacement character and hide a rewrite.
+    const now = fs.readFileSync(abs);
+    const before = atHead.has(rel) ? headBytes(rel) : Buffer.alloc(0); // empty ONLY when absent from HEAD
+    if (now.length < before.length || !now.subarray(0, before.length).equals(before)) {
+      return {
+        file: rel,
+        ok: false,
+        rowsAdded: 0,
+        problems: ['existing content was changed or removed (only appends are allowed)'],
+      };
+    }
+    let added;
+    try {
+      added = utf8.decode(now.subarray(before.length));
+    } catch {
+      return {
+        file: rel,
+        ok: false,
+        rowsAdded: 0,
+        problems: ['the added bytes are not valid UTF-8'],
+      };
+    }
+    // The prefix is byte-identical, so the text comparison sees only the addition.
+    const head = before.toString('latin1');
+    return { file: rel, ...checkLedgerAppend(head, head + added) };
   });
 }
 

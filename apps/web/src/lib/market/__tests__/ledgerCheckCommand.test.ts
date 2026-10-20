@@ -155,6 +155,70 @@ describe('ledger check command — real Git, real failures', () => {
   );
 });
 
+describe('ledger check command — review-gate fixes (2026-10-21)', () => {
+  const commit = (root: string, msg: string) => {
+    git(root, 'add', '-A');
+    git(root, '-c', 'user.name=t', '-c', 'user.email=t@t', 'commit', '-qm', msg);
+  };
+
+  it(
+    'should report UNVERIFIED, not ok, when a ledger the pipeline writes is not at HEAD',
+    () => {
+      const root = repo();
+      fs.rmSync(ledger(root, 'run-archive.jsonl'));
+      commit(root, 'archive moved away');
+      const r = check(root);
+      expect(r.status).toBe('error');
+      expect(r.note).toContain('required ledger(s) not found at HEAD');
+      expect(r.note).toContain('run-archive.jsonl');
+    },
+    TIMEOUT
+  );
+
+  it(
+    'should see a rewrite of a ledger whose name is not ASCII',
+    () => {
+      const root = repo();
+      fs.writeFileSync(ledger(root, 'ledgér.jsonl'), ROW + ROW);
+      commit(root, 'non-ascii ledger');
+      fs.writeFileSync(ledger(root, 'ledgér.jsonl'), NEXT);
+      const r = check(root);
+      expect(r.status).toBe('damaged');
+      expect(r.note).toContain('existing content was changed or removed');
+    },
+    TIMEOUT
+  );
+
+  it(
+    'should compare BYTES: a rewrite inside invalid UTF-8 is not hidden by decoding',
+    () => {
+      const root = repo();
+      fs.writeFileSync(ledger(root, 'bytes.jsonl'), Buffer.from('{"a":"\xff"}\n', 'latin1'));
+      commit(root, 'invalid utf-8 byte');
+      fs.writeFileSync(
+        ledger(root, 'bytes.jsonl'),
+        Buffer.concat([Buffer.from('{"a":"\xfe"}\n', 'latin1'), Buffer.from(NEXT)])
+      );
+      const r = check(root);
+      expect(r.status).toBe('damaged');
+      expect(r.note).toContain('existing content was changed or removed');
+    },
+    TIMEOUT
+  );
+
+  it(
+    'should refuse appended bytes that are not valid UTF-8',
+    () => {
+      const root = repo();
+      fs.appendFileSync(ledger(root, 'run-archive.jsonl'), Buffer.from('{"a":"\xff"}\n', 'latin1'));
+      const r = check(root);
+      expect(r.status).toBe('damaged');
+      expect(r.note).toContain('the added bytes are not valid UTF-8');
+    },
+    TIMEOUT
+  );
+});
+
 // ── The workflow's own scripts ────────────────────────────────────────────
 
 /** The `run: |` block of a named step, dedented. */

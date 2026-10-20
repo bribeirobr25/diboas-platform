@@ -56,6 +56,7 @@ import {
   appendBtcMonth,
   MONTHLY_PRICES_PATH,
   REPO_ROOT,
+  RUN_ARCHIVE_PATH,
   SHARED_DIR,
 } from './providers/inrepo.mjs';
 
@@ -63,7 +64,7 @@ import {
 // backdrop, umbrella) — `SHARED_DIR` (providers/inrepo.mjs, one definition).
 const COMPUTED_PATH = path.join(SHARED_DIR, 'computed.json');
 const REGIME_PATH = path.join(SHARED_DIR, 'regime.json');
-const ARCHIVE_PATH = path.join(SHARED_DIR, 'run-archive.jsonl');
+const ARCHIVE_PATH = RUN_ARCHIVE_PATH;
 const ETF_MANUAL_PATH = path.join(SHARED_DIR, 'etf01-manual.json');
 
 const TODAY = new Date();
