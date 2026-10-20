@@ -30,8 +30,35 @@ import {
   ETF_VARIANT,
 } from './regime-engine.mjs';
 import { ETF01_SUSPENSION, suspendedEtfSignal } from './etf-suspension.mjs';
+import { isCompleteSnapshot, missingFields } from './etf-coverage.mjs';
 
 export const ETF_SHARES_ARCHIVE = path.join(SHARED_DIR, 'etf-shares-weekly.jsonl');
+
+/**
+ * Collection attempts that came back INCOMPLETE (2026-10-19). Kept apart from
+ * the ledger: an incomplete pull is evidence of what the provider returned,
+ * never a ledger week, and never a zero flow. Append-only, like the ledger.
+ */
+export const ETF_SNAPSHOT_ATTEMPTS = path.join(SHARED_DIR, 'etf-snapshot-attempts.jsonl');
+
+/**
+ * Exit codes of `run.mjs --etf-snapshot` when the week is not added to the
+ * ledger (2026-10-19). The weekly workflow maps them to the wording of its log
+ * annotation and PR body, which differs by case: a REFUSED pull can still be
+ * collected again that week; a week that already has an INCOMPLETE record is
+ * preserved and not collected again. `recordedThenFailed`: this week's complete
+ * snapshot IS in the ledger and the step failed after writing it. Since
+ * `--etf-snapshot` is snapshot-only (it returns once the week is recorded), only
+ * the step's closing report runs after the write; the core refresh is a separate
+ * workflow step. Kept so that case is never reported as "not recorded". Outside
+ * Node's reserved codes; any other non-zero exit is an error whose effect on
+ * the ledger this run does not establish.
+ */
+export const ETF_SNAPSHOT_EXIT = Object.freeze({
+  refused: 20,
+  incompleteRecord: 21,
+  recordedThenFailed: 22,
+});
 
 export const STALE_FUND_DAYS = 10;
 // A "weekly aggregate" must actually span a week (PENDING_ALL 5.301). Anchors
@@ -73,13 +100,56 @@ export function readSnapshots(archivePath = ETF_SHARES_ARCHIVE) {
   return /** @type {EtfSnapshot[]} */ (readJsonlTolerant(fs.readFileSync(archivePath, 'utf8')));
 }
 
+/** @param {string} [attemptsPath] */
+export function readAttempts(attemptsPath = ETF_SNAPSHOT_ATTEMPTS) {
+  if (!fs.existsSync(attemptsPath)) return [];
+  return readJsonlTolerant(fs.readFileSync(attemptsPath, 'utf8'));
+}
+
+/**
+ * Record this week's collection (2026-10-19). A COMPLETE snapshot is appended
+ * to the ledger. An INCOMPLETE one is refused as ledger data: the attempt, what
+ * came back and what was missing go to the attempts file as evidence, and the
+ * ledger is untouched, so the same week can be collected again (a later
+ * complete pull for that anchor is still accepted). A week already in the
+ * ledger is never collected twice.
+ *
+ * @param {EtfSnapshot} snap
+ * @param {{attemptedAt: string, source: string, ledgerPath?: string, attemptsPath?: string}} io
+ * @returns {{outcome: 'recorded' | 'already-recorded' | 'refused', missing?: {shares: string[], price: string[]}}}
+ */
+export function recordEtfSnapshot(
+  snap,
+  { attemptedAt, source, ledgerPath = ETF_SHARES_ARCHIVE, attemptsPath = ETF_SNAPSHOT_ATTEMPTS }
+) {
+  if (readSnapshots(ledgerPath).some((s) => s.anchor === snap.anchor)) {
+    return { outcome: 'already-recorded' };
+  }
+  if (!isCompleteSnapshot(snap)) {
+    const missing = missingFields(snap);
+    const evidence = {
+      anchor: snap.anchor,
+      attempted_at: attemptedAt,
+      outcome: 'refused-incomplete',
+      source,
+      missing,
+      funds: snap.funds,
+    };
+    fs.appendFileSync(attemptsPath, `${JSON.stringify(evidence)}\n`);
+    return { outcome: 'refused', missing };
+  }
+  const res = appendSnapshot(snap, ledgerPath);
+  return { outcome: res.appended ? 'recorded' : 'already-recorded' };
+}
+
 /**
  * Append this week's snapshot. Refuses a second snapshot for the same anchor
- * (idempotent weekly runs).
+ * (idempotent weekly runs). NOT exported (2026-10-19): it does not check
+ * completeness, so the only way in is `recordEtfSnapshot`.
  *
  * @param {{anchor: string, funds: Record<string,{shares:number|null, price:number|null, lastUpdated:string|null}>}} snap
  */
-export function appendSnapshot(snap, archivePath = ETF_SHARES_ARCHIVE) {
+function appendSnapshot(snap, archivePath = ETF_SHARES_ARCHIVE) {
   const existing = readSnapshots(archivePath);
   if (existing.some((s) => s.anchor === snap.anchor)) {
     return { appended: false, reason: `snapshot for ${snap.anchor} already recorded` };
@@ -162,7 +232,12 @@ export function computeWeeklyFlows(snapshots, today = new Date()) {
  * ETF-01 from the flow ledger (doc 02 §8.3): ≥3 of trailing 4 weekly
  * aggregates positive → ACTIVE. UNAVAILABLE while warming up.
  */
-export function evaluateEtf01FromFlows(snapshots, today = new Date()) {
+export function evaluateEtf01FromFlows(ledger, today = new Date()) {
+  // 2026-10-19: flows come from COMPLETE records only. An incomplete record is
+  // not a usable week and never a zero flow: dropping it leaves a gap between
+  // the complete records around it, which the spacing rule below already
+  // scores UNAVAILABLE (gapped). Warm-up counts complete records too.
+  const snapshots = ledger.filter(isCompleteSnapshot);
   if (snapshots.length < WARMUP_SNAPSHOTS) {
     return {
       id: 'ETF-01',
@@ -193,8 +268,8 @@ export function evaluateEtf01FromFlows(snapshots, today = new Date()) {
   // makes the score describe a window ending before the ledger's own latest
   // anchor, while the freshness panel reports that anchor — the exact class of
   // dishonesty 5.173/5.176 are about. Failing the whole run closed would block
-  // every other signal too, and a missed Polygon snapshot cannot be
-  // back-filled (the endpoint reports shares outstanding NOW), so the pipeline
+  // every other signal too, and a missed Polygon snapshot is not known to be
+  // reconstructible (the route gives no observation date), so the pipeline
   // would stay blocked for four weeks until the gap left the window.
   //
   // UNAVAILABLE is the state that already means "this cannot be measured", and

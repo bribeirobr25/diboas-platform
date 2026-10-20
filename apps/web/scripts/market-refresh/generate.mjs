@@ -29,8 +29,9 @@
  *       signals.json groups[].{points_awarded,status} +
  *                    groups[].signals[].{state,points_awarded,max_points,last_updated_at}
  *     All are pure deterministic transcriptions of computed.json — no editorial
- *     judgment. Group status maps from the SAME groupLevel() band that drives
- *     the group summary copy (status chip and copy can no longer disagree).
+ *     judgment. Group status comes from the SAME decision that selects the
+ *     group summary copy (`groupStatus`; UNAVAILABLE when nothing in the group
+ *     was evaluated), so the status chip and the copy cannot disagree.
  *     Per-signal last_updated_at: monthly-anchored → end of the anchor month;
  *     weekly-anchored → computed_at (preserves the committed semantics).
  *
@@ -68,17 +69,10 @@ import { fileURLToPath } from 'node:url';
 import { isDirectInvocation } from './lib/invocation.mjs';
 import { writeFileAtomic } from './lib/atomic.mjs';
 import { readArchiveRows, runDayIndex } from './lib/archive.mjs';
-import {
-  MAX_BY_GROUP,
-  GROUP_STATUS,
-  LOCALE_AND,
-  fill,
-  groupLevel,
-  groupSummary,
-} from './lib/group-summaries.mjs';
+import { LOCALE_AND, fill, groupStatus, groupSummary } from './lib/group-summaries.mjs';
 import { activeOverrides } from './lib/editorial-overrides.mjs';
 import { deriveDataStatus, DATA_STATUS_COMMENT } from './lib/data-status.mjs';
-import { readSnapshots } from './lib/etf-flows.mjs';
+import { readAttempts, readSnapshots } from './lib/etf-flows.mjs';
 import { priorRunSignals, composeStateLead, composeStateDepth } from './lib/state-lead.mjs';
 import { selectSignalTemplate } from './lib/template-select.mjs';
 import { planWeeklyOpener } from './lib/weekly-opener.mjs';
@@ -550,7 +544,7 @@ async function patchEditorial(gen, write) {
     setField(
       g,
       'status',
-      GROUP_STATUS[groupLevel(computed.group_totals[g.id], MAX_BY_GROUP[g.id])],
+      groupStatus(byId, g.id, computed.group_totals[g.id]),
       `regime.signal_groups.${g.id}.status`
     );
   }
@@ -559,7 +553,7 @@ async function patchEditorial(gen, write) {
     setField(
       g,
       'status',
-      GROUP_STATUS[groupLevel(computed.group_totals[g.id], MAX_BY_GROUP[g.id])],
+      groupStatus(byId, g.id, computed.group_totals[g.id]),
       `signals.${g.id}.status`
     );
     for (const s of g.signals) {
@@ -624,7 +618,7 @@ async function patchEditorial(gen, write) {
   // ── data_status (B3, 2026-08-11 — closes Follow-up L): ONE derivation
   //    written to BOTH panels, so the F-M6 mirror holds by construction and
   //    the --check gate makes a hand-edited panel un-mergeable. ─────────────
-  const derivedStatus = deriveDataStatus(computed, readSnapshots());
+  const derivedStatus = deriveDataStatus(computed, readSnapshots(), readAttempts());
   if (JSON.stringify(regime.data_status) !== JSON.stringify(derivedStatus)) {
     drift.push('regime.data_status');
     regime.data_status = derivedStatus;

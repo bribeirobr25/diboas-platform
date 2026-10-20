@@ -41,6 +41,7 @@ import path from 'node:path';
 import { isDirectInvocation } from '../market-refresh/lib/invocation.mjs';
 import { MAX_SCORE } from '../market-refresh/lib/regime-engine.mjs';
 import { readSnapshots } from '../market-refresh/lib/etf-flows.mjs';
+import { ledgerCoverage } from '../market-refresh/lib/etf-coverage.mjs';
 import { archiveSignals, archiveLine } from '../market-refresh/lib/archive.mjs';
 import {
   fetchMarketSources,
@@ -133,7 +134,7 @@ async function main() {
       published,
       anchorSpreadDays: Number(spreadDays.toFixed(2)),
       anchorWarning: warning,
-      signals: archiveSignals(all, { etfSnapshotCount: readSnapshots().length }),
+      signals: archiveSignals(all, { etfSnapshotCount: ledgerCoverage(readSnapshots()).complete }),
     });
     fs.appendFileSync(ARCHIVE_PATH, JSON.stringify(line) + '\n');
     console.log(`  Archived run → ${path.relative(REPO_ROOT, ARCHIVE_PATH)}`);

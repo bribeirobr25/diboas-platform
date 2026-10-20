@@ -114,6 +114,18 @@
   margin-top: 4px;
   max-width: 340px;
 }
+/* Unavailable group (2026-10-19): the approved word where the bar would be,
+   in the neutral secondary ink. No fill, no copper, no teal score colour. */
+.unavailable {
+  display: block;
+  margin-top: var(--spacing-xs);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: var(--font-size-sm);
+  color: var(--editorial-ink-soft);
+}
+.row[data-status='UNAVAILABLE'] .value {
+  color: var(--editorial-ink-soft);
+}
 .barFill {
   display: block;
   height: 100%;

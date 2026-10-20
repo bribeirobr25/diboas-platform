@@ -6,7 +6,7 @@
  * Text assertions, deliberately: the web app has no YAML parser dependency and
  * adding one would touch the shared lockfile for a test.
  */
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { WEEKLY_BLOCKING_VITEST_ARGS } from '../../../../scripts/market-refresh/simulate-next-week.mjs';
@@ -52,7 +52,49 @@ describe('weekly refresh — no silent failure, no racing runs (5.465)', () => {
     expect(etf).not.toContain('|| true');
     expect(etf).toContain('status=failed');
     expect(etf).toContain('::warning::');
-    expect(weekly).toContain("steps.etf.outputs.status }}' = 'failed'"); // repeated in the PR body
+    // Repeated in the PR body, from the step's own outputs (passed as env).
+    expect(weekly).toContain('ETF_STATUS: ${{ steps.etf.outputs.status }}');
+    expect(weekly).toContain(`if [ "$ETF_STATUS" = 'failed' ]; then`);
+  });
+
+  // 2026-10-19: while ETF-01 is suspended a failed or refused collection must
+  // not be reported as "next week's ETF-01 will be gapped" (it is unavailable
+  // either way), and no message may assert that a missed week cannot be
+  // back-filled: that is not established.
+  it('should word the ETF failure by the suspension state, never claiming a week cannot be back-filled', () => {
+    const etf = stepText(weekly, 'ETF-01 weekly snapshot (optional leg)');
+    expect(etf).toContain('ETF01_SUSPENSION');
+    expect(etf).toContain('suspended=$suspended');
+    expect(etf).toMatch(/ETF-01 is suspended, so the score and the other signals are unaffected/);
+    expect(weekly).toContain('ETF_NOTE: ${{ steps.etf.outputs.note }}');
+    expect(weekly).not.toMatch(/cannot be back-?filled|non-backfillable/i);
+  });
+
+  it('should never let the suspension lookup abort the fail-open ETF step (bash -e)', () => {
+    const etf = stepText(weekly, 'ETF-01 weekly snapshot (optional leg)');
+    expect(etf).toMatch(/suspended=\$\(node [^\n]*\) \|\| suspended=unknown/);
+    expect(etf).toMatch(/\*\) effect="The suspension state could not be read in this run\./);
+  });
+
+  // The workflow guard above scans only the YAML; the same unproven claim also
+  // lived in the docs that explain the guard (review 2026-10-19).
+  it('should keep every tracked doc free of the claim that a missed week is unrecoverable', () => {
+    const root = join(__dirname, '../../../../../..');
+    const files = [
+      'CLAUDE.md',
+      ...['docs/tech', 'docs/integrations'].flatMap((d) =>
+        readdirSync(join(root, d), { recursive: true })
+          .map(String)
+          .filter((f) => f.endsWith('.md'))
+          .map((f) => join(d, f))
+      ),
+    ];
+    const hits = files.filter((f) =>
+      /cannot be back-?filled|non-backfillable|can never be re-?fetched/i.test(
+        readFileSync(join(root, f), 'utf8')
+      )
+    );
+    expect(hits).toEqual([]);
   });
 });
 
