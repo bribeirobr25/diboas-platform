@@ -19,7 +19,7 @@
  *  - a week-over-week share change beyond MAX_WEEKLY_SHARE_CHANGE is treated
  *    as corrupt (excluded + warned), not as a real flow.
  */
-import { readJsonlTolerant } from './jsonl.mjs';
+import { appendJsonlLine, readJsonlTolerant } from './jsonl.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { SHARED_DIR } from '../providers/inrepo.mjs';
@@ -135,7 +135,7 @@ export function recordEtfSnapshot(
       missing,
       funds: snap.funds,
     };
-    fs.appendFileSync(attemptsPath, `${JSON.stringify(evidence)}\n`);
+    appendJsonlLine(attemptsPath, JSON.stringify(evidence));
     return { outcome: 'refused', missing };
   }
   const res = appendSnapshot(snap, ledgerPath);
@@ -159,7 +159,7 @@ function appendSnapshot(snap, archivePath = ETF_SHARES_ARCHIVE) {
       `etf snapshot ${snap.anchor} is not after the last recorded ${existing[existing.length - 1].anchor}`
     );
   }
-  fs.appendFileSync(archivePath, JSON.stringify(snap) + '\n');
+  appendJsonlLine(archivePath, JSON.stringify(snap));
   return { appended: true };
 }
 

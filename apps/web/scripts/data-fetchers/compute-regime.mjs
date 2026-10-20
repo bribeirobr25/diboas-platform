@@ -43,6 +43,7 @@ import { MAX_SCORE } from '../market-refresh/lib/regime-engine.mjs';
 import { readSnapshots } from '../market-refresh/lib/etf-flows.mjs';
 import { ledgerCoverage } from '../market-refresh/lib/etf-coverage.mjs';
 import { archiveSignals, archiveLine } from '../market-refresh/lib/archive.mjs';
+import { appendJsonlLine } from '../market-refresh/lib/jsonl.mjs';
 import {
   fetchMarketSources,
   assertMarketSourcesQuality,
@@ -136,7 +137,7 @@ async function main() {
       anchorWarning: warning,
       signals: archiveSignals(all, { etfSnapshotCount: ledgerCoverage(readSnapshots()).complete }),
     });
-    fs.appendFileSync(ARCHIVE_PATH, JSON.stringify(line) + '\n');
+    appendJsonlLine(ARCHIVE_PATH, JSON.stringify(line));
     console.log(`  Archived run → ${path.relative(REPO_ROOT, ARCHIVE_PATH)}`);
   }
   console.log('');
