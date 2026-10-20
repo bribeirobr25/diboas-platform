@@ -230,3 +230,30 @@ describe('weekly refresh — the PR reports a ledger that was not only appended 
     expect(body).toContain('the ledgers are unverified');
   });
 });
+
+// 2026-10-21 (12-principle review gate of the market lane).
+describe('weekly refresh — supply chain and a recorded ETF week that a later failure would lose', () => {
+  it('should pin every action to a full commit SHA, never a movable tag', () => {
+    const uses = [...weekly.matchAll(/^\s*(?:- )?uses: ([^\s#]+)/gm)].map((m) => m[1]);
+    expect(uses.length).toBeGreaterThan(0);
+    expect(uses.filter((u) => !/@[0-9a-f]{40}$/.test(u))).toEqual([]);
+  });
+
+  it('should keep the ETF files as a run artifact whenever the run fails after the ETF leg wrote them', () => {
+    const step = stepText(weekly, 'Keep the ETF ledger files when the run fails after the ETF leg');
+    expect(weekly.indexOf('- name: Keep the ETF ledger files')).toBeGreaterThan(
+      weekly.indexOf('- name: Open refresh PR')
+    );
+    expect(step).toContain('failure()');
+    for (const outcome of ['ok', 'recorded', 'refused']) {
+      expect(step).toContain(`steps.etf.outputs.outcome == '${outcome}'`);
+    }
+    expect(step).toContain('apps/web/data/market/shared/etf-shares-weekly.jsonl');
+    expect(step).toContain('apps/web/data/market/shared/etf-snapshot-attempts.jsonl');
+    expect(step).toMatch(/retention-days: \d+/);
+  });
+
+  it('should not claim the ETF record "stands" before the PR exists', () => {
+    expect(weekly).not.toContain('the ledger record stands');
+  });
+});

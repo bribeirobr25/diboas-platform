@@ -406,6 +406,15 @@ Default to the more conservative §10.1 path when in doubt — overclaiming "con
 
 Readers skip an unparseable line and the next append starts a fresh line, so an isolated fragment usually leaves the same parsed rows. **That alone does not prove the publication is unaffected** (provenance, raw-versus-derived consistency), which is why the case is verified, not assumed.
 
+### The weekly run failed after the ETF step had recorded the week (2026-10-21)
+
+**What happens:** every step after the ETF collection runs only if the previous ones succeed. When a later step fails (a stale input, a source outage, a data check), no PR opens, and this week's ETF record would be lost with the runner. The run therefore keeps both files as an artifact named `etf-ledger-<run id>`, for 90 days:
+
+- `etf-shares-weekly.jsonl`;
+- `etf-snapshot-attempts.jsonl`.
+
+**What to do:** ask the market lane to recover it. Recovery is a manual, reviewed change that **appends only** the missing complete week to `main`'s ledger; it never rewrites existing rows. The ledger check then verifies it in the next weekly PR.
+
 ## 9. What this doc deliberately does NOT cover
 
 - **Adding a new signal** (e.g., a sixth BTC structure indicator) — this is an engineering change (SDK contract extension). Request via product channel.
