@@ -59,3 +59,28 @@ test('non-path assertion content, dates, hashes and public URLs stay unchanged',
   };
   assert.deepEqual(sanitizeAuditEvidence(input, root), input);
 });
+
+test('a home directory containing spaces is redacted whole, not left behind the pattern', () => {
+  const home = '/Users/synthetic auditor';
+  const input = [
+    `${home}/elsewhere/file.ts:1:2`,
+    `file://${encodeURI(home)}/elsewhere/file.ts:1:2`,
+    `cwd was ${home}`,
+  ];
+  const output = sanitizeAuditEvidence(input, root, home);
+  assert.deepEqual(output, ['<local-path>', '<local-path>', 'cwd was <local-path>']);
+  assert.equal(JSON.stringify(output).includes('auditor'), false);
+});
+
+test('other local mount roots are redacted too', () => {
+  const input = [
+    '/Volumes/External/x.ts:1:2',
+    '/opt/tool/x.mjs:3:4',
+    '/mnt/data/x:1',
+    '/srv/app/x:1',
+  ];
+  assert.deepEqual(
+    sanitizeAuditEvidence(input, root, '/Users/nobody'),
+    input.map(() => '<local-path>')
+  );
+});

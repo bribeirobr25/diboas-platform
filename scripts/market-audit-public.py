@@ -106,6 +106,10 @@ for locale in ("en", "pt-BR", "es", "de"):
                 f'{regime["score"]}/{regime["max_score"]}' in name
                 for name in page.gauge_names
             )
-            row["raw_chart_band_code_present"] = "CONSTRUCTIVE" in text
+            # Any of the five raw band codes, not only the current band's.
+            row["raw_chart_band_code_present"] = any(
+                code in text
+                for code in ("VERY_FAVORABLE", "CONSTRUCTIVE", "NEUTRAL_MIXED", "DEFENSIVE", "HOSTILE")
+            )
         results.append(row)
 print(json.dumps({"pages": results, "note": "HTTP/SSR sample, not browser rendering or load testing."}, indent=2))
