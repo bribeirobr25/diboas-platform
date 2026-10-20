@@ -3,13 +3,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { RegimeScore } from '@/components/Analytics/RegimeScore/RegimeScore';
-import { HistoricalRegimeChart } from '@/components/Analytics/HistoricalRegimeChart/HistoricalRegimeChart';
 import { ConfidenceBadge } from '@/components/Analytics/ConfidenceBadge/ConfidenceBadge';
 import { DataFreshnessBadge } from '@/components/Analytics/DataFreshnessBadge/DataFreshnessBadge';
 import { locales } from './fixtures/experimentalAudit';
 
-const defect = process.env.MARKET_AUDIT_STRICT === '1' ? it : it.fails;
 const catalog = (locale: string) =>
   JSON.parse(
     fs.readFileSync(
@@ -64,35 +61,6 @@ describe.each(locales)('C: rendered critical states in %s', (locale) => {
     expect(el.textContent).toContain(payload);
     expect(el.querySelector('[title]')?.getAttribute('title')).toBe(payload);
   });
-  defect('K07 accessible gauge name includes the visible score (PR 713)', () => {
-    const el = dom(
-      renderToStaticMarkup(
-        <RegimeScore
-          data={{ score: 10, max_score: 14, regime_code: 'CONSTRUCTIVE' }}
-          ariaLabel={labels.scoreAriaLabel}
-        />
-      )
-    );
-    expect(el.querySelector('[role="img"]')?.getAttribute('aria-label')).toContain('10/14');
-  });
-  defect('K08 chart accessible table translates its regime code (PR 713)', () => {
-    const el = dom(
-      renderToStaticMarkup(
-        <HistoricalRegimeChart
-          data={{
-            range: '3M',
-            snapshots: [{ date: '2026-10-19', score: 10, regime_code: 'CONSTRUCTIVE' }],
-          }}
-          range="3M"
-          ariaLabel={labels.historicalAriaLabel}
-          tableLabels={{
-            date: labels.historicalTableDate,
-            score: labels.historicalTableScore,
-            regime: labels.historicalTableRegime,
-          }}
-        />
-      )
-    );
-    expect(el.querySelector('tbody')?.textContent).toContain(labels.regimeLabels.CONSTRUCTIVE);
-  });
+  // K07/K08: ordinary canonical regressions in marketAccessibleText.test.tsx,
+  // with regimeLabels/dateLabels supplied through the current component API.
 });

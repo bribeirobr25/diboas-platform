@@ -9,7 +9,6 @@ import path from 'node:path';
 import { afterAll, describe, expect, it, vi } from 'vitest';
 import { applyReadTimeFreshness } from '../../analytics-sdk/freshness';
 import type { DataStatus } from '../../analytics-sdk/types';
-import { conditionWordSuffix } from '../presentationState';
 import {
   cleanup,
   cli,
@@ -93,8 +92,9 @@ describe('A: ledger integrity and recovery', () => {
     expect(sha(box.ledgerPath)).toBe(before);
     const evidence = sha(box.attemptsPath);
     const retry = cli(box);
-    // main falls through into the core pipeline; the stub refuses that network.
-    expect([0, 22]).toContain(retry.status);
+    // A complete retry is snapshot-only, including after a refused attempt.
+    expect(retry.requests.filter((r) => r.kind === 'unexpected')).toEqual([]);
+    expect(retry.status).toBe(0);
     expect(readSnapshots(box.ledgerPath).map((r: { anchor: string }) => r.anchor)).toEqual([
       '2026-10-09',
       '2026-10-23',
@@ -112,7 +112,8 @@ describe('A: ledger integrity and recovery', () => {
     expect(sha(box.ledgerPath)).toBe(before);
     expect(sha(box.attemptsPath)).toBe('absent');
     const retry = cli(box);
-    expect([0, 22]).toContain(retry.status);
+    expect(retry.requests.filter((r) => r.kind === 'unexpected')).toEqual([]);
+    expect(retry.status).toBe(0);
     expect(readSnapshots(box.ledgerPath)).toHaveLength(2);
   });
 
@@ -126,25 +127,8 @@ describe('A: ledger integrity and recovery', () => {
     expect(sha(box.ledgerPath)).toBe(before);
   });
 
-  it('A06 saved snapshot survives subsequent failure and repeat does not duplicate it', () => {
-    const box = sandbox([snapshot()]);
-    const first = cli(box);
-    expect([0, 22]).toContain(first.status);
-    if (first.status === 22) expect(first.stderr).toContain('the ledger line stands');
-    const before = sha(box.ledgerPath);
-    const repeated = cli(box);
-    expect(repeated.requests.filter((r) => r.kind !== 'unexpected')).toEqual([]);
-    expect(sha(box.ledgerPath)).toBe(before);
-  });
-
-  defect(
-    'K06 snapshot command must not fall through into unrelated source requests (PR 713)',
-    () => {
-      const result = cli(sandbox([snapshot()]));
-      expect(result.requests.filter((r) => r.kind === 'unexpected')).toEqual([]);
-      expect(result.status).toBe(0);
-    }
-  );
+  // A06/K06: canonical success + repeat + request isolation coverage now lives
+  // in etfSnapshotOnly.test.ts (SNAP-ONLY-1), included by pnpm market:audit.
 
   defect('K01 torn tail must not swallow the next accepted ledger row (known CC finding)', () => {
     const box = sandbox([snapshot()]);
@@ -268,8 +252,9 @@ describe('B: independent time and scoring oracles', () => {
     const first = panel('2026-10-26T06:20:00Z', []);
     const later = panel('2026-12-28T06:20:00Z', []);
     const row = (ds: DataStatus) => ds.sources.find((s) => s.source.startsWith('Polygon'))!;
-    expect(row(first).last_updated_at).toBeNull();
-    expect(row(later).last_updated_at).toBeNull();
+    // R3: with no evidence added, a new run cannot advance the evidence date.
+    // Do not prescribe null representation or a new confidence policy here.
+    expect(row(later).last_updated_at).toBe(row(first).last_updated_at);
   });
 
   it('B04 equivalent instants across DST and month-roll offsets have identical results', () => {
@@ -299,12 +284,7 @@ describe('C: communication contract', () => {
     );
   });
 
-  defect.each(['STALE', 'ERROR', 'UNKNOWN'])(
-    'K02 %s must not become a negative market condition (PR 713)',
-    (state) => {
-      expect(conditionWordSuffix(state)).toBe('unavailable');
-    }
-  );
+  // K02: canonical ordinary regressions in presentationState.test.ts.
 });
 
 describe('D: bounded expansion justified by source-quality gaps', () => {

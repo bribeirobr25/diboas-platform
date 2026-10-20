@@ -68,6 +68,14 @@ function run(cwd, args, extraEnv = {}) {
 }
 const mutations = [
   {
+    id: 'M06',
+    file: 'run.mjs',
+    needle: 'await maybeSnapshotEtfShares();\n    return;',
+    replacement: 'await maybeSnapshotEtfShares();',
+    test: 'A03',
+    expected: /expected.*deeply equal \[\]/s,
+  },
+  {
     id: 'M01',
     file: 'lib/etf-flows.mjs',
     needle: 'if (!isCompleteSnapshot(snap)) {',
