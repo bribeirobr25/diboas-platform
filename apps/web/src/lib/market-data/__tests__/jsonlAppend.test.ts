@@ -254,6 +254,22 @@ describe('a failed run reports what it already wrote (honest failure headline)',
     expect(head).toContain('computed.json');
   });
 
+  it('should keep the recorded-week wording exactly when nothing else was written', () => {
+    expect(failureHeadline({ ...base, etfWeekRecorded: true, written: [] })).toBe(
+      'market-refresh failed closed AFTER this week’s ETF snapshot was recorded — the ledger line stands'
+    );
+  });
+
+  it('should never end in a period (the caller appends ":" and the error)', () => {
+    for (const state of [
+      { ...base, written: [] },
+      { ...base, written: ['a.json'] },
+      { ...base, etfWeekRecorded: true, written: ['a.json'] },
+    ]) {
+      expect(failureHeadline(state).endsWith('.')).toBe(false);
+    }
+  });
+
   it('should keep the recorded-week statement and add the written files', () => {
     const head = failureHeadline({ ...base, etfWeekRecorded: true, written: ['x.json'] });
     expect(head).toContain('ETF snapshot was recorded');
@@ -277,5 +293,10 @@ describe('a failed run reports what it already wrote (honest failure headline)',
     expect(run).toMatch(/appendBtcMonth\(bar\);\s*\n\s*written\.push\(/);
     expect(run).toMatch(/writeFileAtomic\(p, t\);\s*\n\s*written\.push\(/);
     expect(run).toMatch(/appendJsonlLine\(p, t\);\s*\n\s*written\.push\(/);
+    // and the failure handler passes that list (not an empty or new one)
+    expect(run).toMatch(
+      /failureHeadline\(\{ notRecorded, kind: e\.kind, etfWeekRecorded, written \}\)/
+    );
+    expect(run).toMatch(/written\.push\(`\$\{path\.relative\(REPO_ROOT, MONTHLY_PRICES_PATH\)\}/);
   });
 });

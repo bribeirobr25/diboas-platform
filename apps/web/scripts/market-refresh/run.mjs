@@ -51,7 +51,13 @@ import { archiveSignals, archiveLine, publishRun } from './lib/archive.mjs';
 import { isCompleteSnapshot, ledgerCoverage } from './lib/etf-coverage.mjs';
 import { fetchYahooDaily, fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { fetchBtcMonthCloseVerifier } from './providers/coingecko.mjs';
-import { btcMonths, appendBtcMonth, REPO_ROOT, SHARED_DIR } from './providers/inrepo.mjs';
+import {
+  btcMonths,
+  appendBtcMonth,
+  MONTHLY_PRICES_PATH,
+  REPO_ROOT,
+  SHARED_DIR,
+} from './providers/inrepo.mjs';
 
 // 5.92 (2026-08-19): the weekly run's outputs are SHARED across views (bitcoin,
 // backdrop, umbrella) — `SHARED_DIR` (providers/inrepo.mjs, one definition).
@@ -76,7 +82,7 @@ async function maybeAppendBtc() {
   const verifier = await fetchBtcMonthCloseVerifier(expectedYm);
   const divergencePct = assertBtcCloseVerified(expectedYm, bar.close, verifier.price);
   const row = appendBtcMonth(bar);
-  written.push(`monthlyPrices.json (BTC ${expectedYm} candle)`);
+  written.push(`${path.relative(REPO_ROOT, MONTHLY_PRICES_PATH)} (BTC ${expectedYm} candle)`);
   console.log(
     `[append-btc] appended ${expectedYm} close ${row.close} ` +
       `(Yahoo vs CoinGecko ${verifier.price.toFixed(2)} — divergence ${divergencePct.toFixed(3)}% ≤ ${BTC_CLOSE_TOLERANCE_PCT}%)`
@@ -352,14 +358,15 @@ export function failureHeadline({ notRecorded, kind, etfWeekRecorded, written })
       ? 'ETF snapshot NOT added to the ledger — only the attempt evidence was written'
       : 'ETF snapshot NOT added to the ledger — nothing written beyond the log';
   }
+  // No trailing period: the caller appends ':' and the error message.
   const files = written.length
-    ? ` Already written by this run: ${written.join(', ')}. Review them before committing anything.`
+    ? `; already written by this run (review before committing anything): ${written.join(', ')}`
     : '';
   if (etfWeekRecorded) {
-    return `market-refresh failed closed AFTER this week’s ETF snapshot was recorded — the ledger line stands.${files}`;
+    return `market-refresh failed closed AFTER this week’s ETF snapshot was recorded — the ledger line stands${files}`;
   }
   return files
-    ? `market-refresh failed closed AFTER writing files.${files}`
+    ? `market-refresh failed closed AFTER writing files${files}`
     : 'market-refresh failed closed — nothing written beyond the log';
 }
 
