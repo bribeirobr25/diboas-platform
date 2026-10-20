@@ -184,3 +184,44 @@ describe('run.mjs --etf-snapshot is snapshot-only', () => {
     expect(stepText(weekly, 'ETF-01 weekly snapshot')).not.toContain('--append-btc');
   });
 });
+
+// 2026-10-20: a failed append can leave part of a row in a ledger, and the ETF
+// leg is fail-open, so the run can still reach the PR. The fragment must be
+// reported in the PR, never committed silently and never repaired.
+describe('weekly refresh — the PR reports a ledger that was not only appended to', () => {
+  const STEP = 'Ledger append check (reported)';
+
+  it('should run the ledger check after the last writing step and before the PR is opened', () => {
+    const at = weekly.indexOf(`- name: ${STEP}`);
+    expect(at).toBeGreaterThan(weekly.indexOf('- name: Generate editorial copy from templates'));
+    expect(at).toBeGreaterThan(weekly.indexOf('- name: Tools monthlies'));
+    expect(at).toBeLessThan(weekly.indexOf('- name: Compose PR body'));
+    expect(at).toBeLessThan(weekly.indexOf('- name: Open refresh PR'));
+  });
+
+  it('should report, never block: a crashed check still opens the PR, flagged', () => {
+    const step = stepText(weekly, STEP);
+    expect(step).toContain('id: ledgers');
+    expect(step).toContain('continue-on-error: true');
+    expect(step).toContain('check-ledgers.mjs');
+    // The status reaches the outputs only after the check finished.
+    expect(step).toMatch(/--status "\$RUNNER_TEMP\/ledger-status"/);
+    expect(step).toContain('echo "status=$(cat "$RUNNER_TEMP/ledger-status")" >> "$GITHUB_OUTPUT"');
+  });
+
+  it('should put anything but ok in the PR title, ahead of the memo status', () => {
+    const title = weekly.slice(weekly.indexOf('title: >-'), weekly.indexOf('body-path:'));
+    expect(title).toContain(
+      "steps.ledgers.outputs.status != 'ok'\n            && 'data(market): weekly refresh — LEDGER CHECK FAILED, do not merge as is'"
+    );
+    expect(title.indexOf('steps.ledgers')).toBeLessThan(title.indexOf('steps.memo'));
+  });
+
+  it('should explain the problem in the PR body, or say the ledgers are unverified', () => {
+    const body = stepText(weekly, 'Compose PR body');
+    expect(body).toContain('LEDGER_STATUS: ${{ steps.ledgers.outputs.status }}');
+    expect(body).toContain(`if [ "$LEDGER_STATUS" = 'ok' ]; then`);
+    expect(body).toContain('cat "$RUNNER_TEMP/ledger-note.md"');
+    expect(body).toContain('the ledgers are unverified');
+  });
+});

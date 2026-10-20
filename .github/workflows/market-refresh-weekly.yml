@@ -241,6 +241,20 @@ jobs:
       - name: Format check on pipeline-written files
         run: pnpm exec prettier --check "apps/web/data/market/**/*.json" "apps/web/src/lib/market-data/data/*.json"
 
+      # 2026-10-20: a failed append can leave part of a row in a ledger, and the
+      # ETF leg is fail-open, so a run can still reach this point. Reported in
+      # the PR title and body, never repaired: the ledgers are append-only
+      # (5.302). continue-on-error: if the check itself cannot run, the PR is
+      # still opened (a lost week of ETF collection cannot be fetched again)
+      # and its empty status is treated as NOT ok below.
+      - name: Ledger append check (reported)
+        id: ledgers
+        continue-on-error: true
+        run: |
+          node apps/web/scripts/market-refresh/check-ledgers.mjs \
+            --status "$RUNNER_TEMP/ledger-status" --note "$RUNNER_TEMP/ledger-note.md"
+          echo "status=$(cat "$RUNNER_TEMP/ledger-status")" >> "$GITHUB_OUTPUT"
+
       # Written to RUNNER_TEMP, never the workspace: create-pull-request commits
       # every change in the working tree, so a body file inside the repo would
       # be committed into the refresh PR.
@@ -251,6 +265,7 @@ jobs:
           ETF_STATUS: ${{ steps.etf.outputs.status }}
           ETF_TITLE: ${{ steps.etf.outputs.title }}
           ETF_NOTE: ${{ steps.etf.outputs.note }}
+          LEDGER_STATUS: ${{ steps.ledgers.outputs.status }}
         run: |
           BODY="$RUNNER_TEMP/pr-body.md"
           {
@@ -291,6 +306,20 @@ jobs:
               echo '- Memo figure reconciliation: green (memo agrees with this cycle'"'"'s engine values)'
             } >> "$BODY"
           fi
+          if [ "$LEDGER_STATUS" = 'ok' ]; then
+            echo '- Ledger append check: only complete rows were appended to the JSONL ledgers' >> "$BODY"
+          else
+            {
+              echo
+              echo '## ⚠️ Ledger check did not pass: do not merge as is'
+              echo
+              if [ -s "$RUNNER_TEMP/ledger-note.md" ]; then
+                cat "$RUNNER_TEMP/ledger-note.md"
+              else
+                echo 'The check did not run to completion, so the ledgers are unverified (read the "Ledger append check" step log).'
+              fi
+            } >> "$BODY"
+          fi
           if [ "$ETF_STATUS" = 'failed' ]; then
             {
               echo
@@ -323,8 +352,12 @@ jobs:
           token: ${{ secrets.MARKET_REFRESH_PR_TOKEN || github.token }}
           branch: editorial/market-refresh-auto
           commit-message: 'data(market): weekly refresh (automated)'
+          # The ledger check outranks the memo: an empty status (the check did
+          # not run) is treated as not ok.
           title: >-
-            ${{ steps.memo.outputs.status == 'stale'
+            ${{ steps.ledgers.outputs.status != 'ok'
+            && 'data(market): weekly refresh — LEDGER CHECK FAILED, do not merge as is'
+            || steps.memo.outputs.status == 'stale'
             && 'data(market): weekly refresh — MEMO REWRITE REQUIRED before merge'
             || 'data(market): weekly refresh — review before merge' }}
           body-path: ${{ runner.temp }}/pr-body.md

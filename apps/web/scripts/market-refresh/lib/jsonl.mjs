@@ -58,6 +58,12 @@ export function readJsonlTolerant(text) {
  * created. Any other failure (permissions, disk, a read error) is thrown to the
  * caller, so a failed write can never be reported as a success.
  *
+ * A failed append can leave PART of the row on disk (2026-10-20): the error is
+ * re-thrown with `partialAppend` = { path, bytesAdded }, where `bytesAdded` is
+ * how much the file grew before the failure (0 = unchanged, null = its size
+ * could not be read again). The caller reports it; nothing here truncates it,
+ * because an append-only file is never edited, not even to undo our own bytes.
+ *
  * Limits, stated rather than implied: this does not repair or recover a damaged
  * row, and it makes no durability (fsync/power-loss) or concurrent-writer claim.
  *
@@ -67,8 +73,10 @@ export function readJsonlTolerant(text) {
 export function appendJsonlLine(filePath, text) {
   const line = text.endsWith('\n') ? text : `${text}\n`;
   let lead = '';
+  let sizeBefore = 0;
   try {
     const { size } = fs.statSync(filePath);
+    sizeBefore = size;
     if (size > 0) {
       const fd = fs.openSync(filePath, 'r');
       try {
@@ -82,5 +90,19 @@ export function appendJsonlLine(filePath, text) {
   } catch (err) {
     if (err.code !== 'ENOENT') throw err;
   }
-  fs.appendFileSync(filePath, lead + line);
+  try {
+    fs.appendFileSync(filePath, lead + line);
+  } catch (err) {
+    err.partialAppend = { path: filePath, bytesAdded: bytesAddedSince(filePath, sizeBefore) };
+    throw err;
+  }
+}
+
+/** How much `filePath` grew past `sizeBefore`; null if its size cannot be read. */
+function bytesAddedSince(filePath, sizeBefore) {
+  try {
+    return Math.max(0, fs.statSync(filePath).size - sizeBefore);
+  } catch (err) {
+    return err.code === 'ENOENT' && sizeBefore === 0 ? 0 : null;
+  }
 }
