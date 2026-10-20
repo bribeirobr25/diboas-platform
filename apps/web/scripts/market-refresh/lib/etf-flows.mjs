@@ -267,7 +267,7 @@ export function evaluateEtf01FromFlows(ledger, today = new Date()) {
     };
   }
   const { flows, warnings } = computeWeeklyFlows(snapshots, today);
-  const last4 = flows.slice(-ETF01_RULE.weeks);
+  const trailing = flows.slice(-ETF01_RULE.weeks);
 
   // 5.301: the doc 02 §8.3 rule is "≥3 of the trailing 4 WEEKLY aggregates".
   // A fortnight is not a weekly aggregate, so when one lands in the window the
@@ -285,7 +285,7 @@ export function evaluateEtf01FromFlows(ledger, today = new Date()) {
   // UNAVAILABLE is the state that already means "this cannot be measured", and
   // it costs the 2 points rather than inventing them. Warm-up uses it for the
   // same reason.
-  const gap = last4.find((f) => !f.weekly);
+  const gap = trailing.find((f) => !f.weekly);
   if (gap) {
     return {
       id: 'ETF-01',
@@ -294,7 +294,7 @@ export function evaluateEtf01FromFlows(ledger, today = new Date()) {
       detail:
         `ETF flow ledger has a ${gap.spanDays}-day gap (${gap.from} → ${gap.to}) inside the ` +
         `trailing-4 window — a missing weekly snapshot. Scored unavailable rather than ` +
-        `counting it as one week. Spans: [${last4.map((f) => `${f.spanDays}d`).join(', ')}]`,
+        `counting it as one week. Spans: [${trailing.map((f) => `${f.spanDays}d`).join(', ')}]`,
       // `snapshots`/`warmupTarget` stay populated: the warm-up sentence is the
       // FALLBACK if the gapped variant is ever missing for a locale, and 5.133
       // is the standing reminder that an unslotted UNAVAILABLE stops the
@@ -310,7 +310,7 @@ export function evaluateEtf01FromFlows(ledger, today = new Date()) {
     };
   }
 
-  const positives = last4.filter((f) => isPositiveWeek(f.netFlowUsd)).length;
+  const positives = trailing.filter((f) => isPositiveWeek(f.netFlowUsd)).length;
   const state = positives >= ETF01_RULE.minPositive ? 'ACTIVE' : 'INACTIVE';
   const fmt = (n) =>
     `${n < 0 ? '-' : '+'}$${Math.abs(Math.round(n / 1e6)).toLocaleString('en-US')}M`;
@@ -320,10 +320,14 @@ export function evaluateEtf01FromFlows(ledger, today = new Date()) {
     weight: ETF01_WEIGHT,
     detail:
       `Spot-ETF net flows via Δshares×NAV (Polygon primary): last 4 weekly aggregates ` +
-      `(spans [${last4.map((f) => `${f.spanDays}d`).join(', ')}], all verified 7±1d) ` +
-      `[${last4.map((f) => fmt(f.netFlowUsd)).join(', ')}] → ${positives}/4 positive ` +
-      `(threshold ≥3)${warnings.length ? `; ${warnings.length} fund-week(s) excluded by quality guards` : ''}`,
-    values: { positives, weeks: 4, lastFlowUsd: last4[last4.length - 1]?.netFlowUsd ?? null },
+      `(spans [${trailing.map((f) => `${f.spanDays}d`).join(', ')}], all verified 7±1d) ` +
+      `[${trailing.map((f) => fmt(f.netFlowUsd)).join(', ')}] → ${positives}/${ETF01_RULE.weeks} positive ` +
+      `(threshold ≥${ETF01_RULE.minPositive})${warnings.length ? `; ${warnings.length} fund-week(s) excluded by quality guards` : ''}`,
+    values: {
+      positives,
+      weeks: ETF01_RULE.weeks,
+      lastFlowUsd: trailing[trailing.length - 1]?.netFlowUsd ?? null,
+    },
     anchor: snapshots[snapshots.length - 1].anchor,
     anchorKind: 'weekly',
   };

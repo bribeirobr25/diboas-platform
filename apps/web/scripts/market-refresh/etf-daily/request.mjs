@@ -150,7 +150,12 @@ export async function fetchProviderJson({
       `${provider}: refused to send a request to another origin than ${allowedOrigin}`
     );
   }
-  const describe = (err) => redact(`${err?.name ?? 'Error'}: ${err?.message ?? err}`, secrets);
+  // The cause is kept: Node reports a refused redirect, a reset and a DNS
+  // failure all as "TypeError: fetch failed", and only the cause tells them apart.
+  const describe = (err) => {
+    const cause = err?.cause?.message ? ` (${err.cause.message})` : '';
+    return redact(`${err?.name ?? 'Error'}: ${err?.message ?? err}${cause}`, secrets);
+  };
   const record = (entry) => {
     try {
       return evidence.record(entry);
@@ -175,6 +180,11 @@ export async function fetchProviderJson({
     } catch (err) {
       const message = describe(err);
       record({ provider, url, attempt, retrievedAt, error: message });
+      // A refused redirect is a security event, not an outage: asking again
+      // would only be refused again. It ends the request at once.
+      if (/redirect/i.test(String(err?.cause?.message ?? ''))) {
+        throw new Error(`${provider}: request failed, redirect refused (${message})`);
+      }
       await retry(new Error(`${provider}: request failed (${message})`));
       continue;
     }

@@ -32,6 +32,8 @@ import {
   toLedgerRows,
 } from '../../../../scripts/market-refresh/etf-daily/ledger.mjs';
 import {
+  PRIMARY,
+  SECONDARY,
   decideEtf01,
   etf01Outcome,
   freshnessFromReference,
@@ -257,6 +259,49 @@ describe('normalisation — units, pending values and bad rows', () => {
     expect(normalizeSosoValue('IBIT', { code: 40001, data: [] }).problems).toEqual([
       { kind: 'bad-payload', ticker: 'IBIT' },
     ]);
+  });
+});
+
+describe('review-gate fixes (2026-10-21) — formats defined once and enforced', () => {
+  it('should report an impossible date as bad-date and keep the valid rows of the same response', () => {
+    const { rows, problems } = normalizeCryptoEtf({
+      days: [
+        { date: '2026-02-30', funds: [{ ticker: 'IBIT', netFlowUsdM: 1 }] },
+        { date: '2026-10-15', funds: [{ ticker: 'IBIT', netFlowUsdM: 1 }] },
+      ],
+    });
+    expect(rows).toEqual([
+      {
+        session: '2026-10-15',
+        ticker: 'IBIT',
+        observation: 'value',
+        netFlowUsd: 1_000_000,
+        issue: null,
+      },
+    ]);
+    expect(problems).toEqual([{ kind: 'bad-date', session: '2026-02-30', ticker: 'IBIT' }]);
+  });
+
+  it('should make a finite but non-storable amount invalid at the source, not after persisting it', () => {
+    const { rows } = normalizeCryptoEtf({
+      days: [{ date: '2026-10-15', funds: [{ ticker: 'IBIT', netFlowUsdM: 1e10 }] }],
+    });
+    expect(rows[0]).toMatchObject({ observation: 'invalid', issue: 'out-of-range' });
+  });
+
+  it('should refuse a retrieval time without an explicit UTC zone (it would read as local time)', () => {
+    const zoneless = {
+      ...row('cryptoetf', '2026-10-16', 'IBIT', 5, CUTOFF - 30 * H),
+      retrieved_at: '2026-10-18T17:15:00',
+    };
+    expect(ledgerRowProblems(zoneless)).toContain('retrieved_at');
+    // Its time cannot be placed safely, so it is damage, never a usable observation.
+    expect(parseLedger(`${JSON.stringify(zoneless)}\n`).damaged).toHaveLength(1);
+  });
+
+  it("should take PRIMARY and SECONDARY from the providers' roles", () => {
+    expect(PRIMARY).toBe('cryptoetf');
+    expect(SECONDARY).toBe('sosovalue');
   });
 });
 
@@ -769,11 +814,14 @@ describe('integrated — what a provider sends reaches the decision', () => {
     expect(d.damaged).toEqual([{ line: expect.any(Number), reason: 'not JSON' }]);
   });
 
-  it('a pure request outage (nothing new written) keeps deciding from the preserved history', () => {
-    expect(decide(history)).toMatchObject({
+  it('a pure request outage (nothing new written) keeps deciding from the preserved history, with no renewed date', () => {
+    // Later the same week: the daily pulls failed, so the ledger is unchanged.
+    const laterCutoff = CUTOFF + 3 * 24 * H; // Thursday
+    expect(decideEtf01({ cutoffMs: laterCutoff, ledger: history })).toMatchObject({
       state: 'ACTIVE',
       points: 2,
       reference_week_end: '2026-10-16',
+      stale_after: '2026-11-06T00:00:00.000Z',
     });
   });
 

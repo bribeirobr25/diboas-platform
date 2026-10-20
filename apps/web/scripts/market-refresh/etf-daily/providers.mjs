@@ -27,8 +27,9 @@
  * aggregate (`/flows/btc`) reported unpublished days as 0 and is NOT used.
  */
 
-import { fetchProviderJson } from './request.mjs';
-import { isCovered, isSession } from './calendar.mjs';
+import { EvidenceStorageError, ProviderStopped, fetchProviderJson } from './request.mjs';
+import { isCovered, isRealDay, isSession } from './calendar.mjs';
+import { ISO_DAY_PATTERN, TICKER_PATTERN, isValidFlowUsd } from './formats.mjs';
 
 export const ETF_PROVIDERS = Object.freeze({
   cryptoetf: Object.freeze({
@@ -55,9 +56,6 @@ export const ETF_PROVIDERS = Object.freeze({
   }),
 });
 
-const TICKER = /^[A-Z]{2,6}$/;
-const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
-
 /**
  * Shared checks. Anything that names a scorable fund-day becomes an
  * observation: a `value`, `pending` (null), or `invalid` with its issue (a
@@ -69,11 +67,15 @@ function collect(candidates) {
   const problems = [];
   const byKey = new Map();
   for (const c of candidates) {
-    if (typeof c.session !== 'string' || !ISO_DAY.test(c.session)) {
+    if (
+      typeof c.session !== 'string' ||
+      !ISO_DAY_PATTERN.test(c.session) ||
+      !isRealDay(c.session)
+    ) {
       problems.push({ kind: 'bad-date', session: c.session, ticker: c.ticker });
       continue;
     }
-    if (typeof c.ticker !== 'string' || !TICKER.test(c.ticker)) {
+    if (typeof c.ticker !== 'string' || !TICKER_PATTERN.test(c.ticker)) {
       problems.push({ kind: 'bad-ticker', session: c.session, ticker: c.ticker });
       continue;
     }
@@ -94,6 +96,10 @@ function collect(candidates) {
     } else if (!Number.isFinite(c.netFlowUsd)) {
       problems.push({ kind: 'non-finite', ...base });
       row = { ...base, observation: 'invalid', netFlowUsd: null, issue: 'non-finite' };
+    } else if (!isValidFlowUsd(c.netFlowUsd)) {
+      // Finite but beyond exact integer dollars: the ledger could not store it.
+      problems.push({ kind: 'out-of-range', ...base });
+      row = { ...base, observation: 'invalid', netFlowUsd: null, issue: 'out-of-range' };
     } else {
       row = { ...base, observation: 'value', netFlowUsd: c.netFlowUsd, issue: null };
     }
@@ -202,7 +208,17 @@ export async function collectProvider(providerId, { env, evidence, tickers, fetc
   const ev = [];
   for (const [i, t] of tickers.entries()) {
     if (i > 0) await pace(p.paceMs);
-    const res = await request(`/etfs/${encodeURIComponent(t)}/history`);
+    let res;
+    try {
+      res = await request(`/etfs/${encodeURIComponent(t)}/history`);
+    } catch (err) {
+      // A stop (401/403/429) or a storage failure ends the collection. Any other
+      // failure loses only this fund: the funds already collected keep their
+      // rows, and this one is simply absent (so its window stays ineligible).
+      if (err instanceof ProviderStopped || err instanceof EvidenceStorageError) throw err;
+      problems.push({ kind: 'request-failed', ticker: t, message: err.message });
+      continue;
+    }
     const n = normalizeSosoValue(t, res.json);
     rows.push(...n.rows);
     problems.push(...n.problems);

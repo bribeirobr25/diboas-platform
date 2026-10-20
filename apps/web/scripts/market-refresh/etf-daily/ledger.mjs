@@ -40,11 +40,13 @@
  *     reproducible from the rows that existed at its cutoff.
  */
 
+import { ETF_PROVIDERS } from './providers.mjs';
+import { ISO_DAY_PATTERN, TICKER_PATTERN, isValidFlowUsd, parseUtcInstant } from './formats.mjs';
+
 export const LEDGER_SCHEMA = 1;
 export const STABILITY_MIN_GAP_MS = 12 * 60 * 60 * 1000;
 
-const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
-const PROVIDERS = ['cryptoetf', 'sosovalue'];
+const PROVIDERS = Object.keys(ETF_PROVIDERS);
 const OBSERVATIONS = ['value', 'pending', 'invalid'];
 
 /** Validate one ledger row; returns a list of problems (empty = valid). */
@@ -52,20 +54,19 @@ export function ledgerRowProblems(row) {
   const problems = [];
   if (row?.schema !== LEDGER_SCHEMA) problems.push('schema');
   if (!PROVIDERS.includes(row?.provider)) problems.push('provider');
-  if (typeof row?.session !== 'string' || !ISO_DAY.test(row.session)) problems.push('session');
-  if (typeof row?.ticker !== 'string' || !/^[A-Z]{2,6}$/.test(row.ticker)) problems.push('ticker');
+  if (typeof row?.session !== 'string' || !ISO_DAY_PATTERN.test(row.session))
+    problems.push('session');
+  if (typeof row?.ticker !== 'string' || !TICKER_PATTERN.test(row.ticker)) problems.push('ticker');
   if (!OBSERVATIONS.includes(row?.observation)) problems.push('observation');
   if (
-    row?.observation === 'value'
-      ? !Number.isSafeInteger(row?.net_flow_usd)
-      : row?.net_flow_usd !== null
+    row?.observation === 'value' ? !isValidFlowUsd(row?.net_flow_usd) : row?.net_flow_usd !== null
   ) {
     problems.push('net_flow_usd');
   }
   if (row?.observation === 'invalid' ? typeof row?.issue !== 'string' : row?.issue !== null) {
     problems.push('issue');
   }
-  if (!Number.isFinite(Date.parse(row?.retrieved_at))) problems.push('retrieved_at');
+  if (!Number.isFinite(parseUtcInstant(row?.retrieved_at))) problems.push('retrieved_at');
   if (!['pull', 'import'].includes(row?.kind)) problems.push('kind');
   for (const k of ['attempt_id', 'response_sha256', 'universe_version']) {
     if (typeof row?.[k] !== 'string' || row[k] === '') problems.push(k);
@@ -125,10 +126,10 @@ export function parseLedger(text) {
     const attributable =
       PROVIDERS.includes(row?.provider) &&
       typeof row?.session === 'string' &&
-      ISO_DAY.test(row.session) &&
+      ISO_DAY_PATTERN.test(row.session) &&
       typeof row?.ticker === 'string' &&
-      /^[A-Z]{2,6}$/.test(row.ticker) &&
-      Number.isFinite(Date.parse(row?.retrieved_at));
+      TICKER_PATTERN.test(row.ticker) &&
+      Number.isFinite(parseUtcInstant(row?.retrieved_at));
     if (attributable) {
       out.invalid.push({
         provider: row.provider,
@@ -155,7 +156,7 @@ export function parseLedger(text) {
 export function indexLedger(parsed, cutoffMs) {
   const index = new Map();
   const add = (row, entry) => {
-    const t = Date.parse(row.retrieved_at);
+    const t = parseUtcInstant(row.retrieved_at);
     if (t > cutoffMs) return;
     const key = `${row.provider}|${row.session}|${row.ticker}`;
     if (!index.has(key)) index.set(key, []);

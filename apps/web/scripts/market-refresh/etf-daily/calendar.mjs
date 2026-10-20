@@ -22,6 +22,8 @@
  * today's date is a dated landmine (the 2026-11-11 TVL failure is that class).
  */
 
+import { ISO_DAY_PATTERN } from './formats.mjs';
+
 export const NYSE_CALENDAR = Object.freeze({
   source: 'https://www.nyse.com/markets/hours-calendars',
   readOn: '2026-10-20',
@@ -63,7 +65,6 @@ export const NYSE_CALENDAR = Object.freeze({
 });
 
 const CLOSED = new Set(NYSE_CALENDAR.closures);
-const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
 const DAY_MS = 86_400_000;
 
 export class CalendarCoverageError extends Error {
@@ -78,13 +79,23 @@ export class CalendarCoverageError extends Error {
 
 /** Parse a YYYY-MM-DD calendar day to its UTC midnight (ms), rejecting anything else. */
 export function dayMs(day) {
-  if (typeof day !== 'string' || !ISO_DAY.test(day))
+  if (typeof day !== 'string' || !ISO_DAY_PATTERN.test(day))
     throw new Error(`not a YYYY-MM-DD day: ${day}`);
   const t = Date.parse(`${day}T00:00:00Z`);
   if (!Number.isFinite(t) || new Date(t).toISOString().slice(0, 10) !== day) {
     throw new Error(`not a real calendar day: ${day}`);
   }
   return t;
+}
+
+/** Whether `day` is a real calendar day (`2026-02-30` is not); never throws. */
+export function isRealDay(day) {
+  try {
+    dayMs(day);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export const addDays = (day, n) => new Date(dayMs(day) + n * DAY_MS).toISOString().slice(0, 10);

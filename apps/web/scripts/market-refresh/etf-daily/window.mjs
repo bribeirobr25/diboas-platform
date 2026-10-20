@@ -74,8 +74,10 @@ import { ETF_UNIVERSE, requiredFunds } from './universe.mjs';
 import { ETF_PROVIDERS } from './providers.mjs';
 import { indexLedger, parseLedger, stableValue } from './ledger.mjs';
 
-export const PRIMARY = 'cryptoetf';
-export const SECONDARY = 'sosovalue';
+/** The providers' roles come from ETF_PROVIDERS alone, so changing a role there changes the selection here. */
+const roleOf = (role) => Object.values(ETF_PROVIDERS).find((p) => p.role === role).id;
+export const PRIMARY = roleOf('primary');
+export const SECONDARY = roleOf('backup');
 /** Weekly disagreement threshold, relative to the larger weekly magnitude. */
 export const WEEKLY_DISAGREEMENT_SHARE = 0.02;
 export const FRESHNESS_DAYS = Object.freeze({ expected: 10, delayed: 11, stale: 21 });

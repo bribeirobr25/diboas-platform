@@ -105,11 +105,13 @@ describe('origin and redirects — the key never reaches another host', () => {
       seenByOther.push(req.headers);
       res.end('{}');
     });
+    let providerHits = 0;
     const provider = await listen((_req, res) => {
+      providerHits += 1;
       res.writeHead(302, { location: `${other}/collect` });
       res.end();
     });
-    const { evidence } = store();
+    const { dir, evidence } = store();
     const request = (fetchImpl: typeof fetch) =>
       fetchProviderJson({
         provider: 'cryptoetf',
@@ -122,8 +124,11 @@ describe('origin and redirects — the key never reaches another host', () => {
         sleep: noSleep,
       });
 
-    await expect(request(fetch)).rejects.toThrow(/request failed/);
+    await expect(request(fetch)).rejects.toThrow(/request failed, redirect refused/);
     expect(seenByOther).toHaveLength(0);
+    // A refused redirect is not retried, and the evidence says what happened.
+    expect(providerHits).toBe(1);
+    expect(manifest(dir)[0].error).toContain('unexpected redirect');
 
     // Control: the same request with redirects followed hands the key over.
     const following = ((u: string, init: RequestInit) =>
@@ -385,5 +390,48 @@ describe('evidence that cannot be written', () => {
     const f = fakeFetch([{ throws: 'fetch failed' }, { body: '{}' }]);
     await expect(call(f.fn, failingStore() as never)).rejects.toBeInstanceOf(EvidenceStorageError);
     expect(f.calls).toHaveLength(1);
+  });
+});
+
+describe('one failing fund does not discard the others (SoSoValue)', () => {
+  const sosoAnswer = (t: string) =>
+    new Response(
+      JSON.stringify({ code: 0, data: [{ date: '2026-10-15', ticker: t, net_inflow: 1 }] })
+    );
+
+  it('should keep the rows already collected and report the failed fund', async () => {
+    const { evidence } = store();
+    const fetchImpl = (async (u: string) => {
+      const t = u.split('/etfs/')[1].split('/')[0];
+      return t === 'FBTC' ? new Response('down', { status: 500 }) : sosoAnswer(t);
+    }) as unknown as typeof fetch;
+    const out = await collectProvider('sosovalue', {
+      env: { SOSOVALUE_API_KEY: KEY },
+      evidence,
+      tickers: ['IBIT', 'FBTC', 'ARKB'],
+      fetchImpl,
+      sleep: noSleep,
+    });
+    expect((out.rows as { ticker: string }[]).map((r) => r.ticker)).toEqual(['IBIT', 'ARKB']);
+    expect(out.problems).toEqual([
+      expect.objectContaining({ kind: 'request-failed', ticker: 'FBTC' }),
+    ]);
+  });
+
+  it('should still end the collection on a stop status', async () => {
+    const { evidence } = store();
+    const fetchImpl = (async (u: string) =>
+      u.includes('/FBTC/')
+        ? new Response('no', { status: 429 })
+        : sosoAnswer('IBIT')) as unknown as typeof fetch;
+    await expect(
+      collectProvider('sosovalue', {
+        env: { SOSOVALUE_API_KEY: KEY },
+        evidence,
+        tickers: ['IBIT', 'FBTC', 'ARKB'],
+        fetchImpl,
+        sleep: noSleep,
+      })
+    ).rejects.toBeInstanceOf(ProviderStopped);
   });
 });
