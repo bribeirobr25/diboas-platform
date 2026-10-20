@@ -60,6 +60,7 @@ import { resolveEtfSignals, readSnapshots, recordEtfSnapshot } from './lib/etf-f
 import { isCompleteSnapshot, ledgerCoverage } from './lib/etf-coverage.mjs';
 import { ETF01_SUSPENSION, isSuspendedEtf } from './lib/etf-suspension.mjs';
 import { archiveSignals } from './lib/archive.mjs';
+import { appendJsonlLine, readJsonlTolerant } from './lib/jsonl.mjs';
 import { scoreSignals, anchorCoherence, ETF_VARIANT, MAX_SCORE } from './lib/regime-engine.mjs';
 
 const SHARED = SHARED_DIR;
@@ -212,7 +213,7 @@ function advance({ days, etfDays, etfIncomplete = false }) {
           throw new Error(`an incomplete collection was not refused cleanly: ${res.outcome}`);
         refusal = { anchor: nextAnchor, complete: { anchor: nextAnchor, funds: base.funds } };
       } else {
-        fs.appendFileSync(etfPath, `${JSON.stringify({ ...base, anchor: nextAnchor })}\n`);
+        appendJsonlLine(etfPath, JSON.stringify({ ...base, anchor: nextAnchor }));
       }
     }
     etf = readSnapshots(etfPath).length;
@@ -248,14 +249,16 @@ function advance({ days, etfDays, etfIncomplete = false }) {
   fs.writeFileSync(p('computed.json'), `${JSON.stringify(computed, null, 2)}\n`);
 
   // The run archive gains the matching line — the growth that broke 2026-09-14.
-  const archive = fs.readFileSync(p('run-archive.jsonl'), 'utf8').trim().split('\n');
-  const lastRun = JSON.parse(archive[archive.length - 1]);
+  // The tolerant reader (lib/jsonl.mjs): a torn line in the real archive must
+  // not crash the rehearsal or be taken for the last run.
+  const archive = readJsonlTolerant(fs.readFileSync(p('run-archive.jsonl'), 'utf8'));
+  const lastRun = archive[archive.length - 1];
   lastRun.run_at = computed.computed_at;
   lastRun.computed = { score, regime_code: band.code, group_totals: groupTotals };
   lastRun.signals = computed.signals;
   lastRun.anchor_spread_days = computed.anchor_spread_days;
   lastRun.anchor_warning = computed.anchor_warning;
-  fs.appendFileSync(p('run-archive.jsonl'), `${JSON.stringify(lastRun)}\n`);
+  appendJsonlLine(p('run-archive.jsonl'), JSON.stringify(lastRun));
 
   return {
     refusal,
@@ -384,8 +387,8 @@ function assertEtfSentence() {
     const regime = JSON.parse(fs.readFileSync(path.join(SHARED, 'regime.json'), 'utf8'));
     // The previous run is the archive's second-to-last line (this cycle's line
     // was just appended); the suspension starts here if that run was not suspended.
-    const runs = fs.readFileSync(path.join(SHARED, 'run-archive.jsonl'), 'utf8').trim().split('\n');
-    const previous = JSON.parse(runs[runs.length - 2] ?? '{}');
+    const runs = readJsonlTolerant(fs.readFileSync(path.join(SHARED, 'run-archive.jsonl'), 'utf8'));
+    const previous = runs[runs.length - 2] ?? {};
     const prevEtf = (previous.signals ?? []).find((x) => x.id === 'ETF-01');
     const startsThisCycle = !isSuspendedEtf(prevEtf);
     const group = regime.signal_groups.find((g) => g.id === 'institutional_demand');

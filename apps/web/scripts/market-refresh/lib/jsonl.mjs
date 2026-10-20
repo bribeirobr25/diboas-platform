@@ -18,7 +18,16 @@
  * One rule, both ledgers. Skipping is the right behaviour rather than
  * repairing: the next run re-appends what it needs, and a reader must never
  * rewrite an append-only file it does not own.
+ *
+ * The WRITER half (2026-10-20, K01/N01): skipping alone was not enough. A row
+ * appended straight after a torn tail (no final newline) fused with it into one
+ * unparseable line, so the reader skipped the NEW, valid row as well. Every
+ * pipeline append goes through `appendJsonlLine`, which starts a fresh line
+ * first. It never edits or removes existing bytes, so a damaged row stays
+ * exactly as it was (evidence), and it does not reconstruct it.
  */
+
+import fs from 'node:fs';
 
 /**
  * Parse JSONL, skipping blank lines and any line that does not parse.
@@ -38,4 +47,40 @@ export function readJsonlTolerant(text) {
     }
   }
   return rows;
+}
+
+/**
+ * Append one JSONL row so that a torn tail cannot swallow it.
+ *
+ * If the file is non-empty and does not end in a newline (a killed append, or a
+ * valid last row someone wrote without one), a newline is written before the
+ * row, in the same write. Existing bytes are never changed. A missing file is
+ * created. Any other failure (permissions, disk, a read error) is thrown to the
+ * caller, so a failed write can never be reported as a success.
+ *
+ * Limits, stated rather than implied: this does not repair or recover a damaged
+ * row, and it makes no durability (fsync/power-loss) or concurrent-writer claim.
+ *
+ * @param {string} filePath — the ledger (created if absent)
+ * @param {string} text — one serialised row, with or without its trailing newline
+ */
+export function appendJsonlLine(filePath, text) {
+  const line = text.endsWith('\n') ? text : `${text}\n`;
+  let lead = '';
+  try {
+    const { size } = fs.statSync(filePath);
+    if (size > 0) {
+      const fd = fs.openSync(filePath, 'r');
+      try {
+        const last = Buffer.alloc(1);
+        fs.readSync(fd, last, 0, 1, size - 1);
+        if (last[0] !== 0x0a) lead = '\n';
+      } finally {
+        fs.closeSync(fd);
+      }
+    }
+  } catch (err) {
+    if (err.code !== 'ENOENT') throw err;
+  }
+  fs.appendFileSync(filePath, lead + line);
 }
