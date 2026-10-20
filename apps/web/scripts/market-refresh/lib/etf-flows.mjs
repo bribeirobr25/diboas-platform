@@ -22,25 +22,24 @@
 import { readJsonlTolerant } from './jsonl.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
-import { REPO_ROOT } from '../providers/inrepo.mjs';
-import { evaluateEtfManual, WARMUP_SNAPSHOTS } from './regime-engine.mjs';
+import { SHARED_DIR } from '../providers/inrepo.mjs';
+import {
+  evaluateEtfManual,
+  WARMUP_SNAPSHOTS,
+  ETF01_WEIGHT,
+  ETF_VARIANT,
+} from './regime-engine.mjs';
 import { ETF01_SUSPENSION, suspendedEtfSignal } from './etf-suspension.mjs';
 import { isCompleteSnapshot, missingFields } from './etf-coverage.mjs';
 
-export const ETF_SHARES_ARCHIVE = path.join(
-  REPO_ROOT,
-  'apps/web/data/market/shared/etf-shares-weekly.jsonl'
-);
+export const ETF_SHARES_ARCHIVE = path.join(SHARED_DIR, 'etf-shares-weekly.jsonl');
 
 /**
  * Collection attempts that came back INCOMPLETE (2026-10-19). Kept apart from
  * the ledger: an incomplete pull is evidence of what the provider returned,
  * never a ledger week, and never a zero flow. Append-only, like the ledger.
  */
-export const ETF_SNAPSHOT_ATTEMPTS = path.join(
-  REPO_ROOT,
-  'apps/web/data/market/shared/etf-snapshot-attempts.jsonl'
-);
+export const ETF_SNAPSHOT_ATTEMPTS = path.join(SHARED_DIR, 'etf-snapshot-attempts.jsonl');
 
 /**
  * Exit codes of `run.mjs --etf-snapshot` when the week is not added to the
@@ -48,8 +47,10 @@ export const ETF_SNAPSHOT_ATTEMPTS = path.join(
  * annotation and PR body, which differs by case: a REFUSED pull can still be
  * collected again that week; a week that already has an INCOMPLETE record is
  * preserved and not collected again. `recordedThenFailed`: this week's complete
- * snapshot IS in the ledger, and the rest of the same run failed afterwards (on
- * this branch `--etf-snapshot` continues into the full pipeline). Outside
+ * snapshot IS in the ledger and the step failed after writing it. Since
+ * `--etf-snapshot` is snapshot-only (it returns once the week is recorded), only
+ * the step's closing report runs after the write; the core refresh is a separate
+ * workflow step. Kept so that case is never reported as "not recorded". Outside
  * Node's reserved codes; any other non-zero exit is an error whose effect on
  * the ledger this run does not establish.
  */
@@ -241,7 +242,7 @@ export function evaluateEtf01FromFlows(ledger, today = new Date()) {
     return {
       id: 'ETF-01',
       state: 'UNAVAILABLE',
-      weight: 2,
+      weight: ETF01_WEIGHT,
       detail:
         `Polygon shares-outstanding ledger warming up: ${snapshots.length}/${WARMUP_SNAPSHOTS} ` +
         `weekly snapshots recorded — 4 weekly flows need ${WARMUP_SNAPSHOTS}. No guessed backfill.`,
@@ -279,7 +280,7 @@ export function evaluateEtf01FromFlows(ledger, today = new Date()) {
     return {
       id: 'ETF-01',
       state: 'UNAVAILABLE',
-      weight: 2,
+      weight: ETF01_WEIGHT,
       detail:
         `ETF flow ledger has a ${gap.spanDays}-day gap (${gap.from} → ${gap.to}) inside the ` +
         `trailing-4 window — a missing weekly snapshot. Scored unavailable rather than ` +
@@ -291,7 +292,7 @@ export function evaluateEtf01FromFlows(ledger, today = new Date()) {
       values: {
         snapshots: snapshots.length,
         warmupTarget: WARMUP_SNAPSHOTS,
-        variant: 'gapped',
+        variant: ETF_VARIANT.GAPPED,
         gapDays: gap.spanDays,
       },
       anchor: snapshots[snapshots.length - 1].anchor,
@@ -306,7 +307,7 @@ export function evaluateEtf01FromFlows(ledger, today = new Date()) {
   return {
     id: 'ETF-01',
     state,
-    weight: 2,
+    weight: ETF01_WEIGHT,
     detail:
       `Spot-ETF net flows via Δshares×NAV (Polygon primary): last 4 weekly aggregates ` +
       `(spans [${last4.map((f) => `${f.spanDays}d`).join(', ')}], all verified 7±1d) ` +

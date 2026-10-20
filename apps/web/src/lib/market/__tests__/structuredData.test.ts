@@ -11,6 +11,7 @@
 
 import { describe, expect, it } from 'vitest';
 import { marketArticleSchema } from '../structuredData';
+import { SEO_DEFAULTS } from '@/lib/seo/constants';
 import type { AnalyticsInitialData, RegimeData } from '@/lib/analytics-sdk/types';
 
 const SITE_URL = 'https://diboas.com';
@@ -48,6 +49,7 @@ const buildArgs = (overrides: Partial<AnalyticsInitialData> = {}) => ({
   siteUrl: SITE_URL,
   description: DESCRIPTION,
   headline: HEADLINE,
+  path: '/market',
 });
 
 describe('marketArticleSchema — inLanguage (BCP-47 per locale)', () => {
@@ -80,6 +82,7 @@ describe('marketArticleSchema — null-regime fallback', () => {
       siteUrl: SITE_URL,
       description: DESCRIPTION,
       headline: HEADLINE,
+      path: '/market',
     });
     expect(result).toBeNull();
   });
@@ -91,6 +94,7 @@ describe('marketArticleSchema — null-regime fallback', () => {
       siteUrl: SITE_URL,
       description: DESCRIPTION,
       headline: HEADLINE,
+      path: '/market',
     });
     expect(result).toBeNull();
   });
@@ -103,6 +107,7 @@ describe('marketArticleSchema — null-regime fallback', () => {
       siteUrl: SITE_URL,
       description: DESCRIPTION,
       headline: HEADLINE,
+      path: '/market',
     });
     expect(result).toBeNull();
   });
@@ -144,4 +149,15 @@ describe('marketArticleSchema — schema shape', () => {
     expect(author?.name).toBe('diBoaS Analytics');
     expect(author?.url).toBe('https://diboas-analytics.com');
   });
+});
+
+describe('marketArticleSchema — each view has its own URL (2026-10-18)', () => {
+  it.each(['/market', '/market/bitcoin', '/market/backdrop'])(
+    'should identify %s by its own canonical URL',
+    (path) => {
+      const result = marketArticleSchema({ ...buildArgs(), locale: 'de', path });
+      expect(result?.['@id']).toBe(`${SEO_DEFAULTS.siteUrl}/de${path}`);
+      expect(result?.url).toBe(result?.['@id']);
+    }
+  );
 });

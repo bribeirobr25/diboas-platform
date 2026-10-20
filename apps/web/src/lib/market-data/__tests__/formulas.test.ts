@@ -23,8 +23,6 @@ import {
   monthsToInflationAdjustedTarget,
   monthsToStaticTarget,
   purchasingPower,
-  calculateFee,
-  applyPlatformFees,
 } from '../formulas';
 import type { FxBucket } from '../types';
 import { FALLBACK_MARKET_DATA } from '../constants';
@@ -202,48 +200,6 @@ describe('monthsToStaticTarget', () => {
 
   it('should throw for zero payment', () => {
     expect(() => monthsToStaticTarget(12000, 0, 0.07)).toThrow();
-  });
-});
-
-// ─── calculateFee ──────────────────────────────────────────────────────
-
-describe('calculateFee', () => {
-  it('should apply fee rate', () => {
-    const result = calculateFee(100, 0.0039);
-    expect(result.feeAmount).toBeCloseTo(0.39, 2);
-    expect(result.netAmount).toBeCloseTo(99.61, 2);
-  });
-
-  it('should cap at maximum', () => {
-    const result = calculateFee(10000, 0.0039, 0.25, 25.0);
-    expect(result.feeAmount).toBe(25.0);
-  });
-
-  it('should floor at minimum', () => {
-    const result = calculateFee(10, 0.0039, 0.25, 25.0);
-    expect(result.feeAmount).toBe(0.25);
-  });
-
-  it('should return zero fee for zero rate', () => {
-    const result = calculateFee(1000, 0);
-    expect(result.feeAmount).toBe(0);
-    expect(result.netAmount).toBe(1000);
-  });
-});
-
-// ─── applyPlatformFees ─────────────────────────────────────────────────
-
-describe('applyPlatformFees', () => {
-  it('should apply entry and exit fees', () => {
-    const result = applyPlatformFees(1000, 1100, 0.0048, 0.0039);
-    expect(result.principalAfterEntry).toBeCloseTo(995.2, 2);
-    expect(result.endAfterExit).toBeLessThan(1100);
-  });
-
-  it('should handle zero principal', () => {
-    const result = applyPlatformFees(0, 1000, 0.0048, 0.0039);
-    expect(result.principalAfterEntry).toBe(0);
-    expect(result.endAfterExit).toBeLessThan(1000);
   });
 });
 

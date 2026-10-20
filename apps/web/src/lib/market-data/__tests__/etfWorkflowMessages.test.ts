@@ -10,14 +10,27 @@
  *
  * This test runs the workflow's own `run:` scripts with bash, under GitHub's
  * shell flags (`bash --noprofile --norc -eo pipefail`): the ETF step, then the
- * PR-body step fed with the ETF step's outputs. For the refused, unknown and
- * incomplete-record cases the ETF step runs the REAL `run.mjs` against a
- * throw-away copy of the scripts, a synthetic ledger, a fixed clock and a stub
- * network (`fixtures/etfSnapshotNetworkStub.mjs`), so the exit code, the
- * ledger bytes and the evidence file are measured, not assumed. The success
- * case replaces only the snapshot command with a zero exit: on this branch a
- * successful `--etf-snapshot` continues into the full pipeline, which cannot
- * run offline.
+ * PR-body step fed with the ETF step's outputs. The cases are of two kinds.
+ *
+ * 1. The REAL `run.mjs`, isolated: a throw-away copy of the scripts, a
+ *    synthetic ledger, a fixed clock and a stub network
+ *    (`fixtures/etfSnapshotNetworkStub.mjs`), so the exit code, the ledger
+ *    bytes and the evidence file are measured, not assumed. Cases: an
+ *    incomplete pull refused (suspended, not suspended, and with the
+ *    suspension state unreadable); a week already recorded as incomplete
+ *    (exit 21); and a complete collection, which records the week and ends
+ *    the step with exit 0 (`--etf-snapshot` is snapshot-only, so nothing else
+ *    is fetched).
+ * 2. The snapshot command REPLACED by a fixed exit code, which tests only how
+ *    the workflow reacts to that code: exit 0 (the success wording on its own),
+ *    exit 1 (a generic error) and exit 22.
+ *
+ * The exit-22 case is of the second kind. It checks the workflow's reaction to
+ * that return code (a notice, no warning, never "not recorded"); it does not
+ * reproduce a real recording followed by a failure of the step.
+ *
+ * Separately, the core refresh step's own script is executed with a failing
+ * command to show that its failure still fails the job.
  *
  * Rules only; nothing under apps/web/data is read or written.
  */
@@ -354,18 +367,32 @@ describe('the weekly workflow ETF wording, executed', () => {
     expect(r.ledgerUnchanged).toBe(true);
   });
 
-  it('a complete snapshot recorded, then the rest of the run failed: no ETF warning, the week stands', () => {
-    // The real run.mjs: it records the week, then the full pipeline it continues
-    // into is refused by the stub network (exit 22). Nothing may say the week
-    // was not recorded.
+  it('a complete collection, real run: the week is recorded and the step ends there (exit 0)', () => {
+    // The real run.mjs. `--etf-snapshot` is snapshot-only: it records the week
+    // and returns, so nothing else is fetched (the stub network would refuse it)
+    // and the step reports a plain success.
     const r = runWorkflow({ now: '2026-10-26T06:20:00Z', completePull: true });
     expect(r.step.status).toBe(0);
-    expect(r.outputs).toMatchObject({ outcome: 'recorded', status: 'ok' });
+    expect(r.outputs).toMatchObject({ outcome: 'ok', status: 'ok' });
     expect(r.ledgerAnchors).toEqual(['2026-10-09', '2026-10-16', '2026-10-23']);
-    expect(r.log).toContain('::notice::ETF-01 snapshot recorded for this week.');
+    expect(r.log).not.toContain('::notice::');
     expect(r.log).not.toContain('::warning::');
     expect(r.body).not.toContain(ETF_HEADING);
     expect(r.attempts).toEqual([]);
+  });
+
+  it('a recorded week whose step then failed (exit 22): a notice, no warning, never "not recorded"', () => {
+    const r = runWorkflow({ now: '2026-10-26T06:20:00Z', snapshotExit: 22 });
+    expect(r.step.status).toBe(0);
+    expect(r.outputs).toMatchObject({ outcome: 'recorded', status: 'ok' });
+    expect(r.outputs.note).toBeUndefined();
+    expect(r.log).toContain(
+      '::notice::ETF-01 snapshot recorded for this week. This step failed after writing it (see its log); the ledger record stands.'
+    );
+    expect(r.log).not.toContain('::warning::');
+    expect(r.log).not.toMatch(CLAIMS_NOTHING_RECORDED);
+    expect(r.body).not.toContain(ETF_HEADING);
+    expect(r.ledgerUnchanged).toBe(true);
   });
 
   it('a generic error: title and note neutral in the log AND the PR body, never "nothing recorded"', () => {

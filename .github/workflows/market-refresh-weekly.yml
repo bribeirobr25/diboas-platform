@@ -129,8 +129,9 @@ jobs:
           # (lib/etf-flows.mjs ETF_SNAPSHOT_EXIT): 20 = an incomplete pull was
           # refused (that week can still be collected); 21 = the week already has
           # an incomplete ledger record (preserved, not collected again); 22 = the
-          # complete snapshot IS recorded and the rest of this run failed after it
-          # (the core refresh step below runs that part again).
+          # complete snapshot IS recorded and this step failed after writing it (the
+          # step is snapshot-only, so only its closing report runs after the write;
+          # the core refresh is the next step).
           rc=0
           node apps/web/scripts/market-refresh/run.mjs --etf-snapshot --no-archive || rc=$?
           case "$rc" in
@@ -144,7 +145,7 @@ jobs:
           if [ "$outcome" = 'ok' ] || [ "$outcome" = 'recorded' ]; then
             echo 'status=ok' >> "$GITHUB_OUTPUT"
             if [ "$outcome" = 'recorded' ]; then
-              echo "::notice::ETF-01 snapshot recorded for this week. The rest of this step's run failed afterwards; the core refresh step runs that part again."
+              echo "::notice::ETF-01 snapshot recorded for this week. This step failed after writing it (see its log); the ledger record stands."
             fi
             exit 0
           fi

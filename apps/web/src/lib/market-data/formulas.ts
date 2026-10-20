@@ -22,11 +22,8 @@ export {
   monthsToInflationAdjustedTarget,
   monthsToStaticTarget,
   purchasingPower,
-  calculateFee,
-  applyPlatformFees,
   type LumpSumResult,
   type MonthlyContributionResult,
-  type FeeResult,
 } from './formulas/core';
 
 export {

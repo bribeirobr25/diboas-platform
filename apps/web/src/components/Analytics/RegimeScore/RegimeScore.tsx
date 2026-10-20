@@ -70,7 +70,11 @@ export function RegimeScore({ data, ariaLabel, className }: RegimeScoreProps) {
       ref={wrapRef}
       className={`${styles.wrapper} ${className ?? ''}`}
       role="img"
-      aria-label={ariaLabel}
+      // `role="img"` hides the visible readout from assistive tech, so the
+      // label carries the reading itself (2026-10-18 compliance pass: it was
+      // the caption alone, with no number). The FINAL score, never the
+      // count-up value, and the same `N/M` form the page shows.
+      aria-label={`${ariaLabel}: ${score}/${max_score}`}
     >
       <svg className={styles.gauge} viewBox="0 0 400 230" aria-hidden="true" focusable="false">
         <defs>

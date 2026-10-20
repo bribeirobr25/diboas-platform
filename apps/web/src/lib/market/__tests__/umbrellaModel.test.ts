@@ -163,9 +163,9 @@ describe('state cards (backdrop)', () => {
     const m = umbrellaCardModel(backdrop, macroData(['ACTIVE', 'INACTIVE', 'ACTIVE']));
     expect(m.available).toBe(true);
     expect(m.conditions).toEqual([
-      { id: 'MAC-01', active: true, available: true },
-      { id: 'MAC-02', active: false, available: true },
-      { id: 'MAC-03', active: true, available: true },
+      { id: 'MAC-01', word: 'active' },
+      { id: 'MAC-02', word: 'inactive' },
+      { id: 'MAC-03', word: 'active' },
     ]);
   });
 
@@ -174,8 +174,8 @@ describe('state cards (backdrop)', () => {
   // never read as an adverse condition.
   it('should mark an UNAVAILABLE condition as not available, never as inactive', () => {
     const m = umbrellaCardModel(backdrop, macroData(['UNAVAILABLE', 'INACTIVE', 'ACTIVE']));
-    expect(m.conditions?.[0]).toEqual({ id: 'MAC-01', active: false, available: false });
-    expect(m.conditions?.[1]).toEqual({ id: 'MAC-02', active: false, available: true });
+    expect(m.conditions?.[0]).toEqual({ id: 'MAC-01', word: 'unavailable' });
+    expect(m.conditions?.[1]).toEqual({ id: 'MAC-02', word: 'inactive' });
   });
 
   /**

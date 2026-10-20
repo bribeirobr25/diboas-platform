@@ -35,6 +35,8 @@
 import { expectedConfirmedMonthYM, MONTH_APPEND_GRACE_DAYS } from './regime-engine.mjs';
 import { WARMUP_SNAPSHOTS } from './etf-flows.mjs';
 import { ledgerCoverage } from './etf-coverage.mjs';
+import { ETF_VARIANT } from './regime-engine.mjs';
+import { isSuspendedEtf } from './etf-suspension.mjs';
 
 const DAY_MS = 86400000;
 const MONTHS_EN =
@@ -213,7 +215,7 @@ function etfLedgerEntry(source, signal, snapshots, run, attempts = []) {
   // second unavailable source, or any source past its stale_after). The
   // stale_after below still applies, so a ledger that stops being collected
   // degrades exactly as it would without the suspension.
-  if (signal?.values?.variant === 'suspended') {
+  if (isSuspendedEtf(signal)) {
     return {
       source,
       status: 'UNAVAILABLE',
@@ -228,7 +230,7 @@ function etfLedgerEntry(source, signal, snapshots, run, attempts = []) {
         `collection does not reactivate the signal.`,
     };
   }
-  if (signal?.values?.variant === 'gapped') {
+  if (signal?.values?.variant === ETF_VARIANT.GAPPED) {
     return {
       source,
       status: 'UNAVAILABLE',

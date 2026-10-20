@@ -108,11 +108,6 @@ export function useProductDisclaimer(): HookResult<ProductDisclaimerData> {
   return resolveFromInitial(initialData.productDisclaimer);
 }
 
-export function useFallbackMessages(): FallbackMessages {
-  const { fallbackMessages } = useAnalyticsContext();
-  return fallbackMessages ?? DEFAULT_FALLBACK;
-}
-
 export { AnalyticsContext };
 
 export interface AnalyticsAttributionProps {

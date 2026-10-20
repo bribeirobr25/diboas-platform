@@ -33,7 +33,14 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { BANDS } from '../../../../scripts/market-refresh/lib/regime-engine.mjs';
+import {
+  BANDS,
+  MAX_SCORE,
+  ETF01_WEIGHT,
+  evaluateEtfManual,
+} from '../../../../scripts/market-refresh/lib/regime-engine.mjs';
+import { evaluateEtf01FromFlows } from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
+import { suspendedEtfSignal } from '../../../../scripts/market-refresh/lib/etf-suspension.mjs';
 import { MAX_BY_GROUP } from '../../../../scripts/market-refresh/lib/group-summaries.mjs';
 
 /** doc 02 §8 — the eleven signals and what each is worth. Sums to 14. */
@@ -233,5 +240,66 @@ describe('the two copies of the methodology document agree', () => {
     // Stated separately from the deep-equality row above so a version drift
     // names itself in the failure output instead of arriving as a diff.
     expect(FIXTURE.version).toBe(PUBLISHED.version);
+  });
+});
+
+/**
+ * 2026-10-18 compliance pass. METH-1 reads the engine's `weight:` literals from
+ * `regime-engine.mjs`, but ETF-01 records are also built in `etf-flows.mjs`
+ * (scored, warm-up, gapped) and `etf-suspension.mjs`. The flow route is the one
+ * that goes live when the suspension is lifted; a weight edited there passed PR
+ * CI and would have failed the following Monday's reconciliation. Every route is
+ * now pinned to the ratified weight, and the scale's top to the ratified bands.
+ */
+describe('every ETF-01 route emits the ratified weight', () => {
+  const at = new Date('2026-10-19T08:00:00Z');
+  const snap = (anchor: string, shares: number) => ({
+    anchor,
+    funds: { IBIT: { shares, price: 40, lastUpdated: null } },
+  });
+  const weekly = ['2026-09-04', '2026-09-11', '2026-09-18', '2026-09-25', '2026-10-02'];
+
+  it('should declare ETF01_WEIGHT at the ratified value', () => {
+    expect(ETF01_WEIGHT).toBe(RATIFIED_WEIGHTS['ETF-01']);
+  });
+
+  it.each([
+    ['warm-up', weekly.slice(0, 3).map((a, i) => snap(a, 1e9 + i * 5e6))],
+    ['scored', weekly.map((a, i) => snap(a, 1e9 + i * 5e6))],
+    [
+      'gapped',
+      ['2026-09-04', '2026-09-18', '2026-09-25', '2026-10-02', '2026-10-09'].map((a, i) =>
+        snap(a, 1e9 + i * 5e6)
+      ),
+    ],
+  ])('should weight the %s flow record at the ratified value', (_label, ledger) => {
+    expect(evaluateEtf01FromFlows(ledger, at).weight).toBe(RATIFIED_WEIGHTS['ETF-01']);
+  });
+
+  it('should weight the suspended and manual records at the ratified value', () => {
+    expect(suspendedEtfSignal([]).weight).toBe(RATIFIED_WEIGHTS['ETF-01']);
+    expect(evaluateEtfManual(null, at)[0].weight).toBe(RATIFIED_WEIGHTS['ETF-01']);
+  });
+
+  it('should put the top of the scale at the ratified total', () => {
+    expect(MAX_SCORE).toBe(RATIFIED_TOTAL);
+  });
+});
+
+/**
+ * 2026-10-18 compliance pass: the generator now takes `regime_label` from the
+ * engine's `BANDS[].label` (its hand-copied twin map was deleted), so the
+ * labels are pinned to the published methodology here. The generator's drift
+ * check alone only sees the label of the band the current week lands in.
+ */
+describe('band labels match the published methodology', () => {
+  const DOC = JSON.parse(
+    readFileSync(join(__dirname, '../../../../data/market/shared/methodology.json'), 'utf8')
+  );
+
+  it('should label every band exactly as methodology.json does', () => {
+    const engine = BANDS.map((b: { code: string; label: string }) => [b.code, b.label]);
+    const doc = DOC.score_bands.map((b: { code: string; label: string }) => [b.code, b.label]);
+    expect(engine).toEqual(doc);
   });
 });

@@ -67,8 +67,6 @@ export {
   monthsToInflationAdjustedTarget,
   monthsToStaticTarget,
   purchasingPower,
-  calculateFee,
-  applyPlatformFees,
 } from './formulas';
 export type {
   LumpSumResult,
@@ -77,17 +75,7 @@ export type {
   MonthlyHedgeResult,
   PathDependentHedgeArgs,
   PathDependentHedgeResult,
-  FeeResult,
 } from './formulas';
 
 // Formatters
-export {
-  formatRate,
-  formatApproxRate,
-  formatCurrency,
-  formatGain,
-  formatReturn,
-  formatCompactCurrency,
-  formatTimeDifference,
-  getLocaleConfig,
-} from './formatters';
+export { formatRate, formatApproxRate, formatCurrency, formatGain } from './formatters';

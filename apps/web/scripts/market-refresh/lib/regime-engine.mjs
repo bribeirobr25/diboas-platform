@@ -200,6 +200,24 @@ export function assertSeriesDepth(label, length, required, metric) {
  * hardcoded `5` in the manual path is exactly the drift Principle 4 forbids.
  */
 export const WARMUP_SNAPSHOTS = 5;
+
+/**
+ * ETF-01's ratified weight, for every route that builds an ETF-01 record OUTSIDE
+ * this file (the flow ledger, its gap/warm-up records, the 2026-10-18 suspension).
+ * The manual route below keeps its literal because METH-1 reads the engine's
+ * `weight: N` literals from source; `methodologyAttestation.test.ts` pins this
+ * constant and every route's emitted weight to the ratified value, so the two
+ * cannot drift (2026-10-18 compliance pass: the flow route was unpinned).
+ */
+export const ETF01_WEIGHT = 2;
+
+/**
+ * The reasons an ETF-01 record can be UNAVAILABLE besides warm-up, named once.
+ * Each selects its own four-locale sentence (`signal-sentences.json` variants)
+ * and its own data-status row; a misspelt literal would silently fall through
+ * to a different branch.
+ */
+export const ETF_VARIANT = Object.freeze({ GAPPED: 'gapped', SUSPENDED: 'suspended' });
 const WARMUP_TARGET_FOR_MANUAL = WARMUP_SNAPSHOTS;
 
 /**
@@ -487,6 +505,9 @@ export const BANDS = [
   { code: 'CONSTRUCTIVE', label: 'Constructive', min: 9, max: 11 },
   { code: 'VERY_FAVORABLE', label: 'Very Favorable', min: 12, max: 14 },
 ];
+
+/** The top of the ratified scale (the last band's max; METH-2 pins the bands). */
+export const MAX_SCORE = BANDS[BANDS.length - 1].max;
 
 export function scoreSignals({ btc, macro, etf, rel }) {
   const pts = (list) => list.reduce((s, x) => s + (x.state === 'ACTIVE' ? x.weight : 0), 0);

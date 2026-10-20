@@ -11,9 +11,9 @@
  * shape) which the real SDK returns. Only the upstream import path changes.
  *
  * `datePublished` / `dateModified` MVP decision (M4 round-1): set both equal
- * to `regime.last_updated_at`. Adelaide Market is a daily-cadence editorial
- * product where each day's regime data IS a new publication, not an update
- * to a prior article. Re-evaluate if iter-5+ introduces archived/permalinked
+ * to `regime.last_updated_at`. Adelaide Market is a weekly editorial product
+ * where each cycle's regime data IS a new publication, not an update to a
+ * prior article (the cadence was daily in the iter-4 plan; it ships weekly). Re-evaluate if iter-5+ introduces archived/permalinked
  * historical regime views.
  */
 
@@ -21,6 +21,7 @@ import type { SupportedLocale } from '@diboas/i18n/server';
 import { seoService } from '@/lib/seo';
 import { SEO_DEFAULTS } from '@/lib/seo/constants';
 import type { AnalyticsInitialData } from '@/lib/analytics-sdk/types';
+import { ANALYTICS_SITE_URL } from './constants';
 
 const ORGANIZATION = {
   '@type': 'Organization',
@@ -31,7 +32,7 @@ const ORGANIZATION = {
 const ANALYTICS_PUBLISHER = {
   '@type': 'Organization',
   name: 'diBoaS Analytics',
-  url: 'https://diboas-analytics.com',
+  url: ANALYTICS_SITE_URL,
 } as const;
 
 /**
@@ -74,12 +75,18 @@ export function marketArticleSchema(args: {
   siteUrl?: string;
   description: string;
   headline: string;
+  /** The view's own route (`viewPath(view)`), e.g. `/market/bitcoin`. */
+  path: string;
 }): Record<string, unknown> | null {
   const datePublished = args.data.regime?.last_updated_at;
   if (!isISO8601(datePublished)) return null;
 
   const siteUrl = args.siteUrl ?? SEO_DEFAULTS.siteUrl;
-  const url = seoService.generateCanonicalUrl('/market', args.locale);
+  // 2026-10-18 compliance pass: the URL is the VIEW's, not the umbrella's.
+  // Hard-coding '/market' gave /market/bitcoin and /market/backdrop the
+  // umbrella's `@id`, so search engines read three pages as one entity whose
+  // url pointed at a different page than the one carrying it.
+  const url = seoService.generateCanonicalUrl(args.path, args.locale);
 
   return {
     '@context': 'https://schema.org',

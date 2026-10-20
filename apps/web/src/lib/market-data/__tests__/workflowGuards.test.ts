@@ -9,6 +9,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { WEEKLY_BLOCKING_VITEST_ARGS } from '../../../../scripts/market-refresh/simulate-next-week.mjs';
 
 const ROOT = join(__dirname, '../../../../../..');
 const weekly = readFileSync(join(ROOT, '.github/workflows/market-refresh-weekly.yml'), 'utf8');
@@ -140,5 +141,46 @@ describe('the 14-day staleness backstop is scoped to market (5.468)', () => {
       'apps/web/src/components/Sections/HeroSection/HeroSection.tsx',
     ])
       expect(re.test(p), p).toBe(false);
+  });
+});
+
+// 2026-10-18 compliance pass: `simulate-next-week.mjs` says it runs "the
+// workflow's own blocking command, verbatim" — a copy nothing compared. If the
+// workflow's test scope changes and the simulator's does not, the rehearsal
+// passes a gate that Monday's run no longer has (or misses one it does).
+describe('the simulator rehearses the weekly blocking test command verbatim', () => {
+  it('should run exactly the vitest command of the blocking workflow step', () => {
+    const step = stepText(weekly, 'Reconcile + jargon gate + market tests');
+    const command = step
+      .replace(/\\\n\s*/g, ' ')
+      .split('\n')
+      .map((l) => l.trim())
+      .find((l) => l.startsWith('pnpm --filter web exec vitest run'));
+    expect(command, 'blocking vitest command not found in the workflow step').toBeDefined();
+    const normalise = (c: string) => c.replace(/'/g, '').replace(/\s+/g, ' ').trim();
+    expect(normalise(command as string)).toBe(
+      normalise(`pnpm ${WEEKLY_BLOCKING_VITEST_ARGS.join(' ')}`)
+    );
+  });
+});
+
+// 2026-10-18 compliance pass: the workflow's fail-open snapshot step runs
+// `run.mjs --etf-snapshot` on its own. When the flag fell through into the full
+// pipeline, a core failure AFTER the snapshot was saved made the step report
+// "snapshot FAILED" in the PR body for a snapshot that existed.
+describe('run.mjs --etf-snapshot is snapshot-only', () => {
+  const run = readFileSync(join(ROOT, 'apps/web/scripts/market-refresh/run.mjs'), 'utf8');
+  it('should return from the snapshot branch before the core fetch', () => {
+    const branch = run.indexOf("process.argv.includes('--etf-snapshot')");
+    const fetchCall = run.indexOf('await fetchMarketSources()');
+    expect(branch, 'snapshot branch not found').toBeGreaterThan(-1);
+    expect(fetchCall, 'core fetch not found').toBeGreaterThan(-1);
+    expect(branch).toBeLessThan(fetchCall);
+    const body = run.slice(branch, run.indexOf('}', branch));
+    expect(body).toMatch(/await maybeSnapshotEtfShares\(\);\s*return;/);
+  });
+
+  it('should run the snapshot step without the core flags', () => {
+    expect(stepText(weekly, 'ETF-01 weekly snapshot')).not.toContain('--append-btc');
   });
 });

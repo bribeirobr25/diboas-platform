@@ -6,3 +6,7 @@
  * ONE flag, one flip when diboas-analytics.com launches.
  */
 export const ANALYTICS_SITE_LIVE = false;
+
+/** The diBoaS Analytics site's origin: the attribution link and the
+ *  Article schema's author both point here (one definition, 2026-10-18). */
+export const ANALYTICS_SITE_URL = 'https://diboas-analytics.com';
