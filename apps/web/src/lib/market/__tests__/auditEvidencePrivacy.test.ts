@@ -116,3 +116,75 @@ test('mount-root patterns do not rewrite public URLs', () => {
   ];
   assert.deepEqual(sanitizeAuditEvidence(input, root, '/Users/nobody'), input);
 });
+
+// 2026-10-20 (Codex audit of #737): both failure classes, with its reproductions.
+const repo = '/project/repo';
+
+test('public URLs stay byte-identical even when they contain the home, a mount root or the repository path', () => {
+  const urls = [
+    'https://example.test/root/guide',
+    'https://example.test/Users/example%20auditor/guide',
+    'https://example.test/project/repo/x.ts',
+    'see https://example.org/opt/guide and https://example.org/var/x',
+  ];
+  assert.deepEqual(sanitizeAuditEvidence(urls, repo, '/root'), urls);
+  assert.deepEqual(sanitizeAuditEvidence(urls, repo, '/Users/example auditor'), urls);
+});
+
+test('local paths whose directories contain spaces are removed whole, keeping the surrounding text', () => {
+  const home = '/Users/example auditor';
+  assert.deepEqual(
+    sanitizeAuditEvidence(
+      [
+        '/Users/example auditor/Project With Spaces/file.ts:1:2',
+        'at /Volumes/External Drive/Project With Spaces/file.ts:1:2',
+        'AssertionError: boom\n    at fn (/Volumes/External Drive/x.mjs:3:4)\n    at next',
+        'C:\\Users\\John Doe\\Project With Spaces\\file.ts:1:2',
+        'file:///Volumes/External%20Drive/x.mjs:1:2',
+      ],
+      repo,
+      home
+    ),
+    [
+      '<local-path>',
+      'at <local-path>',
+      'AssertionError: boom\n    at fn (<local-path>)\n    at next',
+      '<local-path>',
+      '<local-path>',
+    ]
+  );
+});
+
+test('assertion prose after a local path is preserved (no greedy match)', () => {
+  assert.deepEqual(
+    sanitizeAuditEvidence(
+      [
+        'expected /tmp/x to equal 2026-10-30T00:00:00Z',
+        'at /Users/a/file.ts:1:2 and see foo/bar.ts:3',
+        'compare /Volumes/Data Disk/a.ts:1 with /Volumes/Other Disk/b.ts:2',
+      ],
+      repo,
+      '/Users/nobody'
+    ),
+    [
+      'expected <local-path> to equal 2026-10-30T00:00:00Z',
+      'at <local-path> and see foo/bar.ts:3',
+      'compare <local-path> with <local-path>',
+    ]
+  );
+});
+
+test('repository frames still become repository-relative (plain, file URL, stack frame)', () => {
+  assert.deepEqual(
+    sanitizeAuditEvidence(
+      [
+        'at /project/repo/apps/x.test.ts:12:3',
+        'file:///project/repo/apps/x.mjs:4:2',
+        '(/project/repo/a.ts:1:1)',
+      ],
+      repo,
+      '/Users/nobody'
+    ),
+    ['at apps/x.test.ts:12:3', 'apps/x.mjs:4:2', '(a.ts:1:1)']
+  );
+});
