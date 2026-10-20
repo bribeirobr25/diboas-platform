@@ -9,6 +9,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
+import { sanitizeAuditEvidence } from './market-audit-evidence.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const WEB = path.join(ROOT, 'apps/web');
@@ -226,7 +227,7 @@ try {
   if (before !== report.sourceHashAfter)
     throw new Error('Source implementation changed during experiments');
   report.seconds = Number(((performance.now() - started) / 1000).toFixed(3));
-  console.log(JSON.stringify(report, null, 2));
+  console.log(JSON.stringify(sanitizeAuditEvidence(report, ROOT), null, 2));
 } finally {
   for (const dir of dirs) fs.rmSync(dir, { recursive: true, force: true });
 }

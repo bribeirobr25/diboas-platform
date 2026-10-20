@@ -80,3 +80,19 @@ conjunto normal, como já acontecia.
 Manter as verificações determinísticas no CI normal; executar sabotagens e
 inspeção pública sob demanda. Não promover os casos experimentais ao
 preflight semanal sem uma decisão explícita.
+
+## Publicação da evidência
+
+O escritor de experimentos passa a saída por `scripts/market-audit-evidence.mjs`:
+frames do checkout são relativos ao repositório; outros caminhos locais são
+substituídos por `<local-path>`. Para verificar esse filtro sem coletar dados:
+
+```sh
+pnpm --filter web exec vitest run src/lib/market/__tests__/auditEvidencePrivacy.test.ts
+```
+
+Esse filtro trata caminhos, não substitui revisão de credenciais, conteúdo
+publicável ou direitos de redistribuição. Em 20/10, 70 ocorrências de caminhos
+locais foram removidas da evidência pós-#713 já publicada. Resultados, tempos,
+hashes de scripts e asserções foram preservados. Os commits anteriores continuam
+no histórico do PR; este ajuste não alega remover exposição histórica.
