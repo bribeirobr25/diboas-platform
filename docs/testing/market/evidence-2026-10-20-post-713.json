@@ -1,0 +1,282 @@
+{
+  "date": "2026-10-20",
+  "recordedAtUtc": "2026-10-20T12:32:30.049737+00:00",
+  "baseSha": "6ebeab2f9497543725101241f4102323b59d6a24",
+  "testedSha": "45c6c9ef45be12b6b1788cebe3bbaac14ade34a0",
+  "merged713": {
+    "state": "MERGED",
+    "mergedAt": "2026-10-20T12:24:58Z",
+    "squashCommit": "6ebeab2f9497543725101241f4102323b59d6a24"
+  },
+  "originalRound": {
+    "baseSha": "46e92077b3e49f1918dd52e2af3e04b46b9633c6",
+    "commit": "156eb67ffef55b8525d609ae908ed656a2760eca",
+    "preservedFiles": {
+      "report-2026-10-20.md": {
+        "unchanged": true,
+        "sha256": "87c5ef4e27219516fa683d7b39e35ea4f73c5f2cf2ef96e4e38e397a803d83a6"
+      },
+      "evidence-2026-10-20.json": {
+        "unchanged": true,
+        "sha256": "d4c381e0724517b73b17cba1e10c185384d7ee63d7169d4fe24b12574c7221b6"
+      }
+    }
+  },
+  "runs": {
+    "default": {
+      "exitCode": 0,
+      "seconds": 3.687,
+      "total": 73,
+      "runnerPassed": 73,
+      "runnerFailed": 0,
+      "pending": 0,
+      "files": 5
+    },
+    "strict": {
+      "exitCode": 1,
+      "seconds": 8.254,
+      "total": 73,
+      "runnerPassed": 66,
+      "runnerFailed": 7,
+      "pending": 0,
+      "files": 5
+    },
+    "affected": {
+      "exitCode": 0,
+      "seconds": 12.785,
+      "total": 781,
+      "runnerPassed": 781,
+      "runnerFailed": 0,
+      "pending": 0,
+      "files": 47
+    },
+    "wholeWeb": {
+      "exitCode": 0,
+      "seconds": 23.343,
+      "total": 1843,
+      "runnerPassed": 1843,
+      "runnerFailed": 0,
+      "pending": 0,
+      "files": 146
+    }
+  },
+  "checks": {
+    "typecheck": {
+      "exitCode": 0,
+      "seconds": 22.985
+    },
+    "lint": {
+      "exitCode": 0,
+      "seconds": 4.263
+    },
+    "knip": {
+      "exitCode": 0,
+      "seconds": 21.513
+    },
+    "generate": {
+      "exitCode": 0,
+      "seconds": 0.126
+    },
+    "experiments": {
+      "exitCode": 0,
+      "seconds": 13.547
+    }
+  },
+  "interpretation": {
+    "auditOwnCases": 32,
+    "canonicalCases": 41,
+    "satisfiedAuditContracts": 66,
+    "expectedFailureCases": 7,
+    "affectedOrdinaryPasses": 774,
+    "wholeWebOrdinaryPasses": 1836,
+    "fixedFindingIds": ["K02", "K06", "K07", "K08"],
+    "remainingExpectedFailureIds": ["K01", "N01", "N02", "N03", "K03", "K04", "K05"],
+    "policyNotApproved": "LOW without any complete ledger history; not asserted or implemented",
+    "timing": "Wall seconds include process startup; local tests and static checks ran concurrently, not a performance benchmark"
+  },
+  "strictFailures": [
+    {
+      "case": "K01 torn tail must not swallow the next accepted ledger row (known CC finding)",
+      "assertion": "AssertionError: expected [ '2026-10-09' ] to include '2026-10-23'"
+    },
+    {
+      "case": "N01 torn attempt tail must not swallow newly acknowledged refusal evidence",
+      "assertion": "AssertionError: expected [] to have a length of 1 but got +0"
+    },
+    {
+      "case": "N02 exact monthly grace boundary must agree at generation and read time",
+      "assertion": "AssertionError: expected 'FRESH' to be 'DELAYED' // Object.is equality"
+    },
+    {
+      "case": "N03 empty ledger must not invent last-updated dates from each new run",
+      "assertion": "AssertionError: expected '2026-12-28T00:00:00Z' to be '2026-10-26T00:00:00Z' // Object.is equality"
+    },
+    {
+      "case": "K03 M2 with a missing mandatory month must not silently become a 12-month change",
+      "assertion": "AssertionError: expected [Function] to throw an error"
+    },
+    {
+      "case": "K04 M2 invalid numeric value must fail closed (known M2 quality gap)",
+      "assertion": "AssertionError: expected [Function] to throw an error"
+    },
+    {
+      "case": "K05 Friday before close is not a confirmed Friday (known CC finding)",
+      "assertion": "AssertionError: expected [ [ 2026-10-23T00:00:00.000Z, 123 ] ] to deeply equal []"
+    }
+  ],
+  "experiments": {
+    "seed": 20261020,
+    "sequenceLimit": 200,
+    "childTimeoutMs": 30000,
+    "mutations": [
+      {
+        "id": "M06",
+        "test": "A03",
+        "caught": true,
+        "controlSeconds": 1.204,
+        "mutantSeconds": 0.816,
+        "failedAssertions": 1,
+        "evidence": [
+          {
+            "name": "A: ledger integrity and recovery A03 real CLI refuses partial collection with exit 20, then accepts a complete retry",
+            "message": "AssertionError: expected [ { …(2) }, { …(2) }, { …(2) }, …(10) ] to deeply equal []\n    at apps/web/src/lib/market/__tests__/experimentalAudit.test.ts:96:67\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20\n    at new Promise (<anonymous>)\n    at runWithCancel (node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20"
+          }
+        ]
+      },
+      {
+        "id": "M01",
+        "test": "A01",
+        "caught": true,
+        "controlSeconds": 0.865,
+        "mutantSeconds": 1.104,
+        "failedAssertions": 1,
+        "evidence": [
+          {
+            "name": "A: ledger integrity and recovery A01 rejects each unusable field independently, preserving original ledger bytes",
+            "message": "AssertionError: expected 'recorded' to be 'refused' // Object.is equality\n    at apps/web/src/lib/market/__tests__/experimentalAudit.test.ts:47:53\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20\n    at new Promise (<anonymous>)\n    at runWithCancel (node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20"
+          }
+        ]
+      },
+      {
+        "id": "M02",
+        "test": "B01",
+        "caught": true,
+        "controlSeconds": 1.856,
+        "mutantSeconds": 1.08,
+        "failedAssertions": 1,
+        "evidence": [
+          {
+            "name": "B: independent time and scoring oracles B01 exhausts 1024 states of the other ten signals: suspended ETF never scores or rescales",
+            "message": "AssertionError: expected undefined to be 'suspended' // Object.is equality\n    at apps/web/src/lib/market/__tests__/experimentalAudit.test.ts:182:34\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20\n    at new Promise (<anonymous>)\n    at runWithCancel (node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20"
+          }
+        ]
+      },
+      {
+        "id": "M03",
+        "test": "B02",
+        "caught": true,
+        "controlSeconds": 0.742,
+        "mutantSeconds": 0.985,
+        "failedAssertions": 3,
+        "evidence": [
+          {
+            "name": "B: independent time and scoring oracles B02 ETF 21-day expiry at offset -1 ms; incomplete cycles cannot renew it",
+            "message": "AssertionError: expected '2026-10-23T00:00:00Z' to be '2026-10-09T00:00:00Z' // Object.is equality\n    at apps/web/src/lib/market/__tests__/experimentalAudit.test.ts:213:35\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2027:60\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20\n    at new Promise (<anonymous>)\n    at runWithCancel (node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)"
+          },
+          {
+            "name": "B: independent time and scoring oracles B02 ETF 21-day expiry at offset 0 ms; incomplete cycles cannot renew it",
+            "message": "AssertionError: expected '2026-10-23T00:00:00Z' to be '2026-10-09T00:00:00Z' // Object.is equality\n    at apps/web/src/lib/market/__tests__/experimentalAudit.test.ts:213:35\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2027:60\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20\n    at new Promise (<anonymous>)\n    at runWithCancel (node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)"
+          },
+          {
+            "name": "B: independent time and scoring oracles B02 ETF 21-day expiry at offset 1 ms; incomplete cycles cannot renew it",
+            "message": "AssertionError: expected '2026-10-23T00:00:00Z' to be '2026-10-09T00:00:00Z' // Object.is equality\n    at apps/web/src/lib/market/__tests__/experimentalAudit.test.ts:213:35\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2027:60\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20\n    at new Promise (<anonymous>)\n    at runWithCancel (node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)"
+          }
+        ]
+      },
+      {
+        "id": "M04",
+        "test": "A02",
+        "caught": true,
+        "controlSeconds": 1.287,
+        "mutantSeconds": 0.62,
+        "failedAssertions": 1,
+        "evidence": [
+          {
+            "name": "A: ledger integrity and recovery A02 seeded failure/retry sequences preserve every accepted row and prior evidence",
+            "message": "AssertionError: expected '{\"anchor\":\"2026-10-09\",\"funds\":{\"IBIT…' to be '{\"anchor\":\"2026-10-09\",\"funds\":{\"IBIT…' // Object.is equality\n    at apps/web/src/lib/market/__tests__/experimentalAudit.test.ts:79:57\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20\n    at new Promise (<anonymous>)\n    at runWithCancel (node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20"
+          }
+        ]
+      },
+      {
+        "id": "M05",
+        "test": "C01",
+        "caught": true,
+        "controlSeconds": 0.507,
+        "mutantSeconds": 0.571,
+        "failedAssertions": 4,
+        "evidence": [
+          {
+            "name": "C: communication contract C01 missing suspension translation fails closed in en",
+            "message": "AssertionError: expected [Function] to throw an error\n    at Proxy.<anonymous> (node_modules/.pnpm/@vitest+expect@4.1.10/node_modules/@vitest/expect/dist/index.js:1552:16)\n    at Proxy.<anonymous> (node_modules/.pnpm/@vitest+expect@4.1.10/node_modules/@vitest/expect/dist/index.js:1156:15)\n    at Proxy.methodWrapper (node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)\n    at apps/web/src/lib/market/__tests__/experimentalAudit.test.ts:282:76\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2027:60\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26"
+          },
+          {
+            "name": "C: communication contract C01 missing suspension translation fails closed in pt-BR",
+            "message": "AssertionError: expected [Function] to throw an error\n    at Proxy.<anonymous> (node_modules/.pnpm/@vitest+expect@4.1.10/node_modules/@vitest/expect/dist/index.js:1552:16)\n    at Proxy.<anonymous> (node_modules/.pnpm/@vitest+expect@4.1.10/node_modules/@vitest/expect/dist/index.js:1156:15)\n    at Proxy.methodWrapper (node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)\n    at apps/web/src/lib/market/__tests__/experimentalAudit.test.ts:282:76\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2027:60\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26"
+          },
+          {
+            "name": "C: communication contract C01 missing suspension translation fails closed in es",
+            "message": "AssertionError: expected [Function] to throw an error\n    at Proxy.<anonymous> (node_modules/.pnpm/@vitest+expect@4.1.10/node_modules/@vitest/expect/dist/index.js:1552:16)\n    at Proxy.<anonymous> (node_modules/.pnpm/@vitest+expect@4.1.10/node_modules/@vitest/expect/dist/index.js:1156:15)\n    at Proxy.methodWrapper (node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)\n    at apps/web/src/lib/market/__tests__/experimentalAudit.test.ts:282:76\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2027:60\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26"
+          },
+          {
+            "name": "C: communication contract C01 missing suspension translation fails closed in de",
+            "message": "AssertionError: expected [Function] to throw an error\n    at Proxy.<anonymous> (node_modules/.pnpm/@vitest+expect@4.1.10/node_modules/@vitest/expect/dist/index.js:1552:16)\n    at Proxy.<anonymous> (node_modules/.pnpm/@vitest+expect@4.1.10/node_modules/@vitest/expect/dist/index.js:1156:15)\n    at Proxy.methodWrapper (node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)\n    at apps/web/src/lib/market/__tests__/experimentalAudit.test.ts:282:76\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:2027:60\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at node_modules/.pnpm/@vitest+runner@4.1.10/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26"
+          }
+        ]
+      }
+    ],
+    "memo": [
+      {
+        "mode": "valid",
+        "status": 0,
+        "passed": 11,
+        "failed": 0,
+        "seconds": 0.332
+      },
+      {
+        "mode": "invented-numeral",
+        "status": 1,
+        "passed": 7,
+        "failed": 4,
+        "seconds": 0.34
+      },
+      {
+        "mode": "wrong-score-words",
+        "status": 0,
+        "passed": 11,
+        "failed": 0,
+        "seconds": 0.447
+      },
+      {
+        "mode": "wrong-score-digits",
+        "status": 0,
+        "passed": 11,
+        "failed": 0,
+        "seconds": 0.482
+      }
+    ],
+    "sourceHashBefore": "a85d69a07a25bcc41a700a08723f98b14b2d2f661325b13c46e85c27a380395c",
+    "sourceHashAfter": "a85d69a07a25bcc41a700a08723f98b14b2d2f661325b13c46e85c27a380395c",
+    "seconds": 13.394
+  },
+  "weeklyBlockingChange": false,
+  "productionOrDataChange": false,
+  "notExecuted": [
+    "public HTTP/SSR/header/performance inspection",
+    "real weekly workflow or real provider collection",
+    "load test or active pentest",
+    "backtest or recalibration",
+    "concurrent writes, disk failure or power loss",
+    "browser hydration, real screen reader, acquisition submission or conversion"
+  ],
+  "finalHeadCi": "Check PR #735 description for final documentation commit SHA and checks verified on that exact head; no prior CI result is reused."
+}
