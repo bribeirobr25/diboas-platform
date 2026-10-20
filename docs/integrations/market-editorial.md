@@ -385,6 +385,17 @@ Default to the more conservative §10.1 path when in doubt — overclaiming "con
 
 **Never** hand-edit ETF-01's state, points or `regime.coverage`; regenerate through the pipeline.
 
+### The weekly PR is titled "LEDGER CHECK FAILED, do not merge as is" (2026-10-20)
+
+**What it means.** Before opening the weekly PR, the workflow compares every JSONL ledger under `apps/web/data/market/` with `main`. A ledger may only grow by complete rows. The title appears when that is not true. Typically a write failed part-way and left a fragment of a row at the end of `etf-shares-weekly.jsonl`, `etf-snapshot-attempts.jsonl` or `run-archive.jsonl`. The title also appears when the check itself could not run; the body then says the ledgers are unverified. The PR body names the file and the problem; the "Ledger append check" step log has the detail.
+
+**What to do.** **Do not merge as is.** Merging would make the fragment a permanent line of a public append-only ledger. Nothing was removed or repaired automatically, by design. **Ask the market lane (CC) to handle it.** Which fix applies is an **owner decision still to be made** (register it if it has not been):
+
+- **(a)** remove only the fragment this run added, on the PR branch, before merging;
+- **(b)** keep the fragment and record it.
+
+The readers already skip an unparseable line and the next append starts a fresh line, so the published score is not affected either way. Do not edit any row that was already on `main`.
+
 ## 9. What this doc deliberately does NOT cover
 
 - **Adding a new signal** (e.g., a sixth BTC structure indicator) — this is an engineering change (SDK contract extension). Request via product channel.
