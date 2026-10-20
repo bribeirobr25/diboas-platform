@@ -27,7 +27,9 @@ import {
 import {
   indexLedger,
   ledgerRowProblems,
+  parseLedger,
   stableValue,
+  toLedgerRows,
 } from '../../../../scripts/market-refresh/etf-daily/ledger.mjs';
 import {
   decideEtf01,
@@ -59,7 +61,9 @@ function row(
     provider,
     session,
     ticker,
+    observation: value === null ? 'pending' : 'value',
     net_flow_usd: value,
+    issue: null,
     retrieved_at: new Date(at).toISOString(),
     attempt_id: `a-${at}`,
     response_sha256: 'f'.repeat(64),
@@ -67,6 +71,10 @@ function row(
     universe_version: ETF_UNIVERSE.version,
   };
 }
+
+/** Rows as the persisted JSONL text the decision reads. */
+const text = (rows: Row[]) =>
+  rows.map((r) => JSON.stringify(r)).join('\n') + (rows.length ? '\n' : '');
 
 /**
  * A provider's ledger for the given weekly nets (null = week absent): each
@@ -158,13 +166,25 @@ describe('normalisation — units, pending values and bad rows', () => {
       ],
     });
     expect(rows).toEqual([
-      { session: '2026-10-15', ticker: 'IBIT', netFlowUsd: -110_900_000 },
-      { session: '2026-10-15', ticker: 'FBTC', netFlowUsd: null },
+      {
+        session: '2026-10-15',
+        ticker: 'IBIT',
+        observation: 'value',
+        netFlowUsd: -110_900_000,
+        issue: null,
+      },
+      {
+        session: '2026-10-15',
+        ticker: 'FBTC',
+        observation: 'pending',
+        netFlowUsd: null,
+        issue: null,
+      },
     ]);
     expect(problems).toEqual([]);
   });
 
-  it('should drop weekend rows, duplicates and non-finite values, and report each', () => {
+  it('should keep a non-finite value and a contradictory duplicate as INVALID observations, drop only non-session days', () => {
     const { rows, problems } = normalizeCryptoEtf({
       days: [
         { date: '2026-10-17', funds: [{ ticker: 'IBIT', netFlowUsdM: 0 }] }, // Saturday "0"
@@ -178,15 +198,30 @@ describe('normalisation — units, pending values and bad rows', () => {
         { date: '2026-10-15', funds: [{ ticker: 'FBTC', netFlowUsdM: '3' }] },
       ],
     });
-    expect(rows).toEqual([]);
+    expect(rows).toEqual([
+      {
+        session: '2026-10-15',
+        ticker: 'IBIT',
+        observation: 'invalid',
+        netFlowUsd: null,
+        issue: 'contradictory',
+      },
+      {
+        session: '2026-10-15',
+        ticker: 'FBTC',
+        observation: 'invalid',
+        netFlowUsd: null,
+        issue: 'non-finite',
+      },
+    ]);
     expect(problems.map((p: { kind: string }) => p.kind).sort()).toEqual([
-      'duplicate',
+      'duplicate-conflict',
       'non-finite',
       'non-session',
     ]);
   });
 
-  it('should read SoSoValue in dollars, keep null pending, and refuse a wrong ticker or a failed response', () => {
+  it('should read SoSoValue in dollars, keep null pending, record a wrong-fund row as invalid, and refuse a failed response', () => {
     const ok = normalizeSosoValue('IBIT', {
       code: 0,
       data: [
@@ -196,8 +231,27 @@ describe('normalisation — units, pending values and bad rows', () => {
       ],
     });
     expect(ok.rows).toEqual([
-      { session: '2026-10-16', ticker: 'IBIT', netFlowUsd: null },
-      { session: '2026-10-15', ticker: 'IBIT', netFlowUsd: 526595998 },
+      {
+        session: '2026-10-16',
+        ticker: 'IBIT',
+        observation: 'pending',
+        netFlowUsd: null,
+        issue: null,
+      },
+      {
+        session: '2026-10-15',
+        ticker: 'IBIT',
+        observation: 'value',
+        netFlowUsd: 526595998,
+        issue: null,
+      },
+      {
+        session: '2026-10-14',
+        ticker: 'IBIT',
+        observation: 'invalid',
+        netFlowUsd: null,
+        issue: 'wrong-ticker',
+      },
     ]);
     expect(ok.problems).toEqual([{ kind: 'wrong-ticker', session: '2026-10-14', ticker: 'FBTC' }]);
     expect(normalizeSosoValue('IBIT', { code: 40001, data: [] }).problems).toEqual([
@@ -209,7 +263,7 @@ describe('normalisation — units, pending values and bad rows', () => {
 describe('ledger — "stable in the observations made", never proof', () => {
   const at = (h: number) => CUTOFF - h * H;
   const status = (rows: Row[]) =>
-    stableValue(indexLedger(rows, CUTOFF), 'cryptoetf', '2026-10-16', 'IBIT');
+    stableValue(indexLedger(parseLedger(text(rows)), CUTOFF), 'cryptoetf', '2026-10-16', 'IBIT');
 
   it('should not accept a one-off import on its own', () => {
     expect(status([row('cryptoetf', '2026-10-16', 'IBIT', 5, at(30), 'import')])).toEqual({
@@ -259,18 +313,32 @@ describe('ledger — "stable in the observations made", never proof', () => {
     expect(status(rows)).toEqual({ status: 'stable', value: 5 });
   });
 
-  it('should ignore invalid rows', () => {
+  it('should count an attributable damaged row as an invalid observation, never skip it', () => {
     const bad = { ...row('cryptoetf', '2026-10-16', 'IBIT', 5.5, at(30)) };
     expect(ledgerRowProblems(bad)).toEqual(['net_flow_usd']);
-    expect(status([bad, row('cryptoetf', '2026-10-16', 'IBIT', 5, at(2))])).toEqual({
-      status: 'single-observation',
+    // As the LATEST observation it is invalid; earlier, it breaks the agreeing run.
+    expect(status([row('cryptoetf', '2026-10-16', 'IBIT', 5, at(40)), bad])).toMatchObject({
+      status: 'invalid',
     });
+    expect(status([bad, row('cryptoetf', '2026-10-16', 'IBIT', 5, at(2))])).toEqual({
+      status: 'changing',
+    });
+  });
+
+  it('should separate unattributable damaged lines from attributable invalid rows', () => {
+    const good = row('cryptoetf', '2026-10-16', 'IBIT', 5, at(30));
+    const parsed = parseLedger(
+      `${JSON.stringify(good)}\n{"torn":\n${JSON.stringify({ ...good, provider: 'other' })}\n`
+    );
+    expect(parsed.rows).toHaveLength(1);
+    expect(parsed.invalid).toEqual([]);
+    expect(parsed.damaged.map((d: { line: number }) => d.line)).toEqual([2, 3]);
   });
 });
 
 describe('decision — insufficient or unreadable history is LOW, never adverse, never re-dated', () => {
   it('should give LOW with no dates for an empty ledger', () => {
-    const d = decideEtf01({ cutoffMs: CUTOFF, rows: [] });
+    const d = decideEtf01({ cutoffMs: CUTOFF, ledger: '' });
     expect(d).toMatchObject({
       state: 'UNAVAILABLE',
       points: 0,
@@ -283,7 +351,7 @@ describe('decision — insufficient or unreadable history is LOW, never adverse,
 
   it('should give LOW when only partial records exist (one fund-day missing)', () => {
     const rows = ledger('cryptoetf', [1, 1, 1, 1], { override: { '2026-10-14|BRRR': 'absent' } });
-    const d = decideEtf01({ cutoffMs: CUTOFF, rows });
+    const d = decideEtf01({ cutoffMs: CUTOFF, ledger: text(rows) });
     expect(d).toMatchObject({ reason: 'insufficient-history', confidenceEffect: 'LOW' });
     expect(d.problems?.cryptoetf).toEqual([
       { session: '2026-10-14', ticker: 'BRRR', status: 'missing' },
@@ -292,13 +360,13 @@ describe('decision — insufficient or unreadable history is LOW, never adverse,
 
   it.each([1, 2, 3])('should give LOW with only %i complete week(s)', (n) => {
     const nets = [1e8, 1e8, 1e8, 1e8].map((v, i) => (i >= 4 - n ? v : null));
-    expect(decideEtf01({ cutoffMs: CUTOFF, rows: ledger('cryptoetf', nets) }).reason).toBe(
+    expect(decideEtf01({ cutoffMs: CUTOFF, ledger: text(ledger('cryptoetf', nets)) }).reason).toBe(
       'insufficient-history'
     );
   });
 
   it('should keep only the last verified reference when the ledger cannot be read, without renewing it', () => {
-    const d = decideEtf01({ cutoffMs: CUTOFF, rows: null, lastVerifiedReference: '2026-09-25' });
+    const d = decideEtf01({ cutoffMs: CUTOFF, ledger: null, lastVerifiedReference: '2026-09-25' });
     expect(d).toMatchObject({
       reason: 'history-unreadable',
       confidenceEffect: 'LOW',
@@ -306,7 +374,7 @@ describe('decision — insufficient or unreadable history is LOW, never adverse,
       stale_after: '2026-10-16T00:00:00.000Z',
     });
     expect(isPastDeadline(CUTOFF, d.stale_after)).toBe(true); // aged, not renewed
-    expect(decideEtf01({ cutoffMs: CUTOFF, rows: null }).reference_week_end).toBeNull();
+    expect(decideEtf01({ cutoffMs: CUTOFF, ledger: null }).reference_week_end).toBeNull();
   });
 
   it('should not renew any date from repeated partial collection', () => {
@@ -314,7 +382,7 @@ describe('decision — insufficient or unreadable history is LOW, never adverse,
       override: { '2026-10-16|IBIT': 'absent' },
       times: [CUTOFF - 50 * H, CUTOFF - 26 * H, CUTOFF - 2 * H],
     });
-    const d = decideEtf01({ cutoffMs: CUTOFF, rows: partial });
+    const d = decideEtf01({ cutoffMs: CUTOFF, ledger: text(partial) });
     expect(d).toMatchObject({
       confidenceEffect: 'LOW',
       reference_week_end: null,
@@ -328,13 +396,18 @@ describe('decision — insufficient or unreadable history is LOW, never adverse,
         FRIDAYS.flatMap((f) => sessionsInWeek(f)).map((s) => [`${s}|MSBT`, 'absent'])
       ),
     });
-    expect(decideEtf01({ cutoffMs: CUTOFF, rows }).reason).toBe('insufficient-history');
+    expect(decideEtf01({ cutoffMs: CUTOFF, ledger: text(rows) }).reason).toBe(
+      'insufficient-history'
+    );
   });
 });
 
 describe('decision — one provider for the whole window, disclosed', () => {
   it('should use the primary for exactly four eligible weeks and set R to the last Friday', () => {
-    const d = decideEtf01({ cutoffMs: CUTOFF, rows: ledger('cryptoetf', [1e8, -1e8, 1e8, 1e8]) });
+    const d = decideEtf01({
+      cutoffMs: CUTOFF,
+      ledger: text(ledger('cryptoetf', [1e8, -1e8, 1e8, 1e8])),
+    });
     expect(d).toMatchObject({
       state: 'ACTIVE',
       points: 2,
@@ -351,7 +424,7 @@ describe('decision — one provider for the whole window, disclosed', () => {
       ...ledger('cryptoetf', [1e8, 1e8, 1e8, null]),
       ...ledger('sosovalue', [1e8, 1e8, -1e8, -1e8]),
     ];
-    expect(decideEtf01({ cutoffMs: CUTOFF, rows })).toMatchObject({
+    expect(decideEtf01({ cutoffMs: CUTOFF, ledger: text(rows) })).toMatchObject({
       selected: 'sosovalue',
       crossCheck: 'unavailable',
       state: 'INACTIVE',
@@ -363,7 +436,7 @@ describe('decision — one provider for the whole window, disclosed', () => {
       ...ledger('cryptoetf', [1e8, 1e8, 1e8, -1e8]),
       ...ledger('sosovalue', [1e8, 1e8, 1e8, -1e8]),
     ];
-    expect(decideEtf01({ cutoffMs: CUTOFF, rows })).toMatchObject({
+    expect(decideEtf01({ cutoffMs: CUTOFF, ledger: text(rows) })).toMatchObject({
       crossCheck: 'agreed',
       holdForReview: false,
     });
@@ -388,7 +461,7 @@ describe('decision — disagreement between providers', () => {
       ...ledger('cryptoetf', [1e8, 1e8, 1e8, -1e8]),
       ...ledger('sosovalue', [1e8, 1e8, -1e8, -1e8]),
     ];
-    const d = decideEtf01({ cutoffMs: CUTOFF, rows });
+    const d = decideEtf01({ cutoffMs: CUTOFF, ledger: text(rows) });
     expect(d).toMatchObject({
       state: 'UNAVAILABLE',
       reason: 'provider-disagreement',
@@ -403,7 +476,7 @@ describe('decision — disagreement between providers', () => {
       ...ledger('cryptoetf', [1e8, 1e8, 1e8, -1e8]),
       ...ledger('sosovalue', [1e8, 1.1e8, 1e8, -1e8]),
     ];
-    const d = decideEtf01({ cutoffMs: CUTOFF, rows });
+    const d = decideEtf01({ cutoffMs: CUTOFF, ledger: text(rows) });
     expect(d).toMatchObject({
       state: 'ACTIVE',
       selected: 'cryptoetf',
@@ -421,7 +494,7 @@ describe('decision — disagreement between providers', () => {
       ...ledger('cryptoetf', [1e8, 1e8, 1e8, -1e8]),
       ...ledger('sosovalue', [1e8, 1e8, 1e8, -1e8], { override: swap }),
     ];
-    const d = decideEtf01({ cutoffMs: CUTOFF, rows });
+    const d = decideEtf01({ cutoffMs: CUTOFF, ledger: text(rows) });
     expect(d.comparison?.weekFlags).toEqual([]);
     expect(d.comparison?.fundDayFlags.map((f: { ticker: string }) => f.ticker).sort()).toEqual([
       'ARKB',
@@ -435,7 +508,7 @@ describe('decision — disagreement between providers', () => {
       ...ledger('cryptoetf', [1e8, 1e8, 1e8, -1e8], { override: { '2026-10-13|FBTC': 100_000 } }),
       ...ledger('sosovalue', [1e8, 1e8, 1e8, -1e8], { override: { '2026-10-13|FBTC': 140_000 } }),
     ];
-    expect(decideEtf01({ cutoffMs: CUTOFF, rows }).crossCheck).toBe('agreed');
+    expect(decideEtf01({ cutoffMs: CUTOFF, ledger: text(rows) }).crossCheck).toBe('agreed');
   });
 });
 
@@ -444,7 +517,7 @@ describe('decision — a near-zero week is reported, the > 0 rule is not changed
     // Week 4 net +US$100,000 with 60 CryptoETF fund-days: inside ±US$3 M.
     const d = decideEtf01({
       cutoffMs: CUTOFF,
-      rows: ledger('cryptoetf', [1e8, -1e8, 1e8, 100_000]),
+      ledger: text(ledger('cryptoetf', [1e8, -1e8, 1e8, 100_000])),
     });
     expect(d).toMatchObject({ state: 'ACTIVE', positives: 3, holdForReview: true });
     expect(d.sensitivity).toEqual({ uncertainWeeks: ['2026-10-16'], robust: false });
@@ -453,7 +526,7 @@ describe('decision — a near-zero week is reported, the > 0 rule is not changed
   it('should not hold when the uncertain week cannot change the result', () => {
     const d = decideEtf01({
       cutoffMs: CUTOFF,
-      rows: ledger('cryptoetf', [1e8, 1e8, 1e8, 100_000]),
+      ledger: text(ledger('cryptoetf', [1e8, 1e8, 1e8, 100_000])),
     });
     expect(d.sensitivity).toEqual({ uncertainWeeks: ['2026-10-16'], robust: true });
     expect(d.holdForReview).toBe(false);
@@ -479,10 +552,12 @@ describe('decision — a holiday Friday and a listing inside the window', () => 
   it('should keep a holiday Friday as R’s week without inventing a Friday session', () => {
     const d = decideEtf01({
       cutoffMs: Date.parse('2026-04-06T05:30:00Z'),
-      rows: ledger('cryptoetf', [1e8, 1e8, 1e8, 1e8], {
-        fridays: ['2026-03-13', '2026-03-20', '2026-03-27', '2026-04-03'],
-        times: [Date.parse('2026-04-05T00:00:00Z'), Date.parse('2026-04-06T04:00:00Z')],
-      }),
+      ledger: text(
+        ledger('cryptoetf', [1e8, 1e8, 1e8, 1e8], {
+          fridays: ['2026-03-13', '2026-03-20', '2026-03-27', '2026-04-03'],
+          times: [Date.parse('2026-04-05T00:00:00Z'), Date.parse('2026-04-06T04:00:00Z')],
+        })
+      ),
     });
     expect(d.reference_week_end).toBe('2026-04-03');
     expect(d.weeks?.[3].sessions).toEqual(['2026-03-30', '2026-03-31', '2026-04-01', '2026-04-02']);
@@ -491,13 +566,13 @@ describe('decision — a holiday Friday and a listing inside the window', () => 
   it('should require MSBT only on the sessions after it listed', () => {
     const times = [CUTOFF_APRIL - 28 * H, CUTOFF_APRIL - 2 * H];
     const ok = ledger('cryptoetf', [1e8, 1e8, 1e8, 1e8], { fridays: APRIL, times });
-    expect(decideEtf01({ cutoffMs: CUTOFF_APRIL, rows: ok }).selected).toBe('cryptoetf');
+    expect(decideEtf01({ cutoffMs: CUTOFF_APRIL, ledger: text(ok) }).selected).toBe('cryptoetf');
     const missing = ledger('cryptoetf', [1e8, 1e8, 1e8, 1e8], {
       fridays: APRIL,
       times,
       override: { '2026-04-09|MSBT': 'absent' },
     });
-    expect(decideEtf01({ cutoffMs: CUTOFF_APRIL, rows: missing }).reason).toBe(
+    expect(decideEtf01({ cutoffMs: CUTOFF_APRIL, ledger: text(missing) }).reason).toBe(
       'insufficient-history'
     );
   });
@@ -505,7 +580,7 @@ describe('decision — a holiday Friday and a listing inside the window', () => 
 
 describe('decision — a window the calendar does not cover', () => {
   it('should be UNAVAILABLE and held, never throw (a throw would stop the whole weekly run)', () => {
-    const d = decideEtf01({ cutoffMs: Date.parse('2029-01-08T05:30:00Z'), rows: [] });
+    const d = decideEtf01({ cutoffMs: Date.parse('2029-01-08T05:30:00Z'), ledger: '' });
     expect(d).toMatchObject({
       state: 'UNAVAILABLE',
       points: 0,
@@ -518,16 +593,207 @@ describe('decision — a window the calendar does not cover', () => {
   });
 
   it('should still throw an error that is not a calendar gap (it is not swallowed)', () => {
-    // The cutoff is valid, so only the ledger read can fail: a swallowing
+    // The cutoff is valid, so only the ledger parse can fail: a swallowing
     // handler would return 'calendar-not-covering' here instead of throwing.
-    const unreadable = {
-      [Symbol.iterator]() {
-        throw new Error('synthetic ledger failure');
-      },
-    } as unknown as Record<string, unknown>[];
-    expect(() => decideEtf01({ cutoffMs: CUTOFF, rows: unreadable })).toThrow(
-      'synthetic ledger failure'
+    // A ledger that is not text is a programming error, not a calendar gap.
+    expect(() => decideEtf01({ cutoffMs: CUTOFF, ledger: 42 as never })).toThrow(
+      'parseLedger expects the ledger text'
     );
+  });
+});
+
+// ── Integrated: provider payload → normaliser → ledger rows → ledger text → decision ──
+// (2026-10-21, Codex audit of #739: a newer invalid value used to vanish in
+// normalisation, and the older stable value decided as if nothing happened.)
+describe('integrated — what a provider sends reaches the decision', () => {
+  type Override = Record<string, number | null | string>;
+  /** A CryptoETF payload: each week's net on IBIT's first session, 0 elsewhere (USD millions). */
+  const cryptoPayload = (nets: number[], override: Override = {}, extra: object[] = []) => ({
+    days: [
+      ...FRIDAYS.flatMap((f, i) =>
+        sessionsInWeek(f).map((session, s) => ({
+          date: session,
+          funds: requiredFunds(session).map((ticker) => {
+            const key = `${session}|${ticker}`;
+            const m =
+              key in override ? override[key] : s === 0 && ticker === 'IBIT' ? nets[i] / 1e6 : 0;
+            return { ticker, netFlowUsdM: m };
+          }),
+        }))
+      ),
+      ...extra,
+    ],
+  });
+  /** SoSoValue: one payload per fund, normalised and concatenated (USD). */
+  const sosoRows = (nets: number[]) =>
+    ETF_UNIVERSE.funds.flatMap(
+      ({ ticker }) =>
+        normalizeSosoValue(ticker, {
+          code: 0,
+          data: FRIDAYS.flatMap((f, i) =>
+            sessionsInWeek(f)
+              .filter((session) => requiredFunds(session).includes(ticker))
+              .map((session, s) => ({
+                date: session,
+                ticker,
+                net_inflow: s === 0 && ticker === 'IBIT' ? nets[i] : 0,
+              }))
+          ),
+        }).rows
+    );
+  /** One retrieval's ledger lines. */
+  const pull = (provider: Provider, rows: object[], at: number) =>
+    text(
+      toLedgerRows(provider, rows, {
+        retrievedAt: new Date(at).toISOString(),
+        attemptId: `a-${provider}-${at}`,
+        responseSha256: 'f'.repeat(64),
+        kind: 'pull',
+        universeVersion: ETF_UNIVERSE.version,
+      })
+    );
+  const NETS = [1e8, 1e8, 1e8, -1e8];
+  const crypto = (at: number, override: Override = {}, extra: object[] = []) =>
+    pull('cryptoetf', normalizeCryptoEtf(cryptoPayload(NETS, override, extra)).rows, at);
+  /** Two qualifying primary observations, 14 h apart. */
+  const history = crypto(CUTOFF - 40 * H) + crypto(CUTOFF - 26 * H);
+  const KEY = '2026-10-13|FBTC';
+  const decide = (ledger: string) => decideEtf01({ cutoffMs: CUTOFF, ledger });
+
+  it('control: two qualifying observations decide normally', () => {
+    expect(decide(history)).toMatchObject({
+      state: 'ACTIVE',
+      points: 2,
+      selected: 'cryptoetf',
+      holdForReview: false,
+      reason: null,
+      confidenceEffect: null,
+      reference_week_end: '2026-10-16',
+    });
+  });
+
+  it('a newer INVALID value for a covered fund-day is not dropped: UNAVAILABLE, LOW, held, no dates', () => {
+    const d = decide(history + crypto(CUTOFF - 2 * H, { [KEY]: 'x' }));
+    expect(d).toMatchObject({
+      state: 'UNAVAILABLE',
+      points: 0,
+      selected: null,
+      reason: 'invalid-observation',
+      holdForReview: true,
+      confidenceEffect: 'LOW',
+      reference_week_end: null,
+      stale_after: null,
+    });
+    expect(d.qualityIssues).toEqual([
+      {
+        provider: 'cryptoetf',
+        session: '2026-10-13',
+        ticker: 'FBTC',
+        status: 'invalid',
+        issue: 'non-finite',
+      },
+    ]);
+  });
+
+  it('an eligible secondary supplies the WHOLE window, disclosed as uncross-checked and held', () => {
+    const backup =
+      pull('sosovalue', sosoRows(NETS), CUTOFF - 40 * H) +
+      pull('sosovalue', sosoRows(NETS), CUTOFF - 26 * H);
+    const d = decide(history + backup + crypto(CUTOFF - 2 * H, { [KEY]: 'x' }));
+    expect(d).toMatchObject({
+      state: 'ACTIVE',
+      points: 2,
+      selected: 'sosovalue',
+      crossCheck: 'unavailable',
+      holdForReview: true,
+      confidenceEffect: null,
+      reference_week_end: '2026-10-16',
+    });
+    expect(d.qualityIssues).toHaveLength(1);
+  });
+
+  it.each([
+    ['a valid and an invalid copy', [1, 'x']],
+    ['two different values', [1, 2]],
+  ])(
+    'conflicting duplicates in one response (%s) are a contradictory invalid observation',
+    (_n, copies) => {
+      const [a, b] = copies as (number | string)[];
+      const dup = {
+        date: '2026-10-13',
+        funds: [
+          { ticker: 'FBTC', netFlowUsdM: a },
+          { ticker: 'FBTC', netFlowUsdM: b },
+        ],
+      };
+      const d = decide(history + crypto(CUTOFF - 2 * H, {}, [dup]));
+      expect(d).toMatchObject({
+        reason: 'invalid-observation',
+        holdForReview: true,
+        confidenceEffect: 'LOW',
+      });
+      expect(d.qualityIssues?.[0]).toMatchObject({ ticker: 'FBTC', issue: 'contradictory' });
+    }
+  );
+
+  it('a newer PENDING value makes the fund-day not yet usable (insufficient history, not invalid)', () => {
+    const d = decide(history + crypto(CUTOFF - 2 * H, { [KEY]: null }));
+    expect(d).toMatchObject({
+      reason: 'insufficient-history',
+      holdForReview: false,
+      confidenceEffect: 'LOW',
+    });
+    expect(d.qualityIssues).toEqual([]);
+  });
+
+  it('an invalid PERSISTED row after valid history counts as an invalid observation', () => {
+    const damagedRow = { ...JSON.parse(crypto(CUTOFF - 2 * H).split('\n')[0]), net_flow_usd: 5.5 };
+    const d = decide(history + JSON.stringify(damagedRow) + '\n');
+    expect(d).toMatchObject({
+      reason: 'invalid-observation',
+      confidenceEffect: 'LOW',
+      holdForReview: true,
+    });
+    expect(d.qualityIssues?.[0].issue).toMatch(/invalid persisted row/);
+  });
+
+  it('a line that cannot be attributed safely makes the ledger DAMAGED: UNAVAILABLE, LOW, held', () => {
+    const d = decide(history + '{"provider":"cryptoetf","sess\n');
+    expect(d).toMatchObject({
+      state: 'UNAVAILABLE',
+      reason: 'ledger-damaged',
+      holdForReview: true,
+      confidenceEffect: 'LOW',
+      reference_week_end: null,
+    });
+    expect(d.damaged).toEqual([{ line: expect.any(Number), reason: 'not JSON' }]);
+  });
+
+  it('a pure request outage (nothing new written) keeps deciding from the preserved history', () => {
+    expect(decide(history)).toMatchObject({
+      state: 'ACTIVE',
+      points: 2,
+      reference_week_end: '2026-10-16',
+    });
+  });
+
+  it('observations after the cutoff do not alter the decision', () => {
+    expect(decide(history + crypto(CUTOFF + H, { [KEY]: 'x' }))).toMatchObject({
+      state: 'ACTIVE',
+      points: 2,
+      holdForReview: false,
+    });
+  });
+
+  it('recovery needs two valid retrievals at least 12 h apart AFTER the invalid one', () => {
+    // After the history's last retrieval (26 h before the cutoff).
+    const invalid = crypto(CUTOFF - 24 * H, { [KEY]: 'x' });
+    const once = decide(history + invalid + crypto(CUTOFF - 20 * H));
+    expect(once.reason).toBe('insufficient-history'); // not stable yet, and no longer invalid
+    const tooClose = decide(history + invalid + crypto(CUTOFF - 20 * H) + crypto(CUTOFF - 12 * H));
+    expect(tooClose.reason).toBe('insufficient-history');
+    const recovered = decide(history + invalid + crypto(CUTOFF - 20 * H) + crypto(CUTOFF - 6 * H));
+    expect(recovered).toMatchObject({ state: 'ACTIVE', points: 2, holdForReview: false });
   });
 });
 

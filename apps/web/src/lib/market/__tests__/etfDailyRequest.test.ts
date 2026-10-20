@@ -11,6 +11,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import {
+  EvidenceStorageError,
   ProviderStopped,
   REQUEST_POLICY,
   createEvidenceStore,
@@ -256,5 +257,133 @@ describe('secrets stay out of evidence and errors', () => {
     ]);
     expect(paced).toEqual([3_500]);
     expect(out.rows).toHaveLength(2);
+  });
+});
+
+// 2026-10-21 (Codex audit of #739): fetch resolving with headers is not a
+// completed response. The body can still fail (reset, abort, timeout), and
+// that failure must be recorded, redacted and retried like any other.
+type BodyAnswer = { status: number; body?: string; bodyError?: { name: string; message: string } };
+function bodyFetch(answers: BodyAnswer[]) {
+  const calls: string[] = [];
+  const fn = async (url: string) => {
+    calls.push(url);
+    const a = answers.shift();
+    if (!a) throw new Error('no answer left');
+    return {
+      status: a.status,
+      text: async () => {
+        if (a.bodyError)
+          throw Object.assign(new Error(a.bodyError.message), { name: a.bodyError.name });
+        return a.body ?? '{}';
+      },
+    } as unknown as Response;
+  };
+  return { fn: fn as unknown as typeof fetch, calls };
+}
+const reset = { name: 'TypeError', message: `terminated: other side closed (${KEY})` };
+
+describe('a body that fails after the headers arrived', () => {
+  it('should record the failed attempt without a body or hash, then retry and succeed', async () => {
+    const { dir, evidence } = store();
+    const f = bodyFetch([
+      { status: 200, bodyError: reset },
+      { status: 200, body: '{"ok":true}' },
+    ]);
+    await expect(call(f.fn, evidence)).resolves.toMatchObject({ json: { ok: true } });
+    expect(f.calls).toHaveLength(2);
+    const [failed, ok] = manifest(dir);
+    expect(failed).toMatchObject({
+      attempt: 1,
+      status: 200,
+      saved_as: null,
+      sha256: null,
+      bytes: null,
+    });
+    expect(failed.error).toContain('body read failed');
+    expect(ok).toMatchObject({ attempt: 2, status: 200 });
+    expect(fs.readdirSync(path.join(dir, 'bodies'))).toHaveLength(1); // only the complete body
+  });
+
+  it('should stop after two body failures with a redacted error, keeping both attempts', async () => {
+    const { dir, evidence } = store();
+    const f = bodyFetch([
+      { status: 200, bodyError: reset },
+      { status: 503, bodyError: reset },
+    ]);
+    const err = await call(f.fn, evidence).catch((e: Error) => e);
+    expect(err).toBeInstanceOf(Error);
+    expect((err as Error).message).toMatch(/HTTP 503, body read failed/);
+    expect((err as Error).message).not.toContain(KEY);
+    expect(f.calls).toHaveLength(2);
+    expect(manifest(dir).map((r) => [r.status, r.saved_as])).toEqual([
+      [200, null],
+      [503, null],
+    ]);
+    expect(fs.readFileSync(path.join(dir, 'manifest.jsonl'), 'utf8')).not.toContain(KEY);
+  });
+
+  it.each([
+    ['TimeoutError', 'The operation was aborted due to timeout'],
+    ['AbortError', 'This operation was aborted'],
+  ])(
+    'should treat a %s while reading the body as a failed, retried attempt',
+    async (name, message) => {
+      const { dir, evidence } = store();
+      const f = bodyFetch([
+        { status: 200, bodyError: { name, message } },
+        { status: 200, body: '{}' },
+      ]);
+      await call(f.fn, evidence);
+      expect(manifest(dir)[0].error).toBe(`body read failed: ${name}: ${message}`);
+      expect(f.calls).toHaveLength(2);
+    }
+  );
+
+  it.each([401, 403, 429])(
+    'should still stop at once on %i when its body fails too',
+    async (status) => {
+      const { dir, evidence } = store();
+      const f = bodyFetch([
+        { status, bodyError: reset },
+        { status: 200, body: '{}' },
+      ]);
+      await expect(call(f.fn, evidence)).rejects.toBeInstanceOf(ProviderStopped);
+      expect(f.calls).toHaveLength(1);
+      expect(manifest(dir)).toEqual([expect.objectContaining({ status, saved_as: null })]);
+    }
+  );
+
+  it('should end at once, without retrying, on another 4xx whose body fails', async () => {
+    const { evidence } = store();
+    const f = bodyFetch([
+      { status: 404, bodyError: reset },
+      { status: 200, body: '{}' },
+    ]);
+    await expect(call(f.fn, evidence)).rejects.toThrow(/HTTP 404, body read failed/);
+    expect(f.calls).toHaveLength(1);
+  });
+});
+
+describe('evidence that cannot be written', () => {
+  const failingStore = () => ({
+    manifest: '/nowhere',
+    record: () => {
+      throw Object.assign(new Error(`EACCES: permission denied (${KEY})`), { code: 'EACCES' });
+    },
+  });
+
+  it('should fail as a storage error, never as a success and never retried as a request', async () => {
+    const f = fakeFetch([{ body: '{"ok":true}' }, { body: '{"ok":true}' }]);
+    const err = await call(f.fn, failingStore() as never).catch((e: Error) => e);
+    expect(err).toBeInstanceOf(EvidenceStorageError);
+    expect((err as Error).message).not.toContain(KEY);
+    expect(f.calls).toHaveLength(1);
+  });
+
+  it('should not turn a storage failure on the failure path into a request retry', async () => {
+    const f = fakeFetch([{ throws: 'fetch failed' }, { body: '{}' }]);
+    await expect(call(f.fn, failingStore() as never)).rejects.toBeInstanceOf(EvidenceStorageError);
+    expect(f.calls).toHaveLength(1);
   });
 });

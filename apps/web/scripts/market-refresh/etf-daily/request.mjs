@@ -9,7 +9,12 @@
  *     headers (`X-API-Key`, `x-soso-api-key`), so following one would hand the
  *     key to the new host.
  *   * BOUNDED RETRIES: at most two attempts; a second only after a network
- *     error or HTTP 5xx; 401/403/429 stop that provider for the run.
+ *     error, a body that failed to arrive, or HTTP 5xx; 401/403/429 stop that
+ *     provider for the run, even when their body fails too.
+ *   * A RESPONSE IS COMPLETE ONLY WITH ITS BODY: a failure while reading it is a
+ *     failed attempt (status kept, no body, no hash), never a success.
+ *   * EVIDENCE STORAGE FAILURES are their own error (`EvidenceStorageError`):
+ *     never retried as a request, never returned as a success.
  *   * EVERY ATTEMPT IS ITS OWN EVIDENCE: each response body is written to its
  *     own file, opened exclusively (`wx`), and described by its own manifest
  *     row (status, sha256, bytes, time). A retry can never overwrite the body
@@ -37,6 +42,18 @@ export class ProviderStopped extends Error {
     super(`${provider} answered ${status}; stopping this provider for the run`);
     this.provider = provider;
     this.status = status;
+  }
+}
+
+/**
+ * Writing the evidence failed (disk, permissions): a STORAGE failure, not a
+ * transport one. It is never retried as a request and a request whose
+ * evidence could not be written never counts as a success (2026-10-21).
+ */
+export class EvidenceStorageError extends Error {
+  constructor(provider, message) {
+    super(`${provider}: evidence could not be written (${message})`);
+    this.provider = provider;
   }
 }
 
@@ -133,9 +150,21 @@ export async function fetchProviderJson({
       `${provider}: refused to send a request to another origin than ${allowedOrigin}`
     );
   }
+  const describe = (err) => redact(`${err?.name ?? 'Error'}: ${err?.message ?? err}`, secrets);
+  const record = (entry) => {
+    try {
+      return evidence.record(entry);
+    } catch (err) {
+      throw new EvidenceStorageError(provider, describe(err));
+    }
+  };
   let lastError = null;
   for (let attempt = 1; attempt <= policy.maxAttempts; attempt += 1) {
     const retrievedAt = now().toISOString();
+    const retry = async (error) => {
+      lastError = error;
+      if (attempt < policy.maxAttempts) await sleep(policy.retryDelayMs);
+    };
     let res;
     try {
       res = await fetchImpl(url, {
@@ -144,18 +173,37 @@ export async function fetchProviderJson({
         signal: AbortSignal.timeout(policy.timeoutMs),
       });
     } catch (err) {
-      const message = redact(`${err?.name ?? 'Error'}: ${err?.message ?? err}`, secrets);
-      evidence.record({ provider, url, attempt, retrievedAt, error: message });
-      lastError = new Error(`${provider}: request failed (${message})`);
-      if (attempt < policy.maxAttempts) await sleep(policy.retryDelayMs);
+      const message = describe(err);
+      record({ provider, url, attempt, retrievedAt, error: message });
+      await retry(new Error(`${provider}: request failed (${message})`));
       continue;
     }
-    const body = await res.text();
-    const row = evidence.record({ provider, url, attempt, retrievedAt, status: res.status, body });
+    // Headers arrived; the response is complete only once its body is read. A
+    // body that fails (reset, abort, timeout) keeps the status it came with,
+    // and no body or hash is recorded for it (2026-10-21, Codex audit).
+    let body;
+    try {
+      body = await res.text();
+    } catch (err) {
+      const message = describe(err);
+      record({
+        provider,
+        url,
+        attempt,
+        retrievedAt,
+        status: res.status,
+        error: `body read failed: ${message}`,
+      });
+      if (policy.stopStatuses.includes(res.status)) throw new ProviderStopped(provider, res.status);
+      const failure = new Error(`${provider}: HTTP ${res.status}, body read failed (${message})`);
+      if (res.status !== 200 && res.status < 500) throw failure;
+      await retry(failure);
+      continue;
+    }
+    const row = record({ provider, url, attempt, retrievedAt, status: res.status, body });
     if (policy.stopStatuses.includes(res.status)) throw new ProviderStopped(provider, res.status);
     if (res.status >= 500) {
-      lastError = new Error(`${provider}: HTTP ${res.status}`);
-      if (attempt < policy.maxAttempts) await sleep(policy.retryDelayMs);
+      await retry(new Error(`${provider}: HTTP ${res.status}`));
       continue;
     }
     if (res.status !== 200) throw new Error(`${provider}: HTTP ${res.status}`);

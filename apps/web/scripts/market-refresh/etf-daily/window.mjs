@@ -1,7 +1,7 @@
 /**
  * window.mjs — choose the ETF-01 inputs for one publication and decide the result (E1, 2026-10-20).
  *
- * Pure: ledger rows and a cutoff in, a decision out. Nothing here reads the
+ * Pure: the ledger's TEXT and a cutoff in, a decision out. Nothing here reads the
  * network, the clock or a file. The owner decisions it encodes (2026-10-20):
  *
  * 1. ONE PROVIDER FOR THE WHOLE WINDOW. The window is the four complete
@@ -42,6 +42,21 @@
  *
  * 7. A WINDOW THE CALENDAR DOES NOT COVER is UNAVAILABLE ('calendar-not-covering')
  *    with the PR held, never a thrown error that would stop the weekly run.
+ * 8. NOTHING RECEIVED IS LOST ON THE WAY IN (2026-10-21, Codex audit). The
+ *    decision takes the ledger TEXT, not pre-filtered rows, so a damaged line
+ *    cannot disappear before it is seen. Four cases stay distinct:
+ *    * a request outage writes nothing, so preserved stable rows still decide;
+ *    * an explicit PENDING observation makes that fund-day not yet usable;
+ *    * an INVALID observation (non-finite, contradictory, wrong fund, or a
+ *      damaged persisted row that still names its fund-day) makes that
+ *      provider's window ineligible: the older value is NOT reused, and
+ *      recovery needs two valid retrievals ≥12 h apart after it. With no
+ *      eligible window: UNAVAILABLE 'invalid-observation', LOW, PR held. With
+ *      the other provider eligible for the whole window, that one is used,
+ *      the cross-check is 'unavailable' and the PR is held;
+ *    * a line that cannot be attributed to a fund-day safely: UNAVAILABLE
+ *      'ledger-damaged', LOW, PR held, until the ledger is examined.
+ *    None of them becomes zero, renews a date or claims a cross-check.
  *
  * Wiring this into the published score (and the confidence consumers) is E3.
  */
@@ -57,7 +72,7 @@ import {
 } from './calendar.mjs';
 import { ETF_UNIVERSE, requiredFunds } from './universe.mjs';
 import { ETF_PROVIDERS } from './providers.mjs';
-import { indexLedger, stableValue } from './ledger.mjs';
+import { indexLedger, parseLedger, stableValue } from './ledger.mjs';
 
 export const PRIMARY = 'cryptoetf';
 export const SECONDARY = 'sosovalue';
@@ -86,7 +101,11 @@ export function providerWindow(index, provider, fridays, universe = ETF_UNIVERSE
       for (const ticker of requiredFunds(session, universe)) {
         const v = stableValue(index, provider, session, ticker);
         if (v.status !== 'stable') {
-          problems.push({ session, ticker, status: v.status });
+          problems.push(
+            v.status === 'invalid'
+              ? { session, ticker, status: v.status, issue: v.issue }
+              : { session, ticker, status: v.status }
+          );
           continue;
         }
         values.set(`${session}|${ticker}`, v.value);
@@ -194,7 +213,10 @@ export const isPastDeadline = (nowMs, deadlineIso) =>
  * @property {'ACTIVE' | 'INACTIVE' | 'UNAVAILABLE'} state
  * @property {number} points
  * @property {null | 'insufficient-history' | 'history-unreadable' | 'provider-disagreement'
- *   | 'calendar-not-covering'} reason
+ *   | 'calendar-not-covering' | 'invalid-observation' | 'ledger-damaged'} reason
+ * @property {{provider: string, session: string, ticker: string, status: string, issue?: string}[]} [qualityIssues]
+ *   — invalid observations inside the window, from either provider
+ * @property {{line: number, reason: string}[]} [damaged] — ledger lines that could not be attributed
  * @property {string} [calendarGap] — the first day the exchange calendar does not cover
  * @property {null | 'cryptoetf' | 'sosovalue'} selected
  * @property {'agreed' | 'flagged' | 'unavailable'} crossCheck
@@ -219,7 +241,7 @@ export const isPastDeadline = (nowMs, deadlineIso) =>
  *
  * @param {object} args
  * @param {number} args.cutoffMs — the information cutoff (instant)
- * @param {object[]|null} args.rows — private ledger rows; null when the ledger could not be read
+ * @param {string|null} args.ledger — the private ledger's JSONL text; null when it could not be read
  * @param {string|null} [args.lastVerifiedReference] — R of the last verified publication, kept for disclosure only
  * @param {object} [args.universe]
  * @returns {Etf01Decision}
@@ -253,13 +275,19 @@ export function decideEtf01(args) {
 /** @returns {Etf01Decision} */
 function decideWithinCalendar({
   cutoffMs,
-  rows,
+  ledger,
   lastVerifiedReference = null,
   universe = ETF_UNIVERSE,
 }) {
   const fridays = scoringFridays(cutoffMs);
   const unavailable = (reason, extra = {}) => {
-    const insufficient = reason === 'insufficient-history' || reason === 'history-unreadable';
+    // No usable, valid four-week history could be established: LOW (owner, 2026-10-20).
+    const insufficient = [
+      'insufficient-history',
+      'history-unreadable',
+      'invalid-observation',
+      'ledger-damaged',
+    ].includes(reason);
     const reference = insufficient ? lastVerifiedReference : null;
     return {
       state: 'UNAVAILABLE',
@@ -267,7 +295,9 @@ function decideWithinCalendar({
       reason,
       selected: null,
       crossCheck: 'unavailable',
-      holdForReview: reason === 'provider-disagreement',
+      holdForReview: ['provider-disagreement', 'invalid-observation', 'ledger-damaged'].includes(
+        reason
+      ),
       fridays,
       universeVersion: universe.version,
       insufficientHistory: insufficient,
@@ -276,15 +306,23 @@ function decideWithinCalendar({
       ...extra,
     };
   };
-  if (rows === null) return unavailable('history-unreadable');
+  if (ledger === null) return unavailable('history-unreadable');
+  const parsed = parseLedger(ledger);
+  if (parsed.damaged.length) return unavailable('ledger-damaged', { damaged: parsed.damaged });
 
-  const index = indexLedger(rows, cutoffMs);
+  const index = indexLedger(parsed, cutoffMs);
   const primary = providerWindow(index, PRIMARY, fridays, universe);
   const secondary = providerWindow(index, SECONDARY, fridays, universe);
   const problems = { [PRIMARY]: primary.problems, [SECONDARY]: secondary.problems };
+  const qualityIssues = [primary, secondary].flatMap((w) =>
+    w.problems.filter((p) => p.status === 'invalid').map((p) => ({ provider: w.provider, ...p }))
+  );
 
   if (!primary.eligible && !secondary.eligible) {
-    return unavailable('insufficient-history', { problems });
+    return unavailable(qualityIssues.length ? 'invalid-observation' : 'insufficient-history', {
+      problems,
+      qualityIssues,
+    });
   }
   const selectedWindow = primary.eligible ? primary : secondary;
   const other = primary.eligible ? secondary : primary;
@@ -293,7 +331,7 @@ function decideWithinCalendar({
   if (other.eligible) {
     comparison = compareWindows(selectedWindow, other);
     if (!comparison.outcomeMatches) {
-      return unavailable('provider-disagreement', { comparison, problems });
+      return unavailable('provider-disagreement', { comparison, problems, qualityIssues });
     }
     crossCheck =
       comparison.fundDayFlags.length || comparison.weekFlags.length ? 'flagged' : 'agreed';
@@ -307,7 +345,7 @@ function decideWithinCalendar({
     reason: null,
     selected: selectedWindow.provider,
     crossCheck,
-    holdForReview: crossCheck === 'flagged' || !sensitivity.robust,
+    holdForReview: crossCheck === 'flagged' || !sensitivity.robust || qualityIssues.length > 0,
     fridays,
     universeVersion: universe.version,
     insufficientHistory: false,
@@ -322,6 +360,7 @@ function decideWithinCalendar({
     sensitivity,
     comparison,
     problems,
+    qualityIssues,
     ...freshnessFromReference(referenceFriday),
   };
 }

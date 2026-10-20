@@ -5,19 +5,23 @@
  * SoSoValue the BACKUP and cross-check. Which one a publication actually used
  * is decided per scoring window in window.mjs and always disclosed.
  *
- * NORMALISED ROW: { session: 'YYYY-MM-DD', ticker, netFlowUsd: integer USD | null }.
+ * NORMALISED ROW: { session: 'YYYY-MM-DD', ticker, observation: 'value' | 'pending' | 'invalid',
+ *   netFlowUsd: integer USD | null, issue: null | string }.
  *   * CryptoETF reports USD MILLIONS rounded to 0.1, so its values carry up to
  *     US$50,000 of rounding each (`roundingUsd`).
  *   * SoSoValue reports USD (with fractions); values are rounded to whole USD.
  *     A day it has not settled comes back as `net_inflow: null` and is kept as
  *     `netFlowUsd: null` (pending), never as zero.
  *
- * Every response is checked before use. Problems are RETURNED, never thrown
- * away silently: a bad payload, a row outside the session calendar (weekends,
- * holidays, an uncovered year), a non-finite value, or the same session and
- * ticker twice in one response (both copies dropped: neither can be trusted).
- * Dropped rows are simply absent, so the window that needed them is
- * ineligible; nothing is filled in.
+ * Every response is checked before use. A non-finite value, a contradictory
+ * duplicate (two different observations of one fund-day in one response) or
+ * a row naming another fund becomes an INVALID observation for that fund-day
+ * and goes into the ledger like any other observation, so the decision sees
+ * it (2026-10-21: dropping it let an older value be reused unnoticed).
+ * Identical repeats collapse to one. A bad payload, an unusable date or
+ * ticker, and days that are not sessions (weekends, holidays, an uncovered
+ * year) name no scorable fund-day and are reported in `problems`; nothing is
+ * filled in, and nothing becomes zero.
  *
  * Endpoints are the ones exercised in pilot round 1. CryptoETF's calendar-day
  * aggregate (`/flows/btc`) reported unpublished days as 0 and is NOT used.
@@ -54,10 +58,16 @@ export const ETF_PROVIDERS = Object.freeze({
 const TICKER = /^[A-Z]{2,6}$/;
 const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
 
-/** Shared checks; keeps a row only if its session, ticker and value are usable. */
+/**
+ * Shared checks. Anything that names a scorable fund-day becomes an
+ * observation: a `value`, `pending` (null), or `invalid` with its issue (a
+ * non-finite value, a contradictory duplicate, a row naming another fund).
+ * Only rows with no usable session or fund, or a day that is not a session,
+ * are left out, and they are reported in `problems`.
+ */
 function collect(candidates) {
   const problems = [];
-  const seen = new Map();
+  const byKey = new Map();
   for (const c of candidates) {
     if (typeof c.session !== 'string' || !ISO_DAY.test(c.session)) {
       problems.push({ kind: 'bad-date', session: c.session, ticker: c.ticker });
@@ -75,20 +85,33 @@ function collect(candidates) {
       problems.push({ kind: 'non-session', session: c.session, ticker: c.ticker });
       continue;
     }
-    if (c.netFlowUsd !== null && !Number.isFinite(c.netFlowUsd)) {
-      problems.push({ kind: 'non-finite', session: c.session, ticker: c.ticker });
-      continue;
+    const base = { session: c.session, ticker: c.ticker };
+    let row;
+    if (c.issue) {
+      row = { ...base, observation: 'invalid', netFlowUsd: null, issue: c.issue };
+    } else if (c.netFlowUsd === null) {
+      row = { ...base, observation: 'pending', netFlowUsd: null, issue: null };
+    } else if (!Number.isFinite(c.netFlowUsd)) {
+      problems.push({ kind: 'non-finite', ...base });
+      row = { ...base, observation: 'invalid', netFlowUsd: null, issue: 'non-finite' };
+    } else {
+      row = { ...base, observation: 'value', netFlowUsd: c.netFlowUsd, issue: null };
     }
     const key = `${c.session}|${c.ticker}`;
-    if (seen.has(key)) {
-      seen.set(key, null); // poisoned: the response contradicts itself
-      problems.push({ kind: 'duplicate', session: c.session, ticker: c.ticker });
+    const prior = byKey.get(key);
+    if (!prior) {
+      byKey.set(key, row);
       continue;
     }
-    seen.set(key, { session: c.session, ticker: c.ticker, netFlowUsd: c.netFlowUsd });
+    const same =
+      prior.observation === row.observation &&
+      prior.netFlowUsd === row.netFlowUsd &&
+      prior.issue === row.issue;
+    if (same) continue; // an identical repeat says nothing new
+    problems.push({ kind: 'duplicate-conflict', ...base });
+    byKey.set(key, { ...base, observation: 'invalid', netFlowUsd: null, issue: 'contradictory' });
   }
-  const rows = [...seen.values()].filter((r) => r !== null);
-  return { rows, problems };
+  return { rows: [...byKey.values()], problems };
 }
 
 /**
@@ -126,7 +149,10 @@ export function normalizeSosoValue(ticker, payload) {
   const candidates = [];
   for (const r of payload.data) {
     if (r?.ticker !== ticker) {
+      // The response for `ticker` contains a row naming another fund: an
+      // invalid observation for the requested fund on that day, not a skip.
       problems.push({ kind: 'wrong-ticker', session: r?.date, ticker: r?.ticker });
+      candidates.push({ session: r?.date, ticker, netFlowUsd: null, issue: 'wrong-ticker' });
       continue;
     }
     const v = r.net_inflow;
