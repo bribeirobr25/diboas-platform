@@ -28,6 +28,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { isDirectInvocation } from './lib/invocation.mjs';
 import { writeFileAtomic } from './lib/atomic.mjs';
+import { appendJsonlLine } from './lib/jsonl.mjs';
 import { expectedConfirmedMonthYM, MAX_SCORE } from './lib/regime-engine.mjs';
 import {
   assertOhlcBar,
@@ -321,7 +322,7 @@ async function main() {
     archivePath: ARCHIVE_PATH,
     archiveText,
     writeFile: writeFileAtomic,
-    appendFile: (p, t) => fs.appendFileSync(p, t),
+    appendFile: appendJsonlLine,
   });
   console.log(`  Wrote ${path.relative(REPO_ROOT, COMPUTED_PATH)}`);
   if (archiveText) console.log(`  Archived run → ${path.relative(REPO_ROOT, ARCHIVE_PATH)}\n`);

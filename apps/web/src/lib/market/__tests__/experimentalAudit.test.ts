@@ -130,7 +130,9 @@ describe('A: ledger integrity and recovery', () => {
   // A06/K06: canonical success + repeat + request isolation coverage now lives
   // in etfSnapshotOnly.test.ts (SNAP-ONLY-1), included by pnpm market:audit.
 
-  defect('K01 torn tail must not swallow the next accepted ledger row (known CC finding)', () => {
+  // K01/N01 fixed (LEDGER-APPEND-1, appendJsonlLine); canonical regressions also in
+  // src/lib/market-data/__tests__/jsonlAppend.test.ts. Ordinary tests from here on.
+  it('K01 torn tail must not swallow the next accepted ledger row (known CC finding)', () => {
     const box = sandbox([snapshot()]);
     const before = fs.readFileSync(box.ledgerPath, 'utf8');
     fs.appendFileSync(box.ledgerPath, '{"anchor":');
@@ -141,7 +143,7 @@ describe('A: ledger integrity and recovery', () => {
     );
   });
 
-  defect('N01 torn attempt tail must not swallow newly acknowledged refusal evidence', () => {
+  it('N01 torn attempt tail must not swallow newly acknowledged refusal evidence', () => {
     const box = sandbox([snapshot()]);
     fs.writeFileSync(box.attemptsPath, '{"anchor":');
     expect(recordEtfSnapshot(snapshot('2026-10-23', null), box).outcome).toBe('refused');
