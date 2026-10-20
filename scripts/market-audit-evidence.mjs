@@ -20,6 +20,9 @@ const FILE_AT = String.raw`[^"'<>()\s\\/:]+\.[A-Za-z0-9]{1,8}(?::\d+){1,2}`;
 // (lazy), so the assertion text after it is preserved.
 const spacedPath = (lead) => new RegExp(`${lead}(?:[\\\\/]${DIR})*?[\\\\/]${FILE_AT}`, 'g');
 const LOCAL_ROOTS = String.raw`\/(?:Users|home|private|var|tmp|Volumes|opt|mnt|srv|root)`;
+// A local path ENCLOSED in quotes or brackets ends at the closing delimiter, so
+// spaces inside it are safe to consume whole (no :line suffix needed).
+const enclosedPath = (lead) => new RegExp(`(?<=["'(])${lead}[^"'<>()\n]*(?=["')])`, 'g');
 
 export function sanitizeAuditEvidence(value, repositoryRoot, homeDirectory = os.homedir()) {
   const root = repositoryRoot.replaceAll('\\', '/').replace(/\/$/, '');
@@ -46,6 +49,9 @@ export function sanitizeAuditEvidence(value, repositoryRoot, homeDirectory = os.
       }
     }
     return result
+      .replace(enclosedPath('<local-path>'), '<local-path>')
+      .replace(enclosedPath(LOCAL_ROOTS), '<local-path>')
+      .replace(enclosedPath(String.raw`[A-Za-z]:[\\/]`), '<local-path>')
       .replace(spacedPath('<local-path>'), '<local-path>')
       .replace(/<local-path>[\\/][^\s"'<>)]*/g, '<local-path>')
       .replace(spacedPath(String.raw`${START}file:\/\/`), '<local-path>')

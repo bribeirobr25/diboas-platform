@@ -188,3 +188,24 @@ test('repository frames still become repository-relative (plain, file URL, stack
     ['at apps/x.test.ts:12:3', 'apps/x.mjs:4:2', '(a.ts:1:1)']
   );
 });
+
+test('an enclosed local path with spaces and no line number is removed up to its closing delimiter', () => {
+  assert.deepEqual(
+    sanitizeAuditEvidence(
+      [
+        'cwd was "/Volumes/Data Disk/x"',
+        "cwd was '/Users/example auditor/My Project'",
+        'cwd was (/Volumes/Data Disk/x) and then',
+        'cwd was "C:\\Users\\John Doe\\proj"',
+      ],
+      repo,
+      '/Users/example auditor'
+    ),
+    [
+      'cwd was "<local-path>"',
+      "cwd was '<local-path>'",
+      'cwd was (<local-path>) and then',
+      'cwd was "<local-path>"',
+    ]
+  );
+});
