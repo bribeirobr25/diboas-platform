@@ -1,6 +1,6 @@
 # Auditoria experimental do diBoaS Market
 
-Primeira rodada, 20/10/2026. Base: `46e92077b3e49f1918dd52e2af3e04b46b9633c6`.
+Rodada original preservada, 20/10/2026. Base: `46e92077b3e49f1918dd52e2af3e04b46b9633c6`.
 Escopo: integridade/recuperação do ETF, confiança no tempo e comunicação do
 Market, Bitcoin e Backdrop em en, pt-BR, es e de.
 
@@ -20,18 +20,23 @@ MARKET_AUDIT_STRICT=1 pnpm market:audit
 pnpm market:audit:experiments
 ```
 
-**Interpretação dos resultados:** há 45 casos executáveis: 26 satisfazem o
-contrato e 19 reproduzem falhas ainda abertas, incluindo variantes por idioma.
-O modo padrão usa `it.fails` para esses 19 casos: saída zero significa que as
-falhas continuam reproduzíveis, **não que os 45 cenários passaram**.
-O modo `MARKET_AUDIT_STRICT=1` remove essa inversão e termina com saída 1,
-mostrando as 19 violações. Nenhum caso foi simplesmente ignorado.
-Se um caso passar após uma correção, remover o marcador somente depois de
-reavaliar a evidência e o oráculo. Especialmente relevante após integrar #713.
+**Revalidação após #713:** base `6ebeab2f9497543725101241f4102323b59d6a24`.
+O comando inclui os 32 casos próprios e 41 regressões canônicas já presentes
+no novo `main`: 73 casos, dos quais 66 satisfazem os contratos e sete continuam
+reproduzindo defeitos. O modo padrão mostra 73 aprovações do runner porque usa
+`it.fails` nesses sete; o modo estrito mostra 66 aprovados e sete falhas, saída 1.
+Não há casos ignorados. K02/K06/K07/K08 são cobertos pelos testes normais do #713,
+sem manter cópias equivalentes. Consulte a atualização da matriz para o mapa.
 
-O comando de experimentos executa controles e cinco sabotagens em cópias
+As contagens 45/26/19 pertencem exclusivamente à rodada original. Seu relatório
+e JSON permanecem intactos; não representam resultados desta reexecução.
+
+O comando de experimentos executa controles e seis sabotagens em cópias
 descartáveis, além do controle existente do memo contra quatro entradas
-sintéticas. Emite JSON em stdout; pode ser redirecionado para um arquivo local.
+sintéticas. M06 remove o retorno snapshot-only apenas na cópia e verifica
+que A03 detecta a busca indevida de fontes. Não simula um código 22 para
+alegar uma falha real após gravação na implementação atual.
+Emite JSON em stdout; pode ser redirecionado para um arquivo local.
 Não depende de chaves nem consulta fornecedores.
 
 Reutilização das verificações anteriores:
@@ -56,7 +61,9 @@ Compara HTML/SSR com a base local; não substitui um navegador ou leitor de tela
 - [Metodologia e oráculos](methodology.md).
 - [Matriz de cenários](scenario-matrix.md).
 - [Relatório e propostas](report-2026-10-20.md).
-- [Evidência compacta](evidence-2026-10-20.json).
+- [Evidência original](evidence-2026-10-20.json).
+- [Revalidação após #713](report-2026-10-20-post-713.md).
+- [Evidência da revalidação](evidence-2026-10-20-post-713.json).
 
 Os testes estão em `apps/web/src/lib/market/__tests__/experimental*.test.*`.
 O helper e o simulador de rede ficam em `fixtures/`; o simulador de rede já

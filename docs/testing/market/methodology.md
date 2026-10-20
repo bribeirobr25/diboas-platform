@@ -108,3 +108,26 @@ A saída dos experimentos não inclui chaves; o stub as mascara.
 
 Este procedimento prepara uma futura skill. Nenhuma skill foi criada,
 modificada ou instalada.
+
+## Atualização após o merge do #713 — base 6ebeab2f
+
+O método original acima é preservado como descrição da primeira rodada.
+Nesta revalidação, sucesso snapshot-only exige saída 0 e nenhuma requisição
+fora do ETF. A03/A04 verificam também a recuperação após recusa/falha.
+A06/K06 usam as regressões canônicas SNAP-ONLY-1 do #713. O código 22 não é
+critério de sucesso nem uma falha após gravação reproduzida no novo `main`.
+M06 remove o retorno antecipado numa cópia: detecta uma regressão plantada,
+não um defeito presente. São seis sabotagens nesta execução.
+
+K02/K07/K08 são verificados pelos testes normais de apresentação e
+acessibilidade já integrados, incluídos em `pnpm market:audit`. A ausência de
+cópias não elimina os requisitos. Os identificadores históricos permanecem
+mapeados na matriz e no relatório original.
+
+N03 agora compara a data de evidência em duas execuções sem nenhum registro:
+não pode avançar sem evidência nova. Esse oráculo reproduz o defeito factual
+sem impor `null` como representação final nem exigir LOW sem histórico.
+A política de confiança sem histórico e a representação recomendada continuam
+propostas não aprovadas, fora dos testes de contrato e sem alteração de produção.
+Os sete `defect(...)` restantes exigem reprodução estrita, identificação e caso
+mínimo na matriz; um erro de montagem não conta como confirmação do defeito.
