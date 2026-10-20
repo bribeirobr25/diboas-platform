@@ -84,3 +84,35 @@ test('other local mount roots are redacted too', () => {
     input.map(() => '<local-path>')
   );
 });
+
+test('the home directory is replaced only as a whole path segment', () => {
+  // A shorter home must not cut into a longer sibling, and '/root' must not cut
+  // into ordinary text; the general pattern still redacts the sibling path.
+  assert.deepEqual(
+    sanitizeAuditEvidence(
+      ['/Users/simone2/x.ts:1', 'https://example.test/rootcause'],
+      root,
+      '/Users/simone'
+    ),
+    ['<local-path>', 'https://example.test/rootcause']
+  );
+  assert.deepEqual(
+    sanitizeAuditEvidence(['https://example.test/rootcause', 'at /root/x.ts:1'], root, '/root'),
+    ['https://example.test/rootcause', 'at <local-path>']
+  );
+});
+
+test('a Windows home with a space is redacted whole', () => {
+  const home = 'C:\\Users\\John Doe';
+  const output = sanitizeAuditEvidence([`${home}\\proj\\x.ts:1:2`], root, home);
+  assert.deepEqual(output, ['<local-path>']);
+});
+
+test('mount-root patterns do not rewrite public URLs', () => {
+  const input = [
+    'https://example.org/opt/guide',
+    'https://example.org/var/x',
+    'see https://a.test/tmp/y',
+  ];
+  assert.deepEqual(sanitizeAuditEvidence(input, root, '/Users/nobody'), input);
+});

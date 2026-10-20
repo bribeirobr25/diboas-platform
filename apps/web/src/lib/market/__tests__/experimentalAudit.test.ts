@@ -290,6 +290,7 @@ describe('B: independent time and scoring oracles', () => {
     const original = process.env.TZ;
     try {
       process.env.TZ = 'UTC';
+      expect(Intl.DateTimeFormat().resolvedOptions().timeZone).toBe('UTC');
       const utc = run();
       for (const tz of [
         'Asia/Tokyo',
@@ -299,7 +300,8 @@ describe('B: independent time and scoring oracles', () => {
         'Europe/Berlin',
       ]) {
         process.env.TZ = tz;
-        expect(new Date(0).getTimezoneOffset()).not.toBe(0); // the switch really happened
+        // The switch really happened (it does not in worker threads, where this would fail loudly).
+        expect(Intl.DateTimeFormat().resolvedOptions().timeZone).toBe(tz);
         expect(run()).toEqual(utc);
       }
     } finally {
