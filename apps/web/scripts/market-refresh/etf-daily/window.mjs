@@ -40,12 +40,21 @@
  *    00:00:00.000 UTC, compared strictly (`now > deadline`). R is a calendar
  *    reference, never an observation time; a holiday Friday stays R.
  *
+ * 7. A WINDOW THE CALENDAR DOES NOT COVER is UNAVAILABLE ('calendar-not-covering')
+ *    with the PR held, never a thrown error that would stop the weekly run.
+ *
  * Wiring this into the published score (and the confidence consumers) is E3.
  */
 
 import { ETF01_RULE, isPositiveWeek } from '../lib/etf-flows.mjs';
 import { ETF01_WEIGHT } from '../lib/regime-engine.mjs';
-import { addDays, dayMs, latestFridayBefore, sessionsInWeek } from './calendar.mjs';
+import {
+  addDays,
+  CalendarCoverageError,
+  dayMs,
+  latestFridayBefore,
+  sessionsInWeek,
+} from './calendar.mjs';
 import { ETF_UNIVERSE, requiredFunds } from './universe.mjs';
 import { ETF_PROVIDERS } from './providers.mjs';
 import { indexLedger, stableValue } from './ledger.mjs';
@@ -184,7 +193,9 @@ export const isPastDeadline = (nowMs, deadlineIso) =>
  * @typedef {object} Etf01Decision
  * @property {'ACTIVE' | 'INACTIVE' | 'UNAVAILABLE'} state
  * @property {number} points
- * @property {null | 'insufficient-history' | 'history-unreadable' | 'provider-disagreement'} reason
+ * @property {null | 'insufficient-history' | 'history-unreadable' | 'provider-disagreement'
+ *   | 'calendar-not-covering'} reason
+ * @property {string} [calendarGap] — the first day the exchange calendar does not cover
  * @property {null | 'cryptoetf' | 'sosovalue'} selected
  * @property {'agreed' | 'flagged' | 'unavailable'} crossCheck
  * @property {boolean} holdForReview
@@ -206,14 +217,41 @@ export const isPastDeadline = (nowMs, deadlineIso) =>
 /**
  * Decide ETF-01 for one publication.
  *
- * @param {object} o
- * @param {number} o.cutoffMs — the information cutoff (instant)
- * @param {object[]|null} o.rows — private ledger rows; null when the ledger could not be read
- * @param {string|null} [o.lastVerifiedReference] — R of the last verified publication, kept for disclosure only
- * @param {object} [o.universe]
+ * @param {object} args
+ * @param {number} args.cutoffMs — the information cutoff (instant)
+ * @param {object[]|null} args.rows — private ledger rows; null when the ledger could not be read
+ * @param {string|null} [args.lastVerifiedReference] — R of the last verified publication, kept for disclosure only
+ * @param {object} [args.universe]
  * @returns {Etf01Decision}
  */
-export function decideEtf01({
+export function decideEtf01(args) {
+  // A window the exchange calendar does not cover is OUR gap, not the data's:
+  // ETF-01 is UNAVAILABLE and the PR is held so the calendar gets extended.
+  // Throwing instead would stop the whole weekly run, every other signal with
+  // it, which the ETF leg must never do (2026-10-21).
+  try {
+    return decideWithinCalendar(args);
+  } catch (err) {
+    if (!(err instanceof CalendarCoverageError)) throw err;
+    return {
+      state: 'UNAVAILABLE',
+      points: 0,
+      reason: 'calendar-not-covering',
+      calendarGap: err.day,
+      selected: null,
+      crossCheck: 'unavailable',
+      holdForReview: true,
+      fridays: scoringFridays(args.cutoffMs),
+      universeVersion: (args.universe ?? ETF_UNIVERSE).version,
+      insufficientHistory: false,
+      confidenceEffect: null,
+      ...freshnessFromReference(null),
+    };
+  }
+}
+
+/** @returns {Etf01Decision} */
+function decideWithinCalendar({
   cutoffMs,
   rows,
   lastVerifiedReference = null,

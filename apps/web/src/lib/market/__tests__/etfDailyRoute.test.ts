@@ -503,6 +503,34 @@ describe('decision — a holiday Friday and a listing inside the window', () => 
   });
 });
 
+describe('decision — a window the calendar does not cover', () => {
+  it('should be UNAVAILABLE and held, never throw (a throw would stop the whole weekly run)', () => {
+    const d = decideEtf01({ cutoffMs: Date.parse('2029-01-08T05:30:00Z'), rows: [] });
+    expect(d).toMatchObject({
+      state: 'UNAVAILABLE',
+      points: 0,
+      reason: 'calendar-not-covering',
+      calendarGap: '2029-01-01',
+      holdForReview: true,
+      confidenceEffect: null,
+      reference_week_end: null,
+    });
+  });
+
+  it('should still throw an error that is not a calendar gap (it is not swallowed)', () => {
+    // The cutoff is valid, so only the ledger read can fail: a swallowing
+    // handler would return 'calendar-not-covering' here instead of throwing.
+    const unreadable = {
+      [Symbol.iterator]() {
+        throw new Error('synthetic ledger failure');
+      },
+    } as unknown as Record<string, unknown>[];
+    expect(() => decideEtf01({ cutoffMs: CUTOFF, rows: unreadable })).toThrow(
+      'synthetic ledger failure'
+    );
+  });
+});
+
 describe('freshness — R + 10 / R + 11 / R + 21 at 00:00 UTC, compared strictly', () => {
   const f = freshnessFromReference('2026-10-16');
 
