@@ -69,6 +69,16 @@ export const STALE_FUND_DAYS = 10;
 export const WEEK_SPAN_DAYS = 7;
 export const WEEK_SPAN_TOLERANCE_DAYS = 1;
 export const MAX_WEEKLY_SHARE_CHANGE = 0.5; // ±50%/week = corruption, not commerce
+
+/**
+ * The doc 02 §8.3 rule, ONE definition (2026-10-20): ACTIVE when at least
+ * `minPositive` of the trailing `weeks` weekly aggregates are positive, and a
+ * week is positive when its net flow is strictly above zero. Shared by this
+ * share-count route and the daily-source route (etf-daily/), so the two can
+ * never score the same weeks differently. Changing it is a methodology change.
+ */
+export const ETF01_RULE = Object.freeze({ weeks: 4, minPositive: 3 });
+export const isPositiveWeek = (netFlowUsd) => netFlowUsd > 0;
 // Single definition lives in regime-engine.mjs (the pure module) — re-exported
 // here so existing importers (run.mjs) are unchanged. See its docblock.
 export { WARMUP_SNAPSHOTS };
@@ -257,7 +267,7 @@ export function evaluateEtf01FromFlows(ledger, today = new Date()) {
     };
   }
   const { flows, warnings } = computeWeeklyFlows(snapshots, today);
-  const last4 = flows.slice(-4);
+  const last4 = flows.slice(-ETF01_RULE.weeks);
 
   // 5.301: the doc 02 §8.3 rule is "≥3 of the trailing 4 WEEKLY aggregates".
   // A fortnight is not a weekly aggregate, so when one lands in the window the
@@ -300,8 +310,8 @@ export function evaluateEtf01FromFlows(ledger, today = new Date()) {
     };
   }
 
-  const positives = last4.filter((f) => f.netFlowUsd > 0).length;
-  const state = positives >= 3 ? 'ACTIVE' : 'INACTIVE';
+  const positives = last4.filter((f) => isPositiveWeek(f.netFlowUsd)).length;
+  const state = positives >= ETF01_RULE.minPositive ? 'ACTIVE' : 'INACTIVE';
   const fmt = (n) =>
     `${n < 0 ? '-' : '+'}$${Math.abs(Math.round(n / 1e6)).toLocaleString('en-US')}M`;
   return {
