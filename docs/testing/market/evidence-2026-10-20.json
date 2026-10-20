@@ -1,0 +1,535 @@
+{
+  "date": "2026-10-20",
+  "productionSourceSha": "46e92077b3e49f1918dd52e2af3e04b46b9633c6",
+  "environment": {
+    "os": "macOS",
+    "arch": "arm64",
+    "node": "22.20.0",
+    "pnpm": "10.33.2",
+    "vitest": "4.1.10"
+  },
+  "basePrs": {
+    "712": "MERGED",
+    "715": "MERGED",
+    "716": "MERGED",
+    "714": "MERGED",
+    "713": {
+      "state": "OPEN",
+      "head": "b3b8e0136870193af971ab19811eab6e4a210cd7",
+      "included": false
+    }
+  },
+  "runs": {
+    "existingSelection": {
+      "total": 659,
+      "runnerPassed": 659,
+      "runnerFailed": 0,
+      "files": 38,
+      "seconds": 12.537
+    },
+    "wholeWeb": {
+      "total": 1799,
+      "runnerPassed": 1799,
+      "runnerFailed": 0,
+      "files": 141,
+      "seconds": 21.121
+    },
+    "newDefault": {
+      "total": 45,
+      "runnerPassed": 45,
+      "runnerFailed": 0,
+      "files": 2,
+      "seconds": 5.948
+    },
+    "newStrict": {
+      "total": 45,
+      "runnerPassed": 26,
+      "runnerFailed": 19,
+      "files": 2,
+      "seconds": 3.887
+    },
+    "renderingPlusExistingGroupTests": {
+      "total": 40,
+      "runnerPassed": 40,
+      "runnerFailed": 0,
+      "files": 2,
+      "seconds": 1.377
+    }
+  },
+  "interpretation": {
+    "ordinaryNewPasses": 26,
+    "reproducedContractFailures": 19,
+    "expectedFailureMarkersInDefault": 19,
+    "wholeWebOrdinaryPasses": 1780,
+    "notExecuted": "See scenario-matrix.md; no real weekly workflow, provider collection, load test or financial backtest."
+  },
+  "strictFailures": [
+    {
+      "case": "K06 snapshot command must not fall through into unrelated source requests (PR 713)",
+      "assertion": "AssertionError: expected [ { …(2) }, { …(2) }, { …(2) }, …(10) ] to deeply equal []"
+    },
+    {
+      "case": "K01 torn tail must not swallow the next accepted ledger row (known CC finding)",
+      "assertion": "AssertionError: expected [ '2026-10-09' ] to include '2026-10-23'"
+    },
+    {
+      "case": "N01 torn attempt tail must not swallow newly acknowledged refusal evidence",
+      "assertion": "AssertionError: expected [] to have a length of 1 but got +0"
+    },
+    {
+      "case": "N02 exact monthly grace boundary must agree at generation and read time",
+      "assertion": "AssertionError: expected 'FRESH' to be 'DELAYED' // Object.is equality"
+    },
+    {
+      "case": "N03 empty ledger must not invent last-updated dates from each new run",
+      "assertion": "AssertionError: expected '2026-10-26T00:00:00Z' to be null"
+    },
+    {
+      "case": "K02 STALE must not become a negative market condition (PR 713)",
+      "assertion": "AssertionError: expected 'inactive' to be 'unavailable' // Object.is equality"
+    },
+    {
+      "case": "K02 ERROR must not become a negative market condition (PR 713)",
+      "assertion": "AssertionError: expected 'inactive' to be 'unavailable' // Object.is equality"
+    },
+    {
+      "case": "K02 UNKNOWN must not become a negative market condition (PR 713)",
+      "assertion": "AssertionError: expected 'inactive' to be 'unavailable' // Object.is equality"
+    },
+    {
+      "case": "K03 M2 with a missing mandatory month must not silently become a 12-month change",
+      "assertion": "AssertionError: expected [Function] to throw an error"
+    },
+    {
+      "case": "K04 M2 invalid numeric value must fail closed (known M2 quality gap)",
+      "assertion": "AssertionError: expected [Function] to throw an error"
+    },
+    {
+      "case": "K05 Friday before close is not a confirmed Friday (known CC finding)",
+      "assertion": "AssertionError: expected [ [ 2026-10-23T00:00:00.000Z, 123 ] ] to deeply equal []"
+    },
+    {
+      "case": "K07 accessible gauge name includes the visible score (PR 713)",
+      "assertion": "AssertionError: expected 'Current macro environment score' to contain '10/14'"
+    },
+    {
+      "case": "K08 chart accessible table translates its regime code (PR 713)",
+      "assertion": "AssertionError: expected '2026-10-1910CONSTRUCTIVE' to contain 'Constructive'"
+    },
+    {
+      "case": "K07 accessible gauge name includes the visible score (PR 713)",
+      "assertion": "AssertionError: expected 'Score atual do ambiente macro' to contain '10/14'"
+    },
+    {
+      "case": "K08 chart accessible table translates its regime code (PR 713)",
+      "assertion": "AssertionError: expected '2026-10-1910CONSTRUCTIVE' to contain 'Construtivo'"
+    },
+    {
+      "case": "K07 accessible gauge name includes the visible score (PR 713)",
+      "assertion": "AssertionError: expected 'Score actual del entorno macro' to contain '10/14'"
+    },
+    {
+      "case": "K08 chart accessible table translates its regime code (PR 713)",
+      "assertion": "AssertionError: expected '2026-10-1910CONSTRUCTIVE' to contain 'Constructivo'"
+    },
+    {
+      "case": "K07 accessible gauge name includes the visible score (PR 713)",
+      "assertion": "AssertionError: expected 'Aktueller Makro-Umfeld-Score' to contain '10/14'"
+    },
+    {
+      "case": "K08 chart accessible table translates its regime code (PR 713)",
+      "assertion": "AssertionError: expected '2026-10-1910CONSTRUCTIVE' to contain 'Konstruktiv'"
+    }
+  ],
+  "experiments": {
+    "seed": 20261020,
+    "sequenceLimit": 200,
+    "childTimeoutMs": 30000,
+    "mutations": [
+      {
+        "id": "M01",
+        "test": "A01",
+        "caught": true,
+        "controlSeconds": 4.063,
+        "mutantSeconds": 0.738,
+        "failedAssertions": 1,
+        "evidence": [
+          {
+            "name": "A: ledger integrity and recovery A01 rejects each unusable field independently, preserving original ledger bytes",
+            "assertion": "AssertionError: expected 'recorded' to be 'refused' // Object.is equality"
+          }
+        ]
+      },
+      {
+        "id": "M02",
+        "test": "B01",
+        "caught": true,
+        "controlSeconds": 1.147,
+        "mutantSeconds": 0.646,
+        "failedAssertions": 1,
+        "evidence": [
+          {
+            "name": "B: independent time and scoring oracles B01 exhausts 1024 states of the other ten signals: suspended ETF never scores or rescales",
+            "assertion": "AssertionError: expected undefined to be 'suspended' // Object.is equality"
+          }
+        ]
+      },
+      {
+        "id": "M03",
+        "test": "B02",
+        "caught": true,
+        "controlSeconds": 0.665,
+        "mutantSeconds": 0.735,
+        "failedAssertions": 3,
+        "evidence": [
+          {
+            "name": "B: independent time and scoring oracles B02 ETF 21-day expiry at offset -1 ms; incomplete cycles cannot renew it",
+            "assertion": "AssertionError: expected '2026-10-23T00:00:00Z' to be '2026-10-09T00:00:00Z' // Object.is equality"
+          },
+          {
+            "name": "B: independent time and scoring oracles B02 ETF 21-day expiry at offset 0 ms; incomplete cycles cannot renew it",
+            "assertion": "AssertionError: expected '2026-10-23T00:00:00Z' to be '2026-10-09T00:00:00Z' // Object.is equality"
+          },
+          {
+            "name": "B: independent time and scoring oracles B02 ETF 21-day expiry at offset 1 ms; incomplete cycles cannot renew it",
+            "assertion": "AssertionError: expected '2026-10-23T00:00:00Z' to be '2026-10-09T00:00:00Z' // Object.is equality"
+          }
+        ]
+      },
+      {
+        "id": "M04",
+        "test": "A02",
+        "caught": true,
+        "controlSeconds": 2.015,
+        "mutantSeconds": 0.71,
+        "failedAssertions": 1,
+        "evidence": [
+          {
+            "name": "A: ledger integrity and recovery A02 seeded failure/retry sequences preserve every accepted row and prior evidence",
+            "assertion": "AssertionError: expected '{\"anchor\":\"2026-10-09\",\"funds\":{\"IBIT…' to be '{\"anchor\":\"2026-10-09\",\"funds\":{\"IBIT…' // Object.is equality"
+          }
+        ]
+      },
+      {
+        "id": "M05",
+        "test": "C01",
+        "caught": true,
+        "controlSeconds": 0.828,
+        "mutantSeconds": 0.784,
+        "failedAssertions": 4,
+        "evidence": [
+          {
+            "name": "C: communication contract C01 missing suspension translation fails closed in en",
+            "assertion": "AssertionError: expected [Function] to throw an error"
+          },
+          {
+            "name": "C: communication contract C01 missing suspension translation fails closed in pt-BR",
+            "assertion": "AssertionError: expected [Function] to throw an error"
+          },
+          {
+            "name": "C: communication contract C01 missing suspension translation fails closed in es",
+            "assertion": "AssertionError: expected [Function] to throw an error"
+          },
+          {
+            "name": "C: communication contract C01 missing suspension translation fails closed in de",
+            "assertion": "AssertionError: expected [Function] to throw an error"
+          }
+        ]
+      }
+    ],
+    "memo": [
+      {
+        "mode": "valid",
+        "status": 0,
+        "passed": 11,
+        "failed": 0,
+        "seconds": 0.502
+      },
+      {
+        "mode": "invented-numeral",
+        "status": 1,
+        "passed": 7,
+        "failed": 4,
+        "seconds": 4.904
+      },
+      {
+        "mode": "wrong-score-words",
+        "status": 0,
+        "passed": 11,
+        "failed": 0,
+        "seconds": 4.005
+      },
+      {
+        "mode": "wrong-score-digits",
+        "status": 0,
+        "passed": 11,
+        "failed": 0,
+        "seconds": 1.989
+      }
+    ],
+    "sourceHashBefore": "066563866facd884aa6ccc2e2a6d3a4c9a31be93d1489dc6b75ec2fa6c0dabc0",
+    "sourceHashAfter": "066563866facd884aa6ccc2e2a6d3a4c9a31be93d1489dc6b75ec2fa6c0dabc0",
+    "seconds": 23.85
+  },
+  "publicPages": {
+    "pages": [
+      {
+        "url": "https://diboas.com/en/market",
+        "final_url": "https://diboas.com/en/market",
+        "http_status": 200,
+        "seconds": 0.395,
+        "html_bytes": 108654,
+        "sha256": "86870efc72a27fcb5f1c5a9a787ad889c73b08bc971355572e8ca5d180967795",
+        "language_matches": true,
+        "acquisition_link_present": true,
+        "headers_present": {
+          "Content-Security-Policy": true,
+          "Strict-Transport-Security": true,
+          "X-Content-Type-Options": true,
+          "Referrer-Policy": true
+        }
+      },
+      {
+        "url": "https://diboas.com/en/market/bitcoin",
+        "final_url": "https://diboas.com/en/market/bitcoin",
+        "http_status": 200,
+        "seconds": 0.566,
+        "html_bytes": 182387,
+        "sha256": "973de883f199da39919abb20798991656cbdb11366d206f3d6866cabed340fe4",
+        "language_matches": true,
+        "acquisition_link_present": true,
+        "headers_present": {
+          "Content-Security-Policy": true,
+          "Strict-Transport-Security": true,
+          "X-Content-Type-Options": true,
+          "Referrer-Policy": true
+        },
+        "matches_local_baseline": {
+          "score": true,
+          "band": true,
+          "confidence": true,
+          "memo": true,
+          "unavailable_word": true,
+          "unavailable_group": true,
+          "cycle_date_in_chart": true
+        },
+        "gauge_name_has_score": false,
+        "raw_chart_band_code_present": true
+      },
+      {
+        "url": "https://diboas.com/en/market/backdrop",
+        "final_url": "https://diboas.com/en/market/backdrop",
+        "http_status": 200,
+        "seconds": 0.512,
+        "html_bytes": 154203,
+        "sha256": "df4a0a334be3b3c17eebf0449f78911beff9146c2d480b27ad331e4fd46a65ca",
+        "language_matches": true,
+        "acquisition_link_present": true,
+        "headers_present": {
+          "Content-Security-Policy": true,
+          "Strict-Transport-Security": true,
+          "X-Content-Type-Options": true,
+          "Referrer-Policy": true
+        }
+      },
+      {
+        "url": "https://diboas.com/pt-BR/market",
+        "final_url": "https://diboas.com/pt-BR/market",
+        "http_status": 200,
+        "seconds": 0.406,
+        "html_bytes": 110570,
+        "sha256": "643ac8405574d58ddbbbcdfe30177607ba64356f02b0459d0a219e2aca998993",
+        "language_matches": true,
+        "acquisition_link_present": true,
+        "headers_present": {
+          "Content-Security-Policy": true,
+          "Strict-Transport-Security": true,
+          "X-Content-Type-Options": true,
+          "Referrer-Policy": true
+        }
+      },
+      {
+        "url": "https://diboas.com/pt-BR/market/bitcoin",
+        "final_url": "https://diboas.com/pt-BR/market/bitcoin",
+        "http_status": 200,
+        "seconds": 0.334,
+        "html_bytes": 186922,
+        "sha256": "425cd1f8bcbd31230aa24393c9d8f2d61b10c09d810a8416f4b322fe559a5da1",
+        "language_matches": true,
+        "acquisition_link_present": true,
+        "headers_present": {
+          "Content-Security-Policy": true,
+          "Strict-Transport-Security": true,
+          "X-Content-Type-Options": true,
+          "Referrer-Policy": true
+        },
+        "matches_local_baseline": {
+          "score": true,
+          "band": true,
+          "confidence": true,
+          "memo": true,
+          "unavailable_word": true,
+          "unavailable_group": true,
+          "cycle_date_in_chart": true
+        },
+        "gauge_name_has_score": false,
+        "raw_chart_band_code_present": true
+      },
+      {
+        "url": "https://diboas.com/pt-BR/market/backdrop",
+        "final_url": "https://diboas.com/pt-BR/market/backdrop",
+        "http_status": 200,
+        "seconds": 0.494,
+        "html_bytes": 157904,
+        "sha256": "463a21bf3bf57cb1787ecd1396275021c3c0fdd264aac712be5f49e856bc6655",
+        "language_matches": true,
+        "acquisition_link_present": true,
+        "headers_present": {
+          "Content-Security-Policy": true,
+          "Strict-Transport-Security": true,
+          "X-Content-Type-Options": true,
+          "Referrer-Policy": true
+        }
+      },
+      {
+        "url": "https://diboas.com/es/market",
+        "final_url": "https://diboas.com/es/market",
+        "http_status": 200,
+        "seconds": 0.432,
+        "html_bytes": 112108,
+        "sha256": "911c599661553a91eed70e3439068d67aed5994fdb39613ea0068bfb901c124a",
+        "language_matches": true,
+        "acquisition_link_present": true,
+        "headers_present": {
+          "Content-Security-Policy": true,
+          "Strict-Transport-Security": true,
+          "X-Content-Type-Options": true,
+          "Referrer-Policy": true
+        }
+      },
+      {
+        "url": "https://diboas.com/es/market/bitcoin",
+        "final_url": "https://diboas.com/es/market/bitcoin",
+        "http_status": 200,
+        "seconds": 0.4,
+        "html_bytes": 189358,
+        "sha256": "f8c159abe9133e406606d6b500709ea6ffef99890f23dcb7dd32fc3930f8c44f",
+        "language_matches": true,
+        "acquisition_link_present": true,
+        "headers_present": {
+          "Content-Security-Policy": true,
+          "Strict-Transport-Security": true,
+          "X-Content-Type-Options": true,
+          "Referrer-Policy": true
+        },
+        "matches_local_baseline": {
+          "score": true,
+          "band": true,
+          "confidence": true,
+          "memo": true,
+          "unavailable_word": true,
+          "unavailable_group": true,
+          "cycle_date_in_chart": true
+        },
+        "gauge_name_has_score": false,
+        "raw_chart_band_code_present": true
+      },
+      {
+        "url": "https://diboas.com/es/market/backdrop",
+        "final_url": "https://diboas.com/es/market/backdrop",
+        "http_status": 200,
+        "seconds": 0.482,
+        "html_bytes": 160216,
+        "sha256": "eff35eafc0c4e0f79f66460a7f4a517de15ecf610c3379bee7ae0d42e70e7d0a",
+        "language_matches": true,
+        "acquisition_link_present": true,
+        "headers_present": {
+          "Content-Security-Policy": true,
+          "Strict-Transport-Security": true,
+          "X-Content-Type-Options": true,
+          "Referrer-Policy": true
+        }
+      },
+      {
+        "url": "https://diboas.com/de/market",
+        "final_url": "https://diboas.com/de/market",
+        "http_status": 200,
+        "seconds": 0.433,
+        "html_bytes": 112189,
+        "sha256": "ebaf3f090287004784ad2b87804050703660877cb239c97562245b76a21da3af",
+        "language_matches": true,
+        "acquisition_link_present": true,
+        "headers_present": {
+          "Content-Security-Policy": true,
+          "Strict-Transport-Security": true,
+          "X-Content-Type-Options": true,
+          "Referrer-Policy": true
+        }
+      },
+      {
+        "url": "https://diboas.com/de/market/bitcoin",
+        "final_url": "https://diboas.com/de/market/bitcoin",
+        "http_status": 200,
+        "seconds": 0.478,
+        "html_bytes": 188996,
+        "sha256": "d666a2db8db3282f4d894e25754e8607a8b0542aa2fd6a6e9658f94f0908bf7e",
+        "language_matches": true,
+        "acquisition_link_present": true,
+        "headers_present": {
+          "Content-Security-Policy": true,
+          "Strict-Transport-Security": true,
+          "X-Content-Type-Options": true,
+          "Referrer-Policy": true
+        },
+        "matches_local_baseline": {
+          "score": true,
+          "band": true,
+          "confidence": true,
+          "memo": true,
+          "unavailable_word": true,
+          "unavailable_group": true,
+          "cycle_date_in_chart": true
+        },
+        "gauge_name_has_score": false,
+        "raw_chart_band_code_present": true
+      },
+      {
+        "url": "https://diboas.com/de/market/backdrop",
+        "final_url": "https://diboas.com/de/market/backdrop",
+        "http_status": 200,
+        "seconds": 0.538,
+        "html_bytes": 159851,
+        "sha256": "08f3acc67db0a20b37ccd635892723ea6ab022a5f597226f26087e2d6c4ee2d2",
+        "language_matches": true,
+        "acquisition_link_present": true,
+        "headers_present": {
+          "Content-Security-Policy": true,
+          "Strict-Transport-Security": true,
+          "X-Content-Type-Options": true,
+          "Referrer-Policy": true
+        }
+      }
+    ],
+    "note": "HTTP/SSR sample, not browser rendering or load testing."
+  },
+  "localChecks": {
+    "generatorCheck": "exit 0, no drift",
+    "webTypeCheck": "exit 0 after package builds and test typing fixes",
+    "newTestLint": "exit 0, no warnings after style fixes",
+    "knip": "exit 0",
+    "productionDataScriptsWorkflowDiff": "empty",
+    "stagedGitleaks": "exit 0; no leaks in staged diff (redacted scan)",
+    "changedFileFormatting": "exit 0"
+  },
+  "commands": [
+    "pnpm --filter web exec vitest run src/lib/market-data src/lib/analytics-sdk src/lib/market src/components/Market",
+    "pnpm --filter web exec vitest run",
+    "pnpm market:audit",
+    "MARKET_AUDIT_STRICT=1 pnpm market:audit",
+    "node scripts/market-audit-experiments.mjs",
+    "node apps/web/scripts/market-refresh/generate.mjs --check",
+    "pnpm --filter web exec tsc --noEmit",
+    "pnpm check:dead-code",
+    "python3 scripts/market-audit-public.py"
+  ]
+}
