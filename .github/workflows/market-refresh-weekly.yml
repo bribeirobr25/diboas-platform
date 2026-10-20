@@ -245,7 +245,7 @@ jobs:
       # ETF leg is fail-open, so a run can still reach this point. Reported in
       # the PR title and body, never repaired: the ledgers are append-only
       # (5.302). continue-on-error: if the check itself cannot run, the PR is
-      # still opened (a lost week of ETF collection cannot be fetched again)
+      # still opened (a lost week of ETF collection is not known to be reconstructible)
       # and its empty status is treated as NOT ok below.
       - name: Ledger append check (reported)
         id: ledgers

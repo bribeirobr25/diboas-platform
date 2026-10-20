@@ -88,9 +88,14 @@ describe('weekly refresh — no silent failure, no racing runs (5.465)', () => {
           .filter((f) => f.endsWith('.md'))
           .map((f) => join(d, f))
       ),
+      // 2026-10-21: workflow comments too. "cannot be fetched again" reached
+      // the weekly workflow in a comment this guard could not see.
+      ...readdirSync(join(root, '.github/workflows'))
+        .filter((f) => /\.ya?ml$/.test(f))
+        .map((f) => join('.github/workflows', f)),
     ];
     const hits = files.filter((f) =>
-      /cannot be back-?filled|non-backfillable|can never be re-?fetched/i.test(
+      /cannot be back-?filled|non-backfillable|can never be re-?fetched|cannot be (?:re-?)?fetched again/i.test(
         readFileSync(join(root, f), 'utf8')
       )
     );
