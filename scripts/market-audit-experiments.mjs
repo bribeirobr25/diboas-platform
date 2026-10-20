@@ -14,6 +14,7 @@ import { sanitizeAuditEvidence } from './market-audit-evidence.mjs';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const WEB = path.join(ROOT, 'apps/web');
 const SCRIPTS = path.join(WEB, 'scripts/market-refresh');
+const DATA = [path.join(WEB, 'data/market'), path.join(WEB, 'src/lib/market-data/data')];
 const VITEST = path.join(WEB, 'node_modules/vitest/vitest.mjs');
 const TEST = 'src/lib/market/__tests__/experimentalAudit.test.ts';
 const dirs = [];
@@ -126,6 +127,8 @@ const report = {
   memo: [],
 };
 const before = hashTree(SCRIPTS);
+const hashData = () => DATA.map(hashTree).join(':');
+const dataBefore = hashData();
 try {
   if (!process.argv.includes('--memo-only')) {
     for (const m of mutations) {
@@ -226,6 +229,11 @@ try {
   report.sourceHashAfter = hashTree(SCRIPTS);
   if (before !== report.sourceHashAfter)
     throw new Error('Source implementation changed during experiments');
+  // The header promises no edits to repository DATA either; check it.
+  report.dataHashBefore = dataBefore;
+  report.dataHashAfter = hashData();
+  if (dataBefore !== report.dataHashAfter)
+    throw new Error('Repository market data changed during experiments');
   report.seconds = Number(((performance.now() - started) / 1000).toFixed(3));
   console.log(JSON.stringify(sanitizeAuditEvidence(report, ROOT), null, 2));
 } finally {

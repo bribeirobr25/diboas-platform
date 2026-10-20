@@ -203,19 +203,32 @@ describe('B: independent time and scoring oracles', () => {
     }
   );
 
-  it('B03 per-source deadlines are inclusive; clock-only reading never promotes a source', () => {
+  it('B03 per-source deadlines are strict (past, not at); clock-only reading never promotes a source', () => {
+    // Requirement: the read-time overlay only DOWNGRADES (freshness.ts header:
+    // "it never promotes a source the pipeline called DELAYED"), and a deadline
+    // is passed only strictly after its instant. Starting from every status the
+    // overlay can receive, the result is the worse of the input status and the
+    // clock's verdict, never better.
+    expect.hasAssertions();
+    const rank = { FRESH: 0, DELAYED: 1, STALE: 2 } as const;
+    type Graded = keyof typeof rank;
     const ds = panel('2026-10-26T06:20:00Z', [snapshot()]);
     for (const source of ds.sources) {
       for (const key of ['delayed_after', 'stale_after'] as const) {
         const deadline = source[key];
         if (!deadline) continue;
-        const isolated = { ...ds, sources: [{ ...source, status: 'FRESH' as const }] };
-        for (const delta of [-1, 0, 1]) {
-          const t = new Date(Date.parse(deadline) + delta);
-          const output = applyReadTimeFreshness(isolated, t);
-          const stale = t.getTime() > Date.parse(source.stale_after ?? '');
-          const delayed = t.getTime() > Date.parse(source.delayed_after ?? '');
-          expect(output.sources[0].status).toBe(stale ? 'STALE' : delayed ? 'DELAYED' : 'FRESH');
+        for (const start of ['FRESH', 'DELAYED', 'STALE'] as const) {
+          const isolated = { ...ds, sources: [{ ...source, status: start }] };
+          for (const delta of [-1, 0, 1]) {
+            const t = new Date(Date.parse(deadline) + delta);
+            const output = applyReadTimeFreshness(isolated, t).sources[0].status as Graded;
+            const stale = t.getTime() > Date.parse(source.stale_after ?? '');
+            const delayed = t.getTime() > Date.parse(source.delayed_after ?? '');
+            const clock: Graded = stale ? 'STALE' : delayed ? 'DELAYED' : 'FRESH';
+            const expected = rank[start] >= rank[clock] ? start : clock;
+            expect(output).toBe(expected);
+            expect(rank[output]).toBeGreaterThanOrEqual(rank[start]);
+          }
         }
       }
     }
@@ -243,16 +256,43 @@ describe('B: independent time and scoring oracles', () => {
     expect(row(later).last_updated_at).toBe(row(first).last_updated_at);
   });
 
-  it('B04 equivalent instants across DST and month-roll offsets have identical results', () => {
-    const ds = panel('2026-10-26T06:20:00Z', [snapshot()]);
-    for (const [utc, offset] of [
-      ['2026-10-30T00:00:00.001Z', '2026-10-30T01:00:00.001+01:00'],
-      ['2026-11-01T00:00:00Z', '2026-10-31T20:00:00-04:00'],
-      ['2027-01-01T00:00:00Z', '2026-12-31T21:00:00-03:00'],
-    ]) {
-      expect(applyReadTimeFreshness(ds, new Date(utc))).toEqual(
-        applyReadTimeFreshness(ds, new Date(offset))
+  it('B04 the host time zone never changes generation or read-time results (DST, month and year rolls)', () => {
+    // Requirement: deadlines are UTC instants, so the panel built AND read on a
+    // host in any time zone equals the UTC result. (The earlier version compared
+    // two spellings of the same instant, which can never differ.) Node honours
+    // a runtime change of process.env.TZ; it is restored afterwards.
+    const instants = [
+      '2026-10-29T23:59:59.999Z',
+      '2026-10-30T00:00:00.000Z',
+      '2026-10-30T00:00:00.001Z',
+      '2026-11-01T06:00:00Z', // US DST ends
+      '2026-10-25T01:00:00Z', // EU DST ends
+      '2027-01-01T00:00:00Z',
+    ];
+    const run = () =>
+      instants.map((at) =>
+        applyReadTimeFreshness(panel('2026-10-26T06:20:00Z', [snapshot()]), new Date(at))
       );
+    const original = process.env.TZ;
+    try {
+      process.env.TZ = 'UTC';
+      expect(Intl.DateTimeFormat().resolvedOptions().timeZone).toBe('UTC');
+      const utc = run();
+      for (const tz of [
+        'Asia/Tokyo',
+        'America/Los_Angeles',
+        'Pacific/Kiritimati',
+        'America/Sao_Paulo',
+        'Europe/Berlin',
+      ]) {
+        process.env.TZ = tz;
+        // The switch really happened (it does not in worker threads, where this would fail loudly).
+        expect(Intl.DateTimeFormat().resolvedOptions().timeZone).toBe(tz);
+        expect(run()).toEqual(utc);
+      }
+    } finally {
+      if (original === undefined) delete process.env.TZ;
+      else process.env.TZ = original;
     }
   });
 });

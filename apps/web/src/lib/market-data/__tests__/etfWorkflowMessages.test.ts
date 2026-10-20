@@ -280,6 +280,7 @@ describe('the weekly workflow ETF wording, executed', () => {
     const etf = runScript('ETF-01 weekly snapshot (optional leg)');
     expect(etf).toContain(`${ETF_SNAPSHOT_EXIT.refused}) outcome=refused ;;`);
     expect(etf).toContain(`${ETF_SNAPSHOT_EXIT.incompleteRecord}) outcome=incomplete-record ;;`);
+    expect(etf).toContain(`${ETF_SNAPSHOT_EXIT.recordedThenFailed}) outcome=recorded ;;`);
   });
 
   it('keeps the core refresh unconditional on the ETF step (the other signals are processed)', () => {
@@ -382,7 +383,10 @@ describe('the weekly workflow ETF wording, executed', () => {
   });
 
   it('a recorded week whose step then failed (exit 22): a notice, no warning, never "not recorded"', () => {
-    const r = runWorkflow({ now: '2026-10-26T06:20:00Z', snapshotExit: 22 });
+    const r = runWorkflow({
+      now: '2026-10-26T06:20:00Z',
+      snapshotExit: ETF_SNAPSHOT_EXIT.recordedThenFailed,
+    });
     expect(r.step.status).toBe(0);
     expect(r.outputs).toMatchObject({ outcome: 'recorded', status: 'ok' });
     expect(r.outputs.note).toBeUndefined();
