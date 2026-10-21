@@ -364,3 +364,20 @@ describe('ledger check → PR title and body (workflow wiring, executed)', () =>
     TIMEOUT
   );
 });
+
+describe('ledger check command — a byte-order mark is not a complete row (2026-10-21 final audit)', () => {
+  it(
+    'should refuse an appended row that starts with a BOM, which readers cannot parse',
+    () => {
+      const root = repo();
+      fs.appendFileSync(
+        ledger(root, 'run-archive.jsonl'),
+        Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), Buffer.from(NEXT)])
+      );
+      const r = check(root);
+      expect(r.status).toBe('damaged');
+      expect(r.note).toContain('not a complete JSON row');
+    },
+    TIMEOUT
+  );
+});

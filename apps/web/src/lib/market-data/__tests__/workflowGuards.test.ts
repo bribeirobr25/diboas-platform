@@ -249,7 +249,7 @@ describe('weekly refresh — supply chain and a recorded ETF week that a later f
       weekly.indexOf('- name: Open refresh PR')
     );
     expect(step).toContain('failure()');
-    for (const outcome of ['ok', 'recorded', 'refused']) {
+    for (const outcome of ['ok', 'recorded', 'refused', 'error']) {
       expect(step).toContain(`steps.etf.outputs.outcome == '${outcome}'`);
     }
     // The paths come from the pipeline's own constants (this test never reads them).

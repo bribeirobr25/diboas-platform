@@ -370,9 +370,10 @@ jobs:
       # success, so a later failure (STALE INPUT, a source outage, a gate)
       # stopped the job before the PR and the runner, with this week's ETF
       # record on it, was discarded. Keep the ETF files whenever the run fails
-      # after the leg wrote something. Recovery is a manual, reviewed append.
+      # after the leg wrote something, or may have written part of something
+      # ('error': a failed append exits 1). Recovery is a manual, reviewed append.
       - name: Keep the ETF ledger files when the run fails after the ETF leg
-        if: ${{ failure() && (steps.etf.outputs.outcome == 'ok' || steps.etf.outputs.outcome == 'recorded' || steps.etf.outputs.outcome == 'refused') }}
+        if: ${{ failure() && (steps.etf.outputs.outcome == 'ok' || steps.etf.outputs.outcome == 'recorded' || steps.etf.outputs.outcome == 'refused' || steps.etf.outputs.outcome == 'error') }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: etf-ledger-${{ github.run_id }}

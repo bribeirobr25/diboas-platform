@@ -54,7 +54,8 @@ const LEDGER_DIR = path.relative(REPO_ROOT, SHARED_DIR);
 const REQUIRED_LEDGERS = [ETF_SHARES_ARCHIVE, RUN_ARCHIVE_PATH].map((p) =>
   path.relative(REPO_ROOT, p)
 );
-const utf8 = new TextDecoder('utf-8', { fatal: true });
+// ignoreBOM: a leading byte-order mark is kept, so JSON.parse rejects it as readers would.
+const utf8 = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true });
 
 /**
  * Compare a ledger's committed text with its text now.
@@ -142,7 +143,7 @@ function ledgersNow() {
 }
 
 /** Check every ledger; returns the report the CLI prints and records. */
-export function checkAllLedgers() {
+function checkAllLedgers() {
   const atHead = new Set(ledgersAtHead()); // throws when HEAD cannot be listed
   // A required ledger missing from HEAD means the check is not looking where
   // the pipeline writes: that is unverified, never "nothing to check".
