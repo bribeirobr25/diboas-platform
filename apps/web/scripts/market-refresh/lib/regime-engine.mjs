@@ -143,6 +143,34 @@ export function expectedConfirmedMonthYM(now) {
   return prev.toISOString().slice(0, 7) + '-01';
 }
 
+/** The month after `ym` (`YYYY-MM-01`). */
+export function nextMonthYM(ym) {
+  const [y, m] = ym.split('-').map(Number);
+  return new Date(Date.UTC(y, m, 1)).toISOString().slice(0, 7) + '-01';
+}
+
+/**
+ * A monthly series may only grow by the month right after its last row
+ * (2026-10-21, review gate). Before, only "not before the last row" was
+ * checked, so a month nobody appended in time stayed a hole for good, and the
+ * monthly averages silently spanned more calendar months than they say.
+ *
+ * @param {string} label — series name for the error
+ * @param {string | undefined} lastYm — the last row's month (undefined for an empty series)
+ * @param {string} ym — the month about to be appended
+ */
+export function assertNextMonth(label, lastYm, ym) {
+  if (lastYm === undefined) return;
+  if (ym <= lastYm) throw new Error(`${label}: ${ym} is not after the last row ${lastYm}`);
+  const next = nextMonthYM(lastYm);
+  if (ym !== next) {
+    throw new Error(
+      `${label}: ${ym} does not follow the last row ${lastYm} (expected ${next}); ` +
+        `append the missing month(s) first — a gap would make the monthly averages span extra months`
+    );
+  }
+}
+
 /** Last confirmed month (candle-lock §5.1): current month is always in progress. */
 export function lastConfirmedMonthYM(now) {
   const prev = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));

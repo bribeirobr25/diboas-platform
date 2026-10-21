@@ -7,6 +7,7 @@
  * CoinGecko verifier, ≤0.5% tolerance).
  */
 import { writeJsonAtomic } from '../lib/atomic.mjs';
+import { assertNextMonth } from '../lib/regime-engine.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -41,11 +42,7 @@ export function appendBtcMonth({ ym, open, high, low, close }) {
   if (months.some((m) => m.ym === ym)) {
     throw new Error(`appendBtcMonth: ${ym} already present — refusing duplicate append`);
   }
-  if (months.length && months[months.length - 1].ym >= ym) {
-    throw new Error(
-      `appendBtcMonth: ${ym} is not after the last row ${months[months.length - 1].ym}`
-    );
-  }
+  assertNextMonth('appendBtcMonth', months[months.length - 1]?.ym, ym);
   const r4 = (x) => Math.round(x * 10000) / 10000;
   months.push({ ym, open: r4(open), high: r4(high), low: r4(low), close: r4(close) });
   // 5.302: temp + rename. A truncated monthlyPrices.json loses the BTC candle

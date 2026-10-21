@@ -452,7 +452,6 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                             }
                             status={src.status}
                             labels={freshnessLabels}
-                            message={src.message}
                           />
                         </li>
                       ))}

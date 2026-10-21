@@ -415,6 +415,14 @@ Readers skip an unparseable line and the next append starts a fresh line, so an 
 
 **What to do:** ask the market lane to recover it. Recovery is a manual, reviewed change that **appends only** the missing complete week to `main`'s ledger; it never rewrites existing rows. The ledger check then verifies it in the next weekly PR.
 
+### A monthly series is missing a month (2026-10-21)
+
+- **The tools series** (SP500, QQQ, MSCI_WORLD, GOLD, TLT, IBOVESPA, DAX):
+  - `tools-monthlies.mjs` backfills every month between a series' last row and the due month, oldest first, from the same Yahoo fetch and with the same checks;
+  - if Yahoo has not closed a month yet, that series stops there, and the run prints a warning naming it. `--check` fails on it;
+  - the next weekly run picks it up. Nothing is ever appended with a hole.
+- **BTC is different:** a gap stops the refresh, because the score is never computed over a missing month. The run fails with "does not follow the last row … (expected …)". Ask the market lane to append the missing month(s) first, with the usual dual-source check, as a reviewed change, then re-run.
+
 ## 9. What this doc deliberately does NOT cover
 
 - **Adding a new signal** (e.g., a sixth BTC structure indicator) — this is an engineering change (SDK contract extension). Request via product channel.
