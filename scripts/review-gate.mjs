@@ -1422,6 +1422,38 @@ function checkAuthorities() {
         lines.push(`GATE STATUS OUTSIDE VOCABULARY: ${bad.slice(0, 6).join(', ')}`);
       }
     }
+
+    /**
+     * ⛑ GATE-STATE-1 · A GATE ROW NEVER STATES A DELIVERY STATE (2026-10-21).
+     *
+     * Eight market rows and one section heading said "IMPLEMENTED ON BRANCH, not yet
+     * merged" on `main` (`LOW-REASON-1` first, then #742–#744). Written inside the PR that
+     * merged the work, each was false the moment it merged, and the index check above
+     * could not see it: the index carried the right status while the row contradicted it.
+     *
+     * Read only where a status is stated, the row's first cell and a section heading, so a
+     * row that explains this very rule in its description is not mistaken for one that
+     * asserts it.
+     */
+    const DELIVERY_STATE =
+      /IMPLEMENTED ON BRANCH|\bNOT (?:YET )?MERGED\b|\bUNMERGED\b|MERGED TO MAIN\s*=\s*(?:NO|PENDING)/i;
+    const stated = [];
+    for (const line of g.split('\n')) {
+      const row = line.match(new RegExp(`^\\|\\s*\\*\\*(${GATE_ID})\\*\\*([^|]*)\\|`));
+      if (row) {
+        if (DELIVERY_STATE.test(row[2])) stated.push(row[1]);
+        continue;
+      }
+      const heading = line.match(/^#{1,6}\s+(.+)$/);
+      if (heading && DELIVERY_STATE.test(heading[1]))
+        stated.push(`heading "${heading[1].slice(0, 60)}"`);
+    }
+    if (stated.length) {
+      ok = false;
+      lines.push(
+        `GATE STATUS STATES A DELIVERY STATE (${stated.length}), false once merged: ${stated.slice(0, 8).join(', ')}`
+      );
+    }
   }
   return { ok, detail: lines.join(' · ') };
 }

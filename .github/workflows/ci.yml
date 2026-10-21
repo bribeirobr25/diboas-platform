@@ -30,6 +30,11 @@ jobs:
       - run: pnpm format:check
       - run: pnpm type-check
       - run: pnpm lint
+      # GATE-INDEX-CI-1 (founder-approved 2026-10-21): the gate registry's own
+      # check. Fails on a gate row missing from the status index, an index entry
+      # with no row, a status outside LIVE/PARTIAL/PLANNED, wrong totals, or a
+      # row that states a delivery state (GATE-STATE-1). Reads tracked files only.
+      - run: pnpm review:authorities
       - run: pnpm test
       # 5.468 (founder-ruled 2026-09-29): the /market 14-day staleness backstop
       # BLOCKS only a change that touches market data or code; every other
