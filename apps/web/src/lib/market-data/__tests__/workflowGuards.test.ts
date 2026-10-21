@@ -29,8 +29,12 @@ function stepText(yaml: string, name: string): string {
 }
 
 describe('weekly refresh — never overwrite an unmerged week (5.464)', () => {
-  it('should run the open-PR guard as the FIRST step, before checkout or any fetch', () => {
-    const steps = weekly.slice(weekly.indexOf('    steps:'));
+  it('should run the open-PR guard as the FIRST step of the refresh job, before checkout or any fetch', () => {
+    // C1d (2026-10-21) put a read-only `decide` job before `refresh`; the guard
+    // is about the job that writes, so it is read from that job's steps.
+    const job = weekly.slice(weekly.indexOf('\n  refresh:\n'));
+    expect(job.length).toBeGreaterThan(0);
+    const steps = job.slice(job.indexOf('    steps:'));
     const firstStep = steps.match(/\n {6}- (name|uses): ([^\n]+)/);
     expect(firstStep?.[2]).toBe('Refuse to overwrite an open refresh PR (5.464)');
   });

@@ -25,7 +25,7 @@
 
 import fs from 'node:fs';
 import { isDirectInvocation } from './lib/invocation.mjs';
-import { writeJsonAtomic } from './lib/atomic.mjs';
+import { writeFileAtomic, writeJsonAtomic } from './lib/atomic.mjs';
 import { assertNextMonth, expectedConfirmedMonthYM, nextMonthYM } from './lib/regime-engine.mjs';
 import { fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { assertOhlcBar } from './lib/quality-gate.mjs';
@@ -75,7 +75,9 @@ function buildRow(code, bar) {
  * (2026-10-21, review gate: those were skipped silently and the run reported
  * "nothing to do").
  *
- * @returns {Promise<{planned: {code: string, row: object}[], missing: string[]}>}
+ * A series that could not be read or failed a check is in `failed` (C1c).
+ *
+ * @returns {Promise<{planned: {code: string, row: object}[], missing: string[], failed: {code: string, reason: string}[]}>}
  */
 export async function appendPriceMonths(
   expectedYm,
@@ -85,35 +87,60 @@ export async function appendPriceMonths(
   const prices = JSON.parse(fs.readFileSync(pricesPath, 'utf8'));
   const planned = [];
   const missing = [];
+  /** @type {{ code: string, reason: string }[]} */
+  const failed = [];
   for (const [code, shape] of Object.entries(SERIES_SHAPES)) {
     const months = prices[code].months;
     if (months.some((m) => m.ym === expectedYm)) continue; // idempotent
-    const { bars } = await fetchBars(shape.ticker, '2y');
-    // Every month from the one after the last row up to the due month, oldest
-    // first (2026-10-21, final audit): a month nobody appended in time is
-    // backfilled from the same fetch, with the same checks, instead of
-    // leaving a hole or stopping the whole run. If Yahoo lacks a month on the
-    // way, the series keeps what precedes it and is reported as missing.
-    let ym = months.length ? nextMonthYM(months[months.length - 1].ym) : expectedYm;
-    while (ym <= expectedYm) {
-      const bar = bars.get(ym);
-      if (!bar) {
-        console.log(`  ${code}: Yahoo has no closed ${ym} bar yet — stopping this series there`);
-        missing.push(code);
-        break;
-      }
-      assertOhlcBar(`${code} ${ym}`, bar);
-      assertNextMonth(code, months[months.length - 1]?.ym, ym);
-      const row = buildRow(code, bar);
-      planned.push({ code, row });
-      months.push(row); // the working copy; written to disk only when !check
-      ym = nextMonthYM(ym);
+    // C1c (2026-10-21, owner-approved): one series' failure (a Yahoo error, a
+    // timeout, a bar that fails its checks) is that series' failure, never
+    // the weekly run's. It keeps the rows it has, including any earlier month
+    // this run already appended and checked; the others still update, and
+    // the failure is reported. These series feed the Money Tools only.
+    try {
+      await appendSeries(code, shape, months, expectedYm, fetchBars, planned, missing);
+    } catch (err) {
+      failed.push({ code, reason: oneLine(err) });
     }
   }
   if (!check && planned.length)
     // 5.302: temp + rename — this file also backs the Money Tools calculators.
     writeJsonAtomic(pricesPath, prices);
-  return { planned, missing };
+  return { planned, missing, failed };
+}
+
+/** An error as one short line, safe to place in a PR body. */
+function oneLine(err) {
+  const text = err instanceof Error ? err.message : String(err);
+  return text
+    .replace(/[\r\n`]+/g, ' ')
+    .trim()
+    .slice(0, 200);
+}
+
+/** One series: append every month after its last row up to the due month. */
+async function appendSeries(code, shape, months, expectedYm, fetchBars, planned, missing) {
+  const { bars } = await fetchBars(shape.ticker, '2y');
+  // Every month from the one after the last row up to the due month, oldest
+  // first (2026-10-21, final audit): a month nobody appended in time is
+  // backfilled from the same fetch, with the same checks, instead of
+  // leaving a hole or stopping the whole run. If Yahoo lacks a month on the
+  // way, the series keeps what precedes it and is reported as missing.
+  let ym = months.length ? nextMonthYM(months[months.length - 1].ym) : expectedYm;
+  while (ym <= expectedYm) {
+    const bar = bars.get(ym);
+    if (!bar) {
+      console.log(`  ${code}: Yahoo has no closed ${ym} bar yet — stopping this series there`);
+      missing.push(code);
+      break;
+    }
+    assertOhlcBar(`${code} ${ym}`, bar);
+    assertNextMonth(code, months[months.length - 1]?.ym, ym);
+    const row = buildRow(code, bar);
+    planned.push({ code, row });
+    months.push(row); // the working copy; written to disk only when !check
+    ym = nextMonthYM(ym);
+  }
 }
 
 /**
@@ -121,15 +148,40 @@ export async function appendPriceMonths(
  * is never "nothing to do": it is a warning in an append run, and a failure in
  * `--check` mode, as this script's header promises.
  */
-export function toolsMonthliesOutcome({ planned, missing, check, expectedYm }) {
-  const warnings = missing.length
-    ? [`${missing.join(', ')}: no closed ${expectedYm} bar yet — the month is still missing`]
-    : [];
+/**
+ * @param {{ planned: object[], missing: string[], failed?: {code: string, reason: string}[], check: boolean, expectedYm: string }} io
+ */
+export function toolsMonthliesOutcome({ planned, missing, failed = [], check, expectedYm }) {
+  const warnings = [
+    ...(missing.length
+      ? [`${missing.join(', ')}: no closed ${expectedYm} bar yet — the month is still missing`]
+      : []),
+    ...failed.map((f) => `${f.code}: not updated this run (${f.reason})`),
+  ];
+  const incomplete = planned.length > 0 || missing.length > 0 || failed.length > 0;
   return {
-    nothingToDo: planned.length === 0 && missing.length === 0,
+    nothingToDo: !incomplete,
     warnings,
-    exitCode: check && (planned.length > 0 || missing.length > 0) ? 1 : 0,
+    // An append run always lets the weekly run continue (C1c); `--check`
+    // fails while any series is behind or could not be read.
+    exitCode: check && incomplete ? 1 : 0,
   };
+}
+
+/**
+ * The note for the weekly PR body: '' when every series is current or was
+ * updated; otherwise one line per series still behind, so a lagging series is
+ * visible every week until it is fixed.
+ */
+/** @param {{ missing: string[], failed?: {code: string, reason: string}[], expectedYm: string }} io */
+export function toolsReport({ missing, failed = [], expectedYm }) {
+  const lines = [
+    ...missing.map((code) => `- ${code}: Yahoo has no closed ${expectedYm} bar yet`),
+    ...failed.map((f) => `- ${f.code}: not updated this run (${f.reason})`),
+  ];
+  return lines.length
+    ? `Money Tools monthly prices are behind for ${missing.length + failed.length} series (they do not feed the /market score):\n${lines.join('\n')}\n`
+    : '';
 }
 
 // Run ONLY when invoked directly: importing a writing script must be a no-op.
@@ -141,8 +193,18 @@ if (isDirectInvocation(import.meta.url)) {
   console.log(
     `\n=== tools-monthlies (F-M8) — ${checkMode ? 'CHECK' : 'APPEND'} · expected month ${expectedYm} ===`
   );
-  const { planned, missing } = await appendPriceMonths(expectedYm, checkMode);
-  const outcome = toolsMonthliesOutcome({ planned, missing, check: checkMode, expectedYm });
+  const { planned, missing, failed } = await appendPriceMonths(expectedYm, checkMode);
+  const outcome = toolsMonthliesOutcome({
+    planned,
+    missing,
+    failed,
+    check: checkMode,
+    expectedYm,
+  });
+  const reportAt = process.argv.indexOf('--report');
+  if (reportAt > 0 && process.argv[reportAt + 1]) {
+    writeFileAtomic(process.argv[reportAt + 1], toolsReport({ missing, failed, expectedYm }));
+  }
   for (const w of outcome.warnings) {
     console.log(`${process.env.GITHUB_ACTIONS ? '::warning::' : '  ⚠ '}${w}`);
   }
@@ -161,8 +223,9 @@ if (isDirectInvocation(import.meta.url)) {
 
   if (outcome.exitCode) {
     console.error(
-      `✖ ${planned.length + missing.length} price series missing ${expectedYm}` +
-        `${planned.length ? ' — run tools-monthlies.mjs' : ''}${missing.length ? ` (no bar yet: ${missing.join(', ')})` : ''}\n`
+      `✖ ${planned.length + missing.length + failed.length} price series missing ${expectedYm}` +
+        `${planned.length ? ' — run tools-monthlies.mjs' : ''}${missing.length ? ` (no bar yet: ${missing.join(', ')})` : ''}` +
+        `${failed.length ? ` (could not be read: ${failed.map((f) => f.code).join(', ')})` : ''}\n`
     );
     process.exit(outcome.exitCode);
   }

@@ -79,6 +79,7 @@ jobs:
             echo "::error::Remedy: dispatch it manually —"
             echo "::error::  gh workflow run market-refresh-weekly.yml --ref main"
             echo "::error::/market data ages toward its 14-day staleness gate until a refresh merges."
+            echo "::error::A second attempt is scheduled for Tuesday 06:17 UTC (C1d); dispatching now is still the faster fix."
             exit 1
           fi
 
