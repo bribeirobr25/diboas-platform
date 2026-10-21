@@ -49,6 +49,7 @@ export type MarketViewGrammar = 'scored' | 'state';
 export type MarketViewStatus = 'live-at-root' | 'announced' | 'live';
 
 import type { OGPageType } from '@/lib/og';
+import { ETF_FLOW_SOURCE_ID } from './constants';
 
 export interface MarketViewDef {
   /** URL segment under /market/ (and the registry key). */
@@ -91,7 +92,7 @@ export const MARKET_VIEWS: Record<string, MarketViewDef> = {
       'FRED:M2SL': 'dashboard.sources.m2',
       'FRED:NASDAQCOM': 'dashboard.sources.nasdaq',
       'Yahoo:GC=F': 'dashboard.sources.gold',
-      'Polygon:ETF (shares-outstanding)': 'dashboard.sources.btcEtf',
+      [ETF_FLOW_SOURCE_ID]: 'dashboard.sources.btcEtf',
     },
     next: 'backdrop',
   },

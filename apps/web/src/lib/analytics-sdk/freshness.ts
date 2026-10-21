@@ -91,6 +91,22 @@ export function applyReadTimeFreshness(status: DataStatus, now: Date): DataStatu
       .filter((s) => s.status === 'DELAYED' || s.status === 'STALE')
       .map((s) => s.source),
     unavailable_sources: sources.filter((s) => s.status === 'UNAVAILABLE').map((s) => s.source),
-    overall_confidence: overallConfidence(sources, now),
+    ...withLowCauses(sources, now),
+  };
+}
+
+/** The confidence, plus (only when LOW) the facts that made it LOW, at the same `now`. */
+function withLowCauses(
+  sources: DataStatus['sources'],
+  now: Date
+): Pick<DataStatus, 'overall_confidence' | 'low_confidence_causes'> {
+  const overall_confidence = overallConfidence(sources, now);
+  if (overall_confidence !== 'LOW') return { overall_confidence };
+  return {
+    overall_confidence,
+    low_confidence_causes: {
+      past_stale: sources.filter((s) => isPast(s.stale_after, now)).map((s) => s.source),
+      unavailable: sources.filter((s) => s.status === 'UNAVAILABLE').map((s) => s.source),
+    },
   };
 }

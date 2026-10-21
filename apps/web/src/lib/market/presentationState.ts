@@ -13,8 +13,16 @@
  *   - `isSignalGroupUnavailable` (2026-10-19): whether a signal group shows as
  *     unavailable rather than as a scored band.
  *   - `regimeLabelMap`: the five translated band labels.
+ *   - `lowConfidenceReason` (2026-10-21): why a LOW badge is LOW, in words,
+ *     from the causes the read-time check recorded at the same instant.
  */
-import type { RegimeCode, RegimeCoverage, SignalGroup } from '@/lib/analytics-sdk/types';
+import type {
+  DataStatus,
+  RegimeCode,
+  RegimeCoverage,
+  SignalGroup,
+} from '@/lib/analytics-sdk/types';
+import { ETF_FLOW_SOURCE_ID } from './constants';
 
 /** The views' message lookup: a key under `market.` plus its English fallback. */
 export type MarketTranslate = (key: string, fallback: string) => string;
@@ -115,4 +123,58 @@ export function coverageNotes(
       .replace('{max}', String(maxScore)),
     chart: templates.chart.replace('{date}', date),
   };
+}
+
+/** The approved LOW-reason sentences (owner-approved 2026-10-21), already translated. */
+export interface LowConfidenceTemplates {
+  /** "Why confidence is low:" */
+  lead: string;
+  /** The suspended ETF data past its limit; `{date}` = its latest complete weekly record. */
+  etf: string;
+  /** One other source past its limit; `{sources}` = its name. */
+  staleOne: string;
+  /** Several other sources past their limit; `{sources}` = their names as a list. */
+  staleOther: string;
+  /** Two or more sources unavailable; `{count}` = how many. */
+  unavailable: string;
+}
+
+/**
+ * Why confidence is LOW, as the lead and one sentence per cause (ETF, other
+ * stale sources, unavailable sources, in that order), or null when confidence
+ * is not LOW. Built only from `low_confidence_causes`, which the read-time
+ * check writes at the same instant and by the same rule as the badge, so the
+ * badge and its reason cannot disagree. A date comes from the source's own
+ * `last_updated_at` (the latest complete record), never from a collection
+ * attempt.
+ */
+export function lowConfidenceReason(
+  status: DataStatus | null | undefined,
+  sourceLabel: (sourceId: string) => string,
+  locale: string,
+  templates: LowConfidenceTemplates
+): { lead: string; sentences: string[] } | null {
+  const causes = status?.overall_confidence === 'LOW' ? status.low_confidence_causes : undefined;
+  if (!causes) return null;
+  const sentences: string[] = [];
+  if (causes.past_stale.includes(ETF_FLOW_SOURCE_ID)) {
+    const updated = status?.sources.find((s) => s.source === ETF_FLOW_SOURCE_ID)?.last_updated_at;
+    if (updated) {
+      const date = new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeZone: 'UTC' }).format(
+        new Date(updated)
+      );
+      sentences.push(templates.etf.replace('{date}', date));
+    }
+  }
+  const others = causes.past_stale.filter((id) => id !== ETF_FLOW_SOURCE_ID).map(sourceLabel);
+  if (others.length) {
+    const list = new Intl.ListFormat(locale, { style: 'long', type: 'conjunction' }).format(others);
+    sentences.push(
+      (others.length === 1 ? templates.staleOne : templates.staleOther).replace('{sources}', list)
+    );
+  }
+  if (causes.unavailable.length >= 2) {
+    sentences.push(templates.unavailable.replace('{count}', String(causes.unavailable.length)));
+  }
+  return sentences.length ? { lead: templates.lead, sentences } : null;
 }
