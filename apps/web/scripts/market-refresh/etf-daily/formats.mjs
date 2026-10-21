@@ -17,7 +17,7 @@ export const TICKER_PATTERN = /^[A-Z]{2,6}$/;
  * LOCAL time by `Date.parse`, so the same ledger could decide differently on
  * two machines; it is refused instead.
  */
-export const UTC_INSTANT_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/;
+const UTC_INSTANT_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/;
 
 /** Milliseconds of a strict UTC instant, or NaN when it is not one. */
 export function parseUtcInstant(text) {

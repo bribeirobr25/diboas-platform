@@ -43,8 +43,8 @@
 import { ETF_PROVIDERS } from './providers.mjs';
 import { ISO_DAY_PATTERN, TICKER_PATTERN, isValidFlowUsd, parseUtcInstant } from './formats.mjs';
 
-export const LEDGER_SCHEMA = 1;
-export const STABILITY_MIN_GAP_MS = 12 * 60 * 60 * 1000;
+const LEDGER_SCHEMA = 1;
+const STABILITY_MIN_GAP_MS = 12 * 60 * 60 * 1000;
 
 const PROVIDERS = Object.keys(ETF_PROVIDERS);
 const OBSERVATIONS = ['value', 'pending', 'invalid'];

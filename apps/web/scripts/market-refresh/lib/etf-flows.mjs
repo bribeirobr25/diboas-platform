@@ -293,7 +293,7 @@ export function evaluateEtf01FromFlows(ledger, today = new Date()) {
       weight: ETF01_WEIGHT,
       detail:
         `ETF flow ledger has a ${gap.spanDays}-day gap (${gap.from} → ${gap.to}) inside the ` +
-        `trailing-4 window — a missing weekly snapshot. Scored unavailable rather than ` +
+        `trailing-${ETF01_RULE.weeks} window — a missing weekly snapshot. Scored unavailable rather than ` +
         `counting it as one week. Spans: [${trailing.map((f) => `${f.spanDays}d`).join(', ')}]`,
       // `snapshots`/`warmupTarget` stay populated: the warm-up sentence is the
       // FALLBACK if the gapped variant is ever missing for a locale, and 5.133
@@ -319,7 +319,7 @@ export function evaluateEtf01FromFlows(ledger, today = new Date()) {
     state,
     weight: ETF01_WEIGHT,
     detail:
-      `Spot-ETF net flows via Δshares×NAV (Polygon primary): last 4 weekly aggregates ` +
+      `Spot-ETF net flows via Δshares×NAV (Polygon primary): last ${ETF01_RULE.weeks} weekly aggregates ` +
       `(spans [${trailing.map((f) => `${f.spanDays}d`).join(', ')}], all verified 7±1d) ` +
       `[${trailing.map((f) => fmt(f.netFlowUsd)).join(', ')}] → ${positives}/${ETF01_RULE.weeks} positive ` +
       `(threshold ≥${ETF01_RULE.minPositive})${warnings.length ? `; ${warnings.length} fund-week(s) excluded by quality guards` : ''}`,

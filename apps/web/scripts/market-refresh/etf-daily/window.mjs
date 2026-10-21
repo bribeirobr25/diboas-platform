@@ -79,11 +79,11 @@ const roleOf = (role) => Object.values(ETF_PROVIDERS).find((p) => p.role === rol
 export const PRIMARY = roleOf('primary');
 export const SECONDARY = roleOf('backup');
 /** Weekly disagreement threshold, relative to the larger weekly magnitude. */
-export const WEEKLY_DISAGREEMENT_SHARE = 0.02;
-export const FRESHNESS_DAYS = Object.freeze({ expected: 10, delayed: 11, stale: 21 });
+const WEEKLY_DISAGREEMENT_SHARE = 0.02;
+const FRESHNESS_DAYS = Object.freeze({ expected: 10, delayed: 11, stale: 21 });
 
 /** The Fridays of the scoring window, oldest first. */
-export function scoringFridays(cutoffMs) {
+function scoringFridays(cutoffMs) {
   const last = latestFridayBefore(cutoffMs);
   return Array.from({ length: ETF01_RULE.weeks }, (_, i) =>
     addDays(last, -7 * (ETF01_RULE.weeks - 1 - i))
@@ -91,7 +91,7 @@ export function scoringFridays(cutoffMs) {
 }
 
 /** One provider's window: per-week nets if every input is stable, and every problem. */
-export function providerWindow(index, provider, fridays, universe = ETF_UNIVERSE) {
+function providerWindow(index, provider, fridays, universe = ETF_UNIVERSE) {
   const rounding = ETF_PROVIDERS[provider].roundingUsd;
   const problems = [];
   const values = new Map(); // session|ticker -> value
@@ -144,7 +144,7 @@ export function roundingSensitivity(weeks) {
 }
 
 /** Compare two eligible windows over the same Fridays. */
-export function compareWindows(primary, secondary) {
+function compareWindows(primary, secondary) {
   const tolerance =
     ETF_PROVIDERS[primary.provider].roundingUsd + ETF_PROVIDERS[secondary.provider].roundingUsd;
   const fundDayFlags = [];

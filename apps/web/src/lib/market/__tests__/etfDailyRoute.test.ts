@@ -793,7 +793,7 @@ describe('integrated — what a provider sends reaches the decision', () => {
 
   it('an invalid PERSISTED row after valid history counts as an invalid observation', () => {
     const damagedRow = { ...JSON.parse(crypto(CUTOFF - 2 * H).split('\n')[0]), net_flow_usd: 5.5 };
-    const d = decide(history + JSON.stringify(damagedRow) + '\n');
+    const d = decide(`${history}${JSON.stringify(damagedRow)}\n`);
     expect(d).toMatchObject({
       reason: 'invalid-observation',
       confidenceEffect: 'LOW',
@@ -803,7 +803,7 @@ describe('integrated — what a provider sends reaches the decision', () => {
   });
 
   it('a line that cannot be attributed safely makes the ledger DAMAGED: UNAVAILABLE, LOW, held', () => {
-    const d = decide(history + '{"provider":"cryptoetf","sess\n');
+    const d = decide(`${history}{"provider":"cryptoetf","sess\n`);
     expect(d).toMatchObject({
       state: 'UNAVAILABLE',
       reason: 'ledger-damaged',
