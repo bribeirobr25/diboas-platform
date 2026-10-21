@@ -7,7 +7,11 @@
  * adding one would touch the shared lockfile for a test.
  */
 import { readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, relative } from 'node:path';
+import {
+  ETF_SHARES_ARCHIVE,
+  ETF_SNAPSHOT_ATTEMPTS,
+} from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
 import { describe, expect, it } from 'vitest';
 import { WEEKLY_BLOCKING_VITEST_ARGS } from '../../../../scripts/market-refresh/simulate-next-week.mjs';
 
@@ -248,8 +252,10 @@ describe('weekly refresh — supply chain and a recorded ETF week that a later f
     for (const outcome of ['ok', 'recorded', 'refused']) {
       expect(step).toContain(`steps.etf.outputs.outcome == '${outcome}'`);
     }
-    expect(step).toContain('apps/web/data/market/shared/etf-shares-weekly.jsonl');
-    expect(step).toContain('apps/web/data/market/shared/etf-snapshot-attempts.jsonl');
+    // The paths come from the pipeline's own constants (this test never reads them).
+    for (const ledger of [ETF_SHARES_ARCHIVE, ETF_SNAPSHOT_ATTEMPTS]) {
+      expect(step).toContain(relative(ROOT, ledger));
+    }
     expect(step).toMatch(/retention-days: \d+/);
   });
 
