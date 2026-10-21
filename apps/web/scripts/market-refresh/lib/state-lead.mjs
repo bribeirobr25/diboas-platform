@@ -19,6 +19,12 @@
  * resolves to HOLD, never to MOVED. Claiming a move we cannot evidence is the
  * failure that matters; describing a state we can see is always true.
  *
+ * NOT A WEEK APART (2026-10-21) — the moved beats and the fresh depth sentences
+ * say "this week" / "a week earlier". When the previous run day is not 7±1
+ * days back (a missed or extra run), a changed condition gets the NOW beat
+ * ("is now below") and the plain depth sentence; an unchanged one keeps HOLD,
+ * which stays true over any gap.
+ *
  * PURE: no network, no filesystem. The caller injects the archive text and the
  * template library, matching `regime-engine.mjs`'s convention.
  */
@@ -45,6 +51,17 @@ const STATE_GROUP_ID = 'macro_environment';
  * @returns {Record<string, {state: string, values: object}>|null}
  */
 export function priorRunSignals(archiveText, currentRunAt) {
+  return priorRun(archiveText, currentRunAt)?.signals ?? null;
+}
+
+/**
+ * The previous run day and its signals (same rule as `priorRunSignals`), so a
+ * caller can tell how far back "the previous run" is.
+ * @param {string} archiveText
+ * @param {string} currentRunAt
+ * @returns {{day: string, signals: Record<string, {state: string, values: object}>}|null}
+ */
+export function priorRun(archiveText, currentRunAt) {
   const today = String(currentRunAt).slice(0, 10);
   // 5.302: parsing and the later-line-wins rule live in archive.mjs now — this
   // loop used to be written out here, again in realSnapshotCount, and a third
@@ -52,9 +69,10 @@ export function priorRunSignals(archiveText, currentRunAt) {
   const byDay = runDayIndex(readArchiveRows(archiveText));
   const priorDays = [...byDay.keys()].filter((d) => d < today).sort();
   if (!priorDays.length) return null;
-  const signals = byDay.get(priorDays[priorDays.length - 1])?.signals;
+  const day = priorDays[priorDays.length - 1];
+  const signals = byDay.get(day)?.signals;
   if (!Array.isArray(signals)) return null;
-  return Object.fromEntries(signals.map((s) => [s.id, s]));
+  return { day, signals: Object.fromEntries(signals.map((s) => [s.id, s])) };
 }
 
 /**
@@ -62,7 +80,7 @@ export function priorRunSignals(archiveText, currentRunAt) {
  * ACTIVE means supportive for all three macro signals (softer dollar, easing
  * yields, expanding liquidity).
  */
-export function beatKey(signal, priorSignal) {
+export function beatKey(signal, priorSignal, weekly = true) {
   // A state that is neither ACTIVE nor INACTIVE (UNAVAILABLE, or anything a
   // future signal introduces) is NOT measured, and every beat sentence asserts
   // a measurement. Returning null drops the beat instead of defaulting it to
@@ -72,15 +90,17 @@ export function beatKey(signal, priorSignal) {
   if (signal?.state !== 'ACTIVE' && signal?.state !== 'INACTIVE') return null;
   const supportive = signal.state === 'ACTIVE';
   const moved = Boolean(priorSignal) && priorSignal.state !== signal.state;
-  return `${moved ? 'moved' : 'hold'}${supportive ? 'Supportive' : 'Restrictive'}`;
+  const kind = !moved ? 'hold' : weekly ? 'moved' : 'now';
+  return `${kind}${supportive ? 'Supportive' : 'Restrictive'}`;
 }
 
 /** Depth variant: the condition that moved gets the 'fresh' framing. */
-export function depthKey(signal, priorSignal) {
+export function depthKey(signal, priorSignal, weekly = true) {
   if (signal?.state !== 'ACTIVE' && signal?.state !== 'INACTIVE') return null;
   const supportive = signal.state === 'ACTIVE';
   const moved = Boolean(priorSignal) && priorSignal.state !== signal.state;
-  if (!moved) return supportive ? 'supportive' : 'restrictive';
+  // The fresh sentences quote "a week earlier": only for a week-apart prior.
+  if (!moved || !weekly) return supportive ? 'supportive' : 'restrictive';
   return supportive ? 'freshSupportive' : 'freshRestrictive';
 }
 
@@ -109,11 +129,11 @@ export function stateOpening(ctx, stateTpl, locale) {
  * lead = opening + one beat per condition, joined by single spaces.
  * A missing signal drops its beat rather than emitting an empty sentence.
  */
-export function composeStateLead(ctx, stateTpl, locale, priorById) {
+export function composeStateLead(ctx, stateTpl, locale, priorById, weekly = true) {
   const beats = STATE_BEAT_ORDER.map((id) => {
     const sig = ctx.byId[id];
     if (!sig) return null;
-    const key = beatKey(sig, priorById?.[id]);
+    const key = beatKey(sig, priorById?.[id], weekly);
     return key ? (stateTpl.beat[id]?.[key]?.[locale] ?? null) : null;
   }).filter(Boolean);
   return [stateOpening(ctx, stateTpl, locale), ...beats].join(' ');
@@ -127,11 +147,18 @@ export function composeStateLead(ctx, stateTpl, locale, priorById) {
  * its empty-slot guard — the same net that stops "the dollar closed at " from
  * ever shipping (2026-07-11 audit).
  */
-export function composeStateDepth(ctx, stateTpl, locale, priorById, renderDepthSentence) {
+export function composeStateDepth(
+  ctx,
+  stateTpl,
+  locale,
+  priorById,
+  renderDepthSentence,
+  weekly = true
+) {
   return STATE_BEAT_ORDER.map((id) => {
     const sig = ctx.byId[id];
     if (!sig) return null;
-    const key = depthKey(sig, priorById?.[id]);
+    const key = depthKey(sig, priorById?.[id], weekly);
     const template = key ? stateTpl.depth[id]?.[key]?.[locale] : null;
     if (!template) return null;
     return renderDepthSentence(id, locale, template, priorById?.[id]);

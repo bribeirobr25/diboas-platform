@@ -7,7 +7,7 @@
   cursor: pointer;
   list-style: none;
   display: block;
-  min-height: 24px;
+  min-height: var(--spacing-lg);
 }
 .rowSummary::-webkit-details-marker {
   display: none;
@@ -25,7 +25,7 @@
   transition: padding-left 0.4s ease;
 }
 .rowSummary:hover .rowHead {
-  padding-left: 12px;
+  padding-left: var(--spacing-md-minus);
 }
 .chevron {
   width: 0.55em;
@@ -88,7 +88,7 @@
 .body {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 .name {
   display: block;
@@ -100,7 +100,7 @@
 }
 .desc {
   color: var(--editorial-ink-soft);
-  font-size: 14.5px;
+  font-size: var(--font-size-sm);
   line-height: 1.55;
   max-width: 48ch;
   margin: 0;
@@ -109,9 +109,9 @@
   display: block;
   height: 6px;
   background: var(--editorial-paper-deep);
-  border-radius: 3px;
+  border-radius: var(--radius-pill);
   overflow: hidden;
-  margin-top: 4px;
+  margin-top: var(--spacing-xs);
   max-width: 340px;
 }
 /* Unavailable group (2026-10-19): the approved word where the bar would be,
@@ -130,7 +130,7 @@
   display: block;
   height: 100%;
   background: var(--editorial-copper);
-  border-radius: 3px;
+  border-radius: var(--radius-pill);
   transition: width 1.1s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
