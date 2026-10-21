@@ -47,12 +47,15 @@
   }
 }
 
+/* `5.601`'s sibling: the primary-action role, as the Button primitive uses. The ink
+   fill (`--sb-surface-inverse`) IS the canvas in dark, so the focused skip link lost
+   its shape on the page it sits on. */
 .skipLink {
   position: absolute;
   left: -9999px;
   top: 0;
-  background: var(--sb-surface-inverse);
-  color: var(--sb-text-inverse);
+  background: var(--sb-action-primary);
+  color: var(--sb-action-primary-text);
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--radius-lg);
   z-index: 20;

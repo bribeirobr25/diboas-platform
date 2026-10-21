@@ -2190,7 +2190,7 @@ const MANUAL = {
     'Part B — name the source plan and its ref; verdict its conditions VERBATIM.',
     'Part C — do-not-regress proven by a grep over the diff; reachability at the MOUNT site; no fake control.',
     'Part C8 — locale parity: every new string in all four locales, and actually translated (see the i18n tests).',
-    'Part D — sabotage-prove every load-bearing test; re-measure every number you republish.',
+    'Part D — sabotage-prove every load-bearing test; re-measure every number you republish; D7 every fixed defect leaves a guard and a similar-cases search.',
     'Part E — Docker MCP: A/B against the pre-change reading · light AND dark × 375 AND 1440 × EN AND the longest locale · a11y as measured ratios · console 0 errors · state provenance.',
     'Part F/G — fix-vs-register with owners; what you did NOT check; no waiver without a founder-recorded decision.',
   ],
@@ -2494,9 +2494,178 @@ function writeBatteryEvidence(started, before, results) {
   return `${rel}/run.json`;
 }
 
+/**
+ * ⚙ GUARD-1 · EVERY FIXED DEFECT NAMES ITS GUARD (founder-directed 2026-10-21).
+ *
+ * The rule (`coding-standards.md` § "Every defect leaves a guard"): a confirmed
+ * defect is closed only with an automated guard that fails while the defect is
+ * present, plus a search for the same mistake elsewhere. Before this row it was
+ * done most of the time and owed nowhere: on 2026-10-21 five closures left two
+ * guards missing and one recorded only in a session memory.
+ *
+ * What a machine CAN check, and all this row claims: every register entry from
+ * `5.601` on whose status is CLOSED carries a `**Guard:**` field and a
+ * `**Similar cases:**` field; a guard that names files names files that exist;
+ * a guard of `none` / `n/a` carries its reason. Whether the guard really catches
+ * the defect is the sabotage proof's job (increment gate D3), not this row's.
+ * Entries before `5.601` are history and are not retro-required.
+ */
+const GUARD_FROM = 601;
+function checkGuards() {
+  const found = resolveRegister();
+  if (!found.path)
+    return {
+      ok: false,
+      detail: `${REGISTER} not found and REVIEW_REGISTER_PATH unset — the guard check CANNOT RUN.`,
+    };
+  const s = readFileSync(found.path, 'utf8');
+  const status = new Map(
+    [...s.matchAll(/^>\s+(?:(\d+\.\d+)\s+([A-Z][A-Z-]*)\s*)+$/gm)].flatMap((m) =>
+      [...m[0].matchAll(/(\d+\.\d+)\s+([A-Z][A-Z-]*)/g)].map((x) => [x[1], x[2]])
+    )
+  );
+  /* An entry runs from its id line to the next blank line; the first definition wins. */
+  const entries = new Map();
+  const rows = s.split('\n');
+  for (let i = 0; i < rows.length; i += 1) {
+    const m = rows[i].match(/^(?:\||>) \*\*(\d+\.\d+)(?:\*\*|\s|—)/);
+    if (!m || entries.has(m[1])) continue;
+    let j = i + 1;
+    while (j < rows.length && rows[j].trim() !== '' && !/^(?:\||>) \*\*\d+\.\d+/.test(rows[j]))
+      j += 1;
+    entries.set(m[1], rows.slice(i, j).join('\n'));
+  }
+  const scope = [...status]
+    .filter(([id, st]) => st === 'CLOSED' && Number(id.split('.')[1]) >= GUARD_FROM)
+    .map(([id]) => id);
+  const problems = [];
+  const declaredNone = [];
+  let named = 0;
+  for (const id of scope) {
+    const text = entries.get(id) ?? '';
+    const guard = text.match(/\*\*Guard:\*\*\s*([\s\S]*?)(?=\*\*Similar cases:\*\*|$)/);
+    const similar = text.match(
+      /\*\*Similar cases:\*\*\s*([\s\S]*?)(?=\s\|\s\*\*|\*\*Guard:\*\*|$)/
+    );
+    if (!guard) problems.push(`NO GUARD: ${id}`);
+    else if (/^(none|n\/a)\b/i.test(guard[1].trim())) {
+      if (guard[1].trim().length < 40) problems.push(`GUARD "none" WITHOUT A REASON: ${id}`);
+      else declaredNone.push(id);
+    } else {
+      const paths = [...guard[1].matchAll(/`([^`\s]*\/[^`\s]*?\.[A-Za-z]{2,5})(?::\d+)?`/g)].map(
+        (p) => p[1]
+      );
+      if (!paths.length) problems.push(`GUARD NAMES NO FILE: ${id}`);
+      const gone = paths.filter((p) => !existsSync(join(ROOT, p)));
+      if (gone.length) problems.push(`GUARD FILE MISSING: ${id} → ${gone.join(', ')}`);
+      if (paths.length && !gone.length) named += 1;
+    }
+    if (!similar) problems.push(`NO SIMILAR-CASES SEARCH: ${id}`);
+    else if (similar[1].trim().length < 20) problems.push(`SIMILAR-CASES TOO THIN: ${id}`);
+  }
+  const lines = [
+    `${scope.length} closed entr${scope.length === 1 ? 'y' : 'ies'} from 5.${GUARD_FROM} on · ${named} name an existing guard file · ${declaredNone.length} declare none${declaredNone.length ? ` (${declaredNone.join(', ')}: reasons stated, reviewer judges)` : ''}`,
+    ...problems.slice(0, 10),
+  ];
+  return { ok: problems.length === 0, detail: lines.join(' · ') };
+}
+
+/**
+ * ⚙ CI-PARITY · A LOCAL REHEARSAL NAMES EVERY CI JOB IT DID AND DID NOT RUN (`5.604`).
+ *
+ * PR #746 failed `sandbox-harness` after a local "CI-equivalent" that had run the
+ * steps of ONE job (`quality`, and not even all of them) was reported as "passed
+ * every CI step". This row derives the jobs from `.github/workflows/*.yml` — every
+ * job a pull request to `main` triggers — and prints each job's own `run:` steps as
+ * the rehearsal checklist, so the list can never be shorter than CI's.
+ *
+ * It FAILS when a CI job has no declaration below (a new job cannot slip outside
+ * the rehearsal) or a declaration names a job that no longer exists. It cannot see
+ * whether a rehearsal actually ran a step: the system gate's CI-parity row requires
+ * each job's result pasted, or the job named NOT CHECKED.
+ */
+const CI_REHEARSAL = {
+  'accessibility.yml#pa11y': 'local',
+  'ci.yml#quality': 'local',
+  'e2e.yml#e2e': 'local',
+  'e2e.yml#sandbox-harness': 'local',
+  'lighthouse.yml#lighthouse': 'local',
+  'security.yml#secrets':
+    'remote-only: gitleaks-action scans the pushed history; scripts/secrets-scan-staged.sh covers staged files only',
+  'security.yml#audit': 'local',
+};
+function workflowJobs(file) {
+  const rows = readFileSync(join(ROOT, '.github/workflows', file), 'utf8').split('\n');
+  const onAt = rows.findIndex((r) => /^on:/.test(r));
+  const inline = onAt >= 0 ? rows[onAt].slice(3) : '';
+  let pr = /pull_request\b/.test(inline);
+  for (
+    let i = onAt + 1;
+    onAt >= 0 && !inline.trim() && i < rows.length && !/^\S/.test(rows[i]);
+    i += 1
+  )
+    if (/^\s+pull_request\b/.test(rows[i])) pr = true;
+  const jobsAt = rows.findIndex((r) => /^jobs:/.test(r));
+  const jobs = [];
+  if (!pr || jobsAt < 0) return jobs;
+  for (let i = jobsAt + 1; i < rows.length; i += 1) {
+    const id = rows[i].match(/^ {2}([A-Za-z0-9_-]+):\s*$/);
+    if (id) jobs.push({ id: id[1], steps: [] });
+    const run = rows[i].match(/^\s+(?:- )?run:\s*(.*)$/);
+    const uses = rows[i].match(/^\s+- uses:\s*(\S+)/);
+    if (jobs.length && uses && !/checkout|setup-node|action-setup|upload-artifact/.test(uses[1]))
+      jobs.at(-1).steps.push(`uses ${uses[1]}`);
+    if (jobs.length && run) {
+      let cmd = run[1].trim();
+      if (cmd === '|' || cmd === '>') {
+        const indent = rows[i].match(/^\s*/)[0].length;
+        const body = [];
+        for (
+          let k = i + 1;
+          k < rows.length && (rows[k].trim() === '' || rows[k].match(/^\s*/)[0].length > indent);
+          k += 1
+        )
+          if (rows[k].trim() && !rows[k].trim().startsWith('#')) body.push(rows[k].trim());
+        cmd = `${body[0] ?? ''} … (a ${body.length}-line script)`;
+      }
+      jobs.at(-1).steps.push(cmd);
+    }
+  }
+  return jobs;
+}
+function checkCiParity() {
+  const dir = join(ROOT, '.github/workflows');
+  if (!existsSync(dir))
+    return { ok: false, detail: '.github/workflows not found — the instrument, not the repo' };
+  const files = readdirSync(dir)
+    .filter((f) => /\.ya?ml$/.test(f))
+    .sort();
+  const seen = new Map();
+  for (const f of files) for (const j of workflowJobs(f)) seen.set(`${f}#${j.id}`, j.steps);
+  if (seen.size === 0)
+    return { ok: false, detail: 'no pull-request job found — the parser, not CI' };
+  const undeclared = [...seen.keys()].filter((k) => !(k in CI_REHEARSAL));
+  const stale = Object.keys(CI_REHEARSAL).filter((k) => !seen.has(k));
+  const bad = Object.entries(CI_REHEARSAL)
+    .filter(([, v]) => v !== 'local' && !/^remote-only: .{20,}/.test(v))
+    .map(([k]) => k);
+  const lines = [
+    `${seen.size} job(s) run on every pull request to main — rehearse each, or name it NOT CHECKED:`,
+  ];
+  for (const [k, steps] of seen)
+    lines.push(`  ${k} [${CI_REHEARSAL[k] ?? 'UNDECLARED'}] ${steps.join(' ; ')}`);
+  if (undeclared.length) lines.push(`CI JOB WITH NO REHEARSAL DECLARED: ${undeclared.join(', ')}`);
+  if (stale.length) lines.push(`DECLARED JOB NOT IN CI: ${stale.join(', ')}`);
+  if (bad.length)
+    lines.push(`DECLARATION NEITHER 'local' NOR 'remote-only: <reason>': ${bad.join(', ')}`);
+  return { ok: !undeclared.length && !stale.length && !bad.length, detail: lines.join('\n      ') };
+}
+
 const CHECKS = {
   battery: ['the mechanical battery actually ran', checkBattery],
   register: ['register id integrity', checkRegister],
+  guards: ['GUARD-1 · every fixed defect names its guard', checkGuards],
+  'ci-parity': ['CI-PARITY · every pull-request CI job is listed for the rehearsal', checkCiParity],
   counts: ['republished test counts agree', checkCounts],
   authorities: ['authority coverage of the gates', checkAuthorities],
   prose: ['PROSE-1 · a record cites every requirement its plan asserts', checkProse],
@@ -2522,6 +2691,7 @@ const PLAN = {
     'citations',
     'escalations',
     'register',
+    'guards',
     'counts',
     'authorities',
     'prose',
@@ -2537,6 +2707,8 @@ const PLAN = {
     'prose',
     'counts',
     'register',
+    'guards',
+    'ci-parity',
     'exports',
     'staged',
   ],

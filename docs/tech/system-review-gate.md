@@ -275,18 +275,20 @@ stages, never inside one — so the seams are where the checks go.
 
 ## Front 9 · Cross-increment coherence (this gate's reason to exist)
 
-| #   | Check                                                                                                                                                                    |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| X1  | **One fact, one derivation** ⚙ — search for the same total computed twice. Where a second derivation is deliberate, a test must assert the two AGREE.                    |
-| X2  | **One concept, one name** — two vocabularies for one product noun, in code or in copy.                                                                                   |
-| X3  | **One definition of a process** — competing checklists, protocols or registries for one activity. (This gate exists because there were two.)                             |
-| X4  | **Names that still describe contents** — files, modules and exports whose scope outgrew their name.                                                                      |
-| X5  | **No number republished without re-measurement** ⚙ — sweep every document the batch updated for carried-forward figures.                                                 |
-| X6  | **Guard filters are part of the threat model** — for every guard relied on, state what its filter EXCLUDES and sabotage that class.                                      |
-| X7  | **Three-state truth kept distinct** — `IMPLEMENTED ON BRANCH` / `MERGED TO MAIN` / `DEPLOYED·LIVE`, never collapsed, in any document.                                    |
-| X8  | **Every cited gate carries its scope limit** — a gate quoted as passing must say what it does not assert.                                                                |
-| X9  | **Status prose re-verified with `git`**, never trusted from a document. A stale merge claim has gone stale in five documents at once.                                    |
-| X10 | **Authority coverage** ⚙ — which authorities does this batch's surface route to, and was each actually opened? An unopened authority is an N/A that has not been proven. |
+| #   | Check                                                                                                                                                                                                                                                                                                                                   |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| X1  | **One fact, one derivation** ⚙ — search for the same total computed twice. Where a second derivation is deliberate, a test must assert the two AGREE.                                                                                                                                                                                   |
+| X2  | **One concept, one name** — two vocabularies for one product noun, in code or in copy.                                                                                                                                                                                                                                                  |
+| X3  | **One definition of a process** — competing checklists, protocols or registries for one activity. (This gate exists because there were two.)                                                                                                                                                                                            |
+| X4  | **Names that still describe contents** — files, modules and exports whose scope outgrew their name.                                                                                                                                                                                                                                     |
+| X5  | **No number republished without re-measurement** ⚙ — sweep every document the batch updated for carried-forward figures.                                                                                                                                                                                                                |
+| X6  | **Guard filters are part of the threat model** — for every guard relied on, state what its filter EXCLUDES and sabotage that class.                                                                                                                                                                                                     |
+| X7  | **Three-state truth kept distinct** — `IMPLEMENTED ON BRANCH` / `MERGED TO MAIN` / `DEPLOYED·LIVE`, never collapsed, in any document.                                                                                                                                                                                                   |
+| X8  | **Every cited gate carries its scope limit** — a gate quoted as passing must say what it does not assert.                                                                                                                                                                                                                               |
+| X9  | **Status prose re-verified with `git`**, never trusted from a document. A stale merge claim has gone stale in five documents at once.                                                                                                                                                                                                   |
+| X10 | **Authority coverage** ⚙ — which authorities does this batch's surface route to, and was each actually opened? An unopened authority is an N/A that has not been proven.                                                                                                                                                                |
+| X11 | **Every fixed defect in the batch left a guard** ⚙ — `pnpm review:guards` green, and for each fix the guard was sabotage-proven and the similar-cases search names what it found. A class of defect that recurred across increments is guarded as a class.                                                                              |
+| X12 | **CI parity before publication** ⚙ — `pnpm review:ci-parity` lists every job a pull request runs, from the workflow files. Each job's result is pasted from a local run, or the job is named NOT CHECKED. "CI-equivalent passed" means every job, or it names the ones it skipped (`5.604`: one job was rehearsed and reported as all). |
 
 ## Front 10 · FAIL, waiver and escalation
 
@@ -313,7 +315,7 @@ FRONT_5_DEAD_CODE      = <knip + per-export>
 FRONT_6_MATH           = <per-formula; identities sabotage-proven from independent terms>
 FRONT_7_DATA_READINESS = today=… swap-ready=… real-time=…
 FRONT_8_LIFECYCLE      = collection=… validation=… storage=… transformation=… presentation=… seams=…
-FRONT_9_COHERENCE      = <X1–X10>
+FRONT_9_COHERENCE      = <X1–X12; X12 = each CI job's local result, or NOT CHECKED>
 FRONT_10_DISPOSITION   = <blocked fronts + owners> · WAIVERS=<none | founder decision + row>
 COVERAGE_BOUNDARY      = <what a next pass would add>
 NOT_CHECKED            = <...>

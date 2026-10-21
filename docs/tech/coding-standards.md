@@ -253,6 +253,46 @@ detection:**
 **Honest limitation:** rules 1–2 are review-time, not mechanically enforced —
 recorded in `engineering-gates.md` as such rather than claimed as a live gate.
 
+#### Every defect leaves a guard
+
+_(Standing rule, 2026-10-21 — founder-directed after PR #746: of five defects fixed that
+day, two left no guard and one was recorded only in a session memory.)_
+
+A fix without a guard fixes one occurrence. The next change can bring the same defect
+back, and nothing tells anyone. So a confirmed defect (a bug, a regression, a side
+effect) is closed only when it leaves behind something that **fails automatically if it
+comes back**, and after a search for the same mistake elsewhere.
+
+**The rules:**
+
+1. **Reproduce it as a failing test first.** Write the test while the defect is still
+   present and watch it fail for the right reason. Then fix it and watch the test pass.
+   A test written after the fix is proven the other way: put the defect back, watch it
+   fail, restore the fix byte for byte (rule 3 above).
+2. **Guard the class, not only the instance.** Ask what made this defect possible, and
+   guard that, where a test can. `5.601` (a button filled with the ink surface, which IS
+   the canvas in dark mode) is guarded by a test that fails on ANY new ink fill on the
+   page, not only on that button.
+3. **Search for the same mistake elsewhere, and record the search.** State what was
+   searched and what was found. Each case found gets the same guard, or its own register
+   entry with an owner. "None found" is a result only when the search is named.
+4. **Pick the cheapest guard that fails reliably:** a type, a lint rule, a unit test, a
+   browser test, or a `review-gate` row. A comment, a document or a memory note is not a
+   guard: nothing runs it.
+5. **A defect no test can catch gets a mechanical check or a review-gate row instead,**
+   with the reason stated. A process mistake (a rehearsal that skipped CI jobs) is guarded
+   by a check that makes the step impossible to omit (`review:ci-parity`), not by a
+   promise to remember.
+6. **The register entry names both.** Every entry closed from `5.601` on carries a
+   `**Guard:**` field (the test or check file, or `none — <reason>`) and a
+   `**Similar cases:**` field (what was searched, what was found).
+   `pnpm review:guards` fails an entry that lacks either, or names a file that does not
+   exist.
+
+**Honest limitation:** `review:guards` proves that a guard is NAMED and EXISTS, not that
+it catches the defect. That is the sabotage proof's job (rule 1 and increment gate D3),
+and a reviewer's. No machine can judge whether a test really covers a given bug.
+
 ### Documentation
 
 - JSDoc for public APIs
