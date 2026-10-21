@@ -25,6 +25,11 @@ export const OUTLIER_BOUNDS_PCT = {
   dollarIndexDaily: 8, // DTWEXBGS — broad-dollar daily moves are small; 8% is deep corruption territory
   equityIndexDaily: 16, // NASDAQCOM — calibrated to clear the real 2025-04-09 +12.2% tariff-pause day
   yahooDaily: 25, // BTC-USD / GC=F daily
+  // FRED M2SL month-on-month (5.626). M2 is a money stock in the trillions; a
+  // single-month move this large has only ever come from a unit, scale or
+  // parsing error, so this is a corruption detector, not a market judgment. On
+  // rejection the run stops with a named QualityGateError and nothing is written.
+  m2Monthly: 10,
 };
 
 export class QualityGateError extends Error {
@@ -64,6 +69,48 @@ export function assertDailySeries(label, series, { maxMovePct }) {
         throw new QualityGateError(
           'outlier',
           `${label}: single-period move ${movePct.toFixed(1)}% > ${maxMovePct}% at ${d.toISOString().slice(0, 10)} — needs second-source confirmation`
+        );
+      }
+    }
+    prevT = t;
+    prevV = v;
+  }
+}
+
+/**
+ * Check 1 for a MONTHLY series (5.626): its own minimum length, not the daily
+ * series' 30-point floor, then the same date, value and single-period move
+ * checks. M2's minimum is the 13 months its 12-month change needs.
+ */
+export function assertMonthlySeries(label, series, { minPoints, maxMovePct }) {
+  if (!Array.isArray(series) || series.length < minPoints) {
+    throw new QualityGateError(
+      'schema',
+      `${label}: series too short (${series?.length ?? 0} months; ${minPoints} required)`
+    );
+  }
+  let prevT = -Infinity;
+  let prevV = null;
+  for (const [d, v] of series) {
+    const t = d instanceof Date ? d.getTime() : NaN;
+    if (!Number.isFinite(t)) throw new QualityGateError('schema', `${label}: non-date entry`);
+    if (t <= prevT)
+      throw new QualityGateError(
+        'schema',
+        `${label}: dates not strictly monotonic at ${d.toISOString().slice(0, 10)}`
+      );
+    if (!Number.isFinite(v) || v <= 0) {
+      throw new QualityGateError(
+        'schema',
+        `${label}: non-finite/non-positive value at ${d.toISOString().slice(0, 10)}`
+      );
+    }
+    if (prevV !== null) {
+      const movePct = Math.abs((v - prevV) / prevV) * 100;
+      if (movePct > maxMovePct) {
+        throw new QualityGateError(
+          'outlier',
+          `${label}: single-month move ${movePct.toFixed(2)}% > ${maxMovePct}% at ${d.toISOString().slice(0, 7)} — needs second-source confirmation`
         );
       }
     }
