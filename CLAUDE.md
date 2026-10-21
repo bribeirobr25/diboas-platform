@@ -453,6 +453,9 @@ R-rows from `docs/tech/robustness-checklist.md` (PASS / N-A per row) in its self
 
 **Current phase:** Pre-I2 closure. **`I-2` has NOT started and does not start automatically.**
 
+**Market lane** (`/market` and its weekly refresh): its open work is the market entries in
+`docs/audit/PENDING_ALL.md`, whose header names the current market session handover.
+
 ⚑ **Do not read a status out of prose — including this file.** Determine current work by the
 procedure in `docs/tech/documentation-lifecycle.md` §4:
 

@@ -216,3 +216,62 @@ describe('authorities · a gate row missing from the gate status index fails (5.
     expect(r.out).toMatch(/GATE NOT INDEXED \(1\): BBB-1/);
   }, 20_000);
 });
+
+describe('GATE-STATE-1 · a gate row never states a delivery state', () => {
+  function gates(body: string) {
+    const r = repo();
+    r.put('docs/tech/increment-review-gate.md', '# fixture gate\n\nRoutes engineering-gates.md.\n');
+    r.put(
+      'docs/tech/engineering-gates.md',
+      [
+        '# fixture registry',
+        '',
+        '> ```text',
+        '> TOTAL 1   ·   LIVE 1',
+        '> ```',
+        '>',
+        '> ```text',
+        '> AAA-1        LIVE',
+        '> ```',
+        '',
+        body,
+        '',
+      ].join('\n')
+    );
+    return r.run('authorities');
+  }
+  const TABLE = '| Gate | What |\n| --- | --- |\n';
+
+  it('should PASS a row whose description mentions the rule, because only the status cell is read', () => {
+    const r = gates(
+      `${TABLE}| **AAA-1** ✅ **LIVE** | never write "IMPLEMENTED ON BRANCH, not yet merged" here |`
+    );
+    expect(r.code, r.out).toBe(0);
+  }, 20_000);
+
+  it('should FAIL and name the row when its status cell states a delivery state', () => {
+    const r = gates(`${TABLE}| **AAA-1** 🟡 **IMPLEMENTED ON BRANCH, not yet merged** | x |`);
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/GATE STATUS STATES A DELIVERY STATE \(1\), false once merged: AAA-1/);
+  }, 20_000);
+
+  it('should FAIL when a section heading states a delivery state for the rows it holds', () => {
+    const r = gates(
+      `### Gates added today (not yet merged)\n\n${TABLE}| **AAA-1** ✅ **LIVE** | x |`
+    );
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/GATE STATUS STATES A DELIVERY STATE \(1\).*heading "Gates added today/);
+  }, 20_000);
+});
+
+describe('GATE-INDEX-CI-1 · the required quality job runs the gate registry check', () => {
+  it('should run `pnpm review:authorities` as a step of the `quality` job in ci.yml', () => {
+    const ci = readFileSync(join(ROOT, '.github/workflows/ci.yml'), 'utf8');
+    const start = ci.indexOf('\n  quality:\n');
+    expect(start, 'the quality job').toBeGreaterThan(-1);
+    const rest = ci.slice(start + 1);
+    const next = rest.slice(1).search(/\n {2}[a-z][\w-]*:\n/);
+    const quality = next === -1 ? rest : rest.slice(0, next + 1);
+    expect(quality).toMatch(/^\s+- run: pnpm review:authorities$/m);
+  });
+});
