@@ -24,13 +24,10 @@
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import type { SignalGroup } from '@/lib/analytics-sdk/types';
 import styles from './page.module.css';
-import { conditionWordSuffix } from '@/lib/market/presentationState';
+import { BACKDROP_CONDITIONS, conditionWordSuffix } from '@/lib/market/presentationState';
+import { MM2_SCORE_FRAGMENT } from '@/lib/market/viewRegistry';
 
-const COMPONENTS = [
-  { id: 'MAC-01', key: 'dollar' },
-  { id: 'MAC-02', key: 'rates' },
-  { id: 'MAC-03', key: 'liquidity' },
-] as const;
+const COMPONENTS = BACKDROP_CONDITIONS;
 
 /** EN literal fallbacks (M3a) — the market-backdrop namespace lands in M3b. */
 const FALLBACKS: Record<
@@ -86,7 +83,12 @@ export function StateViewSections({ viewSlug, signalGroups, t }: StateViewSectio
   // condition and, unlike `summary`, no "(2 of 3 points)" — a score fragment
   // does not belong on a view whose grammar carries no score. Falls back to
   // `summary` so a dataset generated before this field existed still renders.
-  const { lead, rest } = splitLead(macro.state_view?.lead ?? macro.summary ?? '');
+  // The `summary` fallback is the scored grammar's text and can carry
+  // "(2 of 3 points)"; a state view shows no score (MM-2), so a summary with a
+  // score fragment is not used at all, the same rule as the umbrella card's
+  // `stateCardLine` (2026-10-18 compliance pass).
+  const fallback = macro.summary && !MM2_SCORE_FRAGMENT.test(macro.summary) ? macro.summary : '';
+  const { lead, rest } = splitLead(macro.state_view?.lead ?? fallback);
   const depth = macro.state_view?.depth;
 
   return (
@@ -98,10 +100,12 @@ export function StateViewSections({ viewSlug, signalGroups, t }: StateViewSectio
     >
       <section className={styles.scoreSec}>
         {/* The weekly generated read as the BIG lead (view-voice standard). */}
-        <p className={styles.stateLead}>
-          <strong className={styles.stateLeadStrong}>{lead}</strong>
-          {rest ? <span className={styles.stateLeadRest}> {rest}</span> : null}
-        </p>
+        {lead ? (
+          <p className={styles.stateLead}>
+            <strong className={styles.stateLeadStrong}>{lead}</strong>
+            {rest ? <span className={styles.stateLeadRest}> {rest}</span> : null}
+          </p>
+        ) : null}
         {/* The numbers behind the three beats, one expandable step down. Native
             <details>, no JS, matching the scored view's memo affordance. */}
         {depth ? (

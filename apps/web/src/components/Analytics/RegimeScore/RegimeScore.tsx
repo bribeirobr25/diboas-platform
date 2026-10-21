@@ -31,7 +31,11 @@ export function RegimeScore({ data, ariaLabel, className }: RegimeScoreProps) {
     const reduce =
       typeof window.matchMedia === 'function' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;
+    // R-9 (2026-10-18 compliance pass): without IntersectionObserver the
+    // constructor throws and the section's error boundary would replace the
+    // whole block. The final value is already rendered, so just skip the
+    // animation, exactly as reduced motion does.
+    if (reduce || typeof IntersectionObserver === 'undefined') return;
     let rafId = 0;
     const io = new IntersectionObserver(
       (entries) => {

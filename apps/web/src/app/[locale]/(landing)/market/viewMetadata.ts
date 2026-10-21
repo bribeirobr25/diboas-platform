@@ -35,7 +35,8 @@ async function buildMarketMetadata(
   const title = messages[`${namespace}.seo.title`] ?? 'Adelaide Market';
   const description =
     messages[`${namespace}.seo.description`] ??
-    'Calm macro intelligence for the financial markets, starting with Bitcoin. Understand the environment, not the next candle.';
+    // The umbrella's approved en description (inlineFallbacks.test.ts pins it).
+    'A calm read on the financial markets, starting with Bitcoin. Understand the environment, not the next price move.';
   const ogTitle = messages[`${namespace}.seo.ogTitle`] ?? title;
   const ogDescription = messages[`${namespace}.seo.ogDescription`] ?? description;
 

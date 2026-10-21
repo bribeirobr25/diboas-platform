@@ -76,6 +76,17 @@ export function isSignalGroupUnavailable(group: Pick<SignalGroup, 'status' | 'si
   return signals.length > 0 && signals.every((s) => s.state === 'UNAVAILABLE');
 }
 
+/**
+ * The Backdrop's three conditions in display order: the signal id and the
+ * message-key stem. One definition for the Backdrop view, the umbrella card and
+ * the umbrella model (5.631: each carried its own copy).
+ */
+export const BACKDROP_CONDITIONS = [
+  { id: 'MAC-01', key: 'dollar' },
+  { id: 'MAC-02', key: 'rates' },
+  { id: 'MAC-03', key: 'liquidity' },
+] as const;
+
 export type ConditionWordSuffix = 'active' | 'inactive' | 'unavailable';
 
 /**

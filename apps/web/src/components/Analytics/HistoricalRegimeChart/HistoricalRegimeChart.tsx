@@ -5,7 +5,7 @@ import type { HistoricalRegimes, RegimeCode } from '@/lib/analytics-sdk/types';
 import styles from './HistoricalRegimeChart.module.css';
 
 interface HistoricalRegimeChartProps {
-  data: HistoricalRegimes;
+  data: Pick<HistoricalRegimes, 'snapshots'>;
   range: '3M' | '6M' | '1Y';
   ariaLabel: string;
   reducedMotion?: boolean;

@@ -44,3 +44,79 @@ describe('(c) the badge/card modules use tokens for text, spacing and radii', ()
     }
   });
 });
+
+describe('(d) a client component on the market views gets only the fields it declares (5.390)', () => {
+  // A prop passed to a client component is serialised into the page payload.
+  // Every loaded market JSON carries internal `_comment` / `_translation_status`
+  // notes, so handing a client component the whole loaded object (`regime`,
+  // `historical`, …) published them on every page. The class rule: no client
+  // component is mounted with a whole loaded object as a prop.
+  const VIEWS = ['MarketViewShell.tsx', 'UmbrellaView.tsx', 'StateViewSections.tsx'].map((f) =>
+    read(`app/[locale]/(landing)/market/${f}`)
+  );
+  const clientComponents = fs
+    .readdirSync(path.join(SRC, 'components/Analytics'), { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .map((d) => path.join(SRC, 'components/Analytics', d.name, `${d.name}.tsx`))
+    .filter((f) => fs.existsSync(f) && /^\s*['"]use client['"]/m.test(fs.readFileSync(f, 'utf8')))
+    .map((f) => path.basename(f, '.tsx'));
+  // Identifiers bound to a whole loaded object: `const x = initialData.y` and
+  // `….data.y` (the umbrella reads each destination's loaded data that way).
+  const loaded = new Set(
+    VIEWS.flatMap((src) => [
+      ...[...src.matchAll(/const (\w+) = initialData\.\w+;/g)].map((m) => m[1]),
+      ...[...src.matchAll(/const (\w+) = [^;]*\.data\.\w+[^;]*;/g)].map((m) => m[1]),
+      'initialData',
+    ])
+  );
+
+  it('should find the client components and the loaded objects it guards', () => {
+    expect(clientComponents).toEqual(
+      expect.arrayContaining(['RegimeScore', 'SignalCard', 'HistoricalRegimeChart'])
+    );
+    expect([...loaded]).toEqual(expect.arrayContaining(['regime', 'historical', 'methodology']));
+  });
+
+  it('should never pass a whole loaded object to a client component', () => {
+    const offenders: string[] = [];
+    for (const src of VIEWS) {
+      for (const name of clientComponents) {
+        for (const m of src.matchAll(new RegExp(`<${name}\\b[\\s\\S]*?/>`, 'g'))) {
+          for (const p of m[0].matchAll(/\b(\w+)=\{(\w+)\}/g)) {
+            if (loaded.has(p[2])) offenders.push(`<${name} ${p[1]}={${p[2]}}>`);
+          }
+        }
+      }
+    }
+    expect(offenders).toEqual([]);
+  });
+});
+
+describe('(e) every date the market views format is formatted in UTC (5.631)', () => {
+  it('should pass timeZone UTC to every date format in the market views', () => {
+    const files = ['MarketViewShell.tsx', 'UmbrellaView.tsx', 'StateViewSections.tsx'];
+    const missing: string[] = [];
+    for (const f of files) {
+      const src = read(`app/[locale]/(landing)/market/${f}`);
+      for (const m of src.matchAll(
+        /toLocaleDateString\([^)]*\{[\s\S]*?\}\)|DateTimeFormat\([^)]*\)/g
+      )) {
+        if (!/timeZone:\s*'UTC'/.test(m[0])) missing.push(`${f}: ${m[0].slice(0, 40)}`);
+      }
+    }
+    expect(missing).toEqual([]);
+  });
+});
+
+describe('(f) the Backdrop conditions are defined once (5.631)', () => {
+  it('should name MAC-01..03 only in BACKDROP_CONDITIONS among the views and the umbrella model', () => {
+    const files = [
+      'app/[locale]/(landing)/market/StateViewSections.tsx',
+      'app/[locale]/(landing)/market/UmbrellaView.tsx',
+      'lib/market/umbrellaModel.ts',
+    ];
+    const copies = files.filter((f) => /['"]MAC-0[123]['"]/.test(read(f)));
+    expect(copies).toEqual([]);
+    expect(read('lib/market/presentationState.ts')).toMatch(/export const BACKDROP_CONDITIONS/);
+  });
+});
