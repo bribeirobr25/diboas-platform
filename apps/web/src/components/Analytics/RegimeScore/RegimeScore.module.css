@@ -28,7 +28,7 @@
 .tick {
   fill: var(--editorial-ink-soft);
   font-family: var(--font-ibm-plex-mono), monospace;
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
 }
 .stop0 {
   stop-color: var(--editorial-copper);
@@ -49,7 +49,7 @@
   display: flex;
   align-items: baseline;
   justify-content: center;
-  gap: 0.3rem;
+  gap: var(--spacing-xs);
 }
 .score {
   font-family: var(--font-fraunces), Georgia, serif;
@@ -61,6 +61,6 @@
 }
 .max {
   font-family: var(--font-ibm-plex-mono), monospace;
-  font-size: 1.05rem;
+  font-size: var(--font-size-md);
   color: var(--editorial-ink-soft);
 }

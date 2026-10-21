@@ -73,9 +73,9 @@ import { LOCALE_AND, fill, groupStatus, groupSummary } from './lib/group-summari
 import { activeOverrides } from './lib/editorial-overrides.mjs';
 import { deriveDataStatus, DATA_STATUS_COMMENT } from './lib/data-status.mjs';
 import { readAttempts, readSnapshots } from './lib/etf-flows.mjs';
-import { priorRunSignals, composeStateLead, composeStateDepth } from './lib/state-lead.mjs';
+import { priorRun, composeStateLead, composeStateDepth } from './lib/state-lead.mjs';
 import { selectSignalTemplate } from './lib/template-select.mjs';
-import { planWeeklyOpener } from './lib/weekly-opener.mjs';
+import { isWeekApart, planWeeklyOpener } from './lib/weekly-opener.mjs';
 import { cycleCoverage } from './lib/coverage.mjs';
 import { BANDS } from './lib/regime-engine.mjs';
 import { RUN_ARCHIVE_PATH, SHARED_DIR } from './providers/inrepo.mjs'; // 5.92: run-shared outputs
@@ -311,16 +311,20 @@ function weeklyOpener(locale) {
   // synthetic_seed to false (dev/preview only — never set in CI/prod, so the
   // committed output and the drift gate stay opener-off until the data is real).
   if (hist.synthetic_seed && !process.env.FORCE_WEEKLY_OPENER) return '';
+  const priorSnap = priorSnapshot();
   // 2026-10-18: the cycle where the ETF-01 suspension starts separates the data
   // effect (points removed) from what the other signals did, so a suspension is
   // never narrated as a market move (lib/weekly-opener.mjs).
-  const priorRun = priorSignalsForBeats();
+  const lastRun = previousRun();
   const parts = planWeeklyOpener({
-    prior: priorSnapshot(),
+    prior: priorSnap,
     score: computed.score,
     regimeCode: computed.regime_code,
     currentEtf: byId['ETF-01'],
-    priorEtf: priorRun?.['ETF-01'],
+    priorEtf: lastRun?.signals['ETF-01'],
+    // 2026-10-21: the ordinary openers say "this week"; with no snapshot 7±1
+    // days back (a missed or extra run) the monthly standing read stands alone.
+    weekly: isWeekApart(priorSnap?.date, computed.computed_at),
   });
   return parts
     .map(({ key, slots }) => {
@@ -404,15 +408,18 @@ function readArchiveText() {
   return fs.existsSync(archivePath) ? fs.readFileSync(archivePath, 'utf8') : '';
 }
 
-/** Previous run day's signals, for the moved-vs-held beat selector (5.141)
- *  and the suspension-aware weekly opener. */
-function priorSignalsForBeats() {
-  return priorRunSignals(readArchiveText(), computed.computed_at);
+/** Previous run day and its signals, for the moved-vs-held beat selector
+ *  (5.141) and the suspension-aware weekly opener. */
+function previousRun() {
+  return priorRun(readArchiveText(), computed.computed_at);
 }
 
 function generate() {
   const out = { plain: {}, signalSummaries: {}, groupSummaries: {}, stateView: {} };
-  const priorById = priorSignalsForBeats();
+  const lastRun = previousRun();
+  const priorById = lastRun?.signals ?? null;
+  // "this week" wording only against a run 7±1 days back (2026-10-21).
+  const weekly = isWeekApart(lastRun?.day, computed.computed_at);
   const renderDepth = (id, locale, template, prior) =>
     renderTemplate(
       template,
@@ -441,11 +448,11 @@ function generate() {
     out.stateView[loc] = {
       lead: applyOverride(
         `stateView.lead.${loc}`,
-        composeStateLead(copyCtx, stateTpl, loc, priorById)
+        composeStateLead(copyCtx, stateTpl, loc, priorById, weekly)
       ),
       depth: applyOverride(
         `stateView.depth.${loc}`,
-        composeStateDepth(copyCtx, stateTpl, loc, priorById, renderDepth)
+        composeStateDepth(copyCtx, stateTpl, loc, priorById, renderDepth, weekly)
       ),
     };
   }

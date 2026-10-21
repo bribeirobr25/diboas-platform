@@ -389,12 +389,11 @@ Default to the more conservative §10.1 path when in doubt — overclaiming "con
 
 **What it means.** Before opening the weekly PR, the workflow compares every JSONL ledger in `apps/web/data/market/shared/` with the commit it started from (`main` for the scheduled run). A ledger may only grow by complete rows. The title appears when that is not true. Typically a write failed part-way and left a fragment of a row at the end of `etf-shares-weekly.jsonl`, `etf-snapshot-attempts.jsonl` or `run-archive.jsonl`. The title also appears when the check itself could not complete (for example, Git could not read a ledger's committed version). The body then says the ledgers' integrity is **UNVERIFIED**: nothing was found wrong, and nothing was ruled out. The PR body names the file and the problem; the "Ledger append check" step log has the detail.
 
-**What to do.** **Do not merge as is.** Merging would make the fragment a permanent line of a public append-only ledger. Nothing was removed or repaired automatically, by design. **Ask the market lane (CC) to handle it.** Which fix applies is an **owner decision still to be made** (register it if it has not been):
+**What to do.** **Do not merge as is.** Merging would make the fragment a permanent line of a public append-only ledger. Nothing was removed or repaired automatically, by design. **Ask the market lane (CC) to handle it.**
 
-- **(a)** remove only the fragment this run added, on the PR branch, before merging;
-- **(b)** keep the fragment and record it.
+**The rule (owner decision 2026-10-21):** on the PR branch, **remove only the bytes this run added** to the ledger, and state the removal in the PR (file, byte count, checksum before and after, and why). Rows already on `main` are never touched. If the run's addition was a fragment, that week's new row is lost; for the suspended ETF-01 the week counts 0 points, and a damaged row was not usable either. Keeping the fragment and recording it was considered and rejected: a broken line on `main` stays in the public ledger and can affect how later runs read it.
 
-**Before either:**
+**Before removing anything:**
 
 - **preserve** the original file, the PR diff, checksums and the run log;
 - **verify the actual case:** which bytes this run added, whether any valid row came with them, and whether derived data written in the same run is consistent with the raw ledger. If the affected bytes are uncertain, stop for case-specific review.

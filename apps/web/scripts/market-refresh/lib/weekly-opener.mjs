@@ -23,16 +23,48 @@
 import { isSuspendedEtf } from './etf-suspension.mjs';
 
 /**
+ * A comparison may be called "this week" only when the previous run is 7±1
+ * days before this one (2026-10-21, founder decision on the review-gate
+ * findings). After a missed or re-run Monday the previous run can be two weeks
+ * old, or two days, and a change over that span is not "this week".
+ */
+export const WEEKLY_GAP_DAYS = { min: 6, max: 8 };
+
+/**
+ * Whether two run days (`YYYY-MM-DD`, UTC) are a week apart, 7±1 days.
+ * False for anything unparseable: no weekly wording without evidence.
+ * @param {string | null | undefined} priorDay
+ * @param {string} currentDay
+ */
+export function isWeekApart(priorDay, currentDay) {
+  const a = Date.parse(`${String(priorDay ?? '').slice(0, 10)}T00:00:00Z`);
+  const b = Date.parse(`${String(currentDay).slice(0, 10)}T00:00:00Z`);
+  if (!Number.isFinite(a) || !Number.isFinite(b)) return false;
+  const days = (b - a) / 86_400_000;
+  return days >= WEEKLY_GAP_DAYS.min && days <= WEEKLY_GAP_DAYS.max;
+}
+
+/**
  * @param {object} io
  * @param {{score: number, regime_code?: string}|null} io.prior — previous snapshot
  * @param {number} io.score
  * @param {string} io.regimeCode
  * @param {object|undefined} io.currentEtf — this run's ETF-01 record
  * @param {object|undefined} io.priorEtf — the previous run's ETF-01 record
+ * @param {boolean} [io.weekly] — the previous snapshot is 7±1 days back. The
+ *   ordinary openers say "this week" / "a steady week", so without it they are
+ *   omitted; the suspension disclosure ("from this update") always applies.
  * @returns {Array<{key: string, slots: Record<string, number>}>} template parts,
  *          in order; [] when there is no comparison to make
  */
-export function planWeeklyOpener({ prior, score, regimeCode, currentEtf, priorEtf }) {
+export function planWeeklyOpener({
+  prior,
+  score,
+  regimeCode,
+  currentEtf,
+  priorEtf,
+  weekly = true,
+}) {
   if (!prior || prior.score == null) return [];
   const bandChanged = Boolean(prior.regime_code) && prior.regime_code !== regimeCode;
 
@@ -50,6 +82,7 @@ export function planWeeklyOpener({ prior, score, regimeCode, currentEtf, priorEt
       { key: othersKey, slots: { score, prior: comparablePrior } },
     ];
   }
+  if (!weekly) return [];
 
   if (bandChanged)
     return [

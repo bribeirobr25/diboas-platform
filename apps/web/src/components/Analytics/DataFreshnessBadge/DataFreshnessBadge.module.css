@@ -4,10 +4,10 @@
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-sm);
-  padding: 9px 15px;
+  padding: var(--spacing-sm) var(--spacing-md-plus);
   border-radius: var(--radius-lg);
   font-family: var(--font-ibm-plex-mono), monospace;
-  font-size: 12.5px;
+  font-size: var(--font-size-xs);
   color: var(--editorial-ink);
   border: 1px solid var(--editorial-line);
   background-color: var(--editorial-paper);
@@ -44,6 +44,7 @@
 .statusLabel {
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-size: 11px;
+  /* em: stays 11px against the badge's 12px, smaller than the source name. */
+  font-size: 0.92em;
   color: var(--editorial-ink-soft);
 }
