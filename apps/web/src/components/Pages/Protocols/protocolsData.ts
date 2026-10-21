@@ -24,7 +24,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'The largest lending system in decentralized finance. You deposit assets, earn interest from borrowers, and can withdraw anytime. Used by institutions and individuals across 18 blockchains.',
         founded: '2017 (V3: 2022)',
-        tvl: '~$35 billion',
         blockchains: 'Ethereum, Arbitrum, Polygon, + 15 more',
         audits: '30+ independent audits',
         regulatory:
@@ -46,7 +45,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'One of the oldest lending systems in DeFi. You earn interest by providing assets that others borrow. Simple, battle-tested, and running since 2018.',
         founded: '2018 (V3: 2022)',
-        tvl: '~$2 billion',
         blockchains: 'Ethereum, Arbitrum, Base, Polygon',
         audits: '4+ independent audits',
         regulatory: 'Fully decentralized. No specific licenses required.',
@@ -67,7 +65,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           "Solana's all-in-one lending and liquidity platform. Combines lending, automated liquidity management, and leverage in a single system. You earn interest by lending assets to borrowers, similar to Aave and Compound.",
         founded: '2022',
-        tvl: '~$2.5 billion',
         blockchains: 'Solana',
         audits: 'Multiple audits by OtterSec',
         regulatory: 'Decentralized protocol. No major incidents.',
@@ -80,7 +77,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Matches lenders directly with borrowers for better rates than traditional lending pools. Coinbase integrated Morpho on Base for bitcoin-backed USDC loans (January 2025), originating over $1.2 billion in loans by late 2025.',
         founded: '2022',
-        tvl: '~$7 billion',
         blockchains: 'Ethereum, Base, Arbitrum',
         audits: '23+ independent audits',
         regulatory:
@@ -94,7 +90,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           "Lending system built on Aave's proven code, connected to Sky/MakerDAO's deep liquidity. Benefits from the longest operating history in DeFi (since 2014).",
         founded: '2023',
-        tvl: '~$4 billion',
         blockchains: 'Ethereum, Base, Arbitrum',
         audits: '7+ independent audits',
         regulatory: "Benefits from MakerDAO's 10+ year compliance track record",
@@ -107,7 +102,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Next-generation lending that combines features from multiple established systems. Very low liquidation penalties for borrowers. You earn interest from borrowers, similar to other lending protocols.',
         founded: '2024',
-        tvl: '~$2 billion',
         blockchains: 'Ethereum, Arbitrum, Base',
         audits: '3+ independent audits',
         regulatory: 'Built by the Instadapp team (6+ years building DeFi infrastructure)',
@@ -126,7 +120,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Stake your ETH and receive a token (stETH) you can use elsewhere while still earning staking rewards. The largest staking service in crypto.',
         founded: '2020',
-        tvl: '~$27 billion',
         blockchains: 'Ethereum, Polygon',
         audits: '20+ independent audits',
         regulatory:
@@ -140,7 +133,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Decentralized Ethereum staking. You can stake with as little as 0.01 ETH. No centralized operator controls the network.',
         founded: '2016 (mainnet 2021)',
-        tvl: '~$2 billion',
         blockchains: 'Ethereum',
         audits: '5+ independent audits',
         regulatory:
@@ -154,7 +146,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Solana liquid staking that earns both standard staking rewards and additional MEV (trading arbitrage) rewards. Used in diBoaS growth strategies.',
         founded: '2022',
-        tvl: '~$2.8 billion',
         blockchains: 'Solana',
         audits: 'Multiple audits by Certora, OtterSec',
         regulatory:
@@ -170,7 +161,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Solana staking spread across 100+ validators for better decentralization and rewards. One of the few DeFi protocols with institutional-grade compliance certification.',
         founded: '2021',
-        tvl: '~$550 million',
         blockchains: 'Solana',
         audits: '5+ independent audits',
         regulatory: 'SOC 2 Type I and II certified. Institutional-grade compliance.',
@@ -184,7 +174,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Unified liquidity layer for all Solana staking tokens. Lets you swap instantly between different staked assets without waiting for unstaking periods.',
         founded: '2021',
-        tvl: '~$1.7 billion',
         blockchains: 'Solana',
         audits: 'Audited by Accretion',
         regulatory: 'Singapore-based. Powers staking for Binance and Bybit.',
@@ -197,7 +186,7 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         ],
         website: 'https://sanctum.so',
         twitter: 'https://x.com/sanctumso',
-        defiLlamaUrl: 'https://defillama.com/protocol/sanctum',
+        defiLlamaUrl: 'https://defillama.com/protocol/sanctum-infinity',
       },
       {
         id: 'eigenLayer',
@@ -205,7 +194,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Restaking: use your already-staked ETH to support other services built on Ethereum and earn extra rewards on top of your base staking yield. You earn staking rewards plus bonus rewards from the services you help secure.',
         founded: '2023',
-        tvl: '~$12 billion',
         blockchains: 'Ethereum',
         audits: 'Multiple independent audits',
         regulatory: '$2M bug bounty program on Immunefi',
@@ -223,7 +211,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'The original DeFi system. Running since 2014. Deposit crypto as collateral, generate stablecoins, earn the savings rate. Survived every major market crash since 2017.',
         founded: '2014',
-        tvl: '~$6 billion',
         blockchains: 'Ethereum (diBoaS strategies use the Arbitrum deployment)',
         audits: '10+ independent audits',
         regulatory: '10+ years of continuous operation through multiple market cycles',
@@ -249,7 +236,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Creates a synthetic dollar (USDe) through hedged positions. Offers higher yields than traditional stablecoins, but with a more complex mechanism and higher risk profile.',
         founded: '2023',
-        tvl: '~$6.5 billion',
         blockchains: 'Ethereum + 23 chains',
         audits: '7+ independent audits',
         regulatory:
@@ -264,7 +250,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Brings traditional financial assets on-chain. US Treasuries, bonds, and stocks as digital tokens. Acquired SEC-registered broker-dealer and transfer agent licenses through its purchase of Oasis Pro (completed October 2025).',
         founded: '2021',
-        tvl: '~$1.7 billion',
         blockchains: 'Ethereum, Solana, Arbitrum',
         audits: '4+ independent audits',
         regulatory:
@@ -284,7 +269,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Separates yield from principal so you can trade, lock in, or speculate on future returns. Lets you secure a fixed rate or bet that rates will go higher.',
         founded: '2021',
-        tvl: '~$4.5 billion',
         blockchains: 'Ethereum, Arbitrum, BNB Chain',
         audits: '6+ independent audits',
         regulatory: '$250K bug bounty. Safe Harbor Agreement in place.',
@@ -297,7 +281,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Automated yield farming. Moves your money between systems to chase the best available returns. A pioneer that has been running since 2020.',
         founded: '2020',
-        tvl: '~$500 million',
         blockchains: 'Ethereum, Arbitrum, Fantom',
         audits: '6+ independent audits',
         regulatory: 'Pioneer of yield aggregation. 5+ years of continuous operation.',
@@ -310,7 +293,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Specialized exchange for stablecoins and similar assets. Designed for minimal price impact when swapping between assets of similar value.',
         founded: '2020',
-        tvl: '~$2.2 billion',
         blockchains: 'Ethereum + 20 chains',
         audits: '15+ independent audits',
         regulatory:
@@ -325,7 +307,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Boosts your Curve rewards without requiring you to lock tokens for years. Simplifies Curve participation.',
         founded: '2021',
-        tvl: '~$1.5 billion',
         blockchains: 'Ethereum, Arbitrum',
         audits: '7 independent audits',
         regulatory:
@@ -344,7 +325,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Decentralized perpetual exchange. You provide liquidity to a shared pool. Traders pay fees to the pool. You earn a share of every trade.',
         founded: '2021',
-        tvl: '~$400 million',
         blockchains: 'Arbitrum, Avalanche, Solana',
         audits: '10+ independent audits',
         regulatory: '$5M bug bounty on Immunefi (one of the largest in DeFi)',
@@ -357,7 +337,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           "Solana's leading perpetual exchange. Provide liquidity, earn 70% of all trading fees. Used in several diBoaS growth strategies.",
         founded: '2021 (perpetuals: 2023)',
-        tvl: '~$1.6 billion',
         blockchains: 'Solana',
         audits: '6+ independent audits',
         regulatory:
@@ -378,7 +357,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           "Solana's main decentralized exchange. Automated market making, concentrated liquidity, and token launches.",
         founded: '2021',
-        tvl: '~$2 billion',
         blockchains: 'Solana',
         audits: '4+ independent audits',
         regulatory:
@@ -393,7 +371,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'User-friendly Solana exchange known for clean design, efficient swaps, and one of the strongest security records in the ecosystem. You can provide liquidity and earn fees from trades on the platform.',
         founded: '2021',
-        tvl: '~$400 million',
         blockchains: 'Solana',
         audits: '6+ independent audits',
         regulatory: 'No exploits in 4+ years. Praised for code quality by independent reviewers.',
@@ -406,7 +383,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Programmable liquidity pools that can hold multiple tokens in custom ratios. More flexible than standard exchange pools. You provide tokens to the pool and earn a share of trading fees.',
         founded: '2020',
-        tvl: '~$258 million (post-exploit; was ~$775M pre-November 2025)',
         blockchains: 'Ethereum, Arbitrum, Polygon',
         audits: '11+ independent audits',
         regulatory:
@@ -426,7 +402,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         description:
           'Instant cross-border payments and trade financing using crypto infrastructure. Partners with Circle and the Stellar Development Foundation. Returns come from fees charged on cross-border payment processing.',
         founded: '2022',
-        tvl: '~$100 million',
         blockchains: 'Solana, Stellar, Polygon',
         audits: '6+ independent audits',
         regulatory: 'Strategic partnerships with Circle and Stellar Development Foundation',

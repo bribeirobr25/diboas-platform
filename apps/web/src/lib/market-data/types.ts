@@ -192,7 +192,14 @@ export interface NetworkGas {
 
 /** Protocol TVL data */
 export interface ProtocolData {
-  readonly tvl: Record<string, string>;
+  /**
+   * The /protocols headline (2026-10-21): the measured combined TVL of the six
+   * headline protocols and the floor the page states ("over …"), in USD. The
+   * displayed words are the localized `protocols.tvl.number`, rendered from
+   * the floor by `scripts/protocols-tvl/refresh.mjs`.
+   */
+  readonly tvl: { readonly combinedUsd: number; readonly combinedFloorUsd: number };
+  /** When the figures were pulled from DeFiLlama (moves only with new figures). */
   readonly updatedAt: string;
 }
 

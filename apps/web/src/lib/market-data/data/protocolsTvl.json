@@ -1,0 +1,119 @@
+{
+  "_comment": "Written by apps/web/scripts/protocols-tvl/refresh.mjs from one DeFiLlama pull; never edit by hand (the date moves only with new figures).",
+  "pulled_at": "2026-10-21T12:22:09Z",
+  "source": "https://api.llama.fi/protocols",
+  "combined": {
+    "usd": 31327727786,
+    "floor_usd": 25000000000,
+    "parents": [
+      "parent#aave",
+      "parent#maker",
+      "parent#jupiter",
+      "parent#sanctum",
+      "parent#compound-finance",
+      "parent#jito"
+    ]
+  },
+  "cards": {
+    "aaveV3": {
+      "usd": 17248586673,
+      "page": "aave-v3"
+    },
+    "compoundV3": {
+      "usd": 1423227151,
+      "page": "compound-v3"
+    },
+    "kamino": {
+      "usd": 1413720457,
+      "page": "kamino"
+    },
+    "morpho": {
+      "usd": 11314171582,
+      "page": "morpho"
+    },
+    "sparkProtocol": {
+      "usd": 5149791089,
+      "page": "sparklend"
+    },
+    "fluid": {
+      "usd": 1126242033,
+      "page": "fluid"
+    },
+    "lido": {
+      "usd": 23710807636,
+      "page": "lido"
+    },
+    "rocketPool": {
+      "usd": 1253188854,
+      "page": "rocket-pool"
+    },
+    "jito": {
+      "usd": 1125073002,
+      "page": "jito"
+    },
+    "marinade": {
+      "usd": 759306149,
+      "page": "marinade"
+    },
+    "sanctum": {
+      "usd": 202691090,
+      "page": "sanctum-infinity"
+    },
+    "eigenLayer": {
+      "usd": 6315906291,
+      "page": "eigencloud"
+    },
+    "sky": {
+      "usd": 5851077451,
+      "page": "sky"
+    },
+    "ethena": {
+      "usd": 5141321369,
+      "page": "ethena"
+    },
+    "ondo": {
+      "usd": null,
+      "page": "ondo-finance"
+    },
+    "pendle": {
+      "usd": 1123377840,
+      "page": "pendle"
+    },
+    "yearn": {
+      "usd": 205803460,
+      "page": "yearn"
+    },
+    "curve": {
+      "usd": 1461225414,
+      "page": "curve-finance"
+    },
+    "convex": {
+      "usd": 594288914,
+      "page": "convex-finance"
+    },
+    "gmxV2": {
+      "usd": 240214772,
+      "page": "gmx"
+    },
+    "jupiterJlp": {
+      "usd": 746709196,
+      "page": "jupiter-perpetual-exchange"
+    },
+    "raydium": {
+      "usd": 1200839089,
+      "page": "raydium"
+    },
+    "orca": {
+      "usd": 305268669,
+      "page": "orca"
+    },
+    "balancer": {
+      "usd": 43717973,
+      "page": "balancer"
+    },
+    "huma": {
+      "usd": 378566904,
+      "page": "huma"
+    }
+  }
+}

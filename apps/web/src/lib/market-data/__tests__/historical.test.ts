@@ -18,13 +18,10 @@ import type { AssetCode, AnchorYear } from '../types';
 
 // ─── Staleness gate (L6 round-2 — scoped to anchor-data Appendix F row) ─
 
-describe('historical anchor data — single-source 365-day gate (anchor-data scope per §6.11 Appendix F)', () => {
-  it('LAST_RESEARCH_UPDATE is within 365 days of CI run', () => {
-    const updatedAt = new Date(LAST_RESEARCH_UPDATE).getTime();
-    const ageDays = (Date.now() - updatedAt) / (1000 * 60 * 60 * 24);
-    expect(ageDays).toBeLessThan(365);
-  });
-
+// The 365-day age is checked by `scripts/data-freshness/check.mjs`, not here
+// (2026-10-21): a wall-clock assertion would turn every lane's CI red on
+// 2027-05-15. It blocks a change to historical.ts and warns everywhere else.
+describe('historical anchor data — research date', () => {
   it('LAST_RESEARCH_UPDATE is a valid ISO-8601 date string', () => {
     expect(LAST_RESEARCH_UPDATE).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(new Date(LAST_RESEARCH_UPDATE).toISOString().slice(0, 10)).toBe(LAST_RESEARCH_UPDATE);
