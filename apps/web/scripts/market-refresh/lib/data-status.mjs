@@ -45,7 +45,10 @@ const MONTHS_EN =
   );
 
 const d = (s) => new Date(`${s.slice(0, 10)}T00:00:00Z`);
-const iso = (date) => date.toISOString().replace(/\.\d{3}Z$/, 'Z');
+// Whole seconds are written without milliseconds, as before. A deadline that
+// is NOT a whole second (the monthly-close one, 5.630) keeps them: dropping
+// them would move it to a different instant.
+const iso = (date) => date.toISOString().replace(/\.000Z$/, 'Z');
 const addDays = (date, n) => new Date(date.getTime() + n * DAY_MS);
 const ymd = (date) => date.toISOString().slice(0, 10);
 const monthName = (date) => MONTHS_EN[date.getUTCMonth()];
@@ -137,10 +140,14 @@ function btcMonthlyEntry(source, anchorStr, run) {
     stale_after: iso(addDays(monthEnd(anchor, 2), 1)),
     // 5.173: this source is FRESH while `anchor === expectedConfirmedMonthYM(now)`.
     // That equality breaks the first moment the grace window closes two months
-    // on: day 4 of (anchor month + 2). Derived from the same rule, not guessed.
+    // on: day 4 of (anchor month + 2), 00:00 UTC. Derived from the same rule.
+    // 5.630 (N02, CON:155): `delayed_after` is the LAST fresh instant, because
+    // the read-time check is `now > delayed_after`. Day 4 00:00 itself is
+    // already DELAYED at generation, so the deadline is 1 ms before it; the
+    // three-day grace and the confidence rules are unchanged.
     delayed_after: iso(
       new Date(
-        Date.UTC(anchor.getUTCFullYear(), anchor.getUTCMonth() + 2, MONTH_APPEND_GRACE_DAYS + 1)
+        Date.UTC(anchor.getUTCFullYear(), anchor.getUTCMonth() + 2, MONTH_APPEND_GRACE_DAYS + 1) - 1
       )
     ),
     message,

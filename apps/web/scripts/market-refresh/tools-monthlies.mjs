@@ -52,6 +52,21 @@ const round = (x, d) => {
   return Math.round(x * f) / f;
 };
 
+/**
+ * The close a series stores (the adjusted close for a total-return series), or
+ * null when the bar does not carry a usable one (5.627). `assertOhlcBar`
+ * checks the price-only close; a total-return series stores `adjclose`, and a
+ * missing one used to round to 0 and land in the file the Money Tools read.
+ *
+ * @param {{adjClose: boolean}} shape
+ * @param {{close: number, adjclose: number|null}} bar
+ * @returns {number|null}
+ */
+export function storedClose(shape, bar) {
+  const v = shape.adjClose ? bar.adjclose : bar.close;
+  return Number.isFinite(v) && v > 0 ? v : null;
+}
+
 function buildRow(code, bar) {
   const s = SERIES_SHAPES[code];
   const row = {
@@ -135,6 +150,15 @@ async function appendSeries(code, shape, months, expectedYm, fetchBars, planned,
       break;
     }
     assertOhlcBar(`${code} ${ym}`, bar);
+    // 5.627 (founder point 3, 2026-10-19): a required month whose stored close
+    // is missing or invalid is NOT a month the source allows appending. It
+    // fails this series (C1c: reported, nothing written for it from here on;
+    // months this run already appended before it stay), and `--check` fails.
+    if (storedClose(shape, bar) === null) {
+      throw new Error(
+        `${ym} bar has no usable ${shape.adjClose ? 'adjusted ' : ''}close (got ${shape.adjClose ? bar.adjclose : bar.close})`
+      );
+    }
     assertNextMonth(code, months[months.length - 1]?.ym, ym);
     const row = buildRow(code, bar);
     planned.push({ code, row });

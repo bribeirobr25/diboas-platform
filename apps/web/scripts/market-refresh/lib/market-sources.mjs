@@ -16,6 +16,7 @@ import { fetchFredSeries } from '../providers/fred.mjs';
 import { fetchYahooDaily } from '../providers/yahoo.mjs';
 import {
   assertDailySeries,
+  assertMonthlySeries,
   assertRateSeries,
   assertRecency,
   OUTLIER_BOUNDS_PCT,
@@ -26,6 +27,7 @@ import {
   evaluateRelativeStrength,
   scoreSignals,
   anchorCoherence,
+  M2_MONTHS_FOR_ROC,
 } from './regime-engine.mjs';
 import { resolveEtfSignals } from './etf-flows.mjs';
 
@@ -68,6 +70,10 @@ export function assertMarketSourcesQuality({ dxy, us10y, m2, nasdaq, btc, gold }
   });
   assertDailySeries('Yahoo:BTC-USD', btc.series, { maxMovePct: OUTLIER_BOUNDS_PCT.yahooDaily });
   assertDailySeries('Yahoo:GC=F', gold.series, { maxMovePct: OUTLIER_BOUNDS_PCT.yahooDaily });
+  assertMonthlySeries('FRED:M2SL', m2.series, {
+    minPoints: M2_MONTHS_FOR_ROC,
+    maxMovePct: OUTLIER_BOUNDS_PCT.m2Monthly,
+  });
   const recency = [
     ['FRED:DTWEXBGS', dxy],
     ['FRED:DGS10', us10y],

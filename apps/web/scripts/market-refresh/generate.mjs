@@ -277,7 +277,16 @@ function renderTemplate(template, slots, context) {
 function signalSentence(id, locale) {
   const sig = byId[id];
   const set = signalTpl[id]?.[sig.state];
-  if (!set) return null;
+  // 2026-10-18 compliance pass: a state with no template used to return null,
+  // and the patch step then silently KEPT last cycle's sentence beside this
+  // cycle's state (and `--check` could not see it). Same rule as a declared
+  // variant missing a locale: stop the generator.
+  if (!set) {
+    throw new Error(
+      `generate: signal ${id} is ${sig.state} but templates/signal-sentences.json has no ` +
+        `${sig.state} entry for it — add the wording ×4 locales before publishing.`
+    );
+  }
   // 5.301: one STATE can have more than one reason (warm-up, a gapped ledger,
   // the 2026-10-18 suspension). A variant named in `values.variant` selects its
   // own wording, and a variant missing a locale now THROWS instead of falling

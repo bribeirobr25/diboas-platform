@@ -22,12 +22,16 @@
 /**
  * Resample a daily series to confirmed weekly Friday closes ONLY.
  *
- * For each candidate Friday in the data range:
+ * A Friday is a candidate only once its UTC day is over (5.625, K05: the
+ * chosen conservative convention, not proof of any provider's final close).
+ * Run on a Friday, a provider already carries that day's still-moving value,
+ * and "the latest weekly close" must never be an intra-week value
+ * (docs/integrations/market-editorial.md). For each candidate Friday:
  *   - If the Friday date itself is in the data → use that value.
- *   - Else if any Mon-Thu of that week is in the data AND the Friday is in
- *     the past → use the most recent prior trading day of that week (handles
- *     bank holidays falling on Friday).
- *   - Else (Friday is today or in the future AND not yet in the data) → SKIP.
+ *   - Else if any Mon-Thu of that week is in the data → use the most recent
+ *     prior trading day of that week (handles bank holidays falling on Friday).
+ *   - Else → SKIP.
+ * Monday and Tuesday runs are unaffected: their last Friday is already over.
  *
  * @param {Array<[Date, number]>} daily — sorted ascending by date
  * @param {Date} today — injected clock (pipeline passes run time)
@@ -42,13 +46,17 @@ export function strictFridayCloses(daily, today) {
   const fridays = [];
   const first = daily[0][0];
   const last = daily[daily.length - 1][0];
+  // The start of today's UTC day: a Friday counts only if it lies before it.
+  const todayStart = new Date(
+    Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate())
+  );
   let cur = new Date(first);
   while (cur.getUTCDay() !== 5) cur.setUTCDate(cur.getUTCDate() + 1);
-  while (cur <= last && cur <= today) {
+  while (cur <= last && cur < todayStart) {
     const fridayKey = cur.toISOString().slice(0, 10);
     if (byDate.has(fridayKey)) {
       fridays.push([new Date(cur), byDate.get(fridayKey)]);
-    } else if (cur < today) {
+    } else {
       for (let back = 1; back <= 4; back += 1) {
         const candidate = new Date(cur);
         candidate.setUTCDate(candidate.getUTCDate() - back);
@@ -344,6 +352,56 @@ export function evaluateBtcStructure(btcMonths, today) {
   ];
 }
 
+/**
+ * Months of M2 the 12-month rate of change needs: this month and the same
+ * month a year earlier, so 13 consecutive monthly rows (5.626).
+ */
+export const M2_MONTHS_FOR_ROC = 13;
+
+/**
+ * The input contract of a monthly series the engine computes a year-on-year
+ * change from (5.626, K03/K04). It throws, naming the problem, when a value is
+ * not finite and positive, a date is not the first day of a month (UTC), the
+ * dates are not strictly ascending (a repeated month included), or the last
+ * `months` rows are not consecutive calendar months. The last rule is what
+ * makes "the row 12 back" the same month a year earlier, instead of trusting
+ * that 13 rows span 12 months. It changes no score: it decides which data the
+ * score may be computed from, and it can stop a run.
+ *
+ * @param {string} label
+ * @param {Array<[Date, number]>} series — ascending
+ * @param {number} months — how many trailing rows must be consecutive
+ */
+export function assertMonthlyContract(label, series, months) {
+  const fail = (why) => {
+    throw new Error(`INVALID SERIES (5.626): ${label} ${why}. Refusing to compute from it.`);
+  };
+  let prevKey = null;
+  series.forEach(([d, v], i) => {
+    const t = d instanceof Date ? d.getTime() : NaN;
+    if (!Number.isFinite(t)) fail(`row ${i} has no valid date`);
+    if (d.getUTCDate() !== 1 || t % 86_400_000 !== 0)
+      fail(`row ${i} (${d.toISOString()}) is not the first day of a month`);
+    if (!Number.isFinite(v) || v <= 0)
+      fail(`has a non-finite or non-positive value at ${d.toISOString().slice(0, 7)}`);
+    const key = d.getUTCFullYear() * 12 + d.getUTCMonth();
+    if (prevKey !== null && key === prevKey)
+      fail(`repeats the month ${d.toISOString().slice(0, 7)}`);
+    if (prevKey !== null && key < prevKey)
+      fail(`is not in ascending order at ${d.toISOString().slice(0, 7)}`);
+    prevKey = key;
+  });
+  const tail = series.slice(-months);
+  for (let i = 1; i < tail.length; i += 1) {
+    const a = tail[i - 1][0];
+    const b = tail[i][0];
+    if (b.getUTCFullYear() * 12 + b.getUTCMonth() !== a.getUTCFullYear() * 12 + a.getUTCMonth() + 1)
+      fail(
+        `skips from ${a.toISOString().slice(0, 7)} to ${b.toISOString().slice(0, 7)} within the last ${months} months`
+      );
+  }
+}
+
 export function evaluateMacro({ dxyDaily, us10yDaily, m2Monthly }, today) {
   const dxyWeekly = strictFridayCloses(dxyDaily, today);
   const us10yWeekly = strictFridayCloses(us10yDaily, today);
@@ -363,9 +421,10 @@ export function evaluateMacro({ dxyDaily, us10yDaily, m2Monthly }, today) {
   const us10yClose = us10yCloses[us10yCloses.length - 1];
   const us10yEma20 = ema(us10yCloses, 20);
   const m2Vals = m2Monthly.map(([, v]) => v);
-  assertSeriesDepth('M2 (M2SL) monthly', m2Vals.length, 13, '12-month ROC');
+  assertSeriesDepth('M2 (M2SL) monthly', m2Vals.length, M2_MONTHS_FOR_ROC, '12-month ROC');
+  assertMonthlyContract('M2 (M2SL) monthly', m2Monthly, M2_MONTHS_FOR_ROC);
   const m2Current = m2Vals[m2Vals.length - 1];
-  const m2_12mAgo = m2Vals[m2Vals.length - 13];
+  const m2_12mAgo = m2Vals[m2Vals.length - M2_MONTHS_FOR_ROC];
   const m2Prev = m2Vals[m2Vals.length - 2];
   const roc12m = (m2Current / m2_12mAgo - 1) * 100;
   const mom = m2Current - m2Prev;
