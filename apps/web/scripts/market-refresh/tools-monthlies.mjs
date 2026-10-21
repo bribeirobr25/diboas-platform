@@ -26,7 +26,7 @@
 import fs from 'node:fs';
 import { isDirectInvocation } from './lib/invocation.mjs';
 import { writeJsonAtomic } from './lib/atomic.mjs';
-import { assertNextMonth, expectedConfirmedMonthYM } from './lib/regime-engine.mjs';
+import { assertNextMonth, expectedConfirmedMonthYM, nextMonthYM } from './lib/regime-engine.mjs';
 import { fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { assertOhlcBar } from './lib/quality-gate.mjs';
 import { MONTHLY_PRICES_PATH } from './providers/inrepo.mjs';
@@ -89,17 +89,26 @@ export async function appendPriceMonths(
     const months = prices[code].months;
     if (months.some((m) => m.ym === expectedYm)) continue; // idempotent
     const { bars } = await fetchBars(shape.ticker, '2y');
-    const bar = bars.get(expectedYm);
-    if (!bar) {
-      console.log(`  ${code}: Yahoo has no closed ${expectedYm} bar yet — skipping`);
-      missing.push(code);
-      continue;
+    // Every month from the one after the last row up to the due month, oldest
+    // first (2026-10-21, final audit): a month nobody appended in time is
+    // backfilled from the same fetch, with the same checks, instead of
+    // leaving a hole or stopping the whole run. If Yahoo lacks a month on the
+    // way, the series keeps what precedes it and is reported as missing.
+    let ym = months.length ? nextMonthYM(months[months.length - 1].ym) : expectedYm;
+    while (ym <= expectedYm) {
+      const bar = bars.get(ym);
+      if (!bar) {
+        console.log(`  ${code}: Yahoo has no closed ${ym} bar yet — stopping this series there`);
+        missing.push(code);
+        break;
+      }
+      assertOhlcBar(`${code} ${ym}`, bar);
+      assertNextMonth(code, months[months.length - 1]?.ym, ym);
+      const row = buildRow(code, bar);
+      planned.push({ code, row });
+      months.push(row); // the working copy; written to disk only when !check
+      ym = nextMonthYM(ym);
     }
-    assertOhlcBar(`${code} ${expectedYm}`, bar);
-    assertNextMonth(code, months[months.length - 1]?.ym, expectedYm);
-    const row = buildRow(code, bar);
-    planned.push({ code, row });
-    if (!check) months.push(row);
   }
   if (!check && planned.length)
     // 5.302: temp + rename — this file also backs the Money Tools calculators.
@@ -142,7 +151,7 @@ if (isDirectInvocation(import.meta.url)) {
   } else if (planned.length) {
     for (const p of planned)
       console.log(
-        `  ${checkMode ? 'MISSING' : 'appended'} ${p.code} ${expectedYm} close ${p.row.close}`
+        `  ${checkMode ? 'MISSING' : 'appended'} ${p.code} ${p.row.ym} close ${p.row.close}`
       );
     console.log(
       `\n  NOTE: FX (ECB EUR+crosses, BCB PTAX BRL) + the Alpha-Vantage cross-check are the` +

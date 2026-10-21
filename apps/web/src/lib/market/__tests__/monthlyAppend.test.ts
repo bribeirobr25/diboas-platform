@@ -23,7 +23,7 @@ afterEach(() => {
 });
 
 const SERIES = ['SP500', 'QQQ', 'MSCI_WORLD', 'GOLD', 'TLT', 'IBOVESPA', 'DAX'];
-const bar = { open: 100, high: 110, low: 90, close: 105, adjclose: 104 };
+const barFor = (ym: string) => ({ ym, open: 100, high: 110, low: 90, close: 105, adjclose: 104 });
 
 /** A prices file whose every series ends at `lastYm`. */
 function pricesFile(lastYm: string): string {
@@ -37,11 +37,16 @@ function pricesFile(lastYm: string): string {
   return file;
 }
 
-/** A fake Yahoo: `has` lists the tickers that already have the month's bar. */
-const fakeBars = (ym: string, has: (ticker: string) => boolean) => async (ticker: string) => ({
-  bars: new Map(has(ticker) ? [[ym, bar]] : []),
-  provenance: { source: `test:${ticker}`, url: 'synthetic', fetchedAt: '', licence: 'test' },
-});
+/** A fake Yahoo returning closed bars for `months`, except for tickers `has` rejects. */
+const fakeBars =
+  (months: string[], has: (ticker: string) => boolean = () => true) =>
+  async (ticker: string) => ({
+    bars: new Map(has(ticker) ? months.map((ym) => [ym, barFor(ym)]) : []),
+    provenance: { source: `test:${ticker}`, url: 'synthetic', fetchedAt: '', licence: 'test' },
+  });
+
+const monthsOf = (file: string, code: string): string[] =>
+  JSON.parse(fs.readFileSync(file, 'utf8'))[code].months.map((m: { ym: string }) => m.ym);
 
 describe('a monthly series grows by exactly the next month', () => {
   it('should compute the next month across a year end', () => {
@@ -60,15 +65,36 @@ describe('a monthly series grows by exactly the next month', () => {
     );
   });
 
-  it('should refuse a tools-series append that would leave a hole, before writing anything', async () => {
+  it('should backfill a month nobody appended in time, in order, so no hole is left', async () => {
+    const file = pricesFile('2026-07-01');
+    const out = await appendPriceMonths('2026-09-01', false, {
+      fetchBars: fakeBars(['2026-08-01', '2026-09-01']),
+      pricesPath: file,
+    });
+    expect(out.missing).toEqual([]);
+    for (const code of SERIES) {
+      expect(monthsOf(file, code)).toEqual(['2026-07-01', '2026-08-01', '2026-09-01']);
+    }
+  });
+
+  it('should keep only the months before a gap in the source, and report the series as missing', async () => {
+    const file = pricesFile('2026-07-01');
+    const out = await appendPriceMonths('2026-10-01', false, {
+      fetchBars: fakeBars(['2026-08-01', '2026-10-01']), // Yahoo lacks 2026-09
+      pricesPath: file,
+    });
+    expect(out.missing).toEqual(SERIES);
+    expect(monthsOf(file, 'SP500')).toEqual(['2026-07-01', '2026-08-01']); // no hole, no jump
+  });
+
+  it('should write nothing in --check mode', async () => {
     const file = pricesFile('2026-07-01');
     const before = fs.readFileSync(file, 'utf8');
-    await expect(
-      appendPriceMonths('2026-09-01', false, {
-        fetchBars: fakeBars('2026-09-01', () => true),
-        pricesPath: file,
-      })
-    ).rejects.toThrow('does not follow the last row 2026-07-01');
+    const out = await appendPriceMonths('2026-09-01', true, {
+      fetchBars: fakeBars(['2026-08-01', '2026-09-01']),
+      pricesPath: file,
+    });
+    expect(out.planned).toHaveLength(SERIES.length * 2);
     expect(fs.readFileSync(file, 'utf8')).toBe(before);
   });
 });
@@ -77,7 +103,7 @@ describe('a month Yahoo has not published yet is missing, never "nothing to do"'
   it('should report the series without a bar as missing and append the others', async () => {
     const file = pricesFile('2026-08-01');
     const out = await appendPriceMonths('2026-09-01', false, {
-      fetchBars: fakeBars('2026-09-01', (t) => t !== 'TLT'),
+      fetchBars: fakeBars(['2026-09-01'], (t) => t !== 'TLT'),
       pricesPath: file,
     });
     expect(out.missing).toEqual(['TLT']);
