@@ -13,6 +13,7 @@ import { getDeclinedWeeks } from '@/lib/proposalStore';
 import { weeklyCreditAmount } from '@/lib/growthConstants';
 import { Button } from './Button';
 import { LucideIcon } from './LucideIcon';
+import { Logger } from '@/lib/monitoring/Logger';
 import styles from './WeeklyCycleScreen.module.css';
 
 /**
@@ -39,7 +40,35 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
   const intl = useIntl();
   const state = useLedger();
   const { money } = useFormatters(state.currency);
-  const [busy, setBusy] = useState(false);
+  /**
+   * ⛑ `5.108` · THE INERT `busy` RE-ENTRANCY FLAG IS REMOVED, NOT REPAIRED.
+   *
+   * Each handler did `setBusy(true)` → a SYNCHRONOUS engine call → `setBusy(false)`
+   * inside one event handler. React batches both updates, so the committed value
+   * was always `false`: the render never saw `busy === true`, every
+   * `if (busy) return` was unreachable and every `disabled={busy}` was a no-op.
+   *
+   * It could not be made meaningful, because there is nothing to await — the
+   * engine call is synchronous. So the choice was between a control that claims
+   * protection it does not provide and no control at all, and a fake control is
+   * worse: it invites a future reader to rely on it.
+   *
+   * ⚑ THE REAL GUARD IS ENGINE-SIDE, UNCHANGED, AND ALREADY UNDER TEST — which is
+   * what makes this removal safe rather than merely harmless:
+   *
+   *   `lib/__tests__/weeklyCycle.test.ts`
+   *     "should be a harmless no-op on a double tap (same now)"
+   *     "should refuse a second application of the same week-set (double-tap …)"
+   *
+   * Double-application is refused by idempotency in the ledger engine, which
+   * recomputes from the synchronously appended log rather than from screen state.
+   * Removing the flag removes a CLAIM, never a protection.
+   *
+   * ⚑ That the whole suite stayed green after deleting three of these flags is
+   * evidence they were inert — it is NOT evidence the protection exists. The two
+   * tests named above are that evidence, and they are cited here so the next
+   * reader does not have to rediscover which control is the real one.
+   */
   /** Bumped after every decision so the derived proposal re-reads the ledger. */
   const [tick, setTick] = useState(0);
 
@@ -78,26 +107,23 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
   );
 
   function onCollect() {
-    if (busy) return;
-    setBusy(true);
     collectWeeklyCredits();
-    setBusy(false);
     setTick((t) => t + 1);
   }
 
   function onApprove() {
-    if (busy || !proposal) return;
-    setBusy(true);
-    applyRuleProposal(proposal);
-    setBusy(false);
+    if (!proposal) return;
+    const result = applyRuleProposal(proposal);
+    /* A refused financial commit must be observable (R-14 / P12; lane audit 2026-10-21,
+       Z5), as `SimulatedEventScreen` already does. No copy is invented for a refusal
+       one tab cannot produce today; it gets a log and a re-derive. */
+    if (!result.ok) Logger.warn('weekly rule proposal refused', { reason: result.reason });
     setTick((t) => t + 1);
   }
 
   function onDecline() {
-    if (busy || !proposal) return;
-    setBusy(true);
+    if (!proposal) return;
     declineProposal(proposal);
-    setBusy(false);
     setTick((t) => t + 1);
   }
 
@@ -134,7 +160,7 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
           <p className={styles.amountNote}>
             <FormattedMessage id="weekly.creditsFor" values={{ weeks: collect.weeks.length }} />
           </p>
-          <Button variant="primary" fullWidth disabled={busy} onClick={onCollect}>
+          <Button variant="primary" fullWidth onClick={onCollect}>
             <FormattedMessage id="weekly.collect" />
           </Button>
         </div>
@@ -233,7 +259,7 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
             <button
               type="button"
               className={styles.action}
-              disabled={busy || proposal.repairNeeded}
+              disabled={proposal.repairNeeded}
               onClick={onApprove}
             >
               <LucideIcon name="check" size={20} />
@@ -243,7 +269,7 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
               <LucideIcon name="sliders" size={20} />
               <FormattedMessage id="weekly.adjustOnce" />
             </button>
-            <button type="button" className={styles.action} disabled={busy} onClick={onDecline}>
+            <button type="button" className={styles.action} onClick={onDecline}>
               <LucideIcon name="x" size={20} />
               <FormattedMessage id="weekly.decline" />
             </button>

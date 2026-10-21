@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { appliedEvents, refusedEvents } from '@diboas/banking';
 import { observedStamp } from '@diboas/defi';
 import {
   advanceTime,
@@ -12,6 +13,14 @@ import {
 } from '@/lib/ledgerClient';
 import type { ProtocolApyHistory } from '@diboas/defi';
 import { classifyTrend, decomposePracticeValue } from '@/lib/practiceSeries';
+import { expectedLogs } from '@/test/expectedLogs';
+
+// Failure paths below LOG by design (R-14); asserted, not silenced (2026-10-19 cleanup).
+expectedLogs({
+  strict: true,
+  warn: ['ledger refused an event'],
+  requiredIn: /should sum its terms to EXACTLY|should NOT count an entry the projection REFUSED/,
+});
 
 /**
  * `5.199` — the P0 the time machine shipped with, and the test that did not
@@ -103,8 +112,8 @@ describe('the practice value decomposition (5.199)', () => {
      * nothing else may reach it. Derived from the event log, independently of
      * the decomposition under test.
      */
-    const accrualSum = getLedgerState()
-      .events.filter((e) => e.type === 'AccrualApplied')
+    const accrualSum = appliedEvents(getLedgerState())
+      .filter((e) => e.type === 'AccrualApplied')
       .reduce((sum, e) => sum + Number((e as { earnings: string }).earnings), 0);
     expect(d.market).toBeCloseTo(accrualSum, 2);
   });
@@ -145,7 +154,7 @@ describe('the practice value decomposition (5.199)', () => {
      * peak never appears there. Deriving it from the events instead is both
      * independent and immune to that.)
      */
-    const events = getLedgerState().events;
+    const events = appliedEvents(getLedgerState());
     const principal = events
       .filter((e) => e.type === 'StrategyEntered')
       .reduce((sum, e) => sum + Number((e as { amount: string }).amount), 0);
@@ -167,8 +176,21 @@ describe('the practice value decomposition (5.199)', () => {
      * double-counted it and the identity could not close, yet the screen kept
      * explaining. Reproduced from the auditor's figures.
      */
-    const goalId = positionAtWork(1000);
+    /* ⛑ P8a (5.485) found this fixture refusing its own second entry: `positionAtWork(1000)`
+       invests all of the goal's cash, so a further entry of 100 could not be afforded and the
+       projection refused it — the old raw-log walk still counted it, which is the only reason
+       `start` read 1,100. Fund the goal for BOTH entries, so the scenario really has two. */
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 5000,
+      horizonMonths: 24,
+      fundAmount: 1100,
+    })!;
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 1000, networkFeeLocal: 0 });
     enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 100, networkFeeLocal: 0 });
+    expect(refusedEvents(getLedgerState()), 'both entries must apply').toEqual([]);
 
     const before = decomposePracticeValue(getLedgerState());
     expect(before.points).toHaveLength(1);
@@ -181,6 +203,16 @@ describe('the practice value decomposition (5.199)', () => {
     expect(d.entered).toBe(0);
     expect(d.market + d.contributed + d.entered - d.exited).toBeCloseTo(d.end - d.start, 2);
     expect(d.identityHolds).toBe(true);
+  });
+
+  it('should NOT count an entry the projection REFUSED as part of the start value (P8a, 5.485)', () => {
+    const goalId = positionAtWork(1000); // invests all the goal's cash
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 100, networkFeeLocal: 0 });
+    expect(refusedEvents(getLedgerState()).map((r) => r.reason)).toEqual([
+      'insufficient-goal-cash',
+    ]);
+    const d = decomposePracticeValue(getLedgerState());
+    expect(d.start, 'a refused entry was counted').toBeCloseTo(1000, 2);
   });
 
   it('should report zero deposits when no recurring plan exists, so a percentage stays honest', () => {

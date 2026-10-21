@@ -14,7 +14,7 @@ import { appendAll, base, getLedgerState } from './core';
 
 /**
  * Create THE rule (one active per account, W-19a) — the G9 builder's emitter
- * seam, exercised by the §2.3 ceremony tests until that screen lands. Returns
+ * seam, called by `RulesBuilderScreen` (and the §2.3 ceremony tests). Returns
  * the ruleId, or null when the split is invalid or a live rule already exists
  * (creating anew = editing; the UI goes through `updateRule`).
  */
@@ -100,7 +100,7 @@ export function applyRuleProposal(
   if (lines.some((l) => statusById.get(l.goalId) !== 'active'))
     return { ok: false, reason: 'destinationChanged' };
   // Available re-validation (2026-08-19 audit fix): the engine's GoalFunded
-  // case silently skips an unaffordable leg — an approval must therefore never
+  // case refuses an unaffordable leg (recorded since P8a) — an approval must therefore never
   // emit legs Available can't cover, or "approved" would move nothing while
   // marking the weeks applied. Fail-safe re-present instead (the derivation
   // caps at Available, so a regenerated proposal is always applyable).

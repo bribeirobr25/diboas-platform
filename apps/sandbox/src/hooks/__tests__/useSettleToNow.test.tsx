@@ -1,4 +1,9 @@
 // @vitest-environment happy-dom
+import {
+  HISTORY_DAYS_MAX,
+  HISTORY_SETTLE_DAYS_MAX,
+  HISTORY_SETTLE_MARGIN_DAYS,
+} from '@/lib/market/historyWindow';
 import { render, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { LedgerEvent } from '@diboas/banking';
@@ -85,10 +90,21 @@ describe('WS-F real-time settle — the money path that runs on every load', () 
   it('should leave time unsettled and not throw when the provider fails, then settle next load', async () => {
     at(GENESIS + 4 * DAY);
     mockedFetch.mockRejectedValueOnce(new Error('provider down'));
-    const first = render(<Settle />);
-    await waitFor(() => expect(mockedFetch).toHaveBeenCalledTimes(1));
-    await tick();
-    expect(realAdvances()).toHaveLength(0); // fail-open: time simply waits
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    let first: ReturnType<typeof render>;
+    try {
+      first = render(<Settle />);
+      await waitFor(() => expect(mockedFetch).toHaveBeenCalledTimes(1));
+      await tick();
+      expect(realAdvances()).toHaveLength(0); // fail-open: time simply waits
+      // ...but never silently (R-14, 2026-10-18 lane audit): logged once, with a BOUNDED
+      // reason — the error's own message stays out of the log (2026-10-19 review).
+      expect(warn).toHaveBeenCalledTimes(1);
+      expect(JSON.stringify(warn.mock.calls[0])).toContain('"reason":"unexpected:Error"');
+      expect(JSON.stringify(warn.mock.calls[0])).not.toContain('provider down');
+    } finally {
+      warn.mockRestore();
+    }
     first.unmount();
     // The lock was released in `finally`, so the next load is not wedged.
     render(<Settle />);
@@ -100,11 +116,13 @@ describe('WS-F real-time settle — the money path that runs on every load', () 
     at(GENESIS + 1000 * DAY);
     render(<Settle />);
     await waitFor(() => expect(realAdvances()).toHaveLength(1));
-    // 730 = the server's history cap (the route clamps `days` there); a longer
+    // 700 = the server's history cap (730) minus the 30-day anchor margin; a longer
     // absence settles across successive loads rather than in one huge replay.
-    expect(realAdvances()[0].days).toBe(730);
-    // The fetch covers the capped span plus a 30-day anchor margin.
-    expect(mockedFetch).toHaveBeenCalledWith(760);
+    expect(realAdvances()[0].days).toBe(HISTORY_SETTLE_DAYS_MAX);
+    // The fetch covers the capped span plus the margin, and never asks for more than
+    // the route serves (lane audit 2026-10-21, R5): at the cap it asked for 760.
+    expect(mockedFetch).toHaveBeenCalledWith(HISTORY_DAYS_MAX);
+    expect(HISTORY_SETTLE_DAYS_MAX + HISTORY_SETTLE_MARGIN_DAYS).toBe(HISTORY_DAYS_MAX);
   });
 
   it('should do nothing at all before a whole day has passed', async () => {

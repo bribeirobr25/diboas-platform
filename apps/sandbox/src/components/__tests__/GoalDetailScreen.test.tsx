@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
@@ -16,6 +16,7 @@ import {
   advanceTime,
   createGoal,
   enterStrategy,
+  getLedgerState,
   grantPlayMoney,
   resetSandbox,
 } from '@/lib/ledgerClient';
@@ -65,10 +66,11 @@ afterEach(() => {
  * tests ran against a null market and were quietly asserting an unpriceable
  * ceremony (network fee $0.00) — the exact state the gate now refuses.
  */
-const h = vi.hoisted(() => ({ market: null as unknown }));
+const h = vi.hoisted(() => ({ market: null as unknown, historiesFail: false }));
 vi.mock('@/hooks/useMarket', () => ({
   useMarket: () => ({ market: h.market, marketError: h.market === null, refreshMarket: () => {} }),
-  fetchHistories: () => Promise.resolve([]),
+  fetchHistories: () =>
+    h.historiesFail ? Promise.reject(new Error('chart SECRET-789')) : Promise.resolve([]),
 }));
 
 const MARKET_OK = {
@@ -108,6 +110,39 @@ describe('GoalDetailScreen — the dual-view host (§4.2, mockup 14)', () => {
     expect(screen.getByText(/of the way there/)).toBeTruthy();
     // No recurring plan → no projection/pace sentence (absent over false).
     expect(screen.queryByText(/At this pace/i)).toBeNull();
+  });
+
+  /**
+   * `5.540` — the big percentage and the progress bar's `aria-valuenow` never read
+   * 100 before the target is reached (995 of 1,000 rounded to "100%" with no
+   * milestone). Rendered text and the ARIA value are asserted, not a flag.
+   */
+  it('should read 99% (and aria 99) just below the target, and 100% with the milestone at it (5.540)', () => {
+    const below = createGoal({
+      name: 'Near',
+      icon: 'plane',
+      targetAmount: 1000,
+      horizonMonths: 12,
+      fundAmount: 995,
+    });
+    const { unmount } = renderDetail(below);
+    expect(screen.getByText('99%')).toBeTruthy();
+    expect(screen.queryByText('100%')).toBeNull();
+    expect(screen.getByRole('progressbar').getAttribute('aria-valuenow')).toBe('99');
+    expect(screen.queryByText('You reached this goal, in practice.')).toBeNull();
+    unmount();
+
+    const at = createGoal({
+      name: 'There',
+      icon: 'plane',
+      targetAmount: 1000,
+      horizonMonths: 12,
+      fundAmount: 1000,
+    });
+    renderDetail(at);
+    expect(screen.getByText('100%')).toBeTruthy();
+    expect(screen.getByRole('progressbar').getAttribute('aria-valuenow')).toBe('100');
+    expect(screen.getByText('You reached this goal, in practice.')).toBeTruthy();
   });
 
   it('should switch to Detailed: the operational surface (source rows + put-to-work)', () => {
@@ -207,6 +242,149 @@ describe('GoalDetailScreen — exit scope (§4.7 G7, board §3.3)', () => {
     );
     fireEvent.click(screen.getAllByRole('button', { name: 'Take the money out' })[0]);
     expect(screen.getByText('1 strategy working')).toBeTruthy();
+  });
+
+  /**
+   * REQUIREMENT (P06 §34.1): settlement is the POST-completion state — "the decision
+   * is recorded; now orient the user". An approved move is recorded on Confirm, and
+   * leaving the screen during the settlement animation (Back, a tab) must not drop
+   * it. Before the fix the record ran only when the 2.5 s animation finished, so an
+   * unmount mid-animation cleared the timer and the approved stop never happened.
+   */
+  it('should record an approved stop on Confirm, so leaving mid-animation keeps it (P06 §34.1)', () => {
+    vi.useFakeTimers();
+    try {
+      const goalId = goalWithTwoPositions();
+      const { unmount } = renderDetail(goalId);
+      fireEvent.click(screen.getByRole('button', { name: 'Pause plan' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Also stop the strategy' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Stop this goal' }));
+      // Recorded at once — before any settlement timer has run…
+      const openNow = getLedgerState().positions.filter((p) => p.goalId === goalId && p.open);
+      expect(openNow).toHaveLength(0);
+      // …and leaving mid-animation changes nothing. (The settlement's timers update its
+      // state, so the advance runs inside act — this was the suite's one act warning.)
+      act(() => {
+        vi.advanceTimersByTime(1000);
+      });
+      unmount();
+      vi.advanceTimersByTime(5000);
+      const exits = getLedgerState().events.filter((e) => e.type === 'StrategyExited');
+      expect(exits).toHaveLength(2); // both positions, exactly once each
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  /**
+   * REQUIREMENT (WCAG 2.4.3; 2026-10-18 lane audit): closing a full-screen takeover
+   * returns focus to the goal's heading — never to <body>, where the next Tab restarts
+   * at the top of the page and nothing announces the change. Entry focus was already
+   * handled (`useTakeoverFocus`); the return was not.
+   */
+  /*
+   * The independent review of 2026-10-18 found that returning focus on CONFIRM pulled it
+   * out of the settlement modal (the child's focus effect runs first, the parent's
+   * second). Focus stays in the dialog while it is open and returns to the heading only
+   * when the settlement ends — for an exit AND for an entry.
+   */
+  const stopOnePosition = () => {
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+    fireEvent.click(screen.getAllByRole('button', { name: 'Take the money out' })[0]!);
+    return screen.getByRole('button', { name: 'Stop this strategy' });
+  };
+  const exits = () => getLedgerState().events.filter((e) => e.type === 'StrategyExited');
+
+  it('should keep focus in the settlement dialog after Confirm, then return it to the heading', () => {
+    vi.useFakeTimers();
+    try {
+      renderDetail(goalWithTwoPositions());
+      fireEvent.click(stopOnePosition());
+      const dialog = screen.getByRole('dialog');
+      expect(dialog.contains(document.activeElement)).toBe(true);
+      act(() => {
+        vi.advanceTimersByTime(5000);
+      });
+      expect(screen.queryByRole('dialog')).toBeNull();
+      expect(document.activeElement?.id).toBe('goaldetail-title');
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  /*
+   * `5.483`: entry has NO domain idempotency (each call mints a positionId), so a double
+   * tap on Approve is held only by UI state — the Manifest unmounts in the same
+   * synchronous render. This drives the real entry path end to end (rates fresh for the
+   * pinned clock) and taps the SAME Approve element twice. Exit needs no such test: a
+   * closed position's exit is refused by the domain.
+   */
+  it('should record a double tap on the entry Approve exactly once (5.483)', () => {
+    const fresh = observedStamp('defillama', '2026-07-24T00:00:00Z');
+    const prev = h.market;
+    h.market = {
+      ...(MARKET_OK as object),
+      apys: (['skySsr', 'aaveV3', 'compoundV3'] as const).map((protocolId) => ({
+        protocolId,
+        apyPercent: 4,
+        tvlUsd: null,
+        chain: 'Arbitrum',
+        stamp: fresh,
+      })),
+    };
+    try {
+      const goalId = createGoal({
+        name: 'Trip',
+        icon: 'plane',
+        targetAmount: 4000,
+        horizonMonths: 24,
+        fundAmount: 1000,
+      });
+      renderDetail(goalId);
+      fireEvent.click(screen.getByText('Add money'));
+      fireEvent.change(screen.getByLabelText('Move this much working money into the goal now'), {
+        target: { value: '500' },
+      });
+      fireEvent.click(screen.getByRole('radio', { name: /Safe Harbor/ }));
+      fireEvent.click(screen.getByRole('button', { name: 'Put money to work' }));
+      const approve = screen.getByRole('button', { name: /^Approve/ });
+      fireEvent.click(approve);
+      fireEvent.click(approve);
+      const entered = getLedgerState().events.filter((e) => e.type === 'StrategyEntered');
+      expect(entered).toHaveLength(1);
+    } finally {
+      h.market = prev;
+    }
+  });
+
+  it('should allow a second stop once the first settlement has ended', () => {
+    vi.useFakeTimers();
+    try {
+      renderDetail(goalWithTwoPositions());
+      fireEvent.click(stopOnePosition());
+      act(() => {
+        vi.advanceTimersByTime(5000);
+      });
+      fireEvent.click(screen.getAllByRole('button', { name: 'Take the money out' })[0]!);
+      fireEvent.click(screen.getByRole('button', { name: /^Stop this (strategy|goal)$/ }));
+      expect(exits()).toHaveLength(2);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('should return focus to the goal heading when the exit review is cancelled', () => {
+    const goalId = goalWithTwoPositions();
+    renderDetail(goalId);
+    fireEvent.click(screen.getByRole('button', { name: 'Pause plan' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Also stop the strategy' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Keep it working' }));
+    expect(document.activeElement).not.toBe(document.body);
+    expect(document.activeElement?.id).toBe('goaldetail-title');
   });
 
   it('should return to the goal on cancel, moving nothing', () => {
@@ -552,6 +730,30 @@ describe('5.309 · an over-age quote blocks the exit with the approved sentence'
 });
 
 /**
+ * `5.601` · THE PRIMARY ACTION IS VISIBLE AS A BUTTON IN EVERY APPEARANCE.
+ *
+ * "Put it to work" was filled with `--sb-surface-inverse`, which in both dark
+ * blocks of tokens.css is `--palette-night-canvas`, the page itself (measured in
+ * the E1 matrix: button (11,23,31) = page (11,23,31)). It now uses the
+ * primary-action pair, whose text/fill contrast TOK-1 checks in all six themes.
+ * Asserted against the stylesheet for the same reason as the `.exit` guard above.
+ */
+describe('the put-to-work button uses the primary-action role (5.601)', () => {
+  it('should fill with the primary-action pair, never the ink surface, when rendered on the canvas', () => {
+    const css = readFileSync(
+      join(process.cwd(), 'src/components/GoalDetailScreen.module.css'),
+      'utf8'
+    );
+    const rule = css.match(/\n\.primary\s*\{([^}]*)\}/)?.[1] ?? '';
+    const hover = css.match(/\n\.primary:hover:not\(:disabled\)\s*\{([^}]*)\}/)?.[1] ?? '';
+    expect(rule).toMatch(/background:\s*var\(--sb-action-primary\);/);
+    expect(rule).toMatch(/color:\s*var\(--sb-action-primary-text\);/);
+    expect(hover).toMatch(/background:\s*var\(--sb-action-primary-hover\);/);
+    expect(`${rule}${hover}`).not.toContain('--sb-surface-inverse');
+  });
+});
+
+/**
  * `5.436` · AN ALREADY-SELECTED CANDIDATE KEEPS ITS CONTEXT.
  *
  * Product ruling §6: if a candidate was selected or configured BEFORE its rate
@@ -590,5 +792,101 @@ describe('5.436 · an unavailable rate does not clear work already done', () => 
        more than once (the position and the goal's own cash line). */
     expect(screen.getByText(/Working in Safe Harbor/)).toBeTruthy();
     expect(screen.getAllByText(/\$500\.00/).length).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * REQUIREMENT (R-14; 2026-10-19 review): the goal chart's history failure was the one
+ * market failure the 2026-10-18 logging sweep missed — swallowed with no log. It still
+ * leaves the chart in its honest empty state, and now logs a BOUNDED reason, never the
+ * error's own message.
+ */
+describe('GoalDetailScreen — a failed chart history is logged, not swallowed', () => {
+  it('should log a bounded reason once when the chart history cannot load', async () => {
+    resetSandbox();
+    grantPlayMoney(10000, 'USD', 'b2c');
+    const goalId = createGoal({
+      name: 'Chart',
+      icon: 'plane',
+      targetAmount: 4000,
+      horizonMonths: 24,
+      fundAmount: 1000,
+    });
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const prev = h.market;
+    // A selectable strategy needs current rates for the pinned clock (as the 5.483 test).
+    h.market = {
+      ...(MARKET_OK as object),
+      apys: (['skySsr', 'aaveV3', 'compoundV3'] as const).map((protocolId) => ({
+        protocolId,
+        apyPercent: 4,
+        tvlUsd: null,
+        chain: 'Arbitrum',
+        stamp: observedStamp('defillama', '2026-07-24T00:00:00Z'),
+      })),
+    };
+    h.historiesFail = true;
+    try {
+      renderDetail(goalId);
+      fireEvent.click(screen.getByText('Add money'));
+      fireEvent.click(screen.getByRole('radio', { name: /Safe Harbor/ }));
+      // The suite runs on fake timers (pinned clock), so flush the rejected fetch's
+      // continuation inside act rather than polling with waitFor.
+      await act(async () => {
+        await Promise.resolve();
+        await Promise.resolve();
+      });
+      expect(warn).toHaveBeenCalledTimes(1);
+      const logged = JSON.stringify(warn.mock.calls[0]);
+      expect(logged).toContain('goal chart history unavailable');
+      expect(logged).toContain('"reason":"unexpected:Error"');
+      expect(logged).not.toContain('SECRET-789');
+    } finally {
+      h.historiesFail = false;
+      h.market = prev;
+      warn.mockRestore();
+    }
+  });
+});
+
+describe('GoalDetailScreen — a chart failure after leaving is not news', () => {
+  it('should log nothing when the history fails after the screen unmounted', async () => {
+    resetSandbox();
+    grantPlayMoney(10000, 'USD', 'b2c');
+    const goalId = createGoal({
+      name: 'Left',
+      icon: 'plane',
+      targetAmount: 4000,
+      horizonMonths: 24,
+      fundAmount: 1000,
+    });
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const prev = h.market;
+    h.market = {
+      ...(MARKET_OK as object),
+      apys: (['skySsr', 'aaveV3', 'compoundV3'] as const).map((protocolId) => ({
+        protocolId,
+        apyPercent: 4,
+        tvlUsd: null,
+        chain: 'Arbitrum',
+        stamp: observedStamp('defillama', '2026-07-24T00:00:00Z'),
+      })),
+    };
+    h.historiesFail = true;
+    try {
+      const { unmount } = renderDetail(goalId);
+      fireEvent.click(screen.getByText('Add money'));
+      fireEvent.click(screen.getByRole('radio', { name: /Safe Harbor/ }));
+      unmount(); // leave before the rejected request is handled
+      await act(async () => {
+        await Promise.resolve();
+        await Promise.resolve();
+      });
+      expect(warn).not.toHaveBeenCalled();
+    } finally {
+      h.historiesFail = false;
+      h.market = prev;
+      warn.mockRestore();
+    }
   });
 });

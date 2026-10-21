@@ -1,19 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import type { GoalState, LedgerState } from '@diboas/banking';
 import type { SandboxLocale } from '@/i18n/config';
 import { goalAccentIndex } from '@/lib/goalAccent';
 import { selectGoalRowView } from '@/view/home';
 import { LucideIcon } from './LucideIcon';
+import { PlainAmount } from './PlainAmount';
 import styles from './GoalRow.module.css';
-
-function Amount({ value }: { value: string }) {
-  return (
-    <FormattedNumber value={Number(value)} minimumFractionDigits={2} maximumFractionDigits={2} />
-  );
-}
 
 /**
  * The shared goal row (extracted from HomeScreen — §4 item 1, DRY): icon,
@@ -47,6 +42,7 @@ export function GoalRow({
     current,
     target,
     ratioPercent: ratio,
+    percentShown,
     closed,
     paused,
   } = selectGoalRowView(state, goal.goalId);
@@ -69,13 +65,13 @@ export function GoalRow({
       <span className={styles.goalBody}>
         <span className={styles.goalName}>{goal.name}</span>
         <span className={styles.goalAmounts}>
-          <Amount value={current} /> / <Amount value={target} />
+          <PlainAmount value={current} /> / <PlainAmount value={target} />
         </span>
         <span
           className={styles.progressTrack}
           role="progressbar"
           aria-label={goal.name}
-          aria-valuenow={Math.round(ratio)}
+          aria-valuenow={percentShown}
           aria-valuemin={0}
           aria-valuemax={100}
         >

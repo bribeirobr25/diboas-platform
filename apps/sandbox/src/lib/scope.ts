@@ -13,9 +13,9 @@
  * ----------------------------------------------
  * These keys were written when Practice was the only ledger that existed, so
  * the existing key already IS the sandbox key. Suffixing it would orphan real
- * user state for no benefit — and for `simulatedEvents` specifically, losing a
- * resolution record would let an already-answered life event fire a second time
- * and move money twice. So `'sandbox'` keeps the key it has and every other
+ * user state for no benefit (for `simulatedEvents`, the user's recorded choices —
+ * not money: the ledger itself refuses a second resolution of the same event, via
+ * `state.resolvedEventInstances`). So `'sandbox'` keeps the key it has and every other
  * scope gets a suffix; no migration is needed, and no scope can address
  * another's key.
  *

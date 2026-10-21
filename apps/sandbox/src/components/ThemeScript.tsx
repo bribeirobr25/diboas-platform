@@ -18,7 +18,14 @@
  * header the middleware sets. Guarded by
  * `app/[locale]/__tests__/cspNonce.test.tsx`.
  */
-const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('sb-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`;
+/**
+ * The ONE storage key for the stored appearance (2026-10-18 lane audit): it was written
+ * twice — here inside the script string and in `ThemeProvider` — with nothing checking
+ * they matched, so renaming one would silently bring back the flash on load.
+ */
+export const THEME_STORAGE_KEY = 'sb-theme';
+
+const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)});if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`;
 
 export function ThemeScript({ nonce }: { nonce: string | undefined }) {
   // Required KEY, nullable VALUE: callers must pass it explicitly, but a request

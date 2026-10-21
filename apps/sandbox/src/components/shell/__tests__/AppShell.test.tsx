@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { getMessages } from '@/i18n/loadMessages';
 import { SHELL_SURFACES, type ShellSurface } from '@/lib/shell/family';
 import { AppShellRoute } from '../AppShellRoute';
+import { BottomSheet } from '../../BottomSheet';
 
 /**
  * The shell's duties, carried over from `AppChrome.test.tsx` when the shell
@@ -173,5 +174,40 @@ describe('AppShell — mode truth ships without the re-tint (5.282)', () => {
       expect(label.toLowerCase()).not.toContain('practice');
       expect(label.toLowerCase()).not.toContain('real money');
     }
+  });
+});
+
+/**
+ * REQUIREMENT (`5.566`, 2026-10-19): an open sheet covers the WHOLE app frame — header,
+ * content and the bottom tab bar — so a modal is modal for a pointer too. The overlay
+ * was rendered inside the scrolling content area (`position: absolute` there), so it
+ * covered only that box, scrolled away with the content, and left the tab bar tappable
+ * behind a non-dismissible settlement. Layout itself is measured in the browser walk;
+ * this pins the structure that makes it true.
+ */
+describe('AppShell — a sheet covers the whole frame (5.566)', () => {
+  it('should render an open sheet into the frame, outside the scrolling content', () => {
+    pathname = '/en/goals/a-goal-id';
+    render(
+      <IntlProvider locale="en" messages={M} onError={() => {}}>
+        <AppShellRoute locale="en" paletteEnabled={false}>
+          <BottomSheet titleId="settlement.title" dismissible={false} onClose={() => {}}>
+            <p>in progress</p>
+          </BottomSheet>
+        </AppShellRoute>
+      </IntlProvider>
+    );
+    const dialog = screen.getByRole('dialog');
+    const frame = dialog.closest('[data-sheet-root]');
+    expect(frame).not.toBeNull();
+    expect(dialog.closest('main')).toBeNull(); // not inside the scrolling content any more
+    expect(frame!.contains(document.querySelector('main'))).toBe(true);
+    expect(frame!.contains(document.querySelector('header'))).toBe(true);
+    // The overlay is the frame's own child, so `inset: 0` spans the frame — tab bar included.
+    expect(dialog.parentElement!.parentElement).toBe(frame);
+    // The a11y contract survives the move: frame and sheet mounted in the SAME commit is
+    // exactly the case where the sheet first renders inline and then moves into the frame
+    // (final review 2026-10-19: focus was lost to <body> on that remount).
+    expect(dialog.contains(document.activeElement)).toBe(true);
   });
 });

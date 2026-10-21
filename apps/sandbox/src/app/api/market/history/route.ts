@@ -10,24 +10,31 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { type ProtocolId } from '@diboas/defi';
+import { PROTOCOL_IDS, type ProtocolId } from '@diboas/defi';
 import { getApyProvider, getPriceProvider } from '@/lib/market/factory';
 import { MARKET_CACHE_CONTROL, MARKET_ERROR_CACHE_CONTROL } from '@/lib/marketCacheHeaders';
+import { Logger } from '@/lib/monitoring/Logger';
+import { checkMarketRateLimit, rateLimitedResponse } from '@/lib/security/rateLimiter';
+import { HISTORY_DAYS_DEFAULT, HISTORY_DAYS_MAX } from '@/lib/market/historyWindow';
 
-const PROTOCOLS: ProtocolId[] = [
-  'skySsr',
-  'aaveV3',
-  'compoundV3',
-  'sanctumInf',
-  'jupiterJlp',
-  'jito',
-];
+/* The one exhaustive list (`PROTOCOL_IDS`, defi) — a new protocol cannot be left out. */
+const PROTOCOLS: ProtocolId[] = [...PROTOCOL_IDS];
 
 /* Providers resolve through the `5.243` seam — never constructed here. */
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
-  const daysRaw = Number(request.nextUrl.searchParams.get('days') ?? '365');
-  const days = Number.isFinite(daysRaw) ? Math.min(Math.max(Math.trunc(daysRaw), 1), 730) : 365;
+  /**
+   * `5.213` · R-5 / `SANDBOX_SPEC_D-F` (FT-4). Refuse BEFORE any provider is
+   * touched — a limiter that runs after the fetch has limited nothing that
+   * costs anything.
+   */
+  const rate = await checkMarketRateLimit(request.headers);
+  if (!rate.allowed) return rateLimitedResponse(rate);
+
+  const daysRaw = Number(request.nextUrl.searchParams.get('days') ?? String(HISTORY_DAYS_DEFAULT));
+  const days = Number.isFinite(daysRaw)
+    ? Math.min(Math.max(Math.trunc(daysRaw), 1), HISTORY_DAYS_MAX)
+    : HISTORY_DAYS_DEFAULT;
   try {
     // Independent fetches — never chained (React perf guidance + P9).
     const [apyResults, priceResults] = await Promise.all([
@@ -52,7 +59,9 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       { days, histories, priceHistories },
       { headers: { 'Cache-Control': MARKET_CACHE_CONTROL } }
     );
-  } catch {
+  } catch (error) {
+    // Unexpected here (providers fail open); logged, never silent (P12/R-14).
+    Logger.error('market route failed', { route: 'history' }, error);
     return NextResponse.json(
       { error: 'history_unavailable' },
       { status: 503, headers: { 'Cache-Control': MARKET_ERROR_CACHE_CONTROL } }

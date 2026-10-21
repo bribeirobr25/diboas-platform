@@ -151,6 +151,19 @@ describe('the exit manifest books exactly what it shows (FC-15)', () => {
     });
   }
 
+  it('should never exit the same position twice (the guard a second tap relies on)', () => {
+    /* Lane audit 2026-10-20: ExitCeremony's `busy` prop claimed double-tap protection no
+       caller ever enabled; it was removed. What actually holds is this domain refusal (and
+       the ceremony unmounting on approve) — pinned here, since nothing pinned it before. */
+    const positionId = positionWorth(25);
+    exitPosition({ positionId, networkFeeLocal: 0 });
+    const after = getLedgerState();
+    exitPosition({ positionId, networkFeeLocal: 0 });
+    expect(getLedgerState().goals[0].cash).toBe(after.goals[0].cash);
+    expect(getLedgerState().positions.filter((p) => p.positionId === positionId)).toHaveLength(1);
+    expect(getLedgerState().positions[0].open).toBe(false);
+  });
+
   it('should land in the goal exactly the net the preview stated, at a sub-cent fee', () => {
     // Gross 25.00 with a fee quoted at 0.005 (Solana 0.001 × a local rate of 5).
     const positionId = positionWorth(25);

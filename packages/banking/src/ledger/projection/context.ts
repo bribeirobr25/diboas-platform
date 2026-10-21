@@ -5,7 +5,14 @@
  */
 
 import type Decimal from 'decimal.js';
-import type { GoalState, LedgerState, PositionState, RecurringSchedule, RuleState } from '../state';
+import type {
+  GoalState,
+  LedgerState,
+  PositionState,
+  RecurringSchedule,
+  RefusalReason,
+  RuleState,
+} from '../state';
 
 export interface GoalEntry {
   s: GoalState;
@@ -48,4 +55,16 @@ export interface ProjectionContext {
     credited: Decimal;
     spent: Decimal;
   };
+  /** Set by an applier that does NOT apply the current event; reset per event (P8a). */
+  refusal: RefusalReason | null;
+}
+
+/**
+ * ⛑ A refusal is RECORDED, never silent (P8a, register `5.485`). Every applier
+ * branch that leaves an event unapplied calls this with its reason, so the
+ * projection can report a disposition per event. Inferring a refusal from "no
+ * balance changed" would misread every valid zero-value marker.
+ */
+export function refuse(ctx: ProjectionContext, reason: RefusalReason): void {
+  ctx.refusal = reason;
 }

@@ -2,6 +2,14 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { gateGrantToken, SANDBOX_GATE_COOKIE } from '@/lib/gate';
 import { SimulatedAuthProvider } from '../SimulatedAuthProvider';
 import { getAuthProvider, __resetAuthProvider } from '../factory';
+import { expectedLogs } from '@/test/expectedLogs';
+
+// Failure paths below LOG by design (R-14); asserted, not silenced (2026-10-19 cleanup).
+expectedLogs({
+  strict: true,
+  warn: ['SANDBOX_ACCESS_PASSWORD is not set'],
+  requiredIn: /should FAIL CLOSED when no gate password/,
+});
 
 const PW = 'test-sandbox-password';
 let priorPw: string | undefined;
@@ -45,9 +53,14 @@ describe('SimulatedAuthProvider — wraps the shared-password gate (MVP-0 seam)'
     expect(p.verifySession(null)).toBeNull();
   });
 
-  it('should establishSession() a grant that verifySession() then accepts (seam round-trip)', () => {
+  /**
+   * ⛑ RESTATED (P1, register 5.480 · coding-standards rule 5). This test used to call
+   * `establishSession('email')` in GATED mode with no gate grant and expect a session — it
+   * pinned the bypass. The requirement is a round-trip for a visitor who has PASSED the gate.
+   */
+  it('should establishSession() a grant that verifySession() then accepts, for a visitor who passed the gate', () => {
     const p = new SimulatedAuthProvider();
-    const grant = p.establishSession('email');
+    const grant = p.establishSession('email', gateGrantToken());
     expect(grant).not.toBeNull();
     expect(grant!.cookieName).toBe(SANDBOX_GATE_COOKIE);
     expect(grant!.cookieOptions.httpOnly).toBe(true);
@@ -63,6 +76,20 @@ describe('SimulatedAuthProvider — wraps the shared-password gate (MVP-0 seam)'
     expect(p.verifySession('anything')).toBeNull();
     // and no session can be established (fail-closed on the write half too)
     expect(p.establishSession('google')).toBeNull();
+  });
+});
+
+describe('P1 · no session for a request the provider would not admit (register 5.480)', () => {
+  it('should REFUSE a session in gated mode when the request carries no gate grant', () => {
+    const p = new SimulatedAuthProvider();
+    expect(p.establishSession('email')).toBeNull();
+    expect(p.establishSession('email', null)).toBeNull();
+    expect(p.establishSession('email', 'not-the-grant')).toBeNull();
+  });
+
+  it('should GRANT a session in public mode without a gate grant', () => {
+    process.env.SANDBOX_PUBLIC_ACCESS = 'true';
+    expect(new SimulatedAuthProvider().establishSession('email')).not.toBeNull();
   });
 });
 

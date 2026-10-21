@@ -14,6 +14,7 @@ import { createRule, updateRule } from '@/lib/ledgerClient';
 import { getCollectView } from '@/lib/weeklyCycle';
 import { Button } from './Button';
 import { LucideIcon } from './LucideIcon';
+import { Logger } from '@/lib/monitoring/Logger';
 import styles from './RulesBuilderScreen.module.css';
 
 /** The builder offers three destination rows (mockup 20). */
@@ -73,13 +74,14 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
     const seeded = (existing?.split ?? []).slice(0, ROWS.length);
     return ROWS.map((i) => seeded[i] ?? { goalId: '', percent: 0 });
   });
-  const [busy, setBusy] = useState(false);
+  /* ⛑ `5.108` · the inert `busy` flag is removed — see WeeklyCycleScreen.tsx for why
+     a fake re-entrancy control is worse than none, and where the real guard lives. */
 
   const openGoals = state.goals.filter((g) => g.status === 'active');
   const split = rows.filter((r) => r.goalId !== '' && r.percent > 0);
   const allocatedPercent = split.reduce((sum, r) => sum + r.percent, 0);
   const remainderPercent = Math.max(0, 100 - allocatedPercent);
-  const canCreate = isValidRuleSplit(split) && !busy;
+  const canCreate = isValidRuleSplit(split);
 
   /**
    * The preview's base: what is actually waiting to be collected. Zero is a
@@ -116,10 +118,11 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
 
   function save() {
     if (!canCreate) return;
-    setBusy(true);
     if (existing) updateRule(existing.ruleId, split, existing.ruleVersion);
-    else createRule(split);
-    setBusy(false);
+    // A refused create must be observable (R-14 / P12; lane audit 2026-10-21, Z5).
+    // `updateRule` returns nothing to judge, so only the create path can log today.
+    else if (createRule(split) === null)
+      Logger.warn('rule create refused', { lines: split.length });
     router.push(`/${locale}`);
   }
 
@@ -286,7 +289,7 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
           <Button variant="primary" fullWidth disabled={!canCreate} onClick={save}>
             <FormattedMessage id={existing ? 'rules.update' : 'rules.create'} />
           </Button>
-          {!canCreate && !busy ? (
+          {!canCreate ? (
             /* A disabled control always says why (the §4.6/§4.7 precedent). */
             <p className={styles.hint}>
               <FormattedMessage id="rules.createHint" />

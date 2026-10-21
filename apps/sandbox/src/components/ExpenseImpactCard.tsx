@@ -72,10 +72,7 @@ export function ExpenseImpactCard({
    * the impact the domain already computed, never re-arithmetic'd from the
    * typed input, so the card cannot disagree with the figures above it.
    */
-  const restFromAvailable =
-    impact.goalCashBefore != null && impact.goalCashAfter != null
-      ? expenseAmount - (impact.goalCashBefore - impact.goalCashAfter)
-      : expenseAmount;
+  const restFromAvailable = impact.restFromAvailable;
 
   return (
     <li className={styles.impact}>

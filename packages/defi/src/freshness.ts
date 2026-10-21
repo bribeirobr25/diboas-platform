@@ -26,6 +26,9 @@ export const FRESHNESS_STALE_MAX_DAYS = DEFAULT_PRACTICE_REFERENCE_POLICY.staleM
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
+/** Clock skew tolerated on a stamp that claims to be from the future (one day). */
+export const FUTURE_SKEW_ALLOWANCE_DAYS = 1;
+
 /**
  * The TIME state of a stamp against a clock and an explicit policy, for
  * CURRENT-FACING use.
@@ -52,9 +55,10 @@ export function freshnessUnder(
   const ref = typeof now === 'string' ? Date.parse(now) : now.getTime();
   if (!Number.isFinite(at) || !Number.isFinite(ref)) return 'MISSING';
   const ageDays = (ref - at) / DAY_MS;
-  /* A future timestamp is not "fresher than current" — it is unusable, and
-     silently accepting it would let a clock skew manufacture currency. */
-  if (ageDays < -1) return 'MISSING';
+  /* A timestamp more than `FUTURE_SKEW_ALLOWANCE_DAYS` ahead is not "fresher than
+     current" — it is unusable, and accepting it would let clock skew manufacture
+     currency. Up to that allowance it is treated as clock skew (lane audit 2026-10-21, D7). */
+  if (ageDays < -FUTURE_SKEW_ALLOWANCE_DAYS) return 'MISSING';
   if (ageDays > policy.staleMaxDays) return 'MISSING';
   if (ageDays > policy.delayedMaxDays) return 'STALE';
   /* Inside the normal age window. `<=7 days != automatically CURRENT` (ruling

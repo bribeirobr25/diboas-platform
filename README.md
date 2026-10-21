@@ -39,7 +39,7 @@ flowchart TD
   end
 
   subgraph Packages["Monorepo packages (Turborepo + pnpm)"]
-    I18N["@diboas/i18n<br/>40 namespaces × 4 locales (lazy)"]
+    I18N["@diboas/i18n<br/>42 namespaces × 4 locales (lazy)"]
     UI["@diboas/ui — design system"]
     EMAIL["@diboas/email — Resend + retry/backoff"]
   end
@@ -63,9 +63,9 @@ flowchart TD
 
 ### Engineering posture (built — verifiable in this repo)
 
-- **Testing & CI:** strict TypeScript, **3,326 tests / 277 files (Vitest), measured 2026-10-06 after the market lane's monthly-landmine fix (5.478)** across the workspace (web 1,636/134 · sandbox 1,119/101 · banking 126/5 · investing 86/5 · defi 359/32 — tests/files per package, five per-package runs, none carried; both columns sum to the totals, checked by `review:counts`), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
+- **Testing & CI:** strict TypeScript, **4,337 tests / 346 files (Vitest), measured 2026-10-21 on the publication tree, i.e. `main` at `bcbd8720` merged with the reconciled Pre-I2 tree after R4, P1, P8a, Q0, the P8a follow-up, containment K2, the 12-principles lane-audit fix batch, its r5.13 corrections, the `5.577`/`5.578` test fixes, the 2026-10-20 lane-audit fixes, the geofence form-action matcher the 2026-10-21 lane-audit fixes and the `5.601` dark-mode button fix (uncommitted)** across the workspace (web 2,064/161 · sandbox 1,542/134 · banking 181/7 · investing 92/6 · defi 458/38 — tests/files per package, five per-package runs, none carried; both columns sum to the totals, checked by `review:counts`), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
 - **Security:** per-request **nonce-based CSP** (`'unsafe-inline'` prohibited for scripts), **AES-256-GCM** encryption for PII at rest, **HMAC blind indexing**, Upstash rate limiting, DOMPurify sanitization, and CSRF protection on mutation endpoints.
-- **i18n:** 40 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
+- **i18n:** 42 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
 - **Monitoring:** Sentry, PostHog, and GA4 — all consent-gated and lazy-loaded behind a cookie-consent check.
 
 > **Product architecture is Phase 2+, not in this build.** The money product's design — non-custodial by design (users hold their own funds; diBoaS holds no key shares, and recovery runs through an integrated third-party provider), embedded wallets (Turnkey — secure enclaves with policy-controlled signing), multi-chain DeFi (stable strategies on Arbitrum, growth on Solana) — is roadmap. Those decisions live in [`CLAUDE.md`](./CLAUDE.md); the full technical write-up for reviewers belongs in the investor room's technical-architecture summary.
@@ -220,18 +220,18 @@ All pages available in `/en`, `/pt-BR`, `/es`, `/de`.
 
 `CLAUDE.md` is the source of truth for current decisions, conventions, and architecture. Each doc below owns one topic — point to it rather than duplicating its facts.
 
-| Topic                                                                        | Canonical doc                                   |
-| ---------------------------------------------------------------------------- | ----------------------------------------------- |
-| Current decisions, coding standards, conventions                             | `CLAUDE.md`                                     |
-| Engineering guides (frontend, security, i18n, monitoring ops, design system) | `docs/tech/`                                    |
-| Financial / currency-hedge math                                              | `docs/tech/financial-calculations.md`           |
-| Money Tools suite + validation + weekly data runbook                         | `docs/tools/` · `docs/tech/TOOLS_VALIDATION.md` |
-| Monitoring ops + invariants                                                  | `docs/tech/MONITORING_OPS.md`                   |
-| Env vars + deploy values                                                     | `docs/monitoring/INFRASTRUCTURE_GUIDE.md`       |
-| "Do-not-regress" decision register                                           | `docs/tech/implementation-notes.md`             |
-| Fees (canonical)                                                             | `docs/full-view/FEES.md`                        |
-| Business model, brand, wallet/custody architecture                           | `docs/full-view/`                               |
-| Audit history, security findings, pending work                               | `docs/audit/` · `docs/security/`                |
-| `diboas-analytics` (separate product hosted at `/market`)                    | `docs/mvp/`                                     |
-| Regulatory + market deep-research (reference)                                | `docs/researches/`                              |
-| Phase-2 forward analysis (aspirational — verify vs `CLAUDE.md`)              | `docs/roadmap/`                                 |
+| Topic                                                                        | Canonical doc                                             |
+| ---------------------------------------------------------------------------- | --------------------------------------------------------- |
+| Current decisions, coding standards, conventions                             | `CLAUDE.md`                                               |
+| Engineering guides (frontend, security, i18n, monitoring ops, design system) | `docs/tech/`                                              |
+| Financial / currency-hedge math                                              | `docs/tech/financial-calculations.md`                     |
+| Money Tools suite + validation + weekly data runbook                         | `docs/tools/` · `docs/tech/TOOLS_VALIDATION.md`           |
+| Monitoring ops + invariants                                                  | `docs/tech/MONITORING_OPS.md`                             |
+| Env vars + deploy values                                                     | `docs/monitoring/INFRASTRUCTURE_GUIDE.md`                 |
+| "Do-not-regress" decision register                                           | `docs/tech/implementation-notes.md`                       |
+| Fees (canonical)                                                             | `docs/full-view/FEES.md`                                  |
+| Business model, brand, wallet/custody architecture                           | `docs/full-view/`                                         |
+| Audit history, security findings, pending work                               | `docs/audit/` · `docs/security/`                          |
+| `diboas-analytics` (separate product hosted at `/market`)                    | `docs/mvp/` _(⚠ NOT REACHABLE here — see `5.519`)_        |
+| Regulatory + market deep-research (reference)                                | `docs/researches/` _(⚠ NOT REACHABLE here — see `5.519`)_ |
+| Phase-2 forward analysis (aspirational — verify vs `CLAUDE.md`)              | `docs/roadmap/` _(⚠ NOT REACHABLE here — see `5.519`)_    |

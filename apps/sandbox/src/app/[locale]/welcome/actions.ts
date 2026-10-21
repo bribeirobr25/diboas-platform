@@ -14,10 +14,15 @@ import { isSandboxLocale } from '@/i18n/config';
  */
 export async function startOnboarding(method: string, localeRaw: string): Promise<void> {
   const locale = isSandboxLocale(localeRaw) ? localeRaw : 'en';
-  const grant = getAuthProvider().establishSession(method);
-  if (grant) {
-    const cookieStore = await cookies();
-    cookieStore.set(grant.cookieName, grant.cookieValue, grant.cookieOptions);
-  }
+  const provider = getAuthProvider();
+  const cookieStore = await cookies();
+  const current = cookieStore.get(provider.sessionCookieName)?.value ?? null;
+  /* ⛑ P1 (register 5.480): the same admission check runs BEFORE any cookie is set. A visitor
+     the provider does not admit gets no cookie and is sent to the gate. A provider that is
+     public but has nothing to grant (no password configured) still admits — that is the live
+     public app, and onboarding must keep working there. */
+  if (!provider.verifySession(current)) redirect(`/${locale}/gate`);
+  const grant = provider.establishSession(method, current);
+  if (grant) cookieStore.set(grant.cookieName, grant.cookieValue, grant.cookieOptions);
   redirect(`/${locale}/consent`);
 }

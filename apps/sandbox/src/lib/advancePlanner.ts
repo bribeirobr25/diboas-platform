@@ -283,6 +283,22 @@ export function planAdvance(input: {
     });
   const events: LedgerEvent[] = [];
   const scheduleByPosition = new Map(schedules.map((s) => [s.positionId, s]));
+  /**
+   * ⚑ WHERE A POSITION'S WALK STARTS (lane audit 2026-10-21, B1; `5.360`).
+   *
+   * Every advance walks every open position up to `toDay` (this planner is the only
+   * producer of `TimeAdvanced`, and `toDay = simDay + days`), so this span begins at
+   * `toDay − days` for all of them. The walk used to start at `accruedThroughSimDay`,
+   * which only an ACCRUAL moves. A position the replay cannot evidence, or one whose
+   * last span was refused, kept an old cursor, so the next advance re-walked days
+   * already consumed: it re-emitted their recurring deposits (measured: 2,200.00
+   * booked where three monthly deposits make 1,600.00) and replayed a refused span
+   * after the fact. `5.360` rules both out: AUTOMATIC CATCH-UP = NO, RETROACTIVE
+   * AUTO-REPLAY = NO. So no walk starts before this advance's own first day.
+   */
+  const spanStart = toDay - days;
+  const walkFrom = (position: AdvancePositionInput) =>
+    Math.max(position.accruedThroughSimDay, spanStart);
 
   // ── Phase 1 — bound recurring deposits against the SHARED Working pool, in
   //    strict (day, positionId) order (fair + deterministic depletion). ────────
@@ -299,11 +315,7 @@ export function planAdvance(input: {
     // reserves Working. (Before this it gated on `legsByPosition`, which
     // conflated the two and refused the deposit with the accrual.)
     if (!catalogResolved.has(position.positionId)) continue;
-    for (const day of recurringDepositDays(
-      schedule.startSimDay,
-      position.accruedThroughSimDay,
-      toDay
-    )) {
+    for (const day of recurringDepositDays(schedule.startSimDay, walkFrom(position), toDay)) {
       due.push({
         positionId: position.positionId,
         goalId: schedule.goalId,
@@ -396,7 +408,7 @@ export function planAdvance(input: {
     const goalId = scheduleByPosition.get(position.positionId)?.goalId ?? position.goalId;
     const deposits = depositsByPosition.get(position.positionId) ?? [];
 
-    let cursor = position.accruedThroughSimDay;
+    let cursor = walkFrom(position);
     let value = new Decimal(position.principal).plus(position.accrued);
 
     // Walk the MERGED boundary grid (§4.8): monthly steps unioned with this

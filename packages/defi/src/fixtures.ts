@@ -153,9 +153,17 @@ export function fixtureDateSeries(days: number): string[] {
   return Array.from({ length: days }, (_, i) => dayString(today, days - 1 - i));
 }
 
-/** `YYYY-MM-DD` for `back` days before `from` (UTC). */
+/**
+ * `YYYY-MM-DD` for `back` days before `from` (UTC).
+ *
+ * UTC arithmetic (`setUTCDate`), matching the UTC string it returns (`5.556`): stepping
+ * back with the LOCAL `setDate` and then printing the UTC date repeated or skipped a
+ * day across a daylight-saving change on a machine in a DST time zone (measured: a
+ * 400-day series repeated 2026-03-29 in Europe/Berlin). On a UTC machine — CI and
+ * production — the output is identical to before.
+ */
 function dayString(from: Date, back: number): string {
   const d = new Date(from);
-  d.setDate(d.getDate() - back);
+  d.setUTCDate(d.getUTCDate() - back);
   return d.toISOString().slice(0, 10);
 }

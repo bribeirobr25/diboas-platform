@@ -21,6 +21,7 @@
  */
 
 import { isPracticeAccountsEnabled, type Env } from '@/lib/capabilities';
+import { storageAvailable } from '@/lib/deviceStorage';
 import { Logger } from '@/lib/monitoring/Logger';
 import { LEGAL_READINESS_LOCALES, legalUrl } from '@/i18n/config';
 
@@ -122,7 +123,7 @@ export function buildRecords(
  * Legal/Product question, not a storage one, and is left to them.
  */
 export function saveLegalChoices(records: LegalChoiceRecord[]): boolean {
-  if (typeof localStorage === 'undefined') return false;
+  if (!storageAvailable()) return false;
   try {
     localStorage.setItem(LEGAL_CHOICES_STORAGE_KEY, JSON.stringify({ version: 1, records }));
     return true;
@@ -133,7 +134,7 @@ export function saveLegalChoices(records: LegalChoiceRecord[]): boolean {
 }
 
 export function readLegalChoices(): LegalChoiceRecord[] {
-  if (typeof localStorage === 'undefined') return [];
+  if (!storageAvailable()) return [];
   try {
     const raw = localStorage.getItem(LEGAL_CHOICES_STORAGE_KEY);
     if (!raw) return [];

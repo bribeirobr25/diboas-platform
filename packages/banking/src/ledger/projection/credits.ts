@@ -6,7 +6,7 @@
 
 import type { ComparisonCreditGranted, WeeklyCreditGranted } from '../events';
 import { d } from '../money';
-import type { ProjectionContext } from './context';
+import { refuse, type ProjectionContext } from './context';
 
 export type CreditEvent = WeeklyCreditGranted | ComparisonCreditGranted;
 
@@ -16,7 +16,10 @@ export function applyCreditEvent(ctx: ProjectionContext, event: CreditEvent): vo
       // Idempotent per week (WG-1): a duplicate week is a clean no-op, so a
       // double-fired Collect tap can never mint a second credit for the same
       // week. Ingress → `credited`; lands in Available (working).
-      if (ctx.state.collectedWeeks.includes(event.week)) break;
+      if (ctx.state.collectedWeeks.includes(event.week)) {
+        refuse(ctx, 'duplicate');
+        break;
+      }
       ctx.state.collectedWeeks.push(event.week);
       ctx.totals.credited = ctx.totals.credited.plus(d(event.amount));
       ctx.working.v = ctx.working.v.plus(d(event.amount));
@@ -26,7 +29,10 @@ export function applyCreditEvent(ctx: ProjectionContext, event: CreditEvent): vo
       // Both W-5c guards live HERE, not only on the offer surface (P2BD-10):
       // once per ledger, and never before the first strategy entry (the
       // comparison-learning covenant — there is nothing to compare yet).
-      if (ctx.state.comparisonCredited || ctx.positions.size === 0) break;
+      if (ctx.state.comparisonCredited || ctx.positions.size === 0) {
+        refuse(ctx, 'not-eligible');
+        break;
+      }
       ctx.state.comparisonCredited = true;
       ctx.totals.credited = ctx.totals.credited.plus(d(event.amount));
       ctx.working.v = ctx.working.v.plus(d(event.amount));

@@ -65,4 +65,24 @@ describe('LocaleSwitcher', () => {
     fireEvent.click(screen.getByText('English'));
     expect(routerPush).not.toHaveBeenCalled();
   });
+
+  /**
+   * REQUIREMENT (2026-10-18 lane audit; axe `nested-interactive`): the menu is a
+   * disclosure — the trigger says whether it is open and which list it controls, the
+   * list holds plain buttons, and no `option` wraps a button. The active locale is
+   * marked with `aria-current`.
+   */
+  it('should be a disclosure of plain buttons, never options wrapping buttons', () => {
+    renderSwitcher();
+    const trigger = screen.getByRole('button', { name: 'Change language, current: English' });
+    expect(trigger.getAttribute('aria-expanded')).toBe('false');
+    expect(trigger.hasAttribute('aria-haspopup')).toBe(false);
+    fireEvent.click(trigger);
+    expect(trigger.getAttribute('aria-expanded')).toBe('true');
+    const list = document.getElementById(trigger.getAttribute('aria-controls') ?? '');
+    expect(list?.tagName).toBe('UL');
+    expect(screen.queryByRole('listbox')).toBeNull();
+    expect(screen.queryAllByRole('option')).toHaveLength(0);
+    expect(list?.querySelectorAll('button[aria-current="true"]')).toHaveLength(1);
+  });
 });

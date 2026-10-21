@@ -24,6 +24,13 @@ describe('detectSandboxLocale — cookie → Accept-Language → default', () =>
 
   it('should default to en when nothing matches', () => {
     expect(detectSandboxLocale(null, 'fr-FR,fr;q=0.9')).toBe('en');
+  });
+
+  it('should honour RFC 9110 weights: q=0 refuses, whitespace is legal, a bad weight is dropped', () => {
+    // q=0 means "not acceptable" (lane audit 2026-10-21, R6).
+    expect(detectSandboxLocale(null, 'fr, de;q=0')).toBe('en');
+    expect(detectSandboxLocale(null, 'fr, de; q=0.9')).toBe('de');
+    expect(detectSandboxLocale(null, 'de;q=abc, es;q=0.5')).toBe('es');
     expect(detectSandboxLocale(null, null)).toBe('en');
     expect(detectSandboxLocale(undefined, undefined)).toBe('en');
   });

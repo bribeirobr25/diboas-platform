@@ -4,11 +4,11 @@ import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { getStrategy } from '@diboas/defi';
 import type { LedgerEvent } from '@diboas/banking';
 import { useLedger } from '@/hooks/useLedger';
-import { selectEventMagnitude, selectHistorySummary } from '@/view/home';
+import { selectAmountSign, selectEventMagnitude, selectHistorySummary } from '@/view/home';
 import { useFormatters } from '@/hooks/useFormatters';
 import { LucideIcon, type IconName } from './LucideIcon';
 import styles from './HistoryScreen.module.css';
-import { entryNetworkFeeOf, exitFeesOf } from '@diboas/banking';
+import { appliedEvents, entryNetworkFeeOf, exitFeesOf } from '@diboas/banking';
 
 type Sign = 'pos' | 'neg' | null;
 
@@ -23,11 +23,14 @@ function display(event: LedgerEvent): { icon: IconName; amount: string | null; s
       // price fall produces a negative. Hardcoding 'pos' + a rising arrow
       // would render a loss dressed as a gain, which is the exact dishonesty
       // the price overlay exists to remove.
-      const down = Number(event.earnings) < 0;
+      // A booked `0.00` or `-0.00` (a short span rounded to the cent) is neither a gain
+      // nor a loss (lane audit 2026-10-21, C7; `5.548`(c)): `Number('-0.00') < 0` is
+      // false, so a rounded loss rendered as "+0.00" in the gain colour.
+      const sign = selectAmountSign(event.earnings);
       return {
-        icon: down ? 'trending-down' : 'trending-up',
+        icon: sign === 'neg' ? 'trending-down' : 'trending-up',
         amount: event.earnings,
-        sign: down ? 'neg' : 'pos',
+        sign: sign === 'none' ? null : sign,
       };
     }
     case 'StrategyExited':
@@ -187,7 +190,9 @@ export function HistoryScreen() {
           }
         );
       case 'RecurringSet':
-        return event.monthlyAmount === '0.00' || event.monthlyAmount === '0'
+        // The projection clears a schedule on `amount ≤ 0`; History states the same rule
+        // (lane audit 2026-10-21, C10), not a string match on two spellings of zero.
+        return selectAmountSign(event.monthlyAmount) !== 'pos'
           ? intl.formatMessage({ id: 'history.recurringCleared' }, { name: goalName(event.goalId) })
           : intl.formatMessage(
               { id: 'history.recurringSet' },
@@ -277,7 +282,9 @@ export function HistoryScreen() {
     }
   }
 
-  const events = [...state.events].reverse();
+  /* ⛑ P8a (5.485): a REFUSED event never appears as a successful action. No new copy
+     until DR-25, so refused events are omitted rather than labelled. */
+  const events = [...appliedEvents(state)].reverse();
   // VIEW-2: the fee total and its render rule are derived in `view/`. The
   // ledger tracks network and exit fees separately; the screen states them as
   // one honest drag figure, and shows the line only when something was paid.

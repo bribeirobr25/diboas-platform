@@ -94,6 +94,33 @@ export interface RuleState {
   status: RuleStatus;
 }
 
+/**
+ * Why the projection did NOT apply an event (P8a, register `5.485`). The raw log
+ * keeps every event — it is never rewritten — and this is computed at read, so a
+ * reader can tell a REFUSED event from an APPLIED one instead of walking the raw
+ * log and counting both.
+ */
+export type RefusalReason =
+  | 'unknown-goal'
+  | 'unknown-or-closed-position'
+  | 'insufficient-available'
+  | 'insufficient-goal-cash'
+  | 'non-positive-amount'
+  | 'stale-or-illegal-transition'
+  | 'duplicate'
+  | 'not-eligible'
+  | 'rule-exists';
+
+/**
+ * APPLIED is not "changed a balance": a valid zero-value marker (`RuleApplied`,
+ * `TimeAdvanced`, `ReplaySpanRefused`, a CRUD transition) is APPLIED — readers
+ * depend on it for idempotency, cycle counts and history (P8a contract).
+ */
+export type EventDisposition = { status: 'APPLIED' } | { status: 'REFUSED'; reason: RefusalReason };
+
+/** The one shared APPLIED disposition — frozen, so every applied event can reuse it. */
+export const APPLIED: EventDisposition = Object.freeze({ status: 'APPLIED' as const });
+
 export interface LedgerState {
   initialized: boolean;
   mode: 'b2c' | 'b2b';
@@ -154,7 +181,7 @@ export interface LedgerState {
   comparisonCredited: boolean;
   /**
    * Simulated-event instance ids already resolved (D-s §3 idempotency) — a
-   * duplicate money leg for a resolved instance is skipped at projection.
+   * duplicate money leg for a resolved instance is refused at projection.
    */
   resolvedEventInstances: string[];
   /**
@@ -163,7 +190,13 @@ export interface LedgerState {
    * balances stay honest. First producer: §2.4's expense leg.
    */
   spent: string;
-  events: LedgerEvent[];
+  /**
+   * The raw log, exactly as recorded — never rewritten (P8a PRESERVE). On a projected
+   * state it is a FROZEN snapshot. Read it through `ledger/dispositions`.
+   */
+  events: readonly LedgerEvent[];
+  /** One disposition per event, aligned with `events` by index (P8a). */
+  dispositions: readonly EventDisposition[];
 }
 
 export function emptyState(): LedgerState {
@@ -191,5 +224,6 @@ export function emptyState(): LedgerState {
     resolvedEventInstances: [],
     spent: '0',
     events: [],
+    dispositions: [],
   };
 }

@@ -12,6 +12,7 @@
  * stays money-pure — the D-r carve-out.
  */
 
+import { storageAvailable } from './deviceStorage';
 import { Logger } from './monitoring/Logger';
 import { ACTIVE_LEDGER_SCOPE, scopedStorageKey } from './scope';
 
@@ -21,16 +22,19 @@ const STORAGE_KEY = scopedStorageKey('diboas.sandbox.proposalDeclines.v1', ACTIV
 
 let memoryFallback: number[] = [];
 
-function storageAvailable(): boolean {
-  try {
-    return typeof localStorage !== 'undefined';
-  } catch {
-    return false;
-  }
-}
-
+/**
+ * The declines on record: what storage holds PLUS any decline whose save failed this
+ * session (lane audit 2026-10-20). The memory fallback used to be read only when storage
+ * was absent, so a decline that hit a quota or private-mode write failure vanished at
+ * once and the proposal came straight back — the "no nag, ever" rule broken. Declines
+ * only ever grow (the sole removal is the full reset), so the union is always correct.
+ */
 function read(): number[] {
   if (!storageAvailable()) return [...memoryFallback];
+  return [...new Set([...readStorage(), ...memoryFallback])].sort((a, b) => a - b);
+}
+
+function readStorage(): number[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];

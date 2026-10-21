@@ -2,6 +2,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ThemeProvider, __resetThemeStore, useTheme } from '../ThemeProvider';
+import { THEME_STORAGE_KEY, ThemeScript } from '../ThemeScript';
 
 /** A tiny consumer that surfaces the effective theme + the toggle. */
 function Probe() {
@@ -97,5 +98,23 @@ describe('ThemeProvider — the light/dark chooser store', () => {
       </ThemeProvider>
     );
     expect(screen.getByTestId('probe').textContent).toBe('dark');
+  });
+});
+
+/**
+ * REQUIREMENT (2026-10-18 lane audit): the pre-paint script reads the SAME key the provider
+ * writes. They were two literals with nothing tying them; a rename of one would bring back
+ * the flash on load with every other test green. Proven by running the script's own text.
+ */
+describe('ThemeScript and ThemeProvider share one storage key', () => {
+  it('should apply, before paint, exactly what the provider stored', () => {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem(THEME_STORAGE_KEY, 'dark');
+    const { container } = render(<ThemeScript nonce="n" />);
+    const code = container.querySelector('script')?.innerHTML ?? '';
+    expect(code).toContain(JSON.stringify(THEME_STORAGE_KEY));
+    new Function(code)();
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+    expect(THEME_STORAGE_KEY).toBe('sb-theme'); // a rename is a stored-choice migration, not a refactor
   });
 });

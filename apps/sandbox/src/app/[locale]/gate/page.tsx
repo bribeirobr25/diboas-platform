@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { isPublicAccess } from '@/lib/gate';
+import { isSandboxLocale } from '@/i18n/config';
 import { GateForm } from './GateForm';
 
 /**
@@ -28,7 +29,10 @@ import { GateForm } from './GateForm';
 export const dynamic = 'force-dynamic';
 
 export default async function GatePage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
+  const { locale: localeRaw } = await params;
+  // The same allow-list the server actions use (2026-10-18 lane audit, P8): a redirect
+  // never interpolates an unchecked path segment, whatever error ordering Next applies.
+  const locale = isSandboxLocale(localeRaw) ? localeRaw : 'en';
   if (isPublicAccess()) redirect(`/${locale}/welcome`);
   return <GateForm />;
 }

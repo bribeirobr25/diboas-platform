@@ -7,7 +7,7 @@ import { LedgerReadyGate } from '../LedgerReadyGate';
 import { ModeStamp } from '../ModeStamp';
 import { AppHeader, type AppHeaderVariant } from './AppHeader';
 import { BottomNavigation, type Destination } from './BottomNavigation';
-import { SHELL_SURFACES, type ShellSurface } from '@/lib/shell/family';
+import { SHELL_SURFACES, type ShellFamily, type ShellSurface } from '@/lib/shell/family';
 import styles from './AppShell.module.css';
 
 /**
@@ -41,7 +41,8 @@ import styles from './AppShell.module.css';
  * says so — their mode is `neutral`), and Claim states Practice truth in its
  * own approved copy.
  */
-const HEADER_VARIANT: Record<string, AppHeaderVariant> = {
+/* Keyed by the closed union (Z11): a new family must name its header or fail to compile. */
+const HEADER_VARIANT: Record<ShellFamily, AppHeaderVariant> = {
   S0: 'neutral',
   S1: 'top-level',
   S2: 'focused',
@@ -74,7 +75,9 @@ export function AppShell({
       {/* The desktop gutter caption. Shell Q-5 — what it carries that a
           ModeMarker will not — is still open with Product, so it stays. */}
       <FrameCaption />
-      <div className={styles.canvas}>
+      {/* `data-sheet-root`: every bottom sheet's overlay renders here, so it covers the
+          whole frame — header, content and tab bar (`5.566`, BottomSheet.tsx). */}
+      <div className={styles.canvas} data-sheet-root>
         {/* Home's coastal band, behind a transparent bar (mockup 02). Keyed off
             the declared surface, not a pathname comparison. */}
         {surface === '' ? <div className={styles.heroBackdrop} aria-hidden /> : null}

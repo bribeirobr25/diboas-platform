@@ -33,13 +33,18 @@ export const LOCALE_ENDONYM: Record<SandboxLocale, string> = {
  *  first, then primary subtag, e.g. `pt` or `de-AT` -> `de`). Pure + edge-safe. */
 function matchAcceptLanguage(header: string | null): SandboxLocale | null {
   if (!header) return null;
+  /* RFC 9110 §12.4.2 (lane audit 2026-10-21, R6): parameters may carry whitespace
+     (`de; q=0.9`), `q=0` means "not acceptable", and a malformed weight is dropped
+     rather than sorted as NaN (an inconsistent comparator). */
   const ranked = header
     .split(',')
     .map((part) => {
-      const [tag, q] = part.trim().split(';q=');
-      return { tag: tag.trim().toLowerCase(), q: q ? Number.parseFloat(q) : 1 };
+      const [tagPart, ...params] = part.split(';').map((s) => s.trim());
+      const qParam = params.find((p) => /^q\s*=/i.test(p));
+      const q = qParam === undefined ? 1 : Number(qParam.replace(/^q\s*=\s*/i, ''));
+      return { tag: tagPart.toLowerCase(), q };
     })
-    .filter((x) => x.tag && x.tag !== '*')
+    .filter((x) => x.tag && x.tag !== '*' && Number.isFinite(x.q) && x.q > 0)
     .sort((a, b) => b.q - a.q);
   for (const { tag } of ranked) {
     const exact = SANDBOX_LOCALES.find((l) => l.toLowerCase() === tag);
@@ -107,6 +112,6 @@ export const LEGAL_READINESS_LOCALES: readonly SandboxLocale[] = ['en'];
  * Sandbox legal links point here and open in a new tab. Locale-prefixed to match
  * the marketing site's [locale] routing.
  */
-const MARKETING_ORIGIN = 'https://diboas.com';
+export const MARKETING_ORIGIN = 'https://diboas.com';
 export const legalUrl = (locale: string, page: 'terms' | 'privacy') =>
   `${MARKETING_ORIGIN}/${locale}/legal/${page}`;

@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import type { RecurringSchedule } from '@diboas/banking';
 import { useFormatters } from '@/hooks/useFormatters';
 import { setRecurring } from '@/lib/ledgerClient';
-import { selectRecurringView } from '@/view/home';
+import { recurringAmountBooks, selectRecurringView } from '@/view/home';
 import { LucideIcon } from './LucideIcon';
 import styles from './RecurringControl.module.css';
 
@@ -33,11 +33,15 @@ export function RecurringControl({
 }) {
   const intl = useIntl();
   const { money } = useFormatters(currency);
+  /* Unique per instance (2026-10-18 lane audit): a fixed `recurring-amount` id
+     repeated when two positions were edited at once, so the second label focused
+     the FIRST input. */
+  const amountId = useId();
   const [editing, setEditing] = useState(false);
   const [amount, setAmount] = useState(schedule ? schedule.monthlyAmount : '');
 
   const amountValue = Number(amount) || 0;
-  const canConfirm = amountValue > 0;
+  const canConfirm = recurringAmountBooks(amount);
   // Derived paused: an active schedule that Working money can no longer fund.
   // VIEW-2: the rule lives in `view/`, so this component needs the boolean, not
   // the balance — it imported `Decimal` solely to produce this one flag.
@@ -60,11 +64,11 @@ export function RecurringControl({
     return (
       <div className={styles.wrap}>
         <div className={styles.field}>
-          <label className={styles.label} htmlFor="recurring-amount">
+          <label className={styles.label} htmlFor={amountId}>
             <FormattedMessage id="recurring.amountLabel" />
           </label>
           <input
-            id="recurring-amount"
+            id={amountId}
             className={styles.input}
             type="number"
             inputMode="decimal"

@@ -27,13 +27,22 @@ function request(
     country,
     acceptLanguage,
     cookie,
-  }: { country?: string; acceptLanguage?: string; cookie?: string } = {}
+    method,
+    action,
+  }: {
+    country?: string;
+    acceptLanguage?: string;
+    cookie?: string;
+    method?: string;
+    action?: string;
+  } = {}
 ) {
   const headers = new Headers();
   if (country) headers.set('x-vercel-ip-country', country);
   if (acceptLanguage) headers.set('accept-language', acceptLanguage);
   if (cookie) headers.set('cookie', `NEXT_LOCALE=${cookie}`);
-  return new NextRequest(new URL(path, BASE), { headers });
+  if (action) headers.set('next-action', action);
+  return new NextRequest(new URL(path, BASE), { headers, method });
 }
 
 /** Where a redirect or rewrite points, path only. */
@@ -143,6 +152,56 @@ describe('the geofence decides FIRST — the covenant this reordering could have
     for (const country of ['BR', 'DE', 'US', 'PT', 'ES', 'GB', 'CH', 'HK', 'TW', 'BY', 'IR']) {
       expect(middleware(request('/en/welcome', { country })).status).toBe(200);
     }
+  });
+});
+
+/**
+ * REQUIREMENT (covenant; lane audit 2026-10-20): a refused visitor's SERVER ACTION never
+ * runs. A rewrite keeps the method, body and `Next-Action` header, and Next forwards an
+ * action the rewritten page does not own to the worker that does — so the refusal for a
+ * state-changing request must be a bare 451 with NO rewrite and NO pass-through.
+ */
+describe('a refused visitor cannot run a server action', () => {
+  it.each(['CN', 'RU', 'KP'])('should answer a %s action POST with a bare 451', (country) => {
+    const res = middleware(request('/en/gate', { country, method: 'POST', action: 'a1b2c3' }));
+    expect(res.status).toBe(451);
+    expect(res.headers.get('x-middleware-rewrite'), 'must not be rewritten').toBeNull();
+    expect(res.headers.get('x-middleware-next'), 'must not pass through').toBeNull();
+    expect(res.headers.get('cache-control')).toBe('no-store');
+  });
+
+  it('should refuse a headerless multipart FORM action with a bare 451', () => {
+    const res = middleware(
+      new NextRequest(new URL('/x.png', BASE), {
+        method: 'POST',
+        headers: {
+          'x-vercel-ip-country': 'KP',
+          'content-type': 'multipart/form-data; boundary=test',
+        },
+      })
+    );
+    expect(res.status).toBe(451);
+    expect(res.headers.get('x-middleware-rewrite')).toBeNull();
+  });
+
+  it('should refuse any state-changing method, action header or not', () => {
+    for (const method of ['POST', 'PUT', 'PATCH', 'DELETE']) {
+      const res = middleware(request('/en/welcome', { country: 'CN', method }));
+      expect(res.status, method).toBe(451);
+      expect(res.headers.get('x-middleware-rewrite'), method).toBeNull();
+    }
+  });
+
+  it('should still RENDER the unavailable page for a refused GET (unchanged)', () => {
+    const res = middleware(request('/en/welcome', { country: 'CN' }));
+    expect(res.status).toBe(451);
+    expect(target(res)).toBe('/en/unavailable');
+  });
+
+  it('should let an allowed visitor’s action through untouched', () => {
+    const res = middleware(request('/en/gate', { country: 'BR', method: 'POST', action: 'a1' }));
+    expect(res.status).not.toBe(451);
+    expect(res.headers.get('x-middleware-next')).toBe('1');
   });
 });
 

@@ -6,9 +6,8 @@
  * documented fixture fallbacks. See docs/sandbox-app/ for the governing rules.
  */
 
-export const DEFI_PACKAGE_VERSION = '0.2.0';
-
 export * from './types';
+export * from './marketShape';
 export * from './catalog';
 export * from './evidence';
 export * from './evidenceIdentity';

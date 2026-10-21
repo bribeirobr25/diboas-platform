@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { NextRequest } from 'next/server';
+import { marketUpstream } from '@/test/marketUpstream';
 
 /**
  * `/api/market` — the Product response is UNCHANGED by F-A.
@@ -47,9 +48,15 @@ describe('GET /api/market — unchanged by evidence persistence', () => {
     hoisted.afterCallbacks = [];
     hoisted.ingestCalls = 0;
     hoisted.ingestResolve = null;
+    /* `5.578`: the upstreams are faked; the route, factory and adapters run for real. */
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: unknown) => marketUpstream(String(input), Date.now()))
+    );
   });
   afterEach(() => {
     hoisted.ingestResolve?.();
+    vi.unstubAllGlobals();
   });
 
   it('should answer 200 with the documented shape and the market cache header', async () => {

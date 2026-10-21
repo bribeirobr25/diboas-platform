@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js';
-import type { LedgerState } from '@diboas/banking';
+import { appliedEvents, type LedgerState } from '@diboas/banking';
 
 /** One step of the practice value line: the simulated day and the total then. */
 export interface ValuePoint {
@@ -119,7 +119,7 @@ export function decomposePracticeValue(state: LedgerState): PracticeDecompositio
     else points.push({ simDay, value: total.toNumber() });
   };
 
-  for (const e of state.events) {
+  for (const e of appliedEvents(state)) {
     switch (e.type) {
       case 'StrategyEntered':
         /**

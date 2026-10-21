@@ -11,8 +11,16 @@ vi.mock('@/app/[locale]/consent/actions', () => ({
 }));
 
 import { Consent } from '../Consent';
+import { getMessages } from '@/i18n/loadMessages';
+
+const EN = getMessages('en');
 
 const M = {
+  // 2026-10-19 (test cleanup): keys the rendered tree uses but this stub lacked —
+  // MISSING_TRANSLATION noise, not a product gap (every key exists in all four
+  // locales). Taken from the real catalogue so nothing is invented.
+  'common.appName': EN['common.appName'],
+  'common.frameCaption': EN['common.frameCaption'],
   'common.playBadge': 'Practice · no real money',
   'common.wordmarkAlt': 'diBoaS',
   'consent.title': 'Before you start',

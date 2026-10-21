@@ -6,7 +6,7 @@
 
 import type { SimulatedExpensePaid, SimulatedIncomeReceived } from '../events';
 import { d } from '../money';
-import type { ProjectionContext } from './context';
+import { refuse, type ProjectionContext } from './context';
 
 export type SimulatedEvent = SimulatedExpensePaid | SimulatedIncomeReceived;
 
@@ -14,11 +14,21 @@ export function applySimulatedEvent(ctx: ProjectionContext, event: SimulatedEven
   switch (event.type) {
     case 'SimulatedExpensePaid': {
       // Idempotent per instance (D-s §3) + the affordability floor: a debit
-      // larger than Available is skipped — no negative balances, ever. Money
+      // larger than Available is refused — no negative balances, ever. Money
       // leaves the system permanently (egress → `spent`, never in `held`).
-      if (ctx.state.resolvedEventInstances.includes(event.eventInstanceId)) break;
+      if (ctx.state.resolvedEventInstances.includes(event.eventInstanceId)) {
+        refuse(ctx, 'duplicate');
+        break;
+      }
       const amount = d(event.amount);
-      if (amount.lte(0) || ctx.working.v.lt(amount)) break;
+      if (amount.lte(0)) {
+        refuse(ctx, 'non-positive-amount');
+        break;
+      }
+      if (ctx.working.v.lt(amount)) {
+        refuse(ctx, 'insufficient-available');
+        break;
+      }
       ctx.state.resolvedEventInstances.push(event.eventInstanceId);
       ctx.working.v = ctx.working.v.minus(amount);
       ctx.totals.spent = ctx.totals.spent.plus(amount);
@@ -28,9 +38,15 @@ export function applySimulatedEvent(ctx: ProjectionContext, event: SimulatedEven
       // Idempotent per instance. Ingress → `credited`, lands in Available.
       // Never gated by the weekly-credit pauses (RD-9): its ceiling effect is
       // indirect — a raised base pauses FUTURE weekly credits, honestly.
-      if (ctx.state.resolvedEventInstances.includes(event.eventInstanceId)) break;
+      if (ctx.state.resolvedEventInstances.includes(event.eventInstanceId)) {
+        refuse(ctx, 'duplicate');
+        break;
+      }
       const amount = d(event.amount);
-      if (amount.lte(0)) break;
+      if (amount.lte(0)) {
+        refuse(ctx, 'non-positive-amount');
+        break;
+      }
       ctx.state.resolvedEventInstances.push(event.eventInstanceId);
       ctx.working.v = ctx.working.v.plus(amount);
       ctx.totals.credited = ctx.totals.credited.plus(amount);

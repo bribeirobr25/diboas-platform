@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js';
-import type { LedgerState } from '@diboas/banking';
+import { appliedEvents, type LedgerState } from '@diboas/banking';
 
 /**
  * A position's REAL value-over-time series from its own ledger events (§4.2):
@@ -11,7 +11,7 @@ import type { LedgerState } from '@diboas/banking';
 export function positionValueSeries(state: LedgerState, positionId: string): number[] {
   const points: number[] = [];
   let value: Decimal | null = null;
-  for (const e of state.events) {
+  for (const e of appliedEvents(state)) {
     if (e.type === 'StrategyEntered' && e.positionId === positionId) {
       value = new Decimal(e.amount);
       points.push(value.toNumber());

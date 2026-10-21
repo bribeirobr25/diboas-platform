@@ -8,19 +8,15 @@
  */
 
 import { after, NextRequest, NextResponse } from 'next/server';
-import { type Chain, type DisplayCurrency, type ProtocolId } from '@diboas/defi';
+import { PROTOCOL_IDS, type Chain, type DisplayCurrency, type ProtocolId } from '@diboas/defi';
 import { getApyProvider, getGasProvider, getPriceProvider } from '@/lib/market/factory';
 import { ingestNetworkCosts } from '@/lib/evidence/ingest';
 import { MARKET_CACHE_CONTROL, MARKET_ERROR_CACHE_CONTROL } from '@/lib/marketCacheHeaders';
+import { checkMarketRateLimit, rateLimitedResponse } from '@/lib/security/rateLimiter';
+import { Logger } from '@/lib/monitoring/Logger';
 
-const PROTOCOLS: ProtocolId[] = [
-  'skySsr',
-  'aaveV3',
-  'compoundV3',
-  'sanctumInf',
-  'jupiterJlp',
-  'jito',
-];
+/* The one exhaustive list (`PROTOCOL_IDS`, defi) — a new protocol cannot be left out. */
+const PROTOCOLS: ProtocolId[] = [...PROTOCOL_IDS];
 /**
  * The chains the product actually enters on (`5.352`).
  *
@@ -29,7 +25,8 @@ const PROTOCOLS: ProtocolId[] = [
  * read while no surface could ever resolve them: `networkFeeLocal` and
  * `gasStampFor` both look a quote up by `strategy.entryChain`.
  */
-const CHAINS: Chain[] = ['Arbitrum', 'Solana'];
+/** The two networks a Practice entry settles on — not `@diboas/defi`'s `CHAINS` (every chain). */
+const GAS_CHAINS: Chain[] = ['Arbitrum', 'Solana'];
 
 /* Providers resolve through the `5.243` seam — never constructed here. */
 
@@ -38,12 +35,20 @@ function parseCurrency(value: string | null): DisplayCurrency {
 }
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
+  /**
+   * `5.213` · R-5 / `SANDBOX_SPEC_D-F` (FT-4). Refuse BEFORE any provider is
+   * touched — a limiter that runs after the fetch has limited nothing that
+   * costs anything.
+   */
+  const rate = await checkMarketRateLimit(request.headers);
+  if (!rate.allowed) return rateLimitedResponse(rate);
+
   const currency = parseCurrency(request.nextUrl.searchParams.get('currency'));
   try {
     const [apys, usdcQuotes, gasQuotes] = await Promise.all([
       getApyProvider().getCurrentApys(PROTOCOLS),
       getPriceProvider().getPrices(['USDC'], currency),
-      Promise.all(CHAINS.map((chain) => getGasProvider().getGas(chain))),
+      Promise.all(GAS_CHAINS.map((chain) => getGasProvider().getGas(chain))),
     ]);
     /**
      * ⛑ A REFUSED CHAIN IS OMITTED, NEVER ZERO-FILLED (Block C).
@@ -86,8 +91,11 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       },
       { headers: { 'Cache-Control': MARKET_CACHE_CONTROL } }
     );
-  } catch {
-    // Providers already fail open; this is the belt to their suspenders.
+  } catch (error) {
+    // Providers already fail open; this is the belt to their suspenders. An error
+    // that reaches it is unexpected (a factory throw, a coding error), so it is
+    // LOGGED — no user data is in scope (2026-10-18 lane audit, P12/R-14).
+    Logger.error('market route failed', { route: 'market' }, error);
     return NextResponse.json(
       { error: 'market_unavailable' },
       { status: 503, headers: { 'Cache-Control': MARKET_ERROR_CACHE_CONTROL } }

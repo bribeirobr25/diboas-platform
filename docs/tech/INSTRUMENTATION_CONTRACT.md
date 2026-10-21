@@ -1,6 +1,6 @@
 # Instrumentation Contract — the app (`apps/sandbox`, app.diboas.com)
 
-**Status:** DOCUMENTATION ONLY (registered 2026-09-07 at repository canonization). The app currently ships **no analytics** (no PostHog, GA4 or Sentry client; nothing fires). This contract is what the instrumentation runtime must satisfy when the implementation phase authorises it. It closes the D-19 gap from the canon reconciliation (`docs/full-view/canon/output/…_r3.md`, local-only).
+**Status:** DOCUMENTATION ONLY (registered 2026-09-07 at repository canonization). The app currently ships **no analytics** (no PostHog, GA4 or Sentry client; nothing fires). This contract is what the instrumentation runtime must satisfy when the implementation phase authorises it. It closes the D-19 gap from the canon reconciliation (`docs/full-view/canon/output/…_r3.md` _(⚠ NOT REACHABLE — see `5.458`)_, local-only).
 **Companions:** `MONITORING_OPS.md` (website stack, operating invariants) · `engineering-gates.md` § Canon intake 2026-09-07 (G-02, G-07, G-08, LB-05, LB-06) · `implementation-notes.md` § Canon intake 2026-09-07.
 **Sources (local-only, `docs/full-view/canon/`):** Growth CC-B (data / attribution seam), GEX-02/03 (quality exclusions), Growth measurement contract (Goal-count neutrality); Legal LC-PUI-02 §9 + LC-TD-02 §4 (consent gating, Goal-data exclusion, evidence); Token & Rewards guardrails §4 (`reward_qualifying`); Monetization & Economics `METRIC_DICTIONARY` (`pricing_version`).
 

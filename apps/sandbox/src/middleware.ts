@@ -20,6 +20,11 @@ import { detectSandboxLocale, LOCALE_COOKIE } from '@/i18n/config';
  * is never touched by this. Edge-safe: imports only pure helpers (never
  * `@/lib/gate`, which pulls node:crypto).
  */
+/** A request that can change state: any non-GET/HEAD method, or a Next server action. */
+function isActionOrMutation(req: NextRequest): boolean {
+  return (req.method !== 'GET' && req.method !== 'HEAD') || req.headers.has('next-action');
+}
+
 function detectedCountry(req: NextRequest): string | null {
   // Non-production testing override (D6) — NEVER trusted in production; the
   // Vercel edge sets `x-vercel-ip-country` and strips any client-supplied copy.
@@ -224,6 +229,15 @@ export function middleware(req: NextRequest): NextResponse {
   // capability refusal. Adding headers must not reorder security decisions.
   const enabled = process.env.SANDBOX_GEO_ENABLED !== 'false'; // D8 kill-switch (default on)
   if (shouldBlock(detectedCountry(req), enabled)) {
+    /* A refused visitor's SERVER ACTION must not run (lane audit 2026-10-20). A rewrite
+       keeps the method, the body and the `Next-Action` header, and Next forwards an action
+       that the rewritten page does not own to the worker that does — a fresh server-side
+       request this branch never sees. So a non-GET/HEAD or action request is refused HERE,
+       as a bare 451 with no rewrite: nothing downstream runs. */
+    if (isActionOrMutation(req))
+      return secured(
+        new NextResponse(null, { status: 451, headers: { 'Cache-Control': 'no-store' } })
+      );
     const locale = localeFromPathname(req.nextUrl.pathname);
     const url = req.nextUrl.clone();
     url.pathname = `/${locale}/unavailable`;
@@ -254,8 +268,37 @@ export function middleware(req: NextRequest): NextResponse {
 }
 
 export const config = {
-  // All routes incl. /api, excluding _next internals + static asset files.
+  // All routes incl. /api, excluding _next internals + ROOT-LEVEL static asset files.
+  // `[^/]+` (not `.*`): the extension exclusion must not reach into nested paths, or a
+  // page URL such as `/en/goals/x.png` (still the dynamic `goals/[id]` page) skips the
+  // geofence and the CSP. Every public asset is at the root. Pinned by
+  // `middlewareMatcher.test.ts`, which compiles this with Next's own matcher compiler.
   matcher: [
-    '/((?!_next/static|_next/image|favicon\\.ico|.*\\.(?:png|jpe?g|gif|svg|webp|ico|txt|xml|woff2?)$).*)',
+    '/((?!_next/static|_next/image|favicon\\.ico|[^/]+\\.(?:png|jpe?g|gif|svg|webp|ico|txt|xml|woff2?)$).*)',
+    // A request Next may treat as a SERVER ACTION reaches middleware at ANY path —
+    // including one that looks like a root static file (`/x.png` routes into `[locale]`).
+    // Next classifies an action by the `Next-Action` header (fetch action) OR by a form
+    // body: content type starting `multipart/form-data`, or `application/x-www-form-
+    // urlencoded` (`server-action-request-meta.js`). Both kinds are listed, so the GEOFENCE
+    // decides — not the accident of which page worker happens to own an action (measured
+    // 2026-10-20: a headerless multipart action at `/x.png` skipped middleware and was
+    // stopped only by "Failed to find Server Action"). Asset GETs carry neither header.
+    // BOUNDARY: any other request to a root static-looking path (e.g. a JSON PUT to `/x.png`)
+    // still skips middleware. Safe because no route handler is mounted at such a path: all
+    // live under `/api/`, which always runs middleware (and GET there is not side-effect-free:
+    // `/api/market` schedules evidence ingestion via `after()`). Extend this list before
+    // mounting a route handler at a middleware-skipped path. An EMPTY `Next-Action` header skips it too: `has` treats an
+    // empty value as absent, and Next refuses an empty id before lookup or forwarding.
+    { source: '/:path*', has: [{ type: 'header', key: 'next-action' }] },
+    {
+      source: '/:path*',
+      has: [
+        {
+          type: 'header',
+          key: 'content-type',
+          value: '(?:multipart/form-data.*|application/x-www-form-urlencoded.*)',
+        },
+      ],
+    },
   ],
 };

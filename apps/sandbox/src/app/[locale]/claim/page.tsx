@@ -9,5 +9,11 @@ import { isSandboxLocale } from '@/i18n/config';
  */
 export default async function ClaimPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  return <ClaimCeremony locale={isSandboxLocale(locale) ? locale : 'en'} />;
+  // The page's main landmark (WCAG 1.3.1 / 2.4.1; lane audit 2026-10-21, R2): only the gated
+  // shell rendered <main>, so these public pages had none. Unstyled, so layout is unchanged.
+  return (
+    <main id="main">
+      <ClaimCeremony locale={isSandboxLocale(locale) ? locale : 'en'} />
+    </main>
+  );
 }

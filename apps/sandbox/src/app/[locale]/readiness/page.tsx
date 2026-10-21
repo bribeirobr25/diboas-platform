@@ -12,5 +12,11 @@ import { isReadinessAvailable } from '@/lib/legal/readiness';
 export default async function ReadinessPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isReadinessAvailable(locale)) notFound();
-  return <LegalReadiness locale={locale} />;
+  // The page's main landmark (WCAG 1.3.1 / 2.4.1; lane audit 2026-10-21, R2): only the gated
+  // shell rendered <main>, so these public pages had none. Unstyled, so layout is unchanged.
+  return (
+    <main id="main">
+      <LegalReadiness locale={locale} />
+    </main>
+  );
 }

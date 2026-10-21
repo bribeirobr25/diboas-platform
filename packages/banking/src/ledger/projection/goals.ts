@@ -15,7 +15,7 @@ import type {
 } from '../events';
 import type { GoalStatus } from '../state';
 import { d, ZERO } from '../money';
-import type { GoalEntry, ProjectionContext } from './context';
+import { refuse, type GoalEntry, type ProjectionContext } from './context';
 
 export type GoalLifecycleEvent =
   | GoalPaused
@@ -27,8 +27,9 @@ export type GoalLifecycleEvent =
   | GoalCashReleased;
 
 // D-e: resolve a goal for a status transition — exists · version matches
-// (optimistic concurrency) · in an allowed FROM state. Returns null to SKIP
-// (stale/illegal → the UI re-presents). The caller bumps `version` on a real
+// (optimistic concurrency) · in an allowed FROM state. Returns null to REFUSE
+// (the caller records `stale-or-illegal-transition` — also for an UNKNOWN goal; the
+// UI re-presents). The caller bumps `version` on a real
 // apply, so a rejected move (e.g. insufficient cash) never advances it.
 function goalFor(
   ctx: ProjectionContext,
@@ -50,7 +51,7 @@ export function applyGoalLifecycleEvent(ctx: ProjectionContext, event: GoalLifec
       if (g) {
         g.s.status = 'paused';
         g.s.version += 1;
-      }
+      } else refuse(ctx, 'stale-or-illegal-transition');
       break;
     }
     case 'GoalResumed': {
@@ -58,7 +59,7 @@ export function applyGoalLifecycleEvent(ctx: ProjectionContext, event: GoalLifec
       if (g) {
         g.s.status = 'active';
         g.s.version += 1;
-      }
+      } else refuse(ctx, 'stale-or-illegal-transition');
       break;
     }
     case 'GoalDropped': {
@@ -70,7 +71,7 @@ export function applyGoalLifecycleEvent(ctx: ProjectionContext, event: GoalLifec
         g.cash = ZERO;
         g.s.status = 'dropped';
         g.s.version += 1;
-      }
+      } else refuse(ctx, 'stale-or-illegal-transition');
       break;
     }
     case 'GoalAccomplished': {
@@ -79,7 +80,7 @@ export function applyGoalLifecycleEvent(ctx: ProjectionContext, event: GoalLifec
         // Zero-value: any money rides the disposition's own events.
         g.s.status = 'accomplished';
         g.s.version += 1;
-      }
+      } else refuse(ctx, 'stale-or-illegal-transition');
       break;
     }
     case 'GoalTargetChanged': {
@@ -87,7 +88,7 @@ export function applyGoalLifecycleEvent(ctx: ProjectionContext, event: GoalLifec
       if (g) {
         g.s.targetAmount = event.newTarget;
         g.s.version += 1;
-      }
+      } else refuse(ctx, 'stale-or-illegal-transition');
       break;
     }
     case 'GoalCashReleased': {
@@ -100,8 +101,8 @@ export function applyGoalLifecycleEvent(ctx: ProjectionContext, event: GoalLifec
           g.cash = g.cash.minus(amount);
           ctx.working.v = ctx.working.v.plus(amount);
           g.s.version += 1;
-        }
-      }
+        } else refuse(ctx, amount.gt(0) ? 'insufficient-goal-cash' : 'non-positive-amount');
+      } else refuse(ctx, 'stale-or-illegal-transition');
       break;
     }
     case 'PositionReassigned': {
@@ -109,10 +110,22 @@ export function applyGoalLifecycleEvent(ctx: ProjectionContext, event: GoalLifec
       // association + its display aggregates between goals. reconcile is
       // indifferent — the position stays held, counted once, just relabeled.
       const position = ctx.positions.get(event.positionId);
-      if (!position || !position.s.open || position.s.goalId !== event.fromGoalId) break;
+      if (!position || !position.s.open) {
+        refuse(ctx, 'unknown-or-closed-position');
+        break;
+      }
+      // A known, open position held by ANOTHER goal than the event says: the writer
+      // saw an older association (second P8a audit — this was labelled as unknown).
+      if (position.s.goalId !== event.fromGoalId) {
+        refuse(ctx, 'stale-or-illegal-transition');
+        break;
+      }
       const from = ctx.goals.get(event.fromGoalId);
       const to = ctx.goals.get(event.toGoalId);
-      if (!from || !to) break;
+      if (!from || !to) {
+        refuse(ctx, 'unknown-goal');
+        break;
+      }
       from.invested = from.invested.minus(position.principal);
       to.invested = to.invested.plus(position.principal);
       from.earnings = from.earnings.minus(position.accrued);

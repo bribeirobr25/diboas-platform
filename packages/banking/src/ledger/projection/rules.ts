@@ -13,14 +13,15 @@ import type {
   RuleUpdated,
 } from '../events';
 import type { RuleState, RuleStatus } from '../state';
-import type { ProjectionContext } from './context';
+import { refuse, type ProjectionContext } from './context';
 
 export type RuleEvent =
   RuleCreated | RuleUpdated | RulePaused | RuleResumed | RuleDeleted | RuleApplied;
 
 // D-r: resolve a rule for a CRUD transition — exists · version matches
 // (optimistic concurrency + the version-safety invariant) · in an allowed
-// FROM state. Returns null to SKIP (stale/illegal → the UI re-presents).
+// FROM state. Returns null to REFUSE (the caller records `stale-or-illegal-transition` —
+// also for an UNKNOWN rule; the UI re-presents).
 function ruleFor(
   ctx: ProjectionContext,
   ruleId: string,
@@ -47,7 +48,7 @@ export function applyRuleEvent(ctx: ProjectionContext, event: RuleEvent): void {
           split: event.split.map((s) => ({ goalId: s.goalId, percent: s.percent })),
           status: 'active',
         });
-      }
+      } else refuse(ctx, 'rule-exists');
       break;
     }
     case 'RuleUpdated': {
@@ -55,7 +56,7 @@ export function applyRuleEvent(ctx: ProjectionContext, event: RuleEvent): void {
       if (rule) {
         rule.split = event.split.map((s) => ({ goalId: s.goalId, percent: s.percent }));
         rule.ruleVersion += 1;
-      }
+      } else refuse(ctx, 'stale-or-illegal-transition');
       break;
     }
     case 'RulePaused': {
@@ -63,7 +64,7 @@ export function applyRuleEvent(ctx: ProjectionContext, event: RuleEvent): void {
       if (rule) {
         rule.status = 'paused';
         rule.ruleVersion += 1;
-      }
+      } else refuse(ctx, 'stale-or-illegal-transition');
       break;
     }
     case 'RuleResumed': {
@@ -71,7 +72,7 @@ export function applyRuleEvent(ctx: ProjectionContext, event: RuleEvent): void {
       if (rule) {
         rule.status = 'active';
         rule.ruleVersion += 1;
-      }
+      } else refuse(ctx, 'stale-or-illegal-transition');
       break;
     }
     case 'RuleDeleted': {
@@ -79,7 +80,7 @@ export function applyRuleEvent(ctx: ProjectionContext, event: RuleEvent): void {
       if (rule) {
         rule.status = 'deleted';
         rule.ruleVersion += 1;
-      }
+      } else refuse(ctx, 'stale-or-illegal-transition');
       break;
     }
     case 'RuleApplied': {

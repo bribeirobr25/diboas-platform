@@ -21,7 +21,7 @@ import { Card } from './Card';
 import { LucideIcon } from './LucideIcon';
 import { SegmentedToggle } from './SegmentedToggle';
 import { Sparkline } from './Sparkline';
-import { strategyRateDisplay } from './StrategyPicker';
+import { strategyRateDisplay } from '@/view/strategy';
 import styles from './StrategyDetail.module.css';
 
 type View = 'simple' | 'detailed';
@@ -212,9 +212,9 @@ export function StrategyDetail({
    */
   const renderItemization = (variant: 'full' | 'compact') => (
     <div className={styles.itemization}>
-      <h2 className={styles.detailHead}>
+      <h3 className={styles.detailHead}>
         <FormattedMessage id="pathCard.pathTitle" />
-      </h2>
+      </h3>
       {/* `5.406` §6 · A multi-network Candidate has no truthful single-chain
           Path claim. `pathCard.pathLine` is "{goal} -> {strategy} -> real
           protocols on {chain}" in all four locales, and NO approved chain-less
@@ -257,9 +257,9 @@ export function StrategyDetail({
         aria-labelledby="cost-group-title"
         aria-describedby="cost-group-qualifier"
       >
-        <h2 id="cost-group-title" className={styles.detailHead}>
+        <h3 id="cost-group-title" className={styles.detailHead}>
           <FormattedMessage id="pathCard.costTitle" />
-        </h2>
+        </h3>
         <p id="cost-group-qualifier" className={styles.qualifier}>
           <FormattedMessage id="strategyDetail.referenceCostQualifier" />
         </p>
@@ -305,9 +305,9 @@ export function StrategyDetail({
 
       {variant === 'full' ? (
         <>
-          <h2 className={styles.detailHead}>
+          <h3 className={styles.detailHead}>
             <FormattedMessage id="pathCard.riskTitle" />
-          </h2>
+          </h3>
           <p className={styles.itemLine}>
             {strategy.riskBand === 'stable' ? (
               <FormattedMessage id="pathCard.riskStable" />
@@ -351,9 +351,9 @@ export function StrategyDetail({
               belongs. Printing it twice is duplicated copy, not a richer
               header — the mockup's second line would need product copy that
               does not exist, and inventing it is not ours to do. */}
-          <h1 id="strategy-title" className={styles.heroTitle}>
+          <h2 id="strategy-title" className={styles.heroTitle}>
             {strategyName}
-          </h1>
+          </h2>
         </div>
       </div>
 
@@ -416,31 +416,39 @@ export function StrategyDetail({
         </div>
       ) : (
         <div className={styles.detailed}>
-          <div className={styles.apyRow}>
-            <span className={styles.apyLabel}>
-              <FormattedMessage id="strategyDetail.currentApy" />
-            </span>
-            {rateDisplay.displayable ? (
-              <>
-                <span className={styles.apyValue}>
-                  {intl.formatNumber(rateDisplay.apy.toDecimalPlaces(2).toNumber(), {
-                    maximumFractionDigits: 2,
-                  })}
-                  %
-                </span>
-                <span className={styles.apyVaries}>
-                  <FormattedMessage id="strategyDetail.varies" />
-                </span>
-              </>
-            ) : (
-              /* The label stays — "Current rate" is still the right question;
-                 only the answer is unavailable. `varies` describes a rate, so
-                 it goes with the rate. */
-              <span className={styles.apyValue}>
-                <FormattedMessage id="common.optionUnavailable" />
+          {/* `5.541` — the picker's three-way rule (`StrategyPicker.tsx`), applied here
+              too: a displayable rate shows the rate; an AVAILABLE strategy with no
+              displayable rate (a market leg's return is a price, not an APY) states
+              NO rate, so the row is omitted; only an UNAVAILABLE strategy shows the
+              generic unavailable state. Before, this view said "This option is not
+              available right now" for a strategy the user could select. */}
+          {rateDisplay.displayable || !rate.available ? (
+            <div className={styles.apyRow}>
+              <span className={styles.apyLabel}>
+                <FormattedMessage id="strategyDetail.currentApy" />
               </span>
-            )}
-          </div>
+              {rateDisplay.displayable ? (
+                <>
+                  <span className={styles.apyValue}>
+                    {intl.formatNumber(rateDisplay.apy.toDecimalPlaces(2).toNumber(), {
+                      maximumFractionDigits: 2,
+                    })}
+                    %
+                  </span>
+                  <span className={styles.apyVaries}>
+                    <FormattedMessage id="strategyDetail.varies" />
+                  </span>
+                </>
+              ) : (
+                /* Reached only for an UNAVAILABLE strategy: the label stays —
+                   "Current rate" is still the right question; only the answer is
+                   unavailable. `varies` describes a rate, so it goes with the rate. */
+                <span className={styles.apyValue}>
+                  <FormattedMessage id="common.optionUnavailable" />
+                </span>
+              )}
+            </div>
+          ) : null}
           {/* ⛑ `5.444` · THE QUALIFIER GOES WITH THE NUMBER. This sentence explains
               where a rate came from; rendering it without the rate would leave prose
               describing something that is not on screen. */}
@@ -459,9 +467,9 @@ export function StrategyDetail({
             onTimeframe={setRequestedTimeframe}
           />
 
-          <h2 className={styles.detailHead}>
+          <h3 className={styles.detailHead}>
             <FormattedMessage id="strategyDetail.riskFactors" />
-          </h2>
+          </h3>
           <ul className={styles.riskList}>
             {RISK_FACTOR_KEYS.map((r) => (
               <li key={r} className={styles.riskRow}>
@@ -471,9 +479,9 @@ export function StrategyDetail({
             ))}
           </ul>
 
-          <h2 className={styles.detailHead}>
+          <h3 className={styles.detailHead}>
             <FormattedMessage id="strategyDetail.whatHappensOnExit" />
-          </h2>
+          </h3>
           {/* `5.421` · THE DETAILED VIEW IS INDEPENDENTLY COMPLETE. A reader can
               land here via the toggle without ever seeing Simple, so this group
               carries its OWN qualifier — the same reusable key, never a second
@@ -485,9 +493,9 @@ export function StrategyDetail({
             aria-labelledby="exit-fee-label"
             aria-describedby="exit-fee-qualifier"
           >
-            <h3 id="exit-fee-label" className={styles.exitLabel}>
+            <h4 id="exit-fee-label" className={styles.exitLabel}>
               <FormattedMessage id="strategyDetail.exitFee" />
-            </h3>
+            </h4>
             <p id="exit-fee-qualifier" className={styles.qualifier}>
               <FormattedMessage id="strategyDetail.referenceCostQualifier" />
             </p>
@@ -509,9 +517,9 @@ export function StrategyDetail({
           </section>
 
           {/* The real allocation, with weights — not the mockup's "Curve". */}
-          <h2 className={styles.detailHead}>
+          <h3 className={styles.detailHead}>
             <FormattedMessage id="strategyDetail.underlyingProtocols" />
-          </h2>
+          </h3>
           <div className={styles.protocols}>
             {strategy.allocation.map((leg) => (
               <span key={leg.protocolId} className={styles.protocolChip}>

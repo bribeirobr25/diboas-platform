@@ -7,7 +7,12 @@
  */
 
 import Decimal from 'decimal.js';
-import { collectibleWeeks, creditCeilingReached, type LedgerState } from '@diboas/banking';
+import {
+  appliedEvents,
+  collectibleWeeks,
+  creditCeilingReached,
+  type LedgerState,
+} from '@diboas/banking';
 import { generateProposal, type Proposal } from '@diboas/investing';
 import { creditCeilingAmount, MAX_UNCOLLECTED_WEEKS } from './growthConstants';
 
@@ -20,7 +25,9 @@ export interface CollectView {
 
 /** `recordedAt` of every collected week, in event order (the meter's drain history). */
 function collectTimes(state: LedgerState): string[] {
-  return state.events.filter((e) => e.type === 'WeeklyCreditGranted').map((e) => e.recordedAt);
+  return appliedEvents(state)
+    .filter((e) => e.type === 'WeeklyCreditGranted')
+    .map((e) => e.recordedAt);
 }
 
 /** The weeks collectible at `nowIso`, with the ceiling applied at the tap (W-5b). */
@@ -42,7 +49,7 @@ export function getCollectView(state: LedgerState, nowIso: string): CollectView 
 /** Week indices already settled by an approved proposal (RuleApplied week-sets). */
 export function appliedWeeks(state: LedgerState): number[] {
   const applied = new Set<number>();
-  for (const e of state.events) {
+  for (const e of appliedEvents(state)) {
     if (e.type === 'RuleApplied') for (const w of e.weekSet) applied.add(w);
   }
   return [...applied].sort((a, b) => a - b);
@@ -77,7 +84,7 @@ export function deriveStandingProposal(
   if (weeks.length === 0) return null;
   const weekSet = new Set(weeks);
   let total = new Decimal(0);
-  for (const e of state.events) {
+  for (const e of appliedEvents(state)) {
     if (e.type === 'WeeklyCreditGranted' && weekSet.has(e.week)) total = total.plus(e.amount);
   }
   // Honest cap (2026-08-19 audit fix): the user may have moved collected

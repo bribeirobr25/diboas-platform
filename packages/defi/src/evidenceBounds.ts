@@ -37,8 +37,10 @@ import type { EvidenceSubject } from './fallbackEligibility';
 export type BoundsRefusal = 'NOT_FINITE' | 'BELOW_MINIMUM' | 'ABOVE_MAXIMUM';
 
 export interface Bounds {
-  /** Inclusive lower bound. */
+  /** Lower bound — inclusive, unless `minExclusive`. */
   readonly min: number;
+  /** `min` itself is REFUSED: a class where zero is a missing value, not a measurement. */
+  readonly minExclusive?: true;
   /** Inclusive upper bound. */
   readonly max: number;
   /** What makes a value beyond these corrupt rather than merely unusual. */
@@ -66,17 +68,20 @@ const BOUNDS: Record<EvidenceSubject, Bounds> = {
   },
   PRICE_CURRENT: {
     min: 0,
+    minExclusive: true,
     max: 1_000_000_000,
     because:
       'A non-positive price is a missing value wearing a number. A unit priced above a billion is a decimal shift, not a market.',
   },
   PRICE_HISTORY: {
     min: 0,
+    minExclusive: true,
     max: 1_000_000_000,
     because: 'As PRICE_CURRENT, applied per point.',
   },
   NETWORK_COST: {
     min: 0,
+    minExclusive: true,
     max: 10_000,
     because:
       'A non-positive network cost would read as free, which UNAVAILABLE ≠ FREE forbids. A five-figure single-transaction cost is a unit error between native units and USD.',
@@ -86,14 +91,16 @@ const BOUNDS: Record<EvidenceSubject, Bounds> = {
 /**
  * `null` when the value is within bounds; the refusal reason when it is not.
  *
- * ⚑ `min` is INCLUSIVE, so a genuine zero passes where zero is meaningful. The
- * rule that a MISSING value must never become `0` is enforced upstream by
- * omitting refused legs entirely — not by making zero unrepresentable here.
+ * ⚑ `min` is INCLUSIVE where zero is meaningful (a 0 % rate is a rate) and EXCLUSIVE
+ * where it is not: a price or a network cost of exactly 0 is the "missing value wearing a
+ * number" its own `because` describes, and would read as free (lane audit 2026-10-20 —
+ * the bound used to be inclusive for every class, contradicting those reasons; a 0 point
+ * then passed a price series and was patched by the replay instead of being refused).
  */
 export function boundsRefusal(subject: EvidenceSubject, value: number): BoundsRefusal | null {
   if (!Number.isFinite(value)) return 'NOT_FINITE';
-  const { min, max } = BOUNDS[subject];
-  if (value < min) return 'BELOW_MINIMUM';
+  const { min, max, minExclusive } = BOUNDS[subject];
+  if (value < min || (minExclusive && value === min)) return 'BELOW_MINIMUM';
   if (value > max) return 'ABOVE_MAXIMUM';
   return null;
 }

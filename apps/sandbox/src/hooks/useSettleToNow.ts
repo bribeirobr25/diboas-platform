@@ -4,6 +4,9 @@ import { useEffect } from 'react';
 import { realDaysToSettle } from '@diboas/banking';
 import { advanceTime, getLedgerState } from '@/lib/ledgerClient';
 import { fetchSeries } from './useMarket';
+import { Logger } from '@/lib/monitoring/Logger';
+import { failureReason } from '@/lib/monitoring/failureReason';
+import { HISTORY_SETTLE_DAYS_MAX, HISTORY_SETTLE_MARGIN_DAYS } from '@/lib/market/historyWindow';
 
 /**
  * Module-level lock: serializes concurrent settles (React StrictMode's
@@ -13,10 +16,10 @@ import { fetchSeries } from './useMarket';
  */
 let settleInFlight = false;
 
-/** Cap a single settle's span — matches the server-side history cap and guards
- *  against a far-future system clock janking the synchronous replay loop. A
- *  larger real gap simply settles across successive loads. */
-const MAX_SETTLE_DAYS = 730;
+/** Cap a single settle's span so the request (span + margin) fits the server's history
+ *  cap (one owner, `historyWindow.ts`), and a guard against a far-future system clock
+ *  janking the synchronous replay loop. A larger real gap settles across successive loads. */
+const MAX_SETTLE_DAYS = HISTORY_SETTLE_DAYS_MAX;
 
 /**
  * WS-F — on mount, settle the ledger to real "now": advance the clock by the
@@ -63,7 +66,7 @@ export function useSettleToNow(): void {
         if (gap < 1) return;
 
         const { histories, priceHistories } = await fetchSeries(
-          Math.max(Math.min(gap, MAX_SETTLE_DAYS) + 30, 120)
+          Math.max(Math.min(gap, MAX_SETTLE_DAYS) + HISTORY_SETTLE_MARGIN_DAYS, 120)
         );
 
         // Recompute against the freshest state after the await — the settle is
@@ -76,8 +79,15 @@ export function useSettleToNow(): void {
         if (toSettle < 1) return;
 
         advanceTime(toSettle, histories, 'real', priceHistories);
-      } catch {
-        // Provider failure → leave time unsettled (fail-open); no crash.
+      } catch (error) {
+        // Provider failure → leave time unsettled (fail-open); no crash. Logged locally
+        // (no external sink, `reportError.ts`) so a refusal is never invisible (R-14).
+        // A bounded reason, never the error object (2026-10-19 review): its message is
+        // whatever reached the catch.
+        Logger.warn('real-time settle failed; time left unsettled', {
+          stage: 'settle',
+          reason: failureReason(error),
+        });
       } finally {
         settleInFlight = false;
       }

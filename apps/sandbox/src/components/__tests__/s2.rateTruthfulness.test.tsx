@@ -11,7 +11,7 @@ import {
   type StrategyDef,
 } from '@diboas/defi';
 
-import { strategyRateDisplay } from '../StrategyPicker';
+import { strategyRateDisplay } from '@/view/strategy';
 
 const NOW = '2026-09-22T00:00:00Z';
 const FRESH = '2026-09-20T00:00:00Z';

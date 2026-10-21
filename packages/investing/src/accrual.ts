@@ -1,16 +1,24 @@
 /**
  * Accrual replay — play positions marked against REAL pool APY series
  * ("would have" framing by construction: the series is history, never a
- * forecast). Decimal.js end to end.
+ * forecast).
+ *
+ * Exactness, stated precisely (corrected, lane audit 2026-10-20 — the header used to say
+ * "Decimal.js end to end"): the MONEY is Decimal throughout — `replayLegged` multiplies a
+ * Decimal share by each day's factor and rounds once, half-up, to cents. The per-day
+ * FACTORS are IEEE floats: an APY factor is computed in Decimal and then `toNumber()`ed,
+ * and a price factor is a float ratio of two closes. The float error is far below a cent
+ * over any supported span; the claim is about where it can enter, not that it cannot.
  *
  * Model: a strategy is a weighted blend of protocol pools (the catalog's
  * allocation legs). For each simulated day we take that day's blended APY
  * (daily-compounded) and grow the position: the same arithmetic the tools
  * suite uses (geometric daily rate from an annual percentage).
  *
- * Series alignment: sim day N maps to the APY point N days back from the
- * series end walking forward — i.e. advancing the time machine one week
- * replays the most recent real week of pool history onto the position.
+ * Series alignment, HISTORIC mode (real-time settles): sim day N maps to the APY
+ * point N days back from the series end walking forward, so three real days elapsed
+ * replay the last three real days. Machine advances use the CALENDAR-windowed
+ * functions below instead (`5.105` I-G1c). (Clarified 2026-10-21, lane audit B5.)
  */
 
 import Decimal from 'decimal.js';
@@ -33,7 +41,8 @@ export interface DailyApySeries {
    * cannot be stable across refreshes; a date can.
    *
    * Absence is honest, never padded: a series without dates simply cannot be
-   * date-anchored, and the caller must fall back rather than invent them.
+   * date-anchored, so a windowed span over it is REFUSED (`5.360`), never re-anchored
+   * and never given invented dates. (Was "the caller must fall back", lane audit B5.)
    */
   dates?: string[];
   /**
@@ -88,6 +97,13 @@ export function dailyFactorFromApyPercent(apyPercent: Decimal.Value): Decimal {
  * would substitute the oldest or newest reading, which is the class `5.105`
  * exists to remove.
  */
+/** `YYYY-MM-DD` shifted by `days` (UTC). */
+function shiftDay(date: string, days: number): string {
+  const d = new Date(`${date}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
 function indexFromDate(
   day: number,
   fromDay: number,
@@ -98,8 +114,13 @@ function indexFromDate(
   if (!dates || dates.length !== n) return null;
   const start = dates.indexOf(windowStartDate);
   if (start < 0) return null;
-  const idx = start + (day - (fromDay + 1));
-  return idx >= 0 && idx < n ? idx : null;
+  const offset = day - (fromDay + 1);
+  const idx = start + offset;
+  if (idx < 0 || idx >= n) return null;
+  /* The index must hold the date it stands for (lane audit 2026-10-21, B2). The step
+     arithmetic assumes one point per day; a series missing a day would otherwise read
+     the NEXT day's value for every later day. A gap refuses, never fills (`5.105`). */
+  return dates[idx] === shiftDay(windowStartDate, offset) ? idx : null;
 }
 
 /**
@@ -176,8 +197,11 @@ export interface DatedBlendLeg {
  * UNION of dates (not index-from-end like the replay's factor mapping): each
  * leg carries its last known reading forward across days
  * it lacks, and days before a leg's first reading use that leg's first value.
- * Honest for a chart — every plotted day is a real weighted reading of real
- * history, never interpolated fiction. Ascending by date.
+ * Nothing is interpolated BETWEEN readings, but a day a leg lacks REPEATS a real
+ * reading (carried forward, or back-filled with the first one) — so a plotted day is
+ * a weighted blend of real readings, not necessarily that day's reading for every leg
+ * (wording corrected, lane audit 2026-10-20). The chart's only consumer refuses an
+ * incomplete leg set. Ascending by date.
  */
 export function blendDatedSeries(legs: DatedBlendLeg[]): DatedApyPoint[] {
   const dates = [...new Set(legs.flatMap((l) => l.points.map((p) => p.date)))].sort();
@@ -368,6 +392,12 @@ export function windowCoverage(
   if (needsDayBefore && start - 1 < 0) return 'window-outside-series';
   const lastIdx = start + (toDay - (fromDay + 1));
   if (lastIdx >= n) return 'window-outside-series';
+  /* Mirrors `indexFromDate` (B2): every day the span reads must be present, or the
+     calendar does not evidence the window. */
+  for (let j = needsDayBefore ? -1 : 0; j <= toDay - (fromDay + 1); j += 1) {
+    if (series.dates[start + j] !== shiftDay(windowStartDate, j))
+      return 'missing-calendar-evidence';
+  }
   return 'covered';
 }
 

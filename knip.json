@@ -62,8 +62,7 @@
         "next.config.*",
         "scripts/**"
       ],
-      "project": ["src/**/*.{ts,tsx}", ".storybook/*.{ts,tsx}", "next.config.*", "scripts/**"],
-      "ignore": ["src/lib/database/client.ts"]
+      "project": ["src/**/*.{ts,tsx}", ".storybook/*.{ts,tsx}", "next.config.*", "scripts/**"]
     }
   }
 }

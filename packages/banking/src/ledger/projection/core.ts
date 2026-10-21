@@ -20,7 +20,7 @@ import type {
   TimeAdvanced,
 } from '../events';
 import { d, ZERO } from '../money';
-import type { ProjectionContext } from './context';
+import { refuse, type ProjectionContext } from './context';
 
 export type CoreEvent =
   | PlayMoneyGranted
@@ -82,16 +82,25 @@ export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
     }
     case 'GoalFunded': {
       const goal = ctx.goals.get(event.goalId);
-      if (!goal) break;
+      if (!goal) {
+        refuse(ctx, 'unknown-goal');
+        break;
+      }
       const amount = d(event.amount);
-      if (ctx.working.v.lt(amount)) break; // insufficient working money: reject silently at projection level
+      if (ctx.working.v.lt(amount)) {
+        refuse(ctx, 'insufficient-available'); // recorded, no longer silent (P8a)
+        break;
+      }
       ctx.working.v = ctx.working.v.minus(amount);
       goal.cash = goal.cash.plus(amount);
       break;
     }
     case 'StrategyEntered': {
       const goal = ctx.goals.get(event.goalId);
-      if (!goal) break;
+      if (!goal) {
+        refuse(ctx, 'unknown-goal');
+        break;
+      }
       const amount = d(event.amount);
       const fee = d(entryNetworkFeeOf(event));
       /**
@@ -118,7 +127,10 @@ export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
        */
       const deducted = feesAreDeductible(event);
       const cashLeg = deducted ? amount.plus(fee) : amount;
-      if (goal.cash.lt(cashLeg)) break;
+      if (goal.cash.lt(cashLeg)) {
+        refuse(ctx, 'insufficient-goal-cash');
+        break;
+      }
       goal.cash = goal.cash.minus(cashLeg);
       goal.invested = goal.invested.plus(amount);
       if (deducted) ctx.totals.networkFees = ctx.totals.networkFees.plus(fee);
@@ -142,7 +154,10 @@ export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
     }
     case 'AccrualApplied': {
       const position = ctx.positions.get(event.positionId);
-      if (!position || !position.s.open) break;
+      if (!position || !position.s.open) {
+        refuse(ctx, 'unknown-or-closed-position');
+        break;
+      }
       position.accrued = position.accrued.plus(d(event.earnings));
       position.s.accruedThroughSimDay = event.toSimDay;
       /* An accrual both replays and accrues, so it advances both cursors. Only
@@ -163,13 +178,19 @@ export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
      */
     case 'ReplaySpanRefused': {
       const position = ctx.positions.get(event.positionId);
-      if (!position || !position.s.open) break;
+      if (!position || !position.s.open) {
+        refuse(ctx, 'unknown-or-closed-position');
+        break;
+      }
       position.s.replayConsumedThroughSimDay = event.toSimDay;
       break;
     }
     case 'StrategyExited': {
       const position = ctx.positions.get(event.positionId);
-      if (!position || !position.s.open) break;
+      if (!position || !position.s.open) {
+        refuse(ctx, 'unknown-or-closed-position');
+        break;
+      }
       position.s.open = false;
       const goal = ctx.goals.get(event.goalId);
       const fees = exitFeesOf(event);
@@ -213,9 +234,19 @@ export function applyCoreEvent(ctx: ProjectionContext, event: CoreEvent): void {
       // against an over-budget deposit the same way GoalFunded is (A-10) —
       // the client already bounds it, so this is belt-and-suspenders.
       const position = ctx.positions.get(event.positionId);
-      if (!position || !position.s.open) break;
+      if (!position || !position.s.open) {
+        refuse(ctx, 'unknown-or-closed-position');
+        break;
+      }
       const amount = d(event.amount);
-      if (amount.lte(0) || ctx.working.v.lt(amount)) break;
+      if (amount.lte(0)) {
+        refuse(ctx, 'non-positive-amount');
+        break;
+      }
+      if (ctx.working.v.lt(amount)) {
+        refuse(ctx, 'insufficient-available');
+        break;
+      }
       ctx.working.v = ctx.working.v.minus(amount);
       position.principal = position.principal.plus(amount);
       const goal = ctx.goals.get(event.goalId);

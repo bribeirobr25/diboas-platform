@@ -76,11 +76,19 @@ export function GoalNewScreen({ locale }: { locale: SandboxLocale }) {
   const canSubmit = nameValid && targetValue > 0 && horizonValid && fundValid;
 
   // Errors surface only once the relevant field is touched (no red on untouched).
+  const targetError = target !== '' && targetValue <= 0;
+  const horizonError = horizonSet && draftErrors.includes('horizon_out_of_range');
+  const fundError = fundValue > 0 && !fundValid;
   const errors: string[] = [];
-  if (target !== '' && targetValue <= 0) errors.push('goalNew.errorTarget');
-  if (horizonSet && draftErrors.includes('horizon_out_of_range'))
-    errors.push('goalNew.errorHorizon');
-  if (fundValue > 0 && !fundValid) errors.push('goalNew.errorFund');
+  if (targetError) errors.push('goalNew.errorTarget');
+  if (horizonError) errors.push('goalNew.errorHorizon');
+  if (fundError) errors.push('goalNew.errorFund');
+  /* Each message is tied to its field (2026-10-18 lane audit, WCAG 3.3.1/1.3.1): the
+     field reports `aria-invalid` and points at its own message, so a screen-reader user
+     who lands on it hears what is wrong — not only the one-off alert. */
+  const errorDomId = (id: string) => `goalnew-${id.replace('goalNew.', '')}`;
+  const invalid = (on: boolean, id: string) =>
+    on ? { 'aria-invalid': true as const, 'aria-describedby': errorDomId(id) } : {};
 
   function submit() {
     if (!canSubmit || submitted) return;
@@ -138,6 +146,7 @@ export function GoalNewScreen({ locale }: { locale: SandboxLocale }) {
             min={0}
             value={target}
             onChange={(e) => setTarget(e.target.value)}
+            {...invalid(targetError, 'goalNew.errorTarget')}
             placeholder={zeroPlaceholder}
           />
         </div>
@@ -157,6 +166,7 @@ export function GoalNewScreen({ locale }: { locale: SandboxLocale }) {
               value={month}
               onChange={(e) => setMonth(e.target.value === '' ? '' : Number(e.target.value))}
               aria-label={intl.formatMessage({ id: 'goalNew.monthLabel' })}
+              {...invalid(horizonError, 'goalNew.errorHorizon')}
             >
               <option value="">{intl.formatMessage({ id: 'goalNew.monthLabel' })}</option>
               {MONTHS.map((m) => (
@@ -175,6 +185,7 @@ export function GoalNewScreen({ locale }: { locale: SandboxLocale }) {
               value={year}
               onChange={(e) => setYear(e.target.value === '' ? '' : Number(e.target.value))}
               aria-label={intl.formatMessage({ id: 'goalNew.yearLabel' })}
+              {...invalid(horizonError, 'goalNew.errorHorizon')}
             >
               <option value="">{intl.formatMessage({ id: 'goalNew.yearLabel' })}</option>
               {years.map((y) => (
@@ -209,6 +220,7 @@ export function GoalNewScreen({ locale }: { locale: SandboxLocale }) {
             min={0}
             value={fund}
             onChange={(e) => setFund(e.target.value)}
+            {...invalid(fundError, 'goalNew.errorFund')}
             placeholder={zeroPlaceholder}
           />
         </div>
@@ -223,7 +235,7 @@ export function GoalNewScreen({ locale }: { locale: SandboxLocale }) {
       {errors.length > 0 ? (
         <ul className={styles.errors} role="alert">
           {errors.map((id) => (
-            <li key={id}>
+            <li key={id} id={errorDomId(id)}>
               <FormattedMessage id={id} />
             </li>
           ))}

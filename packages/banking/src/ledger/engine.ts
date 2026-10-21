@@ -17,7 +17,14 @@
 import type Decimal from 'decimal.js';
 import type { LedgerEvent } from './events';
 import { d, ZERO } from './money';
-import { emptyState, type LedgerState, type RecurringSchedule, type RuleState } from './state';
+import {
+  APPLIED,
+  emptyState,
+  type EventDisposition,
+  type LedgerState,
+  type RecurringSchedule,
+  type RuleState,
+} from './state';
 import type { GoalEntry, PositionEntry, ProjectionContext } from './projection/context';
 import { applyCoreEvent } from './projection/core';
 import { applyGoalLifecycleEvent } from './projection/goals';
@@ -40,7 +47,7 @@ function assertNever(event: never): never {
 }
 
 /** Project the full event log into current state. Pure and deterministic. */
-export function project(events: LedgerEvent[]): LedgerState {
+export function project(events: readonly LedgerEvent[]): LedgerState {
   const ctx: ProjectionContext = {
     state: emptyState(),
     floor: { v: ZERO },
@@ -58,9 +65,13 @@ export function project(events: LedgerEvent[]): LedgerState {
       credited: ZERO,
       spent: ZERO,
     },
+    refusal: null,
   };
 
+  /* P8a: one disposition per event, aligned with `events` by index. */
+  const dispositions: EventDisposition[] = [];
   for (const event of events) {
+    ctx.refusal = null;
     switch (event.type) {
       case 'PlayMoneyGranted':
       case 'JobsSplitSet':
@@ -110,6 +121,7 @@ export function project(events: LedgerEvent[]): LedgerState {
       default:
         assertNever(event);
     }
+    dispositions.push(ctx.refusal === null ? APPLIED : { status: 'REFUSED', reason: ctx.refusal });
   }
 
   const { state } = ctx;
@@ -148,14 +160,68 @@ export function project(events: LedgerEvent[]): LedgerState {
   state.credited = ctx.totals.credited.toFixed(2);
   state.collectedWeeks.sort((a, b) => a - b);
   state.spent = ctx.totals.spent.toFixed(2);
-  state.events = events;
+  /* P8a: a SNAPSHOT of the log, not the caller's array. The sandbox appends to its live log
+     in place; a state that shared it would grow events without dispositions, and every
+     `appliedEvents` call would then silently re-project (independent review, 2026-10-16).
+     Frozen, so an in-place push onto a projected log throws instead of leaving the cached
+     dispositions and applied list silently stale (third review, 2026-10-17). */
+  state.events = Object.freeze(events.slice());
+  state.dispositions = Object.freeze(dispositions);
+  PROJECTED_LOG.set(state.dispositions, state.events);
   return state;
+}
+
+/**
+ * Each projected state's dispositions → the log snapshot they describe. Alignment is
+ * checked by IDENTITY, not length: a state spread over another log of the same length
+ * (`{ ...state, events: other }`) would otherwise reuse dispositions that describe
+ * different events (second P8a audit, 2026-10-17).
+ */
+const PROJECTED_LOG = new WeakMap<readonly EventDisposition[], readonly LedgerEvent[]>();
+/** `appliedEvents` per projected state — computed once, shared, frozen. */
+const APPLIED_CACHE = new WeakMap<readonly EventDisposition[], readonly LedgerEvent[]>();
+
+/**
+ * P8a: the dispositions for `state`, aligned with its log. A state built by hand
+ * (a fixture) may carry events without dispositions; they are then DERIVED by
+ * projecting the same log — never assumed APPLIED. A state from `project()` is
+ * always aligned (its log is a snapshot), so production never re-projects here.
+ */
+export function dispositionsOf(state: LedgerState): readonly EventDisposition[] {
+  const given = state.dispositions;
+  if (given) {
+    const owner = PROJECTED_LOG.get(given);
+    // Projected dispositions describe exactly one log; on any other log they are derived.
+    if (owner) return owner === state.events ? given : project(state.events).dispositions;
+    // Declared by hand (a selector-test fixture): trusted when it covers every event.
+    // ⚠ Length is all that can be checked here: a structuredClone'd or JSON round-tripped
+    // projected state lands on this path too (its dispositions are no longer the owned
+    // array) and is trusted. No production path clones a LedgerState (measured 2026-10-17).
+    if (given.length === state.events.length) return given;
+  }
+  return project(state.events).dispositions;
+}
+
+/**
+ * The events the projection APPLIED — money-moving, or a valid zero-value marker (P8a).
+ * Frozen and, for a projected state, computed once: every screen reads the same array.
+ */
+export function appliedEvents(state: LedgerState): readonly LedgerEvent[] {
+  const dispositions = dispositionsOf(state);
+  const cacheable = PROJECTED_LOG.get(dispositions) === state.events;
+  const cached = cacheable ? APPLIED_CACHE.get(dispositions) : undefined;
+  if (cached) return cached;
+  const applied = Object.freeze(
+    state.events.filter((_, i) => dispositions[i]!.status === 'APPLIED')
+  );
+  if (cacheable) APPLIED_CACHE.set(dispositions, applied);
+  return applied;
 }
 
 /** Sum of `PlayMoneyGranted` amounts — the genesis term both readers below share. */
 function grantedTotal(state: LedgerState): Decimal {
   let granted = ZERO;
-  for (const e of state.events) {
+  for (const e of appliedEvents(state)) {
     if (e.type === 'PlayMoneyGranted') granted = granted.plus(d(e.amount));
   }
   return granted;
@@ -174,7 +240,9 @@ function grantedTotal(state: LedgerState): Decimal {
  */
 export function reconcile(state: LedgerState): string {
   let earnings = ZERO;
-  for (const e of state.events) {
+  /* ⛑ P8a: a REFUSED accrual (a closed or unknown position) never reached a balance, so
+     it must not count as earnings — the raw log would report a residual that is not real. */
+  for (const e of appliedEvents(state)) {
     if (e.type === 'AccrualApplied') earnings = earnings.plus(d(e.earnings));
   }
   const held = [

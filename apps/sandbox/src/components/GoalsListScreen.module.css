@@ -46,6 +46,7 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
+  min-height: var(--sb-tap); /* 44x44 (handoff §6.6; 2026-10-18 lane audit) */
   text-decoration: none;
 }
 .detailIcon {

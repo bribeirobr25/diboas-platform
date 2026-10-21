@@ -78,10 +78,12 @@ export const RECURRING_CADENCE_DAYS = 30;
 /**
  * The monthly deposit sim-days due in the half-open range `(fromDay, toDay]`
  * for a schedule anchored at `startSimDay` (first deposit at
- * `startSimDay + 30`). Pure. Because `fromDay` is the position's
- * `accruedThroughSimDay` (which advances every settle), each due-day fires
- * exactly once across successive advances — idempotent even when a single month
- * is split across two advances (A-8). Ascending.
+ * `startSimDay + 30`). Pure. The planner passes the FIRST DAY OF THE ADVANCE as
+ * `fromDay` (never earlier), so each due-day fires exactly once across successive
+ * advances, even when a single month is split across two of them (A-8). Ascending.
+ * (Corrected 2026-10-21, lane audit B1/B5: this said `fromDay` was
+ * `accruedThroughSimDay` "which advances every settle". It advances only on an
+ * accrual, so an unreplayed position re-fired its deposits; see `advancePlanner.ts`.)
  */
 export function recurringDepositDays(
   startSimDay: number,

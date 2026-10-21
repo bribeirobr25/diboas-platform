@@ -229,9 +229,9 @@ export type StrategyEntered = StrategyEnteredV1 | StrategyEnteredV2;
 
 /** The modelled fee an entry records, whichever version wrote it. */
 export function entryNetworkFeeOf(event: StrategyEntered): string {
-  return schemaVersionOf(event) === 2
-    ? (event as StrategyEnteredV2).modeledNetworkFee
-    : (event as StrategyEnteredV1).networkFee;
+  // Narrowed on the discriminant itself, no cast (lane audit 2026-10-21, B4): a cast would
+  // compile even if the two versions stopped being told apart by `schemaVersion`.
+  return event.schemaVersion === 2 ? event.modeledNetworkFee : event.networkFee;
 }
 
 /** Accrual applied to a position for a span of simulated days (real APY replay). */
@@ -399,15 +399,9 @@ export type StrategyExited = StrategyExitedV1 | StrategyExitedV2;
 
 /** The modelled fees an exit records, whichever version wrote it. */
 export function exitFeesOf(event: StrategyExited): { exitFee: string; networkFee: string } {
-  return schemaVersionOf(event) === 2
-    ? {
-        exitFee: (event as StrategyExitedV2).modeledExitFee,
-        networkFee: (event as StrategyExitedV2).modeledNetworkFee,
-      }
-    : {
-        exitFee: (event as StrategyExitedV1).exitFee,
-        networkFee: (event as StrategyExitedV1).networkFee,
-      };
+  return event.schemaVersion === 2
+    ? { exitFee: event.modeledExitFee, networkFee: event.modeledNetworkFee }
+    : { exitFee: event.exitFee, networkFee: event.networkFee };
 }
 
 /**
@@ -476,9 +470,11 @@ export interface TimeAdvanced extends EventBase {
    * stable across refreshes; a pinned DATE can, which is also what §6 requires
    * of a historical state (the observation belongs to that state, not to now).
    *
-   * Only the epoch is stored. How far the replay has consumed is DERIVED —
-   * `simDay − realSettledDays` is the machine days already advanced — so there
-   * is no second cursor that could disagree with the log.
+   * Only the epoch is stored. Where the next CALENDAR WINDOW starts is DERIVED —
+   * `simDay − realSettledDays` is the machine days already advanced. (How far each
+   * POSITION's replay has been consumed is a different fact, stored on purpose as
+   * `replayConsumedThroughSimDay`: after a refusal, days advanced ≠ days replayed.
+   * See `state.ts`. Clarified 2026-10-21, lane audit B5.)
    *
    * OPTIONAL for backward-compat: ledgers written before I-G1c lack it and
    * fall back to the historic anchoring, exactly as `source` does (D-3). The
@@ -575,7 +571,7 @@ export type ReplayRefusalReason =
 // The 7 lifecycle events. Goal-status transitions carry `expectedVersion`
 // (optimistic concurrency, D-e §5): the projection increments `goal.version`
 // on each APPLIED transition, so an event whose `expectedVersion` is stale — a
-// concurrent tab already advanced it — is skipped and the UI re-presents
+// concurrent tab already advanced it — is refused (recorded) and the UI re-presents
 // current state rather than applying blind. Idempotent per `(goalId, version)`;
 // replay is deterministic. Most are zero-value (D-e §6 — ledger events anyway,
 // because replay needs them for goal projections + the honest trail); the two
@@ -720,7 +716,7 @@ export interface RuleDeleted extends EventBase {
  * calendar week index that accrued this credit (weeks skipped while the 2-week
  * collection cap held the meter never accrue and never appear). Ingress →
  * `credited`; lands in Available (working). Idempotent per week (projection
- * skips a duplicate week). Amount derives from the grant (WG-1: grant × 10%),
+ * refuses a duplicate week). Amount derives from the grant (WG-1: grant × 10%),
  * stamped by the emitter — never recomputed at replay.
  */
 export interface WeeklyCreditGranted extends EventBase {
@@ -766,13 +762,13 @@ export interface RuleApplied extends EventBase {
 // §2b.3). Life events only, never market events (H-3.4). The choice record
 // (`SimulatedEventResolved`) is PLATFORM-SIDE and moves no money — it never
 // joins this union (CH-1 discipline). Resolution is idempotent per
-// `eventInstanceId` (D-s §3): the projection skips a duplicate instance, so a
+// `eventInstanceId` (D-s §3): the projection refuses a duplicate instance, so a
 // re-fired resolution can never double-move money.
 
 /**
  * A simulated expense, paid from Available — money permanently GONE (egress →
  * the `spent` term; `held` never includes it). The affordability floor is
- * enforced HERE too: a debit larger than Available is skipped (no negative
+ * enforced HERE too: a debit larger than Available is refused (no negative
  * balances, ever) — the option filter upstream should make that unreachable.
  * The reserve path (cash released from the emergency goal first) rides a
  * `GoalCashReleased` under the same correlationId.

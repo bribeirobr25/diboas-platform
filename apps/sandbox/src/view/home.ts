@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js';
-import type { LedgerState } from '@diboas/banking';
-import { goalCurrentValue } from '@/lib/goalValue';
+import { appliedEvents, type LedgerState } from '@diboas/banking';
+import { goalCurrentValue, goalTargetReached } from '@/lib/goalValue';
 
 /**
  * `view/` — the view-model (selector) seam. P03's layer C, implemented.
@@ -101,14 +101,23 @@ export function selectHomeTriad(state: LedgerState): HomeTriad {
  *
  * `targetReached` delegates to `lib/goalValue.goalTargetReached` — the derived
  * `target_reached` fact (D-e §3), recomputed and NEVER stored, because it may
- * honestly un-reach if the market dips. `GoalDetailScreen` re-implements it
- * inline today (`5.224`); this is where that stops.
+ * honestly un-reach if the market dips. `GoalDetailScreen` reads it from here.
+ * (Lane audit 2026-10-21, L3: this docstring said "delegates" while the selector
+ * re-derived it inline, keeping two copies of the rule; it now really delegates.)
  */
 export interface GoalProgress {
   current: string;
   target: string;
   /** 0-100, clamped. `0` when no target is set. */
   ratioPercent: number;
+  /**
+   * The whole percentage a person READS (the big figure and `aria-valuenow`).
+   * Rounded DOWN, and 100 only when `targetReached` (`5.540`): rounding to the
+   * nearest made 995.00 of 1,000.00 read "100%" while the goal was not reached
+   * — no milestone, no "Review and close" — a statement the screen then
+   * contradicted. The bar's fill keeps the exact `ratioPercent`.
+   */
+  percentShown: number;
   hasTarget: boolean;
   targetReached: boolean;
 }
@@ -118,6 +127,7 @@ export function selectGoalProgress(state: LedgerState, goalId: string): GoalProg
   const current = goalCurrentValue(state, goalId);
   const target = new Decimal(goal?.targetAmount ?? 0);
   const hasTarget = target.gt(0);
+  const targetReached = goalTargetReached(state, goalId);
 
   return {
     current: current.toFixed(2),
@@ -135,10 +145,17 @@ export function selectGoalProgress(state: LedgerState, goalId: string): GoalProg
           .mul(100)
           .toNumber()
       : 0,
+    // Floored on the Decimal (never the float), then capped at 99 until the target
+    // is reached by the same exact comparison as `targetReached`.
+    percentShown: !hasTarget
+      ? 0
+      : targetReached
+        ? 100
+        : Decimal.max(Decimal.min(current.div(target).mul(100).floor(), 99), 0).toNumber(),
     hasTarget,
     // A zero or absent target is never "reached" — asserted in the test, because
     // `0 >= 0` would otherwise make every target-less goal complete.
-    targetReached: hasTarget && current.gte(target),
+    targetReached,
   };
 }
 
@@ -153,6 +170,21 @@ export function selectGoalProgress(state: LedgerState, goalId: string): GoalProg
 export interface RecurringView {
   /** An active schedule the Working balance can no longer fund (calm, not an alarm). */
   paused: boolean;
+}
+
+/**
+ * Whether a typed monthly amount books a real deposit (lane audit 2026-10-21, Z2). The
+ * command stores the amount to the cent, and the ledger reads a booked `0.00` as
+ * "turn the schedule off", so a typed `0.004` used to enable Confirm and then delete
+ * the schedule. Confirm is offered only when the BOOKED amount is positive.
+ */
+export function recurringAmountBooks(amountText: string): boolean {
+  try {
+    const amount = new Decimal(amountText);
+    return amount.isFinite() && amount.toDecimalPlaces(2).gt(0);
+  } catch {
+    return false; // empty or not a number: nothing to book
+  }
 }
 
 export function selectRecurringView(input: {
@@ -176,6 +208,8 @@ export interface GoalRowView {
   target: string;
   /** 0-100, clamped. `0` when no target is set. */
   ratioPercent: number;
+  /** The whole percentage read aloud by `aria-valuenow` (`selectGoalProgress.percentShown`). */
+  percentShown: number;
   /** `dropped` or `accomplished` — history stays visible, never celebrated or shamed. */
   closed: boolean;
   paused: boolean;
@@ -188,6 +222,7 @@ export function selectGoalRowView(state: LedgerState, goalId: string): GoalRowVi
     current: progress.current,
     target: progress.target,
     ratioPercent: progress.ratioPercent,
+    percentShown: progress.percentShown,
     closed: goal?.status === 'dropped' || goal?.status === 'accomplished',
     paused: goal?.status === 'paused',
   };
@@ -242,7 +277,6 @@ export interface HistorySummary {
   feesPaid: string;
   /** Absent over false: no fee line when nothing has been paid. */
   showFeeDrag: boolean;
-  eventCount: number;
 }
 
 export function selectHistorySummary(state: LedgerState): HistorySummary {
@@ -257,7 +291,6 @@ export function selectHistorySummary(state: LedgerState): HistorySummary {
   return {
     feesPaid: feesPaid.toFixed(2),
     showFeeDrag: feesPaid.gt(0),
-    eventCount: state.events.length,
   };
 }
 
@@ -468,8 +501,10 @@ export interface GoalDetailView {
   /** The same figure as a number, for numeric props like `Projection`. */
   currentValue: number;
   target: string;
-  /** 0-100, clamped. Consumed by the progress bar and the big percentage. */
+  /** 0-100, clamped. Consumed by the progress bar's fill. */
   ratioPercent: number;
+  /** The big percentage and `aria-valuenow` (`selectGoalProgress.percentShown`, `5.540`). */
+  percentShown: number;
   hasTarget: boolean;
   /** Derived, NEVER stored — it may honestly un-reach if the market dips. */
   targetReached: boolean;
@@ -508,7 +543,7 @@ export function selectGoalDetailView(state: LedgerState, goalId: string): GoalDe
   // a future event type whose `amount` means something else becomes a compile
   // error instead of a silently wrong total. Same pattern `lib/monthReport.ts`
   // already uses (`case 'GoalFunded'`).
-  const contributionsTotal = state.events
+  const contributionsTotal = appliedEvents(state)
     .reduce(
       (acc, e) => (e.type === 'GoalFunded' && e.goalId === goalId ? acc.plus(e.amount) : acc),
       new Decimal(0)
@@ -520,6 +555,7 @@ export function selectGoalDetailView(state: LedgerState, goalId: string): GoalDe
     currentValue: current.toNumber(),
     target: progress.target,
     ratioPercent: progress.ratioPercent,
+    percentShown: progress.percentShown,
     hasTarget: progress.hasTarget,
     targetReached: progress.targetReached,
     cash: new Decimal(goal?.cash ?? 0).toFixed(2),

@@ -27,6 +27,7 @@ export function Settlement({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
     const reduce =
       typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' && // R-9: absent in some embedded webviews
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const beat = reduce ? 120 : 650;
     const timers = [

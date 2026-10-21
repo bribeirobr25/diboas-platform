@@ -38,11 +38,15 @@
   color: var(--sb-text-muted);
   font-size: var(--font-size-sm);
 }
+/* No `overflow: hidden` (2026-10-18 lane audit): it clipped the Language row's
+   LocaleSwitcher menu, an absolutely positioned popover, so Português, Español and
+   Deutsch could not be clicked here (measured at 375 and 1440). Nothing in a card
+   paints a background that needed the clip — rows are transparent and focus is an
+   outline. Guarded by `settingsCardOverflow.test.ts`. */
 .card {
   border: 1px solid var(--sb-border-default);
   border-radius: var(--sb-radius-card);
   background: var(--sb-surface-primary);
-  overflow: hidden;
 }
 
 .row {

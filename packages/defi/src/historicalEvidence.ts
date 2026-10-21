@@ -27,6 +27,7 @@
  */
 
 import type { UnavailableReason } from './evidence';
+import { datesAreConsecutiveDays } from './marketShape';
 import type { DataStamp, ProtocolId } from './types';
 
 /** What the series measures. */
@@ -100,9 +101,10 @@ export function buildHistoricalSeries(input: {
 }): HistoricalResult {
   const { points } = input;
   if (points.length === 0) return historicalUnavailable('NO_OBSERVATION');
-  for (let i = 1; i < points.length; i += 1) {
-    if (points[i].date <= points[i - 1].date) return historicalUnavailable('NOT_REPRESENTABLE');
-  }
+  // The one calendar rule, shared with the client boundary (`marketShape.ts`, `5.353`):
+  // real days, strictly ascending, no day missing. A gap refuses the series (`5.105`).
+  if (!datesAreConsecutiveDays(points.map((p) => p.date)))
+    return historicalUnavailable('NOT_REPRESENTABLE');
   return historicalSeries({
     kind: input.kind,
     protocolId: input.protocolId,

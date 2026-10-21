@@ -6,7 +6,8 @@ import styles from './Toggle.module.css';
  * Toggle primitive (design-system; needed first by the A3 consent screen, reused
  * by Settings). Accessible switch: a real <button role="switch"> with
  * aria-checked (Space/Enter toggle for free), a visible label association via
- * the caller's labelledby, and a >=24px hit area (WCAG 2.5.8). Controlled —
+ * the caller's labelledby, and a 44x44 hit area (the governed `--sb-tap` floor, handoff §6.6; the track's
+ * ::after extends it without changing the look). Controlled —
  * the caller owns state (consent state is server-authoritative; this is just
  * the control). Never a bare styled div.
  */

@@ -7,6 +7,14 @@ import { advanceTime, grantPlayMoney, resetSandbox } from '@/lib/ledgerClient';
 import { fixturePriceSeries, FIXTURE_STAMP, observedStamp } from '@diboas/defi';
 import { getMessages } from '@/i18n/loadMessages';
 import { HistoryScreen } from '../HistoryScreen';
+import { expectedLogs } from '@/test/expectedLogs';
+
+// Failure paths below LOG by design (R-14); asserted, not silenced (2026-10-19 cleanup).
+expectedLogs({
+  strict: true,
+  warn: ['ledger refused an event'],
+  requiredIn: /REFUSED event is never shown/,
+});
 
 /**
  * The trail's job is to say what actually happened. This covers the one place
@@ -54,8 +62,9 @@ describe('HistoryScreen — what the trail claims happened', () => {
  *
  * The refusal is produced through the real ledger path — undated APY legs beside
  * dated price legs, i.e. §2's mixed-calendar case — never by injecting an event.
- * `HistoryScreen` maps EVERY event with no filter (`:315`), so reachability is
- * structural; this asserts the row a user actually sees.
+ * `HistoryScreen` maps every APPLIED event (P8a filters only REFUSED ones, and a
+ * valid `ReplaySpanRefused` is APPLIED), so reachability is structural; this
+ * asserts the row a user actually sees.
  */
 describe('HistoryScreen — a refused replay span (5.356)', () => {
   const REAL = getMessages('en');
@@ -102,5 +111,40 @@ describe('HistoryScreen — a refused replay span (5.356)', () => {
       </IntlProvider>
     );
     expect(screen.getAllByText(REAL['history.replayRefused']).length).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * P8a acceptance (a), the History leg — register `5.485`, case 3. A cross-tab
+ * entry the goal could not afford is REFUSED by the projection; the trail used
+ * to list it as a completed action. No refusal copy exists yet (DR-25), so it is
+ * omitted, never shown as success.
+ */
+describe('HistoryScreen — a REFUSED event is never shown as a successful action (P8a)', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-08-01T09:00:00Z'));
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+  });
+
+  it('should list the applied entry and omit the refused one', () => {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 1000,
+      horizonMonths: 12,
+      fundAmount: 100,
+    })!;
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 80, networkFeeLocal: 0 });
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 50, networkFeeLocal: 0 }); // 20 left: refused
+    expect(getLedgerState().events.filter((e) => e.type === 'StrategyEntered')).toHaveLength(2);
+    renderHistory();
+    expect(screen.getAllByText(/put to work in/)).toHaveLength(1);
+    expect(screen.getByText(/\$80\.00 put to work in/)).toBeTruthy();
+    expect(
+      screen.queryByText(/\$50\.00 put to work in/),
+      'the refused entry was listed as done'
+    ).toBeNull();
   });
 });

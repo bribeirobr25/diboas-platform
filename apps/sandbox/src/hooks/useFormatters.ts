@@ -18,7 +18,7 @@ import { useIntl } from 'react-intl';
  * and a sign on nothing is always wrong. A REAL negative — a loss, a debit —
  * keeps its minus: only magnitudes below half the last displayed digit fold.
  */
-function unsignedZero(value: number, fractionDigits: number): number {
+export function unsignedZero(value: number, fractionDigits: number): number {
   return Math.abs(value) < 0.5 * 10 ** -fractionDigits ? 0 : value;
 }
 
@@ -46,12 +46,6 @@ export function useFormatters(currency: 'USD' | 'BRL' | 'EUR') {
     [intl, currency]
   );
 
-  const percent = useCallback(
-    (value: number, digits = 2) =>
-      intl.formatNumber(value, { maximumFractionDigits: digits, minimumFractionDigits: 0 }),
-    [intl]
-  );
-
   const date = useCallback(
     // Date-ONLY strings (e.g. FIXTURE_AS_OF '2026-07-18') parse as UTC
     // midnight per the ES spec, which renders the PREVIOUS day in any
@@ -66,5 +60,5 @@ export function useFormatters(currency: 'USD' | 'BRL' | 'EUR') {
     [intl]
   );
 
-  return { money, moneyWhole, percent, date };
+  return { money, moneyWhole, date };
 }

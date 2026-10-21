@@ -1,6 +1,6 @@
 'use client';
 
-import { anyOutcomeUsesCoinGeckoPrices } from '@/view/marketDataAttribution';
+import { ledgerShowsCoinGeckoPrices } from '@/view/marketDataAttribution';
 import { CoinGeckoAttribution } from './CoinGeckoAttribution';
 import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -8,6 +8,8 @@ import type { SandboxLocale } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
 import { useFormatters } from '@/hooks/useFormatters';
 import { fetchSeries } from '@/hooks/useMarket';
+import { Logger } from '@/lib/monitoring/Logger';
+import { failureReason } from '@/lib/monitoring/failureReason';
 import { advanceTime } from '@/lib/ledgerClient';
 import { decomposePracticeValue } from '@/lib/practiceSeries';
 import { selectTimeMachineView } from '@/view/timeMachine';
@@ -71,7 +73,7 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
      explicitly permitted to make. */
   const tm = selectTimeMachineView(decomposition);
   /* Provenance, not the screen's name: which legs the replay actually consumed. */
-  const replayUsesCoinGeckoPrices = anyOutcomeUsesCoinGeckoPrices(state.events);
+  const replayUsesCoinGeckoPrices = ledgerShowsCoinGeckoPrices(state);
 
   /**
    * Advance the clock. The series are fetched per tap rather than held in
@@ -85,8 +87,13 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
     try {
       const { histories, priceHistories } = await fetchSeries(Math.max(days + 30, 400));
       advanceTime(days, histories, 'machine', priceHistories);
-    } catch {
-      /* time stays put; no fabricated movement */
+    } catch (error) {
+      /* time stays put; no fabricated movement. Logged (R-14); telling the person
+         needs approved wording ×4, which is Product's — registered, not invented. */
+      Logger.warn('time machine advance failed; time left unchanged', {
+        days,
+        reason: failureReason(error),
+      });
     } finally {
       setBusy(false);
     }
@@ -219,8 +226,8 @@ export function TimeMachineScreen({ locale }: { locale: SandboxLocale }) {
               </span>
               <span className={styles.metaValue}>
                 <LucideIcon name="calendar" size={14} />
-                {/* Absent before the first grant — an em-dash placeholder would
-                    be a fake value, so the label simply carries no date yet. */}
+                {/* Absent before the first grant: the em-dash says "no date yet"; it is a
+                    placeholder, never a date (comment corrected, lane audit 2026-10-21, Z9). */}
                 {state.genesisRecordedAt ? date(state.genesisRecordedAt) : '—'}
               </span>
             </span>

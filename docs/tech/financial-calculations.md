@@ -99,7 +99,7 @@ Then standard annuity formula applies at the effective rate. This is simpler and
 
 **All non-US locales use the currency hedge** — not just PT-BR. Germany and Spain also benefit from EUR depreciation vs USD. **`inflationRates.*` and `exchangeRates.*.annualDepreciation` are stored as decimals** (0.0621 = 6.21%; −0.0179 = −1.79% — negative means local currency strengthened vs USD over the calibration window); `bankRates.*` and `scenarioRates.*` are stored as **percent** (4 = 4%). See CLAUDE.md "Inflation/depreciation rate unit convention" for the conversion contract.
 
-**FX-16 adoption (2026-05-26).** 14 currencies beyond USD/BRL/EUR are now in `exchangeRates.rates` per `docs/tools/ADOPTING_NEW_FX_PLAN.md` v1.2. ARS/CLP/COP excluded per FX model §5 hyperinflation gate. The 14 new currencies surface in the `/tools/currency-depreciation` picker only (other tools derive currency from locale via `LOCALE_CURRENCY` which still maps only en→USD, pt-BR→BRL, de/es→EUR). The 14 new currencies have no `historical*` anchor data — retrospective mode stays BRL/EUR-only per D4 (`HistoricalAnchorsData.fxBuckets` is a closed two-key type).
+**FX-16 adoption (2026-05-26).** 14 currencies beyond USD/BRL/EUR are now in `exchangeRates.rates` per `docs/tools/ADOPTING_NEW_FX_PLAN.md` _(⚠ NOT REACHABLE — see `5.458`)_ v1.2. ARS/CLP/COP excluded per FX model §5 hyperinflation gate. The 14 new currencies surface in the `/tools/currency-depreciation` picker only (other tools derive currency from locale via `LOCALE_CURRENCY` which still maps only en→USD, pt-BR→BRL, de/es→EUR). The 14 new currencies have no `historical*` anchor data — retrospective mode stays BRL/EUR-only per D4 (`HistoricalAnchorsData.fxBuckets` is a closed two-key type).
 
 ### Effective APYs by Locale
 
@@ -169,7 +169,7 @@ The retrospective and forward variants ship as **separate named functions** — 
 
 ### Validation
 
-Cross-validated against `docs/researches/btc-vs-assets-inflation-fx-final-analysis.md` Part 5 (Brazilian R$100/mo × 196 months Jan 2010 → May 2026) for the three USD-yield scenarios:
+Cross-validated against `docs/researches/btc-vs-assets-inflation-fx-final-analysis.md` _(⚠ NOT REACHABLE — see `5.458`)_ Part 5 (Brazilian R$100/mo × 196 months Jan 2010 → May 2026) for the three USD-yield scenarios:
 
 | Scenario | Research target | Tolerance |
 | -------- | --------------- | --------- |

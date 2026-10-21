@@ -187,3 +187,37 @@ describe('windowCoverage agrees with the function that actually refuses', () => 
     expect(windowCoverage(apy, 0, 2, '2026-01-01')).toBe('covered');
   });
 });
+
+/**
+ * Lane audit 2026-10-21 (B2) — a series MISSING a day must refuse the span, never
+ * read the next day's value for it. The step arithmetic assumed one point per day,
+ * so with 2026-01-03 absent the third replayed day read 2026-01-04's rate, and the
+ * window still reported itself covered.
+ */
+describe('a gap in the calendar refuses the window (5.105, B2)', () => {
+  const gapped: DailyApySeries = {
+    points: [1, 2, 4, 5],
+    dates: ['2026-01-01', '2026-01-02', '2026-01-04', '2026-01-05'],
+    source: 'defillama',
+  };
+
+  it('should refuse a span that crosses the missing day', () => {
+    expect(ratesForSpanWindowed(gapped, 0, 3, '2026-01-01')).toBeNull();
+    expect(windowCoverage(gapped, 0, 3, '2026-01-01')).not.toBe('covered');
+  });
+
+  it('should still serve a span that stays clear of the gap', () => {
+    expect(ratesForSpanWindowed(gapped, 0, 2, '2026-01-01')).toEqual([1, 2]);
+    expect(windowCoverage(gapped, 0, 2, '2026-01-01')).toBe('covered');
+  });
+
+  it('should refuse a price span whose day-before is missing', () => {
+    const prices: DailyPriceSeries = {
+      points: [10, 11, 13, 14],
+      dates: ['2026-01-01', '2026-01-02', '2026-01-04', '2026-01-05'],
+      source: 'coingecko',
+    };
+    expect(priceFactorsForSpanWindowed(prices, 0, 1, '2026-01-04')).toBeNull();
+    expect(windowCoverage(prices, 0, 1, '2026-01-04', true)).not.toBe('covered');
+  });
+});

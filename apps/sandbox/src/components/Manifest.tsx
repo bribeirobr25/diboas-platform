@@ -23,7 +23,6 @@ export function Manifest({
   rows,
   onApprove,
   onCancel,
-  approving = false,
   ctaId = 'manifest.approve',
   ctaValues,
   reassuranceId,
@@ -34,7 +33,6 @@ export function Manifest({
   rows: ManifestRow[];
   onApprove: () => void;
   onCancel: () => void;
-  approving?: boolean;
   /** CTA label id + values — carries the all-in figure on the button (UX-52). */
   ctaId?: string;
   ctaValues?: Record<string, ReactNode>;
@@ -74,7 +72,7 @@ export function Manifest({
       <p className={styles.footer}>
         <FormattedMessage id="manifest.footer" />
       </p>
-      <button type="button" className={styles.approve} onClick={onApprove} disabled={approving}>
+      <button type="button" className={styles.approve} onClick={onApprove}>
         <FormattedMessage id={ctaId} values={ctaValues} />
       </button>
     </BottomSheet>
