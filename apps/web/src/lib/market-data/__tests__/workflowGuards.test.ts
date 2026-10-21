@@ -7,7 +7,11 @@
  * adding one would touch the shared lockfile for a test.
  */
 import { readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, relative } from 'node:path';
+import {
+  ETF_SHARES_ARCHIVE,
+  ETF_SNAPSHOT_ATTEMPTS,
+} from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
 import { describe, expect, it } from 'vitest';
 import { WEEKLY_BLOCKING_VITEST_ARGS } from '../../../../scripts/market-refresh/simulate-next-week.mjs';
 
@@ -88,9 +92,14 @@ describe('weekly refresh — no silent failure, no racing runs (5.465)', () => {
           .filter((f) => f.endsWith('.md'))
           .map((f) => join(d, f))
       ),
+      // 2026-10-21: workflow comments too. "cannot be fetched again" reached
+      // the weekly workflow in a comment this guard could not see.
+      ...readdirSync(join(root, '.github/workflows'))
+        .filter((f) => /\.ya?ml$/.test(f))
+        .map((f) => join('.github/workflows', f)),
     ];
     const hits = files.filter((f) =>
-      /cannot be back-?filled|non-backfillable|can never be re-?fetched/i.test(
+      /cannot be back-?filled|non-backfillable|can never be re-?fetched|cannot be (?:re-?)?fetched again/i.test(
         readFileSync(join(root, f), 'utf8')
       )
     );
@@ -182,5 +191,75 @@ describe('run.mjs --etf-snapshot is snapshot-only', () => {
 
   it('should run the snapshot step without the core flags', () => {
     expect(stepText(weekly, 'ETF-01 weekly snapshot')).not.toContain('--append-btc');
+  });
+});
+
+// 2026-10-20: a failed append can leave part of a row in a ledger, and the ETF
+// leg is fail-open, so the run can still reach the PR. The fragment must be
+// reported in the PR, never committed silently and never repaired.
+describe('weekly refresh — the PR reports a ledger that was not only appended to', () => {
+  const STEP = 'Ledger append check (reported)';
+
+  it('should run the ledger check after the last writing step and before the PR is opened', () => {
+    const at = weekly.indexOf(`- name: ${STEP}`);
+    expect(at).toBeGreaterThan(weekly.indexOf('- name: Generate editorial copy from templates'));
+    expect(at).toBeGreaterThan(weekly.indexOf('- name: Tools monthlies'));
+    expect(at).toBeLessThan(weekly.indexOf('- name: Compose PR body'));
+    expect(at).toBeLessThan(weekly.indexOf('- name: Open refresh PR'));
+  });
+
+  it('should report, never block: a crashed check still opens the PR, flagged', () => {
+    const step = stepText(weekly, STEP);
+    expect(step).toContain('id: ledgers');
+    expect(step).toContain('continue-on-error: true');
+    expect(step).toContain('check-ledgers.mjs');
+    // The status reaches the outputs only after the check finished.
+    expect(step).toMatch(/--status "\$RUNNER_TEMP\/ledger-status"/);
+    expect(step).toContain('echo "status=$(cat "$RUNNER_TEMP/ledger-status")" >> "$GITHUB_OUTPUT"');
+  });
+
+  it('should put anything but ok in the PR title, ahead of the memo status', () => {
+    const title = weekly.slice(weekly.indexOf('title: >-'), weekly.indexOf('body-path:'));
+    expect(title).toContain(
+      "steps.ledgers.outputs.status != 'ok'\n            && 'data(market): weekly refresh — LEDGER CHECK FAILED, do not merge as is'"
+    );
+    expect(title.indexOf('steps.ledgers')).toBeLessThan(title.indexOf('steps.memo'));
+  });
+
+  it('should explain the problem in the PR body, or say the ledgers are unverified', () => {
+    const body = stepText(weekly, 'Compose PR body');
+    expect(body).toContain('LEDGER_STATUS: ${{ steps.ledgers.outputs.status }}');
+    expect(body).toContain(`if [ "$LEDGER_STATUS" = 'ok' ]; then`);
+    expect(body).toContain('cat "$RUNNER_TEMP/ledger-note.md"');
+    expect(body).toContain('the ledgers are unverified');
+  });
+});
+
+// 2026-10-21 (12-principle review gate of the market lane).
+describe('weekly refresh — supply chain and a recorded ETF week that a later failure would lose', () => {
+  it('should pin every action to a full commit SHA, never a movable tag', () => {
+    const uses = [...weekly.matchAll(/^\s*(?:- )?uses: ([^\s#]+)/gm)].map((m) => m[1]);
+    expect(uses.length).toBeGreaterThan(0);
+    expect(uses.filter((u) => !/@[0-9a-f]{40}$/.test(u))).toEqual([]);
+  });
+
+  it('should keep the ETF files as a run artifact whenever the run fails after the ETF leg wrote them', () => {
+    const step = stepText(weekly, 'Keep the ETF ledger files when the run fails after the ETF leg');
+    expect(weekly.indexOf('- name: Keep the ETF ledger files')).toBeGreaterThan(
+      weekly.indexOf('- name: Open refresh PR')
+    );
+    expect(step).toContain('failure()');
+    for (const outcome of ['ok', 'recorded', 'refused', 'error']) {
+      expect(step).toContain(`steps.etf.outputs.outcome == '${outcome}'`);
+    }
+    // The paths come from the pipeline's own constants (this test never reads them).
+    for (const ledger of [ETF_SHARES_ARCHIVE, ETF_SNAPSHOT_ATTEMPTS]) {
+      expect(step).toContain(relative(ROOT, ledger));
+    }
+    expect(step).toMatch(/retention-days: \d+/);
+  });
+
+  it('should not claim the ETF record "stands" before the PR exists', () => {
+    expect(weekly).not.toContain('the ledger record stands');
   });
 });

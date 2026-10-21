@@ -50,10 +50,15 @@ import {
   evaluateMarketSignals,
 } from '../market-refresh/lib/market-sources.mjs';
 import { MAX_BY_GROUP } from '../market-refresh/lib/group-summaries.mjs';
-import { btcMonths, REPO_ROOT, SHARED_DIR } from '../market-refresh/providers/inrepo.mjs';
+import {
+  btcMonths,
+  REPO_ROOT,
+  RUN_ARCHIVE_PATH,
+  SHARED_DIR,
+} from '../market-refresh/providers/inrepo.mjs';
 
 const REGIME_PATH = path.join(SHARED_DIR, 'regime.json');
-const ARCHIVE_PATH = path.join(SHARED_DIR, 'run-archive.jsonl');
+const ARCHIVE_PATH = RUN_ARCHIVE_PATH;
 const ETF_MANUAL_PATH = path.join(SHARED_DIR, 'etf01-manual.json');
 
 const TODAY = new Date();

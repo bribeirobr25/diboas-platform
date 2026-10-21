@@ -295,8 +295,117 @@ describe('a failed run reports what it already wrote (honest failure headline)',
     expect(run).toMatch(/appendJsonlLine\(p, t\);\s*\n\s*written\.push\(/);
     // and the failure handler passes that list (not an empty or new one)
     expect(run).toMatch(
-      /failureHeadline\(\{ notRecorded, kind: e\.kind, etfWeekRecorded, written \}\)/
+      /failureHeadline\(\{ notRecorded, kind: e\.kind, etfWeekRecorded, written, partial \}\)/
     );
     expect(run).toMatch(/written\.push\(`\$\{path\.relative\(REPO_ROOT, MONTHLY_PRICES_PATH\)\}/);
+  });
+});
+
+// 2026-10-20 (E1 follow-up registered when #736 merged): a failed append can
+// leave part of a row on disk. The error says how much, and the report says so.
+describe('a failed append reports how much of the row reached the file', () => {
+  const realStat = fs.statSync;
+
+  it('should attach the bytes added when the write fails part-way, and change nothing before them', () => {
+    const before = '{"a":1}\n';
+    const file = tempFile(before);
+    vi.spyOn(fs, 'appendFileSync').mockImplementationOnce((p, data) => {
+      fs.writeFileSync(p as string, String(data).slice(0, 4), { flag: 'a' });
+      throw Object.assign(new Error('synthetic ENOSPC'), { code: 'ENOSPC' });
+    });
+    let caught: { partialAppend?: unknown } | undefined;
+    try {
+      appendJsonlLine(file, '{"a":2}');
+    } catch (err) {
+      caught = err as { partialAppend?: unknown };
+    }
+    expect(caught?.partialAppend).toEqual({ path: file, bytesAdded: 4 });
+    expect(text(file)).toBe(`${before}{"a"`);
+  });
+
+  it('should report 0 bytes when the write fails before writing', () => {
+    const file = tempFile('{"a":1}\n');
+    vi.spyOn(fs, 'appendFileSync').mockImplementationOnce(() => {
+      throw Object.assign(new Error('synthetic EIO'), { code: 'EIO' });
+    });
+    expect(() => appendJsonlLine(file, '{"a":2}')).toThrow(
+      expect.objectContaining({ partialAppend: { path: file, bytesAdded: 0 } })
+    );
+  });
+
+  it('should report 0 bytes for a new file the failed write never created', () => {
+    const file = tempFile(null);
+    vi.spyOn(fs, 'appendFileSync').mockImplementationOnce(() => {
+      throw Object.assign(new Error('synthetic EACCES'), { code: 'EACCES' });
+    });
+    expect(() => appendJsonlLine(file, '{"a":2}')).toThrow(
+      expect.objectContaining({ partialAppend: { path: file, bytesAdded: 0 } })
+    );
+  });
+
+  it('should report null (unknown), never 0, when the size cannot be read after the failure', () => {
+    const file = tempFile('{"a":1}\n');
+    vi.spyOn(fs, 'appendFileSync').mockImplementationOnce(() => {
+      throw Object.assign(new Error('synthetic EIO'), { code: 'EIO' });
+    });
+    vi.spyOn(fs, 'statSync')
+      .mockImplementationOnce(realStat) // the tail check before the append
+      .mockImplementationOnce(() => {
+        throw Object.assign(new Error('synthetic EIO on stat'), { code: 'EIO' });
+      });
+    expect(() => appendJsonlLine(file, '{"a":2}')).toThrow(
+      expect.objectContaining({ partialAppend: { path: file, bytesAdded: null } })
+    );
+  });
+});
+
+describe('the failure headline for an append that failed part-way', () => {
+  const base = { notRecorded: false, etfWeekRecorded: false, written: [] as string[] };
+  const ledger = 'etf-shares-weekly.jsonl';
+
+  it('should never say "nothing written" when bytes may have reached the file', () => {
+    expect(failureHeadline({ ...base, partial: { file: ledger, bytesAdded: 37 } })).toBe(
+      `market-refresh failed closed — no write completed, but ${ledger} may now end in a partial ` +
+        'line (37 bytes added before the failure, left as written; review before committing anything)'
+    );
+  });
+
+  it('should say the size is unknown, not that the file is unchanged, when it could not be read', () => {
+    const head = failureHeadline({ ...base, partial: { file: ledger, bytesAdded: null } });
+    expect(head).toContain('its size could not be read after the failure');
+    expect(head).not.toContain('nothing written');
+  });
+
+  it('should keep the exact "nothing written" wording when the failed append wrote 0 bytes', () => {
+    expect(failureHeadline({ ...base, partial: { file: ledger, bytesAdded: 0 } })).toBe(
+      'market-refresh failed closed — nothing written beyond the log'
+    );
+  });
+
+  it('should add the partial file after the completed ones', () => {
+    expect(
+      failureHeadline({
+        ...base,
+        written: ['computed.json'],
+        partial: { file: 'run-archive.jsonl', bytesAdded: 10 },
+      })
+    ).toBe(
+      'market-refresh failed closed AFTER writing files; already written by this run (review ' +
+        'before committing anything): computed.json; run-archive.jsonl may now end in a partial ' +
+        'line (10 bytes added before the failure, left as written)'
+    );
+  });
+
+  it('should keep the recorded-week wording and add the partial file after it', () => {
+    const head = failureHeadline({
+      ...base,
+      etfWeekRecorded: true,
+      partial: { file: 'run-archive.jsonl', bytesAdded: 10 },
+    });
+    expect(
+      head.startsWith('market-refresh failed closed AFTER this week’s ETF snapshot was recorded')
+    ).toBe(true);
+    expect(head).toContain('run-archive.jsonl may now end in a partial line');
+    expect(head.endsWith('.')).toBe(false);
   });
 });

@@ -14,6 +14,10 @@
  *     SNAPSHOT_STUB_LOG BEFORE it is answered, so a refused request stays
  *     visible to the test even when the application catches the error.
  *
+ * SNAPSHOT_STUB_MODE: `ok` (default); `polygon-fail` (Polygon answers 500);
+ * `incomplete` (Polygon answers the FIRST fixture fund without a share count,
+ * so the run refuses the snapshot and writes refusal evidence instead).
+ *
  * Fixture values come from SNAPSHOT_STUB_FIXTURE (JSON written by the test),
  * so the expected ledger line and the stub's answers have one source.
  */
@@ -65,6 +69,9 @@ globalThis.fetch = async (input) => {
   if (polygon && FIXTURE.funds[polygon[1]]) {
     record(url, 'polygon');
     if (MODE === 'polygon-fail') return json({ status: 'ERROR' }, 500);
+    if (MODE === 'incomplete' && polygon[1] === Object.keys(FIXTURE.funds)[0]) {
+      return json({ results: {} });
+    }
     const fund = FIXTURE.funds[polygon[1]];
     return json({ results: { share_class_shares_outstanding: fund.shares } });
   }
