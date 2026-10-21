@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { getStrategy, strategyRateAvailability } from '@diboas/defi';
 import type { ProtocolApyHistory } from '@diboas/defi';
@@ -27,6 +27,8 @@ import {
 } from '@/view/home';
 import { previewGoalStop, previewPositionStop, splitEntry } from '@/lib/ledgerClient';
 import { positionValueSeries } from '@/lib/positionSeries';
+import { Logger } from '@/lib/monitoring/Logger';
+import { failureReason } from '@/lib/monitoring/failureReason';
 import { BottomSheet } from './BottomSheet';
 import { goalAccentIndex } from '@/lib/goalAccent';
 import { LucideIcon } from './LucideIcon';
@@ -34,7 +36,7 @@ import { ExitCeremony } from './ExitCeremony';
 import { GoalCompletionScreen } from './GoalCompletionScreen';
 import { GoalPauseSheet } from './GoalPauseSheet';
 import { Manifest } from './Manifest';
-import { goalUsesCoinGeckoPrices } from '@/view/marketDataAttribution';
+import { goalShowsCoinGeckoPrices } from '@/view/marketDataAttribution';
 import { CoinGeckoAttribution } from './CoinGeckoAttribution';
 import { networkFeeLocal } from '@/lib/networkFee';
 import { Projection } from './Projection';
@@ -89,7 +91,8 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
     { scope: 'position'; positionId: string } | { scope: 'goal' } | null
   >(null);
   const [settling, setSettling] = useState<{ kind: 'entry' } | { kind: 'exit' } | null>(null);
-  const [busy, setBusy] = useState(false);
+  /* ⛑ `5.108` · the inert `busy` flag is removed — see WeeklyCycleScreen.tsx for why
+     a fake re-entrancy control is worse than none, and where the real guard lives. */
   const [pauseSheet, setPauseSheet] = useState(false);
   const [showCompletion, setShowCompletion] = useState(false);
   const [histories, setHistories] = useState<ProtocolApyHistory[]>([]);
@@ -109,8 +112,14 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
       .then((h) => {
         if (active) setHistories(h);
       })
-      .catch(() => {
-        /* honest empty state; never a crash */
+      .catch((error: unknown) => {
+        /* honest empty state; never a crash — and never silent (2026-10-19 review: the
+           one market failure the 2026-10-18 logging sweep missed). Bounded reason only.
+           Not after leaving: a request the screen no longer waits for is not news. */
+        if (!active) return;
+        Logger.warn('goal chart history unavailable; chart left empty', {
+          reason: failureReason(error),
+        });
       });
     return () => {
       active = false;
@@ -126,6 +135,37 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
    * the tests, which never exercised both branches in one mount.
    */
   const nowIso = useMemo(() => new Date().toISOString(), []);
+
+  /*
+   * P06 §34.1: settlement is the POST-completion state — "the decision is recorded;
+   * now orient the user". The move is therefore recorded on Approve / Confirm, and the
+   * Settlement animation only orients afterwards. Recording at the END of the
+   * animation meant leaving the screen mid-animation (Back, a tab) cleared the timer
+   * and silently dropped a move the user had approved. A second tap cannot record
+   * twice: the Manifest unmounts while settling (`!settling`), the selection and amount
+   * reset, and `approveEntry` refuses an empty selection — three UI layers, pinned by a
+   * test that fails only when all three are removed. A stopped position's repeat exit
+   * is refused by the domain. Domain idempotency for ENTRY is still `5.483` (P8d).
+   */
+
+  /*
+   * Focus RETURN for the full-screen takeovers (2026-10-18 lane audit, WCAG 2.4.3):
+   * `useTakeoverFocus` moves focus INTO the exit ceremony and the completion view, but
+   * closing one (cancel, close, confirm) remounted the goal view with focus on <body> —
+   * the next Tab restarted at the top and nothing was announced. A takeover that closes
+   * sets this flag; the effect below focuses the goal's heading once, then clears it, so
+   * an ordinary re-render never moves focus. After a confirmed move the flag is set when
+   * the SETTLEMENT ends, never on Confirm: the settlement sheet is a modal that takes focus
+   * itself, and React runs the parent's effect after the child's, so setting it on
+   * Confirm pulled focus out of the open dialog (independent review, 2026-10-18).
+   */
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const returnFocusRef = useRef(false);
+  useEffect(() => {
+    if (!returnFocusRef.current || !titleRef.current) return;
+    returnFocusRef.current = false;
+    titleRef.current.focus({ preventScroll: true });
+  });
 
   if (!goal) {
     return (
@@ -163,19 +203,22 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   // derived and unit-tested rather than computed in the render body.
   const canInvest = selectCanInvest(state, goalId, investValue);
 
+  function endSettlement() {
+    returnFocusRef.current = true;
+    setSettling(null);
+  }
+
   function approveEntry() {
     /* `5.436`: the commit path refuses too, not only the control that opens
        it — a disabled button is a UI fact, this is the money fact. */
-    if (!strategy || !canInvest || busy || feeLocal === null || !rateAvailable) return;
-    setBusy(true);
+    if (!strategy || !canInvest || feeLocal === null || !rateAvailable) return;
     enterStrategy({
       goalId,
       strategyId: strategy.id,
       totalFromCash: investValue,
       networkFeeLocal: feeLocal,
     });
-    setBusy(false);
-    setSettling(null);
+    setSettling({ kind: 'entry' });
     setEntryManifest(false);
     setPickerOpen(false);
     setStrategyId(null);
@@ -214,8 +257,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   }
 
   function approveExit() {
-    if (busy || !market || !exitIntent) return;
-    setBusy(true);
+    if (!market || !exitIntent) return;
     // How many stay working after this decision — the completion guard below
     // must never mark a goal "held as cash" while money is still in a strategy.
     let remaining: number;
@@ -233,8 +275,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
       accomplishGoal(goalId, 'held-as-cash');
     }
     setCompleteAfterExit(false);
-    setBusy(false);
-    setSettling(null);
+    setSettling({ kind: 'exit' });
     setExitIntent(null);
   }
 
@@ -245,14 +286,20 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   // render sites. The selector returns both shapes its consumers need: display
   // strings for money, plain numbers for the numeric `Projection` props.
   const detail = selectGoalDetailView(state, goalId);
-  const { targetReached, ratioPercent: ratio, goalMonthly, contributionsTotal } = detail;
+  const {
+    targetReached,
+    ratioPercent: ratio,
+    percentShown,
+    goalMonthly,
+    contributionsTotal,
+  } = detail;
 
   const progressBar = (
     <span
       className={styles.progressTrack}
       role="progressbar"
       aria-label={goal.name}
-      aria-valuenow={Math.round(ratio)}
+      aria-valuenow={percentShown}
       aria-valuemin={0}
       aria-valuemax={100}
     >
@@ -260,16 +307,12 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
     </span>
   );
 
-  // The settling animation plays OVER whatever surface approved it (entry
-  // manifest or exit ceremony), so it is shared by both returns below.
+  // The settling animation plays after the move is recorded, over the goal view
+  // (the approving surface has already closed), so it is shared by both returns below.
   const settlementSheet = settling ? (
     <BottomSheet titleId="settlement.title" tone="ink" dismissible={false} onClose={() => {}}>
-      <Settlement
-        onComplete={() => {
-          if (settling.kind === 'entry') approveEntry();
-          else approveExit();
-        }}
-      />
+      {/* The move is already recorded (approveEntry / approveExit); this only orients. */}
+      <Settlement onComplete={endSettlement} />
     </BottomSheet>
   ) : null;
 
@@ -311,13 +354,13 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
           goalName={goal.name}
           goalIcon={goal.icon}
           currency={state.currency}
-          busy={busy}
-          onConfirm={() => setSettling({ kind: 'exit' })}
+          onConfirm={approveExit}
           onCancel={() => {
             // Clearing the intent matters: a cancelled G4 "stop strategy" must
             // never silently close the goal on some LATER, unrelated exit.
             setCompleteAfterExit(false);
             setExitIntent(null);
+            returnFocusRef.current = true;
           }}
         />
         {settlementSheet}
@@ -330,7 +373,10 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
       <GoalCompletionScreen
         goal={goal}
         state={state}
-        onClose={() => setShowCompletion(false)}
+        onClose={() => {
+          setShowCompletion(false);
+          returnFocusRef.current = true;
+        }}
         onStopStrategy={
           openPositions.length > 0 && canPriceExit
             ? () => {
@@ -368,7 +414,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
           <LucideIcon name={goal.status === 'paused' ? 'pause' : goal.icon} size={26} />
         </span>
         <div>
-          <h1 id="goaldetail-title" className={styles.title}>
+          <h1 id="goaldetail-title" className={styles.title} ref={titleRef} tabIndex={-1}>
             {goal.name}
           </h1>
           {/* The honest status line (mockup 14's slot): a derived STATUS, never
@@ -440,7 +486,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             />
           </p>
           <p className={styles.percentLine}>
-            <span className={styles.percentBig}>{Math.round(ratio)}%</span>{' '}
+            <span className={styles.percentBig}>{percentShown}%</span>{' '}
             <FormattedMessage id="goalDetail.percentWay" />
           </p>
           {progressBar}
@@ -591,7 +637,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
            * accruals actually replayed — never the strategy's name, the
            * screen, or "growth means CoinGecko".
            */}
-          {goalUsesCoinGeckoPrices(state.events, goal.goalId) ? <CoinGeckoAttribution /> : null}
+          {goalShowsCoinGeckoPrices(state, goal.goalId) ? <CoinGeckoAttribution /> : null}
 
           {/* Goal-reached milestone (WS-E). R-2 allows "goals reached" as
               product-true progression; honest + non-triumphalist, no gamification. */}
@@ -744,7 +790,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                       usdPriceLocal={market.usdPriceLocal}
                       currency={state.currency}
                       onPutToWork={
-                        canInvest && canPriceEntry && rateAvailable && !busy
+                        canInvest && canPriceEntry && rateAvailable
                           ? () => setEntryManifest(true)
                           : undefined
                       }
@@ -829,9 +875,8 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
           ctaId="manifest.approveEntry"
           ctaValues={{ amount: money(investValue) }}
           reassuranceId="manifest.withdrawReassurance"
-          onApprove={() => setSettling({ kind: 'entry' })}
+          onApprove={approveEntry}
           onCancel={() => setEntryManifest(false)}
-          approving={busy}
         />
       ) : null}
 

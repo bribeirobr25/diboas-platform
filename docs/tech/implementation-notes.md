@@ -44,7 +44,7 @@
 - **`/help` FAQPage JSON-LD reads FLATTENED keys (E10 fix, 2026-07-13):** `loadPageNamespaces` returns a flattened `Record<string,string>` (keys like `faq.items.isBank.question`), NOT nested namespace objects. The `/help` `mainEntity` builder reads `pageMessages[\`faq.items.${id}.question\`]`for every`FAQ_TOPICS`id (43 total) via`buildFAQStructuredData`. The pre-fix code read `pageMessages['landing-help'].topics._.questions._`— a path that never existed AND was accessed as a nested object — so`mainEntity`always shipped`[]`. Never revert to nested-object access on `loadPageNamespaces` output.
 - **card-fees hero figures are DERIVED from `CARD_FEES_DEFAULTS`, not free copy (founder-approved 2026-07-15):** the en hero "On a $75 sale, $2.18 never reaches you." = `avgTransactionAmount.en (75) × processorFeeRate.en (0.029)` → Intl-rounds to $2.18 (the float lands at 2.1750…03, rounding UP — verified against the live widget); pt-BR "Numa venda de R$250, R$7,50…" = `250 × 0.03`. **If `CARD_FEES_DEFAULTS` (lib/tools/constants.ts) changes for en/pt-BR, these two hero strings MUST be recomputed in the same PR.** es/de heroes intentionally do NOT carry the moment (post-IFR 0.4–1.0% reality per Decision Q3/D-MSG-6 — a 2.9% example would be false there and €0.48 is undramatic).
 - **DB migrations MUST be tracked against production (incident 2026-07-17):** prod schema drifted because migrations were applied by hand without `schema_migrations` tracking, so a migration was silently missing (incident record deleted; this entry is the surviving summary). The tracking table now exists in prod (backfilled 2026-07-17). Rule: any PR adding a file under `lib/database/migrations/` ships only with the migration applied to prod (runner or console **+ tracking row**); run `pnpm --filter web db:status` against prod as part of any schema-touching deploy — it is now truthful.
-- **DE register convention (founder ruling 2026-07-15): du everywhere EXCEPT `legal/{privacy,terms,cookies}.json` and the investor vertical (`investor.json` + `investor-docs.json`) — those stay formal Sie deliberately** (legal-German + VC-audience conventions). Do not "fix" the legal/investor Sie to du, and do not let Sie leak back into any other surface (the 2026-07-14/15 sweep converted the MiCA disclaimer on B2C/About, `/market` chrome, `tools-shared`, and `apps/web/data/market/product-disclaimer.json` to du). Note: `product-disclaimer.json` mirrors the diBoaS-Analytics product's own methodology text — its German source on diboas-analytics.com should be synced to du to match (flagged at flip time).
+- **DE register convention (founder ruling 2026-07-15): du everywhere EXCEPT `legal/{privacy,terms,cookies}.json` and the investor vertical (`investor.json` + `investor-docs.json`) — those stay formal Sie deliberately** (legal-German + VC-audience conventions). Do not "fix" the legal/investor Sie to du, and do not let Sie leak back into any other surface (the 2026-07-14/15 sweep converted the MiCA disclaimer on B2C/About, `/market` chrome, `tools-shared`, and `apps/web/data/market/shared/product-disclaimer.json` to du). Note: `product-disclaimer.json` mirrors the diBoaS-Analytics product's own methodology text — its German source on diboas-analytics.com should be synced to du to match (flagged at flip time).
 
 - **Learn/Real Talk registry conventions (Phases 1–3, 2026-07-15/16, PRs #423–#426):** (a) **until-exhausted i18n arrays** — `readMessageArray` reads `intl.messages` until the first gap, so the JSON is the single source of truth for paragraph/option counts; never reintroduce count constants (the retired B-0 bug class). (b) **[lesson] 404 mechanism** = `dynamicParams=false` + `generateStaticParams` allowlist; in production force-dynamic streams metadata so announced/unknown slugs are SOFT-404s (404 UI over HTTP 200, founder-accepted known limitation) — do not remove the allowlist when touching force-dynamic; the real-status fix is a middleware slug allowlist or the D-4 static rework. (c) **Announced talks must NOT have `PAGE_SEO_CONFIG` entries** (they would leak into the sitemap; enforced by `registryInvariants.test.ts`). (d) **`learn.arc.*` strings are the approved talk titles/taglines verbatim** (one ratified exception: ES T1 = the live title-case h1); series order derives from the registry prev/next spine, never hardcoded. (e) **Quiz correctness lives registry-side** (`blocks.quiz.correctIndexes`, one source for all locales); i18n carries only display strings and translators must never reorder options (drift-guarded). (f) **OG `isValidPageType` must include every `PAGE_CONFIGS` key** — a missed entry silently serves the default template at HTTP 200 (the Phase-1 `/api/og/learn` miss; now drift-guarded by `lib/og/__tests__/templates.test.ts`).
 - **CSP `frame-src https://www.youtube-nocookie.com` exists ONLY for the learn video facade (D-1, 2026-07-16):** widening it is a security review, not a copy change; `lib/security/__tests__/cspFrameSrc.test.ts` locks exactly one origin. The facade is click-to-load (no iframe before the click — locked by a VideoFacade unit test); watch-time completion is deliberately untracked (no IFrame API).
@@ -63,7 +63,7 @@
 - **Two hedge-precedent patterns (Phase 7 L2/2026-05-13; precedent B repointed 2026-07-07 after MSG-07 prune):** for new currency-hedge wiring, the two verified-in-prod precedents are: **(A) FV-shaped tools** copy `apps/web/src/components/Sections/ComparisonTable/ComparisonTable.tsx:36-58` — uses `calculateWithCurrencyHedge`. **(B) Months-shaped tools** copy `apps/web/src/lib/emergency-fund/calculator.ts` (~line 120) — uses manual `(1+diboasUsdApy)*(1+depreciation)-1` (with `applyEffectiveRateClamp`) then `monthsToInflationAdjustedTarget`. (The former precedent-B file `GoalExampleCards/useGoalCardData.ts` was deleted 2026-07-07 with the orphaned GoalExampleCards component.) Do NOT create wrapper helpers in `lib/tools/` over these canonical functions (Phase 7 CC2 prohibition).
 - **"Digital dollar" terminology + jargon ban (Phase 7 Q2a/Q4/2026-05-13):** body copy uses "digital dollar" / "dólar digital" / "Digital-Dollar" / "dólar digital" — never `USDC`, `stablecoin`, `DeFi`, `tokenized`, `yield farming`, `liquidity pool`, `blockchain` outside regulatory disclaimer keys (`*.disclosure*`, `*.regulatoryFootnote*`, `*.tilaDisclosure*`, `*.usDisclosure*`). PR review grep gate documented in the pre-Phase-7 tools-polish plan §5.3. APY may stay in TILA Reg DD compliance disclosure text but NOT body copy.
 - **`digitalDollarSuffix` pattern (Phase 7 §5.2/2026-05-13):** `tools-shared.scenarios.digitalDollarSuffix` carries the "in digital dollar" qualifier per locale (empty for en; populated for pt-BR/de/es). Tool surfaces append this suffix to diBoaS scenario labels when `engine === 'tool'` AND `LOCALE_CURRENCY[locale] !== 'USD'`. Lesson surfaces NEVER append it (lesson is non-hedged, pedagogical math, per R2 reminder). Wired through `CalculatorOutputs` (engine-aware), `EmergencyFundCalculator` (depreciation>0 gate), `TimeToTargetCalculator` (non-bank scenarios + depreciation>0).
-- **B2B card numbers: script RETIRED (Phase 7 M1+M2+NF1/2026-05-13; retired 2026-07-07, MSG-07):** `scripts/derive-b2b-card-numbers.mjs` was deleted — its target keys (`diboasResult`/`bankResult`) no longer exist because the shipped Two-Worlds cards are qualitative (Bar 2026-06-30, no numbers). The underlying rule STANDS: if numeric B2B result figures ever return to `landing-b2b.json`, derive them from canonical rates via a script (restore from git history: `git show 24f8489:scripts/derive-b2b-card-numbers.mjs`) — NEVER hand-roll them. Phase 7 caught a `$11,556 = $10,800 × 1.07` stale-7%-era drift this way (M1 finding).
+- **B2B card numbers: script RETIRED (Phase 7 M1+M2+NF1/2026-05-13; retired 2026-07-07, MSG-07):** `scripts/derive-b2b-card-numbers.mjs` _(⚠ NOT REACHABLE — see `5.458`)_ was deleted — its target keys (`diboasResult`/`bankResult`) no longer exist because the shipped Two-Worlds cards are qualitative (Bar 2026-06-30, no numbers). The underlying rule STANDS: if numeric B2B result figures ever return to `landing-b2b.json`, derive them from canonical rates via a script (restore from git history: `git show 24f8489:scripts/derive-b2b-card-numbers.mjs`) — NEVER hand-roll them. Phase 7 caught a `$11,556 = $10,800 × 1.07` stale-7%-era drift this way (M1 finding).
 - **Dynamic lesson vignettes via canonical engine (Phase 7 L3a/2026-05-13):** Beat 2 vignettes in `learn-compound-interest.json` carry a `yearlyAmount` numeric field. `CalculatorVignettes.tsx` reads it and computes 12-year FV via `calculateMonthlyContributions(yearlyAmount/12, SCENARIO_RATES.historical/100, 0, 144)` at render time. NEVER hardcode a `twelveYear` string in translations — when scenario rates change, the vignettes auto-refresh. The lesson uses RAW Historical rate (no hedge) per Q7a/R2 — non-USD locales see the same pedagogical math, NOT effective-rate APY.
 - **Inflation/depreciation rate unit convention:** `FALLBACK_MARKET_DATA.inflationRates.*` and `exchangeRates.*.annualDepreciation` are stored as **decimals** (0.045 = 4.5%, 0.03 = 3%). `bankRates.*.savings` and `scenarioRates.*` are stored as **percent** (4 = 4%, 0.32 = 0.32%). When passing to formulas, divide percent-shaped values by 100 first; pass decimal-shaped values directly. Phase-7 caught a pre-existing `inflation/100` double-conversion bug in `EmergencyFundCalculator` this way — the existing precedent is `apps/web/src/lib/inflation-impact/calculator.ts` (~line 73; `selectInflationRate` returns a decimal, no `/100`). (Former precedent file `useGoalCardData.ts` deleted 2026-07-07, MSG-07.)
 - **Shared tool disclaimer carries currency-hedge sentence (Phase 7 Q5b/2026-05-13):** `tools-shared.disclaimer` (4 locales) includes the "diBoaS returns are shown in digital dollar; for non-US currencies, the local-currency total combines the dollar return with how your local currency typically moves against the US dollar over time" sentence. Renders on every `ToolPage`. MiCA Art. 13 / CVM 3 / FTC compliance — do not strip this without legal review.
@@ -108,14 +108,14 @@
 - **Conservative (7%) is the emphasized default scenario — a founder ruling, not a bug (P2-c, 2026-07-10).** `HIGHLIGHTED_DEFAULT = 'conservative'` in all three compound engines (`calculator.ts`, `calculatorHedged.ts`, `calculatorPathDependent.ts`) and TimeToTarget's card highlight. Historical (10%) stays visible but unhighlighted — under-promise with the canonical user-yield figure. Do NOT "fix" the highlight back to historical. The F-6 family is CLOSED (founder rulings 2026-07-11): `INFLATION_IMPACT_SCENARIO_USD_PERCENT = SCENARIO_RATES.conservative` (7 — do not "fix" back to historical; the stress-harness mirror uses 0.07 and the vectors are regenerated), and the preDream `wealthy` goal is named **"70/20/10 Goal"** (live on 70 / clear debts with 20 / always invest 10 — an allocation-rule name, not a return figure; the sim already contributes 10% of the reference salary). Only deliberately-historical contexts remain: the lesson Beat-2 vignettes (RAW Historical, locked above per Q7a/R2 — pedagogy). **Emergency-fund extended to Conservative-7% (A2, founder ruling 2026-07-13):** `EMERGENCY_FUND_SCENARIO_USD_PERCENT = SCENARIO_RATES.conservative` (was `.historical`), and the result card reads the `scenarios.conservative`/`conservativeTooltip` labels. The golden-path diBoaS timeline moves from ~57 to ~61 months (lower assumed yield = more months, strictly more honest). Do NOT revert emergency-fund to historical.
 - **Dream Mode result honesty — data-viz honesty cluster (canon UX-60/61/63, 2026-07-19).** `apps/web/src/components/PreDream/screens/ResultsScreen.tsx`: (1) **UX-61 precision reduction** — every projected figure renders `formatCurrency(…, 0, …)` (0 decimals, not 2); do NOT "fix" the rounding back to cents (false precision on a projection reads as a promise). (2) **UX-63 assumed-APY label** — the growth figure is labelled via `results.assumedApy` ("at an assumed {apy}% a year"), never a bare "X% APY"; keep the "assumed" framing. (3) **UX-60 scenario spread** — the same money is also shown on the other two scenario paths (via `calculatePreDreamResult`) so the outcome reads as a _range_, not one deterministic line; do NOT delete the spread to show a single number. Paired with the `/market` server-side outage banner in `market/page.tsx` (robustness — full/partial fallback via `fallbackMessages.*`, `role="status"`). This lands with the same commit as the code; keep entry + code together.
 - **The weekly `/market` workflow gates by GATE CLASS — bot-written output blocks BEFORE the PR, human-owned fields block ON the PR (2026-08-31, PENDING_ALL 5.151).** `generate.mjs` never writes the research-memo voice (`regime.summary.<locale>.{short,detailed,mixed_signals,key_*}` — its own docstring says "PRESERVED (editorial-owned, never touched here)"). On 2026-08-24 the memo-figure gate (5.128) was added into the **bot pre-flight** bundle; on 2026-08-31 — the first weekly cycle with it — a drifted figure failed the step, the job died at line 75, and **`Open refresh PR` never ran**. No PR meant the founder-ratified **AUTO-HOLD** policy had nothing to hold (it assumes a PR exists and simply waits) and the miss was invisible except a failure email. The rule now: a gate over output the bot WRITES (drift `--check`, jargon, market + analytics-sdk tests, prettier) blocks pre-PR, because the bot can always satisfy it by regenerating; a gate over a field a HUMAN owns is **reported** pre-PR (`continue-on-error`, `id: memo`) and enforced by the PR's own CI battery, where a human can actually fix it on the branch. **The honesty guarantee is unchanged — a stale memo still cannot MERGE** (`memoFigureReconciliation` runs in full CI via `MARKET_REFRESH_PR_TOKEN`). When the memo is stale the PR opens with the title "MEMO REWRITE REQUIRED", the `memo-rewrite-required` label and the orphaned figures quoted in the body. **The memo step must EXIT NON-ZERO when stale** (it renders as failed-but-continued): if it exits 0 the step looks green while the memo is drifted, and `continue-on-error` becomes dead configuration that can never fire — caught in this change's own self-audit. It also collects orphans across ALL locales (`sort -u`), never `head -1`, which would show one locale and hide the rest. **Do NOT "simplify" this back into one vitest invocation** — that re-creates the deadlock (bot pre-flight asserting an invariant only a human can satisfy). Sabotage-proven 2026-08-31: injecting a figure the engine does not publish leaves the pre-flight green (317 pass) and fails the memo gate naming the exact orphan. Paired change: the cron moved to `17 6 * * 1` and `market-refresh-watchdog.yml` alarms if no run started in 24h. **The 2026-08-31 run was NOT dropped — it fired 7h19m late (13:19 UTC) and failed at the same memo gate** (the "dropped" wording here and in `infrastructure.md` was corrected 2026-09-06). That correction matters twice: it is the accurate failure record, and it is why the watchdog sits at `0 22 * * 1` rather than mid-morning — **a check placed inside the delay envelope produces false alarms, which train people to ignore the alarm.** Do NOT move it earlier to "catch it sooner".
-- **`/market` data_status panel is AUTO-GENERATED — never hand-edit (B3, 2026-08-11).** `regime.json#data_status` + `data-status.json` are both written by `generate.mjs` from ONE derivation (`scripts/market-refresh/lib/data-status.mjs`: per-cadence-class status rules — weekly-friday F-M3 14-day laggard window, BTC doc-02 §5.1 expected-confirmed-month, M2 print-overdue, Polygon warm-up ledger — plus derived `overall_confidence` HIGH/MODERATE/LOW and ops-facing EN message templates). The F-M6 mirror holds by construction; `generate.mjs --check` + the golden test (`dataStatusDerivation.test.ts`, derive-from-committed-computed == committed panel) make a hand edit un-mergeable. A cycle-specific message nuance goes into the module's templates (or an editorial-override for rendered copy), NOT into the JSONs. The panel's ETF stale-fund guard (`STALE_FUND_DAYS` in `etf-flows.mjs`) is inert BY DATA LIMITATION — Polygon's ticker-detail endpoint carries no `last_updated_utc` (API-probed 2026-08-11); do not "fix" the null `lastUpdated` by wiring the list endpoint's stamp (it tracks record metadata, not share-count vintage).
+- **`/market` data_status panel is AUTO-GENERATED — never hand-edit (B3, 2026-08-11).** `regime.json#data_status` + `data-status.json` are both written by `generate.mjs` from ONE derivation (`apps/web/scripts/market-refresh/lib/data-status.mjs`: per-cadence-class status rules — weekly-friday F-M3 14-day laggard window, BTC doc-02 §5.1 expected-confirmed-month, M2 print-overdue, Polygon warm-up ledger — plus derived `overall_confidence` HIGH/MODERATE/LOW and ops-facing EN message templates). The F-M6 mirror holds by construction; `generate.mjs --check` + the golden test (`dataStatusDerivation.test.ts`, derive-from-committed-computed == committed panel) make a hand edit un-mergeable. A cycle-specific message nuance goes into the module's templates (or an editorial-override for rendered copy), NOT into the JSONs. The panel's ETF stale-fund guard (`STALE_FUND_DAYS` in `etf-flows.mjs`) is inert BY DATA LIMITATION — Polygon's ticker-detail endpoint carries no `last_updated_utc` (API-probed 2026-08-11); do not "fix" the null `lastUpdated` by wiring the list endpoint's stamp (it tracks record metadata, not share-count vintage).
 - **Market pipeline FRED series are single-source BY ACCEPTED DECISION (data-chain parity audit, founder-ordered 2026-08-13).** BTC monthly closes get dual-source verification (Yahoo vs CoinGecko ≤0.5% divergence, `assertBtcCloseVerified`); the FRED series (DTWEXBGS, DGS10, NASDAQCOM, M2SL) deliberately do NOT — FRED is the official/primary publisher and no independent second publisher of these exact series exists. The compensating corruption net is the quality gate's per-series bounds: outlier limits (DTWEXBGS 8%/day, NASDAQCOM 16%, DGS10 0.6pp absolute) + recency windows (DTWEXBGS 14d, DGS10/NASDAQCOM 7d, M2SL 92d) + schema/monotonicity checks, all fail-closed (no files written on breach). Do NOT "complete" the symmetry by adding a scraped second source for FRED data (worse provenance than the primary), and do NOT remove the bounds because the source is official. New market views state their per-source dual-source policy explicitly per the program doc §4 go-live checklist row 7 (PENDING_ALL 5.95).
 - **The weekly `/market` refresh must survive a legitimate data state, never assume one (Phase B, 2026-09-29, PENDING_ALL 5.462–5.469, 5.476).** Five of twelve scheduled runs failed since 2026-07-13, and the common cause was a BLOCKING test asserting a data STATE (the live panel is HIGH, the ETF ledger has no gap, the ETF row reads FRESH) instead of a RULE. Standing rules: (1) **tests in `market-data/__tests__` / `analytics-sdk/__tests__` run in the weekly workflow's blocking step, so a test reading committed data may assert only identities or consistency** (build-instant no-op, "gap ⇒ UNAVAILABLE/gapped, four weeks ⇒ scored", "row agrees with its signal") — rule tests own a frozen fixture (`PANEL_2026_09_07`). (2) **Run `pnpm market:simulate-next-week` for any pipeline change; all three scenarios (A normal/monthly not rolled · B skip week · C ETF leg failed) must pass** — A and B failed before this pass and are the executable form of rule 1. (3) **The weekly workflow refuses to run while a refresh PR is open** (first step, before checkout): `create-pull-request` force-rebuilds the branch from main, and an unmerged week's ETF collection is not known to be reconstructible (the route gives no observation date) — do NOT remove or move the guard, and do NOT "fix" a blocked run by closing the open PR unmerged. Remedy is always: rewrite its memo if required, merge it, re-dispatch. (4) **The ETF leg stays fail-open for the score but LOUD** (`status=failed` → `::warning::` + PR-body block); never restore `\|\| true`. (5) **The 14-day staleness backstop blocks only market changes** (founder-ruled; `lib/staleness.mjs` is the single rule; CI enforces via a `HEAD^1..HEAD` path diff, fail-closed). Do NOT move enforcement back into `pnpm test`: this repo's vitest reporter hides a passing test's console output, so the non-market WARNING would become invisible, and a failing one would freeze every lane again. (6) **`archiveSignals` merges its warm-up slots UNDER the engine's values, never replacing them** — replacing dropped `variant: 'gapped'` and would have published the warm-up sentence ("10 of 5 snapshots recorded") on a gap week (5.476); `etfFlows.test.ts` tests that seam. (7) **The PR body's memo findings come from `lib/memo-orphans.mjs`**, not a regex in YAML (the old one showed 1 of 39). Gates: `FLOW-GUARD-1`, `STALE-1`, `MEMO-3`, `SIM-1` in `engineering-gates.md`. **(8) 2026-10-06 (5.478): the same rule applies OUTSIDE the two directories.** Any test that reads the monthly series the pipeline writes (`marketDataService` without mocking it, or `monthly*.json`) gates the refresh PR's CI and must assert rules or values DERIVED from the same committed series — never a band on a moving number or a bounded month count (`asset-history`'s BTC band and DAX `<= 130` were both landmines). Declare it in `releaseGateBoundary.test.ts#PIPELINE_DATA_READERS`, keep it OUT of the bot's blocking step (a failure there kills the run and loses the week's ETF snapshot), and make sure `simulate-next-week` scenario D runs its directory.
 - **Market view-voice standard — plain language leads, disclosures are native `<details>` (M3.5, founder-ruled 2026-08-14).** The binding cross-view composition every market view follows: (1) **the plain grandmother line leads** — umbrella cards render `summary.plain`'s first sentence (scored) / the macro group sentence (state) as the PRIMARY text with band/condition words demoted to a small meta row; do NOT re-promote the jargon grammar to the lead position. (2) **Card meta colors ride the warm editorial ramp** (teal-deep→teal→ink-soft→defensive→hostile via `data-band`), never the stoplight success/warning/error tokens (Q3-advisory grammar — same rule as the chart/gauge). (3) **All progressive disclosure is native `<details>/<summary>`** (analyst memo, signal-group rows, backdrop condition rows): server-rendered, no JS toggles, no ARIA re-implementations — and **`<summary>` children must be `<span>`s with CSS display** (phrasing-content spec; a `<div>` inside summary is non-conforming, caught by the 2026-08-14 audit). (4) **Only DEPTH collapses, never honesty surfaces** — disclaimers, the data-status panel, and outage banners stay permanently visible; the memo/per-signal detail are the only collapsible layers. (5) Signal-row mobile grid is `auto 1fr auto` — three children, three columns (2-col wrapped the chevron and clipped titles at 375px). (6) Memo openings are cadence-aware FROM DATA (`anchorKind`) — never hardcode week/month wording.
 - **The analytics swap seam is the six `fetch*` functions in `mock-client.server.ts` — `RegimeDataProvider` never existed (swap-readiness audit 2026-08-13).** Older plans/memory referenced a "RegimeDataProvider interface"; the REAL seam (verified): `apps/web/src/lib/analytics-sdk/mock-client.server.ts` — six view-parameterized fetchers + the `fetchInitialAnalyticsData` composite + the `VIEW_DATA_LOADERS` static-import map. Exactly TWO runtime consumers (`MarketViewShell`, `UmbrellaView`); every `components/Analytics/*` import is types-only. A swap reimplements this one module's internals. Contract deltas to carry into that PR (registered on PENDING_ALL 5.90): doc-07 envelope unwrap (`{success,data,meta}` vs today's bare JSON), doc-09's server fetchers are `get*`-named with `{apiBaseUrl, apiKey, locale}` options (the host keeps its `fetch*` wrappers delegating to them — the old in-file comment claiming the names already matched was corrected 2026-08-13), `/product-disclaimer` + `synthetic_seed` exist host-side but entered doc-07 only as the v1.3 draft.
 - **`HistoricalRegimeChart` point fills use the warm editorial ramp, not the stoplight tokens (B5 / F-2, 2026-07-13).** `POINT_FILL_BY_REGIME` maps VERY_FAVORABLE→`--editorial-teal-deep`, CONSTRUCTIVE→`--editorial-teal`, NEUTRAL_MIXED→`--editorial-ink-soft`, DEFENSIVE→`--editorial-defensive`, HOSTILE→`--editorial-hostile` (teal-deep → teal → ink-soft → deep-copper → rust — the same copper↔teal family as the RegimeScore gauge + RegimeLabel pills). Do NOT revert to the semantic `--text-success/warning/error-accessible` green/amber/red tokens — that grammar reads as buy/sell (Q3-advisory) and clashes with the warm `/market` palette. Token-only (no hex). The chart went LIVE with the 2026-08-04 cycle and the recolour was render-verified in production 2026-08-11 (Docker MCP, EN desktop — teal family / ink-soft / copper all correct, no stoplight grammar). **[Corrected 2026-08-24:** this entry previously recorded "`synthetic_seed: false`, 52 real snapshots" — that count was FALSE; 44 of those 52 were pre-engine seed, and PENDING_ALL 5.27's closure rested on the same false premise (superseded by 5.127). What the chart may publish is governed by the provenance entry below.**]**
 - **`/market/backdrop`'s lead reports CHANGE or persistence, never a level, and carries no score (2026-08-24; PENDING_ALL 5.140 + 5.141).** The state view's lead is `signals.json` → `groups[macro_environment].state_view.lead`, generated from `templates/state-beats.json`: a points-free opening plus one BEAT per condition in the fixed order dollar, rates, liquidity. A beat selects on whether the signal's state DIFFERS FROM THE PREVIOUS RUN DAY in `run-archive.jsonl` — **never on the level**. A level-based lead says "the dollar has slipped below its trend" every week it happens to be below: on 2026-08-24 that would have been three weeks stale (MAC-01 crossed 2026-08-04 and had held for four runs). **With no prior run a beat resolves to HOLD, never MOVED** — claiming an unevidenced move is the failure that matters. Guarded by `stateLead.test.ts` (sabotage-verified on the fail-safe direction). **Do NOT reintroduce durations** ("for six weeks"): the archive starts 2026-07-11, so any duration is a floor, not a measurement; "still" and "keeps" carry persistence without asserting a length. **Do NOT put the points parenthetical on this view** — MM-2 gives state views no score, which is why the openings live in `state-beats.json` and `group-summaries.json` (rendered on the scored Bitcoin view via `SignalCardsGrid`) is left untouched. **MAC-02 copy stays change-relative** ("money has not got cheaper") because the signal measures the 10 year against its own 20 week trend, not the absolute cost of money. The depth sentences use the `*Precise` slots (2 decimals): the shared `scaleDigits` rule rounds >=100 to whole numbers, which is right for a BTC price but renders the dollar index as "119 against a 120 trend, 1% below" when the real distance is 0.69%.
-- **Market pipeline writes are ATOMIC, and both JSONL ledgers tolerate a torn tail (2026-09-13; PENDING_ALL 5.302, gate PIPE-2).** Every whole-file write in `scripts/market-refresh/` goes through `lib/atomic.mjs` (temp + `fsync` + `rename`) — `run.mjs`, `generate.mjs`, `tools-monthlies.mjs`, `providers/inrepo.mjs`. Do not reintroduce a bare `fs.writeFileSync` on a path: it truncates first and streams after, so a crash leaves a TRUNCATED `computed.json` that is not valid JSON and kills the NEXT weekly run, a week later. Three details are load-bearing and wrong in the naive version: the temp must sit in the **target's own directory** (cross-filesystem `rename` is not atomic — `EXDEV` — and `os.tmpdir()` is usually another mount); `fsync` precedes the rename; and the temp cleanup lives in its own `try/catch` so it cannot mask the caller's error. `lib/jsonl.mjs#readJsonlTolerant` is the single rule for reading an append-only ledger — both `run-archive.jsonl` and `etf-shares-weekly.jsonl` use it, after a torn tail in the second threw a bare `SyntaxError` out of the middle of a weekly run while the first absorbed identical damage.
+- **Market pipeline writes are ATOMIC, and both JSONL ledgers tolerate a torn tail (2026-09-13; PENDING_ALL 5.302, gate PIPE-2).** Every whole-file write in `apps/web/scripts/market-refresh/` goes through `lib/atomic.mjs` (temp + `fsync` + `rename`) — `run.mjs`, `generate.mjs`, `tools-monthlies.mjs`, `providers/inrepo.mjs`. Do not reintroduce a bare `fs.writeFileSync` on a path: it truncates first and streams after, so a crash leaves a TRUNCATED `computed.json` that is not valid JSON and kills the NEXT weekly run, a week later. Three details are load-bearing and wrong in the naive version: the temp must sit in the **target's own directory** (cross-filesystem `rename` is not atomic — `EXDEV` — and `os.tmpdir()` is usually another mount); `fsync` precedes the rename; and the temp cleanup lives in its own `try/catch` so it cannot mask the caller's error. `lib/jsonl.mjs#readJsonlTolerant` is the single rule for reading an append-only ledger — both `run-archive.jsonl` and `etf-shares-weekly.jsonl` use it, after a torn tail in the second threw a bare `SyntaxError` out of the middle of a weekly run while the first absorbed identical damage.
 
 - **The run archive stays APPEND-ONLY; duplicate run DAYS are collapsed on READ (2026-09-13; 5.302).** Making the ledger "idempotent" by rewriting same-day lines was considered and REJECTED: a correction re-run is a real event, and a provenance authority you edit is not one. The single collapse rule is `lib/archive.mjs#readArchiveRows` + `#runDayIndex` (later line wins for a day), which replaced three separate copies of the same parse loop in `priorRunSignals`, `realSnapshotCount` and the historical append. Add a reader here, not another copy.
 
@@ -123,7 +123,7 @@
 
 - **MM-2 "a state view carries no score" has ONE definition: `lib/market/viewRegistry.ts#MM2_SCORE_FRAGMENT` (2026-09-14; 5.174/5.318).** It was previously three regexes across two test files and nothing in shipped code, and the umbrella's fallback published `summary` — which ends with the points parenthetical by design — onto the backdrop card. `stateCardLine` now REFUSES a score-carrying fallback; a state card without a plain line still renders its conditions, so refusing is cheap. Do not re-inline the pattern, and do not "restore" the unconditional fallback.
 
-- **`delayed_after` is shipped per source so freshness can be re-evaluated at READ time without a second copy of the cadence policy (2026-09-12; 5.173, gate PIPE-5).** The doc-02 rules stay in `scripts/market-refresh/lib/data-status.mjs`; `src/lib/analytics-sdk/freshness.ts` does arithmetic against the shipped instant and nothing else, and is DOWNGRADE-ONLY (time never makes a stale source fresh). The two `overall_confidence` rules must stay exactly equivalent — they diverged once on a `null` `stale_after`, where the pipeline's `run > new Date(null)` compares against the epoch and reads "already stale". **`STALE` is reachable** and must stay so: it had an icon and a four-locale label and no producer, so a source past its threshold dropped the headline to LOW while its own row still said "Delayed" and nothing named the cause. The hero badge reads `dataStatus.overall_confidence`, never the frozen `summary.confidence_level` (5.131 in reverse).
+- **`delayed_after` is shipped per source so freshness can be re-evaluated at READ time without a second copy of the cadence policy (2026-09-12; 5.173, gate PIPE-5).** The doc-02 rules stay in `apps/web/scripts/market-refresh/lib/data-status.mjs`; `src/lib/analytics-sdk/freshness.ts` does arithmetic against the shipped instant and nothing else, and is DOWNGRADE-ONLY (time never makes a stale source fresh). The two `overall_confidence` rules must stay exactly equivalent — they diverged once on a `null` `stale_after`, where the pipeline's `run > new Date(null)` compares against the epoch and reads "already stale". **`STALE` is reachable** and must stay so: it had an icon and a four-locale label and no producer, so a source past its threshold dropped the headline to LOW while its own row still said "Delayed" and nothing named the cause. The hero badge reads `dataStatus.overall_confidence`, never the frozen `summary.confidence_level` (5.131 in reverse).
 
 - **An ETF "weekly aggregate" must actually span a week (2026-09-14; 5.301, gate PIPE-4).** `computeWeeklyFlows` stamps `spanDays` + `weekly` (7±1 days: a holiday-shifted Friday is a shifted week, a missed run is not), and a non-weekly interval inside the trailing-4 window takes ETF-01 to UNAVAILABLE with its own four-locale sentence. Two alternatives were rejected and must not be reintroduced: reaching further back for four clean weeks makes the score describe a window ending before the ledger's latest anchor while the panel reports that anchor, and failing the run closed blocks every other signal for the four weeks the gap takes to age out (a missed Polygon snapshot is not known to be reconstructible: the route gives no observation date). Cadence warnings live in `spacingWarnings`, never in `warnings`, which the detail string counts as fund-quality exclusions.
 
@@ -145,7 +145,7 @@
 - **Card-fees "annual savings" is net of diBoaS's own 0.48% movement fee (A3 / F-CF-1, 2026-07-13).** `lib/card-fees/calculator.ts`: `annualSavingsWithDiboas = Math.max(0, annualFeePaid − monthlyVolume × 12 × DIBOAS_MOVEMENT_FEE_RATE)` where `DIBOAS_MOVEMENT_FEE_RATE = 0.0048` (FEES.md Add Money, B2B no cap; mirrors `FALLBACK_MARKET_DATA.platformFees.deposit.rate`). Single Add Money leg only (not round-trip). The `Math.max(0, …)` clamp is load-bearing (keeps net at an honest floor of 0 when the processor rate is below 0.48%). Do NOT set savings back to the gross `annualFeePaid`. EU IFR-cap disclosure wiring (`disclaimers.euIfrCap`) is untouched.
 - **≤5-option choice sets render as `SegmentedControl`, not `Select` (UX-36; F7-F11 design review, 2026-07-10).** `apps/web/src/components/UI/SegmentedControl/` (aria-pressed toggle-button group, house style = currency-depreciation mode toggle; segments flex-grow and wrap in narrow grid columns). Applied to asset-history mode + returns-basis and inflation-impact country. The cadence `Select` (7 options) legitimately stays a dropdown — its in-code rationale is a conscious application of the same rule. Label pairing: visible `<span id>` + `ariaLabelledby` (segments are not form controls; `htmlFor` doesn't apply).
 - **Dead-code gate is scoped and GREEN — barrels are consumed-or-absent (knip Option A, founder 2026-07-11).** 35 unreferenced files deleted (33 unconsumed barrels + `lib/observability/correlation.ts` + `lib/market/{index,constants}.ts`); `pnpm check:dead-code` fails on files/dependencies/binaries only (`check:dead-code:full` shows the advisory exports/types classes — Category-4 residual: 317/344/19, review tracked in PENDING_ALL). **Kept as dormant-by-design with knip `ignore` entries, do NOT delete:** `lib/analytics-sdk/theme.ts` (mandated by the diboas-analytics MVP spec, docs/mvp 00-overview "SDK's default theme") and `lib/waitingList/domain/**` (documented DDD repository contract, Phase-2 scaffolding). `scripts/generate-investor-docs.mjs` is a LIVE manual pipeline tool — knip once flagged it unused; it is now wired as `pnpm generate:investor-docs`. Never delete by a dead-code report alone; trace importers/invocations first.
-- **UX governance enforcement files are tracked in `docs/tech/ux-governance/` (G-1 revisited and accepted via relocation, founder 2026-07-10).** The anti-slop checklist, principles canon, and usage protocol moved from untracked paths; `validate:ux-canon` (11th `validate:all` gate) guards their structure and runs for real in CI — its dead-link check tolerates references into still-untracked doc areas only when that area is absent from the checkout. The retention rule (archive-with-status-header, never delete) still governs `docs/audit/`, `docs/ui-ux/`, and the Writing System.
+- **UX governance enforcement files are tracked in `docs/tech/ux-governance/` (G-1 revisited and accepted via relocation, founder 2026-07-10).** The anti-slop checklist, principles canon, and usage protocol moved from untracked paths; `validate:ux-canon` (11th `validate:all` gate) guards their structure and runs for real in CI — its dead-link check tolerates references into still-untracked doc areas only when that area is absent from the checkout. The retention rule (archive-with-status-header, never delete) still governs `docs/audit/` (local-only), `docs/ui-ux/` (local-only), and the Writing System.
 
 ---
 
@@ -185,6 +185,17 @@ These forward-looking React performance rules remain in `CLAUDE.md` § React Per
   `apps/sandbox/src/lib/auth/__tests__/authProvider.test.ts`. The check lives in
   `SimulatedAuthProvider.verifySession` so the "who may enter" seam stays single. Opening the app
   does **not** relax the CN/RU/KP geofence, `noindex`, or the R-4 play-money label.
+- **A session is granted only to a request the provider already admits (P1, register `5.480`,
+  2026-10-16).** `/welcome`, `/consent` and `/claim` sit OUTSIDE the gated `(app)` group, and
+  `establishSession` used to grant a session to any caller — so in gated mode onboarding skipped
+  the gate. `IAuthProvider.establishSession(method, currentSession)` now refuses unless public
+  access is on or `currentSession` is a verified gate grant, and `startOnboarding` runs the same
+  admission check BEFORE setting any cookie, sending an unadmitted visitor to `/gate`. ⚑ **Do not
+  turn "no grant" into "redirect to the gate"**: in public mode with no password configured
+  there is nothing to grant and the visitor is still admitted — that is the live public app.
+  Walked on a local production build in both modes. `/consent` and `/claim` still RENDER without
+  the gate in gated mode; they grant no session and write only the device-local ledger, and the
+  interior stays gated (`5.522`).
 - **The public market routes are CDN-cached; failures are not.** `/api/market` and
   `/api/market/history` send `public, max-age=0, s-maxage=300, stale-while-revalidate=3600` from the
   shared constant in `apps/sandbox/src/lib/marketCacheHeaders.ts`. They proxy a metered free-tier
@@ -203,15 +214,15 @@ Each entry names its **current code state** and its **ruled target** separately,
 - **Monthly plan = reminder / intention / proposal (F-13 = W-8).** _Current code:_ `RecurringSet` → `RecurringContributionApplied` auto-applies contributions (annuity replay). _Ruled target:_ no automatic deposit or application; any run needs per-run user approval; the producer retires, the event types stay in the union so existing ledgers replay totally.
 - **`MoneyJobCandidate` is Product-atomic, technically composite (P-Q1).** _Ruled:_ `composition_type = SINGLE | BLENDED`, `technical_legs = 1..N` (leg = mechanism · protocol · network · asset · amount/weight · rate snapshot · market-data timestamp). Never type or model the Candidate so that it forces one protocol, network or mechanism; aggregate APY / risk / cost shown for a Candidate must describe the whole Candidate, with the aggregation methodology inspectable; `Consequence` evaluates the whole Candidate; `DecisionRecord` freezes the Candidate + composition + `methodology_version` at decision time and is never rewritten retroactively. The existing blended catalog in `packages/defi` is compatible; the FC-7 single-vs-blended tier split is no longer the Product boundary.
 - **`SCENARIO_RATES` (7 / 10 / 14) is superseded as canonical Product truth (P-Q2 §2.9).** _Current code:_ `packages/investing/src/goals.ts:172`, consumed by `Projection.tsx` / `ExpenseImpactCard.tsx`. _Ruled:_ may remain test/fixture data; static values must never become production Product truth or an implied recommendation; the two components are `RETAIN EXPERIMENTAL / QUARANTINED` — never reinserted into Goal creation; Pay Myself First stays contribution-only. Any future projection must be modeled/illustrative, assumption-qualified, methodology-accessible, horizon- and uncertainty-aware, non-forecast, non-recommendatory, and excluded from actual Goal balance/progress.
-- **Practice-depth capabilities keep the P-Q2 dispositions** (register: `docs/sandbox-app/R1_BUILD_INVENTORY_2026-08-21.md` §6). Preserve; do not delete, re-home or redesign; Weekly cycle preserved under Growth authority; `/comprehension` stays doorless and is never a proof-of-reading gate; a Payment Handle is never exposed as Community identity.
+- **Practice-depth capabilities keep the P-Q2 dispositions** (register: `docs/sandbox-app/R1_BUILD_INVENTORY_2026-08-21.md` _(⚠ NOT REACHABLE — see `5.458`)_ §6). Preserve; do not delete, re-home or redesign; Weekly cycle preserved under Growth authority; `/comprehension` stays doorless and is never a proof-of-reading gate; a Payment Handle is never exposed as Community identity.
 - **Mode labels and colours (F-01 / F-05).** Label `PRACTICE • SIMULATED` (Practice = mode, Simulated = state qualifier) and `REAL MONEY`; Practice = violet/periwinkle family, Real = teal/aqua family per the Product handoff §34 (brand colour ≠ semantic colour; the approved visuals are **not** re-tinted into the masterbrand palette). Mode distinction never relies on colour alone — the label is the primary signal (R-4 stays under every screen); semantic tokens must pass accessibility validation. Public name **Practice**; "Sandbox" is internal only.
 - **Sandbox token architecture (I-1d/I-1e, 2026-09-12 — do not regress).** _Current code:_ `apps/sandbox/src/styles/tokens.css` in three tiers — T0 `--palette-*` (every literal colour, once) → T1 `--sb-mode-{50…800}` (the active mode's ramp) → T2 `--sb-<family>-<role>` (what components use). Six themes = neutral / practice / real × light / dark. **TWO attributes, and the distinction is load-bearing:** `[data-palette]` on `<html>` is what re-points the ramp, and it is stamped only when the `modePalette` capability is on (`SANDBOX_MODE_PALETTE`, REQUIRES_CLEARANCE, default OFF); `data-mode` states the mode TRUTH on every in-app surface (I-1e's shell-family registry) and **paints nothing**. So the live app renders `neutral` because `data-palette` is absent, not because the mode is unknown. _Rules, enforced by `apps/sandbox/src/styles/__tests__/tokenArchitecture.test.ts`:_ component CSS references declared roles only — no palette values, ramp steps, literal colours or per-theme recolouring (image swaps and the Consent structural layout excepted); `financial.*` / `state.*` / `identity.*` never read the mode ramp, so a mode switch cannot recolour an outcome (Mode × Appearance §18); every foreground role sits in a contrast pair checked in all six themes (4.5:1 text, 3:1 graphics); the explicit-dark and system-dark copies stay identical; nothing declared is unused; comments name only tokens that exist; and **no mode block may select on `data-mode`**. The practice and real values are **provisional calibration**, not authority — enabling the palette re-tints every Practice screen teal → periwinkle, which is a Product/UIUX decision (register `5.282`). **Why the explicit guard:** for one commit in I-1e the ramp keyed off `data-mode` while the new shell stamped it everywhere, so the provisional palette went live and **720 tests passed over it** — each one asserting the ATTRIBUTE rather than the resolved colour. The guard now asserts the RESOLVED accent, which is the general rule for anything whose point is a rendered value. **⭐ Extended 2026-09-16 by the Error family (`5.365` · `5.377` · `5.378` · `5.379`) — two decisions that look like accidents and are not:** **(1) There is deliberately NO `--sb-state-error-icon`.** The ratified calibration gives the icon and the foreground _identical_ values in both appearances, so an Error icon consumes `--sb-state-error-foreground`; a fourth declared role would be a token with no consumer, which the dead-token rule correctly fails (`5.310`). Do not "complete the set". **(2) The gate renders the Error SURFACE in BOTH appearances, and the reason is the guard's shape, not taste.** `TEXT_PAIRS`/`GRAPHIC_PAIRS` are flat lists asserted across all six themes, so a combination rendered in only ONE appearance cannot be expressed — adding it fails the other. Measured: only `error-fg ↔ error-surface` (4.87–5.80) and `error-border ↔ error-surface` (3.51–3.66) hold in all six cells; `error-border ↔ inverse plate` (1.91–5.86) and `error-surface ↔ inverse plate` (1.46–14.14) swing across their floor by cell and are therefore **deliberately absent** from the matrices. Dark did not need the surface (bare foreground is 8.89:1 on the plate); it renders anyway so the asserted pair is uniform. **The boundary is the opposite case:** it sits on `--sb-canvas-base` where the foreground clears the floor directly (5.75 light / 8.89 dark), so it renders NO surface and NO border — and its `info` glyph was _removed_ rather than replaced, because the governed icon door ships no Error/failure glyph among its 57 keys. **Per-surface, the containing surface decides the treatment** — that is the whole lesson of `5.377`: contrast is a property of the local surface, never of the appearance.
 - **Brand assets (F-02).** The logo / palm / glow inside the Product visuals is placeholder; implementation uses a Brand-controlled asset slot and migrates when Brand supplies the final wordmark / redrawn palm / token spec. Never a blocker for architecture.
 - **Shell (F-04).** Five tabs — Home · Goals · Move · Learn · Community. An unavailable Learn or Community tab stays tappable and opens a truthful calm explainer / unavailable-state surface (W-9c) — never a dead or fake control, never a release date. Nothing of Community activates (content, profiles, interaction, data, Growth mechanisms).
 - **Auth (F-06 / F-07).** Methods = Google · email · wallet (W-1; Apple deferred). Proof appropriate to the method: email → email verification; Google → provider-authenticated identity; wallet → proof of wallet control. W-14a (universal verified email) is **not** canonized. Wallet sign-in is authentication only: no funding, custody, KYC completion, Real readiness, execution readiness or Real activation is implied, and **no wallet is provisioned in Practice** (W-2 stands: provisioning belongs to the Real journey / Real-intent boundary). The EN-02 disclosure line ("connecting a wallet only signs you in; no funds move") ships with the screen.
 - **Real Money entry (F-18 / P-Q3).** Real parity through pre-authorization is built behind a strict internal flag (`=== 'true'`, sabotage-tested like `SANDBOX_PUBLIC_ACCESS`), stops at "Continue to authorize", and is unreachable in production; **no public Practice ↔ Real switch exists or is invented** — future Product authority decides mode entry (guardrails: Practice permanent, Real opt-in and explicit, never a graduation, Practice state never silently becomes Real, Practice Credits never convert).
-- **Persistent accounts (F-16).** May be built behind a server flag (`BUILD PERMISSION ≠ PUBLIC RELEASE PERMISSION`); public persistent release stays blocked pending the evidence in `docs/sandbox-app/legal-current/PRACTICE_LEGAL_RELEASE_CHECKLIST.md`.
-- **Readiness controls (LC-TD-02 §4).** Four separate concepts — `LEGAL-TERMS` (required, unchecked) · `LEGAL-PRIVACY` (information, not consent) · `LEGAL-AGE` (required, unchecked, its own control) · `LEGAL-ANALYTICS` (optional, off) — with the exact approved four-locale strings in `docs/sandbox-app/legal-current/PRACTICE_UI_LEGAL_STRINGS.md`. Never bundle Terms with age or privacy; never require analytics to continue. _Current code:_ `components/Consent.tsx` bundles all three in one accept (PENDING_ALL 5.143 / r3 I-02) — an authorized-next-phase fix.
+- **Persistent accounts (F-16).** May be built behind a server flag (`BUILD PERMISSION ≠ PUBLIC RELEASE PERMISSION`); public persistent release stays blocked pending the evidence in `docs/sandbox-app/legal-current/PRACTICE_LEGAL_RELEASE_CHECKLIST.md` _(⚠ NOT REACHABLE — see `5.458`)_.
+- **Readiness controls (LC-TD-02 §4).** Four separate concepts — `LEGAL-TERMS` (required, unchecked) · `LEGAL-PRIVACY` (information, not consent) · `LEGAL-AGE` (required, unchecked, its own control) · `LEGAL-ANALYTICS` (optional, off) — with the exact approved four-locale strings in `docs/sandbox-app/legal-current/PRACTICE_UI_LEGAL_STRINGS.md` _(⚠ NOT REACHABLE — see `5.458`)_. Never bundle Terms with age or privacy; never require analytics to continue. _Current code:_ `components/Consent.tsx` bundles all three in one accept (PENDING_ALL 5.143 / r3 I-02) — an authorized-next-phase fix.
 - **Instrumentation** follows `docs/tech/INSTRUMENTATION_CONTRACT.md` (documentation only until the runtime is authorized). _Current code:_ the app has no analytics.
 
 ## G8 time-machine replay: the anchoring and evidence contract (2026-09-15 — do not regress)
@@ -228,8 +239,13 @@ it creates Product authority. Register: `5.105` (open), `5.360`, `5.359`.
 - **ACROSS advances a `machine` replay consumes history sequentially.** _Current code:_ `TimeAdvanced`
   carries an optional `replayEpoch`, pinned on the FIRST machine advance and never rewritten
   (projection: first non-null wins, `packages/banking/src/ledger/projection/core.ts`); how far the
-  replay has consumed is DERIVED as `simDay − realSettledDays`, never stored. _Why:_ a stored cursor
-  can disagree with the log. `real` advances pin nothing on purpose — real elapsed days genuinely
+  next CALENDAR WINDOW starts is DERIVED as `simDay − realSettledDays`, never stored. _Why:_ a stored
+  window cursor can disagree with the log. (Each POSITION's replay consumption is a separate fact,
+  stored as `replayConsumedThroughSimDay` because a refusal makes days advanced ≠ days replayed. And
+  **no position's walk starts before the advance's first day**, deposits included: the planner once
+  started at `accruedThroughSimDay`, which only an accrual moves, so an unreplayed position re-fired
+  its recurring deposits on every later advance. `5.360`: no catch-up, no retroactive replay. Lane
+  audit 2026-10-21, B1; pinned by `recurringOncePerDay.test.ts`.) `real` advances pin nothing on purpose — real elapsed days genuinely
   correspond to the newest real days, so the historic newest-tail anchoring is correct for them, and
   `TimeAdvanced.source` is what discriminates the two modes. A uniform sequential context would make
   three real days replay days 91-93 of a historical window.
@@ -290,6 +306,247 @@ it creates Product authority. Register: `5.105` (open), `5.360`, `5.359`.
   hand-built date ladder beside `fixturePriceSeries`.
 - **`5.105` is CLOSED by this increment; `5.360` is implemented.** What remains is only what the
   register says remains — read the row, not this line.
+
+## Ledger dispositions: APPLIED vs REFUSED (2026-10-16 — do not regress)
+
+Register: `5.485` (closed), `5.524` (founder), `5.525`, `5.526`, `5.529` (open, P8d). Gate: `LEDGER-1`.
+
+- **The raw log is preserved; what it MEANS is a disposition.** _Current code:_
+  `packages/banking/src/ledger/engine.ts` `project()` records one `EventDisposition` per event in
+  `state.dispositions`, aligned with `state.events`. A refusal is recorded by calling
+  `refuse(ctx, reason)` (`projection/context.ts`) in the branch that skips the event. _Why:_ the 31
+  refusal branches used to be silent `break`s, so a cross-tab write the goal could not afford stayed in
+  the log and every reader counted it (case 3: the ledger said 80 invested, the chart said 160). **A new
+  skip branch must call `refuse()` AND get its own row in `SITES`** (`dispositions.test.ts`): the
+  coverage check parses the projection sources and fails on a refusal site without a case. A sample
+  of scenarios is not enough — an independent review removed nine `refuse()` calls against the first
+  suite and all nine survived; with one case per site, all 32 removals fail.
+- **A branch that forgets `refuse()` is caught without its own case.** A second audit removed each
+  `refuse()` AND its `SITES` row together: 24 of 31 stayed green, because the coverage check only
+  sees calls that exist. The mutation corpus in `dispositions.test.ts` is built independently of
+  `SITES` — every event type × unknown/other ids, stale versions, and EVERY money field (`amount`,
+  `grossAmount`, fees, `monthlyAmount`, `earnings`) set to zero, negative and oversized, once and
+  repeated — with five oracles (the projection changed; `reconcile()` held; the amount was valid for
+  its field; each goal's `invested` equals its own open positions' principal; no accrual span
+  re-applied). Now 32 of 32 red. **Its pinned lists are today's known defects, exactly**, grouped by
+  register (`5.525`, `5.526`, `5.529`): a new entry fails, and fixing one fails until it is
+  unpinned. A third review caught the corpus mutating `amount` only (an exit's `grossAmount` minted
+  money unnoticed) and `ReplaySpanRefused` misfiled as a pure marker — **a mutation corpus is only
+  as wide as its field list; derive it from the event shapes, not from memory.**
+- **A projected state owns a FROZEN SNAPSHOT of its log** (`Object.freeze(events.slice())`), and
+  its dispositions are frozen; an in-place push throws instead of leaving the cached applied list
+  stale. The sandbox appends to its live log in place; a state sharing that array
+  would grow events without dispositions and silently re-project on every read.
+- **Not every wrong event is refused yet.** Branches with no check at all still APPLY stale writes
+  (`5.525`: a stale exit can leave `reconcile()` at −20.00; funding a dropped goal strands money) and
+  no-op events (`5.526`). Adding those checks changes how existing logs replay — P8d, not P8a.
+- **APPLIED is not "changed a balance".** `RuleApplied`, `TimeAdvanced`, a valid
+  `ReplaySpanRefused` and every credit stay APPLIED. `RuleApplied` is the weekly-idempotency key
+  (`weeklyCycle.ts` `appliedWeeks`); classifying it refused would re-propose a settled week.
+- **Readers never walk `state.events`.** They use `appliedEvents` (and `refusedEvents` for
+  diagnostics) from `@diboas/banking`, including `reconcile()` itself; `eventsWithDisposition` and a
+  store's `getAll()` hand out the FULL log and are allowed only at their pinned places (the scanner
+  flags any mention of the former, and any `getAll()` call — an unrelated one too: exempt it by name).
+  `appliedEvents` is computed once per projected state and FROZEN — copy before sorting. A state's
+  dispositions are matched to its log by IDENTITY: a projected state's dispositions describe exactly
+  its snapshot, so a state spread over another log (`{ ...state, events }`) has them re-derived; a
+  state built by hand has them DERIVED too — never assumed APPLIED — unless it declares them for
+  every event (selector-test fixtures, `view/__tests__/home.test.ts` `base()`).
+- **A refusal is logged, not shown.** `appendAll` logs each newly REFUSED event to the local
+  console (`id`, `type`, `reason` — never the payload: a Goal's name is free text). That helps a
+  developer reproducing a report; it is NOT production observability — no one sees a user's
+  console, so R-14 stays with the error-sink decision (`reportError.ts`). History still omits it
+  until DR-25.
+- **`appendAll` projects before it persists, and takes an append back if projecting throws**
+  (an event the code cannot handle): neither memory nor the store keeps an unprojectable log, and
+  the caller's action fails instead (`lib/ledger/__tests__/core.test.ts`).
+- **Screens ask the view layer, not the log.** Attribution over the applied log is
+  `goalShowsCoinGeckoPrices(state, goalId)` / `ledgerShowsCoinGeckoPrices(state)`
+  (`view/marketDataAttribution.ts`) — one place applies the rule, the test reaches it. Lifecycle events on an UNKNOWN goal or rule are refused as `stale-or-illegal-transition`
+  (one helper refuses for three causes); DR-25 may want them split before wording keys off them.
+- **A refused event is not shown as a success, and has no copy yet.** History omits it until DR-25
+  rules the wording. Do not label it with improvised text.
+- **A rule application whose money leg is refused stays settled** (marker APPLIED, leg REFUSED,
+  credit left in Available). This is PINNED by `p8aCase3Agreement.test.ts`, not decided — the choice
+  is `5.524`'s. Do not "fix" it either way without that ruling.
+
+## Sandbox browser harness (Q0, 2026-10-17 — do not regress)
+
+Register: `5.527` (closed), `5.528` (open). Gate: `HARNESS-1`. Code: `apps/sandbox/e2e/harness.ts`.
+
+- **Only tabs from the `freezable` fixture can be frozen.** _Why:_ Playwright enables Chrome focus
+  emulation (`Emulation.setFocusEmulationEnabled`) on every page it opens; Chrome treats such a page
+  as captured, never hides it, and never freezes a visible page. `Page.setWebLifecycleState
+{state:'frozen'}` then returns `{}` and does nothing — measured 2026-10-17 in Chrome 155 and
+  Chromium 153, headless and headed: a 50 ms timer kept ticking and no `freeze` event fired, while the
+  same command on raw CDP froze the page (0 ticks, `freeze`/`resume` fired) and stopped working the
+  moment focus emulation was switched on. The documented opt-out is
+  `connectOverCDP(endpoint, { noDefaults: true })` (`@playwright/test` ≥ 1.61, hence the sandbox's
+  `^1.61.1`), which applies to the browser's DEFAULT context only — so the fixture spawns Chrome
+  itself on a throwaway profile and uses that context. **Never connect by channel name**
+  (`connectOverCDP('chrome')`): it resolves to the user's real Chrome profile.
+- **`setLifecycle` fails closed on the browser's own signal.** It installs a listener for the event
+  the transition must fire (`freeze` / `resume`), then throws unless it fired; a reading over CDP still
+  works on a frozen page. Visibility is no proof (a background tab is hidden without being frozen) and a
+  timer probe depends on a timing window — both were tried and rejected. Do not weaken it to "the
+  command returned".
+- **Two kinds of tab.** `tabs(n)` gives Playwright pages: focus-emulated, so always visible and
+  focused — they cannot model a background tab. The freezable browser's tabs share ONE window, as a
+  user's do: only the front tab paints, so a test calls `bringToFront()` before acting in one
+  (Playwright's actionability check waits for a frame a background tab never draws). That browser does
+  not carry the project's viewport or user agent, nor Playwright's `--disable-features` list.
+- **The server env is hermetic.** `next start` also loads `.env.local`, which on a developer machine
+  can point at a real database or carry a provider key; `@next/env` never overwrites a key the process
+  already has, empty included, so every key the app reads is pinned. The market kill switch takes
+  SOURCE IDS — `MARKET_SOURCES_DISABLED=defillama,coingecko`; the value `true` disables nothing (an
+  independent review caught exactly that). A self-test asserts every `/api/market` stamp is `fixture`.
+- **A build swap is a real deploy in CI.** The job builds twice (`--force`, so turbo does not hand
+  back the first build) and the swap test fails in CI without `SANDBOX_E2E_SWAP_DIST`. The swap
+  renames, never copies: the source must be on the same filesystem as `apps/sandbox`, must not be the
+  served build, and a failed rename is rolled back; a leftover `.next.e2e-held` makes the next run
+  refuse. **After a deploy, Next answers the open tab's first in-app navigation with a full document
+  load** (deployment skew) — observed 0 or 1 loads per run; tests read through it, P8c must expect it.
+- **The harness owns the server process** (Playwright's `webServer` cannot restart mid-run). Teardown
+  always stops the server, is bounded (SIGTERM 10 s → SIGKILL), and warns on a slow step: a teardown
+  that outlives the fixture timeout gets the worker killed, and a killed worker restores nothing — the
+  next run then refuses (port taken / held build present) rather than test the wrong thing.
+
+## Sandbox display truths (containment K2, 2026-10-18 — do not regress)
+
+Register: `5.540`, `5.541`, `5.542`, `5.544`. Code: `apps/sandbox/src/view/home.ts`,
+`components/ClaimCeremony.tsx`, `components/StrategyDetail.tsx`, `lib/monthReport.ts`.
+
+- **A goal's percentage never reads 100 before the target is reached.** `selectGoalProgress.percentShown`
+  is floored on the `Decimal` and capped at 99 until `targetReached`; the big figure and
+  `aria-valuenow` both use it; the bar's fill keeps the exact `ratioPercent`. _Why:_ rounding made
+  995.00 of 1,000.00 read "100%" with no milestone and no "Review and close".
+- **`/claim` never promises the grant to a ledger that already has it.** The ceremony renders its
+  promise only when the ledger is hydrated AND uninitialized, redirects an initialized ledger to Home,
+  and the claim tap uses `router.replace` (with `push`, the tap and the guard raced and history kept a
+  `/claim` entry only sometimes). `/claim` sits outside `(app)`, so it waits for hydration itself.
+  _Limit:_ the ready flag also opens after a FAILED hydrate (`core.ts`), which leaves an uninitialized
+  ledger and shows the ceremony as before; that false empty is the P8 unavailable-storage case, not
+  this guard's.
+- **Rate vs strategy availability follows one three-way rule everywhere** (picker, Simple, Detailed):
+  a displayable rate shows the rate; an AVAILABLE strategy without a displayable rate (a market leg)
+  states no rate; only an UNAVAILABLE strategy shows `common.optionUnavailable`.
+- **"{count} weekly cycles settled" counts distinct WEEKS first settled inside the month**, the same
+  distinct-week semantics as `appliedWeeks()` — never approvals, never the sum of `weekSet` lengths
+  (a legacy log can repeat a week; the reducer treats `RuleApplied` as a marker and does not validate
+  overlap), never a lifetime total. Display only. "Settled" keeps its meaning under the temporary
+  Option A for `5.524`: the week's marker applied, not a claim that every funding leg succeeded.
+
+## Sandbox lane audit — rules that must not regress (2026-10-18, corrected 2026-10-19)
+
+Found by the whole-lane audit against the 12 principles (register `5.557`–`5.565`); each rule is
+pinned by a test that was watched failing.
+
+- **Middleware matcher — exclude static files at the ROOT only.** `apps/sandbox/src/middleware.ts`
+  excludes `[^/]+\.(png|…)$`, never `.*\.(…)$`: the wider form let a page URL such as
+  `/en/goals/x.png` skip the geofence, CSP and headers. Every public asset lives at the root; a
+  nested asset folder needs its own explicit exclusion. Pinned by `middlewareMatcher.test.ts`,
+  which compiles the matcher with Next's own `getMiddlewareMatchers` (an internal export — the
+  test fails loudly if a Next upgrade moves it). Measured end to end: a refused country gets 451.
+- **A decision is recorded when it is approved, not when the animation ends** (P06 §34.1).
+  `GoalDetailScreen` commits entry/exit on approval; `Settlement` only
+  orients. Never move a ledger command back into `onComplete`. Focus returns to the goal
+  heading when the settlement ENDS (`endSettlement`), never on Confirm — the settlement sheet is
+  a modal that takes focus itself, and the parent's effect runs after the child's. A second tap
+  on Approve is stopped by three UI layers (Manifest gated on `!settling`, selection reset, the
+  commit path's own refusal); domain idempotency for entry remains `5.483`.
+- **No silent failure path — and client logs carry a BOUNDED reason.** Market routes log
+  unexpected server errors (`Logger.error`, with stack; no request data reaches those catches).
+  In the browser, the real-time settle, the time machine, the goal chart's history and the market
+  hook log a reason from `lib/monitoring/failureReason.ts` (`http-503`, `timeout`,
+  `malformed market response: apys[2].chain`, `unexpected:RangeError`) — never the error object,
+  whose message is whatever text reached the catch. A request the screen no longer waits for is
+  not logged. The rate limiter logs its fallback once per reason per window and NEVER the client
+  identity. The sandbox has no external sink — attaching one is a Legal decision.
+- **Parse at the market boundary — every nested field, structure only** (`5.353`, completed
+  2026-10-19; the 2026-10-18 version checked only that `apys`/`gas` were lists, so `apys: [null]`
+  reached `strategyRateDisplay` and threw). `lib/market/responseShape.ts` runs the domain's
+  wire-format checks (`@diboas/defi` `marketShape.ts`): known protocol ids, chains, sources and
+  origins; finite numbers; series points as real UTC calendar days (`Date.parse` alone turns
+  `2026-02-30` into 2 March — days are round-tripped) in STRICTLY ascending order, the same
+  `datesStrictlyAscending` the server's `buildHistoricalSeries` uses; stamp times as a day OR an
+  ISO timestamp (reference stamps are day-only — a timestamp-only rule would reject every
+  reference response); the requested currency; an FX rate and its stamp together or not at all.
+  Unusable → the error state, never data; nothing is sorted, dropped or repaired. **Age and
+  plausibility bounds are NOT checked here** — `freshness.ts` and `evidenceBounds.ts` own them, and
+  a second copy would drift. Display-only `tvlUsd` may be absent (stored as `null` = unknown; the
+  provider now serves `null`, never a missing key). An absent `priceHistories` stays accepted.
+  Proven against the REAL routes' serialized output in live, fallback and reference modes
+  (`routeSerialization.test.ts`, provider module caches reset per case).
+- **Market data is bound to the currency it was fetched for.** `useMarket` exposes an answer
+  only while its currency is the one asked for, and a failure only for the currency that failed —
+  derived during render, so a switch hides the old answer at once. A same-currency answer is kept
+  through a refresh on purpose: every value's age is judged from its own stamp before use.
+- **A month counts a week once, in the month of its EARLIEST recorded settlement** (`5.544`, K2
+  follow-up). `buildMonthReport` finds each week's earliest applied `recordedAt` over the whole
+  log BEFORE counting, so the result cannot depend on log order (the device clock can step back).
+  Display only: no event is sorted or rewritten, and Option A (`5.524`) is unchanged. One window
+  rule, `inReportWindow`, serves every count in the file.
+- **A bottom sheet renders into the app FRAME** (`5.566`). `BottomSheet` portals its overlay into
+  `[data-sheet-root]` (AppShell's canvas, `position: relative; overflow: hidden`), so it covers
+  header, content and tab bar; rendered inside the scrolling content it covered only that box, the
+  tab bar stayed tappable behind a modal and the body scroll-lock locked the wrong element. The
+  opener is captured ONCE on mount and refocused only on unmount; the trap re-runs if the frame
+  appears after the first render (the move remounts the sheet's DOM). Outside the shell the sheet
+  renders inline. Never render a modal overlay inside a scroll container.
+- **Device-storage readers parse what they read and never destroy what they cannot read.**
+  `simulatedEventStore` uses only well-formed records, keeps the rest on write (a newer build may
+  have written them), and its first-record-wins check sees any entry naming the event.
+- **Expected failure-path logs are asserted, not muted** (`src/test/expectedLogs.ts`): a file
+  declares its expected messages; any other console output fails the test, named tests must log,
+  and `strict: true` forbids a declared log anywhere else. The check runs in `onTestFinished`,
+  after RTL's unmount cleanup.
+- **Redirects interpolate only an allow-listed locale** (`isSandboxLocale`), as the server
+  actions already did.
+- **Hit areas: 44×44 via the tap token.** A control whose LOOK must not change gets a
+  transparent `::after` sized `height: var(--sb-tap)` (Toggle, Home "View all", Comprehension
+  "skip"); a block link gets `min-height: var(--sb-tap)`. Never `display: contents` on a link —
+  it draws no box, so it has no focus ring and a shrunken target. Guarded by `tapTargets`,
+  `Toggle`, `ProfileRowLink` tests.
+- **A popover's container must not clip.** Settings cards carry no `overflow: hidden`; the
+  LocaleSwitcher menu is absolutely positioned inside one (`settingsCardOverflow.test.ts`).
+  The switcher is a DISCLOSURE (button + `aria-expanded`/`aria-controls`, plain buttons,
+  `aria-current`), not a listbox.
+- **Heading levels:** StrategyDetail renders only inside GoalDetail, so its title is an `h2`.
+- **One list / one key:** `PROTOCOL_IDS` (`@diboas/defi`, exhaustive by a type check) feeds both
+  market routes; `THEME_STORAGE_KEY` (`ThemeScript.tsx`) feeds both the pre-paint script and the
+  provider — renaming it is a stored-choice migration, not a refactor.
+- **Cross-package changes need a rebuild before the consumer's tests mean anything:** the
+  sandbox resolves `@diboas/defi` from `dist/` (`5.413`). The first run after adding
+  `PROTOCOL_IDS` failed with "not iterable" for exactly this reason.
+- **Workspace test suites run ONE AT A TIME** (`"test": "turbo run test --concurrency=1"`,
+  `5.578`). Each suite already uses every core, so five at once oversubscribed the machine and
+  a rotating tail of tests that take 1–4 s under load crossed the 5 s budget (measured
+  2026-10-20, 8-core Mac, uncached: 3/3 parallel runs red with 2–8 timeouts across ~10
+  different tests; 3/3 serial runs green at about 10 % more wall time). Never answer such a
+  timeout by raising budgets: find the waste first, as `5.578` did for `ciN1` (re-parsing every
+  file once per class) and the market route tests (live network calls).
+- **A refused visitor's state-changing request is a bare 451, never a rewrite** (`5.579`). For a
+  geofenced country, any non-GET/HEAD or `Next-Action` request is answered in middleware with
+  `451` + `no-store` and NO rewrite: a rewrite keeps the method, body and action header, and
+  Next forwards an action the rewritten page does not own to the worker that does. A GET still
+  renders the unavailable page. The matcher also runs on ANY path for every request Next may
+  treat as a server action — a non-empty `next-action` header OR a form body (`multipart/form-data`,
+  `application/x-www-form-urlencoded`), mirroring `server-action-request-meta.js` — because a
+  `/x.png`-style path otherwise skips middleware and only the framework's "Failed to find
+  Server Action" stood in the way (measured 2026-10-20). If Next adds another action
+  encoding, add it here. Never route a refused mutation into a page. **Boundary (corrected 2026-10-21: LOCATION, not method):** middleware is skipped only at `/_next/static/*`, `/_next/image`, `/favicon.ico` and root single-segment paths with a static extension, except for the action requests the `has` entries pull back in. No route handler is mounted at those paths; all three are under `/api/`, which runs middleware for every method. GET is not side-effect-free here: `GET /api/market` schedules `ingestNetworkCosts` via `after()`, which can persist evidence. Mounting a route handler, or a metadata route with side effects, at a middleware-skipped path means extending the matcher first (scope measured 2026-10-20 and 2026-10-21). An EMPTY `next-action` header there skips middleware too; no `has` entry can select an empty value, and Next refuses it before lookup or forwarding (measured 2026-10-20).
+- **History and current rate accept a pool by ONE rule** (`5.581`): `identityRefusal()` in the
+  DeFiLlama adapter (network · declared identity · composition) gates both `getCurrentApys` and
+  `getApyHistory`; a replay must never compound a chart the current rate would refuse. One
+  history call keeps to ONE timeout budget (`5.582`). Plausibility bounds are exclusive at 0
+  for prices and network cost, inclusive for APY (`5.583`).
+- **Small device-storage stores read storage ∪ their memory fallback** (`5.580`), through the
+  one `lib/deviceStorage.ts` probe: a record whose save failed must stay on record for the
+  session. These stores are NOT money guards — the ledger's `resolvedEventInstances` is.
+- **Unit tests never reach the network.** The market route tests fake the upstreams at
+  `fetch` with `src/test/marketUpstream.ts` (DeFiLlama/CoinGecko wire shapes; an unknown URL
+  answers 404), so the route, the factory and the adapters still run for real. Before
+  `5.578` they sent 11 live requests per run.
 
 ## `/market` methodology + review-gate decisions (wave #614-#624, 2026-09-16)
 
@@ -394,10 +651,18 @@ it creates Product authority. Register: `5.105` (open), `5.360`, `5.359`.
   `domainIdentity.ts`. **Do not put a vendor slug back on a domain type** — replacing a provider must
   add a row, never edit a type. `POOL_MATCHERS` LOCATES candidates broadly; the declared identity is
   what ACCEPTS. `USDC.E` must not satisfy `USDC` (different pool, different rate), and an
-  `UNDETERMINED` composition is refused, not shown with a caveat. Guards: `EVID-11`.
+  `UNDETERMINED` composition is refused, not shown with a caveat. Guards: `EVID-11`. **Acceptance is
+  applied WHILE ranking, not after** (`matchPool(…, accept)` via `acceptedPool`; lane audit 2026-10-21,
+  `5.593`): ranking first let a refused, larger pool hide an acceptable one. Malformed `/pools` rows are
+  skipped, never thrown on: one bad row must not take every leg down for the cache's 6 hours.
 - **A replay series is validated once, in the contract** (Block C). Both adapters build through
   `buildHistoricalSeries` and project outward. **Never add a fill/pad/interpolate path**: a gap makes
-  the SERIES unavailable (`5.105`). `via` records how the series was obtained; `STORED_SNAPSHOT` and
+  the SERIES unavailable (`5.105`). **"No gap" means one point per CONSECUTIVE real calendar day**
+  (`datesAreConsecutiveDays`, applied by the server builder AND the client boundary; lane audit
+  2026-10-21, `5.592`). "Ascending" alone let a missing day through, and the replay, which walks by
+  position, then read every later day's value early. The replay also checks that each index holds the
+  date it stands for (`indexFromDate`), so a gapped series refuses the span even if it arrives some
+  other way. A parser must not DROP a bad point to keep the series: dropping it makes a gap. `via` records how the series was obtained; `STORED_SNAPSHOT` and
   `HIGH_FIDELITY` are declared with no producer so the plan's later paths need no Product-facing
   change. `derivedAt` is the THIRD timestamp and is **not defaulted** — never back-fill it from a
   clock, and never let scheduler time become `observedAt`. Guards: `EVID-12`.
@@ -455,6 +720,85 @@ it creates Product authority. Register: `5.105` (open), `5.360`, `5.359`.
   **`LEG → ECONOMIC RETURN MECHANISM → REQUIRED EVIDENCE`, never `EVERY LEG → APY`** — see
   the `TYPED CATALOGUE EVIDENCE REQUIREMENT` entry below.
 
+- **`THE INSTRUMENTS ARE GUARDED TOO`** (Pre-I2 Block D, 2026-09-25). Four gates now enforce
+  discipline this repository previously kept only as prose. Read this before writing or
+  narrowing any guard.
+  - **`PROSE-1`** — a record must cite every requirement its own controlling plan asserts
+    (heading-level `required`/`must`/`mandatory`/`minimum`). It exists because **three of the
+    `5.444` lane's five defects were prose contradicting the plan or the code**, and no
+    instrument could see any of them. ⚑ It proves a requirement was not skipped in SILENCE;
+    it cannot judge whether prose is true. Do not widen it to plan BODIES — measured, that
+    flags 19 of 25 sections and becomes noise. ⛑ **2026-10-16 (R4-6):** a record checked against
+    zero headings is listed as a PROVEN N/A with its measured reason; ids match as whole numbers;
+    a record's own numbered heading is not a citation; block labels are exact (`BLOCK_E_`,
+    `BLOCKS_EFG_`). ⚙ **`DOC-1` is two layers (R4-5):** the verdict classifies a private
+    reference by git's ignore policy — never by the local disk — so it is identical in every
+    clone; `review:doc1-local` verifies private targets only where their area exists here, FAILS
+    a missing target or an unknown area when a private corpus is present, and is a SKIP when none
+    is. A marker excuses only the reference it follows. ⛑ **2026-10-15:** a citation is the § number,
+    the heading's TITLE, or every register id the heading names — never one shared word (that
+    let "observability unchanged" satisfy §16); an unresolvable controlling-plan citation FAILS.
+    It is manual and local (it reads gitignored `docs/audit`), not a CI gate.
+  - **`EVID-15`** — no production read of a provider FORECAST field, and the adapter's
+    `LlamaPool` interface may not declare one. `predictions.predictedClass` is prohibited on
+    a Product surface under Voice Q3 without new authority. Guard the doorway, not just the room.
+    ⛑ **2026-10-15:** it scans `apps/sandbox/src` too (its header always claimed so) and bans
+    the parent `predictions` object, so passing it along whole is caught.
+  - **`VAC-1`** — every `it()` in `packages/{defi,banking,investing}` and `apps/sandbox` must
+    assert something. ⚑ It caught a regression within minutes of being built, when a regex edit
+    emptied an S1 test of every assertion. `apps/web` is excluded (WEBSITE lane). ⛑ **2026-10-15:**
+    tests are read by the TypeScript PARSER — a body is exactly its callback and an assertion is a
+    real call, never a word in a comment or string; `it.todo` is exempt.
+    ⛑ **2026-10-16 (R4-4 + correction):** an assertion is a matcher call on `expect(…)`, an
+    `assert…` / `expect<Helper>(…)` call or `expect.assertions` — not an identifier named
+    `expected` or a bare `expect(x)`. It counts only where it RUNS: liveness spreads from the
+    test body to functions passed to a call, invoked in place (an `async` one only if awaited or
+    returned) or called by name from live code; `then` / `rejects` / `resolves` chains count only
+    if awaited or returned; dead branches (`if (false)`, `while (false)`, `false && …`, loops over
+    `[]`, code after `return`) never count. Skipped tests and suites are flagged, including
+    `it.skipIf(true)` / `it.runIf(false)` (a non-constant condition counts as running); an `async`
+    helper runs only through an awaited or returned call; a promise held in a variable is settled
+    only by an `await` / `return` in REACHABLE code (R4-4, third review); aliases,
+    `test.extend`, `import * as v` and `const spec = it` are recognised; a parse error FAILS.
+    SCOPE LIMIT: a source reading, not an execution — a condition false only at runtime, or a
+    helper that swallows its own failure, is not detected.
+    ⚑ **Do not go back to scanning braces by hand** — the scanner could not see regex literals.
+  - **`CUR-2`** — no bare 2-decimal amount in any locale string. Closes a blind spot that was
+    **still live**: `CUR-1` filters currency SYMBOLS, so `"This costs 500.00 …"` passed the
+    whole suite. ⚑ Excluding a trailing `%` is load-bearing — without it the rule flags the
+    reference fee `0.39%` in 12 existing strings and would be abandoned. ⛑ **2026-10-15:** the
+    integer part may be plain `\d+`, so `1000.00` / `12345.67` are caught (the first pattern
+    could not see an ungrouped 4+-digit integer); still zero false positives in four catalogues.
+  - **Source-scanning guards strip comments with the TypeScript PARSER** (`CI-N1`, `CI-N3`,
+    `PRU-1` via `apps/sandbox/src/test/stripComments.ts`, 2026-10-15). A regex stripper deleted
+    everything after `//`, so code following a URL in a string was never scanned. JSX text is
+    not trivia: `<p> // docs</p>` is visible text, and a comment range starting inside it is kept.
+    ⛑ **2026-10-16 (R4-3):** never walk INTO a JSDoc node — from inside `/** … // old */` the trivia
+    scanner read the rest of the line as a comment and blanked the code after `*/`. A corpus
+    test proves every code token survives. The same parser now backs `review-gate.mjs`'s exports
+    row, whose regex copy hid a consumer that followed a URL string. CI-N3 and PRU-1 read
+    imports through one shared parser, `apps/sandbox/src/test/importGraph.ts` (static, re-export,
+    `import()`, `require()`, `import = require`, any `.js`/`.ts` suffix); CI-N3 judges REACH
+    through the import graph, so a write behind a hook or a barrel is seen.
+    ⚑ **Do not go back to a regex stripper.**
+  - ⚑ **EVERY ONE carries a planted positive AND a negative control**, and each was MEASURED
+    against the real corpus before being written. A guard that cannot fail, or that fires
+    wrongly, is worse than no guard: the first lies, the second gets ignored.
+
+- **`A FAKE RE-ENTRANCY FLAG IS WORSE THAN NONE`** (`5.108`, 2026-09-25). The `busy` flag in
+  `WeeklyCycleScreen` / `RulesBuilderScreen` / `GoalDetailScreen` is **removed**. Each handler
+  did `setBusy(true)` → a SYNCHRONOUS engine call → `setBusy(false)`, so React batched them and
+  `busy` was never observed `true`: every `if (busy) return` was unreachable and every
+  `disabled={busy}` a no-op. It could not be repaired — there is nothing to await.
+  ⚑ **Do not reintroduce it.** ⛑ **Narrowed 2026-10-15 — the protection differs per action:**
+  the WEEKLY cycle is guarded by engine-side idempotency (proven by `weeklyCycle.test.ts`
+  _"harmless no-op on a double tap"_); a single EXIT refuses a position that is not open; STOP-ALL
+  returns when nothing is open; RULE creation refuses a second active rule. **Strategy ENTRY has
+  no domain idempotency** — `enterStrategy` mints a new `positionId` per call, and only UI state
+  (the confirmation's reset) stands between a double tap and two positions. That is plan item
+  P8d, not a solved case. Synchronous execution explains why `busy` was inert; it is not
+  idempotency.
+
 - **`TYPED CATALOGUE EVIDENCE REQUIREMENT`** (`5.444`, ruled + implemented 2026-09-24;
   `MERGED TO MAIN = NO`). A leg is asked only for what its **return mechanism** produces. An
   accrual (`lending`) leg owes a current rate, because the rate IS its return. A `market`
@@ -484,6 +828,11 @@ it creates Product authority. Register: `5.105` (open), `5.360`, `5.359`.
   - ⚑ **Growth exposure is a property of the STRATEGY, not of today's rate** — it stays true
     and stays rendered on every card that loses a rate.
 
+  - ⛑ **An unsupported leg kind THROWS** (2026-10-15). The switch is exhaustive at compile
+    time; at runtime an unknown kind used to return nothing, which made `legRequiresCurrentRate`
+    answer "needs no current rate" — a silent default towards requiring NO evidence. Neither
+    default is acceptable; `s1.catalogueEvidence.test.ts` pins the throw.
+
 - **`CATALOGUE DECISIONS ARE OBSERVABLE, AND BOUNDED`** (`5.444` §16, 2026-09-24).
   Two decisions are recorded through the existing bounded ring: a leg resolving to
   `NOT_REQUIRED` (naming the leg, `source: null` — no source was consulted), and a refusal
@@ -500,3 +849,156 @@ it creates Product authority. Register: `5.105` (open), `5.360`, `5.359`.
     An earlier revision split them, so `drainEvidenceEvents()` emptied the ring while the
     window survived — a host wiring the drain would have been silently starved. Do not move
     the window out of `evidenceObservability.ts`.
+
+- **`A CROSS-PACKAGE TEST READS dist/, NOT SOURCE`** (Block G, 2026-09-25; register `5.452`).
+  `@diboas/banking|defi|investing` resolve through `package.json#exports` to `dist/`. A test in
+  `apps/sandbox` that imports one of them asserts against the **last build**.
+  - ⚑ **CI is not affected** — `turbo.json` declares `test: dependsOn ['^build']`. A direct
+    `pnpm --filter <ws> exec vitest` run IS affected, and **it silently defeated two Block G
+    sabotages**: planting `projectedBalance` on `projectionDisplay` and planting a PRU field on
+    the goal reducer both left the sandbox tests GREEN while the source was mutated.
+  - ⚑ **A gate whose verdict depends on how it was invoked is not a gate.** Any assertion about
+    a PACKAGE's source belongs in that package's own suite, where the import is source-relative.
+    `CI-N3` and `PRU-1` are each split across two files for exactly this reason — the split is
+    deliberate, not accidental duplication, and each file says so in its header.
+
+- **`THE RATE LIMITER'S FALLBACK IS A LIMITER`** (`5.213`, 2026-09-25).
+  `apps/sandbox/src/lib/security/rateLimiter.ts` is two-tier: Upstash Redis (a sliding window)
+  when configured, a per-instance FIXED window when not.
+  - ⚑ **Unconfigured Redis must degrade the limiter from DISTRIBUTED to PER-INSTANCE, never to
+    ABSENT.** Sabotage-proven (fail-open fallback ⇒ 6 tests FAIL).
+  - ⛑ **The Redis tier is the LIVE one** (2026-10-15: `UPSTASH_REDIS_REST_URL` /
+    `UPSTASH_REDIS_REST_TOKEN` are set for Production and Preview — names measured, values never
+    read). ⚑ **`@upstash/ratelimit` resolves `success: true, reason: 'timeout'` when Redis is
+    slow** ("allow requests in case of network problems"), so a timed-out answer is NOT trusted:
+    the local window decides. The call is bounded to 1 s (the library default was 5 s), and the
+    in-memory window is capped at 10 000 clients. Proven through an injectable `RemoteLimiter`
+    seam (refusal, allowance, timeout, throw), each sabotaged.
+  - ⚑ **An unidentifiable caller collapses to ONE shared bucket (`'unknown'`), never to
+    unlimited.** Otherwise the control is removable by deleting a header.
+  - ⚑ **The fallback is PER INSTANCE — no global bound is demonstrated** (2026-10-16): during
+    intermittent Redis failure a timed-out request is judged by its instance's own window and an
+    answered one by Redis, so one client can be admitted by both tiers and several instances.
+    An IPv6 client is keyed by its full address (documented by a unit test). Changing either is
+    a rate-limit POLICY decision, not an engineering default.
+  - ⚑ **The 429 is `no-store`.** The market routes are CDN-cached; a cached 429 would refuse
+    every other client from the edge for the life of the entry.
+  - ⚑ **The guard sits AHEAD of every provider call**, and a test asserts the provider count is
+    zero on a limited request. A limiter after the fetch has limited nothing that costs
+    anything. ⚑ **`/api/health` is deliberately NOT limited** — a liveness probe that can be
+    rate-limited reports the limiter's state, not the service's.
+
+- **`A DENIAL IS CLASSIFIED BY EXACT REVIEW, NEVER INFERRED BY THE DETECTOR`** (2026-10-16; was _"a compliance detector must tell an assertion from its denial"_, `CI-N4` / `CI-N2`, 2026-09-25;
+  rewritten 2026-10-15 to keep ruling text out of this public file — requirement ids
+  `LC-RR-01-02`, `LC-RR-01-10`, `LC-RR-01-11` are cited, their texts live in the private canon).
+  Measured before either rule was chosen: a bare guarantee/promise token matches **12 sandbox
+  strings**, and every one is a NEGATIVE statement the product deliberately carries
+  (_"returns aren't guaranteed"_, _"No promises live here"_). A banned-word grep would have made
+  the compliant catalogue red.
+  - ⚑ **`CI-N4` blocks an UNQUALIFIED expectation of return**; a modelled / assumption-qualified
+    phrasing passes by design. ⛑ **2026-10-15:** each CLAUSE is judged on its own — a denial or a
+    qualifier anywhere in a string used to excuse every claim in it — and non-vacuity comes from
+    in-test probes, never from website copy (fixing the website must not turn this gate red).
+    ⛑ **2026-10-16 — PB-3 exact-text denial exceptions (founder decision).** Inferred negation
+    and punctuation no longer pass anything (a qualifier WORD still satisfies rule 1, by its
+    stated scope). A detected claim FAILS unless an exact, reviewed exception in
+    `apps/sandbox/src/test/denialExceptions.ts` covers it (guard · rule · locale · key · sha256
+    of the full text; a changed word, another key or another locale does not inherit it; a stale
+    entry FAILS). Five review rounds each found claims the negation-attachment rule excused
+    ("No return under 8%, guaranteed.", "No fees (bonus every week)."), so it was removed, not
+    tightened again. The `?` exemption is gone (R4-12): punctuation never excuses a claim.
+    Guarantee/return words match only at a word start ("compromisso", "Vertrag"); qualifier words
+    are projection words only ("project" does not qualify); percentages written as words are
+    figures, also directly after a guarantee word ("We guarantee eight percent a year."); `/` bounds a
+    qualifier's reach like a dash, while rule 2 stays per sentence; `rentabilidad(e)` is a return word. Rule 2 still requires a figure — that scope is
+    an engineering scope choice, and widening it needs its own authority.
+    ⚑ **Never go back to inferring denials** (proximity or attachment). An exception is an
+    ENGINEERING classification of one sentence, never a Legal clearance.
+  - ⚑ **`CI-N2`'s copy scope is measured, not assumed.** ⛑ **2026-10-15:** its three framing
+    patterns, run over the WHOLE catalogue in four locales, match one key — the disclaimer that
+    DENIES credits are Rewards — so the five-namespace filter was dropped; es / pt-BR / de
+    vocabulary was added (ten planted phrasings had slipped through), and German compounds
+    ("Einzahlungsbonus", "Willkommensprämie") are detected since 2026-10-16. ⛑ **2026-10-16:** a
+    matched term FAILS unless an exact-text exception covers it (see the `CI-N4` entry above);
+    the only exceptions are `common.playDisclaimer` in four locales (measured: 4 of 2,412 strings).
+    ⚑ **Portuguese "no" is "in the", not a denial** — the negation words (now only a HINT in the
+    failure message) live ONCE in `apps/sandbox/src/test/negation.ts`, shared by `CI-N2` and
+    `CI-N4`, because two copies drifted and the Brazil guard missed "No depósito receba um bônus".
+  - ⚑ **`CI-N2`'s primary half is the MECHANISM:** a benefit that scales with funding is the
+    violation whatever it is called. Hold the genesis grant at the real constant and vary only
+    funding — varying the grant instead trips `creditCeilingReached` and proves nothing about
+    deposits. The position-conditioned comparison credit (`5.453`) is NOT covered and awaits a
+    Legal ruling; an `it.todo` names it.
+
+- **`THE ROOT ERROR BOUNDARY HAS NO PROVIDERS, AND THAT SHAPES IT`** (`5.206`, 2026-09-25).
+  `apps/sandbox/src/app/global-error.tsx` REPLACES the root layout, so there is no
+  `IntlProvider`, no `params`, and no guarantee that `globals.css`/`tokens.css` have loaded.
+  - ⚑ **`FormattedMessage` would THROW inside the boundary that exists to stop throwing.** Copy
+    is resolved directly from the catalogue via `getMessages()`. ⛑ **2026-10-15:** the locale is
+    read through `useSyncExternalStore` (server snapshot `en`, client snapshot from the URL), so a
+    server-rendered path cannot hydrate mismatched. ⚑ Measured on a production build: a
+    ROOT-LAYOUT crash sends an empty error shell and renders this screen client-only, so the old
+    code showed no mismatch there — this is defensive, not the fix of an observed defect.
+  - ⛑ **"Try again" calls `retry()` when Next provides it (stable since 16.3.0), else `reset()`**
+    (both boundaries, 2026-10-15). `reset()` only re-renders the same children, so after a
+    server-render error it usually fails again; `retry()` re-fetches.
+  - ⚑ **NO TOKENS, deliberately.** A token reference here can resolve to nothing and render
+    invisible text. The inline styles are the documented exception and are neutral greys — this
+    surface must never be where a palette is re-stated.
+  - ⚑ **NO new copy.** It renders the same `error.title` / `error.body` / `error.retry` keys
+    `(app)/error.tsx` uses, live in all four locales. A guard asserts all three exist per locale.
+  - ⚑ **Do NOT add `not-found.tsx` on the strength of a local test.** `5.267` chose a middleware
+    rewrite to `/{locale}/missing` carrying a real 404; a `not-found.tsx` renders outside its own
+    layout with no `<html lang>` and no locale. ⚠ **UNVERIFIED IN PRODUCTION (2026-10-15):**
+    `next start` serves the branded page, but production answers `/en/missing` with Next's
+    default 404 (`x-matched-path: /404`, cache HIT). Any change here is decided by evidence from
+    a Vercel PREVIEW, not a local build (closure plan, Track R).
+
+- **`BOTH BOUNDARIES REPORT THROUGH ONE SINK, AND THE EFFECT IS REF-GUARDED`** (`5.206`, R-4).
+  `lib/monitoring/reportError.ts` is the single entry point; it is bounded (50), never throws,
+  and carries **no PII** under an exact-key assertion. ⛑ **2026-10-15: the record carries the
+  error's NAME (bounded to an identifier) and DIGEST only — never its free-text message**,
+  because `project()` serialises the offending event into its message and an event can carry a
+  Goal's free-text name. No pattern can redact free text reliably; leaving it out can. The full
+  error still reaches the LOCAL console. The unused `'api'` surface was removed. ⛑ **2026-10-16
+  (R4-14):** each field is read on its own and kept only in its shape — `name` only as an
+  identifier STRING (an object `name` could later stringify to Goal text), `digest` only as a
+  Next.js digest (a numeric hash or a `NEXT_…` code); a throwing getter costs only its field.
+  - ⚑ **`reactStrictMode: true` double-invokes every effect in dev.** Unguarded, each crash
+    reported TWICE — and a sink that duplicates is a sink you stop trusting. The ref is keyed on
+    the error IDENTITY so a genuinely new error still reports. Same reason `useSettleToNow`
+    carries a module-level lock.
+  - ⚑ **The EXTERNAL sink stays deferred behind a CLO question.** `Logger.ts` flags `ownerKey`
+    (the account `users.id`) the moment logs reach a third party. Attaching Sentry is a Legal
+    decision, not an engineering default. **This seam does not mean errors reach a dashboard.**
+
+- **`A PLANTED POSITIVE PROVES THE CASE IT EMBODIES, AND NOTHING ELSE`** (retro-audit 2026-09-25;
+  `5.455` · `5.456` · `5.457`). Three gates already declared LIVE were found weaker than stated,
+  and each failure survived because the one example anyone checked happened to miss it.
+  - ⚑ **`VAC-1` scanned the test NAME as part of the body** — `it('should assert …', () => {})`
+    read CLEAN. Its own fixture is called _"should look like protection"_, a name with no
+    assertion word, so the defect was structurally invisible to the proof. **Give each pattern
+    member its own control, and probe a case the fixture does NOT embody.**
+  - ⚑ **A ONE-WAY SABOTAGE PROVES ONE WAY.** The register index's `AGREEMENT` check fired only
+    on `row=CLOSED, index=other`; the reverse — the index claiming CLOSED over a live row —
+    passed silently, which is how open work disappears from the open set.
+  - ⚑ **A JS CHARACTER CLASS OF ASTRAL EMOJI NEEDS THE `u` FLAG.** Without it the class is
+    UTF-16 code UNITS, so `[🔴🟠🟡🟢📋]` matched any emoji sharing the high surrogate `0xD83D`
+    (`🔧 🚀 🔒 📌`). It made the gate miss a real defect AND invent a false one at the same time.
+
+- **`A PROJECTION SURFACE DISCLOSES ITS BASIS AND ITS EXCLUSIONS`** (`F-R11`, founder-approved
+  2026-08-31; promoted here 2026-09-25 by `5.460` because the ruling existed only in a register
+  row — the invariant `documentation-lifecycle.md` §1 forbids).
+  - **The rule:** a projection surface must disclose that the range is **7%–14% annual
+    nominal** and that it **excludes fees, inflation, taxes and sequencing** —
+    keyboard- and screen-reader reachable, in all four locales, adopting Legal's
+    _"Illustrative projection"_ lexicon. Unparked from `CR-10` into the **Legal P0 batch**.
+  - ⚑ **STATUS: the RANGE is disclosed, the QUALIFIER and EXCLUSIONS are not.**
+    `SCENARIO_RATES = {conservative: 7, historical: 10, optimistic: 14}` and
+    `projection.rangeLine` renders _"an assumed {low} to {high} percent"_. Measured across the
+    sandbox catalogue: **0** strings carry nominal/fees/inflation/taxes/sequencing in an
+    assumption context; **0** use the Legal lexicon.
+  - ⚑ **Do NOT write this copy from engineering.** The wording is Legal's and rides the P0
+    batch awaiting the founder's go. Recording the rule here is promotion, not implementation.
+  - ⚑ `projection.caveat` (_"An assumption you can check, not a promise…"_) is honest and
+    stays — it is **not** a substitute for this disclosure.

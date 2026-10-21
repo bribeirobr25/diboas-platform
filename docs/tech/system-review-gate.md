@@ -319,3 +319,19 @@ COVERAGE_BOUNDARY      = <what a next pass would add>
 NOT_CHECKED            = <...>
 CORRECTIONS            = <incl. withdrawn findings>
 ```
+
+## Documentation lifecycle
+
+Durable outcomes of this batch do not stay in the record that produced them. Promote each one to
+its living owner — gates to `engineering-gates.md`, rules to `implementation-notes.md`,
+decisions to `architecture-decisions.md`, open items to `PENDING_ALL.md` — per
+`documentation-lifecycle.md`, which also defines what `CLAUDE.md` may contain and how a lane's
+records are compacted at closure.
+
+```text
+NO DURABLE RULE MAY EXIST ONLY IN A DISPOSABLE AUDIT ARTIFACT
+NO HISTORICAL AUDIT ARTIFACT BECOMES CURRENT AUTHORITY BY EXISTENCE
+```
+
+A reference this record presents as AUTHORITY must resolve, or carry `⚠ NOT REACHABLE`
+(`DOC-1`).

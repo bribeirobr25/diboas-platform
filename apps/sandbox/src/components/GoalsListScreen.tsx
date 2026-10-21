@@ -1,24 +1,19 @@
 'use client';
 
-import { goalUsesCoinGeckoPrices } from '@/view/marketDataAttribution';
+import { goalShowsCoinGeckoPrices } from '@/view/marketDataAttribution';
 import { CoinGeckoAttribution } from './CoinGeckoAttribution';
 import { useState } from 'react';
 import Link from 'next/link';
 import Decimal from 'decimal.js';
-import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import type { GoalState, LedgerState } from '@diboas/banking';
 import type { SandboxLocale } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
 import { GoalRow } from './GoalRow';
 import { LucideIcon } from './LucideIcon';
 import { SegmentedToggle } from './SegmentedToggle';
+import { PlainAmount } from './PlainAmount';
 import styles from './GoalsListScreen.module.css';
-
-function Amount({ value }: { value: Decimal }) {
-  return (
-    <FormattedNumber value={value.toNumber()} minimumFractionDigits={2} maximumFractionDigits={2} />
-  );
-}
 
 /** Detailed view: one goal's source-separated money story (contributions vs
  *  strategy value vs lifetime earnings — never presented as one blob, the
@@ -54,19 +49,19 @@ function GoalDetailCard({
           <FormattedMessage id="goalsList.inGoal" />
         </dt>
         <dd>
-          <Amount value={new Decimal(goal.cash)} />
+          <PlainAmount value={new Decimal(goal.cash)} />
         </dd>
         <dt>
           <FormattedMessage id="goalsList.working" />
         </dt>
         <dd>
-          <Amount value={openValue} />
+          <PlainAmount value={openValue} />
         </dd>
         <dt>
           <FormattedMessage id="goalsList.earned" />
         </dt>
         <dd>
-          <Amount value={new Decimal(goal.earnings)} />
+          <PlainAmount value={new Decimal(goal.earnings)} />
         </dd>
       </dl>
       {/**
@@ -78,7 +73,7 @@ function GoalDetailCard({
        * contribution render none, which is the ruling's "surface presence
        * alone is not a trigger" expressed as code.
        */}
-      {goalUsesCoinGeckoPrices(state.events, goal.goalId) ? <CoinGeckoAttribution /> : null}
+      {goalShowsCoinGeckoPrices(state, goal.goalId) ? <CoinGeckoAttribution /> : null}
     </div>
   );
 }

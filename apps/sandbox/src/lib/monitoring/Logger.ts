@@ -39,8 +39,9 @@ export const Logger = {
   error(message: string, context?: LogContext, error?: unknown): void {
     emit('error', message, context, error);
   },
-  warn(message: string, context?: LogContext): void {
-    emit('warn', message, context);
+  /** `error` is optional, as for `error()`: a warning about a caught failure keeps its cause. */
+  warn(message: string, context?: LogContext, error?: unknown): void {
+    emit('warn', message, context, error);
   },
   info(message: string, context?: LogContext): void {
     emit('info', message, context);

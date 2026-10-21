@@ -164,3 +164,57 @@ describe('Block B · a rate must be identifiable to be usable', () => {
     expect(aave.apyPercent).not.toBe(9.9);
   });
 });
+
+/**
+ * REQUIREMENT (lane audit 2026-10-20): the HISTORY a replay compounds must describe the
+ * same instrument as the CURRENT rate. `getApyHistory` used `matchPool` alone, so a pool the
+ * current path refuses — a bridged symbol, another network — supplied the time machine's
+ * chart, stamped as an observation of this leg. Both paths now share one acceptance rule.
+ */
+describe('the APY history accepts only a pool the current rate would accept', () => {
+  beforeEach(() => vi.resetModules());
+
+  const chartDays = Array.from({ length: 5 }, (_, i) => ({
+    timestamp: `2026-10-${String(10 + i).padStart(2, '0')}T00:00:00.000Z`,
+    apy: 5.4,
+  }));
+  /** `/pools` answers the pool list; `/chart/<id>` answers a valid daily chart. */
+  const twoEndpoints = (pools: unknown[]) =>
+    (async (input: unknown) =>
+      ({
+        ok: true,
+        status: 200,
+        json: async () =>
+          String(input).includes('/chart/') ? { data: chartDays } : { data: pools },
+      }) as unknown as Response) as unknown as typeof fetch;
+
+  const historyOf = async (pools: unknown[], protocolId: ProtocolId = 'aaveV3') => {
+    const { DefiLlamaApyProvider } = await import('../providers/defillama');
+    return new DefiLlamaApyProvider(twoEndpoints(pools)).getApyHistory(protocolId, 5);
+  };
+
+  it('should serve the observed history of a pool that satisfies the leg', async () => {
+    const h = await historyOf([pool()]);
+    expect(h?.stamp.source).toBe('defillama');
+  });
+
+  it.each([
+    ['a bridged symbol', { symbol: 'USDC.E' }],
+    ['an undetermined composition', { apyBase: null, apyReward: null }],
+  ])('should REFUSE the observed history of %s (fixture, never that chart)', async (_, over) => {
+    const h = await historyOf([pool(over)]);
+    expect(h?.stamp.source).toBe('fixture');
+  });
+
+  it('should REFUSE the history of another network the locator would otherwise accept', async () => {
+    /* Sky's locator prefers Ethereum among its chains; the leg is the Arbitrum deployment. */
+    const sky = { project: 'sky-lending', symbol: 'SUSDS' };
+    expect((await historyOf([pool({ ...sky, chain: 'Arbitrum' })], 'skySsr'))?.stamp.source).toBe(
+      'defillama'
+    );
+    vi.resetModules(); // the pools cache would otherwise re-serve the first feed
+    expect((await historyOf([pool({ ...sky, chain: 'Ethereum' })], 'skySsr'))?.stamp.source).toBe(
+      'fixture'
+    );
+  });
+});

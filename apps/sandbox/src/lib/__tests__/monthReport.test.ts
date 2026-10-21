@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { FIXTURE_STAMP } from '@diboas/defi';
-import { reconcile } from '@diboas/banking';
+import { project, reconcile, type LedgerEvent } from '@diboas/banking';
 import {
   advanceTime,
   createGoal,
@@ -14,6 +14,14 @@ import {
   transferGoalCash,
 } from '@/lib/ledgerClient';
 import { buildMonthReport, currentMonthWindow, playBalance } from '@/lib/monthReport';
+import { expectedLogs } from '@/test/expectedLogs';
+
+// Failure paths below LOG by design (R-14); asserted, not silenced (2026-10-19 cleanup).
+expectedLogs({
+  strict: true,
+  warn: ['month report does not reconcile'],
+  requiredIn: /should NOT claim every dollar is explained/,
+});
 
 /**
  * G12 (§4.12). The screen's promise is "every dollar is explained", so the one
@@ -292,26 +300,157 @@ describe('the month-report aggregator', () => {
     const clean = buildMonthReport(getLedgerState(), WINDOW.fromIso, WINDOW.toIso)!;
     expect(clean.explained).toBe(true);
 
-    // A log the PROJECTION skips but the row-walk counts: a second credit for
-    // the same week (the engine's per-week idempotency guard). Reachable
-    // because the ledger is user-editable localStorage.
+    // Since P8a the rows come from APPLIED events only, so a refused duplicate credit can
+    // no longer make them over-count (that case is p8aCase3Agreement's month-report test).
+    // `explained` stays as the report's own guard against ANY drift between its rows and
+    // the projection's balance; the cheapest way to make that identity fail is a balance
+    // that disagrees with the log — not a reachable state, a direct test of the guard.
     const state = getLedgerState();
-    const credit = {
-      ...state.events[0],
-      eventId: 'dup-1',
-      type: 'WeeklyCreditGranted' as const,
-      week: 1,
-      amount: '1000.00',
-    };
-    const doubled = {
+    const drifted = {
       ...state,
-      events: [...state.events, credit, { ...credit, eventId: 'dup-2' }],
+      buckets: { ...state.buckets, working: (Number(state.buckets.working) + 1000).toFixed(2) },
     };
-    const report = buildMonthReport(doubled, WINDOW.fromIso, WINDOW.toIso)!;
+    const report = buildMonthReport(drifted, WINDOW.fromIso, WINDOW.toIso)!;
     const summed = report.sources.reduce((s, r) => s + r.amount, 0);
-    // The rows over-count, the balance does not — so the screen must not claim
-    // to explain every dollar. Honest degradation beats a confident lie.
-    expect(summed).not.toBe(report.totalChange);
+    // The balance moved by 1,000 more than the rows explain — so the screen must not
+    // claim to explain every dollar. Honest degradation beats a confident lie.
+    expect(report.totalChange - summed).toBeCloseTo(1000, 2);
     expect(report.explained).toBe(false);
+  });
+});
+
+/**
+ * `5.544` — "{count} weekly cycles settled" counts WEEKS, not approvals, and DISTINCT
+ * weeks first settled inside the window. Built from hand-made logs (pure `project`)
+ * because a legacy log can hold what today's commands never write: a repeated or
+ * overlapping `weekSet` (the reducer treats `RuleApplied` as a marker and does not
+ * validate overlap, `projection/rules.ts`). Display only — no event is rewritten.
+ */
+describe('weekly cycles settled (5.544)', () => {
+  const AUG = { fromIso: '2026-08-01T00:00:00Z', toIso: '2026-09-01T00:00:00Z' };
+  const SEP = { fromIso: '2026-09-01T00:00:00Z', toIso: '2026-10-01T00:00:00Z' };
+  let n = 0;
+  const base = (at: string) => ({
+    eventId: `e${++n}`,
+    simDay: 0,
+    recordedAt: at,
+    correlationId: `c${n}`,
+  });
+  const genesis = {
+    ...base('2026-07-15T09:00:00Z'),
+    type: 'PlayMoneyGranted',
+    amount: '10000.00',
+    currency: 'USD',
+    mode: 'b2c',
+  } as const;
+  const applied = (at: string, weekSet: number[]) =>
+    ({
+      ...base(at),
+      type: 'RuleApplied',
+      ruleId: 'r1',
+      ruleVersion: 1,
+      proposalId: `p${n}`,
+      weekSet,
+    }) as const;
+  const cycles = (events: LedgerEvent[], w: { fromIso: string; toIso: string }) =>
+    buildMonthReport(project(events), w.fromIso, w.toIso)!.cyclesCompleted;
+
+  it('should count every week one approval settles (one approval of two weeks → 2)', () => {
+    expect(cycles([genesis, applied('2026-08-10T09:00:00Z', [3, 4])], AUG)).toBe(2);
+  });
+
+  it('should count separate approvals of distinct weeks (→ 2)', () => {
+    const log = [
+      genesis,
+      applied('2026-08-10T09:00:00Z', [3]),
+      applied('2026-08-17T09:00:00Z', [4]),
+    ];
+    expect(cycles(log, AUG)).toBe(2);
+  });
+
+  it('should count an overlapping or repeated week ONCE (legacy log)', () => {
+    const overlap = [
+      genesis,
+      applied('2026-08-10T09:00:00Z', [3, 4]),
+      applied('2026-08-17T09:00:00Z', [4, 5]),
+    ];
+    expect(cycles(overlap, AUG)).toBe(3); // weeks 3, 4, 5 — summing lengths would say 4
+    const repeat = [
+      genesis,
+      applied('2026-08-10T09:00:00Z', [3]),
+      applied('2026-08-17T09:00:00Z', [3]),
+    ];
+    expect(cycles(repeat, AUG)).toBe(1);
+  });
+
+  it('should count a week in the month it was FIRST settled, never again (month boundary)', () => {
+    const log = [
+      genesis,
+      applied('2026-08-24T09:00:00Z', [3, 4]), // August: weeks 3, 4
+      applied('2026-09-07T09:00:00Z', [4, 5]), // September repeats 4, adds 5
+    ];
+    expect(cycles(log, AUG)).toBe(2);
+    expect(cycles(log, SEP)).toBe(1); // only week 5 is new in September
+    // The months add up to the lifetime distinct total; no month shows it alone.
+    expect(cycles(log, AUG) + cycles(log, SEP)).toBe(3);
+  });
+
+  it('should not count a later month’s settlement in an earlier window', () => {
+    const log = [genesis, applied('2026-09-07T09:00:00Z', [6])];
+    expect(cycles(log, AUG)).toBe(0);
+    expect(cycles(log, SEP)).toBe(1);
+  });
+
+  /*
+   * 2026-10-19 (independent audit reproduction): the count may not depend on LOG ORDER.
+   * Event times come from the device clock, which can step backwards, so a legacy log can
+   * hold a later-recorded settlement BEFORE an earlier-recorded one. "First settled" is
+   * the EARLIEST recorded time among the applied settlements that contain the week — the
+   * report's own window rule — so each week lands in exactly one month whatever the order.
+   * Nothing is sorted or rewritten; only the attribution is computed order-free.
+   */
+  it('should count a week once, in its earliest-recorded month, when the log order is reversed', () => {
+    const log = [
+      genesis,
+      applied('2026-09-07T09:00:00Z', [3]), // logged first, recorded in September
+      applied('2026-08-24T09:00:00Z', [3]), // logged second, recorded EARLIER, in August
+    ];
+    expect(cycles(log, AUG)).toBe(1);
+    expect(cycles(log, SEP)).toBe(0);
+    expect(cycles(log, AUG) + cycles(log, SEP)).toBe(1); // the lifetime distinct total
+  });
+
+  it('should attribute overlapping weeks by their earliest record across months, in any order', () => {
+    const forward = [
+      genesis,
+      applied('2026-08-24T09:00:00Z', [3, 4]),
+      applied('2026-09-07T09:00:00Z', [4, 5]),
+    ];
+    const reversed = [genesis, forward[2], forward[1]];
+    for (const log of [forward, reversed]) {
+      expect(cycles(log, AUG)).toBe(2); // weeks 3, 4
+      expect(cycles(log, SEP)).toBe(1); // week 5 only
+    }
+  });
+
+  it('should let a valid time attribute a week even when an earlier-LOGGED settlement has an unparseable time', () => {
+    // The `Number.isFinite` guard: without it the week would store NaN first, no later
+    // valid time could replace it (`t < NaN` is false), and the week would never count.
+    const log = [genesis, applied('not-a-time', [9]), applied('2026-08-12T09:00:00Z', [9])];
+    expect(cycles(log, AUG)).toBe(1);
+    expect(cycles(log, SEP)).toBe(0);
+    // A week whose ONLY settlement has an unparseable time is in no window, as every row is.
+    const only = [genesis, applied('not-a-time', [10])];
+    expect(cycles(only, AUG) + cycles(only, SEP)).toBe(0);
+  });
+
+  it('should keep a week settled exactly at a month boundary in the later month only', () => {
+    const log = [
+      genesis,
+      applied('2026-09-01T00:00:00Z', [7]),
+      applied('2026-08-31T23:59:59Z', [8]),
+    ];
+    expect(cycles(log, AUG)).toBe(1); // week 8
+    expect(cycles(log, SEP)).toBe(1); // week 7 — the window is [from, to)
   });
 });

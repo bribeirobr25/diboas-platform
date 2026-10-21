@@ -1,5 +1,5 @@
 /**
- * THE OPERATIONAL KILL SWITCH — turning an external source off without a deploy.
+ * THE OPERATIONAL KILL SWITCH — turning an external source off by configuration.
  *
  * ⚑ WHY THIS IS NOT A `CAPABILITIES` ROW. `CAPABILITIES` is a registry of
  * BOOLEAN FEATURE flags, each with one env variable and one production policy.
@@ -32,10 +32,13 @@
 /**
  * Sources the deployment has switched off.
  *
- * Read per call rather than memoised at module load: a memoised read would make
- * the switch require a process restart, and a kill switch you must redeploy to
- * use is not a kill switch. The parse is trivial, and the callers are the
- * provider factory's three memoised getters — not a hot path.
+ * ⚑ WHEN A CHANGE TAKES EFFECT (corrected, lane audit 2026-10-20). This function
+ * itself reads the variable on every call, but its only callers are the provider
+ * factory's memoised getters, which build each provider ONCE per server instance and
+ * capture the set at that moment. So a changed value applies to a NEW instance — on
+ * Vercel, where an environment change reaches only new deployments anyway, that means
+ * the next deployment. The earlier text promised "without a deploy"; an operator waiting
+ * for that in an incident would have waited for nothing. Redeploy to apply it.
  *
  * Unknown ids are kept rather than rejected: they simply never match a real
  * source. Dropping them silently would be fine too, but keeping them means a

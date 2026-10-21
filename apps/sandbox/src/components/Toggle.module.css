@@ -1,6 +1,9 @@
 /*
- * Toggle primitive. Off = muted track; on = accessible teal-700 fill. >=44px
- * wide / 24px tall hit area. Tokenized; respects reduced motion.
+ * Toggle primitive. Off = muted track; on = accessible teal-700 fill. The track is
+ * 44px wide and 1.6rem tall; its HIT AREA is extended to the governed 44x44 floor
+ * (`--sb-tap`, the handoff §6.6 rule that superseded >=24) by the transparent
+ * ::after below — the look is unchanged (2026-10-18 lane audit). Tokenized;
+ * respects reduced motion.
  */
 .track {
   position: relative;
@@ -12,6 +15,19 @@
   background: var(--sb-surface-track);
   cursor: pointer;
   transition: background 0.14s ease;
+}
+
+/* The 44px-tall hit area, centred on the 1.6rem track; transparent, so nothing
+   changes visually. A pseudo-element of the <button> is part of the button, so a
+   tap anywhere inside it toggles. */
+.track::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: var(--sb-tap);
+  transform: translateY(-50%);
 }
 
 .on {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useIntl } from 'react-intl';
 import { LucideIcon } from './LucideIcon';
@@ -37,6 +37,7 @@ export function LocaleSwitcher({
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const menuId = useId();
   const current: SandboxLocale = isSandboxLocale(locale) ? locale : 'en';
 
   // Close on outside click / Escape (Escape returns focus to the trigger).
@@ -77,8 +78,8 @@ export function LocaleSwitcher({
       <button
         type="button"
         className={variant === 'bare' ? `${styles.trigger} ${styles.triggerBare}` : styles.trigger}
-        aria-haspopup="listbox"
         aria-expanded={open}
+        aria-controls={open ? menuId : undefined}
         aria-label={intl.formatMessage(
           { id: 'locale.switch' },
           { current: LOCALE_ENDONYM[current] }
@@ -88,13 +89,18 @@ export function LocaleSwitcher({
         <LucideIcon name="globe" size={20} />
       </button>
       {open ? (
+        /* A DISCLOSURE, not a listbox (2026-10-18 lane audit): `role="option"` items
+           holding real <button>s were nested interactive content (axe
+           `nested-interactive`), and a listbox promises arrow-key selection this menu
+           never had. A plain list of buttons, with `aria-current` on the active one,
+           is what it actually is; Escape and outside-click still close it. */
         <ul
+          id={menuId}
           className={styles.menu}
-          role="listbox"
           aria-label={intl.formatMessage({ id: 'locale.label' })}
         >
           {SANDBOX_LOCALES.map((l) => (
-            <li key={l} role="option" aria-selected={l === current}>
+            <li key={l}>
               <button
                 type="button"
                 className={styles.option}

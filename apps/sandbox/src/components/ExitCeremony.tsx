@@ -3,6 +3,7 @@
 import { CoinGeckoAttribution } from './CoinGeckoAttribution';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { EXIT_FEE_FLOOR, FEE_RATES } from '@diboas/banking';
+import { getStrategy } from '@diboas/defi';
 import type { StopPreview } from '@/lib/ledgerClient';
 import { useFormatters } from '@/hooks/useFormatters';
 import { useTakeoverFocus } from '@/hooks/useTakeoverFocus';
@@ -35,7 +36,6 @@ export function ExitCeremony({
   goalName,
   goalIcon,
   currency,
-  busy = false,
   onConfirm,
   onCancel,
 }: {
@@ -45,7 +45,10 @@ export function ExitCeremony({
    *  generic one here would read as a different goal at the riskiest moment. */
   goalIcon: string;
   currency: 'USD' | 'BRL' | 'EUR';
-  busy?: boolean;
+  /** A second tap cannot stop twice: approving unmounts this screen (`GoalDetailScreen`),
+   *  and the ledger refuses an exit of a position that is no longer open. (A `busy` prop
+   *  that no caller ever passed claimed this protection instead — removed, lane audit
+   *  2026-10-20, per the `5.108` ruling.) */
   onConfirm: () => void;
   onCancel: () => void;
 }) {
@@ -174,7 +177,10 @@ export function ExitCeremony({
               {preview.lines.map((line) => (
                 <li key={line.positionId} className={styles.line}>
                   <span className={styles.lineName}>
-                    <FormattedMessage id={`catalog.strategies.${line.strategyId}.name`} />
+                    {/* The catalog's key, as every other surface reads it (C11), never the id. */}
+                    <FormattedMessage
+                      id={`catalog.strategies.${getStrategy(line.strategyId)?.i18nKey ?? line.strategyId}.name`}
+                    />
                   </span>
                   <span className={styles.lineValue}>
                     <FormattedMessage
@@ -226,10 +232,10 @@ export function ExitCeremony({
           harder to reach: "Keep it working" is a full-width button of the same
           size and one tap, directly below, worded as a plain fact (row 24). */}
       <div className={styles.actions}>
-        <Button variant="primary" fullWidth disabled={busy} onClick={onConfirm}>
+        <Button variant="primary" fullWidth onClick={onConfirm}>
           <FormattedMessage id={multi ? 'exitCeremony.stopGoal' : 'exitCeremony.stopPosition'} />
         </Button>
-        <Button variant="secondary" fullWidth disabled={busy} onClick={onCancel}>
+        <Button variant="secondary" fullWidth onClick={onCancel}>
           <FormattedMessage id="exitCeremony.cancel" />
         </Button>
       </div>

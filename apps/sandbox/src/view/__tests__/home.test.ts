@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import Decimal from 'decimal.js';
-import type { LedgerState } from '@diboas/banking';
+import { APPLIED, type EventDisposition, type LedgerState } from '@diboas/banking';
 import {
   selectAmountSign,
   selectCanInvest,
@@ -52,6 +52,10 @@ const base = (over: Partial<LedgerState> = {}): LedgerState =>
     credited: '0.00',
     events: [],
     ...over,
+    /* P8a: a selector fixture DECLARES its events applied — these tests check a selector's
+       filtering, not the projection (projection-derived dispositions are tested in
+       `@diboas/banking`). A fixture that needs a refused event passes `dispositions` itself. */
+    dispositions: over.dispositions ?? (over.events ?? []).map((): EventDisposition => APPLIED),
   }) as unknown as LedgerState;
 
 describe('selectHomeTriad', () => {
@@ -156,6 +160,34 @@ describe('selectGoalProgress', () => {
   it('should report reached exactly at the target, and un-reach if value falls back below it', () => {
     expect(selectGoalProgress(withGoal('1000.00', '1000.00'), 'g1').targetReached).toBe(true);
     expect(selectGoalProgress(withGoal('1000.00', '999.99'), 'g1').targetReached).toBe(false);
+  });
+
+  /**
+   * `5.540` — the percentage a person READS never says 100 before the target is
+   * reached: 995.00 of 1,000.00 used to round to "100%" while the goal had no
+   * milestone and no "Review and close". Floored on the Decimal, capped at 99
+   * until `targetReached`.
+   */
+  it('should show 99, never 100, just below the target, and 100 exactly at it (5.540)', () => {
+    const shown = (cash: string) =>
+      selectGoalProgress(withGoal('1000.00', cash), 'g1').percentShown;
+    expect(shown('995.00')).toBe(99);
+    expect(shown('999.99')).toBe(99);
+    expect(shown('1000.00')).toBe(100);
+    expect(shown('5000.00')).toBe(100);
+    expect(shown('250.00')).toBe(25);
+    expect(shown('4.99')).toBe(0); // 0.499% floors to 0, never rounds up
+    expect(selectGoalProgress(withGoal('0.00', '500.00'), 'g1').percentShown).toBe(0);
+    // `percentShown` is 100 exactly when, and only when, the target is reached.
+    for (const cash of ['995.00', '999.99', '1000.00', '1000.01']) {
+      const p = selectGoalProgress(withGoal('1000.00', cash), 'g1');
+      expect(p.percentShown === 100).toBe(p.targetReached);
+    }
+  });
+
+  it('should carry the same displayed percentage into the row and the detail view (5.540)', () => {
+    const state = withGoal('1000.00', '995.00');
+    expect(selectGoalRowView(state, 'g1').percentShown).toBe(99);
   });
 
   it('should return zeros for an unknown goal rather than throwing', () => {
@@ -467,7 +499,7 @@ describe('selectGoalDetailView', () => {
         { type: 'GoalFunded', goalId: 'g2', amount: '777.00' },
         { type: 'PlayMoneyGranted', goalId: 'g1', amount: '1.00' },
       ],
-    } as Partial<LedgerState>);
+    } as unknown as Partial<LedgerState>); // events are deliberately partial shapes
 
   it('should return BOTH shapes its consumers need — a display string and a number', () => {
     const v = selectGoalDetailView(st(), 'g1');
@@ -729,8 +761,23 @@ describe('selectGoalDetailView contributions (audit 2026-09-13)', () => {
         { type: 'WeeklyCreditGranted', amount: '1000.00' },
         { type: 'SimulatedIncomeReceived', amount: '500.00' },
       ],
-    } as Partial<LedgerState>);
+    } as unknown as Partial<LedgerState>); // events are deliberately partial shapes
     expect(selectGoalDetailView(state, 'g1').contributionsTotal).toBe('300.00');
+  });
+
+  it('should NOT count a GoalFunded the projection REFUSED (P8a, register 5.485)', () => {
+    const state = base({
+      goals: [{ goalId: 'g1', targetAmount: '1000.00', cash: '200.00' }],
+      events: [
+        { type: 'GoalFunded', goalId: 'g1', amount: '200.00' },
+        { type: 'GoalFunded', goalId: 'g1', amount: '900.00' },
+      ],
+      dispositions: [APPLIED, { status: 'REFUSED', reason: 'insufficient-available' }],
+    } as unknown as Partial<LedgerState>);
+    expect(
+      selectGoalDetailView(state, 'g1').contributionsTotal,
+      'a refused funding was counted'
+    ).toBe('200.00');
   });
 });
 

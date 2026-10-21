@@ -150,11 +150,24 @@
   margin-top: 0.15em;
 }
 
+/* 2026-10-18 lane audit (handoff §6.6, 44x44): the text link keeps its look and
+   its baseline alignment; a transparent ::after, centred on it and sized from the
+   tap token, carries the hit area (the Toggle pattern). */
 .skip {
+  position: relative;
   color: var(--sb-text-link);
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-md);
   text-decoration: none;
+}
+.skip::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: var(--sb-tap);
+  transform: translateY(-50%);
 }
 .skip:hover {
   text-decoration: underline;

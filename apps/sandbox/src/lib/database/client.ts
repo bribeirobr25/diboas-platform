@@ -1,8 +1,10 @@
 /**
  * Sandbox Database Client — HTTP-based Neon PostgreSQL driver for Vercel
- * serverless. Mirrors the `apps/web` client (P1.2 slice 1a) but logs via the
- * sandbox `Logger` (slice 1b) and backs its OWN Neon project (separate from the
- * platform DB — one-migrations-owner-per-database, SANDBOX_RULES R-6).
+ * serverless. Mirrors the `apps/web` client's `sql` (P1.2 slice 1a) and backs its
+ * OWN Neon project (separate from the platform DB — one-migrations-owner-per-
+ * database, SANDBOX_RULES R-6). The unused `rawSql` and `pingDatabase` mirrors
+ * were deleted 2026-10-18 (lane audit; a knip `ignore` had hidden them) — the
+ * migration CLI has its own `rawSql`, and the sandbox has no health route.
  *
  * Runtime use lands in Phase 2 (`PostgresLedgerStore`, via the exported `sql`
  * which satisfies `@diboas/banking`'s `SqlExecutor` — see the contract line
@@ -12,7 +14,6 @@
 
 import { neon, type NeonQueryFunction } from '@neondatabase/serverless';
 import type { SqlExecutor } from '@diboas/banking';
-import { Logger } from '../monitoring/Logger';
 
 let _sql: NeonQueryFunction<false, false> | null = null;
 
@@ -51,29 +52,6 @@ export function sql(
   ...values: unknown[]
 ): Promise<Record<string, unknown>[]> {
   return withTimeout(getSql()(strings, ...values));
-}
-
-/**
- * Execute a raw SQL string. For trusted SQL only (migrations/DDL), never user
- * input. One statement per call (Neon HTTP is a one-shot transport).
- */
-export async function rawSql(query: string): Promise<Record<string, unknown>[]> {
-  const db = getSql();
-  const strings = Object.assign([query], { raw: [query] }) as unknown as TemplateStringsArray;
-  // CTO C1/§14.2 A: wrap in the same 8s timeout as `sql` (the mirrored web gap —
-  // untimed `rawSql` — is tracked for apps/web as PENDING_ALL Follow-up D).
-  return withTimeout(db(strings), DEFAULT_QUERY_TIMEOUT_MS, 'Database rawSql');
-}
-
-/** Health check — verifies connectivity. */
-export async function pingDatabase(): Promise<boolean> {
-  try {
-    await withTimeout(getSql()`SELECT 1`, DEFAULT_QUERY_TIMEOUT_MS, 'Database ping');
-    return true;
-  } catch (error) {
-    Logger.error('database ping failed', {}, error);
-    return false;
-  }
 }
 
 // Contract (CTO §14.2 B): `sql` conforms to @diboas/banking's `SqlExecutor`

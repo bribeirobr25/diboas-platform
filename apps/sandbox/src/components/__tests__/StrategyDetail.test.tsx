@@ -116,6 +116,29 @@ function renderDetail(
 }
 
 describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () => {
+  /**
+   * REQUIREMENT (heading levels never skip and a page has one h1 — CLAUDE.md a11y; 2026-10-18
+   * lane audit): StrategyDetail only ever renders INSIDE GoalDetail, whose goal name is the
+   * page's h1. Its own title is therefore an h2, its sections h3, nothing deeper than one
+   * step below its parent. It rendered a second h1 before.
+   */
+  it('should render no h1 and nest its headings one level under the goal page', () => {
+    const { container } = renderDetail();
+    for (const view of ['Simple', 'Detailed']) {
+      if (view === 'Detailed') fireEvent.click(screen.getByText('Detailed'));
+      expect(container.querySelector('h1')).toBeNull();
+      expect(container.querySelector('#strategy-title')?.tagName).toBe('H2');
+      const levels = [...container.querySelectorAll('h2, h3, h4, h5, h6')].map((h) =>
+        Number(h.tagName[1])
+      );
+      for (let i = 1; i < levels.length; i += 1) {
+        expect(levels[i]! - levels[i - 1]!, `heading skip at #${i}: ${levels}`).toBeLessThanOrEqual(
+          1
+        );
+      }
+    }
+  });
+
   it("should lead Simple with what-it-is, how-it's-doing, and the FOLDED itemization (FC-15)", () => {
     renderDetail();
     expect(screen.getByText('What it is')).toBeTruthy();
@@ -701,5 +724,68 @@ describe('5.436 — an unavailable rate blocks the commit, not the reading', () 
     renderDetail();
     expect(screen.getAllByText('This option is not available right now').length).toBeGreaterThan(0);
     expect(screen.queryByText(/Enter an amount above/)).toBeNull();
+  });
+});
+
+/**
+ * `5.541` — the Detailed view must follow the picker's three-way rule
+ * (`StrategyPicker.tsx`): a displayable rate shows the rate; an AVAILABLE strategy
+ * whose rate cannot be displayed (a market leg's return is a price, not an APY)
+ * states NO rate; only an UNAVAILABLE strategy shows the generic unavailable state.
+ * Asserted on rendered TEXT.
+ */
+describe('5.541 — rate availability vs strategy availability in the Detailed view', () => {
+  const messages = getMessages('en');
+  const LABEL = messages['strategyDetail.currentApy'] as string;
+  const UNAVAILABLE = messages['common.optionUnavailable'] as string;
+  const fullThrottle = getStrategy('fullThrottle')!; // has a market (price) leg
+  const GAS_BOTH = [
+    { chain: 'Arbitrum' as const, typicalFeeUsd: 0.03, stamp: FIXTURE_STAMP },
+    { chain: 'Solana' as const, typicalFeeUsd: 0.001, stamp: FIXTURE_STAMP },
+  ];
+  function detailed(strategy: typeof fullThrottle, apys: ProtocolApy[]) {
+    render(
+      <IntlProvider locale="en" messages={messages} onError={() => {}}>
+        <StrategyDetail
+          strategy={strategy}
+          goalName="Future cushion"
+          apys={apys}
+          histories={strategy.allocation.map((leg) => history(leg.protocolId, 120))}
+          gas={GAS_BOTH}
+          usdPriceLocal={1}
+          currency="USD"
+        />
+      </IntlProvider>
+    );
+    fireEvent.click(screen.getByText('Detailed'));
+  }
+  const liveFor = (strategy: typeof fullThrottle): ProtocolApy[] =>
+    strategy.allocation.map((leg) => ({
+      protocolId: leg.protocolId,
+      apyPercent: 5,
+      tvlUsd: null,
+      chain: CURRENT_CATALOG_PROTOCOL_NETWORK[leg.protocolId],
+      stamp: observedStamp('defillama', OBSERVED_AT),
+    }));
+
+  it('(a) a displayable rate: the label and the rate, never "not available"', () => {
+    detailed(safeHarbor, LIVE);
+    expect(screen.getByText(LABEL)).toBeTruthy();
+    expect(screen.getAllByText(/%/).length).toBeGreaterThan(0);
+    expect(screen.queryByText(UNAVAILABLE)).toBeNull();
+  });
+
+  it('(b) an AVAILABLE strategy with no displayable rate: no rate row, and never "not available"', () => {
+    detailed(fullThrottle, liveFor(fullThrottle));
+    // Selectable (its put-to-work is not refused for rate reasons)…
+    expect(screen.queryByText(UNAVAILABLE)).toBeNull();
+    // …and the Detailed view states no rate at all, as the picker does.
+    expect(screen.queryByText(LABEL)).toBeNull();
+  });
+
+  it('(c) an UNAVAILABLE strategy: the generic unavailable state under the rate label', () => {
+    detailed(safeHarbor, []); // no rate evidence at all → the strategy is unavailable
+    expect(screen.getByText(LABEL)).toBeTruthy();
+    expect(screen.getAllByText(UNAVAILABLE).length).toBeGreaterThan(0);
   });
 });

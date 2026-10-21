@@ -42,6 +42,13 @@ export function ModeStamp({ mode, palette }: { mode: ShellMode; palette: boolean
     root.setAttribute('data-mode', mode);
     if (palette) root.setAttribute('data-palette', mode);
     else root.removeAttribute('data-palette');
+    /* Cleared when the shell unmounts (lane audit 2026-10-21, C4): a soft navigation from
+       the app to an S0 page (Consent, Welcome) otherwise left `data-mode` behind, the very
+       stale stamp this component's own invariant forbids. */
+    return () => {
+      root.removeAttribute('data-mode');
+      root.removeAttribute('data-palette');
+    };
   }, [mode, palette]);
 
   return null;

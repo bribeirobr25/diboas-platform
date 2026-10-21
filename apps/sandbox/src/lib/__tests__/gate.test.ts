@@ -7,6 +7,14 @@ import {
   isGateConfigured,
   verifyGateCookie,
 } from '../gate';
+import { expectedLogs } from '@/test/expectedLogs';
+
+// Failure paths below LOG by design (R-14); asserted, not silenced (2026-10-19 cleanup).
+expectedLogs({
+  strict: true,
+  warn: ['SANDBOX_ACCESS_PASSWORD is not set'],
+  requiredIn: /empty-string password as NOT configured|FAIL CLOSED when no password is configured/,
+});
 
 /**
  * `gate.ts` is a security utility (CLAUDE.md: 100% coverage for those) and had
@@ -27,7 +35,13 @@ import {
  * deployed env"), not from running the code (coding-standards rule 4).
  */
 
-const KEYS = ['NODE_ENV', 'VERCEL_ENV', 'SANDBOX_GATE_ALLOW_INSECURE', 'SANDBOX_ACCESS_PASSWORD'];
+const KEYS = [
+  'NODE_ENV',
+  'VERCEL_ENV',
+  'SANDBOX_GATE_ALLOW_INSECURE',
+  'SANDBOX_ACCESS_PASSWORD',
+  'SANDBOX_PUBLIC_ACCESS',
+];
 const prior: Record<string, string | undefined> = {};
 
 beforeEach(() => {
@@ -141,5 +155,31 @@ describe('the password check at the door', () => {
     env({ SANDBOX_ACCESS_PASSWORD: 'second-password' });
     expect(gateGrantToken()).not.toBe(first);
     expect(verifyGateCookie(first)).toBe(false);
+  });
+});
+
+/**
+ * Lane audit 2026-10-21 (L9): the compare no longer returns early on a length mismatch
+ * (that answered a wrong-LENGTH guess faster, so the length was measurable); both sides
+ * are hashed to fixed-size digests first. Timing itself is not unit-testable, so this
+ * pins that the change kept the answers exactly right.
+ */
+describe('the door compare is exact for every guess length (L9)', () => {
+  it('should refuse wrong guesses of any length and accept only the password', () => {
+    const door = 'correct-horse';
+    env({ SANDBOX_ACCESS_PASSWORD: door });
+    expect(checkGatePassword(door)).toBe(true);
+    expect(checkGatePassword(door.slice(0, -1))).toBe(false); // one shorter
+    expect(checkGatePassword(`${door}e`)).toBe(false); // one longer
+    expect(checkGatePassword(`C${door.slice(1)}`)).toBe(false); // same length, one byte off
+    expect(checkGatePassword('')).toBe(false);
+  });
+
+  it('should not report the gate as misconfigured when public access is on', () => {
+    // Public mode never uses the password, so "fail-closed" would be a false signal.
+    // `expectedLogs` is strict: an unexpected warn in this test fails it.
+    env({ SANDBOX_PUBLIC_ACCESS: 'true' });
+    expect(gateGrantToken()).toBeNull();
+    expect(isGateConfigured()).toBe(false);
   });
 });

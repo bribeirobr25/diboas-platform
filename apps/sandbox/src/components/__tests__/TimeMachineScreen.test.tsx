@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { getMessages } from '@/i18n/loadMessages';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -8,6 +8,7 @@ import {
   advanceTime,
   createGoal,
   enterStrategy,
+  getLedgerState,
   grantPlayMoney,
   resetSandbox,
 } from '@/lib/ledgerClient';
@@ -50,8 +51,15 @@ const prices = (days: number) =>
     stamp: FIXTURE_STAMP,
   }));
 
+const seriesFails = vi.hoisted(() => ({ next: false }));
 vi.mock('@/hooks/useMarket', () => ({
-  fetchSeries: async () => ({ histories: apy(400), priceHistories: prices(400) }),
+  fetchSeries: async () => {
+    if (seriesFails.next) {
+      seriesFails.next = false;
+      throw new Error('history down');
+    }
+    return { histories: apy(400), priceHistories: prices(400) };
+  },
   useMarket: () => ({ market: null, marketError: false, refreshMarket: () => {} }),
   fetchHistories: async () => apy(400),
 }));
@@ -270,5 +278,34 @@ describe('ValueChart accessible name vs a refused span (5.398)', () => {
 
     // Discriminating: the same element, same query, opposite outcome.
     expect(title).toMatch(/\b(up|down)\b/);
+  });
+});
+
+/**
+ * REQUIREMENT (R-14; 2026-10-18 lane audit): a failed advance leaves time where it was —
+ * no fabricated movement — and is LOGGED with its cause, never swallowed silently.
+ */
+describe('TimeMachineScreen — a failed advance', () => {
+  beforeEach(() => resetSandbox());
+
+  it('should leave time unchanged and log the failure with a bounded reason', async () => {
+    fallenPosition();
+    const before = getLedgerState().events.length;
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    seriesFails.next = true;
+    try {
+      renderTM();
+      fireEvent.click(screen.getByRole('button', { name: /\+1 month/ }));
+      await waitFor(() => expect(warn).toHaveBeenCalledTimes(1));
+      // A bounded reason, never the error's own message (2026-10-19 review). The mock
+      // throws a plain Error, so the reason is exactly its class — a three-way regex had
+      // accepted reasons this test can never produce.
+      expect(JSON.stringify(warn.mock.calls[0])).toContain('time machine advance failed');
+      expect(JSON.stringify(warn.mock.calls[0])).toContain('"reason":"unexpected:Error"');
+      expect(JSON.stringify(warn.mock.calls[0])).not.toContain('history down');
+      expect(getLedgerState().events.length).toBe(before);
+    } finally {
+      warn.mockRestore();
+    }
   });
 });

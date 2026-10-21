@@ -22,6 +22,8 @@
  *   pnpm review:increment     mechanical rows + the increment manual checklist
  *   pnpm review:system        mechanical rows + the system manual checklist
  *   pnpm review:register      just the id verifier (run BEFORE claiming ids)
+ *   pnpm review:doc1          DOC-1 layer 1 — committed references (same verdict in every clone)
+ *   pnpm review:doc1-local    DOC-1 layer 2 — private references, where their area exists here
  *   pnpm review:port 3002     identify the listener; add --kill to stop it
  *
  * DELIBERATELY NOT MECHANISED, and the script says so every run rather than
@@ -29,13 +31,40 @@
  * heuristic to avoid noise, and locale parity (C8) already has real tests —
  * a worse reimplementation here would be a liability, not a gate.
  */
-import { execSync } from 'node:child_process';
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { execFileSync, execSync, spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { availableParallelism, cpus, freemem, loadavg, totalmem } from 'node:os';
+import { dirname, join, resolve } from 'node:path';
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 
 const C = { g: '\x1b[32m', r: '\x1b[31m', y: '\x1b[33m', b: '\x1b[1m', d: '\x1b[2m', x: '\x1b[0m' };
-const ROOT = process.cwd();
+/**
+ * ⛑ THE REPOSITORY ROOT IS WHERE THIS SCRIPT LIVES, NOT WHERE IT WAS RUN FROM
+ * (P0 review, PB-5). `process.cwd()` made every check depend on the caller's
+ * directory: run from `apps/sandbox`, files resolved against the wrong tree and
+ * checks skipped or failed for reasons unrelated to the repository.
+ */
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const sh = (cmd) => execSync(cmd, { cwd: ROOT, stdio: 'pipe' }).toString();
+/**
+ * ⛑ NO SHELL FOR DATA (R4-1, independent review 2026-10-16). `sh()` takes a
+ * command STRING, so a file name or document text interpolated into it is
+ * parsed as shell syntax: a staged file named `docs/$(cmd).md` ran `cmd`, and
+ * git prints `$(…)` and backticks unescaped. `sh()` is now for constant
+ * commands only; anything carrying a value goes through `run()`, which passes
+ * an argument array and never starts a shell.
+ */
+const run = (file, argv) => execFileSync(file, argv, { cwd: ROOT, stdio: 'pipe' }).toString();
+/**
+ * ⛑ NAME LISTS ARE NUL-SEPARATED (R4-1). On a newline list git C-quotes any
+ * unusual name (`"docs/\303\234.md"` for `docs/Ü.md`, with
+ * `core.quotePath` at its default); that quoted string names no file, so
+ * `git diff -- <it>` returned nothing and the staged row scanned 0 lines of
+ * that file and PASSED. `-z` prints names raw, NUL-terminated.
+ */
+const gitNames = (argv) => run('git', argv).split('\0').filter(Boolean);
 const rd = (p) => readFileSync(join(ROOT, p), 'utf8');
 
 const REGISTER = 'docs/audit/PENDING_ALL.md';
@@ -299,6 +328,211 @@ function checkRegister() {
     ok = false;
     lines.push(`marker 5.${marker} is NOT free — max is 5.${max}`);
   }
+
+  /**
+   * ⚙ BLOCK-A · EVERY CLAIM CARRIES A MACHINE-READABLE STATUS, AND THE INDEX
+   * CANNOT DRIFT FROM THE ROWS.
+   *
+   * Why this row exists: 354 claims shared one `STATUS = …` convention between
+   * EIGHT of them. The other 346 stated status in prose, which is how `5.404`
+   * was referenced by `5.118` while carrying no claim row at all, and how
+   * `5.205` stayed marked `P1 · LIVE` for weeks after it was fixed. A register
+   * whose status is unreadable by a machine cannot support a completeness
+   * claim — and this lane makes completeness claims constantly.
+   *
+   * Two independent things are asserted, because an index that agrees with
+   * itself proves nothing:
+   *   1. COVERAGE  — every claim indexed exactly once, every indexed id real.
+   *   2. AGREEMENT — a row whose own text says CLOSED while the index says
+   *      otherwise (or the reverse) fails. The index is DERIVED from the rows,
+   *      so disagreement means one of them moved without the other.
+   *
+   * ⚑ Vocabulary is a CLOSED SET on purpose. A free-text status is prose with
+   * extra steps, and prose is what this row exists to replace.
+   */
+  const VOCAB = new Set([
+    'OPEN',
+    'CLOSED',
+    'PARTIAL',
+    'SCHEDULED',
+    'FOUNDER',
+    'BLOCKED',
+    'SPLIT',
+    'REGISTER-ONLY',
+    'OBSERVING',
+    'PREPARED',
+    'NOT-STARTED',
+    'DEFERRED',
+  ]);
+  const idxPairs = [...s.matchAll(/^>\s+(?:(\d+\.\d+)\s+([A-Z][A-Z-]*)\s*)+$/gm)].flatMap((m) =>
+    [...m[0].matchAll(/(\d+\.\d+)\s+([A-Z][A-Z-]*)/g)].map((x) => [x[1], x[2]])
+  );
+  const idx = new Map(idxPairs);
+  /* ⛑ "Every claim indexed exactly once" is now checked (PB-5): duplicate
+     entries used to merge silently in the Map. */
+  const dupIdx = [...new Set(idxPairs.map(([k]) => k).filter((k, i, a) => a.indexOf(k) !== i))];
+  if (dupIdx.length) {
+    ok = false;
+    lines.push(`CLAIM INDEXED MORE THAN ONCE: ${dupIdx.slice(0, 8).join(', ')}`);
+  }
+  /* ⛑ THE PUBLISHED TOTALS ARE CHECKED (PB-5): "TOTAL 413" stood over an index
+     of 443 entries while this gate reported PASS. */
+  const totalLine = s.match(/^>\s*TOTAL\s+(\d+)\s+·\s+(.+)$/m);
+  if (totalLine) {
+    const counted = new Map();
+    for (const v of idx.values()) counted.set(v, (counted.get(v) ?? 0) + 1);
+    const stated = new Map(
+      [...totalLine[2].matchAll(/([A-Z][A-Z-]*)\s+(\d+)/g)].map((x) => [x[1], Number(x[2])])
+    );
+    const wrong = [];
+    if (Number(totalLine[1]) !== idx.size) wrong.push(`TOTAL ${totalLine[1]}≠${idx.size}`);
+    for (const k of new Set([...counted.keys(), ...stated.keys()]))
+      if ((counted.get(k) ?? 0) !== (stated.get(k) ?? 0))
+        wrong.push(`${k} ${stated.get(k) ?? 0}≠${counted.get(k) ?? 0}`);
+    if (wrong.length) {
+      ok = false;
+      lines.push(`STATUS INDEX TOTALS WRONG (stated≠counted): ${wrong.slice(0, 6).join(', ')}`);
+    }
+  } else if (idx.size > 0) {
+    ok = false;
+    lines.push('STATUS INDEX TOTAL line not found');
+  }
+  if (idx.size === 0) {
+    ok = false;
+    lines.push('BLOCK-A STATUS INDEX not found — the instrument, not the file');
+  } else {
+    lines.push(`status index: ${idx.size} entries`);
+    const claims = new Set(counts.keys());
+    const missing = [...claims].filter((id) => !idx.has(id));
+    const ghosts = [...idx.keys()].filter((id) => !claims.has(id));
+    const badVocab = [...idx].filter(([, v]) => !VOCAB.has(v)).map(([id]) => id);
+    if (missing.length) {
+      ok = false;
+      lines.push(`NOT INDEXED (${missing.length}): ${missing.slice(0, 8).join(', ')}`);
+    }
+    if (ghosts.length) {
+      ok = false;
+      lines.push(`INDEXED BUT NOT A CLAIM (${ghosts.length}): ${ghosts.slice(0, 8).join(', ')}`);
+    }
+    if (badVocab.length) {
+      ok = false;
+      lines.push(`STATUS OUTSIDE VOCABULARY: ${badVocab.slice(0, 8).join(', ')}`);
+    }
+    /**
+     * AGREEMENT: a row that declares its own status must match the index.
+     *
+     * ⛑ REWRITTEN AFTER A SABOTAGE PASSED. The first version bounded the row
+     * with `[\s\S]{0,300}?` plus a lookahead for the NEXT claim — so for any
+     * row longer than 300 characters the lookahead could not be satisfied and
+     * the match failed silently. `declared` was therefore almost empty and this
+     * half of the gate asserted NOTHING: flipping `5.309` from CLOSED to OPEN
+     * in the index produced a PASS. Read the row head directly instead; no
+     * lazy quantifier, no lookahead, nothing that can fail closed into silence.
+     */
+    const disagree = [];
+    for (const [id, want] of idx) {
+      const at = s.search(
+        new RegExp(`^(?:\\||>) \\*\\*${id.replace('.', '\\.')}(?:\\*\\*|\\s|—)`, 'm')
+      );
+      if (at < 0) continue;
+      const head = s.slice(at, at + 170);
+      /**
+       * ⛑ MENTION vs ASSERTION. A first cut matched closure VOCABULARY anywhere
+       * in the head and produced two false positives: `5.278` says *"a CLOSED
+       * Product disposition is unexecuted"* and `5.325` says *"reviewed under
+       * the SUPERSEDED protocol"* — in both, the closed thing is the OBJECT of
+       * the sentence, not the row. This repository has paid for that exact
+       * defect repeatedly, and this gate rebuilt it.
+       *
+       * The discriminator is the row's own leading STATUS MARKER, which this
+       * register uses consistently: `✅` asserts closure; `🔴 🟠 🟡 🟢 📋 ⏳`
+       * assert the row is still live, whatever words follow. A row carrying an
+       * open-family marker is not claiming to be closed even when it discusses
+       * something that is.
+       */
+      /**
+       * ⛑ THE `u` FLAG IS LOAD-BEARING, ADDED 2026-09-25 (retro-audit of Block A).
+       *
+       * Without it a JS character class is a class of UTF-16 CODE UNITS, not
+       * code points — so `[🔴🟠🟡🟢📋]` contains the high surrogate `0xD83D`
+       * that all five share, and matched **any** emoji in `U+1F400–U+1F7FF`:
+       * 🔧 🚀 🔒 📌 among them. Measured: `5.151`'s head carries only `🔧` and
+       * was read as carrying an OPEN marker.
+       *
+       * It corrupts BOTH directions — a stray 🔧 early in a genuinely closed
+       * row would also push `openMarker.index` below `closeMarker.index` and
+       * make the row read as not asserting closure, silently disarming the
+       * forward check. Lone surrogates are exactly the class of filter defect
+       * this registry has paid for before.
+       */
+      const openMarker = /[🔴🟠🟡🟢📋⏳]/u.exec(head);
+      const closeMarker = /✅/u.exec(head);
+      const assertsClosed =
+        closeMarker !== null && (openMarker === null || closeMarker.index < openMarker.index);
+      const boldClosed = /^\s*\|?\s*\*\*(CLOSED|RESOLVED|WITHDRAWN|SUPERSEDED)\b/.test(
+        head.replace(/^(?:\||>) \*\*\d+\.\d+(?:\*\*|\s|—)\s*\|?\s*/, '')
+      );
+      const saysClosed = assertsClosed || boldClosed;
+      /* ⚑ A ✅ does not always mark CLOSURE. `5.220`/`5.221` read
+       *    `✅ **SCOPED … INCLUDE IN I-2 AT DOMAIN LEVEL**` — the tick marks the
+       *    SCOPING DECISION while the work is deferred into a later increment.
+       *    `DEFERRED` is therefore a legitimate pairing with a ✅ row, exactly
+       *    as `PARTIAL` and `SPLIT` are. */
+      if (saysClosed && !['CLOSED', 'SPLIT', 'PARTIAL', 'DEFERRED'].includes(want)) {
+        disagree.push(`${id}(row=CLOSED,index=${want})`);
+      }
+      /**
+       * ⛑ THE REVERSE DIRECTION, ADDED 2026-09-25 (retro-audit of Block A).
+       *
+       * The check above only fired `row=CLOSED, index=other`. The OPPOSITE —
+       * the index claiming CLOSED over a row that is still live — passed
+       * silently, and **that is the dangerous direction**: it is precisely how
+       * open work disappears from the open set, which is the disappearance this
+       * whole index exists to prevent. Proven by flipping `5.103` (a live
+       * `🔴 P1` fee-copy defect) to `CLOSED` in the index and watching the gate
+       * report PASS.
+       *
+       * Block A sabotaged this check one way only (`SB-A4`), and a one-way
+       * sabotage proves one way. Same discriminator, same marker-position rule.
+       */
+      if (want === 'CLOSED' && !saysClosed && openMarker !== null) {
+        disagree.push(`${id}(row=LIVE[${openMarker[0]}],index=CLOSED)`);
+      }
+      /**
+       * ⛑ A CLOSURE STATED LATER IN THE ROW (P0 review, PB-5). Only the first
+       * 170 characters were read, so a row that appends `✅ **CLOSED …**` to its
+       * end while its head still says open agreed with an OPEN index —
+       * `5.401`, `5.274`, `5.298`, `5.215` all did. Rows are written
+       * current-state-first; one that is not is reported so its head can be
+       * restated, rather than either reading winning silently.
+       */
+      if (!saysClosed && want !== 'CLOSED') {
+        /* The row's own extent: a TABLE row is one line; a NOTE row (`> **5.x**`)
+           runs until a blank line or the next claim — never into neighbours. */
+        const rest = s.slice(at);
+        let end;
+        if (rest.startsWith('|')) end = rest.indexOf('\n');
+        else {
+          const blank = rest.search(/\n\s*\n/);
+          const next = rest.slice(1).search(/^(?:\||>) \*\*\d+\.\d+(?:\*\*|\s|—)/m);
+          end = Math.min(blank < 0 ? rest.length : blank, next < 0 ? rest.length : next + 1);
+        }
+        const row = rest.slice(0, end < 0 ? rest.length : end);
+        /* A QUOTED marker is a mention, not this row's status — `5.291` quotes
+           another row's `("✅ FIXED …")` while being open itself. */
+        if (/(?<!["“'`(]\s?)✅\s*\**\s*(?:CLOSED|FIXED)\b/u.test(row.slice(169))) {
+          disagree.push(`${id}(closure stated late in the row; index=${want})`);
+        }
+      }
+    }
+    if (disagree.length) {
+      ok = false;
+      lines.push(
+        `INDEX DISAGREES WITH ROW (${disagree.length}): ${disagree.slice(0, 6).join(', ')}`
+      );
+    }
+  }
+
   return { ok, detail: lines.join(' · ') };
 }
 
@@ -565,6 +799,523 @@ function checkCounts() {
   };
 }
 
+/* -------------------------------------------------------------- prose-1 */
+/**
+ * ⚙ `PROSE-1` · A RECORD MAY NOT SILENTLY SKIP A REQUIREMENT ITS OWN PLAN ASSERTS.
+ *
+ * Three of this lane's five defects were the same shape — **prose contradicting
+ * the implementation or the controlling plan** — and no instrument here could
+ * see any of them:
+ *
+ *   · the `5.444` system review declared "observability unchanged" while its
+ *     controlling plan's §16 REQUIRED exactly that observability. Strategy
+ *     found it, not a gate.
+ *   · `implementation-notes.md` instructed future Engineering to "preserve the
+ *     controlled-unavailable behaviour" that `5.444` had superseded.
+ *   · a closure contract required `5.206` while the block's own section never
+ *     mentioned it.
+ *
+ * A gate cannot judge whether prose is TRUE. It can prove a record did not
+ * leave a requirement UNMENTIONED, which is how all three began.
+ *
+ * ⚑ THE RULE IS DELIBERATELY NARROW. Only a section whose HEADING asserts a
+ * requirement counts — `required` / `must` / `mandatory` / `minimum`. Measured
+ * across every plan in `docs/audit`: EIGHT such headings in five plans, of which
+ * `## 16 · Minimum required observability` is one. Matching bare REQUIRED/MUST
+ * anywhere in a plan's body would flag 19 of 25 sections and be noise; a rule
+ * that fires constantly is a rule people learn to ignore.
+ *
+ * A record satisfies the rule by citing the section — `§16`, `## 16`, or the
+ * heading's own distinctive words. Citing it is not proof it was honoured; it is
+ * proof it was not skipped in silence, which is the failure that actually shipped.
+ */
+function checkProse() {
+  const dir = join(ROOT, 'docs/audit');
+  if (!existsSync(dir)) return { ok: true, skip: true, detail: 'docs/audit absent (fresh clone)' };
+  const files = readdirSync(dir).filter((f) => f.endsWith('.md'));
+  const pairs = [];
+  const unresolved = [];
+  for (const f of files) {
+    const body = rd(join('docs/audit', f));
+    /**
+     * ⛑ ANY SPELLING OF THE CITATION (P0 review, PB-5). The capture accepted a
+     * bare filename only, so a path-prefixed citation (`docs/audit/X.md`) and a
+     * revision-only one were skipped — 10 of 19 plan-citing records, silently.
+     * A record that names a controlling plan this check cannot resolve is now a
+     * FAILURE, never a skip.
+     */
+    const line = body.match(/\*\*Controlling plan:\*\*([^\n]*)/);
+    if (!line) continue;
+    const path = line[1].match(/([A-Za-z0-9_./\-]+\.md)/)?.[1];
+    if (!path) {
+      unresolved.push(`${f}: names a controlling plan but gives no resolvable file`);
+      continue;
+    }
+    /* ⛑ A path is resolved AS GIVEN, from the repo root; only a bare name means
+       `docs/audit` (independent review: the directory used to be dropped, so a
+       plan cited under another folder read NOT FOUND or matched a namesake). */
+    pairs.push([f, path.includes('/') ? path : `docs/audit/${path}`, body]);
+  }
+  if (pairs.length === 0)
+    return {
+      ok: false,
+      detail: 'no record names a controlling plan — the instrument, not the files',
+    };
+
+  const lines = [`${pairs.length} record(s) name a controlling plan`];
+  let ok = true;
+  if (unresolved.length) {
+    ok = false;
+    lines.push(
+      `CONTROLLING PLAN UNRESOLVABLE (${unresolved.length}): ${unresolved.join(' · ')}` /* full list (R4-9) */
+    );
+  }
+  let checked = 0;
+  const gaps = [];
+  /** ⛑ R4-6: a record checked against ZERO headings is reported with its PROVEN reason, never passed silently. */
+  const notApplicable = [];
+  for (const [rec, planName, body] of pairs) {
+    let recChecked = 0;
+    if (!existsSync(join(ROOT, planName))) {
+      lines.push(`${rec}: plan ${planName} NOT FOUND — cited but not reachable`);
+      ok = false;
+      continue;
+    }
+    const plan = rd(planName);
+    /**
+     * ⛑ A HEADING'S BLOCK IS INHERITED, NOT READ OFF THE HEADING ITSELF.
+     *
+     * The first version derived the block from the heading's own text, so a
+     * SUB-heading inside a block section — `### CI-N4 must detect CLAIMS, not
+     * TOKENS`, which lives under `### G · LEGAL-REQUIRED GATES` — carried no
+     * block and was treated as plan-level, making EVERY record answer for it.
+     * Block B's record was failed for not citing a Block G requirement.
+     *
+     * This is the same defect class Block A found in the gate registry, where
+     * 31 gates inherited their status from a section heading and no machine
+     * could see it. Walk the headings IN ORDER and carry the current block:
+     * a `##` starts a plan-level section and clears it; a `### X · …` sets it;
+     * any other `###` inherits it.
+     */
+    const headBlocks = new Map();
+    let current = null;
+    for (const h of plan.match(/^#{2,3} .+$/gm) || []) {
+      if (/^## /.test(h)) current = null;
+      else {
+        const own = h.match(/^###\s*([A-G])\s*·/)?.[1];
+        if (own) current = own;
+      }
+      if (!headBlocks.has(h)) headBlocks.set(h, current);
+    }
+    const heads = (plan.match(/^#{2,3} .+$/gm) || []).filter((h) =>
+      /\brequired\b|\bmust\b|\bmandatory\b|\bminimum\b/i.test(h)
+    );
+    /**
+     * ⚑ A BLOCK RECORD ANSWERS FOR ITS OWN BLOCK. A multi-block plan carries a
+     * requirement heading per block (`### B · … MUST CLOSE`), and Block A's
+     * record has no business citing Block B's. Measured on the first run: that
+     * was 1 of the 2 reported gaps, i.e. a 50% false-positive rate — and this
+     * check's own docstring warns that a rule which fires wrongly is one people
+     * learn to ignore. Plan-level sections (`## 16 · …`) still apply to every
+     * record, because they apply to the whole lane.
+     */
+    /* ⛑ R4-6: a multi-block record (`…BLOCKS_EFG_RECORD…`) answers for EACH of its blocks;
+       it used to match no block and was excused from every block requirement. */
+    const recBlocks = new Set(
+      /* Exact and case-sensitive (R4 correction): `BLOCK_E_` or `BLOCKS_EFG_` — with `/i`,
+         `BLOCK_FEED_` read as blocks F, E, D. */
+      (
+        rec
+          .match(/BLOCK_([A-G])_|BLOCKS_([A-G]{2,7})_/)
+          ?.slice(1)
+          .find(Boolean) ??
+        rec.match(/\bBlocks? ([A-G]{1,7})\b/)?.[1] ??
+        ''
+      ).split('')
+    );
+    /* ⛑ R4-6: a record's OWN numbered heading is not a citation of the plan's section —
+       its `## 16` used to satisfy "§16" by numeric coincidence. The NUMBER form is matched
+       with heading lines removed; the full PHRASE and register ids still count anywhere
+       (a record heading that repeats the plan's whole section title does cite it). */
+    const prose = body.replace(/^#{1,6} .*$/gm, '');
+    for (const h of heads) {
+      const hBlock = headBlocks.get(h) ?? h.match(/^###\s*([A-G])\s*·/)?.[1];
+      /**
+       * ⛑ A BLOCK REQUIREMENT BINDS ONLY THAT BLOCK'S RECORD — including when the
+       * record is not a block record at all. Found 2026-09-25: a LANE-level record
+       * (the documentation-lifecycle pass) has no block letter, so the old condition
+       * `recBlock && …` never skipped and it was failed for not citing **Block B's**
+       * `5.345 MUST CLOSE`. Plan-level headings (`## 16 · …`, no block) still bind
+       * every record, which is what keeps this non-vacuous.
+       */
+      if (hBlock && !recBlocks.has(hBlock)) continue;
+      checked += 1;
+      recChecked += 1;
+      const num = h.match(/^#{2,3}\s*([0-9]+[a-z]?)\s*·/);
+      /**
+       * ⛑ THE WHOLE PHRASE, NOT ANY ONE WORD (P0 review, PB-5). Matching any
+       * single distinctive word let "observability unchanged" satisfy
+       * "Minimum required observability", and "block" satisfy a Block G
+       * requirement. A record now cites the section NUMBER (`§16`, `## 16`)
+       * or the heading's full phrase (markup and number removed,
+       * whitespace-normalised, case-insensitive).
+       */
+      const norm = (t) =>
+        t
+          .replace(/[`*_·—–]/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .toLowerCase();
+      /* The heading's TITLE — its text before an em/en dash qualifier — is the
+         phrase a record must carry; a lettered block heading has no number. */
+      const titleText = h
+        .replace(/^#{2,3}\s*/, '')
+        .replace(/^[0-9]+[a-z]?\s*·\s*/, '')
+        .replace(/^[A-G]\s*·\s*/, '')
+        .split(/\s[—–]\s/)[0];
+      const phrase = norm(titleText);
+      /* A heading that names register ids is cited when the record names them all. */
+      const ids = [...h.matchAll(/\b5\.\d{2,3}\b/g)].map((x) => x[0]);
+      /* ⛑ R4-6: an id is matched as a whole number — `5.12` no longer matches inside `5.123`. */
+      const hasId = (id) => new RegExp(`(?<![\\d.])${id.replace('.', '\\.')}(?![\\d])`).test(body);
+      const cited =
+        (num && new RegExp(`§\\s?${num[1]}\\b|##\\s*${num[1]}\\b`).test(prose)) ||
+        (phrase.length >= 8 && norm(body).includes(phrase)) ||
+        (ids.length > 0 && ids.every(hasId));
+      if (!cited) gaps.push(`${rec} ↛ "${h.replace(/^#{2,3}\s*/, '').slice(0, 44)}"`);
+    }
+    if (recChecked === 0) {
+      const blockOf = (h) => headBlocks.get(h) ?? h.match(/^###\s*([A-G])\s*·/)?.[1];
+      const bound = [...new Set(heads.map(blockOf).filter(Boolean))];
+      if (heads.length === 0)
+        notApplicable.push(`${rec}: N/A — its plan has no requirement heading`);
+      else if (heads.every(blockOf))
+        notApplicable.push(
+          `${rec}: N/A — every requirement heading binds block(s) ${bound.join(', ')}; the record is ${recBlocks.size && [...recBlocks][0] ? `block ${[...recBlocks].join('')}` : 'lane-level'}`
+        );
+      else {
+        /* Unreachable by construction (a plan-level heading binds every record) — kept as a fail-closed guard. */
+        ok = false;
+        gaps.push(`${rec}: checked against 0 headings with no proven reason`);
+      }
+    }
+  }
+  lines.push(`${checked} requirement heading(s) checked`);
+  /* Every N/A is listed with its measured reason — a count alone would hide which records it covers. */
+  if (notApplicable.length)
+    lines.push(`N/A, PROVEN (${notApplicable.length}): ${notApplicable.join(' · ')}`);
+  if (gaps.length) {
+    ok = false;
+    /* ⛑ R4-9: the full list — a truncated failure list hides exactly the entry a reader or a test looks for. */
+    lines.push(`UNCITED REQUIREMENT (${gaps.length}): ${gaps.join(' · ')}`);
+  }
+  return { ok, detail: lines.join(' · ') };
+}
+
+/* ------------------------------------------------------------------- doc-1 */
+/**
+ * ⚙ `DOC-1` · A REFERENCE PRESENTED AS AUTHORITY MUST RESOLVE — OR SAY IT CANNOT.
+ *
+ * `5.458`: `CLAUDE.md` instructed every session to *"consult it before writing any compliance
+ * copy or claim"* and pointed at a Legal register whose entire directory had been deleted.
+ * Measured repo-wide at the time: **870 references across 212 documents, 114 missing
+ * targets**, reaching committed living authority (`architecture-decisions.md`,
+ * `engineering-gates.md`, `implementation-notes.md`).
+ *
+ * ## The bounded, enforceable subset — and what is deliberately NOT enforced
+ *
+ * SCOPE: the COMMITTED surface only — `CLAUDE.md`, `README.md`, `docs/tech/**`. Those ship in
+ * a fresh clone, so a broken reference there is broken for everyone. `docs/audit`,
+ * `docs/full-view` and `docs/sandbox-app` are gitignored and absent from a clone, so gating
+ * them would fail for reasons a contributor cannot fix. Their ~107 remaining dangling
+ * references are a NAMED REVIEW FRONT (`5.459`), not a silent pass.
+ *
+ * RULE: a reference in an AUTHORITY sentence must resolve, OR carry `⚠ NOT REACHABLE`.
+ * The annotation is the `AUTH-1` pattern — a missing file must never read as "no authority
+ * exists" — so an honest unreachable marker satisfies this gate and silence does not.
+ *
+ * ⚑ **A ratchet guards the remainder.** Non-authority dangling references in the same surface
+ * are counted and may only FALL. That stops the 15 that exist today from becoming 40 while
+ * keeping the gate adoptable.
+ *
+ * ⚑ **EVERY AUTHORITY PHRASE CARRIES ITS OWN CONTROL** — the `\bkyc\b` lesson: a combined
+ * pattern hides a member that cannot match its own defect, and only a per-member control
+ * exposes it.
+ */
+const DOC1_AUTHORITY =
+  /consult (?:it|them)|read .{0,14}first|is the reference|the authority for|must (?:read|consult)|before writing|governs\b|per its |read it before|read the matching entry/i;
+/**
+ * ⛑ WIDENED (R4-5, independent review 2026-10-16). Only `.md` / `.mjs` / `.ts(x)`
+ * references were seen, and only bare ones: `docs/x.md#anchor`, `file.ts:13`,
+ * `.js` / `.json` / `.yaml` / `.sh` / `.py` / `.css` targets and directories were
+ * never checked — `docs/tech/internationalization.md:13` pointed at a `.js` file
+ * that does not exist where it says. Group 1 is the path; an `#anchor` or a
+ * `:line` suffix is accepted and dropped before resolution.
+ */
+const DOC1_REF =
+  /`((?:docs|scripts|apps|packages)\/[^`\s#:]*?(?:\.(?:md|mjs|cjs|js|ts|tsx|mts|cts|json|ya?ml|sh|py|css)|\/))(?:#[^`\s]*|:\d+(?:[-–]\d+)?)?`/g;
+const DOC1_REF_BARE = /`(?:docs|scripts|apps|packages)\/[^`\s]+?`/g;
+/** Ratchet: non-authority dangling references in the committed surface. Falling-only. */
+const DOC1_SLACK = 0; /* lowered 15 → 0 on 2026-10-15: measured 0 once gitignored targets were classified by policy */
+
+function doc1Surface() {
+  const files = ['CLAUDE.md', 'README.md'].filter((f) => existsSync(join(ROOT, f)));
+  return files.concat(mdUnder('docs/tech', []));
+}
+
+/**
+ * ⛑ RESOLVES ONLY AGAINST WHAT A CLONE CONTAINS (P0 review, PB-5). The scope is
+ * the committed surface "because a broken reference there is broken for
+ * everyone" — yet resolution used `existsSync`, so a reference into a gitignored
+ * folder (`docs/audit`, `docs/full-view`, …) resolved on the maintainer's
+ * machine and dangled in every clone: ~51 such references passed locally. A
+ * target now resolves only if it is part of what a commit of this tree would
+ * contain: TRACKED, or NEW and not ignored (`--others --exclude-standard` — a
+ * file added in the same change must not read as dangling until it is staged),
+ * AND still present on disk (`git ls-files` keeps listing a tracked file that
+ * the working tree has deleted). Whether a new file was actually staged is the
+ * `staged` row's question (gate D6), not this one's.
+ */
+let trackedFiles = null;
+function loadTracked() {
+  if (trackedFiles === null) {
+    try {
+      trackedFiles = new Set(
+        gitNames(['ls-files', '--cached', '--others', '--exclude-standard', '-z'])
+      );
+    } catch {
+      trackedFiles = new Set();
+    }
+  }
+  return trackedFiles;
+}
+function isTracked(target) {
+  const tracked = loadTracked();
+  /* A directory resolves when it holds at least one tracked file and exists. */
+  if (target.endsWith('/'))
+    return [...tracked].some((f) => f.startsWith(target)) && existsSync(join(ROOT, target));
+  return tracked.has(target) && existsSync(join(ROOT, target));
+}
+
+/**
+ * Gitignored BY POLICY (`.gitignore` keeps `docs/*` local except docs/tech and
+ * docs/integrations). Decided by git's own rule, so the answer is identical in
+ * every clone and on every machine — unlike `existsSync`, which is what made
+ * this gate's result depend on the maintainer's disk.
+ */
+const ignoredCache = new Map();
+function isIgnoredByPolicy(target) {
+  if (!ignoredCache.has(target)) {
+    let ignored = false;
+    try {
+      /* No shell: the target is document text, and `$(…)` survives the
+         `[*{}<>]` filter (independent review). */
+      execFileSync('git', ['check-ignore', '-q', target], { cwd: ROOT, stdio: 'pipe' });
+      ignored = true;
+    } catch {
+      ignored = false;
+    }
+    ignoredCache.set(target, ignored);
+  }
+  return ignoredCache.get(target);
+}
+
+/** Exported shape so the gate's own tests can drive it. */
+function doc1Scan() {
+  const authority = [];
+  const slack = [];
+  const localOnly = [];
+  /** Every reference into a gitignored-by-policy area that is NOT marked unreachable — Layer 2's input. */
+  const privateRefs = [];
+  let refs = 0;
+  for (const f of doc1Surface()) {
+    const text = rd(f);
+    for (const line of text.split('\n')) {
+      const spans = [...line.matchAll(DOC1_REF_BARE)].map((b) => b.index);
+      for (const m of line.matchAll(DOC1_REF)) {
+        const target = m[1];
+        if (/[*{}<>]/.test(target)) continue;
+        refs += 1;
+        if (isTracked(target)) continue;
+        /**
+         * ⛑ A MARKER BELONGS TO THE REFERENCE IT FOLLOWS (R4-5). It was tested
+         * against the WHOLE line, so `Read \`docs/tech/MISSING.md\` first;
+         * \`docs/audit/OLD.md\` is ⚠ NOT REACHABLE` excused the first reference
+         * too. A marker now counts only between this reference and the next one.
+         * An honest marker satisfies the rule: `⚠ NOT REACHABLE` for a target that
+         * is gone, `local-only` for one gitignored by design. `local-only` excuses
+         * ONLY a target that IS gitignored by policy.
+         */
+        const end = m.index + m[0].length;
+        const next = spans.find((at) => at >= end) ?? line.length;
+        const own = line.slice(end, next);
+        if (/NOT REACHABLE/i.test(own)) continue;
+        const ignored = isIgnoredByPolicy(target);
+        if (ignored) privateRefs.push({ doc: f, target });
+        if (/local-only/i.test(own) && ignored) continue;
+        const bareLine = line.replace(DOC1_REF_BARE, ' ');
+        /* A reference INTO a gitignored-by-policy area is local-only by design:
+           counted and reported, not a failure — unless it sits in an AUTHORITY
+           sentence, which must then say so, because "read X first" dangles for
+           every reader of a clone. */
+        if (ignored) {
+          if (DOC1_AUTHORITY.test(bareLine))
+            authority.push(`${f} → ${target} (local-only, unannotated)`);
+          else localOnly.push(`${f} → ${target}`);
+          continue;
+        }
+        /**
+         * ⛑ THE REFERENCE ITSELF SITS BETWEEN THE AUTHORITY WORDS, so the phrase is
+         * matched against the line with every backticked path COLLAPSED to one space.
+         * Found by this gate's own sabotage: `Read \`docs/x/GONE.md\` first` did not
+         * match `read .{0,14}first` — the 38-character path blew the gap — so the very
+         * first probe PASSED and the near-namesake probe passed for the same wrong
+         * reason. A detector that reports green while proving almost nothing is the
+         * named failure this row exists to avoid.
+         */
+        (DOC1_AUTHORITY.test(bareLine) ? authority : slack).push(`${f} → ${target}`);
+      }
+    }
+  }
+  return { refs, authority, slack, localOnly, privateRefs };
+}
+
+/**
+ * ⚙ `DOC-1` LAYER 2 · THE PRIVATE CORPUS — a separate, machine-dependent report
+ * (R4-5, founder correction 2026-10-16).
+ *
+ * Layer 1 (`checkDoc1`) classifies a reference into a gitignored area by git's
+ * policy, so its verdict is identical in every clone: a correctly annotated
+ * private reference is valid even where the file is absent. That leaves one
+ * hole — a TYPO in a private path passes everywhere. This layer closes it only
+ * where it can be closed: for each private reference whose AREA folder
+ * (`docs/full-view/`, `docs/audit/`, …) exists on THIS machine, the target must
+ * exist. With NO private area present the row is a SKIP (`NOT VERIFIED HERE`) —
+ * never a pass. With a private corpus present, a reference into an area this
+ * machine lacks FAILS (a typo, or an area that is gone here — annotate it
+ * `⚠ NOT REACHABLE`). A file directly under `docs/` is judged against the corpus
+ * as a whole. References marked `NOT REACHABLE` are honest by definition and are
+ * not re-judged.
+ *
+ * ⚑ REJECTED: a TRACKED index of private file names. It would publish private
+ * paths into a public repository, which the PB-1 rule forbids.
+ */
+function checkDoc1Local() {
+  const { privateRefs } = doc1Scan();
+  /* `docs/full-view/x.md` → `docs/full-view/`; a file directly under `docs/` has no area folder
+     of its own and is judged against the private corpus as a whole (R4 correction). */
+  const area = (t) => {
+    const parts = t.replace(/\/$/, '').split('/');
+    return parts.length >= 3 || t.endsWith('/') ? `${parts.slice(0, 2).join('/')}/` : null;
+  };
+  const present = new Set(
+    privateRefs.map((r) => area(r.target)).filter((a) => a !== null && existsSync(join(ROOT, a)))
+  );
+  if (!present.size)
+    /* ⛑ Nothing here can be verified — that is a SKIP, never a pass (R4 correction). */
+    return {
+      ok: true,
+      skip: true,
+      detail: `${privateRefs.length} private reference(s) · NOT VERIFIED HERE — no private area present on this machine`,
+    };
+  const missing = [];
+  const unknownArea = [];
+  let verified = 0;
+  for (const { doc, target } of privateRefs) {
+    const a = area(target);
+    if (a !== null && !present.has(a)) unknownArea.push(`${doc} → ${target}`);
+    else if (existsSync(join(ROOT, target))) verified += 1;
+    else missing.push(`${doc} → ${target}`);
+  }
+  const lines = [
+    `${privateRefs.length} private reference(s) · ${verified} verified on this machine`,
+  ];
+  /* ⛑ With a private corpus present, an area this machine does not hold FAILS (R4 correction):
+     it is a typo (`docs/full-veiw/…`) or a reference to an area that is gone here. Mark a
+     reference that is knowingly absent `⚠ NOT REACHABLE`, as Layer 1 requires. */
+  if (unknownArea.length)
+    lines.push(
+      `UNKNOWN PRIVATE AREA — a typo, or an area absent here (${unknownArea.length}): ${unknownArea.join(' · ')}`
+    );
+  if (missing.length)
+    lines.push(`PRIVATE TARGET MISSING (${missing.length}): ${missing.join(' · ')}`);
+  return { ok: missing.length === 0 && unknownArea.length === 0, detail: lines.join(' · ') };
+}
+
+/**
+ * ⚙ The SECOND recurrence vector: `CLAUDE.md` drifting back into an archive.
+ *
+ * Measured on the pre-ruling file: **14** dated execution-history entries and **11**
+ * `docs/audit/` references — the shape the Founder ruling names as *"large dated
+ * execution-history sections"* and *"historical audit records becoming load-bearing
+ * authority"*. After the reduction: **0** and **1** (the history pointer itself).
+ *
+ * ⚑ NOT a line-count gate — that was explicitly rejected. It counts STRUCTURE: dated
+ * status markers, and how many disposable audit artifacts bootstrap leans on.
+ */
+/**
+ * Dated execution-history entries: a marker-led date, or a date paired with a
+ * commit hash — `(2026-09-16, \`43626076\`)` — which the marker-only form missed
+ * (P0 review, PB-5). A bare "since 2026-08-22" is a fact, not history, and is
+ * not matched.
+ */
+const DOC1_DATED = /[⭐⛑]\s*\**\s*20\d\d-\d\d-\d\d|\(20\d\d-\d\d-\d\d,\s*`[0-9a-f]{7,40}`\)/g;
+const DOC1_AUDIT_REF = /`docs\/audit\/[^`]+\.md`/g;
+/** Bootstrap may point at the history ledger itself, and nothing else in docs/audit. */
+const DOC1_AUDIT_ALLOWED = 1;
+
+function checkDoc1() {
+  const { refs, authority, slack, localOnly } = doc1Scan();
+  /* Layer 2 is reported by its own mode (`doc1-local`); Layer 1's verdict below never depends on this machine. */
+  const lines = [
+    `${doc1Surface().length} committed doc(s) · ${refs} reference(s) · ${localOnly.length} into gitignored local-only areas (reported, by design)`,
+  ];
+  let ok = true;
+
+  if (existsSync(join(ROOT, 'CLAUDE.md'))) {
+    const boot = rd('CLAUDE.md');
+    const dated = boot.match(DOC1_DATED) || [];
+    const auditRefs = [...new Set(boot.match(DOC1_AUDIT_REF) || [])];
+    if (dated.length) {
+      ok = false;
+      lines.push(
+        `CLAUDE.md carries ${dated.length} DATED execution-history entr(ies) — bootstrap is not an archive (documentation-lifecycle.md §2)`
+      );
+    }
+    if (auditRefs.length > DOC1_AUDIT_ALLOWED) {
+      ok = false;
+      lines.push(
+        `CLAUDE.md leans on ${auditRefs.length} docs/audit artifact(s) (max ${DOC1_AUDIT_ALLOWED}): ${auditRefs.slice(0, 3).join(' ')}`
+      );
+    }
+    lines.push(`bootstrap: ${dated.length} dated entr(ies) · ${auditRefs.length} audit ref(s)`);
+  }
+  /* Non-vacuity: a scan that found nothing proves nothing. */
+  if (refs < 100) {
+    return {
+      ok: false,
+      detail: `only ${refs} references found — the scan is not seeing the corpus`,
+    };
+  }
+  if (authority.length) {
+    ok = false;
+    lines.push(
+      /* Every one is listed: this is a failure list, and a truncated one hides
+         exactly the entry a reader (or a regression test) is looking for. */
+      `UNREACHABLE AUTHORITY REFERENCE (${authority.length}): ${authority.join(' · ')}`
+    );
+  }
+  if (slack.length > DOC1_SLACK) {
+    ok = false;
+    lines.push(
+      `dangling references ROSE to ${slack.length} (ratchet ${DOC1_SLACK}) — annotate or fix: ${slack.join(' · ')}`
+    );
+  } else {
+    lines.push(`non-authority dangling ${slack.length}/${DOC1_SLACK} (falling-only)`);
+  }
+  return { ok, detail: lines.join(' · ') };
+}
+
 /* ------------------------------------------------------------- authorities */
 /** A new authority in docs/tech must be routed or dispositioned, or it rots. */
 function checkAuthorities() {
@@ -579,12 +1330,100 @@ function checkAuthorities() {
       if (f.endsWith('.md') && !f.includes('review-gate')) files.push(f);
   }
   const missing = files.filter((f) => !text.includes(f));
-  return {
-    ok: missing.length === 0,
-    detail:
-      `${files.length - missing.length}/${files.length} routed or dispositioned` +
-      (missing.length ? ` · NOT ROUTED: ${missing.join(', ')}` : ''),
-  };
+  const lines = [`${files.length - missing.length}/${files.length} routed or dispositioned`];
+  let ok = missing.length === 0;
+  if (missing.length) lines.push(`NOT ROUTED: ${missing.join(', ')}`);
+
+  /**
+   * ⚙ BLOCK-A · EVERY GATE CARRIES A MACHINE-READABLE STATUS.
+   *
+   * A gate is an open item with NO `5.xxx` id, so every register sweep this
+   * lane runs is structurally blind to it. That is how five Legal-required
+   * gates (`CI-N1`..`CI-N4`, `O-7`) sat `PLANNED` from 2026-08-29 while
+   * repeated "complete open-item" reviews never named them: status lived in
+   * prose, some row-level and some inherited from a section heading.
+   *
+   * The index makes gate status readable the same way the register's is, and
+   * this row fails if the two drift: a gate present in the registry but absent
+   * from the index, an indexed gate that is not in the registry, or a status
+   * outside the closed set.
+   */
+  const GATES_DOC = 'docs/tech/engineering-gates.md';
+  if (existsSync(join(ROOT, GATES_DOC))) {
+    /* `rd` resolves against ROOT itself — passing an absolute path doubles it. */
+    const g = rd(GATES_DOC);
+    const VOCAB = new Set(['LIVE', 'PLANNED', 'PARTIAL']);
+    /**
+     * ⛑ GATE IDS MAY CARRY LOWERCASE AFTER A HYPHEN (P0 review, PB-5): `AUTH-1a`,
+     * `AUTH-1b`, `AUTH-1c` and `AT-set` are gates, and the uppercase-only pattern
+     * made them invisible — unindexed, and passing. Domain rows ("Accessibility",
+     * "Security & vulnerabilities") stay excluded because they are words, not ids.
+     *
+     * ⛑ THE VOCABULARY CHECK CAN NOW FIRE: the index line used to admit only
+     * LIVE/PLANNED/PARTIAL, so a bad status dropped the whole line and was
+     * reported as "not indexed". Any uppercase status token is read, then judged.
+     */
+    const GATE_ID = '[A-Z][A-Z0-9]*(?:-[A-Za-z0-9]+)*';
+    const idxPairs = [
+      ...g.matchAll(new RegExp(`^>\\s+(?:${GATE_ID}\\s+[A-Z][A-Z-]*\\s*)+$`, 'gm')),
+    ].flatMap((m) =>
+      [...m[0].matchAll(new RegExp(`(${GATE_ID})\\s+([A-Z][A-Z-]*)`, 'g'))].map((x) => [x[1], x[2]])
+    );
+    const idx = new Map(idxPairs);
+    const dupIdx = idxPairs.map(([k]) => k).filter((k, i, a) => a.indexOf(k) !== i);
+    const rows = new Set(
+      [...g.matchAll(new RegExp(`^\\|\\s*\\*\\*(${GATE_ID})\\*\\*`, 'gm'))].map((m) => m[1])
+    );
+    rows.delete('SEO'); /* a quality DOMAIN row, not a gate id */
+    if (dupIdx.length) {
+      ok = false;
+      lines.push(`GATE INDEXED MORE THAN ONCE: ${[...new Set(dupIdx)].join(', ')}`);
+    }
+    /* ⛑ THE PUBLISHED TOTALS ARE CHECKED (PB-5): "TOTAL 75 · LIVE 53 · PLANNED 22"
+       stood over an index holding 80 entries, and nothing noticed. */
+    const totalLine = g.match(/^>\s*TOTAL\s+(\d+)\s+·\s+(.+)$/m);
+    if (totalLine) {
+      const counted = new Map();
+      for (const v of idx.values()) counted.set(v, (counted.get(v) ?? 0) + 1);
+      const stated = new Map(
+        [...totalLine[2].matchAll(/([A-Z][A-Z-]*)\s+(\d+)/g)].map((x) => [x[1], Number(x[2])])
+      );
+      const wrong = [];
+      if (Number(totalLine[1]) !== idx.size) wrong.push(`TOTAL ${totalLine[1]}≠${idx.size}`);
+      for (const k of new Set([...counted.keys(), ...stated.keys()]))
+        if ((counted.get(k) ?? 0) !== (stated.get(k) ?? 0))
+          wrong.push(`${k} ${stated.get(k) ?? 0}≠${counted.get(k) ?? 0}`);
+      if (wrong.length) {
+        ok = false;
+        lines.push(`GATE INDEX TOTALS WRONG (stated≠counted): ${wrong.join(', ')}`);
+      }
+    } else {
+      ok = false;
+      lines.push('GATE INDEX TOTAL line not found');
+    }
+    if (idx.size === 0) {
+      ok = false;
+      lines.push('BLOCK-A GATE STATUS INDEX not found — the instrument, not the file');
+    } else {
+      lines.push(`gate index: ${idx.size} entries`);
+      const notIdx = [...rows].filter((r) => !idx.has(r));
+      const ghosts = [...idx.keys()].filter((r) => !rows.has(r));
+      const bad = [...idx].filter(([, v]) => !VOCAB.has(v)).map(([r]) => r);
+      if (notIdx.length) {
+        ok = false;
+        lines.push(`GATE NOT INDEXED (${notIdx.length}): ${notIdx.slice(0, 8).join(', ')}`);
+      }
+      if (ghosts.length) {
+        ok = false;
+        lines.push(`INDEXED BUT NOT A GATE (${ghosts.length}): ${ghosts.slice(0, 8).join(', ')}`);
+      }
+      if (bad.length) {
+        ok = false;
+        lines.push(`GATE STATUS OUTSIDE VOCABULARY: ${bad.slice(0, 6).join(', ')}`);
+      }
+    }
+  }
+  return { ok, detail: lines.join(' · ') };
 }
 
 /* ------------------------------------------------------------------ AUTH-1 */
@@ -602,6 +1441,100 @@ function checkAuthorities() {
  * the precondition for every other AUTH-1 claim, and distinguish NOT FOUND from
  * NOT REACHABLE so a missing file never reads as "no authority exists".
  */
+/**
+ * ⚙ `DOC-2` · CURRENT AUTHORITY OUTSIDE `extracted/` MUST BE INDEXED.
+ *
+ * `5.461`: `AUTH-1` indexed only the canon's `extracted/` snapshot, while two dozen
+ * current-authority documents sat beside it — targeted reconciliations issued after the
+ * snapshot, plus one multi-file package. `review:canon-index` reported PASS throughout,
+ * because its only real assertion was `indexed.length > 0`.
+ *
+ * **The consequence was not theoretical.** An older ruling still governed a Pre-I2 conclusion
+ * after a newer targeted reconciliation had superseded it — a decision taken on superseded
+ * authority, which no gate could see.
+ *
+ * ⚑ **AUTHORITY IS NOT "EVERY FILE UNDER canon/".** Class is derived from each document's own
+ * declared `**Status:**`, never from its filename or date — a naive recursive rule would
+ * promote drafts, research and `history/` into authority. An outbound draft
+ * (`READY TO SEND`) is explicitly NOT a ruling.
+ */
+const CANON_CURRENT_STATUS =
+  /\*\*Status:\*\*.*(FOUNDER-RATIFIED|CONTROLLING|ACTIVE|CURRENT|ACCEPTED|\bPASS\b|CANON UPDATE)/i;
+const CANON_NOT_AUTHORITY = /\*\*Status:\*\*.*(READY TO SEND|DRAFT|SUPERSEDED)/i;
+
+/**
+ * Canon documents outside `extracted/`, classified by their OWN declared status.
+ *
+ * ⛑ THE FIRST VERSION OF THIS WALKER RETURNED ZERO AND THE GATE STILL PASSED.
+ * It called `statSync`, which this module never imported, inside a `try/catch`
+ * that swallowed the `ReferenceError` and `continue`d past every entry — so the
+ * detector built to find 25 invisible documents was itself blind, and its
+ * non-vacuity check could not fire because it keyed off the same zero.
+ * `readdirSync(..., { withFileTypes: true })` removes the dependency, and the
+ * floor below is absolute rather than relative.
+ */
+/** The class the canon README's own table gives a document, if it lists it. */
+let canonReadmeRows = null;
+function canonIndexClass(fileName, pkgName) {
+  if (canonReadmeRows === null) {
+    const readmePath = `${CANON}/README.md`;
+    canonReadmeRows = existsSync(join(ROOT, readmePath))
+      ? rd(readmePath)
+          .split('\n')
+          .filter((l) => l.startsWith('|'))
+      : [];
+  }
+  /* A file's own row wins; otherwise a package member inherits its package's row. */
+  const row =
+    canonReadmeRows.find((l) => l.includes(fileName)) ??
+    (pkgName && pkgName !== 'canon' ? canonReadmeRows.find((l) => l.includes(pkgName)) : undefined);
+  if (!row) return null;
+  if (/NOT-AUTHORITY|\bHISTORY\b|\bREFERENCE\b|SUPERSEDED/.test(row)) return 'NOT-AUTHORITY';
+  if (/\*\*CURRENT\*\*|\bCURRENT\b/.test(row)) return 'CURRENT';
+  return null;
+}
+
+function canonRootDocs() {
+  const out = [];
+  const walk = (rel, depth) => {
+    const abs = join(ROOT, rel);
+    if (!existsSync(abs)) return;
+    for (const e of readdirSync(abs, { withFileTypes: true })) {
+      const r = `${rel}/${e.name}`;
+      if (r.includes('/extracted')) continue;
+      if (e.isDirectory()) {
+        /* `history/` is preserved audit history by the package's own rule. */
+        if (e.name === 'history') continue;
+        if (depth < 2) walk(r, depth + 1);
+      } else if (e.name.endsWith('.md') && e.name !== 'README.md') {
+        const head = rd(r).slice(0, 1200);
+        /**
+         * ⛑ THE INDEX'S OWN CLASSIFICATION WINS (P0 review, PB-5). Keyword
+         * matching on the status line misread documents both ways: a status of
+         * "TARGETED RECONCILIATION" (current authority) matched nothing and was
+         * UNCLASSIFIED — so never checked — and "FOR CURRENT FINAL SET" read as
+         * CURRENT by accident. The canon README classifies each document; its
+         * row decides, and the status keywords are only the fallback.
+         */
+        /* A member's OWN draft status still wins over its package's class. */
+        const fromIndex = CANON_NOT_AUTHORITY.test(head)
+          ? 'NOT-AUTHORITY'
+          : canonIndexClass(e.name, rel.split('/').pop());
+        const cls =
+          fromIndex ??
+          (CANON_NOT_AUTHORITY.test(head)
+            ? 'NOT-AUTHORITY'
+            : CANON_CURRENT_STATUS.test(head)
+              ? 'CURRENT'
+              : 'UNCLASSIFIED');
+        out.push({ path: r, cls });
+      }
+    }
+  };
+  walk(CANON, 0);
+  return out;
+}
+
 function checkCanonIndex() {
   if (!existsSync(join(ROOT, CANON)))
     return {
@@ -635,7 +1568,113 @@ function checkCanonIndex() {
   ];
   /* Indexed == 0 with archives present is the failure this row exists for: the
      authority is on disk and unsearchable, which is how `5.410` happened. */
-  return { ok: indexed.length > 0 || archives.length === 0, detail: detail.join('\n      ') };
+  let ok = indexed.length > 0 || archives.length === 0;
+
+  /* ── DOC-2 · current authority OUTSIDE extracted/ must be in the canon index ── */
+  const readme = existsSync(join(ROOT, `${CANON}/README.md`)) ? rd(`${CANON}/README.md`) : '';
+  const rootDocs = canonRootDocs();
+  const current = rootDocs.filter((d) => d.cls === 'CURRENT');
+  const notAuth = rootDocs.filter((d) => d.cls === 'NOT-AUTHORITY');
+
+  /**
+   * ⛑ AN ABSOLUTE FLOOR, NOT A RELATIVE ONE. The earlier guard read
+   * `rootDocs.length > 0 && current.length === 0`, so when the walker returned
+   * ZERO it proved nothing and the row went green — the exact failure this row
+   * exists to stop. This corpus is KNOWN to hold current authority outside
+   * `extracted/`; a scan that cannot see it is broken, not clean.
+   */
+  if (rootDocs.length < 6 || current.length < 5) {
+    ok = false;
+    detail.push(
+      `DOC-2: the canon-root scan found ${rootDocs.length} doc(s) / ${current.length} CURRENT — ` +
+        'below the known floor, so this scan is BROKEN, not clean'
+    );
+  }
+  /** A package is indexed by its directory name; a loose file by its own name. */
+  const indexedIn = (rel) => {
+    const file = rel.split('/').pop();
+    const pkg = rel.split('/').slice(-2, -1)[0];
+    return readme.includes(file) || (pkg && pkg !== 'canon' && readme.includes(pkg));
+  };
+  const missing = current.filter((d) => !indexedIn(d.path));
+  if (missing.length) {
+    ok = false;
+    detail.push(
+      `DOC-2: CURRENT AUTHORITY NOT IN THE CANON INDEX (${missing.length}): ` +
+        missing
+          .slice(0, 4)
+          .map((d) => d.path.split('/').pop())
+          .join(' · ')
+    );
+  }
+  /* ⛑ AN UNCLASSIFIED DOCUMENT FAILS (PB-5): it is neither checked as current nor
+     excluded as a draft, so it used to pass without being looked at. */
+  const unclassified = rootDocs.filter((d) => d.cls === 'UNCLASSIFIED');
+  if (unclassified.length) {
+    ok = false;
+    detail.push(
+      `DOC-2: UNCLASSIFIED canon document(s) — classify in the canon README (${unclassified.length}): ` +
+        unclassified
+          .slice(0, 3)
+          .map((d) => d.path.split('/').pop())
+          .join(' · ')
+    );
+  }
+  /* A draft must not be claimed as current. */
+  const claimed = notAuth.filter((d) => {
+    const i = readme.indexOf(d.path.split('/').pop());
+    return i > -1 && !/NOT-AUTHORITY/.test(readme.slice(Math.max(0, i - 400), i + 400));
+  });
+  if (claimed.length) {
+    ok = false;
+    detail.push(`DOC-2: a NON-AUTHORITY draft is indexed as current: ${claimed[0].path}`);
+  }
+  /* A current PACKAGE must carry its internal precedence, not be flattened. */
+  const pkgs = [...new Set(current.map((d) => d.path.split('/').slice(-2, -1)[0]))].filter(
+    (d) => d && d !== 'canon'
+  );
+  for (const pkg of pkgs) {
+    const at = readme.indexOf(pkg);
+    if (
+      at > -1 &&
+      !/internal precedence|precedence, preserved|AUTHORITY_AND_SUPERSESSION/i.test(readme)
+    ) {
+      ok = false;
+      detail.push(`DOC-2: package ${pkg} indexed WITHOUT its internal precedence`);
+    }
+  }
+  /**
+   * ⛑ TWO CURRENT AUTHORITIES ON ONE SUBJECT, WITH NO STATED PRECEDENCE, IS A STOP.
+   * The canon's own rule is that a conflict between two CURRENT authorities is not
+   * reconciled by preference. Mechanically: every CURRENT index row must carry a
+   * non-empty Precedence cell, and no two may declare an identical Scope.
+   */
+  const indexRows = readme
+    .split('\n')
+    .filter((l) => /^\| \d+ \| `/.test(l))
+    .map((l) => l.split(' | ').map((c) => c.trim()));
+  const noPrec = indexRows.filter((r) => r.length > 7 && (!r[6] || r[6] === '—'));
+  if (indexRows.length && noPrec.length) {
+    ok = false;
+    detail.push(
+      `DOC-2: ${noPrec.length} CURRENT authorit(ies) indexed with NO stated precedence — a conflict cannot be resolved by preference`
+    );
+  }
+  const scopes = indexRows.map((r) => (r.length > 9 ? r[9] : '')).filter(Boolean);
+  const dupScope = scopes.find((v, i) => scopes.indexOf(v) !== i);
+  if (dupScope) {
+    ok = false;
+    detail.push(
+      `DOC-2: two CURRENT authorities claim the SAME scope — STOP: ${dupScope.slice(0, 60)}`
+    );
+  }
+
+  detail.push(
+    `DOC-2: ${rootDocs.length} doc(s) outside extracted/ — ${current.length} CURRENT (all indexed)` +
+      `, ${notAuth.length} NOT-AUTHORITY, ${rootDocs.length - current.length - notAuth.length} unclassified`
+  );
+
+  return { ok, detail: detail.join('\n      ') };
 }
 
 /**
@@ -847,9 +1886,9 @@ function checkEscalations() {
 /* ------------------------------------------------------------------ staged */
 /** An empty stage makes a commit report success over nothing. */
 function checkStaged() {
-  const names = sh('git diff --cached --name-only').trim();
-  if (!names) return { ok: true, skip: true, detail: 'nothing staged — run again after `git add`' };
-  const files = names.split('\n');
+  const files = gitNames(['diff', '--cached', '--name-only', '-z']);
+  if (!files.length)
+    return { ok: true, skip: true, detail: 'nothing staged — run again after `git add`' };
 
   /**
    * NARROW, NAMED EXCEPTION — this file DEFINES the patterns below, so scanning
@@ -864,7 +1903,7 @@ function checkStaged() {
   const SELF = 'scripts/review-gate.mjs';
   const scanned = files.filter((f) => f !== SELF);
   const added = scanned.flatMap((f) =>
-    sh(`git diff --cached -U0 -- "${f}"`)
+    run('git', ['diff', '--cached', '-U0', '--', f])
       .split('\n')
       .filter((l) => l.startsWith('+') && !l.startsWith('+++'))
   );
@@ -934,7 +1973,37 @@ function checkStaged() {
 
 /* ----------------------------------------------------------------- exports */
 /** An exported function with no consumer is dead, or a screen nobody links. */
-const stripComments = (t) => t.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+/**
+ * ⛑ BY THE PARSER, NOT BY REGEX (R4 correction, independent review 2026-10-16) —
+ * the same defect the sandbox guards' `stripComments` shed: `//.*$` deleted the
+ * rest of a line after a URL in a string (`"https://x.dev"; selectGoal(s);`), so
+ * a real consumer read as NONE. Comment ranges come from the TypeScript parser
+ * (a root devDependency, loaded only when this row runs).
+ */
+let tsLib = null;
+const stripComments = (t, fileName = 'x.tsx') => {
+  tsLib ??= createRequire(import.meta.url)('typescript');
+  const ts = tsLib;
+  const sf = ts.createSourceFile(fileName, t, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+  const ranges = new Map();
+  const jsxText = [];
+  const visit = (node) => {
+    if (node.kind >= ts.SyntaxKind.FirstJSDocNode && node.kind <= ts.SyntaxKind.LastJSDocNode)
+      return;
+    if (ts.isJsxText(node)) jsxText.push([node.pos, node.end]);
+    for (const r of ts.getLeadingCommentRanges(t, node.getFullStart()) ?? [])
+      ranges.set(r.pos, r.end);
+    for (const r of ts.getTrailingCommentRanges(t, node.getEnd()) ?? []) ranges.set(r.pos, r.end);
+    node.getChildren(sf).forEach(visit);
+  };
+  visit(sf);
+  const chars = t.split('');
+  for (const [pos, end] of ranges) {
+    if (jsxText.some(([from, to]) => pos >= from && pos < to)) continue;
+    for (let i = pos; i < end; i += 1) if (chars[i] !== '\n') chars[i] = ' ';
+  }
+  return chars.join('');
+};
 
 /**
  * Files this change actually touches — worktree, index, and branch commits
@@ -944,9 +2013,9 @@ const stripComments = (t) => t.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$
 function changedFiles() {
   const out = new Set();
   let answered = false;
-  for (const cmd of ['git diff --name-only HEAD', 'git diff --name-only origin/main...HEAD']) {
+  for (const range of ['HEAD', 'origin/main...HEAD']) {
     try {
-      for (const f of sh(cmd).split('\n').filter(Boolean)) out.add(f);
+      for (const f of gitNames(['diff', '--name-only', '-z', range])) out.add(f);
       answered = true;
     } catch {
       /* no upstream, detached head, or not a repo — fall through */
@@ -1001,7 +2070,7 @@ function checkExports(target = 'apps/sandbox/src/view', scope = 'apps/sandbox/sr
       checked += 1;
       let hits = '';
       try {
-        hits = sh(`grep -rl "\\b${name}\\b" ${scope} --include='*.ts' --include='*.tsx' || true`);
+        hits = run('grep', ['-rl', `\\b${name}\\b`, scope, '--include=*.ts', '--include=*.tsx']);
       } catch {
         /* grep found nothing */
       }
@@ -1075,12 +2144,17 @@ function checkExports(target = 'apps/sandbox/src/view', scope = 'apps/sandbox/sr
 /** A port's pid list contains its CLIENTS. Select the listener, verify, kill one. */
 function checkPort(port, doKill) {
   if (!port) return { ok: false, detail: 'usage: pnpm review:port <port> [--kill]' };
-  let pids = '';
-  try {
-    pids = sh(`lsof -ti:${port} -sTCP:LISTEN || true`).trim();
-  } catch {
-    pids = '';
-  }
+  /* ⛑ R4-2: the port is operator input, so it is validated, never interpolated. */
+  if (!/^\d{1,5}$/.test(port) || Number(port) < 1 || Number(port) > 65535)
+    return { ok: false, detail: `'${port}' is not a port number (1–65535) — refusing` };
+  const listeners = () => {
+    try {
+      return run('lsof', [`-ti:${port}`, '-sTCP:LISTEN']).trim();
+    } catch {
+      return ''; /* lsof exits 1 when nothing listens */
+    }
+  };
+  const pids = listeners();
   if (!pids) return { ok: true, detail: `port ${port}: no listener` };
   const list = pids.split('\n').filter(Boolean);
   if (list.length !== 1)
@@ -1089,7 +2163,8 @@ function checkPort(port, doKill) {
       detail: `port ${port}: ${list.length} listeners (${list.join(', ')}) — refusing to act`,
     };
   const pid = list[0];
-  const cmd = sh(`ps -o comm= -p ${pid}`).trim();
+  if (!/^\d+$/.test(pid)) return { ok: false, detail: `unexpected pid '${pid}' — refusing` };
+  const cmd = run('ps', ['-o', 'comm=', '-p', pid]).trim();
   const expected = /node|next-server/.test(cmd);
   if (!expected)
     return {
@@ -1101,8 +2176,8 @@ function checkPort(port, doKill) {
       ok: true,
       detail: `port ${port}: listener pid ${pid} ('${cmd}') — pass --kill to stop it`,
     };
-  sh(`kill ${pid}`);
-  const still = sh(`lsof -ti:${port} -sTCP:LISTEN || true`).trim();
+  process.kill(Number(pid), 'SIGTERM');
+  const still = listeners();
   return {
     ok: !still,
     detail: still ? `killed ${pid} but ${still} still listening` : `stopped pid ${pid} ('${cmd}')`,
@@ -1227,20 +2302,196 @@ function checkBattery() {
     ['format:check', 'pnpm format:check'],
     ['test', 'pnpm test'],
   ];
-  const failures = [];
-  for (const [name, cmd] of steps) {
-    try {
-      sh(cmd);
-    } catch {
-      failures.push(name);
-    }
+  const started = Date.now();
+  const before = batteryContext();
+  const results = steps.map(([name, cmd]) => runBatteryStep(name, cmd));
+  const failures = results.filter((s) => s.kind !== 'passed');
+  if (!failures.length)
+    return {
+      ok: true,
+      detail: `${steps.map((s) => s[0]).join(' · ')} all green (whole workspace)`,
+    };
+  const what = failures.map(
+    (s) =>
+      `${s.name} (${s.kind}${s.error ? '' : s.signal ? `, ${s.signal}` : `, exit ${s.status}`})`
+  );
+  let where;
+  try {
+    where = writeBatteryEvidence(started, before, results);
+  } catch (e) {
+    /* Evidence is a by-product: failing to write it never changes the verdict. */
+    return {
+      ok: false,
+      detail: `FAILED: ${what.join(', ')} — evidence NOT saved (${e.code ?? 'error'}: ${e.message}); run each directly for its output`,
+    };
   }
-  return failures.length
-    ? { ok: false, detail: `FAILED: ${failures.join(', ')} — run each directly for its output` }
-    : {
-        ok: true,
-        detail: `${steps.map((s) => s[0]).join(' \u00b7 ')} all green (whole workspace)`,
-      };
+  return { ok: false, detail: `FAILED: ${what.join(', ')} — evidence: ${where}` };
+}
+
+/**
+ * ⚑ ADDED 2026-10-21 (`5.590`). The battery threw its output away, so a red
+ * `test` row on 2026-10-20 could never be explained: the failing test was lost,
+ * and a later green re-run explains nothing. A failing battery now leaves one
+ * run directory under the private, git-ignored `docs/audit/` tree, and the row
+ * prints its path.
+ *
+ * Deliberately UNCHANGED: the four commands and their order, the shell, the
+ * 1 MiB output limit (`execSync`'s default, so a flood of output still fails
+ * the row exactly as before; it is now named `buffer-limit`), the verdict, the
+ * exit code and the PASS text. A passing battery writes nothing. Each run gets
+ * its own directory and every file is opened exclusive (`wx`), so a later run
+ * can never overwrite an earlier failure. Only `.json` / `.log` files are
+ * written, and every doc-walking row reads `.md` only.
+ */
+const BATTERY_RUNS_DIR = 'docs/audit/REVIEW_GATE_RUNS';
+const BATTERY_MAX_BUFFER = 1024 * 1024;
+/* Masked before anything is saved, even in a private file: the staged sweep's
+   credential-literal pattern, credentials inside a URL (`postgres://u:p@host`),
+   and any assignment to a sensitive variable name (an env dump in test output). */
+const CREDENTIAL = /((?:api[_-]?key|secret|password|token)\s*[:=]\s*['"])[^'"]{12,}/gi;
+/* Every part of these two patterns is BOUNDED: unbounded runs backtrack
+   quadratically on one long word (measured: 20 KB of letters took 1.1 s, and
+   a 1 MiB log hung the gate). Stress-tested on 1 MiB adversarial inputs. */
+const URL_CREDENTIAL = /([a-z][a-z0-9+.-]{0,31}:\/\/[^:/\s@]{1,256}:)[^@\s]{1,512}@/gi;
+const SENSITIVE_ASSIGNMENT =
+  /\b([A-Z0-9_]{0,64}(?:SECRET|TOKEN|PASSWORD|PASSWD|API_KEY|PRIVATE_KEY|ENCRYPTION_KEY|HMAC|DATABASE_URL)[A-Z0-9_]{0,64}[ \t]{0,8}[=:][ \t]{0,8})\S+/g;
+const redact = (s) =>
+  s
+    .replace(CREDENTIAL, '$1[REDACTED]')
+    .replace(URL_CREDENTIAL, '$1[REDACTED]@')
+    .replace(SENSITIVE_ASSIGNMENT, '$1[REDACTED]');
+const stripAnsi = (s) => s.replace(/\x1b\[[0-9;]*m/g, '');
+
+function runBatteryStep(name, cmd) {
+  const startedAt = new Date().toISOString();
+  const t0 = Date.now();
+  const r = spawnSync(cmd, {
+    cwd: ROOT,
+    shell: true,
+    stdio: 'pipe',
+    encoding: 'utf8',
+    maxBuffer: BATTERY_MAX_BUFFER,
+  });
+  const err = r.error;
+  const kind =
+    err?.code === 'ENOBUFS'
+      ? 'buffer-limit'
+      : err?.code === 'ETIMEDOUT'
+        ? 'timeout'
+        : err
+          ? 'launch-failure'
+          : r.signal
+            ? 'killed-by-signal'
+            : r.status === 127
+              ? 'command-not-found'
+              : r.status !== 0
+                ? 'command-failed'
+                : 'passed';
+  return {
+    name,
+    cmd,
+    startedAt,
+    ms: Date.now() - t0,
+    kind,
+    status: r.status,
+    signal: r.signal,
+    error: err ? { code: err.code ?? null, message: err.message } : null,
+    stdout: r.stdout ?? '',
+    stderr: r.stderr ?? '',
+  };
+}
+
+/** Candidate identity + machine state. Never throws: a missing git is recorded. */
+function batteryContext() {
+  const at = new Date().toISOString();
+  let candidate;
+  try {
+    const head = run('git', ['rev-parse', 'HEAD']).trim();
+    /* With -z a rename or copy is TWO tokens, `XY new` then `old`: the second is
+       consumed here, never read as an entry, and recorded as `old -> new` the
+       way plain `git status --porcelain` prints it. */
+    const tokens = run('git', ['status', '--porcelain', '-uall', '-z']).split('\0');
+    const lines = [];
+    for (let i = 0; i < tokens.length; i++) {
+      const e = tokens[i];
+      if (!e) continue;
+      const xy = e.slice(0, 2);
+      const p = e.slice(3);
+      const shown = /[RC]/.test(xy[0]) ? `${tokens[++i]} -> ${p}` : p;
+      let h = '(unreadable)';
+      try {
+        h = createHash('sha256')
+          .update(readFileSync(join(ROOT, p)))
+          .digest('hex')
+          .slice(0, 16);
+      } catch {
+        /* deleted, or a directory: recorded as unreadable */
+      }
+      lines.push(`${xy}|${shown}|${h}`);
+    }
+    /* The hand-kept FULL-BATCH manifests' line format, so this digest can be
+       compared with `shasum -a 256` of a manifest file. */
+    const manifest = lines.length ? `${lines.join('\n')}\n` : '';
+    candidate = {
+      head,
+      entries: lines.length,
+      manifestSha256: createHash('sha256').update(manifest).digest('hex'),
+    };
+  } catch (e) {
+    candidate = { error: e.message };
+  }
+  return {
+    at,
+    candidate,
+    machine: {
+      cpus: cpus().length,
+      availableParallelism: availableParallelism(),
+      loadavg: loadavg(),
+      totalMemMB: Math.round(totalmem() / 2 ** 20),
+      freeMemMB: Math.round(freemem() / 2 ** 20),
+      node: process.version,
+      platform: process.platform,
+    },
+  };
+}
+
+/** The lines that name what failed, so `run.json` answers "which test" on its own. */
+function failureLines(text) {
+  return stripAnsi(text)
+    .split('\n')
+    .filter((l) => /^\s*(FAIL\s|×\s)|Test timed out in|\bFailed:\s|error TS\d+|ERR_PNPM/.test(l))
+    .map((l) => l.trim())
+    .slice(0, 200);
+}
+
+function writeBatteryEvidence(started, before, results) {
+  const id = `${new Date(started).toISOString().replace(/[:.]/g, '-')}-pid${process.pid}`;
+  const rel = `${BATTERY_RUNS_DIR}/${id}`;
+  const dir = join(ROOT, rel);
+  mkdirSync(dir, { recursive: true });
+  const write = (name, text) => writeFileSync(join(dir, name), text, { flag: 'wx' });
+  for (const s of results) {
+    const base = s.name.replace(/[^a-z0-9-]/gi, '_');
+    write(`${base}.stdout.log`, redact(s.stdout));
+    write(`${base}.stderr.log`, redact(s.stderr));
+  }
+  const record = {
+    gate: `review-gate ${process.argv.slice(2).join(' ')}`.trim(),
+    run: id,
+    startedAt: new Date(started).toISOString(),
+    startedAtLocal: new Date(started).toString(),
+    totalMs: Date.now() - started,
+    before,
+    after: batteryContext(),
+    steps: results.map(({ stdout, stderr, ...s }) => ({
+      ...s,
+      stdoutBytes: Buffer.byteLength(stdout),
+      stderrBytes: Buffer.byteLength(stderr),
+      failureLines: s.kind === 'passed' ? [] : failureLines(redact(`${stdout}\n${stderr}`)),
+    })),
+  };
+  write('run.json', `${JSON.stringify(record, null, 2)}\n`);
+  return `${rel}/run.json`;
 }
 
 const CHECKS = {
@@ -1248,6 +2499,12 @@ const CHECKS = {
   register: ['register id integrity', checkRegister],
   counts: ['republished test counts agree', checkCounts],
   authorities: ['authority coverage of the gates', checkAuthorities],
+  prose: ['PROSE-1 · a record cites every requirement its plan asserts', checkProse],
+  doc1: ['DOC-1 · a reference presented as authority resolves', checkDoc1],
+  'doc1-local': [
+    'DOC-1 layer 2 · private references resolve where the private area exists',
+    checkDoc1Local,
+  ],
   staged: ['staged files + public-repo sweep', checkStaged],
   exports: ['exported functions have consumers', checkExports],
   'canon-index': ['AUTH-1 · authority corpus is searchable', checkCanonIndex],
@@ -1267,6 +2524,7 @@ const PLAN = {
     'register',
     'counts',
     'authorities',
+    'prose',
     'staged',
     'exports',
   ],
@@ -1276,6 +2534,7 @@ const PLAN = {
     'citations',
     'escalations',
     'authorities',
+    'prose',
     'counts',
     'register',
     'exports',

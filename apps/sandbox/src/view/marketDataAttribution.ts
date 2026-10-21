@@ -37,7 +37,7 @@
  */
 
 import { EVIDENCE_SOURCES, type EvidenceSourceId } from '@diboas/defi';
-import type { LedgerEvent } from '@diboas/banking';
+import { appliedEvents, type LedgerEvent, type LedgerState } from '@diboas/banking';
 
 /** Is this recorded source id a market-data PROVIDER (not a fixture, not unknown)? */
 function isProviderSource(source: string): boolean {
@@ -108,4 +108,18 @@ export function goalUsesCoinGeckoPrices(events: readonly LedgerEvent[], goalId: 
 /** Does ANY rendered outcome in `events` incorporate CoinGecko price data? */
 export function anyOutcomeUsesCoinGeckoPrices(events: readonly LedgerEvent[]): boolean {
   return marketPriceSourcesOverall(events).has(COINGECKO);
+}
+
+/**
+ * The screens' entry points: the same questions over the ledger's APPLIED events. An
+ * event the ledger refused is no outcome, so it attributes nothing (P8a); these exist so
+ * that rule lives here once instead of at every screen's call site (third P8a review).
+ */
+export function goalShowsCoinGeckoPrices(state: LedgerState, goalId: string): boolean {
+  return goalUsesCoinGeckoPrices(appliedEvents(state), goalId);
+}
+
+/** Does any outcome anywhere in the ledger incorporate CoinGecko price data? */
+export function ledgerShowsCoinGeckoPrices(state: LedgerState): boolean {
+  return anyOutcomeUsesCoinGeckoPrices(appliedEvents(state));
 }

@@ -13,7 +13,7 @@
  */
 
 import { CURRENT_CATALOG_PROTOCOL_NETWORK } from '../catalog';
-import { FIXTURE_APYS } from '../fixtures';
+import { FIXTURE_APYS, fixtureDateSeries } from '../fixtures';
 import type { ApyPoint, IApyProvider, ProtocolApy, ProtocolApyHistory, ProtocolId } from '../types';
 import { evidenceStamp } from '../types';
 import { PROVIDER_FETCH_TIMEOUT_MS, SANDBOX_MARKET_TTL_MS } from '../types';
@@ -138,19 +138,42 @@ async function fetchPools(
  * (live-verified 2026-07-18: jupiterJlp intentionally rides its fixture until
  * research item R4 locates a true JLP yield feed).
  */
-export function matchPool(pools: LlamaPool[], matcher: PoolMatcher): LlamaPool | null {
+/** A TVL usable for RANKING; an unknown or garbled one ranks last. Never displayed. */
+const usableTvl = (p: LlamaPool): number =>
+  typeof p.tvlUsd === 'number' && Number.isFinite(p.tvlUsd) ? p.tvlUsd : 0;
+
+/**
+ * `accept` is applied BEFORE ranking (lane audit 2026-10-21, D3): ranking first and
+ * judging the winner afterwards let a refused, higher-TVL pool (a bridged `USDC.E`)
+ * hide an acceptable one, and the leg fell back to its fixture with a valid
+ * observation in the feed. Malformed entries (a `null`, a non-string symbol) are
+ * skipped rather than thrown on (D2): one bad row in `/pools` must not take every leg
+ * down for the cache's six hours.
+ */
+export function matchPool(
+  pools: LlamaPool[],
+  matcher: PoolMatcher,
+  accept: (p: LlamaPool) => boolean = () => true
+): LlamaPool | null {
   const candidates = pools.filter(
     (p) =>
+      typeof p === 'object' &&
+      p !== null &&
+      typeof p.project === 'string' &&
+      (p.symbol === undefined || p.symbol === null || typeof p.symbol === 'string') &&
       matcher.projects.includes(p.project) &&
       matcher.symbols.includes((p.symbol ?? '').toUpperCase()) &&
       typeof p.apy === 'number' &&
-      p.apy > 0
+      p.apy > 0 &&
+      accept(p)
   );
   if (candidates.length === 0) return null;
   for (const chain of matcher.preferredChains) {
     const onChain = candidates
       .filter((p) => p.chain === chain)
-      .sort((a, b) => (b.tvlUsd ?? 0) - (a.tvlUsd ?? 0));
+      // Rank on a USABLE TVL only: a non-numeric one ranks as unknown (last), never as a
+      // NaN comparator whose order is unspecified (final review 2026-10-19).
+      .sort((a, b) => usableTvl(b) - usableTvl(a));
     if (onChain.length > 0) return onChain[0];
   }
   /**
@@ -176,6 +199,53 @@ function fixtureFor(protocolId: ProtocolId): ProtocolApy {
 
 /** This adapter's source identity. Declared once; never spelled at a call site. */
 const SOURCE = 'defillama' as const;
+
+/**
+ * ONE acceptance rule for a located pool, shared by the CURRENT rate and its HISTORY
+ * (lane audit 2026-10-20: the history path used `matchPool` alone, so the time machine
+ * could compound a different deployment's chart — another network, a bridged symbol —
+ * stamped as an observation of this leg, while the current rate refused the same pool).
+ * `null` when the pool may stand for the leg; otherwise the reason it may not.
+ *
+ * - **Network** (`5.406`/`5.407` §3): expected network + matching observation may be used;
+ *   a MISMATCHED or UNKNOWN network is unavailable — never another network's data.
+ * - **Declared identity** (Block B): `POOL_MATCHERS` locates candidates broadly; acceptance
+ *   is narrow. A bridged asset's rate is not the native asset's rate.
+ * - **Composition** (M&E): a rate whose composition cannot be determined is not acceptable
+ *   evidence.
+ */
+function identityRefusal(protocolId: ProtocolId, match: LlamaPool): EvidenceReason | null {
+  const observed = match.chain as ProtocolApy['chain'] | undefined;
+  if (!observed || observed !== CURRENT_CATALOG_PROTOCOL_NETWORK[protocolId])
+    return 'IDENTITY_MISMATCH';
+  const identity = domainIdentityOf(protocolId);
+  const observedSymbol = typeof match.symbol === 'string' ? match.symbol : '';
+  const satisfies =
+    identity.kind === 'lending'
+      ? symbolSatisfies(identity, observedSymbol)
+      : observedSymbol.trim().toUpperCase() === identity.symbol.toUpperCase();
+  if (!satisfies) return 'IDENTITY_NOT_SATISFIED';
+  if (rateComposition(match) === 'UNDETERMINED') return 'COMPOSITION_UNDETERMINED';
+  return null;
+}
+
+/**
+ * The pool a leg may use: the best ACCEPTED candidate (D3). When candidates exist but
+ * none is accepted, the refusal of the best raw match is returned, so the degrade
+ * reason stays as specific as before (a mismatched network, a bridged symbol).
+ */
+function acceptedPool(
+  pools: LlamaPool[],
+  protocolId: ProtocolId
+): { match: LlamaPool | null; refused: EvidenceReason | null } {
+  const matcher = POOL_MATCHERS[protocolId];
+  const best = matchPool(pools, matcher);
+  if (!best) return { match: null, refused: null };
+  const accepted = matchPool(pools, matcher, (p) => identityRefusal(protocolId, p) === null);
+  return accepted
+    ? { match: accepted, refused: null }
+    : { match: null, refused: identityRefusal(protocolId, best) };
+}
 
 export class DefiLlamaApyProvider implements IApyProvider {
   constructor(
@@ -237,6 +307,8 @@ export class DefiLlamaApyProvider implements IApyProvider {
       recordEvidenceEvent({
         subject: 'APY_CURRENT',
         source: SOURCE,
+        /* Which leg degraded (`5.444` §16) — this used to be dropped (lane audit 2026-10-20). */
+        leg: protocolId,
         outcome: fixtureMayServe ? 'SERVED_FALLBACK' : 'REFUSED',
         reason,
       });
@@ -250,7 +322,8 @@ export class DefiLlamaApyProvider implements IApyProvider {
     }
     const asOf = new Date(pools.at).toISOString(); // when fetched, not when served
     const resolved = protocolIds.map((protocolId) => {
-      const match = matchPool(pools.value, POOL_MATCHERS[protocolId]);
+      const { match, refused } = acceptedPool(pools.value, protocolId);
+      if (refused !== null) return degrade(protocolId, refused);
       if (!match) return degrade(protocolId, 'NO_OBSERVATION');
       /**
        * `5.406`/`5.407` §3 · THE OBSERVATION MUST AGREE WITH PRODUCT IDENTITY.
@@ -266,35 +339,7 @@ export class DefiLlamaApyProvider implements IApyProvider {
        * Making the rate itself null is §8.5 consumer enforcement, i.e. H, which
        * sits behind F/G (`5.355`); this containment must not pull it forward.
        */
-      const observed = match.chain as ProtocolApy['chain'] | undefined;
-      if (!observed || observed !== CURRENT_CATALOG_PROTOCOL_NETWORK[protocolId])
-        return degrade(protocolId, 'IDENTITY_MISMATCH');
-      /**
-       * ⛑ THE OBSERVATION MUST SATISFY THE LEG'S DECLARED IDENTITY (Block B).
-       *
-       * `POOL_MATCHERS` LOCATES candidates broadly — several project slugs, a
-       * family of symbols. That breadth is useful for finding a pool and
-       * dangerous for accepting one: it is why `USDC` and `USDC.E` were
-       * interchangeable here, and a bridged asset's rate is not the native
-       * asset's rate. Locate broadly, accept narrowly.
-       */
-      const identity = domainIdentityOf(protocolId);
-      const observedSymbol = typeof match.symbol === 'string' ? match.symbol : '';
-      const satisfies =
-        identity.kind === 'lending'
-          ? symbolSatisfies(identity, observedSymbol)
-          : observedSymbol.trim().toUpperCase() === identity.symbol.toUpperCase();
-      if (!satisfies) return degrade(protocolId, 'IDENTITY_NOT_SATISFIED');
-      /**
-       * ⛑ AN AMBIGUOUS RATE IS NOT ACCEPTABLE EVIDENCE (M&E).
-       *
-       * Not "acceptable with a caveat" — a rate whose composition cannot be
-       * determined is UNAVAILABLE, and unavailable here means the LIVE
-       * observation is refused and the leg takes its documented fixture, the
-       * same path a chain or symbol mismatch already takes.
-       */
-      const composition = rateComposition(match);
-      if (composition === 'UNDETERMINED') return degrade(protocolId, 'COMPOSITION_UNDETERMINED');
+      const observed = match.chain as ProtocolApy['chain'];
       /* §10 validation · plausible domain bounds. A rate outside them is a
          payload defect, so the LIVE observation is refused and the leg takes
          the same documented-fixture path a chain mismatch already takes. It is
@@ -306,7 +351,11 @@ export class DefiLlamaApyProvider implements IApyProvider {
       return {
         protocolId,
         apyPercent,
-        tvlUsd: match.tvlUsd,
+        /* `null` when the source omits or garbles it (2026-10-19 review): an UNKNOWN TVL is
+           `null` by contract, never a missing key the client has to guess about, and
+           never a zero. Display-only; no consumer prices with it. */
+        tvlUsd:
+          typeof match.tvlUsd === 'number' && Number.isFinite(match.tvlUsd) ? match.tvlUsd : null,
         chain: observed,
         /* Determined, not typed — see `evidenceOrigin.ts`. That entry also
            records that this subject's SEMANTICS (supply/borrow, base/incentive,
@@ -326,14 +375,21 @@ export class DefiLlamaApyProvider implements IApyProvider {
       if (!permitsUse(SOURCE, 'NEW_COLLECTION', this.alsoDisabled)) {
         throw new Error('source may not collect');
       }
+      /* ONE budget for the whole call (lane audit 2026-10-20): `/pools` then `/chart` each
+         used to get the full timeout, so a slow upstream could take ~2× it — past the
+         client's 15 s, where the honest fixture fallback is never seen. The chart step now
+         gets only what `/pools` left. */
+      const started = Date.now();
       const pools = await fetchPools(this.fetchImpl, this.timeoutMs);
       recordSourceOutcome(SOURCE, 'SUCCESS');
-      const match = matchPool(pools.value, POOL_MATCHERS[protocolId]);
+      /* The same acceptance as the current rate — a pool refused there is refused here. */
+      const { match, refused } = acceptedPool(pools.value, protocolId);
+      if (refused !== null) throw new Error(`pool refused: ${refused}`);
       if (!match) throw new Error('no pool match');
 
       const entry = await chartCache.revalidate(match.pool, async () => {
         const res = await this.fetchImpl(`${CHART_URL}${match.pool}`, {
-          signal: AbortSignal.timeout(this.timeoutMs),
+          signal: AbortSignal.timeout(Math.max(1, this.timeoutMs - (Date.now() - started))),
         });
         if (!res.ok) throw new Error(`defillama /chart ${res.status}`);
         const body = (await res.json()) as {
@@ -388,12 +444,13 @@ export class DefiLlamaApyProvider implements IApyProvider {
        */
       if (!this.mayServeFixture('APY_HISTORY')) return null;
       const fx = fixtureFor(protocolId);
-      const today = new Date();
-      const points: ApyPoint[] = Array.from({ length: days }, (_, i) => {
-        const d = new Date(today);
-        d.setDate(d.getDate() - (days - 1 - i));
-        return { date: d.toISOString().slice(0, 10), apyPercent: fx.apyPercent };
-      });
+      // The ONE fixture calendar (do-not-regress: never a second date ladder beside
+      // `fixturePriceSeries`), so APY and price fixtures of one position always share
+      // a calendar and replay is never refused as mixed-calendar.
+      const points: ApyPoint[] = fixtureDateSeries(days).map((date) => ({
+        date,
+        apyPercent: fx.apyPercent,
+      }));
       return { protocolId, points, stamp: fx.stamp };
     }
   }

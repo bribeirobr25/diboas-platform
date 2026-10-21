@@ -82,3 +82,49 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+  # Q0 (Pre-I2 plan, Track Q): the Practice app's own browser harness — multi-tab in
+  # one context, a real CDP tab freeze/resume, and a build swap on one origin. It
+  # builds and serves ONLY the sandbox, with a hermetic server env set inside
+  # `apps/sandbox/e2e/harness.ts`, so it needs no secrets. Gate row: `HARNESS-1`.
+  sandbox-harness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      # Two builds, so the swap self-test is a REAL deploy (two BUILD_IDs), not a restart:
+      # the first is moved aside as the build to swap in; `--force` makes the second a
+      # fresh build rather than turbo's cached copy of the first. The swap renames, so
+      # the swap directory stays inside apps/sandbox (one filesystem).
+      - name: Build the sandbox twice (one retry each for the 5.88 font-fetch flake)
+        run: |
+          pnpm exec turbo run build --filter=sandbox... || pnpm exec turbo run build --filter=sandbox...
+          mv apps/sandbox/.next apps/sandbox/.next-e2e-swap
+          pnpm exec turbo run build --filter=sandbox... --force || pnpm exec turbo run build --filter=sandbox... --force
+          test "$(cat apps/sandbox/.next/BUILD_ID)" != "$(cat apps/sandbox/.next-e2e-swap/BUILD_ID)"
+
+      - name: Run the sandbox harness
+        # The runner's preinstalled Google Chrome (`channel: 'chrome'`, and
+        # /usr/bin/google-chrome for the freezable browser): no browser download.
+        run: pnpm --filter sandbox e2e
+        env:
+          CI: 'true'
+          SANDBOX_E2E_SWAP_DIST: ${{ github.workspace }}/apps/sandbox/.next-e2e-swap
+
+      - name: Upload the sandbox harness results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: sandbox-harness-results
+          path: apps/sandbox/test-results/
+          retention-days: 30

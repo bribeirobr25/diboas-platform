@@ -17,6 +17,7 @@ import {
   LocalStorageLedgerStore,
   migrateLegacyLedgerKey,
   project,
+  refusedEvents,
   type ILedgerStore,
   type LedgerEvent,
   type LedgerState,
@@ -79,9 +80,30 @@ function getStore(): ILedgerStore {
   return store;
 }
 
+function notify(): void {
+  for (const listener of listeners) listener();
+}
+
 function emit(): void {
   cachedState = null;
-  for (const listener of listeners) listener();
+  notify();
+}
+
+/**
+ * P8a, second audit: a refused event is recorded but shown nowhere — History
+ * omits it until DR-25 rules the wording — so an action whose event the ledger refused
+ * (a double-tap entry, a stale tab's write) used to vanish without any signal. Each
+ * event this append made REFUSED is logged locally: id, type and reason only, never a
+ * payload (a Goal's name is free text). Local console only, like every sandbox log —
+ * so it serves a developer reproducing a report, NOT production observability: no one
+ * sees a user's console (R-14 stays with the error-sink decision in `reportError.ts`).
+ */
+function reportRefusals(state: LedgerState, appended: readonly LedgerEvent[]): void {
+  const fresh = new Set(appended);
+  for (const { event, reason } of refusedEvents(state)) {
+    if (fresh.has(event))
+      Logger.warn('ledger refused an event', { eventId: event.eventId, type: event.type, reason });
+  }
 }
 
 /**
@@ -143,6 +165,22 @@ export function getReady(): boolean {
  */
 export function appendAll(events: LedgerEvent[]): void {
   for (const event of events) log.push(event);
+  // Project once, here: the refusal report reads it, and the listeners below get it
+  // from the cache instead of projecting again.
+  cachedState = null;
+  try {
+    reportRefusals(getLedgerState(), events);
+  } catch (error) {
+    // `project()` throws on an event its code cannot handle (code older than its data).
+    // Take this append back BEFORE anything is persisted, so neither memory nor the store
+    // keeps a log no reader can project; the caller's action fails instead (R-13).
+    log.splice(log.length - events.length, events.length);
+    cachedState = null;
+    Logger.error('ledger append refused: the projection cannot handle it', {
+      types: events.map((e) => e.type),
+    });
+    throw error;
+  }
   const s = getStore();
   pendingPersist = pendingPersist.then(async () => {
     for (const event of events) {
@@ -153,7 +191,7 @@ export function appendAll(events: LedgerEvent[]): void {
       }
     }
   });
-  emit();
+  notify();
 }
 
 /**

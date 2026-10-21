@@ -91,13 +91,11 @@ function Field({
   value,
   desc,
   chip,
-  editHref,
 }: {
   label: string;
   value: React.ReactNode;
   desc: string;
   chip?: { icon: string; text: string };
-  editHref?: string;
 }) {
   return (
     <div className={styles.field}>
@@ -116,22 +114,14 @@ function Field({
           <FormattedMessage id={desc} />
         </p>
       </div>
-      {editHref ? (
-        <Link href={editHref} className={styles.edit}>
-          <LucideIcon name="pencil" size={16} />
-          <span>
-            <FormattedMessage id="profile.edit" />
-          </span>
-        </Link>
-      ) : (
-        // Not wired yet (account model, D-2) -> disabled until implemented.
-        <button type="button" className={styles.edit} disabled>
-          <LucideIcon name="pencil" size={16} />
-          <span>
-            <FormattedMessage id="profile.edit" />
-          </span>
-        </button>
-      )}
+      {/* Not wired yet (account model, D-2) -> disabled until implemented. The link
+          branch had no caller since `5.201` and was removed (lane audit 2026-10-21, Z10). */}
+      <button type="button" className={styles.edit} disabled>
+        <LucideIcon name="pencil" size={16} />
+        <span>
+          <FormattedMessage id="profile.edit" />
+        </span>
+      </button>
     </div>
   );
 }
@@ -170,7 +160,7 @@ function Row({
     </>
   );
   return (
-    <li className={styles.row}>
+    <li className={href ? `${styles.row} ${styles.rowLinked}` : styles.row}>
       {href ? (
         <Link href={href} className={styles.rowLink}>
           {body}

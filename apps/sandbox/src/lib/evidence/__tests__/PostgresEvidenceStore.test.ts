@@ -9,6 +9,14 @@ import {
   type EvidenceRecordCandidate,
 } from '@diboas/defi';
 import { PostgresEvidenceStore } from '../PostgresEvidenceStore';
+import { expectedLogs } from '@/test/expectedLogs';
+
+// Failure paths below LOG by design (R-14); asserted, not silenced (2026-10-19 cleanup).
+expectedLogs({
+  strict: true,
+  error: ['PostgresEvidenceStore activate failed'],
+  requiredIn: /REFUSED BY THE FOREIGN KEY/,
+});
 
 /**
  * ⛑ RETENTION (Legal 2026-09-22). Activation and reads now take the

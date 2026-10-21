@@ -482,3 +482,50 @@ describe('5.406/5.407 — a provider observation may not define or mutate networ
     expect(aave.stamp.source).toBe('defillama');
   });
 });
+
+/**
+ * 2026-10-19 review: an UNKNOWN TVL leaves the provider as `null` — never as a missing key
+ * (the client cannot tell a dropped field from a broken response) and never as a zero.
+ * Fresh module state per case, as above, so the pools cache cannot answer for another test.
+ */
+describe('a pool with no usable TVL is served with tvlUsd: null', () => {
+  beforeEach(() => vi.resetModules());
+
+  it('should rank a garbled TVL last, never ahead of a real one', async () => {
+    const { matchPool, POOL_MATCHERS } = await import('../providers/defillama');
+    const base = { project: 'aave-v3', chain: 'Arbitrum', symbol: 'USDC', apy: 5 };
+    const pools = [
+      { ...base, pool: 'garbled', tvlUsd: 'huge' as unknown as number },
+      { ...base, pool: 'real', tvlUsd: 100 },
+      { ...base, pool: 'none', tvlUsd: null },
+    ];
+    expect(matchPool(pools, POOL_MATCHERS.aaveV3)?.pool).toBe('real');
+  });
+
+  it('should serve null for an absent or non-numeric TVL, and pass a real one through', async () => {
+    const pool = {
+      pool: 'p',
+      project: 'aave-v3',
+      chain: 'Arbitrum',
+      symbol: 'USDC',
+      apy: 5,
+      apyBase: 5,
+      apyReward: null,
+    };
+    for (const [tvl, expected] of [
+      [undefined, null],
+      ['big', null],
+      [123, 123],
+    ] as const) {
+      vi.resetModules();
+      const { DefiLlamaApyProvider } = await import('../providers/defillama');
+      const row = tvl === undefined ? pool : { ...pool, tvlUsd: tvl };
+      const [aave] = await new DefiLlamaApyProvider(jsonFetch({ data: [row] })).getCurrentApys([
+        'aaveV3',
+      ]);
+      expect(aave.stamp.source).toBe('defillama');
+      expect(aave.tvlUsd).toBe(expected);
+      expect(Object.prototype.hasOwnProperty.call(aave, 'tvlUsd')).toBe(true);
+    }
+  });
+});

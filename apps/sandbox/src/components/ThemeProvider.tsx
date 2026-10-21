@@ -7,10 +7,11 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from 'react';
+import { THEME_STORAGE_KEY } from './ThemeScript';
 
 export type Theme = 'light' | 'dark';
 
-const STORAGE_KEY = 'sb-theme';
+const STORAGE_KEY = THEME_STORAGE_KEY;
 
 interface ThemeContextValue {
   theme: Theme;
@@ -36,7 +37,8 @@ let override: Theme | null = null;
 const listeners = new Set<() => void>();
 
 function systemTheme(): Theme {
-  if (typeof window === 'undefined') return 'light';
+  // R-9: `matchMedia` is absent in some embedded webviews; the warm default then holds.
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return 'light';
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
@@ -59,14 +61,28 @@ function emit() {
 
 function subscribe(onChange: () => void): () => void {
   listeners.add(onChange);
+  /* Z13 (lane audit 2026-10-21): another tab's toggle writes the stored theme, which this
+     tab's snapshot reads, but only a toggle or the first load paints `data-theme`, so the
+     control described one theme while the page showed another. With no in-session choice
+     here, follow the stored one and repaint. */
+  const onStorage = (e: StorageEvent) => {
+    if (e.key !== STORAGE_KEY) return;
+    if (override === null) document.documentElement.setAttribute('data-theme', currentTheme());
+    onChange();
+  };
+  window.addEventListener('storage', onStorage);
   // Each subscriber owns its OS-preference listener, so unsubscribing one never
   // detaches another's (correct even if more than one provider ever mounts).
-  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  const mq =
+    typeof window.matchMedia === 'function'
+      ? window.matchMedia('(prefers-color-scheme: dark)')
+      : null;
   const onSystemChange = () => onChange();
-  mq.addEventListener('change', onSystemChange);
+  mq?.addEventListener('change', onSystemChange);
   return () => {
     listeners.delete(onChange);
-    mq.removeEventListener('change', onSystemChange);
+    window.removeEventListener('storage', onStorage);
+    mq?.removeEventListener('change', onSystemChange);
   };
 }
 

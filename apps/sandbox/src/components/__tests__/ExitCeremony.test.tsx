@@ -225,17 +225,6 @@ describe('ExitCeremony — the G7 fee-truth surface (§4.7)', () => {
     expect(onConfirm).toHaveBeenCalledOnce();
   });
 
-  it('should disable BOTH actions while settling (never a double-stop on a fast tap)', () => {
-    const { onConfirm } = renderCeremony(ONE, { busy: true });
-    const stop = screen.getByRole('button', { name: 'Stop this strategy' }) as HTMLButtonElement;
-    expect(stop.disabled).toBe(true);
-    expect(
-      (screen.getByRole('button', { name: 'Keep it working' }) as HTMLButtonElement).disabled
-    ).toBe(true);
-    fireEvent.click(stop);
-    expect(onConfirm).not.toHaveBeenCalled();
-  });
-
   it('should move focus to the heading, since the opening control unmounts behind it', () => {
     renderCeremony(ONE);
     // Without this the reader is dropped on <body>: nothing announces the

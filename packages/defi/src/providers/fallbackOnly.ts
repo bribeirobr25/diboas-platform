@@ -23,6 +23,7 @@ import {
   FIXTURE_FX_FROM_USD,
   FIXTURE_PRICES_USD,
   FIXTURE_STAMP,
+  fixtureDateSeries,
   fixturePriceSeries,
 } from '../fixtures';
 import type {
@@ -63,12 +64,8 @@ export class FallbackOnlyApyProvider implements IApyProvider {
   async getApyHistory(protocolId: ProtocolId, days: number): Promise<ProtocolApyHistory | null> {
     if (!mayFixtureServe('APY_HISTORY', this.alsoDisabled)) return null;
     const fx = fixtureApyFor(protocolId);
-    const today = new Date();
-    const points = Array.from({ length: days }, (_, i) => {
-      const d = new Date(today);
-      d.setDate(d.getDate() - (days - 1 - i));
-      return { date: d.toISOString().slice(0, 10), apyPercent: fx.apyPercent };
-    });
+    // The ONE fixture calendar (see `fixtureDateSeries`), never a second ladder.
+    const points = fixtureDateSeries(days).map((date) => ({ date, apyPercent: fx.apyPercent }));
     return { protocolId, points, stamp: fx.stamp };
   }
 }

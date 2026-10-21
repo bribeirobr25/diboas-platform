@@ -42,6 +42,12 @@ export interface IAuthProvider {
    * cookie to set, or null if the provider cannot grant (fail-closed). MVP-0
    * wraps the gate grant; Stage-1 (Auth.js) does the real OAuth/OTP/wallet
    * handshake before returning the session cookie — the call site is unchanged.
+   *
+   * `currentSession` is the request's existing session cookie. ⛑ A provider
+   * must not grant a session to a request it would not admit (P1, register
+   * `5.480`): MVP-0 refuses unless public access is on or `currentSession` is a
+   * verified gate grant — `/welcome` sits outside the gated group, so this is
+   * the only place that check can live.
    */
-  establishSession(method?: string): SessionGrant | null;
+  establishSession(method?: string, currentSession?: string | null): SessionGrant | null;
 }

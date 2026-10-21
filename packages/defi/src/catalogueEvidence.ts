@@ -47,7 +47,7 @@ import type { ProtocolId } from './types';
  * `NONE` is a real answer, not an absence: it states that this leg's return
  * mechanism does not produce a current rate, so no current rate is owed.
  */
-export type CatalogueEvidenceRequirement =
+type CatalogueEvidenceRequirement =
   /** The rate IS the return mechanism — an accrual leg cannot be listed without it. */
   | 'CURRENT_RATE'
   /** The price movement IS the return — a current rate is not part of it. */
@@ -61,13 +61,36 @@ export type CatalogueEvidenceRequirement =
  * rather than a silent default. A default here would recreate exactly the
  * type-blindness this module removes.
  */
-export function catalogueRequirementFor(protocolId: ProtocolId): CatalogueEvidenceRequirement {
+/**
+ * ⛑ `5.449` · MODULE-PRIVATE. It had no production consumer outside this file —
+ * `legRequiresCurrentRate` calls it one line below, and only tests imported it.
+ * This repository already settled that case: *"an export kept only for tests is
+ * still an export kept for nothing (the `EVIDENCE_RETENTION_DAYS` precedent)"*
+ * (`providerDisposition.ts`).
+ *
+ * ⚑ THE THREE-VALUE CONTRACT IS NOT LOST. `CatalogueEvidenceRequirement` stays
+ * as a module-private TYPE (its export had no consumer — removed 2026-10-15 under
+ * the same rule), the `switch` below is exhaustive on `identity.kind` so an
+ * unhandled kind is a COMPILE error, and `s1.catalogueEvidence.test.ts` asserts
+ * the mapping per NAMED protocol id against `PROTOCOL_DOMAIN_IDENTITY` — the
+ * behaviour that actually matters — rather than through an export that existed
+ * only to be asserted.
+ */
+function catalogueRequirementFor(protocolId: ProtocolId): CatalogueEvidenceRequirement {
   const identity = domainIdentityOf(protocolId);
   switch (identity.kind) {
     case 'lending':
       return 'CURRENT_RATE';
     case 'market':
       return 'NONE';
+    default: {
+      /* Unreachable for valid data — the switch is exhaustive at compile time.
+         At runtime an unknown kind FAILS LOUDLY: returning nothing made the
+         predicate answer "needs no current rate", a silent default towards
+         requiring no evidence (P0 review, PB-3). */
+      const unhandled: never = identity;
+      throw new Error(`catalogue evidence: unsupported leg kind ${JSON.stringify(unhandled)}`);
+    }
   }
 }
 

@@ -5,6 +5,9 @@ import { describe, expect, it } from 'vitest';
 import type { ProtocolApy, ProtocolId } from '@diboas/defi';
 import { FIXTURE_STAMP, getStrategy, observedStamp } from '@diboas/defi';
 import { StrategyPicker } from '../StrategyPicker';
+import { getMessages } from '@/i18n/loadMessages';
+
+const EN = getMessages('en');
 
 /**
  * ⛑ `5.436` (2026-09-22). `StrategyPicker` now takes an explicit CURRENT-FACING
@@ -42,6 +45,18 @@ const OBSERVED_AT = '2026-07-22T00:00:00Z';
  */
 
 const M = {
+  // 2026-10-19 (test cleanup): keys the rendered tree uses but this stub lacked —
+  // MISSING_TRANSLATION noise, not a product gap (every key exists in all four
+  // locales). Taken from the real catalogue so nothing is invented.
+  'catalogFilters.varies': EN['catalogFilters.varies'],
+  'catalogFilters.any': EN['catalogFilters.any'],
+  'catalogFilters.risk': EN['catalogFilters.risk'],
+  'catalogFilters.neverAdvises': EN['catalogFilters.neverAdvises'],
+  'catalogFilters.horizon': EN['catalogFilters.horizon'],
+  'catalogFilters.horizonBand.wealth': EN['catalogFilters.horizonBand.wealth'],
+  'catalogFilters.horizonBand.short': EN['catalogFilters.horizonBand.short'],
+  'catalogFilters.horizonBand.medium': EN['catalogFilters.horizonBand.medium'],
+  'catalogFilters.horizonBand.long': EN['catalogFilters.horizonBand.long'],
   'pathCard.title': 'Your path',
   'pathCard.subtitle': 'The path, the cost, the risk.',
   'pathCard.pathTitle': 'The path',

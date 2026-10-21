@@ -115,8 +115,10 @@ const ONE_OF_EACH: OneOfEach = {
   },
   // ── D-e goal lifecycle ──────────────────────────────────────────────────
   // Sequenced on g1 by version. Single-instance-per-type means 5 apply and 2
-  // are valid-but-no-op here (PositionReassigned — p1 is already closed;
-  // GoalAccomplished — g1 is already terminal after the drop). Real multi-goal
+  // are REFUSED here, recorded since P8a (PositionReassigned — p1 is already
+  // closed; GoalAccomplished — g1 is already terminal after the drop); so are
+  // RecurringContributionApplied and ReplaySpanRefused above (p1 closed). The
+  // four are pinned in `__tests__/ledgerFixture.test.ts`. Real multi-goal
   // behaviour is exercised in ledger.test.ts. All conserving (zero-value or a
   // move within `held`), so the log still reconciles to 0.00 at every prefix.
   GoalTargetChanged: {

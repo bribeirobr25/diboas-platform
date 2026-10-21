@@ -357,4 +357,14 @@ export default [
       ],
     },
   },
+  /**
+   * Q0 — the Playwright harness (`e2e/`, `playwright.config.ts`). A Playwright
+   * fixture receives a callback named `use`, which `react-hooks/rules-of-hooks`
+   * reads as React's `use()` hook — a false positive, so the rule is off for
+   * these files and nowhere else.
+   */
+  {
+    files: ['e2e/**/*.ts', 'playwright.config.ts'],
+    rules: { 'react-hooks/rules-of-hooks': 'off' },
+  },
 ];

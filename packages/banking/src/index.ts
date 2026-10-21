@@ -13,4 +13,5 @@ export * from './fees';
 export * from './ledger/events';
 export * from './ledger/store';
 export * from './ledger/engine';
+export * from './ledger/dispositions';
 export * from './ledger/migration';

@@ -11,8 +11,42 @@ import type { MarketAssetId } from './domainIdentity';
 /** Chains the Phase-2 architecture executes on (per the platform handover). */
 export type Chain = 'Arbitrum' | 'Solana' | 'Ethereum' | 'Bitcoin' | 'Sui';
 
+/**
+ * Every chain, once, at runtime (2026-10-19, `5.353`): the market boundary must reject an
+ * unknown chain, and a type alone cannot be checked against bytes. The check below makes a
+ * chain missing from this list a type error — the `PROTOCOL_IDS` pattern.
+ */
+export const CHAINS = [
+  'Arbitrum',
+  'Solana',
+  'Ethereum',
+  'Bitcoin',
+  'Sui',
+] as const satisfies readonly Chain[];
+type MissingChain = Exclude<Chain, (typeof CHAINS)[number]>;
+const _chainsExhaustive: [MissingChain] extends [never] ? true : never = true;
+void _chainsExhaustive;
+
 /** The six execution protocols behind the strategy catalog (strategies.json canon). */
 export type ProtocolId = 'skySsr' | 'aaveV3' | 'compoundV3' | 'sanctumInf' | 'jupiterJlp' | 'jito';
+
+/**
+ * Every protocol id, once (2026-10-18 lane audit). Both market routes hand-listed the six
+ * ids as a `ProtocolId[]`, which is not exhaustive: a seventh protocol would compile and
+ * be silently left out of the market response, so its strategy would read "unavailable".
+ * The check below makes a missing id a type error; the order is the routes' existing one.
+ */
+export const PROTOCOL_IDS = [
+  'skySsr',
+  'aaveV3',
+  'compoundV3',
+  'sanctumInf',
+  'jupiterJlp',
+  'jito',
+] as const satisfies readonly ProtocolId[];
+type MissingProtocolId = Exclude<ProtocolId, (typeof PROTOCOL_IDS)[number]>;
+const _protocolIdsExhaustive: [MissingProtocolId] extends [never] ? true : never = true;
+void _protocolIdsExhaustive;
 
 /**
  * The catalogue's strategy ids, as a closed union — the same discipline as
@@ -52,6 +86,16 @@ export type DisplayCurrency = 'USD' | 'BRL' | 'EUR';
  * one off the other is how "Live from DeFiLlama" ended up above a fixture fee.
  */
 export type EvidenceOrigin = 'OBSERVED' | 'MODELLED' | 'PROXY';
+
+/** Every origin, once, at runtime — for the market boundary (`5.353`); exhaustive as `CHAINS`. */
+export const EVIDENCE_ORIGINS = [
+  'OBSERVED',
+  'MODELLED',
+  'PROXY',
+] as const satisfies readonly EvidenceOrigin[];
+type MissingOrigin = Exclude<EvidenceOrigin, (typeof EVIDENCE_ORIGINS)[number]>;
+const _originsExhaustive: [MissingOrigin] extends [never] ? true : never = true;
+void _originsExhaustive;
 
 /**
  * The TIME state (§8.2/§8.5). DERIVED from a stamp and a clock by

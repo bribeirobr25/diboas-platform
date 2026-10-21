@@ -60,11 +60,9 @@
   transition: background 0.12s ease;
 }
 
-.approve:hover:not(:disabled) {
+/* No :disabled state: the Approve control is never disabled — the `approving` prop that
+   would have disabled it had no caller and was deleted (2026-10-19). A double tap is held by
+   the caller recording synchronously and closing this sheet in the same render. */
+.approve:hover {
   background: var(--sb-action-inverse-hover);
-}
-
-.approve:disabled {
-  opacity: 0.6;
-  cursor: default;
 }

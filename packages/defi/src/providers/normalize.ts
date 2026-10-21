@@ -26,6 +26,7 @@
 
 import { referenceEvidence, unavailableEvidence, type EvidenceEnvelope } from '../evidence';
 import { isMultiNetworkCandidate } from '../catalog';
+import { boundsRefusal } from '../evidenceBounds';
 import type { Chain, DataStamp, GasQuote, StrategyDef } from '../types';
 
 /** Network cost is one economic category, with nothing bundled into it. */
@@ -45,6 +46,11 @@ export const NETWORK_COST_NATIVE_UNIT = 'USD';
  * value in its native unit has made no conversion and must say so.
  */
 export function networkCostEvidence(quote: GasQuote): EvidenceEnvelope<number> {
+  /* `5.583`: the NETWORK_COST bound was declared but nothing consulted it (lane audit
+     2026-10-21, D4). A 0 cost would read as free; UNAVAILABLE ≠ FREE. */
+  const refusal = boundsRefusal('NETWORK_COST', quote.typicalFeeUsd);
+  /* A plausibility bound is a contract; its refusal is REFUSED_BY_CONTRACT (no new reason). */
+  if (refusal !== null) return unavailableEvidence('REFUSED_BY_CONTRACT', NETWORK_COST);
   return referenceEvidence({
     value: quote.typicalFeeUsd,
     stamp: quote.stamp,
@@ -81,6 +87,8 @@ export function networkCostEvidenceFor(input: {
   }
   const quote = input.gas.find((g) => g.chain === (input.strategy.entryChain as Chain));
   if (!quote) return unavailableEvidence('NO_OBSERVATION', NETWORK_COST);
+  const bounded = boundsRefusal('NETWORK_COST', quote.typicalFeeUsd);
+  if (bounded !== null) return unavailableEvidence('REFUSED_BY_CONTRACT', NETWORK_COST);
   if (input.toCurrency === NETWORK_COST_NATIVE_UNIT) return networkCostEvidence(quote);
 
   /* Two independent inputs, each with its own source and vintage: the network

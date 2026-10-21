@@ -37,6 +37,17 @@ export default defineConfig({
      * for everything.
      */
     testTimeout: 5000,
+    /**
+     * `5.590` — a FIXED worker count, founder-authorized 2026-10-21 (Option A).
+     *
+     * Vitest's default is `availableParallelism − 1`: 7 forks on an 8-core laptop shared
+     * with other sessions, where CPU-bound tests ran 3.5–7× their own cost and one
+     * ordinary run in five timed out (measured: `simulatedEvents:511` at 5,903 ms).
+     * Three is what a 4-vCPU GitHub runner already gets by default, so CI is unchanged;
+     * at three workers every slow test stayed at or under 60% of its budget under load.
+     * This caps contention; it does not raise any timeout, which stays the floor above.
+     */
+    maxWorkers: 3,
     include: ['src/**/__tests__/**/*.test.ts', 'src/**/__tests__/**/*.test.tsx'],
     setupFiles: ['./src/test/setup.ts'],
   },

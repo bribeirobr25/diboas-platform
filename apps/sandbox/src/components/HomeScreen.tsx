@@ -1,22 +1,18 @@
 'use client';
 
 import Link from 'next/link';
-import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import type { LedgerState } from '@diboas/banking';
 import type { SandboxLocale } from '@/i18n/config';
 import { selectHomeTriad } from '@/view/home';
 import { dueSimulatedEvent } from '@/lib/simulatedEvents';
 import { GoalRow } from './GoalRow';
 import { LucideIcon } from './LucideIcon';
+import { PlainAmount } from './PlainAmount';
 import styles from './HomeScreen.module.css';
 
 /** Plain 2-decimal number (no currency symbol) — the mockup frames play money as
  *  a labelled "Play balance", not a currency. */
-function Amount({ value }: { value: string }) {
-  return (
-    <FormattedNumber value={Number(value)} minimumFractionDigits={2} maximumFractionDigits={2} />
-  );
-}
 
 /** The big play-balance hero: integer bold, the decimal+cents muted and smaller
  *  (mockup 02). Locale-correct — the decimal separator comes from the formatter. */
@@ -73,10 +69,17 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
   return (
     <section className={styles.wrap} aria-labelledby="home-title">
       <div className={styles.balanceBlock}>
-        <p className={styles.balanceLabel}>
+        {/* The heading names the figure (WCAG 2.4.6 / 1.3.1; lane audit 2026-10-21, C1): the
+            region and the h1 were announced as a bare number, the defect `5.271` fixed on
+            /move. The visible label stays as drawn; the h1 carries the same approved words
+            for assistive tech, so nothing is read twice. */}
+        <p className={styles.balanceLabel} aria-hidden>
           <FormattedMessage id="home.playBalance" />
         </p>
         <h1 id="home-title" className={styles.balance}>
+          <span className="srOnly">
+            <FormattedMessage id="home.playBalance" />{' '}
+          </span>
           <BalanceAmount value={playBalance} />
         </h1>
       </div>
@@ -87,7 +90,7 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
             <FormattedMessage id="home.available" />
           </span>
           <span className={`${styles.splitValue} ${styles.toneAvailable}`}>
-            <Amount value={available} />
+            <PlainAmount value={available} />
           </span>
         </div>
         <div className={styles.splitCol}>
@@ -95,7 +98,7 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
             <FormattedMessage id="home.working" />
           </span>
           <span className={`${styles.splitValue} ${styles.toneWorking}`}>
-            <Amount value={working} />
+            <PlainAmount value={working} />
           </span>
         </div>
         {/* ABSENT OVER FALSE (board §6a, the rule this app already applies to
@@ -112,7 +115,7 @@ export function HomeScreen({ locale, state }: { locale: SandboxLocale; state: Le
               <FormattedMessage id="home.emergencyReserve" />
             </span>
             <span className={`${styles.splitValue} ${styles.toneEmergency}`}>
-              <Amount value={emergency} />
+              <PlainAmount value={emergency} />
             </span>
           </div>
         ) : null}

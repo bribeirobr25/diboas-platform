@@ -177,11 +177,23 @@
   flex: none;
 }
 
-/* A row that is a real door. `display: contents` keeps the link out of the
-   row's own layout, so a linked row and an informational one are visually
+/* A row that is a real door; a linked row and an informational one look
    identical — the chevron already promised navigation on both. */
+/* 2026-10-18 lane audit (WCAG 2.4.7): `display: contents` drew NO box, so the
+   global focus outline never showed on this link, and only the icon and text were
+   clickable. The link is now the row's box: same flex layout and padding (moved
+   off the <li> for linked rows), so a linked row still looks identical to an
+   informational one, the whole row is the target, and focus is visible. */
+.rowLinked {
+  padding: 0;
+}
 .rowLink {
-  display: contents;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--spacing-md);
+  min-height: var(--sb-tap);
+  padding: var(--spacing-md) 0;
   color: inherit;
   text-decoration: none;
 }

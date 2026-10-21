@@ -24,7 +24,7 @@
 > authorities and omitted i18n, accessibility and the FAIL path; the gaps were found by auditing the
 > gate against the authority inventory and against defects this project has actually shipped.
 
-**Runner:** `pnpm review:increment` executes the ⚙ rows mechanically and prints the manual half every run — the same shape as `screen-check`. Standalone helpers: `pnpm review:register` (run it BEFORE claiming a register id) and `pnpm review:port <port> [--kill]` (stops a server by its LISTENER pid, refusing when the pid list is ambiguous). Source: `scripts/review-gate.mjs`. **Register path (5.382):** the id-collision check resolves `docs/audit/PENDING_ALL.md` repo-relative first, then `REVIEW_REGISTER_PATH`, and **FAILS rather than skips** when neither resolves — a SKIP reads as a pass in a green run. The ledger is local-only and lives in the `diboas-platform` checkout, so a session working from a git WORKTREE must export `REVIEW_REGISTER_PATH=/path/to/diboas-platform/docs/audit/PENDING_ALL.md` or the gate is red by design. Each mechanical check is sabotage-proven: the defect is planted, the check fails, the plant is reverted and the revert verified byte-for-byte. Canon-First runs as **AUTH-1** (`pnpm review:auth`, or its rows `review:canon-index` / `review:citations` / `review:escalations`).
+**Runner:** `pnpm review:increment` executes the ⚙ rows mechanically and prints the manual half every run — the same shape as `screen-check`. Standalone helpers: `pnpm review:register` (run it BEFORE claiming a register id) and `pnpm review:port <port> [--kill]` (stops a server by its LISTENER pid, refusing when the pid list is ambiguous). Source: `scripts/review-gate.mjs`. **Register path (5.382):** the id-collision check resolves `docs/audit/PENDING_ALL.md` repo-relative first, then `REVIEW_REGISTER_PATH`, and **FAILS rather than skips** when neither resolves — a SKIP reads as a pass in a green run. The ledger is local-only and lives in the `diboas-platform` checkout, so a session working from a git WORKTREE must export `REVIEW_REGISTER_PATH=/path/to/diboas-platform/docs/audit/PENDING_ALL.md` or the gate is red by design. Each mechanical check is sabotage-proven: the defect is planted, the check fails, the plant is reverted and the revert verified byte-for-byte. Canon-First runs as **AUTH-1** (`pnpm review:auth`, or its rows `review:canon-index` / `review:citations` / `review:escalations`). **Battery evidence (`5.590`, 2026-10-21):** a FAILING battery row saves one run directory under the local-only `docs/audit/REVIEW_GATE_RUNS/` and prints its path. The directory holds `run.json` (command, failure kind, exit status or signal, timings, candidate HEAD and manifest digest, machine load, the lines naming what failed) and each step's stdout/stderr. Before saving, three kinds of value are masked: credential literals, credentials inside URLs, and values assigned to sensitive variable names. The masking patterns are bounded, so a 1 MiB log cannot stall the gate. The failure kinds are `command-failed`, `command-not-found`, `killed-by-signal`, `buffer-limit` (the unchanged 1 MiB limit), `timeout` and `launch-failure`. A passing battery writes nothing. Files are opened exclusive, so a later run never overwrites an earlier failure. Failing to save the evidence never changes the verdict. Read the saved run before re-running: a green re-run explains nothing.
 
 ## Trigger
 
@@ -202,3 +202,19 @@ WAIVERS              = <none | founder decision + register row>
 NOT_CHECKED          = <...>
 CORRECTIONS          = <to my own earlier statements, incl. withdrawn findings>
 ```
+
+## Documentation lifecycle
+
+Durable outcomes of this increment do not stay in the record that produced them. Promote each one to
+its living owner — gates to `engineering-gates.md`, rules to `implementation-notes.md`,
+decisions to `architecture-decisions.md`, open items to `PENDING_ALL.md` — per
+`documentation-lifecycle.md`, which also defines what `CLAUDE.md` may contain and how a lane's
+records are compacted at closure.
+
+```text
+NO DURABLE RULE MAY EXIST ONLY IN A DISPOSABLE AUDIT ARTIFACT
+NO HISTORICAL AUDIT ARTIFACT BECOMES CURRENT AUTHORITY BY EXISTENCE
+```
+
+A reference this record presents as AUTHORITY must resolve, or carry `⚠ NOT REACHABLE`
+(`DOC-1`).

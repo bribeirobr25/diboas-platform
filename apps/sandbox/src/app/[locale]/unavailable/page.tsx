@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getMessages } from '@/i18n/loadMessages';
-import { isSandboxLocale, DEFAULT_LOCALE } from '@/i18n/config';
+import { isSandboxLocale, DEFAULT_LOCALE, MARKETING_ORIGIN } from '@/i18n/config';
 import styles from './Unavailable.module.css';
 
 /**
@@ -21,7 +21,7 @@ export default async function UnavailablePage({ params }: { params: Promise<{ lo
         <h1 className={styles.title}>{t['geofence.title']}</h1>
         <p className={styles.body}>{t['geofence.body']}</p>
         <p className={styles.legal}>{t['geofence.legal']}</p>
-        <a className={styles.link} href="https://diboas.com">
+        <a className={styles.link} href={MARKETING_ORIGIN}>
           {t['geofence.link']}
         </a>
       </div>

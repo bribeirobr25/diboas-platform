@@ -157,6 +157,24 @@ describe('the evidence write survives a storage failure (R-9)', () => {
     }
   });
 
+  it('should not throw when the browser BLOCKS storage (reading the global throws)', () => {
+    // Lane audit 2026-10-20: `typeof localStorage` sat outside the try, and `typeof` does
+    // not shield a throwing getter — blocked storage threw out of the Continue handler.
+    const original = Object.getOwnPropertyDescriptor(globalThis, 'localStorage');
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      get() {
+        throw new DOMException('denied', 'SecurityError');
+      },
+    });
+    try {
+      expect(saveLegalChoices(records())).toBe(false);
+      expect(readLegalChoices()).toEqual([]);
+    } finally {
+      if (original) Object.defineProperty(globalThis, 'localStorage', original);
+    }
+  });
+
   it('should report success, and read back what it wrote, when storage works', () => {
     localStorage.clear();
     expect(saveLegalChoices(records())).toBe(true);

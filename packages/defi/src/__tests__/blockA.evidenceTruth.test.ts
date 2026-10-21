@@ -104,6 +104,18 @@ describe('Block A · plausible domain bounds', () => {
     expect(boundsRefusal('NETWORK_COST', -0.01)).toBe('BELOW_MINIMUM');
   });
 
+  it('should REFUSE an exact zero where zero is a missing value, and accept it where it is a rate', () => {
+    /* Lane audit 2026-10-20: the bound was inclusive for every class, so a 0 price or a
+       0 network cost passed — contradicting their own reasons ("a non-positive price is a
+       missing value", "would read as free"). APY 0 remains a genuine rate. */
+    for (const subject of ['PRICE_CURRENT', 'PRICE_HISTORY', 'NETWORK_COST'] as const) {
+      expect(boundsRefusal(subject, 0), subject).toBe('BELOW_MINIMUM');
+      expect(boundsRefusal(subject, 0.0001), subject).toBeNull();
+    }
+    for (const subject of ['APY_CURRENT', 'APY_HISTORY'] as const)
+      expect(boundsRefusal(subject, 0), subject).toBeNull();
+  });
+
   it('should REFUSE rather than clamp — the API cannot return a repaired value', () => {
     /**
      * A clamped value is a fabricated value (Architecture §9, reset §2). The

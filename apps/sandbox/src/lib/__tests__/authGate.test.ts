@@ -1,5 +1,16 @@
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, rmSync, rmdirSync, writeFileSync } from 'node:fs';
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  rmdirSync,
+  symlinkSync,
+  writeFileSync,
+} from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join, resolve, sep } from 'node:path';
 import { afterEach, beforeAll, describe, expect, it } from 'vitest';
 
@@ -206,7 +217,7 @@ describe('AUTH-1 · the gate runs at all', () => {
     expect(r.out).toContain('AUTH-1 · no escalation without a canon search');
     // 0 green · 1 failed · 2 incomplete. Anything else means the contract moved.
     expect([0, 1, 2]).toContain(r.code);
-  });
+  }, 30_000); /* walks the whole canon corpus (~1,500 files): 6 s measured under full-suite load, 2026-10-16 */
 
   it('should refuse an unknown mode rather than silently pass', () => {
     const r = gate('definitely-not-a-mode');
@@ -350,13 +361,14 @@ describe('AUTH-1a · the authority corpus and its boundary', () => {
      * `N tests / N files` strings — luck of vocabulary, not a boundary.
      */
     const claim = '# spec fixture\n\nSuite is 9,999 tests / 999 files workspace-wide.\n';
-    plant('docs/full-view/canon/extracted/00_PACKAGE_GUIDE/AUTH1_SPEC_INSIDE.md', claim);
-    const inside = gate('counts');
+    const repo = countsRepo(); /* hermetic — R4-16b */
+    repo.put('docs/full-view/canon/extracted/00_PACKAGE_GUIDE/AUTH1_SPEC_INSIDE.md', claim);
+    const inside = repo.run();
     expect(inside.code, 'a figure inside canon must not count as our claim').toBe(0);
     expect(inside.out).not.toContain('9999/999');
 
-    plant('docs/audit/AUTH1_SPEC_OUTSIDE.md', claim);
-    const outside = gate('counts');
+    repo.put('docs/audit/AUTH1_SPEC_OUTSIDE.md', claim);
+    const outside = repo.run();
     expect(outside.code, 'the same figure outside canon must fail').toBe(1);
     expect(outside.out).toContain('9999/999');
   });
@@ -513,17 +525,61 @@ function publishedKey(out: string): { tests: number; files: number } {
 
 const withCommas = (n: number) => n.toLocaleString('en-US');
 
+/**
+ * ⛑ HERMETIC (R4-16b, 2026-10-16). These cases used to run the counts row over
+ * the REAL documents and assert an absolute exit code, so any real disagreement
+ * failed all of them at once: after the 2026-10-16 reconcile, origin's
+ * `README.md` (3,326 / 277) and the local `AUDIT_HISTORY.md` (3,382 / 288)
+ * disagreed and five cases here went red for a reason none of them tests. Each
+ * case now runs in a throwaway repository whose ONLY living document publishes
+ * one known figure; the row and its classifier are the real ones.
+ */
+function countsRepo(): { put: (rel: string, body: string) => void; run: () => GateRun } {
+  const dir = mkdtempSync(join(tmpdir(), 'review-gate-counts-'));
+  countDirs.push(dir);
+  mkdirSync(join(dir, 'scripts'));
+  copyFileSync(join(ROOT, 'scripts/review-gate.mjs'), join(dir, 'scripts/review-gate.mjs'));
+  mkdirSync(join(dir, 'docs/audit'), { recursive: true });
+  mkdirSync(join(dir, 'docs/tech'), { recursive: true });
+  writeFileSync(
+    join(dir, 'README.md'),
+    '# fixture\n\nThe workspace publishes 1,234 tests / 56 files.\n'
+  );
+  const put = (rel: string, body: string): void => {
+    mkdirSync(join(dir, rel, '..'), { recursive: true });
+    writeFileSync(join(dir, rel), body, 'utf8');
+  };
+  const run = (): GateRun => {
+    try {
+      const out = execFileSync('node', ['scripts/review-gate.mjs', 'counts'], {
+        cwd: dir,
+        encoding: 'utf8',
+      });
+      return { code: 0, out: plain(out) };
+    } catch (error) {
+      const e = error as { status?: number; stdout?: string; stderr?: string };
+      return { code: e.status ?? 1, out: plain(`${e.stdout ?? ''}${e.stderr ?? ''}`) };
+    }
+  };
+  return { put, run };
+}
+const countDirs: string[] = [];
+afterEach(() => {
+  while (countDirs.length) rmSync(countDirs.pop()!, { recursive: true, force: true });
+});
+
 describe('5.419 · counts — the classifier reads DOCUMENT CONTEXT, not only the sentence', () => {
   it('A · should PASS when another LIVING document states the same published count', () => {
-    const base = gate('counts');
+    const repo = countsRepo();
+    const base = repo.run();
     const before = buckets(base.out);
     const { tests, files } = publishedKey(base.out);
 
-    plant(
+    repo.put(
       'docs/audit/COUNTS_SPEC_LIVING_AGREES.md',
       `# spec fixture\n\nThis lane publishes ${withCommas(tests)} tests / ${files} files workspace-wide.\n`
     );
-    const r = gate('counts');
+    const r = repo.run();
     const after = buckets(r.out);
 
     expect(r.code, 'agreement between living documents must not fail').toBe(0);
@@ -536,16 +592,17 @@ describe('5.419 · counts — the classifier reads DOCUMENT CONTEXT, not only th
     /* This fixture is UNDATED and sits in `docs/audit`, so it also proves the
        new rule is not a blanket directory exclusion — the same property the
        AUTH-1 corpus-boundary case above relies on. */
-    const base = gate('counts');
+    const repo = countsRepo();
+    const base = repo.run();
     const before = buckets(base.out);
     const { tests, files } = publishedKey(base.out);
     const other = { tests: tests + 7, files: files + 1 };
 
-    plant(
+    repo.put(
       'docs/audit/COUNTS_SPEC_LIVING_CONFLICTS.md',
       `# spec fixture\n\nThis lane publishes ${withCommas(other.tests)} tests / ${other.files} files workspace-wide.\n`
     );
-    const r = gate('counts');
+    const r = repo.run();
     const after = buckets(r.out);
 
     expect(r.code, 'two different live totals is the defect this row exists for').toBe(1);
@@ -566,18 +623,19 @@ describe('5.419 · counts — the classifier reads DOCUMENT CONTEXT, not only th
      * it, which is why the dated bucket is asserted to move and the other two
      * are asserted NOT to.
      */
-    const base = gate('counts');
+    const repo = countsRepo();
+    const base = repo.run();
     const before = buckets(base.out);
     const { tests, files } = publishedKey(base.out);
     const older = tests - 6;
 
-    plant(
+    repo.put(
       'docs/audit/COUNTS_SPEC_RECORD_2026-09-18.md',
       '# spec fixture · Increment Review Gate record\n\n' +
         '| field | value |\n| --- | --- |\n' +
         `| measured total | ${withCommas(older)} tests / ${files} files — unchanged as expected for a comment-only edit |\n`
     );
-    const r = gate('counts');
+    const r = repo.run();
     const after = buckets(r.out);
 
     expect(r.code, 'a dated record is not a competing live claim').toBe(0);
@@ -592,16 +650,17 @@ describe('5.419 · counts — the classifier reads DOCUMENT CONTEXT, not only th
 
   it('D · should still exclude by SENTENCE MARKER in an undated document', () => {
     // Undated, so only the pre-existing marker rule can exclude it.
-    const base = gate('counts');
+    const repo = countsRepo();
+    const base = repo.run();
     const before = buckets(base.out);
     const { tests, files } = publishedKey(base.out);
     const older = tests - 11;
 
-    plant(
+    repo.put(
       'docs/audit/COUNTS_SPEC_MARKER.md',
       `# spec fixture\n\nThe suite was ${withCommas(older)} tests / ${files} files at an earlier baseline.\n`
     );
-    const r = gate('counts');
+    const r = repo.run();
     const after = buckets(r.out);
 
     expect(r.code).toBe(0);
@@ -611,16 +670,17 @@ describe('5.419 · counts — the classifier reads DOCUMENT CONTEXT, not only th
   }, 20_000);
 
   it('E · should still exclude a BACKTICKED count in an undated document', () => {
-    const base = gate('counts');
+    const repo = countsRepo();
+    const base = repo.run();
     const before = buckets(base.out);
     const { tests, files } = publishedKey(base.out);
     const older = tests - 13;
 
-    plant(
+    repo.put(
       'docs/audit/COUNTS_SPEC_QUOTED.md',
       `# spec fixture\n\nThe other lane published \`${withCommas(older)} tests / ${files} files\` last cycle.\n`
     );
-    const r = gate('counts');
+    const r = repo.run();
     const after = buckets(r.out);
 
     expect(r.code).toBe(0);
@@ -647,16 +707,17 @@ describe('5.419 · counts — the classifier reads DOCUMENT CONTEXT, not only th
      * This case therefore establishes:
      *   ISO DATE IN FILENAME != SUFFICIENT BY ITSELF TO EXCLUDE A CLAIM
      */
-    const base = gate('counts');
+    const repo = countsRepo();
+    const base = repo.run();
     const before = buckets(base.out);
     const { tests, files } = publishedKey(base.out);
     const other = { tests: tests + 23, files: files + 2 };
 
-    plant(
+    repo.put(
       'docs/tech/COUNTS_SPEC_LIVING_AUTHORITY_2026-09-21.md',
       `# spec fixture · living authority note\n\nThis workspace publishes ${withCommas(other.tests)} tests / ${other.files} files.\n`
     );
-    const r = gate('counts');
+    const r = repo.run();
     const after = buckets(r.out);
 
     expect(r.code, 'a conflicting CURRENT claim must stay visible despite a dated filename').toBe(
@@ -785,4 +846,584 @@ describe('5.431 · system review emits every authoritative front', () => {
     expect(emittedFronts(r.out)).toEqual([]);
     expect(r.out).toContain('MANUAL — not mechanisable');
   }, 120_000);
+});
+
+/**
+ * PB-5 · the gate's own regression tests for the 2026-10-15 corrections. Same
+ * discipline as above: uniquely named fixtures, removed even on failure, and
+ * delta assertions ("OUR fixture is named"), never totals.
+ *
+ * ⚑ SCOPE LIMIT (stated): the register TOTAL check, the late-closure check, the
+ * gate-index id/total checks and DOC-2's README classification read single
+ * fixed files (`PENDING_ALL.md`, `engineering-gates.md`, the canon README) that
+ * a test must not rewrite. Those were sabotage-proven by hand on 2026-10-15 and
+ * are recorded as such, not claimed here.
+ */
+describe('PB-5 · PROSE-1 resolves every citation form and needs the real requirement', () => {
+  const PLAN = 'docs/audit/PB5_PROSE_SPEC_PLAN.md';
+  const planBody =
+    '# Plan fixture\n\n## 9 · Minimum required widget telemetry\n\nThe widget must emit two events.\n';
+
+  it('should FAIL a record citing a PATH-PREFIXED plan that only shares one word', () => {
+    plant(PLAN, planBody);
+    plant(
+      'docs/audit/PB5_PROSE_SPEC_RECORD_ONEWORD.md',
+      `# Record\n\n**Controlling plan:** \`${PLAN}\`\n\nThe telemetry is unchanged.\n`
+    );
+    const r = gate('prose');
+    expect(r.code).toBe(1);
+    expect(r.out).toContain('PB5_PROSE_SPEC_RECORD_ONEWORD.md');
+  });
+
+  it('should READ a plan cited under another folder, not report it NOT FOUND', () => {
+    /* The directory used to be dropped and the name looked up in docs/audit. */
+    const elsewhere = 'docs/tech/PB5_PROSE_SPEC_PLAN_ELSEWHERE.md';
+    plant(elsewhere, planBody);
+    plant(
+      'docs/audit/PB5_PROSE_SPEC_RECORD_ELSEWHERE.md',
+      `# Record\n\n**Controlling plan:** \`${elsewhere}\`\n\nThe telemetry is unchanged.\n`
+    );
+    const r = gate('prose');
+    expect(r.out).not.toMatch(/PB5_PROSE_SPEC_PLAN_ELSEWHERE\.md NOT FOUND/);
+    expect(r.out).toContain('PB5_PROSE_SPEC_RECORD_ELSEWHERE.md ↛');
+  });
+
+  /**
+   * ⛑ `5.577` — a fixture must be COMPLETE on its own, because `docs/audit/` is
+   * gitignored and absent from every clone (so from CI). Without a corpus the
+   * gate SKIPS (no directory) or reports the instrument vacuous (no record names
+   * a plan) before it reaches the branch a test is about. Both tests below passed
+   * only on a maintainer's machine, where the private records satisfied that
+   * precondition. Each now plants a valid cited record as a WITNESS first, so the
+   * branch under test is reached the same way with or without private records.
+   */
+  const WITNESS = 'docs/audit/PB5_PROSE_SPEC_RECORD_WITNESS.md';
+  const plantWitness = () => {
+    plant(PLAN, planBody);
+    plant(
+      WITNESS,
+      `# Record\n\n**Controlling plan:** \`${PLAN}\`\n\n§9 is met by the two events.\n`
+    );
+  };
+
+  it('should ACCEPT the same record once it cites the section number', () => {
+    plantWitness();
+    const before = counted(gate('prose').out, RECORDS);
+    plant(
+      'docs/audit/PB5_PROSE_SPEC_RECORD_CITED.md',
+      `# Record\n\n**Controlling plan:** \`${PLAN}\`\n\n§9 is satisfied by the two events.\n`
+    );
+    const r = gate('prose');
+    expect(counted(r.out, RECORDS), 'the record must have been read').toBe(before + 1);
+    expect(r.out).not.toContain('PB5_PROSE_SPEC_RECORD_CITED.md');
+  }, 20_000); /* two gate runs (baseline + fixture) — R4-9 */
+
+  it('should FAIL a record that names a controlling plan it gives no file for', () => {
+    plantWitness();
+    plant(
+      'docs/audit/PB5_PROSE_SPEC_RECORD_REVONLY.md',
+      '# Record\n\n**Controlling plan:** Revision 3, Strategy PASS\n'
+    );
+    const r = gate('prose');
+    expect(r.code).toBe(1);
+    expect(r.out, 'the instrument must not be vacuous').not.toContain(
+      'no record names a controlling plan'
+    );
+    expect(r.out).toContain('CONTROLLING PLAN UNRESOLVABLE');
+    expect(r.out).toContain('PB5_PROSE_SPEC_RECORD_REVONLY.md');
+    expect(r.out, 'the witness is valid and must not be flagged').not.toContain(
+      'PB5_PROSE_SPEC_RECORD_WITNESS.md'
+    );
+  });
+});
+
+/**
+ * ⛑ R4-9 (independent review, 2026-10-16): an ACCEPT case that only asserts
+ * `not.toContain(fixture)` also passes when the fixture was never SCANNED, and a
+ * summary phrase printed on every run proves nothing. Each accept case now
+ * proves its fixture was counted, as a delta against a baseline run.
+ */
+function counted(out: string, re: RegExp): number {
+  const m = re.exec(out);
+  expect(m, `instrument line missing (${re}):\n${out}`).not.toBeNull();
+  return Number((m as RegExpExecArray)[1]);
+}
+const REFS = /(\d+) reference\(s\)/;
+const LOCAL_ONLY = /(\d+) into gitignored local-only areas/;
+const RECORDS = /(\d+) record\(s\) name a controlling plan/;
+
+describe('PB-5 · DOC-1 resolves only against what a clone contains', () => {
+  it('should FLAG an authority reference into a gitignored file that exists only locally', () => {
+    plant(
+      'docs/tech/PB5_DOC1_SPEC_FIXTURE.md',
+      '# fixture\n\nRead `docs/audit/PENDING_ALL.md` first before changing a status.\n'
+    );
+    const r = gate('doc1');
+    expect(r.code).toBe(1);
+    expect(r.out).toContain('PB5_DOC1_SPEC_FIXTURE.md → docs/audit/PENDING_ALL.md');
+  });
+
+  it('should ACCEPT a reference to a NEW, not-yet-staged file in a tracked area', () => {
+    const before = counted(gate('doc1').out, REFS);
+    plant('docs/tech/PB5_DOC1_SPEC_NEW_TARGET.md', '# a file added in the same change\n');
+    plant(
+      'docs/tech/PB5_DOC1_SPEC_FIXTURE_NEWFILE.md',
+      '# fixture\n\nRead `docs/tech/PB5_DOC1_SPEC_NEW_TARGET.md` first before changing a status.\n'
+    );
+    const r = gate('doc1');
+    expect(counted(r.out, REFS), 'the fixture reference must have been scanned').toBe(before + 1);
+    expect(r.out).not.toContain('PB5_DOC1_SPEC_FIXTURE_NEWFILE.md');
+  }, 20_000); /* two gate runs (baseline + fixture) — R4-9 */
+
+  it('should NOT let a local-only note excuse a missing file in a TRACKED area on the same line', () => {
+    plant(
+      'docs/tech/PB5_DOC1_SPEC_FIXTURE_MIXED.md',
+      '# fixture\n\nSee `docs/tech/PB5_SPEC_GONE.md` and `docs/audit/PENDING_ALL.md` (local-only).\n'
+    );
+    const r = gate('doc1');
+    expect(r.code).toBe(1);
+    expect(r.out).toContain('PB5_DOC1_SPEC_FIXTURE_MIXED.md → docs/tech/PB5_SPEC_GONE.md');
+  });
+
+  it('should ACCEPT the same reference when the line says it is local-only', () => {
+    const before = counted(gate('doc1').out, REFS);
+    plant(
+      'docs/tech/PB5_DOC1_SPEC_FIXTURE_ANNOTATED.md',
+      '# fixture\n\nRead `docs/audit/PENDING_ALL.md` first (local-only) before changing a status.\n'
+    );
+    const r = gate('doc1');
+    expect(counted(r.out, REFS), 'the fixture reference must have been scanned').toBe(before + 1);
+    expect(r.out).not.toContain('PB5_DOC1_SPEC_FIXTURE_ANNOTATED.md');
+  }, 20_000); /* two gate runs (baseline + fixture) — R4-9 */
+});
+
+describe('PB-5 · DOC-1 classifies by git ignore POLICY, never by local disk', () => {
+  it('should REPORT a non-authority reference into a gitignored area without failing on it', () => {
+    const base = gate('doc1').out;
+    plant(
+      'docs/tech/PB5_DOC1_SPEC_LOCALONLY.md',
+      '# fixture\n\nBackground lives in `docs/audit/PB5_SPEC_NOWHERE.md`.\n'
+    );
+    const r = gate('doc1');
+    expect(r.out).not.toContain('PB5_DOC1_SPEC_LOCALONLY.md');
+    expect(counted(r.out, LOCAL_ONLY), 'the reference must be REPORTED as local-only').toBe(
+      counted(base, LOCAL_ONLY) + 1
+    );
+  }, 20_000); /* two gate runs (baseline + fixture) — R4-9 */
+
+  it('should FAIL a reference to a TRACKED area whose file does not exist', () => {
+    plant(
+      'docs/tech/PB5_DOC1_SPEC_MISSING_TRACKED.md',
+      '# fixture\n\nSee `docs/tech/PB5_SPEC_NO_SUCH_FILE.md`.\n'
+    );
+    const r = gate('doc1');
+    expect(r.code).toBe(1);
+    expect(r.out).toContain(
+      'PB5_DOC1_SPEC_MISSING_TRACKED.md → docs/tech/PB5_SPEC_NO_SUCH_FILE.md'
+    );
+  });
+});
+
+/**
+ * R4-1 / R4-2 (independent review, 2026-10-16) — the staged row and the port
+ * input must never hand a file name or an argument to a shell.
+ *
+ * Reproduced against the previous code before the fix: a staged `docs/Ü.md`
+ * holding a credential-shaped line PASSED with "0 added line(s) scanned"
+ * (git C-quotes the name on a newline list and the quoted name matches no
+ * file), and a staged file named `docs/$(touch MARKER).md` EXECUTED `touch`.
+ *
+ * ⚑ THESE RUN IN A THROWAWAY REPOSITORY, never the real index: the staged row
+ * reads `git diff --cached`, and staging in the maintainer's repository is a
+ * founder-only operation. The runner finds its repository from its own file
+ * location, so a copy placed in a temporary `git init` judges that repository.
+ */
+describe('R4-1 · staged row — file names are data, never shell syntax', () => {
+  function stagedIn(files: Record<string, string>): { run: GateRun; dir: string } {
+    const dir = mkdtempSync(join(tmpdir(), 'review-gate-staged-'));
+    mkdirSync(join(dir, 'scripts'));
+    copyFileSync(join(ROOT, 'scripts/review-gate.mjs'), join(dir, 'scripts/review-gate.mjs'));
+    execFileSync('git', ['init', '-q'], { cwd: dir });
+    for (const [rel, body] of Object.entries(files)) {
+      mkdirSync(join(dir, rel, '..'), { recursive: true });
+      writeFileSync(join(dir, rel), body, 'utf8');
+      execFileSync('git', ['add', '--', rel], { cwd: dir });
+    }
+    let run: GateRun;
+    try {
+      const out = execFileSync('node', ['scripts/review-gate.mjs', 'staged'], {
+        cwd: dir,
+        encoding: 'utf8',
+      });
+      run = { code: 0, out: plain(out) };
+    } catch (error) {
+      const e = error as { status?: number; stdout?: string; stderr?: string };
+      run = { code: e.status ?? 1, out: plain(`${e.stdout ?? ''}${e.stderr ?? ''}`) };
+    }
+    return { run, dir };
+  }
+  const scannedLines = (out: string): number =>
+    Number(/(\d+) added line\(s\) scanned/.exec(out)?.[1] ?? -1);
+
+  it('should SCAN and REFUSE a credential line in a file whose name is not ASCII', () => {
+    /* Assembled at runtime, like ESC above, so this source file holds no credential-shaped
+       literal (the publication scan blocks one); the staged file gets the exact line. */
+    const credentialLine = `api_key = "${'abcdefghijklmnopqrstuv'}"\n`;
+    const { run, dir } = stagedIn({ 'docs/Ü.md': credentialLine });
+    try {
+      expect(scannedLines(run.out), 'the non-ASCII file must be read, not skipped').toBe(1);
+      expect(run.out).toMatch(/MUST NOT COMMIT: credential-shaped literal/);
+      expect(run.code).toBe(1);
+      expect(run.out, 'the name must be listed raw, not C-quoted').toContain('docs/Ü.md');
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('should NOT execute a command embedded in a staged file name, and still scan it', () => {
+    const { run, dir } = stagedIn({ 'docs/$(touch MARKER).md': 'neutral line\n' });
+    try {
+      expect(existsSync(join(dir, 'MARKER')), 'a file name was executed as a command').toBe(false);
+      expect(existsSync(join(dir, 'docs', 'MARKER')), 'a file name was executed').toBe(false);
+      expect(scannedLines(run.out), 'its added line must be scanned').toBe(1);
+      expect(run.code).toBe(0);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('R4-2 · review:port — operator input is validated, never interpolated', () => {
+  it.each(['1;touch PORT_MARKER', '$(touch PORT_MARKER)', '0', '65536', '-1', 'abc'])(
+    'should REFUSE %s as a port, run nothing, and exit 1',
+    (bad) => {
+      /* ⚑ Run from a THROWAWAY copy: against regressed code this input really
+         executes (measured 2026-10-16 — the old code created `PORT_MARKER` and a
+         file named `-sTCP:LISTEN` in the repository root). A regression must
+         never be able to write into the maintainer's tree. */
+      const dir = mkdtempSync(join(tmpdir(), 'review-gate-port-'));
+      mkdirSync(join(dir, 'scripts'));
+      copyFileSync(join(ROOT, 'scripts/review-gate.mjs'), join(dir, 'scripts/review-gate.mjs'));
+      let r: GateRun;
+      try {
+        r = {
+          code: 0,
+          out: plain(
+            execFileSync('node', ['scripts/review-gate.mjs', 'port', bad], {
+              cwd: dir,
+              encoding: 'utf8',
+            })
+          ),
+        };
+      } catch (error) {
+        const e = error as { status?: number; stdout?: string; stderr?: string };
+        r = { code: e.status ?? 1, out: plain(`${e.stdout ?? ''}${e.stderr ?? ''}`) };
+      }
+      try {
+        expect(r.code).toBe(1);
+        expect(r.out).toMatch(/is not a port number \(1–65535\) — refusing/);
+        expect(existsSync(join(dir, 'PORT_MARKER')), 'the input was executed').toBe(false);
+      } finally {
+        rmSync(dir, { recursive: true, force: true });
+      }
+    }
+  );
+});
+
+/**
+ * R4-5 (independent review + founder correction, 2026-10-16) — DOC-1 in two
+ * layers. LAYER 1 is the verdict and must be identical on every machine: a
+ * private reference is classified by git's ignore POLICY, never by whether the
+ * file happens to exist here. LAYER 2 (`doc1-local`) verifies private targets
+ * only where their area exists, and says NOT VERIFIED HERE otherwise.
+ *
+ * Each case runs in a throwaway repository with its own `.gitignore`
+ * (`docs/*` local except `docs/tech/`), so "clean clone" and "private corpus
+ * present" are two real environments, not two assumptions.
+ */
+describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus layer', () => {
+  function repoWith(lines: string[], privateFiles: string[] = []): string {
+    const dir = mkdtempSync(join(tmpdir(), 'review-gate-doc1-'));
+    mkdirSync(join(dir, 'scripts'));
+    copyFileSync(join(ROOT, 'scripts/review-gate.mjs'), join(dir, 'scripts/review-gate.mjs'));
+    mkdirSync(join(dir, 'docs/tech'), { recursive: true });
+    writeFileSync(join(dir, '.gitignore'), 'docs/*\n!docs/tech/\n');
+    writeFileSync(join(dir, 'CLAUDE.md'), '# fixture\n');
+    /* DOC-1 refuses a scan of under 100 references: give it 100 that resolve. */
+    const filler: string[] = [];
+    for (let i = 1; i <= 100; i += 1) {
+      writeFileSync(join(dir, `docs/tech/target-${i}.md`), `# ${i}\n`);
+      filler.push(`- see \`docs/tech/target-${i}.md\``);
+    }
+    writeFileSync(join(dir, 'docs/tech/index.md'), [...filler, ...lines].join('\n') + '\n');
+    for (const p of privateFiles) {
+      mkdirSync(join(dir, p, '..'), { recursive: true });
+      writeFileSync(join(dir, p), '# private\n');
+    }
+    execFileSync('git', ['init', '-q'], { cwd: dir });
+    execFileSync('git', ['add', '-A'], { cwd: dir });
+    return dir;
+  }
+  function run(dir: string, mode: string): GateRun {
+    try {
+      const out = execFileSync('node', ['scripts/review-gate.mjs', mode], {
+        cwd: dir,
+        encoding: 'utf8',
+      });
+      return { code: 0, out: plain(out) };
+    } catch (error) {
+      const e = error as { status?: number; stdout?: string; stderr?: string };
+      return { code: e.status ?? 1, out: plain(`${e.stdout ?? ''}${e.stderr ?? ''}`) };
+    }
+  }
+  const PRIVATE_REF = 'Read `docs/full-view/canon/README.md` (local-only) first.';
+  const dirs: string[] = [];
+  afterEach(() => {
+    while (dirs.length) rmSync(dirs.pop()!, { recursive: true, force: true });
+  });
+
+  it('CLEAN CLONE: an annotated private reference passes Layer 1; Layer 2 is a SKIP, never a pass', () => {
+    const dir = repoWith([PRIVATE_REF]);
+    dirs.push(dir);
+    expect(existsSync(join(dir, 'docs/full-view')), 'fixture must hold no private files').toBe(
+      false
+    );
+    const l1 = run(dir, 'doc1');
+    expect(l1.code, l1.out).toBe(0);
+    const l2 = run(dir, 'doc1-local');
+    expect(l2.code, 'an unverifiable layer is a SKIP (exit 2), never a pass').toBe(2);
+    expect(l2.out).toMatch(/NOT VERIFIED HERE — no private area present on this machine/);
+  });
+
+  it('PRIVATE CORPUS PRESENT: a misspelled AREA folder FAILS Layer 2', () => {
+    const dir = repoWith(
+      [PRIVATE_REF, 'Also `docs/full-veiw/canon/README.md` (local-only).'],
+      ['docs/full-view/canon/README.md']
+    );
+    dirs.push(dir);
+    expect(run(dir, 'doc1').code, 'Layer 1 must not depend on this machine').toBe(0);
+    const l2 = run(dir, 'doc1-local');
+    expect(l2.code).toBe(1);
+    expect(l2.out).toMatch(
+      /UNKNOWN PRIVATE AREA[^(]*\(1\): docs\/tech\/index\.md → docs\/full-veiw\/canon\/README\.md/
+    );
+  });
+
+  it('PRIVATE CORPUS PRESENT: a private file directly under docs/ is verified, and its typo FAILS', () => {
+    const ok = repoWith(
+      [PRIVATE_REF, 'See `docs/PRIVATE_NOTE.md` (local-only).'],
+      ['docs/full-view/canon/README.md', 'docs/PRIVATE_NOTE.md']
+    );
+    dirs.push(ok);
+    const verified = run(ok, 'doc1-local');
+    expect(verified.code, verified.out).toBe(0);
+    expect(verified.out).toMatch(/2 verified on this machine/);
+    const typo = repoWith(
+      [PRIVATE_REF, 'See `docs/PRIVATE_NOET.md` (local-only).'],
+      ['docs/full-view/canon/README.md']
+    );
+    dirs.push(typo);
+    expect(run(typo, 'doc1-local').out).toMatch(
+      /PRIVATE TARGET MISSING \(1\): docs\/tech\/index\.md → docs\/PRIVATE_NOET\.md/
+    );
+  });
+
+  it('NON-ASCII TRACKED TARGET: a tracked file with an accented name resolves (git -z, R4-2)', () => {
+    const dir = repoWith(['See `docs/tech/Ü-notes.md`.']);
+    dirs.push(dir);
+    writeFileSync(join(dir, 'docs/tech/Ü-notes.md'), '# ü\n');
+    execFileSync('git', ['add', '--', 'docs/tech/Ü-notes.md'], { cwd: dir });
+    const r = run(dir, 'doc1');
+    expect(r.code, r.out).toBe(0);
+  });
+
+  it('PRIVATE CORPUS PRESENT: an existing target is verified; a typo FAILS Layer 2 but not Layer 1', () => {
+    const ok = repoWith([PRIVATE_REF], ['docs/full-view/canon/README.md']);
+    dirs.push(ok);
+    expect(run(ok, 'doc1').code).toBe(0);
+    const verified = run(ok, 'doc1-local');
+    expect(verified.code).toBe(0);
+    expect(verified.out).toMatch(/1 verified on this machine/);
+
+    const typo = repoWith(
+      [PRIVATE_REF, 'Also `docs/full-view/canon/READEM.md` (local-only).'],
+      ['docs/full-view/canon/README.md']
+    );
+    dirs.push(typo);
+    expect(run(typo, 'doc1').code, 'Layer 1 must not depend on this machine').toBe(0);
+    const l2 = run(typo, 'doc1-local');
+    expect(l2.code).toBe(1);
+    expect(l2.out).toMatch(
+      /PRIVATE TARGET MISSING \(1\): docs\/tech\/index\.md → docs\/full-view\/canon\/READEM\.md/
+    );
+  });
+
+  it('GENUINELY INVALID: a broken published reference FAILS Layer 1 in BOTH environments', () => {
+    for (const privateFiles of [[], ['docs/full-view/canon/README.md']]) {
+      const dir = repoWith([PRIVATE_REF, 'Details in `docs/tech/MISSING.md`.'], privateFiles);
+      dirs.push(dir);
+      const r = run(dir, 'doc1');
+      expect(r.code).toBe(1);
+      expect(r.out).toMatch(
+        /dangling references ROSE to 1 .*docs\/tech\/index\.md → docs\/tech\/MISSING\.md/
+      );
+    }
+  });
+
+  it('MARKER SCOPE: one marker excuses only the reference it follows', () => {
+    const dir = repoWith([
+      'Read `docs/tech/MISSING2.md` first; `docs/audit/OLD.md` is ⚠ NOT REACHABLE.',
+    ]);
+    dirs.push(dir);
+    const r = run(dir, 'doc1');
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(
+      /UNREACHABLE AUTHORITY REFERENCE \(1\): docs\/tech\/index\.md → docs\/tech\/MISSING2\.md/
+    );
+  });
+
+  it('WIDENED: #anchor and :line suffixes, .js targets and directories are checked', () => {
+    const good = repoWith([
+      'See `docs/tech/target-1.md#top` and `docs/tech/target-2.md:13` and `docs/tech/`.',
+    ]);
+    dirs.push(good);
+    expect(run(good, 'doc1').code).toBe(0);
+    const bad = repoWith([
+      'See `docs/tech/GONE.md#top`, `scripts/nope.js` and `docs/tech/nodir/`.',
+    ]);
+    dirs.push(bad);
+    const r = run(bad, 'doc1');
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/dangling references ROSE to 3/);
+  });
+});
+
+/**
+ * R4-6 (independent review, 2026-10-16) — PROSE-1 must not pass a record it
+ * never checked, and must not count a coincidence as a citation.
+ */
+describe('R4-6 · PROSE-1 — proven N/A, whole-number ids, own headings, multi-block records', () => {
+  it('should LIST a record whose plan has no requirement heading as a PROVEN N/A, never pass it silently', () => {
+    plant(
+      'docs/audit/R46_PROSE_PLAN_NOREQ.md',
+      '# Plan\n\n## 1 · Context\n\nNothing required here.\n'
+    );
+    plant(
+      'docs/audit/R46_PROSE_RECORD_NOREQ.md',
+      '# Record\n\n**Controlling plan:** `docs/audit/R46_PROSE_PLAN_NOREQ.md`\n'
+    );
+    const r = gate('prose');
+    expect(r.out).toMatch(/R46_PROSE_RECORD_NOREQ\.md: N\/A — its plan has no requirement heading/);
+  });
+
+  it('should NOT read 5.12 as cited by a record that only names 5.123', () => {
+    plant('docs/audit/R46_PROSE_PLAN_ID.md', '# Plan\n\n## 3 · Required closure of 5.12\n');
+    plant(
+      'docs/audit/R46_PROSE_RECORD_ID.md',
+      '# Record\n\n**Controlling plan:** `docs/audit/R46_PROSE_PLAN_ID.md`\n\nClosed 5.123 today.\n'
+    );
+    const r = gate('prose');
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/R46_PROSE_RECORD_ID\.md ↛ "3 · Required closure of 5\.12"/);
+  });
+
+  it("should NOT count the record's OWN numbered heading as citing the plan's section", () => {
+    plant('docs/audit/R46_PROSE_PLAN_OWN.md', '# Plan\n\n## 16 · Minimum required observability\n');
+    plant(
+      'docs/audit/R46_PROSE_RECORD_OWN.md',
+      '# Record\n\n**Controlling plan:** `docs/audit/R46_PROSE_PLAN_OWN.md`\n\n## 16 · Unrelated section of this record\n\nNothing about it.\n'
+    );
+    const r = gate('prose');
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/R46_PROSE_RECORD_OWN\.md ↛ "16 · Minimum required observability"/);
+  });
+
+  it('should hold a MULTI-BLOCK record to each of its blocks', () => {
+    plant(
+      'docs/audit/R46_PROSE_PLAN_BLK.md',
+      '# Plan\n\n### E · Evidence block\n\n### Evidence must be fresh\n'
+    );
+    plant(
+      'docs/audit/R46_PROSE_BLOCKS_EFG_RECORD.md',
+      '# Record\n\n**Controlling plan:** `docs/audit/R46_PROSE_PLAN_BLK.md`\n\nWork done.\n'
+    );
+    const r = gate('prose');
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/R46_PROSE_BLOCKS_EFG_RECORD\.md ↛ "Evidence must be fresh"/);
+  });
+});
+
+/**
+ * R4 correction (independent review, 2026-10-16) — the exports row read
+ * consumers through a REGEX comment stripper: `//.*$` deleted the rest of a line
+ * after a URL in a string, so `fetch("https://x.dev"); selectGoal(s);` hid a real
+ * consumer and the row reported NO CONSUMER. It now strips by the parser, and its
+ * consumer search runs without a shell. Run in a throwaway repository with a
+ * changed `view/` file, because the row only runs when one changed.
+ */
+describe('R4 correction · exports row — a consumer after a URL string is still a consumer', () => {
+  it('should find a consumer that follows a URL in a string', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'review-gate-exports-'));
+    try {
+      mkdirSync(join(dir, 'scripts'));
+      copyFileSync(join(ROOT, 'scripts/review-gate.mjs'), join(dir, 'scripts/review-gate.mjs'));
+      /* the row loads `typescript` (a root devDependency) — link the real install */
+      symlinkSync(join(ROOT, 'node_modules'), join(dir, 'node_modules'));
+      mkdirSync(join(dir, 'apps/sandbox/src/view'), { recursive: true });
+      writeFileSync(
+        join(dir, 'apps/sandbox/src/view/goals.ts'),
+        'export function selectGoal(s: number) { return s; }\n'
+      );
+      writeFileSync(
+        join(dir, 'apps/sandbox/src/Screen.tsx'),
+        /* The ONLY use follows a URL string; a namespace import never names the function, so a
+           regex stripper that eats the rest of the line leaves no consumer at all. */
+        'import * as goals from \'./view/goals\';\nexport function S() { void fetch("https://x.dev"); return goals.selectGoal(1); }\n'
+      );
+      const git = (...a: string[]) => execFileSync('git', a, { cwd: dir, stdio: 'pipe' });
+      git('init', '-q');
+      git('add', '-A');
+      git('-c', 'user.name=t', '-c', 'user.email=t@t', 'commit', '-q', '-m', 'base', '--no-verify');
+      writeFileSync(
+        join(dir, 'apps/sandbox/src/view/goals.ts'),
+        'export function selectGoal(s: number) { return s + 0; }\n'
+      );
+      let out = '';
+      let code = 0;
+      try {
+        out = plain(
+          execFileSync('node', ['scripts/review-gate.mjs', 'exports'], {
+            cwd: dir,
+            encoding: 'utf8',
+          })
+        );
+      } catch (error) {
+        const e = error as { status?: number; stdout?: string; stderr?: string };
+        code = e.status ?? 1;
+        out = plain(`${e.stdout ?? ''}${e.stderr ?? ''}`);
+      }
+      expect(out, out).toMatch(/1 exported symbol\(s\) checked/);
+      expect(out).not.toMatch(/NO CONSUMER ANYWHERE: selectGoal/);
+      expect(code, out).toBe(0);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  }, 20_000);
+});
+
+describe('R4 correction · PROSE-1 — a block label is exact and case-sensitive', () => {
+  it('should read BLOCK_FEED_ as a lane-level record, not blocks F, E and D', () => {
+    plant(
+      'docs/audit/R4C_PROSE_PLAN_BLK.md',
+      '# Plan\n\n### E · Evidence block\n\n### Evidence must be fresh\n'
+    );
+    plant(
+      'docs/audit/R4C_PROSE_BLOCK_FEED_RECORD.md',
+      '# Record\n\n**Controlling plan:** `docs/audit/R4C_PROSE_PLAN_BLK.md`\n\nWork done.\n'
+    );
+    const r = gate('prose');
+    expect(r.out).toMatch(
+      /R4C_PROSE_BLOCK_FEED_RECORD\.md: N\/A — every requirement heading binds block\(s\) E; the record is lane-level/
+    );
+  }, 20_000);
 });

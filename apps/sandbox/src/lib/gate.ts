@@ -41,7 +41,12 @@ function getPassword(): string | null {
      * reaches the browser. This restores a pre-existing signal; it adds no
      * new behaviour.
      */
-    Logger.warn('sandbox gate: SANDBOX_ACCESS_PASSWORD is not set, so the gate is fail-closed');
+    /* Only when the gate is actually in use (lane audit 2026-10-21, L9): with public access
+       on, every onboarding asks for the grant token, so this logged a false "fail-closed"
+       operator signal on each one. */
+    if (!isPublicAccess()) {
+      Logger.warn('sandbox gate: SANDBOX_ACCESS_PASSWORD is not set, so the gate is fail-closed');
+    }
     return null;
   }
   return pw;
@@ -69,11 +74,16 @@ export function isGateConfigured(): boolean {
   return getPassword() !== null;
 }
 
+/**
+ * Constant-time equality that does not leak LENGTH either (lane audit 2026-10-21, L9).
+ * The early `length !== length` return answered a wrong-length guess faster than a
+ * right-length one, so the password's length was measurable. Both sides are hashed to
+ * fixed-size digests first, then compared in constant time.
+ */
 function timingSafeEqualStr(a: string, b: string): boolean {
-  const ab = Buffer.from(a, 'utf8');
-  const bb = Buffer.from(b, 'utf8');
-  if (ab.length !== bb.length) return false;
-  return crypto.timingSafeEqual(ab, bb);
+  const da = crypto.createHash('sha256').update(a, 'utf8').digest();
+  const db = crypto.createHash('sha256').update(b, 'utf8').digest();
+  return crypto.timingSafeEqual(da, db);
 }
 
 /** The grant token: HMAC of a fixed message keyed by the current password. */

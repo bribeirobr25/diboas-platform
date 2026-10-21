@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { project, refusedEvents } from '@diboas/banking';
 import { oneOfEachLog } from '../ledgerFixture';
 
 /**
@@ -30,5 +31,21 @@ describe('the ONE OF EACH ledger fixture', () => {
     expect(new Set(types).size).toBe(types.length);
     // Ids and types agree on the count — the guard the duplicate defeated.
     expect(new Set(log.map((e) => e.eventId)).size).toBe(new Set(types).size);
+  });
+
+  /**
+   * One instance per type means some events CANNOT apply here: after `StrategyExited`
+   * closes `p1`, everything addressed to it is refused, and after `GoalDropped` the goal
+   * cannot also be accomplished. Since P8a that is recorded, not silent — and pinned, so
+   * the store-equivalence tests that run this log know exactly which apply paths it does
+   * NOT exercise (those are covered by `dispositions.test.ts` and `ledger.test.ts`).
+   */
+  it('should refuse exactly the four events a one-instance log cannot apply', () => {
+    expect(refusedEvents(project(oneOfEachLog())).map((r) => [r.event.type, r.reason])).toEqual([
+      ['RecurringContributionApplied', 'unknown-or-closed-position'],
+      ['ReplaySpanRefused', 'unknown-or-closed-position'],
+      ['PositionReassigned', 'unknown-or-closed-position'],
+      ['GoalAccomplished', 'stale-or-illegal-transition'],
+    ]);
   });
 });

@@ -251,13 +251,15 @@
   color: var(--sb-text-muted);
 }
 
+/* `5.601`: the primary-action role, as the Button primitive uses. The ink fill
+   (`--sb-surface-inverse`) IS the canvas in dark, so this CTA read as a label. */
 .primary {
   min-height: 52px;
   padding: 0 var(--spacing-xl);
   border: none;
   border-radius: var(--radius-lg);
-  background: var(--sb-surface-inverse);
-  color: var(--sb-text-inverse);
+  background: var(--sb-action-primary);
+  color: var(--sb-action-primary-text);
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-md);
   cursor: pointer;
@@ -268,7 +270,7 @@
 }
 
 .primary:hover:not(:disabled) {
-  background: var(--sb-surface-inverse-raised);
+  background: var(--sb-action-primary-hover);
   transform: translateY(-1px);
 }
 

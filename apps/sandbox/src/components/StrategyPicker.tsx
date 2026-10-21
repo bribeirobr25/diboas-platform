@@ -1,7 +1,6 @@
 'use client';
 
 import { useId, useState } from 'react';
-import Decimal from 'decimal.js';
 import { FormattedMessage, useIntl } from 'react-intl';
 import {
   horizonBandForMonths,
@@ -14,78 +13,9 @@ import {
   type RiskBand,
   type StrategyDef,
 } from '@diboas/defi';
-import { isRefusedForCurrentFacingUse, legRequiresCurrentRate } from '@diboas/defi';
+import { strategyRateDisplay } from '@/view/strategy';
 import { LucideIcon } from './LucideIcon';
 import styles from './StrategyPicker.module.css';
-
-/**
- * Whether a strategy has a displayable `Current pool rate`, and what it is.
- *
- * ⛑ `5.444` · REPLACES `blendedApy`, WHICH COULD NOT REFUSE.
- *
- * The old function returned a bare `Decimal` and read
- * `byId.get(leg.protocolId)?.apyPercent ?? 0` — so a leg with no APY silently
- * contributed **zero** to a rate a user reads. That was invisible only because
- * the availability gate happened to stop the number rendering; S3 removes that
- * accident, and a `MISSING -> 0` understatement would have shipped with it.
- *
- * ⚑ A DISCRIMINATED RESULT, so the wrong answer is not representable. There is
- * no code path that yields a number for a strategy that must show none.
- *
- * Strategy's ruling: `"Current pool rate"` is an APY-SPECIFIC SECONDARY
- * representation, never a universal whole-strategy return metric.
- *
- * ```text
- * PURE ACCRUAL + every required rate valid  -> displayable, unchanged to the cent
- *   where VALID means present, finite AND inside the current-facing vintage
- * HETEROGENEOUS (any market leg)            -> OMITTED — a market leg's return is
- *                                              its price, and no blend of rates
- *                                              can describe it
- * MISSING a REQUIRED accrual rate           -> WITHHELD, never zero-filled
- * ```
- *
- * Renormalising over the accrual legs is explicitly refused: it would silently
- * change what the number MEANS while leaving its label identical.
- */
-export type StrategyRateDisplay =
-  | { readonly displayable: true; readonly apy: Decimal }
-  | { readonly displayable: false; readonly reason: 'HETEROGENEOUS' | 'MISSING_REQUIRED_RATE' };
-
-export function strategyRateDisplay(
-  strategy: StrategyDef,
-  apys: ProtocolApy[],
-  /**
-   * The current-facing reference moment. REQUIRED, and not defaulted.
-   *
-   * ⛑ Added after the `5.436` guard caught this function rendering a STALE
-   * number: presence and finiteness are not validity. A rate refused for
-   * current-facing use is exactly the "stale number" that ruling forbids, and a
-   * displayable-rate check that cannot see a clock cannot refuse one. Silence
-   * must not mean "unenforced".
-   */
-  now: Date | string
-): StrategyRateDisplay {
-  const byId = new Map(apys.map((a) => [a.protocolId, a]));
-  let total = new Decimal(0);
-  for (const leg of strategy.allocation) {
-    /* Asked of the leg's own economics, never of its id. */
-    if (!legRequiresCurrentRate(leg.protocolId)) {
-      return { displayable: false, reason: 'HETEROGENEOUS' };
-    }
-    const observation = byId.get(leg.protocolId);
-    const observed = observation?.apyPercent;
-    if (
-      !observation ||
-      typeof observed !== 'number' ||
-      !Number.isFinite(observed) ||
-      isRefusedForCurrentFacingUse(observation.stamp, now)
-    ) {
-      return { displayable: false, reason: 'MISSING_REQUIRED_RATE' };
-    }
-    total = total.plus(new Decimal(observed).mul(leg.weightPercent).div(100));
-  }
-  return { displayable: true, apy: total };
-}
 
 /** Exported for the composed-id gate (CID-1): `catalogFilters.horizonBand.${band}`. */
 export const HORIZON_BANDS: HorizonBand[] = ['short', 'medium', 'long', 'wealth'];

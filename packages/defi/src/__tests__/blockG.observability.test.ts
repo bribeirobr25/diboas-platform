@@ -73,6 +73,12 @@ describe('Block G · a degradation is visible, not silent', () => {
       .filter((e) => e.outcome === 'SERVED_FALLBACK')
       .map((e) => e.reason);
     expect(reasons).toContain('IDENTITY_NOT_SATISFIED');
+    /* …and WHICH leg (`5.444` §16; lane audit 2026-10-20 — `degrade()` dropped it). */
+    const legs = obs
+      .evidenceEvents()
+      .filter((e) => e.outcome === 'SERVED_FALLBACK')
+      .map((e) => e.leg);
+    expect(legs).toEqual(['aaveV3']);
   });
 
   it('should name an UNDETERMINED composition distinctly from an identity mismatch', async () => {

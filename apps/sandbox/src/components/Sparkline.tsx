@@ -27,7 +27,9 @@ export function Sparkline({
 
   const min = Math.min(...series);
   const max = Math.max(...series);
-  const span = max - min || 1; // flat series → a centered line, still honest
+  // A flat series has no span; `|| 1` avoids a divide-by-zero and draws it along the BOTTOM
+  // edge (y = pad + 1·(h − 2·pad)). Centring it is a UX decision, not made here (lane audit 2026-10-21, Z8).
+  const span = max - min || 1;
   const pad = 4;
   const stepX = (width - pad * 2) / (series.length - 1);
 

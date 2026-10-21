@@ -1,5 +1,6 @@
 import Decimal from 'decimal.js';
 import {
+  appliedEvents,
   entryNetworkFeeOf,
   exitFeesOf,
   feesAreDeductible,
@@ -52,8 +53,8 @@ export interface MovementSource {
 
 export interface MonthReport {
   /**
-   * Whether the rows actually sum to the change. False means the log contains
-   * events the projection skipped, and the screen must not claim to explain
+   * Whether the rows actually sum to the change. False means the rows and the
+   * projection's balance disagree, and the screen must not claim to explain
    * every dollar — see `buildMonthReport`.
    */
   explained: boolean;
@@ -220,6 +221,14 @@ export const SOURCE_ORDER: MovementSource['key'][] = [
  * event log on every call, so it can never drift from the ledger it describes.
  */
 /**
+ * THE month boundary, once: `[from, to)` on `recordedAt`, unparseable times in no window.
+ * Every count in this file asks it — three hand copies had grown (2026-10-19 review, X1).
+ */
+function inReportWindow(t: number, from: number, to: number): boolean {
+  return Number.isFinite(t) && t >= from && t < to;
+}
+
+/**
  * The events this report's window covers.
  *
  * Exported so a caller that must ask a question ABOUT the reported month —
@@ -236,10 +245,7 @@ export function eventsInReportWindow(
   const from = Date.parse(fromIso);
   const to = Date.parse(toIso);
   if (!Number.isFinite(from) || !Number.isFinite(to)) return [];
-  return state.events.filter((e) => {
-    const t = Date.parse(e.recordedAt);
-    return Number.isFinite(t) && t >= from && t < to;
-  });
+  return appliedEvents(state).filter((e) => inReportWindow(Date.parse(e.recordedAt), from, to));
 }
 
 export function buildMonthReport(
@@ -252,11 +258,8 @@ export function buildMonthReport(
   const to = Date.parse(toIso);
   if (!Number.isFinite(from) || !Number.isFinite(to)) return null;
 
-  const inWindow = (e: LedgerEvent) => {
-    const t = Date.parse(e.recordedAt);
-    return Number.isFinite(t) && t >= from && t < to;
-  };
-  const before = state.events.filter((e) => {
+  const inWindow = (e: LedgerEvent) => inReportWindow(Date.parse(e.recordedAt), from, to);
+  const before = appliedEvents(state).filter((e) => {
     const t = Date.parse(e.recordedAt);
     return Number.isFinite(t) && t < from;
   });
@@ -270,9 +273,37 @@ export function buildMonthReport(
   let running = opening;
   let movedIntoGoals = new Decimal(0);
   let goalsCreated = 0;
+  // `5.544` — WEEKS, not approvals: one approval can settle several weeks
+  // (`RuleApplied.weekSet`). Counted as DISTINCT weeks FIRST settled inside the
+  // window — the same distinct-week semantics as `appliedWeeks()`
+  // (`weeklyCycle.ts`, a Set): the reducer treats `RuleApplied` as a marker and
+  // does not validate overlap, so a legacy log can repeat a week, and summing
+  // `weekSet.length` would over-count it. "Settled" keeps its current meaning (the
+  // week's marker applied; under the temporary `5.524` Option A that is not a claim
+  // that every funding leg succeeded).
+  //
+  // "FIRST" = the EARLIEST `recordedAt` among the applied settlements containing the
+  // week — the report's own window rule — computed over the whole log BEFORE counting,
+  // so the answer cannot depend on log order (2026-10-19: the device clock can step
+  // backwards, and the first version, which remembered pre-window weeks only as it met
+  // them, counted a reversed-date week in two months). Each week therefore lands in
+  // exactly one month and the months add up to the lifetime distinct total. Nothing is
+  // sorted or rewritten. A week whose only settlements carry an unparseable time is in
+  // no window — as every other row of this report treats such an event.
+  const firstSettledAt = new Map<number, number>();
+  for (const event of appliedEvents(state)) {
+    if (event.type !== 'RuleApplied') continue;
+    const t = Date.parse(event.recordedAt);
+    if (!Number.isFinite(t)) continue;
+    for (const w of event.weekSet) {
+      const seen = firstSettledAt.get(w);
+      if (seen === undefined || t < seen) firstSettledAt.set(w, t);
+    }
+  }
   let cyclesCompleted = 0;
+  for (const t of firstSettledAt.values()) if (inReportWindow(t, from, to)) cyclesCompleted += 1;
 
-  for (const event of state.events) {
+  for (const event of appliedEvents(state)) {
     if (!inWindow(event)) continue;
     const delta = deltaFor(event);
     if (!delta.isZero()) {
@@ -292,7 +323,6 @@ export function buildMonthReport(
     if (event.type === 'GoalCashReleased') movedIntoGoals = movedIntoGoals.minus(event.amount);
     if (event.type === 'GoalDropped') movedIntoGoals = movedIntoGoals.minus(event.cashReleased);
     if (event.type === 'GoalCreated') goalsCreated += 1;
-    if (event.type === 'RuleApplied') cyclesCompleted += 1;
   }
 
   const closing = playBalance(state);
@@ -305,10 +335,11 @@ export function buildMonthReport(
   });
   /**
    * The rows are derived from event payloads, while the balance comes from the
-   * PROJECTION — and the projection skips events that fail its guards (a
-   * duplicate week credit, an unaffordable debit, an accrual on a closed
-   * position). The ledger is user-editable localStorage, so such a log is
-   * reachable even though no emitter produces one.
+   * PROJECTION — which refuses events that fail its guards (a duplicate week
+   * credit, an unaffordable debit, an accrual on a closed position). Since P8a
+   * the rows read APPLIED events only, so a refused event no longer reaches
+   * them; the identity check below stays as the guard against any other drift
+   * between the rows and the projection's balance.
    *
    * Rather than re-implementing nine guards here — a second copy of the
    * projection's semantics, which is what made this wrong in the first place —

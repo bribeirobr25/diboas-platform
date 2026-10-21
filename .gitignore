@@ -6,6 +6,9 @@ yarn.lock
 
 # Production builds
 .next/
+# The sandbox harness's held and swap-in builds (apps/sandbox/e2e/harness.ts)
+.next.e2e-held/
+.next-e2e-swap/
 out/
 dist/
 build/

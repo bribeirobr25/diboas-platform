@@ -132,7 +132,7 @@ architecture map). None of that is improved by a language switch; all of it must
 
 ### References
 
-- Provider stack + FC rulings (Turnkey/ramp/Jupiter/CCTP, Solana-hub + Arbitrum): `docs/sandbox-app/SANDBOX_ARCHITECTURE_AND_FLOWS.md`.
+- Provider stack + FC rulings (Turnkey/ramp/Jupiter/CCTP, Solana-hub + Arbitrum): `docs/sandbox-app/SANDBOX_ARCHITECTURE_AND_FLOWS.md` _(⚠ NOT REACHABLE — see `5.458`)_.
 - Current deployed stack (as-built): `docs/tech/infrastructure.md`.
 - Money-math model + guards: `docs/tech/financial-calculations.md`; the event-sourced ledger in `packages/banking`.
 - Analytics boundary (open contract-shape item, T5): `diboas-analytics/LEDGER.md` + doc-07; the Phase-2 sequence's analytics note.

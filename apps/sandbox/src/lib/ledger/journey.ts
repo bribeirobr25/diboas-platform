@@ -53,7 +53,7 @@ export function grantPlayMoney(
  * Pause a goal's PLAN (G3, W-17d): zero-value D-e transition — the weekly
  * plan, proposals (D-r skips paused), and recurring deposits stop; invested
  * money keeps working. Optimistic version from current state; a stale event
- * is skipped by the projection (fail-safe re-present).
+ * is refused by the projection (recorded since P8a; fail-safe re-present).
  */
 export function pauseGoal(goalId: string): void {
   const goal = getLedgerState().goals.find((g) => g.goalId === goalId);
@@ -198,9 +198,9 @@ export function createGoal(input: {
     },
   ];
   /**
-   * Never emit a leg the PROJECTION will drop. `projection/core.ts` skips a
-   * `GoalFunded` it cannot afford (`if (ctx.working.v.lt(amount)) break`), so
-   * an over-budget funding used to append an event that moved nothing — the
+   * Never emit a leg the PROJECTION will refuse. `projection/core.ts` refuses a
+   * `GoalFunded` it cannot afford (`insufficient-available`, recorded since P8a),
+   * so an over-budget funding used to append an event that moved nothing — the
    * goal appeared with 0 cash while History showed the money arriving. Proven:
    * fundAmount 5000 against 100 Available produced `fundedEvents=1,
    * goalCash=0.00, working=100.00`.
@@ -427,9 +427,10 @@ export function advanceTime(
    *
    * A `machine` advance replays HISTORY, so it must continue where the previous
    * machine advance stopped. The epoch is pinned once — the oldest date the
-   * first advance's series actually carried — and how far we have consumed is
-   * derived (`simDay − realSettledDays` = machine days already advanced), so no
-   * stored cursor can drift from the log.
+   * first advance's series actually carried — and where the next window starts is
+   * derived (`simDay − realSettledDays` = machine days already advanced). That is the
+   * CALENDAR position; each position's own walk starts at the first day of the advance
+   * (`advancePlanner.ts`, lane audit 2026-10-21 B1/B5).
    *
    * A `real` advance gets NO window: real elapsed days correspond to the newest
    * real days, which is exactly what the historic anchoring gives.

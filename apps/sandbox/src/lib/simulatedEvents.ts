@@ -114,6 +114,12 @@ export interface ExpenseImpact {
   /** The chosen goal's cash, before/after — absent on the Available path. */
   goalCashBefore?: number;
   goalCashAfter?: number;
+  /**
+   * What Available pays once the reserve has taken its share: the expense minus what the
+   * goal's cash gave. Computed HERE in decimal (lane audit 2026-10-21, C5); the card used
+   * to re-derive it in float from the fields above, a second derivation of one fact.
+   */
+  restFromAvailable: number;
 }
 
 /**
@@ -151,7 +157,8 @@ export function expenseImpacts(
    * from them in Decimal lands on whole cents by construction.
    */
   const minus = (from: string, by: Decimal.Value) => new Decimal(from).minus(by).toNumber();
-  const impacts: ExpenseImpact[] = [];
+  // Built without `restFromAvailable`; it is derived once, on return (C5).
+  const impacts: Omit<ExpenseImpact, 'restFromAvailable'>[] = [];
   if (options.coverFromAvailable) {
     impacts.push({
       option: 'coverFromAvailable',
@@ -194,7 +201,12 @@ export function expenseImpacts(
       goalCashAfter: valid ? minus(goal.cash, entered) : cash,
     });
   }
-  return impacts;
+  return impacts.map((impact) => ({
+    ...impact,
+    restFromAvailable: new Decimal(amount)
+      .minus(new Decimal(impact.goalCashBefore ?? 0).minus(impact.goalCashAfter ?? 0))
+      .toNumber(),
+  }));
 }
 
 /**

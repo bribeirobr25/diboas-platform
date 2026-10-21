@@ -299,6 +299,6 @@ export function shellSurfaceFromPathname(pathname: string): ShellSurface | null 
   return null;
 }
 
-export function isShellSurface(value: string): value is ShellSurface {
+function isShellSurface(value: string): value is ShellSurface {
   return Object.prototype.hasOwnProperty.call(SHELL_SURFACES, value);
 }
