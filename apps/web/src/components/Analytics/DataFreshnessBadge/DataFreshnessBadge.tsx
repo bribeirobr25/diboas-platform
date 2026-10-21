@@ -13,11 +13,16 @@ interface DataFreshnessBadgeProps {
   status: FreshnessStatus;
   source: string;
   labels: Record<FreshnessStatus, string>;
-  message?: string | null;
   /**
    * User-friendly display name for the feed (e.g. "Gold price"). Falls back to
-   * the raw `source` id when omitted. The raw `source` still rides on the hover
-   * title (via `message ?? source`) so upstream provenance stays discoverable.
+   * the raw `source` id when omitted. The raw `source` stays discoverable as the
+   * `data-source` attribute.
+   *
+   * There is deliberately NO message/tooltip (2026-10-21, review gate): the
+   * pipeline's per-source messages are internal English notes, written for the
+   * status at generation time, so a hover title showed English in every locale
+   * and could describe a source as on schedule next to a "Delayed" label after
+   * the read-time check downgraded it.
    */
   label?: string;
   className?: string;
@@ -34,7 +39,6 @@ export function DataFreshnessBadge({
   status,
   source,
   labels,
-  message,
   label,
   className,
 }: DataFreshnessBadgeProps) {
@@ -42,7 +46,7 @@ export function DataFreshnessBadge({
     <span
       className={`${styles.badge} ${className ?? ''}`}
       data-status={status.toLowerCase()}
-      title={message ?? source}
+      data-source={source}
     >
       <LucideIcon icon={ICON_BY_STATUS[status]} size="xs" aria-hidden="true" />
       <span className={styles.source}>{label ?? source}</span>

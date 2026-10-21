@@ -26,7 +26,7 @@
 import fs from 'node:fs';
 import { isDirectInvocation } from './lib/invocation.mjs';
 import { writeJsonAtomic } from './lib/atomic.mjs';
-import { expectedConfirmedMonthYM } from './lib/regime-engine.mjs';
+import { assertNextMonth, expectedConfirmedMonthYM } from './lib/regime-engine.mjs';
 import { fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { assertOhlcBar } from './lib/quality-gate.mjs';
 import { MONTHLY_PRICES_PATH } from './providers/inrepo.mjs';
@@ -69,30 +69,58 @@ function buildRow(code, bar) {
   return row;
 }
 
-async function appendPriceMonths(expectedYm, check) {
-  const prices = JSON.parse(fs.readFileSync(PRICES_PATH, 'utf8'));
+/**
+ * Append (or, with `check`, only plan) the due month for every price series.
+ * Returns what was planned and which series Yahoo had no closed bar for yet
+ * (2026-10-21, review gate: those were skipped silently and the run reported
+ * "nothing to do").
+ *
+ * @returns {Promise<{planned: {code: string, row: object}[], missing: string[]}>}
+ */
+export async function appendPriceMonths(
+  expectedYm,
+  check,
+  { fetchBars = fetchYahooMonthlyBars, pricesPath = PRICES_PATH } = {}
+) {
+  const prices = JSON.parse(fs.readFileSync(pricesPath, 'utf8'));
   const planned = [];
+  const missing = [];
   for (const [code, shape] of Object.entries(SERIES_SHAPES)) {
     const months = prices[code].months;
     if (months.some((m) => m.ym === expectedYm)) continue; // idempotent
-    const { bars } = await fetchYahooMonthlyBars(shape.ticker, '2y');
+    const { bars } = await fetchBars(shape.ticker, '2y');
     const bar = bars.get(expectedYm);
     if (!bar) {
       console.log(`  ${code}: Yahoo has no closed ${expectedYm} bar yet — skipping`);
+      missing.push(code);
       continue;
     }
     assertOhlcBar(`${code} ${expectedYm}`, bar);
-    const last = months[months.length - 1];
-    if (last && last.ym >= expectedYm)
-      throw new Error(`${code}: ${expectedYm} not after ${last.ym}`);
+    assertNextMonth(code, months[months.length - 1]?.ym, expectedYm);
     const row = buildRow(code, bar);
     planned.push({ code, row });
     if (!check) months.push(row);
   }
   if (!check && planned.length)
     // 5.302: temp + rename — this file also backs the Money Tools calculators.
-    writeJsonAtomic(PRICES_PATH, prices);
-  return planned;
+    writeJsonAtomic(pricesPath, prices);
+  return { planned, missing };
+}
+
+/**
+ * What the run reports and how it exits. A series still missing its due month
+ * is never "nothing to do": it is a warning in an append run, and a failure in
+ * `--check` mode, as this script's header promises.
+ */
+export function toolsMonthliesOutcome({ planned, missing, check, expectedYm }) {
+  const warnings = missing.length
+    ? [`${missing.join(', ')}: no closed ${expectedYm} bar yet — the month is still missing`]
+    : [];
+  return {
+    nothingToDo: planned.length === 0 && missing.length === 0,
+    warnings,
+    exitCode: check && (planned.length > 0 || missing.length > 0) ? 1 : 0,
+  };
 }
 
 // Run ONLY when invoked directly: importing a writing script must be a no-op.
@@ -104,10 +132,14 @@ if (isDirectInvocation(import.meta.url)) {
   console.log(
     `\n=== tools-monthlies (F-M8) — ${checkMode ? 'CHECK' : 'APPEND'} · expected month ${expectedYm} ===`
   );
-  const planned = await appendPriceMonths(expectedYm, checkMode);
-  if (!planned.length) {
+  const { planned, missing } = await appendPriceMonths(expectedYm, checkMode);
+  const outcome = toolsMonthliesOutcome({ planned, missing, check: checkMode, expectedYm });
+  for (const w of outcome.warnings) {
+    console.log(`${process.env.GITHUB_ACTIONS ? '::warning::' : '  ⚠ '}${w}`);
+  }
+  if (outcome.nothingToDo) {
     console.log(`  all price series already carry ${expectedYm} — nothing to do.\n`);
-  } else {
+  } else if (planned.length) {
     for (const p of planned)
       console.log(
         `  ${checkMode ? 'MISSING' : 'appended'} ${p.code} ${expectedYm} close ${p.row.close}`
@@ -118,10 +150,11 @@ if (isDirectInvocation(import.meta.url)) {
     );
   }
 
-  if (checkMode && planned.length) {
+  if (outcome.exitCode) {
     console.error(
-      `✖ ${planned.length} price series missing ${expectedYm} — run tools-monthlies.mjs\n`
+      `✖ ${planned.length + missing.length} price series missing ${expectedYm}` +
+        `${planned.length ? ' — run tools-monthlies.mjs' : ''}${missing.length ? ` (no bar yet: ${missing.join(', ')})` : ''}\n`
     );
-    process.exit(1);
+    process.exit(outcome.exitCode);
   }
 }

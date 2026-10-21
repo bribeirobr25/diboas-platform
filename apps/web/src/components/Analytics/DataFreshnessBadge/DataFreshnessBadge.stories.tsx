@@ -23,7 +23,6 @@ export const Delayed: Story = {
   args: {
     status: 'DELAYED',
     source: 'FRED:M2SL',
-    message: 'Liquidity data reflects the latest available monthly release.',
   },
 };
 export const Stale: Story = { args: { status: 'STALE', source: 'FRED:DGS10' } };
