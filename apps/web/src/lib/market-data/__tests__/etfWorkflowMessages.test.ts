@@ -391,7 +391,7 @@ describe('the weekly workflow ETF wording, executed', () => {
     expect(r.outputs).toMatchObject({ outcome: 'recorded', status: 'ok' });
     expect(r.outputs.note).toBeUndefined();
     expect(r.log).toContain(
-      '::notice::ETF-01 snapshot recorded for this week. This step failed after writing it (see its log); the ledger record stands.'
+      '::notice::ETF-01 snapshot recorded for this week. This step failed after writing it (see its log). The record is in the ledger on this runner: it reaches the refresh PR if the run opens one, and is saved as the run artifact otherwise.'
     );
     expect(r.log).not.toContain('::warning::');
     expect(r.log).not.toMatch(CLAIMS_NOTHING_RECORDED);
