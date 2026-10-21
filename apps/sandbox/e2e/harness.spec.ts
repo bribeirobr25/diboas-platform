@@ -20,6 +20,14 @@ async function onboard(page: Page, origin = ''): Promise<void> {
   await page.waitForURL(/\/en$/);
 }
 
+/**
+ * Home has rendered: its h1 is named by the "Play balance" label. The visible label is
+ * aria-hidden and the h1 carries the same words for assistive tech (lane audit 2026-10-21, C1),
+ * so the text appears twice; the heading's accessible name is the one unambiguous target.
+ */
+const homeHeading = (page: Page) =>
+  page.getByRole('heading', { level: 1, name: /^Play balance\b/ });
+
 const ledgerLength = (page: Page) =>
   page.evaluate(
     (key) => JSON.parse(localStorage.getItem(key) ?? '[]').length as number,
@@ -28,7 +36,7 @@ const ledgerLength = (page: Page) =>
 
 test('a trivial journey: onboarding lands on Home with the play-money grant', async ({ page }) => {
   await onboard(page);
-  await expect(page.getByText('Play balance', { exact: true })).toBeVisible();
+  await expect(homeHeading(page)).toBeVisible();
   await expect(page.getByText('10,000.00').first()).toBeVisible();
   expect(await ledgerLength(page)).toBe(1);
 });
@@ -53,7 +61,7 @@ test('MULTI-PAGE: two live tabs in one context share the origin’s storage and 
     .toBeGreaterThan(0);
   // B never onboarded; it is the same user, so it sees A's ledger and session.
   await b!.goto('/en');
-  await expect(b!.getByText('Play balance', { exact: true })).toBeVisible();
+  await expect(homeHeading(b!)).toBeVisible();
   expect(await ledgerLength(b!)).toBe(1);
 });
 
@@ -87,7 +95,7 @@ test('CDP LIFECYCLE: a tab is frozen and resumed the way the browser does it', a
   // The other tab of the same user stays live and sees the frozen tab's ledger.
   await b!.bringToFront();
   await b!.goto(`${server.origin}/en`);
-  await expect(b!.getByText('Play balance', { exact: true })).toBeVisible();
+  await expect(homeHeading(b!)).toBeVisible();
   expect(await ledgerLength(b!)).toBe(1);
 
   await setLifecycle(a!, 'active');
