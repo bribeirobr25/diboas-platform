@@ -385,6 +385,36 @@ Default to the more conservative §10.1 path when in doubt — overclaiming "con
 
 **Never** hand-edit ETF-01's state, points or `regime.coverage`; regenerate through the pipeline.
 
+### The weekly PR is titled "LEDGER CHECK FAILED, do not merge as is" (2026-10-20)
+
+**What it means.** Before opening the weekly PR, the workflow compares every JSONL ledger in `apps/web/data/market/shared/` with the commit it started from (`main` for the scheduled run). A ledger may only grow by complete rows. The title appears when that is not true. Typically a write failed part-way and left a fragment of a row at the end of `etf-shares-weekly.jsonl`, `etf-snapshot-attempts.jsonl` or `run-archive.jsonl`. The title also appears when the check itself could not complete (for example, Git could not read a ledger's committed version). The body then says the ledgers' integrity is **UNVERIFIED**: nothing was found wrong, and nothing was ruled out. The PR body names the file and the problem; the "Ledger append check" step log has the detail.
+
+**What to do.** **Do not merge as is.** Merging would make the fragment a permanent line of a public append-only ledger. Nothing was removed or repaired automatically, by design. **Ask the market lane (CC) to handle it.** Which fix applies is an **owner decision still to be made** (register it if it has not been):
+
+- **(a)** remove only the fragment this run added, on the PR branch, before merging;
+- **(b)** keep the fragment and record it.
+
+**Before either:**
+
+- **preserve** the original file, the PR diff, checksums and the run log;
+- **verify the actual case:** which bytes this run added, whether any valid row came with them, and whether derived data written in the same run is consistent with the raw ledger. If the affected bytes are uncertain, stop for case-specific review.
+
+**Never:**
+
+- edit or truncate a row that was already on `main`;
+- truncate a file automatically.
+
+Readers skip an unparseable line and the next append starts a fresh line, so an isolated fragment usually leaves the same parsed rows. **That alone does not prove the publication is unaffected** (provenance, raw-versus-derived consistency), which is why the case is verified, not assumed.
+
+### The weekly run failed after the ETF step had recorded the week (2026-10-21)
+
+**What happens:** every step after the ETF collection runs only if the previous ones succeed. When a later step fails (a stale input, a source outage, a data check), no PR opens, and this week's ETF record would be lost with the runner. The run therefore keeps both files as an artifact named `etf-ledger-<run id>`, for 90 days:
+
+- `etf-shares-weekly.jsonl`;
+- `etf-snapshot-attempts.jsonl`.
+
+**What to do:** ask the market lane to recover it. Recovery is a manual, reviewed change that **appends only** the missing complete week to `main`'s ledger; it never rewrites existing rows. The ledger check then verifies it in the next weekly PR.
+
 ## 9. What this doc deliberately does NOT cover
 
 - **Adding a new signal** (e.g., a sixth BTC structure indicator) — this is an engineering change (SDK contract extension). Request via product channel.

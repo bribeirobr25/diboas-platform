@@ -88,7 +88,7 @@ jobs:
           fi
           echo "No open refresh PR — safe to run."
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           # 5.135: keep the workflow token out of .git/config for later steps.
           # create-pull-request configures its own auth from its `token:` input
@@ -96,9 +96,9 @@ jobs:
           # files first), so nothing here relies on checkout-persisted creds.
           persist-credentials: false
 
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 24
           cache: pnpm
@@ -145,7 +145,7 @@ jobs:
           if [ "$outcome" = 'ok' ] || [ "$outcome" = 'recorded' ]; then
             echo 'status=ok' >> "$GITHUB_OUTPUT"
             if [ "$outcome" = 'recorded' ]; then
-              echo "::notice::ETF-01 snapshot recorded for this week. This step failed after writing it (see its log); the ledger record stands."
+              echo "::notice::ETF-01 snapshot recorded for this week. This step failed after writing it (see its log). The record is in the ledger on this runner: it reaches the refresh PR if the run opens one, and is saved as the run artifact otherwise."
             fi
             exit 0
           fi
@@ -241,6 +241,20 @@ jobs:
       - name: Format check on pipeline-written files
         run: pnpm exec prettier --check "apps/web/data/market/**/*.json" "apps/web/src/lib/market-data/data/*.json"
 
+      # 2026-10-20: a failed append can leave part of a row in a ledger, and the
+      # ETF leg is fail-open, so a run can still reach this point. Reported in
+      # the PR title and body, never repaired: the ledgers are append-only
+      # (5.302). continue-on-error: if the check itself cannot run, the PR is
+      # still opened (a lost week of ETF collection is not known to be reconstructible)
+      # and its empty status is treated as NOT ok below.
+      - name: Ledger append check (reported)
+        id: ledgers
+        continue-on-error: true
+        run: |
+          node apps/web/scripts/market-refresh/check-ledgers.mjs \
+            --status "$RUNNER_TEMP/ledger-status" --note "$RUNNER_TEMP/ledger-note.md"
+          echo "status=$(cat "$RUNNER_TEMP/ledger-status")" >> "$GITHUB_OUTPUT"
+
       # Written to RUNNER_TEMP, never the workspace: create-pull-request commits
       # every change in the working tree, so a body file inside the repo would
       # be committed into the refresh PR.
@@ -251,6 +265,7 @@ jobs:
           ETF_STATUS: ${{ steps.etf.outputs.status }}
           ETF_TITLE: ${{ steps.etf.outputs.title }}
           ETF_NOTE: ${{ steps.etf.outputs.note }}
+          LEDGER_STATUS: ${{ steps.ledgers.outputs.status }}
         run: |
           BODY="$RUNNER_TEMP/pr-body.md"
           {
@@ -291,6 +306,20 @@ jobs:
               echo '- Memo figure reconciliation: green (memo agrees with this cycle'"'"'s engine values)'
             } >> "$BODY"
           fi
+          if [ "$LEDGER_STATUS" = 'ok' ]; then
+            echo '- Ledger append check: only complete rows were appended to the JSONL ledgers' >> "$BODY"
+          else
+            {
+              echo
+              echo '## ⚠️ Ledger check did not pass: do not merge as is'
+              echo
+              if [ -s "$RUNNER_TEMP/ledger-note.md" ]; then
+                cat "$RUNNER_TEMP/ledger-note.md"
+              else
+                echo 'The check did not run to completion, so the ledgers are unverified (read the "Ledger append check" step log).'
+              fi
+            } >> "$BODY"
+          fi
           if [ "$ETF_STATUS" = 'failed' ]; then
             {
               echo
@@ -323,8 +352,12 @@ jobs:
           token: ${{ secrets.MARKET_REFRESH_PR_TOKEN || github.token }}
           branch: editorial/market-refresh-auto
           commit-message: 'data(market): weekly refresh (automated)'
+          # The ledger check outranks the memo: an empty status (the check did
+          # not run) is treated as not ok.
           title: >-
-            ${{ steps.memo.outputs.status == 'stale'
+            ${{ steps.ledgers.outputs.status != 'ok'
+            && 'data(market): weekly refresh — LEDGER CHECK FAILED, do not merge as is'
+            || steps.memo.outputs.status == 'stale'
             && 'data(market): weekly refresh — MEMO REWRITE REQUIRED before merge'
             || 'data(market): weekly refresh — review before merge' }}
           body-path: ${{ runner.temp }}/pr-body.md
@@ -332,3 +365,20 @@ jobs:
             ${{ steps.memo.outputs.status == 'stale'
             && 'market-refresh,needs-editorial-review,memo-rewrite-required'
             || 'market-refresh,needs-editorial-review' }}
+
+      # 2026-10-21 (review gate): every step after the ETF leg runs only on
+      # success, so a later failure (STALE INPUT, a source outage, a gate)
+      # stopped the job before the PR and the runner, with this week's ETF
+      # record on it, was discarded. Keep the ETF files whenever the run fails
+      # after the leg wrote something, or may have written part of something
+      # ('error': a failed append exits 1). Recovery is a manual, reviewed append.
+      - name: Keep the ETF ledger files when the run fails after the ETF leg
+        if: ${{ failure() && (steps.etf.outputs.outcome == 'ok' || steps.etf.outputs.outcome == 'recorded' || steps.etf.outputs.outcome == 'refused' || steps.etf.outputs.outcome == 'error') }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: etf-ledger-${{ github.run_id }}
+          path: |
+            apps/web/data/market/shared/etf-shares-weekly.jsonl
+            apps/web/data/market/shared/etf-snapshot-attempts.jsonl
+          if-no-files-found: warn
+          retention-days: 90

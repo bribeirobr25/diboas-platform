@@ -78,7 +78,7 @@ import { selectSignalTemplate } from './lib/template-select.mjs';
 import { planWeeklyOpener } from './lib/weekly-opener.mjs';
 import { cycleCoverage } from './lib/coverage.mjs';
 import { BANDS } from './lib/regime-engine.mjs';
-import { SHARED_DIR } from './providers/inrepo.mjs'; // 5.92: run-shared outputs
+import { RUN_ARCHIVE_PATH, SHARED_DIR } from './providers/inrepo.mjs'; // 5.92: run-shared outputs
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const TPL_DIR = path.join(__dirname, 'templates');
@@ -400,7 +400,7 @@ function applyOverride(pathKey, value) {
 
 /** Raw run-archive.jsonl ('' if absent). */
 function readArchiveText() {
-  const archivePath = path.join(SHARED_DIR, 'run-archive.jsonl');
+  const archivePath = RUN_ARCHIVE_PATH;
   return fs.existsSync(archivePath) ? fs.readFileSync(archivePath, 'utf8') : '';
 }
 
@@ -470,7 +470,7 @@ function realSnapshotCount() {
   // as measured history. The other half was a hand-flip of synthetic_seed.
   // 5.302: the day-grouping rule itself now lives in archive.mjs, shared with
   // priorRunSignals, so the two cannot answer "which days are real" differently.
-  const archivePath = path.join(SHARED_DIR, 'run-archive.jsonl');
+  const archivePath = RUN_ARCHIVE_PATH;
   if (!fs.existsSync(archivePath)) return 0;
   return runDayIndex(readArchiveRows(fs.readFileSync(archivePath, 'utf8'))).size;
 }

@@ -26,7 +26,7 @@
     "analytics:report": "turbo run analytics-report",
     "validate:translations": "node packages/i18n/scripts/validate-translations.js",
     "validate:market-data": "node scripts/check-market-data-jargon.mjs && pnpm --filter web exec vitest run src/lib/analytics-sdk/__tests__/fixtures.test.ts",
-    "market:audit": "pnpm --filter web exec vitest run src/lib/market/__tests__/experimentalAudit.test.ts src/lib/market-data/__tests__/jsonlAppend.test.ts src/lib/market/__tests__/etfDailyRoute.test.ts src/lib/market/__tests__/etfDailyRequest.test.ts src/lib/market/__tests__/experimentalRendering.test.tsx src/lib/market/__tests__/etfSnapshotOnly.test.ts src/lib/market/__tests__/presentationState.test.ts src/components/Analytics/__tests__/marketAccessibleText.test.tsx",
+    "market:audit": "pnpm --filter web exec vitest run src/lib/market/__tests__/experimentalAudit.test.ts src/lib/market-data/__tests__/jsonlAppend.test.ts src/lib/market/__tests__/etfDailyRequest.test.ts src/lib/market/__tests__/etfDailyRoute.test.ts src/lib/market-data/__tests__/ledgerAppendCheck.test.ts src/lib/market/__tests__/partialWriteEntryPoint.test.ts src/lib/market/__tests__/ledgerCheckCommand.test.ts src/lib/market/__tests__/experimentalRendering.test.tsx src/lib/market/__tests__/etfSnapshotOnly.test.ts src/lib/market/__tests__/presentationState.test.ts src/components/Analytics/__tests__/marketAccessibleText.test.tsx",
     "market:audit:experiments": "node scripts/market-audit-experiments.mjs",
     "validate:sdk-invariant": "node scripts/validate-sdk-invariant.mjs",
     "validate:investor-figures": "node scripts/validate-investor-figures.mjs",

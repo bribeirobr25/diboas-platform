@@ -56,6 +56,7 @@ import {
   appendBtcMonth,
   MONTHLY_PRICES_PATH,
   REPO_ROOT,
+  RUN_ARCHIVE_PATH,
   SHARED_DIR,
 } from './providers/inrepo.mjs';
 
@@ -63,7 +64,7 @@ import {
 // backdrop, umbrella) — `SHARED_DIR` (providers/inrepo.mjs, one definition).
 const COMPUTED_PATH = path.join(SHARED_DIR, 'computed.json');
 const REGIME_PATH = path.join(SHARED_DIR, 'regime.json');
-const ARCHIVE_PATH = path.join(SHARED_DIR, 'run-archive.jsonl');
+const ARCHIVE_PATH = RUN_ARCHIVE_PATH;
 const ETF_MANUAL_PATH = path.join(SHARED_DIR, 'etf01-manual.json');
 
 const TODAY = new Date();
@@ -346,13 +347,22 @@ async function main() {
 
 /**
  * The first line of a failed run's report. It states only what this run
- * established: refusal evidence, a recorded ETF week, or the files already
+ * established: refusal evidence, a recorded ETF week, the files already
  * written before the failure (2026-10-20: a failure after the BTC append or
- * after `computed.json` used to say "nothing written beyond the log").
+ * after `computed.json` used to say "nothing written beyond the log"), and an
+ * append that failed part-way (2026-10-20, the same day: a failed ETF-ledger or
+ * refusal-evidence append could leave part of a row on disk while the report
+ * said "nothing written").
  *
- * @param {{notRecorded: boolean, kind?: string, etfWeekRecorded: boolean, written: string[]}} state
+ * `written` lists COMPLETED writes only. `partial` is the one append that
+ * failed (`appendJsonlLine`'s `partialAppend`, path made repository-relative):
+ * `bytesAdded` 0 means the file is unchanged, null that its size could not be
+ * read again, so either way the report cannot claim it is untouched.
+ *
+ * @param {{notRecorded: boolean, kind?: string, etfWeekRecorded: boolean, written: string[],
+ *   partial?: {file: string, bytesAdded: number|null} | null}} state
  */
-export function failureHeadline({ notRecorded, kind, etfWeekRecorded, written }) {
+export function failureHeadline({ notRecorded, kind, etfWeekRecorded, written, partial = null }) {
   if (notRecorded) {
     return kind === 'refused'
       ? 'ETF snapshot NOT added to the ledger — only the attempt evidence was written'
@@ -362,12 +372,26 @@ export function failureHeadline({ notRecorded, kind, etfWeekRecorded, written })
   const files = written.length
     ? `; already written by this run (review before committing anything): ${written.join(', ')}`
     : '';
+  const maybePartial = partial !== null && partial.bytesAdded !== 0;
+  const growth =
+    maybePartial &&
+    (partial.bytesAdded === null
+      ? 'its size could not be read after the failure'
+      : `${partial.bytesAdded} bytes added before the failure`);
+  const partialNote = maybePartial
+    ? `; ${partial.file} may now end in a partial line (${growth}, left as written)`
+    : '';
   if (etfWeekRecorded) {
-    return `market-refresh failed closed AFTER this week’s ETF snapshot was recorded — the ledger line stands${files}`;
+    return `market-refresh failed closed AFTER this week’s ETF snapshot was recorded — the ledger line stands${files}${partialNote}`;
   }
-  return files
-    ? `market-refresh failed closed AFTER writing files${files}`
-    : 'market-refresh failed closed — nothing written beyond the log';
+  if (files) return `market-refresh failed closed AFTER writing files${files}${partialNote}`;
+  if (maybePartial) {
+    return (
+      `market-refresh failed closed — no write completed, but ${partial.file} may now end in a ` +
+      `partial line (${growth}, left as written; review before committing anything)`
+    );
+  }
+  return 'market-refresh failed closed — nothing written beyond the log';
 }
 
 // Run ONLY when invoked directly: importing a writing script must be a no-op.
@@ -377,7 +401,13 @@ if (isDirectInvocation(import.meta.url)) {
     // A week not added to the ledger exits with its own code, so the weekly
     // workflow can word the two cases differently (ETF_SNAPSHOT_EXIT).
     const notRecorded = e instanceof EtfSnapshotNotRecorded;
-    const head = failureHeadline({ notRecorded, kind: e.kind, etfWeekRecorded, written });
+    const partial = e?.partialAppend
+      ? {
+          file: path.relative(REPO_ROOT, e.partialAppend.path),
+          bytesAdded: e.partialAppend.bytesAdded,
+        }
+      : null;
+    const head = failureHeadline({ notRecorded, kind: e.kind, etfWeekRecorded, written, partial });
     console.error(`\n✖ ${head}:\n  ${e.message}`);
     const code = notRecorded
       ? (ETF_SNAPSHOT_EXIT[e.kind] ?? 1)
