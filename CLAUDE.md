@@ -425,6 +425,9 @@ R-rows from `docs/tech/robustness-checklist.md` (PASS / N-A per row) in its self
 - 100% for security utilities
 - Naming: `should [expected behavior] when [condition]`
 - Required: hooks with async behavior, error handlers, security utilities, API routes
+- **Every defect leaves a guard:** a confirmed bug, regression or side effect closes only with an
+  automated guard that fails if it comes back, plus a recorded search for the same mistake elsewhere —
+  `docs/tech/coding-standards.md` § Every defect leaves a guard; checked by `pnpm review:guards`
 - Tools: Vitest + @testing-library/react
 - Environment: node (default); add jsdom as dev dependency for DOM-based component tests
 - **`apps/sandbox` DOM test harness: ✅ BUILT (2026-08-08, R1 Phase 0)** — `@vitejs/plugin-react` +

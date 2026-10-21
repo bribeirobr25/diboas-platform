@@ -45,6 +45,8 @@
     "review:increment": "node scripts/review-gate.mjs increment",
     "review:system": "node scripts/review-gate.mjs system",
     "review:register": "node scripts/review-gate.mjs register",
+    "review:guards": "node scripts/review-gate.mjs guards",
+    "review:ci-parity": "node scripts/review-gate.mjs ci-parity",
     "review:port": "node scripts/review-gate.mjs port",
     "review:counts": "node scripts/review-gate.mjs counts",
     "review:authorities": "node scripts/review-gate.mjs authorities",

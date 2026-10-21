@@ -606,3 +606,45 @@ describe('the token file carries nothing dead, and the copy is gone (5.215)', ()
     expect(layout).not.toMatch(/design-tokens/);
   });
 });
+
+/**
+ * `5.601`'s class, guarded as a class (the "every defect leaves a guard" rule,
+ * `coding-standards.md`). In dark the ink surface IS the canvas, so anything filled
+ * with it on the page loses its shape: the goal page's main button read as a label,
+ * and the focused skip link vanished into the page. A new ink fill must be listed
+ * here with why it is safe, or with the register id that still owes its fix.
+ */
+describe('nothing is filled with the ink surface that IS the dark canvas (5.601)', () => {
+  const INK_FILL = /(^|[;{\s])background(?:-color)?\s*:\s*var\(--sb-surface-inverse\)\s*;/;
+  /** `file selector` → why the ink fill is allowed there, or the id that owes the fix. */
+  const ALLOWED: Record<string, string> = {
+    'components/BottomSheet.module.css .ink':
+      '5.605 OPEN: the sheet sits on a scrim of the same colour in dark; fix proposed',
+  };
+  const inkFills = CONSUMERS.flatMap(({ file, css }) =>
+    [...stripComments(css).matchAll(/([^{}]+)\{([^{}]*)\}/g)]
+      .filter((m) => INK_FILL.test(m[2]!))
+      .map((m) => `${file} ${m[1]!.trim()}`)
+  );
+
+  it('should still be a trap: in every dark theme the ink surface resolves to the canvas', () => {
+    // If this ever fails, the dark ink stopped being the page colour and the
+    // allow-list below can be revisited, not silently kept.
+    for (const mode of MODES) {
+      const st = darkExplicit(mode);
+      const ratio = contrast(
+        colourIn('--sb-surface-inverse', st),
+        colourIn('--sb-canvas-base', st)
+      );
+      expect(ratio, `${mode}-dark ink vs canvas`).toBeLessThan(1.1);
+    }
+  });
+
+  it('should fill with the ink surface only where it is recorded with a reason', () => {
+    expect(inkFills.filter((at) => !(at in ALLOWED))).toEqual([]);
+  });
+
+  it('should hold no allow-list entry that no longer exists', () => {
+    expect(Object.keys(ALLOWED).filter((at) => !inkFills.includes(at))).toEqual([]);
+  });
+});

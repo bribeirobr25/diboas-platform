@@ -365,6 +365,23 @@ export default [
    */
   {
     files: ['e2e/**/*.ts', 'playwright.config.ts'],
-    rules: { 'react-hooks/rules-of-hooks': 'off' },
+    rules: {
+      'react-hooks/rules-of-hooks': 'off',
+      /**
+       * `5.604`: a text locator breaks whenever accessibility work repeats a
+       * visible label for assistive tech (an `srOnly` copy beside an
+       * `aria-hidden` original). Three harness tests failed in CI that way.
+       * Locate by role, label or test id; their accessible names are the
+       * unambiguous target.
+       */
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: "CallExpression[callee.property.name='getByText']",
+          message:
+            'Locate by role, label or test id, not by text: a11y work can repeat visible text for assistive tech (5.604).',
+        },
+      ],
+    },
   },
 ];

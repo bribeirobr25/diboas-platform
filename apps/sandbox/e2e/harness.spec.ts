@@ -37,7 +37,7 @@ const ledgerLength = (page: Page) =>
 test('a trivial journey: onboarding lands on Home with the play-money grant', async ({ page }) => {
   await onboard(page);
   await expect(homeHeading(page)).toBeVisible();
-  await expect(page.getByText('10,000.00').first()).toBeVisible();
+  await expect(homeHeading(page)).toContainText('10,000.00');
   expect(await ledgerLength(page)).toBe(1);
 });
 
