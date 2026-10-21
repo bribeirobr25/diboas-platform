@@ -1,0 +1,35 @@
+# Reference-data freshness alert (2026-10-21, founder decision on the
+# /protocols TVL freshness proposal).
+#
+# WHY THIS EXISTS: the /protocols TVL figures (refreshed quarterly, owner: the
+# founder) and the historical anchors (yearly) used to be guarded by
+# wall-clock unit tests, which turned EVERY lane's CI red on a calendar date
+# and were the only reminder. CI now blocks only a change to that data; this
+# scheduled run is the reminder: it FAILS while any subject is past its limit,
+# and a failed scheduled run emails the repository owner. Read-only; it never
+# writes data or opens a PR.
+#
+# Remedy for the TVL figures: `node apps/web/scripts/protocols-tvl/refresh.mjs`,
+# review the diff, open a PR (the date only moves with new figures).
+
+name: Data Freshness
+
+on:
+  schedule:
+    - cron: '0 7 * * 3' # Wednesdays 07:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+      - name: Fail while any reference data is past its limit
+        run: node apps/web/scripts/data-freshness/check.mjs --enforce-all

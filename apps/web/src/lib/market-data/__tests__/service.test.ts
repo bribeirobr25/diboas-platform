@@ -13,6 +13,7 @@
 import { describe, it, expect } from 'vitest';
 import { marketDataService } from '../service';
 import { FALLBACK_MARKET_DATA } from '../constants';
+import PROTOCOLS_TVL from '../data/protocolsTvl.json';
 import {
   ANCHOR_PRICES,
   BRL_USD_BUCKETS,
@@ -59,19 +60,20 @@ describe('marketDataService — Phase C+ historicalAnchors snapshot slice', () =
   });
 });
 
-describe('Phase I — protocolData.tvl extension', () => {
-  it('protocolData.tvl.combined is populated from constants', () => {
-    const snapshot = marketDataService.getSync();
-    expect(snapshot.protocolData.tvl.combined).toBeDefined();
-    expect(typeof snapshot.protocolData.tvl.combined).toBe('string');
-    expect(snapshot.protocolData.tvl.combined!.length).toBeGreaterThan(0);
-  });
-
-  it('protocolData.updatedAt is within 90 days (monthly-refresh discipline)', () => {
-    const snapshot = marketDataService.getSync();
-    const updatedAt = new Date(snapshot.protocolData.updatedAt).getTime();
-    const ageDays = (Date.now() - updatedAt) / (1000 * 60 * 60 * 24);
-    expect(ageDays).toBeLessThan(90);
+// The /protocols TVL figures' age is NOT checked here (2026-10-21): a
+// wall-clock assertion in this suite turned every lane's CI red on a calendar
+// date. Their freshness is `scripts/data-freshness/check.mjs` (blocks only a
+// change that touches them; a scheduled run alerts the owner), and their
+// consistency is `components/Pages/Protocols/__tests__/protocolsTvl.test.tsx`.
+describe('protocolData', () => {
+  it('should serve the figures and pull date of the one committed DeFiLlama pull', () => {
+    const { protocolData } = marketDataService.getSync();
+    expect(protocolData.updatedAt).toBe(PROTOCOLS_TVL.pulled_at);
+    expect(protocolData.tvl).toEqual({
+      combinedUsd: PROTOCOLS_TVL.combined.usd,
+      combinedFloorUsd: PROTOCOLS_TVL.combined.floor_usd,
+    });
+    expect(protocolData.tvl.combinedUsd).toBeGreaterThanOrEqual(protocolData.tvl.combinedFloorUsd);
   });
 });
 

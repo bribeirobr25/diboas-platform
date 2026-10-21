@@ -12,7 +12,6 @@ export interface Protocol {
   name: string;
   description: string;
   founded: string;
-  tvl: string;
   blockchains: string;
   audits: string;
   regulatory: string;

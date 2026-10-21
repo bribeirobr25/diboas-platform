@@ -27,7 +27,7 @@
   "grid": {
     "h2": "Os 25 protocolos",
     "subtitle": "Organizados pelo que fazem. Clique em qualquer card pra ver detalhes.",
-    "tvlFreshness": "Todos os valores de TVL são aproximados, vindos do DeFiLlama, e atualizados em fevereiro de 2026. Os valores variam diariamente.",
+    "tvlFreshness": "Todos os valores de TVL são aproximados, vindos do DeFiLlama, em outubro de 2026, para o protocolo ou produto que cada cartão indica. Os valores variam diariamente.",
     "defiLlamaLink": "Verificar no DeFiLlama"
   },
   "categories": {
@@ -77,7 +77,7 @@
       "description": "O maior sistema de empréstimos das finanças descentralizadas. Você deposita ativos, ganha juros dos tomadores e pode sacar a qualquer momento. Usado por instituições e indivíduos em 18 blockchains.",
       "details": {
         "founded": "2017 (V3: 2022)",
-        "tvl": "~US$35 bilhões",
+        "tvl": "~US$17 bilhões",
         "blockchains": "Ethereum, Arbitrum, Polygon, + 15 mais",
         "audits": "30+ auditorias independentes",
         "regulatory": "SEC encerrou sua investigação de 4 anos sem acusações (dezembro 2025). Fonte: carta de encerramento da SEC compartilhada pelo fundador do Aave; reportado por Yahoo Finance, CoinDesk, Unchained."
@@ -89,7 +89,7 @@
       "description": "Um dos sistemas de empréstimo mais antigos em DeFi. Você ganha juros fornecendo ativos que outros tomam emprestados. Simples, testado em batalha e rodando desde 2018.",
       "details": {
         "founded": "2018 (V3: 2022)",
-        "tvl": "~US$2 bilhões",
+        "tvl": "~US$1,4 bilhão",
         "blockchains": "Ethereum, Arbitrum, Base, Polygon",
         "audits": "4+ auditorias independentes",
         "regulatory": "Totalmente descentralizado. Sem licenças específicas necessárias."
@@ -101,7 +101,7 @@
       "description": "Plataforma tudo-em-um de empréstimos e liquidez da Solana. Combina empréstimos, gestão automatizada de liquidez e alavancagem num só sistema. Você ganha juros emprestando ativos a tomadores, parecido com Aave e Compound.",
       "details": {
         "founded": "2022",
-        "tvl": "~US$2,5 bilhões",
+        "tvl": "~US$1,4 bilhão",
         "blockchains": "Solana",
         "audits": "Múltiplas auditorias da OtterSec",
         "regulatory": "Protocolo descentralizado. Sem incidentes graves."
@@ -112,7 +112,7 @@
       "description": "Conecta credores diretamente com tomadores pra taxas melhores que pools de empréstimo tradicionais. A Coinbase integrou o Morpho na Base pra empréstimos em USDC com garantia de bitcoin (janeiro 2025), originando mais de US$1,2 bilhão em empréstimos até o final de 2025.",
       "details": {
         "founded": "2022",
-        "tvl": "~US$7 bilhões",
+        "tvl": "~US$11 bilhões",
         "blockchains": "Ethereum, Base, Arbitrum",
         "audits": "23+ auditorias independentes",
         "regulatory": "Integrado pela Coinbase (jan. 2025) e Crypto.com (out. 2025) pra empréstimos lastreados em DeFi. Fonte: blog da Coinbase, morpho.org/stories/coinbase, DL News."
@@ -123,7 +123,7 @@
       "description": "Sistema de empréstimos construído sobre o código comprovado do Aave, conectado à liquidez profunda do Sky/MakerDAO. Se beneficia do histórico operacional mais longo em DeFi (desde 2014).",
       "details": {
         "founded": "2023",
-        "tvl": "~US$4 bilhões",
+        "tvl": "~US$5,1 bilhões",
         "blockchains": "Ethereum, Base, Arbitrum",
         "audits": "7+ auditorias independentes",
         "regulatory": "Se beneficia dos 10+ anos de histórico de compliance do MakerDAO"
@@ -134,7 +134,7 @@
       "description": "Empréstimos de próxima geração que combina funcionalidades de múltiplos sistemas estabelecidos. Penalidades de liquidação muito baixas pra tomadores. Você ganha juros dos tomadores, parecido com outros protocolos de empréstimo.",
       "details": {
         "founded": "2024",
-        "tvl": "~US$2 bilhões",
+        "tvl": "~US$1,1 bilhão",
         "blockchains": "Ethereum, Arbitrum, Base",
         "audits": "3+ auditorias independentes",
         "regulatory": "Construído pelo time da Instadapp (6+ anos construindo infraestrutura DeFi)"
@@ -146,7 +146,7 @@
       "description": "Faça staking do seu ETH e receba um token (stETH) que você pode usar em outros lugares enquanto continua ganhando recompensas de staking. O maior serviço de staking em crypto.",
       "details": {
         "founded": "2020",
-        "tvl": "~US$27 bilhões",
+        "tvl": "~US$24 bilhões",
         "blockchains": "Ethereum, Polygon",
         "audits": "20+ auditorias independentes",
         "regulatory": "Declaração da Divisão de Finanças Corporativas da SEC (5 de agosto de 2025): tokens de recebimento de liquid staking, incluindo stETH, não são valores mobiliários sob o Securities Act de 1933 ou o Exchange Act de 1934. Parte da iniciativa \"Project Crypto\" do presidente da SEC, Atkins. Fonte: declaração em SEC.gov; reportado por CoinDesk, Decrypt, CCN."
@@ -157,7 +157,7 @@
       "description": "Staking descentralizado de Ethereum. Você pode fazer staking com apenas 0,01 ETH. Nenhum operador centralizado controla a rede.",
       "details": {
         "founded": "2016 (mainnet 2021)",
-        "tvl": "~US$2 bilhões",
+        "tvl": "~US$1,3 bilhão",
         "blockchains": "Ethereum",
         "audits": "5+ auditorias independentes",
         "regulatory": "Declaração da SEC (5 de agosto de 2025): tokens de recebimento de liquid staking, incluindo rETH, não são valores mobiliários. Mesma declaração que cobre Lido stETH e Jito JitoSOL. Fonte: declaração em SEC.gov."
@@ -168,7 +168,7 @@
       "description": "Liquid staking de Solana que ganha tanto recompensas padrão de staking quanto recompensas adicionais de MEV (arbitragem de trading). Usado nas estratégias de crescimento do diBoaS.",
       "details": {
         "founded": "2022",
-        "tvl": "~US$2,8 bilhões",
+        "tvl": "~US$1,1 bilhão",
         "blockchains": "Solana",
         "audits": "Múltiplas auditorias da Certora, OtterSec",
         "regulatory": "Declaração da SEC (agosto 2025): tokens de recebimento de liquid staking, incluindo JitoSOL, não são valores mobiliários. Fonte: declaração em SEC.gov; reportado por CoinDesk, CCN, Blockchain Magazine."
@@ -180,7 +180,7 @@
       "description": "Staking de Solana distribuído entre 100+ validadores pra melhor descentralização e recompensas. Um dos poucos protocolos DeFi com certificação de compliance institucional.",
       "details": {
         "founded": "2021",
-        "tvl": "~US$550 milhões",
+        "tvl": "~US$760 milhões",
         "blockchains": "Solana",
         "audits": "5+ auditorias independentes",
         "regulatory": "Certificado SOC 2 Tipo I e II. Compliance de grau institucional."
@@ -191,7 +191,7 @@
       "description": "Camada de liquidez unificada pra todos os tokens de staking da Solana. Permite trocar instantaneamente entre diferentes ativos em staking sem esperar períodos de unstaking.",
       "details": {
         "founded": "2021",
-        "tvl": "~US$1,7 bilhão",
+        "tvl": "~US$200 milhões",
         "blockchains": "Solana",
         "audits": "Auditado pela Accretion",
         "regulatory": "Sediado em Singapura. Fornece staking pra Binance e Bybit."
@@ -203,7 +203,7 @@
       "description": "Restaking: use seu ETH já em staking pra apoiar outros serviços construídos no Ethereum e ganhar recompensas extras sobre seu rendimento base de staking. Você ganha recompensas de staking mais bônus dos serviços que ajuda a proteger.",
       "details": {
         "founded": "2023",
-        "tvl": "~US$12 bilhões",
+        "tvl": "~US$6,3 bilhões",
         "blockchains": "Ethereum",
         "audits": "Múltiplas auditorias independentes",
         "regulatory": "Programa de bug bounty de US$2 milhões no Immunefi"
@@ -214,7 +214,7 @@
       "description": "O sistema DeFi original. Rodando desde 2014. Deposite crypto como garantia, gere stablecoins, ganhe a taxa de poupança. Sobreviveu a toda grande queda de mercado desde 2017.",
       "details": {
         "founded": "2014",
-        "tvl": "~US$6 bilhões",
+        "tvl": "~US$5,9 bilhões",
         "blockchains": "Ethereum (as estratégias do diBoaS usam o deploy no Arbitrum)",
         "audits": "10+ auditorias independentes",
         "regulatory": "10+ anos de operação contínua através de múltiplos ciclos de mercado"
@@ -226,7 +226,7 @@
       "description": "Cria um dólar sintético (USDe) através de posições protegidas. Oferece rendimentos mais altos que stablecoins tradicionais, mas com um mecanismo mais complexo e perfil de risco mais elevado.",
       "details": {
         "founded": "2023",
-        "tvl": "~US$6,5 bilhões",
+        "tvl": "~US$5,1 bilhões",
         "blockchains": "Ethereum + 23 cadeias",
         "audits": "7+ auditorias independentes",
         "regulatory": "BaFin (Alemanha) rejeitou a solicitação de autorização MiCA em março de 2025, citando \"deficiências significativas\" na estrutura organizacional e cumprimento de reservas. BaFin ordenou a interrupção da emissão/resgate de USDe e congelou ativos de reserva. Ethena GmbH concordou em encerrar operações na Alemanha (abril 2025). Todas as atividades agora operam via Ethena (BVI) Limited, uma entidade das Ilhas Virgens Britânicas. BaFin também levantou preocupações de que sUSDe possa constituir um valor mobiliário não registrado sob a lei alemã. Fontes: aviso oficial da BaFin (21 de março de 2025); Decrypt, The Block, CoinTelegraph, Ledger Insights."
@@ -237,7 +237,7 @@
       "description": "Traz ativos financeiros tradicionais pra blockchain. Títulos do Tesouro dos EUA, títulos e ações como tokens digitais. Adquiriu licenças de broker-dealer e agente de transferência registradas na SEC através da compra da Oasis Pro (concluída em outubro de 2025).",
       "details": {
         "founded": "2021",
-        "tvl": "~US$1,7 bilhão",
+        "tvl": "Não informado pelo DeFiLlama no momento",
         "blockchains": "Ethereum, Solana, Arbitrum",
         "audits": "4+ auditorias independentes",
         "regulatory": "Broker-dealer registrado na SEC, Sistema Alternativo de Negociação (ATS) e licenças de Agente de Transferência adquiridos via Oasis Pro (membro da FINRA desde 2020). Aquisição concluída em outubro de 2025. Mais de US$1,6 bilhão em ativos tokenizados sob gestão. Fontes: blog da Ondo Finance, Blockworks, CoinDesk, FINRA BrokerCheck (Oasis Pro Markets LLC)."
@@ -248,7 +248,7 @@
       "description": "Separa rendimento do principal pra que você possa negociar, travar ou especular com retornos futuros. Permite garantir uma taxa fixa ou apostar que as taxas vão subir.",
       "details": {
         "founded": "2021",
-        "tvl": "~US$4,5 bilhões",
+        "tvl": "~US$1,1 bilhão",
         "blockchains": "Ethereum, Arbitrum, BNB Chain",
         "audits": "6+ auditorias independentes",
         "regulatory": "Bug bounty de US$250 mil. Acordo Safe Harbor vigente."
@@ -259,7 +259,7 @@
       "description": "Yield farming automatizado. Move seu dinheiro entre sistemas pra buscar o melhor rendimento disponível. Um pioneiro rodando desde 2020.",
       "details": {
         "founded": "2020",
-        "tvl": "~US$500 milhões",
+        "tvl": "~US$210 milhões",
         "blockchains": "Ethereum, Arbitrum, Fantom",
         "audits": "6+ auditorias independentes",
         "regulatory": "Pioneiro da agregação de rendimento. 5+ anos de operação contínua."
@@ -270,7 +270,7 @@
       "description": "Exchange especializada em stablecoins e ativos similares. Projetada pra impacto mínimo no preço ao trocar entre ativos de valor similar.",
       "details": {
         "founded": "2020",
-        "tvl": "~US$2,2 bilhões",
+        "tvl": "~US$1,5 bilhão",
         "blockchains": "Ethereum + 20 cadeias",
         "audits": "15+ auditorias independentes",
         "regulatory": "Julho 2023: exploit de US$70 milhões. 73% dos fundos recuperados. A causa raiz foi um bug do compilador (Vyper), não do código da Curve."
@@ -281,7 +281,7 @@
       "description": "Aumenta suas recompensas do Curve sem precisar travar tokens por anos. Simplifica a participação no Curve.",
       "details": {
         "founded": "2021",
-        "tvl": "~US$1,5 bilhão",
+        "tvl": "~US$590 milhões",
         "blockchains": "Ethereum, Arbitrum",
         "audits": "7 auditorias independentes",
         "regulatory": "Nenhum exploit em 4 anos. Uma vulnerabilidade crítica foi encontrada e corrigida em 2022 antes que fundos fossem perdidos."
@@ -292,7 +292,7 @@
       "description": "Exchange perpétuo descentralizado. Você fornece liquidez pra um pool compartilhado. Traders pagam taxas pro pool. Você ganha uma parte de cada operação.",
       "details": {
         "founded": "2021",
-        "tvl": "~US$400 milhões",
+        "tvl": "~US$240 milhões",
         "blockchains": "Arbitrum, Avalanche, Solana",
         "audits": "10+ auditorias independentes",
         "regulatory": "Bug bounty de US$5 milhões no Immunefi (um dos maiores em DeFi)"
@@ -303,7 +303,7 @@
       "description": "O exchange perpétuo líder da Solana. Forneça liquidez e ganhe 70% de todas as taxas de trading. Usado em várias estratégias de crescimento do diBoaS.",
       "details": {
         "founded": "2021 (perpétuos: 2023)",
-        "tvl": "~US$1,6 bilhão",
+        "tvl": "~US$750 milhões",
         "blockchains": "Solana",
         "audits": "6+ auditorias independentes",
         "regulatory": "Mais de US$137 milhões pagos a provedores de liquidez de janeiro a outubro de 2024, baseado em dados de taxas do Dune Analytics (75% de US$183 milhões em taxas totais). Fonte: SolanaFloor / Dune Analytics (outubro 2024). O número é provavelmente significativamente maior na data de publicação."
@@ -315,7 +315,7 @@
       "description": "O principal exchange descentralizado da Solana. Market making automatizado, liquidez concentrada e lançamentos de tokens.",
       "details": {
         "founded": "2021",
-        "tvl": "~US$2 bilhões",
+        "tvl": "~US$1,2 bilhão",
         "blockchains": "Solana",
         "audits": "4+ auditorias independentes",
         "regulatory": "Novembro 2022: exploit de US$4,4 milhões causado por chave de administrador comprometida. Todos os usuários afetados foram reembolsados."
@@ -326,7 +326,7 @@
       "description": "Exchange de Solana fácil de usar, conhecido pelo design limpo, swaps eficientes e um dos históricos de segurança mais sólidos do ecossistema. Você pode fornecer liquidez e ganhar taxas das operações na plataforma.",
       "details": {
         "founded": "2021",
-        "tvl": "~US$400 milhões",
+        "tvl": "~US$310 milhões",
         "blockchains": "Solana",
         "audits": "6+ auditorias independentes",
         "regulatory": "Nenhum exploit em 4+ anos. Elogiado por revisores independentes pela qualidade do código."
@@ -337,7 +337,7 @@
       "description": "Pools de liquidez programáveis que podem conter múltiplos tokens em proporções customizadas. Mais flexível que pools de exchange padrão. Você fornece tokens pro pool e ganha uma parte das taxas de trading.",
       "details": {
         "founded": "2020",
-        "tvl": "~US$258 milhões (pós-exploit; era ~US$775M antes de novembro 2025)",
+        "tvl": "~US$44 milhões (pós-exploit; era ~US$775M antes de novembro 2025)",
         "blockchains": "Ethereum, Arbitrum, Polygon",
         "audits": "11+ auditorias independentes",
         "regulatory": "3 de novembro de 2025: exploit de US$128 milhões afetando pools V2 em Ethereum, Polygon, Base, Arbitrum e outras cadeias. Vulnerabilidade de erro de arredondamento em contratos ComposableStablePool. Aproximadamente US$28 milhões recuperados através de operações whitehat e intervenções do protocolo. A maioria dos fundos (~US$100 milhões) permanece sem recuperação em fevereiro de 2026. Balancer DAO aprovou bounty de recuperação de 10% (BIP-908, fevereiro 2026). V3 (versão atual) NÃO foi afetada por este exploit. As estratégias do diBoaS usam exclusivamente V3. Fontes: Check Point Research, CoinJournal, The Defiant, DL News, Halborn."
@@ -348,7 +348,7 @@
       "description": "Pagamentos internacionais instantâneos e financiamento comercial usando infraestrutura crypto. Parceiros da Circle e da Stellar Development Foundation. Os retornos vêm das taxas cobradas no processamento de pagamentos internacionais.",
       "details": {
         "founded": "2022",
-        "tvl": "~US$100 milhões",
+        "tvl": "~US$380 milhões",
         "blockchains": "Solana, Stellar, Polygon",
         "audits": "6+ auditorias independentes",
         "regulatory": "Parcerias estratégicas com Circle e Stellar Development Foundation"
@@ -373,7 +373,7 @@
     "number": "US$25 bilhões",
     "textAfter": "em depósitos de usuários nas redes onde operam. É dinheiro de verdade, de pessoas de verdade, já dentro desses sistemas.",
     "context": "Isso não significa que seu dinheiro está em todos eles. Cada estratégia do diBoaS usa protocolos específicos adequados ao seu nível de risco e objetivos. Veja a página de Estratégias pra saber quais protocolos são usados em cada estratégia.",
-    "source": "TVL combinado obtido do DeFiLlama. Última verificação: agosto de 2026. Os valores variam diariamente."
+    "source": "TVL combinado de seis destes protocolos (Aave, Sky, Jupiter, Sanctum, Compound e Jito) em todas as redes onde operam, segundo o DeFiLlama, em outubro de 2026. Os valores variam diariamente."
   },
   "notIs": {
     "h2": "Atenção",
