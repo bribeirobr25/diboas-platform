@@ -420,7 +420,18 @@ Readers skip an unparseable line and the next append starts a fresh line, so an 
   - `tools-monthlies.mjs` backfills every month between a series' last row and the due month, oldest first, from the same Yahoo fetch and with the same checks;
   - if Yahoo has not closed a month yet, that series stops there, and the run prints a warning naming it. `--check` fails on it;
   - the next weekly run picks it up. Nothing is ever appended with a hole.
+- **A tools series could not be read at all** (C1c, 2026-10-21): a Yahoo error, a timeout or a bar that fails its checks stops only that series. The others still update, the run continues, and the weekly PR has a section **"Money Tools monthly prices behind"** naming the series and the reason. It is not a reason to hold the PR: these series feed the Money Tools only, never the /market score. The next run retries; if the same series is named for several weeks, ask the market lane to look at its source.
 - **BTC is different:** a gap stops the refresh, because the score is never computed over a missing month. The run fails with "does not follow the last row … (expected …)". Ask the market lane to append the missing month(s) first, with the usual dual-source check, as a reviewed change, then re-run.
+
+### The Monday run was missed or failed: the Tuesday second attempt (C1d, 2026-10-21)
+
+The workflow is also scheduled on **Tuesdays at 06:17 UTC**. Its first job decides, from the run history:
+
+- this week (since Monday 00:00 UTC) already has a successful run: it skips;
+- a refresh PR is open: it skips with a warning (the run would refuse to overwrite it anyway);
+- otherwise (Monday was dropped by GitHub or failed): it runs the full refresh.
+
+Monday runs and manual dispatches always refresh. The Monday-night watchdog still alarms on a missed Monday; dispatching by hand stays the faster fix. A Tuesday skip shows as a short green run in the Actions list; that is expected.
 
 ## 9. What this doc deliberately does NOT cover
 

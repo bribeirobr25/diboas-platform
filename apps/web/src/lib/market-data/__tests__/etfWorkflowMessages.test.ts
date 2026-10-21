@@ -424,9 +424,14 @@ describe('the weekly workflow ETF wording, executed', () => {
     expect(stepBlock('Refresh pipeline (fetch → gate → compute → archive)')).not.toMatch(
       /continue-on-error/
     );
-    const job = WORKFLOW.slice(WORKFLOW.indexOf('\njobs:'), WORKFLOW.indexOf('\n    steps:'));
-    expect(job).toContain('  refresh:');
-    expect(job).not.toMatch(/continue-on-error/);
+    // C1d (2026-10-21): a read-only `decide` job precedes `refresh`; neither
+    // job may turn a failure into a pass.
+    const jobs = WORKFLOW.slice(WORKFLOW.indexOf('\njobs:'));
+    const refreshAt = jobs.indexOf('\n  refresh:\n');
+    expect(refreshAt).toBeGreaterThan(-1);
+    const refreshHeader = jobs.slice(refreshAt, jobs.indexOf('\n    steps:', refreshAt));
+    expect(refreshHeader).not.toMatch(/continue-on-error/);
+    expect(jobs.slice(0, refreshAt)).not.toMatch(/continue-on-error/);
     const script = runScript('Refresh pipeline (fetch → gate → compute → archive)');
     expect(script).toContain('node apps/web/scripts/market-refresh/run.mjs --append-btc');
     expect(script).not.toMatch(/\|\| *true|\|\| *:|set \+e/);

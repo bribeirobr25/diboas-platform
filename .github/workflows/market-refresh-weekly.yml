@@ -34,6 +34,9 @@ on:
     # cron minutes; every past run was already 1-2h late and 2026-08-31 never
     # fired at all. The watchdog (market-refresh-watchdog.yml) catches a miss.
     - cron: '17 6 * * 1' # Mondays 06:17 UTC
+    # C1d (2026-10-21): the second attempt. It refreshes only when this week
+    # has no successful run yet (a dropped or failed Monday); see `decide`.
+    - cron: '17 6 * * 2' # Tuesdays 06:17 UTC
   workflow_dispatch: {}
 
 permissions:
@@ -48,7 +51,43 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # C1d: Monday and manual runs always refresh; the Tuesday run refreshes only
+  # when this week has no successful run and no refresh PR is open
+  # (scripts/market-refresh/retry-decision.mjs). Fail-closed: if the lookup
+  # errors, this job fails and nothing refreshes, loudly.
+  decide:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: read
+    outputs:
+      run: ${{ steps.decide.outputs.run }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+      - name: Decide whether this run refreshes
+        id: decide
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RETRY_SCHEDULE: ${{ github.event_name == 'schedule' && github.event.schedule == '17 6 * * 2' }}
+        run: |
+          set -euo pipefail
+          gh run list --repo "$GITHUB_REPOSITORY" --workflow market-refresh-weekly.yml --limit 20 \
+            --json databaseId,conclusion,createdAt > "$RUNNER_TEMP/runs.json"
+          open=$(gh pr list --repo "$GITHUB_REPOSITORY" --head editorial/market-refresh-auto \
+            --state open --json url --jq '.[0].url // empty')
+          OPEN_PR="$open" RUNS_FILE="$RUNNER_TEMP/runs.json" \
+            node apps/web/scripts/market-refresh/retry-decision.mjs >> "$GITHUB_OUTPUT"
+
   refresh:
+    needs: decide
+    if: needs.decide.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     # 5.135: the SECRET itself is now STEP-scoped (only the ETF-01 leg runs the
@@ -179,8 +218,10 @@ jobs:
       - name: Refresh pipeline (fetch → gate → compute → archive)
         run: node apps/web/scripts/market-refresh/run.mjs --append-btc
 
+      # C1c (2026-10-21): a series that cannot be read is reported, not fatal
+      # (these series feed the Money Tools only); the note goes in the PR body.
       - name: Tools monthlies (F-M8 leg — idempotent, appends only at month-roll)
-        run: node apps/web/scripts/market-refresh/tools-monthlies.mjs
+        run: node apps/web/scripts/market-refresh/tools-monthlies.mjs --report "$RUNNER_TEMP/tools-note.md"
 
       - name: Generate editorial copy from templates
         run: node apps/web/scripts/market-refresh/generate.mjs
@@ -318,6 +359,14 @@ jobs:
               else
                 echo 'The check did not run to completion, so the ledgers are unverified (read the "Ledger append check" step log).'
               fi
+            } >> "$BODY"
+          fi
+          if [ -s "$RUNNER_TEMP/tools-note.md" ]; then
+            {
+              echo
+              echo '## Money Tools monthly prices behind'
+              echo
+              cat "$RUNNER_TEMP/tools-note.md"
             } >> "$BODY"
           fi
           if [ "$ETF_STATUS" = 'failed' ]; then
