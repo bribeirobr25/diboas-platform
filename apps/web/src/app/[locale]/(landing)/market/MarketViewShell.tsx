@@ -63,6 +63,7 @@ import {
   coverageNotes,
   historicalDateLabels,
   regimeLabelMap,
+  lowConfidenceReason,
 } from '@/lib/market/presentationState';
 
 const ANALYTICS_API_URL = process.env.NEXT_PUBLIC_ANALYTICS_API_URL ?? '/_mock';
@@ -184,6 +185,32 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
   const historical = initialData.historical;
   const signals = initialData.signals;
   const dataStatus = initialData.dataStatus;
+  // 2026-10-21 (owner-approved copy): a LOW badge says why, from the causes the
+  // read-time check recorded at the same instant. Nothing renders otherwise.
+  const lowReason = lowConfidenceReason(
+    dataStatus,
+    (id) => (view.sourceLabelKeys[id] ? t(view.sourceLabelKeys[id], id) : id),
+    locale,
+    {
+      lead: t('dashboard.lowReason.lead', 'Why confidence is low:'),
+      etf: t(
+        'dashboard.lowReason.etf',
+        'the Bitcoin ETF flow data has had no complete weekly record since {date}. This indicator is suspended and counts for zero points, so it does not change the score itself.'
+      ),
+      staleOne: t(
+        'dashboard.lowReason.staleOne',
+        '{sources} has not been updated within its expected time, so this reading relies on older data than usual.'
+      ),
+      staleOther: t(
+        'dashboard.lowReason.staleOther',
+        '{sources} have not been updated within their expected time, so this reading relies on older data than usual.'
+      ),
+      unavailable: t(
+        'dashboard.lowReason.unavailable',
+        '{count} data sources are unavailable right now, so this reading covers fewer indicators than usual.'
+      ),
+    }
+  );
   const methodology = initialData.methodology;
   // 2026-10-18: reduced coverage while a signal is suspended (regime.coverage,
   // generator-written). Read from the data, never inferred here, so the notes
@@ -310,6 +337,11 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                           labels={confidenceLabels}
                         />
                       </div>
+                      {lowReason ? (
+                        <p className={styles.confidenceReason} data-market-low-reason>
+                          <strong>{lowReason.lead}</strong> {lowReason.sentences.join(' ')}
+                        </p>
+                      ) : null}
                     </div>
                     <div className={styles.scoreCopy}>
                       {regime.summary.plain && <CalmSummary data={regime.summary} length="plain" />}

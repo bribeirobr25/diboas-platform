@@ -17,6 +17,13 @@
       "MODERATE": "Mittlere Konfidenz",
       "LOW": "Niedrige Konfidenz"
     },
+    "lowReason": {
+      "lead": "Warum die Konfidenz niedrig ist:",
+      "etf": "Für die Bitcoin-ETF-Zuflüsse gibt es seit dem {date} keinen vollständigen Wochenwert. Dieser Indikator ist ausgesetzt und zählt null Punkte, er verändert den Wert selbst also nicht.",
+      "staleOne": "{sources} wurde nicht in der erwarteten Zeit aktualisiert, diese Einschätzung beruht also auf älteren Daten als sonst.",
+      "staleOther": "{sources} wurden nicht in der erwarteten Zeit aktualisiert, diese Einschätzung beruht also auf älteren Daten als sonst.",
+      "unavailable": "{count} Datenquellen sind gerade nicht verfügbar, diese Einschätzung umfasst also weniger Indikatoren als sonst."
+    },
     "regimeLabels": {
       "VERY_FAVORABLE": "Sehr günstig",
       "CONSTRUCTIVE": "Konstruktiv",

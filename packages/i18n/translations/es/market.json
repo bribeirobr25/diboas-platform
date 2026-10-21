@@ -17,6 +17,13 @@
       "MODERATE": "Confianza moderada",
       "LOW": "Confianza baja"
     },
+    "lowReason": {
+      "lead": "Por qué la confianza es baja:",
+      "etf": "los datos de flujos de ETF de Bitcoin no tienen un registro semanal completo desde el {date}. Este indicador está suspendido y cuenta cero puntos, así que no cambia la puntuación en sí.",
+      "staleOne": "{sources} no se ha actualizado en el plazo previsto, así que esta lectura usa datos más antiguos de lo habitual.",
+      "staleOther": "{sources} no se han actualizado en el plazo previsto, así que esta lectura usa datos más antiguos de lo habitual.",
+      "unavailable": "{count} fuentes de datos no están disponibles ahora, así que esta lectura cubre menos indicadores de lo habitual."
+    },
     "regimeLabels": {
       "VERY_FAVORABLE": "Muy favorable",
       "CONSTRUCTIVE": "Constructivo",

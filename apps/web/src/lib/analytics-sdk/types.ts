@@ -116,6 +116,13 @@ export interface RegimeSummary {
 
 export interface DataStatus {
   overall_confidence: ConfidenceLevel;
+  /**
+   * Set only when `overall_confidence` is LOW, by the read-time check, at the
+   * same instant and from the same rule (2026-10-21): the sources past their
+   * `stale_after`, and the sources that are unavailable. The page explains a
+   * LOW badge from these facts, so the badge and its reason cannot disagree.
+   */
+  low_confidence_causes?: { past_stale: string[]; unavailable: string[] };
   last_successful_update_at: string | null;
   sources: Array<{
     source: string;
