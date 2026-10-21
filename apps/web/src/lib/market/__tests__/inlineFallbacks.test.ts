@@ -66,3 +66,22 @@ describe('/market inline fallbacks equal the approved en copy', () => {
     expect(inlineFallbacks(src)).toEqual([{ key: 'a.b', fallback: "It's here" }]);
   });
 });
+
+describe('/market metadata fallbacks equal the approved en copy', () => {
+  // viewMetadata.ts serves one title/description fallback for every view when
+  // a seo key is missing; it is the umbrella's approved copy, not a third text.
+  const src = readFileSync(join(VIEWS, 'viewMetadata.ts'), 'utf8');
+  const market = en('market');
+
+  it('should use the umbrella seo.title as the title fallback', () => {
+    const m = src.match(/seo\.title`\]\s*\?\?\s*'([^']+)'/);
+    expect(m, 'title fallback not found').not.toBeNull();
+    expect(m![1]).toBe(market['seo.title']);
+  });
+
+  it('should use the umbrella seo.description as the description fallback', () => {
+    const m = src.match(/seo\.description`\]\s*\?\?\s*(?:\/\/[^\n]*\n\s*)?'([^']+)'/);
+    expect(m, 'description fallback not found').not.toBeNull();
+    expect(m![1]).toBe(market['seo.description']);
+  });
+});

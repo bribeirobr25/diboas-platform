@@ -34,14 +34,12 @@ import { marketCollectionSchema } from '@/lib/market/structuredData';
 import { umbrellaCardModel, type UmbrellaCardModel } from '@/lib/market/umbrellaModel';
 import { switcherDestinations, viewPath } from '@/lib/market/viewRegistry';
 import { ANALYTICS_SITE_LIVE, ANALYTICS_SITE_URL } from '@/lib/market/constants';
-import { regimeLabelMap } from '@/lib/market/presentationState';
+import { BACKDROP_CONDITIONS, regimeLabelMap } from '@/lib/market/presentationState';
 import styles from './page.module.css';
 
-const CONDITION_LABEL_KEYS: Record<string, string> = {
-  'MAC-01': 'dollar',
-  'MAC-02': 'rates',
-  'MAC-03': 'liquidity',
-};
+const CONDITION_LABEL_KEYS: Record<string, string> = Object.fromEntries(
+  BACKDROP_CONDITIONS.map((c) => [c.id, c.key])
+);
 
 interface UmbrellaViewProps {
   locale: SupportedLocale;
@@ -133,6 +131,9 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
                         day: 'numeric',
                         month: 'short',
                         year: 'numeric',
+                        // UTC, like the chart's dates: the run day must not move with the
+                        // server's timezone (2026-10-18 compliance pass).
+                        timeZone: 'UTC',
                       })}
                     </span>
                   ) : null;

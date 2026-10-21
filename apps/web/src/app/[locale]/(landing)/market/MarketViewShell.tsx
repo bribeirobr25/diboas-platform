@@ -260,6 +260,9 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                         day: 'numeric',
                         month: 'short',
                         year: 'numeric',
+                        // UTC, like the chart's dates: the run day must not move
+                        // with the server's timezone (5.631).
+                        timeZone: 'UTC',
                       })}
                     </span>
                   ) : null;
@@ -315,7 +318,15 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                 <div className={styles.scoreGrid}>
                   <div className={styles.gaugeWrap}>
                     <RegimeScore
-                      data={regime}
+                      // 5.390: a client component receives only the fields its
+                      // props declare. Passing the whole loaded JSON serialised
+                      // its internal `_comment` / `_translation_status` notes
+                      // into every page's payload.
+                      data={{
+                        score: regime.score,
+                        max_score: regime.max_score,
+                        regime_code: regime.regime_code,
+                      }}
                       ariaLabel={t('dashboard.scoreAriaLabel', 'Current macro environment score')}
                     />
                     <div className={styles.pills}>
@@ -424,7 +435,7 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                     </h2>
                   </div>
                   <HistoricalRegimeChart
-                    data={historical}
+                    data={{ snapshots: historical.snapshots }}
                     range="1Y"
                     ariaLabel={t(
                       'dashboard.historicalAriaLabel',

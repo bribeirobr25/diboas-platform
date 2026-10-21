@@ -10,7 +10,11 @@
 
 import type { AnalyticsInitialData, RegimeCode } from '@/lib/analytics-sdk/types';
 import { viewPath, MM2_SCORE_FRAGMENT, type MarketViewDef } from './viewRegistry';
-import { conditionWordSuffix, type ConditionWordSuffix } from './presentationState';
+import {
+  BACKDROP_CONDITIONS,
+  conditionWordSuffix,
+  type ConditionWordSuffix,
+} from './presentationState';
 
 export type UmbrellaDirection = 'up' | 'down' | 'held';
 
@@ -46,7 +50,7 @@ function firstSentence(text: string): string {
   return idx > 0 ? text.slice(0, idx + 1) : text;
 }
 
-const BACKDROP_COMPONENT_ORDER = ['MAC-01', 'MAC-02', 'MAC-03'] as const;
+const BACKDROP_COMPONENT_ORDER = BACKDROP_CONDITIONS.map((c) => c.id);
 
 const KNOWN_REGIMES: ReadonlySet<string> = new Set([
   'VERY_FAVORABLE',

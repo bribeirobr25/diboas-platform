@@ -210,3 +210,40 @@ describe('switcher visibility (D-M2-6 — M2 ships invisible)', () => {
     expect(slugs).toEqual(spineOrder);
   });
 });
+
+describe('every source the pipeline reports has a label on the scored views', () => {
+  // 2026-10-18 compliance pass. A scored view lists EVERY source in the data
+  // status panel and shows the raw id ("FRED:XYZ") for one it has no label for
+  // (the 5.130 defect); nothing tied the pipeline's SOURCE_REGISTRY to the
+  // views' sourceLabelKeys. State views filter to the sources they label.
+  const flatten = (tree: Record<string, unknown>, prefix = ''): Record<string, string> =>
+    Object.entries(tree).reduce<Record<string, string>>((acc, [k, v]) => {
+      const key = prefix ? `${prefix}.${k}` : k;
+      if (v && typeof v === 'object')
+        Object.assign(acc, flatten(v as Record<string, unknown>, key));
+      else acc[key] = String(v);
+      return acc;
+    }, {});
+  const catalog = (locale: string, ns: string): Record<string, string> => {
+    const file = join(TRANSLATIONS, locale, `${ns}.json`);
+    return existsSync(file) ? flatten(JSON.parse(readFileSync(file, 'utf8'))) : {};
+  };
+
+  it('should label every SOURCE_REGISTRY source in all four locales', async () => {
+    const { SOURCE_REGISTRY } =
+      await import('../../../../scripts/market-refresh/lib/data-status.mjs');
+    const scored = Object.values(MARKET_VIEWS).filter((v) => v.grammar === 'scored');
+    expect(scored.length).toBeGreaterThan(0);
+    for (const view of scored) {
+      for (const { source } of SOURCE_REGISTRY as Array<{ source: string }>) {
+        const key = view.sourceLabelKeys[source];
+        expect(key, `${view.slug}: no label key for ${source}`).toBeTruthy();
+        for (const locale of LOCALES) {
+          // The view's lookup chain: its own namespace, then the shared one.
+          const label = catalog(locale, view.namespace)[key] ?? catalog(locale, 'market')[key];
+          expect(label, `${view.slug}: ${key} missing in ${locale}`).toBeTruthy();
+        }
+      }
+    }
+  });
+});

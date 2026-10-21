@@ -45,8 +45,11 @@ export function SignalCard({ data, unavailableLabel, className }: SignalCardProp
     const reduce =
       typeof window.matchMedia === 'function' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // An unavailable row has no bar to animate.
-    if (reduce || unavailable) return;
+    // An unavailable row has no bar to animate. R-9 (5.631): without
+    // IntersectionObserver the constructor throws and the section's error
+    // boundary would replace the whole block; the final width is already
+    // rendered, so skip the animation exactly as reduced motion does.
+    if (reduce || unavailable || typeof IntersectionObserver === 'undefined') return;
     let outerRaf = 0;
     let innerRaf = 0;
     const io = new IntersectionObserver(

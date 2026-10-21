@@ -29,7 +29,7 @@
 > ⛑ **2026-10-21 (reconcile, register `5.603`):** 31 market-lane rows added on `main` from 2026-10-18 to 2026-10-21 (#712–#745) arrived unindexed, because this index was not yet on `main`. Each is indexed with the status its own row states, as restated by #745 and confirmed by the market lane: 29 `LIVE`; `ETF-DAILY-1` and `ETF-REQ-1` `PARTIAL` until E2/E3. The rows themselves are unchanged.
 >
 > ```text
-> TOTAL 124   ·   LIVE 102 · PLANNED 18 · PARTIAL 4
+> TOTAL 130   ·   LIVE 108 · PLANNED 18 · PARTIAL 4
 > ```
 >
 > ```text
@@ -61,6 +61,8 @@
 > WEEK-WORDING-1       LIVE    NO-CLIENT-PROVIDER-1 LIVE    ANALYTICS-TOKENS-1   LIVE    TOOLS-FAILOPEN-1     LIVE
 > RETRY-TUESDAY-1      LIVE    ETF-DAILY-1          PARTIAL ETF-REQ-1            PARTIAL
 > GATE-INDEX-CI-1      LIVE    GATE-STATE-1         LIVE
+> RENDER-GUARD-1       LIVE    SRC-LABEL-1          LIVE    PAYLOAD-MKT-1        LIVE    DATE-UTC-MKT-1       LIVE
+> COND-MAP-1           LIVE    METADATA-FALLBACK-1  LIVE
 > ```
 
 ## The five quality domains
@@ -343,6 +345,21 @@ presentation/snapshot scenarios use its canonical ordinary regression tests, inc
 in `pnpm market:audit`. An unexpected pass requires reassessing the finding.
 Six targeted mutations are tested separately with `pnpm market:audit:experiments`,
 only in disposable script copies. See [method, matrix and evidence](../testing/market/README.md).
+
+### Market view gates registered 2026-10-21 — the round-3 view fixes (M-VIEWS), all LIVE
+
+Rebuilt on `main` from the 2026-10-18 second review pass (register `5.631`, `5.390`), each guard proven by
+restoring `main`'s version of the file it protects (the named test FAILED; the file restored byte-identical by
+sha256). No weight, threshold, band, label, copy or emphasis changes.
+
+| Gate                                       | What it enforces                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Sabotage                                                                      |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| **RENDER-GUARD-1** ✅ **LIVE** (#749)      | **The gauge and the signal rows render without IntersectionObserver, and the Backdrop never shows a score fragment.** `marketRenderGuards.test.tsx` (happy-dom): with the API absent both components render their final values and do not throw (R-9); a group `summary` carrying "(2 of 3 points)" is not used as the Backdrop lead, and one without it is.                                                                                                                                                                                                                                                           | `RegimeScore`, `SignalCard`, `StateViewSections` each back to `main` (FAILED) |
+| **SRC-LABEL-1** ✅ **LIVE** (#749)         | **Every source the pipeline reports has a label on every scored view, in all four locales.** `viewRegistry.test.ts` ties `SOURCE_REGISTRY` to each view's `sourceLabelKeys` through its own lookup chain (an unlabelled source renders its raw id, `5.130`). The list comes from `SOURCE_REGISTRY`, not a fifth copy (`5.300`).                                                                                                                                                                                                                                                                                        | `dashboard.sources.m2` removed from `de` (FAILED)                             |
+| **PAYLOAD-MKT-1** ✅ **LIVE** (#749)       | **A client component on the market views receives only the fields its props declare.** `marketTokensAndPayload.test.ts` (d) finds every `'use client'` component under `components/Analytics` and every identifier bound to a whole loaded object (`initialData.*`, `….data.*`), and fails a mount that passes one. Every loaded market JSON carries internal `_comment` / `_translation_status` notes, which reached every page's payload through `RegimeScore data={regime}` and `HistoricalRegimeChart data={historical}` (`5.390`). **Scope limit:** source-level; it reads the three view files, not other pages. | `MarketViewShell` back to `main` (FAILED)                                     |
+| **DATE-UTC-MKT-1** ✅ **LIVE** (#749)      | **Every date the market views format is formatted in UTC**, so the run day never moves with the server's timezone. `marketTokensAndPayload.test.ts` (e).                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `MarketViewShell`, `UmbrellaView` back to `main` (FAILED)                     |
+| **COND-MAP-1** ✅ **LIVE** (#749)          | **The Backdrop's three conditions are defined once** (`BACKDROP_CONDITIONS`, `lib/market/presentationState.ts`) and read by the Backdrop, the umbrella card and the umbrella model. `marketTokensAndPayload.test.ts` (f).                                                                                                                                                                                                                                                                                                                                                                                              | `UmbrellaView`, `StateViewSections`, `umbrellaModel` back to `main` (FAILED)  |
+| **METADATA-FALLBACK-1** ✅ **LIVE** (#749) | **The /market metadata fallbacks equal the approved `en` copy** (`market.seo.title`, `market.seo.description`). `inlineFallbacks.test.ts`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | `viewMetadata` back to `main` (FAILED)                                        |
 
 ### Market-evidence gates registered 2026-09-24 — Blocks A–G, all LIVE
 
