@@ -27,6 +27,7 @@ import {
   LAST_RESEARCH_UPDATE,
 } from './historical';
 import { derivePoupancaRate } from './formulas/brazilPoupanca';
+import PROTOCOLS_TVL from './data/protocolsTvl.json';
 
 export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
   rates: {
@@ -287,20 +288,15 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
     ethGasGwei: 30,
     solPriorityFee: 0.009,
   },
-  // Phase I (2026-05-16): populate the existing `protocolData.tvl` field
-  // (CC2 round-1 correction — extend, do not parallel). v1 ships the combined
-  // summary only; per-protocol card values still flow from i18n until a future
-  // refactor migrates them through this same field. Refresh cadence: monthly
-  // manual until iter-5 SDK swap delivers daily via DeFiLlama-equivalent.
+  // /protocols TVL (2026-10-21): figures and pull date come from ONE committed
+  // DeFiLlama pull, written together by scripts/protocols-tvl/refresh.mjs
+  // (quarterly; freshness checked by scripts/data-freshness/check.mjs).
   protocolData: {
     tvl: {
-      // 2026-08-13 refresh (DeFiLlama parent aggregates, monthly-refresh
-      // discipline): Aave $14.8B + Sky $5.8B + Jupiter $1.5B + Sanctum $1.3B
-      // + Compound $1.2B + Jito $0.8B = $25.4B -> "over $25 billion".
-      // The previous $120B was the pre-drawdown February figure.
-      combined: '$25 billion',
+      combinedUsd: PROTOCOLS_TVL.combined.usd,
+      combinedFloorUsd: PROTOCOLS_TVL.combined.floor_usd,
     },
-    updatedAt: '2026-08-13T00:00:00Z',
+    updatedAt: PROTOCOLS_TVL.pulled_at,
   },
   metadata: {
     fetchedAt: '2026-03-15T00:00:00Z',

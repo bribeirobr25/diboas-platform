@@ -51,6 +51,13 @@ jobs:
           fi
           echo "market change: $([ "$enforce" = 1 ] && echo yes || echo no)"
           MARKET_STALENESS_ENFORCE=$enforce node apps/web/scripts/market-refresh/lib/staleness.mjs
+      # 2026-10-21 (founder decision, TVL freshness proposal): the /protocols TVL
+      # figures and the historical anchors are checked here, not by wall-clock
+      # unit tests that turned every lane red on a date. Same rule as above:
+      # BLOCK a commit that touches the data, WARN everywhere else; fail-closed.
+      # The scheduled data-freshness.yml run is the owner's alert.
+      - name: Reference-data freshness (blocks changes to that data only)
+        run: node apps/web/scripts/data-freshness/check.mjs --changed-from-git
       # C-3: static gates that previously ran only locally (via validate:all).
       # The Phase-7 jargon ban + the "no direct market-data constant imports"
       # SDK invariant — both server-free. (Not `validate:market-data`, whose

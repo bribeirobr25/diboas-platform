@@ -4,8 +4,9 @@
  * Maps the SDK's required theme tokens (per
  * `diboas-analytics/docs/sdk/09_analytics_client_sdk_specification.md` §5.3
  * + `diboas-analytics/docs/integration/13_host_integration_guides/diboas_platform.md` §6)
- * to diBoaS design tokens. Consumed via `<AnalyticsProvider theme={...} />`
- * on every market surface.
+ * to diBoaS design tokens, for the real SDK's provider `theme` prop. Nothing
+ * reads it today: the mock client provider was removed 2026-10-21 (it was
+ * unused), and the file is kept for the iteration-5 integration (knip-ignored).
  *
  * NF6 (rev-3): every regime band maps to a semantic accessible token
  * (`--text-success-accessible`, `--text-brand-accessible`,

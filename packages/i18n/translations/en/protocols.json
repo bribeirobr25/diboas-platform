@@ -27,7 +27,7 @@
   "grid": {
     "h2": "The 25 Protocols",
     "subtitle": "Organized by what they do. Click any card for details.",
-    "tvlFreshness": "All TVL figures are approximate, sourced from DeFiLlama, and current as of February 2026. Values fluctuate daily.",
+    "tvlFreshness": "All TVL figures are approximate, from DeFiLlama as of October 2026, for the protocol or product each card names. Values fluctuate daily.",
     "defiLlamaLink": "Verify on DeFiLlama"
   },
   "categories": {
@@ -77,7 +77,7 @@
       "description": "The largest lending system in decentralized finance. You deposit assets, earn interest from borrowers, and can withdraw anytime. Used by institutions and individuals across 18 blockchains.",
       "details": {
         "founded": "2017 (V3: 2022)",
-        "tvl": "~$35 billion",
+        "tvl": "~$17 billion",
         "blockchains": "Ethereum, Arbitrum, Polygon, + 15 more",
         "audits": "30+ independent audits",
         "regulatory": "SEC closed its 4-year investigation without charges (December 2025). Source: SEC closure letter shared by Aave founder; reported by Yahoo Finance, CoinDesk, Unchained."
@@ -89,7 +89,7 @@
       "description": "One of the oldest lending systems in DeFi. You earn interest by providing assets that others borrow. Simple, battle-tested, and running since 2018.",
       "details": {
         "founded": "2018 (V3: 2022)",
-        "tvl": "~$2 billion",
+        "tvl": "~$1.4 billion",
         "blockchains": "Ethereum, Arbitrum, Base, Polygon",
         "audits": "4+ independent audits",
         "regulatory": "Fully decentralized. No specific licenses required."
@@ -101,7 +101,7 @@
       "description": "Solana's all-in-one lending and liquidity platform. Combines lending, automated liquidity management, and leverage in a single system. You earn interest by lending assets to borrowers, similar to Aave and Compound.",
       "details": {
         "founded": "2022",
-        "tvl": "~$2.5 billion",
+        "tvl": "~$1.4 billion",
         "blockchains": "Solana",
         "audits": "Multiple audits by OtterSec",
         "regulatory": "Decentralized protocol. No major incidents."
@@ -112,7 +112,7 @@
       "description": "Matches lenders directly with borrowers for better rates than traditional lending pools. Coinbase integrated Morpho on Base for bitcoin-backed USDC loans (January 2025), originating over $1.2 billion in loans by late 2025.",
       "details": {
         "founded": "2022",
-        "tvl": "~$7 billion",
+        "tvl": "~$11 billion",
         "blockchains": "Ethereum, Base, Arbitrum",
         "audits": "23+ independent audits",
         "regulatory": "Integrated by Coinbase (Jan 2025) and Crypto.com (Oct 2025) for DeFi-backed lending. Source: Coinbase blog, morpho.org/stories/coinbase, DL News."
@@ -123,7 +123,7 @@
       "description": "Lending system built on Aave's proven code, connected to Sky/MakerDAO's deep liquidity. Benefits from the longest operating history in DeFi (since 2014).",
       "details": {
         "founded": "2023",
-        "tvl": "~$4 billion",
+        "tvl": "~$5.1 billion",
         "blockchains": "Ethereum, Base, Arbitrum",
         "audits": "7+ independent audits",
         "regulatory": "Benefits from MakerDAO's 10+ year compliance track record"
@@ -134,7 +134,7 @@
       "description": "Next-generation lending that combines features from multiple established systems. Very low liquidation penalties for borrowers. You earn interest from borrowers, similar to other lending protocols.",
       "details": {
         "founded": "2024",
-        "tvl": "~$2 billion",
+        "tvl": "~$1.1 billion",
         "blockchains": "Ethereum, Arbitrum, Base",
         "audits": "3+ independent audits",
         "regulatory": "Built by the Instadapp team (6+ years building DeFi infrastructure)"
@@ -146,7 +146,7 @@
       "description": "Stake your ETH and receive a token (stETH) you can use elsewhere while still earning staking rewards. The largest staking service in crypto.",
       "details": {
         "founded": "2020",
-        "tvl": "~$27 billion",
+        "tvl": "~$24 billion",
         "blockchains": "Ethereum, Polygon",
         "audits": "20+ independent audits",
         "regulatory": "SEC Division of Corporation Finance staff statement (August 5, 2025): liquid staking receipt tokens including stETH are not securities under the Securities Act of 1933 or Exchange Act of 1934. Part of SEC Chairman Atkins' \"Project Crypto\" initiative. Source: SEC.gov staff statement; reported by CoinDesk, Decrypt, CCN."
@@ -157,7 +157,7 @@
       "description": "Decentralized Ethereum staking. You can stake with as little as 0.01 ETH. No centralized operator controls the network.",
       "details": {
         "founded": "2016 (mainnet 2021)",
-        "tvl": "~$2 billion",
+        "tvl": "~$1.3 billion",
         "blockchains": "Ethereum",
         "audits": "5+ independent audits",
         "regulatory": "SEC Division of Corporation Finance staff statement (August 5, 2025): liquid staking receipt tokens including rETH are not securities. Same guidance covering Lido stETH and Jito JitoSOL. Source: SEC.gov staff statement."
@@ -168,7 +168,7 @@
       "description": "Solana liquid staking that earns both standard staking rewards and additional MEV (trading arbitrage) rewards. Used in diBoaS growth strategies.",
       "details": {
         "founded": "2022",
-        "tvl": "~$2.8 billion",
+        "tvl": "~$1.1 billion",
         "blockchains": "Solana",
         "audits": "Multiple audits by Certora, OtterSec",
         "regulatory": "SEC Division of Corporation Finance staff statement (August 2025): liquid staking receipt tokens including JitoSOL are not securities. Source: SEC.gov staff statement; reported by CoinDesk, CCN, Blockchain Magazine."
@@ -180,7 +180,7 @@
       "description": "Solana staking spread across 100+ validators for better decentralization and rewards. One of the few DeFi protocols with institutional-grade compliance certification.",
       "details": {
         "founded": "2021",
-        "tvl": "~$550 million",
+        "tvl": "~$760 million",
         "blockchains": "Solana",
         "audits": "5+ independent audits",
         "regulatory": "SOC 2 Type I and II certified. Institutional-grade compliance."
@@ -191,7 +191,7 @@
       "description": "Unified liquidity layer for all Solana staking tokens. Lets you swap instantly between different staked assets without waiting for unstaking periods.",
       "details": {
         "founded": "2021",
-        "tvl": "~$1.7 billion",
+        "tvl": "~$200 million",
         "blockchains": "Solana",
         "audits": "Audited by Accretion",
         "regulatory": "Singapore-based. Powers staking for Binance and Bybit."
@@ -203,7 +203,7 @@
       "description": "Restaking: use your already-staked ETH to support other services built on Ethereum and earn extra rewards on top of your base staking yield. You earn staking rewards plus bonus rewards from the services you help secure.",
       "details": {
         "founded": "2023",
-        "tvl": "~$12 billion",
+        "tvl": "~$6.3 billion",
         "blockchains": "Ethereum",
         "audits": "Multiple independent audits",
         "regulatory": "$2M bug bounty program on Immunefi"
@@ -214,7 +214,7 @@
       "description": "The original DeFi system. Running since 2014. Deposit crypto as collateral, generate stablecoins, earn the savings rate. Survived every major market crash since 2017.",
       "details": {
         "founded": "2014",
-        "tvl": "~$6 billion",
+        "tvl": "~$5.9 billion",
         "blockchains": "Ethereum (diBoaS strategies use the Arbitrum deployment)",
         "audits": "10+ independent audits",
         "regulatory": "10+ years of continuous operation through multiple market cycles"
@@ -226,7 +226,7 @@
       "description": "Creates a synthetic dollar (USDe) through hedged positions. Offers higher yields than traditional stablecoins, but with a more complex mechanism and higher risk profile.",
       "details": {
         "founded": "2023",
-        "tvl": "~$6.5 billion",
+        "tvl": "~$5.1 billion",
         "blockchains": "Ethereum + 23 chains",
         "audits": "7+ independent audits",
         "regulatory": "BaFin (Germany) rejected MiCA authorization application in March 2025, citing \"significant deficiencies\" in organizational structure and reserve compliance. BaFin ordered halt to USDe minting/redemption and froze reserve assets. Ethena GmbH agreed to wind down German operations (April 2025). All activity now operates via Ethena (BVI) Limited, a British Virgin Islands entity. BaFin also raised concerns that sUSDe may constitute an unregistered security under German law. Sources: BaFin official notice (March 21, 2025); Decrypt, The Block, CoinTelegraph, Ledger Insights."
@@ -237,7 +237,7 @@
       "description": "Brings traditional financial assets on-chain. US Treasuries, bonds, and stocks as digital tokens. Acquired SEC-registered broker-dealer and transfer agent licenses through its purchase of Oasis Pro (completed October 2025).",
       "details": {
         "founded": "2021",
-        "tvl": "~$1.7 billion",
+        "tvl": "Not currently reported by DeFiLlama",
         "blockchains": "Ethereum, Solana, Arbitrum",
         "audits": "4+ independent audits",
         "regulatory": "SEC-registered broker-dealer, Alternative Trading System (ATS), and Transfer Agent licenses acquired via Oasis Pro (FINRA member since 2020). Acquisition completed October 2025. $1.6B+ in tokenized assets under management. Sources: Ondo Finance blog, Blockworks, CoinDesk, FINRA BrokerCheck (Oasis Pro Markets LLC)."
@@ -248,7 +248,7 @@
       "description": "Separates yield from principal so you can trade, lock in, or speculate on future returns. Lets you secure a fixed rate or bet that rates will go higher.",
       "details": {
         "founded": "2021",
-        "tvl": "~$4.5 billion",
+        "tvl": "~$1.1 billion",
         "blockchains": "Ethereum, Arbitrum, BNB Chain",
         "audits": "6+ independent audits",
         "regulatory": "$250K bug bounty. Safe Harbor Agreement in place."
@@ -259,7 +259,7 @@
       "description": "Automated yield farming. Moves your money between systems to chase the best available returns. A pioneer that has been running since 2020.",
       "details": {
         "founded": "2020",
-        "tvl": "~$500 million",
+        "tvl": "~$210 million",
         "blockchains": "Ethereum, Arbitrum, Fantom",
         "audits": "6+ independent audits",
         "regulatory": "Pioneer of yield aggregation. 5+ years of continuous operation."
@@ -270,7 +270,7 @@
       "description": "Specialized exchange for stablecoins and similar assets. Designed for minimal price impact when swapping between assets of similar value.",
       "details": {
         "founded": "2020",
-        "tvl": "~$2.2 billion",
+        "tvl": "~$1.5 billion",
         "blockchains": "Ethereum + 20 chains",
         "audits": "15+ independent audits",
         "regulatory": "July 2023: $70M exploit. 73% of funds recovered. Root cause was a compiler bug (Vyper), not Curve's own code."
@@ -281,7 +281,7 @@
       "description": "Boosts your Curve rewards without requiring you to lock tokens for years. Simplifies Curve participation.",
       "details": {
         "founded": "2021",
-        "tvl": "~$1.5 billion",
+        "tvl": "~$590 million",
         "blockchains": "Ethereum, Arbitrum",
         "audits": "7 independent audits",
         "regulatory": "No exploits in 4 years. A critical vulnerability was found and patched in 2022 before any funds were lost."
@@ -292,7 +292,7 @@
       "description": "Decentralized perpetual exchange. You provide liquidity to a shared pool. Traders pay fees to the pool. You earn a share of every trade.",
       "details": {
         "founded": "2021",
-        "tvl": "~$400 million",
+        "tvl": "~$240 million",
         "blockchains": "Arbitrum, Avalanche, Solana",
         "audits": "10+ independent audits",
         "regulatory": "$5M bug bounty on Immunefi (one of the largest in DeFi)"
@@ -303,7 +303,7 @@
       "description": "Solana's leading perpetual exchange. Provide liquidity, earn 70% of all trading fees. Used in several diBoaS growth strategies.",
       "details": {
         "founded": "2021 (perpetuals: 2023)",
-        "tvl": "~$1.6 billion",
+        "tvl": "~$750 million",
         "blockchains": "Solana",
         "audits": "6+ independent audits",
         "regulatory": "Over $137M paid to liquidity providers from January to October 2024, based on Dune Analytics fee data (75% of $183M total fees). Source: SolanaFloor / Dune Analytics (October 2024). Figure is likely significantly higher at time of publication."
@@ -315,7 +315,7 @@
       "description": "Solana's main decentralized exchange. Automated market making, concentrated liquidity, and token launches.",
       "details": {
         "founded": "2021",
-        "tvl": "~$2 billion",
+        "tvl": "~$1.2 billion",
         "blockchains": "Solana",
         "audits": "4+ independent audits",
         "regulatory": "November 2022: $4.4M exploit caused by compromised admin key. All affected users were reimbursed."
@@ -326,7 +326,7 @@
       "description": "User-friendly Solana exchange known for clean design, efficient swaps, and one of the strongest security records in the ecosystem. You can provide liquidity and earn fees from trades on the platform.",
       "details": {
         "founded": "2021",
-        "tvl": "~$400 million",
+        "tvl": "~$310 million",
         "blockchains": "Solana",
         "audits": "6+ independent audits",
         "regulatory": "No exploits in 4+ years. Praised for code quality by independent reviewers."
@@ -337,7 +337,7 @@
       "description": "Programmable liquidity pools that can hold multiple tokens in custom ratios. More flexible than standard exchange pools. You provide tokens to the pool and earn a share of trading fees.",
       "details": {
         "founded": "2020",
-        "tvl": "~$258 million (post-exploit; was ~$775M pre-November 2025)",
+        "tvl": "~$44 million (post-exploit; was ~$775M pre-November 2025)",
         "blockchains": "Ethereum, Arbitrum, Polygon",
         "audits": "11+ independent audits",
         "regulatory": "November 3, 2025: $128M exploit affecting V2 pools across Ethereum, Polygon, Base, Arbitrum, and other chains. Rounding error vulnerability in ComposableStablePool contracts. Approximately $28M recovered through whitehat operations and protocol interventions. Majority of funds (~$100M) remain unrecovered as of February 2026. Balancer DAO approved 10% recovery bounty (BIP-908, February 2026). V3 (current version) was NOT affected by this exploit. diBoaS strategies use V3 only. Sources: Check Point Research, CoinJournal, The Defiant, DL News, Halborn."
@@ -348,7 +348,7 @@
       "description": "Instant cross-border payments and trade financing using crypto infrastructure. Partners with Circle and the Stellar Development Foundation. Returns come from fees charged on cross-border payment processing.",
       "details": {
         "founded": "2022",
-        "tvl": "~$100 million",
+        "tvl": "~$380 million",
         "blockchains": "Solana, Stellar, Polygon",
         "audits": "6+ independent audits",
         "regulatory": "Strategic partnerships with Circle and Stellar Development Foundation"
@@ -373,7 +373,7 @@
     "number": "$25 billion",
     "textAfter": "in user deposits across all their deployments. That is real money, from real people, already in these systems.",
     "context": "This does not mean your money is in all of them. Each diBoaS strategy uses specific protocols suited to its risk level and goals. See the Strategies page for which protocols are used in which strategy.",
-    "source": "Combined TVL sourced from DeFiLlama. Last verified: August 2026. Values fluctuate daily."
+    "source": "Combined TVL of six of these protocols (Aave, Sky, Jupiter, Sanctum, Compound and Jito) across all their deployments, from DeFiLlama as of October 2026. Values fluctuate daily."
   },
   "notIs": {
     "h2": "Attention",

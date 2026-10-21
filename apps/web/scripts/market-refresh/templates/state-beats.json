@@ -1,5 +1,5 @@
 {
-  "_comment": "State-grammar lead + depth for /market/backdrop (founder-designed 2026-08-24; PENDING_ALL 5.140 + 5.141). THREE BEATS IN FIXED ORDER (dollar, rates, liquidity), each independently reporting a MOVE or a HOLD, then a depth paragraph carrying the numbers. WHY A SEPARATE FILE FROM group-summaries.json: that file's macro variants end with '({points} of {max} points)' and are rendered on the SCORED Bitcoin view via SignalCardsGrid, where the points belong. Editing them to satisfy 5.140 would strip the points from Bitcoin too. So the state view gets its own points-free openings here and group-summaries.json is left untouched , zero blast radius on the scored view. SELECTOR: opening = the same groupLevel() variant the scored summary uses; beat = moved|hold x supportive|restrictive, where moved means the signal's state differs from the PREVIOUS RUN DAY in run-archive.jsonl (never inferred from levels , a level-based lead implies a recency the data does not have, which is exactly what the 2026-08-24 review caught); depth = the same axis plus a 'fresh' variant used only for the condition that moved. ACTIVE maps to supportive for all three macro signals. HONESTY RULES BAKED IN: (1) no duration claims ('for six weeks') , the archive starts 2026-07-11 so any duration is a floor, not a measurement; 'still' and 'keeps' carry persistence without asserting a length. (2) MAC-02 copy stays CHANGE-relative ('money has not got cheaper') rather than absolute ('money is expensive') because the signal measures the 10 year against its own 20 week trend, not the absolute cost of money. (3) No em dash characters anywhere in this file (founder ruling 2026-08-24; see also 5.132e). (4) No mention of 'the framework' , the subject is the market. LOCALE PASS DONE 2026-08-24 (founder-requested): the non-EN copy is no longer a shape draft. Openings are the LIVE reviewed group-summary text verbatim, minus the points clause, so one concept cannot read two ways across the scored and state views. Beats and depth reuse the vocabulary already published in signal-sentences.json and market-backdrop.json for each locale (pt-BR \"o juro americano de 10 anos\" / \"a oferta monetaria M2 dos EUA\" / \"segue\"; es \"el rendimiento estadounidense a 10 anos\" / \"la masa monetaria M2 de EE. UU.\" / \"interanual\" / \"sigue\", peninsular perfect tense; de \"Die 10-jaehrige US-Rendite\" / \"Die US-Geldmenge M2\" / \"im Jahresvergleich\" / \"haelt sich\"), rather than introducing synonyms. Voice: descriptive throughout, no second person, so the de du/Sie register question does not arise; Q3 holds because nothing here sells, promises or advises, it only states what moved.",
+  "_comment": "State-grammar lead + depth for /market/backdrop (founder-designed 2026-08-24; PENDING_ALL 5.140 + 5.141). THREE BEATS IN FIXED ORDER (dollar, rates, liquidity), each independently reporting a MOVE or a HOLD, then a depth paragraph carrying the numbers. WHY A SEPARATE FILE FROM group-summaries.json: that file's macro variants end with '({points} of {max} points)' and are rendered on the SCORED Bitcoin view via SignalCardsGrid, where the points belong. Editing them to satisfy 5.140 would strip the points from Bitcoin too. So the state view gets its own points-free openings here and group-summaries.json is left untouched , zero blast radius on the scored view. SELECTOR: opening = the same groupLevel() variant the scored summary uses; beat = moved|hold x supportive|restrictive, where moved means the signal's state differs from the PREVIOUS RUN DAY in run-archive.jsonl (never inferred from levels , a level-based lead implies a recency the data does not have, which is exactly what the 2026-08-24 review caught); depth = the same axis plus a 'fresh' variant used only for the condition that moved. ACTIVE maps to supportive for all three macro signals. HONESTY RULES BAKED IN: (1) no duration claims ('for six weeks') , the archive starts 2026-07-11 so any duration is a floor, not a measurement; 'still' and 'keeps' carry persistence without asserting a length. (2) MAC-02 copy stays CHANGE-relative ('money has not got cheaper') rather than absolute ('money is expensive') because the signal measures the 10 year against its own 20 week trend, not the absolute cost of money. (3) No em dash characters anywhere in this file (founder ruling 2026-08-24; see also 5.132e). (4) No mention of 'the framework' , the subject is the market. LOCALE PASS DONE 2026-08-24 (founder-requested): the non-EN copy is no longer a shape draft. Openings are the LIVE reviewed group-summary text verbatim, minus the points clause, so one concept cannot read two ways across the scored and state views. Beats and depth reuse the vocabulary already published in signal-sentences.json and market-backdrop.json for each locale (pt-BR \"o juro americano de 10 anos\" / \"a oferta monetaria M2 dos EUA\" / \"segue\"; es \"el rendimiento estadounidense a 10 anos\" / \"la masa monetaria M2 de EE. UU.\" / \"interanual\" / \"sigue\", peninsular perfect tense; de \"Die 10-jaehrige US-Rendite\" / \"Die US-Geldmenge M2\" / \"im Jahresvergleich\" / \"haelt sich\"), rather than introducing synonyms. Voice: descriptive throughout, no second person, so the de du/Sie register question does not arise; Q3 holds because nothing here sells, promises or advises, it only states what moved. NOW BEATS (2026-10-21): 'nowSupportive'/'nowRestrictive' replace the moved beats when the previous run day is not 7±1 days back, because the moved beats say 'this week'; they state the new position with no time claim.",
   "opening": {
     "weak": {
       "en": "The macro backdrop is restrictive: the dollar and yields are not helping, and liquidity gives no offset.",
@@ -51,6 +51,18 @@
         "pt-BR": "O dólar segue acima da tendência de 20 semanas.",
         "es": "El dólar sigue por encima de su tendencia de 20 semanas.",
         "de": "Der Dollar hält sich weiter über seinem 20-Wochen-Trend."
+      },
+      "nowSupportive": {
+        "en": "The dollar is now below its 20 week trend.",
+        "pt-BR": "O dólar agora está abaixo da tendência de 20 semanas.",
+        "es": "El dólar ahora está por debajo de su tendencia de 20 semanas.",
+        "de": "Der Dollar liegt jetzt unter seinem 20-Wochen-Trend."
+      },
+      "nowRestrictive": {
+        "en": "The dollar is now above its 20 week trend.",
+        "pt-BR": "O dólar agora está acima da tendência de 20 semanas.",
+        "es": "El dólar ahora está por encima de su tendencia de 20 semanas.",
+        "de": "Der Dollar liegt jetzt über seinem 20-Wochen-Trend."
       }
     },
     "MAC-02": {
@@ -77,6 +89,18 @@
         "pt-BR": "O dinheiro não ficou mais barato.",
         "es": "El dinero no se ha abaratado.",
         "de": "Geld ist nicht günstiger geworden."
+      },
+      "nowSupportive": {
+        "en": "Yields are now below their 20 week trend.",
+        "pt-BR": "Os juros agora estão abaixo da tendência de 20 semanas.",
+        "es": "Los rendimientos ahora están por debajo de su tendencia de 20 semanas.",
+        "de": "Die Renditen liegen jetzt unter ihrem 20-Wochen-Trend."
+      },
+      "nowRestrictive": {
+        "en": "Yields are now above their 20 week trend.",
+        "pt-BR": "Os juros agora estão acima da tendência de 20 semanas.",
+        "es": "Los rendimientos ahora están por encima de su tendencia de 20 semanas.",
+        "de": "Die Renditen liegen jetzt über ihrem 20-Wochen-Trend."
       }
     },
     "MAC-03": {
@@ -103,6 +127,18 @@
         "pt-BR": "A liquidez segue estagnada.",
         "es": "La liquidez sigue estancada.",
         "de": "Die Liquidität stockt weiter."
+      },
+      "nowSupportive": {
+        "en": "Liquidity is expanding again.",
+        "pt-BR": "A liquidez voltou a crescer.",
+        "es": "La liquidez vuelve a expandirse.",
+        "de": "Die Liquidität wächst wieder."
+      },
+      "nowRestrictive": {
+        "en": "Liquidity is no longer expanding.",
+        "pt-BR": "A liquidez parou de crescer.",
+        "es": "La liquidez ya no se expande.",
+        "de": "Die Liquidität wächst nicht mehr."
       }
     }
   },

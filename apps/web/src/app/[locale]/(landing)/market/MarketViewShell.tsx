@@ -17,6 +17,7 @@
 
 import { headers } from 'next/headers';
 import type { SupportedLocale } from '@diboas/i18n/server';
+import type { FallbackMessages } from '@/lib/analytics-sdk/types';
 import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
@@ -50,7 +51,6 @@ const HistoricalRegimeChart = nextDynamic(() =>
   import('@/components/Analytics').then((m) => ({ default: m.HistoricalRegimeChart }))
 );
 import { HostRegulatoryDisclaimer } from '@/components/Legal';
-import { AnalyticsProvider } from '@/lib/analytics-sdk/mock-client';
 import { fetchInitialAnalyticsData } from '@/lib/analytics-sdk/mock-client.server';
 import { marketArticleSchema } from '@/lib/market/structuredData';
 import { viewPath, type MarketViewDef } from '@/lib/market/viewRegistry';
@@ -65,8 +65,6 @@ import {
   regimeLabelMap,
   lowConfidenceReason,
 } from '@/lib/market/presentationState';
-
-const ANALYTICS_API_URL = process.env.NEXT_PUBLIC_ANALYTICS_API_URL ?? '/_mock';
 
 interface MarketViewShellProps {
   locale: SupportedLocale;
@@ -168,7 +166,7 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
     UNAVAILABLE: t('dashboard.freshness.UNAVAILABLE', 'Unavailable'),
   } as const;
 
-  const fallbackMessages = {
+  const fallbackMessages: FallbackMessages = {
     outageTitle: t('fallback.outageTitle', 'Live data is temporarily unavailable'),
     outageBody: t(
       'fallback.outageBody',
@@ -238,336 +236,334 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
         data={[breadcrumbData, articleData].filter(Boolean) as Record<string, unknown>[]}
       />
 
-      <AnalyticsProvider
-        apiBaseUrl={ANALYTICS_API_URL}
-        locale={locale}
-        initialData={initialData}
-        fallbackMessages={fallbackMessages}
-      >
-        <div className={`main-page-wrapper ${styles.editorial}`}>
-          {/* Editorial masthead hero (replicates 02-editorial-motion). A
+      {/* 2026-10-21: no client data provider. The mock SDK's provider received
+          the whole page's data as a client prop (~27 KB per page in the RSC
+          payload) and no component read it: every section renders on the
+          server from `initialData`. The SDK seam is the server fetchers in
+          `mock-client.server.ts`. */}
+      <div className={`main-page-wrapper ${styles.editorial}`}>
+        {/* Editorial masthead hero (replicates 02-editorial-motion). A
               decorative teal particle canvas + grain sit behind the real,
               SSR-rendered masthead / h1 / standfirst (LCP + SEO unaffected). */}
-          <section className={styles.hero} id="market-top">
-            <MarketHeroCanvas />
-            <div className={styles.grain} aria-hidden="true" />
-            <Container size="md">
-              <div className={styles.heroInner}>
-                <div className={styles.masthead}>
-                  <span className={styles.eyebrow}>{heroKicker}</span>
-                  {(() => {
-                    const d = regime?.last_updated_at ? new Date(regime.last_updated_at) : null;
-                    return d && !Number.isNaN(d.getTime()) ? (
-                      <span className={styles.heroDate}>
-                        {d.toLocaleDateString(locale, {
-                          day: 'numeric',
-                          month: 'short',
-                          year: 'numeric',
-                        })}
-                      </span>
-                    ) : null;
-                  })()}
-                </div>
-                <h1 className={styles.heroTitle} id="hero-market-title">
-                  {heroTitle.split(' ').slice(0, -1).join(' ')}{' '}
-                  <em className={styles.heroTitleAccent}>{heroTitle.split(' ').slice(-1)}</em>
-                </h1>
-                <p className={styles.standfirst}>{heroSubtitle}</p>
+        <section className={styles.hero} id="market-top">
+          <MarketHeroCanvas />
+          <div className={styles.grain} aria-hidden="true" />
+          <Container size="md">
+            <div className={styles.heroInner}>
+              <div className={styles.masthead}>
+                <span className={styles.eyebrow}>{heroKicker}</span>
+                {(() => {
+                  const d = regime?.last_updated_at ? new Date(regime.last_updated_at) : null;
+                  return d && !Number.isNaN(d.getTime()) ? (
+                    <span className={styles.heroDate}>
+                      {d.toLocaleDateString(locale, {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
+                      })}
+                    </span>
+                  ) : null;
+                })()}
               </div>
-            </Container>
-          </section>
+              <h1 className={styles.heroTitle} id="hero-market-title">
+                {heroTitle.split(' ').slice(0, -1).join(' ')}{' '}
+                <em className={styles.heroTitleAccent}>{heroTitle.split(' ').slice(-1)}</em>
+              </h1>
+              <p className={styles.standfirst}>{heroSubtitle}</p>
+            </div>
+          </Container>
+        </section>
 
-          {/* View switcher (D-M2-6): renders null until the registry exposes a
+        {/* View switcher (D-M2-6): renders null until the registry exposes a
               second destination — invisible in M2 by design. */}
-          <MarketViewSwitcher
-            activeSlug={view.slug}
-            labelFor={(v) => pageMessages[`market.views.${v.slug}`] ?? v.slug}
-            navLabel={pageMessages['market.umbrella.switcherAriaLabel'] ?? 'Market views'}
-          />
+        <MarketViewSwitcher
+          activeSlug={view.slug}
+          labelFor={(v) => pageMessages[`market.views.${v.slug}`] ?? v.slug}
+          navLabel={pageMessages['market.umbrella.switcherAriaLabel'] ?? 'Market views'}
+        />
 
-          {/* Outage banner (B-2, robustness / Principle-7 fix): when the core
+        {/* Outage banner (B-2, robustness / Principle-7 fix): when the core
               reading is null the page body silently collapsed; now it says so
               honestly instead. Fires only on a genuine null feed — the normal
               per-source DELAYED/UNAVAILABLE states stay handled by the freshness
               badges, so this never noises on ordinary lag. */}
-          {!regime ? (
-            <Container size="md">
-              <div className={styles.outageBanner} role="status">
-                <strong>{fallbackMessages.outageTitle}</strong>
-                <span>{fallbackMessages.outageBody}</span>
-              </div>
-            </Container>
-          ) : !signals ? (
-            <Container size="md">
-              <div className={styles.outageBanner} role="status">
-                <strong>{fallbackMessages.partialOutageTitle}</strong>
-                <span>{fallbackMessages.partialOutageBody}</span>
-              </div>
-            </Container>
-          ) : null}
-
+        {!regime ? (
           <Container size="md">
-            {view.grammar === 'scored' && regime && (
-              <SectionErrorBoundary
-                sectionId="market-regime-band"
-                sectionType="dashboard"
-                enableReporting
-                context={{ page: 'market', section: 'regime', view: view.slug }}
-              >
-                <section className={styles.scoreSec}>
-                  <div className={styles.scoreGrid}>
-                    <div className={styles.gaugeWrap}>
-                      <RegimeScore
-                        data={regime}
-                        ariaLabel={t('dashboard.scoreAriaLabel', 'Current macro environment score')}
+            <div className={styles.outageBanner} role="status">
+              <strong>{fallbackMessages.outageTitle}</strong>
+              <span>{fallbackMessages.outageBody}</span>
+            </div>
+          </Container>
+        ) : !signals ? (
+          <Container size="md">
+            <div className={styles.outageBanner} role="status">
+              <strong>{fallbackMessages.partialOutageTitle}</strong>
+              <span>{fallbackMessages.partialOutageBody}</span>
+            </div>
+          </Container>
+        ) : null}
+
+        <Container size="md">
+          {view.grammar === 'scored' && regime && (
+            <SectionErrorBoundary
+              sectionId="market-regime-band"
+              sectionType="dashboard"
+              enableReporting
+              context={{ page: 'market', section: 'regime', view: view.slug }}
+            >
+              <section className={styles.scoreSec}>
+                <div className={styles.scoreGrid}>
+                  <div className={styles.gaugeWrap}>
+                    <RegimeScore
+                      data={regime}
+                      ariaLabel={t('dashboard.scoreAriaLabel', 'Current macro environment score')}
+                    />
+                    <div className={styles.pills}>
+                      <RegimeLabel data={regime} labels={regimeLabels} />
+                      <ConfidenceBadge
+                        // 5.173 rider: the badge and the panel below it are ONE
+                        // concept (doc-07 §21.1) — 5.131 exists because they
+                        // disagreed once already. `summary.confidence_level` is
+                        // the BUILD-time twin, frozen at `computed_at`; once the
+                        // panel re-evaluates freshness at read time, reading the
+                        // frozen field here would reinstate 5.131 in the opposite
+                        // direction: a HIGH badge above two DELAYED sources.
+                        // Take the live value, and fall back to the frozen one
+                        // only when the panel itself failed to load.
+                        level={dataStatus?.overall_confidence ?? regime.summary.confidence_level}
+                        labels={confidenceLabels}
                       />
-                      <div className={styles.pills}>
-                        <RegimeLabel data={regime} labels={regimeLabels} />
-                        <ConfidenceBadge
-                          // 5.173 rider: the badge and the panel below it are ONE
-                          // concept (doc-07 §21.1) — 5.131 exists because they
-                          // disagreed once already. `summary.confidence_level` is
-                          // the BUILD-time twin, frozen at `computed_at`; once the
-                          // panel re-evaluates freshness at read time, reading the
-                          // frozen field here would reinstate 5.131 in the opposite
-                          // direction: a HIGH badge above two DELAYED sources.
-                          // Take the live value, and fall back to the frozen one
-                          // only when the panel itself failed to load.
-                          level={dataStatus?.overall_confidence ?? regime.summary.confidence_level}
-                          labels={confidenceLabels}
-                        />
-                      </div>
-                      {lowReason ? (
-                        <p className={styles.confidenceReason} data-market-low-reason>
-                          <strong>{lowReason.lead}</strong> {lowReason.sentences.join(' ')}
-                        </p>
-                      ) : null}
                     </div>
-                    <div className={styles.scoreCopy}>
-                      {regime.summary.plain && <CalmSummary data={regime.summary} length="plain" />}
-                      {coverageNote ? (
-                        <p className={styles.coverageNote} data-market-coverage-note>
-                          {coverageNote}
-                        </p>
-                      ) : null}
-                    </div>
+                    {lowReason ? (
+                      <p className={styles.confidenceReason} data-market-low-reason>
+                        <strong>{lowReason.lead}</strong> {lowReason.sentences.join(' ')}
+                      </p>
+                    ) : null}
                   </div>
-                  {/* View-voice wave (2026-08-14, founder feedback): the plain
+                  <div className={styles.scoreCopy}>
+                    {regime.summary.plain && <CalmSummary data={regime.summary} length="plain" />}
+                    {coverageNote ? (
+                      <p className={styles.coverageNote} data-market-coverage-note>
+                        {coverageNote}
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+                {/* View-voice wave (2026-08-14, founder feedback): the plain
                       grandmother lead above stays the visible voice; the full
                       analyst memo collapses behind a native <details> (server-
                       rendered, keyboard/screen-reader native, no JS needed).
                       The memo text itself is UNCHANGED — progressive disclosure,
                       not deletion. */}
-                  <details className={styles.scoreDetail}>
-                    <summary className={styles.memoToggle}>
-                      {t('dashboard.memoToggle', 'Read the full weekly memo')}
-                    </summary>
-                    {/* No className: the measure belongs to CalmSummary (52ch).
+                <details className={styles.scoreDetail}>
+                  <summary className={styles.memoToggle}>
+                    {t('dashboard.memoToggle', 'Read the full weekly memo')}
+                  </summary>
+                  {/* No className: the measure belongs to CalmSummary (52ch).
                         A page-level override here is what produced ~100
                         characters per line (5.373). */}
-                    <CalmSummary data={regime.summary} length="detailed" />
-                  </details>
-                </section>
-              </SectionErrorBoundary>
-            )}
+                  <CalmSummary data={regime.summary} length="detailed" />
+                </details>
+              </section>
+            </SectionErrorBoundary>
+          )}
 
-            {view.grammar === 'state' && signals && (
-              <StateViewSections viewSlug={view.slug} signalGroups={signals.signal_groups} t={t} />
-            )}
+          {view.grammar === 'state' && signals && (
+            <StateViewSections viewSlug={view.slug} signalGroups={signals.signal_groups} t={t} />
+          )}
 
-            {view.grammar === 'scored' && signals && signals.signal_groups.length > 0 && (
-              <SectionErrorBoundary
-                sectionId="market-signals"
-                sectionType="dashboard"
-                enableReporting
-                context={{ page: 'market', section: 'signals', view: view.slug }}
-              >
-                <section className={styles.section}>
-                  {/* The editorial table is flat (no per-card expand), so we show
+          {view.grammar === 'scored' && signals && signals.signal_groups.length > 0 && (
+            <SectionErrorBoundary
+              sectionId="market-signals"
+              sectionType="dashboard"
+              enableReporting
+              context={{ page: 'market', section: 'signals', view: view.slug }}
+            >
+              <section className={styles.section}>
+                {/* The editorial table is flat (no per-card expand), so we show
                       the section title as the heading rather than the lead, whose
                       copy references "expand a card". */}
-                  <div className={styles.secHead}>
-                    <h2 className={styles.h2}>
-                      {t('dashboard.signalsSectionTitle', 'Signal groups')}
-                    </h2>
-                  </div>
-                  {/* Cleanup 2026-08-18: the expand/collapse/points label props
+                <div className={styles.secHead}>
+                  <h2 className={styles.h2}>
+                    {t('dashboard.signalsSectionTitle', 'Signal groups')}
+                  </h2>
+                </div>
+                {/* Cleanup 2026-08-18: the expand/collapse/points label props
                       died with the M3.5 native-details conversion — the grid
                       component still ACCEPTS them (doc-09 SDK API compat) but
                       renders its own disclosure semantics; passing dead t()
                       lookups here kept 3 zombie i18n keys alive ×4 locales. */}
-                  <SignalCardsGrid
-                    groups={signals.signal_groups}
-                    unavailableLabel={freshnessLabels.UNAVAILABLE}
+                <SignalCardsGrid
+                  groups={signals.signal_groups}
+                  unavailableLabel={freshnessLabels.UNAVAILABLE}
+                />
+              </section>
+            </SectionErrorBoundary>
+          )}
+
+          {view.grammar === 'scored' &&
+            historical &&
+            historical.snapshots.length > 0 &&
+            !historical.synthetic_seed && (
+              <SectionErrorBoundary
+                sectionId="market-historical"
+                sectionType="dashboard"
+                enableReporting
+                context={{ page: 'market', section: 'historical', view: view.slug }}
+              >
+                <section className={styles.section}>
+                  <div className={styles.secHead}>
+                    <span className={styles.eyebrow}>
+                      {t('dashboard.historicalTitle', 'Score over time')}
+                    </span>
+                    <h2 className={styles.h2}>
+                      {t(
+                        'dashboard.historicalLead',
+                        'Where the environment has been, week by week since the framework went live.'
+                      )}
+                    </h2>
+                  </div>
+                  <HistoricalRegimeChart
+                    data={historical}
+                    range="1Y"
+                    ariaLabel={t(
+                      'dashboard.historicalAriaLabel',
+                      'Macro environment score for each week since the framework went live'
+                    )}
+                    tableLabels={{
+                      date: t('dashboard.historicalTableDate', 'Date'),
+                      score: t('dashboard.historicalTableScore', 'Score'),
+                      regime: t('dashboard.historicalTableRegime', 'Regime'),
+                    }}
+                    regimeLabels={regimeLabels}
+                    dateLabels={historicalDateLabels(historical.snapshots, locale)}
                   />
+                  {chartCoverageNote ? (
+                    <p className={styles.coverageNote} data-market-chart-coverage-note>
+                      {chartCoverageNote}
+                    </p>
+                  ) : null}
                 </section>
               </SectionErrorBoundary>
             )}
 
-            {view.grammar === 'scored' &&
-              historical &&
-              historical.snapshots.length > 0 &&
-              !historical.synthetic_seed && (
-                <SectionErrorBoundary
-                  sectionId="market-historical"
-                  sectionType="dashboard"
-                  enableReporting
-                  context={{ page: 'market', section: 'historical', view: view.slug }}
-                >
-                  <section className={styles.section}>
-                    <div className={styles.secHead}>
-                      <span className={styles.eyebrow}>
-                        {t('dashboard.historicalTitle', 'Score over time')}
-                      </span>
-                      <h2 className={styles.h2}>
-                        {t(
-                          'dashboard.historicalLead',
-                          'Where the environment has been, week by week since the framework went live.'
-                        )}
-                      </h2>
-                    </div>
-                    <HistoricalRegimeChart
-                      data={historical}
-                      range="1Y"
-                      ariaLabel={t(
-                        'dashboard.historicalAriaLabel',
-                        'Macro environment score for each week since the framework went live'
-                      )}
-                      tableLabels={{
-                        date: t('dashboard.historicalTableDate', 'Date'),
-                        score: t('dashboard.historicalTableScore', 'Score'),
-                        regime: t('dashboard.historicalTableRegime', 'Regime'),
-                      }}
-                      regimeLabels={regimeLabels}
-                      dateLabels={historicalDateLabels(historical.snapshots, locale)}
-                    />
-                    {chartCoverageNote ? (
-                      <p className={styles.coverageNote} data-market-chart-coverage-note>
-                        {chartCoverageNote}
-                      </p>
-                    ) : null}
-                  </section>
-                </SectionErrorBoundary>
-              )}
+          {dataStatus &&
+            (view.grammar === 'state'
+              ? dataStatus.sources.some((src) => view.sourceLabelKeys[src.source])
+              : dataStatus.sources.length > 0) && (
+              <SectionErrorBoundary
+                sectionId="market-data-status"
+                sectionType="dashboard"
+                enableReporting
+                context={{ page: 'market', section: 'data-status', view: view.slug }}
+              >
+                <section className={styles.section}>
+                  <div className={styles.secHead}>
+                    <span className={styles.eyebrow}>
+                      {t('dashboard.dataStatusTitle', 'Data sources')}
+                    </span>
+                    <h2 className={styles.h2}>
+                      {t('dashboard.dataStatusLead', 'Live confidence per upstream feed.')}
+                    </h2>
+                  </div>
+                  <ul className={styles.srcPills}>
+                    {(view.grammar === 'state'
+                      ? dataStatus.sources.filter((src) => view.sourceLabelKeys[src.source])
+                      : dataStatus.sources
+                    ).map((src) => (
+                      <li key={src.source}>
+                        <DataFreshnessBadge
+                          source={src.source}
+                          label={
+                            view.sourceLabelKeys[src.source]
+                              ? t(view.sourceLabelKeys[src.source], src.source)
+                              : src.source
+                          }
+                          status={src.status}
+                          labels={freshnessLabels}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              </SectionErrorBoundary>
+            )}
+        </Container>
 
-            {dataStatus &&
-              (view.grammar === 'state'
-                ? dataStatus.sources.some((src) => view.sourceLabelKeys[src.source])
-                : dataStatus.sources.length > 0) && (
-                <SectionErrorBoundary
-                  sectionId="market-data-status"
-                  sectionType="dashboard"
-                  enableReporting
-                  context={{ page: 'market', section: 'data-status', view: view.slug }}
+        {/* Closing band — weekly cadence + subscribe-to-waitlist + share (Phase 5). */}
+        <MarketCtaBand
+          locale={locale}
+          cadence={t('cta.cadence', 'Updated weekly')}
+          headline={t('cta.headline', 'A calm read, every week.')}
+          body={t(
+            'cta.body',
+            'Adelaide Market is free and refreshed every week. Join the waitlist to be first when diBoaS opens.'
+          )}
+          waitlistLabel={t('cta.waitlist', 'Join the waitlist')}
+          shareLabel={t('cta.share', 'Share')}
+          shareCopied={t('cta.shareCopied', 'Link copied')}
+          shareUrl={`${siteUrl}/${locale}${path}`}
+          shareText={t(
+            'cta.shareText',
+            'Adelaide Market: a calm read on the financial markets, without the noise.'
+          )}
+          shareTitle={t('hero.title', 'Adelaide Market')}
+        />
+
+        {/* Methodology — dark editorial block (full-bleed). */}
+        <section className={styles.method}>
+          <Container size="md">
+            {methodology && (
+              <div className={styles.methodHead}>
+                <span className={styles.eyebrowDark}>
+                  {t('dashboard.methodologyTitle', 'How this is calculated')}
+                </span>
+                <h2 className={styles.h2Dark}>
+                  {t(
+                    'dashboard.methodologyLead',
+                    'A full methodology document is not published yet. Until it is, this page describes each signal and how many points it can add.'
+                  )}
+                </h2>
+                <MethodologyLink
+                  href={methodology.methodology_url}
+                  comingSoon={!ANALYTICS_SITE_LIVE}
                 >
-                  <section className={styles.section}>
-                    <div className={styles.secHead}>
-                      <span className={styles.eyebrow}>
-                        {t('dashboard.dataStatusTitle', 'Data sources')}
-                      </span>
-                      <h2 className={styles.h2}>
-                        {t('dashboard.dataStatusLead', 'Live confidence per upstream feed.')}
-                      </h2>
-                    </div>
-                    <ul className={styles.srcPills}>
-                      {(view.grammar === 'state'
-                        ? dataStatus.sources.filter((src) => view.sourceLabelKeys[src.source])
-                        : dataStatus.sources
-                      ).map((src) => (
-                        <li key={src.source}>
-                          <DataFreshnessBadge
-                            source={src.source}
-                            label={
-                              view.sourceLabelKeys[src.source]
-                                ? t(view.sourceLabelKeys[src.source], src.source)
-                                : src.source
-                            }
-                            status={src.status}
-                            labels={freshnessLabels}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                </SectionErrorBoundary>
+                  {ANALYTICS_SITE_LIVE
+                    ? t('dashboard.methodologyLinkLabel', 'Read the methodology')
+                    : t('dashboard.methodologyComingSoon', 'Full methodology coming soon')}
+                </MethodologyLink>
+              </div>
+            )}
+
+            {productDisclaimer && (
+              <ProductDisclaimer
+                text={productDisclaimer.text[locale] ?? productDisclaimer.text.en}
+              />
+            )}
+
+            <HostRegulatoryDisclaimer
+              text={t(
+                'disclaimer.host.regulatory',
+                'diBoaS does not provide investment advice. The framework on this page summarizes the macro and structural environment of the markets it covers for educational purposes only. Crypto-asset values are highly volatile and your capital is at risk. Information is intended for residents of the EU, US, UK, and Brazil where local distribution is permitted; nothing here constitutes a solicitation in any other jurisdiction.'
               )}
+            />
+
+            <PoweredByAttribution
+              href={ANALYTICS_SITE_URL}
+              label={t('dashboard.poweredByLabel', 'Powered by')}
+              productName={t('dashboard.poweredByProduct', 'diBoaS Analytics')}
+              comingSoon={!ANALYTICS_SITE_LIVE}
+              comingSoonLabel={t('dashboard.comingSoon', 'coming soon')}
+            />
           </Container>
+        </section>
 
-          {/* Closing band — weekly cadence + subscribe-to-waitlist + share (Phase 5). */}
-          <MarketCtaBand
-            locale={locale}
-            cadence={t('cta.cadence', 'Updated weekly')}
-            headline={t('cta.headline', 'A calm read, every week.')}
-            body={t(
-              'cta.body',
-              'Adelaide Market is free and refreshed every week. Join the waitlist to be first when diBoaS opens.'
-            )}
-            waitlistLabel={t('cta.waitlist', 'Join the waitlist')}
-            shareLabel={t('cta.share', 'Share')}
-            shareCopied={t('cta.shareCopied', 'Link copied')}
-            shareUrl={`${siteUrl}/${locale}${path}`}
-            shareText={t(
-              'cta.shareText',
-              'Adelaide Market: a calm read on the financial markets, without the noise.'
-            )}
-            shareTitle={t('hero.title', 'Adelaide Market')}
-          />
-
-          {/* Methodology — dark editorial block (full-bleed). */}
-          <section className={styles.method}>
-            <Container size="md">
-              {methodology && (
-                <div className={styles.methodHead}>
-                  <span className={styles.eyebrowDark}>
-                    {t('dashboard.methodologyTitle', 'How this is calculated')}
-                  </span>
-                  <h2 className={styles.h2Dark}>
-                    {t(
-                      'dashboard.methodologyLead',
-                      'A full methodology document is not published yet. Until it is, this page describes each signal and how many points it can add.'
-                    )}
-                  </h2>
-                  <MethodologyLink
-                    href={methodology.methodology_url}
-                    comingSoon={!ANALYTICS_SITE_LIVE}
-                  >
-                    {ANALYTICS_SITE_LIVE
-                      ? t('dashboard.methodologyLinkLabel', 'Read the methodology')
-                      : t('dashboard.methodologyComingSoon', 'Full methodology coming soon')}
-                  </MethodologyLink>
-                </div>
-              )}
-
-              {productDisclaimer && (
-                <ProductDisclaimer
-                  text={productDisclaimer.text[locale] ?? productDisclaimer.text.en}
-                />
-              )}
-
-              <HostRegulatoryDisclaimer
-                text={t(
-                  'disclaimer.host.regulatory',
-                  'diBoaS does not provide investment advice. The framework on this page summarizes the macro and structural environment of the markets it covers for educational purposes only. Crypto-asset values are highly volatile and your capital is at risk. Information is intended for residents of the EU, US, UK, and Brazil where local distribution is permitted; nothing here constitutes a solicitation in any other jurisdiction.'
-                )}
-              />
-
-              <PoweredByAttribution
-                href={ANALYTICS_SITE_URL}
-                label={t('dashboard.poweredByLabel', 'Powered by')}
-                productName={t('dashboard.poweredByProduct', 'diBoaS Analytics')}
-                comingSoon={!ANALYTICS_SITE_LIVE}
-                comingSoonLabel={t('dashboard.comingSoon', 'coming soon')}
-              />
-            </Container>
-          </section>
-
-          <MinimalFooter
-            navLinks={B2C_FOOTER_NAV}
-            disclosureKeys={B2C_FOOTER_DISCLOSURES}
-            extraDisclosureKeys={MARKET_FOOTER_EXTRA_DISCLOSURES}
-          />
-        </div>
-      </AnalyticsProvider>
+        <MinimalFooter
+          navLinks={B2C_FOOTER_NAV}
+          disclosureKeys={B2C_FOOTER_DISCLOSURES}
+          extraDisclosureKeys={MARKET_FOOTER_EXTRA_DISCLOSURES}
+        />
+      </div>
     </PageI18nProvider>
   );
 }

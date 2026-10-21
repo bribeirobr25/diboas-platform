@@ -229,14 +229,10 @@ export interface ProductDisclaimerData {
 }
 
 // ---------------------------------------------------------------------------
-// Provider context (per doc 09 §3.1)
+// Page data and host copy (per doc 09 §3.1). The mock client provider and its
+// hooks were removed 2026-10-21: nothing read them, and the page renders on the
+// server from `AnalyticsInitialData`.
 // ---------------------------------------------------------------------------
-
-export interface AnalyticsError {
-  code: string;
-  message: string;
-  retryable: boolean;
-}
 
 export interface FallbackMessages {
   outageTitle: string;
@@ -252,33 +248,4 @@ export interface AnalyticsInitialData {
   dataStatus?: DataStatus | null;
   methodology?: MethodologyData | null;
   productDisclaimer?: ProductDisclaimerData | null;
-}
-
-export interface AnalyticsProviderProps {
-  /** Real-SDK API base URL. Ignored in mock mode; kept for iteration-5 parity. */
-  apiBaseUrl: string;
-  /** Optional API key for non-canonical hosts. Ignored in mock mode. */
-  apiKey?: string;
-  /** Locale negotiation target. */
-  locale: SupportedLocale;
-  /** Theme token overrides. */
-  theme?: Record<string, string>;
-  /** SSR-fetched initial data per NF5 — client hooks resolve from this. */
-  initialData?: AnalyticsInitialData;
-  /** Error reporter callback for host's monitoring. */
-  onError?: (err: AnalyticsError) => void;
-  /** Host-translated fallback copy for outage states. */
-  fallbackMessages?: FallbackMessages;
-  children: React.ReactNode;
-}
-
-// ---------------------------------------------------------------------------
-// Hook return shapes (per doc 09 §3.2)
-// ---------------------------------------------------------------------------
-
-export interface HookResult<T> {
-  data: T | null;
-  isLoading: boolean;
-  error: AnalyticsError | null;
-  refetch: () => Promise<void>;
 }
