@@ -1,11 +1,11 @@
 {
   "_comment": "Weekly refresh generated 2026-08-10 by apps/web/scripts/market-refresh/run.mjs (P2 fetch + fail-closed quality gate + shared engine) with editorial copy from generate.mjs (P3 template library; overrides in editorial-override.json). Cycle 2026-08-10: score 7 → 6, staying NEUTRAL_MIXED — REL-01 (BTC/Gold) flipped INACTIVE (ratio 14.947 vs 20-week trend 15.297). Structural signals anchor the confirmed July 31 monthly close per doc 02 §5.1 (BTC-02 + BTC-03 active; BTC-01 + BTC-04 inactive); weekly signals anchor the most recent confirmed Friday per source — NASDAQCOM/GC=F at 2026-08-07, DGS10/DTWEXBGS at 2026-07-31 (publication lag at the Monday 07:55 UTC run), M2SL at the June print (July due ~late August). ETF-01 evaluated UNAVAILABLE per doc 02 §10.1 while the Polygon shares-outstanding ledger warms up (4 of 5 weekly snapshots; first scorable evaluation expected ~2026-08-17). data_status carries the same source list as apps/web/data/market/data-status.json (byte-parity audit gate, F-M6). _translation_status sibling block tracks non-EN content review state per market-editorial.md §5.",
-  "score": 10,
+  "score": 9,
   "max_score": 14,
   "regime_code": "CONSTRUCTIVE",
   "regime_label": "Constructive",
   "environment_bias": "CONSTRUCTIVE",
-  "last_updated_at": "2026-10-19T13:16:47.917Z",
+  "last_updated_at": "2026-10-26T13:05:42.079Z",
   "summary": {
     "en": {
       "short": "The composite reads 10 of 14, Constructive. A week ago it read 12 of 14, Very Favorable; the whole difference is the ETF flow indicator, suspended from this update because its data cannot be verified week by week, so its 2 points no longer count. That is a change in our data, not in the market, and it says nothing about demand. Every other signal kept its state, and together they still add up to 10 points, as they did a week ago. The structural block still reads the September 30 close, six of six; the next monthly re-evaluation is the October 31 close. The dollar and the US 10-year now read their October 9 values, and both still work against the price: the dollar 1.54% above its 20-week trend, the 10-year at 5.24% against a 4.80% trend. Bitcoin still leads gold and the Nasdaq; its lead over gold narrowed to 11.8%.",
@@ -24,7 +24,7 @@
         "The US 10-year at 5.24% is still above its 4.80% trend, the second macro read working against the price, though the gap narrowed since the previous update",
         "Bitcoin's lead over gold narrowed since the previous update, to 11.8%"
       ],
-      "plain": "From this update, the ETF flow indicator is suspended because its data cannot be verified week by week. Its 2 points no longer count, which is a change in our data, not in the market. The combined score of the other signals is unchanged, at 10 of 14. The monthly read is constructive — the balance of signals is tilted toward the price, though that's a description, not a promise. What we're watching: whether the dollar loosens its grip, and whether the stock market itself stays steady."
+      "plain": "The score eased a little this week, from 10 to 9 of 14. Over the month, the read holds constructive: more of what we track leans toward the price than against. What we're watching: whether the stock market itself steadies, and whether the dollar loosens its grip."
     },
     "pt-BR": {
       "short": "O composto marca 10 de 14, Construtivo. Há uma semana marcava 12 de 14, Muito favorável; toda a diferença é o indicador de fluxos de ETF, suspenso a partir desta atualização porque seus dados não podem ser verificados semana a semana, então os 2 pontos dele deixam de contar. É uma mudança nos nossos dados, não no mercado, e não indica nada sobre a demanda. Todos os demais sinais mantiveram seu estado e, juntos, seguem somando 10 pontos, como há uma semana. O bloco estrutural ainda lê o fechamento de 30 de setembro, seis de seis; a próxima reavaliação mensal é o fechamento de 31 de outubro. O dólar e a taxa de 10 anos dos EUA agora leem os valores de 9 de outubro, e os dois seguem trabalhando contra o preço: o dólar 1,54% acima da sua tendência de 20 semanas, a taxa de 10 anos em 5,24% contra uma tendência de 4,80%. O Bitcoin segue à frente do ouro e do Nasdaq; a dianteira contra o ouro estreitou para 11,8%.",
@@ -43,7 +43,7 @@
         "A taxa de 10 anos dos EUA, em 5,24%, segue acima da tendência de 4,80%, a segunda leitura macro que trabalha contra o preço, embora a distância tenha diminuído desde a atualização anterior",
         "A dianteira do Bitcoin contra o ouro estreitou desde a atualização anterior, para 11,8%"
       ],
-      "plain": "A partir desta atualização, o indicador de fluxos de ETF está suspenso porque seus dados não podem ser verificados semana a semana. Os 2 pontos dele deixam de contar, o que é uma mudança nos nossos dados, não no mercado. A pontuação conjunta dos demais sinais ficou igual, em 10 de 14. A leitura do mês é construtiva — a balança dos sinais está inclinada a favor do preço, ainda que isso seja uma descrição, não uma promessa. O que estamos observando: se o dólar afrouxa o aperto, e se a própria bolsa segue firme."
+      "plain": "A pontuação cedeu um pouco nesta semana, de 10 para 9 de 14. No mês, a leitura se mantém construtiva: mais do quadro pende a favor do preço do que contra. O que estamos observando: se a própria bolsa se firma, e se o dólar afrouxa o aperto."
     },
     "es": {
       "short": "El compuesto marca 10 de 14, Constructivo. Hace una semana marcaba 12 de 14, Muy favorable; toda la diferencia es el indicador de flujos de ETF, suspendido desde esta actualización porque sus datos no pueden verificarse semana a semana, así que sus 2 puntos dejan de contar. Es un cambio en nuestros datos, no en el mercado, y no indica nada sobre la demanda. Todas las demás señales mantuvieron su estado y, juntas, siguen sumando 10 puntos, como hace una semana. El bloque estructural sigue leyendo el cierre del 30 de septiembre, seis de seis; la próxima reevaluación mensual es el cierre del 31 de octubre. El dólar y el bono estadounidense a 10 años leen ahora sus valores del 9 de octubre, y ambos siguen trabajando en contra del precio: el dólar un 1,54% por encima de su tendencia de 20 semanas, el bono a 10 años en el 5,24% frente a una tendencia del 4,80%. Bitcoin sigue por delante del oro y del Nasdaq; su ventaja frente al oro se estrechó hasta el 11,8%.",
@@ -62,7 +62,7 @@
         "El bono estadounidense a 10 años, en el 5,24%, sigue por encima de su tendencia del 4,80%, la segunda lectura macro que trabaja en contra del precio, aunque la distancia se redujo desde la actualización anterior",
         "La ventaja de Bitcoin frente al oro se estrechó desde la actualización anterior, hasta el 11,8%"
       ],
-      "plain": "Desde esta actualización, el indicador de flujos de ETF queda suspendido porque sus datos no pueden verificarse semana a semana. Sus 2 puntos dejan de contar, lo que es un cambio en nuestros datos, no en el mercado. La puntuación conjunta de las demás señales no cambió: 10 de 14. La lectura del mes es constructiva: la balanza de las señales se inclina a favor del precio, aunque eso es una descripción, no una promesa. Lo que observamos: si el dólar afloja su presión, y si la propia bolsa se mantiene firme."
+      "plain": "La puntuación cedió un poco esta semana, de 10 a 9 de 14. En el mes, la lectura se mantiene constructiva: la balanza sigue inclinada a favor del precio. Lo que observamos: si la propia bolsa se afirma, y si el dólar afloja su presión."
     },
     "de": {
       "short": "Der Gesamtwert steht bei 10 von 14, Konstruktiv. Vor einer Woche stand er bei 12 von 14, Sehr günstig; der gesamte Unterschied ist der ETF-Fluss-Indikator, der ab diesem Update ausgesetzt ist, weil sich seine Daten nicht Woche für Woche prüfen lassen, deshalb zählen seine 2 Punkte nicht mehr. Das ist eine Änderung in unseren Daten, nicht im Markt, und sie sagt nichts über die Nachfrage. Alle übrigen Signale haben ihren Zustand behalten und kommen zusammen weiterhin auf 10 Punkte, wie vor einer Woche. Der strukturelle Block liest weiterhin den Schluss vom 30. September, sechs von sechs; die nächste monatliche Neubewertung ist der Schluss vom 31. Oktober. Der Dollar und die US-Rendite auf zehn Jahre lesen jetzt ihre Werte vom 9. Oktober, und beide arbeiten weiterhin gegen den Preis: der Dollar 1,54% über seinem 20-Wochen-Trend, die Rendite bei 5,24% gegenüber einem Trend von 4,80%. Bitcoin liegt weiterhin vor Gold und dem Nasdaq; der Vorsprung gegenüber Gold schrumpfte auf 11,8%.",
@@ -81,7 +81,7 @@
         "Die US-Rendite auf zehn Jahre liegt mit 5,24% weiterhin über ihrem Trend von 4,80%, der zweite Makrowert, der gegen den Preis arbeitet, auch wenn der Abstand seit dem vorigen Update kleiner geworden ist",
         "Der Vorsprung von Bitcoin gegenüber Gold ist seit dem vorigen Update auf 11,8% geschrumpft"
       ],
-      "plain": "Ab diesem Update ist der ETF-Fluss-Indikator ausgesetzt, weil sich seine Daten nicht Woche für Woche prüfen lassen. Seine 2 Punkte zählen nicht mehr. Das ist eine Änderung in unseren Daten, nicht im Markt. Der Gesamtwert der übrigen Signale ist unverändert, bei 10 von 14. Die Lage im Monat ist konstruktiv — die Waage der Signale ist zugunsten des Preises geneigt, auch wenn das eine Beschreibung ist, kein Versprechen. Worauf wir achten: ob der Dollar seinen Griff lockert und ob der Aktienmarkt selbst stabil bleibt."
+      "plain": "Der Wert gab diese Woche etwas nach, von 10 auf 9 von 14. Im Monat hält die Lage konstruktiv: Ein größerer Teil des Feldes neigt sich zugunsten des Preises als dagegen. Worauf wir achten: ob der Aktienmarkt selbst zur Ruhe kommt und ob der Dollar seinen Griff lockert."
     }
   },
   "signal_groups": [
@@ -151,20 +151,20 @@
         "es": "Fortaleza relativa",
         "de": "Relative Stärke"
       },
-      "status": "CONSTRUCTIVE",
-      "points_awarded": 3,
+      "status": "MIXED",
+      "points_awarded": 2,
       "max_points": 3,
       "summary": {
-        "en": "Bitcoin leads its benchmarks: it outpaces gold and the Nasdaq on the weekly trend (3 of 3 points).",
-        "pt-BR": "O Bitcoin lidera seus referenciais: supera o ouro e a Nasdaq na tendência semanal (3 de 3 pontos).",
-        "es": "Bitcoin lidera sus referencias: supera al oro y al Nasdaq en la tendencia semanal (3 de 3 puntos).",
-        "de": "Bitcoin führt seine Vergleichsmaßstäbe an: Im Wochentrend läuft es Gold und dem Nasdaq voraus (3 von 3 Punkten)."
+        "en": "Relative strength is split: Bitcoin leads on part of the board while the rest holds firm against it (2 of 3 points).",
+        "pt-BR": "A força relativa está dividida: o Bitcoin lidera em parte do quadro enquanto o resto resiste (2 de 3 pontos).",
+        "es": "La fuerza relativa está dividida: Bitcoin lidera frente a algunos de sus referentes mientras el resto resiste (2 de 3 puntos).",
+        "de": "Die relative Stärke ist geteilt: Bitcoin führt auf einem Teil des Feldes, der Rest hält dagegen (2 von 3 Punkten)."
       }
     }
   ],
   "data_status": {
     "overall_confidence": "MODERATE",
-    "last_successful_update_at": "2026-10-19T13:16:47.917Z",
+    "last_successful_update_at": "2026-10-26T13:05:42.079Z",
     "sources": [
       {
         "source": "in-repo:monthlyPrices.json (BTC)",
@@ -178,59 +178,59 @@
       {
         "source": "FRED:DGS10",
         "status": "FRESH",
-        "last_updated_at": "2026-10-09T00:00:00Z",
-        "expected_next_update_at": "2026-10-23T20:00:00Z",
-        "stale_after": "2026-10-30T20:00:00Z",
-        "delayed_after": "2026-10-23T00:00:00Z",
-        "message": "US 10-year constant-maturity yield. Weekly signal anchored at the most recent confirmed Friday close (2026-10-09)."
+        "last_updated_at": "2026-10-16T00:00:00Z",
+        "expected_next_update_at": "2026-10-30T20:00:00Z",
+        "stale_after": "2026-11-06T20:00:00Z",
+        "delayed_after": "2026-10-30T00:00:00Z",
+        "message": "US 10-year constant-maturity yield. Weekly signal anchored at the most recent confirmed Friday close (2026-10-16)."
       },
       {
         "source": "FRED:DTWEXBGS",
         "status": "FRESH",
-        "last_updated_at": "2026-10-09T00:00:00Z",
-        "expected_next_update_at": "2026-10-23T20:00:00Z",
-        "stale_after": "2026-10-30T20:00:00Z",
-        "delayed_after": "2026-10-23T00:00:00Z",
-        "message": "Broad trade-weighted U.S. dollar index (FRED DTWEXBGS), a different index from the ICE DXY. Weekly signal anchored at the most recent confirmed Friday close (2026-10-09)."
+        "last_updated_at": "2026-10-16T00:00:00Z",
+        "expected_next_update_at": "2026-10-30T20:00:00Z",
+        "stale_after": "2026-11-06T20:00:00Z",
+        "delayed_after": "2026-10-30T00:00:00Z",
+        "message": "Broad trade-weighted U.S. dollar index (FRED DTWEXBGS), a different index from the ICE DXY. Weekly signal anchored at the most recent confirmed Friday close (2026-10-16)."
       },
       {
         "source": "FRED:M2SL",
-        "status": "FRESH",
+        "status": "DELAYED",
         "last_updated_at": "2026-08-01T00:00:00Z",
         "expected_next_update_at": "2026-10-25T20:00:00Z",
         "stale_after": "2026-11-30T00:00:00Z",
         "delayed_after": "2026-10-25T20:00:00Z",
-        "message": "US M2 money stock, monthly. August 2026 print landed (anchor 2026-08-01); the September print is due ~late October."
+        "message": "US M2 money stock, monthly. The September print is overdue (last anchor 2026-08-01)."
       },
       {
         "source": "FRED:NASDAQCOM",
         "status": "FRESH",
-        "last_updated_at": "2026-10-09T00:00:00Z",
-        "expected_next_update_at": "2026-10-23T20:00:00Z",
-        "stale_after": "2026-10-30T20:00:00Z",
-        "delayed_after": "2026-10-23T00:00:00Z",
-        "message": "Nasdaq Composite close. Weekly signal anchored at the most recent confirmed Friday close (2026-10-09)."
+        "last_updated_at": "2026-10-23T00:00:00Z",
+        "expected_next_update_at": "2026-10-30T20:00:00Z",
+        "stale_after": "2026-11-06T20:00:00Z",
+        "delayed_after": "2026-11-06T00:00:00Z",
+        "message": "Nasdaq Composite close. Weekly signal anchored at the most recent confirmed Friday close (2026-10-23)."
       },
       {
         "source": "Yahoo:GC=F",
         "status": "FRESH",
-        "last_updated_at": "2026-10-16T00:00:00Z",
-        "expected_next_update_at": "2026-10-23T20:00:00Z",
-        "stale_after": "2026-10-30T20:00:00Z",
-        "delayed_after": "2026-10-30T00:00:00Z",
-        "message": "Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29). Weekly anchor 2026-10-16."
+        "last_updated_at": "2026-10-23T00:00:00Z",
+        "expected_next_update_at": "2026-10-30T20:00:00Z",
+        "stale_after": "2026-11-06T20:00:00Z",
+        "delayed_after": "2026-11-06T00:00:00Z",
+        "message": "Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29). Weekly anchor 2026-10-23."
       },
       {
         "source": "Polygon:ETF (shares-outstanding)",
         "status": "UNAVAILABLE",
-        "last_updated_at": "2026-10-09T00:00:00Z",
-        "expected_next_update_at": "2026-10-16T00:00:00Z",
-        "stale_after": "2026-10-30T00:00:00Z",
+        "last_updated_at": "2026-10-23T00:00:00Z",
+        "expected_next_update_at": "2026-10-30T00:00:00Z",
+        "stale_after": "2026-11-13T00:00:00Z",
         "delayed_after": null,
-        "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). ETF-01 is suspended from the 2026-10-19 cycle: the share-count route cannot support a weekly evaluation, so the signal is scored UNAVAILABLE (0 points), not weak. Collection is still attempted weekly. Ledger: 14 records, 13 complete (a share count and a price for every fund); completeness does not show that the share counts are current, and their observation dates are not provided. The latest record (anchor 2026-10-16) is incomplete. The latest complete record is anchored 2026-10-09. A successful collection does not reactivate the signal."
+        "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). ETF-01 is suspended from the 2026-10-19 cycle: the share-count route cannot support a weekly evaluation, so the signal is scored UNAVAILABLE (0 points), not weak. Collection is still attempted weekly. Ledger: 15 records, 14 complete (a share count and a price for every fund); completeness does not show that the share counts are current, and their observation dates are not provided. The latest complete record is anchored 2026-10-23. A successful collection does not reactivate the signal."
       }
     ],
-    "delayed_sources": [],
+    "delayed_sources": ["FRED:M2SL"],
     "unavailable_sources": ["Polygon:ETF (shares-outstanding)"]
   },
   "_translation_status": {
