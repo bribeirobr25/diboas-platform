@@ -25,7 +25,7 @@
     "@upstash/ratelimit": "^2.0.7",
     "@upstash/redis": "^1.38.1",
     "decimal.js": "^10.4.3",
-    "lucide-react": "^0.544.0",
+    "lucide-react": "^1.61.0",
     "next": "16.3.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
