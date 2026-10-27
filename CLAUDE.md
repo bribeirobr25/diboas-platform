@@ -341,7 +341,7 @@ Turborepo scrubs them and source-map upload is skipped with no error.
 - `apps/web` depends on `@diboas/i18n`, `@diboas/ui`, and `@diboas/email`
 - `@diboas/i18n` must be built before `apps/web` dev/build (`pnpm dev:fresh` handles this)
 - Turborepo handles build ordering via `turbo.json` task dependencies
-- **Dependency pinning strategy:** `next` is pinned exact (16.3.8 as of 2026-10-06 — bumped from 16.3.4 for the critical `next/og` RCE GHSA-vcvr-r3jv-pc5j, PENDING_ALL 5.477; both `apps/web/package.json`, `apps/sandbox/package.json`, and root `package.json#pnpm.overrides.next` must stay aligned — AND the `postcss` devDep must match next's internal exact pin, see `docs/tech/implementation-notes.md` § postcss/storybook footgun). Other deps use caret ranges — `pnpm-lock.yaml` (committed) ensures reproducible builds. Do not delete or gitignore the lockfile.
+- **Dependency pinning strategy:** `next` is pinned exact (16.4.3 as of 2026-10-27 — bumped from 16.3.8 for two critical RCEs, GHSA-673q-mjm6-r5xr and GHSA-2464-fhr4-w9xw, and the Server Actions DoS GHSA-p3m5-59mp-jv5r; before that 16.3.8 for `next/og` GHSA-vcvr-r3jv-pc5j, PENDING_ALL 5.477; both `apps/web/package.json`, `apps/sandbox/package.json`, and root `package.json#pnpm.overrides.next` must stay aligned — AND the `postcss` devDep must match next's internal exact pin, see `docs/tech/implementation-notes.md` § postcss/storybook footgun). Other deps use caret ranges — `pnpm-lock.yaml` (committed) ensures reproducible builds. Do not delete or gitignore the lockfile.
 
 ## 12 Principles of Excellence
 

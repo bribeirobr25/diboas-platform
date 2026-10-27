@@ -26,7 +26,7 @@
     "@upstash/redis": "^1.38.1",
     "decimal.js": "^10.4.3",
     "lucide-react": "^0.544.0",
-    "next": "16.3.8",
+    "next": "16.4.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intl": "^6.4.7"
