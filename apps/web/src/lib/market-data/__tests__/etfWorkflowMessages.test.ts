@@ -496,6 +496,17 @@ describe('the weekly PR body for the ETF step outcomes and a carried PR (P2, P4,
     expect(body).not.toMatch(/was not recorded|nothing recorded/i);
   });
 
+  it('does not say "did not finish" when the step failed after setting its status', () => {
+    const body = composeOnly({ __outcome: 'failure', status: 'ok' });
+    expect(body).not.toContain('did not finish');
+  });
+
+  it('says nothing about a missing key for a step that ran (success or failure)', () => {
+    for (const outcome of ['success', 'failure']) {
+      expect(composeOnly({ __outcome: outcome, status: 'ok' })).not.toContain('POLYGON_API_KEY');
+    }
+  });
+
   it('adds nothing about ETF-01 for a step that finished, whatever the carry state', () => {
     const body = composeOnly(
       { __outcome: 'success', status: 'ok' },

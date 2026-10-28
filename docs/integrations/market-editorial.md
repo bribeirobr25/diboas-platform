@@ -10,10 +10,13 @@
 > PR's data (and your memo edits, which live in `regime.json`) on top, adds its own week, and updates the
 > same PR. The PR body then has a section **"This PR carries an unmerged week"** naming the carried run days
 > and ETF weeks; the memo still describes the earlier week, so rewrite it for the latest one before merging.
-> The run **refuses**, naming why in the log, when carrying would lose or misstate something: the PR branch
-> holds a non-data change; `main` changed data since that PR opened; the PR is titled **LEDGER CHECK FAILED**;
-> more than one refresh PR is open; or the branch moved during the run (a memo pushed mid-run, or the PR
-> merged). A refusal keeps that week's ETF collection as the run artifact. **Never close an open refresh PR
+> The run **refuses**, naming why and what to do in the log, when carrying would lose or misstate
+> something: the PR branch holds a non-data change (move it to its own PR); `main` changed a data file the
+> PR also changes (update the PR branch from `main`); a ledger on the branch is not a clean append (fix it
+> on the branch, see "LEDGER CHECK FAILED"); more than one refresh PR is open (merge the older one); the run
+> did not start from `main`; or the branch moved during the run (run again). A refusal keeps that week's
+> ETF collection as the run artifact. If you recover from that artifact, append only the new week's row to
+> the PR branch's ledger: the artifact holds `main`'s ledger, not the PR's. **Never close an open refresh PR
 > unmerged to get past a refusal**: that throws away its week. _(SUPERSEDED 2026-10-28: "The workflow now
 > refuses to run while a refresh PR is still open (its first step) … rewrite that PR's memo if required,
 > merge it, then re-run" — the 2026-09-29 `5.464` rule.)_ The PR body now lists **every** stale memo
@@ -117,7 +120,7 @@ The iter-2 fixtures at `apps/web/src/lib/analytics-sdk/fixtures/` (including `re
 
 | File                      | Cadence                                     | Trigger                                                                                                                                                                                                                                                                                                                                      |
 | ------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `regime.json`             | Weekly (or as the macro environment shifts) | Tuesday before close is the default rhythm. Update whenever you'd say the environment has materially changed.                                                                                                                                                                                                                                |
+| `regime.json`             | Weekly (or as the macro environment shifts) | The Monday refresh run writes it and opens the weekly PR; the memo fields are rewritten on that PR's branch before it merges. _(Superseded: "Tuesday before close is the default rhythm", a pre-automation cadence, `5.471`.)_                                                                                                               |
 | `historical.json`         | **Pipeline-owned — never edit by hand**     | `generate.mjs` appends one point per real run and flips `synthetic_seed`. Hand-adding a point publishes history that never happened (5.127). A 52-entry cap still exists in code and will start dropping the oldest points around mid-2027, at which point the "since the framework went live" copy needs revisiting — tracked as **5.139**. |
 | `signals.json`            | Weekly                                      | Per-signal `state` + `last_updated_at`. Some sub-signals will be stale faster than others.                                                                                                                                                                                                                                                   |
 | `data-status.json`        | AUTO-GENERATED weekly (B3, 2026-08-11)      | Written by `generate.mjs` from `computed.json` anchors + the ETF ledger — never hand-edit; `--check` enforces.                                                                                                                                                                                                                               |
@@ -208,6 +211,8 @@ Reference: `CLAUDE.md` §"Digital dollar terminology + jargon ban (Phase 7 Q2a/Q
 ---
 
 ## 7. Step-by-step PR workflow
+
+> **Read first (C1a, 2026-10-28; `5.471`).** The weekly refresh PR is where editorial work happens: rewrite the memo fields **on that PR's branch** (`editorial/market-refresh-auto`). The manual flow below is only for an out-of-cycle change while **no** refresh PR is open. If a refresh PR is open and you merge a data change to `main` that touches a file the PR also changes, the next run refuses to carry the PR until its branch is updated from `main` (GitHub: "Update branch"); it never closes or overwrites the PR.
 
 > **P2 pipeline first (2026-07-11):** every refresh now STARTS with
 > `node apps/web/scripts/market-refresh/run.mjs` (add `--append-btc` when a
@@ -394,7 +399,7 @@ Default to the more conservative §10.1 path when in doubt — overclaiming "con
 
 **What it means.** Before opening the weekly PR, the workflow compares every JSONL ledger in `apps/web/data/market/shared/` with the commit it started from (`main` for the scheduled run). A ledger may only grow by complete rows. The title appears when that is not true. Typically a write failed part-way and left a fragment of a row at the end of `etf-shares-weekly.jsonl`, `etf-snapshot-attempts.jsonl` or `run-archive.jsonl`. The title also appears when the check itself could not complete (for example, Git could not read a ledger's committed version). The body then says the ledgers' integrity is **UNVERIFIED**: nothing was found wrong, and nothing was ruled out. The PR body names the file and the problem; the "Ledger append check" step log has the detail.
 
-**What to do.** **Do not merge as is.** Merging would make the fragment a permanent line of a public append-only ledger. Nothing was removed or repaired automatically, by design. **Ask the market lane (CC) to handle it.**
+**What to do.** **Do not merge as is.** Merging would make the fragment a permanent line of a public append-only ledger. While the PR stays open, the next run refuses to carry it; since C1a (2026-10-28) that refusal reads the ledgers themselves, so once the fix below is on the branch the next run carries the PR again, whatever its title says. Nothing was removed or repaired automatically, by design. **Ask the market lane (CC) to handle it.**
 
 **The rule (owner decision 2026-10-21):** on the PR branch, **remove only the bytes this run added** to the ledger, and state the removal in the PR (file, byte count, checksum before and after, and why). Rows already on `main` are never touched. If the run's addition was a fragment, that week's new row is lost; for the suspended ETF-01 the week counts 0 points, and a damaged row was not usable either. Keeping the fragment and recording it was considered and rejected: a broken line on `main` stays in the public ledger and can affect how later runs read it.
 

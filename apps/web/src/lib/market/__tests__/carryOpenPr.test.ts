@@ -16,6 +16,7 @@ import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
   DATA_PATHS,
+  parseOpenPrs,
   REFRESH_BRANCH,
   carryNote,
   prepare,
@@ -160,17 +161,75 @@ describe('CARRY-PR-1 prepare — what the run starts from', () => {
     expect(git(runner, 'status', '--porcelain')).toBe('');
   });
 
-  it('should refuse when main changed a data path since the PR was opened', () => {
+  it("should carry, keeping main's change, when main changed a data file the PR does not touch", () => {
     const head = openBotBranch();
     write(author, SECOND, '{"series":["changed on main"]}\n');
     git(author, 'commit', '-qam', 'a data change merged to main');
     git(author, 'push', '-q', 'origin', 'HEAD:main');
     cloneRunner();
     const res = prepare({ cwd: runner, openPrs: [pr(head)] });
+    expect(res.decision).toBe('carry');
+    expect(read(runner, SECOND)).toBe('{"series":["changed on main"]}\n'); // not reverted
+    expect(read(runner, REGIME)).toContain('founder memo for 10-26');
+    expect(res.carriedFiles).not.toContain(SECOND);
+  });
+
+  it('should refuse, naming the file and the remedy, when main changed a data file the PR also changes', () => {
+    const head = openBotBranch();
+    write(author, REGIME, '{"summary":{"en":{"short":"regenerated on main"}}}\n');
+    git(author, 'commit', '-qam', 'a data change merged to main');
+    git(author, 'push', '-q', 'origin', 'HEAD:main');
+    cloneRunner();
+    const res = prepare({ cwd: runner, openPrs: [pr(head)] });
     expect(res.decision).toBe('refuse');
-    expect(res.reason).toContain('main changed data');
-    expect(res.reason).toContain('protocolsTvl.json');
+    expect(res.reason).toContain('main changed data files');
+    expect(res.reason).toContain('regime.json');
+    expect(res.reason).not.toContain('run-archive.jsonl'); // only the overlap is named
+    expect(res.remedy).toContain('Update branch');
+    expect(res.remedy).toContain('Never close an open refresh PR unmerged');
     expect(git(runner, 'status', '--porcelain')).toBe('');
+  });
+
+  it("should carry the PR's change in the second data path", () => {
+    git(author, 'checkout', '-qb', 'bot');
+    fs.appendFileSync(path.join(author, ARCHIVE), run('2026-10-26'));
+    write(author, SECOND, '{"series":["month-roll on the bot branch"]}\n');
+    git(author, 'commit', '-qam', 'data with a month-roll');
+    git(author, 'push', '-q', 'origin', `HEAD:${REFRESH_BRANCH}`);
+    const head = git(author, 'rev-parse', 'HEAD');
+    cloneRunner();
+    expect(prepare({ cwd: runner, openPrs: [pr(head)] }).decision).toBe('carry');
+    expect(read(runner, SECOND)).toBe('{"series":["month-roll on the bot branch"]}\n');
+  });
+
+  it('should refuse a rename from code into a data path (the code-side deletion is outside)', () => {
+    write(author, 'apps/web/scripts/foo.mjs', 'export const x = 1;\n');
+    git(author, 'add', '-A');
+    git(author, 'commit', '-qm', 'a script');
+    git(author, 'push', '-q', 'origin', 'HEAD:main');
+    git(author, 'checkout', '-qb', 'bot');
+    git(author, 'mv', 'apps/web/scripts/foo.mjs', `${SHARED}/foo.mjs`);
+    fs.appendFileSync(path.join(author, ARCHIVE), run('2026-10-26'));
+    git(author, 'commit', '-qam', 'rename into data');
+    git(author, 'push', '-q', 'origin', `HEAD:${REFRESH_BRANCH}`);
+    const head = git(author, 'rev-parse', 'HEAD');
+    cloneRunner();
+    const res = prepare({ cwd: runner, openPrs: [pr(head)] });
+    expect(res.decision).toBe('refuse');
+    expect(res.reason).toContain('apps/web/scripts/foo.mjs');
+  });
+
+  it('should refuse a change under a path that only shares the data prefix', () => {
+    git(author, 'checkout', '-qb', 'bot');
+    write(author, 'apps/web/data/market-other/x.json', '{}\n');
+    git(author, 'add', '-A');
+    git(author, 'commit', '-qm', 'prefix trap');
+    git(author, 'push', '-q', 'origin', `HEAD:${REFRESH_BRANCH}`);
+    const head = git(author, 'rev-parse', 'HEAD');
+    cloneRunner();
+    const res = prepare({ cwd: runner, openPrs: [pr(head)] });
+    expect(res.decision).toBe('refuse');
+    expect(res.reason).toContain('apps/web/data/market-other/x.json');
   });
 
   it('should carry when main moved outside the data paths only', () => {
@@ -183,16 +242,81 @@ describe('CARRY-PR-1 prepare — what the run starts from', () => {
     expect(read(runner, 'README.md')).toBe('a code change merged to main\n');
   });
 
-  it('should refuse a PR titled LEDGER CHECK FAILED', () => {
+  it('should refuse a PR whose ledger is not a clean append, and carry it once the fix is on the branch', () => {
+    const title = 'data(market): weekly refresh — LEDGER CHECK FAILED, do not merge as is';
+    git(author, 'checkout', '-qb', 'bot');
+    fs.appendFileSync(path.join(author, LEDGER), '{"anchor":"2026-10-2'); // a fragment
+    git(author, 'commit', '-qam', 'fragment');
+    git(author, 'push', '-q', 'origin', `HEAD:${REFRESH_BRANCH}`);
+    let head = git(author, 'rev-parse', 'HEAD');
+    cloneRunner();
+    const res = prepare({ cwd: runner, openPrs: [pr(head, title)] });
+    expect(res.decision).toBe('refuse');
+    expect(res.reason).toContain('etf-shares-weekly.jsonl');
+    expect(res.reason).toContain('not a clean append');
+    expect(git(runner, 'status', '--porcelain')).toBe('');
+    // The fix lands on the branch; the title (bot-set) still says LEDGER CHECK FAILED.
+    write(author, LEDGER, etf('2026-10-16') + etf('2026-10-23'));
+    git(author, 'commit', '-qam', 'remove the fragment, append the week');
+    git(author, 'push', '-q', 'origin', `HEAD:${REFRESH_BRANCH}`);
+    head = git(author, 'rev-parse', 'HEAD');
+    expect(prepare({ cwd: runner, openPrs: [pr(head, title)] }).decision).toBe('carry');
+  });
+
+  it("should refuse, touching nothing, when the PR list names an older real head than the branch's", () => {
+    const older = openBotBranch();
+    git(author, 'checkout', '-q', 'bot');
+    write(author, REGIME, '{"summary":{"en":{"short":"memo pushed just before the run"}}}\n');
+    git(author, 'commit', '-qam', 'memo');
+    git(author, 'push', '-q', 'origin', `HEAD:${REFRESH_BRANCH}`);
+    git(author, 'checkout', '-q', 'main');
+    cloneRunner();
+    const res = prepare({ cwd: runner, openPrs: [pr(older)] }); // GitHub's list lagging
+    expect(res.decision).toBe('refuse');
+    expect(res.reason).toContain('the branch moved while this run started');
+    expect(git(runner, 'status', '--porcelain')).toBe('');
+  });
+
+  it('should refuse a run that did not start from main', () => {
     const head = openBotBranch();
     cloneRunner();
-    const res = prepare({
-      cwd: runner,
-      openPrs: [pr(head, 'data(market): weekly refresh — LEDGER CHECK FAILED, do not merge as is')],
-    });
+    const res = prepare({ cwd: runner, openPrs: [pr(head)], ref: 'refs/heads/feat/x' });
     expect(res.decision).toBe('refuse');
-    expect(res.reason).toContain('LEDGER CHECK FAILED');
+    expect(res.reason).toContain('refs/heads/feat/x');
+    expect(res.remedy).toContain('from main');
     expect(git(runner, 'status', '--porcelain')).toBe('');
+  });
+
+  it('should ignore PRs from forks, which anyone can open from a branch with this name', () => {
+    const list = parseOpenPrs(
+      JSON.stringify([
+        { ...pr('a'), isCrossRepository: true },
+        { ...pr('b'), number: 9, isCrossRepository: false },
+      ])
+    );
+    expect(list.map((p: { number: number }) => p.number)).toEqual([9]);
+    expect(() => parseOpenPrs('null')).toThrow();
+    expect(() => parseOpenPrs('{}')).toThrow();
+  });
+
+  it('should report the carried run days as unknown, never "none", when the PR rewrote the archive', () => {
+    git(author, 'checkout', '-qb', 'bot');
+    write(author, ARCHIVE, run('2026-10-20')); // rewritten, not appended
+    git(author, 'commit', '-qam', 'rewritten archive');
+    git(author, 'push', '-q', 'origin', `HEAD:${REFRESH_BRANCH}`);
+    const head = git(author, 'rev-parse', 'HEAD');
+    cloneRunner();
+    const res = prepare({ cwd: runner, openPrs: [pr(head)] });
+    // A rewritten .jsonl is not a clean append, so the ledger refusal fires first.
+    expect(res.decision).toBe('refuse');
+    expect(res.reason).toContain('run-archive.jsonl');
+  });
+
+  it('should stop rather than overlay onto data paths that are not clean', () => {
+    const head = openBotBranch();
+    cloneRunner();
+    write(runner, ARCHIVE, 'local edit\n');
+    expect(() => prepare({ cwd: runner, openPrs: [pr(head)] })).toThrow(/not clean/);
   });
 
   it("should refuse when the branch head is not the PR's head at the start", () => {
@@ -274,6 +398,29 @@ describe('CARRY-PR-1 verify — the branch is where the run found it', () => {
     });
   });
 
+  it('should refuse a carry when GitHub reports a different head even if the branch looks unchanged', () => {
+    const head = openBotBranch();
+    cloneRunner();
+    const res = verify({
+      cwd: runner,
+      openPrs: [pr('1'.repeat(40))],
+      decision: 'carry',
+      startHead: head,
+      prNumber: 751,
+    });
+    expect(res.ok).toBe(false);
+  });
+
+  it('should refuse a fresh run when a PR is listed even if the branch looks unchanged', () => {
+    const head = openBotBranch();
+    cloneRunner();
+    const res = verify({ cwd: runner, openPrs: [pr(head)], decision: 'fresh', startHead: head });
+    expect(res).toMatchObject({
+      ok: false,
+      reason: expect.stringContaining('opened during the run'),
+    });
+  });
+
   it('should allow a fresh run when nothing changed, and never publish after a refusal', () => {
     cloneRunner();
     expect(verify({ cwd: runner, openPrs: [], decision: 'fresh', startHead: '' }).ok).toBe(true);
@@ -296,6 +443,16 @@ describe('CARRY-PR-1 PR body and command line', () => {
     expect(note).toContain('rewrite them for this week');
   });
 
+  it('should give the remedy in a refusal note and never advise closing the PR', () => {
+    const note = carryNote({
+      decision: 'refuse',
+      reason: 'x',
+      remedy: 'Do y. Never close an open refresh PR unmerged: that loses its week.',
+    });
+    expect(note).toContain('Do y.');
+    expect(note).not.toMatch(/\bclose it\b|merge or close|or close/i);
+  });
+
   it('should word an unknown carried list neutrally, never as "none"', () => {
     const note = carryNote({
       decision: 'carry',
@@ -315,7 +472,12 @@ describe('CARRY-PR-1 PR body and command line', () => {
     const outText = execFileSync('node', [SCRIPT, 'prepare'], {
       cwd: runner,
       encoding: 'utf8',
-      env: { ...process.env, OPEN_PR_JSON: JSON.stringify([pr(head)]), NOTE_PATH: notePath },
+      env: {
+        ...process.env,
+        GITHUB_REF: 'refs/heads/main',
+        OPEN_PR_JSON: JSON.stringify([pr(head)]),
+        NOTE_PATH: notePath,
+      },
       stdio: ['ignore', 'pipe', 'pipe'],
     });
     expect(outText).toContain('decision=carry');
