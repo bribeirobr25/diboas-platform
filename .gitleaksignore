@@ -7,7 +7,8 @@
 # Two values in a document that is no longer tracked but remains in public
 # history: a PostHog project key (public by design) and a Kit API key that is no
 # longer used or active (founder, 2026-10-28). The full-history weekly scan has
-# failed on them every Monday since at least 2026-09-07, which made a new
-# finding indistinguishable from these two.
+# failed on every scheduled run since it was added (2026-06-01; these same two
+# fingerprints are visible in every run log still kept, back to 2026-08-24),
+# which made a new finding indistinguishable from these two.
 d2097f8e6550b352abcdb7c39491700ed9add634:docs/audit/code/08-security-audit-standards.md:generic-api-key:322
 d2097f8e6550b352abcdb7c39491700ed9add634:docs/audit/code/08-security-audit-standards.md:generic-api-key:323
