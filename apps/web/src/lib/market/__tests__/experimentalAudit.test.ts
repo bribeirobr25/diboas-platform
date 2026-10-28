@@ -234,7 +234,7 @@ describe('B: independent time and scoring oracles', () => {
     }
   });
 
-  defect('N02 exact monthly grace boundary must agree at generation and read time', () => {
+  it('N02 exact monthly grace boundary must agree at generation and read time (fixed 5.630)', () => {
     const before = panel('2026-11-03T23:59:59.999Z', [snapshot('2026-10-30')]);
     const at = new Date('2026-11-04T00:00:00Z');
     // Hold all observations fixed; only the clock moves.
@@ -322,21 +322,21 @@ describe('D: bounded expansion justified by source-quality gaps', () => {
     { length: 13 },
     (_, i) => [new Date(Date.UTC(2025, 9 + i, 1)), 100 + i] as [Date, number]
   );
-  defect('K03 M2 with a missing mandatory month must not silently become a 12-month change', () => {
+  it('K03 M2 with a missing mandatory month must not silently become a 12-month change (fixed 5.626)', () => {
     const missing = m2.map(([d, v]) => [new Date(d), v] as [Date, number]);
     missing[0][0] = new Date('2025-09-01T00:00:00Z'); // 13 months, still 13 rows
     expect(() =>
       evaluateMacro({ dxyDaily: daily, us10yDaily: daily, m2Monthly: missing }, now)
-    ).toThrow();
+    ).toThrow(/INVALID SERIES \(5\.626\).*skips from 2025-09 to/);
   });
-  defect('K04 M2 invalid numeric value must fail closed (known M2 quality gap)', () => {
+  it('K04 M2 invalid numeric value must fail closed (fixed 5.626)', () => {
     const invalid = m2.map(([d, v]) => [d, v] as [Date, number]);
     invalid[0][1] = NaN;
     expect(() =>
       evaluateMacro({ dxyDaily: daily, us10yDaily: daily, m2Monthly: invalid }, now)
-    ).toThrow();
+    ).toThrow(/INVALID SERIES \(5\.626\).*non-finite or non-positive/);
   });
-  defect('K05 Friday before close is not a confirmed Friday (known CC finding)', () => {
+  it('K05 Friday before close is not a confirmed Friday (fixed 5.625)', () => {
     expect(
       strictFridayCloses(
         [[new Date('2026-10-23T00:00:00Z'), 123]],

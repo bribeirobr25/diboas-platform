@@ -14,8 +14,18 @@
  * Money Tools calculators also read.
  */
 
-import { readFileSync } from 'node:fs';
+import {
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  realpathSync,
+  rmSync,
+  symlinkSync,
+  writeFileSync,
+} from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { describe, expect, it, afterEach } from 'vitest';
 import { isDirectInvocation } from '../../../../scripts/market-refresh/lib/invocation.mjs';
 
@@ -53,6 +63,26 @@ describe('isDirectInvocation — the guard itself', () => {
     // `file://` + argv[1] string-concatenation breaks here; pathToFileURL does not.
     process.argv[1] = '/tmp/my scripts/run.mjs';
     expect(isDirectInvocation('file:///tmp/my%20scripts/run.mjs')).toBe(true);
+  });
+
+  it('should recognise the entry point when it was invoked through a symlinked path', () => {
+    // Node reports the REAL path in import.meta.url while argv[1] keeps the
+    // typed one; before this case existed, a script run through a symlink
+    // (every macOS temp dir) skipped main() and exited 0 having done nothing.
+    const base = realpathSync(mkdtempSync(join(tmpdir(), 'invocation-')));
+    try {
+      mkdirSync(join(base, 'real'));
+      writeFileSync(join(base, 'real', 'script.mjs'), '');
+      writeFileSync(join(base, 'real', 'other.mjs'), '');
+      symlinkSync(join(base, 'real'), join(base, 'link'));
+      process.argv[1] = join(base, 'link', 'script.mjs');
+      expect(isDirectInvocation(pathToFileURL(join(base, 'real', 'script.mjs')).href)).toBe(true);
+      // --preserve-symlinks-main keeps the symlinked path in import.meta.url.
+      expect(isDirectInvocation(pathToFileURL(join(base, 'link', 'script.mjs')).href)).toBe(true);
+      expect(isDirectInvocation(pathToFileURL(join(base, 'real', 'other.mjs')).href)).toBe(false);
+    } finally {
+      rmSync(base, { recursive: true, force: true });
+    }
   });
 });
 
