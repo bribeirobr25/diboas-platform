@@ -12,7 +12,13 @@
  *      REL-03 (the Nasdaq's own health), so the generic claim "Bitcoin leads
  *      on part of the board" would be false. First hit 2026-08-10; shipped
  *      that week as an editorial override, made durable here.
- *   3. generic 'mixed' template.
+ *   3. relative_strength only — 'mixedLeadsBoth', the mirror: BOTH
+ *      BTC-relative reads are ACTIVE and REL-03 is INACTIVE (2 of 3). The
+ *      generic "the rest holds firm against it" is false there: Bitcoin leads
+ *      everything it is compared with, and the lost point is the Nasdaq's own
+ *      trend. First hit 2026-10-26 (live until 2026-10-28).
+ *   4. generic 'mixed' template (now reachable only when a REL read is
+ *      UNAVAILABLE).
  */
 import { isSuspendedEtf } from './etf-suspension.mjs';
 
@@ -165,6 +171,21 @@ export function groupSummary(ctx, groupId, locale) {
       ctx.groupTpl[groupId].mixedBackdropOnly?.[locale]
     ) {
       return fill(ctx.groupTpl[groupId].mixedBackdropOnly[locale], {
+        points: String(points),
+        max: String(max),
+      });
+    }
+    // 2026-10-28: the mirror — both BTC-relative reads ACTIVE, REL-03 INACTIVE.
+    // Requiring REL-03 INACTIVE (not merely not ACTIVE) keeps "slipped below
+    // its trend" true; an UNAVAILABLE REL-03 falls through to the generic copy.
+    const bothLead = composableIds(groupId).every((id) => ctx.byId[id]?.state === 'ACTIVE');
+    if (
+      groupId === 'relative_strength' &&
+      bothLead &&
+      ctx.byId['REL-03']?.state === 'INACTIVE' &&
+      ctx.groupTpl[groupId].mixedLeadsBoth?.[locale]
+    ) {
+      return fill(ctx.groupTpl[groupId].mixedLeadsBoth[locale], {
         points: String(points),
         max: String(max),
       });
