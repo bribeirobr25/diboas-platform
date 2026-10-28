@@ -16,6 +16,7 @@ jobs:
         with:
           # Full history so gitleaks can diff PR commits against base.
           # Configured via .gitleaks.toml at repo root.
+          # Historical findings to skip are pinned by fingerprint in .gitleaksignore.
           fetch-depth: 0
       - name: Gitleaks
         id: gitleaks
