@@ -8,7 +8,10 @@
  *   2. 'mixedBackdropOnly' when BOTH BTC-relative reads are INACTIVE (the
  *      point is REL-03 alone — the generic "Bitcoin leads on part of the
  *      board" is false there; first hit 2026-08-10),
- *   3. generic 'mixed' as the residual fallback (e.g. an UNAVAILABLE REL
+ *   3. 'mixedLeadsBoth' when BOTH BTC-relative reads are ACTIVE and REL-03 is
+ *      INACTIVE (2026-10-28; the generic "the rest holds firm against it" was
+ *      live and false from the 2026-10-26 cycle),
+ *   4. generic 'mixed' as the residual fallback (e.g. an UNAVAILABLE REL
  *      signal breaks the both-INACTIVE guarantee, so no trailing claim).
  */
 
@@ -73,6 +76,53 @@ describe('relative_strength mixed-state template selection (B1)', () => {
     const ctx = relCtx({ 'REL-01': 'ACTIVE', 'REL-02': 'INACTIVE', 'REL-03': 'ACTIVE' }, 2);
     expect(groupSummary(ctx, 'relative_strength', 'en')).toBe(
       'Relative strength is split: Bitcoin leads gold but lags the Nasdaq (2 of 3 points).'
+    );
+  });
+
+  it('should select mixedLeadsBoth when both BTC-relative reads are ACTIVE and REL-03 is INACTIVE', () => {
+    const ctx = relCtx({ 'REL-01': 'ACTIVE', 'REL-02': 'ACTIVE', 'REL-03': 'INACTIVE' }, 2);
+    expect(groupSummary(ctx, 'relative_strength', 'en')).toBe(
+      'Relative strength is split: Bitcoin leads both gold and the Nasdaq, but the wider risk market itself has slipped below its trend (2 of 3 points).'
+    );
+    for (const loc of LOCALES) {
+      const out = groupSummary(ctx, 'relative_strength', loc);
+      expect(out).toBe(
+        groupTpl.relative_strength.mixedLeadsBoth[loc]
+          .replace('{points}', '2')
+          .replace('{max}', '3')
+      );
+      expect(out).not.toContain('{');
+    }
+  });
+
+  // Every ACTIVE/INACTIVE combination of the three signals, scored as the
+  // engine scores them (one point each). With every signal evaluated, the
+  // generic 'mixed' copy ("Bitcoin leads on part of the board while the rest
+  // holds firm against it") is never true, so it must never be selected.
+  const STATES = ['ACTIVE', 'INACTIVE'] as const;
+  const COMBOS = STATES.flatMap((a) =>
+    STATES.flatMap((b) => STATES.map((c) => ({ 'REL-01': a, 'REL-02': b, 'REL-03': c })))
+  );
+  it.each(COMBOS)(
+    'should never select the generic mixed copy when every REL signal is evaluated (%o)',
+    (states) => {
+      const points = Object.values(states).filter((s) => s === 'ACTIVE').length;
+      const ctx = relCtx(states, points);
+      for (const loc of LOCALES) {
+        const generic = groupTpl.relative_strength.mixed[loc]
+          .replace('{points}', String(points))
+          .replace('{max}', '3');
+        expect(groupSummary(ctx, 'relative_strength', loc)).not.toBe(generic);
+      }
+    }
+  );
+
+  it('should keep the generic mixed copy when REL-03 is UNAVAILABLE beside two BTC leads', () => {
+    // "slipped below its trend" needs an evaluated REL-03; without it neither
+    // variant's claim can be made, so the residual fallback stays.
+    const ctx = relCtx({ 'REL-01': 'ACTIVE', 'REL-02': 'ACTIVE', 'REL-03': 'UNAVAILABLE' }, 2);
+    expect(groupSummary(ctx, 'relative_strength', 'en')).toBe(
+      groupTpl.relative_strength.mixed.en.replace('{points}', '2').replace('{max}', '3')
     );
   });
 

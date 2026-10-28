@@ -243,10 +243,10 @@
       "points_awarded": 2,
       "max_points": 3,
       "summary": {
-        "en": "Relative strength is split: Bitcoin leads on part of the board while the rest holds firm against it (2 of 3 points).",
-        "pt-BR": "A força relativa está dividida: o Bitcoin lidera em parte do quadro enquanto o resto resiste (2 de 3 pontos).",
-        "es": "La fuerza relativa está dividida: Bitcoin lidera frente a algunos de sus referentes mientras el resto resiste (2 de 3 puntos).",
-        "de": "Die relative Stärke ist geteilt: Bitcoin führt auf einem Teil des Feldes, der Rest hält dagegen (2 von 3 Punkten)."
+        "en": "Relative strength is split: Bitcoin leads both gold and the Nasdaq, but the wider risk market itself has slipped below its trend (2 of 3 points).",
+        "pt-BR": "A força relativa está dividida: o Bitcoin supera o ouro e a Nasdaq, mas o mercado de risco mais amplo caiu abaixo da própria tendência (2 de 3 pontos).",
+        "es": "La fuerza relativa está dividida: Bitcoin supera al oro y al Nasdaq, pero el mercado de riesgo más amplio ha caído por debajo de su tendencia (2 de 3 puntos).",
+        "de": "Die relative Stärke ist geteilt: Bitcoin liegt vor Gold und dem Nasdaq, doch der breitere Risikomarkt ist unter seinen eigenen Trend gefallen (2 von 3 Punkten)."
       },
       "signals": [
         {
