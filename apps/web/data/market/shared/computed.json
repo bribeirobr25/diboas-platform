@@ -1,14 +1,14 @@
 {
   "_comment": "Machine-readable regime computation (P2 Stage 3 output). Written ONLY by scripts/market-refresh/run.mjs after the quality gate passes. The reconciliation vitest asserts regime.json agrees with this file — hand-edit regime.json scores and CI goes red (F-M4). Regenerate by running the pipeline, never by hand.",
-  "computed_at": "2026-10-19T13:16:47.917Z",
-  "score": 10,
+  "computed_at": "2026-10-26T13:05:42.079Z",
+  "score": 9,
   "max_score": 14,
   "regime_code": "CONSTRUCTIVE",
   "group_totals": {
     "btc_structure": 6,
     "macro_environment": 1,
     "institutional_demand": 0,
-    "relative_strength": 3
+    "relative_strength": 2
   },
   "anchor_spread_days": 7,
   "anchor_warning": null,
@@ -74,14 +74,14 @@
       "state": "INACTIVE",
       "weight": 1,
       "points": 0,
-      "detail": "Broad dollar (DTWEXBGS) 121.6023 vs EMA20W 119.7571 (Δ 1.541%); RSI 61.76",
+      "detail": "Broad dollar (DTWEXBGS) 121.4048 vs EMA20W 119.9141 (Δ 1.243%); RSI 60.26",
       "values": {
-        "close": 121.6023,
-        "ema20": 119.75714983603709,
-        "gapPct": 1.5407432178280465,
-        "rsi": 61.76005572163622
+        "close": 121.4048,
+        "ema20": 119.91406889927164,
+        "gapPct": 1.2431661392297302,
+        "rsi": 60.26407675552529
       },
-      "anchor": "2026-10-09",
+      "anchor": "2026-10-16",
       "anchorKind": "weekly"
     },
     {
@@ -89,12 +89,12 @@
       "state": "INACTIVE",
       "weight": 1,
       "points": 0,
-      "detail": "US10Y 5.24% vs EMA20W 4.80%",
+      "detail": "US10Y 5.09% vs EMA20W 4.83%",
       "values": {
-        "close": 5.24,
-        "ema20": 4.798011810927792
+        "close": 5.09,
+        "ema20": 4.82582020988705
       },
-      "anchor": "2026-10-09",
+      "anchor": "2026-10-16",
       "anchorKind": "weekly"
     },
     {
@@ -115,14 +115,15 @@
       "state": "UNAVAILABLE",
       "weight": 2,
       "points": 0,
-      "detail": "ETF-01 suspended since the 2026-10-19 cycle (decision 2026-10-18): the share-count route cannot support a weekly evaluation. Scored unavailable (0 points), not weak. Collection continues (14 weekly snapshots on record); only an explicit decision reactivates it.",
+      "detail": "ETF-01 suspended since the 2026-10-19 cycle (decision 2026-10-18): the share-count route cannot support a weekly evaluation. Scored unavailable (0 points), not weak. Collection is still attempted weekly (15 records, 14 complete); only an explicit decision reactivates it.",
       "values": {
-        "snapshots": 14,
+        "snapshots": 15,
         "warmupTarget": 5,
+        "completeRecords": 14,
         "variant": "suspended",
         "suspendedSince": "2026-10-19"
       },
-      "anchor": "2026-10-16",
+      "anchor": "2026-10-23",
       "anchorKind": "weekly"
     },
     {
@@ -130,13 +131,13 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "BTC/Gold ratio 19.493 vs EMA20W 17.436 (Yahoo GC=F substitute)",
+      "detail": "BTC/Gold ratio 20.229 vs EMA20W 17.739 (Yahoo GC=F substitute)",
       "values": {
-        "ratio": 19.492670059055975,
-        "ema20": 17.43643748600845,
-        "gapPct": 11.792733318933468
+        "ratio": 20.22859589197555,
+        "ema20": 17.739036854874158,
+        "gapPct": 14.034352921575543
       },
-      "anchor": "2026-10-16",
+      "anchor": "2026-10-23",
       "anchorKind": "weekly"
     },
     {
@@ -144,27 +145,27 @@
       "state": "ACTIVE",
       "weight": 1,
       "points": 1,
-      "detail": "BTC/Nasdaq ratio 3.016 vs EMA20W 2.854",
+      "detail": "BTC/Nasdaq ratio 3.124 vs EMA20W 2.902",
       "values": {
-        "ratio": 3.016363645789674,
-        "ema20": 2.8539163853408205,
-        "gapPct": 5.6920819854171585
+        "ratio": 3.123603370250592,
+        "ema20": 2.901922456590131,
+        "gapPct": 7.639105350903988
       },
-      "anchor": "2026-10-09",
+      "anchor": "2026-10-23",
       "anchorKind": "weekly"
     },
     {
       "id": "REL-03",
-      "state": "ACTIVE",
+      "state": "INACTIVE",
       "weight": 1,
-      "points": 1,
-      "detail": "Nasdaq 27366.17 vs EMA20W 26146.23",
+      "points": 0,
+      "detail": "Nasdaq 25955.34 vs EMA20W 26127.52",
       "values": {
-        "close": 27366.17,
-        "ema20": 26146.229163135104,
-        "gapPct": 4.665838539290979
+        "close": 25955.34,
+        "ema20": 26127.515074584517,
+        "gapPct": -0.658979907170734
       },
-      "anchor": "2026-10-09",
+      "anchor": "2026-10-23",
       "anchorKind": "weekly"
     }
   ],
@@ -172,37 +173,37 @@
     {
       "source": "FRED:DTWEXBGS",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS&cosd=2023-01-01",
-      "fetchedAt": "2026-10-19T13:16:47.819Z",
+      "fetchedAt": "2026-10-26T13:05:42.056Z",
       "licence": "unverified"
     },
     {
       "source": "FRED:DGS10",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2023-01-01",
-      "fetchedAt": "2026-10-19T13:16:47.823Z",
+      "fetchedAt": "2026-10-26T13:05:41.718Z",
       "licence": "unverified"
     },
     {
       "source": "FRED:M2SL",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=M2SL&cosd=2023-01-01",
-      "fetchedAt": "2026-10-19T13:16:47.824Z",
+      "fetchedAt": "2026-10-26T13:05:41.764Z",
       "licence": "unverified"
     },
     {
       "source": "FRED:NASDAQCOM",
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQCOM&cosd=2023-01-01",
-      "fetchedAt": "2026-10-19T13:16:47.825Z",
+      "fetchedAt": "2026-10-26T13:05:41.749Z",
       "licence": "unverified"
     },
     {
       "source": "Yahoo:BTC-USD",
       "url": "chart/BTC-USD?interval=1d",
-      "fetchedAt": "2026-10-19T13:16:47.865Z",
+      "fetchedAt": "2026-10-26T13:05:41.621Z",
       "licence": "quote-display"
     },
     {
       "source": "Yahoo:GC=F",
       "url": "chart/GC=F?interval=1d",
-      "fetchedAt": "2026-10-19T13:16:47.896Z",
+      "fetchedAt": "2026-10-26T13:05:41.620Z",
       "licence": "quote-display"
     }
   ]
