@@ -1,0 +1,14 @@
+# Findings gitleaks may skip, one fingerprint per line (commit:file:rule:line).
+# A fingerprint pins ONE historical finding to its exact commit, file and line,
+# so the same value committed anywhere else is still caught. Never add a finding
+# here to silence a live secret: rotate it and remove it instead.
+#
+# 2026-10-28 · commit d2097f8e (2026-02-24) · docs/audit/code/08-security-audit-standards.md
+# Two values in a document that is no longer tracked but remains in public
+# history: a PostHog project key (public by design) and a Kit API key that is no
+# longer used or active (founder, 2026-10-28). The full-history weekly scan has
+# failed on every scheduled run since it was added (2026-06-01; these same two
+# fingerprints are visible in every run log still kept, back to 2026-08-24),
+# which made a new finding indistinguishable from these two.
+d2097f8e6550b352abcdb7c39491700ed9add634:docs/audit/code/08-security-audit-standards.md:generic-api-key:322
+d2097f8e6550b352abcdb7c39491700ed9add634:docs/audit/code/08-security-audit-standards.md:generic-api-key:323
