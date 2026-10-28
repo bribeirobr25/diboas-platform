@@ -274,7 +274,10 @@ async function main() {
       'scripts/market-refresh/run.mjs after the quality gate passes. The reconciliation ' +
       'vitest asserts regime.json agrees with this file — hand-edit regime.json scores ' +
       'and CI goes red (F-M4). Regenerate by running the pipeline, never by hand.',
-    computed_at: new Date().toISOString(),
+    // The run's single clock (5.629): the same instant the gate and the engine
+    // were given, not a second reading taken minutes later after the fetches.
+    // New runs only; existing archive lines are never re-stamped.
+    computed_at: TODAY.toISOString(),
     score,
     max_score: MAX_SCORE,
     regime_code: band.code,

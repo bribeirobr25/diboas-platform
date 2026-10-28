@@ -14,8 +14,17 @@
  *      and `pathToFileURL(undefined)` THROWS. A guard that crashes instead of
  *      returning false is worse than no guard: it turns "imported" into an
  *      error rather than a no-op.
+ *   3. (2026-10-18) A path reached through a SYMLINK. Node resolves the entry
+ *      module to its real path, so `import.meta.url` is the real path while
+ *      `process.argv[1]` keeps the path as typed. On macOS every temp dir is
+ *      `/var/...` -> `/private/var/...`; a script run from there (or from any
+ *      symlinked checkout) compared unequal, skipped `main()` and exited 0
+ *      having done NOTHING: a silent success, the worst failure for a gate
+ *      such as `staleness.mjs`. Both forms are accepted, because
+ *      `--preserve-symlinks-main` keeps the symlinked path in `import.meta.url`.
  */
 
+import fs from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
 /**
@@ -25,5 +34,12 @@ import { pathToFileURL } from 'node:url';
 export function isDirectInvocation(moduleUrl) {
   const entry = process.argv[1];
   if (!entry) return false;
-  return moduleUrl === pathToFileURL(entry).href;
+  if (moduleUrl === pathToFileURL(entry).href) return true;
+  let real;
+  try {
+    real = fs.realpathSync(entry);
+  } catch {
+    return false; // not on disk: nothing else to compare
+  }
+  return moduleUrl === pathToFileURL(real).href;
 }

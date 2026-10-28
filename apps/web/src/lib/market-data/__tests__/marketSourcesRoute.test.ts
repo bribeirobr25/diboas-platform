@@ -14,7 +14,10 @@ import {
   RECENCY_SLA_DAYS,
   assertMarketSourcesQuality,
 } from '../../../../scripts/market-refresh/lib/market-sources.mjs';
-import { QualityGateError } from '../../../../scripts/market-refresh/lib/quality-gate.mjs';
+import {
+  QualityGateError,
+  OUTLIER_BOUNDS_PCT,
+} from '../../../../scripts/market-refresh/lib/quality-gate.mjs';
 
 const SCRIPTS = join(__dirname, '../../../../scripts');
 const read = (p: string) => readFileSync(join(SCRIPTS, p), 'utf8');
@@ -40,6 +43,44 @@ function freshSources() {
 }
 
 describe('the shared quality gate', () => {
+  describe('M2-GATE-1 — M2 gets its own monthly check (5.626)', () => {
+    /** `n` consecutive month starts ending two months before TODAY (inside the 92-day SLA). */
+    const monthly = (n: number, last = 21_000): Array<[Date, number]> => {
+      const end = new Date(Date.UTC(TODAY.getUTCFullYear(), TODAY.getUTCMonth() - 2, 1));
+      return Array.from({ length: n }, (_, i) => [
+        new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth() - (n - 1 - i), 1)),
+        i === n - 1 ? last : 21_000,
+      ]);
+    };
+    const withM2 = (series: Array<[Date, number]>) => ({ ...freshSources(), m2: { series } });
+
+    it('should keep the bound at 10 % and refuse just above it, accept just below', () => {
+      expect(OUTLIER_BOUNDS_PCT.m2Monthly).toBe(10);
+      expect(() =>
+        assertMarketSourcesQuality(withM2(monthly(13, 21_000 * 1.0999)), TODAY)
+      ).not.toThrow();
+      expect(() => assertMarketSourcesQuality(withM2(monthly(13, 21_000 * 1.1001)), TODAY)).toThrow(
+        /single-month move 10\.01% > 10%/
+      );
+    });
+
+    it('should refuse a zero print and a ×1000 scale error', () => {
+      expect(() => assertMarketSourcesQuality(withM2(monthly(13, 0)), TODAY)).toThrow(
+        QualityGateError
+      );
+      expect(() => assertMarketSourcesQuality(withM2(monthly(13, 21_000_000)), TODAY)).toThrow(
+        /single-month move/
+      );
+    });
+
+    it('should require 13 months, not the daily 30: 12 refused, 13 accepted', () => {
+      expect(() => assertMarketSourcesQuality(withM2(monthly(12)), TODAY)).toThrow(
+        /12 months; 13 required/
+      );
+      expect(() => assertMarketSourcesQuality(withM2(monthly(13)), TODAY)).not.toThrow();
+    });
+  });
+
   // Pinned on purpose. The refusal tests below read RECENCY_SLA_DAYS, so they
   // prove the gate APPLIES an SLA but cannot see one loosened; changing an SLA
   // is a deliberate edit to this list too, made in review.
@@ -97,5 +138,15 @@ describe('every entry point goes through the shared route', () => {
     const src = read(p);
     expect(src).not.toMatch(/fetchFredSeries\(/);
     expect(src).not.toMatch(/fetchYahooDaily\('(BTC-USD|GC=F)'/);
+  });
+});
+
+describe('the run records one clock (5.629)', () => {
+  it('should stamp computed_at with the same TODAY the gate and the engine receive', () => {
+    const run = readFileSync(join(__dirname, '../../../../scripts/market-refresh/run.mjs'), 'utf8');
+    expect(run).toMatch(/const TODAY = new Date\(\);/);
+    expect(run).toMatch(/computed_at: TODAY\.toISOString\(\)/);
+    expect(run).not.toMatch(/computed_at: new Date\(\)/);
+    expect(run).toMatch(/assertMarketSourcesQuality\(sources, TODAY\)/);
   });
 });

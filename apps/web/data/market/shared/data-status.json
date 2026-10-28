@@ -9,7 +9,7 @@
       "last_updated_at": "2026-09-30T00:00:00Z",
       "expected_next_update_at": "2026-10-31T23:59:59Z",
       "stale_after": "2026-12-01T00:00:00Z",
-      "delayed_after": "2026-11-04T00:00:00Z",
+      "delayed_after": "2026-11-03T23:59:59.999Z",
       "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04). Last confirmed monthly close September 30, 2026. Next update due at the October 31 monthly close."
     },
     {
