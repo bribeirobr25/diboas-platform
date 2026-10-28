@@ -10,9 +10,11 @@
  *   RETRY_SCHEDULE=true|false  OPEN_PR=<url or empty>  RUNS_FILE=<gh run list JSON>
  *   node apps/web/scripts/market-refresh/retry-decision.mjs >> "$GITHUB_OUTPUT"
  *
- * Prints `run=true|false` and `reason=…`. Never decides to run while a refresh
- * PR is open: the run would refuse anyway (5.464), and a second failure email
- * for the same open PR adds nothing.
+ * Prints `run=true|false` and `reason=…`. An open refresh PR no longer stops
+ * the retry (C1a, 5.632, 2026-10-28): the run carries that PR's data
+ * (carry-open-pr.mjs), so a failed Monday is retried even while last week's PR
+ * waits. SUPERSEDED: "never decides to run while a refresh PR is open: the run
+ * would refuse anyway (5.464)".
  */
 
 import fs from 'node:fs';
@@ -43,8 +45,8 @@ export function retryDecision({ retrySchedule, openPrUrl, runs, now }) {
   }
   if (openPrUrl) {
     return {
-      run: false,
-      reason: `a refresh PR is open (${openPrUrl}); merge it, then dispatch the workflow`,
+      run: true,
+      reason: `no successful refresh since Monday 00:00 UTC: second attempt, carrying the open refresh PR (${openPrUrl})`,
     };
   }
   return { run: true, reason: 'no successful refresh since Monday 00:00 UTC: second attempt' };

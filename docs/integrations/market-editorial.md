@@ -1,17 +1,22 @@
 # Adelaide Market — Editorial Handoff Guide
 
-> **Scope:** The editorial JSON-update workflow for `/market` only (cadence, per-field rules, PR flow). Host-side integration wiring lives in `diboas-analytics.md`; the canonical analytics product spec + drift log lives in `docs/mvp/integration/13_host_integration_guides/diboas_platform.md`. Do not duplicate either here.
+> **Scope:** The editorial JSON-update workflow for `/market` only (cadence, per-field rules, PR flow). Host-side integration wiring lives in `diboas-analytics.md`. The analytics product spec and drift log (`docs/mvp/`) were deleted on the founder's confirmation and are not reachable here (`5.471`, `5.519`). Do not duplicate either here.
 
 > **Audience:** the editorial owner of `/market` (Adelaide Market). The macro analyst, content owner, or designated curator who keeps the regime score, signal states, and commentary fresh.
 > **Goal:** ship a regime-score / signals / commentary update in under 30 minutes, end-to-end, without engineering hand-holding.
 > **Weekly review checklist additions (2026-08-19):** (1) **The analyst memo (`summary.detailed`) and `key_supportive_factors`/`key_headwinds` are the LAST hand-editorial fields — the pipeline never regenerates them.** Every weekly review updates their cycle-dependent clauses, ESPECIALLY for any signal whose STATE changed this cycle (the 2026-08-17 lesson: the first hands-free cycle carried a stale "ETF unavailable" memo clause against a scored 2/2 group; 5.99 tracks template-generating these clauses). (1b) **A drifted memo no longer blocks the PR (2026-08-31, 5.151).** The memo gate used to sit in the bot's pre-flight, so a cycle whose figures had moved killed the job and opened **nothing**. Now the PR always opens when the DATA is sound; if the memo is stale it arrives titled **"MEMO REWRITE REQUIRED"**, labelled `memo-rewrite-required`, with the orphaned figures quoted in the body — and its CI is red until a human updates the four editorial fields ×4 locales on the branch. Red CI on that PR is the gate working, not a flake. (2) **Unreviewed-Monday policy = AUTO-HOLD (founder-ratified 2026-08-19):** if no one reviews/merges the bot PR, it simply waits — the page keeps serving the last cycle with visible dates and an honestly aging freshness panel (14-day staleness gate backstops). No auto-publish. This is the chosen policy, not an accident.
-> **⭐ MERGE THE WEEKLY PR BEFORE THE NEXT MONDAY (2026-09-29, `5.464`).** The workflow now **refuses to run
-> while a refresh PR is still open** (its first step): the PR action rebuilds `editorial/market-refresh-auto`
-> from `main`, and an unmerged week's ETF collection is not known to be reconstructible (the route gives no
-> observation date). If a Monday run fails with _"The previous weekly refresh PR is still open"_, that is the
-> guard working: rewrite that PR's memo if required, **merge it**, then re-run
-> `gh workflow run market-refresh-weekly.yml --ref main`. **Never close the open PR unmerged to get past the
-> guard** — that throws away a week of ETF collection that is not known to be reconstructible. The PR body now lists **every** stale memo
+> **⭐ STILL MERGE THE WEEKLY PR BEFORE THE NEXT MONDAY — BUT AN UNMERGED WEEK IS NO LONGER LOST (C1a, 2026-10-28, `5.632`).**
+> If the previous refresh PR is still open, the next run **carries** it: it starts from `main`, lays that
+> PR's data (and your memo edits, which live in `regime.json`) on top, adds its own week, and updates the
+> same PR. The PR body then has a section **"This PR carries an unmerged week"** naming the carried run days
+> and ETF weeks; the memo still describes the earlier week, so rewrite it for the latest one before merging.
+> The run **refuses**, naming why in the log, when carrying would lose or misstate something: the PR branch
+> holds a non-data change; `main` changed data since that PR opened; the PR is titled **LEDGER CHECK FAILED**;
+> more than one refresh PR is open; or the branch moved during the run (a memo pushed mid-run, or the PR
+> merged). A refusal keeps that week's ETF collection as the run artifact. **Never close an open refresh PR
+> unmerged to get past a refusal**: that throws away its week. _(SUPERSEDED 2026-10-28: "The workflow now
+> refuses to run while a refresh PR is still open (its first step) … rewrite that PR's memo if required,
+> merge it, then re-run" — the 2026-09-29 `5.464` rule.)_ The PR body now lists **every** stale memo
 > figure plus any "latest spot-ETF week" finding (`5.467`/`5.469`); fix them all in four locales, not only the
 > first. If the body has an ETF-01 collection section, read its title and note (the same text as the run's log
 > annotation). _"ETF-01 collection did not record a complete snapshot this week"_ is used only when that is
@@ -428,8 +433,7 @@ Readers skip an unparseable line and the next append starts a fresh line, so an 
 The workflow is also scheduled on **Tuesdays at 06:17 UTC**. Its first job decides, from the run history:
 
 - this week (since Monday 00:00 UTC) already has a successful run: it skips;
-- a refresh PR is open: it skips with a warning (the run would refuse to overwrite it anyway);
-- otherwise (Monday was dropped by GitHub or failed): it runs the full refresh.
+- otherwise (Monday was dropped by GitHub or failed): it runs the full refresh, **carrying** an open refresh PR if there is one (C1a, 2026-10-28; previously it skipped while a PR was open).
 
 Monday runs and manual dispatches always refresh. The Monday-night watchdog still alarms on a missed Monday; dispatching by hand stays the faster fix. A Tuesday skip shows as a short green run in the Actions list; that is expected.
 
@@ -451,6 +455,6 @@ If you're unsure whether a change is editorial or engineering, default to engine
 - Phase 7 jargon ban policy: `CLAUDE.md` (search for "digital dollar")
 - i18n locale list + naming conventions: `docs/tech/internationalization.md`
 - ETF-01 net-flow sourcing + source fetchability / headless-browser policy: `docs/researches/MoneyTools_LiveData_Consolidated.md` §4.5
-- canonical-vs-live drift log (signal-taxonomy + score-band decisions, D1/D2): `docs/mvp/integration/13_host_integration_guides/diboas_platform.md` §23
+- canonical-vs-live drift log (signal-taxonomy + score-band decisions, D1/D2): formerly `docs/mvp/…/diboas_platform.md` §23, deleted (not reachable here; `5.471`, `5.519`)
 - reproducible compute helper (strict-Friday weekly resampling locked, §5.1 candle-lock for BTC monthlies, evaluates all 11 signals — ETF-01 now auto-derived from the Polygon shares-outstanding ledger, P4): `apps/web/scripts/data-fetchers/compute-regime.mjs`
 - standing pre-launch carry-forwards (chart strategy, Farside acquisition, LBMA replacement): `docs/audit/PENDING_ALL.md` items 5.27 / 5.28 / 5.29

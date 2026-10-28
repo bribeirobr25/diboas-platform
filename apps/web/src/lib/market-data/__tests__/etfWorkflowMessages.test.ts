@@ -104,11 +104,21 @@ function runScript(name: string): string {
     .join('\n');
 }
 
-/** `${{ steps.<id>.outputs.<k> }}` → value; `${{ env.X }}`/others → ''. */
-function expand(script: string, outputs: Record<string, string>): string {
+/**
+ * `${{ steps.etf.outputs.<k> }}` → value; `${{ steps.etf.outcome }}` → the
+ * step's outcome (`__outcome`); any expression named in `extra` → its value;
+ * `${{ env.X }}`/others → ''.
+ */
+function expand(
+  script: string,
+  outputs: Record<string, string>,
+  extra: Record<string, string> = {}
+): string {
   return script.replace(/\$\{\{\s*([^}]+?)\s*\}\}/g, (_, expr: string) => {
+    if (expr in extra) return extra[expr];
     const m = /^steps\.etf\.outputs\.(\w+)$/.exec(expr);
     if (m) return outputs[m[1]] ?? '';
+    if (expr === 'steps.etf.outcome') return outputs.__outcome ?? '';
     if (expr === 'steps.memo.outputs.status') return 'ok';
     return '';
   });
@@ -152,14 +162,18 @@ const record = (anchor: string, shares: number | null) => ({
 });
 
 /** The step's `env:` mapping, resolved from the ETF outputs (as GitHub does). */
-function stepEnv(name: string, outputs: Record<string, string>): Record<string, string> {
+function stepEnv(
+  name: string,
+  outputs: Record<string, string>,
+  extra: Record<string, string> = {}
+): Record<string, string> {
   const start = WORKFLOW.indexOf(`- name: ${name}`);
   const step = WORKFLOW.slice(start, WORKFLOW.indexOf('run: |', start));
   const env: Record<string, string> = {};
   const block = /\n {8}env:\n((?: {10}[^\n]*\n)+)/.exec(step);
   for (const line of block?.[1].split('\n') ?? []) {
     const m = /^ {10}([A-Z_]+): (.+)$/.exec(line);
-    if (m) env[m[1]] = expand(m[2], outputs);
+    if (m) env[m[1]] = expand(m[2], outputs, extra);
   }
   return env;
 }
@@ -231,7 +245,11 @@ function runWorkflow(c: Case) {
       ),
     }),
   });
-  const outputs = parseOutputs(outputsFile);
+  // The step's own outcome, as GitHub reports it to later steps.
+  const outputs: Record<string, string> = {
+    ...parseOutputs(outputsFile),
+    __outcome: step.status === 0 ? 'success' : 'failure',
+  };
   const body = bash(expand(runScript('Compose PR body'), outputs), box.root, {
     RUNNER_TEMP: runnerTemp,
     ...stepEnv('Compose PR body', outputs),
@@ -441,5 +459,68 @@ describe('the weekly workflow ETF wording, executed', () => {
       {}
     );
     expect(r.status).not.toBe(0);
+  });
+});
+
+/** The PR-body step alone, for states the ETF step itself cannot produce here. */
+function composeOnly(
+  outputs: Record<string, string>,
+  extra: Record<string, string> = {},
+  note?: string
+) {
+  const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'etf-body-')));
+  dirs.push(root);
+  const runnerTemp = path.join(root, 'runner-temp');
+  fs.mkdirSync(runnerTemp);
+  if (note !== undefined) fs.writeFileSync(path.join(runnerTemp, 'carry-note.md'), note);
+  const r = bash(expand(runScript('Compose PR body'), outputs, extra), root, {
+    RUNNER_TEMP: runnerTemp,
+    ...stepEnv('Compose PR body', outputs, extra),
+  });
+  expect(r.status, r.stderr).toBe(0);
+  return fs.readFileSync(path.join(runnerTemp, 'pr-body.md'), 'utf8');
+}
+
+describe('the weekly PR body for the ETF step outcomes and a carried PR (P2, P4, C1a), executed', () => {
+  it('says the collection did not run when the step was skipped (no key), and nothing else about ETF-01', () => {
+    const body = composeOnly({ __outcome: 'skipped' });
+    expect(body).toContain('## ETF-01 collection did not run');
+    expect(body).toContain('POLYGON_API_KEY is not set');
+    expect(body).not.toContain('did not finish');
+  });
+
+  it('says a step that did not finish leaves the week unestablished, never "not recorded"', () => {
+    const body = composeOnly({ __outcome: 'failure' });
+    expect(body).toContain('## ETF-01 collection step did not finish');
+    expect(body).toContain('is not established by this run');
+    expect(body).not.toMatch(/was not recorded|nothing recorded/i);
+  });
+
+  it('adds nothing about ETF-01 for a step that finished, whatever the carry state', () => {
+    const body = composeOnly(
+      { __outcome: 'success', status: 'ok' },
+      { 'steps.carry.outputs.decision': 'fresh' },
+      'unused'
+    );
+    expect(body).not.toMatch(/ETF-01 collection/);
+    expect(body).not.toContain('unused');
+  });
+
+  it('includes the carry note only for a carry', () => {
+    const note = '## This PR carries an unmerged week (PR #751)';
+    expect(
+      composeOnly(
+        { __outcome: 'success', status: 'ok' },
+        { 'steps.carry.outputs.decision': 'carry' },
+        note
+      )
+    ).toContain(note);
+    expect(
+      composeOnly(
+        { __outcome: 'success', status: 'ok' },
+        { 'steps.carry.outputs.decision': 'refuse' },
+        note
+      )
+    ).not.toContain(note);
   });
 });

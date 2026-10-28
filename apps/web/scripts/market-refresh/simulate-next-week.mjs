@@ -40,6 +40,18 @@
  *                           etf-snapshot-attempts.jsonl, ledger byte-identical;
  *                           then a complete pull for the SAME week is accepted
  *                           and the evidence is preserved
+ *   F  two unmerged weeks carried into one run (C1a, 5.632, 2026-10-28) — the
+ *                           refresh PR was not merged, so the next run starts
+ *                           from main with that PR's data on top
+ *                           (carry-open-pr.mjs) and appends its own week: two
+ *                           archive lines and two ETF snapshots beyond main.
+ *                           The gate passes; ETF-01 stays suspended with 0
+ *                           points (records are not usable coverage); the
+ *                           ledger check is green; the weekly wording still
+ *                           compares weeks 7 days apart; a complete duplicate
+ *                           of a recorded week is not collected twice; a week
+ *                           holding an incomplete record is kept as written
+ *                           (the run's exit 21).
  * A successful collection (A, B) copies the latest COMPLETE record's funds onto
  * the next anchor (synthetic, test-only): copying the latest record would copy
  * an incomplete one once the ledger holds it (the 2026-10-16 record does).
@@ -53,6 +65,7 @@
 
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { REPO_ROOT, SHARED_DIR, MONTHLY_PRICES_PATH } from './providers/inrepo.mjs';
 import { isDirectInvocation } from './lib/invocation.mjs';
@@ -319,6 +332,15 @@ const SCENARIOS = [
     expectEtfSentence: SUSPENDED || undefined,
   },
   {
+    key: 'F',
+    name: 'two unmerged weeks carried into one run (C1a)',
+    days: 7,
+    etfDays: 7,
+    weeks: 2,
+    expectEtf: etfExpectation(undefined),
+    expectEtfSentence: SUSPENDED || undefined,
+  },
+  {
     key: 'D',
     name: 'three month-rolls at +25%/month — tests reading pipeline-written monthly data',
     monthRolls: 3,
@@ -447,6 +469,79 @@ function assertRefusalAndRetry({ anchor, complete }) {
 const sh = (cmd, args) =>
   execFileSync(cmd, args, { cwd: REPO_ROOT, encoding: 'utf8', stdio: 'pipe' });
 
+/**
+ * Scenario F (C1a): what a carried run must still guarantee, after the gate.
+ * Every input is the scenario's own: the baseline is git HEAD, and the
+ * incomplete week is appended here rather than looked for in the ledger.
+ */
+function assertCarry({ baseline, generated }) {
+  const fail = (msg) => {
+    throw Object.assign(new Error(msg), { stdout: '' });
+  };
+  const ledgerPath = path.join(SHARED, 'etf-shares-weekly.jsonl');
+  const attemptsPath = path.join(SHARED, 'etf-snapshot-attempts.jsonl');
+  const archive = readJsonlTolerant(
+    fs.readFileSync(path.join(SHARED, 'run-archive.jsonl'), 'utf8')
+  );
+  const ledger = readSnapshots(ledgerPath);
+  if (archive.length !== baseline.archive + 2)
+    fail(`expected 2 archive lines beyond main, got ${archive.length - baseline.archive}`);
+  if (ledger.length !== baseline.etf + 2)
+    fail(`expected 2 ETF snapshots beyond main, got ${ledger.length - baseline.etf}`);
+  const computed = JSON.parse(fs.readFileSync(path.join(SHARED, 'computed.json'), 'utf8'));
+  const etf01 = computed.signals.find((x) => x.id === 'ETF-01');
+  if (SUSPENDED && (etf01.state !== 'UNAVAILABLE' || etf01.points !== 0))
+    fail(`ETF-01 must stay UNAVAILABLE with 0 points, got ${etf01.state}/${etf01.points}`);
+  if (!/weekly-opener: on/.test(generated))
+    fail('the weekly opener is off: the last two run days are not read as a week apart');
+  // The ledger check of the workflow, against main (HEAD), sees two whole weeks appended.
+  const status = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'sim-ledgers-')), 'status');
+  try {
+    sh('node', ['apps/web/scripts/market-refresh/check-ledgers.mjs', '--status', status]);
+    const got = fs.readFileSync(status, 'utf8').trim();
+    if (got !== 'ok') fail(`ledger check status ${got} with two carried weeks`);
+  } finally {
+    fs.rmSync(status, { force: true });
+  }
+  // A complete duplicate of a recorded week is not collected twice.
+  const latest = ledger[ledger.length - 1];
+  const before = fs.readFileSync(ledgerPath);
+  const dup = recordEtfSnapshot(latest, {
+    attemptedAt: computed.computed_at,
+    source: 'simulator',
+    ledgerPath,
+    attemptsPath,
+  });
+  if (dup.outcome !== 'already-recorded' || !fs.readFileSync(ledgerPath).equals(before))
+    fail(`a complete duplicate of ${latest.anchor} was not refused cleanly: ${dup.outcome}`);
+  // A week holding an incomplete record (written before the completeness rule)
+  // is kept as written: the run maps this to exit 21 (run.mjs incompleteRecord).
+  const nextAnchor = shiftDay(latest.anchor, 7);
+  const incomplete = {
+    ...latest,
+    anchor: nextAnchor,
+    funds: Object.fromEntries(
+      Object.entries(latest.funds).map(([t, f]) => [t, { ...f, shares: null }])
+    ),
+  };
+  appendJsonlLine(ledgerPath, JSON.stringify(incomplete));
+  const withIncomplete = fs.readFileSync(ledgerPath);
+  const kept = recordEtfSnapshot(
+    { ...latest, anchor: nextAnchor },
+    { attemptedAt: computed.computed_at, source: 'simulator', ledgerPath, attemptsPath }
+  );
+  const stored = readSnapshots(ledgerPath).find((x) => x.anchor === nextAnchor);
+  if (
+    kept.outcome !== 'already-recorded' ||
+    isCompleteSnapshot(stored) ||
+    !fs.readFileSync(ledgerPath).equals(withIncomplete)
+  )
+    fail(`a week holding an incomplete record was not kept as written: ${kept.outcome}`);
+  console.log(
+    '  ✓ two carried weeks: ledger check ok; ETF-01 0 points; weekly wording on; a duplicate week and an incomplete-record week are not collected again'
+  );
+}
+
 function main() {
   assertClean();
   const snap = snapshot();
@@ -473,6 +568,21 @@ function main() {
           console.log(`  ✓ the tests reading pipeline-written monthly data pass (scenario D)`);
           continue;
         }
+        const baseline = sc.weeks
+          ? {
+              archive: readJsonlTolerant(
+                fs.readFileSync(path.join(SHARED, 'run-archive.jsonl'), 'utf8')
+              ).length,
+              etf: readSnapshots(path.join(SHARED, 'etf-shares-weekly.jsonl')).length,
+            }
+          : null;
+        // F: the previous week sits unmerged on the PR branch and is carried in,
+        // with the editorial files its own run generated (the opener compares
+        // against them, as the real carried PR's files are).
+        for (let w = 1; w < (sc.weeks ?? 1); w += 1) {
+          advance(sc);
+          sh('node', ['apps/web/scripts/market-refresh/generate.mjs']);
+        }
         const moved = advance(sc);
         console.log(
           `\n=== scenario ${sc.key}: ${sc.name} ===\n` +
@@ -493,7 +603,7 @@ function main() {
         // The generator is the real one: the editorial layer must be regenerated
         // from the moved computed.json or the reconciliation gates fail for a
         // reason that has nothing to do with next week.
-        sh('node', ['apps/web/scripts/market-refresh/generate.mjs']);
+        const generated = sh('node', ['apps/web/scripts/market-refresh/generate.mjs']);
         if (sc.expectEtfSentence) assertEtfSentence(moved);
         // The workflow's own blocking command, verbatim, with its enforcement env.
         execFileSync('pnpm', [...WEEKLY_BLOCKING_VITEST_ARGS], {
@@ -505,6 +615,7 @@ function main() {
         console.log(`  ✓ the weekly blocking gate passes (scenario ${sc.key})`);
         // After the gate: a retry is a LATER run, which regenerates first.
         if (moved.refusal) assertRefusalAndRetry(moved.refusal);
+        if (sc.weeks) assertCarry({ baseline, generated });
       } catch (err) {
         failures.push(sc.key);
         console.error(

@@ -137,15 +137,31 @@ describe('C1d — the Tuesday attempt', () => {
     expect(retryDecision({ retrySchedule: true, openPrUrl: '', runs: [], now }).run).toBe(true);
   });
 
-  it('should not retry while a refresh PR is open (the run would refuse it anyway)', () => {
+  // C1a (5.632, 2026-10-28) reverses the C1d rule "not while a refresh PR is
+  // open": the run now carries that PR (carry-open-pr.mjs), so Monday's failure
+  // is retried and last week's PR rides along.
+  it('should retry when Monday failed even while a refresh PR is open, and say it carries it', () => {
     const d = retryDecision({
       retrySchedule: true,
       openPrUrl: 'https://github.com/o/r/pull/1',
       runs: [run(9, 'failure', '2026-10-26T07:00:00Z')],
       now,
     });
+    expect(d.run).toBe(true);
+    expect(d.reason).toMatch(
+      /carrying the open refresh PR \(https:\/\/github\.com\/o\/r\/pull\/1\)/
+    );
+  });
+
+  it('should still skip a PR-open Tuesday when this week already succeeded', () => {
+    const d = retryDecision({
+      retrySchedule: true,
+      openPrUrl: 'https://github.com/o/r/pull/1',
+      runs: [run(9, 'success', '2026-10-26T07:00:00Z')],
+      now,
+    });
     expect(d.run).toBe(false);
-    expect(d.reason).toMatch(/refresh PR is open/);
+    expect(d.reason).toMatch(/already succeeded/);
   });
 });
 
