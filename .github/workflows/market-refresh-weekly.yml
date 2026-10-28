@@ -24,15 +24,27 @@
 #
 # Requires repo secret POLYGON_API_KEY (founder-owned) for the ETF-01 leg.
 # Without it the ETF snapshot step is skipped and ETF-01 stays UNAVAILABLE —
-# the run still succeeds (fail-open on the optional leg, fail-closed on core).
+# the run still succeeds (fail-open on the optional leg, fail-closed on core),
+# and says so in an annotation and the PR body (P4, 2026-10-28).
+#
+# AN OPEN REFRESH PR IS CARRIED, NOT REFUSED (C1a, 5.632, 2026-10-28). The run
+# starts from `main` with the open PR's data paths laid on top
+# (scripts/market-refresh/carry-open-pr.mjs), so the PR it publishes holds both
+# weeks and the founder's memo edits. It refuses, naming why, only when carrying
+# would lose or misstate something; a refusal is acted on after the ETF leg, so
+# that week's collection is kept as the run artifact. SUPERSEDED: "refuse to run
+# while a refresh PR is open" (5.464, 2026-09-29).
 
 name: Market Refresh (weekly)
 
 on:
   schedule:
-    # 5.151: :17 past, not :00. GitHub drops scheduled runs under load at popular
-    # cron minutes; every past run was already 1-2h late and 2026-08-31 never
-    # fired at all. The watchdog (market-refresh-watchdog.yml) catches a miss.
+    # 5.151 moved this to :17 past on the premise that GitHub drops runs at
+    # popular cron minutes. The record says otherwise (5.183): no run of this
+    # workflow has been dropped, and every one starts hours late (measured
+    # +1h06m to +7h19m through 2026-09-07; 12:19-15:24 UTC since). The Tuesday
+    # attempt and the watchdog (market-refresh-watchdog.yml) cover a late,
+    # failed or missing Monday.
     - cron: '17 6 * * 1' # Mondays 06:17 UTC
     # C1d (2026-10-21): the second attempt. It refreshes only when this week
     # has no successful run yet (a dropped or failed Monday); see `decide`.
@@ -52,8 +64,9 @@ concurrency:
 
 jobs:
   # C1d: Monday and manual runs always refresh; the Tuesday run refreshes only
-  # when this week has no successful run and no refresh PR is open
-  # (scripts/market-refresh/retry-decision.mjs). Fail-closed: if the lookup
+  # when this week has no successful run (scripts/market-refresh/retry-decision.mjs).
+  # Since C1a an open refresh PR no longer stops it: the run carries that PR.
+  # Fail-closed: if the lookup
   # errors, this job fails and nothing refreshes, loudly.
   decide:
     runs-on: ubuntu-latest
@@ -80,9 +93,21 @@ jobs:
           set -euo pipefail
           gh run list --repo "$GITHUB_REPOSITORY" --workflow market-refresh-weekly.yml --limit 20 \
             --json databaseId,conclusion,createdAt > "$RUNNER_TEMP/runs.json"
+          # Forks are ignored: anyone can open a PR from a branch with this name.
           open=$(gh pr list --repo "$GITHUB_REPOSITORY" --head editorial/market-refresh-auto \
-            --state open --json url --jq '.[0].url // empty')
-          OPEN_PR="$open" RUNS_FILE="$RUNNER_TEMP/runs.json" \
+            --state open --json url,isCrossRepository \
+            --jq '[.[] | select(.isCrossRepository | not)][0].url // empty')
+          # C1a: failed runs that stopped at the carry refusal. Retrying them
+          # would refuse again (the reasons do not clear by themselves).
+          refused=''
+          for id in $(jq -r '.[] | select(.conclusion == "failure") | .databaseId' "$RUNNER_TEMP/runs.json" | head -5); do
+            if gh run view "$id" --repo "$GITHUB_REPOSITORY" --json jobs \
+              --jq '.jobs[].steps[] | select(.name == "Stop on a carry refusal (5.632)" and .conclusion == "failure") | .name' \
+              | grep -q .; then
+              refused="$refused,$id"
+            fi
+          done
+          OPEN_PR="$open" REFUSED_RUNS="$refused" RUNS_FILE="$RUNNER_TEMP/runs.json" \
             node apps/web/scripts/market-refresh/retry-decision.mjs >> "$GITHUB_OUTPUT"
 
   refresh:
@@ -102,31 +127,6 @@ jobs:
       # market's own run); in other lanes' CI it only warns.
       MARKET_STALENESS_ENFORCE: '1'
     steps:
-      # 5.464 (2026-09-29): NEVER overwrite an unmerged refresh. The PR step
-      # below force-rebuilds `editorial/market-refresh-auto` from main, so a run
-      # while the previous refresh PR is still open would destroy that week's
-      # ETF snapshot (a missed week is not known to be reconstructible: the route
-      # gives no observation date), its archive line, and any memo edits pushed
-      # to the branch. On 2026-09-28 only an unrelated test failure prevented
-      # exactly that. Founder ruling: stop, name the PR, give the remedy. Runs
-      # before checkout, so nothing is fetched or written. Fail-closed: if the
-      # PR lookup itself errors, the step fails rather than assuming "none".
-      - name: Refuse to overwrite an open refresh PR (5.464)
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          open=$(gh pr list --repo "$GITHUB_REPOSITORY" --head editorial/market-refresh-auto \
-            --state open --json number,url --jq '.[0].url // empty')
-          if [ -n "$open" ]; then
-            echo "::error::The previous weekly refresh PR is still open: $open"
-            echo "::error::Running now would overwrite it and lose that week's ETF collection, which is not known to be reconstructible."
-            echo "::error::Remedy: rewrite its memo if required, merge it, then re-run:"
-            echo "::error::  gh workflow run market-refresh-weekly.yml --ref main"
-            exit 1
-          fi
-          echo "No open refresh PR — safe to run."
-
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           # 5.135: keep the workflow token out of .git/config for later steps.
@@ -134,6 +134,8 @@ jobs:
           # (it unsets the persisted extraheader and hides checkout's credential
           # files first), so nothing here relies on checkout-persisted creds.
           persist-credentials: false
+          # C1a: the carry needs the merge base of main and the open refresh PR.
+          fetch-depth: 0
 
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
 
@@ -141,6 +143,27 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
+
+      # C1a (5.632): carry an open refresh PR's data instead of refusing the run.
+      # Decides fresh | carry | refuse; on carry it lays the PR's data paths onto
+      # main's checkout. It never fails for a refusal: the refusal is acted on
+      # after the ETF leg, so that week's collection is kept. Fail-closed only if
+      # the PR lookup or git itself fails, before anything is collected.
+      - name: Carry an open refresh PR, or refuse (5.632)
+        id: carry
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          prs=$(gh pr list --repo "$GITHUB_REPOSITORY" --head editorial/market-refresh-auto \
+            --state open --json number,url,title,headRefOid,isCrossRepository)
+          OPEN_PR_JSON="$prs" NOTE_PATH="$RUNNER_TEMP/carry-note.md" \
+            node apps/web/scripts/market-refresh/carry-open-pr.mjs prepare >> "$GITHUB_OUTPUT"
+
+      # P4 (2026-10-28): a missing key used to skip the ETF leg silently.
+      - name: Say so when the Polygon key is missing (P4)
+        if: ${{ env.HAS_POLYGON_API_KEY != 'true' }}
+        run: echo "::warning::POLYGON_API_KEY is not set, so no ETF-01 collection runs this week. The core refresh continues; ETF-01 is scored from complete records only."
 
       - name: Install dependencies (frozen)
         run: pnpm install --frozen-lockfile
@@ -157,6 +180,13 @@ jobs:
       - name: ETF-01 weekly snapshot (optional leg)
         id: etf
         if: ${{ env.HAS_POLYGON_API_KEY == 'true' }}
+        # P2 (2026-10-28): a hung provider must not hold the whole job (20 min).
+        # A normal collection takes ~2.2 min; 12 leaves room for a degraded
+        # provider's retries (two 429s per fund is ~10.5 min). A timeout fails
+        # the step; continue-on-error keeps the leg fail-open, and the steps
+        # below report it and keep whatever it wrote.
+        timeout-minutes: 12
+        continue-on-error: true
         env:
           POLYGON_API_KEY: ${{ secrets.POLYGON_API_KEY }}
         run: |
@@ -214,6 +244,23 @@ jobs:
           echo "title=$title" >> "$GITHUB_OUTPUT"
           echo "note=$note" >> "$GITHUB_OUTPUT"
           echo "::warning::$note"
+
+      # P2: a timed-out or crashed ETF step sets no outputs; say so, neutrally.
+      - name: Report an ETF-01 step that did not finish (P2)
+        if: ${{ steps.etf.outcome == 'failure' }}
+        run: echo "::warning::The ETF-01 collection step did not finish (its 12-minute limit or an unexpected error). Whether this week's snapshot was recorded is not established; the ledger files are kept if the run fails later. The core refresh continues."
+
+      # C1a: a refusal from the carry step stops the run HERE, after the ETF leg,
+      # so the artifact step below keeps this week's collection.
+      - name: Stop on a carry refusal (5.632)
+        if: ${{ steps.carry.outputs.decision == 'refuse' }}
+        env:
+          REASON: ${{ steps.carry.outputs.reason }}
+          REMEDY: ${{ steps.carry.outputs.remedy }}
+        run: |
+          echo "::error::The weekly refresh refused to run: $REASON."
+          echo "::error::This week's ETF-01 collection, if any, is kept as the run artifact. Remedy: $REMEDY"
+          exit 1
 
       - name: Refresh pipeline (fetch → gate → compute → archive)
         run: node apps/web/scripts/market-refresh/run.mjs --append-btc
@@ -306,7 +353,9 @@ jobs:
           ETF_STATUS: ${{ steps.etf.outputs.status }}
           ETF_TITLE: ${{ steps.etf.outputs.title }}
           ETF_NOTE: ${{ steps.etf.outputs.note }}
+          ETF_STEP_OUTCOME: ${{ steps.etf.outcome }}
           LEDGER_STATUS: ${{ steps.ledgers.outputs.status }}
+          CARRY_DECISION: ${{ steps.carry.outputs.decision }}
         run: |
           BODY="$RUNNER_TEMP/pr-body.md"
           {
@@ -369,6 +418,28 @@ jobs:
               cat "$RUNNER_TEMP/tools-note.md"
             } >> "$BODY"
           fi
+          if [ "$CARRY_DECISION" = 'carry' ] && [ -s "$RUNNER_TEMP/carry-note.md" ]; then
+            {
+              echo
+              cat "$RUNNER_TEMP/carry-note.md"
+            } >> "$BODY"
+          fi
+          # The ETF step is skipped exactly when the key is missing (its only `if`).
+          if [ "$ETF_STEP_OUTCOME" = 'skipped' ]; then
+            {
+              echo
+              echo '## ETF-01 collection did not run'
+              echo
+              echo 'POLYGON_API_KEY is not set, so no ETF-01 collection ran this week. ETF-01 is scored from complete records only.'
+            } >> "$BODY"
+          elif [ "$ETF_STEP_OUTCOME" = 'failure' ] && [ -z "$ETF_STATUS" ]; then
+            {
+              echo
+              echo '## ETF-01 collection step did not finish'
+              echo
+              echo "It stopped at its 12-minute limit or on an unexpected error (see the step log). Whether this week's snapshot was recorded is not established by this run."
+            } >> "$BODY"
+          fi
           if [ "$ETF_STATUS" = 'failed' ]; then
             {
               echo
@@ -387,6 +458,22 @@ jobs:
             echo 'file is ignored with a warning. The 14-day staleness gate is the backstop.'
           } >> "$BODY"
 
+      # C1a (5.632): publish only if the refresh branch is exactly where the
+      # carry step found it. A memo pushed mid-run, or the PR merged or closed,
+      # would otherwise be overwritten or misreported. Immediately before the
+      # publish step, and fail-closed.
+      - name: Re-check the refresh PR before publishing (5.632)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DECISION: ${{ steps.carry.outputs.decision }}
+          START_HEAD: ${{ steps.carry.outputs.start_head }}
+          PR_NUMBER: ${{ steps.carry.outputs.pr_number }}
+        run: |
+          set -euo pipefail
+          prs=$(gh pr list --repo "$GITHUB_REPOSITORY" --head editorial/market-refresh-auto \
+            --state open --json number,url,title,headRefOid,isCrossRepository)
+          OPEN_PR_JSON="$prs" node apps/web/scripts/market-refresh/carry-open-pr.mjs verify
+
       - name: Open refresh PR
         uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7.0.11
         with:
@@ -400,18 +487,27 @@ jobs:
           # loudly instead (workflow-failure email): renew the PAT.
           token: ${{ secrets.MARKET_REFRESH_PR_TOKEN || github.token }}
           branch: editorial/market-refresh-auto
+          # C1a: always into main, whatever ref started the run (the carry step
+          # also refuses a run that did not start from main).
+          base: main
           commit-message: 'data(market): weekly refresh (automated)'
           # The ledger check outranks the memo: an empty status (the check did
           # not run) is treated as not ok.
+          # C1a: a carried PR's memo describes the earlier week, so a carry is
+          # flagged like a stale memo even when no quoted figure drifted.
           title: >-
             ${{ steps.ledgers.outputs.status != 'ok'
             && 'data(market): weekly refresh — LEDGER CHECK FAILED, do not merge as is'
             || steps.memo.outputs.status == 'stale'
             && 'data(market): weekly refresh — MEMO REWRITE REQUIRED before merge'
+            || steps.carry.outputs.decision == 'carry'
+            && 'data(market): weekly refresh — MEMO REWRITE REQUIRED before merge'
             || 'data(market): weekly refresh — review before merge' }}
           body-path: ${{ runner.temp }}/pr-body.md
           labels: >-
             ${{ steps.memo.outputs.status == 'stale'
+            && 'market-refresh,needs-editorial-review,memo-rewrite-required'
+            || steps.carry.outputs.decision == 'carry'
             && 'market-refresh,needs-editorial-review,memo-rewrite-required'
             || 'market-refresh,needs-editorial-review' }}
 
@@ -422,7 +518,7 @@ jobs:
       # after the leg wrote something, or may have written part of something
       # ('error': a failed append exits 1). Recovery is a manual, reviewed append.
       - name: Keep the ETF ledger files when the run fails after the ETF leg
-        if: ${{ failure() && (steps.etf.outputs.outcome == 'ok' || steps.etf.outputs.outcome == 'recorded' || steps.etf.outputs.outcome == 'refused' || steps.etf.outputs.outcome == 'error') }}
+        if: ${{ failure() && (steps.etf.outputs.outcome == 'ok' || steps.etf.outputs.outcome == 'recorded' || steps.etf.outputs.outcome == 'refused' || steps.etf.outputs.outcome == 'error' || steps.etf.outcome == 'failure') }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: etf-ledger-${{ github.run_id }}

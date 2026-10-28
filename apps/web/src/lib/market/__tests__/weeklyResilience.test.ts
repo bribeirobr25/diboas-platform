@@ -5,7 +5,9 @@
  *        a bar that fails its checks) is that series' failure, reported in the
  *        PR, never the whole run's.
  *  C1d — a second, Tuesday attempt refreshes only when this week has no
- *        successful run and no refresh PR is open.
+ *        successful run. Since C1a (2026-10-28) an open refresh PR no longer
+ *        stops it (the run carries that PR), unless a run this week already
+ *        refused to carry it. SUPERSEDED: "and no refresh PR is open".
  *
  * Synthetic data only: a temporary prices file and a fake Yahoo fetcher.
  */
@@ -137,15 +139,54 @@ describe('C1d — the Tuesday attempt', () => {
     expect(retryDecision({ retrySchedule: true, openPrUrl: '', runs: [], now }).run).toBe(true);
   });
 
-  it('should not retry while a refresh PR is open (the run would refuse it anyway)', () => {
+  // C1a (5.632, 2026-10-28) reverses the C1d rule "not while a refresh PR is
+  // open": the run now carries that PR (carry-open-pr.mjs), so Monday's failure
+  // is retried and last week's PR rides along.
+  it('should retry when Monday failed even while a refresh PR is open, and say it carries it', () => {
     const d = retryDecision({
       retrySchedule: true,
       openPrUrl: 'https://github.com/o/r/pull/1',
       runs: [run(9, 'failure', '2026-10-26T07:00:00Z')],
       now,
     });
+    expect(d.run).toBe(true);
+    expect(d.reason).toMatch(
+      /carrying the open refresh PR \(https:\/\/github\.com\/o\/r\/pull\/1\)/
+    );
+  });
+
+  it('should not retry a run that refused to carry this week (the refusal would repeat)', () => {
+    const d = retryDecision({
+      retrySchedule: true,
+      openPrUrl: 'https://github.com/o/r/pull/1',
+      runs: [run(9, 'failure', '2026-10-26T07:00:00Z')],
+      now,
+      refusedRunIds: ['9'],
+    });
     expect(d.run).toBe(false);
-    expect(d.reason).toMatch(/refresh PR is open/);
+    expect(d.reason).toMatch(/run 9 this week refused to carry/);
+  });
+
+  it('should still retry when the refusal was last week, not this week', () => {
+    const d = retryDecision({
+      retrySchedule: true,
+      openPrUrl: 'https://github.com/o/r/pull/1',
+      runs: [run(9, 'failure', '2026-10-26T07:00:00Z'), run(8, 'failure', '2026-10-19T07:00:00Z')],
+      now,
+      refusedRunIds: ['8'],
+    });
+    expect(d.run).toBe(true);
+  });
+
+  it('should still skip a PR-open Tuesday when this week already succeeded', () => {
+    const d = retryDecision({
+      retrySchedule: true,
+      openPrUrl: 'https://github.com/o/r/pull/1',
+      runs: [run(9, 'success', '2026-10-26T07:00:00Z')],
+      now,
+    });
+    expect(d.run).toBe(false);
+    expect(d.reason).toMatch(/already succeeded/);
   });
 });
 

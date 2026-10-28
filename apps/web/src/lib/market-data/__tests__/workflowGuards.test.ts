@@ -1,7 +1,8 @@
 /**
  * The weekly-refresh safety rails live in workflow YAML, which no other test
  * reads — so a later edit could silently undo any of them. Each assertion names
- * the defect it prevents (PENDING_ALL 5.464, 5.465, 5.467, 5.468).
+ * the defect it prevents (PENDING_ALL 5.464 as superseded by C1a/5.632, 5.465,
+ * 5.467, 5.468).
  *
  * Text assertions, deliberately: the web app has no YAML parser dependency and
  * adding one would touch the shared lockfile for a test.
@@ -28,23 +29,154 @@ function stepText(yaml: string, name: string): string {
   return next === -1 ? rest : rest.slice(0, next);
 }
 
-describe('weekly refresh — never overwrite an unmerged week (5.464)', () => {
-  it('should run the open-PR guard as the FIRST step of the refresh job, before checkout or any fetch', () => {
-    // C1d (2026-10-21) put a read-only `decide` job before `refresh`; the guard
-    // is about the job that writes, so it is read from that job's steps.
-    const job = weekly.slice(weekly.indexOf('\n  refresh:\n'));
-    expect(job.length).toBeGreaterThan(0);
-    const steps = job.slice(job.indexOf('    steps:'));
-    const firstStep = steps.match(/\n {6}- (name|uses): ([^\n]+)/);
-    expect(firstStep?.[2]).toBe('Refuse to overwrite an open refresh PR (5.464)');
+describe('weekly refresh — an open refresh PR is carried, never overwritten (5.464 → C1a, CARRY-PR-1)', () => {
+  // C1a (5.632, 2026-10-28) replaced the 5.464 rule "refuse to run while a
+  // refresh PR is open" with design P: carry that PR's data onto main. The
+  // harm 5.464 named (a rebuild from main destroying an unmerged week) is what
+  // these assertions keep closed. The carry logic itself is tested end to end
+  // against a git fixture in lib/market/__tests__/carryOpenPr.test.ts.
+  const job = weekly.slice(weekly.indexOf('\n  refresh:\n'));
+  const at = (name: string) => {
+    const i = job.indexOf(`- name: ${name}`);
+    expect(i, `step "${name}" not found in the refresh job`).toBeGreaterThan(-1);
+    return i;
+  };
+
+  it('should no longer refuse to run while a refresh PR is open', () => {
+    expect(weekly).not.toContain('Refuse to overwrite an open refresh PR (5.464)');
+    expect(weekly).not.toContain('No open refresh PR — safe to run');
   });
 
-  it('should look only at OPEN refresh PRs and fail the run when one exists', () => {
-    const g = stepText(weekly, 'Refuse to overwrite an open refresh PR (5.464)');
-    expect(g).toContain('--head editorial/market-refresh-auto');
-    expect(g).toContain('--state open');
-    expect(g).toMatch(/set -euo pipefail/); // a failed lookup must not read as "none open"
-    expect(g).toMatch(/exit 1/);
+  it('should check out main with full history, then decide before anything is collected', () => {
+    const checkout = job.slice(
+      job.indexOf('- uses: actions/checkout@'),
+      at('Carry an open refresh PR, or refuse (5.632)')
+    );
+    expect(checkout).toMatch(/fetch-depth: 0/);
+    expect(at('Carry an open refresh PR, or refuse (5.632)')).toBeLessThan(
+      at('ETF-01 weekly snapshot (optional leg)')
+    );
+    const carry = stepText(weekly, 'Carry an open refresh PR, or refuse (5.632)');
+    expect(carry).toContain('id: carry');
+    expect(carry).toContain('--head editorial/market-refresh-auto');
+    expect(carry).toContain('--state open');
+    expect(carry).toContain('--json number,url,title,headRefOid');
+    expect(carry).toMatch(/set -euo pipefail/); // a failed lookup must not read as "none open"
+    expect(carry).toContain('carry-open-pr.mjs prepare >> "$GITHUB_OUTPUT"');
+  });
+
+  it('should act on a refusal only after the ETF leg, so that week is kept, and before any core write', () => {
+    const stop = at('Stop on a carry refusal (5.632)');
+    expect(stop).toBeGreaterThan(at('ETF-01 weekly snapshot (optional leg)'));
+    expect(stop).toBeLessThan(at('Refresh pipeline (fetch → gate → compute → archive)'));
+    const step = stepText(weekly, 'Stop on a carry refusal (5.632)');
+    expect(step).toContain("if: ${{ steps.carry.outputs.decision == 'refuse' }}");
+    expect(step).toMatch(/exit 1/);
+    expect(step).toContain('kept as the run artifact');
+  });
+
+  it('should re-check the branch immediately before publishing', () => {
+    const steps = [...job.matchAll(/\n {6}- (?:name|uses): ([^\n]+)/g)].map((m) => m[1]);
+    const publish = steps.indexOf('Open refresh PR');
+    expect(steps[publish - 1]).toBe('Re-check the refresh PR before publishing (5.632)');
+    const verify = stepText(weekly, 'Re-check the refresh PR before publishing (5.632)');
+    expect(verify).toMatch(/set -euo pipefail/);
+    expect(verify).toContain('carry-open-pr.mjs verify');
+    for (const v of [
+      'steps.carry.outputs.decision',
+      'steps.carry.outputs.start_head',
+      'steps.carry.outputs.pr_number',
+    ]) {
+      expect(verify).toContain(v);
+    }
+  });
+
+  // The three C1a steps must BLOCK: a carry step, a refusal or a publish
+  // re-check made non-blocking turns a refusal into a warning, and the publish
+  // then overwrites what the 5.464 harm was about (review 2026-10-28, Y3/Y4/Y16).
+  it.each([
+    'Carry an open refresh PR, or refuse (5.632)',
+    'Stop on a carry refusal (5.632)',
+    'Re-check the refresh PR before publishing (5.632)',
+  ])('should never let "%s" fail softly', (name) => {
+    const step = stepText(weekly, name);
+    expect(step).not.toMatch(/continue-on-error/);
+    expect(step).not.toMatch(/\|\| *true|\|\| *:|set \+e/);
+  });
+
+  it('should pass each value to its own variable (env keys tied to their outputs)', () => {
+    const verify = stepText(weekly, 'Re-check the refresh PR before publishing (5.632)');
+    expect(verify).toContain('DECISION: ${{ steps.carry.outputs.decision }}');
+    expect(verify).toContain('START_HEAD: ${{ steps.carry.outputs.start_head }}');
+    expect(verify).toContain('PR_NUMBER: ${{ steps.carry.outputs.pr_number }}');
+    const stop = stepText(weekly, 'Stop on a carry refusal (5.632)');
+    expect(stop).toContain('REASON: ${{ steps.carry.outputs.reason }}');
+    expect(stop).toContain('REMEDY: ${{ steps.carry.outputs.remedy }}');
+    expect(stop).not.toMatch(/or close it|merge or close/);
+    const carry = stepText(weekly, 'Carry an open refresh PR, or refuse (5.632)');
+    expect(carry).toContain('NOTE_PATH="$RUNNER_TEMP/carry-note.md"');
+  });
+
+  it('should look up the refresh branch, without forks, in both the carry and the re-check', () => {
+    for (const name of [
+      'Carry an open refresh PR, or refuse (5.632)',
+      'Re-check the refresh PR before publishing (5.632)',
+    ]) {
+      const step = stepText(weekly, name);
+      expect(step).toContain('--head editorial/market-refresh-auto');
+      expect(step).toContain('--json number,url,title,headRefOid,isCrossRepository');
+    }
+    expect(weekly).toContain('select(.isCrossRepository | not)'); // the decide job too
+  });
+
+  it('should publish into main and flag a carried memo like a stale one', () => {
+    const publish = stepText(weekly, 'Open refresh PR');
+    expect(publish).toMatch(/\n {10}base: main\n/);
+    // The title itself is evaluated in ledgerCheckCommand.test.ts; the labels here.
+    expect(publish).toContain(
+      "|| steps.carry.outputs.decision == 'carry'\n            && 'market-refresh,needs-editorial-review,memo-rewrite-required'"
+    );
+  });
+
+  it('should tell the Tuesday decision which runs stopped at a carry refusal', () => {
+    const decide = stepText(weekly, 'Decide whether this run refreshes');
+    expect(decide).toContain(
+      'select(.name == "Stop on a carry refusal (5.632)" and .conclusion == "failure")'
+    );
+    expect(decide).toContain('REFUSED_RUNS="$refused"');
+  });
+
+  it('should state the carried weeks in the PR body', () => {
+    const body = stepText(weekly, 'Compose PR body');
+    expect(body).toContain('CARRY_DECISION: ${{ steps.carry.outputs.decision }}');
+    expect(body).toContain('cat "$RUNNER_TEMP/carry-note.md"');
+  });
+});
+
+describe('weekly refresh — the ETF leg cannot hold the job, and a missing key is said (P2, P4)', () => {
+  it('should bound the ETF step and keep it fail-open', () => {
+    const etf = stepText(weekly, 'ETF-01 weekly snapshot (optional leg)');
+    expect(etf).toMatch(/timeout-minutes: 12\n/);
+    expect(etf).toMatch(/continue-on-error: true\n/);
+  });
+
+  it('should report a step that did not finish, and keep what it wrote', () => {
+    expect(stepText(weekly, 'Report an ETF-01 step that did not finish (P2)')).toContain(
+      "if: ${{ steps.etf.outcome == 'failure' }}"
+    );
+    expect(
+      stepText(weekly, 'Keep the ETF ledger files when the run fails after the ETF leg')
+    ).toContain("steps.etf.outcome == 'failure'");
+    expect(stepText(weekly, 'Compose PR body')).toContain(
+      'ETF_STEP_OUTCOME: ${{ steps.etf.outcome }}'
+    );
+  });
+
+  it('should announce a missing Polygon key instead of skipping silently', () => {
+    const p4 = stepText(weekly, 'Say so when the Polygon key is missing (P4)');
+    expect(p4).toContain("if: ${{ env.HAS_POLYGON_API_KEY != 'true' }}");
+    expect(p4).toContain('::warning::POLYGON_API_KEY is not set');
+    expect(stepText(weekly, 'Compose PR body')).toContain('POLYGON_API_KEY is not set');
   });
 });
 

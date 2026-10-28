@@ -284,19 +284,25 @@ function prBody(root: string, runnerTemp: string, ledgerStatus: string): string 
  * expression has the shape `cond && 'title' || cond && 'title' || 'title'`;
  * anything else fails the parse, so a reshaped expression cannot pass silently.
  */
-function title(ledgerStatus: string, memoStatus = 'ok'): string {
+function title(ledgerStatus: string, memoStatus = 'ok', carryDecision = 'fresh'): string {
   const expr = (/title: >-\n\s*\$\{\{([\s\S]*?)\}\}/.exec(WORKFLOW)?.[1] ?? '').replace(
     /\s+/g,
     ' '
   );
-  const values: Record<string, string> = { ledgers: ledgerStatus, memo: memoStatus };
+  const values: Record<string, string> = {
+    'ledgers.status': ledgerStatus,
+    'memo.status': memoStatus,
+    'carry.decision': carryDecision, // C1a (2026-10-28): a carried PR is flagged
+  };
   for (const clause of expr.split('||').map((c) => c.trim())) {
-    const conditional = /^steps\.(\w+)\.outputs\.status (!=|==) '([^']*)' && '([^']+)'$/.exec(
+    const conditional = /^steps\.(\w+)\.outputs\.(\w+) (!=|==) '([^']*)' && '([^']+)'$/.exec(
       clause
     );
     if (conditional) {
-      const [, step, op, value, text] = conditional;
-      if (op === '!=' ? values[step] !== value : values[step] === value) return text;
+      const [, step, field, op, value, text] = conditional;
+      const got = values[`${step}.${field}`];
+      if (got === undefined) throw new Error(`unknown output in the title: ${step}.${field}`);
+      if (op === '!=' ? got !== value : got === value) return text;
       continue;
     }
     const fallback = /^'([^']+)'$/.exec(clause);
@@ -358,6 +364,13 @@ describe('ledger check → PR title and body (workflow wiring, executed)', () =>
         'data(market): weekly refresh — LEDGER CHECK FAILED, do not merge as is'
       );
       expect(title('', 'stale')).toBe(
+        'data(market): weekly refresh — LEDGER CHECK FAILED, do not merge as is'
+      );
+      // C1a: a carried PR's memo describes the earlier week; the ledger still outranks it.
+      expect(title('ok', 'ok', 'carry')).toBe(
+        'data(market): weekly refresh — MEMO REWRITE REQUIRED before merge'
+      );
+      expect(title('damaged', 'ok', 'carry')).toBe(
         'data(market): weekly refresh — LEDGER CHECK FAILED, do not merge as is'
       );
     },
