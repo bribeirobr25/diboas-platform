@@ -6,7 +6,7 @@ import type { LedgerEvent } from '../ledger/events';
  * ⚙ `PRU-1` · THE GOAL DOMAIN OBJECT — the scope half of the containment gate.
  *
  * **Controlling authority:** Strategy Canon §7.2 `P-QA2A` (status `CLOSED`),
- * carried into `WEBAPP_SYSTEM_IMPLEMENTATION_ARCHITECTURE_PLAN.md` §3.7.1a.
+ * carried into `docs/domains/practice/ARCHITECTURE.md` §7.2 (the architecture plan's §3.7.1a).
  * The behavioural half — no FX reaches the Goal path, the reference cannot move
  * with the clock, the ledger currency is fixed at genesis — lives in
  * `apps/sandbox/src/__tests__/pru1GoalReferenceStability.test.ts`.

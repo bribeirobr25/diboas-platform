@@ -13,7 +13,7 @@ export const revalidate = 3600;
 /**
  * `/market` (Adelaide Market — the Market Macro root).
  *
- * M2 (`MARKET_MACRO_PROGRAM_2026-08-12` plan v3): this page is a thin wrapper
+ * M2 (Market Macro rulings DR `DR-2026-08-12-market-macro-program-rulings`; plan v3): this page is a thin wrapper
  * around `MarketViewShell`, rendering the registry's single `live-at-root`
  * view (Bitcoin). When the second view goes live (M3), this route becomes the
  * umbrella and Bitcoin moves to `/market/bitcoin` — one atomic status flip in

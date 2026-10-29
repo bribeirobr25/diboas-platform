@@ -2,7 +2,7 @@
 
 > **What this is:** the _positive_ craft companion to `VOICE_RUBRIC.md` — the reusable storytelling and content frameworks that make a post/video **good**, distilled and filtered for diBoaS. The rubric and the checklists say what's _forbidden_; this says what's _worth doing_.
 > **Derives from and defers to:** `docs/full-view/BRAND_POSITIONING.md` §Voice & Tone → The Writing System. On any conflict, the positioning document and the veto gates win.
-> **How it was built:** mined 2026-07-13 from 11 reference transcripts in `docs/socials/storytelling/`, every item filtered through the three-nevers and the no-dark-patterns rule. The tactics those sources push that diBoaS **rejects** are collected in §9 and cross-referenced to the gates.
+> **How it was built:** mined 2026-07-13 from 11 reference transcripts in `docs/socials/storytelling/` _(⚠ NOT REACHABLE — third-party transcripts deleted by founder ruling 2026-10-29; sources not retained, this document is self-contained)_, every item filtered through the three-nevers and the no-dark-patterns rule. The tactics those sources push that diBoaS **rejects** are collected in §9 and cross-referenced to the gates.
 > **How to use it — two modes:** _BUILD_ — structure copy/asset with §§1–8 before drafting, then score with the Voice Rubric (Q1–Q4) and run the anti-slop / asset-compliance checklists. _AUDIT_ — score already-built content with the **craft scorecard in §10** (C1–C6) alongside the Voice Rubric, and write craft findings in the F-format. This is **advisory, not a gate**: a weak craft score means "make it better," never a merge block — the three nevers and the veto rows remain the only veto authority. Wired into `UX_GOVERNANCE_USAGE.md` Mode 1 (build) and Mode 2 (audit).
 > **The one rule that governs all of it:** _if a technique requires manufacturing a feeling the truth didn't earn, it's out._
 
@@ -114,4 +114,4 @@ The distilled diagnostic form of §§1–8. Use it two ways: in BUILD, as a pre-
 
 ## Ownership
 
-CMO board owns this playbook and updates it as new craft is validated. It is a build-time companion, not a gate: copy is still _scored_ by `VOICE_RUBRIC.md` and _checked_ by `anti-slop-checklist.md` / `asset-compliance-checklist.md` before it ships. Source transcripts (reference only, untracked): `docs/socials/storytelling/`.
+CMO board owns this playbook and updates it as new craft is validated. It is a build-time companion, not a gate: copy is still _scored_ by `VOICE_RUBRIC.md` and _checked_ by `anti-slop-checklist.md` / `asset-compliance-checklist.md` before it ships. Source transcripts: `docs/socials/storytelling/` _(⚠ NOT REACHABLE — deleted by founder ruling 2026-10-29; not retained)_.

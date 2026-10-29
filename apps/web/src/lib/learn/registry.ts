@@ -8,8 +8,8 @@
  * Phase-4 batch model (2026-07-16): all 7 talks' JSONs, namespaces, loader
  * entries, and quiz blocks are ALREADY landed while 'announced'. Going live
  * with a talk = flip its status + add its PAGE_SEO_CONFIG entry (2 edits). `__tests__/registryInvariants.test.ts` fails loudly on any missing
- * sync point. Tool hrefs come from the approved talk docs
- * (docs/learn/30-day-series/lesson-0N-*.md).
+ * sync point. Tool hrefs were taken from the approved talk docs and are owned
+ * here now (approved scripts: private docs repo, docs/domains/learn/scripts/talk-0N.md).
  */
 
 import type { LessonId, LessonMetadata } from './types';
@@ -22,7 +22,7 @@ export const LESSONS: Readonly<Record<LessonId, LessonMetadata>> = {
     status: 'live',
     variant: 'threeBeat',
     readTimeMinutes: 5,
-    // Founder-generated Talk-1 still (docs/learn/30-day-series/talk1/, 2026-07-16),
+    // Founder-generated Talk-1 still (2026-07-16; master in diboas-media: learn/real-talk/talk1/),
     // optimized to AVIF via sharp; also the facade's thumbnail fallback.
     illustration: '/assets/learn/talk-01-hero.avif',
     video: undefined, // D-1: YouTube facade lands in Phase 3; self-hosted config stays supported

@@ -1,6 +1,6 @@
 # Data Vintage Policy — What dates and windows every diBoaS number must obey
 
-> **Status: RATIFIED by founder 2026-07-05.** Canonical standing policy. Origin record deleted (delete-after-execution) — this file is the complete policy. Enforcement rides `docs/audit/PROTOCOLS_STRATEGIES_DATA_VINTAGE_PLAN_2026-07-05.md` (tasks 0–6, incl. the `validate:market-data` vintage gate).
+> **Status: RATIFIED by founder 2026-07-05.** Canonical standing policy. Origin record deleted (delete-after-execution) — this file is the complete policy. Enforcement: §3 below (gate status: register `5.479` / `5.181`). The origin plan `docs/audit/PROTOCOLS_STRATEGIES_DATA_VINTAGE_PLAN_2026-07-05.md` _(⚠ NOT REACHABLE — deleted local-only 2026-10-29 after its durable content was checked against this file)_ held tasks 0–6, incl. the `validate:market-data` vintage gate.
 > **Pointers to add (delegated to the data-batch PR):** one reference line in `CLAUDE.md` (data rules) and one in `docs/tech/financial-calculations.md`, per §4.4.
 
 ## 1. The Policy

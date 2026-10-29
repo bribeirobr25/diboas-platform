@@ -1,6 +1,6 @@
 # Adelaide Market — Editorial Handoff Guide
 
-> **Scope:** The editorial JSON-update workflow for `/market` only (cadence, per-field rules, PR flow). Host-side integration wiring lives in `diboas-analytics.md`. The analytics product spec and drift log (`docs/mvp/`) were deleted on the founder's confirmation and are not reachable here (`5.471`, `5.519`). Do not duplicate either here.
+> **Scope:** The editorial JSON-update workflow for `/market` only (cadence, per-field rules, PR flow). Host-side integration wiring: `apps/web/src/lib/analytics-sdk/` and `docs/tech/iter5-sdk-migration-map.md` (the local pointer `docs/integrations/diboas-analytics.md` _(⚠ NOT REACHABLE — deleted local-only 2026-10-29)_). The analytics product spec and drift log (`docs/mvp/`) were deleted on the founder's confirmation and are not reachable here (`5.471`, `5.519`). Do not duplicate either here.
 
 > **Audience:** the editorial owner of `/market` (Adelaide Market). The macro analyst, content owner, or designated curator who keeps the regime score, signal states, and commentary fresh.
 > **Goal:** ship a regime-score / signals / commentary update in under 30 minutes, end-to-end, without engineering hand-holding.
@@ -72,7 +72,7 @@
 
 - Adding new fields, new endpoints, or new signal types. Those are engineering changes (the SDK contract). Request them via the standard product channel; iteration 5 may also reshape this via the real SDK from `@analytics-platform/client`.
 - Anything inside `apps/web/src/` (engineering-owned code).
-- The other `docs/integrations/diboas-analytics.md` file — that one covers the analytics-platform integration itself, not the editorial workflow on this host.
+- The other `docs/integrations/diboas-analytics.md` file (deleted local-only 2026-10-29) — that one covers the analytics-platform integration itself, not the editorial workflow on this host.
 
 If the answer to your question isn't in this doc, escalate to engineering.
 

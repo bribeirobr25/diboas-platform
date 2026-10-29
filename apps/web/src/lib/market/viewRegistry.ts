@@ -1,5 +1,5 @@
 /**
- * Market Macro view registry (M2 — `MARKET_MACRO_PROGRAM_2026-08-12`, plan v3
+ * Market Macro view registry (M2 — DR `DR-2026-08-12-market-macro-program-rulings`, plan v3
  * D-M2-2). One entry per market view on `/market`; the registry is the single
  * source of truth for routing, ordering, data location, and the grammar seam.
  *

@@ -10,7 +10,7 @@
 >
 > **Plus one advisory craft layer:** `docs/tech/ux-governance/STORYTELLING_CRAFT.md` — the positive storytelling frameworks (story spine, But/Therefore, honest hooks, show-don't-name, earned payoff, series/human-first). In BUILD it's the pre-draft structuring aid (§§1–8); in AUDIT it's the **craft scorecard** (§10, C1–C6, scored PASS/PARTIAL/MISS). It answers _"is this any good?"_ where the gates only answer _"is this allowed?"_ — **advisory, never a blocker**: a craft MISS is an enrich/revise finding; the veto rows and the never-promise/advise rubric checks remain the only veto authority.
 >
-> **Content-type specs (consult when relevant — a spec, not a new gate):** some surfaces carry a dedicated content spec that rides _alongside_ the gates. For **Learn / "Real Talk"** content (the founder-to-friend video + written lessons), build and audit against `docs/learn/30-day-series/README.md` — the series' non-advice stance, per-lesson template (video + i18n written + prev/next + tool link + quiz), tools-as-engine, principles-over-percentages, and the Adelaide/growing-map through-line. It captures the "what I want / don't want" for that surface; the gates above still decide what's _allowed_.
+> **Content-type specs (consult when relevant — a spec, not a new gate):** some surfaces carry a dedicated content spec that rides _alongside_ the gates. For **Learn / "Real Talk"** content (the founder-to-friend video + written lessons), build and audit against `docs/domains/learn/REAL_TALK.md` (a local-only private area: present only where the private docs checkout is) — the series' non-advice stance, per-lesson template (video + i18n written + prev/next + tool link + quiz), tools-as-engine, principles-over-percentages, the per-locale rulings and standing constraints per talk, and the Adelaide/growing-map through-line. It captures the "what I want / don't want" for that surface; the gates above still decide what's _allowed_.
 
 ---
 
@@ -37,7 +37,7 @@
 `### F-n · <one-line defect>. — <UX-IDs> · <severity HIGH/MED/LOW> · <owner route> [· VISUAL PASS REQUIRED if applicable]`
 Body: what is (verifiable state, quoted string or screenshot ref) → why it matters (the principle's logic, not vibes) → the fix (concrete, smallest honest version) → what it rides with (existing item/plan, if any).
 
-**Worked example (real, from `UX_AUDIT_BUILT_SURFACES_2026-07-05.md`):**
+**Worked example (real, from `UX_AUDIT_BUILT_SURFACES_2026-07-05.md`, deleted local-only after its open findings were promoted):**
 
 > **F-5 · The all-in cost is never stated at the moment of decision. — UX-44, UX-52 · HIGH · CMO→CLO→CC.** The site states 0.48% and that third-party costs pass through at cost, but never tells a person that adding $100 by card costs ~1.48% all-in. The strongest evidence in the source corpus is that the screen volunteering the unfavourable fact converts better (UX-44, transparency bias). Fix: the confirm button carries the total, and the pass-through line appears before the action. Rides with usability C2/C3.
 

@@ -86,13 +86,18 @@ HISTORY      an optional short receipt — carrying NO load-bearing current auth
 ⚑ **A domain ruling is promoted into the document it GOVERNS, not into a register of
 rulings.** This is how `F-R1`…`F-R13` survived the loss of the register they were recorded in:
 each one had already been written into `FEES.md`, `INTRO.md`, `BRAND_POSITIONING.md`,
-`USER_JOURNEYS`, or the live queue, as a status banner at the point of use.
+`USER_JOURNEYS`, or the live queue, as a status banner at the point of use. (`INTRO.md` and
+`USER_JOURNEYS` were retired in the 2026-10-29 docs move; F-R2, F-R3 and F-R5 now also have
+decision records in the private docs repo.)
+A decision record there is the **provenance copy** of a ruling (who ruled, when, verbatim); it
+does not replace the banner in the governed document, which stays the place a reader meets the
+rule (founder ruling 2026-10-29, the docs move).
 
 ### 3.2 · Closure is what authorises compaction
 
 A lane's execution records stay **full and detailed while the lane is active**. Compaction is
 permitted only after the lane's final system review has determined its durable outcomes and
-those outcomes have been promoted. **Deletion of any document remains FOUNDER-ONLY.**
+those outcomes have been promoted. **Deleting or cleaning up a document is delegated to Claude, carried out only after a verified founder merge (founder ruling 2026-10-28).**
 
 ---
 
@@ -178,8 +183,14 @@ successor.** Both were live risks in `5.458`: every `F-R` ruling turned out to b
 
 The Pre-I2 lane is **ACTIVE**. Its records are **not** compacted by this pass.
 
+⚑ **Founder ruling 2026-10-29 (the docs move):** the full Pre-I2 records are kept in a local
+snapshot outside every repository until Pre-I2 closes; the private docs repo carries only their
+promoted durable outcomes (the closure contract, the specs, the rulings and the open register
+rows). "Stay FULL" below therefore means _full in that snapshot_, not in a working tree.
+
 ```text
 DURING       A · B · C · D · E · F · G records + system review + closure record stay FULL
+             (in the local snapshot; the docs repo holds their promoted outcomes)
 
 AT CLOSURE   1 · the final system review names every durable outcome
              2 · gates        → engineering-gates.md (+ index)
@@ -190,7 +201,7 @@ AT CLOSURE   1 · the final system review names every durable outcome
              3 · statuses reconciled — register index and gate index agree with their rows
              4 · every reference INTO the records from living docs is removed or annotated
              5 · the large per-block records become eligible for compaction or deletion
-                 — FOUNDER-ONLY, and only after 1–4
+                 — only after 1–4; carried out by Claude after a verified founder merge
 
 NEVER        a per-block record is cited as current authority after closure
 ```

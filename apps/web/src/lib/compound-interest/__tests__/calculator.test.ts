@@ -45,12 +45,12 @@ describe('calculateCompoundProjection — happy path', () => {
     expect(out.computedAt).toBeGreaterThan(0);
   });
 
-  it('should produce historical-scenario output close to the en vignette ($5/day → ~$42k at 10%/12y)', () => {
+  it('should produce historical-scenario output of ~$42k for $152.08/mo over 12y at 10%', () => {
     const out = calculateCompoundProjection(baseInput);
     const historical = out.series.find((s) => s.scenario === 'historical')!;
     // At 10% with monthly geometric compounding: $152.08/mo × 144 months ≈ $42,030.
-    // Lesson Beat 2 vignettes still cite the 7%-era numbers — they're
-    // queued for refresh in PRE_PHASE_7_TOOLS_POLISH.md.
+    // This is the calculator's historical scenario, not the lesson: the Talk 1 vignettes
+    // use Conservative 7% (Option A, founder 2026-07-14; CalculatorVignettes.tsx:46).
     expect(historical.finalValue).toBeGreaterThan(40_000);
     expect(historical.finalValue).toBeLessThan(44_000);
   });

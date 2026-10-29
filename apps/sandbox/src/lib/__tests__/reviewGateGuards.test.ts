@@ -275,3 +275,30 @@ describe('GATE-INDEX-CI-1 · the required quality job runs the gate registry che
     expect(quality).toMatch(/^\s+- run: pnpm review:authorities$/m);
   });
 });
+
+describe('PROSE-1 · an empty record corpus is proven, never assumed (5.653)', () => {
+  it('should PASS through the instrument self-test when no record names a controlling plan', () => {
+    const r = repo();
+    r.put('docs/audit/SOME_NOTE.md', '# A note\n\nNo controlling plan here.\n');
+    const out = r.run('prose');
+    expect(out.code, out.out).toBe(0);
+    expect(out.out).toMatch(
+      /0 record\(s\) name a controlling plan in docs\/audit · instrument self-test PASS/
+    );
+  }, 20_000);
+
+  it('should still FAIL a real record that does not cite its plan requirement', () => {
+    const r = repo();
+    r.put(
+      'docs/audit/FIXTURE_PLAN.md',
+      '# Plan\n\n## 16 · Minimum required observability\n\nEvery flow emits two events.\n'
+    );
+    r.put(
+      'docs/audit/FIXTURE_RECORD.md',
+      '# Record\n\n**Controlling plan:** `docs/audit/FIXTURE_PLAN.md`\n\nWork done.\n'
+    );
+    const out = r.run('prose');
+    expect(out.code).toBe(1);
+    expect(out.out).toMatch(/UNCITED REQUIREMENT \(1\): FIXTURE_RECORD\.md/);
+  }, 20_000);
+});

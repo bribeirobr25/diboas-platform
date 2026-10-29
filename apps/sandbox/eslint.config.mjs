@@ -10,8 +10,8 @@ export default [
     ignores: ['.next/**', 'node_modules/**'],
   },
   /**
-   * Gate `VIEW-1` — the purity of the view-model seam (architecture plan §3.2
-   * rule 3, §9.3 mechanism 1).
+   * Gate `VIEW-1` — the purity of the view-model seam (docs/domains/practice/
+   * ARCHITECTURE.md §2 rule 3).
    *
    * WHY: the seam's whole value is that it is testable with no DOM and no
    * network. A selector that reaches for React, a route, a provider or a
@@ -145,8 +145,8 @@ export default [
   },
 
   /**
-   * Gate `VIEW-2` — money arithmetic stays out of components (architecture plan
-   * §9.3 mechanism 1, Consolidated Handoff §9.2).
+   * Gate `VIEW-2` — money arithmetic stays out of components (docs/domains/
+   * practice/ARCHITECTURE.md §2 rule 2, Consolidated Handoff §9.2).
    *
    * SEQUENCING, ruled and deliberate: this lands `warn`, the six
    * `VALID · PRESERVE` money surfaces migrate behind `view/`, and only then does

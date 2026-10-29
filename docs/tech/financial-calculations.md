@@ -21,7 +21,7 @@ Where:
 - **r** = monthly interest rate (converted from APY via geometric conversion, never `r/12`)
 - **n** = total months
 
-**Implementation:** `futureValue()` in `lib/utils/financialMath.ts` and `calculateMonthlyContributions()` in `lib/market-data/formulas.ts`.
+**Implementation:** `calculateMonthlyContributions()` (`lib/market-data/formulas/core.ts`, exported through the `lib/market-data/formulas.ts` barrel) for the `/tools` calculators. `futureValue()` in `lib/utils/financialMath.ts` is used by PreDream (`lib/pre-dream/calculations.ts`), not by any `/tools` calculator.
 
 **Rate conversion:** `annualToMonthlyRate(r) = (1 + r)^(1/12) - 1` — takes decimal (0.07 for 7%).
 
@@ -56,11 +56,11 @@ Brazil rates are **NET** (after 22.5% IR tax). diBoaS rates are **gross** (befor
 
 `FALLBACK_MARKET_DATA.rates.scenarioRates` — these are SEPARATE from strategyApys and used only by the educational `/tools/*` calculators + `/learn/compound-interest` lesson per GTM Playbook §6.7. Updated 2026-05-12 from 4/7/10 → 7/10/14 to reflect realistic digital-dollar yields across Solana DeFi (Sky / Aave / Compound / Kamino / Jupiter).
 
-| Scenario     | Rate | Used by                                                               |
-| ------------ | :--: | --------------------------------------------------------------------- |
-| Conservative |  7%  | All 6 hedged calculators + lesson Beat 2 + chart                      |
-| Historical   | 10%  | Default highlighted scenario; lesson vignettes (computed dynamically) |
-| Optimistic   | 14%  | Upper bound on charts                                                 |
+| Scenario     | Rate | Used by                                                                                                                                       |
+| ------------ | :--: | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Conservative |  7%  | Default highlighted scenario; all 6 hedged calculators + lesson Beat 2 vignettes (computed dynamically; Option A, founder 2026-07-14) + chart |
+| Historical   | 10%  | Shown, not highlighted                                                                                                                        |
+| Optimistic   | 14%  | Upper bound on charts                                                                                                                         |
 
 Substantiation: `docs/researches/Stablecoins as Digital Dollar Infrastructure — Regulation, Reserves, Yield, and DeFi Liquidity.md`.
 
@@ -142,7 +142,7 @@ For RETROSPECTIVE contexts (the asset-history tool plus retrospective modes in `
 ### When to use which
 
 - **Forward projection:** `calculateMonthlyWithCurrencyHedge()` (smoothed annuity) plus `calculateCompoundProjectionHedged()`. Smoothed CAGR is correct.
-- **Retrospective DCA, compound-interest family** (Goal Savings retrospective): `calculateMonthlyPathDependentHedge()` (Phase B, 2026-05-16). Walks 5-year `FxBucket` averages from `historicalAnchors.fxBuckets[CURRENCY]`. Coarser granularity is acceptable here because compound-interest's contribution stream is uniform (same monthly amount; bucket-average FX captures the macro path).
+  For USD, or any locale without FX buckets, `calculateCompoundProjectionPathDependent` delegates to the smoothed hedge engine (`lib/compound-interest/calculatorPathDependent.ts:73-77`); the goal-savings Forward/Retrospective toggle is hidden for the `en` locale (`enablePathDependent={locale !== 'en'}`, `tools/goal-savings/page.tsx:51`). Walks 5-year `FxBucket` averages from `historicalAnchors.fxBuckets[CURRENCY]`. Coarser granularity is acceptable here because compound-interest's contribution stream is uniform (same monthly amount; bucket-average FX captures the macro path).
 - **Retrospective DCA, asset-history** (`/tools/asset-history` for cross-currency cases): monthly-precision FX via `buildFxLookup()` in `lib/asset-history/calculator.ts` (added 2026-05-23). Each month's contribution is converted to asset-native currency at THAT month's close-of-month FX rate from `monthlySeries.fx[CURRENCY]`; the unit math runs in asset-native; terminal is converted back at the end-month's FX rate. Finer granularity than the bucket walk — necessary because asset-history's DCA buys real units at real prices and any FX smoothing biases the unit count.
 
 ### Asset-history monthly-precision FX path — design notes (2026-05-23)
@@ -213,8 +213,8 @@ All financial display surfaces read from the same `MarketDataService`:
 | **IdleCashCalculator**                  | `/tools/idle-cash` — B2B lump-sum with `calculateWithCurrencyHedge()` for non-USD (engine: `lib/idle-cash/calculator.ts` post-2026-05-26 extraction; uses CONSERVATIVE 7% not historical 10%)                                                                        | user-overridable + canonical default; `calculateIdleCashYield()`                                     |
 | **InflationImpactCalculator**           | `/tools/inflation-impact` — inflation-only (no hedge per Q3a) (engine: `lib/inflation-impact/calculator.ts` post-2026-05-26 extraction with C42 nullish-guard for partial provider responses)                                                                        | n/a; `calculateInflationImpactForward()` / `calculateInflationImpactRetrospective()`                 |
 | **CurrencyDepreciationCalculator**      | `/tools/currency-depreciation` — already FV-shaped with hedge (engine: `lib/currency-depreciation/calculator.ts` post-2026-05-26 extraction; dual-source dep — horizon-matched CAGR forward, anchor-pair retrospective)                                              | n/a; `calculateCurrencyDepreciationForward()` / `calculateCurrencyDepreciationRetrospective()`       |
-| **CardFeesCalculator**                  | `/tools/card-fees` — processor fee projection, locale-aware                                                                                                                                                                                                          | n/a (fee not rate)                                                                                   |
-| **CalculatorVignettes**                 | Lesson Beat 2 — dynamic 12-year FV via `calculateMonthlyContributions(yearlyAmount/12, 0.10, 0, 144)`                                                                                                                                                                | non-hedged per Q7(a)                                                                                 |
+| **CardFeesCalculator**                  | `/tools/card-fees` — processor fee projection, locale-aware (engine: `lib/card-fees/calculator.ts`, `projectCardFeeSavings()`; year-1 savings = the processor cut **net of diBoaS's 0.48% Add Money movement fee**, an upper-bound estimate)                         | n/a (fee not rate)                                                                                   |
+| **CalculatorVignettes**                 | Lesson Beat 2 — dynamic 12-year FV via `calculateMonthlyContributions(yearlyAmount/12, SCENARIO_RATES.conservative/100, 0, 144)` (7%, Option A, founder 2026-07-14)                                                                                                  | non-hedged per Q7(a)                                                                                 |
 | **B2B landing-b2b.json cards**          | Payment Fees + Idle Cash — shipped cards are qualitative (no numeric results) since the Startup Treasury redesign; the derivation script was retired 2026-07-07 (restore: `git show 24f8489:scripts/derive-b2b-card-numbers.mjs`; see implementation-notes register) | qualitative per locale                                                                               |
 
 The `ComparisonTable` uses `calculateLumpSum()` and `calculateWithCurrencyHedge()` for the 1-year figures, plus `buildMonthlyValuePath()` / `buildHedgedMonthlyValuePath()` for the "data as hero" divergence chart — the hedged path routes through the same `applyEffectiveRateClamp`, so the chart line can never diverge from the table figure. The 6 hedged Phase-7 tools follow either the `ComparisonTable` precedent (FV-shaped) or the months-shaped precedent — canonical since 2026-07-07 in `lib/emergency-fund/calculator.ts` (~line 120: manual `(1+diboasUsdApy)*(1+depreciation)-1` with `applyEffectiveRateClamp`, then `monthsToInflationAdjustedTarget()`) — per the pre-Phase-7 tools-polish plan §5.1. The two patterns are intentionally distinct. (The former months-shaped precedent, `GoalExampleCards`/`useGoalCardData`, was deleted 2026-07-07 with the MSG-07 prune; see the implementation-notes register.)
