@@ -50,7 +50,9 @@ diboas-platform/
   packages/investing/  # @diboas/investing - jobs split, goals, accrual replay (backs apps/sandbox)
   config/              # Design tokens JSON + schema
   scripts/             # Build/validation scripts
-  docs/                # Documentation (only docs/tech/ + docs/integrations/ are git-tracked; the rest is local-only)
+  docs/                # Documentation: only docs/tech/, docs/integrations/, docs/testing/ live here (tracked).
+                       #   Every other area lives in the PRIVATE repo diboas-docs, checked out beside
+                       #   this one: read `docs/<area>/X` as `../diboas-docs/<area>/X` (same names).
     sandbox-app/       # Sandbox work-front: rules, build order, architecture map + flow traces,
                        #   board records, release-1 implementation plan (the ordered build document)
     tech/              # Technical guides (committed) — canonical engineering reference
@@ -455,6 +457,12 @@ R-rows from `docs/tech/robustness-checklist.md` (PASS / N-A per row) in its self
 
 **Market lane** (`/market` and its weekly refresh): its open work is the market entries in
 `docs/audit/PENDING_ALL.md`, whose header names the current market session handover.
+
+⚑ **Private docs live in the private repo `diboas-docs`, checked out beside this one** (since
+2026-10-30). Every `docs/<area>/…` path below and in records, except `docs/tech/`,
+`docs/integrations/` and `docs/testing/`, is read at `../diboas-docs/<area>/…`. The gates resolve
+it themselves (`scripts/lib/docs-root.mjs`, override with `DIBOAS_DOCS_DIR`). Edit private docs
+there, through a branch and PR. Media live in the private repo `diboas-media`.
 
 ⚑ **Do not read a status out of prose — including this file.** Determine current work by the
 procedure in `docs/tech/documentation-lifecycle.md` §4:
