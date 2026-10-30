@@ -30,7 +30,7 @@
       "Así que no te quedes con mis 300 € y mis 12 años. Mete tu propio sueldo, tu porcentaje, tus años, y apúntalo al objetivo que le pusiste nombre en la Charla 2.",
       "Yo llevo diBoaS, así que compruébame las cuentas tú mismo."
     ],
-    "toolTagline": "Poco que ceder, mucho que ganar. *(Paralelismo corregido, founder 2026-07-15; era \"mucho para que importe\". [NATIVE PASS REQUIRED])*",
+    "toolTagline": "Poco que ceder, mucho que ganar.",
     "afterTool": "¿Ya ves tu propio número?",
     "toolDeepLink": "Saca tu propio 10 %: <link>Abre la calculadora de interés compuesto</link>",
     "wrap": [
@@ -66,7 +66,7 @@
     },
     "reflection": "¿Cuánto es el 10 % de lo que te llevas a casa cada mes? Y si eso es demasiado ahora mismo, ¿qué número podrías empezar de verdad?",
     "share": {
-      "line": "comparte para desbloquear"
+      "line": "El 10 % no es una regla, es un punto de partida de hace 4.000 años: lo bastante pequeño para cederlo, lo bastante grande para que importe. Aquí tienes la Charla 4."
     }
   }
 }
