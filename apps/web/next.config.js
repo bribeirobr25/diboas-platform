@@ -121,6 +121,22 @@ const nextConfig = {
         destination: '/market',
         permanent: true,
       },
+      // 2026-10-30 (founder, register 5.708): the investor vertical is removed —
+      // `/investors`, the `/investor-room` and every document under it. Old links,
+      // bookmarks and sent emails land on the business page. Locale-prefixed rules
+      // first, then the bare paths, each one hop, like `daily-market` above.
+      {
+        source: '/:locale(en|pt-BR|es|de)/investors',
+        destination: '/:locale/business',
+        permanent: true,
+      },
+      {
+        source: '/:locale(en|pt-BR|es|de)/investor-room/:path*',
+        destination: '/:locale/business',
+        permanent: true,
+      },
+      { source: '/investors', destination: '/business', permanent: true },
+      { source: '/investor-room/:path*', destination: '/business', permanent: true },
     ];
   },
 

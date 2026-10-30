@@ -46,7 +46,6 @@
         "protocols": "Protocolos Confiáveis",
         "careers": "Junte-se à Nossa Equipe",
         "documentation": "Documentação",
-        "investors": "Investidores",
         "compliance": "Conformidade"
       }
     },
@@ -193,8 +192,7 @@
         "links": {
           "about": "Sobre",
           "documentation": "Documentação",
-          "careers": "Carreiras",
-          "investors": "Investidores"
+          "careers": "Carreiras"
         }
       },
       "help": {

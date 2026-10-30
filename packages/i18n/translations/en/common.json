@@ -46,7 +46,6 @@
         "protocols": "Trusted Protocols",
         "careers": "Join our Team",
         "documentation": "Documentation",
-        "investors": "Investors",
         "compliance": "Compliance"
       }
     },
@@ -193,8 +192,7 @@
         "links": {
           "about": "About",
           "documentation": "Documentation",
-          "careers": "Careers",
-          "investors": "Investors"
+          "careers": "Careers"
         }
       },
       "help": {

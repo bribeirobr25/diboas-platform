@@ -112,10 +112,6 @@
       "url": "http://localhost:3000/en/strategies",
       "screenCapture": "./pa11y-screenshots/strategies.png"
     },
-    {
-      "url": "http://localhost:3000/en/investors",
-      "screenCapture": "./pa11y-screenshots/investors.png"
-    },
     "http://localhost:3000/en/learn",
     "http://localhost:3000/en/learn/money-objective",
     "http://localhost:3000/en/learn/pay-yourself-first",

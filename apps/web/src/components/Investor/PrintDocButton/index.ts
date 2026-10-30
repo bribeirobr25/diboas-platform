@@ -1,1 +1,0 @@
-export { PrintDocButton } from './PrintDocButton';

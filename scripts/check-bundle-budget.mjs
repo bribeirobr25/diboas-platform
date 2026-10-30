@@ -103,7 +103,12 @@ const BUDGETS = {
   // page composition is server components (umbrella, state sections,
   // switcher) — no new client library weight; peak chunk + asset count
   // unchanged. 4950 = ~31 KB / ~0.6% headroom over the clean-build truth.
-  maxTotalJsKB: 4950,
+  // LOWERED 2026-10-30 (investor vertical removed, register 5.708): the
+  // /investors page, the room, its document namespace (~178 KB/locale × 4 of
+  // lazy chunks) and the request form are gone. A CLEAN `rm -rf .next && build`
+  // measures 4178 KB, so the old ceiling would let ~770 KB of accidental weight
+  // in unnoticed. 4220 = ~42 KB / ~1% headroom over the clean-build truth.
+  maxTotalJsKB: 4220,
 
   // Total bytes across all .css chunks. Baseline ~384 KB across 10 files
   // (Tailwind base + design tokens + all CSS modules; Turbopack doesn't
@@ -134,7 +139,9 @@ const BUDGETS = {
   // Recalibrated 2026-07-16 (Phase-4 batch; was 220, baseline hit 237):
   // +24 deliberate lazy i18n chunks (talks 2-7 x 4 locales). 250 keeps
   // the dynamic()-everything guard meaningful.
-  maxAssetCount: 250,
+  // LOWERED 2026-10-30 (investor vertical removed, 5.708): clean-build actual
+  // 235 chunks. 245 = ~4% headroom, the same margin as the 2026-07-11 setting.
+  maxAssetCount: 245,
 };
 
 if (!fs.existsSync(CHUNKS_DIR)) {

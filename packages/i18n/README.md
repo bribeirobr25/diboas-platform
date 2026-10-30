@@ -14,7 +14,7 @@ Complete internationalization solution for the diBoaS platform with support for 
 ## Features
 
 ✅ **Automatic Locale Detection** - Browser language detection with fallback to English
-✅ **Complete Translation Coverage** - 42 namespaces per locale across all 4 locales (see Translation Files below)
+✅ **Complete Translation Coverage** - 40 namespaces per locale across all 4 locales (see Translation Files below)
 ✅ **Server & Client Support** - Separate entry points for optimal bundle size
 ✅ **Type-Safe** - Full TypeScript support
 ✅ **Zero Hardcoded Values** - All text externalized to JSON files
@@ -70,7 +70,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@diboas/i18n/config';
 
 ## Translation Files
 
-Translation files are organized by locale × namespace (42 namespaces per locale — most recently `market-bitcoin.json` + `market-backdrop.json`, the Market Macro per-view namespaces, M3 2026-08-13):
+Translation files are organized by locale × namespace (40 namespaces per locale — most recently `market-bitcoin.json` + `market-backdrop.json`, the Market Macro per-view namespaces, M3 2026-08-13):
 
 ```
 packages/i18n/translations/{en, pt-BR, es, de}/
@@ -78,8 +78,6 @@ packages/i18n/translations/{en, pt-BR, es, de}/
 ├── common.json                         # Navigation, buttons, forms
 ├── dreamMode.json                      # Dream-mode waitlist gate + bank-source labels only (legacy flow keys pruned 2026-07-07; live flow strings live in preDream.json)
 ├── faq.json                            # FAQ content
-├── investor.json                       # Investor vertical — public /investors page + room UI
-├── investor-docs.json                  # Investor-room document bodies (generated blocks[])
 ├── landing-b2b.json                    # B2B landing page (qualitative Two-Worlds cards + fee table)
 ├── landing-b2c.json                    # B2C landing page
 ├── landing-help.json                   # Help center

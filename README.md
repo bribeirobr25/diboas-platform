@@ -34,12 +34,12 @@ flowchart TD
 
   subgraph Edge["Next.js 16 App Router — Vercel + Turbopack"]
     MW["middleware.ts<br/>locale routing + per-request nonce CSP"]
-    Pages["route groups: (landing) · (investor-room)<br/>+ /api routes"]
+    Pages["route group: (landing)<br/>+ /api routes"]
     MW --> Pages
   end
 
   subgraph Packages["Monorepo packages (Turborepo + pnpm)"]
-    I18N["@diboas/i18n<br/>42 namespaces × 4 locales (lazy)"]
+    I18N["@diboas/i18n<br/>40 namespaces × 4 locales (lazy)"]
     UI["@diboas/ui — design system"]
     EMAIL["@diboas/email — Resend + retry/backoff"]
   end
@@ -47,7 +47,7 @@ flowchart TD
   subgraph Services["Server-side services"]
     MD["marketDataService<br/>(provider-swap-ready)"]
     RL["Upstash Redis — rate limiting"]
-    DB[("Neon PostgreSQL<br/>waitlist · investor_requests<br/>(AES-256-GCM + HMAC blind index)")]
+    DB[("Neon PostgreSQL<br/>waitlist<br/>(AES-256-GCM + HMAC blind index)")]
   end
 
   subgraph Obs["Monitoring — consent-gated, lazy"]
@@ -65,10 +65,10 @@ flowchart TD
 
 - **Testing & CI:** strict TypeScript, **4,487 tests / 353 files (Vitest), measured 2026-10-28 on the M-C1A tree (`main` `62f73c3d` plus the open-refresh-PR carry)** across the workspace (web 2,196/167 · sandbox 1,560/135 · banking 181/7 · investing 92/6 · defi 458/38 — tests/files per package, five per-package runs, none carried; both columns sum to the totals, checked by `review:counts`), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
 - **Security:** per-request **nonce-based CSP** (`'unsafe-inline'` prohibited for scripts), **AES-256-GCM** encryption for PII at rest, **HMAC blind indexing**, Upstash rate limiting, DOMPurify sanitization, and CSRF protection on mutation endpoints.
-- **i18n:** 42 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
+- **i18n:** 40 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
 - **Monitoring:** Sentry, PostHog, and GA4 — all consent-gated and lazy-loaded behind a cookie-consent check.
 
-> **Product architecture is Phase 2+, not in this build.** The money product's design — non-custodial by design (users hold their own funds; diBoaS holds no key shares, and recovery runs through an integrated third-party provider), embedded wallets (Turnkey — secure enclaves with policy-controlled signing), multi-chain DeFi (stable strategies on Arbitrum, growth on Solana) — is roadmap. Those decisions live in [`CLAUDE.md`](./CLAUDE.md); the full technical write-up for reviewers belongs in the investor room's technical-architecture summary.
+> **Product architecture is Phase 2+, not in this build.** The money product's design — non-custodial by design (users hold their own funds; diBoaS holds no key shares, and recovery runs through an integrated third-party provider), embedded wallets (Turnkey — secure enclaves with policy-controlled signing), multi-chain DeFi (stable strategies on Arbitrum, growth on Solana) — is roadmap. Those decisions live in [`CLAUDE.md`](./CLAUDE.md).
 
 ## Prerequisites
 
@@ -193,8 +193,6 @@ Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 | `/tools/card-fees`             | B2B card fee savings calculator                                                                                                                           |
 | `/tools/idle-cash`             | B2B idle cash yield calculator                                                                                                                            |
 | `/market`                      | Adelaide Market — multi-view macro family (umbrella + `/market/bitcoin` + `/market/backdrop`; weekly refresh pipeline; host surface for diboas-analytics) |
-| `/investors`                   | Investor vertical — public pitch page (thesis, market, raise)                                                                                             |
-| `/investor-room`               | Password-gated investor room — full documents + print-to-PDF (noindex; EN + pt-BR native, DE/ES render EN)                                                |
 | `/email-preferences`           | Email unsubscribe / notification preferences                                                                                                              |
 | `/delete-confirm`              | GDPR account/waitlist deletion confirmation                                                                                                               |
 | `/share`                       | Social sharing redirect (OG metadata)                                                                                                                     |

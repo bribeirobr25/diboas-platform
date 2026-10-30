@@ -25,8 +25,6 @@ export const SUPPORTED_NAMESPACES = [
   'common',
   'dreamMode',
   'faq',
-  'investor',
-  'investor-docs',
   'landing-b2b',
   'landing-b2c',
   'landing-help',

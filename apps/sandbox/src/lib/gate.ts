@@ -1,6 +1,6 @@
 /**
- * Sandbox access gate (MVP-0) — the investor-room pattern, verbatim in spirit
- * (`apps/web/src/lib/security/investorGate.ts` lineage):
+ * Sandbox access gate (MVP-0). It began as a copy of the web app's former
+ * investor-room gate (removed 2026-10-30, register 5.708); it stands on its own:
  *
  * - Single shared password: `SANDBOX_ACCESS_PASSWORD` (server-only env).
  * - Constant-time compare (no timing oracle).

@@ -2,7 +2,7 @@
  * Sandbox i18n config — app-local (decision G-1), same standard as the
  * platform: 4 locales wired from the first commit; the D-10 sub-clause defers
  * es/de CONTENT only (their files mirror EN until the promotion-gate
- * transcreation — the investor-room roomContentLocale precedent).
+ * transcreation).
  */
 
 export const SANDBOX_LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;

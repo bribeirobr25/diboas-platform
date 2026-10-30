@@ -9,7 +9,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { readdirSync, existsSync } from 'fs';
+import { readdirSync, readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { SUPPORTED_NAMESPACES, isKnownNamespace } from '@diboas/i18n/config';
 
@@ -48,4 +48,32 @@ describe('SUPPORTED_NAMESPACES registry (I-4)', () => {
     // real namespace file (no marketing.json) — deliberately dropped.
     expect(isKnownNamespace('marketing')).toBe(false);
   });
+});
+
+/**
+ * The namespace count is published in five places for readers; nothing checked them, so
+ * removing two namespaces (the investor vertical, `5.708`) could leave "42" behind. Each
+ * published figure must equal the registry's length.
+ */
+describe('published namespace counts (5.708)', () => {
+  const repoRoot = join(findEnTranslationsDir(), '../../../..'); // …/packages/i18n/translations/en
+  const PUBLISHED: Array<[string, RegExp]> = [
+    ['CLAUDE.md', /\*\*(\d+) namespaced JSON files\*\*/g],
+    ['README.md', /(\d+) namespaces × 4 locales/g],
+    ['packages/i18n/README.md', /(\d+) namespaces per locale/g],
+    ['docs/tech/internationalization.md', /\*\*(\d+) namespaces per locale\*\*/g],
+  ];
+
+  it.each(PUBLISHED)(
+    'should state the registry size in %s when it publishes a count',
+    (file, re) => {
+      const text = readFileSync(join(repoRoot, file), 'utf8');
+      const counts = [...text.matchAll(re)].map((m) => Number(m[1]));
+      expect(
+        counts.length,
+        `${file} publishes no count any more; update this test`
+      ).toBeGreaterThan(0);
+      for (const n of counts) expect(n, file).toBe(SUPPORTED_NAMESPACES.length);
+    }
+  );
 });

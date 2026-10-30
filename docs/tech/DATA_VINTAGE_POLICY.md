@@ -19,7 +19,6 @@
 
 ## 2. Scope notes (founder-resolved 2026-07-05)
 
-- Investor-room market-size/TAM figures follow **P-4/P-6** (dated + sourced), not P-1 — they are research numbers, not return series.
 - Monthly data series in scope: `apps/web/src/lib/market-data/data/monthlyPrices.json` (8 series; total-return series carry `closePriceOnly` per month) **and** `monthlyFx.json` (all currencies) — both must end on the same last-complete month (enforced by the vintage gate).
 - Bar-signed anchor test vectors (per `docs/tech/TOOLS_VALIDATION.md`) are re-validated on every monthly append; **any shifted anchor returns to the founder for explicit re-sign — never silent drift.** Forward calibration constants (EUR 0.55%, BRL 6.21% — FX-16 D1) are deliberate constants and are never recomputed by an append.
 

@@ -35,9 +35,6 @@ const TITLE_MIN = 15,
 /** Routes that deliberately have no PAGE_SEO_CONFIG entry — each needs a reason. */
 const ROUTE_EXCEPTIONS = {
   '/': 'root redirect handled by app/page.tsx; locale home = the "home" key',
-  '/investors': 'owns its metadata via generateMetadata (investor vertical)',
-  '/investor-room': 'password-gated, noindex by design',
-  '/investor-room/[doc]': 'password-gated, noindex by design',
   '/delete-confirm': 'GDPR flow page, not a marketing surface',
   '/email-preferences': 'transactional flow page, not a marketing surface',
   '/learn/[lesson]': 'dynamic route: per-talk keys checked via the registry (check 3)',

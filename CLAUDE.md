@@ -87,7 +87,6 @@ apps/web/src/app/
       dream-mode/          # Goal calculator simulation (noindex)
       email-preferences/   # Email unsubscribe preferences
       help/                # Help center — FAQ by topic (6 topics)
-      investors/           # Investor vertical — public pitch page (thesis, market, raise)
       learn/               # "Real Talk" — the 7-talk Money Basics series (all live
         [lesson]/          #   2026-07-16; registry-driven at lib/learn/registry.ts:
                            #   3-beat talks + quiz + tool moment; Talk 1 embeds the
@@ -106,14 +105,11 @@ apps/web/src/app/
                            #   inflation-impact, currency-depreciation, card-fees, idle-cash
         money-jobs/        #   Money Jobs — give every part of a monthly amount a job (B2C
                            #   split + B2B runway; email-gated plan; ?for=business opens B2B)
-    (investor-room)/       # Password-gated investor room (separate route group; noindex)
-      investor-room/       # Room landing + gated document pages (full docs + print-to-PDF; EN + pt-BR native, DE/ES render EN via roomContentLocale)
   api/                     # API routes
     consent/               # Cookie/privacy consent (POST/DELETE)
     cron/                  # Audit-log retention purge (Vercel cron, daily 03:00 UTC)
     email/unsubscribe/     # RFC 8058 email unsubscribe
     health/                # Health check (liveness + readiness)
-    investor-request/      # Investor contact request (encrypted store + founder notification)
     monitoring/            # Sentry envelope tunnel (same-origin; bypasses ad-blockers)
     og/                    # Dynamic Open Graph image generation
     waitlist/              # Waitlist (signup, delete, position, referral, stats)
@@ -152,7 +148,7 @@ pnpm build            # Production build (all workspaces)
 ### Validation
 
 ```bash
-pnpm validate:all              # Full pipeline: type-check -> lint -> test -> build -> budget -> design-tokens -> translations -> market-data -> sdk-invariant -> investor-figures -> seo -> ux-canon
+pnpm validate:all              # Full pipeline: type-check -> lint -> test -> build -> budget -> design-tokens -> translations -> market-data -> sdk-invariant -> seo -> ux-canon
 pnpm validate:design-tokens    # Validate design tokens against schema
 pnpm validate:translations     # Check translation key parity across locales
 pnpm validate:seo              # SEO gate: config bounds/uniqueness, route/OG parity, per-locale seo keys
@@ -201,7 +197,6 @@ pnpm --filter web build-storybook  # Build Storybook for deployment
 ```bash
 pnpm --filter web db:migrate      # Run database migrations
 pnpm --filter web db:status       # Check migration status
-pnpm --filter web investor:read   # Decrypt stored /investors requests to the terminal (founder runbook; needs live DATABASE_URL + ENCRYPTION_KEY in .env.local)
 ```
 
 ### Production
@@ -299,7 +294,7 @@ The full register of locked-in implementation decisions (bundler / Turbopack, pr
 
 - Reference locale: `en` (source of truth)
 - Translations: `packages/i18n/translations/{locale}/`
-- **42 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the investor vertical (`investor` + `investor-docs`), the demo + dream flows, the `tools-*` calculator suite, and the market view namespaces (`market` shared + `market-bitcoin` + `market-backdrop`, M3 2026-08-13).
+- **40 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the demo + dream flows, the `tools-*` calculator suite, and the market view namespaces (`market` shared + `market-bitcoin` + `market-backdrop`, M3 2026-08-13).
 - Client/server split exports to avoid bundling React on server
 - All new user-facing strings must be added to all 4 locales
 
@@ -443,8 +438,7 @@ R-rows from `docs/tech/robustness-checklist.md` (PASS / N-A per row) in its self
 **Live since 2026-03-11.** Two products, one repository:
 
 - **`apps/web` → `diboas.com`** — pre-launch marketing site: waitlist, demo, goal calculator,
-  the 11-tool Money Tools suite, the 7-talk Learn program, the investor vertical, and
-  `/market` (Adelaide Market, weekly auto-refresh).
+  the 11-tool Money Tools suite, the 7-talk Learn program, and `/market` (Adelaide Market, weekly auto-refresh).
 - **`apps/sandbox` → `app.diboas.com`** — the **Practice** app. 🚀 LIVE + PUBLIC since
   2026-08-22, **play money only**, `noindex`, geofence armed. Real Money mode is a parity
   build behind a strict internal flag — **`I-8` / Real is NOT AUTHORIZED**.

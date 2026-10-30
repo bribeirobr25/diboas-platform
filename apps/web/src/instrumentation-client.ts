@@ -202,16 +202,13 @@ export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
 
 // BotID client challenge (5.22, founder-approved 2026-07-16; Stage 1 log-only).
 // Declares which requests carry the challenge solution — paths NOT listed here
-// make checkBotId() fail on the server, so this list and the server checks in
-// signup/investor-request must stay in sync. The unsubscribe endpoint is
+// make checkBotId() fail on the server, so this list and the server check in
+// signup must stay in sync. The unsubscribe endpoint is
 // deliberately ABSENT (RFC 8058 one-click: mail-provider bots must POST it).
 // Rules: docs/tech/implementation-notes.md § BotID
 try {
   initBotId({
-    protect: [
-      { path: '/api/waitlist/signup', method: 'POST' },
-      { path: '/api/investor-request', method: 'POST' },
-    ],
+    protect: [{ path: '/api/waitlist/signup', method: 'POST' }],
   });
 } catch {
   // Defensive (P7): a bot-detection init failure must never break client boot —

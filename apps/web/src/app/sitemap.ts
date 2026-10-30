@@ -53,9 +53,6 @@ const PAGE_PRIORITIES: Record<string, number> = {
   '/market/backdrop': 0.6,
   '/help': 0.7,
   '/security': 0.7,
-  // Investor vertical — public page only (the /investor-room is noindex and
-  // intentionally excluded from the sitemap).
-  '/investors': 0.6,
   '/legal/terms': 0.3,
   '/legal/privacy': 0.3,
   '/legal/cookies': 0.3,
@@ -128,12 +125,6 @@ function getAllUrls(): string[] {
       urls.push(KEY_TO_PATH[pageKey] ?? `/${pageKey}`);
     }
   });
-
-  // Investor vertical: the public page is indexed; the /investor-room (its own
-  // route group, noindex) is never added here.
-  if (!urls.includes('/investors')) {
-    urls.push('/investors');
-  }
 
   return urls;
 }

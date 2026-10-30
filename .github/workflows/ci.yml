@@ -76,12 +76,6 @@ jobs:
       - run: pnpm validate:sdk-invariant
       - run: pnpm validate:translations
       - run: pnpm validate:design-tokens
-      # Investor figures registry L2 gate (schema + no token residue +
-      # forbidLiterals + protected literals + stats-band shape). CI-safe: the
-      # L1 canon checks auto-skip when the local-only FEES.md/DECISION_LOG are
-      # absent. The registry↔artifact consistency is ALSO covered by `pnpm test`
-      # (figures-consistency.test.ts); this makes the script gate explicit too.
-      - run: pnpm validate:investor-figures
       # UX governance drift guard (2026-07-12): makes the governance layer a
       # REAL merge gate, not just a local check. `validate:ux-canon` was in
       # `validate:all` but never mirrored here when the other static gates were
