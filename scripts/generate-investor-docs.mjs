@@ -27,7 +27,7 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { format, resolveConfig } from 'prettier';
 import { substituteTokens, parseStatsBlock } from './lib/investor-figures.mjs';
-import { makeDocsResolver, resolveDocsRoot } from './lib/docs-root.mjs';
+import { docsRootProblem, makeDocsResolver, resolveDocsRoot } from './lib/docs-root.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -51,10 +51,9 @@ const BASE = process.env.INVESTOR_DOCS_SOURCE_DIR || 'docs/get-ready/investor-ma
 // The default sources are private docs, read from the docs root (5.653); an absolute
 // INVESTOR_DOCS_SOURCE_DIR is used as given.
 const DOCS_ROOT = resolveDocsRoot(ROOT);
-if (DOCS_ROOT.bad) {
-  console.error(
-    `DIBOAS_DOCS_DIR points at ${DOCS_ROOT.bad}, which does not exist — nothing written.`
-  );
+const DOCS_PROBLEM = docsRootProblem(ROOT, DOCS_ROOT);
+if (DOCS_PROBLEM) {
+  console.error(`${DOCS_PROBLEM} — nothing written.`);
   process.exit(1);
 }
 const at = makeDocsResolver(ROOT, DOCS_ROOT.dir);

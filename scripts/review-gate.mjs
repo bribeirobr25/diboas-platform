@@ -33,14 +33,31 @@
  */
 import { execFileSync, execSync, spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { availableParallelism, cpus, freemem, loadavg, totalmem } from 'node:os';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  realpathSync,
+  writeFileSync,
+} from 'node:fs';
+import { availableParallelism, cpus, freemem, homedir, loadavg, tmpdir, totalmem } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
-import { makeDirReader, makeDocsResolver, resolveDocsRoot } from './lib/docs-root.mjs';
+import {
+  displayPath,
+  docsRootProblem,
+  isPrivateDocsPath,
+  makeDirReader,
+  makeDocsResolver,
+  resolveDocsRoot,
+} from './lib/docs-root.mjs';
 
-const C = { g: '\x1b[32m', r: '\x1b[31m', y: '\x1b[33m', b: '\x1b[1m', d: '\x1b[2m', x: '\x1b[0m' };
+/* Colours, unless NO_COLOR is set (https://no-color.org; the docs CI sets it). */
+const C = process.env.NO_COLOR
+  ? { g: '', r: '', y: '', b: '', d: '', x: '' }
+  : { g: '\x1b[32m', r: '\x1b[31m', y: '\x1b[33m', b: '\x1b[1m', d: '\x1b[2m', x: '\x1b[0m' };
 /**
  * ⛑ THE REPOSITORY ROOT IS WHERE THIS SCRIPT LIVES, NOT WHERE IT WAS RUN FROM
  * (P0 review, PB-5). `process.cwd()` made every check depend on the caller's
@@ -74,12 +91,108 @@ const gitNames = (argv) => run('git', argv).split('\0').filter(Boolean);
  * folder, merging the public and private halves of `docs/`. `scripts/lib/docs-root.mjs`.
  */
 const DOCS_ROOT = resolveDocsRoot(ROOT);
-if (DOCS_ROOT.bad) {
-  console.error(
-    `DIBOAS_DOCS_DIR points at ${DOCS_ROOT.bad}, which does not exist. Nothing was checked.`
-  );
+/**
+ * An unusable docs root (a wrong `DIBOAS_DOCS_DIR`, or two registers: two answers to "what
+ * is current") stops every mode that reads docs, never a silent pick (`5.697`, `5.698`).
+ * `port` reads no docs, so it is not blocked.
+ */
+const DOCS_PROBLEM = docsRootProblem(ROOT, DOCS_ROOT);
+if (DOCS_PROBLEM && process.argv[2] !== 'port') {
+  console.error(`${DOCS_PROBLEM}. Nothing was checked.`);
   process.exit(2);
 }
+/**
+ * No private docs on this machine (a public clone, CI). The resolver then maps every
+ * private path to a folder that never exists, so every row sees them as absent; the rows
+ * that only make sense with private docs also SKIP explicitly (`5.696`: a failed battery
+ * created `docs/audit/` for its log, and PROSE-1 then reported a PASS over nothing).
+ */
+const NO_PRIVATE = DOCS_ROOT.via === 'none';
+/**
+ * The header's "read from" line: the folder relative to this checkout (`displayPath`, never
+ * a machine path: gate output gets pasted into public PRs), and, when the docs root is a
+ * git checkout of its own, whether it is on main and at which commit. The branch NAME is
+ * not printed: private branch names do not belong in public PRs (`5.697`, `5.698`).
+ */
+function describeDocsRoot() {
+  if (DOCS_ROOT.via === 'none') return 'nowhere (absent here, as on a fresh clone)';
+  if (DOCS_ROOT.via === 'legacy') return 'docs/ in this checkout';
+  const where = `${DOCS_ROOT.via === 'sibling' ? 'the sibling diboas-docs checkout' : 'DIBOAS_DOCS_DIR'} (${displayPath(ROOT, DOCS_ROOT.dir)})`;
+  const head = docsGit(['rev-parse', '--abbrev-ref', 'HEAD']);
+  const sha = docsGit(['rev-parse', '--short', 'HEAD']);
+  if (!head || !sha) return where;
+  return `${where} · ${head === 'main' ? 'on main' : 'NOT on main'} @ ${sha}`;
+}
+/**
+ * A read-only git query in the private docs checkout; null when the docs root is not the
+ * top of a git checkout of its own. Git otherwise walks UP to any repository above the
+ * folder, or obeys an inherited `GIT_DIR` (as inside a hook), and would report the wrong
+ * repository's branch and commit. Never fetches.
+ */
+function docsGit(argv) {
+  const env = { ...process.env };
+  for (const k of ['GIT_DIR', 'GIT_WORK_TREE', 'GIT_INDEX_FILE', 'GIT_COMMON_DIR']) delete env[k];
+  const git = (a) =>
+    execFileSync('git', ['-C', DOCS_ROOT.dir, ...a], { stdio: 'pipe', env })
+      .toString()
+      .trim();
+  try {
+    if (realpathSync(git(['rev-parse', '--show-toplevel'])) !== realpathSync(DOCS_ROOT.dir))
+      return null;
+    return git(argv);
+  } catch {
+    return null;
+  }
+}
+/** Commits on the last-fetched origin/main that the docs checkout lacks; 0 when unknown or
+    when the docs root is not a git checkout of its own (the legacy in-repo tree never is). */
+function docsCheckoutBehind() {
+  const n = Number(docsGit(['rev-list', '--count', 'HEAD..origin/main']));
+  return Number.isFinite(n) ? n : 0;
+}
+/**
+ * Private-area folders left inside this checkout's `docs/` (a market worktree keeps
+ * `docs/cc-sync/`) are NOT read when the private docs live elsewhere. Say so, never silently.
+ */
+function ignoredInRepoAreas() {
+  if (DOCS_ROOT.via === 'legacy' || !existsSync(join(ROOT, 'docs'))) return [];
+  return readdirSync(join(ROOT, 'docs'), { withFileTypes: true })
+    .filter(
+      (e) => e.isDirectory() && isPrivateDocsPath(`docs/${e.name}`) && !e.name.startsWith('.')
+    )
+    .map((e) => e.name);
+}
+/**
+ * Error text from a thrown row or a failed write can carry machine paths. Printed output
+ * names them by role instead: the docs root, this checkout, the temp folder, the home.
+ */
+function scrubPaths(text) {
+  const swaps = [
+    [DOCS_ROOT.dir, '<docs-root>'],
+    [ROOT, '<repo>'],
+    [tmpdir(), '<tmp>'],
+    [homedir(), '~'],
+  ].filter(([from]) => from);
+  /* every spelling (macOS: /var vs /private/var), longest first so a prefix never wins */
+  const pairs = swaps
+    .flatMap(([from, to]) => [...new Set([from, safeRealpath(from)])].map((f) => [f, to]))
+    .sort((x, y) => y[0].length - x[0].length);
+  let out = String(text);
+  for (const [f, to] of pairs) out = out.split(f).join(to);
+  return out;
+}
+function safeRealpath(p) {
+  try {
+    return realpathSync(p);
+  } catch {
+    return p;
+  }
+}
+const NO_PRIVATE_SKIP = {
+  ok: true,
+  skip: true,
+  detail: 'private docs absent here (no diboas-docs checkout) — nothing was checked',
+};
 const at = makeDocsResolver(ROOT, DOCS_ROOT.dir);
 const ls = makeDirReader(ROOT, DOCS_ROOT.dir);
 const rd = (p) => readFileSync(at(p), 'utf8');
@@ -291,7 +404,7 @@ function checkRegister() {
   const found = resolveRegister();
   if (!found.path) {
     const why = found.bad
-      ? `REVIEW_REGISTER_PATH points at ${found.bad}, which does not exist`
+      ? `REVIEW_REGISTER_PATH points at ${scrubPaths(found.bad)}, which does not exist`
       : `${REGISTER} not found here, and REVIEW_REGISTER_PATH is unset`;
     return {
       ok: false,
@@ -579,8 +692,10 @@ function checkKindIndex(s, idx) {
   /* The block runs to its first blank line: every line inside it is a `>` quote line. */
   const end = s.indexOf('\n\n', start);
   const block = s.slice(start, end < 0 ? undefined : end);
-  const pairs = [...block.matchAll(/^>\s+(?:(\d+\.\d+)\s+([a-z][a-z-]*)\s*)+$/gm)].flatMap((m) =>
-    [...m[0].matchAll(/(\d+\.\d+)\s+([a-z][a-z-]*)/g)].map((x) => [x[1], x[2]])
+  /* Any letter case is READ, so a capitalised kind is reported as outside the vocabulary;
+     a lowercase-only pattern dropped its whole line and blamed six ids for "no kind". */
+  const pairs = [...block.matchAll(/^>\s+(?:(\d+\.\d+)\s+([A-Za-z][A-Za-z-]*)\s*)+$/gm)].flatMap(
+    (m) => [...m[0].matchAll(/(\d+\.\d+)\s+([A-Za-z][A-Za-z-]*)/g)].map((x) => [x[1], x[2]])
   );
   const kinds = new Map(pairs);
   const lines = [];
@@ -911,8 +1026,10 @@ function checkCounts() {
  * proof it was not skipped in silence, which is the failure that actually shipped.
  */
 function checkProse() {
+  if (NO_PRIVATE) return NO_PRIVATE_SKIP;
   const dir = at('docs/audit');
-  if (!existsSync(dir)) return { ok: true, skip: true, detail: 'docs/audit absent (fresh clone)' };
+  if (!existsSync(dir))
+    return { ok: true, skip: true, detail: 'docs/audit absent in the private docs' };
   const files = readdirSync(dir).filter((f) => f.endsWith('.md'));
   const pairs = [];
   const unresolved = [];
@@ -1309,6 +1426,13 @@ function doc1Scan() {
  */
 function checkDoc1Local() {
   const { privateRefs } = doc1Scan();
+  /* ⛑ No private docs here: nothing can be verified, whatever folders exist (`5.696`). */
+  if (NO_PRIVATE)
+    return {
+      ok: true,
+      skip: true,
+      detail: `${privateRefs.length} private reference(s) · NOT VERIFIED HERE — no private area present on this machine`,
+    };
   /* `docs/full-view/x.md` → `docs/full-view/`; a file directly under `docs/` has no area folder
      of its own and is judged against the private corpus as a whole (R4 correction). */
   const area = (t) => {
@@ -1673,6 +1797,7 @@ function canonRootDocs() {
 }
 
 function checkCanonIndex() {
+  if (NO_PRIVATE) return NO_PRIVATE_SKIP;
   if (!existsSync(at(CANON)))
     return {
       ok: true,
@@ -1992,6 +2117,7 @@ function checkEscalations() {
    * register immediately is a gate that gets switched off.
    */
   const REGISTER_CONTEXT = /✅|CLOSED|FIXED|WITHDRAWN|DISPOSITION|SUPERSEDED|historical/i;
+  if (NO_PRIVATE) return NO_PRIVATE_SKIP;
   const auditDocs = mdUnder('docs/audit', []);
   const isRegister = (q) => q.endsWith('PENDING_ALL.md');
   /* EVERY engineering record, with NO name filter. The register is separated
@@ -2473,7 +2599,7 @@ function checkBattery() {
     /* Evidence is a by-product: failing to write it never changes the verdict. */
     return {
       ok: false,
-      detail: `FAILED: ${what.join(', ')} — evidence NOT saved (${e.code ?? 'error'}: ${e.message}); run each directly for its output`,
+      detail: `FAILED: ${what.join(', ')} — evidence NOT saved (${e.code ?? 'error'}: ${scrubPaths(e.message)}); run each directly for its output`,
     };
   }
   return { ok: false, detail: `FAILED: ${what.join(', ')} — evidence: ${where}` };
@@ -2483,8 +2609,9 @@ function checkBattery() {
  * ⚑ ADDED 2026-10-21 (`5.590`). The battery threw its output away, so a red
  * `test` row on 2026-10-20 could never be explained: the failing test was lost,
  * and a later green re-run explains nothing. A failing battery now leaves one
- * run directory under the private, git-ignored `docs/audit/` tree, and the row
- * prints its path.
+ * run directory under the private docs (`docs/audit/REVIEW_GATE_RUNS/`, git-ignored in
+ * diboas-docs), or under the git-ignored `.review-gate-runs/` when there are no private docs,
+ * and the row prints its path.
  *
  * Deliberately UNCHANGED: the four commands and their order, the shell, the
  * 1 MiB output limit (`execSync`'s default, so a flood of output still fails
@@ -2494,7 +2621,9 @@ function checkBattery() {
  * can never overwrite an earlier failure. Only `.json` / `.log` files are
  * written, and every doc-walking row reads `.md` only.
  */
-const BATTERY_RUNS_DIR = 'docs/audit/REVIEW_GATE_RUNS';
+/* With no private docs here the log must not create `docs/audit/` (that folder is how other
+   tools used to infer private docs, `5.696`): it goes to a git-ignored repo-root folder. */
+const BATTERY_RUNS_DIR = NO_PRIVATE ? '.review-gate-runs' : 'docs/audit/REVIEW_GATE_RUNS';
 const BATTERY_MAX_BUFFER = 1024 * 1024;
 /* Masked before anything is saved, even in a private file: the staged sweep's
    credential-literal pattern, credentials inside a URL (`postgres://u:p@host`),
@@ -2812,6 +2941,8 @@ function checkCiParity() {
   return { ok: !undeclared.length && !stale.length && !bad.length, detail: lines.join('\n      ') };
 }
 
+/** Rows that read private docs when present but still check the public docs without them. */
+const PUBLIC_HALF_ROWS = new Set(['counts', 'citations']);
 const CHECKS = {
   battery: ['the mechanical battery actually ran', checkBattery],
   register: ['register id integrity', checkRegister],
@@ -2887,9 +3018,17 @@ console.log(
   `${C.d}Mechanical (⚙ rows). Each exists because its defect already shipped here.${C.x}`
 );
 /* Which private docs tree the rows below read: evidence, never assumed (5.653). */
-console.log(
-  `${C.d}Private docs read from: ${DOCS_ROOT.via === 'none' ? 'nowhere (absent here, as on a fresh clone)' : `${DOCS_ROOT.via === 'legacy' ? 'docs/ in this checkout' : DOCS_ROOT.via === 'sibling' ? 'the sibling diboas-docs checkout' : 'DIBOAS_DOCS_DIR'}`}${C.x}`
-);
+console.log(`${C.d}Private docs read from: ${describeDocsRoot()}${C.x}`);
+const ignoredAreas = ignoredInRepoAreas();
+if (ignoredAreas.length)
+  console.log(
+    `${C.d}Not read: private folder(s) inside this checkout's docs/ (${ignoredAreas.join(', ')}); only the private docs root named above is read.${C.x}`
+  );
+const behind = docsCheckoutBehind();
+if (behind)
+  console.log(
+    `${C.y}⚠ the private docs checkout is ${behind} commit(s) behind its last-fetched origin/main — pull it before trusting the register (5.698)${C.x}`
+  );
 let failed = 0;
 /**
  * ⚑ ADDED 2026-09-14 (AUD-G02). A skipped row was summarised as "Mechanical
@@ -2906,8 +3045,11 @@ for (const key of plan) {
   try {
     r = fn();
   } catch (e) {
-    r = { ok: false, detail: `check threw: ${e.message}` };
+    r = { ok: false, detail: `check threw: ${scrubPaths(e.message)}` };
   }
+  /* Rows that still run without private docs walk only the public half; say so (5.696). */
+  if (NO_PRIVATE && !r.skip && PUBLIC_HALF_ROWS.has(key))
+    r.detail = `${r.detail}\n      private docs absent here: only the public docs were walked`;
   if (r.skip) {
     console.log(`${C.y}SKIP${C.x}\n      ${C.d}${r.detail}${C.x}`);
     outcomes[key] = 'SKIP';

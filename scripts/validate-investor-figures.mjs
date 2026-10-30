@@ -20,7 +20,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { makeDocsResolver, resolveDocsRoot } from './lib/docs-root.mjs';
+import { docsRootProblem, makeDocsResolver, resolveDocsRoot } from './lib/docs-root.mjs';
 import Ajv from 'ajv';
 import {
   validateRegistryShape,
@@ -74,7 +74,8 @@ console.log(
 // ── L1: canonical local-only sources (auto-skip in CI) ─────────────────
 // Private docs, read from the docs root (5.653): legacy tree, DIBOAS_DOCS_DIR or sibling.
 const DOCS_ROOT = resolveDocsRoot(ROOT);
-if (DOCS_ROOT.bad) fail([`DIBOAS_DOCS_DIR points at ${DOCS_ROOT.bad}, which does not exist`]);
+const DOCS_PROBLEM = docsRootProblem(ROOT, DOCS_ROOT);
+if (DOCS_PROBLEM) fail([DOCS_PROBLEM]);
 const at = makeDocsResolver(ROOT, DOCS_ROOT.dir);
 const feesPath = at('docs/full-view/FEES.md');
 const logPath = at('docs/agents/DECISION_LOG.md');
@@ -82,8 +83,13 @@ const sources = {};
 if (existsSync(feesPath)) sources.feesMd = readFileSync(feesPath, 'utf8');
 if (existsSync(logPath)) sources.decisionLog = readFileSync(logPath, 'utf8');
 
+// With private docs present, FEES.md is required: a missing fee source must never read as
+// "skipped (CI)" (5.708 audit). DECISION_LOG.md exists nowhere since the move (its figures
+// retire with the investor vertical, 5.708), so it stays optional.
+if (DOCS_ROOT.via !== 'none' && !sources.feesMd)
+  fail(['private docs are present but docs/full-view/FEES.md is missing from them']);
 if (!sources.feesMd && !sources.decisionLog) {
-  console.log('  ○ L1: local-only canon (FEES.md / DECISION_LOG.md) not on disk — skipped (CI)');
+  console.log('  ○ L1: private canon (FEES.md / DECISION_LOG.md) absent here — skipped (CI)');
 } else {
   const sourceErrors = checkCanonicalSources(registry, sources);
   if (sourceErrors.length) fail(sourceErrors);
