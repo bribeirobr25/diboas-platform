@@ -18,7 +18,7 @@ export interface GateState {
 /**
  * Server action: verify the shared sandbox password; on success set the
  * signed grant cookie and enter. Constant-time compare in lib/gate. Fail-closed
- * when unconfigured (the investor-room pattern).
+ * when unconfigured.
  */
 export async function enterSandbox(_prev: GateState, formData: FormData): Promise<GateState> {
   if (!isGateConfigured()) return { error: 'unconfigured' };

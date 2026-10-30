@@ -1,10 +1,9 @@
 /**
  * `scripts/lib/docs-root.mjs` — where the private docs are read from (register `5.653`).
  *
- * The review gate, `validate:ux-canon`, `validate:investor-figures` and the investor
- * generator all resolve private docs through this module, so a wrong answer here points
- * every one of them at the wrong tree at once. Imported cross-boundary like
- * `scripts/lib/investor-figures.mjs` (`scripts/**` is outside every vitest root).
+ * The review gate and `validate:ux-canon` resolve private docs through this module, so a
+ * wrong answer here points both at the wrong tree at once. Imported cross-boundary
+ * (`scripts/**` is outside every vitest root).
  */
 
 import { execFileSync } from 'node:child_process';

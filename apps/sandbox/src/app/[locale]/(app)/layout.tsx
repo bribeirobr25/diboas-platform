@@ -8,7 +8,7 @@ import { AppShellRoute } from '@/components/shell/AppShellRoute';
 
 /**
  * The protected group: every screen behind the gate. Per-request cookie check
- * (fail-closed — the investor-room layout pattern); the gate page lives
+ * (fail-closed: no valid grant, no screen); the gate page lives
  * outside this group.
  */
 export default async function ProtectedLayout({

@@ -48,7 +48,7 @@ Single web application (`apps/web`). No backend services, no microservices, no m
 
 - **Provider:** Neon serverless PostgreSQL (project ID held in the Neon dashboard and `.env` — not published here).
 - **Driver:** `@neondatabase/serverless` (HTTP-based, no persistent connections).
-- **Usage:** Waitlist signups, referral tracking, position data, and investor contact requests (`investor_requests`, migration `014` — AES-256-GCM encrypted PII + HMAC blind index).
+- **Usage:** Waitlist signups, referral tracking and position data. (The investor contact requests table, migration `014`, is no longer written since 2026-10-30 and is dropped by migration `015`, which the founder runs, register `5.709`.)
 - **Migrations:** `pnpm --filter web db:migrate` (custom migration runner via `tsx`).
 - **Status check:** `pnpm --filter web db:status`.
 - **Env var:** `DATABASE_URL` (pooled connection string from Neon console).
@@ -131,15 +131,20 @@ Eight workflows in `.github/workflows/`. Five run on push/PR (`ci.yml`, `securit
   2. `pnpm format:check`
   3. `pnpm type-check`
   4. `pnpm lint`
-  5. `pnpm test`
-  6. `node scripts/check-market-data-jargon.mjs` (Phase-7 jargon ban + no-direct-market-data-import guard)
-  7. `pnpm validate:sdk-invariant`
-  8. `pnpm validate:translations`
-  9. `pnpm validate:design-tokens`
-  10. `pnpm validate:investor-figures` (figures-registry L2 gate; L1 canon checks auto-skip in CI)
-  11. `pnpm build`
-  12. `pnpm check:budget` (bundle-budget gate)
-  13. `pnpm --filter web build-storybook` (Storybook build artifact)
+  5. `pnpm review:authorities` (the gate registry's own check)
+  6. `pnpm review:doc1` (a reference presented as authority resolves)
+  7. `pnpm test`
+  8. `/market` staleness backstop, then the reference-data freshness check (each blocks only changes to its own data)
+  9. `node scripts/check-market-data-jargon.mjs` (Phase-7 jargon ban + no-direct-market-data-import guard)
+  10. `pnpm validate:sdk-invariant`
+  11. `pnpm validate:translations`
+  12. `pnpm validate:design-tokens`
+  13. `pnpm validate:seo`
+  14. `pnpm validate:ux-canon`
+  15. `pnpm check:ux-greps`
+  16. `pnpm build` (one retry for the `5.88` font-fetch flake)
+  17. `pnpm check:budget` (bundle-budget gate)
+  18. `pnpm --filter web build-storybook` (Storybook build artifact)
 
 ### `security.yml` — Secrets scan + dependency audit
 

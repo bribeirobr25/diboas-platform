@@ -46,7 +46,6 @@
         "protocols": "Vertrauenswürdige Protokolle",
         "careers": "Unserem Team Beitreten",
         "documentation": "Dokumentation",
-        "investors": "Investoren",
         "compliance": "Compliance"
       }
     },
@@ -193,8 +192,7 @@
         "links": {
           "about": "Über uns",
           "documentation": "Dokumentation",
-          "careers": "Karriere",
-          "investors": "Investoren"
+          "careers": "Karriere"
         }
       },
       "help": {
