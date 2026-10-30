@@ -10,6 +10,9 @@
  * - The share line is a result the reader may pass on, never "share to unlock".
  * - No value carries an internal editing note (native-pass tags, founder dates, italic
  *   change notes).
+ * - A share line never promises a guarantee (founder 2026-10-30, Talk 6). Inside the talk a
+ *   "guaranteed" return is explained as interest no longer paid; the share line travels
+ *   without that context, so there it reads as a promise (Voice Q3).
  */
 
 import { describe, it, expect } from 'vitest';
@@ -19,6 +22,7 @@ import { join, dirname } from 'path';
 const LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
 const UNLOCK_PHRASE = /desbloquear|freischalten|unlock/i;
 const EDITING_NOTE = /NATIVE PASS|\[NPR\]|founder 20\d\d|\*\(/;
+const GUARANTEE = /guarant|garant/i;
 const MIN_SHARE_LINE_LENGTH = 40;
 
 /** Walk up from this test to the repo root and locate the translations dir. */
@@ -60,13 +64,14 @@ describe('learn copy integrity (5.655, 5.656)', () => {
   });
 
   it.each(LOCALES)(
-    'should give every %s share line a real result, never "share to unlock"',
+    'should give every %s share line a real result, never "share to unlock" or a guarantee',
     (locale) => {
       for (const file of learnFiles(locale)) {
         const json = readJson(locale, file) as { quiz?: { share?: { line?: string } } };
         const line = json.quiz?.share?.line;
         if (line === undefined) continue;
         expect(line, `${locale}/${file}`).not.toMatch(UNLOCK_PHRASE);
+        expect(line, `${locale}/${file}`).not.toMatch(GUARANTEE);
         expect(line.length, `${locale}/${file}: "${line}"`).toBeGreaterThanOrEqual(
           MIN_SHARE_LINE_LENGTH
         );
