@@ -462,7 +462,8 @@ R-rows from `docs/tech/robustness-checklist.md` (PASS / N-A per row) in its self
 2026-10-30). Every `docs/<area>/…` path below and in records, except `docs/tech/`,
 `docs/integrations/` and `docs/testing/`, is read at `../diboas-docs/<area>/…`. The gates resolve
 it themselves (`scripts/lib/docs-root.mjs`, override with `DIBOAS_DOCS_DIR`). Edit private docs
-there, through a branch and PR. Media live in the private repo `diboas-media`.
+there, through a branch and PR. Media live in the private repo `diboas-media`. Start every session at `BRAIN.md`, the first page of `diboas-docs`; `AGENTS.md` here holds
+the rules for every agent.
 
 ⚑ **Do not read a status out of prose — including this file.** Determine current work by the
 procedure in `docs/tech/documentation-lifecycle.md` §4:
