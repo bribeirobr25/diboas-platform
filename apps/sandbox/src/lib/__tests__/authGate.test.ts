@@ -12,8 +12,10 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join, resolve, sep } from 'node:path';
+import { join, posix, resolve, sep } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
+import { makeFixtureParent } from '../../test/fixtureParent';
 
 /**
  * `scripts/review-gate.mjs` — the gate runner's own regression net.
@@ -75,50 +77,90 @@ const ROOT = resolve(process.cwd(), '..', '..');
  * repository, so a planted file there would be a stray file in a second repository. Every
  * gate run here reads a THROWAWAY COPY instead, through `DIBOAS_DOCS_DIR`, and private
  * fixtures are planted into that copy. The copy is the real corpus, so the delta-based
- * assertions keep their meaning; on CI there is no private corpus and the copy is empty,
- * exactly as the private areas were absent before.
+ * assertions keep their meaning. On CI there is no private corpus: the copy is then a
+ * MINIMAL checkout (a stub register and a one-file canon package), so the gate accepts it as
+ * a docs root and the canon-index assertions below run instead of returning early (`5.699`).
  *
- * The private root is found the way `scripts/lib/docs-root.mjs` finds it (sandbox tests
- * cannot import that `.mjs`: `allowJs` is off here). Its unit test lives in apps/web.
+ * The private root is found, and a path classified, by the real `scripts/lib/docs-root.mjs`,
+ * imported at run time (a static import of that `.mjs` is not type-checked here: `allowJs`
+ * is off), so this suite can never disagree with the gate (`5.699`, Principle 4).
  */
-const PUBLIC_DOCS_AREAS = ['tech', 'integrations', 'testing'];
-const isPrivateDocsPath = (rel: string) => {
-  const parts = rel.split('/');
-  return parts[0] === 'docs' && parts.length > 1 && !PUBLIC_DOCS_AREAS.includes(parts[1]);
-};
-function realPrivateRoot(): string | null {
-  const marker = join('audit', 'PENDING_ALL.md');
-  const candidates = [
-    process.env.DIBOAS_DOCS_DIR,
-    join(ROOT, 'docs'),
-    resolve(ROOT, '..', 'diboas-docs'),
-  ].filter((d): d is string => Boolean(d));
-  return candidates.find((d) => existsSync(join(d, marker))) ?? null;
+interface DocsRootModule {
+  resolveDocsRoot(repoRoot: string): { dir: string | null; via: string };
+  docsRootProblem(repoRoot: string, root: unknown): string | null;
+  isPrivateDocsPath(rel: string): boolean;
+  PUBLIC_DOCS_AREAS: string[];
 }
+let docsRoot: DocsRootModule;
 const MEDIA = /\.(png|jpe?g|webp|gif|pdf|mp4|mov)$/i;
-const PRIVATE_COPY = mkdtempSync(join(tmpdir(), 'review-gate-private-docs-'));
-beforeAll(() => {
-  const source = realPrivateRoot();
-  if (!source) return;
+/**
+ * Every throwaway repository in this file lives under ONE empty parent, so the sibling a
+ * fixture repository would resolve (`<parent>/diboas-docs`) can never exist: a stray
+ * `diboas-docs` in the system temp folder once leaked into the fixtures (`5.699`).
+ */
+const FIXTURES = makeFixtureParent('review-gate-fixtures-');
+const FIXTURE_PARENT = FIXTURES.dir;
+afterAll(FIXTURES.remove);
+const PRIVATE_COPY = mkdtempSync(join(FIXTURE_PARENT, 'review-gate-private-docs-'));
+/**
+ * No private docs here (public CI): the copy becomes a MINIMAL checkout that the gate
+ * accepts and that passes canon-index honestly (a register, one extracted package, six
+ * CURRENT canon-root documents, all indexed), so the canon assertions run for real.
+ */
+const STUB_MODE = { on: false };
+function writeStubDocs(root: string): void {
+  const put = (rel: string, body: string) => {
+    mkdirSync(join(root, rel, '..'), { recursive: true });
+    writeFileSync(join(root, rel), body);
+  };
+  put('audit/PENDING_ALL.md', '# register (CI stub)\n');
+  put('full-view/canon/extracted/fixture-package/AUTHORITY.md', '# a stub authority file\n');
+  const index = ['# canon index (CI stub)'];
+  for (let i = 1; i <= 6; i += 1) {
+    put(`full-view/canon/STUB_AUTHORITY_${i}.md`, `# Stub ${i}\n\n**Status:** CURRENT\n`);
+    index.push(`- \`STUB_AUTHORITY_${i}.md\` — current`);
+  }
+  put('full-view/canon/README.md', `${index.join('\n')}\n`);
+}
+beforeAll(async () => {
+  docsRoot = (await import(
+    /* @vite-ignore */ pathToFileURL(join(ROOT, 'scripts/lib/docs-root.mjs')).href
+  )) as DocsRootModule;
+  const root = docsRoot.resolveDocsRoot(ROOT);
+  const problem = docsRoot.docsRootProblem(ROOT, root);
+  if (problem) throw new Error(`private docs root unusable: ${problem}`);
+  if (root.dir === null) {
+    STUB_MODE.on = true;
+    writeStubDocs(PRIVATE_COPY);
+    return;
+  }
+  const source = root.dir;
+  /* the docs only: no git metadata, CI folder, installed modules, failed-run logs or media */
   cpSync(source, PRIVATE_COPY, {
     recursive: true,
     filter: (from) => {
       const rel = from.slice(source.length + 1).split(sep);
       return (
-        !rel[0]?.startsWith('.git') && !PUBLIC_DOCS_AREAS.includes(rel[0]) && !MEDIA.test(from)
+        !rel[0]?.startsWith('.') &&
+        !docsRoot.PUBLIC_DOCS_AREAS.includes(rel[0]) &&
+        !rel.includes('node_modules') &&
+        !rel.includes('REVIEW_GATE_RUNS') &&
+        !MEDIA.test(from)
       );
     },
   });
 });
-afterAll(() => rmSync(PRIVATE_COPY, { recursive: true, force: true }));
 
 /** Where a repo-relative path physically goes in this suite. */
 const at = (rel: string) =>
-  isPrivateDocsPath(rel) ? join(PRIVATE_COPY, rel.slice('docs/'.length)) : join(ROOT, rel);
+  docsRoot.isPrivateDocsPath(rel)
+    ? join(PRIVATE_COPY, posix.normalize(rel).slice('docs/'.length))
+    : join(ROOT, rel);
 
 /** Gate runs in the real checkout read the private COPY. */
 const GATE_ENV = { ...process.env, DIBOAS_DOCS_DIR: PRIVATE_COPY };
-/** Gate runs in a throwaway fixture repository read only that fixture. */
+/** Gate runs in a throwaway fixture repository read only that fixture (its own `docs/`,
+    never a sibling: see FIXTURE_PARENT). */
 const FIXTURE_ENV = { ...process.env, DIBOAS_DOCS_DIR: '' };
 
 /** A fixture repository gets the runner AND the module it imports. */
@@ -282,6 +324,21 @@ describe('AUTH-1 · the gate runs at all', () => {
     expect([0, 1, 2]).toContain(r.code);
   }, 30_000); /* walks the whole canon corpus (~1,500 files): 6 s measured under full-suite load, 2026-10-16 */
 
+  /**
+   * 5.697 / 5.698: the header names the docs root it read, RELATIVE to the checkout (gate
+   * output is pasted into public PRs, so never an absolute path). The copy here is not a git
+   * checkout, so this also runs the header's "no git" branch, which must degrade to the bare
+   * folder rather than throw (R-13).
+   */
+  it('should print the docs root as a relative or …/name path when it sits outside the workspace', () => {
+    const r = gate('register');
+    const line = r.out.split('\n').find((l) => l.startsWith('Private docs read from:')) ?? '';
+    // the copy sits in the temp folder, far from the checkout: only its name may show
+    expect(line).toMatch(/^Private docs read from: DIBOAS_DOCS_DIR \(…\/review-gate-private-docs-/);
+    expect(line).not.toContain(tmpdir());
+    expect(line).not.toMatch(/\/(Users|home|var|tmp|private)\//);
+  });
+
   it('should refuse an unknown mode rather than silently pass', () => {
     const r = gate('definitely-not-a-mode');
     expect(r.code).toBe(2);
@@ -396,22 +453,19 @@ describe('AUTH-1c · escalations', () => {
 describe('AUTH-1a · the authority corpus and its boundary', () => {
   it('should report the authority corpus as searchable', () => {
     const r = gate('canon-index');
-    // SKIP is legitimate on a fresh clone where canon is absent; assert the
-    // shape rather than a count, which drifts as packages are added.
-    if (r.out.includes('absent (fresh clone')) {
-      expect(r.code).toBe(2);
-      return;
-    }
-    /* The searchable-corpus SHAPE is this test's subject. The row's overall exit
-       code is not: it fails when a CITED authority becomes unreachable, which is
-       a different condition owned by a different assertion — so asserting 0 here
-       would couple this case to unrelated corpus state. */
+    // Always a real canon here (the copy, or the CI stub), so this never returns early
+    // (5.699). Assert the shape rather than a count, which drifts as packages are added.
+    /* The searchable-corpus SHAPE is this test's subject. On the real corpus the row's exit
+       code is not: it fails when a CITED authority becomes unreachable, a different
+       condition owned by a different assertion. On the CI stub the corpus is known, so
+       the row must be green there: a stub the gate calls BROKEN would prove nothing. */
     expect(r.out).toMatch(/\d+ authority markdown file\(s\) searchable from \d+ package\(s\)/);
+    expect(r.out).not.toMatch(/this scan is BROKEN/);
+    if (STUB_MODE.on) expect(r.code, r.out).toBe(0);
   });
 
   it('should name what is CITED but NOT REACHABLE, never read it as "no authority"', () => {
     const r = gate('canon-index');
-    if (r.out.includes('absent (fresh clone')) return;
     expect(r.out).toMatch(/CITED · NOT REACHABLE|every cited authority resolves/);
   });
 
@@ -487,9 +541,7 @@ describe('AUTH-1a · the authority corpus and its boundary', () => {
 
     // 3 · the row says so out loud, so the exclusion is visible to a reader.
     const index = gate('canon-index');
-    if (!index.out.includes('absent (fresh clone')) {
-      expect(index.out).toContain('hidden adjudication controls excluded from every corpus');
-    }
+    expect(index.out).toContain('hidden adjudication controls excluded from every corpus');
   });
 });
 
@@ -603,11 +655,14 @@ const withCommas = (n: number) => n.toLocaleString('en-US');
  * one known figure; the row and its classifier are the real ones.
  */
 function countsRepo(): { put: (rel: string, body: string) => void; run: () => GateRun } {
-  const dir = mkdtempSync(join(tmpdir(), 'review-gate-counts-'));
+  const dir = mkdtempSync(join(FIXTURE_PARENT, 'review-gate-counts-'));
   countDirs.push(dir);
   installGate(dir);
   mkdirSync(join(dir, 'docs/audit'), { recursive: true });
   mkdirSync(join(dir, 'docs/tech'), { recursive: true });
+  /* The register marks this fixture's docs/ as its private docs root (the legacy layout);
+     without it the private areas are absent and their documents are never read (5.696). */
+  writeFileSync(join(dir, 'docs/audit/PENDING_ALL.md'), '# fixture register\n');
   writeFileSync(
     join(dir, 'README.md'),
     '# fixture\n\nThe workspace publishes 1,234 tests / 56 files.\n'
@@ -1108,7 +1163,7 @@ describe('PB-5 · DOC-1 classifies by git ignore POLICY, never by local disk', (
  */
 describe('R4-1 · staged row — file names are data, never shell syntax', () => {
   function stagedIn(files: Record<string, string>): { run: GateRun; dir: string } {
-    const dir = mkdtempSync(join(tmpdir(), 'review-gate-staged-'));
+    const dir = mkdtempSync(join(FIXTURE_PARENT, 'review-gate-staged-'));
     installGate(dir);
     execFileSync('git', ['init', '-q'], { cwd: dir });
     for (const [rel, body] of Object.entries(files)) {
@@ -1169,7 +1224,7 @@ describe('R4-2 · review:port — operator input is validated, never interpolate
          executes (measured 2026-10-16 — the old code created `PORT_MARKER` and a
          file named `-sTCP:LISTEN` in the repository root). A regression must
          never be able to write into the maintainer's tree. */
-      const dir = mkdtempSync(join(tmpdir(), 'review-gate-port-'));
+      const dir = mkdtempSync(join(FIXTURE_PARENT, 'review-gate-port-'));
       installGate(dir);
       let r: GateRun;
       try {
@@ -1211,7 +1266,7 @@ describe('R4-2 · review:port — operator input is validated, never interpolate
  */
 describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus layer', () => {
   function repoWith(lines: string[], privateFiles: string[] = []): string {
-    const dir = mkdtempSync(join(tmpdir(), 'review-gate-doc1-'));
+    const dir = mkdtempSync(join(FIXTURE_PARENT, 'review-gate-doc1-'));
     installGate(dir);
     mkdirSync(join(dir, 'docs/tech'), { recursive: true });
     writeFileSync(join(dir, '.gitignore'), 'docs/*\n!docs/tech/\n');
@@ -1226,6 +1281,11 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
     for (const p of privateFiles) {
       mkdirSync(join(dir, p, '..'), { recursive: true });
       writeFileSync(join(dir, p), '# private\n');
+    }
+    /* A private corpus is present only where a register marks the docs root (5.696). */
+    if (privateFiles.length) {
+      mkdirSync(join(dir, 'docs/audit'), { recursive: true });
+      writeFileSync(join(dir, 'docs/audit/PENDING_ALL.md'), '# fixture register\n');
     }
     execFileSync('git', ['init', '-q'], { cwd: dir });
     execFileSync('git', ['add', '-A'], { cwd: dir });
@@ -1431,7 +1491,7 @@ describe('R4-6 · PROSE-1 — proven N/A, whole-number ids, own headings, multi-
  */
 describe('R4 correction · exports row — a consumer after a URL string is still a consumer', () => {
   it('should find a consumer that follows a URL in a string', () => {
-    const dir = mkdtempSync(join(tmpdir(), 'review-gate-exports-'));
+    const dir = mkdtempSync(join(FIXTURE_PARENT, 'review-gate-exports-'));
     try {
       installGate(dir);
       /* the row loads `typescript` (a root devDependency) — link the real install */

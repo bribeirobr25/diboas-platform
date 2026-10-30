@@ -220,3 +220,6 @@ next-env.d.ts
 # Founder decision 2026-09-16, register 5.197. The root CLAUDE.md stays TRACKED.
 apps/*/AGENTS.md
 apps/*/CLAUDE.md
+
+# Failed review-gate battery logs on a checkout without private docs (scripts/review-gate.mjs, 5.696)
+.review-gate-runs/

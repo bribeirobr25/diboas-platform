@@ -50,7 +50,12 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { makeDocsResolver, resolveDocsRoot } from './lib/docs-root.mjs';
+import {
+  docsRootProblem,
+  isPrivateDocsPath,
+  makeDocsResolver,
+  resolveDocsRoot,
+} from './lib/docs-root.mjs';
 
 const ROOT = process.env.UXCANON_ROOT
   ? resolve(process.env.UXCANON_ROOT)
@@ -58,12 +63,14 @@ const ROOT = process.env.UXCANON_ROOT
 // Private docs (`docs/full-view`, `docs/audit`, …) are read from the docs root: the legacy
 // in-repo tree, `DIBOAS_DOCS_DIR`, or the sibling `diboas-docs` checkout (5.653).
 const DOCS_ROOT = resolveDocsRoot(ROOT);
-if (DOCS_ROOT.bad) {
-  console.error(
-    `validate:ux-canon: DIBOAS_DOCS_DIR points at ${DOCS_ROOT.bad}, which does not exist.`
-  );
+const DOCS_PROBLEM = docsRootProblem(ROOT, DOCS_ROOT);
+if (DOCS_PROBLEM) {
+  console.error(`validate:ux-canon: ${DOCS_PROBLEM}.`);
   process.exit(1);
 }
+// No private docs here (a public clone, CI): references into private areas cannot be judged,
+// whatever folders exist (a failed review-gate battery once created docs/audit/, 5.696).
+const NO_PRIVATE = DOCS_ROOT.via === 'none';
 const at = makeDocsResolver(ROOT, DOCS_ROOT.dir);
 
 const FILES = {
@@ -110,6 +117,12 @@ if (existsSync(auditDir)) {
 
 const errors = [];
 const fail = (check, msg) => errors.push(`(${check}) ${msg}`);
+
+// ---- (h) a private source that must exist where the private docs exist ----
+// Without private docs the tracked files are still fully checked; WITH them, a missing
+// BRAND_POSITIONING is a broken private checkout, never a silent empty string (5.697).
+if (!NO_PRIVATE && !brand)
+  fail('h', 'docs/full-view/BRAND_POSITIONING.md is missing from the private docs');
 
 // ---- (a) canon ID sequence ----
 const defined = [...canon.matchAll(/^\*\*UX-(\d{2})\s*·/gm)].map((m) => Number(m[1]));
@@ -220,6 +233,7 @@ let lastVetoRow = null;
       if (DEAD_OK.test(line)) continue; // documented-dead form (G-2 annotation standard)
       for (const m of line.matchAll(/`?(docs\/[\w\-./]+\.md)`?/g)) {
         if (existsSync(at(m[1]))) continue;
+        if (NO_PRIVATE && isPrivateDocsPath(m[1])) continue; // not judgeable here
         const parentPresent = existsSync(at(dirname(m[1])));
         if (parentPresent) fail('d', `${name}: broken reference ${m[1]}`);
       }

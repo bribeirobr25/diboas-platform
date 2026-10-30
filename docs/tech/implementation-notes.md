@@ -615,11 +615,27 @@ pinned by a test that was watched failing.
 - **Private docs are read from ONE docs root** (`scripts/lib/docs-root.mjs`, `5.653`): the review
   gate, `validate:ux-canon`, `validate:investor-figures` and `generate:investor-docs` resolve every
   private `docs/<area>/…` path (every area except `tech`, `integrations`, `testing`) through it, in
-  this order: `DIBOAS_DOCS_DIR` (a missing one is an error, never a fall-through) → the legacy
-  in-repo `docs/` while it holds `audit/PENDING_ALL.md` → the sibling `../diboas-docs` checkout →
-  none (fresh clone / CI: the private areas are absent, as before). Paths stay LOGICAL everywhere
-  (`docs/audit/PENDING_ALL.md` is what records cite); only the physical read moves. The gate prints
-  which root it read. A worktree beside `diboas-docs` resolves it without any env var.
+  this order: `DIBOAS_DOCS_DIR` (it must hold `audit/PENDING_ALL.md`; a missing folder, a file or a
+  folder without the register is an error, never a fall-through, `5.697`; `none` means no private
+  docs on purpose) → the legacy in-repo `docs/` while it holds `audit/PENDING_ALL.md` → the sibling
+  `../diboas-docs` checkout → none. Both the legacy tree and the sibling holding a register is a
+  conflict (`5.698`). **All four tools stop on a bad root or a conflict, with one wording**
+  (`docsRootProblem`). **With no private docs the resolver returns `dir: null` and maps every
+  private path to a folder that never exists**, so every row and tool sees them as absent, whatever
+  stray folders sit in `docs/` (`5.696`: rows that decided "absent" from a folder read a stray tree,
+  and PROSE-1 passed over nothing); counts and citations then say they walked only the public docs,
+  and the battery log goes to the git-ignored `.review-gate-runs/`. Paths stay LOGICAL everywhere
+  (`docs/audit/PENDING_ALL.md` is what records cite) and are normalised before they are classified
+  (`5.700`); only the physical read moves. **Nothing printed carries a machine path** (gate output is
+  pasted into public PRs): folders go through `displayPath` (relative for the checkout or a sibling,
+  else `…/<name>`, compared on real paths, since macOS reaches the temp folder through a symlink),
+  and a thrown row's error text is scrubbed. The header names the root read and, only when it is the
+  top of a git checkout of its own, "on main" or "NOT on main" @ commit (never the branch name; git
+  would otherwise walk up to a parent repository or obey an inherited `GIT_DIR`), and warns when it
+  is behind its last-fetched `origin/main`. Tests that run the gate in a throwaway repository create
+  it under one empty parent (`apps/sandbox/src/test/fixtureParent.ts`), so no stray `diboas-docs` in
+  the temp folder can leak in (`5.699`). `turbo.json` makes `scripts/**` an input of every `test`
+  task, so a gate change is never answered by a cached pass (`5.713`).
 - **`scripts/review-gate.mjs` resolves the register through the docs root FIRST, then
   `REVIEW_REGISTER_PATH`, then FAILS — never SKIPs** (`5.382`, founder-ruled). A checkout with no
   docs root in reach (a worktree elsewhere) must export one of the two env vars. The
