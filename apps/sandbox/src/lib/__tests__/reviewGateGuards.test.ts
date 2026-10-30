@@ -304,3 +304,78 @@ describe('PROSE-1 · an empty record corpus is proven, never assumed (5.653)', (
     expect(out.out).toMatch(/UNCITED REQUIREMENT \(1\): FIXTURE_RECORD\.md/);
   }, 20_000);
 });
+
+describe('REGISTER-KIND · every register item declares a kind (founder decision 4, 5.653)', () => {
+  const STATUS = { '5.700': 'OPEN', '5.701': 'CLOSED' } as const;
+  function kindRegister(kindLines: string[], totals: string): string {
+    const rows = Object.entries(STATUS)
+      .map(([id, st]) => `> **${id}** — **${st} 2026-10-30 · fixture** an item. | Owner: CC`)
+      .join('\n\n');
+    return [
+      '# fixture register',
+      '',
+      '> **NEXT FREE ID: 5.702**',
+      '',
+      '<!-- BLOCK-A STATUS INDEX · machine-readable · asserted by `pnpm review:register` -->',
+      '> TOTAL 2   ·   OPEN 1 · CLOSED 1',
+      '>   5.700   OPEN           5.701   CLOSED',
+      '',
+      '<!-- BLOCK-K KIND INDEX · machine-readable · asserted by `pnpm review:register` -->',
+      `> ${totals}`,
+      ...kindLines.map((l) => `>   ${l}`),
+      '',
+      rows,
+      '',
+    ].join('\n');
+  }
+  function check(kindLines: string[], totals = 'KINDS 2   ·   defect 1 · work 1') {
+    const r = repo();
+    r.put('docs/audit/PENDING_ALL.md', kindRegister(kindLines, totals));
+    return r.run('register');
+  }
+
+  it('should PASS when every indexed item has exactly one kind and the totals agree', () => {
+    const r = check(['5.700   defect         5.701   work']);
+    expect(r.code, r.out).toBe(0);
+    expect(r.out).toMatch(/kinds: defect 1 · work 1 · decision 0 · owner-action 0 · obsolete 0/);
+  }, 20_000);
+
+  it('should FAIL when the kind index is missing', () => {
+    const r = repo();
+    r.put(
+      'docs/audit/PENDING_ALL.md',
+      kindRegister([], 'KINDS 0').replace(/<!-- BLOCK-K[\s\S]*?\n\n/, '')
+    );
+    const out = r.run('register');
+    expect(out.code).toBe(1);
+    expect(out.out).toMatch(/KIND INDEX not found/);
+  }, 20_000);
+
+  it('should FAIL when an indexed item declares no kind', () => {
+    const r = check(['5.700   defect'], 'KINDS 1   ·   defect 1');
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/NO KIND DECLARED \(1\): 5\.701/);
+  }, 20_000);
+
+  it('should FAIL a kind outside the vocabulary', () => {
+    const r = check(['5.700   defect         5.701   chore'], 'KINDS 2   ·   defect 1 · chore 1');
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/KIND OUTSIDE VOCABULARY \(1\): 5\.701=chore/);
+  }, 20_000);
+
+  it('should FAIL a kind for an id that is not a claim, and a kind declared twice', () => {
+    const r = check(
+      ['5.700   defect         5.701   work           5.799   work', '5.700   decision'],
+      'KINDS 3   ·   defect 0 · work 2 · decision 1'
+    );
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/KIND DECLARED MORE THAN ONCE \(1\): 5\.700/);
+    expect(r.out).toMatch(/KIND FOR AN ID THAT IS NOT A CLAIM \(1\): 5\.799/);
+  }, 20_000);
+
+  it('should FAIL when the published kind totals disagree with the entries', () => {
+    const r = check(['5.700   defect         5.701   work'], 'KINDS 2   ·   defect 2 · work 0');
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/KIND TOTALS WRONG \(stated≠counted\) \(2\): defect 2≠1, work 0≠1/);
+  }, 20_000);
+});

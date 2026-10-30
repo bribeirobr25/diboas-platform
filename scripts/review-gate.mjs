@@ -550,7 +550,71 @@ function checkRegister() {
     }
   }
 
+  const kinds = checkKindIndex(s, idx);
+  if (!kinds.ok) ok = false;
+  lines.push(...kinds.lines);
   return { ok, detail: lines.join(' · ') };
+}
+
+/**
+ * ⚑ EVERY REGISTER ITEM DECLARES A KIND (founder decision 4, 2026-10-28; `5.653`).
+ *
+ * A status says how far an item is; a kind says what it IS, so the open list reads at a
+ * glance: a `defect` to fix, `work` to build, a `decision` someone must take, an
+ * `owner-action` someone must do outside the code, or an `obsolete` item kept as history.
+ * The kind index is its own machine-readable block (BLOCK-K), in lowercase so the status
+ * index's uppercase pattern can never read it (and the reverse). Same rules as the status
+ * index: every indexed claim has exactly one kind, every kind names a real claim, the
+ * vocabulary is closed, and the published totals agree with the entries.
+ */
+const KIND_VOCAB = ['defect', 'work', 'decision', 'owner-action', 'obsolete'];
+
+function checkKindIndex(s, idx) {
+  const start = s.indexOf('BLOCK-K KIND INDEX');
+  if (start < 0)
+    return {
+      ok: false,
+      lines: ['KIND INDEX not found — every register item declares a kind (founder decision 4)'],
+    };
+  /* The block runs to its first blank line: every line inside it is a `>` quote line. */
+  const end = s.indexOf('\n\n', start);
+  const block = s.slice(start, end < 0 ? undefined : end);
+  const pairs = [...block.matchAll(/^>\s+(?:(\d+\.\d+)\s+([a-z][a-z-]*)\s*)+$/gm)].flatMap((m) =>
+    [...m[0].matchAll(/(\d+\.\d+)\s+([a-z][a-z-]*)/g)].map((x) => [x[1], x[2]])
+  );
+  const kinds = new Map(pairs);
+  const lines = [];
+  let ok = true;
+  const dup = [...new Set(pairs.map(([k]) => k).filter((k, i, a) => a.indexOf(k) !== i))];
+  const noKind = [...idx.keys()].filter((id) => !kinds.has(id));
+  const ghost = [...kinds.keys()].filter((id) => !idx.has(id));
+  const bad = [...kinds].filter(([, k]) => !KIND_VOCAB.includes(k)).map(([id, k]) => `${id}=${k}`);
+  const counted = new Map(KIND_VOCAB.map((k) => [k, 0]));
+  for (const k of kinds.values()) counted.set(k, (counted.get(k) ?? 0) + 1);
+  const totals = block.match(/^>\s*KINDS\s+(\d+)\s+·\s+(.+)$/m);
+  const wrong = [];
+  if (!totals) wrong.push('KINDS total line not found');
+  else {
+    const stated = new Map(
+      [...totals[2].matchAll(/([a-z][a-z-]*)\s+(\d+)/g)].map((x) => [x[1], Number(x[2])])
+    );
+    if (Number(totals[1]) !== kinds.size) wrong.push(`KINDS ${totals[1]}≠${kinds.size}`);
+    for (const k of new Set([...counted.keys(), ...stated.keys()]))
+      if ((counted.get(k) ?? 0) !== (stated.get(k) ?? 0))
+        wrong.push(`${k} ${stated.get(k) ?? 0}≠${counted.get(k) ?? 0}`);
+  }
+  const fail = (label, list) => {
+    if (!list.length) return;
+    ok = false;
+    lines.push(`${label} (${list.length}): ${list.slice(0, 8).join(', ')}`);
+  };
+  fail('KIND DECLARED MORE THAN ONCE', dup);
+  fail('NO KIND DECLARED', noKind);
+  fail('KIND FOR AN ID THAT IS NOT A CLAIM', ghost);
+  fail('KIND OUTSIDE VOCABULARY', bad);
+  fail('KIND TOTALS WRONG (stated≠counted)', wrong);
+  if (ok) lines.push(`kinds: ${KIND_VOCAB.map((k) => `${k} ${counted.get(k)}`).join(' · ')}`);
+  return { ok, lines };
 }
 
 /* ------------------------------------------------------------------ counts */
