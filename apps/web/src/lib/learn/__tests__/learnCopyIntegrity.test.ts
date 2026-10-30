@@ -31,13 +31,23 @@ const GUARANTEE = /guarant|garant/i;
 /** Whole promises of safety, per locale (en · pt-BR · es · de). */
 const SAFETY_PROMISE = new RegExp(
   [
-    "risk[- ]?free|no risk|zero risk|without (?:any )?risk|sure[- ]thing|can(?:no|'|’)t lose|assured (?:return|income|profit)|safe (?:return|bet|investment)",
-    'sem risco|risco zero|(?:retorno|lucro|ganho) certo|não tem como perder|(?:aposta|investimento) seguro',
-    'sin riesgo|riesgo cero|(?:rentabilidad|ganancia) segura|beneficio seguro|no puedes perder|(?:apuesta|inversión) segura',
-    'risikofrei|ohne risiko|null risiko|sichere (?:rendite|geldanlage)|sicherer gewinn|kannst nicht verlieren|dein (?:geld|vermögen|erspartes) (?:ist )?sicher',
+    "\\b(?:risk[- ]?free(?! rate)|riskless|free of risk|zero[- ]risk|no risk|without (?:any )?risk|sure[- ](?:thing|bet)|can(?:no|'|’)t lose|can never lose|won(?:'|’)t lose|assured (?:return|income|profit)|safe (?:return|bet|investment)|(?:your|the) money is safe)\\b",
+    '(?:sem risco|risco zero|zero risco|livre de risco|(?:retorno|lucro|ganho) certo|rendimento seguro|não tem como perder|(?:aposta|investimento) segur[oa]|(?:seu|o) dinheiro (?:está|fica) seguro)',
+    '(?:sin riesgo|riesgo cero|cero riesgo|libre de riesgo|(?:rentabilidad|ganancia) segura|(?:beneficio|rendimiento) seguro|no puedes perder|(?:apuesta|inversión) segura|(?:tu|el) dinero (?:está|queda) seguro)',
+    '(?:risikofrei|risikolos|null[- ]risiko|kein risiko|ohne risiko|sichere (?:rendite|geldanlage|anlage)|sicherer gewinn|kannst nicht verlieren|(?:dein|ihr|das) (?:geld|vermögen|erspartes) (?:(?:ist|bleibt) )?sicher)',
   ].join('|'),
-  'i'
+  'gi'
 );
+/** A negation before the phrase, in the same sentence, makes it an honest warning. */
+const NEGATION =
+  /\b(?:no|not|never|nothing|none|isn(?:'|’)t|nenhum|nenhuma|nunca|não|ningún|ninguna|nada|kein|keine|keiner|nie|niemals|nicht)\b[^.!?]*$/i;
+
+/** True when the text promises safety: a promise phrase not negated earlier in its sentence. */
+function promisesSafety(text: string): boolean {
+  return [...text.matchAll(SAFETY_PROMISE)].some(
+    (m) => !NEGATION.test(text.slice(0, m.index).split(/[.!?]/).pop() ?? '')
+  );
+}
 const MIN_SHARE_LINE_LENGTH = 40;
 
 /** Walk up from this test to the repo root and locate the translations dir. */
@@ -74,22 +84,39 @@ function* stringValues(node: unknown, path: string): Generator<[string, string]>
 }
 
 describe('learn copy integrity (5.655, 5.656, 5.703)', () => {
-  it('should flag a promise of safety in each locale, and pass the everyday words', () => {
+  it('should flag a promise of safety in each locale, and pass everyday words and honest warnings', () => {
     for (const promise of [
       'a risk-free, sure-thing return',
+      'a zero-risk plan',
+      'your money is safe here',
+      'you can never lose',
       'um retorno sem risco',
+      'seu dinheiro está seguro',
+      'zero risco',
       'una rentabilidad segura',
+      'cero riesgo',
+      'tu dinero está seguro',
       'so ist dein Vermögen sicher und wächst',
       'eine sichere Rendite',
+      'risikolos anlegen',
+      'Null-Risiko',
+      'Ihr Geld ist sicher',
     ])
-      expect(promise).toMatch(SAFETY_PROMISE);
-    for (const everyday of [
+      expect(promisesSafety(promise), promise).toBe(true);
+    for (const honest of [
       'Your savings are safe from inflation? Not quite.',
       'o seguro do carro',
       'Es ist sicher, dass Zinsen wirken.',
       'tienes razón, es lo correcto',
+      'No investment is risk-free.',
+      'Investing is never without risk.',
+      'Keine Geldanlage ist risikofrei.',
+      'Nenhum investimento é sem risco.',
+      'Ninguna inversión es libre de riesgo.',
+      'No risky bets here.',
+      'the risk-free rate of a treasury bill',
     ])
-      expect(everyday).not.toMatch(SAFETY_PROMISE);
+      expect(promisesSafety(honest), honest).toBe(false);
   });
 
   it('should cover the seven talks in every locale', () => {
@@ -106,7 +133,7 @@ describe('learn copy integrity (5.655, 5.656, 5.703)', () => {
         if (typeof line !== 'string') continue;
         expect(line, `${locale}/${file}`).not.toMatch(UNLOCK_PHRASE);
         expect(line, `${locale}/${file}`).not.toMatch(GUARANTEE);
-        expect(line, `${locale}/${file}`).not.toMatch(SAFETY_PROMISE);
+        expect(promisesSafety(line), `${locale}/${file}: ${line}`).toBe(false);
         expect(line.length, `${locale}/${file}: "${line}"`).toBeGreaterThanOrEqual(
           MIN_SHARE_LINE_LENGTH
         );

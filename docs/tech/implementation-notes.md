@@ -86,7 +86,7 @@
 
 - **Monthly market-data rows are TRUE month closes as of 2026-07-11 — do not "restore" the old May-2026 values:** the 2026-05-23 refresh had shipped partial mid-May candles as May closes (SP500 742.72, QQQ 714.51, IBOVESPA 177650, BRL 5.0134 …). They were corrected on the `data-hygiene` branch to the real closes (754.5361 / 737.4995 / 173788 / 5.0563 …, Alpha Vantage cross-verified) and June 2026 was appended. A diff that "reverts" these numbers is reintroducing the partial-candle bug, not fixing drift. Guard class: F-M2 gate in `compute-regime.mjs`; incident record deleted; this entry is the surviving record.
 
-## Messaging, locale and copy decisions (already in place — do not regress)
+## Website decisions — copy, locale, tools and gates (already in place — do not regress)
 
 _The investor vertical and its room were removed on 2026-10-30 (founder, register `5.708`); their entries left this file with them._
 
@@ -141,7 +141,7 @@ _The investor vertical and its room were removed on 2026-10-30 (founder, registe
 - **Card-fees "annual savings" is net of diBoaS's own 0.48% movement fee (A3 / F-CF-1, 2026-07-13).** `lib/card-fees/calculator.ts`: `annualSavingsWithDiboas = Math.max(0, annualFeePaid − monthlyVolume × 12 × DIBOAS_MOVEMENT_FEE_RATE)` where `DIBOAS_MOVEMENT_FEE_RATE = 0.0048` (FEES.md Add Money, B2B no cap; mirrors `FALLBACK_MARKET_DATA.platformFees.deposit.rate`). Single Add Money leg only (not round-trip). The `Math.max(0, …)` clamp is load-bearing (keeps net at an honest floor of 0 when the processor rate is below 0.48%). Do NOT set savings back to the gross `annualFeePaid`. EU IFR-cap disclosure wiring (`disclaimers.euIfrCap`) is untouched.
 - **≤5-option choice sets render as `SegmentedControl`, not `Select` (UX-36; F7-F11 design review, 2026-07-10).** `apps/web/src/components/UI/SegmentedControl/` (aria-pressed toggle-button group, house style = currency-depreciation mode toggle; segments flex-grow and wrap in narrow grid columns). Applied to asset-history mode + returns-basis and inflation-impact country. The cadence `Select` (7 options) legitimately stays a dropdown — its in-code rationale is a conscious application of the same rule. Label pairing: visible `<span id>` + `ariaLabelledby` (segments are not form controls; `htmlFor` doesn't apply).
 - **Dead-code gate is scoped and GREEN — barrels are consumed-or-absent (knip Option A, founder 2026-07-11).** 35 unreferenced files deleted (33 unconsumed barrels + `lib/observability/correlation.ts` + `lib/market/{index,constants}.ts`); `pnpm check:dead-code` fails on files/dependencies/binaries only (`check:dead-code:full` shows the advisory exports/types classes — Category-4 residual: 317/344/19, review tracked in PENDING_ALL). **Kept as dormant-by-design with knip `ignore` entries, do NOT delete:** `lib/analytics-sdk/theme.ts` (mandated by the diboas-analytics MVP spec, docs/mvp 00-overview "SDK's default theme") and `lib/waitingList/domain/**` (documented DDD repository contract, Phase-2 scaffolding). Never delete by a dead-code report alone; trace importers/invocations first.
-  (blank line, then)
+- **UX governance enforcement files are tracked in `docs/tech/ux-governance/` (G-1 revisited and accepted via relocation, founder 2026-07-10).** The anti-slop checklist, principles canon, and usage protocol moved from untracked paths; `validate:ux-canon` (11th `validate:all` gate) guards their structure and runs for real in CI — its dead-link check judges references into private doc areas only where the private docs checkout is present (`5.696`). Private docs follow `docs/tech/documentation-lifecycle.md` (deleted only after a verified founder merge).
 
 ## BotID bot protection (`5.22`, founder-approved 2026-07-16 — do not regress)
 
@@ -162,7 +162,7 @@ _The investor vertical and its room were removed on 2026-10-30 (founder, registe
 - **CSP:** the proxy makes the challenge same-origin, so `'self'` covers it; any CSP change for it
   needs a browser-console check.
 - **E2E:** BotID blocks automation on protected routes in production-like environments; tests
-  against those routes need a documented bypass, never a disabled check. The anti-slop checklist, principles canon, and usage protocol moved from untracked paths; `validate:ux-canon` (11th `validate:all` gate) guards their structure and runs for real in CI — its dead-link check tolerates references into still-untracked doc areas only when that area is absent from the checkout. The retention rule (archive-with-status-header, never delete) still governs `docs/audit/` (local-only), `docs/ui-ux/` (⚠ NOT REACHABLE: the area was deleted 2026-10-29, its third-party transcripts by founder ruling), and the Writing System.
+  against those routes need a documented bypass, never a disabled check.
 
 ---
 
@@ -644,8 +644,9 @@ pinned by a test that was watched failing.
   `REVIEW_REGISTER_PATH`, then FAILS — never SKIPs** (`5.382`, founder-ruled). A checkout with no
   docs root in reach (a worktree elsewhere) must export one of the two env vars. The
   earlier SKIP made the id-collision guard inert in the one lane that writes from a worktree, and a
-  SKIP reads as a pass in a green run. Safe to fail loudly because the runner is invoked by **no CI
-  workflow** — verified, not assumed. Do not restore the SKIP.
+  SKIP reads as a pass in a green run. Safe to fail loudly because no public CI job runs the
+  `register` row: the public CI runs only `review:authorities` and `review:doc1`, which read tracked
+  files, and the private docs CI always has the register (2026-10-30). Do not restore the SKIP.
 - **`scripts/review-gate.mjs` is a TWO-LANE file.** The market lane owns `checkRegister` and
   `checkExports`; `checkCounts` is the webapp lane's (`5.323` + their `5.387`, same function).
   Announce in `docs/cc-sync/market-sandbox.md` before editing it.

@@ -10,7 +10,7 @@
  * ```text
  * FALLBACK MAY ACTIVATE ONLY WHEN
  *   technically eligible
- *   + independently legally cleared
+ *   + independently cleared for this use
  *   + expenditure-authorized where applicable
  *
  * AUTOMATIC UNCLEARED FALLBACK = PROHIBITED
@@ -18,11 +18,10 @@
  * NO ELIGIBLE FALLBACK         = CONTROLLED UNAVAILABLE
  * ```
  *
- * ⚑ `PRIMARY RIGHTS != FALLBACK RIGHTS` (Legal). This is why eligibility is a
- * separate module from `providerDisposition.ts` and not a field on it: the
- * question "may we use DeFiLlama" and the question "may the fixture stand in
- * for DeFiLlama" have different answers, different owners and different
- * evidence. Collapsing them is the mistake that made the `catch` blocks look
+ * ⚑ Using a source and letting another source stand in for it are separate
+ * decisions. This is why eligibility is a separate module from
+ * `providerDisposition.ts` and not a field on it: the two questions have
+ * different answers, different owners and different evidence. Collapsing them is the mistake that made the `catch` blocks look
  * reasonable in the first place.
  *
  * ⚑ CLEARANCE IS NEVER INFERRED. Not from the fixture existing, not from

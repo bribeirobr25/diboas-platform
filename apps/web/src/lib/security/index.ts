@@ -11,7 +11,6 @@ export {
   hmacHash,
   encryptFields,
   decryptFields,
-  isEncryptionEnabled,
   generateEncryptionKey,
 } from './encryption';
 

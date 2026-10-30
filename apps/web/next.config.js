@@ -123,10 +123,11 @@ const nextConfig = {
       },
       // 2026-10-30 (founder, register 5.708): the investor vertical is removed —
       // `/investors`, the `/investor-room` and every document under it. Old links,
-      // bookmarks and sent emails land on the business page. Locale-prefixed rules
-      // first, then the bare paths, each one hop, like `daily-market` above.
+      // bookmarks and sent emails land on the business page; `:path*` also catches any
+      // sub-path. Locale-prefixed rules are one hop; a bare path takes a second hop
+      // (the locale redirect), like `daily-market` above.
       {
-        source: '/:locale(en|pt-BR|es|de)/investors',
+        source: '/:locale(en|pt-BR|es|de)/investors/:path*',
         destination: '/:locale/business',
         permanent: true,
       },
@@ -135,7 +136,7 @@ const nextConfig = {
         destination: '/:locale/business',
         permanent: true,
       },
-      { source: '/investors', destination: '/business', permanent: true },
+      { source: '/investors/:path*', destination: '/business', permanent: true },
       { source: '/investor-room/:path*', destination: '/business', permanent: true },
     ];
   },

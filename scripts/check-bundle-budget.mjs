@@ -105,9 +105,10 @@ const BUDGETS = {
   // unchanged. 4950 = ~31 KB / ~0.6% headroom over the clean-build truth.
   // LOWERED 2026-10-30 (investor vertical removed, register 5.708): the
   // /investors page, the room, its document namespace (~178 KB/locale × 4 of
-  // lazy chunks) and the request form are gone. A CLEAN `rm -rf .next && build`
-  // measures 4178 KB, so the old ceiling would let ~770 KB of accidental weight
-  // in unnoticed. 4220 = ~42 KB / ~1% headroom over the clean-build truth.
+  // lazy chunks) and the request form are gone. CI measures 3990 KB / 234 chunks
+  // (main, 2026-10-30; it was 4696 / 248 before the removal); a local clean build
+  // measures more (4178 / 235, env-dependent chunks). 4220 passes both and still
+  // catches an accidental heavy import (~230 KB / 5.5% over the CI truth).
   maxTotalJsKB: 4220,
 
   // Total bytes across all .css chunks. Baseline ~384 KB across 10 files
@@ -139,8 +140,8 @@ const BUDGETS = {
   // Recalibrated 2026-07-16 (Phase-4 batch; was 220, baseline hit 237):
   // +24 deliberate lazy i18n chunks (talks 2-7 x 4 locales). 250 keeps
   // the dynamic()-everything guard meaningful.
-  // LOWERED 2026-10-30 (investor vertical removed, 5.708): clean-build actual
-  // 235 chunks. 245 = ~4% headroom, the same margin as the 2026-07-11 setting.
+  // LOWERED 2026-10-30 (investor vertical removed, 5.708): CI measures 234
+  // chunks, a local clean build 235. 245 = ~4% headroom over either.
   maxAssetCount: 245,
 };
 

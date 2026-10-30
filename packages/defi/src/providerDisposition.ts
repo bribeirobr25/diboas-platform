@@ -16,10 +16,10 @@
  * OBSERVATION, which the existing controlled-unavailable path already handles —
  * no new Product ontology, copy, ranking or hiding rule.
  *
- * ## The three states, in Legal's own words (2026-09-22)
+ * ## The three states (2026-09-22; the ruling is recorded privately)
  *
  * ```text
- * ACTIVE      current use-specific clearance satisfied
+ * ACTIVE      in use for the purposes its owners have cleared
  * RESTRICTED  only uses expressly left eligible may continue
  * DISABLED    no new collection / current-facing use
  * ```
@@ -79,7 +79,7 @@ const SOURCE_DISPOSITIONS: Record<EvidenceSourceId, SourceDisposition> = {
   coingecko: {
     state: 'ACTIVE',
     because:
-      'As above. The optional x-cg-demo-api-key is a free-tier entitlement header, not an expenditure: no paid plan exists in this repository and none may be activated automatically (see fallbackEligibility.ts).',
+      'As above. The optional x-cg-demo-api-key is a reliability header, not an expenditure: no paid plan exists in this repository and none may be activated automatically (see fallbackEligibility.ts).',
   },
   fixture: {
     state: 'ACTIVE',

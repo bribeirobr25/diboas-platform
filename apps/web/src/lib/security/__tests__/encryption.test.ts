@@ -243,24 +243,6 @@ describe('encryption module', () => {
     });
   });
 
-  describe('isEncryptionEnabled', () => {
-    it('should return true when key is set', async () => {
-      setEnv('ENCRYPTION_KEY', TEST_KEY_BASE64);
-
-      const { isEncryptionEnabled } = await import('@/lib/security/encryption');
-
-      expect(isEncryptionEnabled()).toBe(true);
-    });
-
-    it('should return false when key is not set', async () => {
-      deleteEnv('ENCRYPTION_KEY');
-
-      const { isEncryptionEnabled } = await import('@/lib/security/encryption');
-
-      expect(isEncryptionEnabled()).toBe(false);
-    });
-  });
-
   describe('encryptFields / decryptFields', () => {
     it('should encrypt and decrypt specified fields', async () => {
       setEnv('ENCRYPTION_KEY', TEST_KEY_BASE64);

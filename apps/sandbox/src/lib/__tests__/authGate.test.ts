@@ -1379,6 +1379,17 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
     expect(fail.out).toMatch(
       /CLAUDE\.md leans on 1 disposable docs\/audit artifact\(s\)[^\n]*docs\/audit\/SOME_PLAN_2026-10-01\.md/
     );
+    /* 5.726: the sibling checkout's spelling is the same file, and counts the same */
+    const sibling = repoWith([]);
+    dirs.push(sibling);
+    writeFileSync(
+      join(sibling, 'CLAUDE.md'),
+      `${named}Plan: \`../diboas-docs/audit/OTHER_PLAN.md\`.\n`
+    );
+    execFileSync('git', ['add', '-A'], { cwd: sibling });
+    const viaSibling = run(sibling, 'doc1');
+    expect(viaSibling.code).toBe(1);
+    expect(viaSibling.out).toMatch(/leans on 1 disposable[^\n]*docs\/audit\/OTHER_PLAN\.md/);
   });
 
   it('NON-ASCII TRACKED TARGET: a tracked file with an accented name resolves (git -z, R4-2)', () => {

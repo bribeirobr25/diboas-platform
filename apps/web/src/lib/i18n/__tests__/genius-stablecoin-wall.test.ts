@@ -82,12 +82,31 @@ function walkStrings(
   }
 }
 
+/**
+ * Every translation file of a locale, subfolders included (`legal/*.json` were never scanned
+ * before 2026-10-30, register `5.725`: a strengthening of the wall, never a relaxation).
+ */
+function translationFiles(dir: string): string[] {
+  return (readdirSync(dir, { recursive: true }) as string[])
+    .map((f) => f.replace(/\\/g, '/'))
+    .filter((f) => f.endsWith('.json'))
+    .sort();
+}
+
 describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', () => {
+  it('should scan every translation file, the legal pages included, in every locale', () => {
+    for (const locale of LOCALES) {
+      const files = translationFiles(join(TRANSLATIONS_DIR, locale));
+      expect(files, locale).toContain('legal/privacy.json');
+      expect(files, locale).toContain('common.json');
+    }
+  });
+
   for (const locale of LOCALES) {
     it(`should not pair earn/yield with a stablecoin token outside the allow-list (${locale})`, () => {
       const dir = join(TRANSLATIONS_DIR, locale);
       const unlisted: string[] = [];
-      for (const file of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
+      for (const file of translationFiles(dir)) {
         const ns = file.replace(/\.json$/, '');
         const json = JSON.parse(readFileSync(join(dir, file), 'utf8'));
         walkStrings(json, '', (leaf, path) => {
@@ -105,7 +124,7 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', () => {
     const seen = new Set<string>();
     for (const locale of LOCALES) {
       const dir = join(TRANSLATIONS_DIR, locale);
-      for (const file of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
+      for (const file of translationFiles(dir)) {
         const ns = file.replace(/\.json$/, '');
         const json = JSON.parse(readFileSync(join(dir, file), 'utf8'));
         walkStrings(json, '', (leaf, path) => {
