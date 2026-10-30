@@ -197,7 +197,11 @@ pnpm --filter web build-storybook  # Build Storybook for deployment
 ```bash
 pnpm --filter web db:migrate      # Run database migrations
 pnpm --filter web db:status       # Check migration status
+pnpm --filter sandbox db:migrate  # Same for the Practice app's own database
 ```
+
+The migration files are **private**: they live only in `../diboas-docs/ops/db-migrations/{web,sandbox}/`, never in
+this repository, and the runners stop when that folder is missing. Add one through a PR there (`ops/README.md`).
 
 ### Production
 

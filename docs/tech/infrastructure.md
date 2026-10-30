@@ -49,7 +49,9 @@ Single web application (`apps/web`). No backend services, no microservices, no m
 - **Provider:** Neon serverless PostgreSQL (project ID held in the Neon dashboard and `.env` — not published here).
 - **Driver:** `@neondatabase/serverless` (HTTP-based, no persistent connections).
 - **Usage:** Waitlist signups, referral tracking and position data. (The investor contact requests table, migration `014`, is no longer written since 2026-10-30 and is dropped by migration `015`, which the founder runs, register `5.709`.)
-- **Migrations:** `pnpm --filter web db:migrate` (custom migration runner via `tsx`).
+- **Migrations:** `pnpm --filter web db:migrate` (custom migration runner via `tsx`). The migration files live only in
+  the private `diboas-docs` checkout beside this repository (`ops/db-migrations/web/`, register `5.709`); the runner
+  stops before touching the database when that folder is missing.
 - **Status check:** `pnpm --filter web db:status`.
 - **Env var:** `DATABASE_URL` (pooled connection string from Neon console).
 - **Backups:** Managed by Neon (point-in-time recovery included in their service).

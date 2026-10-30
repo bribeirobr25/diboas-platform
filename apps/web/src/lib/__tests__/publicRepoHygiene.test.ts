@@ -187,3 +187,11 @@ describe('5.707 · .gitignore keeps private material out of this repository', ()
       expect(ignored(path), path).toBe(false);
   });
 });
+
+/* ------------------------------------------------------------- 5.709 */
+
+describe('5.709 · no database migration is tracked in this public repository', () => {
+  it('should track no .sql file when the whole repository is listed', () => {
+    expect(tracked().filter((f) => f.endsWith('.sql'))).toEqual([]);
+  });
+});

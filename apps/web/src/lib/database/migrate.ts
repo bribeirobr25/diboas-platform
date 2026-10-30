@@ -5,6 +5,12 @@
  * Each migration is recorded by filename after successful execution.
  * Re-running is safe — already-applied migrations are skipped.
  *
+ * ⚑ THE MIGRATIONS ARE PRIVATE (founder 2026-10-30, register `5.709`). They live only in
+ * the private `diboas-docs` checkout beside this repository, `ops/db-migrations/web/`,
+ * resolved like every private doc (`scripts/lib/docs-root.mjs`, `DIBOAS_DOCS_DIR`). With
+ * no such folder the runner STOPS before touching the database; it never reports "all
+ * applied" over nothing. Filenames are the applied-migration keys: never rename one.
+ *
  * Usage:
  *   npx tsx apps/web/src/lib/database/migrate.ts
  *
@@ -16,8 +22,18 @@
 import { sql, rawSql } from './client';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { migrationsDir } from '../../../../../scripts/lib/docs-root.mjs';
 
-const MIGRATIONS_DIR = path.join(__dirname, 'migrations');
+const REPO_ROOT = path.resolve(__dirname, '../../../../..');
+
+/** The private migrations folder, or a thrown reason to stop before any database call. */
+export function resolveMigrationsDir(
+  env: Record<string, string | undefined> = process.env
+): string {
+  const found = migrationsDir(REPO_ROOT, 'web', env);
+  if (!found.dir) throw new Error(`[migrate] cannot run: ${found.problem}`);
+  return found.dir;
+}
 
 /**
  * Ensure the schema_migrations tracking table exists.
@@ -44,6 +60,7 @@ async function getAppliedMigrations(): Promise<Set<string>> {
  * Returns the list of newly applied migration filenames.
  */
 export async function runMigrations(): Promise<string[]> {
+  const MIGRATIONS_DIR = resolveMigrationsDir();
   await ensureMigrationsTable();
   const applied = await getAppliedMigrations();
 
@@ -91,6 +108,7 @@ export async function getMigrationStatus(): Promise<{
   applied: string[];
   pending: string[];
 }> {
+  const MIGRATIONS_DIR = resolveMigrationsDir();
   await ensureMigrationsTable();
   const appliedSet = await getAppliedMigrations();
 

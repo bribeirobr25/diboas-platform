@@ -159,15 +159,11 @@ test-results/
 playwright-report/
 playwright/.cache/
 
-# Database and backup files
+# Database and backup files. No .sql file belongs in this public repository: every
+# database migration lives only in the private diboas-docs (`ops/db-migrations/`),
+# version-controlled there, which is what Q-12 asks (founder 2026-10-30, register
+# `5.709`); the runners read it from there.
 *.sql
-# ...EXCEPT canonical schema migrations, which are version-controlled source.
-# A blanket `*.sql` ignore hid 18 migration files from git entirely (register
-# `5.196`; Consolidated Handoff §3.5 / Q-12: "a blanket *.sql ignore must not
-# suppress canonical migration history"). These are pure DDL, app-owned, and
-# hold no PII or credentials. `apps/web`'s 14 migrations belong to the
-# website/market lane and are deliberately NOT added here.
-!apps/sandbox/src/lib/database/migrations/*.sql
 *.sqlite
 *.sqlite3
 *.db

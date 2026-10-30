@@ -176,3 +176,32 @@ export function makeDirReader(repoRoot, docsRoot) {
     ];
   };
 }
+
+/**
+ * The private folder holding one app's database migrations (register `5.709`, founder
+ * 2026-10-30): `<docs root>/ops/db-migrations/<app>/`. The migrations live ONLY there,
+ * never in this public repository. Returns `{ dir }`, or `{ problem }` when the runner
+ * must not run: no private docs, an unusable docs root, or a folder with no `.sql` file.
+ * A runner that found nothing must say so and stop, never report "all applied".
+ *
+ * @param {string} repoRoot
+ * @param {'web' | 'sandbox'} app
+ * @param {Record<string, string | undefined>} [env]
+ * @returns {{ dir: string, problem: null } | { dir: null, problem: string }}
+ */
+export function migrationsDir(repoRoot, app, env = process.env) {
+  const root = resolveDocsRoot(repoRoot, env);
+  const problem = docsRootProblem(repoRoot, root);
+  if (problem) return { dir: null, problem };
+  if (root.dir === null)
+    return {
+      dir: null,
+      problem:
+        'no private docs checkout (diboas-docs) beside this repository; the migrations live only there',
+    };
+  const dir = join(root.dir, 'ops', 'db-migrations', app);
+  const sql = existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith('.sql')) : [];
+  if (!sql.length)
+    return { dir: null, problem: `${displayPath(repoRoot, dir)} holds no .sql migration` };
+  return { dir, problem: null };
+}

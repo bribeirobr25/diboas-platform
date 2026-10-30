@@ -19,14 +19,28 @@
  * Therefore EVERY migration must be independently idempotent — `CREATE … IF NOT
  * EXISTS`, guarded `ALTER`, `INSERT … ON CONFLICT`. True today (001/002 use
  * `IF NOT EXISTS`); do NOT write a bare `ALTER`/backfill in 003+ without a guard.
+ *
+ * ⚑ THE MIGRATIONS ARE PRIVATE (founder 2026-10-30, register `5.709`). They live only in
+ * the private `diboas-docs` checkout beside this repository, `ops/db-migrations/sandbox/`,
+ * resolved like every private doc (`scripts/lib/docs-root.mjs`, `DIBOAS_DOCS_DIR`). With
+ * no such folder the runner STOPS before touching the database; it never reports "all
+ * applied" over nothing. Filenames are the applied-migration keys: never rename one.
  */
 
 import { neon } from '@neondatabase/serverless';
 import { readdirSync, readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { migrationsDir } from '../../../../../scripts/lib/docs-root.mjs';
 
-const MIGRATIONS_DIR = join(dirname(fileURLToPath(import.meta.url)), 'migrations');
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../../../..');
+
+/** The private migrations folder, or a thrown reason to stop before any database call. */
+function resolveMigrationsDir() {
+  const found = migrationsDir(REPO_ROOT, 'sandbox');
+  if (!found.dir) throw new Error(`[migrate] cannot run: ${found.problem}`);
+  return found.dir;
+}
 
 function getSql() {
   const url = process.env.DATABASE_URL;
@@ -55,23 +69,24 @@ async function getApplied(sql) {
   return new Set(rows.map((r) => r.filename));
 }
 
-function migrationFiles() {
-  return readdirSync(MIGRATIONS_DIR)
+function migrationFiles(dir) {
+  return readdirSync(dir)
     .filter((f) => f.endsWith('.sql'))
     .sort();
 }
 
 async function runMigrations() {
+  const dir = resolveMigrationsDir();
   const sql = getSql();
   await ensureMigrationsTable(sql);
   const applied = await getApplied(sql);
   const newly = [];
-  for (const file of migrationFiles()) {
+  for (const file of migrationFiles(dir)) {
     if (applied.has(file)) {
       console.log(`[migrate] skip (already applied): ${file}`);
       continue;
     }
-    const content = readFileSync(join(MIGRATIONS_DIR, file), 'utf-8');
+    const content = readFileSync(join(dir, file), 'utf-8');
     console.log(`[migrate] applying: ${file}`);
     try {
       await rawSql(sql, content);
@@ -92,10 +107,11 @@ async function runMigrations() {
 }
 
 async function status() {
+  const dir = resolveMigrationsDir();
   const sql = getSql();
   await ensureMigrationsTable(sql);
   const applied = await getApplied(sql);
-  const files = migrationFiles();
+  const files = migrationFiles(dir);
   const out = {
     applied: files.filter((f) => applied.has(f)),
     pending: files.filter((f) => !applied.has(f)),

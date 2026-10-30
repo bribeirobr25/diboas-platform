@@ -18,6 +18,7 @@ import {
   isPrivateDocsPath,
   makeDirReader,
   makeDocsResolver,
+  migrationsDir,
   resolveDocsRoot,
 } from '../../../../../scripts/lib/docs-root.mjs';
 
@@ -232,5 +233,39 @@ describe('makeDirReader', () => {
     const { repo } = workspace({ legacy: true });
     const names = (makeDirReader(repo, join(repo, 'docs'))('docs') as string[]).sort();
     expect(names).toEqual(['audit', 'tech']);
+  });
+});
+
+/* 5.709: the DB migrations live only in the private docs; a runner that finds none stops. */
+describe('migrationsDir', () => {
+  it('should return the private folder when it holds a .sql migration', () => {
+    const { repo, sibling } = workspace({ sibling: true });
+    mkdirSync(join(sibling, 'ops/db-migrations/web'), { recursive: true });
+    writeFileSync(join(sibling, 'ops/db-migrations/web/001_a.sql'), 'SELECT 1;\n');
+    expect(migrationsDir(repo, 'web', {})).toEqual({
+      dir: join(sibling, 'ops/db-migrations/web'),
+      problem: null,
+    });
+  });
+
+  it('should refuse when the folder is missing or holds no .sql file', () => {
+    const { repo, sibling } = workspace({ sibling: true });
+    expect(migrationsDir(repo, 'web', {})).toEqual({
+      dir: null,
+      problem: '../diboas-docs/ops/db-migrations/web holds no .sql migration',
+    });
+    mkdirSync(join(sibling, 'ops/db-migrations/sandbox'), { recursive: true });
+    writeFileSync(join(sibling, 'ops/db-migrations/sandbox/README.md'), '# not a migration\n');
+    expect(migrationsDir(repo, 'sandbox', {}).problem).toMatch(/holds no \.sql migration$/);
+  });
+
+  it('should refuse when there are no private docs or the docs root is unusable', () => {
+    const { repo, ws } = workspace({ sibling: true });
+    expect(migrationsDir(repo, 'web', { DIBOAS_DOCS_DIR: 'none' }).problem).toMatch(
+      /^no private docs checkout \(diboas-docs\)/
+    );
+    expect(migrationsDir(repo, 'web', { DIBOAS_DOCS_DIR: join(ws, 'typo') }).problem).toBe(
+      'DIBOAS_DOCS_DIR (../typo) does not exist'
+    );
   });
 });
