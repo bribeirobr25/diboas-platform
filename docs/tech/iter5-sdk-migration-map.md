@@ -74,6 +74,15 @@ Status legend: **Hardcoded** (project config — stays in code) · **Provider-dr
 3. **Hybrid fields stay defaulted.** `neobank`, `paymentProcessor`, `xautIssuer` remain in constants; SDK can override per-locale if/when partner data is available.
 4. **Hardcoded fields never flip.** `platformFees`, `strategyApys`, `scenarioRates`, all `historicalAnchors`, all `historicalCagr`/`cumulativeSince2010` Phase A research stamps — these are product/research config, NOT market data. The SDK does not populate them.
 
+## Owner obligations at swap
+
+When the iter-5 SDK ships, the analytics side also owns:
+
+1. **License review for any paid feeds** (S&P DJI total-return, MSCI direct, LBMA-ICE direct, Coin Metrics commercial — currently all on free-proxy or FRED-via-aggregator).
+2. **Staleness alerting** (the `FALLBACK_MARKET_DATA_METADATA.last_verified` timestamps surface this).
+
+The adapter itself (`IMarketDataProvider.fetch()`), per-source SLA enforcement and "Hardcoded fields never flip" are already steps 1, 2 and 4 of the migration sequencing above and the `metadata.ttl` row.
+
 ## Consumer-side invariant (§6.10 lock)
 
 Consumers MUST NOT bypass the service to read raw upstream data. Every market-data read goes through one of:

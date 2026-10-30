@@ -1,6 +1,6 @@
 /**
  * Freshness of hand-refreshed reference data (2026-10-21, founder decision on
- * TVL_FRESHNESS_PROPOSAL_2026-10-18). Replaces two wall-clock unit tests that
+ * gates TVL-DATA-1 / FRESH-REF-1, implementation-notes § /protocols TVL). Replaces two wall-clock unit tests that
  * turned EVERY lane's CI red on a calendar date (the /protocols TVL test on
  * 2026-11-11, the historical anchors test on 2027-05-15): stale reference data
  * is never the fault of an unrelated change.

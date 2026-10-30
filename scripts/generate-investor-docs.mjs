@@ -13,6 +13,14 @@
  * (the source is gitignored); its JSON output is committed.
  *
  * Usage:  node scripts/generate-investor-docs.mjs [locale]   (default: en)
+ *
+ * FAIL-CLOSED (register 5.652): if ANY source document is missing, nothing is
+ * written and the run exits 1. It used to skip missing sources and then write
+ * whatever was left — with the source folder absent that replaced the committed
+ * investor room with an empty `docs` object and still reported success.
+ * `INVESTOR_DOCS_SOURCE_DIR` / `INVESTOR_DOCS_OUT_DIR` override the source folder
+ * and the output folder (used by the guard test, which must never touch the
+ * committed file even when the guard is sabotaged).
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
@@ -38,7 +46,7 @@ const resolutionLocale = locale === 'pt-BR' ? 'pt-BR' : 'en';
 
 // slug -> source markdown file, per locale. EN wired for Phase 1; the other
 // locales point at their native production docs for Phase 2.
-const BASE = 'docs/get-ready/investor-material';
+const BASE = process.env.INVESTOR_DOCS_SOURCE_DIR || 'docs/get-ready/investor-material';
 const SLUG_SOURCES = {
   en: {
     'investment-summary': `${BASE}/investor-page-en/01a_diboas_investment_summary_EN.md`,
@@ -225,13 +233,18 @@ function parse(md, rel = '(source)') {
 }
 
 const sources = SLUG_SOURCES[locale] || SLUG_SOURCES.en;
+const missing = Object.entries(sources).filter(([, rel]) => !existsSync(resolve(ROOT, rel)));
+if (missing.length) {
+  for (const [slug, rel] of missing) console.error(`  ✗ MISSING source for ${slug}: ${rel}`);
+  console.error(
+    `\n${missing.length} of ${Object.keys(sources).length} source(s) missing — nothing written. ` +
+      'A partial run would replace the committed investor room with fewer documents.'
+  );
+  process.exit(1);
+}
 const docs = {};
 for (const [slug, rel] of Object.entries(sources)) {
   const path = resolve(ROOT, rel);
-  if (!existsSync(path)) {
-    console.error(`  ✗ MISSING source for ${slug}: ${rel}`);
-    continue;
-  }
   const substituted = substituteTokens(readFileSync(path, 'utf8'), FIGURES, resolutionLocale);
   const blocks = parse(substituted.text, rel);
   docs[slug] = { blocks };
@@ -242,7 +255,9 @@ for (const [slug, rel] of Object.entries(sources)) {
   );
 }
 
-const out = resolve(ROOT, `packages/i18n/translations/${locale}/investor-docs.json`);
+const OUT_DIR =
+  process.env.INVESTOR_DOCS_OUT_DIR || resolve(ROOT, `packages/i18n/translations/${locale}`);
+const out = resolve(OUT_DIR, 'investor-docs.json');
 // Format through Prettier (repo config) so the committed JSON passes `format:check`.
 // `JSON.stringify(…, 2)` expands every array element onto its own line; Prettier
 // collapses short arrays — leaving raw output permanently out of sync with CI.

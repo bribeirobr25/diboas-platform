@@ -1,5 +1,5 @@
 /**
- * The strategy catalog — strategies as DATA (decision D-8, docs/sandbox-app).
+ * The strategy catalog — strategies as DATA (decision D-8, docs/decisions/DR-PRACTICE-D1-D10.md).
  *
  * Seeded verbatim from the live product canon (`packages/i18n/translations/en/
  * strategies.json`, 2026-07-18): 10 strategies, each a weighted blend of the

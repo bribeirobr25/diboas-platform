@@ -2,7 +2,7 @@
   "name": "sandbox",
   "version": "0.1.0",
   "private": true,
-  "description": "diBoaS Sandbox — the product in practice mode (play money, real data). Governed by docs/sandbox-app/.",
+  "description": "diBoaS Practice app — play money, real market data. Governed by docs/domains/practice/.",
   "scripts": {
     "dev": "next dev -p 3002",
     "build": "next build",

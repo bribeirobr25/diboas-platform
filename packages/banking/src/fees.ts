@@ -1,6 +1,6 @@
 /**
  * diBoaS fee math — parameterized from the canonical fee schedule
- * (`docs/full-view/FEES.md`, Fee Lab v3.4). A fee value appearing as a string
+ * (`docs/full-view/FEES.md`, Fee Lab v3.5 — FE-1/FC-13). A fee value appearing as a string
  * literal in a component is a bug by definition (SANDBOX_RULES R-3); every
  * display flows from these constants through locale-aware formatters.
  *

@@ -205,7 +205,7 @@ export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
 // make checkBotId() fail on the server, so this list and the server checks in
 // signup/investor-request must stay in sync. The unsubscribe endpoint is
 // deliberately ABSENT (RFC 8058 one-click: mail-provider bots must POST it).
-// Plan: docs/audit/PLAN_BOTID_2026-07-15.md
+// Rules: docs/tech/implementation-notes.md § BotID
 try {
   initBotId({
     protect: [

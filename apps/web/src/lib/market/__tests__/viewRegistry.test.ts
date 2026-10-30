@@ -1,5 +1,5 @@
 /**
- * Market view registry drift guard (M2 — `MARKET_MACRO_PROGRAM_2026-08-12`
+ * Market view registry drift guard (M2 — DR `DR-2026-08-12-market-macro-program-rulings`
  * plan v3 §4, the `faqRegistry.test` pattern). Locks the registry to every
  * surface it governs: routing status semantics, the R-4 spine, the SEO
  * config, the i18n namespaces, the data directories, and — per §9 rider 4(e)

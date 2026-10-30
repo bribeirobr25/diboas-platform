@@ -18,7 +18,7 @@ import { goalCurrentValue, goalTargetReached } from '@/lib/goalValue';
  * So components receive derived, already-truthful values and render them. They
  * never compute money, never derive a truth class, never decide freshness.
  *
- * ## The contract (architecture plan §3.2 rule 3, gate `VIEW-1`)
+ * ## The contract (docs/domains/practice/ARCHITECTURE.md §2 rule 3, gate `VIEW-1`)
  *
  * Selectors are **pure**: `select*(state, snapshot, prefs) → ViewModel`.
  * No React, no `next/*`, no I/O, no ledger writes, no market fetching.

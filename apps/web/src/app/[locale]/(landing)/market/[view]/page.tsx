@@ -22,7 +22,7 @@ import type { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 
 /**
- * `/market/[view]` — per-market views (M2, `MARKET_MACRO_PROGRAM_2026-08-12`
+ * `/market/[view]` — per-market views (M2, Market Macro rulings DR `DR-2026-08-12-market-macro-program-rulings`
  * plan v3 D-M2-1). Routes ONLY registry entries with `status: 'live'`; every
  * other slug (unknown, 'announced', or the root view while it lives at
  * `/market`) responds `notFound()` — the status-flip mechanism, no redirects.

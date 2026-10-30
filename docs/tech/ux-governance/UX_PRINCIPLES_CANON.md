@@ -1,7 +1,7 @@
 # UX & UI Principles Canon — distilled for diBoaS
 
 > **Created:** 2026-07-05 · **Author:** CMO Board (Chat 01), Session 028 · **Status: RATIFIED by founder 2026-07-10**, as amended (see Appendix D, 2026-07-10 entry). This document is now binding canon; the DRAFT-while-enforced contradiction is closed.
-> **Provenance:** distilled from **seven** YouTube UX/UI teardown videos captured to `docs/ui-ux/ux-tips-{0..6}/` (transcript + screenshots, captured July 2026). Source files are retained as optional illustration; **this document is self-contained and remains valid if they are removed.** Sponsor/marketing content in the sources (playbook and tool promotions) is excluded as noise.
+> **Provenance:** distilled from **seven** YouTube UX/UI teardown videos captured to `docs/ui-ux/ux-tips-{0..6}/` (transcript + screenshots, captured July 2026). Source files were deleted by founder ruling 2026-10-29 (third-party transcripts are not retained); **this document is self-contained and remains valid without them.** Sponsor/marketing content in the sources (playbook and tool promotions) is excluded as noise.
 >
 > **Source map (authoritative — Part numbers are NOT directory numbers):**
 >
@@ -342,8 +342,11 @@ uncomfortable, not after.
 
 **PP-4 · People enter through ONE trusted job and progressively choose diBoaS for more of their money life. — ADOPT**
 The PMF principle. Where it is under-served today: no clearly separable first job exists in the
-app; Money Jobs on the marketing site is the closest thing and is not wired into the app
-(USER_JOURNEYS §10, leak #1). Funnel work cites PP-4.
+app; Money Jobs on the marketing site is the closest thing and is not wired into the app. The
+2026-08-22 journey map ranked this the first funnel leak: `/market`, `/tools` and `/learn` are
+live, recurring surfaces with no built bridge into the app, the campaign landing was unbuilt, and
+Money Jobs shares the app's mental model (journey map §10, leak #1; the map is no longer
+retained). Funnel work cites PP-4.
 
 **The protected line (binding on all four):** _diBoaS can become technically complex, financially
 broad and globally capable without ever making the customer experience feel technically complex,

@@ -3,7 +3,7 @@
  *
  * MVP-0 (Sandbox) activation, 2026-07-18: strategy catalog (data, D-8),
  * provider interfaces, and the real DeFiLlama/CoinGecko providers with
- * documented fixture fallbacks. See docs/sandbox-app/ for the governing rules.
+ * documented fixture fallbacks. See docs/domains/practice/ for the governing rules.
  */
 
 export * from './types';

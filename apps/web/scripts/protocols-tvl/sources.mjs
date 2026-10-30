@@ -1,6 +1,6 @@
 /**
  * Where each /protocols TVL figure comes from (2026-10-21, founder decision on
- * TVL_FRESHNESS_PROPOSAL_2026-10-18: a real refresh, every figure dated and
+ * gates TVL-DATA-1 / FRESH-REF-1, implementation-notes § /protocols TVL: a real refresh, every figure dated and
  * sourced on the page, refreshed quarterly).
  *
  * The rule for a card: the DeFiLlama figure for WHAT THE CARD NAMES. A card

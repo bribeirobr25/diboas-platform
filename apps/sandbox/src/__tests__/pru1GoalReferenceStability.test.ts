@@ -17,8 +17,8 @@ import { stripComments } from '@/test/stripComments';
  * ⚙ `PRU-1` · A GOAL TARGET REFERENCE IS NEVER RECOMPUTED WITH A LATER RATE.
  *
  * **Controlling authority:** Strategy Canon §7.2 `P-QA2A` (status `CLOSED`) and
- * `P-QA2`, as carried into `WEBAPP_SYSTEM_IMPLEMENTATION_ARCHITECTURE_PLAN.md`
- * §3.7.1a. The two prohibitions, verbatim in substance:
+ * `P-QA2`, as carried into `docs/domains/practice/ARCHITECTURE.md`
+ * §7.2 (the architecture plan's §3.7.1a). The two prohibitions, verbatim in substance:
  *
  *   > Engineering must not calculate Goal progress by blindly dividing Practice
  *   > Credits by a displayed MarketAmount.
@@ -31,10 +31,10 @@ import { stripComments } from '@/test/stripComments';
  *
  * Measured at source 2026-09-25: `GoalState` carries `targetAmount` and
  * **nothing else** — no original currency, no normalized reference amount, no
- * FX rate, no reference timestamp. The PRU model §3.7.1a specifies (Target
+ * FX rate, no reference timestamp. The PRU model (ARCHITECTURE.md §7.2) specifies (Target
  * Original · Target Reference · FX provenance · rebase only on explicit edit)
  * is **NOT BUILT**, and building it is a Goal domain-object change that arrives
- * with display-currency preferences — a declared spec gap (§7.7) belonging to
+ * with display-currency preferences — a declared spec gap (ARCHITECTURE.md §11.7) belonging to
  * the increment that owns it, not to this lane.
  *
  * What IS true today, and what this gate therefore asserts, is CONTAINMENT:

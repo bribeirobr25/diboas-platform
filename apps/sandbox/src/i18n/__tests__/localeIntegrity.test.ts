@@ -259,7 +259,7 @@ describe('CUR-1 residue — currency WORDS in copy can only decrease', () => {
  * the returns these systems pay, NOT the price swings". True before §4.8; false
  * since the G8 price overlay made `market` legs replay the token's own price —
  * practice positions CAN fall (pinned by `g8NegativeSurfaces.test.ts`). The
- * sentence was removed (plan §13.2: "5.231 (remove clause)"); this keeps it gone
+ * sentence was removed (register 5.231: "remove clause"); this keeps it gone
  * in every locale while leaving the real-money risk sentence in place.
  */
 describe('the risk copy matches the shipped return model (5.231)', () => {

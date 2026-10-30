@@ -83,8 +83,8 @@ const EXACT_LEGAL_COPY = new Set([
  */
 const EXACT_BRAND_COPY = new Set([
   'learn.explainer', // Consolidated Handoff 2026-09-12 §7.1
-  // Brand/Localization §3, verified verbatim at Brand-Legal-Monetization.txt
-  // lines 198/200/202 — each ships an EN-dash in its approved German wording.
+  // Brand ruling B-01 (decision record DR-2026-09-14-brand-b01-strategy-taglines-de-es),
+  // verified verbatim — each ships an EN-dash in its approved German wording.
   'catalog.strategies.stableGrowth.tagline',
   'catalog.strategies.steadyProgress.tagline',
   'catalog.strategies.balancedBuilder.tagline',

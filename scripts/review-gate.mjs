@@ -603,7 +603,7 @@ function checkRegister() {
  * nothing cannot be proven by the corpus, so it is proven by planted fixtures
  * (cases A–E in `apps/sandbox/src/lib/__tests__/authGate.test.ts`). Its first
  * real interception is this change's own increment record,
- * `PRE_I2_5419_COUNT_DOCUMENT_CONTEXT_INCREMENT_GATE_2026-09-21.md`, which states
+ * `PRE_I2_5419_COUNT_DOCUMENT_CONTEXT_INCREMENT_GATE_2026-09-21.md` (deleted local-only 2026-10-29), which states
  * the workspace total in plain prose and is excluded by document context alone.
  * The bucket is PRINTED every run — at 0 when idle — rather than assumed.
  *
@@ -856,12 +856,20 @@ function checkProse() {
        plan cited under another folder read NOT FOUND or matched a namesake). */
     pairs.push([f, path.includes('/') ? path : `docs/audit/${path}`, body]);
   }
-  if (pairs.length === 0)
-    return {
-      ok: false,
-      detail: 'no record names a controlling plan — the instrument, not the files',
-    };
+  /**
+   * ⛑ ZERO RECORDS IS PROVEN, NEVER ASSUMED (register 5.653, the 2026-10-29 docs move).
+   * This row used to fail outright when no record named a controlling plan — correct while
+   * the Pre-I2 records lived in docs/audit, but the founder moved those full records to a
+   * local snapshot until closure (documentation-lifecycle.md §6). An empty corpus now
+   * passes ONLY if the same evaluator, run on a planted plan/record pair, catches a planted
+   * gap and accepts a planted citation — so a broken instrument still fails here.
+   */
+  if (pairs.length === 0 && unresolved.length === 0) return proveProseInstrument();
+  return evaluateProse(pairs, unresolved, (p) => (existsSync(join(ROOT, p)) ? rd(p) : null));
+}
 
+/** PROSE-1's evaluator over [record, planPath, recordBody] pairs; `readPlan` returns null when unreachable. */
+function evaluateProse(pairs, unresolved, readPlan) {
   const lines = [`${pairs.length} record(s) name a controlling plan`];
   let ok = true;
   if (unresolved.length) {
@@ -876,12 +884,12 @@ function checkProse() {
   const notApplicable = [];
   for (const [rec, planName, body] of pairs) {
     let recChecked = 0;
-    if (!existsSync(join(ROOT, planName))) {
+    const plan = readPlan(planName);
+    if (plan === null) {
       lines.push(`${rec}: plan ${planName} NOT FOUND — cited but not reachable`);
       ok = false;
       continue;
     }
-    const plan = rd(planName);
     /**
      * ⛑ A HEADING'S BLOCK IS INHERITED, NOT READ OFF THE HEADING ITSELF.
      *
@@ -1010,6 +1018,24 @@ function checkProse() {
     lines.push(`UNCITED REQUIREMENT (${gaps.length}): ${gaps.join(' · ')}`);
   }
   return { ok, detail: lines.join(' · ') };
+}
+
+/** The planted pair behind an empty corpus: one record cites the plan's requirement, one does not. */
+function proveProseInstrument() {
+  const PLAN = 'fixture/PROSE_SELFTEST_PLAN.md';
+  const plan = '# Plan\n\n## 16 · Minimum required observability\n\nEvery flow emits two events.\n';
+  const readPlan = (p) => (p === PLAN ? plan : null);
+  const cites = ['PROSE_SELFTEST_CITES.md', PLAN, '# Record\n\n§16 is met by the two events.\n'];
+  const silent = ['PROSE_SELFTEST_SILENT.md', PLAN, '# Record\n\nWork done.\n'];
+  const accepted = evaluateProse([cites], [], readPlan);
+  const caught = evaluateProse([silent], [], readPlan);
+  const works = accepted.ok && !caught.ok && caught.detail.includes('PROSE_SELFTEST_SILENT.md');
+  return {
+    ok: works,
+    detail: works
+      ? '0 record(s) name a controlling plan in docs/audit · instrument self-test PASS (planted citation accepted, planted gap caught)'
+      : `0 record(s) name a controlling plan, and the instrument self-test FAILED — accepted: ${accepted.detail} · caught: ${caught.detail}`,
+  };
 }
 
 /* ------------------------------------------------------------------- doc-1 */

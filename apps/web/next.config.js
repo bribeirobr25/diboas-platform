@@ -2,7 +2,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 // BotID (5.22, founder-approved 2026-07-16): withBotId adds the first-party proxy
 // rewrites (/149e9513-…/* → api.vercel.com/bot-protection/*) so ad-blockers can't
 // strip the challenge. Composed INSIDE withSentryConfig; the middleware matcher
-// excludes the proxy prefix (see middleware.ts). Plan: docs/audit/PLAN_BOTID_2026-07-15.md
+// excludes the proxy prefix (see middleware.ts). Rules: docs/tech/implementation-notes.md § BotID
 const { withBotId } = require('botid/next/config');
 
 /** @type {import('next').NextConfig} */

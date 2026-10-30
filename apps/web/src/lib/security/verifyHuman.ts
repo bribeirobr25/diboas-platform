@@ -1,6 +1,6 @@
 /**
  * verifyHuman — thin service-agnostic wrapper around the bot-detection provider
- * (BotID 5.22, founder-approved 2026-07-16; plan: docs/audit/PLAN_BOTID_2026-07-15.md).
+ * (BotID 5.22, founder-approved 2026-07-16; rules: docs/tech/implementation-notes.md § BotID).
  *
  * P3 (service-agnostic abstraction): route handlers call `classifyRequest()`,
  * never the vendor directly — a future provider swap is a one-file change.

@@ -33,7 +33,7 @@ the legacy line.**
 diboas-platform/
   apps/web/            # Next.js web application (the live marketing/waitlist site)
   apps/sandbox/        # The diBoaS app: **Practice** mode live (play money); Real Money mode = parity build
-                       #   behind a strict internal flag, never public until Legal moves the ring (work-front; docs/sandbox-app/).
+                       #   behind a strict internal flag, never public until Legal moves the ring (domain: docs/domains/practice/).
                        #   ⚑ NAMING (F-R4, 2026-08-29): the PUBLIC/user-facing name is **Practice**;
                        #   "sandbox" is internal/dev vocabulary only (paths, package names, this file).
                        #   The label must keep communicating no-real-value (Legal). The in-app copy
@@ -507,9 +507,9 @@ a domain policy question has no ruling in canon
 I-2 · I-8 / Real                                      NOT AUTHORIZED
 ```
 
-**Git (current operating rule):** read-only inspection is permitted (`log`, `show`, `diff`,
-`status`). **No mutation** — no `add`, `commit`, `push`, `merge`, `checkout`, `restore`,
-`reset`, `stash`, branch or tag operations. Sabotage restores use a saved file copy verified by
+**Git (founder ruling 2026-10-28):** standing go for every task to branch, commit, push and open a
+PR. **The merge is always the founder's.** After verifying a founder merge, Claude may delete and
+clean up what that merge made obsolete. Sabotage restores still use a saved file copy verified by
 `sha256`, never `git checkout`.
 
 ## Visual Development — human-first design workflow
@@ -577,4 +577,4 @@ NO DURABLE RULE MAY EXIST ONLY IN A DISPOSABLE AUDIT ARTIFACT
 NO HISTORICAL AUDIT ARTIFACT BECOMES CURRENT AUTHORITY BY EXISTENCE
 ```
 
-**Deletion of any document is FOUNDER-ONLY.**
+**Deleting or cleaning up a document is delegated to Claude and is carried out only after Claude has verified the founder's merge of the change that made it obsolete (founder ruling 2026-10-28).**

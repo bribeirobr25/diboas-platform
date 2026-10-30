@@ -26,12 +26,16 @@ diBoaS is a fintech platform currently in **pre-launch/waitlist** phase. The web
 
 The monorepo uses Turborepo + pnpm workspaces:
 
-| Workspace        | Purpose                                      |
-| ---------------- | -------------------------------------------- |
-| `apps/web`       | Next.js web application (the only app)       |
-| `packages/i18n`  | Internationalization (react-intl, 4 locales) |
-| `packages/ui`    | Shared design system components              |
-| `packages/email` | Email service (Resend)                       |
+| Workspace            | Purpose                                       |
+| -------------------- | --------------------------------------------- |
+| `apps/web`           | Next.js web application (diboas.com)          |
+| `apps/sandbox`       | The Practice app (play money, app.diboas.com) |
+| `packages/banking`   | Event-sourced play ledger + fee math          |
+| `packages/defi`      | Strategy catalog + market-data providers      |
+| `packages/investing` | Jobs split, goals, accrual replay             |
+| `packages/i18n`      | Internationalization (react-intl, 4 locales)  |
+| `packages/ui`        | Shared design system components               |
+| `packages/email`     | Email service (Resend)                        |
 
 For the full architecture diagram and App Router structure, see `CLAUDE.md` > Architecture.
 
@@ -49,7 +53,7 @@ For the full architecture diagram and App Router structure, see `CLAUDE.md` > Ar
 2. Make changes following the conventions in `CLAUDE.md` > Coding Standards
 3. Run the full validation pipeline before opening a PR:
    ```bash
-   pnpm validate:all    # type-check -> lint -> test -> build -> budget -> tokens -> translations -> market-data -> sdk-invariant
+   pnpm validate:all    # type-check -> lint -> test -> build -> budget -> tokens -> translations -> market-data -> sdk-invariant -> investor-figures -> seo -> ux-canon
    ```
 4. Open a PR against `main`. Vercel auto-deploys from `main`.
 

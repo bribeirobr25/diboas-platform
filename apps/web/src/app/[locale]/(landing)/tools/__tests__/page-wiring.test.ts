@@ -1,7 +1,7 @@
 /**
  * Phase 7 §7.3 — Page-wiring smoke tests for all 10 tools (plus the lesson).
  *
- * Per `docs/tools/README.md` §9.1, this is the highest-value test gap: a
+ * Per the 2026-05-23 tools trace (§9.1, local-only, deleted 2026-10-29), this was the highest-value test gap: a
  * silent drop of `engine="tool"` or `enablePathDependent` would NOT break any
  * existing engine-level unit test (the engines stay green; they just stop
  * being called). The component-level page-wiring smoke is the only thing

@@ -4,7 +4,7 @@
  * MVP-0 (Sandbox) activation, 2026-07-18: canonical fee math (FEES.md
  * parameterization, Decimal.js mandate) and the event-sourced play ledger
  * (events, stores, projection, reconciliation invariant).
- * See docs/sandbox-app/ for the governing rules.
+ * See docs/domains/practice/ for the governing rules.
  */
 
 export const BANKING_PACKAGE_VERSION = '0.2.0';
