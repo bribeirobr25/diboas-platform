@@ -674,3 +674,93 @@ describe('UX-CANON · the validator reads the private docs it names, and only th
     );
   }, 20_000);
 });
+
+/** INDEX-PATHS (5.706): every path the three private index pages name resolves. */
+describe('INDEX-PATHS · every path an index page names resolves (5.706)', () => {
+  function docsWorkspace(pages: Record<string, string>, files: string[] = []) {
+    const ws = mkdtempSync(join(FIXTURE_PARENT, 'index-ws-'));
+    const plat = join(ws, 'diboas-platform');
+    const docs = join(ws, 'diboas-docs');
+    mkdirSync(join(plat, 'scripts/lib'), { recursive: true });
+    mkdirSync(join(plat, 'docs/tech'), { recursive: true });
+    writeFileSync(join(plat, 'docs/tech/engineering-gates.md'), '# gates\n');
+    copyFileSync(join(ROOT, 'scripts/review-gate.mjs'), join(plat, 'scripts/review-gate.mjs'));
+    copyFileSync(join(ROOT, 'scripts/lib/docs-root.mjs'), join(plat, 'scripts/lib/docs-root.mjs'));
+    const put = (rel: string, body: string) => {
+      mkdirSync(join(docs, rel, '..'), { recursive: true });
+      writeFileSync(join(docs, rel), body, 'utf8');
+    };
+    put('audit/PENDING_ALL.md', '# register\n');
+    for (const f of files) put(f, '# fixture\n');
+    for (const [rel, body] of Object.entries(pages)) put(rel, body);
+    try {
+      const out = execFileSync('node', ['scripts/review-gate.mjs', 'indexes'], {
+        cwd: plat,
+        encoding: 'utf8',
+        env: { ...process.env, DIBOAS_DOCS_DIR: '', NO_COLOR: '1' },
+      });
+      return { code: 0, out: plain(out) };
+    } catch (error) {
+      const e = error as { status?: number; stdout?: string; stderr?: string };
+      return { code: e.status ?? 1, out: plain(`${e.stdout ?? ''}${e.stderr ?? ''}`) };
+    }
+  }
+  const PAGES = {
+    'BRAIN.md':
+      '# brain\n\nRegister: `audit/PENDING_ALL.md` · gates: `docs/tech/engineering-gates.md` · ' +
+      'any `docs/<area>/X` · route `/market` · run `pnpm review:auth`.\n',
+    'playbooks/README.md': '# playbooks\n\n| Talk series | `docs/playbooks/SERIES.md` |\n',
+    'decisions/README.md':
+      '# decisions\n\n| `DR-OLD-NAME.md` | `DR-2026-01-01-new-name` |\n| `DR-2026-01-02-real` | x |\n',
+  };
+  const FILES = [
+    'playbooks/SERIES.md',
+    'decisions/DR-OLD-NAME.md',
+    'decisions/DR-2026-01-02-real.md',
+  ];
+
+  it('should PASS when every path resolves and placeholders, routes and commands are left alone', () => {
+    const r = docsWorkspace(PAGES, FILES);
+    expect(r.code, r.out).toBe(0);
+    expect(r.out).toMatch(/\d+ path\(s\) on 3 index page\(s\) all resolve/);
+  }, 20_000);
+
+  it('should FAIL and name the page, line and path when an index points at nothing', () => {
+    const r = docsWorkspace(
+      {
+        ...PAGES,
+        'playbooks/README.md': '# playbooks\n\n| Social | `docs/socials/gen/HOW.md` |\n',
+      },
+      FILES
+    );
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/docs\/playbooks\/README\.md:3 → docs\/socials\/gen\/HOW\.md/);
+  }, 20_000);
+
+  it('should PASS a dead path when its line says it is NOT REACHABLE', () => {
+    const r = docsWorkspace(
+      {
+        ...PAGES,
+        'playbooks/README.md': '# playbooks\n\n| Social | ⚠ NOT REACHABLE: `docs/socials/gen/` |\n',
+      },
+      FILES
+    );
+    expect(r.code, r.out).toBe(0);
+  }, 20_000);
+
+  it('should FAIL a record name that resolves nowhere when no file stands beside it', () => {
+    const r = docsWorkspace(
+      { ...PAGES, 'decisions/README.md': '# decisions\n\n| `DR-2026-01-03-missing` | x |\n' },
+      FILES
+    );
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/DR-2026-01-03-missing/);
+  }, 20_000);
+
+  it('should FAIL when an index page itself is missing', () => {
+    const { 'decisions/README.md': _, ...rest } = PAGES;
+    const r = docsWorkspace(rest, FILES);
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/docs\/decisions\/README\.md itself is missing/);
+  }, 20_000);
+});

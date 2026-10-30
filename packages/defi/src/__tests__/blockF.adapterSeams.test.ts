@@ -32,8 +32,8 @@ function productionFiles(dir: string = SRC, acc: string[] = []): string[] {
 describe('Block F · authorized ACTIVE providers stay active', () => {
   it('should keep every currently authorized source usable for BOTH uses', () => {
     /**
-     * ⚑ THE CLAUSE THIS GUARDS. Founder risk acceptance allows CoinGecko and
-     * DeFiLlama fetching for the reviewed Practice fact pattern, and the
+     * ⚑ THE CLAUSE THIS GUARDS. CoinGecko and DeFiLlama are authorized ACTIVE
+     * sources for the reviewed Practice fact pattern (recorded privately), and the
      * Authority & Supersession Map lists *"Block A must disable both
      * providers"* among superseded operational statements BY NAME.
      *

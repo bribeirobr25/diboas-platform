@@ -10,7 +10,8 @@ For every AI agent working in this repository (Claude Code, Codex, GPT Work and 
   private repository `diboas-docs`, checked out beside this one. Read its `BRAIN.md` first: it is
   the map, and it holds the rules every agent follows. A path such as `docs/audit/X` in a record
   means `audit/X` in `diboas-docs`; only `docs/tech/`, `docs/integrations/` and `docs/testing/`
-  live here.
+  live here. Update both checkouts on `main` first: a stale checkout, or one left on a branch,
+  reads an old register without saying so.
 - **Project bootstrap:** `CLAUDE.md` (stack, commands, conventions, the three compliance
   covenants, STOP conditions).
 

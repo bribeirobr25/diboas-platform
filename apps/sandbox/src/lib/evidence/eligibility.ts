@@ -38,8 +38,8 @@ import { mayPersistNormalized, type EvidenceEnvelope } from '@diboas/defi';
  * and widening it is a data change made by whoever holds the authority.
  *
  * ⚑ NO SOURCE'S EFFECTIVE STATE CHANGES. `fixture` persists as before; the two
- * providers do not. Fetch authority does not carry storage authority, and a
- * material expansion of retention is an explicit review trigger.
+ * providers do not. Being able to fetch a source never makes it persistable;
+ * opening one is a Legal/Founder decision (recorded privately).
  */
 
 export type IngestionIneligibility =

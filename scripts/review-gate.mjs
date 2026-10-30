@@ -1492,8 +1492,13 @@ function checkDoc1Local() {
  */
 const DOC1_DATED = /[⭐⛑]\s*\**\s*20\d\d-\d\d-\d\d|\(20\d\d-\d\d-\d\d,\s*`[0-9a-f]{7,40}`\)/g;
 const DOC1_AUDIT_REF = /`docs\/audit\/[^`]+\.md`/g;
-/** Bootstrap may point at the history ledger itself, and nothing else in docs/audit. */
-const DOC1_AUDIT_ALLOWED = 1;
+/**
+ * Bootstrap may point at the history ledger and at the REGISTER, and at nothing else in
+ * docs/audit. Named, not counted: `documentation-lifecycle.md` §4 makes the register the
+ * place every session resolves current work, so CLAUDE.md must name it, and a count of 1
+ * failed DOC-1 on main from the day the market bootstrap line named it (#748, 2026-10-21).
+ */
+const DOC1_AUDIT_ALLOWED = ['docs/audit/AUDIT_HISTORY.md', 'docs/audit/PENDING_ALL.md'];
 
 function checkDoc1() {
   const { refs, authority, slack, localOnly } = doc1Scan();
@@ -1507,16 +1512,17 @@ function checkDoc1() {
     const boot = rd('CLAUDE.md');
     const dated = boot.match(DOC1_DATED) || [];
     const auditRefs = [...new Set(boot.match(DOC1_AUDIT_REF) || [])];
+    const leaned = auditRefs.filter((r) => !DOC1_AUDIT_ALLOWED.includes(r.replace(/`/g, '')));
     if (dated.length) {
       ok = false;
       lines.push(
         `CLAUDE.md carries ${dated.length} DATED execution-history entr(ies) — bootstrap is not an archive (documentation-lifecycle.md §2)`
       );
     }
-    if (auditRefs.length > DOC1_AUDIT_ALLOWED) {
+    if (leaned.length) {
       ok = false;
       lines.push(
-        `CLAUDE.md leans on ${auditRefs.length} docs/audit artifact(s) (max ${DOC1_AUDIT_ALLOWED}): ${auditRefs.slice(0, 3).join(' ')}`
+        `CLAUDE.md leans on ${leaned.length} disposable docs/audit artifact(s) (only the history ledger and the register are allowed): ${leaned.slice(0, 3).join(' ')}`
       );
     }
     lines.push(`bootstrap: ${dated.length} dated entr(ies) · ${auditRefs.length} audit ref(s)`);
@@ -2941,6 +2947,70 @@ function checkCiParity() {
   return { ok: !undeclared.length && !stale.length && !bad.length, detail: lines.join('\n      ') };
 }
 
+/* ---------------------------------------------------------------- indexes */
+/**
+ * ⚙ INDEX-PATHS · EVERY PATH AN INDEX PAGE NAMES RESOLVES (`5.706`, brain-program audit).
+ *
+ * The private docs are entered through three index pages: `BRAIN.md` (the first page of
+ * every session), the playbook registry and the decision-record index. After the docs move
+ * six playbook rows pointed at folders that no longer existed, and a session told "generate
+ * social images" followed them to nothing. Citations (`file:line`) were checked; these plain
+ * path references were not.
+ *
+ * A backticked token is a path when it has a `/`, a file extension, or is a bare `DR-…` record
+ * name. It resolves against, in order: its own page's folder, the private docs root, the
+ * platform (`docs/tech/…`, `scripts/…`). A line that says the target is gone (`NOT REACHABLE`,
+ * deleted, removed) is honest and exempt, the `AUTH-1` pattern. A proposed `DR-…` name stands
+ * beside the file it renames, so it passes when the same line names a file that resolves.
+ * Placeholders (`docs/<area>/X`), routes (`/market`), commands and home paths are not paths.
+ */
+const INDEX_PAGES = ['docs/BRAIN.md', 'docs/playbooks/README.md', 'docs/decisions/README.md'];
+const INDEX_GONE = /NOT REACHABLE|deleted|removed|does not exist|no longer exists|not carried/i;
+const isIndexPath = (t) =>
+  !/[<>*~ ()[\]]/.test(t) &&
+  !/^[/\d]/.test(t) &&
+  !/^[a-z]+:/.test(t) &&
+  (/\//.test(t) || /\.(md|mjs|ts|tsx|yml|json|sh|py)(:\d+(-\d+)?)?$/.test(t) || /^DR-/.test(t));
+
+function checkIndexes() {
+  if (NO_PRIVATE) return NO_PRIVATE_SKIP;
+  const misses = [];
+  let checked = 0;
+  for (const page of INDEX_PAGES) {
+    if (!existsSync(at(page))) {
+      misses.push(`${page} itself is missing`);
+      continue;
+    }
+    const dir = dirname(page);
+    const resolves = (t) => {
+      const p = t.replace(/:\d+(?:-\d+)?$/, '').replace(/\/$/, '');
+      if (/^DR-[\w-]+$/.test(p)) return existsSync(at(`docs/decisions/${p}.md`));
+      if (p.startsWith('docs/')) return existsSync(at(p));
+      return [`${dir}/${p}`, `docs/${p}`, p].some((q) => existsSync(at(q)));
+    };
+    rd(page)
+      .split('\n')
+      .forEach((line, i) => {
+        if (INDEX_GONE.test(line)) return;
+        const toks = [...line.matchAll(/`([^`\n]+)`/g)].map((m) => m[1]).filter(isIndexPath);
+        const besideAFile = toks.some((t) => !/^DR-[\w-]+$/.test(t) && resolves(t));
+        for (const t of toks) {
+          checked += 1;
+          if (resolves(t) || (/^DR-[\w-]+$/.test(t) && besideAFile)) continue;
+          misses.push(`${page}:${i + 1} → ${t}`);
+        }
+      });
+  }
+  if (!checked && !misses.length)
+    return { ok: false, detail: 'no path found on any index page — the scan is broken, not clean' };
+  return {
+    ok: !misses.length,
+    detail: misses.length
+      ? `${misses.length} path(s) named by an index page resolve nowhere (fix, or mark ⚠ NOT REACHABLE): ${misses.slice(0, 8).join(' · ')}`
+      : `${checked} path(s) on ${INDEX_PAGES.length} index page(s) all resolve`,
+  };
+}
+
 /** Rows that read private docs when present but still check the public docs without them. */
 const PUBLIC_HALF_ROWS = new Set(['counts', 'citations']);
 const CHECKS = {
@@ -2961,6 +3031,7 @@ const CHECKS = {
   'canon-index': ['AUTH-1 · authority corpus is searchable', checkCanonIndex],
   citations: ['AUTH-1 · file:line citations still resolve', checkCitations],
   escalations: ['AUTH-1 · no escalation without a canon search', checkEscalations],
+  indexes: ['INDEX-PATHS · every path an index page names resolves', checkIndexes],
 };
 const PLAN = {
   /* `battery` runs FIRST in both: if it does not compile, nothing downstream is

@@ -30,13 +30,9 @@ export async function fetchFredSeries(seriesId, startDate = '2023-01-01') {
       source: `FRED:${seriesId}`,
       url,
       fetchedAt: new Date().toISOString(),
-      // 5.307: NOT 'public-domain'. The 2026-08-19 research behind 5.101 found
-      // FRED is not blanket public-domain — per-series status varies and the
-      // API terms restrict caching and redistribution. NASDAQCOM in particular
-      // is Nasdaq-sourced index data, unlike the Fed-produced DGS10/DTWEXBGS/
-      // M2SL. `unverified` removes a confident claim the research disputes
-      // without inventing a new one: a per-series determination is a licensing
-      // judgement and belongs to 5.101's data-rights BOM, not to this file.
+      // 5.307: `unverified` on purpose. This file asserts no licence status for
+      // any FRED series; a per-series determination belongs to 5.101's
+      // data-rights record (kept privately), not to this file.
       licence: 'unverified',
     },
   };

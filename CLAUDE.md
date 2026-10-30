@@ -40,8 +40,7 @@ diboas-platform/
                        #   sweep (~10 user-facing strings ×4 locales) is complete and guarded by COPY-3. —
                        #   real data/integrations except custody; LIVE + PUBLIC at app.diboas.com,
                        #   noindex (2026-08-22). Committed on main;
-                       #   architecture ruling-complete; Release-1 build sequence documented
-                       #   (see docs/sandbox-app/SANDBOX_ARCHITECTURE_AND_FLOWS.md + RELEASE1_IMPLEMENTATION_PLAN).
+                       #   architecture ruling-complete (see docs/domains/practice/ARCHITECTURE.md).
   packages/email/      # @diboas/email - Email service (Resend)
   packages/i18n/       # @diboas/i18n - Internationalization
   packages/ui/         # @diboas/ui - Design system components
@@ -53,8 +52,10 @@ diboas-platform/
   docs/                # Documentation: only docs/tech/, docs/integrations/, docs/testing/ live here (tracked).
                        #   Every other area lives in the PRIVATE repo diboas-docs, checked out beside
                        #   this one: read `docs/<area>/X` as `../diboas-docs/<area>/X` (same names).
-    sandbox-app/       # Sandbox work-front: rules, build order, architecture map + flow traces,
-                       #   board records, release-1 implementation plan (the ordered build document)
+    sandbox-app/       # REGISTER_INDEX.md — the register's ID namespaces
+    domains/           # Rules per domain (practice, learn, market, product, tools, …)
+    decisions/         # Decision records, one per ruling (index: decisions/README.md)
+    lanes/             # Per-lane handoffs (webapp, market)
     tech/              # Technical guides (committed) — canonical engineering reference
       ux-governance/   #   UX enforcement layer (committed): anti-slop checklist, principles canon, usage protocol
     audit/             # Audit history, security findings ledger, pending-work queue
@@ -62,14 +63,9 @@ diboas-platform/
     full-view/         # Product/business/brand bible + FEES.md (canonical fee source)
     monitoring/        # INFRASTRUCTURE_GUIDE.md — env-var + deploy-values reference
     integrations/      # Host-side wiring for analytics + market-editorial workflow
-    mvp/               # Spec for diboas-analytics — a SEPARATE product diBoaS hosts at /market
-    playbooks/         # Playbook registry (local-only): index of every repeatable
-                       #   end-to-end process + home of cross-domain playbooks
-                       #   (talk-series creation; social/motion/cinema generators
-                       #   stay in docs/socials/ and are pointed to)
+    playbooks/         # Playbook registry: index of every repeatable end-to-end process
+                       #   + home of cross-domain playbooks (talk-series creation)
     tools/             # Money Tools suite docs + weekly live-data runbook
-    researches/        # Dated regulatory + market deep-research reports (reference)
-    roadmap/           # Phase-2 forward analysis (aspirational; superseded-flagged — verify vs this file)
 ```
 
 ### App Router Structure
@@ -461,7 +457,9 @@ R-rows from `docs/tech/robustness-checklist.md` (PASS / N-A per row) in its self
 ⚑ **Private docs live in the private repo `diboas-docs`, checked out beside this one** (since
 2026-10-30). Every `docs/<area>/…` path below and in records, except `docs/tech/`,
 `docs/integrations/` and `docs/testing/`, is read at `../diboas-docs/<area>/…`. The gates resolve
-it themselves (`scripts/lib/docs-root.mjs`, override with `DIBOAS_DOCS_DIR`). Edit private docs
+it themselves (`scripts/lib/docs-root.mjs`, override with `DIBOAS_DOCS_DIR`). **Update both checkouts on
+`main` before reading anything** (`git -C ../diboas-docs switch main && git -C ../diboas-docs pull --ff-only`,
+and the same here): a stale checkout, or one left on a branch, reads an old register. Edit private docs
 there, through a branch and PR. Media live in the private repo `diboas-media`. Start every session at `BRAIN.md`, the first page of `diboas-docs`; `AGENTS.md` here holds
 the rules for every agent.
 

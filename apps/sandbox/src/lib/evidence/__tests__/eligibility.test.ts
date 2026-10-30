@@ -8,10 +8,10 @@ const NETWORK: { kind: 'single'; category: 'network' } = { kind: 'single', categ
  * The LC-LIC-01 scope guard for the first F-A runtime producer.
  *
  * The requirement: a persisted CONVERTED value carries an external `rateStamp`,
- * an external source identity and a derived FX calculation, which engages
- * LC-LIC-01's storage / retention / derived-data rights — whose per-provider
- * position is CONDITIONAL and uncleared. The first lane is therefore evidence
- * diBoaS owns end to end, and everything else is refused.
+ * an external source identity and a derived FX calculation, which only the
+ * per-source persistence decision (LC-LIC-01, recorded privately) can open — and
+ * it has opened no provider. The first lane is therefore evidence diBoaS owns end
+ * to end, and everything else is refused.
  */
 describe('F-A ingestion eligibility — only the fixture lane is persistable', () => {
   it('should accept unconverted fixture/MODELLED evidence', () => {
