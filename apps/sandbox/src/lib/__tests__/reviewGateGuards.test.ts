@@ -748,6 +748,27 @@ describe('INDEX-PATHS · every path an index page names resolves (5.706)', () =>
     expect(r.code, r.out).toBe(0);
   }, 20_000);
 
+  /* 5.721: links, spaced paths, and an exemption limited to its own cell or sentence. */
+  it('should FAIL a dead markdown link, a dead spaced path, and a dead path whose neighbour says deleted', () => {
+    const r = docsWorkspace(
+      {
+        ...PAGES,
+        'playbooks/README.md':
+          '# playbooks\n\n' +
+          'See [the handoff](lanes/webapp/HANDOFF-GONE.md).\n' +
+          'Notes in `docs/old notes/plan.md`.\n' +
+          '| Social | `docs/socials/gen/HOW.md` | (the old copy was deleted) |\n' +
+          '| Gone | ⚠ NOT REACHABLE: `docs/socials/old/` | x |\n',
+      },
+      FILES
+    );
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/lanes\/webapp\/HANDOFF-GONE\.md/);
+    expect(r.out).toMatch(/docs\/old notes\/plan\.md/);
+    expect(r.out).toMatch(/docs\/socials\/gen\/HOW\.md/);
+    expect(r.out).not.toMatch(/docs\/socials\/old\//);
+  }, 20_000);
+
   it('should FAIL a record name that resolves nowhere when no file stands beside it', () => {
     const r = docsWorkspace(
       { ...PAGES, 'decisions/README.md': '# decisions\n\n| `DR-2026-01-03-missing` | x |\n' },

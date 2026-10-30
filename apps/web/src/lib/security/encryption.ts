@@ -47,13 +47,6 @@ function getEncryptionKey(): Buffer | null {
 }
 
 /**
- * Check if encryption is available
- */
-export function isEncryptionEnabled(): boolean {
-  return getEncryptionKey() !== null;
-}
-
-/**
  * Encrypt plaintext using AES-256-GCM
  *
  * @param plaintext - The text to encrypt

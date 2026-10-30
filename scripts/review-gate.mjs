@@ -1283,7 +1283,8 @@ const DOC1_REF_BARE = /`(?:docs|scripts|apps|packages)\/[^`\s]+?`/g;
 const DOC1_SLACK = 0; /* lowered 15 → 0 on 2026-10-15: measured 0 once gitignored targets were classified by policy */
 
 function doc1Surface() {
-  const files = ['CLAUDE.md', 'README.md'].filter((f) => existsSync(at(f)));
+  /* AGENTS.md is a bootstrap page too (every agent reads it first, 2026-10-30, `5.726`). */
+  const files = ['CLAUDE.md', 'AGENTS.md', 'README.md'].filter((f) => existsSync(at(f)));
   return files.concat(mdUnder('docs/tech', []));
 }
 
@@ -1491,7 +1492,13 @@ function checkDoc1Local() {
  * not matched.
  */
 const DOC1_DATED = /[⭐⛑]\s*\**\s*20\d\d-\d\d-\d\d|\(20\d\d-\d\d-\d\d,\s*`[0-9a-f]{7,40}`\)/g;
-const DOC1_AUDIT_REF = /`docs\/audit\/[^`]+\.md`/g;
+/* Any spelling of a docs/audit file: the logical path, the sibling checkout's path, or a
+   markdown link (`5.726`: only the backticked logical form was counted). Normalised to the
+   logical path before it is compared with the allow-list. */
+const DOC1_AUDIT_REF =
+  /`(?:docs|\.\.\/diboas-docs)\/audit\/[^`\s]+\.md`|\]\((?:docs|\.\.\/diboas-docs)\/audit\/[^)\s]+\.md\)/g;
+const asLogicalAuditPath = (r) =>
+  r.replace(/^`|`$|^\]\(|\)$/g, '').replace(/^\.\.\/diboas-docs\//, 'docs/');
 /**
  * Bootstrap may point at the history ledger and at the REGISTER, and at nothing else in
  * docs/audit. Named, not counted: `documentation-lifecycle.md` §4 makes the register the
@@ -1511,8 +1518,8 @@ function checkDoc1() {
   if (existsSync(at('CLAUDE.md'))) {
     const boot = rd('CLAUDE.md');
     const dated = boot.match(DOC1_DATED) || [];
-    const auditRefs = [...new Set(boot.match(DOC1_AUDIT_REF) || [])];
-    const leaned = auditRefs.filter((r) => !DOC1_AUDIT_ALLOWED.includes(r.replace(/`/g, '')));
+    const auditRefs = [...new Set((boot.match(DOC1_AUDIT_REF) || []).map(asLogicalAuditPath))];
+    const leaned = auditRefs.filter((r) => !DOC1_AUDIT_ALLOWED.includes(r));
     if (dated.length) {
       ok = false;
       lines.push(
@@ -2960,17 +2967,40 @@ function checkCiParity() {
  * A backticked token is a path when it has a `/`, a file extension, or is a bare `DR-…` record
  * name. It resolves against, in order: its own page's folder, the private docs root, the
  * platform (`docs/tech/…`, `scripts/…`). A line that says the target is gone (`NOT REACHABLE`,
- * deleted, removed) is honest and exempt, the `AUTH-1` pattern. A proposed `DR-…` name stands
- * beside the file it renames, so it passes when the same line names a file that resolves.
+ * deleted, removed) is honest and exempt, the `AUTH-1` pattern — but only for the paths in that
+ * note's own table cell or sentence, never a whole line (`5.721`: one "deleted" exempted every
+ * path beside it). Markdown link targets `[text](path)` and backticked paths with spaces are
+ * checked too. A proposed `DR-…` name stands beside the file it renames, so it passes when the
+ * same line names a file that resolves.
  * Placeholders (`docs/<area>/X`), routes (`/market`), commands and home paths are not paths.
  */
 const INDEX_PAGES = ['docs/BRAIN.md', 'docs/playbooks/README.md', 'docs/decisions/README.md'];
 const INDEX_GONE = /NOT REACHABLE|deleted|removed|does not exist|no longer exists|not carried/i;
+const INDEX_EXT = /\.(md|mjs|ts|tsx|yml|json|sh|py)(:\d+(-\d+)?)?$/;
 const isIndexPath = (t) =>
-  !/[<>*~ ()[\]]/.test(t) &&
-  !/^[/\d]/.test(t) &&
+  !/[<>*~()[\]]/.test(t) &&
+  !/^[/\d#]/.test(t) &&
   !/^[a-z]+:/.test(t) &&
-  (/\//.test(t) || /\.(md|mjs|ts|tsx|yml|json|sh|py)(:\d+(-\d+)?)?$/.test(t) || /^DR-/.test(t));
+  (!/ /.test(t) || (/\//.test(t) && INDEX_EXT.test(t))) &&
+  (/\//.test(t) || INDEX_EXT.test(t) || /^DR-/.test(t));
+/** The table cell, or else the sentence, of `line` that holds position `at`. */
+function clauseAround(line, at) {
+  const cells = line.trimStart().startsWith('|') ? line.split('|') : null;
+  if (cells) {
+    let end = 0;
+    for (const c of cells) {
+      end += c.length + 1;
+      if (at < end) return c;
+    }
+  }
+  const before =
+    line
+      .slice(0, at)
+      .split(/[.;]\s/)
+      .pop() ?? '';
+  const after = line.slice(at).split(/[.;]\s/)[0] ?? '';
+  return before + after;
+}
 
 function checkIndexes() {
   if (NO_PRIVATE) return NO_PRIVATE_SKIP;
@@ -2991,10 +3021,13 @@ function checkIndexes() {
     rd(page)
       .split('\n')
       .forEach((line, i) => {
-        if (INDEX_GONE.test(line)) return;
-        const toks = [...line.matchAll(/`([^`\n]+)`/g)].map((m) => m[1]).filter(isIndexPath);
-        const besideAFile = toks.some((t) => !/^DR-[\w-]+$/.test(t) && resolves(t));
-        for (const t of toks) {
+        const found = [
+          ...[...line.matchAll(/`([^`\n]+)`/g)].map((m) => [m[1], m.index]),
+          ...[...line.matchAll(/\]\(([^)\s]+)\)/g)].map((m) => [m[1].replace(/#.*$/, ''), m.index]),
+        ].filter(([t]) => t && isIndexPath(t));
+        const besideAFile = found.some(([t]) => !/^DR-[\w-]+$/.test(t) && resolves(t));
+        for (const [t, pos] of found) {
+          if (INDEX_GONE.test(clauseAround(line, pos))) continue;
           checked += 1;
           if (resolves(t) || (/^DR-[\w-]+$/.test(t) && besideAFile)) continue;
           misses.push(`${page}:${i + 1} → ${t}`);

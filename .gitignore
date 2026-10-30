@@ -222,8 +222,17 @@ apps/*/CLAUDE.md
 
 # Private material that must never enter this public repository (5.707): a nested checkout
 # of the private repos, their entry pages copied to the root, and local Claude settings.
-/diboas-docs/
-/diboas-media/
-/BRAIN.md
-/HANDOFF.md
-.claude/settings.local.json
+**/diboas-docs/
+**/diboas-docs-*/
+**/diboas-media/
+/[Bb][Rr][Aa][Ii][Nn].md
+/[Hh][Aa][Nn][Dd][Oo][Ff][Ff].md
+**/.claude/settings.local.json
+.claude/projects/
+# ...and the private repo's own top-level folders and register, if copied here (5.722)
+/cc-sync/
+/gpt-sync/
+/decisions/
+/lanes/
+/audit/
+**/PENDING_ALL.md

@@ -30,6 +30,9 @@ jobs:
       - run: pnpm format:check
       - run: pnpm type-check
       - run: pnpm lint
+      # Dead code (files, dependencies, binaries): every PR claimed "knip exit 0" from a
+      # local run only; now CI runs it (register 5.726).
+      - run: pnpm check:dead-code
       # GATE-INDEX-CI-1 (founder-approved 2026-10-21): the gate registry's own
       # check. Fails on a gate row missing from the status index, an index entry
       # with no row, a status outside LIVE/PARTIAL/PLANNED, wrong totals, or a

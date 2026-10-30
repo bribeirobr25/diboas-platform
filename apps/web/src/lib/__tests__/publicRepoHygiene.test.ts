@@ -32,32 +32,49 @@ function tracked(...paths: string[]): string[] {
 
 /* ------------------------------------------------------------- 5.702 */
 
-/** A sentence cannot end on a comma, an operator or a function word. */
+/**
+ * A sentence cannot end on a comma, an operator or a function word. A word joined by a hyphen
+ * is not a function word ("as-is", "opt-in"), so those are left alone.
+ */
 const DANGLING_END =
-  /(?:[,+(—–-]|\b(?:which|that|the|a|an|and|or|to|of|in|for|with|by|before|after|is|are|was|were|when|if|than|from|as|at|on|into|its|their|this|these|Before|After)\b)\s*$/;
+  /(?:[,+(—–]|(?<![-\w])(?:which|that|the|a|an|and|or|to|of|for|with|by|before|after|than|from|because|but))\s*$/i;
+/** A leftover editing instruction on a line of its own: how #768's fourth damage looked. */
+const STRAY_EDIT_LINE = /^\s*\((?:blank line|insert|add|paste|move|then|new line)[^)]*\)\s*$/i;
+const LIST_ITEM = /^([-*+]|\d+[.)])\s+/;
 
-/** `path:line: text` for every markdown list item whose last line ends mid-sentence. */
+/**
+ * `path:line: text` for every markdown list item whose text ends mid-sentence (or leaves a
+ * code span open), and for every stray editing-instruction line. Quote markers are read
+ * through, and a non-blank line that starts no new item, heading or table continues the
+ * item, as markdown itself reads it.
+ */
 function danglingListItems(file: string, text: string): string[] {
   const hits: string[] = [];
   let inFence = false;
-  let item: { last: string; end: number } | null = null;
+  let item: { last: string; body: string; end: number } | null = null;
   const close = () => {
-    if (item && DANGLING_END.test(item.last.replace(/`[^`]*`/g, 'x')))
-      hits.push(`${file}:${item.end}: …${item.last.trim().slice(-60)}`);
+    if (item) {
+      const open = item.body.split('`').length % 2 === 0;
+      if (open || DANGLING_END.test(item.last.replace(/`[^`]*`/g, 'x')))
+        hits.push(`${file}:${item.end}: …${item.last.trim().slice(-60)}`);
+    }
     item = null;
   };
-  text.split('\n').forEach((line, i) => {
+  text.split('\n').forEach((raw, i) => {
+    if (STRAY_EDIT_LINE.test(raw)) hits.push(`${file}:${i + 1}: stray edit line ${raw.trim()}`);
+    const line = raw.replace(/^\s*(?:>\s?)+/, (m) => ' '.repeat(m.length));
     if (/^\s*```/.test(line)) {
       close();
       inFence = !inFence;
       return;
     }
     if (inFence) return;
-    if (/^\s*([-*]|\d+\.)\s+/.test(line)) {
+    const t = line.trim();
+    if (LIST_ITEM.test(t)) {
       close();
-      item = { last: line, end: i + 1 };
-    } else if (item && line.trim() !== '' && /^\s+\S/.test(line) && !/^\s*\|/.test(line)) {
-      item = { last: line, end: i + 1 };
+      item = { last: line, body: line, end: i + 1 };
+    } else if (item && t !== '' && !t.startsWith('#') && !t.startsWith('|')) {
+      item = { last: line, body: `${item.body}\n${line}`, end: i + 1 };
     } else close();
   });
   close();
@@ -86,11 +103,24 @@ describe('5.702 · no list item in a tracked document ends mid-sentence', () => 
     ]);
   });
 
-  it('should find no cut-off list item when every tracked doc and bootstrap file is scanned', () => {
-    const files = tracked('docs', 'CLAUDE.md', 'AGENTS.md', 'README.md').filter((f) =>
-      f.endsWith('.md')
-    );
-    expect(files.length).toBeGreaterThan(30);
+  it('should flag the stray editing line #768 left, and pass endings that only look dangling', () => {
+    expect(danglingListItems('x.md', '- one.\n  (blank line, then)\n')).toEqual([
+      'x.md:2: stray edit line (blank line, then)',
+    ]);
+    const fine = [
+      '- Ship it as-is',
+      '- Users opt-in',
+      '> 1. **Quoted.** After it, a missing record is a',
+      '>    FAIL with no waiver.',
+      '- A span `Page.setWebLifecycleState',
+      '{state}` then returns.',
+    ];
+    expect(danglingListItems('x.md', fine.join('\n'))).toEqual([]);
+  });
+
+  it('should find no cut-off list item or stray editing line when every tracked markdown file is scanned', () => {
+    const files = tracked().filter((f) => f.endsWith('.md'));
+    expect(files.length).toBeGreaterThan(45);
     const hits = files.flatMap((f) => danglingListItems(f, readFileSync(join(REPO, f), 'utf8')));
     expect(hits).toEqual([]);
   });
@@ -104,7 +134,7 @@ describe('5.702 · no list item in a tracked document ends mid-sentence', () => 
  * "uncleared" vocabulary.
  */
 const PROVIDER_TERMS =
-  /risk acceptance|contractually permitted|storage authority|not persistable|licen[cs]e review|API terms|public-domain|rights? (?:are|is) not established|TECHNICALLY ACCESSIBLE|conditions display/i;
+  /risk acceptance|contractually permitted|storage authority|not persistable|licen[cs]e review|API terms|public-domain|rights? (?:are|is) not established|TECHNICALLY ACCESSIBLE|conditions display|free-tier entitlement|legally cleared|use-specific clearance|in Legal['’]s own words|not a rights grant/i;
 const TEXT_FILE = /\.(md|mdx|ts|tsx|js|mjs|cjs|json|ya?ml|sh|py|css|txt)$/;
 
 describe('5.701 · no tracked file reasons about data-provider terms', () => {
@@ -130,7 +160,7 @@ describe('5.701 · no tracked file reasons about data-provider terms', () => {
 
 /** Rules the founder superseded (2026-10-28, 2026-10-30) that a live page must not restate. */
 const SUPERSEDED_RULES =
-  /deletion is founder-only|deletion of any document (?:is|remains) founder-only|\bno mutation\b[^.\n]{0,40}\b(?:commit|push|branch)|GPT Work may (?:create|build|change|edit)/i;
+  /deletion is founder-only|deletion of any document (?:is|remains) founder-only|\bno mutation\b[^.\n]{0,40}\b(?:commit|push|branch)|GPT Work may (?:create|build|change|edit)|archive-with-status-header, never delete|invoked by \*\*no CI\s+workflow/i;
 
 describe('5.704 · no live instruction page restates a superseded rule', () => {
   it('should flag the superseded wording and pass the current rule', () => {
@@ -159,9 +189,21 @@ describe('5.707 · .gitignore keeps private material out of this repository', ()
   /** Asked of the repository's own rules only, never a personal global ignore file. */
   const ignored = (path: string): boolean => {
     try {
-      execFileSync('git', ['-c', 'core.excludesFile=/dev/null', 'check-ignore', '-q', path], {
-        cwd: REPO,
-      });
+      execFileSync(
+        'git',
+        [
+          '-c',
+          'core.excludesFile=/dev/null',
+          '-c',
+          'core.ignorecase=false',
+          'check-ignore',
+          '-q',
+          path,
+        ],
+        {
+          cwd: REPO,
+        }
+      );
       return true;
     } catch {
       return false;
@@ -178,6 +220,19 @@ describe('5.707 · .gitignore keeps private material out of this repository', ()
     'docs/a-new-private-area/x.md',
     'docs/ROOT_NOTE.md',
     '.review-gate-runs/run/log.json',
+    // 5.722: other spellings and places of the same private material
+    'apps/web/diboas-docs/x.md',
+    'diboas-docs-main/x.md',
+    'brain.md',
+    'Handoff.md',
+    'apps/web/.claude/settings.local.json',
+    '.claude/projects/x/memory/MEMORY.md',
+    'cc-sync/a.md',
+    'gpt-sync/a.md',
+    'decisions/a.md',
+    'lanes/webapp/HANDOFF.md',
+    'audit/PENDING_ALL.md',
+    'PENDING_ALL.md',
   ])('should ignore %s when it appears in the checkout', (path) => {
     expect(ignored(path)).toBe(true);
   });
@@ -193,5 +248,19 @@ describe('5.707 · .gitignore keeps private material out of this repository', ()
 describe('5.709 · no database migration is tracked in this public repository', () => {
   it('should track no .sql file when the whole repository is listed', () => {
     expect(tracked().filter((f) => f.endsWith('.sql'))).toEqual([]);
+  });
+});
+
+/* ------------------------------------------------------------- 5.713 */
+
+describe('5.713 · a gate change is never answered by a cached test pass', () => {
+  it('should make scripts/** an input of every test task and pass DIBOAS_DOCS_DIR through', () => {
+    const turbo = JSON.parse(readFileSync(join(REPO, 'turbo.json'), 'utf8')) as {
+      tasks: { test: { inputs?: string[]; passThroughEnv?: string[] } };
+    };
+    expect(turbo.tasks.test.inputs).toEqual(
+      expect.arrayContaining(['$TURBO_DEFAULT$', '$TURBO_ROOT$/scripts/**'])
+    );
+    expect(turbo.tasks.test.passThroughEnv).toContain('DIBOAS_DOCS_DIR');
   });
 });
