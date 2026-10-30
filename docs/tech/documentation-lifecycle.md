@@ -103,7 +103,10 @@ those outcomes have been promoted. **Deleting or cleaning up a document is deleg
 
 ## 4 · Resolving current authority — the procedure, not a path list
 
-A session establishes authority by running this, in order:
+A session establishes authority by running this, in order. ⚑ Every private `docs/<area>/…` path
+below (all areas except `tech`, `integrations`, `testing`) lives in the private repo `diboas-docs`,
+checked out beside this one: read it at `../diboas-docs/<area>/…`. The gates resolve it themselves
+(`scripts/lib/docs-root.mjs`).
 
 ```text
 1 · WHAT IS THE CURRENT WORK?
