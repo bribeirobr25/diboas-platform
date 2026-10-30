@@ -13,6 +13,11 @@
  * - A share line never promises a guarantee (founder 2026-10-30, Talk 6). Inside the talk a
  *   "guaranteed" return is explained as interest no longer paid; the share line travels
  *   without that context, so there it reads as a promise (Voice Q3).
+ * - Nor any other promise of safety (`5.703`): "guarant" alone let a German "dein Vermögen
+ *   ist sicher" and an English "risk-free, sure-thing return" through. The phrases are whole
+ *   promises, never bare everyday words ("seguro", "sicher", "certo" also mean insurance,
+ *   safe, right), so legitimate copy cannot trip them; both directions are self-tested below.
+ * - Every talk has a share line in every locale (`5.703`): a deleted line used to be skipped.
  */
 
 import { describe, it, expect } from 'vitest';
@@ -23,6 +28,16 @@ const LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
 const UNLOCK_PHRASE = /desbloquear|freischalten|unlock/i;
 const EDITING_NOTE = /NATIVE PASS|\[NPR\]|founder 20\d\d|\*\(/;
 const GUARANTEE = /guarant|garant/i;
+/** Whole promises of safety, per locale (en · pt-BR · es · de). */
+const SAFETY_PROMISE = new RegExp(
+  [
+    "risk[- ]?free|no risk|zero risk|without (?:any )?risk|sure[- ]thing|can(?:no|'|’)t lose|assured (?:return|income|profit)|safe (?:return|bet|investment)",
+    'sem risco|risco zero|(?:retorno|lucro|ganho) certo|não tem como perder|(?:aposta|investimento) seguro',
+    'sin riesgo|riesgo cero|(?:rentabilidad|ganancia) segura|beneficio seguro|no puedes perder|(?:apuesta|inversión) segura',
+    'risikofrei|ohne risiko|null risiko|sichere (?:rendite|geldanlage)|sicherer gewinn|kannst nicht verlieren|dein (?:geld|vermögen|erspartes) (?:ist )?sicher',
+  ].join('|'),
+  'i'
+);
 const MIN_SHARE_LINE_LENGTH = 40;
 
 /** Walk up from this test to the repo root and locate the translations dir. */
@@ -58,20 +73,40 @@ function* stringValues(node: unknown, path: string): Generator<[string, string]>
   }
 }
 
-describe('learn copy integrity (5.655, 5.656)', () => {
+describe('learn copy integrity (5.655, 5.656, 5.703)', () => {
+  it('should flag a promise of safety in each locale, and pass the everyday words', () => {
+    for (const promise of [
+      'a risk-free, sure-thing return',
+      'um retorno sem risco',
+      'una rentabilidad segura',
+      'so ist dein Vermögen sicher und wächst',
+      'eine sichere Rendite',
+    ])
+      expect(promise).toMatch(SAFETY_PROMISE);
+    for (const everyday of [
+      'Your savings are safe from inflation? Not quite.',
+      'o seguro do carro',
+      'Es ist sicher, dass Zinsen wirken.',
+      'tienes razón, es lo correcto',
+    ])
+      expect(everyday).not.toMatch(SAFETY_PROMISE);
+  });
+
   it('should cover the seven talks in every locale', () => {
     for (const locale of LOCALES) expect(learnFiles(locale), locale).toHaveLength(7);
   });
 
   it.each(LOCALES)(
-    'should give every %s share line a real result, never "share to unlock" or a guarantee',
+    'should give every %s share line a real result, never "share to unlock", a guarantee or a promise of safety',
     (locale) => {
       for (const file of learnFiles(locale)) {
         const json = readJson(locale, file) as { quiz?: { share?: { line?: string } } };
         const line = json.quiz?.share?.line;
-        if (line === undefined) continue;
+        expect(typeof line, `${locale}/${file}: the share line is missing`).toBe('string');
+        if (typeof line !== 'string') continue;
         expect(line, `${locale}/${file}`).not.toMatch(UNLOCK_PHRASE);
         expect(line, `${locale}/${file}`).not.toMatch(GUARANTEE);
+        expect(line, `${locale}/${file}`).not.toMatch(SAFETY_PROMISE);
         expect(line.length, `${locale}/${file}: "${line}"`).toBeGreaterThanOrEqual(
           MIN_SHARE_LINE_LENGTH
         );

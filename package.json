@@ -59,6 +59,7 @@
     "review:canon-index": "node scripts/review-gate.mjs canon-index",
     "review:citations": "node scripts/review-gate.mjs citations",
     "review:escalations": "node scripts/review-gate.mjs escalations",
+    "review:indexes": "node scripts/review-gate.mjs indexes",
     "dev:sandbox": "turbo run build --filter=@diboas/banking --filter=@diboas/defi --filter=@diboas/investing && pnpm --filter sandbox dev",
     "start:sandbox": "pnpm --filter sandbox start",
     "market:simulate-next-week": "node apps/web/scripts/market-refresh/simulate-next-week.mjs"

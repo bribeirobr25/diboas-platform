@@ -110,11 +110,11 @@ describe('Block D · persistence is a declared right, not a hard-coded set', () 
     }
   });
 
-  it('should NOT widen any source in fact — fetch authority is not storage authority', () => {
+  it('should NOT widen any source in fact — being able to fetch never makes a source persistable', () => {
     /**
      * The lane became declarative; nothing became persistable. Flipping a
-     * provider is a Legal/Founder decision because a material expansion of
-     * retention or redistribution is an explicit review trigger.
+     * provider is a Legal/Founder decision (an explicit review trigger,
+     * recorded privately).
      *
      * Sabotage: flip either provider to true and this fails, naming it.
      */
@@ -123,10 +123,10 @@ describe('Block D · persistence is a declared right, not a hard-coded set', () 
     expect(mayPersistNormalized('defillama')).toBe(false);
   });
 
-  it('should name LC-LIC-01 or the review trigger wherever a provider is withheld', () => {
+  it('should name LC-LIC-01 as the basis wherever a provider is withheld', () => {
     for (const source of ['coingecko', 'defillama'] as const) {
       const { because } = persistenceRightFor(source);
-      expect(because, source).toMatch(/LC-LIC-01|storage authority|review trigger/i);
+      expect(because, source).toMatch(/LC-LIC-01/);
     }
   });
 });

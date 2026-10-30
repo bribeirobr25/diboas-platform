@@ -35,6 +35,11 @@ jobs:
       # with no row, a status outside LIVE/PARTIAL/PLANNED, wrong totals, or a
       # row that states a delivery state (GATE-STATE-1). Reads tracked files only.
       - run: pnpm review:authorities
+      # DOC-1 layer 1: a reference presented as authority in CLAUDE.md, README.md or
+      # docs/tech resolves or says it cannot. Its verdict reads tracked files only and is
+      # the same in every clone; run nowhere before, it sat red on main for nine days
+      # (2026-10-21 → 10-30, register 5.704 audit).
+      - run: pnpm review:doc1
       - run: pnpm test
       # 5.468 (founder-ruled 2026-09-29): the /market 14-day staleness backstop
       # BLOCKS only a change that touches market data or code; every other

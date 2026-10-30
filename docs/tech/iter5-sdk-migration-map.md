@@ -78,7 +78,7 @@ Status legend: **Hardcoded** (project config — stays in code) · **Provider-dr
 
 When the iter-5 SDK ships, the analytics side also owns:
 
-1. **License review for any paid feeds** (S&P DJI total-return, MSCI direct, LBMA-ICE direct, Coin Metrics commercial — currently all on free-proxy or FRED-via-aggregator).
+1. **A data-rights review for any paid feed before it is used** (the decision is recorded privately).
 2. **Staleness alerting** (the `FALLBACK_MARKET_DATA_METADATA.last_verified` timestamps surface this).
 
 The adapter itself (`IMarketDataProvider.fetch()`), per-source SLA enforcement and "Hardcoded fields never flip" are already steps 1, 2 and 4 of the migration sequencing above and the `metadata.ttl` row.

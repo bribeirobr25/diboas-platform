@@ -1356,6 +1356,31 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
     );
   });
 
+  /* 5.704 audit: bootstrap names the register (documentation-lifecycle §4) and the history
+     ledger; a count of 1 failed DOC-1 on main for nine days. Named, so a third still fails. */
+  it('BOOTSTRAP: should PASS when CLAUDE.md names the register and the history ledger, and FAIL a third audit file', () => {
+    const ok = repoWith([]);
+    dirs.push(ok);
+    const named =
+      '# fixture\n\nWork: `docs/audit/PENDING_ALL.md`. History: `docs/audit/AUDIT_HISTORY.md`.\n';
+    writeFileSync(join(ok, 'CLAUDE.md'), named);
+    execFileSync('git', ['add', '-A'], { cwd: ok });
+    const pass = run(ok, 'doc1');
+    expect(pass.code, pass.out).toBe(0);
+    const bad = repoWith([]);
+    dirs.push(bad);
+    writeFileSync(
+      join(bad, 'CLAUDE.md'),
+      `${named}Plan: \`docs/audit/SOME_PLAN_2026-10-01.md\`.\n`
+    );
+    execFileSync('git', ['add', '-A'], { cwd: bad });
+    const fail = run(bad, 'doc1');
+    expect(fail.code).toBe(1);
+    expect(fail.out).toMatch(
+      /CLAUDE\.md leans on 1 disposable docs\/audit artifact\(s\)[^\n]*docs\/audit\/SOME_PLAN_2026-10-01\.md/
+    );
+  });
+
   it('NON-ASCII TRACKED TARGET: a tracked file with an accented name resolves (git -z, R4-2)', () => {
     const dir = repoWith(['See `docs/tech/Ü-notes.md`.']);
     dirs.push(dir);

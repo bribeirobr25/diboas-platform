@@ -167,13 +167,13 @@ Skip only if nothing a user sees changed, and say so.
 
 ## Part F · Disposition
 
-| #   | Check                                                                                                                                                                                                                               |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| F1  | **Fix what is safe and value-preserving. Register and STOP** for anything structural, any user-facing wording, or anything that changes a published number. The owner is part of the finding.                                       |
-| F2  | **Public-repo sweep before committing tracked files** ⚙ — no legal position, forward pricing, regulator-perimeter interpretation, credential or customer content. This repository is public and history cannot be un-published.     |
-| F3  | Findings registered in `docs/audit/PENDING_ALL.md`: re-read the marker **and measure the maximum existing id** at write time — the marker is a claim, not evidence; an id collision has proven it. Verify uniqueness after writing. |
-| F4  | Docs retention respected: record substance in a living doc; **deletion is founder-only**; a missing local file is intentional cleanup, not a mystery to investigate.                                                                |
-| F5  | **What you did not check**, listed. Coverage is unbounded; the boundary is the honest part.                                                                                                                                         |
+| #   | Check                                                                                                                                                                                                                                                      |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| F1  | **Fix what is safe and value-preserving. Register and STOP** for anything structural, any user-facing wording, or anything that changes a published number. The owner is part of the finding.                                                              |
+| F2  | **Public-repo sweep before committing tracked files** ⚙ — no legal position, forward pricing, regulator-perimeter interpretation, credential or customer content. This repository is public and history cannot be un-published.                            |
+| F3  | Findings registered in `docs/audit/PENDING_ALL.md`: re-read the marker **and measure the maximum existing id** at write time — the marker is a claim, not evidence; an id collision has proven it. Verify uniqueness after writing.                        |
+| F4  | Docs retention respected: record substance in a living doc; **delete only after verifying the founder's merge of the change that made the file obsolete** (founder 2026-10-28); a missing local file is intentional cleanup, not a mystery to investigate. |
+| F5  | **What you did not check**, listed. Coverage is unbounded; the boundary is the honest part.                                                                                                                                                                |
 
 ## Part G · FAIL, waiver and escalation
 

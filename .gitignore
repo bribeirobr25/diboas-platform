@@ -223,3 +223,11 @@ apps/*/CLAUDE.md
 
 # Failed review-gate battery logs on a checkout without private docs (scripts/review-gate.mjs, 5.696)
 .review-gate-runs/
+
+# Private material that must never enter this public repository (5.707): a nested checkout
+# of the private repos, their entry pages copied to the root, and local Claude settings.
+/diboas-docs/
+/diboas-media/
+/BRAIN.md
+/HANDOFF.md
+.claude/settings.local.json

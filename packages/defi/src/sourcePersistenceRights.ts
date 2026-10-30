@@ -1,16 +1,10 @@
 /**
- * SOURCE PERSISTENCE RIGHTS — may we KEEP what we were allowed to FETCH?
+ * SOURCE PERSISTENCE RIGHTS — which sources may be STORED, declared per source.
  *
- * ⚑ FETCHING AND RETAINING ARE DIFFERENT QUESTIONS. Founder risk acceptance
- * authorizes continued fetching from CoinGecko and DeFiLlama for the reviewed
- * Practice fact pattern. It does not, by itself, settle STORAGE of normalized
- * or derived data from those sources — `LC-LIC-01` governs use, display,
- * storage, retention, derived data and attribution independently, and
- *
- * ```text
- * TECHNICALLY ACCESSIBLE SOURCE
- * ≠ CONTRACTUALLY PERMITTED SOURCE
- * ```
+ * ⚑ FETCHING AND STORING ARE SEPARATE DECISIONS. Being able to fetch a source
+ * never makes it persistable: whether normalized or derived data from a source
+ * may be stored is declared here, per source, with its basis named by reference
+ * (`LC-LIC-01`, recorded privately) and its owner.
  *
  * ⚑ WHAT THIS CHANGES, AND WHAT IT DOES NOT. The persistable lane was a
  * hard-coded set containing exactly `'fixture'`, so widening it meant editing a
@@ -20,9 +14,8 @@
  *
  * **No source's effective state changes here.** The fixture lane persists as
  * before; the two providers do not, and flipping either is a Legal/Founder
- * decision because a material expansion of retention or redistribution is an
- * explicit review trigger (`03 §8`). Engineering declares the shape; it does
- * not grant the right.
+ * decision (an explicit review trigger, recorded privately). Engineering
+ * declares the shape; it does not grant the right.
  */
 
 import type { EvidenceSourceId } from './types';
@@ -51,12 +44,12 @@ const PERSISTENCE_RIGHTS: Record<EvidenceSourceId, PersistenceRight> = {
     mayPersistNormalized: false,
     permittedCeilingDays: null,
     because:
-      'Fetching is allowed under Founder risk acceptance for the reviewed Practice fact pattern. Storage/retention rights for derived data are a separate LC-LIC-01 question and are not established. A material expansion of retention or redistribution is an explicit review trigger (03 §8), so this flag is a Legal/Founder decision, not an Engineering one.',
+      'Not persisted: the per-source persistence decision (LC-LIC-01, recorded privately) has not opened this source. Opening it is a Legal/Founder decision, not an Engineering one.',
   },
   defillama: {
     mayPersistNormalized: false,
     permittedCeilingDays: null,
-    because: 'As coingecko — fetch authority does not carry storage authority.',
+    because: 'As coingecko: not opened by the per-source persistence decision (LC-LIC-01).',
   },
 };
 
