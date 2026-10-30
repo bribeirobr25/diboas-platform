@@ -632,8 +632,13 @@ pinned by a test that was watched failing.
   the temp folder can leak in (`5.699`). `turbo.json` makes `scripts/**` an input of every `test`
   task, so a gate change is never answered by a cached pass (`5.713`).
 - **The database migrations are read from the private docs too** (`migrationsDir` in
-  `scripts/lib/docs-root.mjs`, `5.709`): both runners (`apps/web/src/lib/database/migrate.ts`,
-  `apps/sandbox/src/lib/database/migrate.mjs`) resolve `ops/db-migrations/<app>/` in the docs root
+  `scripts/lib/docs-root.mjs`, `5.709`): ONE runner, `scripts/lib/migrate-runner.mjs`, behind two
+  thin CLIs (`apps/web/scripts/db-migrate.mjs`, `apps/sandbox/src/lib/database/migrate.mjs`), plain
+  `node` with `--env-file=.env.local` — never `tsx`, which this repository does not install (the
+  website's old TypeScript runner could not start for that reason). It verifies `SHA256SUMS`, names the target database,
+  refuses a tracking-name mismatch, a re-run of an older file and a multi-statement file, and applies only with
+  `--yes`; `status` only reads. Website `001`–`014` were applied by hand, hold several statements and are never re-run.
+  It resolves `ops/db-migrations/<app>/` in the docs root
   and STOP before any database call when it is missing or holds no `.sql` file — never "all
   applied" over nothing. No `.sql` file is tracked here (a hygiene test fails on one).
 - **`review:indexes` (INDEX-PATHS, `5.706`) checks every path the three private index pages name**

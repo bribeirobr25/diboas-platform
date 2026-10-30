@@ -83,7 +83,7 @@ For the API surface specifically:
 - Constant-time HMAC comparison via `crypto.timingSafeEqual`
 - Generic error responses with artificial delay (100-300ms) to prevent timing-based email enumeration
 - Idempotency-key caching on `/api/waitlist/signup`
-- All DB queries parameterized via Neon's `sql` template literal; `rawSql` not used in user-facing paths
+- All DB queries parameterized via Neon's `sql` template literal; the app has no raw-SQL helper (2026-10-30)
 - All `dangerouslySetInnerHTML` uses either receive hardcoded JSON-LD or DOMPurify-sanitized content (one exception flagged in §5.3)
 
 ### 3.2 Form inputs
@@ -137,9 +137,9 @@ Five `dangerouslySetInnerHTML` usages (verified via `git grep`):
 ### 3.5 Database surface
 
 - Migrations 001-015 (kept privately in `diboas-docs`, `ops/db-migrations/web/`, since 2026-10-30, register `5.709`; 015 drops 014's table) — schema-only; no seed PII; AES-256-GCM + HMAC blind index pattern correctly applied to `waitlist_entries` and `email_delivery_logs`. Migration 013 + the daily `purgeExpiredAuditLogs` cron enforce 90-day retention on the `audit_logs` forensic trail (raw `actor_ip` under legitimate interest — §5.39)
-- Migration runner is idempotent via `schema_migrations` tracking table
+- Migration runner tracks applied files by name in `schema_migrations`, verifies checksums, names the target database, and refuses (before any write) a name mismatch, a re-run of an older file, a multi-statement file, or any apply without `--yes`. Website `001`–`014` were applied by hand and are never re-run.
 - Query layer (`apps/web/src/lib/database/client.ts`) parameterizes via Neon's `sql` tag — string-interpolated SQL is not present in API routes
-- `rawSql()` exists but is only called from migration scripts, never from user-facing paths
+- Raw SQL exists only in the migration runner (`scripts/lib/migrate-runner.mjs`), which runs trusted, checksum-verified files from the private docs and is never reachable from a request
 
 ### 3.6 Email surface
 
@@ -240,7 +240,7 @@ CSP is nonce-based with `frame-ancestors 'none'` (clickjacking defense), `object
 ### 4.5 Database + secrets
 
 - `DATABASE_URL`, `RESEND_API_KEY`, `ENCRYPTION_KEY`, `HMAC_KEY`, `INTERNAL_API_KEY`, `UPSTASH_*` all stored as **Sensitive** in Vercel (encrypted at rest, restricted access)
-- Migration runner is idempotent
+- Migration runner refuses unsafe plans before any write (see §3.5)
 - Connection pooling via Neon's HTTP driver (no TCP exhaustion on serverless cold-start)
 - 8-second query timeout (`withTimeout(8000)`) prevents hung queries
 

@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
-  "ignoreBinaries": ["du", "tsx", "gitleaks", "sleep", "storybook"],
+  "ignoreBinaries": ["du", "gitleaks", "sleep", "storybook"],
   "workspaces": {
     "apps/web": {
       "eslint": false,

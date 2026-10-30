@@ -5,6 +5,7 @@
  * missing DATABASE_URL instead, so the message proves which check stopped it.
  */
 
+import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -52,6 +53,8 @@ describe('sandbox migration source (5.709)', () => {
     writeFileSync(join(docs, 'audit/PENDING_ALL.md'), '# register\n');
     mkdirSync(join(docs, 'ops/db-migrations/sandbox'), { recursive: true });
     writeFileSync(join(docs, 'ops/db-migrations/sandbox/001_a.sql'), 'SELECT 1;\n');
+    const sum = createHash('sha256').update('SELECT 1;\n').digest('hex');
+    writeFileSync(join(docs, 'ops/db-migrations/sandbox/SHA256SUMS'), `${sum}  001_a.sql\n`);
     const r = status({ DIBOAS_DOCS_DIR: docs });
     expect(r.code).toBe(1); // no database here: the next check, not the folder, stops it
     expect(r.err).toMatch(/DATABASE_URL is not set/);
