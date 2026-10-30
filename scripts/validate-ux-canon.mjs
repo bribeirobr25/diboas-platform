@@ -50,15 +50,26 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { makeDocsResolver, resolveDocsRoot } from './lib/docs-root.mjs';
 
 const ROOT = process.env.UXCANON_ROOT
   ? resolve(process.env.UXCANON_ROOT)
   : resolve(dirname(fileURLToPath(import.meta.url)), '..');
+// Private docs (`docs/full-view`, `docs/audit`, …) are read from the docs root: the legacy
+// in-repo tree, `DIBOAS_DOCS_DIR`, or the sibling `diboas-docs` checkout (5.653).
+const DOCS_ROOT = resolveDocsRoot(ROOT);
+if (DOCS_ROOT.bad) {
+  console.error(
+    `validate:ux-canon: DIBOAS_DOCS_DIR points at ${DOCS_ROOT.bad}, which does not exist.`
+  );
+  process.exit(1);
+}
+const at = makeDocsResolver(ROOT, DOCS_ROOT.dir);
 
 const FILES = {
   canon: join(ROOT, 'docs/tech/ux-governance/UX_PRINCIPLES_CANON.md'),
   checklist: join(ROOT, 'docs/tech/ux-governance/anti-slop-checklist.md'),
-  brand: join(ROOT, 'docs/full-view/BRAND_POSITIONING.md'),
+  brand: at('docs/full-view/BRAND_POSITIONING.md'),
   usage: join(ROOT, 'docs/tech/ux-governance/UX_GOVERNANCE_USAGE.md'),
   // The scorable voice gate (CMO Session 030). Validator guards only its
   // structural wiring — citations, docs/ links, and the "N governance files"
@@ -89,11 +100,12 @@ const assetCompliance = existsSync(FILES.assetCompliance) ? read(FILES.assetComp
 const storytelling = existsSync(FILES.storytelling) ? read(FILES.storytelling) : '';
 
 let auditFiles = [];
-const auditDir = join(ROOT, 'docs/audit');
+const auditDir = at('docs/audit');
 if (existsSync(auditDir)) {
+  // [logical path, absolute path]: messages name the file as records cite it
   auditFiles = readdirSync(auditDir)
     .filter((f) => f.startsWith('UX_AUDIT_') && f.endsWith('.md'))
-    .map((f) => join(auditDir, f));
+    .map((f) => [`docs/audit/${f}`, join(auditDir, f)]);
 }
 
 const errors = [];
@@ -134,7 +146,7 @@ const maxId = Math.max(...defined);
     ['VOICE_RUBRIC', voiceRubric],
     ['asset-compliance-checklist', assetCompliance],
     ['STORYTELLING_CRAFT', storytelling],
-    ...auditFiles.map((f) => [f.replace(ROOT + '/', ''), read(f)]),
+    ...auditFiles.map(([rel, abs]) => [rel, read(abs)]),
   ];
   for (const [name, text] of sources) {
     const cited = new Set([...text.matchAll(/UX-(\d{2})/g)].map((m) => Number(m[1])));
@@ -194,7 +206,7 @@ let lastVetoRow = null;
     ['VOICE_RUBRIC', FILES.voiceRubric, voiceRubric],
     ['asset-compliance-checklist', FILES.assetCompliance, assetCompliance],
     ['STORYTELLING_CRAFT', FILES.storytelling, storytelling],
-    ...auditFiles.map((f) => [f.replace(ROOT + '/', ''), f, read(f)]),
+    ...auditFiles.map(([rel, abs]) => [rel, abs, read(abs)]),
   ];
   const DEAD_OK =
     /removed|lost|deleted|does not exist|destinations do not exist|no longer exists|file removed/i;
@@ -207,8 +219,8 @@ let lastVetoRow = null;
     for (const line of text.split('\n')) {
       if (DEAD_OK.test(line)) continue; // documented-dead form (G-2 annotation standard)
       for (const m of line.matchAll(/`?(docs\/[\w\-./]+\.md)`?/g)) {
-        if (existsSync(join(ROOT, m[1]))) continue;
-        const parentPresent = existsSync(join(ROOT, dirname(m[1])));
+        if (existsSync(at(m[1]))) continue;
+        const parentPresent = existsSync(at(dirname(m[1])));
         if (parentPresent) fail('d', `${name}: broken reference ${m[1]}`);
       }
     }
@@ -340,6 +352,11 @@ if (errors.length) {
   errors.forEach((e) => console.error('  ✗ ' + e));
   process.exit(1);
 }
+// Non-vacuity (5.653): say which PRIVATE sources were part of this run. Without them the
+// tracked governance files are still fully checked, but the private ones were not.
+console.log(
+  `  private sources: ${brand ? 'BRAND_POSITIONING read' : 'BRAND_POSITIONING absent'} · ${auditFiles.length} UX audit record(s) read (docs root: ${DOCS_ROOT.via})`
+);
 console.log(
   `✓ validate:ux-canon OK — ${defined.length} canon IDs contiguous; all citations resolve; veto list in parity (rows 10–${lastVetoRow}); no broken governance references; blocking range consistent; rows-range citations match Part 3's ${lastRow} rows; VOICE_RUBRIC + STORYTELLING_CRAFT + asset-compliance wired (citations + docs/ links guarded, "${govFileCount} governance files" count matches).`
 );
