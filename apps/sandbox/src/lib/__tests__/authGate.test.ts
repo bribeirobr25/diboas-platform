@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import {
   copyFileSync,
+  cpSync,
   existsSync,
   mkdirSync,
   mkdtempSync,
@@ -12,7 +13,7 @@ import {
 } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve, sep } from 'node:path';
-import { afterEach, beforeAll, describe, expect, it } from 'vitest';
+import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 
 /**
  * `scripts/review-gate.mjs` — the gate runner's own regression net.
@@ -65,6 +66,67 @@ import { afterEach, beforeAll, describe, expect, it } from 'vitest';
  */
 
 const ROOT = resolve(process.cwd(), '..', '..');
+
+/**
+ * ⚑ HERMETIC PRIVATE DOCS (register `5.653`, brain program).
+ *
+ * This file used to plant its private fixtures (`docs/audit/…`, `docs/full-view/canon/…`)
+ * into the maintainer's REAL private docs. The private docs now live in their own private
+ * repository, so a planted file there would be a stray file in a second repository. Every
+ * gate run here reads a THROWAWAY COPY instead, through `DIBOAS_DOCS_DIR`, and private
+ * fixtures are planted into that copy. The copy is the real corpus, so the delta-based
+ * assertions keep their meaning; on CI there is no private corpus and the copy is empty,
+ * exactly as the private areas were absent before.
+ *
+ * The private root is found the way `scripts/lib/docs-root.mjs` finds it (sandbox tests
+ * cannot import that `.mjs`: `allowJs` is off here). Its unit test lives in apps/web.
+ */
+const PUBLIC_DOCS_AREAS = ['tech', 'integrations', 'testing'];
+const isPrivateDocsPath = (rel: string) => {
+  const parts = rel.split('/');
+  return parts[0] === 'docs' && parts.length > 1 && !PUBLIC_DOCS_AREAS.includes(parts[1]);
+};
+function realPrivateRoot(): string | null {
+  const marker = join('audit', 'PENDING_ALL.md');
+  const candidates = [
+    process.env.DIBOAS_DOCS_DIR,
+    join(ROOT, 'docs'),
+    resolve(ROOT, '..', 'diboas-docs'),
+  ].filter((d): d is string => Boolean(d));
+  return candidates.find((d) => existsSync(join(d, marker))) ?? null;
+}
+const MEDIA = /\.(png|jpe?g|webp|gif|pdf|mp4|mov)$/i;
+const PRIVATE_COPY = mkdtempSync(join(tmpdir(), 'review-gate-private-docs-'));
+beforeAll(() => {
+  const source = realPrivateRoot();
+  if (!source) return;
+  cpSync(source, PRIVATE_COPY, {
+    recursive: true,
+    filter: (from) => {
+      const rel = from.slice(source.length + 1).split(sep);
+      return (
+        !rel[0]?.startsWith('.git') && !PUBLIC_DOCS_AREAS.includes(rel[0]) && !MEDIA.test(from)
+      );
+    },
+  });
+});
+afterAll(() => rmSync(PRIVATE_COPY, { recursive: true, force: true }));
+
+/** Where a repo-relative path physically goes in this suite. */
+const at = (rel: string) =>
+  isPrivateDocsPath(rel) ? join(PRIVATE_COPY, rel.slice('docs/'.length)) : join(ROOT, rel);
+
+/** Gate runs in the real checkout read the private COPY. */
+const GATE_ENV = { ...process.env, DIBOAS_DOCS_DIR: PRIVATE_COPY };
+/** Gate runs in a throwaway fixture repository read only that fixture. */
+const FIXTURE_ENV = { ...process.env, DIBOAS_DOCS_DIR: '' };
+
+/** A fixture repository gets the runner AND the module it imports. */
+function installGate(dir: string): void {
+  mkdirSync(join(dir, 'scripts/lib'), { recursive: true });
+  copyFileSync(join(ROOT, 'scripts/review-gate.mjs'), join(dir, 'scripts/review-gate.mjs'));
+  copyFileSync(join(ROOT, 'scripts/lib/docs-root.mjs'), join(dir, 'scripts/lib/docs-root.mjs'));
+}
 const ESC = String.fromCharCode(27);
 
 /** Strip ANSI so assertions match content, not escape sequences. */
@@ -95,6 +157,7 @@ function gate(mode: string, ...flags: string[]): GateRun {
     const out = execFileSync('node', ['scripts/review-gate.mjs', mode, ...flags], {
       cwd: ROOT,
       encoding: 'utf8',
+      env: GATE_ENV,
     });
     return { code: 0, out: plain(out) };
   } catch (error) {
@@ -134,7 +197,7 @@ const planted: string[] = [];
 const plantedDirs: string[] = [];
 
 function plant(relPath: string, body: string): string {
-  const abs = join(ROOT, relPath);
+  const abs = at(relPath);
   const parent = join(abs, '..');
 
   /* Record the ancestors that do not exist YET, so only those are removed.
@@ -396,6 +459,10 @@ describe('AUTH-1a · the authority corpus and its boundary', () => {
      * in a corpus that is genuinely scanned.
      */
     const dir = 'docs/audit/hidden_controls_DO_NOT_UPLOAD';
+    /* ⚑ One ORDINARY record beside it (5.653). Without private docs (CI) the corpus was
+       empty and this delta compared 0 with 0, a pass that measured nothing; the row now
+       SKIPs an empty corpus. The ordinary record keeps the comparison real everywhere. */
+    plant('docs/audit/SPEC_PROBE_ORDINARY_RECORD.md', '# Ordinary record\n\nNothing to report.\n');
     plant(
       `${dir}/spec_probe_hidden_adjudication_control.md`,
       '# spec fixture\n\nSuite is 7,777 tests / 777 files. ' +
@@ -412,9 +479,10 @@ describe('AUTH-1a · the authority corpus and its boundary', () => {
     //     a second run with the fixture gone, so no absolute total is encoded.
     const withFixture = gate('escalations');
     const sizeWith = Number(/(\d+) engineering record\(s\)/.exec(withFixture.out)?.[1] ?? '-1');
-    rmSync(join(ROOT, dir), { recursive: true, force: true });
+    rmSync(at(dir), { recursive: true, force: true });
     const without = gate('escalations');
     const sizeWithout = Number(/(\d+) engineering record\(s\)/.exec(without.out)?.[1] ?? '-2');
+    expect(sizeWithout, 'the comparison must count at least one real record').toBeGreaterThan(0);
     expect(sizeWith, 'a hidden-control file must not enlarge the record corpus').toBe(sizeWithout);
 
     // 3 · the row says so out loud, so the exclusion is visible to a reader.
@@ -537,8 +605,7 @@ const withCommas = (n: number) => n.toLocaleString('en-US');
 function countsRepo(): { put: (rel: string, body: string) => void; run: () => GateRun } {
   const dir = mkdtempSync(join(tmpdir(), 'review-gate-counts-'));
   countDirs.push(dir);
-  mkdirSync(join(dir, 'scripts'));
-  copyFileSync(join(ROOT, 'scripts/review-gate.mjs'), join(dir, 'scripts/review-gate.mjs'));
+  installGate(dir);
   mkdirSync(join(dir, 'docs/audit'), { recursive: true });
   mkdirSync(join(dir, 'docs/tech'), { recursive: true });
   writeFileSync(
@@ -554,6 +621,7 @@ function countsRepo(): { put: (rel: string, body: string) => void; run: () => Ga
       const out = execFileSync('node', ['scripts/review-gate.mjs', 'counts'], {
         cwd: dir,
         encoding: 'utf8',
+        env: FIXTURE_ENV,
       });
       return { code: 0, out: plain(out) };
     } catch (error) {
@@ -1041,8 +1109,7 @@ describe('PB-5 · DOC-1 classifies by git ignore POLICY, never by local disk', (
 describe('R4-1 · staged row — file names are data, never shell syntax', () => {
   function stagedIn(files: Record<string, string>): { run: GateRun; dir: string } {
     const dir = mkdtempSync(join(tmpdir(), 'review-gate-staged-'));
-    mkdirSync(join(dir, 'scripts'));
-    copyFileSync(join(ROOT, 'scripts/review-gate.mjs'), join(dir, 'scripts/review-gate.mjs'));
+    installGate(dir);
     execFileSync('git', ['init', '-q'], { cwd: dir });
     for (const [rel, body] of Object.entries(files)) {
       mkdirSync(join(dir, rel, '..'), { recursive: true });
@@ -1054,6 +1121,7 @@ describe('R4-1 · staged row — file names are data, never shell syntax', () =>
       const out = execFileSync('node', ['scripts/review-gate.mjs', 'staged'], {
         cwd: dir,
         encoding: 'utf8',
+        env: FIXTURE_ENV,
       });
       run = { code: 0, out: plain(out) };
     } catch (error) {
@@ -1102,8 +1170,7 @@ describe('R4-2 · review:port — operator input is validated, never interpolate
          file named `-sTCP:LISTEN` in the repository root). A regression must
          never be able to write into the maintainer's tree. */
       const dir = mkdtempSync(join(tmpdir(), 'review-gate-port-'));
-      mkdirSync(join(dir, 'scripts'));
-      copyFileSync(join(ROOT, 'scripts/review-gate.mjs'), join(dir, 'scripts/review-gate.mjs'));
+      installGate(dir);
       let r: GateRun;
       try {
         r = {
@@ -1112,6 +1179,7 @@ describe('R4-2 · review:port — operator input is validated, never interpolate
             execFileSync('node', ['scripts/review-gate.mjs', 'port', bad], {
               cwd: dir,
               encoding: 'utf8',
+              env: FIXTURE_ENV,
             })
           ),
         };
@@ -1144,8 +1212,7 @@ describe('R4-2 · review:port — operator input is validated, never interpolate
 describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus layer', () => {
   function repoWith(lines: string[], privateFiles: string[] = []): string {
     const dir = mkdtempSync(join(tmpdir(), 'review-gate-doc1-'));
-    mkdirSync(join(dir, 'scripts'));
-    copyFileSync(join(ROOT, 'scripts/review-gate.mjs'), join(dir, 'scripts/review-gate.mjs'));
+    installGate(dir);
     mkdirSync(join(dir, 'docs/tech'), { recursive: true });
     writeFileSync(join(dir, '.gitignore'), 'docs/*\n!docs/tech/\n');
     writeFileSync(join(dir, 'CLAUDE.md'), '# fixture\n');
@@ -1169,6 +1236,7 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
       const out = execFileSync('node', ['scripts/review-gate.mjs', mode], {
         cwd: dir,
         encoding: 'utf8',
+        env: FIXTURE_ENV,
       });
       return { code: 0, out: plain(out) };
     } catch (error) {
@@ -1365,8 +1433,7 @@ describe('R4 correction · exports row — a consumer after a URL string is stil
   it('should find a consumer that follows a URL in a string', () => {
     const dir = mkdtempSync(join(tmpdir(), 'review-gate-exports-'));
     try {
-      mkdirSync(join(dir, 'scripts'));
-      copyFileSync(join(ROOT, 'scripts/review-gate.mjs'), join(dir, 'scripts/review-gate.mjs'));
+      installGate(dir);
       /* the row loads `typescript` (a root devDependency) — link the real install */
       symlinkSync(join(ROOT, 'node_modules'), join(dir, 'node_modules'));
       mkdirSync(join(dir, 'apps/sandbox/src/view'), { recursive: true });
@@ -1395,6 +1462,7 @@ describe('R4 correction · exports row — a consumer after a URL string is stil
           execFileSync('node', ['scripts/review-gate.mjs', 'exports'], {
             cwd: dir,
             encoding: 'utf8',
+            env: FIXTURE_ENV,
           })
         );
       } catch (error) {

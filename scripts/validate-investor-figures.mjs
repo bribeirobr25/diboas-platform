@@ -20,6 +20,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { makeDocsResolver, resolveDocsRoot } from './lib/docs-root.mjs';
 import Ajv from 'ajv';
 import {
   validateRegistryShape,
@@ -71,8 +72,12 @@ console.log(
 );
 
 // ── L1: canonical local-only sources (auto-skip in CI) ─────────────────
-const feesPath = resolve(ROOT, 'docs/full-view/FEES.md');
-const logPath = resolve(ROOT, 'docs/agents/DECISION_LOG.md');
+// Private docs, read from the docs root (5.653): legacy tree, DIBOAS_DOCS_DIR or sibling.
+const DOCS_ROOT = resolveDocsRoot(ROOT);
+if (DOCS_ROOT.bad) fail([`DIBOAS_DOCS_DIR points at ${DOCS_ROOT.bad}, which does not exist`]);
+const at = makeDocsResolver(ROOT, DOCS_ROOT.dir);
+const feesPath = at('docs/full-view/FEES.md');
+const logPath = at('docs/agents/DECISION_LOG.md');
 const sources = {};
 if (existsSync(feesPath)) sources.feesMd = readFileSync(feesPath, 'utf8');
 if (existsSync(logPath)) sources.decisionLog = readFileSync(logPath, 'utf8');

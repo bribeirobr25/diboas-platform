@@ -43,8 +43,10 @@ afterEach(() => {
 function repo() {
   const dir = mkdtempSync(join(tmpdir(), 'review-gate-guards-'));
   made.push(dir);
-  mkdirSync(join(dir, 'scripts'));
+  mkdirSync(join(dir, 'scripts/lib'), { recursive: true });
   copyFileSync(join(ROOT, 'scripts/review-gate.mjs'), join(dir, 'scripts/review-gate.mjs'));
+  // the runner imports this module (5.653); a fixture without it cannot start
+  copyFileSync(join(ROOT, 'scripts/lib/docs-root.mjs'), join(dir, 'scripts/lib/docs-root.mjs'));
   const put = (rel: string, body: string) => {
     mkdirSync(join(dir, rel, '..'), { recursive: true });
     writeFileSync(join(dir, rel), body, 'utf8');
@@ -54,7 +56,7 @@ function repo() {
       const out = execFileSync('node', ['scripts/review-gate.mjs', mode], {
         cwd: dir,
         encoding: 'utf8',
-        env: { ...process.env, REVIEW_REGISTER_PATH: '' },
+        env: { ...process.env, REVIEW_REGISTER_PATH: '', DIBOAS_DOCS_DIR: '' },
       });
       return { code: 0, out: plain(out) };
     } catch (error) {

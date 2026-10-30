@@ -169,7 +169,7 @@
 - **CSP:** the proxy makes the challenge same-origin, so `'self'` covers it; any CSP change for it
   needs a browser-console check.
 - **E2E:** BotID blocks automation on protected routes in production-like environments; tests
-  against those routes need a documented bypass, never a disabled check. The anti-slop checklist, principles canon, and usage protocol moved from untracked paths; `validate:ux-canon` (11th `validate:all` gate) guards their structure and runs for real in CI — its dead-link check tolerates references into still-untracked doc areas only when that area is absent from the checkout. The retention rule (archive-with-status-header, never delete) still governs `docs/audit/` (local-only), `docs/ui-ux/` (local-only), and the Writing System.
+  against those routes need a documented bypass, never a disabled check. The anti-slop checklist, principles canon, and usage protocol moved from untracked paths; `validate:ux-canon` (11th `validate:all` gate) guards their structure and runs for real in CI — its dead-link check tolerates references into still-untracked doc areas only when that area is absent from the checkout. The retention rule (archive-with-status-header, never delete) still governs `docs/audit/` (local-only), `docs/ui-ux/` (⚠ NOT REACHABLE: the area was deleted 2026-10-29, its third-party transcripts by founder ruling), and the Writing System.
 
 ---
 
@@ -612,9 +612,17 @@ pinned by a test that was watched failing.
   _prior_ text is marked as coming from `5.132(a)` and explicitly not re-verified, because doc 02 is
   not readable from this repository. Keep that attribution if you edit the comment — an unattributed
   claim inside a provenance artefact is the failure the artefact exists to prevent.
-- **`scripts/review-gate.mjs` resolves the register repo-relative FIRST, then `REVIEW_REGISTER_PATH`,
-  then FAILS — never SKIPs** (`5.382`, founder-ruled). Repo-relative is unchanged so the main
-  checkout is unaffected; a worktree (where `docs/` is gitignored) must export the env var. The
+- **Private docs are read from ONE docs root** (`scripts/lib/docs-root.mjs`, `5.653`): the review
+  gate, `validate:ux-canon`, `validate:investor-figures` and `generate:investor-docs` resolve every
+  private `docs/<area>/…` path (every area except `tech`, `integrations`, `testing`) through it, in
+  this order: `DIBOAS_DOCS_DIR` (a missing one is an error, never a fall-through) → the legacy
+  in-repo `docs/` while it holds `audit/PENDING_ALL.md` → the sibling `../diboas-docs` checkout →
+  none (fresh clone / CI: the private areas are absent, as before). Paths stay LOGICAL everywhere
+  (`docs/audit/PENDING_ALL.md` is what records cite); only the physical read moves. The gate prints
+  which root it read. A worktree beside `diboas-docs` resolves it without any env var.
+- **`scripts/review-gate.mjs` resolves the register through the docs root FIRST, then
+  `REVIEW_REGISTER_PATH`, then FAILS — never SKIPs** (`5.382`, founder-ruled). A checkout with no
+  docs root in reach (a worktree elsewhere) must export one of the two env vars. The
   earlier SKIP made the id-collision guard inert in the one lane that writes from a worktree, and a
   SKIP reads as a pass in a green run. Safe to fail loudly because the runner is invoked by **no CI
   workflow** — verified, not assumed. Do not restore the SKIP.

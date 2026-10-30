@@ -38,6 +38,7 @@ import { availableParallelism, cpus, freemem, loadavg, totalmem } from 'node:os'
 import { dirname, join, resolve } from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { makeDirReader, makeDocsResolver, resolveDocsRoot } from './lib/docs-root.mjs';
 
 const C = { g: '\x1b[32m', r: '\x1b[31m', y: '\x1b[33m', b: '\x1b[1m', d: '\x1b[2m', x: '\x1b[0m' };
 /**
@@ -65,7 +66,23 @@ const run = (file, argv) => execFileSync(file, argv, { cwd: ROOT, stdio: 'pipe' 
  * that file and PASSED. `-z` prints names raw, NUL-terminated.
  */
 const gitNames = (argv) => run('git', argv).split('\0').filter(Boolean);
-const rd = (p) => readFileSync(join(ROOT, p), 'utf8');
+/**
+ * ⚑ PRIVATE DOCS ARE READ FROM THE DOCS ROOT (register `5.653`, brain program). Paths stay
+ * LOGICAL (`docs/audit/PENDING_ALL.md`) everywhere in this file — they are what records
+ * cite. `at()` maps a private one to where it physically lives (`DIBOAS_DOCS_DIR`, the
+ * legacy in-repo tree, or the sibling `diboas-docs` checkout); `ls()` lists a logical
+ * folder, merging the public and private halves of `docs/`. `scripts/lib/docs-root.mjs`.
+ */
+const DOCS_ROOT = resolveDocsRoot(ROOT);
+if (DOCS_ROOT.bad) {
+  console.error(
+    `DIBOAS_DOCS_DIR points at ${DOCS_ROOT.bad}, which does not exist. Nothing was checked.`
+  );
+  process.exit(2);
+}
+const at = makeDocsResolver(ROOT, DOCS_ROOT.dir);
+const ls = makeDirReader(ROOT, DOCS_ROOT.dir);
+const rd = (p) => readFileSync(at(p), 'utf8');
 
 const REGISTER = 'docs/audit/PENDING_ALL.md';
 const GATES = ['docs/tech/increment-review-gate.md', 'docs/tech/system-review-gate.md'];
@@ -201,7 +218,7 @@ function fileIndex() {
   const walk = (d) => {
     let entries;
     try {
-      entries = readdirSync(join(ROOT, d === '' ? '.' : d), { withFileTypes: true });
+      entries = ls(d === '' ? '.' : d, { withFileTypes: true });
     } catch {
       return;
     }
@@ -225,9 +242,9 @@ function fileIndex() {
 function mdUnder(dir, skip = []) {
   const out = [];
   const walk = (d) => {
-    if (!existsSync(join(ROOT, d))) return;
+    if (!existsSync(at(d))) return;
     if (skip.some((x) => d === x || d.startsWith(`${x}/`))) return;
-    for (const e of readdirSync(join(ROOT, d), { withFileTypes: true })) {
+    for (const e of ls(d, { withFileTypes: true })) {
       const q = `${d}/${e.name}`;
       if (isHiddenControl(q)) continue; // §5: never in any corpus
       if (e.isDirectory()) walk(q);
@@ -259,8 +276,8 @@ function mdUnder(dir, skip = []) {
  * ledger gets a loud, actionable message instead of a broken pipeline.
  */
 function resolveRegister() {
-  const repoRelative = join(ROOT, REGISTER);
-  if (existsSync(repoRelative)) return { path: repoRelative, via: 'repo-relative' };
+  const repoRelative = at(REGISTER);
+  if (existsSync(repoRelative)) return { path: repoRelative, via: `docs root (${DOCS_ROOT.via})` };
   const fromEnv = process.env.REVIEW_REGISTER_PATH;
   if (fromEnv) {
     if (existsSync(fromEnv)) return { path: fromEnv, via: 'REVIEW_REGISTER_PATH' };
@@ -830,7 +847,7 @@ function checkCounts() {
  * proof it was not skipped in silence, which is the failure that actually shipped.
  */
 function checkProse() {
-  const dir = join(ROOT, 'docs/audit');
+  const dir = at('docs/audit');
   if (!existsSync(dir)) return { ok: true, skip: true, detail: 'docs/audit absent (fresh clone)' };
   const files = readdirSync(dir).filter((f) => f.endsWith('.md'));
   const pairs = [];
@@ -865,7 +882,7 @@ function checkProse() {
    * gap and accepts a planted citation — so a broken instrument still fails here.
    */
   if (pairs.length === 0 && unresolved.length === 0) return proveProseInstrument();
-  return evaluateProse(pairs, unresolved, (p) => (existsSync(join(ROOT, p)) ? rd(p) : null));
+  return evaluateProse(pairs, unresolved, (p) => (existsSync(at(p)) ? rd(p) : null));
 }
 
 /** PROSE-1's evaluator over [record, planPath, recordBody] pairs; `readPlan` returns null when unreachable. */
@@ -1085,7 +1102,7 @@ const DOC1_REF_BARE = /`(?:docs|scripts|apps|packages)\/[^`\s]+?`/g;
 const DOC1_SLACK = 0; /* lowered 15 → 0 on 2026-10-15: measured 0 once gitignored targets were classified by policy */
 
 function doc1Surface() {
-  const files = ['CLAUDE.md', 'README.md'].filter((f) => existsSync(join(ROOT, f)));
+  const files = ['CLAUDE.md', 'README.md'].filter((f) => existsSync(at(f)));
   return files.concat(mdUnder('docs/tech', []));
 }
 
@@ -1119,8 +1136,8 @@ function isTracked(target) {
   const tracked = loadTracked();
   /* A directory resolves when it holds at least one tracked file and exists. */
   if (target.endsWith('/'))
-    return [...tracked].some((f) => f.startsWith(target)) && existsSync(join(ROOT, target));
-  return tracked.has(target) && existsSync(join(ROOT, target));
+    return [...tracked].some((f) => f.startsWith(target)) && existsSync(at(target));
+  return tracked.has(target) && existsSync(at(target));
 }
 
 /**
@@ -1235,7 +1252,7 @@ function checkDoc1Local() {
     return parts.length >= 3 || t.endsWith('/') ? `${parts.slice(0, 2).join('/')}/` : null;
   };
   const present = new Set(
-    privateRefs.map((r) => area(r.target)).filter((a) => a !== null && existsSync(join(ROOT, a)))
+    privateRefs.map((r) => area(r.target)).filter((a) => a !== null && existsSync(at(a)))
   );
   if (!present.size)
     /* ⛑ Nothing here can be verified — that is a SKIP, never a pass (R4 correction). */
@@ -1250,7 +1267,7 @@ function checkDoc1Local() {
   for (const { doc, target } of privateRefs) {
     const a = area(target);
     if (a !== null && !present.has(a)) unknownArea.push(`${doc} → ${target}`);
-    else if (existsSync(join(ROOT, target))) verified += 1;
+    else if (existsSync(at(target))) verified += 1;
     else missing.push(`${doc} → ${target}`);
   }
   const lines = [
@@ -1298,7 +1315,7 @@ function checkDoc1() {
   ];
   let ok = true;
 
-  if (existsSync(join(ROOT, 'CLAUDE.md'))) {
+  if (existsSync(at('CLAUDE.md'))) {
     const boot = rd('CLAUDE.md');
     const dated = boot.match(DOC1_DATED) || [];
     const auditRefs = [...new Set(boot.match(DOC1_AUDIT_REF) || [])];
@@ -1345,15 +1362,14 @@ function checkDoc1() {
 /* ------------------------------------------------------------- authorities */
 /** A new authority in docs/tech must be routed or dispositioned, or it rots. */
 function checkAuthorities() {
-  const text = GATES.filter((g) => existsSync(join(ROOT, g)))
+  const text = GATES.filter((g) => existsSync(at(g)))
     .map(rd)
     .join('');
   if (!text) return { ok: false, detail: 'gate documents not found' };
   const files = [];
   for (const dir of ['docs/tech', 'docs/tech/ux-governance']) {
-    if (!existsSync(join(ROOT, dir))) continue;
-    for (const f of readdirSync(join(ROOT, dir)))
-      if (f.endsWith('.md') && !f.includes('review-gate')) files.push(f);
+    if (!existsSync(at(dir))) continue;
+    for (const f of ls(dir)) if (f.endsWith('.md') && !f.includes('review-gate')) files.push(f);
   }
   const missing = files.filter((f) => !text.includes(f));
   const lines = [`${files.length - missing.length}/${files.length} routed or dispositioned`];
@@ -1375,7 +1391,7 @@ function checkAuthorities() {
    * outside the closed set.
    */
   const GATES_DOC = 'docs/tech/engineering-gates.md';
-  if (existsSync(join(ROOT, GATES_DOC))) {
+  if (existsSync(at(GATES_DOC))) {
     /* `rd` resolves against ROOT itself — passing an absolute path doubles it. */
     const g = rd(GATES_DOC);
     const VOCAB = new Set(['LIVE', 'PLANNED', 'PARTIAL']);
@@ -1536,7 +1552,7 @@ let canonReadmeRows = null;
 function canonIndexClass(fileName, pkgName) {
   if (canonReadmeRows === null) {
     const readmePath = `${CANON}/README.md`;
-    canonReadmeRows = existsSync(join(ROOT, readmePath))
+    canonReadmeRows = existsSync(at(readmePath))
       ? rd(readmePath)
           .split('\n')
           .filter((l) => l.startsWith('|'))
@@ -1555,9 +1571,8 @@ function canonIndexClass(fileName, pkgName) {
 function canonRootDocs() {
   const out = [];
   const walk = (rel, depth) => {
-    const abs = join(ROOT, rel);
-    if (!existsSync(abs)) return;
-    for (const e of readdirSync(abs, { withFileTypes: true })) {
+    if (!existsSync(at(rel))) return;
+    for (const e of ls(rel, { withFileTypes: true })) {
       const r = `${rel}/${e.name}`;
       if (r.includes('/extracted')) continue;
       if (e.isDirectory()) {
@@ -1594,7 +1609,7 @@ function canonRootDocs() {
 }
 
 function checkCanonIndex() {
-  if (!existsSync(join(ROOT, CANON)))
+  if (!existsSync(at(CANON)))
     return {
       ok: true,
       skip: true,
@@ -1604,15 +1619,21 @@ function checkCanonIndex() {
   const hidden = sh(
     `find ${CANON_INDEX} -name '${HIDDEN_CONTROL_DIR}' -o -name '*_hidden_adjudication_control.md' 2>/dev/null | wc -l`
   ).trim();
-  const archives = existsSync(join(ROOT, CANON))
-    ? readdirSync(join(ROOT, CANON)).filter((f) => f.endsWith('.zip'))
-    : [];
+  const archives = existsSync(at(CANON)) ? ls(CANON).filter((f) => f.endsWith('.zip')) : [];
   /* Residual archives are REPORTED, not chased. The packages contain their own
      prior releases (`95_ORIGINAL_ARCHIVES` recursing into archived Growth
      releases), so extracting to zero is unbounded and would index historical
      material nothing cites. Indexing the current-authority tier is the goal;
      this number is visibility, not a failure condition. */
-  const nested = indexed.length ? sh(`find ${CANON_INDEX} -name '*.zip' | wc -l`).trim() : '0';
+  /* Through `at()` and no shell: a relative `find` ran in this checkout and missed the
+     private root once the docs moved out (5.653, caught by the sibling rehearsal). */
+  const nested = indexed.length
+    ? String(
+        run('find', [at(CANON_INDEX), '-name', '*.zip'])
+          .split('\n')
+          .filter(Boolean).length
+      )
+    : '0';
   const unreachable = CITED_AUTHORITIES.filter(
     (f) => !mdUnder('docs', [CANON]).some((p) => p.endsWith(`/${f}`))
   ).filter((f) => !indexed.some((p) => p.endsWith(`/${f}`)));
@@ -1629,7 +1650,7 @@ function checkCanonIndex() {
   let ok = indexed.length > 0 || archives.length === 0;
 
   /* ── DOC-2 · current authority OUTSIDE extracted/ must be in the canon index ── */
-  const readme = existsSync(join(ROOT, `${CANON}/README.md`)) ? rd(`${CANON}/README.md`) : '';
+  const readme = existsSync(at(`${CANON}/README.md`)) ? rd(`${CANON}/README.md`) : '';
   const rootDocs = canonRootDocs();
   const current = rootDocs.filter((d) => d.cls === 'CURRENT');
   const notAuth = rootDocs.filter((d) => d.cls === 'NOT-AUTHORITY');
@@ -1750,7 +1771,7 @@ function checkCanonIndex() {
  */
 function checkCitations() {
   const corpus = [REGISTER, ...mdUnder('docs/tech', []), ...mdUnder('docs/audit', [])].filter((p) =>
-    existsSync(join(ROOT, p))
+    existsSync(at(p))
   );
   if (!corpus.length) return { ok: false, detail: 'no engineering records found to check' };
   const CITE = /`([A-Za-z0-9_./-]+\.(?:md|ts|tsx|css|json|mjs)):(\d+)(?:-\d+)?`/g;
@@ -1821,7 +1842,7 @@ function checkCitations() {
 
   const index = fileIndex();
   const classify = (file) => {
-    if (existsSync(join(ROOT, file))) return 'resolves';
+    if (existsSync(at(file))) return 'resolves';
     const hits = index.get(file.split('/').pop()) ?? [];
     if (hits.length === 1) return 'resolves';
     return hits.length > 1 ? 'ambiguous' : 'dead';
@@ -1912,6 +1933,16 @@ function checkEscalations() {
   /* EVERY engineering record, with NO name filter. The register is separated
      because it needs a different rule, not because it is excluded. */
   const corpus = auditDocs.filter((q) => !isRegister(q));
+  /* ⚑ NON-VACUITY (5.653). With no private docs here (a fresh clone, CI) there is nothing
+     to scan, and "0 records · every escalation carries a block" read as a pass. It is
+     INCOMPLETE: nothing was checked. */
+  if (corpus.length === 0 && !auditDocs.some(isRegister))
+    return {
+      ok: true,
+      skip: true,
+      detail:
+        'no engineering record and no register here (private docs absent) — nothing was checked',
+    };
   const offenders = [];
   for (const doc of corpus) {
     const text = rd(doc);
@@ -2095,7 +2126,7 @@ function changedFiles() {
  * would scan has nothing to do with the change.
  */
 function checkExports(target = 'apps/sandbox/src/view', scope = 'apps/sandbox/src') {
-  if (!existsSync(join(ROOT, target)))
+  if (!existsSync(at(target)))
     return { ok: true, skip: true, detail: `${target} absent — skipped` };
   const changed = changedFiles();
   if (changed && ![...changed].some((f) => f.startsWith(target)))
@@ -2106,9 +2137,7 @@ function checkExports(target = 'apps/sandbox/src/view', scope = 'apps/sandbox/sr
         `N/A — this change touches no file under ${target} ` +
         `(${changed.size} changed file(s)); nothing scanned, so this row asserts nothing`,
     };
-  const mods = readdirSync(join(ROOT, target)).filter(
-    (f) => f.endsWith('.ts') || f.endsWith('.tsx')
-  );
+  const mods = ls(target).filter((f) => f.endsWith('.ts') || f.endsWith('.tsx'));
   const dead = [];
   const internalOnly = [];
   let checked = 0;
@@ -2155,7 +2184,7 @@ function checkExports(target = 'apps/sandbox/src/view', scope = 'apps/sandbox/sr
         .filter((f) => (testsCount ? true : !f.includes('__tests__')))
         .filter((f) => !f.endsWith(`${target}/${m}`))
         .filter((f) =>
-          new RegExp(`\\b${name}\\b`).test(stripComments(readFileSync(join(ROOT, f), 'utf8')))
+          new RegExp(`\\b${name}\\b`).test(stripComments(readFileSync(at(f), 'utf8')))
         );
       /**
        * TWO different findings, and collapsing them was hiding one (AUD-C03).
@@ -2479,7 +2508,7 @@ function batteryContext() {
       let h = '(unreadable)';
       try {
         h = createHash('sha256')
-          .update(readFileSync(join(ROOT, p)))
+          .update(readFileSync(at(p)))
           .digest('hex')
           .slice(0, 16);
       } catch {
@@ -2525,7 +2554,7 @@ function failureLines(text) {
 function writeBatteryEvidence(started, before, results) {
   const id = `${new Date(started).toISOString().replace(/[:.]/g, '-')}-pid${process.pid}`;
   const rel = `${BATTERY_RUNS_DIR}/${id}`;
-  const dir = join(ROOT, rel);
+  const dir = at(rel);
   mkdirSync(dir, { recursive: true });
   const write = (name, text) => writeFileSync(join(dir, name), text, { flag: 'wx' });
   for (const s of results) {
@@ -2614,7 +2643,7 @@ function checkGuards() {
         (p) => p[1]
       );
       if (!paths.length) problems.push(`GUARD NAMES NO FILE: ${id}`);
-      const gone = paths.filter((p) => !existsSync(join(ROOT, p)));
+      const gone = paths.filter((p) => !existsSync(at(p)));
       if (gone.length) problems.push(`GUARD FILE MISSING: ${id} → ${gone.join(', ')}`);
       if (paths.length && !gone.length) named += 1;
     }
@@ -2653,7 +2682,7 @@ const CI_REHEARSAL = {
   'security.yml#audit': 'local',
 };
 function workflowJobs(file) {
-  const rows = readFileSync(join(ROOT, '.github/workflows', file), 'utf8').split('\n');
+  const rows = readFileSync(at(join('.github/workflows', file)), 'utf8').split('\n');
   const onAt = rows.findIndex((r) => /^on:/.test(r));
   const inline = onAt >= 0 ? rows[onAt].slice(3) : '';
   let pr = /pull_request\b/.test(inline);
@@ -2692,7 +2721,7 @@ function workflowJobs(file) {
   return jobs;
 }
 function checkCiParity() {
-  const dir = join(ROOT, '.github/workflows');
+  const dir = at('.github/workflows');
   if (!existsSync(dir))
     return { ok: false, detail: '.github/workflows not found — the instrument, not the repo' };
   const files = readdirSync(dir)
@@ -2792,6 +2821,10 @@ if (!plan) {
 
 console.log(
   `${C.d}Mechanical (⚙ rows). Each exists because its defect already shipped here.${C.x}`
+);
+/* Which private docs tree the rows below read: evidence, never assumed (5.653). */
+console.log(
+  `${C.d}Private docs read from: ${DOCS_ROOT.via === 'none' ? 'nowhere (absent here, as on a fresh clone)' : `${DOCS_ROOT.via === 'legacy' ? 'docs/ in this checkout' : DOCS_ROOT.via === 'sibling' ? 'the sibling diboas-docs checkout' : 'DIBOAS_DOCS_DIR'}`}${C.x}`
 );
 let failed = 0;
 /**

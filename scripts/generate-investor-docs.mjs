@@ -27,6 +27,7 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { format, resolveConfig } from 'prettier';
 import { substituteTokens, parseStatsBlock } from './lib/investor-figures.mjs';
+import { makeDocsResolver, resolveDocsRoot } from './lib/docs-root.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -47,6 +48,16 @@ const resolutionLocale = locale === 'pt-BR' ? 'pt-BR' : 'en';
 // slug -> source markdown file, per locale. EN wired for Phase 1; the other
 // locales point at their native production docs for Phase 2.
 const BASE = process.env.INVESTOR_DOCS_SOURCE_DIR || 'docs/get-ready/investor-material';
+// The default sources are private docs, read from the docs root (5.653); an absolute
+// INVESTOR_DOCS_SOURCE_DIR is used as given.
+const DOCS_ROOT = resolveDocsRoot(ROOT);
+if (DOCS_ROOT.bad) {
+  console.error(
+    `DIBOAS_DOCS_DIR points at ${DOCS_ROOT.bad}, which does not exist — nothing written.`
+  );
+  process.exit(1);
+}
+const at = makeDocsResolver(ROOT, DOCS_ROOT.dir);
 const SLUG_SOURCES = {
   en: {
     'investment-summary': `${BASE}/investor-page-en/01a_diboas_investment_summary_EN.md`,
@@ -233,7 +244,7 @@ function parse(md, rel = '(source)') {
 }
 
 const sources = SLUG_SOURCES[locale] || SLUG_SOURCES.en;
-const missing = Object.entries(sources).filter(([, rel]) => !existsSync(resolve(ROOT, rel)));
+const missing = Object.entries(sources).filter(([, rel]) => !existsSync(at(rel)));
 if (missing.length) {
   for (const [slug, rel] of missing) console.error(`  ✗ MISSING source for ${slug}: ${rel}`);
   console.error(
@@ -244,7 +255,7 @@ if (missing.length) {
 }
 const docs = {};
 for (const [slug, rel] of Object.entries(sources)) {
-  const path = resolve(ROOT, rel);
+  const path = at(rel);
   const substituted = substituteTokens(readFileSync(path, 'utf8'), FIGURES, resolutionLocale);
   const blocks = parse(substituted.text, rel);
   docs[slug] = { blocks };
