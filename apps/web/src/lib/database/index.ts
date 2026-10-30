@@ -1,4 +1,4 @@
-export { sql, rawSql, pingDatabase } from './client';
+export { sql, pingDatabase } from './client';
 export type { IDatabaseClient } from './client';
 export type {
   WaitlistEntryRow,

@@ -195,13 +195,17 @@ pnpm --filter web build-storybook  # Build Storybook for deployment
 ### Database
 
 ```bash
-pnpm --filter web db:migrate      # Run database migrations
-pnpm --filter web db:status       # Check migration status
-pnpm --filter sandbox db:migrate  # Same for the Practice app's own database
+pnpm --filter web db:status            # Read-only: names the target database, lists applied / pending
+pnpm --filter web db:migrate           # Prints the plan; applies NOTHING
+pnpm --filter web db:migrate --yes     # Applies exactly that plan
+pnpm --filter sandbox db:status        # The same three for the Practice app's own database
 ```
 
 The migration files are **private**: they live only in `../diboas-docs/ops/db-migrations/{web,sandbox}/`, never in
-this repository, and the runners stop when that folder is missing. Add one through a PR there (`ops/README.md`).
+this repository. One runner (`scripts/lib/migrate-runner.mjs`) serves both apps and refuses, before any write, a
+missing folder, a checksum mismatch, a docs checkout off `main`, a tracking-table name mismatch, a re-run of an older
+file, or a multi-statement file. Website `001`–`014` were applied by hand and are never re-run. Add one through a PR
+there (`ops/README.md`).
 
 ### Production
 

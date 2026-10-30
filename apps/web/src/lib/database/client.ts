@@ -17,8 +17,6 @@ import { Logger } from '@/lib/monitoring/Logger';
 export interface IDatabaseClient {
   sql(strings: TemplateStringsArray, ...values: unknown[]): Promise<Record<string, unknown>[]>;
 
-  rawSql(query: string): Promise<Record<string, unknown>[]>;
-
   pingDatabase(): Promise<boolean>;
 }
 
@@ -70,17 +68,6 @@ export function sql(
   ...values: unknown[]
 ): Promise<Record<string, unknown>[]> {
   return withTimeout(getSql()(strings, ...values));
-}
-
-/**
- * Execute a raw SQL string (for migrations and DDL).
- * Not for user input — only for trusted SQL from migration files.
- */
-export async function rawSql(query: string): Promise<Record<string, unknown>[]> {
-  const db = getSql();
-  // Wrap the raw string as a TemplateStringsArray to satisfy the neon driver
-  const strings = Object.assign([query], { raw: [query] }) as TemplateStringsArray;
-  return db(strings);
 }
 
 /**
