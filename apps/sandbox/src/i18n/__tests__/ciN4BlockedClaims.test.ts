@@ -243,7 +243,7 @@ function leaves(value: unknown, path = ''): Array<[string, string]> {
 function scan(
   dir: string,
   owner: Owner
-): { findings: Finding[]; strings: number; unreadable: string[] } {
+): { findings: Finding[]; strings: number; unreadable: string[]; files: string[] } {
   const findings: Finding[] = [];
   const unreadable: string[] = [];
   let strings = 0;
@@ -258,11 +258,17 @@ function scan(
       });
     }
   } else {
-    /* `TRANSLATORS.md` sits beside the locale directories — entries, not names. */
+    /* `TRANSLATORS.md` sits beside the locale directories — entries, not names. A locale's
+       subfolders (`legal/`) are part of its catalogue: they were skipped until 2026-10-31,
+       the same gap the GENIUS wall had (`5.725`). */
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
       if (!entry.isDirectory()) continue;
       const localeDir = join(dir, entry.name);
-      for (const f of readdirSync(localeDir).filter((f) => f.endsWith('.json'))) {
+      const jsons = (readdirSync(localeDir, { recursive: true }) as string[])
+        .map((f) => f.replace(/\\/g, '/'))
+        .filter((f) => f.endsWith('.json'))
+        .sort();
+      for (const f of jsons) {
         files.push({
           path: join(localeDir, f),
           ref: `${entry.name}/${f.replace(/\.json$/, '')}`,
@@ -294,7 +300,7 @@ function scan(
         });
     }
   }
-  return { findings, strings, unreadable };
+  return { findings, strings, unreadable, files: files.map((f) => f.ref) };
 }
 
 const webapp = scan(SANDBOX_DIR, OWNER.WEBAPP);
@@ -504,6 +510,11 @@ describe('CI-N4 · the detector itself, before any zero it reports is believed',
   it('should have actually read both catalogues — an empty scan proves nothing', () => {
     expect(webapp.strings, 'the sandbox catalogue scan was empty').toBeGreaterThan(1_000);
     expect(website.strings, 'the website catalogue scan was empty').toBeGreaterThan(10_000);
+  });
+
+  it('should read every website file, the legal pages in their subfolder included', () => {
+    for (const locale of ['en', 'pt-BR', 'es', 'de'])
+      expect(website.files, locale).toContain(`${locale}/legal/privacy`);
   });
 
   it('should fail on a webapp catalogue it cannot parse, never skip it (PB-3)', () => {
