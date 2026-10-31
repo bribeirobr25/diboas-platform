@@ -2893,6 +2893,7 @@ const CI_REHEARSAL = {
   'e2e.yml#e2e': 'local',
   'e2e.yml#sandbox-harness': 'local',
   'lighthouse.yml#lighthouse': 'local',
+  'pr-record.yml#record': 'local',
   'security.yml#secrets':
     'remote-only: gitleaks-action scans the pushed history; scripts/secrets-scan-staged.sh covers staged files only',
   'security.yml#audit': 'local',

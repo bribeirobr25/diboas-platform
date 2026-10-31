@@ -13,7 +13,8 @@
 > is mechanical and executable; Parts B–H are review-time. Rows marked **⚙** are mechanisable and
 > should be scripted rather than judged.
 >
-> **Where the record goes:** the return block in the commit body or PR description; findings in
+> **Where the record goes:** the return block in the PR description (checked on every pull request
+> by `PR-RECORD`, `engineering-gates.md`, since 2026-10-31) or the commit body; findings in
 > `docs/audit/PENDING_ALL.md` with ids claimed per F3; any narrative write-up in `docs/audit/`.
 >
 > **Owner:** engineering. **Re-audited** whenever an authority it routes to changes, or when a

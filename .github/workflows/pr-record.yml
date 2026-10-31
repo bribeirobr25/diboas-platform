@@ -1,0 +1,30 @@
+name: PR record
+# PR-RECORD (register 5.727): every pull request body carries the increment-review record
+# (docs/tech/increment-review-gate.md § Return block). Re-runs when the body is edited.
+# The body reaches the script only through an environment variable, never interpolated into
+# the shell, so a crafted body cannot run commands. Rehearse locally with
+# `node scripts/check-pr-record.mjs --file <body.md>`.
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-record-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - run: node scripts/check-pr-record.mjs
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_HEAD: ${{ github.event.pull_request.head.ref }}
