@@ -494,8 +494,18 @@ function checkRegister() {
     'NOT-STARTED',
     'DEFERRED',
   ]);
-  const idxPairs = [...s.matchAll(/^>\s+(?:(\d+\.\d+)\s+([A-Z][A-Z-]*)\s*)+$/gm)].flatMap((m) =>
-    [...m[0].matchAll(/(\d+\.\d+)\s+([A-Z][A-Z-]*)/g)].map((x) => [x[1], x[2]])
+  /* Inside the BLOCK-A region any letter case is READ, so a lowercase status is reported as
+     outside the vocabulary; an uppercase-only pattern dropped its whole line and blamed six
+     ids as "not indexed" (2026-10-31, the `5.711` shape in the status index). The region ends
+     where the lowercase kind index begins; without the marker the uppercase pattern stays. */
+  const aStart = s.indexOf('BLOCK-A STATUS INDEX');
+  const kStart = s.indexOf('BLOCK-K KIND INDEX');
+  const region = aStart < 0 ? s : s.slice(aStart, kStart > aStart ? kStart : undefined);
+  const word = aStart < 0 ? '[A-Z][A-Z-]*' : '[A-Za-z][A-Za-z-]*';
+  const idxPairs = [
+    ...region.matchAll(new RegExp(`^>\\s+(?:(\\d+\\.\\d+)\\s+(${word})\\s*)+$`, 'gm')),
+  ].flatMap((m) =>
+    [...m[0].matchAll(new RegExp(`(\\d+\\.\\d+)\\s+(${word})`, 'g'))].map((x) => [x[1], x[2]])
   );
   const idx = new Map(idxPairs);
   /* ⛑ "Every claim indexed exactly once" is now checked (PB-5): duplicate

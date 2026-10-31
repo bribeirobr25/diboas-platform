@@ -426,6 +426,25 @@ describe('REGISTER-KIND · every register item declares a kind (founder decision
     expect(r.out).not.toMatch(/NO KIND DECLARED/);
   }, 20_000);
 
+  /* The same shape in the STATUS index (D2 similar-cases search, 2026-10-31). */
+  it('should FAIL a lowercase status as outside the vocabulary, blaming only its own id', () => {
+    const r = repo();
+    r.put(
+      'docs/audit/PENDING_ALL.md',
+      kindRegister(
+        ['5.700   defect         5.701   work'],
+        'KINDS 2   ·   defect 1 · work 1'
+      ).replace(
+        '>   5.700   OPEN           5.701   CLOSED',
+        '>   5.700   open           5.701   CLOSED'
+      )
+    );
+    const out = r.run('register');
+    expect(out.code).toBe(1);
+    expect(out.out).toMatch(/STATUS OUTSIDE VOCABULARY: 5\.700/);
+    expect(out.out).not.toMatch(/NOT INDEXED/);
+  }, 20_000);
+
   it('should FAIL when the published kind totals disagree with the entries', () => {
     const r = check(['5.700   defect         5.701   work'], 'KINDS 2   ·   defect 2 · work 0');
     expect(r.code).toBe(1);
