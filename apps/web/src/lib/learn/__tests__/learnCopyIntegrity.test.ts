@@ -32,13 +32,20 @@ const GUARANTEE = /guarant|garant/i;
 const SAFETY_PROMISE = new RegExp(
   [
     "\\b(?:risk[- ]?free(?! rate)|riskless|free of risk|zero[- ]risk|no risk|without (?:any )?risk|sure[- ](?:thing|bet)|can(?:no|'|’)t lose|can never lose|won(?:'|’)t lose|assured (?:return|income|profit)|safe (?:return|bet|investment)|(?:your|the) money is safe)\\b",
-    '(?:sem risco|risco zero|zero risco|livre de risco|(?:retorno|lucro|ganho) certo|rendimento seguro|não tem como perder|(?:aposta|investimento) segur[oa]|(?:seu|o) dinheiro (?:está|fica) seguro)',
-    '(?:sin riesgo|riesgo cero|cero riesgo|libre de riesgo|(?:rentabilidad|ganancia) segura|(?:beneficio|rendimiento) seguro|no puedes perder|(?:apuesta|inversión) segura|(?:tu|el) dinero (?:está|queda) seguro)',
-    '(?:risikofrei|risikolos|null[- ]risiko|kein risiko|ohne risiko|sichere (?:rendite|geldanlage|anlage)|sicherer gewinn|kannst nicht verlieren|(?:dein|ihr|das) (?:geld|vermögen|erspartes) (?:(?:ist|bleibt) )?sicher)',
+    '(?<!\\p{L})(?:sem risco|risco zero|zero risco|livre de risco|(?:retorno|lucro|ganho) certo|rendimento seguro|não tem como perder|(?:aposta|investimento) segur[oa]|(?:seu|o) dinheiro (?:está|fica) seguro)(?!\\p{L})',
+    '(?<!\\p{L})(?:sin riesgo|riesgo cero|cero riesgo|libre de riesgo|(?:rentabilidad|ganancia) segura|(?:beneficio|rendimiento) seguro|no puedes perder|(?:apuesta|inversión) segura|(?:tu|el) dinero (?:está|queda) seguro)(?!\\p{L})',
+    '(?<!\\p{L})(?:risikofrei|risikolos|null[- ]risiko|kein risiko|ohne risiko|sichere (?:rendite|geldanlage|anlage)|sicherer gewinn|kannst nicht verlieren|(?:dein|ihr|das) (?:geld|vermögen|erspartes) (?:(?:ist|bleibt) )?sicher)(?!\\p{L})',
   ].join('|'),
-  'gi'
+  // Whole words only: "Dein Geld sicherst du selbst" (you secure it yourself) is no promise.
+  'giu'
 );
-/** A negation before the phrase, in the same sentence, makes it an honest warning. */
+/**
+ * A negation before the phrase, in the same sentence, makes it an honest warning.
+ * ⚑ SCOPE LIMIT, stated: a negation INSIDE the phrase is not read, so "es beseitigt kein
+ * Risiko" (it removes no risk) still matches. The check reads only share lines, which are
+ * reviewed copy; run over every string (2026-10-31) it matched 9 of 13,435, that one plus
+ * the clearing-debt talk's deliberate "guaranteed ~25% return, zero risk" (avoided interest).
+ */
 const NEGATION =
   /\b(?:no|not|never|nothing|none|isn(?:'|’)t|nenhum|nenhuma|nunca|não|ningún|ninguna|nada|kein|keine|keiner|nie|niemals|nicht)\b[^.!?]*$/i;
 
@@ -115,6 +122,7 @@ describe('learn copy integrity (5.655, 5.656, 5.703)', () => {
       'Ninguna inversión es libre de riesgo.',
       'No risky bets here.',
       'the risk-free rate of a treasury bill',
+      'Dein Geld sicherst du selbst.',
     ])
       expect(promisesSafety(honest), honest).toBe(false);
   });

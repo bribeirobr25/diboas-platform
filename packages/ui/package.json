@@ -12,9 +12,7 @@
     "dev": "echo \"@diboas/ui dev mode - watching for changes...\" && sleep infinity",
     "lint": "eslint src --ext .ts,.tsx",
     "type-check": "tsc --noEmit",
-    "test": "echo \"No tests configured\"",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "test": "echo \"No tests configured\""
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",

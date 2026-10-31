@@ -17,8 +17,8 @@
  */
 
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 const REPO = resolve(__dirname, '../../../../..');
@@ -262,5 +262,59 @@ describe('5.713 · a gate change is never answered by a cached test pass', () =>
       expect.arrayContaining(['$TURBO_DEFAULT$', '$TURBO_ROOT$/scripts/**'])
     );
     expect(turbo.tasks.test.passThroughEnv).toContain('DIBOAS_DOCS_DIR');
+  });
+});
+
+/* ------------------------------------------------------------- 5.718 */
+
+/** Commands a script may start that live on the machine, not in `node_modules`. */
+const SYSTEM_COMMANDS = new Set([
+  'node',
+  'pnpm',
+  'npm',
+  'npx',
+  'bash',
+  'sh',
+  'echo',
+  'sleep',
+  'rm',
+  'cp',
+  'mkdir',
+  'du',
+  'git',
+  'cd',
+  'test',
+  'true',
+  'exit',
+  'gitleaks',
+]);
+
+describe('5.718 · every package script starts a tool that is installed', () => {
+  it('should resolve the first command of every script segment in every workspace', () => {
+    const packages = [
+      'package.json',
+      ...['apps', 'packages'].flatMap((d) =>
+        readdirSync(join(REPO, d)).map((n) => `${d}/${n}/package.json`)
+      ),
+    ].filter((f) => existsSync(join(REPO, f)));
+    expect(packages.length).toBeGreaterThan(6);
+    const missing: string[] = [];
+    for (const file of packages) {
+      const pkg = JSON.parse(readFileSync(join(REPO, file), 'utf8')) as {
+        scripts?: Record<string, string>;
+      };
+      const dir = dirname(join(REPO, file));
+      for (const [name, command] of Object.entries(pkg.scripts ?? {}))
+        for (const segment of command.split(/&&|\|\||;|\|/)) {
+          const bin = segment
+            .trim()
+            .replace(/^(?:[A-Z_]+=\S+\s+)+/, '')
+            .split(/\s+/)[0];
+          if (!bin || SYSTEM_COMMANDS.has(bin) || /^[.$]/.test(bin)) continue;
+          if (![dir, REPO].some((d) => existsSync(join(d, 'node_modules', '.bin', bin))))
+            missing.push(`${file} → "${name}" starts \`${bin}\`, which is not installed`);
+        }
+    }
+    expect(missing).toEqual([]);
   });
 });
