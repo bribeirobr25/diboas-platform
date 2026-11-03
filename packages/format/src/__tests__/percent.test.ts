@@ -47,9 +47,26 @@ describe('formatPercent · no space before % in any locale (P8)', () => {
     }
   });
 
+  it.each(LOCALES)(
+    'should drop the space in compact and scientific notation too, where Intl labels the sign a unit (%s)',
+    (locale) => {
+      /* Audit 2026-11-03: the space survived `notation: 'compact'` ("7 %" in de). */
+      for (const notation of ['compact', 'scientific', 'engineering'] as const) {
+        for (const value of [0.07, 0.0039, 12.345, 1234.5]) {
+          const out = formatPercent(value, locale, { notation });
+          expect(out, `${locale} ${notation} ${value}`).not.toMatch(/\s%/u);
+          expect(out, `${locale} ${notation} ${value}`).toMatch(/%$/u);
+        }
+      }
+    }
+  );
+
   it('should prove the de/es space exists in Intl, so the tests above are not vacuous', () => {
     expect(new Intl.NumberFormat('de', { style: 'percent' }).format(0.07)).toMatch(/7\s%/u);
     expect(new Intl.NumberFormat('es', { style: 'percent' }).format(0.07)).toMatch(/7\s%/u);
+    expect(
+      new Intl.NumberFormat('de', { style: 'percent', notation: 'compact' }).format(0.07)
+    ).toMatch(/7\s%/u);
   });
 });
 
@@ -68,6 +85,27 @@ describe('findPercentFormatViolations · the one rule both catalogue guards appl
     ['a credit card at 20-something percent', 'word'],
     ['el revolving del 20 y pico por ciento', 'word'],
     ['a 3 ou 4 por cento', 'word'],
+    /* Audit 2026-11-03: every spelling below rendered "7 %" or a spelled-out word and
+       passed the first version of the rule. */
+    ['{v, number, ::%}', 'icu'],
+    ['{v, number, ::%x100}', 'icu'],
+    ['{v, number, percent}', 'icu'],
+    ['{rate, number, ::percent .00}', 'icu'],
+    ['{n, plural, other {# %}}', 'space'],
+    ['{n, plural, other {# Prozent}}', 'word'],
+    ['**7** %', 'space'],
+    ['<b>{rate}</b> %', 'space'],
+    ['7&nbsp;%', 'space'],
+    ['7 – %', 'space'],
+    ['7–%', 'space'],
+    ['7\u2011%', 'space'],
+    ['7½ %', 'space'],
+    ['100 por cien', 'word'],
+    ['7 porciento', 'word'],
+    ['7 porcento', 'word'],
+    ['7 pct', 'word'],
+    ['7 v. H.', 'word'],
+    ['7 PROZENT', 'word'],
   ] as const)('should flag %j as a %s violation', (text, kind) => {
     expect(findPercentFormatViolations(text).map((v) => v.kind)).toContain(kind);
   });
@@ -86,6 +124,16 @@ describe('findPercentFormatViolations · the one rule both catalogue guards appl
     'em 1–3 pontos percentuais por ano',
     'en 1–3 puntos porcentuales al año',
     'width="100%"',
+    /* Audit 2026-11-03: prose that merely FOLLOWS a number is not a figure. */
+    'Mit 30 sind zehn Prozent viel',
+    'Ab 18 Jahren zehn Prozent',
+    'At 25 almost ten percent',
+    'Talk 2 Ten percent',
+    'um 3 Prozent-Punkte',
+    'um 3 Prozentpunkte',
+    '{years, plural, one {# year} other {# years}}',
+    '{apy, number}%/yr',
+    '{v, number, ::currency/EUR}',
   ])('should not flag %j', (text) => {
     expect(findPercentFormatViolations(text)).toEqual([]);
   });

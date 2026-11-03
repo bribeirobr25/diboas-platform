@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
@@ -39,11 +39,24 @@ import { describe, expect, it } from 'vitest';
  *
  * Paths are read with `node:fs`, never imported, so this carries none of the
  * `dist/`-resolution hazard `5.452` records.
+ *
+ * ⛑ 2026-11-03 (`5.729` audit): the package roots were a HAND-WRITTEN list of three,
+ * so the new tested workspace `@diboas/format` was outside the gate the day it shipped.
+ * They are now DERIVED: every `packages/<x>` whose `test` script runs vitest,
+ * plus `apps/sandbox`. A new tested package is in scope without an edit here.
  */
+const PACKAGES = join(__dirname, '..', '..', '..');
+const TESTED_PACKAGES = readdirSync(PACKAGES).filter((name) => {
+  const manifest = join(PACKAGES, name, 'package.json');
+  if (!existsSync(manifest)) return false;
+  const scripts = (
+    JSON.parse(readFileSync(manifest, 'utf8')) as { scripts?: Record<string, string> }
+  ).scripts;
+  /* A REAL test script runs vitest; `echo "No tests configured"` (packages/ui) is not one. */
+  return /\bvitest\b/.test(scripts?.test ?? '');
+});
 const ROOTS = [
-  join(__dirname, '..', '..', '..', 'defi', 'src'),
-  join(__dirname, '..', '..', '..', 'banking', 'src'),
-  join(__dirname, '..', '..', '..', 'investing', 'src'),
+  ...TESTED_PACKAGES.map((name) => join(PACKAGES, name, 'src')),
   join(__dirname, '..', '..', '..', '..', 'apps', 'sandbox', 'src'),
 ];
 
@@ -558,9 +571,12 @@ describe('VAC-1 · a test must assert something', () => {
      * rather than decorative.
      */
     for (const root of ROOTS) {
-      expect(testFiles(root).length, `no test files found under ${root}`).toBeGreaterThan(3);
+      expect(testFiles(root).length, `no test files found under ${root}`).toBeGreaterThan(0);
     }
-    expect(ROOTS).toHaveLength(4);
+    /* The derivation itself is floored: the four original roots and @diboas/format. */
+    expect(TESTED_PACKAGES).toEqual(
+      expect.arrayContaining(['banking', 'defi', 'investing', 'format'])
+    );
   });
 
   it('should DETECT an assertion-free test — planted positive, before any zero is believed', () => {

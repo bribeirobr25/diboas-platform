@@ -33,6 +33,7 @@ The monorepo uses Turborepo + pnpm workspaces:
 | `packages/banking`   | Event-sourced play ledger + fee math          |
 | `packages/defi`      | Strategy catalog + market-data providers      |
 | `packages/investing` | Jobs split, goals, accrual replay             |
+| `packages/format`    | Percent formatting for both apps ("7%")       |
 | `packages/i18n`      | Internationalization (react-intl, 4 locales)  |
 | `packages/ui`        | Shared design system components               |
 | `packages/email`     | Email service (Resend)                        |

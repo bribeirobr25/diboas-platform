@@ -7,6 +7,9 @@
  * instead of throwing inside the edge renderer.
  */
 
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import ts from 'typescript';
 import { describe, it, expect } from 'vitest';
 import { formatResultCurrency, isPercentShape, isValidToolResultValue } from '../ogUtils';
 
@@ -60,4 +63,38 @@ describe('isPercentShape', () => {
       expect(isPercentShape(value)).toBe(false);
     }
   );
+});
+
+/**
+ * `5.729` — the allowlist only protects the image if the ROUTE uses it. Audit 2026-11-03:
+ * restoring the old inline `PERCENTish` regex (which admitted "200 %") left every test
+ * green, because only `isPercentShape` was tested. Parsed, so a comment cannot satisfy it.
+ */
+describe('the dream OG route validates growth with isPercentShape', () => {
+  const routeFile = join(__dirname, '..', '..', 'dream', 'route.tsx');
+  const source = ts.createSourceFile(
+    routeFile,
+    readFileSync(routeFile, 'utf8'),
+    ts.ScriptTarget.Latest,
+    true,
+    ts.ScriptKind.TSX
+  );
+  const calls: string[] = [];
+  const regexes: string[] = [];
+  const visit = (node: ts.Node): void => {
+    if (ts.isCallExpression(node) && ts.isIdentifier(node.expression)) {
+      calls.push(`${node.expression.text}(${node.arguments.map((a) => a.getText()).join(',')})`);
+    }
+    if (node.kind === ts.SyntaxKind.RegularExpressionLiteral) regexes.push(node.getText());
+    ts.forEachChild(node, visit);
+  };
+  visit(source);
+
+  it('should call isPercentShape on the growth parameter', () => {
+    expect(calls).toContain('isPercentShape(growthRaw)');
+  });
+
+  it('should keep no percent-shape regex of its own', () => {
+    expect(regexes.filter((r) => r.includes('%'))).toEqual([]);
+  });
 });

@@ -1,146 +1,252 @@
-import { readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
 import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
+import { findPercentFormatViolations } from '@diboas/format';
 
 /**
- * `5.729` · THE CLASS GUARD: ONE WAY TO FORMAT A PERCENTAGE.
+ * `5.729` · THE CLASS GUARD: ONE WAY TO FORMAT A PERCENTAGE, IN CODE.
  *
  * **Requirement:** founder ruling 2026-10-31 (decision record
  * `DR-2026-10-31-practice-projection-live-rates-and-percent-format`, P8): "7%", never
- * "7 %". `Intl.NumberFormat(locale, { style: 'percent' })`, react-intl's
- * `formatNumber(…, { style: 'percent' })` and `<FormattedNumber style="percent">` all
- * insert a no-break space before % in de/es. Eight such call sites shipped. The
- * catalogue tests cannot see them (the space is produced at render time), so this check
- * forbids the mechanism itself: percent-style formatting may appear ONLY inside
- * `packages/format`, which removes the space.
+ * "7 %", never "7 percent". `Intl.NumberFormat(locale, { style: 'percent' })`, react-intl's
+ * `formatNumber(…, { style: 'percent' })`, `<FormattedNumber style="percent">` and
+ * `{ style: 'unit', unit: 'percent' }` all insert a no-break space before % in de/es;
+ * eight such call sites shipped. The catalogue tests cannot see them (the space is made at
+ * render time), so this file guards the CODE, in two rules:
  *
- * Scope: source under `apps/web/src`, `apps/sandbox/src` and every `packages/<x>/src`
- * except `packages/format`; tests, stories and fixtures excluded (they may assert raw
- * Intl output on purpose). ICU `{x, number, percent}` / `::percent` skeletons in any
- * translation catalogue are covered too: they format through Intl the same way.
- * Not covered: a style read from a variable (`{ style }`) — none exists today
- * (measured 2026-10-31); a reviewer row covers it.
+ * 1. **No `'percent'` string anywhere in source outside `packages/format`, except as an
+ *    icon name.** Forbidding the literal itself — not only `style: 'percent'` — is what
+ *    catches every spelling the first version missed (audit 2026-11-03): `as const`,
+ *    `satisfies`, parentheses, a ternary, a `const STYLE = 'percent'`, `unit: 'percent'`,
+ *    a computed key. The only legitimate use measured in the repo is the icon name
+ *    (`<LucideIcon name="percent">`, an `…ICON…` map).
+ * 2. **Every string the code writes is held to the same text rule as the catalogues**
+ *    (`findPercentFormatViolations`): string literals, template literals (each `${…}`
+ *    read as a placeholder, so `` `${x} %` `` is seen), and JSX text with its expressions
+ *    (so `{value} %` and `{value}{' '}%` are seen). This covers copy kept in TS files
+ *    (SEO keywords, OG text, config) and ICU strings in `defaultMessage`.
  *
- * ⚑ CODE, NOT TEXT. Each file is PARSED and only a real `style` property or JSX
- * attribute whose value is the string "percent" counts. A comment or a docstring that
- * MENTIONS the forbidden call (the `useFormatters` seam explains why it exists that way)
- * is not a use — a text grep flagged exactly that on its first run.
+ * ⚑ CODE, NOT TEXT. Files are PARSED; a comment or docstring that MENTIONS the forbidden
+ * call is not a use (the `useFormatters` seam explains why it exists that way).
+ *
+ * Scope: `apps/*\/src`, `apps/*\/scripts` (rule 1) and every `packages/<x>/src` except
+ * `packages/format`; tests, specs, stories and e2e excluded (they may assert raw Intl
+ * output on purpose). Rule 2 runs on `src` trees only: `scripts/` print operator logs,
+ * not user-facing copy, and the /market text they generate is checked as DATA by
+ * `apps/web/src/lib/i18n/__tests__/percentFormat.test.ts`.
+ * **Not covered:** a `'percent'` built at run time (`'per' + 'cent'`) — none exists.
  */
 
 const REPO = resolve(__dirname, '../../../../..');
 
-const SOURCE_ROOTS = [
-  'apps/web/src',
-  'apps/sandbox/src',
-  ...readdirSync(join(REPO, 'packages'))
-    .filter((name) => name !== 'format')
-    .map((name) => `packages/${name}/src`),
-];
+const PACKAGE_SRC = readdirSync(join(REPO, 'packages'))
+  .filter((name) => name !== 'format' && existsSync(join(REPO, 'packages', name, 'src')))
+  .map((name) => `packages/${name}/src`);
 
-const EXCLUDED = /(?:__tests__|\.test\.|\.spec\.|\.stories\.|\/test\/|\/fixtures?\/)/;
+const APP_SRC = ['apps/web/src', 'apps/sandbox/src'];
+const APP_SCRIPTS = ['apps/web/scripts', 'apps/sandbox/scripts'].filter((dir) =>
+  existsSync(join(REPO, dir))
+);
 
-const isPercentString = (node: ts.Node | undefined): boolean =>
-  !!node &&
-  (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) &&
-  node.text === 'percent';
+const EXCLUDED = /(?:__tests__|\.test\.|\.spec\.|\.stories\.|\/e2e\/)/;
+const SOURCE_FILE = /\.(?:ts|tsx|js|jsx|mjs|cjs|mts|cts)$/;
 
-const nameOf = (name: ts.PropertyName | ts.JsxAttributeName): string | null =>
-  ts.isIdentifier(name) || ts.isStringLiteral(name) ? name.text : null;
+function files(dir: string): string[] {
+  /* No try/catch: a root that cannot be read must FAIL, not read as "nothing found". */
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory())
+      return ['node_modules', 'dist', '.next'].includes(entry.name) ? [] : files(full);
+    return SOURCE_FILE.test(entry.name) && !EXCLUDED.test(relative(REPO, full)) ? [full] : [];
+  });
+}
 
-/**
- * Every `style: 'percent'` object property and every `style="percent"` /
- * `style={'percent'}` JSX attribute in `text`, by syntax.
- */
-function percentStyleUses(text: string, fileName: string): number {
+function parse(text: string, fileName: string): ts.SourceFile {
   const kind = /\.(?:tsx|jsx)$/.test(fileName) ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
-  const source = ts.createSourceFile(fileName, text, ts.ScriptTarget.Latest, true, kind);
-  let uses = 0;
+  return ts.createSourceFile(fileName, text, ts.ScriptTarget.Latest, true, kind);
+}
+
+const nameOf = (name: ts.Node | undefined): string | null =>
+  name && (ts.isIdentifier(name) || ts.isStringLiteral(name)) ? name.text : null;
+
+/** The one legitimate `'percent'`: an icon name. */
+function isIconName(literal: ts.Node): boolean {
+  const parent = literal.parent;
+  if (ts.isJsxAttribute(parent)) return nameOf(parent.name) === 'name';
+  if (ts.isPropertyAssignment(parent)) {
+    /* `{ fees: 'percent' }` inside a `const …ICON… = {…}` map. */
+    let node: ts.Node = parent.parent;
+    while (node && !ts.isVariableDeclaration(node) && !ts.isSourceFile(node)) node = node.parent;
+    return !!node && ts.isVariableDeclaration(node) && /icon/i.test(nameOf(node.name) ?? '');
+  }
+  return false;
+}
+
+/** Rule 1: every `'percent'` literal that is not an icon name. Returns their lines. */
+function percentLiterals(text: string, fileName: string): number[] {
+  const source = parse(text, fileName);
+  const lines: number[] = [];
   const visit = (node: ts.Node): void => {
     if (
-      ts.isPropertyAssignment(node) &&
-      nameOf(node.name) === 'style' &&
-      isPercentString(node.initializer)
-    )
-      uses++;
-    if (ts.isJsxAttribute(node) && nameOf(node.name) === 'style') {
-      const init = node.initializer;
-      if (isPercentString(init)) uses++;
-      else if (init && ts.isJsxExpression(init) && isPercentString(init.expression)) uses++;
+      (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) &&
+      node.text === 'percent' &&
+      !isIconName(node)
+    ) {
+      lines.push(source.getLineAndCharacterOfPosition(node.getStart()).line + 1);
     }
     ts.forEachChild(node, visit);
   };
   visit(source);
-  return uses;
-}
-/** ICU number skeleton or style inside a message: `{x, number, percent}`, `::percent`. */
-const ICU_PERCENT = /\{\s*[\w.]+\s*,\s*number\s*,\s*(?:percent|::[^}]*percent)/u;
-
-function files(dir: string, test: (name: string) => boolean): string[] {
-  let entries;
-  try {
-    entries = readdirSync(dir, { withFileTypes: true });
-  } catch {
-    return [];
-  }
-  return entries.flatMap((entry) => {
-    const full = join(dir, entry.name);
-    if (entry.isDirectory()) return entry.name === 'node_modules' ? [] : files(full, test);
-    return test(entry.name) ? [full] : [];
-  });
+  return lines;
 }
 
-const sourceFiles = SOURCE_ROOTS.flatMap((root) =>
-  files(join(REPO, root), (name) => /\.(?:ts|tsx|js|jsx|mjs)$/.test(name))
-).filter((file) => !EXCLUDED.test(relative(REPO, file)));
+/** JSX reads whitespace that contains a line break as nothing; other whitespace stays. */
+const jsxText = (text: string) => text.replace(/\s*\n\s*/g, '');
 
-const catalogueFiles = [
-  ...files(join(REPO, 'packages/i18n/translations'), (n) => n.endsWith('.json')),
-  ...files(join(REPO, 'apps/sandbox/src/i18n/messages'), (n) => n.endsWith('.json')),
-];
+/**
+ * Rule 2's input: every string the code writes, as text a reader would see, with each
+ * interpolation shown as `{x}` so the shared rule can see "placeholder, space, %".
+ */
+function writtenStrings(text: string, fileName: string): string[] {
+  const source = parse(text, fileName);
+  const out: string[] = [];
+  const exprText = (expr: ts.Expression | undefined): string =>
+    expr && (ts.isStringLiteral(expr) || ts.isNoSubstitutionTemplateLiteral(expr))
+      ? expr.text
+      : '{x}';
+  const visit = (node: ts.Node): void => {
+    if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) return;
+    if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) out.push(node.text);
+    if (
+      ts.isBinaryExpression(node) &&
+      node.operatorToken.kind === ts.SyntaxKind.PlusToken &&
+      !(
+        ts.isBinaryExpression(node.parent) &&
+        node.parent.operatorToken.kind === ts.SyntaxKind.PlusToken
+      )
+    ) {
+      /* The outermost `a + ' %' + b` chain, read left to right as one string. */
+      const operands: ts.Expression[] = [];
+      const flatten = (e: ts.Expression): void => {
+        if (ts.isBinaryExpression(e) && e.operatorToken.kind === ts.SyntaxKind.PlusToken) {
+          flatten(e.left);
+          flatten(e.right);
+        } else operands.push(e);
+      };
+      flatten(node);
+      if (operands.some((e) => ts.isStringLiteral(e) || ts.isNoSubstitutionTemplateLiteral(e))) {
+        out.push(operands.map(exprText).join(''));
+      }
+    }
+    if (ts.isTemplateExpression(node)) {
+      out.push(node.head.text + node.templateSpans.map((s) => `{x}${s.literal.text}`).join(''));
+    }
+    if (ts.isJsxElement(node) || ts.isJsxFragment(node)) {
+      out.push(
+        node.children
+          .map((child) =>
+            ts.isJsxText(child)
+              ? jsxText(child.text)
+              : ts.isJsxExpression(child)
+                ? exprText(child.expression)
+                : '<el>'
+          )
+          .join('')
+      );
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(source);
+  return out;
+}
 
-describe('5.729 · percent-style formatting lives only in @diboas/format', () => {
-  it('should find no percent-style Intl / react-intl formatting outside packages/format', () => {
-    const found = sourceFiles
-      .filter((file) => percentStyleUses(readFileSync(file, 'utf8'), file) > 0)
-      .map((file) => relative(REPO, file));
+const read = (file: string) => readFileSync(file, 'utf8');
+const rule1Files = [...APP_SRC, ...APP_SCRIPTS, ...PACKAGE_SRC].flatMap((root) =>
+  files(join(REPO, root))
+);
+const rule2Files = [...APP_SRC, ...PACKAGE_SRC].flatMap((root) => files(join(REPO, root)));
+
+describe('5.729 · percent formatting lives only in @diboas/format', () => {
+  it('should find no "percent" string outside packages/format except icon names (rule 1)', () => {
+    const found = rule1Files.flatMap((file) =>
+      percentLiterals(read(file), file).map((line) => `${relative(REPO, file)}:${line}`)
+    );
     expect(found).toEqual([]);
   });
 
-  it('should find no ICU percent style in any translation catalogue', () => {
-    const found = catalogueFiles
-      .filter((file) => ICU_PERCENT.test(readFileSync(file, 'utf8')))
-      .map((file) => relative(REPO, file));
+  it('should find no string in code that writes a percentage any other way than "7%" (rule 2)', () => {
+    const found = rule2Files.flatMap((file) =>
+      writtenStrings(read(file), file).flatMap((s) =>
+        findPercentFormatViolations(s).map((v) => `${relative(REPO, file)}: ${v.kind} "${v.match}"`)
+      )
+    );
     expect(found).toEqual([]);
   });
 
-  it('should recognise every spelling it forbids, and not an icon named "percent"', () => {
-    /* A detector is only as good as its patterns; prove them on real shapes. */
+  it('should recognise every spelling rule 1 forbids, and not an icon named "percent"', () => {
+    /* Each spelling the audit of 2026-11-03 planted past the first version, plus the originals. */
     for (const [planted, file] of [
       ["intl.formatNumber(x, { style: 'percent' })", 'a.ts'],
       ['new Intl.NumberFormat(l, { style: "percent", maximumFractionDigits: 2 })', 'b.ts'],
       ["new Intl.NumberFormat(l, { 'style': `percent` })", 'c.ts'],
       ['const x = <FormattedNumber value={v} style="percent" />;', 'd.tsx'],
       ["const x = <FormattedNumber value={v} style={'percent'} />;", 'e.tsx'],
+      ["const o = { style: 'percent' as const };", 'f.ts'],
+      ["const o = { style: ('percent') };", 'g.ts'],
+      ["const o = { ['style']: 'percent' };", 'h.ts'],
+      ["const style = 'percent'; const o = { style };", 'i.ts'],
+      ["const o = { style: p ? 'percent' : 'decimal' };", 'j.ts'],
+      ["const x = <FormattedNumber style={'percent' as const} />;", 'k.tsx'],
+      ["const o = { style: 'unit', unit: 'percent' };", 'l.ts'],
+      ["const o = { style: 'percent' } satisfies Intl.NumberFormatOptions;", 'm.ts'],
+      ["module.exports = { style: 'percent' };", 'n.cjs'],
     ] as const) {
-      expect(percentStyleUses(planted, file), planted).toBe(1);
+      expect(percentLiterals(planted, file).length, planted).toBe(1);
     }
-    /* Mentions and look-alikes are not uses. */
-    expect(percentStyleUses("// never call formatNumber(x, { style: 'percent' })", 'f.ts')).toBe(0);
-    expect(
-      percentStyleUses("/** `{ style: 'percent' }` puts a space in de */ const a = 1;", 'g.ts')
-    ).toBe(0);
-    expect(percentStyleUses('const x = <LucideIcon name="percent" size={18} />;', 'h.tsx')).toBe(0);
-    expect(percentStyleUses("const s = { style: 'currency' };", 'i.ts')).toBe(0);
-    expect(ICU_PERCENT.test('"share": "{share, number, percent} to {goal}"')).toBe(true);
-    expect(ICU_PERCENT.test('"x": "{rate, number, ::percent .00}"')).toBe(true);
-    expect(ICU_PERCENT.test('"apy": "{apy, number}%/yr"')).toBe(false);
+    /* Mentions and icon names are not uses. */
+    expect(percentLiterals("// never call formatNumber(x, { style: 'percent' })", 'o.ts')).toEqual(
+      []
+    );
+    expect(percentLiterals("/** `{ style: 'percent' }` */ const a = 1;", 'p.ts')).toEqual([]);
+    expect(percentLiterals('const x = <LucideIcon name="percent" size={18} />;', 'q.tsx')).toEqual(
+      []
+    );
+    expect(percentLiterals("const SOURCE_ICON = { fees: 'percent' };", 'r.ts')).toEqual([]);
+    expect(percentLiterals("const o = { style: 'currency' };", 's.ts')).toEqual([]);
+  });
+
+  it('should see a percentage written in code the way the reader sees it (rule 2)', () => {
+    const violations = (code: string, file = 'x.tsx') =>
+      writtenStrings(code, file).flatMap((s) => findPercentFormatViolations(s));
+    for (const planted of [
+      "const k = ['save 10 percent'];",
+      'const s = `${rate} %`;',
+      "const s = rate + ' %';",
+      'const e = <span>{rate} %</span>;',
+      "const e = <span>{rate}{' '}%</span>;",
+      "const m = { defaultMessage: '{v, number, percent}' };",
+    ]) {
+      expect(violations(planted).length, planted).toBeGreaterThan(0);
+    }
+    for (const fine of [
+      'const s = `${rate}%`;',
+      'const e = <span>{rate}%</span>;',
+      'const e = (\n  <span>\n    {rate}\n    %\n  </span>\n);',
+      '// a comment saying 7 % is not written anywhere',
+      "import x from './10 percent';",
+    ]) {
+      expect(violations(fine), fine).toEqual([]);
+    }
   });
 
   it('should have scanned the real trees, so an empty result means something', () => {
-    expect(sourceFiles.length).toBeGreaterThan(500);
-    expect(sourceFiles.some((f) => f.includes('/apps/sandbox/src/'))).toBe(true);
-    expect(sourceFiles.some((f) => f.includes('/packages/defi/src/'))).toBe(true);
-    expect(catalogueFiles.length).toBeGreaterThan(100);
+    for (const root of [...APP_SRC, ...PACKAGE_SRC]) {
+      expect(files(join(REPO, root)).length, root).toBeGreaterThan(0);
+    }
+    expect(PACKAGE_SRC).toEqual(expect.arrayContaining(['packages/defi/src', 'packages/ui/src']));
+    expect(APP_SCRIPTS).toContain('apps/web/scripts');
+    expect(rule1Files.some((f) => f.includes('/apps/web/scripts/market-refresh/'))).toBe(true);
+    expect(rule2Files.length).toBeGreaterThan(500);
   });
 });

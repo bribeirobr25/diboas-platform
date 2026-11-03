@@ -27,7 +27,12 @@ const ONLY_WHITESPACE = /^\s+$/u;
  *
  * The digits, grouping, decimal separator, sign and fraction digits are exactly
  * what `Intl` produces for the locale; only a whitespace literal adjacent to the
- * percent sign is dropped.
+ * part that carries the `%` is dropped.
+ *
+ * ⚑ The `%` is not always a `percentSign` part: with `notation: 'compact'` Intl
+ * labels it `unit` ("7 %" in de-DE, "1,2 mil %" in es-ES — audit 2026-11-03).
+ * So "touches the percent" is decided by the neighbouring part's VALUE, never by
+ * its type.
  */
 export function formatPercent(
   fraction: number,
@@ -37,51 +42,88 @@ export function formatPercent(
   const parts = new Intl.NumberFormat(locale, { ...options, style: 'percent' }).formatToParts(
     fraction
   );
+  const carriesPercent = (index: number) => parts[index]?.value.includes('%') ?? false;
   return parts
     .filter((part, index) => {
       if (part.type !== 'literal' || !ONLY_WHITESPACE.test(part.value)) return true;
-      const touchesPercent =
-        parts[index - 1]?.type === 'percentSign' || parts[index + 1]?.type === 'percentSign';
-      return !touchesPercent;
+      return !(carriesPercent(index - 1) || carriesPercent(index + 1));
     })
     .map((part) => part.value)
     .join('');
 }
 
 /**
- * A number or an ICU placeholder (`7`, `0,39`, `{rate}`) followed by a space or
- * a hyphen and then `%`. Hyphen included: German "25-%-Karte" is the same
- * defect in a compound ("25%-Karte" is the ruled form, as in "Die 10%-Regel").
+ * What may stand right before a percentage: a digit of any script (`7`, `½`), an
+ * ICU placeholder's closing brace (`{rate}`), or the `#` of an ICU plural branch
+ * (`{n, plural, other {# %}}`).
  */
-const SPACE_BEFORE_PERCENT = /(?:\d|\})[\s-]+%/gu;
+const FIGURE_END = String.raw`[\p{N}}#]`;
 
 /**
- * A number or an ICU placeholder followed — directly or after at most two short
- * words ("20-something percent", "20 y pico por ciento") — by the spelled-out
- * word for percent in one of the four locales.
- *
- * Whole words only, so "percentage points", "Prozentpunkte" and "pontos percentuais"
- * (a different unit) never match. Also excluded, because it is not a figure:
- * the bare word with no digit before it ("Ten percent", "zwanzig Prozent" —
- * spelled-out prose stays prose, P8).
+ * Markup that can sit between the figure and the sign without changing what is
+ * read: Markdown emphasis closers (`**7** %`, used by the Learn talks), a closing
+ * HTML tag (`<b>{rate}</b> %`).
  */
-const DIGIT_THEN_PERCENT_WORD =
-  /(?:\d|\})[\s-]*(?:[\p{L}]+[\s-]+){0,2}(?:per ?cent|prozent|por ciento|por cento)(?![\p{L}])/giu;
+const CLOSING_MARKUP = String.raw`(?:\*\*|__|\*|_|</[a-zA-Z][\w-]*>)?`;
+
+/**
+ * A space of any kind, an HTML no-break space entity, or a dash of any kind
+ * (hyphen, U+2010–U+2015, U+2212) between the figure and `%`. Dashes are included
+ * because German "25-%-Karte" is the same defect in a compound ("25%-Karte" is
+ * the ruled form, as in "Die 10%-Regel").
+ */
+const GAP = String.raw`(?:\s|&nbsp;|&#160;|&#x[aA]0;|[-‐-―−])+`;
+
+const SPACE_BEFORE_PERCENT = new RegExp(`${FIGURE_END}${CLOSING_MARKUP}${GAP}%`, 'gu');
+
+/**
+ * The spelled-out word for percent after a figure, in the four locales and their
+ * common variants: "7 percent" / "7 per cent" / "7 pct", "7 Prozent" / "7 v. H.",
+ * "7 por ciento" / "7 porciento" / "100 por cien", "7 por cento" / "7 porcento".
+ *
+ * Between the figure and the word only two idioms are allowed, because they are how
+ * a figure is approximated in speech and they still read as a figure: a suffix
+ * joined by a hyphen ("20-something percent") and Spanish/Portuguese "y pico" /
+ * "e tantos" ("20 y pico por ciento"). Any other word in between means the figure
+ * and the word are not one expression ("Mit 30 sind zehn Prozent viel" is prose,
+ * not a violation — audit 2026-11-03).
+ *
+ * Whole words only, so "percentage points", "Prozentpunkte" / "Prozent-Punkte" and
+ * "pontos percentuais" (a different unit) never match. The bare word with no figure
+ * before it ("Ten percent", "zwanzig Prozent") is prose and stays allowed (P8).
+ */
+const DIGIT_THEN_PERCENT_WORD = new RegExp(
+  `${FIGURE_END}(?:-\\p{L}+)?(?:\\s+(?:y\\s+pico|e\\s+tantos))?[\\s-]*` +
+    String.raw`(?:per ?cent|pct|prozent|v\.\s?h\.|por ?ciento|por ?cien|por ?cento)(?![\p{L}]|-?punkt)`,
+  'giu'
+);
+
+/**
+ * An ICU number format that renders a percentage through `Intl`, which puts a
+ * space before `%` in de/es: `{v, number, percent}`, `{v, number, ::percent}`,
+ * `{v, number, ::%}`, `{v, number, ::%x100}`. A catalogue string writes `{v}%`
+ * instead, with the value formatted by `formatPercent` if it needs formatting.
+ */
+const ICU_PERCENT = /\{\s*[\w.]+\s*,\s*number\s*,\s*(?:percent\b|::[^}]*(?:percent|%))/gu;
 
 export interface PercentViolation {
-  /** `space` = a space or hyphen before `%`; `word` = a digit followed by the word. */
-  readonly kind: 'space' | 'word';
+  /**
+   * `space` = a space, no-break-space entity or dash before `%`; `word` = a figure
+   * followed by the spelled-out word; `icu` = an ICU percent format.
+   */
+  readonly kind: 'space' | 'word' | 'icu';
   /** The matched text, for the failure message. */
   readonly match: string;
 }
 
 /**
  * Every place `text` breaks the percent ruling. Used by both apps' catalogue
- * guards, so the rule is written once.
+ * guards and by the source scan, so the rule is written once.
  */
 export function findPercentFormatViolations(text: string): PercentViolation[] {
   const found: PercentViolation[] = [];
   for (const m of text.matchAll(SPACE_BEFORE_PERCENT)) found.push({ kind: 'space', match: m[0] });
   for (const m of text.matchAll(DIGIT_THEN_PERCENT_WORD)) found.push({ kind: 'word', match: m[0] });
+  for (const m of text.matchAll(ICU_PERCENT)) found.push({ kind: 'icu', match: m[0] });
   return found;
 }

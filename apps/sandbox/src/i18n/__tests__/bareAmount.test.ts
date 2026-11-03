@@ -71,10 +71,12 @@ describe('CUR-2 · no bare currency amount is hardcoded in copy', () => {
   });
 
   it('should NOT flag the reference fee percentage — the measured false-positive class', () => {
-    /* The other direction. 12 existing strings carry `0.39%` / `0,39 %`; a rule
+    /* The other direction. 12 strings carry the reference fee (written `0,39 %` in de/es
+       until 2026-11-03, `0,39%` since — `5.729`; both spellings stay controls); a rule
        that flagged them would be abandoned within a week. */
     expect(BARE_AMOUNT.test('the diBoaS exit fee is 0.39% or {min} per position')).toBe(false);
     expect(BARE_AMOUNT.test('Ausstiegsgebühr (Referenz): 0,39 % oder {min}')).toBe(false);
+    expect(BARE_AMOUNT.test('Ausstiegsgebühr (Referenz): 0,39% oder {min}')).toBe(false);
     expect(BARE_AMOUNT.test('30% growth exposure')).toBe(false);
   });
 

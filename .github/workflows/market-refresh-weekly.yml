@@ -168,8 +168,13 @@ jobs:
       - name: Install dependencies (frozen)
         run: pnpm install --frozen-lockfile
 
-      - name: Build i18n (validators need it)
-        run: pnpm --filter @diboas/i18n build
+      # Every workspace package the website imports, never a hand-written list: the
+      # validators need @diboas/i18n, and the market tests below import website code
+      # that imports other workspace packages (@diboas/format since 5.729). A list naming
+      # packages misses the next one; `web^...` is "web's dependencies, not web itself".
+      # Guarded by apps/web/src/lib/__tests__/workspaceBuildOrder.test.ts.
+      - name: Build the website's workspace packages (validators and tests import them)
+        run: pnpm exec turbo run build --filter='web^...'
 
       # Fail-OPEN for the score (the optional leg must not block the core run),
       # but never SILENT (5.465): a missed snapshot becomes next week's ledger
