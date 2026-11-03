@@ -8,7 +8,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { formatResultCurrency, isValidToolResultValue } from '../ogUtils';
+import { formatResultCurrency, isPercentShape, isValidToolResultValue } from '../ogUtils';
 
 describe('isValidToolResultValue', () => {
   it('should accept a positive finite value within range', () => {
@@ -42,4 +42,22 @@ describe('formatResultCurrency', () => {
     expect(formatResultCurrency(16105, 'brl')).toBe('$16K');
     expect(formatResultCurrency(16105, '<script>')).toBe('$16K');
   });
+});
+
+/**
+ * `5.729` — founder ruling 2026-10-31 (DR P8): a percentage is written "200%", never
+ * "200 %". The share image renders the query value verbatim, so the allowlist (A8) is
+ * where a spaced percentage would get in.
+ */
+describe('isPercentShape', () => {
+  it.each(['200%', '7%', '0,39%', '1,234.5%', '12'])('should accept %j', (value) => {
+    expect(isPercentShape(value)).toBe(true);
+  });
+
+  it.each(['200 %', '200\u00a0%', ' 200%', '2 00%', '', '%', 'abc%', '1234567890123%'])(
+    'should refuse %j',
+    (value) => {
+      expect(isPercentShape(value)).toBe(false);
+    }
+  );
 });

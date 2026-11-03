@@ -1,24 +1,24 @@
 {
   "seo": {
-    "title": "El otro 20 %: la deuda cara, explicada",
-    "description": "La deuda con intereses altos es interés compuesto corriendo en tu contra. Por qué pagar una tarjeta al 25 % son los intereses que dejas de pagar, y dónde está la línea."
+    "title": "El otro 20%: la deuda cara, explicada",
+    "description": "La deuda con intereses altos es interés compuesto corriendo en tu contra. Por qué pagar una tarjeta al 25% son los intereses que dejas de pagar, y dónde está la línea."
   },
   "lesson": {
-    "h1": "El otro 20 %",
+    "h1": "El otro 20%",
     "readTime": "~5 min de lectura"
   },
   "beat1": {
     "title": "La parte difícil que no me salté.",
     "body": [
       "La Charla 5 prometía la parte difícil. Aquí está: si arrastras una tarjeta al veintitantos por ciento, todo lo de antes cambia de orden. No voy a fingir que no.",
-      "¿Te acuerdas del interés compuesto de la Charla 1? Funciona en las dos direcciones. Sobre tus ahorros, para ti, despacio. Sobre una tarjeta al 25 %, contra ti, rápido. Esa deuda es el mismo motor, del revés, apuntándote a ti."
+      "¿Te acuerdas del interés compuesto de la Charla 1? Funciona en las dos direcciones. Sobre tus ahorros, para ti, despacio. Sobre una tarjeta al 25%, contra ti, rápido. Esa deuda es el mismo motor, del revés, apuntándote a ti."
     ]
   },
   "beat2": {
     "title": "Matar la deuda cara es la mejor \"inversión\" que tienes.",
     "intro": [
-      "Un solo número lo cambia todo: ninguna inversión honesta te da de forma fiable un 25 % al año. Pero un euro que mata una deuda al 25 % acaba de ganarte un 25 %, garantizado, riesgo cero, porque es un 25 % de intereses que ya nunca vas a pagar. Matemáticamente, quitarte de encima la deuda cara es el uso de mayor rentabilidad y menor riesgo que puedes darle a un euro. Eso no es opinión, son cuentas.",
-      "El reparto clásico pone más o menos un 20 % a las deudas, pero olvídate del número. El matiz que importa: no toda deuda es el enemigo. Una hipoteca al 3 o 4 %, o un préstamo a tipo bajo, es deuda lenta con la que puedes convivir. Caza lo caro: las tarjetas y el revolving del 20 y pico por ciento. A eso dale caza primero."
+      "Un solo número lo cambia todo: ninguna inversión honesta te da de forma fiable un 25% al año. Pero un euro que mata una deuda al 25% acaba de ganarte un 25%, garantizado, riesgo cero, porque es un 25% de intereses que ya nunca vas a pagar. Matemáticamente, quitarte de encima la deuda cara es el uso de mayor rentabilidad y menor riesgo que puedes darle a un euro. Eso no es opinión, son cuentas.",
+      "El reparto clásico pone más o menos un 20% a las deudas, pero olvídate del número. El matiz que importa: no toda deuda es el enemigo. Una hipoteca al 3 o 4%, o un préstamo a tipo bajo, es deuda lenta con la que puedes convivir. Caza lo caro: las tarjetas y el revolving del veintitantos por ciento. A eso dale caza primero."
     ]
   },
   "beat3": {
@@ -55,14 +55,14 @@
       ]
     },
     "q2": {
-      "question": "Pagar una deuda al 25 % equivale a:",
+      "question": "Pagar una deuda al 25% equivale a:",
       "options": [
-        "una rentabilidad garantizada de ~25 %, riesgo cero (los intereses que ahora te ahorras)",
+        "una rentabilidad garantizada de ~25%, riesgo cero (los intereses que ahora te ahorras)",
         "una pequeña desgravación",
         "nada, solo ser responsable"
       ]
     },
-    "reflection": "¿Arrastras alguna deuda por encima de un 15-20 % más o menos? Si es así, ¿a qué tipo está? Solo míralo. Sin presión.",
+    "reflection": "¿Arrastras alguna deuda por encima de un 15-20% más o menos? Si es así, ¿a qué tipo está? Solo míralo. Sin presión.",
     "share": {
       "line": "La deuda cara es interés compuesto corriendo del revés, contra ti. Los intereses que dejas de pagar son una rentabilidad que casi nada más en el dinero puede igualar. Aquí tienes la Charla 6."
     }

@@ -65,6 +65,9 @@ importers:
       '@diboas/defi':
         specifier: workspace:*
         version: link:../../packages/defi
+      '@diboas/format':
+        specifier: workspace:*
+        version: link:../../packages/format
       '@diboas/investing':
         specifier: workspace:*
         version: link:../../packages/investing
@@ -150,6 +153,9 @@ importers:
       '@diboas/email':
         specifier: workspace:*
         version: link:../../packages/email
+      '@diboas/format':
+        specifier: workspace:*
+        version: link:../../packages/format
       '@diboas/i18n':
         specifier: workspace:*
         version: link:../../packages/i18n
@@ -324,6 +330,18 @@ importers:
       typescript:
         specifier: ~5.9.3
         version: 5.9.3
+
+  packages/format:
+    devDependencies:
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.23)(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ~5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: ^4.1.5
+        version: 4.1.10(@opentelemetry/api@1.9.1)(@types/node@25.9.5)(@vitest/coverage-v8@4.1.10)(happy-dom@20.11.1)(jsdom@30.0.1)(vite@8.1.4(@types/node@25.9.5)(esbuild@0.25.12)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))
 
   packages/i18n:
     dependencies:

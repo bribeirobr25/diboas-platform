@@ -2,6 +2,7 @@
 
 import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
+import { formatPercent, type PercentFormatOptions } from '@diboas/format';
 
 /**
  * Locale-aware value formatting (SANDBOX_RULES R-3): currency symbol,
@@ -60,5 +61,17 @@ export function useFormatters(currency: 'USD' | 'BRL' | 'EUR') {
     [intl]
   );
 
-  return { money, moneyWhole, date };
+  /**
+   * A percentage, from a FRACTION (0.07 → "7%"), with the % sign right after the
+   * number in every locale — never "7 %" (founder ruling 2026-10-31, register
+   * `5.729`). `intl.formatNumber(…, { style: 'percent' })` would put a space
+   * before % in de/es, so every percentage goes through here.
+   */
+  const percent = useCallback(
+    (fraction: number, options?: PercentFormatOptions) =>
+      formatPercent(fraction, intl.locale, options),
+    [intl]
+  );
+
+  return { money, moneyWhole, date, percent };
 }

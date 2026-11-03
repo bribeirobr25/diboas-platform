@@ -114,17 +114,17 @@
       },
       "receive": {
         "action": "Recibir pagos",
-        "diboas": "0 € solo cuando otro usuario de diBoaS te paga en dólares digitales; un pago con tarjeta es una entrada (on-ramp) con un 0,48 % más el coste del procesador de tarjeta",
-        "competitors": "Los procesadores de tarjeta pueden cobrar entre un 1,5 % y un 3,5 %",
+        "diboas": "0 € solo cuando otro usuario de diBoaS te paga en dólares digitales; un pago con tarjeta es una entrada (on-ramp) con un 0,48% más el coste del procesador de tarjeta",
+        "competitors": "Los procesadores de tarjeta pueden cobrar entre un 1,5% y un 3,5%",
         "difference": "Si el cliente paga con tarjeta se aplican costes de tarjeta y de entrada; solo las transferencias en dólares digitales entre usuarios de diBoaS son gratuitas",
-        "example": "Un usuario de diBoaS te paga 1.000 € en dólares digitales: comisión diBoaS 0 €. Un pago de 1.000 € con tarjeta se procesa como entrada: 0,48 % (4,80 €) más el coste del procesador de tarjeta."
+        "example": "Un usuario de diBoaS te paga 1.000 € en dólares digitales: comisión diBoaS 0 €. Un pago de 1.000 € con tarjeta se procesa como entrada: 0,48% (4,80 €) más el coste del procesador de tarjeta."
       },
       "send": {
         "action": "Enviar / Pagar",
-        "diboas": "0 € solo entre usuarios de diBoaS en dólares digitales; pagar a una cuenta externa es una salida (off-ramp) con un 0,48 %",
+        "diboas": "0 € solo entre usuarios de diBoaS en dólares digitales; pagar a una cuenta externa es una salida (off-ramp) con un 0,48%",
         "competitors": "Transferencias y pagos internacionales pueden tener costes fijos",
         "difference": "Solo las transferencias en dólares digitales entre usuarios de diBoaS son gratuitas; pagar a un proveedor que no usa diBoaS se procesa como salida",
-        "example": "Pagar 500 € a un proveedor que usa diBoaS en dólares digitales: comisión diBoaS 0 €. Pagar 500 € a un proveedor externo: se aplica una salida del 0,48 % (2,40 €)."
+        "example": "Pagar 500 € a un proveedor que usa diBoaS en dólares digitales: comisión diBoaS 0 €. Pagar 500 € a un proveedor externo: se aplica una salida del 0,48% (2,40 €)."
       },
       "add": {
         "action": "Añadir dinero",
@@ -144,8 +144,8 @@
         "action": "Vender / Cerrar",
         "diboas": "{rate} (mín {min}, sin límite)",
         "competitors": "Comisiones y spreads pueden variar",
-        "difference": "0,39 %, con un tope de 25 €",
-        "example": "Vender 10.000 €: el 0,39 % serían 39 €, pero la comisión se limita al tope de 25 €"
+        "difference": "0,39%, con un tope de 25 €",
+        "example": "Vender 10.000 €: el 0,39% serían 39 €, pero la comisión se limita al tope de 25 €"
       },
       "swap": {
         "action": "Intercambiar",

@@ -5,6 +5,7 @@
  * (US: $1,234.56 / pt-BR: R$ 1.234,56 / es+de: 1.234,56 €).
  */
 
+import { formatPercent as sharedFormatPercent } from '@diboas/format';
 import type { SupportedLocale } from '@diboas/i18n/config';
 
 const LOCALE_TO_INTL: Readonly<Record<SupportedLocale, string>> = {
@@ -38,9 +39,7 @@ export function formatCurrency(
   }).format(value);
 }
 
+/** `value` is a PERCENT (7 → "7%"); no space before % in any locale (5.729). */
 export function formatPercent(value: number, locale: SupportedLocale): string {
-  return new Intl.NumberFormat(LOCALE_TO_INTL[locale], {
-    style: 'percent',
-    maximumFractionDigits: 2,
-  }).format(value / 100);
+  return sharedFormatPercent(value / 100, LOCALE_TO_INTL[locale], { maximumFractionDigits: 2 });
 }

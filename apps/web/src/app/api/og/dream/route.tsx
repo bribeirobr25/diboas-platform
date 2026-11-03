@@ -12,7 +12,7 @@ import { NextRequest } from 'next/server';
 
 import { OG_DIMENSIONS, OG_COLORS } from '../share/ogTypes';
 import { OGMonogram } from '../_brand/monogram';
-import { sanitizeInput } from '../share/ogUtils';
+import { isPercentShape, sanitizeInput } from '../share/ogUtils';
 import { checkRateLimit, getClientIP, createRateLimitHeaders } from '@/lib/security/rateLimiter';
 import { RATE_LIMIT_CONFIG } from '@/config/env';
 
@@ -78,11 +78,10 @@ export async function GET(request: NextRequest) {
     // shapes — the denylist sanitizer alone let arbitrary words/domains render
     // into a diBoaS-branded shareable image. Mismatch falls back to defaults.
     const CURRENCYish = /^[0-9$€R,.\s]{1,20}$/;
-    const PERCENTish = /^[0-9,.\s]{1,10}%?$/;
     const amountRaw = sanitizeInput(searchParams.get('amount'));
     const growthRaw = sanitizeInput(searchParams.get('growth'));
     const amount = amountRaw && CURRENCYish.test(amountRaw) ? amountRaw : '$10,000';
-    const growth = growthRaw && PERCENTish.test(growthRaw) ? growthRaw : '200%';
+    const growth = growthRaw && isPercentShape(growthRaw) ? growthRaw : '200%';
     const locale = searchParams.get('locale') || 'en';
 
     const dt = getDreamTranslations(locale);

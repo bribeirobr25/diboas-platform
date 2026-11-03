@@ -6,13 +6,13 @@
   "hero": {
     "kicker": "Kartengebühren-Rechner",
     "headline": "Was kosten Kartenzahlungen dein Geschäft wirklich?",
-    "subtitle": "Zwischen Interchange, Acquirer-Marge und Zusatzgebühren zahlen die meisten Händler effektiv 0,4–1,0 %, oft ohne es genau zu wissen. Rechne nach."
+    "subtitle": "Zwischen Interchange, Acquirer-Marge und Zusatzgebühren zahlen die meisten Händler effektiv 0,4–1,0%, oft ohne es genau zu wissen. Rechne nach."
   },
   "inputs": {
     "monthlyVolumeLabel": "Monatliches Kartenzahlungs-Volumen",
     "monthlyVolumeHelp": "Gesamtumsatz aus Kartenzahlungen pro Monat",
     "processorFeeLabel": "Aktuelle Gebühr (%)",
-    "processorFeeHelp": "Üblicher effektiver Satz in Europa: 0,4–1,0 % (EU-IFR). Passe ihn an deine echte Gebühr an",
+    "processorFeeHelp": "Üblicher effektiver Satz in Europa: 0,4–1,0% (EU-IFR). Passe ihn an deine echte Gebühr an",
     "avgTxLabel": "Durchschnittliche Transaktion (optional)",
     "avgTxHelp": "Wird genutzt, um die Pro-Transaktions-Gebühr zu berechnen"
   },

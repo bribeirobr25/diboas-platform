@@ -6,13 +6,13 @@
   "hero": {
     "kicker": "Calculadora de comisiones de tarjeta",
     "headline": "¿Cuánto te cuestan de verdad los pagos con tarjeta?",
-    "subtitle": "Entre intercambio, margen del adquirente y extras, la mayoría paga un 0,4–1,0 % efectivo, muchas veces sin saberlo. Compruébalo."
+    "subtitle": "Entre intercambio, margen del adquirente y extras, la mayoría paga un 0,4–1,0% efectivo, muchas veces sin saberlo. Compruébalo."
   },
   "inputs": {
     "monthlyVolumeLabel": "Volumen mensual con tarjeta",
     "monthlyVolumeHelp": "Ingresos por tarjeta que tu negocio procesa al mes",
     "processorFeeLabel": "Comisión actual (%)",
-    "processorFeeHelp": "Tasa efectiva típica en Europa: 0,4–1,0 % (IFR UE). Ajusta a tu tarifa real",
+    "processorFeeHelp": "Tasa efectiva típica en Europa: 0,4–1,0% (IFR UE). Ajusta a tu tarifa real",
     "avgTxLabel": "Ticket medio (opcional)",
     "avgTxHelp": "Se usa para calcular la comisión por transacción"
   },

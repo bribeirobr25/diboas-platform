@@ -36,6 +36,7 @@
   ],
   "dependencies": {
     "@diboas/email": "workspace:*",
+    "@diboas/format": "workspace:*",
     "@diboas/i18n": "workspace:*",
     "@diboas/ui": "workspace:*",
     "@neondatabase/serverless": "^1.0.2",

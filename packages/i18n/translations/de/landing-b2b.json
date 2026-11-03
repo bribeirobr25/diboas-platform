@@ -114,17 +114,17 @@
       },
       "receive": {
         "action": "Zahlungen empfangen",
-        "diboas": "0 € nur, wenn dich ein anderer diBoaS-Nutzer in digitalen Dollar bezahlt; eine kartengedeckte Zahlung ist ein On-Ramp (0,48 % zuzüglich der Kosten des Kartenanbieters)",
-        "competitors": "Kartenanbieter können 1,5 % bis 3,5 % berechnen",
+        "diboas": "0 € nur, wenn dich ein anderer diBoaS-Nutzer in digitalen Dollar bezahlt; eine kartengedeckte Zahlung ist ein On-Ramp (0,48% zuzüglich der Kosten des Kartenanbieters)",
+        "competitors": "Kartenanbieter können 1,5% bis 3,5% berechnen",
         "difference": "Bei Kartenzahlung fallen Karten- und Ramp-Kosten an; kostenlos sind nur Transfers in digitalen Dollar zwischen diBoaS-Nutzern",
-        "example": "Ein diBoaS-Nutzer zahlt dir 1.000 € in digitalen Dollar: diBoaS-Gebühr 0 €. Eine kartengedeckte Zahlung von 1.000 € läuft als On-Ramp: 0,48 % (4,80 €) zuzüglich der Kosten des Kartenanbieters."
+        "example": "Ein diBoaS-Nutzer zahlt dir 1.000 € in digitalen Dollar: diBoaS-Gebühr 0 €. Eine kartengedeckte Zahlung von 1.000 € läuft als On-Ramp: 0,48% (4,80 €) zuzüglich der Kosten des Kartenanbieters."
       },
       "send": {
         "action": "Senden / Bezahlen",
-        "diboas": "0 € nur zwischen diBoaS-Nutzern in digitalen Dollar; die Zahlung an ein externes Konto ist ein Off-Ramp (0,48 %)",
+        "diboas": "0 € nur zwischen diBoaS-Nutzern in digitalen Dollar; die Zahlung an ein externes Konto ist ein Off-Ramp (0,48%)",
         "competitors": "Überweisungen und Auslandszahlungen können feste Gebühren verursachen",
         "difference": "Kostenlos sind nur Transfers in digitalen Dollar zwischen diBoaS-Nutzern; die Zahlung an einen Lieferanten ohne diBoaS läuft als Off-Ramp",
-        "example": "Einen Lieferanten mit diBoaS 500 € in digitalen Dollar bezahlen: diBoaS-Gebühr 0 €. Einen externen Lieferanten 500 € bezahlen: Off-Ramp 0,48 % (2,40 €) fällt an."
+        "example": "Einen Lieferanten mit diBoaS 500 € in digitalen Dollar bezahlen: diBoaS-Gebühr 0 €. Einen externen Lieferanten 500 € bezahlen: Off-Ramp 0,48% (2,40 €) fällt an."
       },
       "add": {
         "action": "Geld einzahlen",
@@ -136,7 +136,7 @@
       "invest": {
         "action": "Investieren / Wachsen",
         "diboas": "Kostenlos starten",
-        "competitors": "0,5 bis 2 % (Berater, Plattformen)",
+        "competitors": "0,5 bis 2% (Berater, Plattformen)",
         "difference": "Kosten und Risiken der Strategie erscheinen vor der Freigabe",
         "example": "Mit 10.000 € starten: diBoaS berechnet 0 € für den Start"
       },
@@ -144,8 +144,8 @@
         "action": "Verkaufen / Schließen",
         "diboas": "{rate} (min {min}, ohne Obergrenze)",
         "competitors": "Anbietergebühren können variieren",
-        "difference": "0,39 %, gedeckelt bei 25 €",
-        "example": "10.000 € verkaufen: diBoaS-Gebühr 25 € (0,39 % wären 39 €, gedeckelt bei 25 €)"
+        "difference": "0,39%, gedeckelt bei 25 €",
+        "example": "10.000 € verkaufen: diBoaS-Gebühr 25 € (0,39% wären 39 €, gedeckelt bei 25 €)"
       },
       "swap": {
         "action": "Tauschen",

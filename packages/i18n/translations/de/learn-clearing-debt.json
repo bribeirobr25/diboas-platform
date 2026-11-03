@@ -1,24 +1,24 @@
 {
   "seo": {
-    "title": "Die anderen 20 %: teure Schulden, erklärt",
-    "description": "Schulden mit hohen Zinsen sind Zinseszins, der gegen dich läuft. Warum das Abzahlen einer 25-%-Karte die Zinsen sind, die du nicht mehr zahlst, und wo die Grenze liegt."
+    "title": "Die anderen 20%: teure Schulden, erklärt",
+    "description": "Schulden mit hohen Zinsen sind Zinseszins, der gegen dich läuft. Warum das Abzahlen einer 25%-Karte die Zinsen sind, die du nicht mehr zahlst, und wo die Grenze liegt."
   },
   "lesson": {
-    "h1": "Die anderen 20 %.",
+    "h1": "Die anderen 20%.",
     "readTime": "~5 Min Lesezeit"
   },
   "beat1": {
     "title": "Der schwere Teil, den ich nicht ausgelassen habe.",
     "body": [
       "Talk 5 hat den schweren Teil versprochen. Hier ist er: Wenn du einen Dispo oder eine Teilzahlung mit über zwanzig Prozent Zinsen mit dir herumträgst, dann ändert alles bisher die Reihenfolge. Ich tue nicht so, als wäre das nicht so.",
-      "Erinnerst du dich an den Zinseszins aus Talk 1? Er läuft in beide Richtungen. Auf dem Ersparten für dich, langsam. Auf einem Dispo zu 25 % gegen dich, schnell. Diese Schuld ist derselbe Motor, rückwärts laufend, auf dich gerichtet."
+      "Erinnerst du dich an den Zinseszins aus Talk 1? Er läuft in beide Richtungen. Auf dem Ersparten für dich, langsam. Auf einem Dispo zu 25% gegen dich, schnell. Diese Schuld ist derselbe Motor, rückwärts laufend, auf dich gerichtet."
     ]
   },
   "beat2": {
     "title": "Teure Schulden zu tilgen ist die beste \"Geldanlage\", die du hast.",
     "intro": [
-      "Eine einzige Zahl ändert alles: Keine ehrliche Anlage bringt verlässlich 25 % im Jahr. Aber ein Euro, der eine Schuld zu 25 % tilgt, hat dir gerade 25 % eingebracht, garantiert, null Risiko, weil es 25 % an Zinsen sind, die du nie mehr zahlst. Diese garantierte Rendite ist kein Angebot von diBoaS. Sie ist einfach das Geld, das die Schuld dir aufhört wegzunehmen, eine mathematische Tatsache über die Schuld. Mathematisch ist das Abzahlen teurer Schulden der renditestärkste, risikoärmste Einsatz für einen Euro, den du hast. Das ist keine Meinung, das ist Mathematik.",
-      "Die klassische Aufteilung steckt ungefähr 20 % in Schulden, aber vergiss die Zahl. Die Nuance, die zählt: Nicht jede Schuld ist der Feind. Eine Immobilienfinanzierung zu 3 bis 4 % oder ein zinsgünstiges Darlehen ist langsame Schuld, mit der du leben kannst. Nimm dir das Teure vor: den Dispo und die Teilzahlung über zwanzig Prozent. Diese zuerst."
+      "Eine einzige Zahl ändert alles: Keine ehrliche Anlage bringt verlässlich 25% im Jahr. Aber ein Euro, der eine Schuld zu 25% tilgt, hat dir gerade 25% eingebracht, garantiert, null Risiko, weil es 25% an Zinsen sind, die du nie mehr zahlst. Diese garantierte Rendite ist kein Angebot von diBoaS. Sie ist einfach das Geld, das die Schuld dir aufhört wegzunehmen, eine mathematische Tatsache über die Schuld. Mathematisch ist das Abzahlen teurer Schulden der renditestärkste, risikoärmste Einsatz für einen Euro, den du hast. Das ist keine Meinung, das ist Mathematik.",
+      "Die klassische Aufteilung steckt ungefähr 20% in Schulden, aber vergiss die Zahl. Die Nuance, die zählt: Nicht jede Schuld ist der Feind. Eine Immobilienfinanzierung zu 3 bis 4% oder ein zinsgünstiges Darlehen ist langsame Schuld, mit der du leben kannst. Nimm dir das Teure vor: den Dispo und die Teilzahlung über zwanzig Prozent. Diese zuerst."
     ]
   },
   "beat3": {
@@ -55,14 +55,14 @@
       ]
     },
     "q2": {
-      "question": "Eine Schuld zu 25 % abzuzahlen entspricht:",
+      "question": "Eine Schuld zu 25% abzuzahlen entspricht:",
       "options": [
-        "einer garantierten Rendite von rund 25 %, null Risiko (die Zinsen, die du dir jetzt sparst)",
+        "einer garantierten Rendite von rund 25%, null Risiko (die Zinsen, die du dir jetzt sparst)",
         "einem kleinen Steuervorteil",
         "nichts, nur brav sein"
       ]
     },
-    "reflection": "Trägst du Schulden über etwa 15 bis 20 %? Wenn ja, wie hoch ist der Satz? Schau ihn einfach nach. Kein Druck.",
+    "reflection": "Trägst du Schulden über etwa 15 bis 20%? Wenn ja, wie hoch ist der Satz? Schau ihn einfach nach. Kein Druck.",
     "share": {
       "line": "Hochverzinste Schulden sind Zinseszins, der rückwärts läuft, gegen dich. Die Zinsen, die du nicht mehr zahlst, sind eine Rendite, die fast nichts anderes im Thema Geld erreicht. Hier ist Talk 6."
     }

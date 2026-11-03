@@ -42,7 +42,7 @@ export function MoneyOut() {
      "$0.48 per $100" against a EUR ledger. Every other amount in this app
      already goes through `useFormatters(state.currency)`; this one string was
      the exception (the registered CUR-1 gate class). */
-  const { money } = useFormatters(state.currency);
+  const { money, percent } = useFormatters(state.currency);
   const [sheet, setSheet] = useState<Action | null>(null);
 
   // Total play money = all buckets + open positions + uninvested goal cash.
@@ -144,14 +144,13 @@ export function MoneyOut() {
                 <span className={styles.feePct}>
                   {/* From the fee CONSTANTS, never a literal — fees.ts states
                       the rule: "a fee value appearing as a string literal in a
-                      component is a bug by definition (R-3)". Localized so de
-                      renders 0,48 %. */}
-                  <FormattedNumber
-                    value={FEE_RATES.ramp.toNumber()}
-                    style="percent"
-                    minimumFractionDigits={2}
-                    maximumFractionDigits={2}
-                  />
+                      component is a bug by definition (R-3)". Localized
+                      separators, and no space before % in any locale (5.729):
+                      de renders 0,48%. */}
+                  {percent(FEE_RATES.ramp.toNumber(), {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
                 </span>
                 <span className={styles.feePer}>
                   {/* Worked example, derived: the rate from the constants, both

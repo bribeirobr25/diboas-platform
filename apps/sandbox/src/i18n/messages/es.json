@@ -92,7 +92,7 @@
   "pathCard": {
     "costTitle": "Costes de referencia",
     "entryFee": "Entrar: gratis",
-    "exitFee": "Comisión de salida de diBoaS de referencia: 0,39 % o {min} por posición cerrada, el importe que resulte mayor.",
+    "exitFee": "Comisión de salida de diBoaS de referencia: 0,39% o {min} por posición cerrada, el importe que resulte mayor.",
     "networkFee": "Coste de red de referencia: aproximadamente {amount}",
     "networkFeeUnavailable": "Comisión de red: importe no disponible",
     "noPromise": "Aquí no viven las promesas. Los números son historial y tasas actuales, no el futuro.",
@@ -243,13 +243,13 @@
   },
   "projection": {
     "heading": "El camino desde aquí",
-    "rangeLine": "Con {amount} al mes, un supuesto {low} a {high} por ciento llegaría a {target} en unos {minYears} a {maxYears} años.",
-    "singleLine": "Con {amount} al mes, un supuesto {low} a {high} por ciento llegaría a {target} en unos {years, plural, one {# año} other {# años}}.",
+    "rangeLine": "Con {amount} al mes, un supuesto {low}% a {high}% llegaría a {target} en unos {minYears} a {maxYears} años.",
+    "singleLine": "Con {amount} al mes, un supuesto {low}% a {high}% llegaría a {target} en unos {years, plural, one {# año} other {# años}}.",
     "caveat": "Una hipótesis que puedes comprobar, no una promesa. Los rendimientos reales se mueven y pueden ser negativos.",
     "paceWithin": "Este ritmo cabe dentro de tu plazo de {months} meses.",
     "paceEdge": "Este ritmo aterriza en torno a tu plazo de {months} meses.",
     "paceBeyond": "Este ritmo se alarga más allá de tu plazo de {months} meses.",
-    "underYear": "Con {amount} al mes, un supuesto {low} a {high} por ciento llegaría a {target} en menos de un año."
+    "underYear": "Con {amount} al mes, un supuesto {low}% a {high}% llegaría a {target} en menos de un año."
   },
   "geofence": {
     "badge": "Comprobación de región",
@@ -310,7 +310,7 @@
   },
   "strategyDetail": {
     "caveat": "Puede bajar algunas semanas. Es normal, y los rendimientos no están garantizados.",
-    "costLine": "En Practice no hay comisión de entrada de diBoaS. Como referencia, la comisión de salida de diBoaS es del 0,39 % o {min} por posición cerrada, el importe que resulte mayor. No se cobra ni se descuenta en Practice.",
+    "costLine": "En Practice no hay comisión de entrada de diBoaS. Como referencia, la comisión de salida de diBoaS es del 0,39% o {min} por posición cerrada, el importe que resulte mayor. No se cobra ni se descuenta en Practice.",
     "currentApy": "APY actual",
     "detailed": "Detallado",
     "exitFee": "Comisión de salida de diBoaS de referencia",
@@ -349,7 +349,7 @@
     "body": "Pausar detiene tu plan semanal y los recordatorios. Tu dinero invertido sigue trabajando en la estrategia.",
     "statePlan": "Plan pausado",
     "stateMoney": "Dinero invertido sigue trabajando",
-    "alsoStop": "¿Quieres parar también la estrategia? Se mostrará, solo como referencia, una comisión diBoaS del 0,39 %, con un mínimo de {min} por posición cerrada. No se cobra ni se descuenta en Practice.",
+    "alsoStop": "¿Quieres parar también la estrategia? Se mostrará, solo como referencia, una comisión diBoaS del 0,39%, con un mínimo de {min} por posición cerrada. No se cobra ni se descuenta en Practice.",
     "pause": "Pausar plan",
     "keepGoing": "Seguir",
     "stopCta": "Parar también la estrategia",

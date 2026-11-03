@@ -42,16 +42,17 @@ describe('formatCurrency', () => {
 
 describe('formatPercent', () => {
   it('should format 7 as 7% when locale is en', () => {
-    expect(formatPercent(7, 'en')).toMatch(/7\s?%/);
+    expect(formatPercent(7, 'en')).toBe('7%');
   });
 
   it('should preserve decimal precision up to two places', () => {
-    expect(formatPercent(0.32, 'en')).toMatch(/0\.32\s?%/);
+    expect(formatPercent(0.32, 'en')).toBe('0.32%');
   });
 
-  it('should localize separator when locale is de', () => {
-    const out = formatPercent(0.5, 'de');
-    expect(out).toContain('%');
+  it('should localize the separator with no space before % when locale is de or es (5.729)', () => {
+    // Founder ruling 2026-10-31 (DR P8): "%" right after the number in every locale.
+    expect(formatPercent(0.5, 'de')).toBe('0,5%');
+    expect(formatPercent(0.5, 'es')).toBe('0,5%');
   });
 });
 
