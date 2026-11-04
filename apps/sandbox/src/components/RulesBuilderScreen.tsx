@@ -55,7 +55,7 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
   const intl = useIntl();
   const router = useRouter();
   const state = useLedger();
-  const { money } = useFormatters(state.currency);
+  const { money, percent } = useFormatters(state.currency);
 
   /**
    * One active rule per account (W-19a), so this screen both CREATES and EDITS.
@@ -214,7 +214,7 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
                       <LucideIcon name="minus" size={16} />
                     </button>
                     <span className={styles.percent} aria-live="polite">
-                      {intl.formatNumber(row.percent / 100, { style: 'percent' })}
+                      {percent(row.percent / 100)}
                     </span>
                     <button
                       type="button"
@@ -242,9 +242,7 @@ export function RulesBuilderScreen({ locale }: { locale: SandboxLocale }) {
                 <FormattedMessage id="rules.staysNote" />
               </span>
             </span>
-            <span className={styles.remainderValue}>
-              {intl.formatNumber(remainderPercent / 100, { style: 'percent' })}
-            </span>
+            <span className={styles.remainderValue}>{percent(remainderPercent / 100)}</span>
           </div>
 
           <div className={styles.preview}>

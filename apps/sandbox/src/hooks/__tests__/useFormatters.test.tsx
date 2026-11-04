@@ -35,3 +35,35 @@ describe('money never shows a sign on nothing', () => {
     expect(usd().moneyWhole(-0.6)).toBe('-$1');
   });
 });
+
+/**
+ * `5.729` — founder ruling 2026-10-31 (DR P8): a percentage is written with the % sign
+ * right after the number in every locale. `intl.formatNumber(…, { style: 'percent' })`
+ * gives "7 %" in de/es, so the seam must not.
+ */
+describe('percent puts no space before % in any locale (5.729)', () => {
+  const inLocale = (locale: string) => {
+    function InLocale({ children }: { children: ReactNode }) {
+      return (
+        <IntlProvider locale={locale} onError={() => {}}>
+          {children}
+        </IntlProvider>
+      );
+    }
+    return InLocale;
+  };
+  it.each([
+    ['en', '7%', '0.39%'],
+    ['pt-BR', '7%', '0,39%'],
+    ['es', '7%', '0,39%'],
+    ['de', '7%', '0,39%'],
+  ] as const)(
+    'should write percentages with no space before the sign when the locale is %s (%s, %s)',
+    (locale, whole, fee) => {
+      const { percent } = renderHook(() => useFormatters('EUR'), { wrapper: inLocale(locale) })
+        .result.current;
+      expect(percent(0.07)).toBe(whole);
+      expect(percent(0.0039, { minimumFractionDigits: 2 })).toBe(fee);
+    }
+  );
+});

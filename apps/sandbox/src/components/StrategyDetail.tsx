@@ -74,7 +74,7 @@ export function StrategyDetail({
   onPutToWork?: () => void;
 }) {
   const intl = useIntl();
-  const { money, date } = useFormatters(currency);
+  const { money, date, percent } = useFormatters(currency);
   const [view, setView] = useState<View>('simple');
   const [requestedTimeframe, setRequestedTimeframe] = useState<ChartTimeframe>(90);
 
@@ -502,10 +502,7 @@ export function StrategyDetail({
             <div className={styles.exitRow}>
               <span className={styles.exitVal}>
                 {/* From the fee CONSTANTS — never a literal in a component (R-3). */}
-                {intl.formatNumber(FEE_RATES.exit.toNumber(), {
-                  style: 'percent',
-                  maximumFractionDigits: 2,
-                })}
+                {percent(FEE_RATES.exit.toNumber(), { maximumFractionDigits: 2 })}
               </span>
               <span className={styles.exitMin}>
                 <FormattedMessage

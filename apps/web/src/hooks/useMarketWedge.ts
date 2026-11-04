@@ -11,6 +11,7 @@
  */
 
 import { useMemo } from 'react';
+import { formatPercent } from '@diboas/format';
 import type { SupportedLocale } from '@diboas/i18n/config';
 import { useMarketData } from '@/hooks/useMarketData';
 import { calculateCurrencyDepreciationRetrospective } from '@/lib/currency-depreciation';
@@ -70,17 +71,6 @@ const METRIC_PRECISION: Record<WedgeMetric, number> = {
   brlDollarLoss: 0,
 };
 
-function formatPercent(
-  fraction: number,
-  locale: SupportedLocale,
-  maximumFractionDigits: number
-): string {
-  return new Intl.NumberFormat(LOCALE_TO_INTL[locale], {
-    style: 'percent',
-    maximumFractionDigits,
-  }).format(fraction);
-}
-
 interface MarketWedge {
   readonly expression: WedgeExpression;
   /** Locale-formatted live figure for the claim (e.g. "0.38%" / "63%"), or null. */
@@ -96,7 +86,10 @@ export function useMarketWedge(locale: SupportedLocale): MarketWedge {
       expression,
       figure:
         fraction != null
-          ? formatPercent(fraction, locale, METRIC_PRECISION[expression.metric])
+          ? // No space before % in any locale (founder ruling 2026-10-31, 5.729).
+            formatPercent(fraction, LOCALE_TO_INTL[locale], {
+              maximumFractionDigits: METRIC_PRECISION[expression.metric],
+            })
           : null,
     };
   }, [locale, snapshot]);

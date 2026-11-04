@@ -243,13 +243,13 @@
   },
   "projection": {
     "heading": "The path from here",
-    "rangeLine": "At {amount} a month, an assumed {low} to {high} percent would reach {target} in about {minYears} to {maxYears} years.",
-    "singleLine": "At {amount} a month, an assumed {low} to {high} percent would reach {target} in about {years, plural, one {# year} other {# years}}.",
+    "rangeLine": "At {amount} a month, an assumed {low}% to {high}% would reach {target} in about {minYears} to {maxYears} years.",
+    "singleLine": "At {amount} a month, an assumed {low}% to {high}% would reach {target} in about {years, plural, one {# year} other {# years}}.",
     "caveat": "An assumption you can check, not a promise. Real returns move around and can be negative.",
     "paceWithin": "This pace fits inside your {months}-month timeframe.",
     "paceEdge": "This pace lands around your {months}-month timeframe.",
     "paceBeyond": "This pace runs longer than your {months}-month timeframe.",
-    "underYear": "At {amount} a month, an assumed {low} to {high} percent would reach {target} within a year."
+    "underYear": "At {amount} a month, an assumed {low}% to {high}% would reach {target} within a year."
   },
   "geofence": {
     "badge": "Region check",

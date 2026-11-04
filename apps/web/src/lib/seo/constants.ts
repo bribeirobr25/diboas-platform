@@ -217,7 +217,7 @@ export const PAGE_SEO_CONFIG = {
     title: 'The 10%: the Babylon starting point, explained',
     description:
       'Small enough to give up, big enough to matter. Where the tenth comes from, why 1% beats 0%, and how to see your own number.',
-    keywords: ['save 10 percent', 'babylon tenth', 'how much to save', 'learn saving'],
+    keywords: ['save 10%', 'babylon tenth', 'how much to save', 'learn saving'],
   },
   'learn/seventy-percent': {
     title: 'Living on 70%: the gap is the point, explained',

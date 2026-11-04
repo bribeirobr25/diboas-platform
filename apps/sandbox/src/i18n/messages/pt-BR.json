@@ -243,13 +243,13 @@
   },
   "projection": {
     "heading": "O caminho a partir daqui",
-    "rangeLine": "Com {amount} por mês, um retorno estimado de {low} a {high} por cento chegaria a {target} em cerca de {minYears} a {maxYears} anos.",
-    "singleLine": "Com {amount} por mês, um retorno estimado de {low} a {high} por cento chegaria a {target} em cerca de {years, plural, one {# ano} other {# anos}}.",
+    "rangeLine": "Com {amount} por mês, um retorno estimado de {low}% a {high}% chegaria a {target} em cerca de {minYears} a {maxYears} anos.",
+    "singleLine": "Com {amount} por mês, um retorno estimado de {low}% a {high}% chegaria a {target} em cerca de {years, plural, one {# ano} other {# anos}}.",
     "caveat": "Uma suposição que você pode conferir, não uma promessa. Retornos reais variam e podem ser negativos.",
     "paceWithin": "Esse ritmo cabe no seu prazo de {months} meses.",
     "paceEdge": "Esse ritmo fica perto do seu prazo de {months} meses.",
     "paceBeyond": "Esse ritmo passa do seu prazo de {months} meses.",
-    "underYear": "Com {amount} por mês, um retorno estimado de {low} a {high} por cento chegaria a {target} em menos de um ano."
+    "underYear": "Com {amount} por mês, um retorno estimado de {low}% a {high}% chegaria a {target} em menos de um ano."
   },
   "geofence": {
     "badge": "Verificação de região",

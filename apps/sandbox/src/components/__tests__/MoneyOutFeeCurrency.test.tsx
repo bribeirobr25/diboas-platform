@@ -103,3 +103,30 @@ describe('the withdrawal-fee example follows the LEDGER currency (5.200)', () =>
     }
   });
 });
+
+/**
+ * `5.729` — the founder ruling of 2026-10-31 (DR P8): the % sign comes right after the
+ * number in every locale. `FormattedNumber style="percent"` rendered "0,48 %" in de/es.
+ * The rate is DERIVED from `FEE_RATES.ramp`, the separator from the locale.
+ */
+describe('the withdrawal-fee rate has no space before % in any locale (5.729)', () => {
+  beforeEach(() => resetSandbox());
+
+  const RATE_DIGITS = FEE_RATES.ramp.times(100).toFixed(2); // "0.48"
+
+  it.each([
+    ['en', '.'],
+    ['pt-BR', ','],
+    ['es', ','],
+    ['de', ','],
+  ] as const)(
+    'should render the rate with the sign right after the number when the locale is %s',
+    (locale, sep) => {
+      grantPlayMoney(10_000, 'EUR', 'b2c');
+      openWithdrawSheet(locale);
+      const rendered = document.body.textContent ?? '';
+      expect(rendered).toContain(`${RATE_DIGITS.replace('.', sep)}%`);
+      expect(rendered).not.toMatch(/\d[\s  ]+%/u);
+    }
+  );
+});

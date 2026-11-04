@@ -92,7 +92,7 @@
   "pathCard": {
     "costTitle": "Referenzkosten",
     "entryFee": "Einstieg: kostenlos",
-    "exitFee": "diBoaS-Ausstiegsgebühr (Referenz): 0,39 % oder {min} pro beendeter Position, je nachdem, welcher Betrag höher ist.",
+    "exitFee": "diBoaS-Ausstiegsgebühr (Referenz): 0,39% oder {min} pro beendeter Position, je nachdem, welcher Betrag höher ist.",
     "networkFee": "Referenz-Netzwerkkosten: etwa {amount}",
     "networkFeeUnavailable": "Netzwerkgebühr: Betrag nicht verfügbar",
     "noPromise": "Hier wohnen keine Versprechen. Die Zahlen sind Verlauf und aktuelle Raten, nicht die Zukunft.",
@@ -243,13 +243,13 @@
   },
   "projection": {
     "heading": "Der Weg von hier",
-    "rangeLine": "Mit {amount} pro Monat würden angenommene {low} bis {high} Prozent {target} in etwa {minYears} bis {maxYears} Jahren erreichen.",
-    "singleLine": "Mit {amount} pro Monat würden angenommene {low} bis {high} Prozent {target} in etwa {years, plural, one {# Jahr} other {# Jahren}} erreichen.",
+    "rangeLine": "Mit {amount} pro Monat würden angenommene {low}% bis {high}% {target} in etwa {minYears} bis {maxYears} Jahren erreichen.",
+    "singleLine": "Mit {amount} pro Monat würden angenommene {low}% bis {high}% {target} in etwa {years, plural, one {# Jahr} other {# Jahren}} erreichen.",
     "caveat": "Eine Annahme, die du prüfen kannst, kein Versprechen. Echte Renditen schwanken und können negativ sein.",
     "paceWithin": "Dieses Tempo passt in deinen Zeitraum von {months} Monaten.",
     "paceEdge": "Dieses Tempo landet etwa bei deinem Zeitraum von {months} Monaten.",
     "paceBeyond": "Dieses Tempo dauert länger als dein Zeitraum von {months} Monaten.",
-    "underYear": "Mit {amount} pro Monat würden angenommene {low} bis {high} Prozent {target} innerhalb eines Jahres erreichen."
+    "underYear": "Mit {amount} pro Monat würden angenommene {low}% bis {high}% {target} innerhalb eines Jahres erreichen."
   },
   "geofence": {
     "badge": "Regionsprüfung",
@@ -310,7 +310,7 @@
   },
   "strategyDetail": {
     "caveat": "Es kann in manchen Wochen sinken. Das ist normal, und Renditen sind nicht garantiert.",
-    "costLine": "In Practice gibt es keine diBoaS-Einstiegsgebühr. Als Referenz beträgt die diBoaS-Ausstiegsgebühr 0,39 % oder {min} pro beendeter Position, je nachdem, welcher Betrag höher ist. Sie wird in Practice weder erhoben noch abgezogen.",
+    "costLine": "In Practice gibt es keine diBoaS-Einstiegsgebühr. Als Referenz beträgt die diBoaS-Ausstiegsgebühr 0,39% oder {min} pro beendeter Position, je nachdem, welcher Betrag höher ist. Sie wird in Practice weder erhoben noch abgezogen.",
     "currentApy": "Aktueller APY",
     "detailed": "Detailliert",
     "exitFee": "diBoaS-Ausstiegsgebühr (Referenz)",
@@ -349,7 +349,7 @@
     "body": "Pausieren stoppt deinen Wochenplan und die Erinnerungen. Dein investiertes Geld arbeitet in der Strategie weiter.",
     "statePlan": "Plan pausiert",
     "stateMoney": "Investiertes Geld arbeitet weiter",
-    "alsoStop": "Willst du die Strategie ebenfalls stoppen? Zur Information wird eine diBoaS-Referenzgebühr von 0,39 % angezeigt, mit einem Mindestbetrag von {min} pro beendeter Position. Sie wird in Practice weder erhoben noch abgezogen.",
+    "alsoStop": "Willst du die Strategie ebenfalls stoppen? Zur Information wird eine diBoaS-Referenzgebühr von 0,39% angezeigt, mit einem Mindestbetrag von {min} pro beendeter Position. Sie wird in Practice weder erhoben noch abgezogen.",
     "pause": "Plan pausieren",
     "keepGoing": "Weitermachen",
     "stopCta": "Auch die Strategie stoppen",

@@ -19,6 +19,16 @@ export function sanitizeInput(input: string | null): string | undefined {
 }
 
 /**
+ * Allowlist shape for a percentage rendered into a share image (A8, defensive
+ * review 2026-08-04): digits and separators, then an optional "%" written right
+ * after the number. No whitespace anywhere — a percentage is "200%", never
+ * "200 %" (founder ruling 2026-10-31, register 5.729).
+ */
+export function isPercentShape(value: string): boolean {
+  return /^[0-9][0-9,.]{0,9}%?$/.test(value);
+}
+
+/**
  * Format number with locale-specific formatting
  */
 export function formatNumber(num: number): string {

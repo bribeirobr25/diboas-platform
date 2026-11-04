@@ -29,19 +29,20 @@ describe('useMarketWedge', () => {
     expect(result.current.figure).toBe('0.38%');
   });
 
-  it('de → bank savings formatted in de-DE (comma + space), 2 decimals kept', () => {
+  // Founder ruling 2026-10-31 (DR P8, 5.729): no space before % in any locale.
+  it('de → bank savings formatted in de-DE (comma, no space before %), 2 decimals kept', () => {
     const { result } = renderHook(() => useMarketWedge('de'));
     expect(result.current.expression.metric).toBe('bankSavings');
-    expect(result.current.figure).toMatch(/^2,3\s?%$/);
+    expect(result.current.figure).toBe('2,3%');
   });
 
   it('es → bank savings (percent-shape) formatted in es-ES, into the inflation tool', () => {
     // ES wedge reframed (Draper redesign): the 2% bank gap, not cumulative
-    // inflation — drives the inflation-impact tool. savings 2.0 → "2 %".
+    // inflation — drives the inflation-impact tool. savings 2.0 → "2%".
     const { result } = renderHook(() => useMarketWedge('es'));
     expect(result.current.expression.metric).toBe('bankSavings');
     expect(result.current.expression.ctaHref).toBe('/tools/inflation-impact');
-    expect(result.current.figure).toMatch(/^2\s?%$/);
+    expect(result.current.figure).toBe('2%');
   });
 
   it('pt-BR → BRL dollar-loss via the REAL currency-depreciation retrospective', () => {

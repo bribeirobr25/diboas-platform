@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import type { SandboxLocale } from '@/i18n/config';
 import { useLedger } from '@/hooks/useLedger';
 import { selectWeeklyCycleView } from '@/view/home';
@@ -37,9 +37,8 @@ import styles from './WeeklyCycleScreen.module.css';
  * decline is silent — no nag, no re-ask, and the weeks simply stay unresolved.
  */
 export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
-  const intl = useIntl();
   const state = useLedger();
-  const { money } = useFormatters(state.currency);
+  const { money, percent } = useFormatters(state.currency);
   /**
    * ⛑ `5.108` · THE INERT `busy` RE-ENTRANCY FLAG IS REMOVED, NOT REPAIRED.
    *
@@ -209,9 +208,7 @@ export function WeeklyCycleScreen({ locale }: { locale: SandboxLocale }) {
                       <FormattedMessage
                         id="weekly.share"
                         values={{
-                          share: intl.formatNumber(shareOf.get(line.goalId)! / 100, {
-                            style: 'percent',
-                          }),
+                          share: percent(shareOf.get(line.goalId)! / 100),
                         }}
                       />
                     </span>

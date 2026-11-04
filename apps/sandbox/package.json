@@ -20,6 +20,7 @@
   "dependencies": {
     "@diboas/banking": "workspace:*",
     "@diboas/defi": "workspace:*",
+    "@diboas/format": "workspace:*",
     "@diboas/investing": "workspace:*",
     "@neondatabase/serverless": "^1.0.2",
     "@upstash/ratelimit": "^2.0.7",

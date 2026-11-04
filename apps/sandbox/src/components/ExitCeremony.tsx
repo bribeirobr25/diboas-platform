@@ -1,7 +1,7 @@
 'use client';
 
 import { CoinGeckoAttribution } from './CoinGeckoAttribution';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { EXIT_FEE_FLOOR, FEE_RATES } from '@diboas/banking';
 import { getStrategy } from '@diboas/defi';
 import type { StopPreview } from '@/lib/ledgerClient';
@@ -52,8 +52,7 @@ export function ExitCeremony({
   onConfirm: () => void;
   onCancel: () => void;
 }) {
-  const intl = useIntl();
-  const { money } = useFormatters(currency);
+  const { money, percent } = useFormatters(currency);
   const titleRef = useTakeoverFocus<HTMLHeadingElement>();
   const multi = preview.lines.length > 1;
 
@@ -138,10 +137,7 @@ export function ExitCeremony({
               <FormattedMessage
                 id="exitCeremony.diboasFee"
                 values={{
-                  rate: intl.formatNumber(FEE_RATES.exit.toNumber(), {
-                    style: 'percent',
-                    maximumFractionDigits: 2,
-                  }),
+                  rate: percent(FEE_RATES.exit.toNumber(), { maximumFractionDigits: 2 }),
                 }}
               />
               {/* FE-1: the floor travels with the rate, per EXITED POSITION —
