@@ -494,6 +494,12 @@ function checkRegister() {
     'NOT-STARTED',
     'DEFERRED',
   ]);
+  /* A live row's own status assertion (`5.753`): an open-family marker, then a bold status
+     word from this same vocabulary (one source; CLOSED is judged by the ✅ checks below). */
+  const LIVE_STATUS_LEAD = new RegExp(
+    `[⏳⏸🔴🟠🟡🟢📋]\\s*\\*\\*\\s*(${[...VOCAB].filter((v) => v !== 'CLOSED').join('|')})\\b`,
+    'u'
+  );
   /* Inside the BLOCK-A region any letter case is READ, so a lowercase status is reported as
      outside the vocabulary; an uppercase-only pattern dropped its whole line and blamed six
      ids as "not indexed" (2026-10-31, the `5.711` shape in the status index). The region ends
@@ -575,7 +581,21 @@ function checkRegister() {
         new RegExp(`^(?:\\||>) \\*\\*${id.replace('.', '\\.')}(?:\\*\\*|\\s|—)`, 'm')
       );
       if (at < 0) continue;
-      const head = s.slice(at, at + 170);
+      /* The row's own extent: a TABLE row is one line; a NOTE row (`> **5.x**`) runs until a
+         blank line or the next claim — never into neighbours. ⛑ 2026-11-04 (`5.753`): every
+         read below is bounded by it. The head was a fixed 170-character slice, so a SHORT row's
+         head ran into the next row and borrowed its marker: a `⏸ **DEFERRED**` row followed by
+         a `✅ **CLOSED**` row was read as closed (found while building `5.753`'s fixture). */
+      const rest = s.slice(at);
+      let end;
+      if (rest.startsWith('|')) end = rest.indexOf('\n');
+      else {
+        const blank = rest.search(/\n\s*\n/);
+        const next = rest.slice(1).search(/^(?:\||>) \*\*\d+\.\d+(?:\*\*|\s|—)/m);
+        end = Math.min(blank < 0 ? rest.length : blank, next < 0 ? rest.length : next + 1);
+      }
+      const row = rest.slice(0, end < 0 ? rest.length : end);
+      const head = row.slice(0, 170);
       /**
        * ⛑ MENTION vs ASSERTION. A first cut matched closure VOCABULARY anywhere
        * in the head and produced two false positives: `5.278` says *"a CLOSED
@@ -639,6 +659,24 @@ function checkRegister() {
         disagree.push(`${id}(row=LIVE[${openMarker[0]}],index=CLOSED)`);
       }
       /**
+       * ⛑ EVERY LIVE STATUS, ADDED 2026-11-04 (`5.753`, third audit of the webapp-lane plans).
+       *
+       * The two checks above compare CLOSED with not-CLOSED only, so any other disagreement
+       * passed: swapping `5.453 OPEN` and `5.750 FOUNDER` in the index (totals unchanged) gave
+       * PASS. A live row asserts its status as a marker followed by a bold status word
+       * (`⏳ **OPEN …`, `⏸ **DEFERRED …`); the FIRST such assertion is the row's own. It is
+       * read over the row's first 700 characters, because a dated `⚑ **Founder decision …**`
+       * note often precedes it (measured 2026-11-04: 137 rows assert one within 170
+       * characters, 166 within 700; widening found one more disagreement, `5.524`). A marker
+       * plus a bold status word is an assertion, never a mention in running text; a row with no
+       * such lead is not judged here (stated scope limit). CLOSED rows are left to the checks
+       * above, so nothing is reported twice.
+       */
+      if (!saysClosed && want !== 'CLOSED') {
+        const lead = LIVE_STATUS_LEAD.exec(row.slice(0, 700));
+        if (lead && lead[1] !== want) disagree.push(`${id}(row=${lead[1]},index=${want})`);
+      }
+      /**
        * ⛑ A CLOSURE STATED LATER IN THE ROW (P0 review, PB-5). Only the first
        * 170 characters were read, so a row that appends `✅ **CLOSED …**` to its
        * end while its head still says open agreed with an OPEN index —
@@ -647,17 +685,6 @@ function checkRegister() {
        * restated, rather than either reading winning silently.
        */
       if (!saysClosed && want !== 'CLOSED') {
-        /* The row's own extent: a TABLE row is one line; a NOTE row (`> **5.x**`)
-           runs until a blank line or the next claim — never into neighbours. */
-        const rest = s.slice(at);
-        let end;
-        if (rest.startsWith('|')) end = rest.indexOf('\n');
-        else {
-          const blank = rest.search(/\n\s*\n/);
-          const next = rest.slice(1).search(/^(?:\||>) \*\*\d+\.\d+(?:\*\*|\s|—)/m);
-          end = Math.min(blank < 0 ? rest.length : blank, next < 0 ? rest.length : next + 1);
-        }
-        const row = rest.slice(0, end < 0 ? rest.length : end);
         /* A QUOTED marker is a mention, not this row's status — `5.291` quotes
            another row's `("✅ FIXED …")` while being open itself. */
         if (/(?<!["“'`(]\s?)✅\s*\**\s*(?:CLOSED|FIXED)\b/u.test(row.slice(169))) {
