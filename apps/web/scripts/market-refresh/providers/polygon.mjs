@@ -61,7 +61,9 @@ export async function fetchEtfSharesOutstanding(tickers = SPOT_BTC_ETFS) {
     provenance: {
       source: 'Polygon:/v3/reference/tickers',
       fetchedAt: new Date().toISOString(),
-      licence: 'polygon-free-tier',
+      // 5.724: the source's terms are recorded privately; this file states no
+      // licence class (same rule as fred.mjs, 5.307).
+      licence: 'recorded-privately',
     },
   };
 }

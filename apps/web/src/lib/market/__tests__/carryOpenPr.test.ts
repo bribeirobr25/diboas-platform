@@ -32,6 +32,13 @@ const REGIME = `${SHARED}/regime.json`;
 // which releaseGateBoundary.test.ts reserves for declared readers).
 const SECOND = 'apps/web/src/lib/market-data/data/protocolsTvl.json';
 
+// Every test builds a fresh git fixture (a bare origin and two clones) and
+// runs `prepare`/`verify` against it; on a loaded machine that passed the 5 s
+// default (measured 2026-11-04). Explicit limits, as for the other
+// child-process tests in this folder.
+const TIMEOUT_MS = 30_000;
+const CHILD = { timeout: TIMEOUT_MS - 5_000 };
+
 let root: string;
 let origin: string;
 let author: string; // a clone that plays "main" and the bot pushing to the branch
@@ -42,6 +49,7 @@ const git = (cwd: string, ...args: string[]) =>
     cwd,
     encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'pipe'],
+    ...CHILD,
   }).trim();
 
 function write(dir: string, rel: string, text: string) {
@@ -94,7 +102,7 @@ const pr = (
 });
 
 function cloneRunner() {
-  execFileSync('git', ['clone', '-q', '--branch', 'main', origin, runner]);
+  execFileSync('git', ['clone', '-q', '--branch', 'main', origin, runner], CHILD);
 }
 
 beforeEach(() => {
@@ -102,17 +110,17 @@ beforeEach(() => {
   origin = path.join(root, 'origin.git');
   author = path.join(root, 'author');
   runner = path.join(root, 'runner');
-  execFileSync('git', ['init', '-q', '--bare', '-b', 'main', origin]);
-  execFileSync('git', ['clone', '-q', origin, author], { stdio: 'ignore' });
+  execFileSync('git', ['init', '-q', '--bare', '-b', 'main', origin], CHILD);
+  execFileSync('git', ['clone', '-q', origin, author], { stdio: 'ignore', ...CHILD });
   git(author, 'checkout', '-qb', 'main');
   seedMain();
-});
+}, TIMEOUT_MS);
 
 afterEach(() => {
   fs.rmSync(root, { recursive: true, force: true });
-});
+}, TIMEOUT_MS);
 
-describe('CARRY-PR-1 prepare — what the run starts from', () => {
+describe('CARRY-PR-1 prepare — what the run starts from', { timeout: TIMEOUT_MS }, () => {
   it('should start fresh from main when no refresh PR is open', () => {
     cloneRunner();
     const res = prepare({ cwd: runner, openPrs: [] });
@@ -137,6 +145,7 @@ describe('CARRY-PR-1 prepare — what the run starts from', () => {
     const changed = execFileSync('git', ['status', '--porcelain', '-z', '--untracked-files=all'], {
       cwd: runner,
       encoding: 'utf8',
+      ...CHILD,
     })
       .split('\0')
       .filter(Boolean)
@@ -337,98 +346,104 @@ describe('CARRY-PR-1 prepare — what the run starts from', () => {
   });
 });
 
-describe('CARRY-PR-1 verify — the branch is where the run found it', () => {
-  it('should allow publishing a carry when the PR head is unchanged', () => {
-    const head = openBotBranch();
-    cloneRunner();
-    expect(
-      verify({
+describe(
+  'CARRY-PR-1 verify — the branch is where the run found it',
+  { timeout: TIMEOUT_MS },
+  () => {
+    it('should allow publishing a carry when the PR head is unchanged', () => {
+      const head = openBotBranch();
+      cloneRunner();
+      expect(
+        verify({
+          cwd: runner,
+          openPrs: [pr(head)],
+          decision: 'carry',
+          startHead: head,
+          prNumber: 751,
+        })
+      ).toMatchObject({ ok: true });
+    });
+
+    it('should refuse a carry when a memo was pushed to the branch during the run', () => {
+      const head = openBotBranch();
+      cloneRunner();
+      git(author, 'checkout', '-q', 'bot');
+      write(author, REGIME, '{"summary":{"en":{"short":"pushed mid-run"}}}\n');
+      git(author, 'commit', '-qam', 'memo mid-run');
+      git(author, 'push', '-q', 'origin', `HEAD:${REFRESH_BRANCH}`);
+      const moved = git(author, 'rev-parse', 'HEAD');
+      const res = verify({
         cwd: runner,
-        openPrs: [pr(head)],
+        openPrs: [pr(moved)],
         decision: 'carry',
         startHead: head,
         prNumber: 751,
-      })
-    ).toMatchObject({ ok: true });
-  });
-
-  it('should refuse a carry when a memo was pushed to the branch during the run', () => {
-    const head = openBotBranch();
-    cloneRunner();
-    git(author, 'checkout', '-q', 'bot');
-    write(author, REGIME, '{"summary":{"en":{"short":"pushed mid-run"}}}\n');
-    git(author, 'commit', '-qam', 'memo mid-run');
-    git(author, 'push', '-q', 'origin', `HEAD:${REFRESH_BRANCH}`);
-    const moved = git(author, 'rev-parse', 'HEAD');
-    const res = verify({
-      cwd: runner,
-      openPrs: [pr(moved)],
-      decision: 'carry',
-      startHead: head,
-      prNumber: 751,
+      });
+      expect(res.ok).toBe(false);
+      expect(res.reason).toContain('moved during the run');
     });
-    expect(res.ok).toBe(false);
-    expect(res.reason).toContain('moved during the run');
-  });
 
-  it('should refuse a carry when the PR was merged or closed during the run', () => {
-    const head = openBotBranch();
-    cloneRunner();
-    git(author, 'push', '-q', 'origin', `:${REFRESH_BRANCH}`); // deleted on merge
-    const res = verify({
-      cwd: runner,
-      openPrs: [],
-      decision: 'carry',
-      startHead: head,
-      prNumber: 751,
+    it('should refuse a carry when the PR was merged or closed during the run', () => {
+      const head = openBotBranch();
+      cloneRunner();
+      git(author, 'push', '-q', 'origin', `:${REFRESH_BRANCH}`); // deleted on merge
+      const res = verify({
+        cwd: runner,
+        openPrs: [],
+        decision: 'carry',
+        startHead: head,
+        prNumber: 751,
+      });
+      expect(res.ok).toBe(false);
+      expect(res.reason).toContain('no longer open');
     });
-    expect(res.ok).toBe(false);
-    expect(res.reason).toContain('no longer open');
-  });
 
-  it('should refuse a fresh run when a refresh PR or branch appeared during the run', () => {
-    cloneRunner();
-    const head = openBotBranch();
-    expect(verify({ cwd: runner, openPrs: [pr(head)], decision: 'fresh', startHead: '' }).ok).toBe(
-      false
-    );
-    expect(verify({ cwd: runner, openPrs: [], decision: 'fresh', startHead: '' })).toMatchObject({
-      ok: false,
-      reason: expect.stringContaining('branch moved'),
+    it('should refuse a fresh run when a refresh PR or branch appeared during the run', () => {
+      cloneRunner();
+      const head = openBotBranch();
+      expect(
+        verify({ cwd: runner, openPrs: [pr(head)], decision: 'fresh', startHead: '' }).ok
+      ).toBe(false);
+      expect(verify({ cwd: runner, openPrs: [], decision: 'fresh', startHead: '' })).toMatchObject({
+        ok: false,
+        reason: expect.stringContaining('branch moved'),
+      });
     });
-  });
 
-  it('should refuse a carry when GitHub reports a different head even if the branch looks unchanged', () => {
-    const head = openBotBranch();
-    cloneRunner();
-    const res = verify({
-      cwd: runner,
-      openPrs: [pr('1'.repeat(40))],
-      decision: 'carry',
-      startHead: head,
-      prNumber: 751,
+    it('should refuse a carry when GitHub reports a different head even if the branch looks unchanged', () => {
+      const head = openBotBranch();
+      cloneRunner();
+      const res = verify({
+        cwd: runner,
+        openPrs: [pr('1'.repeat(40))],
+        decision: 'carry',
+        startHead: head,
+        prNumber: 751,
+      });
+      expect(res.ok).toBe(false);
     });
-    expect(res.ok).toBe(false);
-  });
 
-  it('should refuse a fresh run when a PR is listed even if the branch looks unchanged', () => {
-    const head = openBotBranch();
-    cloneRunner();
-    const res = verify({ cwd: runner, openPrs: [pr(head)], decision: 'fresh', startHead: head });
-    expect(res).toMatchObject({
-      ok: false,
-      reason: expect.stringContaining('opened during the run'),
+    it('should refuse a fresh run when a PR is listed even if the branch looks unchanged', () => {
+      const head = openBotBranch();
+      cloneRunner();
+      const res = verify({ cwd: runner, openPrs: [pr(head)], decision: 'fresh', startHead: head });
+      expect(res).toMatchObject({
+        ok: false,
+        reason: expect.stringContaining('opened during the run'),
+      });
     });
-  });
 
-  it('should allow a fresh run when nothing changed, and never publish after a refusal', () => {
-    cloneRunner();
-    expect(verify({ cwd: runner, openPrs: [], decision: 'fresh', startHead: '' }).ok).toBe(true);
-    expect(verify({ cwd: runner, openPrs: [], decision: 'refuse', startHead: '' }).ok).toBe(false);
-  });
-});
+    it('should allow a fresh run when nothing changed, and never publish after a refusal', () => {
+      cloneRunner();
+      expect(verify({ cwd: runner, openPrs: [], decision: 'fresh', startHead: '' }).ok).toBe(true);
+      expect(verify({ cwd: runner, openPrs: [], decision: 'refuse', startHead: '' }).ok).toBe(
+        false
+      );
+    });
+  }
+);
 
-describe('CARRY-PR-1 PR body and command line', () => {
+describe('CARRY-PR-1 PR body and command line', { timeout: TIMEOUT_MS }, () => {
   it('should state the carried weeks and ask for a memo rewrite', () => {
     const note = carryNote({
       decision: 'carry',
@@ -479,6 +494,7 @@ describe('CARRY-PR-1 PR body and command line', () => {
         NOTE_PATH: notePath,
       },
       stdio: ['ignore', 'pipe', 'pipe'],
+      ...CHILD,
     });
     expect(outText).toContain('decision=carry');
     expect(outText).toContain(`start_head=${head}`);
@@ -499,6 +515,7 @@ describe('CARRY-PR-1 PR body and command line', () => {
           PR_NUMBER: '751',
         },
         stdio: ['ignore', 'pipe', 'pipe'],
+        ...CHILD,
       });
     } catch (err) {
       code = (err as { status: number }).status;

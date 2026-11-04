@@ -33,7 +33,9 @@ export async function fetchYahooDaily(symbol, range = '1y') {
       source: `Yahoo:${symbol}`,
       url: `chart/${symbol}?interval=1d`,
       fetchedAt: new Date().toISOString(),
-      licence: 'quote-display',
+      // 5.724: the source's terms are recorded privately; this file states no
+      // licence class (same rule as fred.mjs, 5.307).
+      licence: 'recorded-privately',
     },
   };
 }
@@ -71,7 +73,9 @@ export async function fetchYahooMonthlyBars(symbol, range = '2y') {
       source: `Yahoo:${symbol}`,
       url: `chart/${symbol}?interval=1mo`,
       fetchedAt: new Date().toISOString(),
-      licence: 'quote-display',
+      // 5.724: the source's terms are recorded privately; this file states no
+      // licence class (same rule as fred.mjs, 5.307).
+      licence: 'recorded-privately',
     },
   };
 }

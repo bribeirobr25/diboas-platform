@@ -44,7 +44,9 @@ export async function fetchBtcMonthCloseVerifier(ym) {
       source: 'CoinGecko:bitcoin',
       url: 'market_chart/range@month-boundary',
       fetchedAt: new Date().toISOString(),
-      licence: 'attribution',
+      // 5.724: the source's terms are recorded privately; this file states no
+      // licence class (same rule as fred.mjs, 5.307).
+      licence: 'recorded-privately',
     },
   };
 }

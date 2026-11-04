@@ -63,7 +63,7 @@ flowchart TD
 
 ### Engineering posture (built — verifiable in this repo)
 
-- **Testing & CI:** strict TypeScript, **4,677 tests / 358 files (Vitest), measured 2026-11-03 on the `5.729` branch (`main` `c21d5999` plus that change)** across the workspace (web 2,272/169 · sandbox 1,608/137 · banking 181/7 · investing 92/6 · defi 458/38 · format 66/1 — tests/files per package, six per-package runs, none carried; both columns sum to the totals, checked by `review:counts`), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
+- **Testing & CI:** strict TypeScript, **4,687 tests / 360 files (Vitest), measured 2026-11-04 on the `5.740`/`5.741` branch (`main` `b693d496` plus that change)** across the workspace (web 2,282/171 · sandbox 1,608/137 · banking 181/7 · investing 92/6 · defi 458/38 · format 66/1 — tests/files per package, six per-package runs, none carried; both columns sum to the totals, checked by `review:counts`), Lighthouse CI + pa11y (WCAG 2.1 AA), and 6 GitHub Actions workflows (CI, security audit, accessibility, E2E, Lighthouse, quarterly security scan) plus a weekly /market data-refresh workflow.
 - **Security:** per-request **nonce-based CSP** (`'unsafe-inline'` prohibited for scripts), **AES-256-GCM** encryption for PII at rest, **HMAC blind indexing**, Upstash rate limiting, DOMPurify sanitization, and CSRF protection on mutation endpoints.
 - **i18n:** 40 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
 - **Monitoring:** Sentry, PostHog, and GA4 — all consent-gated and lazy-loaded behind a cookie-consent check.
