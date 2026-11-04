@@ -1,6 +1,11 @@
 version: 2
 updates:
-  # Root workspace
+  # ONE npm entry, at the root (register 5.736). This is a pnpm workspace with a
+  # single pnpm-lock.yaml; the root entry already updates every workspace
+  # package.json together with that lockfile. A per-folder entry
+  # ('/apps/web', '/packages/*') cannot update the root lockfile, so every PR it
+  # opened failed `pnpm install --frozen-lockfile` before any check ran.
+  # Guard: apps/web/src/lib/__tests__/dependabotConfig.test.ts
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
@@ -23,46 +28,4 @@ updates:
       - dependency-name: 'tailwindcss'
         update-types: ['version-update:semver-major']
       - dependency-name: 'knip'
-        update-types: ['version-update:semver-major']
-
-  # Web app
-  - package-ecosystem: 'npm'
-    directory: '/apps/web'
-    schedule:
-      interval: 'weekly'
-    ignore:
-      - dependency-name: 'typescript'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'react'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'react-dom'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'next'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'react-intl'
-        update-types: ['version-update:semver-major']
-
-  # Shared packages
-  - package-ecosystem: 'npm'
-    directory: '/packages/i18n'
-    schedule:
-      interval: 'weekly'
-    ignore:
-      - dependency-name: 'typescript'
-        update-types: ['version-update:semver-major', 'version-update:semver-minor']
-      - dependency-name: 'react'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'react-intl'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'next'
-        update-types: ['version-update:semver-major']
-
-  - package-ecosystem: 'npm'
-    directory: '/packages/ui'
-    schedule:
-      interval: 'weekly'
-    ignore:
-      - dependency-name: 'typescript'
-        update-types: ['version-update:semver-major', 'version-update:semver-minor']
-      - dependency-name: 'react'
         update-types: ['version-update:semver-major']
