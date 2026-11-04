@@ -1087,3 +1087,27 @@ pinned by a test that was watched failing.
     batch awaiting the founder's go. Recording the rule here is promotion, not implementation.
   - ⚑ `projection.caveat` (_"An assumption you can check, not a promise…"_) is honest and
     stays — it is **not** a substitute for this disclosure.
+
+## Market data store (`apps/web/scripts/market-data/`, founder decisions 2026-11-04)
+
+- **Market data lives in the private `diboas-analytics` repository under `market/`, never in this
+  public one.** The platform keeps only what the website publishes. Collection runs here in Actions
+  (`market-data-collect.yml`) and writes there through `MARKET_DATA_TOKEN`, scoped to that one
+  repository. Data commits go to its `main`, under `market/` only; collector code changes go
+  through a PR. Guard: `DATA-STORE-1`.
+- **Append-only.** A stored day is never rewritten; a changed value is logged in `revisions.jsonl`
+  and blocks the series. Only `us_m2` (`revisable: true`) accepts and logs a revision, because the
+  Fed's revised figure IS the published one. Do not add `revisable` to a price series to make a
+  block go away: a block is a person's question (a split, a corrected print, a source fault).
+- **Total return is computed from closes and ex-dates, never from a provider's adjusted close**
+  (it moves every time a dividend is paid; register `5.633`). Distributions merge across sources:
+  Yahoo omitted TLT 2012-11-01, 2026-10-01, 2026-11-02 and QQQ 2020-09-21, which the issuer and
+  Nasdaq list.
+- **Only `checks/accepted-exceptions.json` (in the store, with a written reason per day) unblocks a
+  check.** Never widen a tolerance to pass a day; a pair read at different times of day passes only
+  inside the other source's traded range (`rangeSlack`).
+- **Spot gold, never the GLD fund or futures** (founder 2026-11-04). The **official B3 close** is the
+  Ibovespa primary: Yahoo's `^BVSP` disagreed with B3 beyond 0.1% on 97 of 4,174 days.
+- **Not yet consumed.** Nothing the website reads changed. Moving `monthlyPrices.json`, `monthlyFx.json`
+  and the score's weekly inputs onto the store changes published numbers and is its own reviewed
+  increment.
