@@ -28,8 +28,17 @@ import { describe, it, expect } from 'vitest';
 const TRANSLATIONS_DIR = join(__dirname, '../../../../../../packages/i18n/translations');
 const LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
 
-const EARN = String.raw`earn|yield|rendend|rend[eo]|verdien|rendi`;
-const STABLE = String.raw`digital dollar|d[oó]lar[es]* digital|USDC|stablecoin`;
+/**
+ * The patterns live in ONE file both walls read (this one and the apps/sandbox mirror), so
+ * they cannot drift (register `5.749`). Widened 2026-11-04: hyphenated "digital-dollar",
+ * pt-BR "dólares digitais" and German inflected forms ("digitalen Dollar", "Digital-Dollar"),
+ * which the old `digital dollar` missed while live strings paired them with "yield"/"Rendite".
+ */
+const PATTERNS = JSON.parse(
+  readFileSync(join(__dirname, '../../../../../../config/genius-wall-patterns.json'), 'utf8')
+) as { earn: string; stable: string };
+const EARN = PATTERNS.earn;
+const STABLE = PATTERNS.stable;
 const PAIRING = new RegExp(`(?:${EARN}).{0,40}(?:${STABLE})|(?:${STABLE}).{0,40}(?:${EARN})`, 'i');
 
 /** `${locale}::${namespace}::${keyPath}` — CLO-scoped (2026-07-21 inventory). */
@@ -50,20 +59,12 @@ const ALLOW: ReadonlySet<string> = new Set([
   'pt-BR::protocols::cards.ethena.description',
   'pt-BR::strategies::protocols.items.skySsr.type',
   // --- PERMANENT · Cat 4 · disclaimers / tooltips (state returns NOT guaranteed) ---
-  'en::landing-b2c::comparison.footnote',
-  'es::landing-b2c::comparison.footnote',
   'es::tools-shared::disclaimer',
-  'es::tools-shared::scenarios.conservativeTooltip',
   'pt-BR::learn-compound-interest::calculator.calibrationNote',
   'pt-BR::tools-shared::disclaimer',
-  'pt-BR::tools-shared::scenarios.conservativeTooltip',
   // --- TRANSCREATION-PENDING · remove when the es/de pass fixes these ---
   'de::strategies::strategies.safeHarbor.description2', // Cat 1
   'es::strategies::strategies.safeHarbor.description2', // Cat 1
-  'es::tools-currency-depreciation::output.diboasNote', // Cat 3
-  'es::tools-currency-depreciation::seo.description', // Cat 3
-  'es::tools-idle-cash::output.diboasNote', // Cat 3
-  'es::tools-idle-cash::output.differenceNegative', // Cat 3
   // NB: the investor-docs pitch-deck "USDC plus on-chain yield" bullets were
   // RULED out of consumer GENIUS scope (CLO final sign-off 2026-07-21) yet
   // reworded to "on-chain returns" for house-style hygiene — so they no longer
@@ -118,6 +119,41 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', () => {
       expect(unlisted, 'new stablecoin-earns pairing (see the GENIUS wall guard)').toEqual([]);
     });
   }
+
+  /**
+   * Code literals too (`5.749`): user-facing text also lives in TS/TSX (SEO constants, JSON-LD
+   * fallbacks), and the catalogue scan never saw it. Exceptions are named by file and the
+   * literal's opening words, never by pattern.
+   */
+  const CODE_ALLOW: ReadonlySet<string> = new Set([
+    // Cat 2 · protocol mechanism, and NOT RENDERED: the page reads every card text from the
+    // catalogue (`cards.<id>.description`, itself Cat 2-listed above). The dead text fields of
+    // this file are registered for deletion in their own increment.
+    'components/Pages/Protocols/protocolsData.ts::The original DeFi system. Running since 2014.',
+    'components/Pages/Protocols/protocolsData.ts::Creates a synthetic dollar (USDe) through hedged',
+  ]);
+  const WEB_SRC = join(__dirname, '../../..');
+  const LITERAL = /'(?:[^'\\\n]|\\.)*'|"(?:[^"\\\n]|\\.)*"|`(?:[^`\\]|\\.)*`/g;
+
+  it('should not pair earn/yield with a stablecoin token in any TS/TSX string literal under apps/web/src', () => {
+    const found: string[] = [];
+    const files = (readdirSync(WEB_SRC, { recursive: true }) as string[])
+      .map((f) => f.replace(/\\/g, '/'))
+      .filter((f) => /\.tsx?$/.test(f) && !/(__tests__|\.test\.|\.stories\.)/.test(f));
+    expect(files.length).toBeGreaterThan(300);
+    for (const file of files) {
+      for (const m of readFileSync(join(WEB_SRC, file), 'utf8').matchAll(LITERAL)) {
+        const text = m[0].slice(1, -1);
+        if (!PAIRING.test(text)) continue;
+        const listed = [...CODE_ALLOW].some((id) => {
+          const [f, opening] = id.split('::');
+          return f === file && text.startsWith(opening as string);
+        });
+        if (!listed) found.push(`${file} — "${text.slice(0, 120)}"`);
+      }
+    }
+    expect(found, 'a code literal pairs earn/yield with a stablecoin token').toEqual([]);
+  });
 
   it('allow-list has no stale entries (every entry still matches the pairing)', () => {
     const stale: string[] = [];

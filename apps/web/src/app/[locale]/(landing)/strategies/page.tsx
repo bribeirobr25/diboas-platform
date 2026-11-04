@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { SEOMetadataFactory } from '@/lib/seo';
+import { buildPageStructuredData } from '@/lib/seo/pageStructuredData';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
@@ -105,27 +105,20 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
   // Load page-specific namespaces (common + waitlist already provided by landing layout)
   // 'faq' provides the canonical FAQ strings (2026-07-13 SSOT — the page's FAQ
   // now sources from faq.json via the FAQ registry, not the strategies namespace).
-  const pageMessages = await loadPageNamespaces(locale, [
-    'strategies',
-    'share',
-    'landing-b2c',
-    'faq',
+  const [pageMessages, strategiesMessages] = await Promise.all([
+    loadPageNamespaces(locale, ['strategies', 'share', 'landing-b2c', 'faq']),
+    loadMessages(locale, 'strategies'),
   ]);
 
-  // Generate structured data
-  const organizationData = SEOMetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS Investment Strategies',
-    description:
-      '10 investment strategies from conservative to aggressive for different financial goals',
-    category: 'Investment Services',
-  });
-
-  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
-    [
-      { name: 'Home', url: '/' },
-      { name: 'Strategies', url: '/strategies' },
-    ],
-    locale
+  // Structured data in the page locale (5.643)
+  const { service: organizationData, breadcrumbs: breadcrumbData } = await buildPageStructuredData(
+    locale,
+    {
+      description: strategiesMessages?.seo?.jsonLd?.serviceDescription,
+      descriptionFallback:
+        '10 strategies, from conservative to growth-focused, for different goals and timelines.',
+      crumb: { key: 'strategies', url: '/strategies' },
+    }
   );
 
   return (

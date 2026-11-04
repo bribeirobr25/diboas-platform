@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { SEOMetadataFactory } from '@/lib/seo';
+import { buildPageStructuredData } from '@/lib/seo/pageStructuredData';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
@@ -111,22 +111,20 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
   // Load page-specific namespaces (common + waitlist already provided by landing layout)
   // 'faq' provides the canonical FAQ strings (2026-07-13 SSOT — the page's FAQ
   // now sources from faq.json via the FAQ registry, not the protocols namespace).
-  const pageMessages = await loadPageNamespaces(locale, ['protocols', 'landing-b2c', 'faq']);
+  const [pageMessages, protocolsMessages] = await Promise.all([
+    loadPageNamespaces(locale, ['protocols', 'landing-b2c', 'faq']),
+    loadMessages(locale, 'protocols'),
+  ]);
 
-  // Generate structured data
-  const organizationData = SEOMetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS Protocol Transparency',
-    description:
-      'Complete list of DeFi protocols used by diBoaS with security audits and regulatory information',
-    category: 'Financial Technology',
-  });
-
-  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
-    [
-      { name: 'Home', url: '/' },
-      { name: 'Protocols', url: '/protocols' },
-    ],
-    locale
+  // Structured data in the page locale (5.643)
+  const { service: organizationData, breadcrumbs: breadcrumbData } = await buildPageStructuredData(
+    locale,
+    {
+      description: protocolsMessages?.seo?.jsonLd?.serviceDescription,
+      descriptionFallback:
+        "The decentralized finance protocols diBoaS has researched, with each one's audits and track record, and the ones its strategies use today.",
+      crumb: { key: 'protocols', url: '/protocols' },
+    }
   );
 
   return (

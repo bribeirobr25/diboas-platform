@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Calculadora de depreciación monetaria",
-    "description": "Calculadora gratuita de depreciación monetaria. Compara tu moneda local en efectivo, en el banco y en dólar digital al 10% de rendimiento histórico."
+    "description": "Calculadora gratuita de depreciación monetaria. Compara tu moneda local en efectivo, en el banco y en una estrategia en dólar digital (10% histórico al año)."
   },
   "hero": {
     "kicker": "Calculadora de depreciación monetaria",
@@ -31,7 +31,7 @@
     "bankLabel": "Rendimiento bancario",
     "bankRateNote": "{rate}% tipo local",
     "diboasLabel": "Dólar digital en diBoaS",
-    "diboasNote": "{rate}% rendimiento histórico, guardado en dólar digital",
+    "diboasNote": "{rate}% anual, valor histórico de la estrategia, guardado en dólar digital",
     "retrospectiveThenLabel": "Entonces ({startMonth})",
     "retrospectiveThenNote": "1 USD = {rate} {currency}",
     "retrospectiveNowLabel": "Ahora ({asOfMonth})",

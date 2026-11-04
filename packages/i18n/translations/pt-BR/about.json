@@ -1,9 +1,9 @@
 {
   "seo": {
     "title": "Sobre o diBoaS | Construído pra quem os bancos esqueceram",
-    "description": "O diBoaS foi construído porque uma avó merecia mais. Agora todo mundo merece. Transferências grátis, opções reais de crescimento, a partir de R$10.",
+    "description": "O diBoaS foi construído porque uma avó merecia mais. Agora todo mundo merece. Transferências grátis, opções reais de crescimento.",
     "ogTitle": "Sobre o diBoaS | Construído pra quem os bancos esqueceram",
-    "ogDescription": "O diBoaS foi construído porque uma avó merecia mais. Agora todo mundo merece. Transferências grátis, opções reais de crescimento, a partir de R$10."
+    "ogDescription": "O diBoaS foi construído porque uma avó merecia mais. Agora todo mundo merece. Transferências grátis, opções reais de crescimento."
   },
   "hero": {
     "title": "Uma avó. Um problema. Uma plataforma.",
@@ -36,7 +36,7 @@
       "description": "A gente não promete retorno garantido porque ninguém pode. O que a gente oferece: dados reais, explicações claras. Você entende o que tá fazendo antes de fazer."
     },
     "startSmall": {
-      "title": "Comece com R$10. Aprenda no caminho.",
+      "title": "Comece com pouco. Aprenda no caminho.",
       "description": "A gente construiu a porta pra você começar pequeno e manter o controle do seu dinheiro. Opções reais, explicadas antes de você usar."
     }
   },

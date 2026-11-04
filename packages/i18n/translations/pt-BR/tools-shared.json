@@ -57,7 +57,7 @@
     "historical": "Histórico (10%)",
     "optimistic": "Otimista (14%)",
     "digitalDollarSuffix": " em dólar digital",
-    "conservativeTooltip": "Faixa conservadora de rendimento em dólar digital de longo prazo, refletindo as taxas passivas de primeira linha disponíveis em 2026.",
+    "conservativeTooltip": "Faixa conservadora de retorno da estratégia no longo prazo, refletindo as taxas passivas de primeira linha disponíveis em 2026.",
     "historicalTooltip": "Faixa da estratégia diBoaS multi-ativos baseada no CAGR de retorno total do S&P 500 de longo prazo (1928–2024).",
     "optimisticTooltip": "Faixa da estratégia diBoaS multi-ativos dos últimos 10 anos, refletindo as condições de mercado pós-2014.",
     "tooltipLabel": "Mais informações"

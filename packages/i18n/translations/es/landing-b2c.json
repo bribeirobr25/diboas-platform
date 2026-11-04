@@ -25,7 +25,7 @@
       "apy": "Tipo anual",
       "return": "Rendimiento a 1 año"
     },
-    "footnote": "Tipos comparativos basados en datos públicos de la UE como promedio de los últimos 5 años. Los rendimientos pueden cambiar y variar según el producto. Los rendimientos en dólares digitales implican riesgo, incluida la posible pérdida del capital.",
+    "footnote": "Tipos comparativos basados en datos públicos de la UE como promedio de los últimos 5 años. Los tipos pueden cambiar y variar según el producto. Los rendimientos vienen de la estrategia, no de mantener dólares digitales, e implican riesgo, incluida la posible pérdida del capital.",
     "disclosureToggle": "Ver todos los costes"
   },
   "fees": {
@@ -54,7 +54,7 @@
       },
       "adding": {
         "action": "Añadir Dinero",
-        "diboas": "{rate} (sin límite, sin mínimo)",
+        "diboas": "{rate} (sin límite)",
         "competitors": "Las comisiones de proveedores pueden variar",
         "difference": "Se muestra antes de confirmar",
         "example": "Añadir 100 €: comisión diBoaS de 48 céntimos"
@@ -208,7 +208,7 @@
     "ogDescription": "Elige un objetivo, ve el camino y mantén el control. diBoaS nunca guarda tu dinero.",
     "jsonLd": {
       "serviceDescription": "Creación de patrimonio guiada por objetivos con el dólar digital. Tu dinero, tu cartera, tu control.",
-      "appDescription": "Creación de patrimonio guiada por objetivos desde 5 €. Tu dinero, tu cartera, tu control.",
+      "appDescription": "Creación de patrimonio guiada por objetivos. Tu dinero, tu cartera, tu control.",
       "breadcrumbHome": "Inicio"
     }
   },
@@ -217,7 +217,6 @@
       "headline": "Tu dinero necesita un plan. No otra promesa.",
       "subtitle": "Un colchón. Un objetivo. Un plan que no quieres improvisar.\n\ndiBoaS te muestra caminos con dólares digitales, costes y riesgos antes de que decidas.",
       "whatIs": "diBoaS es una forma sencilla de hacer crecer tu dinero en dólares digitales. Tú mantienes el control.",
-      "microcopy": "Empieza con 5 €. Sin cuota mensual. Retira cuando quieras.",
       "cta": "Ver cómo funciona",
       "ctaSecondary": "Ver el camino"
     },

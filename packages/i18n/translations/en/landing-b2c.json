@@ -25,7 +25,7 @@
       "apy": "APY",
       "return": "1-Year Return"
     },
-    "footnote": "Comparison rates based on publicly available US data as a last 5 years average. Yield rates are subject to change and may vary across products. Digital dollar yields involve risk, including potential loss of principal.",
+    "footnote": "Comparison rates based on publicly available US data as a last 5 years average. Rates are subject to change and may vary across products. Returns come from the strategy, not from holding digital dollars, and involve risk, including potential loss of principal.",
     "disclosureToggle": "See the full cost"
   },
   "fees": {
@@ -54,7 +54,7 @@
       },
       "adding": {
         "action": "Add Money",
-        "diboas": "{rate} (no cap, no minimum)",
+        "diboas": "{rate} (no cap)",
         "competitors": "Provider fees may vary",
         "difference": "Shown before you confirm",
         "example": "Add $100: diBoaS fee is 48 cents"
@@ -203,12 +203,12 @@
   },
   "seo": {
     "title": "diBoaS | Give Your Money a Job",
-    "description": "Your side-pocket for wealth. Give your money a job, see the path, and stay in control. Start with $5. Not a bank, not a guarantee. You can lose money.",
+    "description": "Your side-pocket for wealth. Give your money a job, see the path, and stay in control. Not a bank, not a guarantee. You can lose money.",
     "ogTitle": "Money works better when it has a job.",
     "ogDescription": "Choose what your money is for, see the path, and stay in control. diBoaS never holds your money.",
     "jsonLd": {
       "serviceDescription": "Goal-driven wealth building powered by the digital dollar. Your money, your wallet, your control.",
-      "appDescription": "Goal-driven wealth building starting at $5. Your money, your wallet, your control.",
+      "appDescription": "Goal-driven wealth building. Your money, your wallet, your control.",
       "breadcrumbHome": "Home"
     }
   },
@@ -217,7 +217,6 @@
       "headline": "Money works better when it has a job.",
       "subtitle": "A reserve. A plan. A future you can point to.\n\nChoose what this money is for. See the path. Stay in control.",
       "whatIs": "diBoaS is a simple way to grow your money in digital dollars. You stay in control.",
-      "microcopy": "Start with $5. No monthly fee. Pull out anytime.",
       "cta": "Show me how",
       "ctaSecondary": "See the path"
     },

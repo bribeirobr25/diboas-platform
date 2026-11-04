@@ -4,19 +4,8 @@
  */
 
 import { SEOMetadataFactory } from './metadata-factory';
-import { PAGE_SEO_CONFIG } from './constants';
 import type { SupportedLocale } from '@diboas/i18n/server';
 import type { Metadata } from 'next';
-
-/**
- * Convenience wrapper for static page metadata
- */
-export async function generateStaticPageMetadata(
-  pageKey: keyof typeof PAGE_SEO_CONFIG,
-  locale: SupportedLocale
-): Promise<Metadata> {
-  return SEOMetadataFactory.generateStaticPageMetadata(pageKey, locale);
-}
 
 /**
  * Convenience wrapper for dynamic page metadata

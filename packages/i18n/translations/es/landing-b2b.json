@@ -144,8 +144,8 @@
         "action": "Vender / Cerrar",
         "diboas": "{rate} (mín {min}, sin límite)",
         "competitors": "Comisiones y spreads pueden variar",
-        "difference": "0,39%, con un tope de 25 €",
-        "example": "Vender 10.000 €: el 0,39% serían 39 €, pero la comisión se limita al tope de 25 €"
+        "difference": "0,39%, sin límite",
+        "example": "Vender 10.000 €: la comisión de diBoaS es de 39 € (0,39%)"
       },
       "swap": {
         "action": "Intercambiar",
@@ -310,7 +310,10 @@
     "description": "Nóminas. Alquiler. IVA. Proveedores. Colchón. diBoaS ayuda a las empresas a separar liquidez por finalidad, revisar estrategias y ver costes, disponibilidad y riesgo antes de mover dinero.",
     "ogTitle": "Cada euro necesita una función.",
     "ogDescription": "diBoaS ayuda a las empresas a separar liquidez operativa, pagos y saldos parados con costes, disponibilidad y riesgo visibles antes de mover dinero.",
-    "keywords": "gestión de tesorería, finanzas para startups, retornos, capital operativo, pagos empresariales, fintech B2B"
+    "keywords": "gestión de tesorería, finanzas para startups, retornos, capital operativo, pagos empresariales, fintech B2B",
+    "jsonLd": {
+      "serviceDescription": "Separa la liquidez por finalidad, revisa estrategias y ve costes, disponibilidad y riesgo antes de mover dinero."
+    }
   },
   "startupTreasury": {
     "eyebrow": "PARA STARTUPS FINANCIADAS",
