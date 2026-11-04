@@ -38,8 +38,12 @@
   line-height: var(--line-height-description);
 }
 
+/* Centred in the section's column: the form caps itself at --dimension-480 inside a
+   --dimension-500 column, so without auto margins it sat 10 px left of centre (5.738
+   similar case). */
 .form {
   width: var(--percent-100);
+  margin-inline: auto;
 }
 
 /* Tablet and up */
