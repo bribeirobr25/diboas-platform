@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
-import { SEOMetadataFactory } from '@/lib/seo';
+import { buildPageStructuredData } from '@/lib/seo/pageStructuredData';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
@@ -126,18 +126,14 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
   // not English-only). English literals are kept as resilient fallbacks.
   const jsonLd = (lbMessages?.seo?.jsonLd as Record<string, string> | undefined) || {};
 
-  // Generate structured data
-  const organizationData = SEOMetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS',
-    description:
-      jsonLd.serviceDescription ||
-      'Goal-driven wealth building powered by the digital dollar. Your money, your wallet, your control.',
-    category: 'Financial Services',
-  });
-
-  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
-    [{ name: jsonLd.breadcrumbHome || 'Home', url: '/' }],
-    locale
+  // Structured data in the page locale (5.643)
+  const { service: organizationData, breadcrumbs: breadcrumbData } = await buildPageStructuredData(
+    locale,
+    {
+      description: jsonLd.serviceDescription,
+      descriptionFallback:
+        'Goal-driven wealth building powered by the digital dollar. Your money, your wallet, your control.',
+    }
   );
 
   const appStructuredData = {
@@ -146,14 +142,10 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
     name: 'diBoaS',
     applicationCategory: 'FinanceApplication',
     operatingSystem: 'Web',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-    },
+    // No `offers` (no financial product is offered on this site; 5.643).
     description:
       jsonLd.appDescription ||
-      'Goal-driven wealth building starting at $5. Your money, your wallet, your control.',
+      'Goal-driven wealth building. Your money, your wallet, your control.',
   };
 
   return (

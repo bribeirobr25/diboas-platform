@@ -20,7 +20,7 @@ export const SEO_DEFAULTS = {
   // Default metadata
   defaultTitle: `${BRAND_CONFIG.NAME} - ${BRAND_CONFIG.TAGLINE}`,
   titleTemplate: `%s | ${BRAND_CONFIG.NAME}`,
-  defaultDescription: `Open access and fair opportunities for everyone. Goal-driven wealth building starting at $5. Your money, your wallet, your control.`,
+  defaultDescription: `Open access and fair opportunities for everyone. Goal-driven wealth building. Your money, your wallet, your control.`,
   defaultKeywords: [
     'goal-driven investing',
     'wealth building',
@@ -70,14 +70,13 @@ export const SEO_DEFAULTS = {
 export const PAGE_SEO_CONFIG = {
   home: {
     title: 'Financial Freedom Made Simple',
-    description:
-      'See what $1,000 becomes in a year when you have access to fair opportunities. Start from $5.',
+    description: 'See what $1,000 becomes in a year when you have access to fair opportunities.',
     keywords: ['goal-driven investing', 'wealth building', 'earn interest on savings'],
   },
   about: {
     title: 'About diBoaS - Our Mission and Vision',
     description:
-      'Built because one grandmother deserved better. Now everyone does. Free transfers, real growth, starting at $5.',
+      'Built because one grandmother deserved better. Now everyone does. Free transfers, real growth.',
     keywords: ['about diBoaS', 'financial inclusion', 'fair access wealth building'],
   },
   business: {

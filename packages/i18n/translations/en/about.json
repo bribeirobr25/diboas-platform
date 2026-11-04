@@ -1,9 +1,9 @@
 {
   "seo": {
     "title": "About diBoaS | Built for the People Banks Forgot",
-    "description": "diBoaS was built because one grandmother deserved better. Now everyone does. Free transfers, real growth options, starting at $5.",
+    "description": "diBoaS was built because one grandmother deserved better. Now everyone does. Free transfers, real growth options.",
     "ogTitle": "About diBoaS | Built for the People Banks Forgot",
-    "ogDescription": "diBoaS was built because one grandmother deserved better. Now everyone does. Free transfers, real growth options, starting at $5."
+    "ogDescription": "diBoaS was built because one grandmother deserved better. Now everyone does. Free transfers, real growth options."
   },
   "hero": {
     "title": "One grandmother. One problem. One platform.",
@@ -36,7 +36,7 @@
       "description": "We don't promise guaranteed returns because nobody can. What we offer: real data, clear explanations. You understand what you're doing before you do it."
     },
     "startSmall": {
-      "title": "Start with $5. Learn as you go.",
+      "title": "Start small. Learn as you go.",
       "description": "We built the door so you can start small and keep control of your money. Real options, explained before you use them."
     }
   },

@@ -144,8 +144,8 @@
         "action": "Sell / Close",
         "diboas": "{rate} (min {min}, no cap)",
         "competitors": "Provider fees may vary",
-        "difference": "0.39%, capped at $25",
-        "example": "Sell $10,000: diBoaS fee is $25 (0.39% is $39, capped at $25)"
+        "difference": "0.39%, no cap",
+        "example": "Sell $10,000: diBoaS fee is $39 (0.39%)"
       },
       "swap": {
         "action": "Swap",
@@ -310,7 +310,10 @@
     "description": "Payroll, rent, taxes, suppliers, runway. diBoaS helps businesses separate cash by purpose, see digital-dollar paths, and understand cost and risk before funds move.",
     "ogTitle": "Cash needs a job.",
     "ogDescription": "diBoaS helps businesses separate operating cash, payments, and idle balances into clear digital-dollar paths, with cost, liquidity, and risk visible before funds move.",
-    "keywords": "treasury management, startup finance, returns, operating cash, business payments, B2B fintech"
+    "keywords": "treasury management, startup finance, returns, operating cash, business payments, B2B fintech",
+    "jsonLd": {
+      "serviceDescription": "Separate business cash by purpose, see digital-dollar paths, and understand cost and risk before funds move."
+    }
   },
   "startupTreasury": {
     "eyebrow": "FOR FUNDED STARTUPS",

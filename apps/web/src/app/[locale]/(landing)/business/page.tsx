@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import nextDynamic from 'next/dynamic';
 import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
-import { SEOMetadataFactory } from '@/lib/seo';
+import { buildPageStructuredData } from '@/lib/seo/pageStructuredData';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import {
   HeroSection,
@@ -151,24 +151,21 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
   }
 
   // A8 fix (2026-05-23): pre-fetch market snapshot for ComparisonTable.
-  const [pageMessages, snapshot] = await Promise.all([
+  const [pageMessages, snapshot, b2bMessages] = await Promise.all([
     loadPageNamespaces(locale, ['landing-b2b', 'landing-b2c', 'faq']),
     marketDataService.get(),
+    loadMessages(locale, 'landing-b2b'),
   ]);
 
-  const organizationData = SEOMetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS for Business',
-    description:
-      'Separate business cash by purpose, see digital-dollar paths, and understand cost and risk before funds move.',
-    category: 'Financial Services',
-  });
-
-  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
-    [
-      { name: 'Home', url: '/' },
-      { name: 'Business', url: '/business' },
-    ],
-    locale
+  // Structured data in the page locale (5.643)
+  const { service: organizationData, breadcrumbs: breadcrumbData } = await buildPageStructuredData(
+    locale,
+    {
+      description: b2bMessages?.seo?.jsonLd?.serviceDescription,
+      descriptionFallback:
+        'Separate business cash by purpose, see digital-dollar paths, and understand cost and risk before funds move.',
+      crumb: { key: 'forBusiness', url: '/business' },
+    }
   );
 
   return (

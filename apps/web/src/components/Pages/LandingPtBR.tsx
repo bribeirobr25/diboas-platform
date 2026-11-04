@@ -203,7 +203,7 @@ export function LandingPtBR() {
         </SectionErrorBoundary>
       </ScrollReveal>
 
-      {/* §9b Comece com R$10 (final CTA) — waitlist, ACIMA do FAQ */}
+      {/* §9b final CTA — waitlist, ACIMA do FAQ */}
       <ScrollReveal>
         <SectionErrorBoundary
           sectionId="waitlist-section-b2c"

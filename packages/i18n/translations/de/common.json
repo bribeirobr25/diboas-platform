@@ -338,5 +338,8 @@
   },
   "videoPlayer": {
     "transcript": "Transkript"
+  },
+  "seo": {
+    "serviceCategory": "Finanztechnologie"
   }
 }

@@ -54,7 +54,7 @@
       },
       "adding": {
         "action": "Adicionar Dinheiro",
-        "diboas": "{rate} (sem limite, sem mínimo)",
+        "diboas": "{rate} (sem limite)",
         "competitors": "Taxas de provedores podem variar",
         "difference": "Mostrado antes de confirmar",
         "example": "Adicionar R$500: taxa diBoaS de R$2,40"
@@ -208,7 +208,7 @@
     "ogDescription": "Transforme objetivos em caminhos em dólar digital, com risco claro e a carteira sob seu controle. O diBoaS nunca guarda o seu dinheiro.",
     "jsonLd": {
       "serviceDescription": "Construção de patrimônio guiada por metas, com o dólar digital. Seu dinheiro, sua carteira, seu controle.",
-      "appDescription": "Construção de patrimônio guiada por metas a partir de R$10. Seu dinheiro, sua carteira, seu controle.",
+      "appDescription": "Construção de patrimônio guiada por metas. Seu dinheiro, sua carteira, seu controle.",
       "breadcrumbHome": "Início"
     }
   },
@@ -217,7 +217,6 @@
       "headline": "Você não guarda dinheiro. Você guarda futuro.",
       "subtitle": "Uma reserva. Uma proteção. Um plano que sai do papel.\n\nVeja o caminho em dólar digital, com você no controle.",
       "whatIs": "Seu dinheiro guardado em dólar e rendendo. Você no controle, sem banco no meio.",
-      "microcopy": "Comece com R$10. Sem mensalidade. Saia quando quiser.",
       "cta": "Ver como funciona"
     },
     "whatIsSection": {

@@ -13,7 +13,7 @@
     },
     "minimum": {
       "question": "What's the minimum amount to start?",
-      "answer": "$5. That's a coffee. Most investment platforms require $500 to $10,000 just to open the door. We think that's part of the problem."
+      "answer": "Practice is free to try; the amount you need to add money is shown before you start."
     },
     "afterSignup": {
       "question": "What happens after I join the waitlist?",
@@ -25,7 +25,7 @@
     },
     "understanding": {
       "question": "What if I don't understand investing?",
-      "answer": "That's exactly who we built this for. You open the app, you see one number, one goal, and a plain-language next step. No jargon, no complicated decisions. Start with $5. Explore. Learn. We're here every step."
+      "answer": "That's exactly who we built this for. You open the app, you see one number, one goal, and a plain-language next step. No jargon, no complicated decisions. Explore. Learn. We're here every step."
     },
     "micaRegulated": {
       "question": "Is diBoaS MiCA-regulated?",

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { SEOMetadataFactory } from '@/lib/seo';
+import { buildPageStructuredData } from '@/lib/seo/pageStructuredData';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
@@ -100,20 +100,21 @@ export default async function AboutPage({ params }: LocalePageProps) {
   }
 
   // common + waitlist already provided by landing layout
-  const pageMessages = await loadPageNamespaces(locale, ['about', 'landing-b2c']);
+  const [pageMessages, landingMessages] = await Promise.all([
+    loadPageNamespaces(locale, ['about', 'landing-b2c']),
+    loadMessages(locale, 'landing-b2c'),
+  ]);
 
-  const serviceData = SEOMetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS',
-    description: 'Platform giving regular people access to institutional-grade financial returns',
-    category: 'Financial Technology',
-  });
-
-  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
-    [
-      { name: 'Home', url: '/' },
-      { name: 'About', url: ROUTES.ABOUT },
-    ],
-    locale
+  // Structured data in the page locale (5.643): the same diBoaS service the landing page
+  // describes, so it reuses the landing's approved description.
+  const { service: serviceData, breadcrumbs: breadcrumbData } = await buildPageStructuredData(
+    locale,
+    {
+      description: landingMessages?.seo?.jsonLd?.serviceDescription,
+      descriptionFallback:
+        'Goal-driven wealth building powered by the digital dollar. Your money, your wallet, your control.',
+      crumb: { key: 'about', url: ROUTES.ABOUT },
+    }
   );
 
   return (

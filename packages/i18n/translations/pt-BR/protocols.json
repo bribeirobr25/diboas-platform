@@ -3,7 +3,10 @@
     "title": "Onde seu dinheiro trabalha | diBoaS",
     "description": "O diBoaS conecta você a protocolos de finanças descentralizadas estabelecidos. Veja exatamente pra onde seu dinheiro vai com transparência total.",
     "ogTitle": "Onde seu dinheiro trabalha | Os protocolos que usamos",
-    "ogDescription": "Veja exatamente quais protocolos DeFi o diBoaS usa e por que confiamos neles. Transparência total sobre onde seu dinheiro trabalha."
+    "ogDescription": "Veja exatamente quais protocolos DeFi o diBoaS usa e por que confiamos neles. Transparência total sobre onde seu dinheiro trabalha.",
+    "jsonLd": {
+      "serviceDescription": "Os protocolos de finanças descentralizadas que o diBoaS pesquisou, com as auditorias e o histórico de cada um, e os que as estratégias usam hoje."
+    }
   },
   "hero": {
     "h1": "Onde seu dinheiro trabalha",
