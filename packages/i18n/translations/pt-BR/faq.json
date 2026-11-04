@@ -13,7 +13,7 @@
     },
     "minimum": {
       "question": "Qual o valor mínimo pra começar?",
-      "answer": "R$10. O preço de um cafezinho. A maioria das plataformas de investimento exige R$500 a R$50.000 só pra abrir a porta. A gente acha que isso faz parte do problema."
+      "answer": "O Practice é grátis pra experimentar; o valor que você precisa pra adicionar dinheiro aparece antes de você começar."
     },
     "afterSignup": {
       "question": "O que acontece depois que eu entro na lista?",
@@ -25,7 +25,7 @@
     },
     "understanding": {
       "question": "E se eu não entendo de investimento?",
-      "answer": "É exatamente para quem construímos isto. Você abre o app, vê um número, um objetivo e um próximo passo em linguagem clara. Sem jargão, sem decisões complicadas. Comece com R$10. Explore. Aprenda. Estamos com você em cada passo."
+      "answer": "É exatamente para quem construímos isto. Você abre o app, vê um número, um objetivo e um próximo passo em linguagem clara. Sem jargão, sem decisões complicadas. Explore. Aprenda. Estamos com você em cada passo."
     },
     "micaRegulated": {
       "question": "O diBoaS é regulamentado pela MiCA?",

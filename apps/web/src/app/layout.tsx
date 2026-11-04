@@ -82,7 +82,6 @@ export const metadata: Metadata = {
   // generateMetadata already provides a description for each route, so
   // removing this root default has no fallback impact for production
   // pages.
-  // description: BRAND_CONFIG.DESCRIPTION,
   manifest: '/manifest.json',
   icons: {
     // Browser-tab favicon rebuilt from the official palm-"B" monogram (2026-07-13,

@@ -144,8 +144,8 @@
         "action": "Vender / Fechar",
         "diboas": "{rate} (mín {min}, sem limite)",
         "competitors": "Taxas e spreads podem variar",
-        "difference": "0,39%, com teto de R$ 25",
-        "example": "Vender R$50.000: 0,39% daria R$195, mas a taxa diBoaS tem teto de R$ 25"
+        "difference": "0,39%, sem limite",
+        "example": "Vender R$50.000: a taxa diBoaS é de R$195 (0,39%)"
       },
       "swap": {
         "action": "Trocar",
@@ -310,7 +310,10 @@
     "description": "Folha. Aluguel. Imposto. Fornecedor. Estoque. O diBoaS ajuda empresas a separar caixa por finalidade, ver caminhos em dólar digital e entender custo, liquidez e risco antes de mover dinheiro.",
     "ogTitle": "Caixa precisa ter função.",
     "ogDescription": "O diBoaS ajuda empresas a separar caixa operacional, pagamentos e dinheiro parado em caminhos claros de dólar digital, com custo, liquidez e risco visíveis antes de mover dinheiro.",
-    "keywords": "gestão de tesouraria, finanças para startups, retornos, capital operacional, pagamentos empresariais, fintech B2B"
+    "keywords": "gestão de tesouraria, finanças para startups, retornos, capital operacional, pagamentos empresariais, fintech B2B",
+    "jsonLd": {
+      "serviceDescription": "Separe o caixa por finalidade, veja caminhos em dólar digital e entenda custo, liquidez e risco antes de mover dinheiro."
+    }
   },
   "startupTreasury": {
     "eyebrow": "PARA STARTUPS INVESTIDAS",

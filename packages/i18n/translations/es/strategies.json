@@ -1,7 +1,10 @@
 {
   "seo": {
     "title": "Estrategias de Inversión | diBoaS",
-    "description": "10 estrategias. Diferentes objetivos. Diferentes plazos. Diferentes niveles de riesgo. Encuentra la estrategia que se adapta a tu vida."
+    "description": "10 estrategias. Diferentes objetivos. Diferentes plazos. Diferentes niveles de riesgo. Encuentra la estrategia que se adapta a tu vida.",
+    "jsonLd": {
+      "serviceDescription": "10 estrategias, de conservadoras a orientadas al crecimiento, para distintos objetivos y plazos."
+    }
   },
   "hero": {
     "headline": "El acceso que se guardaban. Ahora es tuyo.",

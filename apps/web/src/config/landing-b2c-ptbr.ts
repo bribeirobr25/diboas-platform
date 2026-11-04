@@ -144,7 +144,7 @@ export const B2C_PTBR_DEMO_CONFIG = {
   analytics: { sectionId: 'demo-section-b2c', category: 'landing-b2c' },
 } as const;
 
-/** §10 Comece com R$10 — pt-BR copy override for the reused WaitlistSection. */
+/** §10 pt-BR copy override for the reused WaitlistSection. */
 export const B2C_PTBR_WAITLIST_CONFIG = {
   sectionId: 'waitlist-section-b2c',
   backgroundColor: 'var(--section-bg-dark)',

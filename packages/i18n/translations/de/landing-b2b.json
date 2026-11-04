@@ -144,8 +144,8 @@
         "action": "Verkaufen / Schließen",
         "diboas": "{rate} (min {min}, ohne Obergrenze)",
         "competitors": "Anbietergebühren können variieren",
-        "difference": "0,39%, gedeckelt bei 25 €",
-        "example": "10.000 € verkaufen: diBoaS-Gebühr 25 € (0,39% wären 39 €, gedeckelt bei 25 €)"
+        "difference": "0,39%, ohne Obergrenze",
+        "example": "10.000 € verkaufen: diBoaS-Gebühr 39 € (0,39%)"
       },
       "swap": {
         "action": "Tauschen",
@@ -310,7 +310,10 @@
     "description": "Löhne, Miete, Umsatzsteuer, Lieferanten, Rücklagen. diBoaS hilft Unternehmen, Liquidität nach Zweck zu trennen, Strategien zu prüfen und Kosten, Verfügbarkeit und Risiko zu sehen, bevor Geld bewegt wird.",
     "ogTitle": "Jeder Euro braucht eine Aufgabe.",
     "ogDescription": "diBoaS hilft Unternehmen, Betriebsmittel, Zahlungen und Rücklagen nach Zweck zu trennen, mit Kosten, Verfügbarkeit und Risiko sichtbar, bevor Geld bewegt wird.",
-    "keywords": "Treasury-Management, Startup-Finanzen, Rendite, Betriebskapital, Geschäftszahlungen, B2B-Fintech"
+    "keywords": "Treasury-Management, Startup-Finanzen, Rendite, Betriebskapital, Geschäftszahlungen, B2B-Fintech",
+    "jsonLd": {
+      "serviceDescription": "Liquidität nach Zweck trennen, Strategien prüfen und Kosten, Verfügbarkeit und Risiko sehen, bevor Geld bewegt wird."
+    }
   },
   "startupTreasury": {
     "eyebrow": "FÜR FINANZIERTE STARTUPS",

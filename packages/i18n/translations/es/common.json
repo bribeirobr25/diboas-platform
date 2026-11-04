@@ -338,5 +338,8 @@
   },
   "videoPlayer": {
     "transcript": "Transcripción"
+  },
+  "seo": {
+    "serviceCategory": "Tecnología financiera"
   }
 }
