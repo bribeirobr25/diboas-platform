@@ -3,42 +3,34 @@
  * (pure). Derived files are rebuilt in full on every run from `daily/` and
  * `events/`, so they can never disagree with what is stored.
  *
- * WEEKLY = the strict-Friday convention the score uses (regime-engine.mjs,
- * LOCKED): the Friday's close, or the last trading day of that week before it
- * when the Friday was a holiday. A week is emitted only once its Friday is
- * over (`today` is the run's UTC date).
+ * WEEKLY = the score's strict-Friday convention, by calling the engine's own
+ * `strictFridayCloses` (regime-engine.mjs, LOCKED, guarded by FRIDAY-1): there
+ * is one implementation of the rule, never a second one to drift.
  *
  * MONTHLY = calendar-month OHLC. For a fund, also the TOTAL-RETURN index:
  * every distribution reinvested at the close before its ex-date,
  *   index_d = index_{d-1} × (close_d + distribution_d) / close_{d-1},
  * anchored at the series' first stored close, so a stored month never changes
- * when a later dividend is paid (the defect behind register 5.633).
+ * when a later dividend is paid (the defect behind register 5.633). A month is
+ * emitted only when complete: never the current month, and never a first month
+ * the series entered after its first week (Yahoo's BTC history started on
+ * 2014-09-17, which made a "September 2014" out of two weeks).
  */
 
-import { weekday } from './parsers.mjs';
+import { strictFridayCloses } from '../market-refresh/lib/regime-engine.mjs';
 
 const num = (v) => (v === '' || v == null ? null : Number(v));
 
-/** Friday (ISO date) of the Mon–Sun week containing `date`. */
-export function fridayOf(date) {
-  const d = new Date(`${date}T12:00:00Z`);
-  const wd = d.getUTCDay(); // 0 = Sun
-  const delta = wd === 0 ? -2 : 5 - wd; // Sunday belongs to the week before
-  d.setUTCDate(d.getUTCDate() + delta);
-  return d.toISOString().slice(0, 10);
-}
+/** Last calendar day of a month's first week: a series starting after it has a partial first month. */
+export const FIRST_MONTH_LATEST_START_DAY = 7;
 
-/** @param {{date:string, close:number|string}[]} daily  @param {string} today ISO */
+/** @param {{date:string, close:number|string}[]} daily  @param {string} today ISO (the run's UTC date) */
 export function weeklyCloses(daily, today) {
-  const byWeek = new Map();
-  for (const r of daily) {
-    const wd = weekday(r.date);
-    if (wd === 0 || wd === 6) continue; // a weekend row never stands in for a Friday close
-    const fri = fridayOf(r.date);
-    if (fri >= today) continue; // the week's Friday is not over yet
-    byWeek.set(fri, { week_ending: fri, date: r.date, close: num(r.close) });
-  }
-  return [...byWeek.values()].sort((a, b) => a.week_ending.localeCompare(b.week_ending));
+  const pairs = daily.map((r) => [new Date(`${r.date}T00:00:00Z`), num(r.close)]);
+  return strictFridayCloses(pairs, new Date(`${today}T00:00:00Z`)).map(([d, close]) => ({
+    week_ending: d.toISOString().slice(0, 10),
+    close,
+  }));
 }
 
 /**
@@ -66,7 +58,10 @@ export function monthlyBars(daily, distributions = [], today) {
   let index = rows[0]?.close ?? null;
   const months = new Map();
   rows.forEach((r, i) => {
-    if (i > 0) index *= (r.close + (dist.get(r.date) ?? 0)) / rows[i - 1].close;
+    // A distribution counts from the second stored day: on the first one the
+    // index starts at that day's (ex-distribution) close, so it is not owed.
+    const paid = i > 0 ? (dist.get(r.date) ?? 0) : 0;
+    if (i > 0) index *= (r.close + paid) / rows[i - 1].close;
     const ym = r.date.slice(0, 7);
     const m = months.get(ym);
     const hi = r.high ?? r.close;
@@ -79,7 +74,7 @@ export function monthlyBars(daily, distributions = [], today) {
         low: lo,
         close: r.close,
         tr_close: index,
-        distributions: dist.get(r.date) ?? 0,
+        distributions: paid,
         last_day: r.date,
       });
     } else {
@@ -87,10 +82,15 @@ export function monthlyBars(daily, distributions = [], today) {
       m.low = Math.min(m.low, lo);
       m.close = r.close;
       m.tr_close = index;
-      m.distributions += dist.get(r.date) ?? 0;
+      m.distributions += paid;
       m.last_day = r.date;
     }
   });
   const currentYm = today.slice(0, 7);
-  return [...months.values()].filter((m) => m.ym < currentYm);
+  const firstDay = rows[0]?.date;
+  const partialFirst =
+    firstDay != null && Number(firstDay.slice(8, 10)) > FIRST_MONTH_LATEST_START_DAY
+      ? firstDay.slice(0, 7)
+      : null;
+  return [...months.values()].filter((m) => m.ym < currentYm && m.ym !== partialFirst);
 }

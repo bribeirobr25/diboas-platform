@@ -81,8 +81,54 @@ export function parseCnbcBars(body, label) {
     if (wd === 0 || wd === 6) continue;
     const close = num(b.close);
     if (close == null) continue;
-    rows.push({ date, open: num(b.open), high: num(b.high), low: num(b.low), close });
+    const open = num(b.open);
+    const high = num(b.high);
+    const low = num(b.low);
+    // A bar with open = high = low = close is not a traded day: CNBC prints
+    // one on market holidays for 24-hour instruments (gold on Good Friday)
+    // and, rarely, as a fault (EUR/USD 2020-01-02 at 1.1786 when the Fed and
+    // the ECB both had about 1.12). It is dropped, never stored or compared.
+    if (open === high && high === low && low === close) continue;
+    rows.push({ date, open, high, low, close });
   }
+  return { rows: dedupeLast(rows, label) };
+}
+
+/** Bitstamp `api/v2/ohlc/btcusd/?step=86400` (one page): UTC days. */
+export function parseBitstampOhlc(body, label) {
+  const d = JSON.parse(body)?.data?.ohlc;
+  if (!Array.isArray(d)) fail(label, 'no data.ohlc');
+  const rows = d
+    .filter((r) => num(r.volume) > 0) // a zero-volume day carries the last trade forward
+    .map((r) => ({
+      date: new Date(Number(r.timestamp) * 1000).toISOString().slice(0, 10),
+      open: num(r.open),
+      high: num(r.high),
+      low: num(r.low),
+      close: num(r.close),
+    }))
+    .filter((r) => r.close != null);
+  return {
+    rows: dedupeLast(rows, label),
+    last: d.length ? Number(d.at(-1).timestamp) : null,
+    count: d.length,
+  };
+}
+
+/** Coinbase Exchange `products/BTC-USD/candles?granularity=86400`: [time, low, high, open, close, volume], UTC days. */
+export function parseCoinbaseCandles(body, label) {
+  const d = JSON.parse(body);
+  if (!Array.isArray(d)) fail(label, 'not an array of candles');
+  const rows = d
+    .filter((c) => Array.isArray(c) && c.length >= 5)
+    .map(([t, low, high, open, close]) => ({
+      date: new Date(Number(t) * 1000).toISOString().slice(0, 10),
+      open: num(open),
+      high: num(high),
+      low: num(low),
+      close: num(close),
+    }))
+    .filter((r) => r.close != null);
   return { rows: dedupeLast(rows, label) };
 }
 
@@ -125,7 +171,12 @@ export function parseB3Year(body, year, label) {
     for (let m = 1; m <= 12; m += 1) {
       const close = ptBr(r[`rateValue${m}`]);
       if (close == null) continue;
-      rows.push({ date: iso(year, m, r.day), close });
+      const date = iso(year, m, r.day);
+      // The table has a cell for every day 1..31 of every month: a value in an
+      // impossible cell (30 February) is a fault, never a date to store.
+      if (new Date(`${date}T00:00:00Z`).toISOString().slice(0, 10) !== date)
+        fail(label, `a value on the impossible date ${date}`);
+      rows.push({ date, close });
     }
   }
   rows.sort((a, b) => a.date.localeCompare(b.date));

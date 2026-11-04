@@ -7,13 +7,25 @@
  *
  * `--store` is the `market/` folder of a diboas-analytics checkout. Without
  * `--backfill` each series is fetched from 45 days before its last stored day
- * (the overlap re-confirms recent days and catches revisions); with it, from
- * the series' `since` date.
+ * (the overlap re-confirms recent days, catches revisions, and gives every
+ * check enough common days to test alignment); with it, from the series'
+ * `since` date. A `fullHistory` series (M2) is always fetched whole.
+ *
+ * FAIL CLOSED, per series. A series is BLOCKED, and NOTHING is written to its
+ * values, when: the primary fails; a check source fails, returns too few of
+ * the window's days, or is misaligned by a day; a check outlier on a day this
+ * run adds has no reviewed exception bound to it; a distribution source
+ * returns nothing or disagrees; a stored day changed at the source; or the
+ * derived series cannot be computed. Every check runs, and every value is
+ * planned, before any value is written.
+ *
+ * Always kept, whatever the outcome: every response body (`raw/`), the run's
+ * check report (`checks/`), and any revision (`revisions.jsonl`).
  *
  * Exit codes: 0 = every series stored or already up to date; 1 = at least one
- * series was BLOCKED (a check outlier, a revision, or a failed primary fetch)
- * and nothing was written for that series; 2 = bad arguments. Every response
- * body is kept under `raw/` whatever the outcome.
+ * series BLOCKED; 2 = bad arguments (nothing fetched); 3 = the run itself
+ * failed (for example an unreadable exceptions file); evidence written up to
+ * that point is kept.
  */
 
 import fs from 'node:fs';
@@ -21,251 +33,252 @@ import path from 'node:path';
 import { SERIES } from './catalogue.mjs';
 import { compareCloses, reconcileDistributions } from './checks.mjs';
 import { monthlyBars, weeklyCloses } from './derive.mjs';
-import * as P from './parsers.mjs';
+import {
+  checkException,
+  distributionException,
+  keptRevisionDates,
+  parseExceptions,
+} from './exceptions.mjs';
+import { createFetcher } from './fetch-source.mjs';
 import { createStore, toCsv } from './store.mjs';
 import { isDirectInvocation } from '../market-refresh/lib/invocation.mjs';
 
-const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)';
-const TIMEOUT_MS = 90_000;
-const OVERLAP_DAYS = 45;
+export const OVERLAP_DAYS = 45;
+/** A check must share at least this share of the window's days with the primary. */
+export const MIN_CHECK_COVERAGE = 0.5;
 
-const PARSE = {
-  yahoo: (b, l) => P.parseYahooChart(b, l),
-  cnbc: (b, l) => P.parseCnbcBars(b, l),
-  fred: (b, l) => P.parseFredCsv(b, l),
-  coinmetrics: (b, l) => P.parseCoinMetrics(b, l),
-  b3: (b, l, year) => P.parseB3Year(b, year, l),
-  wgc: (b, l) => P.parseWgcChart(b, l),
-  nasdaqHistorical: (b, l) => P.parseNasdaqHistorical(b, l),
-  nasdaqDividends: (b, l) => P.parseNasdaqDividends(b, l),
-  ishares: (b, l) => P.parseIsharesDistributions(b, l),
-  stockanalysis: (b, l) => P.parseStockAnalysisDividends(b, l),
-};
-const EXT = { fred: 'csv', ishares: 'html' };
-
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const addDays = (iso, n) => {
   const d = new Date(`${iso}T00:00:00Z`);
   d.setUTCDate(d.getUTCDate() + n);
   return d.toISOString().slice(0, 10);
 };
 
-/** One GET with a deadline; up to 3 attempts on network errors, 429 and 5xx. Every attempt's body is kept. */
-async function get(url, { store, provider, series, fetchedAt = () => new Date().toISOString() }) {
-  let last;
-  for (let attempt = 1; attempt <= 3; attempt += 1) {
-    const at = fetchedAt();
-    try {
-      const res = await fetch(url, {
-        headers: { 'User-Agent': UA, Accept: 'application/json, text/csv, text/plain, */*' },
-        signal: AbortSignal.timeout(TIMEOUT_MS),
-      });
-      const body = await res.text();
-      store.saveRaw({
-        provider,
-        series,
-        url,
-        status: res.status,
-        body,
-        fetchedAt: at,
-        ext: EXT[provider] ?? 'json',
-      });
-      if (res.ok) return body;
-      last = new Error(`${provider} ${series}: HTTP ${res.status}`);
-      if (res.status !== 429 && res.status < 500) break;
-    } catch (e) {
-      store.saveRaw({
-        provider,
-        series,
-        url,
-        status: null,
-        body: String(e?.message ?? e),
-        fetchedAt: at,
-        ext: 'txt',
-      });
-      last = new Error(
-        `${provider} ${series}: ${e?.name === 'TimeoutError' ? `no answer in ${TIMEOUT_MS / 1000}s` : e?.message}`
-      );
-    }
-    await sleep(attempt * 15_000);
-  }
-  throw last;
-}
-
-/** Fetch one source over [from, to] and parse it into rows/events. */
-async function fetchSource(src, { from, to, store, series }) {
-  const label = `${src.provider}:${series}`;
-  const ctx = { store, provider: src.provider, series };
-  const parse = PARSE[src.parser];
-  if (src.perYear) {
-    const rows = [];
-    for (let y = Number(from.slice(0, 4)); y <= Number(to.slice(0, 4)); y += 1) {
-      const body = await get(src.url(y), ctx);
-      rows.push(...parse(body, label, y).rows);
-      await sleep(400);
-    }
-    return { rows: rows.filter((r) => r.date >= from && r.date <= to) };
-  }
-  if (src.paged) {
-    const rows = [];
-    let url = src.url(from, to);
-    while (url) {
-      const page = parse(await get(url, ctx), label);
-      rows.push(...page.rows);
-      url = page.next;
-    }
-    return { rows };
-  }
-  let body;
-  try {
-    body = await get(src.url(from, to), ctx);
-  } catch (e) {
-    if (!src.fallback) throw e;
-    body = await get(src.fallback(from, to), ctx);
-  }
-  return parse(body, label);
-}
-
 /** The last COMPLETE day: anything dated on or after the run's UTC date may still be moving. */
 const complete = (rows, today) => rows.filter((r) => r.date < today);
 
-async function collectSeries(s, { store, today, backfill, accepted }) {
+/**
+ * A bar whose low/high do not contain its open and close is not a usable
+ * range (four CNBC gold days since 2010). Its close is kept (it is checked);
+ * its open/high/low are dropped so no range is ever built from it.
+ */
+export function usableBars(rows) {
+  let dropped = 0;
+  const out = rows.map((r) => {
+    if (r.low == null || r.high == null) return r;
+    const ok =
+      r.low <= r.high &&
+      r.low <= r.close &&
+      r.close <= r.high &&
+      (r.open == null || (r.low <= r.open && r.open <= r.high));
+    if (ok) return r;
+    dropped += 1;
+    return { date: r.date, open: null, high: null, low: null, close: r.close };
+  });
+  return { rows: out, dropped };
+}
+
+/**
+ * Run every check of a series. A check outlier blocks unless (a) a reviewed
+ * exception is bound to it, or (b) the series has another independent check
+ * that compared the same day and agreed (two of three sources agree: the
+ * disagreeing check is the odd one out, which is reported, never hidden).
+ */
+async function runChecks(s, { rows, newDates, from, to, today, fetcher, exceptions, out }) {
+  const results = [];
+  for (const c of s.checks) {
+    const cFrom = c.since && c.since > from ? c.since : from;
+    const eligible = rows.filter((r) => r.date >= cFrom);
+    if (!eligible.length) continue; // the window lies before this check's coverage
+    try {
+      const chk = complete(
+        (await fetcher.fetchSource(c.source, { from: cFrom, to, series: s.id })).rows,
+        today
+      );
+      const res = compareCloses(eligible, chk, c.tolerance, { rangeSlack: c.rangeSlack });
+      const bad = new Set(res.outliers.map((o) => o.date));
+      const agreed = new Set(chk.map((r) => r.date).filter((d) => !bad.has(d)));
+      results.push({ c, cFrom, eligible, res, agreed });
+    } catch (e) {
+      out.checks.push({ source: c.source.provider, error: String(e.message) });
+      out.blocked.push(`check ${c.source.provider} failed: ${e.message}`);
+    }
+  }
+  for (const { c, cFrom, eligible, res } of results) {
+    const provider = c.source.provider;
+    const others = results.filter((r) => r.c !== c);
+    const corroborated = [];
+    const unresolved = [];
+    for (const o of res.outliers) {
+      if (!newDates.has(o.date) || checkException(exceptions, s.id, provider, o)) continue;
+      const by = others.find((r) => r.agreed.has(o.date));
+      if (by) corroborated.push({ date: o.date, agreed_by: by.c.source.provider });
+      else unresolved.push(o);
+    }
+    out.checks.push({
+      source: provider,
+      since: cFrom,
+      ...res,
+      corroboratedByAnotherCheck: corroborated,
+      blockingOutliers: unresolved.length,
+    });
+    if (res.common < MIN_CHECK_COVERAGE * eligible.length)
+      out.blocked.push(`check ${provider} shares only ${res.common} of ${eligible.length} days`);
+    if (res.alignment?.misaligned) out.blocked.push(`check ${provider} looks shifted by a day`);
+    if (unresolved.length)
+      out.blocked.push(
+        `check ${provider}: ${unresolved.length} day(s) beyond ${c.tolerance * 100}% (first ${unresolved[0].date})`
+      );
+  }
+  const firstChecked = s.checks.map((c) => c.since ?? s.since).sort()[0];
+  if (!s.checks.length) out.notes.push('no independent source: the publisher is the only source');
+  else if (firstChecked > s.since) out.notes.push(`single-source before ${firstChecked}`);
+}
+
+async function runDistributions(
+  s,
+  { primaryEvents, from, to, today, tradingDays, fetcher, exceptions, out }
+) {
+  const inWindow = (e) => e.date >= from && e.date <= to && e.date >= s.since && e.date < today;
+  const checks = [];
+  for (const dc of s.dividendChecks ?? []) {
+    try {
+      const r = await fetcher.fetchSource(dc.source, { from: s.since, to, series: s.id });
+      const history = (r.events ?? []).filter((e) => e.date < today);
+      if (!history.length) {
+        out.blocked.push(`distribution check ${dc.source.provider} returned no distributions`);
+        continue;
+      }
+      // Coverage starts at the source's first listed distribution (or its
+      // stated start), measured on its WHOLE history, then the comparison is
+      // cut to this run's window.
+      checks.push({
+        name: dc.source.provider,
+        from: dc.from ?? history[0].date,
+        events: history.filter(inWindow),
+      });
+    } catch (e) {
+      out.blocked.push(`distribution check ${dc.source.provider} failed: ${e.message}`);
+    }
+  }
+  const rec = reconcileDistributions(primaryEvents.filter(inWindow), checks, { tradingDays });
+  const resolved = [];
+  const unresolved = [];
+  for (const o of rec.outliers) {
+    const x = distributionException(exceptions, s.id, o);
+    if (!x) unresolved.push(o);
+    else if (x.action === 'store')
+      resolved.push({
+        date: o.date,
+        amount: x.amount,
+        sources: [...o.seen.map((v) => v.name), 'reviewed'],
+      });
+  }
+  out.distributions = {
+    compared: rec.merged.length + rec.outliers.length,
+    outliers: rec.outliers,
+    resolved: resolved.length,
+    notes: rec.notes,
+  };
+  if (unresolved.length)
+    out.blocked.push(
+      `distributions: ${unresolved.length} disagreement(s) (first ${unresolved[0].date} ${unresolved[0].kind})`
+    );
+  return [...rec.merged, ...resolved].sort((a, b) => a.date.localeCompare(b.date));
+}
+
+export async function collectSeries(s, { store, fetcher, today, backfill, exceptions }) {
   const stored = store.readDaily(s.id);
   const lastStored = stored.at(-1)?.date;
-  const from = backfill || !lastStored ? s.since : addDays(lastStored, -OVERLAP_DAYS);
+  const from =
+    backfill || s.fullHistory || !lastStored ? s.since : addDays(lastStored, -OVERLAP_DAYS);
   const to = addDays(today, -1);
   const out = { id: s.id, from, to, checks: [], blocked: [], notes: [] };
+  const runAt = new Date().toISOString();
 
-  const primary = await fetchSource(s.primary, { from, to, store, series: s.id });
-  const rows = complete(primary.rows, today).filter((r) => r.date >= s.since);
+  const primary = await fetcher.fetchSource(s.primary, { from, to, series: s.id });
+  const bars = usableBars(complete(primary.rows, today).filter((r) => r.date >= s.since));
+  const rows = bars.rows;
+  if (bars.dropped)
+    out.notes.push(
+      `${bars.dropped} bar(s) whose range did not contain open/close: range dropped, close kept`
+    );
   if (!rows.length)
     throw new Error(`${s.id}: the primary returned no complete days in ${from}..${to}`);
   const storedDates = new Set(stored.map((r) => r.date));
   const newDates = new Set(rows.filter((r) => !storedDates.has(r.date)).map((r) => r.date));
-  const isAccepted = (date) =>
-    accepted.some((a) => a.series === s.id && a.date === date && a.reason);
 
-  for (const c of s.checks) {
-    const cFrom = c.since && c.since > from ? c.since : from;
-    let res;
-    try {
-      const chk = await fetchSource(c.source, { from: cFrom, to, store, series: s.id });
-      res = compareCloses(rows, complete(chk.rows, today), c.tolerance, {
-        rangeSlack: c.rangeSlack,
-      });
-    } catch (e) {
-      out.checks.push({ source: c.source.provider, error: String(e.message) });
-      out.blocked.push(`check ${c.source.provider} could not be fetched: ${e.message}`);
-      continue;
-    }
-    const blocking = res.outliers.filter((o) => newDates.has(o.date) && !isAccepted(o.date));
-    out.checks.push({ source: c.source.provider, ...res, blockingOutliers: blocking.length });
-    if (blocking.length)
-      out.blocked.push(
-        `check ${c.source.provider}: ${blocking.length} day(s) beyond ${c.tolerance * 100}% (first ${blocking[0].date})`
-      );
-    // A check that shares too few days with the new rows checked nothing.
-    const newCommon = rows.filter((r) => newDates.has(r.date)).length;
-    if (newCommon > 20 && res.common < 0.8 * Math.min(newCommon, rows.length))
-      out.notes.push(`check ${c.source.provider} shares only ${res.common} of ${rows.length} days`);
-  }
-
+  await runChecks(s, { rows, newDates, from, to, today, fetcher, exceptions, out });
   let events = null;
   if (s.kind === 'fund') {
-    const checks = [];
-    for (const dc of s.dividendChecks ?? []) {
-      try {
-        const r = await fetchSource(dc.source, { from: s.since, to, store, series: s.id });
-        checks.push({
-          name: dc.source.provider,
-          from: dc.from,
-          events: r.events.filter((e) => e.date >= s.since && e.date < today),
-        });
-      } catch (e) {
-        out.blocked.push(
-          `distribution check ${dc.source.provider} could not be fetched: ${e.message}`
-        );
-      }
-    }
-    const rec = reconcileDistributions(
-      (primary.events ?? []).filter((e) => e.date >= s.since && e.date < today),
-      checks
-    );
-    // A reviewed exception resolves a disagreement by stating the amount to
-    // store and why (e.g. a third source); without an amount it is not resolved.
-    const resolution = (o) =>
-      accepted.find(
-        (a) =>
-          a.series === `${s.id}.distributions` &&
-          a.date === o.date &&
-          a.reason &&
-          Number.isFinite(a.amount)
-      );
-    const blocking = rec.outliers.filter((o) => !resolution(o));
-    const resolved = rec.outliers
-      .filter((o) => resolution(o))
-      .map((o) => ({
-        date: o.date,
-        amount: resolution(o).amount,
-        sources: [...o.seen.map((x) => x.name), 'reviewed'],
-      }));
-    out.distributions = {
-      merged: rec.merged.length + resolved.length,
-      outliers: rec.outliers,
-      resolved: resolved.length,
-      notes: rec.notes,
-    };
-    if (blocking.length)
-      out.blocked.push(
-        `distributions: ${blocking.length} disagreement(s) (first ${blocking[0].date} ${blocking[0].kind})`
-      );
-    events = [...rec.merged, ...resolved].sort((a, b) => a.date.localeCompare(b.date));
+    const tradingDays = new Set([...storedDates, ...rows.map((r) => r.date)]);
+    events = await runDistributions(s, {
+      primaryEvents: primary.events ?? [],
+      from,
+      to,
+      today,
+      tradingDays,
+      fetcher,
+      exceptions,
+      out,
+    });
   }
 
-  if (out.blocked.length) return out; // nothing is written for a blocked series
-
-  const runAt = new Date().toISOString();
-  const merged = store.mergeDaily(s.id, rows, {
+  // Plan every write; revisions are logged whatever happens.
+  const first = store.planDaily(s.id, rows, {
     source: s.primary.provider,
     revisable: s.revisable,
     runAt,
   });
-  out.added = merged.added;
-  out.total = merged.total;
-  if (merged.revisions.length) out.revisions = merged.revisions;
-  if (merged.blocked) {
+  const keep = keptRevisionDates(exceptions, s.id, first.revisions);
+  const daily = keep.size
+    ? store.planDaily(s.id, rows, {
+        source: s.primary.provider,
+        revisable: s.revisable,
+        runAt,
+        keep,
+      })
+    : first;
+  if (daily.revisions.length) {
+    out.revisions = daily.revisions;
+    store.logRevisions(daily.revisions);
+  }
+  if (daily.blocked)
     out.blocked.push(
-      `${merged.revisions.filter((r) => !r.accepted).length} stored day(s) changed at the source (see revisions.jsonl)`
+      `${daily.revisions.filter((r) => !r.accepted && !r.kept_by_review).length} stored day(s) changed at the source`
     );
+  const ev = events ? store.planEvents(s.id, events, { runAt }) : null;
+  if (ev?.revisions.length) store.logRevisions(ev.revisions);
+  if (ev?.blocked)
+    out.blocked.push(`${ev.revisions.length} stored distribution(s) changed at the source`);
+  if (out.blocked.length) return out;
+
+  let weekly;
+  let monthly;
+  try {
+    weekly = s.kind === 'monthly' ? null : weeklyCloses(daily.all, today);
+    monthly = monthlyBars(daily.all, ev?.all ?? [], today);
+  } catch (e) {
+    out.blocked.push(`derived series: ${e.message}`);
     return out;
   }
-  let dist = [];
-  if (events) {
-    const m = store.mergeEvents(s.id, events, { runAt });
-    out.distributionsAdded = m.added;
-    if (m.blocked) {
-      out.blocked.push(`${m.revisions.length} stored distribution(s) changed at the source`);
-      return out;
-    }
-    dist = store.readEvents(s.id);
-  }
-  const daily = store.readDaily(s.id);
-  store.writeDerived(
-    `weekly/${s.id}.csv`,
-    toCsv(weeklyCloses(daily, today), ['week_ending', 'date', 'close'])
-  );
+
+  store.writeDaily(s.id, daily.all);
+  if (ev && ev.added) store.writeEvents(s.id, ev.all);
+  if (weekly) store.writeDerived(`weekly/${s.id}.csv`, toCsv(weekly, ['week_ending', 'close']));
   store.writeDerived(
     `monthly/${s.id}.csv`,
     toCsv(
-      monthlyBars(daily, dist, today).map((m) => ({
-        ...m,
-        tr_close: s.kind === 'fund' ? m.tr_close : '',
-      })),
+      monthly.map((m) => ({ ...m, tr_close: s.kind === 'fund' ? m.tr_close : '' })),
       ['ym', 'open', 'high', 'low', 'close', 'tr_close', 'distributions', 'last_day']
     )
   );
+  out.added = daily.added;
+  out.total = daily.all.length;
+  if (ev) out.distributionsAdded = ev.added;
   return out;
 }
+
+const SERIES_ARG = /^[a-z0-9_]+(,[a-z0-9_]+)*$/;
 
 function parseArgs(argv) {
   const a = {
@@ -278,16 +291,23 @@ function parseArgs(argv) {
     const k = argv[i];
     if (k === '--backfill') a.backfill = true;
     else if (k === '--store') a.store = argv[++i];
-    else if (k === '--series') a.series = argv[++i].split(',');
+    else if (k === '--series') a.series = argv[++i];
     else if (k === '--today') a.today = argv[++i];
     else throw new Error(`unknown argument ${k}`);
   }
   if (!a.store) throw new Error('--store <analytics market/ folder> is required');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(a.today)) throw new Error('--today must be YYYY-MM-DD');
+  if (a.series != null && !SERIES_ARG.test(a.series))
+    throw new Error('--series must be comma-separated ids');
+  if (a.series != null) a.series = a.series.split(',');
   return a;
 }
 
-export async function main(argv = process.argv.slice(2)) {
+/**
+ * @param {string[]} argv
+ * @param {{fetchImpl?: Function, retryBaseMs?: number}} [deps] test seams
+ */
+export async function main(argv = process.argv.slice(2), deps = {}) {
   let args;
   try {
     args = parseArgs(argv);
@@ -295,42 +315,67 @@ export async function main(argv = process.argv.slice(2)) {
     console.error(e.message);
     return 2;
   }
-  const store = createStore(path.resolve(args.store));
-  const acceptedFile = path.join(store.root, 'checks', 'accepted-exceptions.json');
-  const accepted = fs.existsSync(acceptedFile)
-    ? JSON.parse(fs.readFileSync(acceptedFile, 'utf8'))
-    : [];
   const unknown = (args.series ?? []).filter((id) => !SERIES.some((s) => s.id === id));
   if (unknown.length) {
     console.error(`unknown series: ${unknown.join(', ')}`);
     return 2;
   }
-  const todo = SERIES.filter((s) => !args.series || args.series.includes(s.id));
+  const store = createStore(path.resolve(args.store));
   const report = {
     run_at: new Date().toISOString(),
     today: args.today,
     backfill: args.backfill,
     series: [],
   };
-  for (const s of todo) {
-    let r;
-    try {
-      r = await collectSeries(s, { store, today: args.today, backfill: args.backfill, accepted });
-    } catch (e) {
-      r = { id: s.id, blocked: [`primary ${s.primary.provider}: ${e.message}`] };
+  try {
+    const file = path.join(store.root, 'checks', 'accepted-exceptions.json');
+    const exceptions = fs.existsSync(file) ? parseExceptions(fs.readFileSync(file, 'utf8')) : [];
+    const fetcher = createFetcher({ store, ...deps });
+    const todo = SERIES.filter((s) => !args.series || args.series.includes(s.id));
+    for (const s of todo) {
+      let r;
+      try {
+        r = await collectSeries(s, {
+          store,
+          fetcher,
+          today: args.today,
+          backfill: args.backfill,
+          exceptions,
+        });
+      } catch (e) {
+        r = { id: s.id, blocked: [`primary ${s.primary.provider}: ${e.message}`] };
+      }
+      report.series.push(r);
+      const state = r.blocked?.length
+        ? `BLOCKED — ${r.blocked.join('; ')}`
+        : `ok, +${r.added} day(s), ${r.total} stored`;
+      console.log(`${s.id.padEnd(17)} ${state}`);
     }
-    report.series.push(r);
-    const state = r.blocked?.length
-      ? `BLOCKED — ${r.blocked.join('; ')}`
-      : `ok, +${r.added} day(s), ${r.total} stored`;
-    console.log(`${s.id.padEnd(17)} ${state}`);
+    report.hosts_down = fetcher.hostsDown();
+    const blocked = report.series.filter((r) => r.blocked?.length).length;
+    const where = store.writeChecks(report.run_at, report);
+    console.log(
+      `\n${todo.length - blocked} of ${todo.length} series stored; check report: ${where}`
+    );
+    return blocked ? 1 : 0;
+  } catch (e) {
+    report.failed = String(e?.message ?? e);
+    try {
+      store.writeChecks(report.run_at, report);
+    } catch {
+      // the original failure is the one to report
+    }
+    console.error(`RUN FAILED: ${report.failed}`);
+    return 3;
   }
-  const where = store.writeChecks(args.today, report);
-  const blocked = report.series.filter((r) => r.blocked?.length).length;
-  console.log(`\n${todo.length - blocked} of ${todo.length} series stored; check report: ${where}`);
-  return blocked ? 1 : 0;
 }
 
 if (isDirectInvocation(import.meta.url)) {
-  main().then((code) => process.exit(code));
+  main().then(
+    (code) => process.exit(code),
+    (e) => {
+      console.error(`RUN FAILED: ${e?.message ?? e}`);
+      process.exit(3);
+    }
+  );
 }

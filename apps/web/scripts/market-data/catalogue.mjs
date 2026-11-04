@@ -88,6 +88,22 @@ export const SOURCES = {
       `https://www.ishares.com/us/products/${productPath}/1467271812596.ajax?tab=distributions&fileType=json`,
     parser: 'ishares',
   }),
+  bitstamp: () => ({
+    provider: 'bitstamp',
+    // up to 1,000 UTC days per page, from `start` (unix seconds)
+    url: (from) =>
+      `https://www.bitstamp.net/api/v2/ohlc/btcusd/?step=86400&limit=1000&start=${unix(from)}`,
+    parser: 'bitstamp',
+    pagedByStart: true,
+  }),
+  coinbase: () => ({
+    provider: 'coinbase',
+    // at most 300 candles per request
+    url: (from, to) =>
+      `https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400&start=${from}T00:00:00Z&end=${to}T00:00:00Z`,
+    parser: 'coinbase',
+    chunkDays: 299,
+  }),
   stockanalysis: (sym) => ({
     provider: 'stockanalysis',
     url: () => `https://stockanalysis.com/api/symbol/e/${sym}/dividend`,
@@ -116,7 +132,11 @@ export const SERIES = [
     label: 'Invesco QQQ Trust (QQQ)',
     since: '2010-01-01',
     primary: SOURCES.yahoo('QQQ'),
-    checks: [{ source: SOURCES.nasdaqHistorical('QQQ'), tolerance: 0.005, windowYears: 10 }],
+    // Nasdaq's historical endpoint covers the last ten years only; CNBC covers 2010 on.
+    checks: [
+      { source: SOURCES.cnbc('QQQ'), tolerance: 0.005 },
+      { source: SOURCES.nasdaqHistorical('QQQ'), tolerance: 0.005, since: '2016-11-01' },
+    ],
     dividendChecks: [{ source: SOURCES.nasdaqDividends('QQQ') }],
   },
   {
@@ -125,7 +145,10 @@ export const SERIES = [
     label: 'iShares MSCI World ETF (URTH)',
     since: '2012-01-01',
     primary: SOURCES.yahoo('URTH'),
-    checks: [{ source: SOURCES.nasdaqHistorical('URTH'), tolerance: 0.005, windowYears: 10 }],
+    checks: [
+      { source: SOURCES.cnbc('URTH'), tolerance: 0.005 },
+      { source: SOURCES.nasdaqHistorical('URTH'), tolerance: 0.005, since: '2016-11-01' },
+    ],
     dividendChecks: [{ source: SOURCES.ishares('239696/ishares-msci-world-etf') }],
   },
   {
@@ -144,24 +167,21 @@ export const SERIES = [
   {
     id: 'btc',
     kind: 'price',
-    label: 'Bitcoin (USD, Yahoo BTC-USD daily OHLC)',
-    // Yahoo starts on 2014-09-17. It stays the primary because the score's
-    // monthly BTC candles (BTC-01..04) are built from its OHLC today; moving
-    // them to another source would change the score, which is a methodology
-    // decision, not a storage one.
-    since: '2014-09-17',
-    primary: SOURCES.yahoo('BTC-USD'),
-    checks: [{ source: SOURCES.coinmetrics(), tolerance: 0.03 }],
-  },
-  {
-    id: 'btc_coinmetrics',
-    kind: 'price',
     label: 'Bitcoin (USD, Coin Metrics reference rate)',
-    // The only keyless daily series before 2014-09 (the tools' 2010-07 →
-    // 2014-08 months were built from it on 2026-05-23).
+    // A multi-exchange reference rate, 2010-07-18 on. Yahoo's BTC-USD was the
+    // first choice and was REJECTED by review (2026-11-05): it is 1-3% off both
+    // Coinbase and Bitstamp on 104 days, mostly 2017-2019. Coin Metrics agrees
+    // with Coinbase, by close or inside Coinbase's day range, on 4,124 of
+    // 4,125 days. It publishes one daily value, so monthly high/low come from
+    // daily values (the score reads monthly closes only). No independent
+    // source covers 2010-07 to 2012 (Bitstamp then traded thinly): that span
+    // is single-source and the check report says so.
     since: '2010-07-18',
     primary: SOURCES.coinmetrics(),
-    checks: [],
+    checks: [
+      { source: SOURCES.coinbase(), tolerance: 0.02, rangeSlack: 0.005, since: '2015-07-20' },
+      { source: SOURCES.bitstamp(), tolerance: 0.03, rangeSlack: 0.005, since: '2013-01-01' },
+    ],
   },
   {
     id: 'gold_spot',
@@ -170,10 +190,14 @@ export const SERIES = [
     since: '2010-01-01',
     // Founder 2026-11-04: the spot price, not the GLD fund and not futures.
     // Primary: the OTC spot close (New York). Check: the LBMA PM fix via the
-    // World Gold Council — a 15:00 London fix, so hours apart from the close;
-    // a day also passes when the fix lies inside the spot day's range.
+    // World Gold Council — a 15:00 London fix, so hours apart from the close.
+    // The fix is a single value with no range, so the stored close is tested
+    // by tolerance alone: a day the market moved more than 3.5% after the fix
+    // is an outlier a person reviews (four FOMC/crash days since 2010).
+    // Gold futures (GC=F) were measured as a second check and rejected: their
+    // basis to spot reached 6.9% in March 2020.
     primary: SOURCES.cnbc('XAU='),
-    checks: [{ source: SOURCES.wgc(), tolerance: 0.035, rangeSlack: 0.003 }],
+    checks: [{ source: SOURCES.wgc(), tolerance: 0.035 }],
   },
   {
     id: 'ibovespa',
@@ -194,7 +218,7 @@ export const SERIES = [
     label: 'DAX (performance index, points)',
     since: '2010-01-01',
     primary: SOURCES.yahoo('^GDAXI'),
-    checks: [{ source: SOURCES.cnbc('.GDAXI'), tolerance: 0.005, since: '2015-01-02' }],
+    checks: [{ source: SOURCES.cnbc('.GDAXI'), tolerance: 0.005 }],
   },
   {
     id: 'nasdaq_composite',
@@ -229,6 +253,10 @@ export const SERIES = [
     primary: SOURCES.fred('M2SL'),
     checks: [],
     revisable: true,
+    // The Fed revises months older than any overlap window (2026-01..05 were
+    // revised between the 06-30 and 11-04 vintages), so every run re-reads
+    // the whole series: about 200 rows.
+    fullHistory: true,
   },
   // ---- FX: Fed H.10 noon New York rates; checked against market closes ----
   ...[
@@ -239,18 +267,18 @@ export const SERIES = [
     ['fx_chf', 'DEXSZUS', 'CHF=', 'CHF per USD'],
     ['fx_cad', 'DEXCAUS', 'CAD=', 'CAD per USD'],
     ['fx_mxn', 'DEXMXUS', 'MXN=', 'MXN per USD'],
-    ['fx_brl', 'DEXBZUS', 'BRL=', 'BRL per USD'],
-  ].map(([id, fred, cnbc, unit]) => ({
+    ['fx_brl', 'DEXBZUS', 'BRL=', 'BRL per USD', 0.0075],
+  ].map(([id, fred, cnbc, unit, tolerance = 0.005]) => ({
     id,
     kind: 'rate',
     label: `FX ${unit} (Fed H.10, noon New York)`,
     since: '2010-01-01',
     primary: SOURCES.fred(fred),
     // A noon rate against a 17:00 close of the same pair: a day passes when
-    // the two closes agree within 1.5% OR the noon rate lies inside CNBC's
-    // trading range that day (first backfill: 104 noon-vs-close days beyond
-    // 1.5%, all but 2 inside the day's range; those 2 are flat CNBC bars).
-    checks: [{ source: SOURCES.cnbc(cnbc), tolerance: 0.015, rangeSlack: 0.003 }],
+    // the two agree within the tolerance OR the stored noon rate lies inside
+    // CNBC's traded range that day. Measured 2010-2026: at 0.5% + range, 0
+    // outliers for seven pairs; BRL (onshore vs offshore prints) takes 0.75%.
+    checks: [{ source: SOURCES.cnbc(cnbc), tolerance, rangeSlack: 0.003 }],
   })),
 ];
 

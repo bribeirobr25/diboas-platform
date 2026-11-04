@@ -11,16 +11,27 @@
 # Data commits go straight to the analytics `main` (approved: under `market/`
 # only, append-only); any path outside `market/` aborts the commit.
 #
-# Raw evidence is committed even when a series is BLOCKED (a check outlier or a
-# changed stored day), so the failure can be read later; the job then fails
-# so the block is visible. Nothing is written to a blocked series' values.
+# Raw evidence is committed even when a series is BLOCKED or the collector
+# fails or times out, so the failure can be read later; the job then fails so
+# the block is visible. Nothing is written to a blocked series' values. Before
+# committing, commit-guard.mjs refuses anything that is not an append-only
+# change under `market/` (the analytics repo has no branch protection).
+#
+# ⚑ MERGE ORDER: the analytics store PR (diboas-analytics #1) merges BEFORE
+# this workflow reaches the platform's main. Writing to the analytics main is
+# refused while `market/checks/accepted-exceptions.json` is absent there,
+# because a run on an empty store would re-backfill without the reviewed
+# exceptions.
 
 name: Market data collection
 
 on:
   schedule:
-    # Saturdays 09:23 UTC: Friday's closes are final everywhere (US, B3,
-    # Xetra, FX, FRED's Friday rates are out by then).
+    # Saturdays 09:23 UTC. Exchange closes (US, B3, Xetra, Coinbase/Coin
+    # Metrics UTC days) are final by then. The Fed's H.10 FX rates and broad
+    # dollar index are published on MONDAYS and the 10-year yield one business
+    # day late, so those series lag by up to a week; the 45-day overlap of
+    # every run picks the late days up.
     - cron: '23 9 * * 6'
   workflow_dispatch:
     inputs:
@@ -33,7 +44,7 @@ on:
         type: string
         default: ''
       target_branch:
-        description: 'diboas-analytics branch to write to'
+        description: 'diboas-analytics branch to write to (main, or data/...)'
         type: string
         default: 'main'
   # TEMPORARY (remove before merge): the first backfill runs from this
@@ -54,7 +65,7 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
@@ -80,13 +91,20 @@ jobs:
           else
             branch="${IN_BRANCH:-main}"; backfill="${IN_BACKFILL:-false}"; series="${IN_SERIES:-}"
           fi
-          case "$branch" in main|data/*) ;; *) echo "refusing target branch $branch"; exit 1;; esac
-          echo "branch=$branch" >> "$GITHUB_OUTPUT"
-          echo "backfill=$backfill" >> "$GITHUB_OUTPUT"
-          echo "series=$series" >> "$GITHUB_OUTPUT"
+          # Validate every value before it reaches GITHUB_OUTPUT: a newline in
+          # an input would otherwise write a second `branch=` line.
+          [[ "$branch" =~ ^(main|data/[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*)$ ]] || { echo "refusing target branch"; exit 1; }
+          [[ "$backfill" =~ ^(true|false)$ ]] || { echo "refusing backfill value"; exit 1; }
+          [[ -z "$series" || "$series" =~ ^[a-z0-9_]+(,[a-z0-9_]+)*$ ]] || { echo "refusing series value"; exit 1; }
+          {
+            echo "branch=$branch"
+            echo "backfill=$backfill"
+            echo "series=$series"
+          } >> "$GITHUB_OUTPUT"
           echo "target: diboas-analytics@$branch backfill=$backfill series=${series:-all}"
 
       - name: Check out diboas-analytics
+        id: analytics
         env:
           TOKEN: ${{ secrets.MARKET_DATA_TOKEN }}
           BRANCH: ${{ steps.target.outputs.branch }}
@@ -99,10 +117,15 @@ jobs:
           else
             git checkout --quiet -b "$BRANCH"
           fi
+          if [ "$BRANCH" = "main" ] && [ ! -f market/checks/accepted-exceptions.json ]; then
+            echo "refusing: the analytics main has no market store yet (merge diboas-analytics #1 first)"
+            exit 1
+          fi
           mkdir -p market/checks
 
       - name: Collect
         id: collect
+        timeout-minutes: 40
         env:
           BACKFILL: ${{ steps.target.outputs.backfill }}
           SERIES: ${{ steps.target.outputs.series }}
@@ -117,28 +140,49 @@ jobs:
           node apps/web/scripts/market-data/collect.mjs "${args[@]}" | tee collect.log
           code=${PIPESTATUS[0]}
           echo "code=$code" >> "$GITHUB_OUTPUT"
-          [ "$code" -le 1 ] || exit "$code"
+          # 0 stored, 1 blocked, 3 the run failed: evidence is committed in all
+          # three. 2 is bad arguments: nothing was fetched.
+          [ "$code" -ne 2 ] || exit 2
           exit 0
 
+      # Runs even when Collect failed or hit its time limit, so the evidence
+      # written up to that point is kept.
       - name: Commit under market/ only
+        if: always() && steps.analytics.outcome == 'success'
         env:
           BRANCH: ${{ steps.target.outputs.branch }}
         run: |
           set -euo pipefail
           cd analytics
-          git add -A market
-          outside=$(git status --porcelain | awk '{print $2}' | grep -v '^market/' || true)
-          if [ -n "$outside" ]; then echo "refusing: changes outside market/:"; echo "$outside"; exit 1; fi
+          # -f: the analytics .gitignore ignores names such as logs/ and *.log
+          git add -A -f market
+          node ../apps/web/scripts/market-data/commit-guard.mjs
           if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
-          git -c user.name='diboas-market-data' -c user.email='market-data@users.noreply.github.com' \
+          git -c user.name='github-actions[bot]' \
+            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
             commit --quiet -m "data(market): collection $(date -u +%F) (${GITHUB_EVENT_NAME})" \
             -m "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-          git push --quiet origin "HEAD:${BRANCH}"
-          echo "pushed $(git rev-parse --short HEAD) to diboas-analytics@${BRANCH}"
+          # The branch can move while a run collects (a merged PR): rebase the
+          # data commit, which only adds under market/, and try again.
+          for attempt in 1 2 3; do
+            if git push --quiet origin "HEAD:${BRANCH}"; then
+              echo "pushed $(git rev-parse --short HEAD) to diboas-analytics@${BRANCH}"
+              exit 0
+            fi
+            echo "push rejected (attempt $attempt); rebasing onto the moved branch"
+            git fetch --quiet origin "$BRANCH"
+            git rebase --quiet "origin/${BRANCH}"
+            node ../apps/web/scripts/market-data/commit-guard.mjs --range "origin/${BRANCH}..HEAD"
+          done
+          echo "push failed three times"; exit 1
 
-      - name: Fail when a series was blocked
-        if: steps.collect.outputs.code == '1'
+      - name: Fail unless every series was stored
+        if: always()
+        env:
+          CODE: ${{ steps.collect.outputs.code }}
+          OUTCOME: ${{ steps.collect.outcome }}
         run: |
-          grep 'BLOCKED' collect.log || true
-          echo "At least one series was blocked; its evidence is stored, its values are not."
+          if [ "$OUTCOME" = "success" ] && [ "$CODE" = "0" ]; then exit 0; fi
+          grep -E 'BLOCKED|RUN FAILED' collect.log 2>/dev/null || true
+          echo "Collect outcome: ${OUTCOME}, exit code: ${CODE:-none}. Evidence is committed; blocked series kept their values."
           exit 1
