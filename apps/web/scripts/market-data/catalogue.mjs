@@ -170,9 +170,10 @@ export const SERIES = [
     since: '2010-01-01',
     // Founder 2026-11-04: the spot price, not the GLD fund and not futures.
     // Primary: the OTC spot close (New York). Check: the LBMA PM fix via the
-    // World Gold Council — a 15:00 London fix, so hours apart from the close.
+    // World Gold Council — a 15:00 London fix, so hours apart from the close;
+    // a day also passes when the fix lies inside the spot day's range.
     primary: SOURCES.cnbc('XAU='),
-    checks: [{ source: SOURCES.wgc(), tolerance: 0.035 }],
+    checks: [{ source: SOURCES.wgc(), tolerance: 0.035, rangeSlack: 0.003 }],
   },
   {
     id: 'ibovespa',
@@ -245,8 +246,11 @@ export const SERIES = [
     label: `FX ${unit} (Fed H.10, noon New York)`,
     since: '2010-01-01',
     primary: SOURCES.fred(fred),
-    // A noon rate against a 17:00 close of the same pair.
-    checks: [{ source: SOURCES.cnbc(cnbc), tolerance: 0.015 }],
+    // A noon rate against a 17:00 close of the same pair: a day passes when
+    // the two closes agree within 1.5% OR the noon rate lies inside CNBC's
+    // trading range that day (first backfill: 104 noon-vs-close days beyond
+    // 1.5%, all but 2 inside the day's range; those 2 are flat CNBC bars).
+    checks: [{ source: SOURCES.cnbc(cnbc), tolerance: 0.015, rangeSlack: 0.003 }],
   })),
 ];
 

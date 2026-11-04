@@ -166,6 +166,31 @@ describe('closes checked against a second source', () => {
   });
 });
 
+describe('a value taken at another time of day passes only inside that day’s traded range', () => {
+  // Fed noon rate (primary) vs a 17:00 close with the day's range (check)
+  const noon = [
+    { date: '2026-10-29', close: 5.4 },
+    { date: '2026-10-30', close: 5.4 },
+    { date: '2020-01-02', close: 1.1166 },
+  ];
+  const close = [
+    { date: '2026-10-29', close: 5.5, low: 5.35, high: 5.52 }, // 1.85% apart, but traded that day
+    { date: '2026-10-30', close: 5.5, low: 5.45, high: 5.52 }, // outside the range
+    { date: '2020-01-02', close: 1.1786, low: 1.1786, high: 1.1786 }, // flat bar: never a range
+  ];
+
+  it('should pass a day by its range, and never by a flat bar', () => {
+    const r = compareCloses(noon, close, 0.015, { rangeSlack: 0.003 });
+    expect(r.passedByRange).toBe(1);
+    expect(r.outliers.map((o: { date: string }) => o.date)).toEqual(['2026-10-30', '2020-01-02']);
+  });
+
+  it('should not use the range at all for a pair without rangeSlack', () => {
+    const r = compareCloses(noon, close, 0.015);
+    expect(r.outliers).toHaveLength(3);
+  });
+});
+
 describe('the store is append-only', () => {
   it('should add new days, never rewrite a stored one, and block on a changed value', () => {
     const store = createStore(freshDir());

@@ -107,7 +107,10 @@ jobs:
           BACKFILL: ${{ steps.target.outputs.backfill }}
           SERIES: ${{ steps.target.outputs.series }}
         run: |
-          set -uo pipefail
+          # GitHub runs `bash -e -o pipefail`: without `set +e` a blocked
+          # series (exit 1) would end this step before the evidence is
+          # committed (found on the first backfill, run 41931047845).
+          set +e -u -o pipefail
           args=(--store analytics/market)
           [ "$BACKFILL" = "true" ] && args+=(--backfill)
           [ -n "$SERIES" ] && args+=(--series "$SERIES")
@@ -115,6 +118,7 @@ jobs:
           code=${PIPESTATUS[0]}
           echo "code=$code" >> "$GITHUB_OUTPUT"
           [ "$code" -le 1 ] || exit "$code"
+          exit 0
 
       - name: Commit under market/ only
         env:

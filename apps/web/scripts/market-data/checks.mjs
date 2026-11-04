@@ -8,30 +8,60 @@
  * a person wrote, in `checks/accepted-exceptions.json`.
  */
 
+/** A day range is usable only when it is a real range (some sources print flat or zero bars). */
+const validRange = (r) => r && r.low > 0 && r.high > r.low;
+
 /**
- * @param {{date:string, close:number}[]} primary
- * @param {{date:string, close:number}[]} check
+ * Two sources whose values are taken at DIFFERENT TIMES of the same day (a
+ * noon rate against a 17:00 close; a 15:00 London fix against a New York
+ * close) can differ honestly by the day's whole move. For such a pair the
+ * catalogue sets `rangeSlack`: a day also passes when the single-time value
+ * lies inside the other source's trading range that day (low..high, widened
+ * by the slack for venue spread). Flat or zero bars never count as a range.
+ * This is stricter than widening the tolerance: it asks whether the value
+ * was actually traded that day, not whether it is "close enough".
+ *
+ * @param {{date:string, close:number, low?:number|null, high?:number|null}[]} primary
+ * @param {{date:string, close:number, low?:number|null, high?:number|null}[]} check
  * @param {number} tolerance relative, e.g. 0.005
+ * @param {{rangeSlack?: number}} [opts]
  */
-export function compareCloses(primary, check, tolerance) {
-  const other = new Map(check.map((r) => [r.date, r.close]));
+export function compareCloses(primary, check, tolerance, { rangeSlack } = {}) {
+  const other = new Map(check.map((r) => [r.date, r]));
   const outliers = [];
   let common = 0;
+  let passedByRange = 0;
   let maxDiff = 0;
   let maxAt = null;
+  const inside = (value, bar) =>
+    validRange(bar) && value >= bar.low * (1 - rangeSlack) && value <= bar.high * (1 + rangeSlack);
   for (const r of primary) {
-    const v = other.get(r.date);
-    if (v == null) continue;
+    const c = other.get(r.date);
+    if (c == null) continue;
+    const v = c.close;
     common += 1;
     const d = Math.abs(v / r.close - 1);
     if (d > maxDiff) {
       maxDiff = d;
       maxAt = r.date;
     }
-    if (d > tolerance) outliers.push({ date: r.date, primary: r.close, check: v, diff: round(d) });
+    if (d <= tolerance) continue;
+    if (rangeSlack != null && (inside(r.close, c) || inside(v, r))) {
+      passedByRange += 1;
+      continue;
+    }
+    outliers.push({ date: r.date, primary: r.close, check: v, diff: round(d) });
   }
   const primaryOnly = primary.filter((r) => !other.has(r.date)).length;
-  return { tolerance, common, primaryOnly, maxDiff: round(maxDiff), maxAt, outliers };
+  return {
+    tolerance,
+    ...(rangeSlack != null ? { rangeSlack, passedByRange } : {}),
+    common,
+    primaryOnly,
+    maxDiff: round(maxDiff),
+    maxAt,
+    outliers,
+  };
 }
 
 /** Dividend amounts agree when they differ by rounding only (Yahoo keeps 3 decimals). */

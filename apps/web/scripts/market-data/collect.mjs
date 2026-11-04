@@ -150,7 +150,9 @@ async function collectSeries(s, { store, today, backfill, accepted }) {
     let res;
     try {
       const chk = await fetchSource(c.source, { from: cFrom, to, store, series: s.id });
-      res = compareCloses(rows, complete(chk.rows, today), c.tolerance);
+      res = compareCloses(rows, complete(chk.rows, today), c.tolerance, {
+        rangeSlack: c.rangeSlack,
+      });
     } catch (e) {
       out.checks.push({ source: c.source.provider, error: String(e.message) });
       out.blocked.push(`check ${c.source.provider} could not be fetched: ${e.message}`);
