@@ -342,8 +342,12 @@ describe('B2-5 — GENIUS-Act stablecoin/yield wall (sandbox side)', () => {
   // yielding — returns come from the strategy. The sandbox has NO allow-list:
   // after the B2-1..B2-3 reframe (apyNow "Current pool rate", earnings "would
   // have returned") it carries zero pairings, and it must stay that way.
-  const EARN = String.raw`earn|yield|rendend|rend[eo]|verdien|rendi`;
-  const STABLE = String.raw`digital dollar|d[oó]lar[es]* digital|USDC|stablecoin`;
+  // ONE pattern source with the web wall (`config/genius-wall-patterns.json`, register 5.749).
+  const PATTERNS = JSON.parse(
+    readFileSync(join(SRC, '..', '..', '..', 'config', 'genius-wall-patterns.json'), 'utf8')
+  ) as { earn: string; stable: string };
+  const EARN = PATTERNS.earn;
+  const STABLE = PATTERNS.stable;
   const PAIRING = new RegExp(
     `(?:${EARN}).{0,40}(?:${STABLE})|(?:${STABLE}).{0,40}(?:${EARN})`,
     'i'

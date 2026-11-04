@@ -57,7 +57,7 @@
     "historical": "Histórico (10%)",
     "optimistic": "Optimista (14%)",
     "digitalDollarSuffix": " en dólar digital",
-    "conservativeTooltip": "Rango conservador de rendimiento en dólar digital a largo plazo, basado en los mejores tipos de depósito disponibles en 2026.",
+    "conservativeTooltip": "Rango conservador de rendimiento de la estrategia a largo plazo, basado en los mejores tipos de depósito disponibles en 2026.",
     "historicalTooltip": "Rango de la estrategia diBoaS multi-activos basado en la CAGR de retorno total del S&P 500 a largo plazo (1928–2024).",
     "optimisticTooltip": "Rango de la estrategia diBoaS multi-activos de los últimos 10 años, reflejando las condiciones del mercado posteriores a 2014.",
     "tooltipLabel": "Más información"
