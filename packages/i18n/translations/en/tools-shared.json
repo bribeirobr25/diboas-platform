@@ -57,7 +57,7 @@
     "historical": "Historical (10%)",
     "optimistic": "Optimistic (14%)",
     "digitalDollarSuffix": "",
-    "conservativeTooltip": "Long-run conservative digital-dollar yield envelope, reflecting top-tier passive rates available in 2026.",
+    "conservativeTooltip": "Long-run conservative range for strategy returns, reflecting top-tier passive rates available in 2026.",
     "historicalTooltip": "Multi-asset diBoaS strategy envelope based on the long-run 1928–2024 S&P 500 total-return CAGR.",
     "optimisticTooltip": "Trailing 10-year multi-asset strategy envelope reflecting post-2014 market conditions.",
     "tooltipLabel": "More info"

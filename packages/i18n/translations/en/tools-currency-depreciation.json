@@ -31,7 +31,7 @@
     "bankLabel": "Bank yield",
     "bankRateNote": "{rate}% local bank rate",
     "diboasLabel": "Digital dollar at diBoaS",
-    "diboasNote": "{rate}% historical return, held in digital dollar",
+    "diboasNote": "{rate}% historical strategy return, held in digital dollar",
     "retrospectiveThenLabel": "Then ({startMonth})",
     "retrospectiveThenNote": "1 USD = {rate} {currency}",
     "retrospectiveNowLabel": "Now ({asOfMonth})",

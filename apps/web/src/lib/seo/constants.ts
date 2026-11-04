@@ -303,7 +303,7 @@ export const PAGE_SEO_CONFIG = {
   'tools/currency-depreciation': {
     title: 'Currency Depreciation Calculator',
     description:
-      'See what your local currency really earns. Compare cash, bank, and digital dollar at historical rate (10%).',
+      'See what happens to your local currency over time. Compare cash, a bank account, and a digital-dollar strategy at its historical rate (10%).',
     keywords: [
       'currency depreciation calculator',
       'inflation hedge',
