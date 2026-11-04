@@ -15,18 +15,28 @@ import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
 
 const GENERATOR = join(__dirname, '../../../../scripts/market-refresh/generate.mjs');
+// The generator runs in a child process; on a loaded machine that can pass the
+// 5 s default. Explicit limits, as for the other child-process market tests.
+const TIMEOUT_MS = 30_000;
 
 describe('market generated-copy reconciliation (P3 §B Stage 4)', () => {
-  it('should render exactly what the template generator produces (generate.mjs --check)', () => {
-    let ok = true;
-    let output = '';
-    try {
-      output = execFileSync('node', [GENERATOR, '--check'], { encoding: 'utf8' });
-    } catch (err) {
-      ok = false;
-      output = `${(err as { stdout?: string }).stdout ?? ''}${(err as { stderr?: string }).stderr ?? ''}`;
-    }
-    expect(ok, `generator reported drift — regenerate via generate.mjs:\n${output}`).toBe(true);
-    expect(output).toContain('no drift');
-  });
+  it(
+    'should render exactly what the template generator produces (generate.mjs --check)',
+    () => {
+      let ok = true;
+      let output = '';
+      try {
+        output = execFileSync('node', [GENERATOR, '--check'], {
+          encoding: 'utf8',
+          timeout: TIMEOUT_MS - 5_000,
+        });
+      } catch (err) {
+        ok = false;
+        output = `${(err as { stdout?: string }).stdout ?? ''}${(err as { stderr?: string }).stderr ?? ''}`;
+      }
+      expect(ok, `generator reported drift — regenerate via generate.mjs:\n${output}`).toBe(true);
+      expect(output).toContain('no drift');
+    },
+    TIMEOUT_MS
+  );
 });
