@@ -453,6 +453,92 @@ describe('REGISTER-KIND · every register item declares a kind (founder decision
 });
 
 /**
+ * REGISTER-STATUS · a live row's own status agrees with the index, for EVERY status (5.753).
+ *
+ * The register row compared prose with the index only for CLOSED vs not-CLOSED, so swapping
+ * two live statuses in the index passed. Requirement: a row whose lead asserts a live status
+ * (a marker, then a bold status word) must carry the same status in BLOCK-A.
+ */
+describe('REGISTER-STATUS · a live row agrees with its index status (5.753)', () => {
+  const LONG_NOTE =
+    '⚑ **Founder decision 2026-10-22 (`docs/audit/FIXTURE_DECISIONS.md`):** B99: a dated note that ' +
+    'precedes the status, long enough to push the status past the first 170 characters of the row. ';
+  function statusRegister(index: Record<string, string>): string {
+    const rows = [
+      '> **5.700** — ⏳ **OPEN · webapp · fixture** an open item. | Owner: CC',
+      `> **5.701** — ${LONG_NOTE}⏳ **FOUNDER / PRODUCT · fixture** a decision. | Owner: founder`,
+      '> **5.702** — ⏸ **DEFERRED by the founder 2026-11-04** a parked item. | Owner: CC',
+      '> **5.703** — ✅ **CLOSED 2026-11-04 · fixture** a closed item. | Owner: CC',
+    ].join('\n\n');
+    const ids = ['5.700', '5.701', '5.702', '5.703'];
+    const counts = new Map<string, number>();
+    for (const id of ids) counts.set(index[id]!, (counts.get(index[id]!) ?? 0) + 1);
+    return [
+      '# fixture register',
+      '',
+      '> **NEXT FREE ID: 5.704**',
+      '',
+      '<!-- BLOCK-A STATUS INDEX · machine-readable · asserted by `pnpm review:register` -->',
+      `> TOTAL 4   ·   ${[...counts].map(([k, v]) => `${k} ${v}`).join(' · ')}`,
+      `>   ${ids.map((id) => `${id}   ${index[id]}`).join('         ')}`,
+      '',
+      '<!-- BLOCK-K KIND INDEX · machine-readable · asserted by `pnpm review:register` -->',
+      '> KINDS 4   ·   defect 2 · work 1 · decision 1',
+      '>   5.700   defect         5.701   decision       5.702   work           5.703   defect',
+      '',
+      rows,
+      '',
+    ].join('\n');
+  }
+  const AGREE = { '5.700': 'OPEN', '5.701': 'FOUNDER', '5.702': 'DEFERRED', '5.703': 'CLOSED' };
+  function check(index: Record<string, string>) {
+    const r = repo();
+    r.put('docs/audit/PENDING_ALL.md', statusRegister(index));
+    return r.run('register');
+  }
+
+  it('should PASS when every live row states the status its index carries', () => {
+    const r = check(AGREE);
+    expect(r.code, r.out).toBe(0);
+  }, 20_000);
+
+  it('should FAIL when two live statuses are swapped in the index, even with the totals unchanged', () => {
+    const r = check({ ...AGREE, '5.700': 'FOUNDER', '5.701': 'OPEN' });
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/5\.700\(row=OPEN,index=FOUNDER\)/);
+    expect(r.out).toMatch(/5\.701\(row=FOUNDER,index=OPEN\)/);
+  }, 20_000);
+
+  it('should FAIL a parked row indexed as open when its lead says DEFERRED', () => {
+    const r = check({ ...AGREE, '5.702': 'OPEN' });
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/5\.702\(row=DEFERRED,index=OPEN\)/);
+    // a short row must not borrow the next row's ✅ (the head used to run past its own row)
+    expect(r.out).not.toMatch(/5\.702\(row=CLOSED/);
+  }, 20_000);
+
+  it('should not read the next row when a short live row carries no marker of its own', () => {
+    const r = repo();
+    r.put(
+      'docs/audit/PENDING_ALL.md',
+      statusRegister({ ...AGREE, '5.702': 'OPEN' }).replace(
+        '⏸ **DEFERRED by the founder 2026-11-04** a parked item.',
+        'a short unmarked item.'
+      )
+    );
+    const out = r.run('register');
+    expect(out.code, out.out).toBe(0);
+    expect(out.out).not.toMatch(/5\.702\(row=CLOSED/);
+  }, 20_000);
+
+  it('should report a closed row only once when its index says a live status', () => {
+    const r = check({ ...AGREE, '5.703': 'OPEN' });
+    expect(r.code).toBe(1);
+    expect(r.out.match(/5\.703\(/g)).toHaveLength(1);
+  }, 20_000);
+});
+
+/**
  * DOCS-ROOT · which private docs the gate reads (5.696–5.698, second audit 2026-10-30).
  *
  * Each case builds a WORKSPACE under its own folder: `<ws>/diboas-platform` (the runner and
