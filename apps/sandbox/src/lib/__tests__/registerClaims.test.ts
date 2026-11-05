@@ -48,6 +48,18 @@ describe('REG-CLAIMS-1 · an id claimed by two open docs PRs fails (5.782)', () 
     expect(r.out).not.toContain('5.102,');
   });
 
+  // Sixth audit (2026-11-05): the register writes rows three ways; each is a claim.
+  it.each([
+    ['a title row', '> **5.103 — a title in bold**'],
+    ['a table row', '| **5.103** | a table row |'],
+  ])('should FAIL when another PR claims the same id as %s', (_kind, otherRow) => {
+    const r = check(register('5.100', '5.101', '5.103'), MAIN, {
+      market: `${register('5.100', '5.101')}\n\n${otherRow}`,
+    });
+    expect(r.code).toBe(1);
+    expect(r.out).toContain('market: 5.103');
+  });
+
   it('should PASS when the other open PRs add different ids', () => {
     const r = check(register('5.100', '5.101', '5.102'), MAIN, {
       market: register('5.100', '5.101', '5.103'),
