@@ -78,31 +78,31 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
   'pt-BR': {
     waitlist: {
       joinedMessage: (name) => `${name} entrou na lista de espera!`,
-      position: 'Posicao',
+      position: 'Posição',
       cta: 'Junte-se a mim no diBoaS - Liberdade Financeira Simplificada',
     },
     calculator: {
       badge: 'Calculadora Dream Mode',
       growthMessage: (years) => `Em ${years} anos, meu investimento poderia crescer para`,
-      startingWith: 'Comecando com',
-      strategy: 'Estrategia',
+      startingWith: 'Começando com',
+      strategy: 'Estratégia',
       cta: 'Calcule seu futuro em diboas.com',
     },
     toolResult: {
       toolName: {
-        'money-jobs': 'Dinheiro com Funcao',
-        'currency-depreciation': 'Depreciacao cambial',
+        'money-jobs': 'Dinheiro com Função',
+        'currency-depreciation': 'Depreciação cambial',
         'idle-cash': 'Dinheiro parado',
-        'asset-history': 'Historico de ativos',
-        'card-fees': 'Taxas de cartao',
+        'asset-history': 'Histórico de ativos',
+        'card-fees': 'Taxas de cartão',
       },
       headline: 'No que poderia se transformar',
       headlineByTool: {
-        'money-jobs': 'Cada real precisa de uma funcao',
+        'money-jobs': 'Cada real precisa de uma função',
         'asset-history': 'Quanto valeria hoje',
         'card-fees': 'Quanto eu poderia economizar',
       },
-      subline: (years) => `Em dolar digital ao longo de ${years} anos`,
+      subline: (years) => `Em dólar digital ao longo de ${years} anos`,
       cta: 'Veja o seu em diboas.com',
     },
     default: {
@@ -111,32 +111,32 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
   },
   es: {
     waitlist: {
-      joinedMessage: (name) => `${name} se unio a la lista de espera!`,
-      position: 'Posicion',
-      cta: 'Unete a mi en diBoaS - Libertad Financiera Simplificada',
+      joinedMessage: (name) => `¡${name} se unió a la lista de espera!`,
+      position: 'Posición',
+      cta: 'Únete a mí en diBoaS - Libertad Financiera Simplificada',
     },
     calculator: {
       badge: 'Calculadora Dream Mode',
-      growthMessage: (years) => `En ${years} anos, mi inversion podria crecer a`,
+      growthMessage: (years) => `En ${years} años, mi inversión podría crecer a`,
       startingWith: 'Empezando con',
       strategy: 'Estrategia',
       cta: 'Calcula tu futuro en diboas.com',
     },
     toolResult: {
       toolName: {
-        'money-jobs': 'Dinero con Funcion',
-        'currency-depreciation': 'Depreciacion monetaria',
+        'money-jobs': 'Dinero con Función',
+        'currency-depreciation': 'Depreciación monetaria',
         'idle-cash': 'Dinero parado',
         'asset-history': 'Historial de activos',
         'card-fees': 'Comisiones de tarjeta',
       },
       headline: 'En lo que podría convertirse',
       headlineByTool: {
-        'money-jobs': 'Cada euro necesita una funcion',
-        'asset-history': 'Cuanto valdria hoy',
-        'card-fees': 'Cuanto podria ahorrar',
+        'money-jobs': 'Cada euro necesita una función',
+        'asset-history': 'Cuánto valdría hoy',
+        'card-fees': 'Cuánto podría ahorrar',
       },
-      subline: (years) => `En dolar digital durante ${years} anos`,
+      subline: (years) => `En dólar digital durante ${years} años`,
       cta: 'Mira el tuyo en diboas.com',
     },
     default: {
@@ -151,7 +151,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     },
     calculator: {
       badge: 'Dream Mode Rechner',
-      growthMessage: (years) => `In ${years} Jahren konnte meine Investition wachsen auf`,
+      growthMessage: (years) => `In ${years} Jahren könnte meine Investition wachsen auf`,
       startingWith: 'Startbetrag',
       strategy: 'Strategie',
       cta: 'Berechne deine Zukunft auf diboas.com',
@@ -159,18 +159,18 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     toolResult: {
       toolName: {
         'money-jobs': 'Geld mit Aufgabe',
-        'currency-depreciation': 'Wahrungsabwertung',
+        'currency-depreciation': 'Währungsabwertung',
         'idle-cash': 'Ungenutztes Geld',
         'asset-history': 'Anlage-Historie',
-        'card-fees': 'Kartengebuhren',
+        'card-fees': 'Kartengebühren',
       },
       headline: 'Was daraus werden könnte',
       headlineByTool: {
         'money-jobs': 'Jeder Euro braucht eine Aufgabe',
-        'asset-history': 'Was es heute wert ware',
-        'card-fees': 'Was ich sparen konnte',
+        'asset-history': 'Was es heute wert wäre',
+        'card-fees': 'Was ich sparen könnte',
       },
-      subline: (years) => `Als digitaler Dollar uber ${years} Jahre`,
+      subline: (years) => `Als digitaler Dollar über ${years} Jahre`,
       cta: 'Sieh deins auf diboas.com',
     },
     default: {
@@ -199,7 +199,7 @@ export function getTranslations(locale: string): OGTranslation {
 export function getDefaultName(locale: string): string {
   switch (locale) {
     case 'pt-BR':
-      return 'Alguem';
+      return 'Alguém';
     case 'es':
       return 'Alguien';
     case 'de':
