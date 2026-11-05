@@ -43,9 +43,3 @@ describe('formatResultCurrency', () => {
     expect(formatResultCurrency(16105, '<script>')).toBe('$16K');
   });
 });
-
-/**
- * `5.729` — founder ruling 2026-10-31 (DR P8): a percentage is written "200%", never
- * "200 %". The share image renders the query value verbatim, so the allowlist (A8) is
- * where a spaced percentage would get in.
- */
