@@ -88,11 +88,6 @@
               "cookie": "theme",
               "purpose": "Speichert Ihre Hell-/Dunkel-Modus-Einstellung",
               "duration": "1 Jahr"
-            },
-            {
-              "cookie": "dream_mode_data",
-              "purpose": "Speichert Ihre Dream Mode Simulationsdaten lokal",
-              "duration": "Sitzung"
             }
           ]
         }

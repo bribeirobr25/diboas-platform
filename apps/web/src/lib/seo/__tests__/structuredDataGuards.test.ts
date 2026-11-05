@@ -245,10 +245,6 @@ const FIGURE_ALLOW: ReadonlySet<string> = new Set([
   'es::faq::items.vsBankSavings.answer',
   'pt-BR::faq::items.vsBankSavings.answer',
   // a strategy's access rule ("Minimum $1,000 balance")
-  'en::strategies::strategies.fullThrottle.accessRequirements',
-  'de::strategies::strategies.fullThrottle.accessRequirements',
-  'es::strategies::strategies.fullThrottle.accessRequirements',
-  'pt-BR::strategies::strategies.fullThrottle.accessRequirements',
   // an illustration ("starting was never the $300")
   'en::learn-ten-percent::beat3.intro.1',
   'es::learn-ten-percent::beat3.intro.1',

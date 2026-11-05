@@ -163,7 +163,6 @@
       }
     },
     "disclaimer": "*diBoaS fees shown. Third-party provider, ramp, network, banking, settlement, compliance, or exchange fees may apply and are shown before confirmation where available.",
-    "pricingNote": "Pricing comparisons based on publicly available rates as of February 2026. Ranges reflect common pricing across major providers. Actual competitor pricing varies by provider, volume, and agreement terms.",
     "example": "A diBoaS user pays you $1,000 in digital dollars: you keep $1,000 in your diBoaS account. Cash out to your bank as an off-ramp: {cashOutRate} applies. A card-funded payment is an on-ramp, with card and ramp costs shown before funds move.",
     "footerLine": "Every cost should be visible before business funds move.",
     "transitionHook": "Costs first. Then let's see if this is a fit."
@@ -214,7 +213,6 @@
   "waitlist": {
     "header": "Build a better cash policy.",
     "description": "Payment costs. Idle balances. Operating floors. Strategy risk. Join the business waitlist and be among the first to test diBoaS for Business when it opens.",
-    "spotsCounter": "{count} founding members spots remaining",
     "noSpam": "No spam. Just product updates, early access, and what changes before launch."
   },
   "faq": {

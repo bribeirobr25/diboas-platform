@@ -88,11 +88,6 @@
               "cookie": "theme",
               "purpose": "Remembers light/dark mode preference",
               "duration": "1 year"
-            },
-            {
-              "cookie": "dream_mode_data",
-              "purpose": "Stores your Dream Mode simulation data locally",
-              "duration": "Session"
             }
           ]
         }

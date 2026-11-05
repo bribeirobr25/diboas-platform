@@ -163,7 +163,6 @@
       }
     },
     "disclaimer": "*Angezeigt werden diBoaS-Gebühren. Gebühren von Drittanbietern, Ramp-Anbietern, Netzwerken, Banken, Abwicklungspartnern, Compliance-Prüfungen oder Wechselkursanbietern können anfallen und werden, soweit verfügbar, vor der Bestätigung angezeigt.",
-    "pricingNote": "Preisvergleiche basieren auf öffentlich verfügbaren Tarifen, Stand Februar 2026. Die Spannen spiegeln gängige Preise bei großen Anbietern wider. Die tatsächlichen Preise variieren je nach Anbieter, Volumen und Vertragsbedingungen.",
     "example": "Ein diBoaS-Nutzer zahlt dir 1.000 € in digitalen Dollar: Du behältst 1.000 € in deinem diBoaS-Konto. Auszahlung auf dein Bankkonto als Off-Ramp: {cashOutRate} fällt an. Eine kartengedeckte Zahlung ist ein On-Ramp, mit Karten- und Ramp-Kosten, die vor der Bewegung angezeigt werden.",
     "footerLine": "Jede relevante Gebühr sollte sichtbar sein, bevor Unternehmensgeld bewegt wird.",
     "transitionHook": "Kosten zuerst. Dann sehen wir, ob es passt."
@@ -214,7 +213,6 @@
   "waitlist": {
     "header": "Baue bessere Regeln.",
     "description": "Zahlungskosten. Rücklagen. Untergrenzen. Strategierisiko. Trag dich in die Unternehmens-Warteliste ein und gehöre zu den Ersten, die diBoaS für Unternehmen testen, wenn es verfügbar ist.",
-    "spotsCounter": "{count} Gründungsmitglieder-Plätze verbleibend",
     "noSpam": "Kein Spam. Nur Produktupdates, früher Zugang und Änderungen vor dem Start."
   },
   "faq": {

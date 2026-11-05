@@ -163,7 +163,6 @@
       }
     },
     "disclaimer": "*Se muestran las comisiones de diBoaS. Pueden aplicarse comisiones de terceros, proveedores de entrada y salida, redes, bancos, liquidación o revisiones de compliance, y se mostrarán cuando estén disponibles antes de confirmar.",
-    "pricingNote": "Comparaciones de precios basadas en tarifas públicas a febrero de 2026. Los rangos reflejan precios comunes entre los principales proveedores. El precio real de cada competidor varía según proveedor, volumen y condiciones contractuales.",
     "example": "Un usuario de diBoaS te paga 1.000 € en dólares digitales: te quedas con 1.000 € en tu cuenta diBoaS. Retirar a tu banco es una salida (off-ramp): se aplica {cashOutRate}. Un pago con tarjeta es una entrada (on-ramp), con costes de tarjeta y de entrada mostrados antes de mover dinero.",
     "footerLine": "Cada coste relevante debería verse antes de mover dinero de empresa.",
     "transitionHook": "Primero los costes. Luego vemos si esto encaja con tu negocio."
@@ -214,7 +213,6 @@
   "waitlist": {
     "header": "Construye mejores reglas.",
     "description": "Cobros. Liquidez. Mínimos operativos. Costes. Disponibilidad. Riesgo. Únete a la lista de espera y sé de las primeras empresas en probar diBoaS cuando esté disponible.",
-    "spotsCounter": "{count} plazas de miembros fundadores restantes",
     "noSpam": "Sin spam. Solo novedades del producto, acceso anticipado y cambios antes del lanzamiento."
   },
   "faq": {

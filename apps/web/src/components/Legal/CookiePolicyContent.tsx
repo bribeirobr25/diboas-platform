@@ -108,11 +108,6 @@ export function CookiePolicyContent() {
       t('sections.cookiesWeUse.functional.table.rows.0.purpose'),
       t('sections.cookiesWeUse.functional.table.rows.0.duration'),
     ],
-    [
-      'dream_mode_data',
-      t('sections.cookiesWeUse.functional.table.rows.1.purpose'),
-      t('sections.cookiesWeUse.functional.table.rows.1.duration'),
-    ],
   ];
 
   const choicesOptions = [
