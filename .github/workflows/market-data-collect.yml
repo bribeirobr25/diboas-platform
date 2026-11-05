@@ -17,11 +17,12 @@
 # committing, commit-guard.mjs refuses anything that is not an append-only
 # change under `market/` (the analytics repo has no branch protection).
 #
-# ⚑ MERGE ORDER: the analytics store PR (diboas-analytics #1) merges BEFORE
-# this workflow reaches the platform's main. Writing to the analytics main is
-# refused while `market/checks/accepted-exceptions.json` is absent there,
-# because a run on an empty store would re-backfill without the reviewed
-# exceptions.
+# The store was seeded by diboas-analytics #1 (merged 2026-11-05, before this
+# workflow reached main). Writing to the analytics main is still refused while
+# `market/checks/accepted-exceptions.json` is absent there, because a run on an
+# empty store would re-backfill without the reviewed exceptions. Triggers: the
+# Saturday schedule and manual dispatch only (the temporary push trigger of the
+# first backfill was removed 2026-11-05).
 
 name: Market data collection
 
@@ -47,13 +48,6 @@ on:
         description: 'diboas-analytics branch to write to (main, or data/...)'
         type: string
         default: 'main'
-  # TEMPORARY (remove before merge): the first backfill runs from this
-  # branch, into an analytics REVIEW branch, never into its main.
-  push:
-    branches: ['feat/market-data-store']
-    paths:
-      - '.github/workflows/market-data-collect.yml'
-      - 'apps/web/scripts/market-data/**'
 
 permissions:
   contents: read
@@ -84,9 +78,7 @@ jobs:
           IN_SERIES: ${{ inputs.series }}
         run: |
           set -euo pipefail
-          if [ "$EVENT" = "push" ]; then
-            branch='data/market-backfill-review'; backfill=true; series=''
-          elif [ "$EVENT" = "schedule" ]; then
+          if [ "$EVENT" = "schedule" ]; then
             branch='main'; backfill=false; series=''
           else
             branch="${IN_BRANCH:-main}"; backfill="${IN_BACKFILL:-false}"; series="${IN_SERIES:-}"

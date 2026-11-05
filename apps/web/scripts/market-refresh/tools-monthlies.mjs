@@ -37,7 +37,7 @@ const PRICES_PATH = MONTHLY_PRICES_PATH;
 const TODAY = new Date();
 
 // series key → { yahoo ticker, adjClose (total-return), rounding }
-const SERIES_SHAPES = {
+export const SERIES_SHAPES = {
   SP500: { ticker: 'SPY', adjClose: true, prec: 4, ohl: 2 },
   QQQ: { ticker: 'QQQ', adjClose: true, prec: 4, ohl: 2 },
   MSCI_WORLD: { ticker: 'URTH', adjClose: true, prec: 2, ohl: 2 },

@@ -633,6 +633,16 @@ describe('the collection workflow refuses what it must', () => {
     expect(yml).toMatch(/refusing series value/);
     expect(yml).toMatch(/merge diboas-analytics #1 first/);
   });
+  it('should start only from the schedule or a manual dispatch, never from a push', () => {
+    // The first backfill ran from a temporary push trigger on its feature
+    // branch; it reached main in #808 and was removed 2026-11-05. A push trigger
+    // here would re-run a write to diboas-analytics on any matching push.
+    const triggers = yml.slice(yml.indexOf('\non:'), yml.indexOf('\npermissions:'));
+    expect(triggers).toMatch(/schedule:/);
+    expect(triggers).toMatch(/workflow_dispatch:/);
+    expect(triggers).not.toMatch(/^\s*(push|pull_request|pull_request_target):/m);
+    expect(yml).not.toMatch(/"\$EVENT" = "push"/);
+  });
   it('should commit as the GitHub Actions bot, never as someone’s account', () => {
     expect(yml).toMatch(/41898282\+github-actions\[bot\]@users\.noreply\.github\.com/);
     expect(yml).not.toMatch(/market-data@users\.noreply/);

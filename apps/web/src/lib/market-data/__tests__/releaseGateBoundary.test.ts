@@ -182,6 +182,8 @@ const MOCKS_THE_SERVICE = /vi\.mock\(\s*['"]@\/lib\/market-data/;
 const PIPELINE_DATA_READERS: Record<string, string> = {
   'lib/asset-history/__tests__/calculator.test.ts':
     'DCA replay over the live monthly series; values asserted against an INDEPENDENT replay of the committed JSON (5.478), never a band',
+  'lib/asset-history/__tests__/monthlySeriesRules.test.ts':
+    'asserts rules every correct series keeps (consecutive months, consistent bars, a total-return factor that never falls), never a value',
   'lib/asset-history/__tests__/unexpectedError.test.ts':
     'loads the live series only to exercise the error path; asserts error handling, not values',
   'lib/time-to-target/__tests__/calculator.test.ts':
