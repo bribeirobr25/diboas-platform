@@ -1091,22 +1091,35 @@ pinned by a test that was watched failing.
 ## Market data store (`apps/web/scripts/market-data/`, founder decisions 2026-11-04)
 
 > **Scope.** These rules govern the STORE (the collector and the private `diboas-analytics`
-> `market/` folder it writes). Nothing the website reads uses the store yet: `monthlyPrices.json`
-> still comes from `tools-monthlies.mjs` (Yahoo adjusted closes, the GLD fund), and REL-01 still
-> reads gold futures (`GC=F`). Moving those onto the store changes published numbers and is its own
-> reviewed increment, with a founder decision for the score's gold input (a methodology change).
+> `market/` folder it writes). The website does not read the store: `monthlyPrices.json` and
+> `monthlyFx.json` are still appended by `tools-monthlies.mjs` and the runbook (Yahoo, the GLD
+> fund, ECB averages, BCB PTAX), and REL-01 still reads gold futures (`GC=F`). Moving those onto
+> the store changes published numbers and is its own reviewed increment (`5.760`), carrying the
+> founder's 2026-11-05 rulings (spot gold with a methodology bump, the Fed month-end FX basis,
+> Coin Metrics for Bitcoin, stored inflation).
 >
-> **2026-11-05 correction (before the 2026-11-09 run, founder ruling):** the known-wrong rows of
-> `monthlyPrices.json` were corrected FROM the store, by hand, once: DAX re-taken whole (it was
-> labelled one month early, `5.756`), BTC 2026-05 replaced by the complete month (`5.757`),
-> Ibovespa month-end closes set to the official B3 close (`5.758`), and the total-return `close`
-> of SPY, QQQ, URTH and TLT rebuilt from the store's closes and checked ex-dates, re-based so the
-> latest month equals its price, with 2026-10 added (`5.633`). Prices of existing rows, GOLD and
-> every other BTC month were not touched. **Do not re-run an old backfill over these rows, and do
-> not "fix" a fund's `close` from a fresh Yahoo adjusted close:** that reintroduces the loss.
-> `MONTHLY-RULES-1` fails a total-return row whose adjustment factor falls, which a Yahoo append
-> produces for TLT whenever it pays a dividend between month-end and the run; the cure is the
-> tools reading the store (`5.760`), never a looser rule.
+> **2026-11-05 hand correction (before the 2026-11-09 run, founder ruling):**
+>
+> - `monthlyPrices.json`, from the store: DAX re-taken whole, every field (it was labelled one
+>   month early, `5.756`); 12 Ibovespa month-end closes set to the official B3 close (`5.758`);
+>   the total-return `close` of SPY, QQQ, URTH and TLT rebuilt from the store's closes and checked
+>   distributions, each in its ex-date month, re-based so the latest month equals its price, with
+>   2026-10 added (`5.633`). Not from the store: BTC 2026-05 is Yahoo's complete month (the
+>   series' own source; Coin Metrics is 0.03% away), replacing the mid-month candle (`5.757`).
+>   Unchanged: the open/high/low/`closePriceOnly` of every existing fund row, Ibovespa's
+>   open/high/low, GOLD, and every other BTC month.
+> - `monthlyFx.json`: 2026-08 to 2026-10 added for the eight currencies on the file's own basis
+>   (ECB monthly average; BRL the BCB PTAX month-end buying rate), and BRL 2026-07 corrected from
+>   a monthly average (5.113948) to that basis (5.0767). The method reproduces all 199 earlier
+>   months exactly.
+>
+> **Do not re-run an old backfill over these rows, and do not "fix" a fund's `close` from a fresh
+> Yahoo adjusted close:** that reintroduces the loss. The correction lasts until the next Yahoo
+> append of a fund (the 2026-12-07 run): Yahoo's adjusted close re-bases history on every
+> dividend and is missing TLT's 2026-10-01 and 2026-11-02 distributions, so that append loses
+> dividends again unless the tools read the store first (`5.760`). `MONTHLY-RULES-1` sees only
+> half of that: a row appended on a newer adjusted basis than the rows before it (the factor
+> falls); a dividend absent from the source leaves the factor flat and passes it.
 
 - **The store lives in the private `diboas-analytics` repository under `market/`.** Collection runs
   here in Actions (`market-data-collect.yml`) and writes there through `MARKET_DATA_TOKEN`, scoped
