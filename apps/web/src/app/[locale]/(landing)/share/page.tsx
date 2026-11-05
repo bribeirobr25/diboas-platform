@@ -13,6 +13,7 @@
 import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getSafeLocale, loadMessages } from '@diboas/i18n/server';
+import { pageTitle } from '@/lib/seo/pageTitle';
 
 interface SharePageProps {
   params: Promise<{ locale: string }>;
@@ -117,7 +118,7 @@ export async function generateMetadata({
     const description = og.waitlist.description;
 
     return {
-      title,
+      title: pageTitle(title),
       description,
       openGraph: {
         title,
@@ -171,7 +172,7 @@ export async function generateMetadata({
     const description = fillSlot(og.calculator.description, '{years}', years);
 
     return {
-      title,
+      title: pageTitle(title),
       description,
       openGraph: {
         title,
@@ -233,7 +234,7 @@ export async function generateMetadata({
     const description = og.toolResult?.description ?? og.default?.description ?? '';
 
     return {
-      title,
+      title: pageTitle(title),
       description,
       openGraph: {
         title,
@@ -263,7 +264,7 @@ export async function generateMetadata({
   const title = og.default.title;
   const description = og.default.description;
   return {
-    title,
+    title: pageTitle(title),
     description,
     openGraph: {
       title,

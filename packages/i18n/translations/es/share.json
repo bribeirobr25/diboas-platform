@@ -34,8 +34,9 @@
       "description": "En {years} años con la Calculadora Dream Mode de diBoaS"
     },
     "toolResult": {
-      "title": "Lo que mi dinero podría ganar: {value}",
+      "title": "En qué podría convertirse: {value}",
       "titleByTool": {
+        "money-jobs": "Dinero aún sin función: {value}",
         "asset-history": "Cuánto valdría hoy: {value}",
         "card-fees": "Cuánto podría ahorrar: {value}"
       },

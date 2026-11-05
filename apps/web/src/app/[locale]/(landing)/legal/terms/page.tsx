@@ -11,6 +11,7 @@ import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import { LocalePageProps } from '@/types/page';
+import { pageTitle } from '@/lib/seo/pageTitle';
 
 export const dynamic = 'auto';
 
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     'Terms of Use for the diBoaS pre-launch website. Clear rules, serious commitments.';
 
   return {
-    title,
+    title: pageTitle(title),
     description,
     alternates: {
       canonical: `${baseUrl}/${locale}/legal/terms`,

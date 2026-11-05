@@ -12,6 +12,7 @@ import { HELP_HERO_CONFIG, HELP_TOPIC_IDS, HELP_TOPIC_CONFIGS } from '@/config/l
 import { FAQ_TOPICS, buildFAQStructuredData } from '@/config/faqRegistry';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
+import { pageTitle } from '@/lib/seo/pageTitle';
 
 export const dynamic = 'auto';
 
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const description = seo.description || 'Find answers to common questions about diBoaS.';
 
   return {
-    title,
+    title: pageTitle(title),
     description,
     alternates: {
       canonical: `${siteUrl}/${validLocale}/help`,

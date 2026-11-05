@@ -18,6 +18,7 @@ import {
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
+import { pageTitle } from '@/lib/seo/pageTitle';
 
 export const dynamic = 'auto';
 
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
   return {
-    title,
+    title: pageTitle(title),
     description,
     openGraph: {
       title: seo.ogTitle || title,

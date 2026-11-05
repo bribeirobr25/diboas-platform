@@ -5,6 +5,7 @@ import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { DemoPageContent } from './DemoPageContent';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
+import { pageTitle } from '@/lib/seo/pageTitle';
 
 export const dynamic = 'auto';
 
@@ -14,7 +15,7 @@ export const dynamic = 'auto';
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale: _locale } = await params;
   return {
-    title: 'Interactive Demo - diBoaS',
+    title: pageTitle('Interactive Demo - diBoaS'),
     description:
       'Try the diBoaS interactive demo. Experience deposits, transfers, investments, and financial projections.',
     robots: {

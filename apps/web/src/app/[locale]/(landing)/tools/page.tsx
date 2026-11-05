@@ -16,6 +16,7 @@ import {
 } from '@/lib/tools';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
+import { pageTitle } from '@/lib/seo/pageTitle';
 
 export const dynamic = 'force-dynamic';
 
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }: ToolsPageProps): Promise<Meta
     'Free money calculators to plan your retirement, emergency fund, and savings goals.';
 
   return {
-    title,
+    title: pageTitle(title),
     description,
     // SEO-6: emit the render-ready `tools` OG template as a social card.
     ...socialCardMetadata('tools', title, description, validLocale),
