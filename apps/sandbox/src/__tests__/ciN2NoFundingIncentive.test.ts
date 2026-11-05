@@ -255,7 +255,11 @@ const INCENTIVE_FRAMING: ReadonlyArray<readonly [string, RegExp, string]> = [
   ],
   [
     'referral framing',
-    /\breferr\w*|\bindica[çc][ãa]o\b|\bindica[çc][õo]es\b|\breferid\w*|\bempfehl\w*|\binvit\w* (?:a |your |un |a un |tus )?(?:friend|amig)\w*|\bconvid\w* (?:um |seus |uma )?amig\w*|\blad\w* (?:einen |deine )?freund\w*|\brefer\w*\s+(?:a\s+|your\s+)?friend\w*|freunde?\s+werb\w*|werb\w*\s+(?:einen\s+|deine\s+)?freund\w*|\bindiqu\w*\s+(?:um\s+|seus\s+|uma\s+)?amig\w*/i,
+    /* ⛑ Fifth audit (2026-11-05): fixed article lists let "Invita a tus amigos" through, `\w`
+       stopped at the accent of voseo "Convidá"/"Indicá", and the German imperative "Empfiehl"
+       has no "empfehl" stem. Up to two words may now sit between the verb and the friend word,
+       verbs take accented letters, and "empfiehl" is a stem. */
+    /\breferr\w*|\bindica[çc][ãa]o\b|\bindica[çc][õo]es\b|\breferid\w*|\bempfehl\w*|\bempfiehl\w*|\b(?:invit|convid|indic|indiqu)[\wáéíóúâêôãõç]*\s+(?:[\wáéíóúâêôãõçñ]+\s+){0,2}?(?:friend|amig)\w*|\blad[\wäöüß]*\s+(?:[\wäöüß]+\s+){0,2}?freund\w*|\brefer\w*\s+(?:a\s+|your\s+)?friend\w*|freunde?\s+werb\w*|werb\w*\s+(?:einen\s+|deine\s+)?freund\w*/i,
     'Invite a friend with your referral link.',
   ],
 ];
@@ -350,6 +354,12 @@ describe('CI-N2 · the copy names a practice credit, never an incentive', () => 
     ['es', 'Sin límite: cobra tu bonus.'],
     ['pt-BR', 'Ganhe uma bonificação semanal.'],
     ['pt-BR', 'Convide um amigo para praticar.'],
+    /* fifth audit · measured misses before the widening */
+    ['es', 'Invita a tus amigos a practicar.'],
+    ['es', 'Indicá a un amigo y seguí practicando.'],
+    ['pt-BR', 'Convidá um amigo para praticar.'],
+    ['de', 'Empfiehl uns deinen Freunden.'],
+    ['de', 'Lade jetzt deine Freunde ein.'],
     ['de', 'Halte deine Serie am Laufen.'],
     ['de', 'Empfehlung an Freunde senden.'],
     ['en', 'No limits, claim your bonus.'],

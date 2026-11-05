@@ -1,0 +1,37 @@
+{
+  "$comment": "US GENIUS covenant — positive controls for config/genius-wall-patterns.json, read by BOTH walls (apps/web genius-stablecoin-wall.test.ts and the apps/sandbox mirror in messages.test.ts). Every concrete form the patterns name is listed, so narrowing ANY of them (an optional group, a character class, an alternative) fails both walls. Each stable form is tested with 'earns'; each earn form with 'USDC'; 'breaches' are whole sentences found in reviews. Lists may only GROW (each has a floor in the tests). Fifth audit 2026-11-05: the first controls pinned one form per alternative, and 'digital(?:en)?' or 'rende' alone passed every test.",
+  "stableForms": [
+    "digital dollar",
+    "digital-dollar",
+    "digitaldollar",
+    "digitale Dollar",
+    "digitalen Dollar",
+    "digitalem Dollar",
+    "digitaler Dollar",
+    "digitales Dollar",
+    "dolar digital",
+    "dólar digital",
+    "dolares digital",
+    "dólares digital",
+    "dolares digitais",
+    "dólares digitais",
+    "USDC",
+    "stablecoin"
+  ],
+  "earnForms": ["earns", "yield", "rendendo", "rende", "rendo", "verdient", "rendimiento"],
+  "breaches": [
+    "Your digital dollar earns every day",
+    "digital-dollar yield envelope",
+    "Renditen in digitalen Dollar",
+    "Digital-Dollar-Rendite",
+    "Os dólares digitais rendem",
+    "rendimiento en dólar digital",
+    "rendendo em dólares digital",
+    "USDC yield",
+    "stablecoin earnings",
+    "Dein Geld verdient im Digital-Dollar",
+    "Ein digitaler Dollar verdient",
+    "Der digitale Dollar rendiert",
+    "eu rendo em USDC"
+  ]
+}
