@@ -496,7 +496,7 @@ function checkRegister() {
   ]);
   /* A live row's own status assertion (`5.753`): an open-family marker, then a bold status
      word from this same vocabulary (one source; CLOSED is judged by the ✅ checks below). */
-  // ⛑ Fourth audit (2026-11-05, `5.762`): a QUOTED marker is a mention, not this row's status
+  // ⛑ Fourth audit (2026-11-05, `5.772`): a QUOTED marker is a mention, not this row's status
   // (the late-closure check's own lookbehind); the variation selector U+FE0F may follow it.
   const LIVE_STATUS_LEAD = new RegExp(
     `(?<!["“'\`(]\\s?)[⏳⏸🔴🟠🟡🟢📋]\\uFE0F?\\s*\\*\\*\\s*(${[...VOCAB].filter((v) => v !== 'CLOSED').join('|')})\\b`,
@@ -674,7 +674,7 @@ function checkRegister() {
        * characters, 166 within 700; widening found one more disagreement, `5.524`). A marker
        * plus a bold status word is an assertion, never a mention in running text; a row with no
        * such lead is not judged here (stated scope limit).
-       * ⛑ Fourth audit (2026-11-05, `5.762`): this ran only when the index was NOT CLOSED, so a
+       * ⛑ Fourth audit (2026-11-05, `5.772`): this ran only when the index was NOT CLOSED, so a
        * live `⏸ **DEFERRED**` row indexed CLOSED passed — the reverse check above knows no ⏸ and
        * reads only 170 characters (130 of 323 live rows could be flipped to CLOSED silently).
        * It now runs for a CLOSED index too, unless the reverse check already reported the row.
