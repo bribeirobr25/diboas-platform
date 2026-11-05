@@ -277,7 +277,8 @@ export const SERIES = [
     // A noon rate against a 17:00 close of the same pair: a day passes when
     // the two agree within the tolerance OR the stored noon rate lies inside
     // CNBC's traded range that day. Measured 2010-2026: at 0.5% + range, 0
-    // outliers for seven pairs; BRL (onshore vs offshore prints) takes 0.75%.
+    // outliers for seven pairs; BRL (onshore vs offshore prints) takes 0.75%, with
+    // three days reviewed in the store (Fed vs CNBC; the ECB rate as third source).
     checks: [{ source: SOURCES.cnbc(cnbc), tolerance, rangeSlack: 0.003 }],
   })),
 ];
