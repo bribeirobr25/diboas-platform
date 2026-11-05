@@ -203,7 +203,7 @@ describe('no writer may go back to a bare writeFileSync (structural)', () => {
   it.each([
     'market-refresh/run.mjs',
     'market-refresh/generate.mjs',
-    'market-refresh/tools-monthlies.mjs',
+    'market-data/publish.mjs',
     'market-refresh/providers/inrepo.mjs',
   ])('%s should publish through the atomic helper', (rel) => {
     const src = fs.readFileSync(path.join(SCRIPTS, rel), 'utf8');

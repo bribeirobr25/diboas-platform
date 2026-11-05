@@ -270,10 +270,38 @@ jobs:
       - name: Refresh pipeline (fetch → gate → compute → archive)
         run: node apps/web/scripts/market-refresh/run.mjs --append-btc
 
-      # C1c (2026-10-21): a series that cannot be read is reported, not fatal
-      # (these series feed the Money Tools only); the note goes in the PR body.
-      - name: Tools monthlies (F-M8 leg — idempotent, appends only at month-roll)
-        run: node apps/web/scripts/market-refresh/tools-monthlies.mjs --report "$RUNNER_TEMP/tools-note.md"
+      # 5.760 increment 2: the Money Tools series (every price series but BTC,
+      # and the FX rates) are published FROM the market data store, read-only.
+      # C1c (2026-10-21) still holds: a store that cannot be read, or a publish
+      # that fails, leaves the committed series as they are and says so in the
+      # PR body (these series feed the Money Tools only, never the score).
+      - name: Read the market data store (read-only)
+        id: store
+        env:
+          TOKEN: ${{ secrets.MARKET_DATA_READ_TOKEN }}
+        run: |
+          set +e
+          commit="$(bash apps/web/scripts/market-data/read-store.sh "$RUNNER_TEMP/analytics")"
+          if [ $? -eq 0 ] && [[ "$commit" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+            echo "commit=$commit" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "Money Tools series not updated this run: the market data store could not be read (see the run log)." > "$RUNNER_TEMP/tools-note.md"
+            echo "::warning::the market data store could not be read; the Money Tools series stay as committed"
+          fi
+          exit 0
+
+      - name: Publish the Money Tools series from the store
+        if: steps.store.outputs.ok == 'true'
+        env:
+          STORE_COMMIT: ${{ steps.store.outputs.commit }}
+        run: |
+          set +e
+          node apps/web/scripts/market-data/publish.mjs --store "$RUNNER_TEMP/analytics/market" --store-commit "$STORE_COMMIT" --report "$RUNNER_TEMP/tools-note.md"
+          code=$?
+          [ $code -eq 0 ] || echo "::warning::the Money Tools series were not updated (publish.mjs exit $code); the reason is in the PR body"
+          exit 0
 
       - name: Generate editorial copy from templates
         run: node apps/web/scripts/market-refresh/generate.mjs

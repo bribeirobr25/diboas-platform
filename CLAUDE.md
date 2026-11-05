@@ -168,7 +168,8 @@ node apps/web/scripts/market-refresh/run.mjs --append-btc    # also append the d
 node apps/web/scripts/market-refresh/run.mjs --etf-snapshot  # ONLY the weekly ETF-01 shares-outstanding snapshot (needs POLYGON_API_KEY); no core run; refused with --append-btc
 node apps/web/scripts/market-refresh/generate.mjs            # render editorial JSONs from the template library + auto-write the data_status panel (B3 2026-08-11; overrides need a _cycle stamp)
 node apps/web/scripts/market-refresh/generate.mjs --check    # reconcile committed JSONs vs the generator (CI drift gate)
-node apps/web/scripts/market-refresh/tools-monthlies.mjs     # F-M8 leg: append the due month for the 7 non-BTC tools series
+node apps/web/scripts/market-data/publish.mjs --store <analytics market/>   # Money Tools series (all but BTC) + FX from the market data store
+node apps/web/scripts/market-data/publish.mjs --verify-manifest              # PUBLISH-1: committed series match store-manifest.json (CI)
 node apps/web/scripts/data-fetchers/compute-regime.mjs       # thin CLI over the shared engine (manual score check)
 ```
 

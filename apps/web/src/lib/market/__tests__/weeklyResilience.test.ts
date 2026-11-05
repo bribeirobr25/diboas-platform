@@ -15,11 +15,6 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
-import {
-  appendPriceMonths,
-  toolsMonthliesOutcome,
-  toolsReport,
-} from '../../../../scripts/market-refresh/tools-monthlies.mjs';
 import { retryDecision, weekStartUtc } from '../../../../scripts/market-refresh/retry-decision.mjs';
 
 const dirs: string[] = [];
@@ -47,50 +42,6 @@ function pricesFile(lastYm: string): string {
 }
 const monthsOf = (file: string, code: string): string[] =>
   JSON.parse(fs.readFileSync(file, 'utf8'))[code].months.map((m: { ym: string }) => m.ym);
-
-describe('C1c — one series failing never stops the others', () => {
-  it('should update every other series and report the one Yahoo could not serve', async () => {
-    const file = pricesFile('2026-08-01');
-    const fetchBars = async (ticker: string) => {
-      if (ticker === 'GLD') throw new Error('Yahoo answered 503\nretry later');
-      return { bars: new Map([['2026-09-01', good('2026-09-01')]]), provenance: PROVENANCE };
-    };
-    const r = await appendPriceMonths('2026-09-01', false, { fetchBars, pricesPath: file });
-    expect(r.failed).toEqual([{ code: 'GOLD', reason: 'Yahoo answered 503 retry later' }]);
-    expect(r.planned.map((p: { code: string }) => p.code).sort()).toEqual(
-      SERIES.filter((c) => c !== 'GOLD').sort()
-    );
-    expect(monthsOf(file, 'GOLD')).toEqual(['2026-08-01']);
-    expect(monthsOf(file, 'SP500')).toEqual(['2026-08-01', '2026-09-01']);
-  });
-
-  it('should keep a checked earlier month and stop at a bar that fails its checks', async () => {
-    const file = pricesFile('2026-07-01');
-    const fetchBars = async (ticker: string) => ({
-      bars: new Map([
-        ['2026-08-01', good('2026-08-01')],
-        ['2026-09-01', ticker === 'QQQ' ? { ...good('2026-09-01'), high: 10 } : good('2026-09-01')],
-      ]),
-      provenance: PROVENANCE,
-    });
-    const r = await appendPriceMonths('2026-09-01', false, { fetchBars, pricesPath: file });
-    expect(r.failed.map((f: { code: string }) => f.code)).toEqual(['QQQ']);
-    expect(monthsOf(file, 'QQQ')).toEqual(['2026-07-01', '2026-08-01']);
-  });
-
-  it('should let an append run continue, fail --check, and say so in the PR note', () => {
-    const failed = [{ code: 'GOLD', reason: 'Yahoo answered 503' }];
-    const base = { planned: [], missing: [], failed, expectedYm: '2026-09-01' };
-    expect(toolsMonthliesOutcome({ ...base, check: false }).exitCode).toBe(0);
-    expect(toolsMonthliesOutcome({ ...base, check: true }).exitCode).toBe(1);
-    expect(toolsMonthliesOutcome({ ...base, check: false }).nothingToDo).toBe(false);
-    const note = toolsReport({ missing: ['DAX'], failed, expectedYm: '2026-09-01' });
-    expect(note).toContain('- DAX: Yahoo has no closed 2026-09-01 bar yet');
-    expect(note).toContain('- GOLD: not updated this run (Yahoo answered 503)');
-    expect(note).toContain('do not feed the /market score');
-    expect(toolsReport({ missing: [], failed: [], expectedYm: '2026-09-01' })).toBe('');
-  });
-});
 
 describe('C1d — the Tuesday attempt', () => {
   const now = new Date('2026-10-27T06:20:00Z'); // a Tuesday
@@ -208,8 +159,21 @@ describe('C1 wiring in the weekly workflow', () => {
     expect(wf).toMatch(/refresh:\n\s+needs: decide\n\s+if: needs\.decide\.outputs\.run == 'true'/);
   });
 
-  it('should pass the tools report into the PR body', () => {
-    expect(wf).toMatch(/tools-monthlies\.mjs --report "\$RUNNER_TEMP\/tools-note\.md"/);
+  it('should publish the Money Tools series from the store and pass its report into the PR body', () => {
+    expect(wf).toMatch(/TOKEN: \$\{\{ secrets\.MARKET_DATA_READ_TOKEN \}\}/);
+    expect(wf).toMatch(
+      /bash apps\/web\/scripts\/market-data\/read-store\.sh "\$RUNNER_TEMP\/analytics"/
+    );
+    expect(wf).toMatch(
+      /publish\.mjs --store "\$RUNNER_TEMP\/analytics\/market" --store-commit "\$STORE_COMMIT" --report "\$RUNNER_TEMP\/tools-note\.md"/
+    );
     expect(wf).toMatch(/if \[ -s "\$RUNNER_TEMP\/tools-note\.md" \]; then/);
+    // C1c: neither step can fail the weekly run
+    const steps = wf.slice(
+      wf.indexOf('- name: Read the market data store'),
+      wf.indexOf('- name: Generate editorial copy')
+    );
+    expect(steps.match(/exit 0/g)).toHaveLength(2);
+    expect(wf).not.toMatch(/tools-monthlies/);
   });
 });

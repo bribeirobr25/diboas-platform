@@ -426,11 +426,12 @@ Readers skip an unparseable line and the next append starts a fresh line, so an 
 
 ### A monthly series is missing a month (2026-10-21)
 
-- **The tools series** (SP500, QQQ, MSCI_WORLD, GOLD, TLT, IBOVESPA, DAX):
-  - `tools-monthlies.mjs` backfills every month between a series' last row and the due month, oldest first, from the same Yahoo fetch and with the same checks;
-  - if Yahoo has not closed a month yet, that series stops there, and the run prints a warning naming it. `--check` fails on it;
-  - the next weekly run picks it up. Nothing is ever appended with a hole.
-- **A tools series could not be read at all** (C1c, 2026-10-21): a Yahoo error, a timeout or a bar that fails its checks stops only that series. The others still update, the run continues, and the weekly PR has a section **"Money Tools monthly prices behind"** naming the series and the reason. It is not a reason to hold the PR: these series feed the Money Tools only, never the /market score. The next run retries; if the same series is named for several weeks, ask the market lane to look at its source.
+- **The tools series** (SP500, QQQ, MSCI_WORLD, GOLD, TLT, IBOVESPA, DAX) and the FX rates
+  (plan `5.760` increment 2): `apps/web/scripts/market-data/publish.mjs` rebuilds them every week
+  from the market data store (collected on Saturdays), so a missing month cannot leave a hole: a
+  month is published only once EVERY one of those series and every currency has it. Until then the
+  series all end on the previous month, and the next weekly run publishes it.
+- **The tools series could not be published at all** (C1c, 2026-10-21; since increment 2: the store could not be read or `publish.mjs` failed): the committed series stay as they are, the run continues, and the weekly PR body says why. It is
 - **BTC is different:** a gap stops the refresh, because the score is never computed over a missing month. The run fails with "does not follow the last row … (expected …)". Ask the market lane to append the missing month(s) first, with the usual dual-source check, as a reviewed change, then re-run.
 
 ### The Monday run was missed or failed: the Tuesday second attempt (C1d, 2026-10-21)
