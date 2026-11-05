@@ -85,8 +85,12 @@ export default async function LegalCookiesPage({ params }: LocalePageProps) {
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
-      { name: 'Home', url: '/' },
-      { name: 'Cookie Policy', url: ROUTES.LEGAL.COOKIES },
+      // Crumb names from the catalogues, never English literals (5.766).
+      { name: pageMessages['landing-b2c.seo.jsonLd.breadcrumbHome'] ?? 'Home', url: '/' },
+      {
+        name: pageMessages['legal/cookies.seo.title'] ?? 'Cookie Policy',
+        url: ROUTES.LEGAL.COOKIES,
+      },
     ],
     locale
   );

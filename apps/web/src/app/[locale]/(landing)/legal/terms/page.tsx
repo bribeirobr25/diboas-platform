@@ -85,8 +85,9 @@ export default async function LegalTermsPage({ params }: LocalePageProps) {
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
-      { name: 'Home', url: '/' },
-      { name: 'Terms of Use', url: ROUTES.LEGAL.TERMS },
+      // Crumb names from the catalogues, never English literals (5.766).
+      { name: pageMessages['landing-b2c.seo.jsonLd.breadcrumbHome'] ?? 'Home', url: '/' },
+      { name: pageMessages['legal/terms.seo.title'] ?? 'Terms of Use', url: ROUTES.LEGAL.TERMS },
     ],
     locale
   );
